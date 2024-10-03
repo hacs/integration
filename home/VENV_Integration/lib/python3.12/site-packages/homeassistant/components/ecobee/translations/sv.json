@@ -1,0 +1,175 @@
+{
+    "config": {
+        "abort": {
+            "single_instance_allowed": "Redan konfigurerad. Endast en konfiguration m\u00f6jlig."
+        },
+        "error": {
+            "pin_request_failed": "Fel vid beg\u00e4ran av PIN-kod fr\u00e5n ecobee. kontrollera API-nyckeln \u00e4r korrekt.",
+            "token_request_failed": "Fel vid beg\u00e4ran av tokens fr\u00e5n ecobee; v\u00e4nligen f\u00f6rs\u00f6k igen."
+        },
+        "step": {
+            "authorize": {
+                "title": "Auktorisera app p\u00e5 ecobee.com"
+            },
+            "user": {
+                "data": {
+                    "api_key": "API-nyckel"
+                },
+                "description": "V\u00e4nligen ange API-nyckeln som erh\u00e5llits fr\u00e5n ecobee.com.",
+                "title": "ecobee API-nyckel"
+            }
+        }
+    },
+    "entity": {
+        "number": {
+            "ventilator_min_type_away": {
+                "name": "Ventilator minsta tid borta"
+            },
+            "ventilator_min_type_home": {
+                "name": "Ventilator minsta tid hemma"
+            }
+        },
+        "switch": {
+            "aux_heat_only": {
+                "name": "Endast extrav\u00e4rme"
+            }
+        }
+    },
+    "issues": {
+        "migrate_aux_heat": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Ecobees \u00e5tg\u00e4rd `set_aux_heat` har migrerats. En ny `aux_heat_only`-omkopplarenhet \u00e4r tillg\u00e4nglig f\u00f6r varje termostat som st\u00f6der en v\u00e4rmepump.\n\nUppdatera alla automatiseringar f\u00f6r att anv\u00e4nda den nya `aux_heat_only`-omkopplarenheten. N\u00e4r detta \u00e4r gjort, \u00e5tg\u00e4rda detta problem och starta om Home Assistant.",
+                        "title": "Inaktivera \u00e4ldre Ecobee set_aux_heat-\u00e5tg\u00e4rd"
+                    }
+                }
+            },
+            "title": "Migrering av Ecobee set_aux_heat-\u00e5tg\u00e4rd"
+        }
+    },
+    "services": {
+        "create_vacation": {
+            "description": "Skapar ett semesterl\u00e4ge p\u00e5 den valda termostaten. Start-/slutdatum och start-/sluttid m\u00e5ste anges tillsammans f\u00f6r att dessa parametrar ska f\u00e5 effekt. Om start-/slutdatum och tid inte anges startar semesterl\u00e4get omedelbart och varar i 14 dagar (om den inte tas bort tidigare).",
+            "fields": {
+                "cool_temp": {
+                    "description": "Kyltemperatur under semesterl\u00e4ge.",
+                    "name": "Kyltemperatur"
+                },
+                "end_date": {
+                    "description": "Datum d\u00e5 semestern avslutas i formatet YYYY-MM-DD (valfritt, 14 dagar fr\u00e5n nu om det inte anges tillsammans med start_date, start_time och end_time).",
+                    "name": "Slutdatum"
+                },
+                "end_time": {
+                    "description": "Tidpunkt f\u00f6r semesternl\u00e4gets slut, i termostatens lokala tid. Anges i 24-timmarsformatet \"HH:MM:SS\".",
+                    "name": "Sluttid"
+                },
+                "entity_id": {
+                    "description": "Ecobee-termostat p\u00e5 vilken semesterl\u00e4get ska skapas.",
+                    "name": "Entitet"
+                },
+                "fan_min_on_time": {
+                    "description": "Minsta antal minuter att k\u00f6ra fl\u00e4kten varje timme (0 till 60) under semesterl\u00e4get.",
+                    "name": "Fl\u00e4kt minsta tillslagstid"
+                },
+                "fan_mode": {
+                    "description": "Fl\u00e4ktl\u00e4ge p\u00e5 termostaten under semesterl\u00e4get.",
+                    "name": "Fl\u00e4ktl\u00e4ge"
+                },
+                "heat_temp": {
+                    "description": "Uppv\u00e4rmningstemperatur under semesterl\u00e4get.",
+                    "name": "Uppv\u00e4rmningstemperatur"
+                },
+                "start_date": {
+                    "description": "Datum d\u00e5 semestern b\u00f6rjar i formatet \u00c5\u00c5\u00c5\u00c5-MM-DD (valfritt, omedelbart om det inte anges tillsammans med start_time, end_date och end_time).",
+                    "name": "Startdatum"
+                },
+                "start_time": {
+                    "description": "Tidpunkt d\u00e5 semesternl\u00e4get b\u00f6rjar, i termostatens lokala tid. Anges i 24-timmarsformatet \"HH:MM:SS\".",
+                    "name": "Starttid"
+                },
+                "vacation_name": {
+                    "description": "Namn p\u00e5 semesterl\u00e4get som ska skapas; m\u00e5ste vara unikt f\u00f6r termostaten.",
+                    "name": "Semesterl\u00e4gets namn"
+                }
+            },
+            "name": "Skapa semesterl\u00e4ge"
+        },
+        "delete_vacation": {
+            "description": "Tar bort ett semesterl\u00e4ge p\u00e5 den valda termostaten.",
+            "fields": {
+                "entity_id": {
+                    "description": "Ecobee-termostat p\u00e5 vilken du ska radera ett semesterl\u00e4ge.",
+                    "name": "Entitet"
+                },
+                "vacation_name": {
+                    "description": "Namn p\u00e5 det semesterl\u00e4ge som ska raderas.",
+                    "name": "Semesterl\u00e4gets namn"
+                }
+            },
+            "name": "Ta bort semesterl\u00e4ge"
+        },
+        "resume_program": {
+            "description": "\u00c5terupptar det programmerade schemat.",
+            "fields": {
+                "entity_id": {
+                    "description": "Namn p\u00e5 entiteter som ska \u00e4ndras.",
+                    "name": "Entitet"
+                },
+                "resume_all": {
+                    "description": "\u00c5teruppta alla h\u00e4ndelser och \u00e5terg\u00e5 till det schemalagda programmet.",
+                    "name": "\u00c5teruppta alla"
+                }
+            },
+            "name": "\u00c5teruppta program"
+        },
+        "set_dst_mode": {
+            "description": "Aktiverar/inaktiverar automatisk sommartid.",
+            "fields": {
+                "dst_enabled": {
+                    "description": "Aktivera automatisk omst\u00e4llning till sommartid fr\u00e5n vintertid.",
+                    "name": "Sommartid aktiverad"
+                }
+            },
+            "name": "St\u00e4ll in l\u00e4ge f\u00f6r sommartid"
+        },
+        "set_fan_min_on_time": {
+            "description": "St\u00e4ller in minsta tillslagstid f\u00f6r fl\u00e4kten.",
+            "fields": {
+                "entity_id": {
+                    "description": "Namn p\u00e5 entiteter som ska \u00e4ndras.",
+                    "name": "Entitet"
+                },
+                "fan_min_on_time": {
+                    "description": "Nytt v\u00e4rde f\u00f6r 'Fl\u00e4kt minsta tillslagstid'",
+                    "name": "Fl\u00e4kt minsta tillslagstid"
+                }
+            },
+            "name": "St\u00e4ll in 'Fl\u00e4kt minsta tillslagstid'"
+        },
+        "set_mic_mode": {
+            "description": "Aktiverar/inaktiverar Alexa-mikrofon (endast f\u00f6r Ecobee 4).",
+            "fields": {
+                "mic_enabled": {
+                    "description": "Aktivera Alexa-mikrofon.",
+                    "name": "Mikrofon aktiverad"
+                }
+            },
+            "name": "St\u00e4ll in mikrofonl\u00e4ge"
+        },
+        "set_occupancy_modes": {
+            "description": "Aktiverar/inaktiverar l\u00e4gena Smart Home/Away och Follow Me.",
+            "fields": {
+                "auto_away": {
+                    "description": "Aktivera Smart Home/Away-l\u00e4ge.",
+                    "name": "Auto bortal\u00e4ge"
+                },
+                "follow_me": {
+                    "description": "Aktivera Follow Me-l\u00e4get.",
+                    "name": "Follow me"
+                }
+            },
+            "name": "St\u00e4ll in n\u00e4rvarol\u00e4gen"
+        }
+    }
+}

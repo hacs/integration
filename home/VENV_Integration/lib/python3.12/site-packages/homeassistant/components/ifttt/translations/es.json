@@ -1,0 +1,56 @@
+{
+    "config": {
+        "abort": {
+            "cloud_not_connected": "No conectado a Home Assistant Cloud.",
+            "single_instance_allowed": "Ya est\u00e1 configurado. Solo es posible una \u00fanica configuraci\u00f3n.",
+            "webhook_not_internet_accessible": "Tu instancia de Home Assistant debe estar accesible desde Internet para recibir mensajes webhook."
+        },
+        "create_entry": {
+            "default": "Para enviar eventos a Home Assistant, deber\u00e1s usar la acci\u00f3n \"Hacer una solicitud web\" del [applet IFTTT Webhook]({applet_url}). \n\nCompleta la siguiente informaci\u00f3n: \n\n- URL: `{webhook_url}`\n- M\u00e9todo: POST\n- Tipo de contenido: application/json \n\nConsulta [la documentaci\u00f3n]({docs_url}) sobre c\u00f3mo configurar automatizaciones para manejar los datos entrantes."
+        },
+        "step": {
+            "user": {
+                "description": "\u00bfEst\u00e1s seguro de que quieres configurar IFTTT?",
+                "title": "Configurar el applet IFTTT Webhook"
+            }
+        }
+    },
+    "services": {
+        "push_alarm_state": {
+            "description": "Actualiza el estado de alarma al valor especificado.",
+            "fields": {
+                "entity_id": {
+                    "description": "Nombre del panel de control de alarma cuyo estado debe actualizarse.",
+                    "name": "ID de entidad"
+                },
+                "state": {
+                    "description": "El estado en el que debe establecerse el panel de control de alarma.",
+                    "name": "Estado"
+                }
+            },
+            "name": "Estado de alarma push"
+        },
+        "trigger": {
+            "description": "Desencadena el webhook IFTTT configurado.",
+            "fields": {
+                "event": {
+                    "description": "El nombre del evento a enviar.",
+                    "name": "Evento"
+                },
+                "value1": {
+                    "description": "Campo gen\u00e9rico para enviar datos a trav\u00e9s del evento.",
+                    "name": "Valor 1"
+                },
+                "value2": {
+                    "description": "Campo gen\u00e9rico para enviar datos a trav\u00e9s del evento.",
+                    "name": "Valor 2"
+                },
+                "value3": {
+                    "description": "Campo gen\u00e9rico para enviar datos a trav\u00e9s del evento.",
+                    "name": "Valor 3"
+                }
+            },
+            "name": "Desencadenante"
+        }
+    }
+}

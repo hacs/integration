@@ -1,0 +1,94 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Apparaat is al geconfigureerd",
+            "already_in_progress": "De configuratie is momenteel al bezig",
+            "mdns_missing_mac": "Ontbrekend MAC adres in MDNS eigenschappen.",
+            "mqtt_missing_api": "API poort mist in MQTT eigenschappen.",
+            "mqtt_missing_ip": "IP adres mist in MQTT eigenschappen.",
+            "mqtt_missing_mac": "MAC adres mist in MQTT eigenschappen.",
+            "reauth_successful": "Herauthenticatie geslaagd"
+        },
+        "error": {
+            "connection_error": "Kan geen verbinding maken met ESP. Zorg ervoor dat uw YAML-bestand een regel 'api:' bevat.",
+            "invalid_auth": "Ongeldige authenticatie",
+            "invalid_psk": "De transportcoderingssleutel is ongeldig. Zorg ervoor dat het overeenkomt met wat u in uw configuratie heeft",
+            "resolve_error": "Kan het adres van de ESP niet vinden. Als deze fout zich blijft voordoen, stel dan een statisch IP-adres in"
+        },
+        "flow_title": "{name}",
+        "step": {
+            "authenticate": {
+                "data": {
+                    "password": "Wachtwoord"
+                },
+                "description": "Voer het wachtwoord in dat u in uw configuratie heeft ingesteld voor {name}."
+            },
+            "discovery_confirm": {
+                "description": "Wil je de ESPHome-apparaat `{name}` toevoegen aan de Home Assistant?",
+                "title": "ESPHome apparaat ontdekt"
+            },
+            "encryption_key": {
+                "data": {
+                    "noise_psk": "Coderingssleutel"
+                },
+                "description": "Voer de coderingssleutel in voor {name}. Deze kun je vinden in het ESPHome Dashboard of in de apparaatconfiguratie."
+            },
+            "reauth_confirm": {
+                "data": {
+                    "noise_psk": "Coderingssleutel"
+                }
+            },
+            "user": {
+                "data": {
+                    "host": "Host",
+                    "port": "Poort"
+                },
+                "description": "Voer de verbindingsinstellingen van je [ESPHome]({esphome_url}) node in."
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "assist_in_progress": {
+                "name": "Assist actief"
+            }
+        },
+        "climate": {
+            "climate": {
+                "state_attributes": {
+                    "fan_mode": {
+                        "state": {
+                            "quiet": "Stil"
+                        }
+                    }
+                }
+            }
+        },
+        "select": {
+            "pipeline": {
+                "name": "Assistent-pipeline",
+                "state": {
+                    "preferred": "Voorkeur"
+                }
+            },
+            "vad_sensitivity": {
+                "name": "Klaar met spraakdetectie",
+                "state": {
+                    "aggressive": "Agressief",
+                    "default": "Standaard",
+                    "relaxed": "Relaxed"
+                }
+            }
+        }
+    },
+    "issues": {
+        "api_password_deprecated": {
+            "description": "Het gebruik van een API wachtwoord voor ESPHome is verouderd en het gebruik van een API encryptiesleutel wordt aangeraden.\n\nVerwijder het API wachtwoord en voeg een encryptiesleutel aan je ESPHome apparaat toe om dit probleem op te lossen.",
+            "title": "Verouderd API wachtwoord in gebruik op {name}"
+        },
+        "ble_firmware_outdated": {
+            "description": "Om de betrouwbaarheid en prestaties van Bluetooth te verbeteren, raden we ten zeerste aan om {name} bij te werken met ESPHome {version} of later. Bij het bijwerken van het apparaat vanaf ESPHome eerder dan 2022.12.0, is het aan te raden om een seri\u00eble kabel te gebruiken in plaats van een update via de lucht om te profiteren van het nieuwe partitieschema.",
+            "title": "Werk {name} bij naar ESPHome {version} 2022.11.0 of later"
+        }
+    }
+}

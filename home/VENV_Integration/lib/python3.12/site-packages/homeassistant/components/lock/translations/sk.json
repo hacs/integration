@@ -1,0 +1,88 @@
+{
+    "device_automation": {
+        "action_type": {
+            "lock": "Uzamkn\u00fa\u0165 {entity_name}",
+            "open": "Otvori\u0165 {entity_name}",
+            "unlock": "Odomkn\u00fa\u0165 {entity_name}"
+        },
+        "condition_type": {
+            "is_locked": "{entity_name} je uzamknut\u00fd",
+            "is_open": "{entity_name} je otvoren\u00e1",
+            "is_unlocked": "{entity_name} je odomknut\u00fd"
+        },
+        "extra_fields": {
+            "for": "Trvanie"
+        },
+        "trigger_type": {
+            "locked": "{entity_name} uzamknut\u00fd",
+            "open": "{entity_name} otvoren\u00e1",
+            "unlocked": "{entity_name} odomknut\u00fd"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Z\u00e1mok",
+            "state": {
+                "jammed": "Zaseknut\u00fd",
+                "locked": "Zamknut\u00fd",
+                "locking": "Zamknutie",
+                "open": "Otvoren\u00e9",
+                "opening": "Otv\u00e1ra sa",
+                "unlocked": "Odomknut\u00fd",
+                "unlocking": "Odblokovanie"
+            },
+            "state_attributes": {
+                "changed_by": {
+                    "name": "Zmenil"
+                },
+                "code_format": {
+                    "name": "Form\u00e1t k\u00f3du"
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "add_default_code": {
+            "message": "K\u00f3d pre {entity_id} nezodpoved\u00e1 vzoru {code_format}."
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "Platforma {platform} pre integr\u00e1ciu {domain} nepodporuje nastavenie platformy. \n\n Odstr\u00e1\u0148te ho z konfigur\u00e1cie a re\u0161tartujte Home Assistant, aby ste tento probl\u00e9m vyrie\u0161ili.",
+            "title": "Podpora platformy nie je podporovan\u00e1"
+        }
+    },
+    "services": {
+        "lock": {
+            "description": "Uzamkne z\u00e1mok.",
+            "fields": {
+                "code": {
+                    "description": "K\u00f3d pou\u017e\u00edvan\u00fd na uzamknutie z\u00e1mku.",
+                    "name": "K\u00f3d"
+                }
+            },
+            "name": "Z\u00e1mok"
+        },
+        "open": {
+            "description": "Otvor\u00ed z\u00e1mok.",
+            "fields": {
+                "code": {
+                    "description": "K\u00f3d pou\u017e\u00edvan\u00fd na otvorenie z\u00e1mku.",
+                    "name": "K\u00f3d"
+                }
+            },
+            "name": "Otvori\u0165"
+        },
+        "unlock": {
+            "description": "Odomkne z\u00e1mok.",
+            "fields": {
+                "code": {
+                    "description": "K\u00f3d pou\u017e\u00edvan\u00fd na odomknutie z\u00e1mku.",
+                    "name": "K\u00f3d"
+                }
+            },
+            "name": "Odomkn\u00fa\u0165"
+        }
+    },
+    "title": "Z\u00e1mok"
+}

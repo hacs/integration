@@ -1,0 +1,56 @@
+{
+    "exceptions": {
+        "user_not_found": {
+            "message": "Benutzer nicht gefunden"
+        },
+        "username_already_exists": {
+            "message": "Der Benutzername \u201e{username}\u201c ist bereits vorhanden."
+        },
+        "username_not_normalized": {
+            "message": "Der Benutzername \u201e{new_username}\u201c ist nicht normalisiert. Bitte stelle sicher, dass der Benutzername klein geschrieben ist und keine Leerzeichen enth\u00e4lt."
+        }
+    },
+    "issues": {
+        "deprecated_legacy_api_password": {
+            "description": "Der Legacy-API-Kennwortauthentifizierungsanbieter ist veraltet und wird entfernt. Bitte entferne es aus deiner YAML-Konfiguration und verwende stattdessen den standardm\u00e4\u00dfigen Home Assistant-Authentifizierungsanbieter.",
+            "title": "Das Legacy-API-Kennwort ist veraltet"
+        },
+        "homeassistant_provider_not_normalized_usernames": {
+            "description": "Der Home Assistant-Authentifizierungsanbieter l\u00e4uft im Legacy-Modus, da wir nicht normalisierte Benutzernamen erkannt haben. Der Legacy-Modus ist veraltet und wird entfernt. Bitte \u00e4ndere die folgenden Benutzernamen: \n\n{usernames}\n\nBei normalisierten Benutzernamen wird die Gro\u00df-/Kleinschreibung beachtet und es werden Leerzeichen entfernt.",
+            "title": "Nicht normalisierte Benutzernamen erkannt"
+        }
+    },
+    "mfa_setup": {
+        "notify": {
+            "abort": {
+                "no_available_service": "Keine Benachrichtigungsdienste verf\u00fcgbar."
+            },
+            "error": {
+                "invalid_code": "Ung\u00fcltiger Code, bitte versuche es erneut."
+            },
+            "step": {
+                "init": {
+                    "description": "Bitte w\u00e4hle einen der Benachrichtigungsdienste:",
+                    "title": "Einmal Passwort f\u00fcr Benachrichtigung einrichten"
+                },
+                "setup": {
+                    "description": "Ein Einmal-Passwort wurde per **notify.{notify_service}** gesendet. Bitte gib es unten ein:",
+                    "title": "\u00dcberpr\u00fcfe das Setup"
+                }
+            },
+            "title": "Benachrichtigen f\u00fcr Einmalpasswort"
+        },
+        "totp": {
+            "error": {
+                "invalid_code": "Ung\u00fcltiger Code, bitte versuche es erneut. Wenn du diesen Fehler regelm\u00e4\u00dfig erhalten, stelle sicher, dass die Uhr deines Home Assistant-Systems korrekt ist."
+            },
+            "step": {
+                "init": {
+                    "description": "Um die Zwei-Faktor-Authentifizierung mit zeitbasierten Einmalpassw\u00f6rtern zu aktivieren, scanne den QR-Code mit deiner Authentifizierungs-App. Wenn du keine hast, empfehlen wir entweder [Google Authenticator] (https://support.google.com/accounts/answer/1066447) oder [Authy] (https://authy.com/). \n\n{qr_code} \n \nNachdem du den Code gescannt hast, gibst du den sechsstelligen Code aus der App ein, um das Setup zu \u00fcberpr\u00fcfen. Wenn es Probleme beim Scannen des QR-Codes gibt, f\u00fchre ein manuelles Setup mit dem Code **`{code}`** durch.",
+                    "title": "Richte die Zwei-Faktor-Authentifizierung mit TOTP ein"
+                }
+            },
+            "title": "TOTP"
+        }
+    }
+}

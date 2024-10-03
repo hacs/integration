@@ -1,0 +1,102 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Der Dienst ist bereits konfiguriert",
+            "bad_config": "Anfrage aufgrund fehlerhafter Konfiguration fehlgeschlagen: \u00dcberpr\u00fcfe [Stationboard]({stationboard_url}) f\u00fcr g\u00fcltige Stationen",
+            "cannot_connect": "Verbindung zum Server nicht m\u00f6glich",
+            "unknown": "Ein unbekannter Fehler wurde von python-opendata-transport ausgel\u00f6st"
+        },
+        "error": {
+            "bad_config": "Anfrage aufgrund fehlerhafter Konfiguration fehlgeschlagen: \u00dcberpr\u00fcfe bei [Stationboard]({stationboard_url}), ob deine Stationsnamen g\u00fcltig sind",
+            "cannot_connect": "Verbindung zum Server nicht m\u00f6glich",
+            "too_many_via_stations": "Zu viele Via-Stationen, pro Verbindung sind nur bis zu 5 Via-Stationen zul\u00e4ssig.",
+            "unknown": "Ein unbekannter Fehler wurde von python-opendata-transport ausgel\u00f6st"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "from": "Startstation",
+                    "to": "Endstation",
+                    "via": "Liste mit bis zu 5 Via-Stationen"
+                },
+                "description": "Gib den Start- und Zielbahnhof f\u00fcr deine Verbindung an,\nund optional bis zu 5 Via-Stationen. \n\n\u00dcberpr\u00fcfe das [Stationsboard]({stationboard_url}) auf g\u00fcltige Stationen.",
+                "title": "\u00d6ffentliche Verkehrsmittel der Schweiz"
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "delay": {
+                "name": "Verz\u00f6gerung"
+            },
+            "departure": {
+                "name": "Abfahrt"
+            },
+            "departure0": {
+                "name": "Abfahrt"
+            },
+            "departure1": {
+                "name": "Abfahrt +1"
+            },
+            "departure2": {
+                "name": "Abfahrt +2"
+            },
+            "duration": {
+                "name": "Dauer"
+            },
+            "platform": {
+                "name": "Plattform"
+            },
+            "transfers": {
+                "name": "Transfers"
+            }
+        }
+    },
+    "exceptions": {
+        "cannot_connect": {
+            "message": "Verbindung zum Server kann nicht hergestellt werden. {error}"
+        },
+        "config_entry_not_found": {
+            "message": "Die Instanz \u201e{target}\u201c der Schweizer \u00d6PNV-Integration wurde nicht gefunden."
+        },
+        "invalid_data": {
+            "message": "Das Setup f\u00fcr den Eintrag {config_title} ist aufgrund ung\u00fcltiger Daten fehlgeschlagen. \u00dcberpr\u00fcfe auf dem [Stationsboard]({stationboard_url}), ob deine Stationsnamen g\u00fcltig sind.\n{error}"
+        },
+        "not_loaded": {
+            "message": "{target} ist nicht geladen."
+        },
+        "request_timeout": {
+            "message": "Timeout beim Verbindungsaufbau f\u00fcr den Eintrag {config_title}.\n{error}"
+        }
+    },
+    "issues": {
+        "deprecated_yaml_import_issue_bad_config": {
+            "description": "Die Konfiguration der \u00f6ffentlichen Verkehrsmittel der Schweiz mit YAML wird entfernt, aber es wurde eine fehlerhafte Konfiguration in deine YAML-Konfiguration importiert.\n\nG\u00fcltige Stationen findest du hier: [Stationboard]({stationboard_url})",
+            "title": "Die Importanfrage f\u00fcr die YAML-Konfiguration der \u00f6ffentlichen Verkehrsmittel der Schweiz ist aufgrund einer fehlerhaften Konfiguration fehlgeschlagen"
+        },
+        "deprecated_yaml_import_issue_cannot_connect": {
+            "description": "Die Konfiguration des \u00f6ffentlichen Verkehrs in der Schweiz mit YAML wird entfernt, aber beim Importieren deiner YAML-Konfiguration ist ein Verbindungsfehler aufgetreten. \n\nStelle sicher, dass dein Home Assistant den [OpenData-Server]({opendata_url}) erreichen kann. Falls der Server ausgefallen ist, versuche es sp\u00e4ter erneut.",
+            "title": "Der YAML-Konfigurationsimport der \u00f6ffentlichen Verkehrsmittel der Schweiz kann keine Verbindung zum Server herstellen"
+        },
+        "deprecated_yaml_import_issue_unknown": {
+            "description": "Die Konfiguration der \u00f6ffentlichen Verkehrsmittel der Schweiz mit YAML wird entfernt, aber beim Importieren deiner YAML-Konfiguration ist ein unbekannter Fehler aufgetreten. \n\n\u00dcberpr\u00fcfe deine Konfiguration oder wirf einen Blick in die Dokumentation der Integration.",
+            "title": "Der Import der YAML-Konfiguration f\u00fcr \u00f6ffentliche Verkehrsmittel der Schweiz ist mit einem unbekannten Fehler fehlgeschlagen, der von python-opendata-transport ausgel\u00f6st wurde"
+        }
+    },
+    "services": {
+        "fetch_connections": {
+            "description": "Hole dir eine Verbindungsliste des \u00f6ffentlichen Verkehrs der Schweiz.",
+            "fields": {
+                "config_entry_id": {
+                    "description": "Schweizer \u00d6PNV-Instanz, f\u00fcr die Verbindungen abgefragt werden sollen.",
+                    "name": "Instanz"
+                },
+                "limit": {
+                    "description": "Anzahl der abzurufenden Verbindungen [1-15]",
+                    "name": "Limit"
+                }
+            },
+            "name": "Verbindungen abrufen"
+        }
+    }
+}

@@ -1,0 +1,593 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "\u88dd\u7f6e\u5df2\u7d93\u8a2d\u5b9a\u5b8c\u6210",
+            "already_in_progress": "\u8a2d\u5b9a\u5df2\u7d93\u9032\u884c\u4e2d",
+            "incomplete_info": "\u6240\u63d0\u4f9b\u4e4b\u88dd\u7f6e\u8cc7\u8a0a\u4e0d\u5b8c\u6574\u3001\u7121\u4e3b\u6a5f\u7aef\u6216\u6b0a\u6756\uff0c\u7121\u6cd5\u8a2d\u5b9a\u88dd\u7f6e\u3002",
+            "not_xiaomi_miio": "\u5c0f\u7c73 Miio \uff08\u5c1a\uff09\u4e0d\u652f\u63f4\u8a72\u88dd\u7f6e\u3002",
+            "reauth_successful": "\u91cd\u65b0\u8a8d\u8b49\u6210\u529f",
+            "unknown": "\u672a\u9810\u671f\u932f\u8aa4"
+        },
+        "error": {
+            "cannot_connect": "\u9023\u7dda\u5931\u6557",
+            "cloud_credentials_incomplete": "\u96f2\u7aef\u6191\u8b49\u672a\u5b8c\u6210\uff0c\u8acb\u586b\u5beb\u4f7f\u7528\u8005\u540d\u7a31\u3001\u5bc6\u78bc\u8207\u570b\u5bb6",
+            "cloud_login_error": "\u7121\u6cd5\u767b\u5165\u5c0f\u7c73 Miio \u96f2\u670d\u52d9\uff0c\u8acb\u6aa2\u67e5\u6191\u8b49\u3002",
+            "cloud_no_devices": "\u5c0f\u7c73 Miio \u96f2\u7aef\u5e33\u865f\u672a\u627e\u5230\u4efb\u4f55\u88dd\u7f6e\u3002",
+            "unknown_device": "\u88dd\u7f6e\u578b\u865f\u672a\u77e5\uff0c\u7121\u6cd5\u4f7f\u7528\u8a2d\u5b9a\u6d41\u7a0b\u3002",
+            "wrong_token": "\u6838\u5c0d\u548c\u932f\u8aa4\u3001\u6b0a\u6756\u932f\u8aa4"
+        },
+        "flow_title": "{name}",
+        "step": {
+            "cloud": {
+                "data": {
+                    "cloud_country": "\u96f2\u7aef\u670d\u52d9\u4f3a\u670d\u5668\u570b\u5bb6",
+                    "cloud_password": "\u96f2\u7aef\u670d\u52d9\u5bc6\u78bc",
+                    "cloud_username": "\u96f2\u7aef\u670d\u52d9\u4f7f\u7528\u8005\u540d\u7a31",
+                    "manual": "\u624b\u52d5\u8a2d\u5b9a\uff08\u4e0d\u63a8\u85a6\uff09"
+                },
+                "description": "\u767b\u5165\u81f3\u5c0f\u7c73 Miio \u96f2\u670d\u52d9\uff0c\u8acb\u53c3\u95b1 https://www.openhab.org/addons/bindings/miio/#country-servers \u4ee5\u4e86\u89e3\u9078\u64c7\u54ea\u4e00\u7d44\u96f2\u7aef\u4f3a\u670d\u5668\u3002"
+            },
+            "connect": {
+                "data": {
+                    "model": "\u88dd\u7f6e\u578b\u865f"
+                }
+            },
+            "manual": {
+                "data": {
+                    "host": "IP \u4f4d\u5740",
+                    "token": "API \u6b0a\u6756"
+                },
+                "description": "\u5c07\u9700\u8981\u8f38\u5165 32 \u4f4d\u5b57\u5143 API \u6b0a\u6756API \u6b0a\u6756\uff0c\u8acb\u53c3\u95b1  https://www.home-assistant.io/integrations/xiaomi_miio#retrieving-the-access-token \u4ee5\u7372\u5f97\u7372\u53d6\u91d1\u9470\u7684\u6559\u5b78\u3002\u8acb\u6ce8\u610f\uff1a\u6b64 API \u6b0a\u6756API \u6b0a\u6756\u8207\u5c0f\u7c73 Aqara \u6574\u5408\u6240\u4f7f\u7528\u4e4b\u91d1\u9470\u4e0d\u540c\u3002"
+            },
+            "reauth_confirm": {
+                "description": "\u5c0f\u7c73 Miio \u6574\u5408\u9700\u8981\u91cd\u65b0\u8a8d\u8b49\u60a8\u7684\u5e33\u865f\u3001\u65b9\u80fd\u66f4\u65b0\u6b0a\u6756\u6216\u65b0\u589e\u907a\u5931\u7684\u96f2\u7aef\u6191\u8b49\u3002",
+                "title": "{name} \u8a8d\u8b49\u5df2\u904e\u671f"
+            },
+            "select": {
+                "data": {
+                    "select_device": "Miio \u88dd\u7f6e"
+                },
+                "description": "\u9078\u64c7\u6240\u8981\u8a2d\u5b9a\u7684 \u5c0f\u7c73 Miio \u88dd\u7f6e\u3002"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "is_water_box_attached": {
+                "name": "\u62d6\u628a\u5df2\u5b89\u88dd"
+            },
+            "is_water_box_carriage_attached": {
+                "name": "\u62d6\u628a\u5df2\u5b89\u88dd"
+            },
+            "is_water_shortage": {
+                "name": "\u6c34\u91cf\u4e0d\u8db3"
+            },
+            "no_water": {
+                "name": "\u6c34\u69fd\u5df2\u4e7e"
+            },
+            "powersupply_attached": {
+                "name": "\u96fb\u6e90\u4f9b\u61c9"
+            },
+            "ptc_status": {
+                "name": "\u8f14\u52a9\u52a0\u71b1\u72c0\u614b"
+            },
+            "water_tank_detached": {
+                "name": "\u6c34\u69fd"
+            }
+        },
+        "button": {
+            "reset_dust_filter": {
+                "name": "\u91cd\u7f6e\u7c89\u5875\u6ffe\u7db2"
+            },
+            "reset_upper_filter": {
+                "name": "\u91cd\u7f6e\u4e0a\u6ffe\u7db2"
+            },
+            "reset_vacuum_filter": {
+                "name": "\u91cd\u7f6e\u6ffe\u7db2"
+            },
+            "reset_vacuum_main_brush": {
+                "name": "\u91cd\u7f6e\u4e3b\u5237"
+            },
+            "reset_vacuum_sensor_dirty": {
+                "name": "\u91cd\u7f6e\u9ad2\u6c61\u611f\u6e2c\u5668"
+            },
+            "reset_vacuum_side_brush": {
+                "name": "\u91cd\u7f6e\u908a\u5237"
+            }
+        },
+        "fan": {
+            "generic_fan": {
+                "state_attributes": {
+                    "preset_mode": {
+                        "state": {
+                            "nature": "\u81ea\u7136\u98a8",
+                            "normal": "\u6b63\u5e38\u98a8"
+                        }
+                    }
+                }
+            }
+        },
+        "number": {
+            "angle": {
+                "name": "\u64fa\u52d5\u89d2"
+            },
+            "delay_off_countdown": {
+                "name": "\u5ef6\u9072\u95dc\u9589\u5012\u6578"
+            },
+            "fan_level": {
+                "name": "\u98a8\u901f\u7b49\u7d1a"
+            },
+            "favorite_level": {
+                "name": "\u6700\u611b\u7b49\u7d1a"
+            },
+            "favorite_rpm": {
+                "name": "\u6700\u611b\u99ac\u9054\u8f49\u901f"
+            },
+            "led_brightness": {
+                "name": "LED \u4eae\u5ea6"
+            },
+            "led_brightness_level": {
+                "name": "LED \u4eae\u5ea6"
+            },
+            "motor_speed": {
+                "name": "\u99ac\u9054\u8f49\u901f"
+            },
+            "volume": {
+                "name": "\u97f3\u91cf"
+            }
+        },
+        "select": {
+            "airpurifier_mode": {
+                "state": {
+                    "auto": "\u81ea\u52d5\u6a21\u5f0f",
+                    "favorite": "\u6700\u611b\u6a21\u5f0f",
+                    "silent": "\u975c\u97f3\u6a21\u5f0f"
+                }
+            },
+            "display_orientation": {
+                "state": {
+                    "forward": "\u524d\u9032",
+                    "left": "\u5de6",
+                    "right": "\u53f3"
+                }
+            },
+            "led_brightness": {
+                "state": {
+                    "bright": "\u4eae\u5149",
+                    "dim": "\u5fae\u5149",
+                    "off": "\u95dc\u9589"
+                }
+            },
+            "ptc_level": {
+                "state": {
+                    "high": "\u9ad8",
+                    "low": "\u4f4e",
+                    "medium": "\u4e2d"
+                }
+            }
+        },
+        "sensor": {
+            "actual_speed": {
+                "name": "\u5be6\u969b\u901f\u5ea6"
+            },
+            "air_quality": {
+                "name": "\u7a7a\u6c23\u8cea\u91cf"
+            },
+            "air_quality_index": {
+                "name": "\u7a7a\u6c23\u8cea\u91cf\u6307\u6578"
+            },
+            "area": {
+                "name": "\u4e0a\u6b21\u6e05\u6383\u5206\u5340"
+            },
+            "clean_area": {
+                "name": "\u76ee\u524d\u6e05\u6383\u5206\u5340"
+            },
+            "clean_time": {
+                "name": "\u76ee\u524d\u6e05\u6383\u6301\u7e8c\u6642\u9593"
+            },
+            "control_speed": {
+                "name": "\u63a7\u5236\u901f\u5ea6"
+            },
+            "count": {
+                "name": "\u7e3d\u6e05\u6383\u6b21\u6578"
+            },
+            "dnd_end": {
+                "name": "\u52ff\u64fe\u7d50\u675f"
+            },
+            "dnd_start": {
+                "name": "\u52ff\u64fe\u958b\u59cb"
+            },
+            "duration": {
+                "name": "\u4e0a\u6b21\u6e05\u6383\u6301\u7e8c\u6642\u9593"
+            },
+            "dust_collection_count": {
+                "name": "\u7e3d\u96c6\u5875\u6b21\u6578"
+            },
+            "dust_filter_life_remaining": {
+                "name": "\u7c89\u5875\u6ffe\u7db2\u5269\u9918"
+            },
+            "dust_filter_life_remaining_days": {
+                "name": "\u7c89\u5875\u6ffe\u7db2\u5269\u9918\u5929\u6578"
+            },
+            "favorite_speed": {
+                "name": "\u6700\u611b\u8f49\u901f"
+            },
+            "filter_hours_used": {
+                "name": "\u6ffe\u7db2\u4f7f\u7528\u91cf"
+            },
+            "filter_left": {
+                "name": "\u6ffe\u7db2\u5269\u9918"
+            },
+            "filter_left_time": {
+                "name": "\u6ffe\u7db2\u58fd\u547d"
+            },
+            "filter_life_remaining": {
+                "name": "\u6ffe\u7db2\u5269\u9918\u58fd\u547d"
+            },
+            "illuminance": {
+                "name": "\u7167\u5ea6"
+            },
+            "last_clean_end": {
+                "name": "\u4e0a\u6b21\u6e05\u6383\u7d50\u675f"
+            },
+            "last_clean_start": {
+                "name": "\u4e0a\u6b21\u6e05\u6383\u958b\u59cb"
+            },
+            "load_power": {
+                "name": "\u8ca0\u8f09\u529f\u7387"
+            },
+            "main_brush_left": {
+                "name": "\u4e3b\u5237\u5269\u9918\u58fd\u547d"
+            },
+            "motor2_speed": {
+                "name": "\u6b21\u99ac\u9054\u8f49\u901f"
+            },
+            "motor_speed": {
+                "name": "\u99ac\u9054\u8f49\u901f"
+            },
+            "purify_volume": {
+                "name": "\u6de8\u5316\u91cf"
+            },
+            "sensor_dirty_left": {
+                "name": "\u611f\u6e2c\u5668\u9ad2\u6c61\u5269\u9918"
+            },
+            "side_brush_left": {
+                "name": "\u908a\u5237\u5269\u9918\u58fd\u547d"
+            },
+            "total_area": {
+                "name": "\u7e3d\u6e05\u6383\u9762\u7a4d"
+            },
+            "total_duration": {
+                "name": "\u7e3d\u6301\u7e8c\u6642\u9593"
+            },
+            "tvoc": {
+                "name": "TVOC"
+            },
+            "upper_filter_life_remaining": {
+                "name": "\u4e0a\u90e8\u6ffe\u7db2\u5269\u9918\u58fd\u547d"
+            },
+            "upper_filter_life_remaining_days": {
+                "name": "\u4e0a\u90e8\u6ffe\u7db2\u58fd\u547d\u5269\u9918\u5929\u6578"
+            },
+            "use_time": {
+                "name": "\u4f7f\u7528\u6642\u9593"
+            },
+            "water_level": {
+                "name": "\u6c34\u4f4d"
+            }
+        },
+        "switch": {
+            "anion": {
+                "name": "\u975c\u96fb\u6d88\u9664"
+            },
+            "auto_detect": {
+                "name": "\u81ea\u52d5\u5075\u6e2c"
+            },
+            "buzzer": {
+                "name": "\u8702\u9cf4\u5668"
+            },
+            "child_lock": {
+                "name": "\u5152\u7ae5\u9396"
+            },
+            "clean_mode": {
+                "name": "\u6e05\u6f54\u6a21\u5f0f"
+            },
+            "display": {
+                "name": "\u986f\u793a"
+            },
+            "dry": {
+                "name": "\u4e7e\u71e5\u6a21\u5f0f"
+            },
+            "ionizer": {
+                "name": "\u975c\u96fb\u6d88\u9664"
+            },
+            "learn_mode": {
+                "name": "\u5b78\u7fd2\u6a21\u5f0f"
+            },
+            "led": {
+                "name": "LED"
+            },
+            "ptc": {
+                "name": "\u8f14\u52a9\u52a0\u71b1"
+            }
+        }
+    },
+    "options": {
+        "error": {
+            "cloud_credentials_incomplete": "\u96f2\u7aef\u6191\u8b49\u672a\u5b8c\u6210\uff0c\u8acb\u586b\u5beb\u4f7f\u7528\u8005\u540d\u7a31\u3001\u5bc6\u78bc\u8207\u570b\u5bb6"
+        },
+        "step": {
+            "init": {
+                "data": {
+                    "cloud_subdevices": "\u4f7f\u7528\u96f2\u7aef\u53d6\u5f97\u9023\u7dda\u5b50\u88dd\u7f6e"
+                }
+            }
+        }
+    },
+    "services": {
+        "fan_reset_filter": {
+            "description": "\u91cd\u7f6e\u904e\u6ffe\u5668\u58fd\u547d\u548c\u4f7f\u7528\u60c5\u6cc1\u3002",
+            "fields": {
+                "entity_id": {
+                    "description": "xiaomi miio \u5be6\u9ad4\u7684\u540d\u7a31\u3002",
+                    "name": "\u5be6\u9ad4ID"
+                }
+            },
+            "name": "\u98a8\u6247\u5fa9\u4f4d\u904e\u6ffe\u5668"
+        },
+        "fan_set_extra_features": {
+            "description": "\u64cd\u4f5c\u4e00\u500b\u5b58\u5132\u5bc4\u5b58\u5668\u4f86\u5ba3\u50b3\u984d\u5916\u7684\u529f\u80fd\u3002\u7c73\u5bb6APP\u8a55\u4f30\u50f9\u503c\u3002\u61c9\u7528\u7a0b\u5e8f\u4e2d\u7684\u201c\u6e26\u8f2a\u6a21\u5f0f\u201d\u529f\u80fd\u5728\u503c\u70ba 1 \u6642\u89e3\u9396\u3002",
+            "fields": {
+                "entity_id": {
+                    "description": "xiaomi miio \u5be6\u9ad4\u7684\u540d\u7a31\u3002",
+                    "name": "\u5be6\u9ad4ID"
+                },
+                "features": {
+                    "description": "\u6574\u6578\uff0c\u5df2\u77e5\u503c\u70ba 0\uff08\u9ed8\u8a8d\uff09\u548c 1\uff08turbo \u6a21\u5f0f\uff09\u3002",
+                    "name": "\u7279\u5fb5"
+                }
+            },
+            "name": "\u98a8\u6247\u7d44\u9644\u52a0\u529f\u80fd"
+        },
+        "light_eyecare_mode_off": {
+            "description": "\u7981\u7528\u773c\u775b\u75b2\u52de\u63d0\u9192/\u901a\u77e5\uff08\u50c5\u9650 EYECARE SMART LAMP 2\uff09\u3002",
+            "fields": {
+                "entity_id": {
+                    "description": "\u8981\u57f7\u884c\u64cd\u4f5c\u7684\u5be6\u9ad4\u7684\u540d\u7a31\u3002",
+                    "name": "\u5be6\u9ad4ID"
+                }
+            },
+            "name": "\u8f15\u5ea6\u8b77\u773c\u6a21\u5f0f\u95dc\u9589"
+        },
+        "light_eyecare_mode_on": {
+            "description": "\u555f\u7528\u773c\u775b\u75b2\u52de\u63d0\u9192/\u901a\u77e5\uff08\u50c5\u9650 EYECARE SMART LAMP 2\uff09\u3002",
+            "fields": {
+                "entity_id": {
+                    "description": "\u8981\u57f7\u884c\u64cd\u4f5c\u7684\u5be6\u9ad4\u7684\u540d\u7a31\u3002",
+                    "name": "\u5be6\u9ad4ID"
+                }
+            },
+            "name": "\u8f15\u5ea6\u8b77\u773c\u6a21\u5f0f\u958b\u555f"
+        },
+        "light_night_light_mode_off": {
+            "description": "\u95dc\u9589\u8b77\u773c\u6a21\u5f0f fan_set_dry_off\uff08\u50c5\u9650 EYECARE SMART LAMP 2\uff09\u3002",
+            "fields": {
+                "entity_id": {
+                    "description": "\u8981\u57f7\u884c\u64cd\u4f5c\u7684\u5be6\u9ad4\u7684\u540d\u7a31\u3002",
+                    "name": "\u5be6\u9ad4ID"
+                }
+            },
+            "name": "\u591c\u71c8\u6a21\u5f0f\u95dc\u9589"
+        },
+        "light_night_light_mode_on": {
+            "description": "\u6253\u958b\u8b77\u773c\u6a21\u5f0f\uff08\u50c5\u9650 EYECARE SMART LAMP 2\uff09\u3002",
+            "fields": {
+                "entity_id": {
+                    "description": "\u8981\u57f7\u884c\u64cd\u4f5c\u7684\u5be6\u9ad4\u7684\u540d\u7a31\u3002",
+                    "name": "\u5be6\u9ad4ID"
+                }
+            },
+            "name": "\u591c\u71c8\u6a21\u5f0f\u958b\u555f"
+        },
+        "light_reminder_off": {
+            "description": "\u7981\u7528\u773c\u775b\u75b2\u52de\u63d0\u9192/\u901a\u77e5\uff08\u50c5\u9650 EYECARE SMART LAMP 2\uff09\u3002",
+            "fields": {
+                "entity_id": {
+                    "description": "\u8981\u57f7\u884c\u64cd\u4f5c\u7684\u5be6\u9ad4\u7684\u540d\u7a31\u3002",
+                    "name": "\u5be6\u9ad4ID"
+                }
+            },
+            "name": "\u71c8\u5149\u63d0\u9192\u95dc\u9589"
+        },
+        "light_reminder_on": {
+            "description": "\u555f\u7528\u773c\u775b\u75b2\u52de\u63d0\u9192/\u901a\u77e5\uff08\u50c5\u9650 EYECARE SMART LAMP 2\uff09\u3002",
+            "fields": {
+                "entity_id": {
+                    "description": "\u8981\u57f7\u884c\u64cd\u4f5c\u7684\u5be6\u9ad4\u7684\u540d\u7a31\u3002",
+                    "name": "\u5be6\u9ad4ID"
+                }
+            },
+            "name": "\u71c8\u5149\u63d0\u9192\u958b\u555f"
+        },
+        "light_set_delayed_turn_off": {
+            "description": "\u5ef6\u9072\u95dc\u9589\u3002",
+            "fields": {
+                "entity_id": {
+                    "description": "\u5149\u5be6\u9ad4\u7684\u540d\u7a31\u3002",
+                    "name": "\u5be6\u9ad4ID"
+                },
+                "time_period": {
+                    "description": "\u5ef6\u9072\u95dc\u9589\u7684\u6642\u9593\u6bb5\u3002",
+                    "name": "\u6642\u9593\u6bb5"
+                }
+            },
+            "name": "\u71c8\u7d44\u5ef6\u9072\u95dc\u9589"
+        },
+        "light_set_scene": {
+            "description": "\u8a2d\u7f6e\u56fa\u5b9a\u5834\u666f\u3002",
+            "fields": {
+                "entity_id": {
+                    "description": "\u5149\u5be6\u9ad4\u7684\u540d\u7a31\u3002",
+                    "name": "\u5be6\u9ad4ID"
+                },
+                "scene": {
+                    "description": "\u56fa\u5b9a\u5834\u666f\u7684\u7de8\u865f\u3002",
+                    "name": "\u5834\u666f"
+                }
+            },
+            "name": "\u71c8\u5149\u8a2d\u7f6e\u5834\u666f"
+        },
+        "remote_learn_command": {
+            "description": "\u5b78\u7fd2\u7d05\u5916\u547d\u4ee4\uff0c\u9078\u64c7 \u201c\u57f7\u884c\u52d5\u4f5c\u201d\uff0c\u5c07\u9059\u63a7\u5668\u6307\u5411\u7d05\u5916\u7dda\u88dd\u7f6e\uff0c\u5b78\u7fd2\u7684\u547d\u4ee4\u5c07\u5728\u6982\u89bd\u4e2d\u986f\u793a\u70ba\u901a\u77e5\u3002",
+            "fields": {
+                "slot": {
+                    "description": "\u5b9a\u7fa9\u7528\u65bc\u4fdd\u5b58IR\u547d\u4ee4\u7684\u63d2\u69fd\u3002",
+                    "name": "\u63d2\u69fd"
+                },
+                "timeout": {
+                    "description": "\u5b9a\u7fa9\u8d85\u6642\uff0c\u5728\u6b64\u4e4b\u524d\u5fc5\u9808\u5b78\u7fd2\u547d\u4ee4\u3002",
+                    "name": "\u903e\u6642"
+                }
+            },
+            "name": "\u9060\u7a0b\u5b78\u7fd2\u547d\u4ee4"
+        },
+        "remote_set_led_off": {
+            "description": "\u95dc\u9589\u85cd\u8272 LED\u3002",
+            "name": "\u9060\u7a0b\u8a2d\u7f6e LED \u95dc\u9589"
+        },
+        "remote_set_led_on": {
+            "description": "\u6253\u958b\u85cd\u8272 LED\u3002",
+            "name": "\u9060\u7a0b\u8a2d\u7f6e LED \u4eae\u8d77"
+        },
+        "switch_set_power_mode": {
+            "description": "\u8a2d\u7f6e\u96fb\u6e90\u6a21\u5f0f\u3002",
+            "fields": {
+                "entity_id": {
+                    "description": "xiaomi miio \u5be6\u9ad4\u7684\u540d\u7a31\u3002",
+                    "name": "\u5be6\u9ad4ID"
+                },
+                "mode": {
+                    "description": "\u96fb\u6e90\u6a21\u5f0f\u3002",
+                    "name": "\u6a21\u5f0f"
+                }
+            },
+            "name": "\u958b\u95dc\u8a2d\u7f6e\u96fb\u6e90\u6a21\u5f0f"
+        },
+        "switch_set_power_price": {
+            "description": "\u8a2d\u7f6e\u96fb\u50f9\u3002",
+            "fields": {
+                "entity_id": {
+                    "description": "xiaomi miio \u5be6\u9ad4\u7684\u540d\u7a31\u3002",
+                    "name": "\u5be6\u9ad4ID"
+                },
+                "mode": {
+                    "description": "\u96fb\u50f9\u3002",
+                    "name": "\u6a21\u5f0f"
+                }
+            },
+            "name": "\u958b\u95dc\u7d44\u96fb\u6e90\u50f9\u683c"
+        },
+        "switch_set_wifi_led_off": {
+            "description": "\u95dc\u9589 Wi-Fi \u6307\u793a\u71c8\u3002",
+            "fields": {
+                "entity_id": {
+                    "description": "xiaomi miio \u5be6\u9ad4\u7684\u540d\u7a31\u3002",
+                    "name": "\u5be6\u9ad4ID"
+                }
+            },
+            "name": "\u958b\u95dc\u8a2d\u7f6e Wi-Fi LED \u95dc\u9589"
+        },
+        "switch_set_wifi_led_on": {
+            "description": "\u6253\u958b wifi \u6307\u793a\u71c8\u3002",
+            "fields": {
+                "entity_id": {
+                    "description": "xiaomi miio \u5be6\u9ad4\u7684\u540d\u7a31\u3002",
+                    "name": "\u5be6\u9ad4ID"
+                }
+            },
+            "name": "\u958b\u95dc\u8a2d\u7f6e Wi-Fi LED \u4eae\u8d77"
+        },
+        "vacuum_clean_segment": {
+            "description": "\u958b\u59cb\u6e05\u6383\u6307\u5b9a\u5340\u6bb5\u3002",
+            "fields": {
+                "segments": {
+                    "description": "\u5340\u6bb5\u3002\u3002",
+                    "name": "\u5340\u6bb5"
+                }
+            },
+            "name": "\u6383\u5730\u6a5f\u5668\u4eba\u6e05\u6383\u5340\u6bb5"
+        },
+        "vacuum_clean_zone": {
+            "description": "\u958b\u59cb\u65bc\u6307\u5b9a\u5283\u5340\u9032\u884c\u6e05\u6383\u64cd\u4f5c\u3001\u91cd\u8907\u6b21\u6578\u5982\u6307\u793a\u3002",
+            "fields": {
+                "repeats": {
+                    "description": "\u6bcf\u500b\u5283\u5340\u91cd\u8907\u6e05\u6383\u7684\u6b21\u6578\u3002",
+                    "name": "\u91cd\u8907"
+                },
+                "zone": {
+                    "description": "\u5283\u5340\u9663\u5217\u3002\u6bcf\u500b\u5283\u5340\u90fd\u662f\u7531 4 \u500b\u6574\u6578\u503c\u7d44\u6210\u7684\u9663\u5217\u3002",
+                    "name": "\u5283\u5340"
+                }
+            },
+            "name": "\u6383\u5730\u6a5f\u5668\u4eba\u6e05\u6383\u5283\u5340"
+        },
+        "vacuum_goto": {
+            "description": "\u79fb\u52d5\u81f3\u6307\u5b9a\u5ea7\u6a19\u3002",
+            "fields": {
+                "x_coord": {
+                    "description": "X \u5ea7\u6a19\u3002",
+                    "name": "X \u5ea7\u6a19"
+                },
+                "y_coord": {
+                    "description": "Y \u5ea7\u6a19\u3002",
+                    "name": "Y \u5ea7\u6a19"
+                }
+            },
+            "name": "\u6383\u5730\u6a5f\u5668\u4eba\u6307\u5b9a\u4f4d\u7f6e"
+        },
+        "vacuum_remote_control_move": {
+            "description": "\u9060\u7aef\u63a7\u5236\u6383\u5730\u6a5f\u5668\u4eba\u3001\u9996\u5148\u5148\u78ba\u5b9a\u4ee5 `remote_control_start` \u8a2d\u5b9a\u9060\u7aef\u63a7\u5236\u6a21\u5f0f\u3002",
+            "fields": {
+                "duration": {
+                    "description": "\u52d5\u4f5c\u6301\u7e8c\u6642\u9593\u3002",
+                    "name": "\u6301\u7e8c\u6642\u9593"
+                },
+                "rotation": {
+                    "description": "\u8ff4\u8f49\u3001\u4ecb\u65bc -179 \u5ea6\u548c 179 \u5ea6\u4e4b\u9593\u3002",
+                    "name": "\u8ff4\u8f49"
+                },
+                "velocity": {
+                    "description": "\u901f\u5ea6\u3002",
+                    "name": "\u901f\u5ea6"
+                }
+            },
+            "name": "\u6383\u5730\u6a5f\u5668\u4eba\u9060\u7aef\u63a7\u5236\u79fb\u52d5"
+        },
+        "vacuum_remote_control_move_step": {
+            "description": "\u9060\u7aef\u63a7\u5236\u6383\u5730\u6a5f\u5668\u4eba\u3001\u53ea\u79fb\u52d5\u4e00\u9ede\u5c31\u505c\u6b62\u3002",
+            "fields": {
+                "duration": {
+                    "description": "\u52d5\u4f5c\u6301\u7e8c\u6642\u9593\u3002",
+                    "name": "\u6301\u7e8c\u6642\u9593"
+                },
+                "rotation": {
+                    "description": "\u8ff4\u8f49\u3002",
+                    "name": "\u8ff4\u8f49"
+                },
+                "velocity": {
+                    "description": "\u901f\u5ea6\u3002",
+                    "name": "\u901f\u5ea6"
+                }
+            },
+            "name": "\u6383\u5730\u6a5f\u5668\u4eba\u9060\u7aef\u63a7\u5236\u79fb\u52d5\u6b65\u9032"
+        },
+        "vacuum_remote_control_start": {
+            "description": "\u958b\u59cb\u6383\u5730\u6a5f\u5668\u4eba\u9060\u7aef\u63a7\u5236\u6a21\u5f0f\u3002\u53ef\u4ee5\u4f7f\u7528 `remote_control_move` \u9032\u884c\u79fb\u52d5\u3001\u5b8c\u6210\u5f8c\u547c\u53eb `remote_control_stop`\u3002",
+            "name": "\u6383\u5730\u6a5f\u5668\u4eba\u9060\u7aef\u63a7\u5236\u958b\u59cb"
+        },
+        "vacuum_remote_control_stop": {
+            "description": "\u505c\u6b62\u6383\u5730\u6a5f\u5668\u4eba\u9060\u7aef\u63a7\u5236\u6a21\u5f0f\u3002",
+            "name": "\u6383\u5730\u6a5f\u5668\u4eba\u9060\u7aef\u63a7\u5236\u505c\u6b62"
+        }
+    }
+}

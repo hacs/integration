@@ -1,0 +1,132 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "Kalender",
+            "state": {
+                "off": "V\u00e4ljas",
+                "on": "Sees"
+            },
+            "state_attributes": {
+                "all_day": {
+                    "name": "Terve p\u00e4ev",
+                    "state": {
+                        "false": "Ei",
+                        "true": "Jah"
+                    }
+                },
+                "description": {
+                    "name": "Kirjeldus"
+                },
+                "end_time": {
+                    "name": "L\u00f5puaeg"
+                },
+                "location": {
+                    "name": "Asukoht"
+                },
+                "message": {
+                    "name": "S\u00f5num"
+                },
+                "messages": {
+                    "name": "S\u00f5num"
+                },
+                "start_time": {
+                    "name": "Algusaeg"
+                }
+            }
+        }
+    },
+    "issues": {
+        "deprecated_service_calendar_list_events": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Kasuta selle asemel `calendar.get_events`, mis toetab mitut \u00fcksust.\n\nAsenda see teenus ja kohanda oma automaatikaid ja skripte ning vali **submit**, et sulgeda see probleem.",
+                        "title": "Tuvastati aegunud teenuse calendar.list_events kasutamine"
+                    }
+                }
+            },
+            "title": "Tuvastati aegunud teenuse calendar.list_events kasutamine"
+        },
+        "platform_integration_no_support": {
+            "description": "{domain} integreerimise platvorm {platform} ei toeta platvormi seadistamist. \n\n Selle probleemi lahendamiseks eemalda see oma konfiguratsioonist ja taask\u00e4ivita Home Assistant.",
+            "title": "Platvormi tuge ei toetata"
+        }
+    },
+    "services": {
+        "create_event": {
+            "description": "Lisab uue kalendris\u00fcndmuse.",
+            "fields": {
+                "description": {
+                    "description": "S\u00fcndmuse t\u00e4ielikum kirjeldus kui kokkuv\u00f5ttes esitatud.",
+                    "name": "Kirjeldus"
+                },
+                "end_date": {
+                    "description": "Kuup\u00e4ev mil kogu p\u00e4eva kestev s\u00fcndmus peaks l\u00f5ppema (v\u00e4lja arvatud).",
+                    "name": "L\u00f5pu kuup\u00e4ev"
+                },
+                "end_date_time": {
+                    "description": "S\u00fcndmuse l\u00f5ppemise kuup\u00e4ev ja kellaaeg.",
+                    "name": "L\u00f5puaeg"
+                },
+                "in": {
+                    "description": "P\u00e4evad v\u00f5i n\u00e4dalad millel soovid s\u00fcndmuse luua.",
+                    "name": "Kell"
+                },
+                "location": {
+                    "description": "\u00dcrituse toimumiskoht.",
+                    "name": "Asukoht"
+                },
+                "start_date": {
+                    "description": "Kogu p\u00e4eva kestva \u00fcrituse alguskuup\u00e4ev.",
+                    "name": "Alguse kuup\u00e4ev"
+                },
+                "start_date_time": {
+                    "description": "S\u00fcndmuse alguse kuup\u00e4ev ja kellaaeg.",
+                    "name": "Algusaeg"
+                },
+                "summary": {
+                    "description": "M\u00e4\u00e4rab s\u00fcndmuse l\u00fchikokkuv\u00f5tte v\u00f5i teema.",
+                    "name": "Kokkuv\u00f5te"
+                }
+            },
+            "name": "Loo s\u00fcndmus"
+        },
+        "get_events": {
+            "description": "Hangi kalendrisse teatud ajavahemikus olevad s\u00fcndmused.",
+            "fields": {
+                "duration": {
+                    "description": "Tagastab aktiivsed s\u00fcndmused start_date_time kuni m\u00e4\u00e4ratud kestuseni.",
+                    "name": "Kestus"
+                },
+                "end_date_time": {
+                    "description": "Tagastab aktiivsed s\u00fcndmused enne seda aega (v\u00e4lja arvatud). Ei saa kasutada koos s\u00f5naga \"kestus\".",
+                    "name": "L\u00f5puaeg"
+                },
+                "start_date_time": {
+                    "description": "Tagastab aktiivsed s\u00fcndmused p\u00e4rast seda aega (v\u00e4lja arvatud). Kui pole m\u00e4\u00e4ratud, on vaikimisi praegu.",
+                    "name": "Algusaeg"
+                }
+            },
+            "name": "Hangi s\u00fcndmusi"
+        },
+        "list_events": {
+            "description": "Loetleb kalendris\u00fcndmused teatud ajavahemikus.",
+            "fields": {
+                "duration": {
+                    "description": "Tagastab aktiivsed s\u00fcndmused start_date_time kuni m\u00e4\u00e4ratud kestuseni.",
+                    "name": "Kestus"
+                },
+                "end_date_time": {
+                    "description": "Tagastab aktiivsed s\u00fcndmused enne seda aega (v\u00e4lja arvatud). Ei saa kasutada koos s\u00f5naga \"kestus\".",
+                    "name": "L\u00f5puaeg"
+                },
+                "start_date_time": {
+                    "description": "Tagastab aktiivsed s\u00fcndmused p\u00e4rast seda aega (v\u00e4lja arvatud). Kui pole m\u00e4\u00e4ratud, on vaikimisi praegu.",
+                    "name": "Algusaeg"
+                }
+            },
+            "name": "Loetle s\u00fcndmus"
+        }
+    },
+    "title": "Kalender"
+}

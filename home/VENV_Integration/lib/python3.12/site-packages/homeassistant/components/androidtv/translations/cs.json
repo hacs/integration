@@ -1,0 +1,112 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Za\u0159\u00edzen\u00ed je ji\u017e nastaveno",
+            "invalid_unique_id": "Nelze ur\u010dit platn\u00e9 jedine\u010dn\u00e9 ID za\u0159\u00edzen\u00ed"
+        },
+        "error": {
+            "adbkey_not_file": "Soubor s kl\u00ed\u010dem ADB nebyl nalezen",
+            "cannot_connect": "Nepoda\u0159ilo se p\u0159ipojit",
+            "invalid_host": "Neplatn\u00fd hostitel nebo IP adresa",
+            "key_and_server": "Poskytnout jen kl\u00ed\u010d nebo server ADB",
+            "unknown": "Neo\u010dek\u00e1van\u00e1 chyba"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "adb_server_ip": "IP adresa ADB serveru (ponechte pr\u00e1zdn\u00e9, pokud nechcete pou\u017e\u00edt)",
+                    "adb_server_port": "Port ADB serveru",
+                    "adbkey": "Cesta k souboru kl\u00ed\u010de ADB (ponechte pr\u00e1zdn\u00e9 pro automatick\u00e9 vygenerov\u00e1n\u00ed)",
+                    "device_class": "Typ za\u0159\u00edzen\u00ed",
+                    "host": "Hostitel",
+                    "port": "Port"
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "failed_send": {
+            "message": "Nepoda\u0159ilo se odeslat p\u0159\u00edkaz {cmd}"
+        }
+    },
+    "options": {
+        "error": {
+            "invalid_det_rules": "Neplatn\u00e1 pravidla detekce stavu"
+        },
+        "step": {
+            "apps": {
+                "data": {
+                    "app_delete": "Zvolit pro smaz\u00e1n\u00ed t\u00e9to aplikace",
+                    "app_id": "ID aplikace",
+                    "app_name": "N\u00e1zev aplikace"
+                },
+                "description": "Nastaven\u00ed ID aplikace {app_id}.",
+                "title": "Nastavit aplikace Android"
+            },
+            "init": {
+                "data": {
+                    "apps": "Nastavit seznam aplikac\u00ed",
+                    "exclude_unnamed_apps": "Vylou\u010dit aplikace s nezn\u00e1m\u00fdm n\u00e1zvem ze seznamu zdroj\u016f",
+                    "get_sources": "Z\u00edskat spu\u0161t\u011bn\u00e9 aplikac\u00e9 jako seznam zdroj\u016f",
+                    "screencap": "Pou\u017e\u00edt sn\u00edm\u00e1n\u00ed obrazovky pro obal alba",
+                    "state_detection_rules": "Nastavit pravidla detekce stavu",
+                    "turn_off_command": "P\u0159\u00edkaz pro vypnut\u00ed prost\u0159ed\u00ed ADB (pro v\u00fdchoz\u00ed nastaven\u00ed nechte pr\u00e1zdn\u00e9)",
+                    "turn_on_command": "P\u0159\u00edkaz pro zapnut\u00ed prost\u0159ed\u00ed ADB (pro v\u00fdchoz\u00ed nastaven\u00ed nechte pr\u00e1zdn\u00e9)"
+                }
+            },
+            "rules": {
+                "data": {
+                    "rule_delete": "Zvolit pro smaz\u00e1n\u00ed tohoto pravidla",
+                    "rule_id": "ID aplikace",
+                    "rule_values": "Seznam pravidel detekce stavu (viz dokumentace)"
+                },
+                "description": "Nastav\u00ed pravidlo detekce pro ID aplikace {rule_id}.",
+                "title": "Nastavit Android pravidla detekce stavu"
+            }
+        }
+    },
+    "services": {
+        "adb_command": {
+            "description": "Ode\u0161le p\u0159\u00edkaz ADB do za\u0159\u00edzen\u00ed Android / Fire TV.",
+            "fields": {
+                "command": {
+                    "description": "Bu\u010f kl\u00ed\u010dov\u00fd p\u0159\u00edkaz nebo p\u0159\u00edkaz prost\u0159ed\u00ed ADB.",
+                    "name": "P\u0159\u00edkaz"
+                }
+            },
+            "name": "P\u0159\u00edkaz ADB"
+        },
+        "download": {
+            "description": "St\u00e1hne soubor ze za\u0159\u00edzen\u00ed Android / Fire TV do instance Home Assistanta.",
+            "fields": {
+                "device_path": {
+                    "description": "Cesta k souboru na za\u0159\u00edzen\u00ed Android / Fire TV.",
+                    "name": "Cesta k za\u0159\u00edzen\u00ed"
+                },
+                "local_path": {
+                    "description": "Cesta k souboru v instanci Home Assistanta.",
+                    "name": "M\u00edstn\u00ed cesta"
+                }
+            },
+            "name": "St\u00e1hnout"
+        },
+        "learn_sendevent": {
+            "description": "P\u0159ekl\u00e1d\u00e1 stisknut\u00ed kl\u00e1vesy na d\u00e1lkov\u00e9m ovlada\u010di do p\u0159\u00edkaz\u016f ADB \"sendevent\". Mus\u00edte stisknout jedno tla\u010d\u00edtko na d\u00e1lkov\u00e9m ovlada\u010di do 8 sekund od vyvol\u00e1n\u00ed t\u00e9to slu\u017eby.",
+            "name": "Nau\u010dit se sendEvent"
+        },
+        "upload": {
+            "description": "Nahraje soubor z instance Home Assistanta do za\u0159\u00edzen\u00ed Android / Fire TV.",
+            "fields": {
+                "device_path": {
+                    "description": "Cesta k souboru na za\u0159\u00edzen\u00ed Android / Fire TV.",
+                    "name": "Cesta k za\u0159\u00edzen\u00ed"
+                },
+                "local_path": {
+                    "description": "Cesta k souboru v instanci Home Assistanta.",
+                    "name": "M\u00edstn\u00ed cesta"
+                }
+            },
+            "name": "Nahr\u00e1t"
+        }
+    }
+}

@@ -1,0 +1,139 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "Orai",
+            "state": {
+                "clear-night": "Giedra, naktis",
+                "cloudy": "Debesuota",
+                "exceptional": "I\u0161skirtinis",
+                "fog": "R\u016bkas",
+                "hail": "Kru\u0161a",
+                "lightning": "\u017daibas",
+                "lightning-rainy": "\u017daibuoja, lietinga",
+                "partlycloudy": "Debesuota",
+                "pouring": "Lyja lietus",
+                "rainy": "Lietinga",
+                "snowy": "Snieguota",
+                "snowy-rainy": "Snieguota, lietinga",
+                "sunny": "Saul\u0117ta",
+                "windy": "V\u0117juota",
+                "windy-variant": "V\u0117jas, debesuota"
+            },
+            "state_attributes": {
+                "apparent_temperature": {
+                    "name": "Matoma temperat\u016bra"
+                },
+                "cloud_coverage": {
+                    "name": "Debes\u0173 apr\u0117ptis"
+                },
+                "dew_point": {
+                    "name": "Rasos ta\u0161ko temperat\u016bra"
+                },
+                "forecast": {
+                    "name": "Prognoz\u0117"
+                },
+                "humidity": {
+                    "name": "Dr\u0117gm\u0117"
+                },
+                "ozone": {
+                    "name": "Ozonas"
+                },
+                "precipitation_unit": {
+                    "name": "Krituli\u0173 vienetas"
+                },
+                "pressure": {
+                    "name": "Sl\u0117gis"
+                },
+                "pressure_unit": {
+                    "name": "Sl\u0117gio vienetas"
+                },
+                "temperature": {
+                    "name": "Temperat\u016bra"
+                },
+                "temperature_unit": {
+                    "name": "Temperat\u016bros vienetas"
+                },
+                "uv_index": {
+                    "name": "UV indeksas"
+                },
+                "visibility": {
+                    "name": "Matomumas"
+                },
+                "visibility_unit": {
+                    "name": "Matomumo vienetas"
+                },
+                "wind_bearing": {
+                    "name": "V\u0117jo guolis"
+                },
+                "wind_gust_speed": {
+                    "name": "V\u0117jo g\u016bsi\u0173 greitis"
+                },
+                "wind_speed": {
+                    "name": "V\u0117jo greitis"
+                },
+                "wind_speed_unit": {
+                    "name": "V\u0117jo grei\u010dio vienetas"
+                }
+            }
+        }
+    },
+    "issues": {
+        "deprecated_service_weather_get_forecast": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "title": "Aptiktas nebenaudojamos paslaugos \u201eweather.get_forecast\u201c naudojimas"
+                    }
+                }
+            }
+        },
+        "deprecated_weather_forecast": {
+            "description": "Integracija \u201e {platform} \u201c naudoja nebenaudojam\u0105 prognoz\u0117s atribut\u0105. \n\n Pra\u0161ome {report_issue} .",
+            "title": "{platform} integracija naudoja nebenaudojam\u0105 prognoz\u0119"
+        },
+        "deprecated_weather_forecast_no_url": {
+            "description": "Pasirinktinis integravimas \"{platform}\" \u012fgyvendina ypatyb\u0119 \"prognoz\u0117\" arba nustato \"self._attr_forecast\" \"WeatherEntity\" poklasyje.\n\nPrane\u0161kite apie tai {platform} integracijos autoriui.\n\nKai bus pasiekiama atnaujinta \"{platform}\" versija, \u012fdiekite j\u0105 ir i\u0161 naujo paleiskite \"Home Assistant\", kad i\u0161spr\u0119stum\u0117te \u0161i\u0105 problem\u0105.",
+            "title": "Pasitrinkta integracja {platform}  naudoja nebenaudojam\u0105 or\u0173 prognoz\u0119"
+        },
+        "deprecated_weather_forecast_url": {
+            "description": "Pasirinktinis integravimas \"{platform}\" \u012fgyvendina ypatyb\u0119 \"prognoz\u0117\" arba nustato \"self._attr_forecast\" \"WeatherEntity\" poklasyje.\n\nSukurkite prane\u0161im\u0105 apie klaid\u0105 adresu {issue_tracker}.\n\nKai bus pasiekiama atnaujinta \"{platform}\" versija, \u012fdiekite j\u0105 ir i\u0161 naujo paleiskite \"Home Assistant\", kad i\u0161spr\u0119stum\u0117te \u0161i\u0105 problem\u0105.",
+            "title": "Pasitrinkta integracja {platform}  naudoja nebenaudojam\u0105 or\u0173 prognoz\u0119"
+        },
+        "platform_integration_no_support": {
+            "description": "{platform} platforma, skirta {domain} integravimui, nepalaiko platformos s\u0105rankos. \n\n Pa\u0161alinkite j\u012f i\u0161 konfig\u016bracijos ir i\u0161 naujo paleiskite \u201eHome Assistant\u201c, kad i\u0161spr\u0119stum\u0117te \u0161i\u0105 problem\u0105.",
+            "title": "Platformos palaikymas nepalaikomas"
+        }
+    },
+    "selector": {
+        "forecast_type": {
+            "options": {
+                "daily": "Kasdien",
+                "hourly": "Valandinis",
+                "twice_daily": "Du kartus per dien\u0105"
+            }
+        }
+    },
+    "services": {
+        "get_forecast": {
+            "description": "Gaukite or\u0173 prognoz\u0119.",
+            "fields": {
+                "type": {
+                    "description": "Prognoz\u0117s tipas: kasdien, kas valand\u0105 arba du kartus per dien\u0105.",
+                    "name": "Prognoz\u0117s tipas"
+                }
+            },
+            "name": "Gaukite prognoz\u0119"
+        },
+        "get_forecasts": {
+            "description": "Gaukite or\u0173 prognozes.",
+            "fields": {
+                "type": {
+                    "description": "Prognoz\u0117s tipas: kasdien, kas valand\u0105 arba du kartus per dien\u0105.",
+                    "name": "Prognoz\u0117s tipas"
+                }
+            },
+            "name": "Gaukite prognozes"
+        }
+    },
+    "title": "Orai"
+}

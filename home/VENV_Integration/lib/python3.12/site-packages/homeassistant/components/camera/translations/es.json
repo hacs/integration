@@ -1,0 +1,104 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "C\u00e1mara",
+            "state": {
+                "idle": "Inactivo",
+                "recording": "Grabando",
+                "streaming": "Transmitiendo"
+            },
+            "state_attributes": {
+                "access_token": {
+                    "name": "Token de acceso"
+                },
+                "brand": {
+                    "name": "Marca"
+                },
+                "frontend_stream_type": {
+                    "name": "Tipo de transmisi\u00f3n",
+                    "state": {
+                        "hls": "HLS",
+                        "webrtc": "WebRTC"
+                    }
+                },
+                "model_name": {
+                    "name": "Modelo"
+                },
+                "motion_detection": {
+                    "name": "Detecci\u00f3n de movimiento",
+                    "state": {
+                        "false": "Deshabilitado",
+                        "true": "Habilitado"
+                    }
+                }
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "La plataforma {platform} para la integraci\u00f3n {domain} no es compatible con la configuraci\u00f3n de la plataforma. \n\nElim\u00ednala de tu configuraci\u00f3n y reinicia Home Assistant para solucionar este problema.",
+            "title": "Soporte de plataforma no compatible"
+        }
+    },
+    "services": {
+        "disable_motion_detection": {
+            "description": "Deshabilita la detecci\u00f3n de movimiento.",
+            "name": "Deshabilitar la detecci\u00f3n de movimiento"
+        },
+        "enable_motion_detection": {
+            "description": "Habilita la detecci\u00f3n de movimiento.",
+            "name": "Habilitar detecci\u00f3n de movimiento"
+        },
+        "play_stream": {
+            "description": "Reproduce la transmisi\u00f3n de la c\u00e1mara en un reproductor multimedia compatible.",
+            "fields": {
+                "format": {
+                    "description": "Formato de transmisi\u00f3n compatible con el reproductor multimedia.",
+                    "name": "Formato"
+                },
+                "media_player": {
+                    "description": "Reproductores multimedia en los que transmitir.",
+                    "name": "Reproductor multimedia"
+                }
+            },
+            "name": "Reproducir transmisi\u00f3n"
+        },
+        "record": {
+            "description": "Crea una grabaci\u00f3n de una transmisi\u00f3n de c\u00e1mara en vivo.",
+            "fields": {
+                "duration": {
+                    "description": "Duraci\u00f3n prevista de la grabaci\u00f3n. La duraci\u00f3n real puede variar.",
+                    "name": "Duraci\u00f3n"
+                },
+                "filename": {
+                    "description": "Plantilla de un nombre de archivo. La variable disponible es `entity_id`. Debe ser mp4.",
+                    "name": "Nombre de archivo"
+                },
+                "lookback": {
+                    "description": "Per\u00edodo retrospectivo planificado para incluir en la grabaci\u00f3n (adem\u00e1s de la duraci\u00f3n). Solo disponible si actualmente hay una transmisi\u00f3n HLS activa. La duraci\u00f3n real del per\u00edodo retrospectivo puede variar.",
+                    "name": "Mirar atr\u00e1s"
+                }
+            },
+            "name": "Grabar"
+        },
+        "snapshot": {
+            "description": "Toma una instant\u00e1nea de una c\u00e1mara.",
+            "fields": {
+                "filename": {
+                    "description": "Plantilla de un nombre de archivo. La variable disponible es `entity_id`.",
+                    "name": "Nombre de archivo"
+                }
+            },
+            "name": "Tomar instant\u00e1nea"
+        },
+        "turn_off": {
+            "description": "Apaga la c\u00e1mara.",
+            "name": "Apagar"
+        },
+        "turn_on": {
+            "description": "Enciende la c\u00e1mara.",
+            "name": "Encender"
+        }
+    },
+    "title": "C\u00e1mara"
+}

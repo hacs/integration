@@ -1,0 +1,205 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "L'account \u00e8 gi\u00e0 configurato",
+            "kamereon_no_account": "Impossibile trovare l'account Kamereon.",
+            "reauth_successful": "La riautenticazione ha avuto successo"
+        },
+        "error": {
+            "invalid_credentials": "Autenticazione non valida"
+        },
+        "step": {
+            "kamereon": {
+                "data": {
+                    "kamereon_account_id": "ID account Kamereon"
+                },
+                "title": "Seleziona l'id dell'account Kamereon"
+            },
+            "reauth_confirm": {
+                "data": {
+                    "password": "Password"
+                },
+                "description": "Aggiorna la tua password per {username}",
+                "title": "Autenticazione scaduta per {name}"
+            },
+            "user": {
+                "data": {
+                    "locale": "Locale",
+                    "password": "Password",
+                    "username": "E-mail"
+                },
+                "title": "Imposta le credenziali Renault"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "charging": {
+                "name": "In ricarica"
+            },
+            "driver_door_status": {
+                "name": "Porta del conducente"
+            },
+            "hatch_status": {
+                "name": "Portellone"
+            },
+            "hvac_status": {
+                "name": "HVAC"
+            },
+            "lock_status": {
+                "name": "Serratura"
+            },
+            "passenger_door_status": {
+                "name": "Porta del passeggero"
+            },
+            "plugged_in": {
+                "name": "Spina"
+            },
+            "rear_left_door_status": {
+                "name": "Porta posteriore sinistra"
+            },
+            "rear_right_door_status": {
+                "name": "Porta posteriore destra"
+            }
+        },
+        "button": {
+            "start_air_conditioner": {
+                "name": "Avviare il condizionatore d'aria"
+            },
+            "start_charge": {
+                "name": "Avviare la carica"
+            },
+            "stop_charge": {
+                "name": "Fermare la carica"
+            }
+        },
+        "device_tracker": {
+            "location": {
+                "name": "Posizione"
+            }
+        },
+        "select": {
+            "charge_mode": {
+                "name": "Modalit\u00e0 di ricarica"
+            }
+        },
+        "sensor": {
+            "admissible_charging_power": {
+                "name": "Potenza di carica ammissibile"
+            },
+            "battery_autonomy": {
+                "name": "Autonomia della batteria"
+            },
+            "battery_available_energy": {
+                "name": "Energia disponibile della batteria"
+            },
+            "battery_last_activity": {
+                "name": "Ultima attivit\u00e0 della batteria"
+            },
+            "battery_level": {
+                "name": "Livello della batteria"
+            },
+            "battery_temperature": {
+                "name": "Temperatura della batteria"
+            },
+            "charge_state": {
+                "name": "Stato di carica",
+                "state": {
+                    "charge_ended": "Carica terminata",
+                    "charge_error": "Non \u00e8 in carica o non \u00e8 collegata",
+                    "charge_in_progress": "Ricaricando",
+                    "energy_flap_opened": "Sportello energetico aperto",
+                    "not_in_charge": "Non in carica",
+                    "unavailable": "Non disponibile",
+                    "waiting_for_a_planned_charge": "In attesa di addebito pianificato",
+                    "waiting_for_current_charge": "In attesa della carica corrente"
+                }
+            },
+            "charging_power": {
+                "name": "Potenza di ricarica"
+            },
+            "charging_remaining_time": {
+                "name": "Tempo rimanente di ricarica"
+            },
+            "fuel_autonomy": {
+                "name": "Autonomia di carburante"
+            },
+            "fuel_quantity": {
+                "name": "Quantit\u00e0 di carburante"
+            },
+            "hvac_last_activity": {
+                "name": "Ultima attivit\u00e0 HVAC"
+            },
+            "hvac_soc_threshold": {
+                "name": "Soglia SoC HVAC"
+            },
+            "location_last_activity": {
+                "name": "Ultima attivit\u00e0 di localizzazione"
+            },
+            "mileage": {
+                "name": "Chilometraggio"
+            },
+            "outside_temperature": {
+                "name": "Temperatura esterna"
+            },
+            "plug_state": {
+                "name": "Stato della spina",
+                "state": {
+                    "plug_error": "Errore di spina",
+                    "plug_unknown": "Spina sconosciuta",
+                    "plugged": "Collegato",
+                    "unplugged": "Scollegato"
+                }
+            },
+            "res_state": {
+                "name": "Avviamento remoto del motore"
+            },
+            "res_state_code": {
+                "name": "Codice di avviamento remoto del motore"
+            }
+        }
+    },
+    "services": {
+        "ac_cancel": {
+            "fields": {
+                "vehicle": {
+                    "description": "Il veicolo a cui inviare il comando.",
+                    "name": "Veicolo"
+                }
+            },
+            "name": "Annulla l'aria condizionata"
+        },
+        "ac_start": {
+            "description": "Avvia l'aria condizionata sul veicolo.",
+            "fields": {
+                "temperature": {
+                    "description": "Temperatura A/C desiderata in \u00b0C.",
+                    "name": "Temperatura"
+                },
+                "vehicle": {
+                    "description": "Il veicolo a cui inviare il comando.",
+                    "name": "Veicolo"
+                },
+                "when": {
+                    "description": "Marca temporale per l'inizio dell'A/C (opzionale - predefinito a ora).",
+                    "name": "Quando"
+                }
+            },
+            "name": "Avvia l'aria condizionata"
+        },
+        "charge_set_schedules": {
+            "description": "Aggiorna il programma di carica sul veicolo.",
+            "fields": {
+                "schedules": {
+                    "description": "Dettagli del programma.",
+                    "name": "Programmi"
+                },
+                "vehicle": {
+                    "description": "Il veicolo a cui inviare il comando.",
+                    "name": "Veicolo"
+                }
+            },
+            "name": "Aggiorna programma di carica"
+        }
+    }
+}

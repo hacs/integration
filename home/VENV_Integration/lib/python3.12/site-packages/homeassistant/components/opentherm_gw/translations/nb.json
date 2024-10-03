@@ -1,0 +1,67 @@
+{
+    "config": {
+        "error": {
+            "already_configured": "Enhet er allerede konfigurert",
+            "cannot_connect": "Tilkobling mislyktes",
+            "id_exists": "Gateway ID finnes allerede",
+            "timeout_connect": "Tidsavbrudd oppretter forbindelse"
+        },
+        "step": {
+            "init": {
+                "data": {
+                    "device": "Bane eller URL-adresse",
+                    "id": "",
+                    "name": "Navn"
+                }
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "floor_temperature": "Etasje Temperatur",
+                    "read_precision": "Les presisjon",
+                    "set_precision": "Angi presisjon",
+                    "temporary_override_mode": "Midlertidig overstyringsmodus for settpunkt"
+                }
+            }
+        }
+    },
+    "services": {
+        "set_gpio_mode": {
+            "fields": {
+                "mode": {
+                    "name": "Modus"
+                }
+            }
+        },
+        "set_hot_water_ovrd": {
+            "description": "Aktiverer varmtvann p\u00e5 gatewayen.",
+            "fields": {
+                "dhw_override": {
+                    "description": "Kontroller aktivering av varmtvann. Hvis berederen er konfigurert for \u00e5 la romenheten kontrollere n\u00e5r et liten mengde vann skal forvarmes kan denne kommandoen styre dette. Verdien b\u00f8r v\u00e6re 0 eller 1 for \u00e5 aktivere overstyring i av- eller p\u00e5-tilstand, eller \"A\" for a deaktivere overstyringen.",
+                    "name": "Overstyr varmtvann"
+                }
+            }
+        },
+        "set_hot_water_setpoint": {
+            "description": "Setter temperatur for varmtvann p\u00e5 gatewayen.",
+            "fields": {
+                "temperature": {
+                    "description": "Temperaturen for varmtvann satt p\u00e5 gatewayen. Ikke alle beredere st\u00f8tter denne funksjonen. Verdier mellom 0 og 90 aksepteres, men ikke alle beredere st\u00f8tter dette intervallet. Sjekk verdiene for sensorene slave_dhw_min_setp og slave_dhw_max_setp for \u00e5 se hvilket intervall som st\u00f8ttes p\u00e5 din bereder."
+                }
+            }
+        },
+        "set_led_mode": {
+            "fields": {
+                "id": {
+                    "name": "ID"
+                },
+                "mode": {
+                    "name": "Modus"
+                }
+            }
+        }
+    }
+}

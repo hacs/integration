@@ -1,0 +1,171 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "\u670d\u52a1\u5df2\u914d\u7f6e",
+            "cannot_connect": "\u8fde\u63a5\u5931\u8d25",
+            "invalid_host": "\u4e3b\u673a\u540d\u6216 IP \u5730\u5740\u65e0\u6548",
+            "reconfigure_successful": "\u91cd\u65b0\u914d\u7f6e\u6210\u529f",
+            "unknown": "\u610f\u5916\u9519\u8bef"
+        },
+        "error": {
+            "cannot_connect": "\u8fde\u63a5\u5931\u8d25",
+            "invalid_host": "\u4e3b\u673a\u540d\u6216 IP \u5730\u5740\u65e0\u6548",
+            "unknown": "\u610f\u5916\u9519\u8bef"
+        },
+        "step": {
+            "reconfigure": {
+                "data": {
+                    "host": "\u4e3b\u673a"
+                },
+                "data_description": {
+                    "host": "\u60a8\u7684 Vallox \u8bbe\u5907\u7684\u4e3b\u673a\u540d\u6216 IP \u5730\u5740\u3002"
+                }
+            },
+            "reconfigure_confirm": {
+                "data": {
+                    "host": "\u4e3b\u673a"
+                },
+                "data_description": {
+                    "host": "\u60a8\u7684 Vallox \u8bbe\u5907\u7684\u4e3b\u673a\u540d\u6216 IP \u5730\u5740\u3002"
+                }
+            },
+            "user": {
+                "data": {
+                    "host": "\u4e3b\u673a"
+                },
+                "data_description": {
+                    "host": "\u60a8\u7684 Vallox \u8bbe\u5907\u7684\u4e3b\u673a\u540d\u6216 IP \u5730\u5740\u3002"
+                }
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "post_heater": {
+                "name": "\u540e\u52a0\u70ed\u5668"
+            }
+        },
+        "date": {
+            "filter_change_date": {
+                "name": "\u6ee4\u82af\u66f4\u6362\u65e5\u671f"
+            }
+        },
+        "number": {
+            "supply_air_target_away": {
+                "name": "\u9001\u98ce\u6e29\u5ea6\uff08\u79bb\u5bb6\uff09"
+            },
+            "supply_air_target_boost": {
+                "name": "\u9001\u98ce\u6e29\u5ea6\uff08\u5f3a\u52b2\uff09"
+            },
+            "supply_air_target_home": {
+                "name": "\u9001\u98ce\u6e29\u5ea6\uff08\u5728\u5bb6\uff09"
+            }
+        },
+        "sensor": {
+            "cell_state": {
+                "name": "\u5355\u5143\u72b6\u6001"
+            },
+            "current_profile": {
+                "name": "\u5f53\u524d\u9884\u8bbe"
+            },
+            "efficiency": {
+                "name": "\u6548\u7387"
+            },
+            "exhaust_air": {
+                "name": "\u6392\u6c14"
+            },
+            "extract_air": {
+                "name": "\u62bd\u98ce"
+            },
+            "extract_fan_speed": {
+                "name": "\u62bd\u98ce\u98ce\u6247\u901f\u5ea6"
+            },
+            "fan_speed": {
+                "name": "\u98ce\u6247\u901f\u5ea6"
+            },
+            "optional_air": {
+                "name": "\u53ef\u9009\u7a7a\u6c14"
+            },
+            "outdoor_air": {
+                "name": "\u5ba4\u5916\u7a7a\u6c14"
+            },
+            "profile_duration": {
+                "name": "\u914d\u7f6e\u6587\u4ef6\u65f6\u957f"
+            },
+            "remaining_time_for_filter": {
+                "name": "\u6ee4\u7f51\u5269\u4f59\u65f6\u95f4"
+            },
+            "supply_air": {
+                "name": "\u9001\u98ce"
+            },
+            "supply_cell_air": {
+                "name": "\u4f9b\u6c14\u5355\u5143\u7a7a\u6c14"
+            },
+            "supply_fan_speed": {
+                "name": "\u9001\u98ce\u98ce\u6247\u901f\u5ea6"
+            }
+        },
+        "switch": {
+            "bypass_locked": {
+                "name": "\u65c1\u8def\u9501\u5b9a"
+            }
+        }
+    },
+    "selector": {
+        "profile": {
+            "options": {
+                "away": "\u79bb\u5bb6",
+                "boost": "\u5f3a\u52b2",
+                "extra": "\u9644\u52a0",
+                "fireplace": "\u58c1\u7089",
+                "home": "\u5728\u5bb6"
+            }
+        }
+    },
+    "services": {
+        "set_profile": {
+            "description": "\u6fc0\u6d3b\u914d\u7f6e\u6587\u4ef6\u5e76\uff08\u53ef\u9009\uff09\u8bbe\u7f6e\u65f6\u957f\u3002",
+            "fields": {
+                "duration": {
+                    "description": "\u6fc0\u6d3b\u65f6\u957f\uff0c\u5982\u679c\u7701\u7565\u5219\u8bbe\u5907\u4f7f\u7528\u5df2\u5b58\u50a8\u7684\u65f6\u957f\u3002\u65f6\u957f\u4e3a 65535 \u53ef\u6fc0\u6d3b\u914d\u7f6e\u6587\u4ef6\u4e14\u4e0d\u4f1a\u8d85\u65f6\u3002\u65f6\u957f\u4ec5\u9002\u7528\u4e8e\u201c\u5f3a\u52b2\u201d\u3001\u201c\u58c1\u7089\u201d\u548c\u201c\u9644\u52a0\u201d\u914d\u7f6e\u6587\u4ef6\u3002",
+                    "name": "\u65f6\u957f"
+                },
+                "profile": {
+                    "description": "\u8981\u6fc0\u6d3b\u7684\u914d\u7f6e\u6587\u4ef6",
+                    "name": "\u914d\u7f6e\u6587\u4ef6"
+                }
+            },
+            "name": "\u6fc0\u6d3b\u914d\u7f6e\u6587\u4ef6\u4e00\u6bb5\u65f6\u95f4"
+        },
+        "set_profile_fan_speed_away": {
+            "description": "\u8bbe\u7f6e\u79bb\u5f00\u6a21\u5f0f\u7684\u98ce\u6247\u901f\u5ea6\u3002",
+            "fields": {
+                "fan_speed": {
+                    "description": "\u98ce\u901f",
+                    "name": "\u98ce\u901f"
+                }
+            },
+            "name": "\u8bbe\u7f6e\u914d\u7f6e\u6587\u4ef6\u98ce\u901f"
+        },
+        "set_profile_fan_speed_boost": {
+            "description": "\u8bbe\u7f6e\u5f3a\u52b2\u914d\u7f6e\u6587\u4ef6\u7684\u98ce\u901f\u3002",
+            "fields": {
+                "fan_speed": {
+                    "description": "\u98ce\u901f",
+                    "name": "\u98ce\u901f"
+                }
+            },
+            "name": "\u8bbe\u7f6e\u914d\u7f6e\u6587\u4ef6\u98ce\u901f\u5f3a\u52b2"
+        },
+        "set_profile_fan_speed_home": {
+            "description": "\u8bbe\u7f6e\u4e3b\u9875\u914d\u7f6e\u6587\u4ef6\u7684\u98ce\u901f\u3002",
+            "fields": {
+                "fan_speed": {
+                    "description": "\u98ce\u901f",
+                    "name": "\u98ce\u901f"
+                }
+            },
+            "name": "\u8bbe\u7f6e\u914d\u7f6e\u6587\u4ef6\u98ce\u6247\u901f\u5ea6\u4e3b\u9875"
+        }
+    }
+}

@@ -1,0 +1,198 @@
+{
+    "config": {
+        "abort": {
+            "no_devices_found": "V sieti sa nena\u0161li \u017eiadne zariadenia",
+            "not_sonos_device": "Zisten\u00e9 zariadenie nie je zariadenie Sonos",
+            "single_instance_allowed": "U\u017e je nakonfigurovan\u00fd. Mo\u017en\u00e1 je len jedna konfigur\u00e1cia."
+        },
+        "step": {
+            "confirm": {
+                "description": "Chcete nastavi\u0165 Sonos?"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "microphone": {
+                "name": "Mikrof\u00f3n"
+            }
+        },
+        "number": {
+            "audio_delay": {
+                "name": "Oneskorenie zvuku"
+            },
+            "balance": {
+                "name": "Vyv\u00e1\u017eenos\u0165"
+            },
+            "bass": {
+                "name": "Basy"
+            },
+            "music_surround_level": {
+                "name": "\u00darove\u0148 priestorovej hudby"
+            },
+            "sub_crossover": {
+                "name": "Sub crossover frekvencia"
+            },
+            "sub_gain": {
+                "name": "\u010ciastkov\u00e9 zosilnenie"
+            },
+            "surround_level": {
+                "name": "\u00darove\u0148 okolit\u00e9ho prostredia"
+            },
+            "treble": {
+                "name": "V\u00fd\u0161ky"
+            }
+        },
+        "sensor": {
+            "audio_input_format": {
+                "name": "Form\u00e1t zvukov\u00e9ho vstupu"
+            }
+        },
+        "switch": {
+            "buttons_enabled": {
+                "name": "Dotykov\u00e9 ovl\u00e1danie"
+            },
+            "cross_fade": {
+                "name": "Crossfade"
+            },
+            "dialog_level": {
+                "name": "Vylep\u0161enie re\u010di"
+            },
+            "loudness": {
+                "name": "Hlasitos\u0165"
+            },
+            "night_mode": {
+                "name": "No\u010dn\u00fd zvuk"
+            },
+            "status_light": {
+                "name": "Stavov\u00e9 svetlo"
+            },
+            "sub_enabled": {
+                "name": "Zapnut\u00fd subwoofer"
+            },
+            "surround_enabled": {
+                "name": "Povolen\u00fd priestorov\u00fd zvuk"
+            },
+            "surround_mode": {
+                "name": "Pln\u00e1 hlasitos\u0165 priestorovej hudby"
+            }
+        }
+    },
+    "exceptions": {
+        "announce_media_error": {
+            "message": "Oznamovanie klipu {media_id} zlyhalo {response}"
+        },
+        "invalid_content_type": {
+            "message": "Sonos nepodporuje typ medi\u00e1lneho obsahu: {media_type}"
+        },
+        "invalid_favorite": {
+            "message": "Nepodarilo sa n\u00e1js\u0165 ob\u013e\u00faben\u00e9 miesto Sonos: {name}"
+        },
+        "invalid_media": {
+            "message": "V kni\u017enici sa nepodarilo n\u00e1js\u0165 m\u00e9di\u00e1: {media_id}"
+        },
+        "invalid_sonos_playlist": {
+            "message": "Nepodarilo sa n\u00e1js\u0165 zoznam skladieb Sonos: {name}"
+        }
+    },
+    "issues": {
+        "subscriptions_failed": {
+            "description": "Ak sa vr\u00e1time k prieskumu, funk\u010dnos\u0165 m\u00f4\u017ee by\u0165 obmedzen\u00e1. \n\n Zariadenie Sonos na {device_ip} nem\u00f4\u017ee kontaktova\u0165 Home Assistant na {listener_address}. \n\n \u010eal\u0161ie inform\u00e1cie o rie\u0161en\u00ed tohto probl\u00e9mu n\u00e1jdete v na\u0161ej [dokument\u00e1cii]( {sub_fail_url}).",
+            "title": "Chyba siete: odbery zlyhali"
+        }
+    },
+    "services": {
+        "clear_sleep_timer": {
+            "description": "Vyma\u017ee \u010dasova\u010d Sonos.",
+            "name": "Vymaza\u0165 \u010dasova\u010d"
+        },
+        "get_queue": {
+            "description": "Vr\u00e1ti obsah frontu.",
+            "name": "Z\u00edska\u0165 frontu"
+        },
+        "play_queue": {
+            "description": "Za\u010dnite prehr\u00e1vanie frontu od prvej polo\u017eky.",
+            "fields": {
+                "queue_position": {
+                    "description": "Poz\u00edcia skladby vo fronte, od ktorej sa m\u00e1 za\u010da\u0165 prehr\u00e1vanie.",
+                    "name": "Poz\u00edcia v rade"
+                }
+            },
+            "name": "Hra\u0165 v rade"
+        },
+        "remove_from_queue": {
+            "description": "Odstr\u00e1ni polo\u017eku z frontu.",
+            "fields": {
+                "queue_position": {
+                    "description": "Poz\u00edcia vo fronte na odstr\u00e1nenie.",
+                    "name": "Poz\u00edcia v rade"
+                }
+            },
+            "name": "Odstr\u00e1nenie z frontu"
+        },
+        "restore": {
+            "description": "Obnov\u00ed sn\u00edmku prehr\u00e1va\u010da m\u00e9di\u00ed.",
+            "fields": {
+                "entity_id": {
+                    "description": "N\u00e1zov entity, ktor\u00e1 bude obnoven\u00e1.",
+                    "name": "Entita"
+                },
+                "with_group": {
+                    "description": "Pravda alebo lo\u017e. Obnovte aj rozlo\u017eenie skupiny.",
+                    "name": "So skupinou"
+                }
+            },
+            "name": "Obnovi\u0165"
+        },
+        "set_sleep_timer": {
+            "description": "Nastav\u00ed \u010dasova\u010d Sonos.",
+            "fields": {
+                "sleep_time": {
+                    "description": "Po\u010det sek\u00fand na nastavenie \u010dasova\u010da.",
+                    "name": "\u010cas sp\u00e1nku"
+                }
+            },
+            "name": "Nastavenie \u010dasova\u010da"
+        },
+        "snapshot": {
+            "description": "Vytvor\u00ed sn\u00edmku prehr\u00e1va\u010da m\u00e9di\u00ed.",
+            "fields": {
+                "entity_id": {
+                    "description": "N\u00e1zov entity, ktor\u00e1 bude sn\u00edmkou.",
+                    "name": "Entita"
+                },
+                "with_group": {
+                    "description": "Pravda alebo lo\u017e. Tie\u017e sn\u00edmka rozlo\u017eenia skupiny.",
+                    "name": "So skupinou"
+                }
+            },
+            "name": "Sn\u00edmka"
+        },
+        "update_alarm": {
+            "description": "Aktualizuje bud\u00edk s nov\u00fdmi nastaveniami \u010dasu a hlasitosti.",
+            "fields": {
+                "alarm_id": {
+                    "description": "ID pre alarm, ktor\u00fd sa m\u00e1 aktualizova\u0165.",
+                    "name": "ID alarmu"
+                },
+                "enabled": {
+                    "description": "Povolenie alebo zak\u00e1zanie alarmu.",
+                    "name": "Alarm povolen\u00fd"
+                },
+                "include_linked_zones": {
+                    "description": "Povolenie alebo zak\u00e1zanie zahrnutia zoskupen\u00fdch miestnost\u00ed.",
+                    "name": "Zahrn\u00fa\u0165 prepojen\u00e9 z\u00f3ny"
+                },
+                "time": {
+                    "description": "Nastavenie \u010dasu bud\u00edka.",
+                    "name": "\u010cas"
+                },
+                "volume": {
+                    "description": "Nastavenie \u00farovne hlasitosti bud\u00edka.",
+                    "name": "Hlasitos\u0165"
+                }
+            },
+            "name": "Aktualiz\u00e1cia alarmu"
+        }
+    }
+}

@@ -1,0 +1,98 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Cihaz zaten yap\u0131land\u0131r\u0131lm\u0131\u015f",
+            "cannot_connect": "Ba\u011flanma hatas\u0131",
+            "invalid_auth": "Ge\u00e7ersiz kimlik do\u011frulama",
+            "no_uuid": "Kodi \u00f6rne\u011finin benzersiz bir kimli\u011fi yok. Bu b\u00fcy\u00fck olas\u0131l\u0131kla eski bir Kodi s\u00fcr\u00fcm\u00fcnden (17.x veya alt\u0131) kaynaklanmaktad\u0131r. Entegrasyonu manuel olarak yap\u0131land\u0131rabilir veya daha yeni bir Kodi s\u00fcr\u00fcm\u00fcne y\u00fckseltebilirsiniz.",
+            "unknown": "Beklenmeyen hata"
+        },
+        "error": {
+            "cannot_connect": "Ba\u011flanma hatas\u0131",
+            "invalid_auth": "Ge\u00e7ersiz kimlik do\u011frulama",
+            "unknown": "Beklenmeyen hata"
+        },
+        "flow_title": "{name}",
+        "step": {
+            "credentials": {
+                "data": {
+                    "password": "\u015eifre",
+                    "username": "Kullan\u0131c\u0131 Ad\u0131"
+                },
+                "description": "L\u00fctfen Kodi kullan\u0131c\u0131 ad\u0131n\u0131z\u0131 ve \u015fifrenizi girin. Bunlar Sistem / Ayarlar / A\u011f / Hizmetler'de bulunabilir."
+            },
+            "discovery_confirm": {
+                "description": "Ev Asistan\u0131'na Kodi \"{name}\" eklemek istiyor musunuz?",
+                "title": "Ke\u015ffedilen Kodi"
+            },
+            "user": {
+                "data": {
+                    "host": "Sunucu",
+                    "port": "Port",
+                    "ssl": "SSL sertifikas\u0131 kullan\u0131r"
+                },
+                "data_description": {
+                    "host": "Kodi sunucunuzu bar\u0131nd\u0131ran sistemin ana bilgisayar ad\u0131 veya IP adresi."
+                },
+                "description": "Kodi ba\u011flant\u0131 bilgileri. L\u00fctfen Sistem/Ayarlar/A\u011f/Hizmetler'de \"Kodi'nin HTTP \u00fczerinden denetimine izin ver\" se\u00e7ene\u011fini etkinle\u015ftirdi\u011finizden emin olun."
+            },
+            "ws_port": {
+                "data": {
+                    "ws_port": "Port"
+                },
+                "description": "WebSocket ba\u011flant\u0131 noktas\u0131 (bazen Kodi'de TCP ba\u011flant\u0131 noktas\u0131 olarak adland\u0131r\u0131l\u0131r). WebSocket \u00fczerinden ba\u011flanmak i\u00e7in Sistem/Ayarlar/A\u011f/Hizmetler'de \"Programlar\u0131n Kodi'yi kontrol etmesine izin ver\" se\u00e7ene\u011fini etkinle\u015ftirmeniz gerekir. WebSocket etkin de\u011filse, ba\u011flant\u0131 noktas\u0131n\u0131 kald\u0131r\u0131n ve bo\u015f b\u0131rak\u0131n."
+            }
+        }
+    },
+    "device_automation": {
+        "trigger_type": {
+            "turn_off": "{entity_name} kapat\u0131ld\u0131",
+            "turn_on": "{entity_name} a\u00e7\u0131ld\u0131"
+        }
+    },
+    "entity": {
+        "media_player": {
+            "media_player": {
+                "state_attributes": {
+                    "dynamic_range": {
+                        "name": "Dinamik aral\u0131k"
+                    }
+                }
+            }
+        }
+    },
+    "services": {
+        "add_to_playlist": {
+            "description": "M\u00fczi\u011fi varsay\u0131lan \u00e7alma listesine ekler (\u00f6rn. \u00e7alma listesiid=0).",
+            "fields": {
+                "artist_name": {
+                    "description": "Medyay\u0131 filtrelemek i\u00e7in iste\u011fe ba\u011fl\u0131 sanat\u00e7\u0131 ad\u0131.",
+                    "name": "Sanat\u00e7\u0131 ad\u0131"
+                },
+                "media_id": {
+                    "description": "Eklenecek medya giri\u015finin benzersiz kimli\u011fi (\"\u015fark\u0131kimli\u011fi\" veya alb\u00fcmkimli\u011fi\"). Tan\u0131mlanmam\u0131\u015fsa, Kodi m\u00fczik kitapl\u0131\u011f\u0131nda arama yapmak i\u00e7in \"media_ad\u0131\" ve \"sanat\u00e7\u0131_ad\u0131\" gerekir.",
+                    "name": "Medya Kimli\u011fi"
+                },
+                "media_name": {
+                    "description": "Ortam\u0131 filtrelemek i\u00e7in iste\u011fe ba\u011fl\u0131 ortam ad\u0131. Bir sanat\u00e7\u0131n\u0131n t\u00fcm \u015fark\u0131lar\u0131n\u0131 eklemek i\u00e7in \"media_t\u00fcr\u00fc\" \"ALBUM\" oldu\u011funda ve \"sanat\u00e7\u0131_ad\u0131\" belirtildi\u011finde \"T\u00dcM\u00dc\" olabilir.",
+                    "name": "Medya ad\u0131"
+                },
+                "media_type": {
+                    "description": "Medya t\u00fcr\u00fc tan\u0131mlay\u0131c\u0131s\u0131. \u015eARKI veya ALBUM'den biri olmal\u0131d\u0131r.",
+                    "name": "Medya t\u00fcr\u00fc"
+                }
+            },
+            "name": "Oynatma listesine ekle"
+        },
+        "call_method": {
+            "description": "\u0130ste\u011fe ba\u011fl\u0131 parametrelerle bir Kodi JSONRPC API y\u00f6ntemini \u00e7a\u011f\u0131r\u0131r. Kodi API \u00e7a\u011fr\u0131s\u0131n\u0131n sonu\u00e7lar\u0131 bir Ev Asistan\u0131 etkinli\u011finde y\u00f6nlendirilecektir: \"kodi_call_method_result\".",
+            "fields": {
+                "method": {
+                    "description": "\u00c7a\u011fr\u0131lacak Kodi JSONRPC API y\u00f6nteminin ad\u0131.",
+                    "name": "Y\u00f6ntem"
+                }
+            },
+            "name": "\u00c7a\u011fr\u0131 y\u00f6ntemi"
+        }
+    }
+}

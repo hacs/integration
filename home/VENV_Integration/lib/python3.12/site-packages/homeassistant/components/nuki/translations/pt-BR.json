@@ -1,0 +1,65 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Dispositivo j\u00e1 est\u00e1 configurado",
+            "reauth_successful": "A reautentica\u00e7\u00e3o foi bem-sucedida"
+        },
+        "error": {
+            "cannot_connect": "Falha ao conectar",
+            "invalid_auth": "Autentica\u00e7\u00e3o inv\u00e1lida",
+            "unknown": "Erro inesperado"
+        },
+        "step": {
+            "reauth_confirm": {
+                "data": {
+                    "encrypt_token": "Use um token criptografado para autentica\u00e7\u00e3o.",
+                    "token": "Token de acesso"
+                },
+                "description": "A integra\u00e7\u00e3o Nuki precisa se autenticar novamente com sua ponte.",
+                "title": "A autentica\u00e7\u00e3o expirada para {name}"
+            },
+            "user": {
+                "data": {
+                    "encrypt_token": "Use um token criptografado para autentica\u00e7\u00e3o.",
+                    "host": "Host",
+                    "port": "Porta",
+                    "token": "Token de acesso"
+                }
+            }
+        }
+    },
+    "entity": {
+        "lock": {
+            "nuki_lock": {
+                "state_attributes": {
+                    "battery_critical": {
+                        "state": {
+                            "off": "Normal",
+                            "on": "Baixo"
+                        }
+                    }
+                }
+            }
+        },
+        "sensor": {
+            "battery": {
+                "name": "Bateria"
+            }
+        }
+    },
+    "issues": {
+        "https_webhook": {
+            "description": "A ponte Nuki n\u00e3o pode enviar eventos para um endere\u00e7o HTTPS (SSL), configure um endere\u00e7o HTTP (local) em \"Home Assistant URL\" nas [configura\u00e7\u00f5es de rede] ({network_link}). O endere\u00e7o (local) atual \u00e9: `{base_url}`, um endere\u00e7o v\u00e1lido pode, por exemplo, ser `http://192.168.1.10:8123` onde `192.168.1.10` \u00e9 o IP do dispositivo Home Assistant",
+            "title": "URL do webhook Nuki usa HTTPS (SSL)"
+        }
+    },
+    "services": {
+        "set_continuous_mode": {
+            "fields": {
+                "enable": {
+                    "name": "Ativar"
+                }
+            }
+        }
+    }
+}

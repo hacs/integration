@@ -1,0 +1,228 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Jours de trvail a d\u00e9j\u00e0 \u00e9t\u00e9 configur\u00e9 avec la configuration choisie",
+            "incorrect_province": "Subdivision incorrecte depuis l'importation yaml"
+        },
+        "error": {
+            "add_holiday_error": "Format de date incorrect (AAAA-MM-JJ)",
+            "add_holiday_range_error": "Format incorrect sur la plage de dates (AAAA-MM-JJ, AAAA-MM-JJ)",
+            "already_configured": "Le service est d\u00e9j\u00e0 configur\u00e9",
+            "remove_holiday_error": "Format de date incorrect (AAAA-MM-JJ) ou nom de jour f\u00e9ri\u00e9 introuvable",
+            "remove_holiday_range_error": "Format incorrect sur la plage de dates (AAAA-MM-JJ, AAAA-MM-JJ)"
+        },
+        "step": {
+            "options": {
+                "data": {
+                    "add_holidays": "Ajouter des jours f\u00e9ri\u00e9s",
+                    "category": "Cat\u00e9gorie suppl\u00e9mentaire comme vacances",
+                    "days_offset": "D\u00e9calage",
+                    "excludes": "Exclut",
+                    "language": "Langue des jours f\u00e9ri\u00e9s nomm\u00e9s",
+                    "province": "Subdivision du pays",
+                    "remove_holidays": "Supprimer les jours f\u00e9ri\u00e9s",
+                    "workdays": "Jours de travail"
+                },
+                "data_description": {
+                    "add_holidays": "Ajoutez des jours f\u00e9ri\u00e9s personnalis\u00e9s au format AAAA-MM-JJ ou sous forme de plage en utilisant `,` comme s\u00e9parateur",
+                    "category": "S\u00e9lectionnez des cat\u00e9gories suppl\u00e9mentaires \u00e0 inclure comme jours f\u00e9ri\u00e9s",
+                    "days_offset": "Jours de d\u00e9calage par rapport au jour courant",
+                    "language": "Langue \u00e0 utiliser lors de la configuration des exclusions de jours f\u00e9ri\u00e9s nomm\u00e9s",
+                    "province": "\u00c9tat, territoire, province ou r\u00e9gion du pays",
+                    "remove_holidays": "Supprimez les jours f\u00e9ri\u00e9s au format AAAA-MM-JJ, sous forme de plage en utilisant `,` comme s\u00e9parateur ou en utilisant une partie du nom",
+                    "workdays": "Liste des jours de travail"
+                },
+                "description": "D\u00e9finir des options suppl\u00e9mentaires pour {name} configur\u00e9 pour le pays {country}"
+            },
+            "user": {
+                "data": {
+                    "country": "Pays",
+                    "name": "Nom"
+                }
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "workday": {
+                "state_attributes": {
+                    "days_offset": {
+                        "name": "D\u00e9calage"
+                    },
+                    "excludes": {
+                        "name": "Exclut"
+                    },
+                    "workdays": {
+                        "name": "Jours de travail"
+                    }
+                }
+            }
+        }
+    },
+    "issues": {
+        "bad_country": {
+            "fix_flow": {
+                "step": {
+                    "country": {
+                        "data": {
+                            "country": "Pays"
+                        },
+                        "description": "S\u00e9lectionnez un pays \u00e0 utiliser pour votre capteur Jour de travail.",
+                        "title": "S\u00e9lectionnez le pays pour {title}"
+                    },
+                    "province": {
+                        "data": {
+                            "province": "Subdivision du pays"
+                        },
+                        "data_description": {
+                            "province": "\u00c9tat, territoire, province, r\u00e9gion du pays"
+                        },
+                        "description": "S\u00e9lectionnez une province du pays {country} \u00e0 utiliser pour votre capteur Jour de travail.",
+                        "title": "S\u00e9lectionnez la province pour {title}"
+                    }
+                }
+            },
+            "title": "Le pays configur\u00e9 pour {title} n'existe pas"
+        },
+        "bad_named_holiday": {
+            "fix_flow": {
+                "error": {
+                    "remove_holiday_error": "Format de date incorrect (AAAA-MM-JJ) ou nom de jour f\u00e9ri\u00e9 introuvable"
+                },
+                "step": {
+                    "fix_remove_holiday": {
+                        "data": {
+                            "remove_holidays": "Supprimer les jours f\u00e9ri\u00e9s"
+                        },
+                        "data_description": {
+                            "remove_holidays": "Supprimez les jours f\u00e9ri\u00e9s au format AAAA-MM-JJ, sous forme de plage en utilisant `,` comme s\u00e9parateur ou en utilisant une partie du nom"
+                        },
+                        "description": "Supprimez le jour f\u00e9ri\u00e9 nomm\u00e9 `{remove_holidays}` car il est introuvable dans le pays {country}.",
+                        "title": "Le jour f\u00e9ri\u00e9 nomm\u00e9 {remove_holidays} configur\u00e9 pour {title} n'existe pas"
+                    },
+                    "named_holiday": {
+                        "data": {
+                            "remove_holidays": "Supprimer les jours f\u00e9ri\u00e9s"
+                        },
+                        "data_description": {
+                            "remove_holidays": "Supprimez les jours f\u00e9ri\u00e9s au format AAAA-MM-JJ, sous forme de plage en utilisant `,` comme s\u00e9parateur ou en utilisant une partie du nom"
+                        },
+                        "description": "Supprimez le jour f\u00e9ri\u00e9 nomm\u00e9 `{remove_holidays}` car il est introuvable dans le pays {country}.",
+                        "title": "Le jour f\u00e9ri\u00e9 nomm\u00e9 {remove_holidays} configur\u00e9 pour {title} n'existe pas"
+                    }
+                }
+            },
+            "title": "Le jour f\u00e9ri\u00e9 nomm\u00e9 {remove_holidays} configur\u00e9 pour {title} n'existe pas"
+        },
+        "bad_province": {
+            "fix_flow": {
+                "step": {
+                    "province": {
+                        "data": {
+                            "province": "Subdivision du pays"
+                        },
+                        "data_description": {
+                            "province": "\u00c9tat, territoire, province, r\u00e9gion du pays"
+                        },
+                        "description": "S\u00e9lectionnez une province du pays {country} \u00e0 utiliser pour votre capteur Jour de travail.",
+                        "title": "S\u00e9lectionnez la province pour {title}"
+                    }
+                }
+            },
+            "title": "La province configur\u00e9e dans le pays {country} pour {title} n'existe pas"
+        },
+        "deprecated_yaml": {
+            "description": "La configuration de Jours de travail \u00e0 l'aide de YAML est en cours de suppression. \n\nVotre configuration YAML existante a \u00e9t\u00e9 import\u00e9e automatiquement dans l'interface utilisateur. \n\nSupprimez la configuration Workday YAML de votre fichier configuration.yaml et red\u00e9marrez Home Assistant pour r\u00e9soudre ce probl\u00e8me.",
+            "title": "La configuration YAML pour Jours de travail sera bient\u00f4t supprim\u00e9e"
+        }
+    },
+    "options": {
+        "error": {
+            "add_holiday_error": "Format de date incorrect (AAAA-MM-JJ)",
+            "add_holiday_range_error": "Format incorrect sur la plage de dates (AAAA-MM-JJ, AAAA-MM-JJ)",
+            "already_configured": "Le service avec cette configuration existe d\u00e9j\u00e0",
+            "remove_holiday_error": "Format de date incorrect (AAAA-MM-JJ) ou nom de jour f\u00e9ri\u00e9 introuvable",
+            "remove_holiday_range_error": "Format incorrect sur la plage de dates (AAAA-MM-JJ, AAAA-MM-JJ)"
+        },
+        "step": {
+            "init": {
+                "data": {
+                    "add_holidays": "Ajouter des jours f\u00e9ri\u00e9s",
+                    "category": "Cat\u00e9gorie suppl\u00e9mentaire comme vacances",
+                    "days_offset": "D\u00e9calage",
+                    "excludes": "Exclut",
+                    "language": "Langue des jours f\u00e9ri\u00e9s nomm\u00e9s",
+                    "province": "Subdivision du pays",
+                    "remove_holidays": "Supprimer les jours f\u00e9ri\u00e9s",
+                    "workdays": "Jours de travail"
+                },
+                "data_description": {
+                    "add_holidays": "Ajoutez des jours f\u00e9ri\u00e9s personnalis\u00e9s au format AAAA-MM-JJ ou sous forme de plage en utilisant `,` comme s\u00e9parateur",
+                    "category": "S\u00e9lectionnez des cat\u00e9gories suppl\u00e9mentaires \u00e0 inclure comme jours f\u00e9ri\u00e9s",
+                    "days_offset": "Jours de d\u00e9calage par rapport au jour courant",
+                    "excludes": "Liste des jours de travail \u00e0 exclure, notez le mot-cl\u00e9 `vacances` et lisez la documentation pour savoir comment l'utiliser correctement",
+                    "language": "Langue \u00e0 utiliser lors de la configuration des exclusions de jours f\u00e9ri\u00e9s nomm\u00e9s",
+                    "province": "\u00c9tat, territoire, province ou r\u00e9gion du pays",
+                    "remove_holidays": "Supprimez les jours f\u00e9ri\u00e9s au format AAAA-MM-JJ, sous forme de plage en utilisant `,` comme s\u00e9parateur ou en utilisant une partie du nom",
+                    "workdays": "Liste des jours de travail"
+                },
+                "description": "Modifier les options suppl\u00e9mentaires pour {name} configur\u00e9es pour le pays {country}"
+            }
+        }
+    },
+    "selector": {
+        "category": {
+            "options": {
+                "armed_forces": "Forces arm\u00e9es",
+                "bank": "Banque",
+                "chinese": "Chinois",
+                "christian": "Chr\u00e9tien",
+                "government": "Gouvernement",
+                "half_day": "Demi-journ\u00e9e",
+                "hebrew": "H\u00e9breu",
+                "hindu": "Hindou",
+                "islamic": "Islamique",
+                "optional": "Optionnel",
+                "public": "Publique",
+                "school": "\u00c9cole",
+                "unofficial": "Non officiel",
+                "workday": "Jour de travail"
+            }
+        },
+        "country": {
+            "options": {
+                "none": "Aucun pays"
+            }
+        },
+        "days": {
+            "options": {
+                "fri": "Vendredi",
+                "holiday": "Jours f\u00e9ri\u00e9s",
+                "mon": "Lundi",
+                "sat": "Samedi",
+                "sun": "Dimanche",
+                "thu": "Jeudi",
+                "tue": "Mardi",
+                "wed": "Mercredi"
+            }
+        },
+        "province": {
+            "options": {
+                "none": "Pas de subdivision"
+            }
+        }
+    },
+    "services": {
+        "check_date": {
+            "description": "V\u00e9rifie si la date est un jour de travail.",
+            "fields": {
+                "check_date": {
+                    "description": "Date \u00e0 v\u00e9rifier si c'est un jour de travail.",
+                    "name": "Date"
+                }
+            },
+            "name": "V\u00e9rifier la date"
+        }
+    },
+    "title": "Jour de travail"
+}

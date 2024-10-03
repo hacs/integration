@@ -1,0 +1,37 @@
+{
+    "entity": {
+        "binary_sensor": {
+            "assist_in_progress": {
+                "name": "Assist in Verwendung"
+            }
+        },
+        "select": {
+            "pipeline": {
+                "name": "Assistent",
+                "state": {
+                    "preferred": "Bevorzugt"
+                }
+            },
+            "vad_sensitivity": {
+                "name": "Zu Ende gesprochen Erkennung",
+                "state": {
+                    "aggressive": "Aggressiv",
+                    "default": "Standard",
+                    "relaxed": "Entspannt"
+                }
+            }
+        }
+    },
+    "issues": {
+        "assist_in_progress_deprecated": {
+            "fix_flow": {
+                "step": {
+                    "confirm_disable_entity": {
+                        "description": "Der {integration_name} im Gange bin\u00e4re Sensor `{entity_id}` ist veraltet.\n\nMigriere deine Konfiguration, um die entsprechende `{assist_satellite_domain}` Entit\u00e4t zu nutzen und klicke dann auf SENDEN, um den im Gange bin\u00e4ren Sensor zu deaktivieren und dieses Problem zu beheben."
+                    }
+                }
+            },
+            "title": "{integration_name} im Gange bin\u00e4re Sensoren  sind veraltet"
+        }
+    }
+}

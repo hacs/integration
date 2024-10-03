@@ -1,0 +1,162 @@
+{
+    "config": {
+        "error": {
+            "error_auth_app": "Helytelen alkalmaz\u00e1s azonos\u00edt\u00f3 vagy jelsz\u00f3",
+            "error_auth_mfa": "Helytelen k\u00f3d",
+            "error_auth_user": "Helytelen felhaszn\u00e1l\u00f3n\u00e9v vagy jelsz\u00f3"
+        },
+        "step": {
+            "auth_app": {
+                "data": {
+                    "app_id": "Alkalmaz\u00e1s azonos\u00edt\u00f3",
+                    "app_secret": "Titok"
+                },
+                "description": "Alkalmaz\u00e1s azonos\u00edt\u00f3ja \u00e9s titkos k\u00f3dja a [StarLine fejleszt\u0151i fi\u00f3kb\u00f3l](https://my.starline.ru/developer)",
+                "title": "Alkalmaz\u00e1si hiteles\u00edt\u0151 adatok"
+            },
+            "auth_captcha": {
+                "data": {
+                    "captcha_code": "K\u00f3d a k\u00e9pr\u0151l"
+                },
+                "description": "{captcha_img}",
+                "title": "Captcha"
+            },
+            "auth_mfa": {
+                "data": {
+                    "mfa_code": "SMS k\u00f3d"
+                },
+                "description": "Adja meg a {phone_number} telefonra k\u00fcld\u00f6tt k\u00f3dot.",
+                "title": "K\u00e9tfaktoros hiteles\u00edt\u00e9s"
+            },
+            "auth_user": {
+                "data": {
+                    "password": "Jelsz\u00f3",
+                    "username": "Felhaszn\u00e1l\u00f3n\u00e9v"
+                },
+                "description": "A StarLine fi\u00f3k e-mail c\u00edme \u00e9s jelszava",
+                "title": "Felhaszn\u00e1l\u00f3i hiteles\u00edt\u0151 adatok"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "alarm": {
+                "name": "Riaszt\u00e1s"
+            },
+            "doors": {
+                "name": "Ajt\u00f3k"
+            },
+            "hand_brake": {
+                "name": "K\u00e9zif\u00e9k"
+            },
+            "handsfree": {
+                "name": "Kihangos\u00edt\u00f3"
+            },
+            "hood": {
+                "name": "Motorh\u00e1ztet\u0151"
+            },
+            "moving_ban": {
+                "name": "K\u00f6leked\u00e9si tilalom"
+            },
+            "neutral": {
+                "name": "Programozhat\u00f3 semlegess\u00e9g"
+            },
+            "trunk": {
+                "name": "Csomagtart\u00f3"
+            }
+        },
+        "button": {
+            "horn": {
+                "name": "Szir\u00e9na"
+            }
+        },
+        "device_tracker": {
+            "location": {
+                "name": "Helysz\u00edn"
+            }
+        },
+        "lock": {
+            "security": {
+                "name": "Biztons\u00e1g"
+            }
+        },
+        "sensor": {
+            "balance": {
+                "name": "Balansz"
+            },
+            "battery": {
+                "name": "Elem/Akku"
+            },
+            "engine_temperature": {
+                "name": "Motor h\u0151m\u00e9rs\u00e9klet"
+            },
+            "errors": {
+                "name": "OBD hib\u00e1k"
+            },
+            "fuel": {
+                "name": "\u00dczemanyag mennyis\u00e9g"
+            },
+            "gps_count": {
+                "name": "GPS m\u0171holdak"
+            },
+            "gsm_signal": {
+                "name": "GSM jel"
+            },
+            "interior_temperature": {
+                "name": "Bels\u0151 h\u0151m\u00e9rs\u00e9klet"
+            },
+            "mileage": {
+                "name": "Fut\u00e1steljes\u00edtm\u00e9ny"
+            }
+        },
+        "switch": {
+            "additional_channel": {
+                "name": "Tov\u00e1bbi csatorna"
+            },
+            "engine": {
+                "name": "Motor"
+            },
+            "horn": {
+                "name": "K\u00fcrt"
+            },
+            "service_mode": {
+                "name": "Szerviz \u00fczemm\u00f3d"
+            },
+            "webasto": {
+                "name": "Webasto"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_horn_switch": {
+            "description": "A szir\u00e9na kapcsol\u00f3 haszn\u00e1lata elavult, \u00e9s a Home Assistant egy k\u00e9s\u0151bbi verzi\u00f3j\u00e1ban el lesz t\u00e1vol\u00edtva.\n\nK\u00e9rj\u00fck, \u00e1ll\u00edtsa be a szir\u00e9na kapcsol\u00f3 entit\u00e1st haszn\u00e1l\u00f3 automatiz\u00e1l\u00e1sokat vagy szkripteket \u00fagy, hogy ehelyett a szir\u00e9na gomb entit\u00e1st haszn\u00e1lj\u00e1k.",
+            "title": "A Starline szir\u00e9na kapcsol\u00f3 entit\u00e1st eltvol\u00edt\u00e1sa folyamtban van"
+        }
+    },
+    "services": {
+        "set_scan_interval": {
+            "description": "Be\u00e1ll\u00edtja a friss\u00edt\u00e9si gyakoris\u00e1got.",
+            "fields": {
+                "scan_interval": {
+                    "description": "Friss\u00edt\u00e9si gyakoris\u00e1g.",
+                    "name": "Vizsg\u00e1lati id\u0151k\u00f6z"
+                }
+            },
+            "name": "\u00c1ll\u00edtsa be a vizsg\u00e1lati intervallumot"
+        },
+        "set_scan_obd_interval": {
+            "description": "Be\u00e1ll\u00edtja az OBD inform\u00e1ci\u00f3 friss\u00edt\u00e9si gyakoris\u00e1g\u00e1t.",
+            "fields": {
+                "scan_interval": {
+                    "description": "Friss\u00edt\u00e9si gyakoris\u00e1g.",
+                    "name": "Vizsg\u00e1lati id\u0151k\u00f6z"
+                }
+            },
+            "name": "\u00c1ll\u00edtsa be az OBD vizsg\u00e1lati intervallumot"
+        },
+        "update_state": {
+            "description": "Let\u00f6lti az eszk\u00f6z\u00f6k utols\u00f3 \u00e1llapot\u00e1t a StarLine szerverr\u0151l.\n.",
+            "name": "\u00c1llapot friss\u00edt\u00e9se"
+        }
+    }
+}

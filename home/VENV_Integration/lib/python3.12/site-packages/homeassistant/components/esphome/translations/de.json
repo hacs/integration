@@ -1,0 +1,127 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Ger\u00e4t ist bereits konfiguriert",
+            "already_in_progress": "Der Konfigurationsablauf wird bereits ausgef\u00fchrt",
+            "mdns_missing_mac": "Fehlende MAC-Adresse in MDNS-Eigenschaften.",
+            "mqtt_missing_api": "Fehlender API-Port in den MQTT-Eigenschaften.",
+            "mqtt_missing_ip": "Fehlende IP-Adresse in den MQTT-Eigenschaften.",
+            "mqtt_missing_mac": "Fehlende MAC-Adresse in den MQTT-Eigenschaften.",
+            "reauth_successful": "Die erneute Authentifizierung war erfolgreich",
+            "service_received": "Aktion erhalten"
+        },
+        "error": {
+            "connection_error": "Keine Verbindung zum ESP m\u00f6glich. Achte darauf, dass deine YAML-Datei eine Zeile \u201eapi:\u201c enth\u00e4lt.",
+            "invalid_auth": "Ung\u00fcltige Authentifizierung",
+            "invalid_psk": "Der Transportverschl\u00fcsselungsschl\u00fcssel ist ung\u00fcltig. Bitte stelle sicher, dass es mit deiner Konfiguration \u00fcbereinstimmt",
+            "resolve_error": "Adresse des ESP kann nicht aufgel\u00f6st werden. Wenn dieser Fehler weiterhin besteht, lege bitte eine statische IP-Adresse fest"
+        },
+        "flow_title": "{name}",
+        "step": {
+            "authenticate": {
+                "data": {
+                    "password": "Passwort"
+                },
+                "description": "Bitte gebe das Passwort der ESPHome Konfiguration f\u00fcr {name} ein:"
+            },
+            "discovery_confirm": {
+                "description": "Willst du den ESPHome-Knoten `{name}` zu Home Assistant hinzuf\u00fcgen?",
+                "title": "Gefundener ESPHome-Knoten"
+            },
+            "encryption_key": {
+                "data": {
+                    "noise_psk": "Verschl\u00fcsselungsschl\u00fcssel"
+                },
+                "description": "Bitte gib den Verschl\u00fcsselungsschl\u00fcssel f\u00fcr {name} ein. Du findest ihn im ESPHome Dashboard oder in deiner Ger\u00e4tekonfiguration."
+            },
+            "reauth_confirm": {
+                "data": {
+                    "noise_psk": "Verschl\u00fcsselungsschl\u00fcssel"
+                },
+                "description": "Das ESPHome-Ger\u00e4t {name} hat die Transportverschl\u00fcsselung aktiviert oder den Verschl\u00fcsselungsschl\u00fcssel ge\u00e4ndert. Bitte gib den aktualisierten Schl\u00fcssel ein. Du findest ihn im ESPHome Dashboard oder in deiner Ger\u00e4tekonfiguration."
+            },
+            "user": {
+                "data": {
+                    "host": "Host",
+                    "port": "Port"
+                },
+                "description": "Bitte gib die Verbindungseinstellungen deines [ESPHome]({esphome_url}) Knotens ein."
+            }
+        }
+    },
+    "entity": {
+        "assist_satellite": {
+            "assist_satellite": {
+                "name": "Assistenz-Satellit"
+            }
+        },
+        "binary_sensor": {
+            "assist_in_progress": {
+                "name": "Assist in Verwendung"
+            },
+            "call_active": {
+                "name": "Anruf aktiv"
+            }
+        },
+        "climate": {
+            "climate": {
+                "state_attributes": {
+                    "fan_mode": {
+                        "state": {
+                            "quiet": "Leise"
+                        }
+                    }
+                }
+            }
+        },
+        "select": {
+            "pipeline": {
+                "name": "Assistent",
+                "state": {
+                    "preferred": "Bevorzugt"
+                }
+            },
+            "vad_sensitivity": {
+                "name": "Zu Ende gesprochen Erkennung",
+                "state": {
+                    "aggressive": "Aggressiv",
+                    "default": "Standard",
+                    "relaxed": "Entspannt"
+                }
+            }
+        }
+    },
+    "issues": {
+        "api_password_deprecated": {
+            "description": "Das API-Passwort f\u00fcr ESPHome ist veraltet und die Verwendung eines API-Schl\u00fcssels wird stattdessen empfohlen.\n\nEntferne das API-Kennwort und f\u00fcge deinem ESPHome-Ger\u00e4t einen Verschl\u00fcsselungsschl\u00fcssel hinzu, um dieses Problem zu beheben.",
+            "title": "API-Passwort f\u00fcr {name} veraltet"
+        },
+        "assist_in_progress_deprecated": {
+            "fix_flow": {
+                "step": {
+                    "confirm_disable_entity": {
+                        "description": "Der {integration_name} im Gange bin\u00e4re Sensor `{entity_id}` ist veraltet.\n\nMigriere deine Konfiguration, um die entsprechende `{assist_satellite_domain}` Entit\u00e4t zu nutzen und klicke dann auf SENDEN, um den im Gange bin\u00e4ren Sensor zu deaktivieren und dieses Problem zu beheben."
+                    }
+                }
+            },
+            "title": "{integration_name} im Gange bin\u00e4re Sensoren  sind veraltet"
+        },
+        "ble_firmware_outdated": {
+            "description": "Um die Zuverl\u00e4ssigkeit und Leistung von Bluetooth zu verbessern, empfehlen wir dringend {name} mit ESPHome {version} oder h\u00f6her zu aktualisieren. Wenn du das Ger\u00e4t von ESPHome vor 2022.12.0 aktualisierst, wird empfohlen, ein serielles Kabel anstelle eines Over-the-Air-Updates zu verwenden, um das neue Partitionsschema zu nutzen.",
+            "title": "Aktualisieren von {name} mit ESPHome {version} oder h\u00f6her"
+        },
+        "service_calls_not_allowed": {
+            "description": "Das ESPHome-Ger\u00e4t hat versucht, eine Home Assistant-Aktion auszuf\u00fchren, aber diese Funktion ist nicht aktiviert. \n\nWenn du diesem Ger\u00e4t vertraust und ihm die Ausf\u00fchrung von Home Assistant-Aktionen erlauben m\u00f6chtest, kannst du diese Funktion im Optionsfluss aktivieren.",
+            "title": "{name} darf keine Home Assistant-Aktionen ausf\u00fchren"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "allow_service_calls": "Erlaube dem Ger\u00e4t, Home Assistant-Aktionen auszuf\u00fchren."
+                }
+            }
+        }
+    }
+}

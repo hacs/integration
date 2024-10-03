@@ -1,0 +1,126 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "T\u00e4m\u00e4 SimpliSafe -tili on jo k\u00e4yt\u00f6ss\u00e4.",
+            "reauth_successful": "Uudelleentodennus onnistui",
+            "wrong_account": "Annetut k\u00e4ytt\u00e4j\u00e4tunnukset eiv\u00e4t vastaa t\u00e4t\u00e4 SimpliSafe-tili\u00e4."
+        },
+        "error": {
+            "identifier_exists": "Tili on jo rekister\u00f6ity",
+            "invalid_auth": "Virheellinen todennus",
+            "invalid_auth_code_length": "SimpliSafe-valtuutuskoodit ovat 45 merkin pituisia",
+            "unknown": "Odottamaton virhe"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "auth_code": "Valtuutuskoodi"
+                },
+                "description": "SimpliSafe todentaa k\u00e4ytt\u00e4j\u00e4t verkkosovelluksensa kautta. Teknisten rajoitusten vuoksi t\u00e4m\u00e4n prosessin lopussa on manuaalinen vaihe; varmista, ett\u00e4 luet [dokumentaation](http://home-assistant.io/integrations/simplisafe#getting-an-authorization-code) ennen aloittamista.\n\nKun olet valmis, klikkaa [t\u00e4st\u00e4]({url}) avataksesi SimpliSafe-verkkosovelluksen ja sy\u00f6tt\u00e4\u00e4ksesi tunnistetietosi. Jos olet jo kirjautunut SimpliSafeen selaimessasi, voit avata uuden v\u00e4lilehden ja kopioida/liitt\u00e4\u00e4 yll\u00e4 olevan URL-osoitteen kyseiseen v\u00e4lilehteen.\n\nKun prosessi on valmis, palaa t\u00e4nne ja sy\u00f6t\u00e4 valtuutuskoodi `com.simplisafe.mobile` URL-osoitteesta."
+            }
+        }
+    },
+    "entity": {
+        "button": {
+            "clear_notifications": {
+                "name": "Tyhjenn\u00e4 ilmoitukset"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_service": {
+            "description": "P\u00e4ivit\u00e4 kaikki t\u00e4t\u00e4 palvelua k\u00e4ytt\u00e4v\u00e4t automaatiot tai skriptit k\u00e4ytt\u00e4m\u00e4\u00e4n sen sijaan `{alternate_service}`-palvelua, jonka entiteettitunnus on `{alternate_target}`. Napsauta sitten L\u00c4HET\u00c4 alla merkit\u00e4ksesi t\u00e4m\u00e4n ongelman ratkaistuksi.",
+            "title": "{deprecated_service} -palvelu poistetaan."
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "code": "Koodi (k\u00e4ytet\u00e4\u00e4n Home Assistantin k\u00e4ytt\u00f6liittym\u00e4ss\u00e4)"
+                },
+                "title": "M\u00e4\u00e4rit\u00e4 SimpliSafe"
+            }
+        }
+    },
+    "services": {
+        "remove_pin": {
+            "description": "Poistaa PIN-koodin sen nimen tai arvon perusteella.",
+            "fields": {
+                "device_id": {
+                    "description": "J\u00e4rjestelm\u00e4, josta PIN-koodi poistetaan.",
+                    "name": "J\u00e4rjestelm\u00e4"
+                },
+                "label_or_pin": {
+                    "description": "Poistettava nimi/arvo.",
+                    "name": "Nimi/PIN"
+                }
+            },
+            "name": "Poista PIN-koodi"
+        },
+        "set_pin": {
+            "description": "Asettaa/p\u00e4ivitt\u00e4\u00e4 PIN-koodin.",
+            "fields": {
+                "device_id": {
+                    "description": "J\u00e4rjestelm\u00e4, johon PIN-koodi asetetaan.",
+                    "name": "J\u00e4rjestelm\u00e4"
+                },
+                "label": {
+                    "description": "PIN-koodin nimi.",
+                    "name": "Nimi"
+                },
+                "pin": {
+                    "description": "PIN-koodin arvo.",
+                    "name": "PIN"
+                }
+            },
+            "name": "Aseta PIN"
+        },
+        "set_system_properties": {
+            "description": "Asettaa yhden tai useamman j\u00e4rjestelm\u00e4n ominaisuuden.",
+            "fields": {
+                "alarm_duration": {
+                    "description": "Lauenneen h\u00e4lytyksen kesto.",
+                    "name": "H\u00e4lytyksen kesto"
+                },
+                "alarm_volume": {
+                    "description": "Lauenneen h\u00e4lytyksen \u00e4\u00e4nenvoimakkuus.",
+                    "name": "H\u00e4lytyksen \u00e4\u00e4nenvoimakkuus"
+                },
+                "chime_volume": {
+                    "description": "Ovikellon \u00e4\u00e4nenvoimakkuuden taso.",
+                    "name": "Soitto\u00e4\u00e4nen voimakkuus"
+                },
+                "device_id": {
+                    "description": "J\u00e4rjestelm\u00e4, jonka ominaisuudet on m\u00e4\u00e4ritett\u00e4v\u00e4.",
+                    "name": "J\u00e4rjestelm\u00e4"
+                },
+                "entry_delay_away": {
+                    "description": "Kuinka kauan viivytt\u00e4\u00e4, kun siirryt\u00e4\u00e4n \"poissa\".",
+                    "name": "Sis\u00e4\u00e4ntuloviive pois"
+                },
+                "entry_delay_home": {
+                    "description": "Kuinka kauan viivytt\u00e4\u00e4 tullessasi \"kotiin\".",
+                    "name": "Kirjautumisviive kotiin"
+                },
+                "exit_delay_away": {
+                    "description": "Kuinka kauan viiveell\u00e4 poistuttaessa \"poissa\".",
+                    "name": "Poistumisviive pois"
+                },
+                "exit_delay_home": {
+                    "description": "Kuinka kauan viiveell\u00e4 poistuttaessa \"kotona\".",
+                    "name": "Poistumisviive kodista"
+                },
+                "light": {
+                    "description": "Pit\u00e4isik\u00f6 viritysvalon n\u00e4ky\u00e4.",
+                    "name": "Valo"
+                },
+                "voice_prompt_volume": {
+                    "description": "\u00c4\u00e4nikehotteen \u00e4\u00e4nenvoimakkuus.",
+                    "name": "\u00c4\u00e4nikehotteen \u00e4\u00e4nenvoimakkuus"
+                }
+            },
+            "name": "Aseta j\u00e4rjestelm\u00e4n ominaisuudet"
+        }
+    }
+}

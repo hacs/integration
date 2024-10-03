@@ -1,0 +1,440 @@
+{
+    "config": {
+        "abort": {
+            "addon_get_discovery_info_failed": "Impossible d'obtenir les informations de d\u00e9couverte du module compl\u00e9mentaire Z-Wave JS.",
+            "addon_info_failed": "Impossible d'obtenir les informations sur le module compl\u00e9mentaire Z-Wave JS.",
+            "addon_install_failed": "\u00c9chec de l'installation du module compl\u00e9mentaire Z-Wave JS.",
+            "addon_set_config_failed": "\u00c9chec de la d\u00e9finition de la configuration Z-Wave JS.",
+            "addon_start_failed": "\u00c9chec du d\u00e9marrage du module compl\u00e9mentaire Z-Wave JS.",
+            "already_configured": "L'appareil est d\u00e9j\u00e0 configur\u00e9",
+            "already_in_progress": "La configuration est d\u00e9j\u00e0 en cours",
+            "cannot_connect": "\u00c9chec de connexion",
+            "discovery_requires_supervisor": "La d\u00e9couverte n\u00e9cessite le superviseur.",
+            "not_zwave_device": "L'appareil d\u00e9couvert n'est pas un appareil Z-Wave.",
+            "not_zwave_js_addon": "Le module compl\u00e9mentaire d\u00e9couvert n'est pas le module compl\u00e9mentaire officiel de Z-Wave JS."
+        },
+        "error": {
+            "addon_start_failed": "\u00c9chec du d\u00e9marrage du module compl\u00e9mentaire Z-Wave JS. V\u00e9rifiez la configuration.",
+            "cannot_connect": "\u00c9chec de connexion",
+            "invalid_ws_url": "URL websocket non valide",
+            "unknown": "Erreur inattendue"
+        },
+        "flow_title": "{name}",
+        "progress": {
+            "install_addon": "Veuillez patienter pendant l'installation du module compl\u00e9mentaire Z-Wave JS. Cela peut prendre plusieurs minutes.",
+            "start_addon": "Veuillez patienter pendant le d\u00e9marrage du module compl\u00e9mentaire Z-Wave JS. Cela peut prendre quelques secondes."
+        },
+        "step": {
+            "configure_addon": {
+                "data": {
+                    "s0_legacy_key": "Cl\u00e9 S0 (h\u00e9rit\u00e9e)",
+                    "s2_access_control_key": "Cl\u00e9 de contr\u00f4le d'acc\u00e8s S2",
+                    "s2_authenticated_key": "Cl\u00e9 d'authentification S2",
+                    "s2_unauthenticated_key": "Cl\u00e9 non authentifi\u00e9e S2",
+                    "usb_path": "Chemin du p\u00e9riph\u00e9rique USB"
+                },
+                "description": "Le module compl\u00e9mentaire g\u00e9n\u00e9rera des cl\u00e9s de s\u00e9curit\u00e9 si ces champs sont laiss\u00e9s vides.",
+                "title": "Entrez la configuration du module compl\u00e9mentaire Z-Wave JS"
+            },
+            "hassio_confirm": {
+                "title": "Configurer l'int\u00e9gration Z-Wave JS avec le module compl\u00e9mentaire Z-Wave JS"
+            },
+            "install_addon": {
+                "title": "L'installation du module compl\u00e9mentaire Z-Wave JS a d\u00e9marr\u00e9"
+            },
+            "manual": {
+                "data": {
+                    "url": "URL"
+                }
+            },
+            "on_supervisor": {
+                "data": {
+                    "use_addon": "Utiliser le module compl\u00e9mentaire Z-Wave JS du Supervisor"
+                },
+                "description": "Voulez-vous utiliser le module compl\u00e9mentaire Z-Wave JS du Supervisor\u00a0?",
+                "title": "S\u00e9lectionner la m\u00e9thode de connexion"
+            },
+            "start_addon": {
+                "title": "Le module compl\u00e9mentaire Z-Wave JS d\u00e9marre."
+            },
+            "usb_confirm": {
+                "description": "Voulez-vous configurer {name} avec le module compl\u00e9mentaire Z-Wave JS?"
+            },
+            "zeroconf_confirm": {
+                "description": "Voulez-vous ajouter le serveur Z-Wave\u00a0JS portant l'ID {home_id} et trouv\u00e9 sur {url} \u00e0 Home Assistant\u00a0?",
+                "title": "Serveur Z-Wave\u00a0JS d\u00e9couvert"
+            }
+        }
+    },
+    "device_automation": {
+        "action_type": {
+            "clear_lock_usercode": "Effacer le code utilisateur sur {entity_name}",
+            "ping": "Envoyer un \u00ab\u00a0ping\u00a0\u00bb \u00e0 l'appareil",
+            "refresh_value": "Actualiser la ou les valeurs de {entity_name}",
+            "reset_meter": "R\u00e9initialiser les compteurs sur {subtype}",
+            "set_config_parameter": "D\u00e9finir la valeur du param\u00e8tre de configuration {subtype}",
+            "set_lock_usercode": "D\u00e9finir un code utilisateur sur {entity_name}",
+            "set_value": "D\u00e9finir la valeur d'une valeur Z-Wave"
+        },
+        "condition_type": {
+            "config_parameter": "Valeur du param\u00e8tre de configuration {subtype}",
+            "node_status": "\u00c9tat du n\u0153ud",
+            "value": "Valeur actuelle d'une valeur Z-Wave"
+        },
+        "extra_fields": {
+            "code_slot": "Emplacement de code",
+            "command_class": "Classe de commande",
+            "data_type": "Type de donn\u00e9es",
+            "endpoint": "Point de terminaison",
+            "event": "\u00c9v\u00e9nement",
+            "event_label": "\u00c9tiquette de l'\u00e9v\u00e9nement",
+            "event_type": "Type d'\u00e9v\u00e9nement",
+            "for": "Dur\u00e9e",
+            "from": "De",
+            "label": "\u00c9tiquette",
+            "property": "Propri\u00e9t\u00e9",
+            "property_key": "Cl\u00e9 de la propri\u00e9t\u00e9",
+            "refresh_all_values": "Rafra\u00eechir toutes les valeurs",
+            "status": "Statut",
+            "to": "\u00c0",
+            "type.": "Type",
+            "usercode": "Code utilisateur",
+            "value": "Valeur",
+            "wait_for_result": "Attendre le r\u00e9sultat"
+        },
+        "trigger_type": {
+            "event.notification.entry_control": "Envoi d'une notification de contr\u00f4le d'entr\u00e9e",
+            "event.notification.notification": "Envoi une notification",
+            "event.value_notification.basic": "\u00c9v\u00e9nement CC de base sur {subtype}",
+            "event.value_notification.central_scene": "Action de la sc\u00e8ne centrale sur {subtype}",
+            "event.value_notification.scene_activation": "Activation de la sc\u00e8ne sur {subtype}",
+            "state.node_status": "L\u2019\u00e9tat du n\u0153ud a chang\u00e9",
+            "zwave_js.value_updated.config_parameter": "Changement de valeur sur le param\u00e8tre de configuration {subtype}"
+        }
+    },
+    "entity": {
+        "sensor": {
+            "controller_status": {
+                "name": "Statut",
+                "state": {
+                    "jammed": "Bloqu\u00e9",
+                    "ready": "Pr\u00eat",
+                    "unresponsive": "Absence de r\u00e9ponse"
+                }
+            },
+            "last_seen": {
+                "name": "Derni\u00e8re connexion"
+            },
+            "node_status": {
+                "name": "\u00c9tat du n\u0153ud",
+                "state": {
+                    "alive": "Actif",
+                    "asleep": "Endormi",
+                    "awake": "\u00c9veill\u00e9",
+                    "dead": "Mort",
+                    "unknown": "Inconnu"
+                }
+            },
+            "rssi": {
+                "name": "RSSI"
+            },
+            "timeout_response": {
+                "name": "D\u00e9lai d'attente d\u00e9pass\u00e9"
+            }
+        }
+    },
+    "issues": {
+        "device_config_file_changed": {
+            "fix_flow": {
+                "abort": {
+                    "cannot_connect": "Impossible de se connecter \u00e0 {device_name}. Veuillez r\u00e9essayer plus tard apr\u00e8s avoir confirm\u00e9 que votre r\u00e9seau Z-Wave est op\u00e9rationnel et connect\u00e9 \u00e0 Home Assistant.",
+                    "issue_ignored": "La mise \u00e0 jour du fichier de configuration du p\u00e9riph\u00e9rique {device_name} est ignor\u00e9e."
+                },
+                "step": {
+                    "confirm": {
+                        "description": "Le fichier de configuration pour {device_name} a chang\u00e9.\n\nZ-Wave JS d\u00e9couvre de nombreuses m\u00e9tadonn\u00e9es de l'appareil en l'interrogeant. Cependant, certaines des informations doivent \u00eatre charg\u00e9es \u00e0 partir d'un fichier de configuration. Certaines de ces informations ne sont \u00e9valu\u00e9es qu\u2019une seule fois, lors de l'interrogation de l\u2019appareil. \n\nLorsqu'un fichier de configuration de p\u00e9riph\u00e9rique est mis \u00e0 jour, ces informations peuvent \u00eatre obsol\u00e8tes et le p\u00e9riph\u00e9rique doit \u00eatre r\u00e9interrog\u00e9 pour r\u00e9cup\u00e9rer les modifications.\n\nIl ne s'agit pas d'une op\u00e9ration obligatoire et les fonctionnalit\u00e9s de l'appareil seront impact\u00e9es lors du processus de r\u00e9interrogation. Vous pourrez constater des am\u00e9liorations de l'appareil une fois celui-ci termin\u00e9e.\n\nSi vous souhaitez continuer, cliquez sur SOUMETTRE ci-dessous. La nouvelle interrogation se fera en arri\u00e8re-plan.",
+                        "title": "Fichier de configuration de l'appareil modifi\u00e9\u00a0: {device_name}"
+                    },
+                    "init": {
+                        "description": "Le fichier de configuration du p\u00e9riph\u00e9rique pour {device_name} a chang\u00e9.\n\nZ-Wave JS d\u00e9couvre de nombreuses m\u00e9tadonn\u00e9es en interrogeant le p\u00e9riph\u00e9rique. Cependant, certaines informations doivent \u00eatre charg\u00e9es \u00e0 partir d'un fichier de configuration. Certaines de ces informations ne sont \u00e9valu\u00e9es qu'une seule fois, lors de l'entretien avec le p\u00e9riph\u00e9rique.\n\nLorsque le fichier de configuration d'un appareil est mis \u00e0 jour, ces informations peuvent \u00eatre p\u00e9rim\u00e9es et l'appareil doit \u00eatre r\u00e9interrog\u00e9 pour prendre en compte les changements.\n\nCette op\u00e9ration n'est pas obligatoire et les fonctionnalit\u00e9s de l'appareil seront affect\u00e9es pendant le processus de r\u00e9interrogation, mais vous pourrez constater des am\u00e9liorations pour votre appareil une fois l'op\u00e9ration termin\u00e9e.",
+                        "menu_options": {
+                            "ignore": "Ignorer la mise \u00e0 jour de la configuration"
+                        },
+                        "title": "Fichier de configuration du dispositif modifi\u00e9 : {device_name}"
+                    }
+                }
+            },
+            "title": "Fichier de configuration de l'appareil modifi\u00e9\u00a0: {device_name}"
+        },
+        "dry_fan_presets_deprecation": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Vous utilisez les modes pr\u00e9d\u00e9finis Dry ou Fan dans votre entit\u00e9 `{entity_id}`.\n\nLes modes pr\u00e9d\u00e9finis Dry et Fan sont obsol\u00e8tes et seront supprim\u00e9s. Veuillez mettre \u00e0 jour vos automatisations pour utiliser les **modes HVAC** Dry et Fan correspondants \u00e0 la place.\n\nCliquez sur SOUMETTRE ci-dessous une fois que vous avez r\u00e9solu ce probl\u00e8me manuellement.",
+                        "title": "Les modes pr\u00e9d\u00e9finis Sec et Ventilateur seront supprim\u00e9s : {entity_id}"
+                    }
+                }
+            },
+            "title": "Les modes pr\u00e9d\u00e9finis Dry et Fan seront supprim\u00e9s : {entity_id}"
+        },
+        "invalid_server_version": {
+            "description": "La version du serveur Z-Wave JS que vous utilisez actuellement est trop ancienne pour cette version de Home Assistant. Veuillez mettre \u00e0 jour le serveur Z-Wave JS \u00e0 la derni\u00e8re version pour r\u00e9soudre ce probl\u00e8me.",
+            "title": "Une version plus r\u00e9cente du serveur Z-Wave\u00a0JS est n\u00e9cessaire"
+        }
+    },
+    "options": {
+        "abort": {
+            "addon_get_discovery_info_failed": "Impossible d'obtenir les informations de d\u00e9couverte du module compl\u00e9mentaire Z-Wave JS.",
+            "addon_info_failed": "Impossible d'obtenir les informations sur le module compl\u00e9mentaire Z-Wave JS.",
+            "addon_install_failed": "\u00c9chec de l'installation du module compl\u00e9mentaire Z-Wave JS.",
+            "addon_set_config_failed": "\u00c9chec de la d\u00e9finition de la configuration Z-Wave JS.",
+            "addon_start_failed": "\u00c9chec du d\u00e9marrage du module compl\u00e9mentaire Z-Wave JS.",
+            "already_configured": "L'appareil est d\u00e9j\u00e0 configur\u00e9",
+            "cannot_connect": "\u00c9chec de connexion",
+            "different_device": "Le p\u00e9riph\u00e9rique USB connect\u00e9 n'est pas le m\u00eame que celui qui \u00e9tait pr\u00e9c\u00e9demment configur\u00e9 pour cette entr\u00e9e de configuration. Veuillez \u00e0 la place cr\u00e9er une nouvelle entr\u00e9e de configuration pour le nouveau p\u00e9riph\u00e9rique."
+        },
+        "error": {
+            "cannot_connect": "\u00c9chec de connexion",
+            "invalid_ws_url": "URL websocket non valide",
+            "unknown": "Erreur inattendue"
+        },
+        "progress": {
+            "install_addon": "Veuillez patienter pendant l'installation du module compl\u00e9mentaire Z-Wave JS. Cela peut prendre plusieurs minutes.",
+            "start_addon": "Veuillez patienter pendant le d\u00e9marrage du module compl\u00e9mentaire Z-Wave JS. Cela peut prendre quelques secondes."
+        },
+        "step": {
+            "configure_addon": {
+                "data": {
+                    "emulate_hardware": "\u00c9muler le mat\u00e9riel",
+                    "log_level": "Niveau de journalisation",
+                    "s0_legacy_key": "Cl\u00e9 S0 (h\u00e9rit\u00e9e)",
+                    "s2_access_control_key": "Cl\u00e9 de contr\u00f4le d'acc\u00e8s S2",
+                    "s2_authenticated_key": "Cl\u00e9 d'authentification S2",
+                    "s2_unauthenticated_key": "Cl\u00e9 non authentifi\u00e9e S2",
+                    "usb_path": "Chemin du p\u00e9riph\u00e9rique USB"
+                },
+                "description": "Le module compl\u00e9mentaire g\u00e9n\u00e9rera des cl\u00e9s de s\u00e9curit\u00e9 si ces champs sont laiss\u00e9s vides.",
+                "title": "Entrez la configuration du module compl\u00e9mentaire Z-Wave JS"
+            },
+            "install_addon": {
+                "title": "L'installation du module compl\u00e9mentaire Z-Wave JS a d\u00e9marr\u00e9"
+            },
+            "manual": {
+                "data": {
+                    "url": "URL"
+                }
+            },
+            "on_supervisor": {
+                "data": {
+                    "use_addon": "Utiliser le module compl\u00e9mentaire Z-Wave JS du Supervisor"
+                },
+                "description": "Voulez-vous utiliser le module compl\u00e9mentaire Z-Wave JS du Supervisor\u00a0?",
+                "title": "S\u00e9lectionner la m\u00e9thode de connexion"
+            },
+            "start_addon": {
+                "title": "Le module compl\u00e9mentaire Z-Wave JS d\u00e9marre."
+            }
+        }
+    },
+    "services": {
+        "bulk_set_partial_config_parameters": {
+            "description": "Permet de d\u00e9finir des param\u00e8tres partiels en masse. Utile lorsque plusieurs param\u00e8tres partiels doivent \u00eatre d\u00e9finis en m\u00eame temps.",
+            "fields": {
+                "endpoint": {
+                    "name": "Point de terminaison"
+                },
+                "entity_id": {
+                    "description": "L'ID de l'entit\u00e9 \u00e0 suivre pour ce service.",
+                    "name": "ID de l'entit\u00e9"
+                },
+                "parameter": {
+                    "description": "Nom (ou ID) du param\u00e8tre de configuration que vous souhaitez configurer.",
+                    "name": "Param\u00e8tre"
+                },
+                "value": {
+                    "description": "La ou les nouvelles valeurs \u00e0 d\u00e9finir pour ce param\u00e8tre de configuration. Il peut s'agir d'une valeur enti\u00e8re brute repr\u00e9sentant la modification globale ou d'une correspondance o\u00f9 la cl\u00e9 est le masque de bits (sous forme hexad\u00e9cimale ou enti\u00e8re) et la valeur est la nouvelle valeur que vous souhaitez d\u00e9finir pour ce param\u00e8tre partiel.",
+                    "name": "Valeur"
+                }
+            }
+        },
+        "clear_lock_usercode": {
+            "name": "Effacer le code utilisateur de verrouillage"
+        },
+        "invoke_cc_api": {
+            "description": "Appelle une API de classe de commande sur un n\u0153ud. Certaines classes de commandes ne peuvent pas \u00eatre enti\u00e8rement contr\u00f4l\u00e9es via l'action `set_value` et n\u00e9cessitent des appels directs \u00e0 l'API de la classe de commandes.",
+            "fields": {
+                "command_class": {
+                    "description": "L'ID de la classe de commande \u00e0 laquelle vous souhaitez transmettre une commande.",
+                    "name": "Classe de commande"
+                },
+                "endpoint": {
+                    "description": "Le point de terminaison sur lequel appeler l'API. Si un point de terminaison est sp\u00e9cifi\u00e9, il sera utilis\u00e9 pour tous les n\u0153uds associ\u00e9s aux domaines, dispositifs et/ou entit\u00e9s cibles. Si aucun point de terminaison n'est sp\u00e9cifi\u00e9, le point de terminaison racine (0) sera cibl\u00e9 pour les n\u0153uds associ\u00e9s aux zones et dispositifs cibles, et le point de terminaison pour la valeur primaire de chaque entit\u00e9 sera cibl\u00e9."
+                },
+                "entity_id": {
+                    "description": "L'ID de l'entit\u00e9 \u00e0 suivre pour ce service.",
+                    "name": "ID de l'entit\u00e9"
+                },
+                "parameters": {
+                    "name": "Param\u00e8tres"
+                }
+            }
+        },
+        "multicast_set_value": {
+            "fields": {
+                "entity_id": {
+                    "description": "L'ID de l'entit\u00e9 \u00e0 suivre pour ce service.",
+                    "name": "ID de l'entit\u00e9"
+                },
+                "property": {
+                    "name": "Propri\u00e9t\u00e9"
+                },
+                "property_key": {
+                    "description": "L'ID de la cl\u00e9 de propri\u00e9t\u00e9 pour la valeur.",
+                    "name": "Cl\u00e9 de propri\u00e9t\u00e9"
+                },
+                "value": {
+                    "description": "La nouvelle valeur \u00e0 d\u00e9finir.",
+                    "name": "Valeur"
+                }
+            },
+            "name": "D\u00e9finir une valeur sur plusieurs appareils via multicast (avanc\u00e9)"
+        },
+        "ping": {
+            "description": "Force Z-Wave JS \u00e0 essayer d'atteindre un n\u0153ud. Ceci peut \u00eatre utilis\u00e9 pour mettre \u00e0 jour le statut du n\u0153ud dans Z-Wave JS lorsque vous pensez qu'il ne refl\u00e8te pas exactement la r\u00e9alit\u00e9, par exemple en ranimant un n\u0153ud d\u00e9faillant/mort ou en marquant le n\u0153ud comme \u00e9tant endormi.",
+            "fields": {
+                "entity_id": {
+                    "description": "L'ID de l'entit\u00e9 \u00e0 suivre pour ce service.",
+                    "name": "ID de l'entit\u00e9"
+                }
+            },
+            "name": "Envoyer un \u00ab\u00a0ping\u00a0\u00bb \u00e0 un n\u0153ud"
+        },
+        "refresh_notifications": {
+            "description": "Actualise les notifications sur un n\u0153ud en fonction du type de notification et optionnellement de l'\u00e9v\u00e9nement de notification.",
+            "fields": {
+                "entity_id": {
+                    "description": "L'ID de l'entit\u00e9 \u00e0 suivre pour ce service.",
+                    "name": "ID de l'entit\u00e9"
+                },
+                "notification_event": {
+                    "description": "Le num\u00e9ro de l'\u00e9v\u00e9nement de notification tel que d\u00e9fini dans les sp\u00e9cifications Z-Wave.",
+                    "name": "\u00c9v\u00e9nement de notification"
+                },
+                "notification_type": {
+                    "description": "Le num\u00e9ro du type de notification tel que d\u00e9fini dans les sp\u00e9cifications Z-Wave.",
+                    "name": "Type de notification"
+                }
+            },
+            "name": "Actualiser les notifications sur un n\u0153ud (avanc\u00e9)"
+        },
+        "refresh_value": {
+            "description": "Force la mise \u00e0 jour des valeurs d'une entit\u00e9 Z-Wave.",
+            "fields": {
+                "entity_id": {
+                    "description": "Entit\u00e9s \u00e0 rafraichir.",
+                    "name": "Entit\u00e9s"
+                },
+                "refresh_all_values": {
+                    "description": "Rafra\u00eechir toutes les valeurs (true) ou seulement la valeur primaire (false).",
+                    "name": "Rafra\u00eechir toutes les valeurs ?"
+                }
+            },
+            "name": "Rafra\u00eechir les valeurs"
+        },
+        "reset_meter": {
+            "description": "R\u00e9initialise les compteurs d'un n\u0153ud.",
+            "fields": {
+                "entity_id": {
+                    "description": "L'ID de l'entit\u00e9 \u00e0 suivre pour ce service.",
+                    "name": "ID de l'entit\u00e9"
+                },
+                "meter_type": {
+                    "description": "Le type de compteur \u00e0 r\u00e9initialiser. Tous les compteurs ne prennent pas en charge la possibilit\u00e9 de choisir un type de compteur \u00e0 r\u00e9initialiser.",
+                    "name": "Type de compteur"
+                },
+                "value": {
+                    "description": "La valeur \u00e0 laquelle les compteurs doivent \u00eatre r\u00e9initialis\u00e9s. Tous les compteurs ne prennent pas en charge la possibilit\u00e9 d'\u00eatre r\u00e9initialis\u00e9s \u00e0 une valeur sp\u00e9cifique.",
+                    "name": "Valeur cible"
+                }
+            },
+            "name": "R\u00e9initialiser les compteurs sur un n\u0153ud"
+        },
+        "set_config_parameter": {
+            "fields": {
+                "bitmask": {
+                    "name": "Masque de bits"
+                },
+                "endpoint": {
+                    "name": "Point de terminaison"
+                },
+                "entity_id": {
+                    "description": "L'ID de l'entit\u00e9 \u00e0 suivre pour ce service.",
+                    "name": "ID de l'entit\u00e9"
+                },
+                "parameter": {
+                    "description": "Nom (ou ID) du param\u00e8tre de configuration que vous souhaitez configurer.",
+                    "name": "Param\u00e8tre"
+                },
+                "value": {
+                    "name": "Valeur"
+                },
+                "value_format": {
+                    "description": "Format de la valeur, 0 pour entier sign\u00e9, 1 pour entier non sign\u00e9, 2 pour \u00e9num\u00e9r\u00e9, 3 pour champ de bits. Utilis\u00e9 en combinaison avec value_size lorsqu'un param\u00e8tre de configuration n'est pas d\u00e9fini dans le fichier de configuration de votre appareil. Ne peut \u00eatre combin\u00e9 avec un masque de bits.",
+                    "name": "Format de la valeur"
+                },
+                "value_size": {
+                    "description": "Taille de la valeur, soit 1, 2 ou 4. Utilis\u00e9 en combinaison avec value_format lorsqu'un param\u00e8tre de configuration n'est pas d\u00e9fini dans le fichier de configuration de votre appareil. Ne peut \u00eatre combin\u00e9 avec masque de bits.",
+                    "name": "Taille de la valeur"
+                }
+            }
+        },
+        "set_lock_usercode": {
+            "description": "D\u00e9finit un code utilisateur sur une serrure.",
+            "fields": {
+                "usercode": {
+                    "description": "Code de verrouillage \u00e0 d\u00e9finir.",
+                    "name": "Code"
+                }
+            },
+            "name": "D\u00e9finir le code utilisateur de verrouillage"
+        },
+        "set_value": {
+            "description": "Modifie toute valeur reconnue par Z-Wave JS sur un appareil Z-Wave. Cette action a une validation minimale, utilisez-la donc uniquement si vous savez ce que vous faites.",
+            "fields": {
+                "command_class": {
+                    "description": "L'ID de la classe de commande pour la valeur.",
+                    "name": "Classe de commande"
+                },
+                "endpoint": {
+                    "description": "Point de terminaison de la valeur.",
+                    "name": "Point de terminaison"
+                },
+                "entity_id": {
+                    "description": "L'ID de l'entit\u00e9 \u00e0 suivre pour ce service.",
+                    "name": "ID de l'entit\u00e9"
+                },
+                "options": {
+                    "description": "D\u00e9finir la carte des options de valeur. Se r\u00e9f\u00e9rer \u00e0 la documentation du Z-Wave JS pour plus d'informations sur les options qui peuvent \u00eatre d\u00e9finies.",
+                    "name": "Options"
+                },
+                "property": {
+                    "description": "L'ID de la propri\u00e9t\u00e9 pour la valeur.",
+                    "name": "Propri\u00e9t\u00e9"
+                },
+                "property_key": {
+                    "description": "L'ID de la cl\u00e9 de propri\u00e9t\u00e9 pour la valeur.",
+                    "name": "Cl\u00e9 de propri\u00e9t\u00e9"
+                },
+                "value": {
+                    "description": "La nouvelle valeur \u00e0 d\u00e9finir.",
+                    "name": "Valeur"
+                },
+                "wait_for_result": {
+                    "description": "Attente ou non d'une r\u00e9ponse du n\u0153ud. S'il n'est pas inclus dans le payload, l'int\u00e9gration d\u00e9cidera s'il faut attendre ou non. Si la valeur est `true`, l'action peut prendre un certain temps si la valeur est r\u00e9gl\u00e9e sur un appareil dont la batterie est endormie.",
+                    "name": "Attendre le r\u00e9sultat ?"
+                }
+            },
+            "name": "D\u00e9finir une valeur (avanc\u00e9)"
+        }
+    }
+}

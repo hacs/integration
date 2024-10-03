@@ -1,0 +1,89 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Cihaz zaten yap\u0131land\u0131r\u0131lm\u0131\u015f",
+            "reauth_successful": "Yeniden kimlik do\u011frulama ba\u015far\u0131l\u0131 oldu"
+        },
+        "error": {
+            "cannot_connect": "Ba\u011flanma hatas\u0131",
+            "invalid_auth": "Ge\u00e7ersiz kimlik do\u011frulama",
+            "unknown": "Beklenmeyen hata"
+        },
+        "step": {
+            "reauth_confirm": {
+                "data": {
+                    "encrypt_token": "Kimlik do\u011frulama i\u00e7in \u015fifrelenmi\u015f bir belirte\u00e7 kullan\u0131n.",
+                    "token": "Eri\u015fim anahtar\u0131"
+                },
+                "description": "Nuki entegrasyonunun k\u00f6pr\u00fcn\u00fczle yeniden kimlik do\u011frulamas\u0131 yapmas\u0131 gerekiyor.",
+                "title": "{name} i\u00e7in kimlik do\u011frulaman\u0131n s\u00fcresi doldu"
+            },
+            "user": {
+                "data": {
+                    "encrypt_token": "Kimlik do\u011frulama i\u00e7in \u015fifrelenmi\u015f bir belirte\u00e7 kullan\u0131n.",
+                    "host": "Sunucu",
+                    "port": "Port",
+                    "token": "Eri\u015fim anahtar\u0131"
+                },
+                "data_description": {
+                    "host": "Nuki k\u00f6pr\u00fcn\u00fcz\u00fcn ana bilgisayar ad\u0131 veya IP adresi. \u00d6rne\u011fin: 192.168.1.25."
+                }
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "battery_critical": {
+                "name": "Pil kritik"
+            },
+            "ring_action": {
+                "name": "Zil Eylemi"
+            }
+        },
+        "lock": {
+            "nuki_lock": {
+                "state_attributes": {
+                    "battery_critical": {
+                        "state": {
+                            "off": "Normal",
+                            "on": "D\u00fc\u015f\u00fck"
+                        }
+                    }
+                }
+            }
+        },
+        "sensor": {
+            "battery": {
+                "name": "Pil"
+            }
+        }
+    },
+    "issues": {
+        "https_webhook": {
+            "description": "Nuki k\u00f6pr\u00fcs\u00fc, olaylar\u0131 bir HTTPS adresine (SSL) g\u00f6nderemez, l\u00fctfen [a\u011f ayarlar\u0131nda]( {network_link} ) \"Ev Asistan\u0131 URL'si\" alt\u0131nda bir (yerel) HTTP adresi yap\u0131land\u0131r\u0131n. Ge\u00e7erli (yerel) adres: ` {base_url} `, ge\u00e7erli bir adres, \u00f6rne\u011fin, `http://192.168.1.10:8123` olabilir; burada `192.168.1.10`, Home Assistant cihaz\u0131n\u0131n IP'sidir",
+            "title": "Nuki webhook URL'si HTTPS (SSL) kullan\u0131r"
+        }
+    },
+    "services": {
+        "lock_n_go": {
+            "description": "Nuki Kilitle ve Git.",
+            "fields": {
+                "unlatch": {
+                    "description": "Kilidin a\u00e7\u0131l\u0131p a\u00e7\u0131lmayaca\u011f\u0131.",
+                    "name": "Kilidi a\u00e7"
+                }
+            },
+            "name": "Kilitle ve git"
+        },
+        "set_continuous_mode": {
+            "description": "Nuki Opener'da s\u00fcrekli modu etkinle\u015ftirir veya devre d\u0131\u015f\u0131 b\u0131rak\u0131r.",
+            "fields": {
+                "enable": {
+                    "description": "\u00d6zelli\u011fin etkinle\u015ftirilip etkinle\u015ftirilmeyece\u011fi veya devre d\u0131\u015f\u0131 b\u0131rak\u0131l\u0131p b\u0131rak\u0131lmayaca\u011f\u0131.",
+                    "name": "Etkinle\u015ftir"
+                }
+            },
+            "name": "S\u00fcrekli modu ayarla"
+        }
+    }
+}

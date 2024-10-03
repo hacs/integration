@@ -1,0 +1,625 @@
+{
+    "config": {
+        "abort": {
+            "addon_get_discovery_info_failed": "Z-Wave JS lisandmooduli tuvastusteabe hankimine nurjus.",
+            "addon_info_failed": "Z-Wave JS lisandmooduli teabe hankimine nurjus.",
+            "addon_install_failed": "Z-Wave JS lisandmooduli paigaldamine nurjus.",
+            "addon_set_config_failed": "Z-Wave JS konfiguratsiooni m\u00e4\u00e4ramine nurjus.",
+            "addon_start_failed": "Z-Wave JS-i lisandmooduli k\u00e4ivitamine nurjus.",
+            "already_configured": "Seade on juba h\u00e4\u00e4lestatud",
+            "already_in_progress": "Seadistamine on juba k\u00e4imas",
+            "cannot_connect": "\u00dchendamine nurjus",
+            "discovery_requires_supervisor": "Avastamine n\u00f5uab supervisorit.",
+            "not_zwave_device": "Avastatud seade ei ole Z-Wave seade.",
+            "not_zwave_js_addon": "Avastatud lisandmoodul ei ole ametlik Z-Wave JS-i lisandmoodul."
+        },
+        "error": {
+            "addon_start_failed": "Z-Wave JS lisandmooduli k\u00e4ivitamine nurjus. Kontrolli seadistusi.",
+            "cannot_connect": "\u00dchendamine nurjus",
+            "invalid_ws_url": "Vale sihtkoha aadress",
+            "unknown": "Ootamatu t\u00f5rge"
+        },
+        "flow_title": "{name}",
+        "progress": {
+            "install_addon": "Palun oota kuni Z-Wave JS lisandmoodul on paigaldatud. See v\u00f5ib v\u00f5tta mitu minutit.",
+            "start_addon": "Palun oota kuni Z-Wave JS lisandmooduli ak\u00e4ivitumine l\u00f5ppeb. See v\u00f5ib v\u00f5tta m\u00f5ned sekundid."
+        },
+        "step": {
+            "configure_addon": {
+                "data": {
+                    "s0_legacy_key": "S0 vana t\u00fc\u00fcpi v\u00f5ti",
+                    "s2_access_control_key": "S2 juurdep\u00e4\u00e4suv\u00f5ti",
+                    "s2_authenticated_key": "Autenditud S2 v\u00f5ti",
+                    "s2_unauthenticated_key": "Autentimata S2 v\u00f5ti",
+                    "usb_path": "USB-seadme asukoha rada"
+                },
+                "description": "Lisandmoodul loob ise turvav\u00f5tmed kui need v\u00e4ljad t\u00fchjaks j\u00e4etakse.",
+                "title": "Sisesta Z-Wave JS lisandmooduli seaded"
+            },
+            "hassio_confirm": {
+                "title": "Seadista Z-Wave JS-i sidumine Z-Wave JS-i lisandmooduliga"
+            },
+            "install_addon": {
+                "title": "Z-Wave JS lisandmooduli paigaldamine on alanud"
+            },
+            "manual": {
+                "data": {
+                    "url": "URL"
+                }
+            },
+            "on_supervisor": {
+                "data": {
+                    "use_addon": "Kasuta lisandmoodulit Z-Wave JS Supervisor"
+                },
+                "description": "Kas soovid kasutada Z-Wave JSi halduri lisandmoodulit?",
+                "title": "Vali \u00fchendusviis"
+            },
+            "start_addon": {
+                "title": "Z-Wave JS lisandmoodul k\u00e4ivitub."
+            },
+            "usb_confirm": {
+                "description": "Kas seadistada Z-Wave JS lisandmoodul {name}?"
+            },
+            "zeroconf_confirm": {
+                "description": "Kas lisada Z-Wave JS-server, mille ID {home_id} on leitud aadressil {url}, Home Assistant'ile?",
+                "title": "Avastatud Z-Wave JS Server"
+            }
+        }
+    },
+    "device_automation": {
+        "action_type": {
+            "clear_lock_usercode": "Kustutaolemi {entity_name} kasutajakood",
+            "ping": "K\u00fcsitle seadet",
+            "refresh_value": "Olemi {entity_name} v\u00e4\u00e4rtuste v\u00e4rskendamine",
+            "reset_meter": "L\u00e4htesta arvesti {subtype}",
+            "set_config_parameter": "Seadeparameetri {subtype} v\u00e4\u00e4rtuse omistamine",
+            "set_lock_usercode": "Olemi {entity_name} kasutaja koodi m\u00e4\u00e4ramine",
+            "set_value": "Z-Wave v\u00e4\u00e4rtuse m\u00e4\u00e4ramine"
+        },
+        "condition_type": {
+            "config_parameter": "Seadeparameeteri {subtype} v\u00e4\u00e4rtus",
+            "node_status": "S\u00f5lme olek",
+            "value": "Z-Wave Value praegune v\u00e4\u00e4rtus"
+        },
+        "extra_fields": {
+            "code_slot": "Koodi pesa",
+            "command_class": "K\u00e4su klass",
+            "data_type": "Andmet\u00fc\u00fcp",
+            "endpoint": "L\u00f5pppunkt",
+            "event": "S\u00fcndmus",
+            "event_label": "S\u00fcndmuse silt",
+            "event_type": "S\u00fcndmuse t\u00fc\u00fcp",
+            "for": "Kestus",
+            "from": "Algv\u00e4\u00e4rtus",
+            "label": "Silt",
+            "property": "Atribuut",
+            "property_key": "Atribuudi v\u00f5ti",
+            "refresh_all_values": "V\u00e4rskenda k\u00f5ik v\u00e4\u00e4rtused",
+            "status": "Olek",
+            "to": "V\u00e4\u00e4rtuseni",
+            "type.": "T\u00fc\u00fcp",
+            "usercode": "Kasutajakood",
+            "value": "V\u00e4\u00e4rtus",
+            "wait_for_result": "Oota tulemust"
+        },
+        "trigger_type": {
+            "event.notification.entry_control": "L\u00e4bip\u00e4\u00e4su kontrolli teavitus on saadetud",
+            "event.notification.notification": "Teavitus on saadetud",
+            "event.value_notification.basic": "CC p\u00f5his\u00fcndmus {subtype}",
+            "event.value_notification.central_scene": "Keskse stseeni tegevus {subtype}",
+            "event.value_notification.scene_activation": "Stseeni aktiveerimine saidil {subtype}",
+            "state.node_status": "S\u00f5lme olek muutus",
+            "zwave_js.value_updated.config_parameter": "Seadeparameetri {subtype} v\u00e4\u00e4rtuse muutmine",
+            "zwave_js.value_updated.value": "Z-Wave JS v\u00e4\u00e4rtuse muutus"
+        }
+    },
+    "entity": {
+        "button": {
+            "ping": {
+                "name": "Ping"
+            }
+        },
+        "sensor": {
+            "average_background_rssi": {
+                "name": "Keskmine RSSI foon (kanal {channel})"
+            },
+            "can": {
+                "name": "Konflikte"
+            },
+            "commands_dropped": {
+                "name": "H\u00fcljatud k\u00e4sud ( {direction} )"
+            },
+            "controller_status": {
+                "name": "Olek",
+                "state": {
+                    "jammed": "Kinni j\u00e4\u00e4nud",
+                    "ready": "Valmis",
+                    "unresponsive": "Ei reageeri"
+                }
+            },
+            "current_background_rssi": {
+                "name": "Praegune tausta RSSI (kanal {channel} )"
+            },
+            "last_seen": {
+                "name": "Viimati n\u00e4htud"
+            },
+            "messages_dropped": {
+                "name": "H\u00fcljatud s\u00f5numid ({direction})"
+            },
+            "nak": {
+                "name": "Sobimatuid s\u00f5numeid"
+            },
+            "node_status": {
+                "name": "S\u00f5lme olek",
+                "state": {
+                    "alive": "Aktiivne",
+                    "asleep": "Ootel",
+                    "awake": "\u00c4rkvel",
+                    "dead": "Surnud",
+                    "unknown": "Teadmata"
+                }
+            },
+            "rssi": {
+                "name": "Signaali tugevus"
+            },
+            "rtt": {
+                "name": "Edasi-tagasi k\u00fcsitlusaeg"
+            },
+            "successful_commands": {
+                "name": "Edukad k\u00e4sud ({direction})"
+            },
+            "successful_messages": {
+                "name": "Edukad s\u00f5numid ( {direction} )"
+            },
+            "timeout_ack": {
+                "name": "Puuduvad kinnitused"
+            },
+            "timeout_callback": {
+                "name": "Aegunud k\u00fcsitlused"
+            },
+            "timeout_response": {
+                "name": "Aegunud vastused"
+            }
+        }
+    },
+    "issues": {
+        "device_config_file_changed": {
+            "fix_flow": {
+                "abort": {
+                    "cannot_connect": "Seadmega {device_name} ei saa \u00fchendust luua. Proovi hiljem uuesti p\u00e4rast seda kui oled tuvastanud, et Z-Wave'i v\u00f5rk on t\u00f6\u00f6korras ja \u00fchendatud Home Assistantiga.",
+                    "issue_ignored": "Seadme {device_name} seadme konfiguratsioonifaili v\u00e4rskendust eirati."
+                },
+                "step": {
+                    "confirm": {
+                        "description": "Seadme {device_name} seadme konfiguratsioonikirje on muutunud. \n\n Z-Wave JS avastab seadmega k\u00fcsitledes palju seadme metaandmeid. Osa teabest tuleb siiski laadida konfiguratsioonikirjest. Osa sellest teabest kasutatakse ainult \u00fcks kord, seadme k\u00fcsitluse ajal. \n\n Seadme konfiguratsioonikirje v\u00e4rskendamisel v\u00f5ib see teave olla aegunud ja muudatuste tuvastamiseks tuleb seadet k\u00fcsitleda. \n\n See ei ole n\u00f5utav toiming ja uuesti k\u00fcsitlemise protsess m\u00f5jutab seadme funktsioone kuid p\u00e4rast selle l\u00f5ppemist v\u00f5id n\u00e4ha oma seadme t\u00e4iustusi. \n\n Kui soovid j\u00e4tkata, kl\u00f5psa allpool nuppu ESITA. Kordusk\u00fcsitlus toimub taustal.",
+                        "title": "Seadme konfiguratsioonikirjet muudeti: {device_name}"
+                    },
+                    "init": {
+                        "description": "Seadme {device_name} seadme konfiguratsioonifail on muutunud. \n\n Z-Wave JS avastab seadmega k\u00fcsitledes palju seadme metaandmeid. Osa teabest tuleb siiski laadida konfiguratsioonifailist. Osa sellest teabest hinnatakse ainult \u00fcks kord, seadme intervjuu ajal. \n\n Seadme konfiguratsioonifaili v\u00e4rskendamisel v\u00f5ib see teave olla aegunud ja muudatuste tuvastamiseks tuleb seadet uuesti taask\u00fcsitleda. \n\n See ei ole kohustuslik toiming ja uuesti k\u00fcsitlemise protsess m\u00f5jutab seadme funktsioone, kuid p\u00e4rast selle l\u00f5ppemist v\u00f5id n\u00e4ha oma seadme t\u00e4iustusi. \n\n Kui otsustad taask\u00fcsitlusega j\u00e4tkata, toimub see taustal.",
+                        "menu_options": {
+                            "confirm": "Seadme taask\u00fcsitlemine",
+                            "ignore": "Eira seadme konfiguratsiooni v\u00e4rskendust"
+                        },
+                        "title": "Seadme konfiguratsioonikirjet muudeti: {device_name}"
+                    }
+                }
+            },
+            "title": "Seadme konfiguratsioonikirjet muudeti: {device_name}"
+        },
+        "dry_fan_presets_deprecation": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Kasutad \u00fcksuses `{entity_id}` eelseadistatud re\u017eiimi Kuivata v\u00f5i Ventileeri.\n\nKuivatamine ja ventilaatori eelseadistatud re\u017eiimid on aegunud ja need eemaldatakse. Ajakohasta oma automaatikaid, et kasutada selle asemel vastavaid Kuivata ja Ventileeri re\u017eiime **HVAC**.\n\nKui oled selle probleemi k\u00e4sitsi parandanud, kl\u00f5psa alloleval nupul SUBMIT.",
+                        "title": "Eelseadistatud re\u017eiimid Kuivata ja Ventileeri eemaldatakse: {entity_id}"
+                    }
+                }
+            },
+            "title": "Eelseadistatud re\u017eiimid Kuivata ja Ventileeri eemaldatakse: {entity_id}"
+        },
+        "invalid_server_version": {
+            "description": "Z-Wave JS Serveri versioon, mida praegu kasutad, on selle Home Assistanti versiooni jaoks liiga vana. Selle probleemi lahendamiseks v\u00e4rskenda Z-Wave JS Server uusimale versioonile.",
+            "title": "Vajalik on Z-Wave JS Serveri uuem versioon"
+        }
+    },
+    "options": {
+        "abort": {
+            "addon_get_discovery_info_failed": "Z-Wave JS lisandmooduli tuvastusteabe hankimine nurjus.",
+            "addon_info_failed": "Z-Wave JS lisandmooduli teabe hankimine nurjus.",
+            "addon_install_failed": "Z-Wave JS lisandmooduli paigaldamine nurjus.",
+            "addon_set_config_failed": "Z-Wave JS konfiguratsiooni m\u00e4\u00e4ramine nurjus.",
+            "addon_start_failed": "Z-Wave JS-i lisandmooduli k\u00e4ivitamine nurjus.",
+            "already_configured": "Seade on juba h\u00e4\u00e4lestatud",
+            "cannot_connect": "\u00dchendamine nurjus",
+            "different_device": "\u00dchendatud USB-seade ei ole sama, mis on varem selle seadekande jaoks seadistatud. Selle asemel loo uue seadme jaoks uus seadekanne."
+        },
+        "error": {
+            "cannot_connect": "\u00dchendamine nurjus",
+            "invalid_ws_url": "Vale sihtkoha aadress",
+            "unknown": "Tundmatu t\u00f5rge"
+        },
+        "progress": {
+            "install_addon": "Palun oota kuni Z-Wave JS lisandmoodul on paigaldatud. See v\u00f5ib v\u00f5tta mitu minutit.",
+            "start_addon": "Palun oota kuni Z-Wave JS lisandmooduli ak\u00e4ivitumine l\u00f5ppeb. See v\u00f5ib v\u00f5tta m\u00f5ned sekundid."
+        },
+        "step": {
+            "configure_addon": {
+                "data": {
+                    "emulate_hardware": "Riistvara emuleerimine",
+                    "log_level": "Logimise tase",
+                    "s0_legacy_key": "S0 vana t\u00fc\u00fcpi v\u00f5ti",
+                    "s2_access_control_key": "S2 juurdep\u00e4\u00e4suv\u00f5ti",
+                    "s2_authenticated_key": "Autenditud S2 v\u00f5ti",
+                    "s2_unauthenticated_key": "Autentimata S2 v\u00f5ti",
+                    "usb_path": "USB-seadme asukoha rada"
+                },
+                "description": "Lisandmoodul loob ise turvav\u00f5tmed kui need v\u00e4ljad t\u00fchjaks j\u00e4etakse.",
+                "title": "Sisesta Z-Wave JS lisandmooduli seaded"
+            },
+            "install_addon": {
+                "title": "Z-Wave JS lisandmooduli paigaldamine on alanud"
+            },
+            "manual": {
+                "data": {
+                    "url": "URL"
+                }
+            },
+            "on_supervisor": {
+                "data": {
+                    "use_addon": "Kasuta lisandmoodulit Z-Wave JS Supervisor"
+                },
+                "description": "Kas soovid kasutada Z-Wave JSi halduri lisandmoodulit?",
+                "title": "Vali \u00fchendusviis"
+            },
+            "start_addon": {
+                "title": "Z-Wave JS lisandmoodul k\u00e4ivitub."
+            }
+        }
+    },
+    "services": {
+        "bulk_set_partial_config_parameters": {
+            "description": "V\u00f5imaldab osaliste parameetrite hulgiseadistamist. Kasulik, kui korraga tuleb seadistada mitu osalist parameetrit.",
+            "fields": {
+                "area_id": {
+                    "description": "Piirkond, millele see teenus on suunatud. Kui on m\u00e4\u00e4ratud piirkond, siis on selle teenuse sihtm\u00e4rgiks k\u00f5ik selles piirkonnas asuvad zwave_js-seadmed ja -\u00fcksused.",
+                    "name": "Piirkonna ID(d)"
+                },
+                "device_id": {
+                    "description": "Seade(med), millele see teenus on suunatud.",
+                    "name": "Seadme ID(d)"
+                },
+                "endpoint": {
+                    "description": "Seadistusparameetri l\u00f5pppunkt.",
+                    "name": "L\u00f5pppunkt"
+                },
+                "entity_id": {
+                    "description": "Selle teenuse sihtm\u00e4rgiks olev(ad) olemi ID(d).",
+                    "name": "Olemi ID(d)"
+                },
+                "parameter": {
+                    "description": "Seadistusiparameetri nimi (v\u00f5i ID), mida soovid konfigureerida.",
+                    "name": "Parameeter"
+                },
+                "value": {
+                    "description": "Selle seadistusparameetri jaoks m\u00e4\u00e4ratavad uued v\u00e4\u00e4rtused. See v\u00f5ib olla kas t\u00f6\u00f6tlemata t\u00e4isarv, mis t\u00e4histab hulgimuutust, v\u00f5i vastendus, kus v\u00f5ti on bitimask (kas kuueteistk\u00fcmnend v\u00f5i t\u00e4isarvu kujul) ja v\u00e4\u00e4rtus on uus v\u00e4\u00e4rtus, mille soovid selle osaparameetri jaoks m\u00e4\u00e4rata.",
+                    "name": "V\u00e4\u00e4rtus"
+                }
+            },
+            "name": "Osalise konfiguratsiooni parameetrite hulgim\u00e4\u00e4ramine (t\u00e4psem)."
+        },
+        "clear_lock_usercode": {
+            "description": "Kustutab lukust kasutajakoodi.",
+            "fields": {
+                "code_slot": {
+                    "description": "Koodi pesa kust kood kustutada.",
+                    "name": "Koodi pesa"
+                }
+            },
+            "name": "Kustuta luku kasutajakood"
+        },
+        "invoke_cc_api": {
+            "description": "Kutsub s\u00f5lme k\u00e4suklassi APId. M\u00f5nda k\u00e4suklassi ei saa t\u00e4ielikult kontrollida teenuse `set_value` kaudu ja need n\u00f5uavad otsekutseid k\u00e4suklassi API-le.",
+            "fields": {
+                "area_id": {
+                    "description": "Piirkond, millele see teenus on suunatud. Kui on m\u00e4\u00e4ratud piirkond, siis on selle teenuse sihtm\u00e4rgiks k\u00f5ik selles piirkonnas asuvad zwave_js-seadmed ja -\u00fcksused.",
+                    "name": "Piirkonna ID(d)"
+                },
+                "command_class": {
+                    "description": "Selle k\u00e4suklassi ID, millele soovid k\u00e4su anda.",
+                    "name": "K\u00e4su klass"
+                },
+                "device_id": {
+                    "description": "Seade(med), millele see teenus on suunatud.",
+                    "name": "Seadme ID(d)"
+                },
+                "endpoint": {
+                    "description": "L\u00f5pp-punkt API kutsumiseks. Kui l\u00f5pp-punkt on m\u00e4\u00e4ratud, sihitakse see l\u00f5pp-punkt k\u00f5igile sihtpiirkondade, seadmete ja/v\u00f5i olemitega seotud s\u00f5lmedele. Kui l\u00f5pp-punkti pole m\u00e4\u00e4ratud, sihitakse sihtalade ja -seadmetega seotud s\u00f5lmede juurl\u00f5pp-punkt (0) ning iga olemi esmase v\u00e4\u00e4rtuse l\u00f5pp-punkt.",
+                    "name": "L\u00f5pppunkt"
+                },
+                "entity_id": {
+                    "description": "Selle teenuse sihtm\u00e4rgiks olev(ad) olemi ID(d).",
+                    "name": "Olemi ID(d)"
+                },
+                "method_name": {
+                    "description": "Kutsutava API-meetodi nimi. Saadaolevate meetodite kohta vaata Z-Wave JS Command Class API dokumentatsiooni (https://zwave-js.github.io/node-zwave-js/#/api/CCs/index).",
+                    "name": "Meetodi nimi"
+                },
+                "parameters": {
+                    "description": "API meetodile edastatavate parameetrite loend. Parameetrite saamiseks vaata Z-Wave JS Command Class API dokumentatsiooni (https://zwave-js.github.io/node-zwave-js/#/api/CCs/index).",
+                    "name": "Parameetrid"
+                }
+            },
+            "name": "K\u00e4suklassi API k\u00e4ivitamine s\u00f5lmes (t\u00e4psem)"
+        },
+        "multicast_set_value": {
+            "description": "Muudab mis tahes v\u00e4\u00e4rtust, mille Z-Wave JS mitmes Z-Wave'i seadmes multicasti kasutades \u00e4ra tunneb, nii et k\u00f5ik seadmed v\u00f5tavad s\u00f5numi vastu \u00fcheaegselt. Sellel teenusel on minimaalne valideerimine, nii et kasuta seda teenust ainult siis, kui tead, mida teed.",
+            "fields": {
+                "area_id": {
+                    "description": "Piirkond, millele see teenus on suunatud. Kui on m\u00e4\u00e4ratud piirkond, siis on selle teenuse sihtm\u00e4rgiks k\u00f5ik selles piirkonnas asuvad zwave_js-seadmed ja -\u00fcksused.",
+                    "name": "Piirkonna ID(d)"
+                },
+                "broadcast": {
+                    "description": "Kas k\u00e4sk tuleks edastada k\u00f5igile v\u00f5rgus olevatele seadmetele.",
+                    "name": "Kas edastada?"
+                },
+                "command_class": {
+                    "description": "V\u00e4\u00e4rtuse k\u00e4suklassi ID.",
+                    "name": "K\u00e4su klass"
+                },
+                "device_id": {
+                    "description": "Seade(med), millele see teenus on suunatud.",
+                    "name": "Seadme ID(d)"
+                },
+                "endpoint": {
+                    "description": "V\u00e4\u00e4rtuse l\u00f5pppunkt.",
+                    "name": "L\u00f5pppunkt"
+                },
+                "entity_id": {
+                    "description": "Selle teenuse sihtm\u00e4rgiks olev(ad) olemi ID(d).",
+                    "name": "Olemi ID(d)"
+                },
+                "options": {
+                    "description": "M\u00e4\u00e4ra v\u00e4\u00e4rtuste valikute kaart. M\u00e4\u00e4ratavate valikute kohta lisateabe saamiseks vaata Z-Wave JS dokumentatsiooni.",
+                    "name": "Valikud"
+                },
+                "property": {
+                    "description": "Atribuudi ID v\u00e4\u00e4rtuse jaoks.",
+                    "name": "Atribuut"
+                },
+                "property_key": {
+                    "description": "V\u00e4\u00e4rtuse atribuudiv\u00f5tme ID.",
+                    "name": "Atribuudi v\u00f5ti"
+                },
+                "value": {
+                    "description": "Uus m\u00e4\u00e4ratav v\u00e4\u00e4rtus.",
+                    "name": "V\u00e4\u00e4rtus"
+                }
+            },
+            "name": "M\u00e4\u00e4ra v\u00e4\u00e4rtus mitmes seadmes multicasti kaudu (t\u00e4psem)"
+        },
+        "ping": {
+            "description": "Sunnib Z-Wave JS-i proovima s\u00f5lme j\u00f5uda. Seda saab kasutada s\u00f5lme oleku v\u00e4rskendamiseks Z-Wave JS-is kui arvad et see ei kajasta t\u00e4pselt tegelikkust, nt eba\u00f5nnestunud / surnud s\u00f5lme taaselustamine v\u00f5i s\u00f5lme magama m\u00e4rkimine.",
+            "fields": {
+                "area_id": {
+                    "description": "Piirkond, millele see teenus on suunatud. Kui on m\u00e4\u00e4ratud piirkond, siis on selle teenuse sihtm\u00e4rgiks k\u00f5ik selles piirkonnas asuvad zwave_js-seadmed ja -\u00fcksused.",
+                    "name": "Piirkonna ID(d)"
+                },
+                "device_id": {
+                    "description": "Seade(med), millele see teenus on suunatud.",
+                    "name": "Seadme ID(d)"
+                },
+                "entity_id": {
+                    "description": "Selle teenuse sihtm\u00e4rgiks olev(ad) olemi ID(d).",
+                    "name": "Olemi ID(d)"
+                }
+            },
+            "name": "Pingi s\u00f5lme"
+        },
+        "refresh_notifications": {
+            "description": "V\u00e4rskendab s\u00f5lme m\u00e4rguandeid teatise t\u00fc\u00fcbi ja valikuliselt teavituss\u00fcndmuse alusel.",
+            "fields": {
+                "area_id": {
+                    "description": "Piirkond, millele see teenus on suunatud. Kui on m\u00e4\u00e4ratud piirkond, siis on selle teenuse sihtm\u00e4rgiks k\u00f5ik selles piirkonnas asuvad zwave_js-seadmed ja -\u00fcksused.",
+                    "name": "Piirkonna ID(d)"
+                },
+                "device_id": {
+                    "description": "Seade(med), millele see teenus on suunatud.",
+                    "name": "Seadme ID(d)"
+                },
+                "entity_id": {
+                    "description": "Selle teenuse sihtm\u00e4rgiks olev(ad) olemi ID(d).",
+                    "name": "Olemi ID(d)"
+                },
+                "notification_event": {
+                    "description": "Teavituss\u00fcndmuse number, nagu on m\u00e4\u00e4ratletud Z-Wave'i spetsifikatsioonides.",
+                    "name": "Teavituss\u00fcndmus"
+                },
+                "notification_type": {
+                    "description": "Teavituse t\u00fc\u00fcbi number, nagu on m\u00e4\u00e4ratletud Z-Wave'i spetsifikatsioonides.",
+                    "name": "Teavituse t\u00fc\u00fcp"
+                }
+            },
+            "name": "S\u00f5lme teavituste v\u00e4rskendamine (t\u00e4psem)"
+        },
+        "refresh_value": {
+            "description": "Sunni v\u00e4rskendama Z-Wave'i olemi v\u00e4\u00e4rtusi.",
+            "fields": {
+                "entity_id": {
+                    "description": "V\u00e4rskendatavad olemid.",
+                    "name": "Olemid"
+                },
+                "refresh_all_values": {
+                    "description": "Kas v\u00e4rskendada k\u00f5iki v\u00e4\u00e4rtusi (true) v\u00f5i ainult esmast v\u00e4\u00e4rtust (false).",
+                    "name": "Kas v\u00e4rskendada k\u00f5ik v\u00e4\u00e4rtused?"
+                }
+            },
+            "name": "V\u00e4rskenda v\u00e4\u00e4rtusi"
+        },
+        "reset_meter": {
+            "description": "L\u00e4htestab s\u00f5lme arvestid.",
+            "fields": {
+                "area_id": {
+                    "description": "Piirkond, millele see teenus on suunatud. Kui on m\u00e4\u00e4ratud piirkond, siis on selle teenuse sihtm\u00e4rgiks k\u00f5ik selles piirkonnas asuvad zwave_js-seadmed ja -\u00fcksused.",
+                    "name": "Piirkonna ID(d)"
+                },
+                "device_id": {
+                    "description": "Seade(med), millele see teenus on suunatud.",
+                    "name": "Seadme ID(d)"
+                },
+                "entity_id": {
+                    "description": "Selle teenuse sihtm\u00e4rgiks olev(ad) olemi ID(d).",
+                    "name": "Olemi ID(d)"
+                },
+                "meter_type": {
+                    "description": "L\u00e4htestatava arvesti t\u00fc\u00fcp. K\u00f5ik arvestid ei toeta l\u00e4htestamiseks arvesti t\u00fc\u00fcbi valimist.",
+                    "name": "Arvesti t\u00fc\u00fcp"
+                },
+                "value": {
+                    "description": "V\u00e4\u00e4rtus, millele arvestid tuleks l\u00e4htestada. Mitte k\u00f5ik arvestid ei toeta v\u00f5imalust l\u00e4htestada konkreetsele v\u00e4\u00e4rtusele.",
+                    "name": "Sihtv\u00e4\u00e4rtus"
+                }
+            },
+            "name": "L\u00e4htesta s\u00f5lme arvestid"
+        },
+        "set_config_parameter": {
+            "description": "Muudab Z-Wave seadmete seadistusparameetreid.",
+            "fields": {
+                "area_id": {
+                    "description": "Piirkond, millele see teenus on suunatud. Kui on m\u00e4\u00e4ratud piirkond, siis on selle teenuse sihtm\u00e4rgiks k\u00f5ik selles piirkonnas asuvad zwave_js-seadmed ja -\u00fcksused.",
+                    "name": "Piirkonna ID(d)"
+                },
+                "bitmask": {
+                    "description": "Sihtm\u00e4rk on konkreetne bitimask (lisateavet leiad dokumentatsioonist). Ei saa kombineerida value_size v\u00f5i value_formatiga.",
+                    "name": "Bitmask"
+                },
+                "device_id": {
+                    "description": "Seade(med), millele see teenus on suunatud.",
+                    "name": "Seadme ID(d)"
+                },
+                "endpoint": {
+                    "description": "Seadistusparameetri l\u00f5pppunkt.",
+                    "name": "L\u00f5pppunkt"
+                },
+                "entity_id": {
+                    "description": "Selle teenuse sihtm\u00e4rgiks olev(ad) olemi ID(d).",
+                    "name": "Olemi ID(d)"
+                },
+                "parameter": {
+                    "description": "Seadistusiparameetri nimi (v\u00f5i ID), mida soovid konfigureerida.",
+                    "name": "Parameeter"
+                },
+                "value": {
+                    "description": "Selle seadistusparameetri uus v\u00e4\u00e4rtus.",
+                    "name": "V\u00e4\u00e4rtus"
+                },
+                "value_format": {
+                    "description": "V\u00e4\u00e4rtuse vorming, 0 kui tegemist on m\u00e4rgita t\u00e4isarvuga, 1 kui tegemist on m\u00e4rgiga t\u00e4isarvuga, 2 kui tegemist on loendiga, 3 kui tegemist on bitiv\u00e4ljaga. Kasutatakse koos value_size'iga, kui seadme konfiguratsioonifailis ei ole config parameetrit defineeritud. Ei saa kombineerida bitmaskiga.",
+                    "name": "V\u00e4\u00e4rtuse vorming"
+                },
+                "value_size": {
+                    "description": "V\u00e4\u00e4rtuse suurus, kas 1, 2 v\u00f5i 4. Kasutatakse koos v\u00e4\u00e4rtusega value_format kui konfiguratsiooniparameeter pole seadme konfiguratsioonifailis m\u00e4\u00e4ratletud. Ei saa kombineerida bitmaskiga.",
+                    "name": "V\u00e4\u00e4rtuse suurus"
+                }
+            },
+            "name": "Seadme seadistusiparameetri m\u00e4\u00e4ramine"
+        },
+        "set_lock_configuration": {
+            "description": "M\u00e4\u00e4rab luku konfiguratsiooni.",
+            "fields": {
+                "auto_relock_time": {
+                    "description": "Kestus sekundites kuni lukk naaseb turvalisse olekusse. Rakendatakse ainult siis, kui operatsiooni t\u00fc\u00fcp on `konstant`.",
+                    "name": "Automaatse taaslukustamise aeg"
+                },
+                "block_to_block": {
+                    "description": "Luba blokeerimise -funktsioon.",
+                    "name": "Blokeeri blokeerimiseks"
+                },
+                "hold_and_release_time": {
+                    "description": "Sulguri sissel\u00fclitamise kestus sekundites.",
+                    "name": "Hoidmis- ja vabastamisaeg"
+                },
+                "inside_handles_can_open_door_configuration": {
+                    "description": "Nimekiri neljast t\u00f5ev\u00e4\u00e4rtusest, mis n\u00e4itavad, millised sisemised k\u00e4epidemed v\u00f5ivad ust avada.",
+                    "name": "Sisemised k\u00e4epidemed v\u00f5ivad avada ukse konfiguratsiooni"
+                },
+                "lock_timeout": {
+                    "description": "Sekundid lukustusre\u017eiimi ajal\u00f5puni. Tuleks kasutada ainult siis kui toimingu t\u00fc\u00fcp on \"ajastatud\".",
+                    "name": "Lukustamise ajal\u00f5pp"
+                },
+                "operation_type": {
+                    "description": "Luku t\u00f6\u00f6t\u00fc\u00fcp.",
+                    "name": "Tegevuse t\u00fc\u00fcp"
+                },
+                "outside_handles_can_open_door_configuration": {
+                    "description": "Nimekiri neljast t\u00f5ev\u00e4\u00e4rtusest, mis n\u00e4itavad, millised v\u00e4lisk\u00e4epidemed v\u00f5ivad ust avada.",
+                    "name": "V\u00e4lised k\u00e4epidemed v\u00f5ivad avada ukse konfiguratsiooni"
+                },
+                "twist_assist": {
+                    "description": "Luba Twist Assist.",
+                    "name": "Twist assist"
+                }
+            },
+            "name": "M\u00e4\u00e4ra luku konfiguratsioon"
+        },
+        "set_lock_usercode": {
+            "description": "M\u00e4\u00e4rab lukule kasutajakoodi.",
+            "fields": {
+                "code_slot": {
+                    "description": "Koodipesa koodi m\u00e4\u00e4ramiseks.",
+                    "name": "Koodi pesa"
+                },
+                "usercode": {
+                    "description": "M\u00e4\u00e4ratav lukukood.",
+                    "name": "Kood"
+                }
+            },
+            "name": "M\u00e4\u00e4ra luku kasutajakood"
+        },
+        "set_value": {
+            "description": "Muudab mis tahes v\u00e4\u00e4rtust, mille Z-Wave JS Z-Wave seadmes \u00e4ra tunneb. Sellel teenusel on minimaalne valideerimine, seega kasuta seda teenust ainult siis, kui tead mida teete.",
+            "fields": {
+                "area_id": {
+                    "description": "Piirkond, millele see teenus on suunatud. Kui on m\u00e4\u00e4ratud piirkond, siis on selle teenuse sihtm\u00e4rgiks k\u00f5ik selles piirkonnas asuvad zwave_js-seadmed ja -\u00fcksused.",
+                    "name": "Piirkonna ID(d)"
+                },
+                "command_class": {
+                    "description": "V\u00e4\u00e4rtuse k\u00e4suklassi ID.",
+                    "name": "K\u00e4su klass"
+                },
+                "device_id": {
+                    "description": "Seade(med), millele see teenus on suunatud.",
+                    "name": "Seadme ID(d)"
+                },
+                "endpoint": {
+                    "description": "V\u00e4\u00e4rtuse l\u00f5pppunkt.",
+                    "name": "L\u00f5pppunkt"
+                },
+                "entity_id": {
+                    "description": "Selle teenuse sihtm\u00e4rgiks olev(ad) olemi ID(d).",
+                    "name": "Olemi ID(d)"
+                },
+                "options": {
+                    "description": "M\u00e4\u00e4ra v\u00e4\u00e4rtuste valikute kaart. M\u00e4\u00e4ratavate valikute kohta lisateabe saamiseks vaata Z-Wave JS dokumentatsiooni.",
+                    "name": "Valikud"
+                },
+                "property": {
+                    "description": "Atribuudi ID v\u00e4\u00e4rtuse jaoks.",
+                    "name": "Atribuut"
+                },
+                "property_key": {
+                    "description": "V\u00e4\u00e4rtuse atribuudiv\u00f5tme ID.",
+                    "name": "Atribuudi v\u00f5ti"
+                },
+                "value": {
+                    "description": "Uus m\u00e4\u00e4ratav v\u00e4\u00e4rtus.",
+                    "name": "V\u00e4\u00e4rtus"
+                },
+                "wait_for_result": {
+                    "description": "Kas oodata s\u00f5lme vastust v\u00f5i mitte. Kui see ei sisaldu kasulikus koormuses, otsustab integratsioon, kas oodata v\u00f5i mitte. Kui v\u00e4\u00e4rtuseks on seatud \"t\u00f5ene\", pea meeles, et uinunud akuseadme v\u00e4\u00e4rtuse m\u00e4\u00e4ramisel v\u00f5ib teenindusk\u00f5ne aega v\u00f5tta.",
+                    "name": "Kas oodata tulemust?"
+                }
+            },
+            "name": "M\u00e4\u00e4ra v\u00e4\u00e4rtus (edasij\u00f5udnutele)"
+        }
+    }
+}

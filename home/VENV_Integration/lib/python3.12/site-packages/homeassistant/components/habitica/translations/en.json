@@ -1,0 +1,186 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Account is already configured"
+        },
+        "error": {
+            "cannot_connect": "Failed to connect",
+            "invalid_auth": "Invalid authentication",
+            "invalid_credentials": "Invalid authentication",
+            "unknown": "Unexpected error"
+        },
+        "step": {
+            "advanced": {
+                "data": {
+                    "api_key": "API Token",
+                    "api_user": "User ID",
+                    "url": "URL",
+                    "verify_ssl": "Verify SSL certificate"
+                },
+                "description": "You can retrieve your `User ID` and `API Token` from **Settings -> Site Data** on Habitica or the instance you want to connect to"
+            },
+            "login": {
+                "data": {
+                    "password": "Password",
+                    "username": "Email or username (case-sensitive)"
+                }
+            },
+            "user": {
+                "data": {
+                    "api_key": "API key",
+                    "api_user": "Habitica\u2019s API user ID",
+                    "name": "Override for Habitica\u2019s username. Will be used for actions",
+                    "url": "URL"
+                },
+                "description": "Connect your Habitica profile to allow monitoring of your user's profile and tasks.",
+                "menu_options": {
+                    "advanced": "Login to other instances",
+                    "login": "Login to Habitica"
+                }
+            }
+        }
+    },
+    "entity": {
+        "button": {
+            "allocate_all_stat_points": {
+                "name": "Allocate all stat points"
+            },
+            "buy_health_potion": {
+                "name": "Buy a health potion"
+            },
+            "revive": {
+                "name": "Revive from death"
+            },
+            "run_cron": {
+                "name": "Start my day"
+            }
+        },
+        "sensor": {
+            "class": {
+                "name": "Class",
+                "state": {
+                    "healer": "Healer",
+                    "rogue": "Rogue",
+                    "warrior": "Warrior",
+                    "wizard": "Mage"
+                }
+            },
+            "dailys": {
+                "name": "Dailies"
+            },
+            "display_name": {
+                "name": "Display name"
+            },
+            "experience": {
+                "name": "Experience"
+            },
+            "experience_max": {
+                "name": "Next level"
+            },
+            "gold": {
+                "name": "Gold"
+            },
+            "habits": {
+                "name": "Habits"
+            },
+            "health": {
+                "name": "Health"
+            },
+            "health_max": {
+                "name": "Max. health"
+            },
+            "level": {
+                "name": "Level"
+            },
+            "mana": {
+                "name": "Mana"
+            },
+            "mana_max": {
+                "name": "Max. mana"
+            },
+            "rewards": {
+                "name": "Rewards"
+            },
+            "todos": {
+                "name": "To-Do's"
+            }
+        },
+        "switch": {
+            "sleep": {
+                "name": "Rest in the inn"
+            }
+        },
+        "todo": {
+            "dailys": {
+                "name": "Dailies"
+            },
+            "todos": {
+                "name": "To-Do's"
+            }
+        }
+    },
+    "exceptions": {
+        "create_todos_item_failed": {
+            "message": "Unable to create new to-do `{name}` for Habitica, please try again"
+        },
+        "delete_completed_todos_failed": {
+            "message": "Unable to delete completed to-do items from Habitica to-do list, please try again"
+        },
+        "delete_todos_failed": {
+            "message": "Unable to delete item from Habitica to-do list, please try again"
+        },
+        "move_dailys_item_failed": {
+            "message": "Unable to move the Habitica daily to position {pos}, please try again"
+        },
+        "move_todos_item_failed": {
+            "message": "Unable to move the Habitica to-do to position {pos}, please try again"
+        },
+        "score_dailys_item_failed": {
+            "message": "Unable to update the score for your Habitica daily `{name}`, please try again"
+        },
+        "score_todos_item_failed": {
+            "message": "Unable to update the score for your Habitica to-do `{name}`, please try again"
+        },
+        "service_call_exception": {
+            "message": "Unable to connect to Habitica, try again later"
+        },
+        "service_call_unallowed": {
+            "message": "Unable to carry out this action, because the required conditions are not met"
+        },
+        "setup_rate_limit_exception": {
+            "message": "Currently rate limited, try again later"
+        },
+        "update_dailys_item_failed": {
+            "message": "Unable to update the Habitica daily `{name}`, please try again"
+        },
+        "update_todos_item_failed": {
+            "message": "Unable to update the Habitica to-do `{name}`, please try again"
+        }
+    },
+    "issues": {
+        "deprecated_task_entity": {
+            "description": "The Habitica entity `{entity}` is deprecated and will be removed in a future release.\nPlease update your automations and scripts to replace the sensor entity with the newly added todo entity.\nWhen you are done migrating you can disable `{entity}`.",
+            "title": "The Habitica {task_name} sensor is deprecated"
+        }
+    },
+    "services": {
+        "api_call": {
+            "description": "Calls Habitica API.",
+            "fields": {
+                "args": {
+                    "description": "Any additional JSON or URL parameter arguments. See apidoc mentioned for path. Example uses same API endpoint.",
+                    "name": "Args"
+                },
+                "name": {
+                    "description": "Habitica's username to call for.",
+                    "name": "Name"
+                },
+                "path": {
+                    "description": "Items from API URL in form of an array with method attached at the end. Consult https://habitica.com/apidoc/. Example uses https://habitica.com/apidoc/#api-Task-CreateUserTasks.",
+                    "name": "Path"
+                }
+            },
+            "name": "API name"
+        }
+    }
+}

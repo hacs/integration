@@ -1,0 +1,158 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Seade on juba h\u00e4\u00e4lestatud",
+            "connection_aborted": "\u00dchendus nurjus",
+            "unknown": "Tundmatu viga"
+        },
+        "error": {
+            "invalid_sgtin_or_pin": "Vale STGN v\u00f5i PIN, palun proovi uuesti",
+            "press_the_button": "Palun vajuta sinist nuppu.",
+            "register_failed": "Registreerimine nurjus, proovi uuesti.",
+            "timeout_button": "Sinise nupu vajutamise ajal\u00f5pp, proovi uuesti."
+        },
+        "step": {
+            "init": {
+                "data": {
+                    "hapid": "P\u00e4\u00e4supunkti ID (SGTIN)",
+                    "name": "Nimi (valikuline, kasutatakse k\u00f5igi seadmete nime eesliitena)",
+                    "pin": "PIN kood (valikuline)"
+                },
+                "title": "Vali HomematicIP p\u00e4\u00e4supunkt"
+            },
+            "link": {
+                "description": "HomematicIP registreerimiseks Home Assistanti abil vajuta p\u00e4\u00e4supunkti sinist nuppu ja nuppu **Esita**.\n\n ![Location of button on bridge](/static/images/config_flows/config_homematicip_cloud.png)",
+                "title": "Lingi p\u00e4\u00e4supunkt"
+            }
+        }
+    },
+    "exceptions": {
+        "access_point_not_found": {
+            "message": "P\u00f6\u00f6rduspunkti ID {id} jaoks ei leitud \u00fchtegi sobivat p\u00e4\u00e4supunkti"
+        }
+    },
+    "services": {
+        "activate_eco_mode_with_duration": {
+            "description": "Aktiveerib \u00f6kore\u017eiimi antud ajaks.",
+            "fields": {
+                "accesspoint_id": {
+                    "description": "Homematic IP p\u00e4\u00e4supunkti ID.",
+                    "name": "P\u00e4\u00e4supunkti ID"
+                },
+                "duration": {
+                    "description": "\u00d6kore\u017eiimi kestus minutites.",
+                    "name": "Kestus"
+                }
+            },
+            "name": "Aktiveeri \u00f6kore\u017eiim kestusega"
+        },
+        "activate_eco_mode_with_period": {
+            "description": "Aktiveerib \u00f6kore\u017eiimi antud ajaks.",
+            "fields": {
+                "accesspoint_id": {
+                    "description": "Homematic IP p\u00e4\u00e4supunkti ID.",
+                    "name": "P\u00e4\u00e4supunkti ID"
+                },
+                "endtime": {
+                    "description": "Aeg millal \u00f6kore\u017eiim tuleks automaatselt keelata.",
+                    "name": "L\u00f5puaeg"
+                }
+            },
+            "name": "Aktiveerib \u00f6kore\u017eiimi antud ajaks."
+        },
+        "activate_vacation": {
+            "description": "Aktiveerib puhkusere\u017eiimi kuni m\u00e4\u00e4ratud ajani.",
+            "fields": {
+                "accesspoint_id": {
+                    "description": "Homematic IP p\u00e4\u00e4supunkti ID.",
+                    "name": "P\u00e4\u00e4supunkti ID"
+                },
+                "endtime": {
+                    "description": "Aeg mil puhkusere\u017eiim tuleks automaatselt keelata.",
+                    "name": "L\u00f5puaeg"
+                },
+                "temperature": {
+                    "description": "Seadistatud temperatuur puhkusere\u017eiimi ajal.",
+                    "name": "Temperatuur"
+                }
+            },
+            "name": "Aktiveeri puhkusere\u017eiim"
+        },
+        "deactivate_eco_mode": {
+            "description": "L\u00fclitab \u00f6kore\u017eiimi kohe v\u00e4lja.",
+            "fields": {
+                "accesspoint_id": {
+                    "description": "Homematic IP p\u00e4\u00e4supunkti ID.",
+                    "name": "P\u00e4\u00e4supunkti ID"
+                }
+            },
+            "name": "L\u00f5peta \u00f6kore\u017eiim"
+        },
+        "deactivate_vacation": {
+            "description": "L\u00f5petab puhkusere\u017eiimi kohe.",
+            "fields": {
+                "accesspoint_id": {
+                    "description": "Homematic IP p\u00e4\u00e4supunkti ID.",
+                    "name": "P\u00e4\u00e4supunkti ID"
+                }
+            },
+            "name": "Puhkusere\u017eiimi l\u00f5petamine"
+        },
+        "dump_hap_config": {
+            "description": "T\u00fchjendab Homematic IP-juurdep\u00e4\u00e4supunkti(de) konfiguratsiooni.",
+            "fields": {
+                "anonymize": {
+                    "description": "Kas konfiguratsioon peaks olema anon\u00fc\u00fcmne?",
+                    "name": "Anon\u00fc\u00fcmseks muutmine"
+                },
+                "config_output_file_prefix": {
+                    "description": "Konfiguratsioonifaili nimi. AP SGTIN lisatakse alati.",
+                    "name": "Config v\u00e4ljundfaili eesliide"
+                },
+                "config_output_path": {
+                    "description": "(Vaikimisi on 'Your home-assistant config directory') rada kuhu salvestada konfiguratsioon.",
+                    "name": "S\u00e4tete salvestamise asukoht"
+                }
+            },
+            "name": "Lae HAP s\u00e4tted alla"
+        },
+        "reset_energy_counter": {
+            "description": "L\u00e4htestab m\u00f5\u00f5te\u00fcksuse energialoenduri.",
+            "fields": {
+                "entity_id": {
+                    "description": "M\u00f5\u00f5te\u00fcksuse ID. Kasuta k\u00f5igi energialoendurite l\u00e4htestamiseks m\u00e4rks\u00f5na \u201ek\u00f5ik\u201d.",
+                    "name": "Olem"
+                }
+            },
+            "name": "L\u00e4htesta energialoendur"
+        },
+        "set_active_climate_profile": {
+            "description": "M\u00e4\u00e4rab aktiivse kliimaprofiili indeksi.",
+            "fields": {
+                "climate_profile_index": {
+                    "description": "Kliimaprofiili indeks.",
+                    "name": "Kliimaprofiili indeks"
+                },
+                "entity_id": {
+                    "description": "Kliima\u00fcksuse ID. Kasuta k\u00f5igi \u00fcksuste profiili vahetamiseks m\u00e4rks\u00f5na \u201eall\u201d.",
+                    "name": "Olem"
+                }
+            },
+            "name": "M\u00e4\u00e4ra aktiivne kliimaprofiil"
+        },
+        "set_home_cooling_mode": {
+            "description": "Kogu kodu k\u00fctte-/jahutusre\u017eiimi seadistamine",
+            "fields": {
+                "accesspoint_id": {
+                    "description": "Homematic IP p\u00e4\u00e4supunkti ID.",
+                    "name": "P\u00e4\u00e4supunkti ID"
+                },
+                "cooling": {
+                    "description": "Luba jahutusre\u017eiimi jaoks, keela k\u00fcttere\u017eiimi jaoks",
+                    "name": "Jahutamine"
+                }
+            },
+            "name": "Seadista kodu jahutusre\u017eiim"
+        }
+    }
+}

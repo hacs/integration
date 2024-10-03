@@ -1,0 +1,120 @@
+{
+    "device_automation": {
+        "action_type": {
+            "toggle": "Zet {entity_name} aan/uit",
+            "turn_off": "{entity_name} uitzetten",
+            "turn_on": "{entity_name} aanzetten"
+        },
+        "condition_type": {
+            "is_off": "{entity_name} is uitgeschakeld",
+            "is_on": "{entity_name} is ingeschakeld"
+        },
+        "trigger_type": {
+            "changed_states": "{entity_name} aan- of uitgezet",
+            "turned_off": "{entity_name} uitgezet",
+            "turned_on": "{entity_name} aangezet"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Afstandsbediening",
+            "state": {
+                "off": "Uit",
+                "on": "Aan"
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "Platform {platform} van de {domain} integratie heeft geen platformondersteuning.\n\nVerwijder dit uit je configuratie en herstart Home Assistant om dit issue op te lossen.",
+            "title": "Platformondersteuning is niet ondersteund"
+        }
+    },
+    "services": {
+        "delete_command": {
+            "description": "Verwijdert een opdracht of een lijst met opdrachten uit de database.",
+            "fields": {
+                "command": {
+                    "description": "De enkele opdracht of de lijst met opdrachten die verwijderd moeten worden.",
+                    "name": "Commando"
+                },
+                "device": {
+                    "description": "Apparaat waarvan opdrachten worden verwijderd.",
+                    "name": "Apparaat"
+                }
+            },
+            "name": "Opdracht verwijderen"
+        },
+        "learn_command": {
+            "description": "Leert een opdracht of een lijst met opdrachten van een apparaat.",
+            "fields": {
+                "alternative": {
+                    "description": "Als code als alternatief moet worden opgeslagen. Dit is handig voor discrete codes. Discrete codes worden gebruikt voor schakelaars die slechts \u00e9\u00e9n functie uitvoeren. Bijvoorbeeld een code om alleen een apparaat aan te zetten. Als het al aan is, verandert het verzenden van de code de status niet.",
+                    "name": "Alternatief"
+                },
+                "command": {
+                    "description": "Een enkele opdracht of een lijst met opdrachten om te leren.",
+                    "name": "Opdracht"
+                },
+                "command_type": {
+                    "description": "Het soort opdracht dat geleerd moet worden.",
+                    "name": "Type opdracht"
+                },
+                "device": {
+                    "description": "Apparaat-ID om opdracht van te leren.",
+                    "name": "Apparaat"
+                },
+                "timeout": {
+                    "description": "Time-out voor het leren van de opdracht.",
+                    "name": "Time-out"
+                }
+            },
+            "name": "Opdracht leren"
+        },
+        "send_command": {
+            "description": "Verstuurt een commando of een lijst van commando's naar een apparaat.",
+            "fields": {
+                "command": {
+                    "description": "Een enkele opdracht of een lijst van opdrachten om te verzenden.",
+                    "name": "Opdracht"
+                },
+                "delay_secs": {
+                    "description": "De tijd die je wilt wachten tussen herhaalde opdrachten.",
+                    "name": "Vertraging seconden"
+                },
+                "device": {
+                    "description": "Apparaat-ID waarnaar de opdracht moet worden verzonden.",
+                    "name": "Apparaat"
+                },
+                "hold_secs": {
+                    "description": "De tijd dat je het wilt vasthouden voordat de release wordt verzonden.",
+                    "name": "Seconden vasthouden"
+                },
+                "num_repeats": {
+                    "description": "Het aantal keren dat jede opdrachten wilt herhalen.",
+                    "name": "Herhalingen"
+                }
+            },
+            "name": "Opdracht verzenden"
+        },
+        "toggle": {
+            "description": "Schakelt een apparaat aan/uit.",
+            "name": "Omschakelen"
+        },
+        "turn_off": {
+            "description": "Zet het apparaat uit.",
+            "name": "Uitzetten"
+        },
+        "turn_on": {
+            "description": "Verstuurt het inschakelcommando.",
+            "fields": {
+                "activity": {
+                    "description": "Activiteits-ID of activiteitsnaam om te starten.",
+                    "name": "Activiteit"
+                }
+            },
+            "name": "Aanzetten"
+        }
+    },
+    "title": "Afstandsbediening"
+}

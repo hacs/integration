@@ -1,0 +1,130 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "Kalender",
+            "state": {
+                "off": "Mati",
+                "on": "Nyala"
+            },
+            "state_attributes": {
+                "all_day": {
+                    "name": "Sepanjang hari",
+                    "state": {
+                        "false": "Tidak",
+                        "true": "Ya"
+                    }
+                },
+                "description": {
+                    "name": "Deskripsi"
+                },
+                "end_time": {
+                    "name": "Waktu berakhir"
+                },
+                "location": {
+                    "name": "Lokasi"
+                },
+                "message": {
+                    "name": "Pesan"
+                },
+                "messages": {
+                    "name": "Pesan"
+                },
+                "start_time": {
+                    "name": "Waktu mulai"
+                }
+            }
+        }
+    },
+    "issues": {
+        "deprecated_service_calendar_list_events": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "title": "Terdeteksi penggunaan aksi `calendar.list_events` yang tidak digunakan lagi"
+                    }
+                }
+            }
+        },
+        "platform_integration_no_support": {
+            "description": "Platform {platform} untuk integrasi {domain} tidak mendukung penyiapan platform. \n\nHarap hapus dari konfigurasi Anda dan mulai ulang Home Assistant untuk memperbaiki masalah ini.",
+            "title": "Dukungan platform tidak didukung"
+        }
+    },
+    "services": {
+        "create_event": {
+            "description": "Menambahkan acara kalender baru.",
+            "fields": {
+                "description": {
+                    "description": "Deskripsi acara yang lebih lengkap dibandingkan dengan ringkasan.",
+                    "name": "Deskripsi"
+                },
+                "end_date": {
+                    "description": "Tanggal acara sepanjang hari diakhiri (eksklusif).",
+                    "name": "Tanggal akhir"
+                },
+                "end_date_time": {
+                    "description": "Tanggal dan waktu acara diakhiri.",
+                    "name": "Waktu berakhir"
+                },
+                "in": {
+                    "description": "Hari atau pekan mana Anda ingin membuat acara.",
+                    "name": "Di"
+                },
+                "location": {
+                    "description": "Lokasi acara",
+                    "name": "Lokasi"
+                },
+                "start_date": {
+                    "description": "Tanggal acara sepanjang hari dimulai.",
+                    "name": "Tanggal mulai"
+                },
+                "start_date_time": {
+                    "description": "Tanggal dan waktu acara dimulai.",
+                    "name": "Waktu mulai"
+                },
+                "summary": {
+                    "description": "Menentukan ringkasan singkat atau subjek untuk acara.",
+                    "name": "Ringkasan"
+                }
+            },
+            "name": "Buat acara"
+        },
+        "get_events": {
+            "description": "Dapatkan acara di kalender dalam rentang waktu tertentu.",
+            "fields": {
+                "duration": {
+                    "description": "Mengembalikan acara aktif dari start_date_time hingga durasi yang ditentukan.",
+                    "name": "Durasi"
+                },
+                "end_date_time": {
+                    "description": "Mengembalikan acara aktif sebelum waktu ini (eksklusif). Tidak dapat digunakan dengan 'duration'.",
+                    "name": "Waktu berakhir"
+                },
+                "start_date_time": {
+                    "description": "Mengembalikan acara aktif setelah waktu ini (eksklusif). Jika tidak diatur, defaultnya adalah sekarang.",
+                    "name": "Waktu mulai"
+                }
+            },
+            "name": "Dapatkan acara"
+        },
+        "list_events": {
+            "description": "Mengembalikan daftar acara kalender dalam rentang waktu.",
+            "fields": {
+                "duration": {
+                    "description": "Mengembalikan acara aktif dari start_date_time hingga durasi yang ditentukan.",
+                    "name": "Durasi"
+                },
+                "end_date_time": {
+                    "description": "Mengembalikan acara aktif sebelum waktu ini (eksklusif). Tidak dapat digunakan dengan 'duration'.",
+                    "name": "Waktu berakhir"
+                },
+                "start_date_time": {
+                    "description": "Mengembalikan acara aktif setelah waktu ini (eksklusif). Jika tidak diatur, defaultnya adalah sekarang.",
+                    "name": "Waktu mulai"
+                }
+            },
+            "name": "Daftar acara"
+        }
+    },
+    "title": "Kalender"
+}

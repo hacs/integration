@@ -1,0 +1,62 @@
+{
+    "services": {
+        "authorize": {
+            "description": "Autorizuje proces nab\u00edjania pomocou preddefinovan\u00e9ho \u0161t\u00edtku RFID konfigura\u010dn\u00e9ho s\u00faboru.",
+            "name": "Autoriz\u00e1cia"
+        },
+        "deauthorize": {
+            "description": "Zru\u0161\u00ed autoriz\u00e1ciu prebiehaj\u00faceho procesu nab\u00edjania pomocou preddefinovanej zna\u010dky RFID konfigura\u010dn\u00e9ho s\u00faboru.",
+            "name": "Zru\u0161enie autoriz\u00e1cie"
+        },
+        "disable": {
+            "description": "Zastav\u00ed proces nab\u00edjania, ak je nab\u00edjacia stanica autorizovan\u00e1.",
+            "name": "Zak\u00e1za\u0165"
+        },
+        "enable": {
+            "description": "Spust\u00ed proces nab\u00edjania, ak je nab\u00edjacia stanica autorizovan\u00e1.",
+            "name": "Povoli\u0165"
+        },
+        "request_data": {
+            "description": "Vy\u017eiadanie nov\u00fdch \u00fadajov z nab\u00edjacej stanice.",
+            "name": "Vy\u017eiadajte si \u00fadaje"
+        },
+        "set_current": {
+            "description": "Nastavuje maxim\u00e1lny pr\u00fad pre procesy nab\u00edjania.",
+            "fields": {
+                "current": {
+                    "description": "Maxim\u00e1lny pr\u00fad pou\u017e\u00edvan\u00fd pri nab\u00edjan\u00ed. Hodnota z\u00e1vis\u00ed od nastavenia prep\u00edna\u010da DIP a pou\u017eit\u00e9ho k\u00e1bla nab\u00edjacej stanice.",
+                    "name": "Pr\u00fad"
+                }
+            },
+            "name": "Nastavi\u0165 pr\u00fad"
+        },
+        "set_energy": {
+            "description": "Nastav\u00ed cie\u013eov\u00fa hodnotu energie, po ktorej sa proces nab\u00edjania zastav\u00ed.",
+            "fields": {
+                "energy": {
+                    "description": "Cie\u013eov\u00e1 hodnota energie na zastavenie nab\u00edjania. Nastaven\u00edm 0 sa limit vypne.",
+                    "name": "Energia"
+                }
+            },
+            "name": "Nastavenie energie"
+        },
+        "set_failsafe": {
+            "description": "Nastav\u00ed re\u017eim n\u00fadzov\u00e9ho nab\u00edjania nab\u00edjacej stanice. Ak s\u00fa v\u0161etky parametre rovn\u00e9 0, re\u017eim failsafe bude vypnut\u00fd.",
+            "fields": {
+                "failsafe_fallback": {
+                    "description": "Po uplynut\u00ed \u010dasov\u00e9ho limitu sa nastav\u00ed z\u00e1lo\u017en\u00fd pr\u00fad.",
+                    "name": "Z\u00e1lo\u017en\u00e9 rie\u0161enie pri poruche"
+                },
+                "failsafe_persist": {
+                    "description": "Ak je hodnota failsafe_persist 0, mo\u017enos\u0165 failsafe plat\u00ed len do re\u0161tartu nab\u00edjacej stanice. Ak je failsafe_persist 1, mo\u017enos\u0165 failsafe pre\u017eije aj re\u0161tart nab\u00edja\u010dky.",
+                    "name": "Bezpe\u010dnos\u0165 pri poruche pretrv\u00e1va"
+                },
+                "failsafe_timeout": {
+                    "description": "\u010casov\u00fd limit, po ktorom sa spust\u00ed re\u017eim failsafe, ak sa po\u010das tohto \u010dasu nevykonal set_current.",
+                    "name": "\u010casov\u00fd limit pri poruche"
+                }
+            },
+            "name": "Nastavi\u0165 bezpe\u010dnos\u0165 pri poruche"
+        }
+    }
+}

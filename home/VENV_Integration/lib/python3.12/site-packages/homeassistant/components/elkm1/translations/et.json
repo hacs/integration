@@ -1,0 +1,206 @@
+{
+    "config": {
+        "abort": {
+            "address_already_configured": "Selle aadressiga ElkM1 on juba seadistatud",
+            "already_configured": "Selle eesliitega ElkM1 on juba seadistatud",
+            "already_in_progress": "Seadistamine juba k\u00e4ib",
+            "cannot_connect": "\u00dchendumine nurjus",
+            "invalid_auth": "Tuvastamine nurjus",
+            "unknown": "Ootamatu t\u00f5rge"
+        },
+        "error": {
+            "cannot_connect": "\u00dchendamine nurjus",
+            "invalid_auth": "Tuvastamine nurjus",
+            "unknown": "Tundmatu viga"
+        },
+        "flow_title": "{mac_address} ({host})",
+        "step": {
+            "discovered_connection": {
+                "data": {
+                    "password": "Salas\u00f5na",
+                    "protocol": "Protokoll",
+                    "temperature_unit": "Temperatuuri\u00fchik mida ElkM1 kasutab.",
+                    "username": "Kasutajanimi"
+                },
+                "description": "\u00dchendu avastatud s\u00fcsteemiga: {mac_address} ( {host} )",
+                "title": "\u00dchendu Elk-M1 Controliga"
+            },
+            "manual_connection": {
+                "data": {
+                    "address": "IP-aadress v\u00f5i domeen v\u00f5i jadaport kui \u00fchendus toimub jadapordi kaudu.",
+                    "password": "Salas\u00f5na",
+                    "prefix": "Unikaalne eesliide (j\u00e4ta t\u00fchjaks kui sul on ainult \u00fcks ElkM1).",
+                    "protocol": "Protokoll",
+                    "temperature_unit": "Temperatuuri\u00fchik mida ElkM1 kasutab.",
+                    "username": "Kasutajanimi"
+                },
+                "description": "Turvalise ja mitteturvalise aadressi puhul peab aadressi string olema kujul 'address[:port]'. N\u00e4ide: '192.168.1.1'. Port on valikuline ja vaikimisi on see 2101 \"mitteturvalise\" ja 2601 \"turvalise\" puhul. Seeriaprotokolli puhul peab aadress olema kujul 'tty[:baud]'. N\u00e4ide: '/dev/ttyS1'. Baud on valikuline ja vaikimisi 115200.",
+                "title": "\u00dchendu Elk-M1 Controliga"
+            },
+            "user": {
+                "data": {
+                    "device": "Seade"
+                },
+                "description": "Vali avastatud s\u00fcsteem v\u00f5i \"K\u00e4sitsi sisestamine\" kui \u00fchtegi seadet ei ole avastatud.",
+                "title": "\u00dchendu Elk-M1 Control"
+            }
+        }
+    },
+    "issues": {
+        "migrate_aux_heat": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Toiming Elk-M1 \"set_aux_heat\" on \u00fcle viidud. Iga termostaadi jaoks on saadaval uus h\u00e4daolukorra k\u00fcttel\u00fcliti. Uue avariik\u00fcttel\u00fcliti olemi kasutamiseks v\u00e4rskenda k\u00f5iki automaatikaid. Kui see on tehtud, vajuta selle probleemi lahendamiseks nuppu **Esita**.",
+                        "title": "Elk-M1 set_aux_heat toimingu migratsioon"
+                    }
+                }
+            },
+            "title": "Elk-M1 set_aux_heat toimingu migratsioon"
+        }
+    },
+    "services": {
+        "alarm_arm_home_instant": {
+            "description": "Valvastab ElkM1 koheselt koduses re\u017eiimis.",
+            "fields": {
+                "code": {
+                    "description": "Juhtpaneeli valvestamise kood.",
+                    "name": "Kood"
+                }
+            },
+            "name": "Valvesta kohe kodus re\u017eiimis"
+        },
+        "alarm_arm_night_instant": {
+            "description": "Valvastab ElkM1 koheselt \u00f6ises re\u017eiimis.",
+            "fields": {
+                "code": {
+                    "description": "Juhtpaneeli valvestamise kood.",
+                    "name": "Kood"
+                }
+            },
+            "name": "Valvesta kohe \u00f6\u00f6re\u017eiimis"
+        },
+        "alarm_arm_vacation": {
+            "description": "Valvesta ElkM1 puhkusere\u017eiimis.",
+            "fields": {
+                "code": {
+                    "description": "Juhtpaneeli valvestamise kood.",
+                    "name": "Kood"
+                }
+            },
+            "name": "Valvesta puhkuse re\u017eiimis"
+        },
+        "alarm_bypass": {
+            "description": "Alistab k\u00f5ik piirkonna tsoonid.",
+            "fields": {
+                "code": {
+                    "description": "Kood alarmi juhtpaneeli alistamise autoriseerimiseks.",
+                    "name": "Kood"
+                }
+            },
+            "name": "H\u00e4ire alistamine"
+        },
+        "alarm_clear_bypass": {
+            "description": "Eemaldab alistamise k\u00f5igist piirkonna tsoonidest.",
+            "fields": {
+                "code": {
+                    "description": "Kood, mis lubab h\u00e4ire juhtpaneeli alistamise vabastada.",
+                    "name": "Kood"
+                }
+            },
+            "name": "H\u00e4ire l\u00f5petamise alistamine"
+        },
+        "alarm_display_message": {
+            "description": "Kuvab teate k\u00f5igil piirkonna ElkM1 klahvistikel.",
+            "fields": {
+                "beep": {
+                    "description": "0=piiksu pole, 1=piiks.",
+                    "name": "Piiks"
+                },
+                "clear": {
+                    "description": "0=t\u00fchjenda teade, 1=t\u00fchjenda teade klahviga *, 2=Kuva kuni ajal\u00f5puni.",
+                    "name": "T\u00fchjenda"
+                },
+                "line1": {
+                    "description": "Kuni 16 t\u00e4hem\u00e4rki teksti (liiga pika korral k\u00e4rbitakse).",
+                    "name": "1. rida"
+                },
+                "line2": {
+                    "description": "Kuni 16 t\u00e4hem\u00e4rki teksti (liiga pika korral k\u00e4rbitakse).",
+                    "name": "2. rida"
+                },
+                "timeout": {
+                    "description": "S\u00f5numi kuvamise aeg, 0 = igavesti, max 65535.",
+                    "name": "Ajal\u00f5pp"
+                }
+            },
+            "name": "H\u00e4ire kuvamise teade"
+        },
+        "sensor_counter_refresh": {
+            "description": "V\u00e4rskendab paneeli loenduri v\u00e4\u00e4rtust.",
+            "name": "Anduri loenduri v\u00e4rskendamine"
+        },
+        "sensor_counter_set": {
+            "description": "M\u00e4\u00e4rab paneelil oleva loenduri v\u00e4\u00e4rtuse.",
+            "fields": {
+                "value": {
+                    "description": "V\u00e4\u00e4rtus, millele loendur m\u00e4\u00e4rata.",
+                    "name": "V\u00e4\u00e4rtus"
+                }
+            },
+            "name": "Anduri loenduri m\u00e4\u00e4ramine"
+        },
+        "sensor_zone_bypass": {
+            "description": "Alistab tsooni.",
+            "fields": {
+                "code": {
+                    "description": "Kood, mis lubab tsooni alistamist.",
+                    "name": "Kood"
+                }
+            },
+            "name": "Anduri tsooni alistamine"
+        },
+        "sensor_zone_trigger": {
+            "description": "P\u00e4\u00e4stikute tsoon.",
+            "name": "Anduri tsooni p\u00e4\u00e4stik"
+        },
+        "set_time": {
+            "description": "M\u00e4\u00e4rab paneelile aja.",
+            "fields": {
+                "prefix": {
+                    "description": "Paneeli eesliide.",
+                    "name": "Eesliide"
+                }
+            },
+            "name": "M\u00e4\u00e4ra aeg"
+        },
+        "speak_phrase": {
+            "description": "R\u00e4\u00e4gib fraasi. Vaadake fraaside loendit ElkM1 ASCII protokolli dokumentatsioonis.",
+            "fields": {
+                "number": {
+                    "description": "R\u00e4\u00e4gitava lausendi number.",
+                    "name": "Lausendi number"
+                },
+                "prefix": {
+                    "description": "Eesliide paneeli tuvastamiseks kui on seadistatud mitu paneeli.",
+                    "name": "Eesliide"
+                }
+            },
+            "name": "\u00dctle lausend"
+        },
+        "speak_word": {
+            "description": "\u00dctleb s\u00f5na. ElkM1 ASCII protokolli dokumentatsioonis on s\u00f5nade loend.",
+            "fields": {
+                "number": {
+                    "description": "\u00d6eldava s\u00f5na number.",
+                    "name": "S\u00f5na number"
+                },
+                "prefix": {
+                    "description": "Eesliide paneeli tuvastamiseks kui on seadistatud mitu paneeli.",
+                    "name": "Eesliide"
+                }
+            },
+            "name": "\u00dctle s\u00f5na"
+        }
+    }
+}

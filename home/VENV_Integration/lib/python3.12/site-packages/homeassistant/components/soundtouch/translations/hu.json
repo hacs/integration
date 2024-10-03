@@ -1,0 +1,84 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Az eszk\u00f6z m\u00e1r konfigur\u00e1lva van"
+        },
+        "error": {
+            "cannot_connect": "Sikertelen csatlakoz\u00e1s"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "host": "Hoszt"
+                },
+                "data_description": {
+                    "host": "A Bose SoundTouch eszk\u00f6z g\u00e9pneve vagy IP-c\u00edme."
+                }
+            },
+            "zeroconf_confirm": {
+                "description": "\u00d6n \u00e9ppen hozz\u00e1 k\u00e9sz\u00fcl adni a `{name}` nev\u0171 SoundTouch eszk\u00f6zt a Home Assistanthoz.",
+                "title": "Er\u0151s\u00edtse meg a Bose SoundTouch eszk\u00f6z hozz\u00e1ad\u00e1s\u00e1t"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_yaml": {
+            "description": "A Bose SoundTouch YAML-ben megadott konfigur\u00e1ci\u00f3ja elt\u00e1vol\u00edt\u00e1sra ker\u00fcl.\n\nA megl\u00e9v\u0151 YAML konfigur\u00e1ci\u00f3 automatikusan import\u00e1l\u00e1sra ker\u00fclt a felhaszn\u00e1l\u00f3i fel\u00fcletre.\n\nA probl\u00e9ma megold\u00e1s\u00e1hoz t\u00e1vol\u00edtsa el a Bose SoundTouch YAML konfigur\u00e1ci\u00f3t a configuration.yaml f\u00e1jlb\u00f3l \u00e9s ind\u00edtsa \u00fajra a Home Assistant programot.",
+            "title": "A Bose SoundTouch YAML konfigur\u00e1ci\u00f3 elt\u00e1vol\u00edt\u00e1sra ker\u00fcl"
+        }
+    },
+    "services": {
+        "add_zone_slave": {
+            "description": "Hozz\u00e1ad egy alrendszert egy SoundTouch t\u00f6bbszob\u00e1s z\u00f3n\u00e1hoz.",
+            "fields": {
+                "master": {
+                    "description": "A t\u00f6bbszob\u00e1s z\u00f3na koordin\u00e1l\u00e1s\u00e1\u00e9rt felel\u0151s gazda entit\u00e1s neve. Platformf\u00fcgg\u0151.",
+                    "name": "Gazda"
+                },
+                "slaves": {
+                    "description": "A hozz\u00e1adand\u00f3 alrendszer entit\u00e1sok nevei a megl\u00e9v\u0151 z\u00f3n\u00e1hoz.",
+                    "name": "Alrendszerek"
+                }
+            },
+            "name": "Alrendszer hozz\u00e1ad\u00e1sa a z\u00f3n\u00e1hoz"
+        },
+        "create_zone": {
+            "description": "L\u00e9trehoz egy SoundTouch t\u00f6bbszob\u00e1s z\u00f3n\u00e1t.",
+            "fields": {
+                "master": {
+                    "description": "A t\u00f6bbszob\u00e1s z\u00f3na koordin\u00e1l\u00e1s\u00e1\u00e9rt felel\u0151s gazda entit\u00e1s neve. Platformf\u00fcgg\u0151.",
+                    "name": "Gazda"
+                },
+                "slaves": {
+                    "description": "A hozz\u00e1adand\u00f3 alrendszer entit\u00e1sok nevei az \u00faj z\u00f3n\u00e1hoz.",
+                    "name": "Alrendszerek"
+                }
+            },
+            "name": "Z\u00f3na l\u00e9trehoz\u00e1sa"
+        },
+        "play_everywhere": {
+            "description": "Lej\u00e1tsz\u00e1s az \u00f6sszes Bose SoundTouch eszk\u00f6z\u00f6n.",
+            "fields": {
+                "master": {
+                    "description": "A csoportos\u00edt\u00e1st koordin\u00e1l\u00f3 gazda entit\u00e1s neve. Platformf\u00fcgg\u0151. Ez egy parancsikon az \u00f6sszes eszk\u00f6zzel t\u00f6bbszob\u00e1s z\u00f3na l\u00e9trehoz\u00e1s\u00e1hoz.",
+                    "name": "Gazda"
+                }
+            },
+            "name": "Lej\u00e1tsz\u00e1s mindenhol"
+        },
+        "remove_zone_slave": {
+            "description": "Elt\u00e1vol\u00edt egy alrendszert a SoundTouch t\u00f6bbszob\u00e1s z\u00f3n\u00e1b\u00f3l.",
+            "fields": {
+                "master": {
+                    "description": "A t\u00f6bbszob\u00e1s z\u00f3na koordin\u00e1l\u00e1s\u00e1\u00e9rt felel\u0151s gazda entit\u00e1s neve. Platformf\u00fcgg\u0151.",
+                    "name": "Gazda"
+                },
+                "slaves": {
+                    "description": "Az elt\u00e1vol\u00edtand\u00f3 alrendszer entit\u00e1sok nevei a megl\u00e9v\u0151 z\u00f3n\u00e1b\u00f3l.",
+                    "name": "Alrendszerek"
+                }
+            },
+            "name": "Alrendszer elt\u00e1vol\u00edt\u00e1sa a z\u00f3n\u00e1b\u00f3l"
+        }
+    }
+}

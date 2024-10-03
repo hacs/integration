@@ -1,0 +1,90 @@
+{
+    "device_automation": {
+        "condition_type": {
+            "is_home": "{entity_name} ada di rumah",
+            "is_not_home": "{entity_name} tidak ada di rumah"
+        },
+        "extra_fields": {
+            "zone": "Zona"
+        },
+        "trigger_type": {
+            "enters": "{entity_name} memasuki zona",
+            "leaves": "{entity_name} meninggalkan zona"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Pelacak perangkat",
+            "state": {
+                "home": "Di Rumah",
+                "not_home": "Keluar"
+            },
+            "state_attributes": {
+                "battery": {
+                    "name": "Baterai"
+                },
+                "gps_accuracy": {
+                    "name": "Akurasi GPS"
+                },
+                "latitude": {
+                    "name": "Lintang"
+                },
+                "longitude": {
+                    "name": "Bujur"
+                },
+                "source_type": {
+                    "name": "Sumber",
+                    "state": {
+                        "bluetooth": "Bluetooth",
+                        "bluetooth_le": "Bluetooth LE",
+                        "gps": "GPS",
+                        "router": "Router"
+                    }
+                }
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "Platform {platform} untuk integrasi {domain} tidak mendukung penyiapan platform. \n\nHarap hapus dari konfigurasi Anda dan mulai ulang Home Assistant untuk memperbaiki masalah ini.",
+            "title": "Dukungan platform tidak didukung"
+        }
+    },
+    "services": {
+        "see": {
+            "description": "Merekam perangkat terlacak yang terlihat.",
+            "fields": {
+                "battery": {
+                    "description": "Level baterai perangkat.",
+                    "name": "Level baterai"
+                },
+                "dev_id": {
+                    "description": "ID perangkat (temukan ID di `known_devices.yaml`).",
+                    "name": "ID Perangkat"
+                },
+                "gps": {
+                    "description": "Koordinat GPS tempat perangkat berada, ditentukan oleh garis lintang dan bujur (misalnya: [-0.972917, 116.708848]).",
+                    "name": "Koordinat GPS"
+                },
+                "gps_accuracy": {
+                    "description": "Akurasi koordinat GPS.",
+                    "name": "Akurasi GPS"
+                },
+                "host_name": {
+                    "description": "Nama host perangkat.",
+                    "name": "Nama host"
+                },
+                "location_name": {
+                    "description": "Nama lokasi tempat perangkat berada. Pilihannya adalah: 'home', 'not_home', atau nama zona.",
+                    "name": "Lokasi"
+                },
+                "mac": {
+                    "description": "Alamat MAC perangkat.",
+                    "name": "Alamat MAC"
+                }
+            },
+            "name": "Lihat"
+        }
+    },
+    "title": "Pelacak perangkat"
+}

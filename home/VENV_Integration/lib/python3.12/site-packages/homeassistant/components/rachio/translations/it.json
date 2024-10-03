@@ -1,0 +1,110 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Il dispositivo \u00e8 gi\u00e0 configurato"
+        },
+        "error": {
+            "cannot_connect": "Impossibile connettersi",
+            "invalid_auth": "Autenticazione non valida",
+            "unknown": "Errore imprevisto"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "api_key": "Chiave API"
+                },
+                "title": "Connettiti al tuo dispositivo Rachio"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "rain": {
+                "name": "Pioggia"
+            }
+        },
+        "switch": {
+            "rain_delay": {
+                "name": "Ritardo per pioggia"
+            },
+            "standby": {
+                "name": "In attesa"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "manual_run_mins": "Durata in minuti per l'esecuzione durante l'attivazione di un interruttore di zona"
+                }
+            }
+        }
+    },
+    "services": {
+        "pause_watering": {
+            "description": "Metti in pausa eventuali zone o pianificazioni attualmente in esecuzione.",
+            "fields": {
+                "devices": {
+                    "description": "Nome dei controller da mettere in pausa. Predefinito per tutti i controller sull'account se non fornito.",
+                    "name": "Dispositivi"
+                },
+                "duration": {
+                    "description": "Il tempo per sospendere le pianificazioni in esecuzione.",
+                    "name": "Durata"
+                }
+            },
+            "name": "Metti in pausa l'irrigazione"
+        },
+        "resume_watering": {
+            "description": "Riprendi qualsiasi esecuzione o pianificazione della zona in pausa.",
+            "fields": {
+                "devices": {
+                    "description": "Nome dei controller da riprendere. Predefinito per tutti i controller sull'account se non fornito.",
+                    "name": "Dispositivi"
+                }
+            },
+            "name": "Riprendi l'irrigazione"
+        },
+        "set_zone_moisture_percent": {
+            "description": "Imposta la percentuale di umidit\u00e0 di una zona o di un elenco di zone.",
+            "fields": {
+                "percent": {
+                    "description": "Imposta la percentuale di umidit\u00e0 della zona desiderata.",
+                    "name": "Percentuale"
+                }
+            },
+            "name": "Imposta la percentuale di umidit\u00e0 della zona"
+        },
+        "start_multiple_zone_schedule": {
+            "description": "Crea una pianificazione personalizzata di zone e tempi di esecuzione. Si noti che tutte le zone dovrebbero trovarsi sullo stesso controller per evitare problemi.",
+            "fields": {
+                "duration": {
+                    "description": "Numero di minuti per l'esecuzione delle zone. Se viene data solo 1 durata, quel tempo verr\u00e0 utilizzato per tutte le zone. Se viene fornito un elenco di durate, le durate si applicheranno alle rispettive zone sopra elencate.",
+                    "name": "Durata"
+                }
+            },
+            "name": "Avvia pi\u00f9 zone"
+        },
+        "start_watering": {
+            "description": "Avvia una singola zona, un programma o un qualsiasi numero di temporizzatori intelligenti per tubi.",
+            "fields": {
+                "duration": {
+                    "description": "Numero di minuti di funzionamento. Per le zone di irrigazione la durata massima \u00e8 di 3 ore, o 24 ore per i temporizzatori intelligenti per tubi. Lasciare vuoto per le programmazioni.",
+                    "name": "Durata"
+                }
+            },
+            "name": "Inizia ad annaffiare"
+        },
+        "stop_watering": {
+            "description": "Arresta tutte le zone o i programmi attualmente in esecuzione.",
+            "fields": {
+                "devices": {
+                    "description": "Nome dei controller da interrompere. Predefinito per tutti i controller sull'account se non fornito.",
+                    "name": "Dispositivi"
+                }
+            },
+            "name": "Interrompere l'irrigazione"
+        }
+    }
+}

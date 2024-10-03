@@ -1,0 +1,954 @@
+{
+    "config": {
+        "abort": {
+            "single_instance_allowed": "M\u00e1r konfigur\u00e1lva van. Csak egy konfigur\u00e1ci\u00f3 lehets\u00e9ges."
+        },
+        "create_entry": {
+            "default": "N\u00e9h\u00e1ny \u00e9rz\u00e9kel\u0151 alap\u00e9rtelmez\u00e9s szerint nincs enged\u00e9lyezve. Az integr\u00e1ci\u00f3 konfigur\u00e1l\u00e1sa ut\u00e1n enged\u00e9lyezheti \u0151ket az entit\u00e1s-regisztr\u00e1ci\u00f3ban."
+        },
+        "error": {
+            "cannot_connect": "Sikertelen csatlakoz\u00e1s",
+            "invalid_api_key": "\u00c9rv\u00e9nytelen API kulcs",
+            "requests_exceeded": "Az Accuweather API-hoz int\u00e9zett lek\u00e9r\u00e9sek sz\u00e1ma t\u00fal lett l\u00e9pve. V\u00e1rjon m\u00edg a tilt\u00e1s lej\u00e1r vagy v\u00e1ltson m\u00e1sik API-kulcsra."
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "api_key": "API kulcs",
+                    "latitude": "Sz\u00e9less\u00e9g",
+                    "longitude": "Hossz\u00fas\u00e1g",
+                    "name": "Elnevez\u00e9s"
+                }
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "air_quality": {
+                "name": "Leveg\u0151min\u0151s\u00e9g {forecast_day}. nap",
+                "state": {
+                    "good": "J\u00f3",
+                    "hazardous": "Vesz\u00e9lyes",
+                    "high": "Magas",
+                    "low": "Alacsony",
+                    "moderate": "M\u00e9rs\u00e9kelt",
+                    "unhealthy": "Eg\u00e9szs\u00e9gtelen"
+                }
+            },
+            "air_quality_0d": {
+                "name": "Leveg\u0151min\u0151s\u00e9g ma",
+                "state": {
+                    "good": "J\u00f3",
+                    "hazardous": "Vesz\u00e9lyes",
+                    "high": "Magas",
+                    "low": "Alacsony",
+                    "moderate": "M\u00e9rs\u00e9kelt",
+                    "unhealthy": "Eg\u00e9szs\u00e9gtelen"
+                }
+            },
+            "air_quality_1d": {
+                "name": "Leveg\u0151min\u0151s\u00e9g 1n",
+                "state": {
+                    "good": "J\u00f3",
+                    "hazardous": "Vesz\u00e9lyes",
+                    "high": "Magas",
+                    "low": "Alacsony",
+                    "moderate": "M\u00e9rs\u00e9kelt",
+                    "unhealthy": "Eg\u00e9szs\u00e9gtelen"
+                }
+            },
+            "air_quality_2d": {
+                "name": "Leveg\u0151min\u0151s\u00e9g 2n",
+                "state": {
+                    "good": "J\u00f3",
+                    "hazardous": "Vesz\u00e9lyes",
+                    "high": "Magas",
+                    "low": "Alacsony",
+                    "moderate": "M\u00e9rs\u00e9kelt",
+                    "unhealthy": "Eg\u00e9szs\u00e9gtelen"
+                }
+            },
+            "air_quality_3d": {
+                "name": "Leveg\u0151min\u0151s\u00e9g 3n",
+                "state": {
+                    "good": "J\u00f3",
+                    "hazardous": "Vesz\u00e9lyes",
+                    "high": "Magas",
+                    "low": "Alacsony",
+                    "moderate": "M\u00e9rs\u00e9kelt",
+                    "unhealthy": "Eg\u00e9szs\u00e9gtelen"
+                }
+            },
+            "air_quality_4d": {
+                "name": "Leveg\u0151min\u0151s\u00e9g 4n",
+                "state": {
+                    "good": "J\u00f3",
+                    "hazardous": "Vesz\u00e9lyes",
+                    "high": "Magas",
+                    "low": "Alacsony",
+                    "moderate": "M\u00e9rs\u00e9kelt",
+                    "unhealthy": "Eg\u00e9szs\u00e9gtelen"
+                }
+            },
+            "apparent_temperature": {
+                "name": "H\u0151\u00e9rzet"
+            },
+            "cloud_ceiling": {
+                "name": "Felh\u0151alap magass\u00e1g"
+            },
+            "cloud_cover": {
+                "name": "Felh\u0151takar\u00f3"
+            },
+            "cloud_cover_day": {
+                "name": "Felh\u0151takar\u00f3 nappal {forecast_day}. nap"
+            },
+            "cloud_cover_day_0d": {
+                "name": "Felh\u0151takar\u00f3 nappal ma"
+            },
+            "cloud_cover_day_1d": {
+                "name": "Felh\u0151takar\u00f3 nappal 1n"
+            },
+            "cloud_cover_day_2d": {
+                "name": "Felh\u0151takar\u00f3 nappal 2n"
+            },
+            "cloud_cover_day_3d": {
+                "name": "Felh\u0151takar\u00f3 nappal 3n"
+            },
+            "cloud_cover_day_4d": {
+                "name": "Felh\u0151takar\u00f3 nappal 4n"
+            },
+            "cloud_cover_night": {
+                "name": "Felh\u0151takar\u00f3 \u00e9jszaka {forecast_day}. nap"
+            },
+            "cloud_cover_night_0d": {
+                "name": "Felh\u0151takar\u00f3 \u00e9jszaka ma"
+            },
+            "cloud_cover_night_1d": {
+                "name": "Felh\u0151takar\u00f3 \u00e9jszaka 1n"
+            },
+            "cloud_cover_night_2d": {
+                "name": "Felh\u0151takar\u00f3 \u00e9jszaka 2n"
+            },
+            "cloud_cover_night_3d": {
+                "name": "Felh\u0151takar\u00f3 \u00e9jszaka 3n"
+            },
+            "cloud_cover_night_4d": {
+                "name": "Felh\u0151takar\u00f3 \u00e9jszaka 4n"
+            },
+            "condition_day": {
+                "name": "Nappali k\u00f6r\u00fclm\u00e9nyek {forecast_day}. nap"
+            },
+            "condition_day_0d": {
+                "name": "Nappali k\u00f6r\u00fclm\u00e9nyek ma"
+            },
+            "condition_day_1d": {
+                "name": "Nappali k\u00f6r\u00fclm\u00e9nyek 1n"
+            },
+            "condition_day_2d": {
+                "name": "Nappali k\u00f6r\u00fclm\u00e9nyek 2n"
+            },
+            "condition_day_3d": {
+                "name": "Nappali k\u00f6r\u00fclm\u00e9nyek 3n"
+            },
+            "condition_day_4d": {
+                "name": "Nappali k\u00f6r\u00fclm\u00e9nyek 4n"
+            },
+            "condition_night": {
+                "name": "\u00c9jszakai k\u00f6r\u00fclm\u00e9nyek {forecast_day}. nap"
+            },
+            "condition_night_0d": {
+                "name": "\u00c9jszakai k\u00f6r\u00fclm\u00e9nyek ma"
+            },
+            "condition_night_1d": {
+                "name": "\u00c9jszakai k\u00f6r\u00fclm\u00e9nyek 1n"
+            },
+            "condition_night_2d": {
+                "name": "\u00c9jszakai k\u00f6r\u00fclm\u00e9nyek 2n"
+            },
+            "condition_night_3d": {
+                "name": "\u00c9jszakai k\u00f6r\u00fclm\u00e9nyek 3n"
+            },
+            "condition_night_4d": {
+                "name": "\u00c9jszakai k\u00f6r\u00fclm\u00e9nyek 4n"
+            },
+            "dew_point": {
+                "name": "Harmatpont"
+            },
+            "grass_pollen": {
+                "name": "F\u0171pollen {forecast_day}. nap",
+                "state_attributes": {
+                    "level": {
+                        "name": "Szint",
+                        "state": {
+                            "good": "J\u00f3",
+                            "hazardous": "Vesz\u00e9lyes",
+                            "high": "Magas",
+                            "low": "Alacsony",
+                            "moderate": "M\u00e9rs\u00e9kelt",
+                            "unhealthy": "Eg\u00e9szs\u00e9gtelen"
+                        }
+                    }
+                }
+            },
+            "grass_pollen_0d": {
+                "name": "F\u0171pollen ma",
+                "state_attributes": {
+                    "level": {
+                        "name": "Szint",
+                        "state": {
+                            "good": "J\u00f3",
+                            "hazardous": "Vesz\u00e9lyes",
+                            "high": "Magas",
+                            "low": "Alacsony",
+                            "moderate": "M\u00e9rs\u00e9kelt",
+                            "unhealthy": "Eg\u00e9szs\u00e9gtelen"
+                        }
+                    }
+                }
+            },
+            "grass_pollen_1d": {
+                "name": "F\u0171pollen 1n",
+                "state_attributes": {
+                    "level": {
+                        "name": "Szint",
+                        "state": {
+                            "good": "J\u00f3",
+                            "hazardous": "Vesz\u00e9lyes",
+                            "high": "Magas",
+                            "low": "Alacsony",
+                            "moderate": "M\u00e9rs\u00e9kelt",
+                            "unhealthy": "Eg\u00e9szs\u00e9gtelen"
+                        }
+                    }
+                }
+            },
+            "grass_pollen_2d": {
+                "name": "F\u0171pollen 2n",
+                "state_attributes": {
+                    "level": {
+                        "name": "Szint",
+                        "state": {
+                            "good": "J\u00f3",
+                            "hazardous": "Vesz\u00e9lyes",
+                            "high": "Magas",
+                            "low": "Alacsony",
+                            "moderate": "M\u00e9rs\u00e9kelt",
+                            "unhealthy": "Eg\u00e9szs\u00e9gtelen"
+                        }
+                    }
+                }
+            },
+            "grass_pollen_3d": {
+                "name": "F\u0171pollen 3n",
+                "state_attributes": {
+                    "level": {
+                        "name": "Szint",
+                        "state": {
+                            "good": "J\u00f3",
+                            "hazardous": "Vesz\u00e9lyes",
+                            "high": "Magas",
+                            "low": "Alacsony",
+                            "moderate": "M\u00e9rs\u00e9kelt",
+                            "unhealthy": "Eg\u00e9szs\u00e9gtelen"
+                        }
+                    }
+                }
+            },
+            "grass_pollen_4d": {
+                "name": "F\u0171pollen 4n",
+                "state_attributes": {
+                    "level": {
+                        "name": "Szint",
+                        "state": {
+                            "good": "J\u00f3",
+                            "hazardous": "Vesz\u00e9lyes",
+                            "high": "Magas",
+                            "low": "Alacsony",
+                            "moderate": "M\u00e9rs\u00e9kelt",
+                            "unhealthy": "Eg\u00e9szs\u00e9gtelen"
+                        }
+                    }
+                }
+            },
+            "hours_of_sun": {
+                "name": "Naps\u00fct\u00e9ses \u00f3r\u00e1k {forecast_day}. nap"
+            },
+            "hours_of_sun_0d": {
+                "name": "Naps\u00fct\u00e9ses \u00f3r\u00e1k ma"
+            },
+            "hours_of_sun_1d": {
+                "name": "Naps\u00fct\u00e9ses \u00f3r\u00e1k 1n"
+            },
+            "hours_of_sun_2d": {
+                "name": "Naps\u00fct\u00e9ses \u00f3r\u00e1k 2n"
+            },
+            "hours_of_sun_3d": {
+                "name": "Naps\u00fct\u00e9ses \u00f3r\u00e1k 3n"
+            },
+            "hours_of_sun_4d": {
+                "name": "Naps\u00fct\u00e9ses \u00f3r\u00e1k 4n"
+            },
+            "mold_pollen": {
+                "name": "Pen\u00e9sz {forecast_day}. nap",
+                "state_attributes": {
+                    "level": {
+                        "name": "Szint",
+                        "state": {
+                            "good": "J\u00f3",
+                            "hazardous": "Vesz\u00e9lyes",
+                            "high": "Magas",
+                            "low": "Alacsony",
+                            "moderate": "M\u00e9rs\u00e9kelt",
+                            "unhealthy": "Eg\u00e9szs\u00e9gtelen"
+                        }
+                    }
+                }
+            },
+            "mold_pollen_0d": {
+                "name": "Pen\u00e9sz ma",
+                "state_attributes": {
+                    "level": {
+                        "name": "Szint",
+                        "state": {
+                            "good": "J\u00f3",
+                            "hazardous": "Vesz\u00e9lyes",
+                            "high": "Magas",
+                            "low": "Alacsony",
+                            "moderate": "M\u00e9rs\u00e9kelt",
+                            "unhealthy": "Eg\u00e9szs\u00e9gtelen"
+                        }
+                    }
+                }
+            },
+            "mold_pollen_1d": {
+                "name": "Pen\u00e9sz 1n",
+                "state_attributes": {
+                    "level": {
+                        "name": "Szint",
+                        "state": {
+                            "good": "J\u00f3",
+                            "hazardous": "Vesz\u00e9lyes",
+                            "high": "Magas",
+                            "low": "Alacsony",
+                            "moderate": "M\u00e9rs\u00e9kelt",
+                            "unhealthy": "Eg\u00e9szs\u00e9gtelen"
+                        }
+                    }
+                }
+            },
+            "mold_pollen_2d": {
+                "name": "Pen\u00e9sz 2n",
+                "state_attributes": {
+                    "level": {
+                        "name": "Szint",
+                        "state": {
+                            "good": "J\u00f3",
+                            "hazardous": "Vesz\u00e9lyes",
+                            "high": "Magas",
+                            "low": "Alacsony",
+                            "moderate": "M\u00e9rs\u00e9kelt",
+                            "unhealthy": "Eg\u00e9szs\u00e9gtelen"
+                        }
+                    }
+                }
+            },
+            "mold_pollen_3d": {
+                "name": "Pen\u00e9sz 3n",
+                "state_attributes": {
+                    "level": {
+                        "name": "Szint",
+                        "state": {
+                            "good": "J\u00f3",
+                            "hazardous": "Vesz\u00e9lyes",
+                            "high": "Magas",
+                            "low": "Alacsony",
+                            "moderate": "M\u00e9rs\u00e9kelt",
+                            "unhealthy": "Eg\u00e9szs\u00e9gtelen"
+                        }
+                    }
+                }
+            },
+            "mold_pollen_4d": {
+                "name": "Pen\u00e9sz 4n",
+                "state_attributes": {
+                    "level": {
+                        "name": "Szint",
+                        "state": {
+                            "good": "J\u00f3",
+                            "hazardous": "Vesz\u00e9lyes",
+                            "high": "Magas",
+                            "low": "Alacsony",
+                            "moderate": "M\u00e9rs\u00e9kelt",
+                            "unhealthy": "Eg\u00e9szs\u00e9gtelen"
+                        }
+                    }
+                }
+            },
+            "precipitation": {
+                "name": "Csapad\u00e9k"
+            },
+            "pressure_tendency": {
+                "name": "L\u00e9gnyom\u00e1s tendencia",
+                "state": {
+                    "falling": "Cs\u00f6kken\u0151",
+                    "rising": "Emelked\u0151",
+                    "steady": "\u00c1lland\u00f3"
+                }
+            },
+            "ragweed_pollen": {
+                "name": "Parlagf\u0171 {forecast_day}. nap",
+                "state_attributes": {
+                    "level": {
+                        "name": "Szint",
+                        "state": {
+                            "good": "J\u00f3",
+                            "hazardous": "Vesz\u00e9lyes",
+                            "high": "Magas",
+                            "low": "Alacsony",
+                            "moderate": "M\u00e9rs\u00e9kelt",
+                            "unhealthy": "Eg\u00e9szs\u00e9gtelen"
+                        }
+                    }
+                }
+            },
+            "ragweed_pollen_0d": {
+                "name": "Parlagf\u0171 ma",
+                "state_attributes": {
+                    "level": {
+                        "name": "Szint",
+                        "state": {
+                            "good": "J\u00f3",
+                            "hazardous": "Vesz\u00e9lyes",
+                            "high": "Magas",
+                            "low": "Alacsony",
+                            "moderate": "M\u00e9rs\u00e9kelt",
+                            "unhealthy": "Eg\u00e9szs\u00e9gtelen"
+                        }
+                    }
+                }
+            },
+            "ragweed_pollen_1d": {
+                "name": "Parlagf\u0171 1n",
+                "state_attributes": {
+                    "level": {
+                        "name": "Szint",
+                        "state": {
+                            "good": "J\u00f3",
+                            "hazardous": "Vesz\u00e9lyes",
+                            "high": "Magas",
+                            "low": "Alacsony",
+                            "moderate": "M\u00e9rs\u00e9kelt",
+                            "unhealthy": "Eg\u00e9szs\u00e9gtelen"
+                        }
+                    }
+                }
+            },
+            "ragweed_pollen_2d": {
+                "name": "Parlagf\u0171 2n",
+                "state_attributes": {
+                    "level": {
+                        "name": "Szint",
+                        "state": {
+                            "good": "J\u00f3",
+                            "hazardous": "Vesz\u00e9lyes",
+                            "high": "Magas",
+                            "low": "Alacsony",
+                            "moderate": "M\u00e9rs\u00e9kelt",
+                            "unhealthy": "Eg\u00e9szs\u00e9gtelen"
+                        }
+                    }
+                }
+            },
+            "ragweed_pollen_3d": {
+                "name": "Parlagf\u0171 3n",
+                "state_attributes": {
+                    "level": {
+                        "name": "Szint",
+                        "state": {
+                            "good": "J\u00f3",
+                            "hazardous": "Vesz\u00e9lyes",
+                            "high": "Magas",
+                            "low": "Alacsony",
+                            "moderate": "M\u00e9rs\u00e9kelt",
+                            "unhealthy": "Eg\u00e9szs\u00e9gtelen"
+                        }
+                    }
+                }
+            },
+            "ragweed_pollen_4d": {
+                "name": "Parlagf\u0171 4n",
+                "state_attributes": {
+                    "level": {
+                        "name": "Szint",
+                        "state": {
+                            "good": "J\u00f3",
+                            "hazardous": "Vesz\u00e9lyes",
+                            "high": "Magas",
+                            "low": "Alacsony",
+                            "moderate": "M\u00e9rs\u00e9kelt",
+                            "unhealthy": "Eg\u00e9szs\u00e9gtelen"
+                        }
+                    }
+                }
+            },
+            "realfeel_temperature": {
+                "name": "RealFeel h\u0151m\u00e9rs\u00e9klet"
+            },
+            "realfeel_temperature_max": {
+                "name": "RealFeel max. h\u0151m. {forecast_day}. nap"
+            },
+            "realfeel_temperature_max_0d": {
+                "name": "RealFeel max. h\u0151m. ma"
+            },
+            "realfeel_temperature_max_1d": {
+                "name": "RealFeel max. h\u0151m. 1n"
+            },
+            "realfeel_temperature_max_2d": {
+                "name": "RealFeel max. h\u0151m. 2n"
+            },
+            "realfeel_temperature_max_3d": {
+                "name": "RealFeel max. h\u0151m. 3n"
+            },
+            "realfeel_temperature_max_4d": {
+                "name": "RealFeel max. h\u0151m. 4n"
+            },
+            "realfeel_temperature_min": {
+                "name": "RealFeel min. h\u0151m. {forecast_day}. nap"
+            },
+            "realfeel_temperature_min_0d": {
+                "name": "RealFeel min. h\u0151m. ma"
+            },
+            "realfeel_temperature_min_1d": {
+                "name": "RealFeel min. h\u0151m. 1n"
+            },
+            "realfeel_temperature_min_2d": {
+                "name": "RealFeel min. h\u0151m. 2n"
+            },
+            "realfeel_temperature_min_3d": {
+                "name": "RealFeel min. h\u0151m. 3n"
+            },
+            "realfeel_temperature_min_4d": {
+                "name": "RealFeel min. h\u0151m. 4n"
+            },
+            "realfeel_temperature_shade": {
+                "name": "RealFeel h\u0151m. \u00e1rny\u00e9kban"
+            },
+            "realfeel_temperature_shade_max": {
+                "name": "RealFeel h\u0151m. max. \u00e1rny\u00e9kban {forecast_day}. nap"
+            },
+            "realfeel_temperature_shade_max_0d": {
+                "name": "RealFeel h\u0151m. max. \u00e1rny\u00e9kban ma"
+            },
+            "realfeel_temperature_shade_max_1d": {
+                "name": "RealFeel h\u0151m. max. \u00e1rny\u00e9kban 1n"
+            },
+            "realfeel_temperature_shade_max_2d": {
+                "name": "RealFeel h\u0151m. max. \u00e1rny\u00e9kban 2n"
+            },
+            "realfeel_temperature_shade_max_3d": {
+                "name": "RealFeel h\u0151m. max. \u00e1rny\u00e9kban 3n"
+            },
+            "realfeel_temperature_shade_max_4d": {
+                "name": "RealFeel h\u0151m. max. \u00e1rny\u00e9kban 4n"
+            },
+            "realfeel_temperature_shade_min": {
+                "name": "RealFeel h\u0151m. min. \u00e1rny\u00e9kban {forecast_day}. nap"
+            },
+            "realfeel_temperature_shade_min_0d": {
+                "name": "RealFeel h\u0151m. min. \u00e1rny\u00e9kban ma"
+            },
+            "realfeel_temperature_shade_min_1d": {
+                "name": "RealFeel h\u0151m. min. \u00e1rny\u00e9kban 1n"
+            },
+            "realfeel_temperature_shade_min_2d": {
+                "name": "RealFeel h\u0151m. min. \u00e1rny\u00e9kban 2n"
+            },
+            "realfeel_temperature_shade_min_3d": {
+                "name": "RealFeel h\u0151m. min. \u00e1rny\u00e9kban 3n"
+            },
+            "realfeel_temperature_shade_min_4d": {
+                "name": "RealFeel h\u0151m. min. \u00e1rny\u00e9kban 4n"
+            },
+            "solar_irradiance_day": {
+                "name": "Nap sug\u00e1rz\u00e1si energia nappal {forecast_day}. nap"
+            },
+            "solar_irradiance_day_0d": {
+                "name": "Nap sug\u00e1rz\u00e1si energia ma"
+            },
+            "solar_irradiance_day_1d": {
+                "name": "Nap sug\u00e1rz\u00e1si energia nappal 1n"
+            },
+            "solar_irradiance_day_2d": {
+                "name": "Nap sug\u00e1rz\u00e1si energia nappal 2n"
+            },
+            "solar_irradiance_day_3d": {
+                "name": "Nap sug\u00e1rz\u00e1si energia nappal 3n"
+            },
+            "solar_irradiance_day_4d": {
+                "name": "Nap sug\u00e1rz\u00e1si energia nappal 4n"
+            },
+            "solar_irradiance_night": {
+                "name": "Nap sug\u00e1rz\u00e1si energia \u00e9jszaka {forecast_day}. nap"
+            },
+            "solar_irradiance_night_0d": {
+                "name": "Nap sug\u00e1rz\u00e1si energia ma \u00e9jszaka"
+            },
+            "solar_irradiance_night_1d": {
+                "name": "Nap sug\u00e1rz\u00e1si energia \u00e9jszaka 1n"
+            },
+            "solar_irradiance_night_2d": {
+                "name": "Nap sug\u00e1rz\u00e1si energia \u00e9jszaka 2n"
+            },
+            "solar_irradiance_night_3d": {
+                "name": "Nap sug\u00e1rz\u00e1si energia \u00e9jszaka 3n"
+            },
+            "solar_irradiance_night_4d": {
+                "name": "Nap sug\u00e1rz\u00e1si energia \u00e9jszaka 4n"
+            },
+            "thunderstorm_probability_day": {
+                "name": "Zivatar es\u00e9lye nappal {forecast_day}. nap"
+            },
+            "thunderstorm_probability_day_0d": {
+                "name": "Zivatar es\u00e9lye ma"
+            },
+            "thunderstorm_probability_day_1d": {
+                "name": "Zivatar es\u00e9lye nappal 1n"
+            },
+            "thunderstorm_probability_day_2d": {
+                "name": "Zivatar es\u00e9lye nappal 2n"
+            },
+            "thunderstorm_probability_day_3d": {
+                "name": "Zivatar es\u00e9lye nappal 3n"
+            },
+            "thunderstorm_probability_day_4d": {
+                "name": "Zivatar es\u00e9lye nappal 4n"
+            },
+            "thunderstorm_probability_night": {
+                "name": "Zivatar es\u00e9lye \u00e9jszaka {forecast_day}. nap"
+            },
+            "thunderstorm_probability_night_0d": {
+                "name": "Zivatar es\u00e9lye ma \u00e9jszaka"
+            },
+            "thunderstorm_probability_night_1d": {
+                "name": "Zivatar es\u00e9lye \u00e9jszaka 1n"
+            },
+            "thunderstorm_probability_night_2d": {
+                "name": "Zivatar es\u00e9lye \u00e9jszaka 2n"
+            },
+            "thunderstorm_probability_night_3d": {
+                "name": "Zivatar es\u00e9lye \u00e9jszaka 3n"
+            },
+            "thunderstorm_probability_night_4d": {
+                "name": "Zivatar es\u00e9lye \u00e9jszaka 4n"
+            },
+            "tree_pollen": {
+                "name": "Fa pollen {forecast_day}. nap",
+                "state_attributes": {
+                    "level": {
+                        "name": "Szint",
+                        "state": {
+                            "good": "J\u00f3",
+                            "hazardous": "Vesz\u00e9lyes",
+                            "high": "Magas",
+                            "low": "Alacsony",
+                            "moderate": "M\u00e9rs\u00e9kelt",
+                            "unhealthy": "Eg\u00e9szs\u00e9gtelen"
+                        }
+                    }
+                }
+            },
+            "tree_pollen_0d": {
+                "name": "Fa pollen ma",
+                "state_attributes": {
+                    "level": {
+                        "name": "Szint",
+                        "state": {
+                            "good": "J\u00f3",
+                            "hazardous": "Vesz\u00e9lyes",
+                            "high": "Magas",
+                            "low": "Alacsony",
+                            "moderate": "M\u00e9rs\u00e9kelt",
+                            "unhealthy": "Eg\u00e9szs\u00e9gtelen"
+                        }
+                    }
+                }
+            },
+            "tree_pollen_1d": {
+                "name": "Fa pollen 1n",
+                "state_attributes": {
+                    "level": {
+                        "name": "Szint",
+                        "state": {
+                            "good": "J\u00f3",
+                            "hazardous": "Vesz\u00e9lyes",
+                            "high": "Magas",
+                            "low": "Alacsony",
+                            "moderate": "M\u00e9rs\u00e9kelt",
+                            "unhealthy": "Eg\u00e9szs\u00e9gtelen"
+                        }
+                    }
+                }
+            },
+            "tree_pollen_2d": {
+                "name": "Fa pollen 2n",
+                "state_attributes": {
+                    "level": {
+                        "name": "Szint",
+                        "state": {
+                            "good": "J\u00f3",
+                            "hazardous": "Vesz\u00e9lyes",
+                            "high": "Magas",
+                            "low": "Alacsony",
+                            "moderate": "M\u00e9rs\u00e9kelt",
+                            "unhealthy": "Eg\u00e9szs\u00e9gtelen"
+                        }
+                    }
+                }
+            },
+            "tree_pollen_3d": {
+                "name": "Fa pollen 3n",
+                "state_attributes": {
+                    "level": {
+                        "name": "Szint",
+                        "state": {
+                            "good": "J\u00f3",
+                            "hazardous": "Vesz\u00e9lyes",
+                            "high": "Magas",
+                            "low": "Alacsony",
+                            "moderate": "M\u00e9rs\u00e9kelt",
+                            "unhealthy": "Eg\u00e9szs\u00e9gtelen"
+                        }
+                    }
+                }
+            },
+            "tree_pollen_4d": {
+                "name": "Fa pollen 4n",
+                "state_attributes": {
+                    "level": {
+                        "name": "Szint",
+                        "state": {
+                            "good": "J\u00f3",
+                            "hazardous": "Vesz\u00e9lyes",
+                            "high": "Magas",
+                            "low": "Alacsony",
+                            "moderate": "M\u00e9rs\u00e9kelt",
+                            "unhealthy": "Eg\u00e9szs\u00e9gtelen"
+                        }
+                    }
+                }
+            },
+            "uv_index": {
+                "name": "UV index",
+                "state_attributes": {
+                    "level": {
+                        "name": "Szint",
+                        "state": {
+                            "good": "J\u00f3",
+                            "hazardous": "Vesz\u00e9lyes",
+                            "high": "Magas",
+                            "low": "Alacsony",
+                            "moderate": "M\u00e9rs\u00e9kelt",
+                            "unhealthy": "Eg\u00e9szs\u00e9gtelen"
+                        }
+                    }
+                }
+            },
+            "uv_index_0d": {
+                "name": "UV index ma",
+                "state_attributes": {
+                    "level": {
+                        "name": "Szint",
+                        "state": {
+                            "good": "J\u00f3",
+                            "hazardous": "Vesz\u00e9lyes",
+                            "high": "Magas",
+                            "low": "Alacsony",
+                            "moderate": "M\u00e9rs\u00e9kelt",
+                            "unhealthy": "Eg\u00e9szs\u00e9gtelen"
+                        }
+                    }
+                }
+            },
+            "uv_index_1d": {
+                "name": "UV index 1n",
+                "state_attributes": {
+                    "level": {
+                        "name": "Szint",
+                        "state": {
+                            "good": "J\u00f3",
+                            "hazardous": "Vesz\u00e9lyes",
+                            "high": "Magas",
+                            "low": "Alacsony",
+                            "moderate": "M\u00e9rs\u00e9kelt",
+                            "unhealthy": "Eg\u00e9szs\u00e9gtelen"
+                        }
+                    }
+                }
+            },
+            "uv_index_2d": {
+                "name": "UV index 2n",
+                "state_attributes": {
+                    "level": {
+                        "name": "Szint",
+                        "state": {
+                            "good": "J\u00f3",
+                            "hazardous": "Vesz\u00e9lyes",
+                            "high": "Magas",
+                            "low": "Alacsony",
+                            "moderate": "M\u00e9rs\u00e9kelt",
+                            "unhealthy": "Eg\u00e9szs\u00e9gtelen"
+                        }
+                    }
+                }
+            },
+            "uv_index_3d": {
+                "name": "UV index 3n",
+                "state_attributes": {
+                    "level": {
+                        "name": "Szint",
+                        "state": {
+                            "good": "J\u00f3",
+                            "hazardous": "Vesz\u00e9lyes",
+                            "high": "Magas",
+                            "low": "Alacsony",
+                            "moderate": "M\u00e9rs\u00e9kelt",
+                            "unhealthy": "Eg\u00e9szs\u00e9gtelen"
+                        }
+                    }
+                }
+            },
+            "uv_index_4d": {
+                "name": "UV index 4n",
+                "state_attributes": {
+                    "level": {
+                        "name": "Szint",
+                        "state": {
+                            "good": "J\u00f3",
+                            "hazardous": "Vesz\u00e9lyes",
+                            "high": "Magas",
+                            "low": "Alacsony",
+                            "moderate": "M\u00e9rs\u00e9kelt",
+                            "unhealthy": "Eg\u00e9szs\u00e9gtelen"
+                        }
+                    }
+                }
+            },
+            "uv_index_forecast": {
+                "name": "UV index {forecast_day}. nap",
+                "state_attributes": {
+                    "level": {
+                        "name": "Szint",
+                        "state": {
+                            "good": "J\u00f3",
+                            "hazardous": "Vesz\u00e9lyes",
+                            "high": "Magas",
+                            "low": "Alacsony",
+                            "moderate": "M\u00e9rs\u00e9kelt",
+                            "unhealthy": "Eg\u00e9szs\u00e9gtelen"
+                        }
+                    }
+                }
+            },
+            "wet_bulb_temperature": {
+                "name": "Nedves h\u0151m\u00e9rs\u00e9klet"
+            },
+            "wind_chill_temperature": {
+                "name": "Sz\u00e9lh\u0171t\u00e9s h\u0151m\u00e9rs\u00e9klet"
+            },
+            "wind_gust_speed": {
+                "name": "Sz\u00e9ll\u00f6k\u00e9s sebess\u00e9ge"
+            },
+            "wind_gust_speed_day": {
+                "name": "Sz\u00e9ll\u00f6k\u00e9s sebess\u00e9g nappal {forecast_day}. nap"
+            },
+            "wind_gust_speed_day_0d": {
+                "name": "Sz\u00e9ll\u00f6k\u00e9s sebess\u00e9g ma"
+            },
+            "wind_gust_speed_day_1d": {
+                "name": "Sz\u00e9ll\u00f6k\u00e9s sebess\u00e9g nappal 1n"
+            },
+            "wind_gust_speed_day_2d": {
+                "name": "Sz\u00e9ll\u00f6k\u00e9s sebess\u00e9g nappal 2n"
+            },
+            "wind_gust_speed_day_3d": {
+                "name": "Sz\u00e9ll\u00f6k\u00e9s sebess\u00e9g nappal 3n"
+            },
+            "wind_gust_speed_day_4d": {
+                "name": "Sz\u00e9ll\u00f6k\u00e9s sebess\u00e9g nappal 4n"
+            },
+            "wind_gust_speed_night": {
+                "name": "Sz\u00e9ll\u00f6k\u00e9s sebess\u00e9g \u00e9jszaka {forecast_day}. nap"
+            },
+            "wind_gust_speed_night_0d": {
+                "name": "Sz\u00e9ll\u00f6k\u00e9s sebess\u00e9g ma \u00e9jszaka"
+            },
+            "wind_gust_speed_night_1d": {
+                "name": "Sz\u00e9ll\u00f6k\u00e9s sebess\u00e9g \u00e9jszaka 1n"
+            },
+            "wind_gust_speed_night_2d": {
+                "name": "Sz\u00e9ll\u00f6k\u00e9s sebess\u00e9g \u00e9jszaka 2n"
+            },
+            "wind_gust_speed_night_3d": {
+                "name": "Sz\u00e9ll\u00f6k\u00e9s sebess\u00e9g \u00e9jszaka 3n"
+            },
+            "wind_gust_speed_night_4d": {
+                "name": "Sz\u00e9ll\u00f6k\u00e9s sebess\u00e9g \u00e9jszaka 4n"
+            },
+            "wind_speed": {
+                "name": "Sz\u00e9lsebess\u00e9g"
+            },
+            "wind_speed_day": {
+                "name": "Sz\u00e9lsebess\u00e9g nappal {forecast_day}. nap"
+            },
+            "wind_speed_day_0d": {
+                "name": "Sz\u00e9lsebess\u00e9g ma"
+            },
+            "wind_speed_day_1d": {
+                "name": "Sz\u00e9lsebess\u00e9g nappal 1n"
+            },
+            "wind_speed_day_2d": {
+                "name": "Sz\u00e9lsebess\u00e9g nappal 2n"
+            },
+            "wind_speed_day_3d": {
+                "name": "Sz\u00e9lsebess\u00e9g nappal 3n"
+            },
+            "wind_speed_day_4d": {
+                "name": "Sz\u00e9lsebess\u00e9g nappal 4n"
+            },
+            "wind_speed_night": {
+                "name": "Sz\u00e9lsebess\u00e9g \u00e9jszaka {forecast_day}. nap"
+            },
+            "wind_speed_night_0d": {
+                "name": "Sz\u00e9lsebess\u00e9g ma \u00e9jszaka"
+            },
+            "wind_speed_night_1d": {
+                "name": "Sz\u00e9lsebess\u00e9g \u00e9jszaka 1n"
+            },
+            "wind_speed_night_2d": {
+                "name": "Sz\u00e9lsebess\u00e9g \u00e9jszaka 2n"
+            },
+            "wind_speed_night_3d": {
+                "name": "Sz\u00e9lsebess\u00e9g \u00e9jszaka 3n"
+            },
+            "wind_speed_night_4d": {
+                "name": "Sz\u00e9lsebess\u00e9g \u00e9jszaka 4n"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "forecast": "Id\u0151j\u00e1r\u00e1s el\u0151rejelz\u00e9s"
+                },
+                "description": "Az AccuWeather API kulcs ingyenes verzi\u00f3j\u00e1nak korl\u00e1tai miatt, ha enged\u00e9lyezi az id\u0151j\u00e1r\u00e1s el\u0151rejelz\u00e9st, az adatok friss\u00edt\u00e9se nem 40 percenk\u00e9nt, hanem 80 percenk\u00e9nt t\u00f6rt\u00e9nik."
+            }
+        }
+    },
+    "system_health": {
+        "info": {
+            "can_reach_server": "AccuWeather szerver el\u00e9r\u00e9se",
+            "remaining_requests": "Fennmarad\u00f3 enged\u00e9lyezett k\u00e9r\u00e9sek"
+        }
+    }
+}

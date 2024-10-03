@@ -1,0 +1,148 @@
+{
+    "device_automation": {
+        "action_type": {
+            "arm_away": "Aktivova\u0165 {entity_name} v re\u017eime nepr\u00edtomnos\u0165",
+            "arm_home": "Aktivova\u0165 {entity_name} v re\u017eime domov",
+            "arm_night": "Aktivova\u0165 {entity_name} v no\u010dnom re\u017eime",
+            "arm_vacation": "Aktivova\u0165 {entity_name} v re\u017eime dovolenka",
+            "disarm": "Deaktivova\u0165 {entity_name}",
+            "trigger": "Sp\u00fa\u0161\u0165a\u010d {entity_name}"
+        },
+        "condition_type": {
+            "is_armed_away": "{entity_name} je v re\u017eime nepr\u00edtomnosti",
+            "is_armed_home": "{entity_name} je v re\u017eime domov",
+            "is_armed_night": "{entity_name} je v no\u010dnom re\u017eime",
+            "is_armed_vacation": "{entity_name} je v re\u017eime dovolenka",
+            "is_disarmed": "{entity_name} nie je zabezpe\u010den\u00e9",
+            "is_triggered": "{entity_name} je spusten\u00e9"
+        },
+        "extra_fields": {
+            "code": "K\u00f3d",
+            "for": "Trvanie"
+        },
+        "trigger_type": {
+            "armed_away": "{entity_name} v re\u017eime nepr\u00edtomnos\u0165",
+            "armed_home": "{entity_name} v re\u017eime domov",
+            "armed_night": "{entity_name} v no\u010dnom re\u017eime",
+            "armed_vacation": "{entity_name} v re\u017eime dovolenka",
+            "disarmed": "{entity_name} nezabezpe\u010den\u00e9",
+            "triggered": "{entity_name} spusten\u00fd"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Ovl\u00e1dac\u00ed panel alarmu",
+            "state": {
+                "armed": "Zabezpe\u010den\u00fd",
+                "armed_away": "Zabezpe\u010den\u00fd v nepr\u00edtomnosti",
+                "armed_custom_bypass": "Zak\u00f3dovan\u00e9 prisp\u00f4soben\u00e9 vyl\u00fa\u010denie",
+                "armed_home": "Zabezpe\u010den\u00fd doma",
+                "armed_night": "Zabezpe\u010den\u00fd v noci",
+                "armed_vacation": "Zabezpe\u010denie pozastaven\u00e9",
+                "arming": "Zabezpe\u010dovanie",
+                "disarmed": "Deaktivovan\u00e9",
+                "disarming": "Deaktivuje sa",
+                "pending": "\u010cak\u00e1 sa",
+                "triggered": "Spusten\u00fd"
+            },
+            "state_attributes": {
+                "changed_by": {
+                    "name": "Zmenil"
+                },
+                "code_arm_required": {
+                    "name": "K\u00f3d pre zabezpe\u010denie",
+                    "state": {
+                        "false": "Nevy\u017eaduje sa",
+                        "true": "Po\u017eadovan\u00e9"
+                    }
+                },
+                "code_format": {
+                    "name": "Form\u00e1t k\u00f3du",
+                    "state": {
+                        "number": "\u010c\u00edslo",
+                        "text": "Text"
+                    }
+                }
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "Platforma {platform} pre integr\u00e1ciu {domain} nepodporuje nastavenie platformy. \n\n Odstr\u00e1\u0148te ho z konfigur\u00e1cie a re\u0161tartujte Home Assistant, aby ste tento probl\u00e9m vyrie\u0161ili.",
+            "title": "Podpora platformy nie je podporovan\u00e1"
+        }
+    },
+    "services": {
+        "alarm_arm_away": {
+            "description": "Nastav\u00ed alarm na: _zabezpe\u010den\u00e9, nikto nie je doma_.",
+            "fields": {
+                "code": {
+                    "description": "K\u00f3d na aktiv\u00e1ciu alarmu.",
+                    "name": "K\u00f3d"
+                }
+            },
+            "name": "Zak\u00f3dova\u0165 nepr\u00edtomnos\u0165"
+        },
+        "alarm_arm_custom_bypass": {
+            "description": "Zapne alarm a z\u00e1rove\u0148 umo\u017en\u00ed ob\u00eds\u0165 vlastn\u00fa oblas\u0165.",
+            "fields": {
+                "code": {
+                    "description": "K\u00f3d na aktiv\u00e1ciu alarmu.",
+                    "name": "K\u00f3d"
+                }
+            },
+            "name": "Zabezpe\u010di\u0165 s vlastn\u00fdm bypassom"
+        },
+        "alarm_arm_home": {
+            "description": "Nastav\u00ed bud\u00edk na: _armed, ale niekto je home_.",
+            "fields": {
+                "code": {
+                    "description": "K\u00f3d na aktiv\u00e1ciu alarmu.",
+                    "name": "K\u00f3d"
+                }
+            },
+            "name": "Zak\u00f3dova\u0165 doma"
+        },
+        "alarm_arm_night": {
+            "description": "Nastav\u00ed bud\u00edk na: _armed pre night_.",
+            "fields": {
+                "code": {
+                    "description": "K\u00f3d na aktiv\u00e1ciu alarmu.",
+                    "name": "K\u00f3d"
+                }
+            },
+            "name": "Zak\u00f3dova\u0165 na noc"
+        },
+        "alarm_arm_vacation": {
+            "description": "Nastav\u00ed bud\u00edk na: _armed pre vacation_.",
+            "fields": {
+                "code": {
+                    "description": "K\u00f3d na aktiv\u00e1ciu alarmu.",
+                    "name": "K\u00f3d"
+                }
+            },
+            "name": "Zak\u00f3dova\u0165 cez dovolenku"
+        },
+        "alarm_disarm": {
+            "description": "Deaktivuje alarm.",
+            "fields": {
+                "code": {
+                    "description": "K\u00f3d na deaktiv\u00e1ciu alarmu.",
+                    "name": "K\u00f3d"
+                }
+            },
+            "name": "Deaktivova\u0165"
+        },
+        "alarm_trigger": {
+            "description": "Povol\u00ed spustenie extern\u00e9ho alarmu.",
+            "fields": {
+                "code": {
+                    "description": "K\u00f3d na aktiv\u00e1ciu alarmu.",
+                    "name": "K\u00f3d"
+                }
+            },
+            "name": "Sp\u00fa\u0161\u0165a\u010d"
+        }
+    },
+    "title": "Ovl\u00e1dac\u00ed panel alarmu"
+}

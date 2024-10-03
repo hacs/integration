@@ -1,0 +1,125 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "A szolg\u00e1ltat\u00e1s m\u00e1r konfigur\u00e1lva van",
+            "auth_error": "\u00c9rv\u00e9nytelen hiteles\u00edt\u0151 adatok.",
+            "no_heaters": "Nem tal\u00e1lhat\u00f3 f\u0171t\u0151test.",
+            "not_found": "Nem tal\u00e1lhat\u00f3 Lan2RF \u00e1tj\u00e1r\u00f3.",
+            "timeout_error": "Id\u0151t\u00fall\u00e9p\u00e9s a Lan2RF \u00e1tj\u00e1r\u00f3hoz val\u00f3 csatlakoz\u00e1skor.",
+            "unknown": "Ismeretlen hiba t\u00f6rt\u00e9nt a Lan2RF \u00e1tj\u00e1r\u00f3hoz val\u00f3 csatlakoz\u00e1skor."
+        },
+        "error": {
+            "auth_error": "\u00c9rv\u00e9nytelen hiteles\u00edt\u0151 adatok.",
+            "no_heaters": "Nem tal\u00e1lhat\u00f3 f\u0171t\u0151test.",
+            "not_found": "Nem tal\u00e1lhat\u00f3 Lan2RF \u00e1tj\u00e1r\u00f3.",
+            "timeout_error": "Id\u0151t\u00fall\u00e9p\u00e9s a Lan2RF \u00e1tj\u00e1r\u00f3hoz val\u00f3 csatlakoz\u00e1skor.",
+            "unknown": "Ismeretlen hiba t\u00f6rt\u00e9nt a Lan2RF \u00e1tj\u00e1r\u00f3hoz val\u00f3 csatlakoz\u00e1skor."
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "host": "Hoszt",
+                    "password": "Jelsz\u00f3",
+                    "username": "Felhaszn\u00e1l\u00f3n\u00e9v"
+                },
+                "data_description": {
+                    "host": "Az Intergas InComfort Lan2RF \u00e1tj\u00e1r\u00f3 hosztneve vagy IP-c\u00edme.",
+                    "password": "A jelsz\u00f3, amely az \u00e1tj\u00e1r\u00f3ba val\u00f3 bejelentkez\u00e9shez sz\u00fcks\u00e9ges, a Lan2RF \u00e1tj\u00e1r\u00f3 alj\u00e1n van nyomtatva vagy egyes r\u00e9gebbi eszk\u00f6z\u00f6kn\u00e9l az `intergas`.",
+                    "username": "A felhaszn\u00e1l\u00f3n\u00e9v az \u00e1tj\u00e1r\u00f3ba val\u00f3 bejelentkez\u00e9shez. A legt\u00f6bb esetben ez `admin`."
+                },
+                "description": "\u00c1ll\u00edtson be egy \u00faj Intergas InComfort Lan2RF \u00e1tj\u00e1r\u00f3t! Egyes r\u00e9gebbi rendszerek eset\u00e9n nem sz\u00fcks\u00e9ges hiteles\u00edt\u00e9si adatokat megadni, de az \u00fajabb eszk\u00f6z\u00f6kn\u00e9l hiteles\u00edt\u00e9s sz\u00fcks\u00e9ges."
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "fault": {
+                "name": "Hiba",
+                "state_attributes": {
+                    "fault_code": {
+                        "state": {
+                            "none": "Nincs"
+                        }
+                    }
+                }
+            },
+            "is_burning": {
+                "name": "\u00c9get\u0151"
+            },
+            "is_pumping": {
+                "name": "Szivatty\u00fa"
+            },
+            "is_tapping": {
+                "name": "Melegv\u00edz csap"
+            }
+        },
+        "sensor": {
+            "tap_temperature": {
+                "name": "Csap h\u0151m\u00e9rs\u00e9klete"
+            }
+        },
+        "water_heater": {
+            "boiler": {
+                "state": {
+                    "boiler_ext": "Kaz\u00e1n k\u00fcls\u0151",
+                    "boiler_int": "Kaz\u00e1n bels\u0151",
+                    "buffer": "Puffer",
+                    "central_heating": "K\u00f6zponti f\u0171t\u00e9s",
+                    "central_heating_rf": "K\u00f6zponti f\u0171t\u00e9s RF",
+                    "cv_temperature_too_high_e1": "T\u00fal magas h\u0151m\u00e9rs\u00e9klet",
+                    "flame_detection_fault_e6": "L\u00e1ng\u00e9rz\u00e9kel\u00e9si hiba",
+                    "frost": "Fagyv\u00e9delem",
+                    "gas_valve_relay_faulty_e29": "G\u00e1zszelep rel\u00e9 hib\u00e1s",
+                    "gas_valve_relay_faulty_e30": "G\u00e1zszelep rel\u00e9 hib\u00e1s",
+                    "incorrect_fan_speed_e8": "Nem megfelel\u0151 ventil\u00e1tor fordulatsz\u00e1m",
+                    "no_flame_signal_e4": "Nincs l\u00e1ngjelz\u00e9s",
+                    "opentherm": "OpenTherm",
+                    "poor_flame_signal_e5": "Gyenge l\u00e1ngjelz\u00e9s",
+                    "postrun_boyler": "Kaz\u00e1n ut\u00f3\u00fczem",
+                    "postrun_ch": "K\u00f6zponti f\u0171t\u00e9s ut\u00f3\u00fczem",
+                    "s1_and_s2_interchanged_e2": "S1 \u00e9s S2 felcser\u00e9lve",
+                    "sensor_fault_after_self_check_e0": "\u00c9rz\u00e9kel\u0151hiba az \u00f6nellen\u0151rz\u00e9s ut\u00e1n",
+                    "sensor_fault_s1_e10": "\u00c9rz\u00e9kel\u0151 hiba S1",
+                    "sensor_fault_s1_e11": "\u00c9rz\u00e9kel\u0151 hiba S1",
+                    "sensor_fault_s1_e12": "\u00c9rz\u00e9kel\u0151 hiba S1",
+                    "sensor_fault_s1_e13": "\u00c9rz\u00e9kel\u0151 hiba S1",
+                    "sensor_fault_s1_e14": "\u00c9rz\u00e9kel\u0151 hiba S1",
+                    "sensor_fault_s2_e20": "\u00c9rz\u00e9kel\u0151 hiba S2",
+                    "sensor_fault_s2_e21": "\u00c9rz\u00e9kel\u0151 hiba S2",
+                    "sensor_fault_s2_e22": "\u00c9rz\u00e9kel\u0151 hiba S2",
+                    "sensor_fault_s2_e23": "\u00c9rz\u00e9kel\u0151 hiba S2",
+                    "sensor_fault_s2_e24": "\u00c9rz\u00e9kel\u0151 hiba S2",
+                    "sensor_test": "\u00c9rz\u00e9kel\u0151 teszt",
+                    "service": "Karbantart\u00e1s",
+                    "shortcut_outside_sensor_temperature_e27": "R\u00f6vidz\u00e1rlat a k\u00fcls\u0151 \u00e9rz\u00e9kel\u0151 h\u0151m\u00e9rs\u00e9klet\u00e9n\u00e9l",
+                    "standby": "K\u00e9szenl\u00e9t",
+                    "tapwater": "Csapv\u00edz",
+                    "tapwater_int": "Csapv\u00edz bels\u0151",
+                    "unknown": "Ismeretlen"
+                }
+            }
+        }
+    },
+    "issues": {
+        "deprecated_yaml_import_issue_auth_error": {
+            "description": "A(z) {integration_title} YAML seg\u00edts\u00e9g\u00e9vel t\u00f6rt\u00e9n\u0151 konfigur\u00e1l\u00e1sa megsz\u0171nik, de hiteles\u00edt\u00e9si hiba t\u00f6rt\u00e9nt az \u00d6n megl\u00e9v\u0151 konfigur\u00e1ci\u00f3j\u00e1nak import\u00e1l\u00e1sa sor\u00e1n.\nA be\u00e1ll\u00edt\u00e1s nem folytathat\u00f3.\n\nEllen\u0151rizze, hogy a(z) {integration_title} megfelel\u0151en m\u0171k\u00f6dik \u00e9s ind\u00edtsa \u00fajra a Home Assistant alkalmaz\u00e1st az import\u00e1l\u00e1s \u00fajabb k\u00eds\u00e9rlet\u00e9hez.\n\nAlternat\u00edv megold\u00e1sk\u00e9nt teljesen elt\u00e1vol\u00edthatja a `configuration.yaml` f\u00e1jlb\u00f3l a(z) `{domain}` konfigur\u00e1ci\u00f3t, \u00fajraind\u00edthatja a Home Assistant alkalmaz\u00e1st \u00e9s manu\u00e1lisan hozz\u00e1adhatja a(z) {integration_title} integr\u00e1ci\u00f3t.",
+            "title": "A YAML import\u00e1l\u00e1sa hiteles\u00edt\u00e9si hiba miatt sikertelen"
+        },
+        "deprecated_yaml_import_issue_no_heaters": {
+            "description": "A(z) {integration_title} YAML seg\u00edts\u00e9g\u00e9vel t\u00f6rt\u00e9n\u0151 konfigur\u00e1l\u00e1sa megsz\u0171nik, de a megl\u00e9v\u0151 konfigur\u00e1ci\u00f3 import\u00e1l\u00e1sa sor\u00e1n nem tal\u00e1ltak f\u0171t\u0151berendez\u00e9seket.\nA be\u00e1ll\u00edt\u00e1s nem folytathat\u00f3.\n\nEllen\u0151rizze, hogy a(z) {integration_title} megfelel\u0151en m\u0171k\u00f6dik \u00e9s ind\u00edtsa \u00fajra a Home Assistant alkalmaz\u00e1st az import\u00e1l\u00e1s \u00fajabb k\u00eds\u00e9rlet\u00e9hez.\n\nAlternat\u00edv megold\u00e1sk\u00e9nt teljesen elt\u00e1vol\u00edthatja a `configuration.yaml` f\u00e1jlb\u00f3l a(z) `{domain}` konfigur\u00e1ci\u00f3t, \u00fajraind\u00edthatja a Home Assistant alkalmaz\u00e1st \u00e9s manu\u00e1lisan hozz\u00e1adhatja a(z) {integration_title} integr\u00e1ci\u00f3t.",
+            "title": "A YAML-import\u00e1l\u00e1s nem siker\u00fclt, mert nem tal\u00e1lhat\u00f3 f\u0171t\u0151berendez\u00e9s"
+        },
+        "deprecated_yaml_import_issue_not_found": {
+            "description": "A(z) {integration_title} YAML seg\u00edts\u00e9g\u00e9vel t\u00f6rt\u00e9n\u0151 konfigur\u00e1l\u00e1sa megsz\u0171nik, de a megl\u00e9v\u0151 konfigur\u00e1ci\u00f3 import\u00e1l\u00e1sa sor\u00e1n nem tal\u00e1ltak Lan2RF \u00e1tj\u00e1r\u00f3t.\nA be\u00e1ll\u00edt\u00e1s nem folytathat\u00f3.\n\nEllen\u0151rizze, hogy a(z) {integration_title} megfelel\u0151en m\u0171k\u00f6dik \u00e9s ind\u00edtsa \u00fajra a Home Assistant alkalmaz\u00e1st az import\u00e1l\u00e1s \u00fajabb k\u00eds\u00e9rlet\u00e9hez.\n\nAlternat\u00edv megold\u00e1sk\u00e9nt teljesen elt\u00e1vol\u00edthatja a `configuration.yaml` f\u00e1jlb\u00f3l a(z) `{domain}` konfigur\u00e1ci\u00f3t, \u00fajraind\u00edthatja a Home Assistant alkalmaz\u00e1st \u00e9s manu\u00e1lisan hozz\u00e1adhatja a(z) {integration_title} integr\u00e1ci\u00f3t.",
+            "title": "A YAML import\u00e1l\u00e1sa nem siker\u00fclt, mert nem tal\u00e1lhat\u00f3 \u00e1tj\u00e1r\u00f3"
+        },
+        "deprecated_yaml_import_issue_timeout_error": {
+            "description": "A(z) {integration_title} YAML seg\u00edts\u00e9g\u00e9vel t\u00f6rt\u00e9n\u0151 konfigur\u00e1l\u00e1sa megsz\u0171nik, de a megl\u00e9v\u0151 konfigur\u00e1ci\u00f3 import\u00e1l\u00e1sa sor\u00e1n id\u0151t\u00fall\u00e9p\u00e9s t\u00f6rt\u00e9nt a(z) {integration_title} csatlakoz\u00e1sakor.\nA be\u00e1ll\u00edt\u00e1s nem folytathat\u00f3.\n\nEllen\u0151rizze, hogy a(z) {integration_title} megfelel\u0151en m\u0171k\u00f6dik \u00e9s ind\u00edtsa \u00fajra a Home Assistant alkalmaz\u00e1st az import\u00e1l\u00e1s \u00fajabb k\u00eds\u00e9rlet\u00e9hez.\n\nAlternat\u00edv megold\u00e1sk\u00e9nt teljesen elt\u00e1vol\u00edthatja a `configuration.yaml` f\u00e1jlb\u00f3l a(z) `{domain}` konfigur\u00e1ci\u00f3t, \u00fajraind\u00edthatja a Home Assistant alkalmaz\u00e1st \u00e9s manu\u00e1lisan hozz\u00e1adhatja a(z) {integration_title} integr\u00e1ci\u00f3t.",
+            "title": "A YAML import\u00e1l\u00e1sa id\u0151t\u00fall\u00e9p\u00e9si probl\u00e9m\u00e1k miatt nem siker\u00fclt"
+        },
+        "deprecated_yaml_import_issue_unknown": {
+            "description": "A(z) {integration_title} YAML seg\u00edts\u00e9g\u00e9vel t\u00f6rt\u00e9n\u0151 konfigur\u00e1l\u00e1sa megsz\u0171nik, de a megl\u00e9v\u0151 konfigur\u00e1ci\u00f3 import\u00e1l\u00e1sa sor\u00e1n ismeretlen hiba t\u00f6rt\u00e9nt.\nA be\u00e1ll\u00edt\u00e1s nem folytathat\u00f3.\n\nEllen\u0151rizze, hogy a(z) {integration_title} megfelel\u0151en m\u0171k\u00f6dik \u00e9s ind\u00edtsa \u00fajra a Home Assistant alkalmaz\u00e1st az import\u00e1l\u00e1s \u00fajabb k\u00eds\u00e9rlet\u00e9hez.\n\nAlternat\u00edv megold\u00e1sk\u00e9nt teljesen elt\u00e1vol\u00edthatja a `configuration.yaml` f\u00e1jlb\u00f3l a(z) `{domain}` konfigur\u00e1ci\u00f3t, \u00fajraind\u00edthatja a Home Assistant alkalmaz\u00e1st \u00e9s manu\u00e1lisan hozz\u00e1adhatja a(z) {integration_title} integr\u00e1ci\u00f3t.",
+            "title": "A YAML import\u00e1l\u00e1sa ismeretlen hib\u00e1val sikertelen"
+        }
+    }
+}

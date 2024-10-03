@@ -1,0 +1,488 @@
+{
+    "config": {
+        "abort": {
+            "not_zha_device": "Este dispositivo n\u00e3o \u00e9 um dispositivo ZHA",
+            "usb_probe_failed": "Falha ao sondar o dispositivo USB"
+        },
+        "error": {
+            "cannot_connect": "N\u00e3o \u00e9 poss\u00edvel conectar-se ao dispositivo ZHA.",
+            "invalid_backup_json": "JSON de backup inv\u00e1lido"
+        },
+        "flow_title": "{name}",
+        "step": {
+            "choose_automatic_backup": {
+                "data": {
+                    "choose_automatic_backup": "Escolha um backup autom\u00e1tico"
+                },
+                "description": "Restaure as suas configura\u00e7\u00f5es de rede a partir de um backup autom\u00e1tico",
+                "title": "Restaurar Backup Autom\u00e1tico"
+            },
+            "choose_formation_strategy": {
+                "description": "Escolha as configura\u00e7\u00f5es de rede para o seu r\u00e1dio.",
+                "menu_options": {
+                    "choose_automatic_backup": "Restaurar um backup autom\u00e1tico",
+                    "form_initial_network": "Criar uma rede",
+                    "reuse_settings": "Manter as configura\u00e7\u00f5es de rede de r\u00e1dio",
+                    "upload_manual_backup": "Carregar um backup manual"
+                },
+                "title": "Forma\u00e7\u00e3o de rede"
+            },
+            "choose_serial_port": {
+                "data": {
+                    "path": "Caminho do dispositivo de s\u00e9rie"
+                },
+                "description": "Selecione a porta serial para o seu r\u00e1dio Zigbee",
+                "title": "Selecionar uma porta s\u00e9rie"
+            },
+            "confirm": {
+                "description": "Deseja configurar {name}?"
+            },
+            "manual_pick_radio_type": {
+                "data": {
+                    "radio_type": "Tipo de r\u00e1dio"
+                },
+                "description": "Escolha o seu tipo de r\u00e1dio Zigbee"
+            },
+            "manual_port_config": {
+                "data": {
+                    "path": "Caminho do dispositivo serial"
+                },
+                "description": "Digite as configura\u00e7\u00f5es da porta serial",
+                "title": "Configura\u00e7\u00f5es da porta serial"
+            },
+            "maybe_confirm_ezsp_restore": {
+                "data": {
+                    "overwrite_coordinator_ieee": "Substituir permanentemente o endere\u00e7o IEEE do r\u00e1dio"
+                },
+                "title": "Sobrescrever o endere\u00e7o IEEE do r\u00e1dio"
+            },
+            "upload_manual_backup": {
+                "data": {
+                    "uploaded_backup_file": "Enviar um arquivo"
+                },
+                "description": "Restaure suas configura\u00e7\u00f5es de rede de um arquivo JSON de backup carregado. Voc\u00ea pode baixar um de uma instala\u00e7\u00e3o ZHA diferente em **Network Settings**, ou usar um arquivo Zigbee2MQTT `coordinator_backup.json`.",
+                "title": "Carregar um backup manual"
+            },
+            "verify_radio": {
+                "description": "O r\u00e1dio que est\u00e1 a utilizar ({name}) n\u00e3o \u00e9 recomendado e o suporte para o mesmo pode ser removido no futuro. Consulte a documenta\u00e7\u00e3o da integra\u00e7\u00e3o do Zigbee Home Automation para obter [uma lista de adaptadores recomendados] ({docs_recommended_adapters_url}).",
+                "title": "R\u00e1dio n\u00e3o \u00e9 recomendado"
+            }
+        }
+    },
+    "config_panel": {
+        "zha_alarm_options": {
+            "alarm_arm_requires_code": "C\u00f3digo necess\u00e1rio para a\u00e7\u00f5es de armar",
+            "alarm_failed_tries": "O n\u00famero de entradas de c\u00f3digo falhadas consecutivas para acionar um alarme",
+            "alarm_master_code": "C\u00f3digo mestre do(s) painel(is) de controlo do alarme",
+            "title": "Op\u00e7\u00f5es do Painel de Controlo de Alarme"
+        },
+        "zha_options": {
+            "always_prefer_xy_color_mode": "Prefere sempre o modo de cor XY",
+            "consider_unavailable_battery": "Considerar os dispositivos alimentados por bateria indispon\u00edveis ap\u00f3s (segundos)",
+            "consider_unavailable_mains": "Considerar os dispositivos alimentados pela rede el\u00e9trica indispon\u00edveis ap\u00f3s (segundos)",
+            "default_light_transition": "Tempo de transi\u00e7\u00e3o de luz predefinido (segundos)",
+            "group_members_assume_state": "Os membros do grupo assumem o estado de grupo",
+            "light_transitioning_flag": "Ativar a barra deslizante de brilho melhorado durante a transi\u00e7\u00e3o de luz",
+            "title": "Op\u00e7\u00f5es globais"
+        }
+    },
+    "device_automation": {
+        "action_type": {
+            "issue_all_led_effect": "Enviar efeito para todos os LEDs",
+            "issue_individual_led_effect": "Enviar efeito para LED individual",
+            "warn": "Avisar"
+        },
+        "trigger_subtype": {
+            "both_buttons": "Ambos os bot\u00f5es",
+            "button": "Bot\u00e3o",
+            "button_1": "Primeiro bot\u00e3o",
+            "button_2": "Segundo bot\u00e3o",
+            "button_3": "Terceiro bot\u00e3o",
+            "button_4": "Quarto bot\u00e3o",
+            "button_5": "Quinto bot\u00e3o",
+            "button_6": "Sexto bot\u00e3o",
+            "close": "Fechar",
+            "dim_down": "Escurecer",
+            "dim_up": "Clarear",
+            "face_any": "Com qualquer face/face especificada(s) ativada(s)",
+            "left": "Esquerda",
+            "right": "Direita",
+            "turn_on": "Ligar"
+        },
+        "trigger_type": {
+            "device_dropped": "Dispositivo caiu",
+            "device_flipped": "Dispositivo invertido \"{subtype}\"",
+            "device_offline": "Dispositivo offline",
+            "device_shaken": "Dispositivo abanado",
+            "device_tilted": "Dispositivo inclinado",
+            "remote_button_double_press": "\"{subtype}\" duplo clique",
+            "remote_button_short_press": "\"{subtype}\" pressionado"
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "hand_open": {
+                "name": "Aberto \u00e0 m\u00e3o"
+            }
+        },
+        "climate": {
+            "thermostat": {
+                "name": "Term\u00f3stato"
+            }
+        },
+        "light": {
+            "light": {
+                "name": "Ilumina\u00e7\u00e3o"
+            },
+            "light_group": {
+                "name": "Grupo de ilumina\u00e7\u00e3o"
+            }
+        },
+        "number": {
+            "local_temperature_calibration": {
+                "name": "Corre\u00e7\u00e3o da temperatura local"
+            },
+            "max_heat_setpoint_limit": {
+                "name": "Limite m\u00e1ximo do ponto de regula\u00e7\u00e3o do calor"
+            },
+            "min_heat_setpoint_limit": {
+                "name": "Limite m\u00ednimo do ponto de regula\u00e7\u00e3o do calor"
+            },
+            "presence_detection_timeout": {
+                "name": "Tempo limite de dete\u00e7\u00e3o de presen\u00e7a"
+            },
+            "quick_start_time": {
+                "name": "Hora de in\u00edcio r\u00e1pido"
+            }
+        },
+        "select": {
+            "decoupled_mode": {
+                "name": "Modo desligado"
+            },
+            "detection_distance": {
+                "name": "Dist\u00e2ncia de dete\u00e7\u00e3o"
+            },
+            "detection_sensitivity": {
+                "name": "Sensibilidade da Dete\u00e7\u00e3o"
+            },
+            "keypad_lockout": {
+                "name": "Bloqueio do teclado"
+            },
+            "smart_fan_led_display_levels": {
+                "name": "N\u00edveis de ecr\u00e3 led da ventoinha inteligente"
+            },
+            "switch_mode": {
+                "name": "Modo do interruptor"
+            }
+        },
+        "sensor": {
+            "hooks_state": {
+                "name": "Estado dos ganchos"
+            },
+            "last_illumination_state": {
+                "name": "\u00daltimo estado de ilumina\u00e7\u00e3o"
+            },
+            "pi_heating_demand": {
+                "name": "Procura de aquecimento Pi"
+            },
+            "power_source": {
+                "name": "Fonte de alimenta\u00e7\u00e3o"
+            },
+            "setpoint_change_source": {
+                "name": "Fonte de altera\u00e7\u00e3o do ponto de regula\u00e7\u00e3o"
+            },
+            "summation_received": {
+                "name": "S\u00famula recebida"
+            },
+            "window_covering_type": {
+                "name": "Tipo de cobertura de janela"
+            }
+        },
+        "switch": {
+            "hooks_locked": {
+                "name": "Ganchos bloqueados"
+            },
+            "inverted": {
+                "name": "Invertido"
+            },
+            "local_protection": {
+                "name": "Prote\u00e7\u00e3o local"
+            },
+            "one_led_mode": {
+                "name": "Modo 1 s\u00f3 LED"
+            },
+            "power_outage_memory": {
+                "name": "Mem\u00f3ria de falha de energia"
+            },
+            "relay_click_in_on_off_mode": {
+                "name": "Desativar o clique do rel\u00e9 no modo ligado/desligado"
+            },
+            "smart_bulb_mode": {
+                "name": "Modo de l\u00e2mpada inteligente"
+            },
+            "smart_fan_mode": {
+                "name": "Modo da ventoinha inteligente"
+            },
+            "switch": {
+                "name": "Interruptor"
+            },
+            "trigger_indicator": {
+                "name": "Indicador de gatilho LED"
+            },
+            "valve_detection": {
+                "name": "Dete\u00e7\u00e3o de v\u00e1lvula"
+            },
+            "window_detection": {
+                "name": "Dete\u00e7\u00e3o de janela"
+            },
+            "window_detection_function": {
+                "name": "Inverter dete\u00e7\u00e3o de janela"
+            }
+        }
+    },
+    "issues": {
+        "inconsistent_network_settings": {
+            "fix_flow": {
+                "step": {
+                    "init": {
+                        "description": "As defini\u00e7\u00f5es de rede do seu r\u00e1dio Zigbee s\u00e3o inconsistentes com a c\u00f3pia de seguran\u00e7a de rede mais recente. Isto acontece normalmente se outra integra\u00e7\u00e3o Zigbee (por exemplo, Zigbee2MQTT ou deCONZ) as tiver substitu\u00eddo.\n\n{diff}\n\nSe n\u00e3o alterou intencionalmente as suas defini\u00e7\u00f5es de rede, restaure a partir da c\u00f3pia de seguran\u00e7a mais recente: caso contr\u00e1rio, os seus dispositivos n\u00e3o funcionar\u00e3o."
+                    }
+                }
+            },
+            "title": "As defini\u00e7\u00f5es da rede Zigbee foram alteradas"
+        },
+        "wrong_silabs_firmware_installed_nabucasa": {
+            "description": "O seu r\u00e1dio Zigbee foi anteriormente utilizado com multiprotocolo (Zigbee e Thread) e ainda tem o firmware multiprotocolo instalado: ({firmware_type}). \n Op\u00e7\u00e3o 1: Para utilizar o r\u00e1dio exclusivamente com ZHA, \u00e9 necess\u00e1rio instalar o firmware Zigbee:\n - Abra a documenta\u00e7\u00e3o seleccionando a liga\u00e7\u00e3o em \"Saber Mais\" (Saber mais).\n - Siga as instru\u00e7\u00f5es descritas no Passo 2 (e apenas no Passo 2) para \"Flash the Silicon Labs radio Zigbee firmware\".\n Op\u00e7\u00e3o 2: Para executar o seu r\u00e1dio com multiprotocolo, siga estes passos: \n - Aceda a Defini\u00e7\u00f5es > Sistema > Hardware, seleccione o dispositivo e seleccione Configurar. \n - Seleccione a op\u00e7\u00e3o Configurar suporte multiprotocolo do r\u00e1dio IEEE 802.15.4. \n - Seleccione a caixa de verifica\u00e7\u00e3o e seleccione Enviar. \n - Uma vez instalado, configure a integra\u00e7\u00e3o ZHA rec\u00e9m-descoberta.",
+            "title": "Detetado r\u00e1dio Zigbee com firmware multiprotocolo"
+        },
+        "wrong_silabs_firmware_installed_other": {
+            "description": "O seu r\u00e1dio Zigbee foi anteriormente utilizado com multiprotocolo (Zigbee e Thread) e ainda tem o firmware multiprotocolo instalado: ({firmware_type}). Para utilizar o r\u00e1dio exclusivamente com ZHA, \u00e9 necess\u00e1rio instalar o firmware Zigbee. Siga as instru\u00e7\u00f5es do fabricante do seu r\u00e1dio Zigbee para saber como fazer isso."
+        }
+    },
+    "options": {
+        "abort": {
+            "not_zha_device": "Este dispositivo n\u00e3o \u00e9 um dispositivo ZHA",
+            "usb_probe_failed": "Falha ao sondar o dispositivo USB"
+        },
+        "error": {
+            "invalid_backup_json": "JSON de backup inv\u00e1lido"
+        },
+        "flow_title": "{name}",
+        "step": {
+            "choose_automatic_backup": {
+                "data": {
+                    "choose_automatic_backup": "Escolha um backup autom\u00e1tico"
+                },
+                "description": "Restaure as suas configura\u00e7\u00f5es de rede a partir de um backup autom\u00e1tico",
+                "title": "Restaurar Backup Autom\u00e1tico"
+            },
+            "choose_formation_strategy": {
+                "description": "Escolha as configura\u00e7\u00f5es de rede para o seu r\u00e1dio.",
+                "menu_options": {
+                    "choose_automatic_backup": "Restaurar um backup autom\u00e1tico",
+                    "form_initial_network": "Criar uma rede",
+                    "form_new_network": "Apague as configura\u00e7\u00f5es de rede e forme uma nova rede",
+                    "reuse_settings": "Manter as configura\u00e7\u00f5es de rede de r\u00e1dio",
+                    "upload_manual_backup": "Carregar um backup manual"
+                },
+                "title": "Forma\u00e7\u00e3o de rede"
+            },
+            "choose_serial_port": {
+                "data": {
+                    "path": "Caminho do dispositivo de s\u00e9rie"
+                },
+                "description": "Selecione a porta serial para o seu r\u00e1dio Zigbee",
+                "title": "Selecionar uma porta s\u00e9rie"
+            },
+            "init": {
+                "title": "Reconfigurar ZHA"
+            },
+            "instruct_unplug": {
+                "title": "Desligue o seu r\u00e1dio antigo"
+            },
+            "intent_migrate": {
+                "title": "Migrar para um novo r\u00e1dio"
+            },
+            "manual_pick_radio_type": {
+                "data": {
+                    "radio_type": "Tipo de r\u00e1dio"
+                },
+                "description": "Escolha o seu tipo de r\u00e1dio Zigbee"
+            },
+            "manual_port_config": {
+                "data": {
+                    "baudrate": "velocidade da porta",
+                    "flow_control": "controle de fluxo de dados",
+                    "path": "Caminho do dispositivo serial"
+                },
+                "description": "Digite as configura\u00e7\u00f5es da porta serial",
+                "title": "Configura\u00e7\u00f5es da porta serial"
+            },
+            "maybe_confirm_ezsp_restore": {
+                "data": {
+                    "overwrite_coordinator_ieee": "Substituir permanentemente o endere\u00e7o IEEE do r\u00e1dio"
+                },
+                "description": "A sua c\u00f3pia de seguran\u00e7a tem um endere\u00e7o IEEE diferente do seu r\u00e1dio. Para que a sua rede funcione corretamente, o endere\u00e7o IEEE do seu r\u00e1dio tamb\u00e9m deve ser alterado.\n\nEsta \u00e9 uma opera\u00e7\u00e3o permanente.",
+                "title": "Sobrescrever o endere\u00e7o IEEE do r\u00e1dio"
+            },
+            "prompt_migrate_or_reconfigure": {
+                "description": "Est\u00e1 a migrar para um novo r\u00e1dio ou a reconfigurar o r\u00e1dio atual?",
+                "menu_options": {
+                    "intent_migrate": "Migrar para um novo r\u00e1dio",
+                    "intent_reconfigure": "Reconfigurar o r\u00e1dio atual"
+                },
+                "title": "Migrar ou reconfigurar"
+            },
+            "upload_manual_backup": {
+                "data": {
+                    "uploaded_backup_file": "Enviar um arquivo"
+                },
+                "description": "Restaure suas configura\u00e7\u00f5es de rede de um arquivo JSON de backup carregado. Voc\u00ea pode baixar um de uma instala\u00e7\u00e3o ZHA diferente em **Network Settings**, ou usar um arquivo Zigbee2MQTT `coordinator_backup.json`.",
+                "title": "Carregar um backup manual"
+            },
+            "verify_radio": {
+                "description": "O r\u00e1dio que est\u00e1 a utilizar ({name}) n\u00e3o \u00e9 recomendado e o suporte para o mesmo pode ser removido no futuro. Consulte a documenta\u00e7\u00e3o da integra\u00e7\u00e3o do Zigbee Home Automation para obter [uma lista de adaptadores recomendados] ({docs_recommended_adapters_url}).",
+                "title": "R\u00e1dio n\u00e3o \u00e9 recomendado"
+            }
+        }
+    },
+    "services": {
+        "issue_zigbee_cluster_command": {
+            "description": "Emite um comando no cluster especificado na entidade especificada.",
+            "fields": {
+                "args": {
+                    "description": "Argumentos a passar ao dispositivo.",
+                    "name": "Args"
+                },
+                "cluster_id": {
+                    "description": "Cluster ZCL para o qual recuperar atributos.",
+                    "name": "ID do Cluster"
+                },
+                "cluster_type": {
+                    "description": "Tipo do cluster",
+                    "name": "Tipo de cluster"
+                },
+                "command": {
+                    "description": "ID do comando a executar.",
+                    "name": "Comando"
+                },
+                "command_type": {
+                    "description": "Tipo de comando a executar.",
+                    "name": "Tipo de comando"
+                },
+                "endpoint_id": {
+                    "description": "ID do dispositivo final do cluster.",
+                    "name": "ID do dispositivo final"
+                },
+                "ieee": {
+                    "description": "Endere\u00e7o IEEE do dispositivo.",
+                    "name": "IEEE"
+                },
+                "manufacturer": {
+                    "description": "C\u00f3digo do fabricante. Utilize o valor \"-1\" para for\u00e7ar que nenhum c\u00f3digo seja definido.",
+                    "name": "Fabricante"
+                },
+                "params": {
+                    "description": "Par\u00e2metros a passar ao comando.",
+                    "name": "Par\u00e2metros"
+                }
+            },
+            "name": "Emitir um comando de cluster zigbee"
+        },
+        "issue_zigbee_group_command": {
+            "description": "Emite o comando no cluster especificado no grupo especificado.",
+            "fields": {
+                "args": {
+                    "description": "Argumentos a passar ao dispositivo.",
+                    "name": "Args"
+                },
+                "cluster_id": {
+                    "description": "Cluster ZCL ao qual enviar o comando.",
+                    "name": "ID do Cluster"
+                },
+                "cluster_type": {
+                    "description": "Tipo do cluster",
+                    "name": "Tipo de cluster"
+                },
+                "command": {
+                    "description": "ID do comando a executar.",
+                    "name": "Comando"
+                },
+                "group": {
+                    "description": "Endere\u00e7o hexadecimal do grupo.",
+                    "name": "Grupo"
+                },
+                "manufacturer": {
+                    "description": "C\u00f3digo do fabricante. Utilize o valor \"-1\" para for\u00e7ar que nenhum c\u00f3digo seja definido.",
+                    "name": "Fabricante"
+                }
+            },
+            "name": "Emitir um comando de grupo zigbee"
+        },
+        "permit": {
+            "description": "Permite que os nodos se juntem \u00e0 rede Zigbee.",
+            "fields": {
+                "ieee": {
+                    "name": "IEEE"
+                }
+            }
+        },
+        "remove": {
+            "description": "Remove um n\u00f3 da rede Zigbee."
+        },
+        "set_zigbee_cluster_attribute": {
+            "description": "Define um valor de atributo para o cluster especificado na entidade especificada.",
+            "fields": {
+                "attribute": {
+                    "description": "ID do atributo a definir.",
+                    "name": "Atributo"
+                },
+                "cluster_id": {
+                    "description": "Cluster ZCL para o qual recuperar atributos.",
+                    "name": "ID do Cluster"
+                },
+                "cluster_type": {
+                    "description": "Tipo do cluster",
+                    "name": "Tipo de cluster"
+                },
+                "endpoint_id": {
+                    "description": "ID do dispositivo final do cluster.",
+                    "name": "ID do dispositivo final"
+                },
+                "ieee": {
+                    "description": "Endere\u00e7o IEEE do dispositivo.",
+                    "name": "IEEE"
+                },
+                "manufacturer": {
+                    "description": "C\u00f3digo do fabricante. Utilize o valor \"-1\" para for\u00e7ar que nenhum c\u00f3digo seja definido.",
+                    "name": "Fabricante"
+                },
+                "value": {
+                    "description": "Valor a escrever no atributo.",
+                    "name": "Valor"
+                }
+            },
+            "name": "Definir atributo de cluster zigbee"
+        },
+        "warning_device_squawk": {
+            "fields": {
+                "ieee": {
+                    "description": "Endere\u00e7o IEEE do dispositivo."
+                },
+                "mode": {
+                    "name": "Modo"
+                }
+            }
+        },
+        "warning_device_warn": {
+            "fields": {
+                "ieee": {
+                    "description": "Endere\u00e7o IEEE do dispositivo."
+                },
+                "mode": {
+                    "name": "Modo"
+                }
+            }
+        }
+    }
+}

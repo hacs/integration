@@ -1,0 +1,78 @@
+{
+    "entity_component": {
+        "_": {
+            "state": {
+                "clear-night": "Despexado, de noite",
+                "cloudy": "Nubrado",
+                "lightning-rainy": "L\u00f3stregos, chuvioso",
+                "partlycloudy": "Parcialmente nubrado",
+                "rainy": "Chuvioso",
+                "snowy-rainy": "Nevarada, chuviosa",
+                "sunny": "Soleado"
+            },
+            "state_attributes": {
+                "wind_speed": {
+                    "name": "Velocidade do vento"
+                },
+                "wind_speed_unit": {
+                    "name": "Unidade de velocidade do vento"
+                }
+            }
+        }
+    },
+    "issues": {
+        "deprecated_service_weather_get_forecast": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "title": "Detectouse o uso do servizo obsoleto `weather.get_forecast`"
+                    }
+                }
+            }
+        },
+        "deprecated_weather_forecast": {
+            "description": "A integraci\u00f3n `{platform}` est\u00e1 a usar o atributo de predici\u00f3n obsoleto.\n\n{report_issue}.",
+            "title": "A integraci\u00f3n {platform} utiliza predici\u00f3ns obsoletas"
+        },
+        "deprecated_weather_forecast_no_url": {
+            "description": "A integraci\u00f3n personalizada `{platform}` implementa a propiedade `forecast` ou establece `self._attr_forecast` nunha subclase de WeatherEntity.\n\nInforme ao autor da integraci\u00f3n {platform}.\n\nUnha vez que estea dispo\u00f1ible unha versi\u00f3n actualizada de `{platform}`, inst\u00e1lea e reinicia Home Assistant para solucionar este problema.",
+            "title": "A integraci\u00f3n personalizada {platform} utiliza predici\u00f3ns meteorol\u00f3xicas obsoletas"
+        },
+        "deprecated_weather_forecast_url": {
+            "description": "A integraci\u00f3n personalizada `{platform}` implementa a propiedade `forecast` ou establece `self._attr_forecast` nunha subclase de WeatherEntity.\n\nCrea un informe de erro en {issue_tracker}.\n\nUnha vez que estea dispo\u00f1ible unha versi\u00f3n actualizada de `{platform}`, inst\u00e1lao e reinicia Home Assistant para solucionar este problema.",
+            "title": "A integraci\u00f3n personalizada {platform} utiliza predici\u00f3ns meteorol\u00f3xicas obsoletas"
+        }
+    },
+    "selector": {
+        "forecast_type": {
+            "options": {
+                "daily": "Diario",
+                "hourly": "Cada hora",
+                "twice_daily": "D\u00faas veces ao d\u00eda"
+            }
+        }
+    },
+    "services": {
+        "get_forecast": {
+            "description": "Obter a predici\u00f3n do tempo.",
+            "fields": {
+                "type": {
+                    "description": "Tipo de predici\u00f3n: diaria, horaria ou d\u00faas veces ao d\u00eda.",
+                    "name": "Tipo de predici\u00f3n"
+                }
+            },
+            "name": "Obter predici\u00f3n"
+        },
+        "get_forecasts": {
+            "description": "Obte\u00f1a predici\u00f3ns meteorol\u00f3xicas.",
+            "fields": {
+                "type": {
+                    "description": "Tipo de predici\u00f3n: diaria, horaria ou d\u00faas veces ao d\u00eda.",
+                    "name": "Tipo de predici\u00f3n"
+                }
+            },
+            "name": "Obter predici\u00f3n"
+        }
+    },
+    "title": "Clima"
+}

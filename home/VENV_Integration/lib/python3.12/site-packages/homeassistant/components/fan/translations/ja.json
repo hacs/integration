@@ -1,0 +1,159 @@
+{
+    "device_automation": {
+        "action_type": {
+            "toggle": "\u30c8\u30b0\u30eb {entity_name}",
+            "turn_off": "{entity_name}\u3092\u30aa\u30d5\u306b\u3059\u308b",
+            "turn_on": "{entity_name}\u3092\u30aa\u30f3\u306b\u3059\u308b"
+        },
+        "condition_type": {
+            "is_off": "{entity_name}\u306f\u30aa\u30d5\u3067\u3059",
+            "is_on": "{entity_name}\u306f\u30aa\u30f3\u3067\u3059"
+        },
+        "trigger_type": {
+            "changed_states": "{entity_name}\u3092\u30aa\u30f3/\u30aa\u30d5\u306a\u308a\u307e\u3057\u305f",
+            "turned_off": "{entity_name}\u304c\u30aa\u30d5\u306b\u306a\u308a\u307e\u3057\u305f",
+            "turned_on": "{entity_name}\u304c\u30aa\u30f3\u306b\u306a\u308a\u307e\u3057\u305f"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "\u30d5\u30a1\u30f3",
+            "state": {
+                "off": "\u30aa\u30d5",
+                "on": "\u30aa\u30f3"
+            },
+            "state_attributes": {
+                "direction": {
+                    "name": "\u65b9\u5411",
+                    "state": {
+                        "forward": "\u524d\u65b9(Forward)",
+                        "reverse": "\u30ea\u30d0\u30fc\u30b9"
+                    }
+                },
+                "oscillating": {
+                    "name": "\u9996\u632f\u308a",
+                    "state": {
+                        "false": "\u3044\u3044\u3048",
+                        "true": "\u306f\u3044"
+                    }
+                },
+                "percentage": {
+                    "name": "\u30b9\u30d4\u30fc\u30c9"
+                },
+                "percentage_step": {
+                    "name": "\u30b9\u30d4\u30fc\u30c9\u30b9\u30c6\u30c3\u30d7"
+                },
+                "preset_mode": {
+                    "name": "\u30d7\u30ea\u30bb\u30c3\u30c8\u30e2\u30fc\u30c9"
+                },
+                "preset_modes": {
+                    "name": "\u5229\u7528\u53ef\u80fd\u306a\u30d7\u30ea\u30bb\u30c3\u30c8\u30e2\u30fc\u30c9"
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "not_valid_preset_mode": {
+            "message": "\u30d7\u30ea\u30bb\u30c3\u30c8 \u30e2\u30fc\u30c9{preset_mode}\u306f\u7121\u52b9\u3067\u3059\u3002\u6709\u52b9\u306a\u30d7\u30ea\u30bb\u30c3\u30c8 \u30e2\u30fc\u30c9\u306f\u6b21\u306e\u3068\u304a\u308a\u3067\u3059: {preset_modes} \u3002"
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "{domain}\u7d71\u5408\u306e{platform}\u30d7\u30e9\u30c3\u30c8\u30d5\u30a9\u30fc\u30e0\u306f\u3001\u30d7\u30e9\u30c3\u30c8\u30d5\u30a9\u30fc\u30e0\u306e\u30bb\u30c3\u30c8\u30a2\u30c3\u30d7\u3092\u30b5\u30dd\u30fc\u30c8\u3057\u3066\u3044\u307e\u305b\u3093\u3002 \n\n\u3053\u306e\u554f\u984c\u3092\u89e3\u6c7a\u3059\u308b\u306b\u306f\u3001\u69cb\u6210\u304b\u3089\u524a\u9664\u3057\u3001Home Assistant \u3092\u518d\u8d77\u52d5\u3057\u3066\u304f\u3060\u3055\u3044\u3002",
+            "title": "\u30d7\u30e9\u30c3\u30c8\u30d5\u30a9\u30fc\u30e0\u306e\u30b5\u30dd\u30fc\u30c8\u306f\u30b5\u30dd\u30fc\u30c8\u3055\u308c\u3066\u3044\u307e\u305b\u3093"
+        }
+    },
+    "selector": {
+        "direction": {
+            "options": {
+                "forward": "\u30d5\u30a9\u30ef\u30fc\u30c9",
+                "reverse": "\u30ea\u30d0\u30fc\u30b9"
+            }
+        }
+    },
+    "services": {
+        "decrease_speed": {
+            "description": "\u30d5\u30a1\u30f3\u306e\u901f\u5ea6\u3092\u4e0b\u3052\u307e\u3059\u3002",
+            "fields": {
+                "percentage_step": {
+                    "description": "\u30d1\u30fc\u30bb\u30f3\u30c8\u5358\u4f4d\u3067\u901f\u5ea6\u3092\u4e0b\u3052\u307e\u3059\u3002",
+                    "name": "\u30c7\u30af\u30ea\u30e1\u30f3\u30c8"
+                }
+            },
+            "name": "\u901f\u5ea6\u3092\u4e0b\u3052\u308b"
+        },
+        "increase_speed": {
+            "description": "\u30d5\u30a1\u30f3\u306e\u901f\u5ea6\u3092\u4e0a\u3052\u307e\u3059\u3002",
+            "fields": {
+                "percentage_step": {
+                    "description": "\u30d1\u30fc\u30bb\u30f3\u30c8\u5358\u4f4d\u3067\u901f\u5ea6\u3092\u4e0a\u3052\u307e\u3059\u3002",
+                    "name": "\u30a4\u30f3\u30af\u30ea\u30e1\u30f3\u30c8"
+                }
+            },
+            "name": "\u901f\u5ea6\u3092\u4e0a\u3052\u307e\u3059"
+        },
+        "oscillate": {
+            "description": "\u30d5\u30a1\u30f3\u306e\u9996\u632f\u308a\u3092\u5236\u5fa1\u3057\u307e\u3059\u3002",
+            "fields": {
+                "oscillating": {
+                    "description": "\u9996\u632f\u308a\u306e\u30aa\u30f3/\u30aa\u30d5\u3092\u5207\u308a\u66ff\u3048\u307e\u3059\u3002",
+                    "name": "\u9996\u632f\u308a\u3059\u308b"
+                }
+            },
+            "name": "\u9996\u632f\u308a"
+        },
+        "set_direction": {
+            "description": "\u30d5\u30a1\u30f3\u306e\u56de\u8ee2\u65b9\u5411\u3092\u8a2d\u5b9a\u3057\u307e\u3059\u3002",
+            "fields": {
+                "direction": {
+                    "description": "\u56de\u8ee2\u3059\u308b\u65b9\u5411\u3002",
+                    "name": "\u65b9\u5411"
+                }
+            },
+            "name": "\u65b9\u5411\u8a2d\u5b9a"
+        },
+        "set_percentage": {
+            "description": "\u30d5\u30a1\u30f3\u306e\u901f\u5ea6\u3092\u8a2d\u5b9a\u3057\u307e\u3059\u3002",
+            "fields": {
+                "percentage": {
+                    "description": "\u30d5\u30a1\u30f3\u306e\u901f\u5ea6\u3002",
+                    "name": "\u30d1\u30fc\u30bb\u30f3\u30c8"
+                }
+            },
+            "name": "\u8a2d\u5b9a\u901f\u5ea6"
+        },
+        "set_preset_mode": {
+            "description": "\u30d7\u30ea\u30bb\u30c3\u30c8\u30e2\u30fc\u30c9\u3092\u8a2d\u5b9a\u3057\u307e\u3059\u3002",
+            "fields": {
+                "preset_mode": {
+                    "description": "\u30d7\u30ea\u30bb\u30c3\u30c8\u30e2\u30fc\u30c9\u3002",
+                    "name": "\u30d7\u30ea\u30bb\u30c3\u30c8\u30e2\u30fc\u30c9"
+                }
+            },
+            "name": "\u30d7\u30ea\u30bb\u30c3\u30c8\u30e2\u30fc\u30c9\u306e\u8a2d\u5b9a"
+        },
+        "toggle": {
+            "description": "\u30d5\u30a1\u30f3\u306e\u30aa\u30f3/\u30aa\u30d5\u3092\u5207\u308a\u66ff\u3048\u307e\u3059\u3002",
+            "name": "\u30c8\u30b0\u30eb"
+        },
+        "turn_off": {
+            "description": "\u30d5\u30a1\u30f3\u3092\u30aa\u30d5\u306b\u3057\u307e\u3059\u3002",
+            "name": "\u30aa\u30d5\u306b\u3059\u308b"
+        },
+        "turn_on": {
+            "description": "\u30d5\u30a1\u30f3\u3092\u30aa\u30f3\u306b\u3057\u307e\u3059\u3002",
+            "fields": {
+                "percentage": {
+                    "description": "\u30d5\u30a1\u30f3\u306e\u901f\u5ea6\u3002",
+                    "name": "\u30d1\u30fc\u30bb\u30f3\u30c8"
+                },
+                "preset_mode": {
+                    "description": "\u30d7\u30ea\u30bb\u30c3\u30c8\u30e2\u30fc\u30c9\u3002",
+                    "name": "\u30d7\u30ea\u30bb\u30c3\u30c8\u30e2\u30fc\u30c9"
+                }
+            },
+            "name": "\u30aa\u30f3\u306b\u3059\u308b"
+        }
+    },
+    "title": "\u30d5\u30a1\u30f3"
+}

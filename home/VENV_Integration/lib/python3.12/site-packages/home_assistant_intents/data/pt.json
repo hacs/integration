@@ -1,0 +1,1018 @@
+{
+  "language": "pt",
+  "intents": {
+    "HassTurnOff": {
+      "data": [
+        {
+          "sentences": [
+            "<desliga> [a[s]|o[s]] [luz[es]|interruptor[es]] [do|da] <nome>"
+          ],
+          "excludes_context": {
+            "domain": [
+              "binary_sensor",
+              "cover",
+              "lock",
+              "scene",
+              "script",
+              "sensor"
+            ]
+          }
+        },
+        {
+          "sentences": [
+            "<desliga> [(todas | todos)] [(o | os | a | as)] <luz> <na_zona>"
+          ],
+          "slots": {
+            "domain": "light"
+          }
+        },
+        {
+          "sentences": [
+            "<desliga> [(o | os | a | as)] <luz>",
+            "<desliga> [(todas | todos)] [(o | os | a | as)] <luz> aqui"
+          ],
+          "slots": {
+            "domain": "light"
+          },
+          "requires_context": {
+            "area": {
+              "slot": true
+            }
+          }
+        },
+        {
+          "sentences": [
+            "<fecha> [(o | a)] [(porta | portão) da] garagem"
+          ],
+          "response": "cover",
+          "slots": {
+            "device_class": "garage",
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "<fecha> <estores> <na_zona>"
+          ],
+          "response": "cover",
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "<fecha> <estores> [aqui]"
+          ],
+          "response": "cover",
+          "slots": {
+            "domain": "cover"
+          },
+          "requires_context": {
+            "area": {
+              "slot": true
+            }
+          }
+        },
+        {
+          "sentences": [
+            "(desliga | desligue | desligar) [todas] as ventoinhas <na_zona>"
+          ],
+          "slots": {
+            "domain": "fan",
+            "name": "all"
+          },
+          "response": "fans_area"
+        }
+      ]
+    },
+    "HassCancelTimer": {
+      "data": [
+        {
+          "sentences": [
+            "<timer_cancel> <temporizador>",
+            "<timer_cancel> <temporizador> [de ]<timer_start>",
+            "<timer_cancel> <temporizador> <na_zona>",
+            "<timer_cancel> <temporizador> [chamado ]{timer_name:name}"
+          ],
+          "expansion_rules": {
+            "timer_cancel": "(cancela[r]|elimina[r]|aborta[r])"
+          }
+        }
+      ]
+    },
+    "HassTimerStatus": {
+      "data": [
+        {
+          "sentences": [
+            "[<qual> ][o ](estado dos|tempo restante nos) <temporizadores>",
+            "quanto tempo <falta> nos <temporizadores>",
+            "[<qual> ][o ](estado do|tempo restante no) <temporizador>[ [de ]<timer_start>]",
+            "quanto tempo <falta> no <temporizador>[ [de ]<timer_start>]",
+            "[<qual> ][o ](estado do|tempo restante no) <temporizador> <na_zona>",
+            "quanto tempo <falta> no <temporizador> <na_zona>",
+            "[<qual> ][o ](estado do|tempo restante no) <temporizador> [chamado ]{timer_name:name}",
+            "quanto tempo <falta> no <temporizador> [chamado ]{timer_name:name}"
+          ],
+          "expansion_rules": {
+            "falta": "(falta|resta)"
+          }
+        }
+      ]
+    },
+    "HassGetWeather": {
+      "data": [
+        {
+          "sentences": [
+            "como está o tempo"
+          ]
+        },
+        {
+          "sentences": [
+            "como está o tempo (em|no) <nome>"
+          ],
+          "requires_context": {
+            "domain": "weather"
+          }
+        }
+      ]
+    },
+    "HassGetCurrentTime": {
+      "data": [
+        {
+          "sentences": [
+            "[diz-me ]que horas são",
+            "diz-me as horas"
+          ]
+        }
+      ]
+    },
+    "HassTurnOn": {
+      "data": [
+        {
+          "sentences": [
+            "<liga> [(todas | todos)] [(o | os | a | as)] <luz> <na_zona>"
+          ],
+          "slots": {
+            "domain": "light"
+          }
+        },
+        {
+          "sentences": [
+            "<liga> [(o | os | a | as)] <luz>",
+            "<liga> [(todas | todos)] [(o | os | a | as)] <luz> aqui"
+          ],
+          "slots": {
+            "domain": "light"
+          },
+          "requires_context": {
+            "area": {
+              "slot": true
+            }
+          }
+        },
+        {
+          "sentences": [
+            "(liga | ligue | ligar) [todas] as ventoinhas <na_zona>"
+          ],
+          "slots": {
+            "domain": "fan",
+            "name": "all"
+          },
+          "response": "fans_area"
+        },
+        {
+          "sentences": [
+            "<liga> [a[s]|o[s]] [luz[es]|interruptor[es]] [do|da] <nome>"
+          ],
+          "excludes_context": {
+            "domain": [
+              "binary_sensor",
+              "cover",
+              "lock",
+              "scene",
+              "script",
+              "sensor",
+              "vacuum"
+            ]
+          }
+        },
+        {
+          "sentences": [
+            "<abre>  [(o|a)] [(porta|portão) da] garagem"
+          ],
+          "response": "cover",
+          "slots": {
+            "device_class": "garage",
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "<abre> <estores> <na_zona>"
+          ],
+          "response": "cover",
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "<abre> <estores> [aqui]"
+          ],
+          "response": "cover",
+          "slots": {
+            "domain": "cover"
+          },
+          "requires_context": {
+            "area": {
+              "slot": true
+            }
+          }
+        }
+      ]
+    },
+    "HassShoppingListAddItem": {
+      "data": [
+        {
+          "sentences": [
+            "<verbos> <item> (na|à|a) <lista>"
+          ],
+          "response": "item_added",
+          "expansion_rules": {
+            "lista": "[minha ]lista[ de compras]",
+            "verbos": "(<adicionar>|<colocar>|<juntar>|<por>)",
+            "item": "{shopping_list_item:item}"
+          }
+        }
+      ]
+    },
+    "HassNevermind": {
+      "data": [
+        {
+          "sentences": [
+            "esquece",
+            "deixa lá",
+            "cancela[r]",
+            "nada"
+          ]
+        }
+      ]
+    },
+    "HassGetCurrentDate": {
+      "data": [
+        {
+          "sentences": [
+            "[diz-me ]que dia é hoje",
+            "[diz-me ]qual a data de hoje"
+          ]
+        }
+      ]
+    },
+    "HassIncreaseTimer": {
+      "data": [
+        {
+          "sentences": [
+            "<aumentar> <timer_duration> [ao |no ]<temporizador>",
+            "<aumentar> <timer_duration> [ao |no ]<temporizador> [de ]<timer_start>",
+            "<aumentar> <timer_duration> [ao |no ]<temporizador> <na_zona>",
+            "<aumentar> <timer_duration> [ao |no ]<temporizador> [chamado ]{timer_name:name}"
+          ],
+          "expansion_rules": {
+            "aumentar": "(aumenta[r]|adiciona[r]|acrescenta[r])[ em]"
+          }
+        },
+        {
+          "sentences": [
+            "<aumentar> [ao |no ]<temporizador> [em ]<timer_duration>",
+            "<aumentar> [ao |no ]<temporizador> [de ]<timer_start> [em ]<timer_duration>",
+            "<aumentar> [ao |no ]<temporizador> <na_zona> [em ]<timer_duration>",
+            "<aumentar> [ao |no ]<temporizador> [chamado ]{timer_name:name} [em ]<timer_duration>"
+          ],
+          "expansion_rules": {
+            "aumentar": "(aumenta[r]|adiciona[r]|acrescenta[r])"
+          }
+        }
+      ]
+    },
+    "HassLightSet": {
+      "data": [
+        {
+          "sentences": [
+            "<muda> o brilho (do|da) <nome> (a | para) <brilho>",
+            "<muda> <nome> (a | para) <brilho>",
+            "<muda> o brilho (do | da) <nome> <na_zona> (a|para) <brilho>",
+            "<muda> <nome> <na_zona> (a | para) <brilho>"
+          ],
+          "response": "brightness"
+        },
+        {
+          "sentences": [
+            "<muda> o brilho <na_zona> (a | para) <brilho>",
+            "<muda> <zona> (a | para) <brilho>",
+            "<muda> [todas] as luzes (a | para) <brilho>",
+            "<muda> [todas] as luzes <na_zona> (a | para) <brilho>",
+            "<muda> [o brilho (de todas as | das) | as] luzes (a | para) <brilho>",
+            "<muda> [o brilho (de todas as | das) | as] luzes <na_zona> (a | para) <brilho>"
+          ],
+          "slots": {
+            "name": "all"
+          },
+          "response": "brightness"
+        },
+        {
+          "sentences": [
+            "<muda> [a cor [(do | da)]] <nome> (a | para | em) {color}",
+            "<muda> <nome> {color}",
+            "<muda> [a cor [(do | da)]] <nome> <na_zona> (a | para | em) {color}",
+            "(põe | ponha | muda | altera) <nome> <na_zona> {color}"
+          ],
+          "response": "color"
+        },
+        {
+          "sentences": [
+            "<muda> a cor <na_zona> (a | para | em) {color}",
+            "<muda> <zona> [a | para | em] {color}",
+            "<muda> [a cor (de todas as | das) | as] luzes (a | para | em) {color}",
+            "<muda> [a cor (de todas as | das) | as] luzes <na_zona> (a | para | em) {color}"
+          ],
+          "slots": {
+            "name": "all"
+          },
+          "response": "color"
+        }
+      ]
+    },
+    "HassPauseTimer": {
+      "data": [
+        {
+          "sentences": [
+            "<timer_pause> <temporizador>",
+            "<timer_pause> <temporizador> [de ]<timer_start>",
+            "<timer_pause> <temporizador> <na_zona>",
+            "<timer_pause> <temporizador> [chamado ]{timer_name:name}"
+          ],
+          "expansion_rules": {
+            "timer_pause": "(pausa[r]|para[r])"
+          }
+        }
+      ]
+    },
+    "HassDecreaseTimer": {
+      "data": [
+        {
+          "sentences": [
+            "<reduzir> <timer_duration> [do ]<temporizador>",
+            "<reduzir> <timer_duration> [do ]<temporizador> [de ]<timer_start>",
+            "<reduzir> <timer_duration> [do ]<temporizador> <na_zona>",
+            "<reduzir> <timer_duration> [do ]<temporizador> [chamado ]{timer_name:name}"
+          ],
+          "expansion_rules": {
+            "reduzir": "(reduz[ir]|remove[r]|retira[r])[ em]"
+          }
+        },
+        {
+          "sentences": [
+            "<reduzir> [do ]<temporizador> [em ]<timer_duration>",
+            "<reduzir> [do ]<temporizador> [de ]<timer_start> [em ]<timer_duration>",
+            "<reduzir> [do ]<temporizador> <na_zona> [em ]<timer_duration>",
+            "<reduzir> [do ]<temporizador> [chamado ]{timer_name:name} [em ]<timer_duration>"
+          ],
+          "expansion_rules": {
+            "reduzir": "(reduz[ir]|remove[r]|retira[r])"
+          }
+        }
+      ]
+    },
+    "HassUnpauseTimer": {
+      "data": [
+        {
+          "sentences": [
+            "<continuar> <temporizador>",
+            "<continuar> <temporizador> [de ]<timer_start>",
+            "<continuar> <temporizador> <na_zona>",
+            "<continuar> <temporizador>[ chamado] {timer_name:name}"
+          ],
+          "expansion_rules": {
+            "continuar": "(continua[r]|retoma[r])"
+          }
+        }
+      ]
+    },
+    "HassStartTimer": {
+      "data": [
+        {
+          "sentences": [
+            "[<timer_set> ][um ]<temporizador>[ <duration_prefix>] <timer_duration>",
+            "[<timer_set> ][um ]<temporizador>[ chamado] {timer_name:name}[ <duration_prefix>] <timer_duration>",
+            "[<timer_set> ][um ]<temporizador>[ <duration_prefix>] <timer_duration>[ chamado] {timer_name:name}"
+          ],
+          "expansion_rules": {
+            "timer_set": "(define|definir|começa[r]|inicia[r]|cria[r])",
+            "duration_prefix": "(de|com|para)"
+          }
+        },
+        {
+          "sentences": [
+            "{timer_command:conversation_command} <daqui_a> <timer_duration>",
+            "<daqui_a> <timer_duration> {timer_command:conversation_command}"
+          ],
+          "expansion_rules": {
+            "daqui_a": "(em|dentro de|daqui a)"
+          },
+          "response": "command"
+        }
+      ]
+    },
+    "HassClimateGetTemperature": {
+      "data": [
+        {
+          "sentences": [
+            "<qual> [a] temperatura [(do|da) {name}]",
+            "<qual> a temperatura <na_zona>",
+            "a que temperatura está <zona>"
+          ]
+        }
+      ]
+    },
+    "HassVacuumReturnToBase": {
+      "data": [
+        {
+          "sentences": [
+            "(retornar|voltar) <nome> [(a|à|para a) base]"
+          ],
+          "requires_context": {
+            "domain": "vacuum"
+          }
+        }
+      ]
+    },
+    "HassGetState": {
+      "data": [
+        {
+          "sentences": [
+            "<qual> [o estado] [do|da] <nome> [<na_zona>]"
+          ],
+          "response": "one",
+          "excludes_context": {
+            "domain": [
+              "scene",
+              "script"
+            ]
+          }
+        },
+        {
+          "sentences": [
+            "<nome> está {on_off_states:state} [<na_zona>]"
+          ],
+          "response": "one_yesno",
+          "excludes_context": {
+            "domain": [
+              "cover"
+            ]
+          }
+        },
+        {
+          "sentences": [
+            "<esta> <algum> {on_off_domains:domain} {on_off_states:state} [<na_zona>]"
+          ],
+          "response": "any"
+        },
+        {
+          "sentences": [
+            "(todos|todas) [os|as] {on_off_domains:domain} estão {on_off_states:state} [<na_zona>]"
+          ],
+          "response": "all"
+        },
+        {
+          "sentences": [
+            "<qual> {on_off_domains:domain} (está|estão) {on_off_states:state} [<na_zona>]"
+          ],
+          "response": "which"
+        },
+        {
+          "sentences": [
+            "(quantos|quantas) {on_off_domains:domain} (está|estão) {on_off_states:state} [<na_zona>]"
+          ],
+          "response": "how_many"
+        },
+        {
+          "sentences": [
+            "está <nome> {cover_states:state} [<na_zona>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "cover"
+          },
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "(está|estão) (alguma|algumas) {cover_classes:device_class} {cover_states:state} [<na_zona>]"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "estão todas [as] {cover_classes:device_class} {cover_states:state} [<na_zona>]"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "(quais|qual|que) {cover_classes:device_class} (está|estão) {cover_states:state} [<na_zona>]"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "(quantas|quantos) {cover_classes:device_class} estão {cover_states:state} [<na_zona>]"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "cover"
+          }
+        }
+      ]
+    },
+    "HassVacuumStart": {
+      "data": [
+        {
+          "sentences": [
+            "(começar|iniciar|ligar) <nome>"
+          ],
+          "requires_context": {
+            "domain": "vacuum"
+          }
+        }
+      ]
+    },
+    "HassSetPosition": {
+      "data": [
+        {
+          "sentences": [
+            "(<muda>|<abre>|<fecha>) <nome> (para|até) <posicao>"
+          ],
+          "requires_context": {
+            "domain": "cover"
+          },
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "(<muda>|<abre>|<fecha>) [as|os|a|o] {cover_classes:device_class} ((para|até) <posicao>;<na_zona>)",
+            "(<muda>|<abre>|<fecha>) <na_zona> [as|os|a|o] {cover_classes:device_class} (para|até) <posicao>"
+          ],
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "(<muda>|<abre>|<fecha>) <estores> (para|até) <posicao>"
+          ],
+          "slots": {
+            "domain": "cover"
+          },
+          "requires_context": {
+            "area": {
+              "slot": true
+            }
+          }
+        }
+      ]
+    },
+    "HassListAddItem": {
+      "data": [
+        {
+          "sentences": [
+            "<verbos> <item> (na|à|a) <lista>"
+          ],
+          "response": "item_added",
+          "requires_context": {
+            "domain": "todo"
+          },
+          "expansion_rules": {
+            "lista": "[minha ]lista [de ]{name}",
+            "item": "{shopping_list_item:item}",
+            "verbos": "(<adicionar>|<colocar>|<juntar>|<por>)"
+          }
+        }
+      ]
+    }
+  },
+  "responses": {
+    "errors": {
+      "no_intent": "Desculpe, não percebi o pedido.",
+      "no_area": "Não existe nenhuma área com o nome {{ area }}.",
+      "no_domain_in_area": "{{ area }} não contém {{ domain }}.",
+      "no_device_class_in_area": "{{ area }} não contém {{ device_class }}.",
+      "no_entity": "Não existe nenhum dispositivo ou entidade com o nome {{ entity }}.",
+      "handle_error": "Ocorreu um erro inesperado ao processar o pedido."
+    },
+    "intents": {
+      "HassGetState": {
+        "one": "{{ state.state_with_unit }}\n",
+        "one_yesno": "{% if query.matched %}\n  Sim\n{% else %}\n  Não, {{ state.state_with_unit }}\n{% endif %}\n",
+        "any": "{% if query.matched %}\n  {% set match = query.matched | map(attribute=\"name\") | sort | list %}\n  {% if match | length > 4 %}\n    Sim, {{ match[:3] | join(\", \") }} e {{ (match | length - 3) }} mais\n  {%- else -%}\n    Sim,\n    {% for name in match -%}\n      {% if not loop.first and not loop.last %}, {% elif loop.last and not loop.first %} e {% endif -%}\n      {{ name }}\n    {%- endfor -%}\n  {% endif %}\n{% else %}\n  Não\n{% endif %}\n",
+        "all": "{% if not query.unmatched: %}\n  Sim\n{% else %}\n  {% set no_match = query.unmatched | map(attribute=\"name\") | sort | list %}\n  {% if no_match | length > 4 %}\n    Não, {{ no_match[:3] | join(\", \") }} e {{ (no_match | length - 3) }} mais não\n  {%- else -%}\n    Não,\n    {% for name in no_match -%}\n      {% if not loop.first and not loop.last %}, {% elif loop.last and not loop.first %} e {% endif -%}\n      {{ name }}\n    {%- endfor %} não\n  {% endif %}\n{% endif %}\n",
+        "which": "{% if not query.matched %}\n  (Nenhuma|Nenhum)\n{% else: %}\n  {% set match = query.matched | map(attribute=\"name\") | sort | list %}\n  {% if match | length > 4 %}\n    {{ match[:3] | join(\", \") }} e {{ (match | length - 3) }} mais\n  {% else %}\n    {%- for name in match -%}\n      {% if not loop.first and not loop.last %}, {% elif loop.last and not loop.first %} e {% endif -%}\n      {{ name }}\n    {%- endfor -%}\n  {% endif %}\n{% endif %}\n",
+        "how_many": "{{ query.matched | length }}\n"
+      },
+      "HassTurnOff": {
+        "default": "Desligado",
+        "lights_area": "Luzes desligadas",
+        "fans_area": "Ventoinhas desligadas",
+        "cover": "Fechado",
+        "light_all": "Todas as luzes desligadas",
+        "fan_all": "Todas as ventoinhas desligadas",
+        "cover_device_class": "Fechado {{ slots.device_class }}"
+      },
+      "HassStartTimer": {
+        "default": "Temporizador iniciado",
+        "command": "Comando recebido"
+      },
+      "HassShoppingListAddItem": {
+        "item_added": "Adicionei {{ slots.item }}"
+      },
+      "HassTurnOn": {
+        "default": "Ligado",
+        "lights_area": "Luzes ligados",
+        "fans_area": "Ventoinhas ligadas",
+        "cover": "Aberto",
+        "cover_device_class": "{{ slots.device_class }} aberto",
+        "scene": "Ativado",
+        "script": "Iniciado"
+      },
+      "HassGetCurrentTime": {
+        "default": "{% set next_hour = 0 %} {% set minute_str = \"\" %} {% if slots.time.minute > 0: %}\n    {% if slots.time.minute == 15: %}\n        {% set minute_str = \"e um quarto\" %}\n    {% elif slots.time.minute == 30: %}\n        {% set minute_str = \"e meia\" %}\n    {% elif slots.time.minute > 30 and slots.time.minute % 5 == 0: %}\n        {% set next_hour = 1 %}\n        {% if slots.time.minute == 45: %}\n           {% set minute_str = \"menos um quarto\" %}\n        {% else: %}\n            {% set minute_str = 'menos {0:01d}'.format(60 - slots.time.minute) %}\n        {% endif %}\n    {% else: %}\n        {% set minute_str = 'e {0:01d}'.format(slots.time.minute) %}\n    {% endif %}\n{% endif %} {% if slots.time.hour + next_hour > 12: %}\n    {% set hour12 = slots.time.hour + next_hour - 12 %}\n{% elif slots.time.hour + next_hour == 0: %}\n    {% set hour12 = 12 %}\n{% else: %}\n    {% set hour12 = slots.time.hour + next_hour %}\n{% endif %} {% if hour12 == 1 : %}\n    É\n{% else: %}\n   São\n{% endif %} {{hour12}} {{minute_str}}\n"
+      },
+      "HassPauseTimer": {
+        "default": "Temporizador em pausa"
+      },
+      "HassTimerStatus": {
+        "default": "{% set num_timers = slots.timers | length %}\n{% set active_timers = slots.timers | selectattr('is_active') | list %}\n{% set num_active_timers = active_timers | length %}\n{% set paused_timers = slots.timers | rejectattr('is_active') | list %}\n{% set num_paused_timers = paused_timers | length %}\n{% set next_timer = None %}\n\n{% if num_timers == 0: %}\n  Não existem temporizadores.\n{% elif num_active_timers == 0: %}\n  {# No active timers #}\n  {% if num_paused_timers == 1: %}\n    {% set next_timer = paused_timers[0] %}\n    O temporizador está em pausa.\n  {% else: %}\n    {{ num_paused_timers }} temporizadores em pausa.\n  {% endif %}\n{% else: %}\n  {# At least one active timer #}\n  {% if num_active_timers == 1: %}\n    {% set next_timer = active_timers[0] %}\n  {% else: %}\n    {# Get active timer that will finish soonest #}\n    {% set sorted_timers = active_timers | sort(attribute='total_seconds_left') %}\n    {% set next_timer = sorted_timers[0] %}\n    {{ num_active_timers }} temporizadores activos.\n  {% endif %}\n\n  {% if num_paused_timers == 1: %}\n    1 temporizador em pausa.\n  {% elif num_paused_timers > 0: %}\n    {{ num_paused_timers }} temporizadores em pausa.\n  {% endif %}\n{% endif %}\n\n{% if next_timer: %}\n\n  {% if num_timers > 1: %}\n\n    No temporizador\n        \n    {% if next_timer.name: %}\n      {{ next_timer.name }}\n    {% elif next_timer.area: %}\n      da área {{ next_timer.area }}\n    {% endif %}\n\n    de\n\n    {# Give some extra information to disambiguate #}\n    {% if (next_timer.start_hours > 0) and (next_timer.start_minutes > 0): %}\n      {{ next_timer.start_hours }} hora{{ \"s\" if next_timer.start_hours != 1 }} e {{ next_timer.start_minutes }} minuto{{ \"s\" if next_timer.start_minutes != 1 }}\n    {% elif (next_timer.start_hours > 0): %}\n      {{ next_timer.start_hours }} hora{{ \"s\" if next_timer.start_hours != 1 }}\n    {% elif (next_timer.start_minutes > 0) and (next_timer.start_seconds > 0): %}\n      {{ next_timer.start_minutes }} minuto{{ \"s\" if next_timer.start_minutes != 1 }} e {{ next_timer.start_seconds }} segundo{{ \"s\" if next_timer.start_seconds != 1 }}\n    {% elif (next_timer.start_minutes > 0): %}\n      {{ next_timer.start_minutes }} minuto{{ \"s\" if next_timer.start_minutes != 1 }}\n    {% elif (next_timer.start_seconds > 0): %}\n      {{ next_timer.start_seconds }} segundo{{ \"s\" if next_timer.start_seconds != 1 }}\n    {% endif %}\n\n    restam\n  {% else %}\n    Restam\n  {% endif %}\n\n  {# At least one active timer #}\n  {% if (next_timer.rounded_hours_left == 1) and (next_timer.rounded_minutes_left > 0): %}\n    1 hora e {{ next_timer.rounded_minutes_left }} minutos.\n  {% elif (next_timer.rounded_hours_left == 1): %}\n    1 hora.\n  {% elif (next_timer.rounded_hours_left > 1) and (next_timer.rounded_minutes_left > 0): %}\n    {{ next_timer.rounded_hours_left }} horas e {{ next_timer.rounded_minutes_left }} minutos.\n  {% elif (next_timer.rounded_hours_left > 1): %}\n    {{ next_timer.rounded_hours_left }} horas.\n  {% elif (next_timer.rounded_minutes_left == 1) and (next_timer.rounded_seconds_left > 0): %}\n    1 minuto e {{ next_timer.rounded_seconds_left }} segundos.\n  {% elif (next_timer.rounded_minutes_left == 1): %}\n    1 minuto.\n  {% elif (next_timer.rounded_minutes_left > 1) and (next_timer.rounded_seconds_left > 0): %}\n    {{ next_timer.rounded_minutes_left }} minutos e {{ next_timer.rounded_seconds_left }} segundos.\n  {% elif (next_timer.rounded_minutes_left > 1): %}\n    {{ next_timer.rounded_minutes_left }} minutos.\n  {% elif (next_timer.rounded_seconds_left == 1): %}\n    1 segundo.\n  {% elif (next_timer.rounded_seconds_left > 1): %}\n    {{ next_timer.rounded_seconds_left }} segundos.\n  {% endif %}\n\n{% endif %}\n"
+      },
+      "HassListAddItem": {
+        "item_added": "Adicionei {{ slots.item }}"
+      },
+      "HassGetCurrentDate": {
+        "default": "{% set months = {\n    1: 'janeiro',\n    2: 'fevereiro',\n    3: 'março',\n    4: 'abril',\n    5: 'maio',\n    6: 'junho',\n    7: 'julho',\n    8: 'agosto',\n    9: 'setembro',\n    10: 'outubro',\n    11: 'novembro',\n    12: 'dezembro',\n} %} {% set weekday = ['segunda-feira', 'terça-feira', 'quarta-feira', 'quinta-feira', 'sexta-feira', 'sábado', 'domingo'] %} {{ weekday[slots.date.weekday()] }}, {{slots.date.day}} de {{ months[slots.date.month] }} de {{ slots.date.year }}\n"
+      },
+      "HassUnpauseTimer": {
+        "default": "Temporizador retomado"
+      },
+      "HassGetWeather": {
+        "default": "{% set weather_condition = {\n  'clear': 'Céu limpo',\n  'clear-night': 'Céu limpo',\n  'cloudy': 'Céu nublado',\n  'exceptional': 'Condições excepcionalmente adversas',\n  'fog': 'Nevoeiro',\n  'hail': 'Granizo',\n  'lightning': 'Trovoada',\n  'lightning-rainy': 'Chuva e trovoada',\n  'partlycloudy': 'Céu parcialmente nublado',\n  'pouring': 'Chuva forte',\n  'rainy': 'Chuva',\n  'snowy': 'Neve',\n  'snowy-rainy': 'Chuva e neve',\n  'sunny': 'Sol',\n  'windy': 'Vento',\n  'windy-variant': 'Vento e céu nublado'\n} %}\n {{ weather_condition.get((state.state | string).lower(), \"\") }}, com temperatura de {{ state.attributes.get('temperature') }} {{ state.attributes.get('temperature_unit') }}\n"
+      },
+      "HassLightSet": {
+        "brightness": "Brilho definido",
+        "color": "Cor definida"
+      },
+      "HassVacuumStart": {
+        "default": "Limpeza iniciada"
+      },
+      "HassSetPosition": {
+        "default": "Posição alterada"
+      },
+      "HassCancelTimer": {
+        "default": "Cancelado"
+      },
+      "HassClimateGetTemperature": {
+        "default": "{{ state_attr(state.entity_id, 'current_temperature') }}"
+      },
+      "HassDecreaseTimer": {
+        "default": "Tempo reduzido"
+      },
+      "HassIncreaseTimer": {
+        "default": "Tempo incrementado"
+      },
+      "HassVacuumReturnToBase": {
+        "default": "A regressar"
+      }
+    }
+  },
+  "lists": {
+    "color": {
+      "values": [
+        {
+          "in": "branco",
+          "out": "white"
+        },
+        {
+          "in": "branca",
+          "out": "white"
+        },
+        {
+          "in": "preto",
+          "out": "black"
+        },
+        {
+          "in": "preta",
+          "out": "black"
+        },
+        {
+          "in": "vermelho",
+          "out": "red"
+        },
+        {
+          "in": "vermelha",
+          "out": "red"
+        },
+        {
+          "in": "laranja",
+          "out": "orange"
+        },
+        {
+          "in": "amarelo",
+          "out": "yellow"
+        },
+        {
+          "in": "amarela",
+          "out": "yellow"
+        },
+        {
+          "in": "verde",
+          "out": "green"
+        },
+        {
+          "in": "azul",
+          "out": "blue"
+        },
+        {
+          "in": "roxo",
+          "out": "purple"
+        },
+        {
+          "in": "roxa",
+          "out": "purple"
+        },
+        {
+          "in": "castanho",
+          "out": "brown"
+        },
+        {
+          "in": "castanha",
+          "out": "brown"
+        }
+      ]
+    },
+    "brightness": {
+      "range": {
+        "type": "percentage",
+        "from": 0,
+        "to": 100
+      }
+    },
+    "temperature": {
+      "range": {
+        "type": "temperature",
+        "from": 0,
+        "to": 100
+      }
+    },
+    "temperature_unit": {
+      "values": [
+        {
+          "in": "(celsius|c|centígrados)",
+          "out": "celsius"
+        },
+        "fahrenheit",
+        {
+          "in": "f",
+          "out": "fahrenheit"
+        }
+      ]
+    },
+    "brightness_level": {
+      "values": [
+        {
+          "in": "(max | maximum | highest)",
+          "out": 100
+        },
+        {
+          "in": "( minimum | lowest)",
+          "out": 1
+        }
+      ]
+    },
+    "on_off_states": {
+      "values": [
+        {
+          "in": "(ligado|ligada|ligados|ligadas)",
+          "out": "on"
+        },
+        {
+          "in": "(desligado|desligada|desligado|desligadas)",
+          "out": "off"
+        }
+      ]
+    },
+    "on_off_domains": {
+      "values": [
+        {
+          "in": "(luz|luzes|lampada|lampadas)",
+          "out": "light"
+        },
+        {
+          "in": "(ventoinha|ventoinhas)",
+          "out": "fan"
+        },
+        {
+          "in": "(interruptor|interruptores|tomada|tomadas)",
+          "out": "switch"
+        }
+      ]
+    },
+    "cover_states": {
+      "values": [
+        {
+          "in": "(aberto|aberta|abertos|abertas)",
+          "out": "open"
+        },
+        {
+          "in": "(fechado|fechada|fechados|fechadas)",
+          "out": "closed"
+        },
+        {
+          "in": "a abrir",
+          "out": "opening"
+        },
+        {
+          "in": "a fechar",
+          "out": "closing"
+        }
+      ]
+    },
+    "cover_classes": {
+      "values": [
+        {
+          "in": "(toldo[s]|tolde[s])",
+          "out": "awning"
+        },
+        {
+          "in": "estore[s]",
+          "out": "blind"
+        },
+        {
+          "in": "cortina[s]",
+          "out": "curtain"
+        },
+        {
+          "in": "porta[s]",
+          "out": "door"
+        },
+        {
+          "in": "(porta[s]|portão|portões) da garagem",
+          "out": "garage"
+        },
+        {
+          "in": "(portão|portões)",
+          "out": "gate"
+        },
+        {
+          "in": "sombra[s]",
+          "out": "shade"
+        },
+        {
+          "in": "persiana[s]",
+          "out": "shutter"
+        },
+        {
+          "in": "janela[s]",
+          "out": "window"
+        },
+        {
+          "in": "registo[s]",
+          "out": "damper"
+        }
+      ]
+    },
+    "lock_states": {
+      "values": [
+        {
+          "in": "(trancad[a[s]|o[s]])",
+          "out": "locked"
+        },
+        {
+          "in": "(destrancad[a[s]|o[s]])",
+          "out": "unlocked"
+        }
+      ]
+    },
+    "shopping_list_item": {
+      "wildcard": true
+    },
+    "position": {
+      "range": {
+        "type": "percentage",
+        "from": 0,
+        "to": 100
+      }
+    },
+    "timer_seconds": {
+      "range": {
+        "from": 1,
+        "to": 100
+      }
+    },
+    "timer_words_seconds": {
+      "values": [
+        {
+          "in": "um|uma",
+          "out": 1
+        }
+      ]
+    },
+    "timer_minutes": {
+      "range": {
+        "from": 1,
+        "to": 100
+      }
+    },
+    "timer_words_minutes": {
+      "values": [
+        {
+          "in": "um|uma",
+          "out": 1
+        }
+      ]
+    },
+    "timer_hours": {
+      "range": {
+        "from": 1,
+        "to": 100
+      }
+    },
+    "timer_words_hours": {
+      "values": [
+        {
+          "in": "um|uma",
+          "out": 1
+        }
+      ]
+    },
+    "timer_name": {
+      "wildcard": true
+    },
+    "timer_command": {
+      "wildcard": true
+    }
+  },
+  "expansion_rules": {
+    "abre": "(abra|abre|abrir)",
+    "adicionar": "adicione|adiciona[r]",
+    "algum": "(algum|alguma|alguns|algumas)",
+    "brilho": "{brightness}[%| porcento]",
+    "colocar": "coloque|coloca[r]",
+    "desliga": "(desliga|desligue|apaga|apague|desligar|apagar)",
+    "esta": "(está|estão|existe|existem)",
+    "fecha": "(fecha|feche|fechar)",
+    "juntar": "(junte|junta[r])",
+    "liga": "(liga[r]|ligue|acende[r]|acenda|ativa[r]|ative)",
+    "muda": "(põe|ponha|muda|altera|coloca|deixa|pôr|mudar|alterar|colocar|deixar|aumenta|sobe|diminui|baixa)",
+    "na_zona": "(no|na|da|do) {area}",
+    "nome": "[(o|os|a|as)] {name}",
+    "por": "pôr|põe|ponha",
+    "qual": "(que|qual|qual é|quais)",
+    "temperatura": "{temperature}[°| graus] [{temperature_unit}]",
+    "zona": "[(o|os|a|as)] {area}",
+    "estores": "[as|os|a|o] (cortina|cortinas|cortinado|cortinados|estore|estores|persiana|persianas)",
+    "posicao": "{position}[[ ]%| porcento]",
+    "luz": "(luz | luzes | candeeiro | candeeiros)",
+    "temporizador": "[o ][meu ](temporizador|cronómetro|timer)",
+    "temporizadores": "[os ][meus ](temporizadores|cronómetros|timers)",
+    "nb_seconds": "({timer_seconds:seconds}|{timer_words_seconds:seconds})",
+    "nb_minutes": "({timer_minutes:minutes}|{timer_words_minutes:minutes})",
+    "nb_hours": "({timer_hours:hours}|{timer_words_hours:hours})",
+    "nb_start_seconds": "({timer_seconds:start_seconds}|{timer_words_seconds:start_seconds})",
+    "nb_start_minutes": "({timer_minutes:start_minutes}|{timer_words_minutes:start_minutes})",
+    "nb_start_hours": "({timer_hours:start_hours}|{timer_words_hours:start_hours})",
+    "timer_duration_seconds": "<nb_seconds> segundo[s]",
+    "timer_duration_minutes": "<nb_minutes> minuto[s][ [e ]<timer_duration_seconds>]",
+    "timer_duration_hours": "<nb_hours> hora[s][ [e ]<timer_duration_minutes>]",
+    "timer_duration": "(<timer_duration_seconds>|<timer_duration_minutes>|<timer_duration_hours>)",
+    "timer_start_seconds": "<nb_start_seconds> segundo[s]",
+    "timer_start_minutes": "<nb_start_minutes> minuto[s][ [e ]<timer_start_seconds>]",
+    "timer_start_hours": "<nb_start_hours> hora[s][ [e ]<timer_start_minutes>]",
+    "timer_start": "(<timer_start_seconds>|<timer_start_minutes>|<timer_start_hours>)"
+  },
+  "skip_words": [
+    "por favor",
+    "se faz favor",
+    "pode",
+    "podes"
+  ]
+}

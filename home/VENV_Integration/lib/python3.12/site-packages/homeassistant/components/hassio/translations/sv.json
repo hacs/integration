@@ -1,0 +1,404 @@
+{
+    "entity": {
+        "binary_sensor": {
+            "state": {
+                "name": "K\u00f6r"
+            }
+        },
+        "sensor": {
+            "agent_version": {
+                "name": "OS Agent version"
+            },
+            "apparmor_version": {
+                "name": "Apparmor version"
+            },
+            "cpu_percent": {
+                "name": "CPU-procent"
+            },
+            "disk_free": {
+                "name": "Fri disk"
+            },
+            "disk_total": {
+                "name": "Total disk"
+            },
+            "disk_used": {
+                "name": "Disk anv\u00e4nds"
+            },
+            "memory_percent": {
+                "name": "Minnesprocent"
+            },
+            "version": {
+                "name": "Version"
+            },
+            "version_latest": {
+                "name": "Nyaste versionen"
+            }
+        }
+    },
+    "issues": {
+        "issue_addon_detached_addon_missing": {
+            "description": "Repository f\u00f6r till\u00e4gget {addon} saknas. Detta inneb\u00e4r att det inte kommer att f\u00e5 uppdateringar och att s\u00e4kerhetskopior kanske inte \u00e5terst\u00e4lls korrekt eftersom \u00f6vervakaren kanske inte kan bygga/ladda ner de resurser som kr\u00e4vs.\n\nKontrollera [till\u00e4ggets dokumentation]({addon_url}) f\u00f6r installationsinstruktioner och l\u00e4gg till f\u00f6rvaret i butiken.",
+            "title": "Saknar repository f\u00f6r ett installerat till\u00e4gg"
+        },
+        "issue_addon_detached_addon_removed": {
+            "fix_flow": {
+                "abort": {
+                    "apply_suggestion_fail": "Det gick inte att avinstallera till\u00e4gget. Kontrollera Supervisor-loggarna f\u00f6r mer information."
+                }
+            },
+            "title": "Installerat till\u00e4gg har tagits bort fr\u00e5n repository"
+        },
+        "issue_mount_mount_failed": {
+            "fix_flow": {
+                "abort": {
+                    "apply_suggestion_fail": "Det gick inte att till\u00e4mpa korrigeringen. Kontrollera Supervisorns loggar f\u00f6r mer information."
+                },
+                "step": {
+                    "fix_menu": {
+                        "description": "Kunde inte ansluta till ` {reference} `. Kontrollera v\u00e4rdloggarna f\u00f6r fel fr\u00e5n monteringstj\u00e4nsten f\u00f6r mer information. \n\nAnv\u00e4nd Ladda om f\u00f6r att f\u00f6rs\u00f6ka ansluta igen. Om du beh\u00f6ver uppdatera ` {reference} `, g\u00e5 till [storage]({storage_url}).",
+                        "menu_options": {
+                            "mount_execute_reload": "Ladda om",
+                            "mount_execute_remove": "Radera"
+                        }
+                    }
+                }
+            },
+            "title": "N\u00e4tverkslagringsenheten misslyckades"
+        },
+        "issue_system_docker_config": {
+            "fix_flow": {
+                "abort": {
+                    "apply_suggestion_fail": "En eller flera omstarter misslyckades. Kontrollera Supervisorloggarna f\u00f6r mer detaljer."
+                },
+                "step": {
+                    "system_execute_rebuild": {
+                        "description": "Standardkonfigurationen f\u00f6r till\u00e4gg och Home Assistant har \u00e4ndrats. F\u00f6r att uppdatera konfigurationen med ny standard, s\u00e5 kr\u00e4vs en omstart f\u00f6r:\n\n- {components}"
+                    }
+                }
+            },
+            "title": "Omstart(er) kr\u00e4vs"
+        },
+        "issue_system_multiple_data_disks": {
+            "fix_flow": {
+                "abort": {
+                    "apply_suggestion_fail": "Det gick inte att byta namn p\u00e5 filsystemet. Kontrollera Supervisorns loggar f\u00f6r mer information."
+                },
+                "step": {
+                    "fix_menu": {
+                        "description": "P\u00e5 `{reference}` uppt\u00e4ckte vi en annan aktiv datadisk (som inneh\u00e5ller filsystemet `hassos-data` fr\u00e5n en annan installation av Home Assistant).\n\nDu m\u00e5ste best\u00e4mma dig f\u00f6r vad du ska g\u00f6ra med den. Annars kan Home Assistant v\u00e4lja fel datadisk vid omstart av systemet.\n\nOm du inte vill anv\u00e4nda den h\u00e4r datadisken ska du koppla bort den fr\u00e5n systemet. Om du l\u00e5ter den vara inkopplad v\u00e4ljer du n\u00e5got av f\u00f6ljande alternativ:",
+                        "menu_options": {
+                            "system_adopt_data_disk": "Anv\u00e4nd den uppt\u00e4ckta datadisken i st\u00e4llet f\u00f6r det aktuella systemet",
+                            "system_rename_data_disk": "Markera som inaktiv datadisk (byt namn p\u00e5 filsystemet)"
+                        }
+                    },
+                    "system_rename_data_disk": {
+                        "description": "`{reference}` \u00e4r ett filsystem med namnet 'hassos-data' och \u00e4r inte den aktiva datadisken. Detta kan g\u00f6ra att Home Assistant v\u00e4ljer fel datadisk vid omstart av systemet. \n\nAnv\u00e4nd fix-alternativet f\u00f6r att byta namn p\u00e5 filsystemet f\u00f6r att f\u00f6rhindra detta. Alternativt kan du flytta datadisken till enheten (skriva \u00f6ver dess inneh\u00e5ll) eller ta bort enheten fr\u00e5n systemet."
+                    }
+                }
+            },
+            "title": "Flera datadiskar har uppt\u00e4ckts"
+        },
+        "issue_system_reboot_required": {
+            "fix_flow": {
+                "abort": {
+                    "apply_suggestion_fail": "Det gick inte att starta om systemet. Kontrollera Supervisorns loggar f\u00f6r mer information."
+                },
+                "step": {
+                    "system_execute_reboot": {
+                        "description": "Inst\u00e4llningar har \u00e4ndrats som kr\u00e4ver en omstart av systemet f\u00f6r att tr\u00e4da i kraft.\n\nDen h\u00e4r korrigeringen initierar en omstart av systemet som g\u00f6r Home Assistant och alla till\u00e4gg otillg\u00e4ngliga under en kort period."
+                    }
+                }
+            },
+            "title": "Omstart kr\u00e4vs"
+        },
+        "unhealthy": {
+            "description": "Systemet \u00e4r f\u00f6r n\u00e4rvarande inte felfritt p\u00e5 grund av {reason}. Anv\u00e4nd l\u00e4nken f\u00f6r att l\u00e4ra dig mer och hur du \u00e5tg\u00e4rdar detta.",
+            "title": "Oh\u00e4lsosamt system - {reason}"
+        },
+        "unhealthy_docker": {
+            "description": "Systemet \u00e4r oh\u00e4lsosamt eftersom Docker \u00e4r felkonfigurerat.\nAnv\u00e4nd l\u00e4nken f\u00f6r att l\u00e4ra dig mer om hur du fixar detta.",
+            "title": "Oh\u00e4lsosamt system - Docker \u00e4r felkonfigurerat"
+        },
+        "unhealthy_privileged": {
+            "description": "Systemet \u00e4r f\u00f6r n\u00e4rvarande oh\u00e4lsosamt eftersom det inte har privilegierad tillg\u00e5ng till docker runtime. F\u00f6lj l\u00e4nken f\u00f6r att f\u00e5 veta mer och hur du fixar detta.",
+            "title": "System med feltillst\u00e5nd \u2013 inte privilegierat"
+        },
+        "unhealthy_setup": {
+            "description": "Systemet \u00e4r f\u00f6r n\u00e4rvarande inte felfritt eftersom installationen inte kunde slutf\u00f6ras. Det finns ett antal anledningar till att detta kan intr\u00e4ffa, anv\u00e4nd l\u00e4nken f\u00f6r att l\u00e4ra dig mer och hur du \u00e5tg\u00e4rdar detta.",
+            "title": "System med feltillst\u00e5nd \u2013 installationen misslyckades"
+        },
+        "unhealthy_supervisor": {
+            "description": "Systemet \u00e4r f\u00f6r n\u00e4rvarande inte felfritt eftersom ett f\u00f6rs\u00f6k att uppdatera Supervisor till den senaste versionen har misslyckats. Anv\u00e4nd l\u00e4nken f\u00f6r att l\u00e4ra dig mer och hur du \u00e5tg\u00e4rdar detta.",
+            "title": "System med feltillst\u00e5nd \u2013 Supervisor uppdatering misslyckades"
+        },
+        "unhealthy_untrusted": {
+            "description": "Systemet \u00e4r f\u00f6r n\u00e4rvarande inte felfritt eftersom det har uppt\u00e4ckt ej betrodd kod eller bilder som anv\u00e4nds. Anv\u00e4nd l\u00e4nken f\u00f6r att l\u00e4ra dig mer och hur du \u00e5tg\u00e4rdar detta.",
+            "title": "System med feltillst\u00e5nd \u2013 ej betrodd kod"
+        },
+        "unsupported": {
+            "description": "Systemet st\u00f6ds inte p\u00e5 grund av {reason}. Anv\u00e4nd l\u00e4nken f\u00f6r att l\u00e4ra dig mer och hur du \u00e5tg\u00e4rdar detta.",
+            "title": "System st\u00f6ds inte \u2013 {reason}"
+        },
+        "unsupported_apparmor": {
+            "description": "Systemet st\u00f6ds inte eftersom AppArmor fungerar felaktigt och till\u00e4gg k\u00f6rs p\u00e5 ett oskyddat och os\u00e4kert s\u00e4tt. Anv\u00e4nd l\u00e4nken f\u00f6r att l\u00e4ra dig mer och hur du \u00e5tg\u00e4rdar detta.",
+            "title": "Inte kompatibelt system - Apparmor problem"
+        },
+        "unsupported_cgroup_version": {
+            "description": "System st\u00f6ds inte eftersom fel version av Docker CGroup anv\u00e4nds. F\u00f6lj l\u00e4nken f\u00f6r information om r\u00e4tt version och hur du fixar detta.",
+            "title": "Inte kompatibelt system - CGroup version"
+        },
+        "unsupported_connectivity_check": {
+            "description": "Systemet st\u00f6ds inte eftersom Home Assistant inte kan avg\u00f6ra n\u00e4r en internetanslutning \u00e4r tillg\u00e4nglig. F\u00f6lj l\u00e4nken f\u00f6r att f\u00e5 veta mer och hur du fixar detta.",
+            "title": "Inte kompatibelt system - Anslutningskontroll inaktiverad"
+        },
+        "unsupported_content_trust": {
+            "description": "System st\u00f6ds inte eftersom Home Assistant inte kan verifiera att inneh\u00e5llet som k\u00f6rs \u00e4r tillf\u00f6rlitligt och inte modifierat av attackerare. F\u00f6lj l\u00e4nken f\u00f6r mer information och hur du fixar detta..",
+            "title": "Inte kompatibelt system - Kontroll av inneh\u00e5llstillit inaktiverad"
+        },
+        "unsupported_dbus": {
+            "description": "Systemet st\u00f6ds inte eftersom D-Bus inte fungerar korrekt. M\u00e5nga saker slutar fungera utan detta eftersom Supervisorn inte kan kommunicera med v\u00e4rden. Anv\u00e4nd l\u00e4nken f\u00f6r att l\u00e4ra dig mer om hur du fixar detta.",
+            "title": "Inte kompatibelt system - D-Bus problem"
+        },
+        "unsupported_dns_server": {
+            "description": "Systemet st\u00f6ds inte eftersom den angivna DNS-servern inte fungerar korrekt och reserv-DNS \u00e4r inaktiverad. Anv\u00e4nd l\u00e4nken f\u00f6r att l\u00e4ra dig mer om hur du fixar detta.",
+            "title": "Inte kompatibelt system - DNS serverproblem"
+        },
+        "unsupported_docker_configuration": {
+            "description": "Systemet st\u00f6ds inte eftersom Docker-daemon inte fungerar som f\u00f6rv\u00e4ntat. Anv\u00e4nd l\u00e4nken f\u00f6r att l\u00e4ra dig mer om hur du fixar detta.",
+            "title": "Inte kompatibelt system - Docker felkonfigurerad"
+        },
+        "unsupported_docker_version": {
+            "description": "Systemet st\u00f6ds inte eftersom fel version av Docker anv\u00e4nds. F\u00f6lj l\u00e4nken f\u00f6r mer information och hur du fixar detta.",
+            "title": "Inte kompatibelt system - Docker version"
+        },
+        "unsupported_job_conditions": {
+            "description": "Systemet st\u00f6ds inte eftersom ett eller fler jobbvillkor som skyddar fr\u00e5n ov\u00e4ntade fel och brister har blivit inaktiverat. Anv\u00e4nd l\u00e4nken f\u00f6r att l\u00e4ra dig mer om hur du fixar detta.",
+            "title": "Inte kompatibelt system - Skydd inaktiverad"
+        },
+        "unsupported_lxc": {
+            "description": "Systemet st\u00f6ds inte eftersom det k\u00f6rs i en LXC-virtuell maskin. F\u00f6lj l\u00e4nken f\u00f6r att f\u00e5 mer information och hur du fixar detta",
+            "title": "Inte kompatibelt system - LXC uppt\u00e4ckt"
+        },
+        "unsupported_network_manager": {
+            "description": "Systemet st\u00f6ds inte eftersom n\u00e4tverkshanteraren saknas, \u00e4r inaktiv eller felkonfigurerad. Anv\u00e4nd l\u00e4nken f\u00f6r att l\u00e4ra dig mer och hur du \u00e5tg\u00e4rdar detta.",
+            "title": "System som inte st\u00f6ds - Problem med n\u00e4tverkshanteraren"
+        },
+        "unsupported_os": {
+            "description": "Systemet st\u00f6ds inte eftersom operativsystemet som anv\u00e4nds inte \u00e4r testat eller underh\u00e5llet f\u00f6r anv\u00e4dning med Supervisor. F\u00f6lj l\u00e4nken f\u00f6r att se vilka operativsystem som st\u00f6ds och hur du fixar detta.",
+            "title": "Inte kompatibelt system - Operativsystem"
+        },
+        "unsupported_os_agent": {
+            "description": "Systemet st\u00f6ds inte eftersom OS-Agenten saknas, \u00e4r inaktiv eller felkonfigurerad. F\u00f6lj l\u00e4nken f\u00f6r att f\u00e5 mer information och hur du fixar detta.",
+            "title": "Inte kompatibelt system - OS-Agent problem"
+        },
+        "unsupported_restart_policy": {
+            "description": "Systemet st\u00f6ds inte eftersom en Docker-container har en omstartspolicy som kan orsaka problem vid start. Anv\u00e4nd l\u00e4nken f\u00f6r att l\u00e4ra dig mer om hur du fixar detta.",
+            "title": "Inte kompatibelt system - Container omstart policy"
+        },
+        "unsupported_software": {
+            "description": "Systemet st\u00f6ds inte eftersom annan mjukvara utanf\u00f6r Home Assistants ekosystem har uppt\u00e4ckts. Anv\u00e4nd l\u00e4nken f\u00f6r att l\u00e4ra dig mer om hur du fixar detta.",
+            "title": "Inte kompatibelt system - Programvara som inte st\u00f6ds"
+        },
+        "unsupported_source_mods": {
+            "description": "Systemet st\u00f6ds inte eftersom Supervisorns k\u00e4llkod har modifierats. Anv\u00e4nd l\u00e4nken f\u00f6r att l\u00e4ra dig mer om hur du fixar detta.",
+            "title": "Systemet st\u00f6ds inte - \u00c4ndringar i k\u00e4llkoden f\u00f6r Supervisorn."
+        },
+        "unsupported_supervisor_version": {
+            "description": "Systemet st\u00f6ds inte eftersom en gammal version av Supervisorn anv\u00e4nds och autouppdatering har inaktiverats. Anv\u00e4nd l\u00e4nken f\u00f6r att l\u00e4ra dig mer om hur du fixar detta.",
+            "title": "Inte kompatibelt system - Supervisor version"
+        },
+        "unsupported_systemd": {
+            "description": "Systemet st\u00f6ds inte eftersom Systemd saknas, \u00e4r inaktiv eller felkonfigurerad. F\u00f6lj l\u00e4nken f\u00f6r att f\u00e5 mer information och hur du fixar detta.",
+            "title": "Inte kompatibelt system - Systemd problem"
+        },
+        "unsupported_systemd_journal": {
+            "description": "Systemet st\u00f6ds inte eftersom Systemd journalen och/eller gatewaytj\u00e4nsten saknas, \u00e4r inaktiv eller felkonfigurerad. Anv\u00e4nd l\u00e4nken f\u00f6r att l\u00e4ra dig mer om hur du fixar detta.",
+            "title": "Inte kompatibelt system - Systemd Journal problem"
+        },
+        "unsupported_systemd_resolved": {
+            "description": "Systemet st\u00f6ds inte eftersom Systemd Resolved saknas, \u00e4r inaktivt eller felkonfigurerat. Anv\u00e4nd l\u00e4nken om du vill veta mer om hur du \u00e5tg\u00e4rdar detta.",
+            "title": "Inte kompatibelt system - Systemd-Resolved problem"
+        }
+    },
+    "services": {
+        "addon_restart": {
+            "description": "Startar om ett till\u00e4gg.",
+            "fields": {
+                "addon": {
+                    "description": "Slug-ID f\u00f6r till\u00e4gget.",
+                    "name": "Till\u00e4gg"
+                }
+            },
+            "name": "Starta om till\u00e4gget."
+        },
+        "addon_start": {
+            "description": "Startar ett till\u00e4gg.",
+            "fields": {
+                "addon": {
+                    "description": "Slug-ID f\u00f6r till\u00e4gget.",
+                    "name": "Till\u00e4gg"
+                }
+            },
+            "name": "Startar till\u00e4gg"
+        },
+        "addon_stdin": {
+            "description": "Skriver data till till\u00e4ggets 'stdin'.",
+            "fields": {
+                "addon": {
+                    "description": "Slug-ID f\u00f6r till\u00e4gget.",
+                    "name": "Till\u00e4gg"
+                }
+            },
+            "name": "Skriv data till till\u00e4ggets 'stdin'."
+        },
+        "addon_stop": {
+            "description": "Stoppar ett till\u00e4gg",
+            "fields": {
+                "addon": {
+                    "description": "Slug-ID f\u00f6r till\u00e4gget.",
+                    "name": "Till\u00e4gg"
+                }
+            },
+            "name": "Stoppa till\u00e4gget."
+        },
+        "addon_update": {
+            "description": "Uppdaterar ett till\u00e4gg. Den h\u00e4r \u00e5tg\u00e4rden b\u00f6r anv\u00e4ndas med f\u00f6rsiktighet eftersom till\u00e4ggsuppdateringar kan inneh\u00e5lla icke-bak\u00e5tkompatibla \u00e4ndringar. Vi rekommenderar starkt att du granskar viktig information/\u00e4ndringsloggar innan du uppdaterar ett till\u00e4gg.",
+            "fields": {
+                "addon": {
+                    "description": "Slug-ID f\u00f6r till\u00e4gget.",
+                    "name": "Till\u00e4gg"
+                }
+            },
+            "name": "Uppdatera till\u00e4gg."
+        },
+        "backup_full": {
+            "description": "Skapar en fullst\u00e4ndig s\u00e4kerhetskopia.",
+            "fields": {
+                "compressed": {
+                    "description": "Komprimerar s\u00e4kerhetskopiorna.",
+                    "name": "Komprimerad"
+                },
+                "homeassistant_exclude_database": {
+                    "description": "Undanta Home Assistants databasfil fr\u00e5n s\u00e4kerhetskopiering",
+                    "name": "Home Assistant exkludera databas"
+                },
+                "location": {
+                    "description": "Namn p\u00e5 en n\u00e4tverkslagring f\u00f6r s\u00e4kerhetskopiering som \u00e4r v\u00e4rd f\u00f6r s\u00e4kerhetskopior.",
+                    "name": "Plats"
+                },
+                "name": {
+                    "description": "Frivilligt (standard = nuvarande datum och tid)",
+                    "name": "Namn"
+                },
+                "password": {
+                    "description": "L\u00f6senord f\u00f6r att skydda s\u00e4kerhetskopian.",
+                    "name": "L\u00f6senord"
+                }
+            },
+            "name": "Skapa en fullst\u00e4ndig s\u00e4kerhetskopia."
+        },
+        "backup_partial": {
+            "description": "Skapa en delvis s\u00e4kerhetskopia.",
+            "fields": {
+                "addons": {
+                    "description": "Lista \u00f6ver till\u00e4gg som ska inkluderas i s\u00e4kerhetskopian. Anv\u00e4nd slug-ID som namn f\u00f6r till\u00e4gget.",
+                    "name": "Till\u00e4gg"
+                },
+                "compressed": {
+                    "description": "Komprimerar s\u00e4kerhetskopiorna.",
+                    "name": "Komprimerad"
+                },
+                "folders": {
+                    "description": "Lista \u00f6ver kataloger att inkludera i s\u00e4kerhetskopian.",
+                    "name": "Mappar"
+                },
+                "homeassistant": {
+                    "description": "Inkluderar inst\u00e4llningar f\u00f6r Home Assistant i s\u00e4kerhetskopian.",
+                    "name": "Inst\u00e4llningar f\u00f6r Home Assistant"
+                },
+                "homeassistant_exclude_database": {
+                    "description": "Undanta Home Assistants databasfil fr\u00e5n s\u00e4kerhetskopiering",
+                    "name": "Home Assistant exkludera databas"
+                },
+                "location": {
+                    "description": "Namn p\u00e5 en n\u00e4tverkslagring f\u00f6r s\u00e4kerhetskopiering som \u00e4r v\u00e4rd f\u00f6r s\u00e4kerhetskopior.",
+                    "name": "Plats"
+                },
+                "name": {
+                    "description": "Frivilligt (standard = nuvarande datum och tid)",
+                    "name": "Namn"
+                },
+                "password": {
+                    "description": "L\u00f6senord f\u00f6r att skydda s\u00e4kerhetskopian.",
+                    "name": "L\u00f6senord"
+                }
+            },
+            "name": "Skapa en delvis s\u00e4kerhetskopia."
+        },
+        "host_reboot": {
+            "description": "Startar om v\u00e4rdsystemet.",
+            "name": "Starta om v\u00e4rdsystemet."
+        },
+        "host_shutdown": {
+            "description": "St\u00e4nger av v\u00e4rdsystemet.",
+            "name": "St\u00e4ng sv v\u00e4rdsystemet."
+        },
+        "restore_full": {
+            "description": "\u00c5terst\u00e4ller fr\u00e5n fullst\u00e4ndig s\u00e4kerhetskopia.",
+            "fields": {
+                "password": {
+                    "description": "Eventuellt l\u00f6senord.",
+                    "name": "L\u00f6senord"
+                },
+                "slug": {
+                    "description": "Slug-ID fr\u00e5n den backup som du vill \u00e5terst\u00e4lla fr\u00e5n.",
+                    "name": "Slug-ID"
+                }
+            },
+            "name": "\u00c5terst\u00e4lla fr\u00e5n fullst\u00e4ndig s\u00e4kerhetskopia."
+        },
+        "restore_partial": {
+            "description": "\u00c5terst\u00e4ller fr\u00e5n delvis s\u00e4kerhetskopia.",
+            "fields": {
+                "addons": {
+                    "description": "Lista \u00f6ver till\u00e4gg som ska inkluderas i s\u00e4kerhetskopian. Anv\u00e4nd slug-ID som namn f\u00f6r till\u00e4gget.",
+                    "name": "Till\u00e4gg"
+                },
+                "folders": {
+                    "description": "Lista \u00f6ver kataloger att inkludera i s\u00e4kerhetskopian.",
+                    "name": "Mappar"
+                },
+                "homeassistant": {
+                    "description": "\u00c5terst\u00e4ller Home Assistant.",
+                    "name": "Inst\u00e4llningar f\u00f6r Home Assistant"
+                },
+                "password": {
+                    "description": "Eventuellt l\u00f6senord.",
+                    "name": "L\u00f6senord"
+                },
+                "slug": {
+                    "description": "Slug-ID fr\u00e5n den backup som du vill \u00e5terst\u00e4lla fr\u00e5n.",
+                    "name": "Slug-ID"
+                }
+            },
+            "name": "\u00c5terst\u00e4lla fr\u00e5n delvis s\u00e4kerhetskopia."
+        }
+    },
+    "system_health": {
+        "info": {
+            "agent_version": "Agentversion",
+            "board": "Kort",
+            "disk_total": "Totalt diskutrymme",
+            "disk_used": "Diskutrymme som anv\u00e4nds",
+            "docker_version": "Docker-version",
+            "healthy": "Frisk",
+            "host_os": "V\u00e4rdens operativsystem",
+            "installed_addons": "Installerade till\u00e4gg",
+            "supervisor_api": "Supervisor API",
+            "supervisor_version": "Supervisor version",
+            "supported": "St\u00f6ds",
+            "update_channel": "Uppdateringskanal",
+            "version_api": "Version API"
+        }
+    }
+}

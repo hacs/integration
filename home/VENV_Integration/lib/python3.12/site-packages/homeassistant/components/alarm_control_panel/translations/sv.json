@@ -1,0 +1,148 @@
+{
+    "device_automation": {
+        "action_type": {
+            "arm_away": "Larma {entity_name} borta",
+            "arm_home": "Larma {entity_name} hemma",
+            "arm_night": "Larma {entity_name} natt",
+            "arm_vacation": "Larma semesterl\u00e4ge {entity_name}",
+            "disarm": "Avlarma {entity_name}",
+            "trigger": "Utl\u00f6sare {entity_name}"
+        },
+        "condition_type": {
+            "is_armed_away": "{entity_name} \u00e4r bortalarmat",
+            "is_armed_home": "{entity_name} \u00e4r hemmalarmat",
+            "is_armed_night": "{entity_name} \u00e4r nattlarmat",
+            "is_armed_vacation": "{entity_name} \u00e4r larmad i semesterl\u00e4ge",
+            "is_disarmed": "{entity_name} \u00e4r bortkopplad",
+            "is_triggered": "{entity_name} har utl\u00f6sts"
+        },
+        "extra_fields": {
+            "code": "Kod",
+            "for": "Varaktighet"
+        },
+        "trigger_type": {
+            "armed_away": "{entity_name} larmad borta",
+            "armed_home": "{entity_name} larmad hemma",
+            "armed_night": "{entity_name} larmad natt",
+            "armed_vacation": "{entity_name} larmad i semesterl\u00e4ge",
+            "disarmed": "{entity_name} bortkopplad",
+            "triggered": "{entity_name} utl\u00f6st"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Larmkontrollpanel",
+            "state": {
+                "armed": "Larmat",
+                "armed_away": "Larmat borta",
+                "armed_custom_bypass": "Larmat anpassad f\u00f6rbikoppling",
+                "armed_home": "Larmat hemma",
+                "armed_night": "Larmat natt",
+                "armed_vacation": "Larmat semester",
+                "arming": "Larmar p\u00e5",
+                "disarmed": "Avlarmat",
+                "disarming": "Larmar av",
+                "pending": "V\u00e4ntar",
+                "triggered": "Larmar"
+            },
+            "state_attributes": {
+                "changed_by": {
+                    "name": "\u00c4ndrat av"
+                },
+                "code_arm_required": {
+                    "name": "Kod f\u00f6r p\u00e5larmning",
+                    "state": {
+                        "false": "Kr\u00e4vs ej",
+                        "true": "Kr\u00e4vs"
+                    }
+                },
+                "code_format": {
+                    "name": "Kodformat",
+                    "state": {
+                        "number": "Nummer",
+                        "text": "Text"
+                    }
+                }
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "{platform}-plattformen f\u00f6r integrationen {domain} st\u00f6ds inte.\n\nTa bort den fr\u00e5n din konfiguration och starta om Home Assistant f\u00f6r att \u00e5tg\u00e4rda detta problem.",
+            "title": "Plattformen st\u00f6ds inte"
+        }
+    },
+    "services": {
+        "alarm_arm_away": {
+            "description": "St\u00e4ller in larmet p\u00e5: _larmat, ingen hemma_.",
+            "fields": {
+                "code": {
+                    "description": "Kod f\u00f6r att aktivera larmet.",
+                    "name": "Kod"
+                }
+            },
+            "name": "Larma bortal\u00e4ge"
+        },
+        "alarm_arm_custom_bypass": {
+            "description": "Armerar larmet samtidigt som det g\u00e5r att f\u00f6rbikoppla ett anpassat omr\u00e5de.",
+            "fields": {
+                "code": {
+                    "description": "Kod f\u00f6r att aktivera larmet.",
+                    "name": "Kod"
+                }
+            },
+            "name": "Larmat med anpassad f\u00f6rbikoppling"
+        },
+        "alarm_arm_home": {
+            "description": "St\u00e4ller in larmet p\u00e5: _larmat, men n\u00e5gon \u00e4r hemma_.",
+            "fields": {
+                "code": {
+                    "description": "Kod f\u00f6r att aktivera larmet.",
+                    "name": "Kod"
+                }
+            },
+            "name": "Larma hemmal\u00e4ge"
+        },
+        "alarm_arm_night": {
+            "description": "St\u00e4ller in larmet p\u00e5: _larmat nattl\u00e4ge_.",
+            "fields": {
+                "code": {
+                    "description": "Kod f\u00f6r att aktivera larmet.",
+                    "name": "Kod"
+                }
+            },
+            "name": "Nattlarmat"
+        },
+        "alarm_arm_vacation": {
+            "description": "St\u00e4ller in larmet p\u00e5: _larmat semesterl\u00e4ge_.",
+            "fields": {
+                "code": {
+                    "description": "Kod f\u00f6r att aktivera larmet.",
+                    "name": "Kod"
+                }
+            },
+            "name": "Larma semesterl\u00e4ge"
+        },
+        "alarm_disarm": {
+            "description": "Avaktiverar larmet.",
+            "fields": {
+                "code": {
+                    "description": "Kod f\u00f6r att avaktivera larmet.",
+                    "name": "Kod"
+                }
+            },
+            "name": "Avlarma"
+        },
+        "alarm_trigger": {
+            "description": "M\u00f6jligg\u00f6r en extern larmutl\u00f6sare.",
+            "fields": {
+                "code": {
+                    "description": "Kod f\u00f6r att aktivera larmet.",
+                    "name": "Kod"
+                }
+            },
+            "name": "Extern utl\u00f6sare"
+        }
+    },
+    "title": "Larmkontrollpanel"
+}

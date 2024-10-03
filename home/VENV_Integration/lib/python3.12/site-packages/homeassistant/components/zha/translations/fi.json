@@ -1,0 +1,995 @@
+{
+    "config": {
+        "abort": {
+            "not_zha_device": "T\u00e4m\u00e4 laite ei ole zha-laite",
+            "single_instance_allowed": "Jo m\u00e4\u00e4ritetty. Vain yksi konfiguraatio mahdollinen.",
+            "usb_probe_failed": "USB-laitteen etsint\u00e4 ep\u00e4onnistui",
+            "wrong_firmware_installed": "Laitteessasi on v\u00e4\u00e4r\u00e4 laiteohjelmisto, eik\u00e4 sit\u00e4 voi k\u00e4ytt\u00e4\u00e4 ZHA:n kanssa ennen kuin oikea laiteohjelmisto on asennettu. [Korjaus on luotu]({repair_url}), jossa on lis\u00e4tietoja ja ohjeita t\u00e4m\u00e4n korjaamiseksi."
+        },
+        "error": {
+            "cannot_connect": "Yhteyden muodostaminen ep\u00e4onnistui",
+            "invalid_backup_json": "Virheellinen varmuuskopion JSON"
+        },
+        "flow_title": "{name}",
+        "step": {
+            "choose_automatic_backup": {
+                "data": {
+                    "choose_automatic_backup": "Valitse automaattinen varmuuskopiointi"
+                },
+                "description": "Palauta verkkoasetukset automaattisesta varmuuskopiosta",
+                "title": "Palauta automaattinen varmuuskopio"
+            },
+            "choose_formation_strategy": {
+                "description": "Valitse radiosi verkkoasetukset.",
+                "menu_options": {
+                    "choose_automatic_backup": "Automaattisen varmuuskopion palauttaminen",
+                    "form_initial_network": "Luo verkko",
+                    "form_new_network": "Poista verkkoasetukset ja luo uusi verkko",
+                    "reuse_settings": "S\u00e4ilyt\u00e4 radioverkon asetukset",
+                    "upload_manual_backup": "Lataa manuaalinen varmuuskopio"
+                },
+                "title": "Verkon muodostaminen"
+            },
+            "choose_serial_port": {
+                "data": {
+                    "path": "Sarjalaitteen polku"
+                },
+                "description": "Valitse Zigbee-radiosi sarjaportti.",
+                "title": "Valitse sarjaportti"
+            },
+            "confirm": {
+                "description": "Haluatko m\u00e4\u00e4ritt\u00e4\u00e4 {name}?"
+            },
+            "confirm_hardware": {
+                "description": "Haluatko m\u00e4\u00e4ritt\u00e4\u00e4 {name}?"
+            },
+            "manual_pick_radio_type": {
+                "data": {
+                    "radio_type": "Radiotyyppi"
+                },
+                "description": "Valitse Zigbee-radiotyyppi",
+                "title": "Radiotyyppi"
+            },
+            "manual_port_config": {
+                "data": {
+                    "baudrate": "Portin nopeus",
+                    "flow_control": "Tietovirran ohjaus",
+                    "path": "Sarjalaitteen polku"
+                },
+                "description": "Anna sarjaportin asetukset",
+                "title": "Sarjaportin asetukset"
+            },
+            "maybe_confirm_ezsp_restore": {
+                "data": {
+                    "overwrite_coordinator_ieee": "Korvaa pysyv\u00e4sti radio IEEE-osoite"
+                },
+                "description": "Varmuuskopiolla on eri IEEE-osoite kuin radiolla. Jotta verkko toimisi oikein, my\u00f6s radiosi IEEE-osoite on muutettava.\n\nT\u00e4m\u00e4 on pysyv\u00e4 toimenpide.",
+                "title": "Radio IEEE-osoitteen korvaaminen"
+            },
+            "upload_manual_backup": {
+                "data": {
+                    "uploaded_backup_file": "Lataa tiedosto"
+                },
+                "description": "Palauta verkkoasetukset ladatusta JSON-varmuuskopiotiedostosta. Voit ladata sellaisen toisesta ZHA-asennuksesta kohdasta **Verkkoasetukset** tai k\u00e4ytt\u00e4\u00e4 Zigbee2MQTT `coordinator_backup.json`-tiedostoa.",
+                "title": "Lataa manuaalinen varmuuskopio"
+            },
+            "verify_radio": {
+                "description": "K\u00e4ytt\u00e4m\u00e4\u00e4si radiota ({name}) ei suositella, ja sen tuki saatetaan poistaa tulevaisuudessa. Katso Zigbee Home Automation -integraation dokumentaatiosta [luettelo suositelluista sovittimista]({docs_recommended_adapters_url}).",
+                "title": "Radiota ei suositella"
+            }
+        }
+    },
+    "config_panel": {
+        "zha_alarm_options": {
+            "alarm_arm_requires_code": "Viritystoimintoihin vaadittava koodi",
+            "alarm_failed_tries": "H\u00e4lytyksen laukaisevien per\u00e4kk\u00e4isten ep\u00e4onnistuneiden koodien m\u00e4\u00e4r\u00e4.",
+            "alarm_master_code": "H\u00e4lytyskeskuksen p\u00e4\u00e4koodi",
+            "title": "H\u00e4lytyksen ohjauspaneelin asetukset"
+        },
+        "zha_options": {
+            "always_prefer_xy_color_mode": "Aina mieluummin XY-v\u00e4ritila",
+            "consider_unavailable_battery": "Pid\u00e4 akkuk\u00e4ytt\u00f6isi\u00e4 laitteita k\u00e4ytt\u00e4m\u00e4tt\u00f6min\u00e4 (sekunnin) j\u00e4lkeen.",
+            "consider_unavailable_mains": "Pid\u00e4 verkkovirtak\u00e4ytt\u00f6isi\u00e4 laitteita k\u00e4ytt\u00e4m\u00e4tt\u00f6min\u00e4 (sekunnin) j\u00e4lkeen.",
+            "default_light_transition": "Valon oletussiirtym\u00e4aika (sekunteina)",
+            "enable_identify_on_join": "Ota k\u00e4ytt\u00f6\u00f6n tunnistustehoste, kun laitteet liittyv\u00e4t verkkoon",
+            "enhanced_light_transition": "Ota k\u00e4ytt\u00f6\u00f6n tehostettu valon v\u00e4rin/l\u00e4mp\u00f6tilan siirtyminen off-tilasta",
+            "group_members_assume_state": "Ryhm\u00e4n j\u00e4senet omaksuvat ryhm\u00e4n tilan",
+            "light_transitioning_flag": "Ota tehostettu kirkkauss\u00e4\u00e4din k\u00e4ytt\u00f6\u00f6n valon siirtymisen aikana",
+            "title": "Globaalit vaihtoehdot"
+        }
+    },
+    "device_automation": {
+        "action_type": {
+            "issue_all_led_effect": "Aseta efekti kaikilleLEDeille",
+            "issue_individual_led_effect": "Aseta efekti yksitt\u00e4iselle LEDille",
+            "squawk": "Squawk",
+            "warn": "Varoita"
+        },
+        "trigger_subtype": {
+            "both_buttons": "Molemmat painikkeet",
+            "button": "Painike",
+            "button_1": "Ensimm\u00e4inen painike",
+            "button_2": "Toinen painike",
+            "button_3": "Kolmas painike",
+            "button_4": "Nelj\u00e4s painike",
+            "button_5": "Viides painike",
+            "button_6": "Kuudes painike",
+            "close": "Sulje",
+            "dim_down": "Himmenn\u00e4",
+            "dim_up": "Kirkasta",
+            "face_1": "Kasvot 1 aktivoituna",
+            "face_2": "Kasvot 2 aktivoituna",
+            "face_3": "Kasvot 3 aktivoituna",
+            "face_4": "Kasvot 4 aktivoituna",
+            "face_5": "Kasvot 5 aktivoituna",
+            "face_6": "Kasvot 6 aktivoituna",
+            "face_any": "Kun mitk\u00e4 tahansa/m\u00e4\u00e4rityt kasvot on aktivoituna",
+            "left": "Vasen",
+            "open": "Avaa",
+            "right": "Oikea",
+            "turn_off": "Sammuta",
+            "turn_on": "Laita p\u00e4\u00e4lle"
+        },
+        "trigger_type": {
+            "device_dropped": "Laite pudotettu",
+            "device_flipped": "Laitetta k\u00e4\u00e4nnetty \" {subtype} \"",
+            "device_knocked": "Laitetta koputettu \" {subtype} \"",
+            "device_offline": "Laite offline",
+            "device_rotated": "Laite k\u00e4\u00e4ntyi \"{subtype}\"",
+            "device_shaken": "Laitetta ravisteltiin",
+            "device_slid": "Laite liukui \"{subtype}\"",
+            "device_tilted": "Laite kallistui",
+            "remote_button_alt_double_press": "\"{subtype}\" kaksoisnapsautettu (vaihtoehtoinen tila)",
+            "remote_button_alt_long_press": "\"{subtype}\" jatkuvasti painettuna (vaihtoehtoinen tila)",
+            "remote_button_alt_long_release": "\"{subtype}\" vapautettu pitk\u00e4n painalluksen j\u00e4lkeen (vaihtoehtoinen tila)",
+            "remote_button_alt_quadruple_press": "\"{subtype}\" nelinkertaisesti napsautettu (vaihtoehtoinen tila)",
+            "remote_button_alt_quintuple_press": "\"{subtype}\" viisinkertaisesti napsautettu (vaihtoehtoinen tila)",
+            "remote_button_alt_short_press": "\"{subtype}\" painettu (vaihtoehtoinen tila)",
+            "remote_button_alt_short_release": "\"{subtype}\" vapautettu (vaihtoehtoinen tila)",
+            "remote_button_alt_triple_press": "\"{subtype}\" kolminkertaisesti napautettu (vaihtoehtoinen tila)",
+            "remote_button_double_press": "\"{subtype}\" kaksoisnapsautettu",
+            "remote_button_long_press": "\" {subtype} \" jatkuvasti painettuna",
+            "remote_button_long_release": "\"{subtype}\" vapautettu pitk\u00e4n painalluksen j\u00e4lkeen",
+            "remote_button_quadruple_press": "\"{subtype}\" nelinkertaisesti napsautettu",
+            "remote_button_quintuple_press": "\"{subtype}\" viisinkertaisesti napsautettu",
+            "remote_button_short_press": "\"{subtype}\" painettu",
+            "remote_button_short_release": "\"{subtype}\" vapautettu",
+            "remote_button_triple_press": "\"{subtype}\" kolminkertaisesti napsautettu"
+        }
+    },
+    "entity": {
+        "alarm_control_panel": {
+            "alarm_control_panel": {
+                "name": "H\u00e4lytysasetukset"
+            }
+        },
+        "binary_sensor": {
+            "accelerometer": {
+                "name": "Kiihtyvyysmittari"
+            },
+            "binary_input": {
+                "name": "Bin\u00e4\u00e4ritulo"
+            },
+            "calibrated": {
+                "name": "Kalibroitu"
+            },
+            "consumer_connected": {
+                "name": "Kuluttaja yhdistetty"
+            },
+            "external_sensor": {
+                "name": "Ulkoinen sensori"
+            },
+            "frost_lock": {
+                "name": "Pakkaslukko"
+            },
+            "hand_open": {
+                "name": "Avattu k\u00e4sin"
+            },
+            "ias_zone": {
+                "name": "IAS-alue"
+            },
+            "linkage_alarm_state": {
+                "name": "Linkityksen h\u00e4lytystila"
+            },
+            "replace_filter": {
+                "name": "Vaihda suodatin"
+            },
+            "valve_alarm": {
+                "name": "Venttiilih\u00e4lytys"
+            }
+        },
+        "button": {
+            "feed": {
+                "name": "Sy\u00f6t\u00e4"
+            },
+            "reset_frost_lock": {
+                "name": "Pakkaslukon nollaus"
+            },
+            "reset_no_presence_status": {
+                "name": "L\u00e4sn\u00e4olon tilan nollaus"
+            },
+            "self_test": {
+                "name": "Itsetesti"
+            }
+        },
+        "climate": {
+            "thermostat": {
+                "name": "Termostaatti"
+            }
+        },
+        "cover": {
+            "cover": {
+                "name": "Kaihtimet"
+            },
+            "keen_vent": {
+                "name": "Tarkka tuuletusaukko"
+            },
+            "shade": {
+                "name": "Rullaverho"
+            }
+        },
+        "fan": {
+            "fan": {
+                "name": "Tuuletin"
+            },
+            "fan_group": {
+                "name": "Tuuletinryhm\u00e4"
+            }
+        },
+        "light": {
+            "light": {
+                "name": "Valo"
+            },
+            "light_group": {
+                "name": "Valoryhm\u00e4"
+            }
+        },
+        "lock": {
+            "door_lock": {
+                "name": "Oven lukitus"
+            }
+        },
+        "number": {
+            "auto_off_timer": {
+                "name": "Automaattinen sammutusajastin"
+            },
+            "away_preset_temperature": {
+                "name": "Poissa esiasetettu l\u00e4mp\u00f6tila"
+            },
+            "button_delay": {
+                "name": "Painikkeen viive"
+            },
+            "default_move_rate": {
+                "name": "Oletussiirtonopeus"
+            },
+            "detection_interval": {
+                "name": "Havaintov\u00e4li"
+            },
+            "dimming_speed_down_local": {
+                "name": "Paikallinen himmennysnopeus"
+            },
+            "dimming_speed_down_remote": {
+                "name": "Kauko-himmennysnopeus"
+            },
+            "dimming_speed_up_local": {
+                "name": "Paikallinen kirkastusnopeus"
+            },
+            "dimming_speed_up_remote": {
+                "name": "Kauko-kirkastusnopeus"
+            },
+            "double_tap_down_level": {
+                "name": "Kaksoisnapauta tasoa alasp\u00e4in"
+            },
+            "double_tap_up_level": {
+                "name": "Kaksoisnapauta tasoa yl\u00f6sp\u00e4in"
+            },
+            "filter_life_time": {
+                "name": "Suodattimen k\u00e4ytt\u00f6ik\u00e4"
+            },
+            "led_color_when_off": {
+                "name": "Oletusarvo kaikki LED pois p\u00e4\u00e4lt\u00e4 v\u00e4ri"
+            },
+            "led_color_when_on": {
+                "name": "Oletusarvo kaikkien LEDien v\u00e4ri"
+            },
+            "led_intensity_when_off": {
+                "name": "Oletusarvoisesti kaikki LED-valot sammuvat"
+            },
+            "led_intensity_when_on": {
+                "name": "Oletusarvoisesti kaikki LED-valot p\u00e4\u00e4ll\u00e4"
+            },
+            "load_level_indicator_timeout": {
+                "name": "Kuormitustason ilmaisimen aikakatkaisu"
+            },
+            "local_temperature_calibration": {
+                "name": "Paikallinen l\u00e4mp\u00f6tilan poikkeama"
+            },
+            "max_heat_setpoint_limit": {
+                "name": "Max l\u00e4mp\u00f6asetusten raja-arvo"
+            },
+            "maximum_level": {
+                "name": "Suurin kuorman himmennystaso"
+            },
+            "min_heat_setpoint_limit": {
+                "name": "Min l\u00e4mp\u00f6asetusten raja-arvo"
+            },
+            "minimum_level": {
+                "name": "Pienin kuorman himmennystaso"
+            },
+            "number": {
+                "name": "Numero"
+            },
+            "off_transition_time": {
+                "name": "Siirtym\u00e4aika pois p\u00e4\u00e4lt\u00e4"
+            },
+            "on_level": {
+                "name": "Tasolla"
+            },
+            "on_off_transition_time": {
+                "name": "P\u00e4\u00e4lle/pois p\u00e4\u00e4lt\u00e4 -siirtym\u00e4aika"
+            },
+            "on_transition_time": {
+                "name": "Siirtym\u00e4aika p\u00e4\u00e4lle"
+            },
+            "portion_weight": {
+                "name": "Annoksen paino"
+            },
+            "presence_detection_timeout": {
+                "name": "L\u00e4sn\u00e4olotunnistuksen aikakatkaisu"
+            },
+            "quick_start_time": {
+                "name": "Nopea k\u00e4ynnistymisaika"
+            },
+            "ramp_rate_off_to_on_local": {
+                "name": "Paikallinen ramppinopeus p\u00e4\u00e4lle"
+            },
+            "ramp_rate_off_to_on_remote": {
+                "name": "Kauko-rampinopeus p\u00e4\u00e4lle"
+            },
+            "ramp_rate_on_to_off_local": {
+                "name": "Paikallinen ramppinopeus pois p\u00e4\u00e4lt\u00e4"
+            },
+            "ramp_rate_on_to_off_remote": {
+                "name": "Kauko-rampinopeus pois p\u00e4\u00e4lt\u00e4"
+            },
+            "serving_size": {
+                "name": "Annosteltava annos"
+            },
+            "start_up_color_temperature": {
+                "name": "K\u00e4ynnistyksen v\u00e4ril\u00e4mp\u00f6tila"
+            },
+            "start_up_current_level": {
+                "name": "K\u00e4ynnistysvirran taso"
+            },
+            "timer_duration": {
+                "name": "Ajastimen kesto"
+            },
+            "transmit_power": {
+                "name": "L\u00e4hetysteho"
+            }
+        },
+        "select": {
+            "approach_distance": {
+                "name": "L\u00e4hestymiset\u00e4isyys"
+            },
+            "backlight_mode": {
+                "name": "Taustavalotila"
+            },
+            "decoupled_mode": {
+                "name": "Kytketty tila"
+            },
+            "default_siren_level": {
+                "name": "Sireenin oletustaso"
+            },
+            "default_siren_tone": {
+                "name": "Sireenin oletus\u00e4\u00e4ni"
+            },
+            "default_strobe": {
+                "name": "Oletus stroboskooppi"
+            },
+            "default_strobe_level": {
+                "name": "Stroboskoopin oletustaso"
+            },
+            "detection_distance": {
+                "name": "Havaintoet\u00e4isyys"
+            },
+            "detection_sensitivity": {
+                "name": "Tunnistusherkkyys"
+            },
+            "feeding_mode": {
+                "name": "Tila"
+            },
+            "increased_non_neutral_output": {
+                "name": "Ei-neutraali ulostulo"
+            },
+            "keypad_lockout": {
+                "name": "N\u00e4pp\u00e4imist\u00f6n lukitus"
+            },
+            "led_scaling_mode": {
+                "name": "Led -skaalaustila"
+            },
+            "monitoring_mode": {
+                "name": "Valvontatila"
+            },
+            "motion_sensitivity": {
+                "name": "Liikkeen herkkyys"
+            },
+            "output_mode": {
+                "name": "L\u00e4ht\u00f6tila"
+            },
+            "power_on_state": {
+                "name": "Virta p\u00e4\u00e4lle -tila"
+            },
+            "preset": {
+                "name": "Esiasetus"
+            },
+            "smart_fan_led_display_levels": {
+                "name": "\u00c4lykk\u00e4\u00e4t tuulettimen led-tasot"
+            },
+            "start_up_on_off": {
+                "name": "Virta p\u00e4\u00e4lle -k\u00e4ytt\u00e4ytyminen"
+            },
+            "switch_mode": {
+                "name": "Kytkin -tila"
+            },
+            "switch_type": {
+                "name": "Kytkimen tyyppi"
+            },
+            "window_covering_mode": {
+                "name": "Verhotila"
+            }
+        },
+        "sensor": {
+            "ac_frequency": {
+                "name": "AC -taajuus"
+            },
+            "analog_input": {
+                "name": "Analoginen tulo"
+            },
+            "device_run_time": {
+                "name": "Laitteen k\u00e4ytt\u00f6aika"
+            },
+            "device_temperature": {
+                "name": "Laitteen l\u00e4mp\u00f6tila"
+            },
+            "filter_run_time": {
+                "name": "Suodattimen k\u00e4ytt\u00f6aika"
+            },
+            "formaldehyde": {
+                "name": "Formaldehydin pitoisuus"
+            },
+            "hooks_state": {
+                "name": "Koukkujen tila"
+            },
+            "hvac_action": {
+                "name": "HVAC-toiminta"
+            },
+            "instantaneous_demand": {
+                "name": "Hetkellinen kysynt\u00e4"
+            },
+            "last_feeding_size": {
+                "name": "Viimeisen ruokinnan koko"
+            },
+            "last_feeding_source": {
+                "name": "Viimeinen ruokintal\u00e4hde"
+            },
+            "last_illumination_state": {
+                "name": "Viimeinen valaistustila"
+            },
+            "leaf_wetness": {
+                "name": "Lehtien kosteus"
+            },
+            "lqi": {
+                "name": "LQI"
+            },
+            "pi_heating_demand": {
+                "name": "Pi l\u00e4mmityksen kysynt\u00e4"
+            },
+            "portions_dispensed_today": {
+                "name": "T\u00e4n\u00e4\u00e4n jaetut annokset"
+            },
+            "power_source": {
+                "name": "Tehol\u00e4hde"
+            },
+            "rssi": {
+                "name": "RSSI"
+            },
+            "setpoint_change_source": {
+                "name": "Asetusarvon muutoksen l\u00e4hde"
+            },
+            "smoke_density": {
+                "name": "Savun tiheys"
+            },
+            "soil_moisture": {
+                "name": "Maaper\u00e4n kosteus"
+            },
+            "summation_delivered": {
+                "name": "Yhteenveto toimitettu"
+            },
+            "summation_received": {
+                "name": "Yhteenveto vastaanotettu"
+            },
+            "tier1_summation_delivered": {
+                "name": "Tier 1 -yhteenveto toimitettu"
+            },
+            "tier2_summation_delivered": {
+                "name": "Tier 2 -yhteenveto toimitettu"
+            },
+            "tier3_summation_delivered": {
+                "name": "Tier 3 -yhteenveto toimitettu"
+            },
+            "tier4_summation_delivered": {
+                "name": "Tier 4 -yhteenveto toimitettu"
+            },
+            "tier5_summation_delivered": {
+                "name": "Tier 5 -yhteenveto toimitettu"
+            },
+            "tier6_summation_delivered": {
+                "name": "Tier 6 -yhteenveto toimitettu"
+            },
+            "timer_time_left": {
+                "name": "Aikaa j\u00e4ljell\u00e4"
+            },
+            "weight_dispensed_today": {
+                "name": "Painoa h\u00e4vinnyt t\u00e4n\u00e4\u00e4n"
+            },
+            "window_covering_type": {
+                "name": "Ikkunoiden suojuksen tyyppi"
+            }
+        },
+        "switch": {
+            "aux_switch_scenes": {
+                "name": "Aux-kytkintilanteet"
+            },
+            "binding_off_to_on_sync_level": {
+                "name": "Sidotaan synkronointitasolle"
+            },
+            "buzzer_manual_alarm": {
+                "name": "Summerin manuaalinen h\u00e4lytys"
+            },
+            "buzzer_manual_mute": {
+                "name": "Summerin manuaalinen mykistys"
+            },
+            "child_lock": {
+                "name": "Lapsilukko"
+            },
+            "disable_clear_notifications_double_tap": {
+                "name": "Poista asetukset k\u00e4yt\u00f6st\u00e4 2x napauttamalla ilmoitukset"
+            },
+            "disable_led": {
+                "name": "Poista LED k\u00e4yt\u00f6st\u00e4"
+            },
+            "double_tap_down_enabled": {
+                "name": "Kaksoisnapautus alasp\u00e4in k\u00e4yt\u00f6ss\u00e4"
+            },
+            "double_tap_up_enabled": {
+                "name": "Kaksoisnapautus yl\u00f6sp\u00e4in k\u00e4yt\u00f6ss\u00e4"
+            },
+            "firmware_progress_led": {
+                "name": "Laiteohjelmiston edistymisen merkkivalo"
+            },
+            "heartbeat_indicator": {
+                "name": "Sykkeen ilmaisin"
+            },
+            "hooks_locked": {
+                "name": "Koukut lukittu"
+            },
+            "invert_switch": {
+                "name": "K\u00e4\u00e4nteinen kytkin"
+            },
+            "inverted": {
+                "name": "K\u00e4\u00e4nteinen"
+            },
+            "led_indicator": {
+                "name": "LED -merkkivalo"
+            },
+            "linkage_alarm": {
+                "name": "Linkitysh\u00e4lytys"
+            },
+            "local_protection": {
+                "name": "Paikallinen suojaus"
+            },
+            "one_led_mode": {
+                "name": "Vain 1 LED -tila"
+            },
+            "power_outage_memory": {
+                "name": "S\u00e4hk\u00f6katkosmuisti"
+            },
+            "relay_click_in_on_off_mode": {
+                "name": "Poista releen napsautus k\u00e4yt\u00f6st\u00e4 on off -tilassa"
+            },
+            "smart_bulb_mode": {
+                "name": "\u00c4lyk\u00e4s lampputila"
+            },
+            "smart_fan_mode": {
+                "name": "\u00c4lyk\u00e4s tuuletintila"
+            },
+            "switch": {
+                "name": "Kytkin"
+            },
+            "trigger_indicator": {
+                "name": "LED-laukaisimen merkkivalo"
+            },
+            "valve_detection": {
+                "name": "Venttiilin tunnistus"
+            },
+            "window_detection": {
+                "name": "Ikkunan tunnistus"
+            },
+            "window_detection_function": {
+                "name": "K\u00e4\u00e4nteinen ikkunan tunnistus"
+            }
+        }
+    },
+    "issues": {
+        "inconsistent_network_settings": {
+            "fix_flow": {
+                "step": {
+                    "init": {
+                        "description": "Zigbee-radiosi verkkoasetukset eiv\u00e4t vastaa viimeisint\u00e4 verkon varmuuskopiota. N\u00e4in tapahtuu yleens\u00e4, jos jokin toinen Zigbee-integraatio (esim. Zigbee2MQTT tai deCONZ) on korvannut ne.\n\n{diff}\n\nJos et ole itse muuttanut verkkoasetuksia, palauta ne viimeisimm\u00e4st\u00e4 varmuuskopiosta: muuten laitteesi eiv\u00e4t toimi.",
+                        "menu_options": {
+                            "restore_old_settings": "Palauta varmuuskopio (suositus)",
+                            "use_new_settings": "S\u00e4ilyt\u00e4 uudet asetukset"
+                        },
+                        "title": "Zigbee-verkon asetukset ovat muuttuneet"
+                    }
+                }
+            },
+            "title": "Zigbee-verkon asetukset ovat muuttuneet"
+        },
+        "wrong_silabs_firmware_installed_nabucasa": {
+            "description": "Zigbee -radiotasi k\u00e4ytettiin aiemmin moniprotokollan (Zigbee ja Thread) kanssa ja siihen on edelleen asennettu moniprotokollainen laiteohjelmisto: ({firmware_type}). \n Vaihtoehto 1: Jos haluat k\u00e4ytt\u00e4\u00e4 radiota yksinomaan ZHA: lla, sinun on asennettava Zigbee-laiteohjelmisto:\n - Avaa dokumentaatio valitsemalla linkki kohdasta \"Lis\u00e4tietoja\".\n - Noudata vaiheessa 2 (ja vain vaiheessa 2) kuvattuja ohjeita 'Flash the Silicon Labs radio Zigbee firmware'.\n Vaihtoehto 2: Jos haluat k\u00e4ytt\u00e4\u00e4 radiota moniprotokollalla, toimi seuraavasti: \n - Siirry kohtaan Settings > System > Hardware, valitse laite ja valitse Configure (M\u00e4\u00e4rit\u00e4). \n - Valitse M\u00e4\u00e4rit\u00e4 IEEE 802.15.4 -radion moniprotokollatuki -vaihtoehto. \n - Valitse valintaruutu ja valitse L\u00e4het\u00e4. \n - Kun olet asentanut, m\u00e4\u00e4rit\u00e4 \u00e4skett\u00e4in l\u00f6ydetty ZHA-integraatio.",
+            "title": "Zigbee-radio, jossa on usean protokollan laiteohjelmisto, havaittu"
+        },
+        "wrong_silabs_firmware_installed_other": {
+            "description": "Zigbee -radioasi k\u00e4ytettiin aiemmin moniprotokollaa (Zigbee ja Thread), ja siihen on edelleen asennettu moniprotokollaa k\u00e4ytt\u00e4v\u00e4 laiteohjelmisto: ({firmware_type}). Jos haluat k\u00e4ytt\u00e4\u00e4 radiota yksinomaan ZHA:n kanssa, sinun on asennettava Zigbee -firmware. Noudata Zigbee -radiosi valmistajan ohjeita t\u00e4m\u00e4n tekemiseen.",
+            "title": "Zigbee-radio, jossa on usean protokollan laiteohjelmisto, havaittu"
+        }
+    },
+    "options": {
+        "abort": {
+            "not_zha_device": "T\u00e4m\u00e4 laite ei ole zha-laite",
+            "single_instance_allowed": "Jo m\u00e4\u00e4ritetty. Vain yksi konfiguraatio mahdollinen.",
+            "usb_probe_failed": "USB-laitteen etsint\u00e4 ep\u00e4onnistui",
+            "wrong_firmware_installed": "Laitteessasi on v\u00e4\u00e4r\u00e4 laiteohjelmisto, eik\u00e4 sit\u00e4 voi k\u00e4ytt\u00e4\u00e4 ZHA:n kanssa ennen kuin oikea laiteohjelmisto on asennettu. [Korjaus on luotu]({repair_url}), jossa on lis\u00e4tietoja ja ohjeita t\u00e4m\u00e4n korjaamiseksi."
+        },
+        "error": {
+            "cannot_connect": "Yhteyden muodostaminen ep\u00e4onnistui",
+            "invalid_backup_json": "Virheellinen varmuuskopion JSON"
+        },
+        "flow_title": "{name}",
+        "step": {
+            "choose_automatic_backup": {
+                "data": {
+                    "choose_automatic_backup": "Valitse automaattinen varmuuskopiointi"
+                },
+                "description": "Palauta verkkoasetukset automaattisesta varmuuskopiosta",
+                "title": "Palauta automaattinen varmuuskopio"
+            },
+            "choose_formation_strategy": {
+                "description": "Valitse radiosi verkkoasetukset.",
+                "menu_options": {
+                    "choose_automatic_backup": "Automaattisen varmuuskopion palauttaminen",
+                    "form_initial_network": "Luo verkko",
+                    "form_new_network": "Poista verkkoasetukset ja luo uusi verkko",
+                    "reuse_settings": "S\u00e4ilyt\u00e4 radioverkon asetukset",
+                    "upload_manual_backup": "Lataa manuaalinen varmuuskopio"
+                },
+                "title": "Verkon muodostaminen"
+            },
+            "choose_serial_port": {
+                "data": {
+                    "path": "Sarjalaitteen polku"
+                },
+                "description": "Valitse Zigbee-radiosi sarjaportti.",
+                "title": "Valitse sarjaportti"
+            },
+            "init": {
+                "description": "ZHA pys\u00e4ytet\u00e4\u00e4n. Haluatteko jatkaa?",
+                "title": "ZHA:n uudelleenkonfigurointi"
+            },
+            "instruct_unplug": {
+                "description": "Vanha radiosi on nollattu. Jos laitteistoa ei en\u00e4\u00e4 tarvita, voit nyt irrottaa sen.\n\nVoit nyt kytke\u00e4 uuden radiosi.",
+                "title": "Irrota vanha radio"
+            },
+            "intent_migrate": {
+                "description": "Ennen uuden radion kytkemist\u00e4 vanha radio on nollattava. Automaattinen varmuuskopiointi suoritetaan. Jos k\u00e4yt\u00e4t yhdistetty\u00e4 Z-Wave- ja Zigbee-sovitinta, kuten HUSBZB-1, t\u00e4m\u00e4 nollaa vain Zigbee-osuuden.\n\n*Huomaa: jos siirryt **ConBee/RaspBee**:st\u00e4, varmista, ett\u00e4 siin\u00e4 on firmware `0x26720700` tai uudempi! Muuten joitakin laitteita ei ehk\u00e4 voi ohjata siirt\u00e4misen j\u00e4lkeen, ennen kuin niiden virta on kytketty.*.\n\nHaluatko jatkaa?",
+                "title": "Siirtyminen uuteen radioon"
+            },
+            "manual_pick_radio_type": {
+                "data": {
+                    "radio_type": "Radiotyyppi"
+                },
+                "description": "Valitse Zigbee-radiotyyppi",
+                "title": "Radiotyyppi"
+            },
+            "manual_port_config": {
+                "data": {
+                    "baudrate": "Portin nopeus",
+                    "flow_control": "Tietovirran ohjaus",
+                    "path": "Sarjalaitteen polku"
+                },
+                "description": "Anna sarjaportin asetukset",
+                "title": "Sarjaportin asetukset"
+            },
+            "maybe_confirm_ezsp_restore": {
+                "data": {
+                    "overwrite_coordinator_ieee": "Korvaa pysyv\u00e4sti radio IEEE-osoite"
+                },
+                "description": "Varmuuskopiolla on eri IEEE-osoite kuin radiolla. Jotta verkko toimisi oikein, my\u00f6s radiosi IEEE-osoite on muutettava.\n\nT\u00e4m\u00e4 on pysyv\u00e4 toimenpide.",
+                "title": "Radio IEEE-osoitteen korvaaminen"
+            },
+            "prompt_migrate_or_reconfigure": {
+                "description": "Oletko siirtym\u00e4ss\u00e4 uuteen radioon vai konfiguroimassa nykyist\u00e4 radiota uudelleen?",
+                "menu_options": {
+                    "intent_migrate": "Siirtyminen uuteen radioon",
+                    "intent_reconfigure": "M\u00e4\u00e4rit\u00e4 nykyinen radio uudelleen"
+                },
+                "title": "Siirt\u00e4minen tai uudelleenkonfigurointi"
+            },
+            "upload_manual_backup": {
+                "data": {
+                    "uploaded_backup_file": "Lataa tiedosto"
+                },
+                "description": "Palauta verkkoasetukset ladatusta JSON-varmuuskopiotiedostosta. Voit ladata sellaisen toisesta ZHA-asennuksesta kohdasta **Verkkoasetukset** tai k\u00e4ytt\u00e4\u00e4 Zigbee2MQTT `coordinator_backup.json`-tiedostoa.",
+                "title": "Lataa manuaalinen varmuuskopio"
+            },
+            "verify_radio": {
+                "description": "K\u00e4ytt\u00e4m\u00e4\u00e4si radiota ({name}) ei suositella, ja sen tuki saatetaan poistaa tulevaisuudessa. Katso Zigbee Home Automation -integraation dokumentaatiosta [luettelo suositelluista sovittimista]({docs_recommended_adapters_url}).",
+                "title": "Radiota ei suositella"
+            }
+        }
+    },
+    "services": {
+        "clear_lock_user_code": {
+            "description": "Poistaa k\u00e4ytt\u00e4j\u00e4koodin lukosta.",
+            "fields": {
+                "code_slot": {
+                    "description": "Koodipaikka, josta koodi poistetaan.",
+                    "name": "Koodipaikka"
+                }
+            },
+            "name": "Tyhjenn\u00e4 lukituksen k\u00e4ytt\u00e4j\u00e4"
+        },
+        "disable_lock_user_code": {
+            "description": "Poistaa lukon k\u00e4ytt\u00e4j\u00e4koodin k\u00e4yt\u00f6st\u00e4.",
+            "fields": {
+                "code_slot": {
+                    "description": "Koodipaikka poistettavaksi.",
+                    "name": "Koodipaikka"
+                }
+            },
+            "name": "Poista k\u00e4ytt\u00e4j\u00e4n lukitus k\u00e4yt\u00f6st\u00e4"
+        },
+        "enable_lock_user_code": {
+            "description": "Ottaa k\u00e4ytt\u00f6\u00f6n lukon k\u00e4ytt\u00e4j\u00e4koodin.",
+            "fields": {
+                "code_slot": {
+                    "description": "Koodipaikka k\u00e4ytt\u00f6\u00f6nottoa varten.",
+                    "name": "Koodipaikka"
+                }
+            },
+            "name": "K\u00e4ytt\u00e4j\u00e4n lukituksen ottaminen k\u00e4ytt\u00f6\u00f6n"
+        },
+        "issue_zigbee_cluster_command": {
+            "description": "Antaa komennon m\u00e4\u00e4ritetylle klusterille m\u00e4\u00e4ritetyss\u00e4 entiteetiss\u00e4.",
+            "fields": {
+                "args": {
+                    "description": "Komennolle siirrett\u00e4v\u00e4t argumentit.",
+                    "name": "Argumentit"
+                },
+                "cluster_id": {
+                    "description": "ZCL-klusteri, jonka attribuutit noudetaan.",
+                    "name": "Klusterin tunnus"
+                },
+                "cluster_type": {
+                    "description": "Klusterin tyyppi.",
+                    "name": "Klusterin tyyppi"
+                },
+                "command": {
+                    "description": "Suoritettavan komennon tunnus.",
+                    "name": "Komento"
+                },
+                "command_type": {
+                    "description": "Suoritettavan komennon tyyppi.",
+                    "name": "Komentotyyppi"
+                },
+                "endpoint_id": {
+                    "description": "Klusterin p\u00e4\u00e4tepistetunnus.",
+                    "name": "P\u00e4\u00e4tepisteen tunnus"
+                },
+                "ieee": {
+                    "description": "laitteen IEEE-osoite.",
+                    "name": "IEEE"
+                },
+                "manufacturer": {
+                    "description": "Valmistajan koodi. K\u00e4yt\u00e4 arvoa \"-1\" pakottaaksesi koodin asettamatta j\u00e4tt\u00e4minen.",
+                    "name": "Valmistaja"
+                },
+                "params": {
+                    "description": "Komentoon siirrett\u00e4v\u00e4t parametrit.",
+                    "name": "Parametrit"
+                }
+            },
+            "name": "Anna zigbee-klusterin komento"
+        },
+        "issue_zigbee_group_command": {
+            "description": "K\u00e4skyn antaminen m\u00e4\u00e4ritellyss\u00e4 klusterissa m\u00e4\u00e4ritellyss\u00e4 ryhm\u00e4ss\u00e4.",
+            "fields": {
+                "args": {
+                    "description": "Komennolle siirrett\u00e4v\u00e4t argumentit.",
+                    "name": "Argumentit"
+                },
+                "cluster_id": {
+                    "description": "ZCL-klusteri, johon komento l\u00e4hetet\u00e4\u00e4n.",
+                    "name": "Klusterin tunnus"
+                },
+                "cluster_type": {
+                    "description": "Klusterin tyyppi.",
+                    "name": "Klusterin tyyppi"
+                },
+                "command": {
+                    "description": "Suoritettavan komennon tunnus.",
+                    "name": "Komento"
+                },
+                "group": {
+                    "description": "Ryhm\u00e4n heksadesimaaliosoite.",
+                    "name": "Ryhm\u00e4"
+                },
+                "manufacturer": {
+                    "description": "Valmistajan koodi. K\u00e4yt\u00e4 arvoa \"-1\" pakottaaksesi koodin asettamatta j\u00e4tt\u00e4minen.",
+                    "name": "Valmistaja"
+                }
+            },
+            "name": "Anna zigbee-ryhm\u00e4komento"
+        },
+        "permit": {
+            "description": "Sallii solmujen liittymisen Zigbee-verkkoon.",
+            "fields": {
+                "duration": {
+                    "description": "Aika sallia liittymiset.",
+                    "name": "Kesto"
+                },
+                "ieee": {
+                    "description": "Uusia liittymisi\u00e4 sallivan solmun IEEE-osoite.",
+                    "name": "IEEE"
+                },
+                "install_code": {
+                    "description": "Liittyv\u00e4n laitteen asennuskoodi (on k\u00e4ytett\u00e4v\u00e4 yhdess\u00e4 source_ieee-koodin kanssa).",
+                    "name": "Asenna koodi"
+                },
+                "qr_code": {
+                    "description": "QR-asennuskoodin arvo (vaihtelee myyjitt\u00e4in).",
+                    "name": "QR-koodi"
+                },
+                "source_ieee": {
+                    "description": "Liittyv\u00e4n laitteen IEEE-osoite (on k\u00e4ytett\u00e4v\u00e4 asennuskoodin kanssa).",
+                    "name": "L\u00e4hde IEEE"
+                }
+            },
+            "name": "Lupa"
+        },
+        "reconfigure_device": {
+            "description": "M\u00e4\u00e4ritt\u00e4\u00e4 uudelleen ZHA-laitteen (parannuslaitteen). K\u00e4yt\u00e4 t\u00e4t\u00e4, jos sinulla on ongelmia laitteen kanssa. Jos kyseinen laite on akkuk\u00e4ytt\u00f6inen, varmista, ett\u00e4 se on hereill\u00e4 ja hyv\u00e4ksyy komentoja, kun k\u00e4yt\u00e4t t\u00e4t\u00e4 palvelua.",
+            "fields": {
+                "ieee": {
+                    "description": "Uudelleen m\u00e4\u00e4ritett\u00e4v\u00e4n laitteen IEEE-osoite.",
+                    "name": "IEEE"
+                }
+            },
+            "name": "M\u00e4\u00e4rit\u00e4 laite uudelleen"
+        },
+        "remove": {
+            "description": "Poistaa solmun Zigbee-verkosta.",
+            "fields": {
+                "ieee": {
+                    "description": "Poistettavan solmun IEEE-osoite.",
+                    "name": "IEEE"
+                }
+            },
+            "name": "Poista"
+        },
+        "set_lock_user_code": {
+            "description": "Asettaa k\u00e4ytt\u00e4j\u00e4koodin lukkoon.",
+            "fields": {
+                "code_slot": {
+                    "description": "Koodipaikka, johon koodi asetetaan.",
+                    "name": "Koodipaikka"
+                },
+                "user_code": {
+                    "description": "Asetettava koodi.",
+                    "name": "Koodi"
+                }
+            },
+            "name": "Aseta lukituksen k\u00e4ytt\u00e4j\u00e4koodi"
+        },
+        "set_zigbee_cluster_attribute": {
+            "description": "Asettaa m\u00e4\u00e4ritetyn klusterin attribuutin arvon m\u00e4\u00e4ritetylle oliolle.",
+            "fields": {
+                "attribute": {
+                    "description": "M\u00e4\u00e4ritett\u00e4v\u00e4n attribuutin tunnus.",
+                    "name": "Attribuutti"
+                },
+                "cluster_id": {
+                    "description": "ZCL-klusteri, jonka attribuutit noudetaan.",
+                    "name": "Klusterin tunnus"
+                },
+                "cluster_type": {
+                    "description": "Klusterin tyyppi.",
+                    "name": "Klusterin tyyppi"
+                },
+                "endpoint_id": {
+                    "description": "Klusterin p\u00e4\u00e4tepistetunnus.",
+                    "name": "P\u00e4\u00e4tepisteen tunnus"
+                },
+                "ieee": {
+                    "description": "laitteen IEEE-osoite.",
+                    "name": "IEEE"
+                },
+                "manufacturer": {
+                    "description": "Valmistajan koodi. K\u00e4yt\u00e4 arvoa \"-1\" pakottaaksesi koodin asettamatta j\u00e4tt\u00e4minen.",
+                    "name": "Valmistaja"
+                },
+                "value": {
+                    "description": "Attribuutille kirjoitettava arvo.",
+                    "name": "Arvo"
+                }
+            },
+            "name": "Aseta zigbee-klusterin attribuutti"
+        },
+        "warning_device_squawk": {
+            "fields": {
+                "ieee": {
+                    "description": "laitteen IEEE-osoite.",
+                    "name": "IEEE"
+                },
+                "level": {
+                    "description": "Squawk Level -kentt\u00e4\u00e4 k\u00e4ytet\u00e4\u00e4n 2-bittisen\u00e4 luettelona, ja se m\u00e4\u00e4ritt\u00e4\u00e4 kuuluvan squawk-\u00e4\u00e4nen voimakkuuden ZCL-spesifikaation taulukossa 8-26 - Squawk Level Field Values (Squawk-tasokent\u00e4n arvot) esitetyll\u00e4 tavalla.",
+                    "name": "Taso"
+                },
+                "mode": {
+                    "description": "Squawk Mode -kentt\u00e4\u00e4 k\u00e4ytet\u00e4\u00e4n 4-bittisen\u00e4 luettelona, ja sill\u00e4 voi olla jokin ZCL-spesifikaation taulukossa 8-24 esitetyist\u00e4 arvoista - Squawk Mode Field. Kunkin tilan tarkka toiminta (miten WD \"squawkkaa\") on toteutuskohtaista.",
+                    "name": "Tila"
+                },
+                "strobe": {
+                    "description": "Strobe-kentt\u00e4\u00e4 k\u00e4ytet\u00e4\u00e4n Boolean-kentt\u00e4n\u00e4, ja se m\u00e4\u00e4ritt\u00e4\u00e4, tarvitaanko \u00e4\u00e4nimerkin lis\u00e4ksi my\u00f6s visuaalista merkint\u00e4\u00e4, kuten ZCL-spesifikaation taulukossa 8-25 - Strobe Bit - on esitetty.",
+                    "name": "Stroboskooppi"
+                }
+            },
+            "name": "Varoituslaitteen kiljuminen"
+        },
+        "warning_device_warn": {
+            "fields": {
+                "duration": {
+                    "description": "Varoituksen haluttu kesto sekunteina (16 bitti\u00e4). Jos sek\u00e4 Strobe ett\u00e4 Warning Mode ovat \"0\", t\u00e4m\u00e4 kentt\u00e4 j\u00e4tet\u00e4\u00e4n huomiotta.",
+                    "name": "Kesto"
+                },
+                "duty_cycle": {
+                    "description": "Ilmaisee salamasyklin pituuden. T\u00e4m\u00e4n avulla voit vaihdella vilkkumisen kestoa eri h\u00e4lytystyypeille (esim. palo, poliisi, murto). Voimassa oleva alue on 0-100 10:n askelin. Kaikki muut arvot on py\u00f6ristett\u00e4v\u00e4 l\u00e4himp\u00e4\u00e4n kelvolliseen arvoon. Strobe laskee k\u00e4ytt\u00f6asteen yhden sekunnin pituisena. ON-tilan on edelt\u00e4v\u00e4 OFF-tilaa. Jos esimerkiksi Strobe Duty Cycle -kentt\u00e4\u00e4n on m\u00e4\u00e4ritetty \"40\", stroboskooppi vilkkuu ON 4/10 sekunnin ajan ja sammuu sitten 6/10 sekunnin ajan.",
+                    "name": "Ty\u00f6jakso"
+                },
+                "ieee": {
+                    "description": "laitteen IEEE-osoite.",
+                    "name": "IEEE"
+                },
+                "intensity": {
+                    "description": "Ilmaisee stroboskoopin voimakkuuden, kuten ZCL-spesifikaation taulukossa 8-23 on esitetty. T\u00e4m\u00e4 ominaisuus on suunniteltu muuttamaan stroboskoopin ulostuloa (eli kirkkautta) eik\u00e4 sen taajuutta, jota k\u00e4sitell\u00e4\u00e4n yksityiskohtaisesti ZCL-spesifikaation 8.4.2.3.1.6 kohdassa.",
+                    "name": "Intensiteetti"
+                },
+                "level": {
+                    "description": "Siren Level -kentt\u00e4\u00e4 k\u00e4ytet\u00e4\u00e4n 2-bittisen\u00e4 numerointina, ja se ilmaisee kuuluvan squawk-\u00e4\u00e4nen voimakkuuden ZCL-eritelm\u00e4n taulukossa 8-22 esitetyll\u00e4 tavalla.",
+                    "name": "Taso"
+                },
+                "mode": {
+                    "description": "Varoitustila-kentt\u00e4\u00e4 k\u00e4ytet\u00e4\u00e4n 4-bittisen\u00e4 luettelona, ja sill\u00e4 voi olla jokin j\u00e4ljemp\u00e4n\u00e4 ZCL-eritelm\u00e4n taulukossa 8-20 m\u00e4\u00e4ritellyist\u00e4 arvoista 0-6. Varoituslaitteen tarkka k\u00e4ytt\u00e4ytyminen kussakin tilassa on asiaankuuluvien turvallisuusstandardien mukaista.",
+                    "name": "Tila"
+                },
+                "strobe": {
+                    "description": "Strobe-kentt\u00e4\u00e4 k\u00e4ytet\u00e4\u00e4n 2-bittisen\u00e4 numerointina, ja se m\u00e4\u00e4ritt\u00e4\u00e4, tarvitaanko \u00e4\u00e4nimerkin lis\u00e4ksi visuaalista merkint\u00e4\u00e4, kuten ZCL-spesifikaation taulukossa 8-21 ilmoitetaan. \"0\" tarkoittaa, ettei stroboskooppia, \"1\" tarkoittaa stroboskooppia. Jos stroboskooppikentt\u00e4 on \"1\" ja varoitustila on \"0\" (\"Stop\"), vain stroboskooppi aktivoituu.",
+                    "name": "Stroboskooppi"
+                }
+            },
+            "name": "Varoituslaite alkaa h\u00e4lytt\u00e4\u00e4"
+        }
+    }
+}

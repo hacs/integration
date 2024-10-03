@@ -1,0 +1,529 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "\u8d26\u6237\u5df2\u914d\u7f6e",
+            "reauth_successful": "\u91cd\u65b0\u8ba4\u8bc1\u6210\u529f"
+        },
+        "error": {
+            "cannot_connect": "\u8fde\u63a5\u5931\u8d25",
+            "incorrect_api_key": "\u6240\u9009\u8d26\u6237\u7684 API \u5bc6\u94a5\u65e0\u6548",
+            "invalid_auth": "\u8eab\u4efd\u9a8c\u8bc1\u65e0\u6548",
+            "no_devices": "\u672a\u53d1\u73b0\u4efb\u4f55\u8bbe\u5907",
+            "no_username": "\u65e0\u6cd5\u83b7\u53d6\u7528\u6237\u540d"
+        },
+        "step": {
+            "reauth_confirm": {
+                "data": {
+                    "api_key": "API \u5bc6\u94a5"
+                },
+                "data_description": {
+                    "api_key": "\u6309\u7167\u6587\u6863\u83b7\u53d6\u60a8\u7684 api \u5bc6\u94a5"
+                }
+            },
+            "user": {
+                "data": {
+                    "api_key": "API \u5bc6\u94a5"
+                },
+                "data_description": {
+                    "api_key": "\u6309\u7167\u6587\u6863\u83b7\u53d6\u60a8\u7684 api \u5bc6\u94a5"
+                }
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "filter_clean": {
+                "name": "\u9700\u8981\u6e05\u6d01\u6ee4\u7f51"
+            },
+            "is_main_sensor": {
+                "name": "\u4e3b\u4f20\u611f\u5668"
+            },
+            "pure_ac_integration": {
+                "name": "\u7eaf\u5f3a\u52b2\u4e0e AC \u76f8\u5173"
+            },
+            "pure_geo_integration": {
+                "name": "\u7eaf\u5f3a\u52b2\u4e0e\u4eba\u4f53\u5b58\u5728\u76f8\u5173"
+            },
+            "pure_measure_integration": {
+                "name": "\u7eaf\u5f3a\u52b2\u4e0e\u5ba4\u5185\u7a7a\u6c14\u8d28\u91cf\u76f8\u5173"
+            },
+            "pure_prime_integration": {
+                "name": "\u7eaf\u5f3a\u52b2\u4e0e\u5ba4\u5916\u7a7a\u6c14\u8d28\u91cf\u76f8\u5173"
+            },
+            "room_occupied": {
+                "name": "\u623f\u95f4\u6709\u4eba"
+            }
+        },
+        "button": {
+            "reset_filter": {
+                "name": "\u91cd\u7f6e\u6ee4\u7f51"
+            }
+        },
+        "climate": {
+            "climate_device": {
+                "state_attributes": {
+                    "fan_mode": {
+                        "state": {
+                            "auto": "\u81ea\u52a8",
+                            "high": "\u9ad8",
+                            "low": "\u4f4e",
+                            "medium": "\u4e2d",
+                            "medium_high": "\u4e2d\u9ad8",
+                            "medium_low": "\u4e2d\u4f4e",
+                            "quiet": "\u9759\u97f3",
+                            "strong": "\u5f3a\u529b"
+                        }
+                    },
+                    "swing_mode": {
+                        "state": {
+                            "both": "\u540c\u65f6",
+                            "fixedbottom": "\u56fa\u5b9a\u5e95\u90e8",
+                            "fixedmiddle": "\u56fa\u5b9a\u4e2d\u95f4",
+                            "fixedmiddlebottom": "\u56fa\u5b9a\u4e2d\u5e95",
+                            "fixedmiddletop": "\u56fa\u5b9a\u4e2d\u9876",
+                            "fixedtop": "\u56fa\u5b9a\u9876\u90e8",
+                            "horizontal": "\u6c34\u5e73",
+                            "rangebottom": "\u5e95\u90e8\u8303\u56f4",
+                            "rangefull": "\u5168\u90e8\u8303\u56f4",
+                            "rangemiddle": "\u4e2d\u95f4\u8303\u56f4",
+                            "rangetop": "\u9876\u90e8\u8303\u56f4",
+                            "stopped": "\u5173\u95ed"
+                        }
+                    }
+                }
+            }
+        },
+        "number": {
+            "calibration_humidity": {
+                "name": "\u6e7f\u5ea6\u6821\u51c6"
+            },
+            "calibration_temperature": {
+                "name": "\u6e29\u5ea6\u6821\u51c6"
+            }
+        },
+        "select": {
+            "horizontalswing": {
+                "name": "\u6c34\u5e73\u6446\u52a8",
+                "state": {
+                    "fixedcenter": "\u56fa\u5b9a\u4e2d\u95f4",
+                    "fixedcenterleft": "\u56fa\u5b9a\u4e2d\u5de6",
+                    "fixedcenterright": "\u56fa\u5b9a\u4e2d\u53f3",
+                    "fixedleft": "\u56fa\u5b9a\u5de6\u4fa7",
+                    "fixedleftright": "\u56fa\u5b9a\u5de6\u53f3",
+                    "fixedright": "\u56fa\u5b9a\u53f3\u4fa7",
+                    "rangecenter": "\u4e2d\u95f4\u8303\u56f4",
+                    "rangefull": "\u5168\u90e8\u8303\u56f4",
+                    "rangeleft": "\u5de6\u4fa7\u8303\u56f4",
+                    "rangeright": "\u53f3\u4fa7\u8303\u56f4",
+                    "stopped": "\u5173\u95ed"
+                }
+            },
+            "light": {
+                "name": "\u706f\u5149",
+                "state": {
+                    "dim": "\u6697",
+                    "off": "\u5173\u95ed",
+                    "on": "\u5f00\u542f"
+                }
+            }
+        },
+        "sensor": {
+            "airq_co2": {
+                "name": "\u7a7a\u6c14\u8d28\u91cf CO2"
+            },
+            "airq_tvoc": {
+                "name": "\u7a7a\u6c14\u8d28\u91cf TVOC"
+            },
+            "battery_voltage": {
+                "name": "\u7535\u6c60\u7535\u538b"
+            },
+            "climate_react_high": {
+                "name": "\u6c14\u5019\u53cd\u5e94\u9ad8\u6e29\u9608\u503c",
+                "state_attributes": {
+                    "fanlevel": {
+                        "name": "\u98ce\u6247\u6a21\u5f0f",
+                        "state": {
+                            "auto": "\u81ea\u52a8",
+                            "high": "\u9ad8",
+                            "low": "\u4f4e",
+                            "medium": "\u4e2d",
+                            "medium_high": "\u4e2d\u9ad8",
+                            "medium_low": "\u4e2d\u4f4e",
+                            "quiet": "\u9759\u97f3",
+                            "strong": "\u5f3a\u529b"
+                        }
+                    },
+                    "horizontalswing": {
+                        "name": "\u6c34\u5e73\u6446\u52a8",
+                        "state": {
+                            "fixedcenter": "\u56fa\u5b9a\u4e2d\u95f4",
+                            "fixedcenterleft": "\u56fa\u5b9a\u4e2d\u5de6",
+                            "fixedcenterright": "\u56fa\u5b9a\u4e2d\u53f3",
+                            "fixedleft": "\u56fa\u5b9a\u5de6\u4fa7",
+                            "fixedleftright": "\u56fa\u5b9a\u5de6\u53f3",
+                            "fixedright": "\u56fa\u5b9a\u53f3\u4fa7",
+                            "rangecenter": "\u4e2d\u95f4\u8303\u56f4",
+                            "rangefull": "\u5168\u90e8\u8303\u56f4",
+                            "stopped": "\u5173\u95ed"
+                        }
+                    },
+                    "light": {
+                        "name": "\u706f\u5149",
+                        "state": {
+                            "dim": "\u6697",
+                            "off": "\u5173\u95ed",
+                            "on": "\u5f00\u542f"
+                        }
+                    },
+                    "mode": {
+                        "name": "\u6a21\u5f0f",
+                        "state": {
+                            "auto": "\u81ea\u52a8",
+                            "cool": "\u5236\u51b7",
+                            "dry": "\u9664\u6e7f",
+                            "fan_only": "\u4ec5\u9001\u98ce",
+                            "heat": "\u5236\u70ed",
+                            "heat_cool": "\u5236\u70ed/\u5236\u51b7",
+                            "off": "\u5173\u95ed"
+                        }
+                    },
+                    "on": {
+                        "name": "\u5f00\u542f",
+                        "state": {
+                            "false": "\u5173\u95ed",
+                            "true": "\u5f00\u542f"
+                        }
+                    },
+                    "swing": {
+                        "name": "\u6446\u52a8\u6a21\u5f0f",
+                        "state": {
+                            "both": "\u540c\u65f6",
+                            "fixedbottom": "\u56fa\u5b9a\u5e95\u90e8",
+                            "fixedmiddle": "\u56fa\u5b9a\u4e2d\u95f4",
+                            "fixedmiddlebottom": "\u56fa\u5b9a\u4e2d\u5e95",
+                            "fixedmiddletop": "\u56fa\u5b9a\u4e2d\u9876",
+                            "fixedtop": "\u56fa\u5b9a\u9876\u90e8",
+                            "horizontal": "\u6c34\u5e73",
+                            "rangebottom": "\u5e95\u90e8\u8303\u56f4",
+                            "rangefull": "\u5168\u90e8\u8303\u56f4",
+                            "rangemiddle": "\u4e2d\u95f4\u8303\u56f4",
+                            "rangetop": "\u9876\u90e8\u8303\u56f4",
+                            "stopped": "\u5173\u95ed"
+                        }
+                    },
+                    "targettemperature": {
+                        "name": "\u76ee\u6807\u6e29\u5ea6"
+                    },
+                    "temperatureunit": {
+                        "name": "\u6e29\u5ea6\u5355\u4f4d",
+                        "state": {
+                            "c": "\u6444\u6c0f\u5ea6",
+                            "f": "\u534e\u6c0f\u5ea6"
+                        }
+                    }
+                }
+            },
+            "climate_react_low": {
+                "name": "\u6c14\u5019\u53cd\u5e94\u4f4e\u6e29\u9608\u503c",
+                "state_attributes": {
+                    "fanlevel": {
+                        "name": "\u98ce\u6247\u6a21\u5f0f",
+                        "state": {
+                            "auto": "\u81ea\u52a8",
+                            "high": "\u9ad8",
+                            "low": "\u4f4e",
+                            "medium": "\u4e2d",
+                            "medium_high": "\u4e2d\u9ad8",
+                            "medium_low": "\u4e2d\u4f4e",
+                            "quiet": "\u9759\u97f3",
+                            "strong": "\u5f3a\u529b"
+                        }
+                    },
+                    "horizontalswing": {
+                        "name": "\u6c34\u5e73\u6446\u52a8",
+                        "state": {
+                            "fixedcenter": "\u56fa\u5b9a\u4e2d\u95f4",
+                            "fixedcenterleft": "\u56fa\u5b9a\u4e2d\u5de6",
+                            "fixedcenterright": "\u56fa\u5b9a\u4e2d\u53f3",
+                            "fixedleft": "\u56fa\u5b9a\u5de6\u4fa7",
+                            "fixedleftright": "\u56fa\u5b9a\u5de6\u53f3",
+                            "fixedright": "\u56fa\u5b9a\u53f3\u4fa7",
+                            "rangecenter": "\u4e2d\u95f4\u8303\u56f4",
+                            "rangefull": "\u5168\u90e8\u8303\u56f4",
+                            "stopped": "\u5173\u95ed"
+                        }
+                    },
+                    "light": {
+                        "name": "\u706f\u5149",
+                        "state": {
+                            "dim": "\u6697",
+                            "off": "\u5173\u95ed",
+                            "on": "\u5f00\u542f"
+                        }
+                    },
+                    "mode": {
+                        "name": "\u6a21\u5f0f",
+                        "state": {
+                            "auto": "\u81ea\u52a8",
+                            "cool": "\u5236\u51b7",
+                            "dry": "\u9664\u6e7f",
+                            "fan_only": "\u4ec5\u9001\u98ce",
+                            "heat": "\u5236\u70ed",
+                            "heat_cool": "\u5236\u70ed/\u5236\u51b7",
+                            "off": "\u5173\u95ed"
+                        }
+                    },
+                    "on": {
+                        "name": "\u5f00\u542f",
+                        "state": {
+                            "false": "\u5173\u95ed",
+                            "true": "\u5f00\u542f"
+                        }
+                    },
+                    "swing": {
+                        "name": "\u6446\u52a8\u6a21\u5f0f",
+                        "state": {
+                            "both": "\u540c\u65f6",
+                            "fixedbottom": "\u56fa\u5b9a\u5e95\u90e8",
+                            "fixedmiddle": "\u56fa\u5b9a\u4e2d\u95f4",
+                            "fixedmiddlebottom": "\u56fa\u5b9a\u4e2d\u5e95",
+                            "fixedmiddletop": "\u56fa\u5b9a\u4e2d\u9876",
+                            "fixedtop": "\u56fa\u5b9a\u9876\u90e8",
+                            "horizontal": "\u6c34\u5e73",
+                            "rangebottom": "\u5e95\u90e8\u8303\u56f4",
+                            "rangefull": "\u5168\u90e8\u8303\u56f4",
+                            "rangemiddle": "\u4e2d\u95f4\u8303\u56f4",
+                            "rangetop": "\u9876\u90e8\u8303\u56f4",
+                            "stopped": "\u5173\u95ed"
+                        }
+                    },
+                    "targettemperature": {
+                        "name": "\u76ee\u6807\u6e29\u5ea6"
+                    },
+                    "temperatureunit": {
+                        "name": "\u6e29\u5ea6\u5355\u4f4d",
+                        "state": {
+                            "c": "\u6444\u6c0f\u5ea6",
+                            "f": "\u534e\u6c0f\u5ea6"
+                        }
+                    }
+                }
+            },
+            "ethanol": {
+                "name": "\u4e59\u9187"
+            },
+            "feels_like": {
+                "name": "\u4f53\u611f\u6e29\u5ea6"
+            },
+            "filter_last_reset": {
+                "name": "\u6ee4\u7f51\u4e0a\u6b21\u91cd\u7f6e"
+            },
+            "pm25_pure": {
+                "name": "\u7eaf AQI",
+                "state": {
+                    "bad": "\u7cdf\u7cd5",
+                    "good": "\u826f\u597d",
+                    "moderate": "\u4e2d\u7b49"
+                }
+            },
+            "rssi": {
+                "name": "RSSI"
+            },
+            "sensitivity": {
+                "name": "\u7eaf\u7075\u654f\u5ea6",
+                "state": {
+                    "n": "\u6b63\u5e38",
+                    "s": "\u7075\u654f"
+                }
+            },
+            "smart_type": {
+                "name": "\u6c14\u5019\u53cd\u5e94\u7c7b\u578b",
+                "state": {
+                    "feelslike": "\u4f53\u611f",
+                    "humidity": "\u6e7f\u5ea6",
+                    "temperature": "\u6e29\u5ea6"
+                }
+            },
+            "timer_time": {
+                "name": "\u8ba1\u65f6\u5668\u7ed3\u675f\u65f6\u95f4"
+            },
+            "tvoc": {
+                "name": "TVOC"
+            }
+        },
+        "switch": {
+            "climate_react_switch": {
+                "name": "\u6c14\u5019\u53cd\u5e94",
+                "state_attributes": {
+                    "type": {
+                        "name": "\u7c7b\u578b",
+                        "state": {
+                            "feelslike": "\u4f53\u611f",
+                            "humidity": "\u6e7f\u5ea6",
+                            "temperature": "\u6e29\u5ea6"
+                        }
+                    }
+                }
+            },
+            "pure_boost_switch": {
+                "name": "\u7eaf\u5f3a\u52b2"
+            },
+            "timer_on_switch": {
+                "name": "\u8ba1\u65f6\u5668",
+                "state_attributes": {
+                    "id": {
+                        "name": "\u6807\u8bc6\u7b26"
+                    },
+                    "turn_on": {
+                        "name": "\u6253\u5f00",
+                        "state": {
+                            "false": "\u5173\u95ed",
+                            "true": "\u5f00\u542f"
+                        }
+                    }
+                }
+            }
+        },
+        "update": {
+            "fw_ver_available": {
+                "name": "\u6709\u53ef\u7528\u66f4\u65b0"
+            }
+        }
+    },
+    "exceptions": {
+        "climate_react_not_available": {
+            "message": "\u4f7f\u7528\u4e00\u6b21 Sensibo Enable Climate React \u52a8\u4f5c\u5373\u53ef\u542f\u7528\u5f00\u5173\u6216 Sensibo \u5e94\u7528"
+        },
+        "fan_mode_not_supported": {
+            "message": "\u96c6\u6210\u4e0d\u652f\u6301\u6c14\u5019\u98ce\u6247\u6a21\u5f0f\u201c{fan_mode}\u201d\uff0c\u8bf7\u63d0\u51fa\u95ee\u9898"
+        },
+        "no_fan_level_in_features": {
+            "message": "\u5f53\u524d\u6a21\u5f0f\u4e0d\u652f\u6301\u8bbe\u7f6e\u98ce\u6247\u6863\u4f4d"
+        },
+        "no_swing_in_features": {
+            "message": "\u5f53\u524d\u6a21\u5f0f\u4e0d\u652f\u6301\u8bbe\u7f6e\u6446\u52a8"
+        },
+        "no_target_temperature": {
+            "message": "\u672a\u63d0\u4f9b\u76ee\u6807\u6e29\u5ea6"
+        },
+        "no_target_temperature_in_features": {
+            "message": "\u5f53\u524d\u6a21\u5f0f\u4e0d\u652f\u6301\u8bbe\u7f6e\u76ee\u6807\u6e29\u5ea6"
+        },
+        "select_option_not_available": {
+            "message": "\u5f53\u524d\u6a21\u5f0f\u201c{hvac_mode}\u201d\u4e0d\u652f\u6301\u8bbe\u7f6e{key}"
+        },
+        "service_raised": {
+            "message": "\u65e0\u6cd5\u6267\u884c\u201c{name}\u201d\u7684\u52a8\u4f5c\uff0c\u6709\u9519\u8bef\uff1a{error}"
+        },
+        "service_result_not_true": {
+            "message": "\u65e0\u6cd5\u6267\u884c\u201c{name}\u201d\u7684\u52a8\u4f5c"
+        },
+        "swing_not_supported": {
+            "message": "\u96c6\u6210\u4e0d\u652f\u6301\u6c14\u5019\u6446\u52a8\u6a21\u5f0f\u201c{swing_mode}\u201d\uff0c\u8bf7\u63d0\u51fa\u95ee\u9898"
+        }
+    },
+    "services": {
+        "assume_state": {
+            "description": "\u5c06 Sensibo \u8bbe\u5907\u8bbe\u7f6e\u4e3a\u5916\u90e8\u72b6\u6001\u3002",
+            "fields": {
+                "state": {
+                    "description": "\u8981\u8bbe\u7f6e\u7684\u72b6\u6001\u3002",
+                    "name": "\u72b6\u6001"
+                }
+            },
+            "name": "\u5448\u73b0\u72b6\u6001"
+        },
+        "enable_climate_react": {
+            "description": "\u542f\u7528\u5e76\u914d\u7f6e\u6c14\u5019\u53cd\u5e94\u3002",
+            "fields": {
+                "high_temperature_state": {
+                    "description": "\u5728\u9ad8\u9608\u503c\u65f6\u5e94\u8be5\u53d1\u751f\u4ec0\u4e48\u3002\u9700\u8981\u5b8c\u6574\u72b6\u6001\u3002",
+                    "name": "\u9ad8\u9608\u503c\u72b6\u6001"
+                },
+                "high_temperature_threshold": {
+                    "description": "\u5f53\u6e29\u5ea6/\u6e7f\u5ea6\u9ad8\u4e8e\u3002",
+                    "name": "\u9608\u503c\u9ad8"
+                },
+                "low_temperature_state": {
+                    "description": "\u5728\u4f4e\u9608\u503c\u65f6\u5e94\u8be5\u53d1\u751f\u4ec0\u4e48\u3002\u9700\u8981\u5b8c\u6574\u72b6\u6001\u3002",
+                    "name": "\u4f4e\u9608\u503c\u72b6\u6001"
+                },
+                "low_temperature_threshold": {
+                    "description": "\u5f53\u6e29\u5ea6/\u6e7f\u5ea6\u4f4e\u4e8e\u3002",
+                    "name": "\u9608\u503c\u4f4e"
+                },
+                "smart_type": {
+                    "description": "\u5728\u6e29\u5ea6/\u4f53\u611f/\u6e7f\u5ea6\u4e4b\u95f4\u8fdb\u884c\u9009\u62e9\u3002",
+                    "name": "\u89e6\u53d1\u7c7b\u578b"
+                }
+            },
+            "name": "\u542f\u7528\u6c14\u5019\u53cd\u5e94"
+        },
+        "enable_pure_boost": {
+            "description": "\u542f\u7528\u5e76\u914d\u7f6e\u7eaf\u5f3a\u52b2\u8bbe\u7f6e\u3002",
+            "fields": {
+                "ac_integration": {
+                    "description": "\u4e0e\u7a7a\u8c03\u96c6\u6210\u3002",
+                    "name": "\u7a7a\u8c03\u96c6\u6210"
+                },
+                "geo_integration": {
+                    "description": "\u4e0e\u4eba\u4f53\u5b58\u5728\u96c6\u6210\u3002",
+                    "name": "\u5730\u7406\u96c6\u6210"
+                },
+                "indoor_integration": {
+                    "description": "\u4e0e\u68c0\u67e5\u5ba4\u5185\u7a7a\u6c14\u8d28\u91cf\u96c6\u6210\u3002",
+                    "name": "\u5ba4\u5185\u7a7a\u6c14\u8d28\u91cf"
+                },
+                "outdoor_integration": {
+                    "description": "\u4e0e\u68c0\u67e5\u5ba4\u5916\u7a7a\u6c14\u8d28\u91cf\u96c6\u6210\u3002",
+                    "name": "\u5ba4\u5916\u7a7a\u6c14\u8d28\u91cf"
+                },
+                "sensitivity": {
+                    "description": "\u8bbe\u7f6e\u7eaf\u5f3a\u52b2\u7684\u7075\u654f\u5ea6\u3002",
+                    "name": "\u7075\u654f\u5ea6"
+                }
+            },
+            "name": "\u542f\u7528\u7eaf\u5f3a\u52b2"
+        },
+        "enable_timer": {
+            "description": "\u542f\u7528\u6709\u81ea\u5b9a\u4e49\u65f6\u95f4\u7684\u8ba1\u65f6\u5668\u3002",
+            "fields": {
+                "minutes": {
+                    "description": "\u8ba1\u65f6\u5668\u5012\u8ba1\u65f6\uff08\u5b9a\u65f6\u5668\u72b6\u6001\u5f00\u542f\u65f6\uff09\u3002",
+                    "name": "\u5206\u949f"
+                }
+            },
+            "name": "\u542f\u7528\u8ba1\u65f6\u5668"
+        },
+        "full_state": {
+            "description": "\u8bbe\u7f6e Sensibo \u8bbe\u5907\u7684\u5b8c\u5168\u72b6\u6001\u3002",
+            "fields": {
+                "fan_mode": {
+                    "description": "\u8bbe\u7f6e\u98ce\u6247\u6a21\u5f0f\u3002",
+                    "name": "\u98ce\u6247\u6a21\u5f0f"
+                },
+                "horizontal_swing_mode": {
+                    "description": "\u8bbe\u7f6e\u6c34\u5e73\u6446\u52a8\u6a21\u5f0f\u3002",
+                    "name": "\u6c34\u5e73\u6446\u52a8\u65b9\u5f0f"
+                },
+                "light": {
+                    "description": "\u8bbe\u7f6e\u706f\u5149\u7684\u6253\u5f00\u6216\u5173\u95ed\u3002",
+                    "name": "\u706f\u5149"
+                },
+                "mode": {
+                    "description": "\u8981\u8bbe\u7f6e\u7684\u6696\u901a\u7a7a\u8c03\u6a21\u5f0f\u3002",
+                    "name": "\u6696\u901a\u7a7a\u8c03\u6a21\u5f0f"
+                },
+                "swing_mode": {
+                    "description": "\u8bbe\u7f6e\u6446\u52a8\u6a21\u5f0f\u3002",
+                    "name": "\u6446\u52a8\u6a21\u5f0f"
+                },
+                "target_temperature": {
+                    "description": "\u8bbe\u7f6e\u76ee\u6807\u6e29\u5ea6\u3002",
+                    "name": "\u76ee\u6807\u6e29\u5ea6"
+                }
+            },
+            "name": "\u8bbe\u7f6e\u5b8c\u5168\u72b6\u6001"
+        }
+    }
+}

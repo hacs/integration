@@ -1,0 +1,120 @@
+{
+    "device_automation": {
+        "action_type": {
+            "toggle": "Prepn\u00fa\u0165 {entity_name}",
+            "turn_off": "Vypn\u00fa\u0165 {entity_name}",
+            "turn_on": "Zapn\u00fa\u0165 {entity_name}"
+        },
+        "condition_type": {
+            "is_off": "{entity_name} je vypnut\u00e9",
+            "is_on": "{entity_name} je zapnut\u00e9"
+        },
+        "trigger_type": {
+            "changed_states": "{entity_name} zapnut\u00e9 alebo vypnut\u00e9",
+            "turned_off": "{entity_name} vypnut\u00e9",
+            "turned_on": "{entity_name} zapnut\u00e9"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Dia\u013ekov\u00e9 ovl\u00e1danie",
+            "state": {
+                "off": "Neakt\u00edvny",
+                "on": "Akt\u00edvny"
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "Platforma {platform} pre integr\u00e1ciu {domain} nepodporuje nastavenie platformy. \n\n Odstr\u00e1\u0148te ho z konfigur\u00e1cie a re\u0161tartujte Home Assistant, aby ste tento probl\u00e9m vyrie\u0161ili.",
+            "title": "Podpora platformy nie je podporovan\u00e1"
+        }
+    },
+    "services": {
+        "delete_command": {
+            "description": "Odstr\u00e1ni pr\u00edkaz alebo zoznam pr\u00edkazov z datab\u00e1zy.",
+            "fields": {
+                "command": {
+                    "description": "Jednotliv\u00fd pr\u00edkaz alebo zoznam pr\u00edkazov, ktor\u00e9 sa maj\u00fa odstr\u00e1ni\u0165.",
+                    "name": "Pr\u00edkaz"
+                },
+                "device": {
+                    "description": "Zariadenie, z ktor\u00e9ho sa pr\u00edkazy odstr\u00e1nia.",
+                    "name": "Zariadenie"
+                }
+            },
+            "name": "Odstr\u00e1ni\u0165 pr\u00edkaz"
+        },
+        "learn_command": {
+            "description": "Nau\u010d\u00ed sa pr\u00edkaz alebo zoznam pr\u00edkazov zo zariadenia.",
+            "fields": {
+                "alternative": {
+                    "description": "Ak sa k\u00f3d mus\u00ed ulo\u017ei\u0165 ako alternat\u00edva. To je u\u017eito\u010dn\u00e9 pre diskr\u00e9tne k\u00f3dy. Diskr\u00e9tne k\u00f3dy sa pou\u017e\u00edvaj\u00fa pre prep\u00edna\u010de, ktor\u00e9 vykon\u00e1vaj\u00fa len jednu funkciu. Napr\u00edklad k\u00f3d, ktor\u00fd sl\u00fa\u017ei len na zapnutie zariadenia. Ak je u\u017e zapnut\u00e9, odoslan\u00edm k\u00f3du sa stav nezmen\u00ed.",
+                    "name": "Alternat\u00edvne"
+                },
+                "command": {
+                    "description": "Jeden pr\u00edkaz alebo zoznam pr\u00edkazov, ktor\u00e9 sa treba nau\u010di\u0165.",
+                    "name": "Pr\u00edkaz"
+                },
+                "command_type": {
+                    "description": "Typ pr\u00edkazu, ktor\u00fd sa m\u00e1 nau\u010di\u0165.",
+                    "name": "Typ pr\u00edkazu"
+                },
+                "device": {
+                    "description": "ID zariadenia, z ktor\u00e9ho sa m\u00e1 pr\u00edkaz nau\u010di\u0165.",
+                    "name": "Zariadenie"
+                },
+                "timeout": {
+                    "description": "\u010casov\u00fd limit na nau\u010denie pr\u00edkazu.",
+                    "name": "\u010casov\u00fd limit"
+                }
+            },
+            "name": "Nau\u010dte sa pr\u00edkaz"
+        },
+        "send_command": {
+            "description": "Odo\u0161le pr\u00edkaz alebo zoznam pr\u00edkazov do zariadenia.",
+            "fields": {
+                "command": {
+                    "description": "Jeden pr\u00edkaz alebo zoznam pr\u00edkazov na odoslanie.",
+                    "name": "Pr\u00edkaz"
+                },
+                "delay_secs": {
+                    "description": "\u010cas, ktor\u00fd chcete \u010daka\u0165 medzi opakovan\u00fdmi pr\u00edkazmi.",
+                    "name": "Oneskorenie v sekund\u00e1ch"
+                },
+                "device": {
+                    "description": "ID zariadenia, ktor\u00e9mu sa m\u00e1 posla\u0165 pr\u00edkaz.",
+                    "name": "Zariadenie"
+                },
+                "hold_secs": {
+                    "description": "\u010cas, ktor\u00fd chcete, aby sa pred uvo\u013enen\u00edm odoslala.",
+                    "name": "Podr\u017ete sekundy"
+                },
+                "num_repeats": {
+                    "description": "Po\u010det opakovan\u00ed pr\u00edkazov.",
+                    "name": "Opakovania"
+                }
+            },
+            "name": "Odosla\u0165 pr\u00edkaz"
+        },
+        "toggle": {
+            "description": "Zapnutie/vypnutie zariadenia.",
+            "name": "Prepn\u00fa\u0165"
+        },
+        "turn_off": {
+            "description": "Vypne zariadenie.",
+            "name": "Vypn\u00fa\u0165"
+        },
+        "turn_on": {
+            "description": "Vy\u0161le pr\u00edkaz na zapnutie.",
+            "fields": {
+                "activity": {
+                    "description": "ID aktivity alebo n\u00e1zov aktivity, ktor\u00e1 sa m\u00e1 spusti\u0165.",
+                    "name": "Aktivita"
+                }
+            },
+            "name": "Zapn\u00fa\u0165"
+        }
+    },
+    "title": "Dia\u013ekov\u00e9 ovl\u00e1danie"
+}

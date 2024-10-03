@@ -1,0 +1,70 @@
+{
+    "services": {
+        "power_on": {
+            "description": "Schalte alle Ger\u00e4te ein, die dies unterst\u00fctzen.",
+            "name": "Einschalten"
+        },
+        "select_device": {
+            "description": "W\u00e4hle ein HDMI-Ger\u00e4t aus.",
+            "fields": {
+                "device": {
+                    "description": "Adresse des auszuw\u00e4hlenden Ger\u00e4ts. Kann eine entity_id, eine physische Adresse oder ein Alias aus der Konfiguration sein.",
+                    "name": "Ger\u00e4t"
+                }
+            },
+            "name": "Ger\u00e4t w\u00e4hlen"
+        },
+        "send_command": {
+            "description": "Sendet einen CEC-Befehl an einen HDMI-CEC-f\u00e4higen Adapter.",
+            "fields": {
+                "att": {
+                    "description": "Optionale Parameter.",
+                    "name": "Att"
+                },
+                "cmd": {
+                    "description": "Befehl selbst. K\u00f6nnte eine Dezimalzahl oder eine Zeichenfolge mit hexadeximaler Schreibweise sein: \u201e0x10\u201c.",
+                    "name": "Befehl"
+                },
+                "dst": {
+                    "description": "Ziel f\u00fcr Befehl. K\u00f6nnte eine Dezimalzahl oder eine Zeichenfolge mit hexadeximaler Schreibweise sein: \u201e0x10\u201c.",
+                    "name": "Ziel"
+                },
+                "raw": {
+                    "description": "Roher CEC-Befehl im Format \u201e00:00:00:00\u201c, wobei die ersten beiden Ziffern Quelle und Ziel sind, das zweite Byte der Befehl ist und optionale weitere Bytes Befehlsparameter sind. Wenn der Rohbefehl angegeben ist, werden andere Parameter ignoriert.",
+                    "name": "Roh"
+                },
+                "src": {
+                    "description": "Befehlsquelle. K\u00f6nnte eine Dezimalzahl oder eine Zeichenfolge mit hexadeximaler Schreibweise sein: \u201e0x10\u201c.",
+                    "name": "Quelle"
+                }
+            },
+            "name": "Befehl senden"
+        },
+        "standby": {
+            "description": "Alle Ger\u00e4te, die dies unterst\u00fctzen, in den Standby-Modus versetzen.",
+            "name": "Standby"
+        },
+        "update": {
+            "description": "Aktualisiert den Ger\u00e4testatus \u00fcber das Netzwerk.",
+            "name": "Aktualisieren"
+        },
+        "volume": {
+            "description": "Erh\u00f6ht oder verringert die Systemlautst\u00e4rke.",
+            "fields": {
+                "down": {
+                    "description": "Verringert die Lautst\u00e4rke um x Stufen.",
+                    "name": "Offline"
+                },
+                "mute": {
+                    "description": "Schaltet das Audiosystem stumm.",
+                    "name": "Stummschalten"
+                },
+                "up": {
+                    "description": "Erh\u00f6ht die Lautst\u00e4rke um x Stufen.",
+                    "name": "Online"
+                }
+            },
+            "name": "Lautst\u00e4rke"
+        }
+    }
+}

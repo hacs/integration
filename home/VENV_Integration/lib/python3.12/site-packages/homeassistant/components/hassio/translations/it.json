@@ -1,0 +1,383 @@
+{
+    "entity": {
+        "binary_sensor": {
+            "state": {
+                "name": "In esecuzione"
+            }
+        },
+        "sensor": {
+            "agent_version": {
+                "name": "Versione dell'agente del sistema operativo"
+            },
+            "apparmor_version": {
+                "name": "Versione Apparmor"
+            },
+            "cpu_percent": {
+                "name": "Percentuale CPU"
+            },
+            "disk_free": {
+                "name": "Disco libero"
+            },
+            "disk_total": {
+                "name": "Disco totale"
+            },
+            "disk_used": {
+                "name": "Disco utilizzato"
+            },
+            "memory_percent": {
+                "name": "Percentuale di memoria"
+            },
+            "version": {
+                "name": "Versione"
+            },
+            "version_latest": {
+                "name": "Versione pi\u00f9 recente"
+            }
+        }
+    },
+    "issues": {
+        "issue_mount_mount_failed": {
+            "fix_flow": {
+                "abort": {
+                    "apply_suggestion_fail": "Impossibile applicare la correzione. Controlla i registri del Supervisor per maggiori dettagli."
+                },
+                "step": {
+                    "fix_menu": {
+                        "description": "Impossibile connettersi a `{reference}`. Controllare i registri host per errori dal servizio di montaggio per ulteriori dettagli. \n\nUsa Ricarica per provare a connetterti di nuovo. Se hai bisogno di aggiornare `{reference}`, vai a [storage]({storage_url}).",
+                        "menu_options": {
+                            "mount_execute_reload": "Ricarica",
+                            "mount_execute_remove": "Rimuovi"
+                        }
+                    }
+                }
+            },
+            "title": "Dispositivo di archiviazione di rete non funzionante"
+        },
+        "issue_system_docker_config": {
+            "fix_flow": {
+                "abort": {
+                    "apply_suggestion_fail": "Uno o pi\u00f9 riavvii non sono riusciti. Controlla i registri del Supervisor per maggiori dettagli."
+                },
+                "step": {
+                    "system_execute_rebuild": {
+                        "description": "La configurazione predefinita per i componenti aggiuntivi e Home Assistant \u00e8 stata modificata. Per aggiornare la configurazione con le nuove impostazioni predefinite, \u00e8 necessario un riavvio per quanto segue: \n\n - {components}"
+                    }
+                }
+            },
+            "title": "Riavvio richiesto"
+        },
+        "issue_system_multiple_data_disks": {
+            "fix_flow": {
+                "abort": {
+                    "apply_suggestion_fail": "Impossibile rinominare il filesystem. Controlla i registri del Supervisor per maggiori dettagli."
+                },
+                "step": {
+                    "fix_menu": {
+                        "description": "`{reference}` \u00e8 un filesystem con il nome hassos-data e non \u00e8 il disco dati attivo. Questo pu\u00f2 far s\u00ec che Home Assistant scelga il disco dati sbagliato al riavvio del sistema.\n\nUsare l'opzione 'Rinomina' per rinominare il filesystem per evitare questo problema. Usare l'opzione \"Adotta\" per renderlo il tuo disco dati e rinominare quello esistente. In alternativa, \u00e8 possibile spostare il disco dati nell'unit\u00e0 (sovrascrivendone il suo contenuto) o rimuovere l'unit\u00e0 dal sistema.",
+                        "menu_options": {
+                            "system_adopt_data_disk": "Utilizza il disco dati rilevato anzich\u00e9 il sistema corrente",
+                            "system_rename_data_disk": "Contrassegna come disco dati inattivo (rinomina il file system)"
+                        }
+                    },
+                    "system_rename_data_disk": {
+                        "description": "`{reference}` \u00e8 un filesystem con il nome hassos-data e non \u00e8 il disco dati attivo. Ci\u00f2 pu\u00f2 far s\u00ec che Home Assistant scelga il disco dati errato al riavvio del sistema. \n\nUtilizzare l'opzione di correzione per rinominare il filesystem per evitare che ci\u00f2 accada. In alternativa \u00e8 possibile spostare il disco dati nell'unit\u00e0 (sovrascrivendone il contenuto) o rimuovere l'unit\u00e0 dal sistema."
+                    }
+                }
+            },
+            "title": "Rilevati pi\u00f9 dischi dati"
+        },
+        "issue_system_reboot_required": {
+            "fix_flow": {
+                "abort": {
+                    "apply_suggestion_fail": "Impossibile riavviare il sistema. Controlla i registri del Supervisor per maggiori dettagli."
+                },
+                "step": {
+                    "system_execute_reboot": {
+                        "description": "Sono state modificate impostazioni che richiedono un riavvio del sistema per avere effetto. \n\nQuesta correzione provocher\u00e0 un riavvio del sistema che render\u00e0 inaccessibili Home Assistant e tutti i componenti aggiuntivi per un breve periodo."
+                    }
+                }
+            },
+            "title": "Riavvio richiesto"
+        },
+        "unhealthy": {
+            "description": "Il sistema non \u00e8 attualmente integro a causa di {reason}. Usa il collegamento per saperne di pi\u00f9 e come risolvere il problema.",
+            "title": "Sistema non pi\u00f9 integro - {reason}"
+        },
+        "unhealthy_docker": {
+            "description": "Il sistema non \u00e8 attualmente integro perch\u00e9 Docker \u00e8 configurato in modo errato. Usa il link per saperne di pi\u00f9 e come risolvere questo problema.",
+            "title": "Sistema non integro - Docker configurato in modo errato"
+        },
+        "unhealthy_privileged": {
+            "description": "Il sistema non \u00e8 attualmente integro perch\u00e9 non ha accesso privilegiato al runtime docker. Usa il link per saperne di pi\u00f9 e come risolvere questo problema.",
+            "title": "Sistema non integro - Non privilegiato"
+        },
+        "unhealthy_setup": {
+            "description": "Il sistema non \u00e8 attualmente integro perch\u00e9 l'installazione non \u00e8 stata completata. Ci sono una serie di ragioni per cui ci\u00f2 pu\u00f2 verificarsi, usa il link per saperne di pi\u00f9 e come risolverlo.",
+            "title": "Sistema non integro - Installazione non riuscita"
+        },
+        "unhealthy_supervisor": {
+            "description": "Il sistema non \u00e8 attualmente integro perch\u00e9 un tentativo di aggiornare Supervisor all'ultima versione non \u00e8 riuscito. Utilizza il collegamento per saperne di pi\u00f9 e come risolvere questo problema.",
+            "title": "Sistema non integro - Aggiornamento del Supervisor non riuscito"
+        },
+        "unhealthy_untrusted": {
+            "description": "Il sistema non \u00e8 attualmente integro perch\u00e9 ha rilevato codice o immagini in uso non attendibili. Utilizza il collegamento per saperne di pi\u00f9 e come risolvere questo problema.",
+            "title": "Sistema non integro - Codice non attendibile"
+        },
+        "unsupported": {
+            "description": "Il sistema non \u00e8 supportato a causa di {reason}. Utilizzare il collegamento per ulteriori informazioni sul significato e su come tornare a un sistema supportato.",
+            "title": "Sistema non supportato - {reason}"
+        },
+        "unsupported_apparmor": {
+            "description": "Il sistema non \u00e8 supportato perch\u00e9 AppArmor non funziona correttamente e i componenti aggiuntivi sono eseguiti in modo non protetto e non sicuro. Utilizza il collegamento per saperne di pi\u00f9 e per capire come risolvere il problema.",
+            "title": "Sistema non supportato - Problemi con AppArmor"
+        },
+        "unsupported_cgroup_version": {
+            "description": "Il sistema non \u00e8 supportato perch\u00e9 \u00e8 in uso una versione errata di Docker CGroup. Utilizza il collegamento per conoscere la versione corretta e come risolvere il problema.",
+            "title": "Sistema non supportato - Versione di CGroup"
+        },
+        "unsupported_connectivity_check": {
+            "description": "Il sistema non \u00e8 supportato perch\u00e9 Home Assistant non \u00e8 in grado di determinare quando \u00e8 disponibile una connessione a Internet. Utilizza il collegamento per saperne di pi\u00f9 e per capire come risolvere il problema.",
+            "title": "Sistema non supportato - Controllo connettivit\u00e0 disabilitato"
+        },
+        "unsupported_content_trust": {
+            "description": "Il sistema non \u00e8 supportato perch\u00e9 Home Assistant non \u00e8 in grado di verificare che il contenuto in esecuzione sia attendibile e non modificato da malintenzionati. Utilizza il collegamento per saperne di pi\u00f9 e per capire come risolvere il problema.",
+            "title": "Sistema non supportato - Controllo dell'attendibilit\u00e0 del contenuto disabilitato"
+        },
+        "unsupported_dbus": {
+            "description": "Il sistema non \u00e8 supportato perch\u00e9 D-Bus non funziona correttamente. Molte cose non funzionano senza di esso perch\u00e9 il Supervisor non pu\u00f2 comunicare con l'host. Utilizza il collegamento per saperne di pi\u00f9 e per capire come risolvere il problema.",
+            "title": "Sistema non supportato - Problemi con D-Bus"
+        },
+        "unsupported_dns_server": {
+            "description": "Il sistema non \u00e8 supportato perch\u00e9 il server DNS fornito non funziona correttamente e l'opzione DNS di fallback \u00e8 stata disattivata. Utilizza il collegamento per saperne di pi\u00f9 e per capire come risolvere il problema.",
+            "title": "Sistema non supportato - Problemi con il server DNS"
+        },
+        "unsupported_docker_configuration": {
+            "description": "Il sistema non \u00e8 supportato perch\u00e9 il daemon Docker viene eseguito in modo imprevisto. Utilizza il collegamento per saperne di pi\u00f9 e per capire come risolvere il problema.",
+            "title": "Sistema non supportato - Docker configurato in modo errato"
+        },
+        "unsupported_docker_version": {
+            "description": "Il sistema non \u00e8 supportato perch\u00e9 \u00e8 in uso una versione errata di Docker. Utilizza il collegamento per conoscere la versione corretta e come risolvere il problema.",
+            "title": "Sistema non supportato - Versione Docker"
+        },
+        "unsupported_job_conditions": {
+            "description": "Il sistema non \u00e8 supportato perch\u00e9 sono state disattivate una o pi\u00f9 condizioni di lavoro che proteggono da guasti e rotture impreviste. Utilizza il collegamento per saperne di pi\u00f9 e per capire come risolvere il problema.",
+            "title": "Sistema non supportato - Protezioni disabilitate"
+        },
+        "unsupported_lxc": {
+            "description": "Il sistema non \u00e8 supportato perch\u00e9 viene eseguito in una macchina virtuale LXC. Utilizza il link per saperne di pi\u00f9 e per capire come risolvere il problema.",
+            "title": "Sistema non supportato - rilevato LXC"
+        },
+        "unsupported_network_manager": {
+            "description": "Il sistema non \u00e8 supportato perch\u00e9 Network Manager \u00e8 mancante, inattivo o mal configurato. Utilizza il link per saperne di pi\u00f9 e per capire come risolvere il problema.",
+            "title": "Sistema non supportato - Problemi con Network Manager"
+        },
+        "unsupported_os": {
+            "description": "Il sistema non \u00e8 supportato perch\u00e9 il sistema operativo in uso non \u00e8 stato testato o mantenuto per l'uso con Supervisor. Utilizza il link per sapere quali sistemi operativi sono supportati e come risolvere il problema.",
+            "title": "Sistema non supportato - Sistema operativo"
+        },
+        "unsupported_os_agent": {
+            "description": "Il sistema non \u00e8 supportato perch\u00e9 OS-Agent \u00e8 mancante, inattivo o mal configurato. Utilizza il link per saperne di pi\u00f9 e per capire come risolvere il problema.",
+            "title": "Sistema non supportato - Problemi con OS-Agent"
+        },
+        "unsupported_restart_policy": {
+            "description": "Il sistema non \u00e8 supportato perch\u00e9 un container Docker ha impostato un criterio di riavvio che potrebbe causare problemi all'avvio. Utilizza il link per saperne di pi\u00f9 e per capire come risolvere il problema.",
+            "title": "Sistema non supportato - Criterio di riavvio del Container"
+        },
+        "unsupported_software": {
+            "description": "Il sistema non \u00e8 supportato perch\u00e9 \u00e8 stato rilevato un software aggiuntivo esterno all'ecosistema Home Assistant. Utilizza il link per saperne di pi\u00f9 e per capire come risolvere il problema.",
+            "title": "Sistema non supportato - Software non supportato"
+        },
+        "unsupported_source_mods": {
+            "description": "Il sistema non \u00e8 supportato perch\u00e9 il codice sorgente del Supervisor \u00e8 stato modificato. Utilizza il link per saperne di pi\u00f9 e per capire come risolvere il problema.",
+            "title": "Sistema non supportato - Modifiche al codice sorgente del Supervisor"
+        },
+        "unsupported_supervisor_version": {
+            "description": "Il sistema non \u00e8 supportato perch\u00e9 \u00e8 in uso una versione non aggiornata del Supervisor e l'aggiornamento automatico \u00e8 stato disabilitato. Utilizza il link per saperne di pi\u00f9 e per capire come risolvere il problema.",
+            "title": "Sistema non supportato - Versione Supervisor"
+        },
+        "unsupported_systemd": {
+            "description": "Il sistema non \u00e8 supportato perch\u00e9 Systemd \u00e8 mancante, inattivo o mal configurato. Utilizza il link per saperne di pi\u00f9 e per capire come risolvere il problema.",
+            "title": "Sistema non supportato - Problemi con Systemd"
+        },
+        "unsupported_systemd_journal": {
+            "description": "Il sistema non \u00e8 supportato perch\u00e9 Systemd Journal e/o il servizio gateway sono mancanti, inattivi o mal configurati. Utilizza il link per saperne di pi\u00f9 e per capire come risolvere il problema.",
+            "title": "Sistema non supportato - Problemi con Systemd Journal"
+        },
+        "unsupported_systemd_resolved": {
+            "description": "Il sistema non \u00e8 supportato perch\u00e9 Systemd Resolved \u00e8 mancante, inattivo o mal configurato. Utilizza il link per saperne di pi\u00f9 e per capire come risolvere il problema.",
+            "title": "Sistema non supportato - Problemi con Systemd Resolved"
+        }
+    },
+    "services": {
+        "addon_restart": {
+            "description": "Riavvia un componente aggiuntivo.",
+            "fields": {
+                "addon": {
+                    "description": "Lo slug del componente aggiuntivo.",
+                    "name": "Componente aggiuntivo"
+                }
+            },
+            "name": "Riavvia il componente aggiuntivo."
+        },
+        "addon_start": {
+            "description": "Avvia un componente aggiuntivo.",
+            "fields": {
+                "addon": {
+                    "description": "Lo slug del componente aggiuntivo.",
+                    "name": "Componente aggiuntivo"
+                }
+            },
+            "name": "Avvia il componente aggiuntivo"
+        },
+        "addon_stdin": {
+            "description": "Scrive i dati sullo stdin del componente aggiuntivo.",
+            "fields": {
+                "addon": {
+                    "description": "Lo slug del componente aggiuntivo.",
+                    "name": "Componente aggiuntivo"
+                }
+            },
+            "name": "Scrivi i dati sullo stdin del componente aggiuntivo."
+        },
+        "addon_stop": {
+            "description": "Arresta un componente aggiuntivo.",
+            "fields": {
+                "addon": {
+                    "description": "Lo slug del componente aggiuntivo.",
+                    "name": "Componente aggiuntivo"
+                }
+            },
+            "name": "Arresta il componente aggiuntivo."
+        },
+        "addon_update": {
+            "fields": {
+                "addon": {
+                    "description": "Lo slug del componente aggiuntivo.",
+                    "name": "Componente aggiuntivo"
+                }
+            },
+            "name": "Aggiorna componente aggiuntivo."
+        },
+        "backup_full": {
+            "description": "Crea un backup completo.",
+            "fields": {
+                "compressed": {
+                    "description": "Comprime i file di backup.",
+                    "name": "Compresso"
+                },
+                "homeassistant_exclude_database": {
+                    "description": "Escludere il file del database di Home Assistant dal backup",
+                    "name": "Database di esclusione di Home Assistant"
+                },
+                "location": {
+                    "description": "Nome di un archivio di rete di backup per ospitare i backup.",
+                    "name": "Posizione"
+                },
+                "name": {
+                    "description": "Facoltativo (predefinito = data e ora correnti).",
+                    "name": "Nome"
+                },
+                "password": {
+                    "description": "Password con cui proteggere il backup.",
+                    "name": "Password"
+                }
+            },
+            "name": "Crea un backup completo."
+        },
+        "backup_partial": {
+            "description": "Crea un backup parziale.",
+            "fields": {
+                "addons": {
+                    "description": "Elenco dei componenti aggiuntivi da includere nel backup. Usa il nome slug del componente aggiuntivo.",
+                    "name": "Componenti aggiuntivi"
+                },
+                "compressed": {
+                    "description": "Comprime i file di backup.",
+                    "name": "Compresso"
+                },
+                "folders": {
+                    "description": "Elenco delle cartelle da includere nel backup.",
+                    "name": "Cartelle"
+                },
+                "homeassistant": {
+                    "description": "Include le impostazioni di Home Assistant nel backup.",
+                    "name": "Impostazioni di Home Assistant"
+                },
+                "homeassistant_exclude_database": {
+                    "description": "Escludere il file del database di Home Assistant dal backup",
+                    "name": "Database di esclusione di Home Assistant"
+                },
+                "location": {
+                    "description": "Nome di un archivio di rete di backup per ospitare i backup.",
+                    "name": "Posizione"
+                },
+                "name": {
+                    "description": "Facoltativo (predefinito = data e ora correnti).",
+                    "name": "Nome"
+                },
+                "password": {
+                    "description": "Password con cui proteggere il backup.",
+                    "name": "Password"
+                }
+            },
+            "name": "Crea un backup parziale."
+        },
+        "host_reboot": {
+            "description": "Riavvia il sistema host.",
+            "name": "Riavvia il sistema host."
+        },
+        "host_shutdown": {
+            "description": "Spegne il sistema host.",
+            "name": "Spegni il sistema host."
+        },
+        "restore_full": {
+            "description": "Ripristina dal backup completo.",
+            "fields": {
+                "password": {
+                    "description": "Password facoltativa.",
+                    "name": "Password"
+                },
+                "slug": {
+                    "description": "Slug di backup da cui eseguire il ripristino.",
+                    "name": "Slug"
+                }
+            },
+            "name": "Ripristina dal backup completo."
+        },
+        "restore_partial": {
+            "description": "Ripristina da un backup parziale.",
+            "fields": {
+                "addons": {
+                    "description": "Elenco dei componenti aggiuntivi da includere nel backup. Usa il nome slug del componente aggiuntivo.",
+                    "name": "Componenti aggiuntivi"
+                },
+                "folders": {
+                    "description": "Elenco delle cartelle da includere nel backup.",
+                    "name": "Cartelle"
+                },
+                "homeassistant": {
+                    "description": "Ripristina Home Assistant.",
+                    "name": "Impostazioni di Home Assistant"
+                },
+                "password": {
+                    "description": "Password facoltativa.",
+                    "name": "Password"
+                },
+                "slug": {
+                    "description": "Slug di backup da cui eseguire il ripristino.",
+                    "name": "Slug"
+                }
+            },
+            "name": "Ripristina da backup parziale."
+        }
+    },
+    "system_health": {
+        "info": {
+            "board": "Scheda di base",
+            "healthy": "Integrit\u00e0",
+            "supervisor_api": "API Supervisor",
+            "supported": "Supportato",
+            "version_api": "Versione API"
+        }
+    }
+}

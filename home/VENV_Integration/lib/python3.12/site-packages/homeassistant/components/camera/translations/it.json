@@ -1,0 +1,104 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "Telecamera",
+            "state": {
+                "idle": "Inattivo",
+                "recording": "In registrazione",
+                "streaming": "In trasmissione"
+            },
+            "state_attributes": {
+                "access_token": {
+                    "name": "Token di accesso"
+                },
+                "brand": {
+                    "name": "Marca"
+                },
+                "frontend_stream_type": {
+                    "name": "Tipo di flusso",
+                    "state": {
+                        "hls": "HLS",
+                        "webrtc": "WebRTC"
+                    }
+                },
+                "model_name": {
+                    "name": "Modello"
+                },
+                "motion_detection": {
+                    "name": "Rilevamento del movimento",
+                    "state": {
+                        "false": "Disabilitato",
+                        "true": "Abilitato"
+                    }
+                }
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "La piattaforma {platform} per l'integrazione {domain} non supporta l'impostazione della piattaforma. \n\nRimuovilo dalla configurazione e riavvia Home Assistant per risolvere questo problema.",
+            "title": "Supporto della piattaforma non supportato"
+        }
+    },
+    "services": {
+        "disable_motion_detection": {
+            "description": "Disabilita il rilevamento del movimento.",
+            "name": "Disabilita il rilevamento del movimento"
+        },
+        "enable_motion_detection": {
+            "description": "Abilita il rilevamento del movimento.",
+            "name": "Abilita il rilevamento del movimento"
+        },
+        "play_stream": {
+            "description": "Riproduce il flusso della videocamera su un lettore multimediale supportato.",
+            "fields": {
+                "format": {
+                    "description": "Formato di streaming supportato dal lettore multimediale.",
+                    "name": "Formato"
+                },
+                "media_player": {
+                    "description": "Lettori multimediali su cui eseguire lo streaming.",
+                    "name": "Lettore multimediale"
+                }
+            },
+            "name": "Riproduci stream"
+        },
+        "record": {
+            "description": "Registra un feed video in diretta.",
+            "fields": {
+                "duration": {
+                    "description": "Durata pianificata della registrazione. La durata effettiva pu\u00f2 variare.",
+                    "name": "Durata"
+                },
+                "filename": {
+                    "description": "Modello di un nome file. La variabile disponibile \u00e8 `entity_id`. Deve essere mp4.",
+                    "name": "Nome del file"
+                },
+                "lookback": {
+                    "description": "Periodo di ricerca pianificato da includere nella registrazione (oltre alla durata). Disponibile solo se al momento \u00e8 presente un flusso HLS attivo. La durata effettiva del periodo di ricerca pu\u00f2 variare.",
+                    "name": "Retrospettiva"
+                }
+            },
+            "name": "Registrazione"
+        },
+        "snapshot": {
+            "description": "Scatta un'istantanea da una fotocamera.",
+            "fields": {
+                "filename": {
+                    "description": "Modello di un nome file. La variabile disponibile \u00e8 `entity_id`.",
+                    "name": "Nome del file"
+                }
+            },
+            "name": "Scatta un'istantanea"
+        },
+        "turn_off": {
+            "description": "Spegne la fotocamera.",
+            "name": "Spegni"
+        },
+        "turn_on": {
+            "description": "Accende la fotocamera.",
+            "name": "Accendi"
+        }
+    },
+    "title": "Telecamera"
+}

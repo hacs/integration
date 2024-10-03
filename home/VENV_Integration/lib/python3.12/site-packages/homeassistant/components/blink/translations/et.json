@@ -1,0 +1,191 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Seade on juba h\u00e4\u00e4lestatud"
+        },
+        "error": {
+            "cannot_connect": "\u00dchendamine nurjus",
+            "invalid_access_token": "Vigane juurdep\u00e4\u00e4sut\u00f5end",
+            "invalid_auth": "Tuvastamine nurjus",
+            "unknown": "Tundmatu viga"
+        },
+        "step": {
+            "2fa": {
+                "data": {
+                    "2fa": "2FA kood"
+                },
+                "description": "Sisesta e-kirja v\u00f5i SMS-iga saadetud PIN kood",
+                "title": "Kaheastmeline tuvastamine (2FA)"
+            },
+            "user": {
+                "data": {
+                    "password": "Salas\u00f5na",
+                    "username": "Kasutajanimi"
+                },
+                "title": "Logi sisse Blinki kontoga"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "camera_armed": {
+                "name": "Kaamera valvab"
+            }
+        },
+        "sensor": {
+            "wifi_rssi": {
+                "name": "Wi-Fi RSSI"
+            },
+            "wifi_strength": {
+                "name": "Wi-Fi signaali tugevus"
+            }
+        },
+        "switch": {
+            "camera_motion": {
+                "name": "Kaamera liikumistuvastus"
+            }
+        }
+    },
+    "exceptions": {
+        "cant_write": {
+            "message": "Faili ei saa kirjutada"
+        },
+        "device_not_found": {
+            "message": "Seadet '{target}' ei leitud seadmete registris"
+        },
+        "failed_arm": {
+            "message": "Blink ei suutnud kaamerat valvestada."
+        },
+        "failed_arm_motion": {
+            "message": "Blink ei suutnud kaamera liikumistuvastust aktiveerida."
+        },
+        "failed_clip": {
+            "message": "Blink ei suutnud klippi salvestada."
+        },
+        "failed_disarm": {
+            "message": "Blink ei suutnud kaamerat valvamast eemaldada."
+        },
+        "failed_disarm_motion": {
+            "message": "Blink ei suutnud kaamera liikumistuvastust deaktiveerida."
+        },
+        "failed_snap": {
+            "message": "Blink ei suutnud pilti teha."
+        },
+        "integration_not_found": {
+            "message": "Sidumist \"{target}\" ei leitud registrist"
+        },
+        "invalid_device": {
+            "message": "Seade '{target}' ei ole domeeni {domain} seade"
+        },
+        "no_path": {
+            "message": "Kausta {target} ei saa kirjutada, rajale pole juurdep\u00e4\u00e4su!"
+        },
+        "not_loaded": {
+            "message": "{target} pole laaditud"
+        }
+    },
+    "issues": {
+        "service_deprecation": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Blinki v\u00e4rskendusteenus on aegunud ja see eemaldatakse.\n V\u00e4rskenda oma automatiseeringuid ja skripte, et kasutada funktsiooni \"Home Assistant Core Integration: Update entity\".",
+                        "title": "Blinki v\u00e4rskendusteenus eemaldatakse"
+                    }
+                }
+            },
+            "title": "Blinki v\u00e4rskendusteenus eemaldatakse"
+        }
+    },
+    "options": {
+        "step": {
+            "simple_options": {
+                "data": {
+                    "scan_interval": "P\u00e4ringute intervall (sekundites)"
+                },
+                "description": "Seadista Blink'i sidumine",
+                "title": "Blink'i valikud"
+            }
+        }
+    },
+    "services": {
+        "blink_update": {
+            "description": "Sunnib v\u00e4rskendama.",
+            "fields": {
+                "device_id": {
+                    "description": "Blink seadme ID.",
+                    "name": "Seadme ID"
+                }
+            },
+            "name": "V\u00e4rskenda"
+        },
+        "record": {
+            "description": "Taotleb kaamera klipi salvestamist.",
+            "name": "Salvesta"
+        },
+        "save_recent_clips": {
+            "description": "Salvestab k\u00f5ik hiljutised videoklipid kohalikku kataloogi failimustriga \" %Y% m %d_% H %M% S_ [kaamera_nimi] .mp4\".",
+            "fields": {
+                "device_id": {
+                    "description": "Blink seadme ID.",
+                    "name": "Seadme ID"
+                },
+                "file_path": {
+                    "description": "Kirjutatava raja kausta nimi (kaust v\u00f5ib vajada lisamist konfiguratsioonis  list_external_dirs).",
+                    "name": "V\u00e4ljundkaust"
+                },
+                "name": {
+                    "description": "Kaamera nimi millest hiljutisi klippe v\u00f5tta.",
+                    "name": "Nimi"
+                }
+            },
+            "name": "Salvesta hiljutised klipid"
+        },
+        "save_video": {
+            "description": "Salvestab viimati salvestatud videoklipi kohalikku faili.",
+            "fields": {
+                "device_id": {
+                    "description": "Blink seadme ID.",
+                    "name": "Seadme ID"
+                },
+                "filename": {
+                    "description": "Failinimi kirjutatava tee juurde (kataloog v\u00f5ib vajada konfiguratsioonis lubatud list_external_dirs).",
+                    "name": "Faili nimi"
+                },
+                "name": {
+                    "description": "Kaamera nimi millega videot j\u00e4\u00e4dvustada.",
+                    "name": "Nimi"
+                }
+            },
+            "name": "Salvesta video"
+        },
+        "send_pin": {
+            "description": "Saadab 2FA jaoks uue PIN-koodi Blinkile.",
+            "fields": {
+                "config_entry_id": {
+                    "description": "Blinki sidumise ID.",
+                    "name": "Sidumise ID"
+                },
+                "device_id": {
+                    "description": "Blink seadme ID.",
+                    "name": "Seadme ID"
+                },
+                "pin": {
+                    "description": "Blinkilt saadud PIN-kood. J\u00e4tat\u00fchjaks kui said ainult kinnitusmeili.",
+                    "name": "PIN kood"
+                }
+            },
+            "name": "Saada PIN-kood"
+        },
+        "trigger_camera": {
+            "description": "N\u00f5uab kaameralt uue pildi tegemist.",
+            "fields": {
+                "device_id": {
+                    "description": "Blink seadme ID.",
+                    "name": "Seadme ID"
+                }
+            },
+            "name": "K\u00e4ivita kaamera"
+        }
+    }
+}

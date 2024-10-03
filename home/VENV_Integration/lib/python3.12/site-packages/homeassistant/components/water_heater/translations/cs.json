@@ -1,0 +1,107 @@
+{
+    "device_automation": {
+        "action_type": {
+            "turn_off": "Vypnout {entity_name}",
+            "turn_on": "Zapnout {entity_name}"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Oh\u0159\u00edva\u010d vody",
+            "state": {
+                "eco": "ECO",
+                "electric": "Elektrika",
+                "gas": "Plyn",
+                "heat_pump": "Tepeln\u00e9 \u010derpadlo",
+                "high_demand": "Vysok\u00e1 popt\u00e1vka",
+                "off": "Vypnuto",
+                "performance": "V\u00fdkon"
+            },
+            "state_attributes": {
+                "away_mode": {
+                    "name": "Re\u017eim Pry\u010d",
+                    "state": {
+                        "off": "Vypnuto",
+                        "on": "Zapnuto"
+                    }
+                },
+                "current_operation": {
+                    "name": "Aktu\u00e1ln\u00ed provoz"
+                },
+                "current_temperature": {
+                    "name": "Aktu\u00e1ln\u00ed teplota"
+                },
+                "max_temp": {
+                    "name": "Maxim\u00e1ln\u00ed c\u00edlov\u00e1 teplota"
+                },
+                "min_temp": {
+                    "name": "Minim\u00e1ln\u00ed c\u00edlov\u00e1 teplota"
+                },
+                "target_temp_high": {
+                    "name": "Horn\u00ed c\u00edlov\u00e1 teplota"
+                },
+                "target_temp_low": {
+                    "name": "Spodn\u00ed c\u00edlov\u00e1 teplota"
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "not_valid_operation_mode": {
+            "message": "Provozn\u00ed re\u017eim {operation_mode} nen\u00ed platn\u00fd pro {entity_id}. Platn\u00e9 provozn\u00ed re\u017eimy jsou: {operation_list}."
+        },
+        "operation_list_not_defined": {
+            "message": "Provozn\u00ed re\u017eim {operation_mode} nen\u00ed platn\u00fd pro {entity_id}. Seznam operac\u00ed nen\u00ed definov\u00e1n."
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "Platforma {platform} pro integraci {domain} nepodporuje nastaven\u00ed platformy.\n\nOdeberte ji z nastaven\u00ed a restartujte Home Assistanta, abyste tento probl\u00e9m vy\u0159e\u0161ili.",
+            "title": "Podpora platformy nen\u00ed podporov\u00e1na"
+        }
+    },
+    "services": {
+        "set_away_mode": {
+            "description": "Zapne/Vypne re\u017eim Pry\u010d.",
+            "fields": {
+                "away_mode": {
+                    "description": "Nov\u00e1 hodnota re\u017eimu Pry\u010d.",
+                    "name": "Re\u017eim Pry\u010d"
+                }
+            },
+            "name": "Nastavit re\u017eim Pry\u010d"
+        },
+        "set_operation_mode": {
+            "description": "Nastav\u00ed provozn\u00ed re\u017eim.",
+            "fields": {
+                "operation_mode": {
+                    "description": "Nov\u00e1 hodnota provozn\u00edho re\u017eimu. Seznam mo\u017en\u00fdch re\u017eim\u016f naleznete v dokumentaci k integraci.",
+                    "name": "Provozn\u00ed re\u017eim"
+                }
+            },
+            "name": "Nastavit provozn\u00ed re\u017eim"
+        },
+        "set_temperature": {
+            "description": "Nastav\u00ed c\u00edlovou teplotu.",
+            "fields": {
+                "operation_mode": {
+                    "description": "Nov\u00e1 hodnota provozn\u00edho re\u017eimu. Seznam mo\u017en\u00fdch re\u017eim\u016f naleznete v dokumentaci k integraci.",
+                    "name": "Provozn\u00ed re\u017eim"
+                },
+                "temperature": {
+                    "description": "Nov\u00e1 c\u00edlov\u00e1 teplota pro oh\u0159\u00edva\u010d vody.",
+                    "name": "Teplota"
+                }
+            },
+            "name": "Nastavit teplotu"
+        },
+        "turn_off": {
+            "description": "Vypne oh\u0159\u00edva\u010d vody.",
+            "name": "Vypnout"
+        },
+        "turn_on": {
+            "description": "Zapne oh\u0159\u00edva\u010d vody.",
+            "name": "Zapnout"
+        }
+    }
+}

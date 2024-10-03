@@ -1,0 +1,150 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Apparaat is al geconfigureerd",
+            "ipv6_not_supported": "IPv6 wordt niet ondersteund.",
+            "reauth_successful": "Herauthenticatie geslaagd",
+            "reauth_unsuccessful": "Herauthenticatie mislukt. Verwijder de integratie en stel deze opnieuw in.",
+            "reconfigure_successful": "Herconfiguratie was succesvol",
+            "unsupported_firmware": "Het apparaat gebruikt een niet-ondersteunde firmwareversie."
+        },
+        "error": {
+            "cannot_connect": "Kan geen verbinding maken",
+            "firmware_not_fully_provisioned": "Apparaat kon niet ingesteld worden. Neem contact op met de Shelly klantenservice",
+            "invalid_auth": "Ongeldige authenticatie",
+            "unknown": "Onverwachte fout"
+        },
+        "flow_title": "{name}",
+        "step": {
+            "confirm_discovery": {
+                "description": "Wil je de {model} op {host} instellen?\n\nApparaten op batterijen die beveiligd zijn met een wachtwoord moeten worden gewekt voordat je verder kunt gaan met instellen.\nApparaten op batterijen die niet met een wachtwoord zijn beveiligd, worden toegevoegd wanneer het apparaat ontwaakt. Je kunt het apparaat nu handmatig wekken met een knop op het apparaat of wachten op de volgende gegevensupdate van het apparaat."
+            },
+            "credentials": {
+                "data": {
+                    "password": "Wachtwoord",
+                    "username": "Gebruikersnaam"
+                }
+            },
+            "reauth_confirm": {
+                "data": {
+                    "password": "Wachtwoord",
+                    "username": "Gebruikersnaam"
+                }
+            },
+            "reconfigure_confirm": {
+                "data": {
+                    "host": "Host",
+                    "port": "Poort"
+                },
+                "data_description": {
+                    "host": "De hostnaam of IP-adres van je Shelly apparaat om mee te verbinden."
+                }
+            },
+            "user": {
+                "data": {
+                    "host": "Host",
+                    "port": "Poort"
+                },
+                "data_description": {
+                    "host": "De hostnaam of IP-adres van je Shelly apparaat om mee te verbinden."
+                },
+                "description": "Voor de installatie moeten apparaten die op batterijen werken worden gewekt. Je kunt het apparaat nu wekken met een knop op het apparaat."
+            }
+        }
+    },
+    "device_automation": {
+        "trigger_subtype": {
+            "button": "Knop",
+            "button1": "Eerste knop",
+            "button2": "Tweede knop",
+            "button3": "Derde knop",
+            "button4": "Vierde knop"
+        },
+        "trigger_type": {
+            "btn_down": "{subtype} knop omlaag",
+            "btn_up": "{subtype} knop omhoog",
+            "double": "{subtype} dubbel geklikt",
+            "double_push": "{subtype} dubbel gedrukt",
+            "long": "{subtype} lang geklikt",
+            "long_push": "{subtype} lang gedrukt",
+            "long_single": "{subtype} lang geklikt en daarna \u00e9\u00e9n keer geklikt",
+            "single": "{subtype} enkel geklikt",
+            "single_long": "{subtype} een keer geklikt en daarna lang geklikt",
+            "single_push": "{subtype} enkelvoudig gedrukt",
+            "triple": "{subtype} driemaal geklikt",
+            "triple_push": "{subtype} drievoudig gedrukt"
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "gas": {
+                "state_attributes": {
+                    "detected": {
+                        "state": {
+                            "heavy": "Zwaar",
+                            "none": "Geen",
+                            "test": "Test",
+                            "unknown": "Onbekend"
+                        }
+                    }
+                }
+            }
+        },
+        "sensor": {
+            "operation": {
+                "state": {
+                    "fault": "Fout",
+                    "unknown": "Onbekend"
+                },
+                "state_attributes": {
+                    "self_test": {
+                        "state": {
+                            "completed": "Voltooid",
+                            "not_completed": "Niet voltooid",
+                            "pending": "In behandeling",
+                            "running": "In uitvoering"
+                        }
+                    }
+                }
+            },
+            "valve_status": {
+                "state": {
+                    "closed": "Gesloten",
+                    "unknown": "Onbekend"
+                }
+            }
+        }
+    },
+    "issues": {
+        "device_not_calibrated": {
+            "description": "Shelly apparaat {device_name} met IP address {ip_address} vereist kalibratie. Om het apparaat te kalibreren, moet het worden herstart na een goed uitgevoerde plaatsing op de klep. Je kunt het apparaat herstarten vanuit het web panel van het apparaat, ga naar 'Settings' > 'Device Reboot'.",
+            "title": "Shelly apparaat {device_name} is niet gekalibreerd"
+        },
+        "push_update_failure": {
+            "description": "Home Assistant ontvangt geen push updates van Shelly apparaat {device_name} met IP adres {ip_address}. Controleer de CoIoT configuratie in the web paneel van het apparaat en je netwerkconfiguratie.",
+            "title": "Shelly apparaat {device_name} push update fout"
+        }
+    },
+    "options": {
+        "abort": {
+            "ble_unsupported": "Bluetooth ondersteuning vereist firmwareversie {ble_min_version} of later."
+        },
+        "step": {
+            "init": {
+                "data": {
+                    "ble_scanner_mode": "Bluetooth scannermodus"
+                },
+                "description": "Het scannen van Bluetooth kan actief of passief worden ingesteld. In de actieve modus zal Shelly de gegevens opvragen van apparaten van dichtbij. In de passieve modus zal Shelly ongevraagd gegevens van apparaten dichtbij opvragen."
+            }
+        }
+    },
+    "selector": {
+        "ble_scanner_mode": {
+            "options": {
+                "active": "Actief",
+                "disabled": "Uitgeschakeld",
+                "passive": "Passief"
+            }
+        }
+    }
+}

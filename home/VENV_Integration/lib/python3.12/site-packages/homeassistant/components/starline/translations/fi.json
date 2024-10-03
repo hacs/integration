@@ -1,0 +1,162 @@
+{
+    "config": {
+        "error": {
+            "error_auth_app": "Virheellinen sovellustunnus tai salaisuus",
+            "error_auth_mfa": "V\u00e4\u00e4r\u00e4 koodi",
+            "error_auth_user": "V\u00e4\u00e4r\u00e4 k\u00e4ytt\u00e4j\u00e4tunnus tai salasana"
+        },
+        "step": {
+            "auth_app": {
+                "data": {
+                    "app_id": "Sovelluksen tunnus",
+                    "app_secret": "Salaisuus"
+                },
+                "description": "Sovellustunnus ja salainen koodi [StarLine-kehitt\u00e4j\u00e4tililt\u00e4](https://my.starline.ru/developer)",
+                "title": "Sovelluksen tunnistetiedot"
+            },
+            "auth_captcha": {
+                "data": {
+                    "captcha_code": "Koodi kuvasta"
+                },
+                "description": "{captcha_img}",
+                "title": "Captcha"
+            },
+            "auth_mfa": {
+                "data": {
+                    "mfa_code": "SMS koodi"
+                },
+                "description": "Sy\u00f6t\u00e4 puhelimeen {phone_number} l\u00e4hetetty koodi",
+                "title": "Kaksivaiheinen todennus"
+            },
+            "auth_user": {
+                "data": {
+                    "password": "Salasana",
+                    "username": "K\u00e4ytt\u00e4j\u00e4tunnus"
+                },
+                "description": "StarLine -tilin s\u00e4hk\u00f6postiosoite ja salasana",
+                "title": "K\u00e4ytt\u00e4j\u00e4n tunnistetiedot"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "alarm": {
+                "name": "H\u00e4lytys"
+            },
+            "doors": {
+                "name": "Ovet"
+            },
+            "hand_brake": {
+                "name": "K\u00e4sijarru"
+            },
+            "handsfree": {
+                "name": "Handsfree"
+            },
+            "hood": {
+                "name": "Konepelti"
+            },
+            "moving_ban": {
+                "name": "Liikkumiskielto"
+            },
+            "neutral": {
+                "name": "Ohjelmoitava neutraali"
+            },
+            "trunk": {
+                "name": "Takaluukku"
+            }
+        },
+        "button": {
+            "horn": {
+                "name": "\u00c4\u00e4nitorvi"
+            }
+        },
+        "device_tracker": {
+            "location": {
+                "name": "Sijainti"
+            }
+        },
+        "lock": {
+            "security": {
+                "name": "Suojaus"
+            }
+        },
+        "sensor": {
+            "balance": {
+                "name": "Saldo"
+            },
+            "battery": {
+                "name": "Akku"
+            },
+            "engine_temperature": {
+                "name": "Moottorin l\u00e4mp\u00f6tila"
+            },
+            "errors": {
+                "name": "OBD-virheet"
+            },
+            "fuel": {
+                "name": "Polttoaineen m\u00e4\u00e4r\u00e4"
+            },
+            "gps_count": {
+                "name": "GPS-satelliitit"
+            },
+            "gsm_signal": {
+                "name": "GSM signaali"
+            },
+            "interior_temperature": {
+                "name": "Sis\u00e4l\u00e4mp\u00f6tila"
+            },
+            "mileage": {
+                "name": "Matkan pituus"
+            }
+        },
+        "switch": {
+            "additional_channel": {
+                "name": "Lis\u00e4kanava"
+            },
+            "engine": {
+                "name": "Moottori"
+            },
+            "horn": {
+                "name": "\u00c4\u00e4nitorvi"
+            },
+            "service_mode": {
+                "name": "Huoltotila"
+            },
+            "webasto": {
+                "name": "Webasto"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_horn_switch": {
+            "description": "Horn-kytkimen k\u00e4ytt\u00f6 on nyt vanhentunut, ja se poistetaan Home Assistantin tulevassa versiossa.\n\nS\u00e4\u00e4d\u00e4 kaikki automaatiot tai skriptit, jotka k\u00e4ytt\u00e4v\u00e4t Horn-kytkin-oliota, k\u00e4ytt\u00e4m\u00e4\u00e4n sen sijaan Horn-painike-oliota.",
+            "title": "Starline Horn -kytkinyksikk\u00f6 poistetaan"
+        }
+    },
+    "services": {
+        "set_scan_interval": {
+            "description": "Asettaa p\u00e4ivitystiheyden.",
+            "fields": {
+                "scan_interval": {
+                    "description": "P\u00e4ivitystiheys.",
+                    "name": "Skannausv\u00e4li"
+                }
+            },
+            "name": "Aseta skannausv\u00e4li"
+        },
+        "set_scan_obd_interval": {
+            "description": "Asettaa OBD-tietojen p\u00e4ivitystaajuuden.",
+            "fields": {
+                "scan_interval": {
+                    "description": "P\u00e4ivitystiheys.",
+                    "name": "Skannausv\u00e4li"
+                }
+            },
+            "name": "Aseta skannauksen OBD-v\u00e4li"
+        },
+        "update_state": {
+            "description": "Hakee laitteiden viimeisen tilan StarLine-palvelimelta.\n .",
+            "name": "P\u00e4ivit\u00e4 tila"
+        }
+    }
+}

@@ -1,0 +1,461 @@
+{
+    "common": {
+        "field_brightness_description": "Skai\u010dius, nurodantis ry\u0161kum\u0105, kur 0 i\u0161jungia \u0161vies\u0105, 1 yra ma\u017eiausias ry\u0161kumas, o 255 yra did\u017eiausias ry\u0161kumas.",
+        "field_brightness_name": "Ry\u0161kumo vert\u0117",
+        "field_brightness_pct_description": "Skai\u010dius, nurodantis viso ry\u0161kumo procent\u0105, kai 0 i\u0161jungia \u0161vies\u0105, 1 yra ma\u017eiausias ry\u0161kumas, o 100 yra did\u017eiausias ry\u0161kumas.",
+        "field_brightness_pct_name": "Ry\u0161kumas",
+        "field_brightness_step_description": "Pakeiskite ry\u0161kum\u0105 tam tikru dyd\u017eiu.",
+        "field_brightness_step_name": "Ry\u0161kumo \u017eingsnio vert\u0117",
+        "field_brightness_step_pct_description": "Pakeiskite ry\u0161kum\u0105 procentais.",
+        "field_brightness_step_pct_name": "Ry\u0161kumo \u017eingsnis",
+        "field_color_name_description": "\u017dmon\u0117ms \u012fskaitomas spalvos pavadinimas.",
+        "field_color_name_name": "Spalvos pavadinimas",
+        "field_color_temp_description": "Spalvos temperat\u016bra mireduose.",
+        "field_color_temp_name": "Spalvos temperat\u016bra",
+        "field_effect_description": "\u0160viesos efektas.",
+        "field_effect_name": "Efektas",
+        "field_flash_description": "Nurodykite, kad \u0161viesa mirks\u0117t\u0173, gali b\u016bti trumpa arba ilga.",
+        "field_flash_name": "Blykst\u0117",
+        "field_hs_color_description": "Spalva atspalvio / sat formatu. Dviej\u0173 sveik\u0173j\u0173 skai\u010di\u0173 s\u0105ra\u0161as. Atspalvis yra 0\u2013360, o \u0161e\u0161tadienis \u2013 0\u2013100.",
+        "field_hs_color_name": "Atspalvis / soties spalva",
+        "field_kelvin_description": "Spalvos temperat\u016bra Kelvinais.",
+        "field_kelvin_name": "Spalvos temperat\u016bra",
+        "field_profile_description": "Naudotino \u0161viesos profilio pavadinimas.",
+        "field_profile_name": "Profilis",
+        "field_rgb_color_description": "Spalva RGB formatu. Trij\u0173 sveik\u0173j\u0173 skai\u010di\u0173 nuo 0 iki 255 s\u0105ra\u0161as, rei\u0161kiantis raudonos, \u017ealios ir m\u0117lynos spalvos reik\u0161mes.",
+        "field_rgb_color_name": "Spalva",
+        "field_rgbw_color_description": "Spalva RGBW formatu. Keturi\u0173 sveik\u0173j\u0173 skai\u010di\u0173 nuo 0 iki 255 s\u0105ra\u0161as, rei\u0161kiantis raudonos, \u017ealios, m\u0117lynos ir baltos spalvos reik\u0161mes.",
+        "field_rgbw_color_name": "RGBW spalva",
+        "field_rgbww_color_description": "Spalva RGBWW formatu. Penki\u0173 sveik\u0173j\u0173 skai\u010di\u0173 nuo 0 iki 255 s\u0105ra\u0161as, rei\u0161kiantis raudonos, \u017ealios, m\u0117lynos, \u0161altai baltos ir \u0161iltos baltos reik\u0161mes.",
+        "field_rgbww_color_name": "RGBWW spalva",
+        "field_transition_description": "Trukm\u0117, kurios reikia norint patekti \u012f kit\u0105 b\u016bsen\u0105.",
+        "field_transition_name": "Per\u0117jimas",
+        "field_white_description": "Nustatykite \u0161vies\u0105 \u012f balt\u0105 re\u017eim\u0105.",
+        "field_white_name": "Balta",
+        "field_xy_color_description": "Spalva XY formatu. Dviej\u0173 de\u0161imtaini\u0173 skai\u010di\u0173 nuo 0 iki 1 s\u0105ra\u0161as.",
+        "field_xy_color_name": "XY spalvos",
+        "section_advanced_fields_name": "I\u0161pl\u0117stiniai nustatymai"
+    },
+    "device_automation": {
+        "action_type": {
+            "brightness_decrease": "Suma\u017einti {entity_name} ry\u0161kum\u0105",
+            "brightness_increase": "Padidinti {entity_name} ry\u0161kum\u0105",
+            "flash": "Blyks\u0117ti {entity_name}",
+            "toggle": "Perjungti {entity_name}",
+            "turn_off": "I\u0161jungti {entity_name}",
+            "turn_on": "\u012ejungti {entity_name}"
+        },
+        "condition_type": {
+            "is_off": "{entity_name} i\u0161jungtas",
+            "is_on": "{entity_name} yra \u012fjungtas"
+        },
+        "extra_fields": {
+            "brightness_pct": "Ry\u0161kumas",
+            "flash": "Blykst\u0117"
+        },
+        "trigger_type": {
+            "changed_states": "{entity_name} \u012fjungtas arba i\u0161jungtas",
+            "turned_off": "{entity_name} i\u0161jungtas",
+            "turned_on": "{entity_name} \u012fjungtas"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Lempa",
+            "state": {
+                "off": "I\u0161jungta",
+                "on": "\u012ejungta"
+            },
+            "state_attributes": {
+                "brightness": {
+                    "name": "Ry\u0161kumas"
+                },
+                "color_mode": {
+                    "name": "Spalv\u0173 re\u017eimas",
+                    "state": {
+                        "brightness": "Tik ry\u0161kumas",
+                        "color_temp": "Spalvos temperat\u016bra",
+                        "hs": "HS",
+                        "onoff": "\u012ejungta / i\u0161jungta",
+                        "rgb": "RGB",
+                        "rgbw": "RGBW",
+                        "rgbww": "RGBWW",
+                        "unknown": "Ne\u017einoma",
+                        "white": "Balta",
+                        "xy": "XY"
+                    }
+                },
+                "color_temp": {
+                    "name": "Spalvos temperat\u016bra (mireds)"
+                },
+                "color_temp_kelvin": {
+                    "name": "Spalvos temperat\u016bra (Kelvinas)"
+                },
+                "effect": {
+                    "name": "Efektas"
+                },
+                "effect_list": {
+                    "name": "Galimi efektai"
+                },
+                "max_color_temp_kelvin": {
+                    "name": "Maksimali spalv\u0173 temperat\u016bra (Kelvinas)"
+                },
+                "max_mireds": {
+                    "name": "Maksimali spalv\u0173 temperat\u016bra (mireds)"
+                },
+                "min_color_temp_kelvin": {
+                    "name": "Minimali spalv\u0173 temperat\u016bra (Kelvinas)"
+                },
+                "min_mireds": {
+                    "name": "Minimali spalv\u0173 temperat\u016bra (mireds)"
+                },
+                "supported_color_modes": {
+                    "name": "Galimi spalv\u0173 re\u017eimai",
+                    "state": {
+                        "brightness": "Tik ry\u0161kumas",
+                        "color_temp": "Spalvos temperat\u016bra",
+                        "hs": "HS",
+                        "onoff": "\u012ejungta / i\u0161jungta",
+                        "rgb": "RGB",
+                        "rgbw": "RGBW",
+                        "rgbww": "RGBWW",
+                        "unknown": "Ne\u017einoma",
+                        "white": "Balta",
+                        "xy": "XY"
+                    }
+                }
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "{platform} platforma, skirta {domain} integravimui, nepalaiko platformos s\u0105rankos. \n\n Pa\u0161alinkite j\u012f i\u0161 konfig\u016bracijos ir i\u0161 naujo paleiskite \u201eHome Assistant\u201c, kad i\u0161spr\u0119stum\u0117te \u0161i\u0105 problem\u0105.",
+            "title": "Platformos palaikymas nepalaikomas"
+        }
+    },
+    "selector": {
+        "color_name": {
+            "options": {
+                "aliceblue": "Alisa m\u0117lyna",
+                "antiquewhite": "Antikvariniai balti",
+                "aqua": "Vanduo",
+                "aquamarine": "Akvamarinas",
+                "azure": "Azure",
+                "beige": "Sm\u0117lio spalvos",
+                "bisque": "Bisque",
+                "blanchedalmond": "Blan\u0161iruotas migdolas",
+                "blue": "M\u0117lyna",
+                "blueviolet": "M\u0117lyna violetin\u0117",
+                "brown": "Ruda",
+                "burlywood": "Burlywood",
+                "cadetblue": "Kari\u016bno m\u0117lyna",
+                "chartreuse": "Chartreuse",
+                "chocolate": "\u0160okoladas",
+                "coral": "Koralas",
+                "cornflowerblue": "Rugiag\u0117li\u0173 m\u0117lyna",
+                "cornsilk": "Kukur\u016bz\u0173 \u0161ilkas",
+                "crimson": "Crimson",
+                "cyan": "\u017dydra",
+                "darkblue": "Tamsiai m\u0117lyna",
+                "darkcyan": "Tamsiai \u017ealsvai m\u0117lyna",
+                "darkgoldenrod": "Tamsi aukso lazda",
+                "darkgray": "Tamsiai pilka",
+                "darkgreen": "Tamsiai \u017ealia",
+                "darkgrey": "Tamsiai pilka",
+                "darkkhaki": "Tamsi chaki",
+                "darkmagenta": "Tamsiai purpurin\u0117",
+                "darkolivegreen": "Tamsiai alyvuogi\u0173 \u017ealia",
+                "darkorange": "Tamsiai oran\u017ein\u0117",
+                "darkorchid": "Tamsi orchid\u0117ja",
+                "darkred": "Tamsiai raudona",
+                "darksalmon": "Tamsi la\u0161i\u0161a",
+                "darkseagreen": "Tamsiai j\u016bros \u017ealia",
+                "darkslateblue": "Tamsiai \u0161iferio m\u0117lyna",
+                "darkslategray": "Tamsiai skal\u016bno pilka",
+                "darkslategrey": "Tamsiai skal\u016bno pilka",
+                "darkturquoise": "Tamsiai turkis",
+                "darkviolet": "Tamsiai violetin\u0117",
+                "deeppink": "Giliai ro\u017ein\u0117",
+                "deepskyblue": "Giliai m\u0117lynas dangus",
+                "dimgray": "Tamsiai pilka",
+                "dimgrey": "Tamsiai pilka",
+                "dodgerblue": "Dodger m\u0117lyna",
+                "firebrick": "Ugnies plyta",
+                "floralwhite": "G\u0117li\u0173 balta",
+                "forestgreen": "Mi\u0161ko \u017ealia",
+                "fuchsia": "Fuksija",
+                "gainsboro": "Gainsboro",
+                "ghostwhite": "Vaiduoklis baltas",
+                "gold": "Auksas",
+                "goldenrod": "Aukso lazda",
+                "gray": "Pilka",
+                "green": "\u017dalia",
+                "greenyellow": "\u017dalia geltona",
+                "grey": "Pilka",
+                "homeassistant": "Home Assistant",
+                "honeydew": "Medaus rasos",
+                "hotpink": "Kar\u0161ta ro\u017ein\u0117",
+                "indianred": "Indijos raudona",
+                "indigo": "Indigo",
+                "ivory": "Dramblio kaulas",
+                "khaki": "Chaki",
+                "lavender": "Levandos",
+                "lavenderblush": "Levand\u0173 skaistalai",
+                "lawngreen": "Vejos \u017ealia",
+                "lemonchiffon": "Citrininis \u0161ifonas",
+                "lightblue": "\u0160viesiai m\u0117lynas",
+                "lightcoral": "\u0160viesus koralas",
+                "lightcyan": "\u0160viesiai \u017ealsvai m\u0117lyna",
+                "lightgoldenrodyellow": "\u0160viesiai auksaspalvis geltonas",
+                "lightgray": "\u0160viesiai pilka",
+                "lightgreen": "\u0160viesiai \u017ealia",
+                "lightgrey": "\u0160viesiai pilka",
+                "lightpink": "\u0160viesiai ro\u017ein\u0117",
+                "lightsalmon": "\u0160viesi la\u0161i\u0161a",
+                "lightseagreen": "\u0160viesiai j\u016bros \u017ealia",
+                "lightskyblue": "\u0160viesiai dangaus m\u0117lyna",
+                "lightslategray": "\u0160viesiai pilkos spalvos",
+                "lightslategrey": "\u0160viesiai pilkos spalvos",
+                "lightsteelblue": "\u0160viesiai plieno m\u0117lyna",
+                "lightyellow": "\u0160viesiai geltona",
+                "lime": "Laimo",
+                "limegreen": "Laimo \u017ealia",
+                "linen": "Linas",
+                "magenta": "Magenta",
+                "maroon": "Ka\u0161tonin\u0117",
+                "mediumaquamarine": "Vidutinis akvamarinas",
+                "mediumblue": "Vidutini\u0161kai m\u0117lyna",
+                "mediumorchid": "Vidutin\u0117 orchid\u0117ja",
+                "mediumpurple": "Vidutin\u0117 violetin\u0117",
+                "mediumseagreen": "Vidutin\u0117 j\u016bros \u017ealia",
+                "mediumslateblue": "Vidutin\u0117 skal\u016bno m\u0117lyna",
+                "mediumspringgreen": "Vidutin\u0117 pavasario \u017ealia",
+                "mediumturquoise": "Vidutinio turkio spalvos",
+                "mediumvioletred": "Vidutini\u0161kai violetin\u0117 raudona",
+                "midnightblue": "Vidurnak\u010dio m\u0117lyna",
+                "mintcream": "M\u0117t\u0173 kremas",
+                "mistyrose": "Miglota ro\u017e\u0117",
+                "moccasin": "Mokasinas",
+                "navajowhite": "Navajo balta",
+                "navy": "Laivynas",
+                "navyblue": "Tamsiai m\u0117lyna",
+                "oldlace": "Seni n\u0117riniai",
+                "olive": "Alyvuog\u0117s",
+                "olivedrab": "Alyvuogi\u0173 drumstas",
+                "orange": "Oran\u017ein\u0117",
+                "orangered": "Oran\u017ein\u0117 raudona",
+                "orchid": "Orchid\u0117ja",
+                "palegoldenrod": "Bly\u0161kus auksarankis",
+                "palegreen": "\u0160viesiai \u017ealia",
+                "paleturquoise": "Bly\u0161kiai turkio spalvos",
+                "palevioletred": "Bly\u0161kiai violetin\u0117 raudona",
+                "papayawhip": "Papaj\u0173 \u0161leik\u0161tulys",
+                "peachpuff": "Persik\u0173 p\u016bkas",
+                "peru": "Peru",
+                "pink": "Ro\u017einis",
+                "plum": "Slyva",
+                "powderblue": "Milteliai m\u0117lyni",
+                "purple": "Violetin\u0117",
+                "red": "Raudona",
+                "rosybrown": "Ro\u017ein\u0117 ruda",
+                "royalblue": "Karali\u0161kai m\u0117lyna",
+                "saddlebrown": "Balnas rudas",
+                "salmon": "La\u0161i\u0161a",
+                "sandybrown": "Sm\u0117lio ruda",
+                "seagreen": "J\u016bros \u017ealia",
+                "seashell": "J\u016bros kriaukl\u0117",
+                "sienna": "Sienna",
+                "silver": "Sidabras",
+                "skyblue": "Dangaus m\u0117lyna",
+                "slateblue": "\u0160iferio m\u0117lyna",
+                "slategray": "\u0160iferio pilka",
+                "slategrey": "\u0160iferio pilka",
+                "snow": "Sniegas",
+                "springgreen": "Pavasario \u017ealia",
+                "steelblue": "Plienin\u0117 m\u0117lyna",
+                "tan": "Tan",
+                "teal": "Melsvai \u017ealia",
+                "thistle": "Er\u0161k\u0117tis",
+                "tomato": "Pomidoras",
+                "turquoise": "Turkis",
+                "violet": "Violetin\u0117",
+                "wheat": "Kvie\u010diai",
+                "white": "Balta",
+                "whitesmoke": "Balti d\u016bmai",
+                "yellow": "Geltona",
+                "yellowgreen": "Geltona \u017ealia"
+            }
+        }
+    },
+    "services": {
+        "toggle": {
+            "description": "Perjungia vien\u0105 ar daugiau lempu\u010di\u0173 i\u0161 \u012fjungimo \u012f i\u0161jungim\u0105 arba i\u0161jungia \u012f \u012fjungim\u0105, atsi\u017evelgiant \u012f j\u0173 dabartin\u0119 b\u016bsen\u0105.",
+            "fields": {
+                "brightness": {
+                    "description": "Skai\u010dius, nurodantis ry\u0161kum\u0105, kur 0 i\u0161jungia \u0161vies\u0105, 1 yra ma\u017eiausias ry\u0161kumas, o 255 yra did\u017eiausias ry\u0161kumas.",
+                    "name": "Ry\u0161kumo vert\u0117"
+                },
+                "brightness_pct": {
+                    "description": "Skai\u010dius, nurodantis viso ry\u0161kumo procent\u0105, kai 0 i\u0161jungia \u0161vies\u0105, 1 yra ma\u017eiausias ry\u0161kumas, o 100 yra did\u017eiausias ry\u0161kumas.",
+                    "name": "Ry\u0161kumas"
+                },
+                "color_name": {
+                    "description": "\u017dmon\u0117ms \u012fskaitomas spalvos pavadinimas.",
+                    "name": "Spalvos pavadinimas"
+                },
+                "color_temp": {
+                    "description": "Spalvos temperat\u016bra mireduose.",
+                    "name": "Spalvos temperat\u016bra"
+                },
+                "effect": {
+                    "description": "\u0160viesos efektas.",
+                    "name": "Efektas"
+                },
+                "flash": {
+                    "description": "Nurodykite, kad \u0161viesa mirks\u0117t\u0173, gali b\u016bti trumpa arba ilga.",
+                    "name": "Blykst\u0117"
+                },
+                "hs_color": {
+                    "description": "Spalva atspalvio / sat formatu. Dviej\u0173 sveik\u0173j\u0173 skai\u010di\u0173 s\u0105ra\u0161as. Atspalvis yra 0\u2013360, o \u0161e\u0161tadienis \u2013 0\u2013100.",
+                    "name": "Atspalvis / soties spalva"
+                },
+                "kelvin": {
+                    "description": "Spalvos temperat\u016bra Kelvinais.",
+                    "name": "Spalvos temperat\u016bra"
+                },
+                "profile": {
+                    "description": "Naudotino \u0161viesos profilio pavadinimas.",
+                    "name": "Profilis"
+                },
+                "rgb_color": {
+                    "description": "Spalva RGB formatu. Trij\u0173 sveik\u0173j\u0173 skai\u010di\u0173 nuo 0 iki 255 s\u0105ra\u0161as, rei\u0161kiantis raudonos, \u017ealios ir m\u0117lynos spalvos reik\u0161mes.",
+                    "name": "Spalva"
+                },
+                "rgbw_color": {
+                    "description": "Spalva RGBW formatu. Keturi\u0173 sveik\u0173j\u0173 skai\u010di\u0173 nuo 0 iki 255 s\u0105ra\u0161as, rei\u0161kiantis raudonos, \u017ealios, m\u0117lynos ir baltos spalvos reik\u0161mes.",
+                    "name": "RGBW spalva"
+                },
+                "rgbww_color": {
+                    "description": "Spalva RGBWW formatu. Penki\u0173 sveik\u0173j\u0173 skai\u010di\u0173 nuo 0 iki 255 s\u0105ra\u0161as, rei\u0161kiantis raudonos, \u017ealios, m\u0117lynos, \u0161altai baltos ir \u0161iltos baltos reik\u0161mes.",
+                    "name": "RGBWW spalva"
+                },
+                "transition": {
+                    "description": "Trukm\u0117, kurios reikia norint patekti \u012f kit\u0105 b\u016bsen\u0105.",
+                    "name": "Per\u0117jimas"
+                },
+                "white": {
+                    "description": "Nustatykite \u0161vies\u0105 \u012f balt\u0105 re\u017eim\u0105.",
+                    "name": "Balta"
+                },
+                "xy_color": {
+                    "description": "Spalva XY formatu. Dviej\u0173 de\u0161imtaini\u0173 skai\u010di\u0173 nuo 0 iki 1 s\u0105ra\u0161as.",
+                    "name": "XY spalvos"
+                }
+            },
+            "name": "Perjungti",
+            "sections": {
+                "advanced_fields": {
+                    "name": "I\u0161pl\u0117stiniai nustatymai"
+                }
+            }
+        },
+        "turn_off": {
+            "description": "I\u0161junkite vien\u0105 ar daugiau \u0161vies\u0173.",
+            "fields": {
+                "flash": {
+                    "description": "Nurodykite, kad \u0161viesa mirks\u0117t\u0173, gali b\u016bti trumpa arba ilga.",
+                    "name": "Blykst\u0117"
+                },
+                "transition": {
+                    "description": "Trukm\u0117, kurios reikia norint patekti \u012f kit\u0105 b\u016bsen\u0105.",
+                    "name": "Per\u0117jimas"
+                }
+            },
+            "name": "I\u0161jungti",
+            "sections": {
+                "advanced_fields": {
+                    "name": "I\u0161pl\u0117stiniai nustatymai"
+                }
+            }
+        },
+        "turn_on": {
+            "description": "\u012ejunkite vien\u0105 ar daugiau lempu\u010di\u0173 ir sureguliuokite \u0161viesos savybes, net kai jos jau \u012fjungtos.",
+            "fields": {
+                "brightness": {
+                    "description": "Skai\u010dius, nurodantis ry\u0161kum\u0105, kur 0 i\u0161jungia \u0161vies\u0105, 1 yra ma\u017eiausias ry\u0161kumas, o 255 yra did\u017eiausias ry\u0161kumas.",
+                    "name": "Ry\u0161kumo vert\u0117"
+                },
+                "brightness_pct": {
+                    "description": "Skai\u010dius, nurodantis viso ry\u0161kumo procent\u0105, kai 0 i\u0161jungia \u0161vies\u0105, 1 yra ma\u017eiausias ry\u0161kumas, o 100 yra did\u017eiausias ry\u0161kumas.",
+                    "name": "Ry\u0161kumas"
+                },
+                "brightness_step": {
+                    "description": "Pakeiskite ry\u0161kum\u0105 tam tikru dyd\u017eiu.",
+                    "name": "Ry\u0161kumo \u017eingsnio vert\u0117"
+                },
+                "brightness_step_pct": {
+                    "description": "Pakeiskite ry\u0161kum\u0105 procentais.",
+                    "name": "Ry\u0161kumo \u017eingsnis"
+                },
+                "color_name": {
+                    "description": "\u017dmon\u0117ms \u012fskaitomas spalvos pavadinimas.",
+                    "name": "Spalvos pavadinimas"
+                },
+                "color_temp": {
+                    "description": "Spalvos temperat\u016bra mireduose.",
+                    "name": "Spalvos temperat\u016bra"
+                },
+                "effect": {
+                    "description": "\u0160viesos efektas.",
+                    "name": "Efektas"
+                },
+                "flash": {
+                    "description": "Nurodykite, kad \u0161viesa mirks\u0117t\u0173, gali b\u016bti trumpa arba ilga.",
+                    "name": "Blykst\u0117"
+                },
+                "hs_color": {
+                    "description": "Spalva atspalvio / sat formatu. Dviej\u0173 sveik\u0173j\u0173 skai\u010di\u0173 s\u0105ra\u0161as. Atspalvis yra 0\u2013360, o \u0161e\u0161tadienis \u2013 0\u2013100.",
+                    "name": "Atspalvis / soties spalva"
+                },
+                "kelvin": {
+                    "description": "Spalvos temperat\u016bra Kelvinais.",
+                    "name": "Spalvos temperat\u016bra"
+                },
+                "profile": {
+                    "description": "Naudotino \u0161viesos profilio pavadinimas.",
+                    "name": "Profilis"
+                },
+                "rgb_color": {
+                    "description": "Spalva RGB formatu. Trij\u0173 sveik\u0173j\u0173 skai\u010di\u0173 nuo 0 iki 255 s\u0105ra\u0161as, rei\u0161kiantis raudonos, \u017ealios ir m\u0117lynos spalvos reik\u0161mes.",
+                    "name": "Spalva"
+                },
+                "rgbw_color": {
+                    "name": "RGBW spalva"
+                },
+                "rgbww_color": {
+                    "description": "Spalva RGBWW formatu. Penki\u0173 sveik\u0173j\u0173 skai\u010di\u0173 nuo 0 iki 255 s\u0105ra\u0161as, rei\u0161kiantis raudonos, \u017ealios, m\u0117lynos, \u0161altai baltos ir \u0161iltos baltos reik\u0161mes.",
+                    "name": "RGBWW spalva"
+                },
+                "transition": {
+                    "description": "Trukm\u0117, kurios reikia norint patekti \u012f kit\u0105 b\u016bsen\u0105.",
+                    "name": "Per\u0117jimas"
+                },
+                "white": {
+                    "description": "Nustatykite \u0161vies\u0105 \u012f balt\u0105 re\u017eim\u0105.",
+                    "name": "Balta"
+                },
+                "xy_color": {
+                    "description": "Spalva XY formatu. Dviej\u0173 de\u0161imtaini\u0173 skai\u010di\u0173 nuo 0 iki 1 s\u0105ra\u0161as.",
+                    "name": "XY spalvos"
+                }
+            },
+            "name": "\u012ejungti",
+            "sections": {
+                "advanced_fields": {
+                    "name": "I\u0161pl\u0117stiniai nustatymai"
+                }
+            }
+        }
+    },
+    "title": "Lempa"
+}

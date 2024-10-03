@@ -1,0 +1,98 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Za\u0159\u00edzen\u00ed je ji\u017e nastaveno",
+            "cannot_connect": "Nepoda\u0159ilo se p\u0159ipojit",
+            "invalid_auth": "Neplatn\u00e9 ov\u011b\u0159en\u00ed",
+            "no_uuid": "Instance Kodi nem\u00e1 jedine\u010dn\u00e9 ID. To je pravd\u011bpodobn\u011b zp\u016fsobeno starou verz\u00ed Kodi (17.x nebo ni\u017e\u0161\u00ed). Integraci m\u016f\u017eete nastavit ru\u010dn\u011b nebo aktualizovat na nov\u011bj\u0161\u00ed verzi Kodi.",
+            "unknown": "Neo\u010dek\u00e1van\u00e1 chyba"
+        },
+        "error": {
+            "cannot_connect": "Nepoda\u0159ilo se p\u0159ipojit",
+            "invalid_auth": "Neplatn\u00e9 ov\u011b\u0159en\u00ed",
+            "unknown": "Neo\u010dek\u00e1van\u00e1 chyba"
+        },
+        "flow_title": "{name}",
+        "step": {
+            "credentials": {
+                "data": {
+                    "password": "Heslo",
+                    "username": "U\u017eivatelsk\u00e9 jm\u00e9no"
+                },
+                "description": "Zadejte va\u0161e u\u017eivatelsk\u00e9 jm\u00e9no a heslo pro Kodi. To lze nal\u00e9zt v Syst\u00e9m/Nastaven\u00ed/S\u00ed\u0165/Slu\u017eby."
+            },
+            "discovery_confirm": {
+                "description": "Chcete p\u0159idat Kodi (\"{name}\") do Home Assistanta?",
+                "title": "Zji\u0161t\u011bno Kodi"
+            },
+            "user": {
+                "data": {
+                    "host": "Hostitel",
+                    "port": "Port",
+                    "ssl": "Pou\u017e\u00edv\u00e1 SSL certifik\u00e1t"
+                },
+                "data_description": {
+                    "host": "N\u00e1zev hostitele nebo IP adresa syst\u00e9mu hostuj\u00edc\u00edho v\u00e1\u0161 server Kodi."
+                },
+                "description": "Informace o p\u0159ipojen\u00ed Kodi. Nezapome\u0148te povolit volbu \"Povolit ovl\u00e1d\u00e1n\u00ed Kodi prost\u0159ednictv\u00edm protokolu HTTP\" v Syst\u00e9m/Nastaven\u00ed/S\u00ed\u0165/Slu\u017eby."
+            },
+            "ws_port": {
+                "data": {
+                    "ws_port": "Port"
+                },
+                "description": "Port WebSocket (n\u011bkdy se v Kodi naz\u00fdv\u00e1 port TCP). Abyste se mohli p\u0159ipojit p\u0159es WebSocket, mus\u00edte povolit \"Povolit programu ... ovl\u00e1dat Kodi\" v Syst\u00e9m/Nastaven\u00ed/S\u00ed\u0165/Slu\u017eby. Pokud WebSocket nen\u00ed povolen, odeberte port a nechte pr\u00e1zdn\u00e9."
+            }
+        }
+    },
+    "device_automation": {
+        "trigger_type": {
+            "turn_off": "{entity_name} bylo vypnuto",
+            "turn_on": "{entity_name} bylo zapnuto"
+        }
+    },
+    "entity": {
+        "media_player": {
+            "media_player": {
+                "state_attributes": {
+                    "dynamic_range": {
+                        "name": "Dynamick\u00fd rozsah"
+                    }
+                }
+            }
+        }
+    },
+    "services": {
+        "add_to_playlist": {
+            "description": "P\u0159id\u00e1 hudbu do v\u00fdchoz\u00edho seznamu skladeb (nap\u0159. playlistid=0).",
+            "fields": {
+                "artist_name": {
+                    "description": "Voliteln\u00e9 jm\u00e9no um\u011blce pro filtrov\u00e1n\u00ed m\u00e9di\u00ed.",
+                    "name": "Jm\u00e9no um\u011blce"
+                },
+                "media_id": {
+                    "description": "Jedine\u010dn\u00e9 ID polo\u017eky m\u00e9dia, kterou chcete p\u0159idat (\"songid\" nebo \"albumid\"). Pokud nen\u00ed definov\u00e1no, \"media_name\" a \"artist_name\" jsou pot\u0159ebn\u00e9 k prohled\u00e1v\u00e1n\u00ed hudebn\u00ed knihovny Kodi.",
+                    "name": "ID m\u00e9dia"
+                },
+                "media_name": {
+                    "description": "Voliteln\u00fd n\u00e1zev m\u00e9dia pro filtrov\u00e1n\u00ed m\u00e9dia. M\u016f\u017ee b\u00fdt \"ALL\", kdy\u017e je \"media_type\" \"ALBUM\" a je zad\u00e1no \"artist_name\" - t\u00edm se p\u0159idaj\u00ed v\u0161echny skladby od jednoho interpreta.",
+                    "name": "N\u00e1zev m\u00e9dia"
+                },
+                "media_type": {
+                    "description": "Identifik\u00e1tor typu m\u00e9dia. Mus\u00ed to b\u00fdt jedno ze \"SONG\" nebo \"ALBUM\".",
+                    "name": "Typ m\u00e9dia"
+                }
+            },
+            "name": "P\u0159idat do playlistu"
+        },
+        "call_method": {
+            "description": "Vol\u00e1 metodu Kodi JSONRPC API s voliteln\u00fdmi parametry. V\u00fdsledky vol\u00e1n\u00ed Kodi API budou p\u0159esm\u011brov\u00e1ny do ud\u00e1losti Home Assistanat: \"kodi_call_method_result\".",
+            "fields": {
+                "method": {
+                    "description": "N\u00e1zev metody Kodi JSONRPC API, kter\u00e1 m\u00e1 b\u00fdt vol\u00e1na.",
+                    "name": "Metoda"
+                }
+            },
+            "name": "Metoda vol\u00e1n\u00ed"
+        }
+    }
+}

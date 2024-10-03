@@ -1,0 +1,84 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "Timer",
+            "state": {
+                "active": "Aktiv",
+                "idle": "Unt\u00e4tig",
+                "paused": "Pausiert"
+            },
+            "state_attributes": {
+                "duration": {
+                    "name": "Dauer"
+                },
+                "editable": {
+                    "name": "Verwaltet \u00fcber UI",
+                    "state": {
+                        "false": "Nein",
+                        "true": "Ja"
+                    }
+                },
+                "finishes_at": {
+                    "name": "Endet um"
+                },
+                "remaining": {
+                    "name": "Verbleibend"
+                },
+                "restore": {
+                    "name": "Wiederherstellen"
+                }
+            }
+        }
+    },
+    "issues": {
+        "deprecated_duration_in_start": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Der optionale duration Parameter des Timer-Dienstes `timer.start` wird entfernt und seine Verwendung wurde festgestellt. Um die Dauer zu \u00e4ndern, erstelle bitte einen neuen Timer. \nBitte entferne die Verwendung des Parameters `duration` im Dienst `timer.start` in deinen Automatisierungen und Skripten und w\u00e4hle **Senden**, um dieses Problem zu schlie\u00dfen.",
+                        "title": "Der Parameter f\u00fcr die Dauer des Timer-Startdienstes wird entfernt"
+                    }
+                }
+            },
+            "title": "Der Parameter f\u00fcr die Dauer des Timer-Startdienstes wird entfernt"
+        }
+    },
+    "services": {
+        "cancel": {
+            "description": "Bricht einen Timer ab.",
+            "name": "Abbrechen"
+        },
+        "change": {
+            "description": "\u00c4ndert einen Timer.",
+            "fields": {
+                "duration": {
+                    "description": "Dauer, die zum laufenden Timer addiert oder subtrahiert werden soll.",
+                    "name": "Dauer"
+                }
+            },
+            "name": "\u00c4ndern"
+        },
+        "finish": {
+            "description": "Beendet einen Timer.",
+            "name": "Beenden"
+        },
+        "pause": {
+            "description": "Pausiert einen Timer.",
+            "name": "Pause"
+        },
+        "reload": {
+            "description": "L\u00e4dt Timer aus der YAML-Konfiguration neu.",
+            "name": "Neu laden"
+        },
+        "start": {
+            "description": "Startet einen Timer.",
+            "fields": {
+                "duration": {
+                    "description": "Dauer, die der Timer zum Beenden ben\u00f6tigt. [optional].",
+                    "name": "Dauer"
+                }
+            },
+            "name": "Start"
+        }
+    }
+}

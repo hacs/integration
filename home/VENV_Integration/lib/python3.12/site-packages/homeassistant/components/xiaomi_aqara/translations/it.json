@@ -1,0 +1,95 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Il dispositivo \u00e8 gi\u00e0 configurato",
+            "already_in_progress": "Il flusso di configurazione \u00e8 gi\u00e0 in corso",
+            "not_xiaomi_aqara": "Non \u00e8 un Gateway Xiaomi Aqara, il dispositivo scoperto non corrisponde ai gateway noti"
+        },
+        "error": {
+            "discovery_error": "Impossibile individuare un gateway Xiaomi Aqara, prova a utilizzare l'IP del dispositivo che esegue HomeAssistant come interfaccia",
+            "invalid_host": "Nome host o indirizzo IP non valido, vedere https://www.home-assistant.io/integrations/xiaomi_aqara/#connection-problem",
+            "invalid_interface": "Interfaccia di rete non valida",
+            "invalid_key": "Chiave gateway non valida",
+            "invalid_mac": "Indirizzo Mac non valido"
+        },
+        "flow_title": "{name}",
+        "step": {
+            "select": {
+                "data": {
+                    "select_ip": "Indirizzo IP"
+                },
+                "description": "Seleziona lo Xiaomi Aqara Gateway che desideri connettere"
+            },
+            "settings": {
+                "data": {
+                    "key": "La chiave del tuo gateway",
+                    "name": "Nome del Gateway"
+                },
+                "description": "La chiave (password) pu\u00f2 essere recuperata utilizzando questo tutorial: https://www.domoticz.com/wiki/Xiaomi_Gateway_(Aqara)#Adding_the_Xiaomi_Gateway_to_Domoticz. Se la chiave non viene fornita, saranno accessibili solo i sensori",
+                "title": "Impostazioni facoltative"
+            },
+            "user": {
+                "data": {
+                    "host": "Indirizzo IP (facoltativo)",
+                    "interface": "L'interfaccia di rete da utilizzare",
+                    "mac": "Indirizzo Mac (opzionale)"
+                },
+                "description": "Se gli indirizzi IP e MAC vengono lasciati vuoti, viene utilizzato il rilevamento automatico"
+            }
+        }
+    },
+    "services": {
+        "add_device": {
+            "description": "Abilita l'autorizzazione all'associazione del gateway Xiaomi Aqara per 30 secondi. In seguito \u00e8 possibile aggiungere un nuovo dispositivo premendo una volta il pulsante di associazione.",
+            "fields": {
+                "gw_mac": {
+                    "description": "Indirizzo MAC del gateway Xiaomi Aqara.",
+                    "name": "Gateway MAC"
+                }
+            },
+            "name": "Aggiungi dispositivo"
+        },
+        "play_ringtone": {
+            "description": "Riproduce una suoneria specifica. La versione del firmware del gateway deve essere almeno 1.4.1_145.",
+            "fields": {
+                "gw_mac": {
+                    "description": "Indirizzo MAC del gateway Xiaomi Aqara.",
+                    "name": "Gateway MAC"
+                },
+                "ringtone_id": {
+                    "description": "Uno degli id di suoneria consentiti.",
+                    "name": "ID suoneria"
+                },
+                "ringtone_vol": {
+                    "description": "Il volume in percentuale.",
+                    "name": "Volume della suoneria"
+                }
+            },
+            "name": "Riproduci suoneria"
+        },
+        "remove_device": {
+            "description": "Rimuove un dispositivo specifico. La rimozione \u00e8 necessaria se un dispositivo deve essere associato a un altro gateway.",
+            "fields": {
+                "device_id": {
+                    "description": "Indirizzo hardware del dispositivo da rimuovere.",
+                    "name": "ID dispositivo"
+                },
+                "gw_mac": {
+                    "description": "Indirizzo MAC del gateway Xiaomi Aqara.",
+                    "name": "Gateway MAC"
+                }
+            },
+            "name": "Rimuovi dispositivo"
+        },
+        "stop_ringtone": {
+            "description": "Interrompe immediatamente la riproduzione di una suoneria.",
+            "fields": {
+                "gw_mac": {
+                    "description": "Indirizzo MAC del gateway Xiaomi Aqara.",
+                    "name": "Gateway MAC"
+                }
+            },
+            "name": "Interrompi suoneria"
+        }
+    }
+}

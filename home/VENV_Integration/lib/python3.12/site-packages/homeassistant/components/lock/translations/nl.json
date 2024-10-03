@@ -1,0 +1,80 @@
+{
+    "device_automation": {
+        "action_type": {
+            "lock": "Vergrendel {entity_name}",
+            "open": "Open {entity_name}",
+            "unlock": "Ontgrendel {entity_name}"
+        },
+        "condition_type": {
+            "is_locked": "{entity_name} is vergrendeld",
+            "is_open": "{entity_name} is open",
+            "is_unlocked": "{entity_name} is ontgrendeld"
+        },
+        "trigger_type": {
+            "locked": "{entity_name} vergrendeld",
+            "open": "{entity_name} geopend",
+            "unlocked": "{entity_name} ontgrendeld"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Slot",
+            "state": {
+                "jammed": "Vastgelopen",
+                "locked": "Vergrendeld",
+                "locking": "Vergrendelen",
+                "open": "Open",
+                "opening": "Openen",
+                "unlocked": "Ontgrendeld",
+                "unlocking": "Ontgrendelen"
+            },
+            "state_attributes": {
+                "changed_by": {
+                    "name": "Gewijzigd door"
+                },
+                "code_format": {
+                    "name": "Code formaat"
+                }
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "Platform {platform} van de {domain} integratie heeft geen platformondersteuning.\n\nVerwijder dit uit je configuratie en herstart Home Assistant om dit issue op te lossen.",
+            "title": "Platformondersteuning is niet ondersteund"
+        }
+    },
+    "services": {
+        "lock": {
+            "description": "Vergrendelt een slot.",
+            "fields": {
+                "code": {
+                    "description": "Code gebruikt om het slot te vergrendelen.",
+                    "name": "Code"
+                }
+            },
+            "name": "Slot"
+        },
+        "open": {
+            "description": "Opent een slot.",
+            "fields": {
+                "code": {
+                    "description": "Code gebruikt om het slot te openen.",
+                    "name": "Code"
+                }
+            },
+            "name": "Open"
+        },
+        "unlock": {
+            "description": "Ontgrendelt een slot.",
+            "fields": {
+                "code": {
+                    "description": "Code gebruikt om het slot te ontgrendelen.",
+                    "name": "Code"
+                }
+            },
+            "name": "Ontgrendelen"
+        }
+    },
+    "title": "Slot"
+}

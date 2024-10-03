@@ -1,0 +1,127 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Cihaz zaten yap\u0131land\u0131r\u0131lm\u0131\u015f",
+            "already_in_progress": "Yap\u0131land\u0131rma ak\u0131\u015f\u0131 zaten devam ediyor",
+            "no_devices_found": "A\u011fda cihaz bulunamad\u0131",
+            "no_h264": "Kullan\u0131labilir H264 ak\u0131\u015f\u0131 yok. Cihaz\u0131n\u0131zdaki profil yap\u0131land\u0131rmas\u0131n\u0131 kontrol edin.",
+            "no_mac": "ONVIF cihaz\u0131 i\u00e7in benzersiz kimlik yap\u0131land\u0131r\u0131lamad\u0131.",
+            "onvif_error": "ONVIF cihaz\u0131 ayarlan\u0131rken hata olu\u015ftu. Daha fazla bilgi i\u00e7in g\u00fcnl\u00fckleri kontrol edin.",
+            "reauth_successful": "Yeniden kimlik do\u011frulama ba\u015far\u0131l\u0131 oldu"
+        },
+        "error": {
+            "auth_failed": "Kimlik do\u011frulanamad\u0131: {error}",
+            "cannot_connect": "Ba\u011flanma hatas\u0131",
+            "no_onvif_service": "ONVIF hizmeti bulunamad\u0131. Ba\u011flant\u0131 noktas\u0131 numaras\u0131n\u0131n do\u011fru oldu\u011funu kontrol edin.",
+            "onvif_error": "ONVIF cihaz\u0131 kurulurken hata olu\u015ftu: {error} . Daha fazla bilgi i\u00e7in g\u00fcnl\u00fckleri kontrol edin."
+        },
+        "step": {
+            "configure": {
+                "data": {
+                    "host": "Sunucu",
+                    "name": "Ad",
+                    "password": "\u015eifre",
+                    "port": "Port",
+                    "username": "Kullan\u0131c\u0131 Ad\u0131"
+                },
+                "data_description": {
+                    "host": "ONVIF cihaz\u0131n\u0131z\u0131n ana bilgisayar ad\u0131 veya IP adresi."
+                },
+                "title": "ONVIF cihaz\u0131n\u0131 yap\u0131land\u0131r\u0131n"
+            },
+            "configure_profile": {
+                "data": {
+                    "include": "Kamera varl\u0131\u011f\u0131 olu\u015ftur"
+                },
+                "description": "{profile} i\u00e7in {resolution} \u00e7\u00f6z\u00fcn\u00fcrl\u00fckte kamera varl\u0131\u011f\u0131 olu\u015fturulsun mu?",
+                "title": "Profilleri Yap\u0131land\u0131r"
+            },
+            "device": {
+                "data": {
+                    "host": "Ke\u015ffedilen ONVIF cihaz\u0131n\u0131 se\u00e7in"
+                },
+                "title": "ONVIF cihaz\u0131n\u0131 se\u00e7in"
+            },
+            "reauth_confirm": {
+                "data": {
+                    "password": "\u015eifre",
+                    "username": "Kullan\u0131c\u0131 Ad\u0131"
+                },
+                "description": "Baz\u0131 cihazlar, zaman 5 saniyeden fazla senkronize olmazsa kimlik do\u011frulamay\u0131 reddeder. Kimlik do\u011frulama ba\u015far\u0131s\u0131z olursa, cihazdaki saatin do\u011fru oldu\u011funu do\u011frulay\u0131n ve tekrar deneyin.",
+                "title": "ONVIF cihaz\u0131n\u0131n kimli\u011fini yeniden do\u011frulay\u0131n"
+            },
+            "user": {
+                "data": {
+                    "auto": "Otomatik olarak ara"
+                },
+                "title": "ONVIF cihaz kurulumu"
+            }
+        }
+    },
+    "entity": {
+        "switch": {
+            "autofocus": {
+                "name": "Otomatik odaklama"
+            },
+            "ir_lamp": {
+                "name": "K\u0131z\u0131l\u00f6tesi lamba"
+            },
+            "wiper": {
+                "name": "Silecek"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "onvif_devices": {
+                "data": {
+                    "enable_webhooks": "Webhook'u Etkinle\u015ftir",
+                    "extra_arguments": "Ekstra FFMPEG arg\u00fcmanlar\u0131",
+                    "rtsp_transport": "RTSP ta\u015f\u0131ma mekanizmas\u0131",
+                    "use_wallclock_as_timestamps": "Duvar saatini zaman damgas\u0131 olarak kullanma"
+                },
+                "title": "ONVIF Cihaz Se\u00e7enekleri"
+            }
+        }
+    },
+    "services": {
+        "ptz": {
+            "description": "ONVIF kameran\u0131z PTZ'yi destekliyorsa, kameran\u0131z\u0131 kayd\u0131rabilir, e\u011febilir veya yak\u0131nla\u015ft\u0131rabilirsiniz.",
+            "fields": {
+                "continuous_duration": {
+                    "description": "Hareketi durdurmadan \u00f6nce ContinuousMove gecikmesini saniye cinsinden ayarlay\u0131n.",
+                    "name": "S\u00fcrekli s\u00fcre"
+                },
+                "distance": {
+                    "description": "Mesafe katsay\u0131s\u0131. Bir istekte ne kadar PTZ y\u00fcr\u00fct\u00fclmesi gerekti\u011fini ayarlar.",
+                    "name": "Mesafe"
+                },
+                "move_mode": {
+                    "description": "PTZ hareket modu.",
+                    "name": "Hareket Modu"
+                },
+                "pan": {
+                    "description": "Kayd\u0131rma y\u00f6n\u00fc.",
+                    "name": "Kayd\u0131rma"
+                },
+                "preset": {
+                    "description": "PTZ \u00f6n ayar profil anahtar\u0131. GotoPreset ile \u00e7al\u0131\u015ft\u0131r\u0131lan \u00f6n ayar profil belirtecini ayarlar.",
+                    "name": "\u00d6n ayar"
+                },
+                "speed": {
+                    "description": "H\u0131z katsay\u0131s\u0131. PTZ'nin ne kadar h\u0131zl\u0131 y\u00fcr\u00fct\u00fclece\u011fini ayarlar.",
+                    "name": "H\u0131z"
+                },
+                "tilt": {
+                    "description": "E\u011fim y\u00f6n\u00fc.",
+                    "name": "E\u011fim"
+                },
+                "zoom": {
+                    "description": "Yak\u0131nla\u015ft\u0131r.",
+                    "name": "Yak\u0131nla\u015ft\u0131r"
+                }
+            },
+            "name": "PTZ"
+        }
+    }
+}

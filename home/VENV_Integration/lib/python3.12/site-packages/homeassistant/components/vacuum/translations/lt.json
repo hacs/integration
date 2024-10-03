@@ -1,0 +1,115 @@
+{
+    "device_automation": {
+        "action_type": {
+            "clean": "Leiskite {entity_name} valyti",
+            "dock": "Leiskite {entity_name} gr\u012f\u017eti \u012f stotel\u0119"
+        },
+        "condition_type": {
+            "is_cleaning": "{entity_name} valo",
+            "is_docked": "{entity_name} yra stotel\u0117je"
+        },
+        "extra_fields": {
+            "for": "Trukm\u0117"
+        },
+        "trigger_type": {
+            "cleaning": "{entity_name} prad\u0117jo valyti",
+            "docked": "{entity_name} stotel\u0117je"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Dulki\u0173 siurblys",
+            "state": {
+                "cleaning": "Valymas",
+                "docked": "Stotel\u0117je",
+                "error": "Klaida",
+                "idle": "Laukiama",
+                "off": "I\u0161jungta",
+                "on": "\u012ejungta",
+                "paused": "Pristabdyta",
+                "returning": "Gr\u012f\u017eimas \u012f dok\u0105"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_vacuum_base_class": {
+            "description": "Tinkintas integravimas \u201e {platform} \u201c i\u0161ple\u010dia nebenaudojam\u0105 bazin\u0119 klas\u0119 \u201eVacuumEntity\u201c, o ne \u201eStateVacuumEntity\u201c. \n\n Prane\u0161kite apie tai tinkintos integracijos \u201e {platform} \u201c autoriui. \n\n Kai bus pasiekiama atnaujinta \u201e {platform} \u201c versija, \u012fdiekite j\u0105 ir i\u0161 naujo paleiskite \u201eHome Assistant\u201c, kad i\u0161spr\u0119stum\u0117te \u0161i\u0105 problem\u0105.",
+            "title": "Tinkintas {platform} integravimas naudoja nebenaudojam\u0105 vakuumo funkcij\u0105"
+        },
+        "deprecated_vacuum_base_class_url": {
+            "description": "Tinkintas integravimas \u201e {platform} \u201c i\u0161ple\u010dia nebenaudojam\u0105 bazin\u0119 klas\u0119 \u201eVacuumEntity\u201c, o ne \u201eStateVacuumEntity\u201c. \n\n Sukurkite prane\u0161im\u0105 apie rikt\u0105 adresu {issue_tracker} . \n\n Kai bus pasiekiama atnaujinta \u201e {platform} \u201c versija, \u012fdiekite j\u0105 ir i\u0161 naujo paleiskite \u201eHome Assistant\u201c, kad i\u0161spr\u0119stum\u0117te \u0161i\u0105 problem\u0105.",
+            "title": "Tinkintas {platform} integravimas naudoja nebenaudojam\u0105 vakuumo funkcij\u0105"
+        },
+        "platform_integration_no_support": {
+            "description": "{platform} platforma, skirta {domain} integravimui, nepalaiko platformos s\u0105rankos. \n\n Pa\u0161alinkite j\u012f i\u0161 konfig\u016bracijos ir i\u0161 naujo paleiskite \u201eHome Assistant\u201c, kad i\u0161spr\u0119stum\u0117te \u0161i\u0105 problem\u0105.",
+            "title": "Platformos palaikymas nepalaikomas"
+        }
+    },
+    "services": {
+        "clean_spot": {
+            "description": "Liepia dulki\u0173 siurbliui i\u0161valyti viet\u0105.",
+            "name": "\u0160vari vieta"
+        },
+        "locate": {
+            "description": "Suranda dulki\u0173 siurblio robot\u0105.",
+            "name": "Surasti"
+        },
+        "pause": {
+            "description": "Pristabdo valymo u\u017eduot\u012f.",
+            "name": "Pauz\u0117"
+        },
+        "return_to_base": {
+            "description": "Liepia dulki\u0173 siurbliui gr\u012f\u017eti \u012f dok\u0105.",
+            "name": "Gr\u012f\u017ekite \u012f dok\u0105"
+        },
+        "send_command": {
+            "description": "Siun\u010dia komand\u0105 dulki\u0173 siurbliui.",
+            "fields": {
+                "command": {
+                    "description": "\u012esakymas vykdyti. Komandos yra susijusios su integravimu.",
+                    "name": "Komanda"
+                },
+                "params": {
+                    "description": "Komandos parametrai. Parametrai priklauso nuo integracijos.",
+                    "name": "Parametrai"
+                }
+            },
+            "name": "Si\u0173sti komand\u0105"
+        },
+        "set_fan_speed": {
+            "description": "Nustatomas dulki\u0173 siurblio ventiliatoriaus greitis.",
+            "fields": {
+                "fan_speed": {
+                    "description": "Ventiliatoriaus greitis. Vert\u0117 priklauso nuo integracijos. Kai kurios integracijos turi grei\u010dio \u017eingsnius, pvz., \u201evidutinis\u201c. Kai kurie naudoja procent\u0105 nuo 0 iki 100.",
+                    "name": "Ventiliatoriaus greitis"
+                }
+            },
+            "name": "Nustatykite ventiliatoriaus greit\u012f"
+        },
+        "start": {
+            "description": "Pradeda arba atnaujina valymo u\u017eduot\u012f.",
+            "name": "Prad\u0117ti"
+        },
+        "start_pause": {
+            "description": "Paleid\u017eia, pristabdo arba atnaujina valymo u\u017eduot\u012f.",
+            "name": "Paleidimas/pauz\u0117"
+        },
+        "stop": {
+            "description": "Sustabdo esam\u0105 valymo u\u017eduot\u012f.",
+            "name": "Sustabdyti"
+        },
+        "toggle": {
+            "description": "\u012ejungia/i\u0161jungia dulki\u0173 siurbl\u012f.",
+            "name": "Perjungti"
+        },
+        "turn_off": {
+            "description": "Sustabdo esam\u0105 valymo u\u017eduot\u012f ir gr\u012f\u017eta \u012f dok\u0105.",
+            "name": "I\u0161jungti"
+        },
+        "turn_on": {
+            "description": "Pradeda nauj\u0105 valymo u\u017eduot\u012f.",
+            "name": "\u012ejungti"
+        }
+    },
+    "title": "Dulki\u0173 siurblys"
+}

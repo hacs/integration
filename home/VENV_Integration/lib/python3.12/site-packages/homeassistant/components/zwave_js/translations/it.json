@@ -1,0 +1,424 @@
+{
+    "config": {
+        "abort": {
+            "addon_get_discovery_info_failed": "Impossibile ottenere le informazioni sul rilevamento del componente aggiuntivo Z-Wave JS.",
+            "addon_info_failed": "Impossibile ottenere le informazioni sul componente aggiuntivo Z-Wave JS.",
+            "addon_install_failed": "Impossibile installare il componente aggiuntivo Z-Wave JS.",
+            "addon_set_config_failed": "Impossibile impostare la configurazione di Z-Wave JS.",
+            "addon_start_failed": "Impossibile avviare il componente aggiuntivo Z-Wave JS.",
+            "already_configured": "Il dispositivo \u00e8 gi\u00e0 configurato",
+            "already_in_progress": "Il flusso di configurazione \u00e8 gi\u00e0 in corso",
+            "cannot_connect": "Impossibile connettersi",
+            "discovery_requires_supervisor": "Il rilevamento richiede il Supervisor.",
+            "not_zwave_device": "Il dispositivo rilevato non \u00e8 un dispositivo Z-Wave.",
+            "not_zwave_js_addon": "Il componente aggiuntivo rilevato non \u00e8 il componente aggiuntivo Z-Wave JS ufficiale."
+        },
+        "error": {
+            "addon_start_failed": "Impossibile avviare il componente aggiuntivo Z-Wave JS. Controlla la configurazione.",
+            "cannot_connect": "Impossibile connettersi",
+            "invalid_ws_url": "URL websocket non valido",
+            "unknown": "Errore imprevisto"
+        },
+        "flow_title": "{name}",
+        "progress": {
+            "install_addon": "Attendi il termine dell'installazione del componente aggiuntivo Z-Wave JS. Questa operazione pu\u00f2 richiedere diversi minuti.",
+            "start_addon": "Attendi il completamento dell'avvio del componente aggiuntivo Z-Wave JS. L'operazione potrebbe richiedere alcuni secondi."
+        },
+        "step": {
+            "configure_addon": {
+                "data": {
+                    "s0_legacy_key": "Chiave S0 (Obsoleta)",
+                    "s2_access_control_key": "Chiave di controllo di accesso S2",
+                    "s2_authenticated_key": "Chiave S2 autenticata",
+                    "s2_unauthenticated_key": "Chiave S2 non autenticata",
+                    "usb_path": "Percorso del dispositivo USB"
+                },
+                "description": "Il componente aggiuntivo generer\u00e0 chiavi di sicurezza se questi campi vengono lasciati vuoti.",
+                "title": "Accedi alla configurazione del componente aggiuntivo Z-Wave JS"
+            },
+            "hassio_confirm": {
+                "title": "Configura l'integrazione di Z-Wave JS con il componente aggiuntivo Z-Wave JS"
+            },
+            "install_addon": {
+                "title": "L'installazione del componente aggiuntivo Z-Wave JS \u00e8 iniziata"
+            },
+            "manual": {
+                "data": {
+                    "url": "URL"
+                }
+            },
+            "on_supervisor": {
+                "data": {
+                    "use_addon": "Usa il componente aggiuntivo Z-Wave JS del Supervisor"
+                },
+                "description": "Desideri utilizzare il componente aggiuntivo Z-Wave JS del Supervisor?",
+                "title": "Seleziona il metodo di connessione"
+            },
+            "start_addon": {
+                "title": "Il componente aggiuntivo Z-Wave JS si sta avviando."
+            },
+            "usb_confirm": {
+                "description": "Vuoi configurare {name} con il componente aggiuntivo Z-Wave JS?"
+            },
+            "zeroconf_confirm": {
+                "description": "Vuoi aggiungere il server Z-Wave JS con l'ID casa {home_id} trovato in {url} a Home Assistant?",
+                "title": "Rilevato Server JS Z-Wave"
+            }
+        }
+    },
+    "device_automation": {
+        "action_type": {
+            "clear_lock_usercode": "Cancella codice utente su {entity_name}",
+            "ping": "Dispositivo ping",
+            "refresh_value": "Aggiorna il/i valore/i per {entity_name}",
+            "reset_meter": "Azzera i contatori su {subtype}",
+            "set_config_parameter": "Imposta il valore del parametro di configurazione {subtype}",
+            "set_lock_usercode": "Imposta un codice utente su {entity_name}",
+            "set_value": "Imposta un valore Z-Wave"
+        },
+        "condition_type": {
+            "config_parameter": "Valore del parametro di configurazione {subtype}",
+            "node_status": "Stato del nodo",
+            "value": "Valore corrente di un valore Z-Wave"
+        },
+        "trigger_type": {
+            "event.notification.entry_control": "Inviata una notifica di controllo delle entrate",
+            "event.notification.notification": "Inviata una notifica",
+            "event.value_notification.basic": "Evento CC di base su {subtype}",
+            "event.value_notification.central_scene": "Azione della scena centrale su {subtype}",
+            "event.value_notification.scene_activation": "Attivazione scena su {subtype}",
+            "state.node_status": "Lo stato del nodo \u00e8 cambiato",
+            "zwave_js.value_updated.config_parameter": "Variazione sul parametro di configurazione {subtype}",
+            "zwave_js.value_updated.value": "Variazione su un valore Z-Wave JS"
+        }
+    },
+    "issues": {
+        "device_config_file_changed": {
+            "fix_flow": {
+                "abort": {
+                    "cannot_connect": "Impossibile connettersi a {device_name}. Riprova pi\u00f9 tardi dopo aver confermato che la rete Z-Wave \u00e8 attiva e connessa a Home Assistant."
+                },
+                "step": {
+                    "confirm": {
+                        "description": "Il file di configurazione per {device_name} \u00e8 cambiato.\n\nZ-Wave JS raccoglie una grande quantit\u00e0 di metadati del dispositivo attraverso un processo di intervista. Tuttavia, alcune informazioni devono essere ottenute da un file di configurazione. Queste informazioni vengono analizzate solo una volta, durante l'intervista al dispositivo.\n\nQuando si aggiorna un file di configurazione del dispositivo, queste informazioni potrebbero non essere pi\u00f9 aggiornate e potrebbe essere necessario reintervistare il dispositivo per incorporare le modifiche.\n\nQuesto non \u00e8 un passaggio obbligatorio e la funzionalit\u00e0 del dispositivo potrebbe essere temporaneamente influenzata durante il processo di reintervista, ma potresti notare dei miglioramenti per il tuo dispositivo una volta terminato il processo.\n\nSe desideri continuare, clicca su INVIO qui sotto. La reintervista si svolger\u00e0 in background.",
+                        "title": "File di configurazione del dispositivo modificato: {device_name}"
+                    }
+                }
+            },
+            "title": "File di configurazione del dispositivo modificato: {device_name}"
+        },
+        "dry_fan_presets_deprecation": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Stai utilizzando le modalit\u00e0 preimpostate Dry o Fan nella tua entit\u00e0 `{entity_id}`. \n\nLe modalit\u00e0 preimpostate Dry e Fan sono deprecate e verranno rimosse. Aggiorna le tue automazioni per utilizzare invece le corrispondenti modalit\u00e0 **HVAC** Deumidificazione e Ventilazione**. \n\nFai clic su INVIA di seguito dopo aver risolto manualmente il problema.",
+                        "title": "Le modalit\u00e0 preimpostate Asciutto e Ventola verranno rimosse: {entity_id}"
+                    }
+                }
+            },
+            "title": "Le modalit\u00e0 preimpostate Asciutto e Ventola verranno rimosse: {entity_id}"
+        },
+        "invalid_server_version": {
+            "description": "La versione di Z-Wave JS Server attualmente in esecuzione \u00e8 troppo vecchia per questa versione di Home Assistant. Aggiorna Z-Wave JS Server all'ultima versione per risolvere questo problema.",
+            "title": "\u00c8 necessaria una versione pi\u00f9 recente di Z-Wave JS Server"
+        }
+    },
+    "options": {
+        "abort": {
+            "addon_get_discovery_info_failed": "Impossibile ottenere le informazioni sul rilevamento del componente aggiuntivo Z-Wave JS.",
+            "addon_info_failed": "Impossibile ottenere le informazioni sul componente aggiuntivo Z-Wave JS.",
+            "addon_install_failed": "Impossibile installare il componente aggiuntivo Z-Wave JS.",
+            "addon_set_config_failed": "Impossibile impostare la configurazione di Z-Wave JS.",
+            "addon_start_failed": "Impossibile avviare il componente aggiuntivo Z-Wave JS.",
+            "already_configured": "Il dispositivo \u00e8 gi\u00e0 configurato",
+            "cannot_connect": "Impossibile connettersi",
+            "different_device": "Il dispositivo USB connesso non \u00e8 lo stesso configurato in precedenza per questa voce di configurazione. Crea invece una nuova voce di configurazione per il nuovo dispositivo."
+        },
+        "error": {
+            "cannot_connect": "Impossibile connettersi",
+            "invalid_ws_url": "URL websocket non valido",
+            "unknown": "Errore imprevisto"
+        },
+        "progress": {
+            "install_addon": "Attendi il termine dell'installazione del componente aggiuntivo Z-Wave JS. Questa operazione pu\u00f2 richiedere diversi minuti.",
+            "start_addon": "Attendi il completamento dell'avvio del componente aggiuntivo Z-Wave JS. L'operazione potrebbe richiedere alcuni secondi."
+        },
+        "step": {
+            "configure_addon": {
+                "data": {
+                    "emulate_hardware": "Emula l'hardware",
+                    "log_level": "Livello di registro",
+                    "s0_legacy_key": "Chiave S0 (Obsoleta)",
+                    "s2_access_control_key": "Chiave di controllo di accesso S2",
+                    "s2_authenticated_key": "Chiave S2 autenticata",
+                    "s2_unauthenticated_key": "Chiave S2 non autenticata",
+                    "usb_path": "Percorso del dispositivo USB"
+                },
+                "description": "Il componente aggiuntivo generer\u00e0 chiavi di sicurezza se questi campi vengono lasciati vuoti.",
+                "title": "Accedi alla configurazione del componente aggiuntivo Z-Wave JS"
+            },
+            "install_addon": {
+                "title": "L'installazione del componente aggiuntivo Z-Wave JS \u00e8 iniziata"
+            },
+            "manual": {
+                "data": {
+                    "url": "URL"
+                }
+            },
+            "on_supervisor": {
+                "data": {
+                    "use_addon": "Usa il componente aggiuntivo Z-Wave JS del Supervisor"
+                },
+                "description": "Desideri utilizzare il componente aggiuntivo Z-Wave JS del Supervisor?",
+                "title": "Seleziona il metodo di connessione"
+            },
+            "start_addon": {
+                "title": "Il componente aggiuntivo Z-Wave JS si sta avviando."
+            }
+        }
+    },
+    "services": {
+        "bulk_set_partial_config_parameters": {
+            "description": "Consente l'impostazione in blocco di parametri parziali. Utile quando si devono impostare pi\u00f9 parametri parziali contemporaneamente.",
+            "fields": {
+                "endpoint": {
+                    "description": "Il punto finale del parametro di configurazione.",
+                    "name": "Punto finale"
+                },
+                "parameter": {
+                    "description": "Il nome (o ID) del parametro di configurazione che si desidera configurare.",
+                    "name": "Parametro"
+                },
+                "value": {
+                    "description": "I nuovi valori da impostare per questo parametro di configurazione. Pu\u00f2 essere un valore intero non elaborato per rappresentare la modifica in blocco o una mappatura in cui la chiave \u00e8 la maschera di bit (in formato esadecimale o intero) e il valore \u00e8 il nuovo valore che si desidera impostare per quel parametro parziale.",
+                    "name": "Valore"
+                }
+            },
+            "name": "Impostare in blocco i parametri di configurazione parziale (avanzato)."
+        },
+        "clear_lock_usercode": {
+            "description": "Cancella un codice utente da una serratura.",
+            "fields": {
+                "code_slot": {
+                    "description": "Codice Slot da cui cancellare il codice.",
+                    "name": "Codice slot"
+                }
+            },
+            "name": "Cancella codice utente di blocco"
+        },
+        "invoke_cc_api": {
+            "fields": {
+                "command_class": {
+                    "description": "L'ID della classe di comando a cui vuoi inviare un comando.",
+                    "name": "Classe di comando"
+                },
+                "endpoint": {
+                    "description": "L'endpoint su cui chiamare l'API. Se viene specificato un endpoint, quell'endpoint verr\u00e0 scelto come destinazione per tutti i nodi associati alle aree, ai dispositivi e/o alle entit\u00e0 di destinazione. Se non viene specificato un endpoint, l'endpoint root (0) verr\u00e0 scelto come target per i nodi associati alle aree e ai dispositivi di destinazione e verr\u00e0 scelto come target l'endpoint per il valore primario di ciascuna entit\u00e0.",
+                    "name": "Punto finale"
+                },
+                "method_name": {
+                    "description": "Il nome del metodo API da chiamare. Fare riferimento alla documentazione API Z-Wave JS Command Class (https://zwave-js.github.io/node-zwave-js/#/api/CCs/index) per i metodi disponibili.",
+                    "name": "Nome del metodo"
+                },
+                "parameters": {
+                    "description": "Un elenco di parametri da passare al metodo API. Fare riferimento alla documentazione API Z-Wave JS Command Class (https://zwave-js.github.io/node-zwave-js/#/api/CCs/index) per i parametri.",
+                    "name": "Parametri"
+                }
+            },
+            "name": "Richiama un'API della classe di comando su un nodo (avanzato)"
+        },
+        "multicast_set_value": {
+            "fields": {
+                "broadcast": {
+                    "description": "Indica se il comando deve essere trasmesso a tutti i dispositivi sulla rete.",
+                    "name": "Trasmetti?"
+                },
+                "command_class": {
+                    "description": "L'ID della classe di comando per il valore.",
+                    "name": "Classe di comando"
+                },
+                "endpoint": {
+                    "description": "Il punto finale del valore.",
+                    "name": "Punto finale"
+                },
+                "options": {
+                    "description": "Impostare il valore della mappa delle opzioni. Per ulteriori informazioni sulle opzioni impostabili, consultare la documentazione di Z-Wave JS.",
+                    "name": "Opzioni"
+                },
+                "property": {
+                    "description": "L'ID della propriet\u00e0 per il valore.",
+                    "name": "Propriet\u00e0"
+                },
+                "property_key": {
+                    "description": "L'ID della chiave di propriet\u00e0 per il valore.",
+                    "name": "Chiave di propriet\u00e0"
+                },
+                "value": {
+                    "description": "Il nuovo valore da impostare.",
+                    "name": "Valore"
+                }
+            },
+            "name": "Imposta un valore su pi\u00f9 dispositivi tramite multicast (avanzato)"
+        },
+        "ping": {
+            "description": "Forza Z-Wave JS a provare a raggiungere un nodo. Questo pu\u00f2 essere usato per aggiornare lo stato del nodo in Z-Wave JS quando pensi che non rifletta accuratamente la realt\u00e0, ad esempio rianimando un nodo guasto/morto o contrassegnando il nodo come addormentato.",
+            "name": "Eseguire il ping di un nodo"
+        },
+        "refresh_notifications": {
+            "description": "Aggiorna le notifiche su un nodo in base al tipo di notifica e, facoltativamente, all'evento di notifica.",
+            "fields": {
+                "notification_event": {
+                    "description": "Il numero dell'evento di notifica come definito nelle specifiche Z-Wave.",
+                    "name": "Evento di notifica"
+                },
+                "notification_type": {
+                    "description": "Il numero del tipo di notifica come definito nelle specifiche Z-Wave.",
+                    "name": "Tipo di notifica"
+                }
+            },
+            "name": "Aggiorna le notifiche su un nodo (avanzato)"
+        },
+        "refresh_value": {
+            "description": "Aggiorna forzatamente i valori di un'entit\u00e0 Z-Wave.",
+            "fields": {
+                "entity_id": {
+                    "description": "Entit\u00e0 da aggiornare.",
+                    "name": "Entit\u00e0"
+                },
+                "refresh_all_values": {
+                    "description": "Se aggiornare tutti i valori (true) o solo il valore primario (false).",
+                    "name": "Aggiornare tutti i valori?"
+                }
+            },
+            "name": "Aggiorna i valori"
+        },
+        "reset_meter": {
+            "description": "Azzera i contatori su un nodo.",
+            "fields": {
+                "meter_type": {
+                    "description": "Il tipo di contatore da azzerare. Non tutti i contatori supportano la possibilit\u00e0 di scegliere un tipo di contatore da reimpostare.",
+                    "name": "Tipo di contatore"
+                },
+                "value": {
+                    "description": "Il valore a cui devono essere reimpostati i contatori. Non tutti i contatori supportano la possibilit\u00e0 di essere reimpostati su un valore specifico.",
+                    "name": "Valore obiettivo"
+                }
+            },
+            "name": "Azzera contatori su un nodo"
+        },
+        "set_config_parameter": {
+            "description": "Modifica i parametri di configurazione dei tuoi dispositivi Z-Wave.",
+            "fields": {
+                "bitmask": {
+                    "description": "Impostare come destinazione una maschera di bit specifica (per ulteriori informazioni, vedere la documentazione). Non cumulabile con value_size o value_format.",
+                    "name": "Maschera di bit"
+                },
+                "endpoint": {
+                    "description": "Il punto finale del parametro di configurazione.",
+                    "name": "Punto finale"
+                },
+                "parameter": {
+                    "description": "Il nome (o ID) del parametro di configurazione che si desidera configurare.",
+                    "name": "Parametro"
+                },
+                "value": {
+                    "description": "Il nuovo valore da impostare per questo parametro di configurazione.",
+                    "name": "Valore"
+                },
+                "value_format": {
+                    "description": "Formato del valore, 0 per intero con segno, 1 per intero senza segno, 2 per enumerato, 3 per campo di bit. Utilizzato in combinazione con value_size quando un parametro di configurazione non \u00e8 definito nel file di configurazione del dispositivo. Non pu\u00f2 essere combinato con la maschera di bit.",
+                    "name": "Formato del valore"
+                },
+                "value_size": {
+                    "description": "Dimensione del valore, 1, 2 o 4. Utilizzato in combinazione con value_format quando un parametro di configurazione non \u00e8 definito nel file di configurazione del dispositivo. Non pu\u00f2 essere combinato con la maschera di bit.",
+                    "name": "Dimensione del valore"
+                }
+            },
+            "name": "Imposta il parametro di configurazione del dispositivo"
+        },
+        "set_lock_configuration": {
+            "description": "Imposta la configurazione per una serratura.",
+            "fields": {
+                "auto_relock_time": {
+                    "description": "Durata in secondi prima che il blocco ritorni allo stato protetto. Applicato solo quando il tipo di operazione \u00e8 \"costante\".",
+                    "name": "Tempo di richiusura automatica"
+                },
+                "block_to_block": {
+                    "description": "Abilita la funzionalit\u00e0 blocco per blocco.",
+                    "name": "Blocco per blocco"
+                },
+                "hold_and_release_time": {
+                    "description": "Durata in secondi in cui il chiavistello rimane retratto.",
+                    "name": "Tempo di mantenimento e rilascio"
+                },
+                "inside_handles_can_open_door_configuration": {
+                    "description": "Un elenco di quattro booleani che indicano quali maniglie interne possono aprire la porta.",
+                    "name": "Le maniglie interne possono aprire la configurazione della porta"
+                },
+                "lock_timeout": {
+                    "description": "Secondi fino al timeout della modalit\u00e0 di blocco. Deve essere utilizzato solo se il tipo di operazione \u00e8 \"temporizzato\".",
+                    "name": "Timeout della serratura"
+                },
+                "operation_type": {
+                    "description": "Il tipo di operazione della serratura.",
+                    "name": "Tipo di operazione"
+                },
+                "outside_handles_can_open_door_configuration": {
+                    "description": "Un elenco di quattro booleani che indicano quali maniglie esterne possono aprire la porta.",
+                    "name": "Le maniglie esterne possono aprire la configurazione della porta"
+                },
+                "twist_assist": {
+                    "description": "Abilita l'Assistenza alla torsione.",
+                    "name": "Assistenza alla torsione"
+                }
+            },
+            "name": "Imposta la configurazione della serratura"
+        },
+        "set_lock_usercode": {
+            "description": "Imposta un codice utente su una serratura.",
+            "fields": {
+                "code_slot": {
+                    "description": "Code slot per impostare il codice.",
+                    "name": "Codice slot"
+                },
+                "usercode": {
+                    "description": "Codice di blocco da impostare.",
+                    "name": "Codice"
+                }
+            },
+            "name": "Imposta il codice utente di blocco"
+        },
+        "set_value": {
+            "fields": {
+                "command_class": {
+                    "description": "L'ID della classe di comando per il valore.",
+                    "name": "Classe di comando"
+                },
+                "endpoint": {
+                    "description": "Il punto finale del valore.",
+                    "name": "Punto finale"
+                },
+                "options": {
+                    "description": "Impostare il valore della mappa delle opzioni. Per ulteriori informazioni sulle opzioni impostabili, consultare la documentazione di Z-Wave JS.",
+                    "name": "Opzioni"
+                },
+                "property": {
+                    "description": "L'ID della propriet\u00e0 per il valore.",
+                    "name": "Propriet\u00e0"
+                },
+                "property_key": {
+                    "description": "L'ID della chiave di propriet\u00e0 per il valore.",
+                    "name": "Chiave di propriet\u00e0"
+                },
+                "value": {
+                    "description": "Il nuovo valore da impostare.",
+                    "name": "Valore"
+                },
+                "wait_for_result": {
+                    "name": "In attesa del risultato?"
+                }
+            },
+            "name": "Imposta un valore (avanzato)"
+        }
+    }
+}

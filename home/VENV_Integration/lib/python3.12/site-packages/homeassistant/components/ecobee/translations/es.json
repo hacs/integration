@@ -1,0 +1,198 @@
+{
+    "config": {
+        "abort": {
+            "single_instance_allowed": "Ya est\u00e1 configurado. Solo es posible una \u00fanica configuraci\u00f3n."
+        },
+        "error": {
+            "pin_request_failed": "Error al solicitar PIN de ecobee; por favor, verifica que la clave API sea correcta.",
+            "token_request_failed": "Error al solicitar tokens de ecobee; por favor, int\u00e9ntalo de nuevo."
+        },
+        "step": {
+            "authorize": {
+                "description": "Por favor, autoriza esta aplicaci\u00f3n en https://www.ecobee.com/consumerportal/index.html con el c\u00f3digo PIN:\n\n{pin}\n\nA continuaci\u00f3n, selecciona **Enviar**.",
+                "title": "Autorizar aplicaci\u00f3n en ecobee.com"
+            },
+            "user": {
+                "data": {
+                    "api_key": "Clave API"
+                },
+                "description": "Por favor, introduce la clave API obtenida de ecobee.com.",
+                "title": "Clave API de ecobee"
+            }
+        }
+    },
+    "entity": {
+        "climate": {
+            "ecobee": {
+                "state_attributes": {
+                    "preset_mode": {
+                        "state": {
+                            "away_indefinitely": "Ausente indefinidamente"
+                        }
+                    }
+                }
+            }
+        },
+        "number": {
+            "ventilator_min_type_away": {
+                "name": "Tiempo m\u00ednimo del ventilador ausente"
+            },
+            "ventilator_min_type_home": {
+                "name": "Tiempo m\u00ednimo del ventilador en casa"
+            }
+        },
+        "switch": {
+            "aux_heat_only": {
+                "name": "S\u00f3lo calor auxiliar"
+            }
+        }
+    },
+    "issues": {
+        "migrate_aux_heat": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "La acci\u00f3n Ecobee `set_aux_heat` ha sido migrada. Hay disponible una nueva entidad de interruptor `aux_heat_only` para cada termostato que admita una bomba de calor. \n\nActualiza cualquier automatizaci\u00f3n para usar la nueva entidad interruptor `aux_heat_only`. Una vez hecho esto, soluciona este problema y reinicia Home Assistant.",
+                        "title": "Deshabilita la antigua acci\u00f3n set_aux_heat de Ecobee"
+                    }
+                }
+            },
+            "title": "Migraci\u00f3n de la acci\u00f3n Ecobee set_aux_heat"
+        },
+        "migrate_notify": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "El servicio Ecobee `notify` ha sido migrado. Ya est\u00e1 disponible una nueva entidad `notify` por termostato.\n\nActualiza cualquier automatizaci\u00f3n para utilizar el nuevo `notify.send_message` expuesto por estas nuevas entidades. Una vez hecho esto, soluciona este problema y reinicia Home Assistant.",
+                        "title": "Deshabilitar el servicio de notificaci\u00f3n Ecobee heredado"
+                    }
+                }
+            },
+            "title": "Migraci\u00f3n del servicio de notificaci\u00f3n Ecobee"
+        }
+    },
+    "services": {
+        "create_vacation": {
+            "description": "Crea unas vacaciones en el termostato seleccionado. Nota: la fecha y la hora de inicio/finalizaci\u00f3n deben especificarse juntas para que estos par\u00e1metros tengan efecto. Si no se especifican la fecha y la hora de inicio/finalizaci\u00f3n, las vacaciones comenzar\u00e1n inmediatamente y durar\u00e1n 14 d\u00edas (a menos que se eliminen antes).",
+            "fields": {
+                "cool_temp": {
+                    "description": "Temperatura de refrigeraci\u00f3n durante las vacaciones.",
+                    "name": "Temperatura de refrigeraci\u00f3n"
+                },
+                "end_date": {
+                    "description": "Fecha de finalizaci\u00f3n de las vacaciones en formato AAAA-MM-DD (opcional, 14 d\u00edas a partir de ahora si no se proporciona junto con end_time).",
+                    "name": "Fecha de fin"
+                },
+                "end_time": {
+                    "description": "Hora de finalizaci\u00f3n de las vacaciones, en la hora local del termostato, en el formato de 24 horas \"HH:MM:SS\".",
+                    "name": "Hora de finalizaci\u00f3n"
+                },
+                "entity_id": {
+                    "description": "Termostato Ecobee en el que crear vacaciones.",
+                    "name": "Entidad"
+                },
+                "fan_min_on_time": {
+                    "description": "N\u00famero m\u00ednimo de minutos para hacer funcionar el ventilador cada hora (0 a 60) durante las vacaciones.",
+                    "name": "Tiempo m\u00ednimo de encendido del ventilador"
+                },
+                "fan_mode": {
+                    "description": "Modo ventilador del termostato durante las vacaciones.",
+                    "name": "Modo del ventilador"
+                },
+                "heat_temp": {
+                    "description": "Temperatura de calefacci\u00f3n durante las vacaciones.",
+                    "name": "Temperatura de calefacci\u00f3n"
+                },
+                "start_date": {
+                    "description": "Fecha de inicio de las vacaciones en el formato AAAA-MM-DD (opcional, inmediatamente si no se proporciona junto con start_time).",
+                    "name": "Fecha de inicio"
+                },
+                "start_time": {
+                    "description": "Hora de inicio de las vacaciones, en la hora local del termostato, en el formato de 24 horas \"HH:MM:SS\".",
+                    "name": "Hora de inicio"
+                },
+                "vacation_name": {
+                    "description": "Nombre de las vacaciones a crear; debe ser \u00fanico en el termostato.",
+                    "name": "Nombre de vacaciones"
+                }
+            },
+            "name": "Crear vacaciones"
+        },
+        "delete_vacation": {
+            "description": "Elimina unas vacaciones en el termostato seleccionado.",
+            "fields": {
+                "entity_id": {
+                    "description": "Termostato Ecobee en el que eliminar vacaciones.",
+                    "name": "Entidad"
+                },
+                "vacation_name": {
+                    "description": "Nombre de las vacaciones a borrar.",
+                    "name": "Nombre de vacaciones"
+                }
+            },
+            "name": "Borrar vacaciones"
+        },
+        "resume_program": {
+            "description": "Reanuda el horario programado.",
+            "fields": {
+                "entity_id": {
+                    "description": "Nombre(s) de las entidades a cambiar.",
+                    "name": "Entidad"
+                },
+                "resume_all": {
+                    "description": "Reanuda todos los eventos y regresa al programa programado.",
+                    "name": "Reanudar todo"
+                }
+            },
+            "name": "Reanudar programa"
+        },
+        "set_dst_mode": {
+            "description": "Habilita/deshabilita el horario de verano autom\u00e1tico.",
+            "fields": {
+                "dst_enabled": {
+                    "description": "Habilita el horario de verano autom\u00e1tico.",
+                    "name": "Horario de verano habilitado"
+                }
+            },
+            "name": "Establecer el modo de horario de verano"
+        },
+        "set_fan_min_on_time": {
+            "description": "Establece el tiempo m\u00ednimo de encendido del ventilador.",
+            "fields": {
+                "entity_id": {
+                    "description": "Nombre(s) de las entidades a cambiar.",
+                    "name": "Entidad"
+                },
+                "fan_min_on_time": {
+                    "description": "Nuevo valor de tiempo m\u00ednimo de encendido del ventilador.",
+                    "name": "Tiempo m\u00ednimo de encendido del ventilador"
+                }
+            },
+            "name": "Ajustar el tiempo m\u00ednimo de encendido del ventilador"
+        },
+        "set_mic_mode": {
+            "description": "Habilita/deshabilita el micr\u00f3fono de Alexa (solo para Ecobee 4).",
+            "fields": {
+                "mic_enabled": {
+                    "description": "Habilitar el micr\u00f3fono de Alexa.",
+                    "name": "Micr\u00f3fono habilitado"
+                }
+            },
+            "name": "Establecer modo de micr\u00f3fono"
+        },
+        "set_occupancy_modes": {
+            "description": "Habilita/deshabilita los modos En casa/Ausente inteligente y S\u00edgueme.",
+            "fields": {
+                "auto_away": {
+                    "description": "Habilita el modo En casa/Ausente inteligente.",
+                    "name": "Auto ausente"
+                },
+                "follow_me": {
+                    "description": "Habilita el modo S\u00edgueme.",
+                    "name": "S\u00edgueme"
+                }
+            },
+            "name": "Establecer modos de ocupaci\u00f3n"
+        }
+    }
+}

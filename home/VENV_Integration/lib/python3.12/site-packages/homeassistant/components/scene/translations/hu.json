@@ -1,0 +1,63 @@
+{
+    "exceptions": {
+        "entity_not_dynamically_created": {
+            "message": "A(z) {entity_id} jelenet nem a `scene.create` m\u0171velettel lett l\u00e9trehozva."
+        },
+        "entity_not_scene": {
+            "message": "{entity_id} nem \u00e9rv\u00e9nyes jelenet entit\u00e1s azonos\u00edt\u00f3."
+        }
+    },
+    "services": {
+        "apply": {
+            "description": "Konfigur\u00e1ci\u00f3val aktiv\u00e1l egy jelenetet.",
+            "fields": {
+                "entities": {
+                    "description": "Entit\u00e1sok list\u00e1ja \u00e9s a c\u00e9l\u00e1llapotuk.",
+                    "name": "Entit\u00e1sok \u00e1llapota"
+                },
+                "transition": {
+                    "description": "Az az id\u0151, am\u00edg az eszk\u00f6z\u00f6k \u00e1tmennek a jelenetben meghat\u00e1rozott \u00e1llapotokba.",
+                    "name": "\u00c1tmenet"
+                }
+            },
+            "name": "Alkalmaz"
+        },
+        "create": {
+            "description": "\u00daj jelenetet hoz l\u00e9tre.",
+            "fields": {
+                "entities": {
+                    "description": "Entit\u00e1sok list\u00e1ja \u00e9s azok c\u00e9l\u00e1llapota. Ha az entit\u00e1sok m\u00e1r jelenleg is a c\u00e9l\u00e1llapotban vannak, haszn\u00e1lja a `snapshot_entities` opci\u00f3t helyett\u00fck.",
+                    "name": "Entit\u00e1sok \u00e1llapota"
+                },
+                "scene_id": {
+                    "description": "Az \u00faj jelenet entit\u00e1s azonos\u00edt\u00f3ja.",
+                    "name": "Jelenet entit\u00e1s azonos\u00edt\u00f3ja"
+                },
+                "snapshot_entities": {
+                    "description": "Entit\u00e1sok list\u00e1ja, amelyeket be kell vonni a pillanatk\u00e9pbe. Egy pillanatk\u00e9p k\u00e9sz\u00edt\u00e9s\u00e9vel r\u00f6gz\u00edtheti ezeknek az entit\u00e1soknak a jelenlegi \u00e1llapot\u00e1t. Ha nem szeretn\u00e9 ezt a jelenetet minden entit\u00e1s jelenlegi \u00e1llapot\u00e1val haszn\u00e1lni, kombin\u00e1lhatja `snapshot_entities` \u00e9s `entities` opci\u00f3kat.",
+                    "name": "Pillanatk\u00e9p entit\u00e1sok"
+                }
+            },
+            "name": "L\u00e9trehoz\u00e1s"
+        },
+        "delete": {
+            "description": "Dinamikusan l\u00e9trehozott jelenet t\u00f6rl\u00e9se.",
+            "name": "T\u00f6rl\u00e9s"
+        },
+        "reload": {
+            "description": "\u00dajrat\u00f6lti a jeleneteket a YAML-konfigur\u00e1ci\u00f3b\u00f3l.",
+            "name": "\u00dajrat\u00f6lt\u00e9s"
+        },
+        "turn_on": {
+            "description": "Aktiv\u00e1l egy jelenetet.",
+            "fields": {
+                "transition": {
+                    "description": "Az az id\u0151, am\u00edg az eszk\u00f6z\u00f6k \u00e1tmennek a jelenetben meghat\u00e1rozott \u00e1llapotokba.",
+                    "name": "\u00c1tmenet"
+                }
+            },
+            "name": "Aktiv\u00e1l\u00e1s"
+        }
+    },
+    "title": "Jelenet"
+}

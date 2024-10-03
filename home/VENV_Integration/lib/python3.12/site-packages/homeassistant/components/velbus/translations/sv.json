@@ -1,0 +1,74 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Enheten \u00e4r redan konfigurerad"
+        },
+        "error": {
+            "already_configured": "Enheten \u00e4r redan konfigurerad",
+            "cannot_connect": "Det gick inte att ansluta."
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "name": "Namnet p\u00e5 den h\u00e4r velbus-anslutningen",
+                    "port": "Anslutningsstr\u00e4ng"
+                },
+                "title": "Definiera velbus-anslutningstypen"
+            }
+        }
+    },
+    "services": {
+        "clear_cache": {
+            "description": "Rensar Velbus-cachen och startar sedan en ny skanning.",
+            "fields": {
+                "address": {
+                    "description": "Modulens adress i decimalformat. Om angivet rensas bara denna modul, om inget anges rensas hela cachekatalogen (alla moduler) Decimaladresserna visas framf\u00f6r de moduler som listas p\u00e5 integrationssidan.\n.",
+                    "name": "Adress"
+                },
+                "interface": {
+                    "description": "Velbus-gr\u00e4nssnittet som kommandot ska skickas till, detta \u00e4r samma v\u00e4rde som anv\u00e4ndes under konfigurationen.",
+                    "name": "Gr\u00e4nssnitt"
+                }
+            },
+            "name": "Rensar cache"
+        },
+        "scan": {
+            "description": "Skannar velbus-modulerna, detta beh\u00f6vs om du ser varningar f\u00f6r ok\u00e4nda moduler i loggarna, eller n\u00e4r du har lagt till nya moduler.",
+            "fields": {
+                "interface": {
+                    "description": "Velbus-gr\u00e4nssnittet som kommandot ska skickas till, detta \u00e4r samma v\u00e4rde som anv\u00e4ndes under konfigurationen.",
+                    "name": "Gr\u00e4nssnitt"
+                }
+            },
+            "name": "Skanna"
+        },
+        "set_memo_text": {
+            "description": "St\u00e4ller in PM-texten f\u00f6r visning av moduler som VMBGPO, VMBGPOD Se till att sidan/sidorna i modulen \u00e4r konfigurerade f\u00f6r att visa PM-texten.\n.",
+            "fields": {
+                "address": {
+                    "description": "Modulens adress i decimalformat. Decimaladresserna visas framf\u00f6r de moduler som listas p\u00e5 integrationssidan.\n.",
+                    "name": "Adress"
+                },
+                "interface": {
+                    "description": "Velbus-gr\u00e4nssnittet som kommandot ska skickas till, detta \u00e4r samma v\u00e4rde som anv\u00e4ndes under konfigurationen.",
+                    "name": "Gr\u00e4nssnitt"
+                },
+                "memo_text": {
+                    "description": "Den faktiska text som ska visas. Texten \u00e4r begr\u00e4nsad till 64 tecken.\n.",
+                    "name": "Memo text"
+                }
+            },
+            "name": "Ange text f\u00f6r memo"
+        },
+        "sync_clock": {
+            "description": "Synkroniserar velbusmodulernas klocka med Home Assistant-klockan, detta \u00e4r samma sak som \"sync clock\" fr\u00e5n VelbusLink.",
+            "fields": {
+                "interface": {
+                    "description": "Velbus-gr\u00e4nssnittet som kommandot ska skickas till, detta \u00e4r samma v\u00e4rde som anv\u00e4ndes under konfigurationen.",
+                    "name": "Gr\u00e4nssnitt"
+                }
+            },
+            "name": "Synkronisera klockan"
+        }
+    }
+}

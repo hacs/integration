@@ -1,0 +1,87 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "El dispositivo ya est\u00e1 configurado",
+            "success": "Cambios guardados"
+        },
+        "flow_title": "Proximidad",
+        "step": {
+            "user": {
+                "data": {
+                    "ignored_zones": "Zonas a ignorar",
+                    "tolerance": "Distancia de tolerancia",
+                    "tracked_entities": "Dispositivos o personas para rastrear",
+                    "zone": "Zona a la que rastrear la distancia"
+                }
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "dir_of_travel": {
+                "name": "Sentido de la marcha de {tracked_entity}",
+                "state": {
+                    "arrived": "Lleg\u00f3",
+                    "away_from": "Alej\u00e1ndose",
+                    "stationary": "Estacionario",
+                    "towards": "Acerc\u00e1ndose"
+                }
+            },
+            "dist_to_zone": {
+                "name": "Distancia de {tracked_entity}"
+            },
+            "nearest": {
+                "name": "Dispositivo m\u00e1s cercano"
+            },
+            "nearest_dir_of_travel": {
+                "name": "Sentido de la marcha m\u00e1s pr\u00f3ximo",
+                "state": {
+                    "arrived": "Lleg\u00f3",
+                    "away_from": "Alej\u00e1ndose",
+                    "stationary": "Estacionario",
+                    "towards": "Acerc\u00e1ndose"
+                }
+            },
+            "nearest_dist_to_zone": {
+                "name": "Distancia m\u00e1s cercana"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_proximity_entity": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "La entidad de proximidad `{entity}` est\u00e1 obsoleta y se eliminar\u00e1 en `2024.8`. Sin embargo, se utiliza dentro de las siguientes configuraciones:\n - {used_in} \n\nPor favor, ajusta cualquier automatizaci\u00f3n o script que utilice esta entidad de proximidad obsoleta.\nPara cada persona o dispositivo rastreado se crea un sensor para la distancia y la direcci\u00f3n de viaje hacia/desde la zona monitorizada. Adem\u00e1s, para cada configuraci\u00f3n de Proximidad se crea un sensor que muestra el dispositivo o persona m\u00e1s cercana a la zona monitorizada. Con esto puedes utilizar la integraci\u00f3n M\u00edn/M\u00e1x para determinar la distancia m\u00e1s cercana y la m\u00e1s lejana.",
+                        "title": "La entidad de proximidad est\u00e1 obsoleta"
+                    }
+                }
+            },
+            "title": "La entidad de proximidad est\u00e1 obsoleta"
+        },
+        "tracked_entity_removed": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Se ha eliminado la entidad `{entity_id}` de HA, pero se usa en la proximidad {name}. Por favor, elimina `{entity_id}` de la lista de entidades rastreadas. Las entidades de sensores de proximidad relacionadas se configuraron como no disponibles y se pueden eliminar.",
+                        "title": "Se ha eliminado la entidad rastreada"
+                    }
+                }
+            },
+            "title": "Se ha eliminado la entidad rastreada"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "ignored_zones": "Zonas a ignorar",
+                    "tolerance": "Distancia de tolerancia",
+                    "tracked_entities": "Dispositivos o personas para rastrear",
+                    "zone": "Zona a la que rastrear la distancia"
+                }
+            }
+        }
+    },
+    "title": "Proximidad"
+}

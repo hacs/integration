@@ -1,0 +1,96 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "\u3053\u306e\u30e1\u30fc\u30eb\u306b\u306f\u3059\u3067\u306b\u3001MELCloud\u7d71\u5408\u304c\u8a2d\u5b9a\u3055\u308c\u3066\u3044\u307e\u3059\u3002\u30a2\u30af\u30bb\u30b9\u30c8\u30fc\u30af\u30f3\u304c\u66f4\u65b0\u3055\u308c\u307e\u3057\u305f\u3002",
+            "reauth_successful": "\u518d\u8a8d\u8a3c\u306b\u6210\u529f\u3057\u307e\u3057\u305f",
+            "reconfigure_successful": "\u518d\u8a2d\u5b9a\u306b\u6210\u529f\u3057\u307e\u3057\u305f"
+        },
+        "error": {
+            "cannot_connect": "\u63a5\u7d9a\u306b\u5931\u6557\u3057\u307e\u3057\u305f",
+            "invalid_auth": "\u7121\u52b9\u306a\u8a8d\u8a3c",
+            "unknown": "\u4e88\u671f\u3057\u306a\u3044\u30a8\u30e9\u30fc"
+        },
+        "step": {
+            "reauth_confirm": {
+                "data": {
+                    "password": "\u30d1\u30b9\u30ef\u30fc\u30c9",
+                    "username": "E\u30e1\u30fc\u30eb"
+                },
+                "description": "Melcloud \u7d71\u5408\u3067\u306f\u63a5\u7d9a\u306e\u8a73\u7d30\u3092\u518d\u8a8d\u8a3c\u3059\u308b\u5fc5\u8981\u304c\u3042\u308a\u307e\u3059",
+                "title": "{name} \u306e\u8a8d\u8a3c\u306e\u6709\u52b9\u671f\u9650\u304c\u5207\u308c\u307e\u3057\u305f"
+            },
+            "reconfigure_confirm": {
+                "data": {
+                    "password": "\u30d1\u30b9\u30ef\u30fc\u30c9"
+                },
+                "data_description": {
+                    "password": "MelCloud\u306e\uff08\u65b0\u3057\u3044\uff09\u30d1\u30b9\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u307e\u3059\u3002"
+                },
+                "description": "\u30a2\u30ab\u30a6\u30f3\u30c8\u300c {username} \u300d\u306e\u65b0\u3057\u3044\u30c8\u30fc\u30af\u30f3\u3092\u53d6\u5f97\u3059\u308b\u306b\u306f\u3001\u30a8\u30f3\u30c8\u30ea\u3092\u518d\u69cb\u6210\u3057\u3066\u304f\u3060\u3055\u3044\u3002",
+                "title": "MelCloud\u3092\u518d\u69cb\u6210\u3059\u308b"
+            },
+            "user": {
+                "data": {
+                    "password": "\u30d1\u30b9\u30ef\u30fc\u30c9",
+                    "username": "E\u30e1\u30fc\u30eb"
+                },
+                "description": "MELCloud\u30a2\u30ab\u30a6\u30f3\u30c8\u3092\u4f7f\u7528\u3057\u3066\u63a5\u7d9a\u3057\u307e\u3059\u3002",
+                "title": "MELCloud\u306b\u63a5\u7d9a"
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "daily_energy": {
+                "name": "1\u65e5\u306e\u6d88\u8cbb\u30a8\u30cd\u30eb\u30ae\u30fc"
+            },
+            "flow_temperature": {
+                "name": "\u30d5\u30ed\u30fc\u6e29\u5ea6"
+            },
+            "outside_temperature": {
+                "name": "\u5916\u6c17\u6e29"
+            },
+            "return_temperature": {
+                "name": "\u30d5\u30ed\u30fc\u623b\u308a\u6e29\u5ea6"
+            },
+            "room_temperature": {
+                "name": "\u5ba4\u6e29"
+            },
+            "tank_temperature": {
+                "name": "\u30bf\u30f3\u30af\u6e29\u5ea6"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_yaml_import_issue_cannot_connect": {
+            "description": "YAML\u3092\u4f7f\u7528\u3057\u305fMELCloud\u306e\u8a2d\u5b9a\u306f\u524a\u9664\u3055\u308c\u307e\u3057\u305f\u304c\u3001YAML\u8a2d\u5b9a\u306e\u30a4\u30f3\u30dd\u30fc\u30c8\u3067\u63a5\u7d9a\u30a8\u30e9\u30fc\u304c\u767a\u751f\u3057\u307e\u3057\u305f\u3002\n\nMELCloud\u3078\u306e\u63a5\u7d9a\u304c\u6a5f\u80fd\u3057\u3066\u3044\u308b\u3053\u3068\u3092\u78ba\u8a8d\u3057\u3001Home Assistant\u3092\u518d\u8d77\u52d5\u3057\u3066\u518d\u8a66\u884c\u3059\u308b\u304b\u3001configuration.yaml\u30d5\u30a1\u30a4\u30eb\u304b\u3089MELCloud YAML\u8a2d\u5b9a\u3092\u524a\u9664\u3057\u3066\u3001\u624b\u52d5\u3067[\u7d71\u5408\u306e\u8a2d\u5b9a](/config/integrations/dashboard/add?domain=melcoud)\u3092\u7d9a\u884c\u3057\u3066\u304f\u3060\u3055\u3044\u3002",
+            "title": "MELCloud YAML\u69cb\u6210\u306e\u30a4\u30f3\u30dd\u30fc\u30c8\u306b\u5931\u6557\u3057\u307e\u3057\u305f\u3002"
+        },
+        "deprecated_yaml_import_issue_invalid_auth": {
+            "description": "YAML\u3092\u4f7f\u7528\u3057\u305fMELCloud\u306e\u8a2d\u5b9a\u306f\u524a\u9664\u3055\u308c\u307e\u3057\u305f\u304c\u3001YAML\u8a2d\u5b9a\u306e\u30a4\u30f3\u30dd\u30fc\u30c8\u3067\u8a8d\u8a3c\u30a8\u30e9\u30fc\u304c\u767a\u751f\u3057\u307e\u3057\u305f\u3002\n\nYAML\u69cb\u6210\u3092\u4fee\u6b63\u3057\u3066Home Assistant\u3092\u518d\u8d77\u52d5\u3057\u3066\u518d\u8a66\u884c\u3059\u308b\u304b\u3001configuration.yaml\u30d5\u30a1\u30a4\u30eb\u304b\u3089MELCloud YAML\u69cb\u6210\u3092\u524a\u9664\u3057\u3066\u3001\u624b\u52d5\u3067[\u7d71\u5408\u306e\u8a2d\u5b9a](/config/integrations/dashboard/add?domain=melcoud)\u3092\u7d9a\u884c\u3057\u3066\u304f\u3060\u3055\u3044\u3002",
+            "title": "MELCloud YAML\u69cb\u6210\u306e\u30a4\u30f3\u30dd\u30fc\u30c8\u306b\u5931\u6557\u3057\u307e\u3057\u305f\u3002"
+        }
+    },
+    "services": {
+        "set_vane_horizontal": {
+            "description": "\u6c34\u5e73\u65b9\u5411\u306e\u7fbd\u6839\u306e\u4f4d\u7f6e\u3092\u8a2d\u5b9a\u3057\u307e\u3059\u3002",
+            "fields": {
+                "position": {
+                    "description": "\u6c34\u5e73\u65b9\u5411\u306e\u7fbd\u6839\u306e\u4f4d\u7f6e\u3002\u53ef\u80fd\u306a\u30aa\u30d7\u30b7\u30e7\u30f3\u306f\u3001vane_horizontal_positions \u72b6\u614b\u5c5e\u6027\u306b\u3042\u308a\u307e\u3059\u3002",
+                    "name": "\u4f4d\u7f6e"
+                }
+            },
+            "name": "\u7fbd\u6839\u3092\u6c34\u5e73\u306b\u8a2d\u5b9a\u3059\u308b"
+        },
+        "set_vane_vertical": {
+            "description": "\u5782\u76f4\u65b9\u5411\u306e\u7fbd\u6839\u306e\u4f4d\u7f6e\u3092\u8a2d\u5b9a\u3057\u307e\u3059\u3002",
+            "fields": {
+                "position": {
+                    "description": "\u5782\u76f4\u65b9\u5411\u306e\u7fbd\u6839\u306e\u4f4d\u7f6e\u3002\u53ef\u80fd\u306a\u30aa\u30d7\u30b7\u30e7\u30f3\u306f vane_vertical_positions \u72b6\u614b\u5c5e\u6027\u306b\u3042\u308a\u307e\u3059\u3002",
+                    "name": "\u4f4d\u7f6e"
+                }
+            },
+            "name": "\u7fbd\u6839\u3092\u5782\u76f4\u306b\u8a2d\u5b9a"
+        }
+    }
+}

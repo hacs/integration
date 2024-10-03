@@ -1,0 +1,80 @@
+{
+    "config": {
+        "abort": {
+            "single_instance_allowed": "\u5df2\u7ecf\u914d\u7f6e\u8fc7\u4e86\uff0c\u4e14\u53ea\u80fd\u914d\u7f6e\u4e00\u6b21\u3002"
+        },
+        "error": {
+            "invalid_ip_address": "\u65e0\u6548\u7684 IPv4 \u5730\u5740\u3002"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "ip_address": "IP\u5730\u5740"
+                },
+                "description": "\u63a5\u6536 VOIP \u901a\u8bdd\u4e0e\u52a9\u7406\u4e92\u52a8"
+            }
+        }
+    },
+    "entity": {
+        "assist_satellite": {
+            "assist_satellite": {
+                "state": {
+                    "listening_command": "\u8bed\u97f3\u547d\u4ee4",
+                    "listening_wake_word": "\u5524\u9192\u8bcd",
+                    "processing": "\u5904\u7406\u4e2d",
+                    "responding": "\u56de\u5e94\u4e2d"
+                }
+            }
+        },
+        "binary_sensor": {
+            "call_active": {
+                "name": "\u901a\u8bdd\u542f\u7528"
+            },
+            "call_in_progress": {
+                "name": "\u901a\u8bdd\u4e2d"
+            }
+        },
+        "select": {
+            "pipeline": {
+                "name": "\u52a9\u624b",
+                "state": {
+                    "preferred": "\u9996\u9009"
+                }
+            },
+            "vad_sensitivity": {
+                "name": "\u8bb2\u8bdd\u5b8c\u6bd5\u68c0\u6d4b",
+                "state": {
+                    "aggressive": "\u79ef\u6781",
+                    "default": "\u9ed8\u8ba4",
+                    "relaxed": "\u8f7b\u677e"
+                }
+            }
+        },
+        "switch": {
+            "allow_call": {
+                "name": "\u5141\u8bb8\u901a\u8bdd"
+            }
+        }
+    },
+    "issues": {
+        "assist_in_progress_deprecated": {
+            "fix_flow": {
+                "step": {
+                    "confirm_disable_entity": {
+                        "description": "{integration_name} \u8fdb\u884c\u4e2d\u4e8c\u5143\u4f20\u611f\u5668 {entity_id} \u5df2\u5f03\u7528\u3002\n\n\u8bf7\u8fc1\u79fb\u60a8\u7684\u914d\u7f6e\uff0c\u4f7f\u7528\u76f8\u5e94\u7684 {assist_satellite_domain} \u5b9e\u4f53\uff0c\u7136\u540e\u5355\u51fb\u201c\u63d0\u4ea4\u201d\u7981\u7528\u8fdb\u884c\u4e2d\u4e8c\u5143\u4f20\u611f\u5668\u53ef\u4fee\u590d\u6b64\u95ee\u9898\u3002"
+                    }
+                }
+            },
+            "title": "{integration_name} \u8fdb\u884c\u4e2d\u4e8c\u5143\u4f20\u611f\u5668\u5df2\u5f03\u7528"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "sip_port": "SIP \u7aef\u53e3"
+                }
+            }
+        }
+    }
+}

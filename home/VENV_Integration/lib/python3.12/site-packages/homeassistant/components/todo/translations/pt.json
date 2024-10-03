@@ -1,0 +1,146 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "Lista de Tarefas"
+        }
+    },
+    "exceptions": {
+        "item_not_found": {
+            "message": "N\u00e3o foi poss\u00edvel encontrar o item da lista de tarefas: {item}"
+        },
+        "update_field_not_supported": {
+            "message": "A entidade n\u00e3o suporta a defini\u00e7\u00e3o do campo: {service_field}"
+        }
+    },
+    "selector": {
+        "status": {
+            "options": {
+                "completed": "Conclu\u00edda",
+                "needs_action": "N\u00e3o conclu\u00edda"
+            }
+        }
+    },
+    "services": {
+        "add_item": {
+            "description": "Adicionar um novo item \u00e0 lista de tarefas.",
+            "fields": {
+                "description": {
+                    "description": "Uma descri\u00e7\u00e3o mais completa do item de tarefa do que a fornecida pelo nome do item.",
+                    "name": "Descri\u00e7\u00e3o"
+                },
+                "due_date": {
+                    "description": "A data em que se espera que o item de tarefa esteja conclu\u00eddo.",
+                    "name": "Data de conclus\u00e3o"
+                },
+                "due_date_time": {
+                    "description": "A data e a hora em que se espera que o item  seja conclu\u00eddo.",
+                    "name": "Data e hora de conclus\u00e3o"
+                },
+                "due_datetime": {
+                    "description": "A data e a hora em que se espera que o item de tarefa seja conclu\u00eddo.",
+                    "name": "Data e hora de conclus\u00e3o"
+                },
+                "item": {
+                    "description": "O nome que representa o item de tarefa.",
+                    "name": "Nome do item"
+                }
+            },
+            "name": "Adicionar item \u00e0 lista de tarefas"
+        },
+        "create_item": {
+            "description": "Adicionar um novo item \u00e0 lista de tarefas.",
+            "fields": {
+                "status": {
+                    "description": "Um estado ou confirma\u00e7\u00e3o do item de tarefa.",
+                    "name": "Estado"
+                },
+                "summary": {
+                    "description": "O breve resumo que representa o item de tarefa.",
+                    "name": "Resumo"
+                }
+            },
+            "name": "Criar item da lista de tarefas"
+        },
+        "delete_item": {
+            "description": "Eliminar um item da lista de tarefas existente atrav\u00e9s do seu ID \u00fanico ou resumo.",
+            "fields": {
+                "summary": {
+                    "description": "O breve resumo que representa o item de tarefa.",
+                    "name": "Resumo"
+                },
+                "uid": {
+                    "description": "Identificadores \u00fanicos para os itens da lista de tarefas.",
+                    "name": "IDs \u00fanicos de itens de tarefas"
+                }
+            },
+            "name": "Eliminar um item da lista de tarefas"
+        },
+        "get_items": {
+            "description": "Colocar itens numa lista.",
+            "fields": {
+                "status": {
+                    "description": "Apenas devolve itens de tarefas com os estados especificados. Por predefini\u00e7\u00e3o, devolve items n\u00e3o conclu\u00eddos.",
+                    "name": "Estado"
+                }
+            },
+            "name": "Obter itens da lista de tarefas"
+        },
+        "remove_completed_items": {
+            "description": "Remover todos os itens da lista de tarefas que j\u00e1 foram conclu\u00eddos.",
+            "name": "Remover todos os itens conclu\u00eddos da lista de tarefas"
+        },
+        "remove_item": {
+            "description": "Remover um item existente da lista de tarefas pelo seu nome.",
+            "fields": {
+                "item": {
+                    "description": "O nome para os itens da lista de tarefas.",
+                    "name": "Nome do item"
+                }
+            },
+            "name": "Remover um item da lista de tarefas"
+        },
+        "update_item": {
+            "description": "Atualizar um item da lista de tarefas existente com base no seu nome.",
+            "fields": {
+                "description": {
+                    "description": "Uma descri\u00e7\u00e3o mais completa do item de tarefa do que a fornecida pelo nome do item.",
+                    "name": "Descri\u00e7\u00e3o"
+                },
+                "due_date": {
+                    "description": "A data em que se espera que o item de tarefa esteja conclu\u00eddo.",
+                    "name": "Data de conclus\u00e3o"
+                },
+                "due_date_time": {
+                    "description": "A data e a hora em que se espera que o item seja conclu\u00eddo.",
+                    "name": "Data e hora de conclus\u00e3o"
+                },
+                "due_datetime": {
+                    "description": "A data e a hora em que se espera que o item seja conclu\u00eddo.",
+                    "name": "Data e hora de conclus\u00e3o"
+                },
+                "item": {
+                    "description": "O nome do item da lista de tarefas.",
+                    "name": "Nome do item"
+                },
+                "rename": {
+                    "description": "O novo nome do item de tarefa",
+                    "name": "Mudar o nome do item"
+                },
+                "status": {
+                    "description": "Um estado ou confirma\u00e7\u00e3o do item de tarefa.",
+                    "name": "Definir estado"
+                },
+                "summary": {
+                    "description": "O breve resumo que representa o item de tarefa.",
+                    "name": "Resumo"
+                },
+                "uid": {
+                    "description": "Identificador \u00fanico para o item da lista de tarefas.",
+                    "name": "ID \u00fanico do item de tarefas"
+                }
+            },
+            "name": "Atualizar item da lista de tarefas"
+        }
+    },
+    "title": "Lista de tarefas"
+}

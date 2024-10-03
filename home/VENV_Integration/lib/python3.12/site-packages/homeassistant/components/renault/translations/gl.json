@@ -1,0 +1,58 @@
+{
+    "entity": {
+        "binary_sensor": {
+            "driver_door_status": {
+                "name": "Porta do condutor"
+            },
+            "hvac_status": {
+                "name": "HVAC"
+            },
+            "passenger_door_status": {
+                "name": "Porta do acompa\u00f1ante"
+            }
+        }
+    },
+    "services": {
+        "ac_cancel": {
+            "fields": {
+                "vehicle": {
+                    "description": "O veh\u00edculo ao que enviar o comando.",
+                    "name": "Veh\u00edculo"
+                }
+            },
+            "name": "Cancelar aire acondicionado (A/C)"
+        },
+        "ac_start": {
+            "description": "Arranca o aire acondicionado (A/C) do veh\u00edculo.",
+            "fields": {
+                "temperature": {
+                    "description": "Temperatura obxectivo do aire acondicionado (A/C) en \u00b0C.",
+                    "name": "Temperatura"
+                },
+                "vehicle": {
+                    "description": "O veh\u00edculo ao que enviar o comando.",
+                    "name": "Veh\u00edculo"
+                },
+                "when": {
+                    "description": "Marca de tempo para o inicio do aire acondicionado (A/C) (opcional, o valor por defecto \u00e9 agora).",
+                    "name": "Cando"
+                }
+            },
+            "name": "Iniciar aire acondicionado (A/C)"
+        },
+        "charge_set_schedules": {
+            "description": "Actualiza a programaci\u00f3n de carga no veh\u00edculo.",
+            "fields": {
+                "schedules": {
+                    "description": "Detalles da programaci\u00f3n.",
+                    "name": "Programaci\u00f3ns"
+                },
+                "vehicle": {
+                    "description": "O veh\u00edculo ao que enviar o comando.",
+                    "name": "Veh\u00edculo"
+                }
+            },
+            "name": "Actualizar a programaci\u00f3n de carga"
+        }
+    }
+}

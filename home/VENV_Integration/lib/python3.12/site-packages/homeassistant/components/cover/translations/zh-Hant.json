@@ -1,0 +1,146 @@
+{
+    "device_automation": {
+        "action_type": {
+            "close": "\u95dc\u9589{entity_name}",
+            "close_tilt": "\u95dc\u9589{entity_name}\u50be\u659c\u89d2\u5ea6",
+            "open": "\u958b\u555f{entity_name}",
+            "open_tilt": "\u958b\u555f{entity_name}\u50be\u659c\u89d2\u5ea6",
+            "set_position": "\u8a2d\u5b9a{entity_name}\u4f4d\u7f6e",
+            "set_tilt_position": "\u8a2d\u5b9a{entity_name} \u50be\u659c\u89d2\u5ea6",
+            "stop": "\u505c\u6b62 {entity_name}"
+        },
+        "condition_type": {
+            "is_closed": "{entity_name}\u70ba\u95dc\u9589",
+            "is_closing": "{entity_name}\u6b63\u5728\u95dc\u9589",
+            "is_open": "{entity_name}\u70ba\u958b\u555f",
+            "is_opening": "{entity_name}\u6b63\u5728\u958b\u555f",
+            "is_position": "\u76ee\u524d{entity_name}\u4f4d\u7f6e\u70ba",
+            "is_tilt_position": "\u76ee\u524d{entity_name} \u50be\u659c\u89d2\u5ea6\u4f4d\u7f6e\u70ba"
+        },
+        "extra_fields": {
+            "above": "\u5728...\u4e4b\u4e0a",
+            "below": "\u5728...\u4e4b\u4e0b",
+            "for": "\u6301\u7e8c\u6642\u9593",
+            "position": "\u4f4d\u7f6e"
+        },
+        "trigger_type": {
+            "closed": "{entity_name}\u5df2\u95dc\u9589",
+            "closing": "{entity_name}\u6b63\u5728\u95dc\u9589",
+            "opened": "{entity_name}\u5df2\u958b\u555f",
+            "opening": "{entity_name}\u6b63\u5728\u958b\u555f",
+            "position": "{entity_name}\u4f4d\u7f6e\u8b8a\u66f4",
+            "tilt_position": "{entity_name}\u50be\u659c\u89d2\u5ea6\u8b8a\u66f4"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "\u9580\u7c3e",
+            "state": {
+                "closed": "\u95dc\u9589",
+                "closing": "\u95dc\u9589\u4e2d",
+                "open": "\u958b\u555f",
+                "opening": "\u958b\u555f\u4e2d",
+                "stopped": "\u505c\u6b62"
+            },
+            "state_attributes": {
+                "current_position": {
+                    "name": "\u4f4d\u7f6e"
+                },
+                "current_tilt_position": {
+                    "name": "\u50be\u659c\u89d2\u5ea6"
+                }
+            }
+        },
+        "awning": {
+            "name": "\u906e\u967d\u84ec"
+        },
+        "blind": {
+            "name": "\u767e\u8449\u7c3e"
+        },
+        "curtain": {
+            "name": "\u5e03\u7c3e"
+        },
+        "damper": {
+            "name": "\u98a8\u9580"
+        },
+        "door": {
+            "name": "\u9580"
+        },
+        "garage": {
+            "name": "\u8eca\u5eab"
+        },
+        "gate": {
+            "name": "\u9598\u9053"
+        },
+        "shade": {
+            "name": "\u6372\u7c3e"
+        },
+        "shutter": {
+            "name": "\u767e\u8449\u7a97"
+        },
+        "window": {
+            "name": "\u7a97\u6236"
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "{domain} \u6574\u5408\u7684 {platform} \u5e73\u53f0\u4e0d\u652f\u63f4\u5e73\u53f0\u8a2d\u5b9a\u3002\n\n\u8acb\u5c07\u5176\u7531\u8a2d\u5b9a\u4e2d\u79fb\u9664\uff0c\u4e26\u91cd\u65b0\u555f\u52d5 Home Assistant \u4ee5\u4fee\u6b63\u6b64\u554f\u984c\u3002",
+            "title": "\u4e0d\u652f\u63f4\u5e73\u53f0\u652f\u63f4"
+        }
+    },
+    "services": {
+        "close_cover": {
+            "description": "\u95dc\u9589\u7a97\u7c3e\u3002",
+            "name": "\u95dc\u9589"
+        },
+        "close_cover_tilt": {
+            "description": "\u95dc\u9589\u767e\u8449\u7a97\u3002",
+            "name": "\u95dc\u9589\u767e\u8449\u7a97"
+        },
+        "open_cover": {
+            "description": "\u958b\u555f\u7a97\u7c3e\u3002",
+            "name": "\u958b\u555f"
+        },
+        "open_cover_tilt": {
+            "description": "\u6253\u958b\u767e\u8449\u7a97\u3002",
+            "name": "\u958b\u555f\u767e\u8449"
+        },
+        "set_cover_position": {
+            "description": "\u79fb\u52d5\u7a97\u7c3e\u81f3\u6307\u5b9a\u4f4d\u7f6e\u3002",
+            "fields": {
+                "position": {
+                    "description": "\u76ee\u6a19\u4f4d\u7f6e\u3002",
+                    "name": "\u4f4d\u7f6e"
+                }
+            },
+            "name": "\u8a2d\u5b9a\u4f4d\u7f6e"
+        },
+        "set_cover_tilt_position": {
+            "description": "\u79fb\u52d5\u767e\u8449\u7a97\u81f3\u6307\u5b9a\u4f4d\u7f6e\u3002",
+            "fields": {
+                "tilt_position": {
+                    "description": "\u76ee\u6a19\u767e\u8449\u4f4d\u7f6e\u3002",
+                    "name": "\u767e\u8449\u4f4d\u7f6e"
+                }
+            },
+            "name": "\u8a2d\u5b9a\u767e\u8449\u4f4d\u7f6e"
+        },
+        "stop_cover": {
+            "description": "\u505c\u6b62\u7a97\u7c3e\u52d5\u4f5c\u3002",
+            "name": "\u505c\u6b62"
+        },
+        "stop_cover_tilt": {
+            "description": "\u505c\u6b62\u767e\u8449\u89d2\u5ea6\u8abf\u6574\u52d5\u4f5c",
+            "name": "\u505c\u6b62\u8abf\u6574"
+        },
+        "toggle": {
+            "description": "\u5207\u63db\u7a97\u7c3e\u958b\u555f/\u95dc\u9589\u3002",
+            "name": "\u958b\u95dc"
+        },
+        "toggle_cover_tilt": {
+            "description": "\u5207\u63db\u767e\u8449\u89d2\u5ea6\u958b\u555f/\u95dc\u9589\u3002",
+            "name": "\u5207\u63db\u89d2\u5ea6"
+        }
+    },
+    "title": "\u9580\u7c3e"
+}

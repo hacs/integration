@@ -1,0 +1,62 @@
+{
+    "services": {
+        "authorize": {
+            "description": "Autorisiert einen Ladevorgang mit dem vordefinierten RFID-Tag der Konfigurationsdatei.",
+            "name": "Autorisieren"
+        },
+        "deauthorize": {
+            "description": "Deautorisiert den laufenden Ladevorgang mit dem vordefinierten RFID-Tag der Konfigurationsdatei.",
+            "name": "Autorisierung aufheben"
+        },
+        "disable": {
+            "description": "Stoppt einen Ladevorgang, wenn die Ladestation autorisiert ist.",
+            "name": "Deaktivieren"
+        },
+        "enable": {
+            "description": "Startet einen Ladevorgang, wenn die Ladestation autorisiert ist.",
+            "name": "Aktivieren"
+        },
+        "request_data": {
+            "description": "Fordert neue Daten von der Ladestation an.",
+            "name": "Daten anfordern"
+        },
+        "set_current": {
+            "description": "Legt den maximalen Strom f\u00fcr Ladevorg\u00e4nge fest.",
+            "fields": {
+                "current": {
+                    "description": "Der maximale Strom, der f\u00fcr den Ladevorgang verwendet wird. Der Wert ist abh\u00e4ngig von den DIP-Schaltereinstellungen und dem verwendeten Kabel der Ladestation.",
+                    "name": "Strom"
+                }
+            },
+            "name": "Strom einstellen"
+        },
+        "set_energy": {
+            "description": "Legt das Energieziel fest, nach dem der Ladevorgang stoppt.",
+            "fields": {
+                "energy": {
+                    "description": "Das Energieziel f\u00fcr den Ladestopp. Die Einstellung 0 deaktiviert den Grenzwert.",
+                    "name": "Energie"
+                }
+            },
+            "name": "Energie einstellen"
+        },
+        "set_failsafe": {
+            "description": "Legt den Failsafe-Modus der Ladestation fest. Wenn alle Parameter 0 sind, wird der Failsafe-Modus deaktiviert.",
+            "fields": {
+                "failsafe_fallback": {
+                    "description": "Nach Timeout einzustellender Fallback-Strom.",
+                    "name": "Fallback Ausfallsicherung"
+                },
+                "failsafe_persist": {
+                    "description": "Wenn failsafe_persist 0 ist, gilt die Failsafe-Option nur bis zum Neustart der Ladestation. Wenn failsafe_persist 1 ist, \u00fcberlebt die Failsafe-Option einen Neustart.",
+                    "name": "Failsafe fortbestehen lassen"
+                },
+                "failsafe_timeout": {
+                    "description": "Timeout, nach dem der Failsafe-Modus ausgel\u00f6st wird, wenn set_current in dieser Zeit nicht ausgef\u00fchrt wurde.",
+                    "name": "Failsafe-Timeout"
+                }
+            },
+            "name": "Failsafe einstellen"
+        }
+    }
+}

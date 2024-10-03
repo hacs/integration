@@ -1,0 +1,878 @@
+{
+    "config": {
+        "abort": {
+            "reauth_successful": "Uudelleentodennus onnistui"
+        },
+        "error": {
+            "invalid_auth": "Virheellinen todennus",
+            "login_error": "Kirjautumisvirhe ({code}): {msg}",
+            "reauth_successful": "Uudelleentodennus onnistui"
+        },
+        "step": {
+            "reauth_user_code": {
+                "data": {
+                    "user_code": "K\u00e4ytt\u00e4j\u00e4koodi"
+                },
+                "description": "Tuya-integraatio k\u00e4ytt\u00e4\u00e4 nyt parannettua kirjautumismenetelm\u00e4\u00e4. Jos haluat tunnistautua uudelleen Smart Life- tai Tuya Smart -tilill\u00e4si, sinun on annettava k\u00e4ytt\u00e4j\u00e4koodisi.\n\nL\u00f6yd\u00e4t t\u00e4m\u00e4n koodin Smart Life -sovelluksesta tai Tuya Smart -sovelluksesta **Asetukset** > **Tili ja turvallisuus** -n\u00e4yt\u00f6st\u00e4 ja sy\u00f6t\u00e4 **K\u00e4ytt\u00e4j\u00e4koodi** -kent\u00e4ss\u00e4 n\u00e4kyv\u00e4 koodi. K\u00e4ytt\u00e4j\u00e4koodi on suur- ja pienaakkoset huomioiva, joten muista sy\u00f6tt\u00e4\u00e4 se t\u00e4sm\u00e4lleen sovelluksessa n\u00e4ytetyn mukaisesti."
+            },
+            "scan": {
+                "description": "Skannaa Smart Life -sovelluksen tai Tuya Smart -sovelluksen avulla seuraava QR-koodi kirjautumisen suorittamiseksi.\n\nJatka seuraavaan vaiheeseen, kun olet suorittanut t\u00e4m\u00e4n vaiheen sovelluksessa."
+            },
+            "user": {
+                "data": {
+                    "access_id": "Tuya IoT -tunnus",
+                    "access_secret": "Tuya IoT Access salaisuus",
+                    "country_code": "Maakoodi (esim. 1 Yhdysvalloissa, 358 Suomessa)",
+                    "password": "Salasana",
+                    "user_code": "K\u00e4ytt\u00e4j\u00e4koodi",
+                    "username": "K\u00e4ytt\u00e4j\u00e4tunnus"
+                },
+                "description": "Sy\u00f6t\u00e4 Smart Life- tai Tuya Smart -k\u00e4ytt\u00e4j\u00e4koodisi.\n\nL\u00f6yd\u00e4t t\u00e4m\u00e4n koodin Smart Life -sovelluksesta tai Tuya Smart -sovelluksesta **Asetukset** > **Tili ja turvallisuus** -n\u00e4yt\u00f6st\u00e4 ja sy\u00f6t\u00e4 **K\u00e4ytt\u00e4j\u00e4koodi** -kent\u00e4ss\u00e4 n\u00e4kyv\u00e4 koodi. K\u00e4ytt\u00e4j\u00e4koodi on suur- ja pienaakkoset huomioiva, joten muista sy\u00f6tt\u00e4\u00e4 se t\u00e4sm\u00e4lleen sovelluksessa n\u00e4ytetyn mukaisesti."
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "carbon_dioxide": {
+                "name": "Hiilidioksidi"
+            },
+            "carbon_monoxide": {
+                "name": "H\u00e4k\u00e4"
+            },
+            "drop": {
+                "name": "Pudota"
+            },
+            "feeding": {
+                "name": "Sy\u00f6tt\u00f6"
+            },
+            "formaldehyde": {
+                "name": "Formaldehydi"
+            },
+            "methane": {
+                "name": "Metaani"
+            },
+            "pm25": {
+                "name": "PM2,5"
+            },
+            "pressure": {
+                "name": "Paine"
+            },
+            "tilt": {
+                "name": "Kallistus"
+            },
+            "voc": {
+                "name": "VOC-yhdisteet-"
+            }
+        },
+        "button": {
+            "reset_duster_cloth": {
+                "name": "Nollaa p\u00f6lyliina"
+            },
+            "reset_edge_brush": {
+                "name": "Nollaa reunaharja"
+            },
+            "reset_filter": {
+                "name": "Nollaa suodatin"
+            },
+            "reset_map": {
+                "name": "Nollaa kartta"
+            },
+            "reset_roll_brush": {
+                "name": "Nollaa rullaharja"
+            },
+            "snooze": {
+                "name": "Torkku"
+            }
+        },
+        "cover": {
+            "blind": {
+                "name": "S\u00e4lekaihdin"
+            },
+            "curtain": {
+                "name": "Verho"
+            },
+            "curtain_2": {
+                "name": "Verho 2"
+            },
+            "curtain_3": {
+                "name": "Verho 3"
+            },
+            "door": {
+                "name": "Ovi"
+            },
+            "door_2": {
+                "name": "Ovi 2"
+            },
+            "door_3": {
+                "name": "Ovi 3"
+            }
+        },
+        "light": {
+            "backlight": {
+                "name": "Taustavalo"
+            },
+            "light": {
+                "name": "Valo"
+            },
+            "light_2": {
+                "name": "Valo 2"
+            },
+            "light_3": {
+                "name": "Valo 3"
+            },
+            "night_light": {
+                "name": "Y\u00f6valo"
+            }
+        },
+        "number": {
+            "cloud_recipe": {
+                "name": "Pilviresepti"
+            },
+            "cook_temperature": {
+                "name": "Kypsennysl\u00e4mp\u00f6tila"
+            },
+            "cook_time": {
+                "name": "Kypsennysaika"
+            },
+            "down_delay": {
+                "name": "Alas viive"
+            },
+            "far_detection": {
+                "name": "Kaukotunnistus"
+            },
+            "feed": {
+                "name": "Sy\u00f6tt\u00f6"
+            },
+            "heat_preservation_time": {
+                "name": "L\u00e4mm\u00f6n s\u00e4ilytysaika"
+            },
+            "maximum_brightness": {
+                "name": "Suurin kirkkaus"
+            },
+            "maximum_brightness_2": {
+                "name": "Suurin kirkkaus 2"
+            },
+            "maximum_brightness_3": {
+                "name": "Suurin kirkkaus 3"
+            },
+            "minimum_brightness": {
+                "name": "V\u00e4himm\u00e4iskirkkaus"
+            },
+            "minimum_brightness_2": {
+                "name": "V\u00e4himm\u00e4iskirkkaus 2"
+            },
+            "minimum_brightness_3": {
+                "name": "V\u00e4himm\u00e4iskirkkaus 3"
+            },
+            "move_down": {
+                "name": "Siirr\u00e4 alasp\u00e4in"
+            },
+            "move_up": {
+                "name": "Siirr\u00e4 yl\u00f6sp\u00e4in"
+            },
+            "near_detection": {
+                "name": "L\u00e4hitunnistus"
+            },
+            "powder": {
+                "name": "Jauhe"
+            },
+            "sensitivity": {
+                "name": "Herkkyys"
+            },
+            "temperature": {
+                "name": "L\u00e4mp\u00f6tila"
+            },
+            "temperature_after_boiling": {
+                "name": "L\u00e4mp\u00f6tila keitt\u00e4misen j\u00e4lkeen"
+            },
+            "time": {
+                "name": "Aika"
+            },
+            "voice_times": {
+                "name": "\u00c4\u00e4niajat"
+            },
+            "volume": {
+                "name": "\u00c4\u00e4nenvoimakkuus"
+            },
+            "water_level": {
+                "name": "Vedenpinnan korkeus"
+            }
+        },
+        "select": {
+            "basic_anti_flicker": {
+                "name": "V\u00e4lkkymisen esto",
+                "state": {
+                    "0": "Ei k\u00e4yt\u00f6ss\u00e4",
+                    "1": "50 Hz",
+                    "2": "60 Hz"
+                }
+            },
+            "basic_nightvision": {
+                "name": "Y\u00f6n\u00e4k\u00f6",
+                "state": {
+                    "0": "Automaattinen",
+                    "1": "Pois",
+                    "2": "P\u00e4\u00e4ll\u00e4"
+                }
+            },
+            "brightness": {
+                "name": "Kirkkaus"
+            },
+            "concentration": {
+                "name": "Pitoisuus"
+            },
+            "countdown": {
+                "name": "L\u00e4ht\u00f6laskenta",
+                "state": {
+                    "1h": "1 tunti",
+                    "2h": "2 tuntia",
+                    "3h": "3 tuntia",
+                    "4h": "4 tuntia",
+                    "5h": "5 tuntia",
+                    "6h": "6 tuntia",
+                    "cancel": "Peruuta"
+                }
+            },
+            "cups": {
+                "name": "Kupit"
+            },
+            "curtain_mode": {
+                "name": "Tila",
+                "state": {
+                    "morning": "Aamu",
+                    "night": "Y\u00f6"
+                }
+            },
+            "curtain_motor_mode": {
+                "name": "Moottoritila",
+                "state": {
+                    "back": "Takaisin",
+                    "forward": "Eteenp\u00e4in"
+                }
+            },
+            "decibel_sensitivity": {
+                "name": "\u00c4\u00e4nentunnistusherkkyys",
+                "state": {
+                    "0": "Alhainen herkkyys",
+                    "1": "Korkea herkkyys"
+                }
+            },
+            "fan_angle": {
+                "state": {
+                    "30": "30\u00b0",
+                    "60": "60\u00b0",
+                    "90": "90\u00b0"
+                }
+            },
+            "fingerbot_mode": {
+                "name": "Tila",
+                "state": {
+                    "click": "Paina",
+                    "switch": "Kytkin"
+                }
+            },
+            "horizontal_fan_angle": {
+                "name": "Vaakasuuntainen k\u00e4\u00e4nt\u00f6l\u00e4p\u00e4n kulma",
+                "state": {
+                    "30": "30\u00b0",
+                    "60": "60\u00b0",
+                    "90": "90\u00b0"
+                }
+            },
+            "humidifier_level": {
+                "name": "Suihkutustaso",
+                "state": {
+                    "level_1": "Taso 1",
+                    "level_10": "Taso 10",
+                    "level_2": "Taso 2",
+                    "level_3": "Taso 3",
+                    "level_4": "Taso 4",
+                    "level_5": "Taso 5",
+                    "level_6": "Taso 6",
+                    "level_7": "Taso 7",
+                    "level_8": "Taso 8",
+                    "level_9": "Taso 9"
+                }
+            },
+            "humidifier_moodlighting": {
+                "name": "Tunnelmavalo",
+                "state": {
+                    "1": "Tunnelma 1",
+                    "2": "Tunnelma 2",
+                    "3": "Tunnelma 3",
+                    "4": "Tunnelma 4",
+                    "5": "Tunnelma 5"
+                }
+            },
+            "humidifier_spray_mode": {
+                "name": "Suihkutustila",
+                "state": {
+                    "auto": "Automaattinen",
+                    "health": "Terveys",
+                    "humidity": "Kosteus",
+                    "sleep": "Nukkua",
+                    "work": "Ty\u00f6"
+                }
+            },
+            "ipc_work_mode": {
+                "name": "IPC-tila",
+                "state": {
+                    "0": "Pienitehoinen tila",
+                    "1": "Jatkuvatoiminen tila"
+                }
+            },
+            "led_type": {
+                "name": "Valonl\u00e4hteen tyyppi",
+                "state": {
+                    "halogen": "Halogeeni",
+                    "incandescent": "Hehkulamppu",
+                    "led": "LED"
+                }
+            },
+            "led_type_2": {
+                "name": "Valonl\u00e4hteen tyyppi 2",
+                "state": {
+                    "halogen": "Halogeeni",
+                    "incandescent": "Hehkulamppu",
+                    "led": "LED"
+                }
+            },
+            "led_type_3": {
+                "name": "Valonl\u00e4hteen tyyppi 3",
+                "state": {
+                    "halogen": "Halogeeni",
+                    "incandescent": "Hehkulamppu",
+                    "led": "LED"
+                }
+            },
+            "light_mode": {
+                "name": "Merkkivalotila",
+                "state": {
+                    "none": "Pois",
+                    "relay": "Osoita p\u00e4\u00e4lle/pois -tila"
+                }
+            },
+            "material": {
+                "name": "Materiaali"
+            },
+            "mode": {
+                "name": "Tila"
+            },
+            "motion_sensitivity": {
+                "name": "Liiketunnistuksen herkkyys",
+                "state": {
+                    "0": "Alhainen herkkyys",
+                    "1": "Keskisuuri herkkyys",
+                    "2": "Korkea herkkyys"
+                }
+            },
+            "record_mode": {
+                "name": "Tallennustila",
+                "state": {
+                    "1": "Tallenna vain tapahtumat",
+                    "2": "Jatkuva tallennus"
+                }
+            },
+            "relay_status": {
+                "name": "Virta p\u00e4\u00e4lle -k\u00e4ytt\u00e4ytyminen",
+                "state": {
+                    "last": "Muista viimeinen tila",
+                    "memory": "Muista viimeinen tila",
+                    "off": "Pois",
+                    "on": "P\u00e4\u00e4ll\u00e4",
+                    "power_off": "Pois",
+                    "power_on": "P\u00e4\u00e4ll\u00e4"
+                }
+            },
+            "target_humidity": {
+                "name": "Tavoitekosteus"
+            },
+            "temperature_level": {
+                "name": "L\u00e4mp\u00f6tilan taso"
+            },
+            "vacuum_cistern": {
+                "name": "Vesis\u00e4ili\u00f6n s\u00e4\u00e4t\u00f6",
+                "state": {
+                    "closed": "Suljettu",
+                    "high": "Korkea",
+                    "low": "Matala",
+                    "middle": "Keski"
+                }
+            },
+            "vacuum_collection": {
+                "name": "P\u00f6lynker\u00e4ystila",
+                "state": {
+                    "large": "Iso",
+                    "middle": "Keski",
+                    "small": "Pieni"
+                }
+            },
+            "vacuum_mode": {
+                "name": "Tila",
+                "state": {
+                    "bow": "Keula",
+                    "chargego": "Palaa telakkaan",
+                    "left_bow": "Keula vasemmalle",
+                    "left_spiral": "Kierre vasemmalle",
+                    "mop": "Moppi",
+                    "part": "Osa",
+                    "partial_bow": "Keula osittain",
+                    "pick_zone": "Valitse alue",
+                    "point": "Piste",
+                    "pose": "Asento",
+                    "random": "Satunnainen",
+                    "right_bow": "Keula oikealle",
+                    "right_spiral": "Kierre oikealle",
+                    "single": "Yksitt\u00e4inen",
+                    "smart": "\u00c4lyk\u00e4s",
+                    "spiral": "Kierre",
+                    "standby": "Lepotilassa",
+                    "wall_follow": "Seuraa sein\u00e4\u00e4",
+                    "zone": "Alue"
+                }
+            },
+            "vertical_fan_angle": {
+                "name": "Pystysuuntainen k\u00e4\u00e4nt\u00f6l\u00e4p\u00e4n kulma",
+                "state": {
+                    "30": "30\u00b0",
+                    "60": "60\u00b0",
+                    "90": "90\u00b0"
+                }
+            },
+            "volume": {
+                "name": "\u00c4\u00e4nenvoimakkuus"
+            },
+            "weather_delay": {
+                "name": "S\u00e4\u00e4viive",
+                "state": {
+                    "120h": "120h",
+                    "144h": "144h",
+                    "168h": "168h",
+                    "24h": "24h",
+                    "48h": "48h",
+                    "72h": "72h",
+                    "96h": "96h",
+                    "cancel": "Peruuta"
+                }
+            }
+        },
+        "sensor": {
+            "air_quality": {
+                "name": "Ilmanlaatu",
+                "state": {
+                    "good": "Hyv\u00e4",
+                    "great": "Loistava",
+                    "mild": "V\u00e4h\u00e4inen",
+                    "severe": "Vaikea"
+                }
+            },
+            "battery": {
+                "name": "Akku"
+            },
+            "battery_state": {
+                "name": "Akun tila"
+            },
+            "carbon_dioxide": {
+                "name": "Hiilidioksidi"
+            },
+            "carbon_monoxide": {
+                "name": "H\u00e4k\u00e4"
+            },
+            "cleaning_area": {
+                "name": "Siivousalue"
+            },
+            "cleaning_time": {
+                "name": "Siivousaika"
+            },
+            "concentration_carbon_dioxide": {
+                "name": "Hiilidioksidipitoisuus"
+            },
+            "current": {
+                "name": "Virta"
+            },
+            "current_temperature": {
+                "name": "Nykyinen l\u00e4mp\u00f6tila"
+            },
+            "duster_cloth_life": {
+                "name": "P\u00f6lyliinan k\u00e4ytt\u00f6ik\u00e4"
+            },
+            "filter_life": {
+                "name": "Suodattimen k\u00e4ytt\u00f6ik\u00e4"
+            },
+            "filter_utilization": {
+                "name": "Suodattimen k\u00e4ytt\u00f6"
+            },
+            "formaldehyde": {
+                "name": "Formaldehydi"
+            },
+            "gas": {
+                "name": "Kaasu"
+            },
+            "humidity": {
+                "name": "Kosteus"
+            },
+            "illuminance": {
+                "name": "Valaistusvoimakkuus"
+            },
+            "last_amount": {
+                "name": "Viimeisin m\u00e4\u00e4r\u00e4"
+            },
+            "last_operation_duration": {
+                "name": "Viimeisin toiminnan kesto"
+            },
+            "luminosity": {
+                "name": "Kirkkaus"
+            },
+            "methane": {
+                "name": "Metaani"
+            },
+            "phase_a_current": {
+                "name": "Vaiheen A virta"
+            },
+            "phase_a_power": {
+                "name": "Vaiheen A teho"
+            },
+            "phase_a_voltage": {
+                "name": "Vaiheen A j\u00e4nnite"
+            },
+            "phase_b_current": {
+                "name": "Vaiheen B virta"
+            },
+            "phase_b_power": {
+                "name": "Vaiheen B teho"
+            },
+            "phase_b_voltage": {
+                "name": "Vaiheen B j\u00e4nnite"
+            },
+            "phase_c_current": {
+                "name": "Vaiheen C virta"
+            },
+            "phase_c_power": {
+                "name": "Vaiheen C teho"
+            },
+            "phase_c_voltage": {
+                "name": "Vaiheen C j\u00e4nnite"
+            },
+            "pm1": {
+                "name": "PM1"
+            },
+            "pm10": {
+                "name": "PM10"
+            },
+            "pm25": {
+                "name": "PM2,5"
+            },
+            "power": {
+                "name": "Teho"
+            },
+            "remaining_time": {
+                "name": "J\u00e4ljell\u00e4 oleva aika"
+            },
+            "rolling_brush_life": {
+                "name": "Rullaharjan k\u00e4ytt\u00f6ik\u00e4"
+            },
+            "side_brush_life": {
+                "name": "Sivuharjan k\u00e4ytt\u00f6ik\u00e4"
+            },
+            "smoke_amount": {
+                "name": "Savun m\u00e4\u00e4r\u00e4"
+            },
+            "sous_vide_status": {
+                "name": "Tila",
+                "state": {
+                    "boiling_temp": "Kiehumisl\u00e4mp\u00f6tila",
+                    "cooling": "J\u00e4\u00e4hdytys",
+                    "heating": "L\u00e4mmitys",
+                    "heating_temp": "L\u00e4mmitysl\u00e4mp\u00f6tila",
+                    "reserve_1": "Varaa 1",
+                    "reserve_2": "Varaa 2",
+                    "reserve_3": "Varaa 3",
+                    "standby": "Lepotilassa",
+                    "warm": "L\u00e4mm\u00f6n s\u00e4ilytt\u00e4minen"
+                }
+            },
+            "status": {
+                "name": "Tila",
+                "state": {
+                    "boiling_temp": "Kiehumisl\u00e4mp\u00f6tila",
+                    "cooling": "J\u00e4\u00e4hdytys",
+                    "heating": "L\u00e4mmitys",
+                    "heating_temp": "L\u00e4mmitysl\u00e4mp\u00f6tila",
+                    "reserve_1": "Varaa 1",
+                    "reserve_2": "Varaa 2",
+                    "reserve_3": "Varaa 3",
+                    "standby": "Lepotilassa",
+                    "warm": "L\u00e4mm\u00f6n s\u00e4ilytt\u00e4minen"
+                }
+            },
+            "temperature": {
+                "name": "L\u00e4mp\u00f6tila"
+            },
+            "total_absorption_particles": {
+                "name": "Hiukkasten kokonaisabsorptio"
+            },
+            "total_cleaning_area": {
+                "name": "Siivousaluetta yhteens\u00e4"
+            },
+            "total_cleaning_time": {
+                "name": "Siivousaikaa yhteens\u00e4"
+            },
+            "total_cleaning_times": {
+                "name": "Siivouskertoja yhteens\u00e4"
+            },
+            "total_energy": {
+                "name": "Kokonaisenergia"
+            },
+            "total_operating_time": {
+                "name": "K\u00e4ytt\u00f6aikaa yhteens\u00e4"
+            },
+            "total_volatile_organic_compound": {
+                "name": "Haihtuvien orgaanisten yhdisteiden kokonaism\u00e4\u00e4r\u00e4"
+            },
+            "total_watering_time": {
+                "name": "Kokonaiskasteluaika"
+            },
+            "voc": {
+                "name": "VOC-yhdisteet"
+            },
+            "voltage": {
+                "name": "J\u00e4nnite"
+            },
+            "water_level": {
+                "name": "Vedenpinnan korkeus"
+            }
+        },
+        "switch": {
+            "alarm_1": {
+                "name": "H\u00e4lytys 1"
+            },
+            "alarm_2": {
+                "name": "H\u00e4lytys 2"
+            },
+            "alarm_3": {
+                "name": "H\u00e4lytys 3"
+            },
+            "alarm_4": {
+                "name": "H\u00e4lytys 4"
+            },
+            "anion": {
+                "name": "Anioni"
+            },
+            "battery_lock": {
+                "name": "Akun lukitus"
+            },
+            "child_lock": {
+                "name": "Lapsilukko"
+            },
+            "cry_detection": {
+                "name": "Itkun tunnistus"
+            },
+            "disinfection": {
+                "name": "Desinfiointi"
+            },
+            "do_not_disturb": {
+                "name": "\u00c4l\u00e4 h\u00e4iritse"
+            },
+            "energy_saving": {
+                "name": "Energians\u00e4\u00e4st\u00f6"
+            },
+            "filter_cartridge_reset": {
+                "name": "Suodatinpatruunan nollaus"
+            },
+            "filter_reset": {
+                "name": "Suodattimen nollaus"
+            },
+            "flip": {
+                "name": "K\u00e4\u00e4nn\u00e4"
+            },
+            "heat_preservation": {
+                "name": "L\u00e4mm\u00f6n s\u00e4ilytt\u00e4minen"
+            },
+            "humidification": {
+                "name": "Kostutus"
+            },
+            "ionizer": {
+                "name": "Ionisaattori"
+            },
+            "motion_alarm": {
+                "name": "Liikeh\u00e4lytys"
+            },
+            "motion_recording": {
+                "name": "Liikkeen tallennus"
+            },
+            "motion_tracking": {
+                "name": "Liikkeen seuranta"
+            },
+            "mute": {
+                "name": "Mykist\u00e4"
+            },
+            "mute_voice": {
+                "name": "Mykist\u00e4 \u00e4\u00e4ni"
+            },
+            "natural_wind": {
+                "name": "Luonnollinen tuuli"
+            },
+            "open_window_detection": {
+                "name": "Avoimen ikkunan tunnistus"
+            },
+            "oxygen_bar": {
+                "name": "Happipalkki"
+            },
+            "plug": {
+                "name": "Pistoke"
+            },
+            "power": {
+                "name": "Teho"
+            },
+            "privacy_mode": {
+                "name": "Yksityisyystila"
+            },
+            "radio": {
+                "name": "Radio"
+            },
+            "reset_of_water_usage_days": {
+                "name": "Vedenk\u00e4ytt\u00f6p\u00e4ivien nollaus"
+            },
+            "reverse": {
+                "name": "Taaksep\u00e4in"
+            },
+            "sleep": {
+                "name": "Nukkua"
+            },
+            "sleep_aid": {
+                "name": "Nukahtamisapu"
+            },
+            "slow_feed": {
+                "name": "Hidas sy\u00f6tt\u00f6"
+            },
+            "socket": {
+                "name": "Pistorasia"
+            },
+            "socket_1": {
+                "name": "Pistorasia 1"
+            },
+            "socket_2": {
+                "name": "Pistorasia 2"
+            },
+            "socket_3": {
+                "name": "Pistorasia 3"
+            },
+            "socket_4": {
+                "name": "Pistorasia 4"
+            },
+            "socket_5": {
+                "name": "Pistorasia 5"
+            },
+            "socket_6": {
+                "name": "Pistorasia 6"
+            },
+            "sound": {
+                "name": "\u00c4\u00e4ni"
+            },
+            "sound_detection": {
+                "name": "\u00c4\u00e4nentunnistus"
+            },
+            "spray": {
+                "name": "Suihkuttaa"
+            },
+            "start": {
+                "name": "K\u00e4ynnist\u00e4"
+            },
+            "sterilization": {
+                "name": "Sterilointi"
+            },
+            "switch": {
+                "name": "Kytkin"
+            },
+            "switch_1": {
+                "name": "Kytkin 1"
+            },
+            "switch_2": {
+                "name": "Kytkin 2"
+            },
+            "switch_3": {
+                "name": "Kytkin 3"
+            },
+            "switch_4": {
+                "name": "Kytkin 4"
+            },
+            "switch_5": {
+                "name": "Kytkin 5"
+            },
+            "switch_6": {
+                "name": "Kytkin 6"
+            },
+            "switch_7": {
+                "name": "Kytkin 7"
+            },
+            "switch_8": {
+                "name": "Kytkin 8"
+            },
+            "time_watermark": {
+                "name": "Ajan vesileima"
+            },
+            "usb_1": {
+                "name": "USB 1"
+            },
+            "usb_2": {
+                "name": "USB 2"
+            },
+            "usb_3": {
+                "name": "USB 3"
+            },
+            "usb_4": {
+                "name": "USB 4"
+            },
+            "usb_5": {
+                "name": "USB 5"
+            },
+            "usb_6": {
+                "name": "USB 6"
+            },
+            "uv_sterilization": {
+                "name": "UV-sterilointi"
+            },
+            "video_recording": {
+                "name": "Videotallennus"
+            },
+            "voice": {
+                "name": "\u00c4\u00e4ni"
+            },
+            "water": {
+                "name": "Vesi"
+            },
+            "water_pump_reset": {
+                "name": "Vesipumpun nollaus"
+            },
+            "wide_dynamic_range": {
+                "name": "Laaja dynaaminen alue"
+            }
+        }
+    },
+    "issues": {
+        "service_deprecation_turn_off": {
+            "description": "Tuya imurin tuki palvelulle vacuum.turn_off on vanhentunut ja se poistetaan Home Assistant 2024.2:ssa; S\u00e4\u00e4d\u00e4 kaikki automaatiot tai skriptit, jotka k\u00e4ytt\u00e4v\u00e4t palvelua, kutsumaan sen sijaan palvelua vacuum.stop ja valitse l\u00e4het\u00e4 alla merkit\u00e4ksesi t\u00e4m\u00e4n ongelman ratkaistuksi.",
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Tuya imurin tuki palvelulle vacuum.turn_off on vanhentunut ja se poistetaan Home Assistant 2024.2:ssa; S\u00e4\u00e4d\u00e4 kaikki automaatiot tai skriptit, jotka k\u00e4ytt\u00e4v\u00e4t palvelua, kutsumaan sen sijaan palvelua vacuum.stop ja valitse l\u00e4het\u00e4 alla merkit\u00e4ksesi t\u00e4m\u00e4n ongelman ratkaistuksi.",
+                        "title": "Tuya-imurin tuki vacuum.turn_off on poistettu"
+                    }
+                }
+            },
+            "title": "Tuya-imurin tuki vacuum.turn_off on poistettu"
+        },
+        "service_deprecation_turn_on": {
+            "description": "Tuya imurin tuki palvelulle vacuum.turn_on on vanhentunut ja se poistetaan Home Assistant 2024.2:ssa; S\u00e4\u00e4d\u00e4 kaikki automaatiot tai skriptit, jotka k\u00e4ytt\u00e4v\u00e4t palvelua, kutsumaan sen sijaan palvelua vacuum.start ja valitse l\u00e4het\u00e4 alla merkit\u00e4ksesi t\u00e4m\u00e4n ongelman ratkaistuksi.",
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Tuya imurin tuki palvelulle vacuum.turn_on on vanhentunut ja se poistetaan Home Assistant 2024.2:ssa; S\u00e4\u00e4d\u00e4 kaikki automaatiot tai skriptit, jotka k\u00e4ytt\u00e4v\u00e4t palvelua, kutsumaan sen sijaan palvelua vacuum.st ja valitse l\u00e4het\u00e4 alla merkit\u00e4ksesi t\u00e4m\u00e4n ongelman ratkaistuksi.",
+                        "title": "Tuya-imurin tuki vacuum.turn_on:lle poistetaan"
+                    }
+                }
+            },
+            "title": "Tuya-imurin tuki vacuum.turn_on:lle poistetaan"
+        }
+    }
+}

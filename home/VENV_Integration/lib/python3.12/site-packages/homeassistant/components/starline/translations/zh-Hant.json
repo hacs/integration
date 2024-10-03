@@ -1,0 +1,162 @@
+{
+    "config": {
+        "error": {
+            "error_auth_app": "\u61c9\u7528\u7a0b\u5f0f ID \u6216\u79c1\u9470\u932f\u8aa4",
+            "error_auth_mfa": "\u5bc6\u78bc\u932f\u8aa4",
+            "error_auth_user": "\u4f7f\u7528\u8005\u540d\u7a31\u6216\u5bc6\u78bc\u932f\u8aa4"
+        },
+        "step": {
+            "auth_app": {
+                "data": {
+                    "app_id": "App ID",
+                    "app_secret": "\u79c1\u9470"
+                },
+                "description": "\u7531 [StarLine \u958b\u767c\u8005\u5e33\u865f] (https://my.starline.ru/developer) \u6240\u53d6\u5f97\u4e4b\u61c9\u7528\u7a0b\u5f0f ID \u8207\u79c1\u9470",
+                "title": "\u61c9\u7528\u6191\u8b49"
+            },
+            "auth_captcha": {
+                "data": {
+                    "captcha_code": "\u5f71\u50cf\u5bc6\u78bc"
+                },
+                "description": "{captcha_img}",
+                "title": "Captcha"
+            },
+            "auth_mfa": {
+                "data": {
+                    "mfa_code": "\u7c21\u8a0a\u5bc6\u78bc"
+                },
+                "description": "\u8f38\u5165\u50b3\u9001\u81f3 {phone_number} \u7684\u9a57\u8b49\u78bc",
+                "title": "\u96d9\u91cd\u8a8d\u8b49"
+            },
+            "auth_user": {
+                "data": {
+                    "password": "\u5bc6\u78bc",
+                    "username": "\u4f7f\u7528\u8005\u540d\u7a31"
+                },
+                "description": "StarLine \u5e33\u865f\u90f5\u4ef6\u8207\u5bc6\u78bc",
+                "title": "\u4f7f\u7528\u8005\u6191\u8b49"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "alarm": {
+                "name": "\u8b66\u5831"
+            },
+            "doors": {
+                "name": "\u8eca\u9580"
+            },
+            "hand_brake": {
+                "name": "\u624b\u715e\u8eca"
+            },
+            "handsfree": {
+                "name": "\u514d\u6301"
+            },
+            "hood": {
+                "name": "\u5f15\u64ce\u84cb"
+            },
+            "moving_ban": {
+                "name": "\u79fb\u52d5\u7981\u6b62"
+            },
+            "neutral": {
+                "name": "\u53ef\u7a0b\u5f0f\u4e2d\u6027"
+            },
+            "trunk": {
+                "name": "\u884c\u674e\u7bb1"
+            }
+        },
+        "button": {
+            "horn": {
+                "name": "\u8b66\u5831"
+            }
+        },
+        "device_tracker": {
+            "location": {
+                "name": "\u5ea7\u6a19"
+            }
+        },
+        "lock": {
+            "security": {
+                "name": "\u4fdd\u5168"
+            }
+        },
+        "sensor": {
+            "balance": {
+                "name": "\u5e73\u8861"
+            },
+            "battery": {
+                "name": "\u96fb\u91cf"
+            },
+            "engine_temperature": {
+                "name": "\u5f15\u64ce\u6eab\u5ea6"
+            },
+            "errors": {
+                "name": "OBD \u932f\u8aa4"
+            },
+            "fuel": {
+                "name": "\u6cb9\u91cf"
+            },
+            "gps_count": {
+                "name": "GPS \u885b\u661f"
+            },
+            "gsm_signal": {
+                "name": "GSM \u8a0a\u865f"
+            },
+            "interior_temperature": {
+                "name": "\u8eca\u5167\u6eab\u5ea6"
+            },
+            "mileage": {
+                "name": "\u91cc\u7a0b"
+            }
+        },
+        "switch": {
+            "additional_channel": {
+                "name": "\u9644\u52a0\u983b\u9053"
+            },
+            "engine": {
+                "name": "\u5f15\u64ce"
+            },
+            "horn": {
+                "name": "\u5587\u53ed"
+            },
+            "service_mode": {
+                "name": "\u670d\u52d9\u6a21\u5f0f"
+            },
+            "webasto": {
+                "name": "Webasto"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_horn_switch": {
+            "description": "\u4f7f\u7528\u8b66\u5831\u958b\u95dc\u5e73\u53f0\u5df2\u7d93\u4e0d\u518d\u4f7f\u7528\u3001\u4e26\u5c07\u65bc\u672a\u4f86\u7684 Home Assistant \u7248\u672c\u4e2d\u9032\u884c\u79fb\u9664\u3002\n\n\u8acb\u8abf\u6574\u4efb\u4f55\u4f7f\u7528\u8b66\u5831\u958b\u95dc\u5be6\u9ad4\u7684\u81ea\u52d5\u5316\u6216\u8173\u672c\u3001\u6539\u70ba\u4f7f\u7528\u8b66\u5831\u6309\u9215\u5be6\u9ad4\u3002",
+            "title": "Starline \u8b66\u5831\u958b\u95dc\u5be6\u9ad4\u5373\u5c07\u79fb\u9664"
+        }
+    },
+    "services": {
+        "set_scan_interval": {
+            "description": "\u8a2d\u5b9a\u66f4\u65b0\u983b\u7387\u3002",
+            "fields": {
+                "scan_interval": {
+                    "description": "\u66f4\u65b0\u983b\u7387\u3002",
+                    "name": "\u6383\u63cf\u9593\u8ddd"
+                }
+            },
+            "name": "\u8a2d\u5b9a\u6383\u63cf\u9593\u8ddd"
+        },
+        "set_scan_obd_interval": {
+            "description": "\u8a2d\u5b9a OBD \u8cc7\u8a0a\u66f4\u65b0\u983b\u7387\u3002",
+            "fields": {
+                "scan_interval": {
+                    "description": "\u66f4\u65b0\u983b\u7387\u3002",
+                    "name": "\u6383\u63cf\u9593\u8ddd"
+                }
+            },
+            "name": "\u8a2d\u5b9a OBD \u6383\u63cf\u9593\u8ddd"
+        },
+        "update_state": {
+            "description": "\u5f9e StarLine \u4f3a\u670d\u5668\u7372\u53d6\u88dd\u7f6e\u7684\u6700\u5f8c\u72c0\u614b\u3002\n.",
+            "name": "\u66f4\u65b0\u72c0\u614b"
+        }
+    }
+}

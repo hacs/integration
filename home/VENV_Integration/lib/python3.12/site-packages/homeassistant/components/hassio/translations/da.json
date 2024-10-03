@@ -1,0 +1,281 @@
+{
+    "entity": {
+        "binary_sensor": {
+            "state": {
+                "name": "K\u00f8rer"
+            }
+        },
+        "sensor": {
+            "agent_version": {
+                "name": "OS Agent-version"
+            },
+            "apparmor_version": {
+                "name": "Apparmor-version"
+            },
+            "cpu_percent": {
+                "name": "CPU-procent"
+            },
+            "disk_free": {
+                "name": "Disk fri"
+            },
+            "disk_total": {
+                "name": "Disk-total"
+            },
+            "disk_used": {
+                "name": "Disk-forbrug"
+            },
+            "memory_percent": {
+                "name": "Hukommelsesprocent"
+            },
+            "version": {
+                "name": "Version"
+            },
+            "version_latest": {
+                "name": "Nyeste version"
+            }
+        }
+    },
+    "issues": {
+        "issue_mount_mount_failed": {
+            "fix_flow": {
+                "abort": {
+                    "apply_suggestion_fail": "Kunne ikke anvende rettelsen. Tjek Supervisor-logfilerne for flere detaljer."
+                },
+                "step": {
+                    "fix_menu": {
+                        "menu_options": {
+                            "mount_execute_reload": "Genindl\u00e6s",
+                            "mount_execute_remove": "Fjern"
+                        }
+                    }
+                }
+            },
+            "title": "Netv\u00e6rkslagringsenhed fejlede"
+        },
+        "issue_system_docker_config": {
+            "fix_flow": {
+                "abort": {
+                    "apply_suggestion_fail": "En eller flere af genstarterne mislykkedes. Tjek Supervisor-logfilerne for flere detaljer."
+                },
+                "step": {
+                    "system_execute_rebuild": {
+                        "description": "Standardkonfigurationen for add-ons og Home Assistant er \u00e6ndret. For at opdatere konfigurationen med de nye standardindstillinger kr\u00e6ves en genstart for f\u00f8lgende:\n\n- {components}"
+                    }
+                }
+            },
+            "title": "Genstart(er) p\u00e5kr\u00e6vet"
+        },
+        "issue_system_multiple_data_disks": {
+            "fix_flow": {
+                "abort": {
+                    "apply_suggestion_fail": "Kunne ikke omd\u00f8be filsystemet. Tjek Supervisor-logfilerne for flere detaljer."
+                },
+                "step": {
+                    "fix_menu": {
+                        "menu_options": {
+                            "system_adopt_data_disk": "Brug den fundne datadisk i stedet for det aktuelle system",
+                            "system_rename_data_disk": "Mark\u00e9r som inaktiv datadisk (omd\u00f8b filsystem)"
+                        }
+                    }
+                }
+            },
+            "title": "Der er fundet flere datadiske"
+        },
+        "issue_system_reboot_required": {
+            "fix_flow": {
+                "abort": {
+                    "apply_suggestion_fail": "Kunne ikke genstarte systemet. Tjek supervisor-logfilerne for at f\u00e5 flere oplysninger."
+                },
+                "step": {
+                    "system_execute_reboot": {
+                        "description": "Der blev \u00e6ndret indstillinger, som kr\u00e6ver en genstart af systemet for at f\u00e5 virkning.\n\nDenne rettelse vil udf\u00f8re en genstart af systemet, hvilket vil g\u00f8re Home Assistant og alle add-ons utilg\u00e6ngelige i en kort periode."
+                    }
+                }
+            },
+            "title": "Genstart n\u00f8dvendig"
+        },
+        "unhealthy": {
+            "description": "Systemet er i \u00f8jeblikket usundt p\u00e5 grund af {reason}. Brug linket for at l\u00e6re mere og se, hvordan du l\u00f8ser dette.",
+            "title": "Usundt system \u2013 {reason}"
+        },
+        "unsupported": {
+            "description": "Systemet underst\u00f8ttes ikke p\u00e5 grund af {reason}. Brug linket for at l\u00e6re mere og se, hvordan du l\u00f8ser dette.",
+            "title": "Ikke-underst\u00f8ttet system \u2013 {reason}"
+        },
+        "unsupported_supervisor_version": {
+            "title": "Ikke-underst\u00f8ttet system - Supervisor-version"
+        }
+    },
+    "services": {
+        "addon_restart": {
+            "description": "Genstarter et add-on.",
+            "fields": {
+                "addon": {
+                    "description": "Slug for add-on.",
+                    "name": "Add-on"
+                }
+            },
+            "name": "Genstart add-on."
+        },
+        "addon_start": {
+            "description": "Starter et add-on.",
+            "fields": {
+                "addon": {
+                    "description": "Slug for add-on.",
+                    "name": "Add-on"
+                }
+            },
+            "name": "Start add-on"
+        },
+        "addon_stdin": {
+            "description": "Skriver data til add-on-stdin.",
+            "fields": {
+                "addon": {
+                    "description": "Slug for add-on.",
+                    "name": "Add-on"
+                }
+            },
+            "name": "Skriv data til add-on-stdin."
+        },
+        "addon_stop": {
+            "description": "Stopper et add-on.",
+            "fields": {
+                "addon": {
+                    "description": "Slug for add-on.",
+                    "name": "Add-on"
+                }
+            },
+            "name": "Stop add-on."
+        },
+        "addon_update": {
+            "fields": {
+                "addon": {
+                    "description": "Slug for add-on.",
+                    "name": "Add-on"
+                }
+            },
+            "name": "Opdat\u00e9r add-on."
+        },
+        "backup_full": {
+            "description": "Opretter en fuld sikkerhedskopi.",
+            "fields": {
+                "compressed": {
+                    "description": "Komprimerer sikkerhedskopifilerne.",
+                    "name": "Komprimeret"
+                },
+                "homeassistant_exclude_database": {
+                    "description": "Udelad Home Assistant-databasefilen fra sikkerhedskopien",
+                    "name": "Udelad Home Assistant-database"
+                },
+                "location": {
+                    "description": "Navn p\u00e5 et sikkerhedskopi-netv\u00e6rkslager til at hoste sikkerhedskopier.",
+                    "name": "Lokalitet"
+                },
+                "name": {
+                    "description": "Valgfri (standard = aktuel dato og klokkesl\u00e6t).",
+                    "name": "Navn"
+                },
+                "password": {
+                    "description": "Adgangskode til at beskytte sikkerhedskopien med.",
+                    "name": "Adgangskode"
+                }
+            },
+            "name": "Opret en fuld sikkerhedskopi."
+        },
+        "backup_partial": {
+            "description": "Opretter en delvis sikkerhedskopi.",
+            "fields": {
+                "addons": {
+                    "description": "Liste over add-ons, der skal inkluderes i sikkerhedskopien. Brug navn-slug p\u00e5 add-on.",
+                    "name": "Add-ons"
+                },
+                "compressed": {
+                    "description": "Komprimerer sikkerhedskopifilerne.",
+                    "name": "Komprimeret"
+                },
+                "folders": {
+                    "description": "Liste over mapper, der skal inkluderes i sikkerhedskopien.",
+                    "name": "Mapper"
+                },
+                "homeassistant": {
+                    "description": "Inkluderer Home Assistant-indstillinger i sikkerhedskopien.",
+                    "name": "Home Assistant-indstillinger"
+                },
+                "homeassistant_exclude_database": {
+                    "description": "Udelad Home Assistant-databasefilen fra sikkerhedskopien",
+                    "name": "Udelad Home Assistant-database"
+                },
+                "location": {
+                    "description": "Navn p\u00e5 et sikkerhedskopi-netv\u00e6rkslager til at hoste sikkerhedskopier.",
+                    "name": "Lokalitet"
+                },
+                "name": {
+                    "description": "Valgfri (standard = aktuel dato og klokkesl\u00e6t).",
+                    "name": "Navn"
+                },
+                "password": {
+                    "description": "Adgangskode til at beskytte sikkerhedskopien med.",
+                    "name": "Adgangskode"
+                }
+            },
+            "name": "Opret en delvis sikkerhedskopi."
+        },
+        "host_reboot": {
+            "description": "Genstarter v\u00e6rtssystemet.",
+            "name": "Genstart v\u00e6rtssystemet."
+        },
+        "host_shutdown": {
+            "description": "Slukker v\u00e6rtssystemet.",
+            "name": "Sluk for v\u00e6rtssystemet."
+        },
+        "restore_full": {
+            "description": "Gendanner fra fuld sikkerhedskopi.",
+            "fields": {
+                "password": {
+                    "description": "Valgfri adgangskode.",
+                    "name": "Adgangskode"
+                },
+                "slug": {
+                    "description": "Slug p\u00e5 sikkerhedskopi til gendannelse.",
+                    "name": "Slug"
+                }
+            },
+            "name": "Gendan fra fuld sikkerhedskopi."
+        },
+        "restore_partial": {
+            "description": "Gendanner fra en delvis sikkerhedskopi.",
+            "fields": {
+                "addons": {
+                    "description": "Liste over add-ons, der skal inkluderes i sikkerhedskopien. Brug navn-slug p\u00e5 add-on.",
+                    "name": "Add-ons"
+                },
+                "folders": {
+                    "description": "Liste over mapper, der skal inkluderes i sikkerhedskopien.",
+                    "name": "Mapper"
+                },
+                "homeassistant": {
+                    "description": "Gendanner Home Assistant.",
+                    "name": "Home Assistant-indstillinger"
+                },
+                "password": {
+                    "description": "Valgfri adgangskode.",
+                    "name": "Adgangskode"
+                },
+                "slug": {
+                    "description": "Slug p\u00e5 sikkerhedskopi til gendannelse.",
+                    "name": "Slug"
+                }
+            },
+            "name": "Gendan fra delvis sikkerhedskopi."
+        }
+    },
+    "system_health": {
+        "info": {
+            "board": "Kort",
+            "healthy": "Sund",
+            "supervisor_api": "Supervisor-API",
+            "supported": "Underst\u00f8ttet",
+            "version_api": "Version-API"
+        }
+    }
+}

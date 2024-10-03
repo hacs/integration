@@ -1,0 +1,778 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Zariadenie u\u017e je nakonfigurovan\u00e9",
+            "reauth_successful": "Op\u00e4tovn\u00e9 overenie bolo \u00faspe\u0161n\u00e9",
+            "reconfigure_successful": "Rekonfigur\u00e1cia bola \u00faspe\u0161n\u00e1"
+        },
+        "error": {
+            "api_error": "Vyskytla sa chyba API",
+            "cannot_connect": "Nepodarilo sa pripoji\u0165, skontrolujte IP adresu kamery",
+            "invalid_auth": "Neplatn\u00e9 overenie",
+            "not_admin": "Pou\u017e\u00edvate\u013e mus\u00ed by\u0165 administr\u00e1tor, pou\u017e\u00edvate\u013e \"{username}\" m\u00e1 \u00farove\u0148 opr\u00e1vnenia \"{userlevel}\"",
+            "password_incompatible": "Heslo obsahuje nekompatibiln\u00e9 \u0161peci\u00e1lne znaky, povolen\u00e9 s\u00fa len tieto znaky: a-z, A-Z, 0-9 alebo {special_chars}",
+            "unknown": "Neo\u010dak\u00e1van\u00e1 chyba",
+            "webhook_exception": "Adresa URL asistenta dom\u00e1cnosti nie je k dispoz\u00edcii, prejdite do Nastavenia &gt; Syst\u00e9m &gt; Sie\u0165 &gt; Adresa URL asistenta dom\u00e1cnosti a opravte adresy URL, pozri {more_info}"
+        },
+        "flow_title": "{hostname} ({ip_address})",
+        "step": {
+            "reauth_confirm": {
+                "description": "Integr\u00e1cia Reolink potrebuje op\u00e4tovne overi\u0165 \u00fadaje o pripojen\u00ed",
+                "title": "Vypr\u0161ala platnos\u0165 overenia pre {name}"
+            },
+            "user": {
+                "data": {
+                    "host": "Hostite\u013e",
+                    "password": "Heslo",
+                    "port": "Port",
+                    "use_https": "Povoli\u0165 HTTPS",
+                    "username": "Pou\u017e\u00edvate\u013esk\u00e9 meno"
+                },
+                "data_description": {
+                    "host": "N\u00e1zov hostite\u013ea alebo IP adresa v\u00e1\u0161ho zariadenia Reolink. Napr\u00edklad: \"192.168.1.25\".",
+                    "password": "Heslo na prihl\u00e1senie do samotn\u00e9ho zariadenia Reolink. Nie do cloudov\u00e9ho konta Reolink.",
+                    "port": "Port na pripojenie k zariadeniu Reolink. Pre HTTP zvy\u010dajne: \"80\", pre HTTPS zvy\u010dajne \"443\".",
+                    "use_https": "Pou\u017eite pripojenie HTTPS (SSL) k zariadeniu Reolink.",
+                    "username": "Pou\u017e\u00edvate\u013esk\u00e9 meno na prihl\u00e1senie do samotn\u00e9ho zariadenia Reolink. Nie do cloudov\u00e9ho \u00fa\u010dtu Reolink."
+                },
+                "description": "Ak sa vyskytn\u00fa probl\u00e9my, pozrite si [kroky na rie\u0161enie probl\u00e9mov]({troubleshooting_link}). {error}"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "animal": {
+                "name": "Zviera",
+                "state": {
+                    "off": "\u010cist\u00e9",
+                    "on": "Zisten\u00e9"
+                }
+            },
+            "animal_lens_0": {
+                "name": "Objekt\u00edv pre zvierat\u00e1 0",
+                "state": {
+                    "off": "\u010cist\u00e9",
+                    "on": "Zisten\u00e9"
+                }
+            },
+            "animal_lens_1": {
+                "name": "Objekt\u00edv pre zvierat\u00e1 1",
+                "state": {
+                    "off": "\u010cist\u00e9",
+                    "on": "Zisten\u00e9"
+                }
+            },
+            "face": {
+                "name": "Tv\u00e1r",
+                "state": {
+                    "off": "\u010cist\u00e9",
+                    "on": "Zisten\u00e9"
+                }
+            },
+            "face_lens_0": {
+                "name": "Tv\u00e1r objekt\u00edv 0",
+                "state": {
+                    "off": "\u010cist\u00e9",
+                    "on": "Zisten\u00e9"
+                }
+            },
+            "face_lens_1": {
+                "name": "Tv\u00e1r objekt\u00edv 1",
+                "state": {
+                    "off": "\u010cist\u00e9",
+                    "on": "Zisten\u00e9"
+                }
+            },
+            "motion_lens_0": {
+                "name": "Pohyb objekt\u00edv 0",
+                "state": {
+                    "off": "\u010cist\u00e9",
+                    "on": "Zisten\u00e9"
+                }
+            },
+            "motion_lens_1": {
+                "name": "Pohyb objekt\u00edv 1",
+                "state": {
+                    "off": "\u010cist\u00e9",
+                    "on": "Zisten\u00e9"
+                }
+            },
+            "package": {
+                "name": "Bal\u00edk",
+                "state": {
+                    "off": "\u010cist\u00e9",
+                    "on": "Zisten\u00e9"
+                }
+            },
+            "package_lens_0": {
+                "name": "Balenie objekt\u00edv 0",
+                "state": {
+                    "off": "\u010cist\u00e9",
+                    "on": "Zisten\u00e9"
+                }
+            },
+            "package_lens_1": {
+                "name": "Balenie objekt\u00edv 1",
+                "state": {
+                    "off": "\u010cist\u00e9",
+                    "on": "Zisten\u00e9"
+                }
+            },
+            "person": {
+                "name": "Osoba",
+                "state": {
+                    "off": "\u010cist\u00e9",
+                    "on": "Zisten\u00e9"
+                }
+            },
+            "person_lens_0": {
+                "name": "Osoba objekt\u00edv 0",
+                "state": {
+                    "off": "\u010cist\u00e9",
+                    "on": "Zisten\u00e9"
+                }
+            },
+            "person_lens_1": {
+                "name": "Osoba objekt\u00edv 1",
+                "state": {
+                    "off": "\u010cist\u00e9",
+                    "on": "Zisten\u00e9"
+                }
+            },
+            "pet": {
+                "name": "Dom\u00e1ce zviera",
+                "state": {
+                    "off": "\u010cist\u00e9",
+                    "on": "Zisten\u00e9"
+                }
+            },
+            "pet_lens_0": {
+                "name": "Zviera objekt\u00edv 0",
+                "state": {
+                    "off": "\u010cist\u00e9",
+                    "on": "Zisten\u00e9"
+                }
+            },
+            "pet_lens_1": {
+                "name": "Zviera objekt\u00edv 1",
+                "state": {
+                    "off": "\u010cist\u00e9",
+                    "on": "Zisten\u00e9"
+                }
+            },
+            "sleep": {
+                "name": "Stav sp\u00e1nku",
+                "state": {
+                    "off": "Prebudi\u0165",
+                    "on": "\u00dasporn\u00fd re\u017eim"
+                }
+            },
+            "vehicle": {
+                "name": "Vozidlo",
+                "state": {
+                    "off": "\u010cist\u00e9",
+                    "on": "Zisten\u00e9"
+                }
+            },
+            "vehicle_lens_0": {
+                "name": "Vozidlo objekt\u00edv 0",
+                "state": {
+                    "off": "\u010cist\u00e9",
+                    "on": "Zisten\u00e9"
+                }
+            },
+            "vehicle_lens_1": {
+                "name": "Vozidlo objekt\u00edv 1",
+                "state": {
+                    "off": "\u010cist\u00e9",
+                    "on": "Zisten\u00e9"
+                }
+            },
+            "visitor": {
+                "name": "N\u00e1v\u0161tevn\u00edk"
+            },
+            "visitor_lens_0": {
+                "name": "N\u00e1v\u0161tevn\u00edk objekt\u00edv 0"
+            },
+            "visitor_lens_1": {
+                "name": "Objekt\u00edv n\u00e1v\u0161tevn\u00edka 1"
+            }
+        },
+        "button": {
+            "guard_go_to": {
+                "name": "Str\u00e1\u017eca prejs\u0165 na"
+            },
+            "guard_set": {
+                "name": "Str\u00e1\u017eca nastavil aktu\u00e1lnu polohu"
+            },
+            "ptz_calibrate": {
+                "name": "PTZ kalibr\u00e1cia"
+            },
+            "ptz_down": {
+                "name": "PTZ dole"
+            },
+            "ptz_left": {
+                "name": "PTZ v\u013eavo"
+            },
+            "ptz_right": {
+                "name": "PTZ vpravo"
+            },
+            "ptz_stop": {
+                "name": "PTZ zastavenie"
+            },
+            "ptz_up": {
+                "name": "PTZ hore"
+            },
+            "ptz_zoom_in": {
+                "name": "PTZ pribl\u00ed\u017eenie"
+            },
+            "ptz_zoom_out": {
+                "name": "PTZ oddialenie"
+            }
+        },
+        "camera": {
+            "autotrack_snapshots_main": {
+                "name": "Vymazanie sn\u00edmok automatick\u00e9ho sledovania"
+            },
+            "autotrack_snapshots_sub": {
+                "name": "Plynul\u00e9 automatick\u00e9 sledovanie sn\u00edmok"
+            },
+            "autotrack_sub": {
+                "name": "Autotrack plynule"
+            },
+            "ext": {
+                "name": "Vyv\u00e1\u017een\u00e9"
+            },
+            "ext_lens_0": {
+                "name": "Vyv\u00e1\u017een\u00fd objekt\u00edv 0"
+            },
+            "ext_lens_1": {
+                "name": "Vyv\u00e1\u017een\u00fd objekt\u00edv 1"
+            },
+            "main": {
+                "name": "Vymaza\u0165"
+            },
+            "main_lens_0": {
+                "name": "\u010c\u00edra \u0161o\u0161ovka 0"
+            },
+            "main_lens_1": {
+                "name": "Prieh\u013eadn\u00e1 \u0161o\u0161ovka 1"
+            },
+            "snapshots_main": {
+                "name": "Sn\u00edmky jasn\u00e9"
+            },
+            "snapshots_main_lens_0": {
+                "name": "Sn\u00edmky \u010d\u00edry objekt\u00edv 0"
+            },
+            "snapshots_main_lens_1": {
+                "name": "Sn\u00edmky \u010d\u00edry objekt\u00edv 1"
+            },
+            "snapshots_sub": {
+                "name": "Sn\u00edmky plynul\u00e9"
+            },
+            "snapshots_sub_lens_0": {
+                "name": "Sn\u00edmky plynul\u00fd objekt\u00edv 0"
+            },
+            "snapshots_sub_lens_1": {
+                "name": "Sn\u00edmky plynul\u00fd objekt\u00edv 1"
+            },
+            "sub": {
+                "name": "Plynule"
+            },
+            "sub_lens_0": {
+                "name": "Plynul\u00fd objekt\u00edv 0"
+            },
+            "sub_lens_1": {
+                "name": "Plynul\u00fd objekt\u00edv 1"
+            }
+        },
+        "light": {
+            "floodlight": {
+                "name": "Reflektor"
+            },
+            "ir_lights": {
+                "name": "Infra\u010derven\u00e9 svetl\u00e1 v no\u010dnom re\u017eime"
+            },
+            "status_led": {
+                "name": "Stavov\u00e1 LED"
+            }
+        },
+        "number": {
+            "ai_animal_delay": {
+                "name": "AI zvieracie oneskorenie"
+            },
+            "ai_animal_sensititvity": {
+                "name": "AI zvieracia citlivos\u0165"
+            },
+            "ai_animal_sensitivity": {
+                "name": "AI zvieracia citlivos\u0165"
+            },
+            "ai_face_delay": {
+                "name": "AI oneskorenie tv\u00e1re"
+            },
+            "ai_face_sensititvity": {
+                "name": "AI citlivos\u0165 na tv\u00e1re"
+            },
+            "ai_face_sensitivity": {
+                "name": "AI citlivos\u0165 na tv\u00e1re"
+            },
+            "ai_package_delay": {
+                "name": "Oneskorenie bal\u00edka AI"
+            },
+            "ai_package_sensititvity": {
+                "name": "Citlivos\u0165 bal\u00edka AI"
+            },
+            "ai_package_sensitivity": {
+                "name": "Citlivos\u0165 bal\u00edka AI"
+            },
+            "ai_person_delay": {
+                "name": "AI oneskorenie osoby"
+            },
+            "ai_person_sensititvity": {
+                "name": "AI citlivos\u0165 na osoby"
+            },
+            "ai_person_sensitivity": {
+                "name": "AI citlivos\u0165 na osoby"
+            },
+            "ai_pet_delay": {
+                "name": "Oneskorenie dom\u00e1ceho mazn\u00e1\u010dika AI"
+            },
+            "ai_pet_sensititvity": {
+                "name": "Citlivos\u0165 AI na dom\u00e1ce zvierat\u00e1"
+            },
+            "ai_pet_sensitivity": {
+                "name": "Citlivos\u0165 AI na dom\u00e1ce zvierat\u00e1"
+            },
+            "ai_vehicle_delay": {
+                "name": "Oneskorenie vozidla AI"
+            },
+            "ai_vehicle_sensititvity": {
+                "name": "AI citlivos\u0165 vozidla"
+            },
+            "ai_vehicle_sensitivity": {
+                "name": "AI citlivos\u0165 vozidla"
+            },
+            "alarm_volume": {
+                "name": "Hlasitos\u0165 alarmu"
+            },
+            "auto_quick_reply_time": {
+                "name": "\u010cas automatickej r\u00fdchlej odpovede"
+            },
+            "auto_track_disappear_time": {
+                "name": "Automatick\u00e9 sledovanie \u010das zmiznutia"
+            },
+            "auto_track_limit_left": {
+                "name": "Automaticky sledova\u0165 limit v\u013eavo"
+            },
+            "auto_track_limit_right": {
+                "name": "Automaticky sledova\u0165 limit vpravo"
+            },
+            "auto_track_stop_time": {
+                "name": "\u010cas zastavenia automatick\u00e9ho sledovania"
+            },
+            "day_night_switch_threshold": {
+                "name": "Prahov\u00e1 hodnota prep\u00edna\u010da de\u0148 noc"
+            },
+            "floodlight_brightness": {
+                "name": "Zapnutie jasu reflektora"
+            },
+            "focus": {
+                "name": "Zaostrenie"
+            },
+            "guard_return_time": {
+                "name": "\u010cas n\u00e1vratu str\u00e1\u017ee"
+            },
+            "image_brightness": {
+                "name": "Svetlos\u0165 obr\u00e1zku"
+            },
+            "image_contrast": {
+                "name": "Kontrast obr\u00e1zku"
+            },
+            "image_hue": {
+                "name": "Odtie\u0148 obr\u00e1zku"
+            },
+            "image_saturation": {
+                "name": "S\u00fdtos\u0165 obr\u00e1zku"
+            },
+            "image_sharpness": {
+                "name": "Ostros\u0165 obr\u00e1zku"
+            },
+            "message_volume": {
+                "name": "Hlasitos\u0165 spr\u00e1vy"
+            },
+            "motion_sensitivity": {
+                "name": "Citlivos\u0165 na pohyb"
+            },
+            "pir_sensitivity": {
+                "name": "Citlivos\u0165 PIR"
+            },
+            "volume": {
+                "name": "Hlasitos\u0165"
+            },
+            "zoom": {
+                "name": "Pribl\u00ed\u017eenie"
+            }
+        },
+        "select": {
+            "auto_quick_reply_message": {
+                "name": "Automatick\u00e1 r\u00fdchla odpove\u010f",
+                "state": {
+                    "off": "Neakt\u00edvny"
+                }
+            },
+            "auto_track_method": {
+                "name": "Met\u00f3da automatick\u00e9ho sledovania",
+                "state": {
+                    "digital": "Digit\u00e1lne",
+                    "digitalfirst": "Najsk\u00f4r digit\u00e1lne",
+                    "pantiltfirst": "Najsk\u00f4r ot\u00e1\u010danie/nakl\u00e1\u0148anie"
+                }
+            },
+            "day_night_mode": {
+                "name": "Denn\u00fd no\u010dn\u00fd re\u017eim",
+                "state": {
+                    "auto": "Auto",
+                    "blackwhite": "\u010cierna a biela",
+                    "color": "Farba"
+                }
+            },
+            "doorbell_led": {
+                "name": "Zvon\u010dek LED",
+                "state": {
+                    "alwayson": "V\u017edy zapnut\u00e9",
+                    "alwaysonatnight": "Automatick\u00e9 a v\u017edy zapnut\u00e9 v noci",
+                    "auto": "Auto",
+                    "stayoff": "Zosta\u0165 vypnut\u00fd"
+                }
+            },
+            "floodlight_mode": {
+                "name": "Re\u017eim Floodlight",
+                "state": {
+                    "adaptive": "Prisp\u00f4sobiv\u00e9",
+                    "auto": "Auto",
+                    "autoadaptive": "Automatick\u00e9 prisp\u00f4sobenie",
+                    "off": "Neakt\u00edvny",
+                    "onatnight": "Zapnut\u00e9 v noci",
+                    "schedule": "Pl\u00e1novanie"
+                }
+            },
+            "hdr": {
+                "name": "HDR",
+                "state": {
+                    "auto": "Auto",
+                    "off": "Neakt\u00edvny",
+                    "on": "Akt\u00edvny"
+                }
+            },
+            "hub_alarm_ringtone": {
+                "name": "Vyzv\u00e1\u0148ac\u00ed t\u00f3n bud\u00edka rozbo\u010dova\u010da",
+                "state": {
+                    "alarm": "Alarm",
+                    "attraction": "Pr\u00ed\u0165a\u017elivos\u0165",
+                    "citybird": "Mestsk\u00fd vt\u00e1k",
+                    "goodday": "Dobr\u00fd de\u0148",
+                    "hophop": "Hop hop",
+                    "loop": "Slu\u010dka",
+                    "moonlight": "Mesa\u010dn\u00fd svit",
+                    "operetta": "Opereta",
+                    "originaltune": "P\u00f4vodn\u00e1 mel\u00f3dia",
+                    "pianokey": "Kl\u00e1ves klav\u00edra",
+                    "waybackhome": "Cesta sp\u00e4\u0165 domov"
+                }
+            },
+            "hub_visitor_ringtone": {
+                "name": "Zvonenie n\u00e1v\u0161tevn\u00edka hubu",
+                "state": {
+                    "alarm": "Alarm",
+                    "attraction": "Pr\u00ed\u0165a\u017elivos\u0165",
+                    "citybird": "Mestsk\u00fd vt\u00e1k",
+                    "goodday": "Dobr\u00fd de\u0148",
+                    "hophop": "Hop hop",
+                    "loop": "Slu\u010dka",
+                    "moonlight": "Mesa\u010dn\u00fd svit",
+                    "operetta": "Opereta",
+                    "originaltune": "P\u00f4vodn\u00e1 mel\u00f3dia",
+                    "pianokey": "Kl\u00e1ves klav\u00edra",
+                    "waybackhome": "Cesta sp\u00e4\u0165 domov"
+                }
+            },
+            "motion_tone": {
+                "name": "Vyzv\u00e1\u0148ac\u00ed t\u00f3n pohybu",
+                "state": {
+                    "attraction": "Pr\u00ed\u0165a\u017elivos\u0165",
+                    "citybird": "Mestsk\u00fd vt\u00e1k",
+                    "goodday": "Dobr\u00fd de\u0148",
+                    "hophop": "Hop hop",
+                    "loop": "Slu\u010dka",
+                    "moonlight": "Mesa\u010dn\u00fd svit",
+                    "off": "Neakt\u00edvny",
+                    "operetta": "Opereta",
+                    "originaltune": "P\u00f4vodn\u00e1 mel\u00f3dia",
+                    "pianokey": "Kl\u00e1ves klav\u00edra",
+                    "waybackhome": "Cesta sp\u00e4\u0165 domov"
+                }
+            },
+            "package_tone": {
+                "name": "Vyzv\u00e1\u0148ac\u00ed t\u00f3n balenia",
+                "state": {
+                    "attraction": "Pr\u00ed\u0165a\u017elivos\u0165",
+                    "citybird": "Mestsk\u00fd vt\u00e1k",
+                    "goodday": "Dobr\u00fd de\u0148",
+                    "hophop": "Hop hop",
+                    "loop": "Slu\u010dka",
+                    "moonlight": "Mesa\u010dn\u00fd svit",
+                    "off": "Neakt\u00edvny",
+                    "operetta": "Opereta",
+                    "originaltune": "P\u00f4vodn\u00e1 mel\u00f3dia",
+                    "pianokey": "Kl\u00e1ves klav\u00edra",
+                    "waybackhome": "Cesta sp\u00e4\u0165 domov"
+                }
+            },
+            "people_tone": {
+                "name": "Vyzv\u00e1\u0148ac\u00ed t\u00f3n osoby",
+                "state": {
+                    "attraction": "Pr\u00ed\u0165a\u017elivos\u0165",
+                    "citybird": "Mestsk\u00fd vt\u00e1k",
+                    "goodday": "Dobr\u00fd de\u0148",
+                    "hophop": "Hop hop",
+                    "loop": "Slu\u010dka",
+                    "moonlight": "Mesa\u010dn\u00fd svit",
+                    "off": "Neakt\u00edvny",
+                    "operetta": "Opereta",
+                    "originaltune": "P\u00f4vodn\u00e1 mel\u00f3dia",
+                    "pianokey": "Kl\u00e1ves klav\u00edra",
+                    "waybackhome": "Cesta sp\u00e4\u0165 domov"
+                }
+            },
+            "play_quick_reply_message": {
+                "name": "Prehra\u0165 r\u00fdchlu odpove\u010f"
+            },
+            "ptz_preset": {
+                "name": "PTZ predvo\u013eba"
+            },
+            "status_led": {
+                "name": "Stavov\u00e1 LED",
+                "state": {
+                    "alwayson": "V\u017edy zapnut\u00e9",
+                    "alwaysonatnight": "Automatick\u00e9 a v\u017edy zapnut\u00e9 v noci",
+                    "auto": "Auto",
+                    "stayoff": "Zosta\u0165 vypnut\u00fd"
+                }
+            },
+            "visitor_tone": {
+                "name": "Vyzv\u00e1\u0148ac\u00ed t\u00f3n n\u00e1v\u0161tevn\u00edka",
+                "state": {
+                    "attraction": "Pr\u00ed\u0165a\u017elivos\u0165",
+                    "citybird": "Mestsk\u00fd vt\u00e1k",
+                    "goodday": "Dobr\u00fd de\u0148",
+                    "hophop": "Hop hop",
+                    "loop": "Slu\u010dka",
+                    "moonlight": "Mesa\u010dn\u00fd svit",
+                    "off": "Neakt\u00edvny",
+                    "operetta": "Opereta",
+                    "originaltune": "P\u00f4vodn\u00e1 mel\u00f3dia",
+                    "pianokey": "Kl\u00e1ves klav\u00edra",
+                    "waybackhome": "Cesta sp\u00e4\u0165 domov"
+                }
+            }
+        },
+        "sensor": {
+            "battery_percent": {
+                "name": "Percento bat\u00e9rie"
+            },
+            "battery_state": {
+                "name": "Stav bat\u00e9rie",
+                "state": {
+                    "chargecomplete": "Nab\u00edjanie dokon\u010den\u00e9",
+                    "charging": "Nab\u00edja sa",
+                    "discharging": "Vyb\u00edjanie"
+                }
+            },
+            "battery_temperature": {
+                "name": "Teplota bat\u00e9rie"
+            },
+            "cpu_usage": {
+                "name": "CPU vyu\u017eitie"
+            },
+            "event_connection": {
+                "name": "Pripojenie udalosti",
+                "state": {
+                    "fast_poll": "R\u00fdchly poll",
+                    "onvif_long_poll": "ONVIF long poll",
+                    "onvif_push": "ONVIF push"
+                }
+            },
+            "hdd_storage": {
+                "name": "HDD \u00falo\u017eisko {hdd_index}"
+            },
+            "ptz_pan_position": {
+                "name": "Poloha oto\u010denia PTZ"
+            },
+            "sd_storage": {
+                "name": "\u00dalo\u017eisko SD {hdd_index}"
+            },
+            "wifi_signal": {
+                "name": "WiFi sign\u00e1l"
+            }
+        },
+        "siren": {
+            "siren": {
+                "name": "Sir\u00e9na"
+            }
+        },
+        "switch": {
+            "auto_focus": {
+                "name": "Automatick\u00e9 zaostrovanie"
+            },
+            "auto_tracking": {
+                "name": "Automatick\u00e9 sledovanie"
+            },
+            "buzzer": {
+                "name": "Bzu\u010diak pri udalosti"
+            },
+            "doorbell_button_sound": {
+                "name": "Zvuk tla\u010didla zvon\u010deka"
+            },
+            "email": {
+                "name": "Email pri udalosti"
+            },
+            "ftp_upload": {
+                "name": "Nahr\u00e1vanie na FTP"
+            },
+            "gaurd_return": {
+                "name": "N\u00e1vrat str\u00e1\u017ecu"
+            },
+            "guard_return": {
+                "name": "N\u00e1vrat str\u00e1\u017ecu"
+            },
+            "hdr": {
+                "name": "HDR"
+            },
+            "hub_ringtone_on_event": {
+                "name": "Vyzv\u00e1\u0148ac\u00ed t\u00f3n rozbo\u010dova\u010da pri udalosti"
+            },
+            "ir_lights": {
+                "name": "Infra\u010derven\u00e9 svetl\u00e1 v no\u010dnom re\u017eime"
+            },
+            "led": {
+                "name": "LED"
+            },
+            "manual_record": {
+                "name": "Manu\u00e1lne nahr\u00e1vanie"
+            },
+            "pir_enabled": {
+                "name": "PIR aktivovan\u00e9"
+            },
+            "pir_reduce_alarm": {
+                "name": "PIR zn\u00ed\u017ei\u0165 falo\u0161n\u00fd poplach"
+            },
+            "ptz_patrol": {
+                "name": "PTZ hliadka"
+            },
+            "push_notifications": {
+                "name": "Push upozornenia"
+            },
+            "record": {
+                "name": "Z\u00e1znam"
+            },
+            "record_audio": {
+                "name": "Nahr\u00e1vanie zvuku"
+            },
+            "siren_on_event": {
+                "name": "Sir\u00e9na pri udalosti"
+            }
+        }
+    },
+    "exceptions": {
+        "service_entry_ex": {
+            "message": "Reolink {service_name} chyba: polo\u017eka konfigur\u00e1cie nebola n\u00e1jden\u00e1 alebo nebola na\u010d\u00edtan\u00e1"
+        },
+        "service_not_chime": {
+            "message": "Reolink play_chime chyba: {device_name} nie je gong"
+        }
+    },
+    "issues": {
+        "enable_port": {
+            "description": "Nepodarilo sa automaticky povoli\u0165 port(y) {ports} na {name}. Pomocou [klienta Reolink]({info_link}) ho manu\u00e1lne nastavte na ZAPNUT\u00c9",
+            "title": "Port Reolink nie je povolen\u00fd"
+        },
+        "firmware_update": {
+            "description": "\"{name}\" s modelom \"{model}\" a verziou hardv\u00e9ru \"{hw_version}\" pou\u017e\u00edva star\u00fa verziu firmv\u00e9ru \"{current_firmware}\", pri\u010dom pre spr\u00e1vnu \u010dinnos\u0165 Reolink je potrebn\u00e1 aspo\u0148 verzia firmv\u00e9ru \"{required_firmware}\" integr\u00e1cia. Najnov\u0161\u00ed firmv\u00e9r si m\u00f4\u017eete stiahnu\u0165 z [Centrum s\u0165ahovania Reolink] ({download_link}).",
+            "title": "Vy\u017eaduje sa aktualiz\u00e1cia firmv\u00e9ru Reolink"
+        },
+        "hdr_switch_deprecated": {
+            "description": "Entita Reolink HDR switch je zastaran\u00e1 a bude odstr\u00e1nen\u00e1 v HA 2025.2.0. Bola nahraden\u00e1 entitou HDR select, ktor\u00e1 pon\u00faka mo\u017enosti `on`, `off` a `auto`. Ak chcete odstr\u00e1ni\u0165 tento probl\u00e9m, upravte zodpovedaj\u00facim sp\u00f4sobom automatiz\u00e1cie a vypnite entitu prep\u00edna\u010da HDR.",
+            "title": "Prep\u00edna\u010d Reolink HDR je zastaran\u00fd"
+        },
+        "https_webhook": {
+            "description": "Produkty Reolink nem\u00f4\u017eu posiela\u0165 udalosti pohybu na adresu HTTPS (SSL), nakonfigurujte (lok\u00e1lnu) adresu HTTP v \u010dasti \u201eWebov\u00e1 adresa Home Assistant\u201c v [nastaveniach siete] ({network_link}). Aktu\u00e1lna (lok\u00e1lna) adresa je: `{base_url}`, platn\u00e1 adresa m\u00f4\u017ee by\u0165 napr\u00edklad `http://192.168.1.10:8123`, kde `192.168.1.10` je adresa IP zariadenia Home Assistant",
+            "title": "Webov\u00e1 adresa webhooku na op\u00e4tovn\u00e9 prepojenie pou\u017e\u00edva protokol HTTPS (SSL)"
+        },
+        "hub_switch_deprecated": {
+            "description": "Zbyto\u010dn\u00e9 prep\u00edna\u010de \"Record\" (Z\u00e1znam), \"Email on event\" (E-mail pri udalosti), \"FTP upload\" (Odosielanie na FTP), \"Push notifications\" (Push ozn\u00e1menia) a \"Buzzer on event\" (Bzu\u010diak pri udalosti) na Reolink Home Hub s\u00fa odstr\u00e1nen\u00e9, preto\u017ee nov\u00fd firmv\u00e9r ich u\u017e nepodporuje. Namiesto toho pou\u017eite rovnako pomenovan\u00e9 prep\u00edna\u010de pod jednotliv\u00fdmi kamerov\u00fdmi zariadeniami pripojen\u00fdmi k rozbo\u010dova\u010du Home Hub. Ak chcete odstr\u00e1ni\u0165 tento probl\u00e9m, upravte zodpovedaj\u00facim sp\u00f4sobom automatiz\u00e1cie a vypnite uveden\u00e9 entity prep\u00edna\u010dov.",
+            "title": "Prep\u00edna\u010de Reolink Home Hub s\u00fa zastaran\u00e9"
+        },
+        "ssl": {
+            "description": "Glob\u00e1lny certifik\u00e1t SSL nakonfigurovan\u00fd v [configuration.yaml pod http]({ssl_link}), zatia\u013e \u010do lok\u00e1lna adresa HTTP `{base_url}` je nakonfigurovan\u00e1 pod \"Home Assistant URL\" v [network settings]({network_link}). Preto zariadenie Reolink nem\u00f4\u017ee dosiahnu\u0165 aplik\u00e1ciu Home Assistant, aby odoslala svoje udalosti pohybu/I. Uistite sa, \u017ee miestna adresa HTTP nie je pokryt\u00e1 certifik\u00e1tom SSL, napr\u00edklad pou\u017eit\u00edm [NGINX add-on]({nginx_link}) namiesto glob\u00e1lne vyn\u00faten\u00e9ho certifik\u00e1tu SSL.",
+            "title": "Reolink nekompatibiln\u00fd s glob\u00e1lnym certifik\u00e1tom SSL"
+        },
+        "webhook_url": {
+            "description": "Nebol prijat\u00fd po\u010diato\u010dn\u00fd stav ONVIF od {name}. Kamera Reolink s najv\u00e4\u010d\u0161ou pravdepodobnos\u0165ou nem\u00f4\u017ee dosiahnu\u0165 aktu\u00e1lnu (lok\u00e1lnu) webov\u00fa adresu Home Assistant `{base_url}`, nakonfigurujte (lok\u00e1lnu) adresu HTTP v \u010dasti Adresa URL Home Assistant v [nastaveniach siete] ({network_link}), ktor\u00e1 ukazuje na Home Assistant. Napr\u00edklad \u201ehttp://192.168.1.10:8123\u201c, kde \u201e192.168.1.10\u201c je adresa IP zariadenia Home Assistant. Tie\u017e sa uistite, \u017ee kamera Reolink m\u00f4\u017ee dosiahnu\u0165 t\u00fato adresu URL. Pou\u017e\u00edvanie r\u00fdchleho pohybu/v\u00fdzvy stavu AI, k\u00fdm sa neprijme prv\u00e9 stla\u010denie ONVIF.",
+            "title": "Adresa URL webhooku Reolink je nedostupn\u00e1"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "protocol": "Protokol"
+                },
+                "data_description": {
+                    "protocol": "Protokol streamovania, ktor\u00fd sa m\u00e1 pou\u017ei\u0165 pre entity kamery. RTSP podporuje streamy 4K (k\u00f3dovanie h265), zatia\u013e \u010do RTMP a FLV nie. FLV je najmenej n\u00e1ro\u010dn\u00fd na kameru."
+                }
+            }
+        }
+    },
+    "selector": {
+        "ringtone": {
+            "options": {
+                "attraction": "Pr\u00ed\u0165a\u017elivos\u0165",
+                "citybird": "Mestsk\u00fd vt\u00e1k",
+                "goodday": "Dobr\u00fd de\u0148",
+                "hophop": "Hop hop",
+                "loop": "Slu\u010dka",
+                "moonlight": "Mesa\u010dn\u00fd svit",
+                "operetta": "Opereta",
+                "originaltune": "P\u00f4vodn\u00e1 mel\u00f3dia",
+                "pianokey": "Kl\u00e1ves klav\u00edra",
+                "waybackhome": "Cesta sp\u00e4\u0165 domov"
+            }
+        }
+    },
+    "services": {
+        "play_chime": {
+            "description": "Prehr\u00e1vanie zvonenia na gongu.",
+            "fields": {
+                "device_id": {
+                    "description": "Zvonenie, na ktorom sa m\u00e1 prehr\u00e1va\u0165 vyzv\u00e1\u0148ac\u00ed t\u00f3n.",
+                    "name": "Cie\u013eov\u00fd gong"
+                },
+                "ringtone": {
+                    "description": "Vyzv\u00e1\u0148ac\u00ed t\u00f3n na prehr\u00e1vanie.",
+                    "name": "Vyzv\u00e1\u0148ac\u00ed t\u00f3n"
+                }
+            },
+            "name": "Prehra\u0165 zvon\u010dek"
+        },
+        "ptz_move": {
+            "description": "Pohybujte kamerou ur\u010ditou r\u00fdchlos\u0165ou.",
+            "fields": {
+                "speed": {
+                    "description": "PTZ r\u00fdchlos\u0165 pohybu.",
+                    "name": "R\u00fdchlos\u0165"
+                }
+            },
+            "name": "PTZ pohyb"
+        }
+    }
+}

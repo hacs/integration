@@ -1,0 +1,125 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Der Dienst ist bereits konfiguriert",
+            "auth_error": "Ung\u00fcltige Anmeldeinformationen",
+            "no_heaters": "Keine Heizger\u00e4te gefunden.",
+            "not_found": "Kein Lan2RF-Gateway gefunden.",
+            "timeout_error": "Zeit\u00fcberschreitung bei der Verbindung zum Lan2RF-Gateway.",
+            "unknown": "Unbekannter Fehler bei der Verbindung zum Lan2RF-Gateway."
+        },
+        "error": {
+            "auth_error": "Ung\u00fcltige Anmeldeinformationen",
+            "no_heaters": "Keine Heizger\u00e4te gefunden.",
+            "not_found": "Kein Lan2RF-Gateway gefunden.",
+            "timeout_error": "Zeit\u00fcberschreitung bei der Verbindung zum Lan2RF-Gateway.",
+            "unknown": "Unbekannter Fehler bei der Verbindung zum Lan2RF-Gateway."
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "host": "Host",
+                    "password": "Passwort",
+                    "username": "Benutzername"
+                },
+                "data_description": {
+                    "host": "Hostname oder IP-Adresse des Intergas InComfort Lan2RF Gateways.",
+                    "password": "Das Passwort zur Anmeldung beim Gateway ist unten auf dem Lan2RF-Gateway aufgedruckt oder lautet bei einigen \u00e4lteren Ger\u00e4ten `intergas`.",
+                    "username": "Der Benutzername f\u00fcr die Anmeldung beim Gateway. In den meisten F\u00e4llen ist dies `admin`."
+                },
+                "description": "Richte ein neues Intergas InComfort Lan2RF Gateway ein. Bei einigen \u00e4lteren Systemen sind m\u00f6glicherweise keine Anmeldeinformationen f\u00fcr die Einrichtung erforderlich. F\u00fcr neuere Ger\u00e4te ist eine Authentifizierung erforderlich."
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "fault": {
+                "name": "Fehler",
+                "state_attributes": {
+                    "fault_code": {
+                        "state": {
+                            "none": "Keine"
+                        }
+                    }
+                }
+            },
+            "is_burning": {
+                "name": "Brenner"
+            },
+            "is_pumping": {
+                "name": "Pumpe"
+            },
+            "is_tapping": {
+                "name": "Warmwasserhahn"
+            }
+        },
+        "sensor": {
+            "tap_temperature": {
+                "name": "Temperatur am Wasserhahn"
+            }
+        },
+        "water_heater": {
+            "boiler": {
+                "state": {
+                    "boiler_ext": "Kessel extern",
+                    "boiler_int": "Kessel intern",
+                    "buffer": "Puffer",
+                    "central_heating": "Zentralheizung",
+                    "central_heating_rf": "Zentralheizung rf",
+                    "cv_temperature_too_high_e1": "Temperatur zu hoch",
+                    "flame_detection_fault_e6": "Fehler bei der Flammenerkennung",
+                    "frost": "Frost",
+                    "gas_valve_relay_faulty_e29": "Gasventilrelais defekt",
+                    "gas_valve_relay_faulty_e30": "Gasventilrelais defekt",
+                    "incorrect_fan_speed_e8": "Falsche L\u00fcftergeschwindigkeit",
+                    "no_flame_signal_e4": "Kein Flammensignal",
+                    "opentherm": "OpenTherm",
+                    "poor_flame_signal_e5": "Schlechtes Flammensignal",
+                    "postrun_boyler": "Nachlaufkessel",
+                    "postrun_ch": "Nachlauf-Zentralheizung",
+                    "s1_and_s2_interchanged_e2": "S1 und S2 vertauscht",
+                    "sensor_fault_after_self_check_e0": "Sensorfehler nach Selbsttest",
+                    "sensor_fault_s1_e10": "Sensorfehler S1",
+                    "sensor_fault_s1_e11": "Sensorfehler S1",
+                    "sensor_fault_s1_e12": "Sensorfehler S1",
+                    "sensor_fault_s1_e13": "Sensorfehler S1",
+                    "sensor_fault_s1_e14": "Sensorfehler S1",
+                    "sensor_fault_s2_e20": "Sensorfehler S2",
+                    "sensor_fault_s2_e21": "Sensorfehler S2",
+                    "sensor_fault_s2_e22": "Sensorfehler S2",
+                    "sensor_fault_s2_e23": "Sensorfehler S2",
+                    "sensor_fault_s2_e24": "Sensorfehler S2",
+                    "sensor_test": "Sensortest",
+                    "service": "Dienst",
+                    "shortcut_outside_sensor_temperature_e27": "Abk\u00fcrzung Au\u00dfensensortemperatur",
+                    "standby": "Standby",
+                    "tapwater": "Leitungswasser",
+                    "tapwater_int": "Leitungswasser intern",
+                    "unknown": "Unbekannt"
+                }
+            }
+        }
+    },
+    "issues": {
+        "deprecated_yaml_import_issue_auth_error": {
+            "description": "Die Konfiguration von {integration_title} mit YAML wird entfernt, aber beim Importieren deiner vorhandenen Konfiguration ist ein Authentifizierungsfehler aufgetreten.\nDie Installation wird nicht fortgesetzt. \n\n\u00dcberpr\u00fcfe, ob dein {integration_title} ordnungsgem\u00e4\u00df funktioniert, und starte Home Assistant neu, um den Import erneut zu versuchen. \n\nAlternativ kannst du die Konfiguration `{domain}` vollst\u00e4ndig aus deiner configuration.yaml-Datei entfernen, Home Assistant neu starten und die Integration {integration_title} manuell hinzuf\u00fcgen.",
+            "title": "Der YAML-Import ist aufgrund eines Authentifizierungsfehlers fehlgeschlagen"
+        },
+        "deprecated_yaml_import_issue_no_heaters": {
+            "description": "Die Konfiguration von {integration_title} mit YAML wird entfernt, aber beim Importieren deiner vorhandenen Konfiguration wurden keine Heizger\u00e4te gefunden.\nDie Installation wird nicht fortgesetzt. \n\n\u00dcberpr\u00fcfe, ob dein {integration_title} ordnungsgem\u00e4\u00df funktioniert, und starte Home Assistant neu, um den Import erneut zu versuchen. \n\nAlternativ kannst du die Konfiguration `{domain}` vollst\u00e4ndig aus deiner configuration.yaml-Datei entfernen, Home Assistant neu starten und die Integration {integration_title} manuell hinzuf\u00fcgen.",
+            "title": "Der YAML-Import ist fehlgeschlagen, da keine Heizger\u00e4te gefunden wurden"
+        },
+        "deprecated_yaml_import_issue_not_found": {
+            "description": "Die Konfiguration von {integration_title} mit YAML wird entfernt, aber beim Importieren deiner vorhandenen Konfiguration wurde kein Lan2RF-Gateway gefunden.\nDie Installation wird nicht fortgesetzt. \n\n\u00dcberpr\u00fcfe, ob dein {integration_title} ordnungsgem\u00e4\u00df funktioniert, und starte Home Assistant neu, um den Import erneut zu versuchen. \n\nAlternativ kannst du die Konfiguration `{domain}` vollst\u00e4ndig aus deiner configuration.yaml-Datei entfernen, Home Assistant neu starten und die Integration {integration_title} manuell hinzuf\u00fcgen.",
+            "title": "Der YAML-Import ist fehlgeschlagen, da kein Gateway gefunden wurde"
+        },
+        "deprecated_yaml_import_issue_timeout_error": {
+            "description": "Die Konfiguration von {integration_title} mit YAML wird entfernt, aber beim Verbinden mit deinem {integration_title} ist beim Importieren deiner vorhandenen Konfiguration eine Zeit\u00fcberschreitung aufgetreten.\nDie Installation wird nicht fortgesetzt. \n\n\u00dcberpr\u00fcfe, ob dein {integration_title} ordnungsgem\u00e4\u00df funktioniert, und starte Home Assistant neu, um den Import erneut zu versuchen. \n\nAlternativ kannst du die Konfiguration `{domain}` vollst\u00e4ndig aus deiner configuration.yaml-Datei entfernen, Home Assistant neu starten und die Integration {integration_title} manuell hinzuf\u00fcgen.",
+            "title": "Der YAML-Import ist aufgrund von Timeout-Problemen fehlgeschlagen."
+        },
+        "deprecated_yaml_import_issue_unknown": {
+            "description": "Die Konfiguration von {integration_title} mit YAML wird entfernt, aber beim Importieren deiner vorhandenen Konfiguration ist ein unbekannter Fehler aufgetreten.\nDie Installation wird nicht fortgesetzt. \n\n\u00dcberpr\u00fcfe, ob dein {integration_title} ordnungsgem\u00e4\u00df funktioniert, und starte Home Assistant neu, um den Import erneut zu versuchen. \n\nAlternativ kannst du die Konfiguration `{domain}` vollst\u00e4ndig aus deiner configuration.yaml-Datei entfernen, Home Assistant neu starten und die Integration {integration_title} manuell hinzuf\u00fcgen.",
+            "title": "Der YAML-Import ist mit einem unbekannten Fehler fehlgeschlagen."
+        }
+    }
+}

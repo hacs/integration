@@ -1,0 +1,102 @@
+Metadata-Version: 2.1
+Name: home-assistant-bluetooth
+Version: 1.12.2
+Summary: Home Assistant Bluetooth Models and Helpers
+Home-page: https://github.com/home-assistant-libs/home-assistant-bluetooth
+Author: J. Nick Koston
+Author-email: nick@home-assistant.io
+Requires-Python: >=3.11,<3.13
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Natural Language :: English
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Topic :: Software Development :: Libraries
+Requires-Dist: habluetooth (>=3.0)
+Project-URL: Bug Tracker, https://github.com/home-assistant-libs/home-assistant-bluetooth/issues
+Project-URL: Changelog, https://github.com/home-assistant-libs/home-assistant-bluetooth/blob/main/CHANGELOG.md
+Project-URL: Repository, https://github.com/home-assistant-libs/home-assistant-bluetooth
+Description-Content-Type: text/markdown
+
+# Home Assistant Bluetooth
+
+<p align="center">
+  <a href="https://github.com/home-assistant-libs/home-assistant-bluetooth/actions?query=workflow%3ACI">
+    <img src="https://img.shields.io/github/workflow/status/home-assistant-libs/home-assistant-bluetooth/CI/main?label=CI&logo=github&style=flat-square" alt="CI Status" >
+  </a>
+  <a href="https://codecov.io/gh/home-assistant-libs/home-assistant-bluetooth">
+    <img src="https://img.shields.io/codecov/c/github/home-assistant-libs/home-assistant-bluetooth.svg?logo=codecov&logoColor=fff&style=flat-square" alt="Test coverage percentage">
+  </a>
+</p>
+<p align="center">
+  <a href="https://python-poetry.org/">
+    <img src="https://img.shields.io/badge/packaging-poetry-299bd7?style=flat-square&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAASCAYAAABrXO8xAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAJJSURBVHgBfZLPa1NBEMe/s7tNXoxW1KJQKaUHkXhQvHgW6UHQQ09CBS/6V3hKc/AP8CqCrUcpmop3Cx48eDB4yEECjVQrlZb80CRN8t6OM/teagVxYZi38+Yz853dJbzoMV3MM8cJUcLMSUKIE8AzQ2PieZzFxEJOHMOgMQQ+dUgSAckNXhapU/NMhDSWLs1B24A8sO1xrN4NECkcAC9ASkiIJc6k5TRiUDPhnyMMdhKc+Zx19l6SgyeW76BEONY9exVQMzKExGKwwPsCzza7KGSSWRWEQhyEaDXp6ZHEr416ygbiKYOd7TEWvvcQIeusHYMJGhTwF9y7sGnSwaWyFAiyoxzqW0PM/RjghPxF2pWReAowTEXnDh0xgcLs8l2YQmOrj3N7ByiqEoH0cARs4u78WgAVkoEDIDoOi3AkcLOHU60RIg5wC4ZuTC7FaHKQm8Hq1fQuSOBvX/sodmNJSB5geaF5CPIkUeecdMxieoRO5jz9bheL6/tXjrwCyX/UYBUcjCaWHljx1xiX6z9xEjkYAzbGVnB8pvLmyXm9ep+W8CmsSHQQY77Zx1zboxAV0w7ybMhQmfqdmmw3nEp1I0Z+FGO6M8LZdoyZnuzzBdjISicKRnpxzI9fPb+0oYXsNdyi+d3h9bm9MWYHFtPeIZfLwzmFDKy1ai3p+PDls1Llz4yyFpferxjnyjJDSEy9CaCx5m2cJPerq6Xm34eTrZt3PqxYO1XOwDYZrFlH1fWnpU38Y9HRze3lj0vOujZcXKuuXm3jP+s3KbZVra7y2EAAAAAASUVORK5CYII=" alt="Poetry">
+  </a>
+  <a href="https://github.com/ambv/black">
+    <img src="https://img.shields.io/badge/code%20style-black-000000.svg?style=flat-square" alt="black">
+  </a>
+  <a href="https://github.com/pre-commit/pre-commit">
+    <img src="https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white&style=flat-square" alt="pre-commit">
+  </a>
+</p>
+<p align="center">
+  <a href="https://pypi.org/project/home-assistant-bluetooth/">
+    <img src="https://img.shields.io/pypi/v/home-assistant-bluetooth.svg?logo=python&logoColor=fff&style=flat-square" alt="PyPI Version">
+  </a>
+  <img src="https://img.shields.io/pypi/pyversions/home-assistant-bluetooth.svg?style=flat-square&logo=python&amp;logoColor=fff" alt="Supported Python versions">
+  <img src="https://img.shields.io/pypi/l/home-assistant-bluetooth.svg?style=flat-square" alt="License">
+</p>
+
+Home Assistant Bluetooth Models and Helpers
+
+## Usage
+
+This library is for accessing Home Assistant Bluetooth models. Libraries use these models to receive and parse Bluetooth advertisement data.
+
+```python
+@dataclasses.dataclass
+class BluetoothServiceInfo(BaseServiceInfo):
+    """Prepared info from bluetooth entries."""
+
+    name: str
+    address: str
+    rssi: int
+    manufacturer_data: dict[int, bytes]
+    service_data: dict[str, bytes]
+    service_uuids: list[str]
+    source: str
+```
+
+The data used to populate BluetoothServiceInfo comes from [bleak](https://github.com/hbldh/bleak)'s `BLEDevice` and `AdvertisementData`, except for the `source` field, which comes from Home Assistant and represents the source of the data.
+
+In the future, Home Assistant may support remote Bluetooth transceivers, which may use the source field to determine which device is closest.
+
+## Installation
+
+Install this via pip (or your favourite package manager):
+
+`pip install home-assistant-bluetooth`
+
+## Contributors ✨
+
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
+<!-- prettier-ignore-start -->
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- markdownlint-disable -->
+<!-- markdownlint-enable -->
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+<!-- prettier-ignore-end -->
+
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
+
+## Credits
+
+This package was created with
+[Cookiecutter](https://github.com/audreyr/cookiecutter) and the
+[browniebroke/cookiecutter-pypackage](https://github.com/browniebroke/cookiecutter-pypackage)
+project template.
+

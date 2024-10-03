@@ -1,0 +1,125 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Zariadenie u\u017e je nakonfigurovan\u00e9",
+            "reauth_successful": "Op\u00e4tovn\u00e9 overenie bolo \u00faspe\u0161n\u00e9",
+            "reconfigure_successful": "Rekonfigur\u00e1cia bola \u00faspe\u0161n\u00e1"
+        },
+        "error": {
+            "cannot_connect": "Nepodarilo sa pripoji\u0165",
+            "invalid_auth": "Neplatn\u00e9 overenie",
+            "unknown": "Neo\u010dak\u00e1van\u00e1 chyba"
+        },
+        "step": {
+            "reauth_confirm": {
+                "data": {
+                    "password": "Heslo",
+                    "username": "Pou\u017e\u00edvate\u013esk\u00e9 meno"
+                },
+                "title": "Vypr\u0161ala platnos\u0165 overenia pre {name}"
+            },
+            "reconfigure_confirm": {
+                "data": {
+                    "host": "Hostite\u013e",
+                    "password": "Heslo",
+                    "port": "Port",
+                    "ssl": "Pou\u017e\u00edva SSL certifik\u00e1t",
+                    "username": "Pou\u017e\u00edvate\u013esk\u00e9 meno",
+                    "verify_ssl": "Overi\u0165 SSL certifik\u00e1t"
+                },
+                "data_description": {
+                    "host": "N\u00e1zov hostite\u013ea alebo IP adresa zariadenia, na ktorom je spusten\u00e1 in\u0161tancia pyLoad.",
+                    "port": "PyLoad \u0161tandardne pou\u017e\u00edva port 8000."
+                }
+            },
+            "user": {
+                "data": {
+                    "host": "Hostite\u013e",
+                    "name": "N\u00e1zov",
+                    "password": "Heslo",
+                    "port": "Port",
+                    "ssl": "Pou\u017e\u00edva SSL certifik\u00e1t",
+                    "username": "Pou\u017e\u00edvate\u013esk\u00e9 meno",
+                    "verify_ssl": "Overi\u0165 SSL certifik\u00e1t"
+                },
+                "data_description": {
+                    "host": "N\u00e1zov hostite\u013ea alebo IP adresa zariadenia, na ktorom je spusten\u00e1 in\u0161tancia pyLoad.",
+                    "name": "N\u00e1zov, ktor\u00fd sa m\u00e1 pou\u017ei\u0165 pre in\u0161tanciu pyLoad v aplik\u00e1cii Home Assistant",
+                    "port": "PyLoad \u0161tandardne pou\u017e\u00edva port 8000."
+                }
+            }
+        }
+    },
+    "entity": {
+        "button": {
+            "abort_downloads": {
+                "name": "Preru\u0161i\u0165 v\u0161etky spusten\u00e9 s\u0165ahovania"
+            },
+            "delete_finished": {
+                "name": "Odstr\u00e1nenie hotov\u00fdch s\u00faborov/bal\u00edkov"
+            },
+            "restart": {
+                "name": "Re\u0161tartova\u0165 jadro pyload"
+            },
+            "restart_failed": {
+                "name": "Re\u0161tartovanie v\u0161etk\u00fdch ne\u00faspe\u0161n\u00fdch s\u00faborov"
+            }
+        },
+        "sensor": {
+            "active": {
+                "name": "Akt\u00edvne s\u0165ahovanie"
+            },
+            "free_space": {
+                "name": "Vo\u013en\u00fd priestor"
+            },
+            "queue": {
+                "name": "S\u0165ahovanie vo fronte"
+            },
+            "speed": {
+                "name": "R\u00fdchlos\u0165"
+            },
+            "total": {
+                "name": "Celkov\u00fd po\u010det stiahnut\u00ed"
+            }
+        },
+        "switch": {
+            "download": {
+                "name": "Pozastavi\u0165/Obnovi\u0165 frontu"
+            },
+            "reconnect": {
+                "name": "Automatick\u00e9 op\u00e4tovn\u00e9 pripojenie"
+            }
+        }
+    },
+    "exceptions": {
+        "service_call_auth_exception": {
+            "message": "Nie je mo\u017en\u00e9 odosla\u0165 pr\u00edkaz pyLoad kv\u00f4li chybe overovania, sk\u00faste to nesk\u00f4r"
+        },
+        "service_call_exception": {
+            "message": "Nie je mo\u017en\u00e9 odosla\u0165 pr\u00edkaz pyLoad kv\u00f4li chybe pripojenia, sk\u00faste to nesk\u00f4r"
+        },
+        "setup_authentication_exception": {
+            "message": "Overenie sa nepodarilo pre {username}, overte si prihlasovacie \u00fadaje"
+        },
+        "setup_parse_exception": {
+            "message": "Nie je mo\u017en\u00e9 analyzova\u0165 \u00fadaje z rozhrania pyLoad API, sk\u00faste to nesk\u00f4r"
+        },
+        "setup_request_exception": {
+            "message": "Nie je mo\u017en\u00e9 sa pripoji\u0165 a na\u010d\u00edta\u0165 \u00fadaje z rozhrania pyLoad API, sk\u00faste to nesk\u00f4r"
+        }
+    },
+    "issues": {
+        "deprecated_yaml_import_issue_cannot_connect": {
+            "description": "Konfigur\u00e1cia pyLoad pomocou YAML je odstr\u00e1nen\u00e1, ale pri pokuse o import konfigur\u00e1cie YAML do\u0161lo k chybe pripojenia.\n\nSkontrolujte, \u010di m\u00e1te stabiln\u00e9 internetov\u00e9 pripojenie, a re\u0161tartujte aplik\u00e1ciu Home Assistant, aby ste to sk\u00fasili znova, alebo odstr\u00e1\u0148te konfigur\u00e1ciu pyLoad YAML zo s\u00faboru configuration.yaml a pokra\u010dujte v [nastaven\u00ed integr\u00e1cie]({url}) ru\u010dne.",
+            "title": "PyLoad YAML konfigur\u00e1cie import zlyhal"
+        },
+        "deprecated_yaml_import_issue_invalid_auth": {
+            "description": "Konfigur\u00e1cia pyLoad pomocou YAML je odstr\u00e1nen\u00e1, ale pri pokuse o import konfigur\u00e1cie YAML do\u0161lo k chybe pri overovan\u00ed.\n\nOpravte konfigur\u00e1ciu YAML a re\u0161tartujte aplik\u00e1ciu Home Assistant, aby ste to sk\u00fasili znova, alebo odstr\u00e1\u0148te konfigur\u00e1ciu pyLoad YAML zo s\u00faboru configuration.yaml a pokra\u010dujte v [nastaven\u00ed integr\u00e1cie]({url}) manu\u00e1lne.",
+            "title": "PyLoad YAML konfigur\u00e1cie import zlyhal"
+        },
+        "deprecated_yaml_import_issue_unknown": {
+            "description": "Konfigur\u00e1cia pyLoad pomocou YAML je odstr\u00e1nen\u00e1, ale pri pokuse o import konfigur\u00e1cie YAML do\u0161lo k nezn\u00e1mej chybe.\n\nUistite sa, \u017ee konfigur\u00e1cia YAML je spr\u00e1vna, a re\u0161tartujte aplik\u00e1ciu Home Assistant, aby ste to sk\u00fasili znova, alebo odstr\u00e1\u0148te konfigur\u00e1ciu pyLoad YAML zo s\u00faboru configuration.yaml a pokra\u010dujte v [nastavovan\u00ed integr\u00e1cie]({url}) ru\u010dne.",
+            "title": "PyLoad YAML konfigur\u00e1cie import zlyhal"
+        }
+    }
+}

@@ -1,0 +1,164 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Konto wurde bereits konfiguriert",
+            "reauth_successful": "Die erneute Authentifizierung war erfolgreich",
+            "reauth_wrong_account": "Du kannst diesen Eintrag nur mit demselben Overkiz Konto und Hub erneut authentifizieren"
+        },
+        "error": {
+            "cannot_connect": "Verbindung fehlgeschlagen",
+            "certificate_verify_failed": "Es kann keine Verbindung zum Host hergestellt werden, die Zertifikats\u00fcberpr\u00fcfung ist fehlgeschlagen.",
+            "developer_mode_disabled": "Entwicklermodus deaktiviert. Aktiviere zun\u00e4chst den Entwicklermodus deiner Somfy TaHoma-Box.",
+            "invalid_auth": "Ung\u00fcltige Authentifizierung",
+            "no_such_token": "F\u00fcr dieses Gateway kann kein Token erstellt werden. Bitte best\u00e4tige, ob das Konto mit diesem Gateway verkn\u00fcpft ist.",
+            "server_in_maintenance": "Server ist wegen Wartungsarbeiten au\u00dfer Betrieb",
+            "too_many_attempts": "Zu viele Versuche mit einem ung\u00fcltigen Token, vor\u00fcbergehend gesperrt",
+            "too_many_requests": "Zu viele Anfragen, versuche es sp\u00e4ter erneut.",
+            "unknown": "Unerwarteter Fehler",
+            "unsupported_hardware": "Deine {unsupported_device} Hardware wird von dieser Integration nicht unterst\u00fctzt."
+        },
+        "flow_title": "Gateway: {gateway_id}",
+        "step": {
+            "cloud": {
+                "data": {
+                    "password": "Passwort",
+                    "username": "Benutzername"
+                },
+                "description": "Gib deine Anmeldedaten ein."
+            },
+            "local": {
+                "data": {
+                    "host": "Host",
+                    "password": "Passwort",
+                    "username": "Benutzername",
+                    "verify_ssl": "SSL-Zertifikat \u00fcberpr\u00fcfen"
+                },
+                "description": "Durch Aktivieren des [Entwicklermodus deiner TaHoma-Box](https://github.com/Somfy-Developer/Somfy-TaHoma-Developer-Mode#getting-started) kannst du Software von Drittanbietern (wie Home Assistant) autorisieren Stelle \u00fcber dein lokales Netzwerk eine Verbindung her. \n\nGib nach der Aktivierung deine Anmeldeinformationen f\u00fcr die Anwendung ein und \u00e4ndere den Host so, dass er deine Gateway-PIN enth\u00e4lt, oder gib die IP-Adresse deines Gateways ein."
+            },
+            "local_or_cloud": {
+                "data": {
+                    "api_type": "API-Typ"
+                },
+                "description": "W\u00e4hle zwischen lokaler oder Cloud-API. Die lokale API unterst\u00fctzt TaHoma Connexoon, TaHoma v2 und TaHoma Switch. Klimager\u00e4te und -szenarien werden in der lokalen API nicht unterst\u00fctzt."
+            },
+            "user": {
+                "data": {
+                    "host": "Host",
+                    "hub": "Server",
+                    "password": "Passwort",
+                    "username": "Benutzername"
+                },
+                "description": "W\u00e4hle deinen Server aus. Die Overkiz-Plattform wird von verschiedenen Anbietern wie Somfy (Connexoon / TaHoma), Hitachi (Hi Kumo) und Atlantic (Cozytouch) genutzt."
+            }
+        }
+    },
+    "entity": {
+        "climate": {
+            "overkiz": {
+                "state_attributes": {
+                    "fan_mode": {
+                        "state": {
+                            "away": "Abwesend",
+                            "bypass_boost": "Boost umgehen",
+                            "home_boost": "Home-Boost",
+                            "kitchen_boost": "K\u00fcchen-Boost"
+                        }
+                    },
+                    "preset_mode": {
+                        "state": {
+                            "auto": "Auto",
+                            "comfort-1": "Komfort 1",
+                            "comfort-2": "Komfort 2",
+                            "drying": "Trocknen",
+                            "external": "Extern",
+                            "freeze": "K\u00fchlen",
+                            "frost_protection": "Frostschutz",
+                            "manual": "Manuell",
+                            "night": "Nacht",
+                            "prog": "Prog"
+                        }
+                    }
+                }
+            }
+        },
+        "select": {
+            "memorized_simple_volume": {
+                "state": {
+                    "highest": "H\u00f6chste",
+                    "standard": "Standard"
+                }
+            },
+            "open_closed_partial": {
+                "state": {
+                    "closed": "Geschlossen",
+                    "open": "Offen",
+                    "partial": "Teilweise"
+                }
+            },
+            "open_closed_pedestrian": {
+                "state": {
+                    "closed": "Geschlossen",
+                    "open": "Offen",
+                    "pedestrian": "Fu\u00dfg\u00e4nger"
+                }
+            }
+        },
+        "sensor": {
+            "battery": {
+                "state": {
+                    "full": "Voll",
+                    "low": "Niedrig",
+                    "medium": "Mittel",
+                    "normal": "Normal",
+                    "verylow": "Sehr niedrig"
+                }
+            },
+            "discrete_rssi_level": {
+                "state": {
+                    "good": "Gut",
+                    "low": "Niedrig",
+                    "normal": "Normal",
+                    "verylow": "Sehr niedrig"
+                }
+            },
+            "priority_lock_originator": {
+                "state": {
+                    "external_gateway": "Externes Gateway",
+                    "local_user": "Lokaler Benutzer",
+                    "lsc": "LSC",
+                    "myself": "Mich",
+                    "rain": "Regen",
+                    "saac": "SAAC",
+                    "security": "Sicherheit",
+                    "sfc": "SFC",
+                    "temperature": "Temperatur",
+                    "timer": "Timer",
+                    "ups": "USV",
+                    "user": "Benutzer",
+                    "wind": "Wind"
+                }
+            },
+            "sensor_defect": {
+                "state": {
+                    "dead": "Nicht Erreichbar",
+                    "low_battery": "Niedriger Batteriestatus",
+                    "maintenance_required": "Wartung erforderlich",
+                    "no_defect": "Kein Fehler"
+                }
+            },
+            "sensor_room": {
+                "state": {
+                    "clean": "Sauber",
+                    "dirty": "Schmutzig"
+                }
+            },
+            "three_way_handle_direction": {
+                "state": {
+                    "closed": "Geschlossen",
+                    "open": "Offen",
+                    "tilt": "Kippen"
+                }
+            }
+        }
+    }
+}

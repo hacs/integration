@@ -1,0 +1,62 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Device is already configured",
+            "cannot_connect": "Failed to connect"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "host": "Host",
+                    "port": "Port"
+                },
+                "description": "Gateway address to connect to DYNET network",
+                "title": "Configure Dynalite Connection"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_yaml": {
+            "description": "Configuring Dynalite using YAML is being removed.\n\nYour existing YAML configuration has been imported into the UI automatically.\n\nRemove the Dynalite YAML configuration from your configuration.yaml file and restart Home Assistant to fix this issue.",
+            "title": "The Dynalite YAML configuration is being removed"
+        }
+    },
+    "services": {
+        "request_area_preset": {
+            "description": "Requests Dynalite to report the preset for an area.",
+            "fields": {
+                "area": {
+                    "description": "Area to request the preset reported.",
+                    "name": "Area"
+                },
+                "channel": {
+                    "description": "Channel to request the preset to be reported from.",
+                    "name": "Channel"
+                },
+                "host": {
+                    "description": "Host gateway IP to send to or all configured gateways if not specified.",
+                    "name": "Host"
+                }
+            },
+            "name": "Request area preset"
+        },
+        "request_channel_level": {
+            "description": "Requests Dynalite to report the level of a specific channel.",
+            "fields": {
+                "area": {
+                    "description": "Area for the requested channel.",
+                    "name": "Area"
+                },
+                "channel": {
+                    "description": "Channel to request the level for.",
+                    "name": "Channel"
+                },
+                "host": {
+                    "description": "Host gateway IP to send to or all configured gateways if not specified.",
+                    "name": "Host"
+                }
+            },
+            "name": "Request channel level"
+        }
+    }
+}

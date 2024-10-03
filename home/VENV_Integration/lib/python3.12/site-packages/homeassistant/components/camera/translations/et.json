@@ -1,0 +1,104 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "Kaamera",
+            "state": {
+                "idle": "Ootel",
+                "recording": "Salvestab",
+                "streaming": "Voogedastab"
+            },
+            "state_attributes": {
+                "access_token": {
+                    "name": "Juurdep\u00e4\u00e4sut\u00f5end"
+                },
+                "brand": {
+                    "name": "Tootja"
+                },
+                "frontend_stream_type": {
+                    "name": "Voo t\u00fc\u00fcp",
+                    "state": {
+                        "hls": "HLS",
+                        "webrtc": "WebRTC"
+                    }
+                },
+                "model_name": {
+                    "name": "Mudel"
+                },
+                "motion_detection": {
+                    "name": "Liikumise tuvastamine",
+                    "state": {
+                        "false": "Keelatud",
+                        "true": "Lubatud"
+                    }
+                }
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "{domain} integreerimise platvorm {platform} ei toeta platvormi seadistamist. \n\n Selle probleemi lahendamiseks eemalda see oma konfiguratsioonist ja taask\u00e4ivita Home Assistant.",
+            "title": "Platvormi tuge ei toetata"
+        }
+    },
+    "services": {
+        "disable_motion_detection": {
+            "description": "Keelab liikumise tuvastamise.",
+            "name": "Keela liikumise tuvastamine"
+        },
+        "enable_motion_detection": {
+            "description": "Lubab liikumise tuvastamise.",
+            "name": "Luba liikumise tuvastamine"
+        },
+        "play_stream": {
+            "description": "Esitab kaameravoo toetatud meediam\u00e4ngijas.",
+            "fields": {
+                "format": {
+                    "description": "Meediam\u00e4ngija toetatud voovorming.",
+                    "name": "Vorming"
+                },
+                "media_player": {
+                    "description": "Meediam\u00e4ngijad kuhu voogesitada.",
+                    "name": "Meediam\u00e4ngija"
+                }
+            },
+            "name": "Esita voogu"
+        },
+        "record": {
+            "description": "Loob reaalajas kaamera voo salvestuse.",
+            "fields": {
+                "duration": {
+                    "description": "Salvestuse planeeritud kestus. Tegelik kestus v\u00f5ib erineda.",
+                    "name": "Kestus"
+                },
+                "filename": {
+                    "description": "Failinime mall. Saadaval olev muutuja on \u201eentity_id\u201d. Peab olema mp4.",
+                    "name": "Faili nimi"
+                },
+                "lookback": {
+                    "description": "Salvestusse kaasatav planeeritud tagasivaateperiood (lisaks kestusele). Saadaval ainult siis, kui praegu on aktiivne HLS-voog. Tagasivaateperioodi tegelik pikkus v\u00f5ib erineda.",
+                    "name": "Tagasivaade"
+                }
+            },
+            "name": "Salvestus"
+        },
+        "snapshot": {
+            "description": "Teeb kaamerast hetkt\u00f5mmise.",
+            "fields": {
+                "filename": {
+                    "description": "Failinime mall. Saadaval olev muutuja on \u201eentity_id\u201d.",
+                    "name": "Faili nimi"
+                }
+            },
+            "name": "Tee hetkt\u00f5mmis"
+        },
+        "turn_off": {
+            "description": "L\u00fclitab kaamera v\u00e4lja.",
+            "name": "L\u00fclita v\u00e4lja"
+        },
+        "turn_on": {
+            "description": "L\u00fclitab kaamera sisse.",
+            "name": "L\u00fclita sisse"
+        }
+    },
+    "title": "Kaamera"
+}

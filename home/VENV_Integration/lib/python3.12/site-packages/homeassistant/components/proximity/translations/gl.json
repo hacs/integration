@@ -1,0 +1,79 @@
+{
+    "config": {
+        "abort": {
+            "success": "Cambios gardados"
+        },
+        "flow_title": "Proximidade",
+        "step": {
+            "user": {
+                "data": {
+                    "ignored_zones": "Zonas para ignorar",
+                    "tolerance": "Distancia de tolerancia",
+                    "tracked_entities": "Dispositivos ou persoas para rastrexar",
+                    "zone": "Zona para rastrexar a distancia a"
+                }
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "dir_of_travel": {
+                "state": {
+                    "arrived": "Chegou",
+                    "towards": "En direcci\u00f3n a"
+                }
+            },
+            "dist_to_zone": {
+                "name": "Distancia de {tracked_entity}"
+            },
+            "nearest_dir_of_travel": {
+                "name": "Direcci\u00f3n de viaxe m\u00e1is pr\u00f3xima",
+                "state": {
+                    "arrived": "Chegou",
+                    "away_from": "Lonxe de",
+                    "stationary": "Parado",
+                    "towards": "En direcci\u00f3n a"
+                }
+            },
+            "nearest_dist_to_zone": {
+                "name": "Distancia m\u00e1is pr\u00f3xima"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_proximity_entity": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "A entidade de proximidade `{entity}` est\u00e1 obsoleta e ser\u00e1 eliminada en `2024.8`. Por\u00e9n, \u00e9 usada nas seguintes configuraci\u00f3ns:\n- {used_in}\n\nAxusta calquera automatizaci\u00f3n ou scripts que usen esta entidade de Proximidade obsoleta.\nPara cada persoa ou dispositivo rastreado, cr\u00e9ase un sensor para a distancia e a direcci\u00f3n de viaxe cara/desde a zona monitorada. Adicionalmente, para cada configuraci\u00f3n de Proximidade, cr\u00e9ase un sensor que mostra o dispositivo ou persoa m\u00e1is pr\u00f3ximo \u00e1 zona monitorada. Con isto, podes usar a integraci\u00f3n Min/Max para determinar a distancia m\u00e1is pr\u00f3xima e m\u00e1is lonxana.",
+                        "title": "A entidade de proximidade est\u00e1 obsoleta"
+                    }
+                }
+            },
+            "title": "A entidade de proximidade est\u00e1 obsoleta"
+        },
+        "tracked_entity_removed": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "A entidade `{entity_id}` foi eliminada de HA, pero \u00e9 usada na proximidade {name}. Elimina `{entity_id}` da lista de entidades rastreadas. As entidades do sensor de proximidade relacionadas foron establecidas como non dispo\u00f1ibles e poden ser eliminadas.",
+                        "title": "A entidade rastreada foi eliminada"
+                    }
+                }
+            },
+            "title": "A entidade rastreada foi eliminada"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "ignored_zones": "Zonas para ignorar",
+                    "tolerance": "Distancia de tolerancia",
+                    "tracked_entities": "Dispositivos ou persoas para rastrexar",
+                    "zone": "Zona para rastrexar a distancia a"
+                }
+            }
+        }
+    }
+}

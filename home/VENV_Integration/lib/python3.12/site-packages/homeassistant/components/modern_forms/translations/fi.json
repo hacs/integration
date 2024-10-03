@@ -1,0 +1,93 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Laite on jo m\u00e4\u00e4ritetty",
+            "cannot_connect": "Yhteyden muodostaminen ep\u00e4onnistui"
+        },
+        "error": {
+            "cannot_connect": "Yhteyden muodostaminen ep\u00e4onnistui"
+        },
+        "flow_title": "{name}",
+        "step": {
+            "user": {
+                "data": {
+                    "host": "Palvelin"
+                },
+                "data_description": {
+                    "host": "Modern Forms -tuulettimen is\u00e4nt\u00e4nimi tai IP-osoite."
+                },
+                "description": "M\u00e4\u00e4rit\u00e4 Modern Forms -tuuletin integroitavaksi Home Assistantin kanssa."
+            },
+            "zeroconf_confirm": {
+                "description": "Haluatko lis\u00e4t\u00e4 Modern Forms -tuulettimen nimelt\u00e4 `{name}` Home Assistantiin?",
+                "title": "L\u00f6ydetty Modern Forms tuuletinlaite"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "fan_sleep_timer_active": {
+                "name": "Tuulettimen uniajastin aktiivinen"
+            },
+            "light_sleep_timer_active": {
+                "name": "Kevyt uniajastin aktiivinen"
+            }
+        },
+        "fan": {
+            "fan": {
+                "name": "Tuuletin"
+            }
+        },
+        "light": {
+            "light": {
+                "name": "Valo"
+            }
+        },
+        "sensor": {
+            "fan_timer_remaining_time": {
+                "name": "Tuulettimen nukkumisaika"
+            },
+            "light_timer_remaining_time": {
+                "name": "Kevyt nukkumisaika"
+            }
+        },
+        "switch": {
+            "adaptive_learning": {
+                "name": "Mukautuva oppiminen"
+            },
+            "away_mode": {
+                "name": "Poissa-tila"
+            }
+        }
+    },
+    "services": {
+        "clear_fan_sleep_timer": {
+            "description": "Poistaa Modern Forms -tuulettimen lepoajastimen.",
+            "name": "Tuulettimen lepoajastimen poistaminen"
+        },
+        "clear_light_sleep_timer": {
+            "description": "Tyhjent\u00e4\u00e4 Modern Forms -valon lepoajastimen.",
+            "name": "Kirkas valo uniajastin"
+        },
+        "set_fan_sleep_timer": {
+            "description": "Asettaa Modern Forms -tuulettimen lepoajastimen.",
+            "fields": {
+                "sleep_time": {
+                    "description": "Ajastimeen asetettavien minuuttien m\u00e4\u00e4r\u00e4.",
+                    "name": "Nukkumisaika"
+                }
+            },
+            "name": "Aseta tuulettimen lepoajastin"
+        },
+        "set_light_sleep_timer": {
+            "description": "Asettaa Modern Forms -valon uniajastimen.",
+            "fields": {
+                "sleep_time": {
+                    "description": "Ajastimeen asetettavien minuuttien m\u00e4\u00e4r\u00e4.",
+                    "name": "Nukkumisaika"
+                }
+            },
+            "name": "Aseta valo-uniajastin"
+        }
+    }
+}

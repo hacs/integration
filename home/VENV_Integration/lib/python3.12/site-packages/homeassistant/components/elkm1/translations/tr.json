@@ -1,0 +1,193 @@
+{
+    "config": {
+        "abort": {
+            "address_already_configured": "Bu adrese sahip bir ElkM1 zaten yap\u0131land\u0131r\u0131lm\u0131\u015ft\u0131r",
+            "already_configured": "Bu \u00f6nek ile bir ElkM1 zaten yap\u0131land\u0131r\u0131lm\u0131\u015ft\u0131r",
+            "already_in_progress": "Yap\u0131land\u0131rma ak\u0131\u015f\u0131 zaten devam ediyor",
+            "cannot_connect": "Ba\u011flanma hatas\u0131",
+            "invalid_auth": "Ge\u00e7ersiz kimlik do\u011frulama",
+            "unknown": "Beklenmeyen hata"
+        },
+        "error": {
+            "cannot_connect": "Ba\u011flanma hatas\u0131",
+            "invalid_auth": "Ge\u00e7ersiz kimlik do\u011frulama",
+            "unknown": "Beklenmeyen hata"
+        },
+        "flow_title": "{mac_address} ({host})",
+        "step": {
+            "discovered_connection": {
+                "data": {
+                    "password": "\u015eifre",
+                    "protocol": "Protokol",
+                    "temperature_unit": "ElkM1'in kulland\u0131\u011f\u0131 s\u0131cakl\u0131k birimi.",
+                    "username": "Kullan\u0131c\u0131 Ad\u0131"
+                },
+                "description": "Ke\u015ffedilen sisteme ba\u011flan\u0131n: {mac_address} ( {host} )",
+                "title": "Elk-M1 Kontrol\u00fcne Ba\u011flan\u0131n"
+            },
+            "manual_connection": {
+                "data": {
+                    "address": "Seri yoluyla ba\u011flan\u0131l\u0131yorsa IP adresi veya etki alan\u0131 veya seri ba\u011flant\u0131 noktas\u0131.",
+                    "password": "\u015eifre",
+                    "prefix": "Benzersiz bir \u00f6nek (yaln\u0131zca bir ElkM1'iniz varsa bo\u015f b\u0131rak\u0131n).",
+                    "protocol": "Protokol",
+                    "temperature_unit": "ElkM1'in kulland\u0131\u011f\u0131 s\u0131cakl\u0131k birimi.",
+                    "username": "Kullan\u0131c\u0131 Ad\u0131"
+                },
+                "description": "Adres dizesi, 'g\u00fcvenli' ve 'g\u00fcvenli olmayan' i\u00e7in 'adres[:port]' bi\u00e7iminde olmal\u0131d\u0131r. \u00d6rnek: '192.168.1.1'. Ba\u011flant\u0131 noktas\u0131 iste\u011fe ba\u011fl\u0131d\u0131r ve varsay\u0131lan olarak 'g\u00fcvenli olmayan' i\u00e7in 2101 ve 'g\u00fcvenli' i\u00e7in 2601'dir. Seri protokol i\u00e7in adres 'tty[:baud]' bi\u00e7iminde olmal\u0131d\u0131r. \u00d6rnek: '/dev/ttyS1'. Baud iste\u011fe ba\u011fl\u0131d\u0131r ve varsay\u0131lan olarak 115200'd\u00fcr.",
+                "title": "Elk-M1 Kontrol\u00fcne Ba\u011flan\u0131n"
+            },
+            "user": {
+                "data": {
+                    "device": "Cihaz"
+                },
+                "description": "Ke\u015ffedilen bir sistem veya ke\u015ffedilmemi\u015fse 'Manuel Giri\u015f' se\u00e7in.",
+                "title": "Elk-M1 Kontrol\u00fcne Ba\u011flan\u0131n"
+            }
+        }
+    },
+    "services": {
+        "alarm_arm_home_instant": {
+            "description": "ElkM1'i anl\u0131k ev modunda devreye al\u0131r.",
+            "fields": {
+                "code": {
+                    "description": "Alarm kontrol panelini kurmak i\u00e7in bir kod.",
+                    "name": "Kod"
+                }
+            },
+            "name": "Evde alarm etkin"
+        },
+        "alarm_arm_night_instant": {
+            "description": "ElkM1'i gece modunda devreye al\u0131r.",
+            "fields": {
+                "code": {
+                    "description": "Alarm kontrol panelini kurmak i\u00e7in bir kod.",
+                    "name": "Kod"
+                }
+            },
+            "name": "Gecede alarm etkin"
+        },
+        "alarm_arm_vacation": {
+            "description": "ElkM1'i tatil modunda devreye al\u0131n.",
+            "fields": {
+                "code": {
+                    "description": "Alarm kontrol panelini kurmak i\u00e7in bir kod.",
+                    "name": "Kod"
+                }
+            },
+            "name": "Tatilde alarm etkin"
+        },
+        "alarm_bypass": {
+            "description": "Alan i\u00e7in t\u00fcm b\u00f6lgeleri atlar.",
+            "fields": {
+                "code": {
+                    "description": "Alarm kontrol panelinin atlanmas\u0131na izin veren bir kod.",
+                    "name": "Kod"
+                }
+            },
+            "name": "Alarm atlatmas\u0131"
+        },
+        "alarm_clear_bypass": {
+            "description": "Alan i\u00e7in t\u00fcm b\u00f6lgelerde atlatmay\u0131 kald\u0131r\u0131r.",
+            "fields": {
+                "code": {
+                    "description": "Atlatman\u0131n alarm kontrol panelinden temizlenmesine izin veren bir kod.",
+                    "name": "Kod"
+                }
+            },
+            "name": "Alarm temizleme atlatmas\u0131"
+        },
+        "alarm_display_message": {
+            "description": "Bir alan i\u00e7in t\u00fcm ElkM1 tu\u015f tak\u0131mlar\u0131nda bir mesaj g\u00f6r\u00fcnt\u00fcler.",
+            "fields": {
+                "beep": {
+                    "description": "0=bip sesi yok, 1=bip sesi.",
+                    "name": "Bip"
+                },
+                "clear": {
+                    "description": "0=mesaj\u0131 temizle, 1=* tu\u015fu ile mesaj\u0131 temizle, 2=Zaman a\u015f\u0131m\u0131na kadar g\u00f6r\u00fcnt\u00fcle.",
+                    "name": "Temiz"
+                },
+                "line1": {
+                    "description": "16 karaktere kadar metin (\u00e7ok uzunsa kesilir).",
+                    "name": "\u00c7izgi 1"
+                },
+                "line2": {
+                    "description": "16 karaktere kadar metin (\u00e7ok uzunsa kesilir).",
+                    "name": "\u00c7izgi 2"
+                },
+                "timeout": {
+                    "description": "Mesaj\u0131 g\u00f6r\u00fcnt\u00fcleme s\u00fcresi, 0=sonsuza kadar, maks. 65535.",
+                    "name": "Zaman a\u015f\u0131m\u0131"
+                }
+            },
+            "name": "Alarm ekran\u0131 mesaj\u0131"
+        },
+        "sensor_counter_refresh": {
+            "description": "Panelden bir sayac\u0131n de\u011ferini yeniler.",
+            "name": "Sens\u00f6r sayac\u0131 yenileme"
+        },
+        "sensor_counter_set": {
+            "description": "Paneldeki bir sayac\u0131n de\u011ferini ayarlar.",
+            "fields": {
+                "value": {
+                    "description": "Sayac\u0131n ayarlanaca\u011f\u0131 de\u011fer.",
+                    "name": "De\u011fer"
+                }
+            },
+            "name": "Sens\u00f6r sayac\u0131 seti"
+        },
+        "sensor_zone_bypass": {
+            "description": "B\u00f6lgeyi atlar.",
+            "fields": {
+                "code": {
+                    "description": "B\u00f6lgenin atlanmas\u0131na izin veren bir kod.",
+                    "name": "Kod"
+                }
+            },
+            "name": "Sens\u00f6r b\u00f6lgesi atlama"
+        },
+        "sensor_zone_trigger": {
+            "description": "B\u00f6lgeyi tetikler.",
+            "name": "Sens\u00f6r b\u00f6lgesi tetikleyicisi"
+        },
+        "set_time": {
+            "description": "Panel i\u00e7in zaman\u0131 ayarlar.",
+            "fields": {
+                "prefix": {
+                    "description": "Panel i\u00e7in \u00f6nek.",
+                    "name": "\u00d6nek"
+                }
+            },
+            "name": "Zaman ayarla"
+        },
+        "speak_phrase": {
+            "description": "Bir c\u00fcmle s\u00f6yler. ElkM1 ASCII Protokol belgelerindeki ifadelerin listesine bak\u0131n.",
+            "fields": {
+                "number": {
+                    "description": "Konu\u015fmak i\u00e7in ifade numaras\u0131.",
+                    "name": "\u0130fade numaras\u0131"
+                },
+                "prefix": {
+                    "description": "Birden fazla panel yap\u0131land\u0131r\u0131ld\u0131\u011f\u0131nda paneli tan\u0131mlamak i\u00e7in \u00f6nek.",
+                    "name": "\u00d6nek"
+                }
+            },
+            "name": "\u0130fadeyi konu\u015f"
+        },
+        "speak_word": {
+            "description": "Bir s\u00f6zc\u00fck s\u00f6yler. ElkM1 ASCII Protokol\u00fc belgelerindeki s\u00f6zc\u00fck listesine bak\u0131n.",
+            "fields": {
+                "number": {
+                    "description": "Konu\u015fmak i\u00e7in kelime numaras\u0131.",
+                    "name": "Kelime numaras\u0131"
+                },
+                "prefix": {
+                    "description": "Birden fazla panel yap\u0131land\u0131r\u0131ld\u0131\u011f\u0131nda paneli tan\u0131mlamak i\u00e7in \u00f6nek.",
+                    "name": "\u00d6nek"
+                }
+            },
+            "name": "S\u00f6zc\u00fckleri s\u00f6yle"
+        }
+    }
+}

@@ -1,0 +1,528 @@
+{
+  "language": "ur",
+  "intents": {
+    "HassTurnOff": {
+      "data": [
+        {
+          "sentences": [
+            "<name> (بند | آف) [<set>]",
+            "(بند | آف) [<set>] <name> "
+          ]
+        },
+        {
+          "sentences": [
+            "<area> [<all>] (لایٹ | لایٹیں | light[s]) [کو] (بند | آف | بجھادو) [<set>]",
+            "[<all>] (لایٹ | لایٹیں | light[s]) <area> (بند | آف | بجھادو) [<set>]",
+            "[<all>] <area> (لایٹ | لایٹیں | light[s]) [کو] (بند | آف | بجھادو) [<set>]"
+          ],
+          "slots": {
+            "domain": "light"
+          }
+        },
+        {
+          "sentences": [
+            "<area> [<all>] (پنکھے | پنکھا) [کو] (بند | آف) [<set>]",
+            "[<all>] (پنکھے | پنکھا) <area> (بند | آف) [<set>]",
+            "[<all>] <area> (پنکھے | پنکھا) [کو] (بند | آف) [<set>]"
+          ],
+          "slots": {
+            "domain": "fan",
+            "name": "all"
+          }
+        }
+      ]
+    },
+    "HassTurnOn": {
+      "data": [
+        {
+          "sentences": [
+            "<area> [<all>] (لایٹ | لایٹیں | light[s] | بتی) [کو] (کھول دو | کھولو | کھولنا | آن) [<set>]",
+            "[<all>] (لایٹ | لایٹیں | light[s] | بتی) <area> (کھول دو | کھولو | کھولنا | آن) [<set>]",
+            "[<all>] <area> (لایٹ | لایٹیں | light[s] | بتی) [کو]  (کھول دو | کھولو | کھولنا | آن) [<set>]"
+          ],
+          "slots": {
+            "domain": "light"
+          }
+        },
+        {
+          "sentences": [
+            "<area> [<all>] (پنکھے | پنکھا) [کو] (کھول دو | کھولو | کھولنا | آن) [<set>]",
+            "[<all>] (پنکھے | پنکھا) <area> (کھول دو | کھولو | کھولنا | آن) [<set>]",
+            "[<all>] <area> (پنکھے | پنکھا) [کو] (کھول دو | کھولو | کھولنا | آن) [<set>]"
+          ],
+          "slots": {
+            "domain": "fan",
+            "name": "all"
+          }
+        },
+        {
+          "sentences": [
+            "<name> (کھول دو | کھولو | کھولنا | آن) [<set>]",
+            "(کھول دو | کھولو | کھولنا | آن) [<set>] <name>"
+          ]
+        }
+      ]
+    },
+    "HassLightSet": {
+      "data": [
+        {
+          "sentences": [
+            "<name> برائٹنیس [کو] <brightness> [<set>]",
+            "<brightness> <name> برائٹنیس [<set>]",
+            "برائٹنیس <name> <brightness> [<set>]"
+          ],
+          "response": "brightness"
+        },
+        {
+          "sentences": [
+            "<area> [برائٹنیس] [کو] <brightness> [<set>]",
+            "<area> <brightness> [برائٹنیس] [<set>]"
+          ],
+          "slots": {
+            "name": "all"
+          },
+          "response": "brightness_area"
+        },
+        {
+          "sentences": [
+            "<name> (رنگ | کلر) [کو] {color} [<set>]",
+            "{color} <name> (رنگ | کلر) [کو] [<set>]",
+            "{color} <set> <name> (رنگ | کلر) [کو]"
+          ],
+          "response": "color"
+        }
+      ]
+    },
+    "HassClimateGetTemperature": {
+      "data": [
+        {
+          "sentences": [
+            "کیا [ہے] <temp>",
+            "<temp> کیا [ہے]",
+            "(کیتنا | کیتنی) (گرم | ٹھنڈا | گرمای | ٹھنڈ) [ھورھی] [ہوراھا] [ہے]",
+            "<temp> کیا [ہے] <area>",
+            "کیا [ہے] <temp> <area>",
+            "<area> (کیتنا | کیتنی) (گرم | ٹھنڈا | گرمای | ٹھنڈ ) [ھورھی] [ہوراھا] [ہے]",
+            "(کیتنا | کیتنی) (گرم | ٹھنڈا | گرمای | ٹھنڈ) [ھورھی] [ہوراھا] [ہے] <area>"
+          ]
+        }
+      ]
+    },
+    "HassGetState": {
+      "data": [
+        {
+          "sentences": [
+            "<name> [کا] [حال|حالت|سٹاٹس|اسٹیٹ] کیا [ہے] [حال|حالت|سٹاٹس|اسٹیٹ]",
+            "کیا [حال|حالت|سٹاٹس|اسٹیٹ] [ہے] <name> [کا]"
+          ],
+          "response": "one"
+        },
+        {
+          "sentences": [
+            "[کیا] <name> {on_off_states:state} [ھوا وا] [ہوئی] [وی] [ہے] [<area>]",
+            "<name> [کیا] {on_off_states:state} [ھوا وا] [ہوئی] [وی] [ہے] [<area>]"
+          ],
+          "response": "one_yesno",
+          "excludes_context": {
+            "domain": [
+              "cover"
+            ]
+          }
+        },
+        {
+          "sentences": [
+            "[کیا] کوئی [بھی] {on_off_domains:domain} {on_off_states:state} [ھوا وا] [ہوئی] [وی] [ہے] [<area>]",
+            "[کیا] کوئی [بھی] {on_off_domains:domain} [<area>] {on_off_states:state} [ھوا وا] [ہوئی] [وی] [ہے] "
+          ],
+          "response": "any"
+        },
+        {
+          "sentences": [
+            "[کیا] <all> {on_off_domains:domain} {on_off_states:state} [ھوا وا] [ہوئی] [وی] [ہے] [<area>]"
+          ],
+          "response": "all"
+        },
+        {
+          "sentences": [
+            "(کونسی|کونسا) {on_off_domains:domain} {on_off_states:state} [ھوا وا] [ہوئی] [وی] [ہے] [<area>]"
+          ],
+          "response": "which"
+        },
+        {
+          "sentences": [
+            "(کتنے|کتنی) {on_off_domains:domain} {on_off_states:state} [ھوا وا] [ہوئی] [وی] [ہے] [<area>]"
+          ],
+          "response": "how_many"
+        },
+        {
+          "sentences": [
+            "کیا <name> {cover_states:state} [area] [ہے]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "cover"
+          },
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "[کیا] کوئی [بھی] {cover_classes:device_class} {cover_states:state} [ھوا وا] [ہوئی] [وی] [ہے] [<area>]",
+            "[کیا] کوئی [بھی] {cover_classes:device_class} [<area>] {cover_states:state} [ھوا وا] [ہوئی] [وی] [ہے]"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "[کیا] <all> {cover_classes:device_class} {cover_states:state} [ھوا وا] [ہوئی] [وی] [ہے] [<area>]"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "(کونسی|کونسا) {cover_classes:device_class} {cover_states:state} [ھوا وا] [ہوئی] [وی] [ہے] [<area>]"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "(کتنے|کتنی) {cover_classes:device_class} {cover_states:state} [ھوا وا] [ہوئی] [وی] [ہے] [<area>]"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "cover"
+          }
+        }
+      ]
+    }
+  },
+  "responses": {
+    "errors": {
+      "no_intent": "مجھے سمجھ میں نہیں آیا",
+      "no_area": "کسی جگہ کا نام  {{ area }} نہیں ھے",
+      "no_domain_in_area": "{{ area }} میں {{ domain }} نہیں ہے",
+      "no_device_class_in_area": "{{ area }} میں {{ device_class }} نہیں ہے",
+      "no_entity": "کوئی ڈوائس کا نام {{ entity }} نہیں ھے ",
+      "handle_error": "آپ کے جواب کو سنبھالتے وقت کچھ عجیب مسئلہ آگیا"
+    },
+    "intents": {
+      "HassGetState": {
+        "one": "{{ slots.name | capitalize }} {{ state.state_with_unit }} ہے\n",
+        "one_yesno": "{% if query.matched %}\n  جی ہاں\n{% else %}\n  نہیں، {{ state.state_with_unit }} ہے\n{% endif %}\n",
+        "any": "{% if query.matched %}\n  {% set match = query.matched | map(attribute=\"name\") | sort | list %}\n  {% if match | length > 4 %}\n    جی، {{ match[:3] | join(\", \") }} اور {{ (match | length - 3) }} اور دوسری چیزیں بھی\n  {%- else -%}\n    جی،\n    {% for name in match -%}\n      {% if not loop.first and not loop.last %}, {% elif loop.last and not loop.first %} اور {% endif -%}\n      {{ name }}\n    {%- endfor -%}\n  {% endif %}\n{% else %}\n  نہیں\n{% endif %}\n",
+        "all": "{% if not query.unmatched: %}\n  جی ہاں\n{% else %}\n  {% set no_match = query.unmatched | map(attribute=\"name\") | sort | list %}\n  {% if no_match | length > 4 %}\n    نہیں، {{ no_match[:3] | join(\", \") }} اور {{ (no_match | length - 3) }} اور نہیں ھیں\n  {%- else -%}\n    نہیں،\n    {% for name in no_match -%}\n      {% if not loop.first and not loop.last %}, {% elif loop.last and not loop.first %} اور {% endif -%}\n      {{ name }}\n    {%- endfor %} نہیں ھیں\n  {% endif %}\n{% endif %}\n",
+        "which": "{% if not query.matched %}\n  کوئی بھی نہیں\n{% else: %}\n  {% set match = query.matched | map(attribute=\"name\") | sort | list %}\n  {% if match | length > 4 %}\n    {{ match[:3] | join(\", \") }} اور {{ (match | length - 3) }} اور\n  {% else %}\n    {%- for name in match -%}\n      {% if not loop.first and not loop.last %}, {% elif loop.last and not loop.first %} اور {% endif -%}\n      {{ name }}\n    {%- endfor -%}\n  {% endif %}\n{% endif %}\n",
+        "how_many": "{{ query.matched | length }}\n"
+      },
+      "HassTurnOff": {
+        "default": "{{ slots.name }} کو بند کردیآ ھے",
+        "lights_area": "{{ slots.area }} کے لایٹیں کو بند کردیآ ھے",
+        "fans_area": "{{ slots.area }} کے پنکھے کو بند کردیآ ھے",
+        "cover": "{{ slots.name }} کو بند کردیآ ھے",
+        "cover_area": "{{ slots.area }} کو بند کردیآ ھے"
+      },
+      "HassTurnOn": {
+        "default": "{{ slots.name }} کو کھولدیا ھے",
+        "lights_area": "{{ slots.area }} کے لایٹیں کو کھولدیا ھے",
+        "fans_area": "{{ slots.area }} کے پنکھے کو کھولدیا ھے",
+        "cover": "{{ slots.name }} کو کھولدیا ھے",
+        "cover_area": "{{ slots.area }} کو کھولدیا ھے"
+      },
+      "HassLightSet": {
+        "brightness": "{{ slots.name }} کے برائٹنیس کو {{ slots.brightness }} کردیآ ھے",
+        "brightness_area": "{{ slots.area }} کے برائٹنیس کو {{ slots.brightness }} کردیآ ھے",
+        "color": "{{ slots.name }} کا رنگ {{ slots.color }} کردیآ ھے",
+        "color_area": "{{ slots.area }} کا رنگ {{ slots.color }} کردیآ ھے"
+      },
+      "HassClimateGetTemperature": {
+        "default": "{{ state.state }} ڈگری"
+      }
+    }
+  },
+  "lists": {
+    "color": {
+      "values": [
+        {
+          "in": "سفید",
+          "out": "white"
+        },
+        {
+          "in": "white",
+          "out": "white"
+        },
+        {
+          "in": "سیاہ",
+          "out": "black"
+        },
+        {
+          "in": "کالا",
+          "out": "black"
+        },
+        {
+          "in": "black",
+          "out": "black"
+        },
+        {
+          "in": "سرخ",
+          "out": "red"
+        },
+        {
+          "in": "لال",
+          "out": "red"
+        },
+        {
+          "in": "red",
+          "out": "red"
+        },
+        {
+          "in": "اورنج",
+          "out": "orange"
+        },
+        {
+          "in": "نارنجی",
+          "out": "orange"
+        },
+        {
+          "in": "orange",
+          "out": "orange"
+        },
+        {
+          "in": "پیلا",
+          "out": "yellow"
+        },
+        {
+          "in": "yellow",
+          "out": "yellow"
+        },
+        {
+          "in": "سبز",
+          "out": "green"
+        },
+        {
+          "in": "ہرا",
+          "out": "green"
+        },
+        {
+          "in": "green",
+          "out": "green"
+        },
+        {
+          "in": "نیلا",
+          "out": "blue"
+        },
+        {
+          "in": "blue",
+          "out": "blue"
+        },
+        {
+          "in": "جامنی",
+          "out": "purple"
+        },
+        {
+          "in": "purple",
+          "out": "purple"
+        },
+        {
+          "in": "پنک",
+          "out": "pink"
+        },
+        {
+          "in": "گلابی",
+          "out": "pink"
+        },
+        {
+          "in": "pink",
+          "out": "pink"
+        },
+        {
+          "in": "براؤن",
+          "out": "brown"
+        },
+        {
+          "in": "brown",
+          "out": "brown"
+        },
+        {
+          "in": "آسمانی",
+          "out": "sky blue"
+        },
+        {
+          "in": "sky blue",
+          "out": "sky blue"
+        }
+      ]
+    },
+    "brightness": {
+      "range": {
+        "type": "percentage",
+        "from": 0,
+        "to": 100
+      }
+    },
+    "temperature": {
+      "range": {
+        "type": "temperature",
+        "from": 0,
+        "to": 100
+      }
+    },
+    "temperature_unit": {
+      "values": [
+        "celsius",
+        {
+          "in": "c",
+          "out": "celsius"
+        },
+        {
+          "in": "سیلسیس",
+          "out": "celsius"
+        },
+        "fahrenheit",
+        {
+          "in": "f",
+          "out": "fahrenheit"
+        },
+        {
+          "in": "فارنہایٹ",
+          "out": "fahrenheit"
+        }
+      ]
+    },
+    "on_off_states": {
+      "values": [
+        {
+          "in": "کھلاوا",
+          "out": "on"
+        },
+        {
+          "in": "کھلی",
+          "out": "on"
+        },
+        {
+          "in": "کھلا",
+          "out": "on"
+        },
+        {
+          "in": "آن",
+          "out": "on"
+        },
+        {
+          "in": "بند",
+          "out": "off"
+        },
+        {
+          "in": "آف",
+          "out": "off"
+        }
+      ]
+    },
+    "on_off_domains": {
+      "values": [
+        {
+          "in": "لایٹ|لایٹیں",
+          "out": "light"
+        },
+        {
+          "in": "پنکھا|پنکھے",
+          "out": "fan"
+        },
+        {
+          "in": "سوئچ|سوئچز|بٹن|بٹنس|بٹنز",
+          "out": "switch"
+        }
+      ]
+    },
+    "cover_states": {
+      "values": [
+        {
+          "in": "کھلاوا",
+          "out": "open"
+        },
+        {
+          "in": "کھلی",
+          "out": "open"
+        },
+        {
+          "in": "کھلا",
+          "out": "open"
+        },
+        {
+          "in": "[وی]کھلی [ہوی]",
+          "out": "open"
+        },
+        {
+          "in": "بند",
+          "out": "closed"
+        },
+        {
+          "in": "کھل رہہا",
+          "out": "closing"
+        },
+        {
+          "in": "بند ہورھا",
+          "out": "closing"
+        }
+      ]
+    },
+    "cover_classes": {
+      "values": [
+        {
+          "in": "بلاینڈز|بلاینڈ",
+          "out": "blind"
+        },
+        {
+          "in": "پردے|پرداھ",
+          "out": "curtain"
+        },
+        {
+          "in": "دروازہ",
+          "out": "door"
+        },
+        {
+          "in": "گیراج",
+          "out": "garage"
+        },
+        {
+          "in": "گیٹ",
+          "out": "gate"
+        },
+        {
+          "in": "شیڈز|شیڈ",
+          "out": "shade"
+        },
+        {
+          "in": "شٹر",
+          "out": "shutter"
+        },
+        {
+          "in": "کھڑکی",
+          "out": "window"
+        }
+      ]
+    }
+  },
+  "expansion_rules": {
+    "name": "{name} [کو] [کے] [کا]",
+    "area": "{area} [کا] [کے] [کو] [میں]",
+    "temp": "(درجہ حرارت | ٹیمپریچر)",
+    "temperature": "{temperature} [ڈگری] [درجہ حرارت] [{temperature_unit}]",
+    "brightness": "{brightness} [پرسنٹ]",
+    "set": "[میں] [پر] (کر دیں | سیٹ کردو | کردو | رکھلو | دالدو | دالو | سیٹ کرو | کرو | کر | کریں)",
+    "all": "(تمام | سب | ساری | سارے)"
+  },
+  "skip_words": [
+    "یار",
+    "زرا",
+    "please"
+  ]
+}

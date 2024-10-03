@@ -1,0 +1,342 @@
+{
+  "language": "fr-CA",
+  "intents": {
+    "HassTurnOff": {
+      "data": [
+        {
+          "sentences": [
+            "<eteins> <name> [dans|du|de] <area>",
+            "<eteins> <name>"
+          ]
+        },
+        {
+          "sentences": [
+            "(ferme | baisse) <name>"
+          ],
+          "response": "cover"
+        },
+        {
+          "sentences": [
+            "(ferme | baisse) <name> <dans> <area>"
+          ],
+          "response": "cover_area"
+        },
+        {
+          "sentences": [
+            "<eteins> [toutes] (<lumiere> | <lumieres>) (dans | du | de) <area>"
+          ],
+          "slots": {
+            "domain": "light"
+          }
+        },
+        {
+          "sentences": [
+            "(ferme | baisse) [la] porte du garage"
+          ],
+          "response": "cover_device_class",
+          "slots": {
+            "device_class": "garage",
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "(ferme | baisse) [les] (stores | toiles| rideaux) <dans> <area>"
+          ],
+          "response": "cover_area",
+          "slots": {
+            "device_class": [
+              "blind",
+              "curtain",
+              "shutter"
+            ],
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "<eteins> ([tous] | [toutes] ) <ventilateurs> <dans> [<area>]"
+          ],
+          "slots": {
+            "domain": "fan",
+            "name": "all"
+          }
+        },
+        {
+          "sentences": [
+            "<eteins> <ventilateur> [<dans>] [<area>]"
+          ],
+          "slots": {
+            "domain": "fan"
+          }
+        }
+      ]
+    },
+    "HassTurnOn": {
+      "data": [
+        {
+          "sentences": [
+            "<allume> [toutes] (<lumiere> | <lumieres>) (dans | du | de) <area>"
+          ],
+          "slots": {
+            "domain": "light"
+          }
+        },
+        {
+          "sentences": [
+            "<allume> ([tous] | [toutes] ) (<ventilateur> | <ventilateurs>) [<dans>] [<area>]"
+          ],
+          "slots": {
+            "domain": "fan",
+            "name": "all"
+          }
+        },
+        {
+          "sentences": [
+            "<allume> (<ventilateur> | <ventilateurs>) [<dans>] [<area>]"
+          ],
+          "slots": {
+            "domain": "fan"
+          }
+        },
+        {
+          "sentences": [
+            "<allume> <name>",
+            "<allume> <name> [dans|du|de] <area>"
+          ]
+        },
+        {
+          "sentences": [
+            "ouvre <name>"
+          ],
+          "response": "cover"
+        },
+        {
+          "sentences": [
+            "ouvre <name> <dans> <area>"
+          ],
+          "response": "cover_area"
+        },
+        {
+          "sentences": [
+            "ouvre [la] porte du garage"
+          ],
+          "response": "cover_device_class",
+          "slots": {
+            "device_class": "garage",
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "ouvre [les] (stores | rideaux | toiles) <dans> <area>"
+          ],
+          "response": "cover_area",
+          "slots": {
+            "device_class": [
+              "blind",
+              "curtain",
+              "shutter"
+            ],
+            "domain": "cover"
+          }
+        }
+      ]
+    },
+    "HassLightSet": {
+      "data": [
+        {
+          "sentences": [
+            "<regle> [la luminosité] [de] <name> à <brightness>",
+            "<name> à <brightness>"
+          ],
+          "response": "brightness",
+          "requires_context": {
+            "domain": "light"
+          }
+        },
+        {
+          "sentences": [
+            "<regle> [toutes] <lumieres> <dans> <area> à <brightness>",
+            "<regle> <area> à <brightness>"
+          ],
+          "slots": {
+            "name": "all"
+          },
+          "response": "brightness_area"
+        },
+        {
+          "sentences": [
+            "<regle> <name> <dans> <area> à <brightness>"
+          ],
+          "response": "brightness_area"
+        },
+        {
+          "sentences": [
+            "<regle> [la couleur] [de | des] [toutes] <lumieres> de <area> [avec la couleur | de couleur | en] {color}"
+          ],
+          "slots": {
+            "name": "all"
+          },
+          "response": "color_area"
+        },
+        {
+          "sentences": [
+            "<regle> [la couleur de] <name> <dans> <area> [avec la couleur | de couleur | en] {color}"
+          ],
+          "response": "color_area"
+        },
+        {
+          "sentences": [
+            "<regle> [la couleur de] <name> [avec la couleur | de couleur | en] {color}"
+          ],
+          "response": "color"
+        }
+      ]
+    },
+    "HassClimateGetTemperature": {
+      "data": [
+        {
+          "sentences": [
+            "Quelle est la température [<dans> <area>]",
+            "(Combien il fait | Combien fait-t'il | Il fait combien ) [<dans> <area>]",
+            "(Est-ce qu'il fait | fais-tu | il fais-tu) (chaud | froid | frette ) [in <area>]"
+          ]
+        }
+      ]
+    }
+  },
+  "responses": {
+    "errors": {
+      "no_intent": "Désolé, je n'ai pas compris",
+      "no_area": "Aucune zone appelée {{ area }}",
+      "no_domain_in_area": "{{ area }} ne contient pas de {{ domain }}",
+      "no_device_class_in_area": "{{ area }} ne contient pas de {{ device_class }}",
+      "no_entity": "Aucun appareil ou entité appelé {{ entity }}",
+      "handle_error": "Une erreur s'est produite pendant le traitement"
+    },
+    "intents": {
+      "HassGetState": {},
+      "HassTurnOff": {
+        "default": "{{ slots.name }} éteint",
+        "lights_area": "Lumières de {{ slots.area }} éteintes",
+        "fans_area": "ventilateurs de {{ slots.area }} éteints",
+        "cover": "{{ slots.name }} fermé",
+        "cover_area": "Ouvrants de {{ slots.area }} fermés",
+        "cover_device_class": "{{ slots.device_class }} fermé"
+      },
+      "HassTurnOn": {
+        "default": "{{ slots.name }} allumé",
+        "lights_area": "Lumières de {{ slots.area }} allumées",
+        "fans_area": "Ventilateurs de {{ slots.area }} activé",
+        "cover": "{{ slots.name }} ouvert",
+        "cover_area": "Ouvrants de {{ slots.area }} ouverts",
+        "cover_device_class": "{{ slots.device_class }} ouvert"
+      },
+      "HassLightSet": {
+        "brightness": "Luminosité de {{ slots.name }} réglé à {{ slots.brightness }}",
+        "brightness_area": "Luminosité de {{ slots.area }} réglé à {{ slots.brightness }}",
+        "color": "Couleur de {{ slots.name }} réglé à {{ slots.color }}",
+        "color_area": "Couleur de {{ slots.area }} réglé à {{ slots.color }}"
+      },
+      "HassClimateGetTemperature": {
+        "default": "{{ state.state }} degrées"
+      }
+    }
+  },
+  "lists": {
+    "color": {
+      "values": [
+        {
+          "in": "(blanc|blanche)",
+          "out": "white"
+        },
+        {
+          "in": "(noir | noire)",
+          "out": "black"
+        },
+        {
+          "in": "rouge",
+          "out": "red"
+        },
+        {
+          "in": "orange",
+          "out": "orange"
+        },
+        {
+          "in": "jaune",
+          "out": "yellow"
+        },
+        {
+          "in": "(vert | verte)",
+          "out": "green"
+        },
+        {
+          "in": "(bleu | bleue)",
+          "out": "blue"
+        },
+        {
+          "in": "(violet | violette)",
+          "out": "purple"
+        },
+        {
+          "in": "brun",
+          "out": "brown"
+        },
+        {
+          "in": "rose",
+          "out": "pink"
+        }
+      ]
+    },
+    "brightness": {
+      "range": {
+        "type": "percentage",
+        "from": 0,
+        "to": 100
+      }
+    },
+    "temperature": {
+      "range": {
+        "type": "temperature",
+        "from": 0,
+        "to": 100
+      }
+    },
+    "temperature_unit": {
+      "values": [
+        "celsius",
+        {
+          "in": "c",
+          "out": "celsius"
+        },
+        "fahrenheit",
+        {
+          "in": "f",
+          "out": "fahrenheit"
+        }
+      ]
+    }
+  },
+  "expansion_rules": {
+    "name": "([le | la | les] {name} | [l']{name})",
+    "area": "([le | la ] {area} | [l']{area})",
+    "brightness": "{brightness:brightness}[%| pourcent]",
+    "temperature": "{temperature}[°| degrés] [{temperature_unit}]",
+    "regle": "(règle | met | ajuste | change)",
+    "allume": "(allume | active | démarre | ouvre)",
+    "eteins": "(éteint | éteins | désactive | stoppe | arrête | coupe | ferme )",
+    "lumiere": "(la lumière | la lampe | l'ampoule)",
+    "lumieres": "[les] (lumières | lampes | ampoules)",
+    "ventilateur": "(le ventilateur | l'échangeur d'air | la fan)",
+    "ventilateurs": "(les ventilateurs | les fans)",
+    "dans": "(dans | du | de)"
+  },
+  "skip_words": [
+    "s'il te plaît",
+    "merci",
+    "peux-tu",
+    "s'il vous plaît",
+    "Heille"
+  ]
+}

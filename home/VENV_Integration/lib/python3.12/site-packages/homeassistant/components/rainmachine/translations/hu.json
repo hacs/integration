@@ -1,0 +1,268 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Az eszk\u00f6z m\u00e1r konfigur\u00e1lva van"
+        },
+        "error": {
+            "invalid_auth": "\u00c9rv\u00e9nytelen hiteles\u00edt\u00e9s"
+        },
+        "flow_title": "{ip}",
+        "step": {
+            "user": {
+                "data": {
+                    "ip_address": "G\u00e9pn\u00e9v vagy IP-c\u00edm",
+                    "password": "Jelsz\u00f3",
+                    "port": "Port"
+                },
+                "title": "T\u00f6ltse ki az adatait"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "flow_sensor": {
+                "name": "\u00c1raml\u00e1s\u00e9rz\u00e9kel\u0151"
+            },
+            "freeze": {
+                "name": "Fagyaszt\u00e1si korl\u00e1toz\u00e1sok"
+            },
+            "hourly": {
+                "name": "\u00d3r\u00e1nk\u00e9nti korl\u00e1toz\u00e1sok"
+            },
+            "month": {
+                "name": "Havi korl\u00e1toz\u00e1sok"
+            },
+            "raindelay": {
+                "name": "Es\u0151z\u00e9si k\u00e9sleltet\u00e9s korl\u00e1toz\u00e1sok"
+            },
+            "rainsensor": {
+                "name": "Es\u0151\u00e9rz\u00e9kel\u0151 korl\u00e1toz\u00e1sok"
+            },
+            "weekday": {
+                "name": "H\u00e9tk\u00f6znapi korl\u00e1toz\u00e1sok"
+            }
+        },
+        "select": {
+            "freeze_protection_temperature": {
+                "name": "Fagyv\u00e9delmi h\u0151m\u00e9rs\u00e9klet"
+            }
+        },
+        "sensor": {
+            "flow_sensor_clicks_cubic_meter": {
+                "name": "\u00c1raml\u00e1s\u00e9rz\u00e9kel\u0151 impulzusa k\u00f6bm\u00e9terenk\u00e9nt"
+            },
+            "flow_sensor_consumed_liters": {
+                "name": "\u00c1raml\u00e1s\u00e9rz\u00e9kel\u0151 \u00e1ltal felhaszn\u00e1lt liter"
+            },
+            "flow_sensor_leak_clicks": {
+                "name": "\u00c1raml\u00e1s\u00e9rz\u00e9kel\u0151 sziv\u00e1rg\u00e1sjelz\u0151 impulzusok"
+            },
+            "flow_sensor_leak_volume": {
+                "name": "\u00c1raml\u00e1s\u00e9rz\u00e9kel\u0151 sziv\u00e1rg\u00e1si mennyis\u00e9ge"
+            },
+            "flow_sensor_start_index": {
+                "name": "\u00c1raml\u00e1s\u00e9rz\u00e9kel\u0151 kezd\u0151index"
+            },
+            "flow_sensor_watering_clicks": {
+                "name": "\u00c1raml\u00e1s\u00e9rz\u00e9kel\u0151 impulzusok"
+            },
+            "last_leak_detected": {
+                "name": "Utols\u00f3 \u00e9szlelt sziv\u00e1rg\u00e1s"
+            },
+            "rain_sensor_rain_start": {
+                "name": "Es\u0151\u00e9rz\u00e9kel\u0151 es\u0151 kezdete"
+            }
+        },
+        "switch": {
+            "freeze_protect_enabled": {
+                "name": "Fagyv\u00e9delem"
+            },
+            "hot_days_extra_watering": {
+                "name": "Extra v\u00edz forr\u00f3 napokon"
+            }
+        },
+        "update": {
+            "firmware": {
+                "name": "Firmware"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "allow_inactive_zones_to_run": "Letiltott z\u00f3n\u00e1k manu\u00e1lis futtat\u00e1s\u00e1nak enged\u00e9lyez\u00e9se",
+                    "use_app_run_times": "Z\u00f3na fut\u00e1si id\u0151k haszn\u00e1lata a RainMachine alkalmaz\u00e1sb\u00f3l",
+                    "zone_run_time": "Alap\u00e9rtelmezett z\u00f3nafut\u00e1si id\u0151 (m\u00e1sodpercben)"
+                },
+                "title": "RainMachine konfigur\u00e1l\u00e1sa"
+            }
+        }
+    },
+    "services": {
+        "pause_watering": {
+            "description": "Megszak\u00edtja az \u00f6nt\u00f6z\u00e9si tev\u00e9kenys\u00e9geket n\u00e9h\u00e1ny m\u00e1sodpercre.",
+            "fields": {
+                "device_id": {
+                    "description": "Az a vez\u00e9rl\u0151, amelynek \u00f6nt\u00f6z\u00e9si tev\u00e9kenys\u00e9g\u00e9t sz\u00fcneteltetni kell.",
+                    "name": "Vez\u00e9rl\u0151"
+                },
+                "seconds": {
+                    "description": "Az \u00f6nt\u00f6z\u00e9s sz\u00fcneteltet\u00e9s\u00e9nek ideje (m\u00e1sodpercekben).",
+                    "name": "Id\u0151tartam"
+                }
+            },
+            "name": "Sz\u00fcneteltessen minden \u00f6nt\u00f6z\u00e9st"
+        },
+        "push_flow_meter_data": {
+            "description": "Az \u00e1raml\u00e1sm\u00e9r\u0151 adatainak tov\u00e1bb\u00edt\u00e1sa a RainMachine k\u00e9sz\u00fcl\u00e9kre.",
+            "fields": {
+                "device_id": {
+                    "description": "Az \u00e1raml\u00e1sm\u00e9r\u0151 adatainak elk\u00fcld\u00e9s\u00e9re szolg\u00e1l\u00f3 vez\u00e9rl\u0151.",
+                    "name": "Vez\u00e9rl\u0151"
+                },
+                "unit_of_measurement": {
+                    "description": "Az \u00e1raml\u00e1sm\u00e9r\u0151 \u00e1ltal k\u00fcldend\u0151 egys\u00e9gek.",
+                    "name": "M\u00e9rt\u00e9kegys\u00e9g"
+                },
+                "value": {
+                    "description": "Az \u00e1raml\u00e1sm\u00e9r\u0151 \u00e1ltal k\u00fcldend\u0151 \u00e9rt\u00e9k.",
+                    "name": "\u00c9rt\u00e9k"
+                }
+            },
+            "name": "\u00c1raml\u00e1sm\u00e9r\u0151 adatainak k\u00fcld\u00e9se"
+        },
+        "push_weather_data": {
+            "description": "K\u00fcldje az id\u0151j\u00e1r\u00e1s adatokat a Home Assistantb\u00f3l a RainMachine eszk\u00f6zbe.\nA helyi id\u0151j\u00e1r\u00e1s Push szolg\u00e1ltat\u00e1snak enged\u00e9lyezve kell lennie a Settings > Weather > Developer tab alatt, hogy a RainMachine figyelembe vegye az elk\u00fcld\u00f6tt \u00e9rt\u00e9keket. Az egys\u00e9geket metrikusban kell elk\u00fcldeni; a rendszer \u00e1ltal nem t\u00f6rt\u00e9nik konverzi\u00f3.\nR\u00e9szletek a RainMachine API-r\u00f3l itt: https://rainmachine.docs.apiary.io/#reference/weather-services/parserdata/post.\"",
+            "fields": {
+                "condition": {
+                    "description": "Aktu\u00e1lis id\u0151j\u00e1r\u00e1s \u00e1llapot k\u00f3d (WNUM).",
+                    "name": "Id\u0151j\u00e1r\u00e1s \u00e1llapot k\u00f3d"
+                },
+                "device_id": {
+                    "description": "Az id\u0151j\u00e1r\u00e1s adatok tov\u00e1bb\u00edt\u00e1s\u00e1\u00e9rt felel\u0151s vez\u00e9rl\u0151.",
+                    "name": "Vez\u00e9rl\u0151"
+                },
+                "dewpoint": {
+                    "description": "Harmatpont (\u00b0C).",
+                    "name": "Harmatpont"
+                },
+                "et": {
+                    "description": "P\u00e1rolg\u00e1s (mm).",
+                    "name": "P\u00e1rolg\u00e1s"
+                },
+                "maxrh": {
+                    "description": "Maximum relat\u00edv p\u00e1ratartalom (%RH).",
+                    "name": "Maximum relat\u00edv p\u00e1ratartalom"
+                },
+                "maxtemp": {
+                    "description": "Maximum h\u0151m\u00e9rs\u00e9klet (\u00b0C).",
+                    "name": "Maximum h\u0151m\u00e9rs\u00e9klet"
+                },
+                "minrh": {
+                    "description": "Minimum relat\u00edv p\u00e1ratartalom (%RH).",
+                    "name": "Minimum relat\u00edv p\u00e1ratartalom"
+                },
+                "mintemp": {
+                    "description": "Minimum h\u0151m\u00e9rs\u00e9klet (\u00b0C).",
+                    "name": "Minimum h\u0151m\u00e9rs\u00e9klet"
+                },
+                "pressure": {
+                    "description": "L\u00e9gnyom\u00e1s (kPa).",
+                    "name": "L\u00e9gnyom\u00e1s"
+                },
+                "qpf": {
+                    "description": "Mennyis\u00e9gi csapad\u00e9k el\u0151rejelz\u00e9s (mm), vagy QPF. Megjegyz\u00e9s: A QPF \u00e9rt\u00e9keket nem \u00f6sszegzett \u00e9rt\u00e9kek form\u00e1j\u00e1ban kell elk\u00fcldeni, hanem az \u00f3r\u00e1nk\u00e9nt vagy naponta m\u00e9rt/el\u0151rejelzett \u00e9rt\u00e9kek form\u00e1j\u00e1ban. A RainMachine Mixer \u00f6sszeadja az adott napon bel\u00fcli \u00f6sszes QPF \u00e9rt\u00e9ket, hogy megkapja a napi \u00f6sszes QPF-et.",
+                    "name": "Mennyis\u00e9gi csapad\u00e9k el\u0151rejelz\u00e9s"
+                },
+                "rain": {
+                    "description": "M\u00e9rt csapad\u00e9kmennyis\u00e9g (mm). Megjegyz\u00e9s: Az ES\u0150 \u00e9rt\u00e9keket nem \u00f6sszegzett \u00e9rt\u00e9kek form\u00e1j\u00e1ban kell elk\u00fcldeni, hanem az \u00f3r\u00e1nk\u00e9nt vagy naponta m\u00e9rt/el\u0151rejelzett \u00e9rt\u00e9kek form\u00e1j\u00e1ban. Az RainMachine Mixer \u00f6sszeadja az \u00f6sszes ES\u0150 \u00e9rt\u00e9ket a jelenlegi napon, hogy megkapja a napi \u00f6sszes ES\u0150 \u00e9rt\u00e9ket.",
+                    "name": "M\u00e9rt csapad\u00e9kmennyis\u00e9g"
+                },
+                "solarrad": {
+                    "description": "Nap sug\u00e1rz\u00e1s (MJ/m\u00b2/h).",
+                    "name": "Nap sug\u00e1rz\u00e1s"
+                },
+                "temperature": {
+                    "description": "Jelenlegi h\u0151m\u00e9rs\u00e9klet (\u00b0C).",
+                    "name": "H\u0151m\u00e9rs\u00e9klet"
+                },
+                "timestamp": {
+                    "description": "Az id\u0151j\u00e1r\u00e1s adatok UNIX id\u0151b\u00e9lyegz\u0151je. Ha elmarad, a RainMachine eszk\u00f6z helyi ideje ker\u00fcl felhaszn\u00e1l\u00e1sra a h\u00edv\u00e1s idej\u00e9n.",
+                    "name": "Id\u0151b\u00e9lyeg"
+                },
+                "wind": {
+                    "description": "Sz\u00e9lsebess\u00e9g (m/s).",
+                    "name": "Sz\u00e9lsebess\u00e9g"
+                }
+            },
+            "name": "Id\u0151j\u00e1r\u00e1s adatok k\u00fcld\u00e9se"
+        },
+        "restrict_watering": {
+            "description": "Korl\u00e1tozza az \u00f6sszes \u00f6nt\u00f6z\u00e9si tev\u00e9kenys\u00e9get egy id\u0151szak kezdet\u00e9t\u0151l.",
+            "fields": {
+                "device_id": {
+                    "description": "A vez\u00e9rl\u0151, amelynek \u00f6nt\u00f6z\u00e9si tev\u00e9kenys\u00e9geit korl\u00e1tozni kell.",
+                    "name": "Vez\u00e9rl\u0151"
+                },
+                "duration": {
+                    "description": "Az id\u0151szak, amikor korl\u00e1tozni kell az \u00f6nt\u00f6z\u00e9si tev\u00e9kenys\u00e9gek megkezd\u00e9s\u00e9t.",
+                    "name": "Id\u0151tartam"
+                }
+            },
+            "name": "Korl\u00e1tozza az \u00f6sszes \u00f6nt\u00f6z\u00e9st"
+        },
+        "start_program": {
+            "description": "Elind\u00edt egy programot.",
+            "name": "Program ind\u00edt\u00e1sa"
+        },
+        "start_zone": {
+            "description": "Elind\u00edt egy z\u00f3n\u00e1t.",
+            "fields": {
+                "zone_run_time": {
+                    "description": "A z\u00f3na futtat\u00e1s\u00e1nak ideje (m\u00e1sodpercekben).",
+                    "name": "Fut\u00e1si id\u0151"
+                }
+            },
+            "name": "Z\u00f3na ind\u00edt\u00e1sa"
+        },
+        "stop_all": {
+            "description": "Le\u00e1ll\u00edtja az \u00f6sszes \u00f6nt\u00f6z\u00e9si tev\u00e9kenys\u00e9get.",
+            "fields": {
+                "device_id": {
+                    "description": "A vez\u00e9rl\u0151, amelynek \u00f6nt\u00f6z\u00e9si tev\u00e9kenys\u00e9g\u00e9t le kell \u00e1ll\u00edtani.",
+                    "name": "Vez\u00e9rl\u0151"
+                }
+            },
+            "name": "\u00c1ll\u00edtsa le az \u00f6sszes \u00f6nt\u00f6z\u00e9st"
+        },
+        "stop_program": {
+            "description": "Meg\u00e1ll\u00edt egy programot.",
+            "name": "Program le\u00e1ll\u00edt\u00e1sa"
+        },
+        "stop_zone": {
+            "description": "Meg\u00e1ll\u00edt egy z\u00f3n\u00e1t.",
+            "name": "Z\u00f3na le\u00e1ll\u00edt\u00e1sa"
+        },
+        "unpause_watering": {
+            "description": "Folytatja az \u00f6sszes sz\u00fcneteltetett \u00f6nt\u00f6z\u00e9si tev\u00e9kenys\u00e9get.",
+            "fields": {
+                "device_id": {
+                    "description": "A vez\u00e9rl\u0151, amelynek \u00f6nt\u00f6z\u00e9si tev\u00e9kenys\u00e9geit folytatni kell.",
+                    "name": "Vez\u00e9rl\u0151"
+                }
+            },
+            "name": "Ind\u00edtsa \u00fajra az \u00f6sszes \u00f6nt\u00f6z\u00e9st"
+        },
+        "unrestrict_watering": {
+            "description": "T\u00e1vol\u00edtsa el az \u00f6sszes \u00f6nt\u00f6z\u00e9si tev\u00e9kenys\u00e9g korl\u00e1toz\u00e1s\u00e1t.",
+            "fields": {
+                "device_id": {
+                    "description": "A vez\u00e9rl\u0151, akinek az \u00f6nt\u00f6z\u00e9si tev\u00e9kenys\u00e9geit nem szabad korl\u00e1tozni.",
+                    "name": "Vez\u00e9rl\u0151"
+                }
+            },
+            "name": "Minden \u00f6nt\u00f6z\u00e9st enged\u00e9lyez"
+        }
+    }
+}

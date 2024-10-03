@@ -1,0 +1,84 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Enheten \u00e4r redan konfigurerad"
+        },
+        "error": {
+            "cannot_connect": "Det gick inte att ansluta."
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "host": "V\u00e4rd"
+                },
+                "data_description": {
+                    "host": "V\u00e4rdnamnet eller IP-adressen f\u00f6r din Bose SoundTouch-enhet."
+                }
+            },
+            "zeroconf_confirm": {
+                "description": "Du h\u00e5ller p\u00e5 att l\u00e4gga till SoundTouch-enheten med namnet ` {name} ` till Home Assistant.",
+                "title": "Bekr\u00e4fta att du l\u00e4gger till Bose SoundTouch-enhet"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_yaml": {
+            "description": "Konfigurering av Bose SoundTouch med YAML tas bort. \n\n Din befintliga YAML-konfiguration har automatiskt importerats till anv\u00e4ndargr\u00e4nssnittet. \n\n Ta bort Bose SoundTouch YAML-konfigurationen fr\u00e5n filen configuration.yaml och starta om Home Assistant f\u00f6r att \u00e5tg\u00e4rda problemet.",
+            "title": "Bose SoundTouch YAML-konfigurationen tas bort"
+        }
+    },
+    "services": {
+        "add_zone_slave": {
+            "description": "L\u00e4gger till en slav till en SoundTouch flerrumszon.",
+            "fields": {
+                "master": {
+                    "description": "Namn p\u00e5 huvudenheten som koordinerar flerrumszonen. Beroende p\u00e5 plattform.",
+                    "name": "Huvudenhet"
+                },
+                "slaves": {
+                    "description": "Namn p\u00e5 slavenheter som ska l\u00e4ggas till i den befintliga zonen.",
+                    "name": "Slavar"
+                }
+            },
+            "name": "L\u00e4gg till slav i zon"
+        },
+        "create_zone": {
+            "description": "Skapar en SoundTouch flerrumszon.",
+            "fields": {
+                "master": {
+                    "description": "Namn p\u00e5 huvudenheten som kommer att koordinera flerrumszonen. Beroende p\u00e5 plattform.",
+                    "name": "Huvudenhet"
+                },
+                "slaves": {
+                    "description": "Namn p\u00e5 slavenheter som ska l\u00e4ggas till i den nya zonen.",
+                    "name": "Slavar"
+                }
+            },
+            "name": "Skapa zon"
+        },
+        "play_everywhere": {
+            "description": "Spela p\u00e5 alla Bose SoundTouch-enheter.",
+            "fields": {
+                "master": {
+                    "description": "Namn p\u00e5 den huvudenhet som kommer att koordinera grupperingen. Beroende p\u00e5 plattform. Det \u00e4r en genv\u00e4g f\u00f6r att skapa en flerrumszon med alla enheter.",
+                    "name": "Huvudenhet"
+                }
+            },
+            "name": "Spela \u00f6verallt"
+        },
+        "remove_zone_slave": {
+            "description": "Tar bort en slav-enhet fr\u00e5n SoundTouch flerrumszon.",
+            "fields": {
+                "master": {
+                    "description": "Namn p\u00e5 huvudenheten som koordinerar flerrumszonen. Beroende p\u00e5 plattform.",
+                    "name": "Huvudenhet"
+                },
+                "slaves": {
+                    "description": "Namn p\u00e5 slav-enheter som ska tas bort fr\u00e5n den befintliga zonen.",
+                    "name": "Slavar"
+                }
+            },
+            "name": "Ta bort slav i zon"
+        }
+    }
+}

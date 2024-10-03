@@ -1,0 +1,191 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Il dispositivo \u00e8 gi\u00e0 configurato"
+        },
+        "error": {
+            "cannot_connect": "Impossibile connettersi",
+            "invalid_auth": "Autenticazione non valida",
+            "invalid_host": "La voce host non era nel formato URL completo, ad esempio http://192.168.10.100:80",
+            "reauth_successful": "La riautenticazione ha avuto successo",
+            "unknown": "Errore imprevisto"
+        },
+        "flow_title": "{name} ({host})",
+        "step": {
+            "reauth_confirm": {
+                "data": {
+                    "password": "Password",
+                    "username": "Nome utente"
+                },
+                "description": "Le credenziali per {host} non sono pi\u00f9 valide.",
+                "title": "Autentica nuovamente il tuo ISY"
+            },
+            "user": {
+                "data": {
+                    "host": "URL",
+                    "password": "Password",
+                    "tls": "La versione TLS del controllore ISY.",
+                    "username": "Nome utente"
+                },
+                "description": "La voce host deve essere nel formato URL completo, ad esempio, http://192.168.10.100:80",
+                "title": "Connettiti al tuo ISY"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_service": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Aggiorna tutte le automazioni o gli script che utilizzano questo servizio per utilizzare invece il servizio `{alternate_service}` con un ID entit\u00e0 di destinazione di `{alternate_target}`.",
+                        "title": "Il servizio {deprecated_service} sar\u00e0 rimosso"
+                    },
+                    "deprecated_yaml": {
+                        "description": "La configurazione di Universal Devices ISY/IoX tramite YAML \u00e8 stata rimossa. \n\nLa configurazione YAML esistente \u00e8 stata importata automaticamente nell'interfaccia utente. \n\nRimuovi la configurazione YAML `isy994` dal tuo file configuration.yaml e riavvia Home Assistant per risolvere questo problema.",
+                        "title": "La configurazione YAML di ISY/IoX \u00e8 in fase di rimozione"
+                    }
+                }
+            },
+            "title": "Il servizio {deprecated_service} sar\u00e0 rimosso"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "ignore_string": "Ignora Stringa",
+                    "restore_light_state": "Ripristina Luminosit\u00e0 Luce",
+                    "sensor_string": "Stringa Nodo Sensore",
+                    "variable_sensor_string": "Stringa Variabile Sensore"
+                },
+                "description": "Imposta le opzioni per l'integrazione ISY: \n \u2022 Stringa nodo sensore: qualsiasi dispositivo o cartella che contiene \"Stringa nodo sensore\" nel nome verr\u00e0 trattato come un sensore o un sensore binario. \n \u2022 Ignora stringa: qualsiasi dispositivo con \"Ignora stringa\" nel nome verr\u00e0 ignorato. \n \u2022 Stringa variabile sensore: qualsiasi variabile che contenga \"Stringa variabile sensore\" sar\u00e0 aggiunta come sensore. \n \u2022 Ripristina luminosit\u00e0 luce: se abilitato, verr\u00e0 ripristinata la luminosit\u00e0 precedente quando si accende una luce al posto del livello incorporato nel dispositivo.",
+                "title": "Opzioni ISY"
+            }
+        }
+    },
+    "services": {
+        "delete_zwave_lock_user_code": {
+            "description": "Elimina un codice utente Z-Wave Lock tramite l'ISY.",
+            "fields": {
+                "user_num": {
+                    "description": "Numero di slot utente sulla serratura.",
+                    "name": "Numero utente"
+                }
+            },
+            "name": "Elimina il codice utente Z-Wave Lock"
+        },
+        "get_zwave_parameter": {
+            "description": "Richiede un parametro del dispositivo Z-Wave tramite l'ISY. Il valore del parametro verr\u00e0 restituito come attributo di stato aggiuntivo dell'entit\u00e0 con il nome \"ZW_#\" dove \"#\" \u00e8 il numero del parametro.",
+            "fields": {
+                "parameter": {
+                    "description": "Il numero del parametro da recuperare dal dispositivo.",
+                    "name": "Parametro"
+                }
+            },
+            "name": "Ottieni il parametro Z-Wave"
+        },
+        "rename_node": {
+            "fields": {
+                "name": {
+                    "description": "Il nuovo nome da utilizzare all'interno dell'ISY.",
+                    "name": "Nuovo nome"
+                }
+            },
+            "name": "Rinomina nodo su ISY"
+        },
+        "send_node_command": {
+            "description": "Invia un comando a un dispositivo ISY utilizzando il suo ID entit\u00e0 Home Assistant. I comandi validi sono: beep, brighten, dim, disable, enable, fade_down, fade_stop, fade_up, fast_off, fast_on e query.",
+            "fields": {
+                "command": {
+                    "description": "Il comando da inviare al dispositivo.",
+                    "name": "Comando"
+                }
+            },
+            "name": "Invia comando nodo"
+        },
+        "send_program_command": {
+            "description": "Invia un comando per controllare un programma o una cartella ISY. I comandi validi sono run, run_then, run_else, stop, enable, disable, enable_run_at_startup e disable_run_at_startup.",
+            "fields": {
+                "address": {
+                    "description": "L'indirizzo del programma da controllare (utilizzare l'indirizzo o il nome).",
+                    "name": "Indirizzo"
+                },
+                "command": {
+                    "description": "Il comando del programma ISY da inviare.",
+                    "name": "Comando"
+                },
+                "isy": {
+                    "description": "Se hai pi\u00f9 di un ISY connesso, fornisci il nome dell'ISY da interrogare (come mostrato nel registro dei dispositivi o come primo nodo nella console di amministrazione ISY). Se hai lo stesso nome programma o indirizzo su pi\u00f9 ISY, omettendo questo verr\u00e0 eseguito il comando su tutti loro.",
+                    "name": "ISY"
+                },
+                "name": {
+                    "description": "Il nome del programma da controllare (utilizzare l'indirizzo o il nome).",
+                    "name": "Nome"
+                }
+            },
+            "name": "Invia il comando del programma"
+        },
+        "send_raw_node_command": {
+            "description": "Imposta le opzioni per l'integrazione ISY: \n \u2022 Stringa nodo sensore: qualsiasi dispositivo o cartella che contiene \"Stringa nodo sensore\" nel nome verr\u00e0 trattato come un sensore o un sensore binario. \n \u2022 Ignora stringa: qualsiasi dispositivo con \"Ignora stringa\" nel nome verr\u00e0 ignorato. \n \u2022 Stringa variabile sensore: qualsiasi variabile che contenga \"Stringa variabile sensore\" sar\u00e0 aggiunta come sensore. \n \u2022 Ripristina luminosit\u00e0 luce: se abilitato, verr\u00e0 ripristinata la luminosit\u00e0 precedente quando si accende una luce al posto del livello incorporato nel dispositivo.",
+            "fields": {
+                "command": {
+                    "description": "Il comando ISY REST da inviare al dispositivo.",
+                    "name": "Comando"
+                },
+                "parameters": {
+                    "description": "Una lista di parametri da inviare nella stringa di query (ad esempio, per controllare le lampadine colorate).",
+                    "name": "Parametri"
+                },
+                "unit_of_measurement": {
+                    "description": "L'unit\u00e0 di misura ISY (UOM) da inviare con il comando, se necessario.",
+                    "name": "Unit\u00e0 di misura"
+                },
+                "value": {
+                    "description": "Il valore intero da inviare con il comando.",
+                    "name": "Valore"
+                }
+            },
+            "name": "Invia comando nodo non elaborato"
+        },
+        "set_zwave_lock_user_code": {
+            "description": "Imposta un codice utente di blocco Z-Wave tramite ISY.",
+            "fields": {
+                "code": {
+                    "description": "Il codice da impostare per l'utente.",
+                    "name": "Codice"
+                },
+                "user_num": {
+                    "description": "Numero di slot utente sulla serratura.",
+                    "name": "Numero utente"
+                }
+            },
+            "name": "Imposta il codice utente del blocco Z-Wave"
+        },
+        "set_zwave_parameter": {
+            "description": "Aggiorna un parametro del dispositivo Z-Wave tramite l'ISY. Il valore del parametro verr\u00e0 restituito anche come attributo di stato aggiuntivo dell'entit\u00e0 con il nome \"ZW_#\" dove \"#\" \u00e8 il numero del parametro.",
+            "fields": {
+                "parameter": {
+                    "description": "Il numero del parametro da impostare sul dispositivo finale.",
+                    "name": "Parametro"
+                },
+                "size": {
+                    "description": "La dimensione del parametro, 1, 2 o 4 byte.",
+                    "name": "Dimensione"
+                },
+                "value": {
+                    "description": "Il valore da impostare per il parametro. Pu\u00f2 essere un numero intero o una stringa di byte (ad es. \"0xFFFF\").",
+                    "name": "Valore"
+                }
+            },
+            "name": "Imposta parametro Z-Wave"
+        }
+    },
+    "system_health": {
+        "info": {
+            "device_connected": "ISY Connesso",
+            "host_reachable": "Host raggiungibile",
+            "last_heartbeat": "Tempo dell'ultimo battito cardiaco",
+            "websocket_status": "Stato socket evento"
+        }
+    }
+}

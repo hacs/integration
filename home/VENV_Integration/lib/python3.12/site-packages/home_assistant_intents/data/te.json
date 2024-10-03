@@ -1,0 +1,68 @@
+{
+  "language": "te",
+  "intents": {
+    "HassTurnOff": {
+      "data": [
+        {
+          "sentences": [
+            "{area} [లొ] light off చెయ్యి"
+          ],
+          "slots": {
+            "domain": "light"
+          }
+        }
+      ]
+    },
+    "HassTurnOn": {
+      "data": [
+        {
+          "sentences": [
+            "{area} [లొ] light on చెయ్యి"
+          ],
+          "slots": {
+            "domain": "light"
+          }
+        }
+      ]
+    }
+  },
+  "responses": {
+    "errors": {
+      "no_intent": "క్షమించండి, నకు అర్థం అవ్వలేదు",
+      "no_area": "{{ area }} అనె గది లెదు",
+      "no_domain_in_area": "{{ area }} లొ {{ domain }} లేదు",
+      "no_device_class_in_area": "{{ area }} లొ {{ device_class }}  లేదు",
+      "no_entity": "{{ entity }} పెరుతొ ఎటువంటి పరికరము లేదు",
+      "handle_error": "ఊహించని సమస్య ఎదురైనది"
+    },
+    "intents": {
+      "HassGetState": {},
+      "HassTurnOff": {
+        "default": "Turned off {{ slots.name }}",
+        "lights_area": "Turned off lights in {{ slots.area }}",
+        "fans_area": "Turned off fans in {{ slots.area }}",
+        "cover": "Closed {{ slots.name }}",
+        "cover_area": "Closed {{ slots.area }}"
+      },
+      "HassTurnOn": {
+        "default": "Turned on {{ slots.name }}",
+        "lights_area": "Turned on lights in {{ slots.area }}",
+        "fans_area": "Turned on fans in {{ slots.area }}",
+        "cover": "Opened {{ slots.name }}",
+        "cover_area": "Opened {{ slots.area }}"
+      },
+      "HassLightSet": {
+        "brightness": "{{ slots.name }} brightness set to {{ slots.brightness }}",
+        "brightness_area": "Brightness in {{ slots.area }} set to {{ slots.brightness }}",
+        "color": "{{ slots.name }} color set to {{ slots.color }}",
+        "color_area": "Color in {{ slots.area }} set to {{ slots.color }}"
+      },
+      "HassClimateGetTemperature": {
+        "default": "{{ state.state }} degrees"
+      }
+    }
+  },
+  "lists": {},
+  "expansion_rules": {},
+  "skip_words": []
+}

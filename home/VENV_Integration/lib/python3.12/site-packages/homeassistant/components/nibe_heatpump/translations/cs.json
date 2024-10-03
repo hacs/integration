@@ -1,0 +1,49 @@
+{
+    "config": {
+        "error": {
+            "address": "Byla zad\u00e1na neplatn\u00e1 vzd\u00e1len\u00e1 adresa. Adresa mus\u00ed b\u00fdt IP adresa nebo rozli\u0161iteln\u00fd n\u00e1zev hostitele.",
+            "address_in_use": "Vybran\u00fd port naslouch\u00e1n\u00ed se v tomto syst\u00e9mu ji\u017e pou\u017e\u00edv\u00e1.",
+            "model": "Vybran\u00fd model z\u0159ejm\u011b nepodporuje MODBUS 40.",
+            "read": "Chyba p\u0159i po\u017eadavku na \u010dten\u00ed z \u010derpadla. Ov\u011b\u0159te nastaven\u00ed volby \"Port pro vzd\u00e1len\u00e9 \u010dten\u00ed\" nebo \"Vzd\u00e1len\u00e1 adresa\".",
+            "unknown": "Neo\u010dek\u00e1van\u00e1 chyba",
+            "url": "Zadan\u00e1 URL nen\u00ed spr\u00e1vn\u011b zad\u00e1na ani podporov\u00e1na",
+            "write": "Chyba p\u0159i po\u017eadavku na z\u00e1pis do pumpy. Ov\u011b\u0159te nastaven\u00ed volby \"Port pro vzd\u00e1len\u00e9 \u010dten\u00ed\" nebo \"Vzd\u00e1len\u00e1 adresa\"."
+        },
+        "step": {
+            "modbus": {
+                "data": {
+                    "modbus_unit": "Identifik\u00e1tor jednotky Modbus",
+                    "modbus_url": "URL MODBUS",
+                    "model": "Model tepeln\u00e9ho \u010derpadla"
+                },
+                "data_description": {
+                    "modbus_unit": "Identifikace jednotky pro va\u0161e tepeln\u00e9 \u010derpadlo. Obvykle lze ponechat na 0.",
+                    "modbus_url": "URL Modbus, kter\u00e1 popisuje p\u0159ipojen\u00ed k va\u0161emu tepeln\u00e9mu \u010derpadlu nebo jednotce MODBUS40. Adresa by m\u011bla m\u00edt tvar:\n- \"tcp://[HOSTITEL]:[PORT]\" pro p\u0159ipojen\u00ed MODBUS TCP\n- \"serial://[M\u00cdSTN\u00cd ZA\u0158\u00cdZEN\u00cd]\" pro m\u00edstn\u00ed p\u0159ipojen\u00ed MODBUS RTU\n- \"rfc2217://[HOSTITEL]:[PORT]\" pro vzd\u00e1len\u00e9 p\u0159ipojen\u00ed MODBUS RTU zalo\u017een\u00e9 na telnetu"
+                }
+            },
+            "nibegw": {
+                "data": {
+                    "ip_address": "Vzd\u00e1len\u00e1 adresa",
+                    "listening_port": "Port pro m\u00edstn\u00ed naslouch\u00e1n\u00ed",
+                    "model": "Model tepeln\u00e9ho \u010derpadla",
+                    "remote_read_port": "Port pro vzd\u00e1len\u00e9 \u010dten\u00ed",
+                    "remote_write_port": "Port pro vzd\u00e1len\u00fd z\u00e1pis"
+                },
+                "data_description": {
+                    "ip_address": "Adresa jednotky NibeGW. Za\u0159\u00edzen\u00ed by m\u011blo b\u00fdt nastaveno se statickou adresou.",
+                    "listening_port": "M\u00edstn\u00ed port na tomto syst\u00e9mu, na kter\u00fd je jednotka NibeGW nastavena pro odes\u00edl\u00e1n\u00ed dat.",
+                    "remote_read_port": "Port, na kter\u00e9m jednotka NibeGW naslouch\u00e1 po\u017eadavky na \u010dten\u00ed.",
+                    "remote_write_port": "Port, na kter\u00e9m jednotka NibeGW naslouch\u00e1 po\u017eadavky na z\u00e1pis."
+                },
+                "description": "P\u0159ed pokusem o nastaven\u00ed integrace ov\u011b\u0159te, \u017ee:\n- jednotka NibeGW je p\u0159ipojena k tepeln\u00e9mu \u010derpadlu\n- v nastaven\u00ed tepeln\u00e9ho \u010derpadla bylo povoleno p\u0159\u00edslu\u0161enstv\u00ed MODBUS 40\n- pumpa nep\u0159e\u0161la do stavu alarmu kv\u016fli chyb\u011bj\u00edc\u00edmu p\u0159\u00edslu\u0161enstv\u00ed MODBUS 40"
+            },
+            "user": {
+                "description": "Vyberte zp\u016fsob p\u0159ipojen\u00ed k pump\u011b. Obecn\u011b plat\u00ed, \u017ee \u010derpadla \u0159ady F vy\u017eaduj\u00ed vlastn\u00ed p\u0159\u00edslu\u0161enstv\u00ed NibeGW, zat\u00edmco \u010derpadla \u0159ady S maj\u00ed vestav\u011bnou podporu MODBUS.",
+                "menu_options": {
+                    "modbus": "MODBUS",
+                    "nibegw": "NibeGW"
+                }
+            }
+        }
+    }
+}

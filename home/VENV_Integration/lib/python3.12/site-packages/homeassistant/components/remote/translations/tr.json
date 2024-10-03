@@ -1,0 +1,120 @@
+{
+    "device_automation": {
+        "action_type": {
+            "toggle": "{entity_name} de\u011fi\u015ftir",
+            "turn_off": "{entity_name} kapat",
+            "turn_on": "{entity_name} a\u00e7\u0131n"
+        },
+        "condition_type": {
+            "is_off": "{entity_name} kapal\u0131",
+            "is_on": "{entity_name} a\u00e7\u0131k"
+        },
+        "trigger_type": {
+            "changed_states": "{entity_name} a\u00e7\u0131ld\u0131 veya kapat\u0131ld\u0131",
+            "turned_off": "{entity_name} kapat\u0131ld\u0131",
+            "turned_on": "{entity_name} a\u00e7\u0131ld\u0131"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Uzaktan Kumanda",
+            "state": {
+                "off": "Kapal\u0131",
+                "on": "A\u00e7\u0131k"
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "{domain} entegrasyonu i\u00e7in {platform} platformu, platform kurulumunu desteklemiyor. \n\n L\u00fctfen yap\u0131land\u0131rman\u0131zdan kald\u0131r\u0131n ve bu sorunu \u00e7\u00f6zmek i\u00e7in Home Assistant'\u0131 yeniden ba\u015flat\u0131n.",
+            "title": "Platform deste\u011fi desteklenmiyor"
+        }
+    },
+    "services": {
+        "delete_command": {
+            "description": "Veritaban\u0131ndan bir komutu veya komut listesini siler.",
+            "fields": {
+                "command": {
+                    "description": "Tek komut veya silinecek komutlar\u0131n listesi.",
+                    "name": "Komut"
+                },
+                "device": {
+                    "description": "Komutlar\u0131n silinece\u011fi cihaz.",
+                    "name": "Cihaz"
+                }
+            },
+            "name": "Komutu sil"
+        },
+        "learn_command": {
+            "description": "Bir cihazdan bir komut veya komut listesi \u00f6\u011frenir.",
+            "fields": {
+                "alternative": {
+                    "description": "Kodun alternatif olarak saklanmas\u0131 gerekiyorsa. Bu, ayr\u0131k kodlar i\u00e7in kullan\u0131\u015fl\u0131d\u0131r. Ayr\u0131k kodlar, yaln\u0131zca bir i\u015flevi ger\u00e7ekle\u015ftiren ge\u00e7i\u015fler i\u00e7in kullan\u0131l\u0131r. \u00d6rne\u011fin, yaln\u0131zca bir cihaz\u0131 a\u00e7mak i\u00e7in bir kod. Zaten a\u00e7\u0131ksa, kodun g\u00f6nderilmesi durumu de\u011fi\u015ftirmez.",
+                    "name": "Alternatif"
+                },
+                "command": {
+                    "description": "\u00d6\u011frenilecek tek bir komut veya komutlar listesi.",
+                    "name": "Komuta"
+                },
+                "command_type": {
+                    "description": "\u00d6\u011frenilecek komut t\u00fcr\u00fc.",
+                    "name": "Komut t\u00fcr\u00fc"
+                },
+                "device": {
+                    "description": "Komut \u00f6\u011frenilecek cihaz kimli\u011fi.",
+                    "name": "Cihaz"
+                },
+                "timeout": {
+                    "description": "\u00d6\u011frenilecek komut i\u00e7in zaman a\u015f\u0131m\u0131.",
+                    "name": "Zaman a\u015f\u0131m\u0131"
+                }
+            },
+            "name": "Komut \u00f6\u011fren"
+        },
+        "send_command": {
+            "description": "Bir cihaza bir komut veya komutlar listesi g\u00f6nderir.",
+            "fields": {
+                "command": {
+                    "description": "G\u00f6nderilecek tek bir komut veya komut listesi.",
+                    "name": "Komuta"
+                },
+                "delay_secs": {
+                    "description": "Tekrarlanan komutlar aras\u0131nda beklemek istedi\u011finiz s\u00fcre.",
+                    "name": "Gecikme saniyeleri"
+                },
+                "device": {
+                    "description": "Komutun g\u00f6nderilece\u011fi cihaz kimli\u011fi.",
+                    "name": "Cihaz"
+                },
+                "hold_secs": {
+                    "description": "Serbest b\u0131rakma g\u00f6nderilmeden \u00f6nce tutulmas\u0131n\u0131 istedi\u011finiz zaman.",
+                    "name": "Saniye tutun"
+                },
+                "num_repeats": {
+                    "description": "Komutlar\u0131 ka\u00e7 kez tekrarlamak istedi\u011finiz.",
+                    "name": "Tekrarlar"
+                }
+            },
+            "name": "Komut g\u00f6nder"
+        },
+        "toggle": {
+            "description": "Bir cihaz\u0131 a\u00e7ar/kapat\u0131r.",
+            "name": "De\u011fi\u015ftir"
+        },
+        "turn_off": {
+            "description": "Cihaz\u0131 kapat\u0131r.",
+            "name": "Kapat"
+        },
+        "turn_on": {
+            "description": "G\u00fc\u00e7 a\u00e7ma komutunu g\u00f6nderir.",
+            "fields": {
+                "activity": {
+                    "description": "Ba\u015flat\u0131lacak aktivite kimli\u011fi veya aktivite ad\u0131.",
+                    "name": "Aktivite"
+                }
+            },
+            "name": "A\u00e7"
+        }
+    },
+    "title": "Uzaktan Kumanda"
+}

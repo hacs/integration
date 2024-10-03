@@ -1,0 +1,60 @@
+{
+    "exceptions": {
+        "entity_not_scene": {
+            "message": "{entity_id} ei ole kelvollinen tilanteen entity_id."
+        }
+    },
+    "services": {
+        "apply": {
+            "description": "Aktivoi tilanteen konfiguraation kanssa.",
+            "fields": {
+                "entities": {
+                    "description": "Luettelo kohteista ja niiden tavoitetiloista.",
+                    "name": "Kohteiden tila"
+                },
+                "transition": {
+                    "description": "Aika, joka laitteilta kuluu tilanteessa m\u00e4\u00e4riteltyihin arvoihin siirtymiseen.",
+                    "name": "Siirtym\u00e4"
+                }
+            },
+            "name": "K\u00e4yt\u00e4"
+        },
+        "create": {
+            "description": "Luo uuden tilanteen.",
+            "fields": {
+                "entities": {
+                    "description": "Luettelo kohteista ja niiden tavoitetilasta. Jos kohteet ovat jo kohdetilassa juuri nyt, k\u00e4yt\u00e4 sen sijaan `snapshot_entities`.",
+                    "name": "Kohteiden tila"
+                },
+                "scene_id": {
+                    "description": "Uuden tilanteen kohdetunnus",
+                    "name": "Tilanteen kohdetunnus"
+                },
+                "snapshot_entities": {
+                    "description": "Luettelo tilannekuvaan sis\u00e4llytett\u00e4vist\u00e4 entiteeteist\u00e4. Ottamalla tilannekuvan tallennat n\u00e4iden entiteettien nykytilan. Jos et halua k\u00e4ytt\u00e4\u00e4 kaikkien entiteettien nykytilaa t\u00e4ss\u00e4 tilanteessa, voit yhdist\u00e4\u00e4 `snapshot_entities` ja `entities`.",
+                    "name": "Tilannekuvan entiteetit"
+                }
+            },
+            "name": "Luo"
+        },
+        "delete": {
+            "description": "Poistaa dynaamisesti luodun tilanteen.",
+            "name": "Poista"
+        },
+        "reload": {
+            "description": "Uudelleenlataa tilanteen YAML-konfiguraatiosta.",
+            "name": "Uudelleenlataa"
+        },
+        "turn_on": {
+            "description": "Aktivoi tilanteen.",
+            "fields": {
+                "transition": {
+                    "description": "Aika, joka laitteilta kuluu tilanteessa m\u00e4\u00e4riteltyihin arvoihin siirtymiseen.",
+                    "name": "Siirtym\u00e4"
+                }
+            },
+            "name": "Aktivoi"
+        }
+    },
+    "title": "Tilanne"
+}

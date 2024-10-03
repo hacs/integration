@@ -1,0 +1,750 @@
+{
+    "config": {
+        "abort": {
+            "reauth_successful": "Autentikasi ulang berhasil"
+        },
+        "error": {
+            "invalid_auth": "Autentikasi tidak valid",
+            "login_error": "Kesalahan masuk ({code}): {msg}",
+            "reauth_successful": "Autentikasi ulang berhasil"
+        },
+        "step": {
+            "reauth_user_code": {
+                "data": {
+                    "user_code": "Kode pengguna"
+                },
+                "description": "Integrasi Tuya kini menggunakan metode masuk yang ditingkatkan. Untuk mengautentikasi ulang dengan akun Smart Life atau Tuya Smart Anda, Anda perlu memasukkan kode pengguna Anda.\n\nAnda dapat menemukan kodenya di aplikasi Smart Life atau Tuya Smart pada bagian **Settings** > **Account and Security**, lalu masukan kode yang ditampilkan pada bagian **User Code**. Kode pengguna peka terhadap huruf besar/kecil, pastikan untuk memasukkannya persis seperti yang ada di aplikasi."
+            },
+            "scan": {
+                "description": "Gunakan aplikasi Smart Life atau aplikasi Tuya Smart untuk memindai kode QR berikut ini untuk menyelesaikan proses masuk.\n\nLanjutkan ke langkah berikutnya setelah Anda menyelesaikan langkah ini di aplikasi."
+            },
+            "user": {
+                "data": {
+                    "access_id": "ID Akses Tuya IoT",
+                    "access_secret": "Kode Rahasia Akses Tuya IoT",
+                    "country_code": "Negara",
+                    "password": "Kata Sandi",
+                    "user_code": "Kode pengguna",
+                    "username": "Akun"
+                },
+                "description": "Masukkan kode pengguna Smart Life atau Tuya Smart Anda.\n\nAnda dapat menemukan kode ini di aplikasi Smart Life atau aplikasi Tuya Smart di layar **Pengaturan** > **Akun dan Keamanan**, dan masukkan kode yang ditunjukkan pada bidang **Kode Pengguna**. Kode pengguna peka terhadap huruf besar/kecil, pastikan untuk memasukkannya persis seperti yang ditunjukkan di aplikasi."
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "carbon_dioxide": {
+                "name": "Karbon dioksida"
+            },
+            "carbon_monoxide": {
+                "name": "Karbon monoksida"
+            },
+            "feeding": {
+                "name": "Memberi makan"
+            },
+            "formaldehyde": {
+                "name": "Formaldehida"
+            },
+            "methane": {
+                "name": "Metana"
+            },
+            "pm25": {
+                "name": "PM2.5"
+            },
+            "pressure": {
+                "name": "Tekanan"
+            }
+        },
+        "button": {
+            "reset_filter": {
+                "name": "Atur ulang filter"
+            },
+            "reset_map": {
+                "name": "Atur ulang peta"
+            }
+        },
+        "cover": {
+            "blind": {
+                "name": "Penutup"
+            },
+            "curtain": {
+                "name": "Tirai"
+            },
+            "curtain_2": {
+                "name": "Tirai 2"
+            },
+            "curtain_3": {
+                "name": "Tirai 3"
+            },
+            "door": {
+                "name": "Pintu"
+            },
+            "door_2": {
+                "name": "Pintu 2"
+            },
+            "door_3": {
+                "name": "Pintu 3"
+            }
+        },
+        "light": {
+            "backlight": {
+                "name": "Lampu latar"
+            },
+            "light": {
+                "name": "Lampu"
+            },
+            "light_2": {
+                "name": "Lampu 2"
+            },
+            "light_3": {
+                "name": "Lampu 3"
+            },
+            "night_light": {
+                "name": "Lampu tidur"
+            }
+        },
+        "number": {
+            "cloud_recipe": {
+                "name": "Resep cloud"
+            },
+            "cook_temperature": {
+                "name": "Suhu masak"
+            },
+            "cook_time": {
+                "name": "Waktu masak"
+            },
+            "maximum_brightness": {
+                "name": "Kecerahan maksimum"
+            },
+            "maximum_brightness_2": {
+                "name": "Kecerahan maksimum 2"
+            },
+            "maximum_brightness_3": {
+                "name": "Kecerahan maksimum 3"
+            },
+            "minimum_brightness": {
+                "name": "Kecerahan minimum"
+            },
+            "minimum_brightness_2": {
+                "name": "Kecerahan minimum 2"
+            },
+            "minimum_brightness_3": {
+                "name": "Kecerahan minimum 3"
+            },
+            "move_down": {
+                "name": "Pindahkan ke bawah"
+            },
+            "move_up": {
+                "name": "Pindahkan ke atas"
+            },
+            "sensitivity": {
+                "name": "Sensitivitas"
+            },
+            "temperature": {
+                "name": "Suhu"
+            },
+            "temperature_after_boiling": {
+                "name": "Suhu setelah mendidih"
+            },
+            "time": {
+                "name": "Waktu"
+            },
+            "volume": {
+                "name": "Volume"
+            },
+            "water_level": {
+                "name": "Level air"
+            }
+        },
+        "select": {
+            "basic_anti_flicker": {
+                "name": "Anti-kedip",
+                "state": {
+                    "0": "Nonaktif",
+                    "1": "50Hz",
+                    "2": "60Hz"
+                }
+            },
+            "basic_nightvision": {
+                "name": "Penglihatan malam",
+                "state": {
+                    "0": "Otomatis",
+                    "1": "Mati",
+                    "2": "Nyala"
+                }
+            },
+            "brightness": {
+                "name": "Kecerahan"
+            },
+            "concentration": {
+                "name": "Konsentrasi"
+            },
+            "countdown": {
+                "name": "Hitung mundur",
+                "state": {
+                    "1h": "1 jam",
+                    "2h": "2 jam",
+                    "3h": "3 jam",
+                    "4h": "4 jam",
+                    "5h": "5 jam",
+                    "6h": "6 jam",
+                    "cancel": "Batalkan"
+                }
+            },
+            "cups": {
+                "name": "Cangkir"
+            },
+            "curtain_mode": {
+                "name": "Mode",
+                "state": {
+                    "morning": "Pagi",
+                    "night": "Malam"
+                }
+            },
+            "curtain_motor_mode": {
+                "state": {
+                    "back": "Mundur",
+                    "forward": "Maju"
+                }
+            },
+            "decibel_sensitivity": {
+                "name": "Sensitivitas deteksi suara",
+                "state": {
+                    "0": "Sensitivitas rendah",
+                    "1": "Sensitivitas tinggi"
+                }
+            },
+            "fan_angle": {
+                "state": {
+                    "30": "30\u00b0",
+                    "60": "60\u00b0",
+                    "90": "90\u00b0"
+                }
+            },
+            "fingerbot_mode": {
+                "name": "Mode",
+                "state": {
+                    "click": "Dorong",
+                    "switch": "Sakelar"
+                }
+            },
+            "horizontal_fan_angle": {
+                "name": "Sudut sayap ayun horizontal",
+                "state": {
+                    "30": "30\u00b0",
+                    "60": "60\u00b0",
+                    "90": "90\u00b0"
+                }
+            },
+            "humidifier_level": {
+                "name": "Level penyemprotan",
+                "state": {
+                    "level_1": "Tingkat 1",
+                    "level_10": "Tingkat 10",
+                    "level_2": "Tingkat 2",
+                    "level_3": "Tingkat 3",
+                    "level_4": "Tingkat 4",
+                    "level_5": "Tingkat 5",
+                    "level_6": "Tingkat 6",
+                    "level_7": "Tingkat 7",
+                    "level_8": "Tingkat 8",
+                    "level_9": "Tingkat 9"
+                }
+            },
+            "humidifier_moodlighting": {
+                "state": {
+                    "1": "Suasana 1",
+                    "2": "Suasana 2",
+                    "3": "Suasana 3",
+                    "4": "Suasana 4",
+                    "5": "Suasana 5"
+                }
+            },
+            "humidifier_spray_mode": {
+                "name": "Mode semprot",
+                "state": {
+                    "auto": "Otomatis",
+                    "health": "Kesehatan",
+                    "humidity": "Kelembapan",
+                    "sleep": "Tidur",
+                    "work": "Bekerja"
+                }
+            },
+            "ipc_work_mode": {
+                "state": {
+                    "0": "Mode daya rendah",
+                    "1": "Mode kerja terus menerus"
+                }
+            },
+            "led_type": {
+                "state": {
+                    "halogen": "Halogen",
+                    "incandescent": "Pijar",
+                    "led": "LED"
+                }
+            },
+            "led_type_2": {
+                "state": {
+                    "halogen": "Halogen",
+                    "incandescent": "Pijar",
+                    "led": "LED"
+                }
+            },
+            "led_type_3": {
+                "state": {
+                    "halogen": "Halogen",
+                    "incandescent": "Pijar",
+                    "led": "LED"
+                }
+            },
+            "light_mode": {
+                "name": "Mode lampu indikator",
+                "state": {
+                    "none": "Mati",
+                    "relay": "Menunjukkan status sakelar nyala/mati"
+                }
+            },
+            "material": {
+                "name": "Material"
+            },
+            "mode": {
+                "name": "Mode"
+            },
+            "motion_sensitivity": {
+                "name": "Sensitivitas deteksi gerak",
+                "state": {
+                    "0": "Sensitivitas rendah",
+                    "1": "Sensitivitas sedang",
+                    "2": "Sensitivitas tinggi"
+                }
+            },
+            "record_mode": {
+                "name": "Mode rekam",
+                "state": {
+                    "1": "Rekam peristiwa saja",
+                    "2": "Perekaman terus menerus"
+                }
+            },
+            "relay_status": {
+                "name": "Perilaku nyala",
+                "state": {
+                    "last": "Ingat status terakhir",
+                    "memory": "Ingat status terakhir",
+                    "off": "Mati",
+                    "on": "Nyala",
+                    "power_off": "Mati",
+                    "power_on": "Nyala"
+                }
+            },
+            "target_humidity": {
+                "name": "Target kelembapan"
+            },
+            "temperature_level": {
+                "name": "Level suhu"
+            },
+            "vacuum_cistern": {
+                "name": "Penyesuaian tangki air",
+                "state": {
+                    "closed": "Tertutup",
+                    "high": "Tinggi",
+                    "low": "Rendah",
+                    "middle": "Tengah"
+                }
+            },
+            "vacuum_collection": {
+                "name": "Mode pengumpulan debu",
+                "state": {
+                    "large": "Besar",
+                    "middle": "Tengah",
+                    "small": "Kecil"
+                }
+            },
+            "vacuum_mode": {
+                "name": "Mode",
+                "state": {
+                    "bow": "Zig Zag",
+                    "chargego": "Kembali ke dock",
+                    "left_bow": "Zig zag kiri",
+                    "left_spiral": "Spiral kiri",
+                    "mop": "Pel",
+                    "part": "Bagian",
+                    "partial_bow": "Zig zag sebagian",
+                    "pick_zone": "Pilih zona",
+                    "point": "Titik",
+                    "pose": "Area",
+                    "random": "Acak",
+                    "right_bow": "Zig zag kanan",
+                    "right_spiral": "Spiral kanan",
+                    "single": "Tunggal",
+                    "smart": "Cerdas",
+                    "spiral": "Spiral",
+                    "standby": "Siaga",
+                    "wall_follow": "Ikuti dinding",
+                    "zone": "Zona"
+                }
+            },
+            "vertical_fan_angle": {
+                "name": "Sudut sayap ayun vertikal",
+                "state": {
+                    "30": "30\u00b0",
+                    "60": "60\u00b0",
+                    "90": "90\u00b0"
+                }
+            },
+            "volume": {
+                "name": "Volume"
+            },
+            "weather_delay": {
+                "name": "Penundaan cuaca",
+                "state": {
+                    "120h": "120 jam",
+                    "144h": "144 jam",
+                    "168h": "168 jam",
+                    "24h": "24 jam",
+                    "48h": "48 jam",
+                    "72h": "72 jam",
+                    "96h": "96 jam",
+                    "cancel": "Batalkan"
+                }
+            }
+        },
+        "sensor": {
+            "air_quality": {
+                "name": "Kualitas udara",
+                "state": {
+                    "good": "Bagus",
+                    "great": "Hebat",
+                    "mild": "Ringan",
+                    "severe": "Parah"
+                }
+            },
+            "battery": {
+                "name": "Baterai"
+            },
+            "battery_state": {
+                "name": "Status baterai"
+            },
+            "carbon_dioxide": {
+                "name": "Karbon dioksida"
+            },
+            "carbon_monoxide": {
+                "name": "Karbon monoksida"
+            },
+            "cleaning_area": {
+                "name": "Area pembersihan"
+            },
+            "cleaning_time": {
+                "name": "Waktu pembersihan"
+            },
+            "concentration_carbon_dioxide": {
+                "name": "Konsentrasi karbon dioksida"
+            },
+            "current": {
+                "name": "Arus"
+            },
+            "current_temperature": {
+                "name": "Suhu saat ini"
+            },
+            "formaldehyde": {
+                "name": "Formaldehida"
+            },
+            "gas": {
+                "name": "Gas"
+            },
+            "humidity": {
+                "name": "Kelembapan"
+            },
+            "illuminance": {
+                "name": "Pencahayaan"
+            },
+            "last_amount": {
+                "name": "Jumlah terakhir"
+            },
+            "last_operation_duration": {
+                "name": "Durasi pengoperasian terakhir"
+            },
+            "luminosity": {
+                "name": "Luminositas"
+            },
+            "methane": {
+                "name": "Metana"
+            },
+            "pm1": {
+                "name": "PM1"
+            },
+            "pm10": {
+                "name": "PM10"
+            },
+            "pm25": {
+                "name": "PM2.5"
+            },
+            "power": {
+                "name": "Daya"
+            },
+            "remaining_time": {
+                "name": "Sisa waktu"
+            },
+            "smoke_amount": {
+                "name": "Jumlah asap"
+            },
+            "sous_vide_status": {
+                "name": "Status",
+                "state": {
+                    "boiling_temp": "Suhu didih",
+                    "cooling": "Mendinginkan",
+                    "heating": "Memanaskan",
+                    "heating_temp": "Suhu pemanasan",
+                    "standby": "Siaga"
+                }
+            },
+            "status": {
+                "name": "Status",
+                "state": {
+                    "boiling_temp": "Suhu mendidih",
+                    "cooling": "Mendinginkan",
+                    "heating": "Memanaskan",
+                    "heating_temp": "Suhu pemanas",
+                    "reserve_1": "Cadangan 1",
+                    "reserve_2": "Cadangan 2",
+                    "reserve_3": "Cadangan 3",
+                    "standby": "Siaga",
+                    "warm": "Pelestarian panas"
+                }
+            },
+            "temperature": {
+                "name": "Suhu"
+            },
+            "total_cleaning_area": {
+                "name": "Total area pembersihan"
+            },
+            "total_cleaning_time": {
+                "name": "Total waktu pembersihan"
+            },
+            "total_energy": {
+                "name": "Total energi"
+            },
+            "total_operating_time": {
+                "name": "Total waktu pengoperasian"
+            },
+            "total_watering_time": {
+                "name": "Total waktu penyiraman"
+            },
+            "voc": {
+                "name": "VOC"
+            },
+            "voltage": {
+                "name": "Tegangan"
+            },
+            "water_level": {
+                "name": "Tingkat air"
+            }
+        },
+        "switch": {
+            "alarm_1": {
+                "name": "Alarm 1"
+            },
+            "alarm_2": {
+                "name": "Alarm 2"
+            },
+            "alarm_3": {
+                "name": "Alarm 3"
+            },
+            "alarm_4": {
+                "name": "Alarm 4"
+            },
+            "battery_lock": {
+                "name": "Kunci baterai"
+            },
+            "child_lock": {
+                "name": "Kunci anak"
+            },
+            "cry_detection": {
+                "name": "Deteksi tangisan"
+            },
+            "disinfection": {
+                "name": "Disinfeksi"
+            },
+            "do_not_disturb": {
+                "name": "Jangan ganggu"
+            },
+            "energy_saving": {
+                "name": "Penghematan energi"
+            },
+            "filter_reset": {
+                "name": "Atur ulang filter"
+            },
+            "flip": {
+                "name": "Balikkan"
+            },
+            "humidification": {
+                "name": "Pelembapan"
+            },
+            "ionizer": {
+                "name": "Pengion"
+            },
+            "motion_alarm": {
+                "name": "Alarm gerakan"
+            },
+            "motion_recording": {
+                "name": "Perekaman gerak"
+            },
+            "motion_tracking": {
+                "name": "Pelacakan gerak"
+            },
+            "mute": {
+                "name": "Bisukan"
+            },
+            "mute_voice": {
+                "name": "Bisukan suara"
+            },
+            "natural_wind": {
+                "name": "Angin alami"
+            },
+            "open_window_detection": {
+                "name": "Deteksi jendela terbuka"
+            },
+            "power": {
+                "name": "Daya"
+            },
+            "privacy_mode": {
+                "name": "Mode privasi"
+            },
+            "radio": {
+                "name": "Radio"
+            },
+            "reset_of_water_usage_days": {
+                "name": "Atur ulang hari penggunaan air"
+            },
+            "reverse": {
+                "name": "Balik"
+            },
+            "sleep": {
+                "name": "Tidur"
+            },
+            "sleep_aid": {
+                "name": "Bantuan tidur"
+            },
+            "socket": {
+                "name": "Stop kontak"
+            },
+            "socket_1": {
+                "name": "Stop kontak 1"
+            },
+            "socket_2": {
+                "name": "Stop kontak 2"
+            },
+            "socket_3": {
+                "name": "Stop kontak 3"
+            },
+            "socket_4": {
+                "name": "Stop kontak 4"
+            },
+            "socket_5": {
+                "name": "Stop kontak 5"
+            },
+            "socket_6": {
+                "name": "Stop kontak 6"
+            },
+            "sound": {
+                "name": "Suara"
+            },
+            "sound_detection": {
+                "name": "Deteksi suara"
+            },
+            "spray": {
+                "name": "Semprot"
+            },
+            "start": {
+                "name": "Mulai"
+            },
+            "sterilization": {
+                "name": "Sterilisasi"
+            },
+            "switch": {
+                "name": "Sakelar"
+            },
+            "switch_1": {
+                "name": "Sakelar 1"
+            },
+            "switch_2": {
+                "name": "Sakelar 2"
+            },
+            "switch_3": {
+                "name": "Sakelar 3"
+            },
+            "switch_4": {
+                "name": "Sakelar 4"
+            },
+            "switch_5": {
+                "name": "Sakelar 5"
+            },
+            "switch_6": {
+                "name": "Sakelar 6"
+            },
+            "switch_7": {
+                "name": "Sakelar 7"
+            },
+            "switch_8": {
+                "name": "Sakelar 8"
+            },
+            "time_watermark": {
+                "name": "Tanda air waktu"
+            },
+            "usb_1": {
+                "name": "USB 1"
+            },
+            "usb_2": {
+                "name": "USB 2"
+            },
+            "usb_3": {
+                "name": "USB 3"
+            },
+            "usb_4": {
+                "name": "USB 4"
+            },
+            "usb_5": {
+                "name": "USB 5"
+            },
+            "usb_6": {
+                "name": "USB 6"
+            },
+            "uv_sterilization": {
+                "name": "Sterilisasi UV"
+            },
+            "video_recording": {
+                "name": "Rekaman video"
+            },
+            "voice": {
+                "name": "Suara"
+            },
+            "water": {
+                "name": "Air"
+            },
+            "wide_dynamic_range": {
+                "name": "Rentang dinamis luas"
+            }
+        }
+    },
+    "issues": {
+        "service_deprecation_turn_off": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "title": "Dukungan vakum Tuya untuk vacuum.turn_off sedang dihapus"
+                    }
+                }
+            },
+            "title": "Dukungan vakum Tuya untuk vacuum.turn_off sedang dihapus"
+        },
+        "service_deprecation_turn_on": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "title": "Dukungan vakum Tuya untuk vacuum.turn_on sedang dihapus"
+                    }
+                }
+            },
+            "title": "Dukungan vakum Tuya untuk vacuum.turn_on sedang dihapus"
+        }
+    }
+}

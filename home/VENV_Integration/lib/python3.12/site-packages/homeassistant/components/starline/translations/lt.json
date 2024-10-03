@@ -1,0 +1,162 @@
+{
+    "config": {
+        "error": {
+            "error_auth_app": "Neteisingas programos ID arba paslaptis",
+            "error_auth_mfa": "Neteisingas kodas",
+            "error_auth_user": "Neteisingas vartotojo vardas arba slapta\u017eodis"
+        },
+        "step": {
+            "auth_app": {
+                "data": {
+                    "app_id": "Programos ID",
+                    "app_secret": "Paslaptis"
+                },
+                "description": "Programos ID ir slaptas kodas i\u0161 [StarLine k\u016br\u0117jo paskyros](https://my.starline.ru/developer)",
+                "title": "Programos kredencialai"
+            },
+            "auth_captcha": {
+                "data": {
+                    "captcha_code": "Kodas i\u0161 paveiksl\u0117lio"
+                },
+                "description": "{captcha_img}",
+                "title": "Captcha"
+            },
+            "auth_mfa": {
+                "data": {
+                    "mfa_code": "SMS kodas"
+                },
+                "description": "\u012eveskite kod\u0105, atsi\u0173st\u0105 telefonu {phone_number}",
+                "title": "Dviej\u0173 veiksni\u0173 leidimas"
+            },
+            "auth_user": {
+                "data": {
+                    "password": "Slapta\u017eodis",
+                    "username": "Prisijungimos vardas"
+                },
+                "description": "StarLine paskyros el. pa\u0161tas ir slapta\u017eodis",
+                "title": "Vartotojo kredencialai"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "alarm": {
+                "name": "Signalizacija"
+            },
+            "doors": {
+                "name": "Durys"
+            },
+            "hand_brake": {
+                "name": "Rankinis stabdis"
+            },
+            "handsfree": {
+                "name": "Laisv\u0173 rank\u0173 \u012franga"
+            },
+            "hood": {
+                "name": "Gaubtas"
+            },
+            "moving_ban": {
+                "name": "Draudimas jud\u0117ti"
+            },
+            "neutral": {
+                "name": "Programuojamas neutralus"
+            },
+            "trunk": {
+                "name": "Baga\u017ein\u0117"
+            }
+        },
+        "button": {
+            "horn": {
+                "name": "Ragas"
+            }
+        },
+        "device_tracker": {
+            "location": {
+                "name": "Vieta"
+            }
+        },
+        "lock": {
+            "security": {
+                "name": "Saugumas"
+            }
+        },
+        "sensor": {
+            "balance": {
+                "name": "Balansas"
+            },
+            "battery": {
+                "name": "Baterija"
+            },
+            "engine_temperature": {
+                "name": "Variklio temperat\u016bra"
+            },
+            "errors": {
+                "name": "OBD klaidos"
+            },
+            "fuel": {
+                "name": "Kuro t\u016bris"
+            },
+            "gps_count": {
+                "name": "GPS palydovai"
+            },
+            "gsm_signal": {
+                "name": "GSM signalas"
+            },
+            "interior_temperature": {
+                "name": "Vidaus temperat\u016bra"
+            },
+            "mileage": {
+                "name": "Rida"
+            }
+        },
+        "switch": {
+            "additional_channel": {
+                "name": "Papildomas kanalas"
+            },
+            "engine": {
+                "name": "Variklis"
+            },
+            "horn": {
+                "name": "Ragas"
+            },
+            "service_mode": {
+                "name": "Aptarnavimo re\u017eimas"
+            },
+            "webasto": {
+                "name": "Webasto"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_horn_switch": {
+            "description": "\u201eHorn\u201c jungiklio naudojimas dabar nebenaudojamas ir bus pa\u0161alintas b\u016bsimoje \u201eHome Assistant\u201c versijoje. \n\n Koreguokite automatizavim\u0105 ar scenarijus, kuriuose naudojamas \u201eHorn\u201c jungiklio objektas, kad vietoj to b\u016bt\u0173 naudojamas \u201eHorn\u201c mygtuko objektas.",
+            "title": "\u201eStarline Horn\u201c jungiklio objektas pa\u0161alinamas"
+        }
+    },
+    "services": {
+        "set_scan_interval": {
+            "description": "Nustato atnaujinimo da\u017enum\u0105.",
+            "fields": {
+                "scan_interval": {
+                    "description": "Atnaujinimo da\u017enis.",
+                    "name": "Nuskaitymo intervalas"
+                }
+            },
+            "name": "Nustatykite nuskaitymo interval\u0105"
+        },
+        "set_scan_obd_interval": {
+            "description": "Nustato OBD informacijos atnaujinimo da\u017enum\u0105.",
+            "fields": {
+                "scan_interval": {
+                    "description": "Atnaujinimo da\u017enis.",
+                    "name": "Nuskaitymo intervalas"
+                }
+            },
+            "name": "Nustatykite nuskaitymo OBD interval\u0105"
+        },
+        "update_state": {
+            "description": "Gauna paskutin\u0119 \u012frengini\u0173 b\u016bsen\u0105 i\u0161 StarLine serverio.\n .",
+            "name": "Atnaujinti b\u016bsen\u0105"
+        }
+    }
+}

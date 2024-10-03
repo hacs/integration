@@ -1,0 +1,159 @@
+{
+    "device_automation": {
+        "action_type": {
+            "toggle": "{entity_name} de\u011fi\u015ftir",
+            "turn_off": "{entity_name} kapat",
+            "turn_on": "{entity_name} a\u00e7\u0131n"
+        },
+        "condition_type": {
+            "is_off": "{entity_name} kapal\u0131",
+            "is_on": "{entity_name} a\u00e7\u0131k"
+        },
+        "trigger_type": {
+            "changed_states": "{entity_name} a\u00e7\u0131ld\u0131 veya kapat\u0131ld\u0131",
+            "turned_off": "{entity_name} kapat\u0131ld\u0131",
+            "turned_on": "{entity_name} a\u00e7\u0131ld\u0131"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Fan",
+            "state": {
+                "off": "Kapal\u0131",
+                "on": "A\u00e7\u0131k"
+            },
+            "state_attributes": {
+                "direction": {
+                    "name": "Y\u00f6n",
+                    "state": {
+                        "forward": "\u0130leri",
+                        "reverse": "Ters"
+                    }
+                },
+                "oscillating": {
+                    "name": "Sal\u0131n\u0131m",
+                    "state": {
+                        "false": "Hay\u0131r",
+                        "true": "Evet"
+                    }
+                },
+                "percentage": {
+                    "name": "H\u0131z"
+                },
+                "percentage_step": {
+                    "name": "H\u0131zl\u0131 ad\u0131m"
+                },
+                "preset_mode": {
+                    "name": "\u00d6n ayar modu"
+                },
+                "preset_modes": {
+                    "name": "Kullan\u0131labilir \u00f6n ayar modlar\u0131"
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "not_valid_preset_mode": {
+            "message": "\u00d6n ayar modu {preset_mode} ge\u00e7erli de\u011fil, ge\u00e7erli \u00f6n ayar modlar\u0131 \u015funlard\u0131r: {preset_modes} ."
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "{domain} entegrasyonu i\u00e7in {platform} platformu, platform kurulumunu desteklemiyor. \n\n L\u00fctfen yap\u0131land\u0131rman\u0131zdan kald\u0131r\u0131n ve bu sorunu \u00e7\u00f6zmek i\u00e7in Home Assistant'\u0131 yeniden ba\u015flat\u0131n.",
+            "title": "Platform deste\u011fi desteklenmiyor"
+        }
+    },
+    "selector": {
+        "direction": {
+            "options": {
+                "forward": "\u0130leri",
+                "reverse": "Ters"
+            }
+        }
+    },
+    "services": {
+        "decrease_speed": {
+            "description": "Fan\u0131n h\u0131z\u0131n\u0131 azalt\u0131r.",
+            "fields": {
+                "percentage_step": {
+                    "description": "H\u0131z\u0131 bir y\u00fczde ad\u0131m\u0131 kadar azalt\u0131r.",
+                    "name": "Azaltma"
+                }
+            },
+            "name": "H\u0131z\u0131 azalt"
+        },
+        "increase_speed": {
+            "description": "Fan\u0131n h\u0131z\u0131n\u0131 art\u0131r\u0131r.",
+            "fields": {
+                "percentage_step": {
+                    "description": "H\u0131z\u0131 bir y\u00fczde ad\u0131m\u0131 kadar art\u0131r\u0131r.",
+                    "name": "Art\u0131\u015f"
+                }
+            },
+            "name": "H\u0131z\u0131 art\u0131r"
+        },
+        "oscillate": {
+            "description": "Fan\u0131n sal\u0131n\u0131m\u0131n\u0131 kontrol eder.",
+            "fields": {
+                "oscillating": {
+                    "description": "Sal\u0131n\u0131m\u0131 a\u00e7\u0131n/kapat\u0131n.",
+                    "name": "Sal\u0131n\u0131ml\u0131"
+                }
+            },
+            "name": "Sal\u0131n\u0131m"
+        },
+        "set_direction": {
+            "description": "Fan d\u00f6n\u00fc\u015f y\u00f6n\u00fcn\u00fc ayarlar.",
+            "fields": {
+                "direction": {
+                    "description": "D\u00f6nd\u00fcrme y\u00f6n\u00fc.",
+                    "name": "Y\u00f6n"
+                }
+            },
+            "name": "Y\u00f6n\u00fc ayarla"
+        },
+        "set_percentage": {
+            "description": "Fan h\u0131z\u0131n\u0131 ayarlar.",
+            "fields": {
+                "percentage": {
+                    "description": "Fan h\u0131z\u0131.",
+                    "name": "Y\u00fczde"
+                }
+            },
+            "name": "H\u0131z ayarla"
+        },
+        "set_preset_mode": {
+            "description": "\u00d6n ayar modunu ayarlar.",
+            "fields": {
+                "preset_mode": {
+                    "description": "\u00d6n ayar modu.",
+                    "name": "\u00d6n ayar modu"
+                }
+            },
+            "name": "\u00d6n ayar modunu ayarla"
+        },
+        "toggle": {
+            "description": "Fan\u0131 a\u00e7ar/kapat\u0131r.",
+            "name": "De\u011fi\u015ftir"
+        },
+        "turn_off": {
+            "description": "Fan\u0131 kapat\u0131r.",
+            "name": "Kapat"
+        },
+        "turn_on": {
+            "description": "Fan\u0131 a\u00e7ar.",
+            "fields": {
+                "percentage": {
+                    "description": "Fan h\u0131z\u0131.",
+                    "name": "Y\u00fczde"
+                },
+                "preset_mode": {
+                    "description": "\u00d6n ayar modu.",
+                    "name": "\u00d6n ayar modu"
+                }
+            },
+            "name": "A\u00e7"
+        }
+    },
+    "title": "Fan"
+}

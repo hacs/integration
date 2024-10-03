@@ -1,0 +1,115 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Zariadenie u\u017e je nakonfigurovan\u00e9",
+            "no_server_found": "Nebol n\u00e1jden\u00fd \u017eiadny LMS server."
+        },
+        "error": {
+            "cannot_connect": "Nepodarilo sa pripoji\u0165",
+            "invalid_auth": "Neplatn\u00e9 overenie",
+            "no_server_found": "Server sa nepodarilo automaticky zisti\u0165.",
+            "unknown": "Neo\u010dak\u00e1van\u00e1 chyba"
+        },
+        "flow_title": "{host}",
+        "step": {
+            "edit": {
+                "data": {
+                    "host": "Hostite\u013e",
+                    "https": "Pripojenie cez https (vy\u017eaduje reverzn\u00fd proxy server)",
+                    "password": "Heslo",
+                    "port": "Port",
+                    "username": "Pou\u017e\u00edvate\u013esk\u00e9 meno"
+                },
+                "title": "Upravte inform\u00e1cie o pripojen\u00ed"
+            },
+            "user": {
+                "data": {
+                    "host": "Hostite\u013e"
+                },
+                "data_description": {
+                    "host": "N\u00e1zov hostite\u013ea alebo IP adresa v\u00e1\u0161ho hudobn\u00e9ho servera Lyrion."
+                }
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "needsrestart": {
+                "name": "Vy\u017eaduje re\u0161tart"
+            },
+            "rescan": {
+                "name": "Op\u00e4tovn\u00e9 skenovanie kni\u017enice"
+            }
+        },
+        "sensor": {
+            "info_total_albums": {
+                "name": "Celkov\u00fd po\u010det albumov"
+            },
+            "info_total_artists": {
+                "name": "Celkov\u00fd po\u010det umelcov"
+            },
+            "info_total_duration": {
+                "name": "Celkov\u00e9 trvanie"
+            },
+            "info_total_genres": {
+                "name": "Celkov\u00fd po\u010det \u017e\u00e1nrov"
+            },
+            "info_total_songs": {
+                "name": "Celkov\u00fd po\u010det skladieb"
+            },
+            "lastscan": {
+                "name": "Posledn\u00e9 skenovanie"
+            },
+            "other_player_count": {
+                "name": "Slu\u017eba odpo\u010d\u00edtavania hr\u00e1\u010dov"
+            },
+            "player_count": {
+                "name": "Po\u010det hr\u00e1\u010dov"
+            }
+        }
+    },
+    "services": {
+        "call_method": {
+            "description": "Vol\u00e1 vlastn\u00e9 rozhranie Squeezebox JSONRPC API.",
+            "fields": {
+                "command": {
+                    "description": "Pr\u00edkaz, ktor\u00fd sa m\u00e1 odovzda\u0165 serveru Lyrion Music Server (p0 v dokument\u00e1cii CLI).",
+                    "name": "Pr\u00edkaz"
+                },
+                "parameters": {
+                    "description": "Pole \u010fal\u0161\u00edch parametrov, ktor\u00e9 sa maj\u00fa odovzda\u0165 Lyrion Music Serveru (p1, ..., pN v dokument\u00e1cii CLI).\n.",
+                    "name": "Parametre"
+                }
+            },
+            "name": "Zavola\u0165 met\u00f3du"
+        },
+        "call_query": {
+            "description": "Vol\u00e1 vlastn\u00e9 rozhranie Squeezebox JSONRPC API. V\u00fdsledok sa ulo\u017e\u00ed do atrib\u00fatu 'query_result' entity Squeezebox.\n.",
+            "fields": {
+                "command": {
+                    "description": "Pr\u00edkaz, ktor\u00fd sa m\u00e1 odovzda\u0165 serveru Lyrion Music Server (p0 v dokument\u00e1cii CLI).",
+                    "name": "Pr\u00edkaz"
+                },
+                "parameters": {
+                    "description": "Pole \u010fal\u0161\u00edch parametrov, ktor\u00e9 sa maj\u00fa odovzda\u0165 Lyrion Music Serveru (p1, ..., pN v dokument\u00e1cii CLI).\n.",
+                    "name": "Parametre"
+                }
+            },
+            "name": "Call query"
+        },
+        "sync": {
+            "description": "Prid\u00e1 \u010fal\u0161ieho hr\u00e1\u010da do synchroniza\u010dnej skupiny tohto hr\u00e1\u010da. Ak sa u\u017e druh\u00fd hr\u00e1\u010d nach\u00e1dza v synchroniza\u010dnej skupine, opust\u00ed ju.\n.",
+            "fields": {
+                "other_player": {
+                    "description": "N\u00e1zov druh\u00e9ho prehr\u00e1va\u010da Squeezebox, ktor\u00fd sa m\u00e1 prepoji\u0165.",
+                    "name": "In\u00fd hr\u00e1\u010d"
+                }
+            },
+            "name": "Synchronizova\u0165"
+        },
+        "unsync": {
+            "description": "Odstr\u00e1ni tento prehr\u00e1va\u010d z jeho synchroniza\u010dnej skupiny.",
+            "name": "Unsync"
+        }
+    }
+}

@@ -1,0 +1,258 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Ger\u00e4t ist bereits konfiguriert",
+            "already_in_progress": "Der Konfigurationsablauf wird bereits ausgef\u00fchrt",
+            "no_devices_found": "Keine Ger\u00e4te im Netzwerk gefunden"
+        },
+        "error": {
+            "cannot_connect": "Verbindung fehlgeschlagen"
+        },
+        "flow_title": "{label} ({group})",
+        "step": {
+            "discovery_confirm": {
+                "description": "M\u00f6chtest du {label} ({group}) einrichten?"
+            },
+            "pick_device": {
+                "data": {
+                    "device": "Ger\u00e4t"
+                }
+            },
+            "user": {
+                "data": {
+                    "host": "Host"
+                },
+                "data_description": {
+                    "host": "Der Hostname oder die IP-Adresse deines LIFX-Ger\u00e4ts."
+                },
+                "description": "Wenn du den Host leer l\u00e4sst, wird die Erkennung verwendet, um Ger\u00e4te zu finden."
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "clean_cycle": {
+                "name": "Reinigungszyklus"
+            }
+        },
+        "select": {
+            "infrared_brightness": {
+                "name": "Infrarot-Helligkeit"
+            },
+            "theme": {
+                "name": "Theme"
+            }
+        },
+        "sensor": {
+            "rssi": {
+                "name": "RSSI"
+            }
+        }
+    },
+    "services": {
+        "effect_colorloop": {
+            "description": "F\u00fchrt einen Effekt mit Schleifenfarben aus.",
+            "fields": {
+                "brightness": {
+                    "description": "Zahl, die die Helligkeit der Farbschleife angibt, wobei 1 die minimale Helligkeit und 255 die maximale vom Licht unterst\u00fctzte Helligkeit ist.",
+                    "name": "Helligkeitswert"
+                },
+                "brightness_pct": {
+                    "description": "Prozentsatz, der die Helligkeit der Farbschleife angibt, wobei 1 die minimale Helligkeit und 100 die maximale Helligkeit ist, die vom Licht unterst\u00fctzt wird.",
+                    "name": "Helligkeit"
+                },
+                "change": {
+                    "description": "Farbtonbewegung pro Periode in Grad auf einem Farbkreis.",
+                    "name": "\u00c4ndern"
+                },
+                "period": {
+                    "description": "Dauer zwischen Farbwechseln.",
+                    "name": "Zeitraum"
+                },
+                "power_on": {
+                    "description": "Ausgeschaltete Lichter werden w\u00e4hrend des Effekts vor\u00fcbergehend eingeschaltet.",
+                    "name": "Einschalten"
+                },
+                "saturation_max": {
+                    "description": "Prozentsatz, der die maximale S\u00e4ttigung der Farben in der Schleife angibt.",
+                    "name": "Maximale S\u00e4ttigung"
+                },
+                "saturation_min": {
+                    "description": "Prozentsatz, der die minimale S\u00e4ttigung der Farben in der Schleife angibt.",
+                    "name": "Minimale S\u00e4ttigung"
+                },
+                "spread": {
+                    "description": "Maximaler Farbtonunterschied zwischen teilnehmenden Lichtern, in Grad auf einem Farbkreis.",
+                    "name": "Ausbreitung"
+                }
+            },
+            "name": "Farbschleifeneffekt"
+        },
+        "effect_flame": {
+            "description": "Startet den Firmware-basierten Flammeneffekt auf LIFX Tiles oder Candle.",
+            "fields": {
+                "power_on": {
+                    "description": "Ausgeschaltete Lichter werden eingeschaltet, bevor der Effekt startet.",
+                    "name": "Einschalten"
+                },
+                "speed": {
+                    "description": "Wie schnell sich die Flammen bewegen werden.",
+                    "name": "Geschwindigkeit"
+                }
+            },
+            "name": "Flammeneffekt"
+        },
+        "effect_morph": {
+            "description": "Startet den Firmware-basierten Morph-Effekt auf LIFX Tiles on Candle.",
+            "fields": {
+                "palette": {
+                    "description": "Liste von mindestens 2 und h\u00f6chstens 16 Farben als Farbton- (0\u2013360), S\u00e4ttigungs- (0\u2013100), Helligkeits- (0\u2013100) und Kelvin-Werte (1500\u2013900), die f\u00fcr diesen Effekt verwendet werden sollen. \u00dcberschreibt das Theme-Attribut.",
+                    "name": "Palette"
+                },
+                "power_on": {
+                    "description": "Ausgeschaltete Lichter werden eingeschaltet, bevor der Effekt startet.",
+                    "name": "Einschalten"
+                },
+                "speed": {
+                    "description": "Wie schnell sich die Farben bewegen.",
+                    "name": "Geschwindigkeit"
+                },
+                "theme": {
+                    "description": "Vordefiniertes Farbtheme, das f\u00fcr den Effekt verwendet werden soll. Wird durch das Palettenattribut \u00fcberschrieben.",
+                    "name": "Theme"
+                }
+            },
+            "name": "Morph-Effekt"
+        },
+        "effect_move": {
+            "description": "Startet den Firmware-basierten Move-Effekt auf einem LIFX Z, Lightstrip oder Beam.",
+            "fields": {
+                "direction": {
+                    "description": "Richtung, in der sich der Effekt \u00fcber das Ger\u00e4t bewegt.",
+                    "name": "Richtung"
+                },
+                "power_on": {
+                    "description": "Ausgeschaltete Lichter werden eingeschaltet, bevor der Effekt startet.",
+                    "name": "Einschalten"
+                },
+                "speed": {
+                    "description": "Gibt an, wie lange es in Sekunden dauert, bis sich der Effekt \u00fcber die L\u00e4nge des Lichts bewegt.",
+                    "name": "Geschwindigkeit"
+                },
+                "theme": {
+                    "description": "(Optional) Lege eins der vordefinierten Themes auf dem Ger\u00e4t fest, bevor du den Effekt startest.",
+                    "name": "Theme"
+                }
+            },
+            "name": "Bewegungseffekt"
+        },
+        "effect_pulse": {
+            "description": "F\u00fchrt einen Blitzeffekt durch Wechsel zu einer Farbe und zur\u00fcck aus.",
+            "fields": {
+                "brightness": {
+                    "description": "Zahl, die die Helligkeit der tempor\u00e4ren Farbe angibt, wobei 1 die minimale Helligkeit und 255 die maximale vom Licht unterst\u00fctzte Helligkeit ist.",
+                    "name": "Helligkeitswert"
+                },
+                "brightness_pct": {
+                    "description": "Prozentsatz, der die Helligkeit der tempor\u00e4ren Farbe angibt, wobei 1 die minimale Helligkeit und 100 die maximale Helligkeit ist, die vom Licht unterst\u00fctzt wird.",
+                    "name": "Helligkeit"
+                },
+                "color_name": {
+                    "description": "Ein f\u00fcr Menschen lesbarer Farbname.",
+                    "name": "Farbname"
+                },
+                "cycles": {
+                    "description": "Anzahl der Durchl\u00e4ufe, die der Effekt haben soll.",
+                    "name": "Zyklen"
+                },
+                "mode": {
+                    "description": "Entscheidet, wie Farben ge\u00e4ndert werden.",
+                    "name": "Modus"
+                },
+                "period": {
+                    "description": "Dauer des Effekts.",
+                    "name": "Zeitraum"
+                },
+                "power_on": {
+                    "description": "Ausgeschaltete Lichter werden w\u00e4hrend des Effekts vor\u00fcbergehend eingeschaltet.",
+                    "name": "Einschalten"
+                },
+                "rgb_color": {
+                    "description": "Die tempor\u00e4re Farbe im RGB-Format.",
+                    "name": "RGB-Farbe"
+                }
+            },
+            "name": "Pulseffekt"
+        },
+        "effect_sky": {
+            "description": "Startet den Firmware-basierten Himmelseffekt an der LIFX-Decke.",
+            "fields": {
+                "cloud_saturation_max": {
+                    "description": "Maximale Wolkens\u00e4ttigung.",
+                    "name": "Wolkens\u00e4ttigung Maximum"
+                },
+                "cloud_saturation_min": {
+                    "description": "Minimale Wolkens\u00e4ttigung.",
+                    "name": "Wolkens\u00e4ttigung Minimum"
+                },
+                "palette": {
+                    "description": "Liste von 1 bis 6 Farben als Farbton (0\u2013360), S\u00e4ttigung (0\u2013100), Helligkeit (0\u2013100) und Kelvin-Werte (1500\u20139000), die f\u00fcr diesen Effekt verwendet werden sollen.",
+                    "name": "Palette"
+                },
+                "power_on": {
+                    "description": "Ausgeschaltete Lichter werden eingeschaltet, bevor der Effekt startet.",
+                    "name": "Einschalten"
+                },
+                "sky_type": {
+                    "description": "Der Himmelsstil, der durch den Effekt animiert wird.",
+                    "name": "Himmelstyp"
+                },
+                "speed": {
+                    "description": "Wie lange es dauert, bis die Himmelstypen Sonnenaufgang und Sonnenuntergang abgeschlossen sind. Beim Himmelstyp Wolken ist es die Geschwindigkeit, mit der die Wolken \u00fcber das Ger\u00e4t ziehen.",
+                    "name": "Geschwindigkeit"
+                }
+            },
+            "name": "Himmelseffekt"
+        },
+        "effect_stop": {
+            "description": "Stoppt einen laufenden Effekt.",
+            "name": "Effekt stoppen"
+        },
+        "set_hev_cycle_state": {
+            "description": "Steuert die HEV-LEDs einer LIFX Clean-Gl\u00fchbirne.",
+            "fields": {
+                "duration": {
+                    "description": "Wie lange bleiben die HEV-LEDs eingeschaltet? Verwendet die konfigurierte Standarddauer, wenn nicht angegeben.",
+                    "name": "Dauer"
+                },
+                "power": {
+                    "description": "Starte oder stoppe einen Reinigungszyklus.",
+                    "name": "Aktivieren"
+                }
+            },
+            "name": "HEV-Zyklusstatus festlegen"
+        },
+        "set_state": {
+            "description": "Legt eine Farbe/Helligkeit fest und schaltet m\u00f6glicherweise das Licht ein/aus.",
+            "fields": {
+                "infrared": {
+                    "description": "Automatische Infrarotstufe bei geringer Lichthelligkeit.",
+                    "name": "Infrarot"
+                },
+                "power": {
+                    "description": "Schaltet das Licht ein oder aus. Lasse es weg, damit die Leistung so bleibt, wie sie ist.",
+                    "name": "Ein-/Ausschalten"
+                },
+                "transition": {
+                    "description": "Dauer, die ben\u00f6tigt wird, um den Endzustand zu erreichen.",
+                    "name": "\u00dcbergang"
+                },
+                "zones": {
+                    "description": "Liste der betroffenen Zonennummern (8 pro LIFX Z, beginnt bei 0).",
+                    "name": "Zonen"
+                }
+            },
+            "name": "Status setzen"
+        }
+    }
+}

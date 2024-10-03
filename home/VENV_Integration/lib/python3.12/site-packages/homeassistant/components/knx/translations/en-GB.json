@@ -1,0 +1,32 @@
+{
+    "services": {
+        "event_register": {
+            "description": "Add or remove group addresses to knx_event filter for triggering `knx_event`s. Only addresses added with this service can be removed.",
+            "fields": {
+                "address": {
+                    "description": "Group address(es) that shall be added or removed. Lists are allowed."
+                }
+            }
+        },
+        "send": {
+            "fields": {
+                "address": {
+                    "name": "Group address"
+                },
+                "payload": {
+                    "description": "Payload to send to the bus. Integers are treated as DPT 1/2/3 payloads. For DPTs > 6 bits send a list. Each value represents 1 octet (0-255). Pad with 0 to DPT byte length.",
+                    "name": "Payload"
+                },
+                "response": {
+                    "description": "If set to `True`, the telegram will be sent as a `GroupValueResponse` instead of a `GroupValueWrite`.",
+                    "name": "Send as Response"
+                },
+                "type": {
+                    "description": "If set, the payload will not be sent as raw bytes, but encoded as given DPT. KNX sensor types are valid values (see https://www.home-assistant.io/integrations/knx/#value-types).",
+                    "name": "Value type"
+                }
+            },
+            "name": "Send to KNX bus"
+        }
+    }
+}

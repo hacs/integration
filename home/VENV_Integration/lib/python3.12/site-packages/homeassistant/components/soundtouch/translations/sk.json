@@ -1,0 +1,84 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Zariadenie u\u017e je nakonfigurovan\u00e9"
+        },
+        "error": {
+            "cannot_connect": "Nepodarilo sa pripoji\u0165"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "host": "Hostite\u013e"
+                },
+                "data_description": {
+                    "host": "N\u00e1zov hostite\u013ea alebo IP adresa zariadenia Bose SoundTouch."
+                }
+            },
+            "zeroconf_confirm": {
+                "description": "Chyst\u00e1te sa prida\u0165 zariadenie SoundTouch s n\u00e1zvom `{name}` do Home Assistant.",
+                "title": "Potvr\u010fte pridanie zariadenia Bose SoundTouch"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_yaml": {
+            "description": "Konfigur\u00e1cia Bose SoundTouch pomocou YAML sa odstra\u0148uje. \n\n Va\u0161a existuj\u00faca konfigur\u00e1cia YAML bola importovan\u00e1 do pou\u017e\u00edvate\u013esk\u00e9ho rozhrania automaticky. \n\n Odstr\u00e1\u0148te konfigur\u00e1ciu Bose SoundTouch YAML zo s\u00faboru configuration.yaml a re\u0161tartujte Home Assistant, aby ste tento probl\u00e9m vyrie\u0161ili.",
+            "title": "Konfigur\u00e1cia Bose SoundTouch YAML sa odstra\u0148uje"
+        }
+    },
+    "services": {
+        "add_zone_slave": {
+            "description": "Pridanie podriaden\u00e9ho zariadenia do z\u00f3ny s viacer\u00fdmi miestnos\u0165ami SoundTouch.",
+            "fields": {
+                "master": {
+                    "description": "N\u00e1zov hlavn\u00e9ho subjektu, ktor\u00fd koordinuje z\u00f3nu s viacer\u00fdmi miestnos\u0165ami. Z\u00e1vis\u00ed od platformy.",
+                    "name": "Master"
+                },
+                "slaves": {
+                    "description": "N\u00e1zov otrok\u00e1rskych subjektov, ktor\u00e9 sa maj\u00fa prida\u0165 do existuj\u00facej z\u00f3ny.",
+                    "name": "Slaves"
+                }
+            },
+            "name": "Pridanie podriadenej z\u00f3ny"
+        },
+        "create_zone": {
+            "description": "Vytvor\u00ed z\u00f3nu s viacer\u00fdmi miestnos\u0165ami SoundTouch.",
+            "fields": {
+                "master": {
+                    "description": "N\u00e1zov hlavn\u00e9ho subjektu, ktor\u00fd bude koordinova\u0165 z\u00f3nu s viacer\u00fdmi miestnos\u0165ami. Z\u00e1vis\u00ed od platformy.",
+                    "name": "Master"
+                },
+                "slaves": {
+                    "description": "N\u00e1zov podriaden\u00fdch subjektov, ktor\u00e9 sa maj\u00fa prida\u0165 do novej z\u00f3ny.",
+                    "name": "Slaves"
+                }
+            },
+            "name": "Vytvorenie z\u00f3ny"
+        },
+        "play_everywhere": {
+            "description": "Prehr\u00e1va sa na v\u0161etk\u00fdch zariadeniach Bose SoundTouch.",
+            "fields": {
+                "master": {
+                    "description": "N\u00e1zov hlavn\u00e9ho subjektu, ktor\u00fd bude koordinova\u0165 zoskupenie. Z\u00e1vis\u00ed od platformy. Je to skratka na vytvorenie z\u00f3ny s viacer\u00fdmi miestnos\u0165ami so v\u0161etk\u00fdmi zariadeniami.",
+                    "name": "Master"
+                }
+            },
+            "name": "Hra\u0165 kdeko\u013evek"
+        },
+        "remove_zone_slave": {
+            "description": "Odstr\u00e1ni podriaden\u00fa jednotku zo z\u00f3ny viacer\u00fdch miestnost\u00ed SoundTouch.",
+            "fields": {
+                "master": {
+                    "description": "N\u00e1zov hlavn\u00e9ho subjektu, ktor\u00fd koordinuje z\u00f3nu s viacer\u00fdmi miestnos\u0165ami. Z\u00e1vis\u00ed od platformy.",
+                    "name": "Master"
+                },
+                "slaves": {
+                    "description": "N\u00e1zov podriaden\u00fdch ent\u00edt, ktor\u00e9 sa maj\u00fa odstr\u00e1ni\u0165 z existuj\u00facej z\u00f3ny.",
+                    "name": "Slaves"
+                }
+            },
+            "name": "Odstr\u00e1nenie podriadenej z\u00f3ny"
+        }
+    }
+}

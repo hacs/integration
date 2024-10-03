@@ -1,0 +1,56 @@
+{
+    "exceptions": {
+        "user_not_found": {
+            "message": "Pengguna tidak ditemukan"
+        },
+        "username_already_exists": {
+            "message": "Nama pengguna \"{username}\" sudah ada"
+        },
+        "username_not_normalized": {
+            "message": "Nama pengguna \"{new_username}\" tidak dinormalisasi. Pastikan nama pengguna menggunakan huruf kecil dan tidak mengandung spasi."
+        }
+    },
+    "issues": {
+        "deprecated_legacy_api_password": {
+            "description": "Penyedia autentikasi kata sandi API lama sudah tidak digunakan lagi dan akan dihapus. Hapus dari konfigurasi YAML Anda dan gunakan penyedia autentikasi bawaan Home Assistant sebagai gantinya.",
+            "title": "Kata sandi API lama tidak digunakan lagi"
+        },
+        "homeassistant_provider_not_normalized_usernames": {
+            "description": "Penyedia autentikasi Home Assistant berjalan dalam mode lawas karena kami mendeteksi nama pengguna yang tidak dinormalisasi. Mode lawas sudah tidak digunakan lagi dan akan dihapus. Silakan ubah nama pengguna berikut: \n\n{usernames}\n\nNama pengguna yang dinormalisasi menggunakan huruf kecil (huruf kecil) dan tanpa spasi.",
+            "title": "Nama pengguna yang tidak dinormalisasi telah terdeteksi"
+        }
+    },
+    "mfa_setup": {
+        "notify": {
+            "abort": {
+                "no_available_service": "Tidak ada layanan notifikasi yang tersedia."
+            },
+            "error": {
+                "invalid_code": "Kode tidak valid, coba lagi."
+            },
+            "step": {
+                "init": {
+                    "description": "Pilih salah satu layanan notifikasi:",
+                    "title": "Siapkan kata sandi sekali pakai yang dikirimkan oleh komponen notify"
+                },
+                "setup": {
+                    "description": "Kata sandi sekali pakai telah dikirim melalui **notify.{notify_service}**. Masukkan di bawah ini:",
+                    "title": "Verifikasi penyiapan"
+                }
+            },
+            "title": "Kata Sandi Sekali Pakai Notifikasi"
+        },
+        "totp": {
+            "error": {
+                "invalid_code": "Kode tidak valid, coba lagi. Jika Anda terus mendapatkan kesalahan yang sama, pastikan jam pada sistem Home Assistant Anda sudah akurat."
+            },
+            "step": {
+                "init": {
+                    "description": "Untuk mengaktifkan autentikasi dua faktor menggunakan kata sandi sekali pakai berbasis waktu, pindai kode QR dengan aplikasi autentikasi Anda. Jika tidak punya, kami menyarankan aplikasi [Google Authenticator] (https://support.google.com/accounts/answer/1066447) atau [Authy] (https://authy.com/). \n\n {qr_code} \n \nSetelah memindai kode, masukkan kode enam digit dari aplikasi Anda untuk memverifikasi penyiapan. Jika mengalami masalah saat memindai kode QR, lakukan penyiapan manual dengan kode **`{code}`**.",
+                    "title": "Siapkan autentikasi dua faktor menggunakan TOTP"
+                }
+            },
+            "title": "TOTP"
+        }
+    }
+}

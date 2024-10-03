@@ -1,0 +1,461 @@
+{
+    "common": {
+        "field_brightness_description": "N\u00famero que indica el percentatge de brillantor total, on 0 \u00e9s el llum apagat, 1 \u00e9s la brillantor m\u00ednima i 255 \u00e9s la brillantor m\u00e0xima.",
+        "field_brightness_name": "Valor de brillantor",
+        "field_brightness_pct_description": "N\u00famero que indica el percentatge de brillantor total, on 0 \u00e9s el llum apagat, 1 \u00e9s la brillantor m\u00ednima i 100 \u00e9s la brillantor m\u00e0xima.",
+        "field_brightness_pct_name": "Brillantor",
+        "field_brightness_step_description": "Canvia la brillantor en una quantitat.",
+        "field_brightness_step_name": "Valor del pas de brillantor",
+        "field_brightness_step_pct_description": "Canvia la brillantor en percentatge.",
+        "field_brightness_step_pct_name": "Pas de brillantor",
+        "field_color_name_description": "Nom de color llegible.",
+        "field_color_name_name": "Nom del color",
+        "field_color_temp_description": "Temperatura de color en 'mireds'.",
+        "field_color_temp_name": "Temperatura de color",
+        "field_effect_description": "Efecte de llum.",
+        "field_effect_name": "Efecte",
+        "field_flash_description": "Fa que la llum parpellegi, pot ser de valor curt o llarg.",
+        "field_flash_name": "Flaix",
+        "field_hs_color_description": "Color en format to/saturaci\u00f3. Una llista de dos nombres enters. El to va entre 0 i 360 i la saturaci\u00f3 entre 0 i 100.",
+        "field_hs_color_name": "Color to/saturaci\u00f3",
+        "field_kelvin_description": "Temperatura de color en Kelvin.",
+        "field_kelvin_name": "Temperatura de color",
+        "field_profile_description": "Nom del perfil de llum a utilitzar.",
+        "field_profile_name": "Perfil",
+        "field_rgb_color_description": "Color en format RGB. Llista de tres nombres enters entre 0 i 255 que representen els valors de vermell, verd i blau.",
+        "field_rgb_color_name": "Color",
+        "field_rgbw_color_description": "Color en format RGBW. Llista de quatre nombres enters entre 0 i 255 que representen els valors de vermell, verd, blau i blanc.",
+        "field_rgbw_color_name": "Color RGBW",
+        "field_rgbww_color_description": "Color en format RGBWW. Llista de cinc nombres enters entre 0 i 255 que representen els valors de vermell, verd, blau, blanc fred i blanc c\u00e0lid.",
+        "field_rgbww_color_name": "Color RGBWW",
+        "field_transition_description": "Durada que triga en canviar d'estat.",
+        "field_transition_name": "Transici\u00f3",
+        "field_white_description": "Posa el llum en mode blanc.",
+        "field_white_name": "Blanc",
+        "field_xy_color_description": "Color en format XY. Llista de dos nombres decimals entre 0 i 1.",
+        "field_xy_color_name": "Color XY",
+        "section_advanced_fields_name": "Opcions avan\u00e7ades"
+    },
+    "device_automation": {
+        "action_type": {
+            "brightness_decrease": "Redueix la lluminositat de {entity_name}",
+            "brightness_increase": "Augmenta la lluminositat de {entity_name}",
+            "flash": "Perpelleja {entity_name}",
+            "toggle": "Commuta {entity_name}",
+            "turn_off": "Apaga {entity_name}",
+            "turn_on": "Engega {entity_name}"
+        },
+        "condition_type": {
+            "is_off": "{entity_name} est\u00e0 apagat/ada",
+            "is_on": "{entity_name} est\u00e0 engegat/ada"
+        },
+        "extra_fields": {
+            "brightness_pct": "Brillantor",
+            "flash": "Flaix"
+        },
+        "trigger_type": {
+            "changed_states": "{entity_name} s'engegui o s'apagui",
+            "turned_off": "{entity_name} s'apagui",
+            "turned_on": "{entity_name} s'engegui"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Llum",
+            "state": {
+                "off": "OFF",
+                "on": "ON"
+            },
+            "state_attributes": {
+                "brightness": {
+                    "name": "Lluminositat"
+                },
+                "color_mode": {
+                    "name": "Mode de color",
+                    "state": {
+                        "brightness": "Nom\u00e9s lluminositat",
+                        "color_temp": "Temperatura de color",
+                        "hs": "HS",
+                        "onoff": "ON/OFF",
+                        "rgb": "RGB",
+                        "rgbw": "RGBW",
+                        "rgbww": "RGBWW",
+                        "unknown": "Desconegut",
+                        "white": "Blanc",
+                        "xy": "XY"
+                    }
+                },
+                "color_temp": {
+                    "name": "Temperatura de color (mireds)"
+                },
+                "color_temp_kelvin": {
+                    "name": "Temperatura de color (Kelvin)"
+                },
+                "effect": {
+                    "name": "Efecte"
+                },
+                "effect_list": {
+                    "name": "Efectes disponibles"
+                },
+                "max_color_temp_kelvin": {
+                    "name": "Temperatura de color m\u00e0xima (Kelvin)"
+                },
+                "max_mireds": {
+                    "name": "Temperatura de color m\u00e0xima (mireds)"
+                },
+                "min_color_temp_kelvin": {
+                    "name": "Temperatura de color m\u00ednima (Kelvin)"
+                },
+                "min_mireds": {
+                    "name": "Temperatura de color m\u00ednima (mireds)"
+                },
+                "supported_color_modes": {
+                    "name": "Modes de color disponibles",
+                    "state": {
+                        "brightness": "Nom\u00e9s lluminositat",
+                        "color_temp": "Temperatura de color",
+                        "hs": "HS",
+                        "onoff": "ON/OFF",
+                        "rgb": "RGB",
+                        "rgbw": "RGBW",
+                        "rgbww": "RGBWW",
+                        "unknown": "Desconegut",
+                        "white": "Blanc",
+                        "xy": "XY"
+                    }
+                }
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "La plataforma {platform} de la integraci\u00f3 {domain} no \u00e9s compatible amb la configuraci\u00f3 de la plataforma.\n\nElimina-la de la teva configuraci\u00f3 i reinicia Home Assistant per solucionar aquest problema.",
+            "title": "Suport de la plataforma no compatible"
+        }
+    },
+    "selector": {
+        "color_name": {
+            "options": {
+                "aliceblue": "Blau gris\u00f3s p\u00e0l\u00b7lid",
+                "antiquewhite": "Blanc antic",
+                "aqua": "Aigua",
+                "aquamarine": "Aiguamarina",
+                "azure": "Atzur",
+                "beige": "Beix",
+                "bisque": "Carn",
+                "blanchedalmond": "Ametlla pelada",
+                "blue": "Blau",
+                "blueviolet": "Blau violeta",
+                "brown": "Marr\u00f3",
+                "burlywood": "Fusta nuada",
+                "cadetblue": "Blau cadet",
+                "chartreuse": "Licor Chartreuse",
+                "chocolate": "Xocolata",
+                "coral": "Corall",
+                "cornflowerblue": "Flor blava del blat de moro",
+                "cornsilk": "Seda de blat de moro",
+                "crimson": "Carmes\u00ed",
+                "cyan": "Cian",
+                "darkblue": "Blau fosc",
+                "darkcyan": "Cian fosc",
+                "darkgoldenrod": "Daurat grog\u00f3s fosc",
+                "darkgray": "Gris fosc",
+                "darkgreen": "Verd fosc",
+                "darkgrey": "Gris fosc",
+                "darkkhaki": "Caqui fosc",
+                "darkmagenta": "Magenta fosc",
+                "darkolivegreen": "Verd oliva fosc",
+                "darkorange": "Taronja fosc",
+                "darkorchid": "Orqu\u00eddia fosc",
+                "darkred": "Vermell fosc",
+                "darksalmon": "Salm\u00f3 fosc",
+                "darkseagreen": "Verd mar\u00ed fosc",
+                "darkslateblue": "Blau pissarra fosc",
+                "darkslategray": "Gris pissarra fosc",
+                "darkslategrey": "Gris pissarra fosc",
+                "darkturquoise": "Turquesa fosc",
+                "darkviolet": "Violeta fosc",
+                "deeppink": "Rosa intens",
+                "deepskyblue": "Blau cel profund",
+                "dimgray": "Gris fosc",
+                "dimgrey": "Gris fosc",
+                "dodgerblue": "Blau escorred\u00eds",
+                "firebrick": "Ma\u00f3",
+                "floralwhite": "Blanc floral",
+                "forestgreen": "Verd bosc",
+                "fuchsia": "F\u00facsia",
+                "gainsboro": "Gris clar",
+                "ghostwhite": "Blanc fantasma",
+                "gold": "Daurat",
+                "goldenrod": "Daurat grog\u00f3s",
+                "gray": "Gris",
+                "green": "Verd",
+                "greenyellow": "Verd groc",
+                "grey": "Gris",
+                "homeassistant": "Home Assistant",
+                "honeydew": "Blanc verd\u00f3s",
+                "hotpink": "Rosa calent",
+                "indianred": "Vermell indi",
+                "indigo": "Anyil",
+                "ivory": "Marfil",
+                "khaki": "Caqui",
+                "lavender": "Lavanda",
+                "lavenderblush": "Lavanda p\u00e0l\u00b7lid",
+                "lawngreen": "Verd gespa",
+                "lemonchiffon": "Llimona p\u00e0l\u00b7lid",
+                "lightblue": "Blau clar",
+                "lightcoral": "Corall clar",
+                "lightcyan": "Cian clar",
+                "lightgoldenrodyellow": "Daurat grog\u00f3s clar",
+                "lightgray": "Gris clar",
+                "lightgreen": "Verd clar",
+                "lightgrey": "Gris clar",
+                "lightpink": "Rosa clar",
+                "lightsalmon": "Salm\u00f3 clar",
+                "lightseagreen": "Verd mar\u00ed clar",
+                "lightskyblue": "Blau cel clar",
+                "lightslategray": "Gris pissarra clar",
+                "lightslategrey": "Gris pissarra clar",
+                "lightsteelblue": "Blau met\u00e0l\u00b7lic clar",
+                "lightyellow": "Groc clar",
+                "lime": "Llima",
+                "limegreen": "Verd llima",
+                "linen": "Lli",
+                "magenta": "Magenta",
+                "maroon": "Granat",
+                "mediumaquamarine": "Aiguamarina mitj\u00e0",
+                "mediumblue": "Blau mitj\u00e0",
+                "mediumorchid": "Orqu\u00eddia mitj\u00e0",
+                "mediumpurple": "Lila mitj\u00e0",
+                "mediumseagreen": "Verd mar\u00ed mitj\u00e0",
+                "mediumslateblue": "Blau pissarra mitj\u00e0",
+                "mediumspringgreen": "Verd primaveral mitj\u00e0",
+                "mediumturquoise": "Turquesa mitj\u00e0",
+                "mediumvioletred": "Vermell violeta mitj\u00e0",
+                "midnightblue": "Blau mitjanit",
+                "mintcream": "Crema de menta",
+                "mistyrose": "Boira rosa",
+                "moccasin": "Mocass\u00ed",
+                "navajowhite": "Blanc navajo",
+                "navy": "Mar\u00ed",
+                "navyblue": "Blau mar\u00ed",
+                "oldlace": "Lla\u00e7 vell",
+                "olive": "Oliva",
+                "olivedrab": "Oliva apagada",
+                "orange": "Taronja",
+                "orangered": "Vermell ataronjat",
+                "orchid": "Orqu\u00eddia",
+                "palegoldenrod": "Daurat grog\u00f3s p\u00e0l\u00b7lid",
+                "palegreen": "Verd p\u00e0l\u00b7lid",
+                "paleturquoise": "Turquesa p\u00e0l\u00b7lid",
+                "palevioletred": "Vermell violeta p\u00e0l\u00b7lid",
+                "papayawhip": "Taronja pastel clar",
+                "peachpuff": "Pell de pr\u00e9ssec",
+                "peru": "Per\u00fa",
+                "pink": "Rosa",
+                "plum": "Pruna",
+                "powderblue": "Blauet",
+                "purple": "Lila",
+                "red": "Vermell",
+                "rosybrown": "Marr\u00f3 rosat",
+                "royalblue": "Blau reial",
+                "saddlebrown": "Cuir",
+                "salmon": "Salm\u00f3",
+                "sandybrown": "Marr\u00f3 sorrenc",
+                "seagreen": "Verd mar\u00ed",
+                "seashell": "Blanc rosat",
+                "sienna": "Siena",
+                "silver": "Platejat",
+                "skyblue": "Blau cel",
+                "slateblue": "Blau pissarra",
+                "slategray": "Gris pissarra",
+                "slategrey": "Gris pissarra",
+                "snow": "Neu",
+                "springgreen": "Verd primaveral",
+                "steelblue": "Blau met\u00e0l\u00b7lic",
+                "tan": "Canyella clar",
+                "teal": "Turquesa fosc",
+                "thistle": "Malva",
+                "tomato": "Tom\u00e0quet",
+                "turquoise": "Turquesa",
+                "violet": "Violeta",
+                "wheat": "Blat",
+                "white": "Blanc",
+                "whitesmoke": "Fum blanc",
+                "yellow": "Groc",
+                "yellowgreen": "Verd groc"
+            }
+        }
+    },
+    "services": {
+        "toggle": {
+            "description": "Commuta un o m\u00e9s llums, d'enc\u00e8s a apagat o, d'apagat a enc\u00e8s, en funci\u00f3 del seu estat actual.",
+            "fields": {
+                "brightness": {
+                    "description": "N\u00famero que indica el percentatge de brillantor total, on 0 \u00e9s el llum apagat, 1 \u00e9s la brillantor m\u00ednima i 255 \u00e9s la brillantor m\u00e0xima.",
+                    "name": "Valor de brillantor"
+                },
+                "brightness_pct": {
+                    "description": "N\u00famero que indica el percentatge de brillantor total, on 0 \u00e9s el llum apagat, 1 \u00e9s la brillantor m\u00ednima i 100 \u00e9s la brillantor m\u00e0xima.",
+                    "name": "Brillantor"
+                },
+                "color_name": {
+                    "description": "Nom de color llegible.",
+                    "name": "Nom del color"
+                },
+                "color_temp": {
+                    "description": "Temperatura de color en 'mireds'.",
+                    "name": "Temperatura de color"
+                },
+                "effect": {
+                    "description": "Efecte de llum.",
+                    "name": "Efecte"
+                },
+                "flash": {
+                    "description": "Fa que la llum parpellegi, pot ser de valor curt o llarg.",
+                    "name": "Flaix"
+                },
+                "hs_color": {
+                    "description": "Color en format to/saturaci\u00f3. Una llista de dos nombres enters. El to va entre 0 i 360 i la saturaci\u00f3 entre 0 i 100.",
+                    "name": "Color to/saturaci\u00f3"
+                },
+                "kelvin": {
+                    "description": "Temperatura de color en Kelvin.",
+                    "name": "Temperatura de color"
+                },
+                "profile": {
+                    "description": "Nom del perfil de llum a utilitzar.",
+                    "name": "Perfil"
+                },
+                "rgb_color": {
+                    "description": "Color en format RGB. Llista de tres nombres enters entre 0 i 255 que representen els valors de vermell, verd i blau.",
+                    "name": "Color"
+                },
+                "rgbw_color": {
+                    "description": "Color en format RGBW. Llista de quatre nombres enters entre 0 i 255 que representen els valors de vermell, verd, blau i blanc.",
+                    "name": "Color RGBW"
+                },
+                "rgbww_color": {
+                    "description": "Color en format RGBWW. Llista de cinc nombres enters entre 0 i 255 que representen els valors de vermell, verd, blau, blanc fred i blanc c\u00e0lid.",
+                    "name": "Color RGBWW"
+                },
+                "transition": {
+                    "description": "Durada que triga en canviar d'estat.",
+                    "name": "Transici\u00f3"
+                },
+                "white": {
+                    "description": "Posa el llum en mode blanc.",
+                    "name": "Blanc"
+                },
+                "xy_color": {
+                    "description": "Color en format XY. Llista de dos nombres decimals entre 0 i 1.",
+                    "name": "Color XY"
+                }
+            },
+            "name": "Commuta",
+            "sections": {
+                "advanced_fields": {
+                    "name": "Opcions avan\u00e7ades"
+                }
+            }
+        },
+        "turn_off": {
+            "description": "Apaga un o m\u00e9s llums.",
+            "fields": {
+                "flash": {
+                    "description": "Fa que la llum parpellegi, pot ser de valor curt o llarg.",
+                    "name": "Flaix"
+                },
+                "transition": {
+                    "description": "Durada que triga en canviar d'estat.",
+                    "name": "Transici\u00f3"
+                }
+            },
+            "name": "Apaga",
+            "sections": {
+                "advanced_fields": {
+                    "name": "Opcions avan\u00e7ades"
+                }
+            }
+        },
+        "turn_on": {
+            "description": "Enc\u00e9n un o m\u00e9s llums i ajusta'n les propietats, fins i tot quan ja estiguin encesos.",
+            "fields": {
+                "brightness": {
+                    "description": "N\u00famero que indica el percentatge de brillantor total, on 0 \u00e9s el llum apagat, 1 \u00e9s la brillantor m\u00ednima i 255 \u00e9s la brillantor m\u00e0xima.",
+                    "name": "Valor de brillantor"
+                },
+                "brightness_pct": {
+                    "description": "N\u00famero que indica el percentatge de brillantor total, on 0 \u00e9s el llum apagat, 1 \u00e9s la brillantor m\u00ednima i 100 \u00e9s la brillantor m\u00e0xima.",
+                    "name": "Brillantor"
+                },
+                "brightness_step": {
+                    "description": "Canvia la brillantor en una quantitat.",
+                    "name": "Valor del pas de brillantor"
+                },
+                "brightness_step_pct": {
+                    "description": "Canvia la brillantor en percentatge.",
+                    "name": "Pas de brillantor"
+                },
+                "color_name": {
+                    "description": "Nom de color llegible.",
+                    "name": "Nom del color"
+                },
+                "color_temp": {
+                    "description": "Temperatura de color en 'mireds'.",
+                    "name": "Temperatura de color"
+                },
+                "effect": {
+                    "description": "Efecte de llum.",
+                    "name": "Efecte"
+                },
+                "flash": {
+                    "description": "Fa que la llum parpellegi, pot ser de valor curt o llarg.",
+                    "name": "Flaix"
+                },
+                "hs_color": {
+                    "description": "Color en format to/saturaci\u00f3. Una llista de dos nombres enters. El to va entre 0 i 360 i la saturaci\u00f3 entre 0 i 100.",
+                    "name": "Color to/saturaci\u00f3"
+                },
+                "kelvin": {
+                    "description": "Temperatura de color en Kelvin.",
+                    "name": "Temperatura de color"
+                },
+                "profile": {
+                    "description": "Nom del perfil de llum a utilitzar.",
+                    "name": "Perfil"
+                },
+                "rgb_color": {
+                    "description": "Color en format RGB. Llista de tres nombres enters entre 0 i 255 que representen els valors de vermell, verd i blau.",
+                    "name": "Color"
+                },
+                "rgbw_color": {
+                    "name": "Color RGBW"
+                },
+                "rgbww_color": {
+                    "description": "Color en format RGBWW. Llista de cinc nombres enters entre 0 i 255 que representen els valors de vermell, verd, blau, blanc fred i blanc c\u00e0lid.",
+                    "name": "Color RGBWW"
+                },
+                "transition": {
+                    "description": "Durada que triga en canviar d'estat.",
+                    "name": "Transici\u00f3"
+                },
+                "white": {
+                    "description": "Posa el llum en mode blanc.",
+                    "name": "Blanc"
+                },
+                "xy_color": {
+                    "description": "Color en format XY. Llista de dos nombres decimals entre 0 i 1.",
+                    "name": "Color XY"
+                }
+            },
+            "name": "Enc\u00e9n",
+            "sections": {
+                "advanced_fields": {
+                    "name": "Opcions avan\u00e7ades"
+                }
+            }
+        }
+    },
+    "title": "Llum"
+}

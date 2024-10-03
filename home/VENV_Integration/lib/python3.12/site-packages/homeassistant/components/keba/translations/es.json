@@ -1,0 +1,62 @@
+{
+    "services": {
+        "authorize": {
+            "description": "Autoriza un proceso de carga con la etiqueta RFID predefinida del archivo de configuraci\u00f3n.",
+            "name": "Autorizar"
+        },
+        "deauthorize": {
+            "description": "Desautoriza el proceso de carga en curso con la etiqueta RFID predefinida del archivo de configuraci\u00f3n.",
+            "name": "Desautorizar"
+        },
+        "disable": {
+            "description": "Detiene el proceso de carga si la estaci\u00f3n de carga est\u00e1 autorizada.",
+            "name": "Deshabilitar"
+        },
+        "enable": {
+            "description": "Inicia un proceso de carga si la estaci\u00f3n de carga est\u00e1 autorizada.",
+            "name": "Habilitar"
+        },
+        "request_data": {
+            "description": "Solicita un nuevo dato a la estaci\u00f3n de carga.",
+            "name": "Solicitar datos"
+        },
+        "set_current": {
+            "description": "Establece la corriente m\u00e1xima para los procesos de carga.",
+            "fields": {
+                "current": {
+                    "description": "La corriente m\u00e1xima utilizada para el proceso de carga. El valor depende de la configuraci\u00f3n del interruptor DIP y del cable usado de la estaci\u00f3n de carga.",
+                    "name": "Corriente"
+                }
+            },
+            "name": "Ajustar corriente"
+        },
+        "set_energy": {
+            "description": "Establece el objetivo de energ\u00eda despu\u00e9s del cual se detiene el proceso de carga.",
+            "fields": {
+                "energy": {
+                    "description": "El objetivo de energ\u00eda para detener la carga. El ajuste 0 deshabilita el l\u00edmite.",
+                    "name": "Energ\u00eda"
+                }
+            },
+            "name": "Establecer energ\u00eda"
+        },
+        "set_failsafe": {
+            "description": "Establece el modo a prueba de fallos de la estaci\u00f3n de carga. Si todos los par\u00e1metros son 0, el modo a prueba de fallos estar\u00e1 desactivado.",
+            "fields": {
+                "failsafe_fallback": {
+                    "description": "Corriente de retorno que se establecer\u00e1 despu\u00e9s del tiempo de espera.",
+                    "name": "Respaldo a prueba de fallos"
+                },
+                "failsafe_persist": {
+                    "description": "Si failsafe_persist es 0, la opci\u00f3n a prueba de fallos es solo hasta que se reinicie la estaci\u00f3n de carga. Si failsafe_persist es 1, la opci\u00f3n a prueba de fallos sobrevivir\u00e1 a un reinicio.",
+                    "name": "Persistencia a prueba de fallos"
+                },
+                "failsafe_timeout": {
+                    "description": "Tiempo de espera despu\u00e9s del cual se activa el modo a prueba de fallas, si set_current no se ejecut\u00f3 durante este tiempo.",
+                    "name": "Tiempo de espera a prueba de fallos"
+                }
+            },
+            "name": "Establecer a prueba de fallos"
+        }
+    }
+}

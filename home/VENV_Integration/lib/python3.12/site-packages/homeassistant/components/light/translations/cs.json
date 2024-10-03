@@ -1,0 +1,461 @@
+{
+    "common": {
+        "field_brightness_description": "\u010c\u00edslice ud\u00e1vaj\u00edc\u00ed jas, kde 0 zhasne sv\u011btlo, 1 je minim\u00e1ln\u00ed jas a 255 je maxim\u00e1ln\u00ed jas.",
+        "field_brightness_name": "Hodnota jasu",
+        "field_brightness_pct_description": "\u010c\u00edslice ud\u00e1vaj\u00edc\u00ed procento pln\u00e9ho jasu, kde 0 zhasne sv\u011btlo, 1 je minim\u00e1ln\u00ed jas a 100 je maxim\u00e1ln\u00ed jas.",
+        "field_brightness_pct_name": "Jas",
+        "field_brightness_step_description": "Zm\u011bn\u00ed jas o ur\u010ditou hodnotu.",
+        "field_brightness_step_name": "Hodnota kroku jasu",
+        "field_brightness_step_pct_description": "Zm\u011bn\u00ed jas o procenta.",
+        "field_brightness_step_pct_name": "Jas v %",
+        "field_color_name_description": "N\u00e1zev barvy \u010diteln\u00fd pro \u010dlov\u011bka.",
+        "field_color_name_name": "N\u00e1zev barvy",
+        "field_color_temp_description": "Teplota barvy v miredech.",
+        "field_color_temp_name": "Teplota barvy",
+        "field_effect_description": "Sv\u011bteln\u00fd efekt.",
+        "field_effect_name": "Efekt",
+        "field_flash_description": "\u0158ekne sv\u011btlu, aby blikalo; m\u016f\u017ee m\u00edt hodnotu kr\u00e1tkou nebo dlouhou.",
+        "field_flash_name": "Blikat",
+        "field_hs_color_description": "Barva ve form\u00e1tu odst\u00edn/sytost. Seznam dvou cel\u00fdch \u010d\u00edsel. Odst\u00edn je 0-360 a sytost je 0-100.",
+        "field_hs_color_name": "Barva odst\u00edn/sytost",
+        "field_kelvin_description": "Teplota barvy v Kelvinech.",
+        "field_kelvin_name": "Teplota barvy",
+        "field_profile_description": "N\u00e1zev sv\u011bteln\u00e9ho profilu, kter\u00fd se m\u00e1 pou\u017e\u00edt.",
+        "field_profile_name": "Profil",
+        "field_rgb_color_description": "Barva ve form\u00e1tu RGB. Seznam t\u0159\u00ed cel\u00fdch \u010d\u00edsel od 0 do 255 p\u0159edstavuj\u00edc\u00edch hodnoty \u010derven\u00e9, zelen\u00e9 a modr\u00e9.",
+        "field_rgb_color_name": "Barva",
+        "field_rgbw_color_description": "Barva ve form\u00e1tu RGBW. Seznam \u010dty\u0159 cel\u00fdch \u010d\u00edsel od 0 do 255 p\u0159edstavuj\u00edc\u00edch hodnoty \u010derven\u00e9, zelen\u00e9, modr\u00e9 a b\u00edl\u00e9.",
+        "field_rgbw_color_name": "Barva RGBW",
+        "field_rgbww_color_description": "Barva ve form\u00e1tu RGBWW. Seznam p\u011bti cel\u00fdch \u010d\u00edsel od 0 do 255 p\u0159edstavuj\u00edc\u00edch hodnoty \u010derven\u00e9, zelen\u00e9, modr\u00e9, studen\u00e9 b\u00edl\u00e9 a tepl\u00e9 b\u00edl\u00e9.",
+        "field_rgbww_color_name": "Barva RGBWW",
+        "field_transition_description": "Doba p\u0159echodu do dal\u0161\u00edho stavu.",
+        "field_transition_name": "P\u0159echod",
+        "field_white_description": "Nastav\u00ed sv\u011btlo na b\u00edl\u00fd re\u017eim.",
+        "field_white_name": "B\u00edl\u00e1",
+        "field_xy_color_description": "Barva ve form\u00e1tu XY. Seznam dvou desetinn\u00fdch \u010d\u00edsel mezi 0 a 1.",
+        "field_xy_color_name": "Barva XY",
+        "section_advanced_fields_name": "Pokro\u010dil\u00e9 volby"
+    },
+    "device_automation": {
+        "action_type": {
+            "brightness_decrease": "Sn\u00ed\u017eit jas {entity_name}",
+            "brightness_increase": "Zv\u00fd\u0161it jas {entity_name}",
+            "flash": "Bliknout {entity_name}",
+            "toggle": "P\u0159epnout {entity_name}",
+            "turn_off": "Vypnout {entity_name}",
+            "turn_on": "Zapnout {entity_name}"
+        },
+        "condition_type": {
+            "is_off": "{entity_name} je vypnuto",
+            "is_on": "{entity_name} je zapnuto"
+        },
+        "extra_fields": {
+            "brightness_pct": "Jas",
+            "flash": "Blikat"
+        },
+        "trigger_type": {
+            "changed_states": "{entity_name} bylo zapnuto nebo vypnuto",
+            "turned_off": "{entity_name} bylo vypnuto",
+            "turned_on": "{entity_name} bylo zapnuto"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Sv\u011btlo",
+            "state": {
+                "off": "Vypnuto",
+                "on": "Zapnuto"
+            },
+            "state_attributes": {
+                "brightness": {
+                    "name": "Jas"
+                },
+                "color_mode": {
+                    "name": "Re\u017eim barev",
+                    "state": {
+                        "brightness": "Jen jas",
+                        "color_temp": "Teplota barvy",
+                        "hs": "HS",
+                        "onoff": "Zapnuto/Vypnuto",
+                        "rgb": "RGB",
+                        "rgbw": "RGBW",
+                        "rgbww": "RGBWW",
+                        "unknown": "Nezn\u00e1m\u00fd",
+                        "white": "B\u00edl\u00e1",
+                        "xy": "XY"
+                    }
+                },
+                "color_temp": {
+                    "name": "Teplota barvy (v miredech)"
+                },
+                "color_temp_kelvin": {
+                    "name": "Teplota barvy (v Kelvinech)"
+                },
+                "effect": {
+                    "name": "Efekt"
+                },
+                "effect_list": {
+                    "name": "Dostupn\u00e9 efekty"
+                },
+                "max_color_temp_kelvin": {
+                    "name": "Maxim\u00e1ln\u00ed teplota barvy (v Kelvinech)"
+                },
+                "max_mireds": {
+                    "name": "Maxim\u00e1ln\u00ed teplota barvy (v miredech)"
+                },
+                "min_color_temp_kelvin": {
+                    "name": "Minim\u00e1ln\u00ed teplota barvy (v Kelvinech)"
+                },
+                "min_mireds": {
+                    "name": "Minim\u00e1ln\u00ed teplota barvy (v miredech)"
+                },
+                "supported_color_modes": {
+                    "name": "Dostupn\u00e9 re\u017eimy barev",
+                    "state": {
+                        "brightness": "Jen jas",
+                        "color_temp": "Teplota barvy",
+                        "hs": "HS",
+                        "onoff": "Zapnuto/Vypnuto",
+                        "rgb": "RGB",
+                        "rgbw": "RGBW",
+                        "rgbww": "RGBWW",
+                        "unknown": "Nezn\u00e1m\u00fd",
+                        "white": "B\u00edl\u00e1",
+                        "xy": "XY"
+                    }
+                }
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "Platforma {platform} pro integraci {domain} nepodporuje nastaven\u00ed platformy.\n\nOdeberte ji z nastaven\u00ed a restartujte Home Assistanta, abyste tento probl\u00e9m vy\u0159e\u0161ili.",
+            "title": "Podpora platformy nen\u00ed podporov\u00e1na"
+        }
+    },
+    "selector": {
+        "color_name": {
+            "options": {
+                "aliceblue": "Alice blue",
+                "antiquewhite": "Antique white",
+                "aqua": "Aqua",
+                "aquamarine": "Aquamarine",
+                "azure": "Azure",
+                "beige": "Beige",
+                "bisque": "Bisque",
+                "blanchedalmond": "Blanched almond",
+                "blue": "Blue",
+                "blueviolet": "Blue violet",
+                "brown": "Brown",
+                "burlywood": "Burlywood",
+                "cadetblue": "Cadet blue",
+                "chartreuse": "Chartreuse",
+                "chocolate": "Chocolate",
+                "coral": "Coral",
+                "cornflowerblue": "Cornflower blue",
+                "cornsilk": "Cornsilk",
+                "crimson": "Crimson",
+                "cyan": "Cyan",
+                "darkblue": "Dark blue",
+                "darkcyan": "Dark cyan",
+                "darkgoldenrod": "Dark goldenrod",
+                "darkgray": "Dark gray",
+                "darkgreen": "Dark green",
+                "darkgrey": "Dark grey",
+                "darkkhaki": "Dark khaki",
+                "darkmagenta": "Dark magenta",
+                "darkolivegreen": "Dark olive green",
+                "darkorange": "Dark orange",
+                "darkorchid": "Dark orchid",
+                "darkred": "Dark red",
+                "darksalmon": "Dark salmon",
+                "darkseagreen": "Dark sea green",
+                "darkslateblue": "Dark slate blue",
+                "darkslategray": "Dark slate gray",
+                "darkslategrey": "Dark slate grey",
+                "darkturquoise": "Dark turquoise",
+                "darkviolet": "Dark violet",
+                "deeppink": "Deep pink",
+                "deepskyblue": "Deep sky blue",
+                "dimgray": "Dim gray",
+                "dimgrey": "Dim grey",
+                "dodgerblue": "Dodger blue",
+                "firebrick": "Fire brick",
+                "floralwhite": "Floral white",
+                "forestgreen": "Lesn\u00ed zelen\u00e1",
+                "fuchsia": "Fuchsia",
+                "gainsboro": "Gainsboro",
+                "ghostwhite": "Ghost white",
+                "gold": "Gold",
+                "goldenrod": "Goldenrod",
+                "gray": "Gray",
+                "green": "Green",
+                "greenyellow": "Green yellow",
+                "grey": "Grey",
+                "homeassistant": "Home Assistant",
+                "honeydew": "Honeydew",
+                "hotpink": "Hot pink",
+                "indianred": "Indian red",
+                "indigo": "Indigo",
+                "ivory": "Ivory",
+                "khaki": "Khaki",
+                "lavender": "Lavender",
+                "lavenderblush": "Lavender blush",
+                "lawngreen": "Lawn green",
+                "lemonchiffon": "Lemon chiffon",
+                "lightblue": "Light blue",
+                "lightcoral": "Light coral",
+                "lightcyan": "Light cyan",
+                "lightgoldenrodyellow": "Light goldenrod yellow",
+                "lightgray": "Light gray",
+                "lightgreen": "Light green",
+                "lightgrey": "Light grey",
+                "lightpink": "Light pink",
+                "lightsalmon": "Light salmon",
+                "lightseagreen": "Light sea green",
+                "lightskyblue": "Light sky blue",
+                "lightslategray": "Light slate gray",
+                "lightslategrey": "Light slate grey",
+                "lightsteelblue": "Light steel blue",
+                "lightyellow": "Light yellow",
+                "lime": "Lime",
+                "limegreen": "Lime green",
+                "linen": "Linen",
+                "magenta": "Magenta",
+                "maroon": "Maroon",
+                "mediumaquamarine": "Medium aquamarine",
+                "mediumblue": "Medium blue",
+                "mediumorchid": "Medium orchid",
+                "mediumpurple": "Medium purple",
+                "mediumseagreen": "Medium sea green",
+                "mediumslateblue": "Medium slate blue",
+                "mediumspringgreen": "Medium spring green",
+                "mediumturquoise": "Medium turquoise",
+                "mediumvioletred": "Medium violet red",
+                "midnightblue": "Midnight blue",
+                "mintcream": "Mint cream",
+                "mistyrose": "Misty rose",
+                "moccasin": "Moccasin",
+                "navajowhite": "Navajo white",
+                "navy": "Navy",
+                "navyblue": "Navy blue",
+                "oldlace": "Old lace",
+                "olive": "Olive",
+                "olivedrab": "Olive drab",
+                "orange": "Orange",
+                "orangered": "Orange red",
+                "orchid": "Orchid",
+                "palegoldenrod": "Pale goldenrod",
+                "palegreen": "Pale green",
+                "paleturquoise": "Pale turquoise",
+                "palevioletred": "Pale violet red",
+                "papayawhip": "Papaya whip",
+                "peachpuff": "Peach puff",
+                "peru": "Peru",
+                "pink": "Pink",
+                "plum": "Plum",
+                "powderblue": "Powder blue",
+                "purple": "Purple",
+                "red": "Red",
+                "rosybrown": "Rosy brown",
+                "royalblue": "Royal blue",
+                "saddlebrown": "Saddle brown",
+                "salmon": "Salmon",
+                "sandybrown": "Sandy brown",
+                "seagreen": "Sea green",
+                "seashell": "Seashell",
+                "sienna": "Sienna",
+                "silver": "Silver",
+                "skyblue": "Sky blue",
+                "slateblue": "Slate blue",
+                "slategray": "Slate gray",
+                "slategrey": "Slate grey",
+                "snow": "Snow",
+                "springgreen": "Spring green",
+                "steelblue": "Steel blue",
+                "tan": "Tan",
+                "teal": "Teal",
+                "thistle": "Thistle",
+                "tomato": "Tomato",
+                "turquoise": "Turquoise",
+                "violet": "Violet",
+                "wheat": "Wheat",
+                "white": "White",
+                "whitesmoke": "White smoke",
+                "yellow": "Yellow",
+                "yellowgreen": "Yellow green"
+            }
+        }
+    },
+    "services": {
+        "toggle": {
+            "description": "P\u0159ep\u00edn\u00e1 jedno nebo v\u00edce sv\u011btel ze zapnut\u00e9ho na vypnut\u00e9 nebo z vypnut\u00e9ho na zapnut\u00e9 na z\u00e1klad\u011b jejich aktu\u00e1ln\u00edho stavu.",
+            "fields": {
+                "brightness": {
+                    "description": "\u010c\u00edslice ud\u00e1vaj\u00edc\u00ed jas, kde 0 zhasne sv\u011btlo, 1 je minim\u00e1ln\u00ed jas a 255 je maxim\u00e1ln\u00ed jas.",
+                    "name": "Hodnota jasu"
+                },
+                "brightness_pct": {
+                    "description": "\u010c\u00edslice ud\u00e1vaj\u00edc\u00ed procento pln\u00e9ho jasu, kde 0 zhasne sv\u011btlo, 1 je minim\u00e1ln\u00ed jas a 100 je maxim\u00e1ln\u00ed jas.",
+                    "name": "Jas"
+                },
+                "color_name": {
+                    "description": "N\u00e1zev barvy \u010diteln\u00fd pro \u010dlov\u011bka.",
+                    "name": "N\u00e1zev barvy"
+                },
+                "color_temp": {
+                    "description": "Teplota barvy v miredech.",
+                    "name": "Teplota barvy"
+                },
+                "effect": {
+                    "description": "Sv\u011bteln\u00fd efekt.",
+                    "name": "Efekt"
+                },
+                "flash": {
+                    "description": "\u0158ekne sv\u011btlu, aby blikalo; m\u016f\u017ee m\u00edt hodnotu kr\u00e1tkou nebo dlouhou.",
+                    "name": "Blikat"
+                },
+                "hs_color": {
+                    "description": "Barva ve form\u00e1tu odst\u00edn/sytost. Seznam dvou cel\u00fdch \u010d\u00edsel. Odst\u00edn je 0-360 a sytost je 0-100.",
+                    "name": "Barva odst\u00edn/sytost"
+                },
+                "kelvin": {
+                    "description": "Teplota barvy v Kelvinech.",
+                    "name": "Teplota barvy"
+                },
+                "profile": {
+                    "description": "N\u00e1zev sv\u011bteln\u00e9ho profilu, kter\u00fd se m\u00e1 pou\u017e\u00edt.",
+                    "name": "Profil"
+                },
+                "rgb_color": {
+                    "description": "Barva ve form\u00e1tu RGB. Seznam t\u0159\u00ed cel\u00fdch \u010d\u00edsel od 0 do 255 p\u0159edstavuj\u00edc\u00edch hodnoty \u010derven\u00e9, zelen\u00e9 a modr\u00e9.",
+                    "name": "Barva"
+                },
+                "rgbw_color": {
+                    "description": "Barva ve form\u00e1tu RGBW. Seznam \u010dty\u0159 cel\u00fdch \u010d\u00edsel od 0 do 255 p\u0159edstavuj\u00edc\u00edch hodnoty \u010derven\u00e9, zelen\u00e9, modr\u00e9 a b\u00edl\u00e9.",
+                    "name": "Barva RGBW"
+                },
+                "rgbww_color": {
+                    "description": "Barva ve form\u00e1tu RGBWW. Seznam p\u011bti cel\u00fdch \u010d\u00edsel od 0 do 255 p\u0159edstavuj\u00edc\u00edch hodnoty \u010derven\u00e9, zelen\u00e9, modr\u00e9, studen\u00e9 b\u00edl\u00e9 a tepl\u00e9 b\u00edl\u00e9.",
+                    "name": "Barva RGBWW"
+                },
+                "transition": {
+                    "description": "Doba p\u0159echodu do dal\u0161\u00edho stavu.",
+                    "name": "P\u0159echod"
+                },
+                "white": {
+                    "description": "Nastav\u00ed sv\u011btlo na b\u00edl\u00fd re\u017eim.",
+                    "name": "B\u00edl\u00e1"
+                },
+                "xy_color": {
+                    "description": "Barva ve form\u00e1tu XY. Seznam dvou desetinn\u00fdch \u010d\u00edsel mezi 0 a 1.",
+                    "name": "Barva XY"
+                }
+            },
+            "name": "P\u0159epnout",
+            "sections": {
+                "advanced_fields": {
+                    "name": "Pokro\u010dil\u00e9 volby"
+                }
+            }
+        },
+        "turn_off": {
+            "description": "Vypne jedno nebo v\u00edce sv\u011btel.",
+            "fields": {
+                "flash": {
+                    "description": "\u0158ekne sv\u011btlu, aby blikalo; m\u016f\u017ee m\u00edt hodnotu kr\u00e1tkou nebo dlouhou.",
+                    "name": "Blikat"
+                },
+                "transition": {
+                    "description": "Doba p\u0159echodu do dal\u0161\u00edho stavu.",
+                    "name": "P\u0159echod"
+                }
+            },
+            "name": "Vypnout",
+            "sections": {
+                "advanced_fields": {
+                    "name": "Pokro\u010dil\u00e9 volby"
+                }
+            }
+        },
+        "turn_on": {
+            "description": "Zapne jedno nebo v\u00edce sv\u011btel a uprav\u00ed vlastnosti sv\u011btla i kdy\u017e jsou ji\u017e zapnut\u00e1.",
+            "fields": {
+                "brightness": {
+                    "description": "\u010c\u00edslice ud\u00e1vaj\u00edc\u00ed jas, kde 0 zhasne sv\u011btlo, 1 je minim\u00e1ln\u00ed jas a 255 je maxim\u00e1ln\u00ed jas.",
+                    "name": "Hodnota jasu"
+                },
+                "brightness_pct": {
+                    "description": "\u010c\u00edslice ud\u00e1vaj\u00edc\u00ed procento pln\u00e9ho jasu, kde 0 zhasne sv\u011btlo, 1 je minim\u00e1ln\u00ed jas a 100 je maxim\u00e1ln\u00ed jas.",
+                    "name": "Jas"
+                },
+                "brightness_step": {
+                    "description": "Zm\u011bn\u00ed jas o ur\u010ditou hodnotu.",
+                    "name": "Hodnota kroku jasu"
+                },
+                "brightness_step_pct": {
+                    "description": "Zm\u011bn\u00ed jas o procenta.",
+                    "name": "Jas v %"
+                },
+                "color_name": {
+                    "description": "N\u00e1zev barvy \u010diteln\u00fd pro \u010dlov\u011bka.",
+                    "name": "N\u00e1zev barvy"
+                },
+                "color_temp": {
+                    "description": "Teplota barvy v miredech.",
+                    "name": "Teplota barvy"
+                },
+                "effect": {
+                    "description": "Sv\u011bteln\u00fd efekt.",
+                    "name": "Efekt"
+                },
+                "flash": {
+                    "description": "\u0158ekne sv\u011btlu, aby blikalo; m\u016f\u017ee m\u00edt hodnotu kr\u00e1tkou nebo dlouhou.",
+                    "name": "Blikat"
+                },
+                "hs_color": {
+                    "description": "Barva ve form\u00e1tu odst\u00edn/sytost. Seznam dvou cel\u00fdch \u010d\u00edsel. Odst\u00edn je 0-360 a sytost je 0-100.",
+                    "name": "Barva odst\u00edn/sytost"
+                },
+                "kelvin": {
+                    "description": "Teplota barvy v Kelvinech.",
+                    "name": "Teplota barvy"
+                },
+                "profile": {
+                    "description": "N\u00e1zev sv\u011bteln\u00e9ho profilu, kter\u00fd se m\u00e1 pou\u017e\u00edt.",
+                    "name": "Profil"
+                },
+                "rgb_color": {
+                    "description": "Barva ve form\u00e1tu RGB. Seznam t\u0159\u00ed cel\u00fdch \u010d\u00edsel od 0 do 255 p\u0159edstavuj\u00edc\u00edch hodnoty \u010derven\u00e9, zelen\u00e9 a modr\u00e9.",
+                    "name": "Barva"
+                },
+                "rgbw_color": {
+                    "name": "Barva RGBW"
+                },
+                "rgbww_color": {
+                    "description": "Barva ve form\u00e1tu RGBWW. Seznam p\u011bti cel\u00fdch \u010d\u00edsel od 0 do 255 p\u0159edstavuj\u00edc\u00edch hodnoty \u010derven\u00e9, zelen\u00e9, modr\u00e9, studen\u00e9 b\u00edl\u00e9 a tepl\u00e9 b\u00edl\u00e9.",
+                    "name": "Barva RGBWW"
+                },
+                "transition": {
+                    "description": "Doba p\u0159echodu do dal\u0161\u00edho stavu.",
+                    "name": "P\u0159echod"
+                },
+                "white": {
+                    "description": "Nastav\u00ed sv\u011btlo na b\u00edl\u00fd re\u017eim.",
+                    "name": "B\u00edl\u00e1"
+                },
+                "xy_color": {
+                    "description": "Barva ve form\u00e1tu XY. Seznam dvou desetinn\u00fdch \u010d\u00edsel mezi 0 a 1.",
+                    "name": "Barva XY"
+                }
+            },
+            "name": "Zapnout",
+            "sections": {
+                "advanced_fields": {
+                    "name": "Pokro\u010dil\u00e9 volby"
+                }
+            }
+        }
+    },
+    "title": "Sv\u011btlo"
+}

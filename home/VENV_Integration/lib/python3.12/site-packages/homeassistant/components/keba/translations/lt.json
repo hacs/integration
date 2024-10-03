@@ -1,0 +1,62 @@
+{
+    "services": {
+        "authorize": {
+            "description": "\u012egalioja apmokestinimo proces\u0105 su i\u0161 anksto nustatyta konfig\u016bracijos failo RFID \u017eyma.",
+            "name": "\u012egalioti"
+        },
+        "deauthorize": {
+            "description": "Panaikina vykdomo \u012fkrovimo proceso autorizacij\u0105 su i\u0161 anksto nustatyta konfig\u016bracijos failo RFID \u017eyma.",
+            "name": "At\u0161aukti \u012fgaliojim\u0105"
+        },
+        "disable": {
+            "description": "Sustabdo \u012fkrovimo proces\u0105, jei \u012fkrovimo stotis yra \u012fgaliota.",
+            "name": "I\u0161jungti"
+        },
+        "enable": {
+            "description": "Pradeda \u012fkrovimo proces\u0105, jei \u012fkrovimo stotis yra \u012fgaliota.",
+            "name": "\u012egalinti"
+        },
+        "request_data": {
+            "description": "Pra\u0161yti nauj\u0173 duomen\u0173 i\u0161 \u012fkrovimo stoties.",
+            "name": "Pra\u0161yti duomen\u0173"
+        },
+        "set_current": {
+            "description": "Nustatoma maksimali \u012fkrovimo proces\u0173 srov\u0117.",
+            "fields": {
+                "current": {
+                    "description": "Did\u017eiausia srov\u0117, naudojama \u012fkrovimo procesui. Vert\u0117 priklauso nuo DIP jungiklio nustatym\u0173 ir naudojamo \u012fkrovimo stoties kabelio.",
+                    "name": "Srov\u0117"
+                }
+            },
+            "name": "Nustatyti srov\u0119"
+        },
+        "set_energy": {
+            "description": "Nustato energijos tiksl\u0105, po kurio \u012fkrovimo procesas sustoja.",
+            "fields": {
+                "energy": {
+                    "description": "Energijos tikslas sustabdyti \u012fkrovim\u0105. Nusta\u010dius 0 limitas i\u0161jungiamas.",
+                    "name": "Energija"
+                }
+            },
+            "name": "Nustatykite energij\u0105"
+        },
+        "set_failsafe": {
+            "description": "Nustatomas \u012fkrovimo stoties saugus re\u017eimas. Jei visi parametrai yra 0, saugus re\u017eimas bus i\u0161jungtas.",
+            "fields": {
+                "failsafe_fallback": {
+                    "description": "Atsargin\u0117 srov\u0117 turi b\u016bti nustatyta pasibaigus skirtajam laikui.",
+                    "name": "Nesaugus atsarginis variantas"
+                },
+                "failsafe_persist": {
+                    "description": "Jei failsafe_persist yra 0, saugi parinktis veikia tik iki \u012fkrovimo stotel\u0117s perkrovimo. Jei failsafe_persist yra 1, failsafe parinktis i\u0161liks paleidus i\u0161 naujo.",
+                    "name": "Nesaugus veiksnys i\u0161lieka"
+                },
+                "failsafe_timeout": {
+                    "description": "Skirtasis laikas, po kurio \u012fjungiamas saugus re\u017eimas, jei set_current per \u0161\u012f laik\u0105 nebuvo vykdomas.",
+                    "name": "Nesaugus laikas"
+                }
+            },
+            "name": "Nustatykite saug\u0173"
+        }
+    }
+}

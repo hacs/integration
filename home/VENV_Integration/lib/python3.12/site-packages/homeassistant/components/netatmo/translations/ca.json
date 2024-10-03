@@ -1,0 +1,192 @@
+{
+    "config": {
+        "abort": {
+            "authorize_url_timeout": "[%key::common::config_flow::abort::oauth2_authorize_url_timeout%]",
+            "missing_configuration": "[%key::common::config_flow::abort::oauth2_missing_configuration%]",
+            "no_url_available": "No hi ha cap URL disponible. Per a m\u00e9s informaci\u00f3 sobre aquest error, [consulta la secci\u00f3 d'ajuda]({docs_url})",
+            "oauth_error": "S'han rebut dades token inv\u00e0lides.",
+            "oauth_failed": "S'ha produ\u00eft un error en obtenir el 'token' d'acc\u00e9s.",
+            "oauth_timeout": "Temps m\u00e0xim d'espera de resoluci\u00f3 de 'token' OAuth esgotat.",
+            "oauth_unauthorized": "Error d'autoritzaci\u00f3 OAuth durant l'obtenci\u00f3 del 'token' d'acc\u00e9s.",
+            "reauth_successful": "Re-autenticaci\u00f3 realitzada correctament",
+            "single_instance_allowed": "Ja configurat. Nom\u00e9s \u00e9s possible una sola configuraci\u00f3."
+        },
+        "create_entry": {
+            "default": "[%key::common::config_flow::create_entry::authenticated%]"
+        },
+        "step": {
+            "pick_implementation": {
+                "title": "[%key::common::config_flow::title::oauth2_pick_implementation%]"
+            },
+            "reauth_confirm": {
+                "description": "La integraci\u00f3 Netatmo ha de tornar a autenticar-se amb el teu compte",
+                "title": "L'autenticaci\u00f3 de {name} ha caducat"
+            }
+        }
+    },
+    "device_automation": {
+        "trigger_subtype": {
+            "away": "Fora",
+            "hg": "Protecci\u00f3 contra gelades",
+            "schedule": "Programaci\u00f3"
+        },
+        "trigger_type": {
+            "alarm_started": "{entity_name} ha detectat una alarma",
+            "animal": "{entity_name} ha detectat un animal",
+            "cancel_set_point": "{entity_name} ha repr\u00e8s la programaci\u00f3",
+            "human": "{entity_name} ha detectat un hum\u00e0",
+            "movement": "{entity_name} ha detectat moviment",
+            "outdoor": "{entity_name} ha detectat un esdeveniment a fora",
+            "person": "{entity_name} ha detectat una persona",
+            "person_away": "{entity_name} ha detectat una marxant",
+            "set_point": "Temperatura objectiu {entity_name} configurada manualment",
+            "therm_mode": "{entity_name} ha canviar a \"{subtype}\"",
+            "turned_off": "{entity_name} s'apagui",
+            "turned_on": "{entity_name} s'engegui",
+            "vehicle": "{entity_name} ha detectat un vehicle"
+        }
+    },
+    "entity": {
+        "sensor": {
+            "gust_direction": {
+                "state": {
+                    "e": "Est",
+                    "n": "Nord",
+                    "ne": "Nord-est",
+                    "nw": "Nord-oest",
+                    "s": "Sud",
+                    "se": "Sud-est",
+                    "sw": "Sud-oest",
+                    "w": "Oest"
+                }
+            },
+            "health_idx": {
+                "state": {
+                    "fine": "B\u00e9",
+                    "healthy": "Saludable",
+                    "poor": "Pobre",
+                    "unhealthy": "No saludable"
+                }
+            },
+            "noise": {
+                "name": "Soroll"
+            },
+            "sum_rain_1": {
+                "name": "Precipitaci\u00f3 \u00faltima hora"
+            },
+            "sum_rain_24": {
+                "name": "Precipitaci\u00f3 avui"
+            },
+            "temp_trend": {
+                "name": "Tend\u00e8ncia de temperatura"
+            },
+            "wifi_strength": {
+                "name": "Wi-Fi"
+            },
+            "wind_angle": {
+                "name": "Angle del vent"
+            },
+            "wind_direction": {
+                "name": "Direcci\u00f3 del vent",
+                "state": {
+                    "e": "Est",
+                    "n": "Nord",
+                    "ne": "Nord-est",
+                    "nw": "Nord-oest",
+                    "s": "Sud",
+                    "se": "Sud-est",
+                    "sw": "Sud-oest",
+                    "w": "Oest"
+                }
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "public_weather": {
+                "data": {
+                    "area_name": "Nom de l'\u00e0rea",
+                    "lat_ne": "Latitud cantonada nord-est",
+                    "lat_sw": "Latitud cantonada sud-oest",
+                    "lon_ne": "Longitud cantonada nord-est",
+                    "lon_sw": "Longitud cantonada sud-oest",
+                    "mode": "C\u00e0lcul",
+                    "show_on_map": "Mostra al mapa"
+                },
+                "description": "Configura un sensor meteorol\u00f2gic p\u00fablic per a una \u00e0rea.",
+                "title": "Sensor meteorol\u00f2gic p\u00fablic de Netatmo"
+            },
+            "public_weather_areas": {
+                "data": {
+                    "new_area": "Nom d'\u00e0rea",
+                    "weather_areas": "\u00c0rees meteorol\u00f2giques"
+                },
+                "description": "Configura sensors meteorol\u00f2gics p\u00fablics.",
+                "title": "Sensor meteorol\u00f2gic p\u00fablic de Netatmo"
+            }
+        }
+    },
+    "services": {
+        "clear_temperature_setting": {
+            "description": "Esborra qualsevol configuraci\u00f3 de temperatura d'un dispositiu de clima Netatmo tornant-la a la preconfiguraci\u00f3 o programaci\u00f3 actual."
+        },
+        "set_person_away": {
+            "description": "Configura una persona com a fora. Si no es configura cap persona, la casa es marcar\u00e0 com a buida. El nom de les persones ha de coincidir amb els noms coneguts per la c\u00e0mera Netatmo interior (de benvinguda).",
+            "fields": {
+                "person": {
+                    "description": "Nom de la persona.",
+                    "name": "Persona"
+                }
+            },
+            "name": "Configura persona a fora"
+        },
+        "set_persons_home": {
+            "description": "Configura una llista de persones com a casa. El nom de les persones ha de coincidir amb els noms coneguts per la c\u00e0mera Netatmo interior (de benvinguda).",
+            "fields": {
+                "persons": {
+                    "description": "Llista de noms.",
+                    "name": "Persones"
+                }
+            },
+            "name": "Configura persones a casa"
+        },
+        "set_preset_mode_with_end_datetime": {
+            "description": "Estableix el mode de preconfiguraci\u00f3 d'un dispositiu de clima Netatmo. El mode de preconfiguraci\u00f3 ha de coincidir amb un mode de preconfiguraci\u00f3 configurat a Netatmo.",
+            "fields": {
+                "end_datetime": {
+                    "description": "Data i hora fins a la qual la preconfiguraci\u00f3 estar\u00e0 activa.",
+                    "name": "Data i hora final"
+                },
+                "preset_mode": {
+                    "description": "Mode de preconfiguraci\u00f3 del clima, com ara Programaci\u00f3, A fora o Protecci\u00f3 contra gelades.",
+                    "name": "Mode preconfiguraci\u00f3"
+                }
+            },
+            "name": "Configura el mode preconfiguraci\u00f3 amb la data i hora de finalitzaci\u00f3"
+        },
+        "set_schedule": {
+            "fields": {
+                "schedule_name": {
+                    "name": "Programaci\u00f3"
+                }
+            }
+        },
+        "set_temperature_with_end_datetime": {
+            "fields": {
+                "end_datetime": {
+                    "name": "Data i hora final"
+                },
+                "target_temperature": {
+                    "name": "Temperatura objectiu"
+                }
+            }
+        },
+        "set_temperature_with_time_period": {
+            "fields": {
+                "target_temperature": {
+                    "name": "Temperatura objectiu"
+                }
+            }
+        }
+    }
+}

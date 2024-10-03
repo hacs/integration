@@ -1,0 +1,56 @@
+{
+    "config": {
+        "abort": {
+            "cloud_not_connected": "Nie je pripojen\u00e9 k Home Assistant Cloud.",
+            "single_instance_allowed": "U\u017e je nakonfigurovan\u00fd. Mo\u017en\u00e1 je len jedna konfigur\u00e1cia.",
+            "webhook_not_internet_accessible": "Va\u0161a in\u0161tancia Home Assistant mus\u00ed by\u0165 pr\u00edstupn\u00e1 z internetu, aby ste mohli prij\u00edma\u0165 spr\u00e1vy webhooku."
+        },
+        "create_entry": {
+            "default": "Ak chcete odosla\u0165 udalosti Home Assistant, budete musie\u0165 pou\u017ei\u0165 akciu \"Vytvori\u0165 webov\u00fa \u017eiados\u0165\" z [apletu IFTTT Webhook]({applet_url}).\n\nVypl\u0148te nasleduj\u00face inform\u00e1cie: \n\n - URL: `{webhook_url}`\n - Met\u00f3da: POST\n - Typ obsahu: application/json \n\nPozrite si [dokument\u00e1ciu]({docs_url}), ako nakonfigurova\u0165 automatiz\u00e1ciu na spracovanie prich\u00e1dzaj\u00facich \u00fadajov."
+        },
+        "step": {
+            "user": {
+                "description": "Naozaj chcete nastavi\u0165 IFTTT?",
+                "title": "Nastavte IFTTT Webhook Applet"
+            }
+        }
+    },
+    "services": {
+        "push_alarm_state": {
+            "description": "Aktualizuje stav alarmu na zadan\u00fa hodnotu.",
+            "fields": {
+                "entity_id": {
+                    "description": "N\u00e1zov zabezpe\u010dovacej \u00fastredne, ktorej stav sa m\u00e1 aktualizova\u0165.",
+                    "name": "ID entity"
+                },
+                "state": {
+                    "description": "Stav, do ktor\u00e9ho m\u00e1 by\u0165 \u00fastred\u0148a nastaven\u00e1.",
+                    "name": "Stav"
+                }
+            },
+            "name": "Push stavu alarmu"
+        },
+        "trigger": {
+            "description": "Spust\u00ed nakonfigurovan\u00fd webhook IFTTT.",
+            "fields": {
+                "event": {
+                    "description": "N\u00e1zov udalosti na odoslanie.",
+                    "name": "Udalos\u0165"
+                },
+                "value1": {
+                    "description": "V\u0161eobecn\u00e9 pole na odosielanie \u00fadajov prostredn\u00edctvom udalosti.",
+                    "name": "Hodnota 1"
+                },
+                "value2": {
+                    "description": "V\u0161eobecn\u00e9 pole na odosielanie \u00fadajov prostredn\u00edctvom udalosti.",
+                    "name": "Hodnota 2"
+                },
+                "value3": {
+                    "description": "V\u0161eobecn\u00e9 pole na odosielanie \u00fadajov prostredn\u00edctvom udalosti.",
+                    "name": "Hodnota 3"
+                }
+            },
+            "name": "Sp\u00fa\u0161\u0165a\u010d"
+        }
+    }
+}

@@ -1,0 +1,117 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Le compte est d\u00e9j\u00e0 configur\u00e9"
+        },
+        "error": {
+            "missing_keep_last_sample": "La configuration du capteur doit fournir \u00ab\u00a0max_age\u00a0\u00bb si \u00ab\u00a0keep_last_sample\u00a0\u00bb est vrai",
+            "missing_max_age_or_sampling_size": "La configuration du capteur doit fournir \u00ab\u00a0max_age\u00a0\u00bb et/ou \u00ab\u00a0sampling_size\u00a0\u00bb"
+        },
+        "step": {
+            "options": {
+                "data": {
+                    "keep_last_sample": "Conserver le dernier \u00e9chantillon",
+                    "max_age": "\u00c2ge maximum",
+                    "percentile": "Centile",
+                    "precision": "Pr\u00e9cision",
+                    "sampling_size": "Taille de l'\u00e9chantillon"
+                },
+                "data_description": {
+                    "keep_last_sample": "D\u00e9finit si la valeur \u00e9chantillonn\u00e9e la plus r\u00e9cente doit \u00eatre conserv\u00e9e quel que soit le param\u00e8tre \u00ab\u00a0\u00e2ge maximum\u00a0\u00bb.",
+                    "max_age": "\u00c2ge maximum des mesures du capteur source stock\u00e9es.",
+                    "percentile": "Uniquement pertinent en combinaison avec la caract\u00e9ristique \u00ab\u00a0centile\u00a0\u00bb. Doit \u00eatre une valeur comprise entre 1 et 99.",
+                    "precision": "D\u00e9finit le nombre de d\u00e9cimales de la valeur calcul\u00e9e du capteur.",
+                    "sampling_size": "Nombre maximum de mesures de capteur source stock\u00e9es."
+                },
+                "description": "Lisez la documentation pour plus de d\u00e9tails sur la fa\u00e7on de configurer le capteur de statistiques \u00e0 l'aide de ces options."
+            },
+            "state_characteristic": {
+                "data_description": {
+                    "state_characteristic": "Caract\u00e9ristique qui doit \u00eatre utilis\u00e9e comme \u00e9tat du capteur statistique."
+                },
+                "description": "Lisez la documentation pour plus de d\u00e9tails sur les options disponibles et comment les utiliser."
+            },
+            "user": {
+                "data": {
+                    "entity_id": "Entit\u00e9",
+                    "name": "Nom"
+                },
+                "data_description": {
+                    "entity_id": "Entit\u00e9 \u00e0 partir de laquelle obtenir des statistiques.",
+                    "name": "Nom de l'entit\u00e9 cr\u00e9\u00e9e."
+                },
+                "description": "Ajouter un capteur de statistiques"
+            }
+        }
+    },
+    "issues": {
+        "deprecation_warning_characteristic": {
+            "description": "Le param\u00e8tre de configuration `state_characteristic` de l'int\u00e9gration des statistiques deviendra obligatoire. \n\nVeuillez ajouter `state_characteristic\u00a0: {characteristic}` \u00e0 la configuration du capteur `{entity}` pour conserver le comportement actuel. \n\nLisez la documentation de l'int\u00e9gration des statistiques pour plus de d\u00e9tails\u00a0: https://www.home-assistant.io/integrations/statistics/",
+            "title": "'state_characteristic' obligatoire pour une entit\u00e9 Statistics"
+        },
+        "deprecation_warning_size": {
+            "description": "Le param\u00e8tre de configuration \"sampling_size\" de l'int\u00e9gration des statistiques avait jusqu'\u00e0 pr\u00e9sent la valeur 20 par d\u00e9faut, ce qui va changer. \n\nVeuillez v\u00e9rifier la configuration du capteur `{entity}` et ajouter des limites adapt\u00e9es, par exemple, `sampling_size\u00a0: 20` pour conserver le comportement actuel. La configuration de l'int\u00e9gration des statistiques deviendra plus flexible avec la version 2022.12.0 et acceptera `sampling_size` ou `max_age`, ou les deux param\u00e8tres. La demande ci-dessus pr\u00e9pare votre configuration pour ce changement autrement cassant. \n\nLisez la documentation de l'int\u00e9gration des statistiques pour plus de d\u00e9tails\u00a0: https://www.home-assistant.io/integrations/statistics/",
+            "title": "'sampling_size' implicite pour une entit\u00e9 Statistics"
+        }
+    },
+    "options": {
+        "abort": {
+            "already_configured": "Le compte est d\u00e9j\u00e0 configur\u00e9"
+        },
+        "error": {
+            "missing_keep_last_sample": "La configuration du capteur doit fournir \u00ab\u00a0max_age\u00a0\u00bb si \u00ab\u00a0keep_last_sample\u00a0\u00bb est vrai",
+            "missing_max_age_or_sampling_size": "La configuration du capteur doit fournir \u00ab\u00a0max_age\u00a0\u00bb et/ou \u00ab\u00a0sampling_size\u00a0\u00bb"
+        },
+        "step": {
+            "init": {
+                "data": {
+                    "keep_last_sample": "Conserver le dernier \u00e9chantillon",
+                    "max_age": "\u00c2ge maximum",
+                    "percentile": "Centile",
+                    "precision": "Pr\u00e9cision",
+                    "sampling_size": "Taille de l'\u00e9chantillon"
+                },
+                "data_description": {
+                    "keep_last_sample": "D\u00e9finit si la valeur \u00e9chantillonn\u00e9e la plus r\u00e9cente doit \u00eatre conserv\u00e9e quel que soit le param\u00e8tre \u00ab\u00a0\u00e2ge maximum\u00a0\u00bb.",
+                    "max_age": "\u00c2ge maximum des mesures du capteur source stock\u00e9es.",
+                    "percentile": "Uniquement pertinent en combinaison avec la caract\u00e9ristique \u00ab\u00a0centile\u00a0\u00bb. Doit \u00eatre une valeur comprise entre 1 et 99.",
+                    "precision": "D\u00e9finit le nombre de d\u00e9cimales de la valeur calcul\u00e9e du capteur.",
+                    "sampling_size": "Nombre maximum de mesures de capteur source stock\u00e9es."
+                },
+                "description": "Lisez la documentation pour plus de d\u00e9tails sur la fa\u00e7on de configurer le capteur de statistiques \u00e0 l'aide de ces options."
+            }
+        }
+    },
+    "selector": {
+        "state_characteristic": {
+            "options": {
+                "average_linear": "Moyenne lin\u00e9aire",
+                "average_step": "Pas moyen",
+                "datetime_newest": "Date/heure la plus r\u00e9cente",
+                "datetime_oldest": "Date/heure la plus ancienne",
+                "distance_95_percent_of_values": "Distance 95\u2009% des valeurs",
+                "distance_99_percent_of_values": "Distance 99\u2009% des valeurs",
+                "distance_absolute": "Distance absolue",
+                "mean": "Moyenne",
+                "mean_circular": "Moyenne circulaire",
+                "median": "M\u00e9diane",
+                "noisiness": "Bruit",
+                "percentile": "Centile",
+                "standard_deviation": "\u00c9cart-type",
+                "sum": "Somme",
+                "sum_differences": "Somme des diff\u00e9rences",
+                "sum_differences_nonnegative": "Somme des diff\u00e9rences non n\u00e9gative",
+                "total": "Total",
+                "value_max": "Valeur maximale",
+                "value_min": "Valeur minimale",
+                "variance": "Variance"
+            }
+        }
+    },
+    "services": {
+        "reload": {
+            "description": "Recharge les capteurs de statistiques \u00e0 partir de la configuration YAML.",
+            "name": "Recharger"
+        }
+    }
+}

@@ -1,0 +1,57 @@
+{
+    "issues": {
+        "maria_db_range_index_regression": {
+            "description": "Oudere versies van MariaDB presteren slecht wanneer historische gegevens worden opgehaald of wanneer de database wordt opgeschoond. Werk MariaDB bij naar minimaal versie {min_version} of recenter en herstart Home Assistant. Wanneer je de MariaDB core add-on gebruik, werk deze dan bij naar de laatste versie.",
+            "title": "Update MariaDB naar {min_version} of hoger om een belangrijk performance probleem op te lossen"
+        }
+    },
+    "services": {
+        "disable": {
+            "description": "Stopt de opname van gebeurtenissen en statuswijzigingen.",
+            "name": "Uitschakelen"
+        },
+        "enable": {
+            "description": "Start de opname van gebeurtenissen en statuswijzigingen.",
+            "name": "Inschakelen"
+        },
+        "purge": {
+            "description": "Start de opschoontaak - om oude gegevens uit uw database op te schonen.",
+            "fields": {
+                "apply_filter": {
+                    "name": "Filter toepassen"
+                },
+                "keep_days": {
+                    "description": "Aantal dagen om de gegevens in de database te bewaren. Beginnend vanaf vandaag, terugtellen. Een waarde van `7` betekent dat alles ouder dan een week zal worden opgeschoond.",
+                    "name": "Dagen om te bewaren"
+                },
+                "repack": {
+                    "description": "Probeer schijfruimte te besparen door het hele databasebestand te herschrijven.",
+                    "name": "Herverpakken"
+                }
+            },
+            "name": "Opschonen"
+        },
+        "purge_entities": {
+            "description": "Start een opschoontaak om de gegevens met betrekking tot specifieke entiteiten uit de database te verwijderen.",
+            "fields": {
+                "domains": {
+                    "description": "Lijst met domeinen waarvan de gegevens uit de recorderdatabase moeten worden verwijderd.",
+                    "name": "Domeinen om te verwijderen"
+                },
+                "entity_globs": {
+                    "description": "Lijst met glob-patronen die worden gebruikt om de entiteiten te selecteren waarvan de gegevens uit de recorderdatabase moeten worden verwijderd.",
+                    "name": "Entiteitsglobs om te verwijderen"
+                },
+                "entity_id": {
+                    "description": "Lijst van entiteiten waarvan de data verwijderd moet worden uit de recorderdatabase.",
+                    "name": "Te verwijderen entiteiten"
+                },
+                "keep_days": {
+                    "description": "Aantal dagen dat de gegevens moeten worden bewaard voor rijen die overeenkomen met het filter. Vanaf vandaag, terugtellend. Een waarde van `7` betekent dat alles ouder dan een week wordt opgeschoond. De standaardwaarde van 0 dagen zal alle overeenkomende rijen onmiddellijk verwijderen.",
+                    "name": "Dagen om te bewaren"
+                }
+            },
+            "name": "Entiteiten opschonen"
+        }
+    }
+}

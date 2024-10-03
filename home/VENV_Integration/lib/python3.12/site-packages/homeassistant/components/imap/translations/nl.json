@@ -1,0 +1,160 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Apparaat is al geconfigureerd",
+            "reauth_successful": "Herauthenticatie geslaagd"
+        },
+        "error": {
+            "cannot_connect": "Kan geen verbinding maken",
+            "invalid_auth": "Ongeldige authenticatie",
+            "invalid_charset": "De opgegeven tekenset wordt niet ondersteund",
+            "invalid_folder": "De geselecteerde map is ongeldig",
+            "invalid_search": "De geselecteerde zoekopdracht is ongeldig"
+        },
+        "step": {
+            "reauth_confirm": {
+                "data": {
+                    "password": "Wachtwoord"
+                },
+                "description": "Het wachtwoord voor {username} is onjuist.",
+                "title": "Authenticatie is verlopen voor {name}"
+            },
+            "user": {
+                "data": {
+                    "charset": "Karakterset",
+                    "folder": "Map",
+                    "password": "Wachtwoord",
+                    "port": "Poort",
+                    "search": "IMAP zoekopdracht",
+                    "server": "Server",
+                    "ssl_cipher_list": "SSL encryptiesleutellijst (geavanceerd)",
+                    "username": "Gebruikersnaam",
+                    "verify_ssl": "SSL-certificaat verifi\u00ebren"
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "copy_failed": {
+            "message": "Het kopi\u00ebren van het bericht is mislukt met \"{error}\"."
+        },
+        "imap_server_fail": {
+            "message": "De IMAP server kon geen verbinding maken: {error}."
+        },
+        "invalid_auth": {
+            "message": "Ongeldige authenticatie"
+        },
+        "invalid_entry": {
+            "message": "Geen valide IMAP configuratie invoer gevonden."
+        },
+        "invalid_folder": {
+            "message": "De geselecteerde map is ongeldig"
+        },
+        "seen_failed": {
+            "message": "Het markeren van het bericht als gezien is mislukt met \"{error}\"."
+        }
+    },
+    "options": {
+        "error": {
+            "cannot_connect": "Kan geen verbinding maken",
+            "invalid_auth": "Ongeldige authenticatie",
+            "invalid_charset": "De opgegeven tekenset wordt niet ondersteund",
+            "invalid_folder": "De geselecteerde map is ongeldig",
+            "invalid_search": "De geselecteerde zoekopdracht is ongeldig",
+            "invalid_template": "Ongeldig template"
+        },
+        "step": {
+            "init": {
+                "data": {
+                    "custom_event_data_template": "Template voor aangepaste event data",
+                    "enable_push": "Schakel Push-IMAP in als de server dit ondersteunt. Schakel uit als Push-IMAP-updates onbetrouwbaar zijn",
+                    "event_message_data": "Berichtgegevens om op te nemen in de `imap_content' event data:",
+                    "folder": "Map",
+                    "max_message_size": "Max berichtgrootte (2048 < grootte < 30000)",
+                    "search": "IMAP zoekopdracht"
+                }
+            }
+        }
+    },
+    "selector": {
+        "event_message_data": {
+            "options": {
+                "headers": "Bericht headers",
+                "text": "Berichttekst"
+            }
+        },
+        "ssl_cipher_list": {
+            "options": {
+                "intermediate": "Aangepaste encryptiesleutels",
+                "modern": "Moderne encryptiesleutels",
+                "python_default": "Standaardinstellingen"
+            }
+        }
+    },
+    "services": {
+        "delete": {
+            "description": "Verwijder een email.",
+            "fields": {
+                "entry": {
+                    "description": "De IMAP configuratie invoer.",
+                    "name": "Configuratie invoer"
+                },
+                "uid": {
+                    "description": "De email identificatie (UID).",
+                    "name": "UID"
+                }
+            },
+            "name": "Verwijder bericht"
+        },
+        "fetch": {
+            "description": "Een e-mailbericht ophalen van de server.",
+            "fields": {
+                "entry": {
+                    "description": "De IMAP configuratie.",
+                    "name": "Configuratie"
+                },
+                "uid": {
+                    "description": "De e-mail identificatie (UID).",
+                    "name": "UID"
+                }
+            },
+            "name": "Ophalen bericht"
+        },
+        "move": {
+            "description": "Verplaats een e-mail naar een doelmap.",
+            "fields": {
+                "entry": {
+                    "description": "De IMAP configuratie invoer.",
+                    "name": "Configuratie invoer"
+                },
+                "seen": {
+                    "description": "Bericht markeren als gelezen.",
+                    "name": "Gelezen"
+                },
+                "target_folder": {
+                    "description": "De doelmap waarnaar de e-mail moet worden verplaatst.",
+                    "name": "Doelmap"
+                },
+                "uid": {
+                    "description": "De email identificatie (UID).",
+                    "name": "UID"
+                }
+            },
+            "name": "Bericht verplaatsen"
+        },
+        "seen": {
+            "description": "Bericht markeren als gelezen.",
+            "fields": {
+                "entry": {
+                    "description": "De IMAP configuratie invoer.",
+                    "name": "Configuratie invoer"
+                },
+                "uid": {
+                    "description": "De email identificatie (UID).",
+                    "name": "UID"
+                }
+            },
+            "name": "Bericht markeren als gelezen"
+        }
+    }
+}

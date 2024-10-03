@@ -1,0 +1,112 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Zariadenie u\u017e je nakonfigurovan\u00e9"
+        },
+        "error": {
+            "cannot_connect": "Nepodarilo sa pripoji\u0165",
+            "invalid_auth": "Neplatn\u00e9 overenie"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "password": "Heslo",
+                    "url": "URL",
+                    "username": "Pou\u017e\u00edvate\u013esk\u00e9 meno",
+                    "verify_ssl": "Overi\u0165 SSL certifik\u00e1t"
+                }
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "active_torrents": {
+                "name": "Akt\u00edvne torrenty"
+            },
+            "all_torrents": {
+                "name": "V\u0161etky torrenty"
+            },
+            "current_status": {
+                "name": "Stav",
+                "state": {
+                    "downloading": "S\u0165ahovanie",
+                    "idle": "Ne\u010dinn\u00e1",
+                    "seeding": "Posielanie",
+                    "up_down": "Hore/dole"
+                }
+            },
+            "download_speed": {
+                "name": "R\u00fdchlos\u0165 s\u0165ahovania"
+            },
+            "inactive_torrents": {
+                "name": "Neakt\u00edvne torrenty"
+            },
+            "paused_torrents": {
+                "name": "Pozastaven\u00e9 torrenty"
+            },
+            "transmission_status": {
+                "name": "Stav",
+                "state": {
+                    "downloading": "S\u0165ahovanie",
+                    "idle": "Ne\u010dinn\u00e1",
+                    "seeding": "Posielanie",
+                    "up_down": "Up/Down"
+                }
+            },
+            "upload_speed": {
+                "name": "R\u00fdchlos\u0165 odosielania"
+            }
+        },
+        "switch": {
+            "alternative_speed": {
+                "name": "Alternat\u00edvna r\u00fdchlos\u0165"
+            }
+        }
+    },
+    "exceptions": {
+        "cannot_connect": {
+            "message": "Ned\u00e1 sa pripoji\u0165 k QBittorrent, skontrolujte svoju konfigur\u00e1ciu."
+        },
+        "invalid_device": {
+            "message": "Nebolo n\u00e1jden\u00e9 \u017eiadne zariadenie s id {device_id}"
+        },
+        "invalid_entry_id": {
+            "message": "Nebol n\u00e1jden\u00fd \u017eiadny z\u00e1znam s id {device_id}"
+        },
+        "login_error": {
+            "message": "Vyskytla sa chyba prihl\u00e1senia. Skontrolujte, pros\u00edm, svoje pou\u017e\u00edvate\u013esk\u00e9 meno a heslo."
+        }
+    },
+    "issues": {
+        "deprecated_yaml": {
+            "description": "Konfigur\u00e1cia qBittorrent pomocou YAML sa odstra\u0148uje. \n\n Va\u0161a existuj\u00faca konfigur\u00e1cia YAML bola importovan\u00e1 do pou\u017e\u00edvate\u013esk\u00e9ho rozhrania automaticky. \n\n Odstr\u00e1\u0148te konfigur\u00e1ciu qBittorrent YAML zo s\u00faboru configuration.yaml a re\u0161tartujte Home Assistant, aby ste tento probl\u00e9m vyrie\u0161ili.",
+            "title": "Konfigur\u00e1cia qBittorrent YAML sa odstra\u0148uje"
+        }
+    },
+    "services": {
+        "get_all_torrents": {
+            "description": "Z\u00edska zoznam aktu\u00e1lnych torrentov zo v\u0161etk\u00fdch in\u0161tanci\u00ed qBittorrent",
+            "fields": {
+                "torrent_filter": {
+                    "description": "Ak\u00fd druh torrentov chcete vr\u00e1ti\u0165, napr\u00edklad V\u0161etky alebo Akt\u00edvne.",
+                    "name": "Torrentov\u00fd filter"
+                }
+            },
+            "name": "Z\u00edskajte v\u0161etky torrenty"
+        },
+        "get_torrents": {
+            "description": "Z\u00edska zoznam aktu\u00e1lnych torrentov",
+            "fields": {
+                "device_id": {
+                    "description": "Z ktorej slu\u017eby prevzia\u0165 zoznam",
+                    "name": "Zariadenie"
+                },
+                "torrent_filter": {
+                    "description": "Ak\u00fd druh torrentov chcete vr\u00e1ti\u0165, napr\u00edklad V\u0161etky alebo Akt\u00edvne.",
+                    "name": "Torrentov\u00fd filter"
+                }
+            },
+            "name": "Z\u00edskajte torrenty"
+        }
+    }
+}

@@ -1,0 +1,277 @@
+{
+    "common": {
+        "state_not_supported": "St\u00f6ds inte",
+        "state_supported": "St\u00f6ds"
+    },
+    "config": {
+        "error": {
+            "already_configured": "Enheten \u00e4r redan konfigurerad",
+            "cannot_connect": "Det gick inte att ansluta.",
+            "id_exists": "Gateway-ID finns redan",
+            "timeout_connect": "Timeout vid uppr\u00e4ttande av anslutning"
+        },
+        "step": {
+            "init": {
+                "data": {
+                    "device": "S\u00f6kv\u00e4g eller URL",
+                    "id": "ID",
+                    "name": "Namn"
+                }
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "hot_water": {
+                "name": "Hetvatten"
+            },
+            "low_water_pressure": {
+                "name": "L\u00e5gt vattentryck"
+            },
+            "service_required": {
+                "name": "Service kr\u00e4vs"
+            },
+            "supports_central_heating_setpoint_transfer": {
+                "state": {
+                    "off": "St\u00f6ds inte",
+                    "on": "St\u00f6ds"
+                }
+            },
+            "supports_central_heating_setpoint_writing": {
+                "state": {
+                    "off": "St\u00f6ds inte",
+                    "on": "St\u00f6ds"
+                }
+            },
+            "supports_ch_2": {
+                "state": {
+                    "off": "St\u00f6ds inte",
+                    "on": "St\u00f6ds"
+                }
+            },
+            "supports_cooling": {
+                "name": "St\u00f6d f\u00f6r kylning",
+                "state": {
+                    "off": "St\u00f6ds inte",
+                    "on": "St\u00f6ds"
+                }
+            },
+            "supports_hot_water": {
+                "name": "St\u00f6d f\u00f6r Hetvatten",
+                "state": {
+                    "off": "St\u00f6ds inte",
+                    "on": "St\u00f6ds"
+                }
+            },
+            "supports_hot_water_setpoint_transfer": {
+                "state": {
+                    "off": "St\u00f6ds inte",
+                    "on": "St\u00f6ds"
+                }
+            },
+            "supports_hot_water_setpoint_writing": {
+                "state": {
+                    "off": "St\u00f6ds inte",
+                    "on": "St\u00f6ds"
+                }
+            },
+            "supports_pump_control": {
+                "state": {
+                    "off": "St\u00f6ds inte",
+                    "on": "St\u00f6ds"
+                }
+            },
+            "supports_remote_reset": {
+                "state": {
+                    "off": "St\u00f6ds inte",
+                    "on": "St\u00f6ds"
+                }
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "floor_temperature": "Golvtemperatur",
+                    "read_precision": "L\u00e4sprecision",
+                    "set_precision": "St\u00e4ll in precision",
+                    "temporary_override_mode": "Tempor\u00e4rt l\u00e4ge f\u00f6r \u00e5sidos\u00e4ttning av b\u00f6rv\u00e4rde"
+                }
+            }
+        }
+    },
+    "services": {
+        "reset_gateway": {
+            "description": "\u00c5terst\u00e4ller din OpenTherm Gateway.",
+            "fields": {
+                "gateway_id": {
+                    "description": "Gateway-ID f\u00f6r OpenTherm Gateway.",
+                    "name": "Gateway-ID"
+                }
+            },
+            "name": "\u00c5terst\u00e4ll gateway"
+        },
+        "send_transparent_command": {
+            "description": "Skickar anpassade otgw-kommandon (https://otgw.tclcode.com/firmware.html) via ett transparent gr\u00e4nssnitt.",
+            "fields": {
+                "gateway_id": {
+                    "description": "Gateway-ID f\u00f6r OpenTherm Gateway.",
+                    "name": "Gateway-ID"
+                }
+            }
+        },
+        "set_central_heating_ovrd": {
+            "description": "St\u00e4ller in alternativet f\u00f6r \u00e5sidos\u00e4ttning av centralv\u00e4rme p\u00e5 gatewayen. Vid \u00e5sidos\u00e4ttande av b\u00f6rv\u00e4rdet (via ett set_control_setpoint-serviceanrop med ett v\u00e4rde annat \u00e4n 0) aktiverar gatewayen automatiskt \u00e5sidos\u00e4ttandet av centralv\u00e4rmen f\u00f6r att starta uppv\u00e4rmningen. Denna tj\u00e4nst kan sedan anv\u00e4ndas f\u00f6r att styra statusen f\u00f6r centralv\u00e4rmens \u00e5sidos\u00e4ttning. F\u00f6r att \u00e5terf\u00f6ra kontrollen av centralv\u00e4rmen till termostaten, anropa set_control_setpoint-tj\u00e4nsten med temperaturv\u00e4rdet 0. Du beh\u00f6ver bara anv\u00e4nda detta l\u00e4ge om du skriver din egen mjukvarutermostat.",
+            "fields": {
+                "ch_override": {
+                    "description": "Det \u00f6nskade booleska v\u00e4rdet f\u00f6r \u00e5sidos\u00e4ttning av centralv\u00e4rmen.",
+                    "name": "\u00c5sidos\u00e4ttning av centralv\u00e4rme"
+                },
+                "gateway_id": {
+                    "description": "Gateway-ID f\u00f6r OpenTherm Gateway.",
+                    "name": "Gateway-ID"
+                }
+            },
+            "name": "St\u00e4ll in \u00e5sidos\u00e4ttning av centralv\u00e4rme"
+        },
+        "set_clock": {
+            "description": "St\u00e4ller in klocka och veckodag p\u00e5 den anslutna termostaten.",
+            "fields": {
+                "date": {
+                    "description": "(Valfritt) datum fr\u00e5n vilket veckodagen kommer att extraheras. Standardv\u00e4rdet \u00e4r idag.",
+                    "name": "Datum"
+                },
+                "gateway_id": {
+                    "description": "Gateway-ID f\u00f6r OpenTherm Gateway.",
+                    "name": "Gateway-ID"
+                },
+                "time": {
+                    "description": "Valfri tid i 24h-format som kommer att ges till termostaten. Standard \u00e4r den aktuella tiden.",
+                    "name": "Tid"
+                }
+            },
+            "name": "St\u00e4ll in klocka"
+        },
+        "set_control_setpoint": {
+            "description": "St\u00e4ller in b\u00f6rv\u00e4rdet som anv\u00e4nds av gatewayens \u00e5sidos\u00e4ttning av centralv\u00e4rmen. Du beh\u00f6ver bara anv\u00e4nda detta om du skriver din egen mjukvarutermostat.",
+            "fields": {
+                "gateway_id": {
+                    "description": "Gateway-ID f\u00f6r OpenTherm Gateway.",
+                    "name": "Gateway-ID"
+                },
+                "temperature": {
+                    "description": "Det b\u00f6rv\u00e4rde f\u00f6r centralv\u00e4rme som ska st\u00e4llas in p\u00e5 gatewayen. V\u00e4rden mellan 0 och 90 accepteras, men inte alla v\u00e4rmepannor st\u00f6der detta intervall. Ett v\u00e4rde p\u00e5 0 inaktiverar \u00e5sidos\u00e4ttning av b\u00f6rv\u00e4rdet f\u00f6r centralv\u00e4rme.",
+                    "name": "Temperatur"
+                }
+            },
+            "name": "St\u00e4ll in b\u00f6rv\u00e4rde"
+        },
+        "set_gpio_mode": {
+            "description": "\u00c4ndrar funktionen f\u00f6r gatewayens GPIO-stift.",
+            "fields": {
+                "gateway_id": {
+                    "description": "Gateway-ID f\u00f6r OpenTherm Gateway.",
+                    "name": "Gateway-ID"
+                },
+                "id": {
+                    "description": "ID f\u00f6r GPIO-stiftet.",
+                    "name": "ID"
+                },
+                "mode": {
+                    "description": "L\u00e4ge som ska st\u00e4llas in p\u00e5 GPIO-stiftet. V\u00e4rdena 0 till 6 accepteras f\u00f6r b\u00e5da GPIO-stiften, 7 accepteras endast f\u00f6r GPIO \"B\". Se https://www.home-assistant.io/integrations/opentherm_gw/#gpio-modes f\u00f6r en f\u00f6rklaring av v\u00e4rdena.",
+                    "name": "L\u00e4ge"
+                }
+            },
+            "name": "St\u00e4ll in GPIO-l\u00e4ge"
+        },
+        "set_hot_water_ovrd": {
+            "description": "St\u00e4ller in alternativet f\u00f6r aktivering av varmvatten p\u00e5 gatewayen.",
+            "fields": {
+                "dhw_override": {
+                    "description": "Kontrollera aktiveringsalternativet f\u00f6r varmvatten. Om v\u00e4rmepannan har konfigurerats f\u00f6r att l\u00e5ta rumsenheten styra n\u00e4r en liten m\u00e4ngd vatten ska f\u00f6rv\u00e4rmas, kan detta kommando p\u00e5verka detta. V\u00e4rdet ska vara 0 eller 1 f\u00f6r att aktivera \u00e5sidos\u00e4ttning i av- eller p\u00e5l\u00e4ge, eller \"A\" f\u00f6r att inaktivera \u00e5sidos\u00e4ttningen.",
+                    "name": "\u00c5sidos\u00e4ttande av varmvatten"
+                },
+                "gateway_id": {
+                    "description": "Gateway-ID f\u00f6r OpenTherm Gateway.",
+                    "name": "Gateway-ID"
+                }
+            },
+            "name": "St\u00e4ll in \u00e5sidos\u00e4ttning av varmvatten"
+        },
+        "set_hot_water_setpoint": {
+            "description": "St\u00e4ller in b\u00f6rv\u00e4rdet f\u00f6r varmvatten p\u00e5 gatewayen.",
+            "fields": {
+                "gateway_id": {
+                    "description": "Gateway-ID f\u00f6r OpenTherm Gateway.",
+                    "name": "Gateway-ID"
+                },
+                "temperature": {
+                    "description": "Det b\u00f6rv\u00e4rde f\u00f6r varmvatten som ska st\u00e4llas in p\u00e5 gatewayen. Alla v\u00e4rmepannor st\u00f6der inte denna funktion. V\u00e4rden mellan 0 och 90 accepteras, men inte alla v\u00e4rmepannor st\u00f6der detta intervall. Kontrollera v\u00e4rdena f\u00f6r sensorerna slave_dhw_min_setp och slave_dhw_max_setp f\u00f6r att se vilket intervall som st\u00f6ds av din v\u00e4rmepanna.",
+                    "name": "Temperatur"
+                }
+            },
+            "name": "St\u00e4ll in b\u00f6rv\u00e4rde f\u00f6r varmvatten"
+        },
+        "set_led_mode": {
+            "description": "\u00c4ndrar funktionen f\u00f6r gatewayens LED-dioder.",
+            "fields": {
+                "gateway_id": {
+                    "description": "Gateway-ID f\u00f6r OpenTherm Gateway.",
+                    "name": "Gateway-ID"
+                },
+                "id": {
+                    "description": "ID f\u00f6r LED-dioden.",
+                    "name": "ID"
+                },
+                "mode": {
+                    "description": "Funktion som ska tilldelas LED-dioden. Se https://www.home-assistant.io/integrations/opentherm_gw/#led-modes f\u00f6r en f\u00f6rklaring av v\u00e4rdena.",
+                    "name": "L\u00e4ge"
+                }
+            },
+            "name": "St\u00e4ll in l\u00e4ge f\u00f6r LED-dioder"
+        },
+        "set_max_modulation": {
+            "description": "\u00c5sidos\u00e4tter den maximala relativa moduleringsniv\u00e5n. Du beh\u00f6ver bara detta om du skriver din egen mjukvarutermostat.",
+            "fields": {
+                "gateway_id": {
+                    "description": "Gateway-ID f\u00f6r OpenTherm Gateway.",
+                    "name": "Gateway-ID"
+                },
+                "level": {
+                    "description": "Moduleringsniv\u00e5n som ska skickas till gatewayen. Ange ett v\u00e4rde p\u00e5 -1 f\u00f6r att ta bort \u00e5sidos\u00e4ttningen och vidarebefordra v\u00e4rdet fr\u00e5n termostaten igen.",
+                    "name": "Niv\u00e5"
+                }
+            },
+            "name": "St\u00e4ll in max modulation"
+        },
+        "set_outside_temperature": {
+            "description": "Tillhandah\u00e5ller en utetemperatur till termostaten. Om din termostat inte kan visa en utetemperatur och inte st\u00f6der OTC (Outside Temperature Correction), har detta ingen effekt.",
+            "fields": {
+                "gateway_id": {
+                    "description": "Gateway-ID f\u00f6r OpenTherm Gateway.",
+                    "name": "Gateway-ID"
+                },
+                "temperature": {
+                    "description": "Den temperatur som ska anges till termostaten. V\u00e4rden mellan -40,0 och 64,0 accepteras, men det \u00e4r inte alla termostater som kan visa hela intervallet. Alla v\u00e4rden \u00f6ver 64,0 kommer att radera det tidigare konfigurerade v\u00e4rdet (f\u00f6rslag: 99)",
+                    "name": "Temperatur"
+                }
+            },
+            "name": "St\u00e4ll in utetemperatur"
+        },
+        "set_setback_temperature": {
+            "description": "Konfigurerar s\u00e4nkningstemperaturen som ska anv\u00e4ndas med GPIO-funktionen f\u00f6r bortal\u00e4ge.",
+            "fields": {
+                "gateway_id": {
+                    "description": "Gateway-ID f\u00f6r OpenTherm Gateway.",
+                    "name": "Gateway-ID"
+                },
+                "temperature": {
+                    "description": "S\u00e4nkningstemperaturen som ska konfigureras p\u00e5 gatewayen.",
+                    "name": "Temperatur"
+                }
+            },
+            "name": "St\u00e4ll in s\u00e4nkningstemperatur"
+        }
+    }
+}

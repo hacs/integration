@@ -1,0 +1,74 @@
+{
+    "config": {
+        "abort": {
+            "reauth_successful": "Op\u011btovn\u00e9 ov\u011b\u0159en\u00ed bylo \u00fasp\u011b\u0161n\u00e9"
+        },
+        "error": {
+            "cannot_connect": "Nepoda\u0159ilo se p\u0159ipojit",
+            "invalid_auth": "Neplatn\u00e9 ov\u011b\u0159en\u00ed",
+            "unknown": "Neo\u010dek\u00e1van\u00e1 chyba"
+        },
+        "step": {
+            "api": {
+                "data": {
+                    "api_key": "Kl\u00ed\u010d API"
+                },
+                "description": "Z\u00edskejte sv\u016fj API kl\u00ed\u010d [zde]({api_key_url})."
+            },
+            "reauth_confirm": {
+                "description": "V\u00e1\u0161 aktu\u00e1ln\u00ed kl\u00ed\u010d API: {api_key} ji\u017e nen\u00ed platn\u00fd. Zadejte nov\u00fd platn\u00fd kl\u00ed\u010d API.",
+                "title": "Platnost ov\u011b\u0159en\u00ed pro {name} vypr\u0161ela"
+            },
+            "user": {
+                "data": {
+                    "api_key": "Kl\u00ed\u010d API",
+                    "llm_hass_api": "Ovl\u00e1d\u00e1n\u00ed Home Assistanta"
+                }
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "chat_model": "Model",
+                    "dangerous_block_threshold": "Propaguje, usnad\u0148uje nebo podn\u011bcuje \u0161kodliv\u00e9 jedn\u00e1n\u00ed",
+                    "harassment_block_threshold": "Negativn\u00ed nebo \u0161kodliv\u00e9 koment\u00e1\u0159e zam\u011b\u0159en\u00e9 na identitu nebo chr\u00e1n\u011bn\u00e9 atributy",
+                    "hate_block_threshold": "Obsah, kter\u00fd je hrub\u00fd, neuctiv\u00fd nebo vulg\u00e1rn\u00ed",
+                    "llm_hass_api": "Ovl\u00e1d\u00e1n\u00ed Home Assistanta",
+                    "max_tokens": "Maxim\u00e1ln\u00ed po\u010det token\u016f, kter\u00e9 se maj\u00ed vr\u00e1tit jako odpov\u011b\u010f",
+                    "model": "Model",
+                    "prompt": "Instrukce",
+                    "recommended": "Doporu\u010den\u00e1 nastaven\u00ed modelu",
+                    "sexual_block_threshold": "Obsahuje odkazy na sexu\u00e1ln\u00ed akty nebo jin\u00fd oplzl\u00fd obsah",
+                    "temperature": "Teplota",
+                    "tone_prompt": "T\u00f3n",
+                    "top_k": "Top K",
+                    "top_p": "Top P"
+                },
+                "data_description": {
+                    "prompt": "Dal\u0161\u00ed data, kter\u00e1 maj\u00ed b\u00fdt poskytnuta LLM. M\u016f\u017ee to b\u00fdt \u0161ablona.",
+                    "tone_prompt": "Pokyny pro LLM o stylu generovan\u00e9ho textu. M\u016f\u017ee to b\u00fdt \u0161ablona."
+                }
+            }
+        }
+    },
+    "services": {
+        "generate_content": {
+            "description": "Vygeneruje obsah z dotazu sest\u00e1vaj\u00edc\u00ed z textu a voliteln\u011b obr\u00e1zk\u016f.",
+            "fields": {
+                "image_filename": {
+                    "description": "Obr\u00e1zky",
+                    "example": "/config/www/image.jpg",
+                    "name": "N\u00e1zev souboru obr\u00e1zku"
+                },
+                "prompt": {
+                    "description": "Dotaz",
+                    "example": "Popi\u0161te, co vid\u00edte na t\u011bchto obr\u00e1zc\u00edch",
+                    "name": "Dotaz"
+                }
+            },
+            "name": "Vygenerovat obsah"
+        }
+    }
+}

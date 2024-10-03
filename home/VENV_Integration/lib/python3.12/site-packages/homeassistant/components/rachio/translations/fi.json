@@ -1,0 +1,110 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Laite on jo m\u00e4\u00e4ritetty"
+        },
+        "error": {
+            "cannot_connect": "Yhteyden muodostaminen ep\u00e4onnistui",
+            "invalid_auth": "Virheellinen todennus",
+            "unknown": "Odottamaton virhe"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "api_key": "API-avain"
+                },
+                "title": "Yhdist\u00e4 Rachio -laitteeseesi"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "rain": {
+                "name": "Sade"
+            }
+        },
+        "switch": {
+            "rain_delay": {
+                "name": "Sateen viive"
+            },
+            "standby": {
+                "name": "Valmiustila"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "manual_run_mins": "Kesto minuutteina, kun vy\u00f6hykekytkin aktivoidaan"
+                }
+            }
+        }
+    },
+    "services": {
+        "pause_watering": {
+            "description": "Keskeyt\u00e4 kaikki k\u00e4ynniss\u00e4 olevat alueet tai aikataulut.",
+            "fields": {
+                "devices": {
+                    "description": "Keskeytett\u00e4vien ohjainten nimet. Oletusarvo kaikille tilin valvojille, jos niit\u00e4 ei ole annettu.",
+                    "name": "Laitteet"
+                },
+                "duration": {
+                    "description": "Aika, jona keskeytt\u00e4\u00e4 k\u00e4ynniss\u00e4 olevat aikataulut.",
+                    "name": "Kesto"
+                }
+            },
+            "name": "Keskeyt\u00e4 kastelu"
+        },
+        "resume_watering": {
+            "description": "Jatka keskeytettyj\u00e4 alueajoja tai -aikatauluja.",
+            "fields": {
+                "devices": {
+                    "description": "Jatkettavien ohjainten nimet. Oletusarvo kaikille tilin valvojille, jos niit\u00e4 ei ole annettu.",
+                    "name": "Laitteet"
+                }
+            },
+            "name": "Jatka kastelua"
+        },
+        "set_zone_moisture_percent": {
+            "description": "Asettaa alueen tai alueluettelon kosteusprosentin.",
+            "fields": {
+                "percent": {
+                    "description": "Aseta haluamasi vy\u00f6hykkeen kosteusprosentti.",
+                    "name": "Prosentti"
+                }
+            },
+            "name": "Aseta alueen kosteusprosentti"
+        },
+        "start_multiple_zone_schedule": {
+            "description": "Luo alueiden ja suoritusaikojen mukautetun aikataulun. Huomaa, ett\u00e4 kaikkien alueiden tulisi olla samassa ohjaimessa ongelmien v\u00e4ltt\u00e4miseksi.",
+            "fields": {
+                "duration": {
+                    "description": "Vy\u00f6hykkeen (vy\u00f6hykkeiden) ajamiseen tarvittavien minuuttien m\u00e4\u00e4r\u00e4. Jos annetaan vain 1 kesto, sit\u00e4 k\u00e4ytet\u00e4\u00e4n kaikkiin vy\u00f6hykkeisiin. Jos annetaan luettelo kestoista, kestot koskevat edell\u00e4 lueteltuja vy\u00f6hykkeit\u00e4.",
+                    "name": "Kesto"
+                }
+            },
+            "name": "K\u00e4ynnist\u00e4 useita alueita"
+        },
+        "start_watering": {
+            "description": "K\u00e4ynnist\u00e4 yksitt\u00e4inen alue, aikataulu tai mik\u00e4 tahansa m\u00e4\u00e4r\u00e4 \u00e4lykk\u00e4it\u00e4 letkuajastimia.",
+            "fields": {
+                "duration": {
+                    "description": "Ajettavien minuuttien m\u00e4\u00e4r\u00e4. Sprinklerivy\u00f6hykkeill\u00e4 enimm\u00e4iskesto on 3 tuntia tai 24 tuntia \u00e4lykk\u00e4iss\u00e4 letkuajastimissa. J\u00e4t\u00e4 tyhj\u00e4ksi aikatauluja varten.",
+                    "name": "Kesto"
+                }
+            },
+            "name": "Aloita kastelu"
+        },
+        "stop_watering": {
+            "description": "Pys\u00e4yt\u00e4 kaikki k\u00e4ynniss\u00e4 olevat alueet tai aikataulut.",
+            "fields": {
+                "devices": {
+                    "description": "Pys\u00e4ytett\u00e4vien ohjainten nimi. Oletusarvoisesti kaikki tilin ohjaimet, jos niit\u00e4 ei ole annettu.",
+                    "name": "Laitteet"
+                }
+            },
+            "name": "Lopeta kastelu"
+        }
+    }
+}

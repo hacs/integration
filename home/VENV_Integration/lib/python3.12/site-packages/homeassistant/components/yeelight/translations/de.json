@@ -1,0 +1,192 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Ger\u00e4t ist bereits konfiguriert",
+            "no_devices_found": "Keine Ger\u00e4te im Netzwerk gefunden"
+        },
+        "error": {
+            "cannot_connect": "Verbindung fehlgeschlagen"
+        },
+        "flow_title": "{model} {id} ({host})",
+        "step": {
+            "discovery_confirm": {
+                "description": "M\u00f6chtest du {model} ({host}) einrichten?"
+            },
+            "pick_device": {
+                "data": {
+                    "device": "Ger\u00e4t"
+                }
+            },
+            "user": {
+                "data": {
+                    "host": "Host"
+                },
+                "data_description": {
+                    "host": "Hostname oder IP-Adresse deiner Yeelight Wi-Fi-Gl\u00fchbirne."
+                },
+                "description": "Wenn du den Host leer l\u00e4sst, wird die Erkennung verwendet, um Ger\u00e4te zu finden."
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "nightlight": {
+                "name": "Nachtlicht"
+            }
+        },
+        "light": {
+            "ambilight": {
+                "name": "Ambilight"
+            },
+            "nightlight": {
+                "name": "Nachtlicht"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "model": "Modell",
+                    "nightlight_switch": "Nachtlichtschalter verwenden",
+                    "save_on_change": "Status bei \u00c4nderung speichern",
+                    "transition": "\u00dcbergangszeit (ms)",
+                    "use_music_mode": "Musik-Modus aktivieren"
+                }
+            }
+        }
+    },
+    "selector": {
+        "action": {
+            "options": {
+                "off": "Aus",
+                "recover": "Wiederherstellen",
+                "stay": "Bleiben"
+            }
+        },
+        "mode": {
+            "options": {
+                "color_flow": "Farbfluss",
+                "hsv": "HSV",
+                "last": "Letzte",
+                "moonlight": "Mondlicht",
+                "normal": "Normal",
+                "rgb": "RGB"
+            }
+        }
+    },
+    "services": {
+        "set_auto_delay_off_scene": {
+            "description": "Schaltet das Licht auf die angegebene Helligkeit ein und stellt einen Timer ein, der es nach der angegebenen Anzahl von Minuten wieder ausschaltet. Wenn das Licht aus ist, stelle eine Farbszene ein. Wenn das Licht aus ist, wird es eingeschaltet.",
+            "fields": {
+                "brightness": {
+                    "description": "Der einzustellende Helligkeitswert.",
+                    "name": "Helligkeit"
+                },
+                "minutes": {
+                    "description": "Die Wartezeit, bevor das Licht automatisch ausgeschaltet wird.",
+                    "name": "Minuten"
+                }
+            },
+            "name": "Stelle die Auto-Verz\u00f6gerung aus Szene ein"
+        },
+        "set_color_flow_scene": {
+            "description": "Startet einen Farbfluss. Wenn das Licht aus ist, wird es eingeschaltet.",
+            "fields": {
+                "action": {
+                    "description": "Die Aktion, die ausgef\u00fchrt werden soll, nachdem der Fluss gestoppt wurde.",
+                    "name": "Aktion"
+                },
+                "count": {
+                    "description": "Die H\u00e4ufigkeit, mit der dieser Flow ausgef\u00fchrt werden soll (0 f\u00fcr eine ewige Ausf\u00fchrung).",
+                    "name": "Anzahl"
+                },
+                "transitions": {
+                    "description": "Reihe von \u00dcberg\u00e4ngen f\u00fcr den gew\u00fcnschten Effekt. Beispiele https://yeelight.readthedocs.io/en/stable/flow.html.",
+                    "name": "\u00dcberg\u00e4nge"
+                }
+            },
+            "name": "Stelle die Farbflussszene ein"
+        },
+        "set_color_scene": {
+            "description": "\u00c4ndert das Licht auf die angegebene RGB-Farbe und -Helligkeit. Wenn das Licht aus ist, wird es eingeschaltet.",
+            "fields": {
+                "brightness": {
+                    "description": "Der einzustellende Helligkeitswert.",
+                    "name": "Helligkeit"
+                },
+                "rgb_color": {
+                    "description": "Farbe f\u00fcr das Licht im RGB-Format.",
+                    "name": "RGB-Farbe"
+                }
+            },
+            "name": "Farbszene setzen"
+        },
+        "set_color_temp_scene": {
+            "description": "\u00c4ndert das Licht auf die angegebene Farbtemperatur. Wenn das Licht aus ist, wird es eingeschaltet.",
+            "fields": {
+                "brightness": {
+                    "description": "Der einzustellende Helligkeitswert.",
+                    "name": "Helligkeit"
+                },
+                "kelvin": {
+                    "description": "Farbtemperatur des Lichts in Kelvin.",
+                    "name": "Kelvin"
+                }
+            },
+            "name": "Farbtemperaturszene einstellen"
+        },
+        "set_hsv_scene": {
+            "description": "\u00c4ndert das Licht auf die angegebene HSV-Farbe und -Helligkeit. Wenn das Licht aus ist, wird es eingeschaltet.",
+            "fields": {
+                "brightness": {
+                    "description": "Der einzustellende Helligkeitswert.",
+                    "name": "Helligkeit"
+                },
+                "hs_color": {
+                    "description": "Farbe f\u00fcr das Licht im Hue/Sat-Format. Der Farbton ist 0\u2013359 und der Sat ist 0\u2013100.",
+                    "name": "Farbton/Sat-Farbe"
+                }
+            },
+            "name": "HSV in Szene setzen"
+        },
+        "set_mode": {
+            "description": "Legt eine Betriebsart fest.",
+            "fields": {
+                "mode": {
+                    "description": "Betriebsart.",
+                    "name": "Modus"
+                }
+            },
+            "name": "Modus einstellen"
+        },
+        "set_music_mode": {
+            "description": "Aktiviert oder deaktiviert den Musikmodus.",
+            "fields": {
+                "music_mode": {
+                    "description": "Verwende true oder false, um music_mode zu aktivieren/deaktivieren.",
+                    "name": "Musikmodus"
+                }
+            },
+            "name": "Musikmodus einstellen"
+        },
+        "start_flow": {
+            "description": "Starte einen benutzerdefinierten Flow und verwende \u00dcberg\u00e4nge von https://yeelight.readthedocs.io/en/stable/yeelight.html#flow-objects.",
+            "fields": {
+                "action": {
+                    "description": "Die Aktion, die ausgef\u00fchrt werden soll, nachdem der Fluss gestoppt wurde.",
+                    "name": "Aktion"
+                },
+                "count": {
+                    "description": "Die H\u00e4ufigkeit, mit der dieser Flow ausgef\u00fchrt werden soll (0 f\u00fcr eine ewige Ausf\u00fchrung).",
+                    "name": "Anzahl"
+                },
+                "transitions": {
+                    "description": "Reihe von \u00dcberg\u00e4ngen f\u00fcr den gew\u00fcnschten Effekt. Beispiele https://yeelight.readthedocs.io/en/stable/flow.html.",
+                    "name": "\u00dcberg\u00e4nge"
+                }
+            },
+            "name": "Flow starten"
+        }
+    }
+}

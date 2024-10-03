@@ -1,0 +1,1233 @@
+{
+  "language": "sv",
+  "intents": {
+    "HassTurnOff": {
+      "data": [
+        {
+          "sentences": [
+            "<slå_av> <name>"
+          ]
+        },
+        {
+          "sentences": [
+            "<stäng_gardiner> <name>"
+          ],
+          "response": "cover"
+        },
+        {
+          "sentences": [
+            "<slå_av> (<area> <name> <ljuskällor>|<name> <ljuskällor> [<i_på> <area>])",
+            "<slå_av> <name> [<i_på> <area>]",
+            "<slå_av> <area> <name>"
+          ],
+          "slots": {
+            "domain": "light"
+          },
+          "response": "lights"
+        },
+        {
+          "sentences": [
+            "<slå_av> [<alla>] <ljuskällor> <i_på> <area>",
+            "<slå_av> [<alla>] <area> <ljuskällor>",
+            "<slå_av> <area> [<alla>] <ljuskällor>",
+            "<slå_av> [<alla>] <area>[s]<ljuskällor>"
+          ],
+          "slots": {
+            "domain": "light"
+          },
+          "response": "lights_area"
+        },
+        {
+          "sentences": [
+            "<slå_av> <ljuskällor> <name>"
+          ],
+          "slots": {
+            "domain": "light"
+          },
+          "response": "lights"
+        },
+        {
+          "sentences": [
+            "(regla | <stäng_gardiner>) garagedörren"
+          ],
+          "response": "cover_device_class",
+          "slots": {
+            "device_class": "garage",
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "<stäng_gardiner> <gardiner> <i_på> <area>",
+            "<stäng_gardiner> [<alla>] <area>[s]<gardiner>",
+            "<stäng_gardiner> [<alla>] <area> <gardiner>"
+          ],
+          "response": "cover_area",
+          "slots": {
+            "device_class": [
+              "blind",
+              "curtain",
+              "shutter"
+            ],
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "<slå_av> [alla] (fläkten | fläktar | fläktarna) <i_på> <area>"
+          ],
+          "slots": {
+            "domain": "fan",
+            "name": "all"
+          }
+        }
+      ]
+    },
+    "HassCancelTimer": {
+      "data": [
+        {
+          "sentences": [
+            "<timer_cancel> <timer>",
+            "<timer_cancel> <timer_start_time>[s] <timer>",
+            "<timer_cancel> <timer> på <timer_start_time>",
+            "<timer_cancel> <area>[ ]<timer>",
+            "<timer_cancel> <timer> i <area>",
+            "<timer_cancel> {timer_name:name} <timer>",
+            "<timer_cancel> <timer> {timer_name:name}"
+          ]
+        }
+      ]
+    },
+    "HassTimerStatus": {
+      "data": [
+        {
+          "sentences": [
+            "(<timers>|<timer>) status",
+            "status på [min[a] ](<timers>|<timer>)",
+            "[<time_left> ]tid [är det ]kvar på [min[a] |mitt ](<timers>|<timer>)",
+            "<timer_start_time>[s] <timer> status",
+            "status[ på] <timer_start_time>[s] <timers>",
+            "[<time_left> ]tid [är det ]kvar på <timer_start_time>[s] <timer>",
+            "[<time_left> ]tid [är det ]kvar på <timer> [(på|med) ]<timer_start_time>",
+            "<area>[ ](<timer>|<timers>) status",
+            "status [på ]<area>[ ](<timers>|<timer>)",
+            "status på (<timers>|<timer>) i <area>",
+            "[<time_left> ]tid[ är det] kvar på[ min[a]|mitt ] <area>[s][ ](<timers>|<timer>)",
+            "[<time_left> ]tid[ är det] kvar på[ min[a]|mitt ] (<timers>|<timer>) i <area>",
+            "{timer_name:name}[ ]<timer>[ ]status",
+            "status på[min[a] |mitt ] {timer_name:name} <timers>",
+            "[<time_left> ]tid[ är det] kvar på[ min|mitt ] {timer_name:name}[ ]<timer>"
+          ]
+        }
+      ]
+    },
+    "HassGetWeather": {
+      "data": [
+        {
+          "sentences": [
+            "hur (är|ser) vädret [ut]",
+            "<vad> väder"
+          ]
+        },
+        {
+          "sentences": [
+            "hur (är|ser) vädret [ut] i {name}",
+            "<vad> väder i {name}"
+          ],
+          "requires_context": {
+            "domain": "weather"
+          }
+        }
+      ]
+    },
+    "HassGetCurrentTime": {
+      "data": [
+        {
+          "sentences": [
+            "(<vad>|hur mycket är) klockan [[just] nu]"
+          ]
+        }
+      ]
+    },
+    "HassTurnOn": {
+      "data": [
+        {
+          "sentences": [
+            "<slå_på> (<area> <name> <ljuskällor>|<name> <ljuskällor> [<i_på> <area>])",
+            "<slå_på> <name> [<i_på>] <area>",
+            "<slå_på> <area> <name>"
+          ],
+          "slots": {
+            "domain": "light"
+          },
+          "response": "lights"
+        },
+        {
+          "sentences": [
+            "<slå_på> [<alla>] <ljuskällor> <i_på> <area>",
+            "<slå_på> [<alla>] <area> <ljuskällor>",
+            "<slå_på>  <area> [<alla>] <ljuskällor>",
+            "<slå_på> [<alla>] <area>[s]<ljuskällor>"
+          ],
+          "slots": {
+            "domain": "light"
+          },
+          "response": "lights_area"
+        },
+        {
+          "sentences": [
+            "<slå_på> <ljuskällor> <name>"
+          ],
+          "slots": {
+            "domain": "light"
+          },
+          "response": "lights"
+        },
+        {
+          "sentences": [
+            "<slå_på> [alla] (fläkten | fläktar | fläktarna) <i_på> <area>"
+          ],
+          "slots": {
+            "domain": "fan",
+            "name": "all"
+          }
+        },
+        {
+          "sentences": [
+            "<slå_på> <name>"
+          ],
+          "excludes_context": {
+            "domain": "vacuum"
+          }
+        },
+        {
+          "sentences": [
+            "<öppna_gardiner> <name>"
+          ],
+          "response": "cover"
+        },
+        {
+          "sentences": [
+            "<öppna_gardiner> garagedörren"
+          ],
+          "response": "cover_device_class",
+          "slots": {
+            "device_class": "garage",
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "<öppna_gardiner> <gardiner> <i_på> <area>",
+            "<öppna_gardiner> <alla> <area><gardiner>",
+            "<öppna_gardiner> <alla> <area> <gardiner>"
+          ],
+          "response": "cover_area",
+          "slots": {
+            "device_class": [
+              "blind",
+              "curtain",
+              "shutter"
+            ],
+            "domain": "cover"
+          }
+        }
+      ]
+    },
+    "HassMediaUnpause": {
+      "data": [
+        {
+          "sentences": [
+            "återuppta [på] <name>",
+            "fortsätt på <name>"
+          ],
+          "requires_context": {
+            "domain": "media_player"
+          }
+        }
+      ]
+    },
+    "HassShoppingListAddItem": {
+      "data": [
+        {
+          "sentences": [
+            "lägg [till] <item> (till|i) <my_list>"
+          ],
+          "response": "item_added",
+          "expansion_rules": {
+            "my_list": "[min ][inköps]lista[n]",
+            "item": "{shopping_list_item:item}"
+          }
+        }
+      ]
+    },
+    "HassNevermind": {
+      "data": [
+        {
+          "sentences": [
+            "glöm det"
+          ]
+        }
+      ]
+    },
+    "HassGetCurrentDate": {
+      "data": [
+        {
+          "sentences": [
+            "(<vad>) (datum|dag) [(idag|i dag)]"
+          ]
+        }
+      ]
+    },
+    "HassIncreaseTimer": {
+      "data": [
+        {
+          "sentences": [
+            "lägg till <timer_duration> till <timer>",
+            "lägg till <timer_duration> till <timer> på <timer_start_time>",
+            "lägg till <timer_duration> till <timer_start_time>[s][ ]<timer>",
+            "lägg till <timer_duration> till <area>[ ]<timer>",
+            "lägg till <timer_duration> till <timer> i <area>",
+            "lägg till <timer_duration> till {timer_name:name} <timer>",
+            "lägg till <timer_duration> till <timer>[ <timer_named>] {timer_name:name}"
+          ]
+        },
+        {
+          "sentences": [
+            "<timer_increase> <timer> med <timer_duration>",
+            "<timer_increase> <timer_start_time>[s][ ]<timer> med <timer_duration>",
+            "<timer_increase> <timer> på <timer_start_time> med <timer_duration>",
+            "<timer_increase> <area>[ ]<timer> med <timer_duration>",
+            "<timer_increase> <timer> i <area> med <timer_duration>",
+            "<timer_increase> {timer_name:name}[ ]<timer> med <timer_duration>",
+            "<timer_increase> <timer> [<timer_named> ]{timer_name:name} med <timer_duration>"
+          ]
+        }
+      ]
+    },
+    "HassLightSet": {
+      "data": [
+        {
+          "sentences": [
+            "[<dimra>] [upp | ner] <name> [<ljusintensitet>] till <brightness>",
+            "[<dimra>] [upp | ner] <name> till <brightness> [<ljusintensitet>]",
+            "<name> [upp | ner ] [till] <brightness> [<ljusintensitet>]"
+          ],
+          "response": "brightness"
+        },
+        {
+          "sentences": [
+            "[<dimra>] [upp | ner] [<alla>] <ljuskällor> [<i_på>] <area> [upp | ner ] till <brightness> [<ljusintensitet>]",
+            "[<dimra>] [upp | ner] [<alla>] <ljuskällor> till <brightness> i <area>"
+          ],
+          "slots": {
+            "name": "all"
+          },
+          "response": "brightness_area"
+        },
+        {
+          "sentences": [
+            "[<dimra>] [upp | ner] <name> [<ljusintensitet>] till {brightness_level:brightness} [<möjliga>]",
+            "[<dimra>] [upp | ner] <name> till {brightness_level:brightness} [<möjliga>] [<ljusintensitet>]",
+            "<name> [upp ] [till] {brightness_level:brightness} [<möjliga>] [<ljusintensitet>]"
+          ],
+          "response": "brightness"
+        },
+        {
+          "sentences": [
+            "{brightness_level:brightness} [<möjliga>] <ljusintensitet> <i_på> <area>",
+            "[<dimra>] [upp | ner] [<alla>] <ljuskällor> till {brightness_level:brightness} [<möjliga>] <i_på> <area>",
+            "[<dimra>] [upp | ner] [<alla>] <ljuskällor> <i_på> <area> till {brightness_level:brightness} [<möjliga>]",
+            "[upp | ner] till {brightness_level:brightness} [<möjliga>] <ljusintensitet> <i_på> <area>"
+          ],
+          "slots": {
+            "name": "all"
+          },
+          "response": "brightness_area"
+        },
+        {
+          "sentences": [
+            "<färga> <name> [till] {color}"
+          ],
+          "response": "color"
+        },
+        {
+          "sentences": [
+            "{color} ljus i <area>"
+          ],
+          "slots": {
+            "name": "all"
+          },
+          "response": "color_area"
+        }
+      ]
+    },
+    "HassMediaNext": {
+      "data": [
+        {
+          "sentences": [
+            "[spela ]nästa [spår ] på <name>"
+          ],
+          "requires_context": {
+            "domain": "media_player"
+          }
+        }
+      ]
+    },
+    "HassPauseTimer": {
+      "data": [
+        {
+          "sentences": [
+            "pausa <timer>",
+            "pausa <area> <timer>",
+            "pausa <timer_start_time>[s] <timer>",
+            "pausa <timer> på <timer_start_time>",
+            "pausa <timer> i <area>",
+            "pausa {timer_name:name} <timer>",
+            "pausa <timer>[ <timer_named>] {timer_name:name}"
+          ]
+        }
+      ]
+    },
+    "HassDecreaseTimer": {
+      "data": [
+        {
+          "sentences": [
+            "<timer_remove> <timer_duration> från <timer>",
+            "<timer_remove> <timer_duration> från <timer_start_time>[s][ ]<timer>",
+            "<timer_remove> <timer_duration> från <timer> på <timer_start_time>",
+            "<timer_remove> <timer_duration> från <area>[ ]<timer>",
+            "<timer_remove> <timer_duration> från <timer> i <area>",
+            "<timer_remove> <timer_duration> från {timer_name:name} <timer>",
+            "<timer_remove> <timer_duration> från <timer> [<timer_named> ]{timer_name:name}"
+          ]
+        },
+        {
+          "sentences": [
+            "<timer_decrease> <timer> med <timer_duration>",
+            "<timer_decrease> <timer_start_time>[s][ ]<timer> med <timer_duration>",
+            "<timer_decrease> <timer> på <timer_start_time> med <timer_duration>",
+            "<timer_decrease> <area>[ ]<timer> med <timer_duration>",
+            "<timer_decrease> <timer> i <area> med <timer_duration>",
+            "<timer_decrease> {timer_name:name} <timer> med <timer_duration>",
+            "<timer_decrease> <timer> [<timer_named> ]{timer_name:name} med <timer_duration>"
+          ]
+        }
+      ]
+    },
+    "HassMediaPause": {
+      "data": [
+        {
+          "sentences": [
+            "pausa <name>"
+          ],
+          "requires_context": {
+            "domain": "media_player"
+          }
+        }
+      ]
+    },
+    "HassUnpauseTimer": {
+      "data": [
+        {
+          "sentences": [
+            "<timer_resume> <timer>",
+            "<timer_resume> <timer_start_time>[s] <timer>",
+            "<timer_resume> <timer> på <timer_start_time>",
+            "<timer_resume> <area> <timer>",
+            "<timer_resume> <timer> i <area>",
+            "<timer_resume> <timer> [<timer_named> ]{timer_name:name}",
+            "<timer_resume> {timer_name:name} <timer>"
+          ]
+        }
+      ]
+    },
+    "HassStartTimer": {
+      "data": [
+        {
+          "sentences": [
+            "<timer_start> [(en|ett)] <timer> [på ]<timer_duration>",
+            "<timer_start> [en|ett] <timer_duration>[s] <timer>",
+            "<timer_start> [(en|ett)] <timer> [på ]<timer_duration> som heter {timer_name:name}",
+            "<timer_start> [(en|ett)] <timer> <timer_named> {timer_name:name} på <timer_duration>",
+            "<timer_start> [en|ett] <timer_duration>[s] <timer> som heter {timer_name:name}"
+          ]
+        },
+        {
+          "sentences": [
+            "om <timer_duration> {timer_command:conversation_command}",
+            "{timer_command:conversation_command} om <timer_duration>"
+          ],
+          "response": "command"
+        }
+      ]
+    },
+    "HassClimateGetTemperature": {
+      "data": [
+        {
+          "sentences": [
+            "<vad> <temp>",
+            "<vad> <temp> <i_på> <area>",
+            "<vad> <temp> <är>",
+            "<vad> <temp> <är> <i_på> <area>",
+            "hur <varmt_kallt> <är> <i_på> <area>",
+            "hur <varmt_kallt> <är> <name>"
+          ]
+        }
+      ]
+    },
+    "HassVacuumReturnToBase": {
+      "data": [
+        {
+          "sentences": [
+            "kör [tillbaka] <name> till (laddaren|basen|dockan)",
+            "kör tillbaka <name>",
+            "(docka|ladda) <name>"
+          ],
+          "requires_context": {
+            "domain": "vacuum"
+          }
+        }
+      ]
+    },
+    "HassGetState": {
+      "data": [
+        {
+          "sentences": [
+            "(vad|hur) är [det för] [status på] <name> [<i_på> <area>]"
+          ],
+          "response": "one"
+        },
+        {
+          "sentences": [
+            "är <name> {on_off_states:state} [<i_på> <area>]",
+            "är <name> [<i_på> <area>] {on_off_states:state}"
+          ],
+          "response": "one_yesno",
+          "excludes_context": {
+            "domain": [
+              "cover"
+            ]
+          }
+        },
+        {
+          "sentences": [
+            "är (någon|något|några) {on_off_domains:domain} {on_off_states:state} [<i_på> <area>]"
+          ],
+          "response": "any"
+        },
+        {
+          "sentences": [
+            "är alla {on_off_domains:domain} {on_off_states:state} [<i_på> <area>]"
+          ],
+          "response": "all"
+        },
+        {
+          "sentences": [
+            "(vilka|vilken) {on_off_domains:domain} är {on_off_states:state} [<i_på> <area>]"
+          ],
+          "response": "which"
+        },
+        {
+          "sentences": [
+            "hur många {on_off_domains:domain} är {on_off_states:state} [<i_på> <area>]"
+          ],
+          "response": "how_many"
+        }
+      ]
+    },
+    "HassVacuumStart": {
+      "data": [
+        {
+          "sentences": [
+            "<slå_på> dammsugare[n] i <area>"
+          ]
+        },
+        {
+          "sentences": [
+            "<slå_på> <name>"
+          ],
+          "requires_context": {
+            "domain": "vacuum"
+          }
+        }
+      ]
+    },
+    "HassSetVolume": {
+      "data": [
+        {
+          "sentences": [
+            "sätt volymen till <volym> på <name>",
+            "(sänk|öka) volymen på <name> till <volym>"
+          ],
+          "requires_context": {
+            "domain": "media_player"
+          }
+        }
+      ]
+    }
+  },
+  "responses": {
+    "errors": {
+      "no_intent": "Ursäkta, jag förstår inte",
+      "handle_error": "Ett oväntat fel inträffade under utförandet av avsikten",
+      "no_area": "Inget område med namnet {{ area }} kunde hittas",
+      "no_domain": "Ingen enhet av typen {{ domain}} kunde hittas",
+      "no_domain_in_area": "{{ area }} har inga {{ domain }}",
+      "no_device_class": "Ingen enhet som klassas som {{ device_class }} kunde hittas",
+      "no_device_class_in_area": "{{ area }} har ingen {{ device_class }}",
+      "no_entity": "Det finns ingen enhet eller entitet som heter {{ entity }}",
+      "no_entity_in_area": "{{ area }} har ingen enhet som heter {{ entity }}",
+      "no_entity_exposed": "{{ entity }} är inte exponerad",
+      "no_entity_in_area_exposed": "{{ entity }} i {{ area }} är inte exponerad",
+      "no_domain_exposed": "Ingen {{ domain }} är exponerad",
+      "no_domain_in_area_exposed": "Ingen {{ domain }} är exponerad i {{ area }}",
+      "no_device_class_exposed": "Ingen {{ device_class }} enhet är exponerad",
+      "no_device_class_in_area_exposed": "Ingen {{ device_class }} enhet i {{ area }} är exponerad",
+      "duplicate_entities": "Det finns flera enheter med namnet {{ entity }}",
+      "duplicate_entities_in_area": "Det finns flera enheter med namnet {{ entity }} i {{ area }}",
+      "timer_not_found": "Jag kan inte hitta den timern",
+      "multiple_timers_matched": "Jag kan inte kontrollera flera timers samtidigt",
+      "no_timer_support": "Den här enheten hanterar inte timers"
+    },
+    "intents": {
+      "HassGetState": {
+        "one": "{{ slots.name | capitalize }} är {{ state.state_with_unit }}\n",
+        "one_yesno": "{% if query.matched %}\n  Ja\n{% else %}\n  Nej, den är {{ state.state_with_unit }}\n{% endif %}\n",
+        "any": "{% if query.matched %}\n  {% set match = query.matched | map(attribute=\"name\") | sort | list %}\n  {% if match | length > 4 %}\n    Ja, {{ match[:3] | join(\", \") }} och {{ (match | length - 3) }} fler\n  {%- else -%}\n    Ja,\n    {% for name in match -%}\n      {% if not loop.first and not loop.last %}, {% elif loop.last and not loop.first %} och {% endif -%}\n      {{ name }}\n    {%- endfor -%}\n  {% endif %}\n{% else %}\n  Nej\n{% endif %}\n",
+        "all": "{% if not query.unmatched: %}\n  Ja\n{% else %}\n  {% set no_match = query.unmatched | map(attribute=\"name\") | sort | list %}\n  {% if no_match | length > 4 %}\n    Nej, inte {{ no_match[:3] | join(\", \") }} och {{ (no_match | length - 3) }} fler\n  {%- else -%}\n    Nej, inte\n    {% for name in no_match -%}\n      {% if not loop.first and not loop.last %}, {% elif loop.last and not loop.first %} och {% endif -%}\n      {{ name }}\n    {%- endfor %}\n  {% endif %}\n{% endif %}\n",
+        "which": "{% if not query.matched %}\n  Inte någon\n{% else: %}\n  {% set match = query.matched | map(attribute=\"name\") | sort | list %}\n  {% if match | length > 4 %}\n    {{ match[:3] | join(\", \") }} och {{ (match | length - 3) }} fler\n  {% else %}\n    {%- for name in match -%}\n      {% if not loop.first and not loop.last %}, {% elif loop.last and not loop.first %} och {% endif -%}\n      {{ name }}\n    {%- endfor -%}\n  {% endif %}\n{% endif %}\n",
+        "how_many": "{{ query.matched | length }}\n"
+      },
+      "HassTurnOff": {
+        "default": "Slog av {{ slots.name }}",
+        "lights": "Släckte {{ slots.name }}",
+        "lights_area": "Släckte lamporna i {{ slots.area }}",
+        "fans_area": "Stoppade fläktarna i {{ slots.area }}",
+        "cover": "Stängde {{ slots.name }}",
+        "cover_area": "Stängde i {{ slots.area }}",
+        "cover_device_class": "Stängde {{ slots.device_class }}"
+      },
+      "HassStartTimer": {
+        "default": "Timer startad",
+        "command": "Kommando mottaget"
+      },
+      "HassShoppingListAddItem": {
+        "item_added": "{{ slots.item | title }} tillagt"
+      },
+      "HassTurnOn": {
+        "default": "Slog på {{ slots.name }}",
+        "lights": "Tände {{ slots.name }}",
+        "lights_area": "Tände lamporna i {{ slots.area }}",
+        "fans_area": "Startade fläktarna i {{ slots.area }}",
+        "cover": "Öppnade {{ slots.name }}",
+        "cover_area": "Öppnade i {{ slots.area }}",
+        "cover_device_class": "Öppnade {{ slots.device_class }}"
+      },
+      "HassMediaPause": {
+        "default": "Pausad"
+      },
+      "HassGetCurrentTime": {
+        "default": "{{ slots.time.hour }}:{{ '{0:02d}'.format(slots.time.minute) }}\n"
+      },
+      "HassPauseTimer": {
+        "default": "Timer pausad"
+      },
+      "HassTimerStatus": {
+        "default": "{% set num_timers = slots.timers | length %}\n{% set active_timers = slots.timers | selectattr('is_active') | list %}\n{% set num_active_timers = active_timers | length %}\n{% set paused_timers = slots.timers | rejectattr('is_active') | list %}\n{% set num_paused_timers = paused_timers | length %}\n{% set next_timer = None %}\n\n{% if num_timers == 0: %}\n  Det finns inga timers.\n{% elif num_active_timers == 0: %}\n  {# No active timers #}\n  {% if num_paused_timers == 1: %}\n    {% set next_timer = paused_timers[0] %}\n    Timern är pausad.\n  {% else: %}\n    {{ num_paused_timers }} pausade timers.\n  {% endif %}\n{% else: %}\n  {# At least one active timer #}\n  {% if num_active_timers == 1: %}\n    {% set next_timer = active_timers[0] %}\n  {% else: %}\n    {# Get active timer that will finish soonest #}\n    {% set sorted_timers = active_timers | sort(attribute='total_seconds_left') %}\n    {% set next_timer = sorted_timers[0] %}\n    {{ num_active_timers }} pågående timers.\n  {% endif %}\n\n  {% if num_paused_timers == 1: %}\n    1 pausad timer.\n  {% elif num_paused_timers > 0: %}\n    {{ num_paused_timers }} pausade timers.\n  {% endif %}\n{% endif %}\n\n{% if next_timer: %}\n  {# At least one active timer #}\n  {% if (next_timer.rounded_hours_left == 1) and (next_timer.rounded_minutes_left > 1): %}\n    1 timme och {{ next_timer.rounded_minutes_left }} minuter\n  {% elif (next_timer.rounded_hours_left ==1) and (next_timer.rounded_minutes_left == 1): %}\n    1 timme och 1 minut\n  {% elif (next_timer.rounded_hours_left > 1) and (next_timer.rounded_minutes_left > 0): %}\n    {{ next_timer.rounded_hours_left }} timmar och {{ next_timer.rounded_minutes_left }} minuter\n  {% elif (next_timer.rounded_hours_left > 1): %}\n    {{ next_timer.rounded_hours_left }} timmar\n  {% elif (next_timer.rounded_hours_left == 1): %}\n    1 timme\n  {% elif (next_timer.rounded_minutes_left > 1): %}\n    {{next_timer.rounded_minutes_left}} minuter\n  {% elif (next_timer.rounded_minutes_left == 1) and (next_timer.rounded_seconds_left > 0): %}\n    1 minut och {{ next_timer.rounded_seconds_left }} sekunder\n  {% elif (next_timer.rounded_minutes_left == 1): %}\n    1 minut\n  {% elif (next_timer.rounded_minutes_left > 1) and (next_timer.rounded_seconds_left > 0): %}\n    {{ next_timer.rounded_minutes_left }} minuter och {{ next_timer.rounded_seconds_left }} sekunder\n  {% elif (next_timer.rounded_minutes_left > 1): %}\n    {{ next_timer.rounded_minutes_left }} minuter\n  {% elif (next_timer.rounded_seconds_left > 0): %}\n    1 sekund\n  {% elif (next_timer.rounded_seconds_left > 1): %}\n    {{ next_timer.rounded_seconds_left }} sekunder\n  {% endif %}\n\n  {% if num_timers > 1: %}\n    {# Give some extra information to disambiguate #}\n    kvar på\n    {% if (next_timer.start_hours > 1) and (next_timer.start_minutes > 1): %}\n      {{ next_timer.start_hours }} timme och {{ next_timer.start_minutes }} minuters\n    {% elif (next_timer.start_hours > 1) and (next_timer.start_minutes > 0): %}\n      {{ next_timer.start_hours }} timme och 1 minuts\n    {% elif (next_timer.start_hours == 1): %}\n      1 timme\n    {% elif (next_timer.start_minutes > 0) and (next_timer.start_seconds > 0): %}\n      {{ next_timer.start_minutes }} minuter och {{ next_timer.start_seconds }} sekunders\n    {% elif (next_timer.start_minutes > 1): %}\n      {{ next_timer.start_minutes }} minuters\n    {% elif (next_timer.start_seconds > 0): %}\n      {{ next_timer.start_seconds }} sekunders\n    {% endif %}\n    {% if next_timer.name: %}\n      {{ next_timer.name }}stimer\n    {% elif next_timer.area: %}\n      {{ next_timer.area }}stimer\n    {% endif %}\n  {% else %}\n  kvar\n  {% endif %}\n{% endif %}\n"
+      },
+      "HassGetCurrentDate": {
+        "default": "{% set months = {\n   1: 'januari',\n   2: 'februari',\n   3: 'mars',\n   4: 'april',\n   5: 'maj',\n   6: 'juni',\n   7: 'juli',\n   8: 'augusti',\n   9: 'september',\n   10: 'oktober',\n   11: 'november',\n   12: 'december',\n} %} {% set days = {\n   1: 'första',\n   2: 'andra',\n   3: 'tredje',\n   4: 'fjärde',\n   5: 'femte',\n   6: 'sjätte',\n   7: 'sjunde',\n   8: 'åttonde',\n   9: 'nionde',\n   10: 'tionde',\n   11: 'elfte',\n   12: 'tolvte',\n   13: 'trettonde',\n   14: 'fjortonde',\n   15: 'femtonde',\n   16: 'sextonde',\n   17: 'sjuttonde',\n   18: 'artonde',\n   19: 'nittonde',\n   20: 'tjugonde',\n   21: 'tjugoförsta',\n   22: 'tjugoandra',\n   23: 'tjugotredje',\n   24: 'tjugofjärde',\n   25: 'tjugofemte',\n   26: 'tjugosjätte',\n   27: 'tjugosjunde',\n   28: 'tjugoåttonde',\n   29: 'tjugonionde',\n   30: 'trettionde',\n   31: 'trettioförsta',\n } %}\n Det är den {{ days[slots.date.day] }} {{ months[slots.date.month] }} {{ slots.date.year }}\n"
+      },
+      "HassUnpauseTimer": {
+        "default": "Timer återupptagen"
+      },
+      "HassGetWeather": {
+        "default": "{% set weather_condition = {\n  'clear': 'och klart',\n  'clear-night': 'och klart',\n  'cloudy': 'och mulet',\n  'exceptional': 'och strålande solsken', \n  'fog': 'och dimma',\n  'hail': 'och hagel',\n  'lightning': 'och åska',\n  'lightning-rainy': 'och åska med regn',\n  'partlycloudy': 'och delvis mulet',\n  'pouring': 'och skyfall',\n  'rainy': 'och regn',\n  'snowy': 'och snö',\n  'snowy-rainy': 'och snöblandat regn',\n  'sunny': 'och sol',\n  'windy': 'och blåst',\n  'windy-variant': 'och mulet med blåst'\n} %} {{ state.attributes.get('temperature') }} {{ state.attributes.get('temperature_unit') }} {{ weather_condition.get((state.state | string).lower(), \"\") }}\n"
+      },
+      "HassLightSet": {
+        "brightness": "{{ slots.name }} ljusstyrka sattes till {{ slots.brightness }}",
+        "brightness_area": "Ljusstyrkan i {{ slots.area }} sattes till {{ slots.brightness }}",
+        "color": "{{ slots.name }} färg sattes till {{ slots.color }}",
+        "color_area": "Färgen på belysningen i {{ slots.area }} sattes till {{ slots.color }}"
+      },
+      "HassVacuumStart": {
+        "default": "Startad"
+      },
+      "HassMediaUnpause": {
+        "default": "Återupptar"
+      },
+      "HassMediaNext": {
+        "default": "Spelar nästa"
+      },
+      "HassCancelTimer": {
+        "default": "Timer avbruten"
+      },
+      "HassClimateGetTemperature": {
+        "default": "{{ state.state }} grader"
+      },
+      "HassSetVolume": {
+        "default": "Volym satt"
+      },
+      "HassDecreaseTimer": {
+        "default": "Timer uppdaterad"
+      },
+      "HassIncreaseTimer": {
+        "default": "Timer uppdaterad"
+      },
+      "HassVacuumReturnToBase": {
+        "default": "Återvänder"
+      }
+    }
+  },
+  "lists": {
+    "color": {
+      "values": [
+        {
+          "in": "(vit | vitt)",
+          "out": "white"
+        },
+        {
+          "in": "svart",
+          "out": "black"
+        },
+        {
+          "in": "(röd | rött)",
+          "out": "red"
+        },
+        {
+          "in": "orange",
+          "out": "orange"
+        },
+        {
+          "in": "(gul | gult)",
+          "out": "yellow"
+        },
+        {
+          "in": "(grön | grönt)",
+          "out": "green"
+        },
+        {
+          "in": "(blå | blått)",
+          "out": "blue"
+        },
+        {
+          "in": "(lila | violett)",
+          "out": "purple"
+        },
+        {
+          "in": "(brun | brunt)",
+          "out": "brown"
+        },
+        {
+          "in": "rosa",
+          "out": "pink"
+        },
+        {
+          "in": "turkos",
+          "out": "turquoise"
+        }
+      ]
+    },
+    "brightness": {
+      "range": {
+        "type": "percentage",
+        "from": 0,
+        "to": 100
+      }
+    },
+    "brightness_level": {
+      "values": [
+        {
+          "in": "<maximal>",
+          "out": 100
+        },
+        {
+          "in": "<minimal>",
+          "out": 1
+        }
+      ]
+    },
+    "on_off_states": {
+      "values": [
+        {
+          "in": "på|igång|tända|tänd|påslagna",
+          "out": "on"
+        },
+        {
+          "in": "av|avstängda|släckta",
+          "out": "off"
+        }
+      ]
+    },
+    "on_off_domains": {
+      "values": [
+        {
+          "in": "(lampor|lampa|ljus)",
+          "out": "light"
+        },
+        {
+          "in": "fläktar",
+          "out": "fan"
+        },
+        {
+          "in": "[ström]brytare[n]",
+          "out": "switch"
+        }
+      ]
+    },
+    "temperature": {
+      "range": {
+        "type": "temperature",
+        "from": 0,
+        "to": 100
+      }
+    },
+    "temperature_unit": {
+      "values": [
+        "celsius",
+        {
+          "in": "c",
+          "out": "celsius"
+        },
+        "fahrenheit",
+        {
+          "in": "f",
+          "out": "fahrenheit"
+        }
+      ]
+    },
+    "bs_battery_states": {
+      "values": [
+        {
+          "in": "låg[t|a]",
+          "out": "on"
+        },
+        {
+          "in": "normal[t]",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_battery_charging_states": {
+      "values": [
+        {
+          "in": "laddar",
+          "out": "on"
+        },
+        {
+          "in": "laddar inte",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_carbon_monoxide_states": {
+      "values": [
+        {
+          "in": "(detekterar|utlöst|larm[ar])",
+          "out": "on"
+        },
+        {
+          "in": "klart",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_cold_states": {
+      "values": [
+        {
+          "in": "kall[t]",
+          "out": "on"
+        },
+        {
+          "in": "normal[t]",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_connectivity_states": {
+      "values": [
+        {
+          "in": "ansluten",
+          "out": "on"
+        },
+        {
+          "in": "frånkopplad",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_door_states": {
+      "values": [
+        {
+          "in": "öppen",
+          "out": "on"
+        },
+        {
+          "in": "stängd",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_garage_door_states": {
+      "values": [
+        {
+          "in": "öppen",
+          "out": "on"
+        },
+        {
+          "in": "stängd",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_gas_states": {
+      "values": [
+        {
+          "in": "(detektera(r|d)|utlöst|larm[ar])",
+          "out": "on"
+        },
+        {
+          "in": "klart",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_heat_states": {
+      "values": [
+        {
+          "in": "varmt",
+          "out": "on"
+        },
+        {
+          "in": "normal[t]",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_light_states": {
+      "values": [
+        {
+          "in": "detektera(r|d)|aktiverad",
+          "out": "on"
+        },
+        {
+          "in": "Inget ljus",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_lock_states": {
+      "values": [
+        {
+          "in": "upplåst|olåst",
+          "out": "on"
+        },
+        {
+          "in": "låst",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_moisture_states": {
+      "values": [
+        {
+          "in": "vått",
+          "out": "on"
+        },
+        {
+          "in": "torrt",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_motion_states": {
+      "values": [
+        {
+          "in": "(detektera(r|d)|utlöst|larm[ar])",
+          "out": "on"
+        },
+        {
+          "in": "klart",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_occupancy_states": {
+      "values": [
+        {
+          "in": "(detektera(r|d)|utlöst|larm[ar])",
+          "out": "on"
+        },
+        {
+          "in": "klart|tomt",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_opening_states": {
+      "values": [
+        {
+          "in": "öppe(n|t)",
+          "out": "on"
+        },
+        {
+          "in": "stäng(d|t)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_plug_states": {
+      "values": [
+        {
+          "in": "inkoppla(t|d)|ansluten",
+          "out": "on"
+        },
+        {
+          "in": "urkoppla(t|d)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_power_states": {
+      "values": [
+        {
+          "in": "på[slagen]",
+          "out": "on"
+        },
+        {
+          "in": "av",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_presence_states": {
+      "values": [
+        {
+          "in": "(hemma|närvarande)",
+          "out": "on"
+        },
+        {
+          "in": "(borta|inte närvarande)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_problem_states": {
+      "values": [
+        {
+          "in": "detekterat",
+          "out": "on"
+        },
+        {
+          "in": "ok",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_running_states": {
+      "values": [
+        {
+          "in": "igång|kör",
+          "out": "on"
+        },
+        {
+          "in": "av",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_safety_states": {
+      "values": [
+        {
+          "in": "osäker[t]",
+          "out": "on"
+        },
+        {
+          "in": "säker[t]",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_smoke_states": {
+      "values": [
+        {
+          "in": "(detekterar|utlöst|larm[ar])",
+          "out": "on"
+        },
+        {
+          "in": "klart",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_sound_states": {
+      "values": [
+        {
+          "in": "(detekterar|utlöst|larm[ar])",
+          "out": "on"
+        },
+        {
+          "in": "klart|tyst",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_tamper_states": {
+      "values": [
+        {
+          "in": "(detekterar|manipulerad|modifierad)",
+          "out": "on"
+        },
+        {
+          "in": "klart",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_update_states": {
+      "values": [
+        {
+          "in": "uppdatering tillgänglig",
+          "out": "on"
+        },
+        {
+          "in": "uppdaterad",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_vibration_states": {
+      "values": [
+        {
+          "in": "(detekterar|vibrerar)",
+          "out": "on"
+        },
+        {
+          "in": "(klart|stilla|vibrerar inte)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_window_states": {
+      "values": [
+        {
+          "in": "öppet",
+          "out": "on"
+        },
+        {
+          "in": "stängt",
+          "out": "closed"
+        }
+      ]
+    },
+    "shopping_list_item": {
+      "wildcard": true
+    },
+    "volume": {
+      "range": {
+        "type": "percentage",
+        "from": 0,
+        "to": 100
+      }
+    },
+    "timer_seconds": {
+      "range": {
+        "from": 1,
+        "to": 100
+      }
+    },
+    "timer_minutes": {
+      "range": {
+        "from": 1,
+        "to": 100
+      }
+    },
+    "timer_hours": {
+      "range": {
+        "from": 1,
+        "to": 100
+      }
+    },
+    "timer_half": {
+      "values": [
+        {
+          "in": "halv",
+          "out": 30
+        },
+        {
+          "in": "1/2",
+          "out": 30
+        }
+      ]
+    },
+    "timer_quart": {
+      "values": [
+        {
+          "in": "trekvart",
+          "out": 45
+        },
+        {
+          "in": "kvart",
+          "out": 15
+        }
+      ]
+    },
+    "timer_name": {
+      "wildcard": true
+    },
+    "timer_command": {
+      "wildcard": true
+    }
+  },
+  "expansion_rules": {
+    "name": "{name}[s|n|ns|en]",
+    "area": "{area}[e|me][t|n][s]",
+    "vad": "(vad är | vad är det | vad är det för | vilken)",
+    "är": "(är det | är)",
+    "brightness": "{brightness}[%| percent]",
+    "slå_på": "(tänd | sätt (på | igång | fart på) | slå (på | till) | starta)",
+    "slå_av": "(slå (av | från | ifrån) | släck | stäng [av] | stoppa)",
+    "i_på": "(i | på | vid | bredvid)",
+    "ändra": "(ställ in | sätt | justera | ändra | vrid (upp | ner))",
+    "temp": "(temperatur[en])",
+    "alla": "(all | alla | allt)",
+    "ljusintensitet": "(ljusstyrka | intensitet | styrka | nivå | effekt)",
+    "ljuskällor": "(ljuskällor[na]|ljus[en|et]|[glöd|led|diod]lamp[a|an|or|orna]|lysrör[en|et]|belysning[en])",
+    "dimra": "(ändra | sätt | vrid | dra [på] | skruva [på] | dimra | dimma | ställ [in] | höj | sänk)",
+    "möjliga": "(möjlig[a] | tillgänglig[a])",
+    "maximal": "(maximal | max[imum] | högsta | starkaste | intensivaste | full[t])",
+    "minimal": "(minimal | minimum | minsta | lägsta | svagaste)",
+    "gardiner": "([rull|motor]gardin[er|erna|en]|persienn[er|erna|en]|spjälgardin[er|erna|en]|draperi[er|erna|en])|förhänge[n|na]",
+    "stäng_gardiner": "(stäng [igen | till]| dra (ner | igen | för | till ) | hissa ner | veckla (ner | igen) | tillslut) | slå (igen |ihop | för) | rulla ner",
+    "öppna_gardiner": "(öppna [upp] | dra (upp | bort | isär | undan) | hissa upp | veckla upp | rulla upp)",
+    "varmt_kallt": "(varmt | varm | kallt | kall | het | svalt )",
+    "temperature": "{temperature}[°| grader] [{temperature_unit}]",
+    "färga": "(färga | ändra | byt)",
+    "volym": "{volume:volume_level}[[ ]%| procent]",
+    "timer": "(timer[n]|äggklocka[n]|tidur[et])",
+    "timers": "(timer[s]|äggklock(a|or)|tidur[en])",
+    "time_left": "hur (lång|mycket)",
+    "timer_duration_seconds": "{timer_seconds:seconds} sekund[er]",
+    "timer_duration_minutes": "({timer_minutes:minutes} minut[er][[ och] {timer_seconds:seconds} sekund[er]])|([{timer_minutes:minutes} och][ en] {timer_half:seconds} minut[er])|({timer_minutes:minutes} minut[er])|([en ]{timer_quart:seconds}[s] minut)",
+    "timer_duration_hours": "({timer_hours:hours} timm(e|ar)[[ och] <timer_duration_minutes>])|({timer_hours:hours}[ [och ] [en ]{timer_half:minutes}] timm(e|ar))|([en ]{timer_half:minutes}timme)|({timer_hours:hours} timm(e|ar) [och ]{timer_seconds:seconds} sekund[er])|([{timer_hours:hours} timm(e|ar) [och ]][en ]{timer_quart:minutes})",
+    "timer_duration": "<timer_duration_seconds>|<timer_duration_minutes>|<timer_duration_hours>",
+    "timer_start_seconds": "{timer_seconds:start_seconds} sekund[er]",
+    "timer_start_minutes": "({timer_minutes:start_minutes} minut[er][[ och] {timer_seconds:start_seconds} sekund[er]])|([{timer_minutes:start_minutes} och][ en] {timer_half:start_seconds} minut[er])|({timer_minutes:start_minutes} minut[er])|([en ]{timer_quart:start_seconds}[s] minut)",
+    "timer_start_hours": "({timer_hours:start_hours} timm(e|ar)[[ och] <timer_start_minutes>])|({timer_hours:start_hours}[ [och ] [en ]{timer_half:start_minutes}] timm(e|ar))|([en ]{timer_half:start_minutes}timme)|({timer_hours:start_hours} timm(e|ar) [och ]{timer_seconds:start_seconds} sekund[er])|([{timer_hours:start_hours} timm(e|ar) [och ]][en ]{timer_quart:start_minutes})",
+    "timer_start_time": "(<timer_start_seconds>|<timer_start_minutes>|<timer_start_hours>)",
+    "timer_start": "(starta|sätt)",
+    "timer_resume": "(fortsätt|återuppta)",
+    "timer_cancel": "(avbryt|stoppa)",
+    "timer_increase": "(förläng|öka)",
+    "timer_remove": "(ta bort|dra [av|bort])",
+    "timer_decrease": "(minska|korta[ av])",
+    "timer_named": "som heter"
+  },
+  "skip_words": [
+    "snälla",
+    "tack",
+    "vänligen",
+    "kan du"
+  ]
+}

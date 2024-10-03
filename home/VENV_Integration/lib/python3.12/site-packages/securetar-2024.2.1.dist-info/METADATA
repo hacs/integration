@@ -1,0 +1,74 @@
+Metadata-Version: 2.1
+Name: securetar
+Version: 2024.2.1
+Summary: Python module to handle tarfile backups.
+Home-page: https://github.com/pvizeli/securetar
+Author: Pascal Vizeli
+Author-email: pvizeli@syshack.ch
+License: Apache License 2.0
+Platform: any
+Classifier: Intended Audience :: Developers
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: cryptography
+
+# Secure Tar
+Secure Tarfile library
+
+It's a streaming wrapper around python tarfile and allow secure handling files and support encryption.
+
+
+```python
+
+with SecureTarFile("test.tar", "w") as tar_file:
+        atomic_contents_add(
+            tar_file,
+            temp_orig,
+            excludes=[],
+            arcname=".",
+        )
+
+with SecureTarFile("test.tar", "w", b"AES128_KEY_SIZE") as tar_file:
+        atomic_contents_add(
+            tar_file,
+            temp_orig,
+            excludes=[],
+            arcname=".",
+        )
+
+```
+
+A common pattern is to create an outer uncompressed tarfile that contains
+a variety of inner tar files. This can be accomplished without writing 
+out multiple files with the following pattern.
+
+```python
+
+outer_secure_tar_file = SecureTarFile("pkg.tar", "w", gzip=False)
+with outer_secure_tar_file as outer_tar_file:
+    with outer_secure_tar_file.create_inner_tar(
+        "./backup1.tar.gz", gzip=True
+    ) as inner_tar_file:
+        atomic_contents_add(
+            inner_tar_file,
+            path_1,
+            excludes=[],
+            arcname=".",
+        )
+
+    with outer_secure_tar_file.create_inner_tar(
+        "./backup2.tar.gz", gzip=True
+    ) as inner_tar_file:
+        atomic_contents_add(
+            inner_tar_file,
+            path_2,
+            excludes=[],
+            arcname=".",
+        )
+
+```

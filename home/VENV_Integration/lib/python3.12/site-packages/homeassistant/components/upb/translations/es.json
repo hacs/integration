@@ -1,0 +1,111 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "El dispositivo ya est\u00e1 configurado"
+        },
+        "error": {
+            "cannot_connect": "No se pudo conectar",
+            "invalid_upb_file": "Falta el archivo de exportaci\u00f3n UPB UPStart o no es v\u00e1lido, comprueba el nombre y la ruta del archivo.",
+            "unknown": "Error inesperado"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "address": "Direcci\u00f3n (consulta la descripci\u00f3n anterior)",
+                    "file_path": "Ruta y nombre del archivo de exportaci\u00f3n UPStart UPB.",
+                    "protocol": "Protocolo"
+                },
+                "description": "Conecta un Universal Powerline Bus Powerline Interface Module (UPB PIM). La cadena de direcci\u00f3n debe tener el formato 'direcci\u00f3n[:puerto]' para 'tcp'. El puerto es opcional y el valor predeterminado es 2101. Ejemplo: '192.168.1.42'. Para el protocolo serial, la direcci\u00f3n debe tener el formato 'tty[:baudios]'. Los baudios son opcionales y el valor predeterminado es 4800. Ejemplo: '/dev/ttyS1'.",
+                "title": "Conectar con UPB PIM"
+            }
+        }
+    },
+    "services": {
+        "light_blink": {
+            "description": "Parpadea una luz.",
+            "fields": {
+                "rate": {
+                    "description": "Cantidad de tiempo que el enlace parpadea.",
+                    "name": "Tasa"
+                }
+            },
+            "name": "Parpadear luz"
+        },
+        "light_fade_start": {
+            "description": "Comienza a desvanecer una luz desde el brillo actual increment\u00e1ndolo o disminuy\u00e9ndolo.",
+            "fields": {
+                "brightness": {
+                    "description": "N\u00famero que indica el brillo, donde 0 apaga la luz, 1 es el brillo m\u00ednimo y 255 es el brillo m\u00e1ximo.",
+                    "name": "Brillo"
+                },
+                "brightness_pct": {
+                    "description": "N\u00famero que indica el porcentaje de brillo total, donde 0 apaga la luz, 1 es el brillo m\u00ednimo y 100 es el brillo m\u00e1ximo.",
+                    "name": "Porcentaje de brillo"
+                },
+                "rate": {
+                    "description": "Tasa de transici\u00f3n de la luz a un nuevo brillo.",
+                    "name": "Tasa"
+                }
+            },
+            "name": "Iniciar el desvanecimiento de la luz"
+        },
+        "light_fade_stop": {
+            "description": "Detiene un desvanecimiento de la luz.",
+            "name": "Detener el desvanecimiento de la luz"
+        },
+        "link_blink": {
+            "description": "Parpadea un enlace.",
+            "fields": {
+                "blink_rate": {
+                    "description": "Cantidad de tiempo que el enlace parpadea.",
+                    "name": "Frecuencia de parpadeo"
+                }
+            },
+            "name": "Parpadear enlace"
+        },
+        "link_deactivate": {
+            "description": "Desactiva una escena UPB.",
+            "name": "Desactivar enlace"
+        },
+        "link_fade_start": {
+            "description": "Comienza a desvanecer un enlace desde el brillo actual increment\u00e1ndolo o disminuy\u00e9ndolo.",
+            "fields": {
+                "brightness": {
+                    "description": "N\u00famero que indica el brillo, donde 0 apaga la escena, 1 es el brillo m\u00ednimo y 255 es el brillo m\u00e1ximo.",
+                    "name": "Brillo"
+                },
+                "brightness_pct": {
+                    "description": "N\u00famero que indica el porcentaje de brillo total, donde 0 apaga la escena, 1 es el brillo m\u00ednimo y 100 es el brillo m\u00e1ximo.",
+                    "name": "Porcentaje de brillo"
+                },
+                "rate": {
+                    "description": "Cantidad de tiempo para que la escena haga la transici\u00f3n a un nuevo brillo.",
+                    "name": "Tasa"
+                }
+            },
+            "name": "Iniciar del desvanecimiento del enlace"
+        },
+        "link_fade_stop": {
+            "description": "Detiene el desvanecimiento de un enlace.",
+            "name": "Detener el desvanecimiento del enlace"
+        },
+        "link_goto": {
+            "description": "Establece la escena al brillo.",
+            "fields": {
+                "brightness": {
+                    "description": "N\u00famero que indica el brillo, donde 0 apaga la escena, 1 es el brillo m\u00ednimo y 255 es el brillo m\u00e1ximo.",
+                    "name": "Brillo"
+                },
+                "brightness_pct": {
+                    "description": "N\u00famero que indica el porcentaje de brillo total, donde 0 apaga la escena, 1 es el brillo m\u00ednimo y 100 es el brillo m\u00e1ximo.",
+                    "name": "Porcentaje de brillo"
+                },
+                "rate": {
+                    "description": "Cantidad de tiempo para que la escena haga la transici\u00f3n a un nuevo brillo.",
+                    "name": "Tasa"
+                }
+            },
+            "name": "Ir al enlace"
+        }
+    }
+}

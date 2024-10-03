@@ -1,0 +1,60 @@
+{
+    "exceptions": {
+        "entity_not_scene": {
+            "message": "{entity_id} n\u00e3o \u00e9 uma entidade de cena v\u00e1lida."
+        }
+    },
+    "services": {
+        "apply": {
+            "description": "Ativa uma cena com configura\u00e7\u00e3o.",
+            "fields": {
+                "entities": {
+                    "description": "Lista de entidades e seu estado de destino.",
+                    "name": "Estado das entidades"
+                },
+                "transition": {
+                    "description": "Tempo que os dispositivos levam para fazer a transi\u00e7\u00e3o para os estados definidos na cena.",
+                    "name": "Transi\u00e7\u00e3o"
+                }
+            },
+            "name": "Aplicar"
+        },
+        "create": {
+            "description": "Cria uma nova cena.",
+            "fields": {
+                "entities": {
+                    "description": "Lista de entidades e seu estado de destino. Se suas entidades j\u00e1 estiverem no estado de destino agora, use `snapshot_entities`.",
+                    "name": "Estado das entidades"
+                },
+                "scene_id": {
+                    "description": "O ID da entidade da nova cena.",
+                    "name": "ID da entidade da cena"
+                },
+                "snapshot_entities": {
+                    "description": "Lista de entidades a serem inclu\u00eddas no instant\u00e2neo. Ao tirar um instant\u00e2neo, voc\u00ea registra o estado atual dessas entidades. Se voc\u00ea n\u00e3o quiser usar o estado atual de todas as suas entidades para esta cena, voc\u00ea pode combinar `snapshot_entities` com `entities`.",
+                    "name": "Entidades de snapshot"
+                }
+            },
+            "name": "Criar"
+        },
+        "delete": {
+            "description": "Exclui uma cena criada dinamicamente.",
+            "name": "Excluir"
+        },
+        "reload": {
+            "description": "Recarrega as cenas da configura\u00e7\u00e3o YAML.",
+            "name": "Recarregar"
+        },
+        "turn_on": {
+            "description": "Ativa uma cena.",
+            "fields": {
+                "transition": {
+                    "description": "Tempo que os dispositivos levam para fazer a transi\u00e7\u00e3o para os estados definidos na cena.",
+                    "name": "Transi\u00e7\u00e3o"
+                }
+            },
+            "name": "Ativar"
+        }
+    },
+    "title": "Cena"
+}

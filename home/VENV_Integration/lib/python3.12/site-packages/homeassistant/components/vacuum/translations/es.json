@@ -1,0 +1,115 @@
+{
+    "device_automation": {
+        "action_type": {
+            "clean": "Dejar que {entity_name} limpie",
+            "dock": "Dejar que {entity_name} regrese a la base"
+        },
+        "condition_type": {
+            "is_cleaning": "{entity_name} est\u00e1 limpiando",
+            "is_docked": "{entity_name} en la base"
+        },
+        "extra_fields": {
+            "for": "Duraci\u00f3n"
+        },
+        "trigger_type": {
+            "cleaning": "{entity_name} empez\u00f3 a limpiar",
+            "docked": "{entity_name} en la base"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Aspiradora",
+            "state": {
+                "cleaning": "Limpiando",
+                "docked": "En la base",
+                "error": "Error",
+                "idle": "Inactivo",
+                "off": "Apagado",
+                "on": "Encendido",
+                "paused": "En pausa",
+                "returning": "Volviendo a la base"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_vacuum_base_class": {
+            "description": "La integraci\u00f3n personalizada `{platform}` ampl\u00eda la clase base en desuso `VacuumEntity` en lugar de `StateVacuumEntity`. \n\nPor favor, informa de la situaci\u00f3n al autor de la integraci\u00f3n personalizada `{platform}`. \n\nUna vez que est\u00e9 disponible una versi\u00f3n actualizada de `{platform}`, inst\u00e1lala y reinicia Home Assistant para solucionar este problema.",
+            "title": "La integraci\u00f3n personalizada {platform} est\u00e1 utilizando la funci\u00f3n de aspiraci\u00f3n obsoleta"
+        },
+        "deprecated_vacuum_base_class_url": {
+            "description": "La integraci\u00f3n personalizada `{platform}` est\u00e1 ampliando la clase base obsoleta `VacuumEntity` en lugar de `StateVacuumEntity`. \n\nPor favor, crea un informe de error en {issue_tracker}.\n\nUna vez que est\u00e9 disponible una versi\u00f3n actualizada de `{platform}`, inst\u00e1lala y reinicia Home Assistant para solucionar este problema.",
+            "title": "La integraci\u00f3n personalizada {platform} est\u00e1 utilizando la funci\u00f3n de aspiraci\u00f3n obsoleta"
+        },
+        "platform_integration_no_support": {
+            "description": "La plataforma {platform} para la integraci\u00f3n {domain} no es compatible con la configuraci\u00f3n de la plataforma. \n\nElim\u00ednala de tu configuraci\u00f3n y reinicia Home Assistant para solucionar este problema.",
+            "title": "Soporte de plataforma no compatible"
+        }
+    },
+    "services": {
+        "clean_spot": {
+            "description": "Le dice al aspirador que haga una limpieza puntual.",
+            "name": "Limpiar punto"
+        },
+        "locate": {
+            "description": "Localiza el robot aspirador.",
+            "name": "Localizar"
+        },
+        "pause": {
+            "description": "Pausa la tarea de limpieza.",
+            "name": "Pausar"
+        },
+        "return_to_base": {
+            "description": "Le dice al aspirador que regrese a su base.",
+            "name": "Regresar a la base"
+        },
+        "send_command": {
+            "description": "Env\u00eda un comando al aspirador.",
+            "fields": {
+                "command": {
+                    "description": "Comando a ejecutar. Los comandos son espec\u00edficos de la integraci\u00f3n.",
+                    "name": "Comando"
+                },
+                "params": {
+                    "description": "Par\u00e1metros para el comando. Los par\u00e1metros son espec\u00edficos de la integraci\u00f3n.",
+                    "name": "Par\u00e1metros"
+                }
+            },
+            "name": "Enviar comando"
+        },
+        "set_fan_speed": {
+            "description": "Ajusta la velocidad del ventilador del aspirador.",
+            "fields": {
+                "fan_speed": {
+                    "description": "Velocidad del ventilador. El valor depende de la integraci\u00f3n. Algunas integraciones tienen pasos de velocidad, como 'medio'. Algunos usan un porcentaje, entre 0 y 100.",
+                    "name": "Velocidad del ventilador"
+                }
+            },
+            "name": "Ajustar la velocidad del ventilador"
+        },
+        "start": {
+            "description": "Inicia o reanuda la tarea de limpieza.",
+            "name": "Iniciar"
+        },
+        "start_pause": {
+            "description": "Inicia, pausa o reanuda la tarea de limpieza.",
+            "name": "Inicio/pausa"
+        },
+        "stop": {
+            "description": "Detiene la tarea de limpieza actual.",
+            "name": "Detener"
+        },
+        "toggle": {
+            "description": "Activa y desactiva la aspiradora.",
+            "name": "Alternar"
+        },
+        "turn_off": {
+            "description": "Detiene la tarea de limpieza actual y vuelve a su base.",
+            "name": "Apagar"
+        },
+        "turn_on": {
+            "description": "Inicia una nueva tarea de limpieza.",
+            "name": "Encender"
+        }
+    },
+    "title": "Aspiradora"
+}

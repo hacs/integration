@@ -1,0 +1,115 @@
+{
+    "device_automation": {
+        "action_type": {
+            "clean": "{entity_name} temizle",
+            "dock": "{entity_name} \u015farj istasyonuna d\u00f6ns\u00fcn"
+        },
+        "condition_type": {
+            "is_cleaning": "{entity_name} temizliyor",
+            "is_docked": "{entity_name} \u015farj istasyonunda"
+        },
+        "extra_fields": {
+            "for": "S\u00fcre"
+        },
+        "trigger_type": {
+            "cleaning": "{entity_name} temizlemeye ba\u015flad\u0131",
+            "docked": "{entity_name} \u015farj istasyonunda"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Robot S\u00fcp\u00fcrge",
+            "state": {
+                "cleaning": "Temizleniyor",
+                "docked": "\u015earj istasyonunda",
+                "error": "Hata",
+                "idle": "Bo\u015fta",
+                "off": "Kapal\u0131",
+                "on": "A\u00e7\u0131k",
+                "paused": "Durduruldu",
+                "returning": "\u015earj istasyonuna d\u00f6n\u00fcyor"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_vacuum_base_class": {
+            "description": "\" {platform} \" \u00f6zel entegrasyonu, \"StateVacuumEntity\" yerine kullan\u0131mdan kald\u0131r\u0131lan \"VacuumEntity\" temel s\u0131n\u0131f\u0131n\u0131 geni\u015fletiyor. \n\n L\u00fctfen bunu \" {platform} \" \u00f6zel entegrasyonunun yazar\u0131na bildirin. \n\n ` {platform} `\u0131n g\u00fcncellenmi\u015f bir s\u00fcr\u00fcm\u00fc kullan\u0131ma sunuldu\u011funda, y\u00fckleyin ve bu sorunu \u00e7\u00f6zmek i\u00e7in Home Assistant'\u0131 yeniden ba\u015flat\u0131n.",
+            "title": "{platform} \u00f6zel entegrasyonu, kullan\u0131mdan kald\u0131r\u0131lan robot s\u00fcp\u00fcrge \u00f6zelli\u011fini kullan\u0131yor"
+        },
+        "deprecated_vacuum_base_class_url": {
+            "description": "\u00d6zel entegrasyon ` {platform} `, kullan\u0131mdan kald\u0131r\u0131lan `StateVacuumEntity` yerine `VacuumEntity` temel s\u0131n\u0131f\u0131n\u0131 geni\u015fletiyor. \n\n L\u00fctfen {issue_tracker} adresinde bir hata raporu olu\u015fturun. \n\n ` {platform} ` uygulamas\u0131n\u0131n g\u00fcncellenmi\u015f bir s\u00fcr\u00fcm\u00fc mevcut oldu\u011funda bunu y\u00fckleyin ve bu sorunu d\u00fczeltmek i\u00e7in Home Assistant'\u0131 yeniden ba\u015flat\u0131n.",
+            "title": "{platform} \u00f6zel entegrasyonu, kullan\u0131mdan kald\u0131r\u0131lan robot s\u00fcp\u00fcrge \u00f6zelli\u011fini kullan\u0131yor"
+        },
+        "platform_integration_no_support": {
+            "description": "{domain} entegrasyonu i\u00e7in {platform} platformu, platform kurulumunu desteklemiyor. \n\n L\u00fctfen yap\u0131land\u0131rman\u0131zdan kald\u0131r\u0131n ve bu sorunu \u00e7\u00f6zmek i\u00e7in Home Assistant'\u0131 yeniden ba\u015flat\u0131n.",
+            "title": "Platform deste\u011fi desteklenmiyor"
+        }
+    },
+    "services": {
+        "clean_spot": {
+            "description": "Elektrikli s\u00fcp\u00fcrgeye bir nokta temizli\u011fi yapmas\u0131n\u0131 s\u00f6yler.",
+            "name": "Noktay\u0131 temizle"
+        },
+        "locate": {
+            "description": "Robot s\u00fcp\u00fcrgenin yerini bulur.",
+            "name": "Yeri tespit et"
+        },
+        "pause": {
+            "description": "Temizleme g\u00f6revini duraklat\u0131r.",
+            "name": "Duraklat"
+        },
+        "return_to_base": {
+            "description": "Robot s\u00fcp\u00fcrgeye yuvas\u0131na d\u00f6nmesini s\u00f6yler.",
+            "name": "Dock'a geri d\u00f6n"
+        },
+        "send_command": {
+            "description": "Elektrikli s\u00fcp\u00fcrgeye bir komut g\u00f6nderir.",
+            "fields": {
+                "command": {
+                    "description": "Y\u00fcr\u00fctme komutu. Komutlar entegrasyona \u00f6zeldir.",
+                    "name": "Komuta"
+                },
+                "params": {
+                    "description": "Komut i\u00e7in parametreler. Parametreler entegrasyona \u00f6zeldir.",
+                    "name": "Parametreler"
+                }
+            },
+            "name": "Komut g\u00f6nder"
+        },
+        "set_fan_speed": {
+            "description": "Robot s\u00fcp\u00fcrgenin fan h\u0131z\u0131n\u0131 ayarlar.",
+            "fields": {
+                "fan_speed": {
+                    "description": "Pervane h\u0131z\u0131. De\u011fer entegrasyona ba\u011fl\u0131d\u0131r. Baz\u0131 entegrasyonlar\u0131n 'orta' gibi h\u0131z ad\u0131mlar\u0131 vard\u0131r. Baz\u0131lar\u0131 0 ile 100 aras\u0131nda bir y\u00fczde kullan\u0131r.",
+                    "name": "Fan h\u0131z\u0131"
+                }
+            },
+            "name": "Fan h\u0131z\u0131n\u0131 ayarla"
+        },
+        "start": {
+            "description": "Temizleme g\u00f6revini ba\u015flat\u0131r veya devam ettirir.",
+            "name": "Ba\u015flat"
+        },
+        "start_pause": {
+            "description": "Temizleme g\u00f6revini ba\u015flat\u0131r, duraklat\u0131r veya devam ettirir.",
+            "name": "Ba\u015flat/duraklat"
+        },
+        "stop": {
+            "description": "Ge\u00e7erli temizleme g\u00f6revini durdurur.",
+            "name": "Durdur"
+        },
+        "toggle": {
+            "description": "Elektrikli s\u00fcp\u00fcrgeyi a\u00e7ar/kapat\u0131r.",
+            "name": "De\u011fi\u015ftir"
+        },
+        "turn_off": {
+            "description": "Ge\u00e7erli temizleme g\u00f6revini durdurur ve yuvas\u0131na geri d\u00f6ner.",
+            "name": "Kapat"
+        },
+        "turn_on": {
+            "description": "Yeni bir temizlik g\u00f6revi ba\u015flat\u0131r.",
+            "name": "A\u00e7"
+        }
+    },
+    "title": "Robot S\u00fcp\u00fcrge"
+}

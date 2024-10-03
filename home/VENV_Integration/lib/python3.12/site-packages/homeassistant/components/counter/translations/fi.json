@@ -1,0 +1,66 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "Laskuri",
+            "state_attributes": {
+                "editable": {
+                    "name": "Hallinnoitu k\u00e4ytt\u00f6liittym\u00e4n kautta",
+                    "state": {
+                        "false": "Ei",
+                        "true": "Kyll\u00e4"
+                    }
+                },
+                "initial": {
+                    "name": "Alkuarvo"
+                },
+                "maximum": {
+                    "name": "Maksimi"
+                },
+                "minimum": {
+                    "name": "Minimi"
+                },
+                "step": {
+                    "name": "Askel"
+                }
+            }
+        }
+    },
+    "issues": {
+        "deprecated_configure_service": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Laskuripalvelu `counter.configure` poistetaan ja sen k\u00e4ytt\u00f6 on havaittu. Jos haluat muuttaa laskurin nykyist\u00e4 arvoa, k\u00e4yt\u00e4 sen sijaan uutta `counter.set_value`-palvelua.\n\nPoista t\u00e4m\u00e4 palvelu automaatioistasi ja skripteist\u00e4si ja sulje t\u00e4m\u00e4 ongelma valitsemalla **l\u00e4het\u00e4**.",
+                        "title": "Laskurin m\u00e4\u00e4rityspalvelu poistetaan"
+                    }
+                }
+            },
+            "title": "Laskurin m\u00e4\u00e4rityspalvelu poistetaan"
+        }
+    },
+    "services": {
+        "decrement": {
+            "description": "V\u00e4hent\u00e4\u00e4 laskuria.",
+            "name": "V\u00e4hennys"
+        },
+        "increment": {
+            "description": "Kasvattaa laskuria.",
+            "name": "Lis\u00e4ys"
+        },
+        "reset": {
+            "description": "Nollaa laskurin.",
+            "name": "Nollaa"
+        },
+        "set_value": {
+            "description": "Asettaa laskurin arvon.",
+            "fields": {
+                "value": {
+                    "description": "Uusi laskurin arvo, johon entiteetti tulisi asettaa.",
+                    "name": "Arvo"
+                }
+            },
+            "name": "Aseta"
+        }
+    },
+    "title": "Laskuri"
+}

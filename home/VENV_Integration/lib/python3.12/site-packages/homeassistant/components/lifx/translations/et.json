@@ -1,0 +1,258 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Seade on juba h\u00e4\u00e4lestatud",
+            "already_in_progress": "Seadistamine on juba k\u00e4imas",
+            "no_devices_found": "V\u00f5rgust ei leitud seadmeid"
+        },
+        "error": {
+            "cannot_connect": "\u00dchendamine nurjus"
+        },
+        "flow_title": "{label} ({group})",
+        "step": {
+            "discovery_confirm": {
+                "description": "Kas seadistada {label} ({group})?"
+            },
+            "pick_device": {
+                "data": {
+                    "device": "Seade"
+                }
+            },
+            "user": {
+                "data": {
+                    "host": "Host"
+                },
+                "data_description": {
+                    "host": "LIFX-seadme hostinimi v\u00f5i IP-aadress."
+                },
+                "description": "Kui j\u00e4tad hosti t\u00fchjaks kasutatakse seadmete leidmiseks avastamist."
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "clean_cycle": {
+                "name": "Puhastusts\u00fckkel"
+            }
+        },
+        "select": {
+            "infrared_brightness": {
+                "name": "Infrapuna heledus"
+            },
+            "theme": {
+                "name": "Teema"
+            }
+        },
+        "sensor": {
+            "rssi": {
+                "name": "Signaali tugevus"
+            }
+        }
+    },
+    "services": {
+        "effect_colorloop": {
+            "description": "K\u00e4ivitab silmusv\u00e4rvidega efekti.",
+            "fields": {
+                "brightness": {
+                    "description": "V\u00e4rvisilmuse heledust n\u00e4itav arv, kus 1 on minimaalne heledus ja 255 on valguse poolt toetatud maksimaalne heledus.",
+                    "name": "Heleduse v\u00e4\u00e4rtus"
+                },
+                "brightness_pct": {
+                    "description": "Protsent, mis n\u00e4itab v\u00e4rvisilmuse heledust, kus 1 on minimaalne heledus ja 100 on valguse poolt toetatud maksimaalne heledus.",
+                    "name": "Heledus"
+                },
+                "change": {
+                    "description": "V\u00e4rvitooni liikumine ajavahemiku kohta, kraadides v\u00e4rvirattal.",
+                    "name": "Muutus"
+                },
+                "period": {
+                    "description": "V\u00e4rvimuutuste vaheline kestus.",
+                    "name": "Ajavahemik"
+                },
+                "power_on": {
+                    "description": "V\u00e4ljal\u00fclitatud tuled l\u00fclitatakse efekti ajal ajutiselt sisse.",
+                    "name": "L\u00fclita sisse"
+                },
+                "saturation_max": {
+                    "description": "Protsent, mis n\u00e4itab ts\u00fckli v\u00e4rvide maksimaalset k\u00fcllastust.",
+                    "name": "Maksimaalne v\u00e4rvik\u00fcllastus"
+                },
+                "saturation_min": {
+                    "description": "Protsent mis n\u00e4itab ts\u00fckli v\u00e4rvide minimaalset k\u00fcllastust.",
+                    "name": "Minimaalne v\u00e4rvik\u00fcllastus"
+                },
+                "spread": {
+                    "description": "Maksimaalne v\u00e4rvitoonide erinevus osalevate tulede vahel, kraadides v\u00e4rvirattal.",
+                    "name": "Levik"
+                }
+            },
+            "name": "V\u00e4rvisilmuse efekt"
+        },
+        "effect_flame": {
+            "description": "K\u00e4ivitab p\u00fcsivarap\u00f5hise leegi efekti LIFX Tiles v\u00f5i Candle'l.",
+            "fields": {
+                "power_on": {
+                    "description": "V\u00e4ljal\u00fclitatud valgustid l\u00fclitatakse enne efekti k\u00e4ivitamist sisse.",
+                    "name": "L\u00fclita sisse"
+                },
+                "speed": {
+                    "description": "Kui kiiresti leegid liiguvad.",
+                    "name": "Kiirus"
+                }
+            },
+            "name": "Leegi efekt"
+        },
+        "effect_morph": {
+            "description": "K\u00e4ivitab p\u00fcsivarap\u00f5hise Morph-efekti LIFX-plaatidel Candle'il.",
+            "fields": {
+                "palette": {
+                    "description": "Selle efekti jaoks kasutatavate toonide (0\u2013360), k\u00fcllastuse (0\u2013100), heleduse (0\u2013100) ja kelvini (1500\u2013900) v\u00e4\u00e4rtuste loend v\u00e4hemalt 2 ja maksimaalselt 16 v\u00e4rvist. Alistab teemaatribuudi.",
+                    "name": "V\u00e4rvipalett"
+                },
+                "power_on": {
+                    "description": "V\u00e4ljal\u00fclitatud valgustid l\u00fclitatakse enne efekti k\u00e4ivitamist sisse.",
+                    "name": "Toide sisse"
+                },
+                "speed": {
+                    "description": "Kui kiiresti v\u00e4rvid liiguvad.",
+                    "name": "Kiirus"
+                },
+                "theme": {
+                    "description": "Efekti jaoks kasutatav eelm\u00e4\u00e4ratletud v\u00e4rvikujundus. Alistatakse paleti atribuudiga.",
+                    "name": "Teema"
+                }
+            },
+            "name": "Morfimise efekt"
+        },
+        "effect_move": {
+            "description": "K\u00e4ivitab p\u00fcsivarap\u00f5hise liikumise efekti LIFX Z, Lightstripi v\u00f5i Beam puhul.",
+            "fields": {
+                "direction": {
+                    "description": "Suund, kuidas efekt seadmes liigub.",
+                    "name": "Suund"
+                },
+                "power_on": {
+                    "description": "V\u00e4ljal\u00fclitatud valgustid l\u00fclitatakse enne efekti k\u00e4ivitamist sisse.",
+                    "name": "Toide sisse"
+                },
+                "speed": {
+                    "description": "Kui kaua sekundites efekt valgusti pikkuses liigub.",
+                    "name": "Kiirus"
+                },
+                "theme": {
+                    "description": "(Valikuline) m\u00e4\u00e4ra enne efekti k\u00e4ivitamist seadmele \u00fcks eelm\u00e4\u00e4ratletud teemadest.",
+                    "name": "Teema"
+                }
+            },
+            "name": "Liikumisefekt"
+        },
+        "effect_pulse": {
+            "description": "K\u00e4ivitab v\u00e4lklambiefekti, muutes v\u00e4rvi ja tagasi.",
+            "fields": {
+                "brightness": {
+                    "description": "Arv, mis n\u00e4itab ajutise v\u00e4rvi heledust, kus 1 on minimaalne heledus ja 255 on maksimaalne valgusti toetatav heledus.",
+                    "name": "Heleduse v\u00e4\u00e4rtus"
+                },
+                "brightness_pct": {
+                    "description": "Protsent, mis n\u00e4itab ajutise v\u00e4rvi heledust, kus 1 on minimaalne heledus ja 100 on maksimaalne valgusti toetatav heledus.",
+                    "name": "Heledus"
+                },
+                "color_name": {
+                    "description": "Inimloetav v\u00e4rvinimi.",
+                    "name": "V\u00e4rvi nimi"
+                },
+                "cycles": {
+                    "description": "Mitu korda peaks efekt toimuma.",
+                    "name": "Kordused"
+                },
+                "mode": {
+                    "description": "Otsustab kuidas v\u00e4rve muudetakse.",
+                    "name": "Re\u017eiim"
+                },
+                "period": {
+                    "description": "Efekti kestus.",
+                    "name": "Ajavahemik"
+                },
+                "power_on": {
+                    "description": "V\u00e4ljal\u00fclitatud tuled l\u00fclitatakse efekti ajal ajutiselt sisse.",
+                    "name": "L\u00fclita sisse"
+                },
+                "rgb_color": {
+                    "description": "Ajutine v\u00e4rv RGB-vormingus.",
+                    "name": "RGB v\u00e4rv"
+                }
+            },
+            "name": "Impulsi efekt"
+        },
+        "effect_sky": {
+            "description": "K\u00e4ivitab p\u00fcsivarap\u00f5hise Sky-efekti LIFX Ceilingis.",
+            "fields": {
+                "cloud_saturation_max": {
+                    "description": "Maksimaalne pilvek\u00fcllastus.",
+                    "name": "Maksimaalne pilvek\u00fcllastus"
+                },
+                "cloud_saturation_min": {
+                    "description": "Minimaalne pilvede k\u00fcllastus.",
+                    "name": "Minimaalne pilvek\u00fcllastus"
+                },
+                "palette": {
+                    "description": "Selle efekti jaoks kasutatavate toonide (0\u2013360), k\u00fcllastuse (0\u2013100), heleduse (0\u2013100) ja Kelvini (1500\u20139000) v\u00e4\u00e4rtuste loend 1\u20136 v\u00e4rvist.",
+                    "name": "V\u00e4rvipalett"
+                },
+                "power_on": {
+                    "description": "V\u00e4ljal\u00fclitatud valgustid l\u00fclitatakse enne efekti k\u00e4ivitamist sisse.",
+                    "name": "L\u00fclita sisse"
+                },
+                "sky_type": {
+                    "description": "Taeva stiil mida efekt animeerib.",
+                    "name": "Taeva t\u00fc\u00fcp"
+                },
+                "speed": {
+                    "description": "Kui kaua p\u00e4ikeset\u00f5usu ja -loojangu taeva t\u00fc\u00fcbid aega v\u00f5tavad. Pilvetaeva t\u00fc\u00fcbi puhul on see pilvede kiirus kogu seadmes.",
+                    "name": "Kiirus"
+                }
+            },
+            "name": "Taevaefekt"
+        },
+        "effect_stop": {
+            "description": "Peatab praeguse efekti.",
+            "name": "Peata efekt"
+        },
+        "set_hev_cycle_state": {
+            "description": "Juhib LIFX Clean pirni HEV LED-e.",
+            "fields": {
+                "duration": {
+                    "description": "Kui kaua HEV LED-id p\u00f5levad. Kui pole m\u00e4\u00e4ratud, kasutab m\u00e4\u00e4ratud vaikekestust.",
+                    "name": "Kestus"
+                },
+                "power": {
+                    "description": "K\u00e4ivita v\u00f5i peata Clean ts\u00fckkel.",
+                    "name": "Luba"
+                }
+            },
+            "name": "M\u00e4\u00e4ra HEV-ts\u00fckli olek"
+        },
+        "set_state": {
+            "description": "M\u00e4\u00e4rab v\u00e4rvi/heleduse ja v\u00f5imaluse korral l\u00fclitab valguse sisse/v\u00e4lja.",
+            "fields": {
+                "infrared": {
+                    "description": "Automaatne infrapuna tase kui valguse heledus on madal.",
+                    "name": "Infrapuna"
+                },
+                "power": {
+                    "description": "L\u00fclita valgus sisse v\u00f5i v\u00e4lja. J\u00e4ta v\u00e4lja, et v\u00f5imsus j\u00e4\u00e4ks selliseks, nagu see on.",
+                    "name": "V\u00f5imsus"
+                },
+                "transition": {
+                    "description": "L\u00f5pliku seisundini j\u00f5udmise kestus.",
+                    "name": "\u00dcleminek"
+                },
+                "zones": {
+                    "description": "M\u00f5jutatavate tsoonide numbrite loend (8 LIFX Z kohta, algab 0-st).",
+                    "name": "Tsoonid"
+                }
+            },
+            "name": "M\u00e4\u00e4ra olek"
+        }
+    }
+}

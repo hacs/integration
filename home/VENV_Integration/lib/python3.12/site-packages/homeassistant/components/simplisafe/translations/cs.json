@@ -1,0 +1,126 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Tento \u00fa\u010det SimpliSafe je ji\u017e pou\u017e\u00edv\u00e1n.",
+            "reauth_successful": "Op\u011btovn\u00e9 ov\u011b\u0159en\u00ed bylo \u00fasp\u011b\u0161n\u00e9",
+            "wrong_account": "Poskytnut\u00e9 p\u0159ihla\u0161ovac\u00ed \u00fadaje u\u017eivatele neodpov\u00eddaj\u00ed tomuto \u00fa\u010dtu SimpliSafe."
+        },
+        "error": {
+            "identifier_exists": "\u00da\u010det je ji\u017e zaregistrov\u00e1n",
+            "invalid_auth": "Neplatn\u00e9 ov\u011b\u0159en\u00ed",
+            "invalid_auth_code_length": "Ov\u011b\u0159ovac\u00ed k\u00f3dy SimpliSafe maj\u00ed d\u00e9lku 45 znak\u016f",
+            "unknown": "Neo\u010dek\u00e1van\u00e1 chyba"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "auth_code": "Ov\u011b\u0159ovac\u00ed k\u00f3d"
+                },
+                "description": "SimpliSafe ov\u011b\u0159uje u\u017eivatele prost\u0159ednictv\u00edm sv\u00e9 webov\u00e9 aplikace. Kv\u016fli technick\u00fdm omezen\u00edm je na konci tohoto procesu ru\u010dn\u00ed krok; p\u0159ed zah\u00e1jen\u00edm se ujist\u011bte, \u017ee jste si p\u0159e\u010detli [dokumentaci](http://home-assistant.io/integrations/simplisafe#getting-an-authorization-code).\n\nA\u017e budete p\u0159ipraveni, klepnut\u00edm [sem]({url}) otev\u0159ete webovou aplikaci SimpliSafe a zadejte sv\u00e9 p\u0159ihla\u0161ovac\u00ed \u00fadaje. Pokud jste se ji\u017e ve sv\u00e9m prohl\u00ed\u017ee\u010di p\u0159ihl\u00e1sili do SimpliSafe, mo\u017en\u00e1 budete muset otev\u0159\u00edt novou kartu a zkop\u00edrovat/vlo\u017eit v\u00fd\u0161e uvedenou URL do t\u00e9to karty.\n\nPo dokon\u010den\u00ed procesu se vra\u0165te sem a zadejte ov\u011b\u0159ovac\u00ed k\u00f3d z URL \"com.simplisafe.mobile\"."
+            }
+        }
+    },
+    "entity": {
+        "button": {
+            "clear_notifications": {
+                "name": "Vymazat ozn\u00e1men\u00ed"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_service": {
+            "description": "Aktualizujte v\u0161echny automatizace nebo skripty, kter\u00e9 pou\u017e\u00edvaj\u00ed tuto slu\u017ebu, aby m\u00edsto toho pou\u017e\u00edvaly slu\u017ebu \"{alternate_service}\" s ID c\u00edlov\u00e9 entity \"{alternate_target}\". Klepnut\u00edm na tla\u010d\u00edtko Odeslat n\u00ed\u017ee ozna\u010dte tento probl\u00e9m jako vy\u0159e\u0161en\u00fd.",
+            "title": "Slu\u017eba {deprecated_service} se odeb\u00edr\u00e1"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "code": "K\u00f3d (pou\u017e\u00edt\u00fd v u\u017eivatelsk\u00e9m rozhran\u00ed Home Assistanta)"
+                },
+                "title": "Nastavit SimpliSafe"
+            }
+        }
+    },
+    "services": {
+        "remove_pin": {
+            "description": "Odebere PIN podle jeho \u0161t\u00edtku nebo hodnoty.",
+            "fields": {
+                "device_id": {
+                    "description": "Syst\u00e9m, ze kter\u00e9ho chcete PIN odebrat.",
+                    "name": "Syst\u00e9m"
+                },
+                "label_or_pin": {
+                    "description": "\u0160t\u00edtek/hodnota, kterou chcete odebrat.",
+                    "name": "\u0160t\u00edtek/PIN"
+                }
+            },
+            "name": "Odebrat PIN"
+        },
+        "set_pin": {
+            "description": "Nastavuje/aktualizuje PIN.",
+            "fields": {
+                "device_id": {
+                    "description": "Syst\u00e9m, na kter\u00e9m se m\u00e1 nastavit PIN.",
+                    "name": "Syst\u00e9m"
+                },
+                "label": {
+                    "description": "\u0160t\u00edtek PIN.",
+                    "name": "\u0160t\u00edtek"
+                },
+                "pin": {
+                    "description": "Hodnota PIN.",
+                    "name": "PIN"
+                }
+            },
+            "name": "Nastavit PIN"
+        },
+        "set_system_properties": {
+            "description": "Nastavuje jednu nebo v\u00edce vlastnost\u00ed syst\u00e9mu.",
+            "fields": {
+                "alarm_duration": {
+                    "description": "D\u00e9lka spu\u0161t\u011bn\u00e9ho alarmu.",
+                    "name": "Doba trv\u00e1n\u00ed alarmu"
+                },
+                "alarm_volume": {
+                    "description": "\u00darove\u0148 hlasitosti spu\u0161t\u011bn\u00e9ho alarmu.",
+                    "name": "Hlasitost alarmu"
+                },
+                "chime_volume": {
+                    "description": "\u00darove\u0148 hlasitosti zvonku dve\u0159\u00ed.",
+                    "name": "Hlasitost zvonku"
+                },
+                "device_id": {
+                    "description": "Syst\u00e9m, jeho\u017e vlastnosti maj\u00ed b\u00fdt nastaveny.",
+                    "name": "Syst\u00e9m"
+                },
+                "entry_delay_away": {
+                    "description": "Jak\u00e9 zpo\u017ed\u011bn\u00ed pro p\u0159\u00edchod v re\u017eimu Pry\u010d.",
+                    "name": "Zpo\u017ed\u011bn\u00ed pro p\u0159\u00edchod v re\u017eimu Pry\u010d"
+                },
+                "entry_delay_home": {
+                    "description": "Jak\u00e9 zpo\u017ed\u011bn\u00ed pro p\u0159\u00edchod v re\u017eimu Doma.",
+                    "name": "Zpo\u017ed\u011bn\u00ed pro p\u0159\u00edchod v re\u017eimu Doma"
+                },
+                "exit_delay_away": {
+                    "description": "Jak\u00e9 zpo\u017ed\u011bn\u00ed pro odchod v re\u017eimu Pry\u010d.",
+                    "name": "Zpo\u017ed\u011bn\u00ed pro odchod v re\u017eimu Pry\u010d"
+                },
+                "exit_delay_home": {
+                    "description": "Jak\u00e9 zpo\u017ed\u011bn\u00ed pro odchod v re\u017eimu Doma.",
+                    "name": "Zpo\u017ed\u011bn\u00ed pro odchod v re\u017eimu Doma"
+                },
+                "light": {
+                    "description": "Zda m\u00e1 b\u00fdt viditeln\u00e9 zapnut\u00e9 sv\u011btlo p\u0159i zabezpe\u010den\u00ed.",
+                    "name": "Sv\u011btlo"
+                },
+                "voice_prompt_volume": {
+                    "description": "\u00darove\u0148 hlasitosti hlasov\u00e9 v\u00fdzvy.",
+                    "name": "Hlasitost hlasov\u00e9 v\u00fdzvy"
+                }
+            },
+            "name": "Nastavit vlastnosti syst\u00e9mu"
+        }
+    }
+}

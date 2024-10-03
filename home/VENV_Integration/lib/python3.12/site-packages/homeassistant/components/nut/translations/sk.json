@@ -1,0 +1,433 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Zariadenie u\u017e je nakonfigurovan\u00e9",
+            "no_ups_found": "Na serveri NUT nie s\u00fa k dispoz\u00edcii \u017eiadne zariadenia UPS.",
+            "reauth_successful": "Op\u00e4tovn\u00e9 overenie bolo \u00faspe\u0161n\u00e9"
+        },
+        "error": {
+            "cannot_connect": "Chyba pripojenia: {error}",
+            "invalid_auth": "Neplatn\u00e9 overenie",
+            "unknown": "Neo\u010dak\u00e1van\u00e1 chyba"
+        },
+        "step": {
+            "reauth_confirm": {
+                "data": {
+                    "password": "Heslo",
+                    "username": "Pou\u017e\u00edvate\u013esk\u00e9 meno"
+                },
+                "description": "Op\u00e4tovn\u00e9 overenie servera NUT na adrese {host}:{port}"
+            },
+            "ups": {
+                "data": {
+                    "alias": "Alias"
+                },
+                "title": "Vyberte UPS, ktor\u00fa chcete monitorova\u0165"
+            },
+            "user": {
+                "data": {
+                    "host": "Hostite\u013e",
+                    "password": "Heslo",
+                    "port": "Port",
+                    "username": "Pou\u017e\u00edvate\u013esk\u00e9 meno"
+                },
+                "data_description": {
+                    "host": "N\u00e1zov hostite\u013ea alebo IP adresa v\u00e1\u0161ho servera NUT."
+                },
+                "description": "Pripoji\u0165 k serveru NUT",
+                "title": "Pripoji\u0165 k serveru NUT"
+            }
+        }
+    },
+    "device_automation": {
+        "action_type": {
+            "beeper_disable": "Zak\u00e1za\u0165 p\u00edpanie/bzu\u010diak UPS",
+            "beeper_enable": "Povoli\u0165 p\u00edpanie/bzu\u010diak UPS",
+            "beeper_mute": "Do\u010dasne stlmi\u0165 p\u00edpanie/bzu\u010diak UPS",
+            "beeper_toggle": "Prepn\u00fa\u0165 p\u00edpanie/bzu\u010diak UPS",
+            "bypass_start": "Prepnutie UPS do re\u017eimu bypassu",
+            "bypass_stop": "Vyra\u010fte zdroj UPS z re\u017eimu bypassu",
+            "calibrate_start": "Spustenie kalibr\u00e1cie po\u010das behu",
+            "calibrate_stop": "Zastavenie kalibr\u00e1cie po\u010das behu",
+            "load_off": "Okam\u017eit\u00e9 vypnutie z\u00e1\u0165a\u017ee",
+            "load_on": "Okam\u017eit\u00e9 zapnutie z\u00e1\u0165a\u017ee",
+            "reset_input_minmax": "Obnovenie stavu minim\u00e1lneho a maxim\u00e1lneho vstupn\u00e9ho nap\u00e4tia",
+            "reset_watchdog": "Resetovanie \u010dasova\u010da watchdog (n\u00faten\u00fd re\u0161tart z\u00e1\u0165a\u017ee)",
+            "shutdown_reboot": "Kr\u00e1tke vypnutie z\u00e1\u0165a\u017ee po\u010das re\u0161tartu UPS",
+            "shutdown_reboot_graceful": "Po ur\u010ditom oneskoren\u00ed nakr\u00e1tko vypnite z\u00e1\u0165a\u017e pri re\u0161tarte UPS",
+            "shutdown_return": "Vypnite z\u00e1\u0165a\u017e pr\u00edpadne po oneskoren\u00ed a vr\u00e1\u0165te sa, ke\u010f je nap\u00e1janie obnoven\u00e9",
+            "shutdown_stayoff": "Z\u00e1\u0165a\u017e sa vypne pr\u00edpadne po oneskoren\u00ed a zostane vypnut\u00e1 aj po obnoven\u00ed nap\u00e1jania",
+            "shutdown_stop": "Zastavenie prebiehaj\u00faceho vyp\u00ednania",
+            "test_battery_start": "Spustenie testu bat\u00e9rie",
+            "test_battery_start_deep": "Spustenie h\u013abkov\u00e9ho testu bat\u00e9rie",
+            "test_battery_start_quick": "Spustenie r\u00fdchleho testu bat\u00e9rie",
+            "test_battery_stop": "Zastavenie testu bat\u00e9rie",
+            "test_failure_start": "Spustenie simulovan\u00e9ho v\u00fdpadku nap\u00e1jania",
+            "test_failure_stop": "Zastavenie simul\u00e1cie v\u00fdpadku nap\u00e1jania",
+            "test_panel_start": "Spustenie testovania panelu UPS",
+            "test_panel_stop": "Zastavenie testu panelu UPS",
+            "test_system_start": "Spustenie testu syst\u00e9mu"
+        }
+    },
+    "entity": {
+        "sensor": {
+            "ambient_humidity": {
+                "name": "Okolit\u00e1 vlhkos\u0165"
+            },
+            "ambient_temperature": {
+                "name": "Okolit\u00e1 teplota"
+            },
+            "battery_alarm_threshold": {
+                "name": "Prahov\u00e1 hodnota alarmu bat\u00e9rie"
+            },
+            "battery_capacity": {
+                "name": "Kapacita bat\u00e9rie"
+            },
+            "battery_charge": {
+                "name": "Nabitie bat\u00e9rie"
+            },
+            "battery_charge_low": {
+                "name": "Nastaven\u00e1 hodnota slabej bat\u00e9rie"
+            },
+            "battery_charge_restart": {
+                "name": "Minim\u00e1lna bat\u00e9ria na spustenie"
+            },
+            "battery_charge_warning": {
+                "name": "V\u00fdstra\u017en\u00e1 nastaven\u00e1 hodnota bat\u00e9rie"
+            },
+            "battery_charger_status": {
+                "name": "Stav nab\u00edjania"
+            },
+            "battery_current": {
+                "name": "Pr\u00fad bat\u00e9rie"
+            },
+            "battery_current_total": {
+                "name": "Celkov\u00fd pr\u00fad bat\u00e9rie"
+            },
+            "battery_date": {
+                "name": "D\u00e1tum bat\u00e9rie"
+            },
+            "battery_mfr_date": {
+                "name": "D\u00e1tum v\u00fdroby bat\u00e9rie"
+            },
+            "battery_packs": {
+                "name": "Po\u010det bat\u00e9ri\u00ed"
+            },
+            "battery_packs_bad": {
+                "name": "Po\u010det zl\u00fdch bat\u00e9ri\u00ed"
+            },
+            "battery_runtime": {
+                "name": "V\u00fddr\u017e bat\u00e9rie"
+            },
+            "battery_runtime_low": {
+                "name": "N\u00edzka v\u00fddr\u017e bat\u00e9rie"
+            },
+            "battery_runtime_restart": {
+                "name": "Minim\u00e1lna v\u00fddr\u017e bat\u00e9rie na spustenie"
+            },
+            "battery_temperature": {
+                "name": "Teplota bat\u00e9rie"
+            },
+            "battery_type": {
+                "name": "Chemick\u00e9 zlo\u017eenie bat\u00e9rie"
+            },
+            "battery_voltage": {
+                "name": "Nap\u00e4tie bat\u00e9rie"
+            },
+            "battery_voltage_high": {
+                "name": "Vysok\u00e9 nap\u00e4tie bat\u00e9rie"
+            },
+            "battery_voltage_low": {
+                "name": "N\u00edzke nap\u00e4tie bat\u00e9rie"
+            },
+            "battery_voltage_nominal": {
+                "name": "Menovit\u00e9 nap\u00e4tie bat\u00e9rie"
+            },
+            "input_bypass_current": {
+                "name": "Vstupn\u00fd bypass pr\u00fad"
+            },
+            "input_bypass_frequency": {
+                "name": "Vstupn\u00e1 bypassov\u00e1 frekvencia"
+            },
+            "input_bypass_l1_current": {
+                "name": "Vstupn\u00fd bypass L1 pr\u00fad"
+            },
+            "input_bypass_l1_n_voltage": {
+                "name": "Vstupn\u00fd bypass L1-N nap\u00e4tie"
+            },
+            "input_bypass_l1_realpower": {
+                "name": "Aktu\u00e1lny vstupn\u00fd bypass L1 re\u00e1lny v\u00fdkon"
+            },
+            "input_bypass_l2_current": {
+                "name": "Vstupn\u00fd bypass L2 pr\u00fad"
+            },
+            "input_bypass_l2_n_voltage": {
+                "name": "Vstupn\u00fd bypass L2-N nap\u00e4tie"
+            },
+            "input_bypass_l2_realpower": {
+                "name": "Aktu\u00e1lny vstupn\u00fd bypass L2 re\u00e1lny v\u00fdkon"
+            },
+            "input_bypass_l3_current": {
+                "name": "Vstupn\u00fd bypass L3 pr\u00fad"
+            },
+            "input_bypass_l3_n_voltage": {
+                "name": "Vstupn\u00fd bypass L3-N nap\u00e4tie"
+            },
+            "input_bypass_l3_realpower": {
+                "name": "Aktu\u00e1lny vstupn\u00fd bypass L3 re\u00e1lny v\u00fdkon"
+            },
+            "input_bypass_phases": {
+                "name": "F\u00e1zy vstupn\u00e9ho bypassu"
+            },
+            "input_bypass_realpower": {
+                "name": "Aktu\u00e1lny vstupn\u00fd bypass re\u00e1lny v\u00fdkon"
+            },
+            "input_bypass_voltage": {
+                "name": "Vstupn\u00fd bypass nap\u00e4tia"
+            },
+            "input_current": {
+                "name": "Vstupn\u00fd pr\u00fad"
+            },
+            "input_frequency": {
+                "name": "Vstupn\u00e1 frekvencia"
+            },
+            "input_frequency_nominal": {
+                "name": "Vstupn\u00e1 menovit\u00e1 frekvencia"
+            },
+            "input_frequency_status": {
+                "name": "Stav vstupnej frekvencie"
+            },
+            "input_l1_current": {
+                "name": "Vstupn\u00fd L1 pr\u00fad"
+            },
+            "input_l1_frequency": {
+                "name": "Vstupn\u00e1 frekvencia L1"
+            },
+            "input_l1_n_voltage": {
+                "name": "Vstupn\u00e9 L1 nap\u00e4tie"
+            },
+            "input_l1_realpower": {
+                "name": "Aktu\u00e1lny vstupn\u00fd re\u00e1lny v\u00fdkon L1"
+            },
+            "input_l2_current": {
+                "name": "Vstupn\u00fd L2 pr\u00fad"
+            },
+            "input_l2_frequency": {
+                "name": "Vstupn\u00e1 frekvencia L2"
+            },
+            "input_l2_n_voltage": {
+                "name": "Vstupn\u00e9 L2 nap\u00e4tie"
+            },
+            "input_l2_realpower": {
+                "name": "Aktu\u00e1lny vstupn\u00fd re\u00e1lny v\u00fdkon L2"
+            },
+            "input_l3_current": {
+                "name": "Vstupn\u00fd L3 pr\u00fad"
+            },
+            "input_l3_frequency": {
+                "name": "Vstupn\u00e1 frekvencia L3"
+            },
+            "input_l3_n_voltage": {
+                "name": "Vstupn\u00e9 nap\u00e4tie L3"
+            },
+            "input_l3_realpower": {
+                "name": "Aktu\u00e1lny vstupn\u00fd re\u00e1lny v\u00fdkon L3"
+            },
+            "input_phases": {
+                "name": "Vstupn\u00e9 f\u00e1zy"
+            },
+            "input_realpower": {
+                "name": "Aktu\u00e1lny vstupn\u00fd re\u00e1lny v\u00fdkon"
+            },
+            "input_sensitivity": {
+                "name": "Citlivos\u0165 vstupn\u00e9ho v\u00fdkonu"
+            },
+            "input_transfer_high": {
+                "name": "Prenos vysok\u00e9ho nap\u00e4tia"
+            },
+            "input_transfer_low": {
+                "name": "Prenos n\u00edzkeho nap\u00e4tia"
+            },
+            "input_transfer_reason": {
+                "name": "D\u00f4vod prenosu nap\u00e4tia"
+            },
+            "input_voltage": {
+                "name": "Vstupn\u00e9 nap\u00e4tie"
+            },
+            "input_voltage_nominal": {
+                "name": "Menovit\u00e9 vstupn\u00e9 nap\u00e4tie"
+            },
+            "output_current": {
+                "name": "V\u00fdstupn\u00fd pr\u00fad"
+            },
+            "output_current_nominal": {
+                "name": "Menovit\u00fd v\u00fdstupn\u00fd pr\u00fad"
+            },
+            "output_frequency": {
+                "name": "V\u00fdstupn\u00e1 frekvencia"
+            },
+            "output_frequency_nominal": {
+                "name": "Nomin\u00e1lna v\u00fdstupn\u00e1 frekvencia"
+            },
+            "output_l1_current": {
+                "name": "V\u00fdstupn\u00fd L1 pr\u00fad"
+            },
+            "output_l1_n_voltage": {
+                "name": "V\u00fdstupn\u00e9 L1-N nap\u00e4tie"
+            },
+            "output_l1_power_percent": {
+                "name": "V\u00fdstupn\u00e1 spotreba energie L1"
+            },
+            "output_l1_realpower": {
+                "name": "Aktu\u00e1lny v\u00fdstupn\u00fd re\u00e1lny v\u00fdkon L1"
+            },
+            "output_l2_current": {
+                "name": "V\u00fdstupn\u00fd L2 pr\u00fad"
+            },
+            "output_l2_n_voltage": {
+                "name": "V\u00fdstupn\u00e9 L2-N nap\u00e4tie"
+            },
+            "output_l2_power_percent": {
+                "name": "V\u00fdstupn\u00e1 spotreba energie L2"
+            },
+            "output_l2_realpower": {
+                "name": "Aktu\u00e1lny v\u00fdstupn\u00fd re\u00e1lny v\u00fdkon L2"
+            },
+            "output_l3_current": {
+                "name": "V\u00fdstupn\u00fd L3 pr\u00fad"
+            },
+            "output_l3_n_voltage": {
+                "name": "V\u00fdstupn\u00e9 L3-N nap\u00e4tie"
+            },
+            "output_l3_power_percent": {
+                "name": "V\u00fdstupn\u00e1 spotreba energie L3"
+            },
+            "output_l3_realpower": {
+                "name": "Aktu\u00e1lny v\u00fdstupn\u00fd re\u00e1lny v\u00fdkon L3"
+            },
+            "output_phases": {
+                "name": "V\u00fdstupn\u00e9 f\u00e1zy"
+            },
+            "output_power": {
+                "name": "V\u00fdstupn\u00fd zdanliv\u00fd v\u00fdkon"
+            },
+            "output_power_nominal": {
+                "name": "Menovit\u00fd v\u00fdstupn\u00fd v\u00fdkon"
+            },
+            "output_realpower": {
+                "name": "Aktu\u00e1lny v\u00fdstupn\u00fd re\u00e1lny v\u00fdkon"
+            },
+            "output_realpower_nominal": {
+                "name": "Menovit\u00fd v\u00fdstupn\u00fd re\u00e1lny v\u00fdkon"
+            },
+            "output_voltage": {
+                "name": "V\u00fdstupn\u00e9 nap\u00e4tie"
+            },
+            "output_voltage_nominal": {
+                "name": "Menovit\u00e9 v\u00fdstupn\u00e9 nap\u00e4tie"
+            },
+            "ups_alarm": {
+                "name": "Alarmy"
+            },
+            "ups_beeper_status": {
+                "name": "Stav p\u00edpa\u010da"
+            },
+            "ups_contacts": {
+                "name": "Extern\u00e9 kontakty"
+            },
+            "ups_delay_reboot": {
+                "name": "Oneskorenie re\u0161tartu UPS"
+            },
+            "ups_delay_shutdown": {
+                "name": "Oneskorenie vypnutia UPS"
+            },
+            "ups_delay_start": {
+                "name": "Oneskorenie re\u0161tartu na\u010d\u00edtania"
+            },
+            "ups_display_language": {
+                "name": "Jazyk"
+            },
+            "ups_efficiency": {
+                "name": "Efekt\u00edvnos\u0165"
+            },
+            "ups_id": {
+                "name": "Identifik\u00e1tor syst\u00e9mu"
+            },
+            "ups_load": {
+                "name": "Z\u00e1\u0165a\u017e"
+            },
+            "ups_load_high": {
+                "name": "Nastavenie pre\u0165a\u017eenia"
+            },
+            "ups_power": {
+                "name": "Aktu\u00e1lny zdanliv\u00fd v\u00fdkon"
+            },
+            "ups_power_nominal": {
+                "name": "Menovit\u00fd v\u00fdkon"
+            },
+            "ups_realpower": {
+                "name": "Aktu\u00e1lny re\u00e1lny v\u00fdkon"
+            },
+            "ups_realpower_nominal": {
+                "name": "Nomin\u00e1lny re\u00e1lny v\u00fdkon"
+            },
+            "ups_shutdown": {
+                "name": "Schopnos\u0165 vypnutia"
+            },
+            "ups_start_auto": {
+                "name": "Spusti\u0165 na AC"
+            },
+            "ups_start_battery": {
+                "name": "\u0160tart na bat\u00e9riu"
+            },
+            "ups_start_reboot": {
+                "name": "Re\u0161tartovanie na bat\u00e9riu"
+            },
+            "ups_status": {
+                "name": "\u00dadaje o stave"
+            },
+            "ups_status_display": {
+                "name": "Stav"
+            },
+            "ups_temperature": {
+                "name": "Teplota UPS"
+            },
+            "ups_test_date": {
+                "name": "D\u00e1tum autotestu"
+            },
+            "ups_test_interval": {
+                "name": "Interval autotestu"
+            },
+            "ups_test_result": {
+                "name": "V\u00fdsledok autotestu"
+            },
+            "ups_timer_reboot": {
+                "name": "Na\u010d\u00edta\u0165 \u010dasova\u010d re\u0161tartu"
+            },
+            "ups_timer_shutdown": {
+                "name": "Na\u010d\u00edta\u0165 \u010dasova\u010d vypnutia"
+            },
+            "ups_timer_start": {
+                "name": "Na\u010d\u00edta\u0165 \u0161tartovac\u00ed \u010dasova\u010d"
+            },
+            "ups_type": {
+                "name": "Typ UPS"
+            },
+            "ups_watchdog_status": {
+                "name": "Watchdog stav"
+            },
+            "watts": {
+                "name": "Wattov"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "scan_interval": "Skenovac\u00ed interval (v sekund\u00e1ch)"
+                }
+            }
+        }
+    }
+}

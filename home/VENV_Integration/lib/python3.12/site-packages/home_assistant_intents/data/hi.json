@@ -1,0 +1,43 @@
+{
+  "language": "hi",
+  "intents": {},
+  "responses": {
+    "errors": {
+      "no_intent": "क्षमा करें, मुझे यह समझ में नहीं आया",
+      "no_area": "{{ area }} नाम का कोई क्षेत्र नहीं है",
+      "no_domain_in_area": "{{ area }} नाम के क्षेत्र में कोई {{ domain }} नहीं है",
+      "no_device_class_in_area": "{{ area }} नाम के क्षेत्र में कोई {{ device_class }} नहीं है",
+      "no_entity": "{{ entity }} नाम का कोई डिवाइस या एंटिटी नहीं है",
+      "handle_error": "इंटेंट को संभालते समय एक अनपेक्षित एरर हुआ"
+    },
+    "intents": {
+      "HassGetState": {},
+      "HassTurnOff": {
+        "default": "Turned off {{ slots.name }}",
+        "lights_area": "Turned off lights in {{ slots.area }}",
+        "fans_area": "Turned off fans in {{ slots.area }}",
+        "cover": "Closed {{ slots.name }}",
+        "cover_area": "Closed {{ slots.area }}"
+      },
+      "HassTurnOn": {
+        "default": "Turned on {{ slots.name }}",
+        "lights_area": "Turned on lights in {{ slots.area }}",
+        "fans_area": "Turned on fans in {{ slots.area }}",
+        "cover": "Opened {{ slots.name }}",
+        "cover_area": "Opened {{ slots.area }}"
+      },
+      "HassLightSet": {
+        "brightness": "{{ slots.name }} brightness set to {{ slots.brightness }}",
+        "brightness_area": "Brightness in {{ slots.area }} set to {{ slots.brightness }}",
+        "color": "{{ slots.name }} color set to {{ slots.color }}",
+        "color_area": "Color in {{ slots.area }} set to {{ slots.color }}"
+      },
+      "HassClimateGetTemperature": {
+        "default": "{{ state.state }} degrees"
+      }
+    }
+  },
+  "lists": {},
+  "expansion_rules": {},
+  "skip_words": []
+}

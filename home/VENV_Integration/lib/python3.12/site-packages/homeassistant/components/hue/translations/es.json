@@ -1,0 +1,185 @@
+{
+    "config": {
+        "abort": {
+            "all_configured": "Ya se han configurado todas las pasarelas Philips Hue",
+            "already_configured": "El dispositivo ya est\u00e1 configurado",
+            "already_in_progress": "El flujo de configuraci\u00f3n ya est\u00e1 en curso",
+            "cannot_connect": "No se pudo conectar",
+            "discover_timeout": "Imposible encontrar pasarelas Philips Hue",
+            "invalid_host": "Nombre de host o direcci\u00f3n IP no v\u00e1lidos",
+            "no_bridges": "No se han encontrado pasarelas Philips Hue.",
+            "not_hue_bridge": "No es un puente Hue",
+            "unknown": "Error inesperado"
+        },
+        "error": {
+            "linking": "Error inesperado",
+            "register_failed": "No se pudo registrar, por favor, int\u00e9ntalo de nuevo"
+        },
+        "step": {
+            "init": {
+                "data": {
+                    "host": "Host"
+                },
+                "data_description": {
+                    "host": "El nombre de host o la direcci\u00f3n IP de tu Hue Bridge."
+                },
+                "title": "Elige la pasarela Hue"
+            },
+            "link": {
+                "description": "Presiona el bot\u00f3n en la pasarela para registrar Philips Hue con Home Assistant. \n\n![Ubicaci\u00f3n del bot\u00f3n en la pasarela](/static/images/config_philips_hue.jpg)",
+                "title": "Vincular concentrador"
+            },
+            "manual": {
+                "data": {
+                    "host": "Host"
+                },
+                "data_description": {
+                    "host": "El nombre de host o la direcci\u00f3n IP de tu Hue Bridge."
+                },
+                "title": "Configurar manualmente un puente Hue"
+            }
+        }
+    },
+    "device_automation": {
+        "trigger_subtype": {
+            "1": "Primer bot\u00f3n",
+            "2": "Segundo bot\u00f3n",
+            "3": "Tercer bot\u00f3n",
+            "4": "Cuarto bot\u00f3n",
+            "button_1": "Primer bot\u00f3n",
+            "button_2": "Segundo bot\u00f3n",
+            "button_3": "Tercer bot\u00f3n",
+            "button_4": "Cuarto bot\u00f3n",
+            "clock_wise": "Rotaci\u00f3n en el sentido de las agujas del reloj",
+            "counter_clock_wise": "Rotaci\u00f3n en sentido contrario a las agujas del reloj",
+            "dim_down": "Bajar la intensidad",
+            "dim_up": "Subir la intensidad",
+            "double_buttons_1_3": "Botones Primero y Tercero",
+            "double_buttons_2_4": "Botones Segundo y Cuarto",
+            "turn_off": "Apagar",
+            "turn_on": "Encender"
+        },
+        "trigger_type": {
+            "double_short_release": "Ambos \"{subtype}\" soltados",
+            "initial_press": "\"{subtype}\" pulsado inicialmente",
+            "long_release": "\"{subtype}\" soltado despu\u00e9s de una pulsaci\u00f3n larga",
+            "remote_button_long_release": "\"{subtype}\" soltado despu\u00e9s de una pulsaci\u00f3n larga",
+            "remote_button_short_press": "\"{subtype}\" pulsado",
+            "remote_button_short_release": "\"{subtype}\" soltado",
+            "remote_double_button_long_press": "Ambos \"{subtype}\" soltados despu\u00e9s de pulsaci\u00f3n larga",
+            "remote_double_button_short_press": "Ambos \"{subtype}\" soltados",
+            "repeat": "\"{subtype}\" mantenido pulsado",
+            "short_release": "\"{subtype}\" soltado tras una breve pulsaci\u00f3n",
+            "start": "\"{subtype}\" pulsado inicialmente"
+        }
+    },
+    "entity": {
+        "event": {
+            "button": {
+                "name": "Bot\u00f3n {button_id}",
+                "state_attributes": {
+                    "event_type": {
+                        "state": {
+                            "double_short_release": "Doble pulsaci\u00f3n",
+                            "initial_press": "Pulsaci\u00f3n inicial",
+                            "long_press": "Pulsaci\u00f3n larga",
+                            "long_release": "Liberaci\u00f3n prolongada",
+                            "repeat": "Repetir",
+                            "short_release": "Pulsaci\u00f3n corta"
+                        }
+                    }
+                }
+            },
+            "rotary": {
+                "name": "Giratorio",
+                "state_attributes": {
+                    "event_type": {
+                        "state": {
+                            "clock_wise": "En el sentido de las agujas del reloj",
+                            "counter_clock_wise": "En sentido contrario a las agujas del reloj"
+                        }
+                    }
+                }
+            }
+        },
+        "sensor": {
+            "zigbee_connectivity": {
+                "name": "Conectividad Zigbee",
+                "state": {
+                    "connected": "Conectado",
+                    "connectivity_issue": "Problema de conectividad",
+                    "disconnected": "Desconectado",
+                    "unidirectional_incoming": "Entrada unidireccional"
+                }
+            }
+        },
+        "switch": {
+            "automation": {
+                "state": {
+                    "off": "Deshabilitado",
+                    "on": "Habilitado"
+                }
+            },
+            "light_sensor_enabled": {
+                "name": "Sensor de luz habilitado"
+            },
+            "motion_sensor_enabled": {
+                "name": "Sensor de movimiento habilitado"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "allow_hue_groups": "Permitir grupos Hue",
+                    "allow_hue_scenes": "Permitir escenas Hue",
+                    "allow_unreachable": "Permitir que las bombillas inalcanzables informen su estado correctamente",
+                    "ignore_availability": "Ignorar el estado de conectividad de los siguientes dispositivos"
+                }
+            }
+        }
+    },
+    "services": {
+        "activate_scene": {
+            "description": "Activa una escena Hue con m\u00e1s control sobre las opciones.",
+            "fields": {
+                "brightness": {
+                    "description": "Establece el brillo de la escena.",
+                    "name": "Brillo"
+                },
+                "dynamic": {
+                    "description": "Habilitar el modo din\u00e1mico de la escena.",
+                    "name": "Din\u00e1mica"
+                },
+                "speed": {
+                    "description": "Velocidad de paleta din\u00e1mica para esta escena.",
+                    "name": "Velocidad"
+                },
+                "transition": {
+                    "description": "Duraci\u00f3n de la transici\u00f3n que se tarda en llevar los dispositivos al estado definido en la escena.",
+                    "name": "Transici\u00f3n"
+                }
+            },
+            "name": "Activar escena Hue"
+        },
+        "hue_activate_scene": {
+            "description": "Activa una escena hue almacenada en el concentrador hue.",
+            "fields": {
+                "dynamic": {
+                    "description": "Habilita el modo din\u00e1mico de la escena (solo puentes V2 y escenas compatibles).",
+                    "name": "Din\u00e1mica"
+                },
+                "group_name": {
+                    "description": "Nombre del grupo/habitaci\u00f3n de hue de la aplicaci\u00f3n hue.",
+                    "name": "Grupo"
+                },
+                "scene_name": {
+                    "description": "Nombre de la escena hue de la aplicaci\u00f3n hue.",
+                    "name": "Escena"
+                }
+            },
+            "name": "Activar escena"
+        }
+    }
+}

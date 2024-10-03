@@ -1,0 +1,58 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "El dispositivo ya est\u00e1 configurado",
+            "credential_error": "Error al obtener las credenciales.",
+            "no_devices_found": "No se encontraron dispositivos en la red",
+            "port_987_bind_error": "No se pudo vincular al puerto 987. Consulta la [documentaci\u00f3n](https://www.home-assistant.io/components/ps4/) para obtener informaci\u00f3n adicional.",
+            "port_997_bind_error": "No se pudo vincular al puerto 997. Consulta la [documentaci\u00f3n](https://www.home-assistant.io/components/ps4/) para obtener informaci\u00f3n adicional."
+        },
+        "error": {
+            "cannot_connect": "No se pudo conectar",
+            "credential_timeout": "Se agot\u00f3 el tiempo de espera del servicio de credenciales. Selecciona **Enviar** para reiniciar.",
+            "login_failed": "No se pudo emparejar con PlayStation 4. Verifica que el c\u00f3digo PIN sea correcto.",
+            "no_ipaddress": "Introduce la direcci\u00f3n IP de la PlayStation 4 que deseas configurar."
+        },
+        "step": {
+            "creds": {
+                "description": "Credenciales necesarias. Pulsa **Enviar** y luego en la aplicaci\u00f3n PS4 Second Screen, actualiza los dispositivos y selecciona el dispositivo **Home-Assistant** para continuar."
+            },
+            "link": {
+                "data": {
+                    "code": "C\u00f3digo PIN",
+                    "ip_address": "Direcci\u00f3n IP",
+                    "name": "Nombre",
+                    "region": "Regi\u00f3n"
+                },
+                "data_description": {
+                    "code": "En tu consola PlayStation 4, ve a **Configuraci\u00f3n**. A continuaci\u00f3n, ve a **Configuraci\u00f3n de conexi\u00f3n de la aplicaci\u00f3n m\u00f3vil** y selecciona **A\u00f1adir dispositivo** para obtener el pin."
+                }
+            },
+            "mode": {
+                "data": {
+                    "ip_address": "Direcci\u00f3n IP",
+                    "mode": "Modo configuraci\u00f3n"
+                },
+                "data_description": {
+                    "ip_address": "D\u00e9jalo en blanco si seleccionas la detecci\u00f3n autom\u00e1tica."
+                }
+            }
+        }
+    },
+    "services": {
+        "send_command": {
+            "description": "Emula la pulsaci\u00f3n de un bot\u00f3n para PlayStation 4.",
+            "fields": {
+                "command": {
+                    "description": "Bot\u00f3n a pulsar.",
+                    "name": "Comando"
+                },
+                "entity_id": {
+                    "description": "Nombre de la entidad a la que se env\u00eda el comando.",
+                    "name": "Entidad"
+                }
+            },
+            "name": "Enviar comando"
+        }
+    }
+}

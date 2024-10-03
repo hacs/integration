@@ -1,0 +1,185 @@
+{
+    "config": {
+        "abort": {
+            "all_configured": "K\u00f5ik Philips Hue sillad on juba konfigureeritud",
+            "already_configured": "Seade on juba h\u00e4\u00e4lestatud",
+            "already_in_progress": "Seadistamine on juba k\u00e4imas",
+            "cannot_connect": "\u00dchendus nurjus",
+            "discover_timeout": "Ei leia Philips Hue sildu",
+            "invalid_host": "Sobimatu hostinimi v\u00f5i IP-aadress",
+            "no_bridges": "Philips Hue sildu ei avastatud",
+            "not_hue_bridge": "See pole Hue sild",
+            "unknown": "Ilmnes tundmatu viga"
+        },
+        "error": {
+            "linking": "Ilmnes tundmatu linkimist\u00f5rge.",
+            "register_failed": "Registreerimine nurjus. Proovi uuesti"
+        },
+        "step": {
+            "init": {
+                "data": {
+                    "host": ""
+                },
+                "data_description": {
+                    "host": "Hue Bridge hostinimi v\u00f5i IP-aadress."
+                },
+                "title": "Vali Hue sild"
+            },
+            "link": {
+                "description": "Vajuta silla nuppu, et registreerida Philips Hue Home Assistant abil. \n\n ! [Nupu asukoht sillal] (/ static / images / config_philips_hue.jpg)",
+                "title": "\u00dchenda jaotusseade"
+            },
+            "manual": {
+                "data": {
+                    "host": ""
+                },
+                "data_description": {
+                    "host": "Hue Bridge hostinimi v\u00f5i IP-aadress."
+                },
+                "title": "Hue silla k\u00e4sitsi seadistamine"
+            }
+        }
+    },
+    "device_automation": {
+        "trigger_subtype": {
+            "1": "Esimene nupp",
+            "2": "Teine nupp",
+            "3": "Kolmas nupp",
+            "4": "Neljas nupp",
+            "button_1": "Esimene nupp",
+            "button_2": "Teine nupp",
+            "button_3": "Kolmas nupp",
+            "button_4": "Neljas nupp",
+            "clock_wise": "P\u00f6\u00f6rlemine p\u00e4rip\u00e4eva",
+            "counter_clock_wise": "P\u00f6\u00f6ramine vastup\u00e4eva",
+            "dim_down": "H\u00e4marda",
+            "dim_up": "Tee heledamaks",
+            "double_buttons_1_3": "Esimene ja kolmas nupp",
+            "double_buttons_2_4": "Teine ja neljas nupp",
+            "turn_off": "L\u00fclita v\u00e4lja",
+            "turn_on": "L\u00fclita sisse"
+        },
+        "trigger_type": {
+            "double_short_release": "M\u00f5lemad \"{subtype}\" nupud vabastatati",
+            "initial_press": "\"{subtype}\" on vajutatud",
+            "long_release": "\"{subtype}\" vabastatati p\u00e4rast pikka vajutust",
+            "remote_button_long_release": "\"{subtype}\" vabastatati p\u00e4rast pikka vajutust",
+            "remote_button_short_press": "\"{subtype}\" vajutati",
+            "remote_button_short_release": "\"{subtype}\" vabastati",
+            "remote_double_button_long_press": "M\u00f5lemad \"{subtype}\" nupud vabastatati p\u00e4rast pikka vajutust",
+            "remote_double_button_short_press": "M\u00f5lemad \"{subtype}\" nupud vabastatati",
+            "repeat": "\" {subtype} \" hoitakse all",
+            "short_release": "\" {subtype} \" vabastati p\u00e4rast l\u00fchikest vajutust",
+            "start": "\"{subtype}\" on vajutatud"
+        }
+    },
+    "entity": {
+        "event": {
+            "button": {
+                "name": "Nupp {button_id}",
+                "state_attributes": {
+                    "event_type": {
+                        "state": {
+                            "double_short_release": "Topeltvajutus",
+                            "initial_press": "Algne vajutus",
+                            "long_press": "Pikk vajutus",
+                            "long_release": "Pikk vabastamine",
+                            "repeat": "Korda",
+                            "short_release": "L\u00fchike vajutus"
+                        }
+                    }
+                }
+            },
+            "rotary": {
+                "name": "P\u00f6\u00f6rlev",
+                "state_attributes": {
+                    "event_type": {
+                        "state": {
+                            "clock_wise": "P\u00e4rip\u00e4eva",
+                            "counter_clock_wise": "Vastup\u00e4eva"
+                        }
+                    }
+                }
+            }
+        },
+        "sensor": {
+            "zigbee_connectivity": {
+                "name": "Zigbee \u00fchenduvus",
+                "state": {
+                    "connected": "\u00dchendatud",
+                    "connectivity_issue": "\u00dchenduvuse probleem",
+                    "disconnected": "Lahti \u00fchendatud",
+                    "unidirectional_incoming": "\u00dchesuunaline sissetulev"
+                }
+            }
+        },
+        "switch": {
+            "automation": {
+                "state": {
+                    "off": "Keelatud",
+                    "on": "Lubatud"
+                }
+            },
+            "light_sensor_enabled": {
+                "name": "Valgusandur on lubatud"
+            },
+            "motion_sensor_enabled": {
+                "name": "Liikumisandur on lubatud"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "allow_hue_groups": "Luba Hue r\u00fchmad",
+                    "allow_hue_scenes": "Luba Hue stseenid",
+                    "allow_unreachable": "Luba k\u00e4ttesaamatutel pirnidel oma olekust \u00f5igesti teatada",
+                    "ignore_availability": "Ignoreeri antud seadmete \u00fchenduvuse olekut"
+                }
+            }
+        }
+    },
+    "services": {
+        "activate_scene": {
+            "description": "Aktiveerib Hue'i stseeni, millel on suurem kontroll valikute \u00fcle.",
+            "fields": {
+                "brightness": {
+                    "description": "M\u00e4\u00e4ra stseeni heledus.",
+                    "name": "Heledus"
+                },
+                "dynamic": {
+                    "description": "Luba stseeni d\u00fcnaamiline re\u017eiim.",
+                    "name": "Muutuv"
+                },
+                "speed": {
+                    "description": "Selle stseeni d\u00fcnaamilise paleti kiirus.",
+                    "name": "Kiirus"
+                },
+                "transition": {
+                    "description": "\u00dclemineku kestus, mis kulub seadmete viimiseks stseenis m\u00e4\u00e4ratletud olekusse.",
+                    "name": "\u00dcleminek"
+                }
+            },
+            "name": "Aktiveeri Hue stseen"
+        },
+        "hue_activate_scene": {
+            "description": "Aktiveerib hue-hubis salvestatud hue stseeni.",
+            "fields": {
+                "dynamic": {
+                    "description": "Luba stseeni d\u00fcnaamiline re\u017eiim (ainult V2 sillad ja toetatud stseenid).",
+                    "name": "Muutuv"
+                },
+                "group_name": {
+                    "description": "Hue r\u00fchma/ruumi nimi hue rakendusest.",
+                    "name": "R\u00fchm"
+                },
+                "scene_name": {
+                    "description": "Hue stseeni nimi hue rakendusest.",
+                    "name": "Stseen"
+                }
+            },
+            "name": "Aktiveeri stseen"
+        }
+    }
+}

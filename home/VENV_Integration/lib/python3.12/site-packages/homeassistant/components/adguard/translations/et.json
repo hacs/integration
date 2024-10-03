@@ -1,0 +1,135 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Teenus on juba seadistatud",
+            "existing_instance_updated": "Olemasolevad seaded v\u00e4rskendatud."
+        },
+        "error": {
+            "cannot_connect": "\u00dchendamine nurjus"
+        },
+        "step": {
+            "hassio_confirm": {
+                "description": "Kas soovid seadistada Home Assistant-i \u00fchenduse AdGuard Home'iga mida pakub lisandmoodul: {addon} ?",
+                "title": "AdGuard Home  Home Assistanti lisandmooduli abil"
+            },
+            "user": {
+                "data": {
+                    "host": "",
+                    "password": "Salas\u00f5na",
+                    "port": "",
+                    "ssl": "Kasuta SSL sertifikaati",
+                    "username": "Kasutajanimi",
+                    "verify_ssl": "Kontrolli SSL sertifikaati"
+                },
+                "data_description": {
+                    "host": "AdGuard Home'i k\u00e4itava seadme hostinimi v\u00f5i IP-aadress."
+                },
+                "description": "Seadista AdGuard Home'i sidumine, et v\u00f5imaldada j\u00e4lgimist ja juhtimist."
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "average_processing_speed": {
+                "name": "Keskmine t\u00f6\u00f6tlemiskiirus"
+            },
+            "dns_queries": {
+                "name": "DNS-p\u00e4ringud"
+            },
+            "dns_queries_blocked": {
+                "name": "DNS p\u00e4ringuid blokeeritud"
+            },
+            "dns_queries_blocked_ratio": {
+                "name": "DNS-p\u00e4ringute blokeeritud suhe"
+            },
+            "parental_control_blocked": {
+                "name": "Vanemlik kontroll on blokeeritud"
+            },
+            "rules_count": {
+                "name": "Reeglite arv"
+            },
+            "safe_browsing_blocked": {
+                "name": "Ohutu sirvimine on blokeeritud"
+            },
+            "safe_searches_enforced": {
+                "name": "Turvalised otsingud on j\u00f5ustatud"
+            }
+        },
+        "switch": {
+            "filtering": {
+                "name": "Filtreerimine"
+            },
+            "parental": {
+                "name": "Vanemlik kontroll"
+            },
+            "protection": {
+                "name": "Kaitse"
+            },
+            "query_log": {
+                "name": "Otsi logist"
+            },
+            "safe_browsing": {
+                "name": "Turvaline sirvimine"
+            },
+            "safe_search": {
+                "name": "Turvaline otsing"
+            }
+        }
+    },
+    "services": {
+        "add_url": {
+            "description": "Lisa AdGuard Home'i uus filtri tellimus.",
+            "fields": {
+                "name": {
+                    "description": "Filtri tellimuse nimi.",
+                    "name": "Nimi"
+                },
+                "url": {
+                    "description": "Tellitav filtri URL mis sisaldab filtrireegleid.",
+                    "name": "URL"
+                }
+            },
+            "name": "Lisa URL"
+        },
+        "disable_url": {
+            "description": "Keelab AdGuard Home filtri tellimuse.",
+            "fields": {
+                "url": {
+                    "description": "Keelatav filtri tellimuse URL.",
+                    "name": "URL"
+                }
+            },
+            "name": "Keela URL"
+        },
+        "enable_url": {
+            "description": "Lubab AdGuard Home filtritellimuse.",
+            "fields": {
+                "url": {
+                    "description": "Lubatava filtri tellimise URL.",
+                    "name": "URL"
+                }
+            },
+            "name": "Luba URL"
+        },
+        "refresh": {
+            "description": "V\u00e4rskenda AdGuard Home k\u00f5iki filtritellimusi.",
+            "fields": {
+                "force": {
+                    "description": "Sunni uuendame (alistab AdGuard Home'i drosseldamise). \"true\", et sundida, v\u00f5i \"false\", et j\u00e4tta tavaline v\u00e4rskendamine \u00e4ra.",
+                    "name": "Sunni"
+                }
+            },
+            "name": "V\u00e4rskenda"
+        },
+        "remove_url": {
+            "description": "Eemaldab AdGuard Home'ist filtri tellimuse.",
+            "fields": {
+                "url": {
+                    "description": "Eemaldatava filtri tellimuse URL.",
+                    "name": "URL"
+                }
+            },
+            "name": "Eemalda URL"
+        }
+    }
+}

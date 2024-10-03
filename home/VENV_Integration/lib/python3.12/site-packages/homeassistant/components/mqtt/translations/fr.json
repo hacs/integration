@@ -1,0 +1,343 @@
+{
+    "config": {
+        "abort": {
+            "addon_connection_failed": "\u00c9chec de la connexion au module compl\u00e9mentaire {addon}. V\u00e9rifiez l'\u00e9tat de l'extension et r\u00e9essayez plus tard.",
+            "addon_info_failed": "\u00c9chec de l'obtention des informations pour le module compl\u00e9mentaire {addon}.",
+            "addon_install_failed": "\u00c9chec de l'installation du module compl\u00e9mentaire {addon}.",
+            "addon_start_failed": "\u00c9chec du d\u00e9marrage du module compl\u00e9mentaire {addon}.",
+            "already_configured": "Le service est d\u00e9j\u00e0 configur\u00e9",
+            "reauth_successful": "La r\u00e9-authentification a r\u00e9ussi",
+            "single_instance_allowed": "D\u00e9j\u00e0 configur\u00e9. Une seule configuration possible."
+        },
+        "error": {
+            "bad_birth": "Sujet de naissance invalide",
+            "bad_certificate": "Le certificat CA n'est pas valide",
+            "bad_client_cert": "Certificat client non valide, assurez-vous qu'un fichier PEM est fourni",
+            "bad_client_cert_key": "Le certificat client et la cl\u00e9 priv\u00e9e ne forment pas une paire valide",
+            "bad_client_key": "Cl\u00e9 priv\u00e9e non valide, assurez-vous qu'un fichier PEM est fourni sans mot de passe",
+            "bad_discovery_prefix": "Pr\u00e9fixe de d\u00e9couverte non valide",
+            "bad_will": "Sujet de testament invalide",
+            "bad_ws_headers": "Fournissez des en-t\u00eates HTTP valides sous forme d'objet JSON",
+            "cannot_connect": "\u00c9chec de connexion",
+            "invalid_auth": "Authentification non valide",
+            "invalid_inclusion": "Le certificat client et la cl\u00e9 priv\u00e9e doivent \u00eatre configur\u00e9s ensemble"
+        },
+        "step": {
+            "broker": {
+                "data": {
+                    "advanced_options": "Options avanc\u00e9es",
+                    "broker": "Courtier",
+                    "certificate": "T\u00e9l\u00e9verser le certificat de l\u2019autorit\u00e9 de certification personnalis\u00e9",
+                    "client_cert": "T\u00e9l\u00e9verser le certificat client",
+                    "client_id": "ID client (laisser vide pour en g\u00e9n\u00e9rer un al\u00e9atoirement)",
+                    "client_key": "T\u00e9l\u00e9verser la cl\u00e9 priv\u00e9e",
+                    "keepalive": "Le temps entre l'envoi de messages Keep Alive",
+                    "password": "Mot de passe",
+                    "port": "Port",
+                    "protocol": "Protocole MQTT",
+                    "set_ca_cert": "Validation du certificat du courtier",
+                    "set_client_cert": "Utiliser un certificat client",
+                    "tls_insecure": "Ignorer la validation du certificat du courtier",
+                    "transport": "Transport MQTT",
+                    "username": "Nom d'utilisateur",
+                    "ws_headers": "En-t\u00eates WebSocket au format JSON",
+                    "ws_path": "Chemin WebSocket"
+                },
+                "data_description": {
+                    "broker": "Le nom d'h\u00f4te ou l'adresse IP de votre courtier MQTT.",
+                    "certificate": "Le fichier de certificat CA personnalis\u00e9 pour valider votre certificat de courtier MQTT.",
+                    "client_cert": "Le certificat client \u00e0 authentifier aupr\u00e8s de votre courtier MQTT.",
+                    "client_id": "L'ID unique pour identifier l'API MQTT de Home Assistant en tant que client MQTT. Il est recommand\u00e9 de laisser cette option vide.",
+                    "client_key": "Le fichier de cl\u00e9 priv\u00e9e qui appartient \u00e0 votre certificat client.",
+                    "password": "Le mot de passe pour vous connecter \u00e0 votre courtier MQTT.",
+                    "port": "Le port sur lequel votre courtier MQTT \u00e9coute. Par exemple 1883.",
+                    "protocol": "Le protocole MQTT sur lequel votre courtier op\u00e8re. Par exemple 3.1.1.",
+                    "tls_insecure": "Option pour ignorer la validation du certificat de votre courtier MQTT.",
+                    "transport": "Le transport \u00e0 utiliser pour la connexion \u00e0 votre courtier MQTT.",
+                    "username": "Le nom d'utilisateur pour vous connecter \u00e0 votre courtier MQTT.",
+                    "ws_headers": "Les en-t\u00eates WebSocket \u00e0 transmettre via la connexion bas\u00e9e sur WebSocket \u00e0 votre courtier MQTT.",
+                    "ws_path": "Le chemin WebSocket \u00e0 utiliser pour la connexion \u00e0 votre courtier MQTT."
+                },
+                "description": "Veuillez entrer les informations de connexion de votre courtier MQTT."
+            },
+            "hassio_confirm": {
+                "data": {
+                    "discovery": "Activer la d\u00e9couverte"
+                },
+                "data_description": {
+                    "discovery": "Option pour activer la d\u00e9couverte automatique MQTT."
+                },
+                "description": "Voulez-vous configurer Home Assistant pour se connecter au courtier MQTT fourni par le module compl\u00e9mentaire {addon}\u00a0?",
+                "title": "Courtier MQTT via le module compl\u00e9mentaire Home Assistant"
+            },
+            "install_addon": {
+                "title": "Installation du module compl\u00e9mentaire"
+            },
+            "reauth_confirm": {
+                "data": {
+                    "password": "Mot de passe",
+                    "username": "Nom d'utilisateur"
+                },
+                "data_description": {
+                    "password": "Le mot de passe pour vous connecter \u00e0 votre courtier MQTT.",
+                    "username": "Le nom d'utilisateur pour vous connecter \u00e0 votre courtier MQTT."
+                },
+                "description": "Le courtier MQTT a signal\u00e9 une erreur d'authentification. Veuillez confirmer que le nom d'utilisateur et le mot de passe du courtier sont corrects.",
+                "title": "R\u00e9-authentification requise aupr\u00e8s du courtier MQTT"
+            },
+            "start_addon": {
+                "title": "D\u00e9marrage du module compl\u00e9mentaire"
+            },
+            "user": {
+                "description": "Veuillez choisir comment vous souhaitez vous connecter au courtier MQTT\u00a0:",
+                "menu_options": {
+                    "addon": "Utiliser le module compl\u00e9mentaire officiel {addon}.",
+                    "broker": "Saisir manuellement les informations de connexion du courtier MQTT"
+                }
+            }
+        }
+    },
+    "device_automation": {
+        "trigger_subtype": {
+            "button_1": "Premier bouton",
+            "button_2": "Deuxi\u00e8me bouton",
+            "button_3": "Troisi\u00e8me bouton",
+            "button_4": "Quatri\u00e8me bouton",
+            "button_5": "Cinqui\u00e8me bouton",
+            "button_6": "Sixi\u00e8me bouton",
+            "turn_off": "\u00c9teindre",
+            "turn_on": "Allumer"
+        },
+        "trigger_type": {
+            "button_double_press": "\"{subtype}\" double-cliqu\u00e9",
+            "button_long_press": "\"{subtype}\" press\u00e9 en continu",
+            "button_long_release": "\"{subtype}\" rel\u00e2ch\u00e9 apr\u00e8s un appui long",
+            "button_quadruple_press": "\"{subtype}\" quadruple cliqu\u00e9",
+            "button_quintuple_press": "\"{subtype}\" quintuple cliqu\u00e9",
+            "button_short_press": "\u00ab\u00a0{subtype}\u00a0\u00bb enfonc\u00e9",
+            "button_short_release": "\u00ab\u00a0{subtype}\u00a0\u00bb rel\u00e2ch\u00e9",
+            "button_triple_press": "\u00ab\u00a0{subtype}\u00a0\u00bb triple-cliqu\u00e9"
+        }
+    },
+    "exceptions": {
+        "command_template_error": {
+            "message": "L'analyse du mod\u00e8le `{command_template}` pour l'entit\u00e9 `{entity_id}` a \u00e9chou\u00e9 avec l'erreur\u00a0: {error}."
+        },
+        "invalid_platform_config": {
+            "message": "Le rechargement de la configuration YAML pour l'\u00e9l\u00e9ment MQTT `{domain}` configur\u00e9 manuellement a \u00e9chou\u00e9. Voir les journaux pour plus de d\u00e9tails."
+        },
+        "invalid_publish_topic": {
+            "message": "Impossible de publier\u00a0: le mod\u00e8le de sujet `{topic_template}` a produit un sujet non valide `{topic}`  apr\u00e8s le rendu ({error})"
+        },
+        "mqtt_not_setup_cannot_publish": {
+            "message": "Impossible de publier sur le sujet \"{topic}\", assurez-vous que MQTT est correctement configur\u00e9."
+        },
+        "mqtt_not_setup_cannot_subscribe": {
+            "message": "Impossible de s'abonner au sujet \"{topic}\", assurez-vous que MQTT est correctement configur\u00e9."
+        }
+    },
+    "issues": {
+        "deprecated_climate_aux_property": {
+            "description": "L'entit\u00e9 `{entity_id}` a un support de chaleur auxiliaire activ\u00e9, qui a \u00e9t\u00e9 d\u00e9pr\u00e9ci\u00e9 pour les appareils climatiques MQTT. Veuillez ajuster votre configuration et supprimer les options de configuration obsol\u00e8tes de votre configuration et red\u00e9marrer Home Assistant pour r\u00e9soudre ce probl\u00e8me.",
+            "title": "Entit\u00e9s MQTT avec support de chauffages auxiliaires trouv\u00e9es"
+        },
+        "deprecated_color_handling": {
+            "description": "Une configuration de lumi\u00e8re MQTT (avec le sch\u00e9ma `json`) trouv\u00e9e dans `configuration.yaml` utilise des drapeaux de gestion des couleurs obsol\u00e8tes.\n\nConfiguration trouv\u00e9e\u00a0:\n```yaml\n{config}\n```\nDrapeaux obsol\u00e8tes\u00a0: **{deprecated_flags}**.\n\nUtilisez l'option `supported_color_modes` \u00e0 la place et [rechargez](/developer-tools/yaml) les \u00e9l\u00e9ments MQTT configur\u00e9s manuellement ou red\u00e9marrez Home Assistant pour r\u00e9soudre ce probl\u00e8me.",
+            "title": "Gestion des couleurs obsol\u00e8te utilis\u00e9e pour la lumi\u00e8re MQTT"
+        },
+        "deprecated_color_mode_flag": {
+            "description": "Une configuration de lumi\u00e8re MQTT (avec le sch\u00e9ma `json`) trouv\u00e9e dans `configuration.yaml` utilise un drapeau `color_mode` obsol\u00e8te.\n\nConfiguration trouv\u00e9e\u00a0:\n```yaml\n{config}\n```\n\nRetirez l'option de votre configuration et [rechargez](/developer-tools/yaml) les \u00e9l\u00e9ments MQTT configur\u00e9s manuellement ou red\u00e9marrez Home Assistant pour r\u00e9soudre ce probl\u00e8me.",
+            "title": "Indicateur d'option color_mode obsol\u00e8te utilis\u00e9 pour la lumi\u00e8re MQTT"
+        },
+        "deprecated_yaml": {
+            "description": "{platform}(s) MQTT configur\u00e9(s) manuellement, trouv\u00e9(s) sous la cl\u00e9 de plateforme `{platform}`.\n\nVeuillez d\u00e9placer la configuration vers la cl\u00e9 d'int\u00e9gration `mqtt` et red\u00e9marrer Home Assistant pour r\u00e9soudre ce probl\u00e8me. Voir la [documentation]({more_info_url}), pour plus d'informations.",
+            "title": "Un\u00b7e ou plusieurs {platform}\u00b7e\u00b7s MQTT configur\u00e9\u00b7e\u00b7s manuellement requi\u00e8rent votre attention"
+        },
+        "deprecated_yaml_broker_settings": {
+            "title": "Param\u00e8tres MQTT obsol\u00e8tes trouv\u00e9s dans `configuration.yaml`"
+        },
+        "deprecation_mqtt_legacy_vacuum_yaml": {
+            "title": "Entit\u00e9s MQTT Aspirateur avec un ancien sch\u00e9ma trouv\u00e9 dans votre configuration.yaml"
+        },
+        "entity_name_is_device_name_discovery": {
+            "description": "Certaines entit\u00e9s MQTT ont un nom d'entit\u00e9 identique au nom de l'appareil. Cela ne devrait pas \u00eatre le cas. Le nom de l'entit\u00e9 est d\u00e9fini sur \"null\" comme solution de contournement pour \u00e9viter un nom en double. Veuillez informer le mainteneur de l'application logicielle qui fournit les entit\u00e9s concern\u00e9es pour r\u00e9soudre ce probl\u00e8me.\n\nListe des entit\u00e9s concern\u00e9es:\n\n{config}",
+            "title": "Entit\u00e9s MQTT d\u00e9couvertes avec un nom identique au nom de l'appareil"
+        },
+        "entity_name_is_device_name_yaml": {
+            "description": "Certaines entit\u00e9s MQTT ont un nom d'entit\u00e9 identique au nom de l'appareil. Cela ne devrait pas \u00eatre le cas. Le nom de l'entit\u00e9 est d\u00e9fini sur \"null\" comme solution de contournement pour \u00e9viter un nom en double. Veuillez mettre \u00e0 jour votre configuration et red\u00e9marrer Home Assistant pour r\u00e9soudre ce probl\u00e8me.\n\nListe des entit\u00e9s concern\u00e9es:\n\n{config}",
+            "title": "Entit\u00e9s MQTT configur\u00e9es manuellement avec un nom identique au nom de l'appareil"
+        },
+        "entity_name_startswith_device_name_discovery": {
+            "description": "Certaines entit\u00e9s MQTT ont un nom d'entit\u00e9 qui commence par le nom de l'appareil. Ce n\u2019est pas pr\u00e9vu. Pour \u00e9viter un nom en double, le pr\u00e9fixe du nom de p\u00e9riph\u00e9rique est supprim\u00e9 du nom de l'entit\u00e9 en guise de solution de contournement. Veuillez informer le responsable de l'application logicielle qui fournit les entit\u00e9s concern\u00e9es pour r\u00e9soudre ce probl\u00e8me. \n\n Liste des entit\u00e9s concern\u00e9es\u00a0: \n\n {config}",
+            "title": "Entit\u00e9s MQTT d\u00e9couvertes avec un nom commen\u00e7ant par le nom de l'appareil"
+        },
+        "entity_name_startswith_device_name_yaml": {
+            "description": "Certaines entit\u00e9s MQTT ont un nom d'entit\u00e9 qui commence par le nom de l'appareil. Ce n\u2019est pas pr\u00e9vu. Pour \u00e9viter un nom en double, le pr\u00e9fixe du nom de p\u00e9riph\u00e9rique est supprim\u00e9 du nom de l'entit\u00e9 en guise de solution de contournement. Veuillez mettre \u00e0 jour votre configuration et red\u00e9marrer Home Assistant pour r\u00e9soudre ce probl\u00e8me. \n\n Liste des entit\u00e9s concern\u00e9es\u00a0: \n\n {config}",
+            "title": "Entit\u00e9s MQTT configur\u00e9es manuellement avec un nom commen\u00e7ant par le nom de l'appareil"
+        },
+        "invalid_entity_category": {
+            "description": "Home Assistant a d\u00e9tect\u00e9 une entit\u00e9 MQTT `{domain}` configur\u00e9e manuellement dont une `entity_category` est d\u00e9finie sur `config`.\nFichier de configuration\u00a0: **{config_file}**\nPr\u00e8s de la ligne\u00a0: **{line}** \n\nConfiguration avec un param\u00e8tre non valide\u00a0: \n\n ```yaml\n {config}\n ``` \n\nUne fois d\u00e9fini, assurez-vous que `entity_category` pour un `{domain}` est d\u00e9fini sur `diagnostic` ou `None`. Mettez \u00e0 jour votre configuration YAML et red\u00e9marrez Home Assistant pour r\u00e9soudre ce probl\u00e8me.",
+            "title": "Un {domain} MQTT avec une cat\u00e9gorie d'entit\u00e9 non valide a \u00e9t\u00e9 trouv\u00e9"
+        },
+        "invalid_platform_config": {
+            "description": "Home Assistant a d\u00e9tect\u00e9 une configuration non valide pour un \u00e9l\u00e9ment configur\u00e9 manuellement.\n\nDomaine de la plateforme\u00a0: **{domain}**\nFichier de configuration\u00a0: **{config_file}**\nPr\u00e8s de la ligne\u00a0: **{line}**\nConfiguration trouv\u00e9e\u00a0:\n```yaml\n{config}\n```\n Erreur\u00a0: **{error}**.\n \nAssurez-vous que la configuration est valide et [rechargez](/developer-tools/yaml) les \u00e9l\u00e9ments MQTT configur\u00e9s manuellement ou red\u00e9marrez Home Assistant pour r\u00e9soudre ce probl\u00e8me.",
+            "title": "Configuration non valide trouv\u00e9e pour l'\u00e9l\u00e9ment mqtt {domain}"
+        },
+        "payload_template_deprecation": {
+            "description": "Option `payload_template` obsol\u00e8te utilis\u00e9e dans l'appel \u00e0 l'action de publication MQTT vers le sujet `{topic}` \u00e0 partir du mod\u00e8le de charge utile `{payload_template}`. Utilisez plut\u00f4t l'option `payload`. Dans les automatisations, les mod\u00e8les sont pris en charge de mani\u00e8re native. Mettez \u00e0 jour l'automatisation ou le script pour utiliser l'option `payload` \u00e0 la place et red\u00e9marrez Home Assistant pour r\u00e9soudre ce probl\u00e8me.",
+            "title": "Option obsol\u00e8te utilis\u00e9e dans l'appel \u00e0 l'action de publication mqtt"
+        },
+        "topic_template_deprecation": {
+            "description": "Option `topic_template` obsol\u00e8te utilis\u00e9e dans l'appel \u00e0 l'action de publication MQTT vers le sujet `{topic}` \u00e0 partir du mod\u00e8le de sujet `{topic_template}`. Utilisez plut\u00f4t l'option `sujet`. Dans les automatisations, les mod\u00e8les sont pris en charge de mani\u00e8re native. Mettez \u00e0 jour l'automatisation ou le script pour utiliser l'option `sujet` \u00e0 la place et red\u00e9marrez Home Assistant pour r\u00e9soudre ce probl\u00e8me.",
+            "title": "Option obsol\u00e8te utilis\u00e9e dans l'appel \u00e0 l'action de publication mqtt"
+        }
+    },
+    "options": {
+        "error": {
+            "bad_birth": "Sujet de naissance invalide",
+            "bad_certificate": "Le certificat CA n'est pas valide",
+            "bad_client_cert": "Certificat client non valide, assurez-vous qu'un fichier PEM est fourni",
+            "bad_client_cert_key": "Le certificat client et la cl\u00e9 priv\u00e9e ne forment pas une paire valide",
+            "bad_client_key": "Cl\u00e9 priv\u00e9e non valide, assurez-vous qu'un fichier PEM est fourni sans mot de passe",
+            "bad_discovery_prefix": "Pr\u00e9fixe de d\u00e9couverte non valide",
+            "bad_will": "Sujet de testament invalide",
+            "bad_ws_headers": "Fournissez des en-t\u00eates HTTP valides sous forme d'objet JSON",
+            "cannot_connect": "\u00c9chec de connexion",
+            "invalid_inclusion": "Le certificat client et la cl\u00e9 priv\u00e9e doivent \u00eatre configur\u00e9s ensemble"
+        },
+        "step": {
+            "broker": {
+                "data": {
+                    "advanced_options": "Options avanc\u00e9es",
+                    "broker": "Courtier",
+                    "certificate": "T\u00e9l\u00e9verser le certificat de l\u2019autorit\u00e9 de certification personnalis\u00e9",
+                    "client_cert": "T\u00e9l\u00e9verser le certificat client",
+                    "client_id": "ID client (laisser vide pour en g\u00e9n\u00e9rer un al\u00e9atoirement)",
+                    "client_key": "T\u00e9l\u00e9verser la cl\u00e9 priv\u00e9e",
+                    "keepalive": "Le temps entre l'envoi de messages Keep Alive",
+                    "password": "Mot de passe",
+                    "port": "Port",
+                    "protocol": "Protocole MQTT",
+                    "set_ca_cert": "Validation du certificat du courtier",
+                    "set_client_cert": "Utiliser un certificat client",
+                    "tls_insecure": "Ignorer la validation du certificat du courtier",
+                    "transport": "Transport MQTT",
+                    "username": "Nom d'utilisateur",
+                    "ws_headers": "En-t\u00eates WebSocket au format JSON",
+                    "ws_path": "Chemin WebSocket"
+                },
+                "data_description": {
+                    "advanced_options": "Activez et cliquez sur \u00ab Suivant \u00bb pour d\u00e9finir les options avanc\u00e9es.",
+                    "broker": "Le nom d'h\u00f4te ou l'adresse IP de votre courtier MQTT.",
+                    "certificate": "Le fichier de certificat CA personnalis\u00e9 pour valider votre certificat de courtier MQTT.",
+                    "client_cert": "Le certificat client \u00e0 authentifier aupr\u00e8s de votre courtier MQTT.",
+                    "client_id": "L'ID unique pour identifier l'API MQTT de Home Assistant en tant que client MQTT. Il est recommand\u00e9 de laisser cette option vide.",
+                    "client_key": "Le fichier de cl\u00e9 priv\u00e9e qui appartient \u00e0 votre certificat client.",
+                    "password": "Le mot de passe pour vous connecter \u00e0 votre courtier MQTT.",
+                    "port": "Le port sur lequel votre courtier MQTT \u00e9coute. Par exemple 1883.",
+                    "protocol": "Le protocole MQTT sur lequel votre courtier op\u00e8re. Par exemple 3.1.1.",
+                    "set_ca_cert": "S\u00e9lectionnez `Auto` pour la validation automatique de l'autorit\u00e9 de certification, ou `Personnalis\u00e9` et cliquez sur `suivant` pour d\u00e9finir un certificat d'autorit\u00e9 de certification personnalis\u00e9, afin de permettre la validation de votre certificat de courtier MQTT.",
+                    "set_client_cert": "Activez et cliquez sur `suivant` pour d\u00e9finir un certificat client et une cl\u00e9 priv\u00e9e pour vous authentifier aupr\u00e8s de votre courtier MQTT.",
+                    "tls_insecure": "Option pour ignorer la validation du certificat de votre courtier MQTT.",
+                    "transport": "Le transport \u00e0 utiliser pour la connexion \u00e0 votre courtier MQTT.",
+                    "username": "Le nom d'utilisateur pour vous connecter \u00e0 votre courtier MQTT.",
+                    "ws_headers": "Les en-t\u00eates WebSocket \u00e0 transmettre via la connexion bas\u00e9e sur WebSocket \u00e0 votre courtier MQTT.",
+                    "ws_path": "Le chemin WebSocket \u00e0 utiliser pour la connexion \u00e0 votre courtier MQTT."
+                },
+                "description": "Veuillez entrer les informations de connexion de votre courtier MQTT.",
+                "title": "Options de courtier"
+            },
+            "options": {
+                "data": {
+                    "birth_enable": "Activer le message de naissance",
+                    "birth_payload": "Contenu du message de naissance",
+                    "birth_qos": "QoS du message de naissance",
+                    "birth_retain": "Retenir le message de naissance",
+                    "birth_topic": "Topic du message de naissance",
+                    "discovery": "Activer la d\u00e9couverte",
+                    "discovery_prefix": "Pr\u00e9fixe de d\u00e9couverte",
+                    "will_enable": "Activer le message de testament",
+                    "will_payload": "Contenu du message de testament",
+                    "will_qos": "QoS du message de testament",
+                    "will_retain": "Retenir le message de testament",
+                    "will_topic": "Topic du message de testament"
+                },
+                "data_description": {
+                    "birth_enable": "Lorsque cette option est activ\u00e9e, Home Assistant publiera un message \u00e0 votre courtier MQTT lorsque MQTT est pr\u00eat.",
+                    "birth_payload": "Le message de `naissance` qui est publi\u00e9 lorsque MQTT est pr\u00eat et connect\u00e9.",
+                    "birth_qos": "La qualit\u00e9 de service du message de `naissance` qui est publi\u00e9 lorsque MQTT est pr\u00eat et connect\u00e9",
+                    "birth_retain": "Lorsque cette option est activ\u00e9e, Home Assistant conservera le message de `naissance` publi\u00e9 sur votre courtier MQTT.",
+                    "birth_topic": "Le sujet MQTT o\u00f9 Home Assistant publiera un message de `naissance`.",
+                    "discovery": "Option pour activer la d\u00e9couverte automatique MQTT.",
+                    "discovery_prefix": "Le pr\u00e9fixe des sujets de configuration auxquels l'int\u00e9gration MQTT s'abonnera.",
+                    "will_enable": "Lorsque cette option est activ\u00e9e, Home Assistant demandera \u00e0 votre broker de publier un message de `testamentaire` lorsque MQTT est arr\u00eat\u00e9 ou lorsqu'il perd la connexion avec votre courtier.",
+                    "will_payload": "Le message que votre courtier MQTT `publiera` lorsque l'int\u00e9gration MQTT est arr\u00eat\u00e9e ou lorsque la connexion est perdue.",
+                    "will_qos": "La qualit\u00e9 de service du message `testamentaire` publi\u00e9 par votre courtier MQTT.",
+                    "will_retain": "Si cette option est activ\u00e9e, votre courtier MQTT conservera le message `testamentaire`.",
+                    "will_topic": "Le sujet MQTT sur lequel votre courtier MQTT publiera un message `testamentaire`."
+                },
+                "description": "D\u00e9couverte - Si la d\u00e9couverte est activ\u00e9e (recommand\u00e9), Home Assistant d\u00e9couvrira automatiquement les appareils et les entit\u00e9s qui publient leur configuration sur le broker MQTT. Si la d\u00e9couverte est d\u00e9sactiv\u00e9e, toute la configuration doit \u00eatre effectu\u00e9e manuellement.\nPr\u00e9fixe de d\u00e9couverte - Le pr\u00e9fixe par lequel doit commencer un sujet de configuration pour la d\u00e9couverte automatique.\nMessage de naissance - Le message de naissance sera envoy\u00e9 chaque fois que Home Assistant se (re)connectera au courtier MQTT.\nMessage de testament - Le message de testament sera envoy\u00e9 \u00e0 chaque fois que Home Assistant perdra sa connexion au broker, \u00e0 la fois dans le cas d'une d\u00e9connexion voulue (par exemple lorsque Home Assistant s'arr\u00eate) et dans le cas d'une d\u00e9connexion involontaire (par exemple lorsque Home Assistant se bloque ou perd sa connexion r\u00e9seau).",
+                "title": "Options MQTT"
+            }
+        }
+    },
+    "selector": {
+        "set_ca_cert": {
+            "options": {
+                "auto": "Automatique",
+                "custom": "Personnalis\u00e9",
+                "off": "D\u00e9sactiv\u00e9"
+            }
+        }
+    },
+    "services": {
+        "dump": {
+            "description": "\u00c9crit tous les messages sur un sujet sp\u00e9cifique dans le fichier `mqtt_dump.txt` de votre dossier de configuration.",
+            "fields": {
+                "duration": {
+                    "description": "Dur\u00e9e d'\u00e9coute des messages en secondes.",
+                    "name": "Dur\u00e9e"
+                },
+                "topic": {
+                    "description": "Sujet \u00e0 \u00e9couter.",
+                    "name": "Sujet"
+                }
+            },
+            "name": "Exporter"
+        },
+        "publish": {
+            "description": "Publie un message dans un sujet MQTT.",
+            "fields": {
+                "evaluate_payload": {
+                    "description": "Lorsque `la charge utile` est un litt\u00e9ral d'octets Python, \u00e9valuer le litt\u00e9ral d'octets et publier les donn\u00e9es brutes.",
+                    "name": "\u00c9valuer la charge utile"
+                },
+                "payload": {
+                    "description": "La charge utile \u00e0 publier.",
+                    "name": "Charge utile"
+                },
+                "payload_template": {
+                    "description": "Mod\u00e8le \u00e0 restituer en tant que valeur de charge utile. Si une charge utile est fournie, le mod\u00e8le est ignor\u00e9.",
+                    "name": "Mod\u00e8le de charge utile"
+                },
+                "qos": {
+                    "description": "Qualit\u00e9 de Service \u00e0 utiliser. 0\u00a0: Au plus une fois. 1\u00a0: Au moins une fois. 2\u00a0: Exactement une fois.",
+                    "name": "QoS"
+                },
+                "retain": {
+                    "description": "Si le message doit avoir l\u2019indicateur de conservation d\u00e9fini. S'il est d\u00e9fini, le courtier stocke le message le plus r\u00e9cent sur un sujet.",
+                    "name": "Retenir"
+                },
+                "topic": {
+                    "description": "Sujet sur lequel publier.",
+                    "name": "Sujet"
+                }
+            },
+            "name": "Publier"
+        },
+        "reload": {
+            "description": "Recharge les entit\u00e9s MQTT \u00e0 partir de la configuration YAML.",
+            "name": "Recharger"
+        }
+    }
+}

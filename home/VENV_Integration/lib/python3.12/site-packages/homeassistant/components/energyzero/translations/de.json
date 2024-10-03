@@ -1,0 +1,125 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Ger\u00e4t ist bereits konfiguriert"
+        },
+        "step": {
+            "user": {
+                "description": "M\u00f6chtest du mit der Einrichtung beginnen?"
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "average_price": {
+                "name": "Durchschnittlich \u2013 heute"
+            },
+            "current_hour_price": {
+                "name": "Aktuelle Stunde"
+            },
+            "highest_price_time": {
+                "name": "Zeit des h\u00f6chsten Preises \u2013 heute"
+            },
+            "hours_priced_equal_or_higher": {
+                "name": "Stundenpreise gleich oder h\u00f6her als aktuell \u2013 heute"
+            },
+            "hours_priced_equal_or_lower": {
+                "name": "Stundenpreise gleich oder niedriger als aktuell \u2013 heute"
+            },
+            "lowest_price_time": {
+                "name": "Zeitpunkt des niedrigsten Preises \u2013 heute"
+            },
+            "max_price": {
+                "name": "H\u00f6chster Preis \u2013 heute"
+            },
+            "min_price": {
+                "name": "Niedrigster Preis \u2013 heute"
+            },
+            "next_hour_price": {
+                "name": "N\u00e4chste Stunde"
+            },
+            "percentage_of_max": {
+                "name": "Aktueller Prozentsatz des h\u00f6chsten Preises \u2013 heute"
+            }
+        }
+    },
+    "exceptions": {
+        "invalid_config_entry": {
+            "message": "Ung\u00fcltiger Konfigurationseintrag angegeben. {config_entry} erhalten."
+        },
+        "invalid_date": {
+            "message": "Ung\u00fcltiges Datum angegeben. {date} erhalten"
+        },
+        "unloaded_config_entry": {
+            "message": "Ung\u00fcltiger Konfigurationseintrag angegeben. {config_entry} wird nicht geladen."
+        }
+    },
+    "services": {
+        "get_energy_prices": {
+            "description": "Energiepreise bei EnergyZero anfordern.",
+            "fields": {
+                "config_entry": {
+                    "description": "Der Konfigurationseintrag, der f\u00fcr diese Aktion verwendet werden soll.",
+                    "name": "Konfigurationseintrag"
+                },
+                "end": {
+                    "description": "Gibt das Datum und die Uhrzeit an, bis zu der die Preise abgerufen werden sollen. Wenn weggelassen, wird standardm\u00e4\u00dfig der heutige Tag verwendet.",
+                    "name": "Ende"
+                },
+                "incl_vat": {
+                    "description": "In den Preisen ist die Mehrwertsteuer enthalten.",
+                    "name": "Inklusive Mehrwertsteuer"
+                },
+                "start": {
+                    "description": "Gibt das Datum und die Uhrzeit an, ab dem Preise abgerufen werden sollen. Wenn weggelassen, wird standardm\u00e4\u00dfig der heutige Tag verwendet.",
+                    "name": "Start"
+                }
+            },
+            "name": "Energiepreise abrufen"
+        },
+        "get_gas_prices": {
+            "description": "Gaspreise bei EnergyZero anfordern.",
+            "fields": {
+                "config_entry": {
+                    "description": "Der Konfigurationseintrag, der f\u00fcr diese Aktion verwendet werden soll.",
+                    "name": "Konfigurationseintrag"
+                },
+                "end": {
+                    "description": "Gibt das Datum und die Uhrzeit an, bis zu der die Preise abgerufen werden sollen. Wenn weggelassen, wird standardm\u00e4\u00dfig der heutige Tag verwendet.",
+                    "name": "Ende"
+                },
+                "incl_vat": {
+                    "description": "In den Preisen ist die Mehrwertsteuer enthalten.",
+                    "name": "Inklusive Mehrwertsteuer"
+                },
+                "start": {
+                    "description": "Gibt das Datum und die Uhrzeit an, ab dem Preise abgerufen werden sollen. Wenn weggelassen, wird standardm\u00e4\u00dfig der heutige Tag verwendet.",
+                    "name": "Start"
+                }
+            },
+            "name": "Gaspreise abfragen"
+        },
+        "get_prices": {
+            "description": "Fordere die Energie- oder Gaspreise bei EnergyZero an.",
+            "fields": {
+                "end": {
+                    "description": "Bis zu welchem Zeitpunkt die Preise ermittelt werden sollen. Standardwert ist heute, falls nicht angegeben.",
+                    "name": "Ende"
+                },
+                "incl_vat": {
+                    "description": "Mehrwertsteuer in die Preise einbeziehen. Standardwert: wahr, wenn nicht angegeben.",
+                    "name": "Inklusive Mehrwertsteuer"
+                },
+                "start": {
+                    "description": "Ab welchem Zeitpunkt die Preise ermittelt werden sollen. Standardwert ist heute, falls nicht angegeben.",
+                    "name": "Start"
+                },
+                "type": {
+                    "description": "Art der zu erhaltenden Preise, Energie oder Gas.",
+                    "name": "Typ"
+                }
+            },
+            "name": "Preise abrufen"
+        }
+    }
+}

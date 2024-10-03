@@ -1,0 +1,37 @@
+{
+    "entity": {
+        "binary_sensor": {
+            "assist_in_progress": {
+                "name": "Abiline t\u00f6\u00f6tab"
+            }
+        },
+        "select": {
+            "pipeline": {
+                "name": "Abiline",
+                "state": {
+                    "preferred": "Eelistatud"
+                }
+            },
+            "vad_sensitivity": {
+                "name": "R\u00e4\u00e4kimise tuvastamine on l\u00f5petatud",
+                "state": {
+                    "aggressive": "J\u00f5uline",
+                    "default": "Vaikimisi",
+                    "relaxed": "Leebe"
+                }
+            }
+        }
+    },
+    "issues": {
+        "assist_in_progress_deprecated": {
+            "fix_flow": {
+                "step": {
+                    "confirm_disable_entity": {
+                        "description": "{integration_name}  in progress binaarne andur `{entity_id}` on kaotanud kehtivuse.\n\nMigreeri konfiguratsioon, et kasutada vastavat `{assist_satellite_domain}` ja seej\u00e4rel kl\u00f5psa ESITA, et keelata assist in progress binaarsensor ja parandada see probleem."
+                    }
+                }
+            },
+            "title": "{integration_name} in progress binaarsed andurid on aegunud"
+        }
+    }
+}

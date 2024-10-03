@@ -1,0 +1,125 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Service is already configured",
+            "auth_error": "Invalid credentials.",
+            "no_heaters": "No heaters found.",
+            "not_found": "No Lan2RF gateway found.",
+            "timeout_error": "Time out when connection to Lan2RF gateway.",
+            "unknown": "Unknown error when connection to Lan2RF gateway."
+        },
+        "error": {
+            "auth_error": "Invalid credentials.",
+            "no_heaters": "No heaters found.",
+            "not_found": "No Lan2RF gateway found.",
+            "timeout_error": "Time out when connection to Lan2RF gateway.",
+            "unknown": "Unknown error when connection to Lan2RF gateway."
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "host": "Host",
+                    "password": "Password",
+                    "username": "Username"
+                },
+                "data_description": {
+                    "host": "Hostname or IP-address of the Intergas InComfort Lan2RF Gateway.",
+                    "password": "The password to log into the gateway, is printed at the bottom of the Lan2RF Gateway or is `intergas` for some older devices.",
+                    "username": "The username to log into the gateway. This is `admin` in most cases."
+                },
+                "description": "Set up new Intergas InComfort Lan2RF Gateway, some older systems might not need credentials to be set up. For newer devices authentication is required."
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "fault": {
+                "name": "Fault",
+                "state_attributes": {
+                    "fault_code": {
+                        "state": {
+                            "none": "None"
+                        }
+                    }
+                }
+            },
+            "is_burning": {
+                "name": "Burner"
+            },
+            "is_pumping": {
+                "name": "Pump"
+            },
+            "is_tapping": {
+                "name": "Hot water tap"
+            }
+        },
+        "sensor": {
+            "tap_temperature": {
+                "name": "Tap temperature"
+            }
+        },
+        "water_heater": {
+            "boiler": {
+                "state": {
+                    "boiler_ext": "Boiler external",
+                    "boiler_int": "Boiler internal",
+                    "buffer": "Buffer",
+                    "central_heating": "Central heating",
+                    "central_heating_rf": "Central heating rf",
+                    "cv_temperature_too_high_e1": "Temperature too high",
+                    "flame_detection_fault_e6": "Flame detection fault",
+                    "frost": "Frost protection",
+                    "gas_valve_relay_faulty_e29": "Gas valve relay faulty",
+                    "gas_valve_relay_faulty_e30": "Gas valve relay faulty",
+                    "incorrect_fan_speed_e8": "Incorrect fan speed",
+                    "no_flame_signal_e4": "No flame signal",
+                    "opentherm": "OpenTherm",
+                    "poor_flame_signal_e5": "Poor flame signal",
+                    "postrun_boyler": "Post run boiler",
+                    "postrun_ch": "Post run central heating",
+                    "s1_and_s2_interchanged_e2": "S1 and S2 interchanged",
+                    "sensor_fault_after_self_check_e0": "Sensor fault after self check",
+                    "sensor_fault_s1_e10": "Sensor fault S1",
+                    "sensor_fault_s1_e11": "Sensor fault S1",
+                    "sensor_fault_s1_e12": "Sensor fault S1",
+                    "sensor_fault_s1_e13": "Sensor fault S1",
+                    "sensor_fault_s1_e14": "Sensor fault S1",
+                    "sensor_fault_s2_e20": "Sensor fault S2",
+                    "sensor_fault_s2_e21": "Sensor fault S2",
+                    "sensor_fault_s2_e22": "Sensor fault S2",
+                    "sensor_fault_s2_e23": "Sensor fault S2",
+                    "sensor_fault_s2_e24": "Sensor fault S2",
+                    "sensor_test": "Sensor test",
+                    "service": "Service",
+                    "shortcut_outside_sensor_temperature_e27": "Shortcut outside sensor temperature",
+                    "standby": "Stand-by",
+                    "tapwater": "Tap water",
+                    "tapwater_int": "Tap water internal",
+                    "unknown": "Unknown"
+                }
+            }
+        }
+    },
+    "issues": {
+        "deprecated_yaml_import_issue_auth_error": {
+            "description": "Configuring {integration_title} using YAML is being removed but there was an authentication error while importing your existing configuration.\nSetup will not proceed.\n\nVerify that your {integration_title} is operating correctly and restart Home Assistant to attempt the import again.\n\nAlternatively, you may remove the `{domain}` configuration from your configuration.yaml entirely, restart Home Assistant, and add the {integration_title} integration manually.",
+            "title": "YAML import failed due to an authentication error"
+        },
+        "deprecated_yaml_import_issue_no_heaters": {
+            "description": "Configuring {integration_title} using YAML is being removed but no heaters were found while importing your existing configuration.\nSetup will not proceed.\n\nVerify that your {integration_title} is operating correctly and restart Home Assistant to attempt the import again.\n\nAlternatively, you may remove the `{domain}` configuration from your configuration.yaml entirely, restart Home Assistant, and add the {integration_title} integration manually.",
+            "title": "YAML import failed because no heaters were found"
+        },
+        "deprecated_yaml_import_issue_not_found": {
+            "description": "Configuring {integration_title} using YAML is being removed but no Lan2RF gateway was found while importing your existing configuration.\nSetup will not proceed.\n\nVerify that your {integration_title} is operating correctly and restart Home Assistant to attempt the import again.\n\nAlternatively, you may remove the `{domain}` configuration from your configuration.yaml entirely, restart Home Assistant, and add the {integration_title} integration manually.",
+            "title": "YAML import failed because no gateway was found"
+        },
+        "deprecated_yaml_import_issue_timeout_error": {
+            "description": "Configuring {integration_title} using YAML is being removed but there was a timeout while connecting to your {integration_title} while importing your existing configuration.\nSetup will not proceed.\n\nVerify that your {integration_title} is operating correctly and restart Home Assistant to attempt the import again.\n\nAlternatively, you may remove the `{domain}` configuration from your configuration.yaml entirely, restart Home Assistant, and add the {integration_title} integration manually.",
+            "title": "YAML import failed because of timeout issues"
+        },
+        "deprecated_yaml_import_issue_unknown": {
+            "description": "Configuring {integration_title} using YAML is being removed but there was an unknown error while importing your existing configuration.\nSetup will not proceed.\n\nVerify that your {integration_title} is operating correctly and restart Home Assistant to attempt the import again.\n\nAlternatively, you may remove the `{domain}` configuration from your configuration.yaml entirely, restart Home Assistant, and add the {integration_title} integration manually.",
+            "title": "YAML import failed with unknown error"
+        }
+    }
+}

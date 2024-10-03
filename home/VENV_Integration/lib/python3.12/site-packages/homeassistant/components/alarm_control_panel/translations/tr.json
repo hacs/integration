@@ -1,0 +1,148 @@
+{
+    "device_automation": {
+        "action_type": {
+            "arm_away": "{entity_name} Uzakta Alarm",
+            "arm_home": "{entity_name} Evde Alarm",
+            "arm_night": "{entity_name} Gece Alarm",
+            "arm_vacation": "{entity_name} Alarm - Tatil Modu",
+            "disarm": "Devre d\u0131\u015f\u0131 {entity_name}",
+            "trigger": "Tetikle {entity_name}"
+        },
+        "condition_type": {
+            "is_armed_away": "{entity_name} D\u0131\u015farda Modu Aktif",
+            "is_armed_home": "{entity_name} Evde Modu Aktif",
+            "is_armed_night": "{entity_name} Gece Modu Aktif",
+            "is_armed_vacation": "{entity_name} Alarm a\u00e7\u0131k - Tatil Modu",
+            "is_disarmed": "{entity_name} Devre D\u0131\u015f\u0131",
+            "is_triggered": "{entity_name} tetiklendi"
+        },
+        "extra_fields": {
+            "code": "Kod",
+            "for": "S\u00fcre"
+        },
+        "trigger_type": {
+            "armed_away": "{entity_name} D\u0131\u015farda Modu Aktif",
+            "armed_home": "{entity_name} Evde Modu Aktif",
+            "armed_night": "{entity_name} Gece Modu Aktif",
+            "armed_vacation": "{entity_name} Alarm Tatil Modunda",
+            "disarmed": "{entity_name} Devre D\u0131\u015f\u0131",
+            "triggered": "{entity_name} tetiklendi"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Alarm Kontrol Paneli",
+            "state": {
+                "armed": "Aktif",
+                "armed_away": "D\u0131\u015farda Aktif",
+                "armed_custom_bypass": "\u00d6zel Mod Aktif",
+                "armed_home": "Evde Aktif",
+                "armed_night": "Gece Aktif",
+                "armed_vacation": "Alarm - Tatil Modu",
+                "arming": "Alarm etkinle\u015fiyor",
+                "disarmed": "Devre D\u0131\u015f\u0131",
+                "disarming": "Alarm devre d\u0131\u015f\u0131",
+                "pending": "Beklemede",
+                "triggered": "Tetiklendi"
+            },
+            "state_attributes": {
+                "changed_by": {
+                    "name": "Taraf\u0131ndan de\u011fi\u015ftirildi"
+                },
+                "code_arm_required": {
+                    "name": "Kurma kodu",
+                    "state": {
+                        "false": "Gerekli de\u011fil",
+                        "true": "Gerekli"
+                    }
+                },
+                "code_format": {
+                    "name": "Kod format\u0131",
+                    "state": {
+                        "number": "Numara",
+                        "text": "Metin"
+                    }
+                }
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "{domain} entegrasyonu i\u00e7in {platform} platformu, platform kurulumunu desteklemiyor. \n\n L\u00fctfen yap\u0131land\u0131rman\u0131zdan kald\u0131r\u0131n ve bu sorunu \u00e7\u00f6zmek i\u00e7in Home Assistant'\u0131 yeniden ba\u015flat\u0131n.",
+            "title": "Platform deste\u011fi desteklenmiyor"
+        }
+    },
+    "services": {
+        "alarm_arm_away": {
+            "description": "Alarm\u0131 \u015fu \u015fekilde ayarlar: _alarmdevrede, evde kimse yok_.",
+            "fields": {
+                "code": {
+                    "description": "Alarm\u0131 kurmak i\u00e7in kod.",
+                    "name": "Kod"
+                }
+            },
+            "name": "D\u0131\u015far\u0131da"
+        },
+        "alarm_arm_custom_bypass": {
+            "description": "\u00d6zel bir alan\u0131 baypas etmeye izin verirken alarm\u0131 etkinle\u015ftirir.",
+            "fields": {
+                "code": {
+                    "description": "Alarm\u0131 kurmak i\u00e7in kod.",
+                    "name": "Kod"
+                }
+            },
+            "name": "\u00d6zel baypas ile devreye alma"
+        },
+        "alarm_arm_home": {
+            "description": "Alarm\u0131 \u015fu \u015fekilde ayarlar: _alarmkurulu ama birisi evde_.",
+            "fields": {
+                "code": {
+                    "description": "Alarm\u0131 kurmak i\u00e7in kod.",
+                    "name": "Kod"
+                }
+            },
+            "name": "Evde"
+        },
+        "alarm_arm_night": {
+            "description": "Alarm\u0131 \u015fu \u015fekilde ayarlar: _gece i\u00e7in etkinle\u015ftirildi_.",
+            "fields": {
+                "code": {
+                    "description": "Alarm\u0131 kurmak i\u00e7in kod.",
+                    "name": "Kod"
+                }
+            },
+            "name": "Geceyi etkinle\u015ftir"
+        },
+        "alarm_arm_vacation": {
+            "description": "Alarm\u0131 ayarlar: _tatil i\u00e7in alarmdevrede_.",
+            "fields": {
+                "code": {
+                    "description": "Alarm\u0131 kurmak i\u00e7in kod.",
+                    "name": "Kod"
+                }
+            },
+            "name": "D\u0131\u015far\u0131da"
+        },
+        "alarm_disarm": {
+            "description": "Alarm\u0131 devre d\u0131\u015f\u0131 b\u0131rak\u0131r.",
+            "fields": {
+                "code": {
+                    "description": "Alarm\u0131 devre d\u0131\u015f\u0131 b\u0131rakmak i\u00e7in kod.",
+                    "name": "Kod"
+                }
+            },
+            "name": "Etkisiz"
+        },
+        "alarm_trigger": {
+            "description": "Harici bir alarm tetikleyiciyi etkinle\u015ftirir.",
+            "fields": {
+                "code": {
+                    "description": "Alarm\u0131 kurmak i\u00e7in kod.",
+                    "name": "Kod"
+                }
+            },
+            "name": "Tetikle"
+        }
+    },
+    "title": "Alarm Kontrol Paneli"
+}

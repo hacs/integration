@@ -1,0 +1,92 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Cihaz zaten yap\u0131land\u0131r\u0131lm\u0131\u015f"
+        },
+        "error": {
+            "cannot_connect": "Ba\u011flanma hatas\u0131"
+        },
+        "flow_title": "{name}",
+        "step": {
+            "gateway_entry": {
+                "data": {
+                    "ip_address": "IP Adresi",
+                    "port": "Port"
+                },
+                "description": "ScreenLogic Gateway bilgilerinizi girin.",
+                "title": "ScreenLogic"
+            },
+            "gateway_select": {
+                "data": {
+                    "selected_gateway": "A\u011f ge\u00e7idi"
+                },
+                "description": "A\u015fa\u011f\u0131daki ScreenLogic a\u011f ge\u00e7itleri ke\u015ffedildi. L\u00fctfen yap\u0131land\u0131rmak i\u00e7in birini se\u00e7in veya bir ScreenLogic a\u011f ge\u00e7idini manuel olarak yap\u0131land\u0131rmay\u0131 se\u00e7in.",
+                "title": "ScreenLogic"
+            }
+        }
+    },
+    "issues": {
+        "service_target_deprecation": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Bir Alan\u0131n, Ayg\u0131t\u0131n veya Varl\u0131\u011f\u0131n ScreenLogic eylemleri i\u00e7in hedef olarak kullan\u0131lmas\u0131 kullan\u0131mdan kald\u0131r\u0131l\u0131yor. Bunun yerine, istenen ScreenLogic entegrasyonunun entry_id'siyle `config_entry` kullan\u0131n. L\u00fctfen otomasyonlar\u0131n\u0131z\u0131 ve betiklerinizi g\u00fcncelleyin ve bu sorunu d\u00fczeltmek i\u00e7in **g\u00f6nder**'i se\u00e7in.",
+                        "title": "ScreenLogic eylemleri i\u00e7in hedef kullan\u0131m d\u0131\u015f\u0131 b\u0131rak\u0131l\u0131yor"
+                    }
+                }
+            },
+            "title": "ScreenLogic eylemleri i\u00e7in hedef kullan\u0131m\u0131n\u0131n kullan\u0131m d\u0131\u015f\u0131 b\u0131rak\u0131lmas\u0131"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "scan_interval": "Taramalar aras\u0131ndaki saniyeler"
+                },
+                "description": "{gateway_name} i\u00e7in ayarlar\u0131 belirtin",
+                "title": "ScreenLogic"
+            }
+        }
+    },
+    "services": {
+        "set_color_mode": {
+            "description": "Bu ScreenLogic a\u011f ge\u00e7idine ba\u011fl\u0131 t\u00fcm renk \u00f6zellikli \u0131\u015f\u0131klar i\u00e7in renk modunu ayarlar.",
+            "fields": {
+                "color_mode": {
+                    "description": "Ayarlanacak ScreenLogic renk modu.",
+                    "name": "Renk Modu"
+                },
+                "config_entry": {
+                    "description": "Bu eylem i\u00e7in kullan\u0131lacak yap\u0131land\u0131rma giri\u015fi.",
+                    "name": "Yap\u0131land\u0131rma Giri\u015fi"
+                }
+            },
+            "name": "Renk Modunu Ayarla"
+        },
+        "start_super_chlorination": {
+            "description": "Belirlenen s\u00fcre boyunca veya belirtilmemi\u015fse 24 saat s\u00fcreyle \u00e7al\u0131\u015farak s\u00fcper klorlamay\u0131 ba\u015flat\u0131r.",
+            "fields": {
+                "config_entry": {
+                    "description": "Bu eylem i\u00e7in kullan\u0131lacak yap\u0131land\u0131rma giri\u015fi.",
+                    "name": "Yap\u0131land\u0131rma Giri\u015fi"
+                },
+                "runtime": {
+                    "description": "S\u00fcper klorlaman\u0131n \u00e7al\u0131\u015faca\u011f\u0131 s\u00fcre.",
+                    "name": "\u00c7al\u0131\u015fma S\u00fcresi"
+                }
+            },
+            "name": "S\u00fcper Klorlamay\u0131 Ba\u015flat"
+        },
+        "stop_super_chlorination": {
+            "description": "S\u00fcper klorlamay\u0131 durdurur.",
+            "fields": {
+                "config_entry": {
+                    "description": "Bu eylem i\u00e7in kullan\u0131lacak yap\u0131land\u0131rma giri\u015fi.",
+                    "name": "Yap\u0131land\u0131rma Giri\u015fi"
+                }
+            },
+            "name": "S\u00fcper Klorlamay\u0131 Durdurun"
+        }
+    }
+}

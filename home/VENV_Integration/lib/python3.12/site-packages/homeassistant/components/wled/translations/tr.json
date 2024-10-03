@@ -1,0 +1,175 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Cihaz zaten yap\u0131land\u0131r\u0131lm\u0131\u015f",
+            "cannot_connect": "Ba\u011flanma hatas\u0131",
+            "cct_unsupported": "Bu WLED cihaz\u0131, bu entegrasyon taraf\u0131ndan desteklenmeyen CCT kanallar\u0131n\u0131 kullan\u0131r."
+        },
+        "error": {
+            "cannot_connect": "Ba\u011flanma hatas\u0131"
+        },
+        "flow_title": "{name}",
+        "step": {
+            "user": {
+                "data": {
+                    "host": "Sunucu"
+                },
+                "data_description": {
+                    "host": "WLED cihaz\u0131n\u0131z\u0131n ana bilgisayar ad\u0131 veya IP adresi."
+                },
+                "description": "WLED'inizi Home Assistant ile t\u00fcmle\u015ftirmek i\u00e7in ayarlay\u0131n."
+            },
+            "zeroconf_confirm": {
+                "description": "{name} ` adl\u0131 WLED'i Home Assistant'a eklemek istiyor musunuz?",
+                "title": "Bulunan WLED cihaz\u0131"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "firmware": {
+                "name": "Donan\u0131m yaz\u0131l\u0131m\u0131"
+            }
+        },
+        "light": {
+            "main": {
+                "name": "Ana"
+            },
+            "segment": {
+                "name": "Segment {segment}"
+            }
+        },
+        "number": {
+            "intensity": {
+                "name": "Yo\u011funluk"
+            },
+            "segment_intensity": {
+                "name": "Segment {segment} yo\u011funlu\u011fu"
+            },
+            "segment_speed": {
+                "name": "Segment {segment} h\u0131z\u0131"
+            },
+            "speed": {
+                "name": "H\u0131z"
+            }
+        },
+        "select": {
+            "color_palette": {
+                "name": "Renk paleti"
+            },
+            "live_override": {
+                "name": "Canl\u0131 yay\u0131n ge\u00e7ersiz k\u0131l",
+                "state": {
+                    "0": "Kapal\u0131",
+                    "1": "A\u00e7\u0131k",
+                    "2": "Cihaz yeniden ba\u015flat\u0131lana kadar"
+                }
+            },
+            "playlist": {
+                "name": "Oynatma listesi"
+            },
+            "preset": {
+                "name": "\u00d6n ayar"
+            },
+            "segment_color_palette": {
+                "name": "Segment {segment} renk paleti"
+            }
+        },
+        "sensor": {
+            "estimated_current": {
+                "name": "Tahmini ak\u0131m"
+            },
+            "free_heap": {
+                "name": "Bo\u015f haf\u0131za"
+            },
+            "info_leds_count": {
+                "name": "LED say\u0131s\u0131"
+            },
+            "info_leds_max_power": {
+                "name": "Maksimum ak\u0131m"
+            },
+            "ip": {
+                "name": "IP"
+            },
+            "uptime": {
+                "name": "\u00c7al\u0131\u015fma S\u00fcresi"
+            },
+            "wifi_bssid": {
+                "name": "Wi-Fi BSSID'si"
+            },
+            "wifi_channel": {
+                "name": "Wi-Fi kanal\u0131"
+            },
+            "wifi_rssi": {
+                "name": "Wi-Fi RSSI's\u0131"
+            },
+            "wifi_signal": {
+                "name": "WiFi sinyali"
+            }
+        },
+        "switch": {
+            "nightlight": {
+                "name": "Gece lambas\u0131"
+            },
+            "reverse": {
+                "name": "Ters"
+            },
+            "segment_reverse": {
+                "name": "Segment {segment} ters"
+            },
+            "sync_receive": {
+                "name": "Senkronizasyon al"
+            },
+            "sync_send": {
+                "name": "Senkronizasyon g\u00f6nder"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "keep_master_light": "1 LED segmentiyle bile ana \u0131\u015f\u0131\u011f\u0131 koruyun."
+                }
+            }
+        }
+    },
+    "services": {
+        "effect": {
+            "description": "WLED'in efekt ayarlar\u0131n\u0131 kontrol eder.",
+            "fields": {
+                "effect": {
+                    "description": "WLED \u0131\u015f\u0131k efektinin ad\u0131 veya kimli\u011fi.",
+                    "name": "Efekt"
+                },
+                "intensity": {
+                    "description": "Efektin yo\u011funlu\u011fu. 0 ile 255 aras\u0131nda bir say\u0131.",
+                    "name": "Efekt yo\u011funlu\u011fu"
+                },
+                "palette": {
+                    "description": "WLED \u0131\u015f\u0131k paletinin ad\u0131 veya kimli\u011fi.",
+                    "name": "Renk paleti"
+                },
+                "reverse": {
+                    "description": "Efekti tersine \u00e7evirin. Aksi takdirde ya tersine \u00e7evirmek i\u00e7in do\u011fru ya da yanl\u0131\u015f.",
+                    "name": "Ters efekt"
+                },
+                "speed": {
+                    "description": "Efektin h\u0131z\u0131.",
+                    "name": "Efekt h\u0131z\u0131"
+                }
+            },
+            "name": "Efekt ayarla"
+        },
+        "preset": {
+            "description": "WLED cihaz\u0131 i\u00e7in bir \u00f6n ayar ayarlar.",
+            "fields": {
+                "preset": {
+                    "description": "WLED \u00f6n ayar\u0131n\u0131n kimli\u011fi.",
+                    "name": "\u00d6n Ayar Kimli\u011fi"
+                }
+            },
+            "name": "\u00d6n ayar\u0131 ayarla (kullan\u0131mdan kald\u0131r\u0131lm\u0131\u015ft\u0131r)"
+        }
+    }
+}

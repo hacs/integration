@@ -1,0 +1,90 @@
+{
+    "device_automation": {
+        "condition_type": {
+            "is_home": "{entity_name} otthon van",
+            "is_not_home": "{entity_name} nincs otthon"
+        },
+        "extra_fields": {
+            "zone": "Z\u00f3na"
+        },
+        "trigger_type": {
+            "enters": "{entity_name} bel\u00e9pett a z\u00f3n\u00e1ba",
+            "leaves": "{entity_name} elhagyta a z\u00f3n\u00e1t"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Eszk\u00f6z nyomk\u00f6vet\u0151",
+            "state": {
+                "home": "Otthon",
+                "not_home": "T\u00e1vol"
+            },
+            "state_attributes": {
+                "battery": {
+                    "name": "Elem/Akku"
+                },
+                "gps_accuracy": {
+                    "name": "GPS pontoss\u00e1g"
+                },
+                "latitude": {
+                    "name": "Sz\u00e9less\u00e9g"
+                },
+                "longitude": {
+                    "name": "Hossz\u00fas\u00e1g"
+                },
+                "source_type": {
+                    "name": "Forr\u00e1s",
+                    "state": {
+                        "bluetooth": "Bluetooth",
+                        "bluetooth_le": "Bluetooth LE",
+                        "gps": "GPS",
+                        "router": "\u00datv\u00e1laszt\u00f3"
+                    }
+                }
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "{domain} integr\u00e1ci\u00f3 nem t\u00e1mogatja {platform} platform be\u00e1ll\u00edt\u00e1s\u00e1t.\n\nK\u00e9rem, t\u00e1vol\u00edtsa el a konfigur\u00e1ci\u00f3b\u00f3l \u00e9s ind\u00edtsa \u00fajra a Home Assistantot a probl\u00e9ma megold\u00e1s\u00e1hoz.",
+            "title": "A platform nem t\u00e1mogatott"
+        }
+    },
+    "services": {
+        "see": {
+            "description": "R\u00f6gz\u00edti a nyomon k\u00f6vetett eszk\u00f6zt.",
+            "fields": {
+                "battery": {
+                    "description": "Az eszk\u00f6z akkumul\u00e1tor t\u00f6lt\u00f6tts\u00e9gi szintje.",
+                    "name": "Akkumul\u00e1tor t\u00f6lt\u00f6tts\u00e9gi szint"
+                },
+                "dev_id": {
+                    "description": "Az eszk\u00f6z azonos\u00edt\u00f3ja (keresse meg az azonos\u00edt\u00f3t a 'known_devices.yaml' f\u00e1jlban).",
+                    "name": "Eszk\u00f6z azonos\u00edt\u00f3"
+                },
+                "gps": {
+                    "description": "Az eszk\u00f6z hely\u00e9t meghat\u00e1roz\u00f3 GPS koordin\u00e1t\u00e1k, sz\u00e9less\u00e9gi \u00e9s hossz\u00fas\u00e1gi fokban megadva (p\u00e9ld\u00e1ul: [51.513845, -0.100539]).",
+                    "name": "GPS koordin\u00e1t\u00e1k"
+                },
+                "gps_accuracy": {
+                    "description": "A GPS koordin\u00e1t\u00e1k pontoss\u00e1ga.",
+                    "name": "GPS pontoss\u00e1g"
+                },
+                "host_name": {
+                    "description": "Az eszk\u00f6z g\u00e9pneve.",
+                    "name": "G\u00e9pn\u00e9v"
+                },
+                "location_name": {
+                    "description": "Annak a helynek a neve, ahol az eszk\u00f6z tal\u00e1lhat\u00f3. A lehet\u0151s\u00e9gek a k\u00f6vetkez\u0151k: \"home\", \"not_home\" vagy a z\u00f3na neve.",
+                    "name": "Helysz\u00edn"
+                },
+                "mac": {
+                    "description": "Az eszk\u00f6z MAC-c\u00edme.",
+                    "name": "MAC c\u00edm"
+                }
+            },
+            "name": "L\u00e1sd"
+        }
+    },
+    "title": "Eszk\u00f6z nyomk\u00f6vet\u0151"
+}

@@ -1,0 +1,84 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "Ajastin",
+            "state": {
+                "active": "Aktiivinen",
+                "idle": "Toimeton",
+                "paused": "Pys\u00e4ytetty"
+            },
+            "state_attributes": {
+                "duration": {
+                    "name": "Kesto"
+                },
+                "editable": {
+                    "name": "Hallinnoitu k\u00e4ytt\u00f6liittym\u00e4n kautta",
+                    "state": {
+                        "false": "Ei",
+                        "true": "Kyll\u00e4"
+                    }
+                },
+                "finishes_at": {
+                    "name": "P\u00e4\u00e4ttyy"
+                },
+                "remaining": {
+                    "name": "J\u00e4ljell\u00e4"
+                },
+                "restore": {
+                    "name": "Palauta"
+                }
+            }
+        }
+    },
+    "issues": {
+        "deprecated_duration_in_start": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Ajastinpalvelun `timer.start` valinnainen kestoparametri poistetaan ja sen k\u00e4ytt\u00f6 on havaittu. Jos haluat muuttaa kestoa, luo uusi ajastin.\n\nPoistakaa `timer.start`-palvelun `duration`-parametrin k\u00e4ytt\u00f6 automaatioissanne ja skripteiss\u00e4nne ja valitkaa **submit** sulkeaksenne t\u00e4m\u00e4n ongelman.",
+                        "title": "Ajastimen k\u00e4ynnistyksen palvelun kestoparametria poistetaan"
+                    }
+                }
+            },
+            "title": "Ajastimen k\u00e4ynnistyksen palvelun kestoparametria poistetaan"
+        }
+    },
+    "services": {
+        "cancel": {
+            "description": "Peruuttaa ajastimen.",
+            "name": "Peruuta"
+        },
+        "change": {
+            "description": "Muuttaa ajastinta.",
+            "fields": {
+                "duration": {
+                    "description": "Kesto, joka lis\u00e4t\u00e4\u00e4n tai v\u00e4hennet\u00e4\u00e4n k\u00e4ynniss\u00e4 olevaan ajastimeen.",
+                    "name": "Kesto"
+                }
+            },
+            "name": "Vaihda"
+        },
+        "finish": {
+            "description": "Lopettaa ajastimen.",
+            "name": "Valmis"
+        },
+        "pause": {
+            "description": "Keskeytt\u00e4\u00e4 ajastimen.",
+            "name": "Keskeyt\u00e4"
+        },
+        "reload": {
+            "description": "Lataa ajastimet uudelleen YAML-konfiguraatiosta.",
+            "name": "Uudelleenlataa"
+        },
+        "start": {
+            "description": "K\u00e4ynnist\u00e4\u00e4 ajastimen.",
+            "fields": {
+                "duration": {
+                    "description": "Kesto, jonka ajastin tarvitsee p\u00e4\u00e4tty\u00e4kseen. [valinnainen].",
+                    "name": "Kesto"
+                }
+            },
+            "name": "K\u00e4ynnist\u00e4"
+        }
+    }
+}

@@ -1,0 +1,954 @@
+{
+    "config": {
+        "abort": {
+            "single_instance_allowed": "Zaten yap\u0131land\u0131r\u0131lm\u0131\u015f. Yaln\u0131zca tek bir konfig\u00fcrasyon m\u00fcmk\u00fcnd\u00fcr."
+        },
+        "create_entry": {
+            "default": "Baz\u0131 sens\u00f6rler varsay\u0131lan olarak etkin de\u011fildir. Entegrasyon yap\u0131land\u0131rmas\u0131ndan sonra bunlar\u0131 varl\u0131k kay\u0131t defterinde etkinle\u015ftirebilirsiniz."
+        },
+        "error": {
+            "cannot_connect": "Ba\u011flanma hatas\u0131",
+            "invalid_api_key": "Ge\u00e7ersiz API anahtar\u0131",
+            "requests_exceeded": "Accuweather API i\u00e7in izin verilen istek say\u0131s\u0131 a\u015f\u0131ld\u0131. API Anahtar\u0131n\u0131 beklemeniz veya de\u011fi\u015ftirmeniz gerekir."
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "api_key": "API Anahtar\u0131",
+                    "latitude": "Enlem",
+                    "longitude": "Boylam",
+                    "name": "Ad"
+                }
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "air_quality": {
+                "name": "Hava kalitesi g\u00fcn\u00fc {forecast_day}",
+                "state": {
+                    "good": "\u0130yi",
+                    "hazardous": "Tehlikeli",
+                    "high": "Y\u00fcksek",
+                    "low": "D\u00fc\u015f\u00fck",
+                    "moderate": "Il\u0131ml\u0131",
+                    "unhealthy": "Sa\u011fl\u0131ks\u0131z"
+                }
+            },
+            "air_quality_0d": {
+                "name": "Bug\u00fcnk\u00fc hava kalitesi",
+                "state": {
+                    "good": "\u0130yi",
+                    "hazardous": "Tehlikeli",
+                    "high": "Y\u00fcksek",
+                    "low": "D\u00fc\u015f\u00fck",
+                    "moderate": "Orta d\u00fczeyde",
+                    "unhealthy": "Sa\u011fl\u0131ks\u0131z"
+                }
+            },
+            "air_quality_1d": {
+                "name": "Hava kalitesi 1. g\u00fcn",
+                "state": {
+                    "good": "\u0130yi",
+                    "hazardous": "Tehlikeli",
+                    "high": "Y\u00fcksek",
+                    "low": "D\u00fc\u015f\u00fck",
+                    "moderate": "Orta d\u00fczeyde",
+                    "unhealthy": "Sa\u011fl\u0131ks\u0131z"
+                }
+            },
+            "air_quality_2d": {
+                "name": "Hava kalitesi 2. g\u00fcn",
+                "state": {
+                    "good": "\u0130yi",
+                    "hazardous": "Tehlikeli",
+                    "high": "Y\u00fcksek",
+                    "low": "D\u00fc\u015f\u00fck",
+                    "moderate": "Orta d\u00fczeyde",
+                    "unhealthy": "Sa\u011fl\u0131ks\u0131z"
+                }
+            },
+            "air_quality_3d": {
+                "name": "Hava kalitesi 3. g\u00fcn",
+                "state": {
+                    "good": "\u0130yi",
+                    "hazardous": "Tehlikeli",
+                    "high": "Y\u00fcksek",
+                    "low": "D\u00fc\u015f\u00fck",
+                    "moderate": "Orta d\u00fczeyde",
+                    "unhealthy": "Sa\u011fl\u0131ks\u0131z"
+                }
+            },
+            "air_quality_4d": {
+                "name": "Hava kalitesi 4. g\u00fcn",
+                "state": {
+                    "good": "\u0130yi",
+                    "hazardous": "Tehlikeli",
+                    "high": "Y\u00fcksek",
+                    "low": "D\u00fc\u015f\u00fck",
+                    "moderate": "Orta d\u00fczeyde",
+                    "unhealthy": "Sa\u011fl\u0131ks\u0131z"
+                }
+            },
+            "apparent_temperature": {
+                "name": "G\u00f6r\u00fcn\u00fcr s\u0131cakl\u0131k"
+            },
+            "cloud_ceiling": {
+                "name": "Bulut tavan\u0131"
+            },
+            "cloud_cover": {
+                "name": "Bulut \u00f6rt\u00fcs\u00fc"
+            },
+            "cloud_cover_day": {
+                "name": "Bulutla kapl\u0131 g\u00fcn {forecast_day}"
+            },
+            "cloud_cover_day_0d": {
+                "name": "Bug\u00fcnk\u00fc bulut \u00f6rt\u00fcs\u00fc"
+            },
+            "cloud_cover_day_1d": {
+                "name": "Bulut \u00f6rt\u00fcs\u00fc 1. g\u00fcn"
+            },
+            "cloud_cover_day_2d": {
+                "name": "Bulut \u00f6rt\u00fcs\u00fc 2. g\u00fcn"
+            },
+            "cloud_cover_day_3d": {
+                "name": "Bulut \u00f6rt\u00fcs\u00fc 3. g\u00fcn"
+            },
+            "cloud_cover_day_4d": {
+                "name": "Bulut \u00f6rt\u00fcs\u00fc 4. g\u00fcn"
+            },
+            "cloud_cover_night": {
+                "name": "Bulutla kapl\u0131 gece {forecast_day}"
+            },
+            "cloud_cover_night_0d": {
+                "name": "Bu gece bulut \u00f6rt\u00fcs\u00fc"
+            },
+            "cloud_cover_night_1d": {
+                "name": "Bulutlu gece 1"
+            },
+            "cloud_cover_night_2d": {
+                "name": "Bulut \u00f6rt\u00fcs\u00fc gecesi 2"
+            },
+            "cloud_cover_night_3d": {
+                "name": "Bulut \u00f6rt\u00fcs\u00fc gece 3"
+            },
+            "cloud_cover_night_4d": {
+                "name": "Bulut \u00f6rt\u00fcs\u00fc gecesi 4"
+            },
+            "condition_day": {
+                "name": "Ko\u015ful g\u00fcn\u00fc {forecast_day}"
+            },
+            "condition_day_0d": {
+                "name": "Bug\u00fcnk\u00fc durum"
+            },
+            "condition_day_1d": {
+                "name": "1. g\u00fcn durumu"
+            },
+            "condition_day_2d": {
+                "name": "2. g\u00fcn durumu"
+            },
+            "condition_day_3d": {
+                "name": "3. g\u00fcn durumu"
+            },
+            "condition_day_4d": {
+                "name": "4. g\u00fcn durumu"
+            },
+            "condition_night": {
+                "name": "Durum gecesi {forecast_day}"
+            },
+            "condition_night_0d": {
+                "name": "Bu geceki durum"
+            },
+            "condition_night_1d": {
+                "name": "Durum gecesi 1"
+            },
+            "condition_night_2d": {
+                "name": "Durum gecesi 2"
+            },
+            "condition_night_3d": {
+                "name": "Durum gecesi 3"
+            },
+            "condition_night_4d": {
+                "name": "Durum gecesi 4"
+            },
+            "dew_point": {
+                "name": "\u00c7i\u011flenme noktas\u0131"
+            },
+            "grass_pollen": {
+                "name": "\u00c7im poleni g\u00fcn\u00fc {forecast_day}",
+                "state_attributes": {
+                    "level": {
+                        "name": "D\u00fczey",
+                        "state": {
+                            "good": "\u0130yi",
+                            "hazardous": "Tehlikeli",
+                            "high": "Y\u00fcksek",
+                            "low": "D\u00fc\u015f\u00fck",
+                            "moderate": "Il\u0131ml\u0131",
+                            "unhealthy": "Sa\u011fl\u0131ks\u0131z"
+                        }
+                    }
+                }
+            },
+            "grass_pollen_0d": {
+                "name": "Bug\u00fcnk\u00fc \u00e7im poleni",
+                "state_attributes": {
+                    "level": {
+                        "name": "D\u00fczey",
+                        "state": {
+                            "good": "\u0130yi",
+                            "hazardous": "Tehlikeli",
+                            "high": "Y\u00fcksek",
+                            "low": "D\u00fc\u015f\u00fck",
+                            "moderate": "Orta d\u00fczeyde",
+                            "unhealthy": "Sa\u011fl\u0131ks\u0131z"
+                        }
+                    }
+                }
+            },
+            "grass_pollen_1d": {
+                "name": "\u00c7im poleni 1. g\u00fcn",
+                "state_attributes": {
+                    "level": {
+                        "name": "D\u00fczey",
+                        "state": {
+                            "good": "\u0130yi",
+                            "hazardous": "Tehlikeli",
+                            "high": "Y\u00fcksek",
+                            "low": "D\u00fc\u015f\u00fck",
+                            "moderate": "Orta d\u00fczeyde",
+                            "unhealthy": "Sa\u011fl\u0131ks\u0131z"
+                        }
+                    }
+                }
+            },
+            "grass_pollen_2d": {
+                "name": "\u00c7im poleni 2. g\u00fcn",
+                "state_attributes": {
+                    "level": {
+                        "name": "D\u00fczey",
+                        "state": {
+                            "good": "\u0130yi",
+                            "hazardous": "Tehlikeli",
+                            "high": "Y\u00fcksek",
+                            "low": "D\u00fc\u015f\u00fck",
+                            "moderate": "Orta d\u00fczeyde",
+                            "unhealthy": "Sa\u011fl\u0131ks\u0131z"
+                        }
+                    }
+                }
+            },
+            "grass_pollen_3d": {
+                "name": "\u00c7im poleni 3. g\u00fcn",
+                "state_attributes": {
+                    "level": {
+                        "name": "D\u00fczey",
+                        "state": {
+                            "good": "\u0130yi",
+                            "hazardous": "Tehlikeli",
+                            "high": "Y\u00fcksek",
+                            "low": "D\u00fc\u015f\u00fck",
+                            "moderate": "Orta d\u00fczeyde",
+                            "unhealthy": "Sa\u011fl\u0131ks\u0131z"
+                        }
+                    }
+                }
+            },
+            "grass_pollen_4d": {
+                "name": "\u00c7im poleni 4. g\u00fcn",
+                "state_attributes": {
+                    "level": {
+                        "name": "D\u00fczey",
+                        "state": {
+                            "good": "\u0130yi",
+                            "hazardous": "Tehlikeli",
+                            "high": "Y\u00fcksek",
+                            "low": "D\u00fc\u015f\u00fck",
+                            "moderate": "Orta d\u00fczeyde",
+                            "unhealthy": "Sa\u011fl\u0131ks\u0131z"
+                        }
+                    }
+                }
+            },
+            "hours_of_sun": {
+                "name": "G\u00fcne\u015fli g\u00fcn\u00fcn saatleri {forecast_day}"
+            },
+            "hours_of_sun_0d": {
+                "name": "Bug\u00fcnk\u00fc g\u00fcne\u015fin saatleri"
+            },
+            "hours_of_sun_1d": {
+                "name": "1. g\u00fcn g\u00fcne\u015f saatleri"
+            },
+            "hours_of_sun_2d": {
+                "name": "2. g\u00fcn g\u00fcne\u015f saatleri"
+            },
+            "hours_of_sun_3d": {
+                "name": "3. g\u00fcn g\u00fcne\u015f saatleri"
+            },
+            "hours_of_sun_4d": {
+                "name": "G\u00fcne\u015f saati 4. g\u00fcn"
+            },
+            "mold_pollen": {
+                "name": "K\u00fcf poleni g\u00fcn\u00fc {forecast_day}",
+                "state_attributes": {
+                    "level": {
+                        "name": "D\u00fczey",
+                        "state": {
+                            "good": "\u0130yi",
+                            "hazardous": "Tehlikeli",
+                            "high": "Y\u00fcksek",
+                            "low": "D\u00fc\u015f\u00fck",
+                            "moderate": "Il\u0131ml\u0131",
+                            "unhealthy": "Sa\u011fl\u0131ks\u0131z"
+                        }
+                    }
+                }
+            },
+            "mold_pollen_0d": {
+                "name": "Bug\u00fcnk\u00fc k\u00fcf poleni",
+                "state_attributes": {
+                    "level": {
+                        "name": "D\u00fczey",
+                        "state": {
+                            "good": "\u0130yi",
+                            "hazardous": "Tehlikeli",
+                            "high": "Y\u00fcksek",
+                            "low": "D\u00fc\u015f\u00fck",
+                            "moderate": "Orta d\u00fczeyde",
+                            "unhealthy": "Sa\u011fl\u0131ks\u0131z"
+                        }
+                    }
+                }
+            },
+            "mold_pollen_1d": {
+                "name": "K\u00fcf poleni 1. g\u00fcn",
+                "state_attributes": {
+                    "level": {
+                        "name": "D\u00fczey",
+                        "state": {
+                            "good": "\u0130yi",
+                            "hazardous": "Tehlikeli",
+                            "high": "Y\u00fcksek",
+                            "low": "D\u00fc\u015f\u00fck",
+                            "moderate": "Orta d\u00fczeyde",
+                            "unhealthy": "Sa\u011fl\u0131ks\u0131z"
+                        }
+                    }
+                }
+            },
+            "mold_pollen_2d": {
+                "name": "K\u00fcf poleni 2. g\u00fcn",
+                "state_attributes": {
+                    "level": {
+                        "name": "D\u00fczey",
+                        "state": {
+                            "good": "\u0130yi",
+                            "hazardous": "Tehlikeli",
+                            "high": "Y\u00fcksek",
+                            "low": "D\u00fc\u015f\u00fck",
+                            "moderate": "Orta d\u00fczeyde",
+                            "unhealthy": "Sa\u011fl\u0131ks\u0131z"
+                        }
+                    }
+                }
+            },
+            "mold_pollen_3d": {
+                "name": "K\u00fcf poleni 3. g\u00fcn",
+                "state_attributes": {
+                    "level": {
+                        "name": "D\u00fczey",
+                        "state": {
+                            "good": "\u0130yi",
+                            "hazardous": "Tehlikeli",
+                            "high": "Y\u00fcksek",
+                            "low": "D\u00fc\u015f\u00fck",
+                            "moderate": "Orta d\u00fczeyde",
+                            "unhealthy": "Sa\u011fl\u0131ks\u0131z"
+                        }
+                    }
+                }
+            },
+            "mold_pollen_4d": {
+                "name": "K\u00fcf poleni 4. g\u00fcn",
+                "state_attributes": {
+                    "level": {
+                        "name": "D\u00fczey",
+                        "state": {
+                            "good": "\u0130yi",
+                            "hazardous": "Tehlikeli",
+                            "high": "Y\u00fcksek",
+                            "low": "D\u00fc\u015f\u00fck",
+                            "moderate": "Orta d\u00fczeyde",
+                            "unhealthy": "Sa\u011fl\u0131ks\u0131z"
+                        }
+                    }
+                }
+            },
+            "precipitation": {
+                "name": "Ya\u011f\u0131\u015f"
+            },
+            "pressure_tendency": {
+                "name": "Bas\u0131n\u00e7 e\u011filimi",
+                "state": {
+                    "falling": "D\u00fc\u015f\u00fcyor",
+                    "rising": "Y\u00fckseliyor",
+                    "steady": "Sabit"
+                }
+            },
+            "ragweed_pollen": {
+                "name": "Yakup otu poleni g\u00fcn\u00fc {forecast_day}",
+                "state_attributes": {
+                    "level": {
+                        "name": "D\u00fczey",
+                        "state": {
+                            "good": "\u0130yi",
+                            "hazardous": "Tehlikeli",
+                            "high": "Y\u00fcksek",
+                            "low": "D\u00fc\u015f\u00fck",
+                            "moderate": "Il\u0131ml\u0131",
+                            "unhealthy": "Sa\u011fl\u0131ks\u0131z"
+                        }
+                    }
+                }
+            },
+            "ragweed_pollen_0d": {
+                "name": "Bug\u00fcnk\u00fc yakup otu poleni",
+                "state_attributes": {
+                    "level": {
+                        "name": "D\u00fczey",
+                        "state": {
+                            "good": "\u0130yi",
+                            "hazardous": "Tehlikeli",
+                            "high": "Y\u00fcksek",
+                            "low": "D\u00fc\u015f\u00fck",
+                            "moderate": "Orta d\u00fczeyde",
+                            "unhealthy": "Sa\u011fl\u0131ks\u0131z"
+                        }
+                    }
+                }
+            },
+            "ragweed_pollen_1d": {
+                "name": "Yakup otu poleni 1. g\u00fcn",
+                "state_attributes": {
+                    "level": {
+                        "name": "D\u00fczey",
+                        "state": {
+                            "good": "\u0130yi",
+                            "hazardous": "Tehlikeli",
+                            "high": "Y\u00fcksek",
+                            "low": "D\u00fc\u015f\u00fck",
+                            "moderate": "Orta d\u00fczeyde",
+                            "unhealthy": "Sa\u011fl\u0131ks\u0131z"
+                        }
+                    }
+                }
+            },
+            "ragweed_pollen_2d": {
+                "name": "Yakup otu poleni 2. g\u00fcn",
+                "state_attributes": {
+                    "level": {
+                        "name": "D\u00fczey",
+                        "state": {
+                            "good": "\u0130yi",
+                            "hazardous": "Tehlikeli",
+                            "high": "Y\u00fcksek",
+                            "low": "D\u00fc\u015f\u00fck",
+                            "moderate": "Orta d\u00fczeyde",
+                            "unhealthy": "Sa\u011fl\u0131ks\u0131z"
+                        }
+                    }
+                }
+            },
+            "ragweed_pollen_3d": {
+                "name": "Yakup otu poleni 3. g\u00fcn",
+                "state_attributes": {
+                    "level": {
+                        "name": "D\u00fczey",
+                        "state": {
+                            "good": "\u0130yi",
+                            "hazardous": "Tehlikeli",
+                            "high": "Y\u00fcksek",
+                            "low": "D\u00fc\u015f\u00fck",
+                            "moderate": "Orta d\u00fczeyde",
+                            "unhealthy": "Sa\u011fl\u0131ks\u0131z"
+                        }
+                    }
+                }
+            },
+            "ragweed_pollen_4d": {
+                "name": "Yakup otu poleni 4. g\u00fcn",
+                "state_attributes": {
+                    "level": {
+                        "name": "D\u00fczey",
+                        "state": {
+                            "good": "\u0130yi",
+                            "hazardous": "Tehlikeli",
+                            "high": "Y\u00fcksek",
+                            "low": "D\u00fc\u015f\u00fck",
+                            "moderate": "Orta d\u00fczeyde",
+                            "unhealthy": "Sa\u011fl\u0131ks\u0131z"
+                        }
+                    }
+                }
+            },
+            "realfeel_temperature": {
+                "name": "RealFeel s\u0131cakl\u0131k hissi"
+            },
+            "realfeel_temperature_max": {
+                "name": "RealFeel s\u0131cakl\u0131\u011f\u0131 maksimum g\u00fcn {forecast_day}"
+            },
+            "realfeel_temperature_max_0d": {
+                "name": "RealFeel s\u0131cakl\u0131k hissi maks. bug\u00fcnk\u00fc"
+            },
+            "realfeel_temperature_max_1d": {
+                "name": "RealFeel s\u0131cakl\u0131k hissi maks. 1. g\u00fcn"
+            },
+            "realfeel_temperature_max_2d": {
+                "name": "RealFeel s\u0131cakl\u0131k hissi maks. 2. g\u00fcn"
+            },
+            "realfeel_temperature_max_3d": {
+                "name": "RealFeel s\u0131cakl\u0131k hissi maks. 3. g\u00fcn"
+            },
+            "realfeel_temperature_max_4d": {
+                "name": "RealFeel s\u0131cakl\u0131k hissi maks. 4. g\u00fcn"
+            },
+            "realfeel_temperature_min": {
+                "name": "RealFeel s\u0131cakl\u0131k minimum g\u00fcn {forecast_day}"
+            },
+            "realfeel_temperature_min_0d": {
+                "name": "RealFeel s\u0131cakl\u0131k hisse min bug\u00fcnk\u00fc"
+            },
+            "realfeel_temperature_min_1d": {
+                "name": "RealFeel s\u0131cakl\u0131k hissi min. 1. g\u00fcn"
+            },
+            "realfeel_temperature_min_2d": {
+                "name": "RealFeel s\u0131cakl\u0131k hissi min. 2. g\u00fcn"
+            },
+            "realfeel_temperature_min_3d": {
+                "name": "RealFeel s\u0131cakl\u0131k hissi min. 3. g\u00fcn"
+            },
+            "realfeel_temperature_min_4d": {
+                "name": "RealFeel s\u0131cakl\u0131k hissi min. 4.g\u00fcn"
+            },
+            "realfeel_temperature_shade": {
+                "name": "RealFeel s\u0131cakl\u0131k hissi"
+            },
+            "realfeel_temperature_shade_max": {
+                "name": "RealFeel s\u0131cakl\u0131k g\u00f6lgesi maksimum g\u00fcn {forecast_day}"
+            },
+            "realfeel_temperature_shade_max_0d": {
+                "name": "RealFeel s\u0131cakl\u0131k hissi maks. bug\u00fcnk\u00fc"
+            },
+            "realfeel_temperature_shade_max_1d": {
+                "name": "RealFeel s\u0131cakl\u0131k hissi maks. 1. g\u00fcn"
+            },
+            "realfeel_temperature_shade_max_2d": {
+                "name": "RealFeel s\u0131cakl\u0131k hissi maks. 2. g\u00fcn"
+            },
+            "realfeel_temperature_shade_max_3d": {
+                "name": "RealFeel s\u0131cakl\u0131k hissi maks. 3. g\u00fcn"
+            },
+            "realfeel_temperature_shade_max_4d": {
+                "name": "RealFeel s\u0131cakl\u0131k hissi maks. 4. g\u00fcn"
+            },
+            "realfeel_temperature_shade_min": {
+                "name": "RealFeel s\u0131cakl\u0131k g\u00f6lgesi minimum g\u00fcn {forecast_day}"
+            },
+            "realfeel_temperature_shade_min_0d": {
+                "name": "RealFeel s\u0131cakl\u0131k hissi bug\u00fcnk\u00fc min."
+            },
+            "realfeel_temperature_shade_min_1d": {
+                "name": "RealFeel s\u0131cakl\u0131k hissi min. 1. g\u00fcn"
+            },
+            "realfeel_temperature_shade_min_2d": {
+                "name": "RealFeel s\u0131cakl\u0131k hissi min. 2. g\u00fcn"
+            },
+            "realfeel_temperature_shade_min_3d": {
+                "name": "RealFeel s\u0131cakl\u0131k hissi min. 3. g\u00fcn"
+            },
+            "realfeel_temperature_shade_min_4d": {
+                "name": "RealFeel s\u0131cakl\u0131k hissi min. 4. g\u00fcn"
+            },
+            "solar_irradiance_day": {
+                "name": "G\u00fcne\u015f \u0131\u015f\u0131n\u0131m\u0131 g\u00fcn\u00fc {forecast_day}"
+            },
+            "solar_irradiance_day_0d": {
+                "name": "Bug\u00fcnk\u00fc g\u00fcne\u015f \u0131\u015f\u0131n\u0131m\u0131"
+            },
+            "solar_irradiance_day_1d": {
+                "name": "G\u00fcne\u015f \u0131\u015f\u0131n\u0131m\u0131 1. g\u00fcn"
+            },
+            "solar_irradiance_day_2d": {
+                "name": "G\u00fcne\u015f \u0131\u015f\u0131n\u0131m\u0131 2. g\u00fcn"
+            },
+            "solar_irradiance_day_3d": {
+                "name": "G\u00fcne\u015f \u0131\u015f\u0131n\u0131m\u0131 3. g\u00fcn"
+            },
+            "solar_irradiance_day_4d": {
+                "name": "G\u00fcne\u015f \u0131\u015f\u0131n\u0131m\u0131 4. g\u00fcn"
+            },
+            "solar_irradiance_night": {
+                "name": "G\u00fcne\u015f \u0131\u015f\u0131n\u0131m\u0131 gecesi {forecast_day}"
+            },
+            "solar_irradiance_night_0d": {
+                "name": "Bu geceki g\u00fcne\u015f \u0131\u015f\u0131n\u0131m\u0131"
+            },
+            "solar_irradiance_night_1d": {
+                "name": "G\u00fcne\u015f \u0131\u015f\u0131n\u0131m\u0131 gece 1"
+            },
+            "solar_irradiance_night_2d": {
+                "name": "G\u00fcne\u015f \u0131\u015f\u0131n\u0131m\u0131 gece 2"
+            },
+            "solar_irradiance_night_3d": {
+                "name": "G\u00fcne\u015f \u0131\u015f\u0131n\u0131m\u0131 gece 3"
+            },
+            "solar_irradiance_night_4d": {
+                "name": "G\u00fcne\u015f \u0131\u015f\u0131n\u0131m\u0131 gece 4"
+            },
+            "thunderstorm_probability_day": {
+                "name": "G\u00f6k g\u00fcr\u00fclt\u00fcl\u00fc f\u0131rt\u0131na olas\u0131l\u0131\u011f\u0131 g\u00fcn\u00fc {forecast_day}"
+            },
+            "thunderstorm_probability_day_0d": {
+                "name": "Bug\u00fcn g\u00f6k g\u00fcr\u00fclt\u00fcl\u00fc f\u0131rt\u0131na olas\u0131l\u0131\u011f\u0131"
+            },
+            "thunderstorm_probability_day_1d": {
+                "name": "G\u00f6k g\u00fcr\u00fclt\u00fcl\u00fc f\u0131rt\u0131na olas\u0131l\u0131\u011f\u0131 g\u00fcn 1"
+            },
+            "thunderstorm_probability_day_2d": {
+                "name": "G\u00f6k g\u00fcr\u00fclt\u00fcl\u00fc f\u0131rt\u0131na olas\u0131l\u0131\u011f\u0131 2. g\u00fcn"
+            },
+            "thunderstorm_probability_day_3d": {
+                "name": "G\u00f6k g\u00fcr\u00fclt\u00fcl\u00fc f\u0131rt\u0131na olas\u0131l\u0131\u011f\u0131 3. g\u00fcn"
+            },
+            "thunderstorm_probability_day_4d": {
+                "name": "G\u00f6k g\u00fcr\u00fclt\u00fcl\u00fc f\u0131rt\u0131na olas\u0131l\u0131\u011f\u0131 4. g\u00fcn"
+            },
+            "thunderstorm_probability_night": {
+                "name": "F\u0131rt\u0131na olas\u0131l\u0131\u011f\u0131 gecesi {forecast_day}"
+            },
+            "thunderstorm_probability_night_0d": {
+                "name": "Bug\u00fcnk\u00fc g\u00f6k g\u00fcr\u00fclt\u00fcl\u00fc f\u0131rt\u0131na olas\u0131l\u0131\u011f\u0131"
+            },
+            "thunderstorm_probability_night_1d": {
+                "name": "G\u00f6k g\u00fcr\u00fclt\u00fcl\u00fc f\u0131rt\u0131na olas\u0131l\u0131\u011f\u0131 gece 1"
+            },
+            "thunderstorm_probability_night_2d": {
+                "name": "G\u00f6k g\u00fcr\u00fclt\u00fcl\u00fc f\u0131rt\u0131na olas\u0131l\u0131\u011f\u0131 gece 2"
+            },
+            "thunderstorm_probability_night_3d": {
+                "name": "G\u00f6k g\u00fcr\u00fclt\u00fcl\u00fc f\u0131rt\u0131na olas\u0131l\u0131\u011f\u0131 gece 3"
+            },
+            "thunderstorm_probability_night_4d": {
+                "name": "G\u00f6k g\u00fcr\u00fclt\u00fcl\u00fc f\u0131rt\u0131na olas\u0131l\u0131\u011f\u0131 gece 4"
+            },
+            "tree_pollen": {
+                "name": "A\u011fa\u00e7 poleni g\u00fcn\u00fc {forecast_day}",
+                "state_attributes": {
+                    "level": {
+                        "name": "D\u00fczey",
+                        "state": {
+                            "good": "\u0130yi",
+                            "hazardous": "Tehlikeli",
+                            "high": "Y\u00fcksek",
+                            "low": "D\u00fc\u015f\u00fck",
+                            "moderate": "Il\u0131ml\u0131",
+                            "unhealthy": "Sa\u011fl\u0131ks\u0131z"
+                        }
+                    }
+                }
+            },
+            "tree_pollen_0d": {
+                "name": "Bug\u00fcnk\u00fc a\u011fa\u00e7 poleni",
+                "state_attributes": {
+                    "level": {
+                        "name": "D\u00fczey",
+                        "state": {
+                            "good": "\u0130yi",
+                            "hazardous": "Tehlikeli",
+                            "high": "Y\u00fcksek",
+                            "low": "D\u00fc\u015f\u00fck",
+                            "moderate": "Orta d\u00fczeyde",
+                            "unhealthy": "Sa\u011fl\u0131ks\u0131z"
+                        }
+                    }
+                }
+            },
+            "tree_pollen_1d": {
+                "name": "A\u011fa\u00e7 poleni 1. g\u00fcn",
+                "state_attributes": {
+                    "level": {
+                        "name": "D\u00fczey",
+                        "state": {
+                            "good": "\u0130yi",
+                            "hazardous": "Tehlikeli",
+                            "high": "Y\u00fcksek",
+                            "low": "D\u00fc\u015f\u00fck",
+                            "moderate": "Orta d\u00fczeyde",
+                            "unhealthy": "Sa\u011fl\u0131ks\u0131z"
+                        }
+                    }
+                }
+            },
+            "tree_pollen_2d": {
+                "name": "A\u011fa\u00e7 poleni 2. g\u00fcn",
+                "state_attributes": {
+                    "level": {
+                        "name": "D\u00fczey",
+                        "state": {
+                            "good": "\u0130yi",
+                            "hazardous": "Tehlikeli",
+                            "high": "Y\u00fcksek",
+                            "low": "D\u00fc\u015f\u00fck",
+                            "moderate": "Orta d\u00fczeyde",
+                            "unhealthy": "Sa\u011fl\u0131ks\u0131z"
+                        }
+                    }
+                }
+            },
+            "tree_pollen_3d": {
+                "name": "A\u011fa\u00e7 poleni 3. g\u00fcn",
+                "state_attributes": {
+                    "level": {
+                        "name": "D\u00fczey",
+                        "state": {
+                            "good": "\u0130yi",
+                            "hazardous": "Tehlikeli",
+                            "high": "Y\u00fcksek",
+                            "low": "D\u00fc\u015f\u00fck",
+                            "moderate": "Orta d\u00fczeyde",
+                            "unhealthy": "Sa\u011fl\u0131ks\u0131z"
+                        }
+                    }
+                }
+            },
+            "tree_pollen_4d": {
+                "name": "A\u011fa\u00e7 poleni 4. g\u00fcn",
+                "state_attributes": {
+                    "level": {
+                        "name": "D\u00fczey",
+                        "state": {
+                            "good": "\u0130yi",
+                            "hazardous": "Tehlikeli",
+                            "high": "Y\u00fcksek",
+                            "low": "D\u00fc\u015f\u00fck",
+                            "moderate": "Orta d\u00fczeyde",
+                            "unhealthy": "Sa\u011fl\u0131ks\u0131z"
+                        }
+                    }
+                }
+            },
+            "uv_index": {
+                "name": "UV Endeksi",
+                "state_attributes": {
+                    "level": {
+                        "name": "D\u00fczey",
+                        "state": {
+                            "good": "\u0130yi",
+                            "hazardous": "Tehlikeli",
+                            "high": "Y\u00fcksek",
+                            "low": "D\u00fc\u015f\u00fck",
+                            "moderate": "Il\u0131ml\u0131",
+                            "unhealthy": "Sa\u011fl\u0131ks\u0131z"
+                        }
+                    }
+                }
+            },
+            "uv_index_0d": {
+                "name": "UV endeksi bug\u00fcn",
+                "state_attributes": {
+                    "level": {
+                        "name": "D\u00fczey",
+                        "state": {
+                            "good": "\u0130yi",
+                            "hazardous": "Tehlikeli",
+                            "high": "Y\u00fcksek",
+                            "low": "D\u00fc\u015f\u00fck",
+                            "moderate": "Orta d\u00fczeyde",
+                            "unhealthy": "Sa\u011fl\u0131ks\u0131z"
+                        }
+                    }
+                }
+            },
+            "uv_index_1d": {
+                "name": "UV indeksi 1. g\u00fcn",
+                "state_attributes": {
+                    "level": {
+                        "name": "D\u00fczey",
+                        "state": {
+                            "good": "\u0130yi",
+                            "hazardous": "Tehlikeli",
+                            "high": "Y\u00fcksek",
+                            "low": "D\u00fc\u015f\u00fck",
+                            "moderate": "Orta d\u00fczeyde",
+                            "unhealthy": "Sa\u011fl\u0131ks\u0131z"
+                        }
+                    }
+                }
+            },
+            "uv_index_2d": {
+                "name": "UV indeksi 2. g\u00fcn",
+                "state_attributes": {
+                    "level": {
+                        "name": "D\u00fczey",
+                        "state": {
+                            "good": "\u0130yi",
+                            "hazardous": "Tehlikeli",
+                            "high": "Y\u00fcksek",
+                            "low": "D\u00fc\u015f\u00fck",
+                            "moderate": "Orta d\u00fczeyde",
+                            "unhealthy": "Sa\u011fl\u0131ks\u0131z"
+                        }
+                    }
+                }
+            },
+            "uv_index_3d": {
+                "name": "UV indeksi 3. g\u00fcn",
+                "state_attributes": {
+                    "level": {
+                        "name": "D\u00fczey",
+                        "state": {
+                            "good": "\u0130yi",
+                            "hazardous": "Tehlikeli",
+                            "high": "Y\u00fcksek",
+                            "low": "D\u00fc\u015f\u00fck",
+                            "moderate": "Orta d\u00fczeyde",
+                            "unhealthy": "Sa\u011fl\u0131ks\u0131z"
+                        }
+                    }
+                }
+            },
+            "uv_index_4d": {
+                "name": "UV indeksi 4. g\u00fcn",
+                "state_attributes": {
+                    "level": {
+                        "name": "D\u00fczey",
+                        "state": {
+                            "good": "\u0130yi",
+                            "hazardous": "Tehlikeli",
+                            "high": "Y\u00fcksek",
+                            "low": "D\u00fc\u015f\u00fck",
+                            "moderate": "Orta d\u00fczeyde",
+                            "unhealthy": "Sa\u011fl\u0131ks\u0131z"
+                        }
+                    }
+                }
+            },
+            "uv_index_forecast": {
+                "name": "UV endeksi g\u00fcn\u00fc {forecast_day}",
+                "state_attributes": {
+                    "level": {
+                        "name": "D\u00fczey",
+                        "state": {
+                            "good": "\u0130yi",
+                            "hazardous": "Tehlikeli",
+                            "high": "Y\u00fcksek",
+                            "low": "D\u00fc\u015f\u00fck",
+                            "moderate": "Il\u0131ml\u0131",
+                            "unhealthy": "Sa\u011fl\u0131ks\u0131z"
+                        }
+                    }
+                }
+            },
+            "wet_bulb_temperature": {
+                "name": "Islak termometre s\u0131cakl\u0131\u011f\u0131"
+            },
+            "wind_chill_temperature": {
+                "name": "R\u00fczgar so\u011fu\u011fu s\u0131cakl\u0131\u011f\u0131"
+            },
+            "wind_gust_speed": {
+                "name": "R\u00fczgar esme h\u0131z\u0131"
+            },
+            "wind_gust_speed_day": {
+                "name": "R\u00fczgar\u0131n h\u0131zland\u0131\u011f\u0131 g\u00fcn {forecast_day}"
+            },
+            "wind_gust_speed_day_0d": {
+                "name": "Bug\u00fcnk\u00fc sert r\u00fczgar h\u0131z\u0131"
+            },
+            "wind_gust_speed_day_1d": {
+                "name": "R\u00fczgar sert h\u0131z\u0131 1. g\u00fcn"
+            },
+            "wind_gust_speed_day_2d": {
+                "name": "R\u00fczgar sert h\u0131z\u0131 2. g\u00fcn"
+            },
+            "wind_gust_speed_day_3d": {
+                "name": "R\u00fczgar sert h\u0131z\u0131 3. g\u00fcn"
+            },
+            "wind_gust_speed_day_4d": {
+                "name": "R\u00fczgar sert h\u0131z\u0131 4. g\u00fcn"
+            },
+            "wind_gust_speed_night": {
+                "name": "\u015eiddetli r\u00fczgar h\u0131z\u0131 gecesi {forecast_day}"
+            },
+            "wind_gust_speed_night_0d": {
+                "name": "Bu geceki \u015fiddetli r\u00fczgar h\u0131z\u0131"
+            },
+            "wind_gust_speed_night_1d": {
+                "name": "R\u00fczgar sert h\u0131z gece 1"
+            },
+            "wind_gust_speed_night_2d": {
+                "name": "R\u00fczgar sert h\u0131z gece 2"
+            },
+            "wind_gust_speed_night_3d": {
+                "name": "R\u00fczgar sert h\u0131z gece 3"
+            },
+            "wind_gust_speed_night_4d": {
+                "name": "R\u00fczgar sert h\u0131z gece 4"
+            },
+            "wind_speed": {
+                "name": "R\u00fczgar h\u0131z\u0131"
+            },
+            "wind_speed_day": {
+                "name": "R\u00fczgar h\u0131z\u0131 g\u00fcn\u00fc {forecast_day}"
+            },
+            "wind_speed_day_0d": {
+                "name": "Bug\u00fcnk\u00fc r\u00fczgar h\u0131z\u0131"
+            },
+            "wind_speed_day_1d": {
+                "name": "R\u00fczgar h\u0131z\u0131 1. g\u00fcn"
+            },
+            "wind_speed_day_2d": {
+                "name": "R\u00fczgar h\u0131z\u0131 2. g\u00fcn"
+            },
+            "wind_speed_day_3d": {
+                "name": "R\u00fczgar h\u0131z\u0131 3. g\u00fcn"
+            },
+            "wind_speed_day_4d": {
+                "name": "R\u00fczgar h\u0131z\u0131 4. g\u00fcn"
+            },
+            "wind_speed_night": {
+                "name": "R\u00fczgar h\u0131z\u0131 gecesi {forecast_day}"
+            },
+            "wind_speed_night_0d": {
+                "name": "Bu geceki r\u00fczgar h\u0131z\u0131"
+            },
+            "wind_speed_night_1d": {
+                "name": "R\u00fczgar h\u0131z\u0131 gece 1"
+            },
+            "wind_speed_night_2d": {
+                "name": "R\u00fczgar h\u0131z\u0131 gece 2"
+            },
+            "wind_speed_night_3d": {
+                "name": "R\u00fczgar h\u0131z\u0131 gece 3"
+            },
+            "wind_speed_night_4d": {
+                "name": "R\u00fczgar h\u0131z\u0131 gece 4"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "forecast": "Hava Durumu tahmini"
+                },
+                "description": "AccuWeather API anahtar\u0131n\u0131n \u00fccretsiz s\u00fcr\u00fcm\u00fcn\u00fcn s\u0131n\u0131rlamalar\u0131 nedeniyle, hava tahminini etkinle\u015ftirdi\u011finizde, veri g\u00fcncellemeleri her 40 dakikada bir yerine 80 dakikada bir ger\u00e7ekle\u015ftirilir."
+            }
+        }
+    },
+    "system_health": {
+        "info": {
+            "can_reach_server": "AccuWeather sunucusuna ula\u015f\u0131n",
+            "remaining_requests": "Kalan izin verilen istekler"
+        }
+    }
+}

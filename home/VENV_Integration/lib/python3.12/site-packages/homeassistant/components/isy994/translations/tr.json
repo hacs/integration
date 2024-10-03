@@ -1,0 +1,192 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Cihaz zaten yap\u0131land\u0131r\u0131lm\u0131\u015f"
+        },
+        "error": {
+            "cannot_connect": "Ba\u011flanma hatas\u0131",
+            "invalid_auth": "Ge\u00e7ersiz kimlik do\u011frulama",
+            "invalid_host": "Ana bilgisayar giri\u015fi tam URL bi\u00e7iminde de\u011fildi, \u00f6r. http://192.168.10.100:80",
+            "reauth_successful": "Yeniden kimlik do\u011frulama ba\u015far\u0131l\u0131 oldu",
+            "unknown": "Beklenmeyen hata"
+        },
+        "flow_title": "{name} ({host})",
+        "step": {
+            "reauth_confirm": {
+                "data": {
+                    "password": "\u015eifre",
+                    "username": "Kullan\u0131c\u0131 Ad\u0131"
+                },
+                "description": "{host} kimlik bilgileri art\u0131k ge\u00e7erli de\u011fil.",
+                "title": "ISY'nizi yeniden do\u011frulay\u0131n"
+            },
+            "user": {
+                "data": {
+                    "host": "URL",
+                    "password": "\u015eifre",
+                    "tls": "ISY denetleyicisinin TLS s\u00fcr\u00fcm\u00fc.",
+                    "username": "Kullan\u0131c\u0131 Ad\u0131"
+                },
+                "description": "Ana bilgisayar giri\u015fi tam URL bi\u00e7iminde olmal\u0131d\u0131r, \u00f6r. http://192.168.10.100:80",
+                "title": "ISY'nize ba\u011flan\u0131n"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_service": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Bu hizmeti kullanan t\u00fcm otomasyonlar\u0131 veya komut dosyalar\u0131n\u0131, bunun yerine \" {alternate_service} {alternate_target} hizmetini kullanacak \u015fekilde g\u00fcncelleyin.",
+                        "title": "{deprecated_service} hizmeti kald\u0131r\u0131lacak"
+                    },
+                    "deprecated_yaml": {
+                        "description": "YAML kullanarak Evrensel Cihazlar\u0131 Yap\u0131land\u0131rma ISY/IoX kald\u0131r\u0131l\u0131yor. \n\n Mevcut YAML yap\u0131land\u0131rman\u0131z, kullan\u0131c\u0131 aray\u00fcz\u00fcne otomatik olarak aktar\u0131ld\u0131. \n\n Bu sorunu \u00e7\u00f6zmek i\u00e7in \"isy994\" YAML yap\u0131land\u0131rmas\u0131n\u0131 configuration.yaml dosyan\u0131zdan kald\u0131r\u0131n ve Home Assistant'\u0131 yeniden ba\u015flat\u0131n.",
+                        "title": "ISY/IoX YAML yap\u0131land\u0131rmas\u0131 kald\u0131r\u0131l\u0131yor"
+                    }
+                }
+            },
+            "title": "{deprecated_service} hizmeti kald\u0131r\u0131lacak"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "ignore_string": "Dizeyi Yoksay",
+                    "restore_light_state": "I\u015f\u0131k Parlakl\u0131\u011f\u0131n\u0131 Geri Y\u00fckle",
+                    "sensor_string": "D\u00fc\u011f\u00fcm Sens\u00f6r\u00fc Dizisi",
+                    "variable_sensor_string": "De\u011fi\u015fken Sens\u00f6r Dizesi"
+                },
+                "description": "ISY Entegrasyonu i\u00e7in se\u00e7enekleri ayarlay\u0131n:\n  \u2022 D\u00fc\u011f\u00fcm Sens\u00f6r\u00fc Dizisi: Ad\u0131nda 'D\u00fc\u011f\u00fcm Sens\u00f6r\u00fc Dizisi' i\u00e7eren herhangi bir cihaz veya klas\u00f6r, bir sens\u00f6r veya ikili sens\u00f6r olarak ele al\u0131nacakt\u0131r.\n  \u2022 Ignore String: Ad\u0131nda 'Ignore String' olan herhangi bir cihaz yoksay\u0131lacakt\u0131r.\n  \u2022 De\u011fi\u015fken Sens\u00f6r Dizisi: 'De\u011fi\u015fken Sens\u00f6r Dizisi' i\u00e7eren herhangi bir de\u011fi\u015fken sens\u00f6r olarak eklenecektir.\n  \u2022 I\u015f\u0131k Parlakl\u0131\u011f\u0131n\u0131 Geri Y\u00fckle: Etkinle\u015ftirilirse, bir \u0131\u015f\u0131k a\u00e7\u0131ld\u0131\u011f\u0131nda cihaz\u0131n yerle\u015fik On-Level yerine \u00f6nceki parlakl\u0131k geri y\u00fcklenir.",
+                "title": "ISY Se\u00e7enekleri"
+            }
+        }
+    },
+    "services": {
+        "delete_zwave_lock_user_code": {
+            "description": "ISY arac\u0131l\u0131\u011f\u0131yla bir Z-Wave Lock Kullan\u0131c\u0131 Kodunu silin.",
+            "fields": {
+                "user_num": {
+                    "description": "Kilit \u00fczerindeki kullan\u0131c\u0131 yuvas\u0131 numaras\u0131.",
+                    "name": "Kullan\u0131c\u0131 Numaras\u0131"
+                }
+            },
+            "name": "Z-Wave Lock Kullan\u0131c\u0131 Kodunu Sil"
+        },
+        "get_zwave_parameter": {
+            "description": "ISY arac\u0131l\u0131\u011f\u0131yla bir Z-Wave Device parametresi ister. Parametre de\u011feri, \"#\" parametre numaras\u0131 olmak \u00fczere \"ZW_#\" ad\u0131yla bir varl\u0131k ekstra durum \u00f6zniteli\u011fi olarak d\u00f6nd\u00fcr\u00fclecektir.",
+            "fields": {
+                "parameter": {
+                    "description": "Cihazdan al\u0131nacak parametre numaras\u0131.",
+                    "name": "Parametre"
+                }
+            },
+            "name": "Z-Wave Parametresini Al\u0131n"
+        },
+        "rename_node": {
+            "description": "ISY'deki bir d\u00fc\u011f\u00fcm\u00fc veya grubu (sahneyi) yeniden adland\u0131r\u0131r. Not: Bu, Ev Asistan\u0131 Varl\u0131k Ad\u0131n\u0131 veya Varl\u0131k Kimli\u011fini e\u015fle\u015fecek \u015fekilde otomatik olarak de\u011fi\u015ftirmez. Varl\u0131k ad\u0131 ve kimli\u011fi yaln\u0131zca entegrasyonu yeniden y\u00fckledikten veya Home Assistant'\u0131 yeniden ba\u015flatt\u0131ktan sonra ve YALNIZCA Home Assistant'ta ad\u0131 hen\u00fcz \u00f6zelle\u015ftirmediyseniz g\u00fcncellenecektir.",
+            "fields": {
+                "name": {
+                    "description": "ISY i\u00e7inde kullan\u0131lacak yeni ad.",
+                    "name": "Yeni \u0130sim"
+                }
+            },
+            "name": "ISY'de D\u00fc\u011f\u00fcm\u00fc Yeniden Adland\u0131r"
+        },
+        "send_node_command": {
+            "description": "Home Assistant varl\u0131k kimli\u011fini kullanarak bir ISY Cihaz\u0131na komut g\u00f6nderir. Ge\u00e7erli komutlar \u015funlard\u0131r: bip, parlakla\u015ft\u0131r, karart, devre d\u0131\u015f\u0131 b\u0131rak, etkinle\u015ftir, fade_down, fade_stop, fade_up, fast_off, fast_on ve query.",
+            "fields": {
+                "command": {
+                    "description": "Cihaza g\u00f6nderilecek komut.",
+                    "name": "Komut"
+                }
+            },
+            "name": "D\u00fc\u011f\u00fcm komutu g\u00f6nder"
+        },
+        "send_program_command": {
+            "description": "Bir ISY program\u0131n\u0131 veya klas\u00f6r\u00fcn\u00fc kontrol etmek i\u00e7in bir komut g\u00f6nderir. Ge\u00e7erli komutlar run, run_then, run_else, stop, enable, disable, enable_run_at_startup ve disable_run_at_startup't\u0131r.",
+            "fields": {
+                "address": {
+                    "description": "Kontrol edilecek program\u0131n adresi (adres ya da isim kullan\u0131n).",
+                    "name": "Adres"
+                },
+                "command": {
+                    "description": "G\u00f6nderilecek ISY Program Komutu.",
+                    "name": "Komuta"
+                },
+                "isy": {
+                    "description": "Birden fazla ISY ba\u011fl\u0131ysa, sorgulanacak ISY'nin ad\u0131n\u0131 girin (Cihaz Kay\u0131t Defteri'nde g\u00f6sterildi\u011fi gibi veya ISY Admin Console'da en \u00fcstteki d\u00fc\u011f\u00fcm olarak).  Birden fazla ISY'de ayn\u0131 program ad\u0131na veya adresine sahipseniz, bunu atlad\u0131\u011f\u0131n\u0131zda komut hepsinde \u00e7al\u0131\u015ft\u0131r\u0131lacakt\u0131r.",
+                    "name": "ISY"
+                },
+                "name": {
+                    "description": "Kontrol edilecek program\u0131n ad\u0131 (adres veya ad kullan\u0131n).",
+                    "name": "Ad"
+                }
+            },
+            "name": "Program komutu g\u00f6nder"
+        },
+        "send_raw_node_command": {
+            "description": "ISY Entegrasyonu i\u00e7in se\u00e7enekleri ayarlay\u0131n:\n  \u2022 D\u00fc\u011f\u00fcm Sens\u00f6r\u00fc Dizisi: Ad\u0131nda 'D\u00fc\u011f\u00fcm Sens\u00f6r\u00fc Dizisi' i\u00e7eren herhangi bir cihaz veya klas\u00f6r, bir sens\u00f6r veya ikili sens\u00f6r olarak ele al\u0131nacakt\u0131r.\n  \u2022 Ignore String: Ad\u0131nda 'Ignore String' olan herhangi bir cihaz yoksay\u0131lacakt\u0131r.\n  \u2022 De\u011fi\u015fken Sens\u00f6r Dizisi: 'De\u011fi\u015fken Sens\u00f6r Dizisi' i\u00e7eren herhangi bir de\u011fi\u015fken sens\u00f6r olarak eklenecektir.\n  \u2022 I\u015f\u0131k Parlakl\u0131\u011f\u0131n\u0131 Geri Y\u00fckle: Etkinle\u015ftirilirse, bir \u0131\u015f\u0131k a\u00e7\u0131ld\u0131\u011f\u0131nda cihaz\u0131n yerle\u015fik On-Level yerine \u00f6nceki parlakl\u0131k geri y\u00fcklenir.",
+            "fields": {
+                "command": {
+                    "description": "Cihaza g\u00f6nderilecek ISY REST Komutu.",
+                    "name": "Komut"
+                },
+                "parameters": {
+                    "description": "Sorgu dizesinde g\u00f6nderilecek parametrelerin bir diktesi (\u00f6rne\u011fin, renkli ampulleri kontrol etmek i\u00e7in).",
+                    "name": "Parametreler"
+                },
+                "unit_of_measurement": {
+                    "description": "Gerekirse komutla birlikte g\u00f6nderilecek ISY \u00d6l\u00e7\u00fcm Birimi (UOM).",
+                    "name": "\u00d6l\u00e7\u00fc birimi"
+                },
+                "value": {
+                    "description": "Komutla birlikte g\u00f6nderilecek tamsay\u0131 de\u011feri.",
+                    "name": "De\u011fer"
+                }
+            },
+            "name": "Ham d\u00fc\u011f\u00fcm komutu g\u00f6nder"
+        },
+        "set_zwave_lock_user_code": {
+            "description": "ISY arac\u0131l\u0131\u011f\u0131yla bir Z-Wave Kilit Kullan\u0131c\u0131 Kodu ayarlar.",
+            "fields": {
+                "code": {
+                    "description": "Kullan\u0131c\u0131 i\u00e7in ayarlanacak kod.",
+                    "name": "Kod"
+                },
+                "user_num": {
+                    "description": "Kilit \u00fczerindeki kullan\u0131c\u0131 yuvas\u0131 numaras\u0131.",
+                    "name": "Kullan\u0131c\u0131 Numaras\u0131"
+                }
+            },
+            "name": "Z-Wave Kilidi Kullan\u0131c\u0131 Kodunu Ayarlay\u0131n"
+        },
+        "set_zwave_parameter": {
+            "description": "ISY arac\u0131l\u0131\u011f\u0131yla bir Z-Wave Cihaz\u0131 parametresini g\u00fcnceller. Parametre de\u011feri ayr\u0131ca \"#\" parametre numaras\u0131 olmak \u00fczere \"ZW_#\" ad\u0131yla bir varl\u0131k ekstra durum niteli\u011fi olarak d\u00f6nd\u00fcr\u00fclecektir.",
+            "fields": {
+                "parameter": {
+                    "description": "Son cihazda ayarlanacak parametre numaras\u0131.",
+                    "name": "Parametre"
+                },
+                "size": {
+                    "description": "Parametrenin boyutu, 1, 2 veya 4 bayt.",
+                    "name": "Boyut"
+                },
+                "value": {
+                    "description": "Parametre i\u00e7in ayarlanacak de\u011fer. Bir tamsay\u0131 veya bayt dizisi olabilir (\u00f6rn. \"0xFFFF\").",
+                    "name": "De\u011fer"
+                }
+            },
+            "name": "Z-Wave Parametresini Ayarlama"
+        }
+    },
+    "system_health": {
+        "info": {
+            "device_connected": "ISY Ba\u011fl\u0131",
+            "host_reachable": "Ana Bilgisayara Ula\u015f\u0131labilir",
+            "last_heartbeat": "Son Kalp At\u0131\u015f\u0131 Zaman\u0131",
+            "websocket_status": "Olay Soketi Durumu"
+        }
+    }
+}

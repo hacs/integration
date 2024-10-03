@@ -1,0 +1,70 @@
+{
+    "services": {
+        "power_on": {
+            "description": "Sl\u00e5r p\u00e5 alla enheter som st\u00f6der det.",
+            "name": "Sl\u00e5 p\u00e5"
+        },
+        "select_device": {
+            "description": "V\u00e4lj HDMI-enhet.",
+            "fields": {
+                "device": {
+                    "description": "Adress till den enhet som ska v\u00e4ljas. Kan vara entity_id, fysisk adress eller alias fr\u00e5n konfigurationen.",
+                    "name": "Enhet"
+                }
+            },
+            "name": "V\u00e4lj enhet"
+        },
+        "send_command": {
+            "description": "Skickar CEC-kommando till HDMI CEC-kompatibel adapter.",
+            "fields": {
+                "att": {
+                    "description": "Valfria parametrar.",
+                    "name": "Attribut"
+                },
+                "cmd": {
+                    "description": "Sj\u00e4lva kommandot. Kan vara ett decimaltal eller en str\u00e4ng med hexadeximal notation: \"0x10\".",
+                    "name": "Kommando"
+                },
+                "dst": {
+                    "description": "Destination f\u00f6r kommandot. Kan vara ett decimaltal eller en str\u00e4ng med hexadeximal notation: \"0x10\".",
+                    "name": "Destination"
+                },
+                "raw": {
+                    "description": "R\u00e5 CEC-kommando i formatet \"00:00:00:00\" d\u00e4r de tv\u00e5 f\u00f6rsta siffrorna \u00e4r k\u00e4lla och destination, andra byte \u00e4r kommando och valfria andra byte \u00e4r kommandoparametrar. Om r\u00e5kommando anges ignoreras \u00f6vriga parametrar.",
+                    "name": "R\u00e5"
+                },
+                "src": {
+                    "description": "Kommandots k\u00e4lla. Kan vara ett decimaltal eller en str\u00e4ng med hexadeximal notation: \"0x10\".",
+                    "name": "K\u00e4lla"
+                }
+            },
+            "name": "Skicka kommando"
+        },
+        "standby": {
+            "description": "S\u00e4tter alla enheter som st\u00f6der det i vilol\u00e4ge.",
+            "name": "Vilol\u00e4ge"
+        },
+        "update": {
+            "description": "Uppdaterar enheternas status fr\u00e5n n\u00e4tverket.",
+            "name": "Uppdatera"
+        },
+        "volume": {
+            "description": "\u00d6kar eller minskar systemets volym.",
+            "fields": {
+                "down": {
+                    "description": "Minskar volymen x niv\u00e5er.",
+                    "name": "Ner"
+                },
+                "mute": {
+                    "description": "Tystar ljudsystemet.",
+                    "name": "Tysta"
+                },
+                "up": {
+                    "description": "\u00d6kar volymen x niv\u00e5er.",
+                    "name": "Upp"
+                }
+            },
+            "name": "Volym"
+        }
+    }
+}

@@ -1,0 +1,141 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "Po\u010dasie",
+            "state": {
+                "clear-night": "Jasno, v noci",
+                "cloudy": "Zamra\u010den\u00e9",
+                "exceptional": "V\u00fdnimo\u010dn\u00e9",
+                "fog": "Hmla",
+                "hail": "Krupobitie",
+                "lightning": "Blesky",
+                "lightning-rainy": "Blesky, da\u017edivo",
+                "partlycloudy": "\u010ciasto\u010dne zamra\u010den\u00e9",
+                "pouring": "Nalievanie",
+                "rainy": "Da\u017edivo",
+                "snowy": "Zasne\u017een\u00e9",
+                "snowy-rainy": "Zasne\u017een\u00e9, da\u017edivo",
+                "sunny": "Slne\u010dno",
+                "windy": "Veterno",
+                "windy-variant": "Veterno, zamra\u010den\u00e9"
+            },
+            "state_attributes": {
+                "apparent_temperature": {
+                    "name": "Zdanliv\u00e1 teplota"
+                },
+                "cloud_coverage": {
+                    "name": "Cloudov\u00e9 pokrytie"
+                },
+                "dew_point": {
+                    "name": "Teplota rosn\u00e9ho bodu"
+                },
+                "forecast": {
+                    "name": "Predpove\u010f"
+                },
+                "humidity": {
+                    "name": "Vlhkos\u0165"
+                },
+                "ozone": {
+                    "name": "Oz\u00f3n"
+                },
+                "precipitation_unit": {
+                    "name": "Jednotka zr\u00e1\u017eok"
+                },
+                "pressure": {
+                    "name": "Tlak"
+                },
+                "pressure_unit": {
+                    "name": "Jednotka tlaku"
+                },
+                "temperature": {
+                    "name": "Teplota"
+                },
+                "temperature_unit": {
+                    "name": "Jednotka teploty"
+                },
+                "uv_index": {
+                    "name": "UV index"
+                },
+                "visibility": {
+                    "name": "Vidite\u013enos\u0165"
+                },
+                "visibility_unit": {
+                    "name": "Jednotka vidite\u013enosti"
+                },
+                "wind_bearing": {
+                    "name": "Vetern\u00e9 lo\u017eisko"
+                },
+                "wind_gust_speed": {
+                    "name": "R\u00fdchlos\u0165 n\u00e1razov\u00e9ho vetra"
+                },
+                "wind_speed": {
+                    "name": "R\u00fdchlos\u0165 vetra"
+                },
+                "wind_speed_unit": {
+                    "name": "Jednotka r\u00fdchlosti vetra"
+                }
+            }
+        }
+    },
+    "issues": {
+        "deprecated_service_weather_get_forecast": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Namiesto toho pou\u017eite `weather.get_forecasts`, ktor\u00fd podporuje viacero ent\u00edt.\n\nNahra\u010fte t\u00fato slu\u017ebu, upravte svoje automatiz\u00e1cie a skripty a vyberte **Odosla\u0165**, aby ste uzavreli tento probl\u00e9m.",
+                        "title": "Zistilo sa pou\u017eitie zastaranej slu\u017eby weather.get_forecast"
+                    }
+                }
+            },
+            "title": "Zistilo sa pou\u017eitie zastaranej slu\u017eby weather.get_forecast"
+        },
+        "deprecated_weather_forecast": {
+            "description": "Integr\u00e1cia `{platform}` pou\u017e\u00edva zastaran\u00fd atrib\u00fat predpovede.\n\nPros\u00edm {report_issue}.",
+            "title": "Integr\u00e1cia {platform} pou\u017e\u00edva zastaran\u00fa predpove\u010f"
+        },
+        "deprecated_weather_forecast_no_url": {
+            "description": "Vlastn\u00e1 integr\u00e1cia `{platform}` implementuje vlastnos\u0165 `forecast` alebo nastavuje `self._attr_forecast` v podtriede WeatherEntity. \n\nNahl\u00e1ste to autorovi integr\u00e1cie {platform}. \n\nKe\u010f bude k dispoz\u00edcii aktualizovan\u00e1 verzia `{platform}`, nain\u0161talujte ju a re\u0161tartujte Home Assistant, aby ste tento probl\u00e9m vyrie\u0161ili.",
+            "title": "Vlastn\u00e1 integr\u00e1cia platformy {platform} pou\u017e\u00edva zastaran\u00fa predpove\u010f po\u010dasia"
+        },
+        "deprecated_weather_forecast_url": {
+            "description": "Vlastn\u00e1 integr\u00e1cia `{platform}` implementuje vlastnos\u0165 `forecast` alebo nastavuje `self._attr_forecast` v podtriede WeatherEntity. \n\nVytvorte hl\u00e1senie o chybe na {issue_tracker}.\n\nKe\u010f bude k dispoz\u00edcii aktualizovan\u00e1 verzia `{platform}`, nain\u0161talujte ju a re\u0161tartujte Home Assistant, aby ste tento probl\u00e9m vyrie\u0161ili.",
+            "title": "Vlastn\u00e1 integr\u00e1cia platformy {platform} pou\u017e\u00edva zastaran\u00fa predpove\u010f po\u010dasia"
+        },
+        "platform_integration_no_support": {
+            "description": "Platforma {platform} pre integr\u00e1ciu {domain} nepodporuje nastavenie platformy. \n\n Odstr\u00e1\u0148te ho z konfigur\u00e1cie a re\u0161tartujte Home Assistant, aby ste tento probl\u00e9m vyrie\u0161ili.",
+            "title": "Podpora platformy nie je podporovan\u00e1"
+        }
+    },
+    "selector": {
+        "forecast_type": {
+            "options": {
+                "daily": "Denne",
+                "hourly": "Hodinovo",
+                "twice_daily": "Dvakr\u00e1t denne"
+            }
+        }
+    },
+    "services": {
+        "get_forecast": {
+            "description": "Z\u00edskajte predpove\u010f po\u010dasia.",
+            "fields": {
+                "type": {
+                    "description": "Typ predpovede: denn\u00e1, hodinov\u00e1 alebo dvakr\u00e1t denne.",
+                    "name": "Typ predpovede"
+                }
+            },
+            "name": "Z\u00edska\u0165 predpove\u010f"
+        },
+        "get_forecasts": {
+            "description": "Z\u00edska\u0165 predpove\u010f po\u010dasia.",
+            "fields": {
+                "type": {
+                    "description": "Typ predpovede: denn\u00e1, hodinov\u00e1 alebo dvakr\u00e1t denne.",
+                    "name": "Typ predpovede"
+                }
+            },
+            "name": "Z\u00edska\u0165 predpovede"
+        }
+    },
+    "title": "Po\u010dasie"
+}

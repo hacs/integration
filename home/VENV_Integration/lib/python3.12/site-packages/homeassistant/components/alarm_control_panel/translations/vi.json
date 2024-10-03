@@ -1,0 +1,143 @@
+{
+    "device_automation": {
+        "action_type": {
+            "arm_away": "B\u1eadt {entity_name} \u0111i v\u1eafng",
+            "arm_home": "B\u1eadt {entity_name} \u1edf nh\u00e0",
+            "arm_night": "B\u1eadt {entity_name} ban \u0111\u00eam",
+            "arm_vacation": "B\u1ea3o v\u1ec7 {entity_name} \u1edf ch\u1ebf \u0111\u1ed9 \u0111i ngh\u1ec9",
+            "disarm": "T\u1eaft {entity_name}",
+            "trigger": "K\u00edch ho\u1ea1t {entity_name}"
+        },
+        "condition_type": {
+            "is_armed_away": "{entity_name} \u0111ang b\u1eadt \u0111i v\u1eafng",
+            "is_armed_home": "{entity_name} \u0111ang b\u1eadt \u1edf nh\u00e0",
+            "is_armed_night": "{entity_name} \u0111ang b\u1eadt ban \u0111\u00eam",
+            "is_armed_vacation": "{entity_name} \u0111\u01b0\u1ee3c b\u1ea3o v\u1ec7 \u0111i ngh\u1ec9",
+            "is_disarmed": "{entity_name} \u0111ang t\u1eaft b\u1ea3o v\u1ec7",
+            "is_triggered": "{entity_name} b\u1ecb k\u00edch ho\u1ea1t"
+        },
+        "trigger_type": {
+            "armed_away": "{entity_name} b\u1eadt \u0111i v\u1eafng",
+            "armed_home": "{entity_name} b\u1eadt \u1edf nh\u00e0",
+            "armed_night": "{entity_name} b\u1eadt ban \u0111\u00eam",
+            "armed_vacation": "{entity_name} b\u1ea3o v\u1ec7 \u0111i ngh\u1ec9",
+            "disarmed": "{entity_name} t\u1eaft b\u1ea3o v\u1ec7",
+            "triggered": "{entity_name} b\u1ecb k\u00edch ho\u1ea1t"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "B\u1ea3ng \u0111i\u1ec1u khi\u1ec3n an ninh",
+            "state": {
+                "armed": "\u0110\u00e3 b\u1ea3o v\u1ec7",
+                "armed_away": "B\u1ea3o v\u1ec7 \u0111i v\u1eafng",
+                "armed_custom_bypass": "B\u1ea3o v\u1ec7 b\u1ecf qua t\u00f9y ch\u1ec9nh",
+                "armed_home": "B\u1ea3o v\u1ec7 \u1edf nh\u00e0",
+                "armed_night": "B\u1ea3o v\u1ec7 ban \u0111\u00eam",
+                "armed_vacation": "B\u1ea3o v\u1ec7 \u0111i ngh\u1ec9",
+                "arming": "\u0110ang b\u1eadt b\u1ea3o v\u1ec7",
+                "disarmed": "T\u1eaft b\u1ea3o v\u1ec7",
+                "disarming": "\u0110ang t\u1eaft b\u1ea3o v\u1ec7",
+                "pending": "\u0110ang ch\u1edd",
+                "triggered": "B\u1ecb k\u00edch ho\u1ea1t"
+            },
+            "state_attributes": {
+                "changed_by": {
+                    "name": "Thay \u0111\u1ed5i b\u1edfi"
+                },
+                "code_arm_required": {
+                    "name": "M\u00e3 \u0111\u1ec3 b\u1eadt b\u1ea3o v\u1ec7",
+                    "state": {
+                        "false": "Kh\u00f4ng b\u1eaft bu\u1ed9c",
+                        "true": "B\u1eaft bu\u1ed9c"
+                    }
+                },
+                "code_format": {
+                    "name": "\u0110\u1ecbnh d\u1ea1ng m\u00e3",
+                    "state": {
+                        "number": "S\u1ed1",
+                        "text": "V\u0103n b\u1ea3n"
+                    }
+                }
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "N\u1ec1n t\u1ea3ng {platform} d\u00e0nh cho b\u1ed9 t\u00edch h\u1ee3p {domain} kh\u00f4ng h\u1ed7 tr\u1ee3 thi\u1ebft l\u1eadp n\u1ec1n t\u1ea3ng. \n\nVui l\u00f2ng x\u00f3a n\u00f3 kh\u1ecfi c\u1ea5u h\u00ecnh c\u1ee7a b\u1ea1n v\u00e0 kh\u1edfi \u0111\u1ed9ng l\u1ea1i Home Assistant \u0111\u1ec3 kh\u1eafc ph\u1ee5c s\u1ef1 c\u1ed1 n\u00e0y.",
+            "title": "H\u1ed7 tr\u1ee3 n\u1ec1n t\u1ea3ng kh\u00f4ng \u0111\u01b0\u1ee3c h\u1ed7 tr\u1ee3"
+        }
+    },
+    "services": {
+        "alarm_arm_away": {
+            "description": "\u0110\u1eb7t b\u00e1o \u0111\u1ed9ng th\u00e0nh: _\u0111\u00e3 b\u1eadt b\u1ea3o v\u1ec7, kh\u00f4ng c\u00f3 ai \u1edf nh\u00e0_.",
+            "fields": {
+                "code": {
+                    "description": "M\u00e3 \u0111\u1ec3 b\u1eadt h\u1ec7 th\u1ed1ng b\u00e1o \u0111\u1ed9ng.",
+                    "name": "M\u00e3"
+                }
+            },
+            "name": "B\u1ea3o v\u1ec7 \u0111i v\u1eafng"
+        },
+        "alarm_arm_custom_bypass": {
+            "description": "B\u1eadt b\u00e1o \u0111\u1ed9ng trong khi cho ph\u00e9p b\u1ecf qua m\u1ed9t khu v\u1ef1c t\u00f9y ch\u1ec9nh.",
+            "fields": {
+                "code": {
+                    "description": "M\u00e3 \u0111\u1ec3 b\u1eadt h\u1ec7 th\u1ed1ng b\u00e1o \u0111\u1ed9ng.",
+                    "name": "M\u00e3"
+                }
+            },
+            "name": "B\u1ea3o v\u1ec7 v\u00e0 cho ph\u00e9p b\u1ecf qua t\u00f9y ch\u1ec9nh"
+        },
+        "alarm_arm_home": {
+            "description": "\u0110\u1eb7t b\u00e1o \u0111\u1ed9ng th\u00e0nh: _\u0111\u00e3 b\u1eadt b\u1ea3o v\u1ec7, nh\u01b0ng c\u00f3 ng\u01b0\u1eddi \u1edf nh\u00e0_.",
+            "fields": {
+                "code": {
+                    "description": "M\u00e3 \u0111\u1ec3 b\u1eadt h\u1ec7 th\u1ed1ng b\u00e1o \u0111\u1ed9ng.",
+                    "name": "M\u00e3"
+                }
+            },
+            "name": "B\u1ea3o v\u1ec7 \u1edf nh\u00e0"
+        },
+        "alarm_arm_night": {
+            "description": "\u0110\u1eb7t b\u00e1o \u0111\u1ed9ng th\u00e0nh: _\u0111\u00e3 b\u1eadt b\u1ea3o v\u1ec7 ban \u0111\u00eam_.",
+            "fields": {
+                "code": {
+                    "description": "M\u00e3 \u0111\u1ec3 b\u1eadt h\u1ec7 th\u1ed1ng b\u00e1o \u0111\u1ed9ng.",
+                    "name": "M\u00e3"
+                }
+            },
+            "name": "B\u1ea3o v\u1ec7 ban \u0111\u00eam"
+        },
+        "alarm_arm_vacation": {
+            "description": "\u0110\u1eb7t b\u00e1o \u0111\u1ed9ng th\u00e0nh: _\u0111\u00e3 b\u1eadt b\u1ea3o v\u1ec7 cho k\u1ef3 ngh\u1ec9_.",
+            "fields": {
+                "code": {
+                    "description": "M\u00e3 \u0111\u1ec3 b\u1eadt h\u1ec7 th\u1ed1ng b\u00e1o \u0111\u1ed9ng.",
+                    "name": "M\u00e3"
+                }
+            },
+            "name": "B\u1ea3o v\u1ec7 \u0111i ngh\u1ec9"
+        },
+        "alarm_disarm": {
+            "description": "T\u1eaft b\u00e1o \u0111\u1ed9ng.",
+            "fields": {
+                "code": {
+                    "description": "M\u00e3 \u0111\u1ec3 t\u1eaft h\u1ec7 th\u1ed1ng b\u00e1o \u0111\u1ed9ng.",
+                    "name": "M\u00e3"
+                }
+            },
+            "name": "T\u1eaft b\u1ea3o v\u1ec7"
+        },
+        "alarm_trigger": {
+            "description": "Cho ph\u00e9p k\u00edch ho\u1ea1t c\u1ea3nh b\u00e1o b\u00ean ngo\u00e0i.",
+            "fields": {
+                "code": {
+                    "description": "M\u00e3 \u0111\u1ec3 b\u1eadt h\u1ec7 th\u1ed1ng b\u00e1o \u0111\u1ed9ng.",
+                    "name": "M\u00e3"
+                }
+            },
+            "name": "K\u00edch ho\u1ea1t"
+        }
+    }
+}

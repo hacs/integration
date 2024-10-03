@@ -1,0 +1,118 @@
+{
+    "device_automation": {
+        "action_type": {
+            "set_humidity": "Definir umidade para {entity_name}",
+            "set_mode": "Alterar modo em {entity_name}",
+            "toggle": "Alternar {entity_name}",
+            "turn_off": "Desativar {entity_name}",
+            "turn_on": "Ativar {entity_name}"
+        },
+        "condition_type": {
+            "is_mode": "{entity_name} est\u00e1 definido para um modo espec\u00edfico",
+            "is_off": "{entity_name} est\u00e1 desativado",
+            "is_on": "{entity_name} est\u00e1 ativado"
+        },
+        "extra_fields": {
+            "for": "Dura\u00e7\u00e3o"
+        },
+        "trigger_type": {
+            "changed_states": "{entity_name} ativado ou desativado",
+            "target_humidity_changed": "{entity_name} tiver a umidade alvo alterada",
+            "turned_off": "{entity_name} desativado",
+            "turned_on": "{entity_name} ativado"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Umidificador",
+            "state": {
+                "off": "Desligado",
+                "on": "Ligado"
+            },
+            "state_attributes": {
+                "action": {
+                    "name": "A\u00e7\u00e3o",
+                    "state": {
+                        "drying": "Secagem",
+                        "humidifying": "Umidifica\u00e7\u00e3o",
+                        "idle": "Ocioso",
+                        "off": "Desligado"
+                    }
+                },
+                "available_modes": {
+                    "name": "Modos dispon\u00edveis"
+                },
+                "current_humidity": {
+                    "name": "Umidade atual"
+                },
+                "humidity": {
+                    "name": "Umidade alvo"
+                },
+                "max_humidity": {
+                    "name": "Umidade alvo m\u00e1xima"
+                },
+                "min_humidity": {
+                    "name": "Umidade alvo m\u00ednima"
+                },
+                "mode": {
+                    "name": "Modo",
+                    "state": {
+                        "auto": "Auto",
+                        "away": "Ausente",
+                        "baby": "Beb\u00ea",
+                        "boost": "Boost",
+                        "comfort": "Conforto",
+                        "eco": "Eco",
+                        "home": "Em casa",
+                        "normal": "Normal",
+                        "sleep": "Sono"
+                    }
+                }
+            }
+        },
+        "dehumidifier": {
+            "name": "Desumidificador"
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "A plataforma {platform} para a integra\u00e7\u00e3o {domain} n\u00e3o \u00e9 compat\u00edvel com a configura\u00e7\u00e3o da plataforma. \n\n Remova-o da sua configura\u00e7\u00e3o e reinicie o Home Assistant para corrigir esse problema.",
+            "title": "Suporte \u00e0 plataforma n\u00e3o suportado"
+        }
+    },
+    "services": {
+        "set_humidity": {
+            "description": "Define a umidade alvo.",
+            "fields": {
+                "humidity": {
+                    "description": "Umidade alvo.",
+                    "name": "Umidade"
+                }
+            },
+            "name": "Definir umidade"
+        },
+        "set_mode": {
+            "description": "Define o modo de opera\u00e7\u00e3o do umidificador.",
+            "fields": {
+                "mode": {
+                    "description": "Modo de opera\u00e7\u00e3o. Por exemplo, _normal_, _eco_ ou _ausente_. Para obter uma lista de valores poss\u00edveis, consulte a documenta\u00e7\u00e3o de integra\u00e7\u00e3o.",
+                    "name": "Modo"
+                }
+            },
+            "name": "Definir modo"
+        },
+        "toggle": {
+            "description": "Liga/desliga o umidificador.",
+            "name": "Alternar"
+        },
+        "turn_off": {
+            "description": "Desliga o umidificador.",
+            "name": "Desligar"
+        },
+        "turn_on": {
+            "description": "Liga o umidificador.",
+            "name": "Ligar"
+        }
+    },
+    "title": "Umidificador"
+}

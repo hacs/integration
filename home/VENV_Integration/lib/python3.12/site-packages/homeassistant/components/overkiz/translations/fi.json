@@ -1,0 +1,164 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Tili on jo m\u00e4\u00e4ritetty",
+            "reauth_successful": "Uudelleentodennus onnistui",
+            "reauth_wrong_account": "Voit todentaa t\u00e4m\u00e4n merkinn\u00e4n uudelleen vain samalla Overkiz-tilill\u00e4 ja -keskittym\u00e4ll\u00e4."
+        },
+        "error": {
+            "cannot_connect": "Yhteyden muodostaminen ep\u00e4onnistui",
+            "certificate_verify_failed": "Yhteytt\u00e4 is\u00e4nt\u00e4\u00e4n ei voida muodostaa, varmenteen tarkistus ep\u00e4onnistui.",
+            "developer_mode_disabled": "Kehitt\u00e4j\u00e4tila poistettu k\u00e4yt\u00f6st\u00e4. Aktivoi ensin Somfy TaHoma -laitteen kehitt\u00e4j\u00e4tila.",
+            "invalid_auth": "Virheellinen todennus",
+            "no_such_token": "T\u00e4lle yhdysk\u00e4yt\u00e4v\u00e4lle ei voida luoda tunnusta. Vahvista, onko tili liitetty t\u00e4h\u00e4n yhdysk\u00e4yt\u00e4v\u00e4\u00e4n.",
+            "server_in_maintenance": "Palvelimella on huoltokatko",
+            "too_many_attempts": "Liian monta yrityst\u00e4 virheellisell\u00e4 tunnuksella, tilap\u00e4isesti estetty",
+            "too_many_requests": "Liian monta pyynt\u00f6\u00e4, yrit\u00e4 my\u00f6hemmin uudelleen",
+            "unknown": "Odottamaton virhe",
+            "unsupported_hardware": "T\u00e4m\u00e4 integraatio ei tue {unsupported_device} -laitteistoasi."
+        },
+        "flow_title": "Yhdysk\u00e4yt\u00e4v\u00e4: {gateway_id}",
+        "step": {
+            "cloud": {
+                "data": {
+                    "password": "Salasana",
+                    "username": "K\u00e4ytt\u00e4j\u00e4tunnus"
+                },
+                "description": "Anna sovelluksesi tunnistetiedot."
+            },
+            "local": {
+                "data": {
+                    "host": "Palvelin",
+                    "password": "Salasana",
+                    "username": "K\u00e4ytt\u00e4j\u00e4tunnus",
+                    "verify_ssl": "Tarkista SSL-varmenne"
+                },
+                "description": "Aktivoimalla [TaHoma-boksin kehitt\u00e4j\u00e4tila](https://github.com/Somfy-Developer/Somfy-TaHoma-Developer-Mode#getting-started) voit antaa kolmannen osapuolen ohjelmille (kuten Home Assistantille) luvan muodostaa siihen yhteyden l\u00e4hiverkon kautta. \n\n Aktivoinnin j\u00e4lkeen sy\u00f6t\u00e4 sovelluksen tunnistetiedot ja vaihda is\u00e4nt\u00e4 sis\u00e4lt\u00e4m\u00e4\u00e4n gateway-pin tai sy\u00f6t\u00e4 gatewayn IP-osoite."
+            },
+            "local_or_cloud": {
+                "data": {
+                    "api_type": "API-tyyppi"
+                },
+                "description": "Valitse paikallinen tai pilvi-API. Paikallinen API tukee TaHoma Connexoon, TaHoma v2 ja TaHoma Switch. Paikallinen API ei tue ilmastolaitteita ja skenaarioita."
+            },
+            "user": {
+                "data": {
+                    "host": "Palvelin",
+                    "hub": "Palvelin",
+                    "password": "Salasana",
+                    "username": "K\u00e4ytt\u00e4j\u00e4tunnus"
+                },
+                "description": "Valitse palvelimesi. Overkiz-alustaa k\u00e4ytt\u00e4v\u00e4t eri toimittajat, kuten Somfy (Connexoon / TaHoma), Hitachi (Hi Kumo) ja Atlantic (Cozytouch)."
+            }
+        }
+    },
+    "entity": {
+        "climate": {
+            "overkiz": {
+                "state_attributes": {
+                    "fan_mode": {
+                        "state": {
+                            "away": "Poissa",
+                            "bypass_boost": "Ohitustehostus",
+                            "home_boost": "Kodin tehostus",
+                            "kitchen_boost": "Keitti\u00f6n tehostus"
+                        }
+                    },
+                    "preset_mode": {
+                        "state": {
+                            "auto": "Automaattinen",
+                            "comfort-1": "Mukavuus 1",
+                            "comfort-2": "Mukavuus 2",
+                            "drying": "Kuivaus",
+                            "external": "Ulkoinen",
+                            "freeze": "J\u00e4\u00e4dyt\u00e4",
+                            "frost_protection": "Pakkassuojaus",
+                            "manual": "Manuaalinen",
+                            "night": "Y\u00f6",
+                            "prog": "Prog"
+                        }
+                    }
+                }
+            }
+        },
+        "select": {
+            "memorized_simple_volume": {
+                "state": {
+                    "highest": "Korkein",
+                    "standard": "Tavallinen"
+                }
+            },
+            "open_closed_partial": {
+                "state": {
+                    "closed": "Suljettu",
+                    "open": "Auki",
+                    "partial": "Osittainen"
+                }
+            },
+            "open_closed_pedestrian": {
+                "state": {
+                    "closed": "Suljettu",
+                    "open": "Auki",
+                    "pedestrian": "Jalankulkija"
+                }
+            }
+        },
+        "sensor": {
+            "battery": {
+                "state": {
+                    "full": "T\u00e4ysi",
+                    "low": "Matala",
+                    "medium": "Keskitaso",
+                    "normal": "Normaali",
+                    "verylow": "Eritt\u00e4in matala"
+                }
+            },
+            "discrete_rssi_level": {
+                "state": {
+                    "good": "Hyv\u00e4",
+                    "low": "Matala",
+                    "normal": "Normaali",
+                    "verylow": "Eritt\u00e4in matala"
+                }
+            },
+            "priority_lock_originator": {
+                "state": {
+                    "external_gateway": "Ulkoinen yhdysk\u00e4yt\u00e4v\u00e4",
+                    "local_user": "Paikallinen k\u00e4ytt\u00e4j\u00e4",
+                    "lsc": "LSC",
+                    "myself": "Min\u00e4 itse",
+                    "rain": "Sade",
+                    "saac": "SAAC",
+                    "security": "Suojaus",
+                    "sfc": "SFC",
+                    "temperature": "L\u00e4mp\u00f6tila",
+                    "timer": "Ajastin",
+                    "ups": "UPS",
+                    "user": "K\u00e4ytt\u00e4j\u00e4",
+                    "wind": "Tuuli"
+                }
+            },
+            "sensor_defect": {
+                "state": {
+                    "dead": "Kuollut",
+                    "low_battery": "Akku v\u00e4hiss\u00e4",
+                    "maintenance_required": "Huolto vaaditaan",
+                    "no_defect": "Ei vikaa"
+                }
+            },
+            "sensor_room": {
+                "state": {
+                    "clean": "Puhdas",
+                    "dirty": "Likainen"
+                }
+            },
+            "three_way_handle_direction": {
+                "state": {
+                    "closed": "Suljettu",
+                    "open": "Auki",
+                    "tilt": "Kallistus"
+                }
+            }
+        }
+    }
+}

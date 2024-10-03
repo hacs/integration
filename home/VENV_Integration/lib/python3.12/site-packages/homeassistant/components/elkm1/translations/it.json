@@ -1,0 +1,193 @@
+{
+    "config": {
+        "abort": {
+            "address_already_configured": "Un ElkM1 con questo indirizzo \u00e8 gi\u00e0 configurato",
+            "already_configured": "Un ElkM1 con questo prefisso \u00e8 gi\u00e0 configurato",
+            "already_in_progress": "Il flusso di configurazione \u00e8 gi\u00e0 in corso",
+            "cannot_connect": "Impossibile connettersi",
+            "invalid_auth": "Autenticazione non valida",
+            "unknown": "Errore imprevisto"
+        },
+        "error": {
+            "cannot_connect": "Impossibile connettersi",
+            "invalid_auth": "Autenticazione non valida",
+            "unknown": "Errore imprevisto"
+        },
+        "flow_title": "{mac_address} ({host})",
+        "step": {
+            "discovered_connection": {
+                "data": {
+                    "password": "Password",
+                    "protocol": "Protocollo",
+                    "temperature_unit": "L'unit\u00e0 di temperatura utilizzata da ElkM1.",
+                    "username": "Nome utente"
+                },
+                "description": "Connetti al sistema rilevato: {mac_address} ({host})",
+                "title": "Connettiti al controllo Elk-M1"
+            },
+            "manual_connection": {
+                "data": {
+                    "address": "L'indirizzo IP o il dominio o la porta seriale in caso di connessione tramite seriale.",
+                    "password": "Password",
+                    "prefix": "Un prefisso univoco (lascia vuoto se hai solo un ElkM1).",
+                    "protocol": "Protocollo",
+                    "temperature_unit": "L'unit\u00e0 di temperatura utilizzata da ElkM1.",
+                    "username": "Nome utente"
+                },
+                "description": "La stringa dell'indirizzo deve essere nel formato 'indirizzo[:porta]' per 'sicuro' e 'non-sicuro'. Esempio: '192.168.1.1'. La porta \u00e8 facoltativa e per impostazione predefinita \u00e8 2101 per 'non-sicuro' e 2601 per 'sicuro'. Per il protocollo seriale, l'indirizzo deve essere nel formato 'tty[:baud]'. Esempio: '/dev/ttyS1'. Il baud \u00e8 opzionale e il valore predefinito \u00e8 115200.",
+                "title": "Connettiti al controllo Elk-M1"
+            },
+            "user": {
+                "data": {
+                    "device": "Dispositivo"
+                },
+                "description": "Scegli un sistema rilevato o \"Inserimento manuale\" se non sono stati rilevati dispositivi.",
+                "title": "Connettiti al controllo Elk-M1"
+            }
+        }
+    },
+    "services": {
+        "alarm_arm_home_instant": {
+            "description": "Arma l'ElkM1 in modalit\u00e0 istantanea in casa.",
+            "fields": {
+                "code": {
+                    "description": "Un codice per inserire la centrale di allarme.",
+                    "name": "Codice"
+                }
+            },
+            "name": "Allarme in casa istantaneo"
+        },
+        "alarm_arm_night_instant": {
+            "description": "Arma ElkM1 in modalit\u00e0 notte istantanea.",
+            "fields": {
+                "code": {
+                    "description": "Un codice per inserire la centrale di allarme.",
+                    "name": "Codice"
+                }
+            },
+            "name": "Allarme attivazione notte istantanea"
+        },
+        "alarm_arm_vacation": {
+            "description": "Arma l'ElkM1 in modalit\u00e0 vacanza.",
+            "fields": {
+                "code": {
+                    "description": "Un codice per inserire la centrale di allarme.",
+                    "name": "Codice"
+                }
+            },
+            "name": "Allarme attivazione fuori casa"
+        },
+        "alarm_bypass": {
+            "description": "Esclude tutte le zone dell'area.",
+            "fields": {
+                "code": {
+                    "description": "Un codice per autorizzare l'esclusione del pannello di allarme.",
+                    "name": "Codice"
+                }
+            },
+            "name": "Allarme esclusione"
+        },
+        "alarm_clear_bypass": {
+            "description": "Rimuove l'esclusione su tutte le zone dell'area.",
+            "fields": {
+                "code": {
+                    "description": "Un codice per autorizzare la cancellazione dell'esclusione del pannello di allarme.",
+                    "name": "Codice"
+                }
+            },
+            "name": "Allarme cancellazione esclusione "
+        },
+        "alarm_display_message": {
+            "description": "Visualizza un messaggio su tutte le tastiere ElkM1 per un'area.",
+            "fields": {
+                "beep": {
+                    "description": "0=nessun segnale acustico, 1=segnale acustico.",
+                    "name": "Segnale acustico"
+                },
+                "clear": {
+                    "description": "0=cancella messaggio, 1=cancella messaggio con tasto *, 2=Visualizza fino al timeout.",
+                    "name": "Cancella"
+                },
+                "line1": {
+                    "description": "Fino a 16 caratteri di testo (troncati se troppo lunghi).",
+                    "name": "Linea 1"
+                },
+                "line2": {
+                    "description": "Fino a 16 caratteri di testo (troncati se troppo lunghi).",
+                    "name": "Linea 2"
+                },
+                "timeout": {
+                    "description": "Tempo di visualizzazione del messaggio, 0=per sempre, massimo 65535.",
+                    "name": "Tempo scaduto"
+                }
+            },
+            "name": "Messaggio di allarme sul display"
+        },
+        "sensor_counter_refresh": {
+            "description": "Aggiorna il valore di un contatore dal pannello.",
+            "name": "Aggiornamento del contatore del sensore"
+        },
+        "sensor_counter_set": {
+            "description": "Imposta il valore di un contatore sul pannello.",
+            "fields": {
+                "value": {
+                    "description": "Valore su cui impostare il contatore.",
+                    "name": "Valore"
+                }
+            },
+            "name": "Impostazione del contatore del sensore"
+        },
+        "sensor_zone_bypass": {
+            "description": "Zone di esclusioni",
+            "fields": {
+                "code": {
+                    "description": "Un codice per autorizzare l'esclusione della zona.",
+                    "name": "Codice"
+                }
+            },
+            "name": "Esclusione zona sensore"
+        },
+        "sensor_zone_trigger": {
+            "description": "Zona di innesco.",
+            "name": "Attivazione della zona sensore"
+        },
+        "set_time": {
+            "description": "Imposta l'ora del pannello.",
+            "fields": {
+                "prefix": {
+                    "description": "Prefisso per il pannello.",
+                    "name": "Prefisso"
+                }
+            },
+            "name": "Imposta l'ora"
+        },
+        "speak_phrase": {
+            "description": "Pronuncia una frase. Vedere l'elenco delle frasi nella documentazione del protocollo ASCII ElkM1.",
+            "fields": {
+                "number": {
+                    "description": "Numero di frase da pronunciare.",
+                    "name": "Numero di frase"
+                },
+                "prefix": {
+                    "description": "Prefisso per identificare il pannello quando sono configurati pi\u00f9 pannelli.",
+                    "name": "Prefisso"
+                }
+            },
+            "name": "Pronuncia frase"
+        },
+        "speak_word": {
+            "description": "Pronuncia una parola. Vedere l'elenco delle parole nella documentazione del protocollo ASCII ElkM1.",
+            "fields": {
+                "number": {
+                    "description": "Numero di parole da pronunciare.",
+                    "name": "Numero di parole"
+                },
+                "prefix": {
+                    "description": "Prefisso per identificare il pannello quando sono configurati pi\u00f9 pannelli.",
+                    "name": "Prefisso"
+                }
+            },
+            "name": "Pronuncia la parola"
+        }
+    }
+}

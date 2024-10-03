@@ -1,0 +1,141 @@
+{
+    "device_automation": {
+        "action_type": {
+            "toggle": "Commuta {entity_name}",
+            "turn_off": "Apaga {entity_name}",
+            "turn_on": "Engega {entity_name}"
+        },
+        "condition_type": {
+            "is_off": "{entity_name} est\u00e0 apagat/ada",
+            "is_on": "{entity_name} est\u00e0 engegat/ada"
+        },
+        "trigger_type": {
+            "changed_states": "{entity_name} s'engegui o s'apagui",
+            "turned_off": "{entity_name} s'apagui",
+            "turned_on": "{entity_name} s'engegui"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Ventilador",
+            "state": {
+                "off": "OFF",
+                "on": "ON"
+            },
+            "state_attributes": {
+                "direction": {
+                    "name": "Direcci\u00f3",
+                    "state": {
+                        "forward": "Endavant",
+                        "reverse": "Invers"
+                    }
+                },
+                "oscillating": {
+                    "name": "Oscil\u00b7lant",
+                    "state": {
+                        "false": "No",
+                        "true": "S\u00ed"
+                    }
+                },
+                "percentage": {
+                    "name": "Velocitat"
+                },
+                "percentage_step": {
+                    "name": "Pas de velocitat"
+                },
+                "preset_mode": {
+                    "name": "Mode preconfiguraci\u00f3"
+                },
+                "preset_modes": {
+                    "name": "Modes preconfigurats disponibles"
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "not_valid_preset_mode": {
+            "message": "Mode preconfiguraci\u00f3 {preset_mode} inv\u00e0lid, els modes de preconfiguraci\u00f3 v\u00e0lids s\u00f3n: {preset_modes}."
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "La plataforma {platform} de la integraci\u00f3 {domain} no \u00e9s compatible amb la configuraci\u00f3 de la plataforma.\n\nElimina-la de la teva configuraci\u00f3 i reinicia Home Assistant per solucionar aquest problema.",
+            "title": "Suport de la plataforma no compatible"
+        }
+    },
+    "services": {
+        "increase_speed": {
+            "description": "Augmenta la velocitat del ventilador.",
+            "fields": {
+                "percentage_step": {
+                    "description": "Augmenta la velocitat en un pas percentual.",
+                    "name": "Increment"
+                }
+            },
+            "name": "Augmenta velocitat"
+        },
+        "oscillate": {
+            "description": "Controla l'oscil\u00b7laci\u00f3 del ventilador.",
+            "fields": {
+                "oscillating": {
+                    "description": "Activa/desactiva l'oscil\u00b7laci\u00f3.",
+                    "name": "Oscil\u00b7lant"
+                }
+            },
+            "name": "Oscil\u00b7la"
+        },
+        "set_direction": {
+            "description": "Configura la direcci\u00f3 de rotaci\u00f3 del ventilador.",
+            "fields": {
+                "direction": {
+                    "description": "Direcci\u00f3 a girar.",
+                    "name": "Direcci\u00f3"
+                }
+            },
+            "name": "Configura direcci\u00f3"
+        },
+        "set_percentage": {
+            "description": "Configura la velocitat del ventilador.",
+            "fields": {
+                "percentage": {
+                    "description": "Velocitat del ventilador.",
+                    "name": "Percentatge"
+                }
+            },
+            "name": "Configura velocitat"
+        },
+        "set_preset_mode": {
+            "description": "Estableix el mode preconfiguraci\u00f3.",
+            "fields": {
+                "preset_mode": {
+                    "description": "Mode preconfiguraci\u00f3.",
+                    "name": "Mode preconfiguraci\u00f3"
+                }
+            },
+            "name": "Estableix mode preconfiguraci\u00f3"
+        },
+        "toggle": {
+            "description": "Activa/desactiva un ventilador.",
+            "name": "Commuta"
+        },
+        "turn_off": {
+            "description": "Desactiva un ventilador.",
+            "name": "Apaga"
+        },
+        "turn_on": {
+            "description": "Activa un ventilador.",
+            "fields": {
+                "percentage": {
+                    "description": "Velocitat del ventilador.",
+                    "name": "Percentatge"
+                },
+                "preset_mode": {
+                    "description": "Mode preconfiguraci\u00f3.",
+                    "name": "Mode preconfiguraci\u00f3"
+                }
+            },
+            "name": "Enc\u00e9n"
+        }
+    },
+    "title": "Ventilador"
+}

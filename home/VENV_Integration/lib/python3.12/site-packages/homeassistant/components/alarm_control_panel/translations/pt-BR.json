@@ -1,0 +1,147 @@
+{
+    "device_automation": {
+        "action_type": {
+            "arm_away": "Armar {entity_name} longe",
+            "arm_home": "Armar {entity_name} casa",
+            "arm_night": "Armar {entity_name} noite",
+            "arm_vacation": "Armar {entity_name} f\u00e9rias",
+            "disarm": "Desarmar {entity_name}",
+            "trigger": "Disparar {entity_name}"
+        },
+        "condition_type": {
+            "is_armed_away": "{entity_name} est\u00e1 armado modo longe",
+            "is_armed_home": "{entity_name} est\u00e1 armadado modo casa",
+            "is_armed_night": "{entity_name} est\u00e1 armadado modo noite",
+            "is_armed_vacation": "{entity_name} est\u00e1 armadado modo f\u00e9rias",
+            "is_disarmed": "{entity_name} est\u00e1 desarmado",
+            "is_triggered": "{entity_name} est\u00e1 acionado"
+        },
+        "extra_fields": {
+            "for": "Dura\u00e7\u00e3o"
+        },
+        "trigger_type": {
+            "armed_away": "{entity_name} armado modo longe",
+            "armed_home": "{entity_name} armadado modo casa",
+            "armed_night": "{entity_name} armadado para noite",
+            "armed_vacation": "{entity_name} armadado para f\u00e9rias",
+            "disarmed": "{entity_name} desarmado",
+            "triggered": "{entity_name} acionado"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Painel de controle do alarme",
+            "state": {
+                "armed": "Armado",
+                "armed_away": "Armado ausente",
+                "armed_custom_bypass": "Bypass armado personalizado",
+                "armed_home": "Armado em casa",
+                "armed_night": "Armado noturno",
+                "armed_vacation": "Armado f\u00e9rias",
+                "arming": "Armando",
+                "disarmed": "Desarmado",
+                "disarming": "Desarmando",
+                "pending": "Pendente",
+                "triggered": "Acionado"
+            },
+            "state_attributes": {
+                "changed_by": {
+                    "name": "Alterado por"
+                },
+                "code_arm_required": {
+                    "name": "C\u00f3digo para armar",
+                    "state": {
+                        "false": "N\u00e3o obrigat\u00f3rio",
+                        "true": "Obrigat\u00f3rio"
+                    }
+                },
+                "code_format": {
+                    "name": "Formato de c\u00f3digo",
+                    "state": {
+                        "number": "N\u00famero",
+                        "text": "Texto"
+                    }
+                }
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "A plataforma {platform} para a integra\u00e7\u00e3o {domain} n\u00e3o \u00e9 compat\u00edvel com a configura\u00e7\u00e3o da plataforma. \n\n Remova-o da sua configura\u00e7\u00e3o e reinicie o Home Assistant para corrigir esse problema.",
+            "title": "Suporte \u00e0 plataforma n\u00e3o suportado"
+        }
+    },
+    "services": {
+        "alarm_arm_away": {
+            "description": "Define o alarme para: _armado, ningu\u00e9m em casa_.",
+            "fields": {
+                "code": {
+                    "description": "C\u00f3digo para armar o alarme.",
+                    "name": "C\u00f3digo"
+                }
+            },
+            "name": "Armar ausente"
+        },
+        "alarm_arm_custom_bypass": {
+            "description": "Arma o alarme enquanto permite ignorar uma \u00e1rea personalizada.",
+            "fields": {
+                "code": {
+                    "description": "C\u00f3digo para armar o alarme.",
+                    "name": "C\u00f3digo"
+                }
+            },
+            "name": "Armar com bypass personalizado"
+        },
+        "alarm_arm_home": {
+            "description": "Define o alarme para: _armado, mas algu\u00e9m est\u00e1 em casa_.",
+            "fields": {
+                "code": {
+                    "description": "C\u00f3digo para armar o alarme.",
+                    "name": "C\u00f3digo"
+                }
+            },
+            "name": "Armar em casa"
+        },
+        "alarm_arm_night": {
+            "description": "Define o alarme para: _armado para a noite_.",
+            "fields": {
+                "code": {
+                    "description": "C\u00f3digo para armar o alarme.",
+                    "name": "C\u00f3digo"
+                }
+            },
+            "name": "Armar a noite"
+        },
+        "alarm_arm_vacation": {
+            "description": "Define o alarme para: _armado para f\u00e9rias_.",
+            "fields": {
+                "code": {
+                    "description": "C\u00f3digo para armar o alarme.",
+                    "name": "C\u00f3digo"
+                }
+            },
+            "name": "Armar f\u00e9rias"
+        },
+        "alarm_disarm": {
+            "description": "Desarma o alarme.",
+            "fields": {
+                "code": {
+                    "description": "C\u00f3digo para desarmar o alarme.",
+                    "name": "C\u00f3digo"
+                }
+            },
+            "name": "Desarmar"
+        },
+        "alarm_trigger": {
+            "description": "Ativa um disparo de alarme externo.",
+            "fields": {
+                "code": {
+                    "description": "C\u00f3digo para armar o alarme.",
+                    "name": "C\u00f3digo"
+                }
+            },
+            "name": "Gatilho"
+        }
+    },
+    "title": "Painel de controle do alarme"
+}

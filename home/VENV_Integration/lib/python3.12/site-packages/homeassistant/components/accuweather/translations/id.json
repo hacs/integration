@@ -1,0 +1,897 @@
+{
+    "config": {
+        "abort": {
+            "single_instance_allowed": "Sudah dikonfigurasi. Hanya satu konfigurasi yang diizinkan."
+        },
+        "create_entry": {
+            "default": "Beberapa sensor tidak diaktifkan secara default. Anda dapat mengaktifkannya di registri entitas setelah konfigurasi integrasi."
+        },
+        "error": {
+            "cannot_connect": "Gagal terhubung",
+            "invalid_api_key": "Kunci API tidak valid",
+            "requests_exceeded": "Jumlah permintaan yang diizinkan ke API Accuweather telah terlampaui. Anda harus menunggu atau mengubah Kunci API."
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "api_key": "Kunci API",
+                    "latitude": "Lintang",
+                    "longitude": "Bujur",
+                    "name": "Nama"
+                }
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "air_quality": {
+                "state": {
+                    "good": "Baik",
+                    "hazardous": "Berbahaya",
+                    "high": "Tinggi",
+                    "low": "Rendah",
+                    "moderate": "Sedang",
+                    "unhealthy": "Tidak Sehat"
+                }
+            },
+            "air_quality_0d": {
+                "name": "Kualitas udara siang ini",
+                "state": {
+                    "good": "Baik",
+                    "hazardous": "Berbahaya",
+                    "high": "Tinggi",
+                    "low": "Rendah",
+                    "moderate": "Sedang",
+                    "unhealthy": "Tidak Sehat"
+                }
+            },
+            "air_quality_1d": {
+                "name": "Kualitas udara siang 1",
+                "state": {
+                    "good": "Baik",
+                    "hazardous": "Berbahaya",
+                    "high": "Tinggi",
+                    "low": "Rendah",
+                    "moderate": "Sedang",
+                    "unhealthy": "Tidak Sehat"
+                }
+            },
+            "air_quality_2d": {
+                "name": "Kualitas udara siang 2",
+                "state": {
+                    "good": "Baik",
+                    "hazardous": "Berbahaya",
+                    "high": "Tinggi",
+                    "low": "Rendah",
+                    "moderate": "Sedang",
+                    "unhealthy": "Tidak Sehat"
+                }
+            },
+            "air_quality_3d": {
+                "name": "Kualitas udara siang 3",
+                "state": {
+                    "good": "Baik",
+                    "hazardous": "Berbahaya",
+                    "high": "Tinggi",
+                    "low": "Rendah",
+                    "moderate": "Sedang",
+                    "unhealthy": "Tidak Sehat"
+                }
+            },
+            "air_quality_4d": {
+                "name": "Kualitas udara siang 4",
+                "state": {
+                    "good": "Baik",
+                    "hazardous": "Berbahaya",
+                    "high": "Tinggi",
+                    "low": "Rendah",
+                    "moderate": "Sedang",
+                    "unhealthy": "Tidak Sehat"
+                }
+            },
+            "apparent_temperature": {
+                "name": "Suhu yang tampak"
+            },
+            "cloud_ceiling": {
+                "name": "Ketinggian awan"
+            },
+            "cloud_cover": {
+                "name": "Tutupan awan"
+            },
+            "cloud_cover_day_0d": {
+                "name": "Tutupan awan siang ini"
+            },
+            "cloud_cover_day_1d": {
+                "name": "Tutupan awan siang 1"
+            },
+            "cloud_cover_day_2d": {
+                "name": "Tutupan awan siang 2"
+            },
+            "cloud_cover_day_3d": {
+                "name": "Tutupan awan siang 3"
+            },
+            "cloud_cover_day_4d": {
+                "name": "Tutupan awan siang 4"
+            },
+            "cloud_cover_night_0d": {
+                "name": "Tutupan awan malam ini"
+            },
+            "cloud_cover_night_1d": {
+                "name": "Tutupan awan malam 1"
+            },
+            "cloud_cover_night_2d": {
+                "name": "Tutupan awan malam 2"
+            },
+            "cloud_cover_night_3d": {
+                "name": "Tutupan awan malam 3"
+            },
+            "cloud_cover_night_4d": {
+                "name": "Tutupan awan malam 4"
+            },
+            "condition_day_0d": {
+                "name": "Kondisi siang ini"
+            },
+            "condition_day_1d": {
+                "name": "Kondisi siang 1"
+            },
+            "condition_day_2d": {
+                "name": "Kondisi siang 2"
+            },
+            "condition_day_3d": {
+                "name": "Kondisi siang 3"
+            },
+            "condition_day_4d": {
+                "name": "Kondisi siang 4"
+            },
+            "condition_night_0d": {
+                "name": "Kondisi malam ini"
+            },
+            "condition_night_1d": {
+                "name": "Kondisi malam 1"
+            },
+            "condition_night_2d": {
+                "name": "Kondisi malam 2"
+            },
+            "condition_night_3d": {
+                "name": "Kondisi malam 3"
+            },
+            "condition_night_4d": {
+                "name": "Kondisi malam 4"
+            },
+            "dew_point": {
+                "name": "Titik embun"
+            },
+            "grass_pollen": {
+                "state_attributes": {
+                    "level": {
+                        "name": "Tingkat",
+                        "state": {
+                            "good": "Baik",
+                            "hazardous": "Berbahaya",
+                            "high": "Tinggi",
+                            "low": "Rendah",
+                            "moderate": "Sedang",
+                            "unhealthy": "Tidak Sehat"
+                        }
+                    }
+                }
+            },
+            "grass_pollen_0d": {
+                "name": "Serbuk sari rumput siang ini",
+                "state_attributes": {
+                    "level": {
+                        "name": "Tingkat",
+                        "state": {
+                            "good": "Baik",
+                            "hazardous": "Berbahaya",
+                            "high": "Tinggi",
+                            "low": "Rendah",
+                            "moderate": "Sedang",
+                            "unhealthy": "Tidak Sehat"
+                        }
+                    }
+                }
+            },
+            "grass_pollen_1d": {
+                "name": "Serbuk sari rumput siang 1",
+                "state_attributes": {
+                    "level": {
+                        "name": "Tingkat",
+                        "state": {
+                            "good": "Baik",
+                            "hazardous": "Berbahaya",
+                            "high": "Tinggi",
+                            "low": "Rendah",
+                            "moderate": "Sedang",
+                            "unhealthy": "Tidak Sehat"
+                        }
+                    }
+                }
+            },
+            "grass_pollen_2d": {
+                "name": "Serbuk sari rumput siang 2",
+                "state_attributes": {
+                    "level": {
+                        "name": "Tingkat",
+                        "state": {
+                            "good": "Baik",
+                            "hazardous": "Berbahaya",
+                            "high": "Tinggi",
+                            "low": "Rendah",
+                            "moderate": "Sedang",
+                            "unhealthy": "Tidak Sehat"
+                        }
+                    }
+                }
+            },
+            "grass_pollen_3d": {
+                "name": "Serbuk sari rumput siang 3",
+                "state_attributes": {
+                    "level": {
+                        "name": "Tingkat",
+                        "state": {
+                            "good": "Baik",
+                            "hazardous": "Berbahaya",
+                            "high": "Tinggi",
+                            "low": "Rendah",
+                            "moderate": "Sedang",
+                            "unhealthy": "Tidak Sehat"
+                        }
+                    }
+                }
+            },
+            "grass_pollen_4d": {
+                "name": "Serbuk sari rumput siang 4",
+                "state_attributes": {
+                    "level": {
+                        "name": "Tingkat",
+                        "state": {
+                            "good": "Baik",
+                            "hazardous": "Berbahaya",
+                            "high": "Tinggi",
+                            "low": "Rendah",
+                            "moderate": "Sedang",
+                            "unhealthy": "Tidak Sehat"
+                        }
+                    }
+                }
+            },
+            "hours_of_sun_0d": {
+                "name": "Jam matahari hari ini"
+            },
+            "hours_of_sun_1d": {
+                "name": "Jam matahari hari 1"
+            },
+            "hours_of_sun_2d": {
+                "name": "Jam matahari hari 2"
+            },
+            "hours_of_sun_3d": {
+                "name": "Jam matahari hari 3"
+            },
+            "hours_of_sun_4d": {
+                "name": "Jam matahari hari 4"
+            },
+            "mold_pollen": {
+                "state_attributes": {
+                    "level": {
+                        "name": "Tingkat",
+                        "state": {
+                            "good": "Baik",
+                            "hazardous": "Berbahaya",
+                            "high": "Tinggi",
+                            "low": "Rendah",
+                            "moderate": "Sedang",
+                            "unhealthy": "Tidak Sehat"
+                        }
+                    }
+                }
+            },
+            "mold_pollen_0d": {
+                "name": "Serbuk sari jamur siang ini",
+                "state_attributes": {
+                    "level": {
+                        "name": "Tingkat",
+                        "state": {
+                            "good": "Baik",
+                            "hazardous": "Berbahaya",
+                            "high": "Tinggi",
+                            "low": "Rendah",
+                            "moderate": "Sedang",
+                            "unhealthy": "Tidak Sehat"
+                        }
+                    }
+                }
+            },
+            "mold_pollen_1d": {
+                "name": "Serbuk sari jamur siang 1",
+                "state_attributes": {
+                    "level": {
+                        "name": "Tingkat",
+                        "state": {
+                            "good": "Baik",
+                            "hazardous": "Berbahaya",
+                            "high": "Tinggi",
+                            "low": "Rendah",
+                            "moderate": "Sedang",
+                            "unhealthy": "Tidak Sehat"
+                        }
+                    }
+                }
+            },
+            "mold_pollen_2d": {
+                "name": "Serbuk sari jamur siang 2",
+                "state_attributes": {
+                    "level": {
+                        "name": "Tingkat",
+                        "state": {
+                            "good": "Baik",
+                            "hazardous": "Berbahaya",
+                            "high": "Tinggi",
+                            "low": "Rendah",
+                            "moderate": "Sedang",
+                            "unhealthy": "Tidak Sehat"
+                        }
+                    }
+                }
+            },
+            "mold_pollen_3d": {
+                "name": "Serbuk sari jamur siang 3",
+                "state_attributes": {
+                    "level": {
+                        "name": "Tingkat",
+                        "state": {
+                            "good": "Baik",
+                            "hazardous": "Berbahaya",
+                            "high": "Tinggi",
+                            "low": "Rendah",
+                            "moderate": "Sedang",
+                            "unhealthy": "Tidak Sehat"
+                        }
+                    }
+                }
+            },
+            "mold_pollen_4d": {
+                "name": "Serbuk sari jamur siang 4",
+                "state_attributes": {
+                    "level": {
+                        "name": "Tingkat",
+                        "state": {
+                            "good": "Baik",
+                            "hazardous": "Berbahaya",
+                            "high": "Tinggi",
+                            "low": "Rendah",
+                            "moderate": "Sedang",
+                            "unhealthy": "Tidak Sehat"
+                        }
+                    }
+                }
+            },
+            "precipitation": {
+                "name": "Curah hujan"
+            },
+            "pressure_tendency": {
+                "name": "Kecenderungan tekanan",
+                "state": {
+                    "falling": "Turun",
+                    "rising": "Naik",
+                    "steady": "Tetap"
+                }
+            },
+            "ragweed_pollen": {
+                "state_attributes": {
+                    "level": {
+                        "name": "Tingkat",
+                        "state": {
+                            "good": "Baik",
+                            "hazardous": "Berbahaya",
+                            "high": "Tinggi",
+                            "low": "Rendah",
+                            "moderate": "Sedang",
+                            "unhealthy": "Tidak Sehat"
+                        }
+                    }
+                }
+            },
+            "ragweed_pollen_0d": {
+                "name": "Serbuk sari ragweed siang ini",
+                "state_attributes": {
+                    "level": {
+                        "name": "Tingkat",
+                        "state": {
+                            "good": "Baik",
+                            "hazardous": "Berbahaya",
+                            "high": "Tinggi",
+                            "low": "Rendah",
+                            "moderate": "Sedang",
+                            "unhealthy": "Tidak Sehat"
+                        }
+                    }
+                }
+            },
+            "ragweed_pollen_1d": {
+                "name": "Serbuk sari ragweed siang 1",
+                "state_attributes": {
+                    "level": {
+                        "name": "Tingkat",
+                        "state": {
+                            "good": "Baik",
+                            "hazardous": "Berbahaya",
+                            "high": "Tinggi",
+                            "low": "Rendah",
+                            "moderate": "Sedang",
+                            "unhealthy": "Tidak Sehat"
+                        }
+                    }
+                }
+            },
+            "ragweed_pollen_2d": {
+                "name": "Serbuk sari ragweed siang 2",
+                "state_attributes": {
+                    "level": {
+                        "name": "Tingkat",
+                        "state": {
+                            "good": "Baik",
+                            "hazardous": "Berbahaya",
+                            "high": "Tinggi",
+                            "low": "Rendah",
+                            "moderate": "Sedang",
+                            "unhealthy": "Tidak Sehat"
+                        }
+                    }
+                }
+            },
+            "ragweed_pollen_3d": {
+                "name": "Serbuk sari ragweed siang 3",
+                "state_attributes": {
+                    "level": {
+                        "name": "Tingkat",
+                        "state": {
+                            "good": "Baik",
+                            "hazardous": "Berbahaya",
+                            "high": "Tinggi",
+                            "low": "Rendah",
+                            "moderate": "Sedang",
+                            "unhealthy": "Tidak Sehat"
+                        }
+                    }
+                }
+            },
+            "ragweed_pollen_4d": {
+                "name": "Serbuk sari ragweed siang 4",
+                "state_attributes": {
+                    "level": {
+                        "name": "Tingkat",
+                        "state": {
+                            "good": "Baik",
+                            "hazardous": "Berbahaya",
+                            "high": "Tinggi",
+                            "low": "Rendah",
+                            "moderate": "Sedang",
+                            "unhealthy": "Tidak Sehat"
+                        }
+                    }
+                }
+            },
+            "realfeel_temperature": {
+                "name": "RealFeel suhu"
+            },
+            "realfeel_temperature_max_0d": {
+                "name": "RealFeel suhu maks siang ini"
+            },
+            "realfeel_temperature_max_1d": {
+                "name": "RealFeel suhu max siang 1"
+            },
+            "realfeel_temperature_max_2d": {
+                "name": "RealFeel suhu max siang 2"
+            },
+            "realfeel_temperature_max_3d": {
+                "name": "RealFeel suhu max siang 3"
+            },
+            "realfeel_temperature_max_4d": {
+                "name": "RealFeel suhu max siang 4"
+            },
+            "realfeel_temperature_min_0d": {
+                "name": "RealFeel suhu min siang ini"
+            },
+            "realfeel_temperature_min_1d": {
+                "name": "RealFeel suhu min siang 1"
+            },
+            "realfeel_temperature_min_2d": {
+                "name": "RealFeel suhu min siang 2"
+            },
+            "realfeel_temperature_min_3d": {
+                "name": "RealFeel suhu min siang 3"
+            },
+            "realfeel_temperature_min_4d": {
+                "name": "RealFeel suhu min siang 4"
+            },
+            "realfeel_temperature_shade": {
+                "name": "RealFeel suhu teduh"
+            },
+            "realfeel_temperature_shade_max_0d": {
+                "name": "RealFeel suhu teduh max siang ini"
+            },
+            "realfeel_temperature_shade_max_1d": {
+                "name": "RealFeel suhu teduh max siang 1"
+            },
+            "realfeel_temperature_shade_max_2d": {
+                "name": "RealFeel suhu teduh max siang 2"
+            },
+            "realfeel_temperature_shade_max_3d": {
+                "name": "RealFeel suhu teduh max siang 3"
+            },
+            "realfeel_temperature_shade_max_4d": {
+                "name": "RealFeel suhu teduh max siang 4"
+            },
+            "realfeel_temperature_shade_min_0d": {
+                "name": "RealFeel suhu teduh min siang ini"
+            },
+            "realfeel_temperature_shade_min_1d": {
+                "name": "RealFeel suhu teduh min siang 1"
+            },
+            "realfeel_temperature_shade_min_2d": {
+                "name": "RealFeel suhu teduh min siang 2"
+            },
+            "realfeel_temperature_shade_min_3d": {
+                "name": "RealFeel suhu teduh min siang 3"
+            },
+            "realfeel_temperature_shade_min_4d": {
+                "name": "RealFeel suhu teduh min siang 4"
+            },
+            "solar_irradiance_day_0d": {
+                "name": "Radiasi matahari siang ini"
+            },
+            "solar_irradiance_day_1d": {
+                "name": "Radiasi matahari siang 1"
+            },
+            "solar_irradiance_day_2d": {
+                "name": "Radiasi matahari siang 2"
+            },
+            "solar_irradiance_day_3d": {
+                "name": "Radiasi matahari siang 3"
+            },
+            "solar_irradiance_day_4d": {
+                "name": "Radiasi matahari siang 4"
+            },
+            "solar_irradiance_night_0d": {
+                "name": "Radiasi matahari malam ini"
+            },
+            "solar_irradiance_night_1d": {
+                "name": "Radiasi matahari malam 1"
+            },
+            "solar_irradiance_night_2d": {
+                "name": "Radiasi matahari malam 2"
+            },
+            "solar_irradiance_night_3d": {
+                "name": "Radiasi matahari malam 3"
+            },
+            "solar_irradiance_night_4d": {
+                "name": "Radiasi matahari malam 4"
+            },
+            "thunderstorm_probability_day_0d": {
+                "name": "Probabilitas badai petir siang ini"
+            },
+            "thunderstorm_probability_day_1d": {
+                "name": "Probabilitas badai petir siang 1"
+            },
+            "thunderstorm_probability_day_2d": {
+                "name": "Probabilitas badai petir siang 2"
+            },
+            "thunderstorm_probability_day_3d": {
+                "name": "Probabilitas badai petir siang 3"
+            },
+            "thunderstorm_probability_day_4d": {
+                "name": "Probabilitas badai petir siang 4"
+            },
+            "thunderstorm_probability_night_0d": {
+                "name": "Probabilitas badai petir malam ini"
+            },
+            "thunderstorm_probability_night_1d": {
+                "name": "Probabilitas badai petir malam 1"
+            },
+            "thunderstorm_probability_night_2d": {
+                "name": "Probabilitas badai petir malam 2"
+            },
+            "thunderstorm_probability_night_3d": {
+                "name": "Probabilitas badai petir malam 3"
+            },
+            "thunderstorm_probability_night_4d": {
+                "name": "Probabilitas badai petir malam 4"
+            },
+            "tree_pollen": {
+                "state_attributes": {
+                    "level": {
+                        "name": "Tingkat",
+                        "state": {
+                            "good": "Baik",
+                            "hazardous": "Berbahaya",
+                            "high": "Tinggi",
+                            "low": "Rendah",
+                            "moderate": "Sedang",
+                            "unhealthy": "Tidak Sehat"
+                        }
+                    }
+                }
+            },
+            "tree_pollen_0d": {
+                "name": "Serbuk sari pohon siang ini",
+                "state_attributes": {
+                    "level": {
+                        "name": "Tingkat",
+                        "state": {
+                            "good": "Baik",
+                            "hazardous": "Berbahaya",
+                            "high": "Tinggi",
+                            "low": "Rendah",
+                            "moderate": "Sedang",
+                            "unhealthy": "Tidak Sehat"
+                        }
+                    }
+                }
+            },
+            "tree_pollen_1d": {
+                "name": "Serbuk sari pohon siang 1",
+                "state_attributes": {
+                    "level": {
+                        "name": "Tingkat",
+                        "state": {
+                            "good": "Baik",
+                            "hazardous": "Berbahaya",
+                            "high": "Tinggi",
+                            "low": "Rendah",
+                            "moderate": "Sedang",
+                            "unhealthy": "Tidak Sehat"
+                        }
+                    }
+                }
+            },
+            "tree_pollen_2d": {
+                "name": "Serbuk sari pohon siang 2",
+                "state_attributes": {
+                    "level": {
+                        "name": "Tingkat",
+                        "state": {
+                            "good": "Baik",
+                            "hazardous": "Berbahaya",
+                            "high": "Tinggi",
+                            "low": "Rendah",
+                            "moderate": "Sedang",
+                            "unhealthy": "Tidak Sehat"
+                        }
+                    }
+                }
+            },
+            "tree_pollen_3d": {
+                "name": "Serbuk sari pohon siang 3",
+                "state_attributes": {
+                    "level": {
+                        "name": "Tingkat",
+                        "state": {
+                            "good": "Baik",
+                            "hazardous": "Berbahaya",
+                            "high": "Tinggi",
+                            "low": "Rendah",
+                            "moderate": "Sedang",
+                            "unhealthy": "Tidak Sehat"
+                        }
+                    }
+                }
+            },
+            "tree_pollen_4d": {
+                "name": "Serbuk sari pohon siang 4",
+                "state_attributes": {
+                    "level": {
+                        "name": "Tingkat",
+                        "state": {
+                            "good": "Baik",
+                            "hazardous": "Berbahaya",
+                            "high": "Tinggi",
+                            "low": "Rendah",
+                            "moderate": "Sedang",
+                            "unhealthy": "Tidak Sehat"
+                        }
+                    }
+                }
+            },
+            "uv_index": {
+                "name": "Indeks UV",
+                "state_attributes": {
+                    "level": {
+                        "name": "Tingkat",
+                        "state": {
+                            "good": "Baik",
+                            "hazardous": "Berbahaya",
+                            "high": "Tinggi",
+                            "low": "Rendah",
+                            "moderate": "Sedang",
+                            "unhealthy": "Tidak Sehat"
+                        }
+                    }
+                }
+            },
+            "uv_index_0d": {
+                "name": "Indeks UV siang ini",
+                "state_attributes": {
+                    "level": {
+                        "name": "Tingkat",
+                        "state": {
+                            "good": "Baik",
+                            "hazardous": "Berbahaya",
+                            "high": "Tinggi",
+                            "low": "Rendah",
+                            "moderate": "Sedang",
+                            "unhealthy": "Tidak Sehat"
+                        }
+                    }
+                }
+            },
+            "uv_index_1d": {
+                "name": "Indeks UV siang 1",
+                "state_attributes": {
+                    "level": {
+                        "name": "Tingkat",
+                        "state": {
+                            "good": "Baik",
+                            "hazardous": "Berbahaya",
+                            "high": "Tinggi",
+                            "low": "Rendah",
+                            "moderate": "Sedang",
+                            "unhealthy": "Tidak Sehat"
+                        }
+                    }
+                }
+            },
+            "uv_index_2d": {
+                "name": "Indeks UV siang 2",
+                "state_attributes": {
+                    "level": {
+                        "name": "Tingkat",
+                        "state": {
+                            "good": "Baik",
+                            "hazardous": "Berbahaya",
+                            "high": "Tinggi",
+                            "low": "Rendah",
+                            "moderate": "Sedang",
+                            "unhealthy": "Tidak Sehat"
+                        }
+                    }
+                }
+            },
+            "uv_index_3d": {
+                "name": "Indeks UV siang 3",
+                "state_attributes": {
+                    "level": {
+                        "name": "Tingkat",
+                        "state": {
+                            "good": "Baik",
+                            "hazardous": "Berbahaya",
+                            "high": "Tinggi",
+                            "low": "Rendah",
+                            "moderate": "Sedang",
+                            "unhealthy": "Tidak Sehat"
+                        }
+                    }
+                }
+            },
+            "uv_index_4d": {
+                "name": "Indeks UV siang 4",
+                "state_attributes": {
+                    "level": {
+                        "name": "Tingkat",
+                        "state": {
+                            "good": "Baik",
+                            "hazardous": "Berbahaya",
+                            "high": "Tinggi",
+                            "low": "Rendah",
+                            "moderate": "Sedang",
+                            "unhealthy": "Tidak Sehat"
+                        }
+                    }
+                }
+            },
+            "uv_index_forecast": {
+                "state_attributes": {
+                    "level": {
+                        "name": "Tingkat",
+                        "state": {
+                            "good": "Baik",
+                            "hazardous": "Berbahaya",
+                            "high": "Tinggi",
+                            "low": "Rendah",
+                            "moderate": "Sedang",
+                            "unhealthy": "Tidak Sehat"
+                        }
+                    }
+                }
+            },
+            "wet_bulb_temperature": {
+                "name": "Suhu bola basah"
+            },
+            "wind_chill_temperature": {
+                "name": "Suhu angin dingin"
+            },
+            "wind_gust_speed": {
+                "name": "Kecepatan gust angin"
+            },
+            "wind_gust_speed_day_0d": {
+                "name": "Kecepatan hembusan angin siang ini"
+            },
+            "wind_gust_speed_day_1d": {
+                "name": "Kecepatan hembusan angin siang 1"
+            },
+            "wind_gust_speed_day_2d": {
+                "name": "Kecepatan hembusan angin siang 2"
+            },
+            "wind_gust_speed_day_3d": {
+                "name": "Kecepatan hembusan angin siang 3"
+            },
+            "wind_gust_speed_day_4d": {
+                "name": "Kecepatan hembusan angin siang 4"
+            },
+            "wind_gust_speed_night_0d": {
+                "name": "Kecepatan hembusan angin malam ini"
+            },
+            "wind_gust_speed_night_1d": {
+                "name": "Kecepatan hembusan angin malam 1"
+            },
+            "wind_gust_speed_night_2d": {
+                "name": "Kecepatan hembusan angin malam 2"
+            },
+            "wind_gust_speed_night_3d": {
+                "name": "Kecepatan hembusan angin malam 3"
+            },
+            "wind_gust_speed_night_4d": {
+                "name": "Kecepatan hembusan angin malam 4"
+            },
+            "wind_speed": {
+                "name": "Kecepatan angin"
+            },
+            "wind_speed_day_0d": {
+                "name": "Kecepatan angin siang ini"
+            },
+            "wind_speed_day_1d": {
+                "name": "Kecepatan angin siang 1"
+            },
+            "wind_speed_day_2d": {
+                "name": "Kecepatan angin siang 2"
+            },
+            "wind_speed_day_3d": {
+                "name": "Kecepatan angin siang 3"
+            },
+            "wind_speed_day_4d": {
+                "name": "Kecepatan angin siang 4"
+            },
+            "wind_speed_night_0d": {
+                "name": "Kecepatan angin malam ini"
+            },
+            "wind_speed_night_1d": {
+                "name": "Kecepatan angin malam 1"
+            },
+            "wind_speed_night_2d": {
+                "name": "Kecepatan angin malam 2"
+            },
+            "wind_speed_night_3d": {
+                "name": "Kecepatan angin malam 3"
+            },
+            "wind_speed_night_4d": {
+                "name": "Kecepatan angin malam 4"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "forecast": "Prakiraan cuaca"
+                },
+                "description": "Karena keterbatasan versi gratis kunci API AccuWeather, ketika Anda mengaktifkan prakiraan cuaca, pembaruan data akan dilakukan setiap 80 menit, bukan setiap 40 menit."
+            }
+        }
+    },
+    "system_health": {
+        "info": {
+            "can_reach_server": "Keterjangkauan server AccuWeather",
+            "remaining_requests": "Sisa permintaan yang diizinkan"
+        }
+    }
+}

@@ -1,0 +1,188 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Apparaat is al geconfigureerd"
+        },
+        "error": {
+            "cannot_connect": "Kan geen verbinding maken",
+            "invalid_auth": "Ongeldige authenticatie",
+            "invalid_host": "De hostvermelding had de niet volledig URL-indeling, bijvoorbeeld http://192.168.10.100:80",
+            "reauth_successful": "Herauthenticatie geslaagd",
+            "unknown": "Onverwachte fout"
+        },
+        "flow_title": "{name} ({host})",
+        "step": {
+            "reauth_confirm": {
+                "data": {
+                    "password": "Wachtwoord",
+                    "username": "Gebruikersnaam"
+                },
+                "description": "De inloggegevens voor {host} zijn niet langer geldig.",
+                "title": "Herautoriseer je ISY"
+            },
+            "user": {
+                "data": {
+                    "host": "URL",
+                    "password": "Wachtwoord",
+                    "tls": "De TLS-versie van de ISY-controller.",
+                    "username": "Gebruikersnaam"
+                },
+                "description": "Het hostvermelding moet de volledige URL-indeling hebben, bijvoorbeeld http://192.168.10.100:80",
+                "title": "Maak verbinding met uw ISY"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_service": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "title": "De {deprecated_service} service wordt verwijderd"
+                    },
+                    "deprecated_yaml": {
+                        "title": "De ISY/IoX YAML configuratie wordt verwijderd"
+                    }
+                }
+            },
+            "title": "De {deprecated_service} service wordt verwijderd"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "ignore_string": "Tekenreeks negeren",
+                    "restore_light_state": "Herstel lichthelderheid",
+                    "sensor_string": "Node Sensor String",
+                    "variable_sensor_string": "Variabele sensor string"
+                },
+                "description": "Stel de opties in voor de ISY-integratie:\n \u2022 Node Sensor String: elk apparaat of elke map die 'Node Sensor String' in de naam bevat, wordt behandeld als een sensor of binaire sensor.\n \u2022 Ignore String: elk apparaat met 'Ignore String' in de naam wordt genegeerd.\n \u2022 Variabele sensorreeks: elke variabele die 'Variabele sensorreeks' bevat, wordt als sensor toegevoegd.\n \u2022 Lichthelderheid herstellen: indien ingeschakeld, wordt de vorige helderheid hersteld wanneer u een lamp inschakelt in plaats van het ingebouwde Aan-niveau van het apparaat.",
+                "title": "ISY-opties"
+            }
+        }
+    },
+    "services": {
+        "delete_zwave_lock_user_code": {
+            "description": "Verwijder Z-Wave slot gebruikerscode via de ISY.",
+            "fields": {
+                "user_num": {
+                    "description": "Het gebruikers slotnummer op het slot.",
+                    "name": "Gebruikersnummer"
+                }
+            },
+            "name": "Verwijder Z-Wave slot gebruikerscode"
+        },
+        "get_zwave_parameter": {
+            "description": "Vraagt een Z-Wave apparaat parameter op via de ISY. De parameterwaarde zal worden teruggestuurd als een extra statusattribuut waarbij de naam van de entiteit \"ZW_#`\"  is en \"#\" het parameternummer is.",
+            "fields": {
+                "parameter": {
+                    "description": "Het parameternummer om te ontvangen van het apparaat.",
+                    "name": "Parameter"
+                }
+            }
+        },
+        "rename_node": {
+            "fields": {
+                "name": {
+                    "description": "De nieuwe naam om te gebruiken binnen de ISY.",
+                    "name": "Nieuwe naam"
+                }
+            },
+            "name": "ISY node hernoemen"
+        },
+        "send_node_command": {
+            "description": "Stuurt een commando naar een ISO apparaat door gebruik te maken van zijn Home Assistant entiteits ID. Geldige commando's zijn: `beep`, `dim`, `disable`, `enable`, `fade_down`, fade_stop`, fade_up`, `fast_off`, `fast_on` en `query`.",
+            "fields": {
+                "command": {
+                    "description": "Het commando om te sturen naar het apparaat.",
+                    "name": "Commando"
+                }
+            },
+            "name": "Stuur node commando"
+        },
+        "send_program_command": {
+            "description": "Stuurt een commando om een ISY programma of map te besturen. Geldige commando's zijn `run`, `run_then`, `run_else`, `stop`, `enable`, `disable`, `enable_run_at_startup` en `disable_run_at_startup`.",
+            "fields": {
+                "address": {
+                    "description": "Het adres van de `program control` (gebruik het adres of de naam)",
+                    "name": "Adres"
+                },
+                "command": {
+                    "description": "Het ISY Program Command om te sturen.",
+                    "name": "Opdracht"
+                },
+                "isy": {
+                    "description": "Als meer dan \u00e9\u00e9n ISY is verbonden, geef dan de naam van de ISY om uittelezen (zoals weergegeven in de Device Registry of als de top-first node in de ISY Admin Console). Als je dezelde programmanaam of adres op meerdere ISY's hebt ingesteld, dan zal het weglaten van deze optie het commando op alle ISY's uitgevoeren.",
+                    "name": "ISY"
+                },
+                "name": {
+                    "description": "De naam van het programma om te besturen (het adres of de naam).",
+                    "name": "Naam"
+                }
+            },
+            "name": "Stuur programma commando"
+        },
+        "send_raw_node_command": {
+            "description": "Stel de opties in voor de ISY-integratie:\n \u2022 Node Sensor String: elk apparaat of elke map die 'Node Sensor String' in de naam bevat, wordt behandeld als een sensor of binaire sensor.\n \u2022 Ignore String: elk apparaat met 'Ignore String' in de naam wordt genegeerd.\n \u2022 Variabele sensorreeks: elke variabele die 'Variabele sensorreeks' bevat, wordt als sensor toegevoegd.\n \u2022 Lichthelderheid herstellen: indien ingeschakeld, wordt de vorige helderheid hersteld wanneer u een lamp inschakelt in plaats van het ingebouwde Aan-niveau van het apparaat.",
+            "fields": {
+                "command": {
+                    "description": "Het ISY REST Commando om te sturen naar het apparaat.",
+                    "name": "Commando"
+                },
+                "parameters": {
+                    "description": "Een `dict` van parameters om in de uitvraag string mee te sturen (b.v. voor het aansturen van kleurlampen).",
+                    "name": "Parameters"
+                },
+                "unit_of_measurement": {
+                    "description": "De ISU Unit of Measurement (UOM/meeteenheid) om mee te storen met het commando, als dit nodig is.",
+                    "name": "Meeteenheid"
+                },
+                "value": {
+                    "description": "De integer waarde om te sturen met het commando.",
+                    "name": "Waarde"
+                }
+            },
+            "name": "Stuur een node commando in ruwe text"
+        },
+        "set_zwave_lock_user_code": {
+            "description": "Stelt een Z-Wave sloyt gebruikerscode in via de ISY.",
+            "fields": {
+                "code": {
+                    "description": "De code om in te stellen voor de gebruiker.",
+                    "name": "Code"
+                },
+                "user_num": {
+                    "description": "Het gebruikers slotnummer op het slot.",
+                    "name": "Gebruikersnummer"
+                }
+            },
+            "name": "Instellen Z-Wave slot gebruikerscode"
+        },
+        "set_zwave_parameter": {
+            "description": "Werkt een Z-Wave apparaat parameter bij via de ISY. De parameterwaarde zal ook worden teruggestuurd als een extra entiteit statusattribuut met de naam \"ZW_#\" waarbij \"#\" het parameter nummer is.",
+            "fields": {
+                "parameter": {
+                    "description": "Het parameternummer om in te stellen op het eindapparaat.",
+                    "name": "Parameter"
+                },
+                "size": {
+                    "description": "De grootte van de parameter (1, 2 of 4 bytes).",
+                    "name": "Grootte"
+                },
+                "value": {
+                    "description": "De waarde om in te stellen voor de parameter. Dit mag een integer- of bytestring zijn (b.v. \"0xFFFF\").",
+                    "name": "Waarde"
+                }
+            },
+            "name": "Instellen Z-Wave parameter"
+        }
+    },
+    "system_health": {
+        "info": {
+            "device_connected": "ISY verbonden",
+            "host_reachable": "Host bereikbaar",
+            "last_heartbeat": "Laatste Heartbeat tijd",
+            "websocket_status": "Event Socket Status"
+        }
+    }
+}

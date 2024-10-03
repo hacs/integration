@@ -1,0 +1,62 @@
+{
+    "issues": {
+        "backup_failed_out_of_resources": {
+            "description": "Tietokannan varmuuskopiointi osoitteessa {start_time} ep\u00e4onnistui resurssipulan vuoksi. Varmuuskopiointiin ei voi luottaa, ja se on k\u00e4ynnistett\u00e4v\u00e4 uudelleen. N\u00e4in voi tapahtua, jos tietokanta on liian suuri tai jos j\u00e4rjestelm\u00e4\u00e4 kuormitetaan voimakkaasti. Harkitse j\u00e4rjestelm\u00e4n laitteiston p\u00e4ivitt\u00e4mist\u00e4 tai tietokannan koon pienent\u00e4mist\u00e4 v\u00e4hent\u00e4m\u00e4ll\u00e4 s\u00e4ilytett\u00e4vien historiap\u00e4ivien m\u00e4\u00e4r\u00e4\u00e4 tai luomalla suodatin.",
+            "title": "Tietokannan varmuuskopiointi ep\u00e4onnistui resurssien puutteen vuoksi"
+        },
+        "maria_db_range_index_regression": {
+            "description": "MariaDB:n vanhemmat versiot k\u00e4rsiv\u00e4t merkitt\u00e4v\u00e4st\u00e4 suorituskyvyn heikkenemisest\u00e4, kun historiatietoja haetaan tai tietokanta tyhjennet\u00e4\u00e4n. P\u00e4ivit\u00e4 MariaDB -versioon {min_version} tai uudempaan ja k\u00e4ynnist\u00e4 Home Assistant uudelleen. Jos k\u00e4yt\u00e4t MariaDB -ydinlis\u00e4osaa, varmista, ett\u00e4 p\u00e4ivit\u00e4t sen uusimpaan versioon.",
+            "title": "P\u00e4ivit\u00e4 MariaDB versioon {min_version} tai ratkaise my\u00f6hemmin merkitt\u00e4v\u00e4 suorituskykyongelma"
+        }
+    },
+    "services": {
+        "disable": {
+            "description": "Pys\u00e4ytt\u00e4\u00e4 tapahtumien ja tilamuutosten tallentamisen.",
+            "name": "Poista k\u00e4yt\u00f6st\u00e4"
+        },
+        "enable": {
+            "description": "K\u00e4ynnist\u00e4\u00e4 tapahtumien ja tilamuutosten tallennuksen.",
+            "name": "Ota k\u00e4ytt\u00f6\u00f6n"
+        },
+        "purge": {
+            "description": "K\u00e4ynnist\u00e4\u00e4 puhdistusteht\u00e4v\u00e4n - vanhojen tietojen siivoaminen tietokannasta.",
+            "fields": {
+                "apply_filter": {
+                    "description": "K\u00e4ytt\u00e4 'entity_id'- ja 'event_type' -suodattimia aikaperusteisen tyhjennyksen lis\u00e4ksi.",
+                    "name": "K\u00e4yt\u00e4 suodatinta"
+                },
+                "keep_days": {
+                    "description": "P\u00e4ivien m\u00e4\u00e4r\u00e4, jonka tiedot s\u00e4ilytet\u00e4\u00e4n tietokannassa. Alkaen t\u00e4st\u00e4 p\u00e4iv\u00e4st\u00e4, taaksep\u00e4in laskien. Arvo \"7\" tarkoittaa, ett\u00e4 kaikki viikkoa vanhemmat tiedot poistetaan.",
+                    "name": "S\u00e4ilytett\u00e4v\u00e4t p\u00e4iv\u00e4t"
+                },
+                "repack": {
+                    "description": "Yrit\u00e4 s\u00e4\u00e4st\u00e4\u00e4 levytilaa kirjoittamalla koko tietokantatiedosto uudelleen.",
+                    "name": "Pakkaa uudelleen"
+                }
+            },
+            "name": "Puhdistus"
+        },
+        "purge_entities": {
+            "description": "K\u00e4ynnist\u00e4\u00e4 tyhjennysteht\u00e4v\u00e4n, jolla poistetaan tiettyihin entiteetteihin liittyv\u00e4t tiedot tietokannasta.",
+            "fields": {
+                "domains": {
+                    "description": "Luettelo verkkotunnuksista, joiden tiedot on poistettava tallentimen tietokannasta.",
+                    "name": "Poistettavat verkkotunnukset"
+                },
+                "entity_globs": {
+                    "description": "Luettelo glob-malleista, joiden avulla valitaan entiteetit, joiden tiedot poistetaan tallentimen tietokannasta.",
+                    "name": "Poistettavat entiteettipallot"
+                },
+                "entity_id": {
+                    "description": "Luettelo yksik\u00f6ist\u00e4, joiden tiedot on poistettava tallentimen tietokannasta.",
+                    "name": "Poistettavat entiteetit"
+                },
+                "keep_days": {
+                    "description": "P\u00e4ivien lukum\u00e4\u00e4r\u00e4, jonka ajan suodattimen mukaisia rivej\u00e4 koskevat tiedot s\u00e4ilytet\u00e4\u00e4n. Alkaen t\u00e4st\u00e4 p\u00e4iv\u00e4st\u00e4, taaksep\u00e4in laskien. Arvo \"7\" tarkoittaa, ett\u00e4 kaikki viikkoa vanhemmat tiedot poistetaan. Oletusarvo 0 p\u00e4iv\u00e4\u00e4 poistaa kaikki vastaavat rivit v\u00e4litt\u00f6m\u00e4sti.",
+                    "name": "S\u00e4ilytett\u00e4v\u00e4t p\u00e4iv\u00e4t"
+                }
+            },
+            "name": "Tyhjenn\u00e4 entiteetit"
+        }
+    }
+}

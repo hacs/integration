@@ -1,0 +1,125 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "El dispositivo ya est\u00e1 configurado"
+        },
+        "step": {
+            "user": {
+                "description": "\u00bfQuieres iniciar la configuraci\u00f3n?"
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "average_price": {
+                "name": "Promedio - hoy"
+            },
+            "current_hour_price": {
+                "name": "Hora actual"
+            },
+            "highest_price_time": {
+                "name": "Momento de mayor precio - hoy"
+            },
+            "hours_priced_equal_or_higher": {
+                "name": "Horas con un precio igual o superior al actual - hoy"
+            },
+            "hours_priced_equal_or_lower": {
+                "name": "Horas con un precio igual o inferior al actual - hoy"
+            },
+            "lowest_price_time": {
+                "name": "Hora del precio m\u00e1s bajo - hoy"
+            },
+            "max_price": {
+                "name": "Precio m\u00e1s alto - hoy"
+            },
+            "min_price": {
+                "name": "Precio m\u00e1s bajo - hoy"
+            },
+            "next_hour_price": {
+                "name": "Pr\u00f3xima hora"
+            },
+            "percentage_of_max": {
+                "name": "Porcentaje actual del precio m\u00e1s alto - hoy"
+            }
+        }
+    },
+    "exceptions": {
+        "invalid_config_entry": {
+            "message": "Se proporcion\u00f3 una entrada de configuraci\u00f3n no v\u00e1lida. Se obtuvo {config_entry}"
+        },
+        "invalid_date": {
+            "message": "Fecha proporcionada no v\u00e1lida. Tengo {date}"
+        },
+        "unloaded_config_entry": {
+            "message": "Se proporcion\u00f3 una entrada de configuraci\u00f3n no v\u00e1lida. {config_entry} no est\u00e1 cargado."
+        }
+    },
+    "services": {
+        "get_energy_prices": {
+            "description": "Solicitar los precios de la energ\u00eda a EnergyZero.",
+            "fields": {
+                "config_entry": {
+                    "description": "La entrada de configuraci\u00f3n que se utilizar\u00e1 para esta acci\u00f3n.",
+                    "name": "Entrada de configuraci\u00f3n"
+                },
+                "end": {
+                    "description": "Especifica la fecha y hora hasta la cual recuperar los precios. El valor predeterminado es hoy si se omite.",
+                    "name": "Fin"
+                },
+                "incl_vat": {
+                    "description": "Incluir el IVA en los precios.",
+                    "name": "IVA incluido"
+                },
+                "start": {
+                    "description": "Especifica la fecha y hora a partir de las cuales recuperar los precios. El valor predeterminado es hoy si se omite.",
+                    "name": "Inicio"
+                }
+            },
+            "name": "Obtener precios de energ\u00eda"
+        },
+        "get_gas_prices": {
+            "description": "Solicita los precios del gas a EnergyZero.",
+            "fields": {
+                "config_entry": {
+                    "description": "La entrada de configuraci\u00f3n que se utilizar\u00e1 para esta acci\u00f3n.",
+                    "name": "Entrada de configuraci\u00f3n"
+                },
+                "end": {
+                    "description": "Especifica la fecha y hora hasta la cual recuperar los precios. El valor predeterminado es hoy si se omite.",
+                    "name": "Fin"
+                },
+                "incl_vat": {
+                    "description": "Incluir el IVA en los precios.",
+                    "name": "IVA incluido"
+                },
+                "start": {
+                    "description": "Especifica la fecha y hora a partir de las cuales recuperar los precios. El valor predeterminado es hoy si se omite.",
+                    "name": "Inicio"
+                }
+            },
+            "name": "Obtener precios del gas"
+        },
+        "get_prices": {
+            "description": "Solicitar precios de energ\u00eda o gas a EnergyZero.",
+            "fields": {
+                "end": {
+                    "description": "Hasta qu\u00e9 momento obtener los precios. Por defecto es hoy si se omite.",
+                    "name": "Fin"
+                },
+                "incl_vat": {
+                    "description": "Incluir el IVA en los precios. Por defecto es verdadero si se omite.",
+                    "name": "IVA incluido"
+                },
+                "start": {
+                    "description": "A partir de qu\u00e9 momento obtener los precios. Si se omite, el valor predeterminado es hoy.",
+                    "name": "Inicio"
+                },
+                "type": {
+                    "description": "Tipo de precios a obtener, energ\u00eda o gas.",
+                    "name": "Tipo"
+                }
+            },
+            "name": "Obtener precios"
+        }
+    }
+}

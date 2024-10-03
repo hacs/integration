@@ -1,0 +1,2516 @@
+{
+  "language": "cs",
+  "intents": {
+    "HassTurnOff": {
+      "data": [
+        {
+          "sentences": [
+            "<vypnout> {name}",
+            "{name} <vypnout>"
+          ],
+          "excludes_context": {
+            "domain": [
+              "cover",
+              "fan",
+              "light"
+            ]
+          }
+        },
+        {
+          "sentences": [
+            "<vypnout> světlo {name}",
+            "<zhasnout> [světlo] {name}",
+            "{name} <vypnout> světlo",
+            "{name} <zhasnout> [světlo]"
+          ],
+          "requires_context": {
+            "domain": "light"
+          },
+          "slots": {
+            "domain": "light"
+          },
+          "response": "light"
+        },
+        {
+          "sentences": [
+            "<vypnout> <svetla> <area>",
+            "<zhasnout> [<svetla>] <area>",
+            "<area> <vypnout> <svetla>",
+            "<area> <zhasnout> [<svetla>]"
+          ],
+          "slots": {
+            "domain": "light"
+          },
+          "response": "lights_area"
+        },
+        {
+          "sentences": [
+            "(<vypnout>|<zhasnout>) [úplně] [všechna] světla",
+            "<vypnout> světlo",
+            "<zhasnout> [světlo]"
+          ],
+          "response": "light_all",
+          "requires_context": {
+            "area": {
+              "slot": true
+            }
+          },
+          "slots": {
+            "domain": "light"
+          }
+        },
+        {
+          "sentences": [
+            "<zavrit> garáž",
+            "<zavrit> vrata od garáže",
+            "<zavrit> garážová vrata"
+          ],
+          "slots": {
+            "device_class": "garage",
+            "domain": "cover"
+          },
+          "response": "garage"
+        },
+        {
+          "sentences": [
+            "<zavrit> {name} [<area>]"
+          ],
+          "requires_context": {
+            "domain": "cover"
+          },
+          "response": "cover"
+        },
+        {
+          "sentences": [
+            "<zatahnout> {name} [<area>]"
+          ],
+          "requires_context": {
+            "device_class": [
+              "awning",
+              "blind",
+              "curtain",
+              "shade",
+              "shutter"
+            ],
+            "domain": "cover"
+          },
+          "response": "cover"
+        },
+        {
+          "sentences": [
+            "(<zavrit>|<zatahnout>) (rolet(u|y)|žaluzi(i|e)|závěs[y]|markýz[u|y]|stínítk[o|a]) <area>"
+          ],
+          "slots": {
+            "device_class": [
+              "awning",
+              "blind",
+              "curtain",
+              "shade",
+              "shutter"
+            ],
+            "domain": "cover"
+          },
+          "response": "cover"
+        },
+        {
+          "sentences": [
+            "<zavrit> {cover_classes:device_class}"
+          ],
+          "slots": {
+            "domain": "cover"
+          },
+          "response": "cover",
+          "requires_context": {
+            "area": {
+              "slot": true
+            }
+          }
+        },
+        {
+          "sentences": [
+            "<vypnout> [všechny] [stropní] (ventilátory|větráky) <area>",
+            "<area> <vypnout> [všechny] [stropní] (ventilátory|větráky)"
+          ],
+          "slots": {
+            "domain": "fan",
+            "name": "all"
+          },
+          "response": "fans_area"
+        },
+        {
+          "sentences": [
+            "<vypnout> [stropní] (ventilátor|větrák) <area>",
+            "<area> <vypnout> [stropní] (ventilátor|větrák)"
+          ],
+          "slots": {
+            "domain": "fan"
+          },
+          "response": "fan"
+        }
+      ]
+    },
+    "HassGetState": {
+      "data": [
+        {
+          "sentences": [
+            "kde je {name}"
+          ],
+          "response": "where",
+          "requires_context": {
+            "domain": "person"
+          },
+          "slots": {
+            "domain": "person"
+          }
+        },
+        {
+          "sentences": [
+            "je {name} doma"
+          ],
+          "response": "where",
+          "requires_context": {
+            "domain": "person"
+          },
+          "slots": {
+            "domain": "person",
+            "state": "home"
+          }
+        },
+        {
+          "sentences": [
+            "jsou všichni doma"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "person",
+            "state": "home"
+          }
+        },
+        {
+          "sentences": [
+            "jsou všichni (pryč|na cestě|mimo domov)"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "person",
+            "state": "not_home"
+          }
+        },
+        {
+          "sentences": [
+            "je někdo doma",
+            "kdo je doma"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "person",
+            "state": "home"
+          }
+        },
+        {
+          "sentences": [
+            "kdo není doma",
+            "kdo je mimo domov",
+            "je někdo mimo domov",
+            "je někdo mimo pryč"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "person",
+            "state": "not_home"
+          }
+        },
+        {
+          "sentences": [
+            "kolik lidí je doma"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "person",
+            "state": "home"
+          }
+        },
+        {
+          "sentences": [
+            "kolik lidí (není doma|je pryč|je na cestě|je mimo domov)"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "person",
+            "state": "not_home"
+          }
+        },
+        {
+          "sentences": [
+            "není {name} doma",
+            "je {name} (pryč|na cestě|mimo domov)"
+          ],
+          "response": "where",
+          "requires_context": {
+            "domain": "person"
+          },
+          "slots": {
+            "domain": "person",
+            "state": "not_home"
+          }
+        },
+        {
+          "sentences": [
+            "je {name} [<v>] [zóně] {zone:state}"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "person"
+          },
+          "slots": {
+            "domain": "person"
+          }
+        },
+        {
+          "sentences": [
+            "(je někdo|kdo je) [<v>] [zóně] {zone:state}"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "person"
+          }
+        },
+        {
+          "sentences": [
+            "jsou všichni [<v>] [zóně] {zone:state}"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "person"
+          }
+        },
+        {
+          "sentences": [
+            "kdo je [<v>] {zone:state}"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "person"
+          }
+        },
+        {
+          "sentences": [
+            "kolik lidí je [<v>] [zóně] {zone:state}"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "person"
+          }
+        },
+        {
+          "sentences": [
+            "<jaka_je_class_of_name>",
+            "kolik stupňů [je|bylo] [(na|z)měřeno] [(na senzoru|senzorem)] {name} [<area>]"
+          ],
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "temperature"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "temperature"
+          },
+          "expansion_rules": {
+            "class": "teplota"
+          }
+        },
+        {
+          "sentences": [
+            "<jaka_je_class_of_name>"
+          ],
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "apparent_power"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "apparent_power"
+          },
+          "expansion_rules": {
+            "class": "zdánliv<y_ej> výkon"
+          }
+        },
+        {
+          "sentences": [
+            "<jaka_je_class_of_name>"
+          ],
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "aqi"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "aqi"
+          },
+          "expansion_rules": {
+            "class": "[index] kvalit(y|a) vzduchu"
+          }
+        },
+        {
+          "sentences": [
+            "<jaka_je_class_of_name>"
+          ],
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "atmospheric_pressure"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "atmospheric_pressure"
+          },
+          "expansion_rules": {
+            "class": "[atmosferick<y_ej>] tlak [vzduchu]"
+          }
+        },
+        {
+          "sentences": [
+            "<jaka_je_class_of_name>"
+          ],
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "battery"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "battery"
+          },
+          "expansion_rules": {
+            "class": "[(stav|úroveň|procento)] [nabití] baterie"
+          }
+        },
+        {
+          "sentences": [
+            "<jaka_je_class_of_name>"
+          ],
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "carbon_dioxide"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "carbon_dioxide"
+          },
+          "expansion_rules": {
+            "class": "<koncentrace> (oxidu uhličit<y_e>ho|CO2)"
+          }
+        },
+        {
+          "sentences": [
+            "<jaka_je_class_of_name>"
+          ],
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "carbon_monoxide"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "carbon_monoxide"
+          },
+          "expansion_rules": {
+            "class": "<koncentrace> (oxidu uhelnat<y_e>ho|CO)"
+          }
+        },
+        {
+          "sentences": [
+            "<jaka_je_class_of_name>"
+          ],
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "current"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "current"
+          },
+          "expansion_rules": {
+            "class": "[elektrick<y_ej>] proud"
+          }
+        },
+        {
+          "sentences": [
+            "<jaka_je_class_of_name>"
+          ],
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "data_rate"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "data_rate"
+          },
+          "expansion_rules": {
+            "class": "rychlost (stahování|nahrávání) [dat]"
+          }
+        },
+        {
+          "sentences": [
+            "<jaka_je_class_of_name>"
+          ],
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "data_size"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "data_size"
+          },
+          "expansion_rules": {
+            "class": "(velikost|objem) [dat]"
+          }
+        },
+        {
+          "sentences": [
+            "<jaka_je_class_of_name>",
+            "kdy (je|bylo|bude|byli|budou) {name}"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "date"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "date"
+          },
+          "expansion_rules": {
+            "class": "[kalendářní] datum"
+          }
+        },
+        {
+          "sentences": [
+            "<jaka_je_class_of_name>",
+            "jak (daleko|dlouh(ý|á)) je {name}"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "distance"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "distance"
+          },
+          "expansion_rules": {
+            "class": "vzdálenost"
+          }
+        },
+        {
+          "sentences": [
+            "<jaka_je_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "duration"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "duration"
+          },
+          "expansion_rules": {
+            "class": "(doba [trvání]|dlouho [bude] trv(á|alo|at))"
+          }
+        },
+        {
+          "sentences": [
+            "<jaka_je_class_of_name>"
+          ],
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "energy"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "energy"
+          },
+          "expansion_rules": {
+            "class": "energie"
+          }
+        },
+        {
+          "sentences": [
+            "<jaka_je_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "energy_storage"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "energy_storage"
+          },
+          "expansion_rules": {
+            "class": "[množství] uložen(é|á|ý) energie"
+          }
+        },
+        {
+          "sentences": [
+            "<jaka_je_class_of_name>"
+          ],
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "frequency"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "frequency"
+          },
+          "expansion_rules": {
+            "class": "frekvence"
+          }
+        },
+        {
+          "sentences": [
+            "<jaka_je_class_of_name>"
+          ],
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "gas"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "gas"
+          },
+          "expansion_rules": {
+            "class": "(objem|množství) plynu"
+          }
+        },
+        {
+          "sentences": [
+            "<jaka_je_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "humidity"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "humidity"
+          },
+          "expansion_rules": {
+            "class": "[relativní ]vlhkost[ vzduchu]"
+          }
+        },
+        {
+          "sentences": [
+            "<jaka_je_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "illuminance"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "illuminance"
+          },
+          "expansion_rules": {
+            "class": "[intenzita] (osvětlen[í|ost]|světl(a|o))"
+          }
+        },
+        {
+          "sentences": [
+            "<jaka_je_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "irradiance"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "irradiance"
+          },
+          "expansion_rules": {
+            "class": "[(množství|úroveň)] ozáření"
+          }
+        },
+        {
+          "sentences": [
+            "<jaka_je_class_of_name>"
+          ],
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "moisture"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "moisture"
+          },
+          "expansion_rules": {
+            "class": "[relativní ]vlhkost"
+          }
+        },
+        {
+          "sentences": [
+            "<jaka_je_class_of_name>",
+            "kolik [peněz] (stojí|stál[(o|a)]) {name}"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "monetary"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "monetary"
+          },
+          "expansion_rules": {
+            "class": "(náklady|[(množství|objem)] peněz|částka)"
+          }
+        },
+        {
+          "sentences": [
+            "<jaka_je_class_of_name>"
+          ],
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "nitrogen_dioxide"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "nitrogen_dioxide"
+          },
+          "expansion_rules": {
+            "class": "<koncentrace> (oxidu dusičit<y_e>ho|NO2)"
+          }
+        },
+        {
+          "sentences": [
+            "<jaka_je_class_of_name>"
+          ],
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "nitrogen_monoxide"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "nitrogen_monoxide"
+          },
+          "expansion_rules": {
+            "class": "<koncentrace> (oxidu dusnat<y_e>ho|NO)"
+          }
+        },
+        {
+          "sentences": [
+            "<jaka_je_class_of_name>"
+          ],
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "nitrous_oxide"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "nitrous_oxide"
+          },
+          "expansion_rules": {
+            "class": "<koncentrace> (oxidu dusnat<y_e>ho|N2O)"
+          }
+        },
+        {
+          "sentences": [
+            "<jaka_je_class_of_name>"
+          ],
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "ozone"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "ozone"
+          },
+          "expansion_rules": {
+            "class": "<koncentrace> (oz(o|ó)nu|O3)"
+          }
+        },
+        {
+          "sentences": [
+            "<jaka_je_class_of_name>"
+          ],
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "pm1"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "pm1"
+          },
+          "expansion_rules": {
+            "class": "<koncentrace> [částic] pm1 [ve vzduchu]"
+          }
+        },
+        {
+          "sentences": [
+            "<jaka_je_class_of_name>"
+          ],
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "pm25"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "pm25"
+          },
+          "expansion_rules": {
+            "class": "<koncentrace> [částic] pm2.5 [ve vzduchu]"
+          }
+        },
+        {
+          "sentences": [
+            "<jaka_je_class_of_name>"
+          ],
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "pm10"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "pm10"
+          },
+          "expansion_rules": {
+            "class": "<koncentrace> [částic] pm10 [ve vzduchu]"
+          }
+        },
+        {
+          "sentences": [
+            "<jaka_je_class_of_name>"
+          ],
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "power_factor"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "power_factor"
+          },
+          "expansion_rules": {
+            "class": "účiník"
+          }
+        },
+        {
+          "sentences": [
+            "<jaka_je_class_of_name>"
+          ],
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "power"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "power"
+          },
+          "expansion_rules": {
+            "class": "výkon"
+          }
+        },
+        {
+          "sentences": [
+            "<jaka_je_class_of_name>"
+          ],
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "precipitation"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "precipitation"
+          },
+          "expansion_rules": {
+            "class": "[(souhrn[<y_e>]|úhrn[<y_e>]|celkov<y_e>)] [množství] [(dešťov<y_ej>ch|sněhov<y_ej>[ch])] (srážek|srážky)"
+          }
+        },
+        {
+          "sentences": [
+            "<jaka_je_class_of_name>"
+          ],
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "precipitation_intensity"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "precipitation_intensity"
+          },
+          "expansion_rules": {
+            "class": "intenzita [(dešťov<y_ej>ch|sněhov<y_ej>ch)] srážek"
+          }
+        },
+        {
+          "sentences": [
+            "<jaka_je_class_of_name>"
+          ],
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "pressure"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "pressure"
+          },
+          "expansion_rules": {
+            "class": "tlak"
+          }
+        },
+        {
+          "sentences": [
+            "<jaka_je_class_of_name>"
+          ],
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "reactive_power"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "reactive_power"
+          },
+          "expansion_rules": {
+            "class": "jalov<y_ej> výkon"
+          }
+        },
+        {
+          "sentences": [
+            "<jaka_je_class_of_name>"
+          ],
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "signal_strength"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "signal_strength"
+          },
+          "expansion_rules": {
+            "class": "(sihnál|síla signálu)"
+          }
+        },
+        {
+          "sentences": [
+            "<jaka_je_class_of_name>"
+          ],
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "sound_pressure"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "sound_pressure"
+          },
+          "expansion_rules": {
+            "class": "(zvukov<y_ej>|akustick<y_ej>) tlak"
+          }
+        },
+        {
+          "sentences": [
+            "<jaka_je_class_of_name>"
+          ],
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "speed"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "speed"
+          },
+          "expansion_rules": {
+            "class": "rychlost"
+          }
+        },
+        {
+          "sentences": [
+            "<jaka_je_class_of_name>"
+          ],
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "sulphur_dioxide"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "sulphur_dioxide"
+          },
+          "expansion_rules": {
+            "class": "<koncentrace> (oxidu siřičit<y_e>ho|SO2)"
+          }
+        },
+        {
+          "sentences": [
+            "<jaka_je_class_of_name>"
+          ],
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "volatile_organic_compounds"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "volatile_organic_compounds"
+          },
+          "expansion_rules": {
+            "class": "[množství] voln<y_ej>ch organick<y_ej>ch látek"
+          }
+        },
+        {
+          "sentences": [
+            "<jaka_je_class_of_name>"
+          ],
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "volatile_organic_compounds_parts"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "volatile_organic_compounds_parts"
+          },
+          "expansion_rules": {
+            "class": "koncentrace voln<y_ej>ch organick<y_ej>ch látek"
+          }
+        },
+        {
+          "sentences": [
+            "<jaka_je_class_of_name>"
+          ],
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "voltage"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "voltage"
+          },
+          "expansion_rules": {
+            "class": "napětí"
+          }
+        },
+        {
+          "sentences": [
+            "<jaka_je_class_of_name>"
+          ],
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "volume"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "volume"
+          },
+          "expansion_rules": {
+            "class": "objem"
+          }
+        },
+        {
+          "sentences": [
+            "<jaka_je_class_of_name>"
+          ],
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "volume_storage"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "volume_storage"
+          },
+          "expansion_rules": {
+            "class": "celkov<y_ej> [uložen<y_ej>] objem"
+          }
+        },
+        {
+          "sentences": [
+            "<jaka_je_class_of_name>"
+          ],
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "water"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "water"
+          },
+          "expansion_rules": {
+            "class": "[celkov<y_e>] (množství|objem) [spotřebovan<y_e>] vody"
+          }
+        },
+        {
+          "sentences": [
+            "<jaka_je_class_of_name>"
+          ],
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "weight"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "weight"
+          },
+          "expansion_rules": {
+            "class": "(hmotnost|váha)"
+          }
+        },
+        {
+          "sentences": [
+            "<jaka_je_class_of_name>"
+          ],
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "wind_speed"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "wind_speed"
+          },
+          "expansion_rules": {
+            "class": "rychlost větru"
+          }
+        },
+        {
+          "sentences": [
+            "je {name} {cover_states:state} [<area>]",
+            "je {cover_states:state} {name} [<area>]",
+            "{cover_states:state} {name} [<area>]"
+          ],
+          "response": "one_yesno",
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "jaký stav má {name}"
+          ],
+          "response": "one_cover",
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "(je|jsou) někter(é|á) {cover_classes:device_class} [<area>] {cover_states:state}",
+            "(je|jsou) {cover_states:state} někter(é|á) {cover_classes:device_class} [<area>]",
+            "{cover_states:state} někter(é|á) {cover_classes:device_class}"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "jsou všechn(a|y) {cover_classes:device_class} [<area>] {cover_states:state}",
+            "jsou {cover_states:state} všechn(a|y) {cover_classes:device_class} [<area>]"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "<ktere> {cover_classes:device_class} [<area>] (jsou|se) {cover_states:state}"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "Kolik {cover_classes:device_class} (je|se) [<area>] {cover_states:state}"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "<je_jsou> {name} {bs_door_states:state} [<area>]"
+          ],
+          "response": "bs_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "door"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "door"
+          }
+        },
+        {
+          "sentences": [
+            "<je_jsou> {name} {bs_garage_door_states:state} [<area>]"
+          ],
+          "response": "bs_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "garage_door"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "garage_door"
+          }
+        },
+        {
+          "sentences": [
+            "<je_jsou> [sen(s|z)or] {name} {bs_moisture_states:state} [<area>]"
+          ],
+          "response": "bs_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "moisture"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "moisture"
+          }
+        },
+        {
+          "sentences": [
+            "<je_jsou> (nějak|někter)(ý|é) sen(z|s)or[y] [vlhkosti] {bs_moisture_states:state} [<area>]"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "moisture"
+          }
+        },
+        {
+          "sentences": [
+            "je (někde|<area>) [detekován[a]] (únik vody|záplava)",
+            "je <area> (únik vody|pod vodou|voda|zaplaven[á])",
+            "je voda <area>"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "moisture",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "<ktere> sen(s|z)or[y] [vlhkosti] (je|jsou) [<area>] {bs_moisture_states:state}"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "moisture"
+          }
+        },
+        {
+          "sentences": [
+            "kolik sen(s|z)orů [vlhkosti] [<area>] je {bs_moisture_states:state}[ch]"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "moisture"
+          }
+        },
+        {
+          "sentences": [
+            "<je_jsou> [<area>] [na sen(z|s)oru {name}] {bs_motion_states:state} pohyb"
+          ],
+          "response": "bs_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "motion"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "motion"
+          }
+        },
+        {
+          "sentences": [
+            "<je_jsou> [(některé|nějaké)] sen(s|z)ory pohybu [<area>] [ve stavu] {bs_motion_states:state}"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "motion"
+          }
+        },
+        {
+          "sentences": [
+            "(je|byl) detekov(án|aný) [nějaký] pohyb [<area>]"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "motion",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "jsou všechny detektory pohybu [<area>] [ve stavu] {bs_motion_states:state}"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "motion"
+          }
+        },
+        {
+          "sentences": [
+            "(který|které) detektor[y] pohybu [<area>] (je|jsou) [ve stavu] {bs_motion_states:state}"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "motion"
+          }
+        },
+        {
+          "sentences": [
+            "kolik detektorů pohybu [<area>] je [ve stavu] {bs_motion_states:state}"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "motion"
+          }
+        },
+        {
+          "sentences": [
+            "(<je_jsou>|detekuje) [sen(s|z)or] {name} {bs_occupancy_states:state} [<area>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "occupancy"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "occupancy"
+          }
+        },
+        {
+          "sentences": [
+            "<je_jsou> (nějaké|některé) sen(s|z)ory obsazenosti [<area>] ve stavu {bs_occupancy_states:state}"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "occupancy"
+          }
+        },
+        {
+          "sentences": [
+            "je [někde] detekován[a] {bs_occupancy_states:state} [<area>]"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "occupancy",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "jsou všechny sen(s|z)ory obsazenosti [<area>] ve stavu {bs_occupancy_states:state}"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "occupancy"
+          }
+        },
+        {
+          "sentences": [
+            "kter(é|ý) sen(s|z)or[y] obsazenosti [<area>] jsou ve stavu {bs_occupancy_states:state}"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "occupancy"
+          }
+        },
+        {
+          "sentences": [
+            "kolik sen(s|z)orů obsazenosti [<area>] je ve stavu {bs_occupancy_states:state}"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "occupancy"
+          }
+        },
+        {
+          "sentences": [
+            "<je_jsou> {name} [<area>] {bs_opening_states:state}"
+          ],
+          "response": "bs_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "opening"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "opening"
+          }
+        },
+        {
+          "sentences": [
+            "<je_jsou> někde [<area>] {bs_opening_states:state}"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "opening"
+          }
+        },
+        {
+          "sentences": [
+            "je všude [<area>] {bs_opening_states:state}"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "opening"
+          }
+        },
+        {
+          "sentences": [
+            "kde [<area>] je {bs_opening_states:state}"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "opening"
+          }
+        },
+        {
+          "sentences": [
+            "kolik (dveří|oken) [<area>] je {bs_opening_states:state}"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "opening"
+          }
+        },
+        {
+          "sentences": [
+            "<je_jsou> {name} {bs_window_states:state} [<area>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "window"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "window"
+          }
+        }
+      ]
+    },
+    "HassGetWeather": {
+      "data": [
+        {
+          "sentences": [
+            "<jaky_je> počasí"
+          ]
+        },
+        {
+          "sentences": [
+            "<jaky_je> počasí (na|v) {name}"
+          ],
+          "requires_context": {
+            "domain": "weather"
+          }
+        }
+      ]
+    },
+    "HassTurnOn": {
+      "data": [
+        {
+          "sentences": [
+            "<zapnout> světlo {name}",
+            "<rozsvitit> [světlo] {name}",
+            "{name} <zapnout> světlo",
+            "{name} <rozsvitit> [světlo]"
+          ],
+          "requires_context": {
+            "domain": "light"
+          },
+          "slots": {
+            "domain": "light"
+          },
+          "response": "light"
+        },
+        {
+          "sentences": [
+            "<zapnout> <svetla> <area>",
+            "<rozsvitit> [<svetla>] <area>",
+            "<area> <zapnout> <svetla>",
+            "<area> <rozsvitit> [<svetla>]"
+          ],
+          "slots": {
+            "domain": "light"
+          },
+          "response": "lights_area"
+        },
+        {
+          "sentences": [
+            "(<zapnout>|<rozsvitit>) [úplně] [všechna] světla",
+            "<zapnout> světlo",
+            "<rozsvitit> [světlo]"
+          ],
+          "response": "light_all",
+          "requires_context": {
+            "area": {
+              "slot": true
+            }
+          },
+          "slots": {
+            "domain": "light"
+          }
+        },
+        {
+          "sentences": [
+            "<zapnout> [všechny] [stropní] (ventilátory|větráky) <area>",
+            "<area> <zapnout> [všechny] [stropní] (ventilátory|větráky)"
+          ],
+          "slots": {
+            "domain": "fan",
+            "name": "all"
+          },
+          "response": "fans_area"
+        },
+        {
+          "sentences": [
+            "<zapnout> [stropní] (ventilátor|větrák) <area>",
+            "<area> <zapnout> [stropní] (ventilátor|větrák)"
+          ],
+          "slots": {
+            "domain": "fan"
+          },
+          "response": "fan"
+        },
+        {
+          "sentences": [
+            "(aktivuj|<zapnout>) [scénu] {name}",
+            "(<zmenit>|<prejit>) (na scénu|scénu na) {name}"
+          ],
+          "requires_context": {
+            "domain": "scene"
+          },
+          "slots": {
+            "domain": "scene"
+          },
+          "response": "scene"
+        },
+        {
+          "sentences": [
+            "(aktivuj|<zapnout>) <area> [scénu] {name}",
+            "(aktivuj|<zapnout>) [scénu] {name} <area>",
+            "(<zmenit>|<prejit>) <area> (na scénu|scénu na) {name}",
+            "(<zmenit>|<prejit>) (na scénu {name} <area>|scénu <area> na {name})"
+          ],
+          "slots": {
+            "domain": "scene"
+          },
+          "response": "scene"
+        },
+        {
+          "sentences": [
+            "<zapnout> {name}",
+            "{name} <zapnout>"
+          ],
+          "excludes_context": {
+            "domain": [
+              "cover",
+              "fan",
+              "light"
+            ]
+          }
+        },
+        {
+          "sentences": [
+            "<otevrit> garáž",
+            "<otevrit> vrata od garáže",
+            "<otevrit> garážová vrata"
+          ],
+          "slots": {
+            "device_class": "garage",
+            "domain": "cover"
+          },
+          "response": "garage"
+        },
+        {
+          "sentences": [
+            "<otevrit> {name} [<area>]"
+          ],
+          "requires_context": {
+            "domain": "cover"
+          },
+          "response": "cover"
+        },
+        {
+          "sentences": [
+            "<roztahnout> {name} [<area>]"
+          ],
+          "requires_context": {
+            "device_class": [
+              "awning",
+              "blind",
+              "curtain",
+              "shade",
+              "shutter"
+            ],
+            "domain": "cover"
+          },
+          "response": "cover"
+        },
+        {
+          "sentences": [
+            "(<otevrit>|<roztahnout>) (rolet(u|y)|žaluzi(i|e)|závěs[y]|markýz[u|y]|stínítk[o|a]) <area>"
+          ],
+          "slots": {
+            "device_class": [
+              "awning",
+              "blind",
+              "curtain",
+              "shade",
+              "shutter"
+            ],
+            "domain": "cover"
+          },
+          "response": "cover"
+        },
+        {
+          "sentences": [
+            "<otevrit> {cover_classes:device_class}"
+          ],
+          "slots": {
+            "domain": "cover"
+          },
+          "response": "cover",
+          "requires_context": {
+            "area": {
+              "slot": true
+            }
+          }
+        }
+      ]
+    },
+    "HassMediaUnpause": {
+      "data": [
+        {
+          "sentences": [
+            "((pokračuj|pokračovat);{name})"
+          ],
+          "requires_context": {
+            "domain": "media_player"
+          }
+        }
+      ]
+    },
+    "HassShoppingListAddItem": {
+      "data": [
+        {
+          "sentences": [
+            "(dej|přidej|připiš) <item> <my_list>"
+          ],
+          "response": "item_added",
+          "expansion_rules": {
+            "my_list": "(do [mého] [nákupního] seznamu|na [můj] [nákupní] seznam)",
+            "item": "{shopping_list_item:item}"
+          }
+        }
+      ]
+    },
+    "HassNevermind": {
+      "data": [
+        {
+          "sentences": [
+            "[to] nevadí",
+            "zapomeň na to"
+          ]
+        }
+      ]
+    },
+    "HassSetPosition": {
+      "data": [
+        {
+          "sentences": [
+            "<nastavit> {name} [na] <pozice>"
+          ],
+          "requires_context": {
+            "domain": [
+              "cover",
+              "valve"
+            ]
+          }
+        },
+        {
+          "sentences": [
+            "<nastavit> [polohu] <area> [na] <pozice>"
+          ]
+        },
+        {
+          "sentences": [
+            "<nastavit> [všechny] {cover_classes:device_class} [na] <pozice>"
+          ],
+          "slots": {
+            "domain": "cover"
+          },
+          "requires_context": {
+            "area": {
+              "slot": true
+            }
+          }
+        }
+      ]
+    },
+    "HassLightSet": {
+      "data": [
+        {
+          "sentences": [
+            "(<nastavit>|<zmenit>) jas {name} <brightness>",
+            "(<ztlumit>|<zvysit>) [jas] {name} <brightness>",
+            "[jas] [u] {name} (<nastavit>|<zvysit>|<ztlumit>|<zmenit>) [jas] <brightness>"
+          ],
+          "response": "brightness"
+        },
+        {
+          "sentences": [
+            "(<nastavit>|<zvysit>|<ztlumit>) [jas] <area> <brightness>",
+            "[jas] <area> (<zvysit>|<ztlumit>|<nastavit>|<zmenit>) [jas] <brightness>"
+          ],
+          "slots": {
+            "name": "all"
+          },
+          "response": "brightness"
+        },
+        {
+          "sentences": [
+            "(<nastavit>|<zvysit>|<zmenit>) [jas] <area> [jas] na {max:brightness}",
+            "(<nastavit>|<zvysit>|<zmenit>) [na] {max:brightness} [jas] <area>",
+            "[jas] <area> (<zvysit>|<nastavit>|<zmenit>) [jas] [na] [{max:brightness}] [jas] [{max:brightness}]"
+          ],
+          "slots": {
+            "name": "all"
+          },
+          "response": "brightness"
+        },
+        {
+          "sentences": [
+            "(<nastavit>|<zmenit>|<zvysit>) {max:brightness} [jas] [u] {name}",
+            "(<nastavit>|<zmenit>|<zvysit>) [jas] [na] {max:brightness} [jas] [u] {name}",
+            "(<nastavit>|<zmenit>|<zvysit>) [jas] [u] {name} [na] {max:brightness}",
+            "[jas] [u] {name} (<nastavit>|<zvysit>|<zmenit>) [jas] [na] {max:brightness} [jas]"
+          ],
+          "response": "brightness"
+        },
+        {
+          "sentences": [
+            "(<nastavit>|<zmenit>|<ztlumit>) [jas] <area> [jas] na {min:brightness}",
+            "(<nastavit>|<zmenit>|<ztlumit>) [na] {min:brightness} [jas] <area>",
+            "[jas] <area> (<nastavit>|<zmenit>|<ztlumit>) [jas] [na] [{min:brightness}] [jas] [{min:brightness}]"
+          ],
+          "slots": {
+            "name": "all"
+          },
+          "response": "brightness"
+        },
+        {
+          "sentences": [
+            "(<nastavit>|<zmenit>|<ztlumit>) {min:brightness} [jas] [u] {name}",
+            "(<nastavit>|<zmenit>|<ztlumit>) [jas] [na] {min:brightness} [jas] [u] {name}",
+            "(<nastavit>|<zmenit>|<ztlumit>) [jas] [u] {name} [na] {min:brightness}",
+            "[jas] [u] {name} (<nastavit>|<ztlumit>|<zmenit>) [jas] [na] {min:brightness} [jas]"
+          ],
+          "response": "brightness"
+        },
+        {
+          "sentences": [
+            "(<nastavit>|<zmenit>) [jas] <svetla> na <brightness>"
+          ],
+          "response": "brightness",
+          "slots": {
+            "brightness": null
+          },
+          "requires_context": {
+            "area": {
+              "slot": true
+            }
+          }
+        },
+        {
+          "sentences": [
+            "(<nastavit>|<zmenit>) [barvu] {name} [na] {color}",
+            "(<nastavit>|<zmenit>) {name} na {color} [barvu]",
+            "{name} (<zmenit>|<nastavit>) na {color} [barvu]",
+            "Barvu {name} (<zmenit>|<nastavit>) na {color} [barvu]"
+          ],
+          "response": "color"
+        },
+        {
+          "sentences": [
+            "(<nastavit>|<zmenit>) {color} [barvu] <area>",
+            "(<nastavit>|<zmenit>) [barvu] <area> na {color} [barvu]",
+            "<area> (<zmenit>|<nastavit>) barvu na {color}",
+            "<area> (<zmenit>|<nastavit>) [na] {color} [barvu]",
+            "Barvu <area> (<zmenit>|<nastavit>) [na] {color} [barvu]"
+          ],
+          "response": "color"
+        },
+        {
+          "sentences": [
+            "(<nastavit>|<zmenit>) [barvu] <svetla> na {color}"
+          ],
+          "response": "color",
+          "requires_context": {
+            "area": {
+              "slot": true
+            }
+          }
+        }
+      ]
+    },
+    "HassMediaNext": {
+      "data": [
+        {
+          "sentences": [
+            "další [trak|stopa|skladba|položka|program] [na] {name}",
+            "přeskoč [[na další|tuto|tento] (písničku|stopu|skladbu|program)] [[na] {name}]"
+          ],
+          "requires_context": {
+            "domain": "media_player"
+          }
+        }
+      ]
+    },
+    "HassMediaPause": {
+      "data": [
+        {
+          "sentences": [
+            "(přeruš[it]|počkat|pozastav[it]) {name}"
+          ],
+          "requires_context": {
+            "domain": "media_player"
+          }
+        }
+      ]
+    },
+    "HassClimateGetTemperature": {
+      "data": [
+        {
+          "sentences": [
+            "Jaká [je] teplota [je] [<area>]",
+            "Jaká je [<area>] teplota",
+            "Kolik [je] [stupňů] [je] [<area>] [stupňů]",
+            "jaká je [<area>] teplota",
+            "jak teplo je <area>"
+          ]
+        }
+      ]
+    },
+    "HassVacuumReturnToBase": {
+      "data": [
+        {
+          "sentences": [
+            "(vrať|vrátit) {name} [na základnu|domů]"
+          ],
+          "requires_context": {
+            "domain": "vacuum"
+          }
+        }
+      ]
+    },
+    "HassVacuumStart": {
+      "data": [
+        {
+          "sentences": [
+            "(nastart(uj|ovat)|[s]pusť[it]) {name}"
+          ],
+          "requires_context": {
+            "domain": "vacuum"
+          }
+        }
+      ]
+    },
+    "HassListAddItem": {
+      "data": [
+        {
+          "sentences": [
+            "(dej|přidej|připiš) <item> <my_list>"
+          ],
+          "response": "item_added",
+          "requires_context": {
+            "domain": "todo"
+          },
+          "expansion_rules": {
+            "my_list": "(do[ [mého] seznamu]|na[ [můj] seznam]) {name}",
+            "item": "{shopping_list_item:item}"
+          }
+        }
+      ]
+    },
+    "HassSetVolume": {
+      "data": [
+        {
+          "sentences": [
+            "[nastav] hlasitost {name} na <volume>"
+          ],
+          "requires_context": {
+            "domain": "media_player"
+          }
+        }
+      ]
+    }
+  },
+  "responses": {
+    "errors": {
+      "no_intent": "Omlouvám se, ale nerozumím",
+      "no_area": "Oblast {{ area }} nenalezena",
+      "no_domain_in_area": "{{ area }} neobsahuje {{ domain }}",
+      "no_device_class_in_area": "{{ area }} neobsahuje {{ device_class }}",
+      "no_entity": "Žádné zařízení ani entita se nejmenuje {{ entity }}",
+      "handle_error": "Při zpracování došlo k neočekávané chybě"
+    },
+    "intents": {
+      "HassGetState": {
+        "default": "{{ state.state_with_unit }}",
+        "one": "{{ slots.name | capitalize }} je {{ state.state_with_unit }}\n",
+        "one_light": "Světlo {{ slots.name | capitalize }} je {{ state.state_with_unit }}\n",
+        "one_scene": "Scéna {{ slots.name | capitalize }} je {{ state.state_with_unit }}\n",
+        "one_cover": "{% set present_continuous = ('je', 'jí', 'rá') %}\n{% set present_simple = ('no', 'ná', 'né') %}\n\n{{ slots.name | capitalize }} {{ 'se' if state.state_with_unit.endswith(present_continuous) else 'je' }} {{ state.state_with_unit }}\n",
+        "one_yesno": "{% set present_continuous = ('je', 'jí', 'rá') %}\n{% set present_simple = ('no', 'ná', 'né') %}\n\n{% if query.matched %}\n  Ano\n{% else %}\n  Ne, {{ state.state_with_unit }}\n{% endif %}\n",
+        "bs_yesno": "{% if query.matched %}\n  Ano\n{% else %}\n  Ne\n{% endif %}\n",
+        "any": "{% if query.matched %}\n  {% set match = query.matched | map(attribute=\"name\") | sort | list %}\n  {% if match | length > 4 %}\n    Ano, {{ match[:3] | join(\", \") }} a {{ (match | length - 3) }} další\n  {%- else -%}\n    Ano,\n    {% for name in match -%}\n      {% if not loop.first and not loop.last %}, {% elif loop.last and not loop.first %} a {% endif -%}\n      {{ name }}\n    {%- endfor -%}\n  {% endif %}\n{% else %}\n  Ne\n{% endif %}\n",
+        "all": "{% if not query.unmatched: %}\n  Ano\n{% else %}\n  {% set no_match = query.unmatched | map(attribute=\"name\") | sort | list %}\n  {% if no_match | length > 4 %}\n    Ne, {{ no_match[:3] | join(\", \") }} a {{ (no_match | length - 3) }} další jsou {{ state.state_with_unit }}\n  {%- else -%}\n    Ne,\n    {% if state.state_with_unit == \"home\" %}\n      {% set state_with_unit = \"doma\" %}\n    {% elif state.state_with_unit == \"not_home\" %}\n      {% set state_with_unit = \"mimo domov\" %}\n    {% else %}\n      {% set state_with_unit = state.state_with_unit %}\n    {% endif %}\n    {% for name in no_match -%}\n      {% if not loop.first and not loop.last %}, {% elif loop.last and not loop.first %} a {% endif -%}\n      {{ name }}\n    {%- endfor %} {{ 'není' if no_match | length == 1 else 'nejsou'}} {{ state_with_unit }}\n  {% endif %}\n{% endif %}\n",
+        "which": "{% if not query.matched %}\n  Žádné\n{% else: %}\n  {% set match = query.matched | map(attribute=\"name\") | sort | list %}\n  {% if match | length > 4 %}\n    {{ match[:3] | join(\", \") }} a {{ (match | length - 3) }} další\n  {% else %}\n    {%- for name in match -%}\n      {% if not loop.first and not loop.last %}, {% elif loop.last and not loop.first %} a {% endif -%}\n      {{ name }}\n    {%- endfor -%}\n  {% endif %}\n{% endif %}\n",
+        "how_many": "{{ query.matched | length }}\n",
+        "where": "{% if state.state == \"not_home\" %}\n  {{ slots.name | capitalize }} je mimo domov\n{% elif state.state == \"home\" %}\n  {{ slots.name | capitalize }} je doma\n{% else %}\n  {{ slots.name | capitalize }} je v zóně {{ state.state }}\n{% endif %}\n"
+      },
+      "HassTurnOff": {
+        "default": "Vypnuto",
+        "lights_area": "Světla zhasnuta",
+        "fan": "Větrák vypnut",
+        "fans_area": "Větráky vypnuty",
+        "light": "Zhasnuto",
+        "light_all": "Všechna světla byla zhasnuta",
+        "cover": "Zavřeno",
+        "garage": "Vrata zavřena"
+      },
+      "HassShoppingListAddItem": {
+        "item_added": "Přidáno: {{ slots.item }}"
+      },
+      "HassTurnOn": {
+        "default": "Zapnuto",
+        "lights_area": "Světla rozsvícena",
+        "light_all": "Všechna světla byla rozsvícena",
+        "fans_area": "Větráky zapnuty",
+        "fan": "Větrák zapnut",
+        "light": "Rozsvíceno",
+        "cover": "Otevřeno",
+        "garage": "Vrata otevřena",
+        "scene": "Scéna aktivována"
+      },
+      "HassMediaPause": {
+        "default": "Zastaveno"
+      },
+      "HassListAddItem": {
+        "item_added": "Přidáno: {{ slots.item }}"
+      },
+      "HassGetWeather": {
+        "default": "{% set weather_condition = {\n  'clear': 'a jasno',\n  'clear-night': 'a jasno',\n  'cloudy': 'a zamračeno',\n  'exceptional': 'a výjímečně',\n  'fog': 's mlhou',\n  'hail': 's kroupami',\n  'lightning': 's bouřkami',\n  'lightning-rainy': 's bouřkami a deštěm',\n  'partlycloudy': 'a částečně zamračeno',\n  'pouring': 'a silný déšť',\n  'rainy': 'a přeháňky',\n  'snowy': 'a sněžení',\n  'snowy-rainy': 'a déšť se sněhem',\n  'sunny': 'a slunečno',\n  'windy': 'a větrno',\n  'windy-variant': 'se silným větrem'\n} %} {{ state.attributes.get('temperature') }} {{ state.attributes.get('temperature_unit') }} {{ weather_condition.get((state.state | string).lower(), \"\") }}\n"
+      },
+      "HassLightSet": {
+        "brightness": "Jas nastaven",
+        "color": "Barva nastavena"
+      },
+      "HassVacuumStart": {
+        "default": "Spuštěno"
+      },
+      "HassMediaUnpause": {
+        "default": "Pokračuji"
+      },
+      "HassSetPosition": {
+        "default": "Pozice nastavena"
+      },
+      "HassMediaNext": {
+        "default": "Hraji další"
+      },
+      "HassClimateGetTemperature": {
+        "default": "{{ state_attr(state.entity_id, 'current_temperature') }}"
+      },
+      "HassSetVolume": {
+        "default": "Hlasitost nastavena"
+      },
+      "HassVacuumReturnToBase": {
+        "default": "Vrací se"
+      }
+    }
+  },
+  "lists": {
+    "color": {
+      "values": [
+        {
+          "in": "bíl(á|ý|é|ou)",
+          "out": "white"
+        },
+        {
+          "in": "čern(á|ý|é|ou)",
+          "out": "black"
+        },
+        {
+          "in": "červen(á|ý|é|ou)",
+          "out": "red"
+        },
+        {
+          "in": "oranžov(á|ý|é|ou)",
+          "out": "orange"
+        },
+        {
+          "in": "žlut(á|ý|é|ou)",
+          "out": "yellow"
+        },
+        {
+          "in": "zelen(á|ý|é|ou)",
+          "out": "green"
+        },
+        {
+          "in": "modr(á|ý|é|ou)",
+          "out": "blue"
+        },
+        {
+          "in": "fialov(á|ý|é|ou)",
+          "out": "purple"
+        },
+        {
+          "in": "hněd(á|ý|é|ou)",
+          "out": "brown"
+        }
+      ]
+    },
+    "on_off_states": {
+      "values": [
+        {
+          "in": "(zapnut[(o|é|o|ý|á)]|rozsvícen(o|é|á))",
+          "out": "on"
+        },
+        {
+          "in": "(vypnut[(o|é|ý|á)]|zhasnut(o|é|á))",
+          "out": "off"
+        }
+      ]
+    },
+    "on_off_domains": {
+      "values": [
+        {
+          "in": "světl(o|a)",
+          "out": "light"
+        },
+        {
+          "in": "větrák[y]",
+          "out": "fan"
+        },
+        {
+          "in": "vypínač[e]",
+          "out": "switch"
+        }
+      ]
+    },
+    "cover_states": {
+      "values": [
+        {
+          "in": "(otevřen(o|ý|é|á|ých)|roztažen(á|é|o|ých))",
+          "out": "open"
+        },
+        {
+          "in": "(zavřen(o|ý|é|á|ých)|zatažen(é|o|á|ých))",
+          "out": "closed"
+        },
+        {
+          "in": "[se] otevír(á|ají) [se]",
+          "out": "opening"
+        },
+        {
+          "in": "[se] zavír(á|ají) [se]",
+          "out": "closing"
+        }
+      ]
+    },
+    "cover_classes": {
+      "values": [
+        {
+          "in": "markýz(a|y)",
+          "out": "awning"
+        },
+        {
+          "in": "(žaluzi(e|í)|rolet[(a|y)])",
+          "out": "blind"
+        },
+        {
+          "in": "závěs[y]",
+          "out": "curtain"
+        },
+        {
+          "in": "dveře",
+          "out": "door"
+        },
+        {
+          "in": "((garážov(é|á) (dveře|vrata))|garáž)",
+          "out": "garage"
+        },
+        {
+          "in": "brán(a|y)",
+          "out": "gate"
+        },
+        {
+          "in": "clon(a|y)",
+          "out": "shade"
+        },
+        {
+          "in": "okenice",
+          "out": "shutter"
+        },
+        {
+          "in": "okn(o|a)",
+          "out": "window"
+        }
+      ]
+    },
+    "lock_states": {
+      "values": [
+        {
+          "in": "zamčeno",
+          "out": "locked"
+        },
+        {
+          "in": "odemčeno",
+          "out": "unlocked"
+        }
+      ]
+    },
+    "bs_battery_states": {
+      "values": [
+        {
+          "in": "nízké",
+          "out": "on"
+        },
+        {
+          "in": "normalní",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_battery_charging_states": {
+      "values": [
+        {
+          "in": "nabíjí",
+          "out": "on"
+        },
+        {
+          "in": "nenabíjí",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_carbon_monoxide_states": {
+      "values": [
+        {
+          "in": "detekován",
+          "out": "on"
+        },
+        {
+          "in": "čisto",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_cold_states": {
+      "values": [
+        {
+          "in": "studené",
+          "out": "on"
+        },
+        {
+          "in": "normální",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_connectivity_states": {
+      "values": [
+        {
+          "in": "připojeno",
+          "out": "on"
+        },
+        {
+          "in": "odpojeno",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_door_states": {
+      "values": [
+        {
+          "in": "otevřen(é|á|ý)",
+          "out": "on"
+        },
+        {
+          "in": "zavřen(é|á|ý)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_garage_door_states": {
+      "values": [
+        {
+          "in": "otevřen(é|á|ý)",
+          "out": "on"
+        },
+        {
+          "in": "zavřen(é|á|ý)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_gas_states": {
+      "values": [
+        {
+          "in": "detekován",
+          "out": "on"
+        },
+        {
+          "in": "nezjištěn",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_heat_states": {
+      "values": [
+        {
+          "in": "horké",
+          "out": "on"
+        },
+        {
+          "in": "normalní",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_light_states": {
+      "values": [
+        {
+          "in": "detekován",
+          "out": "on"
+        },
+        {
+          "in": "tma",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_lock_states": {
+      "values": [
+        {
+          "in": "odemčeno",
+          "out": "on"
+        },
+        {
+          "in": "zamčeno",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_moisture_states": {
+      "values": [
+        {
+          "in": "vlhk(é|ý)",
+          "out": "on"
+        },
+        {
+          "in": "such(é|ý)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_motion_states": {
+      "values": [
+        {
+          "in": "detekován",
+          "out": "on"
+        },
+        {
+          "in": "bez pohybu",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_occupancy_states": {
+      "values": [
+        {
+          "in": "přítomn(ý|ost)",
+          "out": "on"
+        },
+        {
+          "in": "nepřítomn(ý|ost)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_opening_states": {
+      "values": [
+        {
+          "in": "otevřen(ý|ých|y|o|é)",
+          "out": "on"
+        },
+        {
+          "in": "zavřen(ý|ých|y|o|é)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_plug_states": {
+      "values": [
+        {
+          "in": "připojen",
+          "out": "on"
+        },
+        {
+          "in": "odpojen",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_power_states": {
+      "values": [
+        {
+          "in": "(zapojen|připojen)",
+          "out": "on"
+        },
+        {
+          "in": "nepřipojen",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_presence_states": {
+      "values": [
+        {
+          "in": "(doma|přítomný)",
+          "out": "on"
+        },
+        {
+          "in": "(pryč|nepřítomný)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_problem_states": {
+      "values": [
+        {
+          "in": "detekován",
+          "out": "on"
+        },
+        {
+          "in": "ok",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_running_states": {
+      "values": [
+        {
+          "in": "běží",
+          "out": "on"
+        },
+        {
+          "in": "neběží",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_safety_states": {
+      "values": [
+        {
+          "in": "nebezpečné",
+          "out": "on"
+        },
+        {
+          "in": "bezpečné",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_smoke_states": {
+      "values": [
+        {
+          "in": "detekován",
+          "out": "on"
+        },
+        {
+          "in": "nedetekován",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_sound_states": {
+      "values": [
+        {
+          "in": "hraje",
+          "out": "on"
+        },
+        {
+          "in": "nehraje",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_tamper_states": {
+      "values": [
+        {
+          "in": "(detekován|ovlivňován)",
+          "out": "on"
+        },
+        {
+          "in": "čistý",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_update_states": {
+      "values": [
+        {
+          "in": "update k dispozici",
+          "out": "on"
+        },
+        {
+          "in": "nejnovější verze",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_vibration_states": {
+      "values": [
+        {
+          "in": "(detekován|vibruje)",
+          "out": "on"
+        },
+        {
+          "in": "(v klidu|nevibruje)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_window_states": {
+      "values": [
+        {
+          "in": "otevřené",
+          "out": "on"
+        },
+        {
+          "in": "zavřené",
+          "out": "closed"
+        }
+      ]
+    },
+    "max": {
+      "values": [
+        {
+          "in": "(max|maxi(mum|mální)|[co] nej(víc|vyšší|větší))",
+          "out": 100
+        }
+      ]
+    },
+    "min": {
+      "values": [
+        {
+          "in": "(min|mini(mum|mální)|[co] nej(míň|menší|nižší))",
+          "out": 1
+        }
+      ]
+    },
+    "brightness": {
+      "range": {
+        "type": "percentage",
+        "from": 0,
+        "to": 100
+      }
+    },
+    "temperature": {
+      "range": {
+        "type": "temperature",
+        "from": 0,
+        "to": 100
+      }
+    },
+    "position": {
+      "range": {
+        "type": "percentage",
+        "from": 0,
+        "to": 100
+      }
+    },
+    "volume": {
+      "range": {
+        "type": "percentage",
+        "from": 0,
+        "to": 100
+      }
+    },
+    "temperature_unit": {
+      "values": [
+        "celsia",
+        {
+          "in": "(c|celsia)",
+          "out": "celsia"
+        },
+        "fahrenheita",
+        {
+          "in": "(f|fahrenhait[a])",
+          "out": "fahrenheita"
+        }
+      ]
+    },
+    "shopping_list_item": {
+      "wildcard": true
+    },
+    "zone": {
+      "wildcard": true
+    }
+  },
+  "expansion_rules": {
+    "area": "[(na|v|ve)] {area}",
+    "zapnout": "(zapni|zapnout)",
+    "vypnout": "(vypni|vypnout|zastavit|zastav)",
+    "rozsvitit": "(rozsviť|rozsvítit|rožn(i|out))",
+    "zhasnout": "(zhasni|zhasnout)",
+    "svetla": "(svět(lo|el)|[všech[na] ]svět(la|el))",
+    "nastavit": "(nastav|nastavit)",
+    "zmenit": "(změň|změnit)",
+    "ztlumit": "(ztlu(m|it)|snížit|sniž)",
+    "zvysit": "zv(yš|ýšit)",
+    "teplota": "{temperature}[°| stupňů] [{temperature_unit}]",
+    "pozice": "{position}[[ ]%| procent]",
+    "volume": "{volume:volume_level}[[ ]%| procent]",
+    "brightness": "[na] {brightness}[%| procent]",
+    "zavrit": "(zavři|zavřít)",
+    "otevrit": "(otevři|otevřít)",
+    "roztahnout": "(roz|vy|od)táhn(out|i)",
+    "zatahnout": "zatáhn(out|i)",
+    "ktere": "(kter(á|é)|jak(é|á))",
+    "prejit": "(přejít|přejdi)",
+    "je_jsou": "(je|jsou)",
+    "v": "(v|ve|na)",
+    "y_ej": "(ý|ej)",
+    "y_e": "(ý|é)",
+    "koncentrace": "(úroveň|množství|koncentrace)",
+    "jaky_je": "(jak<y_e> (je|bude)|jaká (je|bude)|jakou|jaká|jak|kolik|kolik (je|bude))",
+    "jaka_je_class_of_name": "(\n   <jaky_je> <class> [(je|byla)] [[(na|z)]měřen(á|ý|é)] [(na|na sen(z|s)oru|sen(z|s)orem)] {name} [<area>]\n   |<jaky_je> <area> <class> (na|z)měřen(á|ý) [(na sen(z|s)oru|sen(z|s)orem)] {name}\n )\n"
+  },
+  "skip_words": [
+    "prosím"
+  ]
+}

@@ -1,0 +1,85 @@
+Metadata-Version: 2.1
+Name: PyRIC
+Version: 0.1.6.3
+Summary: Python Wireless Library
+Home-page: http://wraith-wireless.github.io/PyRIC/
+Download-URL: https://github.com/wraith-wireless/pyric/archive/0.1.6.3.tar.gz
+Author: Dale Patterson
+Author-email: wraith.wireless@yandex.com
+Maintainer: Dale Patterson
+Maintainer-email: wraith.wireless@yandex.com
+License: GPLv3
+Keywords: Linux Python nl80211 iw iwconfig ifconfig wireless WLAN WiFi pentest
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: License :: OSI Approved :: GNU General Public License v3 (GPLv3)
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: System Administrators
+Classifier: Topic :: Security
+Classifier: Topic :: Software Development
+Classifier: Topic :: Software Development :: Libraries
+Classifier: Topic :: Security
+Classifier: Topic :: System :: Networking
+Classifier: Topic :: Utilities
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 2.7
+Classifier: Programming Language :: Python :: 3.0
+Classifier: Programming Language :: Python :: 3.5
+License-File: LICENSE
+
+
+# PyRIC 0.1.6.3: Python Radio Interface Controller
+## Linux wireless library for the Python Wireless Developer and Pentester
+
+## DESCRIPTION:
+PyRIC (is a Linux only) library providing wireless developers and pentesters the
+ability to identify, enumerate and manipulate their system's wireless cards
+programmatically in Python. Pentesting applications and scripts written in Python
+have increased dramatically in recent years. However, these tools still rely on
+Linux command lines tools for setup/preparation and restoration of the system for
+use. Until now. Why use subprocess.Popen, regular expressions and str.find to
+interact with your wireless cards? PyRIC is:
+
+1. Pythonic: no ctypes, SWIG etc. PyRIC redefines C header files as Python and
+uses sockets to communicate with the kernel.
+2. Self-sufficient: No third-party files used. PyRIC is completely self-contained.
+3. Fast: (relatively speaking) PyRIC is faster than using command line tools
+through subprocess.Popen
+4. Parseless: Get the output you want without parsing output from command line
+tools. Never worry about newer iw versions and having to rewrite your parsers.
+5. Easy: If you can use iw, you can use PyRIC.
+
+## CURRENT STATE
+ATT, PyRIC pyw provides the following:
+* enumerate interfaces and wireless interfaces
+* identify a cards chipset and driver
+* get/set hardware address
+* get/set ip4 address, netmask and or broadcast
+* turn card on/off
+* get supported standards
+* get supported commands
+* get supported modes
+* get dev info
+* get phy info
+* get link info
+* get/set regulatory domain
+* get/set mode
+* get/set coverage class, RTS threshold, Fragmentation threshold & retry limits
+* add/delete interfaces
+* enumerate ISM and UNII channels
+* block/unblock rfkill devices
+* check 'connectivity', disconnect from AP
+
+In utils, several helpers can be found that can be used to:
+* enumerate channels and frequencies and convert between the two
+* manipulate mac addresses and generate random ones
+* fetch and parse the IEEE oui text file
+* further rfkill operations to include listing all rfkill devices
+
+At it's heart, PyRIC is a Python port of (a subset of) iw and by extension, a
+Python port of Netlink w.r.t nl80211 functionality. The original goal of PyRIC
+was to provide a simple interface to the underlying nl80211 kernel support,
+handling the complex operations of Netlink seamlessy while maintaining a minimum
+of "code walking" to understand, modify and extend. But, why stop there? Since
+it's initial inception, PyRIC has grown. PyRIC puts iw, ifconfig, rfkill, udevadm,
+airmon-ng and macchanger in your hands (or your program).

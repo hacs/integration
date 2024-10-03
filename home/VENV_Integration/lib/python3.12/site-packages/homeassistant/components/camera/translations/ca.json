@@ -1,0 +1,104 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "C\u00e0mera",
+            "state": {
+                "idle": "Inactiu",
+                "recording": "Enregistrant",
+                "streaming": "Transmetent v\u00eddeo"
+            },
+            "state_attributes": {
+                "access_token": {
+                    "name": "Token d'acc\u00e9s"
+                },
+                "brand": {
+                    "name": "Marca"
+                },
+                "frontend_stream_type": {
+                    "name": "Tipus de flux de v\u00eddeo",
+                    "state": {
+                        "hls": "HLS",
+                        "webrtc": "WebRTC"
+                    }
+                },
+                "model_name": {
+                    "name": "Model"
+                },
+                "motion_detection": {
+                    "name": "Detecci\u00f3 de moviment",
+                    "state": {
+                        "false": "Desactivada",
+                        "true": "Activada"
+                    }
+                }
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "La plataforma {platform} de la integraci\u00f3 {domain} no \u00e9s compatible amb la configuraci\u00f3 de la plataforma.\n\nElimina-la de la teva configuraci\u00f3 i reinicia Home Assistant per solucionar aquest problema.",
+            "title": "Suport de la plataforma no compatible"
+        }
+    },
+    "services": {
+        "disable_motion_detection": {
+            "description": "Desactiva la detecci\u00f3 de moviment.",
+            "name": "Desactiva la detecci\u00f3 de moviment"
+        },
+        "enable_motion_detection": {
+            "description": "Activa la detecci\u00f3 de moviment.",
+            "name": "Activa la detecci\u00f3 de moviment"
+        },
+        "play_stream": {
+            "description": "Reprodueix la transmissi\u00f3 de la c\u00e0mera a un reproductor multim\u00e8dia compatible.",
+            "fields": {
+                "format": {
+                    "description": "Format de transmissi\u00f3 compatible amb el reproductor multim\u00e8dia.",
+                    "name": "Format"
+                },
+                "media_player": {
+                    "description": "Reproductors multim\u00e8dia als quals transmetre.",
+                    "name": "Reproductor multim\u00e8dia"
+                }
+            },
+            "name": "Reprodueix v\u00eddeo"
+        },
+        "record": {
+            "description": "Crea una gravaci\u00f3 d'un canal de c\u00e0mera en directe.",
+            "fields": {
+                "duration": {
+                    "description": "Durada prevista de la gravaci\u00f3. La durada real pot variar.",
+                    "name": "Durada"
+                },
+                "filename": {
+                    "description": "Plantilla d'un nom de fitxer. La variable `entity_id` est\u00e0 disponible. Ha de ser un mp4.",
+                    "name": "Nom del fitxer"
+                },
+                "lookback": {
+                    "description": "Per\u00edode d'anticipaci\u00f3 per incloure a la gravaci\u00f3 (a m\u00e9s de la durada). Nom\u00e9s disponible si actualment hi ha un flux HLS actiu. La longitud real del per\u00edode d'anticipaci\u00f3 pot variar.",
+                    "name": "Anticipaci\u00f3"
+                }
+            },
+            "name": "Enregistra"
+        },
+        "snapshot": {
+            "description": "Fa una instant\u00e0nia des d'una c\u00e0mera.",
+            "fields": {
+                "filename": {
+                    "description": "Plantilla d'un nom de fitxer. La variable `entity_id` est\u00e0 disponible.",
+                    "name": "Nom del fitxer"
+                }
+            },
+            "name": "Fes una instant\u00e0nia"
+        },
+        "turn_off": {
+            "description": "Apaga la c\u00e0mera.",
+            "name": "Apaga"
+        },
+        "turn_on": {
+            "description": "Enc\u00e9n la c\u00e0mera.",
+            "name": "Enc\u00e9n"
+        }
+    },
+    "title": "C\u00e0mera"
+}

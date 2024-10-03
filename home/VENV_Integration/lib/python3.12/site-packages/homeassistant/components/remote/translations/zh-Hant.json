@@ -1,0 +1,120 @@
+{
+    "device_automation": {
+        "action_type": {
+            "toggle": "\u5207\u63db{entity_name}",
+            "turn_off": "\u95dc\u9589{entity_name}",
+            "turn_on": "\u958b\u555f{entity_name}"
+        },
+        "condition_type": {
+            "is_off": "{entity_name}\u5df2\u95dc\u9589",
+            "is_on": "{entity_name}\u5df2\u958b\u555f"
+        },
+        "trigger_type": {
+            "changed_states": "{entity_name}\u6253\u958b\u6216\u95dc\u9589",
+            "turned_off": "{entity_name}\u5df2\u95dc\u9589",
+            "turned_on": "{entity_name}\u5df2\u958b\u555f"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "\u9059\u63a7\u5668",
+            "state": {
+                "off": "\u95dc\u9589",
+                "on": "\u958b\u555f"
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "{domain} \u6574\u5408\u7684 {platform} \u5e73\u53f0\u4e0d\u652f\u63f4\u5e73\u53f0\u8a2d\u5b9a\u3002\n\n\u8acb\u5c07\u5176\u7531\u8a2d\u5b9a\u4e2d\u79fb\u9664\uff0c\u4e26\u91cd\u65b0\u555f\u52d5 Home Assistant \u4ee5\u4fee\u6b63\u6b64\u554f\u984c\u3002",
+            "title": "\u4e0d\u652f\u63f4\u5e73\u53f0\u652f\u63f4"
+        }
+    },
+    "services": {
+        "delete_command": {
+            "description": "\u5f9e\u8cc7\u6599\u5eab\u4e2d\u522a\u9664\u4e00\u500b\u547d\u4ee4\u6216\u4e00\u7cfb\u5217\u547d\u4ee4\u3002",
+            "fields": {
+                "command": {
+                    "description": "\u8981\u522a\u9664\u7684\u55ae\u4e00\u547d\u4ee4\u6216\u547d\u4ee4\u5217\u8868\u3002",
+                    "name": "\u547d\u4ee4"
+                },
+                "device": {
+                    "description": "\u5c07\u5f9e\u5176\u4e2d\u522a\u9664\u547d\u4ee4\u7684\u88dd\u7f6e\u3002",
+                    "name": "\u88dd\u7f6e"
+                }
+            },
+            "name": "\u522a\u9664\u547d\u4ee4"
+        },
+        "learn_command": {
+            "description": "\u7531\u88dd\u7f6e\u5b78\u7fd2\u547d\u4ee4\u6216\u547d\u4ee4\u5217\u8868\u3002",
+            "fields": {
+                "alternative": {
+                    "description": "\u5047\u5982\u4ee3\u78bc\u5fc5\u9808\u4ee5\u66ff\u4ee3\u9032\u884c\u5132\u5b58\u3002\u5c0d\u65bc\u96e2\u6563\u78bc\u5f88\u6709\u7528\u3002\u96e2\u6563\u78bc\u7528\u65bc\u50c5\u57f7\u884c\u55ae\u4e00\u529f\u80fd\u7684\u958b\u95dc\u3002\u4f8b\u5982\uff0c\u53ea\u7528\u65bc\u958b\u555f\u88dd\u7f6e\u7684\u4ee3\u78bc\u3002\u5982\u679c\u88dd\u7f6e\u5df2\u7d93\u6253\u958b\u3001\u5247\u767c\u9001\u4ee3\u78bc\u4e0d\u6703\u6539\u8b8a\u72c0\u614b\u3002",
+                    "name": "\u66ff\u4ee3"
+                },
+                "command": {
+                    "description": "\u8981\u5b78\u7fd2\u7684\u55ae\u4e00\u547d\u4ee4\u6216\u547d\u4ee4\u5217\u8868\u3002",
+                    "name": "\u547d\u4ee4"
+                },
+                "command_type": {
+                    "description": "\u8981\u5b78\u7fd2\u7684\u547d\u4ee4\u985e\u5225\u3002",
+                    "name": "\u547d\u4ee4\u985e\u5225"
+                },
+                "device": {
+                    "description": "\u8981\u5b78\u7fd2\u547d\u4ee4\u7684\u88dd\u7f6e ID\u3002",
+                    "name": "\u88dd\u7f6e"
+                },
+                "timeout": {
+                    "description": "\u5b78\u7fd2\u547d\u4ee4\u903e\u6642\u6642\u9593\u3002",
+                    "name": "\u903e\u6642"
+                }
+            },
+            "name": "\u5b78\u7fd2\u547d\u4ee4"
+        },
+        "send_command": {
+            "description": "\u5411\u88dd\u7f6e\u767c\u9001\u547d\u4ee4\u6216\u547d\u4ee4\u5217\u8868\u3002",
+            "fields": {
+                "command": {
+                    "description": "\u8981\u50b3\u9001\u7684\u55ae\u4e00\u547d\u4ee4\u6216\u547d\u4ee4\u5217\u8868\u3002",
+                    "name": "\u547d\u4ee4"
+                },
+                "delay_secs": {
+                    "description": "\u91cd\u8907\u547d\u4ee4\u4e4b\u9593\u7b49\u5f85\u7684\u6642\u9593\u3002",
+                    "name": "\u5ef6\u9072\u79d2\u6578"
+                },
+                "device": {
+                    "description": "\u50b3\u9001\u547d\u4ee4\u7684\u88dd\u7f6e ID\u3002",
+                    "name": "\u88dd\u7f6e"
+                },
+                "hold_secs": {
+                    "description": "\u65bc\u50b3\u9001\u524d\u4fdd\u7559\u7684\u6642\u9593\u3002",
+                    "name": "\u4fdd\u6301\u79d2\u6578"
+                },
+                "num_repeats": {
+                    "description": "\u91cd\u8907\u547d\u4ee4\u6b21\u6578\u3002",
+                    "name": "\u91cd\u8907"
+                }
+            },
+            "name": "\u50b3\u9001\u547d\u4ee4"
+        },
+        "toggle": {
+            "description": "\u958b\u555f/\u95dc\u9589\u88dd\u7f6e\u3002",
+            "name": "\u958b\u95dc"
+        },
+        "turn_off": {
+            "description": "\u95dc\u9589\u88dd\u7f6e\u3002",
+            "name": "\u95dc\u9589"
+        },
+        "turn_on": {
+            "description": "\u50b3\u9001\u958b\u6a5f\u547d\u4ee4\u3002",
+            "fields": {
+                "activity": {
+                    "description": "\u8981\u555f\u52d5\u7684\u6d3b\u52d5 ID \u6216\u6d3b\u52d5\u540d\u7a31\u3002",
+                    "name": "\u6d3b\u52d5"
+                }
+            },
+            "name": "\u958b\u555f"
+        }
+    },
+    "title": "\u9059\u63a7\u5668"
+}

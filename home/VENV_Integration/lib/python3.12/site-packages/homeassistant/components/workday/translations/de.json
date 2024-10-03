@@ -1,0 +1,249 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Workday wurde bereits mit der gew\u00e4hlten Konfiguration eingerichtet",
+            "incorrect_province": "Falsche Unterteilung aus dem YAML-Import"
+        },
+        "error": {
+            "add_holiday_error": "Falsches Datumsformat (JJJJ-MM-TT)",
+            "add_holiday_range_error": "Falsches Format f\u00fcr den Datumsbereich (JJJJ-MM-TT, JJJJ-MM-TT)",
+            "already_configured": "Der Dienst ist bereits konfiguriert",
+            "remove_holiday_error": "Falsches Datumsformat (JJJJ-MM-TT) oder Feiertagsname nicht gefunden",
+            "remove_holiday_range_error": "Falsches Format f\u00fcr den Datumsbereich (JJJJ-MM-TT, JJJJ-MM-TT)"
+        },
+        "step": {
+            "options": {
+                "data": {
+                    "add_holidays": "Feiertage hinzuf\u00fcgen",
+                    "category": "Zus\u00e4tzliche Kategorie als Urlaub",
+                    "days_offset": "Versatz",
+                    "excludes": "Ausgeschlossen sind",
+                    "language": "Sprache f\u00fcr benannte Feiertage",
+                    "province": "Unterteilung des Landes",
+                    "remove_holidays": "Feiertage entfernen",
+                    "workdays": "Arbeitstage"
+                },
+                "data_description": {
+                    "add_holidays": "Benutzerdefinierte Feiertage als JJJJ-MM-TT oder als Bereich mit `,` als Trennzeichen hinzuf\u00fcgen",
+                    "category": "W\u00e4hle zus\u00e4tzliche Kategorien aus, die als Feiertage einbezogen werden sollen",
+                    "days_offset": "Vom aktuellen Tag abweichende Tage",
+                    "excludes": "Liste der auszuschlie\u00dfenden Werktage. Beachte das Schl\u00fcsselwort `Feiertag` und lese die Dokumentation zur korrekten Verwendung",
+                    "language": "Sprache, die beim Konfigurieren benannter Feiertagsausschl\u00fcsse verwendet werden soll",
+                    "province": "Staat, Territorium, Provinz, Region des Landes",
+                    "remove_holidays": "Feiertage als JJJJ-MM-TT, als Bereich mit `,` als Trennzeichen oder durch Verwendung eines Teils des Namens entfernen",
+                    "workdays": "Liste der Arbeitstage"
+                },
+                "description": "Zus\u00e4tzliche Optionen f\u00fcr {name} festlegen, die f\u00fcr das Land {country} konfiguriert sind"
+            },
+            "user": {
+                "data": {
+                    "country": "Land",
+                    "name": "Name"
+                }
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "workday": {
+                "state_attributes": {
+                    "days_offset": {
+                        "name": "Versatz"
+                    },
+                    "excludes": {
+                        "name": "Ausgeschlossen sind"
+                    },
+                    "workdays": {
+                        "name": "Arbeitstage"
+                    }
+                }
+            }
+        }
+    },
+    "issues": {
+        "bad_country": {
+            "fix_flow": {
+                "step": {
+                    "country": {
+                        "data": {
+                            "country": "Land"
+                        },
+                        "description": "W\u00e4hle ein Land aus, das du f\u00fcr deinen Workday-Sensor verwenden m\u00f6chtest.",
+                        "title": "Land f\u00fcr {title} ausw\u00e4hlen"
+                    },
+                    "province": {
+                        "data": {
+                            "province": "Unterteilung des Landes"
+                        },
+                        "data_description": {
+                            "province": "Staat, Territorium, Provinz, Region des Landes"
+                        },
+                        "description": "W\u00e4hle eine Provinz im Land {country} aus, die du f\u00fcr deinen Workday-Sensor verwenden m\u00f6chtest.",
+                        "title": "W\u00e4hle eine Provinz f\u00fcr {title}"
+                    }
+                }
+            },
+            "title": "Konfiguriertes Land f\u00fcr {title} existiert nicht"
+        },
+        "bad_date_holiday": {
+            "fix_flow": {
+                "error": {
+                    "remove_holiday_error": "Falsches Datumsformat (JJJJ-MM-TT) oder Feiertagsname nicht gefunden"
+                },
+                "step": {
+                    "fix_remove_holiday": {
+                        "data": {
+                            "remove_holidays": "Feiertage entfernen"
+                        },
+                        "data_description": {
+                            "remove_holidays": "Feiertage als JJJJ-MM-TT, als Bereich mit `,` als Trennzeichen oder durch Verwendung eines Teils des Namens entfernen"
+                        },
+                        "description": "Entferne das Feiertagsdatum `{remove_holidays}`, da es im Land {country} nicht gefunden werden kann.",
+                        "title": "Das konfigurierte Feiertagsdatum {remove_holidays} f\u00fcr {title} existiert nicht"
+                    }
+                }
+            },
+            "title": "Das konfigurierte Feiertagsdatum {remove_holidays} f\u00fcr {title} existiert nicht"
+        },
+        "bad_named_holiday": {
+            "fix_flow": {
+                "error": {
+                    "remove_holiday_error": "Falsches Datumsformat (JJJJ-MM-TT) oder Feiertagsname nicht gefunden"
+                },
+                "step": {
+                    "fix_remove_holiday": {
+                        "data": {
+                            "remove_holidays": "Feiertage entfernen"
+                        },
+                        "data_description": {
+                            "remove_holidays": "Feiertage als JJJJ-MM-TT, als Bereich mit `,` als Trennzeichen oder durch Verwendung eines Teils des Namens entfernen"
+                        },
+                        "description": "Entferne den benannten Feiertag `{remove_holidays}`, da er im Land {country} nicht gefunden werden kann.",
+                        "title": "Der konfigurierte, benannte Feiertag {remove_holidays} f\u00fcr {title} existiert nicht"
+                    },
+                    "named_holiday": {
+                        "data": {
+                            "remove_holidays": "Feiertage entfernen"
+                        },
+                        "data_description": {
+                            "remove_holidays": "Feiertage als JJJJ-MM-TT, als Bereich mit `,` als Trennzeichen oder durch Verwendung eines Teils des Namens entfernen"
+                        },
+                        "description": "Entferne den benannten Feiertag `{remove_holidays}`, da er im Land {country} nicht gefunden werden kann.",
+                        "title": "Der konfigurierte, benannte Feiertag {remove_holidays} f\u00fcr {title} existiert nicht"
+                    }
+                }
+            },
+            "title": "Der konfigurierte, benannte Feiertag {remove_holidays} f\u00fcr {title} existiert nicht"
+        },
+        "bad_province": {
+            "fix_flow": {
+                "step": {
+                    "province": {
+                        "data": {
+                            "province": "Unterteilung des Landes"
+                        },
+                        "data_description": {
+                            "province": "Staat, Territorium, Provinz, Region des Landes"
+                        },
+                        "description": "W\u00e4hle eine Provinz im Land {country} aus, die du f\u00fcr deinen Workday-Sensor verwenden m\u00f6chtest.",
+                        "title": "W\u00e4hle eine Provinz f\u00fcr {title}"
+                    }
+                }
+            },
+            "title": "Die konfigurierte Provinz im Land {country} f\u00fcr {title} existiert nicht"
+        },
+        "deprecated_yaml": {
+            "description": "Die Konfiguration von Workday mit YAML wird entfernt.\n\nDeine bestehende YAML-Konfiguration wurde automatisch in die Benutzeroberfl\u00e4che importiert.\n\nEntferne die Workday-YAML-Konfiguration aus deiner configuration.yaml-Datei und starte Home Assistant neu, um dieses Problem zu beheben.",
+            "title": "Die Workday YAML-Konfiguration wird entfernt"
+        }
+    },
+    "options": {
+        "error": {
+            "add_holiday_error": "Falsches Datumsformat (JJJJ-MM-TT)",
+            "add_holiday_range_error": "Falsches Format f\u00fcr den Datumsbereich (JJJJ-MM-TT, JJJJ-MM-TT)",
+            "already_configured": "Dienst mit dieser Konfiguration existiert bereits",
+            "remove_holiday_error": "Falsches Datumsformat (JJJJ-MM-TT) oder Feiertagsname nicht gefunden",
+            "remove_holiday_range_error": "Falsches Format f\u00fcr den Datumsbereich (JJJJ-MM-TT, JJJJ-MM-TT)"
+        },
+        "step": {
+            "init": {
+                "data": {
+                    "add_holidays": "Feiertage hinzuf\u00fcgen",
+                    "category": "Zus\u00e4tzliche Kategorie als Urlaub",
+                    "days_offset": "Versatz",
+                    "excludes": "Ausgeschlossen sind",
+                    "language": "Sprache f\u00fcr benannte Feiertage",
+                    "province": "Unterteilung des Landes",
+                    "remove_holidays": "Feiertage entfernen",
+                    "workdays": "Arbeitstage"
+                },
+                "data_description": {
+                    "add_holidays": "Benutzerdefinierte Feiertage als JJJJ-MM-TT oder als Bereich mit `,` als Trennzeichen hinzuf\u00fcgen",
+                    "category": "W\u00e4hle zus\u00e4tzliche Kategorien aus, die als Feiertage einbezogen werden sollen",
+                    "days_offset": "Vom aktuellen Tag abweichende Tage",
+                    "excludes": "Liste der auszuschlie\u00dfenden Werktage. Beachte das Schl\u00fcsselwort `Feiertag` und lese die Dokumentation zur korrekten Verwendung",
+                    "language": "Sprache, die beim Konfigurieren benannter Feiertagsausschl\u00fcsse verwendet werden soll",
+                    "province": "Staat, Territorium, Provinz, Region des Landes",
+                    "remove_holidays": "Feiertage als JJJJ-MM-TT, als Bereich mit `,` als Trennzeichen oder durch Verwendung eines Teils des Namens entfernen",
+                    "workdays": "Liste der Arbeitstage"
+                },
+                "description": "Zus\u00e4tzliche Optionen f\u00fcr {name} \u00e4ndern, die f\u00fcr das Land {country} konfiguriert sind"
+            }
+        }
+    },
+    "selector": {
+        "category": {
+            "options": {
+                "armed_forces": "Streitkr\u00e4fte",
+                "bank": "Bank",
+                "chinese": "Chinesisch",
+                "christian": "Christlich",
+                "government": "Regierung",
+                "half_day": "Halber Tag",
+                "hebrew": "Hebr\u00e4isch",
+                "hindu": "Hindu",
+                "islamic": "Islamisch",
+                "optional": "Optional",
+                "public": "\u00d6ffentlich",
+                "school": "Schule",
+                "unofficial": "Inoffiziell",
+                "workday": "Werktag"
+            }
+        },
+        "country": {
+            "options": {
+                "none": "Kein Land"
+            }
+        },
+        "days": {
+            "options": {
+                "fri": "Freitag",
+                "holiday": "Feiertage",
+                "mon": "Montag",
+                "sat": "Samstag",
+                "sun": "Sonntag",
+                "thu": "Donnerstag",
+                "tue": "Dienstag",
+                "wed": "Mittwoch"
+            }
+        },
+        "province": {
+            "options": {
+                "none": "Keine Unterteilung"
+            }
+        }
+    },
+    "services": {
+        "check_date": {
+            "description": "Pr\u00fcfe, ob das Datum ein Werktag ist.",
+            "fields": {
+                "check_date": {
+                    "description": "Datum, zu dem gepr\u00fcft wird, ob es ein Arbeitstag ist.",
+                    "name": "Datum"
+                }
+            },
+            "name": "Datum pr\u00fcfen"
+        }
+    },
+    "title": "Werktag"
+}

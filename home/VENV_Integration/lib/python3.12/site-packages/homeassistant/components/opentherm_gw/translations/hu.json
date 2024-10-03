@@ -1,0 +1,213 @@
+{
+    "config": {
+        "error": {
+            "already_configured": "Az eszk\u00f6z m\u00e1r konfigur\u00e1lva van",
+            "cannot_connect": "Sikertelen csatlakoz\u00e1s",
+            "id_exists": "Az \u00e1tj\u00e1r\u00f3 azonos\u00edt\u00f3ja m\u00e1r l\u00e9tezik",
+            "timeout_connect": "Id\u0151t\u00fall\u00e9p\u00e9s a kapcsolat l\u00e9trehoz\u00e1sa sor\u00e1n"
+        },
+        "step": {
+            "init": {
+                "data": {
+                    "device": "El\u00e9r\u00e9si \u00fat vagy URL",
+                    "id": "Azonos\u00edt\u00f3",
+                    "name": "Elnevez\u00e9s"
+                }
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "floor_temperature": "Padl\u00f3 h\u0151m\u00e9rs\u00e9klete",
+                    "read_precision": "Pontoss\u00e1g olvas\u00e1sa",
+                    "set_precision": "Pontoss\u00e1g be\u00e1ll\u00edt\u00e1sa",
+                    "temporary_override_mode": "Ideiglenes be\u00e1ll\u00edt\u00e1s fel\u00fclb\u00edr\u00e1l\u00e1si m\u00f3dja"
+                }
+            }
+        }
+    },
+    "services": {
+        "reset_gateway": {
+            "description": "\u00dajraind\u00edtja az OpenTherm \u00e1tj\u00e1r\u00f3t.",
+            "fields": {
+                "gateway_id": {
+                    "description": "Az OpenTherm \u00e1tj\u00e1r\u00f3 gateway_id-je.",
+                    "name": "\u00c1tj\u00e1r\u00f3 azonos\u00edt\u00f3"
+                }
+            },
+            "name": "\u00c1tj\u00e1r\u00f3 \u00fajraind\u00edt\u00e1sa"
+        },
+        "send_transparent_command": {
+            "description": "Egyedi otgw parancsok k\u00fcld\u00e9se (https://otgw.tclcode.com/firmware.html) \u00e1tl\u00e1tsz\u00f3 fel\u00fcleten kereszt\u00fcl.",
+            "fields": {
+                "gateway_id": {
+                    "description": "Az OpenTherm \u00e1tj\u00e1r\u00f3 gateway_id-je.",
+                    "name": "\u00c1tj\u00e1r\u00f3 azonos\u00edt\u00f3"
+                },
+                "transp_arg": {
+                    "description": "A parancs param\u00e9tere, amelyet az OpenTherm Gateway-nek kell k\u00fcldeni.",
+                    "name": "Param\u00e9ter"
+                },
+                "transp_cmd": {
+                    "description": "A parancs, amelyet az OpenTherm Gateway-nek kell k\u00fcldeni.",
+                    "name": "Parancs"
+                }
+            },
+            "name": "Transzparens parancs k\u00fcld\u00e9se"
+        },
+        "set_central_heating_ovrd": {
+            "description": "Be\u00e1ll\u00edtja a k\u00f6zponti f\u0171t\u00e9s fel\u00fclb\u00edr\u00e1l\u00e1si opci\u00f3j\u00e1t az \u00e1tj\u00e1r\u00f3n. Amikor a vez\u00e9rl\u00e9si be\u00e1ll\u00edt\u00e1si pontot fel\u00fcl\u00edrja (egy 0-t\u00f3l elt\u00e9r\u0151 \u00e9rt\u00e9k\u0171 set_control_setpoint m\u0171velettel), a gateway automatikusan enged\u00e9lyezi a k\u00f6zponti f\u0171t\u00e9s fel\u00fclb\u00edr\u00e1l\u00e1s\u00e1t, a f\u0171t\u00e9s megkezd\u00e9s\u00e9hez. Ezt a m\u0171veletet ezut\u00e1n a k\u00f6zponti f\u0171t\u00e9s fel\u00fclb\u00edr\u00e1l\u00e1si \u00e1llapot\u00e1nak szab\u00e1lyoz\u00e1s\u00e1ra lehet haszn\u00e1lni. A k\u00f6zponti f\u0171t\u00e9s vez\u00e9rl\u00e9s\u00e9nek visszaad\u00e1s\u00e1hoz a termoszt\u00e1tnak, haszn\u00e1lja a set_control_setpoint m\u0171veletet 0 h\u0151m\u00e9rs\u00e9kleti \u00e9rt\u00e9kkel. Erre csak akkor lesz sz\u00fcks\u00e9ge, ha saj\u00e1t szoftveres termoszt\u00e1tot \u00edr.\n.",
+            "fields": {
+                "ch_override": {
+                    "description": "A k\u00f6zponti f\u0171t\u00e9s fel\u00fclb\u00edr\u00e1l\u00e1s\u00e1nak k\u00edv\u00e1nt logikai \u00e9rt\u00e9ke.",
+                    "name": "K\u00f6zponti f\u0171t\u00e9s fel\u00fclb\u00edr\u00e1l\u00e1sa"
+                },
+                "gateway_id": {
+                    "description": "Az OpenTherm \u00e1tj\u00e1r\u00f3 gateway_id-je.",
+                    "name": "\u00c1tj\u00e1r\u00f3 azonos\u00edt\u00f3"
+                }
+            },
+            "name": "K\u00f6zponti f\u0171t\u00e9s fel\u00fclb\u00edr\u00e1l\u00e1s\u00e1nak be\u00e1ll\u00edt\u00e1sa"
+        },
+        "set_clock": {
+            "description": "Be\u00e1ll\u00edtja az \u00f3r\u00e1t \u00e9s a h\u00e9t napj\u00e1t a csatlakoztatott termoszt\u00e1ton.",
+            "fields": {
+                "date": {
+                    "description": "Opcion\u00e1lis d\u00e1tum, amelyb\u0151l a h\u00e9t napja lesz kivonva. Alap\u00e9rtelmez\u00e9s szerint a mai nap.",
+                    "name": "D\u00e1tum"
+                },
+                "gateway_id": {
+                    "description": "Az OpenTherm \u00e1tj\u00e1r\u00f3 gateway_id-je.",
+                    "name": "\u00c1tj\u00e1r\u00f3 azonos\u00edt\u00f3"
+                },
+                "time": {
+                    "description": "Opcion\u00e1lis id\u0151pont 24 \u00f3r\u00e1s form\u00e1tumban, amelyet a termoszt\u00e1tnak adnak meg. Alap\u00e9rtelmez\u00e9s szerint az aktu\u00e1lis id\u0151pontot veszi figyelembe.",
+                    "name": "Id\u0151"
+                }
+            },
+            "name": "\u00d3ra be\u00e1ll\u00edt\u00e1sa"
+        },
+        "set_control_setpoint": {
+            "description": "Be\u00e1ll\u00edtja a k\u00f6zponti f\u0171t\u00e9s vez\u00e9rl\u00e9si be\u00e1ll\u00edt\u00e1si pontj\u00e1nak fel\u00fclb\u00edr\u00e1l\u00e1s\u00e1t az \u00e1tj\u00e1r\u00f3n. Csak akkor lesz erre sz\u00fcks\u00e9ge, ha saj\u00e1t szoftver alap\u00fa termoszt\u00e1tot \u00edr.\n.",
+            "fields": {
+                "gateway_id": {
+                    "description": "Az OpenTherm \u00e1tj\u00e1r\u00f3 gateway_id-je.",
+                    "name": "\u00c1tj\u00e1r\u00f3 azonos\u00edt\u00f3"
+                },
+                "temperature": {
+                    "description": "A k\u00f6zponti f\u0171t\u00e9s vez\u00e9rl\u00e9si be\u00e1ll\u00edt\u00e1si pontj\u00e1nak be\u00e1ll\u00edt\u00e1sa az \u00e1tj\u00e1r\u00f3n. 0 \u00e9s 90 k\u00f6z\u00f6tti \u00e9rt\u00e9kek fogadhat\u00f3k el, de nem minden kaz\u00e1n t\u00e1mogatja ezt a tartom\u00e1nyt. A 0 \u00e9rt\u00e9k letiltja a k\u00f6zponti f\u0171t\u00e9s vez\u00e9rl\u00e9si be\u00e1ll\u00edt\u00e1si pontj\u00e1nak fel\u00fclb\u00edr\u00e1l\u00e1s\u00e1t.\n.",
+                    "name": "H\u0151m\u00e9rs\u00e9klet"
+                }
+            },
+            "name": "Vez\u00e9rl\u00e9si be\u00e1ll\u00edt\u00e1si pont be\u00e1ll\u00edt\u00e1sa"
+        },
+        "set_gpio_mode": {
+            "description": "Megv\u00e1ltoztatja a gateway GPIO t\u00fcsk\u00e9inek funkci\u00f3j\u00e1t.",
+            "fields": {
+                "gateway_id": {
+                    "description": "Az OpenTherm \u00e1tj\u00e1r\u00f3 gateway_id-je.",
+                    "name": "\u00c1tj\u00e1r\u00f3 azonos\u00edt\u00f3"
+                },
+                "id": {
+                    "description": "A GPIO pin azonos\u00edt\u00f3ja.",
+                    "name": "Azonos\u00edt\u00f3"
+                },
+                "mode": {
+                    "description": "A GPIO t\u0171re be\u00e1ll\u00edtand\u00f3 m\u00f3d. Mindk\u00e9t GPIO eset\u00e9ben elfogadottak a 0-t\u00f3l 6-ig terjed\u0151 \u00e9rt\u00e9kek, a 7-es \u00e9rt\u00e9k csak a GPIO \"B\" eset\u00e9ben fogadhat\u00f3 el. Az \u00e9rt\u00e9kek magyar\u00e1zat\u00e1t itt tal\u00e1lja: https://www.home-assistant.io/integrations/opentherm_gw/#gpio-modes.\n.",
+                    "name": "M\u00f3d"
+                }
+            },
+            "name": "Gpio \u00fczemm\u00f3d be\u00e1ll\u00edt\u00e1sa"
+        },
+        "set_hot_water_ovrd": {
+            "description": "Be\u00e1ll\u00edtja a h\u00e1ztart\u00e1si melegv\u00edz enged\u00e9lyez\u00e9si opci\u00f3t az \u00e1tj\u00e1r\u00f3n.",
+            "fields": {
+                "dhw_override": {
+                    "description": "A h\u00e1ztart\u00e1si melegv\u00edz bekapcsol\u00e1si opci\u00f3j\u00e1nak szab\u00e1lyoz\u00e1sa. Ha a kaz\u00e1nt \u00fagy konfigur\u00e1lt\u00e1k, hogy a szobai egys\u00e9g szab\u00e1lyozza, mikor kell kis mennyis\u00e9g\u0171 vizet el\u0151meleg\u00edteni, ez a parancs befoly\u00e1solhatja azt. Az \u00e9rt\u00e9knek 0-nak vagy 1-nek kell lennie, hogy a fel\u00fclb\u00edr\u00e1l\u00e1s ki- vagy bekapcsolt \u00e1llapotban legyen, vagy \"A\", hogy letiltsa a fel\u00fclb\u00edr\u00e1l\u00e1st.\n.",
+                    "name": "Haszn\u00e1lati melegv\u00edz fel\u00fclb\u00edr\u00e1l\u00e1sa"
+                },
+                "gateway_id": {
+                    "description": "Az OpenTherm \u00e1tj\u00e1r\u00f3 gateway_id-je.",
+                    "name": "\u00c1tj\u00e1r\u00f3 azonos\u00edt\u00f3"
+                }
+            },
+            "name": "Melegv\u00edz fel\u00fclb\u00edr\u00e1l\u00e1s\u00e1nak be\u00e1ll\u00edt\u00e1sa"
+        },
+        "set_hot_water_setpoint": {
+            "description": "Be\u00e1ll\u00edtja a haszn\u00e1lati melegv\u00edz alap\u00e9rt\u00e9k\u00e9t az \u00e1tj\u00e1r\u00f3n.",
+            "fields": {
+                "gateway_id": {
+                    "description": "Az OpenTherm \u00e1tj\u00e1r\u00f3 gateway_id-je.",
+                    "name": "\u00c1tj\u00e1r\u00f3 azonos\u00edt\u00f3"
+                },
+                "temperature": {
+                    "description": "Az otthoni melegv\u00edz be\u00e1ll\u00edt\u00e1si pontj\u00e1t \u00e1ll\u00edtsa be az \u00e1tj\u00e1r\u00f3n. Nem minden kaz\u00e1n t\u00e1mogatja ezt a funkci\u00f3t. 0 \u00e9s 90 k\u00f6z\u00f6tti \u00e9rt\u00e9kek fogadhat\u00f3k el, de nem minden kaz\u00e1n t\u00e1mogatja ezt a tartom\u00e1nyt. Ellen\u0151rizze a slave_dhw_min_setp \u00e9s a slave_dhw_max_setp \u00e9rz\u00e9kel\u0151k \u00e9rt\u00e9keit, hogy l\u00e1ssa a kaz\u00e1nj\u00e1n t\u00e1mogatott tartom\u00e1nyt.\n.",
+                    "name": "H\u0151m\u00e9rs\u00e9klet"
+                }
+            },
+            "name": "Melegv\u00edz alap\u00e9rt\u00e9k be\u00e1ll\u00edt\u00e1sa"
+        },
+        "set_led_mode": {
+            "description": "Megv\u00e1ltoztatja az \u00e1tj\u00e1r\u00f3 LED-jeinek funkci\u00f3j\u00e1t.",
+            "fields": {
+                "gateway_id": {
+                    "description": "Az OpenTherm \u00e1tj\u00e1r\u00f3 gateway_id-je.",
+                    "name": "\u00c1tj\u00e1r\u00f3 azonos\u00edt\u00f3"
+                },
+                "id": {
+                    "description": "A LED azonos\u00edt\u00f3ja.",
+                    "name": "Azonos\u00edt\u00f3"
+                },
+                "mode": {
+                    "description": "A LED-hez rendelend\u0151 funkci\u00f3. Az \u00e9rt\u00e9kek magyar\u00e1zat\u00e1t l\u00e1sd a https://www.home-assistant.io/integrations/opentherm_gw/#led-modes oldalon.\n.",
+                    "name": "M\u00f3d"
+                }
+            },
+            "name": "LED \u00fczemm\u00f3d be\u00e1ll\u00edt\u00e1sa"
+        },
+        "set_max_modulation": {
+            "description": "Fel\u00fcl\u00edrja a maxim\u00e1lis relat\u00edv modul\u00e1ci\u00f3s szintet. Csak akkor lesz sz\u00fcks\u00e9ge erre, ha saj\u00e1t szoftveres termoszt\u00e1tot \u00edr.",
+            "fields": {
+                "gateway_id": {
+                    "description": "Az OpenTherm \u00e1tj\u00e1r\u00f3 gateway_id-je.",
+                    "name": "\u00c1tj\u00e1r\u00f3 azonos\u00edt\u00f3"
+                },
+                "level": {
+                    "description": "Az \u00e1tj\u00e1r\u00f3nak biztos\u00edtand\u00f3 modul\u00e1ci\u00f3s szint. Adja meg a -1 \u00e9rt\u00e9ket a fel\u00fclb\u00edr\u00e1l\u00e1s t\u00f6rl\u00e9s\u00e9hez \u00e9s az \u00e9rt\u00e9k \u00fajb\u00f3li tov\u00e1bb\u00edt\u00e1s\u00e1hoz a termoszt\u00e1tb\u00f3l.\n.",
+                    "name": "Szint"
+                }
+            },
+            "name": "Maxim\u00e1lis modul\u00e1ci\u00f3 be\u00e1ll\u00edt\u00e1sa"
+        },
+        "set_outside_temperature": {
+            "description": "K\u00fcls\u0151 h\u0151m\u00e9rs\u00e9kletet biztos\u00edt a termoszt\u00e1tnak. Ha a termoszt\u00e1t nem tudja megjelen\u00edteni a k\u00fcls\u0151 h\u0151m\u00e9rs\u00e9kletet \u00e9s nem t\u00e1mogatja az OTC-t (k\u00fcls\u0151 h\u0151m\u00e9rs\u00e9klet-korrekci\u00f3), ennek nincs hat\u00e1sa.\n.",
+            "fields": {
+                "gateway_id": {
+                    "description": "Az OpenTherm \u00e1tj\u00e1r\u00f3 gateway_id-je.",
+                    "name": "\u00c1tj\u00e1r\u00f3 azonos\u00edt\u00f3"
+                },
+                "temperature": {
+                    "description": "A termoszt\u00e1t sz\u00e1m\u00e1ra biztos\u00edtand\u00f3 h\u0151m\u00e9rs\u00e9klet. A -40,0 \u00e9s 64,0 k\u00f6z\u00f6tti \u00e9rt\u00e9kek elfogadhat\u00f3k, de nem minden termoszt\u00e1t k\u00e9pes megjelen\u00edteni a teljes tartom\u00e1nyt. A 64,0 feletti \u00e9rt\u00e9kek t\u00f6rlik a kor\u00e1bban be\u00e1ll\u00edtott \u00e9rt\u00e9keket (javaslat: 99)\n.",
+                    "name": "H\u0151m\u00e9rs\u00e9klet"
+                }
+            },
+            "name": "K\u00fcls\u0151 h\u0151m\u00e9rs\u00e9klet be\u00e1ll\u00edt\u00e1sa"
+        },
+        "set_setback_temperature": {
+            "description": "Be\u00e1ll\u00edtja a vissza\u00e1ll\u00e1si h\u0151m\u00e9rs\u00e9kletet a GPIO t\u00e1voll\u00e9ti m\u00f3d funkci\u00f3hoz.",
+            "fields": {
+                "gateway_id": {
+                    "description": "Az OpenTherm \u00e1tj\u00e1r\u00f3 gateway_id-je.",
+                    "name": "\u00c1tj\u00e1r\u00f3 azonos\u00edt\u00f3"
+                },
+                "temperature": {
+                    "description": "Az \u00e1tj\u00e1r\u00f3n konfigur\u00e1land\u00f3 vissza\u00e1ll\u00e1si h\u0151m\u00e9rs\u00e9klet.",
+                    "name": "H\u0151m\u00e9rs\u00e9klet"
+                }
+            },
+            "name": "Cs\u00f6kkentett h\u0151m\u00e9rs\u00e9klet be\u00e1ll\u00edt\u00e1sa"
+        }
+    }
+}

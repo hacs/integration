@@ -1,0 +1,192 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "El dispositivo ya est\u00e1 configurado"
+        },
+        "error": {
+            "cannot_connect": "No se pudo conectar",
+            "invalid_auth": "Autenticaci\u00f3n no v\u00e1lida",
+            "invalid_host": "La entrada del host no estaba en formato URL completo, por ejemplo, http://192.168.10.100:80",
+            "reauth_successful": "La autenticaci\u00f3n se volvi\u00f3 a realizar correctamente",
+            "unknown": "Error inesperado"
+        },
+        "flow_title": "{name} ({host})",
+        "step": {
+            "reauth_confirm": {
+                "data": {
+                    "password": "Contrase\u00f1a",
+                    "username": "Nombre de usuario"
+                },
+                "description": "Las credenciales para {host} ya no son v\u00e1lidas.",
+                "title": "Vuelve a autenticar tu ISY"
+            },
+            "user": {
+                "data": {
+                    "host": "URL",
+                    "password": "Contrase\u00f1a",
+                    "tls": "La versi\u00f3n de TLS del controlador ISY.",
+                    "username": "Nombre de usuario"
+                },
+                "description": "La entrada del host debe estar en formato URL completo, por ejemplo, http://192.168.10.100:80",
+                "title": "Conectar con tu ISY"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_service": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Actualiza cualquier automatizaci\u00f3n o script que use este servicio para usar en su lugar el servicio `{alternate_service}` con una ID de entidad de destino de `{alternate_target}`.",
+                        "title": "Se eliminar\u00e1 el servicio {deprecated_service}"
+                    },
+                    "deprecated_yaml": {
+                        "description": "Se va a eliminar la configuraci\u00f3n de Universal Devices ISY/IoX mediante YAML. \n\nTu configuraci\u00f3n YAML existente se ha importado a la IU autom\u00e1ticamente. \n\nElimina la configuraci\u00f3n YAML `isy994` de tu archivo configuration.yaml y reinicia Home Assistant para solucionar este problema.",
+                        "title": "Se va a eliminar la configuraci\u00f3n YAML de ISY/IoX"
+                    }
+                }
+            },
+            "title": "Se eliminar\u00e1 el servicio {deprecated_service}"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "ignore_string": "Ignorar Cadena",
+                    "restore_light_state": "Restaurar el brillo de la luz",
+                    "sensor_string": "Cadena Nodo Sensor",
+                    "variable_sensor_string": "Cadena de Sensor Variable"
+                },
+                "description": "Configura las opciones para la integraci\u00f3n ISY:\n\u2022 Cadena de sensor de nodo: Cualquier dispositivo o carpeta que contenga 'Cadena de sensor de nodo' en el nombre se tratar\u00e1 como un sensor o un sensor binario.\n\u2022 Ignorar Cadena: Cualquier dispositivo con 'Ignorar Cadena' en el nombre ser\u00e1 ignorado.\n\u2022 Cadena de sensor variable: cualquier variable que contenga 'Cadena de sensor variable' se a\u00f1adir\u00e1 como sensor.\n\u2022 Restaurar brillo de luz: si est\u00e1 habilitado, el brillo anterior se restaurar\u00e1 al encender una luz en lugar del nivel de encendido integrado del dispositivo.",
+                "title": "Opciones ISY"
+            }
+        }
+    },
+    "services": {
+        "delete_zwave_lock_user_code": {
+            "description": "Borra un c\u00f3digo de usuario de cerradura Z-Wave a trav\u00e9s del ISY.",
+            "fields": {
+                "user_num": {
+                    "description": "El n\u00famero de ranura de usuario en la cerradura.",
+                    "name": "N\u00famero de usuario"
+                }
+            },
+            "name": "Eliminar c\u00f3digo de usuario de cerradura Z-Wave"
+        },
+        "get_zwave_parameter": {
+            "description": "Solicita un par\u00e1metro del dispositivo Z-Wave a trav\u00e9s del ISY. El valor del par\u00e1metro se devolver\u00e1 como un atributo de estado adicional de la entidad con el nombre \"ZW_#\", donde \"#\" es el n\u00famero del par\u00e1metro.",
+            "fields": {
+                "parameter": {
+                    "description": "El n\u00famero de par\u00e1metro a recuperar del dispositivo.",
+                    "name": "Par\u00e1metro"
+                }
+            },
+            "name": "Obtener par\u00e1metro Z-Wave"
+        },
+        "rename_node": {
+            "description": "Cambia el nombre de un nodo o grupo (escena) en ISY. Nota: esto no cambiar\u00e1 autom\u00e1ticamente el nombre de la entidad de Home Assistant ni el ID de la entidad para que coincida. El nombre y la ID de la entidad solo se actualizar\u00e1n despu\u00e9s de recargar la integraci\u00f3n o reiniciar Home Assistant, y S\u00d3LO SI a\u00fan no has personalizado el nombre en Home Assistant.",
+            "fields": {
+                "name": {
+                    "description": "El nuevo nombre que se usar\u00e1 dentro del ISY.",
+                    "name": "Nuevo nombre"
+                }
+            },
+            "name": "Cambiar el nombre del nodo en ISY"
+        },
+        "send_node_command": {
+            "description": "Env\u00eda un comando a un dispositivo ISY utilizando su ID de entidad de Home Assistant. Los comandos v\u00e1lidos son: beep, brighten, dim, disable, enable, fade_down, fade_stop, fade_up, fast_off, fast_on y query.",
+            "fields": {
+                "command": {
+                    "description": "El comando que se enviar\u00e1 al dispositivo.",
+                    "name": "Comando"
+                }
+            },
+            "name": "Enviar comando de nodo"
+        },
+        "send_program_command": {
+            "description": "Env\u00eda un comando para controlar un programa o carpeta ISY. Los comandos v\u00e1lidos son run, run_then, run_else, stop, enable, disabled, enable_run_at_startup y disabled_run_at_startup.",
+            "fields": {
+                "address": {
+                    "description": "La direcci\u00f3n del programa a controlar (utiliza la direcci\u00f3n o el nombre).",
+                    "name": "Direcci\u00f3n"
+                },
+                "command": {
+                    "description": "El comando de programa ISY a enviar.",
+                    "name": "Comando"
+                },
+                "isy": {
+                    "description": "Si tienes m\u00e1s de un ISY conectado, proporciona el nombre del ISY para consultar (como se muestra en el Registro de dispositivos o como el primer nodo superior en la Consola de administraci\u00f3n de ISY). Si tienes el mismo nombre de programa o direcci\u00f3n en m\u00faltiples ISY, omitir esto ejecutar\u00e1 el comando en todos ellos.",
+                    "name": "ISY"
+                },
+                "name": {
+                    "description": "El nombre del programa a controlar (utiliza la direcci\u00f3n o el nombre).",
+                    "name": "Nombre"
+                }
+            },
+            "name": "Enviar comando de programa"
+        },
+        "send_raw_node_command": {
+            "description": "Configura las opciones para la integraci\u00f3n ISY:\n\u2022 Cadena de sensor de nodo: Cualquier dispositivo o carpeta que contenga 'Cadena de sensor de nodo' en el nombre se tratar\u00e1 como un sensor o un sensor binario.\n\u2022 Ignorar Cadena: Cualquier dispositivo con 'Ignorar Cadena' en el nombre ser\u00e1 ignorado.\n\u2022 Cadena de sensor variable: cualquier variable que contenga 'Cadena de sensor variable' se a\u00f1adir\u00e1 como sensor.\n\u2022 Restaurar brillo de luz: si est\u00e1 habilitado, el brillo anterior se restaurar\u00e1 al encender una luz en lugar del nivel de encendido integrado del dispositivo.",
+            "fields": {
+                "command": {
+                    "description": "El comando ISY REST que se enviar\u00e1 al dispositivo.",
+                    "name": "Comando"
+                },
+                "parameters": {
+                    "description": "Un diccionario de par\u00e1metros que se enviar\u00e1n en la cadena de consulta (por ejemplo, para controlar bombillas de colores).",
+                    "name": "Par\u00e1metros"
+                },
+                "unit_of_measurement": {
+                    "description": "La unidad de medida ISY (UOM) para enviar con el comando, si es necesario.",
+                    "name": "Unidad de medida"
+                },
+                "value": {
+                    "description": "El valor entero que se enviar\u00e1 con el comando.",
+                    "name": "Valor"
+                }
+            },
+            "name": "Enviar comando de nodo sin procesar"
+        },
+        "set_zwave_lock_user_code": {
+            "description": "Establece un c\u00f3digo de usuario de cerradura Z-Wave a trav\u00e9s del ISY.",
+            "fields": {
+                "code": {
+                    "description": "El c\u00f3digo a establecer para el usuario.",
+                    "name": "C\u00f3digo"
+                },
+                "user_num": {
+                    "description": "El n\u00famero de ranura de usuario en la cerradura.",
+                    "name": "N\u00famero de usuario"
+                }
+            },
+            "name": "Establecer c\u00f3digo de usuario de cerradura Z-Wave"
+        },
+        "set_zwave_parameter": {
+            "description": "Actualiza un par\u00e1metro del dispositivo Z-Wave a trav\u00e9s del ISY. El valor del par\u00e1metro tambi\u00e9n se devolver\u00e1 como un atributo de estado adicional de la entidad con el nombre \"ZW_#\", donde \"#\" es el n\u00famero del par\u00e1metro.",
+            "fields": {
+                "parameter": {
+                    "description": "El n\u00famero de par\u00e1metro a establecer en el dispositivo final.",
+                    "name": "Par\u00e1metro"
+                },
+                "size": {
+                    "description": "El tama\u00f1o del par\u00e1metro, ya sea 1, 2 o 4 bytes.",
+                    "name": "Tama\u00f1o"
+                },
+                "value": {
+                    "description": "El valor a establecer para el par\u00e1metro. Puede ser un n\u00famero entero o una cadena de bytes (p. ej., \"0xFFFF\").",
+                    "name": "Valor"
+                }
+            },
+            "name": "Configurar par\u00e1metro Z-Wave"
+        }
+    },
+    "system_health": {
+        "info": {
+            "device_connected": "ISY conectado",
+            "host_reachable": "Host accesible",
+            "last_heartbeat": "Hora del \u00faltimo latido",
+            "websocket_status": "Estado del conector de eventos"
+        }
+    }
+}

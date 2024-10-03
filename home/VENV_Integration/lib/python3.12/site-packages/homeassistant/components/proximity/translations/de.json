@@ -1,0 +1,87 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Ger\u00e4t ist bereits konfiguriert",
+            "success": "\u00c4nderungen gespeichert"
+        },
+        "flow_title": "Abstand",
+        "step": {
+            "user": {
+                "data": {
+                    "ignored_zones": "Zu ignorierende Zonen",
+                    "tolerance": "Toleranzabstand",
+                    "tracked_entities": "Zu verfolgende Ger\u00e4te oder Personen",
+                    "zone": "Zone, zu der die Entfernung verfolgt werden soll"
+                }
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "dir_of_travel": {
+                "name": "{tracked_entity} Fahrtrichtung",
+                "state": {
+                    "arrived": "Angekommen",
+                    "away_from": "Weg",
+                    "stationary": "Station\u00e4r",
+                    "towards": "Hin"
+                }
+            },
+            "dist_to_zone": {
+                "name": "{tracked_entity} Entfernung"
+            },
+            "nearest": {
+                "name": "N\u00e4chstes Ger\u00e4t"
+            },
+            "nearest_dir_of_travel": {
+                "name": "N\u00e4chste Fahrtrichtung",
+                "state": {
+                    "arrived": "Angekommen",
+                    "away_from": "Weg",
+                    "stationary": "Station\u00e4r",
+                    "towards": "Hin"
+                }
+            },
+            "nearest_dist_to_zone": {
+                "name": "N\u00e4chste Entfernung"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_proximity_entity": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Die N\u00e4herungsentit\u00e4t `{entity}` ist veraltet und wird in `2024.8` entfernt. Es wird jedoch in den folgenden Konfigurationen verwendet:\n - {used_in} \n\nBitte passe alle Automatisierungen oder Skripte an, die diese veraltete N\u00e4herungsentit\u00e4t verwenden.\nF\u00fcr jede getrackte Person oder jedes getrackte Ger\u00e4t wird ein Sensor f\u00fcr die Entfernung und die Bewegungsrichtung zum/vom \u00fcberwachten Bereich erstellt. Zus\u00e4tzlich wird f\u00fcr jede N\u00e4herungskonfiguration ein Sensor erstellt, der das n\u00e4chstgelegene Ger\u00e4t oder die n\u00e4chste Person zur \u00fcberwachten Zone anzeigt. Damit kannst du die Min/Max-Integration nutzen, um die n\u00e4chste und entfernteste Entfernung zu ermitteln.",
+                        "title": "Die N\u00e4herungsentit\u00e4t ist veraltet"
+                    }
+                }
+            },
+            "title": "Die N\u00e4herungsentit\u00e4t ist veraltet"
+        },
+        "tracked_entity_removed": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Die Entit\u00e4t `{entity_id}` wurde aus HA entfernt, wird aber bei Abstand von {name} verwendet. Bitte entferne `{entity_id}` aus der Liste der verfolgten Entit\u00e4ten. Zugeh\u00f6rige Abstandssensor-Entit\u00e4ten wurden auf nicht verf\u00fcgbar gesetzt und k\u00f6nnen entfernt werden.",
+                        "title": "Die verfolgte Entit\u00e4t wurde entfernt"
+                    }
+                }
+            },
+            "title": "Die verfolgte Entit\u00e4t wurde entfernt"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "ignored_zones": "Zu ignorierende Zonen",
+                    "tolerance": "Toleranzabstand",
+                    "tracked_entities": "Zu verfolgende Ger\u00e4te oder Personen",
+                    "zone": "Zone, zu der die Entfernung verfolgt werden soll"
+                }
+            }
+        }
+    },
+    "title": "Abstand"
+}

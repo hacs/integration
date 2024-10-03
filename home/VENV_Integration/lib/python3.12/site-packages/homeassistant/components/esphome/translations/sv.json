@@ -1,0 +1,112 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Enheten \u00e4r redan konfigurerad",
+            "already_in_progress": "Konfigurationsfl\u00f6det p\u00e5g\u00e5r redan",
+            "mdns_missing_mac": "MAC-adress saknas i MDNS-egenskaper.",
+            "mqtt_missing_api": "API-port saknas i MQTT-egenskaper.",
+            "mqtt_missing_ip": "IP-adress saknas i MQTT-egenskaperna.",
+            "mqtt_missing_mac": "MAC-adress saknas i MQTT-egenskaperna.",
+            "reauth_successful": "\u00c5terautentisering lyckades",
+            "service_received": "\u00c5tg\u00e4rd mottagen"
+        },
+        "error": {
+            "connection_error": "Kan inte ansluta till ESP. Se till att din YAML-fil inneh\u00e5ller en 'api:' line.",
+            "invalid_auth": "Ogiltig autentisering",
+            "invalid_psk": "Transportkrypteringsnyckeln \u00e4r ogiltig. Se till att den matchar det du har i din konfiguration",
+            "resolve_error": "Det g\u00e5r inte att l\u00f6sa adressen till ESP. Om detta fel kvarst\u00e5r, v\u00e4nligen ange en statisk IP-adress"
+        },
+        "flow_title": "ESPHome: {name}",
+        "step": {
+            "authenticate": {
+                "data": {
+                    "password": "L\u00f6senord"
+                },
+                "description": "Ange det l\u00f6senord du angett i din konfiguration f\u00f6r {name}."
+            },
+            "discovery_confirm": {
+                "description": "Vill du l\u00e4gga till ESPHome noden ` {name} ` till Home Assistant?",
+                "title": "Uppt\u00e4ckt ESPHome-nod"
+            },
+            "encryption_key": {
+                "data": {
+                    "noise_psk": "Krypteringsnyckel"
+                },
+                "description": "Ange krypteringsnyckeln som du st\u00e4llt in i din konfiguration f\u00f6r {name} ."
+            },
+            "reauth_confirm": {
+                "data": {
+                    "noise_psk": "Krypteringsnyckel"
+                },
+                "description": "ESPHome-enheten {name} aktiverade transportkryptering eller \u00e4ndrade krypteringsnyckeln. V\u00e4nligen ange den uppdaterade nyckeln."
+            },
+            "user": {
+                "data": {
+                    "host": "V\u00e4rd",
+                    "port": "Port"
+                },
+                "description": "Ange anslutningsinst\u00e4llningarna f\u00f6r noden [ESPHome]({esphome_url})."
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "assist_in_progress": {
+                "name": "Assistans p\u00e5g\u00e5r"
+            },
+            "call_active": {
+                "name": "Samtal p\u00e5gor"
+            }
+        },
+        "climate": {
+            "climate": {
+                "state_attributes": {
+                    "fan_mode": {
+                        "state": {
+                            "quiet": "Tyst"
+                        }
+                    }
+                }
+            }
+        },
+        "select": {
+            "pipeline": {
+                "name": "Pipeline f\u00f6r assistans",
+                "state": {
+                    "preferred": "F\u00f6redragen"
+                }
+            },
+            "vad_sensitivity": {
+                "name": "Slutdetektering av r\u00f6stkommando",
+                "state": {
+                    "aggressive": "Aggressiv",
+                    "default": "Standard",
+                    "relaxed": "Avslappnad"
+                }
+            }
+        }
+    },
+    "issues": {
+        "api_password_deprecated": {
+            "description": "Att anv\u00e4nda API-l\u00f6senord f\u00f6r ESPHome \u00e4r f\u00f6r\u00e5ldrat och det rekommenderas ist\u00e4llet att anv\u00e4nda en API-krypteringsnyckel.\n\nTa bort API-l\u00f6senordet och l\u00e4gg till en krypteringsnyckel till din ESPHome-enhet f\u00f6r att l\u00f6sa detta problem.",
+            "title": "API-l\u00f6senord \u00e4r f\u00f6r\u00e5ldrat p\u00e5 {name}"
+        },
+        "ble_firmware_outdated": {
+            "description": "F\u00f6r att f\u00f6rb\u00e4ttra p\u00e5litligheten och prestanda hos Bluetooth, s\u00e5 rekommenderar vi att uppdatera {name} till ESPHome {version} eller senare. Vid uppdatering av en enhet fr\u00e5n ESPHome tidigare \u00e4n 2022.12.0 s\u00e5 \u00e4r det rekommenderat att anv\u00e4nda en kabel ist\u00e4llet f\u00f6r tr\u00e5dl\u00f6st, f\u00f6r att f\u00e5 nytta av det nya partitions-schemat.",
+            "title": "Uppdatera {name} med ESPHome {version} eller senare"
+        },
+        "service_calls_not_allowed": {
+            "description": "ESPHome-enheten f\u00f6rs\u00f6ker anropa en tj\u00e4nst i Home Assistant, men denna funktionalitet \u00e4r inte aktiverad.\n\nOm du litar p\u00e5 enheten och vill till\u00e5ta den att anropa tj\u00e4nster i Home Assistant s\u00e5 kan du aktivera denna funktionalitet i fl\u00f6det f\u00f6r inst\u00e4llningar.",
+            "title": "{name} \u00e4r inte till\u00e5ten att anropa tj\u00e4nster i Home Assistant"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "allow_service_calls": "Till\u00e5t att enheten f\u00e5r anropa tj\u00e4nster i Home Assistant."
+                }
+            }
+        }
+    }
+}

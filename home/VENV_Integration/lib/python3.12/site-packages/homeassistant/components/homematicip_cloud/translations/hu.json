@@ -1,0 +1,158 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Az eszk\u00f6z m\u00e1r konfigur\u00e1lva van",
+            "connection_aborted": "Sikertelen csatlakoz\u00e1s",
+            "unknown": "V\u00e1ratlan hiba"
+        },
+        "error": {
+            "invalid_sgtin_or_pin": "\u00c9rv\u00e9nytelen SGTIN vagy PIN k\u00f3d, k\u00e9rem, pr\u00f3b\u00e1lja \u00fajra.",
+            "press_the_button": "Nyomja meg a k\u00e9k gombot.",
+            "register_failed": "A regisztr\u00e1ci\u00f3 sikertelen volt, k\u00e9rj\u00fck, pr\u00f3b\u00e1lja meg \u00fajra.",
+            "timeout_button": "A k\u00e9k gomb megnyom\u00e1s\u00e1nak ideje lej\u00e1rt, k\u00e9rj\u00fck, pr\u00f3b\u00e1lja meg \u00fajra."
+        },
+        "step": {
+            "init": {
+                "data": {
+                    "hapid": "Hozz\u00e1f\u00e9r\u00e9si pont azonos\u00edt\u00f3ja (SGTIN)",
+                    "name": "N\u00e9v (opcion\u00e1lis, minden eszk\u00f6z nev\u00e9nek el\u0151tagjak\u00e9nt haszn\u00e1latos)",
+                    "pin": "PIN-k\u00f3d"
+                },
+                "title": "HomematicIP hozz\u00e1f\u00e9r\u00e9si pont kiv\u00e1laszt\u00e1sa"
+            },
+            "link": {
+                "description": "Nyomja meg a k\u00e9k gombot a hozz\u00e1f\u00e9r\u00e9si ponton, majd a **Mehet** gombot, hogy regisztr\u00e1lja a HomematicIP-t a Home Assistant rendszerrel.\n\n![A gomb helye a h\u00eddon](/static/images/config_flows/config_homematicip_cloud.png)",
+                "title": "Hozz\u00e1f\u00e9r\u00e9si pont \u00f6sszekapcsol\u00e1sa"
+            }
+        }
+    },
+    "exceptions": {
+        "access_point_not_found": {
+            "message": "Nem tal\u00e1lhat\u00f3 egyez\u0151 hozz\u00e1f\u00e9r\u00e9si pont a hozz\u00e1f\u00e9r\u00e9si pont azonos\u00edt\u00f3j\u00e1hoz {id}"
+        }
+    },
+    "services": {
+        "activate_eco_mode_with_duration": {
+            "description": "Takar\u00e9kos m\u00f3d aktiv\u00e1l\u00e1sa id\u0151szakkal.",
+            "fields": {
+                "accesspoint_id": {
+                    "description": "A Homematic IP hozz\u00e1f\u00e9r\u00e9si pont azonos\u00edt\u00f3ja.",
+                    "name": "Hozz\u00e1f\u00e9r\u00e9si pont azonos\u00edt\u00f3"
+                },
+                "duration": {
+                    "description": "A takar\u00e9kos m\u00f3d id\u0151tartama percekben.",
+                    "name": "Id\u0151tartam"
+                }
+            },
+            "name": "Takar\u00e9kos m\u00f3d aktiv\u00e1l\u00e1sa id\u0151tartammal"
+        },
+        "activate_eco_mode_with_period": {
+            "description": "Takar\u00e9kos m\u00f3d aktiv\u00e1l\u00e1sa id\u0151szakkal.",
+            "fields": {
+                "accesspoint_id": {
+                    "description": "A Homematic IP hozz\u00e1f\u00e9r\u00e9si pont azonos\u00edt\u00f3ja.",
+                    "name": "Hozz\u00e1f\u00e9r\u00e9si pont azonos\u00edt\u00f3"
+                },
+                "endtime": {
+                    "description": "Az id\u0151pont, amikor a takar\u00e9kos m\u00f3d automatikusan kikapcsol\u00f3dik.",
+                    "name": "Befejez\u00e9si id\u0151"
+                }
+            },
+            "name": "Takar\u00e9kos m\u00f3d aktiv\u00e1l\u00e1sa id\u0151szakkal"
+        },
+        "activate_vacation": {
+            "description": "Aktiv\u00e1lja a vak\u00e1ci\u00f3 m\u00f3dot az adott id\u0151pontig.",
+            "fields": {
+                "accesspoint_id": {
+                    "description": "A Homematic IP hozz\u00e1f\u00e9r\u00e9si pont azonos\u00edt\u00f3ja.",
+                    "name": "Hozz\u00e1f\u00e9r\u00e9si pont azonos\u00edt\u00f3"
+                },
+                "endtime": {
+                    "description": "Az id\u0151pont, amikor a vak\u00e1ci\u00f3 m\u00f3d automatikusan kikapcsol\u00f3dik.",
+                    "name": "Befejez\u00e9si id\u0151"
+                },
+                "temperature": {
+                    "description": "A be\u00e1ll\u00edtott h\u0151m\u00e9rs\u00e9klet a vak\u00e1ci\u00f3 m\u00f3d alatt.",
+                    "name": "H\u0151m\u00e9rs\u00e9klet"
+                }
+            },
+            "name": "Vak\u00e1ci\u00f3 aktiv\u00e1l\u00e1sa"
+        },
+        "deactivate_eco_mode": {
+            "description": "Takar\u00e9kos m\u00f3d azonnali kikapcsol\u00e1sa.",
+            "fields": {
+                "accesspoint_id": {
+                    "description": "A Homematic IP hozz\u00e1f\u00e9r\u00e9si pont azonos\u00edt\u00f3ja.",
+                    "name": "Hozz\u00e1f\u00e9r\u00e9si pont azonos\u00edt\u00f3"
+                }
+            },
+            "name": "Takar\u00e9kos m\u00f3d kikapcsol\u00e1sa"
+        },
+        "deactivate_vacation": {
+            "description": "Vak\u00e1ci\u00f3 m\u00f3d azonnali kikapcsol\u00e1sa.",
+            "fields": {
+                "accesspoint_id": {
+                    "description": "A Homematic IP hozz\u00e1f\u00e9r\u00e9si pont azonos\u00edt\u00f3ja.",
+                    "name": "Hozz\u00e1f\u00e9r\u00e9si pont azonos\u00edt\u00f3"
+                }
+            },
+            "name": "Vak\u00e1ci\u00f3 kikapcsol\u00e1sa"
+        },
+        "dump_hap_config": {
+            "description": "Ki\u00edrja a Homematic IP Hozz\u00e1f\u00e9r\u00e9si Pont(ok) konfigur\u00e1ci\u00f3j\u00e1t.",
+            "fields": {
+                "anonymize": {
+                    "description": "Anonimiz\u00e1lni kell a konfigur\u00e1ci\u00f3t?",
+                    "name": "Anonimiz\u00e1l\u00e1s"
+                },
+                "config_output_file_prefix": {
+                    "description": "A konfigur\u00e1ci\u00f3s f\u00e1jl neve. Az AP SGTIN-je mindig hozz\u00e1 lesz f\u0171zve.",
+                    "name": "Konfigur\u00e1ci\u00f3s f\u00e1jl kimeneti el\u0151tagja"
+                },
+                "config_output_path": {
+                    "description": "Az el\u00e9r\u00e9si \u00fat, ahova a konfigur\u00e1ci\u00f3t menteni kell. (Alap\u00e9rtelmezett \u00e9rt\u00e9k: 'A home-assistant konfigur\u00e1ci\u00f3s k\u00f6nyvt\u00e1ra')",
+                    "name": "Konfigur\u00e1ci\u00f3 kimeneti \u00fatvonala"
+                }
+            },
+            "name": "HAP konfigur\u00e1ci\u00f3 ki\u00edr\u00e1sa"
+        },
+        "reset_energy_counter": {
+            "description": "Null\u00e1zza az energiasz\u00e1ml\u00e1l\u00f3t egy m\u00e9r\u00e9sre haszn\u00e1lt entit\u00e1son.",
+            "fields": {
+                "entity_id": {
+                    "description": "A m\u00e9r\u0151egys\u00e9g azonos\u00edt\u00f3ja. Haszn\u00e1lja az 'all' kulcssz\u00f3t az \u00f6sszes energia sz\u00e1ml\u00e1l\u00f3 null\u00e1z\u00e1s\u00e1hoz.",
+                    "name": "Entit\u00e1s"
+                }
+            },
+            "name": "Null\u00e1za az energia sz\u00e1ml\u00e1l\u00f3t"
+        },
+        "set_active_climate_profile": {
+            "description": "Be\u00e1ll\u00edtja az akt\u00edv kl\u00edmaprofil indexet.",
+            "fields": {
+                "climate_profile_index": {
+                    "description": "A kl\u00edmaprofil indexe.",
+                    "name": "Kl\u00edmaprofil index"
+                },
+                "entity_id": {
+                    "description": "A kl\u00edma entit\u00e1s azonos\u00edt\u00f3ja. Haszn\u00e1lja az 'all' kulcssz\u00f3t az \u00f6sszes entit\u00e1s profilj\u00e1nak v\u00e1lt\u00e1s\u00e1hoz.",
+                    "name": "Entit\u00e1s"
+                }
+            },
+            "name": "Akt\u00edv kl\u00edmaprofil be\u00e1ll\u00edt\u00e1sa"
+        },
+        "set_home_cooling_mode": {
+            "description": "Az eg\u00e9sz lak\u00e1s f\u0171t\u00e9si/h\u0171t\u00e9si \u00fczemm\u00f3dj\u00e1nak be\u00e1ll\u00edt\u00e1sa",
+            "fields": {
+                "accesspoint_id": {
+                    "description": "A Homematic IP hozz\u00e1f\u00e9r\u00e9si pont azonos\u00edt\u00f3ja.",
+                    "name": "Hozz\u00e1f\u00e9r\u00e9si pont azonos\u00edt\u00f3"
+                },
+                "cooling": {
+                    "description": "Enged\u00e9lyezze a h\u0171t\u00e9shez, tiltsa a f\u0171t\u00e9shez",
+                    "name": "H\u0171t\u00e9s"
+                }
+            },
+            "name": "Otthoni h\u0171t\u00e9si m\u00f3d be\u00e1ll\u00edt\u00e1sa"
+        }
+    }
+}

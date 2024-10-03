@@ -1,0 +1,120 @@
+{
+    "device_automation": {
+        "action_type": {
+            "toggle": "P\u0159epnout {entity_name}",
+            "turn_off": "Vypnout {entity_name}",
+            "turn_on": "Zapnout {entity_name}"
+        },
+        "condition_type": {
+            "is_off": "{entity_name} je vypnuto",
+            "is_on": "{entity_name} je zapnuto"
+        },
+        "trigger_type": {
+            "changed_states": "{entity_name} bylo zapnuto nebo vypnuto",
+            "turned_off": "{entity_name} bylo vypnuto",
+            "turned_on": "{entity_name} bylo zapnuto"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "D\u00e1lkov\u00e9 ovl\u00e1d\u00e1n\u00ed",
+            "state": {
+                "off": "Vypnuto",
+                "on": "Zapnuto"
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "Platforma {platform} pro integraci {domain} nepodporuje nastaven\u00ed platformy.\n\nOdeberte ji z nastaven\u00ed a restartujte Home Assistanta, abyste tento probl\u00e9m vy\u0159e\u0161ili.",
+            "title": "Podpora platformy nen\u00ed podporov\u00e1na"
+        }
+    },
+    "services": {
+        "delete_command": {
+            "description": "Sma\u017ee p\u0159\u00edkaz nebo seznam p\u0159\u00edkaz\u016f z datab\u00e1ze.",
+            "fields": {
+                "command": {
+                    "description": "Jedin\u00fd p\u0159\u00edkaz nebo seznam p\u0159\u00edkaz\u016f, kter\u00e9 maj\u00ed b\u00fdt odebr\u00e1ny.",
+                    "name": "P\u0159\u00edkaz"
+                },
+                "device": {
+                    "description": "Za\u0159\u00edzen\u00ed, ze kter\u00e9ho budou smaz\u00e1ny p\u0159\u00edkazy.",
+                    "name": "Za\u0159\u00edzen\u00ed"
+                }
+            },
+            "name": "Smazat p\u0159\u00edkaz"
+        },
+        "learn_command": {
+            "description": "Nau\u010d\u00ed se p\u0159\u00edkaz nebo seznam p\u0159\u00edkaz\u016f ze za\u0159\u00edzen\u00ed.",
+            "fields": {
+                "alternative": {
+                    "description": "Pokud mus\u00ed b\u00fdt k\u00f3d ulo\u017een jako alternativa. To je u\u017eite\u010dn\u00e9 pro diskr\u00e9tn\u00ed k\u00f3dy. Diskr\u00e9tn\u00ed k\u00f3dy se pou\u017e\u00edvaj\u00ed pro p\u0159ep\u00edna\u010de, kter\u00e9 prov\u00e1d\u011bj\u00ed pouze jednu funkci. Nap\u0159\u00edklad k\u00f3d jen pro zapnut\u00ed za\u0159\u00edzen\u00ed. Pokud je ji\u017e zapnut\u00fd, odesl\u00e1n\u00edm k\u00f3du se stav nezm\u011bn\u00ed.",
+                    "name": "Alternativa"
+                },
+                "command": {
+                    "description": "Jedin\u00fd p\u0159\u00edkaz nebo seznam p\u0159\u00edkaz\u016f pro nau\u010den\u00ed.",
+                    "name": "P\u0159\u00edkaz"
+                },
+                "command_type": {
+                    "description": "Typ p\u0159\u00edkazu pro nau\u010den\u00ed.",
+                    "name": "Typ p\u0159\u00edkazu"
+                },
+                "device": {
+                    "description": "ID za\u0159\u00edzen\u00ed, ze kter\u00e9ho se m\u00e1 p\u0159\u00edkaz nau\u010dit.",
+                    "name": "Za\u0159\u00edzen\u00ed"
+                },
+                "timeout": {
+                    "description": "\u010casov\u00fd limit pro nau\u010den\u00ed p\u0159\u00edkazu.",
+                    "name": "\u010casov\u00fd limit"
+                }
+            },
+            "name": "Nau\u010dit p\u0159\u00edkaz"
+        },
+        "send_command": {
+            "description": "Ode\u0161le p\u0159\u00edkaz nebo seznam p\u0159\u00edkaz\u016f do za\u0159\u00edzen\u00ed.",
+            "fields": {
+                "command": {
+                    "description": "Jedin\u00fd p\u0159\u00edkaz nebo seznam p\u0159\u00edkaz\u016f k odesl\u00e1n\u00ed.",
+                    "name": "P\u0159\u00edkaz"
+                },
+                "delay_secs": {
+                    "description": "Doba, po kterou chcete \u010dekat mezi opakovan\u00fdmi p\u0159\u00edkazy.",
+                    "name": "Zpo\u017ed\u011bn\u00ed (sekund)"
+                },
+                "device": {
+                    "description": "ID za\u0159\u00edzen\u00ed, do kter\u00e9ho se m\u00e1 odeslat p\u0159\u00edkaz.",
+                    "name": "Za\u0159\u00edzen\u00ed"
+                },
+                "hold_secs": {
+                    "description": "\u010cas podr\u017een\u00ed p\u0159ed odesl\u00e1n\u00edm p\u0159\u00edkazu pro uvoln\u011bn\u00ed.",
+                    "name": "Podr\u017eet (sekund)"
+                },
+                "num_repeats": {
+                    "description": "Po\u010det opakov\u00e1n\u00ed p\u0159\u00edkaz\u016f.",
+                    "name": "Po\u010det opakov\u00e1n\u00ed"
+                }
+            },
+            "name": "Odeslat p\u0159\u00edkaz"
+        },
+        "toggle": {
+            "description": "Zap\u00edn\u00e1/Vyp\u00edn\u00e1 za\u0159\u00edzen\u00ed.",
+            "name": "P\u0159epnout"
+        },
+        "turn_off": {
+            "description": "Vypne za\u0159\u00edzen\u00ed.",
+            "name": "Vypnout"
+        },
+        "turn_on": {
+            "description": "Ode\u0161le p\u0159\u00edkaz k zapnut\u00ed.",
+            "fields": {
+                "activity": {
+                    "description": "ID nebo n\u00e1zev aktivity, kter\u00e1 m\u00e1 b\u00fdt spu\u0161t\u011bna.",
+                    "name": "Aktivita"
+                }
+            },
+            "name": "Zapnout"
+        }
+    },
+    "title": "D\u00e1lkov\u00e9 ovl\u00e1d\u00e1n\u00ed"
+}

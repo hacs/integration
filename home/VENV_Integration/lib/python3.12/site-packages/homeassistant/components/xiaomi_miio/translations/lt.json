@@ -1,0 +1,592 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "\u012erenginys jau sukonfig\u016bruotas",
+            "already_in_progress": "Konfig\u016bracijos procesas jau vyksta",
+            "incomplete_info": "Nei\u0161sami informacija, skirta \u012frenginiui nustatyti, nepateiktas pagrindinis kompiuteris arba prieigos raktas.",
+            "not_xiaomi_miio": "\u012erenginio (dar) nepalaiko \u201eXiaomi Miio\u201c.",
+            "reauth_successful": "Pakartotinis autentifikavimas buvo s\u0117kmingas",
+            "unknown": "Netik\u0117ta klaida"
+        },
+        "error": {
+            "cannot_connect": "Nepavyko prisijungti",
+            "cloud_credentials_incomplete": "Neu\u017ebaigti debesies kredencialai, \u012fveskite vartotojo vard\u0105, slapta\u017eod\u012f ir \u0161al\u012f",
+            "cloud_login_error": "Nepavyko prisijungti prie \u201eXiaomi Miio Cloud\u201c, patikrinkite kredencialus.",
+            "cloud_no_devices": "\u0160ioje \u201eXiaomi Miio\u201c debesies paskyroje \u012frengini\u0173 nerasta.",
+            "unknown_device": "\u012erenginio modelis ne\u017einomas, negalima nustatyti \u012frenginio naudojant konfig\u016bracijos sraut\u0105.",
+            "wrong_token": "Kontrolin\u0117s sumos klaida, neteisingas prieigos raktas"
+        },
+        "flow_title": "{name}",
+        "step": {
+            "cloud": {
+                "data": {
+                    "cloud_country": "Debes\u0173 serverio \u0161alis",
+                    "cloud_password": "Debesies slapta\u017eodis",
+                    "cloud_username": "Cloud vartotojo vardas",
+                    "manual": "Konfig\u016bruoti rankiniu b\u016bdu (nerekomenduojama)"
+                },
+                "description": "Prisijunkite prie \u201eXiaomi Miio\u201c debesies, nor\u0117dami naudoti debesies server\u012f, \u017er. https://www.openhab.org/addons/bindings/miio/#country-servers."
+            },
+            "connect": {
+                "data": {
+                    "model": "Prietaiso modelis"
+                }
+            },
+            "manual": {
+                "data": {
+                    "host": "IP adresas",
+                    "token": "API prieigos raktas"
+                },
+                "description": "Jums reik\u0117s 32 simboli\u0173 API prieigos rakto. Instrukcijas rasite adresu https://www.home-assistant.io/integrations/xiaomi_miio#retrieving-the-access-token. Atkreipkite d\u0117mes\u012f, kad \u0161is API prieigos raktas skiriasi nuo rakto, naudojamo integruojant Xiaomi Aqara."
+            },
+            "reauth_confirm": {
+                "description": "\u201eXiaomi Miio\u201c integracija turi i\u0161 naujo autentifikuoti paskyr\u0105, kad b\u016bt\u0173 atnaujinti prieigos raktai arba prid\u0117ti tr\u016bkstami debesies kredencialai.",
+                "title": "Baig\u0117si {name} autentifikavimo galiojimas"
+            },
+            "select": {
+                "data": {
+                    "select_device": "Miio \u012frenginys"
+                },
+                "description": "Pasirinkite \u201eXiaomi Miio\u201c \u012frengin\u012f, kur\u012f norite nustatyti."
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "is_water_box_attached": {
+                "name": "Pritvirtinta \u0161luost\u0117"
+            },
+            "is_water_box_carriage_attached": {
+                "name": "Pritvirtinta \u0161luost\u0117"
+            },
+            "is_water_shortage": {
+                "name": "Vandens tr\u016bkumas"
+            },
+            "no_water": {
+                "name": "Vandens bakas tu\u0161\u010dias"
+            },
+            "powersupply_attached": {
+                "name": "Maitinimo \u0161altinis"
+            },
+            "ptc_status": {
+                "name": "Pagalbin\u0117s \u0161ilumos b\u016bsena"
+            },
+            "water_tank_detached": {
+                "name": "Vandens bakas"
+            }
+        },
+        "button": {
+            "reset_dust_filter": {
+                "name": "I\u0161 naujo nustatykite dulki\u0173 filtr\u0105"
+            },
+            "reset_upper_filter": {
+                "name": "I\u0161 naujo nustatykite vir\u0161utin\u012f filtr\u0105"
+            },
+            "reset_vacuum_filter": {
+                "name": "I\u0161 naujo nustatykite filtr\u0105"
+            },
+            "reset_vacuum_main_brush": {
+                "name": "I\u0161 naujo nustatykite pagrindin\u012f \u0161epet\u012f"
+            },
+            "reset_vacuum_sensor_dirty": {
+                "name": "I\u0161 naujo nustatykite ne\u0161var\u0173 jutikl\u012f"
+            },
+            "reset_vacuum_side_brush": {
+                "name": "I\u0161 naujo nustatykite \u0161onin\u012f \u0161epet\u012f"
+            }
+        },
+        "fan": {
+            "generic_fan": {
+                "state_attributes": {
+                    "preset_mode": {
+                        "state": {
+                            "nature": "Gamta",
+                            "normal": "Normalus"
+                        }
+                    }
+                }
+            }
+        },
+        "number": {
+            "angle": {
+                "name": "Virpesi\u0173 kampas"
+            },
+            "delay_off_countdown": {
+                "name": "Atid\u0117ti atgalin\u012f skai\u010diavim\u0105"
+            },
+            "fan_level": {
+                "name": "Ventiliatoriaus lygis"
+            },
+            "favorite_level": {
+                "name": "M\u0117gstamiausias lygis"
+            },
+            "favorite_rpm": {
+                "name": "M\u0117gstamiausias variklio greitis"
+            },
+            "led_brightness": {
+                "name": "LED ry\u0161kumas"
+            },
+            "led_brightness_level": {
+                "name": "LED ry\u0161kumas"
+            },
+            "motor_speed": {
+                "name": "Variklio greitis"
+            },
+            "volume": {
+                "name": "Garsumas"
+            }
+        },
+        "select": {
+            "airpurifier_mode": {
+                "state": {
+                    "auto": "Automatinis",
+                    "favorite": "M\u0117gstamiausias",
+                    "silent": "Tylus"
+                }
+            },
+            "display_orientation": {
+                "state": {
+                    "forward": "Persi\u0173sti",
+                    "left": "Kair\u0117",
+                    "right": "De\u0161in\u0117"
+                }
+            },
+            "led_brightness": {
+                "state": {
+                    "bright": "Ry\u0161kus",
+                    "dim": "Pritemdyti",
+                    "off": "I\u0161jungta"
+                }
+            },
+            "ptc_level": {
+                "state": {
+                    "high": "Auk\u0161tas",
+                    "low": "\u017demas",
+                    "medium": "Vidutinis"
+                }
+            }
+        },
+        "sensor": {
+            "actual_speed": {
+                "name": "Faktinis greitis"
+            },
+            "air_quality": {
+                "name": "Oro kokyb\u0117"
+            },
+            "air_quality_index": {
+                "name": "Oro kokyb\u0117s indeksas"
+            },
+            "area": {
+                "name": "Paskutin\u0117 \u0161vari vieta"
+            },
+            "clean_area": {
+                "name": "Dabartinis \u0161varus plotas"
+            },
+            "clean_time": {
+                "name": "Dabartin\u0117 valymo trukm\u0117"
+            },
+            "control_speed": {
+                "name": "Kontroliuoti greit\u012f"
+            },
+            "count": {
+                "name": "Bendras \u0161vari\u0173 skai\u010dius"
+            },
+            "dnd_end": {
+                "name": "DnD pabaiga"
+            },
+            "dnd_start": {
+                "name": "DnD prad\u017eia"
+            },
+            "duration": {
+                "name": "Paskutin\u0117 valymo trukm\u0117"
+            },
+            "dust_collection_count": {
+                "name": "Bendras dulki\u0173 surinkimo skai\u010dius"
+            },
+            "dust_filter_life_remaining": {
+                "name": "Lik\u0119s dulki\u0173 filtro eksploatavimo laikas"
+            },
+            "dust_filter_life_remaining_days": {
+                "name": "Likusios dulki\u0173 filtro eksploatavimo dienos"
+            },
+            "favorite_speed": {
+                "name": "M\u0117gstamiausias greitis"
+            },
+            "filter_hours_used": {
+                "name": "Filtro naudojimas"
+            },
+            "filter_left": {
+                "name": "Filtro likutis"
+            },
+            "filter_left_time": {
+                "name": "Liko filtro eksploatavimo laikas"
+            },
+            "filter_life_remaining": {
+                "name": "Lik\u0119s filtro naudojimo laikas"
+            },
+            "illuminance": {
+                "name": "Ap\u0161vietimas"
+            },
+            "last_clean_end": {
+                "name": "Paskutinis \u0161varus galas"
+            },
+            "last_clean_start": {
+                "name": "Paskutin\u0117 \u0161vari prad\u017eia"
+            },
+            "load_power": {
+                "name": "Apkrovos galia"
+            },
+            "main_brush_left": {
+                "name": "Pagrindinis \u0161epetys kair\u0117je"
+            },
+            "motor2_speed": {
+                "name": "Antrasis variklio greitis"
+            },
+            "motor_speed": {
+                "name": "Variklio greitis"
+            },
+            "purify_volume": {
+                "name": "I\u0161valykite t\u016br\u012f"
+            },
+            "sensor_dirty_left": {
+                "name": "Jutiklis ne\u0161varus kair\u0117je"
+            },
+            "side_brush_left": {
+                "name": "\u0160oninis \u0161epetys kair\u0117je"
+            },
+            "total_area": {
+                "name": "Visi\u0161kai \u0161varus plotas"
+            },
+            "total_duration": {
+                "name": "Bendra trukm\u0117"
+            },
+            "tvoc": {
+                "name": "TVOC"
+            },
+            "upper_filter_life_remaining": {
+                "name": "Lik\u0119s vir\u0161utinis filtro tarnavimo laikas"
+            },
+            "upper_filter_life_remaining_days": {
+                "name": "Vir\u0161utinis filtro veikimo laikas, likusios dienos"
+            },
+            "use_time": {
+                "name": "Naudokite laik\u0105"
+            },
+            "water_level": {
+                "name": "Vandens lygis"
+            }
+        },
+        "switch": {
+            "anion": {
+                "name": "Jonizatorius"
+            },
+            "auto_detect": {
+                "name": "Automatinis aptikimas"
+            },
+            "buzzer": {
+                "name": "Skambutis"
+            },
+            "child_lock": {
+                "name": "U\u017eraktas nuo vaik\u0173"
+            },
+            "clean_mode": {
+                "name": "Valymo re\u017eimas"
+            },
+            "display": {
+                "name": "Ekranas"
+            },
+            "dry": {
+                "name": "Sausas re\u017eimas"
+            },
+            "ionizer": {
+                "name": "Jonizatorius"
+            },
+            "learn_mode": {
+                "name": "Mokymosi re\u017eimas"
+            },
+            "led": {
+                "name": "LED"
+            },
+            "ptc": {
+                "name": "Pagalbin\u0117 \u0161iluma"
+            }
+        }
+    },
+    "options": {
+        "error": {
+            "cloud_credentials_incomplete": "Neu\u017ebaigti debesies kredencialai, \u012fveskite vartotojo vard\u0105, slapta\u017eod\u012f ir \u0161al\u012f"
+        },
+        "step": {
+            "init": {
+                "data": {
+                    "cloud_subdevices": "Naudokite debes\u012f, kad gautum\u0117te prijungtus antrinius \u012frenginius"
+                }
+            }
+        }
+    },
+    "services": {
+        "fan_reset_filter": {
+            "description": "I\u0161 naujo nustato filtro eksploatavimo laik\u0105 ir naudojim\u0105.",
+            "fields": {
+                "entity_id": {
+                    "description": "Xiaomi miio subjekto pavadinimas.",
+                    "name": "Subjekto ID"
+                }
+            },
+            "name": "Ventiliatoriaus atstatymo filtras"
+        },
+        "fan_set_extra_features": {
+            "description": "Manipuliuoja saugojimo registru, kuriame reklamuojamos papildomos funkcijos. \u201eMi Home\u201c program\u0117l\u0117 \u012fvertina vert\u0119. Funkcija, vadinama \u201eturbo re\u017eimu\u201c, programoje atrakinta 1 verte.",
+            "fields": {
+                "entity_id": {
+                    "description": "Xiaomi miio subjekto pavadinimas.",
+                    "name": "Subjekto ID"
+                },
+                "features": {
+                    "description": "Sveikasis skai\u010dius, \u017einomos reik\u0161m\u0117s yra 0 (numatytasis) ir 1 (turbo re\u017eimas).",
+                    "name": "Funkcijos"
+                }
+            },
+            "name": "Ventiliatoriaus rinkinio papildomos funkcijos"
+        },
+        "light_eyecare_mode_off": {
+            "description": "I\u0161jungiamas aki\u0173 nuovargio priminimas / prane\u0161imas (TIK EYECARE SMART LAMP 2).",
+            "fields": {
+                "entity_id": {
+                    "description": "Subjekto pavadinimas.",
+                    "name": "Subjekto ID"
+                }
+            },
+            "name": "Lengvos aki\u0173 prie\u017ei\u016bros re\u017eimas i\u0161jungtas"
+        },
+        "light_eyecare_mode_on": {
+            "description": "\u012ejungia aki\u0173 nuovargio priminim\u0105 / prane\u0161im\u0105 (TIK EYECARE SMART LAMP 2).",
+            "fields": {
+                "entity_id": {
+                    "description": "Subjekto pavadinimas.",
+                    "name": "Subjekto ID"
+                }
+            },
+            "name": "\u012ejungtas lengvos aki\u0173 prie\u017ei\u016bros re\u017eimas"
+        },
+        "light_night_light_mode_off": {
+            "description": "I\u0161jungia aki\u0173 prie\u017ei\u016bros re\u017eim\u0105 fan_set_dry_off (TIK EYECARE SMART LAMP 2).",
+            "fields": {
+                "entity_id": {
+                    "description": "Subjekto pavadinimas.",
+                    "name": "Subjekto ID"
+                }
+            },
+            "name": "Nakties \u0161viesos re\u017eimas i\u0161jungtas"
+        },
+        "light_night_light_mode_on": {
+            "description": "\u012ejungia aki\u0173 prie\u017ei\u016bros re\u017eim\u0105 (TIK EYECARE SMART LAMP 2).",
+            "fields": {
+                "entity_id": {
+                    "description": "Subjekto pavadinimas.",
+                    "name": "Subjekto ID"
+                }
+            },
+            "name": "\u012ejungtas naktinio ap\u0161vietimo re\u017eimas"
+        },
+        "light_reminder_off": {
+            "description": "I\u0161jungiamas aki\u0173 nuovargio priminimas / prane\u0161imas (TIK EYECARE SMART LAMP 2).",
+            "fields": {
+                "entity_id": {
+                    "description": "Subjekto pavadinimas.",
+                    "name": "Subjekto ID"
+                }
+            },
+            "name": "\u0160viesus priminimas i\u0161jungtas"
+        },
+        "light_reminder_on": {
+            "description": "\u012ejungia aki\u0173 nuovargio priminim\u0105 / prane\u0161im\u0105 (TIK EYECARE SMART LAMP 2).",
+            "fields": {
+                "entity_id": {
+                    "description": "Subjekto pavadinimas.",
+                    "name": "Subjekto ID"
+                }
+            },
+            "name": "\u012ejungtas lengvas priminimas"
+        },
+        "light_set_delayed_turn_off": {
+            "description": "Atid\u0117tas i\u0161jungimas.",
+            "fields": {
+                "entity_id": {
+                    "description": "\u0160viesos objekto pavadinimas.",
+                    "name": "Subjekto ID"
+                },
+                "time_period": {
+                    "description": "Atid\u0117to i\u0161jungimo laikotarpis.",
+                    "name": "Laiko tarpas"
+                }
+            },
+            "name": "Atid\u0117tas \u0161viesos i\u0161jungimas"
+        },
+        "light_set_scene": {
+            "description": "Nustato fiksuot\u0105 scen\u0105.",
+            "fields": {
+                "entity_id": {
+                    "description": "\u0160viesos objekto pavadinimas.",
+                    "name": "Subjekto ID"
+                },
+                "scene": {
+                    "description": "Fiksuotos scenos numeris.",
+                    "name": "Scena"
+                }
+            },
+            "name": "\u0160viesos rinkinio scena"
+        },
+        "remote_learn_command": {
+            "fields": {
+                "slot": {
+                    "description": "Apibr\u0117\u017ekite lizd\u0105, naudojam\u0105 IR komandai i\u0161saugoti.",
+                    "name": "Lizdas"
+                },
+                "timeout": {
+                    "description": "Apibr\u0117\u017ekite skirt\u0105j\u012f laik\u0105, prie\u0161 kur\u012f komand\u0105 reikia i\u0161mokti.",
+                    "name": "Laikas baig\u0117si"
+                }
+            },
+            "name": "Nuotolinio mokymosi komanda"
+        },
+        "remote_set_led_off": {
+            "description": "I\u0161jungia m\u0117lyn\u0105 \u0161viesos diod\u0105.",
+            "name": "Nuotolinio valdymo \u0161viesos diodas i\u0161jungtas"
+        },
+        "remote_set_led_on": {
+            "description": "\u012esijungia m\u0117lynas \u0161viesos diodas.",
+            "name": "\u012ejungtas nuotolinio valdymo \u0161viesos diodas"
+        },
+        "switch_set_power_mode": {
+            "description": "Nustato maitinimo re\u017eim\u0105.",
+            "fields": {
+                "entity_id": {
+                    "description": "Xiaomi miio subjekto pavadinimas.",
+                    "name": "Subjekto ID"
+                },
+                "mode": {
+                    "description": "Maitinimo re\u017eimas.",
+                    "name": "Re\u017eimas"
+                }
+            },
+            "name": "Perjunkite nustatyt\u0105 maitinimo re\u017eim\u0105"
+        },
+        "switch_set_power_price": {
+            "description": "Nustato elektros energijos kain\u0105.",
+            "fields": {
+                "entity_id": {
+                    "description": "Xiaomi miio subjekto pavadinimas.",
+                    "name": "Subjekto ID"
+                },
+                "mode": {
+                    "description": "Galios kaina.",
+                    "name": "Re\u017eimas"
+                }
+            },
+            "name": "Jungikli\u0173 komplekto galios kaina"
+        },
+        "switch_set_wifi_led_off": {
+            "description": "I\u0161junkite \u201eWi-Fi\u201c LED.",
+            "fields": {
+                "entity_id": {
+                    "description": "Xiaomi miio subjekto pavadinimas.",
+                    "name": "Subjekto ID"
+                }
+            },
+            "name": "Nustatytas jungiklis Wi-Fi LED i\u0161jungtas"
+        },
+        "switch_set_wifi_led_on": {
+            "description": "\u012ejungia wifi LED.",
+            "fields": {
+                "entity_id": {
+                    "description": "Xiaomi miio subjekto pavadinimas.",
+                    "name": "Subjekto ID"
+                }
+            },
+            "name": "\u012ejunkite \u201eWi-Fi\u201c LED"
+        },
+        "vacuum_clean_segment": {
+            "description": "Pradeda nurodyto (-\u0173) segmento (-\u0173) valym\u0105.",
+            "fields": {
+                "segments": {
+                    "description": "Segmentai.",
+                    "name": "Segmentai"
+                }
+            },
+            "name": "Dulki\u0173 valymo segmentas"
+        },
+        "vacuum_clean_zone": {
+            "description": "Pradeda valymo operacij\u0105 pasirinktose srityse nurodytam pakartojim\u0173 skai\u010diui.",
+            "fields": {
+                "repeats": {
+                    "description": "Valymo pakartojim\u0173 skai\u010dius kiekvienai zonai.",
+                    "name": "Pasikartoja"
+                },
+                "zone": {
+                    "description": "Zon\u0173 masyvas. Kiekviena zona yra 4 sveik\u0173j\u0173 skai\u010di\u0173 masyvas.",
+                    "name": "Zona"
+                }
+            },
+            "name": "Dulki\u0173 valymo zona"
+        },
+        "vacuum_goto": {
+            "description": "Eikite \u012f nurodytas koordinates.",
+            "fields": {
+                "x_coord": {
+                    "description": "X-koordinat\u0117.",
+                    "name": "X koordinat\u0117"
+                },
+                "y_coord": {
+                    "description": "Y-koordinat\u0117.",
+                    "name": "Y koordinat\u0117"
+                }
+            },
+            "name": "Vakuumas eikite \u012f"
+        },
+        "vacuum_remote_control_move": {
+            "description": "Nuotoliniu b\u016bdu valdomas dulki\u0173 siurblys. Pirmiausia \u012fsitikinkite, kad j\u012f nustat\u0117te nuotolinio valdymo re\u017eimu naudodami \u201eremote_control_start\u201c.",
+            "fields": {
+                "duration": {
+                    "description": "Jud\u0117jimo trukm\u0117.",
+                    "name": "Trukm\u0117"
+                },
+                "rotation": {
+                    "description": "Sukimasis nuo -179 laipsni\u0173 iki 179 laipsni\u0173.",
+                    "name": "Rotacija"
+                },
+                "velocity": {
+                    "description": "Greitis.",
+                    "name": "Greitis"
+                }
+            },
+            "name": "Vakuuminis nuotolinio valdymo pultas"
+        },
+        "vacuum_remote_control_move_step": {
+            "description": "Nuotolinio valdymo pultelis valdo dulki\u0173 siurbl\u012f, padaro tik vien\u0105 judes\u012f ir sustoja.",
+            "fields": {
+                "duration": {
+                    "description": "Jud\u0117jimo trukm\u0117.",
+                    "name": "Trukm\u0117"
+                },
+                "rotation": {
+                    "description": "Rotacija.",
+                    "name": "Rotacija"
+                },
+                "velocity": {
+                    "description": "Greitis.",
+                    "name": "Greitis"
+                }
+            },
+            "name": "Vakuuminio nuotolinio valdymo pulto jud\u0117jimo \u017eingsnis"
+        },
+        "vacuum_remote_control_start": {
+            "description": "Paleid\u017eia dulki\u0173 siurblio nuotolin\u012f valdym\u0105. Tada galite perkelti j\u012f naudodami \u201eremote_control_move\u201c, o baig\u0119 i\u0161kvieskite \u201eremote_control_stop\u201c.",
+            "name": "Vakuuminio nuotolinio valdymo pulto paleidimas"
+        },
+        "vacuum_remote_control_stop": {
+            "description": "Sustabdo dulki\u0173 siurblio nuotolinio valdymo re\u017eim\u0105.",
+            "name": "Dulki\u0173 siurblio nuotolinio valdymo sustabdymas"
+        }
+    }
+}

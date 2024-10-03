@@ -1,0 +1,75 @@
+{
+    "issues": {
+        "backup_failed_out_of_resources": {
+            "description": "Die um {start_time} angegebene Datenbanksicherung ist aufgrund fehlender Ressourcen fehlgeschlagen. Das Backup ist nicht vertrauensw\u00fcrdig und muss neu gestartet werden. Dies kann passieren, wenn die Datenbank zu gro\u00df ist oder das System stark ausgelastet ist. Erw\u00e4ge ein Upgrade der Systemhardware oder eine Reduzierung der Gr\u00f6\u00dfe der Datenbank, indem du die Anzahl der aufzubewahrenden Verlaufstage verringerst oder einen Filter erstellst.",
+            "title": "Die Datenbanksicherung ist aufgrund fehlender Ressourcen fehlgeschlagen"
+        },
+        "maria_db_range_index_regression": {
+            "description": "\u00c4ltere Versionen von MariaDB leiden unter einem erheblichen Leistungseinbruch beim Abrufen von Verlaufsdaten oder beim L\u00f6schen der Datenbank. Aktualisiere auf MariaDB Version {min_version} oder h\u00f6her und starte Home Assistant neu. Wenn du das MariaDB Core Add-on verwendest, stelle sicher, dass du es auf die neueste Version aktualisierst.",
+            "title": "Aktualisiere MariaDB auf {min_version} oder h\u00f6her, um ein erhebliches Leistungsproblem zu beheben."
+        },
+        "sqlite_too_old": {
+            "description": "Der Support f\u00fcr die Version {server_version} von SQLite endet; die minimal unterst\u00fctzte Version ist {min_version}. Bitte aktualisiere deine Datenbanksoftware.",
+            "title": "Aktualisiere SQLite auf {min_version} oder h\u00f6her, um den Recorder weiterhin verwenden zu k\u00f6nnen"
+        }
+    },
+    "services": {
+        "disable": {
+            "description": "Stoppt die Aufzeichnung von Ereignissen und Zustands\u00e4nderungen.",
+            "name": "Deaktivieren"
+        },
+        "enable": {
+            "description": "Startet die Aufzeichnung von Ereignissen und Zustands\u00e4nderungen.",
+            "name": "Aktivieren"
+        },
+        "purge": {
+            "description": "Startet die Bereinigungsaufgabe \u2013 um alte Daten aus deiner Datenbank zu bereinigen.",
+            "fields": {
+                "apply_filter": {
+                    "description": "Wende zus\u00e4tzlich zur zeitbasierten Bereinigung die Filter `entity_id` und `event_type` an.",
+                    "name": "Filter anwenden"
+                },
+                "keep_days": {
+                    "description": "Anzahl der Tage, die die Daten in der Datenbank verbleiben. Ab heute, r\u00fcckw\u00e4rts gez\u00e4hlt. Ein Wert von `7` bedeutet, dass alles, was \u00e4lter als eine Woche ist, gel\u00f6scht wird.",
+                    "name": "Aufzubewahrende Tage"
+                },
+                "repack": {
+                    "description": "Versuch Speicherplatz zu sparen, indem die gesamte Datenbankdatei neu geschrieben wird.",
+                    "name": "Umpacken"
+                }
+            },
+            "name": "Bereinigen"
+        },
+        "purge_entities": {
+            "description": "Startet eine Bereinigungsaufgabe, um die Daten zu bestimmten Entit\u00e4ten aus deiner Datenbank zu entfernen.",
+            "fields": {
+                "domains": {
+                    "description": "Liste der Dom\u00e4nen, f\u00fcr die die Daten aus der Rekorderdatenbank entfernt werden m\u00fcssen.",
+                    "name": "Zu entfernende Dom\u00e4nen"
+                },
+                "entity_globs": {
+                    "description": "Liste der Glob-Muster, die zur Auswahl der Entit\u00e4ten verwendet werden, deren Daten aus der Rekorder-Datenbank entfernt werden sollen.",
+                    "name": "Zu entfernende Entit\u00e4ts-Globs"
+                },
+                "entity_id": {
+                    "description": "Liste der Entit\u00e4ten, deren Daten aus der Recorder-Datenbank entfernt werden sollen.",
+                    "name": "Zu entfernende Entit\u00e4ten"
+                },
+                "keep_days": {
+                    "description": "Anzahl der Tage, f\u00fcr die die Daten f\u00fcr die Zeilen aufzubewahren, die dem Filter entsprechen. Ab heute, r\u00fcckw\u00e4rts gez\u00e4hlt. Ein Wert von `7` bedeutet, dass alles, was \u00e4lter als eine Woche ist, gel\u00f6scht wird. Der Standardwert von 0 Tagen entfernt alle \u00fcbereinstimmenden Zeilen sofort.",
+                    "name": "Aufzubewahrende Tage"
+                }
+            },
+            "name": "Entit\u00e4ten bereinigen"
+        }
+    },
+    "system_health": {
+        "info": {
+            "current_recorder_run": "Aktuelle Startzeit der Ausf\u00fchrung",
+            "database_engine": "Datenbank-Engine",
+            "database_version": "Datenbankversion",
+            "estimated_db_size": "Gesch\u00e4tzte Datenbankgr\u00f6\u00dfe (MiB)",
+            "oldest_recorder_run": "\u00c4lteste Startzeit der Ausf\u00fchrung"
+        }
+    }
+}

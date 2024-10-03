@@ -1,0 +1,113 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "Lista de quefaceres"
+        }
+    },
+    "exceptions": {
+        "item_not_found": {
+            "message": "Incapaz de atopar o elemento da lista de quefaceres: {item}"
+        }
+    },
+    "selector": {
+        "status": {
+            "options": {
+                "completed": "Completado",
+                "needs_action": "Non completado"
+            }
+        }
+    },
+    "services": {
+        "add_item": {
+            "description": "Engadir un novo elemento da lista de quefaceres.",
+            "fields": {
+                "due_datetime": {
+                    "description": "A data e a hora nas que se espera que o elemento a quefacer estea completado."
+                },
+                "item": {
+                    "description": "O nome que representa o elemento da lista de quefaceres.",
+                    "name": "Nome do elemento"
+                }
+            },
+            "name": "Engadir un elemento \u00e1 lista de quefaceres"
+        },
+        "create_item": {
+            "description": "Engade un novo elemento \u00e1 lista de quefaceres.",
+            "fields": {
+                "status": {
+                    "description": "Un estado ou confirmaci\u00f3n do elemento a facer.",
+                    "name": "Estado"
+                },
+                "summary": {
+                    "description": "O resumo curto que representa a tarefa a facer.",
+                    "name": "Resumo"
+                }
+            },
+            "name": "Crear elemento da lista de quefaceres"
+        },
+        "delete_item": {
+            "description": "Elimina un elemento existente da lista de quefaceres, xa sexa polo seu ID \u00fanico ou resumo.",
+            "fields": {
+                "summary": {
+                    "description": "O resumo curto que representa a tarefa a facer.",
+                    "name": "Resumo"
+                },
+                "uid": {
+                    "description": "Identificadores \u00fanicos para os elementos da lista de quefaceres.",
+                    "name": "IDs \u00fanicos dos elementos a facer"
+                }
+            },
+            "name": "Eliminar un elemento da lista de quefaceres"
+        },
+        "get_items": {
+            "description": "Obter elementos nunha lista de quefaceres pendentes.",
+            "fields": {
+                "status": {
+                    "name": "Estado"
+                }
+            },
+            "name": "Obter elementos da lista quefaceres"
+        },
+        "remove_completed_items": {
+            "description": "Elimina todos os elementos da lista de quefaceres que foron completados.",
+            "name": "Elimina todos os elementos completados da lista de quefaceres"
+        },
+        "remove_item": {
+            "description": "Eliminar un elemento da lista de quefaceres polo seu nome.",
+            "fields": {
+                "item": {
+                    "description": "O nome para os elementos da lista de quefaceres.",
+                    "name": "Nome do elemento"
+                }
+            },
+            "name": "Eliminar un elemento da lista de quefaceres pendente"
+        },
+        "update_item": {
+            "description": "Actualiza un elemento existente da lista de quefaceres base\u00e1ndote no seu nome.",
+            "fields": {
+                "item": {
+                    "description": "O nome para o elemento da lista de quefaceres.",
+                    "name": "Nome do elemento"
+                },
+                "rename": {
+                    "description": "O novo nome do elemento a facer",
+                    "name": "Renomear elemento"
+                },
+                "status": {
+                    "description": "Un estado ou confirmaci\u00f3n do elemento a facer.",
+                    "name": "Establecer estado"
+                },
+                "summary": {
+                    "description": "O resumo curto que representa o elemento a facer.",
+                    "name": "Resumo"
+                },
+                "uid": {
+                    "description": "Identificador \u00fanico para o elemento da lista de quefaceres",
+                    "name": "ID \u00fanico do elemento a facer"
+                }
+            },
+            "name": "Actualizar elemento da lista de quefaceres"
+        }
+    },
+    "title": "Lista de quefaceres"
+}

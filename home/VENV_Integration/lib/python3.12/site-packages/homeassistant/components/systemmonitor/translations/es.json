@@ -1,0 +1,119 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "El servicio ya est\u00e1 configurado"
+        },
+        "step": {
+            "user": {
+                "description": "Selecciona **Enviar** para la configuraci\u00f3n inicial. En la entrada de configuraci\u00f3n creada, selecciona configurar para a\u00f1adir sensores para los procesos seleccionados"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "process": {
+                "name": "Proceso {process}"
+            }
+        },
+        "sensor": {
+            "disk_free": {
+                "name": "Disco libre de {mount_point}"
+            },
+            "disk_use": {
+                "name": "Uso del disco de {mount_point}"
+            },
+            "disk_use_percent": {
+                "name": "Uso del disco de {mount_point}"
+            },
+            "ipv4_address": {
+                "name": "Direcci\u00f3n IPv4 {ip_address}"
+            },
+            "ipv6_address": {
+                "name": "Direcci\u00f3n IPv6 {ip_address}"
+            },
+            "last_boot": {
+                "name": "\u00daltimo arranque"
+            },
+            "load_15m": {
+                "name": "Carga (15m)"
+            },
+            "load_1m": {
+                "name": "Carga (1m)"
+            },
+            "load_5m": {
+                "name": "Carga (5m)"
+            },
+            "memory_free": {
+                "name": "Memoria libre"
+            },
+            "memory_use": {
+                "name": "Uso de memoria"
+            },
+            "memory_use_percent": {
+                "name": "Uso de memoria"
+            },
+            "network_in": {
+                "name": "Entrada de red de {interface}"
+            },
+            "network_out": {
+                "name": "Salida de red de {interface}"
+            },
+            "packets_in": {
+                "name": "Paquetes de entrada de {interface}"
+            },
+            "packets_out": {
+                "name": "Paquetes de salida de {interface}"
+            },
+            "process": {
+                "name": "Proceso {process}"
+            },
+            "processor_temperature": {
+                "name": "Temperatura del procesador"
+            },
+            "processor_use": {
+                "name": "Uso del procesador"
+            },
+            "swap_free": {
+                "name": "Memoria de intercambio libre"
+            },
+            "swap_use": {
+                "name": "Uso de intercambio"
+            },
+            "swap_use_percent": {
+                "name": "Uso de memoria de intercambio"
+            },
+            "throughput_network_in": {
+                "name": "Tr\u00e1fico de red de entrada de {interface}"
+            },
+            "throughput_network_out": {
+                "name": "Tr\u00e1fico de red de salida de {interface}"
+            }
+        }
+    },
+    "issues": {
+        "process_sensor": {
+            "fix_flow": {
+                "step": {
+                    "migrate_process_sensor": {
+                        "description": "Los sensores de proceso `{processes}` se han creado como sensores binarios y los sensores se eliminar\u00e1n en 2024.9.0. \n\nPor favor, actualiza todas las automatizaciones, scripts, paneles u otras cosas que dependan de estos sensores para usar los sensores binarios reci\u00e9n creados y pulsa **Enviar** para solucionar este problema.",
+                        "title": "Los sensores de proceso se han configurado como sensores binarios"
+                    }
+                }
+            },
+            "title": "Los sensores de proceso est\u00e1n obsoletos y se van a eliminar"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "process": "Procesos a a\u00f1adir como sensor(es)"
+                },
+                "data_description": {
+                    "process": "Selecciona un proceso en ejecuci\u00f3n de la lista o a\u00f1ade un valor personalizado. Se admiten m\u00faltiples selecciones/valores personalizados"
+                },
+                "description": "Configurar un sensor de monitorizaci\u00f3n para un proceso en ejecuci\u00f3n"
+            }
+        }
+    }
+}

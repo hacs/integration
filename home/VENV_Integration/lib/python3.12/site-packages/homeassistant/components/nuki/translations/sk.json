@@ -1,0 +1,89 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Zariadenie u\u017e je nakonfigurovan\u00e9",
+            "reauth_successful": "Op\u00e4tovn\u00e9 overenie bolo \u00faspe\u0161n\u00e9"
+        },
+        "error": {
+            "cannot_connect": "Nepodarilo sa pripoji\u0165",
+            "invalid_auth": "Neplatn\u00e9 overenie",
+            "unknown": "Neo\u010dak\u00e1van\u00e1 chyba"
+        },
+        "step": {
+            "reauth_confirm": {
+                "data": {
+                    "encrypt_token": "Na overenie pou\u017eite \u0161ifrovan\u00fd token.",
+                    "token": "Pr\u00edstupov\u00fd token"
+                },
+                "description": "Integr\u00e1cia Nuki sa mus\u00ed znova overi\u0165 pomocou v\u00e1\u0161ho bridga.",
+                "title": "Vypr\u0161ala platnos\u0165 overenia pre {name}"
+            },
+            "user": {
+                "data": {
+                    "encrypt_token": "Na overenie pou\u017eite \u0161ifrovan\u00fd token.",
+                    "host": "Hostite\u013e",
+                    "port": "Port",
+                    "token": "Pr\u00edstupov\u00fd token"
+                },
+                "data_description": {
+                    "host": "N\u00e1zov hostite\u013ea alebo IP adresa mosta Nuki. Napr\u00edklad: 192.168.1.25."
+                }
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "battery_critical": {
+                "name": "Bat\u00e9ria je kritick\u00e1"
+            },
+            "ring_action": {
+                "name": "Akcia zvonenia"
+            }
+        },
+        "lock": {
+            "nuki_lock": {
+                "state_attributes": {
+                    "battery_critical": {
+                        "state": {
+                            "off": "Norm\u00e1lna",
+                            "on": "N\u00edzke"
+                        }
+                    }
+                }
+            }
+        },
+        "sensor": {
+            "battery": {
+                "name": "Bat\u00e9ria"
+            }
+        }
+    },
+    "issues": {
+        "https_webhook": {
+            "description": "Nuki bridge nem\u00f4\u017ee posiela\u0165 udalosti na HTTPS adresu (SSL), nakonfigurujte (lok\u00e1lnu) HTTP adresu v \u010dasti \u201eAdresa URL Home Assistant\u201c v [nastaveniach siete] ({network_link}). Aktu\u00e1lna (lok\u00e1lna) adresa je: `{base_url}`, platn\u00e1 adresa m\u00f4\u017ee by\u0165 napr\u00edklad `http://192.168.1.10:8123`, kde `192.168.1.10` je adresa IP zariadenia Home Assistant",
+            "title": "Webov\u00e1 adresa webhooku Nuki pou\u017e\u00edva HTTPS (SSL)"
+        }
+    },
+    "services": {
+        "lock_n_go": {
+            "description": "Nuki Lock 'n' Go.",
+            "fields": {
+                "unlatch": {
+                    "description": "\u010ci sa m\u00e1 odomkn\u00fa\u0165 z\u00e1mok.",
+                    "name": "Odblokova\u0165"
+                }
+            },
+            "name": "Lock 'n' go"
+        },
+        "set_continuous_mode": {
+            "description": "Povol\u00ed alebo zak\u00e1\u017ee nepretr\u017eit\u00fd re\u017eim na Nuki Opener.",
+            "fields": {
+                "enable": {
+                    "description": "\u010ci povoli\u0165 alebo zak\u00e1za\u0165 funkciu.",
+                    "name": "Povoli\u0165"
+                }
+            },
+            "name": "Nastavenie nepretr\u017eit\u00e9ho k\u00f3du"
+        }
+    }
+}

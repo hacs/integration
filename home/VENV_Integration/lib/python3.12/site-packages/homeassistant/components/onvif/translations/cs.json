@@ -1,0 +1,128 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Za\u0159\u00edzen\u00ed je ji\u017e nastaveno",
+            "already_in_progress": "Nastaven\u00ed ji\u017e prob\u00edh\u00e1",
+            "no_devices_found": "V s\u00edti nebyla nalezena \u017e\u00e1dn\u00e1 za\u0159\u00edzen\u00ed",
+            "no_h264": "Nebyly k dispozici \u017e\u00e1dn\u00e9 proudy H264. Zkontrolujte nastaven\u00ed profilu v za\u0159\u00edzen\u00ed.",
+            "no_mac": "Nelze nastavit jedine\u010dn\u00e9 ID pro za\u0159\u00edzen\u00ed ONVIF.",
+            "onvif_error": "P\u0159i nastavov\u00e1n\u00ed za\u0159\u00edzen\u00ed ONVIF do\u0161lo k chyb\u011b. Dal\u0161\u00ed informace naleznete v logu.",
+            "reauth_successful": "Op\u011btovn\u00e9 ov\u011b\u0159en\u00ed bylo \u00fasp\u011b\u0161n\u00e9"
+        },
+        "error": {
+            "auth_failed": "Nelze ov\u011b\u0159it: {error}",
+            "cannot_connect": "Nepoda\u0159ilo se p\u0159ipojit",
+            "no_onvif_service": "Nebyla nalezena \u017e\u00e1dn\u00e1 slu\u017eba ONVIF. Zkontrolujte, zda je \u010d\u00edslo portu spr\u00e1vn\u00e9.",
+            "onvif_error": "Chyba p\u0159i nastavov\u00e1n\u00ed za\u0159\u00edzen\u00ed ONVIF: {error}. Dal\u0161\u00ed informace naleznete v logu."
+        },
+        "step": {
+            "configure": {
+                "data": {
+                    "host": "Hostitel",
+                    "name": "N\u00e1zev",
+                    "password": "Heslo",
+                    "port": "Port",
+                    "username": "U\u017eivatelsk\u00e9 jm\u00e9no"
+                },
+                "data_description": {
+                    "host": "N\u00e1zev hostitele nebo IP adresa va\u0161eho za\u0159\u00edzen\u00ed ONVIF."
+                },
+                "title": "Nastavit za\u0159\u00edzen\u00ed ONVIF"
+            },
+            "configure_profile": {
+                "data": {
+                    "include": "Vytvo\u0159it entitu kamery"
+                },
+                "description": "Chcete vytvo\u0159it entitu kamery pro {profile} s rozli\u0161en\u00edm {resolution}?",
+                "title": "Nastavit profily"
+            },
+            "device": {
+                "data": {
+                    "host": "Vyberte nalezen\u00e1 za\u0159\u00edzen\u00ed ONVIF"
+                },
+                "title": "Vyberte za\u0159\u00edzen\u00ed ONVIF"
+            },
+            "reauth_confirm": {
+                "data": {
+                    "password": "Heslo",
+                    "username": "U\u017eivatelsk\u00e9 jm\u00e9no"
+                },
+                "description": "N\u011bkter\u00e1 za\u0159\u00edzen\u00ed odm\u00edtnou ov\u011b\u0159en\u00ed, pokud je \u010das nesynchronizovan\u00fd o v\u00edce ne\u017e 5 sekund. Pokud je ov\u011b\u0159en\u00ed ne\u00fasp\u011b\u0161n\u00e9, ov\u011b\u0159te, zda je na za\u0159\u00edzen\u00ed spr\u00e1vn\u00fd \u010das, a zkuste to znovu.",
+                "title": "Znovu ov\u011b\u0159it za\u0159\u00edzen\u00ed ONVIF"
+            },
+            "user": {
+                "data": {
+                    "auto": "Hledat automaticky"
+                },
+                "description": "Klepnut\u00edm na tla\u010d\u00edtko Odeslat vyhled\u00e1me ve va\u0161\u00ed s\u00edti za\u0159\u00edzen\u00ed ONVIF, kter\u00e1 podporuj\u00ed Profil S. \n\nN\u011bkte\u0159\u00ed v\u00fdrobci mohli funkci ONVIF ve v\u00fdchoz\u00edm stavu vypnout. Ujist\u011bte se, \u017ee je v nastaven\u00ed kamery tato funkce povolena.",
+                "title": "Nastavit za\u0159\u00edzen\u00ed ONVIF"
+            }
+        }
+    },
+    "entity": {
+        "switch": {
+            "autofocus": {
+                "name": "Automatick\u00e9 zaost\u0159ov\u00e1n\u00ed"
+            },
+            "ir_lamp": {
+                "name": "IR p\u0159isv\u00edcen\u00ed"
+            },
+            "wiper": {
+                "name": "Wiper"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "onvif_devices": {
+                "data": {
+                    "enable_webhooks": "Povolit webhooky",
+                    "extra_arguments": "Dal\u0161\u00ed argumenty FFMPEG",
+                    "rtsp_transport": "P\u0159enosov\u00fd mechanismus RTSP",
+                    "use_wallclock_as_timestamps": "Pou\u017e\u00edt n\u00e1st\u011bnn\u00e9 hodiny jako \u010dasov\u00e1 raz\u00edtka"
+                },
+                "title": "Volby za\u0159\u00edzen\u00ed ONVIF"
+            }
+        }
+    },
+    "services": {
+        "ptz": {
+            "description": "Pokud va\u0161e kamera ONVIF podporuje PTZ, budete moci kameru posouvat, nakl\u00e1n\u011bt nebo p\u0159ibli\u017eovat.",
+            "fields": {
+                "continuous_duration": {
+                    "description": "Nastav\u00ed zpo\u017ed\u011bn\u00ed ContinuousMove v sekund\u00e1ch p\u0159ed zastaven\u00edm pohybu.",
+                    "name": "D\u00e9lka Continuos"
+                },
+                "distance": {
+                    "description": "Koeficient vzd\u00e1lenosti. Nastavuje, kolik PTZ se m\u00e1 prov\u00e9st v jednom po\u017eadavku.",
+                    "name": "Vzd\u00e1lenost"
+                },
+                "move_mode": {
+                    "description": "Re\u017eim pohybu PTZ.",
+                    "name": "Re\u017eim pohybu"
+                },
+                "pan": {
+                    "description": "Sm\u011br ot\u00e1\u010den\u00ed.",
+                    "name": "Ot\u00e1\u010den\u00ed"
+                },
+                "preset": {
+                    "description": "Token profilu p\u0159edvolby PTZ. Nastav\u00ed token profilu p\u0159edvolby, kter\u00fd se spust\u00ed pomoc\u00ed GotoPreset.",
+                    "name": "P\u0159edvolba"
+                },
+                "speed": {
+                    "description": "Koeficient rychlosti. Nastavuje, jak rychle se m\u00e1 PTZ prov\u00e9st.",
+                    "name": "Rychlost"
+                },
+                "tilt": {
+                    "description": "Sm\u011br n\u00e1klonu.",
+                    "name": "N\u00e1klon"
+                },
+                "zoom": {
+                    "description": "Zoom.",
+                    "name": "Zoom"
+                }
+            },
+            "name": "PTZ"
+        }
+    }
+}

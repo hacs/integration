@@ -1,0 +1,95 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Za\u0159\u00edzen\u00ed je ji\u017e nastaveno",
+            "already_in_progress": "Nastaven\u00ed ji\u017e prob\u00edh\u00e1",
+            "not_xiaomi_aqara": "Za\u0159\u00edzen\u00ed nen\u00ed br\u00e1na Xiaomi Aqara, zji\u0161t\u011bn\u00e9 za\u0159\u00edzen\u00ed neodpov\u00edd\u00e1 zn\u00e1m\u00fdm bran\u00e1m"
+        },
+        "error": {
+            "discovery_error": "Nepoda\u0159ilo se zjistit br\u00e1nu Xiaomi Aqara. Zkuste jako rozhran\u00ed pou\u017e\u00edt IP adresu za\u0159\u00edzen\u00ed, na kter\u00e9m je spu\u0161t\u011bn HomeAssistant.",
+            "invalid_host": "Neplatn\u00e9 hostitelsk\u00e9 jm\u00e9no nebo IP adresa, viz https://www.home-assistant.io/integrations/xiaomi_aqara/#connection-problem.",
+            "invalid_interface": "Neplatn\u00e9 s\u00ed\u0165ov\u00e9 rozhran\u00ed",
+            "invalid_key": "Neplatn\u00fd kl\u00ed\u010d br\u00e1ny",
+            "invalid_mac": "Neplatn\u00e1 MAC adresa"
+        },
+        "flow_title": "{name}",
+        "step": {
+            "select": {
+                "data": {
+                    "select_ip": "IP adresa"
+                },
+                "description": "Vyberte br\u00e1nu Xiaomi Aqara, kterou chcete p\u0159ipojit"
+            },
+            "settings": {
+                "data": {
+                    "key": "Kl\u00ed\u010d va\u0161\u00ed br\u00e1ny",
+                    "name": "N\u00e1zev br\u00e1ny"
+                },
+                "description": "Kl\u00ed\u010d (heslo) lze z\u00edskat pomoc\u00ed tohoto n\u00e1vodu: https://www.domoticz.com/wiki/Xiaomi_Gateway_(Aqara)#Adding_the_Xiaomi_Gateway_to_Domoticz. Pokud kl\u00ed\u010d nen\u00ed k dispozici, budou p\u0159\u00edstupn\u00e9 jen senzory.",
+                "title": "Voliteln\u00e1 nastaven\u00ed"
+            },
+            "user": {
+                "data": {
+                    "host": "IP adresa (voliteln\u00e1)",
+                    "interface": "S\u00ed\u0165ov\u00e9 rozhran\u00ed, kter\u00e9 se m\u00e1 pou\u017e\u00edt",
+                    "mac": "MAC adresa (voliteln\u00e1)"
+                },
+                "description": "Pokud jsou adresy IP a MAC ponech\u00e1ny pr\u00e1zdn\u00e9, pou\u017eije se automatick\u00e9 zji\u0161\u0165ov\u00e1n\u00ed"
+            }
+        }
+    },
+    "services": {
+        "add_device": {
+            "description": "Povol\u00ed povolen\u00ed p\u0159ipojen\u00ed br\u00e1ny Xiaomi Aqara na 30 sekund. Nov\u00e9 za\u0159\u00edzen\u00ed lze p\u0159idat pot\u00e9 jedn\u00edm stisknut\u00edm tla\u010d\u00edtka p\u00e1rov\u00e1n\u00ed.",
+            "fields": {
+                "gw_mac": {
+                    "description": "MAC adresa br\u00e1ny Xiaomi Aqara.",
+                    "name": "MAC adresa br\u00e1ny"
+                }
+            },
+            "name": "P\u0159idat za\u0159\u00edzen\u00ed"
+        },
+        "play_ringtone": {
+            "description": "P\u0159ehraje konkr\u00e9tn\u00ed t\u00f3n. Verze firmwaru br\u00e1ny mus\u00ed b\u00fdt minim\u00e1ln\u011b 1.4.1_145.",
+            "fields": {
+                "gw_mac": {
+                    "description": "MAC adresa br\u00e1ny Xiaomi Aqara.",
+                    "name": "MAC adresa br\u00e1ny"
+                },
+                "ringtone_id": {
+                    "description": "Jedno z povolen\u00fdch ID t\u00f3n\u016f.",
+                    "name": "ID t\u00f3nu"
+                },
+                "ringtone_vol": {
+                    "description": "Hlasitost v procentech.",
+                    "name": "Hlasitost t\u00f3nu"
+                }
+            },
+            "name": "P\u0159ehr\u00e1t t\u00f3n"
+        },
+        "remove_device": {
+            "description": "Odebere konkr\u00e9tn\u00ed za\u0159\u00edzen\u00ed. Odebr\u00e1n\u00ed je nutn\u00e9, pokud m\u00e1 b\u00fdt za\u0159\u00edzen\u00ed sp\u00e1rov\u00e1no s jinou br\u00e1nou.",
+            "fields": {
+                "device_id": {
+                    "description": "Hardwarov\u00e1 adresa za\u0159\u00edzen\u00ed, kter\u00e9 m\u00e1 b\u00fdt odebr\u00e1no.",
+                    "name": "ID za\u0159\u00edzen\u00ed"
+                },
+                "gw_mac": {
+                    "description": "MAC adresa br\u00e1ny Xiaomi Aqara.",
+                    "name": "MAC adresa br\u00e1ny"
+                }
+            },
+            "name": "Odebrat za\u0159\u00edzen\u00ed"
+        },
+        "stop_ringtone": {
+            "description": "Okam\u017eit\u011b zastav\u00ed p\u0159ehr\u00e1v\u00e1n\u00ed t\u00f3nu.",
+            "fields": {
+                "gw_mac": {
+                    "description": "MAC adresa br\u00e1ny Xiaomi Aqara.",
+                    "name": "MAC adresa br\u00e1ny"
+                }
+            },
+            "name": "Zastavit t\u00f3n"
+        }
+    }
+}

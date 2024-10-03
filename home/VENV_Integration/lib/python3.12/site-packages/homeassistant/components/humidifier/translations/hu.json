@@ -1,0 +1,125 @@
+{
+    "device_automation": {
+        "action_type": {
+            "set_humidity": "{entity_name} p\u00e1ratartalom be\u00e1ll\u00edt\u00e1sa",
+            "set_mode": "{entity_name} m\u00f3d m\u00f3dos\u00edt\u00e1sa",
+            "toggle": "{entity_name} kapcsol\u00e1sa",
+            "turn_off": "{entity_name} kikapcsol\u00e1sa",
+            "turn_on": "{entity_name} bekapcsol\u00e1sa"
+        },
+        "condition_type": {
+            "is_mode": "{entity_name} egy adott m\u00f3dra van \u00e1ll\u00edtva",
+            "is_off": "{entity_name} ki van kapcsolva",
+            "is_on": "{entity_name} be van kapcsolva"
+        },
+        "extra_fields": {
+            "above": "Felett",
+            "below": "Alatt",
+            "for": "Id\u0151tartam",
+            "humidity": "P\u00e1ratartalom",
+            "mode": "\u00dczemm\u00f3d"
+        },
+        "trigger_type": {
+            "changed_states": "{entity_name} be- vagy kikapcsolt",
+            "target_humidity_changed": "{entity_name} k\u00edv\u00e1nt p\u00e1ratartalom megv\u00e1ltozott",
+            "turned_off": "{entity_name} ki lett kapcsolva",
+            "turned_on": "{entity_name} be lett kapcsolva"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "P\u00e1r\u00e1s\u00edt\u00f3",
+            "state": {
+                "off": "Ki",
+                "on": "Be"
+            },
+            "state_attributes": {
+                "action": {
+                    "name": "M\u0171velet",
+                    "state": {
+                        "drying": "P\u00e1r\u00e1tlan\u00edt\u00e1s",
+                        "humidifying": "P\u00e1r\u00e1s\u00edt\u00e1s",
+                        "idle": "T\u00e9tlen",
+                        "off": "Ki"
+                    }
+                },
+                "available_modes": {
+                    "name": "El\u00e9rhet\u0151 \u00fczemm\u00f3dok"
+                },
+                "current_humidity": {
+                    "name": "Aktu\u00e1lis p\u00e1ratartalom"
+                },
+                "humidity": {
+                    "name": "K\u00edv\u00e1nt p\u00e1ratartalom"
+                },
+                "max_humidity": {
+                    "name": "Maxim\u00e1lis c\u00e9l p\u00e1ratartalom"
+                },
+                "min_humidity": {
+                    "name": "Minim\u00e1lis c\u00e9l p\u00e1ratartalom"
+                },
+                "mode": {
+                    "name": "M\u00f3d",
+                    "state": {
+                        "auto": "Automatikus",
+                        "away": "T\u00e1vol",
+                        "baby": "Baba",
+                        "boost": "Turb\u00f3",
+                        "comfort": "Komfort",
+                        "eco": "Takar\u00e9kos",
+                        "home": "Otthon",
+                        "normal": "Norm\u00e1l",
+                        "sleep": "Alv\u00e1s"
+                    }
+                }
+            }
+        },
+        "dehumidifier": {
+            "name": "P\u00e1ramentes\u00edt\u0151"
+        },
+        "humidifier": {
+            "name": "P\u00e1r\u00e1s\u00edt\u00f3"
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "{domain} integr\u00e1ci\u00f3 nem t\u00e1mogatja {platform} platform be\u00e1ll\u00edt\u00e1s\u00e1t.\n\nK\u00e9rem, t\u00e1vol\u00edtsa el a konfigur\u00e1ci\u00f3b\u00f3l \u00e9s ind\u00edtsa \u00fajra a Home Assistantot a probl\u00e9ma megold\u00e1s\u00e1hoz.",
+            "title": "A platform nem t\u00e1mogatott"
+        }
+    },
+    "services": {
+        "set_humidity": {
+            "description": "Be\u00e1ll\u00edtja a c\u00e9l p\u00e1ratartalmat.",
+            "fields": {
+                "humidity": {
+                    "description": "C\u00e9l p\u00e1ratartalom.",
+                    "name": "P\u00e1ratartalom"
+                }
+            },
+            "name": "P\u00e1ratartalom be\u00e1ll\u00edt\u00e1sa"
+        },
+        "set_mode": {
+            "description": "A p\u00e1r\u00e1s\u00edt\u00f3 m\u0171k\u00f6d\u00e9si m\u00f3dj\u00e1nak be\u00e1ll\u00edt\u00e1sa.",
+            "fields": {
+                "mode": {
+                    "description": "\u00dczemm\u00f3d. P\u00e9ld\u00e1ul _normal_, _eco_ vagy _away_. A lehets\u00e9ges \u00e9rt\u00e9kek list\u00e1j\u00e1t az integr\u00e1ci\u00f3s dokument\u00e1ci\u00f3ban tal\u00e1lja.",
+                    "name": "\u00dczemm\u00f3d"
+                }
+            },
+            "name": "\u00dczemm\u00f3d be\u00e1ll\u00edt\u00e1sa"
+        },
+        "toggle": {
+            "description": "Ki/be kapcsolja a p\u00e1r\u00e1s\u00edt\u00f3t.",
+            "name": "Kapcsol\u00e1s"
+        },
+        "turn_off": {
+            "description": "Kikapcsolja a p\u00e1r\u00e1s\u00edt\u00f3t.",
+            "name": "Kikapcsol\u00e1s"
+        },
+        "turn_on": {
+            "description": "Bekapcsolja a p\u00e1r\u00e1s\u00edt\u00f3t.",
+            "name": "Bekapcsol\u00e1s"
+        }
+    },
+    "title": "P\u00e1r\u00e1s\u00edt\u00f3"
+}

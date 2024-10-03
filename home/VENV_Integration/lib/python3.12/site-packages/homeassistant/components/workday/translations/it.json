@@ -1,0 +1,207 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Workday \u00e8 gi\u00e0 stato configurato con la configurazione scelta",
+            "incorrect_province": "Suddivisione errata dall'importazione yaml"
+        },
+        "error": {
+            "add_holiday_error": "Formato errato della data (AAAA-MM-GG)",
+            "add_holiday_range_error": "Formato errato nell'intervallo di date (AAAA-MM-GG,AAAA-MM-GG)",
+            "already_configured": "Il servizio \u00e8 gi\u00e0 configurato",
+            "remove_holiday_error": "Formato errato della data (AAAA-MM-GG) o nome della festivit\u00e0 non trovato",
+            "remove_holiday_range_error": "Formato errato nell'intervallo di date (AAAA-MM-GG,AAAA-MM-GG)"
+        },
+        "step": {
+            "options": {
+                "data": {
+                    "add_holidays": "Aggiungi festivit\u00e0",
+                    "days_offset": "Scostamento",
+                    "excludes": "Escludi",
+                    "language": "Lingua per le festivit\u00e0 con nome",
+                    "province": "Suddivisione della nazione",
+                    "remove_holidays": "Rimuovi festivit\u00e0",
+                    "workdays": "Giorni lavorativi"
+                },
+                "data_description": {
+                    "add_holidays": "Aggiungi festivit\u00e0 personalizzate come AAAA-MM-GG o come intervallo usando ',' come separatore",
+                    "remove_holidays": "Rimuovi le festivit\u00e0 come AAAA-MM-GG, come intervallo usando ',' come separatore o usando il nome parziale"
+                },
+                "description": "Imposta opzioni aggiuntive per {name} configurato per il paese {country}"
+            },
+            "user": {
+                "data": {
+                    "country": "Nazione",
+                    "name": "Nome"
+                }
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "workday": {
+                "state_attributes": {
+                    "days_offset": {
+                        "name": "Scostamento"
+                    },
+                    "excludes": {
+                        "name": "Escludi"
+                    },
+                    "workdays": {
+                        "name": "Giorni lavorativi"
+                    }
+                }
+            }
+        }
+    },
+    "issues": {
+        "bad_country": {
+            "fix_flow": {
+                "step": {
+                    "country": {
+                        "data": {
+                            "country": "Nazione"
+                        },
+                        "description": "Seleziona una nazione da utilizzare per il sensore Workday.",
+                        "title": "Seleziona la nazione per {title}"
+                    },
+                    "province": {
+                        "data": {
+                            "province": "Suddivisione della nazione"
+                        },
+                        "data_description": {
+                            "province": "Stato, Territorio, Provincia, Regione della Nazione"
+                        },
+                        "description": "Seleziona una provincia nella nazione {country} da utilizzare per il sensore Workday.",
+                        "title": "Seleziona la provincia per {title}"
+                    }
+                }
+            },
+            "title": "La nazione configurata per {title} non esiste"
+        },
+        "bad_date_holiday": {
+            "fix_flow": {
+                "error": {
+                    "remove_holiday_error": "Formato errato della data (AAAA-MM-GG) o nome della festivit\u00e0 non trovato"
+                },
+                "step": {
+                    "fix_remove_holiday": {
+                        "data": {
+                            "remove_holidays": "Rimuovi festivit\u00e0"
+                        },
+                        "data_description": {
+                            "remove_holidays": "Rimuovi le festivit\u00e0 come AAAA-MM-GG, come intervallo usando ',' come separatore o usando il nome parziale"
+                        },
+                        "description": "Rimuovi la data delle festivit\u00e0 `{remove_holidays}` in quanto non pu\u00f2 essere trovata nella Nazione {country}.",
+                        "title": "La data festiva configurata {remove_holidays} per {title} non esiste"
+                    }
+                }
+            },
+            "title": "La data festiva configurata {remove_holidays} per {title} non esiste"
+        },
+        "bad_named_holiday": {
+            "fix_flow": {
+                "step": {
+                    "fix_remove_holiday": {
+                        "data": {
+                            "remove_holidays": "Rimuovi festivit\u00e0"
+                        },
+                        "data_description": {
+                            "remove_holidays": "Rimuovi le festivit\u00e0 come AAAA-MM-GG, come intervallo usando ',' come separatore o usando il nome parziale"
+                        },
+                        "description": "Rimuovi la festivit\u00e0 denominata `{remove_holidays}` poich\u00e9 non pu\u00f2 essere trovata nella Nazione {country}."
+                    }
+                }
+            }
+        },
+        "bad_province": {
+            "fix_flow": {
+                "step": {
+                    "province": {
+                        "data": {
+                            "province": "Suddivisione della nazione"
+                        },
+                        "data_description": {
+                            "province": "Stato, Territorio, Provincia, Regione della Nazione"
+                        },
+                        "description": "Seleziona una provincia nella nazione {country} da utilizzare per il sensore Workday.",
+                        "title": "Seleziona la provincia per {title}"
+                    }
+                }
+            },
+            "title": "La provincia configurata nel paese {country} per {title} non esiste"
+        },
+        "deprecated_yaml": {
+            "description": "La configurazione di Workday tramite YAML \u00e8 stata rimossa. \n\nLa configurazione YAML esistente \u00e8 stata importata automaticamente nell'interfaccia utente. \n\nRimuovi la configurazione YAML di Workday dal file configuration.yaml e riavvia Home Assistant per risolvere il problema.",
+            "title": "La configurazione YAML di Workday \u00e8 stata rimossa."
+        }
+    },
+    "options": {
+        "error": {
+            "add_holiday_error": "Formato errato della data (AAAA-MM-GG)",
+            "add_holiday_range_error": "Formato errato nell'intervallo di date (AAAA-MM-GG,AAAA-MM-GG)",
+            "already_configured": "Il servizio con questa configurazione esiste gi\u00e0",
+            "remove_holiday_error": "Formato errato della data (AAAA-MM-GG) o nome della festivit\u00e0 non trovato",
+            "remove_holiday_range_error": "Formato errato nell'intervallo di date (AAAA-MM-GG,AAAA-MM-GG)"
+        },
+        "step": {
+            "init": {
+                "data": {
+                    "add_holidays": "Aggiungi festivit\u00e0",
+                    "days_offset": "Scostamento",
+                    "excludes": "Escludi",
+                    "language": "Lingua per le festivit\u00e0 con nome",
+                    "province": "Suddivisione della nazione",
+                    "remove_holidays": "Rimuovi festivit\u00e0",
+                    "workdays": "Giorni lavorativi"
+                },
+                "data_description": {
+                    "add_holidays": "Aggiungi festivit\u00e0 personalizzate come AAAA-MM-GG o come intervallo usando ',' come separatore",
+                    "days_offset": "Scostamento dei giorni",
+                    "excludes": "Elenco dei giorni lavorativi da escludere",
+                    "language": "Scegli la lingua in base alla quale desideri configurare le festivit\u00e0 con nome",
+                    "province": "Stato, Territorio, Provincia, Regione della Nazione",
+                    "remove_holidays": "Rimuovi le festivit\u00e0 come AAAA-MM-GG, come intervallo usando ',' come separatore o usando il nome parziale",
+                    "workdays": "Elenco dei giorni lavorativi"
+                },
+                "description": "Modifica le opzioni aggiuntive per {name} configurate per il paese {country}"
+            }
+        }
+    },
+    "selector": {
+        "country": {
+            "options": {
+                "none": "Nessun paese"
+            }
+        },
+        "days": {
+            "options": {
+                "fri": "Venerd\u00ec",
+                "holiday": "Vacanze",
+                "mon": "Luned\u00ec",
+                "sat": "Sabato",
+                "sun": "Domenica",
+                "thu": "Gioved\u00ec",
+                "tue": "Marted\u00ec",
+                "wed": "Mercoled\u00ec"
+            }
+        },
+        "province": {
+            "options": {
+                "none": "Nessuna suddivisione"
+            }
+        }
+    },
+    "services": {
+        "check_date": {
+            "description": "Controlla se la data \u00e8 un giorno lavorativo.",
+            "fields": {
+                "check_date": {
+                    "description": "Data per verificare se \u00e8 un giorno lavorativo.",
+                    "name": "Data"
+                }
+            },
+            "name": "Controlla la data"
+        }
+    },
+    "title": "Giorno lavorativo"
+}

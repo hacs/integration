@@ -1,0 +1,1931 @@
+{
+  "language": "lv",
+  "intents": {
+    "HassTurnOff": {
+      "data": [
+        {
+          "sentences": [
+            "<izslēgt> <name>",
+            "<izslēgt> <area> <name>",
+            "<izslēgt> <name> <area>"
+          ]
+        },
+        {
+          "sentences": [
+            "<close> <name>"
+          ],
+          "response": "cover"
+        },
+        {
+          "sentences": [
+            "<close> <name> <area>"
+          ],
+          "response": "cover_area"
+        },
+        {
+          "sentences": [
+            "<izslēgt> [visas] (gaismas | lampas) <area>",
+            "<izslēgt> [visas] <area> (gaismas | lampas)",
+            "<izslēgt> <area> visas (gaismas | lampas)",
+            "<izslēgt> [visu] (gaismu | apgaismojumu) <area>",
+            "<izslēgt> [visu] <area> (gaismu | apgaismojumu)",
+            "<izslēgt> <area> visu (gaismu | apgaismojumu)"
+          ],
+          "slots": {
+            "domain": "light",
+            "name": "all"
+          }
+        },
+        {
+          "sentences": [
+            "<close> [vis(as|us)] garāž[(a|as|u)] durvis"
+          ],
+          "response": "cover_device_class",
+          "slots": {
+            "device_class": "garage",
+            "name": "all",
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "<close> [visas] garāž[(a|as|u)] [durvis] <area>",
+            "<close> <area> [visas] garāž[(a|as|u)] [durvis]"
+          ],
+          "response": "cover_area",
+          "slots": {
+            "device_class": "garage",
+            "name": "all",
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "<close> [vis(us|as)] (aizkar(i|us) | žalūzijas) <area>",
+            "<close> <area> [vis(us|as)] (aizkar(i|us) | žalūzijas)"
+          ],
+          "response": "cover_area",
+          "slots": {
+            "device_class": [
+              "blind",
+              "curtain",
+              "shutter"
+            ],
+            "name": "all",
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "<izslēgt> [visus] ventilatoru[s] <area>",
+            "<izslēgt> <area> [visus] ventilatoru[s]",
+            "<izslēgt> visus <area> ventilatoru[s]"
+          ],
+          "slots": {
+            "domain": "fan",
+            "name": "all"
+          }
+        }
+      ]
+    },
+    "HassGetWeather": {
+      "data": [
+        {
+          "sentences": [
+            "kād[s|i|as] [šobrīd|ārā|ir] (laiks|laikapstākļi|laika apstākļi|laika ziņas)"
+          ]
+        },
+        {
+          "sentences": [
+            "kād[s|i|as] [šobrīd|ārā|ir] (laiks|laikapstākļi|laika apstākļi|laika ziņas) <name>",
+            "kād[s|i|as] (laiks|laikapstākļi|laika apstākļi|laika ziņas) [šobrīd|ir] <name>"
+          ],
+          "requires_context": {
+            "domain": "weather"
+          }
+        }
+      ]
+    },
+    "HassTurnOn": {
+      "data": [
+        {
+          "sentences": [
+            "<ieslēgt> [visas] (gaismas | lampas) <area>",
+            "<ieslēgt> [visas] <area> (gaismas | lampas)",
+            "<ieslēgt> <area> visas (gaismas | lampas)",
+            "<ieslēgt> [visu] (gaismu | apgaismojumu) <area>",
+            "<ieslēgt> [visu] <area> (gaismu | apgaismojumu)",
+            "<ieslēgt> <area> visu (gaismu | apgaismojumu)"
+          ],
+          "slots": {
+            "domain": "light",
+            "name": "all"
+          }
+        },
+        {
+          "sentences": [
+            "<ieslēgt> [visus] ventilatoru[s] <area>",
+            "<ieslēgt> <area> [visus] ventilatoru[s]",
+            "<ieslēgt> [visus] <area> ventilatoru[s]"
+          ],
+          "slots": {
+            "domain": "fan",
+            "name": "all"
+          }
+        },
+        {
+          "sentences": [
+            "<ieslēgt> <name>",
+            "<ieslēgt> <area> <name>",
+            "<ieslēgt> <name> <area>"
+          ]
+        },
+        {
+          "sentences": [
+            "<open> <name>"
+          ],
+          "response": "cover"
+        },
+        {
+          "sentences": [
+            "<open> <name> <area>"
+          ],
+          "response": "cover_area"
+        },
+        {
+          "sentences": [
+            "<open> [vis(as|us)] garāž[(a|ā|as|i|u)] (durvis | vārtus)"
+          ],
+          "response": "cover_device_class",
+          "slots": {
+            "device_class": "garage",
+            "name": "all",
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "<open> [visas] garāž[(a|ā|as|i|u)] [durvis | vārtus] <area>",
+            "<open> <area> [visas] garāž[(a|ā|as|i|u)] [durvis | vārtus]"
+          ],
+          "response": "cover_area",
+          "slots": {
+            "device_class": "garage",
+            "name": "all",
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "<open> [vis(us|as)] (aizkar(i|us) | žalūzijas) <area>",
+            "<open> <area> [vis(us|as)] (aizkar(i|us) | žalūzijas)"
+          ],
+          "response": "cover_area",
+          "slots": {
+            "device_class": [
+              "blind",
+              "curtain",
+              "shutter"
+            ],
+            "name": "all",
+            "domain": "cover"
+          }
+        }
+      ]
+    },
+    "HassLightSet": {
+      "data": [
+        {
+          "sentences": [
+            "<set> <name> [gaismas] (spilgtumu | spožumu) [uz] <brightness>",
+            "<set> <name> uz <brightness> [spilgtuma]"
+          ],
+          "response": "brightness"
+        },
+        {
+          "sentences": [
+            "<set> <area> <name> (spilgtumu | spožumu) [uz] <brightness>",
+            "<set> <area> <name> uz <brightness> [spilgtuma]",
+            "<set> <name> uz <brightness> [spilgtuma] <area>",
+            "<set> <name> [gaismas] (spilgtumu | spožumu) [uz] <brightness> <area>"
+          ],
+          "response": "brightness_area"
+        },
+        {
+          "sentences": [
+            "<set> [visu] (spilgtumu | spožumu) <area> [uz] <brightness>",
+            "<set> [visu] <area> [gaismas] (spilgtumu | spožumu) [uz] <brightness>",
+            "<set> <area> vis(u|as) gaismas (spilgtumu | spožumu) [uz] <brightness>",
+            "<set> [visu] <area> uz <brightness> [spilgtum(a|u)]"
+          ],
+          "slots": {
+            "name": "all"
+          },
+          "response": "brightness_area"
+        },
+        {
+          "sentences": [
+            "<set> <name> [krāsu] uz {color}",
+            "<set> <name> uz {color} krāsu"
+          ],
+          "response": "color"
+        },
+        {
+          "sentences": [
+            "<set> [visu] <area> [krāsu] uz {color}",
+            "<set> [visu] <area> uz {color} krāsu",
+            "<set> <area> {color} krāsā"
+          ],
+          "slots": {
+            "name": "all"
+          },
+          "response": "color_area"
+        }
+      ]
+    },
+    "HassClimateGetTemperature": {
+      "data": [
+        {
+          "sentences": [
+            "cik [<area>] grād(i|u)",
+            "cik grād(i|u) [<area>]",
+            "kāda <area> temperatūra",
+            "kāda temperatūra [<area>]",
+            "cik <area> (karst(i|s|a) | aukst(i|s|a) | silt(i|s|a) | vēsi)",
+            "cik (karst(i|s|a) | aukst(i|s|a) | silt(i|s|a) | vēsi) [<area>]"
+          ]
+        }
+      ]
+    },
+    "HassGetState": {
+      "data": [
+        {
+          "sentences": [
+            "vai <name> [<area>] [ir] {bs_battery_states:state}"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "battery"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "battery"
+          }
+        },
+        {
+          "sentences": [
+            "vai kāda [no] baterij(a|ām) [<area>] [ir] {bs_battery_states:state}"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "battery"
+          }
+        },
+        {
+          "sentences": [
+            "vai visas baterijas [<area>] [ir] {bs_battery_states:state}"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "battery"
+          }
+        },
+        {
+          "sentences": [
+            "kura[s] baterija[s] [<area>] [ir] {bs_battery_states:state}"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "battery"
+          }
+        },
+        {
+          "sentences": [
+            "cik [daudz] baterij(u|as) [<area>] [ir] {bs_battery_states:state}"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "battery"
+          }
+        },
+        {
+          "sentences": [
+            "vai <name> [<area>] [ir] {bs_battery_charging_states:state} [procesā]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "battery_charging"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "battery_charging"
+          }
+        },
+        {
+          "sentences": [
+            "vai kāda [no] baterij(a|ām) [<area>] [ir] {bs_battery_charging_states:state} [procesā]"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "battery_charging"
+          }
+        },
+        {
+          "sentences": [
+            "vai visas baterijas [<area>] [ir] {bs_battery_charging_states:state} [procesā]"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "battery_charging"
+          }
+        },
+        {
+          "sentences": [
+            "(kura|kuras) [no] baterij(a|as|ām) [<area>] [ir] {bs_battery_charging_states:state} [procesā]"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "battery_charging"
+          }
+        },
+        {
+          "sentences": [
+            "cik [daudz] baterij(u|as) [<area>] [ir] {bs_battery_charging_states:state} [procesā]"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "battery_charging"
+          }
+        },
+        {
+          "sentences": [
+            "vai <name> [<area>] [CO2] [sensor(s|i)] [ir] {bs_carbon_monoxide_states:state}"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "carbon_monoxide"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "carbon_monoxide"
+          }
+        },
+        {
+          "sentences": [
+            "vai kād(s|a|i|as) [no] CO2 sensor(s|i|iem) [<area>] [ir] {bs_carbon_monoxide_states:state}",
+            "vai CO2 [ir] {bs_carbon_monoxide_states:state}"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "carbon_monoxide"
+          }
+        },
+        {
+          "sentences": [
+            "vai [<area>] CO2 [sensor(s|i)] [ir] {bs_carbon_monoxide_states:state}",
+            "vai [<area>] [ir] {bs_carbon_monoxide_states:state}"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "carbon_monoxide",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "vai visi CO2 sensori [<area>] [ir] {bs_carbon_monoxide_states:state}",
+            "vai visur [<area>] [ir] {bs_carbon_monoxide_states:state}"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "carbon_monoxide"
+          }
+        },
+        {
+          "sentences": [
+            "kur(š|a|i|as) [no] CO2 sensor(s|i|iem) [<area>] [ir] {bs_carbon_monoxide_states:state}",
+            "kur CO2 [<area>] [ir] {bs_carbon_monoxide_states:state}"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "carbon_monoxide"
+          }
+        },
+        {
+          "sentences": [
+            "cik [daudz] CO2 sensor(i|u) [<area>] [ir] {bs_carbon_monoxide_states:state}"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "carbon_monoxide"
+          }
+        },
+        {
+          "sentences": [
+            "vai <name> [<area>] [ir] {bs_cold_states:state}"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "cold"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "cold"
+          }
+        },
+        {
+          "sentences": [
+            "vai kād(s|a|i|as) [no] (liet(a|as|ām)|sensor(s|i|iem)|ierīc(e|ēm)) [<area>] [ir] {bs_cold_states:state}"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "cold",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "kur(š|a|i|as) [no] (liet(a|as|ām)|sensor(s|i|iem)|ierīc(e|es|ēm)) [<area>] [ir] {bs_cold_states:state}",
+            "kas [<area>] [ir] auksts"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "cold",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "cik [daudz] (liet(as|u)|sensor(i|u)|ierī(ču|ces)) [<area>] [ir] {bs_cold_states:state}"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "cold",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "vai <name> [<area>] [ir] {bs_connectivity_states:state}"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "connectivity"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "connectivity"
+          }
+        },
+        {
+          "sentences": [
+            "vai [kāda] [no] ierīc(e|ēm) [<area>] [ir] {bs_connectivity_states:state}"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "connectivity"
+          }
+        },
+        {
+          "sentences": [
+            "vai visas ierīces [<area>] [ir] {bs_connectivity_states:state}"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "connectivity"
+          }
+        },
+        {
+          "sentences": [
+            "kura[s] ierīce[s] [<area>] [ir] {bs_connectivity_states:state}"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "connectivity"
+          }
+        },
+        {
+          "sentences": [
+            "cik [daudz] ierī(ču|ces|cēs) [<area>] [ir] {bs_connectivity_states:state}"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "connectivity"
+          }
+        },
+        {
+          "sentences": [
+            "vai <name> [<area>] [ir] {bs_door_states:state}"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "door"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "door"
+          }
+        },
+        {
+          "sentences": [
+            "vai <name> [<area>] [ir] {bs_garage_door_states:state}"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "garage_door"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "garage_door"
+          }
+        },
+        {
+          "sentences": [
+            "vai <name> [<area>] [gāze[s]] [sensors] [ir] {bs_gas_states:state}"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "gas"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "gas"
+          }
+        },
+        {
+          "sentences": [
+            "vai kād(s|a|i|as) [no] gāzes sensor(s|i|iem) [<area>] [ir] {bs_gas_states:state}",
+            "vai gāze [ir] {bs_gas_states:state}"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "gas"
+          }
+        },
+        {
+          "sentences": [
+            "vai [<area>] gāze[s] [sensor(s|i)] [ir] {bs_gas_states:state}",
+            "vai [<area>] [ir] {bs_gas_states:state}"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "gas",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "vai visi gāzes sensori [<area>] [ir] {bs_gas_states:state}",
+            "vai visur [<area>] [ir] {bs_gas_states:state}"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "gas"
+          }
+        },
+        {
+          "sentences": [
+            "kur(š|a|i|as) [no] gāzes sensor(s|i|iem) [<area>] [ir] {bs_gas_states:state}",
+            "kur gāze [<area>] [ir] {bs_gas_states:state}"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "gas"
+          }
+        },
+        {
+          "sentences": [
+            "cik [daudz] gāzes sensor(i|u) [<area>] [ir] {bs_gas_states:state}",
+            "cik (viet|istab)(as|ās) gāze [ir] {bs_gas_states:state}",
+            "cik (viet|istab)(as|ās) [ir] {bs_gas_states:state}"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "gas"
+          }
+        },
+        {
+          "sentences": [
+            "vai <name> [<area>] [ir] {bs_heat_states:state}"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "heat"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "heat"
+          }
+        },
+        {
+          "sentences": [
+            "vai kād(s|a|i|as) [no] (liet(a|as|ām)|sensor(s|i|iem)|ierīc(e|ēm)) [<area>] [ir] {bs_heat_states:state}"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "heat",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "kur(š|a|i|as) [no] (liet(a|as|ām)|sensor(s|i|iem)|ierīc(e|es|ēm)) [<area>] [ir] {bs_heat_states:state}",
+            "kas [<area>] [ir] karsts"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "heat",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "cik [daudz] (liet(as|u)|sensor(i|u)|ierī(ču|ces)) [<area>] [ir] {bs_heat_states:state}"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "heat",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "vai <name> [<area>] [ir] {bs_light_states:state}"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "light"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "light"
+          }
+        },
+        {
+          "sentences": [
+            "vai [(kaut kur|kād(a|ā|as|ās))] [(viet|istab)(a|ā)] [<area>] [ir] {bs_light_states:state}"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "light"
+          }
+        },
+        {
+          "sentences": [
+            "vai (visur|visās (viet|istab)(as|ās)) [<area>] [gaisma] [ir] {bs_light_states:state}"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "light"
+          }
+        },
+        {
+          "sentences": [
+            "kur(š|a|ā|i|as) (viet|istab)(a|ā|as) [<area>] [ir] {bs_light_states:state}",
+            "kur [<area>] [ir] {bs_light_states:state}"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "light"
+          }
+        },
+        {
+          "sentences": [
+            "cik [daudz] (viet|istab)(as|ās) [<area>] [gaisma] [ir] {bs_light_states:state}"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "light"
+          }
+        },
+        {
+          "sentences": [
+            "vai <name> [<area>] [ir] {bs_lock_states:state}"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "lock"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "lock"
+          }
+        },
+        {
+          "sentences": [
+            "vai <name> [<area>] [ir] {bs_moisture_states:state}"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "moisture"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "moisture"
+          }
+        },
+        {
+          "sentences": [
+            "vai [kād(s|a)] [no] ūdens sensor(s|i|iem) [<area>] [ir] {bs_moisture_states:state}"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "moisture"
+          }
+        },
+        {
+          "sentences": [
+            "vai [<area>] [ir] {bs_moisture_states:state}"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "moisture",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "vai visi ūdens sensori [<area>] [ir] {bs_moisture_states:state}"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "moisture"
+          }
+        },
+        {
+          "sentences": [
+            "kur(š|a|i|as) [no] ūdens sensor(s|i|iem) [<area>] [ir] {bs_moisture_states:state}"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "moisture"
+          }
+        },
+        {
+          "sentences": [
+            "cik [daudz] ūdens [noplūdes] sensor(i|u) [<area>] [ir] {bs_moisture_states:state}"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "moisture"
+          }
+        },
+        {
+          "sentences": [
+            "vai <name> [<area>] [ir] {bs_motion_states:state}"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "motion"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "motion"
+          }
+        },
+        {
+          "sentences": [
+            "vai [kāds] [no] kustīb(a|u|as) [sensor(s|i|iem)] [<area>] [ir] {bs_motion_states:state}",
+            "vai [kaut kur] [<area>] {bs_motion_states:state}"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "motion"
+          }
+        },
+        {
+          "sentences": [
+            "vai visi kustīb(u|as) sensori [<area>] [ir] {bs_motion_states:state}"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "motion",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "kur(š|a|i|as) [no] kustīb(u|as) sensor(s|i|iem) [<area>] [ir] {bs_motion_states:state}"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "motion"
+          }
+        },
+        {
+          "sentences": [
+            "cik [daudz] kustīb(u|as) sensor(i|u) [<area>] [ir] {bs_motion_states:state}"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "motion"
+          }
+        },
+        {
+          "sentences": [
+            "vai (<name> [<area>]|<area>) [ir] [kād(s|a|i|as)] {bs_occupancy_states:state}"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "occupancy"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "occupancy"
+          }
+        },
+        {
+          "sentences": [
+            "vai [kāds] [no] (klātbūtnes|aizņemtības) [sensor(s|a|i|iem)] [<area>] [ir] {bs_occupancy_states:state}",
+            "vai [kaut kur] [<area>] {bs_occupancy_states:state} [ir] [detektēt(s|a|i|as)]"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "occupancy"
+          }
+        },
+        {
+          "sentences": [
+            "vai visi (klātbūtnes|aizņemtības) sensori [<area>] [ir] {bs_occupancy_states:state}"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "occupancy"
+          }
+        },
+        {
+          "sentences": [
+            "kur(š|a|i|as) [no] (klātbūtnes|aizņemtības) sensor(s|i|iem) [<area>] [ir] {bs_occupancy_states:state}"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "occupancy"
+          }
+        },
+        {
+          "sentences": [
+            "cik [daudz] (klātbūtnes|aizņemtības) sensor(i|u) [<area>] [ir] {bs_occupancy_states:state}"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "occupancy"
+          }
+        },
+        {
+          "sentences": [
+            "vai <name> [<area>] [ir] {bs_opening_states:state}"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "opening"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "opening"
+          }
+        },
+        {
+          "sentences": [
+            "vai [kād(s|a|i|as)] [no] (durv|log|atvērum)(is|i|s|iem) [<area>] [ir] {bs_opening_states:state}",
+            "vai [kaut kas] [<area>] {bs_opening_states:state}"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "opening"
+          }
+        },
+        {
+          "sentences": [
+            "vai vis(i|as) (durv|log|atvērum)(is|i|s|iem) [<area>] [ir] {bs_opening_states:state}"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "opening"
+          }
+        },
+        {
+          "sentences": [
+            "kur(š|a|i|as) [no] (durv|log|atvērum)(is|i|s|iem) [<area>] [ir] {bs_opening_states:state}"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "opening"
+          }
+        },
+        {
+          "sentences": [
+            "cik [daudz] (durv|log|atvērum)(is|i|s|iem) [<area>] [ir] {bs_opening_states:state}"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "opening"
+          }
+        },
+        {
+          "sentences": [
+            "vai <name> [<area>] [ir] {bs_plug_states:state}"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "plug"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "plug"
+          }
+        },
+        {
+          "sentences": [
+            "vai [kād(s|a|i|as)] [no] ierīc(e|es|ēm) [<area>] [ir] {bs_plug_states:state}"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "plug"
+          }
+        },
+        {
+          "sentences": [
+            "vai visas ierīces [<area>] [ir] {bs_plug_states:state}"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "plug"
+          }
+        },
+        {
+          "sentences": [
+            "kur(š|a|i|as) ierīc(e|es) [<area>] [ir] {bs_plug_states:state}"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "plug"
+          }
+        },
+        {
+          "sentences": [
+            "cik [daudz] ierī(ču|ces|cēs) [<area>] [ir] {bs_plug_states:state}"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "plug"
+          }
+        },
+        {
+          "sentences": [
+            "vai <name> [<area>] {bs_power_states:state}"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "power"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "power"
+          }
+        },
+        {
+          "sentences": [
+            "vai [kād(ai|ām)] [no] ierīc(ei|ēm) [<area>] {bs_power_states:state}"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "power"
+          }
+        },
+        {
+          "sentences": [
+            "vai visām ierīcēm [<area>] {bs_power_states:state}"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "power"
+          }
+        },
+        {
+          "sentences": [
+            "kur(ai|ās|ām) [no] ierīc(ei|ēs|ēm) [<area>] {bs_power_states:state}"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "power"
+          }
+        },
+        {
+          "sentences": [
+            "cik [daudz] ierī(ču|ces|cēs) [<area>] {bs_power_states:state}"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "power"
+          }
+        },
+        {
+          "sentences": [
+            "vai <name> [<area>] [ir] {bs_presence_states:state}"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "presence"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "presence"
+          }
+        },
+        {
+          "sentences": [
+            "vai kāda [no] ierīc(e|ēm) [<area>] [ir] {bs_presence_states:state}"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "presence"
+          }
+        },
+        {
+          "sentences": [
+            "vai visas ierīces [<area>] [ir] {bs_presence_states:state}"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "presence"
+          }
+        },
+        {
+          "sentences": [
+            "kura[s] ierīce[s] [<area>] [ir] {bs_presence_states:state}"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "presence"
+          }
+        },
+        {
+          "sentences": [
+            "cik [daudz] ierī(ču|ces|cēs) [<area>] [ir] {bs_presence_states:state}"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "presence"
+          }
+        },
+        {
+          "sentences": [
+            "vai <name> [<area>] {bs_problem_states:state}"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "problem"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "problem",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "vai <name> [<area>] [ir] {bs_running_states:state}"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "running"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "running"
+          }
+        },
+        {
+          "sentences": [
+            "vai kāda [no] ierīc(e|ēm) [<area>] [ir] {bs_running_states:state}"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "running"
+          }
+        },
+        {
+          "sentences": [
+            "vai visas [no] ierīc(es|ēm) [<area>] [ir] {bs_running_states:state}"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "running"
+          }
+        },
+        {
+          "sentences": [
+            "kura[s] ierīce[s] [<area>] [ir] {bs_running_states:state}"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "running"
+          }
+        },
+        {
+          "sentences": [
+            "cik [daudz] ierī(ču|ces|cēs) [<area>] [ir] {bs_running_states:state}"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "running"
+          }
+        },
+        {
+          "sentences": [
+            "vai <name> [<area>] [ir] {bs_safety_states:state}"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "safety"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "safety"
+          }
+        },
+        {
+          "sentences": [
+            "vai <name> [<area>] [dūm(u|i)] [(detektor|sensor)(s|i)] [ir] {bs_smoke_states:state}"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "smoke"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "smoke"
+          }
+        },
+        {
+          "sentences": [
+            "vai kād(s|a|i|as) [no] dūmu (detektor|sensor)(s|i|iem) [<area>] [ir] {bs_smoke_states:state}"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "smoke"
+          }
+        },
+        {
+          "sentences": [
+            "vai visi dūmu (detektor|sensor)(s|i) [<area>] [ir] {bs_smoke_states:state}"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "smoke"
+          }
+        },
+        {
+          "sentences": [
+            "vai dūmu (detektor|sensor)(s|i) [<area>] [ir] {bs_smoke_states:state}",
+            "vai [<area>] [ir] dūmi"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "smoke",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "kur(š|i) [no] dūmu (detektor|sensor)(s|i|iem) [<area>] [ir] {bs_smoke_states:state}",
+            "kur dūmi [<area>] [ir] {bs_smoke_states:state}"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "smoke"
+          }
+        },
+        {
+          "sentences": [
+            "cik [daudz] dūmu (detektor|sensor)(u|i) [<area>] [ir] {bs_smoke_states:state}"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "smoke"
+          }
+        },
+        {
+          "sentences": [
+            "vai <name> [<area>] [ir] {bs_sound_states:state}"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "sound"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "sound"
+          }
+        },
+        {
+          "sentences": [
+            "vai kād(s|a|i|as) [no] skaņ(as|u) sensor(s|i|iem) [<area>] [ir] {bs_sound_states:state}"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "sound"
+          }
+        },
+        {
+          "sentences": [
+            "vai [visi] skaņ(as|u) sensor(s|i) [<area>] [ir] {bs_sound_states:state}"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "sound"
+          }
+        },
+        {
+          "sentences": [
+            "vai [<area>] [ir] skaņa"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "sound",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "kur(š|a|i|as) skaņ(as|u) (sensor(s|i)|ierīc(e|es)) [<area>] [ir] {bs_sound_states:state}"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "sound"
+          }
+        },
+        {
+          "sentences": [
+            "cik [daudz] skaņ(as|u) (sensor(i|u)|ierī(ces|ču)) [<area>] [ir] {bs_sound_states:state}"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "sound"
+          }
+        },
+        {
+          "sentences": [
+            "vai <name> [<area>] [ir] {bs_tamper_states:state}"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "tamper"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "tamper"
+          }
+        },
+        {
+          "sentences": [
+            "vai <name> [<area>] [ir] {bs_update_states:state}"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "update"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "update"
+          }
+        },
+        {
+          "sentences": [
+            "vai [kād(s|a|u|i|as|ai)] [no] ierīc(i|e|ei|ēm) [<area>] [ir] {bs_update_states:state}"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "update",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "(kād|kur)(u|a|i|as) [ierīc(i|es|ēs)] [<area>] [ir] {bs_update_states:state}"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "update",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "cik [daudz] ierī(ču|ces|cēs) [<area>] [ir] {bs_update_states:state}"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "update",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "vai <name> [<area>] {bs_vibration_states:state}"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "vibration"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "vibration"
+          }
+        },
+        {
+          "sentences": [
+            "vai [kāda] [no] ierīc(e|ēm) [<area>] {bs_vibration_states:state}"
+          ],
+          "response": "any",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "vibration"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "vibration",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "vai <name> [<area>] [ir] {bs_window_states:state}"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "window"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "window"
+          }
+        }
+      ]
+    }
+  },
+  "responses": {
+    "errors": {
+      "no_intent": "Atvainojiet, es nevarēju to saprast",
+      "no_area": "Nav zonas ar nosaukumu {{ area }}",
+      "no_domain_in_area": "Zonā {{ area }} nav {{ domain }}",
+      "no_device_class_in_area": "Zonā {{ area }} nav {{ device_class }}",
+      "no_entity": "Nav ierīces vai entītijas ar nosaukumu {{ entity }}",
+      "handle_error": "Apstrādājot nolūku, radās neparedzēta kļūda"
+    },
+    "intents": {
+      "HassGetState": {
+        "default": "{{ state.state_with_unit }}",
+        "one_yesno": "{% if query.matched %}\n  Jā\n{% else %}\n  Nē\n{% endif %}\n",
+        "any": "{% if query.matched %}\n  {% set match = query.matched | map(attribute=\"name\") | sort | list %}\n  {% if match | length > 4 %}\n    Jā, {{ match[:3] | join(\", \") }} un vēl {{ match | length - 3 }} citi\n  {%- else -%}\n    Jā,\n    {% for name in match -%}\n      {% if not loop.first and not loop.last %}, {% elif loop.last and not loop.first %} un {% endif %}\n      {{ name }}\n    {%- endfor -%}\n  {% endif %}\n{% else %}\n  Nē\n{% endif %}\n",
+        "all": "{% if not query.unmatched: %}\n  Jā\n{% else %}\n  {% set no_match = query.unmatched | map(attribute=\"name\") | sort | list %}\n  {% if no_match | length > 4 %}\n    Nē, {{ no_match[:3] | join(\", \") }} un {{ no_match | length - 3 }} citi nav\n  {%- else -%}\n    Nē,\n    {% for name in no_match -%}\n      {% if not loop.first and not loop.last %}, {% elif loop.last and not loop.first %} un {% endif %}\n      {{ name }}\n    {%- endfor %} nav\n  {% endif %}\n{% endif %}\n",
+        "which": "{% if not query.matched %}\n  {% if slots.device_class in [\"battery\", \"cold\", \"presence\", \"light\"] %}\n    Neviena\n  {% else %}\n    Neviens\n  {% endif %}\n{% else: %}\n  {% set match = query.matched | map(attribute=\"name\") | sort | list %}\n  {% if match | length > 4 %}\n    {{ match[:3] | join(\", \") }} un {{ (match | length - 3) }} citi\n  {% else %}\n    {%- for name in match -%}\n      {% if not loop.first and not loop.last %}, {% elif loop.last and not loop.first %} un {% endif %}\n      {{ name }}\n    {%- endfor -%}\n  {% endif %}\n{% endif %}\n",
+        "how_many": "{{ query.matched | length }}\n"
+      },
+      "HassTurnOff": {
+        "default": "Izslēdzu {{ slots.name }}",
+        "lights_area": "Izslēdzu gaismas {{ slots.area }}",
+        "fans_area": "Izslēdzu ventilatorus {{ slots.area }}",
+        "cover": "Aizvēru {{ slots.name }}",
+        "cover_area": "Aizvēru {{ slots.area }}",
+        "cover_device_class": "Aizvēru {{ slots.device_class }}"
+      },
+      "HassTurnOn": {
+        "default": "Ieslēdzu {{ slots.name }}",
+        "lights_area": "Ieslēdzu gaismas {{ slots.area }}",
+        "fans_area": "Ieslēdzu ventilatorus {{ slots.area }}",
+        "cover": "Atvēru {{ slots.name }}",
+        "cover_area": "Atvēru {{ slots.area }}",
+        "cover_device_class": "Atvēru {{ slots.device_class }}"
+      },
+      "HassGetWeather": {
+        "default": "{% set weather_condition = {\n  'clear': 'skaidrs laiks',\n  'clear-night': 'skaidrs laiks',\n  'cloudy': 'mākoņains',\n  'exceptional': 'ārkārtējs',\n  'fog': 'migla',\n  'hail': 'krusa',\n  'lightning': 'pērkons',\n  'lightning-rainy': 'pēŗkons un lietus',\n  'partlycloudy': 'daļēji mākoņains',\n  'pouring': 'lietusgāzes',\n  'rainy': 'līst',\n  'snowy': 'snieg',\n  'snowy-rainy': 'slapjš sniegs',\n  'sunny': 'saulains',\n  'windy': 'vējains',\n  'windy-variant': 'ar vēju un lietu'\n} %} {{ state.attributes.get('temperature') }} {{ state.attributes.get('temperature_unit') }} {{ weather_condition.get((state.state | string).lower(), \"\") }}\n"
+      },
+      "HassLightSet": {
+        "brightness": "{{ slots.name }} spilgtums nomainīts uz {{ slots.brightness }}",
+        "brightness_area": "Spilgtums {{ slots.area }} nomainīts uz {{ slots.brightness }}",
+        "color": "{{ slots.name }} krāsa nomainīta uz {{ slots.color }}",
+        "color_area": "Krāsa {{ slots.area }} nomainīta uz {{ slots.color }}"
+      },
+      "HassClimateGetTemperature": {
+        "default": "{{ state.state }} grādu"
+      }
+    }
+  },
+  "lists": {
+    "color": {
+      "values": [
+        {
+          "in": "balt(s|a|ā|o)",
+          "out": "white"
+        },
+        {
+          "in": "meln(s|a|ā|o)",
+          "out": "black"
+        },
+        {
+          "in": "sarkan(s|a|ā|o)",
+          "out": "red"
+        },
+        {
+          "in": "oranž(s|a|ā|o)",
+          "out": "orange"
+        },
+        {
+          "in": "dzelten(s|a|ā|o)",
+          "out": "yellow"
+        },
+        {
+          "in": "zaļ(š|a|ā|o)",
+          "out": "green"
+        },
+        {
+          "in": "zil(s|a|ā|o)",
+          "out": "blue"
+        },
+        {
+          "in": "violet(s|a|ā|o)",
+          "out": "purple"
+        },
+        {
+          "in": "brūn(s|a|ā|o)",
+          "out": "brown"
+        }
+      ]
+    },
+    "brightness": {
+      "range": {
+        "type": "percentage",
+        "from": 0,
+        "to": 100
+      }
+    },
+    "temperature": {
+      "range": {
+        "type": "temperature",
+        "from": 0,
+        "to": 100
+      }
+    },
+    "temperature_unit": {
+      "values": [
+        {
+          "in": "c | celsija | pēc celsija",
+          "out": "celsius"
+        },
+        {
+          "in": "f | fārenheita | pēc fārenheita",
+          "out": "fahrenheit"
+        }
+      ]
+    },
+    "bs_battery_states": {
+      "values": [
+        {
+          "in": "izlādē(ts|ta|jies|jusies|jušies|jušās)",
+          "out": "on"
+        },
+        {
+          "in": "uzlādē(ts|ta|jies|jusies|jušies|jušās)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_battery_charging_states": {
+      "values": [
+        {
+          "in": "[uz]lād(es|ējas|ēšanās)",
+          "out": "on"
+        },
+        {
+          "in": "ne[uz]lād(es|ējas|ēšanās)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_carbon_monoxide_states": {
+      "values": [
+        {
+          "in": "(detektēt(s|a|i)|aktiv[iz]ēt(s|a|i)|ieslēgt(s|a|i|as)|[ir ]CO2)",
+          "out": "on"
+        },
+        {
+          "in": "(nav (detektēt(s|a|i)|CO2)|deaktiv[iz]ēt(s|a|i)|izslēgt(s|a|i|as))",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_cold_states": {
+      "values": [
+        {
+          "in": "aukst(s|a|i|as)",
+          "out": "on"
+        },
+        {
+          "in": "nav aukst(s|a|i|as)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_connectivity_states": {
+      "values": [
+        {
+          "in": "(savieno(ts|ta|ti|tas)|pieslē(gts|gta|gti|gtas))",
+          "out": "on"
+        },
+        {
+          "in": "(atvieno(ts|ta|ti|tas)|atslē(gts|gta|gti|gtas))",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_door_states": {
+      "values": [
+        {
+          "in": "atvērt(a|as)",
+          "out": "on"
+        },
+        {
+          "in": "aizvērt(a|as)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_garage_door_states": {
+      "values": [
+        {
+          "in": "atvērt(a|as)",
+          "out": "on"
+        },
+        {
+          "in": "aizvērt(a|as)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_gas_states": {
+      "values": [
+        {
+          "in": "(detektēt(s|a|i)|aktiv[iz]ēt(s|a|i)|ieslēgt(s|a|i|as)|[ir ]gāze)",
+          "out": "on"
+        },
+        {
+          "in": "(nav (detektēt(s|a|i)|gāze[s])|deaktiv[iz]ēt(s|a|i)|izslēgt(s|a|i|as))",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_heat_states": {
+      "values": [
+        {
+          "in": "karst(s|a|i|as)",
+          "out": "on"
+        },
+        {
+          "in": "nav karst(s|a|i|as)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_light_states": {
+      "values": [
+        {
+          "in": "(gaiš(s|a|i|as)|detektēt(s|a|i|as)|[ir ]gaisma[s])",
+          "out": "on"
+        },
+        {
+          "in": "(tumš(s|a|i|as)|nav gaism(a|as|u))",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_lock_states": {
+      "values": [
+        {
+          "in": "atslēgt(a|as)",
+          "out": "on"
+        },
+        {
+          "in": "[aiz]slēgt(a|as)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_moisture_states": {
+      "values": [
+        {
+          "in": "(slapj(š|a|i)|applūd(is|usi|uši|ušas))",
+          "out": "on"
+        },
+        {
+          "in": "saus(s|a|i)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_motion_states": {
+      "values": [
+        {
+          "in": "(detektēt(s|a|i)|aktiv[iz]ēt(s|a|i)|ieslēgt(s|a|i|as)|[ir ]kustība)",
+          "out": "on"
+        },
+        {
+          "in": "(nav detektēt(s|a|i)|deaktiv[iz]ēt(s|a|i)|izslēgt(s|a|i|as)|nav kustība[s])",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_occupancy_states": {
+      "values": [
+        {
+          "in": "([ir ](kād(s|a|i|as)|cilvēk(s|i)|[māj]dzīvniek(s|i)|aizņemt[īb](s|a|i|as)|aktiv[iz]ēt(s|a|i)|ieslēgt(s|a|i|as)))",
+          "out": "on"
+        },
+        {
+          "in": "(nav (nevien(s|a)|cilvēk(s|i)|[māj]dzīvniek(s|i)|aizņemt[īb](s|a|i|as)|aktiv[iz]ēt(s|a|i)|ieslēgt(s|a|i|as)))",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_opening_states": {
+      "values": [
+        {
+          "in": "atvērt(s|a|i|as)",
+          "out": "on"
+        },
+        {
+          "in": "aizvērt(s|a|i|as)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_plug_states": {
+      "values": [
+        {
+          "in": "([p]ie)spraust(s|a|i|as)",
+          "out": "on"
+        },
+        {
+          "in": "(iz|at)spraust(s|a|i|as)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_power_states": {
+      "values": [
+        {
+          "in": "[ir ]enerģij(a|as)",
+          "out": "on"
+        },
+        {
+          "in": "nav enerģij(a|as)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_presence_states": {
+      "values": [
+        {
+          "in": "mājās",
+          "out": "on"
+        },
+        {
+          "in": "(ārpus|prom[ no]|nav) māj(as|ām)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_problem_states": {
+      "values": [
+        {
+          "in": "[ir|sagādā][ ]problēm(a|as|u)",
+          "out": "on"
+        },
+        {
+          "in": "[nav|nesagādā] problēm(a|as|u)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_running_states": {
+      "values": [
+        {
+          "in": "(darbojas|strādā|ieslēgt(s|a|i||as))",
+          "out": "on"
+        },
+        {
+          "in": "(nedarbojas|nestrādā|izslēgt(s|a|i||as))",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_safety_states": {
+      "values": [
+        {
+          "in": "nedroš(s|a|i)",
+          "out": "on"
+        },
+        {
+          "in": "droš(s|a|i)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_smoke_states": {
+      "values": [
+        {
+          "in": "((detektēt|aktiv[iz]ēt|ieslēgt)(s|a|i|as))",
+          "out": "on"
+        },
+        {
+          "in": "((nav |ne)detektēt(s|a|i)|(deaktiv[iz]ēt|izslēgt)(s|a|i|as))",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_sound_states": {
+      "values": [
+        {
+          "in": "((aktiv[iz]ēt|ieslēgt)(s|a|i|as))",
+          "out": "on"
+        },
+        {
+          "in": "((deaktiv[iz]ēt|izslēgt)(s|a|i|as))",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_tamper_states": {
+      "values": [
+        {
+          "in": "aiztikt(s|a|i|as)",
+          "out": "on"
+        },
+        {
+          "in": "(nav |ne)aiztikt(s|a|i|as)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_update_states": {
+      "values": [
+        {
+          "in": "[(pieejam(s|i|ie)|var) ]atjaun(ot[(s|a|i)]|ojam(s|a|i)|inā(t[(s|a|i)]|jum(s|i|am)|(ms|ma|mi|mas)))",
+          "out": "on"
+        },
+        {
+          "in": "(nav|nevar) [pieejam(s|i|ie) ]atjaun(ot(s|a|i)|ojam(s|a|i)|inā(t(s|a|i)|jum(s|i|am)))",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_vibration_states": {
+      "values": [
+        {
+          "in": "vibrē",
+          "out": "on"
+        },
+        {
+          "in": "nevibrē",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_window_states": {
+      "values": [
+        {
+          "in": "atvērt(s|i)",
+          "out": "on"
+        },
+        {
+          "in": "aizvērt(s|i)",
+          "out": "closed"
+        }
+      ]
+    }
+  },
+  "expansion_rules": {
+    "name": "{name}",
+    "area": "{area}",
+    "ieslēgt": "(palaid | ieslēgt | ieslēdz | ieslēdziet)",
+    "izslēgt": "(atslēgt | atslēdz | izslēgt | izslēdz | izslēdziet)",
+    "set": "(uzstādi | ieliec[iet] | [(iz|pa)]maini[et] | uzseto)",
+    "close": "(aizver[iet] | nolaist)",
+    "open": "(atver | pacel)",
+    "brightness": "{brightness}[%| procent(i|iem|u|us)]",
+    "temperature": "{temperature}[°| grād(s|u|i|iem)] [pēc] [{temperature_unit}]"
+  },
+  "skip_words": [
+    "lūdzu",
+    "paldies",
+    "[vai] vari",
+    "ir",
+    "ārā",
+    "vaļā"
+  ]
+}

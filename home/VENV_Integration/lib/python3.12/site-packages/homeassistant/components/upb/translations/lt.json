@@ -1,0 +1,111 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "\u012erenginys jau sukonfig\u016bruotas"
+        },
+        "error": {
+            "cannot_connect": "Nepavyko prisijungti",
+            "invalid_upb_file": "Tr\u016bksta arba neteisingas UPB UPStart eksporto failas, patikrinkite failo pavadinim\u0105 ir keli\u0105.",
+            "unknown": "Netik\u0117ta klaida"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "address": "Adresas (\u017er. apra\u0161ym\u0105 auk\u0161\u010diau)",
+                    "file_path": "UPStart UPB eksporto failo kelias ir pavadinimas.",
+                    "protocol": "Protokolas"
+                },
+                "description": "Prijunkite universal\u0173 maitinimo linijos magistral\u0117s maitinimo linijos s\u0105sajos modul\u012f (UPB PIM). Adreso eilut\u0117 turi b\u016bti \u201etcp\u201c formos \u201eadresas[:portas]\u201c. Prievadas yra neprivalomas ir numatytasis 2101. Pavyzdys: \u201e192.168.1.42\u201c. Serijinio protokolo adresas turi b\u016bti \u201etty[:baud]\u201c. Bodas yra neprivalomas ir numatytasis dydis yra 4800. Pavyzdys: '/dev/ttyS1'.",
+                "title": "Prisijunkite prie UPB PIM"
+            }
+        }
+    },
+    "services": {
+        "light_blink": {
+            "description": "Mirksi lempute.",
+            "fields": {
+                "rate": {
+                    "description": "Laikas, per kur\u012f nuoroda mirksi.",
+                    "name": "\u012evertink"
+                }
+            },
+            "name": "Mirksinti \u0161viesa"
+        },
+        "light_fade_start": {
+            "description": "Pradeda \u0161vies\u0105 silpninti arba didinti, arba ma\u017einti dabartin\u012f ry\u0161kum\u0105.",
+            "fields": {
+                "brightness": {
+                    "description": "Skai\u010dius, nurodantis ry\u0161kum\u0105, kur 0 i\u0161jungia \u0161vies\u0105, 1 yra ma\u017eiausias ry\u0161kumas ir 255 yra did\u017eiausias ry\u0161kumas.",
+                    "name": "Ry\u0161kumas"
+                },
+                "brightness_pct": {
+                    "description": "Skai\u010dius, nurodantis viso ry\u0161kumo procent\u0105, kur 0 i\u0161jungia \u0161vies\u0105, 1 yra ma\u017eiausias ry\u0161kumas, o 100 yra did\u017eiausias ry\u0161kumas.",
+                    "name": "Ry\u0161kumo procentas"
+                },
+                "rate": {
+                    "description": "\u0160viesos per\u0117jimo \u012f nauj\u0105 ry\u0161kum\u0105 greitis.",
+                    "name": "\u012evertink"
+                }
+            },
+            "name": "Prad\u0117kite \u0161viesos i\u0161nykim\u0105"
+        },
+        "light_fade_stop": {
+            "description": "Sustabdo \u0161viesos i\u0161blukim\u0105.",
+            "name": "Sustabdyti \u0161viesos i\u0161nykim\u0105"
+        },
+        "link_blink": {
+            "description": "Sumirksi nuoroda.",
+            "fields": {
+                "blink_rate": {
+                    "description": "Laikas, per kur\u012f nuoroda mirksi.",
+                    "name": "Mirks\u0117jimo da\u017enis"
+                }
+            },
+            "name": "Mirks\u0117jimo nuoroda"
+        },
+        "link_deactivate": {
+            "description": "I\u0161jungia UPB scen\u0105.",
+            "name": "I\u0161jungti nuorod\u0105"
+        },
+        "link_fade_start": {
+            "description": "Pradeda blukti nuorod\u0105 auk\u0161tyn arba \u017eemyn nuo esamo ry\u0161kumo.",
+            "fields": {
+                "brightness": {
+                    "description": "Skai\u010dius, nurodantis ry\u0161kum\u0105, kur 0 i\u0161jungia scen\u0105, 1 yra ma\u017eiausias ry\u0161kumas, o 255 yra did\u017eiausias ry\u0161kumas.",
+                    "name": "Ry\u0161kumas"
+                },
+                "brightness_pct": {
+                    "description": "Skai\u010dius, nurodantis viso ry\u0161kumo procent\u0105, kur 0 i\u0161jungia scen\u0105, 1 yra ma\u017eiausias ry\u0161kumas ir 100 yra did\u017eiausias ry\u0161kumas.",
+                    "name": "Ry\u0161kumo procentas"
+                },
+                "rate": {
+                    "description": "Laikas, per kur\u012f scena persijungia \u012f nauj\u0105 ry\u0161kum\u0105.",
+                    "name": "\u012evertink"
+                }
+            },
+            "name": "Prad\u0117ti nuorodos i\u0161nykim\u0105"
+        },
+        "link_fade_stop": {
+            "description": "Sustabdo nuorodos i\u0161nykim\u0105.",
+            "name": "Sustabdyti nuorodos i\u0161nykim\u0105"
+        },
+        "link_goto": {
+            "description": "Nustatykite scenos \u0161viesum\u0105.",
+            "fields": {
+                "brightness": {
+                    "description": "Skai\u010dius, nurodantis ry\u0161kum\u0105, kur 0 i\u0161jungia scen\u0105, 1 yra ma\u017eiausias ry\u0161kumas, o 255 yra did\u017eiausias ry\u0161kumas.",
+                    "name": "Ry\u0161kumas"
+                },
+                "brightness_pct": {
+                    "description": "Skai\u010dius, nurodantis viso ry\u0161kumo procent\u0105, kur 0 i\u0161jungia scen\u0105, 1 yra ma\u017eiausias ry\u0161kumas ir 100 yra did\u017eiausias ry\u0161kumas.",
+                    "name": "Ry\u0161kumo procentas"
+                },
+                "rate": {
+                    "description": "Laikas, per kur\u012f scena persijungia \u012f nauj\u0105 ry\u0161kum\u0105.",
+                    "name": "\u012evertink"
+                }
+            },
+            "name": "Eiti \u012f nuorod\u0105"
+        }
+    }
+}

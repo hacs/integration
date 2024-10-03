@@ -1,0 +1,896 @@
+{
+    "config": {
+        "abort": {
+            "reauth_successful": "Yeniden kimlik do\u011frulama ba\u015far\u0131l\u0131 oldu"
+        },
+        "error": {
+            "invalid_auth": "Ge\u00e7ersiz kimlik do\u011frulama",
+            "login_error": "Giri\u015f hatas\u0131 ( {code} ): {msg}",
+            "reauth_successful": "Yeniden kimlik do\u011frulama ba\u015far\u0131l\u0131 oldu"
+        },
+        "step": {
+            "reauth_user_code": {
+                "data": {
+                    "user_code": "Kullan\u0131c\u0131 kodu"
+                },
+                "description": "Tuya entegrasyonu art\u0131k geli\u015ftirilmi\u015f bir oturum a\u00e7ma y\u00f6ntemi kullan\u0131yor. Smart Life veya Tuya Smart hesab\u0131n\u0131zla yeniden kimlik do\u011frulamas\u0131 yapmak i\u00e7in kullan\u0131c\u0131 kodunuzu girmeniz gerekir. \n\n Bu kodu Smart Life uygulamas\u0131nda veya Tuya Smart uygulamas\u0131nda **Ayarlar** > **Hesap ve G\u00fcvenlik** ekran\u0131nda bulabilir ve **Kullan\u0131c\u0131 Kodu** alan\u0131na g\u00f6sterilen kodu girebilirsiniz. Kullan\u0131c\u0131 kodu b\u00fcy\u00fck/k\u00fc\u00e7\u00fck harfe duyarl\u0131d\u0131r; l\u00fctfen tam olarak uygulamada g\u00f6sterildi\u011fi gibi girdi\u011finizden emin olun."
+            },
+            "scan": {
+                "description": "Giri\u015f i\u015flemini tamamlamak i\u00e7in Smart Life uygulamas\u0131n\u0131 veya Tuya Smart uygulamas\u0131n\u0131 kullanarak a\u015fa\u011f\u0131daki QR kodunu taray\u0131n.\n\nUygulamada bu ad\u0131m\u0131 tamamlad\u0131ktan sonra bir sonraki ad\u0131ma ge\u00e7in."
+            },
+            "user": {
+                "data": {
+                    "access_id": "Tuya IoT Eri\u015fim Kimli\u011fi",
+                    "access_secret": "Tuya IoT Eri\u015fim Anahtar\u0131",
+                    "country_code": "\u00dclke",
+                    "password": "\u015eifre",
+                    "user_code": "Kullan\u0131c\u0131 kodu",
+                    "username": "Hesap"
+                },
+                "description": "Smart Life veya Tuya Smart kullan\u0131c\u0131 kodunuzu girin. \n\n Bu kodu Smart Life uygulamas\u0131nda veya Tuya Smart uygulamas\u0131nda **Ayarlar** > **Hesap ve G\u00fcvenlik** ekran\u0131nda bulabilir ve **Kullan\u0131c\u0131 Kodu** alan\u0131na g\u00f6sterilen kodu girebilirsiniz. Kullan\u0131c\u0131 kodu b\u00fcy\u00fck/k\u00fc\u00e7\u00fck harfe duyarl\u0131d\u0131r; l\u00fctfen tam olarak uygulamada g\u00f6sterildi\u011fi gibi girdi\u011finizden emin olun."
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "carbon_dioxide": {
+                "name": "Karbondioksit"
+            },
+            "carbon_monoxide": {
+                "name": "Karbon monoksit"
+            },
+            "drop": {
+                "name": "D\u00fc\u015f\u00fcrmek"
+            },
+            "feeding": {
+                "name": "Besleme"
+            },
+            "formaldehyde": {
+                "name": "Formaldehit"
+            },
+            "methane": {
+                "name": "Metan"
+            },
+            "pm25": {
+                "name": "PM2.5"
+            },
+            "pressure": {
+                "name": "Bas\u0131n\u00e7"
+            },
+            "tilt": {
+                "name": "E\u011fim"
+            },
+            "voc": {
+                "name": "VOC'ler"
+            }
+        },
+        "button": {
+            "reset_duster_cloth": {
+                "name": "Silgi bezini s\u0131f\u0131rlay\u0131n"
+            },
+            "reset_edge_brush": {
+                "name": "Kenar f\u0131r\u00e7as\u0131n\u0131 s\u0131f\u0131rla"
+            },
+            "reset_filter": {
+                "name": "Filtreyi s\u0131f\u0131rla"
+            },
+            "reset_map": {
+                "name": "Haritay\u0131 s\u0131f\u0131rla"
+            },
+            "reset_roll_brush": {
+                "name": "Rulo f\u0131r\u00e7ay\u0131 s\u0131f\u0131rla"
+            },
+            "snooze": {
+                "name": "Kestirme"
+            }
+        },
+        "cover": {
+            "blind": {
+                "name": "Stor"
+            },
+            "curtain": {
+                "name": "Perde"
+            },
+            "curtain_2": {
+                "name": "Perde 2"
+            },
+            "curtain_3": {
+                "name": "Perde 3"
+            },
+            "door": {
+                "name": "Kap\u0131"
+            },
+            "door_2": {
+                "name": "Kap\u0131 2"
+            },
+            "door_3": {
+                "name": "Kap\u0131 3"
+            }
+        },
+        "light": {
+            "backlight": {
+                "name": "Arka \u0131\u015f\u0131k"
+            },
+            "light": {
+                "name": "I\u015f\u0131k"
+            },
+            "light_2": {
+                "name": "I\u015f\u0131k 2"
+            },
+            "light_3": {
+                "name": "I\u015f\u0131k 3"
+            },
+            "night_light": {
+                "name": "Gece lambas\u0131"
+            }
+        },
+        "number": {
+            "cloud_recipe": {
+                "name": "Bulut tarifi"
+            },
+            "cook_temperature": {
+                "name": "Pi\u015firme s\u0131cakl\u0131\u011f\u0131"
+            },
+            "cook_time": {
+                "name": "Pi\u015firme s\u00fcresi"
+            },
+            "down_delay": {
+                "name": "A\u015fa\u011f\u0131 gecikme"
+            },
+            "far_detection": {
+                "name": "Uzak alg\u0131lama"
+            },
+            "feed": {
+                "name": "Besleme"
+            },
+            "heat_preservation_time": {
+                "name": "Is\u0131 koruma s\u00fcresi"
+            },
+            "maximum_brightness": {
+                "name": "Maksimum parlakl\u0131k"
+            },
+            "maximum_brightness_2": {
+                "name": "Maksimum parlakl\u0131k 2"
+            },
+            "maximum_brightness_3": {
+                "name": "Maksimum parlakl\u0131k 3"
+            },
+            "minimum_brightness": {
+                "name": "minimum parlakl\u0131k"
+            },
+            "minimum_brightness_2": {
+                "name": "Minimum parlakl\u0131k 2"
+            },
+            "minimum_brightness_3": {
+                "name": "Minimum parlakl\u0131k 3"
+            },
+            "move_down": {
+                "name": "A\u015fa\u011f\u0131 ta\u015f\u0131"
+            },
+            "move_up": {
+                "name": "Yukar\u0131 Ta\u015f\u0131"
+            },
+            "near_detection": {
+                "name": "Yak\u0131n alg\u0131lama"
+            },
+            "powder": {
+                "name": "Toz"
+            },
+            "sensitivity": {
+                "name": "Hassasiyet"
+            },
+            "temperature": {
+                "name": "S\u0131cakl\u0131k"
+            },
+            "temperature_after_boiling": {
+                "name": "Kaynat\u0131ld\u0131ktan sonra s\u0131cakl\u0131k"
+            },
+            "time": {
+                "name": "Zaman"
+            },
+            "voice_times": {
+                "name": "Ses s\u00fcreleri"
+            },
+            "volume": {
+                "name": "Ses"
+            },
+            "water_level": {
+                "name": "Su seviyesi"
+            }
+        },
+        "select": {
+            "basic_anti_flicker": {
+                "name": "Titre\u015fim \u00d6nleyici",
+                "state": {
+                    "0": "Devre d\u0131\u015f\u0131",
+                    "1": "50 Hz",
+                    "2": "60 Hz"
+                }
+            },
+            "basic_nightvision": {
+                "name": "Gece g\u00f6r\u00fc\u015f\u00fc",
+                "state": {
+                    "0": "Otomatik",
+                    "1": "Kapal\u0131",
+                    "2": "A\u00e7\u0131k"
+                }
+            },
+            "brightness": {
+                "name": "Parlakl\u0131k"
+            },
+            "concentration": {
+                "name": "Konsantrasyon"
+            },
+            "countdown": {
+                "name": "Geri Say\u0131m",
+                "state": {
+                    "1h": "1 saat",
+                    "2h": "2 saat",
+                    "3h": "3 saat",
+                    "4h": "4 saat",
+                    "5h": "5 saat",
+                    "6h": "6 saat",
+                    "cancel": "\u0130ptal"
+                }
+            },
+            "cups": {
+                "name": "Bardaklar"
+            },
+            "curtain_mode": {
+                "name": "Mod",
+                "state": {
+                    "morning": "Sabah",
+                    "night": "Gece"
+                }
+            },
+            "curtain_motor_mode": {
+                "name": "Motor modu",
+                "state": {
+                    "back": "Geri",
+                    "forward": "\u0130leri"
+                }
+            },
+            "decibel_sensitivity": {
+                "name": "Ses alg\u0131lama hassasiyeti",
+                "state": {
+                    "0": "D\u00fc\u015f\u00fck hassasiyet",
+                    "1": "Y\u00fcksek hassasiyet"
+                }
+            },
+            "fan_angle": {
+                "state": {
+                    "30": "30\u00b0",
+                    "60": "60\u00b0",
+                    "90": "90\u00b0"
+                }
+            },
+            "fingerbot_mode": {
+                "name": "Mod",
+                "state": {
+                    "click": "Bildirim",
+                    "switch": "Anahtar"
+                }
+            },
+            "horizontal_fan_angle": {
+                "name": "Yatay sal\u0131n\u0131m kanat a\u00e7\u0131s\u0131",
+                "state": {
+                    "30": "30\u00b0",
+                    "60": "60\u00b0",
+                    "90": "90\u00b0"
+                }
+            },
+            "humidifier_level": {
+                "name": "P\u00fcsk\u00fcrtme seviyesi",
+                "state": {
+                    "level_1": "Seviye 1",
+                    "level_10": "Seviye 10",
+                    "level_2": "Seviye 2",
+                    "level_3": "Seviye 3",
+                    "level_4": "Seviye 4",
+                    "level_5": "Seviye 5",
+                    "level_6": "Seviye 6",
+                    "level_7": "Seviye 7",
+                    "level_8": "Seviye 8",
+                    "level_9": "Seviye 9"
+                }
+            },
+            "humidifier_moodlighting": {
+                "name": "Ruh hali ayd\u0131nlatmas\u0131",
+                "state": {
+                    "1": "Mod 1",
+                    "2": "Mod 2",
+                    "3": "Mod 3",
+                    "4": "Mod 4",
+                    "5": "Mod 5"
+                }
+            },
+            "humidifier_spray_mode": {
+                "name": "P\u00fcsk\u00fcrtme modu",
+                "state": {
+                    "auto": "Otomatik",
+                    "health": "Sa\u011fl\u0131k",
+                    "humidity": "Nem",
+                    "sleep": "Uyku",
+                    "work": "\u0130\u015f"
+                }
+            },
+            "ipc_work_mode": {
+                "name": "IPC modu",
+                "state": {
+                    "0": "D\u00fc\u015f\u00fck g\u00fc\u00e7 modu",
+                    "1": "S\u00fcrekli \u00e7al\u0131\u015fma modu"
+                }
+            },
+            "led_type": {
+                "name": "I\u015f\u0131k kayna\u011f\u0131 tipi",
+                "state": {
+                    "halogen": "Halojen",
+                    "incandescent": "Akkor",
+                    "led": "LED"
+                }
+            },
+            "led_type_2": {
+                "name": "I\u015f\u0131k 2 kaynak tipi",
+                "state": {
+                    "halogen": "Halojen",
+                    "incandescent": "Akkor",
+                    "led": "LED"
+                }
+            },
+            "led_type_3": {
+                "name": "I\u015f\u0131k 3 kaynak tipi",
+                "state": {
+                    "halogen": "Halojen",
+                    "incandescent": "Akkor",
+                    "led": "LED"
+                }
+            },
+            "light_mode": {
+                "name": "G\u00f6sterge \u0131\u015f\u0131\u011f\u0131 modu",
+                "state": {
+                    "none": "Kapal\u0131",
+                    "pos": "Ters \u00e7evrilmi\u015f anahtar durumunu belirtin",
+                    "relay": "A\u00e7ma/kapama durumunu belirtin"
+                }
+            },
+            "material": {
+                "name": "Malzeme"
+            },
+            "mode": {
+                "name": "Mod"
+            },
+            "motion_sensitivity": {
+                "name": "Hareket alg\u0131lama hassasiyeti",
+                "state": {
+                    "0": "D\u00fc\u015f\u00fck hassasiyet",
+                    "1": "Orta hassasiyet",
+                    "2": "Y\u00fcksek hassasiyet"
+                }
+            },
+            "record_mode": {
+                "name": "Kay\u0131t modu",
+                "state": {
+                    "1": "Yaln\u0131zca olaylar\u0131 kaydet",
+                    "2": "S\u00fcrekli kay\u0131t"
+                }
+            },
+            "relay_status": {
+                "name": "G\u00fc\u00e7 a\u00e7ma davran\u0131\u015f\u0131",
+                "state": {
+                    "last": "Son durumu hat\u0131rla",
+                    "memory": "Son durumu hat\u0131rla",
+                    "off": "Kapal\u0131",
+                    "on": "A\u00e7\u0131k",
+                    "power_off": "Kapal\u0131",
+                    "power_on": "A\u00e7\u0131k"
+                }
+            },
+            "target_humidity": {
+                "name": "Hedef nem"
+            },
+            "temperature_level": {
+                "name": "S\u0131cakl\u0131k seviyesi"
+            },
+            "vacuum_cistern": {
+                "name": "Su tank\u0131 ayar\u0131",
+                "state": {
+                    "closed": "Kapal\u0131",
+                    "high": "Y\u00fcksek",
+                    "low": "D\u00fc\u015f\u00fck",
+                    "middle": "Orta"
+                }
+            },
+            "vacuum_collection": {
+                "name": "Toz toplama modu",
+                "state": {
+                    "large": "B\u00fcy\u00fck",
+                    "middle": "Orta",
+                    "small": "K\u00fc\u00e7\u00fck"
+                }
+            },
+            "vacuum_mode": {
+                "name": "Mod",
+                "state": {
+                    "bow": "Yay",
+                    "chargego": "Dock'a geri d\u00f6n",
+                    "left_bow": "Sola do\u011fru e\u011filin",
+                    "left_spiral": "Spiral sol",
+                    "mop": "Paspas",
+                    "part": "B\u00f6l\u00fcm",
+                    "partial_bow": "K\u0131smen yay",
+                    "pick_zone": "B\u00f6lge se\u00e7",
+                    "point": "Nokta",
+                    "pose": "Poz",
+                    "random": "Rastgele",
+                    "right_bow": "Sa\u011fa do\u011fru e\u011filin",
+                    "right_spiral": "Spiral sa\u011f",
+                    "single": "Tek",
+                    "smart": "Ak\u0131ll\u0131",
+                    "spiral": "Sarmal",
+                    "standby": "Bekleme modu",
+                    "wall_follow": "Duvar\u0131 takip et",
+                    "zone": "B\u00f6lge"
+                }
+            },
+            "vertical_fan_angle": {
+                "name": "Dikey sal\u0131n\u0131m kanat a\u00e7\u0131s\u0131",
+                "state": {
+                    "30": "30\u00b0",
+                    "60": "60\u00b0",
+                    "90": "90\u00b0"
+                }
+            },
+            "volume": {
+                "name": "Ses"
+            },
+            "weather_delay": {
+                "name": "Hava durumu gecikmesi",
+                "state": {
+                    "120h": "120 saat",
+                    "144h": "144 saat",
+                    "168h": "168 saat",
+                    "24h": "24 saat",
+                    "48h": "48 saat",
+                    "72h": "72 saat",
+                    "96h": "96 saat",
+                    "cancel": "\u0130ptal"
+                }
+            }
+        },
+        "sensor": {
+            "air_quality": {
+                "name": "Hava kalitesi",
+                "state": {
+                    "good": "\u0130yi",
+                    "great": "B\u00fcy\u00fck",
+                    "mild": "Hafif",
+                    "severe": "\u015eiddetli"
+                }
+            },
+            "air_quality_index": {
+                "name": "Hava kalitesi endeksi",
+                "state": {
+                    "level_1": "Seviye 1",
+                    "level_2": "Seviye 2",
+                    "level_3": "Seviye 3",
+                    "level_4": "Seviye 4",
+                    "level_5": "Seviye 5",
+                    "level_6": "Seviye 6"
+                }
+            },
+            "battery": {
+                "name": "Pil"
+            },
+            "battery_state": {
+                "name": "Pil durumu"
+            },
+            "carbon_dioxide": {
+                "name": "Karbondioksit"
+            },
+            "carbon_monoxide": {
+                "name": "Karbon monoksit"
+            },
+            "cleaning_area": {
+                "name": "Temizleme alan\u0131"
+            },
+            "cleaning_time": {
+                "name": "Temizlik s\u00fcresi"
+            },
+            "concentration_carbon_dioxide": {
+                "name": "Karbondioksit konsantrasyonu"
+            },
+            "current": {
+                "name": "Ge\u00e7erli"
+            },
+            "current_temperature": {
+                "name": "Mevcut s\u0131cakl\u0131k"
+            },
+            "duster_cloth_life": {
+                "name": "Toz bezi kullan\u0131m \u00f6mr\u00fc"
+            },
+            "filter_life": {
+                "name": "Filtre \u00f6mr\u00fc"
+            },
+            "filter_utilization": {
+                "name": "Filtre kullan\u0131m\u0131"
+            },
+            "formaldehyde": {
+                "name": "Formaldehit"
+            },
+            "gas": {
+                "name": "Gaz"
+            },
+            "humidity": {
+                "name": "Nem"
+            },
+            "illuminance": {
+                "name": "Ayd\u0131nl\u0131k"
+            },
+            "last_amount": {
+                "name": "Son miktar"
+            },
+            "last_operation_duration": {
+                "name": "Son i\u015flem s\u00fcresi"
+            },
+            "luminosity": {
+                "name": "Parlakl\u0131k"
+            },
+            "methane": {
+                "name": "Metan"
+            },
+            "phase_a_current": {
+                "name": "Faz A ak\u0131m\u0131"
+            },
+            "phase_a_power": {
+                "name": "Faz A g\u00fcc\u00fc"
+            },
+            "phase_a_voltage": {
+                "name": "Faz A voltaj\u0131"
+            },
+            "phase_b_current": {
+                "name": "Faz B ak\u0131m\u0131"
+            },
+            "phase_b_power": {
+                "name": "Faz B g\u00fcc\u00fc"
+            },
+            "phase_b_voltage": {
+                "name": "Faz B voltaj\u0131"
+            },
+            "phase_c_current": {
+                "name": "Faz C ak\u0131m\u0131"
+            },
+            "phase_c_power": {
+                "name": "Faz C g\u00fcc\u00fc"
+            },
+            "phase_c_voltage": {
+                "name": "Faz C gerilimi"
+            },
+            "pm1": {
+                "name": "PM1"
+            },
+            "pm10": {
+                "name": "PM10"
+            },
+            "pm25": {
+                "name": "PM2.5"
+            },
+            "power": {
+                "name": "G\u00fc\u00e7"
+            },
+            "remaining_time": {
+                "name": "Kalan s\u00fcre"
+            },
+            "rolling_brush_life": {
+                "name": "D\u00f6nen f\u0131r\u00e7a \u00f6mr\u00fc"
+            },
+            "side_brush_life": {
+                "name": "Yan f\u0131r\u00e7a \u00f6mr\u00fc"
+            },
+            "smoke_amount": {
+                "name": "Duman miktar\u0131"
+            },
+            "sous_vide_status": {
+                "name": "Durum",
+                "state": {
+                    "boiling_temp": "Kaynama s\u0131cakl\u0131\u011f\u0131",
+                    "cooling": "So\u011futuluyor",
+                    "heating": "Is\u0131t\u0131l\u0131yor",
+                    "heating_temp": "Is\u0131tma s\u0131cakl\u0131\u011f\u0131",
+                    "reserve_1": "Rezerv 1",
+                    "reserve_2": "Rezerv 2",
+                    "reserve_3": "Rezerv 3",
+                    "standby": "Bekleme modu",
+                    "warm": "Is\u0131 korumas\u0131"
+                }
+            },
+            "status": {
+                "name": "Durum",
+                "state": {
+                    "boiling_temp": "Kaynama s\u0131cakl\u0131\u011f\u0131",
+                    "cooling": "So\u011futuluyor",
+                    "heating": "Is\u0131t\u0131l\u0131yor",
+                    "heating_temp": "Is\u0131tma s\u0131cakl\u0131\u011f\u0131",
+                    "reserve_1": "Rezerv 1",
+                    "reserve_2": "Rezerv 2",
+                    "reserve_3": "Rezerv 3",
+                    "standby": "Bekleme modu",
+                    "warm": "Is\u0131 korumas\u0131"
+                }
+            },
+            "temperature": {
+                "name": "S\u0131cakl\u0131k"
+            },
+            "total_absorption_particles": {
+                "name": "Par\u00e7ac\u0131klar\u0131n toplam emilimi"
+            },
+            "total_cleaning_area": {
+                "name": "Toplam temizlik alan\u0131"
+            },
+            "total_cleaning_time": {
+                "name": "Toplam temizlik s\u00fcresi"
+            },
+            "total_cleaning_times": {
+                "name": "Toplam temizlik s\u00fcreleri"
+            },
+            "total_energy": {
+                "name": "Toplam enerji"
+            },
+            "total_operating_time": {
+                "name": "Toplam \u00e7al\u0131\u015fma s\u00fcresi"
+            },
+            "total_production": {
+                "name": "Toplam \u00fcretim"
+            },
+            "total_volatile_organic_compound": {
+                "name": "Toplam u\u00e7ucu organik bile\u015fik"
+            },
+            "total_watering_time": {
+                "name": "Toplam sulama s\u00fcresi"
+            },
+            "voc": {
+                "name": "VOC'lar"
+            },
+            "voltage": {
+                "name": "Voltaj"
+            },
+            "water_level": {
+                "name": "Su seviyesi"
+            }
+        },
+        "switch": {
+            "alarm_1": {
+                "name": "Alarm 1"
+            },
+            "alarm_2": {
+                "name": "Alarm 2"
+            },
+            "alarm_3": {
+                "name": "Alarm 3"
+            },
+            "alarm_4": {
+                "name": "Alarm 4"
+            },
+            "anion": {
+                "name": "Anyon"
+            },
+            "battery_lock": {
+                "name": "Pil kilidi"
+            },
+            "child_lock": {
+                "name": "\u00c7o\u00e7uk kilidi"
+            },
+            "cry_detection": {
+                "name": "A\u011flama tespiti"
+            },
+            "disinfection": {
+                "name": "Dezenfeksiyon"
+            },
+            "do_not_disturb": {
+                "name": "Rahats\u0131z etmeyin"
+            },
+            "energy_saving": {
+                "name": "Enerji tasarrufu"
+            },
+            "filter_cartridge_reset": {
+                "name": "Filtre kartu\u015fu s\u0131f\u0131rlama"
+            },
+            "filter_reset": {
+                "name": "Filtre s\u0131f\u0131rlama"
+            },
+            "flip": {
+                "name": "\u00c7evir"
+            },
+            "heat_preservation": {
+                "name": "Is\u0131 korumas\u0131"
+            },
+            "humidification": {
+                "name": "Nemlendirme"
+            },
+            "ionizer": {
+                "name": "\u0130yonla\u015ft\u0131r\u0131c\u0131"
+            },
+            "motion_alarm": {
+                "name": "Hareket alarm\u0131"
+            },
+            "motion_recording": {
+                "name": "Hareket kayd\u0131"
+            },
+            "motion_tracking": {
+                "name": "Hareket takibi"
+            },
+            "mute": {
+                "name": "Sessiz"
+            },
+            "mute_voice": {
+                "name": "Sesi kapat"
+            },
+            "natural_wind": {
+                "name": "Do\u011fal r\u00fczgar"
+            },
+            "open_window_detection": {
+                "name": "A\u00e7\u0131k pencere alg\u0131lama"
+            },
+            "oxygen_bar": {
+                "name": "Oksijen \u00e7ubu\u011fu"
+            },
+            "plug": {
+                "name": "Fi\u015f"
+            },
+            "power": {
+                "name": "G\u00fc\u00e7"
+            },
+            "privacy_mode": {
+                "name": "Gizlilik modu"
+            },
+            "pump": {
+                "name": "Pompa"
+            },
+            "radio": {
+                "name": "Radyo"
+            },
+            "reset_of_water_usage_days": {
+                "name": "Su kullan\u0131m g\u00fcnlerinin s\u0131f\u0131rlanmas\u0131"
+            },
+            "reverse": {
+                "name": "Ters"
+            },
+            "sleep": {
+                "name": "Uyku"
+            },
+            "sleep_aid": {
+                "name": "Uyku yard\u0131m\u0131"
+            },
+            "slow_feed": {
+                "name": "Yava\u015f besleme"
+            },
+            "socket": {
+                "name": "Soket"
+            },
+            "socket_1": {
+                "name": "Soket 1"
+            },
+            "socket_2": {
+                "name": "Soket 2"
+            },
+            "socket_3": {
+                "name": "Soket 3"
+            },
+            "socket_4": {
+                "name": "Soket 4"
+            },
+            "socket_5": {
+                "name": "Soket 5"
+            },
+            "socket_6": {
+                "name": "Soket 6"
+            },
+            "sound": {
+                "name": "Ses"
+            },
+            "sound_detection": {
+                "name": "Ses alg\u0131lama"
+            },
+            "spray": {
+                "name": "Sprey"
+            },
+            "start": {
+                "name": "Ba\u015flat"
+            },
+            "sterilization": {
+                "name": "Sterilizasyon"
+            },
+            "switch": {
+                "name": "Anahtar"
+            },
+            "switch_1": {
+                "name": "Anahtar 1"
+            },
+            "switch_2": {
+                "name": "Anahtar 2"
+            },
+            "switch_3": {
+                "name": "Anahtar 3"
+            },
+            "switch_4": {
+                "name": "Anahtar 4"
+            },
+            "switch_5": {
+                "name": "Anahtar 5"
+            },
+            "switch_6": {
+                "name": "Anahtar 6"
+            },
+            "switch_7": {
+                "name": "Anahtar 7"
+            },
+            "switch_8": {
+                "name": "Anahtar 8"
+            },
+            "time_watermark": {
+                "name": "Zaman filigran\u0131"
+            },
+            "usb_1": {
+                "name": "USB 1"
+            },
+            "usb_2": {
+                "name": "USB 2"
+            },
+            "usb_3": {
+                "name": "USB 3"
+            },
+            "usb_4": {
+                "name": "USB 4"
+            },
+            "usb_5": {
+                "name": "USB 5"
+            },
+            "usb_6": {
+                "name": "USB 6"
+            },
+            "uv_sterilization": {
+                "name": "UV sterilizasyonu"
+            },
+            "video_recording": {
+                "name": "Video kayd\u0131"
+            },
+            "voice": {
+                "name": "Ses"
+            },
+            "water": {
+                "name": "Su"
+            },
+            "water_pump_reset": {
+                "name": "Su pompas\u0131 s\u0131f\u0131rlama"
+            },
+            "wide_dynamic_range": {
+                "name": "Geni\u015f dinamik aral\u0131k"
+            }
+        }
+    },
+    "issues": {
+        "service_deprecation_turn_off": {
+            "description": "vacuum.turn_off hizmeti i\u00e7in Tuya robot s\u00fcp\u00fcrge deste\u011fi kullan\u0131mdan kald\u0131r\u0131lm\u0131\u015ft\u0131r ve Home Assistant 2024.2'de kald\u0131r\u0131lacakt\u0131r; L\u00fctfen hizmeti kullanan herhangi bir otomasyonu veya komut dosyas\u0131n\u0131, bunun yerine vakum.dur'u \u00e7a\u011f\u0131racak \u015fekilde ayarlay\u0131n ve bu sorunu \u00e7\u00f6z\u00fclm\u00fc\u015f olarak i\u015faretlemek i\u00e7in a\u015fa\u011f\u0131dan g\u00f6nder'i se\u00e7in.",
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "vacuum.turn_off hizmeti i\u00e7in Tuya robot s\u00fcp\u00fcrge deste\u011fi kullan\u0131mdan kald\u0131r\u0131lm\u0131\u015ft\u0131r ve Home Assistant 2024.2'de kald\u0131r\u0131lacakt\u0131r; L\u00fctfen hizmeti kullanan herhangi bir otomasyonu veya komut dosyas\u0131n\u0131, bunun yerine vakum.dur'u \u00e7a\u011f\u0131racak \u015fekilde ayarlay\u0131n ve bu sorunu \u00e7\u00f6z\u00fclm\u00fc\u015f olarak i\u015faretlemek i\u00e7in a\u015fa\u011f\u0131dan g\u00f6nder'i se\u00e7in.",
+                        "title": "vacuum.turn_off i\u00e7in Tuya robot s\u00fcp\u00fcrge deste\u011fi kald\u0131r\u0131l\u0131yor"
+                    }
+                }
+            },
+            "title": "vacuum.turn_off i\u00e7in Tuya robot s\u00fcp\u00fcrge deste\u011fi kald\u0131r\u0131l\u0131yor"
+        },
+        "service_deprecation_turn_on": {
+            "description": "vacuum.turn_on hizmeti i\u00e7in Tuya robot s\u00fcp\u00fcrge deste\u011fi kullan\u0131mdan kald\u0131r\u0131lm\u0131\u015ft\u0131r ve Home Assistant 2024.2'de kald\u0131r\u0131lacakt\u0131r; L\u00fctfen hizmeti kullanan herhangi bir otomasyonu veya komut dosyas\u0131n\u0131, bunun yerine vakum.start'\u0131 \u00e7a\u011f\u0131racak \u015fekilde ayarlay\u0131n ve bu sorunu \u00e7\u00f6z\u00fclm\u00fc\u015f olarak i\u015faretlemek i\u00e7in a\u015fa\u011f\u0131dan g\u00f6nder'i se\u00e7in.",
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "vacuum.turn_on hizmeti i\u00e7in Tuya robot s\u00fcp\u00fcrge deste\u011fi kullan\u0131mdan kald\u0131r\u0131lm\u0131\u015ft\u0131r ve Home Assistant 2024.2'de kald\u0131r\u0131lacakt\u0131r; L\u00fctfen hizmeti kullanan herhangi bir otomasyonu veya komut dosyas\u0131n\u0131, bunun yerine vakum.start'\u0131 \u00e7a\u011f\u0131racak \u015fekilde ayarlay\u0131n ve bu sorunu \u00e7\u00f6z\u00fclm\u00fc\u015f olarak i\u015faretlemek i\u00e7in a\u015fa\u011f\u0131dan g\u00f6nder'i se\u00e7in.",
+                        "title": "vacuum.turn_on i\u00e7in Tuya robot s\u00fcp\u00fcrge deste\u011fi kald\u0131r\u0131l\u0131yor"
+                    }
+                }
+            },
+            "title": "vacuum.turn_on i\u00e7in Tuya robot s\u00fcp\u00fcrge deste\u011fi kald\u0131r\u0131l\u0131yor"
+        }
+    }
+}

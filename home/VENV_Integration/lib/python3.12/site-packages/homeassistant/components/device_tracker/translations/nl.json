@@ -1,0 +1,87 @@
+{
+    "device_automation": {
+        "condition_type": {
+            "is_home": "{entity_name} is thuis",
+            "is_not_home": "{entity_name} is niet thuis"
+        },
+        "trigger_type": {
+            "enters": "{entity_name} gaat een zone binnen",
+            "leaves": "{entity_name} verlaat een zone"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Apparaattracker",
+            "state": {
+                "home": "Thuis",
+                "not_home": "Afwezig"
+            },
+            "state_attributes": {
+                "battery": {
+                    "name": "Batterij"
+                },
+                "gps_accuracy": {
+                    "name": "GPS-nauwkeurigheid"
+                },
+                "latitude": {
+                    "name": "Breedtegraad"
+                },
+                "longitude": {
+                    "name": "Lengtegraad"
+                },
+                "source_type": {
+                    "name": "Bron",
+                    "state": {
+                        "bluetooth": "Bluetooth",
+                        "bluetooth_le": "Bluetooth LE",
+                        "gps": "GPS",
+                        "router": "Router"
+                    }
+                }
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "Platform {platform} van de {domain} integratie heeft geen platformondersteuning.\n\nVerwijder dit uit je configuratie en herstart Home Assistant om dit issue op te lossen.",
+            "title": "Platformondersteuning is niet ondersteund"
+        }
+    },
+    "services": {
+        "see": {
+            "description": "Legt een gevolgd apparaat vast.",
+            "fields": {
+                "battery": {
+                    "description": "Batterijniveau van het apparaat.",
+                    "name": "Batterijniveau"
+                },
+                "dev_id": {
+                    "description": "ID van het apparaat (vind het ID in `known_devices.yaml`).",
+                    "name": "Apparaat ID"
+                },
+                "gps": {
+                    "description": "GPS co\u00f6rdinaten waar een apparaat zich bevindt, gespecificeerd door lengtegraad een breedtegraad (bijvoorbeeld: [51.513845, -0.100539]).",
+                    "name": "GPS co\u00f6rdinaten"
+                },
+                "gps_accuracy": {
+                    "description": "Nauwkeurigheid van de GPS co\u00f6rdinaten.",
+                    "name": "GPS nauwkeurigheid"
+                },
+                "host_name": {
+                    "description": "Hostnaam van een apparaat",
+                    "name": "Hostnaam"
+                },
+                "location_name": {
+                    "description": "Naam van de locatie waar het apparaat zich bevindt. Opties zijn: `home`, `not_home` of de naam van de zone.",
+                    "name": "Locatie"
+                },
+                "mac": {
+                    "description": "MAC adres van het apparaat.",
+                    "name": "MAC adres"
+                }
+            },
+            "name": "Gezien"
+        }
+    },
+    "title": "Apparaattracker"
+}

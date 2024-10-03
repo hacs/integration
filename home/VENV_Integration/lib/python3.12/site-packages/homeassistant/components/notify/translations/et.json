@@ -1,0 +1,88 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "Teavitused"
+        }
+    },
+    "issues": {
+        "migrate_notify": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "{integration_title} teenus(ed) \"Notify\" on \u00fcle viidud. Uus `notify` \u00fcksus on n\u00fc\u00fcd saadaval, et asendada iga vana `notify` teenus.\n\nUuenda k\u00f5ik automatiseerimised, et kasutada uut `notify.send_message` teenust, mis on avatud selle uue olemusega. Kui see on tehtud, paranda see probleem ja k\u00e4ivita Home Assistant uuesti.",
+                        "title": "{integration_title} p\u00e4randteavitusteenuse \u00fcleviimine domeenile {domain}"
+                    }
+                }
+            },
+            "title": "Teavitusteenuse {integration_title} \u00fcleviimine"
+        },
+        "migrate_notify_service": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Teenus {integration_title} `notify.{service_name}` on \u00fcle viidud, kuid tundub, et vana teenust `notify` kasutatakse endiselt.\n\nUus `notify`-\u00fcksus on n\u00fc\u00fcd saadaval, et asendada iga vana `notify`-teenus.\n\nUuenda k\u00f5ik automatiseerimised v\u00f5i skriptid, et kasutada uut `notify.send_message` teenust, mis on avatud selle uue olemusega. Kui see on tehtud, vali Esita ja taask\u00e4ivita Home Assistant.",
+                        "title": "{integration_title} p\u00e4randteavitusteenuse \u00fcleviimine domeenile {domain}"
+                    }
+                }
+            },
+            "title": "P\u00e4randteenus notify. {service_name} on endiselt kasutusel"
+        }
+    },
+    "services": {
+        "notify": {
+            "description": "Saadab valitud sihtm\u00e4rkidele teavituss\u00f5numi.",
+            "fields": {
+                "data": {
+                    "description": "M\u00f5ned integratsioonid pakuvad laiendatud funktsioone. Lisateavet _andmete_ kasutamise kohta leiad integratsiooni dokumentatsioonist.",
+                    "name": "Andmed"
+                },
+                "message": {
+                    "description": "Teatise s\u00f5numi sisu.",
+                    "name": "S\u00f5num"
+                },
+                "target": {
+                    "description": "M\u00f5ned sidumised v\u00f5imaldavad m\u00e4\u00e4rata saajad mis teatise saavad. Lisateabe saamiseks vaata sidumise dokumentatsiooni.",
+                    "name": "Saaja"
+                },
+                "title": {
+                    "description": "Teatise pealkiri.",
+                    "name": "Pealkiri"
+                }
+            },
+            "name": "Saada teavitus"
+        },
+        "persistent_notification": {
+            "description": "Saadab teate, mis on n\u00e4htav teavituste paneelil.",
+            "fields": {
+                "data": {
+                    "description": "M\u00f5ned sidumised pakuvad laiendatud funktsionaalsust. Teavet selle kohta, kuidas kasutada _data_, leiad integratsiooni dokumentatsioonist..",
+                    "name": "Andmed"
+                },
+                "message": {
+                    "description": "Teatise s\u00f5numi sisu.",
+                    "name": "S\u00f5num"
+                },
+                "title": {
+                    "description": "Teatise pealkiri.",
+                    "name": "Nimetus"
+                }
+            },
+            "name": "Saada p\u00fcsiteatis"
+        },
+        "send_message": {
+            "description": "Saadab teavituss\u00f5numi.",
+            "fields": {
+                "message": {
+                    "description": "Teavituss\u00f5num.",
+                    "name": "S\u00f5num"
+                },
+                "title": {
+                    "description": "Teavituss\u00f5numi pealkiri.",
+                    "name": "Pealkiri"
+                }
+            },
+            "name": "Saada teavituss\u00f5num"
+        }
+    },
+    "title": "Teavitused"
+}

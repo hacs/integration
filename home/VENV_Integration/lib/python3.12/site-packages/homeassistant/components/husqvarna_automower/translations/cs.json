@@ -1,0 +1,335 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "\u00da\u010det je ji\u017e nastaven",
+            "already_in_progress": "Nastaven\u00ed ji\u017e prob\u00edh\u00e1",
+            "authorize_url_timeout": "\u010casov\u00fd limit ov\u011b\u0159ovac\u00ed URL vypr\u0161el.",
+            "missing_amc_scope": "\"Authentication API\" a \"Automower Connect API\" nejsou p\u0159ipojeny k va\u0161\u00ed aplikaci na Husqvarna Developer Portal.",
+            "missing_configuration": "Komponenta nen\u00ed nastavena. Postupujte podle dokumentace.",
+            "missing_credentials": "Integrace vy\u017eaduje p\u0159ihla\u0161ovac\u00ed \u00fadaje aplikace.",
+            "no_url_available": "Nen\u00ed k dispozici \u017e\u00e1dn\u00e1 URL. Informace o t\u00e9to chyb\u011b naleznete [v sekci n\u00e1pov\u011bdy]({docs_url})",
+            "oauth_error": "P\u0159ijata neplatn\u00e1 data tokenu.",
+            "oauth_failed": "Chyba p\u0159i z\u00edsk\u00e1v\u00e1n\u00ed p\u0159\u00edstupov\u00e9ho tokenu.",
+            "oauth_timeout": "P\u0159i \u0159e\u0161en\u00ed tokenu OAuth vypr\u0161el \u010dasov\u00fd limit.",
+            "oauth_unauthorized": "Chyba autorizace OAuth p\u0159i z\u00edsk\u00e1v\u00e1n\u00ed p\u0159\u00edstupov\u00e9ho tokenu.",
+            "reauth_successful": "Op\u011btovn\u00e9 ov\u011b\u0159en\u00ed bylo \u00fasp\u011b\u0161n\u00e9",
+            "user_rejected_authorize": "Propojen\u00ed \u00fa\u010dtu zam\u00edtnuto: {error}",
+            "wrong_account": "Tento z\u00e1znam m\u016f\u017eete znovu ov\u011b\u0159it jen se stejn\u00fdm \u00fa\u010dtem Husqvarna."
+        },
+        "create_entry": {
+            "default": "\u00dasp\u011b\u0161n\u011b ov\u011b\u0159eno"
+        },
+        "step": {
+            "missing_scope": {
+                "description": "Pro nejlep\u0161\u00ed funk\u010dnost t\u00e9to integrace by m\u011bly b\u00fdt p\u0159ipojeny jak \"Authentication API\", tak \"Automower Connect API\". Ujist\u011bte se, \u017ee jsou oba propojeny s va\u0161\u00edm \u00fa\u010dtem na [Port\u00e1lu pro v\u00fdvoj\u00e1\u0159e Husqvarna] ({application_url}).",
+                "title": "Ve va\u0161em \u00fa\u010dtu chyb\u00ed n\u011bkter\u00e1 p\u0159ipojen\u00ed API"
+            },
+            "pick_implementation": {
+                "title": "Vybrat metodu ov\u011b\u0159en\u00ed"
+            },
+            "reauth_confirm": {
+                "description": "Integrace Husqvarna Automower pot\u0159ebuje znovu ov\u011b\u0159it v\u00e1\u0161 \u00fa\u010det",
+                "title": "Platnost ov\u011b\u0159en\u00ed pro {name} vypr\u0161ela"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "leaving_dock": {
+                "name": "Opou\u0161t\u011bn\u00ed doku"
+            },
+            "returning_to_dock": {
+                "name": "N\u00e1vrat do doku"
+            }
+        },
+        "button": {
+            "confirm_error": {
+                "name": "Potvrdit chybu"
+            },
+            "sync_clock": {
+                "name": "Synchronizovat hodiny"
+            }
+        },
+        "number": {
+            "cutting_height": {
+                "name": "V\u00fd\u0161ka se\u010den\u00ed"
+            },
+            "my_lawn_cutting_height": {
+                "name": "Moje v\u00fd\u0161ka se\u010den\u00ed tr\u00e1vn\u00edku"
+            },
+            "my_lawn_cutting_height_work_area": {
+                "name": "Moje v\u00fd\u0161ka se\u010den\u00ed tr\u00e1vn\u00edku"
+            },
+            "work_area_cutting_height": {
+                "name": "V\u00fd\u0161ka se\u010den\u00ed {work_area}"
+            },
+            "work_area_cutting_height_work_area": {
+                "name": "V\u00fd\u0161ka se\u010den\u00ed {work_area}"
+            }
+        },
+        "select": {
+            "headlight_mode": {
+                "name": "Re\u017eim sv\u011btlomet\u016f",
+                "state": {
+                    "always_off": "V\u017edy vypnuto",
+                    "always_on": "V\u017edy zapnuto",
+                    "evening_and_night": "Ve\u010der a noc",
+                    "evening_only": "Jen ve\u010der"
+                }
+            }
+        },
+        "sensor": {
+            "cutting_blade_usage_time": {
+                "name": "Doba pou\u017e\u00edv\u00e1n\u00ed sekac\u00edho no\u017ee"
+            },
+            "error": {
+                "name": "Chyba",
+                "state": {
+                    "alarm_mower_in_motion": "Poplach! Seka\u010dka v pohybu.",
+                    "alarm_mower_lifted": "Poplach! Seka\u010dka se zvedla.",
+                    "alarm_mower_stopped": "Poplach! Seka\u010dka se zastavila.",
+                    "alarm_mower_switched_off": "Poplach! Seka\u010dka je vypnut\u00e1.",
+                    "alarm_mower_tilted": "Poplach! Seka\u010dka je naklon\u011bn\u00e1.",
+                    "alarm_outside_geofence": "Poplach! Mimo hranice.",
+                    "angular_sensor_problem": "Probl\u00e9m \u00fahlov\u00e9ho sn\u00edma\u010de",
+                    "battery_problem": "Probl\u00e9m s bateri\u00ed",
+                    "battery_restriction_due_to_ambient_temperature": "Omezen\u00ed baterie kv\u016fli okoln\u00ed teplot\u011b",
+                    "can_error": "Chyba CAN",
+                    "charging_current_too_high": "Nab\u00edjec\u00ed proud je p\u0159\u00edli\u0161 vysok\u00fd",
+                    "charging_station_blocked": "Nab\u00edjec\u00ed stanice je zablokov\u00e1na",
+                    "charging_system_problem": "Probl\u00e9m nab\u00edjec\u00edho syst\u00e9mu",
+                    "collision_sensor_defect": "Z\u00e1vada kolizn\u00edho senzoru",
+                    "collision_sensor_error": "Chyba kolizn\u00edho senzoru",
+                    "collision_sensor_problem_front": "Probl\u00e9m se senzorem p\u0159edn\u00edho n\u00e1razu",
+                    "collision_sensor_problem_rear": "Probl\u00e9m se senzorem zadn\u00edho n\u00e1razu",
+                    "com_board_not_available": "Komunika\u010dn\u00ed deska nen\u00ed k dispozici",
+                    "communication_circuit_board_sw_must_be_updated": "Software komunika\u010dn\u00ed desky mus\u00ed b\u00fdt aktualizov\u00e1n",
+                    "complex_working_area": "Komplexn\u00ed pracovn\u00ed plocha",
+                    "connection_changed": "P\u0159ipojen\u00ed zm\u011bn\u011bno",
+                    "connection_not_changed": "P\u0159ipojen\u00ed NEN\u00cd zm\u011bn\u011bno",
+                    "connectivity_problem": "Probl\u00e9m s p\u0159ipojen\u00edm",
+                    "connectivity_settings_restored": "Nastaven\u00ed p\u0159ipojen\u00ed obnoveno",
+                    "cutting_drive_motor_1_defect": "Z\u00e1vada motoru pohonu \u0159ez\u00e1n\u00ed 1",
+                    "cutting_drive_motor_2_defect": "Z\u00e1vada motoru pohonu \u0159ez\u00e1n\u00ed 2",
+                    "cutting_drive_motor_3_defect": "Z\u00e1vada motoru pohonu \u0159ez\u00e1n\u00ed 3",
+                    "cutting_height_blocked": "V\u00fd\u0161ka se\u010den\u00ed je zablokov\u00e1na",
+                    "cutting_height_problem": "Probl\u00e9m s v\u00fd\u0161kou se\u010den\u00ed",
+                    "cutting_height_problem_curr": "Probl\u00e9m s v\u00fd\u0161kou se\u010den\u00ed, curr",
+                    "cutting_height_problem_dir": "Probl\u00e9m v\u00fd\u0161kou se\u010den\u00ed, dir",
+                    "cutting_height_problem_drive": "Probl\u00e9m s v\u00fd\u0161kou se\u010den\u00ed, pohon",
+                    "cutting_motor_problem": "Probl\u00e9m s motorem se\u010den\u00ed",
+                    "cutting_stopped_slope_too_steep": "Se\u010den\u00ed zastaveno - svah je p\u0159\u00edli\u0161 strm\u00fd",
+                    "cutting_system_blocked": "Se\u010d\u00edc\u00ed syst\u00e9m je zablokov\u00e1n",
+                    "cutting_system_imbalance_warning": "Nerovnov\u00e1ha se\u010d\u00edc\u00edho syst\u00e9mu",
+                    "cutting_system_major_imbalance": "Velk\u00e1 nerovnov\u00e1ha se\u010d\u00edc\u00edho syst\u00e9mu",
+                    "destination_not_reachable": "C\u00edl nen\u00ed dosa\u017eiteln\u00fd",
+                    "difficult_finding_home": "Obt\u00ed\u017en\u00e9 nalezen\u00ed domova",
+                    "docking_sensor_defect": "Porucha dokovac\u00edho senzoru",
+                    "electronic_problem": "Elektronick\u00fd probl\u00e9m",
+                    "empty_battery": "Pr\u00e1zdn\u00e1 baterie",
+                    "folding_cutting_deck_sensor_defect": "Porucha senzoru skl\u00e1dac\u00edho se\u010d\u00edc\u00edho \u00fastroj\u00ed",
+                    "folding_sensor_activated": "Skl\u00e1dac\u00ed senzor aktivov\u00e1n",
+                    "geofence_problem": "Probl\u00e9m s hranic\u00ed",
+                    "gps_navigation_problem": "Probl\u00e9m s GPS navigac\u00ed",
+                    "guide_1_not_found": "Vod\u00edtko 1 nebylo nalezeno",
+                    "guide_2_not_found": "Vod\u00edtko 2 nebylo nalezeno",
+                    "guide_3_not_found": "Vod\u00edtko 3 nebylo nalezeno",
+                    "guide_calibration_accomplished": "Kalibrace vod\u00edtka dokon\u010dena",
+                    "guide_calibration_failed": "Kalibrace vod\u00edtka se nezda\u0159ila",
+                    "high_charging_power_loss": "Vysok\u00e1 ztr\u00e1ta nab\u00edjec\u00edho v\u00fdkonu",
+                    "high_internal_power_loss": "Vysok\u00e1 vnit\u0159n\u00ed ztr\u00e1ta energie",
+                    "high_internal_temperature": "Vysok\u00e1 vnit\u0159n\u00ed teplota",
+                    "internal_voltage_error": "Chyba vnit\u0159n\u00edho nap\u011bt\u00ed",
+                    "invalid_battery_combination_invalid_combination_of_different_battery_types": "Neplatn\u00e1 kombinace bateri\u00ed - neplatn\u00e1 kombinace r\u016fzn\u00fdch typ\u016f bateri\u00ed.",
+                    "invalid_sub_device_combination": "Neplatn\u00e1 kombinace d\u00edl\u010d\u00edch za\u0159\u00edzen\u00ed",
+                    "invalid_system_configuration": "Neplatn\u00e1 konfigurace syst\u00e9mu",
+                    "left_brush_motor_overloaded": "Motor lev\u00e9ho kart\u00e1\u010de je p\u0159et\u00ed\u017een\u00fd",
+                    "lift_sensor_defect": "Porucha sn\u00edma\u010de zdvihu",
+                    "lifted": "Zvednuto",
+                    "limited_cutting_height_range": "Omezen\u00fd rozsah v\u00fd\u0161ky se\u010den\u00ed",
+                    "loop_sensor_defect": "Z\u00e1vada senzoru smy\u010dky",
+                    "loop_sensor_problem_front": "Probl\u00e9m se senzorem p\u0159edn\u00ed smy\u010dky",
+                    "loop_sensor_problem_left": "Probl\u00e9m senzoru lev\u00e9 smy\u010dky",
+                    "loop_sensor_problem_rear": "Probl\u00e9m se senzorem zadn\u00ed smy\u010dky",
+                    "loop_sensor_problem_right": "Probl\u00e9m senzoru prav\u00e9 smy\u010dky",
+                    "low_battery": "Vybit\u00e1 baterie",
+                    "memory_circuit_problem": "Probl\u00e9m s pam\u011b\u0165ov\u00fdm obvodem",
+                    "mower_lifted": "Seka\u010dka se zvedla",
+                    "mower_tilted": "Seka\u010dka se naklonila",
+                    "no_accurate_position_from_satellites": "\u017d\u00e1dn\u00e1 p\u0159esn\u00e1 poloha ze satelit\u016f",
+                    "no_confirmed_position": "\u017d\u00e1dn\u00e1 potvrzen\u00e1 pozice",
+                    "no_drive": "\u017d\u00e1dn\u00fd pohon",
+                    "no_error": "\u017d\u00e1dn\u00e1 chyba",
+                    "no_loop_signal": "\u017d\u00e1dn\u00fd sign\u00e1l smy\u010dky",
+                    "no_power_in_charging_station": "Nab\u00edjec\u00ed stanice nen\u00ed nap\u00e1jena",
+                    "no_response_from_charger": "\u017d\u00e1dn\u00e1 odezva od nab\u00edje\u010dky",
+                    "outside_working_area": "Mimo pracovn\u00ed prostor",
+                    "poor_signal_quality": "\u0160patn\u00e1 kvalita sign\u00e1lu",
+                    "reference_station_communication_problem": "Probl\u00e9m s komunikac\u00ed referen\u010dn\u00ed stanice",
+                    "right_brush_motor_overloaded": "P\u0159et\u00ed\u017een\u00fd motor prav\u00e9ho kart\u00e1\u010de",
+                    "safety_function_faulty": "Bezpe\u010dnostn\u00ed funkce vadn\u00e1",
+                    "settings_restored": "Nastaven\u00ed obnoveno",
+                    "sim_card_locked": "SIM karta uzam\u010dena",
+                    "sim_card_not_found": "Karta SIM nebyla nalezena",
+                    "sim_card_requires_pin": "SIM karta vy\u017eaduje PIN",
+                    "slipped_mower_has_slipped_situation_not_solved_with_moving_pattern": "Prokluz - seka\u010dka prokluzuje. Situace nebyla vy\u0159e\u0161ena pohybliv\u00fdm vzorem.",
+                    "slope_too_steep": "P\u0159\u00edli\u0161 strm\u00fd svah",
+                    "sms_could_not_be_sent": "SMS se nepoda\u0159ilo odeslat",
+                    "stop_button_problem": "Probl\u00e9m s tla\u010d\u00edtkem STOP",
+                    "stuck_in_charging_station": "Zaseknut\u00fd v nab\u00edjec\u00ed stanici",
+                    "switch_cord_problem": "Probl\u00e9m sp\u00ednac\u00edho kabelu",
+                    "temporary_battery_problem": "Do\u010dasn\u00fd probl\u00e9m s bateri\u00ed",
+                    "tilt_sensor_problem": "Probl\u00e9m senzoru n\u00e1klonu",
+                    "too_high_discharge_current": "P\u0159\u00edli\u0161 vysok\u00fd vyb\u00edjec\u00ed proud",
+                    "too_high_internal_current": "Vnit\u0159n\u00ed proud je p\u0159\u00edli\u0161 vysok\u00fd",
+                    "trapped": "V pasti",
+                    "ultrasonic_problem": "Probl\u00e9m s ultrazvukem",
+                    "ultrasonic_sensor_1_defect": "Porucha ultrazvukov\u00e9ho senzoru 1",
+                    "ultrasonic_sensor_2_defect": "Porucha ultrazvukov\u00e9ho senzoru 2",
+                    "ultrasonic_sensor_3_defect": "Porucha ultrazvukov\u00e9ho senzoru 3",
+                    "ultrasonic_sensor_4_defect": "Porucha ultrazvukov\u00e9ho senzoru 4",
+                    "unexpected_cutting_height_adj": "Neo\u010dek\u00e1van\u00e9 nastaven\u00ed v\u00fd\u0161ky se\u010den\u00ed",
+                    "unexpected_error": "Neo\u010dek\u00e1van\u00e1 chyba",
+                    "upside_down": "Vzh\u016fru nohama",
+                    "weak_gps_signal": "Slab\u00fd sign\u00e1l GPS",
+                    "wheel_drive_problem_left": "Probl\u00e9m s pohonem lev\u00e9ho kola",
+                    "wheel_drive_problem_rear_left": "Probl\u00e9m s pohonem lev\u00e9ho zadn\u00edho kola",
+                    "wheel_drive_problem_rear_right": "Probl\u00e9m s pohonem zadn\u00edho prav\u00e9ho kola",
+                    "wheel_drive_problem_right": "Probl\u00e9m s pohonem prav\u00e9ho kola",
+                    "wheel_motor_blocked_left": "Zablokov\u00e1n motor lev\u00e9ho kola",
+                    "wheel_motor_blocked_rear_left": "Zablokov\u00e1n motor zadn\u00edho lev\u00e9ho kola",
+                    "wheel_motor_blocked_rear_right": "Zablokov\u00e1n motor zadn\u00edho prav\u00e9ho kola",
+                    "wheel_motor_blocked_right": "Zablokov\u00e1n motor prav\u00e9ho kola",
+                    "wheel_motor_overloaded_left": "P\u0159et\u00ed\u017een\u00fd motor lev\u00e9ho kola",
+                    "wheel_motor_overloaded_rear_left": "P\u0159et\u00ed\u017een\u00fd motor lev\u00e9ho zadn\u00edho kola",
+                    "wheel_motor_overloaded_rear_right": "P\u0159et\u00ed\u017een\u00fd motor prav\u00e9ho zadn\u00edho kola",
+                    "wheel_motor_overloaded_right": "P\u0159et\u00ed\u017een\u00fd motor prav\u00e9ho kola",
+                    "work_area_not_valid": "Pracovn\u00ed oblast nen\u00ed platn\u00e1",
+                    "wrong_loop_signal": "\u0160patn\u00fd sign\u00e1l smy\u010dky",
+                    "wrong_pin_code": "\u0160patn\u00fd k\u00f3d PIN",
+                    "zone_generator_problem": "Probl\u00e9m s gener\u00e1torem z\u00f3n"
+                }
+            },
+            "mode": {
+                "name": "Re\u017eim",
+                "state": {
+                    "demo": "Demo",
+                    "home": "Doma",
+                    "main_area": "Hlavn\u00ed oblast",
+                    "secondary_area": "Sekund\u00e1rn\u00ed oblast"
+                }
+            },
+            "next_start_timestamp": {
+                "name": "Dal\u0161\u00ed start"
+            },
+            "number_of_charging_cycles": {
+                "name": "Po\u010det nab\u00edjec\u00edch cykl\u016f"
+            },
+            "number_of_collisions": {
+                "name": "Po\u010det koliz\u00ed"
+            },
+            "restricted_reason": {
+                "name": "Omezen\u00fd d\u016fvod",
+                "state": {
+                    "all_work_areas_completed": "V\u0161echny pracovn\u00ed oblasti dokon\u010deny",
+                    "daily_limit": "Denn\u00ed limit",
+                    "external": "Extern\u00ed",
+                    "fota": "Prob\u00edh\u00e1 aktualizace firmwaru vzduchem",
+                    "frost": "N\u00e1mraza",
+                    "none": "Bez omezen\u00ed",
+                    "not_applicable": "Nelze pou\u017e\u00edt",
+                    "park_override": "P\u0159eps\u00e1n\u00ed parkov\u00e1n\u00ed",
+                    "sensor": "\u010casova\u010d po\u010das\u00ed",
+                    "week_schedule": "T\u00fddenn\u00ed rozvrh"
+                }
+            },
+            "total_charging_time": {
+                "name": "Celkov\u00e1 doba nab\u00edjen\u00ed"
+            },
+            "total_cutting_time": {
+                "name": "Celkov\u00e1 doba se\u010den\u00ed"
+            },
+            "total_drive_distance": {
+                "name": "Celkov\u00e1 vzd\u00e1lenost j\u00edzdy"
+            },
+            "total_running_time": {
+                "name": "Celkov\u00e1 doba b\u011bhu"
+            },
+            "total_searching_time": {
+                "name": "Celkov\u00e1 doba hled\u00e1n\u00ed"
+            },
+            "work_area": {
+                "name": "Pracovn\u00ed oblast",
+                "state": {
+                    "my_lawn": "M\u016fj tr\u00e1vn\u00edk",
+                    "no_work_area_active": "Nen\u00ed aktivn\u00ed \u017e\u00e1dn\u00e1 pracovn\u00ed oblast"
+                },
+                "state_attributes": {
+                    "work_area_id_assignment": {
+                        "name": "P\u0159i\u0159azen\u00ed ID pracovn\u00ed oblasti"
+                    }
+                }
+            }
+        },
+        "switch": {
+            "enable_schedule": {
+                "name": "Povolit pl\u00e1n"
+            },
+            "my_lawn_work_area": {
+                "name": "M\u016fj tr\u00e1vn\u00edk"
+            },
+            "stay_out_zones": {
+                "name": "Vyhnout se {stay_out_zone}"
+            }
+        }
+    },
+    "exceptions": {
+        "command_send_failed": {
+            "message": "Nepoda\u0159ilo se odeslat p\u0159\u00edkaz: {exception}"
+        },
+        "work_area_not_existing": {
+            "message": "Vybran\u00e1 pracovn\u00ed oblast neexistuje."
+        },
+        "work_areas_not_supported": {
+            "message": "Tato seka\u010dka nepodporuje pracovn\u00ed plochy."
+        }
+    },
+    "selector": {
+        "override_modes": {
+            "options": {
+                "mow": "Sekat",
+                "park": "Parkov\u00e1n\u00ed"
+            }
+        }
+    },
+    "services": {
+        "override_schedule": {
+            "description": "P\u0159ep\u00ed\u0161e pl\u00e1n se\u010den\u00ed nebo parkov\u00e1n\u00ed na ur\u010ditou dobu.",
+            "fields": {
+                "duration": {
+                    "description": "Minimum: 1 minuta, maximum: 42 dn\u00ed, sekundy budou ignorov\u00e1ny.",
+                    "name": "Doba trv\u00e1n\u00ed"
+                },
+                "override_mode": {
+                    "description": "Jakou akc\u00ed by m\u011bl b\u00fdt pl\u00e1n p\u0159eps\u00e1n.",
+                    "name": "Re\u017eim p\u0159eps\u00e1n\u00ed"
+                }
+            },
+            "name": "P\u0159epsat pl\u00e1n"
+        },
+        "override_schedule_work_area": {
+            "description": "P\u0159ep\u00ed\u0161e pl\u00e1n seka\u010dky na ur\u010ditou dobu ve vybran\u00e9 pracovn\u00ed oblasti.",
+            "fields": {
+                "duration": {
+                    "description": "Minimum: 1 minuta, maximum: 42 dn\u00ed, sekundy budou ignorov\u00e1ny.",
+                    "name": "Doba trv\u00e1n\u00ed"
+                },
+                "work_area_id": {
+                    "description": "Ve kter\u00e9 pracovn\u00ed oblasti m\u00e1 seka\u010dka sekat.",
+                    "name": "ID pracovn\u00ed oblasti"
+                }
+            },
+            "name": "P\u0159epsat pracovn\u00ed oblast pl\u00e1nu"
+        }
+    }
+}

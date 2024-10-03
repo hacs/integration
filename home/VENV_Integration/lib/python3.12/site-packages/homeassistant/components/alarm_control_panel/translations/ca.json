@@ -1,0 +1,148 @@
+{
+    "device_automation": {
+        "action_type": {
+            "arm_away": "Activa {entity_name} fora",
+            "arm_home": "Activa {entity_name} a casa",
+            "arm_night": "Activa {entity_name} nocturn",
+            "arm_vacation": "Activa {entity_name} en mode vacances",
+            "disarm": "Desactiva {entity_name}",
+            "trigger": "Dispara {entity_name}"
+        },
+        "condition_type": {
+            "is_armed_away": "{entity_name} est\u00e0 activada en mode 'a fora'",
+            "is_armed_home": "{entity_name} est\u00e0 activada en mode 'a casa'",
+            "is_armed_night": "{entity_name} est\u00e0 activada en mode 'nocturn'",
+            "is_armed_vacation": "{entity_name} activada en mode vacances",
+            "is_disarmed": "{entity_name} est\u00e0 desactivada",
+            "is_triggered": "{entity_name} est\u00e0 disparada"
+        },
+        "extra_fields": {
+            "code": "Codi",
+            "for": "Durada"
+        },
+        "trigger_type": {
+            "armed_away": "{entity_name} activada en mode 'a fora'",
+            "armed_home": "{entity_name} activada en mode 'a casa'",
+            "armed_night": "{entity_name} activada en mode 'nocturn'",
+            "armed_vacation": "{entity_name} s'activa en mode vacances",
+            "disarmed": "{entity_name} desactivada",
+            "triggered": "{entity_name} disparat/ada"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Panell de control d'alarma",
+            "state": {
+                "armed": "Activada",
+                "armed_away": "Activada, mode fora",
+                "armed_custom_bypass": "Activada, bypass personalitzat",
+                "armed_home": "Activada, mode a casa",
+                "armed_night": "Activada, mode nocturn",
+                "armed_vacation": "Activada, mode vacances",
+                "arming": "Activant",
+                "disarmed": "Desactivada",
+                "disarming": "Desactivant",
+                "pending": "Pendent",
+                "triggered": "Disparada"
+            },
+            "state_attributes": {
+                "changed_by": {
+                    "name": "Canviat per"
+                },
+                "code_arm_required": {
+                    "name": "Codi per a l'activaci\u00f3",
+                    "state": {
+                        "false": "Opcional",
+                        "true": "Obligatori"
+                    }
+                },
+                "code_format": {
+                    "name": "Format del codi",
+                    "state": {
+                        "number": "N\u00famero",
+                        "text": "Text"
+                    }
+                }
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "La plataforma {platform} de la integraci\u00f3 {domain} no \u00e9s compatible amb la configuraci\u00f3 de la plataforma.\n\nElimina-la de la teva configuraci\u00f3 i reinicia Home Assistant per solucionar aquest problema.",
+            "title": "Suport de la plataforma no compatible"
+        }
+    },
+    "services": {
+        "alarm_arm_away": {
+            "description": "Configura l'alarma a: _activada i sense ning\u00fa a casa_.",
+            "fields": {
+                "code": {
+                    "description": "Codi per activar l'alarma.",
+                    "name": "Codi"
+                }
+            },
+            "name": "Activa, a fora"
+        },
+        "alarm_arm_custom_bypass": {
+            "description": "Activa l'alarma per\u00f2 permet ometre (bypass) una \u00e0rea personalitzada.",
+            "fields": {
+                "code": {
+                    "description": "Codi per activar l'alarma.",
+                    "name": "Codi"
+                }
+            },
+            "name": "Activa amb bypass personalitzat"
+        },
+        "alarm_arm_home": {
+            "description": "Configura l'alarma a: _activada per\u00f2 amb alg\u00fa a casa_.",
+            "fields": {
+                "code": {
+                    "description": "Codi per activar l'alarma.",
+                    "name": "Codi"
+                }
+            },
+            "name": "Activa, a casa"
+        },
+        "alarm_arm_night": {
+            "description": "Configura l'alarma a: _activada en mode nit_.",
+            "fields": {
+                "code": {
+                    "description": "Codi per activar l'alarma.",
+                    "name": "Codi"
+                }
+            },
+            "name": "Activa, mode nit"
+        },
+        "alarm_arm_vacation": {
+            "description": "Configura l'alarma a: _activada en mode vacances_.",
+            "fields": {
+                "code": {
+                    "description": "Codi per activar l'alarma.",
+                    "name": "Codi"
+                }
+            },
+            "name": "Activa, mode vacances"
+        },
+        "alarm_disarm": {
+            "description": "Desactiva l'alarma.",
+            "fields": {
+                "code": {
+                    "description": "Codi per desactivar l'alarma.",
+                    "name": "Codi"
+                }
+            },
+            "name": "Desactiva"
+        },
+        "alarm_trigger": {
+            "description": "Activa un disparador de l'alarma extern.",
+            "fields": {
+                "code": {
+                    "description": "Codi per activar l'alarma.",
+                    "name": "Codi"
+                }
+            },
+            "name": "Dispara"
+        }
+    },
+    "title": "Panell de control d'alarma"
+}

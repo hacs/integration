@@ -1,0 +1,130 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "Calendrier",
+            "state": {
+                "off": "D\u00e9sactiv\u00e9",
+                "on": "Activ\u00e9"
+            },
+            "state_attributes": {
+                "all_day": {
+                    "name": "Toute la journ\u00e9e",
+                    "state": {
+                        "false": "Non",
+                        "true": "Oui"
+                    }
+                },
+                "description": {
+                    "name": "Description"
+                },
+                "end_time": {
+                    "name": "Heure de fin"
+                },
+                "location": {
+                    "name": "Localisation"
+                },
+                "message": {
+                    "name": "Message"
+                },
+                "messages": {
+                    "name": "Message"
+                },
+                "start_time": {
+                    "name": "Heure de d\u00e9but"
+                }
+            }
+        }
+    },
+    "issues": {
+        "deprecated_service_calendar_list_events": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "title": "Utilisation d\u00e9tect\u00e9e de l'action obsol\u00e8te `calendar.list_events`"
+                    }
+                }
+            }
+        },
+        "platform_integration_no_support": {
+            "description": "La plateforme {platform} pour l'int\u00e9gration {domain} ne prend pas en charge la configuration de la plateforme.\n\nVeuillez la supprimer de votre configuration et red\u00e9marrer Home Assistant pour r\u00e9soudre ce probl\u00e8me.",
+            "title": "Prise en charge de la plateforme non prise en charge"
+        }
+    },
+    "services": {
+        "create_event": {
+            "description": "Ajoute un nouvel \u00e9v\u00e9nement de calendrier.",
+            "fields": {
+                "description": {
+                    "description": "Une description plus compl\u00e8te de l'\u00e9v\u00e9nement que celle fournie par le r\u00e9sum\u00e9.",
+                    "name": "Description"
+                },
+                "end_date": {
+                    "description": "La date \u00e0 laquelle l'\u00e9v\u00e9nement d'une journ\u00e9e doit se terminer (exclusif).",
+                    "name": "Date de fin"
+                },
+                "end_date_time": {
+                    "description": "La date et l'heure auxquelles l'\u00e9v\u00e9nement doit se terminer.",
+                    "name": "Heure de fin"
+                },
+                "in": {
+                    "description": "Jours ou semaines pendant lesquels vous souhaitez cr\u00e9er l'\u00e9v\u00e9nement.",
+                    "name": "Dans"
+                },
+                "location": {
+                    "description": "Le lieu de l'\u00e9v\u00e9nement.",
+                    "name": "Emplacement"
+                },
+                "start_date": {
+                    "description": "La date \u00e0 laquelle l'\u00e9v\u00e9nement d'une journ\u00e9e doit commencer.",
+                    "name": "Date de d\u00e9but"
+                },
+                "start_date_time": {
+                    "description": "La date et l'heure auxquelles l'\u00e9v\u00e9nement doit commencer.",
+                    "name": "Heure de d\u00e9but"
+                },
+                "summary": {
+                    "description": "D\u00e9finit le r\u00e9sum\u00e9 ou le sujet de l'\u00e9v\u00e9nement.",
+                    "name": "R\u00e9sum\u00e9"
+                }
+            },
+            "name": "Cr\u00e9er un \u00e9v\u00e8nement"
+        },
+        "get_events": {
+            "description": "Renvoie les \u00e9v\u00e9nements sur un calendrier dans une plage horaire.",
+            "fields": {
+                "duration": {
+                    "description": "Renvoie les \u00e9v\u00e9nements actifs depuis start_date_time jusqu'\u00e0 la dur\u00e9e sp\u00e9cifi\u00e9e.",
+                    "name": "Dur\u00e9e"
+                },
+                "end_date_time": {
+                    "description": "Renvoie les \u00e9v\u00e9nements actifs avant cette heure (exclusif). Ne peut pas \u00eatre utilis\u00e9 avec 'dur\u00e9e'.",
+                    "name": "Heure de fin"
+                },
+                "start_date_time": {
+                    "description": "Renvoie les \u00e9v\u00e9nements actifs apr\u00e8s cette heure (exclusif). Lorsqu'il n'est pas d\u00e9fini, la valeur par d\u00e9faut est maintenant.",
+                    "name": "Heure de d\u00e9but"
+                }
+            },
+            "name": "Obtenir des \u00e9v\u00e9nements"
+        },
+        "list_events": {
+            "description": "Liste les \u00e9v\u00e9nements d'un calendrier dans une plage horaire.",
+            "fields": {
+                "duration": {
+                    "description": "Renvoie les \u00e9v\u00e9nements actifs depuis start_date_time jusqu'\u00e0 la dur\u00e9e sp\u00e9cifi\u00e9e.",
+                    "name": "Dur\u00e9e"
+                },
+                "end_date_time": {
+                    "description": "Renvoie les \u00e9v\u00e9nements actifs avant cette heure (exclusif). Ne peut pas \u00eatre utilis\u00e9 avec 'dur\u00e9e'.",
+                    "name": "Heure de fin"
+                },
+                "start_date_time": {
+                    "description": "Renvoie les \u00e9v\u00e9nements actifs apr\u00e8s cette heure (exclusif). Lorsqu'il n'est pas d\u00e9fini, la valeur par d\u00e9faut est maintenant.",
+                    "name": "Heure de d\u00e9but"
+                }
+            },
+            "name": "Lister les \u00e9v\u00e9nements"
+        }
+    },
+    "title": "Calendrier"
+}

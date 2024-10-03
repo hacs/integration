@@ -1,0 +1,268 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Zariadenie u\u017e je nakonfigurovan\u00e9"
+        },
+        "error": {
+            "invalid_auth": "Neplatn\u00e9 overenie"
+        },
+        "flow_title": "{ip}",
+        "step": {
+            "user": {
+                "data": {
+                    "ip_address": "N\u00e1zov hostite\u013ea alebo IP adresa",
+                    "password": "Heslo",
+                    "port": "Port"
+                },
+                "title": "Vypl\u0148te svoje \u00fadaje"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "flow_sensor": {
+                "name": "Sn\u00edma\u010d prietoku"
+            },
+            "freeze": {
+                "name": "Obmedzenia zmrazenia"
+            },
+            "hourly": {
+                "name": "Hodinov\u00e9 obmedzenia"
+            },
+            "month": {
+                "name": "Mesa\u010dn\u00e9 obmedzenia"
+            },
+            "raindelay": {
+                "name": "Obmedzenia oneskorenia da\u017e\u010fa"
+            },
+            "rainsensor": {
+                "name": "Obmedzenia da\u017e\u010fov\u00e9ho senzora"
+            },
+            "weekday": {
+                "name": "Obmedzenia v pracovn\u00fdch d\u0148och"
+            }
+        },
+        "select": {
+            "freeze_protection_temperature": {
+                "name": "Teplota ochrany proti zamrznutiu"
+            }
+        },
+        "sensor": {
+            "flow_sensor_clicks_cubic_meter": {
+                "name": "Po\u010det kliknut\u00ed na meter kubick\u00fd sn\u00edma\u010da prietoku"
+            },
+            "flow_sensor_consumed_liters": {
+                "name": "Sn\u00edma\u010d prietoku spotrebovan\u00fdch litrov"
+            },
+            "flow_sensor_leak_clicks": {
+                "name": "Sn\u00edma\u010d \u00faniku prietoku cvak\u00e1"
+            },
+            "flow_sensor_leak_volume": {
+                "name": "Objem \u00faniku sn\u00edma\u010da prietoku"
+            },
+            "flow_sensor_start_index": {
+                "name": "Index spustenia sn\u00edma\u010da prietoku"
+            },
+            "flow_sensor_watering_clicks": {
+                "name": "Sn\u00edma\u010d prietoku cvak\u00e1"
+            },
+            "last_leak_detected": {
+                "name": "Zisten\u00fd posledn\u00fd \u00fanik"
+            },
+            "rain_sensor_rain_start": {
+                "name": "Spustenie da\u017e\u010fov\u00e9ho senzora"
+            }
+        },
+        "switch": {
+            "freeze_protect_enabled": {
+                "name": "Ochrana proti zamrznutiu"
+            },
+            "hot_days_extra_watering": {
+                "name": "Extra voda v hor\u00facich d\u0148och"
+            }
+        },
+        "update": {
+            "firmware": {
+                "name": "Firmv\u00e9r"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "allow_inactive_zones_to_run": "Povoli\u0165 manu\u00e1lne spustenie zak\u00e1zan\u00fdch z\u00f3n",
+                    "use_app_run_times": "Pou\u017eite \u010dasy chodu z\u00f3ny z aplik\u00e1cie RainMachine",
+                    "zone_run_time": "Predvolen\u00fd \u010das chodu z\u00f3ny (v sekund\u00e1ch)"
+                },
+                "title": "Konfigur\u00e1cia RainMachine"
+            }
+        }
+    },
+    "services": {
+        "pause_watering": {
+            "description": "Pozastav\u00ed v\u0161etky \u010dinnosti zavla\u017eovania na ur\u010dit\u00fd po\u010det sek\u00fand.",
+            "fields": {
+                "device_id": {
+                    "description": "Ovl\u00e1da\u010d, ktor\u00e9ho zavla\u017eovanie sa m\u00e1 pozastavi\u0165.",
+                    "name": "Radi\u010d"
+                },
+                "seconds": {
+                    "description": "\u010cas (v sekund\u00e1ch) na pozastavenie zavla\u017eovania.",
+                    "name": "Trvanie"
+                }
+            },
+            "name": "Pozastavenie v\u0161etk\u00e9ho zavla\u017eovania"
+        },
+        "push_flow_meter_data": {
+            "description": "Odoslanie \u00fadajov z prietokomera do zariadenia RainMachine.",
+            "fields": {
+                "device_id": {
+                    "description": "Riadiaca jednotka, do ktorej sa maj\u00fa odosiela\u0165 \u00fadaje prietokomera.",
+                    "name": "Radi\u010d"
+                },
+                "unit_of_measurement": {
+                    "description": "Jednotky prietokomera, ktor\u00e9 sa maj\u00fa odosla\u0165.",
+                    "name": "Jednotka merania"
+                },
+                "value": {
+                    "description": "Hodnota prietokomera, ktor\u00e1 sa m\u00e1 odosla\u0165.",
+                    "name": "Hodnota"
+                }
+            },
+            "name": "\u00dadaje z prietokomeru Push"
+        },
+        "push_weather_data": {
+            "description": "Odosielanie \u00fadajov o po\u010das\u00ed z aplik\u00e1cie Home Assistant do zariadenia RainMachine.\nSlu\u017eba Local Weather Push by mala by\u0165 povolen\u00e1 v ponuke Nastavenia &gt; Po\u010dasie &gt; karta V\u00fdvoj\u00e1r, aby zariadenie RainMachine zoh\u013ead\u0148ovalo odosielan\u00e9 hodnoty. Jednotky sa musia odosiela\u0165 v metrick\u00fdch jednotk\u00e1ch; integr\u00e1cia nevykon\u00e1va \u017eiadne konverzie.\nPodrobnosti o rozhran\u00ed API RainMachine n\u00e1jdete tu: https://rainmachine.docs.apiary.io/#reference/weather-services/parserdata/post.",
+            "fields": {
+                "condition": {
+                    "description": "K\u00f3d aktu\u00e1lneho stavu po\u010dasia (WNUM).",
+                    "name": "K\u00f3d stavu po\u010dasia"
+                },
+                "device_id": {
+                    "description": "Ovl\u00e1da\u010d pre \u00fadaje o po\u010das\u00ed, ktor\u00e9 sa maj\u00fa odosla\u0165.",
+                    "name": "Radi\u010d"
+                },
+                "dewpoint": {
+                    "description": "Rosn\u00fd bod (\u00b0C).",
+                    "name": "Rosn\u00fd bod"
+                },
+                "et": {
+                    "description": "Evapotranspir\u00e1cia (mm).",
+                    "name": "Evapotranspir\u00e1cia"
+                },
+                "maxrh": {
+                    "description": "Max. relat\u00edvna vlhkos\u0165 (%RH).",
+                    "name": "Max. relat\u00edvna vlhkos\u0165"
+                },
+                "maxtemp": {
+                    "description": "Maxim\u00e1lna teplota (\u00b0C).",
+                    "name": "Max.tepl"
+                },
+                "minrh": {
+                    "description": "Min. relat\u00edvna vlhkos\u0165 (%RH).",
+                    "name": "Min. relat\u00edvna vlhkos\u0165"
+                },
+                "mintemp": {
+                    "description": "Minim\u00e1lna teplota (\u00b0C).",
+                    "name": "Min.tepl"
+                },
+                "pressure": {
+                    "description": "Barometrick\u00fd tlak (kPa).",
+                    "name": "Barometrick\u00fd tlak"
+                },
+                "qpf": {
+                    "description": "Kvantitat\u00edvna predpove\u010f zr\u00e1\u017eok (mm) alebo QPF. Pozn\u00e1mka: Hodnoty QPF by sa nemali posiela\u0165 ako kumulat\u00edvne hodnoty, ale ako nameran\u00e9/predpokladan\u00e9 hodnoty pre ka\u017ed\u00fa hodinu alebo de\u0148. Zariadenie RainMachine Mixer s\u010d\u00edta v\u0161etky hodnoty QPF v aktu\u00e1lnom dni, aby sa z\u00edskal celkov\u00fd denn\u00fd QPF.",
+                    "name": "Kvantitat\u00edvna predpove\u010f zr\u00e1\u017eok"
+                },
+                "rain": {
+                    "description": "Nameran\u00e9 zr\u00e1\u017eky (mm). Pozn\u00e1mka: Hodnoty RAIN by sa nemali posiela\u0165 ako kumulat\u00edvne hodnoty, ale ako nameran\u00e9/progn\u00f3zovan\u00e9 hodnoty pre ka\u017ed\u00fa hodinu alebo de\u0148. Zariadenie RainMachine Mixer s\u010d\u00edta v\u0161etky hodnoty RAIN v aktu\u00e1lnom dni, aby sa z\u00edskal celkov\u00fd denn\u00fd RAIN.",
+                    "name": "Nameran\u00e9 zr\u00e1\u017eky"
+                },
+                "solarrad": {
+                    "description": "Slne\u010dn\u00e9 \u017eiarenie (MJ/m\u00b2/h).",
+                    "name": "Slne\u010dn\u00e9 \u017eiarenie"
+                },
+                "temperature": {
+                    "description": "Aktu\u00e1lna teplota (\u00b0C).",
+                    "name": "Teplota"
+                },
+                "timestamp": {
+                    "description": "UNIX \u010casov\u00e1 zna\u010dka pre \u00fadaje o po\u010das\u00ed. Ak sa vynech\u00e1, pou\u017eije sa miestny \u010das zariadenia RainMachine v \u010dase volania.",
+                    "name": "\u010casov\u00e1 pe\u010diatka"
+                },
+                "wind": {
+                    "description": "R\u00fdchlos\u0165 vetra (m/s).",
+                    "name": "R\u00fdchlos\u0165 vetra"
+                }
+            },
+            "name": "Push \u00fadaje o po\u010das\u00ed"
+        },
+        "restrict_watering": {
+            "description": "Obmedz\u00ed spustenie v\u0161etk\u00fdch \u010dinnost\u00ed zavla\u017eovania na ur\u010dit\u00fd \u010das.",
+            "fields": {
+                "device_id": {
+                    "description": "Kontrol\u00f3r, ktor\u00e9ho zavla\u017eovanie by sa malo obmedzi\u0165.",
+                    "name": "Radi\u010d"
+                },
+                "duration": {
+                    "description": "\u010casov\u00e9 obdobie, v ktorom sa m\u00e1 obmedzi\u0165 za\u010diatok zavla\u017eovania.",
+                    "name": "Trvanie"
+                }
+            },
+            "name": "Obmedzte v\u0161etko zavla\u017eovanie"
+        },
+        "start_program": {
+            "description": "Spust\u00ed program.",
+            "name": "Spustenie programu"
+        },
+        "start_zone": {
+            "description": "Spust\u00ed z\u00f3nu.",
+            "fields": {
+                "zone_run_time": {
+                    "description": "\u010cas (v sekund\u00e1ch) na spustenie z\u00f3ny.",
+                    "name": "\u010cas prev\u00e1dzky"
+                }
+            },
+            "name": "\u0160tartovacia z\u00f3na"
+        },
+        "stop_all": {
+            "description": "Zastav\u00ed v\u0161etky \u010dinnosti s\u00favisiace so zavla\u017eovan\u00edm.",
+            "fields": {
+                "device_id": {
+                    "description": "Regul\u00e1tor, ktor\u00e9ho zavla\u017eovanie by sa malo zastavi\u0165.",
+                    "name": "Radi\u010d"
+                }
+            },
+            "name": "Zastavenie v\u0161etk\u00e9ho zavla\u017eovania"
+        },
+        "stop_program": {
+            "description": "Zastav\u00ed program.",
+            "name": "Zastavenie programu"
+        },
+        "stop_zone": {
+            "description": "Zastav\u00ed z\u00f3nu.",
+            "name": "Z\u00f3na zastavenia"
+        },
+        "unpause_watering": {
+            "description": "Zru\u0161\u00ed v\u0161etky pozastaven\u00e9 \u010dinnosti zavla\u017eovania.",
+            "fields": {
+                "device_id": {
+                    "description": "Regul\u00e1tor, ktor\u00e9ho zavla\u017eovacie \u010dinnosti by mali by\u0165 odpojen\u00e9.",
+                    "name": "Radi\u010d"
+                }
+            },
+            "name": "Zru\u0161te pozastavenie v\u0161etk\u00e9ho zalievania"
+        },
+        "unrestrict_watering": {
+            "description": "Neobmedzujte v\u0161etky zavla\u017eovacie \u010dinnosti.",
+            "fields": {
+                "device_id": {
+                    "description": "Regul\u00e1tor, ktor\u00e9ho zavla\u017eovacie \u010dinnosti by mali by\u0165 neobmedzen\u00e9.",
+                    "name": "Radi\u010d"
+                }
+            },
+            "name": "Zru\u0161enie v\u0161etk\u00e9ho zavla\u017eovania"
+        }
+    }
+}

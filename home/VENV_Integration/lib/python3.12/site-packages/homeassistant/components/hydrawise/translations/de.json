@@ -1,0 +1,94 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Der Dienst ist bereits konfiguriert",
+            "reauth_successful": "Die erneute Authentifizierung war erfolgreich"
+        },
+        "error": {
+            "cannot_connect": "Verbindung fehlgeschlagen",
+            "timeout_connect": "Zeit\u00fcberschreitung beim Verbindungsaufbau",
+            "unknown": "Unerwarteter Fehler"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "api_key": "API-Schl\u00fcssel",
+                    "password": "Passwort",
+                    "username": "Benutzername"
+                },
+                "description": "Bitte gib den Benutzernamen und das Passwort f\u00fcr dein Hydrawise-Cloud-Konto ein:",
+                "title": "Hydrawise-Anmeldung"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "rain_sensor": {
+                "name": "Regensensor"
+            },
+            "watering": {
+                "name": "Bew\u00e4sserung"
+            }
+        },
+        "sensor": {
+            "daily_active_water_time": {
+                "name": "T\u00e4gliche aktive Bew\u00e4sserungszeit"
+            },
+            "daily_active_water_use": {
+                "name": "T\u00e4glicher aktiver Wasserverbrauch"
+            },
+            "daily_inactive_water_use": {
+                "name": "T\u00e4glicher inaktiver Wasserverbrauch"
+            },
+            "daily_total_water_use": {
+                "name": "T\u00e4glicher Gesamtwasserverbrauch"
+            },
+            "next_cycle": {
+                "name": "N\u00e4chster Zyklus"
+            },
+            "watering_time": {
+                "name": "Verbleibende Bew\u00e4sserungszeit"
+            }
+        },
+        "switch": {
+            "auto_watering": {
+                "name": "Automatische Bew\u00e4sserung"
+            },
+            "manual_watering": {
+                "name": "Manuelle Bew\u00e4sserung"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_yaml_import_issue": {
+            "description": "Die Konfiguration von Hydrawise mit YAML wird entfernt, aber beim Importieren deiner YAML-Konfiguration ist ein {error_type}-Fehler aufgetreten. \n\nStelle sicher, dass die Verbindung zu Hydrawise funktioniert, und starte Home Assistant neu, um es erneut zu versuchen, oder entferne die Hydrawise YAML-Konfiguration aus deiner Datei \u201econfiguration.yaml\u201c und fahre mit der manuellen [Einrichtung der Integration] ({url}) fort.",
+            "title": "Der Import der Hydrawise YAML-Konfiguration ist fehlgeschlagen"
+        }
+    },
+    "services": {
+        "resume": {
+            "description": "Setzt den automatischen Bew\u00e4sserungsplan einer Bew\u00e4sserungszone fort.",
+            "name": "Automatische Bew\u00e4sserung fortsetzen"
+        },
+        "start_watering": {
+            "description": "Startet einen Bew\u00e4sserungszyklus in der ausgew\u00e4hlten Bew\u00e4sserungszone.",
+            "fields": {
+                "duration": {
+                    "description": "Dauer des Bew\u00e4sserungszyklus. Wenn nicht angegeben (oder Null), wird die in der Hydrawise-Mobil- oder Web-App f\u00fcr die Bew\u00e4sserungszone festgelegte Standardbew\u00e4sserungsdauer verwendet.",
+                    "name": "Dauer"
+                }
+            },
+            "name": "Mit der Bew\u00e4sserung beginnen"
+        },
+        "suspend": {
+            "description": "Setzt den automatischen Bew\u00e4sserungsplan einer Bew\u00e4sserungszone bis zum angegebenen Datum und zur angegebenen Uhrzeit aus.",
+            "fields": {
+                "until": {
+                    "description": "Datum und Uhrzeit f\u00fcr die Wiederaufnahme des automatischen Bew\u00e4sserungsplans.",
+                    "name": "Bis"
+                }
+            },
+            "name": "Automatische Bew\u00e4sserung aussetzen"
+        }
+    }
+}

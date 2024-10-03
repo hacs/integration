@@ -1,0 +1,954 @@
+{
+    "config": {
+        "abort": {
+            "single_instance_allowed": "\u3059\u3067\u306b\u8a2d\u5b9a\u3055\u308c\u3066\u3044\u307e\u3059\u3002\u8a2d\u5b9a\u3067\u304d\u308b\u306e\u306f1\u3064\u3060\u3051\u3067\u3059\u3002"
+        },
+        "create_entry": {
+            "default": "\u4e00\u90e8\u306e\u30bb\u30f3\u30b5\u30fc\u306f\u30c7\u30d5\u30a9\u30eb\u30c8\u3067\u306f\u6709\u52b9\u306b\u306a\u3063\u3066\u3044\u307e\u305b\u3093\u3002\u7d71\u5408\u69cb\u6210\u5f8c\u306b\u30a8\u30f3\u30c6\u30a3\u30c6\u30a3 \u30ec\u30b8\u30b9\u30c8\u30ea\u3067\u6709\u52b9\u306b\u3059\u308b\u3053\u3068\u304c\u3067\u304d\u307e\u3059\u3002"
+        },
+        "error": {
+            "cannot_connect": "\u63a5\u7d9a\u306b\u5931\u6557\u3057\u307e\u3057\u305f",
+            "invalid_api_key": "\u7121\u52b9\u306aAPI\u30ad\u30fc",
+            "requests_exceeded": "Accuweather API\u3078\u306e\u30ea\u30af\u30a8\u30b9\u30c8\u6570\u304c\u8a31\u53ef\u3055\u308c\u305f\u6570\u3092\u8d85\u3048\u307e\u3057\u305f\u3002\u6642\u9593\u3092\u7f6e\u304f\u304b\u3001API\u30ad\u30fc\u3092\u5909\u66f4\u3059\u308b\u5fc5\u8981\u304c\u3042\u308a\u307e\u3059\u3002"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "api_key": "API\u30ad\u30fc",
+                    "latitude": "\u7def\u5ea6",
+                    "longitude": "\u7d4c\u5ea6",
+                    "name": "\u540d\u524d"
+                }
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "air_quality": {
+                "name": "\u7a7a\u6c17\u8cea\u65e5\u4e2d{forecast_day}",
+                "state": {
+                    "good": "\u826f\u597d",
+                    "hazardous": "\u5371\u967a",
+                    "high": "\u9ad8",
+                    "low": "\u4f4e",
+                    "moderate": "\u9069\u5ea6",
+                    "unhealthy": "\u4e0d\u5065\u5eb7"
+                }
+            },
+            "air_quality_0d": {
+                "name": "\u4eca\u65e5\u306e\u5927\u6c17\u8cea",
+                "state": {
+                    "good": "\u826f\u597d",
+                    "hazardous": "\u5371\u967a",
+                    "high": "\u9ad8\u3044",
+                    "low": "\u4f4e\u3044",
+                    "moderate": "\u9069\u5ea6",
+                    "unhealthy": "\u4e0d\u5065\u5eb7"
+                }
+            },
+            "air_quality_1d": {
+                "name": "\u5927\u6c17\u8cea\u65e5 1",
+                "state": {
+                    "good": "\u826f\u597d",
+                    "hazardous": "\u5371\u967a",
+                    "high": "\u9ad8\u3044",
+                    "low": "\u4f4e\u3044",
+                    "moderate": "\u9069\u5ea6",
+                    "unhealthy": "\u4e0d\u5065\u5eb7"
+                }
+            },
+            "air_quality_2d": {
+                "name": "\u5927\u6c17\u8cea\u65e52",
+                "state": {
+                    "good": "\u826f\u597d",
+                    "hazardous": "\u5371\u967a",
+                    "high": "\u9ad8\u3044",
+                    "low": "\u4f4e\u3044",
+                    "moderate": "\u9069\u5ea6",
+                    "unhealthy": "\u4e0d\u5065\u5eb7"
+                }
+            },
+            "air_quality_3d": {
+                "name": "\u5927\u6c17\u8cea\u65e53",
+                "state": {
+                    "good": "\u826f\u597d",
+                    "hazardous": "\u5371\u967a",
+                    "high": "\u9ad8\u3044",
+                    "low": "\u4f4e\u3044",
+                    "moderate": "\u9069\u5ea6",
+                    "unhealthy": "\u4e0d\u5065\u5eb7"
+                }
+            },
+            "air_quality_4d": {
+                "name": "\u5927\u6c17\u8cea\u65e54",
+                "state": {
+                    "good": "\u826f\u597d",
+                    "hazardous": "\u5371\u967a",
+                    "high": "\u9ad8\u3044",
+                    "low": "\u4f4e\u3044",
+                    "moderate": "\u9069\u5ea6",
+                    "unhealthy": "\u4e0d\u5065\u5eb7"
+                }
+            },
+            "apparent_temperature": {
+                "name": "\u4f53\u611f\u6e29\u5ea6"
+            },
+            "cloud_ceiling": {
+                "name": "\u96f2\u5e95"
+            },
+            "cloud_cover": {
+                "name": "\u96f2\u91cf"
+            },
+            "cloud_cover_day": {
+                "name": "\u96f2\u91cf\u65e5\u4e2d{forecast_day}"
+            },
+            "cloud_cover_day_0d": {
+                "name": "\u96f2\u91cf \u4eca\u65e5"
+            },
+            "cloud_cover_day_1d": {
+                "name": "\u96f2\u91cf\u65e51"
+            },
+            "cloud_cover_day_2d": {
+                "name": "\u96f2\u91cf\u65e52"
+            },
+            "cloud_cover_day_3d": {
+                "name": "\u96f2\u91cf\u65e53"
+            },
+            "cloud_cover_day_4d": {
+                "name": "\u96f2\u91cf\u65e54"
+            },
+            "cloud_cover_night": {
+                "name": "\u96f2\u91cf\u591c{forecast_day}"
+            },
+            "cloud_cover_night_0d": {
+                "name": "\u96f2\u91cf \u4eca\u591c"
+            },
+            "cloud_cover_night_1d": {
+                "name": "\u96f2\u91cf\u591c1"
+            },
+            "cloud_cover_night_2d": {
+                "name": "\u96f2\u91cf\u591c2"
+            },
+            "cloud_cover_night_3d": {
+                "name": "\u96f2\u91cf3"
+            },
+            "cloud_cover_night_4d": {
+                "name": "\u96f2\u91cf4"
+            },
+            "condition_day": {
+                "name": "\u30b3\u30f3\u30c7\u30a3\u30b7\u30e7\u30f3\u65e5\u4e2d{forecast_day}"
+            },
+            "condition_day_0d": {
+                "name": "\u30b3\u30f3\u30c7\u30a3\u30b7\u30e7\u30f3 \u4eca\u65e5"
+            },
+            "condition_day_1d": {
+                "name": "\u30b3\u30f3\u30c7\u30a3\u30b7\u30e7\u30f3\u65e51"
+            },
+            "condition_day_2d": {
+                "name": "\u30b3\u30f3\u30c7\u30a3\u30b7\u30e7\u30f3\u65e52"
+            },
+            "condition_day_3d": {
+                "name": "\u30b3\u30f3\u30c7\u30a3\u30b7\u30e7\u30f3\u65e53"
+            },
+            "condition_day_4d": {
+                "name": "\u30b3\u30f3\u30c7\u30a3\u30b7\u30e7\u30f3\u65e54"
+            },
+            "condition_night": {
+                "name": "\u591c\u9593\u306e\u72b6\u6cc1{forecast_day}"
+            },
+            "condition_night_0d": {
+                "name": "\u30b3\u30f3\u30c7\u30a3\u30b7\u30e7\u30f3 \u4eca\u591c"
+            },
+            "condition_night_1d": {
+                "name": "\u30b3\u30f3\u30c7\u30a3\u30b7\u30e7\u30f3\u591c\u95931"
+            },
+            "condition_night_2d": {
+                "name": "\u30b3\u30f3\u30c7\u30a3\u30b7\u30e7\u30f3\u591c\u95932"
+            },
+            "condition_night_3d": {
+                "name": "\u30b3\u30f3\u30c7\u30a3\u30b7\u30e7\u30f3\u591c\u95933"
+            },
+            "condition_night_4d": {
+                "name": "\u30b3\u30f3\u30c7\u30a3\u30b7\u30e7\u30f3\u591c\u95934"
+            },
+            "dew_point": {
+                "name": "\u9732\u70b9"
+            },
+            "grass_pollen": {
+                "name": "\u8349\u82b1\u7c89\u65e5{forecast_day}",
+                "state_attributes": {
+                    "level": {
+                        "name": "\u30ec\u30d9\u30eb",
+                        "state": {
+                            "good": "\u826f\u597d",
+                            "hazardous": "\u5371\u967a",
+                            "high": "\u9ad8",
+                            "low": "\u4f4e",
+                            "moderate": "\u9069\u5ea6",
+                            "unhealthy": "\u4e0d\u5065\u5eb7"
+                        }
+                    }
+                }
+            },
+            "grass_pollen_0d": {
+                "name": "\u4eca\u65e5\u306e\u8349\u82b1\u7c89",
+                "state_attributes": {
+                    "level": {
+                        "name": "\u30ec\u30d9\u30eb",
+                        "state": {
+                            "good": "\u826f\u597d",
+                            "hazardous": "\u5371\u967a",
+                            "high": "\u9ad8\u3044",
+                            "low": "\u4f4e\u3044",
+                            "moderate": "\u9069\u5ea6",
+                            "unhealthy": "\u4e0d\u5065\u5eb7"
+                        }
+                    }
+                }
+            },
+            "grass_pollen_1d": {
+                "name": "\u8349\u82b1\u7c89\u65e51",
+                "state_attributes": {
+                    "level": {
+                        "name": "\u30ec\u30d9\u30eb",
+                        "state": {
+                            "good": "\u826f\u597d",
+                            "hazardous": "\u5371\u967a",
+                            "high": "\u9ad8\u3044",
+                            "low": "\u4f4e\u3044",
+                            "moderate": "\u9069\u5ea6",
+                            "unhealthy": "\u4e0d\u5065\u5eb7"
+                        }
+                    }
+                }
+            },
+            "grass_pollen_2d": {
+                "name": "\u8349\u82b1\u7c89\u65e52",
+                "state_attributes": {
+                    "level": {
+                        "name": "\u30ec\u30d9\u30eb",
+                        "state": {
+                            "good": "\u826f\u597d",
+                            "hazardous": "\u5371\u967a",
+                            "high": "\u9ad8\u3044",
+                            "low": "\u4f4e\u3044",
+                            "moderate": "\u9069\u5ea6",
+                            "unhealthy": "\u4e0d\u5065\u5eb7"
+                        }
+                    }
+                }
+            },
+            "grass_pollen_3d": {
+                "name": "\u8349\u82b1\u7c89\u65e53",
+                "state_attributes": {
+                    "level": {
+                        "name": "\u30ec\u30d9\u30eb",
+                        "state": {
+                            "good": "\u826f\u597d",
+                            "hazardous": "\u5371\u967a",
+                            "high": "\u9ad8\u3044",
+                            "low": "\u4f4e\u3044",
+                            "moderate": "\u9069\u5ea6",
+                            "unhealthy": "\u4e0d\u5065\u5eb7"
+                        }
+                    }
+                }
+            },
+            "grass_pollen_4d": {
+                "name": "\u8349\u82b1\u7c89\u65e54",
+                "state_attributes": {
+                    "level": {
+                        "name": "\u30ec\u30d9\u30eb",
+                        "state": {
+                            "good": "\u826f\u597d",
+                            "hazardous": "\u5371\u967a",
+                            "high": "\u9ad8\u3044",
+                            "low": "\u4f4e\u3044",
+                            "moderate": "\u9069\u5ea6",
+                            "unhealthy": "\u4e0d\u5065\u5eb7"
+                        }
+                    }
+                }
+            },
+            "hours_of_sun": {
+                "name": "\u65e5\u7167\u6642\u9593{forecast_day}"
+            },
+            "hours_of_sun_0d": {
+                "name": "\u65e5\u7167\u6642\u9593 \u4eca\u65e5"
+            },
+            "hours_of_sun_1d": {
+                "name": "\u65e5\u7167\u6642\u9593\u65e51"
+            },
+            "hours_of_sun_2d": {
+                "name": "\u65e5\u7167\u6642\u9593\u65e52"
+            },
+            "hours_of_sun_3d": {
+                "name": "\u65e5\u7167\u6642\u9593\u65e53"
+            },
+            "hours_of_sun_4d": {
+                "name": "\u65e5\u7167\u6642\u9593 4"
+            },
+            "mold_pollen": {
+                "name": "\u30ab\u30d3\u82b1\u7c89\u65e5{forecast_day}",
+                "state_attributes": {
+                    "level": {
+                        "name": "\u30ec\u30d9\u30eb",
+                        "state": {
+                            "good": "\u826f\u597d",
+                            "hazardous": "\u5371\u967a",
+                            "high": "\u9ad8",
+                            "low": "\u4f4e",
+                            "moderate": "\u9069\u5ea6",
+                            "unhealthy": "\u4e0d\u5065\u5eb7"
+                        }
+                    }
+                }
+            },
+            "mold_pollen_0d": {
+                "name": "\u30ab\u30d3\u82b1\u7c89 \u4eca\u65e5",
+                "state_attributes": {
+                    "level": {
+                        "name": "\u30ec\u30d9\u30eb",
+                        "state": {
+                            "good": "\u826f\u597d",
+                            "hazardous": "\u5371\u967a",
+                            "high": "\u9ad8\u3044",
+                            "low": "\u4f4e\u3044",
+                            "moderate": "\u9069\u5ea6",
+                            "unhealthy": "\u4e0d\u5065\u5eb7"
+                        }
+                    }
+                }
+            },
+            "mold_pollen_1d": {
+                "name": "\u30ab\u30d3\u82b1\u7c89\u65e51",
+                "state_attributes": {
+                    "level": {
+                        "name": "\u30ec\u30d9\u30eb",
+                        "state": {
+                            "good": "\u826f\u597d",
+                            "hazardous": "\u5371\u967a",
+                            "high": "\u9ad8\u3044",
+                            "low": "\u4f4e\u3044",
+                            "moderate": "\u9069\u5ea6",
+                            "unhealthy": "\u4e0d\u5065\u5eb7"
+                        }
+                    }
+                }
+            },
+            "mold_pollen_2d": {
+                "name": "\u30ab\u30d3\u82b1\u7c89\u65e52",
+                "state_attributes": {
+                    "level": {
+                        "name": "\u30ec\u30d9\u30eb",
+                        "state": {
+                            "good": "\u826f\u597d",
+                            "hazardous": "\u5371\u967a",
+                            "high": "\u9ad8\u3044",
+                            "low": "\u4f4e\u3044",
+                            "moderate": "\u9069\u5ea6",
+                            "unhealthy": "\u4e0d\u5065\u5eb7"
+                        }
+                    }
+                }
+            },
+            "mold_pollen_3d": {
+                "name": "\u30ab\u30d3\u82b1\u7c89\u65e53",
+                "state_attributes": {
+                    "level": {
+                        "name": "\u30ec\u30d9\u30eb",
+                        "state": {
+                            "good": "\u826f\u597d",
+                            "hazardous": "\u5371\u967a",
+                            "high": "\u9ad8\u3044",
+                            "low": "\u4f4e\u3044",
+                            "moderate": "\u9069\u5ea6",
+                            "unhealthy": "\u4e0d\u5065\u5eb7"
+                        }
+                    }
+                }
+            },
+            "mold_pollen_4d": {
+                "name": "\u30ab\u30d3\u82b1\u7c89\u65e54",
+                "state_attributes": {
+                    "level": {
+                        "name": "\u30ec\u30d9\u30eb",
+                        "state": {
+                            "good": "\u826f\u597d",
+                            "hazardous": "\u5371\u967a",
+                            "high": "\u9ad8\u3044",
+                            "low": "\u4f4e\u3044",
+                            "moderate": "\u9069\u5ea6",
+                            "unhealthy": "\u4e0d\u5065\u5eb7"
+                        }
+                    }
+                }
+            },
+            "precipitation": {
+                "name": "\u4e0d\u5065\u5eb7"
+            },
+            "pressure_tendency": {
+                "name": "\u6c17\u5727\u50be\u5411",
+                "state": {
+                    "falling": "\u4e0b\u964d",
+                    "rising": "\u4e0a\u6607",
+                    "steady": "\u5b89\u5b9a"
+                }
+            },
+            "ragweed_pollen": {
+                "name": "\u30d6\u30bf\u30af\u30b5\u82b1\u7c89\u98db\u6563\u65e5{forecast_day}",
+                "state_attributes": {
+                    "level": {
+                        "name": "\u30ec\u30d9\u30eb",
+                        "state": {
+                            "good": "\u826f\u597d",
+                            "hazardous": "\u5371\u967a",
+                            "high": "\u9ad8",
+                            "low": "\u4f4e",
+                            "moderate": "\u9069\u5ea6",
+                            "unhealthy": "\u4e0d\u5065\u5eb7"
+                        }
+                    }
+                }
+            },
+            "ragweed_pollen_0d": {
+                "name": "\u30d6\u30bf\u30af\u30b5\u82b1\u7c89 \u4eca\u65e5",
+                "state_attributes": {
+                    "level": {
+                        "name": "\u30ec\u30d9\u30eb",
+                        "state": {
+                            "good": "\u826f\u597d",
+                            "hazardous": "\u5371\u967a",
+                            "high": "\u9ad8\u3044",
+                            "low": "\u4f4e\u3044",
+                            "moderate": "\u9069\u5ea6",
+                            "unhealthy": "\u4e0d\u5065\u5eb7"
+                        }
+                    }
+                }
+            },
+            "ragweed_pollen_1d": {
+                "name": "\u30d6\u30bf\u30af\u30b5\u82b1\u7c89\u65e51",
+                "state_attributes": {
+                    "level": {
+                        "name": "\u30ec\u30d9\u30eb",
+                        "state": {
+                            "good": "\u826f\u597d",
+                            "hazardous": "\u5371\u967a",
+                            "high": "\u9ad8\u3044",
+                            "low": "\u4f4e\u3044",
+                            "moderate": "\u9069\u5ea6",
+                            "unhealthy": "\u4e0d\u5065\u5eb7"
+                        }
+                    }
+                }
+            },
+            "ragweed_pollen_2d": {
+                "name": "\u30d6\u30bf\u30af\u30b5\u82b1\u7c89\u65e52",
+                "state_attributes": {
+                    "level": {
+                        "name": "\u30ec\u30d9\u30eb",
+                        "state": {
+                            "good": "\u826f\u597d",
+                            "hazardous": "\u5371\u967a",
+                            "high": "\u9ad8\u3044",
+                            "low": "\u4f4e\u3044",
+                            "moderate": "\u9069\u5ea6",
+                            "unhealthy": "\u4e0d\u5065\u5eb7"
+                        }
+                    }
+                }
+            },
+            "ragweed_pollen_3d": {
+                "name": "\u30d6\u30bf\u30af\u30b5\u82b1\u7c89\u65e53",
+                "state_attributes": {
+                    "level": {
+                        "name": "\u30ec\u30d9\u30eb",
+                        "state": {
+                            "good": "\u826f\u597d",
+                            "hazardous": "\u5371\u967a",
+                            "high": "\u9ad8\u3044",
+                            "low": "\u4f4e\u3044",
+                            "moderate": "\u9069\u5ea6",
+                            "unhealthy": "\u4e0d\u5065\u5eb7"
+                        }
+                    }
+                }
+            },
+            "ragweed_pollen_4d": {
+                "name": "\u30d6\u30bf\u30af\u30b5\u82b1\u7c89\u65e54",
+                "state_attributes": {
+                    "level": {
+                        "name": "\u30ec\u30d9\u30eb",
+                        "state": {
+                            "good": "\u826f\u597d",
+                            "hazardous": "\u5371\u967a",
+                            "high": "\u9ad8\u3044",
+                            "low": "\u4f4e\u3044",
+                            "moderate": "\u9069\u5ea6",
+                            "unhealthy": "\u4e0d\u5065\u5eb7"
+                        }
+                    }
+                }
+            },
+            "realfeel_temperature": {
+                "name": "\u6700\u9ad8\u4f53\u611f\u6e29\u5ea6"
+            },
+            "realfeel_temperature_max": {
+                "name": "\u4f53\u611f\u6700\u9ad8\u6c17\u6e29\u65e5{forecast_day}"
+            },
+            "realfeel_temperature_max_0d": {
+                "name": "\u6700\u9ad8\u4f53\u611f\u6e29\u5ea6 \u4eca\u65e5"
+            },
+            "realfeel_temperature_max_1d": {
+                "name": "\u6700\u9ad8\u4f53\u611f\u6e29\u5ea61"
+            },
+            "realfeel_temperature_max_2d": {
+                "name": "\u6700\u9ad8\u4f53\u611f\u6e29\u5ea62"
+            },
+            "realfeel_temperature_max_3d": {
+                "name": "\u6700\u9ad8\u4f53\u611f\u6e29\u5ea63"
+            },
+            "realfeel_temperature_max_4d": {
+                "name": "\u6700\u9ad8\u4f53\u611f\u6e29\u5ea64"
+            },
+            "realfeel_temperature_min": {
+                "name": "\u4f53\u611f \u6700\u4f4e\u6c17\u6e29\u65e5{forecast_day}"
+            },
+            "realfeel_temperature_min_0d": {
+                "name": "\u6700\u4f4e\u4f53\u611f\u6e29\u5ea6 \u4eca\u65e5"
+            },
+            "realfeel_temperature_min_1d": {
+                "name": "\u6700\u4f4e\u4f53\u611f\u6e29\u5ea61"
+            },
+            "realfeel_temperature_min_2d": {
+                "name": "\u6700\u4f4e\u4f53\u611f\u6e29\u5ea62"
+            },
+            "realfeel_temperature_min_3d": {
+                "name": "\u6700\u4f4e\u4f53\u611f\u6e29\u5ea63"
+            },
+            "realfeel_temperature_min_4d": {
+                "name": "\u6700\u4f4e\u4f53\u611f\u6e29\u5ea64"
+            },
+            "realfeel_temperature_shade": {
+                "name": "\u65e5\u9670\u306e\u4f53\u611f\u6e29\u5ea6"
+            },
+            "realfeel_temperature_shade_max": {
+                "name": "\u4f53\u611f \u6c17\u6e29 \u65e5\u9670 \u6700\u5927 \u65e5{forecast_day}"
+            },
+            "realfeel_temperature_shade_max_0d": {
+                "name": "\u65e5\u9670\u306e\u6700\u9ad8\u4f53\u611f\u6e29\u5ea6 \u4eca\u65e5"
+            },
+            "realfeel_temperature_shade_max_1d": {
+                "name": "\u65e5\u9670\u306e\u6700\u9ad8\u4f53\u611f\u6e29\u5ea61"
+            },
+            "realfeel_temperature_shade_max_2d": {
+                "name": "\u65e5\u9670\u306e\u6700\u9ad8\u4f53\u611f\u6e29\u5ea62"
+            },
+            "realfeel_temperature_shade_max_3d": {
+                "name": "\u65e5\u9670\u306e\u6700\u9ad8\u4f53\u611f\u6e29\u5ea63"
+            },
+            "realfeel_temperature_shade_max_4d": {
+                "name": "\u65e5\u9670\u306e\u6700\u9ad8\u4f53\u611f\u6e29\u5ea64"
+            },
+            "realfeel_temperature_shade_min": {
+                "name": "\u4f53\u611f \u6c17\u6e29 \u65e5\u9670 \u6700\u5c0f \u65e5{forecast_day}"
+            },
+            "realfeel_temperature_shade_min_0d": {
+                "name": "\u65e5\u9670\u306e\u6700\u4f4e\u4f53\u611f\u6e29\u5ea6 \u4eca\u65e5"
+            },
+            "realfeel_temperature_shade_min_1d": {
+                "name": "\u65e5\u9670\u306e\u6700\u4f4e\u4f53\u611f\u6e29\u5ea61"
+            },
+            "realfeel_temperature_shade_min_2d": {
+                "name": "\u65e5\u9670\u306e\u6700\u4f4e\u4f53\u611f\u6e29\u5ea62"
+            },
+            "realfeel_temperature_shade_min_3d": {
+                "name": "\u65e5\u9670\u306e\u6700\u4f4e\u4f53\u611f\u6e29\u5ea63"
+            },
+            "realfeel_temperature_shade_min_4d": {
+                "name": "\u65e5\u9670\u306e\u6700\u4f4e\u4f53\u611f\u6e29\u5ea64"
+            },
+            "solar_irradiance_day": {
+                "name": "\u65e5\u5c04\u91cf{forecast_day}"
+            },
+            "solar_irradiance_day_0d": {
+                "name": "\u592a\u967d\u653e\u5c04\u7167\u5ea6 \u4eca\u65e5"
+            },
+            "solar_irradiance_day_1d": {
+                "name": "\u592a\u967d\u653e\u5c04\u7167\u5ea6\u306e\u65e5\u4e2d1"
+            },
+            "solar_irradiance_day_2d": {
+                "name": "\u592a\u967d\u653e\u5c04\u7167\u5ea6\u306e\u65e5\u4e2d2"
+            },
+            "solar_irradiance_day_3d": {
+                "name": "\u592a\u967d\u653e\u5c04\u7167\u5ea6\u306e\u65e5\u4e2d3"
+            },
+            "solar_irradiance_day_4d": {
+                "name": "\u592a\u967d\u653e\u5c04\u7167\u5ea6\u306e\u65e5\u4e2d4"
+            },
+            "solar_irradiance_night": {
+                "name": "\u592a\u967d\u653e\u5c04\u91cf\u591c\u9593{forecast_day}"
+            },
+            "solar_irradiance_night_0d": {
+                "name": "\u4eca\u591c\u306e\u592a\u967d\u653e\u5c04\u7167\u5ea6"
+            },
+            "solar_irradiance_night_1d": {
+                "name": "\u592a\u967d\u653e\u5c04\u7167\u5ea6\u306e\u591c\u95931"
+            },
+            "solar_irradiance_night_2d": {
+                "name": "\u592a\u967d\u653e\u5c04\u7167\u5ea6\u306e\u591c\u95932"
+            },
+            "solar_irradiance_night_3d": {
+                "name": "\u592a\u967d\u653e\u5c04\u7167\u5ea6\u306e\u591c\u95933"
+            },
+            "solar_irradiance_night_4d": {
+                "name": "\u592a\u967d\u653e\u5c04\u7167\u5ea6\u306e\u591c\u95934"
+            },
+            "thunderstorm_probability_day": {
+                "name": "\u96f7\u96e8\u306e\u78ba\u7387\u65e5\u4e2d{forecast_day}"
+            },
+            "thunderstorm_probability_day_0d": {
+                "name": "\u96f7\u96e8\u78ba\u7387\u4eca\u65e5"
+            },
+            "thunderstorm_probability_day_1d": {
+                "name": "\u96f7\u96e8\u78ba\u7387\u65e5\u4e2d1"
+            },
+            "thunderstorm_probability_day_2d": {
+                "name": "\u96f7\u96e8\u78ba\u7387\u65e5\u4e2d2"
+            },
+            "thunderstorm_probability_day_3d": {
+                "name": "\u96f7\u96e8\u78ba\u7387\u65e5\u4e2d3"
+            },
+            "thunderstorm_probability_day_4d": {
+                "name": "\u96f7\u96e8\u78ba\u7387\u65e5\u4e2d4"
+            },
+            "thunderstorm_probability_night": {
+                "name": "\u96f7\u96e8\u306e\u53ef\u80fd\u6027\u591c{forecast_day}"
+            },
+            "thunderstorm_probability_night_0d": {
+                "name": "\u96f7\u96e8\u78ba\u7387\u4eca\u591c"
+            },
+            "thunderstorm_probability_night_1d": {
+                "name": "\u96f7\u96e8\u78ba\u7387\u591c\u95931"
+            },
+            "thunderstorm_probability_night_2d": {
+                "name": "\u96f7\u96e8\u78ba\u7387\u591c\u95932"
+            },
+            "thunderstorm_probability_night_3d": {
+                "name": "\u96f7\u96e8\u78ba\u7387\u591c\u95933"
+            },
+            "thunderstorm_probability_night_4d": {
+                "name": "\u96f7\u96e8\u78ba\u7387\u591c\u95934"
+            },
+            "tree_pollen": {
+                "name": "\u6728\u306e\u82b1\u7c89\u65e5\u4e2d{forecast_day}",
+                "state_attributes": {
+                    "level": {
+                        "name": "\u30ec\u30d9\u30eb",
+                        "state": {
+                            "good": "\u826f\u597d",
+                            "hazardous": "\u5371\u967a",
+                            "high": "\u9ad8",
+                            "low": "\u4f4e",
+                            "moderate": "\u9069\u5ea6",
+                            "unhealthy": "\u4e0d\u5065\u5eb7"
+                        }
+                    }
+                }
+            },
+            "tree_pollen_0d": {
+                "name": "\u4eca\u65e5\u306e\u82b1\u7c89",
+                "state_attributes": {
+                    "level": {
+                        "name": "\u30ec\u30d9\u30eb",
+                        "state": {
+                            "good": "\u826f\u597d",
+                            "hazardous": "\u5371\u967a",
+                            "high": "\u9ad8\u3044",
+                            "low": "\u4f4e\u3044",
+                            "moderate": "\u9069\u5ea6",
+                            "unhealthy": "\u4e0d\u5065\u5eb7"
+                        }
+                    }
+                }
+            },
+            "tree_pollen_1d": {
+                "name": "\u6728\u82b1\u7c89\u65e5 1",
+                "state_attributes": {
+                    "level": {
+                        "name": "\u30ec\u30d9\u30eb",
+                        "state": {
+                            "good": "\u826f\u597d",
+                            "hazardous": "\u5371\u967a",
+                            "high": "\u9ad8\u3044",
+                            "low": "\u4f4e\u3044",
+                            "moderate": "\u9069\u5ea6",
+                            "unhealthy": "\u4e0d\u5065\u5eb7"
+                        }
+                    }
+                }
+            },
+            "tree_pollen_2d": {
+                "name": "\u6728\u82b1\u7c89\u65e5 2",
+                "state_attributes": {
+                    "level": {
+                        "name": "\u30ec\u30d9\u30eb",
+                        "state": {
+                            "good": "\u826f\u597d",
+                            "hazardous": "\u5371\u967a",
+                            "high": "\u9ad8\u3044",
+                            "low": "\u4f4e\u3044",
+                            "moderate": "\u9069\u5ea6",
+                            "unhealthy": "\u4e0d\u5065\u5eb7"
+                        }
+                    }
+                }
+            },
+            "tree_pollen_3d": {
+                "name": "\u6728\u82b1\u7c89\u65e5 3",
+                "state_attributes": {
+                    "level": {
+                        "name": "\u30ec\u30d9\u30eb",
+                        "state": {
+                            "good": "\u826f\u597d",
+                            "hazardous": "\u5371\u967a",
+                            "high": "\u9ad8\u3044",
+                            "low": "\u4f4e\u3044",
+                            "moderate": "\u9069\u5ea6",
+                            "unhealthy": "\u4e0d\u5065\u5eb7"
+                        }
+                    }
+                }
+            },
+            "tree_pollen_4d": {
+                "name": "\u6728\u82b1\u7c89\u65e5 4",
+                "state_attributes": {
+                    "level": {
+                        "name": "\u30ec\u30d9\u30eb",
+                        "state": {
+                            "good": "\u826f\u597d",
+                            "hazardous": "\u5371\u967a",
+                            "high": "\u9ad8\u3044",
+                            "low": "\u4f4e\u3044",
+                            "moderate": "\u9069\u5ea6",
+                            "unhealthy": "\u4e0d\u5065\u5eb7"
+                        }
+                    }
+                }
+            },
+            "uv_index": {
+                "name": "UV\u6307\u6570",
+                "state_attributes": {
+                    "level": {
+                        "name": "\u30ec\u30d9\u30eb",
+                        "state": {
+                            "good": "\u826f\u597d",
+                            "hazardous": "\u5371\u967a",
+                            "high": "\u9ad8",
+                            "low": "\u4f4e",
+                            "moderate": "\u9069\u5ea6",
+                            "unhealthy": "\u4e0d\u5065\u5eb7"
+                        }
+                    }
+                }
+            },
+            "uv_index_0d": {
+                "name": "UV\u6307\u6570 \u4eca\u65e5",
+                "state_attributes": {
+                    "level": {
+                        "name": "\u30ec\u30d9\u30eb",
+                        "state": {
+                            "good": "\u826f\u597d",
+                            "hazardous": "\u5371\u967a",
+                            "high": "\u9ad8\u3044",
+                            "low": "\u4f4e\u3044",
+                            "moderate": "\u9069\u5ea6",
+                            "unhealthy": "\u4e0d\u5065\u5eb7"
+                        }
+                    }
+                }
+            },
+            "uv_index_1d": {
+                "name": "UV\u6307\u6570\u65e5\u4e2d1",
+                "state_attributes": {
+                    "level": {
+                        "name": "\u30ec\u30d9\u30eb",
+                        "state": {
+                            "good": "\u826f\u597d",
+                            "hazardous": "\u5371\u967a",
+                            "high": "\u9ad8\u3044",
+                            "low": "\u4f4e\u3044",
+                            "moderate": "\u9069\u5ea6",
+                            "unhealthy": "\u4e0d\u5065\u5eb7"
+                        }
+                    }
+                }
+            },
+            "uv_index_2d": {
+                "name": "UV\u6307\u6570\u65e5\u4e2d2",
+                "state_attributes": {
+                    "level": {
+                        "name": "\u30ec\u30d9\u30eb",
+                        "state": {
+                            "good": "\u826f\u597d",
+                            "hazardous": "\u5371\u967a",
+                            "high": "\u9ad8\u3044",
+                            "low": "\u4f4e\u3044",
+                            "moderate": "\u9069\u5ea6",
+                            "unhealthy": "\u4e0d\u5065\u5eb7"
+                        }
+                    }
+                }
+            },
+            "uv_index_3d": {
+                "name": "UV\u6307\u6570\u65e5\u4e2d3",
+                "state_attributes": {
+                    "level": {
+                        "name": "\u30ec\u30d9\u30eb",
+                        "state": {
+                            "good": "\u826f\u597d",
+                            "hazardous": "\u5371\u967a",
+                            "high": "\u9ad8\u3044",
+                            "low": "\u4f4e\u3044",
+                            "moderate": "\u9069\u5ea6",
+                            "unhealthy": "\u4e0d\u5065\u5eb7"
+                        }
+                    }
+                }
+            },
+            "uv_index_4d": {
+                "name": "UV\u6307\u6570\u65e5\u4e2d4",
+                "state_attributes": {
+                    "level": {
+                        "name": "\u30ec\u30d9\u30eb",
+                        "state": {
+                            "good": "\u826f\u597d",
+                            "hazardous": "\u5371\u967a",
+                            "high": "\u9ad8\u3044",
+                            "low": "\u4f4e\u3044",
+                            "moderate": "\u9069\u5ea6",
+                            "unhealthy": "\u4e0d\u5065\u5eb7"
+                        }
+                    }
+                }
+            },
+            "uv_index_forecast": {
+                "name": "UV\u30a4\u30f3\u30c7\u30c3\u30af\u30b9\u65e5\u4e2d{forecast_day}",
+                "state_attributes": {
+                    "level": {
+                        "name": "\u30ec\u30d9\u30eb",
+                        "state": {
+                            "good": "\u826f\u597d",
+                            "hazardous": "\u5371\u967a",
+                            "high": "\u9ad8",
+                            "low": "\u4f4e",
+                            "moderate": "\u9069\u5ea6",
+                            "unhealthy": "\u4e0d\u5065\u5eb7"
+                        }
+                    }
+                }
+            },
+            "wet_bulb_temperature": {
+                "name": "\u6e7f\u7403\u6e29\u5ea6"
+            },
+            "wind_chill_temperature": {
+                "name": "\u98a8\u51b7\u6e29\u5ea6"
+            },
+            "wind_gust_speed": {
+                "name": "\u7a81\u98a8\u901f\u5ea6"
+            },
+            "wind_gust_speed_day": {
+                "name": "\u7a81\u98a8\u901f\u5ea6 \u65e5\u4e2d{forecast_day}"
+            },
+            "wind_gust_speed_day_0d": {
+                "name": "\u7a81\u98a8\u901f\u5ea6 \u4eca\u65e5"
+            },
+            "wind_gust_speed_day_1d": {
+                "name": "\u65e5\u4e2d\u306e\u7a81\u98a8\u901f\u5ea61"
+            },
+            "wind_gust_speed_day_2d": {
+                "name": "\u65e5\u4e2d\u306e\u7a81\u98a8\u901f\u5ea62"
+            },
+            "wind_gust_speed_day_3d": {
+                "name": "\u65e5\u4e2d\u306e\u7a81\u98a8\u901f\u5ea63"
+            },
+            "wind_gust_speed_day_4d": {
+                "name": "\u65e5\u4e2d\u306e\u7a81\u98a8\u901f\u5ea64"
+            },
+            "wind_gust_speed_night": {
+                "name": "\u7a81\u98a8\u901f\u5ea6 \u591c{forecast_day}"
+            },
+            "wind_gust_speed_night_0d": {
+                "name": "\u7a81\u98a8\u901f\u5ea6 \u4eca\u591c"
+            },
+            "wind_gust_speed_night_1d": {
+                "name": "\u591c\u9593\u306e\u7a81\u98a8\u901f\u5ea61"
+            },
+            "wind_gust_speed_night_2d": {
+                "name": "\u591c\u9593\u306e\u7a81\u98a8\u901f\u5ea62"
+            },
+            "wind_gust_speed_night_3d": {
+                "name": "\u591c\u9593\u306e\u7a81\u98a8\u901f\u5ea63"
+            },
+            "wind_gust_speed_night_4d": {
+                "name": "\u591c\u9593\u306e\u7a81\u98a8\u901f\u5ea64"
+            },
+            "wind_speed": {
+                "name": "\u98a8\u901f"
+            },
+            "wind_speed_day": {
+                "name": "\u98a8\u901f \u65e5\u4e2d{forecast_day}"
+            },
+            "wind_speed_day_0d": {
+                "name": "\u4eca\u65e5\u306e\u98a8\u901f"
+            },
+            "wind_speed_day_1d": {
+                "name": "\u65e5\u4e2d\u306e\u98a8\u901f1"
+            },
+            "wind_speed_day_2d": {
+                "name": "\u65e5\u4e2d\u306e\u98a8\u901f2"
+            },
+            "wind_speed_day_3d": {
+                "name": "\u65e5\u4e2d\u306e\u98a8\u901f3"
+            },
+            "wind_speed_day_4d": {
+                "name": "\u65e5\u4e2d\u306e\u98a8\u901f4"
+            },
+            "wind_speed_night": {
+                "name": "\u98a8\u901f \u591c{forecast_day}"
+            },
+            "wind_speed_night_0d": {
+                "name": "\u98a8\u901f \u4eca\u591c"
+            },
+            "wind_speed_night_1d": {
+                "name": "\u591c\u9593\u306e\u98a8\u901f1"
+            },
+            "wind_speed_night_2d": {
+                "name": "\u591c\u9593\u306e\u98a8\u901f2"
+            },
+            "wind_speed_night_3d": {
+                "name": "\u591c\u9593\u306e\u98a8\u901f3"
+            },
+            "wind_speed_night_4d": {
+                "name": "\u591c\u9593\u306e\u98a8\u901f4"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "forecast": "\u5929\u6c17\u4e88\u5831"
+                },
+                "description": "\u7121\u6599\u7248\u306eAccuWeather API\u30ad\u30fc\u306e\u5236\u9650\u306b\u3088\u308a\u3001\u5929\u6c17\u4e88\u5831\u3092\u6709\u52b9\u306b\u3057\u305f\u5834\u5408\u3001\u30c7\u30fc\u30bf\u306e\u66f4\u65b0\u306f40\u5206\u6bce\u3067\u306f\u306a\u304f80\u5206\u6bce\u306b\u5b9f\u884c\u3055\u308c\u307e\u3059\u3002"
+            }
+        }
+    },
+    "system_health": {
+        "info": {
+            "can_reach_server": "AccuWeather\u30b5\u30fc\u30d0\u30fc\u3078\u306e\u30a2\u30af\u30bb\u30b9",
+            "remaining_requests": "\u6b8b\u308a\u306e\u8a31\u53ef\u3055\u308c\u305f\u30ea\u30af\u30a8\u30b9\u30c8"
+        }
+    }
+}

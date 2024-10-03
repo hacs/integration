@@ -1,0 +1,148 @@
+{
+    "device_automation": {
+        "action_type": {
+            "arm_away": "Activer {entity_name} en mode absence",
+            "arm_home": "Activer {entity_name} en mode pr\u00e9sence",
+            "arm_night": "Activer {entity_name} en mode nuit",
+            "arm_vacation": "Activer {entity_name} en mode vacances",
+            "disarm": "D\u00e9sactiver {entity_name}",
+            "trigger": "D\u00e9clencher {entity_name}"
+        },
+        "condition_type": {
+            "is_armed_away": "{entity_name} est activ\u00e9e en mode absence",
+            "is_armed_home": "{entity_name} est activ\u00e9e en mode pr\u00e9sence",
+            "is_armed_night": "{entity_name} est activ\u00e9e en mode nuit",
+            "is_armed_vacation": "{entity_name} est activ\u00e9e en mode vacances",
+            "is_disarmed": "{entity_name} est d\u00e9sactiv\u00e9e",
+            "is_triggered": "{entity_name} est d\u00e9clench\u00e9e"
+        },
+        "extra_fields": {
+            "code": "Code",
+            "for": "Dur\u00e9e"
+        },
+        "trigger_type": {
+            "armed_away": "{entity_name} activ\u00e9e en mode absence",
+            "armed_home": "{entity_name} activ\u00e9e en mode pr\u00e9sence",
+            "armed_night": "{entity_name} activ\u00e9e en mode nuit",
+            "armed_vacation": "Le mode vacances de {entity_name} est activ\u00e9e",
+            "disarmed": "{entity_name} d\u00e9sactiv\u00e9e",
+            "triggered": "{entity_name} d\u00e9clench\u00e9e"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Centrale d\u2019alarme",
+            "state": {
+                "armed": "Activ\u00e9e",
+                "armed_away": "Activ\u00e9e (absence)",
+                "armed_custom_bypass": "Activ\u00e9e (exception personnalis\u00e9e)",
+                "armed_home": "Activ\u00e9e (pr\u00e9sence)",
+                "armed_night": "Activ\u00e9e (nuit)",
+                "armed_vacation": "Activ\u00e9e (vacances)",
+                "arming": "Activation",
+                "disarmed": "D\u00e9sactiv\u00e9e",
+                "disarming": "D\u00e9sactivation",
+                "pending": "En suspens",
+                "triggered": "D\u00e9clench\u00e9e"
+            },
+            "state_attributes": {
+                "changed_by": {
+                    "name": "Modifi\u00e9e par"
+                },
+                "code_arm_required": {
+                    "name": "Code d\u2019activation",
+                    "state": {
+                        "false": "Non requis",
+                        "true": "Requis"
+                    }
+                },
+                "code_format": {
+                    "name": "Format du code",
+                    "state": {
+                        "number": "Num\u00e9rique",
+                        "text": "Textuel"
+                    }
+                }
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "La plateforme {platform} pour l'int\u00e9gration {domain} ne prend pas en charge la configuration de la plateforme.\n\nVeuillez la supprimer de votre configuration et red\u00e9marrer Home Assistant pour r\u00e9soudre ce probl\u00e8me.",
+            "title": "Prise en charge de la plateforme non prise en charge"
+        }
+    },
+    "services": {
+        "alarm_arm_away": {
+            "description": "R\u00e8gle l'alarme sur: _arm\u00e9, personne \u00e0 la maison_.",
+            "fields": {
+                "code": {
+                    "description": "Code pour armer l'alarme",
+                    "name": "Code"
+                }
+            },
+            "name": "Armer en mode absent"
+        },
+        "alarm_arm_custom_bypass": {
+            "description": "Arme l'alarme tout en permettant de contourner une zone personnalis\u00e9e.",
+            "fields": {
+                "code": {
+                    "description": "Code pour armer l'alarme",
+                    "name": "Code"
+                }
+            },
+            "name": "Armer avec bypass personnalis\u00e9"
+        },
+        "alarm_arm_home": {
+            "description": "R\u00e8gle l'alarme sur: _arm\u00e9, mais quelqu'un est \u00e0 la maison_.",
+            "fields": {
+                "code": {
+                    "description": "Code pour armer l'alarme",
+                    "name": "Code"
+                }
+            },
+            "name": "Armer (domicile)"
+        },
+        "alarm_arm_night": {
+            "description": "R\u00e8gle l'alarme sur: _arm\u00e9 pour la nuit_.",
+            "fields": {
+                "code": {
+                    "description": "Code pour armer l'alarme",
+                    "name": "Code"
+                }
+            },
+            "name": "Armer en mode nuit"
+        },
+        "alarm_arm_vacation": {
+            "description": "R\u00e8gle l'alarme sur: _arm\u00e9 pour les vacances_.",
+            "fields": {
+                "code": {
+                    "description": "Code pour armer l'alarme",
+                    "name": "Code"
+                }
+            },
+            "name": "Armer en mode vacances"
+        },
+        "alarm_disarm": {
+            "description": "D\u00e9sactive l'alarme.",
+            "fields": {
+                "code": {
+                    "description": "Code pour d\u00e9sactiver l'alarme.",
+                    "name": "Code"
+                }
+            },
+            "name": "D\u00e9sarmer"
+        },
+        "alarm_trigger": {
+            "description": "Active un d\u00e9clencheur d'alarme externe.",
+            "fields": {
+                "code": {
+                    "description": "Code pour armer l'alarme",
+                    "name": "Code"
+                }
+            },
+            "name": "D\u00e9clencher"
+        }
+    },
+    "title": "Centrale d\u2019alarme"
+}

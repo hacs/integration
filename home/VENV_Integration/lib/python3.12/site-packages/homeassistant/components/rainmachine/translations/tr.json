@@ -1,0 +1,268 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Cihaz zaten yap\u0131land\u0131r\u0131lm\u0131\u015f"
+        },
+        "error": {
+            "invalid_auth": "Ge\u00e7ersiz kimlik do\u011frulama"
+        },
+        "flow_title": "{ip}",
+        "step": {
+            "user": {
+                "data": {
+                    "ip_address": "Sunucu ad\u0131 veya IP adresi",
+                    "password": "\u015eifre",
+                    "port": "Port"
+                },
+                "title": "Bilgilerinizi doldurun"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "flow_sensor": {
+                "name": "Ak\u0131\u015f sens\u00f6r\u00fc"
+            },
+            "freeze": {
+                "name": "K\u0131s\u0131tlamalar\u0131 dondurun"
+            },
+            "hourly": {
+                "name": "Saatlik k\u0131s\u0131tlamalar"
+            },
+            "month": {
+                "name": "Ay k\u0131s\u0131tlamalar\u0131"
+            },
+            "raindelay": {
+                "name": "Ya\u011fmur gecikme k\u0131s\u0131tlamalar\u0131"
+            },
+            "rainsensor": {
+                "name": "Ya\u011fmur sens\u00f6r\u00fc k\u0131s\u0131tlamalar\u0131"
+            },
+            "weekday": {
+                "name": "Hafta i\u00e7i k\u0131s\u0131tlamalar\u0131"
+            }
+        },
+        "select": {
+            "freeze_protection_temperature": {
+                "name": "Donmaya kar\u015f\u0131 koruma s\u0131cakl\u0131\u011f\u0131"
+            }
+        },
+        "sensor": {
+            "flow_sensor_clicks_cubic_meter": {
+                "name": "Metrek\u00fcp ba\u015f\u0131na ak\u0131\u015f sens\u00f6r\u00fc t\u0131klamalar\u0131"
+            },
+            "flow_sensor_consumed_liters": {
+                "name": "Ak\u0131\u015f sens\u00f6r\u00fc t\u00fcketilen litre"
+            },
+            "flow_sensor_leak_clicks": {
+                "name": "Ak\u0131\u015f sens\u00f6r\u00fc s\u0131z\u0131nt\u0131 t\u0131klamalar\u0131"
+            },
+            "flow_sensor_leak_volume": {
+                "name": "Ak\u0131\u015f sens\u00f6r\u00fc s\u0131z\u0131nt\u0131 hacmi"
+            },
+            "flow_sensor_start_index": {
+                "name": "Ak\u0131\u015f sens\u00f6r\u00fc ba\u015flang\u0131\u00e7 endeksi"
+            },
+            "flow_sensor_watering_clicks": {
+                "name": "Ak\u0131\u015f sens\u00f6r\u00fc t\u0131klamalar\u0131"
+            },
+            "last_leak_detected": {
+                "name": "Tespit edilen son s\u0131z\u0131nt\u0131"
+            },
+            "rain_sensor_rain_start": {
+                "name": "Ya\u011fmur sens\u00f6r\u00fc ya\u011fmur ba\u015flang\u0131c\u0131"
+            }
+        },
+        "switch": {
+            "freeze_protect_enabled": {
+                "name": "Donmaya kar\u015f\u0131 koruma"
+            },
+            "hot_days_extra_watering": {
+                "name": "S\u0131cak g\u00fcnlerde ekstra su"
+            }
+        },
+        "update": {
+            "firmware": {
+                "name": "Donan\u0131m yaz\u0131l\u0131m\u0131"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "allow_inactive_zones_to_run": "Devre d\u0131\u015f\u0131 b\u0131rak\u0131lan b\u00f6lgelerin manuel olarak \u00e7al\u0131\u015ft\u0131r\u0131lmas\u0131na izin ver",
+                    "use_app_run_times": "RainMachine uygulamas\u0131ndan b\u00f6lge \u00e7al\u0131\u015ft\u0131rma s\u00fcrelerini kullan\u0131n",
+                    "zone_run_time": "Varsay\u0131lan b\u00f6lge \u00e7al\u0131\u015fma s\u00fcresi (saniye cinsinden)"
+                },
+                "title": "RainMachine'i konf\u0131g\u00fcre et"
+            }
+        }
+    },
+    "services": {
+        "pause_watering": {
+            "description": "T\u00fcm sulama faaliyetlerini birka\u00e7 saniye s\u00fcreyle duraklat\u0131r.",
+            "fields": {
+                "device_id": {
+                    "description": "Sulama faaliyetleri duraklat\u0131lmas\u0131 gereken kontrol\u00f6r.",
+                    "name": "Denetleyici"
+                },
+                "seconds": {
+                    "description": "Sulaman\u0131n duraklat\u0131laca\u011f\u0131 s\u00fcre (saniye cinsinden).",
+                    "name": "S\u00fcre"
+                }
+            },
+            "name": "T\u00fcm sulamay\u0131 durdurun"
+        },
+        "push_flow_meter_data": {
+            "description": "Ak\u0131\u015f \u00f6l\u00e7er verilerini RainMachine cihaz\u0131na g\u00f6nderin.",
+            "fields": {
+                "device_id": {
+                    "description": "Ak\u0131\u015f \u00f6l\u00e7er verilerinin g\u00f6nderilece\u011fi kontrol\u00f6r.",
+                    "name": "Denetleyici"
+                },
+                "unit_of_measurement": {
+                    "description": "G\u00f6nderilecek ak\u0131\u015f \u00f6l\u00e7er birimleri.",
+                    "name": "\u00d6l\u00e7\u00fc birimi"
+                },
+                "value": {
+                    "description": "G\u00f6nderilecek ak\u0131\u015f \u00f6l\u00e7er de\u011feri.",
+                    "name": "De\u011fer"
+                }
+            },
+            "name": "Ak\u0131\u015f \u00f6l\u00e7er verilerini g\u00f6nderin"
+        },
+        "push_weather_data": {
+            "description": "Hava durumu verilerini Home Assistant'tan RainMachine cihaz\u0131na g\u00f6nderin.\nRainMachine'in g\u00f6nderilen de\u011ferleri dikkate almas\u0131 i\u00e7in Ayarlar > Hava Durumu > Geli\u015ftirici sekmesinden Yerel Hava Durumu Push hizmeti etkinle\u015ftirilmelidir. Birimler metrik olarak g\u00f6nderilmelidir; integraion taraf\u0131ndan herhangi bir d\u00f6n\u00fc\u015ft\u00fcrme yap\u0131lmaz.\nRainMachine API'sinin ayr\u0131nt\u0131lar\u0131na buradan bak\u0131n: https://rainmachine.docs.apiary.io/#reference/weather-services/parserdata/post.",
+            "fields": {
+                "condition": {
+                    "description": "Mevcut hava durumu kodu (WNUM).",
+                    "name": "Hava durumu kodu"
+                },
+                "device_id": {
+                    "description": "G\u00f6nderilecek hava durumu verileri i\u00e7in denetleyici.",
+                    "name": "Denetleyici"
+                },
+                "dewpoint": {
+                    "description": "\u00c7i\u011flenme noktas\u0131 (\u00b0C).",
+                    "name": "\u00c7i\u011flenme noktas\u0131 s\u0131cakl\u0131\u011f\u0131"
+                },
+                "et": {
+                    "description": "Evapotranspirasyon (mm).",
+                    "name": "Evapotranspirasyon"
+                },
+                "maxrh": {
+                    "description": "Maksimum ba\u011f\u0131l nem (%RH).",
+                    "name": "Maksimum ba\u011f\u0131l nem"
+                },
+                "maxtemp": {
+                    "description": "Maksimum s\u0131cakl\u0131k (\u00b0C).",
+                    "name": "Maksimum s\u0131cakl\u0131k"
+                },
+                "minrh": {
+                    "description": "Minimum ba\u011f\u0131l nem (%RH).",
+                    "name": "Minimum ba\u011f\u0131l nem"
+                },
+                "mintemp": {
+                    "description": "Minimum s\u0131cakl\u0131k (\u00b0C).",
+                    "name": "Minimum s\u0131cakl\u0131k"
+                },
+                "pressure": {
+                    "description": "Barametrik bas\u0131n\u00e7 (kPa).",
+                    "name": "Barametrik bas\u0131n\u00e7"
+                },
+                "qpf": {
+                    "description": "Nicel Ya\u011f\u0131\u015f Tahmini (mm) veya QPF. Not: QPF de\u011ferleri k\u00fcm\u00fclatif de\u011ferler olarak de\u011fil, her saat veya g\u00fcn i\u00e7in \u00f6l\u00e7\u00fclen/\u00f6ng\u00f6r\u00fclen de\u011ferler olarak g\u00f6nderilmelidir. RainMachine Mixer, g\u00fcn\u00fcn toplam QPF'sine sahip olmak i\u00e7in ge\u00e7erli g\u00fcndeki t\u00fcm QPF de\u011ferlerini toplayacakt\u0131r.",
+                    "name": "Nicel Ya\u011f\u0131\u015f Tahmini"
+                },
+                "rain": {
+                    "description": "\u00d6l\u00e7\u00fclen ya\u011fmur hatas\u0131 (mm). Not: RAIN de\u011ferleri k\u00fcm\u00fclatif de\u011ferler olarak de\u011fil, her saat veya g\u00fcn i\u00e7in \u00f6l\u00e7\u00fclen/tahmin edilen de\u011ferler olarak g\u00f6nderilmelidir. RainMachine Mixer, g\u00fcn\u00fcn toplam RAIN de\u011ferini elde etmek i\u00e7in mevcut g\u00fcndeki t\u00fcm RAIN de\u011ferlerini toplayacakt\u0131r.",
+                    "name": "\u00d6l\u00e7\u00fclen ya\u011f\u0131\u015f miktar\u0131"
+                },
+                "solarrad": {
+                    "description": "G\u00fcne\u015f radyasyonu (MJ/m\u00b2/h).",
+                    "name": "G\u00fcne\u015f radyasyonu"
+                },
+                "temperature": {
+                    "description": "Mevcut s\u0131cakl\u0131k (\u00b0C).",
+                    "name": "S\u0131cakl\u0131k"
+                },
+                "timestamp": {
+                    "description": "Hava durumu verileri i\u00e7in UNIX Zaman Damgas\u0131. Atlan\u0131rsa, RainMachine cihaz\u0131n\u0131n \u00e7a\u011fr\u0131 an\u0131ndaki yerel saati kullan\u0131l\u0131r.",
+                    "name": "Zaman Damgas\u0131"
+                },
+                "wind": {
+                    "description": "R\u00fczgar h\u0131z\u0131 (m/s).",
+                    "name": "R\u00fczgar h\u0131z\u0131"
+                }
+            },
+            "name": "Hava durumu verilerini iletin"
+        },
+        "restrict_watering": {
+            "description": "Belirli bir s\u00fcre i\u00e7in t\u00fcm sulama faaliyetlerinin ba\u015flamas\u0131n\u0131 k\u0131s\u0131tlar.",
+            "fields": {
+                "device_id": {
+                    "description": "Sulama faaliyetleri k\u0131s\u0131tlanmas\u0131 gereken kontrol\u00f6r.",
+                    "name": "Denetleyici"
+                },
+                "duration": {
+                    "description": "Sulama faaliyetlerinin ba\u015flamas\u0131n\u0131 k\u0131s\u0131tlamak i\u00e7in gereken s\u00fcre.",
+                    "name": "S\u00fcre"
+                }
+            },
+            "name": "T\u00fcm sulamay\u0131 k\u0131s\u0131tla"
+        },
+        "start_program": {
+            "description": "Bir program ba\u015flat\u0131r.",
+            "name": "Program\u0131 ba\u015flat"
+        },
+        "start_zone": {
+            "description": "Bir b\u00f6lge ba\u015flat\u0131r.",
+            "fields": {
+                "zone_run_time": {
+                    "description": "B\u00f6lgeyi \u00e7al\u0131\u015ft\u0131rmak i\u00e7in gereken s\u00fcre (saniye cinsinden).",
+                    "name": "\u00c7al\u0131\u015fma s\u00fcresi"
+                }
+            },
+            "name": "Ba\u015flang\u0131\u00e7 b\u00f6lgesi"
+        },
+        "stop_all": {
+            "description": "T\u00fcm sulama faaliyetlerini durdurur.",
+            "fields": {
+                "device_id": {
+                    "description": "Sulama faaliyetleri durdurulmas\u0131 gereken kontrol\u00f6r.",
+                    "name": "Denetleyici"
+                }
+            },
+            "name": "T\u00fcm sulamay\u0131 durdurun"
+        },
+        "stop_program": {
+            "description": "Bir program\u0131 durdurur.",
+            "name": "Program\u0131 durdur"
+        },
+        "stop_zone": {
+            "description": "Bir b\u00f6lgeyi durdurur.",
+            "name": "Durdurma b\u00f6lgesi"
+        },
+        "unpause_watering": {
+            "description": "Duraklat\u0131lan t\u00fcm sulama faaliyetlerini durdurur.",
+            "fields": {
+                "device_id": {
+                    "description": "Sulama faaliyetleri durdurulmamas\u0131 gereken kontrol\u00f6r.",
+                    "name": "Denetleyici"
+                }
+            },
+            "name": "T\u00fcm sulamay\u0131 durdurun"
+        },
+        "unrestrict_watering": {
+            "description": "T\u00fcm sulama faaliyetlerini k\u0131s\u0131tlamay\u0131n.",
+            "fields": {
+                "device_id": {
+                    "description": "Sulama faaliyetleri s\u0131n\u0131rs\u0131z olmas\u0131 gereken kontrol\u00f6r.",
+                    "name": "Denetleyici"
+                }
+            },
+            "name": "T\u00fcm sulama k\u0131s\u0131tlamalar\u0131n\u0131 kald\u0131r\u0131n"
+        }
+    }
+}

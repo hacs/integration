@@ -1,0 +1,130 @@
+{
+    "device_automation": {
+        "action_type": {
+            "set_humidity": "\u8a2d\u5b9a{entity_name}\u6fd5\u5ea6",
+            "set_mode": "\u8b8a\u66f4{entity_name}\u6a21\u5f0f",
+            "toggle": "\u5207\u63db{entity_name}",
+            "turn_off": "\u95dc\u9589{entity_name}",
+            "turn_on": "\u958b\u555f{entity_name}"
+        },
+        "condition_type": {
+            "is_mode": "{entity_name}\u8a2d\u5b9a\u70ba\u6307\u5b9a\u6a21\u5f0f",
+            "is_off": "{entity_name}\u5df2\u95dc\u9589",
+            "is_on": "{entity_name}\u5df2\u958b\u555f"
+        },
+        "extra_fields": {
+            "above": "\u5728...\u4e4b\u4e0a",
+            "below": "\u5728...\u4e4b\u4e0b",
+            "for": "\u6301\u7e8c\u6642\u9593",
+            "humidity": "\u6fd5\u5ea6",
+            "mode": "\u6a21\u5f0f"
+        },
+        "trigger_type": {
+            "changed_states": "{entity_name}\u6253\u958b\u6216\u95dc\u9589",
+            "target_humidity_changed": "{entity_name}\u8a2d\u5b9a\u6fd5\u5ea6\u5df2\u8b8a\u66f4",
+            "turned_off": "{entity_name}\u5df2\u95dc\u9589",
+            "turned_on": "{entity_name}\u5df2\u958b\u555f"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "\u52a0\u6fd5\u5668",
+            "state": {
+                "off": "\u95dc\u9589",
+                "on": "\u958b\u555f"
+            },
+            "state_attributes": {
+                "action": {
+                    "name": "\u52d5\u4f5c",
+                    "state": {
+                        "drying": "\u9664\u6fd5\u4e2d",
+                        "humidifying": "\u52a0\u6fd5\u4e2d",
+                        "idle": "\u5f85\u547d",
+                        "off": "\u95dc\u9589"
+                    }
+                },
+                "available_modes": {
+                    "name": "\u53ef\u7528\u6a21\u5f0f"
+                },
+                "current_humidity": {
+                    "name": "\u76ee\u524d\u6fd5\u5ea6"
+                },
+                "humidity": {
+                    "name": "\u8a2d\u5b9a\u6fd5\u5ea6"
+                },
+                "max_humidity": {
+                    "name": "\u6700\u9ad8\u8a2d\u5b9a\u6fd5\u5ea6"
+                },
+                "min_humidity": {
+                    "name": "\u6700\u4f4e\u8a2d\u5b9a\u6fd5\u5ea6"
+                },
+                "mode": {
+                    "name": "\u6a21\u5f0f",
+                    "state": {
+                        "auto": "\u81ea\u52d5",
+                        "away": "\u96e2\u5bb6",
+                        "baby": "\u5b69\u7ae5",
+                        "boost": "\u5168\u901f",
+                        "comfort": "\u8212\u9069",
+                        "eco": "\u7bc0\u80fd",
+                        "home": "\u5728\u5bb6",
+                        "normal": "\u4e00\u822c",
+                        "sleep": "\u7761\u7720"
+                    }
+                }
+            }
+        },
+        "dehumidifier": {
+            "name": "\u9664\u6fd5\u6a5f"
+        },
+        "humidifier": {
+            "name": "\u52a0\u6fd5\u5668"
+        }
+    },
+    "exceptions": {
+        "humidity_out_of_range": {
+            "message": "\u6240\u63d0\u4f9b\u7684\u6fd5\u5ea6 {humidity} \u7121\u6548\uff0c\u53ef\u63a5\u53d7\u7684\u7bc4\u570d\u70ba {min_humidity} \u81f3 {max_humidity}\u3002"
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "{domain} \u6574\u5408\u7684 {platform} \u5e73\u53f0\u4e0d\u652f\u63f4\u5e73\u53f0\u8a2d\u5b9a\u3002\n\n\u8acb\u5c07\u5176\u7531\u8a2d\u5b9a\u4e2d\u79fb\u9664\uff0c\u4e26\u91cd\u65b0\u555f\u52d5 Home Assistant \u4ee5\u4fee\u6b63\u6b64\u554f\u984c\u3002",
+            "title": "\u4e0d\u652f\u63f4\u5e73\u53f0\u652f\u63f4"
+        }
+    },
+    "services": {
+        "set_humidity": {
+            "description": "\u8a2d\u5b9a\u76ee\u6a19\u6fd5\u5ea6\u3002",
+            "fields": {
+                "humidity": {
+                    "description": "\u76ee\u6a19\u6fd5\u5ea6\u3002",
+                    "name": "\u6fd5\u5ea6"
+                }
+            },
+            "name": "\u8a2d\u5b9a\u6fd5\u5ea6"
+        },
+        "set_mode": {
+            "description": "\u8a2d\u5b9a\u52a0\u6fd5\u5668\u904b\u8f49\u6a21\u5f0f\u3002",
+            "fields": {
+                "mode": {
+                    "description": "\u904b\u8f49\u6a21\u5f0f\u3002\u4f8b\u5982\uff1a_normal_\u3001_eco_ \u6216 _away_\u3002\u53ef\u904b\u7528\u7684\u8a2d\u5b9a\u503c\u5217\u8868\uff0c\u8acb\u53c3\u8003\u6574\u5408\u6587\u4ef6\u3002",
+                    "name": "\u6a21\u5f0f"
+                }
+            },
+            "name": "\u8a2d\u5b9a\u6a21\u5f0f"
+        },
+        "toggle": {
+            "description": "\u958b\u555f/\u95dc\u9589\u52a0\u6fd5\u5668\u3002",
+            "name": "\u958b\u95dc"
+        },
+        "turn_off": {
+            "description": "\u95dc\u9589\u52a0\u6fd5\u5668\u3002",
+            "name": "\u95dc\u9589"
+        },
+        "turn_on": {
+            "description": "\u958b\u555f\u52a0\u6fd5\u5668\u3002",
+            "name": "\u958b\u555f"
+        }
+    },
+    "title": "\u52a0\u6fd5\u5668"
+}

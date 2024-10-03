@@ -1,0 +1,90 @@
+{
+    "device_automation": {
+        "condition_type": {
+            "is_home": "{entity_name} est\u00e1 en casa",
+            "is_not_home": "{entity_name} no est\u00e1 en casa"
+        },
+        "extra_fields": {
+            "zone": "Zona"
+        },
+        "trigger_type": {
+            "enters": "{entity_name} entra en una zona",
+            "leaves": "{entity_name} abandona una zona"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Rastreador de dispositivos",
+            "state": {
+                "home": "En casa",
+                "not_home": "Fuera"
+            },
+            "state_attributes": {
+                "battery": {
+                    "name": "Bater\u00eda"
+                },
+                "gps_accuracy": {
+                    "name": "Precisi\u00f3n GPS"
+                },
+                "latitude": {
+                    "name": "Latitud"
+                },
+                "longitude": {
+                    "name": "Longitud"
+                },
+                "source_type": {
+                    "name": "Fuente",
+                    "state": {
+                        "bluetooth": "Bluetooth",
+                        "bluetooth_le": "Bluetooth LE",
+                        "gps": "GPS",
+                        "router": "Router"
+                    }
+                }
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "La plataforma {platform} para la integraci\u00f3n {domain} no es compatible con la configuraci\u00f3n de la plataforma. \n\nElim\u00ednala de tu configuraci\u00f3n y reinicia Home Assistant para solucionar este problema.",
+            "title": "Soporte de plataforma no compatible"
+        }
+    },
+    "services": {
+        "see": {
+            "description": "Registra un dispositivo rastreado visto.",
+            "fields": {
+                "battery": {
+                    "description": "Nivel de bater\u00eda del dispositivo.",
+                    "name": "Nivel de bater\u00eda"
+                },
+                "dev_id": {
+                    "description": "ID del dispositivo (encuentra el ID en `known_devices.yaml`).",
+                    "name": "ID del dispositivo"
+                },
+                "gps": {
+                    "description": "Coordenadas GPS donde se encuentra el dispositivo, especificadas por latitud y longitud (por ejemplo: [51.513845, -0.100539]).",
+                    "name": "Coordenadas GPS"
+                },
+                "gps_accuracy": {
+                    "description": "Precisi\u00f3n de las coordenadas GPS.",
+                    "name": "Precisi\u00f3n GPS"
+                },
+                "host_name": {
+                    "description": "Nombre de host del dispositivo.",
+                    "name": "Nombre de host"
+                },
+                "location_name": {
+                    "description": "Nombre de la ubicaci\u00f3n donde se encuentra el dispositivo. Las opciones son: `home`, `not_home`, o el nombre de la zona.",
+                    "name": "Ubicaci\u00f3n"
+                },
+                "mac": {
+                    "description": "Direcci\u00f3n MAC del dispositivo.",
+                    "name": "Direcci\u00f3n MAC"
+                }
+            },
+            "name": "Ver"
+        }
+    },
+    "title": "Rastreador de dispositivos"
+}

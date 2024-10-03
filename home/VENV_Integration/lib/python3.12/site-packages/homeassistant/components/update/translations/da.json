@@ -1,0 +1,85 @@
+{
+    "device_automation": {
+        "trigger_type": {
+            "changed_states": "{entity_name} opdateringstilg\u00e6ngelighed \u00e6ndret",
+            "turned_off": "{entity_name} blev opdateret"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Opdatering",
+            "state": {
+                "off": "Opdateret",
+                "on": "Opdatering tilg\u00e6ngelig"
+            },
+            "state_attributes": {
+                "auto_update": {
+                    "name": "Automatisk opdatering",
+                    "state": {
+                        "false": "Nej",
+                        "true": "Ja"
+                    }
+                },
+                "in_progress": {
+                    "name": "I gang",
+                    "state": {
+                        "false": "Nej",
+                        "true": "Ja"
+                    }
+                },
+                "installed_version": {
+                    "name": "Installeret version"
+                },
+                "latest_version": {
+                    "name": "Nyeste version"
+                },
+                "release_summary": {
+                    "name": "Udgivelsesnoter"
+                },
+                "release_url": {
+                    "name": "Udgivelsens webadresse"
+                },
+                "skipped_version": {
+                    "name": "Oversprunget version"
+                },
+                "title": {
+                    "name": "Titel"
+                }
+            }
+        },
+        "firmware": {
+            "name": "Firmware"
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "{platform}-platformen til {domain}-integrationen underst\u00f8tter ikke platformsops\u00e6tning.\n\nFjern den venligst fra din konfiguration, og genstart Home Assistant for at l\u00f8se dette problem.",
+            "title": "Platformsunderst\u00f8ttelsen er ikke underst\u00f8ttet"
+        }
+    },
+    "services": {
+        "clear_skipped": {
+            "description": "Fjerner markeringen som oversprunget fra en opdatering.",
+            "name": "Stop overspringning"
+        },
+        "install": {
+            "description": "Installerer en opdatering til denne enhed eller tjeneste.",
+            "fields": {
+                "backup": {
+                    "description": "Hvis det underst\u00f8ttes af integrationen, oprettes en sikkerhedskopi, f\u00f8r opdateringen startes.",
+                    "name": "Sikkerhedskopiering"
+                },
+                "version": {
+                    "description": "Den version, der skal installeres. Hvis den udelades, vil den nyeste version blive installeret.",
+                    "name": "Version"
+                }
+            },
+            "name": "Install\u00e9r opdatering"
+        },
+        "skip": {
+            "description": "Markerer den aktuelt tilg\u00e6ngelige opdatering som oversprunget.",
+            "name": "Spring opdatering over"
+        }
+    },
+    "title": "Opdatering"
+}

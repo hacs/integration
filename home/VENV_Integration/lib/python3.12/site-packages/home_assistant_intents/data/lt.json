@@ -1,0 +1,460 @@
+{
+  "language": "lt",
+  "intents": {
+    "HassTurnOff": {
+      "data": [
+        {
+          "sentences": [
+            "(<turn_off>|<close>) <name>",
+            "(<turn_off>|<close>) <area> <name>",
+            "(<turn_off>|<close>) <name> <area>"
+          ]
+        },
+        {
+          "sentences": [
+            "(Roletus| Užuolaidas | Žaliuzes) <area> <close>",
+            "<close> (roletus| užuolaidas | žaliuzes) <area>",
+            "<close> <area> (roletus| užuolaidas | žaliuzes)"
+          ],
+          "slots": {
+            "device_class": [
+              "blind",
+              "curtain",
+              "shutter"
+            ]
+          },
+          "response": "cover_area"
+        },
+        {
+          "sentences": [
+            "<turn_off> [visas] švies(as|ą) <area>",
+            "<turn_off> [visas] <area> švies(as|ą)"
+          ],
+          "slots": {
+            "domain": "light"
+          },
+          "response": "lights_area"
+        },
+        {
+          "sentences": [
+            "<close> (garažo | garaže) (duris | vartus)",
+            "(Duris | Vartus) (garažo | garaže) <close>"
+          ],
+          "slots": {
+            "domain": "cover",
+            "device_class": "garage"
+          },
+          "response": "cover_device_class"
+        },
+        {
+          "sentences": [
+            "<turn_off> [visus] ventiliatori(ų|us) <area>",
+            "<turn_off> [visus] <area> ventiliatori(ų|us)"
+          ],
+          "slots": {
+            "domain": "fan",
+            "name": "all"
+          },
+          "response": "fans_area"
+        }
+      ]
+    },
+    "HassTurnOn": {
+      "data": [
+        {
+          "sentences": [
+            "<turn_on> [visas] <brightness_variations> <area>",
+            "<turn_on> [visas] <area> <brightness_variations>"
+          ],
+          "slots": {
+            "domain": "light"
+          },
+          "response": "lights_area"
+        },
+        {
+          "sentences": [
+            "<turn_on> [visus] ventiliatori(ų|us) <area>",
+            "<turn_on> [visus] <area> ventiliatori(ų|us)"
+          ],
+          "slots": {
+            "domain": "fan",
+            "name": "all"
+          },
+          "response": "fans_area"
+        },
+        {
+          "sentences": [
+            "(<turn_on>|<open>) <name>",
+            "(<turn_on>|<open>) <area> <name>",
+            "(<turn_on>|<open>) <name> <area>"
+          ]
+        },
+        {
+          "sentences": [
+            "(Roletus| Užuolaidas | Žaliuzes) <area> <open>",
+            "<open> (roletus| užuolaidas | žaliuzes) <area>",
+            "<open> <area> (roletus| užuolaidas | žaliuzes)"
+          ],
+          "slots": {
+            "device_class": [
+              "blind",
+              "curtain",
+              "shutter"
+            ]
+          },
+          "response": "cover_area"
+        },
+        {
+          "sentences": [
+            "<open> (garažo | garaže) (duris | vartus)",
+            "(Duris | Vartus) (garažo | garaže) <open>"
+          ],
+          "slots": {
+            "domain": "cover",
+            "device_class": "garage"
+          },
+          "response": "cover_device_class"
+        }
+      ]
+    },
+    "HassLightSet": {
+      "data": [
+        {
+          "sentences": [
+            "<set> <name> [<brightness_variations>] [į|iki] <brightness>"
+          ],
+          "response": "brightness"
+        },
+        {
+          "sentences": [
+            "<set> <name> [į|iki] <brightness>"
+          ],
+          "requires_context": {
+            "domain": "light"
+          },
+          "response": "brightness"
+        },
+        {
+          "sentences": [
+            "<set> [<brightness_variations>] <area> [į|iki] <brightness>",
+            "<set> <area> [<brightness_variations>] [į|iki] <brightness>"
+          ],
+          "slots": {
+            "name": "all"
+          },
+          "response": "brightness_area"
+        },
+        {
+          "sentences": [
+            "<set> <name> [<brightness_variations>] [į|iki] (maksimum(o|ą) | piln(os|ą) | šviesiaus(ios|ą) | ryškiausi(ą|os))"
+          ],
+          "slots": {
+            "brightness": 100
+          },
+          "response": "brightness"
+        },
+        {
+          "sentences": [
+            "<set> <name> [<brightness_variations>] [į|iki] (minimum(o|ą) | silpniausi(os|ą) | tamsiaus(ios|ą) | silpniausi(ą|os))"
+          ],
+          "slots": {
+            "brightness": 1
+          },
+          "response": "brightness"
+        },
+        {
+          "sentences": [
+            "<set> <name> [<colour>|<brightness_variations>] [į] {color} [<colour>]"
+          ],
+          "response": "color"
+        },
+        {
+          "sentences": [
+            "<set> <area> [<colour>|<brightness_variations>] [į] {color} [<colour>]"
+          ],
+          "response": "color_area"
+        }
+      ]
+    },
+    "HassClimateGetTemperature": {
+      "data": [
+        {
+          "sentences": [
+            "(<what_is>|<how_many_is>) [laipsnių] <temp> [<area>]"
+          ]
+        }
+      ]
+    },
+    "HassGetState": {
+      "data": [
+        {
+          "sentences": [
+            "(koks|kokia) [yra] <name> [statusas] [<area>]"
+          ],
+          "response": "one"
+        },
+        {
+          "sentences": [
+            "ar <name> {on_off_states:state} [<area>]"
+          ],
+          "response": "one_yesno",
+          "excludes_context": {
+            "domain": [
+              "cover"
+            ]
+          }
+        },
+        {
+          "sentences": [
+            "ar {on_off_domains:domain} {on_off_states:state} [<area>]"
+          ],
+          "response": "any"
+        },
+        {
+          "sentences": [
+            "ar (visa|visos) {on_off_domains:domain} {on_off_states:state} [<area>]"
+          ],
+          "response": "all"
+        },
+        {
+          "sentences": [
+            "(kurios|kurie) {on_off_domains:domain} [yra] {on_off_states:state} [<area>]"
+          ],
+          "response": "which"
+        },
+        {
+          "sentences": [
+            "kiek {on_off_domains:domain} [yra] {on_off_states:state} [<area>]"
+          ],
+          "response": "how_many"
+        }
+      ]
+    }
+  },
+  "responses": {
+    "errors": {
+      "no_intent": "Atsiprašau, užklausa nebuvo suprasta",
+      "no_area": "Nėra zonos pavadinimu {{ area }}",
+      "no_domain_in_area": "{{ area }} neturi {{ domain }}",
+      "no_device_class_in_area": "{{ area }} neturi {{ device_class }}",
+      "no_entity": "Nėra įrenginio ar daikto pavadinimu {{ entity }}",
+      "handle_error": "Atsirado nenumatyta klaida bandant įvykdyti užklausą"
+    },
+    "intents": {
+      "HassGetState": {
+        "one": "{{ slots.name | capitalize }} yra {{ state.state_with_unit }}\n",
+        "one_yesno": "{% if query.matched %}\n  Taip\n{% else %}\n  Ne\n{% endif %}\n",
+        "any": "{% if query.matched %}\n  {% set match = query.matched | map(attribute=\"name\") | sort | list %}\n  {% if match | length > 4 %}\n    Taip, {{ match[:3] | join(\", \") }} ir {{ (match | length - 3) }} more\n  {%- else -%}\n    Taip,\n    {% for name in match -%}\n      {% if not loop.first and not loop.last %}, {% elif loop.last and not loop.first %} ir {% endif -%}\n      {{ name }}\n    {%- endfor -%}\n  {% endif %}\n{% else %}\n  Ne\n{% endif %}\n",
+        "all": "{% if not query.unmatched: %}\n  Taip\n{% else %}\n  {% set no_match = query.unmatched | map(attribute=\"name\") | sort | list %}\n  {% if no_match | length > 4 %}\n    Ne, {{ no_match[:3] | join(\", \") }} ir {{ (no_match | length - 3) }} kitų nėra\n  {%- else -%}\n    Ne,\n    {% for name in no_match -%}\n      {% if not loop.first and not loop.last %}, {% elif loop.last and not loop.first %} ir {% endif -%}\n      {{ name }}\n    {%- endfor %} nėra\n  {% endif %}\n{% endif %}\n",
+        "which": "{% if not query.matched %}\n  Nei viena(-s).\n{% else: %}\n  {% set match = query.matched | map(attribute=\"name\") | sort | list %}\n  {% if match | length > 4 %}\n    {{ match[:3] | join(\", \") }} ir {{ (match | length - 3) }} kitos\n  {% else %}\n    {%- for name in match -%}\n      {% if not loop.first and not loop.last %}, {% elif loop.last and not loop.first %} ir {% endif -%}\n      {{ name }}\n    {%- endfor -%}\n  {% endif %}\n{% endif %}\n",
+        "how_many": "{{ query.matched | length }}\n"
+      },
+      "HassTurnOff": {
+        "default": "Išjungtas {{ slots.name }}",
+        "lights_area": "Visa šviesa išjungta {{ slots.area }}",
+        "fans_area": "Visi ventilatoriai išjungti {{ slots.area }}",
+        "cover": "Uždarytas {{ slots.name }}",
+        "cover_area": "Viskas uždaryta {{ slots.area }}",
+        "cover_device_class": "Uždarytas {{ slots.device_class }}"
+      },
+      "HassTurnOn": {
+        "default": "Įjungtas {{ slots.name }}",
+        "lights_area": "Visa šviesa įjungta {{ slots.area }}",
+        "fans_area": "Visi ventilatoriai įjungti {{ slots.area }}",
+        "cover": "Atidarytas {{ slots.name }}",
+        "cover_area": "Viskas atidaryta {{ slots.area }}",
+        "cover_device_class": "Atidarytas {{ slots.device_class }}"
+      },
+      "HassLightSet": {
+        "brightness": "{{ slots.name }} šviesumas nustatytas į {{ slots.brightness }}",
+        "brightness_area": "Šviesumas {{ slots.area }} nustatytas į {{ slots.brightness }}",
+        "color": "{{ slots.name }} spalva pakeista į {{ slots.color }}",
+        "color_area": "Šviesa {{ slots.area }} pakeista į {{ slots.color }}"
+      },
+      "HassClimateGetTemperature": {
+        "default": "{{ state_attr(state.entity_id, 'current_temperature') }}"
+      }
+    }
+  },
+  "lists": {
+    "brightness": {
+      "range": {
+        "type": "percentage",
+        "from": 0,
+        "to": 100
+      }
+    },
+    "color": {
+      "values": [
+        {
+          "in": "balt(a|ą|om)",
+          "out": "white"
+        },
+        {
+          "in": "juod(a|ą|om)",
+          "out": "black"
+        },
+        {
+          "in": "raudon(a|ą|om)",
+          "out": "red"
+        },
+        {
+          "in": "oranžin(ė|ę|e|ėm)",
+          "out": "orange"
+        },
+        {
+          "in": "gelton(a|ą|om)",
+          "out": "yellow"
+        },
+        {
+          "in": "žali(a|ą|om)",
+          "out": "green"
+        },
+        {
+          "in": "mėlyn(a|ą|om)",
+          "out": "blue"
+        },
+        {
+          "in": "violetin(ė|ę|e|ėm)",
+          "out": "purple"
+        },
+        {
+          "in": "rud(a|ą|om)",
+          "out": "brown"
+        },
+        {
+          "in": "rožin(ė|ę|e|ėm)",
+          "out": "pink"
+        },
+        {
+          "in": "pilk(a|ą|om)",
+          "out": "gray"
+        }
+      ]
+    },
+    "temperature": {
+      "range": {
+        "type": "temperature",
+        "from": 0,
+        "to": 100
+      }
+    },
+    "temperature_unit": {
+      "values": [
+        {
+          "in": "c|celcij(us|o|as|aus)",
+          "out": "celsius"
+        },
+        {
+          "in": "f|farenheit(as|o)",
+          "out": "fahrenheit"
+        }
+      ]
+    },
+    "on_off_states": {
+      "values": [
+        {
+          "in": "įjungt(a|as|os|ų)",
+          "out": "on"
+        },
+        {
+          "in": "išjungt(a|as|os|ų)",
+          "out": "off"
+        }
+      ]
+    },
+    "on_off_domains": {
+      "values": [
+        {
+          "in": "švies(a|os|ų)",
+          "out": "light"
+        },
+        {
+          "in": "ventiliatori(us|ai|ų)",
+          "out": "fan"
+        },
+        {
+          "in": "jungtuk(as|ai|ų)",
+          "out": "switch"
+        }
+      ]
+    },
+    "cover_states": {
+      "values": [
+        {
+          "in": "atidarytas",
+          "out": "open"
+        },
+        {
+          "in": "uždarytas",
+          "out": "closed"
+        },
+        {
+          "in": "atidaroma",
+          "out": "opening"
+        },
+        {
+          "in": "uždaroma",
+          "out": "closing"
+        }
+      ]
+    },
+    "cover_classes": {
+      "values": [
+        {
+          "in": "stoginė[s]",
+          "out": "awning"
+        },
+        {
+          "in": "žaliuzė[s]|roletai",
+          "out": "blind"
+        },
+        {
+          "in": "užuolaid(a|os)",
+          "out": "curtain"
+        },
+        {
+          "in": "dur(is|ys)",
+          "out": "door"
+        },
+        {
+          "in": "garažo dur(is|ys)",
+          "out": "garage"
+        },
+        {
+          "in": "vartai",
+          "out": "gate"
+        },
+        {
+          "in": "langinė[s]",
+          "out": "shutter"
+        },
+        {
+          "in": "lang(as|ai)",
+          "out": "window"
+        }
+      ]
+    }
+  },
+  "expansion_rules": {
+    "name": "{name}",
+    "area": "{area}",
+    "what_is": "kokia [yra]",
+    "how_many_is": "kiek [yra]",
+    "turn_on": "(įjun(k|g)[ti|i])|[pa]leis(t|ti|k|ki)|pradė(t|ti|k|ki)",
+    "turn_off": "(išjun(k|g)[ti|i])|[su]stabdy(t|ti|k|ki)",
+    "temp": "temperatūr(a|os|ą)|šilum(os|a|ą)|šal(čio|tis|tį)|karš(tis|čio|tį)|laipsn(ių|ius)",
+    "set": "nustaty(t|ti|k|ki)|[pa]keis(t|ti|k|ki)|[pa]didin(t|ti|k|ki)|[pa|su]mažin(t|ti|k|ki)|[pa]dary(t|ti|k|ki)|[pri]temdy(t|ti|k|ki)",
+    "temperature": "{temperature}[°| laipsn(ius|ių)] [{temperature_unit}]",
+    "close": "(uždary(t|ti|k|ki)|užver(t|ti|k|ki)| nuleis(t|ti|k|ki)|užtrau(t|ti|k|ki))",
+    "open": "(atidary(t|ti|k|ki)|atver(t|ti|k|ki)|pradary(t|ti|k|ki)|pakel(t|ti|k|ki)|atitrau(t|ti|k|ki))",
+    "brightness": "{brightness}[%| procent(us|ų)]",
+    "colour": "spalv(a|ą|om)",
+    "brightness_variations": "šviesum(ą|a)|švies(ą|a)|šviesas"
+  },
+  "skip_words": [
+    "prašau",
+    "ačiū",
+    "[ar] gali"
+  ]
+}

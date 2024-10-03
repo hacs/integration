@@ -1,0 +1,93 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "\u30c7\u30d0\u30a4\u30b9\u306f\u3059\u3067\u306b\u8a2d\u5b9a\u3055\u308c\u3066\u3044\u307e\u3059",
+            "already_in_progress": "\u69cb\u6210\u30d5\u30ed\u30fc\u306f\u3059\u3067\u306b\u9032\u884c\u4e2d\u3067\u3059",
+            "connection_error": "\u63a5\u7d9a\u306b\u5931\u6557\u3057\u307e\u3057\u305f",
+            "not_motionblinds": "\u691c\u51fa\u3055\u308c\u305f\u30c7\u30d0\u30a4\u30b9\u306f Motion \u30b2\u30fc\u30c8\u30a6\u30a7\u30a4\u3067\u306f\u3042\u308a\u307e\u305b\u3093"
+        },
+        "error": {
+            "discovery_error": "Motion Gateway\u306e\u691c\u51fa\u306b\u5931\u6557\u3057\u307e\u3057\u305f"
+        },
+        "flow_title": "{short_mac} ({ip_address})",
+        "step": {
+            "connect": {
+                "data": {
+                    "api_key": "API\u30ad\u30fc"
+                },
+                "description": "16\u6587\u5b57\u306eAPI\u30ad\u30fc\u304c\u5fc5\u8981\u3067\u3059\u3002\u624b\u9806\u306f\u3001https://www.home-assistant.io/integrations/motion_blinds/#retrieving-the-key \u3092\u53c2\u7167\u3057\u3066\u304f\u3060\u3055\u3044\u3002"
+            },
+            "select": {
+                "data": {
+                    "select_ip": "IP\u30a2\u30c9\u30ec\u30b9"
+                },
+                "description": "\u8ffd\u52a0\u306eMotion Gateway\u3092\u63a5\u7d9a\u3059\u308b\u5834\u5408\u306f\u3001\u518d\u5ea6\u30bb\u30c3\u30c8\u30a2\u30c3\u30d7\u3092\u5b9f\u884c\u3057\u3066\u304f\u3060\u3055\u3044\u3002",
+                "title": "\u63a5\u7d9a\u3057\u305f\u3044Motion Gateway\u3092\u9078\u629e\u3057\u307e\u3059\u3002"
+            },
+            "user": {
+                "data": {
+                    "host": "IP\u30a2\u30c9\u30ec\u30b9"
+                },
+                "description": "Motion Gateway\u306b\u63a5\u7d9a\u3057\u307e\u3059\u3002IP\u30a2\u30c9\u30ec\u30b9\u304c\u8a2d\u5b9a\u3055\u308c\u3066\u3044\u306a\u3044\u5834\u5408\u306f\u3001\u81ea\u52d5\u691c\u51fa\u304c\u4f7f\u7528\u3055\u308c\u307e\u3059"
+            }
+        }
+    },
+    "entity": {
+        "button": {
+            "go_favorite": {
+                "name": "\u304a\u6c17\u306b\u5165\u308a\u306e\u4f4d\u7f6e\u306b\u79fb\u52d5"
+            },
+            "set_favorite": {
+                "name": "\u73fe\u5728\u306e\u4f4d\u7f6e\u3092\u304a\u6c17\u306b\u5165\u308a\u306b\u8a2d\u5b9a\u3059\u308b"
+            }
+        },
+        "cover": {
+            "bottom": {
+                "name": "\u4e0b\u90e8"
+            },
+            "combined": {
+                "name": "\u8907\u5408"
+            },
+            "top": {
+                "name": "\u4e0a\u90e8"
+            }
+        },
+        "sensor": {
+            "bottom_battery": {
+                "name": "\u4e0b\u90e8\u30d0\u30c3\u30c6\u30ea\u30fc"
+            },
+            "top_battery": {
+                "name": "\u4e0a\u90e8\u30d0\u30c3\u30c6\u30ea\u30fc"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "wait_for_push": "\u66f4\u65b0\u6642\u306b\u30de\u30eb\u30c1\u30ad\u30e3\u30b9\u30c8 \u30d7\u30c3\u30b7\u30e5\u3092\u5f85\u6a5f\u3059\u308b"
+                }
+            }
+        }
+    },
+    "services": {
+        "set_absolute_position": {
+            "description": "\u30ab\u30d0\u30fc\u306e\u7d76\u5bfe\u4f4d\u7f6e\u3092\u8a2d\u5b9a\u3057\u307e\u3059\u3002",
+            "fields": {
+                "absolute_position": {
+                    "description": "\u79fb\u52d5\u5148\u306e\u7d76\u5bfe\u4f4d\u7f6e\u3002",
+                    "name": "\u7d76\u5bfe\u4f4d\u7f6e"
+                },
+                "tilt_position": {
+                    "description": "\u30c1\u30eb\u30c8\u4f4d\u7f6e\u306e\u79fb\u52d5\u5148\u3002",
+                    "name": "\u30c1\u30eb\u30c8\u4f4d\u7f6e"
+                },
+                "width": {
+                    "description": "TDBU \u7d50\u5408\u30a8\u30f3\u30c6\u30a3\u30c6\u30a3\u306e\u5834\u5408\u306e\u307f\u3001\u30ab\u30d0\u30fc\u3055\u308c\u308b\u5e45\u3092\u6307\u5b9a\u3057\u307e\u3059\u3002",
+                    "name": "\u5e45"
+                }
+            },
+            "name": "\u7d76\u5bfe\u4f4d\u7f6e\u306e\u8a2d\u5b9a"
+        }
+    }
+}

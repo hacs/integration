@@ -1,0 +1,86 @@
+{
+    "device_automation": {
+        "action_type": {
+            "select_first": "Remplacer {entity_name} par la premi\u00e8re option",
+            "select_last": "Remplacer {entity_name} par la derni\u00e8re option",
+            "select_next": "Remplacer {entity_name} par l'option suivante",
+            "select_option": "Modifier l'option {entity_name}",
+            "select_previous": "Remplacer {entity_name} par l'option pr\u00e9c\u00e9dente"
+        },
+        "condition_type": {
+            "selected_option": "Option actuellement s\u00e9lectionn\u00e9e {entity_name}"
+        },
+        "extra_fields": {
+            "cycle": "Cycle",
+            "for": "Dur\u00e9e",
+            "from": "De",
+            "option": "Option",
+            "to": "\u00c0"
+        },
+        "trigger_type": {
+            "current_option_changed": "Modification de l\u2019option {entity_name}"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "S\u00e9lecteur",
+            "state_attributes": {
+                "options": {
+                    "name": "Options"
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "not_valid_option": {
+            "message": "L'option {option} n'est pas valide pour l'entit\u00e9 {entity_id}, les options valides sont\u00a0: {options}."
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "La plateforme {platform} pour l'int\u00e9gration {domain} ne prend pas en charge la configuration de la plateforme.\n\nVeuillez la supprimer de votre configuration et red\u00e9marrer Home Assistant pour r\u00e9soudre ce probl\u00e8me.",
+            "title": "Prise en charge de la plateforme non prise en charge"
+        }
+    },
+    "services": {
+        "select_first": {
+            "description": "S\u00e9lectionne la premi\u00e8re option.",
+            "name": "Premi\u00e8re"
+        },
+        "select_last": {
+            "description": "S\u00e9lectionne la derni\u00e8re option.",
+            "name": "Dernier"
+        },
+        "select_next": {
+            "description": "S\u00e9lectionne l\u2019option suivante.",
+            "fields": {
+                "cycle": {
+                    "description": "Si l'option doit passer de la derni\u00e8re \u00e0 la premi\u00e8re.",
+                    "name": "Cycle"
+                }
+            },
+            "name": "Suivant"
+        },
+        "select_option": {
+            "description": "S\u00e9lectionne une option.",
+            "fields": {
+                "option": {
+                    "description": "Option \u00e0 s\u00e9lectionner.",
+                    "name": "Option"
+                }
+            },
+            "name": "S\u00e9lectionner"
+        },
+        "select_previous": {
+            "description": "S\u00e9lectionne l'option pr\u00e9c\u00e9dente.",
+            "fields": {
+                "cycle": {
+                    "description": "Si l'option doit passer du premier au dernier.",
+                    "name": "Cycle"
+                }
+            },
+            "name": "Pr\u00e9c\u00e9dent"
+        }
+    },
+    "title": "S\u00e9lecteur"
+}

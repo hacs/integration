@@ -1,0 +1,245 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "\u30c7\u30d0\u30a4\u30b9\u306f\u3059\u3067\u306b\u8a2d\u5b9a\u3055\u308c\u3066\u3044\u307e\u3059",
+            "device_not_supported": "\u3053\u306e\u30c7\u30d0\u30a4\u30b9\u306f\u30b5\u30dd\u30fc\u30c8\u3055\u308c\u3066\u3044\u307e\u305b\u3093",
+            "invalid_discovery_parameters": "\u30b5\u30dd\u30fc\u30c8\u3055\u308c\u3066\u3044\u306a\u3044API \u30d0\u30fc\u30b8\u30e7\u30f3\u304c\u691c\u51fa\u3055\u308c\u307e\u3057\u305f",
+            "reauth_successful": "API\u306e\u6709\u52b9\u5316\u306b\u6210\u529f\u3057\u307e\u3057\u305f",
+            "unknown_error": "\u4e88\u671f\u3057\u306a\u3044\u30a8\u30e9\u30fc"
+        },
+        "error": {
+            "api_not_enabled": "API\u304c\u6709\u52b9\u306b\u306a\u3063\u3066\u3044\u307e\u305b\u3093\u3002HomeWizard Energy App\u306esettings\u3067API\u3092\u6709\u52b9\u306b\u3057\u3066\u304f\u3060\u3055\u3044\u3002",
+            "network_error": "\u30c7\u30d0\u30a4\u30b9\u306b\u5230\u9054\u3067\u304d\u307e\u305b\u3093\u3002\u6b63\u3057\u3044 IP \u30a2\u30c9\u30ec\u30b9\u3092\u5165\u529b\u3057\u3066\u3044\u308b\u3053\u3068\u3068\u3001\u30c7\u30d0\u30a4\u30b9\u304c\u30cd\u30c3\u30c8\u30ef\u30fc\u30af\u3067\u5229\u7528\u53ef\u80fd\u3067\u3042\u308b\u3053\u3068\u3092\u78ba\u8a8d\u3057\u3066\u304f\u3060\u3055\u3044\u3002"
+        },
+        "step": {
+            "discovery_confirm": {
+                "description": "{product_type} ({serial}) \u3092 {ip_address} \u3067\u30bb\u30c3\u30c8\u30a2\u30c3\u30d7\u3057\u307e\u3059\u304b\uff1f",
+                "title": "\u78ba\u8a8d"
+            },
+            "reauth_confirm": {
+                "description": "\u30ed\u30fc\u30ab\u30ebAPI\u306f\u7121\u52b9\u306b\u306a\u3063\u3066\u3044\u307e\u3059\u3002 HomeWizard Energy \u30a2\u30d7\u30ea\u306b\u79fb\u52d5\u3057\u3001\u30c7\u30d0\u30a4\u30b9\u8a2d\u5b9a\u3067 API \u3092\u6709\u52b9\u306b\u3057\u307e\u3059\u3002"
+            },
+            "user": {
+                "data": {
+                    "ip_address": "IP\u30a2\u30c9\u30ec\u30b9"
+                },
+                "description": "HomeWizard Energy\u30c7\u30d0\u30a4\u30b9\u306eIP\u30a2\u30c9\u30ec\u30b9\u3092\u5165\u529b\u3057\u3066\u3001Home Assistant\u3068\u9023\u643a\u3057\u307e\u3059\u3002",
+                "title": "\u30c7\u30d0\u30a4\u30b9\u306e\u8a2d\u5b9a"
+            }
+        }
+    },
+    "entity": {
+        "number": {
+            "status_light_brightness": {
+                "name": "\u30b9\u30c6\u30fc\u30bf\u30b9\u30e9\u30a4\u30c8\u306e\u660e\u308b\u3055"
+            }
+        },
+        "sensor": {
+            "active_apparent_power_phase_va": {
+                "name": "\u76ae\u76f8\u96fb\u529b\u30d5\u30a7\u30fc\u30ba {phase}"
+            },
+            "active_current_l1_a": {
+                "name": "\u30a2\u30af\u30c6\u30a3\u30d6\u96fb\u6d41\u30d5\u30a7\u30fc\u30ba1"
+            },
+            "active_current_l2_a": {
+                "name": "\u30a2\u30af\u30c6\u30a3\u30d6\u96fb\u6d41\u30d5\u30a7\u30fc\u30ba2"
+            },
+            "active_current_l3_a": {
+                "name": "\u30a2\u30af\u30c6\u30a3\u30d6\u96fb\u6d41\u30d5\u30a7\u30fc\u30ba3"
+            },
+            "active_current_phase_a": {
+                "name": "\u96fb\u6d41\u30d5\u30a7\u30fc\u30ba {phase}"
+            },
+            "active_frequency_hz": {
+                "name": "\u30a2\u30af\u30c6\u30a3\u30d6\u5468\u6ce2\u6570"
+            },
+            "active_liter_lpm": {
+                "name": "\u6c34\u4f7f\u7528\u91cf"
+            },
+            "active_power_average_w": {
+                "name": "\u5e73\u5747\u9700\u8981"
+            },
+            "active_power_factor_phase": {
+                "name": "\u529b\u7387\u30d5\u30a7\u30fc\u30ba {phase}"
+            },
+            "active_power_l1_w": {
+                "name": "\u30a2\u30af\u30c6\u30a3\u30d6\u96fb\u529b\u30d5\u30a7\u30fc\u30ba 1"
+            },
+            "active_power_l2_w": {
+                "name": "\u30a2\u30af\u30c6\u30a3\u30d6\u96fb\u529b\u30d5\u30a7\u30fc\u30ba 2"
+            },
+            "active_power_l3_w": {
+                "name": "\u30a2\u30af\u30c6\u30a3\u30d6\u96fb\u529b\u30d5\u30a7\u30fc\u30ba 3"
+            },
+            "active_power_phase_w": {
+                "name": "\u96fb\u529b\u30d5\u30a7\u30fc\u30ba {phase}"
+            },
+            "active_power_w": {
+                "name": "\u30a2\u30af\u30c6\u30a3\u30d6\u96fb\u529b"
+            },
+            "active_reactive_power_phase_var": {
+                "name": "\u7121\u52b9\u96fb\u529b\u30d5\u30a7\u30fc\u30ba {phase}"
+            },
+            "active_tariff": {
+                "name": "\u6599\u91d1"
+            },
+            "active_voltage_l1_v": {
+                "name": "\u6709\u52b9\u96fb\u5727\u30d5\u30a7\u30fc\u30ba 1"
+            },
+            "active_voltage_l2_v": {
+                "name": "\u6709\u52b9\u96fb\u5727\u30d5\u30a7\u30fc\u30ba 2"
+            },
+            "active_voltage_l3_v": {
+                "name": "\u6709\u52b9\u96fb\u5727\u30d5\u30a7\u30fc\u30ba 3"
+            },
+            "active_voltage_phase_v": {
+                "name": "\u96fb\u5727\u30d5\u30a7\u30fc\u30ba {phase}"
+            },
+            "any_power_fail_count": {
+                "name": "\u505c\u96fb\u304c\u691c\u51fa\u3055\u308c\u307e\u3057\u305f"
+            },
+            "dsmr_version": {
+                "name": "DSMR\u30d0\u30fc\u30b8\u30e7\u30f3"
+            },
+            "gas_unique_id": {
+                "name": "\u30ac\u30b9\u30e1\u30fc\u30bf\u30fc\u8b58\u5225\u5b50"
+            },
+            "long_power_fail_count": {
+                "name": "\u9577\u6642\u9593\u306e\u505c\u96fb\u3092\u691c\u51fa"
+            },
+            "meter_identifier": {
+                "name": "\u30e1\u30fc\u30bf\u30fc\u8b58\u5225\u5b50"
+            },
+            "meter_model": {
+                "name": "\u30b9\u30de\u30fc\u30c8\u30e1\u30fc\u30bf\u30fc\u30e2\u30c7\u30eb"
+            },
+            "monthly_power_peak_w": {
+                "name": "\u5f53\u6708\u306e\u30d4\u30fc\u30af\u9700\u8981"
+            },
+            "total_energy_export_kwh": {
+                "name": "\u30a8\u30cd\u30eb\u30ae\u30fc\u8f38\u51fa"
+            },
+            "total_energy_export_t1_kwh": {
+                "name": "\u30a8\u30cd\u30eb\u30ae\u30fc\u8f38\u51fa\u6599\u91d1 1"
+            },
+            "total_energy_export_t2_kwh": {
+                "name": "\u30a8\u30cd\u30eb\u30ae\u30fc\u8f38\u51fa\u6599\u91d1 2"
+            },
+            "total_energy_export_t3_kwh": {
+                "name": "\u30a8\u30cd\u30eb\u30ae\u30fc\u8f38\u51fa\u6599\u91d1 3"
+            },
+            "total_energy_export_t4_kwh": {
+                "name": "\u30a8\u30cd\u30eb\u30ae\u30fc\u8f38\u51fa\u6599\u91d1 4"
+            },
+            "total_energy_export_tariff_kwh": {
+                "name": "\u30a8\u30cd\u30eb\u30ae\u30fc\u8f38\u51fa\u6599\u91d1 {tariff}"
+            },
+            "total_energy_gj": {
+                "name": "\u7dcf\u71b1\u30a8\u30cd\u30eb\u30ae\u30fc"
+            },
+            "total_energy_import_kwh": {
+                "name": "\u30a8\u30cd\u30eb\u30ae\u30fc\u8f38\u5165"
+            },
+            "total_energy_import_t1_kwh": {
+                "name": "\u30a8\u30cd\u30eb\u30ae\u30fc\u7dcf\u8f38\u5165\u6599\u91d1 1"
+            },
+            "total_energy_import_t2_kwh": {
+                "name": "\u30a8\u30cd\u30eb\u30ae\u30fc\u7dcf\u8f38\u5165\u6599\u91d1 2"
+            },
+            "total_energy_import_t3_kwh": {
+                "name": "\u30a8\u30cd\u30eb\u30ae\u30fc\u7dcf\u8f38\u5165\u6599\u91d1 3"
+            },
+            "total_energy_import_t4_kwh": {
+                "name": "\u30a8\u30cd\u30eb\u30ae\u30fc\u7dcf\u8f38\u5165\u6599\u91d1 4"
+            },
+            "total_energy_import_tariff_kwh": {
+                "name": "\u30a8\u30cd\u30eb\u30ae\u30fc\u8f38\u5165\u6599\u91d1 {tariff}"
+            },
+            "total_gas_m3": {
+                "name": "\u7dcf\u30ac\u30b9\u91cf"
+            },
+            "total_liter_m3": {
+                "name": "\u6c34\u306e\u7dcf\u4f7f\u7528\u91cf"
+            },
+            "total_power_export_kwh": {
+                "name": "\u7dcf\u96fb\u529b\u8f38\u51fa\u91cf"
+            },
+            "total_power_export_t1_kwh": {
+                "name": "\u96fb\u529b\u8f38\u51fa\u7dcf\u984d\u6599\u91d1 1"
+            },
+            "total_power_export_t2_kwh": {
+                "name": "\u96fb\u529b\u8f38\u51fa\u7dcf\u984d\u6599\u91d1 2"
+            },
+            "total_power_export_t3_kwh": {
+                "name": "\u96fb\u529b\u8f38\u51fa\u7dcf\u984d\u6599\u91d1 3"
+            },
+            "total_power_export_t4_kwh": {
+                "name": "\u96fb\u529b\u8f38\u51fa\u7dcf\u984d\u6599\u91d1 4"
+            },
+            "total_power_import_kwh": {
+                "name": "\u7dcf\u96fb\u529b\u8f38\u5165\u91cf"
+            },
+            "total_power_import_t1_kwh": {
+                "name": "\u96fb\u529b\u8f38\u5165\u7dcf\u984d 1"
+            },
+            "total_power_import_t2_kwh": {
+                "name": "\u96fb\u529b\u8f38\u5165\u7dcf\u984d 2"
+            },
+            "total_power_import_t3_kwh": {
+                "name": "\u96fb\u529b\u8f38\u5165\u7dcf\u984d 3"
+            },
+            "total_power_import_t4_kwh": {
+                "name": "\u96fb\u529b\u8f38\u5165\u7dcf\u984d 4"
+            },
+            "unique_meter_id": {
+                "name": "\u30b9\u30de\u30fc\u30c8\u30e1\u30fc\u30bf\u30fc\u8b58\u5225\u5b50"
+            },
+            "voltage_sag_l1_count": {
+                "name": "\u96fb\u5727\u4f4e\u4e0b\u691c\u51fa\u30d5\u30a7\u30fc\u30ba 1"
+            },
+            "voltage_sag_l2_count": {
+                "name": "\u96fb\u5727\u4f4e\u4e0b\u691c\u51fa\u30d5\u30a7\u30fc\u30ba 2"
+            },
+            "voltage_sag_l3_count": {
+                "name": "\u96fb\u5727\u4f4e\u4e0b\u691c\u51fa\u30d5\u30a7\u30fc\u30ba 3"
+            },
+            "voltage_sag_phase_count": {
+                "name": "\u96fb\u5727\u4f4e\u4e0b\u691c\u51fa\u30d5\u30a7\u30fc\u30ba {phase}"
+            },
+            "voltage_swell_l1_count": {
+                "name": "\u96fb\u5727\u81a8\u5f35\u691c\u51fa\u30d5\u30a7\u30fc\u30ba 1"
+            },
+            "voltage_swell_l2_count": {
+                "name": "\u96fb\u5727\u81a8\u5f35\u691c\u51fa\u30d5\u30a7\u30fc\u30ba 2"
+            },
+            "voltage_swell_l3_count": {
+                "name": "\u96fb\u5727\u81a8\u5f35\u691c\u51fa\u30d5\u30a7\u30fc\u30ba 3"
+            },
+            "voltage_swell_phase_count": {
+                "name": "\u96fb\u5727\u81a8\u5f35\u691c\u51fa\u30d5\u30a7\u30fc\u30ba {phase}"
+            },
+            "wifi_ssid": {
+                "name": "Wi-Fi SSID"
+            },
+            "wifi_strength": {
+                "name": "Wi-Fi\u4fe1\u53f7\u5f37\u5ea6"
+            }
+        },
+        "switch": {
+            "cloud_connection": {
+                "name": "\u30af\u30e9\u30a6\u30c9\u63a5\u7d9a"
+            },
+            "switch_lock": {
+                "name": "\u30b9\u30a4\u30c3\u30c1\u30ed\u30c3\u30af"
+            }
+        }
+    },
+    "exceptions": {
+        "api_disabled": {
+            "message": "HomeWizard \u30c7\u30d0\u30a4\u30b9\u306e\u30ed\u30fc\u30ab\u30eb API \u304c\u7121\u52b9\u306b\u306a\u3063\u3066\u3044\u307e\u3059"
+        },
+        "communication_error": {
+            "message": "HomeWizard \u30c7\u30d0\u30a4\u30b9\u3068\u306e\u901a\u4fe1\u4e2d\u306b\u30a8\u30e9\u30fc\u304c\u767a\u751f\u3057\u307e\u3057\u305f"
+        }
+    }
+}

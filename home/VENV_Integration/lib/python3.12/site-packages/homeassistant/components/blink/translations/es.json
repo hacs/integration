@@ -1,0 +1,191 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "El dispositivo ya est\u00e1 configurado"
+        },
+        "error": {
+            "cannot_connect": "No se pudo conectar",
+            "invalid_access_token": "Token de acceso no v\u00e1lido",
+            "invalid_auth": "Autenticaci\u00f3n no v\u00e1lida",
+            "unknown": "Error inesperado"
+        },
+        "step": {
+            "2fa": {
+                "data": {
+                    "2fa": "C\u00f3digo de dos factores"
+                },
+                "description": "Introduce el PIN enviado por correo electr\u00f3nico o SMS",
+                "title": "Autenticaci\u00f3n de dos factores"
+            },
+            "user": {
+                "data": {
+                    "password": "Contrase\u00f1a",
+                    "username": "Nombre de usuario"
+                },
+                "title": "Iniciar sesi\u00f3n con cuenta Blink"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "camera_armed": {
+                "name": "C\u00e1mara armada"
+            }
+        },
+        "sensor": {
+            "wifi_rssi": {
+                "name": "RSSI Wi-Fi"
+            },
+            "wifi_strength": {
+                "name": "Intensidad de la se\u00f1al Wi-Fi"
+            }
+        },
+        "switch": {
+            "camera_motion": {
+                "name": "Detecci\u00f3n de movimiento de la c\u00e1mara"
+            }
+        }
+    },
+    "exceptions": {
+        "cant_write": {
+            "message": "No se puede escribir en el archivo."
+        },
+        "device_not_found": {
+            "message": "Dispositivo '{target}' no encontrado en el registro de dispositivos"
+        },
+        "failed_arm": {
+            "message": "Blink no pudo armar la c\u00e1mara."
+        },
+        "failed_arm_motion": {
+            "message": "Blink no pudo armar la detecci\u00f3n de movimiento de la c\u00e1mara."
+        },
+        "failed_clip": {
+            "message": "Blink no pudo grabar un clip."
+        },
+        "failed_disarm": {
+            "message": "Blink no pudo desarmar la c\u00e1mara."
+        },
+        "failed_disarm_motion": {
+            "message": "Blink no pudo desactivar la detecci\u00f3n de movimiento de la c\u00e1mara."
+        },
+        "failed_snap": {
+            "message": "Blink no pudo tomar una foto."
+        },
+        "integration_not_found": {
+            "message": "La integraci\u00f3n \"{target}\" no se encuentra en el registro."
+        },
+        "invalid_device": {
+            "message": "El dispositivo '{target}' no es un dispositivo {domain}"
+        },
+        "no_path": {
+            "message": "No se puede escribir en el directorio {target}, \u00a1no hay acceso a la ruta!"
+        },
+        "not_loaded": {
+            "message": "{target} no est\u00e1 cargado."
+        }
+    },
+    "issues": {
+        "service_deprecation": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "El servicio de actualizaci\u00f3n de Blink est\u00e1 obsoleto y se eliminar\u00e1.\nPor favor, actualiza tus automatizaciones y scripts para utilizar \"Home Assistant Core Integration: Actualizar entidad\".",
+                        "title": "Se va a eliminar el servicio de actualizaci\u00f3n de Blink"
+                    }
+                }
+            },
+            "title": "Se va a eliminar el servicio de actualizaci\u00f3n de Blink"
+        }
+    },
+    "options": {
+        "step": {
+            "simple_options": {
+                "data": {
+                    "scan_interval": "Intervalo de escaneo (segundos)"
+                },
+                "description": "Configurar la integraci\u00f3n Blink",
+                "title": "Opciones de Blink"
+            }
+        }
+    },
+    "services": {
+        "blink_update": {
+            "description": "Fuerza una actualizaci\u00f3n.",
+            "fields": {
+                "device_id": {
+                    "description": "El ID del dispositivo Blink.",
+                    "name": "ID del dispositivo"
+                }
+            },
+            "name": "Actualizar"
+        },
+        "record": {
+            "description": "Solicita a la c\u00e1mara que grabe un clip.",
+            "name": "Grabar"
+        },
+        "save_recent_clips": {
+            "description": "Guarda todos los videoclips recientes en el directorio local con el patr\u00f3n de archivo \"%Y%m%d_%H%M%S_[camera name].mp4\".",
+            "fields": {
+                "device_id": {
+                    "description": "El ID del dispositivo Blink.",
+                    "name": "ID del dispositivo"
+                },
+                "file_path": {
+                    "description": "Nombre del directorio de la ruta de escritura (puede ser necesario incluir el directorio en allowlist_external_dirs en la configuraci\u00f3n).",
+                    "name": "Directorio de salida"
+                },
+                "name": {
+                    "description": "Nombre de la c\u00e1mara de la que tomar clips recientes.",
+                    "name": "Nombre"
+                }
+            },
+            "name": "Guardar clips recientes"
+        },
+        "save_video": {
+            "description": "Guarda el \u00faltimo clip de v\u00eddeo grabado en un archivo local.",
+            "fields": {
+                "device_id": {
+                    "description": "El ID del dispositivo Blink.",
+                    "name": "ID del dispositivo"
+                },
+                "filename": {
+                    "description": "Nombre de archivo a la ruta de escritura (es posible que sea necesario incluir el directorio en allowlist_external_dirs en la configuraci\u00f3n).",
+                    "name": "Nombre de archivo"
+                },
+                "name": {
+                    "description": "Nombre de la c\u00e1mara desde la que se capturar\u00e1 el video.",
+                    "name": "Nombre"
+                }
+            },
+            "name": "Guardar v\u00eddeo"
+        },
+        "send_pin": {
+            "description": "Env\u00eda un nuevo PIN a blink para el 2FA.",
+            "fields": {
+                "config_entry_id": {
+                    "description": "El id. de integraci\u00f3n de Blink.",
+                    "name": "ID de integraci\u00f3n"
+                },
+                "device_id": {
+                    "description": "El ID del dispositivo Blink.",
+                    "name": "ID del dispositivo"
+                },
+                "pin": {
+                    "description": "PIN recibido de blink. D\u00e9jalo vac\u00edo si s\u00f3lo has recibido un correo electr\u00f3nico de verificaci\u00f3n.",
+                    "name": "Pin"
+                }
+            },
+            "name": "Enviar PIN"
+        },
+        "trigger_camera": {
+            "description": "Solicita a la c\u00e1mara que tome una nueva imagen.",
+            "fields": {
+                "device_id": {
+                    "description": "El ID del dispositivo Blink.",
+                    "name": "ID del dispositivo"
+                }
+            },
+            "name": "Disparar c\u00e1mara"
+        }
+    }
+}

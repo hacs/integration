@@ -1,0 +1,107 @@
+{
+    "device_automation": {
+        "action_type": {
+            "turn_off": "Matikan {entity_name}",
+            "turn_on": "Nyalakan {entity_name}"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Pemanas air",
+            "state": {
+                "eco": "Eco",
+                "electric": "Listrik",
+                "gas": "Gas",
+                "heat_pump": "Pompa Pemanas",
+                "high_demand": "Permintaan Tinggi",
+                "off": "Mati",
+                "performance": "Kinerja"
+            },
+            "state_attributes": {
+                "away_mode": {
+                    "name": "Mode keluar rumah",
+                    "state": {
+                        "off": "Mati",
+                        "on": "Nyala"
+                    }
+                },
+                "current_operation": {
+                    "name": "Operasi saat ini"
+                },
+                "current_temperature": {
+                    "name": "Suhu saat ini"
+                },
+                "max_temp": {
+                    "name": "Target suhu maksimum"
+                },
+                "min_temp": {
+                    "name": "Target suhu minimum"
+                },
+                "target_temp_high": {
+                    "name": "Target suhu atas"
+                },
+                "target_temp_low": {
+                    "name": "Target suhu bawah"
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "not_valid_operation_mode": {
+            "message": "Mode operasi {operation_mode} tidak valid untuk {entity_id} . Mode operasi yang valid adalah: {operation_list}."
+        },
+        "operation_list_not_defined": {
+            "message": "Mode operasi {operation_mode} tidak valid untuk {entity_id} . Daftar operasi tidak ditentukan."
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "Platform {platform} untuk integrasi {domain} tidak mendukung penyiapan platform. \n\nHarap hapus dari konfigurasi Anda dan mulai ulang Home Assistant untuk memperbaiki masalah ini.",
+            "title": "Dukungan platform tidak didukung"
+        }
+    },
+    "services": {
+        "set_away_mode": {
+            "description": "Nyalakan/matikan mode keluar rumah",
+            "fields": {
+                "away_mode": {
+                    "description": "Nilai baru untuk mode keluar rumah",
+                    "name": "Mode keluar rumah"
+                }
+            },
+            "name": "Atur mode keluar rumah"
+        },
+        "set_operation_mode": {
+            "description": "Mengatur mode operasi.",
+            "fields": {
+                "operation_mode": {
+                    "description": "Nilai baru mode operasi. Untuk daftar mode yang mungkin, lihat dokumentasi integrasi.",
+                    "name": "Mode operasi"
+                }
+            },
+            "name": "Atur mode operasi"
+        },
+        "set_temperature": {
+            "description": "Menetapkan suhu target.",
+            "fields": {
+                "operation_mode": {
+                    "description": "Nilai baru mode operasi. Untuk daftar mode yang mungkin, lihat dokumentasi integrasi.",
+                    "name": "Mode operasi"
+                },
+                "temperature": {
+                    "description": "Suhu target baru untuk pemanas air.",
+                    "name": "Suhu"
+                }
+            },
+            "name": "Atur suhu"
+        },
+        "turn_off": {
+            "description": "Mematikan pemanas air.",
+            "name": "Matikan"
+        },
+        "turn_on": {
+            "description": "Menyalakan pemanas air.",
+            "name": "Nyalakan"
+        }
+    }
+}

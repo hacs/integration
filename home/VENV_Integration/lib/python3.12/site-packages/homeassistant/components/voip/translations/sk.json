@@ -1,0 +1,80 @@
+{
+    "config": {
+        "abort": {
+            "single_instance_allowed": "U\u017e je nakonfigurovan\u00fd. Mo\u017en\u00e1 je len jedna konfigur\u00e1cia."
+        },
+        "error": {
+            "invalid_ip_address": "Neplatn\u00e1 adresa IPv4."
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "ip_address": "IP adresa"
+                },
+                "description": "Prij\u00edmajte hovory Voice over IP na interakciu so slu\u017ebou Assist."
+            }
+        }
+    },
+    "entity": {
+        "assist_satellite": {
+            "assist_satellite": {
+                "state": {
+                    "listening_command": "Hlasov\u00fd pr\u00edkaz",
+                    "listening_wake_word": "Slovo prebudenia",
+                    "processing": "Spracovanie",
+                    "responding": "Odpovedanie"
+                }
+            }
+        },
+        "binary_sensor": {
+            "call_active": {
+                "name": "Hovor akt\u00edvne"
+            },
+            "call_in_progress": {
+                "name": "Prebieha hovor"
+            }
+        },
+        "select": {
+            "pipeline": {
+                "name": "Asistant",
+                "state": {
+                    "preferred": "Preferovan\u00e9"
+                }
+            },
+            "vad_sensitivity": {
+                "name": "Ukon\u010den\u00e1 detekcia hovorenia",
+                "state": {
+                    "aggressive": "Agres\u00edvne",
+                    "default": "Predvolen\u00fd",
+                    "relaxed": "Uvo\u013enen\u00e9"
+                }
+            }
+        },
+        "switch": {
+            "allow_call": {
+                "name": "Povolenie hovorov"
+            }
+        }
+    },
+    "issues": {
+        "assist_in_progress_deprecated": {
+            "fix_flow": {
+                "step": {
+                    "confirm_disable_entity": {
+                        "description": "Bin\u00e1rny senzor {integration_name} in progress `{entity_id}` je zastaran\u00fd.\n\nPremigrujte svoju konfigur\u00e1ciu na pou\u017e\u00edvanie zodpovedaj\u00facej entity `{assist_satellite_domain}` a potom kliknite na tla\u010didlo SUBMIT, aby ste deaktivovali bin\u00e1rny senzor prebiehaj\u00faceho procesu a odstr\u00e1nili tento probl\u00e9m."
+                    }
+                }
+            },
+            "title": "{integration_name} asistova\u0165 v priebehu bin\u00e1rne senzory s\u00fa zastaran\u00e9"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "sip_port": "SIP port"
+                }
+            }
+        }
+    }
+}

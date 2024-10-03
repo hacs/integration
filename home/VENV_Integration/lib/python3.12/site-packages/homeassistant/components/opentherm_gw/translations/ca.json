@@ -1,0 +1,297 @@
+{
+    "common": {
+        "state_not_supported": "No compatible",
+        "state_supported": "Compatible"
+    },
+    "config": {
+        "error": {
+            "already_configured": "El dispositiu ja est\u00e0 configurat",
+            "cannot_connect": "Ha fallat la connexi\u00f3",
+            "id_exists": "L'identificador de passarel\u00b7la ja existeix",
+            "timeout_connect": "S'ha esgotat el temps m\u00e0xim d'espera per establir connexi\u00f3"
+        },
+        "step": {
+            "init": {
+                "data": {
+                    "device": "Ruta o URL",
+                    "id": "ID",
+                    "name": "Nom"
+                }
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "flame": {
+                "name": "Flama"
+            },
+            "hot_water": {
+                "name": "Aigua calenta"
+            },
+            "supports_central_heating_setpoint_transfer": {
+                "state": {
+                    "off": "No compatible",
+                    "on": "Compatible"
+                }
+            },
+            "supports_central_heating_setpoint_writing": {
+                "state": {
+                    "off": "No compatible",
+                    "on": "Compatible"
+                }
+            },
+            "supports_ch_2": {
+                "state": {
+                    "off": "No compatible",
+                    "on": "Compatible"
+                }
+            },
+            "supports_cooling": {
+                "state": {
+                    "off": "No compatible",
+                    "on": "Compatible"
+                }
+            },
+            "supports_hot_water": {
+                "state": {
+                    "off": "No compatible",
+                    "on": "Compatible"
+                }
+            },
+            "supports_hot_water_setpoint_transfer": {
+                "state": {
+                    "off": "No compatible",
+                    "on": "Compatible"
+                }
+            },
+            "supports_hot_water_setpoint_writing": {
+                "state": {
+                    "off": "No compatible",
+                    "on": "Compatible"
+                }
+            },
+            "supports_pump_control": {
+                "state": {
+                    "off": "No compatible",
+                    "on": "Compatible"
+                }
+            },
+            "supports_remote_reset": {
+                "state": {
+                    "off": "No compatible",
+                    "on": "Compatible"
+                }
+            }
+        },
+        "select": {
+            "gpio_mode_n": {
+                "state": {
+                    "ds1820": "DS1820",
+                    "ground": "Massa",
+                    "input": "Entrada",
+                    "vcc": "Vcc (5V)"
+                }
+            },
+            "led_mode_n": {
+                "name": "Mode del LED {led_id}",
+                "state": {
+                    "central_heating_on": "Calefacci\u00f3 central activada",
+                    "comfort_mode_on": "Mode confort activat",
+                    "flame_on": "Flama de la caldera encesa",
+                    "hot_water_on": "Aigua calenta activada",
+                    "transmit_error_detected": "Error de transmissi\u00f3 detectat"
+                }
+            }
+        },
+        "sensor": {
+            "clock_speed": {
+                "name": "Velocitat del rellotge"
+            },
+            "manufacturer_id": {
+                "name": "ID de fabricant"
+            },
+            "max_capacity": {
+                "name": "Capacitat m\u00e0xima"
+            },
+            "min_mod_level": {
+                "name": "Nivell m\u00ednim de modulaci\u00f3"
+            },
+            "oem_diagnostic_code": {
+                "name": "Codi de diagn\u00f2stic espec\u00edfic del fabricant"
+            },
+            "oem_fault_code": {
+                "name": "Codi d'error espec\u00edfic del fabricant"
+            },
+            "opentherm_version": {
+                "name": "Versi\u00f3 del protocol OpenTherm"
+            },
+            "operating_mode": {
+                "name": "Mode de funcionament"
+            },
+            "outside_temperature": {
+                "name": "Temperatura exterior"
+            },
+            "product_type": {
+                "name": "Tipus de producte"
+            },
+            "product_version": {
+                "name": "Versi\u00f3 de producte"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_import_from_configuration_yaml": {
+            "title": "Configuraci\u00f3 obsoleta"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "floor_temperature": "Temperatura de la planta",
+                    "read_precision": "Llegeix precisi\u00f3",
+                    "set_precision": "Defineix precisi\u00f3",
+                    "temporary_override_mode": "Mode de sobreescriptura temporal"
+                }
+            }
+        }
+    },
+    "services": {
+        "reset_gateway": {
+            "description": "Restableix l'OpenTherm Gateway.",
+            "fields": {
+                "gateway_id": {
+                    "name": "ID de la passarel\u00b7la"
+                }
+            },
+            "name": "Restableix el 'gateway'"
+        },
+        "send_transparent_command": {
+            "fields": {
+                "gateway_id": {
+                    "name": "ID de la passarel\u00b7la"
+                },
+                "transp_arg": {
+                    "name": "Par\u00e0metre"
+                },
+                "transp_cmd": {
+                    "description": "Comanda a enviar a la passarel\u00b7la d'OpenTherm.",
+                    "name": "Comanda"
+                }
+            },
+            "name": "Envia comanda transparent"
+        },
+        "set_central_heating_ovrd": {
+            "fields": {
+                "gateway_id": {
+                    "name": "ID de la passarel\u00b7la"
+                }
+            }
+        },
+        "set_clock": {
+            "fields": {
+                "date": {
+                    "name": "Data"
+                },
+                "gateway_id": {
+                    "name": "ID de la passarel\u00b7la"
+                },
+                "time": {
+                    "name": "Hora"
+                }
+            }
+        },
+        "set_control_setpoint": {
+            "fields": {
+                "gateway_id": {
+                    "name": "ID de la passarel\u00b7la"
+                },
+                "temperature": {
+                    "name": "Temperatura"
+                }
+            }
+        },
+        "set_gpio_mode": {
+            "fields": {
+                "gateway_id": {
+                    "name": "ID de la passarel\u00b7la"
+                },
+                "id": {
+                    "description": "ID del pin GPIO.",
+                    "name": "ID"
+                },
+                "mode": {
+                    "description": "Mode a configurar el pin GPIO. S'accepten valors del 0 al 7 per als dos GPIO, el 8 nom\u00e9s s'accepta per a GPIO \"B\". Consulta https://www.home-assistant.io/integrations/opentherm_gw/#gpio-modes per m\u00e9s informaci\u00f3 sobre els valors.\n.",
+                    "name": "Mode"
+                }
+            },
+            "name": "Configura mode gpio"
+        },
+        "set_hot_water_ovrd": {
+            "fields": {
+                "gateway_id": {
+                    "name": "ID de la passarel\u00b7la"
+                }
+            }
+        },
+        "set_hot_water_setpoint": {
+            "fields": {
+                "gateway_id": {
+                    "name": "ID de la passarel\u00b7la"
+                },
+                "temperature": {
+                    "name": "Temperatura"
+                }
+            }
+        },
+        "set_led_mode": {
+            "description": "Canvia la funci\u00f3 dels LED de la passarel\u00b7la ('gateway').",
+            "fields": {
+                "gateway_id": {
+                    "name": "ID de la passarel\u00b7la"
+                },
+                "id": {
+                    "description": "ID del LED.",
+                    "name": "ID"
+                },
+                "mode": {
+                    "description": "Funci\u00f3 a assignar al LED. Consulta https://www.home-assistant.io/integrations/opentherm_gw/#led-modes per llegir la descripci\u00f3 dels valors.\n.",
+                    "name": "Mode"
+                }
+            },
+            "name": "Configura el mode LED"
+        },
+        "set_max_modulation": {
+            "fields": {
+                "gateway_id": {
+                    "name": "ID de la passarel\u00b7la"
+                },
+                "level": {
+                    "name": "Nivell"
+                }
+            },
+            "name": "Configura la modulaci\u00f3 m\u00e0xima"
+        },
+        "set_outside_temperature": {
+            "fields": {
+                "gateway_id": {
+                    "name": "ID de la passarel\u00b7la"
+                },
+                "temperature": {
+                    "name": "Temperatura"
+                }
+            },
+            "name": "Configura la temperatura exterior"
+        },
+        "set_setback_temperature": {
+            "fields": {
+                "gateway_id": {
+                    "name": "ID de la passarel\u00b7la"
+                },
+                "temperature": {
+                    "name": "Temperatura"
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,72 @@
+{
+    "config": {
+        "step": {
+            "user": {
+                "data": {
+                    "cycle": "Siklus setel ulang meter",
+                    "delta_values": "Nilai delta",
+                    "name": "Nama",
+                    "net_consumption": "Konsumsi netto",
+                    "offset": "Offset setel ulang meter",
+                    "periodically_resetting": "Mengatur ulang secara berkala",
+                    "source": "Sensor input",
+                    "tariffs": "Tarif yang didukung"
+                },
+                "data_description": {
+                    "delta_values": "Aktifkan jika nilai sumber adalah nilai delta sejak pembacaan terakhir, bukan nilai absolut.",
+                    "net_consumption": "Aktifkan jika sumbernya adalah ukuran netto, artinya bisa bertambah dan berkurang.",
+                    "offset": "Ofset hari setelah penyetelan ulang bulanan",
+                    "periodically_resetting": "Aktifkan jika sumber dapat diatur ulang secara berkala ke 0, misalnya saat perangkat pengukur dinyalakan. Jika dinonaktifkan, pembacaan baru langsung direkam setelah data tidak tersedia.",
+                    "tariffs": "Daftar tarif yang didukung, kosongkan jika hanya diperlukan satu tarif."
+                },
+                "description": "Buat sensor yang melacak konsumsi berbagai utilitas (misalnya, energi, gas, air, pemanas) selama periode waktu yang dikonfigurasi, biasanya bulanan. Sensor meter utilitas secara opsional mendukung pemisahan konsumsi berdasarkan tarif, dalam hal ini satu sensor untuk setiap tarif dibuat serta entitas terpilih untuk memilih tarif saat ini.",
+                "title": "Tambahkan Meter Utilitas"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "periodically_resetting": "Mengatur ulang secara berkala",
+                    "source": "Sensor input"
+                },
+                "data_description": {
+                    "periodically_resetting": "Aktifkan jika sumber dapat diatur ulang secara berkala ke 0, misalnya saat perangkat pengukur dinyalakan. Jika dinonaktifkan, pembacaan baru langsung direkam setelah data tidak tersedia."
+                }
+            }
+        }
+    },
+    "selector": {
+        "cycle": {
+            "options": {
+                "bimonthly": "Setiap dua bulan",
+                "daily": "Harian",
+                "hourly": "Per jam",
+                "monthly": "Bulanan",
+                "none": "Tanpa siklus",
+                "quarter-hourly": "Setiap 15 menit",
+                "quarterly": "Triwulanan",
+                "weekly": "Mingguan",
+                "yearly": "Tahunan"
+            }
+        }
+    },
+    "services": {
+        "calibrate": {
+            "description": "Mengkalibrasi sensor meteran utilitas.",
+            "fields": {
+                "value": {
+                    "description": "Nilai untuk disetel pada meteran.",
+                    "name": "Nilai"
+                }
+            },
+            "name": "Mengkalibrasi"
+        },
+        "reset": {
+            "description": "Mereset semua meteran utilitas.",
+            "name": "Setel Ulang"
+        }
+    },
+    "title": "Meter Utilitas"
+}

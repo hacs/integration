@@ -1,0 +1,146 @@
+{
+    "device_automation": {
+        "action_type": {
+            "close": "\u30af\u30ed\u30fc\u30ba {entity_name}",
+            "close_tilt": "{entity_name}\u3092\u30c1\u30eb\u30c8\u3067\u9589\u3058\u308b",
+            "open": "{entity_name} \u30aa\u30fc\u30d7\u30f3",
+            "open_tilt": "{entity_name}\u3092\u30c1\u30eb\u30c8\u3067\u958b\u304f",
+            "set_position": "{entity_name} \u4f4d\u7f6e\u306e\u8a2d\u5b9a",
+            "set_tilt_position": "{entity_name}\u306e\u30c1\u30eb\u30c8\u4f4d\u7f6e\u3092\u8a2d\u5b9a",
+            "stop": "\u505c\u6b62 {entity_name}"
+        },
+        "condition_type": {
+            "is_closed": "{entity_name} \u306f\u9589\u3058\u3066\u3044\u307e\u3059",
+            "is_closing": "{entity_name} \u304c\u7d42\u4e86\u3057\u3066\u3044\u307e\u3059",
+            "is_open": "{entity_name} \u304c\u958b\u3044\u3066\u3044\u307e\u3059",
+            "is_opening": "{entity_name} \u304c\u958b\u3044\u3066\u3044\u307e\u3059(is opening)",
+            "is_position": "\u73fe\u5728\u306e {entity_name} \u4f4d\u7f6e",
+            "is_tilt_position": "\u73fe\u5728\u306e{entity_name}\u306e\u30c1\u30eb\u30c8\u4f4d\u7f6e"
+        },
+        "extra_fields": {
+            "above": "\u8d85\u904e",
+            "below": "\u672a\u6e80",
+            "for": "\u671f\u9593",
+            "position": "\u30dd\u30b8\u30b7\u30e7\u30f3"
+        },
+        "trigger_type": {
+            "closed": "{entity_name} \u9589",
+            "closing": "{entity_name} \u304c\u7d42\u4e86",
+            "opened": "{entity_name} \u304c\u958b\u304b\u308c\u307e\u3057\u305f",
+            "opening": "{entity_name} \u304c\u958b\u304f(Opening)",
+            "position": "{entity_name} \u4f4d\u7f6e\u306e\u5909\u5316",
+            "tilt_position": "{entity_name}\u306e\u30c1\u30eb\u30c8\u4f4d\u7f6e\u306e\u5909\u5316"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "\u30ab\u30d0\u30fc",
+            "state": {
+                "closed": "\u9589",
+                "closing": "\u30af\u30ed\u30fc\u30b8\u30f3\u30b0",
+                "open": "\u30aa\u30fc\u30d7\u30f3",
+                "opening": "\u958b\u9589",
+                "stopped": "\u505c\u6b62"
+            },
+            "state_attributes": {
+                "current_position": {
+                    "name": "\u30dd\u30b8\u30b7\u30e7\u30f3"
+                },
+                "current_tilt_position": {
+                    "name": "\u30c1\u30eb\u30c8\u4f4d\u7f6e"
+                }
+            }
+        },
+        "awning": {
+            "name": "\u30aa\u30fc\u30cb\u30f3\u30b0"
+        },
+        "blind": {
+            "name": "\u30d6\u30e9\u30a4\u30f3\u30c9"
+        },
+        "curtain": {
+            "name": "\u30ab\u30fc\u30c6\u30f3"
+        },
+        "damper": {
+            "name": "\u30c0\u30f3\u30d1\u30fc"
+        },
+        "door": {
+            "name": "\u30c9\u30a2"
+        },
+        "garage": {
+            "name": "\u30ac\u30ec\u30fc\u30b8"
+        },
+        "gate": {
+            "name": "\u30b2\u30fc\u30c8"
+        },
+        "shade": {
+            "name": "\u30b7\u30a7\u30fc\u30c9"
+        },
+        "shutter": {
+            "name": "\u30b7\u30e3\u30c3\u30bf\u30fc"
+        },
+        "window": {
+            "name": "\u30a6\u30a3\u30f3\u30c9\u30a6"
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "{domain}\u7d71\u5408\u306e{platform}\u30d7\u30e9\u30c3\u30c8\u30d5\u30a9\u30fc\u30e0\u306f\u3001\u30d7\u30e9\u30c3\u30c8\u30d5\u30a9\u30fc\u30e0\u306e\u30bb\u30c3\u30c8\u30a2\u30c3\u30d7\u3092\u30b5\u30dd\u30fc\u30c8\u3057\u3066\u3044\u307e\u305b\u3093\u3002 \n\n\u3053\u306e\u554f\u984c\u3092\u89e3\u6c7a\u3059\u308b\u306b\u306f\u3001\u69cb\u6210\u304b\u3089\u524a\u9664\u3057\u3001Home Assistant \u3092\u518d\u8d77\u52d5\u3057\u3066\u304f\u3060\u3055\u3044\u3002",
+            "title": "\u30d7\u30e9\u30c3\u30c8\u30d5\u30a9\u30fc\u30e0\u306e\u30b5\u30dd\u30fc\u30c8\u306f\u30b5\u30dd\u30fc\u30c8\u3055\u308c\u3066\u3044\u307e\u305b\u3093"
+        }
+    },
+    "services": {
+        "close_cover": {
+            "description": "\u30ab\u30d0\u30fc\u3092\u9589\u3058\u307e\u3059\u3002",
+            "name": "\u9589\u3058\u308b"
+        },
+        "close_cover_tilt": {
+            "description": "\u30ab\u30d0\u30fc\u3092\u50be\u3051\u3066\u9589\u3058\u307e\u3059\u3002",
+            "name": "\u30c1\u30eb\u30c8\u9589"
+        },
+        "open_cover": {
+            "description": "\u30ab\u30d0\u30fc\u3092\u958b\u3051\u307e\u3059\u3002",
+            "name": "\u958b\u304f"
+        },
+        "open_cover_tilt": {
+            "description": "\u30ab\u30d0\u30fc\u3092\u50be\u3051\u3066\u958b\u304d\u307e\u3059\u3002",
+            "name": "\u30c1\u30eb\u30c8\u958b"
+        },
+        "set_cover_position": {
+            "description": "\u30ab\u30d0\u30fc\u3092\u7279\u5b9a\u306e\u4f4d\u7f6e\u306b\u79fb\u52d5\u3057\u307e\u3059\u3002",
+            "fields": {
+                "position": {
+                    "description": "\u30bf\u30fc\u30b2\u30c3\u30c8\u4f4d\u7f6e\u3002",
+                    "name": "\u4f4d\u7f6e"
+                }
+            },
+            "name": "\u30bb\u30c3\u30c8\u30dd\u30b8\u30b7\u30e7\u30f3"
+        },
+        "set_cover_tilt_position": {
+            "description": "\u30ab\u30d0\u30fc\u306e\u30c1\u30eb\u30c8\u3092\u7279\u5b9a\u306e\u4f4d\u7f6e\u306b\u79fb\u52d5\u3057\u307e\u3059\u3002",
+            "fields": {
+                "tilt_position": {
+                    "description": "\u30c1\u30eb\u30c8\u4f4d\u7f6e\u306e\u76ee\u6a19\u3002",
+                    "name": "\u30c1\u30eb\u30c8\u4f4d\u7f6e"
+                }
+            },
+            "name": "\u30c1\u30eb\u30c8\u4f4d\u7f6e\u3092\u8a2d\u5b9a"
+        },
+        "stop_cover": {
+            "description": "\u30ab\u30d0\u30fc\u306e\u52d5\u304d\u3092\u6b62\u3081\u307e\u3059\u3002",
+            "name": "\u30b9\u30c8\u30c3\u30d7"
+        },
+        "stop_cover_tilt": {
+            "description": "\u30ab\u30d0\u30fc\u306e\u30c1\u30eb\u30c8\u306e\u52d5\u304d\u3092\u6b62\u3081\u307e\u3059\u3002",
+            "name": "\u30c1\u30eb\u30c8\u505c\u6b62"
+        },
+        "toggle": {
+            "description": "\u30ab\u30d0\u30fc\u306e\u958b\u9589\u3092\u5207\u308a\u66ff\u3048\u307e\u3059\u3002",
+            "name": "\u30c8\u30b0\u30eb"
+        },
+        "toggle_cover_tilt": {
+            "description": "\u30ab\u30d0\u30fc\u306e\u30c1\u30eb\u30c8\u306e\u958b\u9589\u3092\u5207\u308a\u66ff\u3048\u308b\u3002",
+            "name": "\u30c1\u30eb\u30c8 \u30c8\u30b0\u30eb"
+        }
+    },
+    "title": "\u30ab\u30d0\u30fc"
+}

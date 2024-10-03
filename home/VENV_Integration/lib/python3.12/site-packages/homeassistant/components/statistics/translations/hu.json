@@ -1,0 +1,129 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "A fi\u00f3k m\u00e1r konfigur\u00e1lva van"
+        },
+        "error": {
+            "missing_keep_last_sample": "Az \u00e9rz\u00e9kel\u0151 konfigur\u00e1ci\u00f3j\u00e1nak meg kell adnia a 'Maxim\u00e1lis \u00e9letkor' \u00e9rt\u00e9ket, ha a 'Utols\u00f3 minta megtart\u00e1sa' igaz \u00e9rt\u00e9ket kap.",
+            "missing_max_age_or_sampling_size": "A szenzor konfigur\u00e1ci\u00f3j\u00e1ban meg kell adni a 'Maxim\u00e1lis \u00e9letkor' \u00e9s/vagy a 'Mintav\u00e9teli m\u00e9ret' \u00e9rt\u00e9k\u00e9t"
+        },
+        "step": {
+            "options": {
+                "data": {
+                    "keep_last_sample": "Utols\u00f3 minta megtart\u00e1sa",
+                    "max_age": "Maxim\u00e1lis \u00e9letkor",
+                    "percentile": "Percentilis",
+                    "precision": "Pontoss\u00e1g",
+                    "sampling_size": "Mintav\u00e9teli m\u00e9ret"
+                },
+                "data_description": {
+                    "keep_last_sample": "Meghat\u00e1rozza, hogy a legut\u00f3bbi mintav\u00e9telezett \u00e9rt\u00e9ket meg kell-e \u0151rizni, f\u00fcggetlen\u00fcl a 'Maxim\u00e1lis \u00e9letkor' be\u00e1ll\u00edt\u00e1st\u00f3l.",
+                    "max_age": "A forr\u00e1sszenzor m\u00e9r\u00e9seinek t\u00e1rol\u00e1s\u00e1nak maxim\u00e1lis id\u0151tartama.",
+                    "percentile": "Csak a 'Percentilis' jellemz\u0151vel kombin\u00e1lva relev\u00e1ns. 1 \u00e9s 99 k\u00f6z\u00f6tti \u00e9rt\u00e9knek kell lennie.",
+                    "precision": "Meghat\u00e1rozza a kisz\u00e1m\u00edtott szenzor\u00e9rt\u00e9k tizedesjegyeinek sz\u00e1m\u00e1t.",
+                    "sampling_size": "A t\u00e1rolt forr\u00e1sszenzor m\u00e9r\u00e9sek maxim\u00e1lis sz\u00e1ma."
+                },
+                "description": "Olvassa el a dokument\u00e1ci\u00f3t a statisztikai szenzor konfigur\u00e1l\u00e1s\u00e1nak tov\u00e1bbi r\u00e9szletei\u00e9rt ezeknek az opci\u00f3knak a haszn\u00e1lat\u00e1val."
+            },
+            "state_characteristic": {
+                "data": {
+                    "state_characteristic": "\u00c1llapotjellemz\u0151"
+                },
+                "data_description": {
+                    "state_characteristic": "Az a jellemz\u0151, amelyet a statisztikai szenzor \u00e1llapotak\u00e9nt kell haszn\u00e1lni."
+                },
+                "description": "Olvassa el a dokument\u00e1ci\u00f3t az el\u00e9rhet\u0151 opci\u00f3k \u00e9s azok haszn\u00e1lat\u00e1nak tov\u00e1bbi r\u00e9szletei\u00e9rt."
+            },
+            "user": {
+                "data": {
+                    "entity_id": "Entit\u00e1s",
+                    "name": "Elnevez\u00e9s"
+                },
+                "data_description": {
+                    "entity_id": "Az entit\u00e1s, amelyb\u0151l a statisztik\u00e1kat lek\u00e9rik.",
+                    "name": "A l\u00e9trehozott entit\u00e1s neve."
+                },
+                "description": "Adjon hozz\u00e1 egy statisztikai szenzort"
+            }
+        }
+    },
+    "issues": {
+        "deprecation_warning_characteristic": {
+            "description": "A statisztikai integr\u00e1ci\u00f3 `state_characteristic` konfigur\u00e1ci\u00f3s param\u00e9tere k\u00f6telez\u0151v\u00e9 v\u00e1lik.\n\nK\u00e9rem, adja hozz\u00e1 a k\u00f6vetkez\u0151t a(z) `{entity}` szenzor konfigur\u00e1ci\u00f3j\u00e1hoz a jelenlegi m\u0171k\u00f6d\u00e9s meg\u0151rz\u00e9se \u00e9rdek\u00e9ben: `state_characteristic: {characteristic}`.\n\nOlvassa el a statisztikai integr\u00e1ci\u00f3 dokument\u00e1ci\u00f3j\u00e1t a tov\u00e1bbi r\u00e9szletek\u00e9rt: https://www.home-assistant.io/integrations/statistics/",
+            "title": "K\u00f6telez\u0151 'state_characteristic' felt\u00e9telezve egy statisztikai entit\u00e1sn\u00e1l"
+        },
+        "deprecation_warning_size": {
+            "description": "A statisztikai integr\u00e1ci\u00f3 `sampling_size` konfigur\u00e1ci\u00f3s param\u00e9tere eddig alap\u00e9rtelmez\u00e9s szerint 20 \u00e9rt\u00e9k\u0171 volt, ami v\u00e1ltozni fog.\n\nK\u00e9rem, ellen\u0151rizze a(z) `{entity}` szenzor konfigur\u00e1ci\u00f3j\u00e1t \u00e9s adja hozz\u00e1 a megfelel\u0151 hat\u00e1r\u00e9rt\u00e9keket, p\u00e9ld\u00e1ul `sampling_size: 20`, a jelenlegi m\u0171k\u00f6d\u00e9s meg\u0151rz\u00e9se \u00e9rdek\u00e9ben. A statisztikai integr\u00e1ci\u00f3 konfigur\u00e1ci\u00f3ja rugalmasabb\u00e1 v\u00e1lik a 2022.12.0 verzi\u00f3t\u00f3l kezdve \u00e9s elfogadja a `sampling_size` vagy a `max_age`, vagy mindk\u00e9t be\u00e1ll\u00edt\u00e1st. A fenti k\u00e9r\u00e9s el\u0151k\u00e9sz\u00edti a konfigur\u00e1ci\u00f3j\u00e1t erre az egy\u00e9bk\u00e9nt t\u00f6r\u0151 v\u00e1ltoz\u00e1sra.\n\nOlvassa el a statisztikai integr\u00e1ci\u00f3 dokument\u00e1ci\u00f3j\u00e1t a tov\u00e1bbi r\u00e9szletek\u00e9rt: https://www.home-assistant.io/integrations/statistics/",
+            "title": "Implicit 'sampling_size' felt\u00e9telezve egy Statisztikai entit\u00e1shoz"
+        }
+    },
+    "options": {
+        "abort": {
+            "already_configured": "A fi\u00f3k m\u00e1r konfigur\u00e1lva van"
+        },
+        "error": {
+            "missing_keep_last_sample": "Az \u00e9rz\u00e9kel\u0151 konfigur\u00e1ci\u00f3j\u00e1nak meg kell adnia a 'Maxim\u00e1lis \u00e9letkor' \u00e9rt\u00e9ket, ha a 'Utols\u00f3 minta megtart\u00e1sa' igaz \u00e9rt\u00e9ket kap.",
+            "missing_max_age_or_sampling_size": "A szenzor konfigur\u00e1ci\u00f3j\u00e1ban meg kell adni a 'Maxim\u00e1lis \u00e9letkor' \u00e9s/vagy a 'Mintav\u00e9teli m\u00e9ret' \u00e9rt\u00e9k\u00e9t"
+        },
+        "step": {
+            "init": {
+                "data": {
+                    "keep_last_sample": "Utols\u00f3 minta megtart\u00e1sa",
+                    "max_age": "Maxim\u00e1lis \u00e9letkor",
+                    "percentile": "Percentilis",
+                    "precision": "Pontoss\u00e1g",
+                    "sampling_size": "Mintav\u00e9teli m\u00e9ret"
+                },
+                "data_description": {
+                    "keep_last_sample": "Meghat\u00e1rozza, hogy a legut\u00f3bbi mintav\u00e9telezett \u00e9rt\u00e9ket meg kell-e \u0151rizni, f\u00fcggetlen\u00fcl a 'Maxim\u00e1lis \u00e9letkor' be\u00e1ll\u00edt\u00e1st\u00f3l.",
+                    "max_age": "A forr\u00e1sszenzor m\u00e9r\u00e9seinek t\u00e1rol\u00e1s\u00e1nak maxim\u00e1lis id\u0151tartama.",
+                    "percentile": "Csak a 'Percentilis' jellemz\u0151vel kombin\u00e1lva relev\u00e1ns. 1 \u00e9s 99 k\u00f6z\u00f6tti \u00e9rt\u00e9knek kell lennie.",
+                    "precision": "Meghat\u00e1rozza a kisz\u00e1m\u00edtott szenzor\u00e9rt\u00e9k tizedesjegyeinek sz\u00e1m\u00e1t.",
+                    "sampling_size": "A t\u00e1rolt forr\u00e1sszenzor m\u00e9r\u00e9sek maxim\u00e1lis sz\u00e1ma."
+                },
+                "description": "Olvassa el a dokument\u00e1ci\u00f3t a statisztikai szenzor konfigur\u00e1l\u00e1s\u00e1nak tov\u00e1bbi r\u00e9szletei\u00e9rt ezeknek az opci\u00f3knak a haszn\u00e1lat\u00e1val."
+            }
+        }
+    },
+    "selector": {
+        "state_characteristic": {
+            "options": {
+                "average_linear": "Line\u00e1ris \u00e1tlag",
+                "average_step": "\u00c1tlagos l\u00e9p\u00e9s",
+                "average_timeless": "Id\u0151f\u00fcggetlen \u00e1tlag",
+                "change": "V\u00e1ltoz\u00e1s",
+                "change_sample": "Mintav\u00e9telezett v\u00e1ltoz\u00e1s",
+                "change_second": "M\u00e1sodpercenk\u00e9nti v\u00e1ltoz\u00e1s",
+                "count": "Sz\u00e1ml\u00e1l\u00f3",
+                "count_off": "Kikapcsolt sz\u00e1ml\u00e1l\u00e1s",
+                "count_on": "Bekapcsolt sz\u00e1ml\u00e1l\u00e1s",
+                "datetime_newest": "Leg\u00fajabb d\u00e1tum \u00e9s id\u0151",
+                "datetime_oldest": "Legr\u00e9gebbi d\u00e1tum \u00e9s id\u0151",
+                "datetime_value_max": "Legnagyobb \u00e9rt\u00e9k d\u00e1tuma \u00e9s ideje",
+                "datetime_value_min": "Legkisebb \u00e9rt\u00e9k d\u00e1tuma \u00e9s ideje",
+                "distance_95_percent_of_values": "\u00c9rt\u00e9kek 95%-\u00e1nak t\u00e1vols\u00e1ga",
+                "distance_99_percent_of_values": "\u00c9rt\u00e9kek 99%-\u00e1nak t\u00e1vols\u00e1ga",
+                "distance_absolute": "Abszol\u00fat t\u00e1vols\u00e1g",
+                "mean": "\u00c1tlag",
+                "mean_circular": "Cirkul\u00e1ris \u00e1tlag",
+                "median": "Medi\u00e1n",
+                "noisiness": "Zajoss\u00e1g",
+                "percentile": "Percentilis",
+                "standard_deviation": "Standard elt\u00e9r\u00e9s",
+                "sum": "\u00d6sszeg",
+                "sum_differences": "K\u00fcl\u00f6nbs\u00e9gek \u00f6sszege",
+                "sum_differences_nonnegative": "Nem negat\u00edv k\u00fcl\u00f6nbs\u00e9gek \u00f6sszege",
+                "total": "\u00d6sszesen",
+                "value_max": "Maxim\u00e1lis \u00e9rt\u00e9k",
+                "value_min": "Minim\u00e1lis \u00e9rt\u00e9k",
+                "variance": "Sz\u00f3r\u00e1s"
+            }
+        }
+    },
+    "services": {
+        "reload": {
+            "description": "\u00dajrat\u00f6lti a statisztikai szenzorokat a YAML-konfigur\u00e1ci\u00f3b\u00f3l.",
+            "name": "\u00dajrat\u00f6lt\u00e9s"
+        }
+    }
+}

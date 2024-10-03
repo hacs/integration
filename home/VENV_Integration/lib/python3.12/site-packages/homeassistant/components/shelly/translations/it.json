@@ -1,0 +1,183 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Il dispositivo \u00e8 gi\u00e0 configurato",
+            "another_device": "La riconfigurazione non \u00e8 andata a buon fine, \u00e8 stato utilizzato l'indirizzo IP/nome host di un altro dispositivo Shelly.",
+            "ipv6_not_supported": "IPv6 non \u00e8 supportato.",
+            "reauth_successful": "La riautenticazione ha avuto successo",
+            "reauth_unsuccessful": "La riautenticazione non \u00e8 riuscita, rimuovi l'integrazione e configurala di nuovo.",
+            "reconfigure_successful": "La riconfigurazione \u00e8 stata completata con successo",
+            "unsupported_firmware": "Il dispositivo utilizza una versione del firmware non supportata."
+        },
+        "error": {
+            "cannot_connect": "Impossibile connettersi",
+            "custom_port_not_supported": "Il dispositivo Gen1 non supporta la porta personalizzata.",
+            "firmware_not_fully_provisioned": "Dispositivo non completamente supportato. Si prega di contattare il supporto Shelly",
+            "invalid_auth": "Autenticazione non valida",
+            "unknown": "Errore imprevisto"
+        },
+        "flow_title": "{name}",
+        "step": {
+            "confirm_discovery": {
+                "description": "Vuoi impostare {model} su {host}? \n\nI dispositivi alimentati a batteria protetti da password devono essere riattivati prima di continuare con la configurazione.\nI dispositivi alimentati a batteria che non sono protetti da password verranno aggiunti quando il dispositivo si riattiver\u00e0, ora puoi riattivare manualmente il dispositivo utilizzando un pulsante su di esso o attendere il prossimo aggiornamento dei dati dal dispositivo."
+            },
+            "credentials": {
+                "data": {
+                    "password": "Password",
+                    "username": "Nome utente"
+                }
+            },
+            "reauth_confirm": {
+                "data": {
+                    "password": "Password",
+                    "username": "Nome utente"
+                }
+            },
+            "reconfigure_confirm": {
+                "data": {
+                    "host": "Host",
+                    "port": "Porta"
+                },
+                "data_description": {
+                    "port": "La porta TCP del dispositivo Shelly a cui connettersi (Gen2+)."
+                },
+                "description": "Aggiorna la configurazione per {device_name}. \n\nPrima della configurazione, i dispositivi alimentati a batteria devono essere riattivati; ora puoi riattivare il dispositivo utilizzando un pulsante su di esso."
+            },
+            "user": {
+                "data": {
+                    "host": "Host",
+                    "port": "Porta"
+                },
+                "data_description": {
+                    "port": "La porta TCP del dispositivo Shelly a cui connettersi (Gen2+)."
+                },
+                "description": "Prima della configurazione, i dispositivi alimentati a batteria devono essere riattivati, ora \u00e8 possibile riattivare il dispositivo utilizzando un pulsante su di esso."
+            }
+        }
+    },
+    "device_automation": {
+        "trigger_subtype": {
+            "button": "Pulsante",
+            "button1": "Primo pulsante",
+            "button2": "Secondo pulsante",
+            "button3": "Terzo pulsante",
+            "button4": "Quarto pulsante"
+        },
+        "trigger_type": {
+            "btn_down": "{subtype} pulsante in gi\u00f9",
+            "btn_up": "{subtype} pulsante in su",
+            "double": "{subtype} premuto due volte",
+            "double_push": "{subtype} doppia pressione",
+            "long": "{subtype} premuto a lungo",
+            "long_push": "{subtype} pressione prolungata",
+            "long_single": "{subtype} premuto a lungo e poi singolarmente",
+            "single": "{subtype} premuto singolarmente",
+            "single_long": "{subtype} premuto singolarmente e poi a lungo",
+            "single_push": "{subtype} singola pressione",
+            "triple": "{subtype} premuto tre volte",
+            "triple_push": "{subtype} tripla spinta"
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "gas": {
+                "state_attributes": {
+                    "detected": {
+                        "state": {
+                            "heavy": "Pesante",
+                            "mild": "Lieve",
+                            "none": "Nessuno",
+                            "test": "Test",
+                            "unknown": "Sconosciuto"
+                        }
+                    }
+                }
+            }
+        },
+        "event": {
+            "input": {
+                "state_attributes": {
+                    "event_type": {
+                        "state": {
+                            "btn_down": "Pulsante gi\u00f9",
+                            "btn_up": "Pulsante su",
+                            "double": "Doppia spinta",
+                            "double_push": "Doppia pressione",
+                            "long": "Spinta lunga",
+                            "long_push": "Pressione prolungata",
+                            "long_single": "Spinta lunga e poi spinta breve",
+                            "single": "Singola spinta",
+                            "single_long": "Spinta breve e poi spinta lunga",
+                            "single_push": "Singola pressione",
+                            "triple": "Tripla spinta",
+                            "triple_push": "Tripla pressione"
+                        }
+                    }
+                }
+            }
+        },
+        "sensor": {
+            "operation": {
+                "state": {
+                    "fault": "Guasto",
+                    "normal": "Normale",
+                    "unknown": "Sconosciuto",
+                    "warmup": "Riscaldamento"
+                },
+                "state_attributes": {
+                    "self_test": {
+                        "state": {
+                            "completed": "Completato",
+                            "not_completed": "Non completato",
+                            "pending": "In attesa",
+                            "running": "In esecuzione"
+                        }
+                    }
+                }
+            },
+            "valve_status": {
+                "state": {
+                    "checking": "In verifica",
+                    "closed": "Chiuso/a",
+                    "closing": "In chiusura",
+                    "failure": "Errore",
+                    "opened": "Aperta",
+                    "opening": "In apertura",
+                    "unknown": "Sconosciuto"
+                }
+            }
+        }
+    },
+    "issues": {
+        "device_not_calibrated": {
+            "description": "Il dispositivo Shelly {device_name} con indirizzo IP {ip_address} richiede la calibrazione. Per calibrare il dispositivo, \u00e8 necessario riavviarlo dopo la corretta installazione sulla valvola. \u00c8 possibile riavviare il dispositivo nel suo pannello web, andando su \"Impostazioni\" > \"Riavvio dispositivo\".",
+            "title": "Il dispositivo Shelly {device_name} non \u00e8 calibrato"
+        },
+        "push_update_failure": {
+            "description": "Home Assistant non riceve aggiornamenti push dal dispositivo Shelly {device_name} con indirizzo IP {ip_address}. Controlla la configurazione CoIoT nel pannello web del dispositivo e la tua configurazione di rete.",
+            "title": "Errore di aggiornamento push del dispositivo Shelly {device_name}"
+        }
+    },
+    "options": {
+        "abort": {
+            "ble_unsupported": "Il supporto Bluetooth richiede la versione del firmware {ble_min_version} o successiva."
+        },
+        "step": {
+            "init": {
+                "data": {
+                    "ble_scanner_mode": "Modalit\u00e0 scansione Bluetooth"
+                },
+                "description": "La scansione Bluetooth pu\u00f2 essere attiva o passiva. In caso di scansione attiva, lo Shelly richiede dati ai dispositivi vicini; in caso di scansione passiva, lo Shelly riceve dati non richiesti dai dispositivi vicini."
+            }
+        }
+    },
+    "selector": {
+        "ble_scanner_mode": {
+            "options": {
+                "active": "Attivo",
+                "disabled": "Disabilitato",
+                "passive": "Passivo"
+            }
+        }
+    }
+}

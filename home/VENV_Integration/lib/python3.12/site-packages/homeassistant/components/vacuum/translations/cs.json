@@ -1,0 +1,115 @@
+{
+    "device_automation": {
+        "action_type": {
+            "clean": "Nechat {entity_name} ukl\u00edzet",
+            "dock": "Nechat {entity_name} vr\u00e1tit se do doku"
+        },
+        "condition_type": {
+            "is_cleaning": "{entity_name} ukl\u00edz\u00ed",
+            "is_docked": "{entity_name} je v doku"
+        },
+        "extra_fields": {
+            "for": "Doba trv\u00e1n\u00ed"
+        },
+        "trigger_type": {
+            "cleaning": "{entity_name} zah\u00e1jil \u00faklid",
+            "docked": "{entity_name} p\u0159ijel do doku"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Vysava\u010d",
+            "state": {
+                "cleaning": "Ukl\u00edz\u00ed",
+                "docked": "V doku",
+                "error": "Chyba",
+                "idle": "Ne\u010dinn\u00fd",
+                "off": "Vypnuto",
+                "on": "Zapnuto",
+                "paused": "Pozastaveno",
+                "returning": "N\u00e1vrat do doku"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_vacuum_base_class": {
+            "description": "Vlastn\u00ed integrace \"{platform}\" roz\u0161i\u0159uje zastaralou z\u00e1kladn\u00ed t\u0159\u00eddu \"VacuumEntity\" nam\u00edsto \"StateVacuumEntity\".\n\nNahlaste to autorovi vlastn\u00ed integrace \"{platform}\".\n\nJakmile bude k dispozici aktualizovan\u00e1 verze \"{platform}\", nainstalujte ji a restartujte Home Assistanta, abyste tento probl\u00e9m vy\u0159e\u0161ili.",
+            "title": "Vlastn\u00ed integrace {platform} pou\u017e\u00edv\u00e1 zastaralou funkci vysava\u010de"
+        },
+        "deprecated_vacuum_base_class_url": {
+            "description": "Vlastn\u00ed integrace \"{platform}\" roz\u0161i\u0159uje zastaralou z\u00e1kladn\u00ed t\u0159\u00eddu \"VacuumEntity\" nam\u00edsto \"StateVacuumEntity\".\n\nNahlaste chybu na \"{issue_tracker}\".\n\nJakmile bude k dispozici aktualizovan\u00e1 verze \"{platform}\", nainstalujte ji a restartujte Home Assistanta, abyste tento probl\u00e9m vy\u0159e\u0161ili.",
+            "title": "Vlastn\u00ed integrace {platform} pou\u017e\u00edv\u00e1 zastaralou funkci vysava\u010de"
+        },
+        "platform_integration_no_support": {
+            "description": "Platforma {platform} pro integraci {domain} nepodporuje nastaven\u00ed platformy.\n\nOdeberte ji z nastaven\u00ed a restartujte Home Assistanta, abyste tento probl\u00e9m vy\u0159e\u0161ili.",
+            "title": "Podpora platformy nen\u00ed podporov\u00e1na"
+        }
+    },
+    "services": {
+        "clean_spot": {
+            "description": "D\u00e1 vysava\u010di pokyn, aby provedl \u00faklid m\u00edsta.",
+            "name": "Uklidit m\u00edsto"
+        },
+        "locate": {
+            "description": "Najde robotick\u00fd vysava\u010d.",
+            "name": "Naj\u00edt"
+        },
+        "pause": {
+            "description": "Pozastav\u00ed \u00faklid.",
+            "name": "Pozastavit"
+        },
+        "return_to_base": {
+            "description": "D\u00e1 vysava\u010di pokyn, aby se vr\u00e1til do doku.",
+            "name": "Vr\u00e1tit se do doku"
+        },
+        "send_command": {
+            "description": "Ode\u0161le p\u0159\u00edkaz do vysava\u010de.",
+            "fields": {
+                "command": {
+                    "description": "P\u0159\u00edkaz k proveden\u00ed. P\u0159\u00edkazy jsou specifick\u00e9 pro integraci.",
+                    "name": "P\u0159\u00edkaz"
+                },
+                "params": {
+                    "description": "Parametry pro p\u0159\u00edkaz. Parametry jsou specifick\u00e9 pro integraci.",
+                    "name": "Parametry"
+                }
+            },
+            "name": "Odeslat p\u0159\u00edkaz"
+        },
+        "set_fan_speed": {
+            "description": "Nastav\u00ed v\u00fdkon vys\u00e1v\u00e1n\u00ed.",
+            "fields": {
+                "fan_speed": {
+                    "description": "V\u00fdkon vys\u00e1v\u00e1n\u00ed. Hodnota z\u00e1vis\u00ed na integraci. N\u011bkter\u00e9 integrace maj\u00ed rychlostn\u00ed kroky, nap\u0159\u00edklad \"st\u0159edn\u00ed\". N\u011bkte\u0159\u00ed pou\u017e\u00edvaj\u00ed procento, mezi 0 a 100.",
+                    "name": "V\u00fdkon vys\u00e1v\u00e1n\u00ed"
+                }
+            },
+            "name": "Nastavit v\u00fdkon vys\u00e1v\u00e1n\u00ed"
+        },
+        "start": {
+            "description": "Spust\u00ed nebo obnov\u00ed \u00faklid.",
+            "name": "Spustit"
+        },
+        "start_pause": {
+            "description": "Spust\u00ed, pozastav\u00ed nebo obnov\u00ed \u00faklid.",
+            "name": "Spustit/Pozastavit"
+        },
+        "stop": {
+            "description": "Zastav\u00ed aktu\u00e1ln\u00ed \u00faklid.",
+            "name": "Zastavit"
+        },
+        "toggle": {
+            "description": "Zap\u00edn\u00e1/Vyp\u00edn\u00e1 vysava\u010d.",
+            "name": "P\u0159epnout"
+        },
+        "turn_off": {
+            "description": "Zastav\u00ed aktu\u00e1ln\u00ed \u00faklid a vr\u00e1t\u00ed se do doku.",
+            "name": "Vypnout"
+        },
+        "turn_on": {
+            "description": "Spust\u00ed nov\u00fd \u00faklid.",
+            "name": "Zapnout"
+        }
+    },
+    "title": "Vysava\u010d"
+}

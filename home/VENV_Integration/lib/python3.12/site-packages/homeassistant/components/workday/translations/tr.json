@@ -1,0 +1,249 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Workday, se\u00e7ilen yap\u0131land\u0131rmayla zaten ayarland\u0131",
+            "incorrect_province": "Yaml i\u00e7e aktar\u0131m\u0131ndan yanl\u0131\u015f alt b\u00f6l\u00fcm"
+        },
+        "error": {
+            "add_holiday_error": "Tarih i\u00e7in yanl\u0131\u015f bi\u00e7im (YYYY-MM-DD)",
+            "add_holiday_range_error": "Tarih aral\u0131\u011f\u0131nda hatal\u0131 bi\u00e7im (YYYY-AA-GG,YYYY-AA-GG)",
+            "already_configured": "Hizmet zaten yap\u0131land\u0131r\u0131lm\u0131\u015f",
+            "remove_holiday_error": "Tarih bi\u00e7imi hatal\u0131 (YYYY-MM-DD) veya tatil ad\u0131 bulunamad\u0131",
+            "remove_holiday_range_error": "Tarih aral\u0131\u011f\u0131nda hatal\u0131 bi\u00e7im (YYYY-AA-GG,YYYY-AA-GG)"
+        },
+        "step": {
+            "options": {
+                "data": {
+                    "add_holidays": "Tatil ekleyin",
+                    "category": "Tatil olarak ek kategori",
+                    "days_offset": "Telafi",
+                    "excludes": "Hari\u00e7",
+                    "language": "Adland\u0131r\u0131lm\u0131\u015f tatillerin dili",
+                    "province": "\u00dclke alt b\u00f6l\u00fcm\u00fc",
+                    "remove_holidays": "Tatilleri Kald\u0131r",
+                    "workdays": "\u00c7al\u0131\u015fma G\u00fcnleri"
+                },
+                "data_description": {
+                    "add_holidays": "Ay\u0131r\u0131c\u0131 olarak `,` kullanarak \u00f6zel tatilleri YYYY-AA-GG olarak veya aral\u0131k olarak ekleyin",
+                    "category": "Tatil olarak eklemek i\u00e7in ek kategorileri se\u00e7in",
+                    "days_offset": "Ge\u00e7erli g\u00fcnden farkl\u0131 g\u00fcnler",
+                    "excludes": "Hari\u00e7 tutulacak i\u015f g\u00fcnlerinin listesi, 'tatil' anahtar kelimesine dikkat edin ve bunun nas\u0131l do\u011fru \u015fekilde kullan\u0131laca\u011f\u0131na ili\u015fkin belgeleri okuyun",
+                    "language": "Adland\u0131r\u0131lm\u0131\u015f tatil hari\u00e7 tutmalar\u0131n\u0131 yap\u0131land\u0131r\u0131rken kullan\u0131lacak dil",
+                    "province": "\u00dclkenin eyaleti, b\u00f6lgesi, ili veya b\u00f6lgesi",
+                    "remove_holidays": "Tatilleri YYYY-AA-GG olarak, ay\u0131r\u0131c\u0131 olarak `,` kullanarak veya ad\u0131n bir k\u0131sm\u0131n\u0131 kullanarak aral\u0131k olarak kald\u0131r\u0131n",
+                    "workdays": "\u00c7al\u0131\u015fma g\u00fcnlerinin listesi"
+                },
+                "description": "{country} \u00fclkesi i\u00e7in yap\u0131land\u0131r\u0131lm\u0131\u015f {name} i\u00e7in ek se\u00e7enekler belirleyin"
+            },
+            "user": {
+                "data": {
+                    "country": "\u00dclke",
+                    "name": "Ad"
+                }
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "workday": {
+                "state_attributes": {
+                    "days_offset": {
+                        "name": "Telafi"
+                    },
+                    "excludes": {
+                        "name": "Hari\u00e7"
+                    },
+                    "workdays": {
+                        "name": "\u00c7al\u0131\u015fma G\u00fcnleri"
+                    }
+                }
+            }
+        }
+    },
+    "issues": {
+        "bad_country": {
+            "fix_flow": {
+                "step": {
+                    "country": {
+                        "data": {
+                            "country": "\u00dclke"
+                        },
+                        "description": "Workday sens\u00f6r\u00fcn\u00fcz i\u00e7in kullan\u0131lacak \u00fclkeyi se\u00e7in.",
+                        "title": "{title} i\u00e7in \u00fclke se\u00e7in"
+                    },
+                    "province": {
+                        "data": {
+                            "province": "\u00dclke alt b\u00f6l\u00fcm\u00fc"
+                        },
+                        "data_description": {
+                            "province": "Eyalet, B\u00f6lge, \u0130l, \u00dclke B\u00f6lgesi"
+                        },
+                        "description": "Workday sens\u00f6r\u00fcn\u00fcz i\u00e7in kullanmak \u00fczere {country} \u00fclkesinde bir il se\u00e7in.",
+                        "title": "{title} i\u00e7in il se\u00e7in"
+                    }
+                }
+            },
+            "title": "{title} i\u00e7in Yap\u0131land\u0131r\u0131lm\u0131\u015f \u00dclke mevcut de\u011fil"
+        },
+        "bad_date_holiday": {
+            "fix_flow": {
+                "error": {
+                    "remove_holiday_error": "Tarih bi\u00e7imi hatal\u0131 (YYYY-MM-DD) veya tatil ad\u0131 bulunamad\u0131"
+                },
+                "step": {
+                    "fix_remove_holiday": {
+                        "data": {
+                            "remove_holidays": "Tatilleri Kald\u0131r"
+                        },
+                        "data_description": {
+                            "remove_holidays": "Tatilleri YYYY-AA-GG olarak, ay\u0131r\u0131c\u0131 olarak `,` kullanarak veya ad\u0131n bir k\u0131sm\u0131n\u0131 kullanarak aral\u0131k olarak kald\u0131r\u0131n"
+                        },
+                        "description": "{country} \u00fclkesinde bulunamad\u0131\u011f\u0131 i\u00e7in ` {remove_holidays} ` tatil tarihini kald\u0131r\u0131n.",
+                        "title": "{title} i\u00e7in yap\u0131land\u0131r\u0131lm\u0131\u015f {remove_holidays} tatil tarihi mevcut de\u011fil"
+                    }
+                }
+            },
+            "title": "{title} i\u00e7in yap\u0131land\u0131r\u0131lm\u0131\u015f {remove_holidays} tatil tarihi mevcut de\u011fil"
+        },
+        "bad_named_holiday": {
+            "fix_flow": {
+                "error": {
+                    "remove_holiday_error": "Tarih bi\u00e7imi hatal\u0131 (YYYY-MM-DD) veya tatil ad\u0131 bulunamad\u0131"
+                },
+                "step": {
+                    "fix_remove_holiday": {
+                        "data": {
+                            "remove_holidays": "Tatilleri Kald\u0131r"
+                        },
+                        "data_description": {
+                            "remove_holidays": "Tatilleri YYYY-AA-GG olarak, ay\u0131r\u0131c\u0131 olarak `,` kullanarak veya ad\u0131n bir k\u0131sm\u0131n\u0131 kullanarak aral\u0131k olarak kald\u0131r\u0131n"
+                        },
+                        "description": "{country} \u00fclkesinde bulunamad\u0131\u011f\u0131 i\u00e7in ` {remove_holidays} ` adl\u0131 tatili kald\u0131r\u0131n.",
+                        "title": "{title} i\u00e7in yap\u0131land\u0131r\u0131lm\u0131\u015f {remove_holidays} adl\u0131 tatil mevcut de\u011fil"
+                    },
+                    "named_holiday": {
+                        "data": {
+                            "remove_holidays": "Tatilleri Kald\u0131r"
+                        },
+                        "data_description": {
+                            "remove_holidays": "Tatilleri YYYY-AA-GG olarak, ay\u0131r\u0131c\u0131 olarak `,` kullanarak veya ad\u0131n bir k\u0131sm\u0131n\u0131 kullanarak aral\u0131k olarak kald\u0131r\u0131n"
+                        },
+                        "description": "{country} \u00fclkesinde bulunamad\u0131\u011f\u0131 i\u00e7in \" {remove_holidays} \" adl\u0131 tatili kald\u0131r\u0131n.",
+                        "title": "{title} i\u00e7in yap\u0131land\u0131r\u0131lm\u0131\u015f {remove_holidays} adl\u0131 tatil mevcut de\u011fil"
+                    }
+                }
+            },
+            "title": "{title} i\u00e7in yap\u0131land\u0131r\u0131lm\u0131\u015f {remove_holidays} adl\u0131 tatil mevcut de\u011fil"
+        },
+        "bad_province": {
+            "fix_flow": {
+                "step": {
+                    "province": {
+                        "data": {
+                            "province": "\u00dclke alt b\u00f6l\u00fcm\u00fc"
+                        },
+                        "data_description": {
+                            "province": "Eyalet, B\u00f6lge, \u0130l, \u00dclke B\u00f6lgesi"
+                        },
+                        "description": "Workday sens\u00f6r\u00fcn\u00fcz i\u00e7in kullanmak \u00fczere {country} \u00fclkesinde bir il se\u00e7in.",
+                        "title": "{title} i\u00e7in il se\u00e7in"
+                    }
+                }
+            },
+            "title": "{title} {country} \u00fclkesinde yap\u0131land\u0131r\u0131lm\u0131\u015f il mevcut de\u011fil"
+        },
+        "deprecated_yaml": {
+            "description": "Workday'i YAML kullanarak yap\u0131land\u0131rma kald\u0131r\u0131l\u0131yor. \n\n Mevcut YAML yap\u0131land\u0131rman\u0131z, kullan\u0131c\u0131 aray\u00fcz\u00fcne otomatik olarak aktar\u0131ld\u0131. \n\n Workday YAML yap\u0131land\u0131rmas\u0131n\u0131 configuration.yaml dosyan\u0131zdan kald\u0131r\u0131n ve bu sorunu \u00e7\u00f6zmek i\u00e7in Home Assistant'\u0131 yeniden ba\u015flat\u0131n.",
+            "title": "Workday YAML yap\u0131land\u0131rmas\u0131 kald\u0131r\u0131l\u0131yor"
+        }
+    },
+    "options": {
+        "error": {
+            "add_holiday_error": "Tarih i\u00e7in yanl\u0131\u015f bi\u00e7im (YYYY-MM-DD)",
+            "add_holiday_range_error": "Tarih aral\u0131\u011f\u0131nda hatal\u0131 bi\u00e7im (YYYY-AA-GG,YYYY-AA-GG)",
+            "already_configured": "Bu yap\u0131land\u0131rmaya sahip hizmet zaten var",
+            "remove_holiday_error": "Tarih bi\u00e7imi hatal\u0131 (YYYY-MM-DD) veya tatil ad\u0131 bulunamad\u0131",
+            "remove_holiday_range_error": "Tarih aral\u0131\u011f\u0131nda hatal\u0131 bi\u00e7im (YYYY-AA-GG,YYYY-AA-GG)"
+        },
+        "step": {
+            "init": {
+                "data": {
+                    "add_holidays": "Tatil ekleyin",
+                    "category": "Tatil olarak ek kategori",
+                    "days_offset": "Telafi",
+                    "excludes": "Hari\u00e7",
+                    "language": "Adland\u0131r\u0131lm\u0131\u015f tatillerin dili",
+                    "province": "\u00dclke alt b\u00f6l\u00fcm\u00fc",
+                    "remove_holidays": "Tatilleri Kald\u0131r",
+                    "workdays": "\u00c7al\u0131\u015fma G\u00fcnleri"
+                },
+                "data_description": {
+                    "add_holidays": "Ay\u0131r\u0131c\u0131 olarak `,` kullanarak \u00f6zel tatilleri YYYY-AA-GG olarak veya aral\u0131k olarak ekleyin",
+                    "category": "Tatil olarak eklemek i\u00e7in ek kategorileri se\u00e7in",
+                    "days_offset": "Ge\u00e7erli g\u00fcnden farkl\u0131 g\u00fcnler",
+                    "excludes": "Hari\u00e7 tutulacak i\u015f g\u00fcnlerinin listesi, 'tatil' anahtar kelimesine dikkat edin ve bunun nas\u0131l do\u011fru \u015fekilde kullan\u0131laca\u011f\u0131na ili\u015fkin belgeleri okuyun",
+                    "language": "Adland\u0131r\u0131lm\u0131\u015f tatil hari\u00e7 tutmalar\u0131n\u0131 yap\u0131land\u0131r\u0131rken kullan\u0131lacak dil",
+                    "province": "\u00dclkenin eyaleti, b\u00f6lgesi, ili veya b\u00f6lgesi",
+                    "remove_holidays": "Tatilleri YYYY-AA-GG olarak, ay\u0131r\u0131c\u0131 olarak `,` kullanarak veya ad\u0131n bir k\u0131sm\u0131n\u0131 kullanarak aral\u0131k olarak kald\u0131r\u0131n",
+                    "workdays": "\u00c7al\u0131\u015fma g\u00fcnlerinin listesi"
+                },
+                "description": "{country} \u00fclkesi i\u00e7in yap\u0131land\u0131r\u0131lan {name} i\u00e7in ek se\u00e7enekleri de\u011fi\u015ftirin"
+            }
+        }
+    },
+    "selector": {
+        "category": {
+            "options": {
+                "armed_forces": "Silahl\u0131 kuvvetler",
+                "bank": "Banka",
+                "chinese": "\u00c7ince",
+                "christian": "H\u0131ristiyan",
+                "government": "H\u00fck\u00fcmet",
+                "half_day": "Yar\u0131m g\u00fcn",
+                "hebrew": "\u0130branice",
+                "hindu": "Hindu",
+                "islamic": "\u0130slami",
+                "optional": "\u0130ste\u011fe ba\u011fl\u0131",
+                "public": "Halk",
+                "school": "Okul",
+                "unofficial": "Resmi olmayan",
+                "workday": "\u0130\u015f g\u00fcn\u00fc"
+            }
+        },
+        "country": {
+            "options": {
+                "none": "\u00dclke yok"
+            }
+        },
+        "days": {
+            "options": {
+                "fri": "Cuma",
+                "holiday": "Tatiller",
+                "mon": "Pazartesi",
+                "sat": "Cumartesi",
+                "sun": "Pazar",
+                "thu": "Per\u015fembe",
+                "tue": "Sal\u0131",
+                "wed": "\u00c7ar\u015famba"
+            }
+        },
+        "province": {
+            "options": {
+                "none": "Alt b\u00f6l\u00fcm yok"
+            }
+        }
+    },
+    "services": {
+        "check_date": {
+            "description": "Tarihin i\u015f g\u00fcn\u00fc olup olmad\u0131\u011f\u0131n\u0131 kontrol edin.",
+            "fields": {
+                "check_date": {
+                    "description": "\u0130\u015f g\u00fcn\u00fc olup olmad\u0131\u011f\u0131n\u0131 kontrol edecek tarih.",
+                    "name": "Tarih"
+                }
+            },
+            "name": "Tarihi kontrol et"
+        }
+    },
+    "title": "\u0130\u015f G\u00fcn\u00fc"
+}

@@ -1,0 +1,1 @@
+"""Synology Core API models."""

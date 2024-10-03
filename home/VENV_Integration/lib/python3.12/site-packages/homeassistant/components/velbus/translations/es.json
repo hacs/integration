@@ -1,0 +1,79 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "El dispositivo ya est\u00e1 configurado"
+        },
+        "error": {
+            "already_configured": "El dispositivo ya est\u00e1 configurado",
+            "cannot_connect": "No se pudo conectar"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "name": "El nombre de esta conexi\u00f3n velbus",
+                    "port": "Cadena de conexi\u00f3n"
+                },
+                "title": "Definir el tipo de conexi\u00f3n velbus"
+            }
+        }
+    },
+    "exceptions": {
+        "invalid_hvac_mode": {
+            "message": "El modo de climatizaci\u00f3n {hvac_mode} no es compatible."
+        }
+    },
+    "services": {
+        "clear_cache": {
+            "description": "Borra el velbuscache y luego inicia un nuevo escaneo.",
+            "fields": {
+                "address": {
+                    "description": "La direcci\u00f3n del m\u00f3dulo en formato decimal, si se proporciona, solo borramos este m\u00f3dulo, si no se proporciona nada, borramos todo el directorio de cach\u00e9 (todos los m\u00f3dulos). Las direcciones decimales se muestran delante de los m\u00f3dulos enumerados en la p\u00e1gina de integraci\u00f3n.",
+                    "name": "Direcci\u00f3n"
+                },
+                "interface": {
+                    "description": "La interfaz velbus para enviar el comando, este ser\u00e1 el mismo valor que se us\u00f3 durante la configuraci\u00f3n.",
+                    "name": "Interfaz"
+                }
+            },
+            "name": "Borrar cach\u00e9"
+        },
+        "scan": {
+            "description": "Escanea los m\u00f3dulos velbus, esto ser\u00e1 necesario si ves advertencias de m\u00f3dulos desconocidos en los registros o cuando a\u00f1ades nuevos m\u00f3dulos.",
+            "fields": {
+                "interface": {
+                    "description": "La interfaz velbus para enviar el comando, este ser\u00e1 el mismo valor que se us\u00f3 durante la configuraci\u00f3n.",
+                    "name": "Interfaz"
+                }
+            },
+            "name": "Escanear"
+        },
+        "set_memo_text": {
+            "description": "Establece el texto de la nota en la visualizaci\u00f3n de m\u00f3dulos como VMBGPO, VMBGPOD. Aseg\u00farate de que las p\u00e1ginas del m\u00f3dulo est\u00e9n configuradas para mostrar el texto de la nota.",
+            "fields": {
+                "address": {
+                    "description": "La direcci\u00f3n del m\u00f3dulo en formato decimal. Las direcciones decimales se muestran delante de los m\u00f3dulos enumerados en la p\u00e1gina de integraci\u00f3n.",
+                    "name": "Direcci\u00f3n"
+                },
+                "interface": {
+                    "description": "La interfaz velbus para enviar el comando, este ser\u00e1 el mismo valor que se us\u00f3 durante la configuraci\u00f3n.",
+                    "name": "Interfaz"
+                },
+                "memo_text": {
+                    "description": "El texto real que se mostrar\u00e1. El texto est\u00e1 limitado a 64 caracteres.",
+                    "name": "Texto de nota"
+                }
+            },
+            "name": "Establecer el texto de la nota"
+        },
+        "sync_clock": {
+            "description": "Sincroniza el reloj de los m\u00f3dulos velbus con el reloj de Home Assistant, este es el mismo que el 'reloj de sincronizaci\u00f3n' de VelbusLink.",
+            "fields": {
+                "interface": {
+                    "description": "La interfaz velbus para enviar el comando, este ser\u00e1 el mismo valor que se us\u00f3 durante la configuraci\u00f3n.",
+                    "name": "Interfaz"
+                }
+            },
+            "name": "Sincronizar reloj"
+        }
+    }
+}

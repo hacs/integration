@@ -1,0 +1,54 @@
+{
+    "config": {
+        "abort": {
+            "single_instance_allowed": "Already configured. Only a single configuration possible."
+        },
+        "error": {
+            "cannot_connect": "The directory could not be reached. Please check your settings.",
+            "directory_does_not_exist": "The directory could not be reached. Please check your settings."
+        },
+        "step": {
+            "user": {
+                "description": "Select a location to get to store downloads. The setup will check if the directory exists."
+            }
+        }
+    },
+    "issues": {
+        "deprecated_yaml": {
+            "description": "Configuring {integration_title} using YAML is being removed.\n\nYour configuration is already imported.\n\nRemove the `{domain}` configuration from your configuration.yaml file and restart Home Assistant to fix this issue.",
+            "title": "The {integration_title} YAML configuration is being removed"
+        },
+        "directory_does_not_exist": {
+            "description": "The {integration_title} integration failed to import because the configured directory does not exist.\n\nEnsure the directory exists and restart Home Assistant to try again or remove the {integration_title} configuration from your configuration.yaml file and continue to [set up the integration]({url}) manually.",
+            "title": "The {integration_title} failed to import"
+        },
+        "import_failed": {
+            "description": "The {integration_title} integration failed to import.\n\nPlease check the logs for more details.",
+            "title": "The {integration_title} failed to import"
+        }
+    },
+    "services": {
+        "download_file": {
+            "description": "Downloads a file to the download location.",
+            "fields": {
+                "filename": {
+                    "description": "Determine the filename.",
+                    "name": "Filename"
+                },
+                "overwrite": {
+                    "description": "Whether to overwrite the file or not.",
+                    "name": "Overwrite"
+                },
+                "subdir": {
+                    "description": "Download into subdirectory.",
+                    "name": "Subdirectory"
+                },
+                "url": {
+                    "description": "The URL of the file to download.",
+                    "name": "URL"
+                }
+            },
+            "name": "Download file"
+        }
+    }
+}

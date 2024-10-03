@@ -1,0 +1,117 @@
+{
+    "config": {
+        "error": {
+            "cannot_connect": "Yhteyden muodostaminen ep\u00e4onnistui",
+            "invalid_auth": "Virheellinen todennus"
+        },
+        "step": {
+            "reauth_confirm": {
+                "data": {
+                    "password": "Salasana"
+                },
+                "description": "Honeywell-integraation on todennettava tilisi uudelleen.",
+                "title": "Todennus vanhentui kohteella {name}"
+            },
+            "user": {
+                "data": {
+                    "password": "Salasana",
+                    "username": "K\u00e4ytt\u00e4j\u00e4tunnus"
+                },
+                "description": "Sy\u00f6t\u00e4 tunnukset, joilla kirjaudut sis\u00e4\u00e4n mytotalconnectcomfort.com-sivustolle."
+            }
+        }
+    },
+    "entity": {
+        "climate": {
+            "honeywell": {
+                "state_attributes": {
+                    "preset_mode": {
+                        "state": {
+                            "away": "Poissa",
+                            "hold": "Pid\u00e4",
+                            "none": "Ei mit\u00e4\u00e4n"
+                        }
+                    }
+                }
+            }
+        },
+        "sensor": {
+            "outdoor_humidity": {
+                "name": "Ulkoilman kosteus"
+            },
+            "outdoor_temperature": {
+                "name": "Ulkol\u00e4mp\u00f6tila"
+            }
+        },
+        "switch": {
+            "emergency_heat": {
+                "name": "H\u00e4t\u00e4l\u00e4mp\u00f6"
+            }
+        }
+    },
+    "exceptions": {
+        "away_mode_failed": {
+            "message": "Honeywell set away mode ep\u00e4onnistui"
+        },
+        "disable_aux_failed": {
+            "message": "Honeywell voisi sammuttaa lis\u00e4l\u00e4mp\u00f6tilan"
+        },
+        "fan_mode_failed": {
+            "message": "Honeywell ei pystynyt asettamaan tuuletintilaa"
+        },
+        "set_aux_failed": {
+            "message": "Honeywell ei pystynyt asettamaan j\u00e4rjestelm\u00e4tilaa lis\u00e4l\u00e4mm\u00f6lle."
+        },
+        "set_hold_failed": {
+            "message": "Honeywell ei pystynyt asettamaan pysyv\u00e4\u00e4 pitoa"
+        },
+        "set_mode_failed": {
+            "message": "Honeywell virheellinen j\u00e4rjestelm\u00e4tila palautettu {mode}"
+        },
+        "stop_hold_failed": {
+            "message": "Honeywell ei voinut lopettaa pitotilaa"
+        },
+        "switch_failed_off": {
+            "message": "Honeywell voisi kytke\u00e4 h\u00e4t\u00e4l\u00e4mmitystilan pois p\u00e4\u00e4lt\u00e4."
+        },
+        "switch_failed_on": {
+            "message": "Honeywell ei pystynyt asettamaan j\u00e4rjestelm\u00e4n tilaa h\u00e4t\u00e4l\u00e4mmitystilaan."
+        },
+        "sys_mode_failed": {
+            "message": "Honeywell ei voinut asettaa j\u00e4rjestelm\u00e4tilaa"
+        },
+        "temp_failed": {
+            "message": "Honeywellin asetusl\u00e4mp\u00f6tila ep\u00e4onnistui"
+        },
+        "temp_failed_range": {
+            "message": "Honeywellin asetusl\u00e4mp\u00f6tila ep\u00e4onnistui: l\u00e4mp\u00f6tila on alueen ulkopuolella. Tila: {mode} L\u00e4mp\u00f6tila: {heat}, J\u00e4\u00e4hdytysl\u00e4mp\u00f6tila: {cool}"
+        },
+        "temp_failed_value": {
+            "message": "Honeywellin l\u00e4mp\u00f6tilan asetus ep\u00e4onnistui: virheellinen l\u00e4mp\u00f6tila {temperature}"
+        }
+    },
+    "issues": {
+        "service_deprecation": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "K\u00e4yt\u00e4 sen sijaan `switch.{name}_emergency_heat` vaihtaaksesi tilaa.\n\nS\u00e4\u00e4d\u00e4 automaatioita ja skriptej\u00e4si ja valitse **l\u00e4het\u00e4** t\u00e4m\u00e4n ongelman korjaamiseksi.",
+                        "title": "Honeywellin lis\u00e4l\u00e4mp\u00f6 poistetaan"
+                    }
+                }
+            },
+            "title": "Honeywellin lis\u00e4l\u00e4mp\u00f6 poistetaan"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "away_cool_temperature": "Poissa viile\u00e4 l\u00e4mp\u00f6tila",
+                    "away_heat_temperature": "Poissa l\u00e4mp\u00f6tila"
+                },
+                "description": "Honeywellin lis\u00e4konfiguraatiovaihtoehdot. L\u00e4mp\u00f6tilat asetetaan Fahrenheit-asteikolla."
+            }
+        }
+    }
+}

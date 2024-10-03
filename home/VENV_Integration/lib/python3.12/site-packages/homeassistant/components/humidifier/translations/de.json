@@ -1,0 +1,130 @@
+{
+    "device_automation": {
+        "action_type": {
+            "set_humidity": "Luftfeuchtigkeit f\u00fcr {entity_name} einstellen",
+            "set_mode": "Wechsele Modus auf {entity_name}",
+            "toggle": "{entity_name} umschalten",
+            "turn_off": "{entity_name} ausschalten",
+            "turn_on": "{entity_name} einschalten"
+        },
+        "condition_type": {
+            "is_mode": "{entity_name} ist auf einen bestimmten Modus festgelegt",
+            "is_off": "{entity_name} ist ausgeschaltet",
+            "is_on": "{entity_name} ist eingeschaltet"
+        },
+        "extra_fields": {
+            "above": "\u00dcber",
+            "below": "Unter",
+            "for": "Dauer",
+            "humidity": "Luftfeuchtigkeit",
+            "mode": "Modus"
+        },
+        "trigger_type": {
+            "changed_states": "{entity_name} ein- oder ausgeschaltet",
+            "target_humidity_changed": "{entity_name} Soll-Luftfeuchtigkeit ge\u00e4ndert",
+            "turned_off": "{entity_name} ausgeschaltet",
+            "turned_on": "{entity_name} eingeschaltet"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Luftbefeuchter",
+            "state": {
+                "off": "Aus",
+                "on": "An"
+            },
+            "state_attributes": {
+                "action": {
+                    "name": "Aktion",
+                    "state": {
+                        "drying": "Trocknen",
+                        "humidifying": "Befeuchtung",
+                        "idle": "Unt\u00e4tig",
+                        "off": "Aus"
+                    }
+                },
+                "available_modes": {
+                    "name": "Verf\u00fcgbare Modi"
+                },
+                "current_humidity": {
+                    "name": "Aktuelle Luftfeuchtigkeit"
+                },
+                "humidity": {
+                    "name": "Zielfeuchtigkeit"
+                },
+                "max_humidity": {
+                    "name": "Maximale Zielfeuchtigkeit"
+                },
+                "min_humidity": {
+                    "name": "Minimale Zielfeuchtigkeit"
+                },
+                "mode": {
+                    "name": "Modus",
+                    "state": {
+                        "auto": "Auto",
+                        "away": "Abwesend",
+                        "baby": "Baby",
+                        "boost": "Boost",
+                        "comfort": "Komfort",
+                        "eco": "Eco",
+                        "home": "Zu Hause",
+                        "normal": "Normal",
+                        "sleep": "Schlafen"
+                    }
+                }
+            }
+        },
+        "dehumidifier": {
+            "name": "Luftentfeuchter"
+        },
+        "humidifier": {
+            "name": "Luftbefeuchter"
+        }
+    },
+    "exceptions": {
+        "humidity_out_of_range": {
+            "message": "Die angegebene Luftfeuchtigkeit {humidity} ist ung\u00fcltig. Der zul\u00e4ssige Bereich liegt zwischen {min_humidity} und {max_humidity}."
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "Die {platform}-Plattform f\u00fcr die {domain}-Integration unterst\u00fctzt die Plattform-Einrichtung nicht. \n\nBitte entferne es aus deiner Konfiguration und starte Home Assistant neu, um dieses Problem zu beheben.",
+            "title": "Plattform-Unterst\u00fctzung nicht unterst\u00fctzt"
+        }
+    },
+    "services": {
+        "set_humidity": {
+            "description": "Legt die gew\u00fcnschte Luftfeuchtigkeit fest.",
+            "fields": {
+                "humidity": {
+                    "description": "Gew\u00fcnschte Luftfeuchtigkeit.",
+                    "name": "Luftfeuchtigkeit"
+                }
+            },
+            "name": "Luftfeuchtigkeit einstellen"
+        },
+        "set_mode": {
+            "description": "Legt den Betriebsmodus des Luftbefeuchters fest.",
+            "fields": {
+                "mode": {
+                    "description": "Betriebsmodus. Zum Beispiel _normal_, _eco_ oder _away_. Eine Liste m\u00f6glicher Werte findest du in der Integrationsdokumentation.",
+                    "name": "Modus"
+                }
+            },
+            "name": "Modus einstellen"
+        },
+        "toggle": {
+            "description": "Schaltet den Luftbefeuchter ein/aus.",
+            "name": "Umschalten"
+        },
+        "turn_off": {
+            "description": "Schaltet den Luftbefeuchter aus.",
+            "name": "Ausschalten"
+        },
+        "turn_on": {
+            "description": "Schaltet den Luftbefeuchter ein.",
+            "name": "Einschalten"
+        }
+    },
+    "title": "Luftbefeuchter"
+}

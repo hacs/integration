@@ -1,0 +1,219 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Apparaat is al geconfigureerd",
+            "authorize_url_timeout": "Time-out bij het genereren van autorisatie-URL.",
+            "invalid_discovery_info": "Ongeldige discovery informatie ontvangen",
+            "link_local_address": "Link local adressen worden niet ondersteund",
+            "missing_configuration": "De LaMetric-integratie is niet geconfigureerd. Volg de documentatie.",
+            "no_devices": "De geautoriseerde gebruiker heeft geen LaMetric apparaten",
+            "no_url_available": "Geen URL beschikbaar. Voor informatie over deze fout, [raadpleeg de documentatie]({docs_url})",
+            "oauth_error": "Ongeldige tokengegevens ontvangen.",
+            "oauth_failed": "Fout bij het verkrijgen van toegangstoken.",
+            "oauth_timeout": "Time-out bij het verkrijgen OAuth token.",
+            "oauth_unauthorized": "OAuth autorisatiefout tijdens het verkrijgen van een toegangstoken.",
+            "reauth_device_not_found": "Het apparaat dat je probeert opnieuw te authenticeren, is niet gevonden in dit LaMetric-account",
+            "reauth_successful": "Herauthenticatie geslaagd",
+            "unknown": "Onverwachte fout"
+        },
+        "error": {
+            "cannot_connect": "Kan geen verbinding maken",
+            "unknown": "Onverwachte fout"
+        },
+        "step": {
+            "choice_enter_manual_or_fetch_cloud": {
+                "description": "Een LaMetric-apparaat kan op twee verschillende manieren worden ingesteld in Home Assistant.\n\nJe kunt alle apparaatinformatie en API-tokens zelf invoeren, of Home Assistant kan ze importeren van je LaMetric.com-account.",
+                "menu_options": {
+                    "manual_entry": "Handmatig invoeren",
+                    "pick_implementation": "Importeren van LaMetric.com (aanbevolen)"
+                }
+            },
+            "manual_entry": {
+                "data": {
+                    "api_key": "API-sleutel",
+                    "host": "Host"
+                },
+                "data_description": {
+                    "api_key": "Je kunt deze API-sleutel vinden op de [apparatenpagina in je LaMetric-ontwikkelaarsaccount](https://developer.lametric.com/user/devices).",
+                    "host": "Het IP-adres of de hostnaam van je LaMetric TIME op je netwerk."
+                }
+            },
+            "pick_implementation": {
+                "title": "Kies een authenticatie methode"
+            },
+            "user_cloud_select_device": {
+                "data": {
+                    "device": "Selecteer het LaMetric-apparaat dat u wilt toevoegen"
+                }
+            }
+        }
+    },
+    "entity": {
+        "button": {
+            "app_next": {
+                "name": "Volgende app"
+            },
+            "app_previous": {
+                "name": "Vorige app"
+            },
+            "dismiss_all": {
+                "name": "Sluit alle notificaties"
+            },
+            "dismiss_current": {
+                "name": "Sluit huidige notificatie"
+            }
+        },
+        "select": {
+            "brightness_mode": {
+                "name": "Helderheidsmodus",
+                "state": {
+                    "auto": "Automatisch",
+                    "manual": "Handmatig"
+                }
+            }
+        },
+        "sensor": {
+            "rssi": {
+                "name": "Wi-Fi-signaal"
+            }
+        },
+        "switch": {
+            "bluetooth": {
+                "name": "Bluetooth"
+            }
+        }
+    },
+    "selector": {
+        "icon_type": {
+            "options": {
+                "alert": "Waarschuwing",
+                "info": "Informatie",
+                "none": "Geen"
+            }
+        },
+        "priority": {
+            "options": {
+                "critical": "Kritiek",
+                "info": "Informatie",
+                "warning": "Waarschuwing"
+            }
+        },
+        "sound": {
+            "options": {
+                "alarm1": "Alarm 1",
+                "alarm10": "Alarm 10",
+                "alarm11": "Alarm 11",
+                "alarm12": "Alarm 12",
+                "alarm13": "Alarm 13",
+                "alarm2": "Alarm 2",
+                "alarm3": "Alarm 3",
+                "alarm4": "Alarm 4",
+                "alarm5": "Alarm 5",
+                "alarm6": "Alarm 6",
+                "alarm7": "Alarm 7",
+                "alarm8": "Alarm 8",
+                "alarm9": "Alarm 9",
+                "bicycle": "Fiets",
+                "car": "Auto",
+                "cash": "Contant geld",
+                "cat": "Kat",
+                "dog": "Hond 1",
+                "dog2": "Hond 2",
+                "energy": "Energie",
+                "knock-knock": "Klop klop",
+                "letter_email": "Brief e-mail",
+                "lose1": "Verliezen 2",
+                "lose2": "Verliezen 2",
+                "negative1": "Negatief 1",
+                "negative2": "Negatief 2",
+                "negative3": "Negatief 3",
+                "negative4": "Negatief 4",
+                "negative5": "Negatief 5",
+                "notification": "Kennisgeving 1",
+                "notification2": "Kennisgeving 2",
+                "notification3": "Kennisgeving 3",
+                "notification4": "Kennisgeving 4",
+                "open_door": "Open deur",
+                "positive1": "Positief 1",
+                "positive2": "Positief 2",
+                "positive3": "Positief 3",
+                "positive4": "Positief 4",
+                "positive5": "Positief 5",
+                "positive6": "Positief 6",
+                "statistic": "Statistiek",
+                "thunder": "Donder",
+                "water1": "Water 1",
+                "water2": "Water 2",
+                "win": "Winnen 1",
+                "win2": "Winnen 2",
+                "wind": "Wind",
+                "wind_short": "Windvlaag"
+            }
+        }
+    },
+    "services": {
+        "chart": {
+            "description": "Toont een grafiek op een LaMetric-apparaat.",
+            "fields": {
+                "cycles": {
+                    "description": "Het aantal keren dat het bericht wordt weergegeven. Wanneer dit op 0 is ingesteld, wordt het bericht weergegeven totdat het wordt verwijderd.",
+                    "name": "Cycli"
+                },
+                "data": {
+                    "description": "De lijst met gegevenspunten in de grafiek.",
+                    "name": "Gegevens"
+                },
+                "device_id": {
+                    "description": "Het LaMetric-apparaat waarop de grafiek moet worden weergegeven.",
+                    "name": "Apparaat"
+                },
+                "icon_type": {
+                    "description": "Het type pictogram dat wordt weergegeven dat de aard van de melding aangeeft.",
+                    "name": "Type pictogram"
+                },
+                "priority": {
+                    "description": "De prioriteit van de notificatie. Wanneer het apparaat in screensaver- of kioskmodus draait, worden alleen notificaties met een kritieke prioriteit geaccepteerd.",
+                    "name": "Prioriteit"
+                },
+                "sound": {
+                    "description": "Het geluid dat moet worden afgespeeld voor de notificatie.",
+                    "name": "Geluid"
+                }
+            },
+            "name": "Een grafiek weergeven"
+        },
+        "message": {
+            "description": "Toont een bericht met een optioneel pictogram op een LaMetric apparaat.",
+            "fields": {
+                "cycles": {
+                    "description": "Het aantal keren dat het bericht wordt weergegeven. Wanneer dit op 0 is ingesteld, wordt het bericht weergegeven totdat het wordt verwijderd.",
+                    "name": "Cycli"
+                },
+                "device_id": {
+                    "description": "Het LaMetric-apparaat waarop het bericht moet worden weergegeven."
+                },
+                "icon": {
+                    "description": "Het ID-nummer van het pictogram of de animatie om weer te geven. Een lijst van alle pictogrammen en hun ID's is te vinden op: https://developer.lametric.com/icons.",
+                    "name": "Pictogram"
+                },
+                "icon_type": {
+                    "description": "Het type pictogram dat wordt weergegeven dat de aard van de melding aangeeft.",
+                    "name": "Type pictogram"
+                },
+                "message": {
+                    "description": "Het bericht dat moet worden weergegeven.",
+                    "name": "Bericht"
+                },
+                "priority": {
+                    "description": "De prioriteit van de notificatie. Wanneer het apparaat in screensaver- of kioskmodus draait, worden alleen notificaties met een kritieke prioriteit geaccepteerd.",
+                    "name": "Prioriteit"
+                },
+                "sound": {
+                    "description": "Het geluid dat moet worden afgespeeld voor de notificatie.",
+                    "name": "Geluid"
+                }
+            },
+            "name": "Een bericht weergeven"
+        }
+    }
+}

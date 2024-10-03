@@ -1,0 +1,64 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Dispozitivul a fost configurat deja"
+        },
+        "error": {
+            "cannot_connect": "A e\u0219uat conectarea",
+            "timeout_connect": "A expirat timpul de stabilire a conexiunii"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "host": "Gazd\u0103 (host)",
+                    "password": "Parola"
+                },
+                "description": "Te rug\u0103m s\u0103 introduci informa\u021biile modulului WiFi LNK pentru dispozitivul Rain Bird.",
+                "title": "Configurare Rain Bird"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "rainsensor": {
+                "name": "Senzor de ploaie"
+            }
+        },
+        "number": {
+            "rain_delay": {
+                "name": "\u00cent\u00e2rziere pe motiv de ploaie"
+            }
+        },
+        "sensor": {
+            "raindelay": {
+                "name": "\u00cent\u00e2rziere pe motiv de ploaie"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_raindelay": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Serviciul Rain Bird `rainbird.set_rain_delay` este eliminat \u0219i \u00eenlocuit cu o entitate Num\u0103r pentru gestionarea \u00eent\u00e2rzierii generate de ploaie. Orice automatiz\u0103ri sau scripturi existente vor trebui s\u0103 fie actualizate pentru a utiliza `number.set_value` cu \u021binta schimbat\u0103 \u00een `{alternate_target}`.",
+                        "title": "Serviciul Rain Bird Rain Delay este eliminat"
+                    }
+                }
+            },
+            "title": "Serviciul Rain Bird Rain Delay este eliminat"
+        },
+        "deprecated_yaml": {
+            "description": "Configurarea Rain Bird \u00een configuration.yaml este eliminat\u0103 \u00een Home Assistant 2023.4.\n\nConfigura\u021bia a fost importat\u0103 automat \u00een interfa\u021ba grafic\u0103, \u00eens\u0103 timpii de irigare impliciti per zon\u0103 nu mai sunt accepta\u021bi. Elimin\u0103 configura\u021bia Rain Bird YAML din fi\u0219ierul configuration.yaml \u0219i reporne\u0219te Home Assistant pentru a remedia aceast\u0103 problem\u0103.",
+            "title": "Configurarea Rain Bird YAML este eliminat\u0103"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "duration": "Timp de irigare implicit \u00een minute"
+                }
+            }
+        }
+    }
+}

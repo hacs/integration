@@ -1,0 +1,84 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Cihaz zaten yap\u0131land\u0131r\u0131lm\u0131\u015f"
+        },
+        "error": {
+            "cannot_connect": "Ba\u011flanma hatas\u0131"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "host": "Sunucu"
+                },
+                "data_description": {
+                    "host": "Bose SoundTouch cihaz\u0131n\u0131z\u0131n ana bilgisayar ad\u0131 veya IP adresi."
+                }
+            },
+            "zeroconf_confirm": {
+                "description": "` {name} ` adl\u0131 SoundTouch cihaz\u0131n\u0131 Home Assistant'a eklemek \u00fczeresiniz.",
+                "title": "Bose SoundTouch cihaz\u0131 eklemeyi onaylay\u0131n"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_yaml": {
+            "description": "YAML kullanarak Bose SoundTouch'\u0131 yap\u0131land\u0131rmak kald\u0131r\u0131l\u0131yor. \n\n Mevcut YAML yap\u0131land\u0131rman\u0131z otomatik olarak kullan\u0131c\u0131 aray\u00fcz\u00fcne aktar\u0131ld\u0131. \n\n Bu sorunu \u00e7\u00f6zmek i\u00e7in Bose SoundTouch YAML yap\u0131land\u0131rmas\u0131n\u0131 configuration.yaml dosyan\u0131zdan kald\u0131r\u0131n ve Home Assistant'\u0131 yeniden ba\u015flat\u0131n.",
+            "title": "Bose SoundTouch YAML yap\u0131land\u0131rmas\u0131 kald\u0131r\u0131l\u0131yor"
+        }
+    },
+    "services": {
+        "add_zone_slave": {
+            "description": "SoundTouch \u00e7ok odal\u0131 bir b\u00f6lgeye bir slave ekler.",
+            "fields": {
+                "master": {
+                    "description": "\u00c7ok odal\u0131 b\u00f6lgeyi koordine eden ana varl\u0131\u011f\u0131n ad\u0131. Platforma ba\u011fl\u0131d\u0131r.",
+                    "name": "Ana"
+                },
+                "slaves": {
+                    "description": "Mevcut b\u00f6lgeye eklenecek k\u00f6le varl\u0131klar\u0131n ad\u0131.",
+                    "name": "Ba\u011f\u0131ml\u0131lar"
+                }
+            },
+            "name": "B\u00f6lge ba\u011f\u0131ml\u0131s\u0131 ekle"
+        },
+        "create_zone": {
+            "description": "SoundTouch \u00e7ok odal\u0131 bir b\u00f6lge olu\u015fturur.",
+            "fields": {
+                "master": {
+                    "description": "\u00c7ok odal\u0131 b\u00f6lgeyi koordine edecek ana varl\u0131\u011f\u0131n ad\u0131. Platforma ba\u011fl\u0131d\u0131r.",
+                    "name": "Ana"
+                },
+                "slaves": {
+                    "description": "Yeni b\u00f6lgeye eklenecek ba\u011f\u0131ml\u0131 varl\u0131klar\u0131n ad\u0131.",
+                    "name": "Ba\u011f\u0131ml\u0131lar"
+                }
+            },
+            "name": "B\u00f6lge olu\u015ftur"
+        },
+        "play_everywhere": {
+            "description": "T\u00fcm Bose SoundTouch cihazlar\u0131nda \u00e7alar.",
+            "fields": {
+                "master": {
+                    "description": "Grupland\u0131rmay\u0131 koordine edecek ana varl\u0131\u011f\u0131n ad\u0131. Platforma ba\u011fl\u0131d\u0131r. T\u00fcm cihazlarla \u00e7ok odal\u0131 bir b\u00f6lge olu\u015fturmak i\u00e7in bir k\u0131sayoldur.",
+                    "name": "Ana"
+                }
+            },
+            "name": "Her yerde oynat\u0131n"
+        },
+        "remove_zone_slave": {
+            "description": "Bir slave'i SoundTouch \u00e7oklu oda b\u00f6lgesinden kald\u0131r\u0131r.",
+            "fields": {
+                "master": {
+                    "description": "\u00c7ok odal\u0131 b\u00f6lgeyi koordine eden ana varl\u0131\u011f\u0131n ad\u0131. Platforma ba\u011fl\u0131d\u0131r.",
+                    "name": "Ana"
+                },
+                "slaves": {
+                    "description": "Mevcut b\u00f6lgeden kald\u0131r\u0131lacak ba\u011f\u0131ml\u0131 varl\u0131klar\u0131n ad\u0131.",
+                    "name": "Ba\u011f\u0131ml\u0131lar"
+                }
+            },
+            "name": "Ba\u011f\u0131ml\u0131y\u0131 b\u00f6lgeden kald\u0131r"
+        }
+    }
+}

@@ -1,0 +1,1134 @@
+{
+    "config": {
+        "abort": {
+            "not_zha_device": "Toto za\u0159\u00edzen\u00ed nen\u00ed za\u0159\u00edzen\u00ed ZHA",
+            "single_instance_allowed": "Ji\u017e nastaveno. Je mo\u017en\u00e9 jen jedin\u00e9 nastaven\u00ed.",
+            "usb_probe_failed": "Nepoda\u0159ilo se prozkoumat za\u0159\u00edzen\u00ed USB",
+            "wrong_firmware_installed": "Va\u0161e za\u0159\u00edzen\u00ed pou\u017e\u00edv\u00e1 nespr\u00e1vn\u00fd firmware a nelze jej pou\u017e\u00edvat se ZHA, dokud nen\u00ed nainstalov\u00e1n spr\u00e1vn\u00fd firmware. [Byla vytvo\u0159ena oprava]({repair_url}) s dal\u0161\u00edmi informacemi a pokyny, jak to opravit."
+        },
+        "error": {
+            "cannot_connect": "Nepoda\u0159ilo se p\u0159ipojit",
+            "invalid_backup_json": "Neplatn\u00fd z\u00e1lo\u017en\u00ed JSON"
+        },
+        "flow_title": "{name}",
+        "step": {
+            "choose_automatic_backup": {
+                "data": {
+                    "choose_automatic_backup": "Zvolit automatick\u00e9 z\u00e1lohov\u00e1n\u00ed"
+                },
+                "description": "Obnovit nastaven\u00ed s\u00edt\u011b z automatick\u00e9 z\u00e1lohy",
+                "title": "Obnovit z automatick\u00e9 z\u00e1lohy"
+            },
+            "choose_formation_strategy": {
+                "description": "Vyberte nastaven\u00ed s\u00edt\u011b sv\u00e9ho r\u00e1dia.",
+                "menu_options": {
+                    "choose_automatic_backup": "Obnovit automatickou z\u00e1lohu",
+                    "form_initial_network": "Vytvo\u0159it s\u00ed\u0165",
+                    "form_new_network": "Vymazat nastaven\u00ed s\u00edt\u011b a vytvo\u0159it novou s\u00ed\u0165",
+                    "reuse_settings": "Zachovat nastaven\u00ed s\u00edt\u011b r\u00e1dia",
+                    "upload_manual_backup": "Nahr\u00e1t ru\u010dn\u00ed z\u00e1lohu"
+                },
+                "title": "Tvar s\u00edt\u011b"
+            },
+            "choose_serial_port": {
+                "data": {
+                    "path": "Cesta s\u00e9riov\u00e9ho za\u0159\u00edzen\u00ed"
+                },
+                "description": "Vyberte s\u00e9riov\u00fd port pro va\u0161e r\u00e1dio Zigbee.",
+                "title": "Vybra s\u00e9riov\u00fd port"
+            },
+            "confirm": {
+                "description": "Chcete nastavit {name}?"
+            },
+            "confirm_hardware": {
+                "description": "Chcete nastavit {name}?"
+            },
+            "manual_pick_radio_type": {
+                "data": {
+                    "radio_type": "Typ r\u00e1dia"
+                },
+                "description": "V\u00fdb\u011br typu Zigbee r\u00e1dia.",
+                "title": "Typ r\u00e1dia"
+            },
+            "manual_port_config": {
+                "data": {
+                    "baudrate": "Rychlost portu",
+                    "flow_control": "\u0158\u00edzen\u00ed toku dat",
+                    "path": "Cesta s\u00e9riov\u00e9ho za\u0159\u00edzen\u00ed"
+                },
+                "description": "Zadejte nastaven\u00ed s\u00e9riov\u00e9ho portu.",
+                "title": "Nastaven\u00ed s\u00e9riov\u00e9ho portu"
+            },
+            "maybe_confirm_ezsp_restore": {
+                "data": {
+                    "overwrite_coordinator_ieee": "Trvale nahradit IEEE adresu r\u00e1dia"
+                },
+                "description": "Va\u0161e z\u00e1loha m\u00e1 jinou adresu IEEE ne\u017e va\u0161e r\u00e1dio. Aby s\u00ed\u0165 fungovala spr\u00e1vn\u011b, m\u011bla by b\u00fdt zm\u011bn\u011bna tak\u00e9 adresa IEEE va\u0161eho r\u00e1dia. \n\nJedn\u00e1 se o trvalou operaci.",
+                "title": "P\u0159epsat adresu IEEE r\u00e1dia"
+            },
+            "upload_manual_backup": {
+                "data": {
+                    "uploaded_backup_file": "Nahr\u00e1t soubor"
+                },
+                "description": "Obnovte nastaven\u00ed s\u00edt\u011b z nahran\u00e9ho z\u00e1lo\u017en\u00edho souboru JSON. Soubor m\u016f\u017eete st\u00e1hnout z jin\u00e9 instalace ZHA v **Nastaven\u00ed s\u00edt\u011b** nebo pou\u017eijte soubor \"coordinator_backup.json\" z integrace Zigbee2MQTT.",
+                "title": "Nahr\u00e1t ru\u010dn\u00ed z\u00e1lohu"
+            },
+            "verify_radio": {
+                "description": "R\u00e1dio, kter\u00e9 pou\u017e\u00edv\u00e1te ({name}), se nedoporu\u010duje a jeho podpora m\u016f\u017ee b\u00fdt v budoucnu odebr\u00e1na. V dokumentaci k integraci Zigbee Home Automation naleznete [seznam doporu\u010den\u00fdch adapt\u00e9r\u016f]({docs_recommended_adapters_url}).",
+                "title": "R\u00e1dio se nedoporu\u010duje"
+            }
+        }
+    },
+    "config_panel": {
+        "zha_alarm_options": {
+            "alarm_arm_requires_code": "K\u00f3d po\u017eadovan\u00fd pro akce odbezpe\u010den\u00ed",
+            "alarm_failed_tries": "Po\u010det po sob\u011b jdouc\u00edch ne\u00fasp\u011b\u0161n\u00fdch zad\u00e1n\u00ed k\u00f3du pro spu\u0161t\u011bn\u00ed alarmu",
+            "alarm_master_code": "Hlavn\u00ed k\u00f3d pro ovl\u00e1dac\u00ed panel alarmu",
+            "title": "Volby ovl\u00e1dac\u00edho panelu alarmu"
+        },
+        "zha_options": {
+            "always_prefer_xy_color_mode": "V\u017edy preferovat barevn\u00fd re\u017eim XY",
+            "consider_unavailable_battery": "Pova\u017eovat za\u0159\u00edzen\u00ed nap\u00e1jen\u00e1 z baterie jako nedostupn\u00e1 po X sekund\u00e1ch",
+            "consider_unavailable_mains": "Pova\u017eovat za\u0159\u00edzen\u00ed nap\u00e1jen\u00e1 ze s\u00edt\u011b jako nedostupn\u00e1 po X sekund\u00e1ch",
+            "default_light_transition": "V\u00fdchoz\u00ed doba p\u0159echodu sv\u011btla (sekundy)",
+            "enable_identify_on_join": "Povolit efekt identifikace, kdy\u017e se za\u0159\u00edzen\u00ed p\u0159ipoj\u00ed k s\u00edti",
+            "enable_mains_startup_polling": "Stav obnoven\u00ed pro za\u0159\u00edzen\u00ed nap\u00e1jen\u00e1 ze s\u00edt\u011b p\u0159i spu\u0161t\u011bn\u00ed",
+            "enhanced_light_transition": "Povolit vylep\u0161en\u00fd p\u0159echod barvy/teploty sv\u011btla z vypnut\u00e9ho stavu",
+            "group_members_assume_state": "\u010clenov\u00e9 skupiny p\u0159eb\u00edraj\u00ed stav skupiny",
+            "light_transitioning_flag": "Povolit vylep\u0161en\u00fd posuvn\u00edk jasu b\u011bhem p\u0159echodu sv\u011btla",
+            "title": "Obecn\u00e9 volby"
+        }
+    },
+    "device_automation": {
+        "action_type": {
+            "issue_all_led_effect": "Efekt probl\u00e9mu pro v\u0161echny LED",
+            "issue_individual_led_effect": "Efekt probl\u00e9mu pro jednotliv\u00e9 LED",
+            "squawk": "Sk\u0159ehotat",
+            "warn": "Varovat"
+        },
+        "extra_fields": {
+            "color": "Barevn\u00fd odst\u00edn",
+            "duration": "D\u00e9lka v sekund\u00e1ch",
+            "effect_type": "Typ efektu",
+            "led_number": "\u010c\u00edslo LED",
+            "level": "Jas (%)"
+        },
+        "trigger_subtype": {
+            "both_buttons": "Ob\u011b tla\u010d\u00edtka",
+            "button": "Tla\u010d\u00edtko",
+            "button_1": "Prvn\u00ed tla\u010d\u00edtko",
+            "button_2": "Druh\u00e9 tla\u010d\u00edtko",
+            "button_3": "T\u0159et\u00ed tla\u010d\u00edtko",
+            "button_4": "\u010ctvrt\u00e9 tla\u010d\u00edtko",
+            "button_5": "P\u00e1t\u00e9 tla\u010d\u00edtko",
+            "button_6": "\u0160est\u00e9 tla\u010d\u00edtko",
+            "close": "Zav\u0159\u00edt",
+            "dim_down": "Sn\u00ed\u017eit jas",
+            "dim_up": "Zv\u00fd\u0161it jas",
+            "face_1": "Aktivov\u00e1no tv\u00e1\u0159\u00ed 1",
+            "face_2": "Aktivov\u00e1no tv\u00e1\u0159\u00ed 2",
+            "face_3": "Aktivov\u00e1no tv\u00e1\u0159\u00ed 3",
+            "face_4": "Aktivov\u00e1no tv\u00e1\u0159\u00ed 4",
+            "face_5": "Aktivov\u00e1no tv\u00e1\u0159\u00ed 5",
+            "face_6": "Aktivov\u00e1no tv\u00e1\u0159\u00ed 6",
+            "face_any": "Aktivov\u00e1no libovolnou/ur\u010denou tv\u00e1\u0159\u00ed",
+            "left": "Vlevo",
+            "open": "Otev\u0159\u00edt",
+            "right": "Vpravo",
+            "turn_off": "Vypnout",
+            "turn_on": "Zapnout"
+        },
+        "trigger_type": {
+            "device_dropped": "Za\u0159\u00edzen\u00ed vypadlo",
+            "device_flipped": "Za\u0159\u00edzen\u00ed p\u0159evr\u00e1ceno \"{subtype}\"",
+            "device_knocked": "Za\u0159\u00edzen\u00edm se kleplo \"{subtype}\"",
+            "device_offline": "Za\u0159\u00edzen\u00ed je offline",
+            "device_rotated": "Za\u0159\u00edzen\u00ed oto\u010deno \"{subtype}\"",
+            "device_shaken": "Za\u0159\u00edzen\u00ed se zat\u0159\u00e1slo",
+            "device_slid": "Za\u0159\u00edzen\u00edm se posunulo \"{subtype}\"",
+            "device_tilted": "Za\u0159\u00edzen\u00ed naklon\u011bno",
+            "remote_button_alt_double_press": "Tla\u010d\u00edtko \"{subtype}\" stisknuto dvakr\u00e1t (alternativn\u00ed re\u017eim)",
+            "remote_button_alt_long_press": "Tla\u010d\u00edtko \"{subtype}\" stisknuto dlouze (alternativn\u00ed re\u017eim)",
+            "remote_button_alt_long_release": "Tla\u010d\u00edtko \"{subtype}\" uvoln\u011bno po dlouh\u00e9m stisku (alternativn\u00ed re\u017eim)",
+            "remote_button_alt_quadruple_press": "Tla\u010d\u00edtko \"{subtype}\" stisknuto \u010dty\u0159ikr\u00e1t (alternativn\u00ed re\u017eim)",
+            "remote_button_alt_quintuple_press": "Tla\u010d\u00edtko \"{subtype}\" stisknuto p\u011btkr\u00e1t (alternativn\u00ed re\u017eim)",
+            "remote_button_alt_short_press": "Tla\u010d\u00edtko \"{subtype}\" stisknuto (alternativn\u00ed re\u017eim)",
+            "remote_button_alt_short_release": "Tla\u010d\u00edtko \"{subtype}\" uvoln\u011bno (alternativn\u00ed re\u017eim)",
+            "remote_button_alt_triple_press": "Tla\u010d\u00edtko \"{subtype}\" stisknuto t\u0159ikr\u00e1t (alternativn\u00ed re\u017eim)",
+            "remote_button_double_press": "Tla\u010d\u00edtko \"{subtype}\" stisknuto dvakr\u00e1t",
+            "remote_button_long_press": "Tla\u010d\u00edtko \"{subtype}\" stisknuto dlouze",
+            "remote_button_long_release": "Tla\u010d\u00edtko \"{subtype}\" uvoln\u011bno po dlouh\u00e9m stisku",
+            "remote_button_quadruple_press": "Tla\u010d\u00edtko \"{subtype}\" stisknuto \u010dty\u0159ikr\u00e1t",
+            "remote_button_quintuple_press": "Tla\u010d\u00edtko \"{subtype}\" stisknuto p\u011btkr\u00e1t",
+            "remote_button_short_press": "Tla\u010d\u00edtko \"{subtype}\" stisknuto",
+            "remote_button_short_release": "Tla\u010d\u00edtko \"{subtype}\" uvoln\u011bno",
+            "remote_button_triple_press": "Tla\u010d\u00edtko \"{subtype}\" stisknuto t\u0159ikr\u00e1t"
+        }
+    },
+    "entity": {
+        "alarm_control_panel": {
+            "alarm_control_panel": {
+                "name": "Ovl\u00e1dac\u00ed panel alarmu"
+            }
+        },
+        "binary_sensor": {
+            "accelerometer": {
+                "name": "Akcelerometr"
+            },
+            "binary_input": {
+                "name": "Bin\u00e1rn\u00ed vstup"
+            },
+            "calibrated": {
+                "name": "Zkalibrov\u00e1no"
+            },
+            "consumer_connected": {
+                "name": "Spot\u0159ebi\u010d p\u0159ipojen"
+            },
+            "external_sensor": {
+                "name": "Extern\u00ed senzor"
+            },
+            "frost_lock": {
+                "name": "Z\u00e1mek proti mrazu"
+            },
+            "hand_open": {
+                "name": "Otev\u0159eno ru\u010dn\u011b"
+            },
+            "heat_required": {
+                "name": "Pot\u0159ebn\u00e9 teplo"
+            },
+            "ias_zone": {
+                "name": "Z\u00f3na IAS"
+            },
+            "linkage_alarm_state": {
+                "name": "Propojiteln\u00fd stav alarmu"
+            },
+            "mounting_mode_active": {
+                "name": "Re\u017eim mont\u00e1\u017ee je aktivn\u00ed"
+            },
+            "preheat_status": {
+                "name": "Stav p\u0159edeh\u0159evu"
+            },
+            "replace_filter": {
+                "name": "Vym\u011bnit filtr"
+            },
+            "valve_alarm": {
+                "name": "Alarm ventilu"
+            }
+        },
+        "button": {
+            "feed": {
+                "name": "Krmivo"
+            },
+            "reset_frost_lock": {
+                "name": "Resetovat z\u00e1mek proti mrazu"
+            },
+            "reset_no_presence_status": {
+                "name": "Resetovat stav p\u0159\u00edtomnosti"
+            },
+            "self_test": {
+                "name": "Autotest"
+            }
+        },
+        "climate": {
+            "thermostat": {
+                "name": "Termostat"
+            }
+        },
+        "cover": {
+            "cover": {
+                "name": "Roleta"
+            },
+            "keen_vent": {
+                "name": "Ostr\u00fd pr\u016fduch"
+            },
+            "shade": {
+                "name": "St\u00edn\u00edtko"
+            }
+        },
+        "fan": {
+            "fan": {
+                "name": "Ventil\u00e1tor"
+            },
+            "fan_group": {
+                "name": "Skupina ventil\u00e1tor\u016f"
+            }
+        },
+        "light": {
+            "light": {
+                "name": "Sv\u011btlo"
+            },
+            "light_group": {
+                "name": "Skupina sv\u011btel"
+            }
+        },
+        "lock": {
+            "door_lock": {
+                "name": "Z\u00e1mek dve\u0159\u00ed"
+            }
+        },
+        "number": {
+            "auto_off_timer": {
+                "name": "\u010casova\u010d automatick\u00e9ho vypnut\u00ed sp\u00edna\u010de"
+            },
+            "away_preset_temperature": {
+                "name": "Teplota p\u0159edvolby Pry\u010d"
+            },
+            "button_delay": {
+                "name": "Zpo\u017ed\u011bn\u00ed tla\u010d\u00edtka"
+            },
+            "default_move_rate": {
+                "name": "V\u00fdchoz\u00ed rychlost pohybu"
+            },
+            "detection_interval": {
+                "name": "Interval detekce"
+            },
+            "dimming_speed_down_local": {
+                "name": "Rychlost m\u00edstn\u00edho sn\u00ed\u017een\u00ed jasu"
+            },
+            "dimming_speed_down_remote": {
+                "name": "Rychlost d\u00e1lkov\u00e9ho sn\u00ed\u017een\u00ed jasu"
+            },
+            "dimming_speed_up_local": {
+                "name": "Rychlost m\u00edstn\u00edho zv\u00fd\u0161en\u00ed jasu"
+            },
+            "dimming_speed_up_remote": {
+                "name": "Rychlost d\u00e1lkov\u00e9ho zv\u00fd\u0161en\u00ed jasu"
+            },
+            "double_tap_down_level": {
+                "name": "\u00darove\u0148 dol\u016f p\u0159i dvojit\u00e9m poklep\u00e1n\u00ed"
+            },
+            "double_tap_up_level": {
+                "name": "\u00darove\u0148 nahoru p\u0159i dvojit\u00e9m poklep\u00e1n\u00ed"
+            },
+            "exercise_trigger_time": {
+                "name": "\u010cas zah\u00e1jen\u00ed cvi\u010den\u00ed"
+            },
+            "external_temperature_sensor": {
+                "name": "Senzor extern\u00ed teploty"
+            },
+            "filter_life_time": {
+                "name": "\u017divotnost filtru"
+            },
+            "led_color_when_off": {
+                "name": "V\u00fdchoz\u00ed barva p\u0159i vypnut\u00ed v\u0161ech LED"
+            },
+            "led_color_when_on": {
+                "name": "V\u00fdchoz\u00ed barva p\u0159i zapnut\u00ed v\u0161ech LED"
+            },
+            "led_intensity_when_off": {
+                "name": "V\u00fdchoz\u00ed intenzita p\u0159i vypnut\u00ed v\u0161ech LED"
+            },
+            "led_intensity_when_on": {
+                "name": "V\u00fdchoz\u00ed intenzita p\u0159i zapnut\u00ed v\u0161ech LED"
+            },
+            "load_level_indicator_timeout": {
+                "name": "\u010casov\u00fd limit indik\u00e1toru \u00farovn\u011b zat\u00ed\u017een\u00ed"
+            },
+            "load_room_mean": {
+                "name": "Pr\u016fm\u011br n\u00e1kladov\u00e9ho prostoru"
+            },
+            "local_temperature_calibration": {
+                "name": "Posun m\u00edstn\u00ed teploty"
+            },
+            "max_heat_setpoint_limit": {
+                "name": "Maxim\u00e1ln\u00ed limit \u017e\u00e1dan\u00e9 hodnoty tepla"
+            },
+            "maximum_level": {
+                "name": "Maxim\u00e1ln\u00ed \u00farove\u0148 z\u00e1t\u011b\u017ee pro stm\u00edv\u00e1n\u00ed"
+            },
+            "min_heat_setpoint_limit": {
+                "name": "Minim\u00e1ln\u00ed limit \u017e\u00e1dan\u00e9 hodnoty tepla"
+            },
+            "minimum_level": {
+                "name": "Minim\u00e1ln\u00ed \u00farove\u0148 z\u00e1t\u011b\u017ee pro stm\u00edv\u00e1n\u00ed"
+            },
+            "number": {
+                "name": "\u010c\u00edslo"
+            },
+            "off_transition_time": {
+                "name": "Doba p\u0159echodu pro vypnut\u00ed"
+            },
+            "on_level": {
+                "name": "\u00darove\u0148 p\u0159i zapnut\u00ed"
+            },
+            "on_off_transition_time": {
+                "name": "Doba p\u0159echodu pro Zapnuto/Vypnuto."
+            },
+            "on_transition_time": {
+                "name": "Doba p\u0159echodu pro zapnut\u00ed"
+            },
+            "portion_weight": {
+                "name": "Hmotnost porce"
+            },
+            "presence_detection_timeout": {
+                "name": "\u010casov\u00fd limit detekce p\u0159\u00edtomnosti"
+            },
+            "quick_start_time": {
+                "name": "\u010cas rychl\u00e9ho startu"
+            },
+            "ramp_rate_off_to_on_local": {
+                "name": "M\u00edstn\u00ed rychlost n\u00e1b\u011bhu z Vypnuto do Zapnuto."
+            },
+            "ramp_rate_off_to_on_remote": {
+                "name": "Vzd\u00e1len\u00e1 rychlost n\u00e1b\u011bhu z Vypnuto do Zapnuto."
+            },
+            "ramp_rate_on_to_off_local": {
+                "name": "M\u00edstn\u00ed rychlost n\u00e1b\u011bhu ze Zapnuto do Vypnuto."
+            },
+            "ramp_rate_on_to_off_remote": {
+                "name": "Vzd\u00e1len\u00e1 rychlost n\u00e1b\u011bhu ze Zapnuto do Vypnuto."
+            },
+            "regulation_setpoint_offset": {
+                "name": "Posun po\u017eadovan\u00e9 hodnoty regulace"
+            },
+            "serving_size": {
+                "name": "Pod\u00e1v\u00e1n\u00ed k v\u00fddeji"
+            },
+            "start_up_color_temperature": {
+                "name": "Teplota barev p\u0159i spu\u0161t\u011bn\u00ed"
+            },
+            "start_up_current_level": {
+                "name": "Aktu\u00e1ln\u00ed \u00farove\u0148 p\u0159i spu\u0161t\u011bn\u00ed"
+            },
+            "timer_duration": {
+                "name": "Doba trv\u00e1n\u00ed \u010dasova\u010de"
+            },
+            "transmit_power": {
+                "name": "Vys\u00edlac\u00ed v\u00fdkon"
+            }
+        },
+        "select": {
+            "adaptation_run_command": {
+                "name": "P\u0159\u00edkaz spu\u0161t\u011bn\u00ed adaptace"
+            },
+            "approach_distance": {
+                "name": "Vzd\u00e1lenost p\u0159ibl\u00ed\u017een\u00ed"
+            },
+            "backlight_mode": {
+                "name": "Re\u017eim podsv\u00edcen\u00ed"
+            },
+            "decoupled_mode": {
+                "name": "Odd\u011blen\u00fd re\u017eim"
+            },
+            "default_siren_level": {
+                "name": "V\u00fdchoz\u00ed \u00farove\u0148 sir\u00e9ny"
+            },
+            "default_siren_tone": {
+                "name": "V\u00fdchoz\u00ed t\u00f3n sir\u00e9ny"
+            },
+            "default_strobe": {
+                "name": "V\u00fdchoz\u00ed stroboskop"
+            },
+            "default_strobe_level": {
+                "name": "V\u00fdchoz\u00ed \u00farove\u0148 stroboskopu"
+            },
+            "detection_distance": {
+                "name": "Vzd\u00e1lenost detekce"
+            },
+            "detection_sensitivity": {
+                "name": "Citlivost detekce"
+            },
+            "exercise_day_of_week": {
+                "name": "Den cvi\u010den\u00ed v t\u00fddnu"
+            },
+            "feeding_mode": {
+                "name": "Re\u017eim"
+            },
+            "increased_non_neutral_output": {
+                "name": "Ne-neutr\u00e1ln\u00ed v\u00fdstup"
+            },
+            "keypad_lockout": {
+                "name": "Uzam\u010den\u00ed kl\u00e1vesnice"
+            },
+            "led_scaling_mode": {
+                "name": "Re\u017eim \u0161k\u00e1lov\u00e1n\u00ed LED"
+            },
+            "monitoring_mode": {
+                "name": "Re\u017eim sledov\u00e1n\u00ed"
+            },
+            "motion_sensitivity": {
+                "name": "Citlivost na pohyb"
+            },
+            "output_mode": {
+                "name": "V\u00fdstupn\u00ed re\u017eim"
+            },
+            "power_on_state": {
+                "name": "Stav p\u0159i zapnut\u00ed"
+            },
+            "preset": {
+                "name": "P\u0159edvolba"
+            },
+            "setpoint_response_time": {
+                "name": "Nastaven\u00e1 doba odezvy"
+            },
+            "smart_fan_led_display_levels": {
+                "name": "\u00darovn\u011b LED displeje chytr\u00e9ho ventil\u00e1toru"
+            },
+            "start_up_on_off": {
+                "name": "Chov\u00e1n\u00ed p\u0159i spu\u0161t\u011bn\u00ed"
+            },
+            "switch_mode": {
+                "name": "Re\u017eim p\u0159ep\u00edn\u00e1n\u00ed"
+            },
+            "switch_type": {
+                "name": "Typ sp\u00edna\u010de"
+            },
+            "valve_orientation": {
+                "name": "Orientace ventilu"
+            },
+            "viewing_direction": {
+                "name": "Sm\u011br pohledu"
+            },
+            "window_covering_mode": {
+                "name": "Re\u017eim z\u00e1clony"
+            }
+        },
+        "sensor": {
+            "ac_frequency": {
+                "name": "Frekvence AC"
+            },
+            "adaptation_run_status": {
+                "name": "Stav adapta\u010dn\u00edho b\u011bhu",
+                "state": {
+                    "nothing": "Ne\u010dinn\u00fd",
+                    "something": "Stav"
+                },
+                "state_attributes": {
+                    "in_progress": {
+                        "name": "Prob\u00edh\u00e1"
+                    },
+                    "run_successful": {
+                        "name": "B\u011bh byl \u00fasp\u011b\u0161n\u00fd"
+                    },
+                    "valve_characteristic_lost": {
+                        "name": "Ztr\u00e1ta charakteristiky ventilu"
+                    }
+                }
+            },
+            "analog_input": {
+                "name": "Analogov\u00fd vstup"
+            },
+            "device_run_time": {
+                "name": "Doba chodu za\u0159\u00edzen\u00ed"
+            },
+            "device_temperature": {
+                "name": "Teplota za\u0159\u00edzen\u00ed"
+            },
+            "filter_run_time": {
+                "name": "Doba provozu filtru"
+            },
+            "formaldehyde": {
+                "name": "Koncentrace formaldehydu"
+            },
+            "hooks_state": {
+                "name": "Stav h\u00e1\u010dk\u016f"
+            },
+            "hvac_action": {
+                "name": "Akce HVAC"
+            },
+            "instantaneous_demand": {
+                "name": "Okam\u017eit\u00e1 popt\u00e1vka"
+            },
+            "last_feeding_size": {
+                "name": "Posledn\u00ed velikost krmen\u00ed"
+            },
+            "last_feeding_source": {
+                "name": "Posledn\u00ed zdroj krmen\u00ed"
+            },
+            "last_illumination_state": {
+                "name": "Posledn\u00ed stav osv\u011btlen\u00ed"
+            },
+            "leaf_wetness": {
+                "name": "Vlhkost list\u016f"
+            },
+            "load_estimate": {
+                "name": "Odhadovan\u00e1 z\u00e1t\u011b\u017e"
+            },
+            "lqi": {
+                "name": "LQI"
+            },
+            "motor_stepcount": {
+                "name": "Po\u010det krok\u016f motoru"
+            },
+            "open_window_detected": {
+                "name": "Detekov\u00e1no otev\u0159en\u00e9 okno"
+            },
+            "pi_heating_demand": {
+                "name": "Po\u017eadavek na vyt\u00e1p\u011bn\u00ed Pi"
+            },
+            "portions_dispensed_today": {
+                "name": "Dnes vydan\u00fdch porc\u00ed"
+            },
+            "power_source": {
+                "name": "Zdroj nap\u00e1jen\u00ed"
+            },
+            "preheat_time": {
+                "name": "Doba p\u0159edeh\u0159evu"
+            },
+            "rssi": {
+                "name": "RSSI"
+            },
+            "setpoint_change_source": {
+                "name": "Zdroj zm\u011bny nastaven\u00e9 hodnoty"
+            },
+            "smoke_density": {
+                "name": "Hustota kou\u0159e"
+            },
+            "software_error": {
+                "name": "Chyba softwaru",
+                "state": {
+                    "nothing": "Dobr\u00e1",
+                    "something": "Chyba"
+                },
+                "state_attributes": {
+                    "critical_low_battery": {
+                        "name": "Kriticky vybit\u00e1 baterie"
+                    },
+                    "encoder_jammed": {
+                        "name": "Kod\u00e9r se zasekl"
+                    },
+                    "invalid_clock_information": {
+                        "name": "Neplatn\u00e9 informace hodin"
+                    },
+                    "invalid_internal_communication": {
+                        "name": "Neplatn\u00e1 intern\u00ed komunikace"
+                    },
+                    "low_battery": {
+                        "name": "Vybit\u00e1 baterie"
+                    },
+                    "motor_error": {
+                        "name": "Chyba motoru"
+                    },
+                    "non_volatile_memory_error": {
+                        "name": "Chyba nevolatiln\u00ed pam\u011bti"
+                    },
+                    "radio_communication_error": {
+                        "name": "Chyba r\u00e1diov\u00e9 komunikace"
+                    },
+                    "side_pcb_sensor_error": {
+                        "name": "Chyba senzoru bo\u010dn\u00edho PCB"
+                    },
+                    "top_pcb_sensor_error": {
+                        "name": "Chyba senzoru vrchn\u00edho PCB"
+                    },
+                    "unknown_hw_error": {
+                        "name": "Nezn\u00e1m\u00e1 HW chyba"
+                    }
+                }
+            },
+            "soil_moisture": {
+                "name": "Vlhkost p\u016fdy"
+            },
+            "summation_delivered": {
+                "name": "Souhrn dod\u00e1vky"
+            },
+            "summation_received": {
+                "name": "Shrnut\u00ed p\u0159ijato"
+            },
+            "tier1_summation_delivered": {
+                "name": "Dod\u00e1n sou\u010det \u00farovn\u011b 1"
+            },
+            "tier2_summation_delivered": {
+                "name": "Dod\u00e1n souhrn \u00farovn\u011b 2"
+            },
+            "tier3_summation_delivered": {
+                "name": "Dod\u00e1n sou\u010det \u00farovn\u011b 3"
+            },
+            "tier4_summation_delivered": {
+                "name": "Dod\u00e1n sou\u010det \u00farovn\u011b 4"
+            },
+            "tier5_summation_delivered": {
+                "name": "Dod\u00e1n sou\u010det \u00farovn\u011b 5"
+            },
+            "tier6_summation_delivered": {
+                "name": "Dod\u00e1n sou\u010det \u00farovn\u011b 6"
+            },
+            "timer_time_left": {
+                "name": "Zb\u00fdvaj\u00edc\u00ed \u010das"
+            },
+            "weight_dispensed_today": {
+                "name": "Vydan\u00e1 hmotnost dnes"
+            },
+            "window_covering_type": {
+                "name": "Typ okenn\u00ed krytiny"
+            }
+        },
+        "switch": {
+            "adaptation_run_enabled": {
+                "name": "Adapta\u010dn\u00ed b\u011bh povolen"
+            },
+            "aux_switch_scenes": {
+                "name": "Sc\u00e9ny s pomocn\u00fdm sp\u00edna\u010dem"
+            },
+            "binding_off_to_on_sync_level": {
+                "name": "Nav\u00e1z\u00e1n\u00ed na \u00farove\u0148 synchronizace"
+            },
+            "buzzer_manual_alarm": {
+                "name": "Alarm ru\u010dn\u00edho bzu\u010d\u00e1ku"
+            },
+            "buzzer_manual_mute": {
+                "name": "Ztlumen\u00fd ru\u010dn\u00ed bzu\u010d\u00e1k"
+            },
+            "child_lock": {
+                "name": "D\u011btsk\u00fd z\u00e1mek"
+            },
+            "disable_clear_notifications_double_tap": {
+                "name": "Zak\u00e1zat nastaven\u00ed dvoj\u00edho klepnut\u00ed pro vymaz\u00e1n\u00ed ozn\u00e1men\u00ed"
+            },
+            "disable_led": {
+                "name": "Zak\u00e1zat LED"
+            },
+            "double_tap_down_enabled": {
+                "name": "Dol\u016f p\u0159i dvojit\u00e9m poklep\u00e1n\u00ed povoleno"
+            },
+            "double_tap_up_enabled": {
+                "name": "Nahoru p\u0159i dvojit\u00e9m poklep\u00e1n\u00ed povoleno"
+            },
+            "external_window_sensor": {
+                "name": "Extern\u00ed okenn\u00ed senzor"
+            },
+            "firmware_progress_led": {
+                "name": "LED pr\u016fb\u011bhu firmwaru"
+            },
+            "heartbeat_indicator": {
+                "name": "Indik\u00e1tor srde\u010dn\u00edho tepu"
+            },
+            "heat_available": {
+                "name": "Teplo k dispozici"
+            },
+            "hooks_locked": {
+                "name": "H\u00e1\u010dky uzam\u010deny"
+            },
+            "invert_switch": {
+                "name": "Oto\u010dit sp\u00edna\u010d"
+            },
+            "inverted": {
+                "name": "P\u0159evr\u00e1ceno"
+            },
+            "led_indicator": {
+                "name": "Indik\u00e1tor LED"
+            },
+            "linkage_alarm": {
+                "name": "Propojiteln\u00fd alarm"
+            },
+            "local_protection": {
+                "name": "M\u00edstn\u00ed ochrana"
+            },
+            "mounting_mode": {
+                "name": "Mont\u00e1\u017en\u00ed re\u017eim"
+            },
+            "one_led_mode": {
+                "name": "Re\u017eim jen 1 LED"
+            },
+            "power_outage_memory": {
+                "name": "Pam\u011b\u0165 p\u0159i v\u00fdpadku proudu"
+            },
+            "prioritize_external_temperature_sensor": {
+                "name": "Up\u0159ednostnit extern\u00ed teplotn\u00ed senzor"
+            },
+            "relay_click_in_on_off_mode": {
+                "name": "Zak\u00e1zat cvaknut\u00ed rel\u00e9 v re\u017eimu Zapnuto/Vypnuto"
+            },
+            "smart_bulb_mode": {
+                "name": "Re\u017eim chytr\u00e9 \u017e\u00e1rovky"
+            },
+            "smart_fan_mode": {
+                "name": "Re\u017eim chytr\u00e9ho ventil\u00e1toru"
+            },
+            "switch": {
+                "name": "Sp\u00edna\u010d"
+            },
+            "trigger_indicator": {
+                "name": "Indik\u00e1tor LED spu\u0161t\u011bn\u00ed"
+            },
+            "use_internal_window_detection": {
+                "name": "Pou\u017e\u00edt vnit\u0159n\u00ed detekci oken"
+            },
+            "use_load_balancing": {
+                "name": "Pou\u017e\u00edt vyva\u017eov\u00e1n\u00ed z\u00e1t\u011b\u017ee"
+            },
+            "valve_detection": {
+                "name": "Detekce ventilu"
+            },
+            "window_detection": {
+                "name": "Detekce okna"
+            },
+            "window_detection_function": {
+                "name": "Obr\u00e1tit detekci okna"
+            }
+        }
+    },
+    "issues": {
+        "inconsistent_network_settings": {
+            "fix_flow": {
+                "step": {
+                    "init": {
+                        "description": "S\u00ed\u0165ov\u00e1 nastaven\u00ed va\u0161eho r\u00e1dia Zigbee nejsou konzistentn\u00ed s nejnov\u011bj\u0161\u00ed z\u00e1lohou s\u00edt\u011b. K tomu obvykle doch\u00e1z\u00ed, pokud je p\u0159epsala jin\u00e1 integrace Zigbee (nap\u0159. Zigbee2MQTT nebo deCONZ).\n\n{diff}\n\nPokud jste \u00famysln\u011b nezm\u011bnili nastaven\u00ed s\u00edt\u011b, obnovte je z nejnov\u011bj\u0161\u00ed z\u00e1lohy; va\u0161e za\u0159\u00edzen\u00ed nebudou jinak fungovat.",
+                        "menu_options": {
+                            "restore_old_settings": "Obnovit z\u00e1lohu (doporu\u010deno)",
+                            "use_new_settings": "Zachovat nov\u00e1 nastaven\u00ed"
+                        },
+                        "title": "Nastaven\u00ed s\u00edt\u011b Zigbee se zm\u011bnilo"
+                    }
+                }
+            },
+            "title": "Nastaven\u00ed s\u00edt\u011b Zigbee se zm\u011bnilo"
+        },
+        "wrong_silabs_firmware_installed_nabucasa": {
+            "description": "Va\u0161e r\u00e1dio Zigbee bylo d\u0159\u00edve pou\u017e\u00edv\u00e1no s multiprotokolem (Zigbee a Thread) a st\u00e1le m\u00e1 nainstalovan\u00fd multiprotokolov\u00fd firmware: ({firmware_type}).\n\nVolba 1: Chcete-li provozovat r\u00e1dio v\u00fdhradn\u011b se ZHA, mus\u00edte nainstalovat firmware Zigbee:\n- otev\u0159ete dokumentaci klepnut\u00edm na odkaz \"Dal\u0161\u00ed informace\"\n- postupujte podle pokyn\u016f popsan\u00fdch v kroku 2 (a jen v kroku 2): \"Flash the Silicon Labs radio Zigbee firmware\"\n\nVolba 2: Chcete-li provozovat r\u00e1dio s multiprotokolem, postupujte takto:\n- p\u0159ejd\u011bte do Nastaven\u00ed > Syst\u00e9m > Hardware, vyberte za\u0159\u00edzen\u00ed a klepn\u011bte na Nastavit\n- zvolte \"Configure IEEE 802.15.4 radio multiprotocol support\"\n- za\u0161krtn\u011bte pol\u00ed\u010dko a klepn\u011bte na tla\u010d\u00edtko Odeslat\n- po instalaci nastavte nov\u011b zji\u0161t\u011bnou integraci ZHA",
+            "title": "Zji\u0161t\u011bno r\u00e1dio Zigbee s multiprotokolov\u00fdm firmwarem"
+        },
+        "wrong_silabs_firmware_installed_other": {
+            "description": "Va\u0161e r\u00e1dio Zigbee bylo d\u0159\u00edve pou\u017e\u00edv\u00e1no s multiprotokolem (Zigbee a Thread) a st\u00e1le m\u00e1 nainstalovan\u00fd multiprotokolov\u00fd firmware: ({firmware_type}). Chcete-li provozovat r\u00e1dio v\u00fdhradn\u011b se ZHA, mus\u00edte nainstalovat firmware Zigbee. Postupujte podle pokyn\u016f v\u00fdrobce va\u0161eho r\u00e1dia Zigbee, jak to prov\u00e9st.",
+            "title": "Zji\u0161t\u011bno r\u00e1dio Zigbee s multiprotokolov\u00fdm firmwarem"
+        }
+    },
+    "options": {
+        "abort": {
+            "not_zha_device": "Toto za\u0159\u00edzen\u00ed nen\u00ed za\u0159\u00edzen\u00ed ZHA",
+            "single_instance_allowed": "Ji\u017e nastaveno. Je mo\u017en\u00e9 jen jedin\u00e9 nastaven\u00ed.",
+            "usb_probe_failed": "Nepoda\u0159ilo se prozkoumat za\u0159\u00edzen\u00ed USB",
+            "wrong_firmware_installed": "Va\u0161e za\u0159\u00edzen\u00ed pou\u017e\u00edv\u00e1 nespr\u00e1vn\u00fd firmware a nelze jej pou\u017e\u00edvat se ZHA, dokud nen\u00ed nainstalov\u00e1n spr\u00e1vn\u00fd firmware. [Byla vytvo\u0159ena oprava]({repair_url}) s dal\u0161\u00edmi informacemi a pokyny, jak to opravit."
+        },
+        "error": {
+            "cannot_connect": "Nepoda\u0159ilo se p\u0159ipojit",
+            "invalid_backup_json": "Neplatn\u00fd z\u00e1lo\u017en\u00ed JSON"
+        },
+        "flow_title": "{name}",
+        "step": {
+            "choose_automatic_backup": {
+                "data": {
+                    "choose_automatic_backup": "Zvolit automatick\u00e9 z\u00e1lohov\u00e1n\u00ed"
+                },
+                "description": "Obnovit nastaven\u00ed s\u00edt\u011b z automatick\u00e9 z\u00e1lohy",
+                "title": "Obnovit z automatick\u00e9 z\u00e1lohy"
+            },
+            "choose_formation_strategy": {
+                "description": "Vyberte nastaven\u00ed s\u00edt\u011b sv\u00e9ho r\u00e1dia.",
+                "menu_options": {
+                    "choose_automatic_backup": "Obnovit automatickou z\u00e1lohu",
+                    "form_initial_network": "Vytvo\u0159it s\u00ed\u0165",
+                    "form_new_network": "Vymazat nastaven\u00ed s\u00edt\u011b a vytvo\u0159it novou s\u00ed\u0165",
+                    "reuse_settings": "Zachovat nastaven\u00ed s\u00edt\u011b r\u00e1dia",
+                    "upload_manual_backup": "Nahr\u00e1t ru\u010dn\u00ed z\u00e1lohu"
+                },
+                "title": "Tvar s\u00edt\u011b"
+            },
+            "choose_serial_port": {
+                "data": {
+                    "path": "Cesta s\u00e9riov\u00e9ho za\u0159\u00edzen\u00ed"
+                },
+                "description": "Vyberte s\u00e9riov\u00fd port pro va\u0161e r\u00e1dio Zigbee.",
+                "title": "Vybra s\u00e9riov\u00fd port"
+            },
+            "init": {
+                "description": "Dopln\u011bk ZHA bude zastaven. Chcete si pokra\u010dovat?",
+                "title": "P\u0159enastavit ZHA"
+            },
+            "instruct_unplug": {
+                "description": "Va\u0161e star\u00e9 r\u00e1dio bylo resetov\u00e1no. Pokud ji\u017e hardware nepot\u0159ebujete, m\u016f\u017eete jej nyn\u00ed odpojit.\n\nNyn\u00ed m\u016f\u017eete p\u0159ipojit va\u0161e nov\u00e9 r\u00e1dio.",
+                "title": "Odpojit star\u00e9 r\u00e1dio"
+            },
+            "intent_migrate": {
+                "description": "P\u0159ed p\u0159ipojen\u00edm nov\u00e9ho r\u00e1dia je t\u0159eba resetovat star\u00e9 r\u00e1dio. Provede se automatick\u00e9 z\u00e1lohov\u00e1n\u00ed. Pokud pou\u017e\u00edv\u00e1te kombinovan\u00fd adapt\u00e9r Z-Wave a Zigbee, jako je HUSBZB-1, resetuje se jen \u010d\u00e1st Zigbee.\n\n*Pozn\u00e1mka: Pokud migrujete z **ConBee/RaspBee**, ujist\u011bte se, \u017ee na n\u011bm b\u011b\u017e\u00ed firmware \"0x26720700\" nebo nov\u011bj\u0161\u00ed! V opa\u010dn\u00e9m p\u0159\u00edpad\u011b nemus\u00ed b\u00fdt n\u011bkter\u00e1 za\u0159\u00edzen\u00ed po migraci ovladateln\u00e1, dokud nebudou vypnuta.*\n\nChcete pokra\u010dovat?",
+                "title": "Migrovat na nov\u00e9 r\u00e1dio"
+            },
+            "manual_pick_radio_type": {
+                "data": {
+                    "radio_type": "Typ r\u00e1dia"
+                },
+                "description": "V\u00fdb\u011br typu Zigbee r\u00e1dia.",
+                "title": "Typ r\u00e1dia"
+            },
+            "manual_port_config": {
+                "data": {
+                    "baudrate": "Rychlost portu",
+                    "flow_control": "\u0158\u00edzen\u00ed toku dat",
+                    "path": "Cesta s\u00e9riov\u00e9ho za\u0159\u00edzen\u00ed"
+                },
+                "description": "Zadejte nastaven\u00ed s\u00e9riov\u00e9ho portu.",
+                "title": "Nastaven\u00ed s\u00e9riov\u00e9ho portu"
+            },
+            "maybe_confirm_ezsp_restore": {
+                "data": {
+                    "overwrite_coordinator_ieee": "Trvale nahradit IEEE adresu r\u00e1dia"
+                },
+                "description": "Va\u0161e z\u00e1loha m\u00e1 jinou adresu IEEE ne\u017e va\u0161e r\u00e1dio. Aby s\u00ed\u0165 fungovala spr\u00e1vn\u011b, m\u011bla by b\u00fdt zm\u011bn\u011bna tak\u00e9 adresa IEEE va\u0161eho r\u00e1dia. \n\nJedn\u00e1 se o trvalou operaci.",
+                "title": "P\u0159epsat adresu IEEE r\u00e1dia"
+            },
+            "prompt_migrate_or_reconfigure": {
+                "description": "P\u0159ech\u00e1z\u00edte na nov\u00e9 r\u00e1dio nebo m\u011bn\u00edte nastaven\u00ed st\u00e1vaj\u00edc\u00edho r\u00e1dia?",
+                "menu_options": {
+                    "intent_migrate": "Migrovat na nov\u00e9 r\u00e1dio",
+                    "intent_reconfigure": "P\u0159enastavit aktu\u00e1ln\u00ed r\u00e1dio"
+                },
+                "title": "Migrovat nebo p\u0159enastavit"
+            },
+            "upload_manual_backup": {
+                "data": {
+                    "uploaded_backup_file": "Nahr\u00e1t soubor"
+                },
+                "description": "Obnovte nastaven\u00ed s\u00edt\u011b z nahran\u00e9ho z\u00e1lo\u017en\u00edho souboru JSON. Soubor m\u016f\u017eete st\u00e1hnout z jin\u00e9 instalace ZHA v **Nastaven\u00ed s\u00edt\u011b** nebo pou\u017eijte soubor \"coordinator_backup.json\" z integrace Zigbee2MQTT.",
+                "title": "Nahr\u00e1t ru\u010dn\u00ed z\u00e1lohu"
+            },
+            "verify_radio": {
+                "description": "R\u00e1dio, kter\u00e9 pou\u017e\u00edv\u00e1te ({name}), se nedoporu\u010duje a jeho podpora m\u016f\u017ee b\u00fdt v budoucnu odebr\u00e1na. V dokumentaci k integraci Zigbee Home Automation naleznete [seznam doporu\u010den\u00fdch adapt\u00e9r\u016f]({docs_recommended_adapters_url}).",
+                "title": "R\u00e1dio se nedoporu\u010duje"
+            }
+        }
+    },
+    "services": {
+        "clear_lock_user_code": {
+            "description": "Vyma\u017ee u\u017eivatelsk\u00fd k\u00f3d ze z\u00e1mku.",
+            "fields": {
+                "code_slot": {
+                    "description": "Slot k\u00f3du pro vymaz\u00e1n\u00ed k\u00f3du.",
+                    "name": "Slot pro k\u00f3d"
+                }
+            },
+            "name": "Vymazat u\u017eivatele z\u00e1mku"
+        },
+        "disable_lock_user_code": {
+            "description": "Zak\u00e1\u017ee u\u017eivatelsk\u00fd k\u00f3d na z\u00e1mku.",
+            "fields": {
+                "code_slot": {
+                    "description": "Slot k\u00f3du pro zak\u00e1z\u00e1n\u00ed.",
+                    "name": "Slot pro k\u00f3d"
+                }
+            },
+            "name": "Zak\u00e1zat u\u017eivatele z\u00e1mku"
+        },
+        "enable_lock_user_code": {
+            "description": "Povol\u00ed u\u017eivatelsk\u00fd k\u00f3d na z\u00e1mku.",
+            "fields": {
+                "code_slot": {
+                    "description": "Slot k\u00f3du pro povolen\u00ed.",
+                    "name": "Slot pro k\u00f3d"
+                }
+            },
+            "name": "Povolit u\u017eivatele z\u00e1mku"
+        },
+        "issue_zigbee_cluster_command": {
+            "description": "Vyd\u00e1 p\u0159\u00edkaz na zadan\u00e9m clusteru na zadan\u00e9 entit\u011b.",
+            "fields": {
+                "args": {
+                    "description": "Argumenty k p\u0159ed\u00e1n\u00ed p\u0159\u00edkazu.",
+                    "name": "Argumenty"
+                },
+                "cluster_id": {
+                    "description": "ZCL clusteru pro na\u010dten\u00ed atribut\u016f.",
+                    "name": "ID clusteru"
+                },
+                "cluster_type": {
+                    "description": "Typ clusteru.",
+                    "name": "Typ clusteru"
+                },
+                "command": {
+                    "description": "ID p\u0159\u00edkazu, kter\u00fd se m\u00e1 prov\u00e9st.",
+                    "name": "P\u0159\u00edkaz"
+                },
+                "command_type": {
+                    "description": "Typ p\u0159\u00edkazu, kter\u00fd se m\u00e1 prov\u00e9st.",
+                    "name": "Typ p\u0159\u00edkazu"
+                },
+                "endpoint_id": {
+                    "description": "ID koncov\u00e9ho bodu clusteru.",
+                    "name": "ID koncov\u00e9ho bodu"
+                },
+                "ieee": {
+                    "description": "Adresa IEEE za\u0159\u00edzen\u00ed.",
+                    "name": "IEEE"
+                },
+                "manufacturer": {
+                    "description": "K\u00f3d v\u00fdrobce. Chcete-li vynutit nastaven\u00ed \u017e\u00e1dn\u00e9ho k\u00f3du, pou\u017eijte hodnotu \"-1\".",
+                    "name": "V\u00fdrobce"
+                },
+                "params": {
+                    "description": "Parametry, k p\u0159ed\u00e1n\u00ed p\u0159\u00edkazu.",
+                    "name": "Parametry"
+                }
+            },
+            "name": "Vydat p\u0159\u00edkaz zigbee cluster"
+        },
+        "issue_zigbee_group_command": {
+            "description": "Vyd\u00e1 p\u0159\u00edkaz v zadan\u00e9m clusteru v zadan\u00e9 skupin\u011b.",
+            "fields": {
+                "args": {
+                    "description": "Argumenty k p\u0159ed\u00e1n\u00ed p\u0159\u00edkazu.",
+                    "name": "Argumenty"
+                },
+                "cluster_id": {
+                    "description": "ZCL clusteru, kam se m\u00e1 p\u0159\u00edkaz odeslat.",
+                    "name": "ID clusteru"
+                },
+                "cluster_type": {
+                    "description": "Typ clusteru.",
+                    "name": "Typ clusteru"
+                },
+                "command": {
+                    "description": "ID p\u0159\u00edkazu, kter\u00fd se m\u00e1 prov\u00e9st.",
+                    "name": "P\u0159\u00edkaz"
+                },
+                "group": {
+                    "description": "Hexadecim\u00e1ln\u00ed adresa skupiny.",
+                    "name": "Skupina"
+                },
+                "manufacturer": {
+                    "description": "K\u00f3d v\u00fdrobce. Chcete-li vynutit nastaven\u00ed \u017e\u00e1dn\u00e9ho k\u00f3du, pou\u017eijte hodnotu \"-1\".",
+                    "name": "V\u00fdrobce"
+                }
+            },
+            "name": "Vydat p\u0159\u00edkaz skupin\u011b zigbee"
+        },
+        "permit": {
+            "description": "Umo\u017en\u00ed uzl\u016fm p\u0159ipojit se k s\u00edti Zigbee.",
+            "fields": {
+                "duration": {
+                    "description": "\u010cas na povolen\u00ed spojen\u00ed.",
+                    "name": "Doba trv\u00e1n\u00ed"
+                },
+                "ieee": {
+                    "description": "Adresa IEEE uzlu, kter\u00fd povoluje nov\u00e9 p\u0159ipojen\u00ed.",
+                    "name": "IEEE"
+                },
+                "install_code": {
+                    "description": "Instala\u010dn\u00ed k\u00f3d propojovac\u00edho za\u0159\u00edzen\u00ed (mus\u00ed b\u00fdt pou\u017eit se \"source_ieee\").",
+                    "name": "Instala\u010dn\u00ed k\u00f3d"
+                },
+                "qr_code": {
+                    "description": "Hodnota instala\u010dn\u00edho QR k\u00f3du (u r\u016fzn\u00fdch dodavatel\u016f se li\u0161\u00ed).",
+                    "name": "QR k\u00f3d"
+                },
+                "source_ieee": {
+                    "description": "Adresa IEEE p\u0159ipojovan\u00e9ho za\u0159\u00edzen\u00ed (mus\u00ed b\u00fdt pou\u017eita s instala\u010dn\u00edm k\u00f3dem).",
+                    "name": "Zdroj IEEE"
+                }
+            },
+            "name": "Povolit"
+        },
+        "reconfigure_device": {
+            "description": "P\u0159enastav\u00ed za\u0159\u00edzen\u00ed ZHA (heal device). Tuto volbu pou\u017eijte, pokud m\u00e1te se za\u0159\u00edzen\u00edm probl\u00e9my. Pokud je doty\u010dn\u00e9 za\u0159\u00edzen\u00ed nap\u00e1jen\u00e9 bateriemi, ujist\u011bte se, \u017ee je p\u0159i pou\u017e\u00edv\u00e1n\u00ed t\u00e9to slu\u017eby probuzen\u00e9 a p\u0159ij\u00edm\u00e1 p\u0159\u00edkazy.",
+            "fields": {
+                "ieee": {
+                    "description": "Adresa IEEE za\u0159\u00edzen\u00ed, kter\u00e9 m\u00e1 b\u00fdt p\u0159enastaveno.",
+                    "name": "IEEE"
+                }
+            },
+            "name": "P\u0159enastavit za\u0159\u00edzen\u00ed"
+        },
+        "remove": {
+            "description": "Odebere uzel ze s\u00edt\u011b Zigbee.",
+            "fields": {
+                "ieee": {
+                    "description": "Adresa IEEE uzlu, kter\u00fd m\u00e1 b\u00fdt odebr\u00e1n.",
+                    "name": "IEEE"
+                }
+            },
+            "name": "Odebrat"
+        },
+        "set_lock_user_code": {
+            "description": "Nastav\u00ed u\u017eivatelsk\u00fd k\u00f3d pro zamknut\u00ed.",
+            "fields": {
+                "code_slot": {
+                    "description": "Slot pro nastaven\u00ed k\u00f3du.",
+                    "name": "Slot pro k\u00f3d"
+                },
+                "user_code": {
+                    "description": "K\u00f3d k nastaven\u00ed.",
+                    "name": "K\u00f3d"
+                }
+            },
+            "name": "Nastavit u\u017eivatelsk\u00fd k\u00f3d pro zamknut\u00ed"
+        },
+        "set_zigbee_cluster_attribute": {
+            "description": "Nastav\u00ed hodnotu atributu pro zadan\u00fd cluster na zadan\u00e9 entit\u011b.",
+            "fields": {
+                "attribute": {
+                    "description": "ID atributu, kter\u00fd se m\u00e1 nastavit.",
+                    "name": "Atribut"
+                },
+                "cluster_id": {
+                    "description": "ZCL clusteru pro na\u010dten\u00ed atribut\u016f.",
+                    "name": "ID clusteru"
+                },
+                "cluster_type": {
+                    "description": "Typ clusteru.",
+                    "name": "Typ clusteru"
+                },
+                "endpoint_id": {
+                    "description": "ID koncov\u00e9ho bodu clusteru.",
+                    "name": "ID koncov\u00e9ho bodu"
+                },
+                "ieee": {
+                    "description": "Adresa IEEE za\u0159\u00edzen\u00ed.",
+                    "name": "IEEE"
+                },
+                "manufacturer": {
+                    "description": "K\u00f3d v\u00fdrobce. Chcete-li vynutit nastaven\u00ed \u017e\u00e1dn\u00e9ho k\u00f3du, pou\u017eijte hodnotu \"-1\".",
+                    "name": "V\u00fdrobce"
+                },
+                "value": {
+                    "description": "Hodnota, kter\u00e1 se zap\u00ed\u0161e do atributu.",
+                    "name": "Hodnota"
+                }
+            },
+            "name": "Nastavit atribut zigbee clusteru"
+        },
+        "warning_device_squawk": {
+            "description": "Tato akce vyu\u017e\u00edv\u00e1 schopnosti WD k vys\u00edl\u00e1n\u00ed rychl\u00e9ho sly\u0161iteln\u00e9ho/viditeln\u00e9ho pulzu naz\u00fdvan\u00e9ho \"sk\u0159ehot\u00e1n\u00ed\". P\u0159\u00edkaz squawk nem\u00e1 \u017e\u00e1dn\u00fd \u00fa\u010dinek, pokud je WD aktu\u00e1ln\u011b aktivn\u00ed (prob\u00edh\u00e1 varov\u00e1n\u00ed).",
+            "fields": {
+                "ieee": {
+                    "description": "Adresa IEEE za\u0159\u00edzen\u00ed.",
+                    "name": "IEEE"
+                },
+                "level": {
+                    "description": "Pole \u00farovn\u011b squawk se pou\u017e\u00edv\u00e1 jako 2bitov\u00fd v\u00fd\u010det a ur\u010duje intenzitu sly\u0161iteln\u00e9ho zvuku squawk, jak je uvedeno v tabulce 8-26 specifikace ZCL - Squawk Level Field Values.",
+                    "name": "\u00darove\u0148"
+                },
+                "mode": {
+                    "description": "Pole Squawk Mode se pou\u017e\u00edv\u00e1 jako 4bitov\u00fd v\u00fd\u010det a m\u016f\u017ee m\u00edt jednu z hodnot uveden\u00fdch v tabulce 8-24 specifikace ZCL - Squawk Mode Field. P\u0159esn\u00e1 \u010dinnost ka\u017ed\u00e9ho re\u017eimu (jak WD \"sk\u0159ehot\u00e1\") je specifick\u00e1 pro implementaci.",
+                    "name": "Re\u017eim"
+                },
+                "strobe": {
+                    "description": "Pole Stroboskop se pou\u017e\u00edv\u00e1 jako booleovsk\u00e9 a ur\u010duje, zda je krom\u011b sly\u0161iteln\u00e9ho sk\u0159ehot\u00e1n\u00ed vy\u017eadov\u00e1na tak\u00e9 vizu\u00e1ln\u00ed indikace, jak je uvedeno v tabulce 8-25 specifikace ZCL \u2013 Strobe Bit.",
+                    "name": "Stroboskop"
+                }
+            },
+            "name": "V\u00fdstra\u017en\u00e9 za\u0159\u00edzen\u00ed - sk\u0159ehot\u00e1n\u00ed"
+        },
+        "warning_device_warn": {
+            "description": "Tato akce spou\u0161t\u00ed \u010dinnost v\u00fdstra\u017en\u00e9ho za\u0159\u00edzen\u00ed. V\u00fdstra\u017en\u00e9 za\u0159\u00edzen\u00ed upozor\u0148uje okol\u00ed pomoc\u00ed zvukov\u00fdch (sir\u00e9na) a vizu\u00e1ln\u00edch (stroboskopick\u00fdch) sign\u00e1l\u016f.",
+            "fields": {
+                "duration": {
+                    "description": "Po\u017eadovan\u00e1 doba trv\u00e1n\u00ed varov\u00e1n\u00ed v sekund\u00e1ch (16 bit\u016f). Pokud jsou oba re\u017eimy stroboskopu a varov\u00e1n\u00ed \"0\", toto pole je ignorov\u00e1no.",
+                    "name": "Doba trv\u00e1n\u00ed"
+                },
+                "duty_cycle": {
+                    "description": "Ud\u00e1v\u00e1 d\u00e9lku cyklu z\u00e1blesku. To V\u00e1m umo\u017e\u0148uje m\u011bnit dobu trv\u00e1n\u00ed z\u00e1blesku pro r\u016fzn\u00e9 typy alarm\u016f (nap\u0159. po\u017e\u00e1r, policie, zlod\u011bj). Platn\u00fd rozsah je 0-100 v kroc\u00edch po 10. V\u0161echny ostatn\u00ed hodnoty mus\u00ed b\u00fdt zaokrouhleny na nejbli\u017e\u0161\u00ed platnou hodnotu. Stroboskop vypo\u010d\u00edt\u00e1 pracovn\u00ed cyklus po dobu jedn\u00e9 sekundy. Stav ON mus\u00ed p\u0159edch\u00e1zet stavu OFF. Pokud nap\u0159\u00edklad pole \"Pracovn\u00ed cyklus\" specifikuje \"40\", z\u00e1blesk se rozsv\u00edt\u00ed na 4/10 sekundy a pot\u00e9 na 6/10 sekundy zhasne.",
+                    "name": "Pracovn\u00ed cyklus"
+                },
+                "ieee": {
+                    "description": "Adresa IEEE za\u0159\u00edzen\u00ed.",
+                    "name": "IEEE"
+                },
+                "intensity": {
+                    "description": "Ozna\u010duje intenzitu z\u00e1blesku, jak je uvedeno v tabulce 8-23 specifikace ZCL. Tento atribut je navr\u017een tak, aby m\u011bnil v\u00fdstup stroboskopu (nap\u0159. jas) a ne jeho frekvenci, kter\u00e1 je podrobn\u011b pops\u00e1na v \u010d\u00e1sti 8.4.2.3.1.6 specifikace ZCL.",
+                    "name": "Intenzita"
+                },
+                "level": {
+                    "description": "Pole \"\u00darove\u0148\" se pou\u017e\u00edv\u00e1 jako 2bitov\u00fd v\u00fd\u010det a ud\u00e1v\u00e1 intenzitu sly\u0161iteln\u00e9ho zvuku, jak je uvedeno v tabulce 8-22 specifikace ZCL.",
+                    "name": "\u00darove\u0148"
+                },
+                "mode": {
+                    "description": "Pole \"Re\u017eim\" se pou\u017e\u00edv\u00e1 jako 4bitov\u00fd v\u00fd\u010det a m\u016f\u017ee m\u00edt jednu z hodnot 0-6 definovan\u00fdch n\u00ed\u017ee v tabulce 8-20 specifikace ZCL. P\u0159esn\u00e9 chov\u00e1n\u00ed v\u00fdstra\u017en\u00e9ho za\u0159\u00edzen\u00ed v ka\u017ed\u00e9m re\u017eimu je podle p\u0159\u00edslu\u0161n\u00fdch bezpe\u010dnostn\u00edch norem.",
+                    "name": "Re\u017eim"
+                },
+                "strobe": {
+                    "description": "Pole \"Stroboskop\" se pou\u017e\u00edv\u00e1 jako 2bitov\u00fd v\u00fd\u010det a ur\u010duje, zda je krom\u011b zvukov\u00e9 sir\u00e9ny vy\u017eadov\u00e1na i vizu\u00e1ln\u00ed indikace, jak je uvedeno v tabulce 8-21 specifikace ZCL. \"0\" znamen\u00e1 \u017e\u00e1dn\u00fd stroboskop, \"1\" znamen\u00e1 stroboskop. Pokud je pole stroboskopu \"1\" a re\u017eim varov\u00e1n\u00ed je \"0\" (\"Stop\"), aktivuje se jen stroboskop.",
+                    "name": "Stroboskop"
+                }
+            },
+            "name": "V\u00fdstra\u017en\u00e9 za\u0159\u00edzen\u00ed spust\u00ed upozorn\u011bn\u00ed"
+        }
+    }
+}

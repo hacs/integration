@@ -1,0 +1,98 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Ger\u00e4t ist bereits konfiguriert",
+            "cannot_connect": "Verbindung fehlgeschlagen",
+            "invalid_auth": "Ung\u00fcltige Authentifizierung",
+            "no_uuid": "Die Kodi-Instanz hat keine eindeutige ID. Dies ist h\u00f6chstwahrscheinlich auf eine alte Kodi-Version (17.x oder niedriger) zur\u00fcckzuf\u00fchren. Du kannst die Integration manuell konfigurieren oder auf eine neuere Kodi-Version aktualisieren.",
+            "unknown": "Unerwarteter Fehler"
+        },
+        "error": {
+            "cannot_connect": "Verbindung fehlgeschlagen",
+            "invalid_auth": "Ung\u00fcltige Authentifizierung",
+            "unknown": "Unerwarteter Fehler"
+        },
+        "flow_title": "{name}",
+        "step": {
+            "credentials": {
+                "data": {
+                    "password": "Passwort",
+                    "username": "Benutzername"
+                },
+                "description": "Bitte gib deinen Kodi-Benutzernamen und Passwort ein. Diese findest du unter System/Einstellungen/Netzwerk/Dienste."
+            },
+            "discovery_confirm": {
+                "description": "M\u00f6chtest du Kodi (`{name}`) zu Home Assistant hinzuf\u00fcgen?",
+                "title": "Gefundene Kodi-Installation"
+            },
+            "user": {
+                "data": {
+                    "host": "Host",
+                    "port": "Port",
+                    "ssl": "Verwendet ein SSL-Zertifikat"
+                },
+                "data_description": {
+                    "host": "Der Hostname oder die IP-Adresse des Systems, das deinen Kodi-Server hostet."
+                },
+                "description": "Kodi-Verbindungsinformationen. Bitte stelle sicher, dass du \u201eSteuerung von Kodi \u00fcber HTTP zulassen\u201c in System/Einstellungen/Netzwerk/Dienste aktiviert hast."
+            },
+            "ws_port": {
+                "data": {
+                    "ws_port": "Port"
+                },
+                "description": "Der WebSocket-Port (in Kodi manchmal TCP-Port genannt). Um eine Verbindung \u00fcber WebSocket herzustellen, musst du unter System/Einstellungen/Netzwerk/Dienste \u201eProgramme \u2026 zur Steuerung von Kodi zulassen\u201c aktivieren. Wenn WebSocket nicht aktiviert ist, entferne den Port und lasse ihn leer."
+            }
+        }
+    },
+    "device_automation": {
+        "trigger_type": {
+            "turn_off": "{entity_name} ausgeschaltet",
+            "turn_on": "{entity_name} eingeschaltet"
+        }
+    },
+    "entity": {
+        "media_player": {
+            "media_player": {
+                "state_attributes": {
+                    "dynamic_range": {
+                        "name": "Dynamikbereich"
+                    }
+                }
+            }
+        }
+    },
+    "services": {
+        "add_to_playlist": {
+            "description": "F\u00fcgt Musik zur Standard-Playlist hinzu (z. B. Playlist-ID=0).",
+            "fields": {
+                "artist_name": {
+                    "description": "Optionaler K\u00fcnstlername zum Filtern von Medien.",
+                    "name": "K\u00fcnstlername"
+                },
+                "media_id": {
+                    "description": "Eindeutige ID des hinzuzuf\u00fcgenden Medieneintrags (`songid` oder `albumid`). Wenn nicht definiert, werden `Medienname` und `K\u00fcnstlername` ben\u00f6tigt, um die Kodi-Musikbibliothek zu durchsuchen.",
+                    "name": "Medien-ID"
+                },
+                "media_name": {
+                    "description": "Optionaler Medienname zum Filtern von Medien. Kann `ALL` sein, wenn `media_type` `ALBUM` ist und `artist_name` angegeben ist, um alle Songs eines K\u00fcnstlers hinzuzuf\u00fcgen.",
+                    "name": "Medienname"
+                },
+                "media_type": {
+                    "description": "Medientyp-ID. Es muss sich um SONG oder ALBUM handeln.",
+                    "name": "Medientyp"
+                }
+            },
+            "name": "Zur Wiedergabeliste hinzuf\u00fcgen"
+        },
+        "call_method": {
+            "description": "Ruft eine Kodi-JSONRPC-API-Methode mit optionalen Parametern auf. Die Ergebnisse des Kodi-API-Aufrufs werden in einem Home Assistant-Ereignis umgeleitet: `kodi_call_method_result`.",
+            "fields": {
+                "method": {
+                    "description": "Name der aufzurufenden Kodi-JSONRPC-API-Methode.",
+                    "name": "Methode"
+                }
+            },
+            "name": "Aufrufmethode"
+        }
+    }
+}

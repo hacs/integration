@@ -1,0 +1,87 @@
+{
+    "application_credentials": {
+        "description": "K\u00f6vesse az [\u00fatmutat\u00f3t]({more_info_url}) az [OAuth hozz\u00e1j\u00e1rul\u00e1si k\u00e9perny\u0151]({oauth_consent_url}) be\u00e1ll\u00edt\u00e1s\u00e1hoz, hogy hozz\u00e1f\u00e9r\u00e9st biztos\u00edtson a Home Assistant sz\u00e1m\u00e1ra a Google Photos szolg\u00e1ltat\u00e1shoz. Ezenk\u00edv\u00fcl l\u00e9tre kell hoznia a fi\u00f3kj\u00e1hoz kapcsol\u00f3d\u00f3 Alkalmaz\u00e1shiteles\u00edt\u0151 adatokat:\n1. L\u00e1togasson el a [Hiteles\u00edt\u0151 adatok]({oauth_creds_url}) oldalra, \u00e9s v\u00e1lassza a **Create Credentials** lehet\u0151s\u00e9get.\n2. A leg\u00f6rd\u00fcl\u0151 list\u00e1b\u00f3l v\u00e1lassza az **OAuth client ID** lehet\u0151s\u00e9get.\n3. Alkalmaz\u00e1st\u00edpusk\u00e9nt v\u00e1lassza a **Web application** opci\u00f3t."
+    },
+    "config": {
+        "abort": {
+            "access_not_configured": "Nem siker\u00fclt el\u00e9rni a Google API-t:\n\n{message}",
+            "already_configured": "A fi\u00f3k m\u00e1r konfigur\u00e1lva van",
+            "already_in_progress": "A konfigur\u00e1l\u00e1s m\u00e1r folyamatban van",
+            "authorize_url_timeout": "Id\u0151t\u00fall\u00e9p\u00e9s a hiteles\u00edt\u00e9si URL l\u00e9trehoz\u00e1sakor.",
+            "missing_configuration": "A komponens nincs konfigur\u00e1lva. K\u00e9rem, k\u00f6vesse a dokument\u00e1ci\u00f3t.",
+            "no_url_available": "Nincs el\u00e9rhet\u0151 URL. A hib\u00e1val kapcsolatos inform\u00e1ci\u00f3k\u00e9rt n\u00e9zze meg a [s\u00fag\u00f3]({docs_url}) le\u00edr\u00e1s\u00e1t.",
+            "oauth_error": "\u00c9rv\u00e9nytelen token adatok \u00e9rkeztek.",
+            "oauth_failed": "Hiba a hozz\u00e1f\u00e9r\u00e9si token megszerz\u00e9se k\u00f6zben.",
+            "oauth_timeout": "Id\u0151t\u00fall\u00e9p\u00e9s az OAuth-token felold\u00e1sakor.",
+            "oauth_unauthorized": "OAuth enged\u00e9lyez\u00e9si hiba a hozz\u00e1f\u00e9r\u00e9si token megszerz\u00e9se sor\u00e1n.",
+            "unknown": "V\u00e1ratlan hiba",
+            "user_rejected_authorize": "A fi\u00f3k csatol\u00e1sa elutas\u00edtva: {error}",
+            "wrong_account": "Rossz fi\u00f3k: K\u00e9rj\u00fck, hiteles\u00edtse a megfelel\u0151 fi\u00f3kkal."
+        },
+        "create_entry": {
+            "default": "Sikeres hiteles\u00edt\u00e9s"
+        },
+        "step": {
+            "pick_implementation": {
+                "title": "V\u00e1lasszon egy hiteles\u00edt\u00e9si m\u00f3dszert"
+            }
+        }
+    },
+    "exceptions": {
+        "albums_failed": {
+            "message": "Nem siker\u00fclt lek\u00e9rni az albumokat a Google Photos API-b\u00f3l."
+        },
+        "api_error": {
+            "message": "A Google Photos API hiba\u00fczenetet adott vissza: {message}"
+        },
+        "create_album_error": {
+            "message": "Nem siker\u00fclt l\u00e9trehozni az albumot: {message}"
+        },
+        "file_too_large": {
+            "message": "A(z) `{filename}` t\u00fal nagy ({size} > {limit})"
+        },
+        "filename_does_not_exist": {
+            "message": "A(z) `{filename}` nem l\u00e9tezik"
+        },
+        "filename_is_not_image": {
+            "message": "A(z) `{filename}` nem k\u00e9p"
+        },
+        "integration_not_found": {
+            "message": "A(z) \"{target}\" integr\u00e1ci\u00f3 nem tal\u00e1lhat\u00f3 a nyilv\u00e1ntart\u00e1sban."
+        },
+        "missing_upload_permission": {
+            "message": "A Home Assistant nem kapott enged\u00e9lyt a Google Photos-ba t\u00f6rt\u00e9n\u0151 felt\u00f6lt\u00e9shez."
+        },
+        "no_access_to_path": {
+            "message": "Nem lehet olvasni a(z) {filename} f\u00e1jlt, nincs hozz\u00e1f\u00e9r\u00e9s az \u00fatvonalhoz; lehet, hogy a `configuration.yaml` f\u00e1jlban m\u00f3dos\u00edtani kell az `allowlist_external_dirs` be\u00e1ll\u00edt\u00e1st."
+        },
+        "not_loaded": {
+            "message": "{target} nincs bet\u00f6ltve."
+        },
+        "upload_error": {
+            "message": "Nem siker\u00fclt felt\u00f6lteni a tartalmat: {message}"
+        }
+    },
+    "services": {
+        "upload": {
+            "description": "K\u00e9pek vagy vide\u00f3k felt\u00f6lt\u00e9se a Google Photos-ba.",
+            "fields": {
+                "album": {
+                    "description": "Az album neve, amely a felt\u00f6lt\u00f6tt tartalom c\u00e9l\u00e1llom\u00e1sa.",
+                    "example": "Csal\u00e1di fot\u00f3k",
+                    "name": "Album"
+                },
+                "config_entry_id": {
+                    "description": "A Google Photos integr\u00e1ci\u00f3 azonos\u00edt\u00f3ja.",
+                    "name": "Integr\u00e1ci\u00f3 azonos\u00edt\u00f3"
+                },
+                "filename": {
+                    "description": "Az el\u00e9r\u00e9si \u00fat a felt\u00f6ltend\u0151 k\u00e9phez vagy vide\u00f3hoz.",
+                    "example": "/config/www/image.jpg",
+                    "name": "F\u00e1jln\u00e9v"
+                }
+            },
+            "name": "M\u00e9dia felt\u00f6lt\u00e9se"
+        }
+    }
+}

@@ -1,0 +1,131 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "El dispositivo ya est\u00e1 configurado",
+            "already_in_progress": "El flujo de configuraci\u00f3n ya est\u00e1 en curso",
+            "cannot_connect": "No se pudo conectar"
+        },
+        "step": {
+            "discovery_confirm": {
+                "description": "\u00bfQuieres configurar este dispositivo Guardian?"
+            },
+            "user": {
+                "data": {
+                    "ip_address": "Direcci\u00f3n IP",
+                    "port": "Puerto"
+                },
+                "description": "Configurar un dispositivo local Elexa Guardian."
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "leak": {
+                "name": "Fuga detectada"
+            },
+            "moved": {
+                "name": "Recientemente trasladado"
+            }
+        },
+        "button": {
+            "reset_diagnostics": {
+                "name": "Restablecer diagn\u00f3sticos de v\u00e1lvula"
+            }
+        },
+        "sensor": {
+            "current": {
+                "name": "Corriente"
+            },
+            "instantaneous_current": {
+                "name": "Corriente instant\u00e1nea"
+            },
+            "instantaneous_current_ddt": {
+                "name": "Corriente instant\u00e1nea (DDT)"
+            },
+            "travel_count": {
+                "name": "Recuento de viajes"
+            },
+            "uptime": {
+                "name": "Tiempo de funcionamiento"
+            }
+        },
+        "switch": {
+            "onboard_access_point": {
+                "name": "Punto de acceso a bordo"
+            },
+            "valve_controller": {
+                "name": "Controlador de v\u00e1lvula"
+            }
+        },
+        "valve": {
+            "valve_controller": {
+                "name": "Controlador de v\u00e1lvula"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_service": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Actualiza cualquier automatizaci\u00f3n o script que use este servicio para usar en su lugar el servicio `{alternate_service}` con una ID de entidad de destino de `{alternate_target}`.",
+                        "title": "Se va a eliminar el servicio {deprecated_service}"
+                    }
+                }
+            },
+            "title": "Se va a eliminar el servicio {deprecated_service}"
+        }
+    },
+    "services": {
+        "pair_sensor": {
+            "description": "A\u00f1ade un nuevo sensor emparejado al controlador de la v\u00e1lvula.",
+            "fields": {
+                "device_id": {
+                    "description": "El controlador de v\u00e1lvula al que a\u00f1adir el sensor.",
+                    "name": "Controlador de v\u00e1lvula"
+                },
+                "uid": {
+                    "description": "El UID del sensor emparejado.",
+                    "name": "UID"
+                }
+            },
+            "name": "Emparejar sensor"
+        },
+        "unpair_sensor": {
+            "description": "Elimina un sensor emparejado del controlador de v\u00e1lvula.",
+            "fields": {
+                "device_id": {
+                    "description": "El controlador de la v\u00e1lvula para quitar el sensor.",
+                    "name": "Controlador de v\u00e1lvula"
+                },
+                "uid": {
+                    "description": "El UID del sensor emparejado.",
+                    "name": "UID"
+                }
+            },
+            "name": "Desemparejar sensor"
+        },
+        "upgrade_firmware": {
+            "description": "Actualiza el firmware del dispositivo.",
+            "fields": {
+                "device_id": {
+                    "description": "El controlador de v\u00e1lvula cuyo firmware debe actualizarse.",
+                    "name": "Controlador de v\u00e1lvula"
+                },
+                "filename": {
+                    "description": "El nombre de archivo del firmware.",
+                    "name": "Nombre de archivo"
+                },
+                "port": {
+                    "description": "El puerto en el que se sirve el archivo de firmware.",
+                    "name": "Puerto"
+                },
+                "url": {
+                    "description": "La URL del servidor que aloja el archivo de firmware.",
+                    "name": "URL"
+                }
+            },
+            "name": "Actualizar firmware"
+        }
+    }
+}

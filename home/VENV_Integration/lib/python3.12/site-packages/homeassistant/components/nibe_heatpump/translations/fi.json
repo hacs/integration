@@ -1,0 +1,49 @@
+{
+    "config": {
+        "error": {
+            "address": "M\u00e4\u00e4ritetty virheellinen et\u00e4osoite. Osoitteen on oltava IP-osoite tai ratkaistavissa oleva is\u00e4nt\u00e4nimi.",
+            "address_in_use": "Valittu kuunteluportti on jo k\u00e4yt\u00f6ss\u00e4 t\u00e4ss\u00e4 j\u00e4rjestelm\u00e4ss\u00e4.",
+            "model": "Valittu malli ei n\u00e4yt\u00e4 tukevan MODBUS40:t\u00e4.",
+            "read": "Virhe lukupyynn\u00f6ss\u00e4 pumpulta. Tarkista `Remote read port` tai `Remote address`.",
+            "unknown": "Odottamaton virhe",
+            "url": "M\u00e4\u00e4ritetty URL-osoite ei ole hyvin muodostettu eik\u00e4 tuettu",
+            "write": "Virhe pumpun kirjoituspyynn\u00f6ss\u00e4. Vahvista \"Et\u00e4kirjoitusportti\" tai \"Et\u00e4osoitteesi\"."
+        },
+        "step": {
+            "modbus": {
+                "data": {
+                    "modbus_unit": "Modbus-yksik\u00f6n tunniste",
+                    "modbus_url": "Modbus-URL",
+                    "model": "L\u00e4mp\u00f6pumpun malli"
+                },
+                "data_description": {
+                    "modbus_unit": "L\u00e4mp\u00f6pumppusi yksik\u00f6n tunniste. Voidaan yleens\u00e4 j\u00e4tt\u00e4\u00e4 arvoon 0.",
+                    "modbus_url": "Modbus-URL-osoite, jossa kuvataan yhteys l\u00e4mp\u00f6pumppuun tai MODBUS40-yksikk\u00f6\u00f6n. Sen pit\u00e4isi olla muodossa:\n - `tcp://[HOST]:[PORT]` Modbus TCP -yhteytt\u00e4 varten.\n - `serial://[PAIKALLINEN LAITE]` paikalliselle Modbus RTU -yhteydelle.\n - `rfc2217://[HOST]:[PORT]` et\u00e4-Telnet-pohjaista Modbus RTU -yhteytt\u00e4 varten."
+                }
+            },
+            "nibegw": {
+                "data": {
+                    "ip_address": "Et\u00e4osoite",
+                    "listening_port": "Paikallinen kuunteluportti",
+                    "model": "L\u00e4mp\u00f6pumpun malli",
+                    "remote_read_port": "Et\u00e4luentaportti",
+                    "remote_write_port": "Et\u00e4kirjoitusportti"
+                },
+                "data_description": {
+                    "ip_address": "NibeGW-yksik\u00f6n osoite. Laitteelle on m\u00e4\u00e4ritett\u00e4v\u00e4 staattinen osoite.",
+                    "listening_port": "T\u00e4m\u00e4n j\u00e4rjestelm\u00e4n paikallinen portti, johon NibeGW-yksikk\u00f6 on m\u00e4\u00e4ritetty l\u00e4hett\u00e4m\u00e4\u00e4n tietoja.",
+                    "remote_read_port": "Portti, josta NibeGW-yksikk\u00f6 kuuntelee lukupyynt\u00f6j\u00e4.",
+                    "remote_write_port": "Portti, josta NibeGW-yksikk\u00f6 kuuntelee kirjoituspyynt\u00f6j\u00e4."
+                },
+                "description": "Ennen kuin yrit\u00e4t m\u00e4\u00e4ritt\u00e4\u00e4 integraation, tarkista, ett\u00e4:\n - NibeGW-yksikk\u00f6 on liitetty l\u00e4mp\u00f6pumppuun.\n - MODBUS40-lis\u00e4laite on otettu k\u00e4ytt\u00f6\u00f6n l\u00e4mp\u00f6pumpun konfiguraatiossa.\n - Pumppu ei ole mennyt vikatilaan MODBUS40-lis\u00e4varusteen puuttumisesta."
+            },
+            "user": {
+                "description": "Valitse pumpun liit\u00e4nt\u00e4tapa. Yleens\u00e4 F-sarjan pumput vaativat NibeGW:n mukautetun lis\u00e4varusteen, kun taas S-sarjan pumpuissa on sis\u00e4\u00e4nrakennettu Modbus-tuki.",
+                "menu_options": {
+                    "modbus": "Modbus",
+                    "nibegw": "NibeGW"
+                }
+            }
+        }
+    }
+}

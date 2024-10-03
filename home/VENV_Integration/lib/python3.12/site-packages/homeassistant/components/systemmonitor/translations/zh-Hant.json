@@ -1,0 +1,119 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "\u670d\u52d9\u5df2\u7d93\u8a2d\u5b9a\u5b8c\u6210"
+        },
+        "step": {
+            "user": {
+                "description": "\u9078\u64c7 **\u50b3\u9001** \u9032\u884c\u521d\u59cb\u8a2d\u5b9a\u3002\u5728\u65b0\u589e\u8a2d\u5b9a\u689d\u76ee\u4e0a\u3001\u6309\u4e0b\u8a2d\u5b9a\u4ee5\u70ba\u6240\u9078\u7a0b\u5e8f\u611f\u6e2c\u5668"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "process": {
+                "name": "{process} \u8655\u7406\u7a0b\u5e8f"
+            }
+        },
+        "sensor": {
+            "disk_free": {
+                "name": "{mount_point} \u53ef\u7528\u7a7a\u9593"
+            },
+            "disk_use": {
+                "name": "{mount_point} \u5df2\u4f7f\u7528\u7a7a\u9593"
+            },
+            "disk_use_percent": {
+                "name": "{mount_point} \u78c1\u789f\u4f7f\u7528\u91cf"
+            },
+            "ipv4_address": {
+                "name": "IPv4 \u4f4d\u5740 {ip_address}"
+            },
+            "ipv6_address": {
+                "name": "IPv6 \u4f4d\u5740 {ip_address}"
+            },
+            "last_boot": {
+                "name": "\u4e0a\u6b21\u958b\u6a5f"
+            },
+            "load_15m": {
+                "name": "\u8ca0\u8f09\uff0815m\uff09"
+            },
+            "load_1m": {
+                "name": "\u8ca0\u8f09\uff081m\uff09"
+            },
+            "load_5m": {
+                "name": "\u8ca0\u8f09\uff085m\uff09"
+            },
+            "memory_free": {
+                "name": "\u53ef\u7528\u8a18\u61b6\u9ad4"
+            },
+            "memory_use": {
+                "name": "\u8a18\u61b6\u9ad4\u4f7f\u7528\u91cf"
+            },
+            "memory_use_percent": {
+                "name": "\u8a18\u61b6\u9ad4\u4f7f\u7528\u7387"
+            },
+            "network_in": {
+                "name": "{interface} \u4e0b\u884c\u7db2\u8def"
+            },
+            "network_out": {
+                "name": "{interface} \u4e0a\u884c\u7db2\u8def"
+            },
+            "packets_in": {
+                "name": "{interface} \u4e0b\u884c\u5c01\u5305"
+            },
+            "packets_out": {
+                "name": "{interface} \u4e0a\u884c\u5c01\u5305"
+            },
+            "process": {
+                "name": "{process} \u8655\u7406\u7a0b\u5e8f"
+            },
+            "processor_temperature": {
+                "name": "\u8655\u7406\u5668\u6eab\u5ea6"
+            },
+            "processor_use": {
+                "name": "\u8655\u7406\u5668\u4f7f\u7528\u7387"
+            },
+            "swap_free": {
+                "name": "\u66ab\u5b58\u53ef\u7528\u91cf"
+            },
+            "swap_use": {
+                "name": "\u66ab\u5b58\u4f7f\u7528\u91cf"
+            },
+            "swap_use_percent": {
+                "name": "\u66ab\u5b58\u4f7f\u7528\u7387"
+            },
+            "throughput_network_in": {
+                "name": "{interface} \u7db2\u8def\u4e0b\u884c\u541e\u5410\u91cf"
+            },
+            "throughput_network_out": {
+                "name": "{interface} \u7db2\u8def\u4e0a\u884c\u541e\u5410\u91cf"
+            }
+        }
+    },
+    "issues": {
+        "process_sensor": {
+            "fix_flow": {
+                "step": {
+                    "migrate_process_sensor": {
+                        "description": "`{processes}` \u8655\u7406\u7a0b\u5e8f\u611f\u6e2c\u5668\u5df2\u65b0\u589e\u70ba\u4e8c\u9032\u4f4d\u611f\u6e2c\u5668\uff0c\u4e26\u5c07\u65bc 2024.9.0 \u7248\u4e2d\u79fb\u9664\u3002\n\n\u8acb\u66f4\u65b0\u6240\u6709\u81ea\u52d5\u5316\u3001\u8173\u672c\u3001\u5100\u8868\u677f\u6216\u5176\u4ed6\u4f7f\u7528\u611f\u6e2c\u5668\u7684\u76f8\u95dc\u5167\u5bb9\uff0c\u4e26\u4f7f\u7528\u525b\u65b0\u589e\u7684\u4e8c\u9032\u4f4d\u611f\u6e2c\u5668\u53d6\u4ee3\u3002\u4e26\u6309\u4e0b **\u50b3\u9001** \u4ee5\u4fee\u6b63\u6b64\u554f\u984c\u3002",
+                        "title": "\u8655\u7406\u7a0b\u5e8f\u611f\u6e2c\u5668\u5df2\u7d93\u8a2d\u5b9a\u70ba\u4e8c\u9032\u4f4d\u611f\u6e2c\u5668"
+                    }
+                }
+            },
+            "title": "\u8655\u7406\u7a0b\u5e8f\u611f\u6e2c\u5668\u5373\u5c07\u505c\u6b62\u4f7f\u7528\u4e26\u9032\u884c\u79fb\u9664"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "process": "\u65b0\u589e\u611f\u6e2c\u5668\u7684\u7a0b\u5e8f"
+                },
+                "data_description": {
+                    "process": "\u7531\u5217\u8868\u4e2d\u9078\u64c7\u57f7\u884c\u7684\u7a0b\u5e8f\u6216\u65b0\u589e\u81ea\u8a02\u6578\u503c\u3002\u652f\u63f4\u591a\u91cd\u9078\u64c7/\u81ea\u8a02\u6578\u503c"
+                },
+                "description": "\u70ba\u57f7\u884c\u4e2d\u7684\u7a0b\u5e8f\u8a2d\u5b9a\u76e3\u63a7\u611f\u6e2c\u5668"
+            }
+        }
+    }
+}

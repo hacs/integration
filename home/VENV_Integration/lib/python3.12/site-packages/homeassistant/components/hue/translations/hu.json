@@ -1,0 +1,185 @@
+{
+    "config": {
+        "abort": {
+            "all_configured": "Minden Philips Hue h\u00edd be van m\u00e1r \u00e1ll\u00edtva",
+            "already_configured": "Az eszk\u00f6z m\u00e1r konfigur\u00e1lva van",
+            "already_in_progress": "A konfigur\u00e1l\u00e1s m\u00e1r folyamatban van",
+            "cannot_connect": "Sikertelen csatlakoz\u00e1s",
+            "discover_timeout": "Nem siker\u00fclt felfedezni a Hue hidakat",
+            "invalid_host": "\u00c9rv\u00e9nytelen g\u00e9pn\u00e9v vagy IP-c\u00edm",
+            "no_bridges": "Nem tal\u00e1lhat\u00f3 Philips Hue h\u00edd",
+            "not_hue_bridge": "Nem egy Hue h\u00edd",
+            "unknown": "V\u00e1ratlan hiba"
+        },
+        "error": {
+            "linking": "V\u00e1ratlan hiba",
+            "register_failed": "A regisztr\u00e1ci\u00f3 nem siker\u00fclt, k\u00e9rem pr\u00f3b\u00e1lja \u00fajra"
+        },
+        "step": {
+            "init": {
+                "data": {
+                    "host": "Hoszt"
+                },
+                "data_description": {
+                    "host": "A Hue h\u00edd g\u00e9pneve vagy IP-c\u00edme."
+                },
+                "title": "Hue h\u00edd v\u00e1laszt\u00e1sa"
+            },
+            "link": {
+                "description": "Nyomja meg a h\u00eddon tal\u00e1lhat\u00f3 gombot a Philips Hue Home Assistant szolg\u00e1ltat\u00e1ssal t\u00f6rt\u00e9n\u0151 regisztr\u00e1l\u00e1s\u00e1hoz.\n\n! [A gomb helye a h\u00eddon] (/statikus/k\u00e9pek/config_philips_hue.jpg)",
+                "title": "Kapcsol\u00f3d\u00e1s a h\u00eddhoz"
+            },
+            "manual": {
+                "data": {
+                    "host": "Hoszt"
+                },
+                "data_description": {
+                    "host": "A Hue h\u00edd g\u00e9pneve vagy IP-c\u00edme."
+                },
+                "title": "Hue h\u00edd k\u00e9zi konfigur\u00e1l\u00e1sa"
+            }
+        }
+    },
+    "device_automation": {
+        "trigger_subtype": {
+            "1": "Els\u0151 gomb",
+            "2": "M\u00e1sodik gomb",
+            "3": "Harmadik gomb",
+            "4": "Negyedik gomb",
+            "button_1": "Els\u0151 gomb",
+            "button_2": "M\u00e1sodik gomb",
+            "button_3": "Harmadik gomb",
+            "button_4": "Negyedik gomb",
+            "clock_wise": "Forgat\u00e1s az \u00f3ramutat\u00f3 j\u00e1r\u00e1s\u00e1val megegyez\u0151 ir\u00e1nyba",
+            "counter_clock_wise": "Forgat\u00e1s az \u00f3ramutat\u00f3 j\u00e1r\u00e1s\u00e1val ellent\u00e9tes ir\u00e1nyba",
+            "dim_down": "S\u00f6t\u00e9t\u00edt",
+            "dim_up": "Vil\u00e1gos\u00edt",
+            "double_buttons_1_3": "Els\u0151 \u00e9s harmadik gomb",
+            "double_buttons_2_4": "M\u00e1sodik \u00e9s negyedik gomb",
+            "turn_off": "Kikapcsol\u00e1s",
+            "turn_on": "Bekapcsol\u00e1s"
+        },
+        "trigger_type": {
+            "double_short_release": "Mindk\u00e9t \"{subtype}\" felengedve",
+            "initial_press": "\"{subtype}\" lenyomva el\u0151sz\u00f6r",
+            "long_release": "\"{subtype}\" hossz\u00fa megnyom\u00e1s ut\u00e1n elengedve",
+            "remote_button_long_release": "\"{subtype}\" hossz\u00fa megnyom\u00e1s ut\u00e1n elengedve",
+            "remote_button_short_press": "\"{subtype}\" lenyomva",
+            "remote_button_short_release": "\"{subtype}\" elengedve",
+            "remote_double_button_long_press": "Mindk\u00e9t \"{subtype}\" hossz\u00fa megnyom\u00e1st k\u00f6vet\u0151en megjelent",
+            "remote_double_button_short_press": "Mindk\u00e9t \"{subtype}\" felengedve",
+            "repeat": "\"{subtype}\" lenyomva tartava",
+            "short_release": "\"{subtype}\" felengedve r\u00f6vid nyomva tart\u00e1s ut\u00e1n",
+            "start": "\"{subtype}\" lenyomva el\u0151sz\u00f6r"
+        }
+    },
+    "entity": {
+        "event": {
+            "button": {
+                "name": "{button_id} gomb",
+                "state_attributes": {
+                    "event_type": {
+                        "state": {
+                            "double_short_release": "K\u00e9tszeri gombnyom\u00e1s",
+                            "initial_press": "Kezd\u0151 gombnyom\u00e1s",
+                            "long_press": "Hossz\u00fa gombnyom\u00e1s",
+                            "long_release": "Hossz\u00fa elenged\u00e9s",
+                            "repeat": "Ism\u00e9tel",
+                            "short_release": "R\u00f6vid gombnyom\u00e1s"
+                        }
+                    }
+                }
+            },
+            "rotary": {
+                "name": "Forg\u00f3",
+                "state_attributes": {
+                    "event_type": {
+                        "state": {
+                            "clock_wise": "Jobbra forg\u00f3",
+                            "counter_clock_wise": "Balra forg\u00f3"
+                        }
+                    }
+                }
+            }
+        },
+        "sensor": {
+            "zigbee_connectivity": {
+                "name": "Zigbee csatlakoztathat\u00f3s\u00e1g",
+                "state": {
+                    "connected": "Kapcsol\u00f3dva",
+                    "connectivity_issue": "Csatlakoz\u00e1si probl\u00e9ma",
+                    "disconnected": "Lev\u00e1lasztva",
+                    "unidirectional_incoming": "Egyir\u00e1ny\u00fa bej\u00f6v\u0151"
+                }
+            }
+        },
+        "switch": {
+            "automation": {
+                "state": {
+                    "off": "Letiltva",
+                    "on": "Enged\u00e9lyezve"
+                }
+            },
+            "light_sensor_enabled": {
+                "name": "F\u00e9ny\u00e9rz\u00e9kel\u0151 enged\u00e9lyezve"
+            },
+            "motion_sensor_enabled": {
+                "name": "Mozg\u00e1s\u00e9rz\u00e9kel\u0151 enged\u00e9lyezve"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "allow_hue_groups": "Hue csoportok enged\u00e9lyez\u00e9se",
+                    "allow_hue_scenes": "Hue jelenetek enged\u00e9lyez\u00e9se",
+                    "allow_unreachable": "Hagyja, hogy az el\u00e9rhetetlen izz\u00f3k helyesen jelents\u00e9k \u00e1llapotukat",
+                    "ignore_availability": "A megadott eszk\u00f6z\u00f6k kapcsol\u00f3d\u00e1si \u00e1llapot\u00e1nak figyelmen k\u00edv\u00fcl hagy\u00e1sa"
+                }
+            }
+        }
+    },
+    "services": {
+        "activate_scene": {
+            "description": "Aktiv\u00e1l egy Hue jelenetet t\u00f6bb lehet\u0151s\u00e9ggel a be\u00e1ll\u00edt\u00e1sokhoz.",
+            "fields": {
+                "brightness": {
+                    "description": "\u00c1ll\u00edtsd be a f\u00e9nyer\u0151t a jelenet sz\u00e1m\u00e1ra.",
+                    "name": "F\u00e9nyer\u0151"
+                },
+                "dynamic": {
+                    "description": "A jelenet dinamikus m\u00f3dj\u00e1nak enged\u00e9lyez\u00e9se.",
+                    "name": "Dinamikus"
+                },
+                "speed": {
+                    "description": "A dinamikus paletta sebess\u00e9ge ebben a jelenetben.",
+                    "name": "Sebess\u00e9g"
+                },
+                "transition": {
+                    "description": "Az \u00e1tmeneti id\u0151, amely sz\u00fcks\u00e9ges az eszk\u00f6z\u00f6knek ahhoz, hogy el\u00e9rj\u00e9k a jelenetben meghat\u00e1rozott \u00e1llapotot.",
+                    "name": "\u00c1tmenet"
+                }
+            },
+            "name": "Hue jelenet aktiv\u00e1l\u00e1sa"
+        },
+        "hue_activate_scene": {
+            "description": "Aktiv\u00e1l egy hue jelenetet, amely a hue hubban van t\u00e1rolva.",
+            "fields": {
+                "dynamic": {
+                    "description": "A jelenet dinamikus \u00fczemm\u00f3dj\u00e1nak enged\u00e9lyez\u00e9se (csak V2 hidak \u00e9s t\u00e1mogatott jelenetek eset\u00e9n).",
+                    "name": "Dinamikus"
+                },
+                "group_name": {
+                    "description": "A hue csoport/szoba neve a hue alkalmaz\u00e1sb\u00f3l.",
+                    "name": "Csoport"
+                },
+                "scene_name": {
+                    "description": "A Hue jelenet neve a Hue alkalmaz\u00e1sb\u00f3l.",
+                    "name": "Jelenet"
+                }
+            },
+            "name": "Jelenet bekapcsol\u00e1sa"
+        }
+    }
+}

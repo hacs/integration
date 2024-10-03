@@ -1,0 +1,43 @@
+{
+    "entity": {
+        "switch": {
+            "aux_heat_only": {
+                "name": "S\u00f3 calor auxiliar"
+            }
+        }
+    },
+    "issues": {
+        "migrate_aux_heat": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "A acci\u00f3n `set_aux_heat` de Ecobee foi migrada. Unha nova entidade de interruptor `aux_heat_only` est\u00e1 dispo\u00f1ible para cada term\u00f3stato que soporta unha Bomba de Calor.\n\nActualiza calquera automatizaci\u00f3n para usar a nova entidade de interruptor `aux_heat_only`. Cando isto estea feito, soluciona este problema e reinicia Home Assistant.",
+                        "title": "Desactivar a acci\u00f3n antiga set_aux_heat de Ecobee"
+                    }
+                }
+            },
+            "title": "Migraci\u00f3n da acci\u00f3n set_aux_heat de Ecobee"
+        }
+    },
+    "services": {
+        "create_vacation": {
+            "fields": {
+                "end_date": {
+                    "name": "Data de fin"
+                },
+                "end_time": {
+                    "description": "Hora na que remata as vacaci\u00f3ns, na hora local do term\u00f3stato, no formato de 24 horas \"HH:MM:SS\".",
+                    "name": "Hora de finalizaci\u00f3n"
+                },
+                "entity_id": {
+                    "description": "Term\u00f3stato 'Ecobee' no que crear as vacaci\u00f3ns.",
+                    "name": "Entidade"
+                },
+                "fan_min_on_time": {
+                    "description": "N\u00famero m\u00ednimo de minutos para executar o ventilador cada hora (0 a 60) durante as vacaci\u00f3ns.",
+                    "name": "Tempo m\u00ednimo de funcionamento do ventilador"
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,424 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "\uc11c\ube44\uc2a4\uac00 \uc774\ubbf8 \uad6c\uc131\ub418\uc5c8\uc2b5\ub2c8\ub2e4",
+            "single_instance_allowed": "\uc774\ubbf8 \uad6c\uc131\ub418\uc5c8\uc2b5\ub2c8\ub2e4. \ud558\ub098\uc758 \uc778\uc2a4\ud134\uc2a4\ub9cc \uad6c\uc131\ud560 \uc218 \uc788\uc2b5\ub2c8\ub2e4."
+        },
+        "error": {
+            "cannot_connect": "\uc5f0\uacb0\ud558\uc9c0 \ubabb\ud588\uc2b5\ub2c8\ub2e4",
+            "invalid_backbone_key": "\ubc31\ubcf8 \ud0a4\uac00 \uc798\ubabb\ub418\uc5c8\uc2b5\ub2c8\ub2e4. 32\uc790\ub9ac\uc758 16\uc9c4\uc218 \uc22b\uc790\uac00 \ud544\uc694\ud569\ub2c8\ub2e4.",
+            "invalid_individual_address": "\uac12\uc774 KNX \uac1c\ubcc4 \uc8fc\uc18c\uc758 \ud328\ud134\uacfc \uc77c\uce58\ud558\uc9c0 \uc54a\uc2b5\ub2c8\ub2e4.\n'area.line.device'\uc785\ub2c8\ub2e4.",
+            "invalid_ip_address": "\uc798\ubabb\ub41c IPv4 \uc8fc\uc18c\uc785\ub2c8\ub2e4.",
+            "keyfile_invalid_signature": "'.knxkeys' \ud30c\uc77c\uc758 \uc554\ud638\ub97c \ud574\ub3c5\ud558\uae30 \uc704\ud55c \uc554\ud638\uac00 \uc798\ubabb\ub418\uc5c8\uc2b5\ub2c8\ub2e4.",
+            "keyfile_no_backbone_key": "'.knxkeys' \ud30c\uc77c\uc5d0\ub294 \ubcf4\uc548 \ub77c\uc6b0\ud305\uc744 \uc704\ud55c \ubc31\ubcf8 \ud0a4\uac00 \ud3ec\ud568\ub418\uc5b4 \uc788\uc9c0 \uc54a\uc2b5\ub2c8\ub2e4.",
+            "keyfile_no_tunnel_for_host": "'.knxkeys' \ud30c\uc77c\uc5d0 \ud638\uc2a4\ud2b8 ` {host} `\uc5d0 \ub300\ud55c \uc790\uaca9 \uc99d\uba85\uc774 \ud3ec\ud568\ub418\uc5b4 \uc788\uc9c0 \uc54a\uc2b5\ub2c8\ub2e4.",
+            "keyfile_not_found": "\uc9c0\uc815\ub41c '.knxkeys' \ud30c\uc77c\uc744 config/.storage/knx/ \uacbd\ub85c\uc5d0\uc11c \ucc3e\uc744 \uc218 \uc5c6\uc2b5\ub2c8\ub2e4.",
+            "no_router_discovered": "\ub124\ud2b8\uc6cc\ud06c\uc5d0\uc11c KNXnet/IP \ub77c\uc6b0\ud130\uac00 \uac80\uc0c9\ub418\uc9c0 \uc54a\uc558\uc2b5\ub2c8\ub2e4.",
+            "no_tunnel_discovered": "\ub124\ud2b8\uc6cc\ud06c\uc5d0\uc11c KNX \ud130\ub110\ub9c1 \uc11c\ubc84\ub97c \ucc3e\uc744 \uc218 \uc5c6\uc2b5\ub2c8\ub2e4.",
+            "unsupported_tunnel_type": "\uc120\ud0dd\ud55c \ud130\ub110\ub9c1 \uc720\ud615\uc774 \uac8c\uc774\ud2b8\uc6e8\uc774\uc5d0\uc11c \uc9c0\uc6d0\ub418\uc9c0 \uc54a\uc2b5\ub2c8\ub2e4."
+        },
+        "step": {
+            "connection_type": {
+                "data": {
+                    "connection_type": "KNX \uc5f0\uacb0 \uc720\ud615"
+                },
+                "description": "KNX \uc5f0\uacb0\uc5d0 \uc0ac\uc6a9\ud560 \uc5f0\uacb0 \uc720\ud615\uc744 \uc785\ub825\ud558\uc2ed\uc2dc\uc624.\n \uc790\ub3d9 - \uc774 \ud1b5\ud569\uad6c\uc131\uc694\uc18c\ub294 \uac8c\uc774\ud2b8\uc6e8\uc774 \uc2a4\uce94\uc744 \uc218\ud589\ud558\uc5ec KNX \ubc84\uc2a4\uc5d0 \ub300\ud55c \uc5f0\uacb0\uc744 \uad00\ub9ac\ud569\ub2c8\ub2e4.\n \ud130\ub110\ub9c1 - \uc774 \ud1b5\ud569\uad6c\uc131\uc694\uc18c\uac00 \ud130\ub110\ub9c1\uc744 \ud1b5\ud574 KNX \ubc84\uc2a4\uc5d0 \uc5f0\uacb0\ub429\ub2c8\ub2e4.\n \ub77c\uc6b0\ud305 - \uc774 \ud1b5\ud569\uad6c\uc131\uc694\uc18c\uac00 \ub77c\uc6b0\ud305\uc744 \ud1b5\ud574 KNX \ubc84\uc2a4\uc5d0 \uc5f0\uacb0\ub429\ub2c8\ub2e4.",
+                "title": "KNX \uc5f0\uacb0"
+            },
+            "knxkeys_tunnel_select": {
+                "data": {
+                    "user_id": "'\uc790\ub3d9'\uc740 \uccab \ubc88\uc9f8 \uc0ac\uc6a9 \uac00\ub2a5\ud55c \ud130\ub110 \uc5d4\ub4dc\ud3ec\uc778\ud2b8\ub97c \uc0ac\uc6a9\ud569\ub2c8\ub2e4."
+                },
+                "description": "\uc5f0\uacb0\uc5d0 \uc0ac\uc6a9\ub418\ub294 \ud130\ub110\uc744 \uc120\ud0dd\ud569\ub2c8\ub2e4.",
+                "title": "\ud130\ub110 \uc5d4\ub4dc\ud3ec\uc778\ud2b8"
+            },
+            "manual_tunnel": {
+                "data": {
+                    "host": "\ud638\uc2a4\ud2b8",
+                    "local_ip": "\ub85c\uceec IP \uc778\ud130\ud398\uc774\uc2a4",
+                    "port": "\ud3ec\ud2b8",
+                    "route_back": "\ub77c\uc6b0\ud2b8 \ubc31 / NAT \ubaa8\ub4dc",
+                    "tunneling_type": "KNX \ud130\ub110\ub9c1 \uc720\ud615"
+                },
+                "data_description": {
+                    "host": "KNX/IP \ud130\ub110\ub9c1 \uc7a5\uce58\uc758 IP \uc8fc\uc18c \ub610\ub294 \ud638\uc2a4\ud2b8 \uc774\ub984\uc785\ub2c8\ub2e4.",
+                    "local_ip": "Home Assistant\uc5d0\uc11c \uc5f0\uacb0\uc5d0 \uc0ac\uc6a9\ub418\ub294 \ub85c\uceec IP \ub610\ub294 \uc778\ud130\ud398\uc774\uc2a4 \uc774\ub984\uc785\ub2c8\ub2e4. \uc790\ub3d9 \uac80\uc0c9\uc744 \uc0ac\uc6a9\ud558\ub824\uba74 \ube44\uc6cc \ub461\ub2c8\ub2e4.",
+                    "port": "KNX/IP \ud130\ub110\ub9c1 \uc7a5\uce58\uc758 \ud3ec\ud2b8\uc785\ub2c8\ub2e4.",
+                    "route_back": "KNXnet/IP \ud130\ub110\ub9c1 \uc11c\ubc84\uac00 NAT \ub4a4\uc5d0 \uc788\ub294 \uacbd\uc6b0 \ud65c\uc131\ud654\ud558\uc2ed\uc2dc\uc624. UDP \uc5f0\uacb0\uc5d0\ub9cc \uc801\uc6a9\ub429\ub2c8\ub2e4."
+                },
+                "description": "\ud130\ub110\ub9c1 \uc7a5\uce58\uc758 \uc5f0\uacb0 \uc815\ubcf4\ub97c \uc785\ub825\ud558\uc2ed\uc2dc\uc624.",
+                "title": "\ud130\ub110 \uc124\uc815"
+            },
+            "routing": {
+                "data": {
+                    "individual_address": "\uac1c\uc778 \uc8fc\uc18c",
+                    "local_ip": "\ub85c\uceec IP \uc778\ud130\ud398\uc774\uc2a4",
+                    "multicast_group": "\uba40\ud2f0\uce90\uc2a4\ud2b8 \uadf8\ub8f9",
+                    "multicast_port": "\uba40\ud2f0\uce90\uc2a4\ud2b8 \ud3ec\ud2b8",
+                    "routing_secure": "KNX IP \ubcf4\uc548 \uc0ac\uc6a9"
+                },
+                "data_description": {
+                    "individual_address": "Home Assistant\uc5d0\uc11c \uc0ac\uc6a9\ud560 KNX \uc8fc\uc18c, \uc608: `0.0.4`",
+                    "local_ip": "Home Assistant\uc5d0\uc11c \uc5f0\uacb0\uc5d0 \uc0ac\uc6a9\ub418\ub294 \ub85c\uceec IP \ub610\ub294 \uc778\ud130\ud398\uc774\uc2a4 \uc774\ub984\uc785\ub2c8\ub2e4. \uc790\ub3d9 \uac80\uc0c9\uc744 \uc0ac\uc6a9\ud558\ub824\uba74 \ube44\uc6cc \ub461\ub2c8\ub2e4."
+                },
+                "description": "\ub77c\uc6b0\ud305 \uc635\uc158\uc744 \uad6c\uc131\ud558\uc2ed\uc2dc\uc624.",
+                "title": "\ub77c\uc6b0\ud305"
+            },
+            "secure_key_source": {
+                "description": "KNX/IP \ubcf4\uc548\uc744 \uad6c\uc131\ud560 \ubc29\ubc95\uc744 \uc120\ud0dd\ud569\ub2c8\ub2e4.",
+                "menu_options": {
+                    "secure_knxkeys": "IP \ubcf4\uc548 \ud0a4\uac00 \ud3ec\ud568\ub41c `.knxkeys` \ud30c\uc77c \uc0ac\uc6a9",
+                    "secure_routing_manual": "IP \ubcf4\uc548 \ubc31\ubcf8 \ud0a4\ub97c \uc218\ub3d9\uc73c\ub85c \uad6c\uc131",
+                    "secure_tunnel_manual": "\uc218\ub3d9\uc73c\ub85c IP \ubcf4\uc548 \uc790\uaca9 \uc99d\uba85 \uad6c\uc131"
+                },
+                "title": "KNX IP \ubcf4\uc548"
+            },
+            "secure_key_source_menu_routing": {
+                "description": "KNX/IP \ubcf4\uc548\uc744 \uad6c\uc131\ud560 \ubc29\ubc95\uc744 \uc120\ud0dd\ud569\ub2c8\ub2e4.",
+                "menu_options": {
+                    "secure_knxkeys": "IP \ubcf4\uc548 \ud0a4\uac00 \ud3ec\ud568\ub41c `.knxkeys` \ud30c\uc77c \uc0ac\uc6a9",
+                    "secure_routing_manual": "IP \ubcf4\uc548 \ubc31\ubcf8 \ud0a4\ub97c \uc218\ub3d9\uc73c\ub85c \uad6c\uc131"
+                },
+                "title": "KNX IP \ubcf4\uc548"
+            },
+            "secure_key_source_menu_tunnel": {
+                "description": "KNX/IP \ubcf4\uc548\uc744 \uad6c\uc131\ud560 \ubc29\ubc95\uc744 \uc120\ud0dd\ud569\ub2c8\ub2e4.",
+                "menu_options": {
+                    "secure_knxkeys": "IP \ubcf4\uc548 \ud0a4\uac00 \ud3ec\ud568\ub41c `.knxkeys` \ud30c\uc77c \uc0ac\uc6a9",
+                    "secure_tunnel_manual": "\uc218\ub3d9\uc73c\ub85c IP \ubcf4\uc548 \uc790\uaca9 \uc99d\uba85 \uad6c\uc131"
+                },
+                "title": "KNX IP \ubcf4\uc548"
+            },
+            "secure_knxkeys": {
+                "data": {
+                    "knxkeys_file": "\ud0a4\ub9c1 \ud30c\uc77c",
+                    "knxkeys_password": "'.knxkeys' \ud30c\uc77c\uc758 \uc554\ud638\ub97c \ud574\ub3c5\ud558\uae30 \uc704\ud55c \uc554\ud638\uc785\ub2c8\ub2e4"
+                },
+                "data_description": {
+                    "knxkeys_password": "ETS\uc5d0\uc11c \ud30c\uc77c\uc744 \ub0b4\ubcf4\ub0bc \ub54c \uc124\uc815\ub418\uc5c8\uc2b5\ub2c8\ub2e4."
+                },
+                "description": "\uac00\uc838\uc62c '.knxkeys' \ud30c\uc77c\uc744 \uc120\ud0dd\ud558\uc2ed\uc2dc\uc624.",
+                "title": "KNX \ud0a4\ub9c1 \uac00\uc838\uc624\uae30"
+            },
+            "secure_routing_manual": {
+                "data": {
+                    "backbone_key": "\ubc31\ubcf8 \ud0a4",
+                    "sync_latency_tolerance": "\ub124\ud2b8\uc6cc\ud06c \ub300\uae30 \uc2dc\uac04 \ud5c8\uc6a9 \uc624\ucc28"
+                },
+                "data_description": {
+                    "backbone_key": "ETS \ud504\ub85c\uc81d\ud2b8\uc758 '\ubcf4\uc548' \ubcf4\uace0\uc11c\uc5d0\uc11c \ubcfc \uc218 \uc788\uc2b5\ub2c8\ub2e4. \uc608. '00112233445566778899AABBCCDDEEFF'",
+                    "sync_latency_tolerance": "\uae30\ubcf8\uac12\uc740 1000\uc785\ub2c8\ub2e4."
+                },
+                "description": "IP \ubcf4\uc548 \uc815\ubcf4\ub97c \uc785\ub825\ud558\uc138\uc694.",
+                "title": "\ubcf4\uc548 \ub77c\uc6b0\ud305"
+            },
+            "secure_tunnel_manual": {
+                "data": {
+                    "device_authentication": "\uae30\uae30 \uc778\uc99d \uc554\ud638",
+                    "user_id": "\uc0ac\uc6a9\uc790 \uc544\uc774\ub514",
+                    "user_password": "\uc0ac\uc6a9\uc790 \uc554\ud638"
+                },
+                "data_description": {
+                    "device_authentication": "ETS \uc778\ud130\ud398\uc774\uc2a4\uc758 'IP' \ud328\ub110\uc5d0\uc11c \uc124\uc815\ud569\ub2c8\ub2e4.",
+                    "user_id": "\ubcf4\ud1b5 \ud130\ub110 \ubc88\ud638 +1\uc785\ub2c8\ub2e4. \ub530\ub77c\uc11c '\ud130\ub110 2'\ub294 \uc0ac\uc6a9\uc790 ID '3'\uc744 \uac16\uac8c \ub429\ub2c8\ub2e4.",
+                    "user_password": "ETS\uc5d0\uc11c \ud130\ub110\uc758 '\uc18d\uc131' \ud328\ub110\uc5d0 \uc124\uc815\ub41c \ud2b9\uc815 \ud130\ub110 \uc5f0\uacb0\uc5d0 \ub300\ud55c \uc554\ud638\uc785\ub2c8\ub2e4."
+                },
+                "description": "IP \ubcf4\uc548 \uc815\ubcf4\ub97c \uc785\ub825\ud558\uc138\uc694.",
+                "title": "\ubcf4\uc548 \ud130\ub110\ub9c1"
+            },
+            "tunnel": {
+                "data": {
+                    "gateway": "KNX \ud130\ub110 \uc5f0\uacb0"
+                },
+                "description": "\ubaa9\ub85d\uc5d0\uc11c \uac8c\uc774\ud2b8\uc6e8\uc774\ub97c \uc120\ud0dd\ud558\uc2ed\uc2dc\uc624.",
+                "title": "\ud130\ub110"
+            }
+        }
+    },
+    "entity": {
+        "climate": {
+            "knx_climate": {
+                "state_attributes": {
+                    "preset_mode": {
+                        "state": {
+                            "standby": "\ub300\uae30 \uc911"
+                        }
+                    }
+                }
+            }
+        },
+        "sensor": {
+            "connected_since": {
+                "name": "\uc5f0\uacb0 \uc124\uc815\ub428"
+            },
+            "connection_type": {
+                "name": "\uc5f0\uacb0 \uc720\ud615"
+            },
+            "individual_address": {
+                "name": "\uac1c\uc778 \uc8fc\uc18c"
+            },
+            "telegram_count": {
+                "name": "\uc804\ubcf4"
+            },
+            "telegrams_incoming": {
+                "name": "\uc218\uc2e0 \uc804\ubcf4"
+            },
+            "telegrams_incoming_error": {
+                "name": "\uc218\uc2e0 \ud154\ub808\uadf8\ub7a8 \uc624\ub958"
+            },
+            "telegrams_outgoing": {
+                "name": "\ubc1c\uc2e0 \uc804\ubcf4"
+            },
+            "telegrams_outgoing_error": {
+                "name": "\ubc1c\uc2e0 \uc804\ubcf4 \uc624\ub958"
+            }
+        }
+    },
+    "options": {
+        "error": {
+            "cannot_connect": "\uc5f0\uacb0\ud558\uc9c0 \ubabb\ud588\uc2b5\ub2c8\ub2e4",
+            "invalid_backbone_key": "\ubc31\ubcf8 \ud0a4\uac00 \uc798\ubabb\ub418\uc5c8\uc2b5\ub2c8\ub2e4. 32\uc790\ub9ac\uc758 16\uc9c4\uc218 \uc22b\uc790\uac00 \ud544\uc694\ud569\ub2c8\ub2e4.",
+            "invalid_individual_address": "\uac12\uc774 KNX \uac1c\ubcc4 \uc8fc\uc18c\uc758 \ud328\ud134\uacfc \uc77c\uce58\ud558\uc9c0 \uc54a\uc2b5\ub2c8\ub2e4.\n'area.line.device'\uc785\ub2c8\ub2e4.",
+            "invalid_ip_address": "\uc798\ubabb\ub41c IPv4 \uc8fc\uc18c\uc785\ub2c8\ub2e4.",
+            "keyfile_invalid_signature": "'.knxkeys' \ud30c\uc77c\uc758 \uc554\ud638\ub97c \ud574\ub3c5\ud558\uae30 \uc704\ud55c \uc554\ud638\uac00 \uc798\ubabb\ub418\uc5c8\uc2b5\ub2c8\ub2e4.",
+            "keyfile_no_backbone_key": "'.knxkeys' \ud30c\uc77c\uc5d0\ub294 \ubcf4\uc548 \ub77c\uc6b0\ud305\uc744 \uc704\ud55c \ubc31\ubcf8 \ud0a4\uac00 \ud3ec\ud568\ub418\uc5b4 \uc788\uc9c0 \uc54a\uc2b5\ub2c8\ub2e4.",
+            "keyfile_no_tunnel_for_host": "'.knxkeys' \ud30c\uc77c\uc5d0 \ud638\uc2a4\ud2b8 '{host}'\uc5d0 \ub300\ud55c \uc790\uaca9 \uc99d\uba85\uc774 \ud3ec\ud568\ub418\uc5b4 \uc788\uc9c0 \uc54a\uc2b5\ub2c8\ub2e4.",
+            "keyfile_not_found": "\uc9c0\uc815\ub41c '.knxkeys' \ud30c\uc77c\uc744 config/.storage/knx/ \uacbd\ub85c\uc5d0\uc11c \ucc3e\uc744 \uc218 \uc5c6\uc2b5\ub2c8\ub2e4.",
+            "no_router_discovered": "\ub124\ud2b8\uc6cc\ud06c\uc5d0\uc11c KNXnet/IP \ub77c\uc6b0\ud130\uac00 \uac80\uc0c9\ub418\uc9c0 \uc54a\uc558\uc2b5\ub2c8\ub2e4.",
+            "no_tunnel_discovered": "\ub124\ud2b8\uc6cc\ud06c\uc5d0\uc11c KNX \ud130\ub110\ub9c1 \uc11c\ubc84\ub97c \ucc3e\uc744 \uc218 \uc5c6\uc2b5\ub2c8\ub2e4.",
+            "unsupported_tunnel_type": "\uc120\ud0dd\ud55c \ud130\ub110\ub9c1 \uc720\ud615\uc774 \uac8c\uc774\ud2b8\uc6e8\uc774\uc5d0\uc11c \uc9c0\uc6d0\ub418\uc9c0 \uc54a\uc2b5\ub2c8\ub2e4."
+        },
+        "step": {
+            "communication_settings": {
+                "data": {
+                    "rate_limit": "\uc18d\ub3c4 \uc81c\ud55c",
+                    "state_updater": "\uc0c1\ud0dc \uc5c5\ub370\uc774\ud130",
+                    "telegram_log_size": "\uc804\ubcf4 \uae30\ub85d \uc81c\ud55c"
+                },
+                "data_description": {
+                    "rate_limit": "\ucd08\ub2f9 \ucd5c\ub300 \ubc1c\uc2e0 \uc804\ubcf4.\n'0': \uc81c\ud55c\uc744 \ube44\ud65c\uc131\ud654\ud569\ub2c8\ub2e4. \uad8c\uc7a5: 0 \ub610\ub294 20 - 40",
+                    "state_updater": "KNX \ubc84\uc2a4\uc5d0\uc11c \uc0c1\ud0dc\ub97c \uc77d\uae30 \uc704\ud55c \uae30\ubcf8\uac12\uc744 \uc124\uc815\ud569\ub2c8\ub2e4. \ube44\ud65c\uc131\ud654\ub418\uba74 Home Assistant\ub294 KNX \ubc84\uc2a4\uc5d0\uc11c \uad6c\uc131\uc694\uc18c \uc0c1\ud0dc\ub97c \ub2a5\ub3d9\uc801\uc73c\ub85c \uac80\uc0c9\ud558\uc9c0 \uc54a\uc2b5\ub2c8\ub2e4. 'sync_state' \uad6c\uc131\uc694\uc18c \uc635\uc158\uc73c\ub85c \uc7ac\uc815\uc758\ud560 \uc218 \uc788\uc2b5\ub2c8\ub2e4.",
+                    "telegram_log_size": "KNX \ud328\ub110 \uadf8\ub8f9 \ubaa8\ub2c8\ud130\uc758 \uba54\ubaa8\ub9ac\uc5d0 \ubcf4\uad00\ud560 \uc804\ubcf4. \ucd5c\ub300\uac12: {telegram_log_size_max}"
+                },
+                "title": "\ud1b5\uc2e0 \uc124\uc815"
+            },
+            "connection_type": {
+                "data": {
+                    "connection_type": "KNX \uc5f0\uacb0 \uc720\ud615"
+                },
+                "description": "KNX \uc5f0\uacb0\uc5d0 \uc0ac\uc6a9\ud560 \uc5f0\uacb0 \uc720\ud615\uc744 \uc785\ub825\ud558\uc2ed\uc2dc\uc624.\n \uc790\ub3d9 - \uc774 \ud1b5\ud569\uad6c\uc131\uc694\uc18c\ub294 \uac8c\uc774\ud2b8\uc6e8\uc774 \uc2a4\uce94\uc744 \uc218\ud589\ud558\uc5ec KNX \ubc84\uc2a4\uc5d0 \ub300\ud55c \uc5f0\uacb0\uc744 \uad00\ub9ac\ud569\ub2c8\ub2e4.\n \ud130\ub110\ub9c1 - \uc774 \ud1b5\ud569\uad6c\uc131\uc694\uc18c\uac00 \ud130\ub110\ub9c1\uc744 \ud1b5\ud574 KNX \ubc84\uc2a4\uc5d0 \uc5f0\uacb0\ub429\ub2c8\ub2e4.\n \ub77c\uc6b0\ud305 - \uc774 \ud1b5\ud569\uad6c\uc131\uc694\uc18c\uac00 \ub77c\uc6b0\ud305\uc744 \ud1b5\ud574 KNX \ubc84\uc2a4\uc5d0 \uc5f0\uacb0\ub429\ub2c8\ub2e4.",
+                "title": "KNX \uc5f0\uacb0"
+            },
+            "init": {
+                "menu_options": {
+                    "communication_settings": "\ud1b5\uc2e0 \uc124\uc815",
+                    "connection_type": "KNX \uc778\ud130\ud398\uc774\uc2a4 \uad6c\uc131",
+                    "secure_knxkeys": "'.knxkeys' \ud30c\uc77c \uac00\uc838\uc624\uae30"
+                },
+                "title": "KNX \uc124\uc815"
+            },
+            "knxkeys_tunnel_select": {
+                "data": {
+                    "user_id": "'\uc790\ub3d9'\uc740 \uccab \ubc88\uc9f8 \uc0ac\uc6a9 \uac00\ub2a5\ud55c \ud130\ub110 \uc5d4\ub4dc\ud3ec\uc778\ud2b8\ub97c \uc0ac\uc6a9\ud569\ub2c8\ub2e4."
+                },
+                "description": "\uc5f0\uacb0\uc5d0 \uc0ac\uc6a9\ub418\ub294 \ud130\ub110\uc744 \uc120\ud0dd\ud569\ub2c8\ub2e4.",
+                "title": "\ud130\ub110 \uc5d4\ub4dc\ud3ec\uc778\ud2b8"
+            },
+            "manual_tunnel": {
+                "data": {
+                    "host": "\ud638\uc2a4\ud2b8",
+                    "local_ip": "\ub85c\uceec IP \uc778\ud130\ud398\uc774\uc2a4",
+                    "port": "\ud3ec\ud2b8",
+                    "route_back": "\ub77c\uc6b0\ud2b8 \ubc31 / NAT \ubaa8\ub4dc",
+                    "tunneling_type": "KNX \ud130\ub110\ub9c1 \uc720\ud615"
+                },
+                "data_description": {
+                    "host": "KNX/IP \ud130\ub110\ub9c1 \uc7a5\uce58\uc758 IP \uc8fc\uc18c \ub610\ub294 \ud638\uc2a4\ud2b8 \uc774\ub984\uc785\ub2c8\ub2e4.",
+                    "local_ip": "Home Assistant\uc5d0\uc11c \uc5f0\uacb0\uc5d0 \uc0ac\uc6a9\ub418\ub294 \ub85c\uceec IP \ub610\ub294 \uc778\ud130\ud398\uc774\uc2a4 \uc774\ub984\uc785\ub2c8\ub2e4. \uc790\ub3d9 \uac80\uc0c9\uc744 \uc0ac\uc6a9\ud558\ub824\uba74 \ube44\uc6cc \ub461\ub2c8\ub2e4.",
+                    "port": "KNX/IP \ud130\ub110\ub9c1 \uc7a5\uce58\uc758 \ud3ec\ud2b8\uc785\ub2c8\ub2e4.",
+                    "route_back": "KNXnet/IP \ud130\ub110\ub9c1 \uc11c\ubc84\uac00 NAT \ub4a4\uc5d0 \uc788\ub294 \uacbd\uc6b0 \ud65c\uc131\ud654\ud558\uc2ed\uc2dc\uc624. UDP \uc5f0\uacb0\uc5d0\ub9cc \uc801\uc6a9\ub429\ub2c8\ub2e4."
+                },
+                "description": "\ud130\ub110\ub9c1 \uc7a5\uce58\uc758 \uc5f0\uacb0 \uc815\ubcf4\ub97c \uc785\ub825\ud558\uc2ed\uc2dc\uc624.",
+                "title": "\ud130\ub110 \uc124\uc815"
+            },
+            "options_init": {
+                "menu_options": {
+                    "communication_settings": "\ud1b5\uc2e0\ubc29\ubc95 \uc124\uc815",
+                    "connection_type": "KNX \uc778\ud130\ud398\uc774\uc2a4 \uad6c\uc131",
+                    "secure_knxkeys": "'.knxkeys' \ud30c\uc77c \uac00\uc838\uc624\uae30"
+                },
+                "title": "KNX \uc124\uc815"
+            },
+            "routing": {
+                "data": {
+                    "individual_address": "\uac1c\uc778 \uc8fc\uc18c",
+                    "local_ip": "\ub85c\uceec IP \uc778\ud130\ud398\uc774\uc2a4",
+                    "multicast_group": "\uba40\ud2f0\uce90\uc2a4\ud2b8 \uadf8\ub8f9",
+                    "multicast_port": "\uba40\ud2f0\uce90\uc2a4\ud2b8 \ud3ec\ud2b8",
+                    "routing_secure": "KNX IP \ubcf4\uc548 \uc0ac\uc6a9"
+                },
+                "data_description": {
+                    "individual_address": "Home Assistant\uc5d0\uc11c \uc0ac\uc6a9\ud560 KNX \uc8fc\uc18c, \uc608: `0.0.4`",
+                    "local_ip": "Home Assistant\uc5d0\uc11c \uc5f0\uacb0\uc5d0 \uc0ac\uc6a9\ub418\ub294 \ub85c\uceec IP \ub610\ub294 \uc778\ud130\ud398\uc774\uc2a4 \uc774\ub984\uc785\ub2c8\ub2e4. \uc790\ub3d9 \uac80\uc0c9\uc744 \uc0ac\uc6a9\ud558\ub824\uba74 \ube44\uc6cc \ub461\ub2c8\ub2e4."
+                },
+                "description": "\ub77c\uc6b0\ud305 \uc635\uc158\uc744 \uad6c\uc131\ud558\uc2ed\uc2dc\uc624.",
+                "title": "\ub77c\uc6b0\ud305"
+            },
+            "secure_key_source": {
+                "description": "KNX/IP \ubcf4\uc548\uc744 \uad6c\uc131\ud560 \ubc29\ubc95\uc744 \uc120\ud0dd\ud569\ub2c8\ub2e4.",
+                "menu_options": {
+                    "secure_knxkeys": "IP \ubcf4\uc548 \ud0a4\uac00 \ud3ec\ud568\ub41c `.knxkeys` \ud30c\uc77c \uc0ac\uc6a9",
+                    "secure_routing_manual": "IP \ubcf4\uc548 \ubc31\ubcf8 \ud0a4\ub97c \uc218\ub3d9\uc73c\ub85c \uad6c\uc131",
+                    "secure_tunnel_manual": "\uc218\ub3d9\uc73c\ub85c IP \ubcf4\uc548 \uc790\uaca9 \uc99d\uba85 \uad6c\uc131"
+                },
+                "title": "KNX IP \ubcf4\uc548"
+            },
+            "secure_key_source_menu_routing": {
+                "description": "KNX/IP \ubcf4\uc548\uc744 \uad6c\uc131\ud560 \ubc29\ubc95\uc744 \uc120\ud0dd\ud569\ub2c8\ub2e4.",
+                "menu_options": {
+                    "secure_knxkeys": "IP \ubcf4\uc548 \ud0a4\uac00 \ud3ec\ud568\ub41c `.knxkeys` \ud30c\uc77c \uc0ac\uc6a9",
+                    "secure_routing_manual": "IP \ubcf4\uc548 \ubc31\ubcf8 \ud0a4\ub97c \uc218\ub3d9\uc73c\ub85c \uad6c\uc131"
+                },
+                "title": "KNX IP \ubcf4\uc548"
+            },
+            "secure_key_source_menu_tunnel": {
+                "description": "KNX/IP \ubcf4\uc548\uc744 \uad6c\uc131\ud560 \ubc29\ubc95\uc744 \uc120\ud0dd\ud569\ub2c8\ub2e4.",
+                "menu_options": {
+                    "secure_knxkeys": "IP \ubcf4\uc548 \ud0a4\uac00 \ud3ec\ud568\ub41c `.knxkeys` \ud30c\uc77c \uc0ac\uc6a9",
+                    "secure_tunnel_manual": "\uc218\ub3d9\uc73c\ub85c IP \ubcf4\uc548 \uc790\uaca9 \uc99d\uba85 \uad6c\uc131"
+                },
+                "title": "KNX IP \ubcf4\uc548"
+            },
+            "secure_knxkeys": {
+                "data": {
+                    "knxkeys_file": "\ud0a4\ub9c1 \ud30c\uc77c",
+                    "knxkeys_password": "'.knxkeys' \ud30c\uc77c\uc758 \uc554\ud638\ub97c \ud574\ub3c5\ud558\uae30 \uc704\ud55c \uc554\ud638\uc785\ub2c8\ub2e4"
+                },
+                "data_description": {
+                    "knxkeys_password": "ETS\uc5d0\uc11c \ud30c\uc77c\uc744 \ub0b4\ubcf4\ub0bc \ub54c \uc124\uc815\ub418\uc5c8\uc2b5\ub2c8\ub2e4."
+                },
+                "description": "\uac00\uc838\uc62c '.knxkeys' \ud30c\uc77c\uc744 \uc120\ud0dd\ud558\uc2ed\uc2dc\uc624.",
+                "title": "KNX \ud0a4\ub9c1 \uac00\uc838\uc624\uae30"
+            },
+            "secure_routing_manual": {
+                "data": {
+                    "backbone_key": "\ubc31\ubcf8 \ud0a4",
+                    "sync_latency_tolerance": "\ub124\ud2b8\uc6cc\ud06c \ub300\uae30 \uc2dc\uac04 \ud5c8\uc6a9 \uc624\ucc28"
+                },
+                "data_description": {
+                    "backbone_key": "ETS \ud504\ub85c\uc81d\ud2b8\uc758 '\ubcf4\uc548' \ubcf4\uace0\uc11c\uc5d0\uc11c \ubcfc \uc218 \uc788\uc2b5\ub2c8\ub2e4. \uc608. '00112233445566778899AABBCCDDEEFF'",
+                    "sync_latency_tolerance": "\uae30\ubcf8\uac12\uc740 1000\uc785\ub2c8\ub2e4."
+                },
+                "description": "IP \ubcf4\uc548 \uc815\ubcf4\ub97c \uc785\ub825\ud558\uc138\uc694.",
+                "title": "\ubcf4\uc548 \ub77c\uc6b0\ud305"
+            },
+            "secure_tunnel_manual": {
+                "data": {
+                    "device_authentication": "\uae30\uae30 \uc778\uc99d \uc554\ud638",
+                    "user_id": "\uc0ac\uc6a9\uc790 ID",
+                    "user_password": "\uc0ac\uc6a9\uc790 \uc554\ud638"
+                },
+                "data_description": {
+                    "device_authentication": "ETS \uc778\ud130\ud398\uc774\uc2a4\uc758 'IP' \ud328\ub110\uc5d0\uc11c \uc124\uc815\ud569\ub2c8\ub2e4.",
+                    "user_id": "\ubcf4\ud1b5 \ud130\ub110 \ubc88\ud638 +1\uc785\ub2c8\ub2e4. \ub530\ub77c\uc11c '\ud130\ub110 2'\ub294 \uc0ac\uc6a9\uc790 ID '3'\uc744 \uac16\uac8c \ub429\ub2c8\ub2e4.",
+                    "user_password": "ETS\uc5d0\uc11c \ud130\ub110\uc758 '\uc18d\uc131' \ud328\ub110\uc5d0 \uc124\uc815\ub41c \ud2b9\uc815 \ud130\ub110 \uc5f0\uacb0\uc5d0 \ub300\ud55c \uc554\ud638\uc785\ub2c8\ub2e4."
+                },
+                "description": "IP \ubcf4\uc548 \uc815\ubcf4\ub97c \uc785\ub825\ud558\uc138\uc694.",
+                "title": "\ubcf4\uc548 \ud130\ub110\ub9c1"
+            },
+            "tunnel": {
+                "data": {
+                    "gateway": "KNX \ud130\ub110 \uc5f0\uacb0"
+                },
+                "description": "\ubaa9\ub85d\uc5d0\uc11c \uac8c\uc774\ud2b8\uc6e8\uc774\ub97c \uc120\ud0dd\ud558\uc2ed\uc2dc\uc624.",
+                "title": "\ud130\ub110"
+            }
+        }
+    },
+    "services": {
+        "event_register": {
+            "description": "`knx_event`\ub97c \ud2b8\ub9ac\uac70\ud558\uae30 \uc704\ud574 knx_event \ud544\ud130\uc5d0 \uadf8\ub8f9 \uc8fc\uc18c\ub97c \ucd94\uac00\ud558\uac70\ub098 \uc81c\uac70\ud569\ub2c8\ub2e4. \uc774 \uc11c\ube44\uc2a4\ub85c \ucd94\uac00\ub41c \uc8fc\uc18c\ub9cc \uc81c\uac70\ud560 \uc218 \uc788\uc2b5\ub2c8\ub2e4.",
+            "fields": {
+                "address": {
+                    "description": "\ucd94\uac00\ud558\uac70\ub098 \uc81c\uac70\ud574\uc57c \ud558\ub294 \uadf8\ub8f9 \uc8fc\uc18c. \ubaa9\ub85d\uc774 \ud5c8\uc6a9\ub429\ub2c8\ub2e4.",
+                    "name": "\uadf8\ub8f9 \uc8fc\uc18c"
+                },
+                "remove": {
+                    "description": "'True'\uc774\uba74 \uadf8\ub8f9 \uc8fc\uc18c\uac00 \uc81c\uac70\ub429\ub2c8\ub2e4.",
+                    "name": "\uc774\ubca4\ud2b8 \ub4f1\ub85d \uc81c\uac70"
+                },
+                "type": {
+                    "description": "\uc124\uc815\ub41c \uacbd\uc6b0 \ud398\uc774\ub85c\ub4dc\ub294 \uc774\ubca4\ud2b8 \ub370\uc774\ud130 '\uac12' \ud0a4\uc5d0\uc11c \uc9c0\uc815\ub41c DPT\ub85c \ub514\ucf54\ub529\ub429\ub2c8\ub2e4. KNX \uc13c\uc11c \uc720\ud615\uc740 \uc720\ud6a8\ud55c \uac12\uc785\ub2c8\ub2e4(https://www.home-assistant.io/integrations/knx/#value-types \ucc38\uc870).",
+                    "name": "\uac12 \uc720\ud615"
+                }
+            },
+            "name": "knx_event \ub4f1\ub85d"
+        },
+        "exposure_register": {
+            "description": "KNX \ubc84\uc2a4\uc5d0 \ub178\ucd9c\uc744 \ucd94\uac00\ud558\uac70\ub098 \uc81c\uac70\ud569\ub2c8\ub2e4. \uc774 \uc11c\ube44\uc2a4\ub85c \ucd94\uac00\ub41c \ub178\ucd9c\ub9cc \uc81c\uac70\ud560 \uc218 \uc788\uc2b5\ub2c8\ub2e4.",
+            "fields": {
+                "address": {
+                    "description": "\uadf8\ub8f9 \uc8fc\uc18c \uc0c1\ud0dc \ub610\ub294 \uc18d\uc131 \uc5c5\ub370\uc774\ud2b8\uac00 \uc804\uc1a1\ub429\ub2c8\ub2e4. GroupValueRead \uc694\uccad\uc5d0 \uc751\ub2f5\ud569\ub2c8\ub2e4. \uc8fc\uc18c\ub2f9 \ud558\ub098\uc758 \ub178\ucd9c\ub9cc \ub4f1\ub85d\ud560 \uc218 \uc788\uc2b5\ub2c8\ub2e4.",
+                    "name": "\uadf8\ub8f9 \uc8fc\uc18c"
+                },
+                "attribute": {
+                    "description": "KNX \ubc84\uc2a4\ub85c \uc804\uc1a1\ub418\uc5b4\uc57c \ud558\ub294 \uad6c\uc131\uc694\uc18c\uc758 \uc18d\uc131\uc785\ub2c8\ub2e4. \uc124\uc815\ud558\uc9c0 \uc54a\uc73c\uba74 \uc0c1\ud0dc\uac00 \uc804\uc1a1\ub429\ub2c8\ub2e4. \uc608. \uc870\uba85\uc758 \uacbd\uc6b0 \uc0c1\ud0dc\ub294 \"\ucf1c\uc9d0\" \ub610\ub294 \"\uaebc\uc9d0\"\uc785\ub2c8\ub2e4. \uc18d\uc131\uc744 \uc0ac\uc6a9\ud558\uc5ec \"\ubc1d\uae30\"\ub97c \ud45c\uc2dc\ud560 \uc218 \uc788\uc2b5\ub2c8\ub2e4.",
+                    "name": "\uad6c\uc131\uc694\uc18c \uc18d\uc131"
+                },
+                "default": {
+                    "description": "\uc0c1\ud0dc \ub610\ub294 \uc18d\uc131 \uac12\uc774 \uc5c6\uc74c\uc778 \uacbd\uc6b0 \ubc84\uc2a4\ub85c \ubcf4\ub0bc \uae30\ubcf8\uac12\uc785\ub2c8\ub2e4. \uc608. \"\uaebc\uc9d0\" \uc0c1\ud0dc\uc758 \uc870\uba85\uc5d0\ub294 \ubc1d\uae30 \uc18d\uc131\uc774 \uc5c6\uc73c\ubbc0\ub85c \uae30\ubcf8\uac12 0\uc744 \uc0ac\uc6a9\ud560 \uc218 \uc788\uc2b5\ub2c8\ub2e4. \uc124\uc815\ud558\uc9c0 \uc54a\uc73c\uba74(\ub610\ub294 \uc5c6\uc74c) \uac12\uc774 \ubc84\uc2a4\ub85c \uc804\uc1a1\ub418\uc9c0 \uc54a\uace0 \uc8fc\uc18c\uc5d0 \ub300\ud55c GroupReadRequest\uac00 \ub9c8\uc9c0\ub9c9\uc73c\ub85c \uc54c\ub824\uc9c4 \uac12\uc744 \ubc18\ud658\ud569\ub2c8\ub2e4.",
+                    "name": "\uae30\ubcf8\uac12"
+                },
+                "entity_id": {
+                    "description": "\uc0c1\ud0dc \ub610\ub294 \uc18d\uc131\uc774 \ub178\ucd9c\ub420 \uad6c\uc131\uc694\uc18c ID",
+                    "name": "\uad6c\uc131\uc694\uc18c"
+                },
+                "remove": {
+                    "description": "'True'\uc774\uba74 \ub178\ucd9c\uc774 \uc81c\uac70\ub429\ub2c8\ub2e4. \uc0ad\uc81c\ud558\ub824\uba74 '\uc8fc\uc18c'\ub9cc \ud544\uc694\ud569\ub2c8\ub2e4.",
+                    "name": "\ub178\ucd9c \uc81c\uac70"
+                },
+                "type": {
+                    "description": "\uc804\ubcf4\ub294 \uc8fc\uc5b4\uc9c4 DPT\ub85c \uc778\ucf54\ub529\ub429\ub2c8\ub2e4. 'binary' \ubc0f \ubaa8\ub4e0 KNX \uc13c\uc11c \uc720\ud615\uc740 \uc720\ud6a8\ud55c \uac12\uc785\ub2c8\ub2e4(https://www.home-assistant.io/integrations/knx/#value-types \ucc38\uc870)",
+                    "name": "\uac12 \uc720\ud615"
+                }
+            },
+            "name": "KNX \ubc84\uc2a4\uc5d0 \ub178\ucd9c"
+        },
+        "read": {
+            "description": "KNX \ubc84\uc2a4\uc5d0 GroupValueRead \uc694\uccad\uc744 \ubcf4\ub0c5\ub2c8\ub2e4. \uc751\ub2f5\uc740 `knx_event`\uc5d0\uc11c \uc0ac\uc6a9\ud560 \uc218 \uc788\uc73c\uba70 KNX \uad6c\uc131\uc694\uc18c\uc5d0\uc11c \ucc98\ub9ac\ub429\ub2c8\ub2e4.",
+            "fields": {
+                "address": {
+                    "description": "\uc77d\uae30 \uc694\uccad\uc744 \ubcf4\ub0bc \uadf8\ub8f9 \uc8fc\uc18c\uc785\ub2c8\ub2e4. \ubaa9\ub85d\uc740 \uc5ec\ub7ec \uadf8\ub8f9 \uc8fc\uc18c\ub97c \uc77d\uc2b5\ub2c8\ub2e4.",
+                    "name": "\uadf8\ub8f9 \uc8fc\uc18c"
+                }
+            },
+            "name": "KNX \ubc84\uc2a4\uc5d0\uc11c \uc77d\uae30"
+        },
+        "reload": {
+            "description": "KNX \ud1b5\ud569\uad6c\uc131\uc694\uc18c\ub97c \ub2e4\uc2dc \ub85c\ub4dc\ud569\ub2c8\ub2e4.",
+            "name": "\uc0c8\ub85c\uace0\uce68"
+        },
+        "send": {
+            "description": "\uc784\uc758\uc758 \ub370\uc774\ud130\ub97c KNX \ubc84\uc2a4\ub85c \uc9c1\uc811 \ubcf4\ub0c5\ub2c8\ub2e4.",
+            "fields": {
+                "address": {
+                    "description": "\uc4f8 \uadf8\ub8f9 \uc8fc\uc18c. \ubaa9\ub85d\uc740 \uc5ec\ub7ec \uadf8\ub8f9 \uc8fc\uc18c\ub85c \uc5f0\uc18d\uc801\uc73c\ub85c \uc804\uc1a1\ub429\ub2c8\ub2e4.",
+                    "name": "\uadf8\ub8f9 \uc8fc\uc18c"
+                },
+                "payload": {
+                    "description": "\ubc84\uc2a4\ub85c \ubcf4\ub0bc \ud398\uc774\ub85c\ub4dc. \uc815\uc218\ub294 DPT 1/2/3 \ud398\uc774\ub85c\ub4dc\ub85c \ucde8\uae09\ub429\ub2c8\ub2e4. DPT > 6\ube44\ud2b8\uc758 \uacbd\uc6b0 \ubaa9\ub85d\uc744 \ubcf4\ub0c5\ub2c8\ub2e4. \uac01 \uac12\uc740 1 \uc625\ud15f(0-255)\uc744 \ub098\ud0c0\ub0c5\ub2c8\ub2e4. 0\uc5d0\uc11c DPT \ubc14\uc774\ud2b8 \uae38\uc774\ub85c \ucc44\uc6c1\ub2c8\ub2e4.",
+                    "name": "\ud398\uc774\ub85c\ub4dc"
+                },
+                "response": {
+                    "description": "'True'\ub85c \uc124\uc815\ud558\uba74 \uc804\ubcf4\uac00 'GroupValueWrite' \ub300\uc2e0 'GroupValueResponse'\ub85c \uc804\uc1a1\ub429\ub2c8\ub2e4.",
+                    "name": "\uc751\ub2f5\uc73c\ub85c \ubcf4\ub0b4\uae30"
+                },
+                "type": {
+                    "description": "\uc124\uc815\ud558\uba74 \ud398\uc774\ub85c\ub4dc\uac00 \uc6d0\uc2dc \ubc14\uc774\ud2b8\ub85c \uc804\uc1a1\ub418\uc9c0 \uc54a\uace0 \uc9c0\uc815\ub41c DPT\ub85c \uc778\ucf54\ub529\ub429\ub2c8\ub2e4. KNX \uc13c\uc11c \uc720\ud615\uc740 \uc720\ud6a8\ud55c \uac12\uc785\ub2c8\ub2e4(https://www.home-assistant.io/integrations/knx/#value-types \ucc38\uc870).",
+                    "name": "\uac12 \uc720\ud615"
+                }
+            },
+            "name": "KNX \ubc84\uc2a4\ub85c \ubcf4\ub0b4\uae30"
+        }
+    }
+}

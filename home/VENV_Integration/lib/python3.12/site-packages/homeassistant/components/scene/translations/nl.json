@@ -1,0 +1,60 @@
+{
+    "exceptions": {
+        "entity_not_scene": {
+            "message": "{entity_id} is geen geldig scene entity_id."
+        }
+    },
+    "services": {
+        "apply": {
+            "description": "Activeert een sc\u00e8ne met configuratie.",
+            "fields": {
+                "entities": {
+                    "description": "Lijst van entiteiten en hun doelstatus.",
+                    "name": "Entiteiten status"
+                },
+                "transition": {
+                    "description": "Tijd die de apparaten nodig hebben om over te gaan naar de toestanden die in de sc\u00e8ne zijn gedefinieerd.",
+                    "name": "Overgang"
+                }
+            },
+            "name": "Toepassen"
+        },
+        "create": {
+            "description": "Cre\u00ebert een nieuwe sc\u00e8ne.",
+            "fields": {
+                "entities": {
+                    "description": "Lijst van entiteiten en hun doelstatus. Als je entiteiten nu al in de doelstatus zijn, gebruik dan in plaats daarvan `snapshot_entities`.",
+                    "name": "Entiteiten status"
+                },
+                "scene_id": {
+                    "description": "De entiteits-ID van de nieuwe sc\u00e8ne.",
+                    "name": "Sc\u00e8ne entiteit ID"
+                },
+                "snapshot_entities": {
+                    "description": "Lijst van entiteiten die in de snapshot moeten worden opgenomen. Door een snapshot te maken, registreer je de huidige status van die entiteiten. Als je niet de huidige status van al je entiteiten voor deze sc\u00e8ne wilt gebruiken, kun je de `snapshot_entities` combineren met `entities`.",
+                    "name": "Snapshot entiteiten"
+                }
+            },
+            "name": "Aanmaken"
+        },
+        "delete": {
+            "description": "Verwijdert een dynamisch aangemaakte sc\u00e8ne.",
+            "name": "Verwijderen"
+        },
+        "reload": {
+            "description": "Herlaadt de sc\u00e8nes vanuit de YAML-configuratie.",
+            "name": "Herladen"
+        },
+        "turn_on": {
+            "description": "Activeert een sc\u00e8ne.",
+            "fields": {
+                "transition": {
+                    "description": "Tijd die de apparaten nodig hebben om over te gaan naar de toestanden die in de sc\u00e8ne zijn gedefinieerd.",
+                    "name": "Overgang"
+                }
+            },
+            "name": "Inschakelen"
+        }
+    },
+    "title": "Sc\u00e8ne"
+}

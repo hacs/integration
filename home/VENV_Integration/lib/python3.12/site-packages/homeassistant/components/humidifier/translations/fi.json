@@ -1,0 +1,118 @@
+{
+    "device_automation": {
+        "action_type": {
+            "set_humidity": "Aseta kosteus kohteelle {entity_name}",
+            "set_mode": "Vaihda tilaa kohteessa {entity_name}",
+            "toggle": "Vaihda {entity_name}",
+            "turn_off": "Sammuta {entity_name}",
+            "turn_on": "Kytke p\u00e4\u00e4lle {entity_name}"
+        },
+        "condition_type": {
+            "is_mode": "{entity_name} on asetettu tiettyyn tilaan",
+            "is_off": "{entity_name} on pois p\u00e4\u00e4lt\u00e4",
+            "is_on": "{entity_name} on p\u00e4\u00e4ll\u00e4"
+        },
+        "trigger_type": {
+            "changed_states": "{entity_name} laitettiin p\u00e4\u00e4lle tai pois",
+            "target_humidity_changed": "{entity_name} tavoitekosteus muuttunut",
+            "turned_off": "{entity_name} sammui",
+            "turned_on": "{entity_name} laitettiin p\u00e4\u00e4lle"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Ilmankostutin",
+            "state": {
+                "off": "Pois",
+                "on": "P\u00e4\u00e4ll\u00e4"
+            },
+            "state_attributes": {
+                "action": {
+                    "name": "Toiminta",
+                    "state": {
+                        "drying": "Kuivaus",
+                        "humidifying": "Kosteuttava",
+                        "idle": "Toimeton",
+                        "off": "Pois"
+                    }
+                },
+                "available_modes": {
+                    "name": "K\u00e4ytett\u00e4viss\u00e4 olevat tilat"
+                },
+                "current_humidity": {
+                    "name": "Nykyinen kosteus"
+                },
+                "humidity": {
+                    "name": "Tavoitekosteus"
+                },
+                "max_humidity": {
+                    "name": "Maksimi tavoitekosteus"
+                },
+                "min_humidity": {
+                    "name": "Minimi tavoitekosteus"
+                },
+                "mode": {
+                    "name": "Tila",
+                    "state": {
+                        "auto": "Automaattinen",
+                        "away": "Poissa",
+                        "baby": "Vauva",
+                        "boost": "Tehostus",
+                        "comfort": "Mukavuus",
+                        "eco": "Eko",
+                        "home": "Kotona",
+                        "normal": "Normaali",
+                        "sleep": "Nukkuminen"
+                    }
+                }
+            }
+        },
+        "dehumidifier": {
+            "name": "Ilmankuivaaja"
+        },
+        "humidifier": {
+            "name": "Ilmankostutin"
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "{platform}-integraation {domain}-alusta ei tue alustan asetuksia.\n\nPoista se asetuksista ja k\u00e4ynnist\u00e4 Home Assistant uudelleen ongelman korjaamiseksi.",
+            "title": "Alustan tukea ei tueta"
+        }
+    },
+    "services": {
+        "set_humidity": {
+            "description": "Asettaa tavoitekosteuden.",
+            "fields": {
+                "humidity": {
+                    "description": "Tavoitekosteus.",
+                    "name": "Kosteus"
+                }
+            },
+            "name": "Aseta kosteus"
+        },
+        "set_mode": {
+            "description": "Asettaa ilmankostuttimen toimintatilan.",
+            "fields": {
+                "mode": {
+                    "description": "Toimintatila. Esimerkiksi _normal_, _eco_ tai _away_. Luettelo mahdollisista arvoista on integraation dokumentaatiossa.",
+                    "name": "Tila"
+                }
+            },
+            "name": "Aseta tila"
+        },
+        "toggle": {
+            "description": "Kytkee ilmankostuttimen p\u00e4\u00e4lle/pois.",
+            "name": "Vaihda"
+        },
+        "turn_off": {
+            "description": "Sammuttaa ilmankostuttimen.",
+            "name": "Sammuta"
+        },
+        "turn_on": {
+            "description": "Kytkee ilmankostuttimen p\u00e4\u00e4lle.",
+            "name": "Laita p\u00e4\u00e4lle"
+        }
+    },
+    "title": "Ilmankostutin"
+}

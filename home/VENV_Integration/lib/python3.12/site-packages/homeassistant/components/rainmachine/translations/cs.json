@@ -1,0 +1,268 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Za\u0159\u00edzen\u00ed je ji\u017e nastaveno"
+        },
+        "error": {
+            "invalid_auth": "Neplatn\u00e9 ov\u011b\u0159en\u00ed"
+        },
+        "flow_title": "{ip}",
+        "step": {
+            "user": {
+                "data": {
+                    "ip_address": "N\u00e1zev hostitele nebo IP adresa",
+                    "password": "Heslo",
+                    "port": "Port"
+                },
+                "title": "Vyplnit \u00fadaje"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "flow_sensor": {
+                "name": "Pr\u016ftokov\u00fd senzor"
+            },
+            "freeze": {
+                "name": "Zmrazit omezen\u00ed"
+            },
+            "hourly": {
+                "name": "Hodinov\u00e1 omezen\u00ed"
+            },
+            "month": {
+                "name": "M\u011bs\u00ed\u010dn\u00ed omezen\u00ed"
+            },
+            "raindelay": {
+                "name": "Omezen\u00ed zpo\u017ed\u011bn\u00ed de\u0161t\u011b"
+            },
+            "rainsensor": {
+                "name": "Omezen\u00ed senzoru de\u0161t\u011b"
+            },
+            "weekday": {
+                "name": "Omezen\u00ed ve v\u0161edn\u00ed dny"
+            }
+        },
+        "select": {
+            "freeze_protection_temperature": {
+                "name": "Teplota ochrany proti zamrznut\u00ed"
+            }
+        },
+        "sensor": {
+            "flow_sensor_clicks_cubic_meter": {
+                "name": "Po\u010det cvaknut\u00ed pr\u016ftokov\u00e9ho senzoru na metr krychlov\u00fd"
+            },
+            "flow_sensor_consumed_liters": {
+                "name": "Po\u010det litr\u016f, kter\u00e9 protekly pr\u016ftokov\u00fdm senzorem"
+            },
+            "flow_sensor_leak_clicks": {
+                "name": "Po\u010det cvaknut\u00ed p\u0159i net\u011bsnosti pr\u016ftokov\u00e9ho senzoru"
+            },
+            "flow_sensor_leak_volume": {
+                "name": "Objem \u00faniku pr\u016ftokov\u00e9ho senzoru"
+            },
+            "flow_sensor_start_index": {
+                "name": "Po\u010d\u00e1te\u010dn\u00ed index pr\u016ftokov\u00e9ho senzoru"
+            },
+            "flow_sensor_watering_clicks": {
+                "name": "Po\u010det cvaknut\u00ed pr\u016ftokov\u00e9ho senzoru"
+            },
+            "last_leak_detected": {
+                "name": "Posledn\u00ed zji\u0161t\u011bn\u00fd \u00fanik"
+            },
+            "rain_sensor_rain_start": {
+                "name": "Spustit senzor de\u0161t\u011b de\u0161t\u011bm"
+            }
+        },
+        "switch": {
+            "freeze_protect_enabled": {
+                "name": "Ochrana proti zamrznut\u00ed"
+            },
+            "hot_days_extra_watering": {
+                "name": "Voda nav\u00edc v hork\u00fdch dnech"
+            }
+        },
+        "update": {
+            "firmware": {
+                "name": "Firmware"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "allow_inactive_zones_to_run": "Povolit ru\u010dn\u00ed spu\u0161t\u011bn\u00ed zak\u00e1zan\u00fdch z\u00f3n",
+                    "use_app_run_times": "Pou\u017e\u00edt doby b\u011bhu z\u00f3ny z aplikace RainMachine",
+                    "zone_run_time": "V\u00fdchoz\u00ed doba b\u011bhu z\u00f3ny (v sekund\u00e1ch)"
+                },
+                "title": "Nastaven\u00ed RainMachine"
+            }
+        }
+    },
+    "services": {
+        "pause_watering": {
+            "description": "Pozastav\u00ed v\u0161echny zavla\u017eovac\u00ed \u010dinnosti na n\u011bkolik sekund.",
+            "fields": {
+                "device_id": {
+                    "description": "Ovlada\u010d, jeho\u017e zavla\u017eovac\u00ed \u010dinnosti by m\u011bly b\u00fdt pozastaveny.",
+                    "name": "Ovlada\u010d"
+                },
+                "seconds": {
+                    "description": "Doba (v sekund\u00e1ch) pro pozastaven\u00ed zavla\u017eov\u00e1n\u00ed.",
+                    "name": "Doba trv\u00e1n\u00ed"
+                }
+            },
+            "name": "Pozastav\u00ed ve\u0161ker\u00e9 zavla\u017eov\u00e1n\u00ed"
+        },
+        "push_flow_meter_data": {
+            "description": "P\u0159enese data pr\u016ftokov\u00e9ho senzoru do za\u0159\u00edzen\u00ed RainMachine.",
+            "fields": {
+                "device_id": {
+                    "description": "Ovlada\u010d, do kter\u00e9ho se maj\u00ed odes\u00edlat data pr\u016ftokov\u00e9ho senzoru.",
+                    "name": "Ovlada\u010d"
+                },
+                "unit_of_measurement": {
+                    "description": "Jednotky pr\u016ftokov\u00e9ho senzoru k odesl\u00e1n\u00ed.",
+                    "name": "Jednotka m\u011b\u0159en\u00ed"
+                },
+                "value": {
+                    "description": "Hodnota pr\u016ftokov\u00e9ho senzoru k odesl\u00e1n\u00ed.",
+                    "name": "Hodnota"
+                }
+            },
+            "name": "P\u0159en\u00e9st data pr\u016ftokov\u00e9ho senzoru"
+        },
+        "push_weather_data": {
+            "description": "P\u0159enese data o po\u010das\u00ed z Home Assistanta do za\u0159\u00edzen\u00ed RainMachine.\nAby bylo mo\u017en\u00e9 vz\u00edt v \u00favahu odes\u00edlan\u00e9 hodnoty, m\u011bla by b\u00fdt v Nastaven\u00ed > Po\u010das\u00ed > V\u00fdvoj\u00e1\u0159 povolena slu\u017eba Local Weather Push pro RainMachine. Jednotky mus\u00ed b\u00fdt odesl\u00e1ny v metrick\u00fdch jednotk\u00e1ch; integrace neprov\u00e1d\u00ed \u017e\u00e1dn\u00e9 konverze.\nPodrobnosti o RainMachine API naleznete zde: https://rainmachine.docs.apiary.io/#reference/weather-services/parserdata/post.",
+            "fields": {
+                "condition": {
+                    "description": "K\u00f3d aktu\u00e1ln\u00edho stavu po\u010das\u00ed (WNUM).",
+                    "name": "K\u00f3d stavu po\u010das\u00ed"
+                },
+                "device_id": {
+                    "description": "Ovlada\u010d pro p\u0159enos dat o po\u010das\u00ed.",
+                    "name": "Ovlada\u010d"
+                },
+                "dewpoint": {
+                    "description": "Rosn\u00fd bod (\u00b0C).",
+                    "name": "Rosn\u00fd bod"
+                },
+                "et": {
+                    "description": "Odpa\u0159ov\u00e1n\u00ed (mm).",
+                    "name": "Odpa\u0159ov\u00e1n\u00ed"
+                },
+                "maxrh": {
+                    "description": "Maxim\u00e1ln\u00ed relativn\u00ed vlhkost (%RH).",
+                    "name": "Maxim\u00e1ln\u00ed relativn\u00ed vlhkost"
+                },
+                "maxtemp": {
+                    "description": "Maxim\u00e1ln\u00ed teplota (\u00b0C).",
+                    "name": "Maxim\u00e1ln\u00ed teplota"
+                },
+                "minrh": {
+                    "description": "Minim\u00e1ln\u00ed relativn\u00ed vlhkost (%RH).",
+                    "name": "Minim\u00e1ln\u00ed relativn\u00ed vlhkost"
+                },
+                "mintemp": {
+                    "description": "Minim\u00e1ln\u00ed teplota (\u00b0C).",
+                    "name": "Minim\u00e1ln\u00ed teplota"
+                },
+                "pressure": {
+                    "description": "Barametrick\u00fd tlak (kPa).",
+                    "name": "Barametrick\u00fd tlak"
+                },
+                "qpf": {
+                    "description": "Kvantitativn\u00ed p\u0159edpov\u011b\u010f sr\u00e1\u017eek (mm), neboli QPF. Pozn\u00e1mka: Hodnoty QPF by nem\u011bly b\u00fdt zas\u00edl\u00e1ny jako kumulativn\u00ed hodnoty, ale nam\u011b\u0159en\u00e9/p\u0159edpokl\u00e1dan\u00e9 hodnoty pro ka\u017edou hodinu nebo den. RainMachine Mixer se\u010dte v\u0161echny hodnoty QPF v aktu\u00e1ln\u00edm dni a z\u00edsk\u00e1 celkov\u00fd denn\u00ed QPF.",
+                    "name": "QPF"
+                },
+                "rain": {
+                    "description": "Nam\u011b\u0159en\u00e9 sr\u00e1\u017eky (mm). Pozn\u00e1mka: Hodnoty RAIN by nem\u011bly b\u00fdt odes\u00edl\u00e1ny jako kumulativn\u00ed hodnoty, ale nam\u011b\u0159en\u00e9/p\u0159edpov\u011bd\u011bn\u00e9 hodnoty pro ka\u017edou hodinu nebo den. RainMachine Mixer se\u010dte v\u0161echny hodnoty RAIN v aktu\u00e1ln\u00edm dni a z\u00edsk\u00e1 celkov\u00fd den RAIN.",
+                    "name": "Nam\u011b\u0159en\u00e9 sr\u00e1\u017eky"
+                },
+                "solarrad": {
+                    "description": "Slune\u010dn\u00ed z\u00e1\u0159en\u00ed (MJ/m\u00b2/h).",
+                    "name": "Slune\u010dn\u00ed z\u00e1\u0159en\u00ed"
+                },
+                "temperature": {
+                    "description": "Aktu\u00e1ln\u00ed teplota (\u00b0C).",
+                    "name": "Teplota"
+                },
+                "timestamp": {
+                    "description": "Unixov\u00e9 \u010dasov\u00e9 raz\u00edtko pro data o po\u010das\u00ed. Pokud je vynech\u00e1no, pou\u017eije se m\u00edstn\u00ed \u010das za\u0159\u00edzen\u00ed RainMachine v dob\u011b vol\u00e1n\u00ed.",
+                    "name": "\u010casov\u00e9 raz\u00edtko"
+                },
+                "wind": {
+                    "description": "Rychlost v\u011btru (m/s).",
+                    "name": "Rychlost v\u011btru"
+                }
+            },
+            "name": "P\u0159en\u00e9st data o po\u010das\u00ed"
+        },
+        "restrict_watering": {
+            "description": "Na ur\u010ditou dobu omez\u00ed spu\u0161t\u011bn\u00ed v\u0161ech zavla\u017eovac\u00edch \u010dinnost\u00ed.",
+            "fields": {
+                "device_id": {
+                    "description": "Ovlada\u010d, jeho\u017e zavla\u017eovac\u00ed \u010dinnosti by m\u011bly b\u00fdt omezeny.",
+                    "name": "Ovlada\u010d"
+                },
+                "duration": {
+                    "description": "Doba, po kterou je t\u0159eba omezit zah\u00e1jen\u00ed zavla\u017eovac\u00edch \u010dinnost\u00ed.",
+                    "name": "Doba trv\u00e1n\u00ed"
+                }
+            },
+            "name": "Omezit ve\u0161ker\u00e1 zavla\u017eov\u00e1n\u00ed"
+        },
+        "start_program": {
+            "description": "Spust\u00ed program.",
+            "name": "Spustit program"
+        },
+        "start_zone": {
+            "description": "Spust\u00ed z\u00f3nu.",
+            "fields": {
+                "zone_run_time": {
+                    "description": "Doba (v sekund\u00e1ch) pro spu\u0161t\u011bn\u00ed z\u00f3ny.",
+                    "name": "Doba b\u011bhu"
+                }
+            },
+            "name": "Spustit z\u00f3nu"
+        },
+        "stop_all": {
+            "description": "Zastav\u00ed ve\u0161ker\u00e9 zavla\u017eov\u00e1n\u00ed.",
+            "fields": {
+                "device_id": {
+                    "description": "Ovlada\u010d, jeho\u017e zavla\u017eovac\u00ed \u010dinnost by m\u011bla b\u00fdt zastavena.",
+                    "name": "Ovlada\u010d"
+                }
+            },
+            "name": "Zastavit ve\u0161ker\u00e1 zavla\u017eov\u00e1n\u00ed"
+        },
+        "stop_program": {
+            "description": "Zastav\u00ed program.",
+            "name": "Zastavit program"
+        },
+        "stop_zone": {
+            "description": "Zastav\u00ed z\u00f3nu.",
+            "name": "Zastavit z\u00f3nu"
+        },
+        "unpause_watering": {
+            "description": "Zru\u0161\u00ed v\u0161echna pozastaven\u00e1 zavla\u017eov\u00e1n\u00ed.",
+            "fields": {
+                "device_id": {
+                    "description": "Ovlada\u010d, u jeho\u017e by m\u011bla b\u00fdt zru\u0161ena pozastaven\u00ed zavla\u017eov\u00e1n\u00ed.",
+                    "name": "Ovlada\u010d"
+                }
+            },
+            "name": "Zru\u0161it pozastaven\u00ed ve\u0161ker\u00fdch zavla\u017eov\u00e1n\u00ed"
+        },
+        "unrestrict_watering": {
+            "description": "Zru\u0161\u00ed omezen\u00ed v\u0161ech zavla\u017eov\u00e1n\u00ed.",
+            "fields": {
+                "device_id": {
+                    "description": "Ovlada\u010d, u jeho\u017e by m\u011bla b\u00fdt zru\u0161ena omezen\u00ed zavla\u017eov\u00e1n\u00ed.",
+                    "name": "Ovlada\u010d"
+                }
+            },
+            "name": "Zru\u0161it omezen\u00ed ve\u0161ker\u00e9ho zavla\u017eov\u00e1n\u00ed"
+        }
+    }
+}

@@ -1,0 +1,88 @@
+{
+    "device_automation": {
+        "action_type": {
+            "lock": "Sperre {entity_name}",
+            "open": "\u00d6ffne {entity_name}",
+            "unlock": "Entsperre {entity_name}"
+        },
+        "condition_type": {
+            "is_locked": "{entity_name} ist gesperrt",
+            "is_open": "{entity_name} ist offen",
+            "is_unlocked": "{entity_name} ist entsperrt"
+        },
+        "extra_fields": {
+            "for": "Dauer"
+        },
+        "trigger_type": {
+            "locked": "{entity_name} gesperrt",
+            "open": "{entity_name} ge\u00f6ffnet",
+            "unlocked": "{entity_name} entsperrt"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Schloss",
+            "state": {
+                "jammed": "Verklemmt",
+                "locked": "Abgeschlossen",
+                "locking": "Sperren",
+                "open": "Offen",
+                "opening": "\u00d6ffnet",
+                "unlocked": "Aufgeschlossen",
+                "unlocking": "Entsperren"
+            },
+            "state_attributes": {
+                "changed_by": {
+                    "name": "Ge\u00e4ndert durch"
+                },
+                "code_format": {
+                    "name": "Codeformat"
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "add_default_code": {
+            "message": "Der Code f\u00fcr {entity_id} stimmt nicht mit dem Muster {code_format} \u00fcberein."
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "Die {platform}-Plattform f\u00fcr die {domain}-Integration unterst\u00fctzt die Plattform-Einrichtung nicht. \n\nBitte entferne es aus deiner Konfiguration und starte Home Assistant neu, um dieses Problem zu beheben.",
+            "title": "Plattform-Unterst\u00fctzung nicht unterst\u00fctzt"
+        }
+    },
+    "services": {
+        "lock": {
+            "description": "Verriegelt ein Schloss.",
+            "fields": {
+                "code": {
+                    "description": "Code zum Verriegeln des Schlosses.",
+                    "name": "Code"
+                }
+            },
+            "name": "Abschlie\u00dfen"
+        },
+        "open": {
+            "description": "\u00d6ffnet ein Schloss.",
+            "fields": {
+                "code": {
+                    "description": "Code zum \u00d6ffnen des Schlosses.",
+                    "name": "Code"
+                }
+            },
+            "name": "\u00d6ffnen"
+        },
+        "unlock": {
+            "description": "Entriegelt ein Schloss.",
+            "fields": {
+                "code": {
+                    "description": "Code zum Entsperren des Schlosses.",
+                    "name": "Code"
+                }
+            },
+            "name": "Aufschlie\u00dfen"
+        }
+    },
+    "title": "Schloss"
+}

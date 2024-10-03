@@ -1,0 +1,246 @@
+{
+    "device_automation": {
+        "action_type": {
+            "set_hvac_mode": "Endre klima-modus p\u00e5 {entity_name}",
+            "set_preset_mode": "Endre modus p\u00e5 {entity_name}"
+        },
+        "condition_type": {
+            "is_hvac_mode": "{entity_name} er satt til en spesifikk klima-modus",
+            "is_preset_mode": "{entity_name} er satt til en spesifikk forh\u00e5ndsinnstilt modus"
+        },
+        "trigger_type": {
+            "current_humidity_changed": "{entity_name} m\u00e5lt luftfuktighet er endret",
+            "current_temperature_changed": "{entity_name} m\u00e5lt temperatur er endret",
+            "hvac_mode_changed": "{entity_name} klima-modus er endret"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Termostat",
+            "state": {
+                "auto": "Auto",
+                "cool": "Kj\u00f8le",
+                "dry": "T\u00f8rr",
+                "fan_only": "Kun vifte",
+                "heat": "Varme",
+                "heat_cool": "Varme/kj\u00f8ling",
+                "off": "Av"
+            },
+            "state_attributes": {
+                "aux_heat": {
+                    "name": "Aux varme"
+                },
+                "current_humidity": {
+                    "name": "Aktuell luftfuktighet"
+                },
+                "current_temperature": {
+                    "name": "Gjeldende temperatur"
+                },
+                "fan_mode": {
+                    "name": "Viftemodus",
+                    "state": {
+                        "auto": "Auto",
+                        "diffuse": "Diffus",
+                        "focus": "Fokus",
+                        "high": "H\u00f8y",
+                        "low": "Lav",
+                        "medium": "Medium",
+                        "middle": "Midten",
+                        "off": "Av",
+                        "on": "P\u00e5",
+                        "top": "Topp"
+                    }
+                },
+                "fan_modes": {
+                    "name": "Viftemoduser"
+                },
+                "humidity": {
+                    "name": "M\u00e5l for luftfuktighet"
+                },
+                "hvac_action": {
+                    "name": "Gjeldende handling",
+                    "state": {
+                        "cooling": "Kj\u00f8ling",
+                        "drying": "T\u00f8rking",
+                        "fan": "Vifte",
+                        "heating": "Oppvarming",
+                        "idle": "Inaktiv",
+                        "off": "Av",
+                        "preheating": "Forh\u00e5ndsvarme"
+                    }
+                },
+                "hvac_modes": {
+                    "name": "HVAC-moduser"
+                },
+                "max_humidity": {
+                    "name": "Maksimumsm\u00e5l for luftfuktighet"
+                },
+                "max_temp": {
+                    "name": "Maks m\u00e5ltemperatur"
+                },
+                "min_humidity": {
+                    "name": "Minimumsm\u00e5l for luftfuktighet"
+                },
+                "min_temp": {
+                    "name": "Minimum m\u00e5ltemperatur"
+                },
+                "preset_mode": {
+                    "name": "Forh\u00e5ndsinnstilt",
+                    "state": {
+                        "activity": "Aktivitet",
+                        "away": "Borte",
+                        "boost": "Boost",
+                        "comfort": "Komfort",
+                        "eco": "\u00d8ko",
+                        "home": "Hjemme",
+                        "none": "Ingen",
+                        "sleep": "Sove"
+                    }
+                },
+                "preset_modes": {
+                    "name": "Forh\u00e5ndsinnstillinger"
+                },
+                "swing_mode": {
+                    "name": "Svingemodus",
+                    "state": {
+                        "both": "Begge",
+                        "horizontal": "Horisontal",
+                        "off": "Av",
+                        "on": "P\u00e5",
+                        "vertical": "Vertikal"
+                    }
+                },
+                "swing_modes": {
+                    "name": "Svingmoduser"
+                },
+                "target_temp_high": {
+                    "name": "\u00d8vre m\u00e5ltemperatur"
+                },
+                "target_temp_low": {
+                    "name": "Lavere m\u00e5ltemperatur"
+                },
+                "target_temp_step": {
+                    "name": "Trinn for m\u00e5ltemperatur"
+                },
+                "temperature": {
+                    "name": "M\u00e5ltemperatur"
+                }
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "Plattformen {platform} for integrasjonen {domain} st\u00f8tter ikke plattform-oppsett.\n\nVennligst fjern den fra konfigurasjon din og omstart Home Assistant for \u00e5 fikse dette problemet.",
+            "title": "Plattform ikke st\u00f8ttet"
+        }
+    },
+    "selector": {
+        "hvac_mode": {
+            "options": {
+                "auto": "Auto",
+                "cool": "Kj\u00f8ling",
+                "dry": "T\u00f8rking",
+                "fan_only": "Bare vifte",
+                "heat": "Varme",
+                "heat_cool": "Varme/kj\u00f8ling",
+                "off": "Av"
+            }
+        }
+    },
+    "services": {
+        "set_aux_heat": {
+            "description": "Skrur tilleggsvarmer av/p\u00e5.",
+            "fields": {
+                "aux_heat": {
+                    "description": "Navn p\u00e5 tilleggsvarmer.",
+                    "name": "Tilleggsvarme"
+                }
+            },
+            "name": "Sl\u00e5 av/p\u00e5 tilleggsvarmer"
+        },
+        "set_fan_mode": {
+            "description": "Setter driftsmodus for vifte.",
+            "fields": {
+                "fan_mode": {
+                    "description": "Driftsmodus for vifte.",
+                    "name": "Viftemodus"
+                }
+            },
+            "name": "Sett viftemodus"
+        },
+        "set_humidity": {
+            "description": "Setter m\u00e5l for luftfuktighet.",
+            "fields": {
+                "humidity": {
+                    "description": "M\u00e5l for luftfuktighet.",
+                    "name": "Luftfuktighet"
+                }
+            },
+            "name": "Sett m\u00e5l for luftfuktighet"
+        },
+        "set_hvac_mode": {
+            "description": "Setter driftsmodus for HVAC.",
+            "fields": {
+                "hvac_mode": {
+                    "description": "Driftsmodus for HVAC.",
+                    "name": "HVAC-modus"
+                }
+            },
+            "name": "Sett driftsmodus for HVAC"
+        },
+        "set_preset_mode": {
+            "description": "Setter forh\u00e5ndsinnstilt modus.",
+            "fields": {
+                "preset_mode": {
+                    "description": "Forh\u00e5ndsinnstilt modus.",
+                    "name": "Forh\u00e5ndsinnstilt modus"
+                }
+            },
+            "name": "Sett forh\u00e5ndsinnstilt modus"
+        },
+        "set_swing_mode": {
+            "description": "Setter driftsmodus for svinging.",
+            "fields": {
+                "swing_mode": {
+                    "description": "Driftsmodus for svinging.",
+                    "name": "Svingemodus"
+                }
+            },
+            "name": "Sett svingemodus"
+        },
+        "set_temperature": {
+            "description": "Setter m\u00e5ltemperatur.",
+            "fields": {
+                "hvac_mode": {
+                    "description": "Driftsmodus for HVAC.",
+                    "name": "HVAC-modus"
+                },
+                "target_temp_high": {
+                    "description": "H\u00f8y m\u00e5ltemperatur.",
+                    "name": "M\u00e5ltemperatur h\u00f8y"
+                },
+                "target_temp_low": {
+                    "description": "Lav m\u00e5ltemperatur.",
+                    "name": "M\u00e5ltemperatur lav"
+                },
+                "temperature": {
+                    "description": "M\u00e5ltemperatur.",
+                    "name": "Temperatur"
+                }
+            },
+            "name": "Set m\u00e5ltemperatur"
+        },
+        "toggle": {
+            "name": "Veksle"
+        },
+        "turn_off": {
+            "description": "Sl\u00e5r av klimaenheten.",
+            "name": "Sl\u00e5 av"
+        },
+        "turn_on": {
+            "description": "Sl\u00e5r p\u00e5 klimaenheten.",
+            "name": "Sl\u00e5 p\u00e5"
+        }
+    },
+    "title": "Klima"
+}

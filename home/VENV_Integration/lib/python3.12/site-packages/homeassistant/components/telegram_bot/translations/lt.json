@@ -1,0 +1,686 @@
+{
+    "issues": {
+        "proxy_params_auth_deprecation": {
+            "description": "I\u0161sami informacija apie \u012fgaliotojo serverio, sukonfig\u016bruoto integruojant {telegram_bot} autentifikavimo duomenis, tur\u0117t\u0173 b\u016bti perkelta \u012f {proxy_url} . Atnaujinkite konfig\u016bracij\u0105 ir i\u0161 naujo paleiskite \u201eHome Assistant\u201c, kad i\u0161spr\u0119stum\u0117te \u0161i\u0105 problem\u0105. \n\n Konfig\u016bracijos raktas {proxy_params} bus pa\u0161alintas b\u016bsimame leidime.",
+            "title": "{telegram_bot} : \u012fgaliotojo serverio autentifikavimas tur\u0117t\u0173 b\u016bti perkeltas \u012f URL"
+        },
+        "proxy_params_deprecation": {
+            "description": "Konfig\u016bracijos raktas {proxy_params} , skirtas {telegram_bot} integravimui, bus pa\u0161alintas b\u016bsimame leidime. \n\n Autentifikavim\u0105 dabar galima atlikti naudojant rakt\u0105 {proxy_url} . \n\n Pagrindin\u0117 biblioteka pakeista \u012f {httpx} , kuri nesuderinama su ankstesniais parametrais. Jei jums vis tiek reikia \u0161ios funkcijos kitoms parinktims, palikite komentar\u0105 nuorodoje \u201eSu\u017einokite daugiau\u201c. \n\n Atnaujinkite konfig\u016bracij\u0105, kad pa\u0161alintum\u0117te {proxy_params} rakt\u0105 ir i\u0161 naujo paleiskite nam\u0173 asistent\u0105, kad i\u0161spr\u0119stum\u0117te \u0161i\u0105 problem\u0105.",
+            "title": "{telegram_bot} : tarpinio serverio parametr\u0173 parinktis bus pa\u0161alinta"
+        }
+    },
+    "services": {
+        "answer_callback_query": {
+            "description": "Atsako \u012f atgalinio ry\u0161io u\u017eklaus\u0105, kilusi\u0105 spustel\u0117jus internetin\u0117s klaviat\u016bros mygtuk\u0105. Atsakymas vartotojui bus rodomas kaip prane\u0161imas pokalbio ekrano vir\u0161uje arba kaip \u012fsp\u0117jimas.",
+            "fields": {
+                "callback_query_id": {
+                    "description": "Unikalus atgalinio atsakymo ID.",
+                    "name": "Atgalinio skambinimo u\u017eklausos ID"
+                },
+                "message": {
+                    "description": "Neformatuotas prane\u0161imo tekstinis prane\u0161imo tekstas.",
+                    "name": "Prane\u0161imas"
+                },
+                "show_alert": {
+                    "description": "Rodyti nuolatin\u012f prane\u0161im\u0105.",
+                    "name": "Rodyti \u012fsp\u0117jim\u0105"
+                },
+                "timeout": {
+                    "description": "Skaitymo skirtasis laikas iki atsakymo i\u0161siuntimo.",
+                    "name": "Skaitymo skirtasis laikas"
+                }
+            },
+            "name": "Atsakykite \u012f atgalinio skambu\u010dio u\u017eklaus\u0105"
+        },
+        "delete_message": {
+            "description": "I\u0161trina anks\u010diau i\u0161si\u0173st\u0105 \u017einut\u0119.",
+            "fields": {
+                "chat_id": {
+                    "description": "Chat_id, kur i\u0161trinti prane\u0161im\u0105.",
+                    "name": "Pokalbio ID"
+                },
+                "message_id": {
+                    "description": "I\u0161trintino prane\u0161imo ID.",
+                    "name": "Prane\u0161imo ID"
+                }
+            },
+            "name": "I\u0161trinti prane\u0161im\u0105"
+        },
+        "edit_caption": {
+            "description": "Redaguoja anks\u010diau i\u0161si\u0173sto prane\u0161imo antra\u0161t\u0119.",
+            "fields": {
+                "caption": {
+                    "description": "Prane\u0161imo tekstas.",
+                    "name": "Antra\u0161t\u0117"
+                },
+                "chat_id": {
+                    "description": "Chat_id, kur redaguoti antra\u0161t\u0119.",
+                    "name": "Pokalbio ID"
+                },
+                "inline_keyboard": {
+                    "description": "Komand\u0173 eilu\u010di\u0173, atskirt\u0173 kableliais, s\u0105ra\u0161as, kad b\u016bt\u0173 sukurta tinkinta eilutin\u0117 klaviat\u016bra su mygtukais su susijusiais atgalinio skambinimo duomenimis.",
+                    "name": "Inline klaviat\u016bra"
+                },
+                "message_id": {
+                    "description": "Redaguotino prane\u0161imo ID.",
+                    "name": "Prane\u0161imo ID"
+                }
+            },
+            "name": "Redaguoti antra\u0161t\u0119"
+        },
+        "edit_message": {
+            "description": "Redaguoja anks\u010diau i\u0161si\u0173st\u0105 \u017einut\u0119.",
+            "fields": {
+                "chat_id": {
+                    "description": "Chat_id, kur redaguoti prane\u0161im\u0105.",
+                    "name": "Pokalbio ID"
+                },
+                "disable_web_page_preview": {
+                    "description": "I\u0161jungiama prane\u0161ime esan\u010di\u0173 nuorod\u0173 per\u017ei\u016bra.",
+                    "name": "I\u0161jungti tinklalapio per\u017ei\u016br\u0105"
+                },
+                "inline_keyboard": {
+                    "description": "Komand\u0173 eilu\u010di\u0173, atskirt\u0173 kableliais, s\u0105ra\u0161as, kad b\u016bt\u0173 sukurta tinkinta eilutin\u0117 klaviat\u016bra su mygtukais su susijusiais atgalinio skambinimo duomenimis.",
+                    "name": "Inline klaviat\u016bra"
+                },
+                "message": {
+                    "description": "Prane\u0161imo tekstas.",
+                    "name": "Prane\u0161imas"
+                },
+                "message_id": {
+                    "description": "Redaguotino prane\u0161imo ID.",
+                    "name": "Prane\u0161imo ID"
+                },
+                "parse_mode": {
+                    "description": "Prane\u0161imo teksto analizatorius.",
+                    "name": "Analizavimo re\u017eimas"
+                },
+                "title": {
+                    "description": "Pasirenkamas prane\u0161imo pavadinimas. Bus sudarytas kaip \u201e%pavadinimas\u201c.\n %prane\u0161imas'.",
+                    "name": "Pavadinimas"
+                }
+            },
+            "name": "Redaguoti prane\u0161im\u0105"
+        },
+        "edit_replymarkup": {
+            "description": "Redaguokite anks\u010diau i\u0161si\u0173sto prane\u0161imo tiesiogin\u0119 klaviat\u016br\u0105.",
+            "fields": {
+                "chat_id": {
+                    "description": "Chat_id, kur redaguoti reply_markup.",
+                    "name": "Pokalbio ID"
+                },
+                "inline_keyboard": {
+                    "description": "Komand\u0173 eilu\u010di\u0173, atskirt\u0173 kableliais, s\u0105ra\u0161as, kad b\u016bt\u0173 sukurta tinkinta eilutin\u0117 klaviat\u016bra su mygtukais su susijusiais atgalinio skambinimo duomenimis.",
+                    "name": "Inline klaviat\u016bra"
+                },
+                "message_id": {
+                    "description": "Redaguotino prane\u0161imo ID.",
+                    "name": "Prane\u0161imo ID"
+                }
+            },
+            "name": "Redaguoti atsakymo \u017eym\u0117jim\u0105"
+        },
+        "send_animation": {
+            "description": "Siun\u010dia animacij\u0105.",
+            "fields": {
+                "authentication": {
+                    "description": "Apibr\u0117\u017ekite, kur\u012f autentifikavimo metod\u0105 naudoti. Nustatykite \u201esantrauk\u0105\u201c, kad naudotum\u0117te HTTP santraukos autentifikavim\u0105, arba \u201ebearer_token\u201c, jei norite autentifikuoti OAuth 2.0 ne\u0161iklio prieigos rakt\u0105. Numatytoji reik\u0161m\u0117 yra \u201epagrindin\u0117\u201c.",
+                    "name": "Autentifikavimo metodas"
+                },
+                "caption": {
+                    "description": "Animacijos pavadinimas.",
+                    "name": "Antra\u0161t\u0117"
+                },
+                "disable_notification": {
+                    "description": "Prane\u0161im\u0105 siun\u010dia tyliai. \u201eiOS\u201c ir \u017einiatinklio naudotojai negaus prane\u0161imo, \u201eAndroid\u201c naudotojai gaus prane\u0161im\u0105 be garso.",
+                    "name": "I\u0161jungti prane\u0161im\u0105"
+                },
+                "file": {
+                    "description": "Vietinis kelias \u012f GIF arba H.264/MPEG-4 AVC vaizdo \u012fra\u0161\u0105 be garso.",
+                    "name": "Failas"
+                },
+                "inline_keyboard": {
+                    "description": "Komand\u0173 eilu\u010di\u0173, atskirt\u0173 kableliais, s\u0105ra\u0161as, kad b\u016bt\u0173 sukurta tinkinta eilutin\u0117 klaviat\u016bra su mygtukais su susijusiais atgalinio skambinimo duomenimis.",
+                    "name": "Inline klaviat\u016bra"
+                },
+                "keyboard": {
+                    "description": "Komand\u0173 eilu\u010di\u0173 s\u0105ra\u0161as, atskirtas kableliais, norint sukurti pasirinktin\u0119 klaviat\u016br\u0105.",
+                    "name": "Klaviat\u016bra"
+                },
+                "message_tag": {
+                    "description": "I\u0161si\u0173stos \u017einut\u0117s \u017eyma.",
+                    "name": "Prane\u0161imo \u017eyma"
+                },
+                "message_thread_id": {
+                    "description": "Unikalus tikslin\u0117s forumo prane\u0161im\u0173 gijos (temos) identifikatorius; tik forumo supergrup\u0117ms.",
+                    "name": "Prane\u0161imo gijos ID"
+                },
+                "parse_mode": {
+                    "description": "Prane\u0161imo teksto analizatorius.",
+                    "name": "Analizavimo re\u017eimas"
+                },
+                "password": {
+                    "description": "Slapta\u017eodis (arba ne\u0161iklio prieigos raktas), skirtas URL, kuriam reikalingas HTTP autentifikavimas.",
+                    "name": "Slapta\u017eodis"
+                },
+                "reply_to_message_id": {
+                    "description": "Pa\u017eym\u0117kite prane\u0161im\u0105 kaip atsakym\u0105 \u012f ankstesn\u012f prane\u0161im\u0105.",
+                    "name": "Atsakyti \u012f \u017einut\u0119 ID"
+                },
+                "target": {
+                    "description": "I\u0161 anksto patvirtint\u0173 pokalbi\u0173_id\u0173, \u012f kuriuos bus siun\u010diamas dokumentas, masyvas. Jei jo n\u0117ra, pirmasis leistinas chat_id yra numatytasis.",
+                    "name": "Tikslas"
+                },
+                "timeout": {
+                    "description": "Skaitymo skirtasis lipduko siuntimo laikas.",
+                    "name": "Skaitymo skirtasis laikas"
+                },
+                "url": {
+                    "description": "Nuotolinis kelias \u012f GIF arba H.264/MPEG-4 AVC vaizdo \u012fra\u0161\u0105 be garso.",
+                    "name": "URL"
+                },
+                "username": {
+                    "description": "URL, kuriam reikalingas HTTP autentifikavimas, naudotojo vardas.",
+                    "name": "Prisijungimos vardas"
+                },
+                "verify_ssl": {
+                    "description": "\u012egalinti arba i\u0161jungti SSL sertifikato patvirtinim\u0105. Nustatykite \u012f netiesa, jei atsisiun\u010diate fail\u0105 i\u0161 URL ir nenorite patvirtinti serverio SSL sertifikato.",
+                    "name": "Patvirtinkite SSL"
+                }
+            },
+            "name": "Si\u0173sti animacij\u0105"
+        },
+        "send_document": {
+            "description": "Siun\u010dia dokument\u0105.",
+            "fields": {
+                "authentication": {
+                    "description": "Apibr\u0117\u017ekite, kur\u012f autentifikavimo metod\u0105 naudoti. Nustatykite \u201esantrauk\u0105\u201c, kad naudotum\u0117te HTTP santraukos autentifikavim\u0105, arba \u201ebearer_token\u201c, jei norite autentifikuoti OAuth 2.0 ne\u0161iklio prieigos rakt\u0105. Numatytoji reik\u0161m\u0117 yra \u201epagrindin\u0117\u201c.",
+                    "name": "Autentifikavimo metodas"
+                },
+                "caption": {
+                    "description": "Dokumento pavadinimas.",
+                    "name": "Antra\u0161t\u0117"
+                },
+                "disable_notification": {
+                    "description": "Prane\u0161im\u0105 siun\u010dia tyliai. \u201eiOS\u201c ir \u017einiatinklio naudotojai negaus prane\u0161imo, \u201eAndroid\u201c naudotojai gaus prane\u0161im\u0105 be garso.",
+                    "name": "I\u0161jungti prane\u0161im\u0105"
+                },
+                "file": {
+                    "description": "Vietinis kelias \u012f dokument\u0105.",
+                    "name": "Failas"
+                },
+                "inline_keyboard": {
+                    "description": "Komand\u0173 eilu\u010di\u0173, atskirt\u0173 kableliais, s\u0105ra\u0161as, kad b\u016bt\u0173 sukurta tinkinta eilutin\u0117 klaviat\u016bra su mygtukais su susijusiais atgalinio skambinimo duomenimis.",
+                    "name": "Inline klaviat\u016bra"
+                },
+                "keyboard": {
+                    "description": "Komand\u0173 eilu\u010di\u0173 s\u0105ra\u0161as, atskirtas kableliais, norint sukurti pasirinktin\u0119 klaviat\u016br\u0105.",
+                    "name": "Klaviat\u016bra"
+                },
+                "message_tag": {
+                    "description": "I\u0161si\u0173stos \u017einut\u0117s \u017eyma.",
+                    "name": "Prane\u0161imo \u017eyma"
+                },
+                "message_thread_id": {
+                    "description": "Unikalus tikslin\u0117s forumo prane\u0161im\u0173 gijos (temos) identifikatorius; tik forumo supergrup\u0117ms.",
+                    "name": "Prane\u0161imo gijos ID"
+                },
+                "parse_mode": {
+                    "description": "Prane\u0161imo teksto analizatorius.",
+                    "name": "Analizavimo re\u017eimas"
+                },
+                "password": {
+                    "description": "Slapta\u017eodis (arba ne\u0161iklio prieigos raktas), skirtas URL, kuriam reikalingas HTTP autentifikavimas.",
+                    "name": "Slapta\u017eodis"
+                },
+                "reply_to_message_id": {
+                    "description": "Pa\u017eym\u0117kite prane\u0161im\u0105 kaip atsakym\u0105 \u012f ankstesn\u012f prane\u0161im\u0105.",
+                    "name": "Atsakyti \u012f \u017einut\u0119 ID"
+                },
+                "target": {
+                    "description": "I\u0161 anksto patvirtint\u0173 pokalbi\u0173_id\u0173, \u012f kuriuos bus siun\u010diamas dokumentas, masyvas. Jei jo n\u0117ra, pirmasis leistinas chat_id yra numatytasis.",
+                    "name": "Tikslas"
+                },
+                "timeout": {
+                    "description": "Skaitymo skirtasis dokumento siuntimo laikas.",
+                    "name": "Skaitymo skirtasis laikas"
+                },
+                "url": {
+                    "description": "Nuotolinis kelias \u012f dokument\u0105.",
+                    "name": "URL"
+                },
+                "username": {
+                    "description": "URL, kuriam reikalingas HTTP autentifikavimas, naudotojo vardas.",
+                    "name": "Prisijungimos vardas"
+                },
+                "verify_ssl": {
+                    "description": "\u012egalinti arba i\u0161jungti SSL sertifikato patvirtinim\u0105. Nustatykite \u012f netiesa, jei atsisiun\u010diate fail\u0105 i\u0161 URL ir nenorite patvirtinti serverio SSL sertifikato.",
+                    "name": "Patvirtinkite SSL"
+                }
+            },
+            "name": "Si\u0173sti dokument\u0105"
+        },
+        "send_location": {
+            "description": "Siun\u010dia viet\u0105.",
+            "fields": {
+                "disable_notification": {
+                    "description": "Prane\u0161im\u0105 siun\u010dia tyliai. \u201eiOS\u201c ir \u017einiatinklio naudotojai negaus prane\u0161imo, \u201eAndroid\u201c naudotojai gaus prane\u0161im\u0105 be garso.",
+                    "name": "I\u0161jungti prane\u0161im\u0105"
+                },
+                "inline_keyboard": {
+                    "description": "Komand\u0173 eilu\u010di\u0173, atskirt\u0173 kableliais, s\u0105ra\u0161as, kad b\u016bt\u0173 sukurta tinkinta eilutin\u0117 klaviat\u016bra su mygtukais su susijusiais atgalinio skambinimo duomenimis.",
+                    "name": "Inline klaviat\u016bra"
+                },
+                "keyboard": {
+                    "description": "Komand\u0173 eilu\u010di\u0173 s\u0105ra\u0161as, atskirtas kableliais, norint sukurti pasirinktin\u0119 klaviat\u016br\u0105.",
+                    "name": "Klaviat\u016bra"
+                },
+                "latitude": {
+                    "description": "Platuma si\u0173sti.",
+                    "name": "Platuma"
+                },
+                "longitude": {
+                    "description": "Siun\u010diama ilguma.",
+                    "name": "Ilguma"
+                },
+                "message_tag": {
+                    "description": "I\u0161si\u0173stos \u017einut\u0117s \u017eyma.",
+                    "name": "Prane\u0161imo \u017eyma"
+                },
+                "message_thread_id": {
+                    "description": "Unikalus tikslin\u0117s forumo prane\u0161im\u0173 gijos (temos) identifikatorius; tik forumo supergrup\u0117ms.",
+                    "name": "Prane\u0161imo gijos ID"
+                },
+                "reply_to_message_id": {
+                    "description": "Pa\u017eym\u0117kite prane\u0161im\u0105 kaip atsakym\u0105 \u012f ankstesn\u012f prane\u0161im\u0105.",
+                    "name": "Atsakyti \u012f \u017einut\u0119 ID"
+                },
+                "target": {
+                    "description": "I\u0161 anksto patvirtint\u0173 pokalbi\u0173_id\u0173, kuriems bus siun\u010diama vieta, masyvas. Jei jo n\u0117ra, pirmasis leistinas chat_id yra numatytasis.",
+                    "name": "Tikslas"
+                },
+                "timeout": {
+                    "description": "Skaitymo laikas, skirtas nuotraukos siuntimui.",
+                    "name": "Skaitymo skirtasis laikas"
+                }
+            },
+            "name": "Si\u0173sti viet\u0105"
+        },
+        "send_message": {
+            "description": "I\u0161siun\u010dia prane\u0161im\u0105.",
+            "fields": {
+                "disable_notification": {
+                    "description": "Prane\u0161im\u0105 siun\u010dia tyliai. \u201eiOS\u201c ir \u017einiatinklio naudotojai negaus prane\u0161imo, \u201eAndroid\u201c naudotojai gaus prane\u0161im\u0105 be garso.",
+                    "name": "I\u0161jungti prane\u0161im\u0105"
+                },
+                "disable_web_page_preview": {
+                    "description": "I\u0161jungiama prane\u0161ime esan\u010di\u0173 nuorod\u0173 per\u017ei\u016bra.",
+                    "name": "I\u0161jungti tinklalapio per\u017ei\u016br\u0105"
+                },
+                "inline_keyboard": {
+                    "description": "Komand\u0173 eilu\u010di\u0173, atskirt\u0173 kableliais, s\u0105ra\u0161as, kad b\u016bt\u0173 sukurta tinkinta eilutin\u0117 klaviat\u016bra su mygtukais su susijusiais atgalinio skambinimo duomenimis.",
+                    "name": "Inline klaviat\u016bra"
+                },
+                "keyboard": {
+                    "description": "Komand\u0173 eilu\u010di\u0173 s\u0105ra\u0161as, atskirtas kableliais, norint sukurti pasirinktin\u0119 klaviat\u016br\u0105. Tu\u0161\u010dias s\u0105ra\u0161as i\u0161valo anks\u010diau nustatyt\u0105 klaviat\u016br\u0105.",
+                    "name": "Klaviat\u016bra"
+                },
+                "message": {
+                    "description": "Prane\u0161imo tekstas.",
+                    "name": "Prane\u0161imas"
+                },
+                "message_tag": {
+                    "description": "I\u0161si\u0173stos \u017einut\u0117s \u017eyma.",
+                    "name": "Prane\u0161imo \u017eyma"
+                },
+                "message_thread_id": {
+                    "description": "Unikalus tikslin\u0117s forumo prane\u0161im\u0173 gijos (temos) identifikatorius; tik forumo supergrup\u0117ms.",
+                    "name": "Prane\u0161imo gijos ID"
+                },
+                "parse_mode": {
+                    "description": "Prane\u0161imo teksto analizatorius.",
+                    "name": "Analizavimo re\u017eimas"
+                },
+                "reply_to_message_id": {
+                    "description": "Pa\u017eym\u0117kite prane\u0161im\u0105 kaip atsakym\u0105 \u012f ankstesn\u012f prane\u0161im\u0105.",
+                    "name": "Atsakyti \u012f \u017einut\u0119 ID"
+                },
+                "target": {
+                    "description": "I\u0161 anksto patvirtint\u0173 chat_ids, kuriems bus siun\u010diamas prane\u0161imas, masyvas. Jei jo n\u0117ra, pirmasis leistinas chat_id yra numatytasis.",
+                    "name": "Tikslas"
+                },
+                "timeout": {
+                    "description": "Skaitymo skirtasis prane\u0161imo siuntimo laikas. Pad\u0117s esant skirtojo laiko klaidoms (prastas interneto ry\u0161ys ir kt.).",
+                    "name": "Skaitymo skirtasis laikas"
+                },
+                "title": {
+                    "description": "Pasirenkamas prane\u0161imo pavadinimas. Bus sudarytas kaip \u201e%pavadinimas\u201c.\n %prane\u0161imas'.",
+                    "name": "Pavadinimas"
+                }
+            },
+            "name": "Si\u0173sti \u017einut\u0119"
+        },
+        "send_photo": {
+            "description": "Siun\u010dia nuotrauk\u0105.",
+            "fields": {
+                "authentication": {
+                    "description": "Apibr\u0117\u017ekite, kur\u012f autentifikavimo metod\u0105 naudoti. Nustatykite \u201esantrauk\u0105\u201c, kad naudotum\u0117te HTTP santraukos autentifikavim\u0105, arba \u201ebearer_token\u201c, jei norite autentifikuoti OAuth 2.0 ne\u0161iklio prieigos rakt\u0105. Numatytoji reik\u0161m\u0117 yra \u201epagrindin\u0117\u201c.",
+                    "name": "Autentifikavimo metodas"
+                },
+                "caption": {
+                    "description": "Vaizdo pavadinimas.",
+                    "name": "Antra\u0161t\u0117"
+                },
+                "disable_notification": {
+                    "description": "Prane\u0161im\u0105 siun\u010dia tyliai. \u201eiOS\u201c ir \u017einiatinklio naudotojai negaus prane\u0161imo, \u201eAndroid\u201c naudotojai gaus prane\u0161im\u0105 be garso.",
+                    "name": "I\u0161jungti prane\u0161im\u0105"
+                },
+                "file": {
+                    "description": "Vietinis kelias \u012f vaizd\u0105.",
+                    "name": "Failas"
+                },
+                "inline_keyboard": {
+                    "description": "Komand\u0173 eilu\u010di\u0173, atskirt\u0173 kableliais, s\u0105ra\u0161as, kad b\u016bt\u0173 sukurta tinkinta eilutin\u0117 klaviat\u016bra su mygtukais su susijusiais atgalinio skambinimo duomenimis.",
+                    "name": "Inline klaviat\u016bra"
+                },
+                "keyboard": {
+                    "description": "Komand\u0173 eilu\u010di\u0173 s\u0105ra\u0161as, atskirtas kableliais, norint sukurti pasirinktin\u0119 klaviat\u016br\u0105.",
+                    "name": "Klaviat\u016bra"
+                },
+                "message_tag": {
+                    "description": "I\u0161si\u0173stos \u017einut\u0117s \u017eyma.",
+                    "name": "Prane\u0161imo \u017eyma"
+                },
+                "message_thread_id": {
+                    "description": "Unikalus tikslin\u0117s forumo prane\u0161im\u0173 gijos (temos) identifikatorius; tik forumo supergrup\u0117ms.",
+                    "name": "Prane\u0161imo gijos ID"
+                },
+                "parse_mode": {
+                    "description": "Prane\u0161imo teksto analizatorius.",
+                    "name": "Analizavimo re\u017eimas"
+                },
+                "password": {
+                    "description": "Slapta\u017eodis (arba ne\u0161iklio prieigos raktas), skirtas URL, kuriam reikalingas HTTP autentifikavimas.",
+                    "name": "Slapta\u017eodis"
+                },
+                "reply_to_message_id": {
+                    "description": "Pa\u017eym\u0117kite prane\u0161im\u0105 kaip atsakym\u0105 \u012f ankstesn\u012f prane\u0161im\u0105.",
+                    "name": "Atsakyti \u012f \u017einut\u0119 ID"
+                },
+                "target": {
+                    "description": "I\u0161 anksto patvirtint\u0173 pokalbi\u0173_id\u0173, \u012f kuriuos bus siun\u010diamas dokumentas, masyvas. Jei jo n\u0117ra, pirmasis leistinas chat_id yra numatytasis.",
+                    "name": "Tikslas"
+                },
+                "timeout": {
+                    "description": "Skaitymo laikas, skirtas nuotraukos siuntimui.",
+                    "name": "Skaitymo skirtasis laikas"
+                },
+                "url": {
+                    "description": "Nuotolinis kelias \u012f vaizd\u0105.",
+                    "name": "URL"
+                },
+                "username": {
+                    "description": "URL, kuriam reikalingas HTTP autentifikavimas, naudotojo vardas.",
+                    "name": "Prisijungimos vardas"
+                },
+                "verify_ssl": {
+                    "description": "\u012egalinti arba i\u0161jungti SSL sertifikato patvirtinim\u0105. Nustatykite \u012f netiesa, jei atsisiun\u010diate fail\u0105 i\u0161 URL ir nenorite patvirtinti serverio SSL sertifikato.",
+                    "name": "Patvirtinkite SSL"
+                }
+            },
+            "name": "Si\u0173sti nuotrauk\u0105"
+        },
+        "send_poll": {
+            "description": "Siun\u010dia apklaus\u0105.",
+            "fields": {
+                "allows_multiple_answers": {
+                    "description": "Jei apklausa leid\u017eia atsakyti \u012f kelis atsakymus, pagal nutyl\u0117jim\u0105 nustatoma Netiesa.",
+                    "name": "Leisti kelis atsakymus"
+                },
+                "disable_notification": {
+                    "description": "Prane\u0161im\u0105 siun\u010dia tyliai. \u201eiOS\u201c ir \u017einiatinklio naudotojai negaus prane\u0161imo, \u201eAndroid\u201c naudotojai gaus prane\u0161im\u0105 be garso.",
+                    "name": "I\u0161jungti prane\u0161im\u0105"
+                },
+                "is_anonymous": {
+                    "description": "Jei apklausa turi b\u016bti anonimin\u0117, pagal nutyl\u0117jim\u0105 nustatoma Tiesa.",
+                    "name": "Yra anonimas"
+                },
+                "message_tag": {
+                    "description": "I\u0161si\u0173stos \u017einut\u0117s \u017eyma.",
+                    "name": "Prane\u0161imo \u017eyma"
+                },
+                "message_thread_id": {
+                    "description": "Unikalus tikslin\u0117s forumo prane\u0161im\u0173 gijos (temos) identifikatorius; tik forumo supergrup\u0117ms.",
+                    "name": "Prane\u0161imo gijos ID"
+                },
+                "open_period": {
+                    "description": "Kiek laiko sekund\u0117mis apklausa bus aktyvi po suk\u016brimo, 5\u2013600.",
+                    "name": "Atviras laikotarpis"
+                },
+                "options": {
+                    "description": "Atsakym\u0173 variant\u0173 s\u0105ra\u0161as, 2-10 eilu\u010di\u0173 po 1-100 simboli\u0173.",
+                    "name": "Parinktys"
+                },
+                "question": {
+                    "description": "Apklausos klausimas, 1-300 simboli\u0173.",
+                    "name": "Klausimas"
+                },
+                "reply_to_message_id": {
+                    "description": "Pa\u017eym\u0117kite prane\u0161im\u0105 kaip atsakym\u0105 \u012f ankstesn\u012f prane\u0161im\u0105.",
+                    "name": "Atsakyti \u012f \u017einut\u0119 ID"
+                },
+                "target": {
+                    "description": "I\u0161 anksto patvirtint\u0173 pokalbi\u0173_id\u0173, kuriems bus siun\u010diama vieta, masyvas. Jei jo n\u0117ra, pirmasis leistinas chat_id yra numatytasis.",
+                    "name": "Tikslas"
+                },
+                "timeout": {
+                    "description": "Apklausos siuntimo skaitymo skirtasis laikas.",
+                    "name": "Skaitymo skirtasis laikas"
+                }
+            },
+            "name": "Si\u0173sti apklaus\u0105"
+        },
+        "send_sticker": {
+            "description": "Siun\u010dia lipduk\u0105.",
+            "fields": {
+                "authentication": {
+                    "description": "Apibr\u0117\u017ekite, kur\u012f autentifikavimo metod\u0105 naudoti. Nustatykite \u201esantrauk\u0105\u201c, kad naudotum\u0117te HTTP santraukos autentifikavim\u0105, arba \u201ebearer_token\u201c, jei norite autentifikuoti OAuth 2.0 ne\u0161iklio prieigos rakt\u0105. Numatytoji reik\u0161m\u0117 yra \u201epagrindin\u0117\u201c.",
+                    "name": "Autentifikavimo metodas"
+                },
+                "disable_notification": {
+                    "description": "Prane\u0161im\u0105 siun\u010dia tyliai. \u201eiOS\u201c ir \u017einiatinklio naudotojai negaus prane\u0161imo, \u201eAndroid\u201c naudotojai gaus prane\u0161im\u0105 be garso.",
+                    "name": "I\u0161jungti prane\u0161im\u0105"
+                },
+                "file": {
+                    "description": "Vietinis kelias \u012f statin\u012f .webp arba animuot\u0105 .tgs lipduk\u0105.",
+                    "name": "Failas"
+                },
+                "inline_keyboard": {
+                    "description": "Komand\u0173 eilu\u010di\u0173, atskirt\u0173 kableliais, s\u0105ra\u0161as, kad b\u016bt\u0173 sukurta tinkinta eilutin\u0117 klaviat\u016bra su mygtukais su susijusiais atgalinio skambinimo duomenimis.",
+                    "name": "Inline klaviat\u016bra"
+                },
+                "keyboard": {
+                    "description": "Komand\u0173 eilu\u010di\u0173 s\u0105ra\u0161as, atskirtas kableliais, norint sukurti pasirinktin\u0119 klaviat\u016br\u0105.",
+                    "name": "Klaviat\u016bra"
+                },
+                "message_tag": {
+                    "description": "I\u0161si\u0173stos \u017einut\u0117s \u017eyma.",
+                    "name": "Prane\u0161imo \u017eyma"
+                },
+                "message_thread_id": {
+                    "description": "Unikalus tikslin\u0117s forumo prane\u0161im\u0173 gijos (temos) identifikatorius; tik forumo supergrup\u0117ms.",
+                    "name": "Prane\u0161imo gijos ID"
+                },
+                "password": {
+                    "description": "Slapta\u017eodis (arba ne\u0161iklio prieigos raktas), skirtas URL, kuriam reikalingas HTTP autentifikavimas.",
+                    "name": "Slapta\u017eodis"
+                },
+                "reply_to_message_id": {
+                    "description": "Pa\u017eym\u0117kite prane\u0161im\u0105 kaip atsakym\u0105 \u012f ankstesn\u012f prane\u0161im\u0105.",
+                    "name": "Atsakyti \u012f \u017einut\u0119 ID"
+                },
+                "sticker_id": {
+                    "description": "Telegram\u0173 serveriuose esan\u010dio lipduko ID.",
+                    "name": "Lipduko ID"
+                },
+                "target": {
+                    "description": "I\u0161 anksto patvirtint\u0173 pokalbi\u0173_id\u0173, \u012f kuriuos bus siun\u010diamas dokumentas, masyvas. Jei jo n\u0117ra, pirmasis leistinas chat_id yra numatytasis.",
+                    "name": "Tikslas"
+                },
+                "timeout": {
+                    "description": "Skaitymo skirtasis lipduko siuntimo laikas.",
+                    "name": "Skaitymo skirtasis laikas"
+                },
+                "url": {
+                    "description": "Nuotolinis kelias \u012f statin\u012f .webp arba animuot\u0105 .tgs lipduk\u0105.",
+                    "name": "URL"
+                },
+                "username": {
+                    "description": "URL, kuriam reikalingas HTTP autentifikavimas, naudotojo vardas.",
+                    "name": "Prisijungimos vardas"
+                },
+                "verify_ssl": {
+                    "description": "\u012egalinti arba i\u0161jungti SSL sertifikato patvirtinim\u0105. Nustatykite \u012f netiesa, jei atsisiun\u010diate fail\u0105 i\u0161 URL ir nenorite patvirtinti serverio SSL sertifikato.",
+                    "name": "Patvirtinkite SSL"
+                }
+            },
+            "name": "Si\u0173sti lipduk\u0105"
+        },
+        "send_video": {
+            "description": "Siun\u010dia vaizdo \u012fra\u0161\u0105.",
+            "fields": {
+                "authentication": {
+                    "description": "Apibr\u0117\u017ekite, kur\u012f autentifikavimo metod\u0105 naudoti. Nustatykite \u201esantrauk\u0105\u201c, kad naudotum\u0117te HTTP santraukos autentifikavim\u0105, arba \u201ebearer_token\u201c, jei norite autentifikuoti OAuth 2.0 ne\u0161iklio prieigos rakt\u0105. Numatytoji reik\u0161m\u0117 yra \u201epagrindin\u0117\u201c.",
+                    "name": "Autentifikavimo metodas"
+                },
+                "caption": {
+                    "description": "Vaizdo \u012fra\u0161o pavadinimas.",
+                    "name": "Antra\u0161t\u0117"
+                },
+                "disable_notification": {
+                    "description": "Prane\u0161im\u0105 siun\u010dia tyliai. \u201eiOS\u201c ir \u017einiatinklio naudotojai negaus prane\u0161imo, \u201eAndroid\u201c naudotojai gaus prane\u0161im\u0105 be garso.",
+                    "name": "I\u0161jungti prane\u0161im\u0105"
+                },
+                "file": {
+                    "description": "Vietinis kelias \u012f vaizdo \u012fra\u0161\u0105.",
+                    "name": "Failas"
+                },
+                "inline_keyboard": {
+                    "description": "Komand\u0173 eilu\u010di\u0173, atskirt\u0173 kableliais, s\u0105ra\u0161as, kad b\u016bt\u0173 sukurta tinkinta eilutin\u0117 klaviat\u016bra su mygtukais su susijusiais atgalinio skambinimo duomenimis.",
+                    "name": "Inline klaviat\u016bra"
+                },
+                "keyboard": {
+                    "description": "Komand\u0173 eilu\u010di\u0173 s\u0105ra\u0161as, atskirtas kableliais, norint sukurti pasirinktin\u0119 klaviat\u016br\u0105.",
+                    "name": "Klaviat\u016bra"
+                },
+                "message_tag": {
+                    "description": "I\u0161si\u0173stos \u017einut\u0117s \u017eyma.",
+                    "name": "Prane\u0161imo \u017eyma"
+                },
+                "message_thread_id": {
+                    "description": "Unikalus tikslin\u0117s forumo prane\u0161im\u0173 gijos (temos) identifikatorius; tik forumo supergrup\u0117ms.",
+                    "name": "Prane\u0161imo gijos ID"
+                },
+                "parse_mode": {
+                    "description": "Prane\u0161imo teksto analizatorius.",
+                    "name": "Analizavimo re\u017eimas"
+                },
+                "password": {
+                    "description": "Slapta\u017eodis (arba ne\u0161iklio prieigos raktas), skirtas URL, kuriam reikalingas HTTP autentifikavimas.",
+                    "name": "Slapta\u017eodis"
+                },
+                "reply_to_message_id": {
+                    "description": "Pa\u017eym\u0117kite prane\u0161im\u0105 kaip atsakym\u0105 \u012f ankstesn\u012f prane\u0161im\u0105.",
+                    "name": "Atsakyti \u012f \u017einut\u0119 ID"
+                },
+                "target": {
+                    "description": "I\u0161 anksto patvirtint\u0173 pokalbi\u0173_id\u0173, \u012f kuriuos bus siun\u010diamas dokumentas, masyvas. Jei jo n\u0117ra, pirmasis leistinas chat_id yra numatytasis.",
+                    "name": "Tikslas"
+                },
+                "timeout": {
+                    "description": "Vaizdo \u012fra\u0161o siuntimo skaitymo skirtasis laikas.",
+                    "name": "Skaitymo laiko limitas"
+                },
+                "url": {
+                    "description": "Nuotolinis kelias \u012f vaizdo \u012fra\u0161\u0105.",
+                    "name": "URL"
+                },
+                "username": {
+                    "description": "URL, kuriam reikalingas HTTP autentifikavimas, naudotojo vardas.",
+                    "name": "Prisijungimos vardas"
+                },
+                "verify_ssl": {
+                    "description": "\u012egalinti arba i\u0161jungti SSL sertifikato patvirtinim\u0105. Nustatykite \u012f netiesa, jei atsisiun\u010diate fail\u0105 i\u0161 URL ir nenorite patvirtinti serverio SSL sertifikato.",
+                    "name": "Patvirtinkite SSL"
+                }
+            },
+            "name": "Si\u0173sti vaizdo \u012fra\u0161\u0105"
+        },
+        "send_voice": {
+            "description": "Siun\u010dia balso prane\u0161im\u0105.",
+            "fields": {
+                "authentication": {
+                    "description": "Apibr\u0117\u017ekite, kur\u012f autentifikavimo metod\u0105 naudoti. Nustatykite \u201esantrauk\u0105\u201c, kad naudotum\u0117te HTTP santraukos autentifikavim\u0105, arba \u201ebearer_token\u201c, jei norite autentifikuoti OAuth 2.0 ne\u0161iklio prieigos rakt\u0105. Numatytoji reik\u0161m\u0117 yra \u201epagrindin\u0117\u201c.",
+                    "name": "Autentifikavimo metodas"
+                },
+                "caption": {
+                    "description": "Balso prane\u0161imo pavadinimas.",
+                    "name": "Antra\u0161t\u0117"
+                },
+                "disable_notification": {
+                    "description": "Prane\u0161im\u0105 siun\u010dia tyliai. \u201eiOS\u201c ir \u017einiatinklio naudotojai negaus prane\u0161imo, \u201eAndroid\u201c naudotojai gaus prane\u0161im\u0105 be garso.",
+                    "name": "I\u0161jungti prane\u0161im\u0105"
+                },
+                "file": {
+                    "description": "Vietinis kelias \u012f balso prane\u0161im\u0105.",
+                    "name": "Failas"
+                },
+                "inline_keyboard": {
+                    "description": "Komand\u0173 eilu\u010di\u0173, atskirt\u0173 kableliais, s\u0105ra\u0161as, kad b\u016bt\u0173 sukurta tinkinta eilutin\u0117 klaviat\u016bra su mygtukais su susijusiais atgalinio skambinimo duomenimis.",
+                    "name": "Inline klaviat\u016bra"
+                },
+                "keyboard": {
+                    "description": "Komand\u0173 eilu\u010di\u0173 s\u0105ra\u0161as, atskirtas kableliais, norint sukurti pasirinktin\u0119 klaviat\u016br\u0105.",
+                    "name": "Klaviat\u016bra"
+                },
+                "message_tag": {
+                    "description": "I\u0161si\u0173stos \u017einut\u0117s \u017eyma.",
+                    "name": "Prane\u0161imo \u017eyma"
+                },
+                "message_thread_id": {
+                    "description": "Unikalus tikslin\u0117s forumo prane\u0161im\u0173 gijos (temos) identifikatorius; tik forumo supergrup\u0117ms.",
+                    "name": "Prane\u0161imo gijos ID"
+                },
+                "password": {
+                    "description": "Slapta\u017eodis (arba ne\u0161iklio prieigos raktas), skirtas URL, kuriam reikalingas HTTP autentifikavimas.",
+                    "name": "Slapta\u017eodis"
+                },
+                "reply_to_message_id": {
+                    "description": "Pa\u017eym\u0117kite prane\u0161im\u0105 kaip atsakym\u0105 \u012f ankstesn\u012f prane\u0161im\u0105.",
+                    "name": "Atsakyti \u012f \u017einut\u0119 ID"
+                },
+                "target": {
+                    "description": "I\u0161 anksto patvirtint\u0173 pokalbi\u0173_id\u0173, \u012f kuriuos bus siun\u010diamas dokumentas, masyvas. Jei jo n\u0117ra, pirmasis leistinas chat_id yra numatytasis.",
+                    "name": "Tikslas"
+                },
+                "timeout": {
+                    "description": "Balso siuntimo skaitymo skirtasis laikas.",
+                    "name": "Skaitymo skirtasis laikas"
+                },
+                "url": {
+                    "description": "Nuotolinis kelias iki balso prane\u0161imo.",
+                    "name": "URL"
+                },
+                "username": {
+                    "description": "URL, kuriam reikalingas HTTP autentifikavimas, naudotojo vardas.",
+                    "name": "Prisijungimos vardas"
+                },
+                "verify_ssl": {
+                    "description": "\u012egalinti arba i\u0161jungti SSL sertifikato patvirtinim\u0105. Nustatykite \u012f netiesa, jei atsisiun\u010diate fail\u0105 i\u0161 URL ir nenorite patvirtinti serverio SSL sertifikato.",
+                    "name": "Patvirtinkite SSL"
+                }
+            },
+            "name": "Si\u0173sti bals\u0105"
+        }
+    }
+}

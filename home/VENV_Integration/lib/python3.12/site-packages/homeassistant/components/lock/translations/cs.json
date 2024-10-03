@@ -1,0 +1,88 @@
+{
+    "device_automation": {
+        "action_type": {
+            "lock": "Zamknout {entity_name}",
+            "open": "Otev\u0159\u00edt {entity_name}",
+            "unlock": "Odemknout {entity_name}"
+        },
+        "condition_type": {
+            "is_locked": "{entity_name} je uzam\u010deno",
+            "is_open": "{entity_name}: je otev\u0159eno",
+            "is_unlocked": "{entity_name} je odem\u010deno"
+        },
+        "extra_fields": {
+            "for": "Doba trv\u00e1n\u00ed"
+        },
+        "trigger_type": {
+            "locked": "{entity_name} zam\u010deno",
+            "open": "{entity_name} otev\u0159eno",
+            "unlocked": "{entity_name} odem\u010deno"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Zamknout",
+            "state": {
+                "jammed": "Zaseknuto",
+                "locked": "Zam\u010deno",
+                "locking": "Zamyk\u00e1n\u00ed",
+                "open": "Otev\u0159eno",
+                "opening": "Otev\u00edr\u00e1 se",
+                "unlocked": "Odem\u010deno",
+                "unlocking": "Odemyk\u00e1n\u00ed"
+            },
+            "state_attributes": {
+                "changed_by": {
+                    "name": "Zm\u011bn\u011bno"
+                },
+                "code_format": {
+                    "name": "Form\u00e1t k\u00f3du"
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "add_default_code": {
+            "message": "K\u00f3d pro {entity_id} neodpov\u00edd\u00e1 vzoru {code_format}."
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "Platforma {platform} pro integraci {domain} nepodporuje nastaven\u00ed platformy.\n\nOdeberte ji z nastaven\u00ed a restartujte Home Assistanta, abyste tento probl\u00e9m vy\u0159e\u0161ili.",
+            "title": "Podpora platformy nen\u00ed podporov\u00e1na"
+        }
+    },
+    "services": {
+        "lock": {
+            "description": "Zamkne z\u00e1mek.",
+            "fields": {
+                "code": {
+                    "description": "K\u00f3d pou\u017eit\u00fd k uzam\u010den\u00ed z\u00e1mku.",
+                    "name": "K\u00f3d"
+                }
+            },
+            "name": "Z\u00e1mek"
+        },
+        "open": {
+            "description": "Otev\u0159e z\u00e1mek.",
+            "fields": {
+                "code": {
+                    "description": "K\u00f3d pou\u017eit\u00fd k otev\u0159en\u00ed z\u00e1mku.",
+                    "name": "K\u00f3d"
+                }
+            },
+            "name": "Otev\u0159\u00edt"
+        },
+        "unlock": {
+            "description": "Odemkne z\u00e1mek.",
+            "fields": {
+                "code": {
+                    "description": "K\u00f3d pou\u017eit\u00fd k odemknut\u00ed z\u00e1mku.",
+                    "name": "K\u00f3d"
+                }
+            },
+            "name": "Odemknout"
+        }
+    },
+    "title": "Zamknout"
+}

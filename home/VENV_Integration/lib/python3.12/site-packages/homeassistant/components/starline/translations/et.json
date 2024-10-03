@@ -1,0 +1,162 @@
+{
+    "config": {
+        "error": {
+            "error_auth_app": "Vale rakenduse ID v\u00f5i salas\u00f5na",
+            "error_auth_mfa": "Vale kood",
+            "error_auth_user": "Vale kasutajanimi v\u00f5i salas\u00f5na"
+        },
+        "step": {
+            "auth_app": {
+                "data": {
+                    "app_id": "Rakenduse ID",
+                    "app_secret": "Salas\u00f5na"
+                },
+                "description": "Rakenduse ID ja [StarLine'i arendajakonto] salakood (https://my.starline.ru/developer)",
+                "title": "Rakenduse mandaadid"
+            },
+            "auth_captcha": {
+                "data": {
+                    "captcha_code": "Kood pildilt"
+                },
+                "description": "{captcha_img}",
+                "title": "Captcha"
+            },
+            "auth_mfa": {
+                "data": {
+                    "mfa_code": "SMS-kood"
+                },
+                "description": "Sisesta telefonile {phone_number} saadetud kood",
+                "title": "Kaheastmeline autoriseerimine"
+            },
+            "auth_user": {
+                "data": {
+                    "password": "Salas\u00f5na",
+                    "username": "Kasutajanimi"
+                },
+                "description": "StarLine konto e-post ja salas\u00f5na",
+                "title": "Kasutaja mandaat"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "alarm": {
+                "name": "Valveseade"
+            },
+            "doors": {
+                "name": "Uksed"
+            },
+            "hand_brake": {
+                "name": "K\u00e4sipidur"
+            },
+            "handsfree": {
+                "name": "K\u00e4ed vabad"
+            },
+            "hood": {
+                "name": "Kapott"
+            },
+            "moving_ban": {
+                "name": "Liikumiskeeld"
+            },
+            "neutral": {
+                "name": "Programmeeritav neutraalne"
+            },
+            "trunk": {
+                "name": "Pagasiruumi luuk"
+            }
+        },
+        "button": {
+            "horn": {
+                "name": "Horn"
+            }
+        },
+        "device_tracker": {
+            "location": {
+                "name": "Asukoht"
+            }
+        },
+        "lock": {
+            "security": {
+                "name": "Turvalisus"
+            }
+        },
+        "sensor": {
+            "balance": {
+                "name": "Tasakaal"
+            },
+            "battery": {
+                "name": "Aku"
+            },
+            "engine_temperature": {
+                "name": "Mootori temperatuur"
+            },
+            "errors": {
+                "name": "OBD vead"
+            },
+            "fuel": {
+                "name": "K\u00fctuse kogus"
+            },
+            "gps_count": {
+                "name": "GPS-satelliidid"
+            },
+            "gsm_signal": {
+                "name": "GSM signaal"
+            },
+            "interior_temperature": {
+                "name": "Sisetemperatuur"
+            },
+            "mileage": {
+                "name": "L\u00e4bis\u00f5it"
+            }
+        },
+        "switch": {
+            "additional_channel": {
+                "name": "Lisakanal"
+            },
+            "engine": {
+                "name": "Mootor"
+            },
+            "horn": {
+                "name": "Helisignaal"
+            },
+            "service_mode": {
+                "name": "Teenindusre\u017eiim"
+            },
+            "webasto": {
+                "name": "Webasto"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_horn_switch": {
+            "description": "Horn l\u00fcliti kasutamine on n\u00fc\u00fcdseks kaotanud kehtivuse ja see eemaldatakse Home Assistant'i tulevases versioonis.\n\nKohanda k\u00f5ik automatiseerimised v\u00f5i skriptid, mis kasutavad Horn switch olemeid, et kasutada selle asemel Horn button olemit.",
+            "title": "Starline Horn l\u00fcliti olem eemaldatakse"
+        }
+    },
+    "services": {
+        "set_scan_interval": {
+            "description": "M\u00e4\u00e4rab v\u00e4rskendussageduse.",
+            "fields": {
+                "scan_interval": {
+                    "description": "V\u00e4rskendamise sagedus.",
+                    "name": "P\u00e4ringute intervall"
+                }
+            },
+            "name": "M\u00e4\u00e4ra p\u00e4ringute intervall"
+        },
+        "set_scan_obd_interval": {
+            "description": "M\u00e4\u00e4rab OBD teabe v\u00e4rskendamise sageduse.",
+            "fields": {
+                "scan_interval": {
+                    "description": "V\u00e4rskendamise sagedus.",
+                    "name": "P\u00e4ringute intervall"
+                }
+            },
+            "name": "M\u00e4\u00e4ra OBD p\u00e4ringute intervall"
+        },
+        "update_state": {
+            "description": "Hangib StarLine'i serverist seadmete viimase oleku.\n.",
+            "name": "V\u00e4rskenda olekut"
+        }
+    }
+}

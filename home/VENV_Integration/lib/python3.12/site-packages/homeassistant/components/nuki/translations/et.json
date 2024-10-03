@@ -1,0 +1,89 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Seade on juba h\u00e4\u00e4lestatud",
+            "reauth_successful": "Taastuvastamine \u00f5nnestus"
+        },
+        "error": {
+            "cannot_connect": "\u00dchendamine nurjus",
+            "invalid_auth": "Vigane autentimine",
+            "unknown": "Ootamatu t\u00f5rge"
+        },
+        "step": {
+            "reauth_confirm": {
+                "data": {
+                    "encrypt_token": "Kasuta autentimiseks kr\u00fcptitud t\u00f5endit.",
+                    "token": "Juurdep\u00e4\u00e4sut\u00f5end"
+                },
+                "description": "Nuki sidumise peab sillaga uuesti autentima.",
+                "title": "{name} autentimine aegus"
+            },
+            "user": {
+                "data": {
+                    "encrypt_token": "Kasuta autentimiseks kr\u00fcptitud t\u00f5endit.",
+                    "host": "Host",
+                    "port": "Port",
+                    "token": "Juurdep\u00e4\u00e4sut\u00f5end"
+                },
+                "data_description": {
+                    "host": "Nuki silla hostinimi v\u00f5i IP-aadress. N\u00e4iteks: 192.168.1.25."
+                }
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "battery_critical": {
+                "name": "Aku laetus on  kriitiline"
+            },
+            "ring_action": {
+                "name": "Helisemise funktsioon"
+            }
+        },
+        "lock": {
+            "nuki_lock": {
+                "state_attributes": {
+                    "battery_critical": {
+                        "state": {
+                            "off": "Tavaline",
+                            "on": "Madal"
+                        }
+                    }
+                }
+            }
+        },
+        "sensor": {
+            "battery": {
+                "name": "Aku"
+            }
+        }
+    },
+    "issues": {
+        "https_webhook": {
+            "description": "Nuki sild ei saa edastada s\u00fcndmusi HTTPS-aadressile (SSL), seadista (kohalik) HTTP-aadress jaotises [v\u00f5rguseaded] ( {network_link} ) jaotises \u201eHome Assistant URL\u201d. Praegune (kohalik) aadress on: \u201e {base_url} \u201d, kehtiv aadress v\u00f5ib olla n\u00e4iteks 'http://192.168.1.10:8123', kus '192.168.1.10' on kHome Assistantiseadme IP.",
+            "title": "Nuki veebihaagi URL kasutab HTTPS-i (SSL)"
+        }
+    },
+    "services": {
+        "lock_n_go": {
+            "description": "Nuki Lock 'n' Go.",
+            "fields": {
+                "unlatch": {
+                    "description": "Luku avamine",
+                    "name": "Ava"
+                }
+            },
+            "name": "Lock 'n' go"
+        },
+        "set_continuous_mode": {
+            "description": "Lubab v\u00f5i keelab Nuki Openeris pideva re\u017eiimi.",
+            "fields": {
+                "enable": {
+                    "description": "Kas funktsioon lubada v\u00f5i keelata.",
+                    "name": "Luba"
+                }
+            },
+            "name": "M\u00e4\u00e4ra pidev re\u017eiim"
+        }
+    }
+}

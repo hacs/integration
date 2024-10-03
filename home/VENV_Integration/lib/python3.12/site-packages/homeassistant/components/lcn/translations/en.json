@@ -1,0 +1,352 @@
+{
+    "config": {
+        "abort": {
+            "reconfigure_successful": "Re-configuration was successful"
+        },
+        "error": {
+            "already_configured": "PCHK connection using the same ip address/port is already configured.",
+            "authentication_error": "Authentication failed. Wrong username or password.",
+            "connection_refused": "Unable to connect to PCHK. Check IP and port.",
+            "license_error": "Maximum number of connections was reached. An additional licence key is required."
+        },
+        "step": {
+            "reconfigure": {
+                "data": {
+                    "acknowledge": "Request acknowledgement from modules",
+                    "dim_mode": "Dimming mode",
+                    "ip_address": "IP address",
+                    "password": "Password",
+                    "port": "Port",
+                    "sk_num_tries": "Segment coupler scan attempts",
+                    "username": "Username"
+                },
+                "data_description": {
+                    "acknowledge": "Retry sendig commands if no response is received (increases bus traffic).",
+                    "dim_mode": "The number of steps used for dimming outputs."
+                },
+                "description": "Reconfigure connection to LCN host.",
+                "title": "Reconfigure LCN host"
+            },
+            "reconfigure_confirm": {
+                "data": {
+                    "acknowledge": "Request acknowledgement from modules",
+                    "dim_mode": "Dimming mode",
+                    "ip_address": "IP address",
+                    "password": "Password",
+                    "port": "Port",
+                    "sk_num_tries": "Segment coupler scan attempts",
+                    "username": "Username"
+                },
+                "data_description": {
+                    "acknowledge": "Retry sendig commands if no response is received (increases bus traffic).",
+                    "dim_mode": "The number of steps used for dimming outputs."
+                },
+                "description": "Reconfigure connection to LCN host.",
+                "title": "Reconfigure LCN host"
+            },
+            "user": {
+                "data": {
+                    "acknowledge": "Request acknowledgement from modules",
+                    "dim_mode": "Dimming mode",
+                    "host": "Name",
+                    "ip_address": "IP address",
+                    "password": "Password",
+                    "port": "Port",
+                    "sk_num_tries": "Segment coupler scan attempts",
+                    "username": "Username"
+                },
+                "data_description": {
+                    "acknowledge": "Retry sendig commands if no response is received (increases bus traffic).",
+                    "dim_mode": "The number of steps used for dimming outputs."
+                },
+                "description": "Set up new connection to LCN host.",
+                "title": "Setup LCN host"
+            }
+        }
+    },
+    "device_automation": {
+        "extra_fields": {
+            "action": "Action",
+            "code": "Code",
+            "key": "Key",
+            "level": "Level"
+        },
+        "trigger_type": {
+            "codelock": "Code lock code received",
+            "fingerprint": "Fingerprint code received",
+            "send_keys": "Send keys received",
+            "transmitter": "Transmitter code received",
+            "transponder": "Transponder code received"
+        }
+    },
+    "issues": {
+        "authentication_error": {
+            "description": "Configuring LCN using YAML is being removed but there was an error importing your YAML configuration.\n\nEnsure username and password are correct.\n\nConsider removing the LCN YAML configuration from your configuration.yaml file and continue to [set up the integration]({url}) manually.",
+            "title": "Authentication failed."
+        },
+        "connection_refused": {
+            "description": "Configuring LCN using YAML is being removed but there was an error importing your YAML configuration.\n\nEnsure the connection (IP and port) to the LCN bus coupler is correct.\n\nConsider removing the LCN YAML configuration from your configuration.yaml file and continue to [set up the integration]({url}) manually.",
+            "title": "Unable to connect to PCHK."
+        },
+        "license_error": {
+            "description": "Configuring LCN using YAML is being removed but there was an error importing your YAML configuration.\n\nEnsure sufficient PCHK licenses are registered and restart Home Assistant.\n\nConsider removing the LCN YAML configuration from your configuration.yaml file and continue to [set up the integration]({url}) manually.",
+            "title": "Maximum number of connections was reached."
+        }
+    },
+    "services": {
+        "dyn_text": {
+            "description": "Sends dynamic text to LCN-GTxD displays.",
+            "fields": {
+                "address": {
+                    "description": "Module address.",
+                    "name": "Address"
+                },
+                "row": {
+                    "description": "Text row.",
+                    "name": "Row"
+                },
+                "text": {
+                    "description": "Text to send (up to 60 characters encoded as UTF-8).",
+                    "name": "Text"
+                }
+            },
+            "name": "Dynamic text"
+        },
+        "led": {
+            "description": "Sets the led state.",
+            "fields": {
+                "address": {
+                    "description": "Module address.",
+                    "name": "Address"
+                },
+                "led": {
+                    "description": "Led.",
+                    "name": "LED"
+                },
+                "state": {
+                    "description": "Led state.",
+                    "name": "State"
+                }
+            },
+            "name": "LED"
+        },
+        "lock_keys": {
+            "description": "Locks keys.",
+            "fields": {
+                "address": {
+                    "description": "Module address.",
+                    "name": "Address"
+                },
+                "state": {
+                    "description": "Key lock states as string (1=on, 2=off, T=toggle, -=nochange).",
+                    "name": "State"
+                },
+                "table": {
+                    "description": "Table with keys to lock (must be A for interval).",
+                    "name": "Table"
+                },
+                "time": {
+                    "description": "Lock interval.",
+                    "name": "Time"
+                },
+                "time_unit": {
+                    "description": "Time unit of lock interval.",
+                    "name": "Time unit"
+                }
+            },
+            "name": "Lock keys"
+        },
+        "lock_regulator": {
+            "description": "Locks a regulator setpoint.",
+            "fields": {
+                "address": {
+                    "description": "Module address.",
+                    "name": "Address"
+                },
+                "setpoint": {
+                    "description": "Setpoint name.",
+                    "name": "Setpoint"
+                },
+                "state": {
+                    "description": "New setpoint state.",
+                    "name": "State"
+                }
+            },
+            "name": "Lock regulator"
+        },
+        "output_abs": {
+            "description": "Sets absolute brightness of output port in percent.",
+            "fields": {
+                "address": {
+                    "description": "Module address.",
+                    "name": "Address"
+                },
+                "brightness": {
+                    "description": "Absolute brightness.",
+                    "name": "Brightness"
+                },
+                "output": {
+                    "description": "Output port.",
+                    "name": "Output"
+                },
+                "transition": {
+                    "description": "Transition time.",
+                    "name": "Transition"
+                }
+            },
+            "name": "Output absolute brightness"
+        },
+        "output_rel": {
+            "description": "Sets relative brightness of output port in percent.",
+            "fields": {
+                "address": {
+                    "description": "Module address.",
+                    "name": "Address"
+                },
+                "brightness": {
+                    "description": "Relative brightness.",
+                    "name": "Brightness"
+                },
+                "output": {
+                    "description": "Output port.",
+                    "name": "Output"
+                }
+            },
+            "name": "Output relative brightness"
+        },
+        "output_toggle": {
+            "description": "Toggles output port.",
+            "fields": {
+                "address": {
+                    "description": "Module address.",
+                    "name": "Address"
+                },
+                "output": {
+                    "description": "Output port.",
+                    "name": "Output"
+                },
+                "transition": {
+                    "description": "Transition time.",
+                    "name": "Transition"
+                }
+            },
+            "name": "Toggle output"
+        },
+        "pck": {
+            "description": "Sends arbitrary PCK command.",
+            "fields": {
+                "address": {
+                    "description": "Module address.",
+                    "name": "Address"
+                },
+                "pck": {
+                    "description": "PCK command (without address header).",
+                    "name": "PCK"
+                }
+            },
+            "name": "PCK"
+        },
+        "relays": {
+            "description": "Sets the relays status.",
+            "fields": {
+                "address": {
+                    "description": "Module address.",
+                    "name": "Address"
+                },
+                "state": {
+                    "description": "Relays states as string (1=on, 2=off, t=toggle, -=no change).",
+                    "name": "State"
+                }
+            },
+            "name": "Relays"
+        },
+        "send_keys": {
+            "description": "Sends keys (which executes bound commands).",
+            "fields": {
+                "address": {
+                    "description": "Module address.",
+                    "name": "Address"
+                },
+                "keys": {
+                    "description": "Keys to send.",
+                    "name": "Keys"
+                },
+                "state": {
+                    "description": "Key state upon sending (must be hit for deferred).",
+                    "name": "State"
+                },
+                "time": {
+                    "description": "Send delay.",
+                    "name": "Time"
+                },
+                "time_unit": {
+                    "description": "Time unit of send delay.",
+                    "name": "Time unit"
+                }
+            },
+            "name": "Send keys"
+        },
+        "var_abs": {
+            "description": "Sets absolute value of a variable or setpoint.",
+            "fields": {
+                "address": {
+                    "description": "Module address.",
+                    "name": "Address"
+                },
+                "unit_of_measurement": {
+                    "description": "Unit of value.",
+                    "name": "Unit of measurement"
+                },
+                "value": {
+                    "description": "Value to set.",
+                    "name": "Value"
+                },
+                "variable": {
+                    "description": "Variable or setpoint name.",
+                    "name": "Variable"
+                }
+            },
+            "name": "Set absolute variable"
+        },
+        "var_rel": {
+            "description": "Shift value of a variable, setpoint or threshold.",
+            "fields": {
+                "address": {
+                    "description": "Module address.",
+                    "name": "Address"
+                },
+                "unit_of_measurement": {
+                    "description": "Unit of value.",
+                    "name": "Unit of measurement"
+                },
+                "value": {
+                    "description": "Shift value.",
+                    "name": "Value"
+                },
+                "value_reference": {
+                    "description": "Reference value for setpoint and threshold.",
+                    "name": "Reference value"
+                },
+                "variable": {
+                    "description": "Variable or setpoint name.",
+                    "name": "Variable"
+                }
+            },
+            "name": "Shift variable"
+        },
+        "var_reset": {
+            "description": "Resets value of variable or setpoint.",
+            "fields": {
+                "address": {
+                    "description": "Module address.",
+                    "name": "Address"
+                },
+                "variable": {
+                    "description": "Variable or setpoint name.",
+                    "name": "Variable"
+                }
+            },
+            "name": "Reset variable"
+        }
+    }
+}

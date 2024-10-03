@@ -1,0 +1,154 @@
+{
+    "device_automation": {
+        "action_type": {
+            "toggle": "Attiva/disattiva {entity_name}",
+            "turn_off": "Disattiva {entity_name}",
+            "turn_on": "Attiva {entity_name}"
+        },
+        "condition_type": {
+            "is_off": "{entity_name} \u00e8 disattivato",
+            "is_on": "{entity_name} \u00e8 attivo"
+        },
+        "trigger_type": {
+            "changed_states": "{entity_name} attivato o disattivato",
+            "turned_off": "{entity_name} disattivato",
+            "turned_on": "{entity_name} attivato"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Ventilatore",
+            "state": {
+                "off": "Spento/a",
+                "on": "Acceso/a"
+            },
+            "state_attributes": {
+                "direction": {
+                    "name": "Direzione",
+                    "state": {
+                        "forward": "Verso avanti",
+                        "reverse": "Verso dietro"
+                    }
+                },
+                "oscillating": {
+                    "name": "Oscillante",
+                    "state": {
+                        "false": "No",
+                        "true": "S\u00ec"
+                    }
+                },
+                "percentage": {
+                    "name": "Velocit\u00e0"
+                },
+                "percentage_step": {
+                    "name": "Passo di velocit\u00e0"
+                },
+                "preset_mode": {
+                    "name": "Modalit\u00e0 preimpostata"
+                },
+                "preset_modes": {
+                    "name": "Modalit\u00e0 preimpostate disponibili"
+                }
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "La piattaforma {platform} per l'integrazione {domain} non supporta l'impostazione della piattaforma. \n\nRimuovilo dalla configurazione e riavvia Home Assistant per risolvere questo problema.",
+            "title": "Supporto della piattaforma non supportato"
+        }
+    },
+    "selector": {
+        "direction": {
+            "options": {
+                "forward": "Avanti",
+                "reverse": "Indietro"
+            }
+        }
+    },
+    "services": {
+        "decrease_speed": {
+            "description": "Diminuisce la velocit\u00e0 del ventilatore.",
+            "fields": {
+                "percentage_step": {
+                    "description": "Diminuisce la velocit\u00e0 di un passo percentuale.",
+                    "name": "Decrementa"
+                }
+            },
+            "name": "Diminuisci la velocit\u00e0"
+        },
+        "increase_speed": {
+            "description": "Aumenta la velocit\u00e0 del ventilatore.",
+            "fields": {
+                "percentage_step": {
+                    "description": "Aumenta la velocit\u00e0 di un passo percentuale.",
+                    "name": "Incrementa"
+                }
+            },
+            "name": "Aumenta la velocit\u00e0"
+        },
+        "oscillate": {
+            "description": "Controlla l'oscillazione del ventilatore.",
+            "fields": {
+                "oscillating": {
+                    "description": "Attiva/disattiva l'oscillazione.",
+                    "name": "Oscillante"
+                }
+            },
+            "name": "Oscillazione"
+        },
+        "set_direction": {
+            "description": "Imposta la direzione di rotazione della ventola.",
+            "fields": {
+                "direction": {
+                    "description": "Direzione di rotazione.",
+                    "name": "Direzione"
+                }
+            },
+            "name": "Imposta la direzione"
+        },
+        "set_percentage": {
+            "description": "Imposta la velocit\u00e0 del ventilatore.",
+            "fields": {
+                "percentage": {
+                    "description": "Velocit\u00e0 del ventilatore.",
+                    "name": "Percentuale"
+                }
+            },
+            "name": "Imposta la velocit\u00e0"
+        },
+        "set_preset_mode": {
+            "description": "Imposta la modalit\u00e0 preimpostata.",
+            "fields": {
+                "preset_mode": {
+                    "description": "Modalit\u00e0 preimpostata.",
+                    "name": "Modalit\u00e0 preimpostata"
+                }
+            },
+            "name": "Imposta la modalit\u00e0 preimpostata"
+        },
+        "toggle": {
+            "description": "Attiva/disattiva il ventilatore.",
+            "name": "Commuta"
+        },
+        "turn_off": {
+            "description": "Spegne il ventilatore.",
+            "name": "Spegni"
+        },
+        "turn_on": {
+            "description": "Accende il ventilatore.",
+            "fields": {
+                "percentage": {
+                    "description": "Velocit\u00e0 del ventilatore.",
+                    "name": "Percentuale"
+                },
+                "preset_mode": {
+                    "description": "Modalit\u00e0 preimpostata.",
+                    "name": "Modalit\u00e0 preimpostata"
+                }
+            },
+            "name": "Accendi"
+        }
+    },
+    "title": "Ventilatore"
+}

@@ -1,0 +1,36 @@
+{
+    "entity": {
+        "binary_sensor": {
+            "assist_in_progress": {
+                "name": "Assist en cours"
+            }
+        },
+        "select": {
+            "pipeline": {
+                "state": {
+                    "preferred": "Pr\u00e9f\u00e9r\u00e9"
+                }
+            },
+            "vad_sensitivity": {
+                "name": "D\u00e9tection de fin de la parole",
+                "state": {
+                    "aggressive": "Agressif",
+                    "default": "Par d\u00e9faut",
+                    "relaxed": "D\u00e9tendu"
+                }
+            }
+        }
+    },
+    "issues": {
+        "assist_in_progress_deprecated": {
+            "fix_flow": {
+                "step": {
+                    "confirm_disable_entity": {
+                        "description": "Le capteur binaire {integration_name} Assist en cours (`{entity_id}`) est obsol\u00e8te. \n\nSi vous utilisez ce capteur dans vos tableaux de bord, scripts ou automatisations, vous devez d\u00e9sormais utiliser la nouvelle entit\u00e9 `{assist_satellite_domain}`. \n\nUne fois la migration effectu\u00e9e ou si vous ne l'utilisez pas, vous pouvez cliquer sur VALIDER pour le d\u00e9sactiver et r\u00e9soudre ce probl\u00e8me."
+                    }
+                }
+            },
+            "title": "Les capteurs binaires {integration_name} Assist en cours sont obsol\u00e8tes"
+        }
+    }
+}

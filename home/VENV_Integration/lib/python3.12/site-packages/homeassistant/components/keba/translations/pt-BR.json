@@ -1,0 +1,62 @@
+{
+    "services": {
+        "authorize": {
+            "description": "Autoriza um processo de carregamento com a etiqueta RFID pr\u00e9-definida do arquivo de configura\u00e7\u00e3o.",
+            "name": "Autorizar"
+        },
+        "deauthorize": {
+            "description": "Desautoriza o processo de carregamento em execu\u00e7\u00e3o com a tag RFID predefinida do arquivo de configura\u00e7\u00e3o.",
+            "name": "Desautorizar"
+        },
+        "disable": {
+            "description": "Interrompe o processo de carregamento se a esta\u00e7\u00e3o de carregamento for autorizada.",
+            "name": "Desativar"
+        },
+        "enable": {
+            "description": "Inicia um processo de carregamento se a esta\u00e7\u00e3o de carregamento estiver autorizada.",
+            "name": "Ativar"
+        },
+        "request_data": {
+            "description": "Solicite novos dados da esta\u00e7\u00e3o de carregamento.",
+            "name": "Solicitar dados"
+        },
+        "set_current": {
+            "description": "Define a corrente m\u00e1xima para processos de carregamento.",
+            "fields": {
+                "current": {
+                    "description": "A corrente m\u00e1xima usada para o processo de carregamento. O valor depende das configura\u00e7\u00f5es do interruptor DIP e do cabo usado da esta\u00e7\u00e3o de carregamento.",
+                    "name": "Corrente"
+                }
+            },
+            "name": "Definir corrente"
+        },
+        "set_energy": {
+            "description": "Define a meta de energia ap\u00f3s a qual o processo de carregamento \u00e9 interrompido.",
+            "fields": {
+                "energy": {
+                    "description": "A meta de energia para parar de carregar. A configura\u00e7\u00e3o 0 desativa o limite.",
+                    "name": "Energia"
+                }
+            },
+            "name": "Definir energia"
+        },
+        "set_failsafe": {
+            "description": "Define o modo \u00e0 prova de falhas da esta\u00e7\u00e3o de carregamento. Se todos os par\u00e2metros forem 0, o modo \u00e0 prova de falhas ser\u00e1 desabilitado.",
+            "fields": {
+                "failsafe_fallback": {
+                    "description": "Corrente de fallback a ser definida ap\u00f3s o tempo limite.",
+                    "name": "Alternativa \u00e0 prova de falhas"
+                },
+                "failsafe_persist": {
+                    "description": "Se failsafe_persist for 0, a op\u00e7\u00e3o \u00e0 prova de falhas ser\u00e1 somente at\u00e9 a reinicializa\u00e7\u00e3o da esta\u00e7\u00e3o de carregamento. Se failsafe_persist for 1, a op\u00e7\u00e3o \u00e0 prova de falhas sobreviver\u00e1 a uma reinicializa\u00e7\u00e3o.",
+                    "name": "Persist\u00eancia \u00e0 prova de falhas"
+                },
+                "failsafe_timeout": {
+                    "description": "Tempo limite ap\u00f3s o qual o modo \u00e0 prova de falhas \u00e9 acionado, se set_current n\u00e3o foi executado durante esse tempo.",
+                    "name": "Tempo limite \u00e0 prova de falhas"
+                }
+            },
+            "name": "Definir \u00e0 prova de falhas"
+        }
+    }
+}

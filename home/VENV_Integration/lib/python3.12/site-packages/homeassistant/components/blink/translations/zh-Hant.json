@@ -1,0 +1,191 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "\u88dd\u7f6e\u5df2\u7d93\u8a2d\u5b9a\u5b8c\u6210"
+        },
+        "error": {
+            "cannot_connect": "\u9023\u7dda\u5931\u6557",
+            "invalid_access_token": "\u5b58\u53d6\u6b0a\u6756\u7121\u6548",
+            "invalid_auth": "\u8eab\u4efd\u9a57\u8b49\u7121\u6548",
+            "unknown": "\u672a\u9810\u671f\u932f\u8aa4"
+        },
+        "step": {
+            "2fa": {
+                "data": {
+                    "2fa": "\u96d9\u91cd\u8a8d\u8b49\u78bc"
+                },
+                "description": "\u8f38\u5165\u90f5\u4ef6\u6216\u7c21\u8a0a\u6240\u6536\u5230 PIN \u78bc",
+                "title": "\u96d9\u91cd\u8a8d\u8b49"
+            },
+            "user": {
+                "data": {
+                    "password": "\u5bc6\u78bc",
+                    "username": "\u4f7f\u7528\u8005\u540d\u7a31"
+                },
+                "title": "\u4ee5 Blink \u5e33\u865f\u767b\u5165"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "camera_armed": {
+                "name": "\u651d\u5f71\u6a5f\u555f\u7528"
+            }
+        },
+        "sensor": {
+            "wifi_rssi": {
+                "name": "Wi-Fi RSSI"
+            },
+            "wifi_strength": {
+                "name": "Wi-Fi \u8a0a\u865f\u5f37\u5ea6"
+            }
+        },
+        "switch": {
+            "camera_motion": {
+                "name": "\u651d\u5f71\u6a5f\u52d5\u4f5c\u611f\u6e2c"
+            }
+        }
+    },
+    "exceptions": {
+        "cant_write": {
+            "message": "\u7121\u6cd5\u5beb\u5165\u6a94\u6848\u3002"
+        },
+        "device_not_found": {
+            "message": "\u88dd\u7f6e\u8a3b\u518a\u8868\u4e2d\u627e\u4e0d\u5230\u88dd\u7f6e '{target}'"
+        },
+        "failed_arm": {
+            "message": "Blink \u8a2d\u5b9a\u651d\u5f71\u6a5f\u8b66\u6212\u5931\u6557\u3002"
+        },
+        "failed_arm_motion": {
+            "message": "Blink \u958b\u555f\u651d\u5f71\u6a5f\u52d5\u4f5c\u611f\u6e2c\u8b66\u6212\u5931\u6557\u3002"
+        },
+        "failed_clip": {
+            "message": "Blink \u9304\u88fd\u526a\u8f2f\u5931\u6557\u3002"
+        },
+        "failed_disarm": {
+            "message": "Blink \u89e3\u9664\u651d\u5f71\u6a5f\u8b66\u6212\u5931\u6557\u3002"
+        },
+        "failed_disarm_motion": {
+            "message": "Blink \u651d\u5f71\u6a5f\u52d5\u4f5c\u611f\u6e2c\u5931\u6557\u3002"
+        },
+        "failed_snap": {
+            "message": "Blink \u62cd\u7167\u5931\u6557\u3002"
+        },
+        "integration_not_found": {
+            "message": "\u88dd\u7f6e\u8a3b\u518a\u8868\u4e2d\u627e\u4e0d\u5230\u6574\u5408 \"{target}\"\u3002"
+        },
+        "invalid_device": {
+            "message": "\u88dd\u7f6e '{target}' \u4e26\u975e {domain} \u88dd\u7f6e"
+        },
+        "no_path": {
+            "message": "\u7121\u6cd5\u5beb\u5165\u8cc7\u6599\u593e {target}\u3001\u7121\u6cd5\u5b58\u53d6\u8def\u5f91\uff01"
+        },
+        "not_loaded": {
+            "message": "{target} \u672a\u8f09\u5165\u3002"
+        }
+    },
+    "issues": {
+        "service_deprecation": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Blink \u66f4\u65b0\u670d\u52d9\u5df2\u4e0d\u518d\u4f7f\u7528\u4e26\u5373\u5c07\u79fb\u9664\u3002\n\u8acb\u66f4\u65b0\u81ea\u52d5\u5316\u8207\u8173\u672c\u4ee5\u4f7f\u7528 `Home Assistant Core Integration: Update entity`\u3002",
+                        "title": "Blink \u66f4\u65b0\u670d\u52d9\u5373\u5c07\u79fb\u9664"
+                    }
+                }
+            },
+            "title": "Blink \u66f4\u65b0\u670d\u52d9\u5373\u5c07\u79fb\u9664"
+        }
+    },
+    "options": {
+        "step": {
+            "simple_options": {
+                "data": {
+                    "scan_interval": "\u6383\u63cf\u9593\u8ddd\uff08\u79d2\uff09"
+                },
+                "description": "\u8a2d\u5b9a Blink \u6574\u5408",
+                "title": "Blink \u9078\u9805"
+            }
+        }
+    },
+    "services": {
+        "blink_update": {
+            "description": "\u5f37\u5236\u66f4\u65b0\u3002",
+            "fields": {
+                "device_id": {
+                    "description": "Blink \u88dd\u7f6e ID\u3002",
+                    "name": "\u88dd\u7f6e ID"
+                }
+            },
+            "name": "\u66f4\u65b0"
+        },
+        "record": {
+            "description": "\u8acb\u6c42\u651d\u5f71\u6a5f\u9304\u88fd\u526a\u8f2f\u7247\u6bb5\u3002",
+            "name": "\u9304\u5f71"
+        },
+        "save_recent_clips": {
+            "description": "\u4ee5\u6a94\u6848\u540d\u7a31\u683c\u5f0f \"%Y%m%d_%H%M%S_[camera name].mp4\" \u5132\u5b58\u6240\u6709\u6700\u8fd1\u7684\u5f71\u7247\u81f3\u672c\u5730\u8cc7\u6599\u593e\u3002",
+            "fields": {
+                "device_id": {
+                    "description": "Blink \u88dd\u7f6e ID\u3002",
+                    "name": "\u88dd\u7f6e ID"
+                },
+                "file_path": {
+                    "description": "\u5beb\u5165\u8def\u5f91\uff08\u53ef\u80fd\u9700\u8981\u65bc\u8a2d\u5b9a\u4e2d\u5305\u542b allowlist_external_dirs \u4ee5\u8a2d\u5b9a\u8cc7\u6599\u593e\uff09\u4e4b\u8cc7\u6599\u593e\u540d\u7a31\u3002",
+                    "name": "\u8f38\u51fa\u8cc7\u6599\u593e"
+                },
+                "name": {
+                    "description": "\u7372\u53d6\u6700\u8fd1\u5f71\u7247\u7684\u651d\u5f71\u6a5f\u540d\u7a31\u3002",
+                    "name": "\u540d\u7a31"
+                }
+            },
+            "name": "\u5132\u5b58\u6700\u8fd1\u7684\u5f71\u7247"
+        },
+        "save_video": {
+            "description": "\u5132\u5b58\u6700\u65b0\u9304\u5f71\u4e4b\u5f71\u7247\u81f3\u672c\u5730\u6a94\u6848\u3002",
+            "fields": {
+                "device_id": {
+                    "description": "Blink \u88dd\u7f6e ID\u3002",
+                    "name": "\u88dd\u7f6e ID"
+                },
+                "filename": {
+                    "description": "\u5beb\u5165\u8def\u5f91\uff08\u53ef\u80fd\u9700\u8981\u65bc\u8a2d\u5b9a\u4e2d\u5305\u542b allowlist_external_dirs \u4ee5\u8a2d\u5b9a\u8cc7\u6599\u593e\uff09\u4e4b\u6a94\u6848\u540d\u7a31\u3002",
+                    "name": "\u6a94\u6848\u540d\u7a31"
+                },
+                "name": {
+                    "description": "\u7372\u53d6\u5f71\u50cf\u7684\u651d\u5f71\u6a5f\u540d\u7a31\u3002",
+                    "name": "\u540d\u7a31"
+                }
+            },
+            "name": "\u5132\u5b58\u5f71\u7247"
+        },
+        "send_pin": {
+            "description": "\u767c\u9001\u65b0 PIN \u78bc\u4ee5\u9032\u884c blink 2FA \u9a57\u8b49\u3002",
+            "fields": {
+                "config_entry_id": {
+                    "description": "Blink \u6574\u5408 ID\u3002",
+                    "name": "\u6574\u5408 ID"
+                },
+                "device_id": {
+                    "description": "Blink \u88dd\u7f6e ID\u3002",
+                    "name": "\u88dd\u7f6e ID"
+                },
+                "pin": {
+                    "description": "\u5f9e blink \u6240\u6536\u5230\u7684 PIN\u3002\u5982\u679c\u53ea\u6536\u5230\u4e86\u9a57\u8b49\u96fb\u5b50\u90f5\u4ef6\u3001\u8acb\u4fdd\u7559\u7a7a\u767d\u3002",
+                    "name": "PIN"
+                }
+            },
+            "name": "\u50b3\u9001 PIN"
+        },
+        "trigger_camera": {
+            "description": "\u8acb\u6c42\u651d\u5f71\u6a5f\u62cd\u651d\u65b0\u5f71\u50cf\u3002",
+            "fields": {
+                "device_id": {
+                    "description": "Blink \u88dd\u7f6e ID\u3002",
+                    "name": "\u88dd\u7f6e ID"
+                }
+            },
+            "name": "\u89f8\u767c\u651d\u5f71\u6a5f"
+        }
+    }
+}

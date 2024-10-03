@@ -1,0 +1,76 @@
+{
+    "config": {
+        "step": {
+            "user": {
+                "data": {
+                    "always_available": "Sensori aina k\u00e4ytett\u00e4viss\u00e4",
+                    "cycle": "Mittarin nollausjakso",
+                    "delta_values": "Delta-arvot",
+                    "name": "Nimi",
+                    "net_consumption": "Nettokulutus",
+                    "offset": "Mittarin nollauspoikkeama",
+                    "periodically_resetting": "M\u00e4\u00e4r\u00e4ajoin tapahtuva nollaus",
+                    "source": "Tulosensori",
+                    "tariffs": "Tuetut tariffit"
+                },
+                "data_description": {
+                    "always_available": "Jos t\u00e4m\u00e4 on aktivoitu, sensori n\u00e4ytt\u00e4\u00e4 aina viimeisimm\u00e4n tunnetun arvon, vaikka l\u00e4hde ei olisi k\u00e4ytett\u00e4viss\u00e4 tai tuntematon.",
+                    "delta_values": "Ota k\u00e4ytt\u00f6\u00f6n, jos l\u00e4hdearvot ovat delta-arvoja edellisest\u00e4 lukemasta absoluuttisten arvojen sijaan.",
+                    "net_consumption": "Ota k\u00e4ytt\u00f6\u00f6n, jos l\u00e4hde on nettomittari, eli se voi sek\u00e4 kasvaa ett\u00e4 pienenty\u00e4.",
+                    "offset": "Kuukausittaisen mittarin nollausp\u00e4iv\u00e4n poikkeama.",
+                    "periodically_resetting": "Ota k\u00e4ytt\u00f6\u00f6n, jos l\u00e4hde voi ajoittain nollautua arvoon 0, esimerkiksi mittauslaitteen k\u00e4ynnistyksen yhteydess\u00e4. Jos asetus poistetaan k\u00e4yt\u00f6st\u00e4, uudet lukemat tallennetaan suoraan tietojen k\u00e4ytt\u00f6katkon j\u00e4lkeen.",
+                    "tariffs": "Luettelo tuetuista tariffeista, j\u00e4t\u00e4 tyhj\u00e4ksi, jos tarvitaan vain yksi tariffi."
+                },
+                "description": "Luo sensori, joka seuraa eri energiamuotojen (esim. energia, kaasu, vesi, l\u00e4mmitys) kulutusta m\u00e4\u00e4ritetyn ajanjakson aikana, yleens\u00e4 kuukausittain. Energiamittarin sensori tukee valinnaisesti kulutuksen jakamista tariffien mukaan, jolloin luodaan yksi sensori kutakin tariffia varten sek\u00e4 valintakentt\u00e4 nykyisen tariffin valitsemista varten.",
+                "title": "Lis\u00e4\u00e4 kulutusmittari"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "always_available": "Sensori aina k\u00e4ytett\u00e4viss\u00e4",
+                    "periodically_resetting": "M\u00e4\u00e4r\u00e4ajoin tapahtuva nollaus",
+                    "source": "Tulosensori"
+                },
+                "data_description": {
+                    "always_available": "Jos t\u00e4m\u00e4 on aktivoitu, sensori n\u00e4ytt\u00e4\u00e4 aina viimeisimm\u00e4n tunnetun arvon, vaikka l\u00e4hde ei olisi k\u00e4ytett\u00e4viss\u00e4 tai tuntematon.",
+                    "periodically_resetting": "Ota k\u00e4ytt\u00f6\u00f6n, jos l\u00e4hde voi ajoittain nollautua arvoon 0, esimerkiksi mittauslaitteen k\u00e4ynnistyksen yhteydess\u00e4. Jos asetus poistetaan k\u00e4yt\u00f6st\u00e4, uudet lukemat tallennetaan suoraan tietojen k\u00e4ytt\u00f6katkon j\u00e4lkeen."
+                }
+            }
+        }
+    },
+    "selector": {
+        "cycle": {
+            "options": {
+                "bimonthly": "Joka toinen kuukausi",
+                "daily": "P\u00e4ivitt\u00e4in",
+                "hourly": "Tunneittain",
+                "monthly": "Kuukausittain",
+                "none": "Ei sykli\u00e4",
+                "quarter-hourly": "15 minuutin v\u00e4lein",
+                "quarterly": "Nelj\u00e4nnesvuosittain",
+                "weekly": "Viikoittain",
+                "yearly": "Vuosittain"
+            }
+        }
+    },
+    "services": {
+        "calibrate": {
+            "description": "Kalibroi kulutusmittarin anturin.",
+            "fields": {
+                "value": {
+                    "description": "Arvo, johon mittari asetetaan.",
+                    "name": "Arvo"
+                }
+            },
+            "name": "Kalibroi"
+        },
+        "reset": {
+            "description": "Nollaa kaikki kulutusmittarin laskurit.",
+            "name": "Nollaa"
+        }
+    },
+    "title": "Kulutusmittari"
+}

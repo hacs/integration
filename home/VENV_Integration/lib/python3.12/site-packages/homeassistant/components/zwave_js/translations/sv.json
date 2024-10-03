@@ -1,0 +1,592 @@
+{
+    "config": {
+        "abort": {
+            "addon_get_discovery_info_failed": "Det gick inte att h\u00e4mta Z-Wave JS-till\u00e4ggsuppt\u00e4cktsinformation.",
+            "addon_info_failed": "Det gick inte att h\u00e4mta Z-Wave JS-till\u00e4ggsinformation.",
+            "addon_install_failed": "Det gick inte att installera Z-Wave JS-till\u00e4gget.",
+            "addon_set_config_failed": "Det gick inte att st\u00e4lla in Z-Wave JS-konfiguration.",
+            "addon_start_failed": "Det gick inte att starta Z-Wave JS-till\u00e4gget.",
+            "already_configured": "Enheten \u00e4r redan konfigurerad",
+            "already_in_progress": "Konfigurationsfl\u00f6det p\u00e5g\u00e5r redan",
+            "cannot_connect": "Det gick inte att ansluta.",
+            "discovery_requires_supervisor": "Uppt\u00e4ckt kr\u00e4ver Supervisor.",
+            "not_zwave_device": "Uppt\u00e4ckt enhet \u00e4r inte en Z-Wave-enhet.",
+            "not_zwave_js_addon": "Uppt\u00e4ckt till\u00e4gg \u00e4r inte det officiella Z-Wave JS till\u00e4gget."
+        },
+        "error": {
+            "addon_start_failed": "Det gick inte att starta Z-Wave JS-till\u00e4gget. Kontrollera konfigurationen.",
+            "cannot_connect": "Det gick inte att ansluta.",
+            "invalid_ws_url": "Ogiltig websocket-URL",
+            "unknown": "Ov\u00e4ntat fel"
+        },
+        "flow_title": "{name}",
+        "progress": {
+            "install_addon": "V\u00e4nta medan installationen av Z-Wave JS-till\u00e4gget slutf\u00f6rs. Detta kan ta flera minuter.",
+            "start_addon": "V\u00e4nta medan Z-Wave JS-till\u00e4ggsstarten slutf\u00f6rs. Detta kan ta n\u00e5gra sekunder."
+        },
+        "step": {
+            "configure_addon": {
+                "data": {
+                    "s0_legacy_key": "S0-nyckel (\u00e4ldre)",
+                    "s2_access_control_key": "S2-\u00e5tkomstkontrollnyckel",
+                    "s2_authenticated_key": "S2 Autentiserad nyckel",
+                    "s2_unauthenticated_key": "S2 oautentiserad nyckel",
+                    "usb_path": "USB-enhetens s\u00f6kv\u00e4g"
+                },
+                "description": "Till\u00e4gget genererar s\u00e4kerhetsnycklar om dessa f\u00e4lt l\u00e4mnas tomma.",
+                "title": "G\u00e5 in i konfigurationen f\u00f6r till\u00e4gget Z-Wave JS"
+            },
+            "hassio_confirm": {
+                "title": "Konfigurera Z-Wave JS-integration med till\u00e4gget Z-Wave JS"
+            },
+            "install_addon": {
+                "title": "Z-Wave JS-till\u00e4ggsinstallationen har startat"
+            },
+            "manual": {
+                "data": {
+                    "url": "URL"
+                }
+            },
+            "on_supervisor": {
+                "data": {
+                    "use_addon": "Anv\u00e4nd Z-Wave JS Supervisor-till\u00e4gget"
+                },
+                "description": "Vill du anv\u00e4nda Z-Wave JS Supervisor-till\u00e4gget?",
+                "title": "V\u00e4lj anslutningsmetod"
+            },
+            "start_addon": {
+                "title": "Z-Wave JS-till\u00e4gget startar."
+            },
+            "usb_confirm": {
+                "description": "Vill du konfigurera {name} med Z-Wave JS till\u00e4gget?"
+            },
+            "zeroconf_confirm": {
+                "description": "Vill du l\u00e4gga till Z-Wave JS Server med hem-ID {home_id} finns p\u00e5 {url} till Home Assistant?",
+                "title": "Uppt\u00e4ckte Z-Wave JS Server"
+            }
+        }
+    },
+    "device_automation": {
+        "action_type": {
+            "clear_lock_usercode": "Rensa anv\u00e4ndarkoden p\u00e5 {entity_name}",
+            "ping": "Pinga enhet",
+            "refresh_value": "Uppdatera v\u00e4rdet/v\u00e4rdena f\u00f6r {entity_name}",
+            "reset_meter": "\u00c5terst\u00e4ll m\u00e4tare p\u00e5 {subtype}",
+            "set_config_parameter": "Ange v\u00e4rde f\u00f6r konfigurationsparametern {subtype}",
+            "set_lock_usercode": "Ange en anv\u00e4ndarkod p\u00e5 {entity_name}",
+            "set_value": "St\u00e4ll in v\u00e4rdet f\u00f6r ett Z-Wave-v\u00e4rde"
+        },
+        "condition_type": {
+            "config_parameter": "V\u00e4rde f\u00f6r konfigurationsparameter {subtype}",
+            "node_status": "Nodstatus",
+            "value": "Nuvarande v\u00e4rde f\u00f6r ett Z-Wave v\u00e4rde"
+        },
+        "extra_fields": {
+            "code_slot": "Kodplats",
+            "command_class": "Kommandoklass",
+            "data_type": "Datatyp",
+            "endpoint": "Slutpunkt",
+            "event": "H\u00e4ndelse",
+            "event_label": "H\u00e4ndelseetikett",
+            "event_type": "Typ av h\u00e4ndelse",
+            "for": "Varaktighet",
+            "from": "Fr\u00e5n",
+            "label": "Etikett",
+            "property": "Egenskap",
+            "property_key": "Egenskapsnyckel",
+            "refresh_all_values": "Uppdatera alla v\u00e4rden",
+            "status": "Status",
+            "to": "Till",
+            "type.": "Typ",
+            "usercode": "Anv\u00e4ndarkod",
+            "value": "V\u00e4rde",
+            "wait_for_result": "V\u00e4nta p\u00e5 svar"
+        },
+        "trigger_type": {
+            "event.notification.entry_control": "Skickat ett meddelande om kontroll av intr\u00e4de",
+            "event.notification.notification": "Skickade ett meddelande",
+            "event.value_notification.basic": "Grundl\u00e4ggande CC-h\u00e4ndelse p\u00e5 {subtype}",
+            "event.value_notification.central_scene": "Central scen\u00e5tg\u00e4rd p\u00e5 {subtype}",
+            "event.value_notification.scene_activation": "Scenaktivering p\u00e5 {subtype}",
+            "state.node_status": "Nodstatus \u00e4ndrad",
+            "zwave_js.value_updated.config_parameter": "V\u00e4rde\u00e4ndring p\u00e5 konfigurationsparameter {subtype}",
+            "zwave_js.value_updated.value": "V\u00e4rdef\u00f6r\u00e4ndring p\u00e5 ett Z-Wave JS-v\u00e4rde"
+        }
+    },
+    "entity": {
+        "button": {
+            "ping": {
+                "name": "Ping"
+            }
+        },
+        "sensor": {
+            "average_background_rssi": {
+                "name": "Genomsnittlig bakgrunds-RSSI (kanal {channel} )"
+            },
+            "can": {
+                "name": "Kollisioner"
+            },
+            "commands_dropped": {
+                "name": "Tappade kommandon ({direction})"
+            },
+            "controller_status": {
+                "name": "Status",
+                "state": {
+                    "jammed": "Fastnat",
+                    "ready": "Redo"
+                }
+            },
+            "last_seen": {
+                "name": "Senast sedd"
+            },
+            "messages_dropped": {
+                "name": "Tappade meddelanden ({direction})"
+            },
+            "nak": {
+                "name": "Ej accepterade meddelanden"
+            },
+            "node_status": {
+                "name": "Nodstatus",
+                "state": {
+                    "alive": "Levande",
+                    "asleep": "Sover",
+                    "awake": "Vaken",
+                    "dead": "D\u00f6d",
+                    "unknown": "Ok\u00e4nd"
+                }
+            },
+            "rssi": {
+                "name": "RSSI"
+            },
+            "successful_commands": {
+                "name": "Lyckade kommandon ( {direction} )"
+            },
+            "successful_messages": {
+                "name": "Lyckade meddelanden ({direction})"
+            },
+            "timeout_response": {
+                "name": "Timeout-svar"
+            }
+        }
+    },
+    "issues": {
+        "device_config_file_changed": {
+            "fix_flow": {
+                "abort": {
+                    "cannot_connect": "Kan inte ansluta till {device_name}. F\u00f6rs\u00f6k igen senare n\u00e4r du har bekr\u00e4ftat att ditt Z-Wave-n\u00e4tverk \u00e4r uppkopplat och anslutet till Home Assistant."
+                },
+                "step": {
+                    "confirm": {
+                        "description": "Konfigurationsfilen f\u00f6r {device_name} har \u00e4ndrats.\n\nZ-Wave JS uppt\u00e4cker mycket av enhetens metadata genom att fr\u00e5ga enheten. En del av informationen m\u00e5ste dock laddas fr\u00e5n en konfigurationsfil. En del av denna information utv\u00e4rderas bara en g\u00e5ng, n\u00e4r enheten tillfr\u00e5gas.\n\nN\u00e4r en enhets konfigurationsfil uppdateras kan denna information vara inaktuell och enheten m\u00e5ste tillfr\u00e5gas p\u00e5 nytt f\u00f6r att h\u00e4mta \u00e4ndringarna.\n\nDetta \u00e4r inte en obligatorisk \u00e5tg\u00e4rd och enhetens funktionalitet kommer att p\u00e5verkas under den nya tillfr\u00e5gningen, men du kan se att din enhet har f\u00f6rb\u00e4ttrats n\u00e4r den \u00e4r klar.\n\nOm du vill forts\u00e4tta klickar du p\u00e5 S\u00c4ND nedan. Den nya tillfr\u00e5gningen kommer att ske i bakgrunden.",
+                        "title": "Konfigurationsfil f\u00f6r Z-Wave-enhet \u00e4ndrad: {device_name}"
+                    },
+                    "init": {
+                        "title": "Enhetens konfigurationsfil har \u00e4ndrats: {device_name}"
+                    }
+                }
+            },
+            "title": "Konfigurationsfil f\u00f6r Z-Wave-enhet \u00e4ndrad: {device_name}"
+        },
+        "dry_fan_presets_deprecation": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Du anv\u00e4nder f\u00f6rinst\u00e4llningsl\u00e4gena Torr eller Fl\u00e4kt i din enhet `{entity_id}`.\n\nF\u00f6rinst\u00e4llningsl\u00e4gena Torr och Fl\u00e4kt \u00e4r f\u00f6r\u00e5ldrade och kommer att tas bort. Uppdatera dina automatiseringar s\u00e5 att de ist\u00e4llet anv\u00e4nder motsvarande **HVAC-l\u00e4gen** f\u00f6r Torr och Fl\u00e4kt.\n\nKlicka p\u00e5 S\u00c4ND nedan n\u00e4r du har \u00e5tg\u00e4rdat problemet manuellt.",
+                        "title": "F\u00f6rinst\u00e4llda l\u00e4gen f\u00f6r Torr och Fl\u00e4kt kommer att tas bort: {entity_id}"
+                    }
+                }
+            },
+            "title": "F\u00f6rinst\u00e4llda l\u00e4gen f\u00f6r Torr och Fl\u00e4kt kommer att tas bort: {entity_id}"
+        },
+        "invalid_server_version": {
+            "description": "Den version av Z-Wave JS Server du f\u00f6r n\u00e4rvarande k\u00f6r \u00e4r f\u00f6r gammal f\u00f6r den h\u00e4r versionen av Home Assistant. Uppdatera Z-Wave JS Server till den senaste versionen f\u00f6r att \u00e5tg\u00e4rda problemet.",
+            "title": "Nyare version av Z-Wave JS Server beh\u00f6vs"
+        }
+    },
+    "options": {
+        "abort": {
+            "addon_get_discovery_info_failed": "Det gick inte att h\u00e4mta Z-Wave JS-till\u00e4ggsuppt\u00e4cktsinformation.",
+            "addon_info_failed": "Det gick inte att h\u00e4mta Z-Wave JS-till\u00e4ggsinformation.",
+            "addon_install_failed": "Det gick inte att installera Z-Wave JS-till\u00e4gget.",
+            "addon_set_config_failed": "Det gick inte att st\u00e4lla in Z-Wave JS-konfiguration.",
+            "addon_start_failed": "Det gick inte att starta Z-Wave JS-till\u00e4gget.",
+            "already_configured": "Enheten \u00e4r redan konfigurerad",
+            "cannot_connect": "Det gick inte att ansluta.",
+            "different_device": "Den anslutna USB-enheten \u00e4r inte densamma som tidigare konfigurerats f\u00f6r den h\u00e4r konfigurationsposten. Skapa ist\u00e4llet en ny konfigurationspost f\u00f6r den nya enheten."
+        },
+        "error": {
+            "cannot_connect": "Det gick inte att ansluta.",
+            "invalid_ws_url": "Ogiltig websocket-URL",
+            "unknown": "Ov\u00e4ntat fel"
+        },
+        "progress": {
+            "install_addon": "V\u00e4nta medan installationen av Z-Wave JS-till\u00e4gget slutf\u00f6rs. Detta kan ta flera minuter.",
+            "start_addon": "V\u00e4nta medan Z-Wave JS-till\u00e4ggsstarten slutf\u00f6rs. Detta kan ta n\u00e5gra sekunder."
+        },
+        "step": {
+            "configure_addon": {
+                "data": {
+                    "emulate_hardware": "Emulera h\u00e5rdvara",
+                    "log_level": "Loggniv\u00e5",
+                    "s0_legacy_key": "S0-nyckel (\u00e4ldre)",
+                    "s2_access_control_key": "S2-\u00e5tkomstkontrollnyckel",
+                    "s2_authenticated_key": "S2 Autentiserad nyckel",
+                    "s2_unauthenticated_key": "S2 oautentiserad nyckel",
+                    "usb_path": "USB-enhetens s\u00f6kv\u00e4g"
+                },
+                "description": "Till\u00e4gget genererar s\u00e4kerhetsnycklar om dessa f\u00e4lt l\u00e4mnas tomma.",
+                "title": "G\u00e5 in i konfigurationen f\u00f6r till\u00e4gget Z-Wave JS"
+            },
+            "install_addon": {
+                "title": "Z-Wave JS-till\u00e4ggsinstallationen har startat"
+            },
+            "manual": {
+                "data": {
+                    "url": "URL"
+                }
+            },
+            "on_supervisor": {
+                "data": {
+                    "use_addon": "Anv\u00e4nd Z-Wave JS Supervisor-till\u00e4gget"
+                },
+                "description": "Vill du anv\u00e4nda Z-Wave JS Supervisor-till\u00e4gget?",
+                "title": "V\u00e4lj anslutningsmetod"
+            },
+            "start_addon": {
+                "title": "Z-Wave JS-till\u00e4gget startar."
+            }
+        }
+    },
+    "services": {
+        "bulk_set_partial_config_parameters": {
+            "description": "Till\u00e5ter bulk-inst\u00e4llning av delparametrar. Anv\u00e4ndbart n\u00e4r flera delparametrar m\u00e5ste st\u00e4llas in samtidigt.",
+            "fields": {
+                "area_id": {
+                    "description": "Det eller de omr\u00e5den som ska vara m\u00e5l f\u00f6r denna tj\u00e4nst. Om ett omr\u00e5de anges kommer alla zwave_js-enheter och enheter i det omr\u00e5det att vara m\u00e5l f\u00f6r den h\u00e4r tj\u00e4nsten.",
+                    "name": "Omr\u00e5des-ID(n)"
+                },
+                "device_id": {
+                    "description": "Den enhet som \u00e4r m\u00e5let f\u00f6r tj\u00e4nsten.",
+                    "name": "Enhets-ID(n)"
+                },
+                "endpoint": {
+                    "description": "Konfigurationsparameterns slutpunkt.",
+                    "name": "Slutpunkt"
+                },
+                "entity_id": {
+                    "description": "Det entitets ID som \u00e4r m\u00e5let f\u00f6r tj\u00e4nsten",
+                    "name": "Entitet-ID(n)"
+                },
+                "parameter": {
+                    "description": "Namnet (eller ID) p\u00e5 den konfigurationsparameter som du vill konfigurera.",
+                    "name": "Parameter"
+                },
+                "value": {
+                    "description": "Nya v\u00e4rden som ska anges f\u00f6r denna konfigurationsparameter. Kan antingen vara ett heltalsv\u00e4rde som representerar bulk\u00e4ndringen eller en mappning d\u00e4r nyckeln \u00e4r bitmasken (antingen i hex- eller heltalsform) och v\u00e4rdet \u00e4r det nya v\u00e4rdet som du vill ange f\u00f6r den partiella parametern.",
+                    "name": "V\u00e4rde"
+                }
+            },
+            "name": "Bulk-inst\u00e4llning av partiella konfigurationsparametrar (avancerad)."
+        },
+        "clear_lock_usercode": {
+            "description": "Raderar en anv\u00e4ndarkod fr\u00e5n ett l\u00e5s.",
+            "fields": {
+                "code_slot": {
+                    "description": "Kodplats f\u00f6r att rensa kod fr\u00e5n.",
+                    "name": "Kodplats"
+                }
+            },
+            "name": "Radera anv\u00e4ndarkod f\u00f6r l\u00e5s"
+        },
+        "invoke_cc_api": {
+            "fields": {
+                "command_class": {
+                    "description": "ID f\u00f6r den Command Class som du vill utf\u00e4rda ett kommando till.",
+                    "name": "Kommandoklass"
+                },
+                "endpoint": {
+                    "description": "Den slutpunkt som API:et ska anropas fr\u00e5n. Om en slutpunkt anges kommer den slutpunkten att anv\u00e4ndas f\u00f6r alla noder som \u00e4r associerade med m\u00e5lomr\u00e5den, enheter och/eller entiteter. Om ingen slutpunkt anges kommer rotslutpunkten (0) att anv\u00e4ndas f\u00f6r noder som \u00e4r associerade med m\u00e5lomr\u00e5den och enheter, och slutpunkten f\u00f6r det prim\u00e4ra v\u00e4rdet f\u00f6r varje entitet kommer att anv\u00e4ndas.",
+                    "name": "Slutpunkt"
+                },
+                "method_name": {
+                    "description": "Namnet p\u00e5 den API-metod som ska anropas. Se dokumentationen f\u00f6r Z-Wave JS Command Class API (https://zwave-js.github.io/node-zwave-js/#/api/CCs/index) f\u00f6r tillg\u00e4ngliga metoder.",
+                    "name": "Metodnamn"
+                },
+                "parameters": {
+                    "description": "En lista \u00f6ver parametrar som ska skickas till API-metoden. Se dokumentationen f\u00f6r Z-Wave JS Command Class API (https://zwave-js.github.io/node-zwave-js/#/api/CCs/index) f\u00f6r parametrar.",
+                    "name": "Parametrar"
+                }
+            },
+            "name": "Anropa ett Command Class API p\u00e5 en nod (avancerad)"
+        },
+        "multicast_set_value": {
+            "description": "\u00c4ndrar ett v\u00e4rde som Z-Wave JS k\u00e4nner igen p\u00e5 flera Z-Wave-enheter med hj\u00e4lp av multicast, s\u00e5 att alla enheter f\u00e5r meddelandet samtidigt. Denna tj\u00e4nst har minimal validering, s\u00e5 anv\u00e4nd endast denna tj\u00e4nst om du vet vad du g\u00f6r.",
+            "fields": {
+                "area_id": {
+                    "description": "Det eller de omr\u00e5den som ska vara m\u00e5l f\u00f6r denna tj\u00e4nst. Om ett omr\u00e5de anges kommer alla zwave_js-enheter och enheter i det omr\u00e5det att vara m\u00e5l f\u00f6r den h\u00e4r tj\u00e4nsten.",
+                    "name": "Omr\u00e5des-ID(n)"
+                },
+                "broadcast": {
+                    "description": "Anger om kommandot ska skickas till alla enheter i n\u00e4tverket.",
+                    "name": "Skicka?"
+                },
+                "command_class": {
+                    "description": "ID f\u00f6r v\u00e4rdets Command Class.",
+                    "name": "Kommandoklass"
+                },
+                "device_id": {
+                    "description": "Den enhet som \u00e4r m\u00e5let f\u00f6r tj\u00e4nsten.",
+                    "name": "Enhets-ID(n)"
+                },
+                "endpoint": {
+                    "description": "Slutpunkten f\u00f6r v\u00e4rdet.",
+                    "name": "Slutpunkt"
+                },
+                "entity_id": {
+                    "description": "Det entitets ID som \u00e4r m\u00e5let f\u00f6r tj\u00e4nsten",
+                    "name": "Entitet-ID(n)"
+                },
+                "options": {
+                    "description": "Ange alternativens v\u00e4rde i en map. Se dokumentationen f\u00f6r Z-Wave JS f\u00f6r mer information om vilka alternativ som kan st\u00e4llas in.",
+                    "name": "Alternativ"
+                },
+                "property": {
+                    "description": "ID f\u00f6r egenskapen f\u00f6r v\u00e4rdet.",
+                    "name": "Egenskap"
+                },
+                "property_key": {
+                    "description": "ID f\u00f6r egenskapsnyckeln f\u00f6r v\u00e4rdet.",
+                    "name": "Egenskapsnyckel"
+                },
+                "value": {
+                    "description": "Det nya v\u00e4rdet som ska anges.",
+                    "name": "V\u00e4rde"
+                }
+            },
+            "name": "Ange ett v\u00e4rde p\u00e5 flera enheter via multicast (avancerad)"
+        },
+        "ping": {
+            "description": "Tvingar Z-Wave JS att f\u00f6rs\u00f6ka n\u00e5 en nod. Detta kan anv\u00e4ndas f\u00f6r att uppdatera nodens status i Z-Wave JS n\u00e4r du tror att den inte korrekt \u00e5terspeglar verkligheten, t.ex. f\u00f6r att \u00e5teruppliva en misslyckad/d\u00f6d nod eller markera noden som sovande.",
+            "fields": {
+                "area_id": {
+                    "description": "Det eller de omr\u00e5den som ska vara m\u00e5l f\u00f6r denna tj\u00e4nst. Om ett omr\u00e5de anges kommer alla zwave_js-enheter och enheter i det omr\u00e5det att vara m\u00e5l f\u00f6r den h\u00e4r tj\u00e4nsten.",
+                    "name": "Omr\u00e5des-ID(n)"
+                },
+                "device_id": {
+                    "description": "Den enhet som \u00e4r m\u00e5let f\u00f6r tj\u00e4nsten.",
+                    "name": "Enhets-ID(n)"
+                },
+                "entity_id": {
+                    "description": "Det entitets ID som \u00e4r m\u00e5let f\u00f6r tj\u00e4nsten",
+                    "name": "Entitet-ID(n)"
+                }
+            },
+            "name": "Pinga en nod"
+        },
+        "refresh_notifications": {
+            "description": "Uppdaterar aviseringar p\u00e5 en nod baserat p\u00e5 aviseringstyp och eventuellt aviseringsh\u00e4ndelse.",
+            "fields": {
+                "area_id": {
+                    "description": "Det eller de omr\u00e5den som ska vara m\u00e5l f\u00f6r denna tj\u00e4nst. Om ett omr\u00e5de anges kommer alla zwave_js-enheter och enheter i det omr\u00e5det att vara m\u00e5l f\u00f6r den h\u00e4r tj\u00e4nsten.",
+                    "name": "Omr\u00e5des-ID(n)"
+                },
+                "device_id": {
+                    "description": "Den enhet som \u00e4r m\u00e5let f\u00f6r tj\u00e4nsten.",
+                    "name": "Enhets-ID(n)"
+                },
+                "entity_id": {
+                    "description": "Det entitets ID som \u00e4r m\u00e5let f\u00f6r tj\u00e4nsten",
+                    "name": "Entitet-ID(n)"
+                },
+                "notification_event": {
+                    "description": "Aviseringsh\u00e4ndelsens nummer enligt definitionen i Z-Wave-specifikationerna.",
+                    "name": "Aviseringsh\u00e4ndelse"
+                },
+                "notification_type": {
+                    "description": "Aviseringstypens nummer enligt definitionen i Z-Wave-specifikationerna.",
+                    "name": "Aviseringstyp"
+                }
+            },
+            "name": "Uppdatera aviseringar p\u00e5 en nod (avancerad)"
+        },
+        "refresh_value": {
+            "description": "Tvinga uppdatering av v\u00e4rdena f\u00f6r en Z-Wave-entitet",
+            "fields": {
+                "entity_id": {
+                    "description": "Entiteter som ska uppdateras.",
+                    "name": "Entiteter"
+                },
+                "refresh_all_values": {
+                    "description": "Om alla v\u00e4rden ska uppdateras (true) eller bara det prim\u00e4ra v\u00e4rdet (false).",
+                    "name": "Uppdatera alla v\u00e4rden?"
+                }
+            },
+            "name": "Uppdatera v\u00e4rden"
+        },
+        "reset_meter": {
+            "description": "\u00c5terst\u00e4ller m\u00e4tarna p\u00e5 en nod.",
+            "fields": {
+                "area_id": {
+                    "description": "Det eller de omr\u00e5den som ska vara m\u00e5l f\u00f6r denna tj\u00e4nst. Om ett omr\u00e5de anges kommer alla zwave_js-enheter och enheter i det omr\u00e5det att vara m\u00e5l f\u00f6r den h\u00e4r tj\u00e4nsten.",
+                    "name": "Omr\u00e5des-ID(n)"
+                },
+                "device_id": {
+                    "description": "Den enhet som \u00e4r m\u00e5let f\u00f6r tj\u00e4nsten.",
+                    "name": "Enhets-ID(n)"
+                },
+                "entity_id": {
+                    "description": "Det entitets ID som \u00e4r m\u00e5let f\u00f6r tj\u00e4nsten",
+                    "name": "Entitet-ID(n)"
+                },
+                "meter_type": {
+                    "description": "Den typ av m\u00e4tare som ska \u00e5terst\u00e4llas. Alla m\u00e4tare st\u00f6der inte m\u00f6jligheten att v\u00e4lja en m\u00e4tartyp f\u00f6r \u00e5terst\u00e4llning.",
+                    "name": "Typ av m\u00e4tare"
+                },
+                "value": {
+                    "description": "Det v\u00e4rde som m\u00e4tare ska \u00e5terst\u00e4llas till. Alla m\u00e4tare st\u00f6der inte m\u00f6jligheten att \u00e5terst\u00e4llas till ett specifikt v\u00e4rde.",
+                    "name": "M\u00e5lv\u00e4rde"
+                }
+            },
+            "name": "\u00c5terst\u00e4ll m\u00e4tare p\u00e5 en nod"
+        },
+        "set_config_parameter": {
+            "description": "\u00c4ndrar konfigurationsparametrarna f\u00f6r dina Z-Wave-enheter.",
+            "fields": {
+                "area_id": {
+                    "description": "Det eller de omr\u00e5den som ska vara m\u00e5l f\u00f6r denna tj\u00e4nst. Om ett omr\u00e5de anges kommer alla zwave_js-enheter och enheter i det omr\u00e5det att vara m\u00e5l f\u00f6r den h\u00e4r tj\u00e4nsten.",
+                    "name": "Omr\u00e5des-ID(n)"
+                },
+                "bitmask": {
+                    "description": "Anv\u00e4nd en specifik bitmask (se dokumentationen f\u00f6r mer information). Kan inte kombineras med value_size eller value_format.",
+                    "name": "Bitmask"
+                },
+                "device_id": {
+                    "description": "Den enhet som \u00e4r m\u00e5let f\u00f6r tj\u00e4nsten.",
+                    "name": "Enhets-ID(n)"
+                },
+                "endpoint": {
+                    "description": "Konfigurationsparameterns slutpunkt.",
+                    "name": "Slutpunkt"
+                },
+                "entity_id": {
+                    "description": "Det entitets ID som \u00e4r m\u00e5let f\u00f6r tj\u00e4nsten",
+                    "name": "Entitet-ID(n)"
+                },
+                "parameter": {
+                    "description": "Namnet (eller ID) p\u00e5 den konfigurationsparameter som du vill konfigurera.",
+                    "name": "Parameter"
+                },
+                "value": {
+                    "description": "Det nya v\u00e4rdet som ska st\u00e4llas in f\u00f6r denna konfigurationsparameter.",
+                    "name": "V\u00e4rde"
+                },
+                "value_format": {
+                    "description": "Format f\u00f6r v\u00e4rdet, 0 f\u00f6r signerat heltal, 1 f\u00f6r osignerat heltal, 2 f\u00f6r enumrerat, 3 f\u00f6r bitf\u00e4lt. Anv\u00e4nds i kombination med value_size n\u00e4r en konfigurationsparameter inte \u00e4r definierad i enhetens konfigurationsfil. Kan inte kombineras med bitmask.",
+                    "name": "V\u00e4rde format"
+                },
+                "value_size": {
+                    "description": "V\u00e4rdets storlek, antingen 1, 2 eller 4. Anv\u00e4nds i kombination med value_format n\u00e4r en konfigurationsparameter inte \u00e4r definierad i enhetens konfigurationsfil. Kan inte kombineras med bitmask.",
+                    "name": "V\u00e4rde storlek"
+                }
+            },
+            "name": "St\u00e4ll in konfigurationsparameter f\u00f6r enhet"
+        },
+        "set_lock_configuration": {
+            "description": "Sets the configuration for a lock.",
+            "fields": {
+                "auto_relock_time": {
+                    "description": "Varaktighet i sekunder tills l\u00e5set \u00e5terg\u00e5r till s\u00e4kert tillst\u00e5nd. Till\u00e4mpas endast n\u00e4r operationstypen \u00e4r `konstant`.",
+                    "name": "Tid f\u00f6r automatisk \u00e5terl\u00e5sning"
+                },
+                "block_to_block": {
+                    "description": "Aktivera block-till-block-funktionalitet.",
+                    "name": "Block till block"
+                },
+                "hold_and_release_time": {
+                    "description": "Varaktighet i sekunder som l\u00e5set f\u00f6rblir indraget.",
+                    "name": "H\u00e5ll- och frig\u00f6ringstid"
+                },
+                "inside_handles_can_open_door_configuration": {
+                    "description": "En lista med fyra booleska v\u00e4rden som anger vilka innerhandtag som kan \u00f6ppna d\u00f6rren.",
+                    "name": "Inv\u00e4ndiga handtag kan \u00f6ppna d\u00f6rrkonfigurationen"
+                },
+                "lock_timeout": {
+                    "description": "Sekunder tills l\u00e5sl\u00e4gets tid tar slut. B\u00f6r endast anv\u00e4ndas om operationstypen \u00e4r \"tidsinst\u00e4lld\".",
+                    "name": "Timeout f\u00f6r l\u00e5s"
+                },
+                "operation_type": {
+                    "description": "L\u00e5sets drifttyp.",
+                    "name": "Typ av drift"
+                },
+                "outside_handles_can_open_door_configuration": {
+                    "description": "En lista med fyra booleska v\u00e4rden som anger vilka yttre handtag som kan \u00f6ppna d\u00f6rren.",
+                    "name": "Utv\u00e4ndiga handtag kan \u00f6ppna d\u00f6rrkonfigurationen"
+                },
+                "twist_assist": {
+                    "description": "Aktivera Twist Assist."
+                }
+            },
+            "name": "St\u00e4ll in l\u00e5skonfiguration"
+        },
+        "set_lock_usercode": {
+            "description": "St\u00e4ller in en anv\u00e4ndarkod p\u00e5 ett l\u00e5s.",
+            "fields": {
+                "code_slot": {
+                    "description": "Kodplats att st\u00e4lla in koden p\u00e5.",
+                    "name": "Kodplats"
+                },
+                "usercode": {
+                    "description": "L\u00e5skod att st\u00e4lla in.",
+                    "name": "Kod"
+                }
+            },
+            "name": "St\u00e4ll in anv\u00e4ndarkod f\u00f6r l\u00e5s"
+        },
+        "set_value": {
+            "description": "\u00c4ndrar alla v\u00e4rden som Z-Wave JS k\u00e4nner igen p\u00e5 en Z-Wave-enhet. Denna tj\u00e4nst har minimal validering s\u00e5 anv\u00e4nd endast denna tj\u00e4nst om du vet vad du g\u00f6r.",
+            "fields": {
+                "area_id": {
+                    "description": "Det eller de omr\u00e5den som ska vara m\u00e5l f\u00f6r denna tj\u00e4nst. Om ett omr\u00e5de anges kommer alla zwave_js-enheter och enheter i det omr\u00e5det att vara m\u00e5l f\u00f6r den h\u00e4r tj\u00e4nsten.",
+                    "name": "Omr\u00e5des-ID(n)"
+                },
+                "command_class": {
+                    "description": "ID f\u00f6r v\u00e4rdets Command Class.",
+                    "name": "Kommandoklass"
+                },
+                "device_id": {
+                    "description": "Den enhet som \u00e4r m\u00e5let f\u00f6r tj\u00e4nsten.",
+                    "name": "Enhets-ID(n)"
+                },
+                "endpoint": {
+                    "description": "Slutpunkten f\u00f6r v\u00e4rdet.",
+                    "name": "Slutpunkt"
+                },
+                "entity_id": {
+                    "description": "Det entitets ID som \u00e4r m\u00e5let f\u00f6r tj\u00e4nsten",
+                    "name": "Entitet-ID(n)"
+                },
+                "options": {
+                    "description": "Ange alternativens v\u00e4rde i en map. Se dokumentationen f\u00f6r Z-Wave JS f\u00f6r mer information om vilka alternativ som kan st\u00e4llas in.",
+                    "name": "Alternativ"
+                },
+                "property": {
+                    "description": "ID f\u00f6r egenskapen f\u00f6r v\u00e4rdet.",
+                    "name": "Egenskap"
+                },
+                "property_key": {
+                    "description": "ID f\u00f6r egenskapsnyckeln f\u00f6r v\u00e4rdet.",
+                    "name": "Egenskapsnyckel"
+                },
+                "value": {
+                    "description": "Det nya v\u00e4rdet som ska anges.",
+                    "name": "V\u00e4rde"
+                },
+                "wait_for_result": {
+                    "description": "Huruvida man ska v\u00e4nta p\u00e5 ett svar fr\u00e5n noden eller inte. Om f\u00e4ltet inte ing\u00e5r i nyttolasten kommer integrationen att avg\u00f6ra om den ska v\u00e4nta eller inte.  T\u00e4nk p\u00e5 att \u00e5tg\u00e4rden kan ta en stund om du \u00e4ndrar ett v\u00e4rde p\u00e5 en batterienhet som sover.",
+                    "name": "V\u00e4nta p\u00e5 resultat?"
+                }
+            },
+            "name": "St\u00e4ll in ett v\u00e4rde (avancerat)"
+        }
+    }
+}

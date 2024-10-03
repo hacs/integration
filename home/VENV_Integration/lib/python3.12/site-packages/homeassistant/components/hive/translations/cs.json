@@ -1,0 +1,137 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "\u00da\u010det je ji\u017e nastaven",
+            "reauth_successful": "Op\u011btovn\u00e9 ov\u011b\u0159en\u00ed bylo \u00fasp\u011b\u0161n\u00e9",
+            "unknown_entry": "Nelze naj\u00edt existuj\u00edc\u00ed z\u00e1znam."
+        },
+        "error": {
+            "invalid_code": "Nepoda\u0159ilo se p\u0159ihl\u00e1sit do Hive. V\u00e1\u0161 dvoufaktorov\u00fd ov\u011b\u0159ovac\u00ed k\u00f3d byl nespr\u00e1vn\u00fd.",
+            "invalid_password": "Nepoda\u0159ilo se p\u0159ihl\u00e1sit do Hive. Nespr\u00e1vn\u00e9 heslo, zkuste to znovu.",
+            "invalid_username": "Nepoda\u0159ilo se p\u0159ihl\u00e1sit do Hive. Va\u0161e e-mailov\u00e1 adresa nen\u00ed rozpozn\u00e1na.",
+            "no_internet_available": "Pro p\u0159ipojen\u00ed k Hive je vy\u017eadov\u00e1no internetov\u00e9 p\u0159ipojen\u00ed.",
+            "unknown": "Neo\u010dek\u00e1van\u00e1 chyba"
+        },
+        "step": {
+            "2fa": {
+                "data": {
+                    "2fa": "Dvoufaktorov\u00fd k\u00f3d"
+                },
+                "description": "Zadejte v\u00e1\u0161 ov\u011b\u0159ovac\u00ed k\u00f3d Hive. \n\nChcete-li po\u017e\u00e1dat o dal\u0161\u00ed k\u00f3d, zadejte k\u00f3d 0000.",
+                "title": "Dvoufaktorov\u00e9 ov\u011b\u0159ov\u00e1n\u00ed Hive"
+            },
+            "configuration": {
+                "data": {
+                    "device_name": "N\u00e1zev za\u0159\u00edzen\u00ed"
+                },
+                "description": "Zadejte va\u0161e nastaven\u00ed Hive.",
+                "title": "Nastavit Hive"
+            },
+            "reauth": {
+                "data": {
+                    "password": "Heslo",
+                    "username": "U\u017eivatelsk\u00e9 jm\u00e9no"
+                },
+                "description": "Znovu zadejte va\u0161e p\u0159ihla\u0161ovac\u00ed \u00fadaje Hive.",
+                "title": "P\u0159ihl\u00e1sit se do Hive"
+            },
+            "user": {
+                "data": {
+                    "password": "Heslo",
+                    "scan_interval": "Interval prhled\u00e1v\u00e1n\u00ed (sekundy)",
+                    "username": "U\u017eivatelsk\u00e9 jm\u00e9no"
+                },
+                "description": "Zadejte va\u0161e p\u0159ihla\u0161ovac\u00ed \u00fadaje Hive.",
+                "title": "P\u0159ihl\u00e1sit se do Hive"
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "heating": {
+                "state": {
+                    "manual": "Ru\u010dn\u011b",
+                    "off": "Vypnuto",
+                    "on": "Zapnuto",
+                    "schedule": "Pl\u00e1n"
+                }
+            },
+            "hot_water": {
+                "state": {
+                    "off": "Vypnuto",
+                    "on": "Zapnuto",
+                    "schedule": "Pl\u00e1n"
+                }
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "user": {
+                "data": {
+                    "scan_interval": "Interval prohled\u00e1v\u00e1n\u00ed (sekundy)"
+                },
+                "description": "Aktualizuje interval prohled\u00e1v\u00e1n\u00ed, aby se data dotazovala \u010dast\u011bji.",
+                "title": "Volby pro Hive"
+            }
+        }
+    },
+    "services": {
+        "boost_heating": {
+            "description": "Bude zru\u0161eno - pou\u017eijte boost_heating_on.",
+            "fields": {
+                "temperature": {
+                    "description": "Nastav\u00ed c\u00edlovou teplotu pro obdob\u00ed vyt\u00e1p\u011bn\u00ed zv\u00fd\u0161en\u00fdm v\u00fdkonem.",
+                    "name": "Teplota"
+                },
+                "time_period": {
+                    "description": "Nastav\u00ed \u010dasov\u00e9 obdob\u00ed pro vyt\u00e1p\u011bn\u00ed zv\u00fd\u0161en\u00fdm v\u00fdkonem.",
+                    "name": "\u010casov\u00e9 obdob\u00ed"
+                }
+            },
+            "name": "Vyt\u00e1p\u011bn\u00ed zv\u00fd\u0161en\u00fdm v\u00fdkonem (bude zru\u0161eno)"
+        },
+        "boost_heating_off": {
+            "description": "Vypne vyt\u00e1p\u011bn\u00ed zv\u00fd\u0161en\u00fdm v\u00fdkonem.",
+            "fields": {
+                "entity_id": {
+                    "description": "Vybere entity_id pro vypnut\u00ed vyt\u00e1p\u011bn\u00ed zv\u00fd\u0161en\u00fdm v\u00fdkonem.",
+                    "name": "ID entity"
+                }
+            },
+            "name": "Vyt\u00e1p\u011bn\u00ed zv\u00fd\u0161en\u00fdm v\u00fdkonem vypnuto"
+        },
+        "boost_heating_on": {
+            "description": "Zapne vyt\u00e1p\u011bn\u00ed zv\u00fd\u0161en\u00fdm v\u00fdkonem definovan\u00fdm \u010dasov\u00fdm obdob\u00edm a po\u017eadovanou c\u00edlovou teplotu.",
+            "fields": {
+                "temperature": {
+                    "description": "Nastav\u00ed c\u00edlovou teplotu po dobu vyt\u00e1p\u011bn\u00ed zv\u00fd\u0161en\u00fdm v\u00fdkonem.",
+                    "name": "Teplota"
+                },
+                "time_period": {
+                    "description": "Nastav\u00ed \u010dasov\u00e9 obdob\u00ed pro vyt\u00e1p\u011bn\u00ed zv\u00fd\u0161en\u00fdm v\u00fdkonem.",
+                    "name": "\u010casov\u00e9 obdob\u00ed"
+                }
+            },
+            "name": "Vyt\u00e1p\u011bn\u00ed zv\u00fd\u0161en\u00fdm v\u00fdkonem zapnuto"
+        },
+        "boost_hot_water": {
+            "description": "Zapne/Vypne vyt\u00e1p\u011bn\u00ed zv\u00fd\u0161en\u00fdm v\u00fdkonem definovan\u00fdm \u010dasov\u00fdm obdob\u00edm.",
+            "fields": {
+                "entity_id": {
+                    "description": "Vybere entity_id pro vyt\u00e1p\u011bn\u00ed zv\u00fd\u0161en\u00fdm v\u00fdkonem.",
+                    "name": "ID entity"
+                },
+                "on_off": {
+                    "description": "Zapne/Vypne vyt\u00e1p\u011bn\u00ed zv\u00fd\u0161en\u00fdm v\u00fdkonem.",
+                    "name": "Re\u017eim"
+                },
+                "time_period": {
+                    "description": "Nastav\u00ed \u010dasov\u00e9 obdob\u00ed pro vyt\u00e1p\u011bn\u00ed zv\u00fd\u0161en\u00fdm v\u00fdkonem.",
+                    "name": "\u010casov\u00e9 obdob\u00ed"
+                }
+            },
+            "name": "Zv\u00fd\u0161t teplotu vody"
+        }
+    }
+}

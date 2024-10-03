@@ -1,0 +1,197 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "L'appareil est d\u00e9j\u00e0 configur\u00e9",
+            "another_device": "La reconfiguration a \u00e9chou\u00e9, l'adresse IP/le nom d'h\u00f4te d'un autre appareil Shelly a \u00e9t\u00e9 utilis\u00e9.",
+            "ipv6_not_supported": "IPv6 n'est pas pris en charge.",
+            "reauth_successful": "La r\u00e9-authentification a r\u00e9ussi",
+            "reauth_unsuccessful": "La r\u00e9authentification a \u00e9chou\u00e9, veuillez supprimer l'int\u00e9gration puis la configurer \u00e0 nouveau.",
+            "reconfigure_successful": "La reconfiguration a r\u00e9ussi",
+            "unsupported_firmware": "L'appareil utilise une version de micrologiciel non prise en charge."
+        },
+        "error": {
+            "cannot_connect": "\u00c9chec de connexion",
+            "custom_port_not_supported": "L'appareil Gen1 ne prend pas en charge le port personnalis\u00e9.",
+            "firmware_not_fully_provisioned": "L'appareil n'est pas enti\u00e8rement provisionn\u00e9. Veuillez contacter le support Shelly",
+            "invalid_auth": "Authentification non valide",
+            "unknown": "Erreur inattendue"
+        },
+        "flow_title": "{name}",
+        "step": {
+            "confirm_discovery": {
+                "description": "Voulez-vous configurer le {model} avec l'adresses ip {host}\u00a0?\n\nLes appareils aliment\u00e9s par batterie prot\u00e9g\u00e9s par mot de passe doivent \u00eatre r\u00e9veill\u00e9s avant de poursuivre la configuration.\nLes appareils aliment\u00e9s par batterie qui ne sont pas prot\u00e9g\u00e9s par mot de passe seront ajout\u00e9s lorsque l\u2019appareil se r\u00e9veillera. Vous pouvez maintenant r\u00e9veiller manuellement l\u2019appareil \u00e0 l\u2019aide d\u2019un bouton ou attendre la prochaine mise \u00e0 jour des donn\u00e9es de l\u2019appareil."
+            },
+            "credentials": {
+                "data": {
+                    "password": "Mot de passe",
+                    "username": "Nom d'utilisateur"
+                }
+            },
+            "reauth_confirm": {
+                "data": {
+                    "password": "Mot de passe",
+                    "username": "Nom d'utilisateur"
+                }
+            },
+            "reconfigure_confirm": {
+                "data": {
+                    "host": "H\u00f4te",
+                    "port": "Port"
+                },
+                "data_description": {
+                    "host": "Le nom d'h\u00f4te ou l'adresse IP de l'appareil Shelly auquel se connecter.",
+                    "port": "Le port TCP de l'appareil Shelly auquel se connecter (Gen2+)."
+                },
+                "description": "Mettre \u00e0 jour la configuration pour {device_name}.\n\nAvant la configuration, les appareils aliment\u00e9s par batterie doivent \u00eatre r\u00e9veill\u00e9s. Vous pouvez maintenant r\u00e9veiller l'appareil \u00e0 l'aide d'un bouton situ\u00e9 dessus."
+            },
+            "user": {
+                "data": {
+                    "host": "H\u00f4te",
+                    "port": "Port"
+                },
+                "data_description": {
+                    "host": "Le nom d'h\u00f4te ou l'adresse IP de l'appareil Shelly auquel se connecter.",
+                    "port": "Le port TCP de l'appareil Shelly auquel se connecter (Gen2+)."
+                },
+                "description": "Avant la configuration, les appareils aliment\u00e9s par batterie doivent \u00eatre r\u00e9veill\u00e9s, vous pouvez maintenant r\u00e9veiller l'appareil \u00e0 l'aide d'un bouton dessus."
+            }
+        }
+    },
+    "device_automation": {
+        "trigger_subtype": {
+            "button": "Bouton",
+            "button1": "Premier bouton",
+            "button2": "Deuxi\u00e8me bouton",
+            "button3": "Troisi\u00e8me bouton",
+            "button4": "Quatri\u00e8me bouton"
+        },
+        "trigger_type": {
+            "btn_down": "{subtype} bouton en bas",
+            "btn_up": "{subtype} bouton haut",
+            "double": "{subtype} double-cliqu\u00e9",
+            "double_push": "Double pression sur {subtype}",
+            "long": "{subtype} long cliqu\u00e9",
+            "long_push": "Pression longue sur {subtype}",
+            "long_single": "{subtype} clic long et simple clic",
+            "single": "{subtype} simple clic",
+            "single_long": "{subtype} simple clic, puis un clic long",
+            "single_push": "Pression simple sur {subtype}",
+            "triple": "{subtype} cliqu\u00e9 trois fois",
+            "triple_push": "Triple pression sur {subtype}"
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "gas": {
+                "state_attributes": {
+                    "detected": {
+                        "state": {
+                            "heavy": "Lourd",
+                            "mild": "B\u00e9nin",
+                            "none": "Aucun",
+                            "test": "Test",
+                            "unknown": "Inconnu"
+                        }
+                    }
+                }
+            }
+        },
+        "event": {
+            "input": {
+                "state_attributes": {
+                    "event_type": {
+                        "state": {
+                            "btn_down": "Bouton bas",
+                            "btn_up": "Bouton haut",
+                            "double": "Double appui",
+                            "double_push": "Double appui",
+                            "long": "Appui long",
+                            "long_push": "Appui long",
+                            "long_single": "Appui long puis appui court",
+                            "single": "Appui unique",
+                            "single_long": "Appui court, puis appui long",
+                            "single_push": "Appui unique",
+                            "triple": "Triple appui",
+                            "triple_push": "Triple appui"
+                        }
+                    }
+                }
+            }
+        },
+        "sensor": {
+            "operation": {
+                "state": {
+                    "fault": "Faute",
+                    "normal": "Normal",
+                    "unknown": "Inconnu",
+                    "warmup": "\u00c9chauffement"
+                },
+                "state_attributes": {
+                    "self_test": {
+                        "state": {
+                            "completed": "Termin\u00e9",
+                            "not_completed": "Non achev\u00e9",
+                            "pending": "En attente",
+                            "running": "En cours d'ex\u00e9cution"
+                        }
+                    }
+                }
+            },
+            "valve_status": {
+                "state": {
+                    "checking": "V\u00e9rification",
+                    "closed": "Ferm\u00e9",
+                    "closing": "Fermeture",
+                    "failure": "\u00c9chec",
+                    "opened": "Ouvert",
+                    "opening": "Ouverture",
+                    "unknown": "Inconnu"
+                }
+            }
+        }
+    },
+    "issues": {
+        "deprecated_valve_switch": {
+            "description": "L'entit\u00e9 switch pour la vanne de gaz Shelly est obsol\u00e8te. Une entit\u00e9 de vanne {entity} est disponible et devrait \u00eatre utilis\u00e9e \u00e0 l'avenir. Pour cette nouvelle entit\u00e9 valve, vous devez utiliser le service {service}.",
+            "title": "L'entit\u00e9 de commutation pour la vanne de gaz Shelly est obsol\u00e8te."
+        },
+        "deprecated_valve_switch_entity": {
+            "description": "L'entit\u00e9 `{entity}` de votre vanne de gaz Shelly est utilis\u00e9e dans `{info}`. Une entit\u00e9 valve est disponible et devrait \u00eatre utilis\u00e9e \u00e0 l'avenir.\n\n\nVeuillez ajuster `{info}` pour r\u00e9soudre ce probl\u00e8me.",
+            "title": "Entit\u00e9 de commutation obsol\u00e8te pour la vanne de gaz Shelly d\u00e9tect\u00e9e dans {info}"
+        },
+        "device_not_calibrated": {
+            "description": "L'appareil Shelly {device_name} avec l'adresse IP {ip_address} n\u00e9cessite un \u00e9talonnage. Pour calibrer l'appareil, il doit \u00eatre red\u00e9marr\u00e9 apr\u00e8s une installation correcte sur la vanne. Vous pouvez red\u00e9marrer l'appareil dans son panneau Web, allez dans 'Param\u00e8tres' > 'Red\u00e9marrage de l'appareil'.",
+            "title": "L'appareil Shelly {device_name} n'est pas calibr\u00e9"
+        },
+        "push_update_failure": {
+            "description": "Home Assistant ne re\u00e7oit pas les mises \u00e0 jour push de l'appareil Shelly {device_name} avec l'adresse IP {ip_address}. V\u00e9rifiez la configuration CoIoT dans le panneau web de l'appareil et votre configuration r\u00e9seau.",
+            "title": "\u00c9chec de la mise \u00e0 jour push de l'appareil Shelly {device_name}"
+        },
+        "unsupported_firmware": {
+            "description": "Votre appareil Shelly {device_name} avec l'adresse IP {ip_address} ex\u00e9cute un micrologiciel non pris en charge. Veuillez mettre \u00e0 jour le micrologiciel.\n\nSi l'appareil ne propose pas de mise \u00e0 jour, v\u00e9rifiez la connectivit\u00e9 Internet (passerelle, DNS, heure) et red\u00e9marrez l'appareil.",
+            "title": "Micrologiciel non pris en charge pour l'appareil {device_name}"
+        }
+    },
+    "options": {
+        "abort": {
+            "ble_unsupported": "La prise en charge du Bluetooth n\u00e9cessite la version du micrologiciel {ble_min_version} ou une version plus r\u00e9cente."
+        },
+        "step": {
+            "init": {
+                "data": {
+                    "ble_scanner_mode": "Mode scanner Bluetooth"
+                },
+                "description": "Le balayage Bluetooth peut \u00eatre actif ou passif. Lorsqu'il est actif, le Shelly demande des donn\u00e9es aux appareils proches\u00a0; lorsqu'il est passif, le Shelly re\u00e7oit des donn\u00e9es non sollicit\u00e9es des appareils proches."
+            }
+        }
+    },
+    "selector": {
+        "ble_scanner_mode": {
+            "options": {
+                "active": "Actif",
+                "disabled": "D\u00e9sactiv\u00e9",
+                "passive": "Passif"
+            }
+        }
+    }
+}

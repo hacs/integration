@@ -1,0 +1,192 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "El dispositiu ja est\u00e0 configurat",
+            "no_mac_address": "Falta l'adre\u00e7a MAC al registre zeroconf",
+            "reauth_successful": "Re-autenticaci\u00f3 realitzada correctament",
+            "reconfigure_successful": "Re-configuraci\u00f3 realitzada correctament"
+        },
+        "error": {
+            "cannot_connect": "Ha fallat la connexi\u00f3",
+            "invalid_auth": "Autenticaci\u00f3 inv\u00e0lida",
+            "missing_data": "Falten dades: torna-ho a provar m\u00e9s tard o prova una altra configuraci\u00f3 diferent",
+            "otp_failed": "L'autenticaci\u00f3 en dos passos ha fallat, torna-ho a provar amb un nou codi",
+            "unknown": "Error inesperat"
+        },
+        "flow_title": "{name} ({host})",
+        "step": {
+            "2sa": {
+                "data": {
+                    "otp_code": "Codi"
+                },
+                "title": "Synology DSM: autenticaci\u00f3 en dos passos"
+            },
+            "link": {
+                "data": {
+                    "password": "Contrasenya",
+                    "port": "Port",
+                    "ssl": "Utilitza un certificat SSL",
+                    "username": "Nom d'usuari",
+                    "verify_ssl": "Verifica el certificat SSL"
+                },
+                "description": "Vols configurar {name} ({host})?"
+            },
+            "reauth_confirm": {
+                "data": {
+                    "password": "Contrasenya",
+                    "username": "Nom d'usuari"
+                },
+                "title": "Re-autenticaci\u00f3 de Synology DSM"
+            },
+            "user": {
+                "data": {
+                    "host": "Amfitri\u00f3",
+                    "password": "Contrasenya",
+                    "port": "Port",
+                    "ssl": "Utilitza un certificat SSL",
+                    "username": "Nom d'usuari",
+                    "verify_ssl": "Verifica el certificat SSL"
+                }
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "disk_below_remain_life_thr": {
+                "name": "Vida restant per sota del m\u00ednim"
+            },
+            "disk_exceed_bad_sector_thr": {
+                "name": "Sectors m\u00e0xims defectuosos superats"
+            },
+            "status": {
+                "name": "Estat de seguretat"
+            }
+        },
+        "sensor": {
+            "cpu_15min_load": {
+                "name": "C\u00e0rrega mitjana de la CPU (15 min)"
+            },
+            "cpu_1min_load": {
+                "name": "C\u00e0rrega mitjana de la CPU (1 min)"
+            },
+            "cpu_5min_load": {
+                "name": "C\u00e0rrega mitjana de la CPU (5 min)"
+            },
+            "cpu_other_load": {
+                "name": "\u00das de la CPU (altres)"
+            },
+            "cpu_system_load": {
+                "name": "\u00das de la CPU (sistema)"
+            },
+            "cpu_total_load": {
+                "name": "\u00das de la CPU (total)"
+            },
+            "cpu_user_load": {
+                "name": "\u00das de la CPU (usuari)"
+            },
+            "disk_smart_status": {
+                "name": "Estat (intel\u00b7ligent)"
+            },
+            "disk_status": {
+                "name": "Estat"
+            },
+            "disk_temp": {
+                "name": "Temperatura"
+            },
+            "memory_available_real": {
+                "name": "Mem\u00f2ria disponible (real)"
+            },
+            "memory_available_swap": {
+                "name": "Mem\u00f2ria disponible ('swap')"
+            },
+            "memory_cached": {
+                "name": "Mem\u00f2ria cau utilitzada"
+            },
+            "memory_real_usage": {
+                "name": "\u00das de mem\u00f2ria (real)"
+            },
+            "memory_size": {
+                "name": "Mida de la mem\u00f2ria"
+            },
+            "memory_total_real": {
+                "name": "Mem\u00f2ria total (real)"
+            },
+            "memory_total_swap": {
+                "name": "Mem\u00f2ria total ('swap')"
+            },
+            "network_down": {
+                "name": "Velocitat de baixada"
+            },
+            "network_up": {
+                "name": "Velocitat de pujada"
+            },
+            "temperature": {
+                "name": "Temperatura"
+            },
+            "uptime": {
+                "name": "\u00daltima arrencada"
+            },
+            "volume_disk_temp_avg": {
+                "name": "Temperatura mitjana del disc"
+            },
+            "volume_disk_temp_max": {
+                "name": "Temperatura m\u00e0xima del disc"
+            },
+            "volume_percentage_used": {
+                "name": "Volum utilitzat"
+            },
+            "volume_size_total": {
+                "name": "Espai total"
+            },
+            "volume_size_used": {
+                "name": "Espai utilitzat"
+            },
+            "volume_status": {
+                "name": "Estat"
+            }
+        },
+        "switch": {
+            "home_mode": {
+                "name": "Mode casa"
+            }
+        },
+        "update": {
+            "update": {
+                "name": "Actualitzaci\u00f3 de DSM"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "scan_interval": "Minuts entre escanejos",
+                    "snap_profile_type": "Qualitat de les fotos de la c\u00e0mera (0:alta, 1:mitjana, 2:baixa)",
+                    "timeout": "Temps d'espera (segons)"
+                }
+            }
+        }
+    },
+    "services": {
+        "reboot": {
+            "description": "Reinicia el NAS. Aquesta acci\u00f3 est\u00e0 obsoleta i s'eliminar\u00e0 en una versi\u00f3 futura. Si us plau, utilitza l'entitat de bot\u00f3 corresponent.",
+            "fields": {
+                "serial": {
+                    "description": "N\u00famero de s\u00e8rie del NAS a reiniciar; necessari quan s'han configurat diversos NAS.",
+                    "name": "N\u00fam. s\u00e8rie"
+                }
+            },
+            "name": "Reinicia"
+        },
+        "shutdown": {
+            "description": "Apaga el NAS. Aquesta acci\u00f3 est\u00e0 obsoleta i s'eliminar\u00e0 en una versi\u00f3 futura. Si us plau, utilitza l'entitat de bot\u00f3 corresponent.",
+            "fields": {
+                "serial": {
+                    "description": "N\u00famero de s\u00e8rie del NAS a apagar; necessari quan s'han configurat diversos NAS.",
+                    "name": "N\u00fam. s\u00e8rie"
+                }
+            },
+            "name": "Apaga"
+        }
+    }
+}

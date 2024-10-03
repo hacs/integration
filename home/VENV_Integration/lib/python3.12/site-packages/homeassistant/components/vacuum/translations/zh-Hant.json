@@ -1,0 +1,115 @@
+{
+    "device_automation": {
+        "action_type": {
+            "clean": "\u555f\u52d5{entity_name}\u6e05\u9664",
+            "dock": "\u555f\u52d5{entity_name}\u56de\u5230\u5145\u96fb\u7ad9"
+        },
+        "condition_type": {
+            "is_cleaning": "{entity_name}\u6b63\u5728\u6e05\u6383",
+            "is_docked": "{entity_name}\u65bc\u5145\u96fb\u7ad9"
+        },
+        "extra_fields": {
+            "for": "\u6301\u7e8c\u6642\u9593"
+        },
+        "trigger_type": {
+            "cleaning": "{entity_name}\u958b\u59cb\u6e05\u6383",
+            "docked": "{entity_name}\u5df2\u56de\u5145\u96fb\u7ad9"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "\u6383\u5730\u6a5f\u5668\u4eba",
+            "state": {
+                "cleaning": "\u6e05\u6383\u4e2d",
+                "docked": "\u5145\u96fb\u4e2d",
+                "error": "\u932f\u8aa4",
+                "idle": "\u5f85\u547d",
+                "off": "\u95dc\u9589",
+                "on": "\u958b\u555f",
+                "paused": "\u5df2\u66ab\u505c",
+                "returning": "\u8fd4\u56de\u5145\u96fb"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_vacuum_base_class": {
+            "description": "\u81ea\u8a02\u6574\u5408 `{platform}` \u4f7f\u7528\u4e86\u5df2\u4e0d\u518d\u4f7f\u7528\u7684\u57fa\u672c\u985e\u76ee `VacuumEntity`\u3001\u800c\u975e `StateVacuumEntity`\u3002\n\n\u8acb\u806f\u7e6b\u56de\u5831\u81ea\u8a02\u6574\u5408 `{platform}` \u4f5c\u8005\u3002\n\n\u4e00\u65e6 `{platform}` \u6709\u66f4\u65b0\u7248\u672c\u53ef\u4f9b\u4e0b\u8f09\u3001\u5b89\u88dd\u5f8c\u4e26\u91cd\u65b0\u555f\u52d5 Home Assistant \u4ee5\u4fee\u6b63\u6b64\u554f\u984c\u3002",
+            "title": "\u81ea\u8a02\u6574\u5408 {platform} \u6b63\u5728\u4f7f\u7528\u5df2\u4e0d\u518d\u4f7f\u7528\u7684\u6383\u5730\u6a5f\u5668\u4eba\u529f\u80fd"
+        },
+        "deprecated_vacuum_base_class_url": {
+            "description": "\u81ea\u8a02\u6574\u5408 `{platform}` \u4f7f\u7528\u4e86\u5df2\u4e0d\u518d\u4f7f\u7528\u7684\u57fa\u672c\u985e\u76ee `VacuumEntity`\u3001\u800c\u975e `StateVacuumEntity`\u3002\n\n\u8acb\u5728 {issue_tracker} \u65b0\u589e\u932f\u8aa4\u56de\u5831\u3002\n\n\u4e00\u65e6 `{platform}` \u6709\u66f4\u65b0\u7248\u672c\u53ef\u4f9b\u4e0b\u8f09\u3001\u5b89\u88dd\u5f8c\u4e26\u91cd\u65b0\u555f\u52d5 Home Assistant \u4ee5\u4fee\u6b63\u6b64\u554f\u984c\u3002",
+            "title": "\u81ea\u8a02\u6574\u5408 {platform} \u6b63\u5728\u4f7f\u7528\u5df2\u4e0d\u518d\u4f7f\u7528\u7684\u6383\u5730\u6a5f\u5668\u4eba\u529f\u80fd"
+        },
+        "platform_integration_no_support": {
+            "description": "{domain} \u6574\u5408\u7684 {platform} \u5e73\u53f0\u4e0d\u652f\u63f4\u5e73\u53f0\u8a2d\u5b9a\u3002\n\n\u8acb\u5c07\u5176\u7531\u8a2d\u5b9a\u4e2d\u79fb\u9664\uff0c\u4e26\u91cd\u65b0\u555f\u52d5 Home Assistant \u4ee5\u4fee\u6b63\u6b64\u554f\u984c\u3002",
+            "title": "\u4e0d\u652f\u63f4\u5e73\u53f0\u652f\u63f4"
+        }
+    },
+    "services": {
+        "clean_spot": {
+            "description": "\u6307\u793a\u6383\u5730\u6a5f\u5668\u4eba\u9032\u884c\u5c40\u90e8\u6e05\u6383\u3002",
+            "name": "\u5c40\u90e8\u6e05\u6383"
+        },
+        "locate": {
+            "description": "\u5b9a\u4f4d\u6383\u5730\u6a5f\u5668\u4eba\u3002",
+            "name": "\u5b9a\u4f4d"
+        },
+        "pause": {
+            "description": "\u66ab\u505c\u6e05\u6383\u4efb\u52d9\u3002",
+            "name": "\u66ab\u505c"
+        },
+        "return_to_base": {
+            "description": "\u6307\u793a\u6383\u5730\u6a5f\u5668\u4eba\u8fd4\u56de\u5145\u96fb\u7ad9\u3002",
+            "name": "\u8fd4\u56de\u5145\u96fb"
+        },
+        "send_command": {
+            "description": "\u5411\u6383\u5730\u6a5f\u5668\u4eba\u50b3\u9001\u547d\u4ee4\u3002",
+            "fields": {
+                "command": {
+                    "description": "\u8981\u57f7\u884c\u7684\u547d\u4ee4\u3002\u547d\u4ee4\u8207\u6574\u5408\u7279\u5b9a\u76f8\u95dc\u3002",
+                    "name": "\u547d\u4ee4"
+                },
+                "params": {
+                    "description": "\u547d\u4ee4\u7684\u53c3\u6578\u3002\u53c3\u6578\u8207\u6574\u5408\u7279\u5b9a\u76f8\u95dc\u3002",
+                    "name": "\u53c3\u6578"
+                }
+            },
+            "name": "\u50b3\u9001\u547d\u4ee4"
+        },
+        "set_fan_speed": {
+            "description": "\u8a2d\u5b9a\u6383\u5730\u6a5f\u5668\u4eba\u98a8\u901f\u3002",
+            "fields": {
+                "fan_speed": {
+                    "description": "\u98a8\u901f\u3002\u8a72\u6578\u503c\u8996\u6574\u5408\u800c\u4e0d\u540c\u3001\u6709\u4e9b\u6574\u5408\u5177\u6709\u6b65\u9032\u98a8\u901f\uff0c\u5982 '\u4e2d\u7b49'\u3002\u6709\u4e9b\u5247\u4f7f\u7528\u767e\u5206\u6bd4\uff0c\u4ecb\u65bc 0 \u548c 100 \u4e4b\u9593\u3002",
+                    "name": "\u98a8\u901f"
+                }
+            },
+            "name": "\u8a2d\u5b9a\u98a8\u901f"
+        },
+        "start": {
+            "description": "\u958b\u59cb\u6216\u7e7c\u7e8c\u6e05\u6383\u4efb\u52d9\u3002",
+            "name": "\u958b\u59cb"
+        },
+        "start_pause": {
+            "description": "\u958b\u59cb\u3001\u66ab\u505c\u6216\u7e7c\u7e8c\u6e05\u6383\u4efb\u52d9\u3002",
+            "name": "\u958b\u59cb/\u66ab\u505c"
+        },
+        "stop": {
+            "description": "\u505c\u6b62\u76ee\u524d\u6e05\u6383\u4efb\u52d9\u3002",
+            "name": "\u505c\u6b62"
+        },
+        "toggle": {
+            "description": "\u958b\u555f/\u95dc\u9589\u6383\u5730\u6a5f\u5668\u4eba\u3002",
+            "name": "\u958b\u95dc"
+        },
+        "turn_off": {
+            "description": "\u505c\u6b62\u76ee\u524d\u6e05\u6383\u4efb\u52d9\u4e26\u56de\u5230\u5145\u96fb\u7ad9\u3002",
+            "name": "\u95dc\u9589"
+        },
+        "turn_on": {
+            "description": "\u958b\u59cb\u65b0\u7684\u6e05\u6383\u4efb\u52d9\u3002",
+            "name": "\u958b\u555f"
+        }
+    },
+    "title": "\u6383\u5730\u6a5f\u5668\u4eba"
+}

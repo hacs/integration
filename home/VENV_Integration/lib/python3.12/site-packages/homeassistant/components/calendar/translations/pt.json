@@ -1,0 +1,95 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "Calend\u00e1rio",
+            "state": {
+                "off": "Desligado",
+                "on": "Ligado"
+            },
+            "state_attributes": {
+                "all_day": {
+                    "name": "Todo o dia",
+                    "state": {
+                        "false": "N\u00e3o",
+                        "true": "Sim"
+                    }
+                },
+                "description": {
+                    "name": "Descri\u00e7\u00e3o"
+                },
+                "end_time": {
+                    "name": "Hora de t\u00e9rmino"
+                },
+                "location": {
+                    "name": "Localiza\u00e7\u00e3o"
+                },
+                "messages": {
+                    "name": "Mensagem"
+                },
+                "start_time": {
+                    "name": "Hora de in\u00edcio"
+                }
+            }
+        }
+    },
+    "issues": {
+        "deprecated_service_calendar_list_events": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "title": "Detetada a utiliza\u00e7\u00e3o do servi\u00e7o obsoleto `calendar.list_events`"
+                    }
+                }
+            }
+        },
+        "platform_integration_no_support": {
+            "description": "A plataforma {platform} para a integra\u00e7\u00e3o {domain} n\u00e3o suporta a configura\u00e7\u00e3o da plataforma.\n\nRemova-a da sua configura\u00e7\u00e3o e reinicie o Home Assistant para corrigir este problema.",
+            "title": "Suporte de plataforma n\u00e3o suportado"
+        }
+    },
+    "services": {
+        "create_event": {
+            "description": "Adiciona um novo evento de calend\u00e1rio.",
+            "fields": {
+                "description": {
+                    "description": "Uma descri\u00e7\u00e3o mais completa do acontecimento do que a fornecida pelo resumo.",
+                    "name": "Descri\u00e7\u00e3o"
+                },
+                "end_date": {
+                    "description": "A data em que o evento de dia inteiro deve terminar (exclusiva).",
+                    "name": "Data de t\u00e9rmino"
+                },
+                "end_date_time": {
+                    "description": "A data e a hora em que o evento deve terminar.",
+                    "name": "Hora de t\u00e9rmino"
+                },
+                "in": {
+                    "description": "Dias ou semanas em que pretende criar o evento.",
+                    "name": "Em"
+                },
+                "location": {
+                    "description": "O local do evento.",
+                    "name": "Localiza\u00e7\u00e3o"
+                },
+                "start_date": {
+                    "description": "A data em que o evento de dia inteiro deve come\u00e7ar.",
+                    "name": "Data de in\u00edcio"
+                },
+                "start_date_time": {
+                    "description": "A data e a hora em que o evento deve come\u00e7ar.",
+                    "name": "Hora de in\u00edcio"
+                },
+                "summary": {
+                    "description": "Define o resumo breve ou o tema do evento.",
+                    "name": "Resumo"
+                }
+            },
+            "name": "Criar evento"
+        },
+        "list_events": {
+            "description": "Lista eventos num calend\u00e1rio dentro de um intervalo de tempo.",
+            "name": "Listar eventos"
+        }
+    },
+    "title": "Calend\u00e1rio"
+}

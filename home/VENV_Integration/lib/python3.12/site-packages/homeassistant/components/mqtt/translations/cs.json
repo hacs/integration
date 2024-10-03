@@ -1,0 +1,356 @@
+{
+    "config": {
+        "abort": {
+            "addon_connection_failed": "Nepoda\u0159ilo se p\u0159ipojit k dopl\u0148ku {addon}. Zkontrolujte stav dopl\u0148ku a zkuste to znovu pozd\u011bji.",
+            "addon_info_failed": "Nepoda\u0159ilo se z\u00edskat informace o dopl\u0148ku {addon}.",
+            "addon_install_failed": "Nepoda\u0159ilo se nainstalovat dopln\u011bk {addon}.",
+            "addon_start_failed": "Nepoda\u0159ilo se spustit dopln\u011bk {addon}.",
+            "already_configured": "Slu\u017eba je ji\u017e nastavena",
+            "reauth_successful": "Op\u011btovn\u00e9 ov\u011b\u0159en\u00ed bylo \u00fasp\u011b\u0161n\u00e9",
+            "single_instance_allowed": "Ji\u017e nastaveno. Je mo\u017en\u00e9 jen jedin\u00e9 nastaven\u00ed."
+        },
+        "error": {
+            "bad_birth": "Neplatn\u00e9 t\u00e9ma zpr\u00e1vy p\u0159i p\u0159ipojen\u00ed",
+            "bad_certificate": "Certifik\u00e1t CA je neplatn\u00fd",
+            "bad_client_cert": "Neplatn\u00fd klientsk\u00fd certifik\u00e1t, zajist\u011bte dod\u00e1n\u00ed souboru s k\u00f3dem PEM",
+            "bad_client_cert_key": "Klientsk\u00fd certifik\u00e1t a soukrom\u00fd nejsou platn\u00fd p\u00e1r",
+            "bad_client_key": "Neplatn\u00fd soukrom\u00fd kl\u00ed\u010d, zajist\u011bte, aby byl soubor s k\u00f3dem PEM dod\u00e1n bez hesla",
+            "bad_discovery_prefix": "Neplatn\u00e1 p\u0159edpona zji\u0161\u0165ov\u00e1n\u00ed",
+            "bad_will": "Neplatn\u00e9 t\u00e9ma zpr\u00e1vy p\u0159i odpojen\u00ed",
+            "bad_ws_headers": "Zadejte platn\u00e9 HTTP hlavi\u010dky jako JSON objekt",
+            "cannot_connect": "Nepoda\u0159ilo se p\u0159ipojit",
+            "invalid_auth": "Neplatn\u00e9 ov\u011b\u0159en\u00ed",
+            "invalid_inclusion": "Klientsk\u00fd certifik\u00e1t a soukrom\u00fd kl\u00ed\u010d mus\u00ed b\u00fdt nastaveny spole\u010dn\u011b"
+        },
+        "step": {
+            "broker": {
+                "data": {
+                    "advanced_options": "Pokro\u010dil\u00e9 volby",
+                    "broker": "Broker",
+                    "certificate": "Nahr\u00e1t soubor vlastn\u00edho certifik\u00e1tu CA",
+                    "client_cert": "Nahr\u00e1t soubor klientsk\u00e9ho certifik\u00e1tu",
+                    "client_id": "ID klienta (nechte pr\u00e1zdn\u00e9 pro n\u00e1hodn\u011b vygenerovan\u00e9)",
+                    "client_key": "Nahr\u00e1t soubor soukrom\u00e9ho kl\u00ed\u010de",
+                    "keepalive": "Doba mezi odesl\u00e1n\u00edm zpr\u00e1v pro zachov\u00e1n\u00ed \u017eivota",
+                    "password": "Heslo",
+                    "port": "Port",
+                    "protocol": "Protokol MQTT",
+                    "set_ca_cert": "Ov\u011b\u0159en\u00ed platnosti certifik\u00e1tu brokera",
+                    "set_client_cert": "Pou\u017e\u00edt klientsk\u00fd certifik\u00e1t",
+                    "tls_insecure": "Ignorovat ov\u011b\u0159en\u00ed certifik\u00e1tu brokera",
+                    "transport": "Transport MQTT",
+                    "username": "U\u017eivatelsk\u00e9 jm\u00e9no",
+                    "ws_headers": "Hlavi\u010dky websocketu ve form\u00e1tu JSON",
+                    "ws_path": "Cesta websocketu"
+                },
+                "data_description": {
+                    "advanced_options": "Povolte a klepn\u011bte na \"Dal\u0161\u00ed\" pro nastaven\u00ed pokro\u010dil\u00fdch voleb.",
+                    "broker": "N\u00e1zev hostitele nebo IP adresa va\u0161eho brokera MQTT.",
+                    "certificate": "Soubor s vlastn\u00edm certifik\u00e1tem CA pro ov\u011b\u0159en\u00ed certifik\u00e1tu brokera MQTT.",
+                    "client_cert": "Klientsk\u00fd certifik\u00e1t k ov\u011b\u0159en\u00ed proti va\u0161emu brokerovi MQTT.",
+                    "client_id": "Jedine\u010dn\u00e9 ID k identifikaci rozhran\u00ed API MQTT Home Assistanta jako klienta MQTT. Doporu\u010duje se ponechat tuto volbu pr\u00e1zdnou.",
+                    "client_key": "Soubor soukrom\u00e9ho kl\u00ed\u010de, kter\u00fd pat\u0159\u00ed k va\u0161emu klientsk\u00e9mu certifik\u00e1tu.",
+                    "password": "Heslo pro p\u0159ihl\u00e1\u0161en\u00ed k va\u0161emu brokerovi MQTT.",
+                    "port": "Port, na kter\u00e9m v\u00e1\u0161 MQTT broker naslouch\u00e1. Nap\u0159\u00edklad 1883.",
+                    "protocol": "Protokol MQTT, na kter\u00e9m v\u00e1\u0161 broker pracuje. Nap\u0159\u00edklad 3.1.1.",
+                    "set_ca_cert": "Vyberte \"Auto\" pro automatick\u00e9 ov\u011b\u0159en\u00ed CA nebo \"Vlastn\u00ed\" a klepnut\u00edm na \"Dal\u0161\u00ed\" nastavte vlastn\u00ed certifik\u00e1t CA, kter\u00fd umo\u017en\u00ed ov\u011b\u0159en\u00ed va\u0161eho certifik\u00e1tu brokera MQTT.",
+                    "set_client_cert": "Povolte a klepn\u011bte na \"Dal\u0161\u00ed\" pro nastaven\u00ed klientsk\u00e9ho certifik\u00e1tu a soukrom\u00e9ho ketu k ov\u011b\u0159en\u00ed proti va\u0161emu MQTT brokerovi.",
+                    "tls_insecure": "Volba ignorovat ov\u011b\u0159en\u00ed certifik\u00e1tu va\u0161eho brokera MQTT.",
+                    "transport": "Transport, kter\u00fd se m\u00e1 pou\u017e\u00edt pro p\u0159ipojen\u00ed k va\u0161emu brokerovi MQTT.",
+                    "username": "U\u017eivatelsk\u00e9 jm\u00e9no pro p\u0159ihl\u00e1\u0161en\u00ed k va\u0161emu brokerovi MQTT.",
+                    "ws_headers": "Z\u00e1hlav\u00ed WebSocket, kter\u00e1 projdou p\u0159ipojen\u00edm zalo\u017een\u00fdm na WebSocket k va\u0161emu zprost\u0159edkovateli MQTT.",
+                    "ws_path": "Cesta WebSocket, kter\u00e1 se m\u00e1 pou\u017e\u00edt pro p\u0159ipojen\u00ed k va\u0161emu brokerovi MQTT."
+                },
+                "description": "Zadejte informace pro p\u0159ipojen\u00ed brokera MQTT."
+            },
+            "hassio_confirm": {
+                "data": {
+                    "discovery": "Povolit zji\u0161\u0165ov\u00e1n\u00ed"
+                },
+                "data_description": {
+                    "discovery": "Volba povolit automatick\u00e9 zji\u0161\u0165ov\u00e1n\u00ed MQTT."
+                },
+                "description": "Chcete nastavit Home Assistanta pro p\u0159ipojen\u00ed k brokerovi MQTT poskytovan\u00e9mu dopl\u0148kem {addon}?",
+                "title": "MQTT Broker prost\u0159ednictv\u00edm dopl\u0148ku Home Assistanta"
+            },
+            "install_addon": {
+                "title": "Instalov\u00e1n\u00ed dopl\u0148ku"
+            },
+            "reauth_confirm": {
+                "data": {
+                    "password": "Heslo",
+                    "username": "U\u017eivatelsk\u00e9 jm\u00e9no"
+                },
+                "data_description": {
+                    "password": "Heslo pro p\u0159ihl\u00e1\u0161en\u00ed k va\u0161emu brokerovi MQTT.",
+                    "username": "U\u017eivatelsk\u00e9 jm\u00e9no pro p\u0159ihl\u00e1\u0161en\u00ed k va\u0161emu brokerovi MQTT."
+                },
+                "description": "Broker MQTT ohl\u00e1sil chybu ov\u011b\u0159ov\u00e1n\u00ed. Potvr\u010fte spr\u00e1vn\u00e9 u\u017eivatelsk\u00e9 jm\u00e9no a heslo broker\u016f.",
+                "title": "Vy\u017eaduje se op\u011btovn\u00e9 ov\u011b\u0159en\u00ed brokera MQTT"
+            },
+            "start_addon": {
+                "title": "Spou\u0161t\u011bn\u00ed dopl\u0148ku"
+            },
+            "user": {
+                "description": "Vyberte, jak se chcete p\u0159ipojit k brokerovi MQTT:",
+                "menu_options": {
+                    "addon": "Pou\u017e\u00edt ofici\u00e1ln\u00ed dopln\u011bk {addon}",
+                    "broker": "Ru\u010dn\u011b zadejte podrobnosti o p\u0159ipojen\u00ed zprost\u0159edkovatele MQTT"
+                }
+            }
+        }
+    },
+    "device_automation": {
+        "trigger_subtype": {
+            "button_1": "Prvn\u00ed tla\u010d\u00edtko",
+            "button_2": "Druh\u00e9 tla\u010d\u00edtko",
+            "button_3": "T\u0159et\u00ed tla\u010d\u00edtko",
+            "button_4": "\u010ctvrt\u00e9 tla\u010d\u00edtko",
+            "button_5": "P\u00e1t\u00e9 tla\u010d\u00edtko",
+            "button_6": "\u0160est\u00e9 tla\u010d\u00edtko",
+            "turn_off": "Vypnout",
+            "turn_on": "Zapnout"
+        },
+        "trigger_type": {
+            "button_double_press": "\"{subtype}\" stisknuto dvakr\u00e1t",
+            "button_long_press": "\"{subtype}\" trvale stisknuto",
+            "button_long_release": "\"{subtype}\" uvoln\u011bno po dlouh\u00e9m stisku",
+            "button_quadruple_press": "\"{subtype}\" stisknuto \u010dty\u0159ikr\u00e1t",
+            "button_quintuple_press": "\"{subtype}\" stisknuto p\u011btkr\u00e1t",
+            "button_short_press": "\"{subtype}\" stisknuto",
+            "button_short_release": "\"{subtype}\" uvoln\u011bno",
+            "button_triple_press": "\"{subtype}\" stisknuto t\u0159ikr\u00e1t"
+        }
+    },
+    "exceptions": {
+        "command_template_error": {
+            "message": "Anal\u00fdza \u0161ablony \"{command_template}\" pro entitu \"{entity_id}\" se nezda\u0159ila s chybou: {error}."
+        },
+        "invalid_platform_config": {
+            "message": "Op\u011btovn\u00e9 na\u010dten\u00ed nastaven\u00ed YAML pro ru\u010dn\u011b nastaven\u00fd MQTT \"{domain}\" se nezda\u0159ilo. Dal\u0161\u00ed podrobnosti naleznete v protokolech."
+        },
+        "invalid_publish_topic": {
+            "message": "Nelze publikovat: \u0161ablona t\u00e9matu \"{topic_template}\" po vykreslen\u00ed vytvo\u0159ila neplatn\u00e9 t\u00e9ma \"{topic}\" ({error})"
+        },
+        "mqtt_not_setup_cannot_publish": {
+            "message": "Nelze publikovat do t\u00e9matu \"{topic}\"; ujist\u011bte se, \u017ee je MQTT spr\u00e1vn\u011b nastaveno."
+        },
+        "mqtt_not_setup_cannot_subscribe": {
+            "message": "Nelze se p\u0159ihl\u00e1sit k odb\u011bru t\u00e9matu \"{topic}\"; ujist\u011bte se, \u017ee je MQTT spr\u00e1vn\u011b nastaveno."
+        }
+    },
+    "issues": {
+        "deprecated_climate_aux_property": {
+            "description": "Entita \"{entity_id}\" m\u00e1 povolenou podporu pomocn\u00e9ho tepla, kter\u00e1 byla pro klimatiza\u010dn\u00ed za\u0159\u00edzen\u00ed MQTT zastaral\u00e1. Upravte nasgtaven\u00ed a odeberte z n\u011bj zastaral\u00e9 volby nastaven\u00ed a restartujte Home Assistanta, abyste tento probl\u00e9m vy\u0159e\u0161ili.",
+            "title": "Byly nalezeny entity MQTT s podporou pomocn\u00e9ho tepla"
+        },
+        "deprecated_color_handling": {
+            "description": "Nastaven\u00ed sv\u011btel MQTT (se sch\u00e9matem \"json\") nalezen\u00e9 v \"configuration.yaml\" pou\u017e\u00edv\u00e1 zastaral\u00e9 p\u0159\u00edznaky zpracov\u00e1n\u00ed barev. \n\nNalezen\u00e9 nastaven\u00ed:\n\"yaml\n{config}\n\"\nNepodporovan\u00e9 p\u0159\u00edznaky: ** {deprecated_flags} **.\n\nPou\u017eijte m\u00edsto toho volbu \"supported_color_modes\" a [znovu na\u010dt\u011bte](/developer-tools/yaml) ru\u010dn\u011b nastaven\u00e9 polo\u017eky MQTT nebo restartujte Home Assistanta, abyste tento probl\u00e9m vy\u0159e\u0161ili.",
+            "title": "Zastaral\u00e9 zpracov\u00e1n\u00ed barev pou\u017e\u00edvan\u00e9 pro sv\u011btlo MQTT"
+        },
+        "deprecated_color_mode_flag": {
+            "description": "Nastaven\u00ed sv\u011btel MQTT (se sch\u00e9matem \"json\") nalezen\u00e9 v \"configuration.yaml\" pou\u017e\u00edv\u00e1 zastaral\u00fd p\u0159\u00edznak \"color_mode\". \n\nNalezen\u00e9 nastaven\u00ed:\n\"yaml\n{config}\n\"\n\nOdeberte volbu z nastaven\u00ed a [znovu na\u010dt\u011bte](/developer-tools/yaml) ru\u010dn\u011b nastaven\u00e9 polo\u017eky MQTT nebo restartujte Home Assistanta, abyste tento probl\u00e9m vy\u0159e\u0161ili.",
+            "title": "Zastaral\u00fd p\u0159\u00edznak volby \"color_mode\" pou\u017e\u00edvan\u00fd pro sv\u011btlo MQTT"
+        },
+        "deprecated_yaml": {
+            "description": "Ru\u010dn\u011b nastaven\u00e9 MQTT {platform} naleznete pod kl\u00ed\u010dem platformy `{platform}`. \n\nChcete-li tento probl\u00e9m vy\u0159e\u0161it, p\u0159esu\u0148te nastaven\u00ed do integra\u010dn\u00edho kl\u00ed\u010de \"mqtt\" a restartujte Home Assistanta. Dal\u0161\u00ed informace naleznete v [dokumentaci]({more_info_url}).",
+            "title": "Va\u0161e ru\u010dn\u011b nastaven\u00e9 MQTT {platform} vy\u017eaduje pozornost"
+        },
+        "deprecated_yaml_broker_settings": {
+            "description": "N\u00e1sleduj\u00edc\u00ed nastaven\u00ed nalezen\u00e1 v \"configuration.yaml\" byla migrov\u00e1na do z\u00e1znamu s nastaven\u00edm MQTT a nyn\u00ed p\u0159ep\u00ed\u0161\u00ed nastaven\u00ed v \"configuration.yaml\":\n\"{deprecated_settings}\"\n\nOdeberte tato nastaven\u00ed z \"configuration.yaml\" a restartujte Home Assistanta, abyste tento probl\u00e9m vy\u0159e\u0161ili. Dal\u0161\u00ed informace naleznete v [dokumentaci]({more_info_url}).",
+            "title": "V \"configuration.yaml\" byla nalezena zastaral\u00e1 nastaven\u00ed MQTT"
+        },
+        "deprecation_mqtt_legacy_vacuum_discovery": {
+            "description": "Entity vysava\u010de MQTT, kter\u00e9 pou\u017e\u00edvaj\u00ed star\u0161\u00ed sch\u00e9ma, jsou zastaral\u00e9. Upravte sv\u00e1 za\u0159\u00edzen\u00ed tak, aby pou\u017e\u00edvalo spr\u00e1vn\u00e9 sch\u00e9ma a restartujte Home Assistanta, abyste tento probl\u00e9m vy\u0159e\u0161ili.",
+            "title": "Entity vysava\u010de MQTT se star\u0161\u00edm sch\u00e9matem p\u0159idan\u00fdm prost\u0159ednictv\u00edm zji\u0161\u0165ov\u00e1n\u00ed MQTT"
+        },
+        "deprecation_mqtt_legacy_vacuum_yaml": {
+            "description": "Entity vysava\u010de MQTT, kter\u00e9 pou\u017e\u00edvaj\u00ed star\u0161\u00ed sch\u00e9ma, jsou zastaral\u00e9. Upravte \"configuration.yaml\" a restartujte Home Assistanta, abyste tento probl\u00e9m vy\u0159e\u0161ili.",
+            "title": "Entity vysava\u010de MQTT se star\u0161\u00edm sch\u00e9matem nalezen\u00fdm ve va\u0161em \"configuration.yaml\""
+        },
+        "deprecation_mqtt_schema_vacuum_yaml": {
+            "description": "Nastaven\u00ed \"schema\" pro entity vysava\u010d\u016f MQTT je zastaral\u00e9 a m\u011blo by b\u00fdt odebr\u00e1no. Chcete-li tento probl\u00e9m vy\u0159e\u0161it, upravte soubor configuration.yaml a restartujte Home Assistanta.",
+            "title": "Entity vysava\u010d\u016f MQTT se zastaral\u00fdmi konfigura\u010dn\u00edmi nastaven\u00edmi \"schema\" nalezen\u00e9 ve va\u0161em configuration.yaml"
+        },
+        "entity_name_is_device_name_discovery": {
+            "description": "N\u011bkter\u00e9 entity MQTT maj\u00ed n\u00e1zev entity stejn\u00fd jako n\u00e1zev za\u0159\u00edzen\u00ed. To se neo\u010dek\u00e1v\u00e1. N\u00e1zev entity je nastaven na hodnotu \"null\", aby se p\u0159ede\u0161lo duplicitn\u00edmu n\u00e1zvu. Informujte spr\u00e1vce softwarov\u00e9 aplikace, kter\u00e1 dod\u00e1v\u00e1 dot\u010den\u00e9 entity, aby tento probl\u00e9m vy\u0159e\u0161il.\n\nSeznam dot\u010den\u00fdch entit: \n\n{config}",
+            "title": "Zji\u0161t\u011bn\u00e9 entity MQTT s n\u00e1zvem, kter\u00fd se rovn\u00e1 n\u00e1zvu za\u0159\u00edzen\u00ed"
+        },
+        "entity_name_is_device_name_yaml": {
+            "description": "N\u011bkter\u00e9 entity MQTT maj\u00ed n\u00e1zev entity stejn\u00fd jako n\u00e1zev za\u0159\u00edzen\u00ed. To se neo\u010dek\u00e1v\u00e1. N\u00e1zev entity je nastaven na hodnotu \"null\", aby se p\u0159ede\u0161lo duplicitn\u00edmu n\u00e1zvu. Chcete-li tento probl\u00e9m vy\u0159e\u0161it, aktualizujte nastaven\u00ed a restartujte Home Assistanta.\n\nSeznam dot\u010den\u00fdch entit:\n\n{config}",
+            "title": "Ru\u010dn\u011b nastaven\u00e9 entity MQTT s n\u00e1zvem, kter\u00fd se rovn\u00e1 n\u00e1zvu za\u0159\u00edzen\u00ed"
+        },
+        "entity_name_startswith_device_name_discovery": {
+            "description": "N\u011bkter\u00e9 entity MQTT maj\u00ed n\u00e1zev entity, kter\u00fd za\u010d\u00edn\u00e1 jm\u00e9nem za\u0159\u00edzen\u00ed. To se neo\u010dek\u00e1v\u00e1. Aby se p\u0159ede\u0161lo duplicitn\u00edmu n\u00e1zvu, p\u0159edpona n\u00e1zvu za\u0159\u00edzen\u00ed je odebr\u00e1na z n\u00e1zvu entity. Informujte spr\u00e1vce softwarov\u00e9 aplikace, kter\u00e1 dod\u00e1v\u00e1 dot\u010den\u00e9 entity, aby tento probl\u00e9m vy\u0159e\u0161il. \n\nSeznam dot\u010den\u00fdch entit:\n\n{config}",
+            "title": "Nalezen\u00e9 entity s n\u00e1zvem, kter\u00fd za\u010d\u00edn\u00e1 n\u00e1zvem za\u0159\u00edzen\u00ed"
+        },
+        "entity_name_startswith_device_name_yaml": {
+            "description": "N\u011bkter\u00e9 entity MQTT maj\u00ed n\u00e1zev entity, kter\u00fd za\u010d\u00edn\u00e1 n\u00e1zvem za\u0159\u00edzen\u00ed. To se neo\u010dek\u00e1v\u00e1. Aby se p\u0159ede\u0161lo duplicitn\u00edmu n\u00e1zvu, p\u0159edpona n\u00e1zvu za\u0159\u00edzen\u00ed je odebr\u00e1na z n\u00e1zvu entity. Chcete-li tento probl\u00e9m vy\u0159e\u0161it, aktualizujte nastaven\u00ed a restartujte Home Assistanta.\n\nSeznam dot\u010den\u00fdch entit:\n\n{config}",
+            "title": "Ru\u010dn\u011b nastaven\u00e9 entity MQTT s n\u00e1zvem, kter\u00fd za\u010d\u00edn\u00e1 n\u00e1zvem za\u0159\u00edzen\u00ed"
+        },
+        "invalid_entity_category": {
+            "description": "Home Assistant zjistil ru\u010dn\u011b nastavenou entitu MQTT \"{domain}\", kter\u00e1 m\u00e1 \"entity_category\" nastavenou na \"config\".\nKonfigura\u010dn\u00ed soubor: **{config_file}**\nBl\u00edzko \u0159\u00e1dku: **{line}**\n\nKonfigurace s neplatn\u00fdm nastaven\u00edm:\n\n\"jaml\n{config}\n\"\n\nPo nastaven\u00ed se ujist\u011bte, \u017ee \"entity_category\" pro \"{domain}\" je nastaveno na \"diagnostic\" nebo \"None\". Chcete-li tento probl\u00e9m vy\u0159e\u0161it, aktualizujte nastaven\u00ed YAML a restartujte Home Assistanta.",
+            "title": "Byla nalezena dom\u00e9na MQTT {domain} s neplatnou kategori\u00ed entity"
+        },
+        "invalid_platform_config": {
+            "description": "Home Assistant zjistil neplatn\u00e9 nastaven\u00ed pro ru\u010dn\u011b nastavenou polo\u017eku.\n\nDom\u00e9na platformy: **{domain}**\nSoubor s nastaven\u00edm: **{config_file}**\nBl\u00edzko \u0159\u00e1dku: **{line}**\nNalezen\u00e9 nastaven\u00ed:\n\"yaml\n{config}\n\"\nChyba: **{error}**\n\nUjist\u011bte se, \u017ee je nastaven\u00ed platn\u00e9 a [znovu na\u010dt\u011bte](/developer-tools/yaml) ru\u010dn\u011b nastaven\u00e9 polo\u017eky MQTT nebo restartujte Home Assistanta, abyste tento probl\u00e9m vy\u0159e\u0161ili.",
+            "title": "Pro polo\u017eku MQTT {domain} bylo nalezeno neplatn\u00e9 nastaven\u00ed"
+        },
+        "payload_template_deprecation": {
+            "description": "Zastaral\u00e1 volba \"payload_template\" pou\u017e\u00edvan\u00e1 v MQTT publikuje vol\u00e1n\u00ed akce k t\u00e9matu \"{topic}\" ze \u0161ablony datov\u00e9 \u010d\u00e1sti \"{payload_template}\". M\u00edsto toho pou\u017eijte mo\u017enost \"payload\". V automatizaci jsou \u0161ablony podporov\u00e1ny nativn\u011b. Aktualizujte automatizaci nebo skript tak, aby m\u00edsto toho pou\u017e\u00edval volbu \"payload\" a restartujte Home Assistanta, abyste tento probl\u00e9m vy\u0159e\u0161ili.",
+            "title": "Zastaral\u00e1 volba pou\u017eit\u00e1 ve vol\u00e1n\u00ed akce publikov\u00e1n\u00ed MQTT"
+        },
+        "topic_template_deprecation": {
+            "description": "Zastaral\u00e1 volba \"topic_template\" pou\u017eit\u00e1 v MQTT publikuje vol\u00e1n\u00ed akce k t\u00e9matu \"{topic}\" ze \u0161ablony t\u00e9matu \"{topic_template}\". M\u00edsto toho pou\u017eijte mo\u017enost \"topic\". V automatizaci jsou \u0161ablony podporov\u00e1ny nativn\u011b. Aktualizujte automatizaci nebo skript tak, aby m\u00edsto toho pou\u017e\u00edval mo\u017enost \"topic\" a restartujte Home Assistanta, abyste tento probl\u00e9m vy\u0159e\u0161ili.",
+            "title": "Zastaral\u00e1 volba pou\u017eit\u00e1 ve vol\u00e1n\u00ed akce publikov\u00e1n\u00ed MQTT"
+        }
+    },
+    "options": {
+        "error": {
+            "bad_birth": "Neplatn\u00e9 t\u00e9ma zpr\u00e1vy p\u0159i p\u0159ipojen\u00ed",
+            "bad_certificate": "Certifik\u00e1t CA je neplatn\u00fd",
+            "bad_client_cert": "Neplatn\u00fd klientsk\u00fd certifik\u00e1t, zajist\u011bte dod\u00e1n\u00ed souboru s k\u00f3dem PEM",
+            "bad_client_cert_key": "Klientsk\u00fd certifik\u00e1t a soukrom\u00fd nejsou platn\u00fd p\u00e1r",
+            "bad_client_key": "Neplatn\u00fd soukrom\u00fd kl\u00ed\u010d, zajist\u011bte, aby byl soubor s k\u00f3dem PEM dod\u00e1n bez hesla",
+            "bad_discovery_prefix": "Neplatn\u00e1 p\u0159edpona zji\u0161\u0165ov\u00e1n\u00ed",
+            "bad_will": "Neplatn\u00e9 t\u00e9ma zpr\u00e1vy p\u0159i odpojen\u00ed",
+            "bad_ws_headers": "Zadejte platn\u00e9 HTTP hlavi\u010dky jako JSON objekt",
+            "cannot_connect": "Nepoda\u0159ilo se p\u0159ipojit",
+            "invalid_inclusion": "Klientsk\u00fd certifik\u00e1t a soukrom\u00fd kl\u00ed\u010d mus\u00ed b\u00fdt nastaveny spole\u010dn\u011b"
+        },
+        "step": {
+            "broker": {
+                "data": {
+                    "advanced_options": "Pokro\u010dil\u00e9 volby",
+                    "broker": "Broker",
+                    "certificate": "Nahr\u00e1t soubor vlastn\u00edho certifik\u00e1tu CA",
+                    "client_cert": "Nahr\u00e1t soubor klientsk\u00e9ho certifik\u00e1tu",
+                    "client_id": "ID klienta (nechte pr\u00e1zdn\u00e9 pro n\u00e1hodn\u011b vygenerovan\u00e9)",
+                    "client_key": "Nahr\u00e1t soubor soukrom\u00e9ho kl\u00ed\u010de",
+                    "keepalive": "Doba mezi odesl\u00e1n\u00edm zpr\u00e1v pro zachov\u00e1n\u00ed \u017eivota",
+                    "password": "Heslo",
+                    "port": "Port",
+                    "protocol": "Protokol MQTT",
+                    "set_ca_cert": "Ov\u011b\u0159en\u00ed platnosti certifik\u00e1tu brokera",
+                    "set_client_cert": "Pou\u017e\u00edt klientsk\u00fd certifik\u00e1t",
+                    "tls_insecure": "Ignorovat ov\u011b\u0159en\u00ed certifik\u00e1tu brokera",
+                    "transport": "Transport MQTT",
+                    "username": "U\u017eivatelsk\u00e9 jm\u00e9no",
+                    "ws_headers": "Hlavi\u010dky websocketu ve form\u00e1tu JSON",
+                    "ws_path": "Cesta websocketu"
+                },
+                "data_description": {
+                    "advanced_options": "Povolte a klepn\u011bte na \"Dal\u0161\u00ed\" pro nastaven\u00ed pokro\u010dil\u00fdch voleb.",
+                    "broker": "N\u00e1zev hostitele nebo IP adresa va\u0161eho brokera MQTT.",
+                    "certificate": "Soubor s vlastn\u00edm certifik\u00e1tem CA pro ov\u011b\u0159en\u00ed certifik\u00e1tu brokera MQTT.",
+                    "client_cert": "Klientsk\u00fd certifik\u00e1t k ov\u011b\u0159en\u00ed proti va\u0161emu brokerovi MQTT.",
+                    "client_id": "Jedine\u010dn\u00e9 ID k identifikaci rozhran\u00ed API MQTT Home Assistanta jako klienta MQTT. Doporu\u010duje se ponechat tuto volbu pr\u00e1zdnou.",
+                    "client_key": "Soubor soukrom\u00e9ho kl\u00ed\u010de, kter\u00fd pat\u0159\u00ed k va\u0161emu klientsk\u00e9mu certifik\u00e1tu.",
+                    "password": "Heslo pro p\u0159ihl\u00e1\u0161en\u00ed k va\u0161emu brokerovi MQTT.",
+                    "port": "Port, na kter\u00e9m v\u00e1\u0161 MQTT broker naslouch\u00e1. Nap\u0159\u00edklad 1883.",
+                    "protocol": "Protokol MQTT, na kter\u00e9m v\u00e1\u0161 broker pracuje. Nap\u0159\u00edklad 3.1.1.",
+                    "set_ca_cert": "Vyberte \"Auto\" pro automatick\u00e9 ov\u011b\u0159en\u00ed CA nebo \"Vlastn\u00ed\" a klepnut\u00edm na \"Dal\u0161\u00ed\" nastavte vlastn\u00ed certifik\u00e1t CA, kter\u00fd umo\u017en\u00ed ov\u011b\u0159en\u00ed va\u0161eho certifik\u00e1tu brokera MQTT.",
+                    "set_client_cert": "Povolte a klepn\u011bte na \"Dal\u0161\u00ed\" pro nastaven\u00ed klientsk\u00e9ho certifik\u00e1tu a soukrom\u00e9ho ketu k ov\u011b\u0159en\u00ed proti va\u0161emu MQTT brokerovi.",
+                    "tls_insecure": "Volba ignorovat ov\u011b\u0159en\u00ed certifik\u00e1tu va\u0161eho brokera MQTT.",
+                    "transport": "Transport, kter\u00fd se m\u00e1 pou\u017e\u00edt pro p\u0159ipojen\u00ed k va\u0161emu brokerovi MQTT.",
+                    "username": "U\u017eivatelsk\u00e9 jm\u00e9no pro p\u0159ihl\u00e1\u0161en\u00ed k va\u0161emu brokerovi MQTT.",
+                    "ws_headers": "Z\u00e1hlav\u00ed WebSocket, kter\u00e1 projdou p\u0159ipojen\u00edm zalo\u017een\u00fdm na WebSocket k va\u0161emu zprost\u0159edkovateli MQTT.",
+                    "ws_path": "Cesta WebSocket, kter\u00e1 se m\u00e1 pou\u017e\u00edt pro p\u0159ipojen\u00ed k va\u0161emu brokerovi MQTT."
+                },
+                "description": "Zadejte informace pro p\u0159ipojen\u00ed brokera MQTT.",
+                "title": "Volby brokera"
+            },
+            "options": {
+                "data": {
+                    "birth_enable": "Povolit zpr\u00e1vu p\u0159i p\u0159ipojen\u00ed",
+                    "birth_payload": "Datov\u00e1 \u010d\u00e1st zpr\u00e1vy p\u0159i p\u0159ipojen\u00ed",
+                    "birth_qos": "QoS zpr\u00e1vy p\u0159i p\u0159ipojen\u00ed",
+                    "birth_retain": "Zachovat zpr\u00e1vu p\u0159i p\u0159ipojen\u00ed",
+                    "birth_topic": "T\u00e9ma zpr\u00e1vy p\u0159i p\u0159ipojen\u00ed",
+                    "discovery": "Povolit zji\u0161\u0165ov\u00e1n\u00ed",
+                    "discovery_prefix": "P\u0159edpona zji\u0161\u0165ov\u00e1n\u00ed",
+                    "will_enable": "Povolit zpr\u00e1vu p\u0159i odpojen\u00ed",
+                    "will_payload": "Datov\u00e1 \u010d\u00e1st zpr\u00e1vy p\u0159i odpojen\u00ed",
+                    "will_qos": "QoS zpr\u00e1vy p\u0159i odpojen\u00ed",
+                    "will_retain": "Zachovat zpr\u00e1vu p\u0159i odpojen\u00ed",
+                    "will_topic": "T\u00e9ma zpr\u00e1vy p\u0159i odpojen\u00ed"
+                },
+                "data_description": {
+                    "birth_enable": "Kdy\u017e je toto nastaven\u00ed nastaveno, Home Assistant publikuje online zpr\u00e1vu va\u0161emu brokerovi MQTT, jakmile bude MQTT p\u0159ipraven.",
+                    "birth_payload": "Zpr\u00e1va o narozen\u00ed, kter\u00e1 je publikov\u00e1na, kdy\u017e je MQTT p\u0159ipraveno a p\u0159ipojeno.",
+                    "birth_qos": "Kvalita slu\u017eby zpr\u00e1vy o narozen\u00ed, kter\u00e1 je publikov\u00e1na, kdy\u017e je MQTT p\u0159ipraveno a p\u0159ipojeno",
+                    "birth_retain": "Pokud je nastaveno, Home Assistant zachov\u00e1 zpr\u00e1vu o narozen\u00ed publikovanou do va\u0161eho zprost\u0159edkovatele MQTT.",
+                    "birth_topic": "T\u00e9ma MQTT, kde Home Assistant zve\u0159ejn\u00ed zpr\u00e1vu o narozen\u00ed.",
+                    "discovery": "Volba povolit automatick\u00e9 zji\u0161\u0165ov\u00e1n\u00ed MQTT.",
+                    "discovery_prefix": "P\u0159edpona t\u00e9mat konfigurace, k jejich\u017e odb\u011bru se bude interakce MQTT p\u0159ihla\u0161ovat.",
+                    "will_enable": "Je-li nastaveno, Home Assistant po\u017e\u00e1d\u00e1 va\u0161eho brokera, aby zve\u0159ejnil zpr\u00e1vu o v\u016fli, kdy\u017e je MQTT zastaveno nebo ztrat\u00ed spojen\u00ed s va\u0161\u00edm brokerem.",
+                    "will_payload": "Zpr\u00e1va, kterou v\u00e1\u0161 broker MQTT zve\u0159ejn\u00ed, kdy\u017e se spojen\u00ed ztrat\u00ed.",
+                    "will_qos": "Kvalita slu\u017eby zpr\u00e1vy v\u016fle, kterou zve\u0159ej\u0148uje v\u00e1\u0161 zprost\u0159edkovatel MQTT.",
+                    "will_retain": "Kdy\u017e je nastaveno, v\u00e1\u0161 broker MQTT uchov\u00e1 zpr\u00e1vu v\u016fle.",
+                    "will_topic": "T\u00e9ma MQTT, ke kter\u00e9mu v\u00e1\u0161 broker MQTT zve\u0159ejn\u00ed zpr\u00e1vu v\u016fle."
+                },
+                "description": "Zji\u0161\u0165ov\u00e1n\u00ed - Pokud je zji\u0161\u0165ov\u00e1n\u00ed povoleno (doporu\u010deno), Home Assistant automaticky objev\u00ed za\u0159\u00edzen\u00ed a entity, kter\u00e9 publikuj\u00ed sv\u00e9 nastaven\u00ed na brokerovi MQTT. Pokud je zji\u0161\u0165ov\u00e1n\u00ed zak\u00e1z\u00e1no, mus\u00ed b\u00fdt ve\u0161ker\u00e9 nastaven\u00ed provedeno ru\u010dn\u011b.\nP\u0159edpona zji\u0161\u0165ov\u00e1n\u00ed - P\u0159edpona, kterou mus\u00ed za\u010d\u00ednat t\u00e9ma nastaven\u00ed pro automatick\u00e9 zji\u0161\u0165ov\u00e1n\u00ed.\nZpr\u00e1va p\u0159i p\u0159ipojen\u00ed - Zpr\u00e1va bude odesl\u00e1na poka\u017ed\u00e9, kdy\u017e se Home Assistant (znovu) p\u0159ipoj\u00ed k brokerovi MQTT.\nZpr\u00e1va p\u0159i odpojen\u00ed - Zpr\u00e1va bude odesl\u00e1na poka\u017ed\u00e9, kdy\u017e Home Assistant ztrat\u00ed spojen\u00ed s brokerem a to jak v p\u0159\u00edpad\u011b norm\u00e1ln\u00edho (nap\u0159. vypnut\u00ed Home Assistanta), tak v p\u0159\u00edpad\u011b neo\u010dek\u00e1van\u00e9ho (nap\u0159. selh\u00e1n\u00ed Home Assistanta nebo ztr\u00e1ta p\u0159ipojen\u00ed k s\u00edti) odpojen\u00ed.",
+                "title": "Volby MQTT"
+            }
+        }
+    },
+    "selector": {
+        "set_ca_cert": {
+            "options": {
+                "auto": "Auto",
+                "custom": "Vlastn\u00ed",
+                "off": "Vypnuto"
+            }
+        }
+    },
+    "services": {
+        "dump": {
+            "description": "Zap\u00ed\u0161e v\u0161echny zpr\u00e1vy na ur\u010dit\u00e9 t\u00e9ma do souboru \"mqtt_dump.txt\" ve va\u0161\u00ed slo\u017ece s nastaven\u00edm.",
+            "fields": {
+                "duration": {
+                    "description": "Jak dlouho se m\u00e1 naslouchat zpr\u00e1v\u00e1m (v sekund\u00e1ch).",
+                    "name": "D\u00e9lka"
+                },
+                "topic": {
+                    "description": "T\u00e9ma, kter\u00e9 se m\u00e1 poslouchat.",
+                    "name": "T\u00e9ma"
+                }
+            },
+            "name": "Exportovat"
+        },
+        "publish": {
+            "description": "Publikuje zpr\u00e1vu k t\u00e9matu MQTT.",
+            "fields": {
+                "evaluate_payload": {
+                    "description": "Kdy\u017e je \"payload\" bajtov\u00fd liter\u00e1l Pythonu, vyhodnot\u00ed bajtov\u00fd liter\u00e1l a publikujte nezpracovan\u00e1 data.",
+                    "name": "Vyhodnotit payload"
+                },
+                "payload": {
+                    "description": "Datov\u00e1 \u010d\u00e1st k publikov\u00e1n\u00ed.",
+                    "name": "Datov\u00e1 \u010d\u00e1st"
+                },
+                "payload_template": {
+                    "description": "\u0160ablona k vykreslen\u00ed jako hodnota datov\u00e9 \u010d\u00e1sti. Pokud je poskytnuta datov\u00e1 \u010d\u00e1st, \u0161ablona je ignorov\u00e1na.",
+                    "name": "\u0160ablona datov\u00e9 \u010d\u00e1sti"
+                },
+                "qos": {
+                    "description": "QoS, kter\u00e1 se m\u00e1 pou\u017e\u00edt. 0: maxim\u00e1ln\u011b jednou, 1: alespo\u0148 jednou, 2: p\u0159esn\u011b jednou.",
+                    "name": "QoS"
+                },
+                "retain": {
+                    "description": "Zda m\u00e1 m\u00edt zpr\u00e1va nastaven p\u0159\u00edznak zachov\u00e1n\u00ed. Pokud je nastaveno, broker ukl\u00e1d\u00e1 nejnov\u011bj\u0161\u00ed zpr\u00e1vu k t\u00e9matu.",
+                    "name": "Zachovat"
+                },
+                "topic": {
+                    "description": "T\u00e9ma k publikov\u00e1n\u00ed.",
+                    "name": "T\u00e9ma"
+                }
+            },
+            "name": "Publikovat"
+        },
+        "reload": {
+            "description": "Znovu na\u010dte entity MQTT z nastaven\u00ed YAML.",
+            "name": "Znovu na\u010d\u00edst"
+        }
+    }
+}

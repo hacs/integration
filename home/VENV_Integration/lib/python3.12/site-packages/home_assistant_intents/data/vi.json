@@ -1,0 +1,2807 @@
+{
+  "language": "vi",
+  "intents": {
+    "HassTurnOff": {
+      "data": [
+        {
+          "sentences": [
+            "tắt [cái] (<area> <name>|<name> [<area>])[đi]",
+            "[chuyển] (<area> <name>|<name> [trong <area>]) [thành] tắt",
+            "vô hiệu hóa(<area> <name>|<name> [trong <area>])"
+          ],
+          "excludes_context": {
+            "domain": [
+              "binary_sensor",
+              "cover",
+              "lock",
+              "scene",
+              "script",
+              "sensor"
+            ]
+          }
+        },
+        {
+          "sentences": [
+            " <turn_off> (<light_devices> <name> <area>|<light_devices> <name> [trong <area>])",
+            "<turn_off> tắt (<light_devices> <name> <area>|<light_devices> <name> [trong <area>])",
+            "<turn_off> (<light_devices> <name> <area>|<light_devices> <name> [trong <area>])"
+          ],
+          "expansion_rules": {
+            "turn_off": "(tắt|đóng|ngắt|vô hiệu hóa)",
+            "light_devices": "(bóng đèn|công tắc [đèn]|đèn[điện]|ánh sáng)"
+          },
+          "requires_context": {
+            "domain": "light"
+          }
+        },
+        {
+          "sentences": [
+            "<turn_off>  [<all>] <light_devices> <in_area>"
+          ],
+          "expansion_rules": {
+            "turn_off": "(tắt|đóng|ngắt|vô hiệu hóa)",
+            "light_devices": "( [công tắc] [bóng] đèn [điện]| ánh sáng [điện])"
+          },
+          "slots": {
+            "domain": "light"
+          },
+          "response": "lights_area"
+        },
+        {
+          "sentences": [
+            "<turn_off> [<all>] <light_devices> <every_where>"
+          ],
+          "expansion_rules": {
+            "turn_off": "(tắt|đóng|ngắt|vô hiệu hóa)",
+            "light_devices": "( [công tắc] [bóng] đèn [điện]| ánh sáng [điện])"
+          },
+          "response": "light_all",
+          "slots": {
+            "domain": "light"
+          }
+        },
+        {
+          "sentences": [
+            " <turn_off> [<all>] <light_devices> [<in_here>]"
+          ],
+          "response": "lights_area",
+          "expansion_rules": {
+            "turn_off": "(tắt|đóng|ngắt|vô hiệu hóa)",
+            "light_devices": "( [công tắc] [bóng] đèn [điện]| ánh sáng [điện])"
+          },
+          "slots": {
+            "domain": "light"
+          },
+          "requires_context": {
+            "area": {
+              "slot": true
+            }
+          }
+        },
+        {
+          "sentences": [
+            "<đóng> <name> [[tại|trong|của|ở] <area>]"
+          ],
+          "requires_context": {
+            "domain": "cover"
+          },
+          "response": "cover"
+        },
+        {
+          "sentences": [
+            "<đóng> cửa garage"
+          ],
+          "slots": {
+            "domain": "cover",
+            "device_class": "garage"
+          },
+          "response": "cover_device_class"
+        },
+        {
+          "sentences": [
+            "<đóng> {cover_classes:device_class} [tại|trong|của|ở] <area>"
+          ],
+          "slots": {
+            "domain": "cover"
+          },
+          "response": "cover_device_class"
+        },
+        {
+          "sentences": [
+            "<đóng> {cover_classes:device_class} [<in_here>] "
+          ],
+          "expansion_rules": {
+            "in_here": "ở đây | tại đây | trong đây | [ở|tại|trong] [phòng|chỗ] này"
+          },
+          "slots": {
+            "domain": "cover",
+            "device_class": "curtain"
+          },
+          "response": "cover_device_class",
+          "requires_context": {
+            "area": {
+              "slot": true
+            }
+          }
+        },
+        {
+          "sentences": [
+            " tắt quạt [ở|trong|tại|của] <area>",
+            " tắt [tất cả] [các] quạt [ở|trong|tại|của] <area>",
+            " tắt [tất cả] [cái] quạt [ở|trong|tại|của] <area>",
+            "dừng [tất cả] [cái] quạt [ở|trong|tại|của] <area>",
+            "dừng [tất cả] quạt [ở|trong|tại|của|ở trong] <area>"
+          ],
+          "slots": {
+            "domain": "fan",
+            "name": "all"
+          },
+          "response": "fans_area"
+        },
+        {
+          "sentences": [
+            "(tắt [hết|tất cả] quạt [ở mọi nơi])",
+            "dừng (tất cả quạt|quạt ở mọi nơi)"
+          ],
+          "response": "light_all",
+          "slots": {
+            "domain": "fan",
+            "name": "all"
+          }
+        },
+        {
+          "sentences": [
+            "mở [khoá] <name> [ở|trong|của|tại <area>]"
+          ],
+          "requires_context": {
+            "domain": "lock"
+          },
+          "response": "lock"
+        },
+        {
+          "sentences": [
+            "mở [khoá] [tất cả] [các] (ổ khoá|cửa) [ở|trong|của|tại] <area>",
+            "mở [khoá] [tất cả] <area> (ổ khoá|cửa)"
+          ],
+          "slots": {
+            "domain": "lock",
+            "name": "all"
+          },
+          "response": "lock"
+        },
+        {
+          "sentences": [
+            "<close> <name>"
+          ],
+          "requires_context": {
+            "domain": "valve"
+          },
+          "slots": {
+            "domain": "valve"
+          },
+          "response": "valve"
+        }
+      ]
+    },
+    "HassGetState": {
+      "data": [
+        {
+          "sentences": [
+            "<name> [đang] <where_is>"
+          ],
+          "response": "where",
+          "requires_context": {
+            "domain": "person"
+          },
+          "slots": {
+            "domain": "person"
+          }
+        },
+        {
+          "sentences": [
+            "<name> [có] [đang] [hiện tại] [trong] {zone:state} không"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "person"
+          },
+          "slots": {
+            "domain": "person"
+          }
+        },
+        {
+          "sentences": [
+            "có ai [đang] [trong] {zone:state} không"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "person"
+          }
+        },
+        {
+          "sentences": [
+            "[tất cả] mọi người [có] [đều] [đang] [trong] {zone:state}không"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "person"
+          }
+        },
+        {
+          "sentences": [
+            "[có] [những] ai [đang] [trong] {zone:state} (vậy|thế)"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "person"
+          }
+        },
+        {
+          "sentences": [
+            "có bao nhiêu người [đang] [trong] {zone:state} (vậy|thế)"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "person"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "apparent_power"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "apparent_power"
+          },
+          "expansion_rules": {
+            "class": "(công suất tỏa ra|công suất biểu kiến|công suất)"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "aqi"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "aqi"
+          },
+          "expansion_rules": {
+            "class": "(AQI|chỉ số chất lượng không khí|chỉ số |chất lượng không khí)"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "atmospheric_pressure"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "atmospheric_pressure"
+          },
+          "expansion_rules": {
+            "class": "(áp suất [khí quyển])"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>",
+            "{name} (còn [lại] |có ) bao nhiêu pin"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "battery"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "battery"
+          },
+          "expansion_rules": {
+            "class": "mức pin [còn lại]"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "carbon_dioxide"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "carbon_dioxide"
+          },
+          "expansion_rules": {
+            "class": "(nồng độ|mức[độ]) [khí] CO2"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "carbon_monoxide"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "carbon_monoxide"
+          },
+          "expansion_rules": {
+            "class": "(nồng độ|mức[độ]) [khí] (CO|monoxide carbon|cacbon monoxit)"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "current"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "current"
+          },
+          "expansion_rules": {
+            "class": "[lượng] [dòng] điện"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "data_rate"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "data_rate"
+          },
+          "expansion_rules": {
+            "class": "tốc độ (truyền dữ liệu|tải xuống) "
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "data_size"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "data_size"
+          },
+          "expansion_rules": {
+            "class": "kích thước [dữ liệu]"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>",
+            "{name} [sẽ|sắp] [là] [vào] (bao giờ| ngày nào|lúc nào|thời điểm nào |khi nào) "
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "date"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "date"
+          },
+          "expansion_rules": {
+            "class": "ngày"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "duration"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "duration"
+          },
+          "expansion_rules": {
+            "class": "khoảng thời gian"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "energy"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "energy"
+          },
+          "expansion_rules": {
+            "class": "[lượng] năng lượng"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "energy_storage"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "energy_storage"
+          },
+          "expansion_rules": {
+            "class": "[lượng] năng lượng [lưu trữ]"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "frequency"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "frequency"
+          },
+          "expansion_rules": {
+            "class": "tần số"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "gas"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "gas"
+          },
+          "expansion_rules": {
+            "class": "[lượng] [khí] gas"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "humidity"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "humidity"
+          },
+          "expansion_rules": {
+            "class": "độ ẩm [tương đối]"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "illuminance"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "illuminance"
+          },
+          "expansion_rules": {
+            "class": "[cường] độ [ánh] sáng"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "irradiance"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "irradiance"
+          },
+          "expansion_rules": {
+            "class": "bức xạ"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "moisture"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "moisture"
+          },
+          "expansion_rules": {
+            "class": "độ ẩm"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "monetary"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "monetary"
+          },
+          "expansion_rules": {
+            "class": "(giá [tiền] | [giá] tiền )"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "nitrogen_dioxide"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "nitrogen_dioxide"
+          },
+          "expansion_rules": {
+            "class": "nồng độ NO2"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "nitrogen_monoxide"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "nitrogen_monoxide"
+          },
+          "expansion_rules": {
+            "class": "nồng độ NO"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "nitrous_oxide"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "nitrous_oxide"
+          },
+          "expansion_rules": {
+            "class": "nồng độ N2O"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "ozone"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "ozone"
+          },
+          "expansion_rules": {
+            "class": "(nồng|mức) độ ozone"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "pm1"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "pm1"
+          },
+          "expansion_rules": {
+            "class": "(nồng độ|mức [độ]) [bụi] PM1"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "pm25"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "pm25"
+          },
+          "expansion_rules": {
+            "class": "(nồng độ|mức [độ] ) [bụi] PM2.5"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "pm10"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "pm10"
+          },
+          "expansion_rules": {
+            "class": "(nồng độ|mức[độ] ) [bụi] PM10"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "power_factor"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "power_factor"
+          },
+          "expansion_rules": {
+            "class": "hệ số công suất"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "power"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "power"
+          },
+          "expansion_rules": {
+            "class": "công suất"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "precipitation"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "precipitation"
+          },
+          "expansion_rules": {
+            "class": "lượng mưa [tích lũy]"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "precipitation_intensity"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "precipitation_intensity"
+          },
+          "expansion_rules": {
+            "class": "cường độ mưa"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "pressure"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "pressure"
+          },
+          "expansion_rules": {
+            "class": "áp suất"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "reactive_power"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "reactive_power"
+          },
+          "expansion_rules": {
+            "class": "công suất phản kháng"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "signal_strength"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "signal_strength"
+          },
+          "expansion_rules": {
+            "class": "cường độ tín hiệu"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "sound_pressure"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "sound_pressure"
+          },
+          "expansion_rules": {
+            "class": "áp suất âm thanh"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "speed"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "speed"
+          },
+          "expansion_rules": {
+            "class": "tốc độ"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "sulphur_dioxide"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "sulphur_dioxide"
+          },
+          "expansion_rules": {
+            "class": "nồng độ SO2"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "volatile_organic_compounds"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "volatile_organic_compounds"
+          },
+          "expansion_rules": {
+            "class": "(hợp chất hữu cơ dễ bay hơi|nồng độ hợp chất hữu cơ)"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "volatile_organic_compounds_parts"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "volatile_organic_compounds_parts"
+          },
+          "expansion_rules": {
+            "class": "(phần hợp chất hữu cơ dễ bay hơi|nồng độ hợp chất hữu cơ)"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "voltage"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "voltage"
+          },
+          "expansion_rules": {
+            "class": "điện áp"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "volume"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "volume"
+          },
+          "expansion_rules": {
+            "class": "thể tích"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "volume_storage"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "volume_storage"
+          },
+          "expansion_rules": {
+            "class": "[tổng] thể tích [đã] [lưu trữ]"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "water"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "water"
+          },
+          "expansion_rules": {
+            "class": "[lượng] nước tiêu thụ [tổng cộng]"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "weight"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "weight"
+          },
+          "expansion_rules": {
+            "class": "cân nặng"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "wind_speed"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "wind_speed"
+          },
+          "expansion_rules": {
+            "class": "[tốc độ] gió"
+          }
+        },
+        {
+          "sentences": [
+            "<name> [trong <area>] đã {lock_states:state} chưa"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "lock"
+          },
+          "slots": {
+            "domain": "lock"
+          }
+        },
+        {
+          "sentences": [
+            "(có|liệu) [có] cửa nào {lock_states:state} [trong <area>] không",
+            "(có|liệu) [có] cửa {lock_states:state} nào [trong <area>] không"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "lock"
+          }
+        },
+        {
+          "sentences": [
+            "tất cả cửa [đã] {lock_states:state} chưa"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "lock"
+          }
+        },
+        {
+          "sentences": [
+            "[có] bao nhiêu cửa (là|đang|đã được) {lock_states:state} [trong <area>]"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "lock"
+          }
+        },
+        {
+          "sentences": [
+            "   [[giá trị] ;[trạng thái] ; [hiện tại]] [của] <name> [là] <what_is> [ (trong|của|ở|tại) <area>] ",
+            "   [ (trong|của|ở|tại) <area>] [[giá trị] ;[trạng thái] ; [hiện tại]] [của] <name> [là] <what_is>  "
+          ],
+          "response": "one",
+          "excludes_context": {
+            "domain": [
+              "scene",
+              "script"
+            ]
+          }
+        },
+        {
+          "sentences": [
+            " [[hiện tại];[trạng thái]] [của] <name>  [ [có];[đang];[được];[để] ] {on_off_states:state} [[có]phải] không [(trong|của|tại|ở) <area> ]",
+            " [[hiện tại];[trạng thái]] [của] <name>  [ [có];[đang];[được];[để] ] {on_off_states:state} [(trong|của|tại|ở) <area> ] [[có]phải] không ",
+            "   [(trong|của|tại|ở) <area> ] [[hiện tại];[trạng thái]] [của] <name> [ [có];[đang];[được];[để] ] {on_off_states:state} [[có]phải] không "
+          ],
+          "response": "one_yesno",
+          "excludes_context": {
+            "domain": [
+              "cover"
+            ]
+          }
+        },
+        {
+          "sentences": [
+            " [[hiện tại];[đang]] có [bất kì] {on_off_domains:domain} [nào] ( [ (trong|của|tại|ở) <area> ] ; [ [có];[đang];[được];[để] ] {on_off_states:state} )[hay[là]] không"
+          ],
+          "response": "any"
+        },
+        {
+          "sentences": [
+            " [liệu rằng|có phải] (tất cả|mọi) {on_off_domains:domain} [đều]  [ [có];[đang];[được];[để];[đã] ] {on_off_states:state} [(trong|của|tại|ở) <area> ] ( [[có]phải] không|chưa) ",
+            "  [liệu rằng|có phải] (tất cả|mọi) {on_off_domains:domain} [(trong|của|tại|ở) <area> ] [đều]  [ [đã];[có];[đang];[được];[để] ] {on_off_states:state}  ( [[có]phải] không|chưa) "
+          ],
+          "response": "all"
+        },
+        {
+          "sentences": [
+            " [[hiện tại];[đang]] [có] {on_off_domains:domain} [nào] ( [ (trong|của|tại|ở) <area> ] ; [ [có];[đang];[được];[để] ] {on_off_states:state} ) [vậy|thế]"
+          ],
+          "response": "which"
+        },
+        {
+          "sentences": [
+            " có bao nhiêu [cái] {on_off_domains:domain} ( [ [có];[đang];[được];[để] ] {on_off_states:state} ; [(trong|của|ở|tại)<area>] )"
+          ],
+          "response": "how_many"
+        },
+        {
+          "sentences": [
+            "<name> [ [đã];[có];[đang];[được] ] {cover_states:state} ([hay]không|chưa) [(ở|trong|của|tại) <area>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "cover"
+          },
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "(có | liệu) [bất kỳ] {cover_classes:device_class} nào [ [đã];[có];[đang];[được] ] {cover_states:state}  (không ;(ở|trong|của|tại) <area> )"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "[có phải] (tất cả|mọi) [các] {cover_classes:device_class}  [đều] [ [đã];[có];[đang];[được] ] {cover_states:state} ( (chưa| [đúng|phải] không) ; [(ở|trong|của|tại) <area>] )",
+            "[có phải] (tất cả|mọi) [các] {cover_classes:device_class} [(ở|trong|của|tại) <area>] [đều] [ [đã];[có];[đang];[được] ] {cover_states:state} (chưa | [đúng|phải] không) "
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            " [những] [cái] {cover_classes:device_class} [nào] ( [ [đã];[có];[đang];[được] ] {cover_states:state} ; [(ở|trong|của|tại) <area>] )"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "có bao nhiêu {cover_classes:device_class} (đang | là) {cover_states:state} [(ở|trong|của|tại) <area>]"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "[liệu[rằng]|có phải] [pin] <name> [pin] [đang][có] {bs_battery_states:state} [không|chăng] [trong|ở|tại <area>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "battery"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "battery"
+          }
+        },
+        {
+          "sentences": [
+            " [liệu [rằng]|phải chăng|có thể] có [bất kỳ] [một] pin [nào] [có]  [đang] {bs_battery_states:state} [không] [trong|ở|tại <area>] [không]"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "battery"
+          }
+        },
+        {
+          "sentences": [
+            " [liệu [rằng]|phải chăng|có phải] tất cả [các] pin [đều] [có] [đang] {bs_battery_states:state} [[đúng]không] [trong|ở|tại <area>] "
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "battery"
+          }
+        },
+        {
+          "sentences": [
+            " [[có]những|các] pin nào [đang] {bs_battery_states:state} [trong|ở|tại <area>] "
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "battery"
+          }
+        },
+        {
+          "sentences": [
+            " [có] bao nhiêu pin [đang] {bs_battery_states:state} [trong|ở|tại <area>] "
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "battery"
+          }
+        },
+        {
+          "sentences": [
+            " [liệu [rằng]|phải chăng|có thể] ([pin] [của|trong] <name>|<name> [pin]) ([có] [đang]|[có][đang]) {bs_battery_charging_states:state} [không] [trong|ở|tại <area>] "
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "battery_charging"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "battery_charging"
+          }
+        },
+        {
+          "sentences": [
+            " [liệu [rằng]|phải chăng|có thể] có [bất kỳ] [một] pin [nào] [có]  [đang] {bs_battery_charging_states:state} [không] [trong|ở|tại <area>] [không]"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "battery_charging"
+          }
+        },
+        {
+          "sentences": [
+            " [liệu [rằng]|phải chăng|có phải] tất cả [các] pin [đều] [có] [đang] {bs_battery_charging_states:state} [[đúng]không] [trong|ở|tại <area>] "
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "battery_charging"
+          }
+        },
+        {
+          "sentences": [
+            " [[có]những|các] pin nào [đang] {bs_battery_charging_states:state} [trong|ở|tại <area>] "
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "battery_charging"
+          }
+        },
+        {
+          "sentences": [
+            " [có] bao nhiêu pin [đang] {bs_battery_charging_states:state} [trong|ở|tại <area>] "
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "battery_charging"
+          }
+        },
+        {
+          "sentences": [
+            " [liệu [rằng]|phải chăng|có thể] <name> ([có] [đang]|[có][đang]) {bs_carbon_monoxide_states:state} [không] [trong|ở|tại <area>] "
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "carbon_monoxide"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "carbon_monoxide"
+          }
+        },
+        {
+          "sentences": [
+            " [liệu [rằng]|phải chăng|có thể] có [bất kỳ] [một] cảm biến [khí] (CO| monoxide carbon) [nào] [có]  [đang] {bs_carbon_monoxide_states:state} [không] [trong|ở|tại <area>] [không]"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "carbon_monoxide"
+          }
+        },
+        {
+          "sentences": [
+            " [liệu [rằng]|phải chăng|có thể] có [phát hiện] [bất kỳ] [một] [khí] (CO|monoxide carbon) [nào] [có] [không] [trong|ở|tại] <area> [không]"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "carbon_monoxide",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            " [liệu [rằng]|phải chăng|có phải] tất cả [các] cảm biến khí CO [đều] [có] [đang] {bs_carbon_monoxide_states:state} [[đúng]không] [trong|ở|tại <area>] "
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "carbon_monoxide"
+          }
+        },
+        {
+          "sentences": [
+            " [[có]những|các] cảm biến khí CO nào [đang] {bs_carbon_monoxide_states:state} [trong|ở|tại <area>] "
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "carbon_monoxide"
+          }
+        },
+        {
+          "sentences": [
+            " [có] bao nhiêu cảm biến khí CO [đang] {bs_carbon_monoxide_states:state} [trong|ở|tại <area>] "
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "carbon_monoxide"
+          }
+        },
+        {
+          "sentences": [
+            " [liệu [rằng]|phải chăng|có thể] <name> ([có] [đang]|[có][đang]) {bs_cold_states:state} [không] [trong|ở|tại <area>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "cold"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "cold"
+          }
+        },
+        {
+          "sentences": [
+            "có (vật|cảm biến) nào [đang] lạnh [trong <area>] [không]"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "cold",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "(vật|cảm biến) nào [đang] lạnh [trong <area>]"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "cold",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "có bao nhiêu (vật|cảm biến) [đang] lạnh [trong <area>]"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "cold",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "<name> [có] {bs_connectivity_states:state} [trong <area>] [không]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "connectivity"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "connectivity"
+          }
+        },
+        {
+          "sentences": [
+            "[có] thiết bị nào [đang] {bs_connectivity_states:state} [trong <area>] [không]"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "connectivity"
+          }
+        },
+        {
+          "sentences": [
+            "[tất cả] [các] thiết bị [trong <area>] [có đang] {bs_connectivity_states:state} [không]"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "connectivity"
+          }
+        },
+        {
+          "sentences": [
+            "(which|what) thiết bị {bs_connectivity_states:state} [trong <area>]"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "connectivity"
+          }
+        },
+        {
+          "sentences": [
+            "có bao nhiêu thiết bị đang {bs_connectivity_states:state} [trong <area>]"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "connectivity"
+          }
+        },
+        {
+          "sentences": [
+            "<name> có {bs_door_states:state} [trong <area>] [không]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "door"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "door"
+          }
+        },
+        {
+          "sentences": [
+            "<name> có [được] {bs_garage_door_states:state} [trong <area>] [không]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "garage_door"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "garage_door"
+          }
+        },
+        {
+          "sentences": [
+            "<name> [có] {bs_gas_states:state} [trong <area>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "gas"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "gas"
+          }
+        },
+        {
+          "sentences": [
+            "có cảm biến khí gas nào {bs_gas_states:state} [trong <area>]"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "gas"
+          }
+        },
+        {
+          "sentences": [
+            "có [bất kỳ] khí gas nào trong <area>",
+            "có [bất kỳ] phát hiện khí gas [nào] trong <area>"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "gas",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "cảm biến khí gas nào {bs_gas_states:state} [trong <area>]"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "gas"
+          }
+        },
+        {
+          "sentences": [
+            "có bao nhiêu cảm biến khí gas {bs_gas_states:state} [trong <area>]"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "gas"
+          }
+        },
+        {
+          "sentences": [
+            "<name> [có] {bs_heat_states:state} [trong <area>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "heat"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "heat"
+          }
+        },
+        {
+          "sentences": [
+            "có [bất cứ] (vật|cảm biến) nào [đang] nóng [trong <area>]"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "heat",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "(vật|cảm biến) nào [đang] nóng [trong <area>]"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "heat",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "có bao nhiêu (vật|cảm biến) [đang] nóng [trong <area>]"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "heat",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "có ánh sáng nào {bs_light_states:state} [trong <area>]"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "light"
+          }
+        },
+        {
+          "sentences": [
+            "[các] ánh sáng {bs_light_states:state} [trong <area>]"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "light"
+          }
+        },
+        {
+          "sentences": [
+            "<name> (có|đang) {bs_window_states:state} [tại <area>] [không]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "window"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "window"
+          }
+        }
+      ]
+    },
+    "HassGetWeather": {
+      "data": [
+        {
+          "sentences": [
+            "thời tiết [hôm nay] [như] thế nào"
+          ]
+        },
+        {
+          "sentences": [
+            "thời tiết (cho|tại|ở) <name> như thế nào",
+            "thời tiết (cho|tại|ở) <name> ra sao",
+            "thời tiết <name> như thế nào"
+          ],
+          "requires_context": {
+            "domain": "weather"
+          }
+        }
+      ]
+    },
+    "HassTurnOn": {
+      "data": [
+        {
+          "sentences": [
+            "bật (<area> <name> <light_devices>|<name> <light_devices> [trong <area>])",
+            "[bật] (<area> <name> <light_devices>|<name> <light_devices> [trong <area>]) đến trạng thái bật",
+            "kích hoạt (<light_devices> <area>)"
+          ],
+          "expansion_rules": {
+            "light_devices": "(đèn|công tắc)"
+          },
+          "requires_context": {
+            "domain": "light"
+          }
+        },
+        {
+          "sentences": [
+            "bật [tất cả] đèn [trong] <area> [lên]",
+            "đèn <area> bật",
+            "[bật] [tất cả] đèn <area> [lên]",
+            "kích hoạt [tất cả] đèn [trong] <area>",
+            "kích hoạt [tất cả] đèn <area>"
+          ],
+          "slots": {
+            "domain": "light"
+          },
+          "response": "lights_area"
+        },
+        {
+          "sentences": [
+            "bật [tất cả] đèn [<in_here>]",
+            "bật [tất cả] đèn (lên;<in_here>)",
+            "bật [tất cả] đèn lên"
+          ],
+          "response": "lights_area",
+          "expansion_rules": {
+            "in_here": "[ở] đây"
+          },
+          "slots": {
+            "domain": "light"
+          },
+          "requires_context": {
+            "area": {
+              "slot": true
+            }
+          }
+        },
+        {
+          "sentences": [
+            "[<turn>] [bật|mở] [tất cả] [các] quạt [ở|tại|trong|của] <area>",
+            "[<turn>] [bật|mở] quạt [ở|tại|trong|của] <area>",
+            "[<turn>] [tất cả] quạt [ở|tại|trong|của] <area> [bật|mở]",
+            "kích hoạt [tất cả] quạt [ở|tại|trong|của] <area>",
+            "kích hoạt [tất cả] [các] quạt [ở|tại|trong|của] <area>"
+          ],
+          "slots": {
+            "domain": "fan",
+            "name": "tất cả"
+          },
+          "response": "fans_area"
+        },
+        {
+          "sentences": [
+            "[<turn>] (bật|mở) [tất cả][ các] quạt [<in_here>]",
+            "[<turn>] [tất cả][ các] quạt ((bật|mở);<in_here>)",
+            "[<turn>] [tất cả][ các] quạt (bật|mở)"
+          ],
+          "response": "fans_area",
+          "expansion_rules": {
+            "in_here": " (trong đây|tại đây|ở đây|ngay đây)[này] "
+          },
+          "slots": {
+            "domain": "fan"
+          },
+          "requires_context": {
+            "area": {
+              "slot": true
+            }
+          }
+        },
+        {
+          "sentences": [
+            "[chạy|bắt đầu|<turn>] <name> [kịch bản] [bật]",
+            "[chạy|bắt đầu|chuyển[sang]|<turn>] [kịch bản] <name>"
+          ],
+          "requires_context": {
+            "domain": "script"
+          },
+          "slots": {
+            "domain": "script"
+          },
+          "response": "script"
+        },
+        {
+          "sentences": [
+            "[kích hoạt] [cảnh] <name>",
+            "bật <name>",
+            "<name> [cảnh] bật",
+            "(chuyển đổi|chuyển) sang (<name> [cảnh]|cảnh <name>)"
+          ],
+          "requires_context": {
+            "domain": "scene"
+          },
+          "slots": {
+            "domain": "scene"
+          },
+          "response": "scene"
+        },
+        {
+          "sentences": [
+            "[kích hoạt] <name> trong <area>",
+            "bật <name> [trong] <area>",
+            "[kích hoạt] [cảnh] <name> [tại] <area>",
+            "[cảnh] <name> tại <area> bật",
+            "<turn> ([cảnh] <name> ở <area>)",
+            "(chuyển đổi|chuyển) ([sang] [cảnh] <name> [tại] <area>)",
+            "(chuyển đổi|chuyển) (<area> [sang] [cảnh] <name>)",
+            "(chuyển đổi|chuyển) sang <name> [cảnh] [ở|trong] <area>"
+          ],
+          "requires_context": {
+            "domain": "scene"
+          },
+          "slots": {
+            "domain": "scene"
+          },
+          "response": "scene"
+        },
+        {
+          "sentences": [
+            "<open> <name>"
+          ],
+          "requires_context": {
+            "domain": "valve"
+          },
+          "slots": {
+            "domain": "valve"
+          },
+          "response": "valve"
+        },
+        {
+          "sentences": [
+            "<lock> <name> [ <in_area>] "
+          ],
+          "requires_context": {
+            "domain": "lock"
+          },
+          "response": "lock"
+        },
+        {
+          "sentences": [
+            "<lock> [tất cả|mọi] [cánh] <door> <in_area>"
+          ],
+          "expansion_rules": {
+            "door": "khóa|cửa"
+          },
+          "slots": {
+            "domain": "lock",
+            "name": "all"
+          },
+          "response": "lock"
+        },
+        {
+          "sentences": [
+            "<turn> (<area> <name>|<name> [[trong|của|ở|tại] <area>])",
+            "[<turn>] (<area> <name>|<name> [[trong|của|ở|tại] <area>]) thành bật",
+            "kích hoạt (<area> <name>|<name> [[trong|của|ở|tại] <area>])",
+            "[<turn>] <name> [[trong|của|ở|tại] <area>] [thành|sang] bật"
+          ],
+          "excludes_context": {
+            "domain": [
+              "binary_sensor",
+              "cover",
+              "lock",
+              "scene",
+              "script",
+              "sensor",
+              "valve"
+            ]
+          }
+        },
+        {
+          "sentences": [
+            "<mở> <name> [trong <area>]"
+          ],
+          "requires_context": {
+            "domain": "cover"
+          },
+          "response": "cover"
+        },
+        {
+          "sentences": [
+            "<mở> cửa ga ra"
+          ],
+          "slots": {
+            "domain": "cover",
+            "device_class": "garage"
+          },
+          "response": "cover_device_class"
+        },
+        {
+          "sentences": [
+            "<mở> {cover_classes:device_class} [trong <area>]",
+            "<mở> {cover_classes:device_class} <area>"
+          ],
+          "slots": {
+            "domain": "cover"
+          },
+          "response": "cover_device_class"
+        },
+        {
+          "sentences": [
+            "<mở> {cover_classes:device_class}[<in_here>]"
+          ],
+          "expansion_rules": {
+            "in_here": "[trong phòng] này"
+          },
+          "slots": {
+            "domain": "cover"
+          },
+          "response": "cover_device_class",
+          "requires_context": {
+            "area": {
+              "slot": true
+            }
+          }
+        }
+      ]
+    },
+    "HassMediaUnpause": {
+      "data": [
+        {
+          "sentences": [
+            "(tiếp tục|phát tiếp) <name>"
+          ],
+          "requires_context": {
+            "domain": "media_player"
+          }
+        }
+      ]
+    },
+    "HassShoppingListAddItem": {
+      "data": [
+        {
+          "sentences": [
+            "(đặt|thêm) <item> (vào|cho) <my_list>",
+            "đặt <item> (vào|lên) <my_list>"
+          ],
+          "response": "item_added",
+          "expansion_rules": {
+            "my_list": " [danh sách [của]] [mua sắm] [của[tôi]]",
+            "item": "{shopping_list_item:item}"
+          }
+        }
+      ]
+    },
+    "HassNevermind": {
+      "data": [
+        {
+          "sentences": [
+            "[thôi][được rồi] không sao [đâu][nhé]",
+            "[thôi][được rồi] bỏ qua [đi][nhé]"
+          ]
+        }
+      ]
+    },
+    "HassSetPosition": {
+      "data": [
+        {
+          "sentences": [
+            "<set> <name> (ở|tới) (mức|vị trí) <position> ",
+            "<set> <name> thành [mức|vị trí] <position> ",
+            "<set> vị trí [của] <name> [thành|tới mức|ở mức] <position> "
+          ],
+          "requires_context": {
+            "domain": [
+              "cover",
+              "valve"
+            ]
+          }
+        }
+      ]
+    },
+    "HassLightSet": {
+      "data": [
+        {
+          "sentences": [
+            " [<numeric_value_set>] (mức|độ|mức độ) sáng [của] <name> [đến|lên|tới|ở|tại] [ (mức|độ|mức độ) sáng] <brightness>",
+            " [<numeric_value_set>] <name>  [đến|lên|tới|ở|tại] [(mức|độ|mức độ) sáng] <brightness>"
+          ],
+          "response": "brightness",
+          "requires_context": {
+            "domain": "light"
+          }
+        },
+        {
+          "sentences": [
+            "<numeric_value_set> <name> đến <brightness>"
+          ],
+          "requires_context": {
+            "domain": "light"
+          },
+          "response": "brightness"
+        },
+        {
+          "sentences": [
+            " [<numeric_value_set>] [(mức|độ|mức độ) sáng] [trong|của|tại|ở] <area> [lên|đến|tới|ở] [mức|độ|mức độ] [sáng] <brightness>",
+            " [<numeric_value_set>] [(mức|độ|mức độ) sáng] [của] [tất cả] đèn [trong|của|tại|ở] <area> [lên|đến|tới|ở] [mức|độ|mức độ] [sáng] <brightness>"
+          ],
+          "slots": {
+            "name": "tất cả"
+          },
+          "response": "brightness"
+        },
+        {
+          "sentences": [
+            "<numeric_value_set> <area> đến <brightness>"
+          ],
+          "slots": {
+            "name": "tất cả"
+          },
+          "response": "brightness"
+        },
+        {
+          "sentences": [
+            " [<numeric_value_set>] [ mức|độ|mức độ] [sáng] [lên|đến|tới|ở] [mức|độ|mức độ] [sáng] <brightness> [<in_here>] ",
+            " [<numeric_value_set>] [ mức|độ|mức độ] [sáng] [<in_here>] [lên|đến|tới|ở] [mức|độ|mức độ] [sáng] <brightness>  ",
+            " [<in_here>] [<numeric_value_set>] [ mức|độ|mức độ] [sáng]  [lên|đến|tới|ở] [mức|độ|mức độ] [sáng] <brightness>  "
+          ],
+          "expansion_rules": {
+            "in_here": "ở đây|tại đây|tại chỗ này|ở chỗ này"
+          },
+          "response": "brightness",
+          "requires_context": {
+            "area": {
+              "slot": true
+            }
+          }
+        },
+        {
+          "sentences": [
+            " [<numeric_value_set>] (mức|độ|mức độ) sáng [của] <name> [đến|lên|tới|ở|tại|lên mức|xuống] {brightness_level:brightness} ",
+            " [<numeric_value_set>] <name> [đến|lên|tới|ở|tại|xuống] [(mức|độ|mức độ)] [sáng] {brightness_level:brightness} "
+          ],
+          "requires_context": {
+            "domain": "light"
+          },
+          "response": "brightness"
+        },
+        {
+          "sentences": [
+            "[<numeric_value_set>] [độ sáng] [của|trong] <area> (lên|đến|xuống) [mức] {brightness_level:brightness}",
+            "[<numeric_value_set>] <area> độ sáng đến [mức|độ] {brightness_level:brightness}",
+            "[<numeric_value_set>] <area> [đến|lên|xuống] [mức|độ] độ sáng {brightness_level:brightness} "
+          ],
+          "slots": {
+            "name": "tất cả"
+          },
+          "response": "brightness"
+        },
+        {
+          "sentences": [
+            "[<numeric_value_set>] [độ sáng] [lên|đến] [mức] {brightness_level:brightness} [<in_here>]",
+            "[<numeric_value_set>] [độ sáng] ([ở đây] [lên|đến] [mức] {brightness_level:brightness})"
+          ],
+          "expansion_rules": {
+            "in_here": "[ ở] đây"
+          },
+          "response": "brightness",
+          "requires_context": {
+            "area": {
+              "slot": true
+            }
+          }
+        },
+        {
+          "sentences": [
+            "[<set>] <name> [màu|màu sắc] [lên|đến|sang] {color}",
+            "[<set>] [màu sắc|màu] [của] <name> [sang|lên|đến] {color}"
+          ],
+          "requires_context": {
+            "domain": "light"
+          },
+          "response": "color"
+        },
+        {
+          "sentences": [
+            "[<set>] [màu của|màu sắc|màu] [tất cả] <light> ([<in_here>] [đến|sang] {color})",
+            "[<set>] [màu của|màu sắc|màu] {color} cho [tất cả] <light> [<in_here>]"
+          ],
+          "expansion_rules": {
+            "in_here": "[ở] đây"
+          },
+          "response": "color",
+          "requires_context": {
+            "area": {
+              "slot": true
+            }
+          }
+        }
+      ]
+    },
+    "HassMediaNext": {
+      "data": [
+        {
+          "sentences": [
+            "mở tiếp [bài hát|nhạc] [trên|cho] <name>",
+            "[bài hát|bài|mục] tiếp [theo] [trên|cho] <name>"
+          ],
+          "requires_context": {
+            "domain": "media_player"
+          }
+        }
+      ]
+    },
+    "HassMediaPause": {
+      "data": [
+        {
+          "sentences": [
+            "(tạm dừng|dừng) <name>"
+          ],
+          "requires_context": {
+            "domain": "media_player"
+          }
+        }
+      ]
+    },
+    "HassClimateGetTemperature": {
+      "data": [
+        {
+          "sentences": [
+            " [hiện tại|bây giờ]  [đang] <what_is> độ [(ở|trong|tại|của)<area>]",
+            " [hiện tại|bây giờ]  [đang] <what_is> <temp> [(ở|trong|tại|của)<area>]",
+            " [[ở|trong|tại|của] <area>] [hiện tại|bây giờ|đang] <temp> [đang] <what_is>",
+            " [hiện tại|bây giờ] <temp> [đang] [là] [<what_is>] [(ở|trong|tại|của)<area>]",
+            " [[ở|trong|tại|của] <area>] [hiện tại|bây giờ|đang] <temp> [đang] [là] [<what_is>]",
+            " [[ở|trong|tại|của] <area>] [đang]  [hiện tại|bây giờ|đang] <temp> [là] [<what_is>]",
+            " <temp> [hiện tại|bây giờ]  [đang] [là] <what_is> [(ở|trong|tại|của)<area>]",
+            " <temp>  [đang] [là] <what_is>  [hiện tại|bây giờ] [(ở|trong|tại|của)<area>]",
+            " <temp>  [đang] [là] <what_is>  [(ở|trong|tại|của)<area>] [hiện tại|bây giờ]",
+            " [hiện tại|bây giờ]  [đang] [liệu[rằng]] (nóng|lạnh|ấm|mát|rét) ([như] thế nào|không|đến mức nào) [(ở|trong|tại|của)<area>]",
+            " [hiện tại|bây giờ]  [đang] [liệu[rằng]] [(ở|trong|tại)<area>] (nóng|lạnh|ấm|mát|rét) ([như] thế nào|không)",
+            " [hiện tại|bây giờ] [(ở|trong|tại|của) <area>] [đang] (nóng|lạnh|mát|rét|ấm) ([như] thế nào|không|đến mức nào)",
+            " <temp> [của|ở|tại|trong] <area> [hiện tại|bây giờ] [đang]  <what_is>",
+            " <temp> [của|ở|tại|trong] <area> <what_is> [hiện tại|bây giờ]",
+            " <temp> [hiện tại|bây giờ] [của|ở|tại|trong] <area> [đang] <what_is>",
+            " [hiện tại|bây giờ] <temp> [của|ở|tại|trong] <area> [đang] <what_is>"
+          ]
+        },
+        {
+          "sentences": [
+            "<temp> [của|ở|tại|trong] <name> [hiện tại|bây giờ|lúc này] [đang] <what_is>",
+            "<temp> [của|ở|tại|trong] <name> [đang]  <what_is> [hiện tại|bây giờ|lúc này]",
+            "<temp> [hiện tại|bây giờ|lúc này] [của|ở|tại|trong] <name> [đang]  <what_is>",
+            "[hiện tại|bây giờ|lúc này] <temp> [của|ở|tại|trong] <name> [đang]  <what_is>",
+            "<name> [có] <temp> [hiện tại|bây giờ|lúc này] [đang] <what_is>",
+            "<name> [có] <temp> [đang]  <what_is> [hiện tại|bây giờ|lúc này]",
+            "<name> [hiện tại|bây giờ|lúc này] [đang] [có|hiển thị] <temp> [đang]  <what_is>",
+            "[hiện tại|bây giờ|lúc này] <name> [có|hiển thị] <temp> [đang] <what_is>",
+            "<name> [lúc này|hiện tại|bây giờ] [đang] [có|hiển thị|cho thấy] [đang] <what_is> (độ|<temp>) "
+          ],
+          "requires_context": {
+            "domain": "climate"
+          }
+        }
+      ]
+    },
+    "HassVacuumReturnToBase": {
+      "data": [
+        {
+          "sentences": [
+            "<name> về sạc"
+          ],
+          "requires_context": {
+            "domain": "vacuum"
+          }
+        }
+      ]
+    },
+    "HassVacuumStart": {
+      "data": [
+        {
+          "sentences": [
+            "<name> dọn dẹp"
+          ],
+          "requires_context": {
+            "domain": "vacuum"
+          }
+        }
+      ]
+    },
+    "HassListAddItem": {
+      "data": [
+        {
+          "sentences": [
+            "(đặt|thêm) <item> (vào|cho) <my_list>"
+          ],
+          "response": "item_added",
+          "requires_context": {
+            "domain": "todo"
+          },
+          "expansion_rules": {
+            "my_list": "[danh sách] {name} [của tôi]",
+            "item": "{shopping_list_item:item}"
+          }
+        }
+      ]
+    },
+    "HassSetVolume": {
+      "data": [
+        {
+          "sentences": [
+            "đặt [âm lượng] <name> thành <volume>"
+          ],
+          "requires_context": {
+            "domain": "media_player"
+          }
+        }
+      ]
+    }
+  },
+  "responses": {
+    "errors": {
+      "no_intent": "Xin lỗi, tôi không hiểu ý bạn",
+      "handle_error": "đã xảy ra lỗi không mong đợi",
+      "no_area": "Xin lỗi, tôi không biết vùng nào có tên {{ area }}",
+      "no_domain": "Xin lỗi, tôi không biết {{ domain }} nào",
+      "no_domain_in_area": "Xin lỗi, tôi không biết {{ domain }} nào trong khu vực {{ area }}",
+      "no_device_class": "Xin lỗi, tôi không biết {{ device_class }} nào",
+      "no_device_class_in_area": "Xin lỗi, tôi không biết {{ device_class }} nào trong khu vực {{ area }}",
+      "no_entity": "Xin lỗi, tôi không biết thiết bị nào có tên {{ entity }}",
+      "no_entity_in_area": "Xin lỗi, tôi không biết thiết bị nào có tên {{ entity }} trong khu vực {{ area }}",
+      "no_entity_exposed": "Xin lỗi, {{ entity }} không được mở cửa",
+      "no_entity_in_area_exposed": "Xin lỗi, {{ entity }} trong khu vực {{ area }} không được mở cửa",
+      "no_domain_exposed": "Xin lỗi, không có {{ domain }} nào được mở cửa",
+      "no_domain_in_area_exposed": "Xin lỗi, không có {{ domain }} nào trong khu vực {{ area }} được mở cửa",
+      "no_device_class_exposed": "Xin lỗi, không có {{ device_class }} nào được mở cửa",
+      "no_device_class_in_area_exposed": "Xin lỗi, không có {{ device_class }} nào trong khu vực {{ area }} được mở cửa",
+      "duplicate_entities": "Xin lỗi, có nhiều thiết bị có tên {{ entity }}",
+      "duplicate_entities_in_area": "Xin lỗi, có nhiều thiết bị có tên {{ entity }} trong khu vực {{ area }}"
+    },
+    "intents": {
+      "HassGetState": {
+        "default": "{{ state.state_with_unit }}",
+        "one": "{{ slots.name | capitalize }} là {{ state.state_with_unit }}\n",
+        "one_yesno": "{% if query.matched %}\n  có\n{% else %}\n  không, {{ state.state_with_unit }}\n{% endif %}\n",
+        "any": "{% if query.matched %}\n  {% set match = query.matched | map(attribute=\"name\") | sort | list %}\n  {% if match | length > 4 %}\n    có, {{ match[:3] | join(\", \") }} và thêm {{ (match | length - 3) }} nữa\n  {%- else -%}\n    có,\n    {% for name in match -%}\n      {% if not loop.first and not loop.last %}, {% elif loop.last and not loop.first %} và {% endif -%}\n      {{ name }}\n    {%- endfor -%} \n  {% endif %}\n{% else %}\n  không\n{% endif %}\n",
+        "all": "{% if not query.unmatched: %}\n  có\n{% else %}\n  {% set no_match = query.unmatched | map(attribute=\"name\") | sort | list %}\n\n  {% if no_match | length > 4 %}\n    không, {{ no_match[:3] | join(\", \") }} và {{ (no_match | length - 3) }} cái khác đều không  {{ slots.state }}\n  \n  {%- else -%}\n    không,\n    {% for name in no_match -%}\n      {% if not loop.first and not loop.last %}, {% elif loop.last and not loop.first %} và {% endif -%}\n      {{ name }}\n    {%- endfor %} không {{ slots.state }}\n  {% endif %}\n{% endif %}\n",
+        "which": "{% if not query.matched %}\n  không có\n{% else: %}\n  {% set match = query.matched | map(attribute=\"name\") | sort | list %}\n    {% if match | length > 4 %}\n      {{ match[:3] | join(\", \") }} và {{ (match | length - 3) }} cái nữa\n    {% else %}\n      {%- for name in match -%}\n        {% if not loop.first and not loop.last %}, {% elif loop.last and not loop.first %} và {% endif -%}\n        {{ name }}\n      {%- endfor -%}\n    {% endif %}\n{% endif %}\n",
+        "how_many": "{{ query.matched | length }}\n",
+        "where": "{% if state == \"not_home\" %}\n  {{ slots.name | capitalize }} đang vắng nhà\n{% else %}\n  {{ slots.name | capitalize }} đang {{ state.state }}\n{% endif %}\n"
+      },
+      "HassTurnOff": {
+        "default": "đã thực hiện",
+        "lights_area": "đã tắt đèn",
+        "fans_area": "đã tắt quạt",
+        "cover": "đã đóng",
+        "light_all": "đã tắt tất cả các đèn",
+        "fan_all": "đã tắt tất cả quạt",
+        "cover_device_class": "đã đóng {{ slots.device_class }}",
+        "lock": "đã mở khóa",
+        "valve": "đã đóng van"
+      },
+      "HassShoppingListAddItem": {
+        "item_added": "đã thêm {{ slots.item }}"
+      },
+      "HassTurnOn": {
+        "default": "đã bật {{slots.name}}",
+        "lights_area": "đã bật đèn",
+        "fans_area": "đã bật quạt",
+        "cover": "đã mở",
+        "cover_device_class": "đã mở {{ slots.device_class }}",
+        "scene": "đã kích hoạt",
+        "script": "đã bắt đầu",
+        "lock": "đã khóa",
+        "valve": "đã mở van"
+      },
+      "HassMediaPause": {
+        "default": "đã tạm dừng"
+      },
+      "HassListAddItem": {
+        "item_added": "đã thêm {{ slots.item }}"
+      },
+      "HassGetWeather": {
+        "default": "đang cập nhật"
+      },
+      "HassLightSet": {
+        "brightness": "đã thiết lập độ sáng",
+        "color": "đã thiết lập màu sắc"
+      },
+      "HassVacuumStart": {
+        "default": "đã bắt đầu dọn dẹp"
+      },
+      "HassMediaUnpause": {
+        "default": "đã phát tiếp"
+      },
+      "HassSetPosition": {
+        "default": "đã thiết lập vị trí"
+      },
+      "HassMediaNext": {
+        "default": "Đang chuyển sang mục tiếp theo"
+      },
+      "HassClimateGetTemperature": {
+        "default": "{% set temperature = state_attr(state.entity_id, 'current_temperature') %} {% if temperature == 1: %} {{ temperature }} độ {% else: %} {{ temperature }} độ {% endif %}\n"
+      },
+      "HassSetVolume": {
+        "default": "đã thiết lập âm lượng"
+      },
+      "HassVacuumReturnToBase": {
+        "default": "Đang về sạc"
+      }
+    }
+  },
+  "lists": {
+    "color": {
+      "values": [
+        {
+          "in": "trắng",
+          "out": "white"
+        },
+        {
+          "in": "đen",
+          "out": "black"
+        },
+        {
+          "in": "đỏ",
+          "out": "red"
+        },
+        {
+          "in": "cam",
+          "out": "orange"
+        },
+        {
+          "in": "vàng",
+          "out": "yellow"
+        },
+        {
+          "in": "xanh lá",
+          "out": "green"
+        },
+        {
+          "in": "xanh dương",
+          "out": "blue"
+        },
+        {
+          "in": "tím",
+          "out": "purple"
+        },
+        {
+          "in": "nâu",
+          "out": "brown"
+        }
+      ]
+    },
+    "brightness": {
+      "range": {
+        "type": "percentage",
+        "from": 0,
+        "to": 100
+      }
+    },
+    "temperature": {
+      "range": {
+        "type": "temperature",
+        "from": 0,
+        "to": 100
+      }
+    },
+    "temperature_unit": {
+      "values": [
+        {
+          "in": "độ C",
+          "out": "celsius"
+        },
+        {
+          "in": "độ F",
+          "out": "fahrenheit"
+        }
+      ]
+    },
+    "brightness_level": {
+      "values": [
+        {
+          "in": "(tối đa|cực đại|cao nhất|hết mức)",
+          "out": 100
+        },
+        {
+          "in": "(tối thiểu|thấp nhất)",
+          "out": 1
+        }
+      ]
+    },
+    "on_off_states": {
+      "values": [
+        {
+          "in": "bật",
+          "out": "on"
+        },
+        {
+          "in": "tắt",
+          "out": "off"
+        }
+      ]
+    },
+    "on_off_domains": {
+      "values": [
+        {
+          "in": "đèn",
+          "out": "light"
+        },
+        {
+          "in": "quạt",
+          "out": "fan"
+        },
+        {
+          "in": "công tắc",
+          "out": "switch"
+        }
+      ]
+    },
+    "cover_states": {
+      "values": [
+        {
+          "in": "mở",
+          "out": "open"
+        },
+        {
+          "in": "đóng",
+          "out": "closed"
+        },
+        {
+          "in": "đang mở",
+          "out": "opening"
+        },
+        {
+          "in": "đang đóng",
+          "out": "closing"
+        }
+      ]
+    },
+    "cover_classes": {
+      "values": [
+        {
+          "in": "mái che",
+          "out": "awning"
+        },
+        {
+          "in": "rèm cửa",
+          "out": "blind"
+        },
+        {
+          "in": "rèm cuốn",
+          "out": "blind"
+        },
+        {
+          "in": "rèm",
+          "out": "curtain"
+        },
+        {
+          "in": "cửa",
+          "out": "door"
+        },
+        {
+          "in": "cửa garage",
+          "out": "garage"
+        },
+        {
+          "in": "cổng",
+          "out": "gate"
+        },
+        {
+          "in": "rèm kéo",
+          "out": "shade"
+        },
+        {
+          "in": "cửa chớp",
+          "out": "shutter"
+        },
+        {
+          "in": "cửa sổ",
+          "out": "window"
+        }
+      ]
+    },
+    "lock_states": {
+      "values": [
+        {
+          "in": "khóa",
+          "out": "locked"
+        },
+        {
+          "in": "chưa khóa",
+          "out": "unlocked"
+        }
+      ]
+    },
+    "bs_battery_states": {
+      "values": [
+        {
+          "in": "yếu",
+          "out": "on"
+        },
+        {
+          "in": "thấp",
+          "out": "on"
+        },
+        {
+          "in": "bình thường",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_battery_charging_states": {
+      "values": [
+        {
+          "in": "đang sạc",
+          "out": "on"
+        },
+        {
+          "in": "không sạc",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_carbon_monoxide_states": {
+      "values": [
+        {
+          "in": "(được phát hiện|phát hiện|đã phát hiện|bật|được bật)",
+          "out": "on"
+        },
+        {
+          "in": "(bình thường|trong lành)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_cold_states": {
+      "values": [
+        {
+          "in": "lạnh",
+          "out": "on"
+        },
+        {
+          "in": "bình thường",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_connectivity_states": {
+      "values": [
+        {
+          "in": "kết nối",
+          "out": "on"
+        },
+        {
+          "in": "mất kết nối",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_door_states": {
+      "values": [
+        {
+          "in": "mở",
+          "out": "on"
+        },
+        {
+          "in": "đóng",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_garage_door_states": {
+      "values": [
+        {
+          "in": "mở",
+          "out": "on"
+        },
+        {
+          "in": "đóng",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_gas_states": {
+      "values": [
+        {
+          "in": "(đã phát hiện|đang kích hoạt|bật|được phát hiện|đang hoạt động)",
+          "out": "on"
+        },
+        {
+          "in": "bình thường",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_heat_states": {
+      "values": [
+        {
+          "in": "nóng",
+          "out": "on"
+        },
+        {
+          "in": "bình thường",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_light_states": {
+      "values": [
+        {
+          "in": "có phát hiện",
+          "out": "on"
+        },
+        {
+          "in": "không có ánh sáng",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_lock_states": {
+      "values": [
+        {
+          "in": "mở khoá",
+          "out": "on"
+        },
+        {
+          "in": "đã khoá",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_moisture_states": {
+      "values": [
+        {
+          "in": "ướt",
+          "out": "on"
+        },
+        {
+          "in": "khô",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_motion_states": {
+      "values": [
+        {
+          "in": "(đã phát hiện|đang kích hoạt|bật)",
+          "out": "on"
+        },
+        {
+          "in": "bình thường",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_occupancy_states": {
+      "values": [
+        {
+          "in": "(đã phát hiện|đang kích hoạt|bật)",
+          "out": "on"
+        },
+        {
+          "in": "bình thường",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_opening_states": {
+      "values": [
+        {
+          "in": "mở",
+          "out": "on"
+        },
+        {
+          "in": "đóng",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_plug_states": {
+      "values": [
+        {
+          "in": "đã cắm",
+          "out": "on"
+        },
+        {
+          "in": "rút ra",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_power_states": {
+      "values": [
+        {
+          "in": "(đang cấp điện|đã phát hiện điện)",
+          "out": "on"
+        },
+        {
+          "in": "(không được cấp điện|tắt)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_presence_states": {
+      "values": [
+        {
+          "in": "(ở nhà|có mặt)",
+          "out": "on"
+        },
+        {
+          "in": "(đi vắng|không có mặt)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_problem_states": {
+      "values": [
+        {
+          "in": "đã phát hiện",
+          "out": "on"
+        },
+        {
+          "in": "ổn",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_running_states": {
+      "values": [
+        {
+          "in": "đang hoạt động",
+          "out": "on"
+        },
+        {
+          "in": "không hoạt động",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_safety_states": {
+      "values": [
+        {
+          "in": "không an toàn",
+          "out": "on"
+        },
+        {
+          "in": "an toàn",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_smoke_states": {
+      "values": [
+        {
+          "in": "(đã phát hiện|đang kích hoạt|bật)",
+          "out": "on"
+        },
+        {
+          "in": "bình thường",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_sound_states": {
+      "values": [
+        {
+          "in": "(đã phát hiện|đang kích hoạt|bật)",
+          "out": "on"
+        },
+        {
+          "in": "bình thường",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_tamper_states": {
+      "values": [
+        {
+          "in": "(đã phát hiện|bị phá hoại)",
+          "out": "on"
+        },
+        {
+          "in": "bình thường",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_update_states": {
+      "values": [
+        {
+          "in": "có bản cập nhật",
+          "out": "on"
+        },
+        {
+          "in": "(đã cập nhật|cập nhật mới nhất)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_vibration_states": {
+      "values": [
+        {
+          "in": "(đã phát hiện|đang rung)",
+          "out": "on"
+        },
+        {
+          "in": "(bình thường|không rung)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_window_states": {
+      "values": [
+        {
+          "in": "mở",
+          "out": "on"
+        },
+        {
+          "in": "bình thường",
+          "out": "closed"
+        }
+      ]
+    },
+    "shopping_list_item": {
+      "wildcard": true
+    },
+    "zone": {
+      "wildcard": true
+    },
+    "position": {
+      "range": {
+        "type": "percentage",
+        "from": 0,
+        "to": 100
+      }
+    },
+    "volume": {
+      "range": {
+        "type": "percentage",
+        "from": 0,
+        "to": 100
+      }
+    }
+  },
+  "expansion_rules": {
+    "name": "[cái] {name}",
+    "area": "[cái] {area}",
+    "what_is": "(là cái gì|là gì|bao nhiêu|là bao nhiêu|bằng bao nhiêu)",
+    "where_is": "(ở đâu|nằm ở đâu)",
+    "brightness": "{brightness}[[ ]%| phần trăm]",
+    "light": "[cái] (đèn|ánh sáng) ",
+    "turn": "(kích hoạt|bật|chuyển|đổi)",
+    "temp": "(nhiệt|nhiệt độ)",
+    "temperature": "{temperature}[ ][°|độ|độ C][ ][{temperature_unit}]",
+    "mở": "(mở|nâng lên)",
+    "open": "(mở|nâng lên)",
+    "đóng": "(đóng|đậy lại|hạ xuống)",
+    "close": "(đóng|đậy lại|hạ xuống)",
+    "set": "(đặt|tạo|thay đổi|bật|thiết lập)",
+    "numeric_value_set": "(đặt|thay đổi|bật|tăng|giảm|tạo|cài)",
+    "in": "(trong|ở|tại|của)",
+    "position": "{position}[[ ]%| phần trăm]",
+    "volume": "{volume:volume_level}[[ ]%| phần trăm]",
+    "which": "nào",
+    "what": "cái nào",
+    "all": "(tất [cả] |mọi|hết [tất cả] |tất tần tật)",
+    "lock": "khóa|đóng",
+    "in_area": " [<in>] {area}",
+    "every_where": " [<in>] <all> (nơi|chỗ|vị trí)",
+    "here": "((chỗ|vị trí) này | đây [này])",
+    "in_here": " [<in>] <here>",
+    "bao_nhiêu": "(bao nhiêu|khi nào|ở đâu|bao giờ|như thế nào |bao lâu)",
+    "is": "[là][bằng]",
+    "showed_by": "[được] (hiển thị|cho thấy|[được] chỉ ra|đo) (bởi|bằng|[thông ]qua|trên|trong|tại) ",
+    "class_of_name": "<class> [<of>|<showed_by>] [cái] {name}",
+    "of": "( của| thuộc [về] |tại| bởi|bằng|trên |từ|trong)",
+    "what_is_the_class_of_name_type_1": "<class_of_name> [là] [bằng] [mất] <bao_nhiêu> [<in_here>] ",
+    "what_is_the_class_of_name_type_2": "<class_of_name> [<in_here>] [là] [bằng] [mất] <bao_nhiêu>  ",
+    "what_is_the_class_of_name": "(<what_is_the_class_of_name_type_1>|<what_is_the_class_of_name_type_2>)"
+  },
+  "skip_words": [
+    "[ [hãy] [cho] tôi biết | bạn có biết]",
+    "làm ơn",
+    "có thể",
+    "bạn có thể",
+    "xin",
+    "hãy",
+    "vui lòng",
+    "xin hãy",
+    "đi",
+    "(giúp|cho) tôi"
+  ]
+}

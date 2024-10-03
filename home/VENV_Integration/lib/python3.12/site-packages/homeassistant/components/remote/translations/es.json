@@ -1,0 +1,120 @@
+{
+    "device_automation": {
+        "action_type": {
+            "toggle": "Alternar {entity_name}",
+            "turn_off": "Apagar {entity_name}",
+            "turn_on": "Encender {entity_name}"
+        },
+        "condition_type": {
+            "is_off": "{entity_name} est\u00e1 apagado",
+            "is_on": "{entity_name} est\u00e1 encendido"
+        },
+        "trigger_type": {
+            "changed_states": "{entity_name} se encendi\u00f3 o apag\u00f3",
+            "turned_off": "{entity_name} apagado",
+            "turned_on": "{entity_name} encendido"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Mando a distancia",
+            "state": {
+                "off": "Apagado",
+                "on": "Encendido"
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "La plataforma {platform} para la integraci\u00f3n {domain} no es compatible con la configuraci\u00f3n de la plataforma. \n\nElim\u00ednala de tu configuraci\u00f3n y reinicia Home Assistant para solucionar este problema.",
+            "title": "Soporte de plataforma no compatible"
+        }
+    },
+    "services": {
+        "delete_command": {
+            "description": "Elimina un comando o una lista de comandos de la base de datos.",
+            "fields": {
+                "command": {
+                    "description": "El \u00fanico comando o la lista de comandos que se eliminar\u00e1.",
+                    "name": "Comando"
+                },
+                "device": {
+                    "description": "Dispositivo del que se borrar\u00e1n los comandos.",
+                    "name": "Dispositivo"
+                }
+            },
+            "name": "Borrar comando"
+        },
+        "learn_command": {
+            "description": "Aprende un comando o una lista de comandos de un dispositivo.",
+            "fields": {
+                "alternative": {
+                    "description": "Si el c\u00f3digo debe almacenarse como una alternativa. Esto es \u00fatil para c\u00f3digos discretos. Los c\u00f3digos discretos se utilizan para conmutadores que solo realizan una funci\u00f3n. Por ejemplo, un c\u00f3digo para solo encender un dispositivo. Si ya est\u00e1 activado, enviar el c\u00f3digo no cambiar\u00e1 el estado.",
+                    "name": "Alternativa"
+                },
+                "command": {
+                    "description": "Un \u00fanico comando o una lista de comandos para aprender.",
+                    "name": "Comando"
+                },
+                "command_type": {
+                    "description": "El tipo de mando que debe aprenderse.",
+                    "name": "Tipo de comando"
+                },
+                "device": {
+                    "description": "ID del dispositivo del que aprender el comando.",
+                    "name": "Dispositivo"
+                },
+                "timeout": {
+                    "description": "Tiempo de espera para que se aprenda el comando.",
+                    "name": "Tiempo de espera"
+                }
+            },
+            "name": "Aprender comando"
+        },
+        "send_command": {
+            "description": "Env\u00eda un comando o una lista de comandos a un dispositivo.",
+            "fields": {
+                "command": {
+                    "description": "Un \u00fanico comando o una lista de comandos a enviar.",
+                    "name": "Comando"
+                },
+                "delay_secs": {
+                    "description": "El tiempo que quieres esperar entre comandos repetidos.",
+                    "name": "Segundos de retardo"
+                },
+                "device": {
+                    "description": "ID del dispositivo al que enviar el comando.",
+                    "name": "Dispositivo"
+                },
+                "hold_secs": {
+                    "description": "El tiempo que quieres mantenerlo pulsado antes de que se env\u00ede el evento soltar.",
+                    "name": "Mantener segundos"
+                },
+                "num_repeats": {
+                    "description": "El n\u00famero de veces que quieres repetir los comandos.",
+                    "name": "Repite"
+                }
+            },
+            "name": "Enviar comando"
+        },
+        "toggle": {
+            "description": "Activa o desactiva un dispositivo.",
+            "name": "Alternar"
+        },
+        "turn_off": {
+            "description": "Apaga el dispositivo.",
+            "name": "Apagar"
+        },
+        "turn_on": {
+            "description": "Env\u00eda el comando de encendido.",
+            "fields": {
+                "activity": {
+                    "description": "ID de actividad o nombre de la actividad que se va a iniciar.",
+                    "name": "Actividad"
+                }
+            },
+            "name": "Encender"
+        }
+    },
+    "title": "Mando a distancia"
+}

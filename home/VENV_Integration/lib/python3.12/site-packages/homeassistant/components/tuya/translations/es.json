@@ -1,0 +1,899 @@
+{
+    "config": {
+        "abort": {
+            "reauth_successful": "La autenticaci\u00f3n se volvi\u00f3 a realizar correctamente"
+        },
+        "error": {
+            "invalid_auth": "Autenticaci\u00f3n no v\u00e1lida",
+            "login_error": "Error de inicio de sesi\u00f3n ({code}): {msg}",
+            "reauth_successful": "La autenticaci\u00f3n se volvi\u00f3 a realizar correctamente"
+        },
+        "step": {
+            "reauth_user_code": {
+                "data": {
+                    "user_code": "C\u00f3digo de usuario"
+                },
+                "description": "La integraci\u00f3n Tuya ahora utiliza un m\u00e9todo de inicio de sesi\u00f3n mejorado. Para volver a autenticarse con tu cuenta Smart Life o Tuya Smart, debes introducir tu c\u00f3digo de usuario. \n\nPuedes encontrar este c\u00f3digo en la aplicaci\u00f3n Smart Life o en la aplicaci\u00f3n Tuya Smart en la pantalla **Configuraci\u00f3n** > **Cuenta y seguridad** e introducir el c\u00f3digo que se muestra en el campo **C\u00f3digo de usuario**. El c\u00f3digo de usuario distingue entre may\u00fasculas y min\u00fasculas; aseg\u00farate de introducirlo exactamente como se muestra en la aplicaci\u00f3n."
+            },
+            "scan": {
+                "description": "Utiliza la aplicaci\u00f3n Smart Life o la aplicaci\u00f3n Tuya Smart para escanear el siguiente c\u00f3digo QR y completar el inicio de sesi\u00f3n.\n\nContin\u00faa con el siguiente paso una vez que hayas completado este paso en la aplicaci\u00f3n."
+            },
+            "user": {
+                "data": {
+                    "access_id": "ID de acceso a Tuya IoT",
+                    "access_secret": "Secreto de acceso a Tuya IoT",
+                    "country_code": "Pa\u00eds",
+                    "password": "Contrase\u00f1a",
+                    "user_code": "C\u00f3digo de usuario",
+                    "username": "Cuenta"
+                },
+                "description": "Introduce tu c\u00f3digo de usuario Smart Life o Tuya Smart. \n\nPuedes encontrar este c\u00f3digo en la aplicaci\u00f3n Smart Life o en la aplicaci\u00f3n Tuya Smart en la pantalla **Configuraci\u00f3n** > **Cuenta y seguridad** e introducir el c\u00f3digo que se muestra en el campo **C\u00f3digo de usuario**. El c\u00f3digo de usuario distingue entre may\u00fasculas y min\u00fasculas; aseg\u00farate de introducirlo exactamente como se muestra en la aplicaci\u00f3n."
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "carbon_dioxide": {
+                "name": "Di\u00f3xido de carbono"
+            },
+            "carbon_monoxide": {
+                "name": "Mon\u00f3xido de carbono"
+            },
+            "drop": {
+                "name": "Gota"
+            },
+            "feeding": {
+                "name": "Alimentaci\u00f3n"
+            },
+            "formaldehyde": {
+                "name": "Formaldeh\u00eddo"
+            },
+            "methane": {
+                "name": "Metano"
+            },
+            "pm25": {
+                "name": "PM2.5"
+            },
+            "pressure": {
+                "name": "Presi\u00f3n"
+            },
+            "tilt": {
+                "name": "Inclinaci\u00f3n"
+            },
+            "voc": {
+                "name": "COV"
+            }
+        },
+        "button": {
+            "reset_duster_cloth": {
+                "name": "Restablecer pa\u00f1o de limpieza"
+            },
+            "reset_edge_brush": {
+                "name": "Restablecer cepillo de bordes"
+            },
+            "reset_filter": {
+                "name": "Restablecer filtro"
+            },
+            "reset_map": {
+                "name": "Restablecer mapa"
+            },
+            "reset_roll_brush": {
+                "name": "Restablecer cepillo giratorio"
+            },
+            "snooze": {
+                "name": "Snooze"
+            }
+        },
+        "cover": {
+            "blind": {
+                "name": "Persiana"
+            },
+            "curtain": {
+                "name": "Cortina"
+            },
+            "curtain_2": {
+                "name": "Cortina 2"
+            },
+            "curtain_3": {
+                "name": "Cortina 3"
+            },
+            "door": {
+                "name": "Puerta"
+            },
+            "door_2": {
+                "name": "Puerta 2"
+            },
+            "door_3": {
+                "name": "Puerta 3"
+            }
+        },
+        "light": {
+            "backlight": {
+                "name": "Luz de fondo"
+            },
+            "light": {
+                "name": "Luz"
+            },
+            "light_2": {
+                "name": "Luz 2"
+            },
+            "light_3": {
+                "name": "Luz 3"
+            },
+            "night_light": {
+                "name": "Luz nocturna"
+            }
+        },
+        "number": {
+            "cloud_recipe": {
+                "name": "Receta en la nube"
+            },
+            "cook_temperature": {
+                "name": "Temperatura de cocci\u00f3n"
+            },
+            "cook_time": {
+                "name": "Tiempo de cocci\u00f3n"
+            },
+            "down_delay": {
+                "name": "Retardo de bajada"
+            },
+            "far_detection": {
+                "name": "Detecci\u00f3n lejana"
+            },
+            "feed": {
+                "name": "Alimentar"
+            },
+            "heat_preservation_time": {
+                "name": "Tiempo de conservaci\u00f3n del calor"
+            },
+            "maximum_brightness": {
+                "name": "Brillo m\u00e1ximo"
+            },
+            "maximum_brightness_2": {
+                "name": "Brillo m\u00e1ximo 2"
+            },
+            "maximum_brightness_3": {
+                "name": "Brillo m\u00e1ximo 3"
+            },
+            "minimum_brightness": {
+                "name": "Brillo m\u00ednimo"
+            },
+            "minimum_brightness_2": {
+                "name": "Brillo m\u00ednimo 2"
+            },
+            "minimum_brightness_3": {
+                "name": "Brillo m\u00ednimo 3"
+            },
+            "move_down": {
+                "name": "Mover hacia abajo"
+            },
+            "move_up": {
+                "name": "Mover hacia arriba"
+            },
+            "near_detection": {
+                "name": "Detecci\u00f3n cercana"
+            },
+            "powder": {
+                "name": "Polvo"
+            },
+            "sensitivity": {
+                "name": "Sensibilidad"
+            },
+            "target_dis_closest": {
+                "name": "Distancia objetivo m\u00e1s cercana"
+            },
+            "temperature": {
+                "name": "Temperatura"
+            },
+            "temperature_after_boiling": {
+                "name": "Temperatura despu\u00e9s de hervir"
+            },
+            "time": {
+                "name": "Hora"
+            },
+            "voice_times": {
+                "name": "Tiempos de voz"
+            },
+            "volume": {
+                "name": "Volumen"
+            },
+            "water_level": {
+                "name": "Nivel del agua"
+            }
+        },
+        "select": {
+            "basic_anti_flicker": {
+                "name": "Antiparpadeo",
+                "state": {
+                    "0": "Deshabilitado",
+                    "1": "50 Hz",
+                    "2": "60 Hz"
+                }
+            },
+            "basic_nightvision": {
+                "name": "Visi\u00f3n nocturna",
+                "state": {
+                    "0": "Autom\u00e1tico",
+                    "1": "Apagado",
+                    "2": "Encendido"
+                }
+            },
+            "brightness": {
+                "name": "Brillo"
+            },
+            "concentration": {
+                "name": "Concentraci\u00f3n"
+            },
+            "countdown": {
+                "name": "Cuenta atr\u00e1s",
+                "state": {
+                    "1h": "1 hora",
+                    "2h": "2 horas",
+                    "3h": "3 horas",
+                    "4h": "4 horas",
+                    "5h": "5 horas",
+                    "6h": "6 horas",
+                    "cancel": "Cancelar"
+                }
+            },
+            "cups": {
+                "name": "Tazas"
+            },
+            "curtain_mode": {
+                "name": "Modo",
+                "state": {
+                    "morning": "Ma\u00f1ana",
+                    "night": "Noche"
+                }
+            },
+            "curtain_motor_mode": {
+                "name": "Modo motor",
+                "state": {
+                    "back": "Atr\u00e1s",
+                    "forward": "Adelante"
+                }
+            },
+            "decibel_sensitivity": {
+                "name": "Sensibilidad de detecci\u00f3n de sonido",
+                "state": {
+                    "0": "Baja sensibilidad",
+                    "1": "Alta sensibilidad"
+                }
+            },
+            "fan_angle": {
+                "state": {
+                    "30": "30\u00b0",
+                    "60": "60\u00b0",
+                    "90": "90\u00b0"
+                }
+            },
+            "fingerbot_mode": {
+                "name": "Modo",
+                "state": {
+                    "click": "Pulsar",
+                    "switch": "Interruptor"
+                }
+            },
+            "horizontal_fan_angle": {
+                "name": "\u00c1ngulo de aleta de oscilaci\u00f3n horizontal",
+                "state": {
+                    "30": "30\u00b0",
+                    "60": "60\u00b0",
+                    "90": "90\u00b0"
+                }
+            },
+            "humidifier_level": {
+                "name": "Nivel de pulverizaci\u00f3n",
+                "state": {
+                    "level_1": "Nivel 1",
+                    "level_10": "Nivel 10",
+                    "level_2": "Nivel 2",
+                    "level_3": "Nivel 3",
+                    "level_4": "Nivel 4",
+                    "level_5": "Nivel 5",
+                    "level_6": "Nivel 6",
+                    "level_7": "Nivel 7",
+                    "level_8": "Nivel 8",
+                    "level_9": "Nivel 9"
+                }
+            },
+            "humidifier_moodlighting": {
+                "name": "Iluminaci\u00f3n ambiental",
+                "state": {
+                    "1": "Estado de \u00e1nimo 1",
+                    "2": "Estado de \u00e1nimo 2",
+                    "3": "Estado de \u00e1nimo 3",
+                    "4": "Estado de \u00e1nimo 4",
+                    "5": "Estado de \u00e1nimo 5"
+                }
+            },
+            "humidifier_spray_mode": {
+                "name": "Modo de pulverizaci\u00f3n",
+                "state": {
+                    "auto": "Autom\u00e1tico",
+                    "health": "Salud",
+                    "humidity": "Humedad",
+                    "sleep": "Dormir",
+                    "work": "Trabajo"
+                }
+            },
+            "ipc_work_mode": {
+                "name": "Modo IPC",
+                "state": {
+                    "0": "Modo de bajo consumo",
+                    "1": "Modo de funcionamiento continuo"
+                }
+            },
+            "led_type": {
+                "name": "Tipo de fuente de luz",
+                "state": {
+                    "halogen": "Hal\u00f3geno",
+                    "incandescent": "Incandescente",
+                    "led": "LED"
+                }
+            },
+            "led_type_2": {
+                "name": "Tipo de fuente de luz 2",
+                "state": {
+                    "halogen": "Hal\u00f3geno",
+                    "incandescent": "Incandescente",
+                    "led": "LED"
+                }
+            },
+            "led_type_3": {
+                "name": "Tipo de fuente de luz 3",
+                "state": {
+                    "halogen": "Hal\u00f3geno",
+                    "incandescent": "Incandescente",
+                    "led": "LED"
+                }
+            },
+            "light_mode": {
+                "name": "Modo de luz indicadora",
+                "state": {
+                    "none": "Apagado",
+                    "pos": "Indica el estado del interruptor invertido",
+                    "relay": "Indicar el estado de encendido/apagado"
+                }
+            },
+            "material": {
+                "name": "Material"
+            },
+            "mode": {
+                "name": "Modo"
+            },
+            "motion_sensitivity": {
+                "name": "Sensibilidad de detecci\u00f3n de movimiento",
+                "state": {
+                    "0": "Baja sensibilidad",
+                    "1": "Sensibilidad media",
+                    "2": "Alta sensibilidad"
+                }
+            },
+            "record_mode": {
+                "name": "Modo de grabaci\u00f3n",
+                "state": {
+                    "1": "Grabar solo eventos",
+                    "2": "Grabaci\u00f3n continua"
+                }
+            },
+            "relay_status": {
+                "name": "Comportamiento de encendido",
+                "state": {
+                    "last": "Recordar el \u00faltimo estado",
+                    "memory": "Recordar el \u00faltimo estado",
+                    "off": "Apagado",
+                    "on": "Encendido",
+                    "power_off": "Apagado",
+                    "power_on": "Encendido"
+                }
+            },
+            "target_humidity": {
+                "name": "Humedad objetivo"
+            },
+            "temperature_level": {
+                "name": "Nivel de temperatura"
+            },
+            "vacuum_cistern": {
+                "name": "Ajuste del dep\u00f3sito de agua",
+                "state": {
+                    "closed": "Cerrada",
+                    "high": "Alta",
+                    "low": "Baja",
+                    "middle": "Media"
+                }
+            },
+            "vacuum_collection": {
+                "name": "Modo de recogida de polvo",
+                "state": {
+                    "large": "Grande",
+                    "middle": "Medio",
+                    "small": "Peque\u00f1o"
+                }
+            },
+            "vacuum_mode": {
+                "name": "Modo",
+                "state": {
+                    "bow": "Arco",
+                    "chargego": "Regresar a la base",
+                    "left_bow": "Inclinarse a la izquierda",
+                    "left_spiral": "Espiral izquierda",
+                    "mop": "Fregar",
+                    "part": "Parte",
+                    "partial_bow": "Inclinarse parcialmente",
+                    "pick_zone": "Elegir zona",
+                    "point": "Punto",
+                    "pose": "Pose",
+                    "random": "Aleatorio",
+                    "right_bow": "Inclinarse a la derecha",
+                    "right_spiral": "Espiral derecha",
+                    "single": "\u00danico",
+                    "smart": "Inteligente",
+                    "spiral": "Espiral",
+                    "standby": "En espera",
+                    "wall_follow": "Seguir pared",
+                    "zone": "Zona"
+                }
+            },
+            "vertical_fan_angle": {
+                "name": "\u00c1ngulo de aleta de oscilaci\u00f3n vertical",
+                "state": {
+                    "30": "30\u00b0",
+                    "60": "60\u00b0",
+                    "90": "90\u00b0"
+                }
+            },
+            "volume": {
+                "name": "Volumen"
+            },
+            "weather_delay": {
+                "name": "Retraso meteorol\u00f3gico",
+                "state": {
+                    "120h": "120h",
+                    "144h": "144h",
+                    "168h": "168h",
+                    "24h": "24h",
+                    "48h": "48h",
+                    "72h": "72h",
+                    "96h": "96h",
+                    "cancel": "Cancelar"
+                }
+            }
+        },
+        "sensor": {
+            "air_quality": {
+                "name": "Calidad del aire",
+                "state": {
+                    "good": "Bueno",
+                    "great": "Excelente",
+                    "mild": "Moderado",
+                    "severe": "Severo"
+                }
+            },
+            "air_quality_index": {
+                "name": "\u00cdndice de calidad del aire",
+                "state": {
+                    "level_1": "Nivel 1",
+                    "level_2": "Nivel 2",
+                    "level_3": "Nivel 3",
+                    "level_4": "Nivel 4",
+                    "level_5": "Nivel 5",
+                    "level_6": "Nivel 6"
+                }
+            },
+            "battery": {
+                "name": "Bater\u00eda"
+            },
+            "battery_state": {
+                "name": "Estado de la bater\u00eda"
+            },
+            "carbon_dioxide": {
+                "name": "Di\u00f3xido de carbono"
+            },
+            "carbon_monoxide": {
+                "name": "Mon\u00f3xido de carbono"
+            },
+            "cleaning_area": {
+                "name": "\u00c1rea de limpieza"
+            },
+            "cleaning_time": {
+                "name": "Tiempo de limpieza"
+            },
+            "concentration_carbon_dioxide": {
+                "name": "Concentraci\u00f3n de di\u00f3xido de carbono"
+            },
+            "current": {
+                "name": "Intensidad de corriente"
+            },
+            "current_temperature": {
+                "name": "Temperatura actual"
+            },
+            "duster_cloth_life": {
+                "name": "Vida \u00fatil de la gamuza"
+            },
+            "filter_life": {
+                "name": "Vida \u00fatil del filtro"
+            },
+            "filter_utilization": {
+                "name": "Utilizaci\u00f3n del filtro"
+            },
+            "formaldehyde": {
+                "name": "Formaldeh\u00eddo"
+            },
+            "gas": {
+                "name": "Gas"
+            },
+            "humidity": {
+                "name": "Humedad"
+            },
+            "illuminance": {
+                "name": "Iluminancia"
+            },
+            "last_amount": {
+                "name": "\u00daltima cantidad"
+            },
+            "last_operation_duration": {
+                "name": "Duraci\u00f3n de la \u00faltima operaci\u00f3n"
+            },
+            "luminosity": {
+                "name": "Luminosidad"
+            },
+            "methane": {
+                "name": "Metano"
+            },
+            "phase_a_current": {
+                "name": "Corriente de la fase A"
+            },
+            "phase_a_power": {
+                "name": "Potencia de la fase A"
+            },
+            "phase_a_voltage": {
+                "name": "Tensi\u00f3n de la fase A"
+            },
+            "phase_b_current": {
+                "name": "Corriente de la fase B"
+            },
+            "phase_b_power": {
+                "name": "Potencia de la fase B"
+            },
+            "phase_b_voltage": {
+                "name": "Tensi\u00f3n de la fase B"
+            },
+            "phase_c_current": {
+                "name": "Corriente de la fase C"
+            },
+            "phase_c_power": {
+                "name": "Potencia de la fase C"
+            },
+            "phase_c_voltage": {
+                "name": "Tensi\u00f3n de la fase C"
+            },
+            "pm1": {
+                "name": "PM1"
+            },
+            "pm10": {
+                "name": "PM10"
+            },
+            "pm25": {
+                "name": "PM2.5"
+            },
+            "power": {
+                "name": "Potencia"
+            },
+            "remaining_time": {
+                "name": "Tiempo restante"
+            },
+            "rolling_brush_life": {
+                "name": "Vida \u00fatil del cepillo giratorio"
+            },
+            "side_brush_life": {
+                "name": "Vida \u00fatil del cepillo lateral"
+            },
+            "smoke_amount": {
+                "name": "Cantidad de humo"
+            },
+            "sous_vide_status": {
+                "name": "Estado",
+                "state": {
+                    "boiling_temp": "Temperatura de ebullici\u00f3n",
+                    "cooling": "Enfriando",
+                    "heating": "Calentando",
+                    "heating_temp": "Temperatura de calentamiento",
+                    "reserve_1": "Reserva 1",
+                    "reserve_2": "Reserva 2",
+                    "reserve_3": "Reserva 3",
+                    "standby": "En espera",
+                    "warm": "Conservaci\u00f3n del calor"
+                }
+            },
+            "status": {
+                "name": "Estado",
+                "state": {
+                    "boiling_temp": "Temperatura de ebullici\u00f3n",
+                    "cooling": "Refrigeraci\u00f3n",
+                    "heating": "Calefacci\u00f3n",
+                    "heating_temp": "Temperatura de calefacci\u00f3n",
+                    "reserve_1": "Reserva 1",
+                    "reserve_2": "Reserva 2",
+                    "reserve_3": "Reserva 3",
+                    "standby": "En espera",
+                    "warm": "Conservaci\u00f3n del calor"
+                }
+            },
+            "temperature": {
+                "name": "Temperatura"
+            },
+            "total_absorption_particles": {
+                "name": "Total de absorci\u00f3n de part\u00edculas"
+            },
+            "total_cleaning_area": {
+                "name": "\u00c1rea total de limpieza"
+            },
+            "total_cleaning_time": {
+                "name": "Tiempo total de limpieza"
+            },
+            "total_cleaning_times": {
+                "name": "Veces totales de limpieza"
+            },
+            "total_energy": {
+                "name": "Energ\u00eda total"
+            },
+            "total_operating_time": {
+                "name": "Tiempo total de funcionamiento"
+            },
+            "total_production": {
+                "name": "Producci\u00f3n total"
+            },
+            "total_volatile_organic_compound": {
+                "name": "Compuesto org\u00e1nico vol\u00e1til total"
+            },
+            "total_watering_time": {
+                "name": "Tiempo total de riego"
+            },
+            "voc": {
+                "name": "COV"
+            },
+            "voltage": {
+                "name": "Voltaje"
+            },
+            "water_level": {
+                "name": "Nivel del agua"
+            }
+        },
+        "switch": {
+            "alarm_1": {
+                "name": "Alarma 1"
+            },
+            "alarm_2": {
+                "name": "Alarma 2"
+            },
+            "alarm_3": {
+                "name": "Alarma 3"
+            },
+            "alarm_4": {
+                "name": "Alarma 4"
+            },
+            "anion": {
+                "name": "Ani\u00f3n"
+            },
+            "battery_lock": {
+                "name": "Bloqueo de la bater\u00eda"
+            },
+            "child_lock": {
+                "name": "Bloqueo infantil"
+            },
+            "cry_detection": {
+                "name": "Detecci\u00f3n de llanto"
+            },
+            "disinfection": {
+                "name": "Desinfecci\u00f3n"
+            },
+            "do_not_disturb": {
+                "name": "No molestar"
+            },
+            "energy_saving": {
+                "name": "Ahorro de energ\u00eda"
+            },
+            "filter_cartridge_reset": {
+                "name": "Reinicio del cartucho de filtro"
+            },
+            "filter_reset": {
+                "name": "Restablecer filtro"
+            },
+            "flip": {
+                "name": "Voltear"
+            },
+            "heat_preservation": {
+                "name": "Conservaci\u00f3n del calor"
+            },
+            "humidification": {
+                "name": "Humidificaci\u00f3n"
+            },
+            "ionizer": {
+                "name": "Ionizador"
+            },
+            "motion_alarm": {
+                "name": "Alarma de movimiento"
+            },
+            "motion_recording": {
+                "name": "Grabaci\u00f3n de movimiento"
+            },
+            "motion_tracking": {
+                "name": "Seguimiento del movimiento"
+            },
+            "mute": {
+                "name": "Silenciar"
+            },
+            "mute_voice": {
+                "name": "Silenciar voz"
+            },
+            "natural_wind": {
+                "name": "Viento natural"
+            },
+            "open_window_detection": {
+                "name": "Detecci\u00f3n de ventanas abiertas"
+            },
+            "oxygen_bar": {
+                "name": "Barra de ox\u00edgeno"
+            },
+            "plug": {
+                "name": "Enchufe"
+            },
+            "power": {
+                "name": "Energ\u00eda"
+            },
+            "privacy_mode": {
+                "name": "Modo privado"
+            },
+            "pump": {
+                "name": "Bomba"
+            },
+            "radio": {
+                "name": "Radio"
+            },
+            "reset_of_water_usage_days": {
+                "name": "Puesta a cero de los d\u00edas de consumo de agua"
+            },
+            "reverse": {
+                "name": "Invertir"
+            },
+            "sleep": {
+                "name": "Dormir"
+            },
+            "sleep_aid": {
+                "name": "Ayuda para dormir"
+            },
+            "slow_feed": {
+                "name": "Alimentaci\u00f3n lenta"
+            },
+            "socket": {
+                "name": "Enchufe"
+            },
+            "socket_1": {
+                "name": "Enchufe 1"
+            },
+            "socket_2": {
+                "name": "Enchufe 2"
+            },
+            "socket_3": {
+                "name": "Enchufe 3"
+            },
+            "socket_4": {
+                "name": "Enchufe 4"
+            },
+            "socket_5": {
+                "name": "Enchufe 5"
+            },
+            "socket_6": {
+                "name": "Enchufe 6"
+            },
+            "sound": {
+                "name": "Sonido"
+            },
+            "sound_detection": {
+                "name": "Detecci\u00f3n de sonido"
+            },
+            "spray": {
+                "name": "Pulverizador"
+            },
+            "start": {
+                "name": "Iniciar"
+            },
+            "sterilization": {
+                "name": "Esterilizaci\u00f3n"
+            },
+            "switch": {
+                "name": "Interruptor"
+            },
+            "switch_1": {
+                "name": "Interruptor 1"
+            },
+            "switch_2": {
+                "name": "Interruptor 2"
+            },
+            "switch_3": {
+                "name": "Interruptor 3"
+            },
+            "switch_4": {
+                "name": "Interruptor 4"
+            },
+            "switch_5": {
+                "name": "Interruptor 5"
+            },
+            "switch_6": {
+                "name": "Interruptor 6"
+            },
+            "switch_7": {
+                "name": "Interruptor 7"
+            },
+            "switch_8": {
+                "name": "Interruptor 8"
+            },
+            "time_watermark": {
+                "name": "Marca de agua de tiempo"
+            },
+            "usb_1": {
+                "name": "USB 1"
+            },
+            "usb_2": {
+                "name": "USB 2"
+            },
+            "usb_3": {
+                "name": "USB 3"
+            },
+            "usb_4": {
+                "name": "USB 4"
+            },
+            "usb_5": {
+                "name": "USB 5"
+            },
+            "usb_6": {
+                "name": "USB 6"
+            },
+            "uv_sterilization": {
+                "name": "Esterilizaci\u00f3n UV"
+            },
+            "video_recording": {
+                "name": "Grabaci\u00f3n de v\u00eddeo"
+            },
+            "voice": {
+                "name": "Voz"
+            },
+            "water": {
+                "name": "Agua"
+            },
+            "water_pump_reset": {
+                "name": "Restablecimiento de la bomba de agua"
+            },
+            "wide_dynamic_range": {
+                "name": "Amplio rango din\u00e1mico"
+            }
+        }
+    },
+    "issues": {
+        "service_deprecation_turn_off": {
+            "description": "El soporte del aspirador Tuya para el servicio vacuum.turn_off est\u00e1 obsoleto y se eliminar\u00e1 en Home Assistant 2024.2; Por favor, ajusta cualquier automatizaci\u00f3n o script que use el servicio para llamar a vacuum.stop y selecciona enviar a continuaci\u00f3n para marcar este problema como resuelto.",
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "El soporte del aspirador Tuya para el servicio vacuum.turn_off est\u00e1 obsoleto y se eliminar\u00e1 en Home Assistant 2024.2; Por favor, ajusta cualquier automatizaci\u00f3n o script que use el servicio para llamar a vacuum.stop y selecciona enviar a continuaci\u00f3n para marcar este problema como resuelto.",
+                        "title": "Se va a eliminar el soporte del aspirador Tuya para vacuum.turn_off"
+                    }
+                }
+            },
+            "title": "Se va a eliminar el soporte del aspirador Tuya para vacuum.turn_off"
+        },
+        "service_deprecation_turn_on": {
+            "description": "El soporte del aspirador Tuya para el servicio vacuum.turn_on est\u00e1 obsoleto y se eliminar\u00e1 en Home Assistant 2024.2; Por favor, ajusta cualquier automatizaci\u00f3n o script que use el servicio para llamar a vacuum.start y selecciona enviar a continuaci\u00f3n para marcar este problema como resuelto.",
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "El soporte del aspirador Tuya para el servicio vacuum.turn_on est\u00e1 obsoleto y se eliminar\u00e1 en Home Assistant 2024.2; Por favor, ajusta cualquier automatizaci\u00f3n o script que use el servicio para llamar a vacuum.start y selecciona enviar a continuaci\u00f3n para marcar este problema como resuelto.",
+                        "title": "Se va a eliminar el soporte del aspirador Tuya para vacuum.turn_on"
+                    }
+                }
+            },
+            "title": "Se va a eliminar el soporte del aspirador Tuya para vacuum.turn_on"
+        }
+    }
+}

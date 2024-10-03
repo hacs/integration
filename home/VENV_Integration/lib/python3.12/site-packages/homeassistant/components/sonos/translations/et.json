@@ -1,0 +1,198 @@
+{
+    "config": {
+        "abort": {
+            "no_devices_found": "V\u00f5rgust ei leitud seadmeid",
+            "not_sonos_device": "Avastatud seade ei ole Sonose seade",
+            "single_instance_allowed": "Juba seadistatud, lubatud on ainult \u00fcks sidumine."
+        },
+        "step": {
+            "confirm": {
+                "description": "Kas soovid Sonose seadistada?"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "microphone": {
+                "name": "Mikrofon"
+            }
+        },
+        "number": {
+            "audio_delay": {
+                "name": "Heli viivitus"
+            },
+            "balance": {
+                "name": "Tasakaal"
+            },
+            "bass": {
+                "name": "Bass"
+            },
+            "music_surround_level": {
+                "name": "Muusika ruumilise heli tase"
+            },
+            "sub_crossover": {
+                "name": "Bassik\u00f5lari l\u00f5ikesagedus"
+            },
+            "sub_gain": {
+                "name": "Bassi tugevus"
+            },
+            "surround_level": {
+                "name": "Ruumilise heli tase"
+            },
+            "treble": {
+                "name": "K\u00f5rged"
+            }
+        },
+        "sensor": {
+            "audio_input_format": {
+                "name": "Heli sisendvorming"
+            }
+        },
+        "switch": {
+            "buttons_enabled": {
+                "name": "Puutetundlikud juhtnupud"
+            },
+            "cross_fade": {
+                "name": "Crossfade"
+            },
+            "dialog_level": {
+                "name": "K\u00f5ne t\u00e4iustamine"
+            },
+            "loudness": {
+                "name": "Loudness"
+            },
+            "night_mode": {
+                "name": "\u00d6ine heli"
+            },
+            "status_light": {
+                "name": "Oleku m\u00e4rgutuli"
+            },
+            "sub_enabled": {
+                "name": "Subwoofer on lubatud"
+            },
+            "surround_enabled": {
+                "name": "Ruumiline heli on lubatud"
+            },
+            "surround_mode": {
+                "name": "Ruumiline muusika t\u00e4isvaljusega"
+            }
+        }
+    },
+    "exceptions": {
+        "announce_media_error": {
+            "message": "Klipi {media_id} esitamine nurjus {response}"
+        },
+        "invalid_content_type": {
+            "message": "Sonos ei toeta meediumisisu t\u00fc\u00fcpi: {media_type}"
+        },
+        "invalid_favorite": {
+            "message": "Sonose lemmikut ei leitud: {name}"
+        },
+        "invalid_media": {
+            "message": "Meediumit {media_id} teegist ei leitud"
+        },
+        "invalid_sonos_playlist": {
+            "message": "Ei leidnud Sonose esitusloendit: {name}"
+        }
+    },
+    "issues": {
+        "subscriptions_failed": {
+            "description": "K\u00fcsitlusele tagasi p\u00f6\u00f6rdudes v\u00f5ib funktsionaalsus olla piiratud.\n\nSonose seade aadressil {device_ip} ei saa \u00fchendust Home Assistantiga aadressil {listener_address}.\n\nLisateavet selle probleemi lahendamise kohta leiad meie [dokumentatsioonist]({sub_fail_url}).",
+            "title": "V\u00f5rgut\u00f5rge: tellimused nurjusid"
+        }
+    },
+    "services": {
+        "clear_sleep_timer": {
+            "description": "L\u00e4htestab Sonose taimeri.",
+            "name": "L\u00e4htesta taimer"
+        },
+        "get_queue": {
+            "description": "Tagastab j\u00e4rjekorra sisu.",
+            "name": "Hangi j\u00e4rjekord"
+        },
+        "play_queue": {
+            "description": "Alusta j\u00e4rjekorra esitamist esimesest \u00fcksusest.",
+            "fields": {
+                "queue_position": {
+                    "description": "Loo asukoht j\u00e4rjekorras millest esitamist alustada.",
+                    "name": "Asukoht j\u00e4rjekorras"
+                }
+            },
+            "name": "Esita j\u00e4rjestus"
+        },
+        "remove_from_queue": {
+            "description": "Eemaldab \u00fcksuse j\u00e4rjekorrast.",
+            "fields": {
+                "queue_position": {
+                    "description": "Asukoht eemaldamiseks j\u00e4rjekorras.",
+                    "name": "Asukoht j\u00e4rjekorras"
+                }
+            },
+            "name": "Eemalda j\u00e4rjekorrast"
+        },
+        "restore": {
+            "description": "Taastab meediam\u00e4ngija hetkeseisu.",
+            "fields": {
+                "entity_id": {
+                    "description": "Taastatava olemi nimi.",
+                    "name": "Olem"
+                },
+                "with_group": {
+                    "description": "\u00d5ige v\u00f5i vale. Taasta ka r\u00fchma paigutuse varukoopia.",
+                    "name": "Koos r\u00fchmaga"
+                }
+            },
+            "name": "Taasta"
+        },
+        "set_sleep_timer": {
+            "description": "M\u00e4\u00e4rab Sonose taimeri.",
+            "fields": {
+                "sleep_time": {
+                    "description": "Taimeri sekundite arv.",
+                    "name": "Puhkere\u017eiim"
+                }
+            },
+            "name": "M\u00e4\u00e4ra taimer"
+        },
+        "snapshot": {
+            "description": "Salvestab meediam\u00e4ngija hetkeseisu.",
+            "fields": {
+                "entity_id": {
+                    "description": "Olemi nimi, millest varukoopia tehakse.",
+                    "name": "Olem"
+                },
+                "with_group": {
+                    "description": "\u00d5ige v\u00f5i vale. Tehke ka grupi paigutuse varukoopia.",
+                    "name": "Koos r\u00fchmaga"
+                }
+            },
+            "name": "Varukoopia"
+        },
+        "update_alarm": {
+            "description": "V\u00e4rskendab \u00e4ratuse uute kellaaja ja helitugevuse s\u00e4tetega.",
+            "fields": {
+                "alarm_id": {
+                    "description": "Uuendatava \u00e4ratuse ID.",
+                    "name": "\u00c4ratuse ID"
+                },
+                "enabled": {
+                    "description": "\u00c4ratuse lubamine v\u00f5i keelamine.",
+                    "name": "\u00c4ratus on lubatud"
+                },
+                "include_linked_zones": {
+                    "description": "R\u00fchmitatud ruumide kaasamise lubamine v\u00f5i keelamine.",
+                    "name": "Kaasa seotud tsoonid"
+                },
+                "time": {
+                    "description": "M\u00e4\u00e4ra \u00e4ratuse aeg.",
+                    "name": "Kellaaeg"
+                },
+                "volume": {
+                    "description": "M\u00e4\u00e4ra \u00e4ratuse helitugevuse tase.",
+                    "name": "Helitugevus"
+                }
+            },
+            "name": "\u00c4ratuse v\u00e4rskendamine"
+        }
+    }
+}

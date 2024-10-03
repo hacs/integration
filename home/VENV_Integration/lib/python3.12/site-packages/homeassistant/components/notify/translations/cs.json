@@ -1,0 +1,88 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "Ozn\u00e1men\u00ed"
+        }
+    },
+    "issues": {
+        "migrate_notify": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Akce {integration_title} `notify` byly migrov\u00e1ny. Nyn\u00ed je k dispozici nov\u00e1 entita `notify`, kter\u00e1 nahrad\u00ed ka\u017edou star\u0161\u00ed slu\u017ebu `notify`.\n\nAktualizujte v\u0161echny automatizace tak, aby pou\u017e\u00edvaly novou akci `notify.send_message`, kter\u00e1 je vystavena s touto novou entitou. A\u017e to ud\u011bl\u00e1te, opravte tento probl\u00e9m a restartujte Home Assistanta.",
+                        "title": "Migrace star\u0161\u00ed akce ozn\u00e1men\u00ed {integration_title} pro dom\u00e9nu \"{domain}\""
+                    }
+                }
+            },
+            "title": "Migrace akce ozn\u00e1men\u00ed {integration_title}"
+        },
+        "migrate_notify_service": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Akce integrace {integration_title} \"notify.{service_name}\" byla migrov\u00e1na, ale zd\u00e1 se, \u017ee star\u00e1 akce \"notify\" se st\u00e1le pou\u017e\u00edv\u00e1.\n\nNyn\u00ed je k dispozici nov\u00e1 entita \"notify\", kter\u00e1 nahrad\u00ed ka\u017edou star\u0161\u00ed akci \"notify\".\n\nAktualizujte ve\u0161ker\u00e9 automatizace nebo skripty, aby mohly pou\u017e\u00edvat novou akci \"notify.send_message\" vystavenou s touto novou entitou. Po dokon\u010den\u00ed klepn\u011bte na tla\u010d\u00edtko Odeslat a restartujte Home Assistanta.",
+                        "title": "Migrace star\u0161\u00ed akce ozn\u00e1men\u00ed {integration_title} pro dom\u00e9nu \"{domain}\""
+                    }
+                }
+            },
+            "title": "Star\u0161\u00ed akce \"notify.{service_name}\" se st\u00e1le pou\u017e\u00edv\u00e1"
+        }
+    },
+    "services": {
+        "notify": {
+            "description": "Ode\u0161le zpr\u00e1vu s upozorn\u011bn\u00edm na vybran\u00e9 c\u00edle.",
+            "fields": {
+                "data": {
+                    "description": "N\u011bkter\u00e9 integrace poskytuj\u00ed roz\u0161\u00ed\u0159enou funk\u010dnost. Informace o tom, jak pou\u017e\u00edvat pole \"data\", najdete v dokumentaci k integraci.",
+                    "name": "Data"
+                },
+                "message": {
+                    "description": "T\u011blo zpr\u00e1vy ozn\u00e1men\u00ed.",
+                    "name": "Zpr\u00e1va"
+                },
+                "target": {
+                    "description": "N\u011bkter\u00e9 integrace umo\u017e\u0148uj\u00ed ur\u010dit c\u00edle, kter\u00e9 obdr\u017e\u00ed ozn\u00e1men\u00ed. Dal\u0161\u00ed informace naleznete v dokumentaci k integraci.",
+                    "name": "C\u00edl"
+                },
+                "title": {
+                    "description": "N\u00e1zev ozn\u00e1men\u00ed.",
+                    "name": "N\u00e1zev"
+                }
+            },
+            "name": "Odeslat ozn\u00e1men\u00ed"
+        },
+        "persistent_notification": {
+            "description": "Ode\u0161le ozn\u00e1men\u00ed, kter\u00e9 je viditeln\u00e9 na panelu ozn\u00e1men\u00ed.",
+            "fields": {
+                "data": {
+                    "description": "N\u011bkter\u00e9 integrace poskytuj\u00ed roz\u0161\u00ed\u0159enou funk\u010dnost. Informace o tom, jak pou\u017e\u00edvat pole \"data\", najdete v dokumentaci k integraci.",
+                    "name": "Data"
+                },
+                "message": {
+                    "description": "T\u011blo zpr\u00e1vy ozn\u00e1men\u00ed.",
+                    "name": "Zpr\u00e1va"
+                },
+                "title": {
+                    "description": "N\u00e1zev ozn\u00e1men\u00ed.",
+                    "name": "N\u00e1zev"
+                }
+            },
+            "name": "Odeslat trval\u00e9 ozn\u00e1men\u00ed"
+        },
+        "send_message": {
+            "description": "Ode\u0161le zpr\u00e1vu s ozn\u00e1men\u00edm.",
+            "fields": {
+                "message": {
+                    "description": "Va\u0161e zpr\u00e1va s ozn\u00e1men\u00edm.",
+                    "name": "Zpr\u00e1va"
+                },
+                "title": {
+                    "description": "N\u00e1zev va\u0161eho ozn\u00e1men\u00ed.",
+                    "name": "N\u00e1zev"
+                }
+            },
+            "name": "Odeslat zpr\u00e1vu s ozn\u00e1men\u00edm"
+        }
+    },
+    "title": "Ozn\u00e1men\u00ed"
+}

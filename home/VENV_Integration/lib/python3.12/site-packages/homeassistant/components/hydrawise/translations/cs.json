@@ -1,0 +1,94 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Slu\u017eba je ji\u017e nastavena",
+            "reauth_successful": "Op\u011btovn\u00e9 ov\u011b\u0159en\u00ed bylo \u00fasp\u011b\u0161n\u00e9"
+        },
+        "error": {
+            "cannot_connect": "Nepoda\u0159ilo se p\u0159ipojit",
+            "timeout_connect": "Vypr\u0161el \u010dasov\u00fd limit pro nav\u00e1z\u00e1n\u00ed spojen\u00ed",
+            "unknown": "Neo\u010dek\u00e1van\u00e1 chyba"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "api_key": "Kl\u00ed\u010d API",
+                    "password": "Heslo",
+                    "username": "U\u017eivatelsk\u00e9 jm\u00e9no"
+                },
+                "description": "Zadejte u\u017eivatelsk\u00e9 jm\u00e9no a heslo pro sv\u016fj cloudov\u00fd \u00fa\u010det Hydrawise:",
+                "title": "P\u0159ihl\u00e1\u0161en\u00ed Hydrawise"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "rain_sensor": {
+                "name": "De\u0161\u0165ov\u00fd senzor"
+            },
+            "watering": {
+                "name": "Zavla\u017eov\u00e1n\u00ed"
+            }
+        },
+        "sensor": {
+            "daily_active_water_time": {
+                "name": "Denn\u00ed doba aktivn\u00edho zavla\u017eov\u00e1n\u00ed"
+            },
+            "daily_active_water_use": {
+                "name": "Denn\u00ed aktivn\u00ed spot\u0159eba vody"
+            },
+            "daily_inactive_water_use": {
+                "name": "Denn\u00ed neaktivn\u00ed spot\u0159eba vody"
+            },
+            "daily_total_water_use": {
+                "name": "Celkov\u00e1 denn\u00ed spot\u0159eba vody"
+            },
+            "next_cycle": {
+                "name": "Dal\u0161\u00ed cyklus"
+            },
+            "watering_time": {
+                "name": "Zb\u00fdvaj\u00edc\u00ed doba zavla\u017eov\u00e1n\u00ed"
+            }
+        },
+        "switch": {
+            "auto_watering": {
+                "name": "Automatick\u00e9 zavla\u017eov\u00e1n\u00ed"
+            },
+            "manual_watering": {
+                "name": "Ru\u010dn\u00ed zavla\u017eov\u00e1n\u00ed"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_yaml_import_issue": {
+            "description": "Nastaven\u00ed Hydrawise pomoc\u00ed YAML se odeb\u00edr\u00e1, ale p\u0159i importu va\u0161eho nastaven\u00ed YAML do\u0161lo k chyb\u011b {error_type}.\n\nUjist\u011bte se, \u017ee p\u0159ipojen\u00ed k Hydrawise funguje a restartujte Home Assistanta, abyste to zkusili znovu, nebo odeberte nastaven\u00ed Hydrawise YAML ze souboru configuration.yaml a pokra\u010dujte v [nastaven\u00ed integrace]({url}) ru\u010dn\u011b.",
+            "title": "Import nastaven\u00ed Hydrawise YAML se nezda\u0159il"
+        }
+    },
+    "services": {
+        "resume": {
+            "description": "Obnov\u00ed automatick\u00fd zavla\u017eovac\u00ed pl\u00e1n zavla\u017eovac\u00ed z\u00f3ny.",
+            "name": "Obnoven\u00ed automatick\u00e9ho zavla\u017eov\u00e1n\u00ed"
+        },
+        "start_watering": {
+            "description": "Spust\u00ed cyklus zavla\u017eov\u00e1n\u00ed ve zvolen\u00e9 zavla\u017eovac\u00ed z\u00f3n\u011b.",
+            "fields": {
+                "duration": {
+                    "description": "Doba trv\u00e1n\u00ed zavla\u017eovac\u00edho cyklu. Pokud nen\u00ed zad\u00e1no (nebo je nulov\u00e9), pou\u017eije se v\u00fdchoz\u00ed doba zavla\u017eov\u00e1n\u00ed nastaven\u00e1 v mobiln\u00ed nebo webov\u00e9 aplikaci Hydrawise pro zavla\u017eovac\u00ed z\u00f3nu.",
+                    "name": "Doba trv\u00e1n\u00ed"
+                }
+            },
+            "name": "Spustit zavla\u017eov\u00e1n\u00ed"
+        },
+        "suspend": {
+            "description": "Pozastav\u00ed automatick\u00fd zavla\u017eovac\u00ed pl\u00e1n zavla\u017eovac\u00ed z\u00f3ny do dan\u00e9ho data a \u010dasu.",
+            "fields": {
+                "until": {
+                    "description": "Datum a \u010das obnoven\u00ed automatick\u00e9ho zavla\u017eovac\u00edho pl\u00e1nu.",
+                    "name": "Dokud"
+                }
+            },
+            "name": "Pozastavit automatick\u00e9 zavla\u017eov\u00e1n\u00ed"
+        }
+    }
+}

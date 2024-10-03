@@ -1,0 +1,137 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "La cuenta ya est\u00e1 configurada",
+            "reauth_successful": "La autenticaci\u00f3n se volvi\u00f3 a realizar correctamente",
+            "unknown_entry": "No se puede encontrar una entrada existente."
+        },
+        "error": {
+            "invalid_code": "No se pudo iniciar sesi\u00f3n en Hive. Tu c\u00f3digo de autenticaci\u00f3n de dos factores era incorrecto.",
+            "invalid_password": "No se pudo iniciar sesi\u00f3n en Hive. Contrase\u00f1a incorrecta, por favor, int\u00e9ntalo de nuevo.",
+            "invalid_username": "No se pudo iniciar sesi\u00f3n en Hive. No se reconoce tu direcci\u00f3n de correo electr\u00f3nico.",
+            "no_internet_available": "Se requiere una conexi\u00f3n a Internet para conectar con Hive.",
+            "unknown": "Error inesperado"
+        },
+        "step": {
+            "2fa": {
+                "data": {
+                    "2fa": "C\u00f3digo de dos factores"
+                },
+                "description": "introduce tu c\u00f3digo de autenticaci\u00f3n de Hive. \n\nPor favor, introduce el c\u00f3digo 0000 para solicitar otro c\u00f3digo.",
+                "title": "Autenticaci\u00f3n de dos factores de Hive."
+            },
+            "configuration": {
+                "data": {
+                    "device_name": "Nombre del dispositivo"
+                },
+                "description": "Introduce tu configuraci\u00f3n de Hive",
+                "title": "Configuraci\u00f3n de Hive."
+            },
+            "reauth": {
+                "data": {
+                    "password": "Contrase\u00f1a",
+                    "username": "Nombre de usuario"
+                },
+                "description": "Vuelve a introducir tus datos de acceso a Hive.",
+                "title": "Inicio de sesi\u00f3n en Hive"
+            },
+            "user": {
+                "data": {
+                    "password": "Contrase\u00f1a",
+                    "scan_interval": "Intervalo de escaneo (segundos)",
+                    "username": "Nombre de usuario"
+                },
+                "description": "Introduce tus datos de acceso a Hive.",
+                "title": "Inicio de sesi\u00f3n en Hive"
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "heating": {
+                "state": {
+                    "manual": "Manual",
+                    "off": "Apagado",
+                    "on": "Encendido",
+                    "schedule": "Programaci\u00f3n"
+                }
+            },
+            "hot_water": {
+                "state": {
+                    "off": "Apagado",
+                    "on": "Encendido",
+                    "schedule": "Programaci\u00f3n"
+                }
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "user": {
+                "data": {
+                    "scan_interval": "Intervalo de escaneo (segundos)"
+                },
+                "description": "Actualiza el intervalo de escaneo para buscar datos con m\u00e1s frecuencia.",
+                "title": "Opciones para Hive"
+            }
+        }
+    },
+    "services": {
+        "boost_heating": {
+            "description": "Quedar\u00e1 obsoleto, utiliza boost_heating_on.",
+            "fields": {
+                "temperature": {
+                    "description": "Ajusta la temperatura deseada para el periodo de refuerzo.",
+                    "name": "Temperatura"
+                },
+                "time_period": {
+                    "description": "Establece el periodo de tiempo para el refuerzo.",
+                    "name": "Periodo de tiempo"
+                }
+            },
+            "name": "Refuerzo de la calefacci\u00f3n (en desuso)"
+        },
+        "boost_heating_off": {
+            "description": "Desactiva el modo de refuerzo.",
+            "fields": {
+                "entity_id": {
+                    "description": "Selecciona entity_id para desactivar el refuerzo.",
+                    "name": "ID de entidad"
+                }
+            },
+            "name": "Refuerzo de la calefacci\u00f3n apagado"
+        },
+        "boost_heating_on": {
+            "description": "Establece el modo de refuerzo en ON definiendo el per\u00edodo de tiempo y la temperatura deseada para el impulso.",
+            "fields": {
+                "temperature": {
+                    "description": "Ajusta la temperatura deseada para el periodo de refuerzo.",
+                    "name": "Temperatura"
+                },
+                "time_period": {
+                    "description": "Establece el periodo de tiempo para el refuerzo.",
+                    "name": "Periodo de tiempo"
+                }
+            },
+            "name": "Reforzar el calentamiento"
+        },
+        "boost_hot_water": {
+            "description": "Activa o desactiva el modo de refuerzo definiendo el per\u00edodo de tiempo para el mismo.",
+            "fields": {
+                "entity_id": {
+                    "description": "Selecciona entity_id para reforzar.",
+                    "name": "ID de entidad"
+                },
+                "on_off": {
+                    "description": "Activa o desactiva la funci\u00f3n de refuerzo.",
+                    "name": "Modo"
+                },
+                "time_period": {
+                    "description": "Establece el periodo de tiempo para el refuerzo.",
+                    "name": "Periodo de tiempo"
+                }
+            },
+            "name": "Reforzar el agua caliente"
+        }
+    }
+}

@@ -1,0 +1,90 @@
+{
+    "device_automation": {
+        "condition_type": {
+            "is_home": "{entity_name} je doma",
+            "is_not_home": "{entity_name} nie je doma"
+        },
+        "extra_fields": {
+            "zone": "Z\u00f3na"
+        },
+        "trigger_type": {
+            "enters": "{entity_name} vst\u00fapi do z\u00f3ny",
+            "leaves": "{entity_name} opust\u00ed z\u00f3nu"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Sledovanie zariadenia",
+            "state": {
+                "home": "Doma",
+                "not_home": "Nepr\u00edtomnos\u0165"
+            },
+            "state_attributes": {
+                "battery": {
+                    "name": "Bat\u00e9ria"
+                },
+                "gps_accuracy": {
+                    "name": "Presnos\u0165 GPS"
+                },
+                "latitude": {
+                    "name": "Zemepisn\u00e1 \u0161\u00edrka"
+                },
+                "longitude": {
+                    "name": "Zemepisn\u00e1 d\u013a\u017eka"
+                },
+                "source_type": {
+                    "name": "Zdroj",
+                    "state": {
+                        "bluetooth": "Bluetooth",
+                        "bluetooth_le": "Bluetooth LE",
+                        "gps": "GPS",
+                        "router": "Router"
+                    }
+                }
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "Platforma {platform} pre integr\u00e1ciu {domain} nepodporuje nastavenie platformy. \n\n Odstr\u00e1\u0148te ho z konfigur\u00e1cie a re\u0161tartujte Home Assistant, aby ste tento probl\u00e9m vyrie\u0161ili.",
+            "title": "Podpora platformy nie je podporovan\u00e1"
+        }
+    },
+    "services": {
+        "see": {
+            "description": "Zaznamen\u00e1 viden\u00e9 sledovan\u00e9 zariadenie.",
+            "fields": {
+                "battery": {
+                    "description": "\u00darove\u0148 nabitia bat\u00e9rie zariadenia.",
+                    "name": "\u00darove\u0148 bat\u00e9rie"
+                },
+                "dev_id": {
+                    "description": "ID zariadenia (ID n\u00e1jdete v s\u00fabore `known_devices.yaml`).",
+                    "name": "ID zariadenia"
+                },
+                "gps": {
+                    "description": "S\u00faradnice GPS, kde sa zariadenie nach\u00e1dza, zadan\u00e9 pomocou zemepisnej \u0161\u00edrky a d\u013a\u017eky (napr\u00edklad: [51.513845, -0.100539]).",
+                    "name": "GPS s\u00faradnice"
+                },
+                "gps_accuracy": {
+                    "description": "Presnos\u0165 s\u00faradn\u00edc GPS.",
+                    "name": "Presnos\u0165 GPS"
+                },
+                "host_name": {
+                    "description": "N\u00e1zov hostite\u013ea zariadenia.",
+                    "name": "Meno hostite\u013ea"
+                },
+                "location_name": {
+                    "description": "N\u00e1zov miesta, kde sa zariadenie nach\u00e1dza. Na v\u00fdber s\u00fa tieto mo\u017enosti: `home`, `not_home` alebo n\u00e1zov z\u00f3ny.",
+                    "name": "Umiestnenie"
+                },
+                "mac": {
+                    "description": "MAC adresa zariadenia.",
+                    "name": "MAC adresa"
+                }
+            },
+            "name": "Pozri"
+        }
+    },
+    "title": "Sledovanie zariadenia"
+}

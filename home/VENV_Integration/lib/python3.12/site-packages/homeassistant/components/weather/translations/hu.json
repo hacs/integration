@@ -1,0 +1,140 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "Id\u0151j\u00e1r\u00e1s",
+            "state": {
+                "clear-night": "Csillagos",
+                "cloudy": "Felh\u0151s",
+                "exceptional": "Rendk\u00edv\u00fcli",
+                "fog": "K\u00f6d\u00f6s",
+                "hail": "J\u00e9ges\u0151s",
+                "lightning": "Viharos",
+                "lightning-rainy": "Viharos, es\u0151s",
+                "partlycloudy": "R\u00e9szben felh\u0151s",
+                "pouring": "Szakad\u00f3 es\u0151s",
+                "rainy": "Es\u0151s",
+                "snowy": "Havas",
+                "snowy-rainy": "Havas, es\u0151s",
+                "sunny": "Napos",
+                "windy": "Szeles",
+                "windy-variant": "Szeles, felh\u0151s"
+            },
+            "state_attributes": {
+                "apparent_temperature": {
+                    "name": "H\u0151\u00e9rzet"
+                },
+                "cloud_coverage": {
+                    "name": "Felh\u0151fedetts\u00e9g"
+                },
+                "dew_point": {
+                    "name": "Harmatpont h\u0151m\u00e9rs\u00e9klet"
+                },
+                "forecast": {
+                    "name": "El\u0151rejelz\u00e9s"
+                },
+                "humidity": {
+                    "name": "P\u00e1ratartalom"
+                },
+                "ozone": {
+                    "name": "\u00d3zon"
+                },
+                "precipitation_unit": {
+                    "name": "Csapad\u00e9k m\u00e9rt\u00e9kegys\u00e9ge"
+                },
+                "pressure": {
+                    "name": "L\u00e9gnyom\u00e1s"
+                },
+                "pressure_unit": {
+                    "name": "Nyom\u00e1s m\u00e9rt\u00e9kegys\u00e9ge"
+                },
+                "temperature": {
+                    "name": "H\u0151m\u00e9rs\u00e9klet"
+                },
+                "temperature_unit": {
+                    "name": "H\u0151m\u00e9rs\u00e9klet m\u00e9rt\u00e9kegys\u00e9ge"
+                },
+                "uv_index": {
+                    "name": "UV index"
+                },
+                "visibility": {
+                    "name": "L\u00e1t\u00f3t\u00e1vols\u00e1g"
+                },
+                "visibility_unit": {
+                    "name": "L\u00e1t\u00f3t\u00e1vols\u00e1g m\u00e9rt\u00e9kegys\u00e9ge"
+                },
+                "wind_bearing": {
+                    "name": "Sz\u00e9lhajt\u00e1s"
+                },
+                "wind_gust_speed": {
+                    "name": "Sz\u00e9ll\u00f6k\u00e9s sebess\u00e9ge"
+                },
+                "wind_speed": {
+                    "name": "Sz\u00e9lsebess\u00e9g"
+                },
+                "wind_speed_unit": {
+                    "name": "Sz\u00e9lsebess\u00e9g m\u00e9rt\u00e9kegys\u00e9ge"
+                }
+            }
+        }
+    },
+    "issues": {
+        "deprecated_service_weather_get_forecast": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Haszn\u00e1lja a `weather.get_forecasts` szolg\u00e1ltat\u00e1st, amely t\u00f6bb entit\u00e1st is t\u00e1mogat.\n\nK\u00e9rj\u00fck, cser\u00e9lje le ezt a szolg\u00e1ltat\u00e1st \u00e9s m\u00f3dos\u00edtsa az automatiz\u00e1l\u00e1sait \u00e9s szkriptjeit, majd v\u00e1lassza a **Mehet** lehet\u0151s\u00e9get a probl\u00e9ma lez\u00e1r\u00e1s\u00e1hoz.",
+                        "title": "Az elavult szolg\u00e1ltat\u00e1s \"weather.get_forecast\" \u00e9szlelt haszn\u00e1lata"
+                    }
+                }
+            }
+        },
+        "deprecated_weather_forecast": {
+            "description": "`{platform}` integr\u00e1ci\u00f3 egy elavult el\u0151rejelz\u00e9si attrib\u00fatumot haszn\u00e1l.\n\n K\u00e9rj\u00fck, {report_issue} .",
+            "title": "{platform} integr\u00e1ci\u00f3 elavult el\u0151rejelz\u00e9st haszn\u00e1l"
+        },
+        "deprecated_weather_forecast_no_url": {
+            "description": "A(z) \"{platform}\" egy\u00e9ni integr\u00e1ci\u00f3 megval\u00f3s\u00edtja az \"forecast\" tulajdons\u00e1got, vagy be\u00e1ll\u00edtja az \"self._attr_forecast\" tulajdons\u00e1got a WeatherEntity aloszt\u00e1ly\u00e1ban.\n\nK\u00e9rj\u00fck, jelentse a {platform} integr\u00e1ci\u00f3 szerz\u0151j\u00e9nek.\n\nHa el\u00e9rhet\u0151v\u00e9 v\u00e1lik a(z) \"{platform}\" friss\u00edtett verzi\u00f3ja, telep\u00edtse azt, \u00e9s ind\u00edtsa \u00fajra a Home Assistant alkalmaz\u00e1st a probl\u00e9ma megold\u00e1s\u00e1hoz.",
+            "title": "A {platform} egy\u00e9ni integr\u00e1ci\u00f3 elavult id\u0151j\u00e1r\u00e1s-el\u0151rejelz\u00e9st haszn\u00e1l."
+        },
+        "deprecated_weather_forecast_url": {
+            "description": "A \"{platform}\" egy\u00e9ni integr\u00e1ci\u00f3 megval\u00f3s\u00edtja a \"forecast\" tulajdons\u00e1got, vagy be\u00e1ll\u00edtja a \"self._attr_forecast\" \u00e9rt\u00e9ket a WeatherEntity aloszt\u00e1ly\u00e1ban. \n\n K\u00e9rj\u00fck, hozzon l\u00e9tre hibajelent\u00e9st a k\u00f6vetkez\u0151 c\u00edmen {issue_tracker} . \n\n Amint el\u00e9rhet\u0151 a \"{platform}\" friss\u00edtett verzi\u00f3ja, telep\u00edtse azt, \u00e9s ind\u00edtsa \u00fajra a Home Assistant alkalmaz\u00e1st a probl\u00e9ma megold\u00e1s\u00e1hoz.",
+            "title": "A {platform} egy\u00e9ni integr\u00e1ci\u00f3 elavult id\u0151j\u00e1r\u00e1s-el\u0151rejelz\u00e9st haszn\u00e1l."
+        },
+        "platform_integration_no_support": {
+            "description": "{domain} integr\u00e1ci\u00f3 nem t\u00e1mogatja {platform} platform be\u00e1ll\u00edt\u00e1s\u00e1t.\n\nK\u00e9rem, t\u00e1vol\u00edtsa el a konfigur\u00e1ci\u00f3b\u00f3l \u00e9s ind\u00edtsa \u00fajra a Home Assistantot a probl\u00e9ma megold\u00e1s\u00e1hoz.",
+            "title": "A platform nem t\u00e1mogatott"
+        }
+    },
+    "selector": {
+        "forecast_type": {
+            "options": {
+                "daily": "Napi",
+                "hourly": "\u00d3r\u00e1nk\u00e9nti",
+                "twice_daily": "K\u00e9tszer naponta"
+            }
+        }
+    },
+    "services": {
+        "get_forecast": {
+            "description": "K\u00e9rjen id\u0151j\u00e1r\u00e1s el\u0151rejelz\u00e9st.",
+            "fields": {
+                "type": {
+                    "description": "El\u0151rejelz\u00e9s t\u00edpusa: napi, \u00f3r\u00e1nk\u00e9nti vagy k\u00e9tszer naponta.",
+                    "name": "El\u0151rejelz\u00e9s t\u00edpusa"
+                }
+            },
+            "name": "El\u0151rejelz\u00e9s k\u00e9r\u00e9se"
+        },
+        "get_forecasts": {
+            "description": "Id\u0151j\u00e1r\u00e1s-el\u0151rejelz\u00e9s lek\u00e9r\u00e9se.",
+            "fields": {
+                "type": {
+                    "description": "El\u0151rejelz\u00e9s t\u00edpusa: napi, \u00f3r\u00e1nk\u00e9nti vagy k\u00e9tszer naponta.",
+                    "name": "El\u0151rejelz\u00e9s t\u00edpusa"
+                }
+            },
+            "name": "El\u0151rejelz\u00e9sek lek\u00e9r\u00e9se"
+        }
+    },
+    "title": "Id\u0151j\u00e1r\u00e1s"
+}

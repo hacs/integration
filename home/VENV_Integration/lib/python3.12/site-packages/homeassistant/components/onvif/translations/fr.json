@@ -1,0 +1,114 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "L'appareil est d\u00e9j\u00e0 configur\u00e9",
+            "already_in_progress": "La configuration est d\u00e9j\u00e0 en cours",
+            "no_devices_found": "Aucun appareil trouv\u00e9 sur le r\u00e9seau",
+            "no_h264": "Aucun flux H264 n'\u00e9tait disponible. V\u00e9rifiez la configuration du profil sur votre appareil.",
+            "no_mac": "Impossible de configurer l'ID unique pour le p\u00e9riph\u00e9rique ONVIF.",
+            "onvif_error": "Erreur lors de la configuration du p\u00e9riph\u00e9rique ONVIF. Consultez les journaux pour plus d'informations.",
+            "reauth_successful": "La r\u00e9-authentification a r\u00e9ussi"
+        },
+        "error": {
+            "auth_failed": "Impossible d'authentifier\u00a0: {error}",
+            "cannot_connect": "\u00c9chec de connexion",
+            "no_onvif_service": "Aucun service ONVIF trouv\u00e9. V\u00e9rifiez que le num\u00e9ro de port est correct.",
+            "onvif_error": "Erreur lors de la configuration du p\u00e9riph\u00e9rique ONVIF\u00a0: {error}. Consultez les journaux pour plus d\u2019informations."
+        },
+        "step": {
+            "configure": {
+                "data": {
+                    "host": "H\u00f4te",
+                    "name": "Nom",
+                    "password": "Mot de passe",
+                    "port": "Port",
+                    "username": "Nom d'utilisateur"
+                },
+                "data_description": {
+                    "host": "Le nom d'h\u00f4te ou l'adresse IP de votre appareil ONVIF."
+                },
+                "title": "Configurer l'appareil ONVIF"
+            },
+            "configure_profile": {
+                "data": {
+                    "include": "Cr\u00e9er une entit\u00e9 cam\u00e9ra"
+                },
+                "description": "Cr\u00e9er une entit\u00e9 cam\u00e9ra pour {profile} \u00e0 la r\u00e9solution {resolution}\u00a0?",
+                "title": "Configurer les profils"
+            },
+            "device": {
+                "data": {
+                    "host": "S\u00e9lectionnez le p\u00e9riph\u00e9rique ONVIF d\u00e9couvert"
+                },
+                "title": "S\u00e9lectionnez l'appareil ONVIF"
+            },
+            "reauth_confirm": {
+                "data": {
+                    "password": "Mot de passe",
+                    "username": "Nom d'utilisateur"
+                },
+                "description": "Certains appareils rejetteront l'authentification si l'heure est d\u00e9synchronis\u00e9e de plus de 5 secondes. Si l'authentification \u00e9choue, v\u00e9rifiez que l'heure sur l'appareil est correcte et r\u00e9essayez.",
+                "title": "R\u00e9authentifier le dispositif ONVIF"
+            },
+            "user": {
+                "data": {
+                    "auto": "Rechercher automatiquement"
+                },
+                "title": "Configuration de l'appareil ONVIF"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "onvif_devices": {
+                "data": {
+                    "enable_webhooks": "Activer les Webhooks",
+                    "extra_arguments": "Arguments FFMPEG suppl\u00e9mentaires",
+                    "rtsp_transport": "M\u00e9canisme de transport RTSP",
+                    "use_wallclock_as_timestamps": "Utiliser l'horloge murale comme horodateur"
+                },
+                "title": "Options ONVIF de l'appareil"
+            }
+        }
+    },
+    "services": {
+        "ptz": {
+            "description": "Si votre cam\u00e9ra ONVIF prend en charge la fonction PTZ, vous pourrez effectuer un panoramique, une inclinaison ou un zoom sur votre cam\u00e9ra.",
+            "fields": {
+                "continuous_duration": {
+                    "description": "D\u00e9finir le d\u00e9lai de ContinuousMove en secondes avant d'arr\u00eater le mouvement.",
+                    "name": "Dur\u00e9e continu"
+                },
+                "distance": {
+                    "description": "Coefficient de distance. D\u00e9finit la quantit\u00e9 de PTZ \u00e0 ex\u00e9cuter en une seule demande.",
+                    "name": "Distance"
+                },
+                "move_mode": {
+                    "description": "Mode de d\u00e9placement PTZ.",
+                    "name": "Mode de d\u00e9placement"
+                },
+                "pan": {
+                    "description": "Direction du panoramique",
+                    "name": "Panoramique"
+                },
+                "preset": {
+                    "description": "Jeton de profil de pr\u00e9r\u00e9glage PTZ. D\u00e9finit le jeton de profil de pr\u00e9s\u00e9lection qui est ex\u00e9cut\u00e9 avec GotoPreset.",
+                    "name": "Pr\u00e9r\u00e9glage"
+                },
+                "speed": {
+                    "description": "Coefficient de vitesse. D\u00e9finit la vitesse d'ex\u00e9cution du PTZ.",
+                    "name": "Vitesse"
+                },
+                "tilt": {
+                    "description": "Direction d'inclinaison",
+                    "name": "Inclinaison"
+                },
+                "zoom": {
+                    "description": "Zoom.",
+                    "name": "Zoom"
+                }
+            },
+            "name": "PTZ"
+        }
+    }
+}

@@ -1,0 +1,63 @@
+{
+    "exceptions": {
+        "entity_not_dynamically_created": {
+            "message": "La escena {entity_id} no se crea con la acci\u00f3n `scene.create`."
+        },
+        "entity_not_scene": {
+            "message": "{entity_id} no es un entity_id de escena v\u00e1lido."
+        }
+    },
+    "services": {
+        "apply": {
+            "description": "Activa una escena con configuraci\u00f3n.",
+            "fields": {
+                "entities": {
+                    "description": "Lista de entidades y su estado objetivo.",
+                    "name": "Estado de las entidades"
+                },
+                "transition": {
+                    "description": "Tiempo que tardan los dispositivos en hacer la transici\u00f3n a los estados definidos en la escena.",
+                    "name": "Transici\u00f3n"
+                }
+            },
+            "name": "Aplicar"
+        },
+        "create": {
+            "description": "Crea una nueva escena.",
+            "fields": {
+                "entities": {
+                    "description": "Lista de entidades y su estado objetivo. Si tus entidades ya est\u00e1n en el estado de destino en este momento, usa `snapshot_entities` en su lugar.",
+                    "name": "Estado de las entidades"
+                },
+                "scene_id": {
+                    "description": "El ID de entidad de la nueva escena.",
+                    "name": "ID de entidad de escena"
+                },
+                "snapshot_entities": {
+                    "description": "Lista de entidades que se incluir\u00e1n en la instant\u00e1nea. Al tomar una instant\u00e1nea, registra el estado actual de esas entidades. Si no deseas utilizar el estado actual de todas sus entidades para esta escena, puedes combinar `snapshot_entities` con `entities`.",
+                    "name": "Entidades de instant\u00e1nea"
+                }
+            },
+            "name": "Crear"
+        },
+        "delete": {
+            "description": "Elimina una escena creada din\u00e1micamente.",
+            "name": "Eliminar"
+        },
+        "reload": {
+            "description": "Recarga las escenas desde la configuraci\u00f3n YAML.",
+            "name": "Recargar"
+        },
+        "turn_on": {
+            "description": "Activa una escena.",
+            "fields": {
+                "transition": {
+                    "description": "Tiempo que tardan los dispositivos en hacer la transici\u00f3n a los estados definidos en la escena.",
+                    "name": "Transici\u00f3n"
+                }
+            },
+            "name": "Activar"
+        }
+    },
+    "title": "Escena"
+}

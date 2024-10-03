@@ -1,0 +1,107 @@
+{
+    "device_automation": {
+        "action_type": {
+            "turn_off": "{entity_name}\u3092\u30aa\u30d5\u306b\u3059\u308b",
+            "turn_on": "{entity_name}\u3092\u30aa\u30f3\u306b\u3059\u308b"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "\u7d66\u6e6f\u5668",
+            "state": {
+                "eco": "\u30a8\u30b3",
+                "electric": "\u30a8\u30ec\u30af\u30c8\u30ea\u30c3\u30af",
+                "gas": "\u30ac\u30b9",
+                "heat_pump": "\u30d2\u30fc\u30c8\u30dd\u30f3\u30d7",
+                "high_demand": "\u9ad8\u9700\u8981(High Demand)",
+                "off": "\u30aa\u30d5",
+                "performance": "\u30d1\u30d5\u30a9\u30fc\u30de\u30f3\u30b9"
+            },
+            "state_attributes": {
+                "away_mode": {
+                    "name": "\u5916\u51fa\u30e2\u30fc\u30c9",
+                    "state": {
+                        "off": "\u30aa\u30d5",
+                        "on": "\u30aa\u30f3"
+                    }
+                },
+                "current_operation": {
+                    "name": "\u73fe\u5728\u306e\u52d5\u4f5c"
+                },
+                "current_temperature": {
+                    "name": "\u73fe\u5728\u306e\u6e29\u5ea6"
+                },
+                "max_temp": {
+                    "name": "\u6700\u5927\u76ee\u6a19\u6e29\u5ea6"
+                },
+                "min_temp": {
+                    "name": "\u6700\u5c0f\u76ee\u6a19\u6e29\u5ea6"
+                },
+                "target_temp_high": {
+                    "name": "\u4e0a\u9650\u76ee\u6a19\u6e29\u5ea6"
+                },
+                "target_temp_low": {
+                    "name": "\u4e0b\u9650\u76ee\u6a19\u6e29\u5ea6"
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "not_valid_operation_mode": {
+            "message": "\u64cd\u4f5c\u30e2\u30fc\u30c9{operation_mode}\u306f{entity_id}\u306b\u5bfe\u3057\u3066\u7121\u52b9\u3067\u3059\u3002\u6709\u52b9\u306a\u64cd\u4f5c\u30e2\u30fc\u30c9\u306f\u6b21\u306e\u3068\u304a\u308a\u3067\u3059: {operation_list} \u3002"
+        },
+        "operation_list_not_defined": {
+            "message": "\u64cd\u4f5c\u30e2\u30fc\u30c9{operation_mode}\u306f{entity_id}\u306b\u5bfe\u3057\u3066\u7121\u52b9\u3067\u3059\u3002\u64cd\u4f5c\u30ea\u30b9\u30c8\u306f\u5b9a\u7fa9\u3055\u308c\u3066\u3044\u307e\u305b\u3093\u3002"
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "{domain}\u7d71\u5408\u306e{platform}\u30d7\u30e9\u30c3\u30c8\u30d5\u30a9\u30fc\u30e0\u306f\u3001\u30d7\u30e9\u30c3\u30c8\u30d5\u30a9\u30fc\u30e0\u306e\u30bb\u30c3\u30c8\u30a2\u30c3\u30d7\u3092\u30b5\u30dd\u30fc\u30c8\u3057\u3066\u3044\u307e\u305b\u3093\u3002 \n\n\u3053\u306e\u554f\u984c\u3092\u89e3\u6c7a\u3059\u308b\u306b\u306f\u3001\u69cb\u6210\u304b\u3089\u524a\u9664\u3057\u3001Home Assistant \u3092\u518d\u8d77\u52d5\u3057\u3066\u304f\u3060\u3055\u3044\u3002",
+            "title": "\u30d7\u30e9\u30c3\u30c8\u30d5\u30a9\u30fc\u30e0\u306e\u30b5\u30dd\u30fc\u30c8\u306f\u30b5\u30dd\u30fc\u30c8\u3055\u308c\u3066\u3044\u307e\u305b\u3093"
+        }
+    },
+    "services": {
+        "set_away_mode": {
+            "description": "\u5916\u51fa\u30e2\u30fc\u30c9\u306e\u30aa\u30f3/\u30aa\u30d5\u3092\u5207\u308a\u66ff\u3048\u307e\u3059\u3002",
+            "fields": {
+                "away_mode": {
+                    "description": "\u5916\u51fa\u30e2\u30fc\u30c9\u306e\u65b0\u3057\u3044\u5024\u3002",
+                    "name": "\u5916\u51fa\u30e2\u30fc\u30c9"
+                }
+            },
+            "name": "\u5916\u51fa\u30e2\u30fc\u30c9\u306e\u8a2d\u5b9a"
+        },
+        "set_operation_mode": {
+            "description": "\u904b\u8ee2\u30e2\u30fc\u30c9\u3092\u8a2d\u5b9a\u3057\u307e\u3059\u3002",
+            "fields": {
+                "operation_mode": {
+                    "description": "\u52d5\u4f5c\u30e2\u30fc\u30c9\u306e\u65b0\u3057\u3044\u5024\u3002\u53ef\u80fd\u306a\u30e2\u30fc\u30c9\u306e\u30ea\u30b9\u30c8\u306b\u3064\u3044\u3066\u306f\u3001\u7d71\u5408\u30c9\u30ad\u30e5\u30e1\u30f3\u30c8\u3092\u53c2\u7167\u3057\u3066\u304f\u3060\u3055\u3044\u3002",
+                    "name": "\u904b\u8ee2\u30e2\u30fc\u30c9"
+                }
+            },
+            "name": "\u904b\u8ee2\u30e2\u30fc\u30c9\u8a2d\u5b9a"
+        },
+        "set_temperature": {
+            "description": "\u8a2d\u5b9a\u6e29\u5ea6\u3092\u8a2d\u5b9a\u3057\u307e\u3059\u3002",
+            "fields": {
+                "operation_mode": {
+                    "description": "\u52d5\u4f5c\u30e2\u30fc\u30c9\u306e\u65b0\u3057\u3044\u5024\u3002\u53ef\u80fd\u306a\u30e2\u30fc\u30c9\u306e\u30ea\u30b9\u30c8\u306b\u3064\u3044\u3066\u306f\u3001\u7d71\u5408\u30c9\u30ad\u30e5\u30e1\u30f3\u30c8\u3092\u53c2\u7167\u3057\u3066\u304f\u3060\u3055\u3044\u3002",
+                    "name": "\u904b\u8ee2\u30e2\u30fc\u30c9"
+                },
+                "temperature": {
+                    "description": "\u7d66\u6e6f\u5668\u306e\u65b0\u3057\u3044\u8a2d\u5b9a\u6e29\u5ea6\u3002",
+                    "name": "\u6e29\u5ea6"
+                }
+            },
+            "name": "\u8a2d\u5b9a\u6e29\u5ea6"
+        },
+        "turn_off": {
+            "description": "\u7d66\u6e6f\u5668\u3092\u30aa\u30d5\u306b\u3059\u308b\u3002",
+            "name": "\u30aa\u30d5\u306b\u3059\u308b"
+        },
+        "turn_on": {
+            "description": "\u7d66\u6e6f\u5668\u3092\u30aa\u30f3\u306b\u3057\u307e\u3059\u3002",
+            "name": "\u30aa\u30f3\u306b\u3059\u308b"
+        }
+    }
+}

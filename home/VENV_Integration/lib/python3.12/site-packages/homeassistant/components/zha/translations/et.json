@@ -1,0 +1,1134 @@
+{
+    "config": {
+        "abort": {
+            "not_zha_device": "See seade ei ole zha seade",
+            "single_instance_allowed": "Juba seadistatud. V\u00f5imalik on ainult \u00fcks seadistamine.",
+            "usb_probe_failed": "USB seadme k\u00fcsitlemine eba\u00f5nnestus",
+            "wrong_firmware_installed": "Seadmes t\u00f6\u00f6tab vale p\u00fcsivara ja seda ei saa kasutada koos ZHA-ga enne kui \u00f5ige p\u00fcsivara on paigaldatud. [Loodud on parandus]( {repair_url} ), mis sisaldab lisateavet ja juhiseid selle parandamiseks."
+        },
+        "error": {
+            "cannot_connect": "\u00dchendamine nurjus",
+            "invalid_backup_json": "Sobimatu varukoopia JSON"
+        },
+        "flow_title": "{name}",
+        "step": {
+            "choose_automatic_backup": {
+                "data": {
+                    "choose_automatic_backup": "Vali automaatne varundamine"
+                },
+                "description": "Taasta v\u00f5rgu seaded automaatsest varukoopiast",
+                "title": "Taastamine automaatsest varukoopiast"
+            },
+            "choose_formation_strategy": {
+                "description": "Vali raadio v\u00f5rguseaded.",
+                "menu_options": {
+                    "choose_automatic_backup": "Taastamine automaatsest varukoopiast",
+                    "form_initial_network": "V\u00f5rgu loomine",
+                    "form_new_network": "Kustuta v\u00f5rgu seaded ja moodusta uus v\u00f5rk",
+                    "reuse_settings": "Raadiov\u00f5rgu s\u00e4tete s\u00e4ilitamine",
+                    "upload_manual_backup": "Varukoopia \u00fcleslaadimine"
+                },
+                "title": "V\u00f5rgu moodustamine"
+            },
+            "choose_serial_port": {
+                "data": {
+                    "path": "Jadaseadme tee"
+                },
+                "description": "Vali Zigbee raadio jadaport",
+                "title": "Vali jadaport"
+            },
+            "confirm": {
+                "description": "Kas soovid seadistada teenust {name} ?"
+            },
+            "confirm_hardware": {
+                "description": "Kas seadistada {name} ?"
+            },
+            "manual_pick_radio_type": {
+                "data": {
+                    "radio_type": "Seadme raadio t\u00fc\u00fcp"
+                },
+                "description": "Vali Zigbee raadio t\u00fc\u00fcp",
+                "title": "Seadme raadio t\u00fc\u00fcp"
+            },
+            "manual_port_config": {
+                "data": {
+                    "baudrate": "Pordi kiirus",
+                    "flow_control": "Andmevoo juhtimine",
+                    "path": "Jadaseadme tee"
+                },
+                "description": "Sisesta jadapordi s\u00e4tted",
+                "title": "Jadapordi s\u00e4tted"
+            },
+            "maybe_confirm_ezsp_restore": {
+                "data": {
+                    "overwrite_coordinator_ieee": "Raadio IEEE-aadressi p\u00fcsiv asendamine"
+                },
+                "description": "Varukoopial on erinev IEEE aadress kui raadiol.  V\u00f5rgu n\u00f5uetekohaseks toimimiseks tuleks muuta ka raadio IEEE aadressi.\n\nSee on p\u00fcsiv toiming.",
+                "title": "Raadio IEEE aadressi \u00fclekirjutamine"
+            },
+            "upload_manual_backup": {
+                "data": {
+                    "uploaded_backup_file": "Faili \u00fcleslaadimine"
+                },
+                "description": "Taasta oma v\u00f5rgus\u00e4tted \u00fcleslaaditud JSON-varufailist. Saad selle alla laadida teisest ZHA paigaldusest **V\u00f5rguseaded** v\u00f5i kasutada Zigbee2MQTT 'coordinator_backup.json' faili.",
+                "title": "K\u00e4sitsi varundamise \u00fcleslaadimine"
+            },
+            "verify_radio": {
+                "description": "Kasutatav raadio ( {name} ) pole soovitatav ja selle tugi v\u00f5idakse tulevikus eemaldada. Vaatae [soovitatud adapterite loendit] ( {docs_recommended_adapters_url} ) Zigbee Home Automationi integratsiooni dokumentatsioonist.",
+                "title": "See raadio ei ole soovitatav"
+            }
+        }
+    },
+    "config_panel": {
+        "zha_alarm_options": {
+            "alarm_arm_requires_code": "Valvestamise kood",
+            "alarm_failed_tries": "Mitu j\u00e4rjestikust eba\u00f5nnestunud koodi sisestamist h\u00e4ire k\u00e4ivitamiseks",
+            "alarm_master_code": "Valvekeskuse juhtpaneel(ide) \u00fclemkood",
+            "title": "Valvekeskuse juhtpaneeli s\u00e4tted"
+        },
+        "zha_options": {
+            "always_prefer_xy_color_mode": "Eelista alati XY v\u00e4rvire\u017eiimi",
+            "consider_unavailable_battery": "Arvesta, et patareitoitega seadmed pole p\u00e4rast (sekundit) saadaval",
+            "consider_unavailable_mains": "Arvesta, et v\u00f5rgutoitega seadmed pole p\u00e4rast (sekundit) saadaval",
+            "default_light_transition": "Heleduse vaike\u00fclemineku aeg (sekundites)",
+            "enable_identify_on_join": "Luba tuvastamine kui seadmed liituvad v\u00f5rguga",
+            "enable_mains_startup_polling": "V\u00e4rskenda v\u00f5rgutoitega seadme olekut sissel\u00fclitamisel",
+            "enhanced_light_transition": "Luba t\u00e4iustatud valguse v\u00e4rvi/temperatuuri \u00fcleminek v\u00e4ljal\u00fclitatud olekust",
+            "group_members_assume_state": "Grupi liikmed v\u00f5tavad grupi oleku",
+            "light_transitioning_flag": "Luba t\u00e4iustatud heleduse liugur valguse \u00fclemineku ajal",
+            "title": "\u00dcldised valikud"
+        }
+    },
+    "device_automation": {
+        "action_type": {
+            "issue_all_led_effect": "K\u00f5igi LED-ide efekt",
+            "issue_individual_led_effect": "Efekt \u00fcksikute LEDide puhul",
+            "squawk": "Pr\u00e4\u00e4ksata",
+            "warn": "Hoiata"
+        },
+        "extra_fields": {
+            "color": "V\u00e4rvitoon",
+            "duration": "Kestus sekundites",
+            "effect_type": "Efekti t\u00fc\u00fcp",
+            "led_number": "LED-i number",
+            "level": "Heledus (%)"
+        },
+        "trigger_subtype": {
+            "both_buttons": "M\u00f5lemad nupud",
+            "button": "Nupp",
+            "button_1": "Esimene nupp",
+            "button_2": "Teine nupp",
+            "button_3": "Kolmas nupp",
+            "button_4": "Neljas nupp",
+            "button_5": "Viies nupp",
+            "button_6": "Kuues nupp",
+            "close": "Sulge",
+            "dim_down": "H\u00e4marda",
+            "dim_up": "Tee heledamaks",
+            "face_1": "K\u00fclg 1 on \u00fcleval",
+            "face_2": "K\u00fclg 2 on \u00fcleval",
+            "face_3": "K\u00fclg 3 on \u00fcleval",
+            "face_4": "K\u00fclg 4 on \u00fcleval",
+            "face_5": "K\u00fclg 5 on \u00fcleval",
+            "face_6": "K\u00fclg 6 on \u00fcleval",
+            "face_any": "mistahes k\u00fclg on \u00fcleval",
+            "left": "Vasakule",
+            "open": "Ava",
+            "right": "Paremale",
+            "turn_off": "L\u00fclita v\u00e4lja",
+            "turn_on": "L\u00fclita sisse"
+        },
+        "trigger_type": {
+            "device_dropped": "Seade kukkus",
+            "device_flipped": "Seadet p\u00f6\u00f6rati {subtype}",
+            "device_knocked": "Seadet koputati {subtype}",
+            "device_offline": "Seade on v\u00f5rgu\u00fchenduseta",
+            "device_rotated": "Seadet keerati  {subtype}",
+            "device_shaken": "Seadet raputati",
+            "device_slid": "Seadet libistati {subtype}",
+            "device_tilted": "Seadet kallutati",
+            "remote_button_alt_double_press": "\"{subtype}\" on topeltkl\u00f5psatud (alternatiivre\u017eiim)",
+            "remote_button_alt_long_press": "\"{subtype}\" nuppu vajutati pikalt (alternatiivre\u017eiim)",
+            "remote_button_alt_long_release": "\"{subtype}\" nupp  vabastati peale pikka vajutust (alternatiivre\u017eiim)",
+            "remote_button_alt_quadruple_press": "\"{subtype}\" on neljakordselt kl\u00f5psatud (alternatiivre\u017eiim)",
+            "remote_button_alt_quintuple_press": "\"{subtype}\" on neljakordselt kl\u00f5psatud (alternatiivre\u017eiim)",
+            "remote_button_alt_short_press": "\"{subtype}\" nuppu  vajutati (alternatiivre\u017eiim)",
+            "remote_button_alt_short_release": "\"{subtype}\" nupp  vabastati (alternatiivre\u017eiim)",
+            "remote_button_alt_triple_press": "\"{subtype}\" on kolmekordselt kl\u00f5psatud (alternatiivre\u017eiim)",
+            "remote_button_double_press": "\"{subtype}\" on topeltkl\u00f5psatud",
+            "remote_button_long_press": "\"{subtype}\" on pikalt alla vajutatud",
+            "remote_button_long_release": "\"{subtype}\" nupp vabastatati p\u00e4rast pikka vajutust",
+            "remote_button_quadruple_press": "\"{subtype}\" nuppu on neljakordselt kl\u00f5psatud",
+            "remote_button_quintuple_press": "\"{subtype}\" nuppu on viiekordselt kl\u00f5psatud",
+            "remote_button_short_press": "\"{subtype}\" nupp  on vajutatud",
+            "remote_button_short_release": "\"{subtype}\" nupp  vabastati",
+            "remote_button_triple_press": "Nuppu \"{subtype}\" kl\u00f5psati kolm korda"
+        }
+    },
+    "entity": {
+        "alarm_control_panel": {
+            "alarm_control_panel": {
+                "name": "Valvekeskuse juhtpaneel"
+            }
+        },
+        "binary_sensor": {
+            "accelerometer": {
+                "name": "Kiirendusandur"
+            },
+            "binary_input": {
+                "name": "Binaarne sisend"
+            },
+            "calibrated": {
+                "name": "Kalibreeritud"
+            },
+            "consumer_connected": {
+                "name": "Tarbija on \u00fchendatud"
+            },
+            "external_sensor": {
+                "name": "V\u00e4line andur"
+            },
+            "frost_lock": {
+                "name": "K\u00fclmumiskaitse"
+            },
+            "hand_open": {
+                "name": "K\u00e4sitsi avatud"
+            },
+            "heat_required": {
+                "name": "Vajalik soojus"
+            },
+            "ias_zone": {
+                "name": "IAS tsoon"
+            },
+            "linkage_alarm_state": {
+                "name": "\u00dchenduse h\u00e4ire olek"
+            },
+            "mounting_mode_active": {
+                "name": "Paigaldusre\u017eiim aktiivne"
+            },
+            "preheat_status": {
+                "name": "Eelsoojenduse olek"
+            },
+            "replace_filter": {
+                "name": "Vaheta filter"
+            },
+            "valve_alarm": {
+                "name": "Klapi h\u00e4ire"
+            }
+        },
+        "button": {
+            "feed": {
+                "name": "S\u00f6\u00f6da"
+            },
+            "reset_frost_lock": {
+                "name": "K\u00fclmumiskaitse l\u00e4htestamine"
+            },
+            "reset_no_presence_status": {
+                "name": "Kohaloleku l\u00e4htestamine"
+            },
+            "self_test": {
+                "name": "Enesekontroll"
+            }
+        },
+        "climate": {
+            "thermostat": {
+                "name": "Termostaat"
+            }
+        },
+        "cover": {
+            "cover": {
+                "name": "Kardin"
+            },
+            "keen_vent": {
+                "name": "Terav ventilatsioon"
+            },
+            "shade": {
+                "name": "Vari"
+            }
+        },
+        "fan": {
+            "fan": {
+                "name": "Ventilaator"
+            },
+            "fan_group": {
+                "name": "Ventilaatorite r\u00fchm"
+            }
+        },
+        "light": {
+            "light": {
+                "name": "Tuled"
+            },
+            "light_group": {
+                "name": "Valgustite r\u00fchm"
+            }
+        },
+        "lock": {
+            "door_lock": {
+                "name": "Ukselukk"
+            }
+        },
+        "number": {
+            "auto_off_timer": {
+                "name": "Automaatne l\u00fcliti v\u00e4ljal\u00fclitamise taimer"
+            },
+            "away_preset_temperature": {
+                "name": "Eemaloleku eelseadistatud temperatuur"
+            },
+            "button_delay": {
+                "name": "Nupu viivitus"
+            },
+            "default_move_rate": {
+                "name": "Vaikimisi liikumiskiirus"
+            },
+            "detection_interval": {
+                "name": "Tuvastamise intervall"
+            },
+            "dimming_speed_down_local": {
+                "name": "Kohaliku juhtimisega alla h\u00e4mardamise kiirus"
+            },
+            "dimming_speed_down_remote": {
+                "name": "Kaugjuhtimisega alla h\u00e4mardamise kiirus"
+            },
+            "dimming_speed_up_local": {
+                "name": "Kohaliku juhtimisega \u00fcles h\u00e4mardamise kiirus"
+            },
+            "dimming_speed_up_remote": {
+                "name": "Kaugjuhtimisega \u00fcles h\u00e4mardamise kiirus"
+            },
+            "double_tap_down_level": {
+                "name": "Topeltpuudutus allapoole nivoo"
+            },
+            "double_tap_up_level": {
+                "name": "Topeltpuudutus \u00fclespoole nivoo"
+            },
+            "exercise_trigger_time": {
+                "name": "Treeningu algusaeg"
+            },
+            "external_temperature_sensor": {
+                "name": "V\u00e4line temperatuuriandur"
+            },
+            "filter_life_time": {
+                "name": "Filtri eluiga"
+            },
+            "led_color_when_off": {
+                "name": "Vaikimisi k\u00f5igi LED-ide v\u00e4rv v\u00e4ljal\u00fclitamisel"
+            },
+            "led_color_when_on": {
+                "name": "Vaikimisi k\u00f5igi LED-ide v\u00e4rv sissel\u00fclitamisel"
+            },
+            "led_intensity_when_off": {
+                "name": "Vaikimisi k\u00f5igi LED-ide intensiivsus v\u00e4ljal\u00fclitamisel"
+            },
+            "led_intensity_when_on": {
+                "name": "Vaikimisi k\u00f5igi LED-ide intensiivsus sissel\u00fclitamisel"
+            },
+            "load_level_indicator_timeout": {
+                "name": "Koormustaseme indikaatori ajal\u00f5pp"
+            },
+            "load_room_mean": {
+                "name": "Laadimisruumi keskmine"
+            },
+            "local_temperature_calibration": {
+                "name": "Kohalik temperatuuri nihe"
+            },
+            "max_heat_setpoint_limit": {
+                "name": "Maksimaalne soojuse seadev\u00e4\u00e4rtuse piir"
+            },
+            "maximum_level": {
+                "name": "Maksimaalne koormuse h\u00e4mardamise tase"
+            },
+            "min_heat_setpoint_limit": {
+                "name": "Minimaalne soojuse seadetemperatuuri piir"
+            },
+            "minimum_level": {
+                "name": "Minimaalne koormuse h\u00e4mardamise tase"
+            },
+            "number": {
+                "name": "Number"
+            },
+            "off_transition_time": {
+                "name": "V\u00e4ljal\u00fclitamise \u00fcleminekuaeg"
+            },
+            "on_level": {
+                "name": "Tase sissel\u00fclitamisel"
+            },
+            "on_off_transition_time": {
+                "name": "Sisse/v\u00e4lja \u00fclemineku aeg"
+            },
+            "on_transition_time": {
+                "name": "\u00dcleminekuaeg sissel\u00fclitamisel"
+            },
+            "portion_weight": {
+                "name": "Portsjoni kaal"
+            },
+            "presence_detection_timeout": {
+                "name": "Kohaloleku tuvastamise ajal\u00f5pp"
+            },
+            "quick_start_time": {
+                "name": "Kiire k\u00e4ivitamise aeg"
+            },
+            "ramp_rate_off_to_on_local": {
+                "name": "Kohalik rambikiirus v\u00e4lja-sisse"
+            },
+            "ramp_rate_off_to_on_remote": {
+                "name": "Kaug\u00fchenduse rambikiirus v\u00e4lja-sisse"
+            },
+            "ramp_rate_on_to_off_local": {
+                "name": "Kohalik rambikiirus sisse-v\u00e4lja"
+            },
+            "ramp_rate_on_to_off_remote": {
+                "name": "Kaug\u00fchenduse rambikiirus sisse-v\u00e4lja"
+            },
+            "regulation_setpoint_offset": {
+                "name": "Reguleerimisv\u00e4\u00e4rtuse nihe"
+            },
+            "serving_size": {
+                "name": "Esitamine v\u00e4ljastamiseks"
+            },
+            "start_up_color_temperature": {
+                "name": "K\u00e4ivitamise v\u00e4rvitemperatuur"
+            },
+            "start_up_current_level": {
+                "name": "K\u00e4ivitusvoolu tase"
+            },
+            "timer_duration": {
+                "name": "Taimeri kestus"
+            },
+            "transmit_power": {
+                "name": "Saatev\u00f5imsus"
+            }
+        },
+        "select": {
+            "adaptation_run_command": {
+                "name": "Kohanemise k\u00e4ivitamise k\u00e4sk"
+            },
+            "approach_distance": {
+                "name": "L\u00e4henemiskaugus"
+            },
+            "backlight_mode": {
+                "name": "Taustvalgustuse re\u017eiim"
+            },
+            "decoupled_mode": {
+                "name": "Lahutatud re\u017eiim"
+            },
+            "default_siren_level": {
+                "name": "Sireeni vaiketase"
+            },
+            "default_siren_tone": {
+                "name": "Sireeni vaiketoon"
+            },
+            "default_strobe": {
+                "name": "Vaikimisi vilkumine"
+            },
+            "default_strobe_level": {
+                "name": "Vaikimisi vilkumise tase"
+            },
+            "detection_distance": {
+                "name": "Tuvastuskaugus"
+            },
+            "detection_sensitivity": {
+                "name": "Tuvastamise tundlikkus"
+            },
+            "exercise_day_of_week": {
+                "name": "N\u00e4dala treeningp\u00e4ev"
+            },
+            "feeding_mode": {
+                "name": "Re\u017eiim"
+            },
+            "increased_non_neutral_output": {
+                "name": "Ilma neutraalita v\u00e4ljund"
+            },
+            "keypad_lockout": {
+                "name": "Klahvistiku lukustus"
+            },
+            "led_scaling_mode": {
+                "name": "LED-skaleerimise re\u017eiim"
+            },
+            "monitoring_mode": {
+                "name": "J\u00e4lgimisre\u017eiim"
+            },
+            "motion_sensitivity": {
+                "name": "Liikumistuvastuse tundlikkus"
+            },
+            "output_mode": {
+                "name": "V\u00e4ljundre\u017eiim"
+            },
+            "power_on_state": {
+                "name": "Sissel\u00fclitatud olek"
+            },
+            "preset": {
+                "name": "Eelseade"
+            },
+            "setpoint_response_time": {
+                "name": "Seadepunkti reaktsiooniaeg"
+            },
+            "smart_fan_led_display_levels": {
+                "name": "Nutika ventilaatori LED-ekraani tasemed"
+            },
+            "start_up_on_off": {
+                "name": "K\u00e4itumine k\u00e4ivitamisel"
+            },
+            "switch_mode": {
+                "name": "L\u00fcliti re\u017eiim"
+            },
+            "switch_type": {
+                "name": "L\u00fcliti t\u00fc\u00fcp"
+            },
+            "valve_orientation": {
+                "name": "Klapi orientatsioon"
+            },
+            "viewing_direction": {
+                "name": "Vaatamise suund"
+            },
+            "window_covering_mode": {
+                "name": "Kardina re\u017eiim"
+            }
+        },
+        "sensor": {
+            "ac_frequency": {
+                "name": "Vahelduvvoolu sagedus"
+            },
+            "adaptation_run_status": {
+                "name": "Kohanemise olek",
+                "state": {
+                    "nothing": "J\u00f5ude",
+                    "something": "Olek"
+                },
+                "state_attributes": {
+                    "in_progress": {
+                        "name": "K\u00e4imas"
+                    },
+                    "run_successful": {
+                        "name": "K\u00e4ivitus oli edukas"
+                    },
+                    "valve_characteristic_lost": {
+                        "name": "Klapi karakteristikud on kadunud"
+                    }
+                }
+            },
+            "analog_input": {
+                "name": "Analoogsisend"
+            },
+            "device_run_time": {
+                "name": "Seadme t\u00f6\u00f6aeg"
+            },
+            "device_temperature": {
+                "name": "Seadme temperatuur"
+            },
+            "filter_run_time": {
+                "name": "Filtri t\u00f6\u00f6aeg"
+            },
+            "formaldehyde": {
+                "name": "Formaldeh\u00fc\u00fcdi kontsentratsioon"
+            },
+            "hooks_state": {
+                "name": "Haakide olek"
+            },
+            "hvac_action": {
+                "name": "Kliimaseadme t\u00f6\u00f6re\u017eiim"
+            },
+            "instantaneous_demand": {
+                "name": "Hetkeline n\u00f5udlus"
+            },
+            "last_feeding_size": {
+                "name": "Viimase s\u00f6\u00f6tmise suurus"
+            },
+            "last_feeding_source": {
+                "name": "Viimane s\u00f6\u00f6tmise allikas"
+            },
+            "last_illumination_state": {
+                "name": "Viimane valgustusolek"
+            },
+            "leaf_wetness": {
+                "name": "Lehtede niiskus"
+            },
+            "load_estimate": {
+                "name": "Hinnanguline koormus"
+            },
+            "lqi": {
+                "name": "LQI"
+            },
+            "motor_stepcount": {
+                "name": "Mootori sammude arv"
+            },
+            "open_window_detected": {
+                "name": "Tuvastati avatud aken"
+            },
+            "pi_heating_demand": {
+                "name": "Pi k\u00fcttevajadus"
+            },
+            "portions_dispensed_today": {
+                "name": "T\u00e4na v\u00e4ljastatud osad"
+            },
+            "power_source": {
+                "name": "Toiteallikas"
+            },
+            "preheat_time": {
+                "name": "Eelsoojenduse aeg"
+            },
+            "rssi": {
+                "name": "RSSI"
+            },
+            "setpoint_change_source": {
+                "name": "Seadepunkti muutmise allikas"
+            },
+            "smoke_density": {
+                "name": "Suitsu tihedus"
+            },
+            "software_error": {
+                "name": "Tarkvara viga",
+                "state": {
+                    "nothing": "Hea",
+                    "something": "T\u00f5rge"
+                },
+                "state_attributes": {
+                    "critical_low_battery": {
+                        "name": "Kriitiliselt t\u00fchi aku"
+                    },
+                    "encoder_jammed": {
+                        "name": "Kodeerija takerdus"
+                    },
+                    "invalid_clock_information": {
+                        "name": "Sobimatu kella teave"
+                    },
+                    "invalid_internal_communication": {
+                        "name": "Kehtetu sisekommunikatsioon"
+                    },
+                    "low_battery": {
+                        "name": "Madal akutase"
+                    },
+                    "motor_error": {
+                        "name": "Mootori viga"
+                    },
+                    "non_volatile_memory_error": {
+                        "name": "P\u00fcsim\u00e4lu viga"
+                    },
+                    "radio_communication_error": {
+                        "name": "Raadioside viga"
+                    },
+                    "side_pcb_sensor_error": {
+                        "name": "K\u00fclgmise PCB anduri viga"
+                    },
+                    "top_pcb_sensor_error": {
+                        "name": "\u00dclemise PCB anduri viga"
+                    },
+                    "unknown_hw_error": {
+                        "name": "Tundmatu riistvaraline viga"
+                    }
+                }
+            },
+            "soil_moisture": {
+                "name": "Mulla niiskus"
+            },
+            "summation_delivered": {
+                "name": "Esitatud kokkuv\u00f5te"
+            },
+            "summation_received": {
+                "name": "Kokkuv\u00f5te saadud"
+            },
+            "tier1_summation_delivered": {
+                "name": "1. taseme summeerimine on esitatud"
+            },
+            "tier2_summation_delivered": {
+                "name": "2. astme summeerimine on esitatud"
+            },
+            "tier3_summation_delivered": {
+                "name": "3. astme summeerimine on esitatud"
+            },
+            "tier4_summation_delivered": {
+                "name": "4. taseme summeerimine on esitatud"
+            },
+            "tier5_summation_delivered": {
+                "name": "5. taseme summeerimine on esitatud"
+            },
+            "tier6_summation_delivered": {
+                "name": "6. taseme summeerimine on esitatud"
+            },
+            "timer_time_left": {
+                "name": "J\u00e4\u00e4nud aeg"
+            },
+            "weight_dispensed_today": {
+                "name": "T\u00e4na m\u00f5\u00f5detud kaal"
+            },
+            "window_covering_type": {
+                "name": "Aknakatte t\u00fc\u00fcp"
+            }
+        },
+        "switch": {
+            "adaptation_run_enabled": {
+                "name": "Kohanemisk\u00e4ivitus on lubatud"
+            },
+            "aux_switch_scenes": {
+                "name": "Lisal\u00fcliti stseenid"
+            },
+            "binding_off_to_on_sync_level": {
+                "name": "Sidumine s\u00fcnkroonimistasemega"
+            },
+            "buzzer_manual_alarm": {
+                "name": "Sumisti h\u00e4ire k\u00e4sitsi"
+            },
+            "buzzer_manual_mute": {
+                "name": "Sumisti k\u00e4sitsi vaigistamine"
+            },
+            "child_lock": {
+                "name": "Lapselukk"
+            },
+            "disable_clear_notifications_double_tap": {
+                "name": "M\u00e4rguannete kustutamiseks keela topeltkl\u00f5psu seadistus"
+            },
+            "disable_led": {
+                "name": "Keela LED"
+            },
+            "double_tap_down_enabled": {
+                "name": "Topeltkl\u00f5ps allapoole lubatud"
+            },
+            "double_tap_up_enabled": {
+                "name": "Topeltkl\u00f5ps \u00fclespoole lubatud"
+            },
+            "external_window_sensor": {
+                "name": "V\u00e4line aknaandur"
+            },
+            "firmware_progress_led": {
+                "name": "P\u00fcsivara edenemise LED"
+            },
+            "heartbeat_indicator": {
+                "name": "Heartbeat m\u00e4rgutuli"
+            },
+            "heat_available": {
+                "name": "Saadaval olev soojus"
+            },
+            "hooks_locked": {
+                "name": "Haagid on suletud"
+            },
+            "invert_switch": {
+                "name": "Tagurpidi l\u00fcliti"
+            },
+            "inverted": {
+                "name": "\u00dcmberp\u00f6\u00f6ratud"
+            },
+            "led_indicator": {
+                "name": "LED m\u00e4rgutuli"
+            },
+            "linkage_alarm": {
+                "name": "Sidumise h\u00e4ire"
+            },
+            "local_protection": {
+                "name": "Kohalik kaitse"
+            },
+            "mounting_mode": {
+                "name": "Paigaldusre\u017eiim"
+            },
+            "one_led_mode": {
+                "name": "Ainult 1 LED-re\u017eiim"
+            },
+            "power_outage_memory": {
+                "name": "Voolukatkestuse m\u00e4lu"
+            },
+            "prioritize_external_temperature_sensor": {
+                "name": "Eelista v\u00e4list temperatuuriandurit"
+            },
+            "relay_click_in_on_off_mode": {
+                "name": "Keela relee kl\u00f5ps sisse-v\u00e4lja re\u017eiimis"
+            },
+            "smart_bulb_mode": {
+                "name": "Nutipirni re\u017eiim"
+            },
+            "smart_fan_mode": {
+                "name": "Nutikas ventilaatori re\u017eiim"
+            },
+            "switch": {
+                "name": "L\u00fcliti"
+            },
+            "trigger_indicator": {
+                "name": "LED p\u00e4\u00e4stiku indikaator"
+            },
+            "use_internal_window_detection": {
+                "name": "Kasuta sisemist aknatuvastust"
+            },
+            "use_load_balancing": {
+                "name": "Kasuta koormuse tasakaalustamist"
+            },
+            "valve_detection": {
+                "name": "Klapi tuvastamine"
+            },
+            "window_detection": {
+                "name": "Akna tuvastamine"
+            },
+            "window_detection_function": {
+                "name": "Inverteeri akna tuvastamine"
+            }
+        }
+    },
+    "issues": {
+        "inconsistent_network_settings": {
+            "fix_flow": {
+                "step": {
+                    "init": {
+                        "description": "Zigbee raadio v\u00f5rguseaded on vastuolus viimase v\u00f5rgu varukoopiaga. Tavaliselt juhtub see siis kui m\u00f5ni muu Zigbee integratsioon (nt Zigbee2MQTT v\u00f5i deCONZ) on need \u00fcle kirjutanud. \n\n {diff}\n\n Kui v\u00f5rgus\u00e4tteid ei muudetud tahtlikult, taasta k\u00f5ige uuemast varukoopiast: muidu seadmed ei t\u00f6\u00f6ta.",
+                        "menu_options": {
+                            "restore_old_settings": "Taasta varukoopiast (soovitatav)",
+                            "use_new_settings": "S\u00e4ilita uued s\u00e4tted"
+                        },
+                        "title": "Zigbee v\u00f5rguseadeid on muudetud"
+                    }
+                }
+            },
+            "title": "Zigbee v\u00f5rguseadeid on muudetud"
+        },
+        "wrong_silabs_firmware_installed_nabucasa": {
+            "description": "Zigbee-raadio oli varem kasutusel multiprotokolliga (Zigbee ja Thread) ja sellele on endiselt paigaldatud multiprotokolli p\u00fcsivara: ({firmware_type}). \n V\u00f5imalus 1: Kui soovid oma raadiot kasutada ainult ZHA-ga, pead installima Zigbee firmware'i:\n - Ava dokumentatsioon, valides lingi \"Learn More\" all.\n -. J\u00e4rgi Zigbee firmware'i flashimiseks kirjeldatud juhiseid.\n V\u00f5imalus 2: Et k\u00e4ivitada oma raadiot mitme protokolliga, j\u00e4rgi j\u00e4rgmisi samme: \n - Ava Settings > System > Hardware, vali seade ja vali Configure. \n - Vali valik Configure IEEE 802.15.4 radio multiprotocol support. \n - M\u00e4rgi ruut ja vali Submit. \n - P\u00e4rast paigaldamist seadista \u00e4sja avastatud ZHA sidumine.",
+            "title": "Tuvastati mukltiprotokolli p\u00fcsivaraga Zigbee raadio"
+        },
+        "wrong_silabs_firmware_installed_other": {
+            "description": "Zigbee-raadio oli varem kasutusel multiprotokolliga (Zigbee ja Thread) ja sellele on endiselt paigaldatud multiprotokolli p\u00fcsivara: ({firmware_type}). Selleks, et raadiot saaks kasutada ainult ZHA-ga, pead paigaldama Zigbee p\u00fcsivara. J\u00e4rgi oma Zigbee-raadio tootja juhiseid kuidas seda teha.",
+            "title": "Tuvastati mukltiprotokolli p\u00fcsivaraga Zigbee raadio"
+        }
+    },
+    "options": {
+        "abort": {
+            "not_zha_device": "See seade ei ole zha seade",
+            "single_instance_allowed": "Juba seadistatud. V\u00f5imalik on ainult \u00fcks seadistamine.",
+            "usb_probe_failed": "USB seadme k\u00fcsitlemine eba\u00f5nnestus",
+            "wrong_firmware_installed": "Seadmes t\u00f6\u00f6tab vale p\u00fcsivara ja seda ei saa kasutada koos ZHA-ga enne kui \u00f5ige p\u00fcsivara on paigaldatud. [Loodud on parandus]( {repair_url} ), mis sisaldab lisateavet ja juhiseid selle parandamiseks."
+        },
+        "error": {
+            "cannot_connect": "\u00dchendamine nurjus",
+            "invalid_backup_json": "Sobimatu varukoopia JSON"
+        },
+        "flow_title": "{name}",
+        "step": {
+            "choose_automatic_backup": {
+                "data": {
+                    "choose_automatic_backup": "Vali automaatne varundamine"
+                },
+                "description": "Taasta v\u00f5rgu seaded automaatsest varukoopiast",
+                "title": "Taastamine automaatsest varukoopiast"
+            },
+            "choose_formation_strategy": {
+                "description": "Vali raadio v\u00f5rguseaded.",
+                "menu_options": {
+                    "choose_automatic_backup": "Taastamine automaatsest varukoopiast",
+                    "form_initial_network": "V\u00f5rgu loomine",
+                    "form_new_network": "Kustuta v\u00f5rgu seaded ja moodusta uus v\u00f5rk",
+                    "reuse_settings": "Raadiov\u00f5rgu s\u00e4tete s\u00e4ilitamine",
+                    "upload_manual_backup": "Varukoopia \u00fcleslaadimine"
+                },
+                "title": "V\u00f5rgu moodustamine"
+            },
+            "choose_serial_port": {
+                "data": {
+                    "path": "Jadaseadme tee"
+                },
+                "description": "Vali Zigbee raadio jadaport",
+                "title": "Vali jadaport"
+            },
+            "init": {
+                "description": "ZHA peatatakse.  Kas soovid j\u00e4tkata?",
+                "title": "Seadista ZHA uuesti"
+            },
+            "instruct_unplug": {
+                "description": "Vana raadio on l\u00e4htestatud. Kui riistvara pole enam vaja, saad selle n\u00fc\u00fcd lahti \u00fchendada.\n\nV\u00f5id vana raadio lahti \u00fchedada.",
+                "title": "\u00dchenda vana raadio lahti"
+            },
+            "intent_migrate": {
+                "description": "Enne uue raadio \u00fchendamist tuleb vana raadio l\u00e4htestada. Tehakse automaatne varukoopia. Kui kasutad kombineeritud Z-Wave ja Zigbee adapterit, n\u00e4iteks HUSBZB-1, l\u00e4htestab see ainult Zigbee osa. \n\n *M\u00e4rkus: kui l\u00e4hed \u00fcle seadmelt **ConBee/RaspBee**, veenduge, et sellel oleks p\u00fcsivara `0x26720700` v\u00f5i uuem! Vastasel juhul ei pruugi m\u00f5ned seadmed p\u00e4rast migreerimist olla juhitavad enne, kui need on l\u00fclitatud sisse.* \n\n Kas soovid j\u00e4tkata?",
+                "title": "Teisalda uuele seadmele"
+            },
+            "manual_pick_radio_type": {
+                "data": {
+                    "radio_type": "Seadme raadio t\u00fc\u00fcp"
+                },
+                "description": "Vali Zigbee raadio t\u00fc\u00fcp",
+                "title": "Seadme raadio t\u00fc\u00fcp"
+            },
+            "manual_port_config": {
+                "data": {
+                    "baudrate": "Pordi kiirus",
+                    "flow_control": "Andmevoo kontroll",
+                    "path": "Jadapordi seadme aadress"
+                },
+                "description": "Sisesta jadapordi s\u00e4tted",
+                "title": "Jadapordi s\u00e4tted"
+            },
+            "maybe_confirm_ezsp_restore": {
+                "data": {
+                    "overwrite_coordinator_ieee": "Asenda IEEE aadress j\u00e4\u00e4davalt"
+                },
+                "description": "Varukoopial on erinev IEEE aadress kui raadiol.  V\u00f5rgu n\u00f5uetekohaseks toimimiseks tuleks muuta ka raadio IEEE aadressi.\n\nSee on p\u00fcsiv toiming.",
+                "title": "Kirjuta IEEE aadress \u00fcle"
+            },
+            "prompt_migrate_or_reconfigure": {
+                "description": "Kas l\u00e4hed \u00fcle uuele raadiole v\u00f5i seadistad praegust raadiot \u00fcmber?",
+                "menu_options": {
+                    "intent_migrate": "Teisalda uuele seadmele",
+                    "intent_reconfigure": "Taasseadista praegune seade"
+                },
+                "title": "Teisaldamine v\u00f5i uuesti seadistamine"
+            },
+            "upload_manual_backup": {
+                "data": {
+                    "uploaded_backup_file": "Lae kirje \u00fcles"
+                },
+                "description": "Taasta oma v\u00f5rgus\u00e4tted \u00fcleslaaditud JSON-varufailist. Saad selle alla laadida teisest ZHA paigaldusest **V\u00f5rguseaded** v\u00f5i kasutada Zigbee2MQTT 'coordinator_backup.json' faili.",
+                "title": "Lae k\u00e4sitsi loodud varukoopia \u00fcles"
+            },
+            "verify_radio": {
+                "description": "Kasutatav raadio ( {name} ) pole soovitatav ja selle tugi v\u00f5idakse tulevikus eemaldada. Vaatae [soovitatud adapterite loendit] ( {docs_recommended_adapters_url} ) Zigbee Home Automationi integratsiooni dokumentatsioonist.",
+                "title": "See raadio ei ole soovitatav"
+            }
+        }
+    },
+    "services": {
+        "clear_lock_user_code": {
+            "description": "Kustutab lukust kasutajakoodi.",
+            "fields": {
+                "code_slot": {
+                    "description": "Koodi pesa kust kood kustutada.",
+                    "name": "Koodi pesa"
+                }
+            },
+            "name": "Kustuta luku kasutaja"
+        },
+        "disable_lock_user_code": {
+            "description": "Keelab luku kasutajakoodi.",
+            "fields": {
+                "code_slot": {
+                    "description": "Koodipesa keelamiseks.",
+                    "name": "Koodi pesa"
+                }
+            },
+            "name": "Keela lukustuse kasutaja"
+        },
+        "enable_lock_user_code": {
+            "description": "Lubab lukus kasutajakoodi.",
+            "fields": {
+                "code_slot": {
+                    "description": "Koodipesa lubamiseks.",
+                    "name": "Koodi pesa"
+                }
+            },
+            "name": "Luba lukustuse kasutaja"
+        },
+        "issue_zigbee_cluster_command": {
+            "description": "Annab m\u00e4\u00e4ratud klastrile k\u00e4su m\u00e4\u00e4ratud \u00fcksuse kohta.",
+            "fields": {
+                "args": {
+                    "description": "Argumendid mida k\u00e4sule edastada.",
+                    "name": "Argumendid"
+                },
+                "cluster_id": {
+                    "description": "ZCL klaster atribuutide toomiseks.",
+                    "name": "Klastri ID"
+                },
+                "cluster_type": {
+                    "description": "Klastri t\u00fc\u00fcp.",
+                    "name": "Klastri t\u00fc\u00fcp"
+                },
+                "command": {
+                    "description": "K\u00e4ivitatava k\u00e4su ID.",
+                    "name": "K\u00e4sk"
+                },
+                "command_type": {
+                    "description": "K\u00e4ivitatava k\u00e4su t\u00fc\u00fcp.",
+                    "name": "K\u00e4su t\u00fc\u00fcp"
+                },
+                "endpoint_id": {
+                    "description": "Klastri l\u00f5pp-punkti ID.",
+                    "name": "L\u00f5pp-punkti ID"
+                },
+                "ieee": {
+                    "description": "Seadme IEEE aadress.",
+                    "name": "IEEE"
+                },
+                "manufacturer": {
+                    "description": "Tootja kood. Kasuta v\u00e4\u00e4rtust \"-1\", et sundida koodi mitte m\u00e4\u00e4rama.",
+                    "name": "Tootja"
+                },
+                "params": {
+                    "description": "K\u00e4sule edastatavad parameetrid.",
+                    "name": "Parameetrid"
+                }
+            },
+            "name": "V\u00e4ljasta zigbee klastri k\u00e4sk"
+        },
+        "issue_zigbee_group_command": {
+            "description": "V\u00e4ljasta k\u00e4sk m\u00e4\u00e4ratud r\u00fchma m\u00e4\u00e4ratud klastris.",
+            "fields": {
+                "args": {
+                    "description": "Argumendid mida k\u00e4sule edastada.",
+                    "name": "Argumendid"
+                },
+                "cluster_id": {
+                    "description": "ZCL-klaster kuhu k\u00e4sk saata.",
+                    "name": "Klastri ID"
+                },
+                "cluster_type": {
+                    "description": "Klastri t\u00fc\u00fcp.",
+                    "name": "Klastri t\u00fc\u00fcp"
+                },
+                "command": {
+                    "description": "K\u00e4ivitatava k\u00e4su ID.",
+                    "name": "K\u00e4sk"
+                },
+                "group": {
+                    "description": "R\u00fchma kuueteistk\u00fcmnends\u00fcsteemi aadress.",
+                    "name": "R\u00fchm"
+                },
+                "manufacturer": {
+                    "description": "Tootja kood. Kasuta v\u00e4\u00e4rtust \"-1\", et sundida koodi mitte m\u00e4\u00e4rama.",
+                    "name": "Tootja"
+                }
+            },
+            "name": "V\u00e4ljasta zigbee r\u00fchmak\u00e4sk"
+        },
+        "permit": {
+            "description": "V\u00f5imaldab s\u00f5lmedel liituda Zigbee v\u00f5rguga.",
+            "fields": {
+                "duration": {
+                    "description": "Liitumiste lubamise aeg.",
+                    "name": "Kestus"
+                },
+                "ieee": {
+                    "description": "Uusi liitumisi lubava s\u00f5lme IEEE-aadress.",
+                    "name": "IEEE"
+                },
+                "install_code": {
+                    "description": "\u00dchendusseadme paigalduskood (tuleb kasutada koos source_ieee).",
+                    "name": "Paigalduskood"
+                },
+                "qr_code": {
+                    "description": "QR-installikoodi v\u00e4\u00e4rtus (erineb tarnijatel).",
+                    "name": "QR kood"
+                },
+                "source_ieee": {
+                    "description": "\u00dchendatava seadme IEEE-aadress (tuleb kasutada koos paigalduskoodiga).",
+                    "name": "Allikseadme IEEE"
+                }
+            },
+            "name": "Luba"
+        },
+        "reconfigure_device": {
+            "description": "H\u00e4\u00e4lestab ZHA-seadme \u00fcmber (ravib seadme). Kasuta seda kui on seadmega probleeme. Kui k\u00f5nealune seade on akutoitega seade, veendu, et see on \u00e4rkvel ja v\u00f5tab k\u00e4ske vastu kui kasutad seda teenust.",
+            "fields": {
+                "ieee": {
+                    "description": "\u00dcmberh\u00e4\u00e4lestatava seadme IEEE-aadress.",
+                    "name": "IEEE"
+                }
+            },
+            "name": "Seadme \u00fcmberh\u00e4\u00e4lestamine"
+        },
+        "remove": {
+            "description": "Eemaldab s\u00f5lme Zigbee-v\u00f5rgust.",
+            "fields": {
+                "ieee": {
+                    "description": "Eemaldatava s\u00f5lme IEEE-aadress.",
+                    "name": "IEEE"
+                }
+            },
+            "name": "Eemalda"
+        },
+        "set_lock_user_code": {
+            "description": "M\u00e4\u00e4rab lukule kasutajakoodi.",
+            "fields": {
+                "code_slot": {
+                    "description": "Koodipesa millesse kood m\u00e4\u00e4ratakse.",
+                    "name": "Koodi pesa"
+                },
+                "user_code": {
+                    "description": "M\u00e4\u00e4ratav kood.",
+                    "name": "Kood"
+                }
+            },
+            "name": "M\u00e4\u00e4ra luku kasutajakood"
+        },
+        "set_zigbee_cluster_attribute": {
+            "description": "M\u00e4\u00e4rab valitud \u00fcksuse m\u00e4\u00e4ratud klastri atribuudi v\u00e4\u00e4rtuse.",
+            "fields": {
+                "attribute": {
+                    "description": "M\u00e4\u00e4ratava atribuudi ID.",
+                    "name": "Atribuut"
+                },
+                "cluster_id": {
+                    "description": "ZCL klaster atribuutide toomiseks.",
+                    "name": "Klastri ID"
+                },
+                "cluster_type": {
+                    "description": "Klastri t\u00fc\u00fcp.",
+                    "name": "Klastri t\u00fc\u00fcp"
+                },
+                "endpoint_id": {
+                    "description": "Klastri l\u00f5pp-punkti ID.",
+                    "name": "L\u00f5pp-punkti ID"
+                },
+                "ieee": {
+                    "description": "Seadme IEEE aadress.",
+                    "name": "IEEE"
+                },
+                "manufacturer": {
+                    "description": "Tootja kood. Kasuta v\u00e4\u00e4rtust \"-1\", et sundida koodi mitte m\u00e4\u00e4rama.",
+                    "name": "Tootja"
+                },
+                "value": {
+                    "description": "Atribuudile omistatav v\u00e4\u00e4rtus.",
+                    "name": "V\u00e4\u00e4rtus"
+                }
+            },
+            "name": "M\u00e4\u00e4ra zigbee klastri atribuut"
+        },
+        "warning_device_squawk": {
+            "description": "See teenus kasutab WD-funktsioone, et v\u00e4ljastada kiiret kuuldavat/n\u00e4htavat impulssi, mida nimetatakse \"squawks\". K\u00e4sk squawk ei oma m\u00f5ju, kui WD on parasjagu aktiivne (hoiatus on pooleli).",
+            "fields": {
+                "ieee": {
+                    "description": "Seadme IEEE aadress.",
+                    "name": "IEEE"
+                },
+                "level": {
+                    "description": "Squawk-taseme v\u00e4lja kasutatakse 2-bitise loendusena ja see m\u00e4\u00e4rab kuuldava squawk-heli intensiivsuse, nagu on n\u00e4idatud ZCL spec - Squawk Level Field Values'i tabelis 8-26.",
+                    "name": "Sireeni tase"
+                },
+                "mode": {
+                    "description": "V\u00e4lja Squawk Mode kasutatakse 4-bitise loendina ja sellel v\u00f5ib olla \u00fcks ZCL-i spetsifikatsiooni tabelis 8-24 n\u00e4idatud v\u00e4\u00e4rtustest \u2013 Squawk Mode Field. Iga re\u017eiimi t\u00e4pne toimimine (kuidas WD karjub) on rakendusespetsiifiline.",
+                    "name": "Re\u017eiim"
+                },
+                "strobe": {
+                    "description": "Strobov\u00e4lja kasutatakse t\u00f5ev\u00e4\u00e4rtusena ja see m\u00e4\u00e4rab, kas lisaks kuuldavale helile on vaja ka visuaalset indikatsiooni, nagu on n\u00e4idatud ZCL-i spetsifikatsiooni tabelis 8-25 \u2013 Strobe Bit.",
+                    "name": "Stroboskoop"
+                }
+            },
+            "name": "Hoiatusseadme heli"
+        },
+        "warning_device_warn": {
+            "description": "See teenus k\u00e4ivitab WD t\u00f6\u00f6. WD hoiatab \u00fcmbritsevat ala helisignaalide (sireen) ja visuaalsete (strobe) signaalidega.",
+            "fields": {
+                "duration": {
+                    "description": "Soovitud hoiatuse kestus sekundites (16 bitti). Kui nii Strobe kui ka Warning Mode on \"0\", PEAB see v\u00e4li olema ignoreeritud.",
+                    "name": "Kestus"
+                },
+                "duty_cycle": {
+                    "description": "N\u00e4itab v\u00e4lguts\u00fckli pikkust. See v\u00f5imaldab muuta v\u00e4lgu kestust erinevate h\u00e4irete korral (nt tulekahju, politsei, sissemurdja). Kehtiv vahemik on 0\u2013100 sammuga 10. K\u00f5ik muud v\u00e4\u00e4rtused tuleb \u00fcmardada l\u00e4hima kehtiva v\u00e4\u00e4rtuseni. Strobe arvutab t\u00f6\u00f6ts\u00fckli \u00fche sekundi jooksul. ON olek peab eelnema OFF olekule. N\u00e4iteks kui Strobe Duty Cycle Field m\u00e4\u00e4rab v\u00e4\u00e4rtuse 40, vilgub vilkur 4/10 sekundit SISSE ja seej\u00e4rel 6/10 sekundit v\u00e4lja.",
+                    "name": "T\u00e4itetegur"
+                },
+                "ieee": {
+                    "description": "Seadme IEEE aadress.",
+                    "name": "IEEE"
+                },
+                "intensity": {
+                    "description": "N\u00e4itab strobo intensiivsust, nagu on n\u00e4idatud ZCL-spetsifikatsiooni tabelis 8-23. See atribuut on ette n\u00e4htud strobo v\u00e4ljundi (st heleduse) muutmiseks, mitte selle sageduse muutmiseks, mida on \u00fcksikasjalikult kirjeldatud ZCL-spetsifikaadi punktis 8.4.2.3.1.6.",
+                    "name": "Intensiivsus"
+                },
+                "level": {
+                    "description": "V\u00e4lja Sireeni tase kasutatakse 2-bitise loendina ja see n\u00e4itab kuuldava kriuksumise intensiivsust, nagu on n\u00e4idatud ZCL-i spetsifikatsiooni tabelis 8-22.",
+                    "name": "Sireeni tase"
+                },
+                "mode": {
+                    "description": "V\u00e4lja Hoiatusre\u017eiim kasutatakse 4-bitise loendina, sellel v\u00f5ib olla \u00fcks v\u00e4\u00e4rtustest 0-6, mis on m\u00e4\u00e4ratletud allpool ZCL-i spetsifikatsiooni tabelis 8-20. WD-seadme t\u00e4pne k\u00e4itumine igas re\u017eiimis vastab asjakohastele turvastandarditele.",
+                    "name": "Re\u017eiim"
+                },
+                "strobe": {
+                    "description": "Strobe v\u00e4lja kasutatakse 2-bitise loendusena ja see m\u00e4\u00e4rab, kas lisaks kuuldavale sireenile on vaja visuaalset n\u00e4itu, nagu on n\u00e4idatud ZCL-i spetsifikatsiooni tabelis 8-21. \"0\" t\u00e4hendab, et strobe puudub, \"1\" t\u00e4hendab strobe. Kui strobe v\u00e4li on \"1\" ja hoiatusre\u017eiim on \"0\" (\"Stopp\"), siis aktiveeritakse ainult strobe.",
+                    "name": "Stroboskoop"
+                }
+            },
+            "name": "Hoiatusseade hoiatab"
+        }
+    }
+}

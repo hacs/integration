@@ -1,0 +1,179 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Dispositivo j\u00e1 configurado",
+            "ipv6_not_supported": "O IPv6 n\u00e3o \u00e9 suportado.",
+            "reauth_successful": "Reautentica\u00e7\u00e3o bem sucedida",
+            "reauth_unsuccessful": "A reautentica\u00e7\u00e3o n\u00e3o foi bem sucedida, remova a integra\u00e7\u00e3o e configure-a novamente.",
+            "unsupported_firmware": "O dispositivo est\u00e1 a utilizar uma vers\u00e3o de firmware n\u00e3o suportada."
+        },
+        "error": {
+            "cannot_connect": "A liga\u00e7\u00e3o falhou",
+            "custom_port_not_supported": "Os dispositivos gen1 n\u00e3o suportam portas personalizadas.",
+            "firmware_not_fully_provisioned": "Dispositivo n\u00e3o totalmente provisionado. Contacte o suporte da Shelly",
+            "invalid_auth": "Autentica\u00e7\u00e3o inv\u00e1lida",
+            "unknown": "Erro inesperado"
+        },
+        "step": {
+            "credentials": {
+                "data": {
+                    "password": "Palavra-passe",
+                    "username": "Nome de Utilizador"
+                }
+            },
+            "reauth_confirm": {
+                "data": {
+                    "password": "Palavra-passe",
+                    "username": "Nome de Utilizador"
+                }
+            },
+            "user": {
+                "data": {
+                    "host": "Anfitri\u00e3o",
+                    "port": "Porta"
+                },
+                "data_description": {
+                    "host": "O nome do anfitri\u00e3o ou o endere\u00e7o IP do dispositivo Shelly a que se vai ligar.",
+                    "port": "A porta TCP do dispositivo Shelly ao qual ligar (Gen2+)."
+                },
+                "description": "Antes da configura\u00e7\u00e3o, os dispositivos alimentados por bateria t\u00eam de ser acordados. Pode acordar um dispositivo agora utilizando um bot\u00e3o no mesmo."
+            }
+        }
+    },
+    "device_automation": {
+        "trigger_subtype": {
+            "button": "Bot\u00e3o",
+            "button1": "Primeiro bot\u00e3o",
+            "button2": "Segundo bot\u00e3o",
+            "button3": "Terceiro bot\u00e3o",
+            "button4": "Quarto bot\u00e3o"
+        },
+        "trigger_type": {
+            "btn_down": "Bot\u00e3o {subtype} para baixo",
+            "btn_up": "Bot\u00e3o {subtype} para cima",
+            "double": "{subtype} clique duplo",
+            "double_push": "{subtype} impulso duplo",
+            "long": "{subtype} clique longo",
+            "long_push": "{subtype} impulso longo",
+            "long_single": "{subtype} clique longo seguido de clique simples",
+            "single": "{subtype} clique simples",
+            "single_long": "{subtype} clique simples seguido de clique longo",
+            "single_push": "{subtype} impulso simples",
+            "triple": "{subtype} clique triplo",
+            "triple_push": "{subtype} impulso triplo"
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "gas": {
+                "state_attributes": {
+                    "detected": {
+                        "state": {
+                            "heavy": "Pesado",
+                            "mild": "Suave",
+                            "none": "Nenhum",
+                            "test": "Teste",
+                            "unknown": "Desconhecido"
+                        }
+                    }
+                }
+            }
+        },
+        "event": {
+            "input": {
+                "state_attributes": {
+                    "event_type": {
+                        "state": {
+                            "btn_down": "Premir bot\u00e3o",
+                            "btn_up": "Soltar bot\u00e3o",
+                            "double": "Premir duplo",
+                            "double_push": "Premir duplo",
+                            "long": "Premir longo",
+                            "long_push": "Premir longo",
+                            "long_single": "Premir longo seguido de premir curto",
+                            "single": "Premir \u00fanico",
+                            "single_long": "Premir curto seguido de premir longo",
+                            "single_push": "Premir \u00fanico",
+                            "triple": "Tripla premir",
+                            "triple_push": "Premir triplo"
+                        }
+                    }
+                }
+            }
+        },
+        "sensor": {
+            "operation": {
+                "state": {
+                    "fault": "Falha",
+                    "unknown": "Desconhecido",
+                    "warmup": "Aquecimento"
+                },
+                "state_attributes": {
+                    "self_test": {
+                        "state": {
+                            "completed": "Conclu\u00eddo",
+                            "not_completed": "N\u00e3o conclu\u00eddo",
+                            "pending": "Pendente",
+                            "running": "Em execu\u00e7\u00e3o"
+                        }
+                    }
+                }
+            },
+            "valve_status": {
+                "state": {
+                    "checking": "A verificar",
+                    "closed": "Fechada",
+                    "closing": "A fechar",
+                    "failure": "Falha",
+                    "opened": "Aberta",
+                    "opening": "A abrir",
+                    "unknown": "Desconhecido"
+                }
+            }
+        }
+    },
+    "issues": {
+        "deprecated_valve_switch": {
+            "description": "A entidade de comuta\u00e7\u00e3o para a v\u00e1lvula de g\u00e1s Shelly est\u00e1 obsoleta. Est\u00e1 dispon\u00edvel uma entidade de v\u00e1lvula {entity} que deve ser utilizada no futuro. Para esta nova entidade v\u00e1lvula \u00e9 necess\u00e1rio utilizar o servi\u00e7o {service}.",
+            "title": "A entidade de comuta\u00e7\u00e3o para a v\u00e1lvula de g\u00e1s Shelly est\u00e1 obsoleta"
+        },
+        "deprecated_valve_switch_entity": {
+            "description": "A sua entidade V\u00e1lvula de G\u00e1s Shelly `{entity}` est\u00e1 a ser utilizada em `{info}`. Uma entidade de v\u00e1lvula est\u00e1 dispon\u00edvel e deve ser usada daqui para frente.\n\nPor favor, ajuste `{info}` para corrigir este problema.",
+            "title": "Entidade de comuta\u00e7\u00e3o obsoleta para a v\u00e1lvula de g\u00e1s Shelly detetada em {info}"
+        },
+        "device_not_calibrated": {
+            "description": "O dispositivo Shelly {device_name} com endere\u00e7o IP {ip_address} requer calibra\u00e7\u00e3o. Para calibrar o dispositivo, ele deve ser reinicializado ap\u00f3s a instala\u00e7\u00e3o adequada na v\u00e1lvula. Voc\u00ea pode reiniciar o dispositivo em seu painel da web, v\u00e1 para 'Configura\u00e7\u00f5es' > 'Reinicializa\u00e7\u00e3o do dispositivo'.",
+            "title": "O dispositivo Shelly {device_name} n\u00e3o est\u00e1 calibrado"
+        },
+        "push_update_failure": {
+            "description": "O Home Assistant  n\u00e3o est\u00e1 a receber actualiza\u00e7\u00f5es push do dispositivo Shelly {device_name} com o endere\u00e7o IP {ip_address}. Verifique a configura\u00e7\u00e3o CoIoT no painel Web do dispositivo e a sua configura\u00e7\u00e3o de rede.",
+            "title": "Falha na atualiza\u00e7\u00e3o push do dispositivo Shelly {device_name}"
+        },
+        "unsupported_firmware": {
+            "description": "O seu dispositivo Shelly {device_name} com endere\u00e7o IP {ip_address} est\u00e1 a executar um firmware n\u00e3o suportado. Por favor, atualize o firmware.\n\nSe o dispositivo n\u00e3o oferecer uma atualiza\u00e7\u00e3o, verifique a conetividade com a Internet (gateway, DNS, hora) e reinicie o dispositivo.",
+            "title": "Firmware n\u00e3o suportado para o dispositivo {device_name}"
+        }
+    },
+    "options": {
+        "abort": {
+            "ble_unsupported": "O suporte de Bluetooth requer a vers\u00e3o de firmware {ble_min_version} ou mais recente."
+        },
+        "step": {
+            "init": {
+                "data": {
+                    "ble_scanner_mode": "Modo de rastreio Bluetooth"
+                },
+                "description": "O rastreio Bluetooth pode ser ativo ou passivo. Com ativa, o Shelly solicita dados de dispositivos pr\u00f3ximos; com passiva, o Shelly recebe dados n\u00e3o solicitados de dispositivos pr\u00f3ximos."
+            }
+        }
+    },
+    "selector": {
+        "ble_scanner_mode": {
+            "options": {
+                "active": "Ativo",
+                "disabled": "Desativado",
+                "passive": "Passivo"
+            }
+        }
+    }
+}

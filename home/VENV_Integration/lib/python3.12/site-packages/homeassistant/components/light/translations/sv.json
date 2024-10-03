@@ -1,0 +1,461 @@
+{
+    "common": {
+        "field_brightness_description": "Tal som anger ljusstyrka, d\u00e4r 0 sl\u00e4cker ljuset, 1 \u00e4r l\u00e4gsta ljusstyrka och 255 \u00e4r h\u00f6gsta ljusstyrka.",
+        "field_brightness_name": "V\u00e4rde f\u00f6r ljusstyrka",
+        "field_brightness_pct_description": "Tal som anger procentandelen av full ljusstyrka, d\u00e4r 0 sl\u00e4cker lampan, 1 \u00e4r minsta ljusstyrka och 100 \u00e4r h\u00f6gsta ljusstyrka.",
+        "field_brightness_pct_name": "Ljusstyrka",
+        "field_brightness_step_description": "\u00c4ndra ljusstyrkan med ett tal",
+        "field_brightness_step_name": "Stegv\u00e4rde f\u00f6r ljusstyrka",
+        "field_brightness_step_pct_description": "\u00c4ndra ljusstyrkan med en procentsats.",
+        "field_brightness_step_pct_name": "Steg f\u00f6r ljusstyrka",
+        "field_color_name_description": "Ett f\u00e4rgnamn som kan l\u00e4sas av m\u00e4nniskor.",
+        "field_color_name_name": "F\u00e4rgnamn",
+        "field_color_temp_description": "F\u00e4rgtemperatur i mireds.",
+        "field_color_temp_name": "F\u00e4rgtemperatur",
+        "field_effect_description": "Ljuseffekt",
+        "field_effect_name": "Effekt",
+        "field_flash_description": "S\u00e4g till lampan att blinka, kan vara antingen kort eller l\u00e5ng.",
+        "field_flash_name": "Blinka",
+        "field_hs_color_description": "F\u00e4rg i hue/sat-format. En lista med tv\u00e5 heltal. Nyans (Hue) \u00e4r 0-360 och M\u00e4ttnad (Sat) \u00e4r 0-100.",
+        "field_hs_color_name": "Hue/Sat-f\u00e4rg",
+        "field_kelvin_description": "F\u00e4rgtemperatur i Kelvin.",
+        "field_kelvin_name": "F\u00e4rgtemperatur",
+        "field_profile_description": "Namn p\u00e5 ljusprofil att anv\u00e4nda.",
+        "field_profile_name": "Profil",
+        "field_rgb_color_description": "F\u00e4rgen i RGB-format. En lista med tre heltal mellan 0 och 255 som representerar v\u00e4rdena f\u00f6r r\u00f6tt, gr\u00f6nt och bl\u00e5tt.",
+        "field_rgb_color_name": "F\u00e4rg",
+        "field_rgbw_color_description": "F\u00e4rgen i RGBW-format. En lista med fyra heltal mellan 0 och 255 som representerar v\u00e4rdena f\u00f6r r\u00f6tt, gr\u00f6nt, bl\u00e5tt och vitt.",
+        "field_rgbw_color_name": "RGBW-f\u00e4rg",
+        "field_rgbww_color_description": "F\u00e4rgen i RGBWW-format. En lista med fem heltal mellan 0 och 255 som representerar v\u00e4rdena f\u00f6r r\u00f6tt, gr\u00f6nt, bl\u00e5tt, kallvitt och varmvitt.",
+        "field_rgbww_color_name": "RGBWW-f\u00e4rg",
+        "field_transition_description": "Tid det tar att komma till n\u00e4sta tillst\u00e5nd.",
+        "field_transition_name": "\u00d6verg\u00e5ng",
+        "field_white_description": "St\u00e4ll in ljuset p\u00e5 vitt l\u00e4ge.",
+        "field_white_name": "Vit",
+        "field_xy_color_description": "F\u00e4rg i XY-format. (f\u00e4rgton och f\u00e4rgintensitet) En lista med tv\u00e5 decimaltal mellan 0 och 1.",
+        "field_xy_color_name": "XY-f\u00e4rg",
+        "section_advanced_fields_name": "Avancerade alternativ"
+    },
+    "device_automation": {
+        "action_type": {
+            "brightness_decrease": "Minska ljusstyrkan f\u00f6r {entity_name}",
+            "brightness_increase": "\u00d6ka ljusstyrkan f\u00f6r {entity_name}",
+            "flash": "Blinka {entity_name}",
+            "toggle": "V\u00e4xla {entity_name}",
+            "turn_off": "St\u00e4ng av {entity_name}",
+            "turn_on": "Sl\u00e5 p\u00e5 {entity_name}"
+        },
+        "condition_type": {
+            "is_off": "{entity_name} \u00e4r avst\u00e4ngd",
+            "is_on": "{entity_name} \u00e4r p\u00e5"
+        },
+        "extra_fields": {
+            "brightness_pct": "Ljusstyrka",
+            "flash": "Blinka"
+        },
+        "trigger_type": {
+            "changed_states": "{entity_name} slogs p\u00e5 eller av",
+            "turned_off": "{entity_name} st\u00e4ngdes av",
+            "turned_on": "{entity_name} slogs p\u00e5"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Lampa",
+            "state": {
+                "off": "Av",
+                "on": "P\u00e5"
+            },
+            "state_attributes": {
+                "brightness": {
+                    "name": "Ljusstyrka"
+                },
+                "color_mode": {
+                    "name": "F\u00e4rgl\u00e4ge",
+                    "state": {
+                        "brightness": "Endast ljusstyrka",
+                        "color_temp": "F\u00e4rgtemperatur",
+                        "hs": "HS",
+                        "onoff": "T\u00e4nd/Sl\u00e4ck",
+                        "rgb": "RGB",
+                        "rgbw": "RGBW",
+                        "rgbww": "RGBWW",
+                        "unknown": "Ok\u00e4nd",
+                        "white": "Vitt",
+                        "xy": "XY"
+                    }
+                },
+                "color_temp": {
+                    "name": "F\u00e4rgtemperatur (mireds)"
+                },
+                "color_temp_kelvin": {
+                    "name": "F\u00e4rgtemperatur (Kelvin)"
+                },
+                "effect": {
+                    "name": "Effekt"
+                },
+                "effect_list": {
+                    "name": "Tillg\u00e4ngliga effekter"
+                },
+                "max_color_temp_kelvin": {
+                    "name": "H\u00f6gsta f\u00e4rgtemperatur (Kelvin)"
+                },
+                "max_mireds": {
+                    "name": "H\u00f6gsta f\u00e4rgtemperatur (mireds)"
+                },
+                "min_color_temp_kelvin": {
+                    "name": "L\u00e4gsta f\u00e4rgtemperatur (Kelvin)"
+                },
+                "min_mireds": {
+                    "name": "L\u00e4gsta f\u00e4rgtemperatur (mireds)"
+                },
+                "supported_color_modes": {
+                    "name": "Tillg\u00e4ngliga f\u00e4rgl\u00e4gen",
+                    "state": {
+                        "brightness": "Endast ljusstyrka",
+                        "color_temp": "F\u00e4rgtemperatur",
+                        "hs": "HS",
+                        "onoff": "T\u00e4nd/Sl\u00e4ck",
+                        "rgb": "RGB",
+                        "rgbw": "RGBW",
+                        "rgbww": "RGBWW",
+                        "unknown": "Ok\u00e4nd",
+                        "white": "Vitt",
+                        "xy": "XY"
+                    }
+                }
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "{platform}-plattformen f\u00f6r integrationen {domain} st\u00f6ds inte.\n\nTa bort den fr\u00e5n din konfiguration och starta om Home Assistant f\u00f6r att \u00e5tg\u00e4rda detta problem.",
+            "title": "Plattformen st\u00f6ds inte"
+        }
+    },
+    "selector": {
+        "color_name": {
+            "options": {
+                "aliceblue": "Alicebl\u00e5",
+                "antiquewhite": "Antikvit",
+                "aqua": "Aquabl\u00e5",
+                "aquamarine": "Marinbl\u00e5",
+                "azure": "Azurbl\u00e5",
+                "beige": "Beige",
+                "bisque": "Biskvi",
+                "blanchedalmond": "Blancherad mandel",
+                "blue": "Bl\u00e5",
+                "blueviolet": "Bl\u00e5violett",
+                "brown": "Brun",
+                "burlywood": "Sandtr\u00e4",
+                "cadetblue": "Kadettbl\u00e5",
+                "chartreuse": "Chartreuse-gr\u00f6n",
+                "chocolate": "Choklad",
+                "coral": "Korall",
+                "cornflowerblue": "Bl\u00e5klint",
+                "cornsilk": "Majssilke",
+                "crimson": "Blodr\u00f6d",
+                "cyan": "Cyanbl\u00e5",
+                "darkblue": "M\u00f6rkbl\u00e5",
+                "darkcyan": "M\u00f6rk cyanbl\u00e5",
+                "darkgoldenrod": "M\u00f6rk gullviva",
+                "darkgray": "M\u00f6rkgr\u00e5",
+                "darkgreen": "M\u00f6rkgr\u00f6n",
+                "darkgrey": "M\u00f6rkgr\u00e5",
+                "darkkhaki": "M\u00f6rk khaki",
+                "darkmagenta": "M\u00f6rk magenta",
+                "darkolivegreen": "M\u00f6rk olivgr\u00f6n",
+                "darkorange": "M\u00f6rkorange",
+                "darkorchid": "M\u00f6rk orkid\u00e9",
+                "darkred": "M\u00f6rkr\u00f6d",
+                "darksalmon": "M\u00f6rk laxrosa",
+                "darkseagreen": "M\u00f6rk havsgr\u00f6n",
+                "darkslateblue": "M\u00f6rk skifferbl\u00e5",
+                "darkslategray": "M\u00f6rk skiffergr\u00e5",
+                "darkslategrey": "M\u00f6rk skiffergr\u00e5",
+                "darkturquoise": "M\u00f6rkturkos",
+                "darkviolet": "M\u00f6rklila",
+                "deeppink": "Djuprosa",
+                "deepskyblue": "Djup himmelsbl\u00e5",
+                "dimgray": "Mycket m\u00f6rk gr\u00e5",
+                "dimgrey": "Mycket m\u00f6rk gr\u00e5",
+                "dodgerblue": "Dodgerbl\u00e5",
+                "firebrick": "Tegel",
+                "floralwhite": "Blommig vit",
+                "forestgreen": "Skogsgr\u00f6n",
+                "fuchsia": "Fuchsia",
+                "gainsboro": "Gainsboro-gr\u00e5",
+                "ghostwhite": "Sp\u00f6kvit",
+                "gold": "Guld",
+                "goldenrod": "Gullris",
+                "gray": "Gr\u00e5",
+                "green": "Gr\u00f6n",
+                "greenyellow": "Gr\u00f6ngul",
+                "grey": "Gr\u00e5",
+                "homeassistant": "Home Assistant",
+                "honeydew": "Honungsdagg",
+                "hotpink": "Skrikrosa",
+                "indianred": "Indisk r\u00f6d",
+                "indigo": "Indigobl\u00e5",
+                "ivory": "Elfenben",
+                "khaki": "Khaki",
+                "lavender": "Lavendel",
+                "lavenderblush": "Lavendelr\u00f6d",
+                "lawngreen": "Gr\u00e4sgr\u00f6n",
+                "lemonchiffon": "Citronkaka",
+                "lightblue": "Ljusbl\u00e5",
+                "lightcoral": "Ljus korall",
+                "lightcyan": "Ljus cyanbl\u00e5",
+                "lightgoldenrodyellow": "Ljus gullris",
+                "lightgray": "Ljusgr\u00e5",
+                "lightgreen": "Ljusgr\u00f6n",
+                "lightgrey": "Ljusgr\u00e5",
+                "lightpink": "Ljusrosa",
+                "lightsalmon": "Ljus laxrosa",
+                "lightseagreen": "Ljus havsgr\u00f6n",
+                "lightskyblue": "Ljus himmelsbl\u00e5",
+                "lightslategray": "Ljus skiffergr\u00e5",
+                "lightslategrey": "Ljus skiffergr\u00e5",
+                "lightsteelblue": "Ljus st\u00e5lbl\u00e5",
+                "lightyellow": "Ljusgul",
+                "lime": "Lime",
+                "limegreen": "Limegr\u00f6n",
+                "linen": "Linne",
+                "magenta": "Magenta",
+                "maroon": "R\u00f6dbrun",
+                "mediumaquamarine": "Medium marinbl\u00e5",
+                "mediumblue": "Mediumbl\u00e5",
+                "mediumorchid": "Medium orkid\u00e9",
+                "mediumpurple": "Mediumlila",
+                "mediumseagreen": "Medium havsgr\u00f6n",
+                "mediumslateblue": "Medium skifferbl\u00e5",
+                "mediumspringgreen": "Medium v\u00e5rgr\u00f6n",
+                "mediumturquoise": "Medium turkos",
+                "mediumvioletred": "Medium lilar\u00f6d",
+                "midnightblue": "Midnattsbl\u00e5",
+                "mintcream": "Mintkr\u00e4m",
+                "mistyrose": "Dimmig ros",
+                "moccasin": "Mockasin",
+                "navajowhite": "Navajo vit",
+                "navy": "Marin",
+                "navyblue": "Marinbl\u00e5",
+                "oldlace": "Gammal spets",
+                "olive": "Olivgr\u00f6n",
+                "olivedrab": "Oliv gr\u00e5gr\u00f6n",
+                "orange": "Orange",
+                "orangered": "Oranger\u00f6d",
+                "orchid": "Orkid\u00e9",
+                "palegoldenrod": "Blek gullris",
+                "palegreen": "Blekgr\u00f6n",
+                "paleturquoise": "Blekturkos",
+                "palevioletred": "Blek lilar\u00f6d",
+                "papayawhip": "Papayagr\u00e4dde",
+                "peachpuff": "Persika",
+                "peru": "Peru-brun",
+                "pink": "Rosa",
+                "plum": "Plommon",
+                "powderblue": "Puderbl\u00e5",
+                "purple": "Lila",
+                "red": "R\u00f6d",
+                "rosybrown": "Rosig brun",
+                "royalblue": "Kungsbl\u00e5tt",
+                "saddlebrown": "Sadelbrun",
+                "salmon": "Laxrosa",
+                "sandybrown": "Sand",
+                "seagreen": "Havsgr\u00f6n",
+                "seashell": "Sn\u00e4ckskal",
+                "sienna": "Sienna-brun",
+                "silver": "Silver",
+                "skyblue": "Himmelsbl\u00e5",
+                "slateblue": "Skifferbl\u00e5",
+                "slategray": "Skiffergr\u00e5",
+                "slategrey": "Skiffergr\u00e5",
+                "snow": "Sn\u00f6",
+                "springgreen": "V\u00e5rgr\u00f6n",
+                "steelblue": "St\u00e5lbl\u00e5",
+                "tan": "Tanf\u00e4rgad",
+                "teal": "Teal",
+                "thistle": "Tistel",
+                "tomato": "Tomatr\u00f6d",
+                "turquoise": "Turkos",
+                "violet": "Violett",
+                "wheat": "Vete",
+                "white": "Vit",
+                "whitesmoke": "Vit r\u00f6k",
+                "yellow": "Gul",
+                "yellowgreen": "Gulgr\u00f6n"
+            }
+        }
+    },
+    "services": {
+        "toggle": {
+            "description": "V\u00e4xlar en eller flera lampor fr\u00e5n p\u00e5 till av, eller fr\u00e5n av till p\u00e5, baserat p\u00e5 deras aktuella tillst\u00e5nd.",
+            "fields": {
+                "brightness": {
+                    "description": "Tal som anger ljusstyrka, d\u00e4r 0 sl\u00e4cker ljuset, 1 \u00e4r l\u00e4gsta ljusstyrka och 255 \u00e4r h\u00f6gsta ljusstyrka.",
+                    "name": "V\u00e4rde f\u00f6r ljusstyrka"
+                },
+                "brightness_pct": {
+                    "description": "Tal som anger procentandelen av full ljusstyrka, d\u00e4r 0 sl\u00e4cker lampan, 1 \u00e4r minsta ljusstyrka och 100 \u00e4r h\u00f6gsta ljusstyrka.",
+                    "name": "Ljusstyrka"
+                },
+                "color_name": {
+                    "description": "Ett f\u00e4rgnamn som kan l\u00e4sas av m\u00e4nniskor.",
+                    "name": "F\u00e4rgnamn"
+                },
+                "color_temp": {
+                    "description": "F\u00e4rgtemperatur i mireds.",
+                    "name": "F\u00e4rgtemperatur"
+                },
+                "effect": {
+                    "description": "Ljuseffekt",
+                    "name": "Effekt"
+                },
+                "flash": {
+                    "description": "S\u00e4g till lampan att blinka, kan vara antingen kort eller l\u00e5ng.",
+                    "name": "Blinka"
+                },
+                "hs_color": {
+                    "description": "F\u00e4rg i hue/sat-format. En lista med tv\u00e5 heltal. Nyans (Hue) \u00e4r 0-360 och M\u00e4ttnad (Sat) \u00e4r 0-100.",
+                    "name": "Hue/Sat-f\u00e4rg"
+                },
+                "kelvin": {
+                    "description": "F\u00e4rgtemperatur i Kelvin.",
+                    "name": "F\u00e4rgtemperatur"
+                },
+                "profile": {
+                    "description": "Namn p\u00e5 ljusprofil att anv\u00e4nda.",
+                    "name": "Profil"
+                },
+                "rgb_color": {
+                    "description": "F\u00e4rgen i RGB-format. En lista med tre heltal mellan 0 och 255 som representerar v\u00e4rdena f\u00f6r r\u00f6tt, gr\u00f6nt och bl\u00e5tt.",
+                    "name": "F\u00e4rg"
+                },
+                "rgbw_color": {
+                    "description": "F\u00e4rgen i RGBW-format. En lista med fyra heltal mellan 0 och 255 som representerar v\u00e4rdena f\u00f6r r\u00f6tt, gr\u00f6nt, bl\u00e5tt och vitt.",
+                    "name": "RGBW-f\u00e4rg"
+                },
+                "rgbww_color": {
+                    "description": "F\u00e4rgen i RGBWW-format. En lista med fem heltal mellan 0 och 255 som representerar v\u00e4rdena f\u00f6r r\u00f6tt, gr\u00f6nt, bl\u00e5tt, kallvitt och varmvitt.",
+                    "name": "RGBWW-f\u00e4rg"
+                },
+                "transition": {
+                    "description": "Tid det tar att komma till n\u00e4sta tillst\u00e5nd.",
+                    "name": "\u00d6verg\u00e5ng"
+                },
+                "white": {
+                    "description": "St\u00e4ll in ljuset p\u00e5 vitt l\u00e4ge.",
+                    "name": "Vit"
+                },
+                "xy_color": {
+                    "description": "F\u00e4rg i XY-format. (f\u00e4rgton och f\u00e4rgintensitet) En lista med tv\u00e5 decimaltal mellan 0 och 1.",
+                    "name": "XY-f\u00e4rg"
+                }
+            },
+            "name": "V\u00e4xla",
+            "sections": {
+                "advanced_fields": {
+                    "name": "Avancerade alternativ"
+                }
+            }
+        },
+        "turn_off": {
+            "description": "St\u00e4ng av en eller flera lampor",
+            "fields": {
+                "flash": {
+                    "description": "S\u00e4g till lampan att blinka, kan vara antingen kort eller l\u00e5ng.",
+                    "name": "Blinka"
+                },
+                "transition": {
+                    "description": "Tid det tar att komma till n\u00e4sta tillst\u00e5nd.",
+                    "name": "\u00d6verg\u00e5ng"
+                }
+            },
+            "name": "St\u00e4ng av",
+            "sections": {
+                "advanced_fields": {
+                    "name": "Avancerade alternativ"
+                }
+            }
+        },
+        "turn_on": {
+            "description": "T\u00e4nd en eller flera lampor och justera lampornas egenskaper, \u00e4ven om de redan \u00e4r t\u00e4nda.",
+            "fields": {
+                "brightness": {
+                    "description": "Tal som anger ljusstyrka, d\u00e4r 0 sl\u00e4cker ljuset, 1 \u00e4r l\u00e4gsta ljusstyrka och 255 \u00e4r h\u00f6gsta ljusstyrka.",
+                    "name": "V\u00e4rde f\u00f6r ljusstyrka"
+                },
+                "brightness_pct": {
+                    "description": "Tal som anger procentandelen av full ljusstyrka, d\u00e4r 0 sl\u00e4cker lampan, 1 \u00e4r minsta ljusstyrka och 100 \u00e4r h\u00f6gsta ljusstyrka.",
+                    "name": "Ljusstyrka"
+                },
+                "brightness_step": {
+                    "description": "\u00c4ndra ljusstyrkan med ett tal",
+                    "name": "Stegv\u00e4rde f\u00f6r ljusstyrka"
+                },
+                "brightness_step_pct": {
+                    "description": "\u00c4ndra ljusstyrkan med en procentsats.",
+                    "name": "Steg f\u00f6r ljusstyrka"
+                },
+                "color_name": {
+                    "description": "Ett f\u00e4rgnamn som kan l\u00e4sas av m\u00e4nniskor.",
+                    "name": "F\u00e4rgnamn"
+                },
+                "color_temp": {
+                    "description": "F\u00e4rgtemperatur i mireds.",
+                    "name": "F\u00e4rgtemperatur"
+                },
+                "effect": {
+                    "description": "Ljuseffekt",
+                    "name": "Effekt"
+                },
+                "flash": {
+                    "description": "S\u00e4g till lampan att blinka, kan vara antingen kort eller l\u00e5ng.",
+                    "name": "Blinka"
+                },
+                "hs_color": {
+                    "description": "F\u00e4rg i hue/sat-format. En lista med tv\u00e5 heltal. Nyans (Hue) \u00e4r 0-360 och M\u00e4ttnad (Sat) \u00e4r 0-100.",
+                    "name": "Hue/Sat-f\u00e4rg"
+                },
+                "kelvin": {
+                    "description": "F\u00e4rgtemperatur i Kelvin.",
+                    "name": "F\u00e4rgtemperatur"
+                },
+                "profile": {
+                    "description": "Namn p\u00e5 ljusprofil att anv\u00e4nda.",
+                    "name": "Profil"
+                },
+                "rgb_color": {
+                    "description": "F\u00e4rgen i RGB-format. En lista med tre heltal mellan 0 och 255 som representerar v\u00e4rdena f\u00f6r r\u00f6tt, gr\u00f6nt och bl\u00e5tt.",
+                    "name": "F\u00e4rg"
+                },
+                "rgbw_color": {
+                    "name": "RGBW-f\u00e4rg"
+                },
+                "rgbww_color": {
+                    "description": "F\u00e4rgen i RGBWW-format. En lista med fem heltal mellan 0 och 255 som representerar v\u00e4rdena f\u00f6r r\u00f6tt, gr\u00f6nt, bl\u00e5tt, kallvitt och varmvitt.",
+                    "name": "RGBWW-f\u00e4rg"
+                },
+                "transition": {
+                    "description": "Tid det tar att komma till n\u00e4sta tillst\u00e5nd.",
+                    "name": "\u00d6verg\u00e5ng"
+                },
+                "white": {
+                    "description": "St\u00e4ll in ljuset p\u00e5 vitt l\u00e4ge.",
+                    "name": "Vit"
+                },
+                "xy_color": {
+                    "description": "F\u00e4rg i XY-format. (f\u00e4rgton och f\u00e4rgintensitet) En lista med tv\u00e5 decimaltal mellan 0 och 1.",
+                    "name": "XY-f\u00e4rg"
+                }
+            },
+            "name": "Starta",
+            "sections": {
+                "advanced_fields": {
+                    "name": "Avancerade alternativ"
+                }
+            }
+        }
+    },
+    "title": "Lampa"
+}

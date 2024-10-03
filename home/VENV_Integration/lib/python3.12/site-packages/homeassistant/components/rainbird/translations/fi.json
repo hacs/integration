@@ -1,0 +1,94 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Laite on jo m\u00e4\u00e4ritetty"
+        },
+        "error": {
+            "cannot_connect": "Yhteyden muodostaminen ep\u00e4onnistui",
+            "timeout_connect": "Aikakatkaisu yhteytt\u00e4 luodessa"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "host": "Palvelin",
+                    "password": "Salasana"
+                },
+                "data_description": {
+                    "host": "Rain Bird -laitteen is\u00e4nt\u00e4nimi tai IP-osoite."
+                },
+                "description": "Sy\u00f6t\u00e4 Rain Bird -laitteesi LNK WiFi -moduulin tiedot.",
+                "title": "M\u00e4\u00e4rit\u00e4 Rain Bird"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "rainsensor": {
+                "name": "Sadetunnistin"
+            }
+        },
+        "number": {
+            "rain_delay": {
+                "name": "Sateen viive"
+            }
+        },
+        "sensor": {
+            "raindelay": {
+                "name": "Sateen viive"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_raindelay": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Rain Bird -palvelu `rainbird.set_rain_delay` poistetaan ja korvataan sateen viiveen hallintaan tarkoitetulla Number -kohteella. Kaikki olemassa olevat automaatiot tai skriptit on p\u00e4ivitett\u00e4v\u00e4 k\u00e4ytt\u00e4m\u00e4\u00e4n `number.set_value`:a, jonka kohde on `{alternate_target}}.",
+                        "title": "Rain Birdin sadeviivepalvelu poistetaan."
+                    }
+                }
+            },
+            "title": "Rain Birdin sadeviivepalvelu poistetaan."
+        },
+        "deprecated_yaml": {
+            "description": "Rain Birdin konfigurointi configuration.yaml-tiedostossa on poistettu Home Assistant 2023.4:st\u00e4.\n\nKonfiguraatiosi on tuotu k\u00e4ytt\u00f6liittym\u00e4\u00e4n automaattisesti, mutta oletusarvoisia aluekohtaisia kasteluaikoja ei en\u00e4\u00e4 tueta. Poista Rain Bird YAML -m\u00e4\u00e4ritys configuration.yaml-tiedostosta ja k\u00e4ynnist\u00e4 Home Assistant uudelleen ongelman korjaamiseksi.",
+            "title": "Rain Birdin YAML-konfiguraatio poistetaan."
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "duration": "Oletuskasteluaika minuutteina"
+                },
+                "title": "M\u00e4\u00e4rit\u00e4 Rain Bird"
+            }
+        }
+    },
+    "services": {
+        "set_rain_delay": {
+            "description": "Asettaa, kuinka kauan automaattinen kastelu on pois p\u00e4\u00e4lt\u00e4.",
+            "fields": {
+                "config_entry_id": {
+                    "description": "Asetusta s\u00e4\u00e4det\u00e4\u00e4n m\u00e4\u00e4ritetyll\u00e4 ohjaimella.",
+                    "name": "Rainbird-ohjaimen konfiguroinnin sy\u00f6tt\u00f6"
+                },
+                "duration": {
+                    "description": "T\u00e4m\u00e4n j\u00e4rjestelm\u00e4n poiskytkenn\u00e4n kesto.",
+                    "name": "Kesto"
+                }
+            },
+            "name": "Aseta sateen viive"
+        },
+        "start_irrigation": {
+            "description": "Aloittaa kastelun.",
+            "fields": {
+                "duration": {
+                    "description": "T\u00e4m\u00e4n sprinklerin k\u00e4ynnistyksen kesto.",
+                    "name": "Kesto"
+                }
+            },
+            "name": "Aloita kastelu"
+        }
+    }
+}

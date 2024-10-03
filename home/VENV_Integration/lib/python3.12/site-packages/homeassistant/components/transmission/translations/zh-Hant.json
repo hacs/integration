@@ -1,0 +1,153 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "\u88dd\u7f6e\u5df2\u7d93\u8a2d\u5b9a\u5b8c\u6210",
+            "reauth_successful": "\u91cd\u65b0\u8a8d\u8b49\u6210\u529f"
+        },
+        "error": {
+            "cannot_connect": "\u9023\u7dda\u5931\u6557",
+            "invalid_auth": "\u8eab\u4efd\u9a57\u8b49\u7121\u6548",
+            "name_exists": "\u8a72\u540d\u7a31\u5df2\u5b58\u5728"
+        },
+        "step": {
+            "reauth_confirm": {
+                "data": {
+                    "password": "\u5bc6\u78bc"
+                },
+                "description": "{username} \u5bc6\u78bc\u7121\u6548\u3002",
+                "title": "{name} \u8a8d\u8b49\u5df2\u904e\u671f"
+            },
+            "user": {
+                "data": {
+                    "host": "\u4e3b\u6a5f\u7aef",
+                    "name": "\u540d\u7a31",
+                    "password": "\u5bc6\u78bc",
+                    "path": "\u8def\u5f91",
+                    "port": "\u901a\u8a0a\u57e0",
+                    "ssl": "\u4f7f\u7528 SSL \u8a8d\u8b49",
+                    "username": "\u4f7f\u7528\u8005\u540d\u7a31"
+                },
+                "data_description": {
+                    "path": "RPC \u8acb\u6c42\u76ee\u6a19\u8def\u5f91\u3002\u4f8b\u5982\uff1a`/transmission/rpc`"
+                },
+                "title": "\u8a2d\u5b9a Transmission \u5ba2\u6236\u7aef"
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "active_torrents": {
+                "name": "\u4f7f\u7528\u4e2d Torrent"
+            },
+            "completed_torrents": {
+                "name": "\u5df2\u5b8c\u6210\u7684 Torrent"
+            },
+            "download_speed": {
+                "name": "\u4e0b\u8f09\u901f\u5ea6"
+            },
+            "paused_torrents": {
+                "name": "\u5df2\u66ab\u505c\u7684 Torrent"
+            },
+            "started_torrents": {
+                "name": "\u5df2\u958b\u59cb\u7684 Torrent"
+            },
+            "total_torrents": {
+                "name": "\u7e3d Torrent"
+            },
+            "transmission_status": {
+                "name": "\u72c0\u614b",
+                "state": {
+                    "downloading": "\u4e0b\u8f09\u4e2d",
+                    "idle": "\u5f85\u547d",
+                    "seeding": "\u505a\u7a2e\u4e2d",
+                    "up_down": "\u4e0a\u50b3/\u4e0b\u8f09"
+                }
+            },
+            "upload_speed": {
+                "name": "\u4e0a\u50b3\u901f\u5ea6"
+            }
+        },
+        "switch": {
+            "on_off": {
+                "name": "\u958b\u95dc"
+            },
+            "turtle_mode": {
+                "name": "\u901f\u9650\u6a21\u5f0f"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "limit": "\u9650\u5236",
+                    "order": "\u6392\u5e8f",
+                    "scan_interval": "\u66f4\u65b0\u983b\u7387"
+                },
+                "title": "Transmission \u8a2d\u5b9a\u9078\u9805"
+            }
+        }
+    },
+    "services": {
+        "add_torrent": {
+            "description": "\u65b0\u589e\u4e0b\u8f09 torrent\uff08URL\u3001\u78c1\u529b\u9023\u7d50\u6216 Base64 \u7de8\u78bc\u6a94\u6848\uff09\u3002",
+            "fields": {
+                "entry_id": {
+                    "description": "\u8a2d\u5b9a\u689d\u76ee ID\u3002",
+                    "name": "Transmission \u689d\u76ee"
+                },
+                "torrent": {
+                    "description": "URL\u3001\u78c1\u529b\u9023\u7d50\u6216 Base64 \u7de8\u78bc\u6a94\u6848\u3002",
+                    "name": "Torrent"
+                }
+            },
+            "name": "\u65b0\u589e torrent"
+        },
+        "remove_torrent": {
+            "description": "\u79fb\u9664 torrent\u3002",
+            "fields": {
+                "delete_data": {
+                    "description": "\u522a\u9664 torrent \u8cc7\u6599\u3002",
+                    "name": "\u522a\u9664\u8cc7\u6599"
+                },
+                "entry_id": {
+                    "description": "\u8a2d\u5b9a\u689d\u76ee ID\u3002",
+                    "name": "Transmission \u689d\u76ee"
+                },
+                "id": {
+                    "description": "Torrent ID",
+                    "name": "ID"
+                }
+            },
+            "name": "\u79fb\u9664 torrent"
+        },
+        "start_torrent": {
+            "description": "\u958b\u59cb torrent\u3002",
+            "fields": {
+                "entry_id": {
+                    "description": "\u8a2d\u5b9a\u689d\u76ee ID\u3002",
+                    "name": "Transmission \u689d\u76ee"
+                },
+                "id": {
+                    "description": "Torrent ID",
+                    "name": "ID"
+                }
+            },
+            "name": "\u958b\u59cb torrent"
+        },
+        "stop_torrent": {
+            "description": "\u505c\u6b62 torrent\u3002",
+            "fields": {
+                "entry_id": {
+                    "description": "\u8a2d\u5b9a\u689d\u76ee ID\u3002",
+                    "name": "Transmission \u689d\u76ee"
+                },
+                "id": {
+                    "description": "Torrent ID",
+                    "name": "ID"
+                }
+            },
+            "name": "\u505c\u6b62 torrent"
+        }
+    }
+}

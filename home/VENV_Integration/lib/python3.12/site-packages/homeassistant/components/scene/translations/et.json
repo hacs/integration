@@ -1,0 +1,63 @@
+{
+    "exceptions": {
+        "entity_not_dynamically_created": {
+            "message": "Stseeni {entity_id} ei looda teenusega \u201escene.create\u201d."
+        },
+        "entity_not_scene": {
+            "message": "{entity_id} ei ole kehtiv stseeni entity_id."
+        }
+    },
+    "services": {
+        "apply": {
+            "description": "Aktiveerib stseeni koos konfiguratsiooniga.",
+            "fields": {
+                "entities": {
+                    "description": "Olemite loend ja nende sihtolek.",
+                    "name": "Olemite olek"
+                },
+                "transition": {
+                    "description": "Aeg, mis kulub seadmetel stseenis m\u00e4\u00e4ratletud olekutesse \u00fcleminekuks.",
+                    "name": "\u00dcleminek"
+                }
+            },
+            "name": "Rakenda"
+        },
+        "create": {
+            "description": "Loob uue stseeni.",
+            "fields": {
+                "entities": {
+                    "description": "Olemite loend ja nende sihtolek. Kui olemid on juba praegu sihtolekus, kasuta selle asemel 'snapshot_entities'.",
+                    "name": "Olemite olek"
+                },
+                "scene_id": {
+                    "description": "Uue stseeni olemi ID.",
+                    "name": "Stseeni olemi ID"
+                },
+                "snapshot_entities": {
+                    "description": "Hetkt\u00f5mmisesse kaasatavate olemite loend. Pildistamise teel salvestate nende olemite hetkeseisu. Kui ei soovi selle stseeni jaoks kasutada k\u00f5igi oma olemite praegust olekut, v\u00f5ib kombineerida atribuudi \"hetkt\u00f5mmis_olemid\" ja \"olemid\".",
+                    "name": "Hetkt\u00f5mmise olemid"
+                }
+            },
+            "name": "Loo"
+        },
+        "delete": {
+            "description": "Kustutab d\u00fcnaamiliselt loodud stseeni.",
+            "name": "Kustuta"
+        },
+        "reload": {
+            "description": "Taaslaeb stseenid YAML-i konfiguratsioonist.",
+            "name": "Taaslae"
+        },
+        "turn_on": {
+            "description": "Aktiveerib stseeni.",
+            "fields": {
+                "transition": {
+                    "description": "Aeg, mis kulub seadmetel stseenis m\u00e4\u00e4ratletud olekutesse \u00fcleminekuks.",
+                    "name": "\u00dcleminek"
+                }
+            },
+            "name": "Aktiveeri"
+        }
+    },
+    "title": "Stseen"
+}

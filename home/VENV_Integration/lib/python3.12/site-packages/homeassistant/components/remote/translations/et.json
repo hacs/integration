@@ -1,0 +1,120 @@
+{
+    "device_automation": {
+        "action_type": {
+            "toggle": "Muuda {entity_name} olekut",
+            "turn_off": "L\u00fclita {entity_name} v\u00e4lja",
+            "turn_on": "L\u00fclita {entity_name} sisse"
+        },
+        "condition_type": {
+            "is_off": "{entity_name} on v\u00e4lja l\u00fclitatud",
+            "is_on": "{entity_name} on sisse l\u00fclitatud"
+        },
+        "trigger_type": {
+            "changed_states": "{entity_name} l\u00fclitus sisse v\u00f5i v\u00e4lja",
+            "turned_off": "{entity_name} l\u00fclitus v\u00e4lja",
+            "turned_on": "{entity_name} l\u00fclitus sisse"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Kaugjuhtimispult",
+            "state": {
+                "off": "V\u00e4ljas",
+                "on": "Sees"
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "{domain} integreerimise platvorm {platform} ei toeta platvormi seadistamist. \n\n Selle probleemi lahendamiseks eemalda see oma konfiguratsioonist ja taask\u00e4ivita Home Assistant.",
+            "title": "Platvormi tuge ei toetata"
+        }
+    },
+    "services": {
+        "delete_command": {
+            "description": "Kustutab andmebaasist k\u00e4su v\u00f5i k\u00e4skude loendi.",
+            "fields": {
+                "command": {
+                    "description": "\u00dcksik k\u00e4sk v\u00f5i kustutatavate k\u00e4skude loend.",
+                    "name": "K\u00e4sk"
+                },
+                "device": {
+                    "description": "Seade, millest k\u00e4sud kustutatakse.",
+                    "name": "Seade"
+                }
+            },
+            "name": "Kustuta k\u00e4sk"
+        },
+        "learn_command": {
+            "description": "\u00d5pib seadmest selgeks k\u00e4su v\u00f5i k\u00e4skude loendi.",
+            "fields": {
+                "alternative": {
+                    "description": "Kui kood tuleb salvestada alternatiivina. See on kasulik diskreetsete koodide puhul. Diskreetseid koode kasutatakse l\u00fclitite puhul, mis t\u00e4idavad ainult \u00fchte funktsiooni. N\u00e4iteks kood, mis l\u00fclitab seadme ainult sisse. Kui see on juba sisse l\u00fclitatud, ei muuda koodi saatmine selle olekut.",
+                    "name": "Alternatiiv"
+                },
+                "command": {
+                    "description": "\u00dcks k\u00e4sk v\u00f5i \u00f5pitavate k\u00e4skude loend.",
+                    "name": "K\u00e4sk"
+                },
+                "command_type": {
+                    "description": "\u00d5pitava k\u00e4su t\u00fc\u00fcp.",
+                    "name": "K\u00e4su t\u00fc\u00fcp"
+                },
+                "device": {
+                    "description": "Seadme ID, millelt k\u00e4sk \u00f5ppida.",
+                    "name": "Seade"
+                },
+                "timeout": {
+                    "description": "K\u00e4su \u00f5ppimise ajal\u00f5pp.",
+                    "name": "Ajal\u00f5pp"
+                }
+            },
+            "name": "\u00d5pi k\u00e4sk"
+        },
+        "send_command": {
+            "description": "Saadab seadmele k\u00e4su v\u00f5i k\u00e4skude loendi.",
+            "fields": {
+                "command": {
+                    "description": "\u00dcks k\u00e4sk v\u00f5i saadetavate k\u00e4skude loend.",
+                    "name": "K\u00e4sk"
+                },
+                "delay_secs": {
+                    "description": "Aeg korduvate k\u00e4skude vahel.",
+                    "name": "Viivitus sekundites"
+                },
+                "device": {
+                    "description": "Seadme ID, millele k\u00e4sk saata.",
+                    "name": "Seade"
+                },
+                "hold_secs": {
+                    "description": "Aeg mida soovid oodata enne saatmist.",
+                    "name": "Oota sekundites"
+                },
+                "num_repeats": {
+                    "description": "Mitu korda soovid k\u00e4ske korrata.",
+                    "name": "Kordused"
+                }
+            },
+            "name": "Saada k\u00e4sk"
+        },
+        "toggle": {
+            "description": "L\u00fclitab seadme sisse/v\u00e4lja.",
+            "name": "Muuda olekut"
+        },
+        "turn_off": {
+            "description": "L\u00fclitab seadme v\u00e4lja.",
+            "name": "L\u00fclita v\u00e4lja"
+        },
+        "turn_on": {
+            "description": "Saadab sissel\u00fclitamise k\u00e4su.",
+            "fields": {
+                "activity": {
+                    "description": "Alustatava tegevuse ID v\u00f5i tegevuse nimi.",
+                    "name": "Tegevus"
+                }
+            },
+            "name": "L\u00fclita sisse"
+        }
+    },
+    "title": "Kaugjuhtimispult"
+}

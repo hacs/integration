@@ -1,0 +1,190 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "\u5e33\u865f\u5df2\u7d93\u8a2d\u5b9a\u5b8c\u6210",
+            "reauth_successful": "\u91cd\u65b0\u8a8d\u8b49\u6210\u529f"
+        },
+        "error": {
+            "cannot_connect": "\u9023\u7dda\u5931\u6557",
+            "incorrect_api_key": "\u6240\u9078\u64c7\u5e33\u865f\u4e4b API \u91d1\u9470\u7121\u6548",
+            "invalid_auth": "\u8eab\u4efd\u9a57\u8b49\u7121\u6548",
+            "invalid_station": "\u627e\u4e0d\u5230\u8a72\u6307\u5b9a\u540d\u7a31\u4e4b\u8eca\u7ad9",
+            "invalid_time": "\u63d0\u4f9b\u6642\u9593\u7121\u6548",
+            "more_stations": "\u6307\u5b9a\u540d\u7a31\u627e\u5230\u591a\u500b\u8eca\u7ad9",
+            "multiple_trains": "\u767c\u73fe\u591a\u73ed\u7b26\u5408\u5217\u8eca",
+            "no_trains": "\u627e\u4e0d\u5230\u7b26\u5408\u706b\u8eca\u3002"
+        },
+        "step": {
+            "reauth_confirm": {
+                "data": {
+                    "api_key": "API \u91d1\u9470"
+                }
+            },
+            "user": {
+                "data": {
+                    "api_key": "API \u91d1\u9470",
+                    "filter_product": "\u4f9d\u7522\u54c1\u63cf\u8ff0\u904e\u6ffe",
+                    "from": "\u51fa\u767c\u52a0\u6cb9\u7ad9",
+                    "time": "\u6642\u9593\uff08\u9078\u9805\uff09",
+                    "to": "\u62b5\u9054\u52a0\u6cb9\u7ad9",
+                    "weekday": "\u5929"
+                },
+                "data_description": {
+                    "filter_product": "\u8981\u4f9d\u7522\u54c1\u63cf\u8ff0\u9032\u884c\u904e\u6ffe\uff0c\u8acb\u5728\u6b64\u8655\u65b0\u589e\u76f8\u7b26\u77ed\u8a9e",
+                    "time": "\u8a2d\u5b9a\u6642\u9593\u4ee5\u65bc\u4e00\u5929\u4e2d\u7279\u5b9a\u6642\u6bb5\u9032\u884c\u641c\u5c0b\u3001\u5fc5\u9808\u8207\u8868\u5b9a\u5217\u8eca\u51fa\u767c\u6642\u9593\u5b8c\u5168\u76f8\u7b26"
+                }
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "actual_time": {
+                "name": "\u5be6\u969b\u6642\u9593",
+                "state_attributes": {
+                    "product_filter": {
+                        "name": "\u5217\u8eca\u904e\u6ffe"
+                    }
+                }
+            },
+            "cancelled": {
+                "name": "\u5df2\u53d6\u6d88",
+                "state_attributes": {
+                    "product_filter": {
+                        "name": "\u5217\u8eca\u904e\u6ffe"
+                    }
+                }
+            },
+            "delayed_time": {
+                "name": "\u5ef6\u8aa4\u6642\u9593",
+                "state_attributes": {
+                    "product_filter": {
+                        "name": "\u5217\u8eca\u904e\u6ffe"
+                    }
+                }
+            },
+            "departure_state": {
+                "name": "\u767c\u8eca\u72c0\u6cc1",
+                "state": {
+                    "canceled": "\u53d6\u6d88",
+                    "delayed": "\u5ef6\u8aa4",
+                    "on_time": "\u6e96\u6642"
+                },
+                "state_attributes": {
+                    "product_filter": {
+                        "name": "\u5217\u8eca\u904e\u6ffe"
+                    }
+                }
+            },
+            "departure_time": {
+                "name": "\u767c\u8eca\u6642\u9593",
+                "state_attributes": {
+                    "actual_time": {
+                        "name": "\u5be6\u969b\u6642\u9593"
+                    },
+                    "canceled": {
+                        "name": "\u53d6\u6d88"
+                    },
+                    "departure_state": {
+                        "name": "\u767c\u8eca\u72c0\u6cc1",
+                        "state": {
+                            "canceled": "\u53d6\u6d88",
+                            "delayed": "\u5ef6\u8aa4",
+                            "on_time": "\u6e96\u6642"
+                        }
+                    },
+                    "deviations": {
+                        "name": "\u504f\u5dee"
+                    },
+                    "estimated_time": {
+                        "name": "\u9810\u4f30\u6642\u9593"
+                    },
+                    "number_of_minutes_delayed": {
+                        "name": "\u5ef6\u9072\u5206\u9418"
+                    },
+                    "other_information": {
+                        "name": "\u5176\u4ed6\u8cc7\u8a0a"
+                    },
+                    "planned_time": {
+                        "name": "\u898f\u5283\u6642\u9593"
+                    },
+                    "product_filter": {
+                        "name": "\u5217\u8eca\u904e\u6ffe"
+                    }
+                }
+            },
+            "departure_time_next": {
+                "name": "\u4e0b\u4e00\u6b21\u767c\u8eca\u6642\u9593",
+                "state_attributes": {
+                    "product_filter": {
+                        "name": "\u5217\u8eca\u904e\u6ffe"
+                    }
+                }
+            },
+            "departure_time_next_next": {
+                "name": "\u518d\u4e0b\u4e00\u6b21\u767c\u8eca\u6642\u9593",
+                "state_attributes": {
+                    "product_filter": {
+                        "name": "\u5217\u8eca\u904e\u6ffe"
+                    }
+                }
+            },
+            "deviation": {
+                "name": "\u504f\u96e2",
+                "state_attributes": {
+                    "product_filter": {
+                        "name": "\u5217\u8eca\u904e\u6ffe"
+                    }
+                }
+            },
+            "estimated_time": {
+                "name": "\u9810\u4f30\u6642\u9593",
+                "state_attributes": {
+                    "product_filter": {
+                        "name": "\u5217\u8eca\u904e\u6ffe"
+                    }
+                }
+            },
+            "other_info": {
+                "name": "\u5176\u4ed6\u8cc7\u8a0a",
+                "state_attributes": {
+                    "product_filter": {
+                        "name": "\u5217\u8eca\u904e\u6ffe"
+                    }
+                }
+            },
+            "planned_time": {
+                "name": "\u898f\u5283\u6642\u9593",
+                "state_attributes": {
+                    "product_filter": {
+                        "name": "\u5217\u8eca\u904e\u6ffe"
+                    }
+                }
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "filter_product": "Filter op product omschrijving"
+                },
+                "data_description": {
+                    "filter_product": "\u8981\u4f9d\u7522\u54c1\u63cf\u8ff0\u9032\u884c\u904e\u6ffe\uff0c\u8acb\u5728\u6b64\u8655\u65b0\u589e\u76f8\u7b26\u77ed\u8a9e"
+                }
+            }
+        }
+    },
+    "selector": {
+        "weekday": {
+            "options": {
+                "fri": "\u661f\u671f\u4e94",
+                "mon": "\u661f\u671f\u4e00",
+                "sat": "\u661f\u671f\u516d",
+                "sun": "\u661f\u671f\u5929",
+                "thu": "\u661f\u671f\u56db",
+                "tue": "\u661f\u671f\u4e8c",
+                "wed": "\u661f\u671f\u4e09"
+            }
+        }
+    }
+}

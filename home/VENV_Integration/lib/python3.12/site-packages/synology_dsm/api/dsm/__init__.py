@@ -1,0 +1,1 @@
+"""Synology DSM API models."""

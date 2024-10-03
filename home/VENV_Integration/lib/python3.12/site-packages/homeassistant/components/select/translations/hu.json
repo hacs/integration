@@ -1,0 +1,86 @@
+{
+    "device_automation": {
+        "action_type": {
+            "select_first": "{entity_name} m\u00f3dos\u00edt\u00e1sa az els\u0151 lehet\u0151s\u00e9gre",
+            "select_last": "{entity_name} m\u00f3dos\u00edt\u00e1sa az utols\u00f3 lehet\u0151s\u00e9gre",
+            "select_next": "{entity_name} m\u00f3dos\u00edt\u00e1sa a k\u00f6vetkez\u0151 lehet\u0151s\u00e9gre",
+            "select_option": "{entity_name} be\u00e1ll\u00edt\u00e1s\u00e1nak m\u00f3dos\u00edt\u00e1sa",
+            "select_previous": "{entity_name} m\u00f3dos\u00edt\u00e1sa az el\u0151z\u0151 lehet\u0151s\u00e9gre"
+        },
+        "condition_type": {
+            "selected_option": "{entity_name} aktu\u00e1lisan kiv\u00e1lasztott opci\u00f3"
+        },
+        "extra_fields": {
+            "cycle": "Ciklus",
+            "for": "Id\u0151tartam",
+            "from": "Ett\u0151l",
+            "option": "Opci\u00f3",
+            "to": "Eddig"
+        },
+        "trigger_type": {
+            "current_option_changed": "{entity_name} opci\u00f3i megv\u00e1ltoztak"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Kiv\u00e1laszt\u00e1s",
+            "state_attributes": {
+                "options": {
+                    "name": "Opci\u00f3k"
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "not_valid_option": {
+            "message": "A(z) {option} be\u00e1ll\u00edt\u00e1s nem \u00e9rv\u00e9nyes a(z) {entity_id} entit\u00e1shoz, az \u00e9rv\u00e9nyes be\u00e1ll\u00edt\u00e1sok a k\u00f6vetkez\u0151k: {options}."
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "{domain} integr\u00e1ci\u00f3 nem t\u00e1mogatja {platform} platform be\u00e1ll\u00edt\u00e1s\u00e1t.\n\nK\u00e9rem, t\u00e1vol\u00edtsa el a konfigur\u00e1ci\u00f3b\u00f3l \u00e9s ind\u00edtsa \u00fajra a Home Assistantot a probl\u00e9ma megold\u00e1s\u00e1hoz.",
+            "title": "A platform nem t\u00e1mogatott"
+        }
+    },
+    "services": {
+        "select_first": {
+            "description": "Kiv\u00e1lasztja az els\u0151 opci\u00f3t.",
+            "name": "Els\u0151"
+        },
+        "select_last": {
+            "description": "Kiv\u00e1lasztja az utols\u00f3 opci\u00f3t.",
+            "name": "Utols\u00f3"
+        },
+        "select_next": {
+            "description": "Kiv\u00e1lasztja a k\u00f6vetkez\u0151 opci\u00f3t.",
+            "fields": {
+                "cycle": {
+                    "description": "Ha az opci\u00f3nak a lista utols\u00f3 lehet\u0151s\u00e9ge ut\u00e1n, az els\u0151re kell ciklikusan visszav\u00e1ltania.",
+                    "name": "Ciklus"
+                }
+            },
+            "name": "K\u00f6vetkez\u0151"
+        },
+        "select_option": {
+            "description": "Kiv\u00e1laszt egy opci\u00f3t.",
+            "fields": {
+                "option": {
+                    "description": "Kiv\u00e1lasztand\u00f3 opci\u00f3.",
+                    "name": "Opci\u00f3"
+                }
+            },
+            "name": "Kiv\u00e1laszt\u00e1s"
+        },
+        "select_previous": {
+            "description": "Kiv\u00e1lasztja az el\u0151z\u0151 opci\u00f3t.",
+            "fields": {
+                "cycle": {
+                    "description": "Ha az opci\u00f3nak a lista els\u0151 lehet\u0151s\u00e9ge ut\u00e1n, az utols\u00f3ra kell ciklikusan visszav\u00e1ltania.",
+                    "name": "Ciklus"
+                }
+            },
+            "name": "El\u0151z\u0151"
+        }
+    },
+    "title": "Kiv\u00e1laszt\u00e1s"
+}

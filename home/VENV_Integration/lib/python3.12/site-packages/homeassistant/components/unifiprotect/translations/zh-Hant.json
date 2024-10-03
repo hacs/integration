@@ -1,0 +1,256 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "\u88dd\u7f6e\u5df2\u7d93\u8a2d\u5b9a\u5b8c\u6210",
+            "discovery_started": "\u958b\u59cb\u641c\u7d22"
+        },
+        "error": {
+            "cannot_connect": "\u9023\u7dda\u5931\u6557",
+            "cloud_user": "\u4e0d\u652f\u63f4 Ubiquiti Cloud \u4f7f\u7528\u8005\u3001\u8acb\u4f7f\u7528\u672c\u5730\u7aef\u4f7f\u7528\u8005\u3002",
+            "invalid_auth": "\u8eab\u4efd\u9a57\u8b49\u7121\u6548",
+            "protect_version": "\u6240\u9700\u6700\u4f4e\u7248\u672c\u70ba V1.20.0\u3002\u8acb\u66f4\u65b0 UniFi \u76e3\u63a7\u5f8c\u518d\u91cd\u8a66\u4e00\u6b21\u3002"
+        },
+        "flow_title": "{name} ({ip_address})",
+        "step": {
+            "discovery_confirm": {
+                "data": {
+                    "password": "\u5bc6\u78bc",
+                    "username": "\u4f7f\u7528\u8005\u540d\u7a31"
+                },
+                "description": "\u662f\u5426\u8981\u8a2d\u5b9a {name} ({ip_address})\uff1f\u9700\u8981\u65bc UniFi OS Console \u65b0\u589e\u672c\u5730\u4f7f\u7528\u8005\u4ee5\u9032\u884c\u767b\u5165\u3001Ubiquiti \u96f2\u7aef\u4f7f\u7528\u8005\u7121\u6cd5\u4f7f\u7528\u3002\u66f4\u591a\u8a73\u7d30\u8cc7\u8a0a\uff1a{local_user_documentation_url}",
+                "title": "\u767c\u73fe UniFi \u76e3\u63a7"
+            },
+            "reauth_confirm": {
+                "data": {
+                    "host": "UniFi Protect \u4f3a\u670d\u5668\u7684 IP/\u4e3b\u6a5f\u540d\u7a31",
+                    "password": "\u5bc6\u78bc",
+                    "port": "\u901a\u8a0a\u57e0",
+                    "username": "\u4f7f\u7528\u8005\u540d\u7a31"
+                },
+                "title": "UniFi Protect \u91cd\u65b0\u6388\u6b0a"
+            },
+            "user": {
+                "data": {
+                    "host": "\u4e3b\u6a5f\u7aef",
+                    "password": "\u5bc6\u78bc",
+                    "port": "\u901a\u8a0a\u57e0",
+                    "username": "\u4f7f\u7528\u8005\u540d\u7a31",
+                    "verify_ssl": "\u78ba\u8a8d SSL \u8a8d\u8b49"
+                },
+                "data_description": {
+                    "host": "UniFi Protect \u88dd\u7f6e\u4e4b\u4e3b\u6a5f\u540d\u7a31\u6216 IP \u4f4d\u5740\u3002"
+                },
+                "description": "\u9700\u8981\u65bc UniFi OS Console \u65b0\u589e\u672c\u5730\u4f7f\u7528\u8005\u4ee5\u9032\u884c\u767b\u5165\u3001Ubiquiti \u96f2\u7aef\u4f7f\u7528\u8005\u7121\u6cd5\u4f7f\u7528\u3002\u66f4\u591a\u8a73\u7d30\u8cc7\u8a0a\uff1a{local_user_documentation_url}",
+                "title": "UniFi Protect \u5b89\u88dd"
+            }
+        }
+    },
+    "entity": {
+        "event": {
+            "doorbell": {
+                "state_attributes": {
+                    "event_type": {
+                        "state": {
+                            "ring": "Ring \u9580\u9234"
+                        }
+                    }
+                }
+            }
+        },
+        "sensor": {
+            "license_plate": {
+                "state": {
+                    "none": "\u672a\u5075\u6e2c"
+                }
+            }
+        }
+    },
+    "issues": {
+        "cloud_user": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "\u81ea 2024 \u5e74 7 \u6708 22 \u65e5\u958b\u59cb\uff0cUbiquiti \u8981\u6c42\u6240\u6709\u96f2\u7aef\u7528\u6236\u8a3b\u518a\u591a\u6b65\u9a5f\u9a57\u8b49\uff08MFA\uff09\u3001\u8207 Home Assistant \u4e0d\u76f8\u5bb9\u3002\n\n\u5efa\u8b70\u76e1\u5feb\u8f49\u79fb\u81f3[\u672c\u5730\u4f7f\u7528\u8005]({learn_more})\uff0c\u4ee5\u4fdd\u6301\u6574\u5408\u904b\u4f5c\u3002\n\n\u78ba\u8a8d\u6b64\u4fee\u5fa9\u5c07\u89f8\u767c\u91cd\u65b0\u8a8d\u8b49\u6d41\u7a0b\uff0c\u4ee5\u8f38\u5165\u6240\u9700\u7684\u8a8d\u8b49\u6191\u8b49\u3002",
+                        "title": "\u4e0d\u652f\u63f4 Ubiquiti Cloud \u4f7f\u7528\u8005\u3002"
+                    }
+                }
+            },
+            "title": "\u4e0d\u652f\u63f4 Ubiquiti Cloud \u4f7f\u7528\u8005\u3002"
+        },
+        "deprecate_hdr_switch": {
+            "description": "UniFi Protect v3 \u65b0\u589e\u4e86HDR\uff08\u81ea\u52d5\uff09\u7684\u65b0\u72c0\u614b\u3002\u56e0\u6b64 HDR \u6a21\u5f0f\u958b\u95dc\u5df2\u88ab\u66ff\u63db\u70baHDR \u6a21\u5f0f\u9078\u64c7\uff0c\u4e26\u4e14\u5df2\u4e0d\u518d\u4f7f\u7528\u3002\n\n\u4e0b\u65b9\u70ba\u5df2\u767c\u73fe\u4f7f\u7528\u4e00\u500b\u6216\u4ee5\u4e0a\u5df2\u505c\u6b62\u4f7f\u7528\u5be6\u9ad4\u7684\u81ea\u52d5\u5316\u6216\u8173\u672c\uff1a\n{items}\n\u4e0a\u65b9\u5217\u8868\u53ef\u80fd\u4e0d\u5b8c\u6574\u3001\u4e26\u672a\u5305\u542b\u4efb\u4f55\u65bc\u5100\u8868\u677f\u4e2d\u6a21\u677f\u4e4b\u4f7f\u7528\u3002\u8acb\u66f4\u65b0\u76f8\u5c0d\u61c9\u7684\u6a21\u677f\u3001\u81ea\u52d5\u5316\u6216\u8173\u672c\u3002",
+            "title": "HDR \u6a21\u5f0f\u958b\u95dc\u5df2\u4e0d\u518d\u4f7f\u7528"
+        },
+        "deprecate_package_sensor": {
+            "description": "\u7531\u65bc UniFi Protect \u4e2d\u4e8b\u4ef6\u7684\u5831\u544a\u65b9\u5f0f\u3001\u5c01\u5305\u4e8b\u4ef6\u611f\u6e2c\u5668\u5f9e\u672a\u88ab\u89f8\u767c\u3002\u56e0\u6b64\uff0c\u8a72\u611f\u6e2c\u5668\u5df2\u4e0d\u518d\u4f7f\u7528\u4e26\u5373\u5c07\u79fb\u9664\u3002\n\n\u4e0b\u65b9\u70ba\u5df2\u767c\u73fe\u4f7f\u7528\u4e00\u500b\u6216\u4ee5\u4e0a\u5df2\u505c\u6b62\u4f7f\u7528\u5be6\u9ad4\u7684\u81ea\u52d5\u5316\u6216\u8173\u672c\uff1a\n{items}\n\u4e0a\u65b9\u5217\u8868\u53ef\u80fd\u4e0d\u5b8c\u6574\u3001\u4e26\u672a\u5305\u542b\u4efb\u4f55\u65bc\u5100\u8868\u677f\u4e2d\u6a21\u677f\u4e4b\u4f7f\u7528\u3002\u8acb\u66f4\u65b0\u76f8\u5c0d\u61c9\u7684\u6a21\u677f\u3001\u81ea\u52d5\u5316\u6216\u8173\u672c\u3002",
+            "title": "\u5c01\u5305\u4e8b\u4ef6\u50b3\u611f\u5668\u5df2\u4e0d\u518d\u4f7f\u7528"
+        },
+        "deprecate_smart_sensor": {
+            "description": "\u7528\u65bc\u667a\u80fd\u5075\u6e2c\u7684\u7d71\u4e00 \"\u5075\u6e2c\u7269\u4ef6\" \u611f\u6e2c\u5668\u5df2\u68c4\u7528\uff0c\u6539\u4ee5\u500b\u5225\u667a\u80fd\u5075\u6e2c\u985e\u578b\u7684\u667a\u80fd\u5075\u6e2c\u4e8c\u9032\u4f4d\u611f\u6e2c\u5668\u4f86\u53d6\u4ee3\u3002\n\n\u4e0b\u65b9\u70ba\u5df2\u767c\u73fe\u4f7f\u7528\u4e00\u500b\u6216\u4ee5\u4e0a\u5df2\u505c\u6b62\u4f7f\u7528\u5be6\u9ad4\u7684\u81ea\u52d5\u5316\u6216\u8173\u672c\uff1a\n{items}\n\u4e0a\u65b9\u5217\u8868\u53ef\u80fd\u4e0d\u5b8c\u6574\u3001\u4e26\u672a\u5305\u542b\u4efb\u4f55\u65bc\u5100\u8868\u677f\u4e2d\u6a21\u677f\u4e4b\u4f7f\u7528\u3002\u8acb\u66f4\u65b0\u76f8\u5c0d\u61c9\u7684\u6a21\u677f\u3001\u81ea\u52d5\u5316\u6216\u8173\u672c\u3002",
+            "title": "\u667a\u80fd\u5075\u6e2c\u611f\u6e2c\u5668\u5df2\u505c\u7528"
+        },
+        "deprecated_service_set_doorbell_message": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "`unifiprotect.set_doorbell_message` \u670d\u52d9\u5df2\u505c\u6b62\u4f7f\u7528\u3001\u4ee5\u65b0\u589e\u81f3\u6bcf\u4e00\u500b\u9580\u9234\u88dd\u7f6e\u7684\u5168\u65b0\u9580\u9234\u6587\u5b57\u5be6\u9ad4\u9032\u884c\u53d6\u4ee3\u3002\u5c07\u6703\u65bc v2023.3.0 \u7248\u9032\u884c\u79fb\u9664\u3002\u8acb\u66f4\u65b0\u4f7f\u7528 [`text.set_value` service]({link})\u3002",
+                        "title": "set_doorbell_message \u5df2\u505c\u6b62\u4f7f\u7528"
+                    }
+                }
+            },
+            "title": "set_doorbell_message \u5df2\u505c\u6b62\u4f7f\u7528"
+        },
+        "ea_channel_warning": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "\u78ba\u5b9a\u8981\u4f7f\u7528\u4e0d\u652f\u63f4\u7684 UniFi Protect \u7248\u672c\uff1f\u53ef\u80fd\u6703\u5c0e\u81f4 Home Assistant \u6574\u5408\u4e0d\u7a69\u5b9a\u3002",
+                        "title": "UniFi Protect \u6436\u5148\u9ad4\u9a57\u7248\u5df2\u958b\u555f"
+                    },
+                    "start": {
+                        "description": "\u6b63\u5728\u4f7f\u7528 UniFi Protect \u6436\u5148\u9ad4\u9a57\u7248\u672c (v{version})  \u6216\u8005\u9078\u64c7\u4e86\u975e\u5b98\u65b9\u767c\u5e03\u983b\u9053\u3002\n\n\u7531\u65bc\u6b64\u4e9b\u6436\u5148\u9ad4\u9a57\u7248\u53ef\u80fd\u672a\u7d93\u904e\u6e2c\u8a66\u3001\u4f7f\u7528\u6b64\u4e9b\u7248\u672c\u53ef\u80fd\u5c0e\u81f4 UniFi Protect \u6574\u5408\u51fa\u73fe\u672a\u9810\u671f\u7684\u72c0\u6cc1\u3002[\u8acb\u53c3\u95b1\u6436\u5148\u9ad4\u9a57\u7248\u8207 Home Assistant \u76f8\u95dc\u8aaa\u660e]({learn_more})\u3002\n\n\u9ede\u9078\u50b3\u9001\u4ee5\u5ffd\u7565\u6b64\u8a0a\u606f\u3002",
+                        "title": "UniFi Protect \u6436\u5148\u9ad4\u9a57\u7248\u5df2\u958b\u555f"
+                    }
+                }
+            },
+            "title": "UniFi Protect \u6436\u5148\u9ad4\u9a57\u7248\u5df2\u958b\u555f"
+        },
+        "ea_setup_failed": {
+            "description": "\u6b63\u5728\u4f7f\u7528  UniFi Protect v{version} \u7248\u6436\u5148\u9ad4\u9a57\u7248\u3002\u5617\u8a66\u8f09\u5165\u6574\u5408\u6642\u767c\u751f\u4e0d\u53ef\u6062\u5fa9\u7684\u932f\u8aa4\u3002\u8acb\u56de\u5fa9\u5099\u4efd\u81f3\u7a69\u5b9a\u7248\u672c UniFi Protect \u4ee5\u7e7c\u7e8c\u4f7f\u7528\u6b64\u6574\u5408\u3002\n\n\u932f\u8aa4\uff1a{error}",
+            "title": "\u4f7f\u7528\u6436\u5148\u9ad4\u9a57\u7248\u8a2d\u5b9a\u932f\u8aa4"
+        },
+        "ea_warning": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "\u78ba\u5b9a\u8981\u4f7f\u7528\u4e0d\u652f\u63f4\u7684 UniFi Protect \u7248\u672c\uff1f\u53ef\u80fd\u6703\u5c0e\u81f4 Home Assistant \u6574\u5408\u4e0d\u7a69\u5b9a\u3002",
+                        "title": "v{version} \u7248\u70ba\u6436\u5148\u9ad4\u9a57\u7248"
+                    },
+                    "start": {
+                        "description": "\u6b63\u5728\u4f7f\u7528\u7684  UniFi Protect v{version} \u7248\u6436\u5148\u9ad4\u9a57\u7248\u3002 [Home Assistant \u4e0d\u652f\u63f4\u6436\u5148\u9ad4\u9a57\u7248] (https://www.home-assistant.io/integrations/unifiprotect#about-unifi-early-access)\u3001\u4e26\u5efa\u8b70\u76e1\u53ef\u80fd\u9000\u56de\u81f3\u7a69\u5b9a\u7248\u672c\u3002\n\n\u50b3\u9001\u6b64\u8868\u683c\u8868\u793a [\u5df2\u964d\u7d1a UniFi Protect \u7248\u672c] (https://www.home-assistant.io/integrations/unifiprotect#downgrading-unifi-protect) \u6216\u540c\u610f\u4f7f\u7528\u4e0d\u652f\u63f4\u7684 UniFi Protect \u7248\u672c\u3002",
+                        "title": "v{version} \u7248\u70ba\u6436\u5148\u9ad4\u9a57\u7248"
+                    }
+                }
+            },
+            "title": "UniFi Protect {version} \u7248\u70ba\u6436\u5148\u9ad4\u9a57\u7248"
+        },
+        "rtsp_disabled_readonly": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "\u78ba\u5b9a\u8981\u5c07 {camera} RTSPS \u95dc\u9589\u55ce\uff1f",
+                        "title": "\u651d\u5f71\u6a5f {camera} RTSPS \u5df2\u95dc\u9589"
+                    },
+                    "start": {
+                        "description": "\u651d\u5f71\u6a5f {camera} RTSPS \u5df2\u95dc\u9589\u3002\u6b32\u5728 Home Assistant \u4e2d\u9032\u884c\u651d\u5f71\u6a5f\u5373\u6642\u4e32\u6d41\u3001\u9700\u8981\u958b\u555f RTSPS\u3002\u5982\u679c\u4e0d\u958b\u555f RTSPS\uff0c\u53ef\u80fd\u6703\u5c0d UniFi Protect NVR \u7522\u751f\u984d\u5916\u7684\u8ca0\u8f09\uff0c\u56e0\u70ba\u4efb\u4f55\u5373\u6642\u5f71\u50cf\u64ad\u653e\u5668\u5c07\u9810\u8a2d\u70ba\u7531\u651d\u5f71\u6a5f\u53d6\u5f97\u5feb\u7167\u3002\n\n\u8acb\u65bc\u651d\u5f71\u6a5f\u4e0a[\u958b\u555f RTSPS]({learn_more})\u3001\u518d\u56de\u4f86\u78ba\u8a8d\u6b64\u4fee\u5fa9\u3002",
+                        "title": "\u651d\u5f71\u6a5f {camera} RTSPS \u5df2\u95dc\u9589"
+                    }
+                }
+            },
+            "title": "\u651d\u5f71\u6a5f {camera} RTSPS \u5df2\u95dc\u9589"
+        },
+        "rtsp_disabled_writable": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "\u78ba\u5b9a\u8981\u5c07 {camera} RTSPS \u95dc\u9589\u55ce\uff1f",
+                        "title": "\u651d\u5f71\u6a5f {camera} RTSPS \u5df2\u95dc\u9589"
+                    },
+                    "start": {
+                        "description": "\u651d\u5f71\u6a5f {camera} RTSPS \u5df2\u95dc\u9589\u3002\u6b32\u5728 Home Assistant \u4e2d\u9032\u884c\u651d\u5f71\u6a5f\u5373\u6642\u4e32\u6d41\u3001\u9700\u8981\u958b\u555f RTSPS\u3002\u5982\u679c\u4e0d\u958b\u555f RTSPS\uff0c\u53ef\u80fd\u6703\u5c0d UniFi Protect NVR \u7522\u751f\u984d\u5916\u7684\u8ca0\u8f09\uff0c\u56e0\u70ba\u4efb\u4f55\u5373\u6642\u5f71\u50cf\u64ad\u653e\u5668\u5c07\u9810\u8a2d\u70ba\u7531\u651d\u5f71\u6a5f\u53d6\u5f97\u5feb\u7167\u3002\n\n\u53ef\u624b\u52d5\u91dd\u5c0d\u6240\u9078\u64c7\u4e4b\u651d\u5f71\u6a5f\u756b\u8cea\u983b\u9053\u4e0a[\u958b\u555f RTSPS]({learn_more})\uff0c\u6216\u8005 Home Assistant \u53ef\u4ee5\u81ea\u52d5\u70ba\u60a8\u958b\u555f\u6700\u9ad8\u756b\u8cea\u983b\u9053\u3002\u4e00\u65e6\u958b\u555f RTSPS \u983b\u9053\u3001\u6216\u5e0c\u671b\u7531 Home Assistant \u81ea\u52d5\u555f\u7528\u6700\u9ad8\u756b\u8cea\u983b\u9053\u5f8c\uff0c\u8acb\u78ba\u8a8d\u6b64\u4fee\u5fa9\u3002",
+                        "title": "\u651d\u5f71\u6a5f {camera} RTSPS \u5df2\u95dc\u9589"
+                    }
+                }
+            },
+            "title": "\u651d\u5f71\u6a5f {camera} RTSPS \u5df2\u95dc\u9589"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "all_updates": "\u5373\u6642\u6307\u6a19\uff08\u8b66\u544a\uff1a\u5927\u91cf\u63d0\u5347 CPU \u4f7f\u7528\u7387\uff09",
+                    "allow_ea": "\u5141\u8a31\u4f7f\u7528\u6436\u5148\u9ad4\u9a57\u7248 Protect\uff08\u8b66\u544a\uff1a\u53ef\u80fd\u6703\u5c0e\u81f4\u6574\u5408\u8b8a\u70ba\u4e0d\u652f\u63f4\uff09)",
+                    "allow_ea_channel": "\u5141\u8a31\u4f7f\u7528\u6436\u5148\u9ad4\u9a57\u7248 Protect\uff08\u8b66\u544a\uff1a\u53ef\u80fd\u6703\u5c0e\u81f4\u6574\u5408\u8b8a\u70ba\u4e0d\u652f\u63f4\uff09)",
+                    "disable_rtsp": "\u95dc\u9589 RTSP \u4e32\u6d41",
+                    "max_media": "\u5a92\u9ad4\u700f\u89bd\u5668\u6700\u9ad8\u8f09\u5165\u4e8b\u4ef6\u6578\uff08\u589e\u52a0\u8a18\u61b6\u9ad4\u4f7f\u7528\uff09",
+                    "override_connection_host": "\u7f6e\u63db\u9023\u7dda\u4e3b\u6a5f\u7aef"
+                },
+                "description": "\u50c5\u6709\u7576\u958b\u555f\u8a3a\u65b7\u611f\u6e2c\u5668\u3001\u4e26\u9700\u8981\u5373\u6642\u66f4\u65b0\u6642\uff0c\u624d\u5efa\u8b70\u958b\u555f\u5373\u6642\u6307\u6a19\u9078\u9805\u3002\u672a\u555f\u7528\u72c0\u6cc1\u4e0b\u70ba\u6bcf 15 \u5206\u9418\u66f4\u65b0\u4e00\u6b21\u3002",
+                "title": "UniFi \u76e3\u63a7\u9078\u9805"
+            }
+        }
+    },
+    "services": {
+        "add_doorbell_text": {
+            "description": "\u70ba\u9580\u9234\u65b0\u589e\u81ea\u8a02\u8a0a\u606f",
+            "fields": {
+                "device_id": {
+                    "description": "\u4efb\u4f55\u60f3\u8b8a\u66f4\u7684 UniFi Protect \u8a2d\u5099\u88dd\u7f6e\u3002\u5982\u679c\u591a\u500b Protect \u8a2d\u5099\u7684\u72c0\u6cc1\u4e0b\u3002",
+                    "name": "UniFi Protect NVR"
+                },
+                "message": {
+                    "description": "\u65b0\u589e\u81f3\u9580\u9234\u65b0\u81ea\u8a02\u8a0a\u606f\u3002\u5fc5\u9808\u5c11\u65bc 30 \u500b\u5b57\u5143\u3002",
+                    "name": "\u81ea\u8a02\u8a0a\u606f"
+                }
+            },
+            "name": "\u65b0\u589e\u81ea\u8a02\u9580\u9234\u6587\u5b57"
+        },
+        "remove_doorbell_text": {
+            "description": "\u79fb\u9664\u9580\u9234\u73fe\u6709\u8a0a\u606f\u3002",
+            "fields": {
+                "device_id": {
+                    "description": "\u4efb\u4f55\u60f3\u8b8a\u66f4\u7684 UniFi Protect \u8a2d\u5099\u88dd\u7f6e\u3002\u5982\u679c\u591a\u500b Protect \u8a2d\u5099\u7684\u72c0\u6cc1\u4e0b\u3002",
+                    "name": "UniFi Protect NVR"
+                },
+                "message": {
+                    "description": "\u79fb\u9664\u9580\u9234\u73fe\u6709\u81ea\u8a02\u8a0a\u606f\u3002",
+                    "name": "\u81ea\u8a02\u8a0a\u606f"
+                }
+            },
+            "name": "\u79fb\u9664\u81ea\u8a02\u9580\u9234\u6587\u5b57"
+        },
+        "remove_privacy_zone": {
+            "description": "\u7528\u65bc\u5f9e\u651d\u5f71\u6a5f\u4e2d\u79fb\u9664\u96b1\u79c1\u5340\u57df\u3002",
+            "fields": {
+                "device_id": {
+                    "description": "\u6240\u8981\u5f9e\u96b1\u79c1\u5340\u57df\u79fb\u9664\u7684\u651d\u5f71\u6a5f\u3002",
+                    "name": "\u651d\u5f71\u6a5f"
+                },
+                "name": {
+                    "description": "\u6240\u8981\u79fb\u9664\u7684\u5340\u57df\u540d\u7a31\u3002",
+                    "name": "\u96b1\u79c1\u5340\u57df\u540d\u7a31"
+                }
+            },
+            "name": "\u79fb\u9664\u651d\u50cf\u6a5f\u96b1\u79c1\u5340\u57df"
+        },
+        "set_chime_paired_doorbells": {
+            "description": "\u4f7f\u7528\u65bc\u914d\u5c0d Smart Chime \u667a\u6167\u9580\u9234\u3002",
+            "fields": {
+                "device_id": {
+                    "description": "\u9023\u7d50\u81f3\u9580\u9234\u7684 Chime\u3002",
+                    "name": "Chime"
+                },
+                "doorbells": {
+                    "description": "\u9023\u7d50\u81f3 Chime \u9580\u9234",
+                    "name": "\u9580\u9234"
+                }
+            },
+            "name": "\u8a2d\u5b9a\u914d\u5c0d\u7684 Chime \u9580\u9234"
+        },
+        "set_default_doorbell_text": {
+            "description": "\u8a2d\u5b9a\u9810\u8a2d\u9580\u9234\u8a0a\u606f\u3002\u5c07\u70ba\u8a0a\u606f \"\u904e\u671f\" \u6642\u81ea\u52d5\u9078\u64c7\u7684\u8a0a\u606f\u3002",
+            "fields": {
+                "device_id": {
+                    "description": "\u4efb\u4f55\u60f3\u8b8a\u66f4\u7684 UniFi Protect \u8a2d\u5099\u88dd\u7f6e\u3002\u5982\u679c\u591a\u500b Protect \u8a2d\u5099\u7684\u72c0\u6cc1\u4e0b\u3002",
+                    "name": "UniFi Protect NVR"
+                },
+                "message": {
+                    "description": "\u9580\u9234\u9810\u8a2d\u8a0a\u606f\u3002\u5fc5\u9808\u5c11\u65bc 30 \u500b\u5b57\u5143\u3002",
+                    "name": "\u9810\u8a2d\u8a0a\u606f"
+                }
+            },
+            "name": "\u8a2d\u5b9a\u9810\u8a2d\u9580\u9234\u6587\u5b57"
+        }
+    }
+}

@@ -1,0 +1,138 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Laite on jo m\u00e4\u00e4ritetty",
+            "connection_aborted": "Yhteyden muodostaminen ep\u00e4onnistui",
+            "unknown": "Odottamaton virhe"
+        },
+        "error": {
+            "invalid_sgtin_or_pin": "Virheellinen SGTIN tai PIN-koodi, yrit\u00e4 uudelleen.",
+            "press_the_button": "Paina sinist\u00e4 painiketta.",
+            "register_failed": "Rekister\u00f6inti ep\u00e4onnistui, yrit\u00e4 uudelleen.",
+            "timeout_button": "Sinisen painikkeen painalluksen aikakatkaisu, yrit\u00e4 uudelleen."
+        },
+        "step": {
+            "init": {
+                "data": {
+                    "hapid": "Yhteyspisteen tunniste (SGTIN)",
+                    "name": "Nimi (valinnainen, k\u00e4ytet\u00e4\u00e4n kaikkien laitteiden nimen etuliitteen\u00e4)",
+                    "pin": "PIN-koodi"
+                },
+                "title": "Valitse HomematicIP-tukiasema"
+            },
+            "link": {
+                "title": "Linkit\u00e4 tukiasema"
+            }
+        }
+    },
+    "services": {
+        "activate_eco_mode_with_duration": {
+            "description": "Aktivoi ekotilan jakson kanssa.",
+            "fields": {
+                "accesspoint_id": {
+                    "description": "Homematic IP -tukiaseman tunnus.",
+                    "name": "Tukiaseman tunnus"
+                },
+                "duration": {
+                    "description": "Ekotilan kesto minuutteina.",
+                    "name": "Kesto"
+                }
+            },
+            "name": "Aktivoi ekotila keston kanssa"
+        },
+        "activate_eco_mode_with_period": {
+            "description": "Aktivoi ekotilan jakson kanssa.",
+            "fields": {
+                "accesspoint_id": {
+                    "description": "Homematic IP -tukiaseman tunnus.",
+                    "name": "Tukiaseman tunnus"
+                },
+                "endtime": {
+                    "description": "Aika, jolloin ekotilan pit\u00e4isi poistua automaattisesti k\u00e4yt\u00f6st\u00e4.",
+                    "name": "Loppuaika"
+                }
+            },
+            "name": "Aktivoi ekotila ajan kanssa"
+        },
+        "activate_vacation": {
+            "description": "Aktivoi lomatilan annettuun aikaan asti.",
+            "fields": {
+                "accesspoint_id": {
+                    "description": "Homematic IP -tukiaseman tunnus.",
+                    "name": "Tukiaseman tunnus"
+                },
+                "endtime": {
+                    "description": "Aika, jolloin lomatila pit\u00e4isi automaattisesti kytke\u00e4 pois p\u00e4\u00e4lt\u00e4.",
+                    "name": "Loppuaika"
+                },
+                "temperature": {
+                    "description": "Asetettu l\u00e4mp\u00f6tila lomatilan aikana.",
+                    "name": "L\u00e4mp\u00f6tila"
+                }
+            },
+            "name": "Aktivoi loma"
+        },
+        "deactivate_eco_mode": {
+            "description": "Poistaa ekotilan k\u00e4yt\u00f6st\u00e4 v\u00e4litt\u00f6m\u00e4sti.",
+            "fields": {
+                "accesspoint_id": {
+                    "description": "Homematic IP -tukiaseman tunnus.",
+                    "name": "Tukiaseman tunnus"
+                }
+            },
+            "name": "Poista ekotila k\u00e4yt\u00f6st\u00e4"
+        },
+        "deactivate_vacation": {
+            "description": "Poistaa lomatilan k\u00e4yt\u00f6st\u00e4 v\u00e4litt\u00f6m\u00e4sti.",
+            "fields": {
+                "accesspoint_id": {
+                    "description": "Homematic IP -tukiaseman tunnus.",
+                    "name": "Tukiaseman tunnus"
+                }
+            },
+            "name": "Poista loma k\u00e4yt\u00f6st\u00e4"
+        },
+        "dump_hap_config": {
+            "description": "Tyhjent\u00e4\u00e4 Homematic IP Access Point -yhteyspisteen (-pisteiden) konfiguraation.",
+            "fields": {
+                "anonymize": {
+                    "description": "Pit\u00e4isik\u00f6 konfiguraatio anonymisoida?",
+                    "name": "Anonymisoi"
+                },
+                "config_output_file_prefix": {
+                    "description": "M\u00e4\u00e4ritystiedoston nimi. AP: n SGTIN liitet\u00e4\u00e4n aina.",
+                    "name": "M\u00e4\u00e4rit\u00e4 tulostetiedoston etuliite"
+                },
+                "config_output_path": {
+                    "description": "(Oletusarvo on 'Your home-assistant config directory') Polku, johon konfiguraatio tallennetaan.",
+                    "name": "M\u00e4\u00e4rit\u00e4 tulostuspolku"
+                }
+            },
+            "name": "Tyhjenn\u00e4 hap config"
+        },
+        "reset_energy_counter": {
+            "description": "Nollaa mittausyksik\u00f6n energialaskurin.",
+            "fields": {
+                "entity_id": {
+                    "description": "Mittauskohteen tunnus. K\u00e4yt\u00e4 avainsanaa 'all' nollataksesi kaikki energialaskurit.",
+                    "name": "Entiteetti"
+                }
+            },
+            "name": "Nollaa energialaskuri"
+        },
+        "set_active_climate_profile": {
+            "description": "Asettaa aktiivisen ilmastoprofiilin indeksin.",
+            "fields": {
+                "climate_profile_index": {
+                    "description": "Ilmastoprofiilin indeksi.",
+                    "name": "Ilmastoprofiiliindeksi"
+                },
+                "entity_id": {
+                    "description": "Ilmastoyksik\u00f6n tunnus. K\u00e4yt\u00e4 'all' -avainsanaa vaihtaaksesi profiilin kaikille yksik\u00f6ille.",
+                    "name": "Entiteetti"
+                }
+            },
+            "name": "Aseta aktiivinen ilmastoprofiili"
+        }
+    }
+}

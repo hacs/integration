@@ -1,0 +1,443 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "\uc7a5\uce58\uac00 \uc774\ubbf8 \uad6c\uc131\ub428",
+            "reauth_successful": "\uc7ac\uc778\uc99d \uc131\uacf5"
+        },
+        "error": {
+            "api_error": "API \uc624\ub958 \ubc1c\uc0dd",
+            "cannot_connect": "\uc5f0\uacb0\uc5d0 \uc2e4\ud328\ud588\uc2b5\ub2c8\ub2e4. \uce74\uba54\ub77c\uc758 IP \uc8fc\uc18c\ub97c \ud655\uc778\ud558\uc138\uc694.",
+            "invalid_auth": "\uc798\ubabb\ub41c \uc778\uc99d",
+            "unknown": "\uc608\uae30\uce58 \uc54a\uc740 \uc624\ub958",
+            "webhook_exception": "Home Assistant URL\uc744 \uc0ac\uc6a9\ud560 \uc218 \uc5c6\uc2b5\ub2c8\ub2e4. \uc124\uc815 > \uc2dc\uc2a4\ud15c > \ub124\ud2b8\uc6cc\ud06c > Home Assistant URL\ub85c \uc774\ub3d9\ud558\uc5ec URL\uc744 \uc218\uc815\ud558\uc138\uc694. {more_info} \ub97c \ucc38\uc870\ud558\uc138\uc694."
+        },
+        "flow_title": "{hostname} ({ip_address})",
+        "step": {
+            "reauth_confirm": {
+                "description": "Reolink \ud1b5\ud569\uad6c\uc131\uc694\uc18c\ub294 \uc5f0\uacb0 \uc138\ubd80 \uc815\ubcf4\ub97c \uc7ac\uc778\uc99d\ud574\uc57c \ud569\ub2c8\ub2e4.",
+                "title": "\ud1b5\ud569 \uc7ac\uc778\uc99d"
+            },
+            "user": {
+                "data": {
+                    "host": "\ud638\uc2a4\ud2b8",
+                    "password": "\uc554\ud638",
+                    "port": "\ud3ec\ud2b8",
+                    "use_https": "HTTPS \ud65c\uc131\ud654",
+                    "username": "\uc0ac\uc6a9\uc790 \uc774\ub984"
+                },
+                "data_description": {
+                    "host": "Reolink \uae30\uae30\uc758 \ud638\uc2a4\ud2b8 \uc774\ub984 \ub610\ub294 IP \uc8fc\uc18c. \uc608: '192.168.1.25'.",
+                    "password": "Reolink \uae30\uae30 \uc790\uccb4\uc5d0 \ub85c\uadf8\uc778\ud558\uae30 \uc704\ud55c \uc554\ud638. Reolink \ud074\ub77c\uc6b0\ub4dc \uacc4\uc815\uc774 \uc544\ub2d9\ub2c8\ub2e4.",
+                    "port": "Reolink \uae30\uae30\uc5d0 \uc5f0\uacb0\ud558\ub294 \ud3ec\ud2b8\uc785\ub2c8\ub2e4. HTTP\uc758 \uacbd\uc6b0 \uc77c\ubc18\uc801\uc73c\ub85c '80', HTTPS\uc758 \uacbd\uc6b0 \uc77c\ubc18\uc801\uc73c\ub85c '443'\uc785\ub2c8\ub2e4.",
+                    "use_https": "Reolink \uae30\uae30\uc5d0 HTTPS(SSL) \uc5f0\uacb0\uc744 \uc0ac\uc6a9\ud558\uc2ed\uc2dc\uc624.",
+                    "username": "Reolink \uae30\uae30 \uc790\uccb4\uc5d0 \ub85c\uadf8\uc778\ud558\uae30 \uc704\ud55c \uc0ac\uc6a9\uc790 \uc774\ub984. Reolink \ud074\ub77c\uc6b0\ub4dc \uacc4\uc815\uc774 \uc544\ub2d9\ub2c8\ub2e4."
+                },
+                "description": "\ubb38\uc81c\uac00 \ubc1c\uc0dd\ud558\uba74 [\ubb38\uc81c \ud574\uacb0 \ub2e8\uacc4]( {troubleshooting_link} )\ub97c \ucc38\uc870\ud558\uc138\uc694. {error}"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "animal": {
+                "name": "\ub3d9\ubb3c"
+            },
+            "animal_lens_0": {
+                "name": "\ub3d9\ubb3c \ub80c\uc988 0"
+            },
+            "animal_lens_1": {
+                "name": "\ub3d9\ubb3c \ub80c\uc988 1"
+            },
+            "face": {
+                "name": "\uc5bc\uad74"
+            },
+            "face_lens_0": {
+                "name": "\uc5bc\uad74 \ub80c\uc988 0"
+            },
+            "face_lens_1": {
+                "name": "\uc5bc\uad74 \ub80c\uc988 1"
+            },
+            "motion_lens_0": {
+                "name": "\ubaa8\uc158 \ub80c\uc988 0"
+            },
+            "motion_lens_1": {
+                "name": "\ubaa8\uc158 \ub80c\uc988 1"
+            },
+            "person": {
+                "name": "\uad6c\uc131\uc6d0"
+            },
+            "person_lens_0": {
+                "name": "\uc0ac\ub78c \ub80c\uc988 0"
+            },
+            "person_lens_1": {
+                "name": "\uc0ac\ub78c \ub80c\uc988 1"
+            },
+            "pet": {
+                "name": "\uc560\uc644\ub3d9\ubb3c"
+            },
+            "pet_lens_0": {
+                "name": "\uc560\uc644\ub3d9\ubb3c \ub80c\uc988 0"
+            },
+            "pet_lens_1": {
+                "name": "\uc560\uc644\ub3d9\ubb3c \ub80c\uc988 1"
+            },
+            "vehicle": {
+                "name": "\ucc28\ub7c9"
+            },
+            "vehicle_lens_0": {
+                "name": "\ucc28\ub7c9 \ub80c\uc988 0"
+            },
+            "vehicle_lens_1": {
+                "name": "\ucc28\ub7c9 \ub80c\uc988 1"
+            },
+            "visitor": {
+                "name": "\ubc29\ubb38\uc790"
+            },
+            "visitor_lens_0": {
+                "name": "\ubc29\ubb38\uc790 \ub80c\uc988 0"
+            },
+            "visitor_lens_1": {
+                "name": "\ubc29\ubb38\uc790 \ub80c\uc988 1"
+            }
+        },
+        "button": {
+            "guard_go_to": {
+                "name": "\uac00\ub4dc \uc774\ub3d9"
+            },
+            "guard_set": {
+                "name": "\uac00\ub4dc \uc124\uc815 \ud604\uc7ac \uc704\uce58"
+            },
+            "ptz_calibrate": {
+                "name": "PTZ \ubcf4\uc815"
+            },
+            "ptz_down": {
+                "name": "PTZ \uc544\ub798\ucabd"
+            },
+            "ptz_left": {
+                "name": "PTZ \uc67c\ucabd"
+            },
+            "ptz_right": {
+                "name": "PTZ \uc624\ub978\ucabd"
+            },
+            "ptz_stop": {
+                "name": "PTZ \uc815\uc9c0"
+            },
+            "ptz_up": {
+                "name": "PTZ \uc704\ucabd"
+            },
+            "ptz_zoom_in": {
+                "name": "PTZ \ud655\ub300"
+            },
+            "ptz_zoom_out": {
+                "name": "PTZ \ucd95\uc18c"
+            }
+        },
+        "camera": {
+            "autotrack_snapshots_main": {
+                "name": "Autotrack \uc2a4\ub0c5\uc0f7 \uc120\uba85\ud568"
+            },
+            "autotrack_snapshots_sub": {
+                "name": "Autotrack \uc2a4\ub0c5\uc0f7 \uc720\uc5f0\ud568"
+            },
+            "autotrack_sub": {
+                "name": "Autotrack \uc720\uc5f0\ud568"
+            },
+            "ext": {
+                "name": "\uade0\ud615 \uc7a1\ud798"
+            },
+            "ext_lens_0": {
+                "name": "\ubc38\ub7f0\uc2a4\ub4dc \ub80c\uc988 0"
+            },
+            "ext_lens_1": {
+                "name": "\ubc38\ub7f0\uc2a4\ub4dc \ub80c\uc988 1"
+            },
+            "main": {
+                "name": "\uc120\uba85\ud568"
+            },
+            "main_lens_0": {
+                "name": "\ud074\ub9ac\uc5b4 \ub80c\uc988 0"
+            },
+            "main_lens_1": {
+                "name": "\ud074\ub9ac\uc5b4 \ub80c\uc988 1"
+            },
+            "snapshots_main": {
+                "name": "\uc2a4\ub0c5\uc0f7 \uc120\uba85\ud568"
+            },
+            "snapshots_main_lens_0": {
+                "name": "\uc2a4\ub0c5\uc0f7 \ud074\ub9ac\uc5b4 \ub80c\uc988 0"
+            },
+            "snapshots_main_lens_1": {
+                "name": "\uc2a4\ub0c5\uc0f7 \ud074\ub9ac\uc5b4 \ub80c\uc988 1"
+            },
+            "snapshots_sub": {
+                "name": "\uc2a4\ub0c5\uc0f7 \uc720\uc5f0\ud568"
+            },
+            "snapshots_sub_lens_0": {
+                "name": "\uc2a4\ub0c5\uc0f7 \ud50c\ub8e8\uc5b8\ud2b8 \ub80c\uc988 0"
+            },
+            "snapshots_sub_lens_1": {
+                "name": "\uc2a4\ub0c5\uc0f7 \ud50c\ub8e8\uc5b8\ud2b8 \ub80c\uc988 1"
+            },
+            "sub": {
+                "name": "\ud50c\ub8e8\uc5b8\ud2b8"
+            },
+            "sub_lens_0": {
+                "name": "\ud50c\ub8e8\uc5b8\ud2b8 \ub80c\uc988 0"
+            },
+            "sub_lens_1": {
+                "name": "\ud50c\ub8e8\uc5b8\ud2b8 \ub80c\uc988 1"
+            }
+        },
+        "light": {
+            "floodlight": {
+                "name": "\ud22c\uad11 \uc870\uba85"
+            },
+            "ir_lights": {
+                "name": "\uc57c\uac04 \ubaa8\ub4dc\uc758 \uc801\uc678\uc120 \ud45c\uc2dc\ub4f1"
+            },
+            "status_led": {
+                "name": "\uc0c1\ud0dc LED"
+            }
+        },
+        "number": {
+            "ai_animal_delay": {
+                "name": "AI \ub3d9\ubb3c \uc9c0\uc5f0"
+            },
+            "ai_animal_sensititvity": {
+                "name": "AI \ub3d9\ubb3c \uac10\ub3c4"
+            },
+            "ai_face_delay": {
+                "name": "AI \uc5bc\uad74 \uc9c0\uc5f0"
+            },
+            "ai_face_sensititvity": {
+                "name": "AI \uc5bc\uad74 \ubbfc\uac10\ub3c4"
+            },
+            "ai_person_delay": {
+                "name": "AI \uc0ac\ub78c \uc9c0\uc5f0"
+            },
+            "ai_person_sensititvity": {
+                "name": "AI \uc0ac\ub78c \uac10\ub3c4"
+            },
+            "ai_pet_delay": {
+                "name": "AI \uc560\uc644\ub3d9\ubb3c \uc9c0\uc5f0"
+            },
+            "ai_pet_sensititvity": {
+                "name": "AI \uc560\uc644\ub3d9\ubb3c \ubbfc\uac10\ub3c4"
+            },
+            "ai_vehicle_delay": {
+                "name": "AI \ucc28\ub7c9 \uc9c0\uc5f0"
+            },
+            "ai_vehicle_sensititvity": {
+                "name": "AI \ucc28\ub7c9 \ubbfc\uac10\ub3c4"
+            },
+            "auto_quick_reply_time": {
+                "name": "\uc790\ub3d9 \ube60\ub978 \uc751\ub2f5 \uc2dc\uac04"
+            },
+            "auto_track_disappear_time": {
+                "name": "\uc790\ub3d9 \ud2b8\ub799\uc774 \uc0ac\ub77c\uc9c0\ub294 \uc2dc\uac04"
+            },
+            "auto_track_limit_left": {
+                "name": "\uc790\ub3d9 \ud2b8\ub799 \uc67c\ucabd \uc81c\ud55c"
+            },
+            "auto_track_limit_right": {
+                "name": "\uc790\ub3d9 \ud2b8\ub799 \uc624\ub978\ucabd \uc81c\ud55c"
+            },
+            "auto_track_stop_time": {
+                "name": "\uc790\ub3d9 \ud2b8\ub799 \uc815\uc9c0 \uc2dc\uac04"
+            },
+            "day_night_switch_threshold": {
+                "name": "\uc8fc\uc57c\uac04 \uc804\ud658 \uc784\uacc4\uac12"
+            },
+            "floodlight_brightness": {
+                "name": "\ud22c\uad11 \uc870\uba85 \ubc1d\uae30 \ucf1c\uae30"
+            },
+            "focus": {
+                "name": "\ucd08\uc810"
+            },
+            "guard_return_time": {
+                "name": "\uac00\ub4dc \ubcf5\uadc0 \uc2dc\uac04"
+            },
+            "motion_sensitivity": {
+                "name": "\ubaa8\uc158 \uac10\ub3c4"
+            },
+            "volume": {
+                "name": "\uc74c\ub7c9"
+            },
+            "zoom": {
+                "name": "\uc90c"
+            }
+        },
+        "select": {
+            "auto_quick_reply_message": {
+                "name": "\uc790\ub3d9 \ube60\ub978 \ub2f5\uc7a5 \uba54\uc2dc\uc9c0",
+                "state": {
+                    "off": "\uaebc\uc9d0"
+                }
+            },
+            "auto_track_method": {
+                "name": "\uc790\ub3d9 \ucd94\uc801 \ubc29\ubc95",
+                "state": {
+                    "digital": "\ub514\uc9c0\ud138",
+                    "digitalfirst": "\ub514\uc9c0\ud138 \uc6b0\uc120",
+                    "pantiltfirst": "\ud32c/\ud2f8\ud2b8 \uba3c\uc800"
+                }
+            },
+            "day_night_mode": {
+                "name": "\uc8fc\uac04 \uc57c\uac04 \ubaa8\ub4dc",
+                "state": {
+                    "auto": "\uc790\ub3d9",
+                    "blackwhite": "\ube14\ub799 & \ud654\uc774\ud2b8",
+                    "color": "\uceec\ub7ec"
+                }
+            },
+            "doorbell_led": {
+                "name": "\ucd08\uc778\uc885 LED",
+                "state": {
+                    "alwayson": "\ud56d\uc0c1 \ucf1c\uc9d0",
+                    "alwaysonatnight": "\uc790\ub3d9 & \ubc24\uc5d0 \ud56d\uc0c1 \ucf1c\uc9d0",
+                    "auto": "\uc790\ub3d9"
+                }
+            },
+            "floodlight_mode": {
+                "name": "\ud22c\uad11 \uc870\uba85 \ubaa8\ub4dc",
+                "state": {
+                    "adaptive": "\uc801\uc751\ud615",
+                    "auto": "\uc790\ub3d9",
+                    "autoadaptive": "\uc790\ub3d9 \uc801\uc751\ud615",
+                    "off": "\uaebc\uc9d0",
+                    "onatnight": "\ubc24\uc5d0 \ucf1c\uc9d0",
+                    "schedule": "\uc77c\uc815"
+                }
+            },
+            "ptz_preset": {
+                "name": "PTZ \ud504\ub9ac\uc14b"
+            },
+            "status_led": {
+                "name": "\uc0c1\ud0dc LED",
+                "state": {
+                    "alwaysonatnight": "\uc790\ub3d9 & \ubc24\uc5d0 \ud56d\uc0c1 \ucf1c\uc9d0",
+                    "auto": "\uc790\ub3d9",
+                    "stayoff": "\uba38\ubb34\ub974\uae30"
+                }
+            }
+        },
+        "sensor": {
+            "battery_percent": {
+                "name": "\ubc30\ud130\ub9ac \uc794\ub7c9"
+            },
+            "battery_state": {
+                "name": "\ubc30\ud130\ub9ac \uc0c1\ud0dc",
+                "state": {
+                    "chargecomplete": "\ucda9\uc804 \uc644\ub8cc",
+                    "charging": "\ucda9\uc804 \uc911",
+                    "discharging": "\ubc29\uc804"
+                }
+            },
+            "battery_temperature": {
+                "name": "\ubc30\ud130\ub9ac \uc628\ub3c4"
+            },
+            "event_connection": {
+                "name": "\uc774\ubca4\ud2b8 \uc5f0\uacb0",
+                "state": {
+                    "fast_poll": "\ube60\ub978 \ud3f4\ub9c1",
+                    "onvif_long_poll": "ONVIF \uae34 \ud3f4\ub9c1",
+                    "onvif_push": "ONVIF \ud478\uc2dc"
+                }
+            },
+            "ptz_pan_position": {
+                "name": "PTZ \ud32c \uc704\uce58"
+            },
+            "wifi_signal": {
+                "name": "Wi-Fi \uc2e0\ud638"
+            }
+        },
+        "siren": {
+            "siren": {
+                "name": "\uc0ac\uc774\ub80c"
+            }
+        },
+        "switch": {
+            "auto_focus": {
+                "name": "\uc790\ub3d9 \ucd08\uc810"
+            },
+            "auto_tracking": {
+                "name": "\uc790\ub3d9 \ucd94\uc801"
+            },
+            "buzzer": {
+                "name": "\uc774\ubca4\ud2b8 \ubd80\uc800"
+            },
+            "doorbell_button_sound": {
+                "name": "\ucd08\uc778\uc885 \ubc84\ud2bc \uc18c\ub9ac"
+            },
+            "email": {
+                "name": "\uc774\ubca4\ud2b8 \uc774\uba54\uc77c"
+            },
+            "ftp_upload": {
+                "name": "FTP \uc5c5\ub85c\ub4dc"
+            },
+            "gaurd_return": {
+                "name": "\uac00\ub4dc \ubcf5\uadc0"
+            },
+            "manual_record": {
+                "name": "\uc218\ub3d9 \uae30\ub85d"
+            },
+            "push_notifications": {
+                "name": "\ud478\uc2dc \uc54c\ub9bc"
+            },
+            "record": {
+                "name": "\uae30\ub85d"
+            },
+            "record_audio": {
+                "name": "\uc624\ub514\uc624 \ub179\uc74c"
+            },
+            "siren_on_event": {
+                "name": "\uc774\ubca4\ud2b8 \uc911 \uc0ac\uc774\ub80c"
+            }
+        }
+    },
+    "issues": {
+        "enable_port": {
+            "description": "{name}\uc5d0\uc11c {ports}port(s)\ub97c \uc790\ub3d9\uc73c\ub85c \uc0ac\uc6a9\ud558\ub3c4\ub85d \uc124\uc815\ud558\uc9c0 \ubabb\ud588\uc2b5\ub2c8\ub2e4. [Reolink \ud074\ub77c\uc774\uc5b8\ud2b8]({info_link})\ub97c \uc0ac\uc6a9\ud558\uc5ec \uc218\ub3d9\uc73c\ub85c ON\uc73c\ub85c \uc124\uc815\ud569\ub2c8\ub2e4.",
+            "title": "Reolink \ud3ec\ud2b8\uac00 \ud65c\uc131\ud654\ub418\uc9c0 \uc54a\uc74c"
+        },
+        "firmware_update": {
+            "description": "\ubaa8\ub378\uc774 \"{model}\"\uc774\uace0 \ud558\ub4dc\uc6e8\uc5b4 \ubc84\uc804\uc774 \"{hw_version}\"\uc778 \"{name}\"\uc740(\ub294) \uc774\uc804 \ud38c\uc6e8\uc5b4 \ubc84\uc804 \"{current_firmware}\"\uc744(\ub97c) \uc2e4\ud589 \uc911\uc774\uba70, Reolink \ud1b5\ud569\uad6c\uc131\uc694\uc18c\uc758 \uc801\uc808\ud55c \uc791\ub3d9\uc744 \uc704\ud574\uc11c\ub294 \ucd5c\uc18c\ud55c \ud38c\uc6e8\uc5b4 \ubc84\uc804 \"{required_firmware}\" \ud544\uc694\ud569\ub2c8\ub2e4. \ucd5c\uc2e0 \ud38c\uc6e8\uc5b4\ub294 [Reolink \ub2e4\uc6b4\ub85c\ub4dc \uc13c\ud130]({download_link})\uc5d0\uc11c \ub2e4\uc6b4\ub85c\ub4dc\ud560 \uc218 \uc788\uc2b5\ub2c8\ub2e4.",
+            "title": "Reolink \ud38c\uc6e8\uc5b4 \uc5c5\ub370\uc774\ud2b8 \ud544\uc694"
+        },
+        "https_webhook": {
+            "description": "Reolink \uc81c\ud488\uc740 \ubaa8\uc158 \uc774\ubca4\ud2b8\ub97c HTTPS \uc8fc\uc18c(SSL)\ub85c \ud478\uc2dc\ud560 \uc218 \uc5c6\uc2b5\ub2c8\ub2e4. [\ub124\ud2b8\uc6cc\ud06c \uc124\uc815]( {network_link} )\uc758 \"Home Assistant URL\"\uc5d0\uc11c (\ub85c\uceec) HTTP \uc8fc\uc18c\ub97c \uad6c\uc131\ud558\uc138\uc694. \ud604\uc7ac(\ub85c\uceec) \uc8fc\uc18c\ub294 {base_url} \uc785\ub2c8\ub2e4. \uc720\ud6a8\ud55c \uc8fc\uc18c\ub294 \uc608\ub97c \ub4e4\uc5b4  http://192.168.1.10:8123 \uc77c \uc218 \uc788\uc2b5\ub2c8\ub2e4. \uc5ec\uae30\uc11c 192.168.1.10 \uc740 Home Assistant \uc7a5\uce58\uc758 IP\uc785\ub2c8\ub2e4.",
+            "title": "Reolink \uc6f9\ud6c5 URL\uc740 HTTPS(SSL)\ub97c \uc0ac\uc6a9\ud569\ub2c8\ub2e4."
+        },
+        "ssl": {
+            "description": "[http]( {ssl_link} )\uc758 [configuration.yaml\uc5d0 \uad6c\uc131\ub41c \uae00\ub85c\ubc8c SSL \uc778\uc99d\uc11c] \ub85c\uceec HTTP \uc8fc\uc18c ` {base_url} `\uc740 [\ub124\ud2b8\uc6cc\ud06c \uc124\uc815]( {network_link} )\uc758 \"Home Assistant URL\"\uc5d0 \uad6c\uc131\ub418\uc5b4 \uc788\uc2b5\ub2c8\ub2e4. \ub530\ub77c\uc11c Reolink \uc7a5\uce58\ub294 Home Assistant\uc5d0 \ub3c4\ub2ec\ud558\uc5ec \ubaa8\uc158/AI \uc774\ubca4\ud2b8\ub97c \ud478\uc2dc\ud560 \uc218 \uc5c6\uc2b5\ub2c8\ub2e4. \uc608\ub97c \ub4e4\uc5b4 \uc804\uc5ed\uc801\uc73c\ub85c \uc801\uc6a9\ub418\ub294 SSL \uc778\uc99d\uc11c \ub300\uc2e0 [NGINX \ucd94\uac00 \uae30\ub2a5]( {nginx_link} )\uc744 \uc0ac\uc6a9\ud558\uc5ec \ub85c\uceec HTTP \uc8fc\uc18c\uac00 SSL \uc778\uc99d\uc11c\uc5d0 \ud3ec\ud568\ub418\uc9c0 \uc54a\ub294\uc9c0 \ud655\uc778\ud558\uc138\uc694.",
+            "title": "\uae00\ub85c\ubc8c SSL \uc778\uc99d\uc11c\uc640 \ud638\ud658\ub418\uc9c0 \uc54a\ub294 Reolink"
+        },
+        "webhook_url": {
+            "description": "{name} \uc73c\ub85c\ubd80\ud130 \ucd08\uae30 ONVIF \uc0c1\ud0dc\ub97c \uc218\uc2e0\ud558\uc9c0 \ubabb\ud588\uc2b5\ub2c8\ub2e4. \ub300\ubd80\ubd84 Reolink \uce74\uba54\ub77c\ub294 \ud604\uc7ac(\ub85c\uceec) \ud648\uc5b4\uc2dc\uc2a4\ud134\ud2b8 URL ` {base_url} `\uc5d0 \ub3c4\ub2ec\ud560 \uc218 \uc5c6\uc2b5\ub2c8\ub2e4. [\ub124\ud2b8\uc6cc\ud06c \uc124\uc815]( {network_link} )\uc5d0\uc11c \"\ud648 \uc5b4\uc2dc\uc2a4\ud134\ud2b8 URL\" \uc544\ub798\uc5d0 (\ub85c\uceec) HTTP \uc8fc\uc18c\ub97c \uad6c\uc131\ud558\uc2ed\uc2dc\uc624. \ud648\uc5b4\uc2dc\uc2a4\ud134\ud2b8\uc5d0\uac8c. \uc608\ub97c \ub4e4\uc5b4 `http://192.168.1.10:8123` \uc5ec\uae30\uc11c `192.168.1.10`\uc740 \ud648\uc5b4\uc2dc\uc2a4\ud134\ud2b8 \uc7a5\uce58\uc758 IP\uc785\ub2c8\ub2e4. \ub610\ud55c Reolink \uce74\uba54\ub77c\uac00 \ud574\ub2f9 URL\uc5d0 \ub3c4\ub2ec\ud560 \uc218 \uc788\ub294\uc9c0 \ud655\uc778\ud558\uc138\uc694. \uccab \ubc88\uc9f8 ONVIF \ud478\uc2dc\uac00 \uc218\uc2e0\ub420 \ub54c\uae4c\uc9c0 \ube60\ub978 \ub3d9\uc791/AI \uc0c1\ud0dc \ud3f4\ub9c1\uc744 \uc0ac\uc6a9\ud569\ub2c8\ub2e4.",
+            "title": "Reolink \uc6f9\ud6c5 URL\uc5d0 \uc5f0\uacb0\ud560 \uc218 \uc5c6\uc74c"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "protocol": "\ud504\ub85c\ud1a0\ucf5c"
+                },
+                "data_description": {
+                    "protocol": "\uce74\uba54\ub77c \uc5d4\ud130\ud2f0\uc5d0 \uc0ac\uc6a9\ud560 \uc2a4\ud2b8\ub9ac\ubc0d \ud504\ub85c\ud1a0\ucf5c\uc785\ub2c8\ub2e4. RTSP\ub294 4K \uc2a4\ud2b8\ub9bc(h265 \uc778\ucf54\ub529)\uc744 \uc9c0\uc6d0\ud558\uc9c0\ub9cc RTMP \ubc0f FLV\ub294 \uc9c0\uc6d0\ud558\uc9c0 \uc54a\uc2b5\ub2c8\ub2e4. FLV\ub294 \uce74\uba54\ub77c\uc5d0 \ub300\ud55c \uc694\uad6c\uac00 \uac00\uc7a5 \uc801\uc2b5\ub2c8\ub2e4."
+                }
+            }
+        }
+    },
+    "services": {
+        "ptz_move": {
+            "description": "\ud2b9\uc815 \uc18d\ub3c4\ub85c \uce74\uba54\ub77c\ub97c \uc6c0\uc9c1\uc785\ub2c8\ub2e4.",
+            "fields": {
+                "speed": {
+                    "description": "PTZ \uc774\ub3d9 \uc18d\ub3c4",
+                    "name": "\uc18d\ub3c4"
+                }
+            },
+            "name": "PTZ \uc774\ub3d9"
+        }
+    }
+}

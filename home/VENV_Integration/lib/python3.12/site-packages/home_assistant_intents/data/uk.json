@@ -1,0 +1,1156 @@
+{
+  "language": "uk",
+  "intents": {
+    "HassTurnOff": {
+      "data": [
+        {
+          "sentences": [
+            "<вимкни> (<area> <name>|<name> [<area>])"
+          ],
+          "excludes_context": {
+            "domain": [
+              "binary_sensor",
+              "cover",
+              "lock",
+              "scene",
+              "script",
+              "sensor",
+              "valve"
+            ]
+          }
+        },
+        {
+          "sentences": [
+            "<вимкни> [все] світло <area>",
+            "<вимкни> <area> [все] світло"
+          ],
+          "slots": {
+            "domain": "light"
+          },
+          "response": "lights_area"
+        },
+        {
+          "sentences": [
+            "<вимкни> [все] світло <floor>",
+            "<вимкни> <floor> [все] світло"
+          ],
+          "response": "lights_floor",
+          "slots": {
+            "domain": "light"
+          }
+        },
+        {
+          "sentences": [
+            "<закрий> [двері] [у|в] гараж[а|у|і]",
+            "<закрий> гаражні двері"
+          ],
+          "slots": {
+            "device_class": "garage",
+            "domain": "cover"
+          },
+          "response": "cover_device_class"
+        },
+        {
+          "sentences": [
+            "<закрий> [всі] (вікн(о|а) | жалюзі | штор(у|и)) <area>",
+            "<закрий> <area> [всі] (вікн(о|а) | жалюзі | штор(у|и))"
+          ],
+          "slots": {
+            "device_class": [
+              "blind",
+              "curtain",
+              "shutter",
+              "window"
+            ],
+            "domain": "cover"
+          },
+          "response": "cover_area"
+        },
+        {
+          "sentences": [
+            "<вимкни> [всі] вентилятор[и] <area>",
+            "<вимкни> <area> [всі] вентилятор[и]",
+            "<вимкни> вентиляцію <area>",
+            "<вимкни> <area> вентиляцію"
+          ],
+          "slots": {
+            "domain": "fan",
+            "name": "all"
+          },
+          "response": "fans_area"
+        },
+        {
+          "sentences": [
+            "<закрий> <name>"
+          ],
+          "requires_context": {
+            "domain": "valve"
+          },
+          "slots": {
+            "domain": "valve"
+          },
+          "response": "valve"
+        }
+      ]
+    },
+    "HassGetWeather": {
+      "data": [
+        {
+          "sentences": [
+            "[яка|що з] погод(а|ою)"
+          ]
+        },
+        {
+          "sentences": [
+            "[яка|що з] погод(а|ою) [в|у|на] <name>"
+          ],
+          "requires_context": {
+            "domain": "weather"
+          }
+        }
+      ]
+    },
+    "HassTurnOn": {
+      "data": [
+        {
+          "sentences": [
+            "<ввімкни> [все] світло <area>",
+            "<ввімкни> <area> [все] світло"
+          ],
+          "slots": {
+            "domain": "light"
+          },
+          "response": "lights_area"
+        },
+        {
+          "sentences": [
+            "<ввімкни> [все] світло <floor>",
+            "<ввімкни> <floor> [все] світло"
+          ],
+          "response": "lights_floor",
+          "slots": {
+            "domain": "light"
+          }
+        },
+        {
+          "sentences": [
+            "<ввімкни> [всі] вентилятор[и] <area>",
+            "<ввімкни> <area> [всі] вентилятор[и]",
+            "<ввімкни> вентиляцію <area>",
+            "<ввімкни> <area> вентиляцію"
+          ],
+          "slots": {
+            "domain": "fan",
+            "name": "all"
+          },
+          "response": "fans_area"
+        },
+        {
+          "sentences": [
+            "[запусти|почни|стартуй|активуй] <name> [скрипт]",
+            "[запусти|почни|стартуй|активуй] скрипт <name> "
+          ],
+          "requires_context": {
+            "domain": "script"
+          },
+          "slots": {
+            "domain": "script"
+          },
+          "response": "script"
+        },
+        {
+          "sentences": [
+            "<відкрий> <name>"
+          ],
+          "requires_context": {
+            "domain": "valve"
+          },
+          "slots": {
+            "domain": "valve"
+          },
+          "response": "valve"
+        },
+        {
+          "sentences": [
+            "<ввімкни> (<area> <name>|<name> [<area>])"
+          ],
+          "excludes_context": {
+            "domain": [
+              "binary_sensor",
+              "cover",
+              "lock",
+              "scene",
+              "script",
+              "sensor",
+              "valve"
+            ]
+          }
+        },
+        {
+          "sentences": [
+            "<відкрий> [двері] [у|в] гараж[а|у|і]",
+            "<відкрий> гаражні двері"
+          ],
+          "slots": {
+            "device_class": "garage",
+            "domain": "cover"
+          },
+          "response": "cover_device_class"
+        },
+        {
+          "sentences": [
+            "<відкрий> [всі] (вікн(о|а) | жалюзі | штор(у|и)) <area>",
+            "<відкрий> <area> [всі] (вікн(о|а) | жалюзі | штор(у|и))"
+          ],
+          "slots": {
+            "device_class": [
+              "blind",
+              "curtain",
+              "shutter",
+              "window"
+            ],
+            "domain": "cover"
+          },
+          "response": "cover_area"
+        }
+      ]
+    },
+    "HassMediaUnpause": {
+      "data": [
+        {
+          "sentences": [
+            "(зніми з паузи|продовж[и|уй]) <name>"
+          ],
+          "requires_context": {
+            "domain": "media_player"
+          }
+        }
+      ]
+    },
+    "HassShoppingListAddItem": {
+      "data": [
+        {
+          "sentences": [
+            "додай <item> (до|в) <my_list>",
+            "додай <item> в покупки"
+          ],
+          "response": "item_added",
+          "expansion_rules": {
+            "my_list": "[мій] (списку|список) покупок",
+            "item": "{shopping_list_item:item}"
+          }
+        }
+      ]
+    },
+    "HassNevermind": {
+      "data": [
+        {
+          "sentences": [
+            "не зважай",
+            "не важливо",
+            "не звертай уваги",
+            "скасу(й|вати)"
+          ]
+        }
+      ]
+    },
+    "HassSetPosition": {
+      "data": [
+        {
+          "sentences": [
+            "<зміни> [позицію] <name> [на] <position>"
+          ],
+          "requires_context": {
+            "domain": [
+              "cover",
+              "valve"
+            ]
+          }
+        }
+      ]
+    },
+    "HassLightSet": {
+      "data": [
+        {
+          "sentences": [
+            "<зміни> [яскравість] <name> на <brightness>",
+            "<зміни> <name> на <brightness> [яскравості]"
+          ],
+          "response": "brightness"
+        },
+        {
+          "sentences": [
+            "<зміни> яскравість [світла] <area> [на] <brightness>",
+            "<зміни> світло <area> на <brightness> [яскравості]"
+          ],
+          "slots": {
+            "name": "all"
+          },
+          "response": "brightness_area"
+        },
+        {
+          "sentences": [
+            "<зміни> колір <name> на {color}",
+            "<зміни> <name> [на] {color} [колір]",
+            "<зміни> [на] {color} колір <name>"
+          ],
+          "response": "color"
+        },
+        {
+          "sentences": [
+            "<зміни> [колір] світл(а|о) <area> на {color}"
+          ],
+          "slots": {
+            "name": "all"
+          },
+          "response": "color_area"
+        }
+      ]
+    },
+    "HassMediaNext": {
+      "data": [
+        {
+          "sentences": [
+            "наступн(а|ий) [пісня|трек] [на] <name>"
+          ],
+          "requires_context": {
+            "domain": "media_player"
+          }
+        }
+      ]
+    },
+    "HassMediaPause": {
+      "data": [
+        {
+          "sentences": [
+            "(постав на паузу|[при]зупини) <name>"
+          ],
+          "requires_context": {
+            "domain": "media_player"
+          }
+        }
+      ]
+    },
+    "HassClimateGetTemperature": {
+      "data": [
+        {
+          "sentences": [
+            "Яка температура [<area>]",
+            "Як (холодно | тепло | жарко) [<area>]",
+            "Скільки градусів [<area>]"
+          ]
+        }
+      ]
+    },
+    "HassVacuumReturnToBase": {
+      "data": [
+        {
+          "sentences": [
+            "[по]вер(ни|тай) <name> [на базу|додому]"
+          ],
+          "requires_context": {
+            "domain": "vacuum"
+          }
+        }
+      ]
+    },
+    "HassGetState": {
+      "data": [
+        {
+          "sentences": [
+            "що з <name> [<area>]",
+            "який стан <name> [<area>]",
+            "в якому стані <name> [<area>]"
+          ],
+          "response": "one"
+        },
+        {
+          "sentences": [
+            "чи {on_off_states:state} <name> [<area>]"
+          ],
+          "response": "one_yesno",
+          "excludes_context": {
+            "domain": [
+              "cover"
+            ]
+          }
+        },
+        {
+          "sentences": [
+            "чи є {on_off_states:state} {on_off_domains:domain} [<area>]"
+          ],
+          "response": "any"
+        },
+        {
+          "sentences": [
+            "чи вс[і|е] {on_off_domains:domain} {on_off_states:state} [<area>]"
+          ],
+          "response": "all"
+        },
+        {
+          "sentences": [
+            "(які|котрі) {on_off_domains:domain} {on_off_states:state} [<area>]"
+          ],
+          "response": "which"
+        },
+        {
+          "sentences": [
+            "(скільки|яка кількість) {on_off_domains:domain} [<area>] {on_off_states:state}",
+            "(скільки [є]|яка кількість) {on_off_states:state} {on_off_domains:domain} [<area>]"
+          ],
+          "response": "how_many"
+        },
+        {
+          "sentences": [
+            "чи {cover_states:state} <name> [<area>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "cover"
+          },
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "чи є {cover_states:state} {cover_classes:device_class} [<area>]"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "чи всі {cover_classes:device_class} {cover_states:state} [<area>]"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "(які|котрі) {cover_classes:device_class} {cover_states:state} [<area>]"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "(скільки|яка кількість) {cover_classes:device_class} {cover_states:state} [<area>]",
+            "(скільки [є]|яка кількість) {cover_states:state} {cover_classes:device_class} [<area>]"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "cover"
+          }
+        }
+      ]
+    },
+    "HassVacuumStart": {
+      "data": [
+        {
+          "sentences": [
+            "(запусти|активуй) <name>"
+          ],
+          "requires_context": {
+            "domain": "vacuum"
+          }
+        }
+      ]
+    },
+    "HassListAddItem": {
+      "data": [
+        {
+          "sentences": [
+            "додай <item> (в|до)<my_list>",
+            "добав <item> (в|до)<my_list>"
+          ],
+          "response": "item_added",
+          "requires_context": {
+            "domain": "todo"
+          },
+          "expansion_rules": {
+            "my_list": "[ мій| мої| мого][ список| списку] {name}",
+            "item": "{shopping_list_item:item}"
+          }
+        }
+      ]
+    },
+    "HassSetVolume": {
+      "data": [
+        {
+          "sentences": [
+            "<зміни> [гучність] <name> на <volume>"
+          ],
+          "requires_context": {
+            "domain": "media_player"
+          }
+        }
+      ]
+    }
+  },
+  "responses": {
+    "errors": {
+      "no_intent": "Вибачте, я цього не розумію",
+      "handle_error": "Вибачте, під час виконання запиту виникла неочікувана помилка",
+      "no_area": "Вибачте, мені не відоме приміщення з назвою {{ area }}",
+      "no_floor": "Вибачте, мені не відомий поверх з назвою {{ area }}",
+      "no_domain": "Вибачте, мені не відомо жодного {{ domain }}",
+      "no_domain_in_area": "Вибачте, мені не відомо жодного {{ domain }} в приміщенні {{ area }}",
+      "no_domain_in_floor": "Вибачте, мені не відомо жодного {{ domain }} на {{ floor }} поверсі",
+      "no_device_class": "Вибачте, мені не відомо жодного {{ device_class }}",
+      "no_device_class_in_area": "Вибачте, мені не відомо жодного {{ device_class }} в приміщенні {{ area }}",
+      "no_device_class_in_floor": "Вибачте, мені не відомо жодного {{ device_class }} на {{ floor }} поверсі",
+      "no_entity": "Вибачте, мені не відомо пристрою з назвою {{ entity }}",
+      "no_entity_in_area": "Вибачте, мені не відомо пристрою з назвою {{ entity }} в приміщенні {{ area }}",
+      "no_entity_in_floor": "Вибачте, мені не відомо пристрою з назвою {{ entity }} на {{ floor }} поверсі",
+      "no_entity_exposed": "Вибачте, {{ entity }} не є доступним",
+      "no_entity_in_area_exposed": "Вибачте, {{ entity }} в приміщенні {{ area }} не є доступним",
+      "no_entity_in_floor_exposed": "Вибачте, {{ entity }} на {{ floor }} поверсі не є доступним",
+      "no_domain_exposed": "Вибачте, немає жодного доступного {{ domain }}",
+      "no_domain_in_area_exposed": "Вибачте, немає жодного доступного {{ domain }} в приміщенні {{ area }}",
+      "no_domain_in_floor_exposed": "Вибачте, немає жодного доступного {{ domain }} на {{ floor }} поверсі",
+      "no_device_class_exposed": "Вибачте, немає жодного доступного {{ device_class }}",
+      "no_device_class_in_area_exposed": "Вибачте, немає жодного доступного {{ device_class }} в приміщенні {{ area }}",
+      "no_device_class_in_floor_exposed": "Вибачте, немає жодного доступного {{ device_class }} на {{ floor }} поверсі",
+      "duplicate_entities": "Вибачте, є декілька пристроїв з назвою {{ entity }}",
+      "duplicate_entities_in_area": "Вибачте, є декілька пристроїв з назвою {{ entity }} в приміщенні {{ area }}",
+      "duplicate_entities_in_floor": "Вибачте, є декілька пристроїв з назвою {{ entity }} на {{ floor }} поверсі"
+    },
+    "intents": {
+      "HassGetState": {
+        "one": "{{ slots.name | capitalize }} {{ state.state_with_unit }}\n",
+        "one_yesno": "{% if query.matched %}\n  Так\n{% else %}\n  Ні, {{ state.state_with_unit }}\n{% endif %}\n",
+        "any": "{% if query.matched %}\n  {% set match = query.matched | map(attribute=\"name\") | sort | list %}\n  {% if match | length > 4 %}\n    Так, {{ match[:3] | join(\", \") }} і ще {{ (match | length - 3) }}\n  {%- else -%}\n    Так,\n    {% for name in match -%}\n      {% if not loop.first and not loop.last %}, {% elif loop.last and not loop.first %} and {% endif -%}\n      {{ name }}\n    {%- endfor -%}\n  {% endif %}\n{% else %}\n  Ні\n{% endif %}\n",
+        "all": "{% if not query.unmatched: %}\n  Так\n{% else %}\n  {% set no_match = query.unmatched | map(attribute=\"name\") | sort | list %}\n  {% if no_match | length > 4 %}\n    Ні, {{ no_match[:3] | join(\", \") }} і ще {{ (no_match | length - 3) }} ні\n  {%- else -%}\n    Ні,\n    {% for name in no_match -%}\n      {% if not loop.first and not loop.last %}, {% elif loop.last and not loop.first %} and {% endif -%}\n      {{ name }}\n    {%- endfor %} ні\n  {% endif %}\n{% endif %}\n",
+        "which": "{% if not query.matched %}\n  таких немає\n{% else: %}\n  {% set match = query.matched | map(attribute=\"name\") | sort | list %}\n  {% if match | length > 4 %}\n    {{ match[:3] | join(\", \") }} і ще {{ (match | length - 3) }}\n  {% else %}\n    {%- for name in match -%}\n      {% if not loop.first and not loop.last %}, {% elif loop.last and not loop.first %} і {% endif -%}\n      {{ name }}\n    {%- endfor -%}\n  {% endif %}\n{% endif %}\n",
+        "how_many": "{{ query.matched | length }}\n"
+      },
+      "HassTurnOff": {
+        "default": "{{ slots.name }} вимкнено",
+        "lights_area": "Світло в {{ slots.area }} вимкнено",
+        "lights_floor": "Світло вимкнено",
+        "fans_area": "Вентилятори в {{ slots.area }} вимкнено",
+        "cover": "{{ slots.name }} закрито",
+        "cover_area": "{{ slots.area }} відкрито",
+        "cover_device_class": "{{ slots.device_class }} закрито",
+        "valve": "Закрито"
+      },
+      "HassShoppingListAddItem": {
+        "item_added": "{{ slots.item }} додано"
+      },
+      "HassTurnOn": {
+        "default": "{{ slots.name }} ввімкнено",
+        "lights_area": "Світло в {{ slots.area }} ввімкнено",
+        "lights_floor": "Світло ввімкнено",
+        "fans_area": "Вентилятори в {{ slots.area }} ввімкнено",
+        "cover": "{{ slots.name }} відкрито",
+        "cover_area": "{{ slots.area }} відкрито",
+        "cover_device_class": "{{ slots.device_class }} відкрито",
+        "script": "Розпочато",
+        "valve": "Відкрито"
+      },
+      "HassMediaPause": {
+        "default": "Пауза"
+      },
+      "HassListAddItem": {
+        "item_added": "{{ slots.item }} додано"
+      },
+      "HassGetWeather": {
+        "default": "{% set weather_condition = {\n  'clear': 'ясно',\n  'clear-night': 'ясно',\n  'cloudy': 'хмарно',\n  'exceptional': 'виняткові погодні умови',\n  'fog': 'туман',\n  'hail': 'град',\n  'lightning': 'блискавка',\n  'lightning-rainy': 'дощ з блискавкою',\n  'partlycloudy': 'хмарно з проясненням',\n  'pouring': 'злива',\n  'rainy': 'дощ',\n  'snowy': 'сніг',\n  'snowy-rainy': 'сніг з дощем',\n  'sunny': 'сонячно',\n  'windy': 'вітряно',\n  'windy-variant': 'хмарно і вітряно'\n} %} Температура повітря {{ state.attributes.get('temperature') }}{{ state.attributes.get('temperature_unit') }}, {{ weather_condition.get((state.state | string).lower(), \"\") }}\n"
+      },
+      "HassLightSet": {
+        "brightness": "Яскравість {{ slots.name }} змінено на {{ slots.brightness }}",
+        "brightness_area": "Яскравість світла в {{ slots.area }} змінено на {{ slots.brightness }}",
+        "color": "Колір {{ slots.name }} змінено на {{ slots.color }}",
+        "color_area": "Колір світла в {{ slots.area }} змінено на {{ slots.color }}"
+      },
+      "HassVacuumStart": {
+        "default": "{{ slots.name }} активовано"
+      },
+      "HassMediaUnpause": {
+        "default": "Відтворення"
+      },
+      "HassSetPosition": {
+        "default": "Позицію встановлено"
+      },
+      "HassMediaNext": {
+        "default": "Граю наступне"
+      },
+      "HassClimateGetTemperature": {
+        "default": "{{ state.state }} градусів"
+      },
+      "HassSetVolume": {
+        "default": "Гучність встановлено"
+      },
+      "HassVacuumReturnToBase": {
+        "default": "{{ slots.name }} повертається"
+      }
+    }
+  },
+  "lists": {
+    "color": {
+      "values": [
+        {
+          "in": "білий | біл(им|ою|ого)",
+          "out": "white"
+        },
+        {
+          "in": "чорний | чорн(им|ою|ого)",
+          "out": "black"
+        },
+        {
+          "in": "червоний | червон(им|ою|ого)",
+          "out": "red"
+        },
+        {
+          "in": "помаранчевий | помаранчев(им|ою|ого)",
+          "out": "orange"
+        },
+        {
+          "in": "жовтий | жовт(им|ою|ого)",
+          "out": "yellow"
+        },
+        {
+          "in": "зелений | зелен(им|ою|ого)",
+          "out": "green"
+        },
+        {
+          "in": "синій | син(ім|ьою|ього)",
+          "out": "blue"
+        },
+        {
+          "in": "фіолетовий | фіолетов(им|ою|ого)",
+          "out": "purple"
+        },
+        {
+          "in": "коричневий | коричнев(им|ою|ого)",
+          "out": "brown"
+        },
+        {
+          "in": "рожевий | рожев(им|ою|ого)",
+          "out": "pink"
+        },
+        {
+          "in": "бірюзовий | бірюзов(им|ою|ого)",
+          "out": "turquoise"
+        }
+      ]
+    },
+    "brightness": {
+      "range": {
+        "type": "percentage",
+        "from": 0,
+        "to": 100
+      }
+    },
+    "temperature": {
+      "range": {
+        "type": "temperature",
+        "from": 0,
+        "to": 100
+      }
+    },
+    "temperature_unit": {
+      "values": [
+        {
+          "in": "c | цельсію | за цельсієм",
+          "out": "celsius"
+        },
+        {
+          "in": "f | фаренгейту | за фаренгейтом",
+          "out": "fahrenheit"
+        }
+      ]
+    },
+    "brightness_level": {
+      "values": [
+        {
+          "in": "максим(альна|ий) | максимум | [як] найяскравіше | [дуже|над] яскрав(о|ий)",
+          "out": 100
+        },
+        {
+          "in": "три чверті",
+          "out": 75
+        },
+        {
+          "in": "середн(ій|я|ю) | (на|в|у) половин(а|у) | [у|в] півсили",
+          "out": 50
+        },
+        {
+          "in": "(на) чверть",
+          "out": 25
+        },
+        {
+          "in": "мінімум | мінімальний| тускл(ий|о) | найтускліший | приглуш(ений|но)",
+          "out": 1
+        }
+      ]
+    },
+    "on_off_states": {
+      "values": [
+        {
+          "in": "(в|у)вімкнен(ий|на|і|их|о) | (в|у)вімкнут(ий|а|і|их|о)",
+          "out": "on"
+        },
+        {
+          "in": "вимкнен(ий|на|і|их|о) | вимкнут(ий|а|і|их|о)",
+          "out": "off"
+        }
+      ]
+    },
+    "on_off_domains": {
+      "values": [
+        {
+          "in": "світло|світильник[и|ів]|ламп[и]",
+          "out": "light"
+        },
+        {
+          "in": "вентилятор[а|и|ів]",
+          "out": "fan"
+        },
+        {
+          "in": "вмикач[а|і|ів] | вимикач[а|і|ів]",
+          "out": "switch"
+        }
+      ]
+    },
+    "cover_states": {
+      "values": [
+        {
+          "in": "відкрит(ий|а|і|их|о) | піднят(ий|а|і|их|о)",
+          "out": "open"
+        },
+        {
+          "in": "закрит(ий|а|і|их|о) | опуще(ий|а|і|их|о)",
+          "out": "closed"
+        },
+        {
+          "in": "відкрива(є|ю)ться | підніма(є|ю)ться",
+          "out": "opening"
+        },
+        {
+          "in": "закрива(є|ю)ться | опуска(є|ю)ться",
+          "out": "closing"
+        }
+      ]
+    },
+    "cover_classes": {
+      "values": [
+        {
+          "in": "тент[и]",
+          "out": "awning"
+        },
+        {
+          "in": "жалюзі",
+          "out": "blind"
+        },
+        {
+          "in": "штор[а|и]",
+          "out": "curtain"
+        },
+        {
+          "in": "двері | дверей",
+          "out": "door"
+        },
+        {
+          "in": "двер[і|ей] [в] гараж[а|у|і]",
+          "out": "garage"
+        },
+        {
+          "in": "брам[а|и] | вор(о|і)т[а]",
+          "out": "gate"
+        },
+        {
+          "in": "ролет[и] | заслінк(а|и)",
+          "out": "shade"
+        },
+        {
+          "in": "ставні | ставень",
+          "out": "shutter"
+        },
+        {
+          "in": "вікн(о|а) | вікон",
+          "out": "window"
+        }
+      ]
+    },
+    "lock_states": {
+      "values": [
+        {
+          "in": "закрит(о|ий|а) | замкнен(о|ий|а) | зачинен(о|ий|а)",
+          "out": "locked"
+        },
+        {
+          "in": "відкрит(о|ий|а) | відімкнен(о|ий|а) | відчинен(о|ий|а)",
+          "out": "unlocked"
+        }
+      ]
+    },
+    "bs_battery_states": {
+      "values": [
+        {
+          "in": "низький",
+          "out": "on"
+        },
+        {
+          "in": "нормальний",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_battery_charging_states": {
+      "values": [
+        {
+          "in": "заряджається",
+          "out": "on"
+        },
+        {
+          "in": "не заряджається",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_carbon_monoxide_states": {
+      "values": [
+        {
+          "in": "виявлено",
+          "out": "on"
+        },
+        {
+          "in": "чисто",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_cold_states": {
+      "values": [
+        {
+          "in": "холодно",
+          "out": "on"
+        },
+        {
+          "in": "нормально",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_connectivity_states": {
+      "values": [
+        {
+          "in": "підключено",
+          "out": "on"
+        },
+        {
+          "in": "відключено",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_door_states": {
+      "values": [
+        {
+          "in": "відкриті",
+          "out": "on"
+        },
+        {
+          "in": "закриті",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_garage_door_states": {
+      "values": [
+        {
+          "in": "відкриті",
+          "out": "on"
+        },
+        {
+          "in": "закриті",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_gas_states": {
+      "values": [
+        {
+          "in": "виявлено",
+          "out": "on"
+        },
+        {
+          "in": "чисто",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_heat_states": {
+      "values": [
+        {
+          "in": "гаряче",
+          "out": "on"
+        },
+        {
+          "in": "нормально",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_light_states": {
+      "values": [
+        {
+          "in": "виявлено",
+          "out": "on"
+        },
+        {
+          "in": "не виявлено",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_lock_states": {
+      "values": [
+        {
+          "in": "відкрито",
+          "out": "on"
+        },
+        {
+          "in": "закрито",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_moisture_states": {
+      "values": [
+        {
+          "in": "волого",
+          "out": "on"
+        },
+        {
+          "in": "сухо",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_motion_states": {
+      "values": [
+        {
+          "in": "виявлено",
+          "out": "on"
+        },
+        {
+          "in": "чисто",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_occupancy_states": {
+      "values": [
+        {
+          "in": "виявлено",
+          "out": "on"
+        },
+        {
+          "in": "чисто",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_opening_states": {
+      "values": [
+        {
+          "in": "відкрито",
+          "out": "on"
+        },
+        {
+          "in": "закрито",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_plug_states": {
+      "values": [
+        {
+          "in": "під'єднано",
+          "out": "on"
+        },
+        {
+          "in": "від'єднано",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_power_states": {
+      "values": [
+        {
+          "in": "(увімкнено|виявлено)",
+          "out": "on"
+        },
+        {
+          "in": "(вимкнено|не виявлено)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_presence_states": {
+      "values": [
+        {
+          "in": "(вдома|виявлено)",
+          "out": "on"
+        },
+        {
+          "in": "(не вдома|не виявлено)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_problem_states": {
+      "values": [
+        {
+          "in": "виявлено",
+          "out": "on"
+        },
+        {
+          "in": "все добре",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_running_states": {
+      "values": [
+        {
+          "in": "запущено",
+          "out": "on"
+        },
+        {
+          "in": "не запущено",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_safety_states": {
+      "values": [
+        {
+          "in": "небезпечно",
+          "out": "on"
+        },
+        {
+          "in": "безпечно",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_smoke_states": {
+      "values": [
+        {
+          "in": "виявлено",
+          "out": "on"
+        },
+        {
+          "in": "чисто",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_sound_states": {
+      "values": [
+        {
+          "in": "виявлено",
+          "out": "on"
+        },
+        {
+          "in": "чисто",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_tamper_states": {
+      "values": [
+        {
+          "in": "виявлено",
+          "out": "on"
+        },
+        {
+          "in": "чисто",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_update_states": {
+      "values": [
+        {
+          "in": "має оновлення",
+          "out": "on"
+        },
+        {
+          "in": "(оновлено|остання версія)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_vibration_states": {
+      "values": [
+        {
+          "in": "(виявлено|вібрує|вібрація)",
+          "out": "on"
+        },
+        {
+          "in": "(чисто|не вібрує|нема вібрації)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_window_states": {
+      "values": [
+        {
+          "in": "відкрито",
+          "out": "on"
+        },
+        {
+          "in": "закрито",
+          "out": "closed"
+        }
+      ]
+    },
+    "shopping_list_item": {
+      "wildcard": true
+    },
+    "position": {
+      "range": {
+        "type": "percentage",
+        "from": 0,
+        "to": 100
+      }
+    },
+    "volume": {
+      "range": {
+        "type": "percentage",
+        "from": 0,
+        "to": 100
+      }
+    }
+  },
+  "expansion_rules": {
+    "name": "{name}",
+    "area": "[в|у|на] {area}",
+    "floor": "[в|у|на] {floor}",
+    "ввімкни": "(в|у)вімкни | включи",
+    "вимкни": "вимкни | виключи",
+    "зміни": "зміни | встанови | зроби",
+    "brightness": "{brightness}[%| відсотк(ів|а|и)]",
+    "temperature": "{temperature} [градус(ів|и|а)] [{temperature_unit}]",
+    "position": "{position}[[ ]%| відсотк(ів|а|и)]",
+    "volume": "{volume:volume_level}[[ ]%| відсотк(ів|а|и)]",
+    "відкрий": "відкрий | розкрий | підніми | відчини",
+    "закрий": "закрий | опусти | зачини"
+  },
+  "skip_words": [
+    "будь ласка",
+    "зараз",
+    "сьогодні"
+  ]
+}

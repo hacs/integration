@@ -1,0 +1,88 @@
+{
+    "device_automation": {
+        "action_type": {
+            "lock": "Lukusta {entity_name}",
+            "open": "Ava {entity_name}",
+            "unlock": "Tee {entity_name} lahti"
+        },
+        "condition_type": {
+            "is_locked": "{entity_name} on lukus",
+            "is_open": "{entity_name} on avatud",
+            "is_unlocked": "{entity_name} on lukustamata"
+        },
+        "extra_fields": {
+            "for": "Kestus"
+        },
+        "trigger_type": {
+            "locked": "{entity_name} on lukus",
+            "open": "{entity_name} avanes",
+            "unlocked": "{entity_name} on lukustamata"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Lukk",
+            "state": {
+                "jammed": "on kinni j\u00e4\u00e4nud",
+                "locked": "Lukus",
+                "locking": "lukustub",
+                "open": "Avatud",
+                "opening": "Avaneb",
+                "unlocked": "Lahti",
+                "unlocking": "avaneb"
+            },
+            "state_attributes": {
+                "changed_by": {
+                    "name": "Muutis"
+                },
+                "code_format": {
+                    "name": "Koodi vorming"
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "add_default_code": {
+            "message": "Kood {entity_id} ei \u00fchti malliga {code_format} ."
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "{domain} integreerimise platvorm {platform} ei toeta platvormi seadistamist. \n\n Selle probleemi lahendamiseks eemalda see oma konfiguratsioonist ja taask\u00e4ivita Home Assistant.",
+            "title": "Platvormi tuge ei toetata"
+        }
+    },
+    "services": {
+        "lock": {
+            "description": "Lukustab luku.",
+            "fields": {
+                "code": {
+                    "description": "Luku lukustamiseks kasutatav kood.",
+                    "name": "Kood"
+                }
+            },
+            "name": "Lukusta"
+        },
+        "open": {
+            "description": "Avab luku.",
+            "fields": {
+                "code": {
+                    "description": "Luku avamiseks kasutatav kood.",
+                    "name": "Kood"
+                }
+            },
+            "name": "Ava"
+        },
+        "unlock": {
+            "description": "Avab luku.",
+            "fields": {
+                "code": {
+                    "description": "Luku avamiseks kasutatav kood.",
+                    "name": "Kood"
+                }
+            },
+            "name": "Ava lukust"
+        }
+    },
+    "title": "Lukk"
+}

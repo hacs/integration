@@ -1,0 +1,144 @@
+{
+    "device_automation": {
+        "action_type": {
+            "arm_away": "Attiva {entity_name} fuori casa",
+            "arm_home": "Attiva {entity_name} casa",
+            "arm_night": "Attiva {entity_name} notte",
+            "arm_vacation": "Attiva {entity_name} vacanza",
+            "disarm": "Disattiva {entity_name}",
+            "trigger": "Attivazione {entity_name}"
+        },
+        "condition_type": {
+            "is_armed_away": "{entity_name} \u00e8 attivo in modalit\u00e0 fuori casa",
+            "is_armed_home": "{entity_name} \u00e8 attivo in modalit\u00e0 a casa",
+            "is_armed_night": "{entity_name} \u00e8 attivo in modalit\u00e0 notte",
+            "is_armed_vacation": "{entity_name} \u00e8 attivo in modalit\u00e0 vacanza",
+            "is_disarmed": "{entity_name} \u00e8 disattivo",
+            "is_triggered": "{entity_name} \u00e8 attivato"
+        },
+        "trigger_type": {
+            "armed_away": "{entity_name} attivato in modalit\u00e0 fuori casa",
+            "armed_home": "{entity_name} attivato in modalit\u00e0 a casa",
+            "armed_night": "{entity_name} attivato in modalit\u00e0 notte",
+            "armed_vacation": "{entity_name} attivato in modalit\u00e0 vacanza",
+            "disarmed": "{entity_name} disattivato",
+            "triggered": "{entity_name} attivato"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Pannello di controllo degli allarmi",
+            "state": {
+                "armed": "Attivo",
+                "armed_away": "Attivo fuori casa",
+                "armed_custom_bypass": "Attivo con esclusione personalizzata",
+                "armed_home": "Attivo in casa",
+                "armed_night": "Attivo notte",
+                "armed_vacation": "Attivo in vacanza",
+                "arming": "In attivazione",
+                "disarmed": "Disattivo",
+                "disarming": "In disattivazione",
+                "pending": "In attesa",
+                "triggered": "Innescato"
+            },
+            "state_attributes": {
+                "changed_by": {
+                    "name": "Modificato da"
+                },
+                "code_arm_required": {
+                    "name": "Codice per l'inserimento",
+                    "state": {
+                        "false": "Non richiesto",
+                        "true": "Richiesto"
+                    }
+                },
+                "code_format": {
+                    "name": "Formato del codice",
+                    "state": {
+                        "number": "Numero",
+                        "text": "Testo"
+                    }
+                }
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "La piattaforma {platform} per l'integrazione {domain} non supporta l'impostazione della piattaforma. \n\nRimuovilo dalla configurazione e riavvia Home Assistant per risolvere questo problema.",
+            "title": "Supporto della piattaforma non supportato"
+        }
+    },
+    "services": {
+        "alarm_arm_away": {
+            "description": "Imposta l'allarme su: _armato, nessuno in casa_.",
+            "fields": {
+                "code": {
+                    "description": "Codice per inserire l'allarme.",
+                    "name": "Codice"
+                }
+            },
+            "name": "Attiva Fuori Casa"
+        },
+        "alarm_arm_custom_bypass": {
+            "description": "Attiva l'allarme consentendo di escludere un'area personalizzata.",
+            "fields": {
+                "code": {
+                    "description": "Codice per inserire l'allarme.",
+                    "name": "Codice"
+                }
+            },
+            "name": "Attiva con esclusione personalizzata"
+        },
+        "alarm_arm_home": {
+            "description": "Imposta l'allarme su: _attivo, ma c'\u00e8 qualcuno in casa_.",
+            "fields": {
+                "code": {
+                    "description": "Codice per inserire l'allarme.",
+                    "name": "Codice"
+                }
+            },
+            "name": "Attiva In casa"
+        },
+        "alarm_arm_night": {
+            "description": "Imposta l'allarme su: _attiva per la notte_.",
+            "fields": {
+                "code": {
+                    "description": "Codice per inserire l'allarme.",
+                    "name": "Codice"
+                }
+            },
+            "name": "Attiva notte"
+        },
+        "alarm_arm_vacation": {
+            "description": "Imposta l'allarme su: _attivo per vacanza_.",
+            "fields": {
+                "code": {
+                    "description": "Codice per inserire l'allarme.",
+                    "name": "Codice"
+                }
+            },
+            "name": "Attiva in vacanza"
+        },
+        "alarm_disarm": {
+            "description": "Disattiva l'allarme.",
+            "fields": {
+                "code": {
+                    "description": "Codice per disattivare l'allarme.",
+                    "name": "Codice"
+                }
+            },
+            "name": "Disattiva"
+        },
+        "alarm_trigger": {
+            "description": "Abilita l'attivazione di un allarme esterno.",
+            "fields": {
+                "code": {
+                    "description": "Codice per inserire l'allarme.",
+                    "name": "Codice"
+                }
+            },
+            "name": "Attivazione"
+        }
+    },
+    "title": "Pannello di controllo degli allarmi"
+}

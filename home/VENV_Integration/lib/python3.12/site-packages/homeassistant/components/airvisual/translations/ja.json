@@ -1,0 +1,85 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "\u30ed\u30b1\u30fc\u30b7\u30e7\u30f3\u306f\u3059\u3067\u306b\u8a2d\u5b9a\u3055\u308c\u3066\u3044\u307e\u3059",
+            "reauth_successful": "\u518d\u8a8d\u8a3c\u306b\u6210\u529f\u3057\u307e\u3057\u305f"
+        },
+        "error": {
+            "cannot_connect": "\u63a5\u7d9a\u306b\u5931\u6557\u3057\u307e\u3057\u305f",
+            "general_error": "\u4e88\u671f\u3057\u306a\u3044\u30a8\u30e9\u30fc",
+            "invalid_api_key": "\u7121\u52b9\u306aAPI\u30ad\u30fc",
+            "location_not_found": "\u30ed\u30b1\u30fc\u30b7\u30e7\u30f3\u304c\u898b\u3064\u304b\u308a\u307e\u305b\u3093"
+        },
+        "step": {
+            "geography_by_coords": {
+                "data": {
+                    "api_key": "API\u30ad\u30fc",
+                    "latitude": "\u7def\u5ea6",
+                    "longitude": "\u7d4c\u5ea6"
+                },
+                "description": "AirVisual cloud API\u3092\u4f7f\u7528\u3057\u3066\u3001\u7def\u5ea6/\u7d4c\u5ea6\u3092\u76e3\u8996\u3057\u307e\u3059\u3002",
+                "title": "Geography\u306e\u8a2d\u5b9a"
+            },
+            "geography_by_name": {
+                "data": {
+                    "api_key": "API\u30ad\u30fc",
+                    "city": "\u90fd\u5e02",
+                    "country": "\u56fd",
+                    "state": "\u72b6\u614b"
+                },
+                "description": "AirVisual cloud API\u3092\u4f7f\u7528\u3057\u3066\u3001\u90fd\u5e02/\u5dde/\u56fd\u3092\u76e3\u8996\u3057\u307e\u3059\u3002",
+                "title": "Geography\u306e\u8a2d\u5b9a"
+            },
+            "reauth_confirm": {
+                "data": {
+                    "api_key": "API\u30ad\u30fc"
+                },
+                "title": "AirVisual\u3092\u518d\u8a8d\u8a3c"
+            },
+            "user": {
+                "description": "\u76e3\u8996\u3057\u305f\u3044\u3001AirVisual\u306e\u30c7\u30fc\u30bf\u306e\u7a2e\u985e\u3092\u9078\u629e\u3057\u307e\u3059\u3002",
+                "title": "AirVisual\u306e\u8a2d\u5b9a"
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "pollutant_label": {
+                "state": {
+                    "co": "\u4e00\u9178\u5316\u70ad\u7d20",
+                    "n2": "\u4e8c\u9178\u5316\u7a92\u7d20",
+                    "o3": "\u30aa\u30be\u30f3",
+                    "p1": "PM10",
+                    "p2": "PM2.5",
+                    "s2": "\u4e8c\u9178\u5316\u786b\u9ec4"
+                }
+            },
+            "pollutant_level": {
+                "state": {
+                    "good": "\u826f\u597d",
+                    "hazardous": "\u5371\u967a",
+                    "moderate": "\u9069\u5ea6",
+                    "unhealthy": "\u4e0d\u5065\u5eb7",
+                    "unhealthy_sensitive": "\u654f\u611f\u306a\u30b0\u30eb\u30fc\u30d7\u306b\u3068\u3063\u3066\u306f\u4e0d\u5065\u5eb7",
+                    "very_unhealthy": "\u3068\u3066\u3082\u4e0d\u5065\u5eb7"
+                }
+            }
+        }
+    },
+    "issues": {
+        "airvisual_pro_migration": {
+            "description": "AirVisual Pro \u30e6\u30cb\u30c3\u30c8\u306f\u3001\u72ec\u81ea\u306eHome Assistant\u7d71\u5408\u306b\u306a\u308a\u307e\u3057\u305f (AirVisual \u30af\u30e9\u30a6\u30c9 API \u3092\u4f7f\u7528\u3059\u308b\u5143\u306e AirVisual \u7d71\u5408\u306b\u542b\u307e\u308c\u3066\u3044\u305f\u306e\u3068\u306f\u5bfe\u7167\u7684\u3067\u3059)\u3002 \u300c {ip_address} \u300d\u306b\u3042\u308b Pro \u30c7\u30d0\u30a4\u30b9\u306f\u81ea\u52d5\u7684\u306b\u79fb\u884c\u3055\u308c\u307e\u3057\u305f\u3002 \n\n\u305d\u306e\u79fb\u884c\u306e\u4e00\u74b0\u3068\u3057\u3066\u3001Pro \u306e\u30c7\u30d0\u30a4\u30b9 ID \u306f\u300c {old_device_id} \u300d\u304b\u3089\u300c {new_device_id} \u300d\u306b\u5909\u66f4\u3055\u308c\u307e\u3057\u305f\u3002\u65b0\u3057\u3044\u30c7\u30d0\u30a4\u30b9 ID: {device_automations_string}\u3092\u4f7f\u7528\u3059\u308b\u3088\u3046\u306b\u3053\u308c\u3089\u306e\u30aa\u30fc\u30c8\u30e1\u30fc\u30b7\u30e7\u30f3\u3092\u66f4\u65b0\u3057\u3066\u304f\u3060\u3055\u3044\u3002",
+            "title": "{ip_address} AirVisual Pro \u7d71\u5408\u306e\u4e00\u90e8\u306b\u306a\u308a\u307e\u3057\u305f"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "show_on_map": "\u76e3\u8996\u5bfe\u8c61\u306e\u5730\u7406\u3092\u5730\u56f3\u306b\u8868\u793a"
+                },
+                "title": "AirVisual\u306e\u8a2d\u5b9a"
+            }
+        }
+    }
+}

@@ -1,0 +1,633 @@
+{
+  "language": "he",
+  "intents": {
+    "HassTurnOff": {
+      "data": [
+        {
+          "sentences": [
+            "כב[ה|י] [את] [ה]<name>",
+            "כיבוי [של] [ה]<name>",
+            "לכבות [את] [ה]<name>",
+            "תכב[ה|י] [את] [ה]<name>"
+          ]
+        },
+        {
+          "sentences": [
+            "(כב[ה|י]|כיבוי|לכבות|תכב[ה|י]) [של] [כל] [את] [ה](אור|אורות) ב<area>"
+          ],
+          "slots": {
+            "domain": "light"
+          }
+        },
+        {
+          "sentences": [
+            "(סגור | ס[י]גרי) [את] [ה]<name>",
+            "(תסגור | תסגרי) [את] [ה]<name>"
+          ],
+          "response": "cover_device_class",
+          "slots": {
+            "device_class": [
+              "garage",
+              "blind",
+              "curtain",
+              "shutter"
+            ],
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "(סגור | ס[י]גרי) [את] [ה]{cover_classes:device_class} ב<area>",
+            "(תסגור | תסגרי) [את] [ה]{cover_classes:device_class} ב<area>"
+          ],
+          "response": "cover_area",
+          "slots": {
+            "device_class": [
+              "blind",
+              "curtain",
+              "shutter",
+              "garage"
+            ],
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "(כב[ה|י] | כיבוי | לכבות | תכב[ה|י]) [של] [כל] [את] [ה](מאוורר|מאורר) ב<area>"
+          ],
+          "slots": {
+            "domain": "fan"
+          }
+        },
+        {
+          "sentences": [
+            "(כב[ה|י] | כיבוי | לכבות | תכב[ה|י]) [של] [כל] [את] [ה](מאווררים|מאוררים) ב<area>"
+          ],
+          "slots": {
+            "domain": "fan",
+            "name": "all"
+          }
+        }
+      ]
+    },
+    "HassTurnOn": {
+      "data": [
+        {
+          "sentences": [
+            "(הדלק|הדליקי|הדלקה|להדליק|תדליק[י]) [של] [כל] [את] [ה](אור|אורות) ב<area>"
+          ],
+          "slots": {
+            "domain": "light"
+          }
+        },
+        {
+          "sentences": [
+            "(הדלק|הדליקי|הדלקה|להדליק|תדליק[י]) [של] [כל] [את] [ה](מאוורר|מאורר) ב<area>"
+          ],
+          "slots": {
+            "domain": "fan"
+          }
+        },
+        {
+          "sentences": [
+            "(הדלק|הדליקי|הדלקה|להדליק|תדליק[י]) [של] [כל] [את] [ה](מאווררים|מאוררים) ב<area>"
+          ],
+          "slots": {
+            "domain": "fan",
+            "name": "all"
+          }
+        },
+        {
+          "sentences": [
+            "(הדלק | הדליקי) [את] [ה]<name>",
+            "הדלקה [של] [ה]<name>",
+            "להדליק [את] [ה]<name>",
+            "תדליק[י] [את] [ה]<name>"
+          ]
+        },
+        {
+          "sentences": [
+            "פתח[י] [את] [ה]<name>",
+            "תפתח[י] [את] [ה]<name>"
+          ],
+          "response": "cover_device_class",
+          "slots": {
+            "device_class": [
+              "garage",
+              "blind",
+              "curtain",
+              "shutter"
+            ],
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "פתח[י] [את] [ה]{cover_classes:device_class} ב<area>",
+            "תפתח[י] [את] [ה]{cover_classes:device_class} ב<area>"
+          ],
+          "response": "cover_area",
+          "slots": {
+            "device_class": [
+              "blind",
+              "curtain",
+              "shutter",
+              "garage"
+            ],
+            "domain": "cover"
+          }
+        }
+      ]
+    },
+    "HassNevermind": {
+      "data": [
+        {
+          "sentences": [
+            "לא משנה",
+            "ביטול",
+            "עצור|עצרי",
+            "בטל[י]"
+          ]
+        }
+      ]
+    },
+    "HassLightSet": {
+      "data": [
+        {
+          "sentences": [
+            "קבע[י] [את] [ה]בהירות ה<name> ל<brightness>",
+            "שנ[ה|י] [את] [ה]בהירות ה<name> ל<brightness>",
+            "(הגדר|הגדירי) [את] [ה]בהירות ה<name> ל<brightness>"
+          ],
+          "response": "brightness"
+        },
+        {
+          "sentences": [
+            "קבע[י] [את] [ה]בהירות ה<name> ל<brightness> ב<area>",
+            "שנ[ה|י] [את] [ה]בהירות ה<name> ל<brightness> ב<area>",
+            "(הגדר|הגדירי) [את] [ה]בהירות ה<name> ל<brightness> ב<area>"
+          ],
+          "response": "brightness_area"
+        }
+      ]
+    },
+    "HassClimateGetTemperature": {
+      "data": [
+        {
+          "sentences": [
+            "<what_is> [ה]<temp>",
+            "כמה (חם|קר|חמים|קריר) ב<area>",
+            "<what_is> [ה]<temp> ב<area>"
+          ]
+        }
+      ]
+    },
+    "HassGetState": {
+      "data": [
+        {
+          "sentences": [
+            "מה[ו] [הססטוס של] [ה]<name> [ב<area>]"
+          ],
+          "response": "one"
+        },
+        {
+          "sentences": [
+            "[האם] [הססטוס של] [ה]<name> [[ש]ב<area>] [הוא] [היא] {on_off_states:state}[ים] [ב<area>]"
+          ],
+          "response": "one_yesno",
+          "excludes_context": {
+            "domain": [
+              "cover"
+            ]
+          }
+        },
+        {
+          "sentences": [
+            "[האם] [כל] ה{on_off_domains:domain}[ים] [[ש]ב<area>] [הם] [הן] {on_off_states:state}[ים] [ב<area>]"
+          ],
+          "response": "all"
+        },
+        {
+          "sentences": [
+            "[האם] ה{on_off_domains:domain}[ים] [[ש]ב<area>] [הוא] [היא] {on_off_states:state}[ים] [ב<area>]"
+          ],
+          "response": "any"
+        },
+        {
+          "sentences": [
+            "(איזה|אילו|יש) [מה]{on_off_domains:domain}[ים] [[ש]ב<area>] [הם] [הן] {on_off_states:state}[ים] [ב<area>]"
+          ],
+          "response": "which"
+        },
+        {
+          "sentences": [
+            "כמה {on_off_domains:domain}[ים] [[ש]ב<area>] [הם] [הן] {on_off_states:state}[ים] [ב<area>]"
+          ],
+          "response": "how_many"
+        },
+        {
+          "sentences": [
+            "[האם] [ה][{cover_classes:device_class}] [<name>] [שב<area>] {cover_states:state} [ב<area>]"
+          ],
+          "response": "one_yesno",
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "[האם] [יש|ישנם|ישנן] {cover_classes:device_class} [כלשהי|כלשהיא|כלשהוא|כלשהו|כלשהם|כלשהן] [ב<area>] [ש]{cover_states:state} [ב<area>]"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "[האם] כל ה{cover_classes:device_class} [[ש]ב<area>] [הם|הן] {cover_states:state} [ב<area>]"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "(איזה|אילו) {cover_classes:device_class} [[ש]ב<area>] [במצב|נמצאים במצב|הם|הן] [ש]{cover_states:state} [ב<area>]"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "כמה {cover_classes:device_class} [[ש]ב<area>] [במצב|נמצאים במצב|הם|הן] [ש]{cover_states:state} [ב<area>]"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "cover"
+          }
+        }
+      ]
+    }
+  },
+  "responses": {
+    "errors": {
+      "no_intent": "סליחה, לא הבנתי את זה",
+      "no_area": "אין שטח בשם {{ area }}",
+      "no_domain_in_area": "אין {{ domain }} ב{{ area }}",
+      "no_device_class_in_area": "אין {{ device_class }} ב{{ area }}",
+      "no_entity": "אין התקן או יישות בשם {{ entity }}",
+      "handle_error": "שגיאה בלתי צפויה בעת עיבוד הבקשה"
+    },
+    "intents": {
+      "HassGetState": {
+        "one": "{{ slots.name | capitalize }} כרגע {{ state.state_with_unit }}\n",
+        "one_yesno": "{% if query.matched %}\n  כן\n{% else %}\n  לא, הוא כרגע {{ state.state_with_unit }}\n{% endif %}\n",
+        "any": "{% if query.matched %}\n  {% set match = query.matched | map(attribute=\"name\") | sort | list %}\n  {% if match | length > 4 %}\n    כן, {{ match[:3] | join(\", \") }} ועוד {{ (match | length - 3) }}\n  {%- else -%}\n    כן,\n    {% for name in match -%}\n      {% if not loop.first and not loop.last %}, {% elif loop.last and not loop.first %} ו{% endif -%}\n      {{ name }}\n    {%- endfor -%}\n  {% endif %}\n{% else %}\n  לא\n{% endif %}\n",
+        "all": "{% if not query.unmatched: %}\n  כן\n{% else %}\n  {% set no_match = query.unmatched | map(attribute=\"name\") | sort | list %}\n  {% if no_match | length > 4 %}\n    לא, {{ no_match[:3] | join(\", \") }} ועוד {{ (no_match | length - 3) }} גם לא\n  {%- else -%}\n    לא,\n    {% for name in no_match -%}\n      {% if not loop.first and not loop.last %}, {% elif loop.last and not loop.first %} וגם {% endif -%}\n      {{ name }}\n    {%- endfor %} לא\n  {% endif %}\n{% endif %}\n",
+        "which": "{% if not query.matched %}\n  לא נמצאו\n{% else: %}\n  {% set match = query.matched | map(attribute=\"name\") | sort | list %}\n  {% if match | length > 4 %}\n    {{ match[:3] | join(\", \") }} ועוד {{ (match | length - 3) }}\n  {% else %}\n    {%- for name in match -%}\n      {% if not loop.first and not loop.last %}, {% elif loop.last and not loop.first %} ו{% endif -%}\n      {{ name }}\n    {%- endfor -%}\n  {% endif %}\n{% endif %}\n",
+        "how_many": "{{ query.matched | length }}\n"
+      },
+      "HassTurnOff": {
+        "default": "{{ slots.name }} כובה",
+        "lights_area": "האורות ב{{ slots.area }} כובו",
+        "fans_area": "המאווררים ב{{ slots.area }} כובו",
+        "cover": "סוגר {{ slots.name }}",
+        "cover_area": "{{ slots.area }} נסגר",
+        "cover_device_class": "{{ slots.device_class }} נסגר"
+      },
+      "HassTurnOn": {
+        "default": "{{ slots.name }} הופעל",
+        "lights_area": "האורות ב{{ slots.area }} הודלקו",
+        "fans_area": "המאווררים ב{{ slots.area }} הופעלו",
+        "cover": "פותח {{ slots.name }}",
+        "cover_area": "{{ slots.area }} נפתח",
+        "cover_device_class": "{{ slots.device_class }} נפתח"
+      },
+      "HassLightSet": {
+        "brightness": "{{ slots.name }} בהירות שונתה ל-{{ slots.brightness }}",
+        "brightness_area": "הבהירות ב{{ slots.area }} שונתה ל-{{ slots.brightness }}",
+        "color": "{{ slots.name }} הצבע שונה ל-{{ slots.color }}",
+        "color_area": "הצבע ב{{ slots.area }} שונה ל-{{ slots.color }}"
+      },
+      "HassClimateGetTemperature": {
+        "default": "{% set temperature = state_attr(state.entity_id, 'current_temperature') %} {% if slots.area: %} ב{{ slots.area }} {{ state_attr(state.entity_id, 'current_temperature') }} מעלות {% else: %} הטמפרטורה היא {{ state_attr(state.entity_id, 'current_temperature') }} מעלות {% endif %}\n"
+      }
+    }
+  },
+  "lists": {
+    "color": {
+      "values": [
+        {
+          "in": "לבן",
+          "out": "white"
+        },
+        {
+          "in": "שחור",
+          "out": "black"
+        },
+        {
+          "in": "אדום",
+          "out": "red"
+        },
+        {
+          "in": "כתום",
+          "out": "orange"
+        },
+        {
+          "in": "צהוב",
+          "out": "yellow"
+        },
+        {
+          "in": "ירוק",
+          "out": "green"
+        },
+        {
+          "in": "כחול",
+          "out": "blue"
+        },
+        {
+          "in": "סגול",
+          "out": "purple"
+        },
+        {
+          "in": "חום",
+          "out": "brown"
+        },
+        {
+          "in": "ורוד",
+          "out": "pink"
+        }
+      ]
+    },
+    "brightness": {
+      "range": {
+        "type": "percentage",
+        "from": 0,
+        "to": 100
+      }
+    },
+    "temperature": {
+      "range": {
+        "type": "temperature",
+        "from": 0,
+        "to": 100
+      }
+    },
+    "temperature_unit": {
+      "values": [
+        {
+          "in": "מעלות",
+          "out": "celsius"
+        }
+      ]
+    },
+    "brightness_level": {
+      "values": [
+        {
+          "in": "(מקס | מקסימום | הגבוה | הגבוה ביותר | הגבוהה ביותר | מקסימלי | הכי גבוה | עד הסוף | מרבי | מירבי | למקסימום)",
+          "out": 100
+        },
+        {
+          "in": "(מינ | מינימום | הנמוך | הנמוך ביותר | הנמוכה ביותר | מינימלי | הכי נמוך | למינימום)",
+          "out": 1
+        }
+      ]
+    },
+    "on_off_states": {
+      "values": [
+        {
+          "in": "דולק",
+          "out": "on"
+        },
+        {
+          "in": "דולקים",
+          "out": "on"
+        },
+        {
+          "in": "פועלים",
+          "out": "on"
+        },
+        {
+          "in": "מופעלים",
+          "out": "on"
+        },
+        {
+          "in": "דולקות",
+          "out": "on"
+        },
+        {
+          "in": "פועלות",
+          "out": "on"
+        },
+        {
+          "in": "מופעלות",
+          "out": "on"
+        },
+        {
+          "in": "כבוי",
+          "out": "off"
+        },
+        {
+          "in": "כבוים",
+          "out": "off"
+        },
+        {
+          "in": "כבויים",
+          "out": "off"
+        },
+        {
+          "in": "מכובים",
+          "out": "off"
+        },
+        {
+          "in": "כבויות",
+          "out": "off"
+        },
+        {
+          "in": "מכובות",
+          "out": "off"
+        }
+      ]
+    },
+    "on_off_domains": {
+      "values": [
+        {
+          "in": "אור[ות]",
+          "out": "light"
+        },
+        {
+          "in": "מאוורר[ים]",
+          "out": "fan"
+        },
+        {
+          "in": "מתג[ים]",
+          "out": "switch"
+        }
+      ]
+    },
+    "cover_states": {
+      "values": [
+        {
+          "in": "פתוח",
+          "out": "open"
+        },
+        {
+          "in": "פתוחה",
+          "out": "open"
+        },
+        {
+          "in": "פתוחים",
+          "out": "open"
+        },
+        {
+          "in": "פתוחות",
+          "out": "open"
+        },
+        {
+          "in": "סגור",
+          "out": "closed"
+        },
+        {
+          "in": "סגורה",
+          "out": "closed"
+        },
+        {
+          "in": "סגורים",
+          "out": "closed"
+        },
+        {
+          "in": "סגורות",
+          "out": "closed"
+        },
+        {
+          "in": "פותח",
+          "out": "opening"
+        },
+        {
+          "in": "נפתח",
+          "out": "opening"
+        },
+        {
+          "in": "נפתחת",
+          "out": "opening"
+        },
+        {
+          "in": "סוגר",
+          "out": "closing"
+        },
+        {
+          "in": "נסגר",
+          "out": "closing"
+        },
+        {
+          "in": "נסגרת",
+          "out": "closing"
+        }
+      ]
+    },
+    "cover_classes": {
+      "values": [
+        {
+          "in": "סוכך",
+          "out": "awning"
+        },
+        {
+          "in": "סככה",
+          "out": "awning"
+        },
+        {
+          "in": "סוככים",
+          "out": "awning"
+        },
+        {
+          "in": "סככות",
+          "out": "awning"
+        },
+        {
+          "in": "תריס",
+          "out": "blind"
+        },
+        {
+          "in": "תריסים",
+          "out": "blind"
+        },
+        {
+          "in": "וילון",
+          "out": "curtain"
+        },
+        {
+          "in": "וילונות",
+          "out": "curtain"
+        },
+        {
+          "in": "דלתות",
+          "out": "door"
+        },
+        {
+          "in": "דלת",
+          "out": "door"
+        },
+        {
+          "in": "דלת חניה",
+          "out": "garage"
+        },
+        {
+          "in": "דלתות [ה]חניה",
+          "out": "garage"
+        },
+        {
+          "in": "שער[ים]",
+          "out": "gate"
+        },
+        {
+          "in": "צילייה",
+          "out": "shade"
+        },
+        {
+          "in": "ציליה",
+          "out": "shade"
+        },
+        {
+          "in": "תריס הצללה",
+          "out": "shutter"
+        },
+        {
+          "in": "תריסי [ה]הצללה",
+          "out": "shutter"
+        },
+        {
+          "in": "חלון",
+          "out": "window"
+        },
+        {
+          "in": "חלונות",
+          "out": "window"
+        }
+      ]
+    }
+  },
+  "expansion_rules": {
+    "name": "[ה]{name}",
+    "area": "[ה][ב]{area}",
+    "what_is": "(מה|מהו|מהי|מהם|מהן)",
+    "brightness": "{brightness}[%| אחוז | אחוזים]",
+    "open": "(פתח[י] | לפתוח | תפתח[י] | תעל[ה|י] | העל[ה|י] | הרם | הרימי | להרים | תרים | תרימי)",
+    "close": "(סגור | סגרי | סיגרי | לסגור | תסגור | תסגרי | הנמך | הנמיכי | תנמיך | תנמיכי | הורד | הורידי | להוריד | תוריד[י])",
+    "temp": "(מעלות|טמפרטורה|טמפרטורת)",
+    "temperature": "{temperature} [{temperature_unit}] [°| מעלות]",
+    "set": "(כוון|שנה|קבע)",
+    "window": "(חלון | חלונות | תריס | תריסים | וילון | וילונות | סוכך | סוכחים)"
+  },
+  "skip_words": [
+    "אנא",
+    "נא",
+    "בבקשה",
+    "את[ה] יכול[ה]",
+    "תוכל[י]",
+    "אפשר"
+  ]
+}

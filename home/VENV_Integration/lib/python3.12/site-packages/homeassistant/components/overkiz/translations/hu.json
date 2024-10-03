@@ -1,0 +1,164 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "A fi\u00f3k m\u00e1r konfigur\u00e1lva van",
+            "reauth_successful": "Az \u00fajrahiteles\u00edt\u00e9s sikeres volt.",
+            "reauth_wrong_account": "Ezt csak ugyanazzal az Overkiz fi\u00f3kkal \u00e9s hubbal hiteles\u00edtheti \u00fajra."
+        },
+        "error": {
+            "cannot_connect": "Sikertelen csatlakoz\u00e1s",
+            "certificate_verify_failed": "Nem lehet csatlakozni a hoszthoz, a tan\u00fas\u00edtv\u00e1ny ellen\u0151rz\u00e9se sikertelen.",
+            "developer_mode_disabled": "Fejleszt\u0151i m\u00f3d letiltva. El\u0151sz\u00f6r aktiv\u00e1lja a Somfy TaHoma box fejleszt\u0151i m\u00f3dj\u00e1t.",
+            "invalid_auth": "\u00c9rv\u00e9nytelen hiteles\u00edt\u00e9s",
+            "no_such_token": "Ehhez az \u00e1tj\u00e1r\u00f3hoz nem lehet tokent l\u00e9trehozni. K\u00e9rj\u00fck, er\u0151s\u00edtse meg, hogy a fi\u00f3k hozz\u00e1 van-e kapcsolva ehhez az \u00e1tj\u00e1r\u00f3hoz.",
+            "server_in_maintenance": "A szerver karbantart\u00e1s miatt nem el\u00e9rhet\u0151",
+            "too_many_attempts": "T\u00fal sok pr\u00f3b\u00e1lkoz\u00e1s \u00e9rv\u00e9nytelen tokennel, ideiglenesen kitiltva",
+            "too_many_requests": "T\u00fal sok a k\u00e9r\u00e9s, pr\u00f3b\u00e1lja meg k\u00e9s\u0151bb \u00fajra.",
+            "unknown": "V\u00e1ratlan hiba",
+            "unsupported_hardware": "{unsupported_device} hardver\u00e9t ez az integr\u00e1ci\u00f3 nem t\u00e1mogatja."
+        },
+        "flow_title": "\u00c1tj\u00e1r\u00f3: {gateway_id}",
+        "step": {
+            "cloud": {
+                "data": {
+                    "password": "Jelsz\u00f3",
+                    "username": "Felhaszn\u00e1l\u00f3n\u00e9v"
+                },
+                "description": "Adja meg az alkalmaz\u00e1s hiteles\u00edt\u0151 adatait."
+            },
+            "local": {
+                "data": {
+                    "host": "Hoszt",
+                    "password": "Jelsz\u00f3",
+                    "username": "Felhaszn\u00e1l\u00f3n\u00e9v",
+                    "verify_ssl": "SSL-tan\u00fas\u00edtv\u00e1ny ellen\u0151rz\u00e9se"
+                },
+                "description": "A [TaHoma box fejleszt\u0151i m\u00f3dj\u00e1nak] (https://github.com/Somfy-Developer/Somfy-TaHoma-Developer-Mode#getting-started) aktiv\u00e1l\u00e1s\u00e1val enged\u00e9lyezheti a harmadik f\u00e9lt\u0151l sz\u00e1rmaz\u00f3 szoftverek (p\u00e9ld\u00e1ul a Home Assistant) csatlakozzon hozz\u00e1 a helyi h\u00e1l\u00f3zaton kereszt\u00fcl. \n\n Az aktiv\u00e1l\u00e1s ut\u00e1n adja meg az alkalmaz\u00e1s hiteles\u00edt\u0151 adatait, \u00e9s m\u00f3dos\u00edtsa a hosztot, hogy tartalmazza az \u00e1tj\u00e1r\u00f3 PIN-k\u00f3dj\u00e1t, vagy adja meg az \u00e1tj\u00e1r\u00f3 IP-c\u00edm\u00e9t."
+            },
+            "local_or_cloud": {
+                "data": {
+                    "api_type": "API t\u00edpus"
+                },
+                "description": "V\u00e1lasszon a helyi vagy a felh\u0151 API k\u00f6z\u00f6tt. A helyi API t\u00e1mogatja a TaHoma Connexoont, a TaHoma v2-t \u00e9s a TaHoma Switchet. A helyi API nem t\u00e1mogatja a kl\u00edmaberendez\u00e9seket \u00e9s a jeleneteket."
+            },
+            "user": {
+                "data": {
+                    "host": "Hoszt",
+                    "hub": "Szerver",
+                    "password": "Jelsz\u00f3",
+                    "username": "Felhaszn\u00e1l\u00f3n\u00e9v"
+                },
+                "description": "V\u00e1lassza ki a kiszolg\u00e1l\u00f3t. Az Overkiz platformot k\u00fcl\u00f6nb\u00f6z\u0151 gy\u00e1rt\u00f3k haszn\u00e1lj\u00e1k, p\u00e9ld\u00e1ul a Somfy (Connexoon / TaHoma), a Hitachi (Hi Kumo) \u00e9s az Atlantic (Cozytouch)."
+            }
+        }
+    },
+    "entity": {
+        "climate": {
+            "overkiz": {
+                "state_attributes": {
+                    "fan_mode": {
+                        "state": {
+                            "away": "T\u00e1vol",
+                            "bypass_boost": "Turb\u00f3 bypasszal",
+                            "home_boost": "Turb\u00f3 otthoni",
+                            "kitchen_boost": "Turb\u00f3 konyhai"
+                        }
+                    },
+                    "preset_mode": {
+                        "state": {
+                            "auto": "Automatikus",
+                            "comfort-1": "Komfort 1",
+                            "comfort-2": "Komfort 2",
+                            "drying": "P\u00e1r\u00e1tlan\u00edt\u00e1s",
+                            "external": "K\u00fcls\u0151",
+                            "freeze": "Fagy\u00e1s",
+                            "frost_protection": "Fagyv\u00e9delem",
+                            "manual": "Manu\u00e1lis",
+                            "night": "\u00c9jszaka",
+                            "prog": "Program"
+                        }
+                    }
+                }
+            }
+        },
+        "select": {
+            "memorized_simple_volume": {
+                "state": {
+                    "highest": "Legmagasabb",
+                    "standard": "Alap\u00e9rtelmezett"
+                }
+            },
+            "open_closed_partial": {
+                "state": {
+                    "closed": "Z\u00e1rva",
+                    "open": "Nyitva",
+                    "partial": "Partial"
+                }
+            },
+            "open_closed_pedestrian": {
+                "state": {
+                    "closed": "Z\u00e1rva",
+                    "open": "Nyitva",
+                    "pedestrian": "Gyalogos"
+                }
+            }
+        },
+        "sensor": {
+            "battery": {
+                "state": {
+                    "full": "Felt\u00f6ltve",
+                    "low": "Alacsony",
+                    "medium": "K\u00f6zepes",
+                    "normal": "Norm\u00e1l",
+                    "verylow": "Nagyon alacsony"
+                }
+            },
+            "discrete_rssi_level": {
+                "state": {
+                    "good": "J\u00f3",
+                    "low": "Alacsony",
+                    "normal": "Norm\u00e1l",
+                    "verylow": "Nagyon alacsony"
+                }
+            },
+            "priority_lock_originator": {
+                "state": {
+                    "external_gateway": "K\u00fcls\u0151 \u00e1tj\u00e1r\u00f3",
+                    "local_user": "Helyi felhaszn\u00e1l\u00f3",
+                    "lsc": "LSC",
+                    "myself": "J\u00f3magam",
+                    "rain": "Es\u0151",
+                    "saac": "SAAC",
+                    "security": "Biztons\u00e1g",
+                    "sfc": "SFC",
+                    "temperature": "H\u0151m\u00e9rs\u00e9klet",
+                    "timer": "Id\u0151z\u00edt\u0151",
+                    "ups": "UPS",
+                    "user": "Felhaszn\u00e1l\u00f3",
+                    "wind": "Sz\u00e9l"
+                }
+            },
+            "sensor_defect": {
+                "state": {
+                    "dead": "Nem ad \u00e9letjelet",
+                    "low_battery": "Alacsony t\u00f6lt\u00f6tts\u00e9g\u0171 akkumul\u00e1tor",
+                    "maintenance_required": "Karbantart\u00e1s sz\u00fcks\u00e9ges",
+                    "no_defect": "Nincs hiba"
+                }
+            },
+            "sensor_room": {
+                "state": {
+                    "clean": "Tiszta",
+                    "dirty": "Piszkos"
+                }
+            },
+            "three_way_handle_direction": {
+                "state": {
+                    "closed": "Z\u00e1rva",
+                    "open": "Nyitva",
+                    "tilt": "D\u00f6ntve"
+                }
+            }
+        }
+    }
+}

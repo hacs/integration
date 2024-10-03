@@ -1,0 +1,125 @@
+{
+    "device_automation": {
+        "action_type": {
+            "set_humidity": "{entity_name} i\u00e7in nemi ayarla",
+            "set_mode": "{entity_name} \u00fczerindeki mod de\u011fi\u015ftirme",
+            "toggle": "{entity_name} de\u011fi\u015ftir",
+            "turn_off": "{entity_name} kapat",
+            "turn_on": "{entity_name} a\u00e7\u0131n"
+        },
+        "condition_type": {
+            "is_mode": "{entity_name} belirli bir moda ayarland\u0131",
+            "is_off": "{entity_name} kapal\u0131",
+            "is_on": "{entity_name} a\u00e7\u0131k"
+        },
+        "extra_fields": {
+            "above": "\u00dczerinde",
+            "below": "Alt\u0131nda",
+            "for": "S\u00fcre",
+            "humidity": "Nem",
+            "mode": "Mod"
+        },
+        "trigger_type": {
+            "changed_states": "{entity_name} a\u00e7\u0131ld\u0131 veya kapat\u0131ld\u0131",
+            "target_humidity_changed": "{entity_name} hedef nem de\u011fi\u015fti",
+            "turned_off": "{entity_name} kapat\u0131ld\u0131",
+            "turned_on": "{entity_name} a\u00e7\u0131ld\u0131"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Nemlendirici",
+            "state": {
+                "off": "Kapal\u0131",
+                "on": "A\u00e7\u0131k"
+            },
+            "state_attributes": {
+                "action": {
+                    "name": "Eylem",
+                    "state": {
+                        "drying": "Kurutuluyor",
+                        "humidifying": "Nemlendirme",
+                        "idle": "Bo\u015fta",
+                        "off": "Kapal\u0131"
+                    }
+                },
+                "available_modes": {
+                    "name": "Mevcut modlar"
+                },
+                "current_humidity": {
+                    "name": "Mevcut nem"
+                },
+                "humidity": {
+                    "name": "Hedef nem"
+                },
+                "max_humidity": {
+                    "name": "Maksimum hedef nem"
+                },
+                "min_humidity": {
+                    "name": "Minimum hedef nem"
+                },
+                "mode": {
+                    "name": "Mod",
+                    "state": {
+                        "auto": "Otomatik",
+                        "away": "D\u0131\u015far\u0131da",
+                        "baby": "Bebek",
+                        "boost": "G\u00fc\u00e7l\u00fc",
+                        "comfort": "Konfor",
+                        "eco": "Eko",
+                        "home": "Evde",
+                        "normal": "Normal",
+                        "sleep": "Uyku"
+                    }
+                }
+            }
+        },
+        "dehumidifier": {
+            "name": "Nem Al\u0131c\u0131"
+        },
+        "humidifier": {
+            "name": "Nemlendirici"
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "{domain} entegrasyonu i\u00e7in {platform} platformu, platform kurulumunu desteklemiyor. \n\n L\u00fctfen yap\u0131land\u0131rman\u0131zdan kald\u0131r\u0131n ve bu sorunu \u00e7\u00f6zmek i\u00e7in Home Assistant'\u0131 yeniden ba\u015flat\u0131n.",
+            "title": "Platform deste\u011fi desteklenmiyor"
+        }
+    },
+    "services": {
+        "set_humidity": {
+            "description": "Hedef nemi ayarlar.",
+            "fields": {
+                "humidity": {
+                    "description": "Hedef nem.",
+                    "name": "Nem"
+                }
+            },
+            "name": "Nemi ayarla"
+        },
+        "set_mode": {
+            "description": "Nemlendirici \u00e7al\u0131\u015fma modunu ayarlar.",
+            "fields": {
+                "mode": {
+                    "description": "\u00c7al\u0131\u015fma modu. \u00d6rne\u011fin, _normal_, _eko_ veya _uzakta_. Olas\u0131 de\u011ferlerin bir listesi i\u00e7in entegrasyon belgelerine bak\u0131n.",
+                    "name": "Mod"
+                }
+            },
+            "name": "Ayar modu"
+        },
+        "toggle": {
+            "description": "Nemlendiriciyi a\u00e7ar/kapat\u0131r.",
+            "name": "De\u011fi\u015ftir"
+        },
+        "turn_off": {
+            "description": "Nemlendiriciyi kapat\u0131r.",
+            "name": "Kapat"
+        },
+        "turn_on": {
+            "description": "Nemlendiriciyi a\u00e7ar.",
+            "name": "A\u00e7"
+        }
+    },
+    "title": "Nemlendirici"
+}

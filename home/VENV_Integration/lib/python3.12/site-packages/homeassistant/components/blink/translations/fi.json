@@ -1,0 +1,183 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Laite on jo m\u00e4\u00e4ritetty"
+        },
+        "error": {
+            "cannot_connect": "Yhteyden muodostaminen ep\u00e4onnistui",
+            "invalid_access_token": "Virheellinen k\u00e4ytt\u00f6oikeustunnus",
+            "invalid_auth": "Virheellinen todennus",
+            "unknown": "Odottamaton virhe"
+        },
+        "step": {
+            "2fa": {
+                "data": {
+                    "2fa": "Kaksivaiheinen koodi"
+                },
+                "description": "Anna s\u00e4hk\u00f6postilla tai tekstiviestill\u00e4 l\u00e4hetetty PIN-koodi",
+                "title": "Kaksivaiheinen tunnistautuminen"
+            },
+            "user": {
+                "data": {
+                    "password": "Salasana",
+                    "username": "K\u00e4ytt\u00e4j\u00e4tunnus"
+                },
+                "title": "Kirjaudu sis\u00e4\u00e4n Blink-tilill\u00e4"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "camera_armed": {
+                "name": "Kamera viritetty"
+            }
+        },
+        "sensor": {
+            "wifi_rssi": {
+                "name": "Wi-Fi RSSI"
+            },
+            "wifi_strength": {
+                "name": "Wi-Fi-signaalin voimakkuus"
+            }
+        },
+        "switch": {
+            "camera_motion": {
+                "name": "Kameran liikkeentunnistus"
+            }
+        }
+    },
+    "exceptions": {
+        "cant_write": {
+            "message": "Tiedostoon ei voi kirjoittaa."
+        },
+        "device_not_found": {
+            "message": "Laitetta '{target}' ei l\u00f6ydy laiterekisterist\u00e4"
+        },
+        "failed_arm": {
+            "message": "Blink ei kyennyt viritt\u00e4m\u00e4\u00e4n kameraa."
+        },
+        "failed_arm_motion": {
+            "message": "Blink ei aktivoinut kameran liiketunnistusta."
+        },
+        "failed_disarm": {
+            "message": "Blink ei onnistunut poistamaan kameran virityst\u00e4."
+        },
+        "failed_disarm_motion": {
+            "message": "Blink ei kyennyt poistamaan kameran liiketunnistusta."
+        },
+        "failed_snap": {
+            "message": "Blink ei onnistunut nappaamaan kuvaa."
+        },
+        "integration_not_found": {
+            "message": "Integraatiota \"{target}\" ei l\u00f6ydy rekisterist\u00e4."
+        },
+        "invalid_device": {
+            "message": "Laite '{target}' ei ole {domain} -laite"
+        },
+        "no_path": {
+            "message": "Ei voi kirjoittaa hakemistoon {target}, ei p\u00e4\u00e4sy\u00e4 polkuun!"
+        },
+        "not_loaded": {
+            "message": "{target} ei ole ladattu."
+        }
+    },
+    "issues": {
+        "service_deprecation": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Blink-p\u00e4ivityspalvelu on vanhentunut ja se poistetaan.\nP\u00e4ivit\u00e4 automaatiot ja skriptit k\u00e4ytt\u00e4m\u00e4\u00e4n `Home Assistant Core Integraatiota: P\u00e4ivit\u00e4 entiteetti`.",
+                        "title": "Blink-p\u00e4ivityspalvelu poistetaan"
+                    }
+                }
+            },
+            "title": "Blink-p\u00e4ivityspalvelu poistetaan"
+        }
+    },
+    "options": {
+        "step": {
+            "simple_options": {
+                "data": {
+                    "scan_interval": "Skannausv\u00e4li"
+                },
+                "description": "M\u00e4\u00e4rit\u00e4 Blink -integraatio",
+                "title": "Blink asetukset"
+            }
+        }
+    },
+    "services": {
+        "blink_update": {
+            "description": "Pakottaa p\u00e4ivityksen.",
+            "fields": {
+                "device_id": {
+                    "description": "Blink-laitteen tunnus.",
+                    "name": "Laitetunnus"
+                }
+            },
+            "name": "P\u00e4ivit\u00e4"
+        },
+        "save_recent_clips": {
+            "fields": {
+                "device_id": {
+                    "description": "Blink-laitteen tunnus.",
+                    "name": "Laitetunnus"
+                },
+                "file_path": {
+                    "description": "Kirjoitettavan polun hakemiston nimi (hakemisto on ehk\u00e4 sis\u00e4llytett\u00e4v\u00e4 allowlist_external_dirs-kohtaan konfiguraatiossa).",
+                    "name": "Ulostulohakemisto"
+                },
+                "name": {
+                    "description": "Kameran nimi, josta viimeisimm\u00e4t videot otetaan.",
+                    "name": "Nimi"
+                }
+            },
+            "name": "Tallenna viimeisimm\u00e4t leikkeet"
+        },
+        "save_video": {
+            "description": "Tallentaa viimeksi tallennetun videoleikkeen paikalliseen tiedostoon.",
+            "fields": {
+                "device_id": {
+                    "description": "Blink-laitteen tunnus.",
+                    "name": "Laitetunnus"
+                },
+                "filename": {
+                    "description": "Tiedostonimi kirjoitettavaan polkuun (hakemisto on ehk\u00e4 sis\u00e4llytett\u00e4v\u00e4 konfiguraation allowlist_external_dirs-kansioon).",
+                    "name": "Tiedoston nimi"
+                },
+                "name": {
+                    "description": "Kameran nimi, josta video otetaan.",
+                    "name": "Nimi"
+                }
+            },
+            "name": "Tallenna video"
+        },
+        "send_pin": {
+            "description": "L\u00e4hett\u00e4\u00e4 uuden PIN-koodin vilkkumaan 2FA:ta varten.",
+            "fields": {
+                "config_entry_id": {
+                    "description": "Blink Integraation tunnus.",
+                    "name": "Integraatiotunnus"
+                },
+                "device_id": {
+                    "description": "Blink-laitteen tunnus.",
+                    "name": "Laitetunnus"
+                },
+                "pin": {
+                    "description": "PIN-koodi vastaanotettu vilkusta. J\u00e4t\u00e4 tyhj\u00e4ksi, jos olet saanut vain vahvistuss\u00e4hk\u00f6postin.",
+                    "name": "Pin"
+                }
+            },
+            "name": "L\u00e4het\u00e4 pin"
+        },
+        "trigger_camera": {
+            "description": "Pyyt\u00e4\u00e4 kameraa ottamaan uuden kuvan.",
+            "fields": {
+                "device_id": {
+                    "description": "Blink-laitteen tunnus.",
+                    "name": "Laitetunnus"
+                }
+            },
+            "name": "Laukaise kamera"
+        }
+    }
+}

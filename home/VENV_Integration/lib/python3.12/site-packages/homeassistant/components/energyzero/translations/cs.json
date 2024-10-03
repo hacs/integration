@@ -1,0 +1,125 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Za\u0159\u00edzen\u00ed je ji\u017e nastaveno"
+        },
+        "step": {
+            "user": {
+                "description": "Chcete za\u010d\u00edt nastavovat?"
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "average_price": {
+                "name": "Pr\u016fm\u011br - dnes"
+            },
+            "current_hour_price": {
+                "name": "Aktu\u00e1ln\u00ed hodina"
+            },
+            "highest_price_time": {
+                "name": "\u010cas nejvy\u0161\u0161\u00ed ceny - dnes"
+            },
+            "hours_priced_equal_or_higher": {
+                "name": "Hodiny s cenou stejnou nebo vy\u0161\u0161\u00ed ne\u017e aktu\u00e1ln\u00ed - dnes"
+            },
+            "hours_priced_equal_or_lower": {
+                "name": "Hodiny s cenou stejnou nebo ni\u017e\u0161\u00ed ne\u017e aktu\u00e1ln\u00ed - dnes"
+            },
+            "lowest_price_time": {
+                "name": "\u010cas nejni\u017e\u0161\u00ed ceny - dnes"
+            },
+            "max_price": {
+                "name": "Nejvy\u0161\u0161\u00ed cena - dnes"
+            },
+            "min_price": {
+                "name": "Nejni\u017e\u0161\u00ed cena - dnes"
+            },
+            "next_hour_price": {
+                "name": "Dal\u0161\u00ed hodina"
+            },
+            "percentage_of_max": {
+                "name": "Aktu\u00e1ln\u00ed procento nejvy\u0161\u0161\u00ed ceny - dnes"
+            }
+        }
+    },
+    "exceptions": {
+        "invalid_config_entry": {
+            "message": "Byla zad\u00e1na neplatn\u00e1 polo\u017eka nastaven\u00ed. M\u00e1m {config_entry}."
+        },
+        "invalid_date": {
+            "message": "Zad\u00e1no neplatn\u00e9 datum. M\u00e1m {date}."
+        },
+        "unloaded_config_entry": {
+            "message": "Byla zad\u00e1na neplatn\u00e1 polo\u017eka nastaven\u00ed. {config_entry} nen\u00ed na\u010dten."
+        }
+    },
+    "services": {
+        "get_energy_prices": {
+            "description": "Vy\u017e\u00e1d\u00e1 ceny energi\u00ed od EnergyZero.",
+            "fields": {
+                "config_entry": {
+                    "description": "Polo\u017eka nastaven\u00ed, kter\u00e1 se m\u00e1 pro tuto akci pou\u017e\u00edt.",
+                    "name": "Polo\u017eka nastaven\u00ed"
+                },
+                "end": {
+                    "description": "Ur\u010duje datum a \u010das, do kter\u00e9ho se maj\u00ed na\u010d\u00edst ceny. V\u00fdchoz\u00ed hodnota je dnes, pokud je vynech\u00e1na.",
+                    "name": "Konec"
+                },
+                "incl_vat": {
+                    "description": "V cen\u00e1ch je zahrnuta DPH.",
+                    "name": "V\u010detn\u011b DPH"
+                },
+                "start": {
+                    "description": "Ur\u010duje datum a \u010das, od kter\u00e9ho se maj\u00ed na\u010d\u00edst ceny. V\u00fdchoz\u00ed hodnota je dnes, pokud je vynech\u00e1na.",
+                    "name": "Za\u010d\u00e1tek"
+                }
+            },
+            "name": "Z\u00edskat ceny energi\u00ed"
+        },
+        "get_gas_prices": {
+            "description": "Vy\u017e\u00e1d\u00e1 ceny plynu od EnergyZero.",
+            "fields": {
+                "config_entry": {
+                    "description": "Polo\u017eka nastaven\u00ed, kter\u00e1 se m\u00e1 pro tuto akci pou\u017e\u00edt.",
+                    "name": "Polo\u017eka nastaven\u00ed"
+                },
+                "end": {
+                    "description": "Ur\u010duje datum a \u010das, do kter\u00e9ho se maj\u00ed na\u010d\u00edst ceny. V\u00fdchoz\u00ed hodnota je dnes, pokud je vynech\u00e1na.",
+                    "name": "Konec"
+                },
+                "incl_vat": {
+                    "description": "V cen\u00e1ch je zahrnuta DPH.",
+                    "name": "V\u010detn\u011b DPH"
+                },
+                "start": {
+                    "description": "Ur\u010duje datum a \u010das, od kter\u00e9ho se maj\u00ed na\u010d\u00edst ceny. V\u00fdchoz\u00ed hodnota je dnes, pokud je vynech\u00e1na.",
+                    "name": "Za\u010d\u00e1tek"
+                }
+            },
+            "name": "Z\u00edskat ceny plynu"
+        },
+        "get_prices": {
+            "description": "Vy\u017e\u00e1d\u00e1 ceny energi\u00ed nebo plynu od EnergyZero.",
+            "fields": {
+                "end": {
+                    "description": "Do kter\u00e9ho okam\u017eiku z\u00edskat ceny. V\u00fdchoz\u00ed hodnota je dnes, pokud je vynech\u00e1na.",
+                    "name": "Konec"
+                },
+                "incl_vat": {
+                    "description": "V cen\u00e1ch je zahrnuta DPH. V\u00fdchoz\u00ed hodnota je true, pokud je vynech\u00e1na.",
+                    "name": "V\u010detn\u011b DPH"
+                },
+                "start": {
+                    "description": "Od kter\u00e9ho okam\u017eiku z\u00edskat ceny. V\u00fdchoz\u00ed hodnota je dnes, pokud je vynech\u00e1na.",
+                    "name": "Za\u010d\u00e1tek"
+                },
+                "type": {
+                    "description": "Typ cen k z\u00edsk\u00e1n\u00ed, energie nebo plyn.",
+                    "name": "Typ"
+                }
+            },
+            "name": "Z\u00edskat ceny"
+        }
+    }
+}

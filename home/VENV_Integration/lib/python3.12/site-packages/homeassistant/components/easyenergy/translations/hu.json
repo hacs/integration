@@ -1,0 +1,121 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Az eszk\u00f6z m\u00e1r konfigur\u00e1lva van"
+        },
+        "step": {
+            "user": {
+                "description": "El szeretn\u00e9 kezdeni a be\u00e1ll\u00edt\u00e1st?"
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "average_price": {
+                "name": "\u00c1tlag - ma"
+            },
+            "current_hour_price": {
+                "name": "Aktu\u00e1lis \u00f3r\u00e1ban"
+            },
+            "highest_price_time": {
+                "name": "A legmagasabb \u00e1r pillanata \u2013 ma"
+            },
+            "hours_priced_equal_or_higher": {
+                "name": "A jelenlegivel megegyez\u0151 vagy magasabb \u00e1ras \u00f3r\u00e1k \u2013 ma"
+            },
+            "hours_priced_equal_or_lower": {
+                "name": "A jelenlegivel megegyez\u0151 vagy alacsonyabb \u00e1ras \u00f3r\u00e1k \u2013 ma"
+            },
+            "lowest_price_time": {
+                "name": "A legalacsonyabb \u00e1r pillanata - ma"
+            },
+            "max_price": {
+                "name": "Legmagasabb \u00e1r - ma"
+            },
+            "min_price": {
+                "name": "Legalacsonyabb \u00e1r - ma"
+            },
+            "next_hour_price": {
+                "name": "K\u00f6vetkez\u0151 \u00f3ra"
+            },
+            "percentage_of_max": {
+                "name": "A legmagasabb \u00e1r jelenlegi sz\u00e1zal\u00e9ka \u2013 ma"
+            }
+        }
+    },
+    "exceptions": {
+        "invalid_config_entry": {
+            "message": "\u00c9rv\u00e9nytelen konfigur\u00e1ci\u00f3s bejegyz\u00e9st adott meg. \u00c9rt\u00e9k: {config_entry}"
+        },
+        "invalid_date": {
+            "message": "A megadott d\u00e1tum ({date}) \u00e9rv\u00e9nytelen."
+        },
+        "unloaded_config_entry": {
+            "message": "\u00c9rv\u00e9nytelen konfigur\u00e1ci\u00f3s bejegyz\u00e9st adott meg. A {config_entry} nincs bet\u00f6ltve."
+        }
+    },
+    "services": {
+        "get_energy_return_prices": {
+            "description": "K\u00e9rje le az easyEnergy-t\u00f3l a visszat\u00e1pl\u00e1lt energia \u00e1rait.",
+            "fields": {
+                "config_entry": {
+                    "description": "A szolg\u00e1ltat\u00e1shoz haszn\u00e1land\u00f3 konfigur\u00e1ci\u00f3s bejegyz\u00e9s.",
+                    "name": "Konfigur\u00e1ci\u00f3s bejegyz\u00e9s"
+                },
+                "end": {
+                    "description": "Meghat\u00e1rozza azt a d\u00e1tumot \u00e9s id\u0151pontot, ameddig a g\u00e1z\u00e1rakat le kell k\u00e9rni. Alap\u00e9rtelmez\u00e9s szerint a mai napra \u00e1ll, ha nem ker\u00fcl megad\u00e1sra.",
+                    "name": "V\u00e9ge"
+                },
+                "start": {
+                    "description": "Meghat\u00e1rozza azt a d\u00e1tumot \u00e9s id\u0151pontot, amelyt\u0151l kezd\u0151d\u0151en a g\u00e1z\u00e1rakat le kell k\u00e9rni. Alap\u00e9rtelmez\u00e9s szerint a mai napra \u00e1ll, ha nem ker\u00fcl megad\u00e1sra.",
+                    "name": "Kezdet"
+                }
+            },
+            "name": "Visszat\u00e1pl\u00e1lt energia \u00e1rainak lek\u00e9r\u00e9se"
+        },
+        "get_energy_usage_prices": {
+            "description": "Az easyEnergy-t\u0151l az energiafelhaszn\u00e1l\u00e1s d\u00edjszab\u00e1sainak lek\u00e9rdez\u00e9se.",
+            "fields": {
+                "config_entry": {
+                    "description": "A szolg\u00e1ltat\u00e1shoz haszn\u00e1land\u00f3 konfigur\u00e1ci\u00f3s bejegyz\u00e9s.",
+                    "name": "Konfigur\u00e1ci\u00f3s bejegyz\u00e9s"
+                },
+                "end": {
+                    "description": "Meghat\u00e1rozza azt a d\u00e1tumot \u00e9s id\u0151pontot, ameddig a g\u00e1z\u00e1rakat le kell k\u00e9rni. Alap\u00e9rtelmez\u00e9s szerint a mai napra \u00e1ll, ha nem ker\u00fcl megad\u00e1sra.",
+                    "name": "V\u00e9ge"
+                },
+                "incl_vat": {
+                    "description": "Meghat\u00e1rozza, hogy az \u00e1rak tartalmazz\u00e1k-e az \u00c1FA-t vagy sem, az alap\u00e9rtelmezett \u00e9rt\u00e9k igaz.",
+                    "name": "\u00c1F\u00c1-val egy\u00fctt"
+                },
+                "start": {
+                    "description": "Meghat\u00e1rozza azt a d\u00e1tumot \u00e9s id\u0151pontot, amelyt\u0151l kezd\u0151d\u0151en a g\u00e1z\u00e1rakat le kell k\u00e9rni. Alap\u00e9rtelmez\u00e9s szerint a mai napra \u00e1ll, ha nem ker\u00fcl megad\u00e1sra.",
+                    "name": "Kezdet"
+                }
+            },
+            "name": "Energiafelhaszn\u00e1l\u00e1s d\u00edjszab\u00e1sainak lek\u00e9r\u00e9se"
+        },
+        "get_gas_prices": {
+            "description": "Az easyEnergy-t\u0151l a g\u00e1z\u00e1rak lek\u00e9rdez\u00e9se.",
+            "fields": {
+                "config_entry": {
+                    "description": "A szolg\u00e1ltat\u00e1shoz haszn\u00e1land\u00f3 konfigur\u00e1ci\u00f3s bejegyz\u00e9s.",
+                    "name": "Konfigur\u00e1ci\u00f3s bejegyz\u00e9s"
+                },
+                "end": {
+                    "description": "Meghat\u00e1rozza azt a d\u00e1tumot \u00e9s id\u0151pontot, ameddig a g\u00e1z\u00e1rakat le kell k\u00e9rni. Alap\u00e9rtelmez\u00e9s szerint a mai napra \u00e1ll, ha nem ker\u00fcl megad\u00e1sra.",
+                    "name": "V\u00e9ge"
+                },
+                "incl_vat": {
+                    "description": "Meghat\u00e1rozza, hogy az \u00e1rak tartalmazz\u00e1k-e az \u00c1FA-t vagy sem, az alap\u00e9rtelmezett \u00e9rt\u00e9k igaz.",
+                    "name": "\u00c1F\u00c1-val egy\u00fctt"
+                },
+                "start": {
+                    "description": "Meghat\u00e1rozza azt a d\u00e1tumot \u00e9s id\u0151pontot, amelyt\u0151l kezd\u0151d\u0151en a g\u00e1z\u00e1rakat le kell k\u00e9rni. Alap\u00e9rtelmez\u00e9s szerint a mai napra \u00e1ll, ha nem ker\u00fcl megad\u00e1sra.",
+                    "name": "Kezdet"
+                }
+            },
+            "name": "G\u00e1z\u00e1rak lek\u00e9r\u00e9se"
+        }
+    }
+}

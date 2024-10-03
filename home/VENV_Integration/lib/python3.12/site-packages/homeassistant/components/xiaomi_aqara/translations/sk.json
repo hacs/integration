@@ -1,0 +1,95 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Zariadenie u\u017e je nakonfigurovan\u00e9",
+            "already_in_progress": "Konfigur\u00e1cia u\u017e prebieha",
+            "not_xiaomi_aqara": "Nie je to Xiaomi Aqara Gateway, objaven\u00e9 zariadenie sa nezhoduje so zn\u00e1mymi br\u00e1nami"
+        },
+        "error": {
+            "discovery_error": "Nepodarilo sa objavi\u0165 br\u00e1nu Xiaomi Aqara, sk\u00faste ako rozhranie pou\u017ei\u0165 IP adresu zariadenia s HomeAssistant",
+            "invalid_host": "Neplatn\u00fd n\u00e1zov hostite\u013ea alebo adresa IP, pozrite si https://www.home-assistant.io/integrations/xiaomi_aqara/#connection-problem",
+            "invalid_interface": "Neplatn\u00e9 sie\u0165ov\u00e9 rozhranie",
+            "invalid_key": "Neplatn\u00fd k\u013e\u00fa\u010d br\u00e1ny",
+            "invalid_mac": "Neplatn\u00e1 adresa Mac"
+        },
+        "flow_title": "{name}",
+        "step": {
+            "select": {
+                "data": {
+                    "select_ip": "IP adresa"
+                },
+                "description": "Vyberte br\u00e1nu Xiaomi Aqara, ktor\u00fa chcete pripoji\u0165"
+            },
+            "settings": {
+                "data": {
+                    "key": "K\u013e\u00fa\u010d va\u0161ej br\u00e1ny",
+                    "name": "N\u00e1zov br\u00e1ny"
+                },
+                "description": "K\u013e\u00fa\u010d (heslo) je mo\u017en\u00e9 z\u00edska\u0165 pomocou tohto n\u00e1vodu: https://www.domoticz.com/wiki/Xiaomi_Gateway_(Aqara)#Adding_the_Xiaomi_Gateway_to_Domoticz. Ak k\u013e\u00fa\u010d nie je poskytnut\u00fd, bud\u00fa pr\u00edstupn\u00e9 iba sn\u00edma\u010de",
+                "title": "Volite\u013en\u00e9 nastavenia"
+            },
+            "user": {
+                "data": {
+                    "host": "IP adresa (volite\u013en\u00e9)",
+                    "interface": "Sie\u0165ov\u00e9 rozhranie, ktor\u00e9 sa m\u00e1 pou\u017ei\u0165",
+                    "mac": "Adresa Mac (volite\u013en\u00e9)"
+                },
+                "description": "Ak s\u00fa adresy IP a MAC ponechan\u00e9 pr\u00e1zdne, pou\u017eije sa automatick\u00e9 zis\u0165ovanie"
+            }
+        }
+    },
+    "services": {
+        "add_device": {
+            "description": "Povol\u00ed pripojenie br\u00e1ny Xiaomi Aqara na 30 sek\u00fand. N\u00e1sledne je mo\u017en\u00e9 prida\u0165 nov\u00e9 zariadenie jednorazov\u00fdm stla\u010den\u00edm tla\u010didla p\u00e1rovania.",
+            "fields": {
+                "gw_mac": {
+                    "description": "MAC adresa br\u00e1ny Xiaomi Aqara.",
+                    "name": "Br\u00e1na MAC"
+                }
+            },
+            "name": "Prida\u0165 zariadenie"
+        },
+        "play_ringtone": {
+            "description": "Prehr\u00e1va konkr\u00e9tny vyzv\u00e1\u0148ac\u00ed t\u00f3n. Verzia firmv\u00e9ru br\u00e1ny mus\u00ed by\u0165 minim\u00e1lne 1.4.1_145.",
+            "fields": {
+                "gw_mac": {
+                    "description": "MAC adresa br\u00e1ny Xiaomi Aqara.",
+                    "name": "Br\u00e1na MAC"
+                },
+                "ringtone_id": {
+                    "description": "Jedno z povolen\u00fdch ID zvonen\u00ed.",
+                    "name": "ID zvonenia"
+                },
+                "ringtone_vol": {
+                    "description": "Hlasitos\u0165 v percent\u00e1ch.",
+                    "name": "Hlasitos\u0165 zvonenia"
+                }
+            },
+            "name": "Prehr\u00e1vanie zvonenia"
+        },
+        "remove_device": {
+            "description": "Odstr\u00e1ni konkr\u00e9tne zariadenie. Odstr\u00e1nenie sa vy\u017eaduje, ak sa m\u00e1 zariadenie sp\u00e1rova\u0165 s inou br\u00e1nou.",
+            "fields": {
+                "device_id": {
+                    "description": "Hardv\u00e9rov\u00e1 adresa zariadenia, ktor\u00e9 sa m\u00e1 odstr\u00e1ni\u0165.",
+                    "name": "ID zariadenia"
+                },
+                "gw_mac": {
+                    "description": "MAC adresa br\u00e1ny Xiaomi Aqara.",
+                    "name": "Br\u00e1na MAC"
+                }
+            },
+            "name": "Odstr\u00e1ni\u0165 zariadenie"
+        },
+        "stop_ringtone": {
+            "description": "Okam\u017eite zastav\u00ed prehr\u00e1vanie zvonenia.",
+            "fields": {
+                "gw_mac": {
+                    "description": "MAC adresa br\u00e1ny Xiaomi Aqara.",
+                    "name": "Br\u00e1na MAC"
+                }
+            },
+            "name": "Zastavenie zvonenia"
+        }
+    }
+}

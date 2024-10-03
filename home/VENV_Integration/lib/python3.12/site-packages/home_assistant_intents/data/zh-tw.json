@@ -1,0 +1,1509 @@
+{
+  "language": "zh-tw",
+  "intents": {
+    "HassTurnOff": {
+      "data": [
+        {
+          "sentences": [
+            "<turn_off> [<area>] <name>[(<light>|<switch>)]",
+            "[<let>] [<area>] <name>[(<light>|<switch>)]<turn_off>"
+          ],
+          "excludes_context": {
+            "domain": [
+              "binary_sensor",
+              "cover",
+              "lock",
+              "scene",
+              "script",
+              "sensor"
+            ]
+          }
+        },
+        {
+          "sentences": [
+            "<turn_off><area>[<all>]<light>",
+            "<turn_off>[<all>]<area><light>",
+            "[<let>]<area>[<all>]<light><turn_off>",
+            "[<let>][<all>]<area><light><turn_off>"
+          ],
+          "slots": {
+            "domain": "light"
+          },
+          "response": "lights_area"
+        },
+        {
+          "sentences": [
+            "<turn_off>[<area>]<all><light>",
+            "<turn_off><all>[<area>]<light>",
+            "[<let>][<area>]<all><light><turn_off>",
+            "[<let>]<all>[<area>]<light><turn_off>"
+          ],
+          "response": "light_all",
+          "slots": {
+            "domain": "light",
+            "name": "all"
+          }
+        },
+        {
+          "sentences": [
+            "<close> [<area>] <name>",
+            "<let> [<area>] <name> <close>"
+          ],
+          "requires_context": {
+            "domain": "cover"
+          },
+          "response": "cover"
+        },
+        {
+          "sentences": [
+            "<let> 車庫門 <close>",
+            "<close> 車庫門"
+          ],
+          "slots": {
+            "domain": "cover",
+            "device_class": "garage"
+          },
+          "response": "cover_device_class"
+        },
+        {
+          "sentences": [
+            "<close> [<area>] [的] {cover_classes:device_class}",
+            "<let> [<area>] [的] {cover_classes:device_class} <close>"
+          ],
+          "slots": {
+            "domain": "cover"
+          },
+          "response": "cover_device_class"
+        },
+        {
+          "sentences": [
+            "<turn_off>[所有|全部]<area>[的][所有|全部]<fan>",
+            "[<let>][所有|全部][的]<area>[的][所有|全部]<fan><turn_off>",
+            "<turn_off> <area> (風扇|吊扇)",
+            "<let>  <area> [<all>] (風扇 | 吊扇) <turn_off>"
+          ],
+          "slots": {
+            "domain": "fan",
+            "name": "all"
+          },
+          "response": "fans_area"
+        },
+        {
+          "sentences": [
+            "<turn_off><all>[<area>][的][所有|全部]<fan>",
+            "[<let>]<all>[的][<area>][的][所有|全部]<fan><turn_off>",
+            "<let>[<area>]<all>(風扇 | 吊扇)<turn_off>"
+          ],
+          "response": "light_all",
+          "slots": {
+            "domain": "fan",
+            "name": "all"
+          }
+        },
+        {
+          "sentences": [
+            "(打開|開啟|解鎖)[<area>]<name>"
+          ],
+          "requires_context": {
+            "domain": "lock"
+          },
+          "response": "lock"
+        },
+        {
+          "sentences": [
+            "[<let>][<area>]<name>(打開|開啟|解鎖)"
+          ],
+          "requires_context": {
+            "domain": "lock"
+          },
+          "response": "lock"
+        },
+        {
+          "sentences": [
+            "(打開|開啟|解鎖)[<area>]<all>(<name>|門鎖|鎖|門)"
+          ],
+          "slots": {
+            "domain": "lock",
+            "name": "all"
+          },
+          "response": "lock"
+        },
+        {
+          "sentences": [
+            "[<let>][<area>]<all>(<name>|門鎖|鎖|門)(打開|開啟|解鎖)"
+          ],
+          "slots": {
+            "domain": "lock",
+            "name": "all"
+          },
+          "response": "lock"
+        }
+      ]
+    },
+    "HassTurnOn": {
+      "data": [
+        {
+          "sentences": [
+            "<turn_on><area>[<all>]<light>",
+            "<turn_on>[<all>]<area><light>",
+            "[<let>]<area>[<all>]<light><turn_on>",
+            "[<let>][<all>]<area><light><turn_on>"
+          ],
+          "slots": {
+            "domain": "light"
+          },
+          "response": "lights_area"
+        },
+        {
+          "sentences": [
+            "<turn_on><area>(風扇|吊扇)"
+          ],
+          "slots": {
+            "domain": "fan",
+            "name": "all"
+          },
+          "response": "fans_area"
+        },
+        {
+          "sentences": [
+            "[<let>]<area>(風扇|吊扇)<turn_on>"
+          ],
+          "slots": {
+            "domain": "fan",
+            "name": "all"
+          },
+          "response": "fans_area"
+        },
+        {
+          "sentences": [
+            "[(執行|開始)]<name>[腳本]"
+          ],
+          "requires_context": {
+            "domain": "script"
+          },
+          "slots": {
+            "domain": "script"
+          },
+          "response": "script"
+        },
+        {
+          "sentences": [
+            "[啟動]<name>[場景]"
+          ],
+          "requires_context": {
+            "domain": "scene"
+          },
+          "slots": {
+            "domain": "scene"
+          },
+          "response": "scene"
+        },
+        {
+          "sentences": [
+            "(關上|關閉|上鎖|鎖上)[<area>]<name>"
+          ],
+          "requires_context": {
+            "domain": "lock"
+          },
+          "response": "lock"
+        },
+        {
+          "sentences": [
+            "[<let>][<area>]<name>(關上|關閉|上鎖|鎖上)"
+          ],
+          "requires_context": {
+            "domain": "lock"
+          },
+          "response": "lock"
+        },
+        {
+          "sentences": [
+            "(關上|關閉|上鎖|鎖上)[<area>]<all>(<name>|門鎖|鎖)"
+          ],
+          "slots": {
+            "domain": "lock",
+            "name": "all"
+          },
+          "response": "lock"
+        },
+        {
+          "sentences": [
+            "[<let>][<area>]<all>(<name>|門鎖|鎖|門)(關上|關閉|上鎖|鎖上)"
+          ],
+          "slots": {
+            "domain": "lock",
+            "name": "all"
+          },
+          "response": "lock"
+        },
+        {
+          "sentences": [
+            "<turn_on> [<area>] <name>[(<light>|<switch>)]",
+            "[<let>][<area>]<name>[(<light>|<switch>)]<turn_on>"
+          ],
+          "excludes_context": {
+            "domain": [
+              "binary_sensor",
+              "cover",
+              "lock",
+              "scene",
+              "script",
+              "sensor"
+            ]
+          }
+        },
+        {
+          "sentences": [
+            "<open> [<area>] <name>",
+            "<let> [<area>] <name> <open>"
+          ],
+          "requires_context": {
+            "domain": "cover"
+          },
+          "response": "cover"
+        },
+        {
+          "sentences": [
+            "<let> 車庫門 <open>",
+            "<open> 車庫門"
+          ],
+          "slots": {
+            "domain": "cover",
+            "device_class": "garage"
+          },
+          "response": "cover_device_class"
+        },
+        {
+          "sentences": [
+            "<open> <area> {cover_classes:device_class}",
+            "<let> <area> {cover_classes:device_class} <open>"
+          ],
+          "slots": {
+            "domain": "cover"
+          },
+          "response": "cover_device_class"
+        }
+      ]
+    },
+    "HassLightSet": {
+      "data": [
+        {
+          "sentences": [
+            "[<let>]<name>[(燈|燈光)][亮度]<set_to><brightness>",
+            "<set><name>[(燈|燈光)][亮度]<to><brightness>"
+          ],
+          "response": "brightness",
+          "requires_context": {
+            "domain": "light"
+          }
+        },
+        {
+          "sentences": [
+            "<let><area>[(照明|燈光)][亮度]<set_to><brightness>",
+            "<set><area>[(照明|燈光)][亮度][<to>]<brightness>"
+          ],
+          "slots": {
+            "name": "all"
+          },
+          "response": "brightness"
+        },
+        {
+          "sentences": [
+            "<let><name>[(燈|燈光)][亮度]<set_to>{brightness_level:brightness}",
+            "<set><name>[(燈|燈光)][亮度][<to>]{brightness_level:brightness}"
+          ],
+          "requires_context": {
+            "domain": "light"
+          },
+          "response": "brightness"
+        },
+        {
+          "sentences": [
+            "<let><area>[(照明|燈光)][亮度]<set_to>{brightness_level:brightness}",
+            "<set><area>[(照明|燈光)][亮度][<to>]{brightness_level:brightness}"
+          ],
+          "slots": {
+            "name": "all"
+          },
+          "response": "brightness"
+        },
+        {
+          "sentences": [
+            "<let><name>[(照明|燈光)][(顏色|色溫)][<set_to>]{color}",
+            "<set><name>[(照明|燈光)][(顏色|色溫)]<to>{color}"
+          ],
+          "requires_context": {
+            "domain": "light"
+          },
+          "response": "color"
+        },
+        {
+          "sentences": [
+            "<let><area>[(照明|燈光)][(顏色|色溫)][<set_to>]{color}",
+            "<set><area>[(照明|燈光)][(顏色|色溫)]<to>{color}"
+          ],
+          "slots": {
+            "name": "all"
+          },
+          "response": "color"
+        }
+      ]
+    },
+    "HassClimateGetTemperature": {
+      "data": [
+        {
+          "sentences": [
+            "[<area>] <temp> <how_many_is>",
+            "[<area>] [現在](幾|多少|溫)度",
+            "[現在][<area>][這裡|那裡|這邊|那邊](幾|多少)度",
+            "[現在][<area>][這裡|那裡|這邊|那邊][有]多(熱|冷)"
+          ]
+        }
+      ]
+    },
+    "HassGetState": {
+      "data": [
+        {
+          "sentences": [
+            "[<area>][<name>][(是|是不是)]{lock_states:state}[著][(的|了)][嗎]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "lock"
+          },
+          "slots": {
+            "domain": "lock"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>][(有 | 有沒有 | 有任何)][<door>][是] [沒有]{lock_states:state}[著][的][嗎]"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "lock"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>][<all>][<door>][(都|都是|是|是不是)]{lock_states:state}[著][(的|了)][嗎]"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "lock"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>] [<which>][<door>][是] {lock_states:state}[著][(的|了)][嗎]"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "lock"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>]<how_many>[(扇|道)][<door>][是]{lock_states:state}[著][的][嗎]"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "lock"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>] [(目前 | 現在)] [的] <name> [(目前 | 現在)] [狀態]"
+          ],
+          "response": "one",
+          "excludes_context": {
+            "domain": [
+              "scene",
+              "script"
+            ]
+          }
+        },
+        {
+          "sentences": [
+            "[<area>] [(目前 | 現在)] <name> [(目前 | 現在)] [狀態] (<what_is> | <how_many_is>)"
+          ],
+          "response": "one"
+        },
+        {
+          "sentences": [
+            "[<area>] <name> [是] {on_off_states:state} [嗎]"
+          ],
+          "response": "one_yesno",
+          "excludes_context": {
+            "domain": [
+              "cover"
+            ]
+          }
+        },
+        {
+          "sentences": [
+            "[<area>] <name> [(是 | 是不是)] {on_off_states:state}"
+          ],
+          "response": "one_yesno",
+          "excludes_context": {
+            "domain": [
+              "cover"
+            ]
+          }
+        },
+        {
+          "sentences": [
+            "[<area>] [(有 | 有沒有)] [任何] [的] {on_off_domains:domain} [(是 | 是不是)] {on_off_states:state} [著] [的] [嗎]"
+          ],
+          "response": "any"
+        },
+        {
+          "sentences": [
+            "[<area>] [<all>] {on_off_domains:domain} [(是 | 是不是)] [都是] {on_off_states:state} [著] [的] [嗎]"
+          ],
+          "response": "all"
+        },
+        {
+          "sentences": [
+            "[<area>] <which> [<area>] {on_off_domains:domain} [是] {on_off_states:state} [著] [的] [嗎]"
+          ],
+          "response": "which"
+        },
+        {
+          "sentences": [
+            "[<area>] <how_many> [(盞 | 扇 | 個)] [<area>] {on_off_domains:domain} [是] {on_off_states:state} [著] [的] [嗎]"
+          ],
+          "response": "how_many"
+        },
+        {
+          "sentences": [
+            "[<area>] <name> [(是 | 是不是)] {cover_states:state} [的] [嗎]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "cover"
+          },
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>] [(有 | 有沒有 | 有任何)] {cover_classes:device_class} 是 {cover_states:state} [的] [嗎]"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>] [<all>] {cover_classes:device_class} [(都是 | 是 | 是不是)] {cover_states:state} [的] [嗎]"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>] [<which>] {cover_classes:device_class} [是] {cover_states:state} [的] [嗎]"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>] <how_many> [扇] {cover_classes:device_class} 是 {cover_states:state}"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>]<name>電量[(目前 | 現在)]{bs_battery_states:state}[嗎]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "battery"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "battery"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>]<name>[(目前 | 現在)][(正在|正)]{bs_battery_charging_states:state}[嗎]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "battery_charging"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "battery_charging"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>][(目前|現在)][(有沒有|有)]{bs_carbon_monoxide_states:state}[到](二氧化碳|CO2|<name>)[嗎]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "carbon_monoxide"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "carbon_monoxide"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>]<name>[(目前|現在)][(是不是|是)]{bs_cold_states:state}[的][狀態][的][嗎]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "cold"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "cold"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>]<name>[(目前|現在)][(是不是|是)]{bs_connectivity_states:state}[的][狀態][的][嗎]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "connectivity"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "connectivity"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>]<name>[(目前 | 現在)][(是不是|是)]{bs_door_states:state}[的][狀態][著][的][嗎]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "door"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "door"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>]<name>[(目前 | 現在)][(是不是|是)]{bs_garage_door_states:state}[的][狀態][的][嗎]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "garage_door"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "garage_door"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>][(目前 | 現在)][(有沒有|有)]{bs_gas_states:state}[到](<name>|瓦斯|天然氣)[嗎]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "gas"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "gas"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>]<name>[(目前 | 現在)][(是不是|是)][(有沒有|有)][發]{bs_heat_states:state}[的][狀態][的][嗎]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "heat"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "heat"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>][(目前 | 現在)][(有沒有|有)]{bs_light_states:state}到(光線|<name>)[嗎]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "light"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "light"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>]<name>[(目前 | 現在)][(是不是|是)]{bs_lock_states:state}[的][狀態][的][嗎]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "lock"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "lock"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>]<name>[(目前 | 現在)][(是不是|是)][(有沒有|有)]{bs_moisture_states:state}[的][狀態][嗎]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "moisture"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "moisture"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>][的]<name>[(目前 | 現在)][(有沒有|有)]{bs_motion_states:state}[到]動作[嗎]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "motion"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "motion"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>][的]<name>[(目前 | 現在)][(有沒有|有)]{bs_occupancy_states:state}[到](動作|佔空|有人)[嗎]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "occupancy"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "occupancy"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>]<name>[(目前 | 現在)][(是不是|是)]{bs_opening_states:state}[的][狀態][的][嗎]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "opening"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "opening"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>]<name>[(目前 | 現在)][(是不是|是)]{bs_plug_states:state}[的][狀態][的][嗎]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "plug"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "plug"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>]<name>[(目前 | 現在)][(是不是|是)]{bs_power_states:state}[的][狀態][的][嗎]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "power"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "power"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>]<name>[(目前 | 現在)][(是不是|是)][(有沒有|有)]{bs_presence_states:state}[的][狀態][的][嗎]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "presence"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "presence"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>]<name>[(目前 | 現在)][(有沒有|有)][發生][任何]問題[嗎]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "problem"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "problem",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>]<name>[(目前 | 現在)][(是不是|是)][(有沒有|有)][在]{bs_running_states:state}[的][狀態][的][嗎]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "running"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "running"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>]<name>[(目前 | 現在)][(是不是|是)]{bs_safety_states:state}[的][狀態][的][嗎]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "safety"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "safety"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>]<name>[(目前 | 現在)][(有沒有|有)]{bs_smoke_states:state}到(煙霧|煙)[嗎]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "smoke"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "smoke"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>][<name>][(目前 | 現在)][(有沒有|有)][任何]煙霧[嗎]"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "smoke",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>][(目前 | 現在)][(有沒有|有)]{bs_sound_states:state}[到]<name>[的]聲音[嗎]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "sound"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "sound"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>]<name>[(目前 | 現在)][(有沒有|有)]{bs_tamper_states:state}[的][狀態][的][嗎|嘛]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "tamper"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "tamper"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>]<name>[(目前 | 現在)][(是不是|是)]{bs_update_states:state}[的][狀態][的][嗎]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "update"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "update"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>]<name>[(目前|現在|正在)][(有沒有|有)]{bs_vibration_states:state}[的][狀態][的|中][嗎]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "vibration"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "vibration"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>]<name>[(目前 | 現在)][(是不是|是)]{bs_window_states:state}[的][狀態][的][嗎]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "window"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "window"
+          }
+        }
+      ]
+    }
+  },
+  "settings": {
+    "ignore_whitespace": true
+  },
+  "responses": {
+    "errors": {
+      "no_intent": "抱歉，我沒聽懂",
+      "no_area": "「{{ area }}」這個分區並不存在",
+      "no_domain_in_area": "{{ area }}裡面沒有任何{{ domain }}",
+      "no_device_class_in_area": "{{ area }}裡面並沒有任何{{ device_class }}",
+      "no_entity": "「{{ entity }}」這個實體並不存在",
+      "handle_error": "處理您的指令時，發生了意外錯誤"
+    },
+    "intents": {
+      "HassGetState": {
+        "one": "{{ slots.name | capitalize }}為 {{ state.state_with_unit }}\n",
+        "one_yesno": "{% if query.matched: %}\n  是的\n{% else: %}\n  沒有、{{ slots.name }}是{{ state.state_with_unit }}的\n{% endif %}\n",
+        "any": "{% if query.matched %}\n  {% set match = query.matched | map(attribute=\"name\") | sort | list %}\n  {% if match|length > 4 %}\n    是的、{{ match[:3]|join(\"、\") }}及另外{{ (match|length - 3) }}個\n  {%- else -%}\n    是的、{% for name in match -%}{% if not loop.first and not loop.last %}、{% elif loop.last and not loop.first %}及{% endif -%}{{ name }}\n    {%- endfor -%}\n  {% endif %}\n{% else %}\n  沒有\n{% endif %}\n",
+        "all": "{% if not query.unmatched: %}\n  是的\n{% else %}\n  {% set no_match = query.unmatched | map(attribute=\"name\") | sort | list %}\n  {% if no_match | length > 4 %}\n    沒有、{{ no_match[:3]|join(\"、\") }}及另外{{ (no_match|length - 3) }}個不是\n  {%- else -%}\n    沒有、{% for name in no_match -%}{% if not loop.first and not loop.last %}、{% elif loop.last and not loop.first %}及{% endif -%}{{ name }}{%- endfor %}不是\n  {% endif %}\n{% endif %}\n",
+        "which": "{% if not query.matched %}\n  沒有任何\n{% else: %}\n  {% set match = query.matched | map(attribute=\"name\") | sort | list %}\n  {% if match | length > 4 %}\n    {{ match[:3]|join(\"、\") }}及另外{{ (match | length - 3) }}個\n  {% else %}\n    {%- for name in match -%}\n      {% if not loop.first and not loop.last %}、{% elif loop.last and not loop.first %}及{% endif -%}\n      {{ name }}\n    {%- endfor -%}\n  {% endif %}\n{% endif %}\n",
+        "how_many": "{{ query.matched | length }}\n"
+      },
+      "HassTurnOff": {
+        "default": "{{ slots.name|default('') }}已關閉",
+        "lights_area": "{{ slots.area }}燈光已關閉",
+        "fans_area": "{{ slots.area }}風扇已關閉",
+        "cover": "{{ slots.name|default('') }}已關閉",
+        "light_all": "所有燈光已關閉",
+        "fan_all": "所有風扇已關閉",
+        "cover_device_class": "{{ slots.area|default('') }}{{ slots.device_class }}已關閉",
+        "lock": "{{ slots.name|default('') }}已解鎖"
+      },
+      "HassTurnOn": {
+        "default": "{{ slots.name|default('') }}已打開",
+        "lights_area": "{{ slots.area }}燈光已打開",
+        "fans_area": "{{ slots.area }}風扇已打開",
+        "cover": "{{ slots.name|default('') }}已打開",
+        "cover_device_class": "{{ slots.area|default('') }}{{ slots.device_class }}已打開",
+        "scene": "{{ slots.name|default('') }}已啟用",
+        "script": "{{ slots.name|default('') }}已開始",
+        "lock": "{{ slots.name|default('') }}已上鎖"
+      },
+      "HassLightSet": {
+        "brightness": "{{ slots.name }}亮度已調整",
+        "brightness_area": "{{ slots.area }}亮度已調整為{{ slots.brightness }}",
+        "color": "{{ slots.area }}顏色已調整",
+        "color_area": "{{ slots.area }}顏色已調整為{{ slots.color }}"
+      },
+      "HassClimateGetTemperature": {
+        "default": "{{ state_attr(state.entity_id, 'current_temperature') }}"
+      }
+    }
+  },
+  "lists": {
+    "color": {
+      "values": [
+        {
+          "in": "白色",
+          "out": "white"
+        },
+        {
+          "in": "黑色",
+          "out": "black"
+        },
+        {
+          "in": "紅色",
+          "out": "red"
+        },
+        {
+          "in": "橘色",
+          "out": "orange"
+        },
+        {
+          "in": "黃色",
+          "out": "yellow"
+        },
+        {
+          "in": "綠色",
+          "out": "green"
+        },
+        {
+          "in": "藍色",
+          "out": "blue"
+        },
+        {
+          "in": "紫色",
+          "out": "purple"
+        },
+        {
+          "in": "咖啡色",
+          "out": "brown"
+        }
+      ]
+    },
+    "brightness": {
+      "range": {
+        "type": "percentage",
+        "from": 0,
+        "to": 100
+      }
+    },
+    "temperature": {
+      "range": {
+        "type": "temperature",
+        "from": 0,
+        "to": 100
+      }
+    },
+    "temperature_unit": {
+      "values": [
+        {
+          "in": "(度C|攝氏度|度|°C)",
+          "out": "celsius"
+        },
+        {
+          "in": "(度F|華氏度|度|°F)",
+          "out": "fahrenheit"
+        }
+      ]
+    },
+    "brightness_level": {
+      "values": [
+        {
+          "in": "(最大|最亮|最高)",
+          "out": 100
+        },
+        {
+          "in": "(最小|最暗|最低)",
+          "out": 1
+        }
+      ]
+    },
+    "on_off_states": {
+      "values": [
+        {
+          "in": "(開啟|打開|開)[的]",
+          "out": "on"
+        },
+        {
+          "in": "(關閉|關上|關)[的]",
+          "out": "off"
+        }
+      ]
+    },
+    "on_off_domains": {
+      "values": [
+        {
+          "in": "(燈|照明|桌燈|檯燈|床頭燈|壁燈|吸頂燈|崁燈|嵌燈)[的]",
+          "out": "light"
+        },
+        {
+          "in": "(電扇|電風扇|風扇|循環扇|吊扇|壁掛扇|壁扇|掛扇)",
+          "out": "fan"
+        },
+        {
+          "in": "(開關|電源|插座|總開關|燈光)",
+          "out": "switch"
+        }
+      ]
+    },
+    "cover_states": {
+      "values": [
+        {
+          "in": "(開啟|打開|開著|開)[的]",
+          "out": "open"
+        },
+        {
+          "in": "(關閉|關上|關著|關)[的]",
+          "out": "closed"
+        },
+        {
+          "in": "(開啟中|打開中|正在開啟|正在打開|正打開)",
+          "out": "opening"
+        },
+        {
+          "in": "(關閉中|正在關閉|正在關上|正關上)",
+          "out": "closing"
+        }
+      ]
+    },
+    "cover_classes": {
+      "values": [
+        {
+          "in": "(遮陽棚|遮雨棚|雨棚)",
+          "out": "awning"
+        },
+        {
+          "in": "(窗簾|百葉窗|羅馬簾|捲簾|紗簾|門簾|遮光簾)",
+          "out": "blind"
+        },
+        {
+          "in": "(窗簾|百葉窗|羅馬簾|捲簾|紗簾|門簾|遮光簾)",
+          "out": "curtain"
+        },
+        {
+          "in": "(門|房間門|房門)",
+          "out": "door"
+        },
+        {
+          "in": "(車庫門|車庫)",
+          "out": "garage"
+        },
+        {
+          "in": "大門",
+          "out": "gate"
+        },
+        {
+          "in": "(遮陽棚|遮雨棚|雨棚)",
+          "out": "shade"
+        },
+        {
+          "in": "(窗簾|百葉窗|羅馬簾|捲簾|紗簾|門簾|遮光簾)",
+          "out": "shutter"
+        },
+        {
+          "in": "(窗戶|落地窗|鋁窗)",
+          "out": "window"
+        }
+      ]
+    },
+    "lock_states": {
+      "values": [
+        {
+          "in": "(已上鎖|鎖著|鎖上|上鎖)",
+          "out": "locked"
+        },
+        {
+          "in": "(已解鎖|開著|沒上鎖)",
+          "out": "unlocked"
+        }
+      ]
+    },
+    "bs_battery_states": {
+      "values": [
+        {
+          "in": "過低",
+          "out": "on"
+        },
+        {
+          "in": "正常",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_battery_charging_states": {
+      "values": [
+        {
+          "in": "充電中",
+          "out": "on"
+        },
+        {
+          "in": "未充電",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_carbon_monoxide_states": {
+      "values": [
+        {
+          "in": "偵測",
+          "out": "on"
+        },
+        {
+          "in": "正常",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_cold_states": {
+      "values": [
+        {
+          "in": "冷",
+          "out": "on"
+        },
+        {
+          "in": "正常",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_connectivity_states": {
+      "values": [
+        {
+          "in": "連線",
+          "out": "on"
+        },
+        {
+          "in": "斷線",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_door_states": {
+      "values": [
+        {
+          "in": "(開啟|打開)",
+          "out": "on"
+        },
+        {
+          "in": "(關閉|關上)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_garage_door_states": {
+      "values": [
+        {
+          "in": "(開啟|打開)",
+          "out": "on"
+        },
+        {
+          "in": "(關閉|關上)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_gas_states": {
+      "values": [
+        {
+          "in": "偵測",
+          "out": "on"
+        },
+        {
+          "in": "正常",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_heat_states": {
+      "values": [
+        {
+          "in": "熱",
+          "out": "on"
+        },
+        {
+          "in": "正常",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_light_states": {
+      "values": [
+        {
+          "in": "偵測",
+          "out": "on"
+        },
+        {
+          "in": "無光線",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_lock_states": {
+      "values": [
+        {
+          "in": "解鎖",
+          "out": "on"
+        },
+        {
+          "in": "上鎖",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_moisture_states": {
+      "values": [
+        {
+          "in": "潮濕",
+          "out": "on"
+        },
+        {
+          "in": "乾燥",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_motion_states": {
+      "values": [
+        {
+          "in": "偵測",
+          "out": "on"
+        },
+        {
+          "in": "正常",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_occupancy_states": {
+      "values": [
+        {
+          "in": "偵測",
+          "out": "on"
+        },
+        {
+          "in": "正常",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_opening_states": {
+      "values": [
+        {
+          "in": "打開",
+          "out": "on"
+        },
+        {
+          "in": "關上",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_plug_states": {
+      "values": [
+        {
+          "in": "插上",
+          "out": "on"
+        },
+        {
+          "in": "拔除",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_power_states": {
+      "values": [
+        {
+          "in": "供電",
+          "out": "on"
+        },
+        {
+          "in": "未供電",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_presence_states": {
+      "values": [
+        {
+          "in": "(在家|在場|有人)",
+          "out": "on"
+        },
+        {
+          "in": "(離家|不在場|沒人)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_problem_states": {
+      "values": [
+        {
+          "in": "已偵測",
+          "out": "on"
+        },
+        {
+          "in": "正常",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_running_states": {
+      "values": [
+        {
+          "in": "(執行中|運作中|運轉中)",
+          "out": "on"
+        },
+        {
+          "in": "(未執行|停機)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_safety_states": {
+      "values": [
+        {
+          "in": "不安全",
+          "out": "on"
+        },
+        {
+          "in": "安全",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_smoke_states": {
+      "values": [
+        {
+          "in": "偵測",
+          "out": "on"
+        },
+        {
+          "in": "正常",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_sound_states": {
+      "values": [
+        {
+          "in": "偵測",
+          "out": "on"
+        },
+        {
+          "in": "正常",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_tamper_states": {
+      "values": [
+        {
+          "in": "(已偵測|已修改)",
+          "out": "on"
+        },
+        {
+          "in": "正常",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_update_states": {
+      "values": [
+        {
+          "in": "有更新",
+          "out": "on"
+        },
+        {
+          "in": "(已最新|最新)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_vibration_states": {
+      "values": [
+        {
+          "in": "(已偵測|震動)",
+          "out": "on"
+        },
+        {
+          "in": "(正常|無震動)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_window_states": {
+      "values": [
+        {
+          "in": "(開啟|打開)",
+          "out": "on"
+        },
+        {
+          "in": "(關閉|關上)",
+          "out": "closed"
+        }
+      ]
+    }
+  },
+  "expansion_rules": {
+    "name": "{name}[的]",
+    "area": "{area}[的]",
+    "let": "[把|將]",
+    "all": "(全部|所有)[的]",
+    "what_is": "是什麼",
+    "how_many_is": "(是多少|有多少|有幾個)",
+    "brightness": "[百分之] {brightness}[ ][%|趴]",
+    "to": "(為|到|成|至)",
+    "set_to": "(設|設定|設置|調|調整|變更)(為|到|成|至)",
+    "turn_on": "(打開|開|開啟)",
+    "turn_off": "(關|關掉|關閉|關上)",
+    "open": "(打開|開啟|開)",
+    "close": "(關|關閉|關上)",
+    "light": "(燈|燈光|照明|桌燈|檯燈|床頭燈|壁燈|吸頂燈|崁燈|嵌燈)[的]",
+    "fan": "(電扇|電風扇|風扇|循環扇|吊扇|壁掛扇|壁扇|掛扇)",
+    "temp": "溫度",
+    "temperature": "{temperature}[{temperature_unit}]",
+    "turn": "(設|設定|設置|調|調整|變更)(為|到|成|至)",
+    "window": "(窗戶|窗簾|捲簾|羅馬簾|百葉窗)",
+    "which": "[有|有沒有]哪[一](個|些|扇|盞|道)",
+    "set": "(設|設定|設置|調|調整|變更 )",
+    "how_many": "(是多少|有多少|有幾個)",
+    "door": "(門|大門)",
+    "switch": "(開關|電源|插座|總開關|燈光)"
+  },
+  "skip_words": [
+    "請",
+    "請問",
+    "謝謝",
+    "幫我",
+    "告訴我",
+    "？"
+  ]
+}

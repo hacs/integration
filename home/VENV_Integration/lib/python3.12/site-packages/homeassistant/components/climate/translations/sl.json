@@ -1,0 +1,97 @@
+{
+    "device_automation": {
+        "action_type": {
+            "set_hvac_mode": "Spremeni na\u010din HVAC na {entity_name}",
+            "set_preset_mode": "Spremenite prednastavitev na {entity_name}"
+        },
+        "condition_type": {
+            "is_hvac_mode": "{entity_name} je nastavljen na dolo\u010den na\u010din HVAC",
+            "is_preset_mode": "{entity_name} je nastavljen na dolo\u010den prednastavljeni na\u010din"
+        },
+        "trigger_type": {
+            "current_humidity_changed": "{entity_name} spremenjena izmerjena vla\u017enost",
+            "current_temperature_changed": "{entity_name} izmerjena temperaturna sprememba",
+            "hvac_mode_changed": "{entity_name} HVAC na\u010din spremenjen"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "state": {
+                "auto": "Samodejno",
+                "cool": "Mrzlo",
+                "dry": "Suho",
+                "fan_only": "Samo ventilacija",
+                "heat": "Ogrevanje",
+                "heat_cool": "Ogrevanje/Hlajenje",
+                "off": "Izklopljeno"
+            },
+            "state_attributes": {
+                "current_temperature": {
+                    "name": "Trenutna temperatura"
+                },
+                "fan_mode": {
+                    "name": "Prezra\u010devanje",
+                    "state": {
+                        "auto": "Samodejno",
+                        "off": "Izklopljeno",
+                        "on": "Vklopljeno"
+                    }
+                },
+                "hvac_action": {
+                    "state": {
+                        "cooling": "Hlajenje",
+                        "drying": "Su\u0161enje",
+                        "heating": "Ogrevanje"
+                    }
+                },
+                "preset_mode": {
+                    "name": "Prednastavitev",
+                    "state": {
+                        "away": "Odsoten",
+                        "none": "Brez"
+                    }
+                },
+                "swing_mode": {
+                    "name": "Na\u010din nihanja",
+                    "state": {
+                        "both": "Oboje",
+                        "horizontal": "Vodoravno",
+                        "off": "Izklopljeno",
+                        "on": "Vklopljeno",
+                        "vertical": "Navpi\u010dno"
+                    }
+                },
+                "swing_modes": {
+                    "name": "Na\u010dini nihanja"
+                }
+            }
+        }
+    },
+    "selector": {
+        "hvac_mode": {
+            "options": {
+                "auto": "Samodejno",
+                "fan_only": "Samo ventilacija",
+                "off": "Izklju\u010deno"
+            }
+        }
+    },
+    "services": {
+        "set_fan_mode": {
+            "fields": {
+                "fan_mode": {
+                    "name": "Prezra\u010devanje"
+                }
+            }
+        },
+        "set_swing_mode": {
+            "fields": {
+                "swing_mode": {
+                    "description": "Na\u010din delovanja nihanja.",
+                    "name": "Na\u010din nihanja"
+                }
+            },
+            "name": "Nastavi na\u010din nihanja"
+        }
+    }
+}

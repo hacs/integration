@@ -1,0 +1,136 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Teenus on juba seadistatud",
+            "cannot_connect": "\u00dchendamine nurjus",
+            "invalid_auth": "Tuvastamine nurjus"
+        },
+        "error": {
+            "cannot_connect": "\u00dchendamine nurjus",
+            "invalid_auth": "Tuvastamine nurjus"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "password": "Salas\u00f5na",
+                    "username": "Kasutajanimi"
+                }
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "delivered": {
+                "name": "Tarnitud"
+            },
+            "expired": {
+                "name": "Aegunud"
+            },
+            "in_transit": {
+                "name": "Teel"
+            },
+            "not_found": {
+                "name": "Ei leitud"
+            },
+            "package": {
+                "name": "Saadetis {name}"
+            },
+            "ready_to_be_picked_up": {
+                "name": "Valmis j\u00e4reletulemiseks"
+            },
+            "returned": {
+                "name": "Tagastatud"
+            },
+            "undelivered": {
+                "name": "Tarnimata"
+            }
+        }
+    },
+    "exceptions": {
+        "invalid_config_entry": {
+            "message": "Esitatud vigane konfiguratsioonikanne. Sain {config_entry_id}"
+        },
+        "unloaded_config_entry": {
+            "message": "Esitatud on kehtetu konfiguratsioonikirje. {config_entry_id} pole laaditud."
+        }
+    },
+    "issues": {
+        "deprecate_sensor": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "17J\u00e4lgi paki andurid on aegunud ja eemaldatakse.\n V\u00e4rskendage oma automatiseeringuid ja skripte, et hankida andmeid teenusek\u00f5ne \"seventeentrack.get_packages\" abil.",
+                        "title": "17Track pakiteenuse andurid kaotavad kehtivuse."
+                    }
+                }
+            },
+            "title": "17Track pakiteenuse andurid kaotavad kehtivuse."
+        },
+        "deprecated_yaml_import_issue_cannot_connect": {
+            "description": "17Track'i konfigureerimine YAML-i abil eemaldatakse, kuid YAML-i konfiguratsiooni importimisel tekkis \u00fchendusviga.\n\nAsjad, mida saad proovida:\nVeendu, et tHome Assistant j\u00f5uab veebi.\n\nSeej\u00e4rel taask\u00e4ivita Home Assistant, et proovida seda sidumist uuesti importida.\n\nTeise v\u00f5imalusena v\u00f5id 17Track'i konfiguratsiooni oma YAML-konfiguratsioonist t\u00e4ielikult eemaldada, taask\u00e4ivitada Home Assistant ja lisada 17Track'i integratsiooni k\u00e4sitsi.",
+            "title": "17Track YAML-i konfiguratsiooni importimine ei saa serveriga \u00fchendust luua"
+        },
+        "deprecated_yaml_import_issue_invalid_auth": {
+            "description": "17Tracki konfigureerimine YAML-iga eemaldatakse kuid olemasoleva konfiguratsiooni importimisel esitati kehtetuid mandaate.\n Seadistamine ei j\u00e4tku. \n\n Veendu, et 17Tracki mandaadid on \u00f5iged ja taask\u00e4ivita Home Assistant, et uuesti importida. \n\n Teise v\u00f5imalusena v\u00f5id 17Tracki konfiguratsiooni oma YAML-i konfiguratsioonist t\u00e4ielikult eemaldada, Home Assistanti taask\u00e4ivitada ja 17Tracki sidumise k\u00e4sitsi lisada.",
+            "title": "17Track YAML-i konfiguratsiooni importimise taotlus nurjus kehtetu autentimise t\u00f5ttu"
+        },
+        "deprecated_yaml_import_issue_invalid_credentials": {
+            "description": "17Tracki konfigureerimine YAML-iga eemaldatakse kuid olemasoleva konfiguratsiooni importimisel esitati kehtetuid mandaate.\n Seadistamine ei j\u00e4tku. \n\n Veendu, et 17Tracki mandaadid on \u00f5iged ja taask\u00e4ivita Home Assistant, et uuesti importida. \n\n Teise v\u00f5imalusena v\u00f5id 17Tracki konfiguratsiooni oma YAML-i konfiguratsioonist t\u00e4ielikult eemaldada, Home Assistanti taask\u00e4ivitada ja 17Tracki sidumise k\u00e4sitsi lisada.",
+            "title": "17Track YAML-i konfiguratsiooni importimise taotlus nurjus kehtetute mandaatide t\u00f5ttu"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "show_archived": "Kas arhiveeritud pakkide jaoks tuleks luua andurid",
+                    "show_delivered": "Kas tarnitud pakkide jaoks tuleks luua andurid"
+                },
+                "description": "\u00dcldiste seadete konfigureerimine"
+            }
+        }
+    },
+    "selector": {
+        "package_state": {
+            "options": {
+                "delivered": "Tarnitud",
+                "expired": "Aegunud",
+                "in_transit": "Teel",
+                "not_found": "Ei leitud",
+                "ready_to_be_picked_up": "Valmis j\u00e4reletulemiseks",
+                "returned": "Tagastatud",
+                "undelivered": "Tarnimata"
+            }
+        }
+    },
+    "services": {
+        "archive_package": {
+            "description": "Arhiveeri saadetis",
+            "fields": {
+                "config_entry_id": {
+                    "description": "Pakk arhiveeritakse valitud teenuse jaoks.",
+                    "name": "17Track teenus"
+                },
+                "package_tracking_number": {
+                    "description": "Pakk arhiveeritakse m\u00e4\u00e4ratud j\u00e4lgimisnumbrile.",
+                    "name": "Paki j\u00e4lgimisnumber"
+                }
+            },
+            "name": "Arhiveeri saadetis"
+        },
+        "get_packages": {
+            "description": "Hangi saadetised 17Trackist",
+            "fields": {
+                "config_entry_id": {
+                    "description": "Saadetised otsitakse v\u00e4lja valitud teenuse jaoks.",
+                    "name": "17Track teenus"
+                },
+                "package_state": {
+                    "description": "Tagasta ainult m\u00e4\u00e4ratud olekuga saadetised. Tagastab k\u00f5ik saadetised kui pole m\u00e4\u00e4ratud.",
+                    "name": "Saadetise olek"
+                }
+            },
+            "name": "Hangi saadetisi"
+        }
+    }
+}

@@ -1,0 +1,181 @@
+{
+    "config": {
+        "abort": {
+            "single_instance_allowed": "Jo m\u00e4\u00e4ritetty. Vain yksi konfiguraatio mahdollinen."
+        },
+        "error": {
+            "pin_request_failed": "Virhe pyydett\u00e4ess\u00e4 PIN-koodia ecobeelta; varmista, ett\u00e4 API-avain on oikea.",
+            "token_request_failed": "Virhe pyydett\u00e4ess\u00e4 tunnuksia ecobeelt\u00e4; yrit\u00e4 uudelleen."
+        },
+        "step": {
+            "authorize": {
+                "title": "Valtuuta sovellus osoitteessa ecobee.com"
+            },
+            "user": {
+                "data": {
+                    "api_key": "API-avain"
+                },
+                "description": "Anna osoitteesta ecobee.com saatu API-avain.",
+                "title": "ecobee API-avain"
+            }
+        }
+    },
+    "entity": {
+        "climate": {
+            "ecobee": {
+                "state_attributes": {
+                    "preset_mode": {
+                        "state": {
+                            "away_indefinitely": "Poissa m\u00e4\u00e4r\u00e4\u00e4m\u00e4tt\u00f6m\u00e4ksi ajaksi"
+                        }
+                    }
+                }
+            }
+        },
+        "number": {
+            "ventilator_min_type_away": {
+                "name": "Ventilaattorin min aika poissa"
+            },
+            "ventilator_min_type_home": {
+                "name": "Ventilaattorin min aika kotona"
+            }
+        }
+    },
+    "issues": {
+        "migrate_notify": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Ecobee `notify`-palvelu on siirretty. Uusi termostaattikohtainen `notify`-olio on nyt k\u00e4ytett\u00e4viss\u00e4.\n\nP\u00e4ivit\u00e4 kaikki automaatiot k\u00e4ytt\u00e4m\u00e4\u00e4n n\u00e4iden uusien olioiden tarjoamaa uutta `notify.send_message`-ominaisuutta. Kun t\u00e4m\u00e4 on tehty, korjaa t\u00e4m\u00e4 ongelma ja k\u00e4ynnist\u00e4 Home Assistant uudelleen.",
+                        "title": "Poista vanhat Ecobee-ilmoituspalvelut k\u00e4yt\u00f6st\u00e4"
+                    }
+                }
+            },
+            "title": "Ecobee-ilmoituspalvelun siirtyminen"
+        }
+    },
+    "services": {
+        "create_vacation": {
+            "description": "Luo loman valitulle termostaatille. Huomautus: alkamis-/lopetusp\u00e4iv\u00e4m\u00e4\u00e4r\u00e4 ja -aika on m\u00e4\u00e4ritett\u00e4v\u00e4 yhdess\u00e4, jotta n\u00e4m\u00e4 parametrit vaikuttavat. Jos alkamis-/lopetusp\u00e4iv\u00e4\u00e4 ja -aikaa ei m\u00e4\u00e4ritet\u00e4, loma alkaa v\u00e4litt\u00f6m\u00e4sti ja kest\u00e4\u00e4 14 p\u00e4iv\u00e4\u00e4 (ellei sit\u00e4 poisteta aiemmin).",
+            "fields": {
+                "cool_temp": {
+                    "description": "J\u00e4\u00e4hdytysl\u00e4mp\u00f6tila loman aikana.",
+                    "name": "Viilennetty l\u00e4mp\u00f6tila"
+                },
+                "end_date": {
+                    "description": "Loman p\u00e4\u00e4ttymisp\u00e4iv\u00e4 muodossa VVVV-KK-PP (valinnainen, 14 p\u00e4iv\u00e4n kuluttua, jos sit\u00e4 ei ole annettu yhdess\u00e4 end_time-ajan kanssa).",
+                    "name": "P\u00e4\u00e4ttymisp\u00e4iv\u00e4"
+                },
+                "end_time": {
+                    "description": "Loman p\u00e4\u00e4ttymisajankohta termostaatin paikallista aikaa, 24 tunnin muodossa \"HH:MM:SS\".",
+                    "name": "P\u00e4\u00e4ttymisaika"
+                },
+                "entity_id": {
+                    "description": "Ecobee-termostaatti, jolle luodaan loma.",
+                    "name": "Kohde"
+                },
+                "fan_min_on_time": {
+                    "description": "V\u00e4himm\u00e4ism\u00e4\u00e4r\u00e4 minuutteja, jotka tuuletin on k\u00e4ytett\u00e4v\u00e4 joka tunti (0-60) loman aikana.",
+                    "name": "Tuulettimen v\u00e4himm\u00e4iskytkent\u00e4aika"
+                },
+                "fan_mode": {
+                    "description": "Termostaatin tuuletintila loman aikana.",
+                    "name": "Tuuletintila"
+                },
+                "heat_temp": {
+                    "description": "L\u00e4mmitysl\u00e4mp\u00f6tila loman aikana.",
+                    "name": "L\u00e4mp\u00f6tila"
+                },
+                "start_date": {
+                    "description": "Loman alkamisp\u00e4iv\u00e4 muodossa VVVVV-KK-PP (valinnainen, heti, jos sit\u00e4 ei anneta yhdess\u00e4 start_time-ajan kanssa).",
+                    "name": "Aloitusp\u00e4iv\u00e4"
+                },
+                "start_time": {
+                    "description": "Loman alkamisajankohta termostaatin paikallista aikaa, 24 tunnin muodossa \"HH:MM:SS\".",
+                    "name": "Aloitusaika"
+                },
+                "vacation_name": {
+                    "description": "Luotavan loman nimi; oltava ainutlaatuinen termostaatissa.",
+                    "name": "Loman nimi"
+                }
+            },
+            "name": "Luo loma"
+        },
+        "delete_vacation": {
+            "description": "Poistaa loman valitusta termostaatista.",
+            "fields": {
+                "entity_id": {
+                    "description": "Ecobee-termostaatti, jonka loman haluat poistaa.",
+                    "name": "Kohde"
+                },
+                "vacation_name": {
+                    "description": "Poistettavan loman nimi.",
+                    "name": "Loman nimi"
+                }
+            },
+            "name": "Poista loma"
+        },
+        "resume_program": {
+            "description": "Jatkaa ohjelmoitua aikataulua.",
+            "fields": {
+                "entity_id": {
+                    "description": "Muutettavien entiteettien nimet.",
+                    "name": "Kohde"
+                },
+                "resume_all": {
+                    "description": "Jatka kaikkia tapahtumia ja palaa ajastettuun ohjelmaan.",
+                    "name": "Jatka kaikkia"
+                }
+            },
+            "name": "Jatka ohjelmaa"
+        },
+        "set_dst_mode": {
+            "description": "Ottaa k\u00e4ytt\u00f6\u00f6n tai poistaa k\u00e4yt\u00f6st\u00e4 automaattisen kes\u00e4ajan.",
+            "fields": {
+                "dst_enabled": {
+                    "description": "Ota k\u00e4ytt\u00f6\u00f6n automaattinen kes\u00e4aika.",
+                    "name": "Kes\u00e4aika k\u00e4yt\u00f6ss\u00e4"
+                }
+            },
+            "name": "Aseta kes\u00e4aika-tila"
+        },
+        "set_fan_min_on_time": {
+            "description": "Asettaa tuulettimen v\u00e4himm\u00e4iskytkent\u00e4ajan.",
+            "fields": {
+                "entity_id": {
+                    "description": "Muutettavien entiteettien nimet.",
+                    "name": "Kohde"
+                },
+                "fan_min_on_time": {
+                    "description": "Uusi arvo tuulettimen minuutti ajoissa.",
+                    "name": "Tuulettimen v\u00e4himm\u00e4iskytkent\u00e4aika"
+                }
+            },
+            "name": "Aseta tuulettimen v\u00e4himm\u00e4iskytkent\u00e4aika"
+        },
+        "set_mic_mode": {
+            "description": "Ottaa Alexa-mikrofonin k\u00e4ytt\u00f6\u00f6n tai poistaa sen k\u00e4yt\u00f6st\u00e4 (vain Ecobee 4:ss\u00e4).",
+            "fields": {
+                "mic_enabled": {
+                    "description": "Ota Alexan mikrofoni k\u00e4ytt\u00f6\u00f6n.",
+                    "name": "Mikrofoni k\u00e4yt\u00f6ss\u00e4"
+                }
+            },
+            "name": "Aseta mikrofonitila"
+        },
+        "set_occupancy_modes": {
+            "description": "Ottaa k\u00e4ytt\u00f6\u00f6n tai poistaa k\u00e4yt\u00f6st\u00e4 Smart Home/Away- ja Follow Me -tilat.",
+            "fields": {
+                "auto_away": {
+                    "description": "Ota Smart Home/Away -tila k\u00e4ytt\u00f6\u00f6n.",
+                    "name": "Auto poissa"
+                },
+                "follow_me": {
+                    "description": "Ota Follow Me -tila k\u00e4ytt\u00f6\u00f6n.",
+                    "name": "Seuraa minua"
+                }
+            },
+            "name": "Aseta k\u00e4ytt\u00f6tilat"
+        }
+    }
+}

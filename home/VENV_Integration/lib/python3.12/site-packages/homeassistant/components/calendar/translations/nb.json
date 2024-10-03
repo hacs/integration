@@ -1,0 +1,112 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "Kalender",
+            "state": {
+                "off": "Av",
+                "on": "P\u00e5"
+            },
+            "state_attributes": {
+                "all_day": {
+                    "name": "Hele dagen",
+                    "state": {
+                        "false": "Nei",
+                        "true": "Ja"
+                    }
+                },
+                "description": {
+                    "name": "Beskrivelse"
+                },
+                "end_time": {
+                    "name": "Sluttid"
+                },
+                "location": {
+                    "name": "Plassering"
+                },
+                "messages": {
+                    "name": "Melding"
+                },
+                "start_time": {
+                    "name": "Starttid"
+                }
+            }
+        }
+    },
+    "issues": {
+        "deprecated_service_calendar_list_events": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "title": "Oppdaget bruk av utdatert tjeneste `calendar.list_events'"
+                    }
+                }
+            }
+        },
+        "platform_integration_no_support": {
+            "description": "Plattformen {platform} for integrasjonen {domain} st\u00f8tter ikke plattform-oppsett.\n\nVennligst fjern den fra konfigurasjon din og omstart Home Assistant for \u00e5 fikse dette problemet.",
+            "title": "Plattform ikke st\u00f8ttet"
+        }
+    },
+    "services": {
+        "create_event": {
+            "description": "Legger til en ny kalenderhendelse.",
+            "fields": {
+                "description": {
+                    "description": "En mer fullstendig beskrivelse av hendelsen enn den som gis i sammendraget.",
+                    "name": "Beskrivelse"
+                },
+                "location": {
+                    "description": "Sted for arrangementet.",
+                    "name": "Plassering"
+                },
+                "start_date": {
+                    "description": "Datoen heldagsarrangementet skal starte.",
+                    "name": "Startdato"
+                },
+                "start_date_time": {
+                    "description": "Dato og klokkeslett for n\u00e5r hendelsen skal starte.",
+                    "name": "Starttidspunkt"
+                },
+                "summary": {
+                    "description": "Definerer det korte sammendraget eller emnet for hendelsen.",
+                    "name": "Sammendrag"
+                }
+            },
+            "name": "Opprett hendelse"
+        },
+        "get_events": {
+            "fields": {
+                "duration": {
+                    "description": "Returnerer aktive hendelser fra start_date_time til angitt varighet.",
+                    "name": "Varighet"
+                },
+                "end_date_time": {
+                    "description": "Returnerer aktive hendelser f\u00f8r dette tidspunktet (eksklusivt). Kan ikke brukes sammen med 'varighet'.",
+                    "name": "Sluttid"
+                },
+                "start_date_time": {
+                    "description": "Returnerer aktive hendelser etter dette tidspunktet (eksklusivt). N\u00e5r den ikke er angitt, er standardverdien 'n\u00e5'."
+                }
+            }
+        },
+        "list_events": {
+            "description": "Viser hendelser i en kalender innenfor et bestemt tidsrom.",
+            "fields": {
+                "duration": {
+                    "description": "Returnerer aktive hendelser fra start_date_time til angitt varighet.",
+                    "name": "Varighet"
+                },
+                "end_date_time": {
+                    "description": "Returnerer aktive hendelser f\u00f8r dette tidspunktet (eksklusivt). Kan ikke brukes sammen med 'varighet'.",
+                    "name": "Sluttid"
+                },
+                "start_date_time": {
+                    "description": "Returnerer aktive hendelser etter dette tidspunktet (eksklusivt). N\u00e5r den ikke er angitt, er standardverdien 'n\u00e5'.",
+                    "name": "Starttidspunkt"
+                }
+            },
+            "name": "Liste over hendelser"
+        }
+    },
+    "title": "Kalender"
+}

@@ -1,0 +1,62 @@
+{
+    "services": {
+        "authorize": {
+            "description": "Valtuuttaa latausprosessin konfigurointitiedoston ennalta m\u00e4\u00e4ritetyll\u00e4 RFID-tunnisteella.",
+            "name": "Valtuuta"
+        },
+        "deauthorize": {
+            "description": "Poistaa valtuutuksen latausprosessin konfigurointitiedoston ennalta m\u00e4\u00e4ritetylt\u00e4 RFID-tunnisteelta.",
+            "name": "Poista valtuutus"
+        },
+        "disable": {
+            "description": "Pys\u00e4ytt\u00e4\u00e4 latausprosessin, jos latausasema on valtuutettu.",
+            "name": "Poista k\u00e4yt\u00f6st\u00e4"
+        },
+        "enable": {
+            "description": "K\u00e4ynnist\u00e4\u00e4 latausprosessin, jos latausasema on valtuutettu.",
+            "name": "Ota k\u00e4ytt\u00f6\u00f6n"
+        },
+        "request_data": {
+            "description": "Pyyd\u00e4 uusia tietoja latausasemalta.",
+            "name": "Pyyd\u00e4 tietoja"
+        },
+        "set_current": {
+            "description": "Asettaa latausprosessien enimm\u00e4isvirran.",
+            "fields": {
+                "current": {
+                    "description": "Suurin latausprosessissa k\u00e4ytetty virta. Arvo riippuu DIP-kytkimen asetuksista ja latausasemaan k\u00e4ytetyst\u00e4 kaapelista.",
+                    "name": "Virta"
+                }
+            },
+            "name": "Aseta virta"
+        },
+        "set_energy": {
+            "description": "Asettaa energiatavoitteen, jonka j\u00e4lkeen latausprosessi pys\u00e4htyy.",
+            "fields": {
+                "energy": {
+                    "description": "Energiatavoite lopettaa lataaminen. Asetus 0 poistaa rajan k\u00e4yt\u00f6st\u00e4.",
+                    "name": "Energia"
+                }
+            },
+            "name": "Aseta energia"
+        },
+        "set_failsafe": {
+            "description": "Asettaa latausaseman vikasietotilan. Jos kaikki parametrit ovat 0, vikasietotila on poistettu k\u00e4yt\u00f6st\u00e4.",
+            "fields": {
+                "failsafe_fallback": {
+                    "description": "Aikakatkaisun j\u00e4lkeen asetettava varavirta.",
+                    "name": "Vikasietoinen varaj\u00e4rjestely"
+                },
+                "failsafe_persist": {
+                    "description": "Jos failsafe_persist on 0, vikasietoinen vaihtoehto on k\u00e4yt\u00f6ss\u00e4 vain latausaseman uudelleenk\u00e4ynnistykseen asti. Jos failsafe_persist on 1, vikasietoinen vaihtoehto s\u00e4ilyy uudelleenk\u00e4ynnistyksen j\u00e4lkeen.",
+                    "name": "Vikasietoisuus s\u00e4ilyy"
+                },
+                "failsafe_timeout": {
+                    "description": "Aikakatkaisu, jonka j\u00e4lkeen vikasietotila k\u00e4ynnistyy, jos set_currentia ei ole suoritettu t\u00e4m\u00e4n ajan kuluessa.",
+                    "name": "Vikaturvallinen aikakatkaisu"
+                }
+            },
+            "name": "Aseta vikaturvallinen"
+        }
+    }
+}

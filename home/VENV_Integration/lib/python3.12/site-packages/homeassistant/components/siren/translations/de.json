@@ -1,0 +1,51 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "Sirene",
+            "state": {
+                "off": "Aus",
+                "on": "An"
+            },
+            "state_attributes": {
+                "available_tones": {
+                    "name": "Verf\u00fcgbare T\u00f6ne"
+                }
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "Die {platform}-Plattform f\u00fcr die {domain}-Integration unterst\u00fctzt die Plattform-Einrichtung nicht. \n\nBitte entferne es aus deiner Konfiguration und starte Home Assistant neu, um dieses Problem zu beheben.",
+            "title": "Plattform-Unterst\u00fctzung nicht unterst\u00fctzt"
+        }
+    },
+    "services": {
+        "toggle": {
+            "description": "Schaltet die Sirene ein/aus.",
+            "name": "Umschalten"
+        },
+        "turn_off": {
+            "description": "Schaltet die Sirene aus.",
+            "name": "Ausschalten"
+        },
+        "turn_on": {
+            "description": "Schaltet die Sirene ein.",
+            "fields": {
+                "duration": {
+                    "description": "Anzahl der Sekunden, in denen der Ton abgespielt wird. Muss von der Integration unterst\u00fctzt werden.",
+                    "name": "Dauer"
+                },
+                "tone": {
+                    "description": "Der auszusendende Ton. Wenn die Eigenschaft `available_tones` eine Karte ist, kann entweder der Schl\u00fcssel oder der Wert verwendet werden. Muss von der Integration unterst\u00fctzt werden.",
+                    "name": "Ton"
+                },
+                "volume_level": {
+                    "description": "Die Lautst\u00e4rke. 0 ist unh\u00f6rbar, 1 ist die maximale Lautst\u00e4rke. Muss von der Integration unterst\u00fctzt werden.",
+                    "name": "Lautst\u00e4rke"
+                }
+            },
+            "name": "Einschalten"
+        }
+    },
+    "title": "Sirene"
+}

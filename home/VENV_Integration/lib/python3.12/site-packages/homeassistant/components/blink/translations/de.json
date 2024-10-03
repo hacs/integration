@@ -1,0 +1,191 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Ger\u00e4t ist bereits konfiguriert"
+        },
+        "error": {
+            "cannot_connect": "Verbindung fehlgeschlagen",
+            "invalid_access_token": "Ung\u00fcltiger Zugriffs-Token",
+            "invalid_auth": "Ung\u00fcltige Authentifizierung",
+            "unknown": "Unerwarteter Fehler"
+        },
+        "step": {
+            "2fa": {
+                "data": {
+                    "2fa": "Zwei-Faktor Authentifizierungscode"
+                },
+                "description": "Gib die per E-Mail oder SMS zugesandte PIN ein.",
+                "title": "Zwei-Faktor-Authentifizierung"
+            },
+            "user": {
+                "data": {
+                    "password": "Passwort",
+                    "username": "Benutzername"
+                },
+                "title": "Anmelden mit Blink-Konto"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "camera_armed": {
+                "name": "Kamera aktiviert"
+            }
+        },
+        "sensor": {
+            "wifi_rssi": {
+                "name": "WLAN-RSSI"
+            },
+            "wifi_strength": {
+                "name": "WLAN-Signalst\u00e4rke"
+            }
+        },
+        "switch": {
+            "camera_motion": {
+                "name": "Bewegungserkennung der Kamera"
+            }
+        }
+    },
+    "exceptions": {
+        "cant_write": {
+            "message": "Kann nicht in die Datei schreiben."
+        },
+        "device_not_found": {
+            "message": "Ger\u00e4t '{target}' nicht in der Ger\u00e4teregistrierung gefunden"
+        },
+        "failed_arm": {
+            "message": "Blink konnte die Kamera nicht aktivieren."
+        },
+        "failed_arm_motion": {
+            "message": "Blink konnte die Bewegungserkennung der Kamera nicht aktivieren."
+        },
+        "failed_clip": {
+            "message": "Blink konnte keinen Clip aufnehmen."
+        },
+        "failed_disarm": {
+            "message": "Blink konnte die Kamera nicht deaktivieren."
+        },
+        "failed_disarm_motion": {
+            "message": "Blink konnte die Bewegungserkennung der Kamera nicht deaktivieren."
+        },
+        "failed_snap": {
+            "message": "Blink konnte kein Bild aufnehmen."
+        },
+        "integration_not_found": {
+            "message": "Integration \u201e{target}\u201c nicht in der Registrierung gefunden."
+        },
+        "invalid_device": {
+            "message": "Ger\u00e4t '{target}' ist kein {domain}-Ger\u00e4t"
+        },
+        "no_path": {
+            "message": "Es kann nicht in das Verzeichnis {target} geschrieben werden, kein Zugriff auf den Pfad!"
+        },
+        "not_loaded": {
+            "message": "{target} ist nicht geladen."
+        }
+    },
+    "issues": {
+        "service_deprecation": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Der Blink Update Service ist veraltet und wird entfernt.\nBitte aktualisiere deine Automationen und Skripte, um `Home Assistant Core Integration: Entit\u00e4t aktualisieren` zu benutzen.",
+                        "title": "Der Blink Update Service wird entfernt"
+                    }
+                }
+            },
+            "title": "Der Blink Update Service wird entfernt"
+        }
+    },
+    "options": {
+        "step": {
+            "simple_options": {
+                "data": {
+                    "scan_interval": "Scanintervall (Sekunden)"
+                },
+                "description": "Blink-Integration konfigurieren",
+                "title": "Blink Optionen"
+            }
+        }
+    },
+    "services": {
+        "blink_update": {
+            "description": "Erzwingt eine Aktualisierung.",
+            "fields": {
+                "device_id": {
+                    "description": "Die Blink-Ger\u00e4te-ID.",
+                    "name": "Ger\u00e4te-ID"
+                }
+            },
+            "name": "Aktualisieren"
+        },
+        "record": {
+            "description": "Fordert die Kamera zur Aufnahme eines Clips auf.",
+            "name": "Aufzeichnen"
+        },
+        "save_recent_clips": {
+            "description": "Speichert alle aktuellen Videoclips in einem lokalen Verzeichnis mit dem Dateimuster \u201e%Y%m%d_%H%M%S_[camera name].mp4\u201c.",
+            "fields": {
+                "device_id": {
+                    "description": "Die Blink-Ger\u00e4te-ID.",
+                    "name": "Ger\u00e4te-ID"
+                },
+                "file_path": {
+                    "description": "Verzeichnisname des beschreibbaren Pfads (das Verzeichnis muss eventuell in \u201eallowlist_external_dirs\u201c in config enthalten sein).",
+                    "name": "Ausgabeverzeichnis"
+                },
+                "name": {
+                    "description": "Name der Kamera, von der aktuelle Clips abgerufen werden sollen.",
+                    "name": "Name"
+                }
+            },
+            "name": "Letzte Clips speichern"
+        },
+        "save_video": {
+            "description": "Speichert den zuletzt aufgenommenen Videoclip in einer lokalen Datei.",
+            "fields": {
+                "device_id": {
+                    "description": "Die Blink-Ger\u00e4te-ID.",
+                    "name": "Ger\u00e4te-ID"
+                },
+                "filename": {
+                    "description": "Dateiname zum beschreibbaren Pfad (Verzeichnis muss eventuell in \u201eallowlist_external_dirs\u201c in config enthalten sein).",
+                    "name": "Dateiname"
+                },
+                "name": {
+                    "description": "Name der Kamera, von der das Video aufgenommen werden soll.",
+                    "name": "Name"
+                }
+            },
+            "name": "Video speichern"
+        },
+        "send_pin": {
+            "description": "Sendet eine neue PIN zu blink f\u00fcr 2FA.",
+            "fields": {
+                "config_entry_id": {
+                    "description": "Die Blink-Integrations-ID.",
+                    "name": "Integrations-ID"
+                },
+                "device_id": {
+                    "description": "Die Blink-Ger\u00e4te-ID.",
+                    "name": "Ger\u00e4te-ID"
+                },
+                "pin": {
+                    "description": "Von blink erhaltene PIN. Leer lassen, wenn du nur eine Best\u00e4tigungs-E-Mail erhalten hast.",
+                    "name": "PIN"
+                }
+            },
+            "name": "PIN senden"
+        },
+        "trigger_camera": {
+            "description": "Fordert die Kamera auf, ein neues Bild aufzunehmen.",
+            "fields": {
+                "device_id": {
+                    "description": "Die Blink-Ger\u00e4te-ID.",
+                    "name": "Ger\u00e4te-ID"
+                }
+            },
+            "name": "Kamera ausl\u00f6sen"
+        }
+    }
+}

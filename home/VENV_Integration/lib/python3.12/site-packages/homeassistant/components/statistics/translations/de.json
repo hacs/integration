@@ -1,0 +1,129 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Konto wurde bereits konfiguriert"
+        },
+        "error": {
+            "missing_keep_last_sample": "Die Sensorkonfiguration muss \u201emax_age\u201c bereitstellen, wenn \u201ekeep_last_sample\u201c True ist",
+            "missing_max_age_or_sampling_size": "Die Sensorkonfiguration muss \u201emax_age\u201c und/oder \u201esampling_size\u201c bereitstellen."
+        },
+        "step": {
+            "options": {
+                "data": {
+                    "keep_last_sample": "Letzte Probe aufbewahren",
+                    "max_age": "Maximalalter",
+                    "percentile": "Perzentil",
+                    "precision": "Genauigkeit",
+                    "sampling_size": "Stichprobengr\u00f6\u00dfe"
+                },
+                "data_description": {
+                    "keep_last_sample": "Definiert, ob der aktuellste abgetastete Wert unabh\u00e4ngig von der Einstellung \u201emax. Alter\u201c beibehalten werden soll.",
+                    "max_age": "Maximales Alter der gespeicherten Quellsensormessungen.",
+                    "percentile": "Nur in Kombination mit der Eigenschaft \u201ePerzentil\u201c relevant. Muss ein Wert zwischen 1 und 99 sein.",
+                    "precision": "Definiert die Anzahl der Dezimalstellen des berechneten Sensorwertes.",
+                    "sampling_size": "Maximale Anzahl gespeicherter Quellsensormessungen."
+                },
+                "description": "Weitere Einzelheiten zur Konfiguration des Statistiksensors mit diesen Optionen findest du in der Dokumentation."
+            },
+            "state_characteristic": {
+                "data": {
+                    "state_characteristic": "Zustandscharakteristik"
+                },
+                "data_description": {
+                    "state_characteristic": "Die Eigenschaft, die als Status des Statistiksensors verwendet werden soll."
+                },
+                "description": "Lies die Dokumentation f\u00fcr weitere Einzelheiten zu den verf\u00fcgbaren Optionen und ihrer Verwendung."
+            },
+            "user": {
+                "data": {
+                    "entity_id": "Entit\u00e4t",
+                    "name": "Name"
+                },
+                "data_description": {
+                    "entity_id": "Entit\u00e4t, von der Statistiken abgerufen werden sollen.",
+                    "name": "Name f\u00fcr die erstellte Entit\u00e4t."
+                },
+                "description": "Einen Statistiksensor hinzuf\u00fcgen"
+            }
+        }
+    },
+    "issues": {
+        "deprecation_warning_characteristic": {
+            "description": "Der Konfigurationsparameter `state_characteristic` der Statistik-Integration wird zur Pflicht.\n\nBitte f\u00fcge `state_characteristic: {characteristic}` in die Konfiguration des Sensors `{entity}` ein, um das aktuelle Verhalten beizubehalten.\n\nLies die Dokumentation der Statistik-Integration f\u00fcr weitere Details: https://www.home-assistant.io/integrations/statistics/",
+            "title": "Obligatorisches \u201estate_characteristic\u201c wird f\u00fcr eine Statistikentit\u00e4t angenommen"
+        },
+        "deprecation_warning_size": {
+            "description": "Der Konfigurationsparameter `sampling_size` der Statistikintegration war bisher standardm\u00e4\u00dfig auf den Wert 20 eingestellt, was sich \u00e4ndern wird.\n\nBitte \u00fcberpr\u00fcfe die Konfiguration f\u00fcr Sensor `{entity}` und f\u00fcge geeignete Grenzen hinzu, z. B. `sampling_size: 20`, um das aktuelle Verhalten beizubehalten. Die Konfiguration der Statistikintegration wird mit Version 2022.12.0 flexibler und akzeptiert entweder `sampling_size` oder `max_age` oder beide Einstellungen. Die obige Anfrage bereitet deine Konfiguration auf diese ansonsten bahnbrechende \u00c4nderung vor. \n\nLies die Dokumentation der Statistikintegration f\u00fcr weitere Details: https://www.home-assistant.io/integrations/statistics/",
+            "title": "Implizite \u201esampling_size\u201c angenommen f\u00fcr eine Statistikentit\u00e4t"
+        }
+    },
+    "options": {
+        "abort": {
+            "already_configured": "Konto wurde bereits konfiguriert"
+        },
+        "error": {
+            "missing_keep_last_sample": "Die Sensorkonfiguration muss \u201emax_age\u201c bereitstellen, wenn \u201ekeep_last_sample\u201c True ist",
+            "missing_max_age_or_sampling_size": "Die Sensorkonfiguration muss \u201emax_age\u201c und/oder \u201esampling_size\u201c bereitstellen."
+        },
+        "step": {
+            "init": {
+                "data": {
+                    "keep_last_sample": "Letzte Probe aufbewahren",
+                    "max_age": "Maximalalter",
+                    "percentile": "Perzentil",
+                    "precision": "Genauigkeit",
+                    "sampling_size": "Stichprobengr\u00f6\u00dfe"
+                },
+                "data_description": {
+                    "keep_last_sample": "Definiert, ob der aktuellste abgetastete Wert unabh\u00e4ngig von der Einstellung \u201emax. Alter\u201c beibehalten werden soll.",
+                    "max_age": "Maximales Alter der gespeicherten Quellsensormessungen.",
+                    "percentile": "Nur in Kombination mit der Eigenschaft \u201ePerzentil\u201c relevant. Muss ein Wert zwischen 1 und 99 sein.",
+                    "precision": "Definiert die Anzahl der Dezimalstellen des berechneten Sensorwertes.",
+                    "sampling_size": "Maximale Anzahl gespeicherter Quellsensormessungen."
+                },
+                "description": "Weitere Einzelheiten zur Konfiguration des Statistiksensors mit diesen Optionen findest du in der Dokumentation."
+            }
+        }
+    },
+    "selector": {
+        "state_characteristic": {
+            "options": {
+                "average_linear": "Durchschnittlich linear",
+                "average_step": "Durchschnittlicher Schritt",
+                "average_timeless": "Durchschnittlich zeitlos",
+                "change": "\u00c4ndern",
+                "change_sample": "Beispiel \u00e4ndern",
+                "change_second": "Sekunde \u00e4ndern",
+                "count": "Z\u00e4hler",
+                "count_off": "Z\u00e4hler aus",
+                "count_on": "Z\u00e4hler an",
+                "datetime_newest": "Neueste Datums- und Uhrzeitangabe",
+                "datetime_oldest": "\u00c4lteste Datums- und Uhrzeitangabe",
+                "datetime_value_max": "Maximalwert f\u00fcr Datum und Uhrzeit",
+                "datetime_value_min": "Mindestwert f\u00fcr Datum und Uhrzeit",
+                "distance_95_percent_of_values": "Abstand 95% der Werte",
+                "distance_99_percent_of_values": "Abstand 99% der Werte",
+                "distance_absolute": "Absolute Distanz",
+                "mean": "Mittel",
+                "mean_circular": "Mittelwert kreisf\u00f6rmig",
+                "median": "Median",
+                "noisiness": "L\u00e4rm",
+                "percentile": "Perzentil",
+                "standard_deviation": "Standardabweichung",
+                "sum": "Summe",
+                "sum_differences": "Summe der Differenzen",
+                "sum_differences_nonnegative": "Summe der Differenzen nicht negativ",
+                "total": "Gesamt",
+                "value_max": "Maximalwert",
+                "value_min": "Mindestwert",
+                "variance": "Abweichung"
+            }
+        }
+    },
+    "services": {
+        "reload": {
+            "description": "L\u00e4dt Statistiksensoren aus der YAML-Konfiguration neu.",
+            "name": "Neu laden"
+        }
+    }
+}

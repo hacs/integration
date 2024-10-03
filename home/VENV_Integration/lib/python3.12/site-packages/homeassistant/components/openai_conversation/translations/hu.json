@@ -1,0 +1,75 @@
+{
+    "config": {
+        "error": {
+            "cannot_connect": "Sikertelen csatlakoz\u00e1s",
+            "invalid_auth": "\u00c9rv\u00e9nytelen hiteles\u00edt\u00e9s",
+            "unknown": "V\u00e1ratlan hiba"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "api_key": "API kulcs"
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "invalid_config_entry": {
+            "message": "\u00c9rv\u00e9nytelen konfigur\u00e1ci\u00f3s bejegyz\u00e9st adott meg. Kapott bejegyz\u00e9s: {config_entry}"
+        }
+    },
+    "issues": {
+        "image_size_deprecated_format": {
+            "description": "Az OpenAI mostant\u00f3l a Dall-E 3-at haszn\u00e1lja k\u00e9pek gener\u00e1l\u00e1s\u00e1ra az `openai_conversation.generate_image` seg\u00edts\u00e9g\u00e9vel, amely k\u00fcl\u00f6nb\u00f6z\u0151 m\u00e9reteket t\u00e1mogat. Az \u00e9rv\u00e9nyes \u00e9rt\u00e9kek mostant\u00f3l \"1024x1024\", \"1024x1792\", \"1792x1024\". A r\u00e9gi \"256\", \"512\", \"1024\" \u00e9rt\u00e9keket jelenleg \"1024x1024\" \u00e9rt\u00e9kk\u00e9nt \u00e9rtelmezi.\nK\u00e9rj\u00fck, friss\u00edtse szkriptjeit vagy automatiz\u00e1l\u00e1sait az \u00faj param\u00e9terekkel.",
+            "title": "Elavult m\u00e9retform\u00e1tum a k\u00e9pgener\u00e1l\u00e1si m\u0171velethez"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "chat_model": "Modell",
+                    "llm_hass_api": "Home Assistant vez\u00e9rl\u00e9se",
+                    "max_tokens": "A v\u00e1laszk\u00e9nt visszak\u00fcldhet\u0151 tokenek maxim\u00e1lis sz\u00e1ma",
+                    "model": "Teljes\u00edt\u00e9si modell",
+                    "prompt": "Utas\u00edt\u00e1sok",
+                    "recommended": "Aj\u00e1nlott modellspecifik\u00e1ci\u00f3k",
+                    "temperature": "H\u0151m\u00e9rs\u00e9klet",
+                    "top_p": "Top P"
+                },
+                "data_description": {
+                    "prompt": "Adja meg, hogyan kell a nagy nyelvi modellnek (LLM) v\u00e1laszolnia. Ez lehet egy sablon."
+                }
+            }
+        }
+    },
+    "services": {
+        "generate_image": {
+            "description": "A k\u00e9r\u00e9st alak\u00edtsa \u00e1t egy k\u00e9pp\u00e9.",
+            "fields": {
+                "config_entry": {
+                    "description": "A konfigur\u00e1ci\u00f3s bejegyz\u00e9s, amelyet ehhez a m\u0171velethez haszn\u00e1lni kell",
+                    "name": "Konfigur\u00e1ci\u00f3s bejegyz\u00e9s"
+                },
+                "prompt": {
+                    "description": "A sz\u00f6veg, amit k\u00e9pp\u00e9 szeretne alak\u00edtani",
+                    "example": "Egy macska fot\u00f3ja",
+                    "name": "Kiindul\u00e1si sz\u00f6veg"
+                },
+                "quality": {
+                    "description": "A gener\u00e1lt k\u00e9p min\u0151s\u00e9ge",
+                    "name": "Min\u0151s\u00e9g"
+                },
+                "size": {
+                    "description": "A gener\u00e1lt k\u00e9p m\u00e9rete",
+                    "name": "M\u00e9ret"
+                },
+                "style": {
+                    "description": "A gener\u00e1lt k\u00e9p st\u00edlusa",
+                    "name": "St\u00edlus"
+                }
+            },
+            "name": "K\u00e9p gener\u00e1l\u00e1sa"
+        }
+    }
+}

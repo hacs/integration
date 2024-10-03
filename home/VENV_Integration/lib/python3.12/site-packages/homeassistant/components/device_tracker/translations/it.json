@@ -1,0 +1,87 @@
+{
+    "device_automation": {
+        "condition_type": {
+            "is_home": "{entity_name} \u00e8 in casa",
+            "is_not_home": "{entity_name} non \u00e8 in casa"
+        },
+        "trigger_type": {
+            "enters": "{entity_name} entra in una zona",
+            "leaves": "{entity_name} lascia una zona"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Localizzatore di dispositivo",
+            "state": {
+                "home": "In casa",
+                "not_home": "Fuori casa"
+            },
+            "state_attributes": {
+                "battery": {
+                    "name": "Batteria"
+                },
+                "gps_accuracy": {
+                    "name": "Precisione GPS"
+                },
+                "latitude": {
+                    "name": "Latitudine"
+                },
+                "longitude": {
+                    "name": "Longitudine"
+                },
+                "source_type": {
+                    "name": "Fonte",
+                    "state": {
+                        "bluetooth": "Bluetooth",
+                        "bluetooth_le": "Bluetooth LE",
+                        "gps": "GPS",
+                        "router": "Router"
+                    }
+                }
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "La piattaforma {platform} per l'integrazione {domain} non supporta l'impostazione della piattaforma. \n\nRimuovilo dalla configurazione e riavvia Home Assistant per risolvere questo problema.",
+            "title": "Supporto della piattaforma non supportato"
+        }
+    },
+    "services": {
+        "see": {
+            "description": "Registra un dispositivo tracciato visto.",
+            "fields": {
+                "battery": {
+                    "description": "Livello della batteria del dispositivo.",
+                    "name": "Livello della batteria"
+                },
+                "dev_id": {
+                    "description": "ID del dispositivo (trovare l'ID in `known_devices.yaml`).",
+                    "name": "ID dispositivo"
+                },
+                "gps": {
+                    "description": "Coordinate GPS in cui si trova il dispositivo, specificate da latitudine e longitudine (ad esempio: [51.513845, -0.100539]).",
+                    "name": "Coordinate GPS"
+                },
+                "gps_accuracy": {
+                    "description": "Precisione delle coordinate GPS.",
+                    "name": "Precisione GPS"
+                },
+                "host_name": {
+                    "description": "Nome host del dispositivo.",
+                    "name": "Nome host"
+                },
+                "location_name": {
+                    "description": "Nome della localit\u00e0 in cui si trova il dispositivo. Le opzioni sono: `home`, `not_home` o il nome della zona.",
+                    "name": "Posizione"
+                },
+                "mac": {
+                    "description": "Indirizzo MAC del dispositivo.",
+                    "name": "Indirizzo MAC"
+                }
+            },
+            "name": "Vedi"
+        }
+    },
+    "title": "Localizzatore di dispositivo"
+}

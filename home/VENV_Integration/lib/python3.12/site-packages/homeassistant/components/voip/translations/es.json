@@ -1,0 +1,80 @@
+{
+    "config": {
+        "abort": {
+            "single_instance_allowed": "Ya est\u00e1 configurado. Solo es posible una \u00fanica configuraci\u00f3n."
+        },
+        "error": {
+            "invalid_ip_address": "Direcci\u00f3n IPv4 no v\u00e1lida."
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "ip_address": "Direcci\u00f3n IP"
+                },
+                "description": "Recibe llamadas de voz sobre IP para interactuar con Assist."
+            }
+        }
+    },
+    "entity": {
+        "assist_satellite": {
+            "assist_satellite": {
+                "state": {
+                    "listening_command": "Comando de voz",
+                    "listening_wake_word": "Palabra de activaci\u00f3n",
+                    "processing": "Procesando",
+                    "responding": "Respondiendo"
+                }
+            }
+        },
+        "binary_sensor": {
+            "call_active": {
+                "name": "Llamada activa"
+            },
+            "call_in_progress": {
+                "name": "Llamada en curso"
+            }
+        },
+        "select": {
+            "pipeline": {
+                "name": "Asistente",
+                "state": {
+                    "preferred": "Preferido"
+                }
+            },
+            "vad_sensitivity": {
+                "name": "Detecci\u00f3n de fin de habla",
+                "state": {
+                    "aggressive": "Agresivo",
+                    "default": "Predeterminado",
+                    "relaxed": "Relajado"
+                }
+            }
+        },
+        "switch": {
+            "allow_call": {
+                "name": "Permitir llamadas"
+            }
+        }
+    },
+    "issues": {
+        "assist_in_progress_deprecated": {
+            "fix_flow": {
+                "step": {
+                    "confirm_disable_entity": {
+                        "description": "El sensor binario en proceso {integration_name} ` {entity_id} ` est\u00e1 obsoleto.\n\nMigra tu configuraci\u00f3n para utilizar la entidad `{assist_satellite_domain}` correspondiente y luego haz clic en ENVIAR para deshabilitar el sensor binario en proceso y solucionar este problema."
+                    }
+                }
+            },
+            "title": "Los sensores binarios {integration_name} en progreso est\u00e1n discontinuados"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "sip_port": "Puerto SIP"
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,75 @@
+{
+    "config": {
+        "error": {
+            "cannot_connect": "Ba\u011flanma hatas\u0131",
+            "invalid_auth": "Ge\u00e7ersiz kimlik do\u011frulama",
+            "unknown": "Beklenmeyen hata"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "api_key": "API Anahtar\u0131"
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "invalid_config_entry": {
+            "message": "Ge\u00e7ersiz yap\u0131land\u0131rma giri\u015fi sa\u011fland\u0131. {config_entry} ald\u0131m"
+        }
+    },
+    "issues": {
+        "image_size_deprecated_format": {
+            "description": "OpenAI art\u0131k farkl\u0131 boyutlar\u0131 destekleyen `openai_conversation.generate_image` kullanarak g\u00f6r\u00fcnt\u00fc olu\u015fturmak i\u00e7in Dall-E 3 kullan\u0131yor. Ge\u00e7erli de\u011ferler art\u0131k \"1024x1024\", \"1024x1792\", \"1792x1024\". \"256\", \"512\", \"1024\" eski de\u011ferleri \u015fu anda \"1024x1024\" olarak yorumlan\u0131yor. L\u00fctfen komut dosyalar\u0131n\u0131z\u0131 veya otomasyonlar\u0131n\u0131z\u0131 yeni parametrelerle g\u00fcncelleyin.",
+            "title": "G\u00f6r\u00fcnt\u00fc olu\u015fturma eylemi i\u00e7in kullan\u0131m d\u0131\u015f\u0131 b\u0131rak\u0131lm\u0131\u015f boyut bi\u00e7imi"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "chat_model": "Model",
+                    "llm_hass_api": "Home Assistant'\u0131 kontrol et",
+                    "max_tokens": "Yan\u0131t olarak d\u00f6nd\u00fcr\u00fclecek maksimum anahtar say\u0131s\u0131",
+                    "model": "Tamamlama Modeli",
+                    "prompt": "Talimatlar",
+                    "recommended": "\u00d6nerilen model ayarlar\u0131",
+                    "temperature": "S\u0131cakl\u0131k",
+                    "top_p": "Yukar\u0131"
+                },
+                "data_description": {
+                    "prompt": "LLM'nin nas\u0131l yan\u0131t vermesi gerekti\u011fini \u00f6\u011fretin. Bu bir \u015fablon olabilir."
+                }
+            }
+        }
+    },
+    "services": {
+        "generate_image": {
+            "description": "Bir istemi g\u00f6r\u00fcnt\u00fcye d\u00f6n\u00fc\u015ft\u00fcr\u00fcn",
+            "fields": {
+                "config_entry": {
+                    "description": "Bu eylem i\u00e7in kullan\u0131lacak yap\u0131land\u0131rma giri\u015fi",
+                    "name": "Yap\u0131land\u0131rma Giri\u015fi"
+                },
+                "prompt": {
+                    "description": "G\u00f6r\u00fcnt\u00fcye d\u00f6n\u00fc\u015ft\u00fcr\u00fclecek metin",
+                    "example": "Bir k\u00f6pe\u011fin foto\u011fraf\u0131",
+                    "name": "\u0130stem"
+                },
+                "quality": {
+                    "description": "Olu\u015fturulacak g\u00f6r\u00fcnt\u00fcn\u00fcn kalitesi",
+                    "name": "Kalite"
+                },
+                "size": {
+                    "description": "Olu\u015fturulacak g\u00f6r\u00fcnt\u00fcn\u00fcn boyutu",
+                    "name": "Boyut"
+                },
+                "style": {
+                    "description": "Olu\u015fturulan g\u00f6r\u00fcnt\u00fcn\u00fcn stili",
+                    "name": "Stil"
+                }
+            },
+            "name": "G\u00f6r\u00fcnt\u00fc olu\u015ftur"
+        }
+    }
+}

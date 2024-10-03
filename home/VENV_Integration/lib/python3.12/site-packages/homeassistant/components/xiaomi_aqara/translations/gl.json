@@ -1,0 +1,71 @@
+{
+    "config": {
+        "abort": {
+            "not_xiaomi_aqara": "Non \u00e9 unha pasarela Xiaomi Aqara, o dispositivo descuberto non coincide coas pasarelas co\u00f1ecidas"
+        },
+        "error": {
+            "discovery_error": "Fallou ao descubrir unha pasarela Xiaomi Aqara, proba usar o IP do dispositivo que executa HomeAssistant como interface",
+            "invalid_key": "Chave de pasarela non v\u00e1lida"
+        },
+        "step": {
+            "select": {
+                "description": "Selecciona a pasarela Xiaomi Aqara a que queres conectar"
+            },
+            "settings": {
+                "data": {
+                    "key": "A chave do t\u00faa pasarela",
+                    "name": "Nome da Pasarela"
+                },
+                "description": "A chave (contrasinal) pode ser recuperada usando este tutorial: https://www.domoticz.com/wiki/Xiaomi_Gateway_(Aqara)#Adding_the_Xiaomi_Gateway_to_Domoticz. Se a chave non se proporciona, s\u00f3 os sensores ser\u00e1n accesibles"
+            }
+        }
+    },
+    "services": {
+        "add_device": {
+            "description": "Activa o permiso de uni\u00f3n da pasarela Xiaomi Aqara durante 30 segundos. Despois, p\u00f3dese engadir un novo dispositivo premendo unha vez o bot\u00f3n de emparellamento.",
+            "fields": {
+                "gw_mac": {
+                    "description": "Direcci\u00f3n MAC da pasarela Xiaomi Aqara.",
+                    "name": "MAC da pasarela"
+                }
+            }
+        },
+        "play_ringtone": {
+            "description": "Reproducir un ton de chamada espec\u00edfico. A versi\u00f3n do firmware da pasarela debe ser polo menos 1.4.1_145.",
+            "fields": {
+                "gw_mac": {
+                    "description": "Direcci\u00f3n MAC da pasarela Xiaomi Aqara.",
+                    "name": "MAC da pasarela"
+                },
+                "ringtone_id": {
+                    "name": "ID de ton de chamada"
+                }
+            },
+            "name": "Reproducir ton de chamada"
+        },
+        "remove_device": {
+            "description": "Elimina un dispositivo espec\u00edfico. A eliminaci\u00f3n \u00e9 necesaria se un dispositivo debe ser emparellado con outra pasarela.",
+            "fields": {
+                "device_id": {
+                    "description": "Direcci\u00f3n de hardware do dispositivo a eliminar.",
+                    "name": "ID do dispositivo"
+                },
+                "gw_mac": {
+                    "description": "Direcci\u00f3n MAC da pasarela Xiaomi Aqara.",
+                    "name": "MAC da pasarela"
+                }
+            },
+            "name": "Eliminar dispositivo"
+        },
+        "stop_ringtone": {
+            "description": "Det\u00e9n inmediatamente un ton de chamada que est\u00e1 a reproducirse.",
+            "fields": {
+                "gw_mac": {
+                    "description": "Direcci\u00f3n MAC da pasarela Xiaomi Aqara.",
+                    "name": "MAC da pasarela"
+                }
+            },
+            "name": "Det\u00e9n o ton de chamada"
+        }
+    }
+}

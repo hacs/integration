@@ -1,0 +1,74 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Il dispositivo \u00e8 gi\u00e0 configurato"
+        },
+        "error": {
+            "already_configured": "Il dispositivo \u00e8 gi\u00e0 configurato",
+            "cannot_connect": "Impossibile connettersi"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "name": "Il nome per questa connessione Velbus",
+                    "port": "Stringa di connessione"
+                },
+                "title": "Definire il tipo di connessione Velbus"
+            }
+        }
+    },
+    "services": {
+        "clear_cache": {
+            "description": "Cancella la velbuscache e quindi avvia una nuova scansione.",
+            "fields": {
+                "address": {
+                    "description": "L'indirizzo del modulo in formato decimale, se questo viene fornito cancelliamo solo questo modulo, se non viene fornito nulla cancelliamo l'intera directory della cache (tutti i moduli) Gli indirizzi decimali vengono visualizzati davanti ai moduli elencati nella pagina di integrazione.\n.",
+                    "name": "Indirizzo"
+                },
+                "interface": {
+                    "description": "L'interfaccia velbus a cui inviare il comando; sar\u00e0 lo stesso valore utilizzato durante la configurazione.",
+                    "name": "Interfaccia"
+                }
+            },
+            "name": "Svuota cache"
+        },
+        "scan": {
+            "description": "Esegue la scansione dei moduli velbus, questo sar\u00e0 necessario se vedi avvisi di moduli sconosciuti nei registri o quando hai aggiunto nuovi moduli.",
+            "fields": {
+                "interface": {
+                    "description": "L'interfaccia velbus a cui inviare il comando; sar\u00e0 lo stesso valore utilizzato durante la configurazione.",
+                    "name": "Interfaccia"
+                }
+            },
+            "name": "Scansiona"
+        },
+        "set_memo_text": {
+            "description": "Imposta il testo del promemoria per la visualizzazione di moduli come VMBGPO, VMBGPOD Assicurarsi che le pagine del modulo siano configurate per visualizzare il testo del promemoria.\n .",
+            "fields": {
+                "address": {
+                    "description": "Indirizzo del modulo in formato decimale. Gli indirizzi decimali vengono visualizzati davanti ai moduli elencati nella pagina di integrazione.\n.",
+                    "name": "Indirizzo"
+                },
+                "interface": {
+                    "description": "L'interfaccia velbus a cui inviare il comando; sar\u00e0 lo stesso valore utilizzato durante la configurazione.",
+                    "name": "Interfaccia"
+                },
+                "memo_text": {
+                    "description": "Il testo effettivo da visualizzare. Il testo \u00e8 limitato a 64 caratteri.\n.",
+                    "name": "Testo del promemoria"
+                }
+            },
+            "name": "Imposta il testo del promemoria"
+        },
+        "sync_clock": {
+            "description": "Sincronizza l'orologio dei moduli velbus con l'orologio di Home Assistant, questo \u00e8 lo stesso di 'sincronizza l'orologio' da VelbusLink.",
+            "fields": {
+                "interface": {
+                    "description": "L'interfaccia velbus a cui inviare il comando; sar\u00e0 lo stesso valore utilizzato durante la configurazione.",
+                    "name": "Interfaccia"
+                }
+            },
+            "name": "Sincronizza l'orologio"
+        }
+    }
+}

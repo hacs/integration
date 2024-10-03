@@ -1,0 +1,191 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Za\u0159\u00edzen\u00ed je ji\u017e nastaveno"
+        },
+        "error": {
+            "cannot_connect": "Nepoda\u0159ilo se p\u0159ipojit",
+            "invalid_access_token": "Neplatn\u00fd p\u0159\u00edstupov\u00fd token",
+            "invalid_auth": "Neplatn\u00e9 ov\u011b\u0159en\u00ed",
+            "unknown": "Neo\u010dek\u00e1van\u00e1 chyba"
+        },
+        "step": {
+            "2fa": {
+                "data": {
+                    "2fa": "K\u00f3d dvoufaktorov\u00e9ho ov\u011b\u0159ov\u00e1n\u00ed"
+                },
+                "description": "Zadejte PIN zaslan\u00fd na v\u00e1\u0161 e-mail nebo z SMS",
+                "title": "Dvoufaktorov\u00e9 ov\u011b\u0159en\u00ed"
+            },
+            "user": {
+                "data": {
+                    "password": "Heslo",
+                    "username": "U\u017eivatelsk\u00e9 jm\u00e9no"
+                },
+                "title": "P\u0159ihl\u00e1sit se pomoc\u00ed \u00fa\u010dtu Blink"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "camera_armed": {
+                "name": "Kamera je zabezpe\u010dena"
+            }
+        },
+        "sensor": {
+            "wifi_rssi": {
+                "name": "RSSI Wi-Fi"
+            },
+            "wifi_strength": {
+                "name": "S\u00edla Wi-Fi sign\u00e1lu"
+            }
+        },
+        "switch": {
+            "camera_motion": {
+                "name": "Detekce pohybu kamery"
+            }
+        }
+    },
+    "exceptions": {
+        "cant_write": {
+            "message": "Nelze zapisovat do souboru."
+        },
+        "device_not_found": {
+            "message": "Za\u0159\u00edzen\u00ed '{target}' nebylo nalezeno v registru za\u0159\u00edzen\u00ed"
+        },
+        "failed_arm": {
+            "message": "Blink se nepoda\u0159ilo zabezpe\u010dit kameru."
+        },
+        "failed_arm_motion": {
+            "message": "Blink se nepoda\u0159ilo aktivovat detekci pohybu kamery."
+        },
+        "failed_clip": {
+            "message": "Blink se nepoda\u0159ilo nahr\u00e1t klip."
+        },
+        "failed_disarm": {
+            "message": "Blink se nepoda\u0159ilo odbezpe\u010dit kameru."
+        },
+        "failed_disarm_motion": {
+            "message": "Blink se nepoda\u0159ilo odbezpe\u010dt detekci pohybu kamery."
+        },
+        "failed_snap": {
+            "message": "Blink se nepoda\u0159ilo po\u0159\u00eddit fotku."
+        },
+        "integration_not_found": {
+            "message": "Integrace \"{target}\" nebyla nalezena v registru."
+        },
+        "invalid_device": {
+            "message": "Za\u0159\u00edzen\u00ed '{target}' nen\u00ed za\u0159\u00edzen\u00ed {domain}"
+        },
+        "no_path": {
+            "message": "Nelze zapisovat do adres\u00e1\u0159e {target}, nen\u00ed p\u0159\u00edstup k cest\u011b!"
+        },
+        "not_loaded": {
+            "message": "{target} nen\u00ed na\u010dten."
+        }
+    },
+    "issues": {
+        "service_deprecation": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Slu\u017eba aktualizace Blink je zastaral\u00e1 a bude odebr\u00e1na.\nAktualizujte sv\u00e9 automatizace a skripty tak, aby pou\u017e\u00edvaly \"Home Assistant Core Integration: Update entity\".",
+                        "title": "Slu\u017eba aktualizace Blink se odeb\u00edr\u00e1"
+                    }
+                }
+            },
+            "title": "Slu\u017eba aktualizace Blink se odeb\u00edr\u00e1"
+        }
+    },
+    "options": {
+        "step": {
+            "simple_options": {
+                "data": {
+                    "scan_interval": "Interval sledov\u00e1n\u00ed (v sekund\u00e1ch)"
+                },
+                "description": "Nastaven\u00ed integrace Blink",
+                "title": "Volby Blink"
+            }
+        }
+    },
+    "services": {
+        "blink_update": {
+            "description": "Vynut\u00ed obnoven\u00ed.",
+            "fields": {
+                "device_id": {
+                    "description": "ID za\u0159\u00edzen\u00ed Blink.",
+                    "name": "ID za\u0159\u00edzen\u00ed"
+                }
+            },
+            "name": "Aktualizovat"
+        },
+        "record": {
+            "description": "Vy\u017e\u00e1d\u00e1 nahr\u00e1n\u00ed klipu kamerou.",
+            "name": "Nahr\u00e1t"
+        },
+        "save_recent_clips": {
+            "description": "Ulo\u017e\u00ed v\u0161echny posledn\u00ed videoklipy do m\u00edstn\u00edho adres\u00e1\u0159e se vzorem souboru \"%Y%m%d_%H%M%S_[n\u00e1zev kamery].mp4\".",
+            "fields": {
+                "device_id": {
+                    "description": "ID za\u0159\u00edzen\u00ed Blink.",
+                    "name": "ID za\u0159\u00edzen\u00ed"
+                },
+                "file_path": {
+                    "description": "N\u00e1zev adres\u00e1\u0159e zapisovateln\u00e9 cesty (m\u016f\u017ee b\u00fdt nutn\u00e9 zahrnout adres\u00e1\u0159 do allowlist_external_dirs v nastaven\u00ed).",
+                    "name": "V\u00fdstupn\u00ed adres\u00e1\u0159"
+                },
+                "name": {
+                    "description": "N\u00e1zev kamery, ze kter\u00e9 se maj\u00ed st\u00e1hnout nejnov\u011bj\u0161\u00ed klipy.",
+                    "name": "N\u00e1zev"
+                }
+            },
+            "name": "Ulo\u017eit posledn\u00ed klipy"
+        },
+        "save_video": {
+            "description": "Ulo\u017e\u00ed posledn\u00ed nahran\u00fd videoklip do m\u00edstn\u00edho souboru.",
+            "fields": {
+                "device_id": {
+                    "description": "ID za\u0159\u00edzen\u00ed Blink.",
+                    "name": "ID za\u0159\u00edzen\u00ed"
+                },
+                "filename": {
+                    "description": "N\u00e1zev souboru zapisovateln\u00e9 cesty (mo\u017en\u00e1 bude nutn\u00e9 zahrnout adres\u00e1\u0159 do allowlist_external_dirs v nastaven\u00ed).",
+                    "name": "N\u00e1zev souboru"
+                },
+                "name": {
+                    "description": "N\u00e1zev kamery, ze kter\u00e9 se m\u00e1 nahr\u00e1vat video.",
+                    "name": "N\u00e1zev"
+                }
+            },
+            "name": "Ulo\u017eit video"
+        },
+        "send_pin": {
+            "description": "Ode\u0161le nov\u00fd PIN pro Blink pro 2FA.",
+            "fields": {
+                "config_entry_id": {
+                    "description": "ID integrace Blink.",
+                    "name": "ID integrace"
+                },
+                "device_id": {
+                    "description": "ID za\u0159\u00edzen\u00ed Blink.",
+                    "name": "ID za\u0159\u00edzen\u00ed"
+                },
+                "pin": {
+                    "description": "PIN p\u0159ijat z Blink. Nechte pr\u00e1zdn\u00e9, pokud jste obdr\u017eeli jen ov\u011b\u0159ovac\u00ed e-mail.",
+                    "name": "PIN"
+                }
+            },
+            "name": "Odeslat PIN"
+        },
+        "trigger_camera": {
+            "description": "Vy\u017e\u00e1d\u00e1 po\u0159\u00edzen\u00ed nov\u00e9ho sn\u00edmku kamerou.",
+            "fields": {
+                "device_id": {
+                    "description": "ID za\u0159\u00edzen\u00ed Blink.",
+                    "name": "ID za\u0159\u00edzen\u00ed"
+                }
+            },
+            "name": "Spustit kameru"
+        }
+    }
+}

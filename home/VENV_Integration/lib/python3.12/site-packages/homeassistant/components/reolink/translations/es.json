@@ -1,0 +1,778 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "El dispositivo ya est\u00e1 configurado",
+            "reauth_successful": "La autenticaci\u00f3n se volvi\u00f3 a realizar correctamente",
+            "reconfigure_successful": "Se volvi\u00f3 a configurar correctamente"
+        },
+        "error": {
+            "api_error": "Se ha producido un error de API",
+            "cannot_connect": "No se pudo conectar, comprueba la direcci\u00f3n IP de la c\u00e1mara",
+            "invalid_auth": "Autenticaci\u00f3n no v\u00e1lida",
+            "not_admin": "El usuario debe ser administrador, el usuario \"{username}\" tiene el nivel de autorizaci\u00f3n \"{userlevel}\"",
+            "password_incompatible": "La contrase\u00f1a contiene caracteres especiales incompatibles, solo se permiten estos caracteres: a-z, A-Z, 0-9 o {special_chars}",
+            "unknown": "Error inesperado",
+            "webhook_exception": "La URL de Home Assistant no est\u00e1 disponible, ve a Configuraci\u00f3n > Sistema > Red > URL de Home Assistant y corrige las URL, consulta {more_info}"
+        },
+        "flow_title": "{hostname} ({ip_address})",
+        "step": {
+            "reauth_confirm": {
+                "description": "La integraci\u00f3n de Reolink necesita volver a autenticar los detalles de tu conexi\u00f3n",
+                "title": "Autenticaci\u00f3n caducada para {name}"
+            },
+            "user": {
+                "data": {
+                    "host": "Host",
+                    "password": "Contrase\u00f1a",
+                    "port": "Puerto",
+                    "use_https": "Habilitar HTTPS",
+                    "username": "Nombre de usuario"
+                },
+                "data_description": {
+                    "host": "El nombre de host o direcci\u00f3n IP de tu dispositivo Reolink. Por ejemplo: '192.168.1.25'.",
+                    "password": "Contrase\u00f1a para iniciar sesi\u00f3n en el dispositivo Reolink. No la cuenta en la nube de Reolink.",
+                    "port": "El puerto para conectar con el dispositivo Reolink. Para HTTP normalmente: '80', para HTTPS normalmente '443'.",
+                    "use_https": "Utilizar una conexi\u00f3n HTTPS (SSL) con el dispositivo Reolink.",
+                    "username": "Nombre de usuario para iniciar sesi\u00f3n en el dispositivo Reolink. No la cuenta en la nube de Reolink."
+                },
+                "description": "Consulta los [pasos de resoluci\u00f3n de problemas]({troubleshooting_link}) si tienes problemas. {error}"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "animal": {
+                "name": "Animal",
+                "state": {
+                    "off": "No detectado",
+                    "on": "Detectado"
+                }
+            },
+            "animal_lens_0": {
+                "name": "Animal en lente 0",
+                "state": {
+                    "off": "No detectado",
+                    "on": "Detectado"
+                }
+            },
+            "animal_lens_1": {
+                "name": "Animal en lente 1",
+                "state": {
+                    "off": "No detectado",
+                    "on": "Detectado"
+                }
+            },
+            "face": {
+                "name": "Cara",
+                "state": {
+                    "off": "No detectado",
+                    "on": "Detectado"
+                }
+            },
+            "face_lens_0": {
+                "name": "Cara en lente 0",
+                "state": {
+                    "off": "No detectado",
+                    "on": "Detectado"
+                }
+            },
+            "face_lens_1": {
+                "name": "Cara en lente 1",
+                "state": {
+                    "off": "No detectado",
+                    "on": "Detectado"
+                }
+            },
+            "motion_lens_0": {
+                "name": "Movimiento en lente 0",
+                "state": {
+                    "off": "No detectado",
+                    "on": "Detectado"
+                }
+            },
+            "motion_lens_1": {
+                "name": "Movimiento en lente 1",
+                "state": {
+                    "off": "No detectado",
+                    "on": "Detectado"
+                }
+            },
+            "package": {
+                "name": "Paquete",
+                "state": {
+                    "off": "No detectado",
+                    "on": "Detectado"
+                }
+            },
+            "package_lens_0": {
+                "name": "Paquete en lente 0",
+                "state": {
+                    "off": "No detectado",
+                    "on": "Detectado"
+                }
+            },
+            "package_lens_1": {
+                "name": "Paquete en lente 1",
+                "state": {
+                    "off": "No detectado",
+                    "on": "Detectado"
+                }
+            },
+            "person": {
+                "name": "Persona",
+                "state": {
+                    "off": "No detectado",
+                    "on": "Detectado"
+                }
+            },
+            "person_lens_0": {
+                "name": "Persona en lente 0",
+                "state": {
+                    "off": "No detectado",
+                    "on": "Detectado"
+                }
+            },
+            "person_lens_1": {
+                "name": "Persona en lente 1",
+                "state": {
+                    "off": "No detectado",
+                    "on": "Detectado"
+                }
+            },
+            "pet": {
+                "name": "Animal",
+                "state": {
+                    "off": "No detectado",
+                    "on": "Detectado"
+                }
+            },
+            "pet_lens_0": {
+                "name": "Animal en lente 0",
+                "state": {
+                    "off": "No detectado",
+                    "on": "Detectado"
+                }
+            },
+            "pet_lens_1": {
+                "name": "Animal en lente 1",
+                "state": {
+                    "off": "No detectado",
+                    "on": "Detectado"
+                }
+            },
+            "sleep": {
+                "name": "Estado de ahorro de energ\u00eda",
+                "state": {
+                    "off": "Despierto",
+                    "on": "Ahorro de energ\u00eda"
+                }
+            },
+            "vehicle": {
+                "name": "Veh\u00edculo",
+                "state": {
+                    "off": "No detectado",
+                    "on": "Detectado"
+                }
+            },
+            "vehicle_lens_0": {
+                "name": "Veh\u00edculo en lente 0",
+                "state": {
+                    "off": "No detectado",
+                    "on": "Detectado"
+                }
+            },
+            "vehicle_lens_1": {
+                "name": "Veh\u00edculo en lente 1",
+                "state": {
+                    "off": "No detectado",
+                    "on": "Detectado"
+                }
+            },
+            "visitor": {
+                "name": "Visitante"
+            },
+            "visitor_lens_0": {
+                "name": "Visitante en lente 0"
+            },
+            "visitor_lens_1": {
+                "name": "Visitante en lente 1"
+            }
+        },
+        "button": {
+            "guard_go_to": {
+                "name": "Ir al punto de guardia"
+            },
+            "guard_set": {
+                "name": "Establecer punto de guardia en la posici\u00f3n actual"
+            },
+            "ptz_calibrate": {
+                "name": "Calibrar PTZ"
+            },
+            "ptz_down": {
+                "name": "PTZ abajo"
+            },
+            "ptz_left": {
+                "name": "PTZ izquierda"
+            },
+            "ptz_right": {
+                "name": "PTZ derecha"
+            },
+            "ptz_stop": {
+                "name": "PTZ abajo"
+            },
+            "ptz_up": {
+                "name": "PTZ arriba"
+            },
+            "ptz_zoom_in": {
+                "name": "Ampliaci\u00f3n PTZ"
+            },
+            "ptz_zoom_out": {
+                "name": "Alejamiento PTZ"
+            }
+        },
+        "camera": {
+            "autotrack_snapshots_main": {
+                "name": "Instant\u00e1neas de seguimiento autom\u00e1tico - Clear"
+            },
+            "autotrack_snapshots_sub": {
+                "name": "Instant\u00e1neas de seguimiento autom\u00e1tico - Fluent"
+            },
+            "autotrack_sub": {
+                "name": "Seguimiento autom\u00e1tico - Fluent"
+            },
+            "ext": {
+                "name": "Balanced"
+            },
+            "ext_lens_0": {
+                "name": "Lente 0 - Balanced"
+            },
+            "ext_lens_1": {
+                "name": "Lente 1 - Balanced"
+            },
+            "main": {
+                "name": "Clear"
+            },
+            "main_lens_0": {
+                "name": "No detectado en lente 1"
+            },
+            "main_lens_1": {
+                "name": "No detectado en lente 1"
+            },
+            "snapshots_main": {
+                "name": "Instant\u00e1neas - Clear"
+            },
+            "snapshots_main_lens_0": {
+                "name": "Instant\u00e1neas de lente 0 - Clear"
+            },
+            "snapshots_main_lens_1": {
+                "name": "Instant\u00e1neas de lente 1 - Clear"
+            },
+            "snapshots_sub": {
+                "name": "Instant\u00e1neas Fluent"
+            },
+            "snapshots_sub_lens_0": {
+                "name": "Instant\u00e1neas de lente 0 - Fluent"
+            },
+            "snapshots_sub_lens_1": {
+                "name": "Instant\u00e1neas de lente 1 - Fluent"
+            },
+            "sub": {
+                "name": "Fluent"
+            },
+            "sub_lens_0": {
+                "name": "Lente 0 - Fluent"
+            },
+            "sub_lens_1": {
+                "name": "Lente 1 - Fluent"
+            }
+        },
+        "light": {
+            "floodlight": {
+                "name": "Foco"
+            },
+            "ir_lights": {
+                "name": "Luces infrarrojas en modo nocturno"
+            },
+            "status_led": {
+                "name": "LED de estado"
+            }
+        },
+        "number": {
+            "ai_animal_delay": {
+                "name": "Retardo de la IA para animal"
+            },
+            "ai_animal_sensititvity": {
+                "name": "Sensibilidad de la IA para animal"
+            },
+            "ai_animal_sensitivity": {
+                "name": "Sensibilidad de IA para animales"
+            },
+            "ai_face_delay": {
+                "name": "Retardo de IA para caras"
+            },
+            "ai_face_sensititvity": {
+                "name": "Sensibilidad de IA para caras"
+            },
+            "ai_face_sensitivity": {
+                "name": "Sensibilidad de IA para caras"
+            },
+            "ai_package_delay": {
+                "name": "Retardo de la IA para paquete"
+            },
+            "ai_package_sensititvity": {
+                "name": "Sensibilidad de IA para paquete"
+            },
+            "ai_package_sensitivity": {
+                "name": "Sensibilidad de IA para paquetes"
+            },
+            "ai_person_delay": {
+                "name": "Retardo de IA para personas"
+            },
+            "ai_person_sensititvity": {
+                "name": "Sensibilidad de IA para personas"
+            },
+            "ai_person_sensitivity": {
+                "name": "Sensibilidad de IA para personas"
+            },
+            "ai_pet_delay": {
+                "name": "Retardo de IA para mascotas"
+            },
+            "ai_pet_sensititvity": {
+                "name": "Sensibilidad de IA para mascotas"
+            },
+            "ai_pet_sensitivity": {
+                "name": "Sensibilidad de IA para mascotas"
+            },
+            "ai_vehicle_delay": {
+                "name": "Retardo de IA para veh\u00edculos"
+            },
+            "ai_vehicle_sensititvity": {
+                "name": "Sensibilidad de IA para veh\u00edculos"
+            },
+            "ai_vehicle_sensitivity": {
+                "name": "Sensibilidad de IA para veh\u00edculos"
+            },
+            "alarm_volume": {
+                "name": "Volumen de alarma"
+            },
+            "auto_quick_reply_time": {
+                "name": "Tiempo de respuesta r\u00e1pida autom\u00e1tica"
+            },
+            "auto_track_disappear_time": {
+                "name": "Tiempo de desaparici\u00f3n del seguimiento autom\u00e1tico"
+            },
+            "auto_track_limit_left": {
+                "name": "L\u00edmite izquierdo del seguimiento autom\u00e1tico"
+            },
+            "auto_track_limit_right": {
+                "name": "L\u00edmite derecho del seguimiento autom\u00e1tico"
+            },
+            "auto_track_stop_time": {
+                "name": "Tiempo de parada de seguimiento autom\u00e1tico"
+            },
+            "day_night_switch_threshold": {
+                "name": "Umbral de conmutaci\u00f3n d\u00eda noche"
+            },
+            "floodlight_brightness": {
+                "name": "Brillo de encendido de iluminaci\u00f3n"
+            },
+            "focus": {
+                "name": "Enfoque"
+            },
+            "guard_return_time": {
+                "name": "Tiempo para volver al punto de guardia"
+            },
+            "image_brightness": {
+                "name": "Brillo de la imagen"
+            },
+            "image_contrast": {
+                "name": "Contraste de la imagen"
+            },
+            "image_hue": {
+                "name": "Tono de la imagen"
+            },
+            "image_saturation": {
+                "name": "Saturaci\u00f3n de la imagen"
+            },
+            "image_sharpness": {
+                "name": "Nitidez de la imagen"
+            },
+            "message_volume": {
+                "name": "Volumen del mensaje"
+            },
+            "motion_sensitivity": {
+                "name": "Sensibilidad al movimiento"
+            },
+            "pir_sensitivity": {
+                "name": "Sensibilidad del PIR"
+            },
+            "volume": {
+                "name": "Volumen"
+            },
+            "zoom": {
+                "name": "Zoom"
+            }
+        },
+        "select": {
+            "auto_quick_reply_message": {
+                "name": "Mensaje de respuesta r\u00e1pida autom\u00e1tica",
+                "state": {
+                    "off": "Apagado"
+                }
+            },
+            "auto_track_method": {
+                "name": "M\u00e9todo de seguimiento autom\u00e1tico",
+                "state": {
+                    "digital": "Digital",
+                    "digitalfirst": "Digital primero",
+                    "pantiltfirst": "Panor\u00e1mica/inclinaci\u00f3n primero"
+                }
+            },
+            "day_night_mode": {
+                "name": "Modo d\u00eda noche",
+                "state": {
+                    "auto": "Auto",
+                    "blackwhite": "Blanco y negro",
+                    "color": "Color"
+                }
+            },
+            "doorbell_led": {
+                "name": "LED del timbre",
+                "state": {
+                    "alwayson": "Siempre encendido",
+                    "alwaysonatnight": "Autom\u00e1tico y siempre encendido por la noche",
+                    "auto": "Auto",
+                    "stayoff": "Mantener apagado"
+                }
+            },
+            "floodlight_mode": {
+                "name": "Modo de iluminaci\u00f3n",
+                "state": {
+                    "adaptive": "Adaptativo",
+                    "auto": "Auto",
+                    "autoadaptive": "Auto adaptativo",
+                    "off": "Apagado",
+                    "onatnight": "Encendido por la noche",
+                    "schedule": "Programaci\u00f3n"
+                }
+            },
+            "hdr": {
+                "name": "HDR",
+                "state": {
+                    "auto": "Auto",
+                    "off": "Apagado",
+                    "on": "Encendido"
+                }
+            },
+            "hub_alarm_ringtone": {
+                "name": "Tono de alarma del Hub",
+                "state": {
+                    "alarm": "Alarma",
+                    "attraction": "Atracci\u00f3n",
+                    "citybird": "P\u00e1jaro de ciudad",
+                    "goodday": "Buenos d\u00edas",
+                    "hophop": "Hop hop",
+                    "loop": "Bucle",
+                    "moonlight": "Luz de luna",
+                    "operetta": "Opereta",
+                    "originaltune": "Melod\u00eda original",
+                    "pianokey": "Tecla de piano",
+                    "waybackhome": "De vuelta a casa"
+                }
+            },
+            "hub_visitor_ringtone": {
+                "name": "Tono de llamada para visitantes del Hub",
+                "state": {
+                    "alarm": "Alarma",
+                    "attraction": "Atracci\u00f3n",
+                    "citybird": "P\u00e1jaro de ciudad",
+                    "goodday": "Buenos d\u00edas",
+                    "hophop": "Hop hop",
+                    "loop": "Bucle",
+                    "moonlight": "Luz de luna",
+                    "operetta": "Opereta",
+                    "originaltune": "Melod\u00eda original",
+                    "pianokey": "Tecla de piano",
+                    "waybackhome": "De vuelta a casa"
+                }
+            },
+            "motion_tone": {
+                "name": "Tono de llamada para movimiento",
+                "state": {
+                    "attraction": "Atracci\u00f3n",
+                    "citybird": "P\u00e1jaro de ciudad",
+                    "goodday": "Buenos d\u00edas",
+                    "hophop": "Hop hop",
+                    "loop": "Bucle",
+                    "moonlight": "Luz de luna",
+                    "off": "Apagado",
+                    "operetta": "Opereta",
+                    "originaltune": "Melod\u00eda original",
+                    "pianokey": "Tecla de piano",
+                    "waybackhome": "De vuelta a casa"
+                }
+            },
+            "package_tone": {
+                "name": "Tono de llamada del paquete",
+                "state": {
+                    "attraction": "Atracci\u00f3n",
+                    "citybird": "P\u00e1jaro de ciudad",
+                    "goodday": "Buenos d\u00edas",
+                    "hophop": "Hop hop",
+                    "loop": "Bucle",
+                    "moonlight": "Luz de luna",
+                    "off": "Apagado",
+                    "operetta": "Opereta",
+                    "originaltune": "Melod\u00eda original",
+                    "pianokey": "Tecla de piano",
+                    "waybackhome": "De vuelta a casa"
+                }
+            },
+            "people_tone": {
+                "name": "Tono de llamada para persona",
+                "state": {
+                    "attraction": "Atracci\u00f3n",
+                    "citybird": "P\u00e1jaro de ciudad",
+                    "goodday": "Buenos d\u00edas",
+                    "hophop": "Hop hop",
+                    "loop": "Bucle",
+                    "moonlight": "Luz de luna",
+                    "off": "Apagado",
+                    "operetta": "Opereta",
+                    "originaltune": "Melod\u00eda original",
+                    "pianokey": "Tecla de piano",
+                    "waybackhome": "De vuelta a casa"
+                }
+            },
+            "play_quick_reply_message": {
+                "name": "Reproducir mensaje de respuesta r\u00e1pida"
+            },
+            "ptz_preset": {
+                "name": "Preajuste PTZ"
+            },
+            "status_led": {
+                "name": "LED de estado",
+                "state": {
+                    "alwayson": "Siempre encendido",
+                    "alwaysonatnight": "Autom\u00e1tico y siempre encendido por la noche",
+                    "auto": "Auto",
+                    "stayoff": "Mantenerse alejado"
+                }
+            },
+            "visitor_tone": {
+                "name": "Tono de llamada para visitas",
+                "state": {
+                    "attraction": "Atracci\u00f3n",
+                    "citybird": "P\u00e1jaro de ciudad",
+                    "goodday": "Buenos d\u00edas",
+                    "hophop": "Hop hop",
+                    "loop": "Bucle",
+                    "moonlight": "Luz de luna",
+                    "off": "Apagado",
+                    "operetta": "Opereta",
+                    "originaltune": "Melod\u00eda original",
+                    "pianokey": "Tecla de piano",
+                    "waybackhome": "De vuelta a casa"
+                }
+            }
+        },
+        "sensor": {
+            "battery_percent": {
+                "name": "Porcentaje de la bater\u00eda"
+            },
+            "battery_state": {
+                "name": "Estado de la bater\u00eda",
+                "state": {
+                    "chargecomplete": "Carga completa",
+                    "charging": "Cargando",
+                    "discharging": "Descargando"
+                }
+            },
+            "battery_temperature": {
+                "name": "Temperatura de la bater\u00eda"
+            },
+            "cpu_usage": {
+                "name": "Uso de CPU"
+            },
+            "event_connection": {
+                "name": "Conexi\u00f3n de eventos",
+                "state": {
+                    "fast_poll": "Encuesta r\u00e1pida",
+                    "onvif_long_poll": "ONVIF sondeo largo",
+                    "onvif_push": "ONVIF push"
+                }
+            },
+            "hdd_storage": {
+                "name": "Almacenamiento HDD {hdd_index}"
+            },
+            "ptz_pan_position": {
+                "name": "Posici\u00f3n panor\u00e1mica de PTZ"
+            },
+            "sd_storage": {
+                "name": "Almacenamiento SD {hdd_index}"
+            },
+            "wifi_signal": {
+                "name": "Se\u00f1al Wi-Fi"
+            }
+        },
+        "siren": {
+            "siren": {
+                "name": "Sirena"
+            }
+        },
+        "switch": {
+            "auto_focus": {
+                "name": "Enfoque autom\u00e1tico"
+            },
+            "auto_tracking": {
+                "name": "Seguimiento autom\u00e1tico"
+            },
+            "buzzer": {
+                "name": "Zumbador tras evento"
+            },
+            "doorbell_button_sound": {
+                "name": "Sonido del bot\u00f3n del timbre"
+            },
+            "email": {
+                "name": "Correo electr\u00f3nico tras evento"
+            },
+            "ftp_upload": {
+                "name": "Subida FTP"
+            },
+            "gaurd_return": {
+                "name": "Volver al punto de guardia"
+            },
+            "guard_return": {
+                "name": "Volver al punto de guardia"
+            },
+            "hdr": {
+                "name": "HDR"
+            },
+            "hub_ringtone_on_event": {
+                "name": "Tono de llamada del hub en caso de evento"
+            },
+            "ir_lights": {
+                "name": "Luces infrarrojas en modo nocturno"
+            },
+            "led": {
+                "name": "LED"
+            },
+            "manual_record": {
+                "name": "Grabaci\u00f3n manual"
+            },
+            "pir_enabled": {
+                "name": "PIR habilitado"
+            },
+            "pir_reduce_alarm": {
+                "name": "Reducir las falsas alarmas del PIR"
+            },
+            "ptz_patrol": {
+                "name": "Patrulla PTZ"
+            },
+            "push_notifications": {
+                "name": "Notificaciones push"
+            },
+            "record": {
+                "name": "Grabar"
+            },
+            "record_audio": {
+                "name": "Grabar audio"
+            },
+            "siren_on_event": {
+                "name": "Sirena tras evento"
+            }
+        }
+    },
+    "exceptions": {
+        "service_entry_ex": {
+            "message": "Error de Reolink {service_name}: entrada de configuraci\u00f3n no encontrada o no cargada"
+        },
+        "service_not_chime": {
+            "message": "Error de Reolink play_chime: {device_name} no es un timbre"
+        }
+    },
+    "issues": {
+        "enable_port": {
+            "description": "No se pudo habilitar autom\u00e1ticamente el/los puerto(s) {ports} en {name}. Usa el [cliente Reolink]({info_link}) para activarlo manualmente",
+            "title": "Puerto Reolink no habilitado"
+        },
+        "firmware_update": {
+            "description": "\"{name}\" modelo \"{model}\" y con versi\u00f3n de hardware \"{hw_version}\" est\u00e1 ejecutando una versi\u00f3n de firmware antigua \"{current_firmware}\", mientras que se requiere al menos la versi\u00f3n de firmware \"{required_firmware}\" para el correcto funcionamiento de la integraci\u00f3n Reolink. El firmware m\u00e1s reciente se puede descargar desde el [Centro de descargas de Reolink]({download_link}).",
+            "title": "Se requiere actualizaci\u00f3n de firmware Reolink"
+        },
+        "hdr_switch_deprecated": {
+            "description": "La entidad interruptor Reolink HDR est\u00e1 obsoleta y se eliminar\u00e1 en HA 2025.2.0. Se ha sustituido por una entidad HDR select que ofrece las opciones `on`, `off` y `auto`. Para eliminar este problema, por favor, ajusta las automatizaciones en consecuencia y desactiva la entidad  interruptor Reolink HDR.",
+            "title": "Interruptor Reolink HDR obsoleto"
+        },
+        "https_webhook": {
+            "description": "Los productos Reolink no pueden enviar eventos de movimiento a una direcci\u00f3n HTTPS (SSL), por favor configura una direcci\u00f3n HTTP (local) en \"URL de Home Assistant\" en la [configuraci\u00f3n de red]({network_link}). La direcci\u00f3n (local) actual es: `{base_url}`, una direcci\u00f3n v\u00e1lida podr\u00eda ser, por ejemplo, `http://192.168.1.10:8123` donde `192.168.1.10` es la IP del dispositivo Home Assistant",
+            "title": "La URL del webhook de Reolink usa HTTPS (SSL)"
+        },
+        "hub_switch_deprecated": {
+            "description": "Los interruptores redundantes \"Grabar\", \"Enviar correo electr\u00f3nico en caso de evento\", \"Cargar FTP\", \"Notificaciones push\" y \"Zumbador en caso de evento\" en el Reolink Home Hub est\u00e1n obsoletos debido a que el nuevo firmware ya no los admite. Por favor, utiliza los interruptores con el mismo nombre en cada uno de los dispositivos de c\u00e1mara conectados al Home Hub en su lugar. Para eliminar este problema, por favor, ajusta las automatizaciones en consecuencia y deshabilita las entidades de interruptor mencionadas.",
+            "title": "Interruptores Reolink Home Hub obsoletos"
+        },
+        "ssl": {
+            "description": "Certificado SSL global configurado en [configuration.yaml bajo http]({ssl_link}) mientras que una direcci\u00f3n HTTP local `{base_url}` est\u00e1 configurada bajo \"Home Assistant URL\" en la [configuraci\u00f3n de red]({network_link}). Por lo tanto, el dispositivo Reolink no puede llegar a Home Assistant para enviar sus eventos de movimiento/AI. Aseg\u00farate de que la direcci\u00f3n HTTP local no est\u00e1 cubierta por el certificado SSL, por ejemplo, utilizando el [complemento NGINX]({nginx_link}) en lugar de un certificado SSL global.",
+            "title": "Reolink incompatible con certificado SSL global"
+        },
+        "webhook_url": {
+            "description": "No se recibi\u00f3 el estado ONVIF inicial de {name}. Lo m\u00e1s probable es que la c\u00e1mara Reolink no pueda acceder a la URL actual (local) de Home Assistant `{base_url}`, por favor, configura una direcci\u00f3n HTTP (local) en \"Home Assistant URL\" en la [configuraci\u00f3n de red]({network_link}) que apunta a Home Assistant. Por ejemplo `http://192.168.1.10:8123` donde `192.168.1.10` es la IP del dispositivo Home Assistant. Adem\u00e1s, aseg\u00farate de que la c\u00e1mara Reolink pueda llegar a esa URL. Usando sondeo de estado de movimiento r\u00e1pido/IA hasta que se reciba la primera notificaci\u00f3n ONVIF.",
+            "title": "No se puede acceder a la URL del webhook de Reolink"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "protocol": "Protocolo"
+                },
+                "data_description": {
+                    "protocol": "Protocolo de transmisi\u00f3n que se utilizar\u00e1 para las entidades de la c\u00e1mara. RTSP admite transmisiones 4K (codificaci\u00f3n h265), mientras que RTMP y FLV no. FLV es el menos exigente con la c\u00e1mara."
+                }
+            }
+        }
+    },
+    "selector": {
+        "ringtone": {
+            "options": {
+                "attraction": "Atracci\u00f3n",
+                "citybird": "P\u00e1jaro de ciudad",
+                "goodday": "Buenos d\u00edas",
+                "hophop": "Hop hop",
+                "loop": "Bucle",
+                "moonlight": "Luz de luna",
+                "operetta": "Opereta",
+                "originaltune": "Melod\u00eda original",
+                "pianokey": "Tecla de piano",
+                "waybackhome": "De vuelta a casa"
+            }
+        }
+    },
+    "services": {
+        "play_chime": {
+            "description": "Reproducir un tono de llamada en un timbre.",
+            "fields": {
+                "device_id": {
+                    "description": "El timbre para reproducir el tono de llamada.",
+                    "name": "Timbre de destino"
+                },
+                "ringtone": {
+                    "description": "Tono de llamada a reproducir.",
+                    "name": "Tono de llamada"
+                }
+            },
+            "name": "Reproducir timbre"
+        },
+        "ptz_move": {
+            "description": "Mueve la c\u00e1mara con una velocidad determinada.",
+            "fields": {
+                "speed": {
+                    "description": "Velocidad de movimiento PTZ.",
+                    "name": "Velocidad"
+                }
+            },
+            "name": "Movimiento PTZ"
+        }
+    }
+}

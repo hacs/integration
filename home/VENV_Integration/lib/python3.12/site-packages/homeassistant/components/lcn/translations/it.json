@@ -1,0 +1,267 @@
+{
+    "device_automation": {
+        "trigger_type": {
+            "codelock": "Codice di blocco ricevuto",
+            "fingerprint": "Codice dell'impronta digitale ricevuto",
+            "send_keys": "Invia chiavi ricevute",
+            "transmitter": "Codice trasmettitore ricevuto",
+            "transponder": "Codice transponder ricevuto"
+        }
+    },
+    "services": {
+        "dyn_text": {
+            "description": "Invia testo dinamico ai display LCN-GTxD.",
+            "fields": {
+                "address": {
+                    "description": "Indirizzo del modulo.",
+                    "name": "Indirizzo"
+                },
+                "row": {
+                    "description": "Riga di testo.",
+                    "name": "Riga"
+                },
+                "text": {
+                    "description": "Testo da inviare (fino a 60 caratteri codificati come UTF-8).",
+                    "name": "Testo"
+                }
+            },
+            "name": "Testo dinamico"
+        },
+        "led": {
+            "description": "Imposta lo stato del led.",
+            "fields": {
+                "address": {
+                    "description": "Indirizzo del modulo.",
+                    "name": "Indirizzo"
+                },
+                "led": {
+                    "description": "Led.",
+                    "name": "LED"
+                },
+                "state": {
+                    "description": "Stato del LED.",
+                    "name": "Stato"
+                }
+            },
+            "name": "LED"
+        },
+        "lock_keys": {
+            "description": "Chiavi di chiusura.",
+            "fields": {
+                "address": {
+                    "description": "Indirizzo del modulo.",
+                    "name": "Indirizzo"
+                },
+                "state": {
+                    "description": "Stati delle chiavi di blocco come stringa (1=on, 2=off, T=toggle, -=nessuna modifica).",
+                    "name": "Stato"
+                },
+                "table": {
+                    "description": "Tabella con chiavi per bloccare (deve essere A per intervallo).",
+                    "name": "Tabella"
+                },
+                "time": {
+                    "description": "Intervallo di blocco.",
+                    "name": "Tempo"
+                },
+                "time_unit": {
+                    "description": "Unit\u00e0 di tempo dell'intervallo di blocco.",
+                    "name": "Unit\u00e0 di tempo"
+                }
+            },
+            "name": "Chiavi di blocco"
+        },
+        "lock_regulator": {
+            "description": "Blocca un setpoint del regolatore.",
+            "fields": {
+                "address": {
+                    "description": "Indirizzo del modulo.",
+                    "name": "Indirizzo"
+                },
+                "setpoint": {
+                    "description": "Nome del punto di riferimento.",
+                    "name": "Punto di riferimento"
+                },
+                "state": {
+                    "description": "Nuovo stato di setpoint.",
+                    "name": "Stato"
+                }
+            },
+            "name": "Regolatore di blocco"
+        },
+        "output_abs": {
+            "description": "Imposta la luminosit\u00e0 assoluta della porta di uscita in percentuale.",
+            "fields": {
+                "address": {
+                    "description": "Indirizzo del modulo.",
+                    "name": "Indirizzo"
+                },
+                "brightness": {
+                    "description": "Luminosit\u00e0 assoluta.",
+                    "name": "Luminosit\u00e0"
+                },
+                "output": {
+                    "description": "Porta di uscita.",
+                    "name": "Uscita"
+                },
+                "transition": {
+                    "description": "Tempo di transizione.",
+                    "name": "Transizione"
+                }
+            },
+            "name": "Emetti luminosit\u00e0 assoluta"
+        },
+        "output_rel": {
+            "description": "Imposta la luminosit\u00e0 relativa della porta di uscita in percentuale.",
+            "fields": {
+                "address": {
+                    "description": "Indirizzo del modulo.",
+                    "name": "Indirizzo"
+                },
+                "brightness": {
+                    "description": "Luminosit\u00e0 relativa.",
+                    "name": "Luminosit\u00e0"
+                },
+                "output": {
+                    "description": "Porta di uscita.",
+                    "name": "Uscita"
+                }
+            },
+            "name": "Luminosit\u00e0 relativa in uscita"
+        },
+        "output_toggle": {
+            "description": "Attiva/disattiva la porta di uscita.",
+            "fields": {
+                "address": {
+                    "description": "Indirizzo del modulo.",
+                    "name": "Indirizzo"
+                },
+                "output": {
+                    "description": "Porta di uscita.",
+                    "name": "Uscita"
+                },
+                "transition": {
+                    "description": "Tempo di transizione.",
+                    "name": "Transizione"
+                }
+            },
+            "name": "Attiva/disattiva l'uscita"
+        },
+        "pck": {
+            "description": "Invia un comando PCK arbitrario.",
+            "fields": {
+                "address": {
+                    "description": "Indirizzo del modulo.",
+                    "name": "Indirizzo"
+                },
+                "pck": {
+                    "description": "Comando PCK (senza intestazione dell'indirizzo).",
+                    "name": "PCK"
+                }
+            },
+            "name": "PCK"
+        },
+        "relays": {
+            "description": "Imposta lo stato dei rel\u00e8.",
+            "fields": {
+                "address": {
+                    "description": "Indirizzo del modulo.",
+                    "name": "Indirizzo"
+                },
+                "state": {
+                    "description": "Stati dei rel\u00e8 come stringa (1=acceso, 2=spento, t=commuta, -=nessuna modifica).",
+                    "name": "Stato"
+                }
+            },
+            "name": "Rel\u00e8"
+        },
+        "send_keys": {
+            "description": "Invia tasti (che eseguono comandi associati).",
+            "fields": {
+                "address": {
+                    "description": "Indirizzo del modulo.",
+                    "name": "Indirizzo"
+                },
+                "keys": {
+                    "description": "Tasti da inviare.",
+                    "name": "Tasti"
+                },
+                "state": {
+                    "description": "Stato chiave al momento dell'invio (deve essere premuto per differire).",
+                    "name": "Stato"
+                },
+                "time": {
+                    "description": "Invia ritardo.",
+                    "name": "Ore"
+                },
+                "time_unit": {
+                    "description": "Unit\u00e0 di tempo del ritardo di invio.",
+                    "name": "Unit\u00e0 di tempo"
+                }
+            },
+            "name": "Invia le chiavi"
+        },
+        "var_abs": {
+            "description": "Imposta il valore assoluto di una variabile o setpoint.",
+            "fields": {
+                "address": {
+                    "description": "Indirizzo del modulo.",
+                    "name": "Indirizzo"
+                },
+                "unit_of_measurement": {
+                    "description": "Unit\u00e0 di valore.",
+                    "name": "Unit\u00e0 di misura"
+                },
+                "value": {
+                    "description": "Valore da impostare.",
+                    "name": "Valore"
+                },
+                "variable": {
+                    "description": "Nome variabile o setpoint.",
+                    "name": "Variabile"
+                }
+            },
+            "name": "Imposta variabile assoluta"
+        },
+        "var_rel": {
+            "description": "Valore di spostamento di una variabile, setpoint o soglia.",
+            "fields": {
+                "address": {
+                    "description": "Indirizzo del modulo.",
+                    "name": "Indirizzo"
+                },
+                "unit_of_measurement": {
+                    "description": "Unit\u00e0 di valore.",
+                    "name": "Unit\u00e0 di misura"
+                },
+                "value": {
+                    "description": "Valore di spostamento.",
+                    "name": "Valore"
+                },
+                "value_reference": {
+                    "description": "Valore di riferimento per il setpoint e la soglia.",
+                    "name": "Valore di riferimento"
+                },
+                "variable": {
+                    "description": "Nome variabile o setpoint.",
+                    "name": "Variabile"
+                }
+            },
+            "name": "Cambia variabile"
+        },
+        "var_reset": {
+            "description": "Azzera il valore della variabile o del setpoint.",
+            "fields": {
+                "address": {
+                    "description": "Indirizzo del modulo.",
+                    "name": "Indirizzo"
+                },
+                "variable": {
+                    "description": "Nome variabile o setpoint.",
+                    "name": "Variabile"
+                }
+            },
+            "name": "Reimposta variabile"
+        }
+    }
+}

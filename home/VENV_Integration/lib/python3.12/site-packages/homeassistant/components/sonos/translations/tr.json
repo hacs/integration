@@ -1,0 +1,198 @@
+{
+    "config": {
+        "abort": {
+            "no_devices_found": "A\u011fda cihaz bulunamad\u0131",
+            "not_sonos_device": "Bulunan cihaz bir Sonos cihaz\u0131 de\u011fil",
+            "single_instance_allowed": "Zaten yap\u0131land\u0131r\u0131lm\u0131\u015f. Yaln\u0131zca tek bir konfig\u00fcrasyon m\u00fcmk\u00fcnd\u00fcr."
+        },
+        "step": {
+            "confirm": {
+                "description": "Sonos'u kurmak istiyor musunuz?"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "microphone": {
+                "name": "Mikrofon"
+            }
+        },
+        "number": {
+            "audio_delay": {
+                "name": "Ses gecikmesi"
+            },
+            "balance": {
+                "name": "Denge"
+            },
+            "bass": {
+                "name": "Bas"
+            },
+            "music_surround_level": {
+                "name": "M\u00fczik surround seviyesi"
+            },
+            "sub_crossover": {
+                "name": "Alt ge\u00e7i\u015f frekans\u0131"
+            },
+            "sub_gain": {
+                "name": "Alt kazan\u00e7"
+            },
+            "surround_level": {
+                "name": "Surround seviyesi"
+            },
+            "treble": {
+                "name": "Tiz"
+            }
+        },
+        "sensor": {
+            "audio_input_format": {
+                "name": "Ses giri\u015f format\u0131"
+            }
+        },
+        "switch": {
+            "buttons_enabled": {
+                "name": "Dokunmatik kontroller"
+            },
+            "cross_fade": {
+                "name": "\u00c7apraz ge\u00e7i\u015f"
+            },
+            "dialog_level": {
+                "name": "Konu\u015fma geli\u015ftirme"
+            },
+            "loudness": {
+                "name": "Ses Y\u00fcksekli\u011fi"
+            },
+            "night_mode": {
+                "name": "Gece sesi"
+            },
+            "status_light": {
+                "name": "Durum \u0131\u015f\u0131\u011f\u0131"
+            },
+            "sub_enabled": {
+                "name": "Subwoofer etkin"
+            },
+            "surround_enabled": {
+                "name": "Surround etkin"
+            },
+            "surround_mode": {
+                "name": "Surround m\u00fczik tam ses seviyesi"
+            }
+        }
+    },
+    "exceptions": {
+        "announce_media_error": {
+            "message": "{media_id} adl\u0131 klibin duyurulmas\u0131 ba\u015far\u0131s\u0131z oldu {response}"
+        },
+        "invalid_content_type": {
+            "message": "Sonos \u015fu medya i\u00e7erik t\u00fcr\u00fcn\u00fc desteklemiyor: {media_type}"
+        },
+        "invalid_favorite": {
+            "message": "Bir Sonos favorisi bulamad\u0131m: {name}"
+        },
+        "invalid_media": {
+            "message": "K\u00fct\u00fcphanede medya bulunamad\u0131: {media_id}"
+        },
+        "invalid_sonos_playlist": {
+            "message": "Sonos \u00e7alma listesi bulunamad\u0131: {name}"
+        }
+    },
+    "issues": {
+        "subscriptions_failed": {
+            "description": "Yoklamaya geri d\u00f6nersek, i\u015flevsellik s\u0131n\u0131rl\u0131 olabilir. \n\n {device_ip} adresindeki Sonos cihaz\u0131 {listener_address} adresindeki Ev Asistan\u0131na ula\u015fam\u0131yor. \n\n Bu sorunun nas\u0131l \u00e7\u00f6z\u00fclece\u011fi hakk\u0131nda daha fazla bilgi i\u00e7in [belgelerimize]( {sub_fail_url} ) bak\u0131n.",
+            "title": "A\u011f hatas\u0131: abonelikler ba\u015far\u0131s\u0131z oldu"
+        }
+    },
+    "services": {
+        "clear_sleep_timer": {
+            "description": "Bir Sonos zamanlay\u0131c\u0131s\u0131n\u0131 temizler.",
+            "name": "Zamanlay\u0131c\u0131y\u0131 temizle"
+        },
+        "get_queue": {
+            "description": "Kuyru\u011fun i\u00e7eri\u011fini d\u00f6nd\u00fcr\u00fcr.",
+            "name": "S\u0131raya gir"
+        },
+        "play_queue": {
+            "description": "S\u0131ray\u0131 ilk \u00f6\u011feden itibaren oynatmaya ba\u015flay\u0131n.",
+            "fields": {
+                "queue_position": {
+                    "description": "\u015eark\u0131n\u0131n \u00e7almaya ba\u015flamak i\u00e7in s\u0131radaki konumu.",
+                    "name": "S\u0131ra konumu"
+                }
+            },
+            "name": "Oynatma s\u0131ras\u0131"
+        },
+        "remove_from_queue": {
+            "description": "S\u0131radan bir \u00f6\u011feyi kald\u0131r\u0131r.",
+            "fields": {
+                "queue_position": {
+                    "description": "Kald\u0131r\u0131lacak s\u0131radaki konum.",
+                    "name": "S\u0131ra konumu"
+                }
+            },
+            "name": "S\u0131radan kald\u0131r"
+        },
+        "restore": {
+            "description": "Medya y\u00fcr\u00fct\u00fcc\u00fcn\u00fcn anl\u0131k g\u00f6r\u00fcnt\u00fcs\u00fcn\u00fc geri y\u00fckler.",
+            "fields": {
+                "entity_id": {
+                    "description": "Geri y\u00fcklenecek varl\u0131\u011f\u0131n ad\u0131.",
+                    "name": "Varl\u0131k"
+                },
+                "with_group": {
+                    "description": "Do\u011fru ya da yanl\u0131\u015f. Ayr\u0131ca grup d\u00fczenini geri y\u00fckleyin.",
+                    "name": "Grup ile"
+                }
+            },
+            "name": "Geri Y\u00fckleme"
+        },
+        "set_sleep_timer": {
+            "description": "Bir Sonos zamanlay\u0131c\u0131s\u0131 ayarlar.",
+            "fields": {
+                "sleep_time": {
+                    "description": "Zamanlay\u0131c\u0131y\u0131 ayarlamak i\u00e7in saniye say\u0131s\u0131.",
+                    "name": "Uyku Zaman\u0131"
+                }
+            },
+            "name": "Zamanlay\u0131c\u0131y\u0131 ayarla"
+        },
+        "snapshot": {
+            "description": "Medya y\u00fcr\u00fct\u00fcc\u00fcn\u00fcn anl\u0131k g\u00f6r\u00fcnt\u00fcs\u00fcn\u00fc al\u0131r.",
+            "fields": {
+                "entity_id": {
+                    "description": "Anl\u0131k g\u00f6r\u00fcnt\u00fc al\u0131nacak varl\u0131\u011f\u0131n ad\u0131.",
+                    "name": "Varl\u0131k"
+                },
+                "with_group": {
+                    "description": "Do\u011fru ya da yanl\u0131\u015f. Ayr\u0131ca grup d\u00fczeninin anl\u0131k g\u00f6r\u00fcnt\u00fcs\u00fcn\u00fc al\u0131n.",
+                    "name": "Grup ile"
+                }
+            },
+            "name": "Anl\u0131k g\u00f6r\u00fcnt\u00fc"
+        },
+        "update_alarm": {
+            "description": "Bir alarm\u0131 yeni saat ve ses ayarlar\u0131yla g\u00fcnceller.",
+            "fields": {
+                "alarm_id": {
+                    "description": "G\u00fcncellenecek alarm\u0131n kimli\u011fi.",
+                    "name": "Alarm Kimli\u011fi"
+                },
+                "enabled": {
+                    "description": "Alarm\u0131 etkinle\u015ftirin veya devre d\u0131\u015f\u0131 b\u0131rak\u0131n.",
+                    "name": "Alarm etkin"
+                },
+                "include_linked_zones": {
+                    "description": "Grupland\u0131r\u0131lm\u0131\u015f odalar\u0131 dahil etmeyi etkinle\u015ftirin veya devre d\u0131\u015f\u0131 b\u0131rak\u0131n.",
+                    "name": "Ba\u011flant\u0131l\u0131 b\u00f6lgeleri dahil et"
+                },
+                "time": {
+                    "description": "Alarm i\u00e7in zaman\u0131 ayarlay\u0131n.",
+                    "name": "Zaman"
+                },
+                "volume": {
+                    "description": "Alarm ses seviyesini ayarlay\u0131n.",
+                    "name": "Ses"
+                }
+            },
+            "name": "Alarm\u0131 g\u00fcncelle"
+        }
+    }
+}

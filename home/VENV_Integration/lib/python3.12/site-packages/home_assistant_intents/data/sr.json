@@ -1,0 +1,950 @@
+{
+  "language": "sr",
+  "intents": {
+    "HassTurnOff": {
+      "data": [
+        {
+          "sentences": [
+            "<деактивирај> <име> [<светла>] [(у|на) <област>]",
+            "<деактивирај> [<светла>] <име> [(у|на) <област>]",
+            "<деактивирај> [(у|на) <област>] <име> [<светла>]",
+            "<деактивирај> [(у|на) <област>] [<светла>] <име>"
+          ],
+          "requires_context": {
+            "domain": "light"
+          }
+        },
+        {
+          "sentences": [
+            "<деактивирај> [сва] <светла> (у|на) <област>",
+            "<деактивирај> (у|на) <област> [сва] <светла> "
+          ],
+          "slots": {
+            "domain": "light"
+          },
+          "response": "lights_area"
+        },
+        {
+          "sentences": [
+            "<деактивирај> <име> [[у|на] <област>]"
+          ],
+          "requires_context": {
+            "domain": "cover"
+          },
+          "response": "cover"
+        },
+        {
+          "sentences": [
+            "<деактивирај> гаражна врата",
+            "<деактивирај> врата гараже"
+          ],
+          "slots": {
+            "domain": "cover",
+            "device_class": "garage"
+          },
+          "response": "cover_device_class"
+        },
+        {
+          "sentences": [
+            "<деактивирај> {cover_classes:device_class} [[у|на] <област>]",
+            "<деактивирај> <област> {cover_classes:device_class}"
+          ],
+          "slots": {
+            "domain": "cover"
+          },
+          "response": "cover_device_class"
+        }
+      ]
+    },
+    "HassTurnOn": {
+      "data": [
+        {
+          "sentences": [
+            "<активирај> <име> [<светла>] [(у|на) <област>]",
+            "<активирај> [<светла>] <име> [(у|на) <област>]",
+            "<активирај> [(у|на) <област>] <име> [<светла>]",
+            "<активирај> [(у|на) <област>] [<светла>] <име>"
+          ],
+          "requires_context": {
+            "domain": "light"
+          }
+        },
+        {
+          "sentences": [
+            "<активирај> [сва] <светла> (у|на) <област>",
+            "<активирај> (у|на) <област> [сва] <светла> "
+          ],
+          "slots": {
+            "domain": "light"
+          },
+          "response": "lights_area"
+        },
+        {
+          "sentences": [
+            "<активирај> <име> [(у|на) <област>]"
+          ],
+          "requires_context": {
+            "domain": "cover"
+          },
+          "response": "cover"
+        },
+        {
+          "sentences": [
+            "<активирај> {cover_classes:device_class}"
+          ],
+          "slots": {
+            "domain": "cover",
+            "device_class": "garage"
+          },
+          "response": "cover_device_class"
+        },
+        {
+          "sentences": [
+            "<активирај> {cover_classes:device_class} [у|на] <област>",
+            "<активирај> [у|на] <област> {cover_classes:device_class}"
+          ],
+          "slots": {
+            "domain": "cover"
+          },
+          "response": "cover_device_class"
+        }
+      ]
+    },
+    "HassShoppingListAddItem": {
+      "data": [
+        {
+          "sentences": [
+            "[додај|стави|убаци] <item> (на|у)<my_list>"
+          ],
+          "response": "item_added",
+          "expansion_rules": {
+            "my_list": "[ моју] листу[ за куповину]",
+            "item": "{shopping_list_item:item}"
+          }
+        }
+      ]
+    },
+    "HassLightSet": {
+      "data": [
+        {
+          "sentences": [
+            "[<подеси>] <име> [на] <осветљеност>",
+            "<подеси> [осветљење | јачину [светла] | светло] <име> на <осветљеност> [снаге | јачине | светлине]"
+          ],
+          "response": "brightness",
+          "requires_context": {
+            "domain": "light"
+          }
+        },
+        {
+          "sentences": [
+            "[<подеси>] [осветљење | јачину [светла] | светло] у <област> на <осветљеност>"
+          ],
+          "slots": {
+            "name": "all"
+          },
+          "response": "brightness"
+        },
+        {
+          "sentences": [
+            "<подеси> [[јачину | интензитет] светл(а|о) у | осветљење у] <област> [на] <осветљеност> [снаге | јачине | светлине]",
+            "<подеси> <област> на <осветљеност>"
+          ],
+          "slots": {
+            "name": "all"
+          },
+          "response": "brightness"
+        },
+        {
+          "sentences": [
+            "<подеси> <име> на {brightness_level:brightness}",
+            "<подеси> [осветљеност|осветљење|јачину|интезитет] <име> на {brightness_level:brightness} [снаге | јачине | светлине]",
+            "<подеси> [осветљеност|осветљење|јачину|интезитет] [<светла>] <област> на {brightness_level:brightness} [снаге | јачине | светлине]"
+          ],
+          "requires_context": {
+            "domain": "light"
+          },
+          "response": "brightness"
+        },
+        {
+          "sentences": [
+            "[<подеси>] (осветљеност|осветљење|јачину|интезитет) <област> на {brightness_level:brightness}",
+            "[<подеси>] (осветљеност|осветљење|јачину|интезитет) <област> на {brightness_level:brightness}",
+            "<област> [<подеси>] (осветљеност|осветљење|јачину|интезитет) на {brightness_level:brightness}"
+          ],
+          "slots": {
+            "name": "all"
+          },
+          "response": "brightness"
+        },
+        {
+          "sentences": [
+            "<подеси> боју <име> [на|у] {color}",
+            "<подеси> <име> [на|у] {color} [боју]",
+            "<подеси> [боју] [свих] <светла> у <област> [на|у] {color}"
+          ],
+          "requires_context": {
+            "domain": "light"
+          },
+          "response": "color"
+        },
+        {
+          "sentences": [
+            "<подеси> свуда [боју] <светла> [у <област>] [на|у] {color}",
+            "<подеси> сва <светла> [<област>] [на|у] {color} [боју]",
+            "<подеси> [боју] [свих] <светла> у <област> [на|у] {color}"
+          ],
+          "slots": {
+            "name": "all"
+          },
+          "response": "color"
+        }
+      ]
+    },
+    "HassClimateGetTemperature": {
+      "data": [
+        {
+          "sentences": [
+            "<шта_је> <temp> [[(у|на)] <област>]",
+            "да ли је (топло|хладно|вруће) [[(у|на)] <област>]",
+            "<шта_је> <temp> у <област>",
+            "колико је степени [[(у|на)] <област>]"
+          ]
+        }
+      ]
+    },
+    "HassGetState": {
+      "data": [
+        {
+          "sentences": [
+            "<да_ли> <име> {cover_states:state} [у <област>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "cover"
+          },
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "<да_ли> било која {cover_classes:device_class} {cover_states:state} [у <област>]"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "<да_ли> {cover_classes:device_class} {cover_states:state} [у <област>]"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "<који_шта> {cover_classes:device_class} [је|су] {cover_states:state} [у <област>]",
+            "<шта_је> {cover_classes:device_class} [је|су] {cover_states:state} [у <област>]"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "<шта_је> {cover_classes:device_class} [је|су] {cover_states:state} [у <област>]"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "<да_ли> [<име>] [батерија] [у <област>] [<име>] {bs_battery_states:state} [у <област>]",
+            "<да_ли> {bs_battery_states:state} [батерија] <име> [у <област>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "battery"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "battery"
+          }
+        },
+        {
+          "sentences": [
+            "<да_ли> [било кој(а|е)|неке] батериј(а|е) [у <област>] {bs_battery_states:state} [у <област>]",
+            "<да_ли> {bs_battery_states:state} [било кој(а|е)|неке] батериј(а|е) [у <област>]"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "battery"
+          }
+        },
+        {
+          "sentences": [
+            "<да_ли> све батерије [у <област>] {bs_battery_states:state} [у <област>]",
+            "<да_ли> {bs_battery_states:state} све батерије [у <област>]"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "battery"
+          }
+        },
+        {
+          "sentences": [
+            "<који_шта> батериј(а|е) [је|се] {bs_battery_states:state} [у <област>]"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "battery"
+          }
+        },
+        {
+          "sentences": [
+            "<шта_је> батериј(а|е) [је|се] {bs_battery_states:state} [у <област>]"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "battery"
+          }
+        },
+        {
+          "sentences": [
+            "<да_ли> [батерија] <име> {bs_battery_charging_states:state} [у <област>]",
+            "<да_ли> {bs_battery_charging_states:state} [батерија] <име> [у <област>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "battery_charging"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "battery_charging"
+          }
+        },
+        {
+          "sentences": [
+            "<да_ли> [било кој(а|е)] [батериј(а|е)] {bs_battery_charging_states:state} [у <област>]",
+            "<да_ли> {bs_battery_charging_states:state} [било кој(а|е)] [батериј(а|е)] [у <област>]",
+            "<који_шта> [је|се] [батериј(а|е)] [је|се] {bs_battery_charging_states:state} [у <област>]"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "battery_charging"
+          }
+        },
+        {
+          "sentences": [
+            "<шта_је> [је|се] [батериј(а|е)] [је|се] {bs_battery_charging_states:state} [у <област>]"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "battery_charging"
+          }
+        }
+      ]
+    }
+  },
+  "responses": {
+    "errors": {
+      "no_intent": "Нажалост, не разумем",
+      "no_area": "Не постоји просторија са именом {{ area }}",
+      "no_domain_in_area": "Просторија {{ area }} не постоји у оквиру подручја {{ domain }}",
+      "no_device_class_in_area": "Просторија {{ area }} не садржи {{ device_class }}",
+      "no_entity": "Не постоји ни уређај ни ентитет под именом {{ entity }}",
+      "handle_error": "Дошло је до неочекиване грешке приликом обраде захтева"
+    },
+    "intents": {
+      "HassGetState": {
+        "default": "{{ state.state_with_unit }}",
+        "one": "{{ slots.name | capitalize }} је {{ state.state_with_unit }}\n",
+        "one_yesno": "{% if query.matched %}\n  Да\n{% else %}\n  Не, {{ state.state_with_unit }}\n{% endif %}\n",
+        "any": "{% if query.matched %}\n  {% set match = query.matched | map(attribute=\"name\") | sort | list %}\n  {% if match | length > 4 %}\n    Да, {{ match[:3] | join(\", \") }} и {{ (match | length - 3) }} више\n  {%- else -%}\n    Да,\n    {% for name in match -%}\n      {% if not loop.first and not loop.last %}, {% elif loop.last and not loop.first %} и {% endif -%}\n      {{ name }}\n    {%- endfor -%}\n  {% endif %}\n{% else %}\n  Не\n{% endif %}\n",
+        "all": "{% if not query.unmatched: %}\n  Да\n{% else %}\n  {% set no_match = query.unmatched | map(attribute=\"name\") | sort | list %}\n  {% if no_match | length > 4 %}\n    Не, {{ no_match[:3] | join(\", \") }} и {{ (no_match | length - 3) }} не више\n  {%- else -%}\n    Не,\n    {% for name in no_match -%}\n      {% if not loop.first and not loop.last %}, {% elif loop.last and not loop.first %} и {% endif -%}\n      {{ name }}\n    {%- endfor %} није\n  {% endif %}\n{% endif %}\n",
+        "which": "{% if not query.matched %}\n  0\n{% else: %}\n  {% set match = query.matched | map(attribute=\"name\") | sort | list %}\n  {% if match | length > 4 %}\n    {{ match[:3] | join(\", \") }} and {{ (match | length - 3) }} више\n  {% else %}\n    {%- for name in match -%}\n      {% if not loop.first and not loop.last %}, {% elif loop.last and not loop.first %} и {% endif -%}\n      {{ name }}\n    {%- endfor -%}\n  {% endif %}\n{% endif %}\n",
+        "how_many": "{{ query.matched | length }}\n",
+        "sensor_value": "Вредност сензора је {{ state.state_with_unit }}\n",
+        "sensor_value_temperature": "Температура је {{ state.state_with_unit }}\n"
+      },
+      "HassTurnOff": {
+        "default": "{{ state.domain }} је исључено",
+        "lights_area": "Светла су искључена",
+        "fans_area": "Вентилатори су искључени",
+        "cover": "Затворено",
+        "light_all": "Сва светла су искључена",
+        "fan_all": "Све вентилатори искључени",
+        "cover_device_class": "Затворен {{ slots.device_class }}",
+        "lock": "Откључано"
+      },
+      "HassShoppingListAddItem": {
+        "item_added": "Додате {{ slots.item }} на листу за куповину"
+      },
+      "HassTurnOn": {
+        "default": "{{ state.domain }} је укључено",
+        "lights_area": "Светла су укључена",
+        "fans_area": "Вентилатори су укључени",
+        "cover": "Отварам",
+        "cover_device_class": "Отварам {{ slots.device_class }}",
+        "scene": "Активирано",
+        "script": "Извршавам",
+        "lock": "Закључано"
+      },
+      "HassLightSet": {
+        "brightness": "Јачина осветљености за светло {{ slots.name }} је постављена на {{ slots.brightness }}",
+        "brightness_area": "Јачина осветљености за област {{ slots.area }} је постављена на {{ slots.brightness }}",
+        "color": "Боја за светло {{ slots.name }} је постављена на {{ slots.color }}",
+        "color_area": "Боја светла за област {{ slots.area }} је постављена на {{ slots.color }}"
+      },
+      "HassClimateGetTemperature": {
+        "default": "{% set value = state.state | int | abs %} {% set variant = 0 if (value % 10 == 1 and value != 11) else 1 if (value % 10 in [2, 3, 4] and (value < 10 or value > 20)) else 2 %} {{ state.state }} {{ ['степен', 'степена', 'степени'][variant] }}\n"
+      }
+    }
+  },
+  "lists": {
+    "color": {
+      "values": [
+        {
+          "in": "бел(а|о|у)",
+          "out": "white"
+        },
+        {
+          "in": "црн(а|о|у)",
+          "out": "black"
+        },
+        {
+          "in": "црвен(а|о|у)",
+          "out": "red"
+        },
+        {
+          "in": "наранџаст(а|о|у)",
+          "out": "orange"
+        },
+        {
+          "in": "жут(а|о|у)",
+          "out": "yellow"
+        },
+        {
+          "in": "зелен(а|о|у)",
+          "out": "green"
+        },
+        {
+          "in": "плав(а|о|у)",
+          "out": "blue"
+        },
+        {
+          "in": "љубичаст(а|о|у) | лила",
+          "out": "purple"
+        },
+        {
+          "in": "браон | смеђ(а|е|у)",
+          "out": "brown"
+        },
+        {
+          "in": "ружичаст(а|о|у) | розе",
+          "out": "pink"
+        }
+      ]
+    },
+    "brightness": {
+      "range": {
+        "type": "percentage",
+        "from": 0,
+        "to": 100
+      }
+    },
+    "temperature": {
+      "range": {
+        "type": "temperature",
+        "from": 0,
+        "to": 100
+      }
+    },
+    "temperature_unit": {
+      "values": [
+        {
+          "in": "Ц|[степен[а|и]] (Целзијус[а]|у Целзијусима|Целзијусових)",
+          "out": "celsius"
+        },
+        {
+          "in": "Ф|[степен[а|и]] (Фаренхајт[а]|у Фаренхајтима|Фаренхајтових)",
+          "out": "fahrenheit"
+        }
+      ]
+    },
+    "brightness_level": {
+      "values": [
+        {
+          "in": "(максимум|најјаче|највише)",
+          "out": 100
+        },
+        {
+          "in": "(минимум|најслабије|најниже)",
+          "out": 1
+        }
+      ]
+    },
+    "on_off_states": {
+      "values": [
+        {
+          "in": "укључен[а|е|о]",
+          "out": "on"
+        },
+        {
+          "in": "искључен[а|е|о]",
+          "out": "off"
+        }
+      ]
+    },
+    "on_off_domains": {
+      "values": [
+        {
+          "in": "светл[а|о]",
+          "out": "light"
+        },
+        {
+          "in": "вентилатор[и]",
+          "out": "fan"
+        },
+        {
+          "in": "прекидач[и]",
+          "out": "switch"
+        }
+      ]
+    },
+    "cover_states": {
+      "values": [
+        {
+          "in": "отворен[а|е|о]",
+          "out": "open"
+        },
+        {
+          "in": "затворен[а|е|о]",
+          "out": "closed"
+        },
+        {
+          "in": "отвара[ју] се",
+          "out": "opening"
+        },
+        {
+          "in": "затвара[ју] се",
+          "out": "closing"
+        }
+      ]
+    },
+    "cover_classes": {
+      "values": [
+        {
+          "in": "тенд[а|е|у]",
+          "out": "awning"
+        },
+        {
+          "in": "ролетн[а|е|и|у]",
+          "out": "blind"
+        },
+        {
+          "in": "завес[а|е|у]",
+          "out": "curtain"
+        },
+        {
+          "in": "врата",
+          "out": "door"
+        },
+        {
+          "in": "врата гараже|гаражна врата",
+          "out": "garage"
+        },
+        {
+          "in": "капиј[а|е|у]",
+          "out": "gate"
+        },
+        {
+          "in": "ролетн[а|е|и|у]",
+          "out": "shade"
+        },
+        {
+          "in": "ролетн[а|е|и|у]",
+          "out": "shutter"
+        },
+        {
+          "in": "прозор[а|и|е]",
+          "out": "window"
+        }
+      ]
+    },
+    "lock_states": {
+      "values": [
+        {
+          "in": "закључано",
+          "out": "locked"
+        },
+        {
+          "in": "откључано",
+          "out": "unlocked"
+        }
+      ]
+    },
+    "bs_battery_states": {
+      "values": [
+        {
+          "in": "празн[е|а]|слаб[е|а]|празно",
+          "out": "on"
+        },
+        {
+          "in": "нормалн[е|а]|нормалан",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_battery_charging_states": {
+      "values": [
+        {
+          "in": "пун[и|е] [се]",
+          "out": "on"
+        },
+        {
+          "in": "не пун[и|е] [се]",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_carbon_monoxide_states": {
+      "values": [
+        {
+          "in": "(детектован|активиран|укључен)",
+          "out": "on"
+        },
+        {
+          "in": "чист",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_cold_states": {
+      "values": [
+        {
+          "in": "хладан",
+          "out": "on"
+        },
+        {
+          "in": "нормалан",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_connectivity_states": {
+      "values": [
+        {
+          "in": "конектован",
+          "out": "on"
+        },
+        {
+          "in": "дисконектован",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_door_states": {
+      "values": [
+        {
+          "in": "отворен[а]",
+          "out": "on"
+        },
+        {
+          "in": "затворен[а]",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_garage_door_states": {
+      "values": [
+        {
+          "in": "отворен[а]",
+          "out": "on"
+        },
+        {
+          "in": "затворен[а]",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_gas_states": {
+      "values": [
+        {
+          "in": "(детектован|активиран|укључен)",
+          "out": "on"
+        },
+        {
+          "in": "чист",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_heat_states": {
+      "values": [
+        {
+          "in": "врућ",
+          "out": "on"
+        },
+        {
+          "in": "нормалан",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_light_states": {
+      "values": [
+        {
+          "in": "детектован[о]",
+          "out": "on"
+        },
+        {
+          "in": "без светла",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_lock_states": {
+      "values": [
+        {
+          "in": "откључан[а]",
+          "out": "on"
+        },
+        {
+          "in": "закључан[а]",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_moisture_states": {
+      "values": [
+        {
+          "in": "влажан",
+          "out": "on"
+        },
+        {
+          "in": "сув",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_motion_states": {
+      "values": [
+        {
+          "in": "(детектован|активиран|укључен)",
+          "out": "on"
+        },
+        {
+          "in": "без покрета",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_occupancy_states": {
+      "values": [
+        {
+          "in": "(детектован|активиран|укључен)",
+          "out": "on"
+        },
+        {
+          "in": "слободно",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_opening_states": {
+      "values": [
+        {
+          "in": "отворен",
+          "out": "on"
+        },
+        {
+          "in": "затворен",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_plug_states": {
+      "values": [
+        {
+          "in": "укључен",
+          "out": "on"
+        },
+        {
+          "in": "искључен",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_power_states": {
+      "values": [
+        {
+          "in": "(укључен|детектована снага)",
+          "out": "on"
+        },
+        {
+          "in": "(искључен[о])",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_presence_states": {
+      "values": [
+        {
+          "in": "(кућа|присуство)",
+          "out": "on"
+        },
+        {
+          "in": "(ван куће|ван присуства)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_problem_states": {
+      "values": [
+        {
+          "in": "детектован",
+          "out": "on"
+        },
+        {
+          "in": "ok",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_running_states": {
+      "values": [
+        {
+          "in": "трчање",
+          "out": "on"
+        },
+        {
+          "in": "нема трчања",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_safety_states": {
+      "values": [
+        {
+          "in": "небезбедно",
+          "out": "on"
+        },
+        {
+          "in": "безбедно",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_smoke_states": {
+      "values": [
+        {
+          "in": "(детектован|активиран|укључен)",
+          "out": "on"
+        },
+        {
+          "in": "нема дима",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_sound_states": {
+      "values": [
+        {
+          "in": "(детектован|активиран|укључен)",
+          "out": "on"
+        },
+        {
+          "in": "нема звука",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_tamper_states": {
+      "values": [
+        {
+          "in": "(detected|tampered with)",
+          "out": "on"
+        },
+        {
+          "in": "clear",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_update_states": {
+      "values": [
+        {
+          "in": "доступно ажурирање",
+          "out": "on"
+        },
+        {
+          "in": "ажурирано",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_vibration_states": {
+      "values": [
+        {
+          "in": "(детектован|вибрира)",
+          "out": "on"
+        },
+        {
+          "in": "(нема вибрације)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_window_states": {
+      "values": [
+        {
+          "in": "отворен",
+          "out": "on"
+        },
+        {
+          "in": "затворен",
+          "out": "closed"
+        }
+      ]
+    },
+    "shopping_list_item": {
+      "wildcard": true
+    }
+  },
+  "expansion_rules": {
+    "име": "{name}",
+    "област": "[[просторији]|на] {area}",
+    "шта_је": "прикажи|покажи|која је|колик[а|е|о] [је|су]|каква [је|су]|да ли [је]|реци [ми]",
+    "да_ли": "да ли [је|су|се] [све]",
+    "који_шта": "кој[и|е] [је|су]|шта [је|су]",
+    "осветљеност": "{brightness}[%|посто|процената]",
+    "светла": "светл[о|а]|осветљење|расвет[а|у]",
+    "temperature": "{temperature}[°| степени] [{temperature_unit}]",
+    "temp": "температур(а|е|у)",
+    "активирај": "упали[ш|те|мо]|укључи[ш|те|мо]|отвори[ш|те|мо]|подигни[ш|те|мо]",
+    "деактивирај": "угаси[ш|те|мо]|искључи[ш|те|мо]|затвори[ш|те|мо]|спусти[ш|те|мо]",
+    "подеси": "подеси[ш]|намести[ш]|постави[ш]|сетуј[еш]|промени[ш]|појачај|увећај|смањи|умањи"
+  },
+  "skip_words": [
+    "молим [те|вас] [да]",
+    "може(ш|те) [ли] [да]",
+    "хајде [да]",
+    "одмах [да]"
+  ]
+}

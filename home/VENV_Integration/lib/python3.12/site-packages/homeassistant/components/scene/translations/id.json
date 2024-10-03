@@ -1,0 +1,63 @@
+{
+    "exceptions": {
+        "entity_not_dynamically_created": {
+            "message": "Skenario {entity_id} tidak dibuat dengan layanan aksi `scene.create`."
+        },
+        "entity_not_scene": {
+            "message": "{entity_id} bukan entitas_id skenario yang valid."
+        }
+    },
+    "services": {
+        "apply": {
+            "description": "Mengaktifkan skenario dengan konfigurasi.",
+            "fields": {
+                "entities": {
+                    "description": "Daftar entitas dan status targetnya.",
+                    "name": "Status entitas"
+                },
+                "transition": {
+                    "description": "Waktu yang diperlukan perangkat untuk bertransisi ke status yang ditentukan dalam skenario.",
+                    "name": "Transisi"
+                }
+            },
+            "name": "Terapkan"
+        },
+        "create": {
+            "description": "Membuat skenario baru",
+            "fields": {
+                "entities": {
+                    "description": "Daftar entitas dan status targetnya. Jika entitas sudah berada dalam status target saat ini, gunakan `snapshot_entities` sebagai gantinya.",
+                    "name": "Status entitas"
+                },
+                "scene_id": {
+                    "description": "ID entitas dari skenario baru.",
+                    "name": "ID entitas skenario"
+                },
+                "snapshot_entities": {
+                    "description": "Daftar entitas yang akan disertakan dalam snapshot. Dengan mengambil snapshot, Anda mencatat status entitas tersebut saat ini. Jika Anda tidak ingin menggunakan status semua entitas Anda saat ini untuk adegan ini, Anda dapat menggabungkan `snapshot_entities` dengan `entities`.",
+                    "name": "Entitas snapshot"
+                }
+            },
+            "name": "Buat"
+        },
+        "delete": {
+            "description": "Menghapus skenario yang dibuat secara dinamis.",
+            "name": "Hapus"
+        },
+        "reload": {
+            "description": "Memuat ulang skenario dari konfigurasi YAML.",
+            "name": "Muat Ulang"
+        },
+        "turn_on": {
+            "description": "Mengaktifkan skenario",
+            "fields": {
+                "transition": {
+                    "description": "Waktu yang diperlukan perangkat untuk bertransisi ke status yang ditentukan dalam skenario.",
+                    "name": "Transisi"
+                }
+            },
+            "name": "Aktifkan"
+        }
+    },
+    "title": "Skenario"
+}

@@ -1,0 +1,88 @@
+{
+    "device_automation": {
+        "action_type": {
+            "lock": "\u4e0a\u9396{entity_name}",
+            "open": "\u958b\u555f{entity_name}",
+            "unlock": "\u89e3\u9396{entity_name}"
+        },
+        "condition_type": {
+            "is_locked": "{entity_name}\u5df2\u4e0a\u9396",
+            "is_open": "{entity_name}\u70ba\u958b\u555f",
+            "is_unlocked": "{entity_name}\u5df2\u89e3\u9396"
+        },
+        "extra_fields": {
+            "for": "\u6301\u7e8c\u6642\u9593"
+        },
+        "trigger_type": {
+            "locked": "{entity_name}\u5df2\u4e0a\u9396",
+            "open": "{entity_name}\u5df2\u958b\u555f",
+            "unlocked": "{entity_name}\u5df2\u89e3\u9396"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "\u9580\u9396",
+            "state": {
+                "jammed": "\u5361\u4f4f",
+                "locked": "\u5df2\u4e0a\u9396",
+                "locking": "\u4e0a\u9396\u4e2d",
+                "open": "\u958b\u555f",
+                "opening": "\u958b\u555f\u4e2d",
+                "unlocked": "\u5df2\u89e3\u9396",
+                "unlocking": "\u89e3\u9396\u4e2d"
+            },
+            "state_attributes": {
+                "changed_by": {
+                    "name": "\u8b8a\u66f4\u8005"
+                },
+                "code_format": {
+                    "name": "\u4ee3\u78bc\u683c\u5f0f"
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "add_default_code": {
+            "message": "{entity_id} \u7684\u4ee3\u78bc\u8207 {code_format} \u6a21\u5f0f\u4e0d\u7b26\u3002"
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "{domain} \u6574\u5408\u7684 {platform} \u5e73\u53f0\u4e0d\u652f\u63f4\u5e73\u53f0\u8a2d\u5b9a\u3002\n\n\u8acb\u5c07\u5176\u7531\u8a2d\u5b9a\u4e2d\u79fb\u9664\uff0c\u4e26\u91cd\u65b0\u555f\u52d5 Home Assistant \u4ee5\u4fee\u6b63\u6b64\u554f\u984c\u3002",
+            "title": "\u4e0d\u652f\u63f4\u5e73\u53f0\u652f\u63f4"
+        }
+    },
+    "services": {
+        "lock": {
+            "description": "\u9396\u5b9a\u9396\u3002",
+            "fields": {
+                "code": {
+                    "description": "\u7528\u65bc\u9396\u5b9a\u9396\u7684\u4ee3\u78bc\u3002",
+                    "name": "\u4ee3\u78bc"
+                }
+            },
+            "name": "\u9580\u9396"
+        },
+        "open": {
+            "description": "\u6253\u958b\u9396\u3002",
+            "fields": {
+                "code": {
+                    "description": "\u7528\u65bc\u6253\u958b\u9396\u7684\u4ee3\u78bc\u3002",
+                    "name": "\u4ee3\u78bc"
+                }
+            },
+            "name": "\u958b\u555f"
+        },
+        "unlock": {
+            "description": "\u89e3\u9396\u9396\u3002",
+            "fields": {
+                "code": {
+                    "description": "\u7528\u65bc\u89e3\u9396\u9396\u7684\u4ee3\u78bc\u3002",
+                    "name": "\u4ee3\u78bc"
+                }
+            },
+            "name": "\u89e3\u9396"
+        }
+    },
+    "title": "\u9580\u9396"
+}

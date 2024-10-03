@@ -1,0 +1,157 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Cihaz zaten yap\u0131land\u0131r\u0131lm\u0131\u015f",
+            "connection_aborted": "Ba\u011flanma hatas\u0131",
+            "unknown": "Beklenmeyen hata"
+        },
+        "error": {
+            "invalid_sgtin_or_pin": "Ge\u00e7ersiz SGTIN veya PIN kodu, l\u00fctfen tekrar deneyin.",
+            "press_the_button": "L\u00fctfen mavi d\u00fc\u011fmeye bas\u0131n.",
+            "register_failed": "Kay\u0131t ba\u015far\u0131s\u0131z oldu, l\u00fctfen tekrar deneyin.",
+            "timeout_button": "Mavi d\u00fc\u011fmeye basma zaman a\u015f\u0131m\u0131, l\u00fctfen tekrar deneyin."
+        },
+        "step": {
+            "init": {
+                "data": {
+                    "hapid": "Eri\u015fim noktas\u0131 kimli\u011fi (SGTIN)",
+                    "name": "Ad (iste\u011fe ba\u011fl\u0131, t\u00fcm ayg\u0131tlar i\u00e7in ad \u00f6n eki olarak kullan\u0131l\u0131r)",
+                    "pin": "PIN kodu"
+                },
+                "title": "HomematicIP Eri\u015fim noktas\u0131 se\u00e7in"
+            },
+            "link": {
+                "title": "Ba\u011flant\u0131 Eri\u015fim noktas\u0131"
+            }
+        }
+    },
+    "exceptions": {
+        "access_point_not_found": {
+            "message": "Eri\u015fim noktas\u0131 kimli\u011fi {id} i\u00e7in e\u015fle\u015fen eri\u015fim noktas\u0131 bulunamad\u0131"
+        }
+    },
+    "services": {
+        "activate_eco_mode_with_duration": {
+            "description": "Eko modunu periyot ile etkinle\u015ftirir.",
+            "fields": {
+                "accesspoint_id": {
+                    "description": "Homematic IP Eri\u015fim Noktas\u0131n\u0131n kimli\u011fi.",
+                    "name": "Eri\u015fim Noktas\u0131 Kimli\u011fi"
+                },
+                "duration": {
+                    "description": "Eko modunun dakika cinsinden s\u00fcresi.",
+                    "name": "S\u00fcre"
+                }
+            },
+            "name": "Eko modunu s\u00fcre ile etkinle\u015ftirin"
+        },
+        "activate_eco_mode_with_period": {
+            "description": "Eko modunu periyot ile etkinle\u015ftirir.",
+            "fields": {
+                "accesspoint_id": {
+                    "description": "Homematic IP Eri\u015fim Noktas\u0131n\u0131n kimli\u011fi.",
+                    "name": "Eri\u015fim Noktas\u0131 Kimli\u011fi"
+                },
+                "endtime": {
+                    "description": "Eko modunun otomatik olarak devre d\u0131\u015f\u0131 b\u0131rak\u0131lmas\u0131 gereken zaman.",
+                    "name": "Biti\u015f zaman\u0131"
+                }
+            },
+            "name": "Eko'yu d\u00f6nemle birlikte daha fazla etkinle\u015ftirin"
+        },
+        "activate_vacation": {
+            "description": "Belirlenen zamana kadar tatil modunu etkinle\u015ftirir.",
+            "fields": {
+                "accesspoint_id": {
+                    "description": "Homematic IP Eri\u015fim Noktas\u0131n\u0131n kimli\u011fi.",
+                    "name": "Eri\u015fim Noktas\u0131 Kimli\u011fi"
+                },
+                "endtime": {
+                    "description": "Tatil modunun otomatik olarak devre d\u0131\u015f\u0131 b\u0131rak\u0131lmas\u0131 gereken zaman.",
+                    "name": "Biti\u015f zaman\u0131"
+                },
+                "temperature": {
+                    "description": "Tatil modu s\u0131ras\u0131nda ayarlanan s\u0131cakl\u0131k.",
+                    "name": "S\u0131cakl\u0131k"
+                }
+            },
+            "name": "Tatili etkinle\u015ftirin"
+        },
+        "deactivate_eco_mode": {
+            "description": "Eko modunu hemen devre d\u0131\u015f\u0131 b\u0131rak\u0131r.",
+            "fields": {
+                "accesspoint_id": {
+                    "description": "Homematic IP Eri\u015fim Noktas\u0131n\u0131n kimli\u011fi.",
+                    "name": "Eri\u015fim Noktas\u0131 Kimli\u011fi"
+                }
+            },
+            "name": "Eko modunu devre d\u0131\u015f\u0131 b\u0131rakma"
+        },
+        "deactivate_vacation": {
+            "description": "Tatil modunu hemen devre d\u0131\u015f\u0131 b\u0131rak\u0131r.",
+            "fields": {
+                "accesspoint_id": {
+                    "description": "Homematic IP Eri\u015fim Noktas\u0131n\u0131n kimli\u011fi.",
+                    "name": "Eri\u015fim Noktas\u0131 Kimli\u011fi"
+                }
+            },
+            "name": "Tatili devre d\u0131\u015f\u0131 b\u0131rak"
+        },
+        "dump_hap_config": {
+            "description": "Homematic IP Eri\u015fim Noktas\u0131(lar\u0131) yap\u0131land\u0131rmas\u0131n\u0131 d\u00f6ker.",
+            "fields": {
+                "anonymize": {
+                    "description": "Yap\u0131land\u0131rma anonimle\u015ftirilmeli mi?",
+                    "name": "Anonimle\u015ftir"
+                },
+                "config_output_file_prefix": {
+                    "description": "Yap\u0131land\u0131rma dosyas\u0131n\u0131n ad\u0131. AP'nin SGTIN'i her zaman eklenecektir.",
+                    "name": "Konfig\u00fcrasyon \u00e7\u0131kt\u0131 dosyas\u0131 \u00f6neki"
+                },
+                "config_output_path": {
+                    "description": "(Varsay\u0131lan ayar, 'Home asistan yap\u0131land\u0131rma dizininizdir') Yap\u0131land\u0131rman\u0131n depolanaca\u011f\u0131 yol.",
+                    "name": "\u00c7\u0131k\u0131\u015f yolunu yap\u0131land\u0131r"
+                }
+            },
+            "name": "Hap yap\u0131land\u0131rmas\u0131n\u0131 d\u00f6k"
+        },
+        "reset_energy_counter": {
+            "description": "Bir \u00f6l\u00e7\u00fcm varl\u0131\u011f\u0131n\u0131n enerji sayac\u0131n\u0131 s\u0131f\u0131rlar.",
+            "fields": {
+                "entity_id": {
+                    "description": "\u00d6l\u00e7\u00fcm varl\u0131\u011f\u0131n\u0131n kimli\u011fi. T\u00fcm enerji saya\u00e7lar\u0131n\u0131 s\u0131f\u0131rlamak i\u00e7in 'all' anahtar s\u00f6zc\u00fc\u011f\u00fcn\u00fc kullan\u0131n.",
+                    "name": "Varl\u0131k"
+                }
+            },
+            "name": "Enerji sayac\u0131n\u0131 s\u0131f\u0131rla"
+        },
+        "set_active_climate_profile": {
+            "description": "Etkin klima profili endeksini ayarlar.",
+            "fields": {
+                "climate_profile_index": {
+                    "description": "Klima profilinin endeksi.",
+                    "name": "Klima profili endeksi"
+                },
+                "entity_id": {
+                    "description": "Klima varl\u0131\u011f\u0131n\u0131n kimli\u011fi. T\u00fcm varl\u0131klar\u0131n profilini de\u011fi\u015ftirmek i\u00e7in 'all' anahtar kelimesini kullan\u0131n.",
+                    "name": "Varl\u0131k"
+                }
+            },
+            "name": "Aktif iklim profilini ayarlay\u0131n"
+        },
+        "set_home_cooling_mode": {
+            "description": "T\u00fcm ev i\u00e7in \u0131s\u0131tma/so\u011futma modunu ayarlay\u0131n",
+            "fields": {
+                "accesspoint_id": {
+                    "description": "Homematic IP Eri\u015fim Noktas\u0131n\u0131n kimli\u011fi.",
+                    "name": "Eri\u015fim Noktas\u0131 Kimli\u011fi"
+                },
+                "cooling": {
+                    "description": "So\u011futma modu i\u00e7in etkinle\u015ftirin, \u0131s\u0131tma modu i\u00e7in devre d\u0131\u015f\u0131 b\u0131rak\u0131n",
+                    "name": "So\u011futuluyor"
+                }
+            },
+            "name": "Ev so\u011futma modunu ayarlay\u0131n"
+        }
+    }
+}

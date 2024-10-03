@@ -1,0 +1,243 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Laite on jo m\u00e4\u00e4ritetty",
+            "discovery_started": "Etsiminen alkoi"
+        },
+        "error": {
+            "cannot_connect": "Yhteyden muodostaminen ep\u00e4onnistui",
+            "cloud_user": "Ubiquiti Cloud -k\u00e4ytt\u00e4ji\u00e4 ei tueta. K\u00e4yt\u00e4 vain paikallista k\u00e4ytt\u00e4j\u00e4\u00e4.",
+            "invalid_auth": "Virheellinen todennus",
+            "protect_version": "V\u00e4himm\u00e4isversio on v1.20.0. P\u00e4ivit\u00e4 UniFi Protect ja yrit\u00e4 sitten uudelleen."
+        },
+        "flow_title": "{name} ({ip_address})",
+        "step": {
+            "discovery_confirm": {
+                "data": {
+                    "password": "Salasana",
+                    "username": "K\u00e4ytt\u00e4j\u00e4tunnus"
+                },
+                "description": "Haluatko m\u00e4\u00e4ritt\u00e4\u00e4 {name} ( {ip_address} )? Tarvitset UniFi-k\u00e4ytt\u00f6j\u00e4rjestelm\u00e4konsoliisi luodun paikallisen k\u00e4ytt\u00e4j\u00e4n kirjautuaksesi sis\u00e4\u00e4n. Ubiquiti Cloud -k\u00e4ytt\u00e4j\u00e4t eiv\u00e4t toimi. Lis\u00e4tietoja: {local_user_documentation_url}",
+                "title": "UniFi Protect l\u00f6ydetty"
+            },
+            "reauth_confirm": {
+                "data": {
+                    "host": "UniFi Protect -palvelimen IP-osoite/is\u00e4nt\u00e4",
+                    "password": "Salasana",
+                    "port": "Portti",
+                    "username": "K\u00e4ytt\u00e4j\u00e4tunnus"
+                },
+                "title": "UniFi Protect Uudelleentodenna"
+            },
+            "user": {
+                "data": {
+                    "host": "Palvelin",
+                    "password": "Salasana",
+                    "port": "Portti",
+                    "username": "K\u00e4ytt\u00e4j\u00e4tunnus",
+                    "verify_ssl": "Tarkista SSL-varmenne"
+                },
+                "data_description": {
+                    "host": "UniFi Protect -laitteen is\u00e4nt\u00e4nimi tai IP-osoite."
+                },
+                "description": "Tarvitset UniFi OS Consoleen luodun paikallisen k\u00e4ytt\u00e4j\u00e4n, jolla voit kirjautua sis\u00e4\u00e4n. Ubiquiti Cloud -k\u00e4ytt\u00e4j\u00e4t eiv\u00e4t toimi. Lis\u00e4tietoja: {local_user_documentation_url}",
+                "title": "UniFi Protect Asennus"
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "license_plate": {
+                "state": {
+                    "none": "Tyhj\u00e4"
+                }
+            }
+        }
+    },
+    "issues": {
+        "cloud_user": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Hein\u00e4kuun 22. p\u00e4iv\u00e4st\u00e4 2024 alkaen Ubiquiti vaatii kaikkia pilvipalvelun k\u00e4ytt\u00e4ji\u00e4 kirjautumaan monivaiheisella tunnistautumisella (MFA), joka ei ole yhteensopiva Home Assistantin kanssa.\n\nOlisi parasta siirty\u00e4 k\u00e4ytt\u00e4m\u00e4\u00e4n [paikallista k\u00e4ytt\u00e4j\u00e4\u00e4]({learn_more}) mahdollisimman pian, jotta integraatio toimii tulevaisuudessa.\n\nT\u00e4m\u00e4n korjauksen vahvistaminen k\u00e4ynnist\u00e4\u00e4 uuden todennusvirran, jotta tarvittavat todennustiedot voidaan sy\u00f6tt\u00e4\u00e4.",
+                        "title": "Ubiquiti Cloud -k\u00e4ytt\u00e4ji\u00e4 ei tueta."
+                    }
+                }
+            },
+            "title": "Ubiquiti Cloud -k\u00e4ytt\u00e4ji\u00e4 ei tueta."
+        },
+        "deprecate_hdr_switch": {
+            "description": "UniFi Protect v3 lis\u00e4si HDR:lle uuden tilan (auto). T\u00e4m\u00e4n seurauksena HDR-tilan kytkin on korvattu HDR-tilan valinnalla, ja se on vanhentunut.\n\nAlla on havaitut automaatiot tai skriptit, jotka k\u00e4ytt\u00e4v\u00e4t yht\u00e4 tai useampaa k\u00e4yt\u00f6st\u00e4 poistettua kokonaisuutta:\n{items}\nYll\u00e4 oleva luettelo voi olla ep\u00e4t\u00e4ydellinen, eik\u00e4 se sis\u00e4ll\u00e4 mallin k\u00e4ytt\u00f6\u00e4 kojelautojen sis\u00e4ll\u00e4. P\u00e4ivit\u00e4 kaikki mallit, automaatiot tai skriptit vastaavasti.",
+            "title": "HDR-tilan kytkin Poistettu"
+        },
+        "deprecate_package_sensor": {
+            "description": "Pakettitapahtuma-anturi ei koskaan lauennut, koska tapahtumat raportoidaan UniFi Protectissa. T\u00e4m\u00e4n seurauksena tunnistin on vanhentunut ja se poistetaan.\n\nAlla on havaitut automaatiot tai skriptit, jotka k\u00e4ytt\u00e4v\u00e4t yht\u00e4 tai useampaa k\u00e4yt\u00f6st\u00e4 poistettua kokonaisuutta:\n{items}\nYll\u00e4 oleva luettelo voi olla ep\u00e4t\u00e4ydellinen, eik\u00e4 se sis\u00e4ll\u00e4 mallin k\u00e4ytt\u00f6\u00e4 kojelautojen sis\u00e4ll\u00e4. P\u00e4ivit\u00e4 kaikki mallit, automaatiot tai skriptit vastaavasti.",
+            "title": "Paketti Tapahtuma-anturi Poistettu k\u00e4yt\u00f6st\u00e4"
+        },
+        "deprecate_smart_sensor": {
+            "description": "\u00c4lykk\u00e4iden havaintojen yhten\u00e4inen \"Havaittu objekti\" -sensori on nyt poistettu k\u00e4yt\u00f6st\u00e4. Se on korvattu yksitt\u00e4isill\u00e4 \u00e4lykk\u00e4\u00e4n havaitsemisen bin\u00e4\u00e4riantureilla kullekin \u00e4lykk\u00e4\u00e4n havaitsemisen tyypille.\n\nAlla on havaittuja automaatioita tai skriptej\u00e4, jotka k\u00e4ytt\u00e4v\u00e4t yht\u00e4 tai useampaa k\u00e4yt\u00f6st\u00e4 poistettua entiteetti\u00e4:\n{items}\nYll\u00e4 oleva luettelo voi olla ep\u00e4t\u00e4ydellinen, eik\u00e4 se sis\u00e4ll\u00e4 mallin k\u00e4ytt\u00f6\u00e4 kojelautojen sis\u00e4ll\u00e4. P\u00e4ivit\u00e4 kaikki mallit, automaatiot tai skriptit vastaavasti.",
+            "title": "\u00c4lyk\u00e4s tunnistusanturi vanhentunut"
+        },
+        "deprecated_service_set_doorbell_message": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Palvelu `unifiprotect.set_doorbell_message` on poistunut k\u00e4yt\u00f6st\u00e4 ja tilalle on lis\u00e4tty uusi ovikelloteksti -entiteetti, joka lis\u00e4t\u00e4\u00e4n jokaiseen ovikellolaitteeseen. Se poistetaan v2023.3.0:ssa. P\u00e4ivit\u00e4 k\u00e4ytt\u00e4m\u00e4\u00e4n [`text.set_value`-palvelua]({link}).",
+                        "title": "set_doorbell_message on vanhentunut"
+                    }
+                }
+            },
+            "title": "set_doorbell_message on vanhentunut"
+        },
+        "ea_channel_warning": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Oletko varma, ett\u00e4 haluat k\u00e4ytt\u00e4\u00e4 UniFi Protectin tukematonta versiota? T\u00e4m\u00e4 voi aiheuttaa Home Assistant -integraation katkeamisen.",
+                        "title": "UniFi Protect Early Access k\u00e4yt\u00f6ss\u00e4"
+                    },
+                    "start": {
+                        "title": "UniFi Protect Early Access k\u00e4yt\u00f6ss\u00e4"
+                    }
+                }
+            },
+            "title": "UniFi Protect Early Access k\u00e4yt\u00f6ss\u00e4"
+        },
+        "ea_setup_failed": {
+            "description": "K\u00e4yt\u00e4t UniFi Protectin v{version} -versiota, joka on Early Access -versio. Integraatiota ladattaessa tapahtui korjaamaton virhe. Palauta varmuuskopio UniFi Protectin vakaasta versiosta, jotta voit jatkaa integraation k\u00e4ytt\u00f6\u00e4.\n\nVirhe: {error}",
+            "title": "Asetusvirhe Early Access -versiota k\u00e4ytett\u00e4ess\u00e4"
+        },
+        "ea_warning": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Oletko varma, ett\u00e4 haluat k\u00e4ytt\u00e4\u00e4 UniFi Protectin tukematonta versiota? T\u00e4m\u00e4 voi aiheuttaa Home Assistant -integraation katkeamisen.",
+                        "title": "v{version} on Early Access -versio"
+                    },
+                    "start": {
+                        "description": "K\u00e4yt\u00e4t UniFi Protectin v{version}, joka on Early Access -versio. [Home Assistant ei tue Early Access -versioita](https://www.home-assistant.io/integrations/unifiprotect#about-unifi-early-access), ja on suositeltavaa siirty\u00e4 takaisin vakaaseen versioon mahdollisimman pian.\n\nL\u00e4hett\u00e4m\u00e4ll\u00e4 t\u00e4m\u00e4n lomakkeen olet joko [downgradannut UniFi Protectin](https://www.home-assistant.io/integrations/unifiprotect#downgrading-unifi-protect) tai suostut k\u00e4ytt\u00e4m\u00e4\u00e4n UniFi Protectin tukematonta versiota.",
+                        "title": "v{version} on Early Access -versio"
+                    }
+                }
+            },
+            "title": "UniFi Protect v{version} on Early Access -versio"
+        },
+        "rtsp_disabled_readonly": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Oletko varma, ett\u00e4 haluat j\u00e4tt\u00e4\u00e4 RTSPS:n pois k\u00e4yt\u00f6st\u00e4 kamerassa {camera}?",
+                        "title": "RTSPS on poistettu k\u00e4yt\u00f6st\u00e4 kamerassa {camera}"
+                    },
+                    "start": {
+                        "description": "RTSPS on poistettu k\u00e4yt\u00f6st\u00e4 kamerassa {camera}. RTSPS tarvitaan, jotta voit suoratoistaa kameraa Home Assistantissa. Jos et ota RTSPS:\u00e4\u00e4 k\u00e4ytt\u00f6\u00f6n, se voi aiheuttaa lis\u00e4kuormitusta UniFi Protect NVR:lle, sill\u00e4 kaikki live-videosoittimet k\u00e4ytt\u00e4v\u00e4t oletusarvoisesti nopeaa tilannekuvien ottamista kamerasta.\n\nOta [ota RTSPS k\u00e4ytt\u00f6\u00f6n]({learn_more}) kamerassa ja palaa sitten takaisin ja vahvista t\u00e4m\u00e4 korjaus.",
+                        "title": "RTSPS on poistettu k\u00e4yt\u00f6st\u00e4 kamerassa {camera}"
+                    }
+                }
+            },
+            "title": "RTSPS on poistettu k\u00e4yt\u00f6st\u00e4 kamerassa {camera}"
+        },
+        "rtsp_disabled_writable": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Oletko varma, ett\u00e4 haluat j\u00e4tt\u00e4\u00e4 RTSPS:n pois k\u00e4yt\u00f6st\u00e4 kamerassa {camera}?",
+                        "title": "RTSPS on poistettu k\u00e4yt\u00f6st\u00e4 kamerassa {camera}"
+                    },
+                    "start": {
+                        "description": "RTSPS on poistettu k\u00e4yt\u00f6st\u00e4 kamerassa {camera}. RTSPS tarvitaan kameran suoratoistoon Home Assistantissa. Jos et ota RTSPS:\u00e4\u00e4 k\u00e4ytt\u00f6\u00f6n, se voi aiheuttaa lis\u00e4kuormitusta UniFi Protect NVR:lle, koska kaikki live-videosoittimet k\u00e4ytt\u00e4v\u00e4t oletusarvoisesti nopeaa tilannekuvien ottamista kamerasta.\n\nVoit manuaalisesti [ottaa RTSPS:n k\u00e4ytt\u00f6\u00f6n]({learn_more}) valitsemallasi kameran laatukanavalla tai Home Assistant voi ottaa automaattisesti k\u00e4ytt\u00f6\u00f6n korkeimman laatukanavan puolestasi. Vahvista t\u00e4m\u00e4 korjaus, kun olet ottanut RTSPS-kanavan k\u00e4ytt\u00f6\u00f6n tai jos haluat, ett\u00e4 Home Assistant ottaa korkeimman laadun k\u00e4ytt\u00f6\u00f6n automaattisesti.",
+                        "title": "RTSPS on poistettu k\u00e4yt\u00f6st\u00e4 kamerassa {camera}"
+                    }
+                }
+            },
+            "title": "RTSPS on poistettu k\u00e4yt\u00f6st\u00e4 kamerassa {camera}"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "all_updates": "Reaaliaikamittaukset (VAROITUS: lis\u00e4\u00e4 huomattavasti suorittimen k\u00e4ytt\u00f6\u00e4)",
+                    "allow_ea": "Salli Protectin Early Access -versiot (VAROITUS: Merkitsee integraatiosi tukemattomaksi).",
+                    "disable_rtsp": "Poista RTSP-virta k\u00e4yt\u00f6st\u00e4",
+                    "max_media": "Mediaselaimen ladattavien tapahtumien enimm\u00e4ism\u00e4\u00e4r\u00e4 (lis\u00e4\u00e4 RAM-muistin k\u00e4ytt\u00f6\u00e4)",
+                    "override_connection_host": "Ohita yhteyspalvelin"
+                },
+                "description": "Reaaliaikamittaukset -vaihtoehto tulisi ottaa k\u00e4ytt\u00f6\u00f6n vain, jos olet ottanut diagnostiikka-anturit k\u00e4ytt\u00f6\u00f6n ja haluat niiden p\u00e4ivittyv\u00e4n reaaliajassa. Jos sit\u00e4 ei oteta k\u00e4ytt\u00f6\u00f6n, ne p\u00e4ivittyv\u00e4t vain kerran 15 minuutissa.",
+                "title": "UniFi Protect -asetukset"
+            }
+        }
+    },
+    "services": {
+        "add_doorbell_text": {
+            "description": "Lis\u00e4\u00e4 uuden mukautetun viestin ovikelloille.",
+            "fields": {
+                "device_id": {
+                    "description": "Mik\u00e4 tahansa laite UniFi Protect -instanssista, jonka haluat muuttaa. Jos sinulla on useita Protect-instansseja.",
+                    "name": "UniFi Protect NVR"
+                },
+                "message": {
+                    "description": "Uusi mukautettu viesti lis\u00e4tt\u00e4v\u00e4ksi ovikelloja varten. Alle 30 merkki\u00e4.",
+                    "name": "Mukautettu viesti"
+                }
+            },
+            "name": "Lis\u00e4\u00e4 mukautettu ovikelloteksti"
+        },
+        "remove_doorbell_text": {
+            "description": "Poistaa olemassa olevan ovikellojen viestin.m",
+            "fields": {
+                "device_id": {
+                    "description": "Mik\u00e4 tahansa laite UniFi Protect -instanssista, jonka haluat muuttaa. Jos sinulla on useita Protect-instansseja.",
+                    "name": "UniFi Protect NVR"
+                },
+                "message": {
+                    "description": "Olemassa olevan mukautetun viestin poistaminen ovikelloja varten.",
+                    "name": "Mukautettu viesti"
+                }
+            },
+            "name": "Poista mukautettu ovikelloteksti"
+        },
+        "remove_privacy_zone": {
+            "description": "K\u00e4ytet\u00e4\u00e4n kameran yksityisyysalueen poistamiseen.",
+            "fields": {
+                "device_id": {
+                    "description": "Kamera, josta haluat poistaa yksityisyysalueen.",
+                    "name": "Kamera"
+                },
+                "name": {
+                    "description": "Poistettavan alueen nimi.",
+                    "name": "Yksityisyysalueen nimi"
+                }
+            },
+            "name": "Poista kameran yksityisyysalue"
+        },
+        "set_chime_paired_doorbells": {
+            "description": "K\u00e4ytet\u00e4\u00e4n pariliitetyn ovikellon (ovikellojen) asettamiseen \u00e4lykk\u00e4\u00e4seen soittoon.",
+            "fields": {
+                "device_id": {
+                    "description": "Ovikelloihin linkitett\u00e4v\u00e4t kellot.",
+                    "name": "Soitto\u00e4\u00e4ni"
+                },
+                "doorbells": {
+                    "description": "Ovikellot yhdistet\u00e4\u00e4n soittokelloon.",
+                    "name": "Ovikellot"
+                }
+            },
+            "name": "Aseta soitto\u00e4\u00e4ni pariksi ovikelloja"
+        },
+        "set_default_doorbell_text": {
+            "description": "Asettaa ovikellon oletusviestin. T\u00e4m\u00e4 on viesti, joka valitaan automaattisesti, kun viesti \"vanhenee\".",
+            "fields": {
+                "device_id": {
+                    "description": "Mik\u00e4 tahansa laite UniFi Protect -instanssista, jonka haluat muuttaa. Jos sinulla on useita Protect-instansseja.",
+                    "name": "UniFi Protect NVR"
+                },
+                "message": {
+                    "description": "Ovikellon oletusviesti. Sen on oltava alle 30 merkki\u00e4.",
+                    "name": "Oletusviesti"
+                }
+            },
+            "name": "Aseta ovikellon oletusteksti"
+        }
+    }
+}

@@ -1,0 +1,170 @@
+{
+    "config": {
+        "abort": {
+            "already_configured_device": "Enheten \u00e4r redan konfigurerad",
+            "api_error": "Fel vid kommunikation med SwitchBot API: {error_detail}",
+            "cannot_connect": "Det gick inte att ansluta.",
+            "no_devices_found": "Inga SwitchBot-enheter som st\u00f6ds hittades inom r\u00e4ckh\u00e5ll; Om enheten \u00e4r inom r\u00e4ckh\u00e5ll, kontrollera att skannern har aktiv skanning aktiverad, eftersom SwitchBot-enheter inte kan uppt\u00e4ckas med passiva skanningar. Aktiv skanning kan inaktiveras n\u00e4r enheten har konfigurerats. Om du beh\u00f6ver f\u00e5 klarhet i om enheten \u00e4r inom r\u00e4ckvidd kan du ladda ner diagnostiken f\u00f6r den integration som tillhandah\u00e5ller din Bluetooth-adapter eller proxy och kontrollera om SwitchBot-enhetens MAC-adress finns med.",
+            "switchbot_unsupported_type": "Switchbot-typ som inte st\u00f6ds.",
+            "unknown": "Ov\u00e4ntat fel"
+        },
+        "error": {
+            "auth_failed": "Autentisering misslyckades: {error_detail}",
+            "encryption_key_invalid": "Nyckel-id eller krypteringsnyckel \u00e4r ogiltig",
+            "one": "Tom",
+            "other": "Tomma"
+        },
+        "flow_title": "{name} ({address})",
+        "step": {
+            "confirm": {
+                "description": "Vill du konfigurera {name}?"
+            },
+            "lock_auth": {
+                "data": {
+                    "password": "L\u00f6senord",
+                    "username": "Anv\u00e4ndarnamn"
+                },
+                "description": "V\u00e4nligen ange anv\u00e4ndarnamn och l\u00f6senord f\u00f6r din SwitchBot-app. Denna data sparas inte och anv\u00e4nds enbart f\u00f6r att ta emot dina krypteringsnycklar. \nAnv\u00e4ndarnamn och l\u00f6senord \u00e4r skiftl\u00e4gesk\u00e4nsliga."
+            },
+            "lock_choose_method": {
+                "description": "Ett Switchbot-l\u00e5s kan st\u00e4llas in i Home Assistant p\u00e5 tv\u00e5 olika s\u00e4tt.\n\nDu kan ange nyckel-id och krypteringsnyckel sj\u00e4lv, eller s\u00e5 kan Home Assistant importera dem fr\u00e5n ditt Switchbot-konto.",
+                "menu_options": {
+                    "lock_auth": "Switchbot-konto (rekommenderas)",
+                    "lock_key": "Ange krypteringsnyckel manuellt"
+                }
+            },
+            "lock_key": {
+                "data": {
+                    "encryption_key": "Krypteringnyckel",
+                    "key_id": "Nyckel-id"
+                },
+                "description": "Enheten {name} kr\u00e4ver krypteringsnyckel. Information om hur du hittar den kan du hitta i dokumentationen."
+            },
+            "password": {
+                "data": {
+                    "password": "L\u00f6senord"
+                },
+                "description": "{name} -enheten kr\u00e4ver ett l\u00f6senord"
+            },
+            "user": {
+                "data": {
+                    "address": "Enhetsadress"
+                }
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "calibration": {
+                "name": "Kalibrering"
+            },
+            "door_auto_lock_paused": {
+                "name": "Autol\u00e5sning pausad"
+            },
+            "door_open": {
+                "name": "D\u00f6rr"
+            },
+            "door_timeout": {
+                "name": "Timeout"
+            },
+            "door_unclosed_alarm": {
+                "name": "Larm f\u00f6r \u00f6ppen d\u00f6rr"
+            },
+            "door_unlocked_alarm": {
+                "name": "Larm f\u00f6r ol\u00e5st d\u00f6rr"
+            },
+            "light": {
+                "name": "Belysning"
+            },
+            "motion": {
+                "name": "R\u00f6relse"
+            }
+        },
+        "cover": {
+            "cover": {
+                "state_attributes": {
+                    "last_run_success": {
+                        "state": {
+                            "false": "Problem",
+                            "true": "OK"
+                        }
+                    }
+                }
+            }
+        },
+        "humidifier": {
+            "humidifier": {
+                "state_attributes": {
+                    "last_run_success": {
+                        "state": {
+                            "false": "Problem",
+                            "true": "OK"
+                        }
+                    }
+                }
+            }
+        },
+        "lock": {
+            "lock": {
+                "state_attributes": {
+                    "last_run_success": {
+                        "state": {
+                            "false": "Problem",
+                            "true": "OK"
+                        }
+                    }
+                }
+            }
+        },
+        "sensor": {
+            "battery": {
+                "name": "Batteri"
+            },
+            "bluetooth_signal": {
+                "name": "Bluetooth signal"
+            },
+            "humidity": {
+                "name": "Luftfuktighet"
+            },
+            "light_level": {
+                "name": "Ljusniv\u00e5"
+            },
+            "power": {
+                "name": "Effekt"
+            },
+            "temperature": {
+                "name": "Temperatur"
+            },
+            "wifi_signal": {
+                "name": "Wi-Fi signal"
+            }
+        },
+        "switch": {
+            "bot": {
+                "state_attributes": {
+                    "last_run_success": {
+                        "state": {
+                            "false": "Problem",
+                            "true": "OK"
+                        }
+                    },
+                    "switch_mode": {
+                        "state": {
+                            "false": "Momentan",
+                            "true": "Dra/dra tillbaka"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "retry_count": "Antal ompr\u00f6vningar"
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,268 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Seade on juba h\u00e4\u00e4lestatud"
+        },
+        "error": {
+            "invalid_auth": "Tuvastamise viga"
+        },
+        "flow_title": "{ip}",
+        "step": {
+            "user": {
+                "data": {
+                    "ip_address": "Hostinimi v\u00f5i IP-aadress",
+                    "password": "Salas\u00f5na",
+                    "port": ""
+                },
+                "title": "Sisesta oma teave"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "flow_sensor": {
+                "name": "Vooluandur"
+            },
+            "freeze": {
+                "name": "K\u00fclmumise piirangud"
+            },
+            "hourly": {
+                "name": "Tunnipiirangud"
+            },
+            "month": {
+                "name": "Kuu piirangud"
+            },
+            "raindelay": {
+                "name": "Vihma viivituse piirangud"
+            },
+            "rainsensor": {
+                "name": "Vihmaanduri piirangud"
+            },
+            "weekday": {
+                "name": "N\u00e4dalap\u00e4eva piirangud"
+            }
+        },
+        "select": {
+            "freeze_protection_temperature": {
+                "name": "K\u00fclmumiskaitse temperatuur"
+            }
+        },
+        "sensor": {
+            "flow_sensor_clicks_cubic_meter": {
+                "name": "Vooluanduri impulsse kuupmeetri kohta"
+            },
+            "flow_sensor_consumed_liters": {
+                "name": "Vooluandur tarbimine liitrites"
+            },
+            "flow_sensor_leak_clicks": {
+                "name": "Vooluanduri lekkeimpulsid"
+            },
+            "flow_sensor_leak_volume": {
+                "name": "Vooluanduri lekke maht"
+            },
+            "flow_sensor_start_index": {
+                "name": "Vooluanduri alguse indeks"
+            },
+            "flow_sensor_watering_clicks": {
+                "name": "Vooluanduri impulsid"
+            },
+            "last_leak_detected": {
+                "name": "Viimati tuvastatud leke"
+            },
+            "rain_sensor_rain_start": {
+                "name": "Vihmaanduri vihma algus"
+            }
+        },
+        "switch": {
+            "freeze_protect_enabled": {
+                "name": "K\u00fclmumiskaitse"
+            },
+            "hot_days_extra_watering": {
+                "name": "Lisavesi kuumadel p\u00e4evadel"
+            }
+        },
+        "update": {
+            "firmware": {
+                "name": "P\u00fcsivara"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "allow_inactive_zones_to_run": "Luba keelatud tsoone k\u00e4ivitada k\u00e4sitsi",
+                    "use_app_run_times": "Kasuta tsoonide t\u00f6\u00f6aegu rakendusest RainMachine",
+                    "zone_run_time": "Vaiketsooni k\u00e4itamisaeg (sekundites)"
+                },
+                "title": "Seadista RainMachine"
+            }
+        }
+    },
+    "services": {
+        "pause_watering": {
+            "description": "Peatab k\u00f5ik kastmistoimingud n sekundiks.",
+            "fields": {
+                "device_id": {
+                    "description": "Kontroller mille kastmistegevused tuleks peatada.",
+                    "name": "Controller"
+                },
+                "seconds": {
+                    "description": "Aeg (sekundites) kastmise peatamiseks.",
+                    "name": "Kestus"
+                }
+            },
+            "name": "Peata kogu kastmine"
+        },
+        "push_flow_meter_data": {
+            "description": "Edasta voolum\u00f5\u00f5turi andmed RainMachine'i seadmesse.",
+            "fields": {
+                "device_id": {
+                    "description": "Kontroller millele voolum\u00f5\u00f5turi andmed saadetakse.",
+                    "name": "Controller"
+                },
+                "unit_of_measurement": {
+                    "description": "Saadetavad voolum\u00f5\u00f5turid.",
+                    "name": "M\u00f5\u00f5t\u00fchik"
+                },
+                "value": {
+                    "description": "Saadetav voolum\u00f5\u00f5turi v\u00e4\u00e4rtus.",
+                    "name": "V\u00e4\u00e4rtus"
+                }
+            },
+            "name": "Edasta voolum\u00f5\u00f5turi andmed"
+        },
+        "push_weather_data": {
+            "description": "Edasta ilmateateid Home Assistantist RainMachine'i seadmesse.\nTeenus Local Weather Push tuleb lubada seadete > Ilm > Arendaja vahekaardil, et RainMachine saaks saadetavaid v\u00e4\u00e4rtusi arvesse v\u00f5tta. \u00dchikud peavad olema saadetud meeterm\u00f5\u00f5dustikus; integraator ei tee teisendusi.\nVaata RainMachine API \u00fcksikasju siit: https://rainmachine.docs.apiary.io/#reference/weather-services/parserdata/post.",
+            "fields": {
+                "condition": {
+                    "description": "Praegune ilmastikutingimuste kood (WNUM).",
+                    "name": "Ilmastikutingimuste kood"
+                },
+                "device_id": {
+                    "description": "Ilmaandmeid edastav kontroller.",
+                    "name": "Controller"
+                },
+                "dewpoint": {
+                    "description": "Kastepunkt (\u00b0C).",
+                    "name": "Kastepunkt"
+                },
+                "et": {
+                    "description": "Aurumine (mm).",
+                    "name": "Aurumine"
+                },
+                "maxrh": {
+                    "description": "Maksimaalne suhteline \u00f5huniiskus (%RH).",
+                    "name": "Maksimaalne suhteline \u00f5huniiskus"
+                },
+                "maxtemp": {
+                    "description": "Maksimaalne temperatuur (\u00b0C).",
+                    "name": "Maksimaalne temperatuur"
+                },
+                "minrh": {
+                    "description": "Min suhteline \u00f5huniiskus (%RH).",
+                    "name": "Min suhteline \u00f5huniiskus"
+                },
+                "mintemp": {
+                    "description": "Minimaalne temperatuur (\u00b0C).",
+                    "name": "Min temperatuur"
+                },
+                "pressure": {
+                    "description": "\u00d5hur\u00f5hk (kPa).",
+                    "name": "\u00d5hur\u00f5hk"
+                },
+                "qpf": {
+                    "description": "Sademete kvantitatiivne prognoos (mm) v\u00f5i QPF. M\u00e4rge: QPF-i v\u00e4\u00e4rtusi ei tohiks saata kumulatiivsete v\u00e4\u00e4rtustena, vaid m\u00f5\u00f5detud/prognoositud v\u00e4\u00e4rtustena iga tunni v\u00f5i p\u00e4eva kohta. RainMachine Mixer summeerib k\u00f5ik praeguse p\u00e4eva QPF-i v\u00e4\u00e4rtused, et saada p\u00e4eva koguarv QPF.",
+                    "name": "Sademete kvantitatiivne prognoos"
+                },
+                "rain": {
+                    "description": "M\u00f5\u00f5detud vihmasadu (mm). M\u00e4rge: FUNKTSIOONI v\u00e4\u00e4rtusi ei tohiks saata kumulatiivsete v\u00e4\u00e4rtustena, vaid m\u00f5\u00f5detud/prognoositud v\u00e4\u00e4rtustena iga tunni v\u00f5i p\u00e4eva kohta. RainMachine Mixer summeerib k\u00f5ik praeguse p\u00e4eva RAIN-i v\u00e4\u00e4rtused, et p\u00e4ev oleks kokku RAIN.",
+                    "name": "M\u00f5\u00f5detud sademete hulk"
+                },
+                "solarrad": {
+                    "description": "P\u00e4ikesekiirgus (MJ/m\u00b2/h).",
+                    "name": "P\u00e4ikesekiirgus"
+                },
+                "temperature": {
+                    "description": "Praegune temperatuur (\u00b0C).",
+                    "name": "Temperatuur"
+                },
+                "timestamp": {
+                    "description": "UNIX-i ajatempel ilmaandmete jaoks. Kui see on v\u00e4lja j\u00e4etud, kasutatakse RainMachine'i seadme kohalikku aega.",
+                    "name": "Ajamall"
+                },
+                "wind": {
+                    "description": "Tuule kiirus (m/s).",
+                    "name": "Tuule kiirus"
+                }
+            },
+            "name": "Edasta ilmaandmed"
+        },
+        "restrict_watering": {
+            "description": "Keelab teatud aja jooksul k\u00f5igi kastmistegevuste alustamist.",
+            "fields": {
+                "device_id": {
+                    "description": "Kontroller mille kastmistegevust tuleks piirata.",
+                    "name": "Controller"
+                },
+                "duration": {
+                    "description": "Ajavahemik mille jooksul kastmine on keelatud.",
+                    "name": "Kestus"
+                }
+            },
+            "name": "Keela kogu kastmine"
+        },
+        "start_program": {
+            "description": "K\u00e4ivitab programmi.",
+            "name": "K\u00e4ivita programm"
+        },
+        "start_zone": {
+            "description": "Alustab tsooni kastmist.",
+            "fields": {
+                "zone_run_time": {
+                    "description": "Tsooni k\u00e4itamise aeg (sekundites).",
+                    "name": "T\u00f6\u00f6aeg"
+                }
+            },
+            "name": "Alusta tsooni kastmist"
+        },
+        "stop_all": {
+            "description": "Peatab k\u00f5ik kastmistoimingud.",
+            "fields": {
+                "device_id": {
+                    "description": "Kontroller mille kastmistegevus tuleks l\u00f5petada.",
+                    "name": "Controller"
+                }
+            },
+            "name": "L\u00f5peta igasugune kastmine"
+        },
+        "stop_program": {
+            "description": "Peatab kastmisprogrammi.",
+            "name": "Peata kastmisprogramm"
+        },
+        "stop_zone": {
+            "description": "Peatab kastmise tsoonis.",
+            "name": "Peata kastmine tsoonis"
+        },
+        "unpause_watering": {
+            "description": "J\u00e4tka k\u00f5iki kastmistoiminguid.",
+            "fields": {
+                "device_id": {
+                    "description": "Kontroller mille kastmistegevust tuleks j\u00e4tkata.",
+                    "name": "Controller"
+                }
+            },
+            "name": "J\u00e4tka kastmist"
+        },
+        "unrestrict_watering": {
+            "description": "Piiramatu kastmine",
+            "fields": {
+                "device_id": {
+                    "description": "Kontroller mille kastmistegevus peaks olema piiramatu.",
+                    "name": "Controller"
+                }
+            },
+            "name": "Piiramatu kastmine"
+        }
+    }
+}

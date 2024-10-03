@@ -1,0 +1,290 @@
+{
+    "device_automation": {
+        "action_type": {
+            "set_hvac_mode": "Zmeni\u0165 re\u017eim HVAC na {entity_name}",
+            "set_preset_mode": "Zmeni\u0165 prednastaven\u00fd re\u017eim na {entity_name}"
+        },
+        "condition_type": {
+            "is_hvac_mode": "{entity_name} je nastaven\u00e9 na ur\u010dit\u00fd re\u017eim HVAC",
+            "is_preset_mode": "{entity_name} je nastaven\u00e9 na prednastaven\u00fd re\u017eim"
+        },
+        "extra_fields": {
+            "above": "Nad",
+            "below": "Pod",
+            "for": "Trvanie",
+            "hvac_mode": "HVAC re\u017eim",
+            "preset_mode": "Prednastaven\u00fd re\u017eim",
+            "to": "Komu"
+        },
+        "trigger_type": {
+            "current_humidity_changed": "{entity_name} sa zmenila nameran\u00e1 vlhkos\u0165",
+            "current_temperature_changed": "{entity_name} sa zmenila nameran\u00e1 teplota",
+            "hvac_mode_changed": "Re\u017eim HVAC na {entity_name} zmenen\u00fd"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Termostat",
+            "state": {
+                "auto": "Auto",
+                "cool": "Chladenie",
+                "dry": "Su\u0161enie",
+                "fan_only": "Iba ventil\u00e1tor",
+                "heat": "K\u00farenie",
+                "heat_cool": "Vykurovanie / Chladenie",
+                "off": "Neakt\u00edvny"
+            },
+            "state_attributes": {
+                "aux_heat": {
+                    "name": "Pr\u00eddavn\u00e9 k\u00farenie"
+                },
+                "current_humidity": {
+                    "name": "Aktu\u00e1lna vlhkos\u0165"
+                },
+                "current_temperature": {
+                    "name": "Aktu\u00e1lna teplota"
+                },
+                "fan_mode": {
+                    "name": "Re\u017eim ventil\u00e1tora",
+                    "state": {
+                        "auto": "Auto",
+                        "diffuse": "Dif\u00fazny",
+                        "focus": "Zameran\u00fd",
+                        "high": "Vysok\u00e9",
+                        "low": "N\u00edzke",
+                        "medium": "Stredn\u00e9",
+                        "middle": "Stredn\u00fd",
+                        "off": "Neakt\u00edvny",
+                        "on": "Akt\u00edvny",
+                        "top": "Hore"
+                    }
+                },
+                "fan_modes": {
+                    "name": "Re\u017eimy ventil\u00e1tora"
+                },
+                "humidity": {
+                    "name": "Cie\u013eov\u00e1 vlhkos\u0165"
+                },
+                "hvac_action": {
+                    "name": "Aktu\u00e1lna akcia",
+                    "state": {
+                        "cooling": "Chladenie",
+                        "defrosting": "Rozmrazovanie",
+                        "drying": "Su\u0161enie",
+                        "fan": "Ventil\u00e1tor",
+                        "heating": "Vykurovanie",
+                        "idle": "Ne\u010dinn\u00e1",
+                        "off": "Neakt\u00edvny",
+                        "preheating": "Predohrev"
+                    }
+                },
+                "hvac_modes": {
+                    "name": "Re\u017eimy HVAC"
+                },
+                "max_humidity": {
+                    "name": "Maxim\u00e1lna cie\u013eov\u00e1 vlhkos\u0165"
+                },
+                "max_temp": {
+                    "name": "Maxim\u00e1lna cie\u013eov\u00e1 teplota"
+                },
+                "min_humidity": {
+                    "name": "Minim\u00e1lna cie\u013eov\u00e1 vlhkos\u0165"
+                },
+                "min_temp": {
+                    "name": "Minim\u00e1lna cie\u013eov\u00e1 teplota"
+                },
+                "preset_mode": {
+                    "name": "Predvo\u013eba",
+                    "state": {
+                        "activity": "Aktivita",
+                        "away": "Nepr\u00edtomnos\u0165",
+                        "boost": "Turbo",
+                        "comfort": "Komfort",
+                        "eco": "Eco",
+                        "home": "Doma",
+                        "none": "\u017diadna",
+                        "sleep": "Sp\u00e1nok"
+                    }
+                },
+                "preset_modes": {
+                    "name": "Predvo\u013eby"
+                },
+                "swing_mode": {
+                    "name": "Re\u017eim hojdania",
+                    "state": {
+                        "both": "Obidva",
+                        "horizontal": "Horizont\u00e1lny",
+                        "off": "Neakt\u00edvny",
+                        "on": "Akt\u00edvny",
+                        "vertical": "Vertik\u00e1lny"
+                    }
+                },
+                "swing_modes": {
+                    "name": "Re\u017eimy hojdania"
+                },
+                "target_temp_high": {
+                    "name": "Horn\u00e1 cie\u013eov\u00e1 teplota"
+                },
+                "target_temp_low": {
+                    "name": "Doln\u00e1 cie\u013eov\u00e1 teplota"
+                },
+                "target_temp_step": {
+                    "name": "Cie\u013eov\u00fd teplotn\u00fd krok"
+                },
+                "temperature": {
+                    "name": "Cie\u013eov\u00e1 teplota"
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "humidity_out_of_range": {
+            "message": "Zadan\u00e1 vlhkos\u0165 {humidity} nie je platn\u00e1. Akceptovan\u00fd rozsah je {min_humidity} a\u017e {max_humidity} ."
+        },
+        "low_temp_higher_than_high_temp": {
+            "message": "Cie\u013eov\u00e1 teplota n\u00edzka nem\u00f4\u017ee by\u0165 vy\u0161\u0161ia ako cie\u013eov\u00e1 teplota vysok\u00e1."
+        },
+        "missing_target_temperature_entity_feature": {
+            "message": "Bola pou\u017eit\u00e1 akcia Nastavi\u0165 teplotu s parametrom cie\u013eovej teploty, ale entita ju nepodporuje."
+        },
+        "missing_target_temperature_range_entity_feature": {
+            "message": "Bola pou\u017eit\u00e1 akcia Nastavi\u0165 teplotu s parametrom cie\u013eovej teploty n\u00edzka/vysok\u00e1, ale entita ju nepodporuje."
+        },
+        "not_valid_fan_mode": {
+            "message": "Re\u017eim ventil\u00e1tora {mode} nie je platn\u00fd. Platn\u00e9 re\u017eimy ventil\u00e1tora s\u00fa: {modes}."
+        },
+        "not_valid_preset_mode": {
+            "message": "Prednastaven\u00fd re\u017eim {mode} nie je platn\u00fd. Platn\u00e9 prednastaven\u00e9 re\u017eimy s\u00fa: {modes}."
+        },
+        "not_valid_swing_mode": {
+            "message": "Swing mode {mode} nie je platn\u00fd. Platn\u00e9 re\u017eimy swingu s\u00fa: {modes}."
+        },
+        "temp_out_of_range": {
+            "message": "Uveden\u00e1 teplota {check_temp} nie je platn\u00e1. Akceptovan\u00fd rozsah je {min_temp} a\u017e {max_temp}."
+        }
+    },
+    "issues": {
+        "deprecated_climate_aux_no_url": {
+            "description": "Vlastn\u00e1 integr\u00e1cia `{platform}` implementuje vlastnos\u0165 `is_aux_heat` alebo pou\u017e\u00edva met\u00f3dy pomocn\u00e9ho ohrieva\u010da v podtriede ClimateEntity.\n\nNahl\u00e1ste to autorovi integr\u00e1cie {platform}.\n\nKe\u010f bude k dispoz\u00edcii aktualizovan\u00e1 verzia `{platform}`, nain\u0161talujte ju a re\u0161tartujte aplik\u00e1ciu Home Assistant, aby sa tento probl\u00e9m odstr\u00e1nil.",
+            "title": "Vlastn\u00e1 integr\u00e1cia na str\u00e1nke {platform} pou\u017e\u00edva zastaran\u00e9 pomocn\u00e9 vykurovanie kl\u00edmy"
+        },
+        "deprecated_climate_aux_url_custom": {
+            "description": "Vlastn\u00e1 integr\u00e1cia `{platform}` implementuje vlastnos\u0165 `is_aux_heat` alebo pou\u017e\u00edva met\u00f3dy pomocn\u00e9ho ohrieva\u010da v podtriede ClimateEntity.\n\nVytvorte hl\u00e1senie o chybe na adrese {issue_tracker}.\n\nKe\u010f bude k dispoz\u00edcii aktualizovan\u00e1 verzia `{platform}`, nain\u0161talujte ju a re\u0161tartujte aplik\u00e1ciu Home Assistant, aby sa tento probl\u00e9m odstr\u00e1nil.",
+            "title": "Vlastn\u00e1 integr\u00e1cia na str\u00e1nke {platform} pou\u017e\u00edva zastaran\u00e9 pomocn\u00e9 vykurovanie kl\u00edmy"
+        },
+        "platform_integration_no_support": {
+            "description": "Platforma {platform} pre integr\u00e1ciu {domain} nepodporuje nastavenie platformy. \n\n Odstr\u00e1\u0148te ho z konfigur\u00e1cie a re\u0161tartujte Home Assistant, aby ste tento probl\u00e9m vyrie\u0161ili.",
+            "title": "Podpora platformy nie je podporovan\u00e1"
+        }
+    },
+    "selector": {
+        "hvac_mode": {
+            "options": {
+                "auto": "Auto",
+                "cool": "Chladenie",
+                "dry": "Su\u0161enie",
+                "fan_only": "Iba ventil\u00e1tor",
+                "heat": "K\u00farenie",
+                "heat_cool": "Vykurovanie / Chladenie",
+                "off": "Vypnut\u00e9"
+            }
+        }
+    },
+    "services": {
+        "set_aux_heat": {
+            "description": "Zapnutie/vypnutie pr\u00eddavn\u00e9ho k\u00farenia.",
+            "fields": {
+                "aux_heat": {
+                    "description": "Nov\u00e1 hodnota pr\u00eddavn\u00e9ho ohrieva\u010da.",
+                    "name": "Pr\u00eddavn\u00e9 k\u00farenie"
+                }
+            },
+            "name": "Zapnutie/vypnutie pr\u00eddavn\u00e9ho ohrieva\u010da"
+        },
+        "set_fan_mode": {
+            "description": "Nastav\u00ed re\u017eim prev\u00e1dzky ventil\u00e1tora.",
+            "fields": {
+                "fan_mode": {
+                    "description": "Re\u017eim prev\u00e1dzky ventil\u00e1tora.",
+                    "name": "Re\u017eim ventil\u00e1tora"
+                }
+            },
+            "name": "Nastavenie re\u017eimu ventil\u00e1tora"
+        },
+        "set_humidity": {
+            "description": "Nastav\u00ed cie\u013eov\u00fa vlhkos\u0165.",
+            "fields": {
+                "humidity": {
+                    "description": "Cie\u013eov\u00e1 vlhkos\u0165.",
+                    "name": "Vlhkos\u0165"
+                }
+            },
+            "name": "Nastavenie cie\u013eovej vlhkosti"
+        },
+        "set_hvac_mode": {
+            "description": "Nastav\u00ed re\u017eim prev\u00e1dzky HVAC.",
+            "fields": {
+                "hvac_mode": {
+                    "description": "Re\u017eim prev\u00e1dzky HVAC.",
+                    "name": "Re\u017eim HVAC"
+                }
+            },
+            "name": "Nastavenie re\u017eimu HVAC"
+        },
+        "set_preset_mode": {
+            "description": "Nastav\u00ed re\u017eim predvo\u013eby.",
+            "fields": {
+                "preset_mode": {
+                    "description": "Prednastaven\u00fd re\u017eim.",
+                    "name": "Prednastaven\u00fd re\u017eim"
+                }
+            },
+            "name": "Nastavenie prednastaven\u00e9ho re\u017eimu"
+        },
+        "set_swing_mode": {
+            "description": "Nastav\u00ed re\u017eim prev\u00e1dzky v\u00fdkyvu.",
+            "fields": {
+                "swing_mode": {
+                    "description": "Prev\u00e1dzkov\u00fd re\u017eim v\u00fdkyvu.",
+                    "name": "Re\u017eim v\u00fdkyvu"
+                }
+            },
+            "name": "Nastavenie re\u017eimu klapky"
+        },
+        "set_temperature": {
+            "description": "Nastav\u00ed cie\u013eov\u00fa teplotu.",
+            "fields": {
+                "hvac_mode": {
+                    "description": "Re\u017eim prev\u00e1dzky HVAC.",
+                    "name": "Re\u017eim HVAC"
+                },
+                "target_temp_high": {
+                    "description": "Vysok\u00e1 cie\u013eov\u00e1 teplota.",
+                    "name": "Cie\u013eov\u00e1 teplota je vysok\u00e1"
+                },
+                "target_temp_low": {
+                    "description": "N\u00edzka cie\u013eov\u00e1 teplota.",
+                    "name": "Cie\u013eov\u00e1 teplota je n\u00edzka"
+                },
+                "temperature": {
+                    "description": "Cie\u013eov\u00e1 teplota.",
+                    "name": "Teplota"
+                }
+            },
+            "name": "Nastavenie cie\u013eovej teploty"
+        },
+        "toggle": {
+            "description": "Prep\u00edna klimatiza\u010dn\u00e9 zariadenie, zo zapnut\u00e9ho na vypnut\u00e9 alebo z vypnut\u00e9ho na zapnut\u00e9.",
+            "name": "Prepn\u00fa\u0165"
+        },
+        "turn_off": {
+            "description": "Vypne klimatiza\u010dn\u00e9 zariadenie.",
+            "name": "Vypn\u00fa\u0165"
+        },
+        "turn_on": {
+            "description": "Zapnutie klimatiza\u010dn\u00e9ho zariadenia.",
+            "name": "Zapn\u00fa\u0165"
+        }
+    },
+    "title": "Klimatiz\u00e1cia"
+}

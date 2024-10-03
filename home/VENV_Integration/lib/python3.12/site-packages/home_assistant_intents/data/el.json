@@ -1,0 +1,2148 @@
+{
+  "language": "el",
+  "intents": {
+    "HassTurnOff": {
+      "data": [
+        {
+          "sentences": [
+            "<turn_off> <articles> <name>",
+            "<articles> <name> να <turn_off>",
+            "να <turn_off> <articles> <name>",
+            "να <turn_off> <articles> <name>"
+          ]
+        },
+        {
+          "sentences": [
+            "<turn_off> [<all>] <articles> <lights> <area>",
+            "<turn_off> <area> [<all>] <articles> <lights>"
+          ],
+          "slots": {
+            "domain": "light",
+            "name": "all"
+          },
+          "response": "lights_area"
+        },
+        {
+          "sentences": [
+            "<turn_off> [<all>] [<articles>] (<garage_doors> | <doors> | <covers>) [κάτω]"
+          ],
+          "response": "cover_device_class",
+          "slots": {
+            "domain": "cover",
+            "device_class": [
+              "window",
+              "blind",
+              "curtain",
+              "shutter"
+            ]
+          }
+        },
+        {
+          "sentences": [
+            "<turn_off> [<all>] [<articles>] (<garage_doors> | <doors> | <covers>) στην περιοχή <area>",
+            "<turn_off> [<all>] [<articles>] (<garage_doors> | <doors> | <covers>) <articles> <area>",
+            "<turn_off> <articles> <area> [<all>] <articles> (<garage_doors> | <doors> | <covers>)"
+          ],
+          "response": "cover_area",
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "<turn_off> [<all>] [<articles>] <fans> [<articles>] [<area>]",
+            "<turn_off> [<articles>] [<area>] [<all>] [<articles>] <fans>"
+          ],
+          "slots": {
+            "domain": "fan",
+            "name": "all"
+          }
+        }
+      ]
+    },
+    "HassGetWeather": {
+      "data": [
+        {
+          "sentences": [
+            "Πώς [θα] είναι ο καιρός",
+            "Ποιος [θα] είναι ο καιρός",
+            "Τι καιρό [θα] κάνει"
+          ]
+        },
+        {
+          "sentences": [
+            "Πώς [θα] είναι ο καιρός (στον|στη[ν]|στο|του|της) <name>",
+            "Ποιος [θα] είναι ο καιρός (στον|στη[ν]|στο|του|της) <name>",
+            "Τι καιρό [θα] κάνει (στον|στη[ν]|στο) <name>"
+          ],
+          "requires_context": {
+            "domain": "weather"
+          }
+        }
+      ]
+    },
+    "HassTurnOn": {
+      "data": [
+        {
+          "sentences": [
+            "<turn_on> [<all>] <articles> <lights> <area>",
+            "<turn_on> <area> [<all>] <articles> <lights>"
+          ],
+          "slots": {
+            "domain": "light",
+            "name": "all"
+          },
+          "response": "lights_area"
+        },
+        {
+          "sentences": [
+            "<turn_on> ( άνοιξε | άναψε ) [ τα ] φώτα <in_here>",
+            "<turn_on>[ τα ] φώτα(<in_here>)"
+          ],
+          "response": "lights_area",
+          "expansion_rules": {
+            "in_here": "[ στο δωμάτιο | στον χώρο | εδώ ]"
+          },
+          "slots": {
+            "domain": "light"
+          },
+          "requires_context": {
+            "area": {
+              "slot": true
+            }
+          }
+        },
+        {
+          "sentences": [
+            "<turn_on> [<all>] [<articles>] <fans> [<articles>] [<area>]",
+            "<turn_on> [<articles>] [<area>] [<all>] [<articles>] <fans>"
+          ],
+          "slots": {
+            "domain": "fan",
+            "name": "all"
+          }
+        },
+        {
+          "sentences": [
+            "<turn_on> <articles> <name>",
+            "<articles> <name> να <turn_on>",
+            "να <turn_on> <articles> <name>",
+            "να <turn_on> <articles> <name>"
+          ]
+        },
+        {
+          "sentences": [
+            "<turn_on> [(πάνω | ψηλά)] [<all>] [<articles>] (<garage_doors> | <doors> | <covers>) <articles> <area> [(πάνω | ψηλά)]",
+            "<turn_on> [(πάνω | ψηλά)] <articles> <area> [<all>] [<articles>] (<garage_doors> | <doors> | <covers>) [(πάνω | ψηλά)]"
+          ],
+          "response": "cover_area"
+        },
+        {
+          "sentences": [
+            "<turn_on> [(πάνω | ψηλά)] [<all>] [<articles>] (<garage_doors> | <doors> | <covers>) [(πάνω | ψηλά)]"
+          ],
+          "response": "cover_device_class",
+          "slots": {
+            "domain": "cover",
+            "device_class": [
+              "window",
+              "blind",
+              "curtain",
+              "shutter"
+            ]
+          }
+        }
+      ]
+    },
+    "HassShoppingListAddItem": {
+      "data": [
+        {
+          "sentences": [
+            "πρόσθεσε <item> (στο | στη | στην) <my_list> [μου]",
+            "βάλε <item> (στο | στη | στην) <my_list> [μου]"
+          ],
+          "response": "item_added",
+          "expansion_rules": {
+            "my_list": "[ η ][ shopping] λίστα",
+            "item": "{shopping_list_item:item}"
+          }
+        }
+      ]
+    },
+    "HassNevermind": {
+      "data": [
+        {
+          "sentences": [
+            "άστο",
+            "ξέχνα το",
+            "άκυρο",
+            "ξέχνατο"
+          ]
+        }
+      ]
+    },
+    "HassLightSet": {
+      "data": [
+        {
+          "sentences": [
+            "<set> [τη] φωτεινότητα <name> [(<articles> | σε)] <brightness>",
+            "<set> <name> [(τη | σε | με)] φωτεινότητα [(<articles> | σε)] <brightness>"
+          ],
+          "response": "brightness"
+        },
+        {
+          "sentences": [
+            "<set> [τη] φωτεινότητα <area> [(<articles> | σε)] <brightness>",
+            "<set> <area> [(τη | σε | με)] φωτεινότητα [(<articles> | σε)] <brightness>"
+          ],
+          "slots": {
+            "name": "all"
+          },
+          "response": "brightness"
+        },
+        {
+          "sentences": [
+            "<set> <name> [(σε | με)] {color} [χρώμα]",
+            "<set> [(σε | με)] {color} [χρώμα] <name>"
+          ],
+          "response": "color"
+        }
+      ]
+    },
+    "HassClimateGetTemperature": {
+      "data": [
+        {
+          "sentences": [
+            "Πόσο υψηλή είναι η θερμοκρασία <articles> [<area>]",
+            "Πόσο υψηλή είναι η θερμοκρασία",
+            "Πόσο χαμηλή είναι η θερμοκρασία",
+            "Ποια είναι η θερμοκρασία <articles> [<area>]",
+            "Ποια είναι η θερμοκρασία <articles> [<name>]",
+            "Ποια είναι [<articles>] [<area>] η θερμοκρασία",
+            "Τι θερμοκρασία έχει <articles> [<area>]",
+            "Πόσο κρύ(ος|α|ο) είναι <articles> [<area>]",
+            "Πόσο ζεστ(ός|ά|ό) είναι <articles> [<area>]",
+            "<articles> <area> πόσο υψηλή είναι η θερμοκρασία",
+            "<articles> <area> πόσο χαμηλή είναι η θερμοκρασία",
+            "<articles> <area> ποια είναι η θερμοκρασία"
+          ]
+        }
+      ]
+    },
+    "HassGetState": {
+      "data": [
+        {
+          "sentences": [
+            "(ποι(ος|α|ο|οι|ες) είναι) [κατάσταση] <name> [<area>]",
+            "τι κατάσταση έχει <name> [<area>]",
+            "σε (τι|ποια) κατάσταση (είναι|βρίσκεται) <name> [<area>]"
+          ],
+          "response": "one",
+          "excludes_context": {
+            "domain": [
+              "scene",
+              "script"
+            ]
+          }
+        },
+        {
+          "sentences": [
+            "είναι <name> {on_off_states:state} [<area>]"
+          ],
+          "response": "one_yesno",
+          "excludes_context": {
+            "domain": [
+              "cover"
+            ]
+          }
+        },
+        {
+          "sentences": [
+            "<exist> {on_off_domains:domain} {on_off_states:state} [<area>]",
+            "<exist> {on_off_states:state} {on_off_domains:domain} [<area>]"
+          ],
+          "response": "any"
+        },
+        {
+          "sentences": [
+            "είναι [όλ(οι|ες|α)] (οι|τα) {on_off_domains:domain} {on_off_states:state} [<area>]",
+            "είναι [όλ(οι|ες|α)] (οι|τα) {on_off_domains:domain} <area> {on_off_states:state}"
+          ],
+          "response": "all"
+        },
+        {
+          "sentences": [
+            "ποι(ος|α|ο|οι|ες) {on_off_domains:domain} [είναι] {on_off_states:state} [<area>]"
+          ],
+          "response": "which"
+        },
+        {
+          "sentences": [
+            "πόσ(οι|ες|α) {on_off_domains:domain} [είναι] {on_off_states:state} [<area>]"
+          ],
+          "response": "how_many"
+        },
+        {
+          "sentences": [
+            "είναι η μπαταρί(α|ες) <name> {bs_battery_states:state} [<area>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "battery"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "battery"
+          }
+        },
+        {
+          "sentences": [
+            "<exist> μπαταρί(α|ες) {bs_battery_states:state} [<area>]",
+            "<exist> {bs_battery_states:state} μπαταρί(α|ες) [<area>]"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "battery"
+          }
+        },
+        {
+          "sentences": [
+            "είναι όλες οι μπαταρίες {bs_battery_states:state} [<area>]"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "battery"
+          }
+        },
+        {
+          "sentences": [
+            "ποι(α|ες) μπαταρί(α|ες) είναι {bs_battery_states:state} [<area>]"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "battery"
+          }
+        },
+        {
+          "sentences": [
+            "πόσες μπαταρίες είναι {bs_battery_states:state} [<area>]"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "battery"
+          }
+        },
+        {
+          "sentences": [
+            "[η μπαταρία] <name> {bs_battery_charging_states:state} [<area>]",
+            "{bs_battery_charging_states:state} [η μπαταρία] <name> [<area>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "battery_charging"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "battery_charging"
+          }
+        },
+        {
+          "sentences": [
+            "<exist> μπαταρίες που {bs_battery_charging_states:state} [<area>]"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "battery_charging"
+          }
+        },
+        {
+          "sentences": [
+            "{bs_battery_charging_states:state} όλες οι μπαταρίες [<area>]",
+            "όλες οι μπαταρίες {bs_battery_charging_states:state} [<area>]"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "battery_charging"
+          }
+        },
+        {
+          "sentences": [
+            "ποι(α|ες) μπαταρί(α|ες) {bs_battery_charging_states:state} [<area>]"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "battery_charging"
+          }
+        },
+        {
+          "sentences": [
+            "πόσες μπαταρίες {bs_battery_charging_states:state} [<area>]"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "battery_charging"
+          }
+        },
+        {
+          "sentences": [
+            "<name> {bs_carbon_monoxide_states:state} [<area>]",
+            "{bs_carbon_monoxide_states:state} <name> [<area>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "carbon_monoxide"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "carbon_monoxide"
+          }
+        },
+        {
+          "sentences": [
+            "<exist> αισθητήρ(ας|ες) μονοξειδίου του άνθρακα που {bs_carbon_monoxide_states:state} [<area>]",
+            "{bs_carbon_monoxide_states:state} [κάποι(ος|οι)] αισθητήρ(ας|ες) μονοξειδίου του άνθρακα [<area>]"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "carbon_monoxide"
+          }
+        },
+        {
+          "sentences": [
+            "(υπάρχει|εντοπίστηκε|ανιχνεύτηκε) μονοξείδιο του άνθρακα <area>"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "carbon_monoxide",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "{bs_carbon_monoxide_states:state} μονοξείδιο του άνθρακα σε όλους τους αισθητήρες [<area>]"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "carbon_monoxide"
+          }
+        },
+        {
+          "sentences": [
+            "σε ποιους αισθητήρες {bs_carbon_monoxide_states:state} μονοξείδιο του άνθρακα [<area>]",
+            "ποιοι αισθητήρες μονοξειδίου του άνθρακα {bs_carbon_monoxide_states:state} [<area>]"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "carbon_monoxide"
+          }
+        },
+        {
+          "sentences": [
+            "σε πόσους αισθητήρες {bs_carbon_monoxide_states:state} μονοξείδιο του άνθρακα [<area>]",
+            "πόσοι αισθητήρες μονοξειδίου του άνθρακα {bs_carbon_monoxide_states:state} [<area>]"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "carbon_monoxide"
+          }
+        },
+        {
+          "sentences": [
+            "είναι <name> {bs_cold_states:state} [<area>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "cold"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "cold"
+          }
+        },
+        {
+          "sentences": [
+            "<exist> κάτι κρύο [<area>]"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "cold",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "τι είναι κρύο [<area>]"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "cold",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "πόσα πράγματα είναι κρύα [<area>]"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "cold",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "<name> {bs_connectivity_states:state} [<area>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "connectivity"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "connectivity"
+          }
+        },
+        {
+          "sentences": [
+            "<exist> συσκευές που {bs_connectivity_states:state} [<area>]"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "connectivity"
+          }
+        },
+        {
+          "sentences": [
+            "όλες οι συσκευές {bs_connectivity_states:state} [<area>]",
+            "{bs_connectivity_states:state} όλες οι συσκευές [<area>]"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "connectivity"
+          }
+        },
+        {
+          "sentences": [
+            "ποι(α|ες) συσκευ(ή|ές) {bs_connectivity_states:state} [<area>]"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "connectivity"
+          }
+        },
+        {
+          "sentences": [
+            "πόσες συσκευές {bs_connectivity_states:state} [<area>]"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "connectivity"
+          }
+        },
+        {
+          "sentences": [
+            "είναι <name> {bs_door_states:state} [<area>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "door"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "door"
+          }
+        },
+        {
+          "sentences": [
+            "είναι <name> {bs_garage_door_states:state} [<area>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "garage_door"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "garage_door"
+          }
+        },
+        {
+          "sentences": [
+            "<name> {bs_gas_states:state} [<area>]",
+            "{bs_gas_states:state} <name> [<area>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "gas"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "gas"
+          }
+        },
+        {
+          "sentences": [
+            "<exist> αισθητήρ(ας|ες) αερίου που {bs_gas_states:state} [<area>]",
+            "{bs_gas_states:state} [κάποι(ος|οι)] αισθητήρ(ας|ες) αερίου [<area>]"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "gas"
+          }
+        },
+        {
+          "sentences": [
+            "(υπάρχει|εντοπίστηκε|ανιχνεύτηκε) αέριο <area>"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "gas",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "{bs_gas_states:state} αέριο σε όλους τους αισθητήρες [<area>]",
+            "{bs_gas_states:state} όλοι οι αισθητήρες αερίου [<area>]"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "gas"
+          }
+        },
+        {
+          "sentences": [
+            "σε ποιους αισθητήρες {bs_gas_states:state} αέριο [<area>]",
+            "ποιοι αισθητήρες αερίου {bs_gas_states:state} [<area>]"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "gas"
+          }
+        },
+        {
+          "sentences": [
+            "σε πόσους αισθητήρες {bs_gas_states:state} αέριο [<area>]",
+            "πόσοι αισθητήρες αερίου {bs_gas_states:state} [<area>]"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "gas"
+          }
+        },
+        {
+          "sentences": [
+            "είναι <name> {bs_heat_states:state} [<area>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "heat"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "heat"
+          }
+        },
+        {
+          "sentences": [
+            "<exist> κάτι (ζεστό|θερμό) [<area>]"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "heat",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "τι είναι (ζεστό|θερμό) [<area>]"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "heat",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "πόσα πράγματα είναι (ζεστά|θερμά) [<area>]"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "heat",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "{bs_light_states:state} <name> [<area>]",
+            "<name> {bs_light_states:state} [<area>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "light"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "light"
+          }
+        },
+        {
+          "sentences": [
+            "<exist> αισθητήρ(ας|ες) φωτός που {bs_light_states:state} [<area>]",
+            "{bs_light_states:state} [κάποι(ος|οι)] αισθητήρ(ας|ες) φωτός [<area>]"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "light"
+          }
+        },
+        {
+          "sentences": [
+            "{bs_light_states:state} σε όλους τους αισθητήρες [<area>]",
+            "{bs_light_states:state} όλοι οι αισθητήρες φωτός [<area>]"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "light"
+          }
+        },
+        {
+          "sentences": [
+            "σε ποιους αισθητήρες {bs_light_states:state} [<area>]",
+            "ποιοι αισθητήρες φωτός {bs_light_states:state} [<area>]"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "light"
+          }
+        },
+        {
+          "sentences": [
+            "σε πόσους αισθητήρες {bs_light_states:state} [<area>]",
+            "πόσοι αισθητήρες φωτός {bs_light_states:state} [<area>]"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "light"
+          }
+        },
+        {
+          "sentences": [
+            "είναι <name> {bs_lock_states:state} [<area>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "lock"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "lock"
+          }
+        },
+        {
+          "sentences": [
+            "είναι <name> {bs_moisture_states:state} [<area>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "moisture"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "moisture"
+          }
+        },
+        {
+          "sentences": [
+            "<exist> αισθητήρ(ας|ες) (νερού|διαρροής) {bs_moisture_states:state} [<area>]",
+            "<exist> {bs_moisture_states:state} αισθητήρ(ας|ες) (νερού|διαρροής) [<area>]"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "moisture"
+          }
+        },
+        {
+          "sentences": [
+            "<exist> διαρροή (νερού) [<area>]",
+            "έχει πλυμηρρήσει <area>"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "moisture",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "είναι όλοι οι αισθητήρες (νερού|διαρροής) {bs_moisture_states:state} [<area>]"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "moisture"
+          }
+        },
+        {
+          "sentences": [
+            "ποι(ος|οι) αισθητήρ(ας|ες) (διαρροής|νερού) είναι {bs_moisture_states:state} [<area>]"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "moisture"
+          }
+        },
+        {
+          "sentences": [
+            "πόσοι αισθητήρες (διαρροής|νερού) είναι {bs_moisture_states:state} [<area>]"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "moisture"
+          }
+        },
+        {
+          "sentences": [
+            "είναι <name> {bs_motion_states:state} [<area>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "motion"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "motion"
+          }
+        },
+        {
+          "sentences": [
+            "<exist> αισθητήρ(ας|ες) κίνησης {bs_motion_states:state} [<area>]",
+            "<exist> {bs_motion_states:state} αισθητήρ(ας|ες) κίνησης [<area>]"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "motion"
+          }
+        },
+        {
+          "sentences": [
+            "(<exist>|έχει (εντοπιστεί|ανιχνευτεί)) κίνηση [<area>]"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "motion",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "είναι όλοι οι αισθητήρες κίνησης {bs_motion_states:state} [<area>]"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "motion"
+          }
+        },
+        {
+          "sentences": [
+            "ποι(ος|οι) αισθητήρ(ας|ες) κίνησης είναι {bs_motion_states:state} [<area>]"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "motion"
+          }
+        },
+        {
+          "sentences": [
+            "πόσοι αισθητήρες κίνησης είναι {bs_motion_states:state} [<area>]"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "motion"
+          }
+        },
+        {
+          "sentences": [
+            "είναι <name> {bs_occupancy_states:state} [<area>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "occupancy"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "occupancy"
+          }
+        },
+        {
+          "sentences": [
+            "<exist> αισθητήρ(ας|ες) παρουσίας {bs_occupancy_states:state} [<area>]",
+            "<exist> {bs_occupancy_states:state} αισθητήρ(ας|ες) παρουσίας [<area>]"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "occupancy"
+          }
+        },
+        {
+          "sentences": [
+            "(<exist>|έχει (εντοπιστεί|ανιχνευτεί)) παρουσία [<area>]"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "occupancy",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "είναι όλοι οι αισθητήρες παρουσίας {bs_occupancy_states:state} [<area>]"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "occupancy"
+          }
+        },
+        {
+          "sentences": [
+            "ποι(ος|οι) αισθητήρ(ας|ες) παρουσίας είναι {bs_occupancy_states:state} [<area>]"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "occupancy"
+          }
+        },
+        {
+          "sentences": [
+            "πόσοι αισθητήρες παρουσίας είναι {bs_occupancy_states:state} [<area>]"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "occupancy"
+          }
+        },
+        {
+          "sentences": [
+            "είναι <name> {bs_opening_states:state} [<area>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "opening"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "opening"
+          }
+        },
+        {
+          "sentences": [
+            "<exist> άνοιγμα {bs_opening_states:state} [<area>]",
+            "<exist> {bs_opening_states:state} άνοιγμα [<area>]"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "opening"
+          }
+        },
+        {
+          "sentences": [
+            "είναι όλα τα ανοίγματα {bs_opening_states:state} [<area>]"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "opening"
+          }
+        },
+        {
+          "sentences": [
+            "ποι(ο|α) (άνοιγμα|ανοίγματα) είναι {bs_opening_states:state} [<area>]"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "opening"
+          }
+        },
+        {
+          "sentences": [
+            "πόσα ανοίγματα είναι {bs_opening_states:state} [<area>]"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "opening"
+          }
+        },
+        {
+          "sentences": [
+            "είναι <name> {bs_plug_states:state} [<area>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "plug"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "plug"
+          }
+        },
+        {
+          "sentences": [
+            "<exist> συσκευ(ή|ές) {bs_plug_states:state} [<area>]",
+            "<exist> {bs_plug_states:state} συσκευ(ή|ές) [<area>]"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "plug"
+          }
+        },
+        {
+          "sentences": [
+            "είναι όλες οι συσκευές {bs_plug_states:state} [<area>]"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "plug"
+          }
+        },
+        {
+          "sentences": [
+            "ποι(α|ες) συσκευ(ή|ές) είναι {bs_plug_states:state} [<area>]"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "plug"
+          }
+        },
+        {
+          "sentences": [
+            "πόσες συσκευές είναι {bs_plug_states:state} [<area>]"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "plug"
+          }
+        },
+        {
+          "sentences": [
+            "είναι <name> {bs_power_states:state} [<area>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "power"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "power"
+          }
+        },
+        {
+          "sentences": [
+            "<exist> συσκευ(ή|ές) {bs_power_states:state} [<area>]",
+            "<exist> {bs_power_states:state} συσκευ(ή|ές) [<area>]"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "power"
+          }
+        },
+        {
+          "sentences": [
+            "είναι όλες οι συσκευές {bs_power_states:state} [<area>]"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "power"
+          }
+        },
+        {
+          "sentences": [
+            "ποι(α|ες) συσκευ(ή|ές) είναι {bs_power_states:state} [<area>]"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "power"
+          }
+        },
+        {
+          "sentences": [
+            "πόσες συσκευές είναι {bs_power_states:state} [<area>]"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "power"
+          }
+        },
+        {
+          "sentences": [
+            "είναι <name> {bs_presence_states:state} [<area>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "presence"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "presence"
+          }
+        },
+        {
+          "sentences": [
+            "<exist> συσκευ(ή|ές) {bs_presence_states:state} [<area>]"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "presence"
+          }
+        },
+        {
+          "sentences": [
+            "είναι όλες οι συσκευές {bs_presence_states:state} [<area>]"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "presence"
+          }
+        },
+        {
+          "sentences": [
+            "ποι(α|ες) συσκευ(ή|ές) είναι {bs_presence_states:state} [<area>]"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "presence"
+          }
+        },
+        {
+          "sentences": [
+            "πόσες συσκευές είναι {bs_presence_states:state} [<area>]"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "presence"
+          }
+        },
+        {
+          "sentences": [
+            "υπάρχει πρόβλημα [με] <name> [<area>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "problem"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "problem",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "<name> {bs_running_states:state} [<area>]",
+            "{bs_running_states:state} <name> [<area>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "running"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "running"
+          }
+        },
+        {
+          "sentences": [
+            "<exist> συσκευ(ή|ές) που {bs_running_states:state} [<area>]",
+            "{bs_running_states:state} κάποι(α|ες) συσκευ(ή|ές) [<area>]"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "running"
+          }
+        },
+        {
+          "sentences": [
+            "όλες οι συσκευές {bs_running_states:state} [<area>]"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "running"
+          }
+        },
+        {
+          "sentences": [
+            "ποι(α|ες) συσκευ(ή|ές) {bs_running_states:state} [<area>]"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "running"
+          }
+        },
+        {
+          "sentences": [
+            "πόσες συσκευές {bs_running_states:state} [<area>]"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "running"
+          }
+        },
+        {
+          "sentences": [
+            "είναι <name> {bs_safety_states:state} [<area>]",
+            "είναι {bs_safety_states:state} <name> [<area>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "safety"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "safety"
+          }
+        },
+        {
+          "sentences": [
+            "<name> {bs_smoke_states:state} [<area>]",
+            "{bs_smoke_states:state} <name> [<area>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "smoke"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "smoke"
+          }
+        },
+        {
+          "sentences": [
+            "<exist> αισθητήρ(ας|ες) καπνού που {bs_smoke_states:state} [<area>]",
+            "{bs_smoke_states:state} [κάποι(ος|οι)] αισθητήρ(ας|ες) καπνού [<area>]"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "smoke"
+          }
+        },
+        {
+          "sentences": [
+            "(υπάρχει|εντοπίστηκε|ανιχνεύτηκε) καπνός <area>"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "smoke",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "{bs_smoke_states:state} καπνός σε όλους τους αισθητήρες [<area>]",
+            "{bs_smoke_states:state} όλοι οι αισθητήρες καπνού [<area>]"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "smoke"
+          }
+        },
+        {
+          "sentences": [
+            "σε ποιους αισθητήρες {bs_smoke_states:state} καπνός [<area>]",
+            "ποιοι αισθητήρες καπνού {bs_smoke_states:state} [<area>]"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "smoke"
+          }
+        },
+        {
+          "sentences": [
+            "σε πόσους αισθητήρες {bs_smoke_states:state} καπνός [<area>]",
+            "πόσοι αισθητήρες καπνού {bs_smoke_states:state} [<area>]"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "smoke"
+          }
+        },
+        {
+          "sentences": [
+            "<name> {bs_sound_states:state} [<area>]",
+            "{bs_sound_states:state} <name> [<area>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "sound"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "sound"
+          }
+        },
+        {
+          "sentences": [
+            "<exist> αισθητήρ(ας|ες) (ήχου|θορύβου) που {bs_sound_states:state} [<area>]",
+            "{bs_sound_states:state} [κάποι(ος|οι)] αισθητήρ(ας|ες) (ήχου|θορύβου) [<area>]"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "sound"
+          }
+        },
+        {
+          "sentences": [
+            "(υπάρχει|εντοπίστηκε|ανιχνεύτηκε) (ήχος|θόρυβος) <area>"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "sound",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "{bs_sound_states:state} (ήχος|θόρυβος) σε όλους τους αισθητήρες [<area>]",
+            "{bs_sound_states:state} όλοι οι αισθητήρες (ήχου|θορύβου) [<area>]"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "sound"
+          }
+        },
+        {
+          "sentences": [
+            "σε ποιους αισθητήρες {bs_sound_states:state} (ήχος|θόρυβος) [<area>]",
+            "ποιοι αισθητήρες (ήχου|θορύβου) {bs_sound_states:state} [<area>]"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "sound"
+          }
+        },
+        {
+          "sentences": [
+            "σε πόσους αισθητήρες {bs_sound_states:state} (ήχους|θόρυβος) [<area>]",
+            "πόσοι αισθητήρες (ήχου|θορύβου) {bs_sound_states:state} [<area>]"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "sound"
+          }
+        },
+        {
+          "sentences": [
+            "{bs_tamper_states:state} παραβίαση <name> [<area>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "tamper"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "tamper"
+          }
+        },
+        {
+          "sentences": [
+            "είναι <name> {bs_update_states:state} [<area>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "update"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "update"
+          }
+        },
+        {
+          "sentences": [
+            "<exist> [διαθέσιμ(η|ες)] ενημ(έρωση|ερώσεις) [λογισμικού] [<area>]"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "update",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "ποι(α|ες) ενημ(έρωση|ερώσεις) [λογισμικού] [υπάρχ(ει|ουν) | είναι διαθέσιμ(η|ες)] [<area>]"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "update",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "πόσες ενημερώσεις [λογισμικού] [υπάρχουν | είναι διαθέσιμες] [<area>]"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "update",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "<name> {bs_vibration_states:state} [<area>]",
+            "{bs_vibration_states:state} <name> [<area>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "vibration"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "vibration"
+          }
+        },
+        {
+          "sentences": [
+            "<exist> συσκευ(ή|ές) (σε δόνηση | που δον(είται|ούνται)) [<area>]",
+            "δον(είται|ούνται) [κάποι(α|ες)] συσκευ(ή|ές) [<area>]"
+          ],
+          "response": "any",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "vibration"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "vibration",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "είναι <name> {bs_window_states:state} [<area>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "window"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "window"
+          }
+        }
+      ]
+    },
+    "HassListAddItem": {
+      "data": [
+        {
+          "sentences": [
+            "(Πρόσθεσε|Βάλε) [<articles>] <item> στη[ν] <my_list>"
+          ],
+          "response": "item_added",
+          "requires_context": {
+            "domain": "todo"
+          },
+          "expansion_rules": {
+            "my_list": "[{name}] [ λίστα] [{name}] [μου]",
+            "item": "{shopping_list_item:item}"
+          }
+        }
+      ]
+    }
+  },
+  "responses": {
+    "errors": {
+      "no_intent": "Συγγνώμη, δεν μπόρεσα να το καταλάβω αυτό",
+      "no_area": "Δεν υπάρχει περιοχή με όνομα {{ area }}",
+      "no_domain_in_area": "Η περιοχή {{ area }} δεν περιέχει ένα {{ domain }}",
+      "no_device_class_in_area": "Η περιοχή {{ area }} δεν περιέχει {{ device_class }}",
+      "no_entity": "Δεν υπάρχει συσκευή ή οντότητα με όνομα {{ entity }}",
+      "handle_error": "Προέκυψε ένα απροσδόκητο σφάλμα κατά το χειρισμό της πρόθεσης"
+    },
+    "intents": {
+      "HassGetState": {
+        "one": "{{ slots.name | capitalize }} έχει κατάσταση {{ state.state_with_unit }}\n",
+        "one_yesno": "{% if query.matched %}\n  Ναι\n{% else %}\n  Όχι, {{ state.state_with_unit }}\n{% endif %}\n",
+        "any": "{% if query.matched %}\n  {% set match = query.matched | map(attribute=\"name\") | sort | list %}\n  {% if match | length > 4 %}\n    Ναι, {{ match[:3] | join(\", \") }} και {{ (match | length - 3) }} ακόμα\n  {%- else -%}\n    Ναι,\n    {% for name in match -%}\n      {% if not loop.first and not loop.last %}, {% elif loop.last and not loop.first %} και {% endif -%}\n      {{ name }}\n    {%- endfor -%}\n  {% endif %}\n{% else %}\n  Όχι\n{% endif %}\n",
+        "all": "{% if not query.unmatched: %}\n  Ναι\n{% else %}\n  {% set no_match = query.unmatched | map(attribute=\"name\") | sort | list %}\n  {% if no_match | length > 4 %}\n    Όχι, δεν ισχύει για {{ no_match[:3] | join(\", \") }} και {{ (no_match | length - 3) }} ακόμα\n  {%- else -%}\n    Όχι, δεν ισχύει για\n    {% for name in no_match -%}\n      {% if not loop.first and not loop.last %}, {% elif loop.last and not loop.first %} και {% endif -%}\n      {{ name }}\n    {%- endfor %}\n  {% endif %}\n{% endif %}\n",
+        "which": "{% if not query.matched %}\n  Κανένα αποτέλεσμα\n{% else: %}\n  {% set match = query.matched | map(attribute=\"name\") | sort | list %}\n  {% if match | length > 4 %}\n    {{ match[:3] | join(\", \") }} και {{ (match | length - 3) }} ακόμα\n  {% else %}\n    {%- for name in match -%}\n      {% if not loop.first and not loop.last %}, {% elif loop.last and not loop.first %} και {% endif -%}\n      {{ name }}\n    {%- endfor -%}\n  {% endif %}\n{% endif %}\n",
+        "how_many": "{{ query.matched | length }}\n"
+      },
+      "HassTurnOff": {
+        "default": "Έκλεισε",
+        "lights_area": "Έκλεισαν τα φώτα",
+        "fans_area": "Έκλεισαν οι ανεμιστήρες",
+        "cover": "{{ slots.name }} έκλεισε",
+        "cover_area": "{{ slots.area }} έκλεισε",
+        "cover_device_class": "{{ slots.device_class }} έκλεισε"
+      },
+      "HassShoppingListAddItem": {
+        "item_added": "Προστέθηκε {{ slots.item }}"
+      },
+      "HassTurnOn": {
+        "default": "Άνοιξε",
+        "light_all": "Άνοιξαν όλα τα φώτα",
+        "lights_area": "Άνοιξαν τα φώτα",
+        "fans_area": "Άνοιξαν οι ανεμιστήρες",
+        "cover": "{{ slots.name }} άνοιξε",
+        "cover_area": "{{ slots.area }} έκλεισε",
+        "cover_device_class": "{{ slots.device_class }} άνοιξε",
+        "scene": "Ενεργοποιήθηκε",
+        "script": "Ξεκίνησε",
+        "lock": "Κλειδωμένο"
+      },
+      "HassListAddItem": {
+        "item_added": "Προστέθηκε το προϊόν {{ slots.item }}"
+      },
+      "HassGetWeather": {
+        "default": "{% set weather_condition = {\n  'clear': 'και καθαρός',\n  'clear-night': 'και με ξαστεριά',\n  'cloudy': 'και νεφελώδης',\n  'exceptional': 'και εξαιρετικός',\n  'fog': 'με ομίχλη',\n  'hail': 'με χαλάζι',\n  'lightning': 'με καταιγίδα',\n  'lightning-rainy': 'με καταιγίδες και βροχή',\n  'partlycloudy': 'και μερικώς νεφελώδης',\n  'pouring': 'και καταρρακτώδης βροχή',\n  'rainy': 'και βροχερός',\n  'snowy': 'και χιονισμένος',\n  'snowy-rainy': 'με χιόνι και βροχή',\n  'sunny': 'και ηλιόλουστος',\n  'windy': 'και θυελλώδης',\n  'windy-variant': 'με άνεμο και σύννεφα'\n} %} {{ state.attributes.get('temperature') }} {{ state.attributes.get('temperature_unit') }} {{ weather_condition.get((state.attributes.get('untranslated_state') | string).lower(), \"\") }}\n"
+      },
+      "HassLightSet": {
+        "brightness": "Η φωτεινότητα ορίστηκε σε {{ slots.brightness }}",
+        "color": "Το χρώμα ορίστηκε σε {{ slots.color }}"
+      },
+      "HassClimateGetTemperature": {
+        "default": "{{ state.state }} βαθμοί"
+      }
+    }
+  },
+  "lists": {
+    "color": {
+      "values": [
+        {
+          "in": "λευκό",
+          "out": "white"
+        },
+        {
+          "in": "μαύρο",
+          "out": "black"
+        },
+        {
+          "in": "κόκκινο",
+          "out": "red"
+        },
+        {
+          "in": "πορτοκαλί",
+          "out": "orange"
+        },
+        {
+          "in": "κίτρινο",
+          "out": "yellow"
+        },
+        {
+          "in": "πράσινο",
+          "out": "green"
+        },
+        {
+          "in": "μπλε",
+          "out": "blue"
+        },
+        {
+          "in": "μωβ",
+          "out": "purple"
+        },
+        {
+          "in": "καφέ",
+          "out": "brown"
+        }
+      ]
+    },
+    "brightness": {
+      "range": {
+        "type": "percentage",
+        "from": 0,
+        "to": 100
+      }
+    },
+    "temperature": {
+      "range": {
+        "type": "temperature",
+        "from": 0,
+        "to": 100
+      }
+    },
+    "temperature_unit": {
+      "values": [
+        {
+          "in": "Κελσίου",
+          "out": "celsius"
+        },
+        {
+          "in": "Φαρενάιτ",
+          "out": "fahrenheit"
+        }
+      ]
+    },
+    "brightness_level": {
+      "values": [
+        {
+          "in": "(μέγιστο|ανώτερο|υψηλότερο)",
+          "out": 100
+        },
+        {
+          "in": "(ελάχιστο|κατώτερο)",
+          "out": 1
+        }
+      ]
+    },
+    "on_off_states": {
+      "values": [
+        {
+          "in": "(ανοι(κ|χ)τ(ός|ή|ό|οί|ές|ά)|αναμμέν(ος|η|ο|οι|ες|α))",
+          "out": "on"
+        },
+        {
+          "in": "(κλειστ|σβηστ)(ός|ή|ό|οί|ές|ά)",
+          "out": "off"
+        }
+      ]
+    },
+    "on_off_domains": {
+      "values": [
+        {
+          "in": "(φώτα|φως|λάμπ[α|ες]|φωτισμό[ς])",
+          "out": "light"
+        },
+        {
+          "in": "(ανεμιστήρα[ς])",
+          "out": "fan"
+        },
+        {
+          "in": "διακόπτ(ης|η|ες)",
+          "out": "switch"
+        }
+      ]
+    },
+    "cover_states": {
+      "values": [
+        {
+          "in": "(άνοιξε|άνοιγμα|σήκωσε|σήκωμα|ανέβασε|ανέβασμα)",
+          "out": "open"
+        },
+        {
+          "in": "(κλείσε|κλείσιμο|κατέβασε|κατέβασμα)",
+          "out": "closed"
+        },
+        {
+          "in": "(άνοιγμα|ανέβασμα)",
+          "out": "opening"
+        },
+        {
+          "in": "(κλείσιμο|κατάβασμα)",
+          "out": "closing"
+        }
+      ]
+    },
+    "cover_classes": {
+      "values": [
+        {
+          "in": "(σκέπαστρ[ο|α]|τέντ[α|ες])",
+          "out": "awning"
+        },
+        {
+          "in": "(ρολά|ρολό)",
+          "out": "blind"
+        },
+        {
+          "in": "(κουρτίν[α|ες])",
+          "out": "curtain"
+        },
+        {
+          "in": "(πόρτ[α|ες]|θύρ[α|ες])",
+          "out": "door"
+        },
+        {
+          "in": "(γκαραζόπορτα|γκαραζόπορτες|γκαράζ)",
+          "out": "garage"
+        },
+        {
+          "in": "(πύλ[η|ες])",
+          "out": "gate"
+        },
+        {
+          "in": "(σκίαστρ[ο|α])",
+          "out": "shade"
+        },
+        {
+          "in": "(παντζούρι[α]|παραθυρόφυλλ[α|ο])",
+          "out": "shutter"
+        },
+        {
+          "in": "(παράθυρ[ο|α])",
+          "out": "window"
+        }
+      ]
+    },
+    "lock_states": {
+      "values": [
+        {
+          "in": "κλειδωμέν[o|η|ος]",
+          "out": "locked"
+        },
+        {
+          "in": "ξεκλειδωμέν[o|η|ος]|ξεκλείδωτ(ο|η|ος)",
+          "out": "unlocked"
+        }
+      ]
+    },
+    "bs_battery_states": {
+      "values": [
+        {
+          "in": "χαμηλ(ή|ές)",
+          "out": "on"
+        },
+        {
+          "in": "κανονικ(ή|ές)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_battery_charging_states": {
+      "values": [
+        {
+          "in": "φορτίζ(ει|ουν)",
+          "out": "on"
+        },
+        {
+          "in": "δε φορτίζ(ει|ουν)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_carbon_monoxide_states": {
+      "values": [
+        {
+          "in": "(εντοπίστηκε|ανιχνεύτηκε|ενεργοποιήθηκ(ε|αν))",
+          "out": "on"
+        },
+        {
+          "in": "(δεν εντοπίστηκε|δεν ανιχνεύτηκε|απενεργοποιήθηκ(ε|αν))",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_cold_states": {
+      "values": [
+        {
+          "in": "κρύ(ος|α|ο|οι|ες)",
+          "out": "on"
+        },
+        {
+          "in": "κανονικ(ός|ή|ό|οί|ές|ά)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_connectivity_states": {
+      "values": [
+        {
+          "in": "συνδέθηκ(ε|αν)",
+          "out": "on"
+        },
+        {
+          "in": "αποσυνδέθηκ(ε|αν)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_door_states": {
+      "values": [
+        {
+          "in": "ανοικτ(ή|ές)",
+          "out": "on"
+        },
+        {
+          "in": "κλειστ(ή|ές)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_garage_door_states": {
+      "values": [
+        {
+          "in": "ανοικτ(ή|ές)",
+          "out": "on"
+        },
+        {
+          "in": "κλειστ(ή|ές)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_gas_states": {
+      "values": [
+        {
+          "in": "(εντοπίστηκε|ανιχνεύτηκε|ενεργοποιήθηκ(ε|αν))",
+          "out": "on"
+        },
+        {
+          "in": "(δεν εντοπίστηκε|δεν ανιχνεύτηκε|απενεργοποιήθηκ(ε|αν))",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_heat_states": {
+      "values": [
+        {
+          "in": "(ζεστ|θερμ)(ός|ή|ό|οί|ές|ά)",
+          "out": "on"
+        },
+        {
+          "in": "κανονικ(ός|ή|ό|οί|ές|ά)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_light_states": {
+      "values": [
+        {
+          "in": "(ανιχνεύτηκε φως|ενεργοποιήθηκ(ε|αν))",
+          "out": "on"
+        },
+        {
+          "in": "(δεν ανιχνεύτηκε φως|ανενεργοποιήθηκ(ε|αν))",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_lock_states": {
+      "values": [
+        {
+          "in": "ξεκλείδωτ(ος|η|ο|οι|ες|α)",
+          "out": "on"
+        },
+        {
+          "in": "κλειδωμέν(ος|η|ο|οι|ες|α)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_moisture_states": {
+      "values": [
+        {
+          "in": "(υγρ(ός|η|ο|οί|ες|α)|ενεργοποιημέν(ος|οι))",
+          "out": "on"
+        },
+        {
+          "in": "(ξηρ(ός|η|ο|οι|ες|α)|απενεργοποιημέν(ος|οι))",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_motion_states": {
+      "values": [
+        {
+          "in": "(εντοπίστηκε|ανιχνεύτηκε|ενεργοποιημέν(ος|οι))",
+          "out": "on"
+        },
+        {
+          "in": "(δεν εντοπίστηκε|δεν ανιχνεύτηκε|απενεργοποιημέν(ος|οι))",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_occupancy_states": {
+      "values": [
+        {
+          "in": "(εντοπίστηκε|ανιχνεύτηκε|ενεργοποιημέν(ος|οι))",
+          "out": "on"
+        },
+        {
+          "in": "(δεν εντοπίστηκε|δεν ανιχνεύτηκε|απενεργοποιημέν(ος|οι))",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_opening_states": {
+      "values": [
+        {
+          "in": "ανοικτ(ός|ή|ό|οί|ές|ά)",
+          "out": "on"
+        },
+        {
+          "in": "κλειστ(ός|ή|ό|οί|ές|ά)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_plug_states": {
+      "values": [
+        {
+          "in": "(συνδεδεμέν(ος|η|ο|οι|ες|α) | στην πρίζα)",
+          "out": "on"
+        },
+        {
+          "in": "(αποσυνδεδεμέν(ος|η|ο|οι|ες|α) | εκτός πρίζας)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_power_states": {
+      "values": [
+        {
+          "in": "(ενεργ(ός|ή|ό|οί|ές|ά) | ενεργοποιημέν(ος|η|ο|οι|ες|α))",
+          "out": "on"
+        },
+        {
+          "in": "(ανενεργ(ός|ή|ό|οί|ές|ά) | απενεργοποιημέν(ος|η|ο|οι|ες|α))",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_presence_states": {
+      "values": [
+        {
+          "in": "(παρών|[στο] σπίτι)",
+          "out": "on"
+        },
+        {
+          "in": "(απών|εκτός σπιτιού)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_problem_states": {
+      "values": [
+        {
+          "in": "πρόβλημα",
+          "out": "on"
+        },
+        {
+          "in": "εντάξει",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_running_states": {
+      "values": [
+        {
+          "in": "(εκτελ(είται|ούνται) | λειτουργ(εί|ούν) | δουλεύ(ει|ουν))",
+          "out": "on"
+        },
+        {
+          "in": "δεν (εκτελ(είται|ούνται) | λειτουργ(εί|ούν) | δουλεύ(ει|ουν))",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_safety_states": {
+      "values": [
+        {
+          "in": "μη ασφαλ(ής|η|ες|είες|ές|ή)",
+          "out": "on"
+        },
+        {
+          "in": "ασφαλ(ής|η|ες|είες|ές|ή)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_smoke_states": {
+      "values": [
+        {
+          "in": "(εντοπίστηκε|ανιχνεύτηκε|ενεργοποιήθηκ(ε|αν))",
+          "out": "on"
+        },
+        {
+          "in": "(δεν εντοπίστηκε|δεν ανιχνεύτηκε|απενεργοποιήθηκ(ε|αν))",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_sound_states": {
+      "values": [
+        {
+          "in": "(εντοπίστηκε|ανιχνεύτηκε|ενεργοποιήθηκ(ε|αν))",
+          "out": "on"
+        },
+        {
+          "in": "(δεν εντοπίστηκε|δεν ανιχνεύτηκε|απενεργοποιήθηκ(ε|αν))",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_tamper_states": {
+      "values": [
+        {
+          "in": "(εντοπίστηκε|ανιχνεύτηκε|ενεργοποιήθηκ(ε|αν))",
+          "out": "on"
+        },
+        {
+          "in": "(δεν εντοπίστηκε|δεν ανιχνεύτηκε|απενεργοποιήθηκ(ε|αν))",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_update_states": {
+      "values": [
+        {
+          "in": "διαθέσιμη ενημέρωση",
+          "out": "on"
+        },
+        {
+          "in": "ενημερωμέν(ος|η|ο|οι|ες|α|)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_vibration_states": {
+      "values": [
+        {
+          "in": "(δονείται|εντοπίστηκε|ανιχνεύτηκε|ενεργοποιήθηκ(ε|αν))",
+          "out": "on"
+        },
+        {
+          "in": "(δεν δονείται|δεν εντοπίστηκε|δεν ανιχνεύτηκε|απενεργοποιήθηκ(ε|αν))",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_window_states": {
+      "values": [
+        {
+          "in": "ανοικτ(ό|ά)",
+          "out": "on"
+        },
+        {
+          "in": "κλειστ(ό|ά)",
+          "out": "closed"
+        }
+      ]
+    },
+    "shopping_list_item": {
+      "wildcard": true
+    },
+    "zone": {
+      "wildcard": true
+    }
+  },
+  "expansion_rules": {
+    "name": "[(ο | οι | τον | η | την | το | τα | τις | τους | στον | στη | στην | στο | στους | στις | στα)] {name}",
+    "area": "[(ο | οι | τον | η | την | το | τα | τις | τους | στον | στη | στην | στο | στους | στις | στα)] {area}",
+    "articles": "(ο | οι | τον | η | την | τη | το | τα | τις | τους | του | της | στον | στη | στην | στο | στους | στις | στα)",
+    "all": "(όλους | όλες | όλα)",
+    "set": "(όρισε | ρύθμισε | άλλαξε)",
+    "turn_on": "(άνοιξε | άρχισε | ξεκίνα | ενεργοποίησε | άναψε | σήκωσε | άνοιξε | ενεργοποίησε | άρχισε | ξεκίνα | ανοίξει[ς] | ενεργοποιήσεις | ενεργοποιηθεί | αρχίσει[ς] | ξεκινήσει[ς])",
+    "turn_off": "(κλείσε | απενεργοποίησε | σταμάτα | σταμάτησε | σβήσε | κατέβασε | κλείσει[ς] | σταματήσει[ς] | απενεργοποιήσεις | απενεργοποιηθεί)",
+    "garage_doors": "(γκαραζόπορτα | γκαραζόπορτες)",
+    "covers": "(περσίδα | περσίδες | παντζούρι | παντζούρια | ρολό | ρολά | κάλυμμα | καλύμματα)",
+    "doors": "(πόρτα | πόρτες)",
+    "fans": "(ανεμιστήρ(α[ς]|ες) | εξαερισμ(ό[ς]|οί|ούς))",
+    "lights": "(φως | φώτα | λάμπ(α[ς]|ες) | φωτιστικ(ό|ά))",
+    "brightness": "{brightness}[%| τοις εκατό]",
+    "temperature": "{temperature} [βαθμ(οί|ούς)] [{temperature_unit}]",
+    "exist": "(υπάρχει | υπάρχουν | είναι) [κάποι(ος|α|ο|οι|ες|α)]",
+    "numeric_value_set": "(όρισε|άλλαξε|αύξησε|μείωσε)",
+    "what_is": "(ποια είναι | ποιο είναι | τι | πώς)",
+    "where_is": "(πού είναι | πού βρίσκεται)",
+    "what_is_the_class_of_name": "(<what_is> η <class> (του|στο|από) <name> [στην τοποθεσία <area>]|<what_is> <name> <class> [στην περιοχή <area>]|<what_is> <area> <name> <class>)"
+  },
+  "skip_words": [
+    "παρακαλώ",
+    "σε παρακαλώ",
+    "μπορείς",
+    "θα μπορούσες"
+  ]
+}

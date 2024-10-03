@@ -1,0 +1,199 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Il dispositivo \u00e8 gi\u00e0 configurato",
+            "discovery_started": "Rilevamento iniziato"
+        },
+        "error": {
+            "cannot_connect": "Impossibile connettersi",
+            "invalid_auth": "Autenticazione non valida",
+            "protect_version": "La versione minima richiesta \u00e8 v1.20.0. Aggiorna UniFi Protect e riprova."
+        },
+        "flow_title": "{name} ({ip_address})",
+        "step": {
+            "discovery_confirm": {
+                "data": {
+                    "password": "Password",
+                    "username": "Nome utente"
+                },
+                "description": "Vuoi impostare {name} ({ip_address})? Avrai bisogno di un utente locale creato nella tua console UniFi OS con cui accedere. Gli utenti Ubiquiti Cloud non funzioneranno. Per ulteriori informazioni: {local_user_documentation_url}",
+                "title": "Rilevato UniFi Protect"
+            },
+            "reauth_confirm": {
+                "data": {
+                    "host": "IP/host del server di UniFi Protect",
+                    "password": "Password",
+                    "port": "Porta",
+                    "username": "Nome utente"
+                },
+                "title": "Riautenticazione UniFi Protect"
+            },
+            "user": {
+                "data": {
+                    "host": "Host",
+                    "password": "Password",
+                    "port": "Porta",
+                    "username": "Nome utente",
+                    "verify_ssl": "Verifica il certificato SSL"
+                },
+                "description": "\u00c8 necessario un utente locale creato nella console UniFi OS per accedere. Gli utenti di Ubiquiti Cloud non funzioneranno. Per maggiori informazioni: {local_user_documentation_url}",
+                "title": "Configurazione UniFi Protect"
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "license_plate": {
+                "state": {
+                    "none": "Libero"
+                }
+            }
+        }
+    },
+    "issues": {
+        "deprecate_hdr_switch": {
+            "description": "UniFi Protect v3 ha aggiunto un nuovo stato per HDR (auto). Di conseguenza, l'interruttore della modalit\u00e0 HDR \u00e8 stato sostituito con una selezione della modalit\u00e0 HDR ed \u00e8 obsoleto.\n\nDi seguito sono riportate le automazioni o gli script rilevati che utilizzano una o pi\u00f9 delle entit\u00e0 deprecate:\n{items}\nL'elenco di cui sopra potrebbe essere incompleto e non include alcun utilizzo del modello all'interno delle plance. Si prega di aggiornare di conseguenza tutti i modelli, le automazioni o gli script.",
+            "title": "Interruttore modalit\u00e0 HDR obsoleto"
+        },
+        "deprecate_package_sensor": {
+            "description": "Il sensore di eventi del pacchetto non \u00e8 mai scattato a causa del modo in cui gli eventi vengono segnalati in UniFi Protect. Di conseguenza, il sensore \u00e8 obsoleto e verr\u00e0 rimosso.\n\nDi seguito sono riportate le automazioni o gli script rilevati che utilizzano una o pi\u00f9 delle entit\u00e0 deprecate:\n{items}\nL'elenco di cui sopra potrebbe essere incompleto e non include alcun utilizzo del modello all'interno dedelle plance. Si prega di aggiornare di conseguenza tutti i modelli, le automazioni o gli script.",
+            "title": "Sensore di Evento del Pacchetto Deprecato"
+        },
+        "deprecate_smart_sensor": {
+            "description": "Il sensore unificato \"Oggetto rilevato\" per i rilevamenti intelligenti \u00e8 ora deprecato. \u00c8 stato sostituito con singoli sensori binari di rilevamento intelligente per ogni tipo di rilevamento intelligente. \n\nDi seguito sono riportate le automazioni o gli script rilevati che utilizzano una o pi\u00f9 delle entit\u00e0 deprecate:\n{items}\nL'elenco precedente potrebbe essere incompleto e non include alcun utilizzo di modelli all'interno delle plance. Si prega di aggiornare eventuali modelli, automazioni o script di conseguenza.",
+            "title": "Sensore di rilevamento intelligente deprecato"
+        },
+        "deprecated_service_set_doorbell_message": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Il servizio `unifiprotect.set_doorbell_message` \u00e8 deprecato a favore della nuova entit\u00e0 Doorbell Text aggiunta a ciascun dispositivo Doorbell. Verr\u00e0 rimosso nella v2023.3.0. Aggiorna per utilizzare il [servizio `text.set_value`]({link}).",
+                        "title": "set_doorbell_message \u00e8 deprecato"
+                    }
+                }
+            },
+            "title": "set_doorbell_message \u00e8 deprecato"
+        },
+        "ea_setup_failed": {
+            "title": "Errore di configurazione durante l'utilizzo della versione ad accesso anticipato"
+        },
+        "ea_warning": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Sei sicuro di voler eseguire versioni non supportate di UniFi Protect? Ci\u00f2 potrebbe causare l'interruzione dell'integrazione di Home Assistant.",
+                        "title": "v{version} \u00e8 una versione in accesso anticipato"
+                    },
+                    "start": {
+                        "description": "Stai utilizzando la v{version} di UniFi Protect che \u00e8 una versione ad accesso anticipato. [Le versioni ad accesso anticipato non sono supportate da Home Assistant](https://www.home-assistant.io/integrations/unifiprotect#about-unifi-early-access) e si consiglia di tornare a una versione stabile non appena possibile. \n\nInviando questo modulo hai [retrocesso UniFi Protect](https://www.home-assistant.io/integrations/unifiprotect#downgrading-unifi-protect) oppure accetti di eseguire una versione non supportata di UniFi Protect.",
+                        "title": "v{version} \u00e8 una versione in accesso anticipato"
+                    }
+                }
+            },
+            "title": "UniFi Protect v{version} \u00e8 una versione in accesso anticipato"
+        },
+        "rtsp_disabled_readonly": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Sei sicuro di voler lasciare RTSPS disabilitato per {camera}?",
+                        "title": "RTSPS \u00e8 disabilitato sulla telecamera {camera}"
+                    },
+                    "start": {
+                        "description": "RTSPS \u00e8 disabilitato sulla telecamera {camera}. RTSPS \u00e8 necessario per poter trasmettere in diretta la tua telecamera all'interno di Home Assistant. Se non abiliti RTSPS, potrebbe creare un carico aggiuntivo sul tuo UniFi Protect NVR, poich\u00e9 qualsiasi lettore di video in diretta predefinir\u00e0 l'acquisizione rapida di istantanee dalla telecamera.\n\nPer favore [abilita RTSPS]({learn_more}) sulla telecamera e poi torna indietro e conferma questa riparazione.",
+                        "title": "RTSPS \u00e8 disabilitato sulla telecamera {camera}"
+                    }
+                }
+            },
+            "title": "RTSPS \u00e8 disabilitato sulla telecamera {camera}"
+        },
+        "rtsp_disabled_writable": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Sei sicuro di voler lasciare RTSPS disabilitato per {camera}?",
+                        "title": "RTSPS \u00e8 disabilitato sulla telecamera {camera}"
+                    },
+                    "start": {
+                        "description": "RTSPS \u00e8 disabilitato sulla telecamera {camera}. RTSPS \u00e8 necessario per trasmettere in diretta la tua telecamera all'interno di Home Assistant. Se non abiliti RTSPS, potrebbe creare un carico aggiuntivo sul tuo UniFi Protect NVR poich\u00e9 qualsiasi lettore video in diretta predefinir\u00e0 l'acquisizione rapida di snapshot dalla telecamera.\n\nPuoi [abilitare manualmente RTSPS]({learn_more}) sul canale di qualit\u00e0 della telecamera selezionata o Home Assistant pu\u00f2 abilitare automaticamente il canale di qualit\u00e0 pi\u00f9 alta per te. Conferma questa riparazione una volta che hai abilitato il canale RTSPS o se vuoi che Home Assistant abiliti automaticamente la qualit\u00e0 pi\u00f9 alta.",
+                        "title": "RTSPS \u00e8 disabilitato sulla telecamera {camera}"
+                    }
+                }
+            },
+            "title": "RTSPS \u00e8 disabilitato sulla telecamera {camera}"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "all_updates": "Metriche in tempo reale (ATTENZIONE: aumenta notevolmente l'utilizzo della CPU)",
+                    "allow_ea": "Consenti versioni ad accesso anticipato di Protect (ATTENZIONE: l'integrazione verr\u00e0 contrassegnata come non supportata)",
+                    "disable_rtsp": "Disabilita il flusso RTSP",
+                    "max_media": "Numero massimo di eventi da caricare per Media Browser (aumenta l'utilizzo della RAM)",
+                    "override_connection_host": "Sostituisci host di connessione"
+                },
+                "description": "L'opzione delle metriche in tempo reale dovrebbe essere abilitata solo se hai abilitato i sensori di diagnostica e desideri che vengano aggiornati in tempo reale. Se non sono abilitati, si aggiorneranno solo una volta ogni 15 minuti.",
+                "title": "Opzioni di protezione UniFi"
+            }
+        }
+    },
+    "services": {
+        "add_doorbell_text": {
+            "description": "Aggiungi un nuovo messaggio personalizzato per i campanelli.",
+            "fields": {
+                "device_id": {
+                    "description": "Qualsiasi dispositivo dell'istanza UniFi Protect che desideri modificare. Nel caso in cui tu abbia pi\u00f9 istanze di Protect.",
+                    "name": "UniFi Protect NVR"
+                },
+                "message": {
+                    "description": "Nuovo messaggio personalizzato da aggiungere per i campanelli. Deve contenere meno di 30 caratteri.",
+                    "name": "Messaggio personalizzato"
+                }
+            },
+            "name": "Aggiungi un testo personalizzato per il campanello"
+        },
+        "remove_doorbell_text": {
+            "description": "Rimuovi un messaggio esistente per i campanelli.",
+            "fields": {
+                "device_id": {
+                    "description": "Qualsiasi dispositivo dell'istanza UniFi Protect che desideri modificare. Nel caso in cui tu abbia pi\u00f9 istanze di Protect.",
+                    "name": "UniFi Protect NVR"
+                },
+                "message": {
+                    "description": "Messaggio personalizzato esistente da rimuovere per i campanelli.",
+                    "name": "Messaggio personalizzato"
+                }
+            },
+            "name": "Rimuovi il testo del campanello personalizzato"
+        },
+        "set_chime_paired_doorbells": {
+            "description": "Utilizza per impostare i campanelli accoppiati con una suoneria intelligente.",
+            "fields": {
+                "device_id": {
+                    "description": "Le suonerie da collegare ai campanelli.",
+                    "name": "Suoneria"
+                },
+                "doorbells": {
+                    "description": "I campanelli da collegare alla suoneria.",
+                    "name": "Campanelli"
+                }
+            },
+            "name": "Imposta la suoneria associata ai campanelli"
+        },
+        "set_default_doorbell_text": {
+            "description": "Imposta il messaggio predefinito del campanello. Questo sar\u00e0 il messaggio che viene selezionato automaticamente quando un messaggio \"scade\".",
+            "fields": {
+                "device_id": {
+                    "description": "Qualsiasi dispositivo dell'istanza UniFi Protect che desideri modificare. Nel caso in cui tu abbia pi\u00f9 istanze di Protect.",
+                    "name": "UniFi Protect NVR"
+                },
+                "message": {
+                    "description": "Il messaggio predefinito per il tuo campanello. Deve contenere meno di 30 caratteri.",
+                    "name": "Messaggio predefinito"
+                }
+            },
+            "name": "Imposta il testo del campanello predefinito"
+        }
+    }
+}

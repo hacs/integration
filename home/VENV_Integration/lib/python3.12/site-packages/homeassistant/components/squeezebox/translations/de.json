@@ -1,0 +1,115 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Ger\u00e4t ist bereits konfiguriert",
+            "no_server_found": "Kein LMS Server gefunden."
+        },
+        "error": {
+            "cannot_connect": "Verbindung fehlgeschlagen",
+            "invalid_auth": "Ung\u00fcltige Authentifizierung",
+            "no_server_found": "Konnte den Server nicht automatisch entdecken.",
+            "unknown": "Unerwarteter Fehler"
+        },
+        "flow_title": "{host}",
+        "step": {
+            "edit": {
+                "data": {
+                    "host": "Host",
+                    "https": "Verbindung \u00fcber HTTPS herstellen (Reverse-Proxy erforderlich)",
+                    "password": "Passwort",
+                    "port": "Port",
+                    "username": "Benutzername"
+                },
+                "title": "Verbindungsinformationen bearbeiten"
+            },
+            "user": {
+                "data": {
+                    "host": "Host"
+                },
+                "data_description": {
+                    "host": "Der Hostname oder die IP-Adresse deines Lyrion Music Servers."
+                }
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "needsrestart": {
+                "name": "Ben\u00f6tigt Neustart"
+            },
+            "rescan": {
+                "name": "Bibliothek neu scannen"
+            }
+        },
+        "sensor": {
+            "info_total_albums": {
+                "name": "Alben gesamt"
+            },
+            "info_total_artists": {
+                "name": "K\u00fcnstler insgesamt"
+            },
+            "info_total_duration": {
+                "name": "Gesamtdauer"
+            },
+            "info_total_genres": {
+                "name": "Genres gesamt"
+            },
+            "info_total_songs": {
+                "name": "Gesamtzahl der Songs"
+            },
+            "lastscan": {
+                "name": "Letzter Scan"
+            },
+            "other_player_count": {
+                "name": "Spielerz\u00e4hldienst"
+            },
+            "player_count": {
+                "name": "Spieleranzahl"
+            }
+        }
+    },
+    "services": {
+        "call_method": {
+            "description": "Ruft eine benutzerdefinierte Squeezebox-JSONRPC-API auf.",
+            "fields": {
+                "command": {
+                    "description": "Befehl zur Weitergabe an den Lyrion Music Server (p0 in der CLI-Dokumentation).",
+                    "name": "Befehl"
+                },
+                "parameters": {
+                    "description": "Array zus\u00e4tzlicher Parameter, die an den Lyrion Music Server \u00fcbergeben werden sollen (p1, ..., pN in der CLI-Dokumentation).",
+                    "name": "Parameter"
+                }
+            },
+            "name": "Aufrufmethode"
+        },
+        "call_query": {
+            "description": "Ruft eine benutzerdefinierte Squeezebox-JSONRPC-API auf. Das Ergebnis wird im Attribut \u201equery_result\u201c der Squeezebox-Entit\u00e4t gespeichert.",
+            "fields": {
+                "command": {
+                    "description": "Befehl zur Weitergabe an den Lyrion Music Server (p0 in der CLI-Dokumentation).",
+                    "name": "Befehl"
+                },
+                "parameters": {
+                    "description": "Array zus\u00e4tzlicher Parameter, die an den Lyrion Music Server \u00fcbergeben werden sollen (p1, ..., pN in der CLI-Dokumentation).",
+                    "name": "Parameter"
+                }
+            },
+            "name": "Anrufabfrage"
+        },
+        "sync": {
+            "description": "F\u00fcgt der Synchronisierungsgruppe dieses Players einen weiteren Player hinzu. Wenn der andere Player bereits in einer Synchronisierungsgruppe ist, verl\u00e4sst er diese.",
+            "fields": {
+                "other_player": {
+                    "description": "Name des anderen zu verkn\u00fcpfenden Squeezebox-Players.",
+                    "name": "Anderer Player"
+                }
+            },
+            "name": "Synchronisieren"
+        },
+        "unsync": {
+            "description": "Entfernt diesen Player aus seiner Synchronisierungsgruppe.",
+            "name": "Synchronisierung aufheben"
+        }
+    }
+}

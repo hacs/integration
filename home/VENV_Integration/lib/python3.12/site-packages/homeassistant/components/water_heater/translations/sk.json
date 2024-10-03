@@ -1,0 +1,107 @@
+{
+    "device_automation": {
+        "action_type": {
+            "turn_off": "Vypn\u00fa\u0165 {entity_name}",
+            "turn_on": "Zapn\u00fa\u0165 {entity_name}"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Ohrieva\u010d vody",
+            "state": {
+                "eco": "Eco",
+                "electric": "Elektrick\u00e9",
+                "gas": "Plyn",
+                "heat_pump": "Tepeln\u00e9 \u010derpadlo",
+                "high_demand": "Vysok\u00fd dopyt",
+                "off": "Neakt\u00edvny",
+                "performance": "V\u00fdkon"
+            },
+            "state_attributes": {
+                "away_mode": {
+                    "name": "Re\u017eim nepr\u00edtomnosti",
+                    "state": {
+                        "off": "Neakt\u00edvny",
+                        "on": "Akt\u00edvny"
+                    }
+                },
+                "current_operation": {
+                    "name": "Aktu\u00e1lna prev\u00e1dzka"
+                },
+                "current_temperature": {
+                    "name": "Aktu\u00e1lna teplota"
+                },
+                "max_temp": {
+                    "name": "Maxim\u00e1lna cie\u013eov\u00e1 teplota"
+                },
+                "min_temp": {
+                    "name": "Minim\u00e1lna cie\u013eov\u00e1 teplota"
+                },
+                "target_temp_high": {
+                    "name": "Horn\u00e1 cie\u013eov\u00e1 teplota"
+                },
+                "target_temp_low": {
+                    "name": "Doln\u00e1 cie\u013eov\u00e1 teplota"
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "not_valid_operation_mode": {
+            "message": "Prev\u00e1dzkov\u00fd re\u017eim {operation_mode} neplat\u00ed pre {entity_id}. Platn\u00e9 prev\u00e1dzkov\u00e9 re\u017eimy s\u00fa: {operation_list}."
+        },
+        "operation_list_not_defined": {
+            "message": "Prev\u00e1dzkov\u00fd re\u017eim {operation_mode} neplat\u00ed pre {entity_id}. Zoznam oper\u00e1ci\u00ed nie je definovan\u00fd."
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "Platforma {platform} pre integr\u00e1ciu {domain} nepodporuje nastavenie platformy. \n\n Odstr\u00e1\u0148te ho z konfigur\u00e1cie a re\u0161tartujte Home Assistant, aby ste tento probl\u00e9m vyrie\u0161ili.",
+            "title": "Podpora platformy nie je podporovan\u00e1"
+        }
+    },
+    "services": {
+        "set_away_mode": {
+            "description": "Zapnutie/vypnutie re\u017eimu nepr\u00edtomnosti.",
+            "fields": {
+                "away_mode": {
+                    "description": "Nov\u00e1 hodnota re\u017eimu nepr\u00edtomnosti.",
+                    "name": "Re\u017eim nepr\u00edtomnosti"
+                }
+            },
+            "name": "Nastavenie re\u017eimu nepr\u00edtomnosti"
+        },
+        "set_operation_mode": {
+            "description": "Nastav\u00ed prev\u00e1dzkov\u00fd re\u017eim.",
+            "fields": {
+                "operation_mode": {
+                    "description": "Nov\u00e1 hodnota prev\u00e1dzkov\u00e9ho re\u017eimu. Zoznam mo\u017en\u00fdch re\u017eimov n\u00e1jdete v integra\u010dnej dokument\u00e1cii.",
+                    "name": "Prev\u00e1dzkov\u00fd re\u017eim"
+                }
+            },
+            "name": "Nastavenie re\u017eimu prev\u00e1dzky"
+        },
+        "set_temperature": {
+            "description": "Nastav\u00ed cie\u013eov\u00fa teplotu.",
+            "fields": {
+                "operation_mode": {
+                    "description": "Nov\u00e1 hodnota prev\u00e1dzkov\u00e9ho re\u017eimu. Zoznam mo\u017en\u00fdch re\u017eimov n\u00e1jdete v integra\u010dnej dokument\u00e1cii.",
+                    "name": "Prev\u00e1dzkov\u00fd re\u017eim"
+                },
+                "temperature": {
+                    "description": "Nov\u00e1 cie\u013eov\u00e1 teplota pre ohrieva\u010d vody.",
+                    "name": "Teplota"
+                }
+            },
+            "name": "Nastavenie teploty"
+        },
+        "turn_off": {
+            "description": "Vypne ohrieva\u010d vody.",
+            "name": "Vypn\u00fa\u0165"
+        },
+        "turn_on": {
+            "description": "Zapne ohrieva\u010d vody.",
+            "name": "Zapn\u00fa\u0165"
+        }
+    }
+}

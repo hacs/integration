@@ -1,0 +1,51 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "Sirena",
+            "state": {
+                "off": "Spento/a",
+                "on": "Acceso/a"
+            },
+            "state_attributes": {
+                "available_tones": {
+                    "name": "Toni disponibili"
+                }
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "La piattaforma {platform} per l'integrazione {domain} non supporta l'impostazione della piattaforma. \n\nRimuovilo dalla configurazione e riavvia Home Assistant per risolvere questo problema.",
+            "title": "Supporto della piattaforma non supportato"
+        }
+    },
+    "services": {
+        "toggle": {
+            "description": "Attiva/disattiva la sirena.",
+            "name": "Commuta"
+        },
+        "turn_off": {
+            "description": "Disattiva la sirena.",
+            "name": "Spegni"
+        },
+        "turn_on": {
+            "description": "Attiva la sirena.",
+            "fields": {
+                "duration": {
+                    "description": "Numero di secondi in cui viene riprodotto il suono. Deve essere supportato dall'integrazione.",
+                    "name": "Durata"
+                },
+                "tone": {
+                    "description": "Il tono da emettere. Quando la propriet\u00e0 `available_tones` \u00e8 una mappa, \u00e8 possibile utilizzare la chiave o il valore. Deve essere supportato dall'integrazione.",
+                    "name": "Tono"
+                },
+                "volume_level": {
+                    "description": "Il volume. 0 non \u00e8 udibile, 1 \u00e8 il volume massimo. Deve essere supportato dall'integrazione.",
+                    "name": "Volume"
+                }
+            },
+            "name": "Accendi"
+        }
+    },
+    "title": "Sirena"
+}

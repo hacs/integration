@@ -1,0 +1,80 @@
+{
+    "config": {
+        "abort": {
+            "single_instance_allowed": "Bereits konfiguriert. Nur eine einzige Konfiguration m\u00f6glich."
+        },
+        "error": {
+            "invalid_ip_address": "Ung\u00fcltige IPv4-Adresse."
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "ip_address": "IP-Adresse"
+                },
+                "description": "Empfange Voice-over-IP-Anrufe, um mit Assist zu interagieren."
+            }
+        }
+    },
+    "entity": {
+        "assist_satellite": {
+            "assist_satellite": {
+                "state": {
+                    "listening_command": "Sprachbefehl",
+                    "listening_wake_word": "Aktivierungswort",
+                    "processing": "Verarbeitung",
+                    "responding": "Antwortend"
+                }
+            }
+        },
+        "binary_sensor": {
+            "call_active": {
+                "name": "Anruf aktiv"
+            },
+            "call_in_progress": {
+                "name": "Laufender Anruf"
+            }
+        },
+        "select": {
+            "pipeline": {
+                "name": "Assistent",
+                "state": {
+                    "preferred": "Bevorzugt"
+                }
+            },
+            "vad_sensitivity": {
+                "name": "Zu Ende gesprochen Erkennung",
+                "state": {
+                    "aggressive": "Aggressiv",
+                    "default": "Standard",
+                    "relaxed": "Entspannt"
+                }
+            }
+        },
+        "switch": {
+            "allow_call": {
+                "name": "Anrufe zulassen"
+            }
+        }
+    },
+    "issues": {
+        "assist_in_progress_deprecated": {
+            "fix_flow": {
+                "step": {
+                    "confirm_disable_entity": {
+                        "description": "Der {integration_name} im Gange bin\u00e4re Sensor `{entity_id}` ist veraltet.\n\nMigriere deine Konfiguration, um die entsprechende `{assist_satellite_domain}` Entit\u00e4t zu nutzen und klicke dann auf SENDEN, um den im Gange bin\u00e4ren Sensor zu deaktivieren und dieses Problem zu beheben."
+                    }
+                }
+            },
+            "title": "{integration_name} im Gange bin\u00e4re Sensoren  sind veraltet"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "sip_port": "SIP-Port"
+                }
+            }
+        }
+    }
+}

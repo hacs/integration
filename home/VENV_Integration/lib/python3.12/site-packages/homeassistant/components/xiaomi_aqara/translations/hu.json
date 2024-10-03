@@ -1,0 +1,95 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Az eszk\u00f6z m\u00e1r konfigur\u00e1lva van",
+            "already_in_progress": "A konfigur\u00e1l\u00e1s m\u00e1r folyamatban van",
+            "not_xiaomi_aqara": "Nem Xiaomi Aqara \u00e1tj\u00e1r\u00f3, a felder\u00edtett eszk\u00f6z nem egyezik az ismert \u00e1tj\u00e1r\u00f3kkal"
+        },
+        "error": {
+            "discovery_error": "Nem siker\u00fclt felfedezni a Xiaomi Aqara \u00e1tj\u00e1r\u00f3t, pr\u00f3b\u00e1lja meg interf\u00e9szk\u00e9nt haszn\u00e1lni a HomeAssistant-et futtat\u00f3 eszk\u00f6z IP-j\u00e9t",
+            "invalid_host": "\u00c9rv\u00e9nytelen g\u00e9pn\u00e9v vagy IP-c\u00edm, b\u0151vebben: https://www.home-assistant.io/integrations/xiaomi_aqara/#connection-problem",
+            "invalid_interface": "\u00c9rv\u00e9nytelen h\u00e1l\u00f3zati interf\u00e9sz",
+            "invalid_key": "\u00c9rv\u00e9nytelen \u00e1tj\u00e1r\u00f3kulcs",
+            "invalid_mac": "\u00c9rv\u00e9nytelen Mac-c\u00edm"
+        },
+        "flow_title": "{name}",
+        "step": {
+            "select": {
+                "data": {
+                    "select_ip": "IP-c\u00edm"
+                },
+                "description": "V\u00e1lassza ki a csatlakoztatni k\u00edv\u00e1nt Xiaomi Aqara \u00e1tj\u00e1r\u00f3t"
+            },
+            "settings": {
+                "data": {
+                    "key": "Az \u00e1tj\u00e1r\u00f3 kulcsa",
+                    "name": "Az \u00e1tj\u00e1r\u00f3 neve"
+                },
+                "description": "Ezt az \u00fatmutat\u00f3t k\u00f6vetve tudja let\u00f6lteni a kulcsot (jelsz\u00f3t): https://www.domoticz.com/wiki/Xiaomi_Gateway_(Aqara)#Adding_the_Xiaomi_Gateway_to_Domoticz. Amennyiben a kulcs nincs megadva, csak az \u00e9rz\u00e9kel\u0151k lesznek el\u00e9rhet\u0151k",
+                "title": "Opcion\u00e1lis be\u00e1ll\u00edt\u00e1sok"
+            },
+            "user": {
+                "data": {
+                    "host": "IP-c\u00edm (opcion\u00e1lis)",
+                    "interface": "A haszn\u00e1lni k\u00edv\u00e1nt h\u00e1l\u00f3zati interf\u00e9sz",
+                    "mac": "Mac-c\u00edm (opcion\u00e1lis)"
+                },
+                "description": "Ha az IP- \u00e9s MAC-c\u00edm mez\u0151ket \u00fcresen hagyja, akkor az automatikus felder\u00edt\u00e9s ker\u00fcl alkalmaz\u00e1sra."
+            }
+        }
+    },
+    "services": {
+        "add_device": {
+            "description": "Enged\u00e9lyezi a Xiaomi Aqara \u00e1tj\u00e1r\u00f3 csatlakoz\u00e1si enged\u00e9ly\u00e9t 30 m\u00e1sodpercig. \u00daj eszk\u00f6z k\u00e9s\u0151bb hozz\u00e1adhat\u00f3 a p\u00e1ros\u00edt\u00e1s gomb egyszeri megnyom\u00e1s\u00e1val.",
+            "fields": {
+                "gw_mac": {
+                    "description": "A Xiaomi Aqara \u00e1tj\u00e1r\u00f3 MAC-c\u00edme.",
+                    "name": "\u00c1tj\u00e1r\u00f3 MAC"
+                }
+            },
+            "name": "Eszk\u00f6z hozz\u00e1ad\u00e1sa"
+        },
+        "play_ringtone": {
+            "description": "Egy adott cseng\u0151hangot j\u00e1tszik le. A gateway firmware verzi\u00f3j\u00e1nak legal\u00e1bb 1.4.1_145-nek kell lennie.",
+            "fields": {
+                "gw_mac": {
+                    "description": "A Xiaomi Aqara \u00e1tj\u00e1r\u00f3 MAC-c\u00edme.",
+                    "name": "\u00c1tj\u00e1r\u00f3 MAC"
+                },
+                "ringtone_id": {
+                    "description": "Az enged\u00e9lyezett cseng\u0151hang azonos\u00edt\u00f3k egyike.",
+                    "name": "Cseng\u0151hang azonos\u00edt\u00f3"
+                },
+                "ringtone_vol": {
+                    "description": "A hanger\u0151 sz\u00e1zal\u00e9kban.",
+                    "name": "Cseng\u0151hang hangereje"
+                }
+            },
+            "name": "Cseng\u0151hang lej\u00e1tsz\u00e1sa"
+        },
+        "remove_device": {
+            "description": "Elt\u00e1vol\u00edt egy adott eszk\u00f6zt. Az elt\u00e1vol\u00edt\u00e1sra akkor van sz\u00fcks\u00e9g, ha egy eszk\u00f6zt egy m\u00e1sik \u00e1tj\u00e1r\u00f3val kell p\u00e1ros\u00edtani.",
+            "fields": {
+                "device_id": {
+                    "description": "Az elt\u00e1vol\u00edtand\u00f3 eszk\u00f6z hardverc\u00edme.",
+                    "name": "Eszk\u00f6z azonos\u00edt\u00f3"
+                },
+                "gw_mac": {
+                    "description": "A Xiaomi Aqara \u00e1tj\u00e1r\u00f3 MAC-c\u00edme.",
+                    "name": "\u00c1tj\u00e1r\u00f3 MAC"
+                }
+            },
+            "name": "Eszk\u00f6z elt\u00e1vol\u00edt\u00e1sa"
+        },
+        "stop_ringtone": {
+            "description": "Azonnal le\u00e1ll\u00edtja a lej\u00e1tszott cseng\u0151hangot.",
+            "fields": {
+                "gw_mac": {
+                    "description": "A Xiaomi Aqara \u00e1tj\u00e1r\u00f3 MAC-c\u00edme.",
+                    "name": "\u00c1tj\u00e1r\u00f3 MAC"
+                }
+            },
+            "name": "Cseng\u0151hang le\u00e1ll\u00edt\u00e1sa"
+        }
+    }
+}

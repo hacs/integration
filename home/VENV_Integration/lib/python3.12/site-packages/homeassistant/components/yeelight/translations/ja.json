@@ -1,0 +1,192 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "\u30c7\u30d0\u30a4\u30b9\u306f\u3059\u3067\u306b\u8a2d\u5b9a\u3055\u308c\u3066\u3044\u307e\u3059",
+            "no_devices_found": "\u30cd\u30c3\u30c8\u30ef\u30fc\u30af\u4e0a\u306b\u30c7\u30d0\u30a4\u30b9\u304c\u898b\u3064\u304b\u308a\u307e\u305b\u3093"
+        },
+        "error": {
+            "cannot_connect": "\u63a5\u7d9a\u306b\u5931\u6557\u3057\u307e\u3057\u305f"
+        },
+        "flow_title": "{model} {id} ({host})",
+        "step": {
+            "discovery_confirm": {
+                "description": "{model} ({host}) \u3092\u30bb\u30c3\u30c8\u30a2\u30c3\u30d7\u3057\u307e\u3059\u304b\uff1f"
+            },
+            "pick_device": {
+                "data": {
+                    "device": "\u30c7\u30d0\u30a4\u30b9"
+                }
+            },
+            "user": {
+                "data": {
+                    "host": "\u30db\u30b9\u30c8"
+                },
+                "data_description": {
+                    "host": "Yeelight Wi-Fi \u96fb\u7403\u306e\u30db\u30b9\u30c8\u540d\u307e\u305f\u306f IP \u30a2\u30c9\u30ec\u30b9\u3002"
+                },
+                "description": "\u30db\u30b9\u30c8\u3092\u7a7a\u767d\u306b\u3057\u3066\u304a\u304f\u3068\u3001\u30c7\u30a3\u30b9\u30ab\u30d0\u30ea\u30fc\u3092\u4f7f\u3063\u3066\u30c7\u30d0\u30a4\u30b9\u3092\u691c\u7d22\u3057\u307e\u3059\u3002"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "nightlight": {
+                "name": "\u30ca\u30a4\u30c8\u30e9\u30a4\u30c8"
+            }
+        },
+        "light": {
+            "ambilight": {
+                "name": "\u30a2\u30f3\u30d3\u30e9\u30a4\u30c8"
+            },
+            "nightlight": {
+                "name": "\u30ca\u30a4\u30c8\u30e9\u30a4\u30c8"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "model": "\u30e2\u30c7\u30eb",
+                    "nightlight_switch": "\u5e38\u591c\u706f\u30b9\u30a4\u30c3\u30c1\u3092\u4f7f\u7528\u3059\u308b",
+                    "save_on_change": "\u5909\u66f4\u6642\u306b\u30b9\u30c6\u30fc\u30bf\u30b9\u3092\u4fdd\u5b58",
+                    "transition": "\u9077\u79fb\u6642\u9593(Transition Time)(ms)",
+                    "use_music_mode": "\u97f3\u697d\u30e2\u30fc\u30c9\u3092\u6709\u52b9\u306b\u3059\u308b"
+                }
+            }
+        }
+    },
+    "selector": {
+        "action": {
+            "options": {
+                "off": "\u30aa\u30d5",
+                "recover": "\u56de\u5fa9\u3059\u308b",
+                "stay": "\u7559\u307e\u308b"
+            }
+        },
+        "mode": {
+            "options": {
+                "color_flow": "\u30ab\u30e9\u30fc\u30d5\u30ed\u30fc",
+                "hsv": "HSV",
+                "last": "\u6700\u5f8c",
+                "moonlight": "\u6708\u660e\u304b\u308a",
+                "normal": "\u30ce\u30fc\u30de\u30eb",
+                "rgb": "RGB"
+            }
+        }
+    },
+    "services": {
+        "set_auto_delay_off_scene": {
+            "description": "\u30e9\u30a4\u30c8\u3092\u6307\u5b9a\u3055\u308c\u305f\u660e\u308b\u3055\u3067\u70b9\u706f\u3055\u305b\u3001\u6307\u5b9a\u3055\u308c\u305f\u5206\u6570\u5f8c\u306b\u6d88\u706f\u3059\u308b\u30bf\u30a4\u30de\u30fc\u3092\u30bb\u30c3\u30c8\u3059\u308b\u3002\u30e9\u30a4\u30c8\u304c\u6d88\u706f\u3057\u3066\u3044\u308b\u5834\u5408\u306f\u3001\u30ab\u30e9\u30fc\u30b7\u30fc\u30f3\u3092\u8a2d\u5b9a\u3059\u308b\u3002",
+            "fields": {
+                "brightness": {
+                    "description": "\u8a2d\u5b9a\u3059\u308b\u660e\u308b\u3055\u306e\u5024\u3002",
+                    "name": "\u8f1d\u5ea6"
+                },
+                "minutes": {
+                    "description": "\u30e9\u30a4\u30c8\u304c\u81ea\u52d5\u7684\u306b\u6d88\u706f\u3059\u308b\u307e\u3067\u306e\u5f85\u3061\u6642\u9593\u3002",
+                    "name": "\u5206"
+                }
+            },
+            "name": "\u30b7\u30fc\u30f3\u306e\u81ea\u52d5\u9045\u5ef6\u3092\u8a2d\u5b9a"
+        },
+        "set_color_flow_scene": {
+            "description": "\u30ab\u30e9\u30fc\u30d5\u30ed\u30fc\u3092\u958b\u59cb\u3059\u308b\u3002\u6d88\u706f\u3057\u3066\u3044\u308b\u5834\u5408\u306f\u70b9\u706f\u3059\u308b\u3002",
+            "fields": {
+                "action": {
+                    "description": "\u30d5\u30ed\u30fc\u304c\u505c\u6b62\u3057\u305f\u5f8c\u306b\u5b9f\u884c\u3059\u308b\u30a2\u30af\u30b7\u30e7\u30f3\u3002",
+                    "name": "\u30a2\u30af\u30b7\u30e7\u30f3"
+                },
+                "count": {
+                    "description": "\u3053\u306e\u30d5\u30ed\u30fc\u3092\u5b9f\u884c\u3059\u308b\u56de\u6570\uff080\u306f\u6c38\u4e45\u306b\u5b9f\u884c\u3059\u308b\uff09\u3002",
+                    "name": "\u30ab\u30a6\u30f3\u30c8"
+                },
+                "transitions": {
+                    "description": "\u76ee\u7684\u306e\u52b9\u679c\u3092\u5f97\u308b\u305f\u3081\u306b\u30c8\u30e9\u30f3\u30b8\u30b7\u30e7\u30f3\u306e\u914d\u5217\u3002\u4f8b https://yeelight.readthedocs.io/en/stable/flow.html \u3002",
+                    "name": "\u30c8\u30e9\u30f3\u30b8\u30b7\u30e7\u30f3"
+                }
+            },
+            "name": "\u30ab\u30e9\u30fc\u30d5\u30ed\u30fc\u30b7\u30fc\u30f3\u306e\u8a2d\u5b9a"
+        },
+        "set_color_scene": {
+            "description": "\u30e9\u30a4\u30c8\u3092\u6307\u5b9a\u3055\u308c\u305fRGB\u306e\u8272\u3068\u660e\u308b\u3055\u306b\u5909\u66f4\u3057\u307e\u3059\u3002\u6d88\u706f\u3057\u3066\u3044\u308b\u5834\u5408\u306f\u70b9\u706f\u3057\u307e\u3059\u3002",
+            "fields": {
+                "brightness": {
+                    "description": "\u8a2d\u5b9a\u3059\u308b\u660e\u308b\u3055\u306e\u5024\u3002",
+                    "name": "\u8f1d\u5ea6"
+                },
+                "rgb_color": {
+                    "description": "RGB \u5f62\u5f0f\u306e\u30e9\u30a4\u30c8\u306e\u8272\u3002",
+                    "name": "RGB\u30ab\u30e9\u30fc"
+                }
+            },
+            "name": "\u30ab\u30e9\u30fc\u30b7\u30fc\u30f3\u306e\u8a2d\u5b9a"
+        },
+        "set_color_temp_scene": {
+            "description": "\u30e9\u30a4\u30c8\u3092\u6307\u5b9a\u3055\u308c\u305f\u8272\u6e29\u5ea6\u306b\u5909\u66f4\u3057\u307e\u3059\u3002\u6d88\u706f\u3057\u3066\u3044\u308b\u5834\u5408\u306f\u70b9\u706f\u3057\u307e\u3059\u3002",
+            "fields": {
+                "brightness": {
+                    "description": "\u8a2d\u5b9a\u3059\u308b\u660e\u308b\u3055\u306e\u5024\u3002",
+                    "name": "\u8f1d\u5ea6"
+                },
+                "kelvin": {
+                    "description": "\u30b1\u30eb\u30d3\u30f3\u5358\u4f4d\u3067\u306e\u5149\u306e\u8272\u6e29\u5ea6\u3002",
+                    "name": "\u30b1\u30eb\u30d3\u30f3"
+                }
+            },
+            "name": "\u30b7\u30fc\u30f3\u306e\u8272\u6e29\u5ea6\u3092\u8a2d\u5b9a"
+        },
+        "set_hsv_scene": {
+            "description": "\u30e9\u30a4\u30c8\u3092\u6307\u5b9a\u3055\u308c\u305fHSV\u30ab\u30e9\u30fc\u3068\u660e\u308b\u3055\u306b\u5909\u66f4\u3057\u307e\u3059\u3002\u30e9\u30a4\u30c8\u304c\u30aa\u30d5\u306e\u5834\u5408\u306f\u30aa\u30f3\u306b\u306a\u308a\u307e\u3059\u3002",
+            "fields": {
+                "brightness": {
+                    "description": "\u8a2d\u5b9a\u3059\u308b\u660e\u308b\u3055\u306e\u5024\u3002",
+                    "name": "\u8f1d\u5ea6"
+                },
+                "hs_color": {
+                    "description": "\u8272\u76f8/\u5f69\u5ea6\u30d5\u30a9\u30fc\u30de\u30c3\u30c8\u306b\u3088\u308b\u5149\u306e\u8272\u3002\u8272\u76f8\u306f0-359\u3001\u5f69\u5ea6\u306f0-100\u3067\u3059\u3002",
+                    "name": "\u8272\u76f8/\u5f69\u5ea6 \u8272"
+                }
+            },
+            "name": "HSV\u30b7\u30fc\u30f3\u306e\u8a2d\u5b9a"
+        },
+        "set_mode": {
+            "description": "\u52d5\u4f5c\u30e2\u30fc\u30c9\u3092\u8a2d\u5b9a\u3057\u307e\u3059\u3002",
+            "fields": {
+                "mode": {
+                    "description": "\u52d5\u4f5c\u30e2\u30fc\u30c9\u3002",
+                    "name": "\u30e2\u30fc\u30c9"
+                }
+            },
+            "name": "\u30e2\u30fc\u30c9\u3092\u8a2d\u5b9a"
+        },
+        "set_music_mode": {
+            "description": "music_mode \u3092\u6709\u52b9\u307e\u305f\u306f\u7121\u52b9\u306b\u3057\u307e\u3059\u3002",
+            "fields": {
+                "music_mode": {
+                    "description": "true \u307e\u305f\u306f false \u3092\u4f7f\u7528\u3057\u3066 music_mode \u3092\u6709\u52b9\u307e\u305f\u306f\u7121\u52b9\u306b\u3057\u307e\u3059\u3002",
+                    "name": "\u97f3\u697d\u30e2\u30fc\u30c9"
+                }
+            },
+            "name": "\u97f3\u697d\u30e2\u30fc\u30c9\u306e\u8a2d\u5b9a"
+        },
+        "start_flow": {
+            "description": "https://yeelight.readthedocs.io/en/stable/yeelight.html#flow-objects \u304b\u3089\u306e\u30c8\u30e9\u30f3\u30b8\u30b7\u30e7\u30f3\u3092\u4f7f\u7528\u3057\u3066\u3001\u30ab\u30b9\u30bf\u30e0 \u30d5\u30ed\u30fc\u3092\u958b\u59cb\u3057\u307e\u3059\u3002",
+            "fields": {
+                "action": {
+                    "description": "\u30d5\u30ed\u30fc\u304c\u505c\u6b62\u3057\u305f\u5f8c\u306b\u5b9f\u884c\u3059\u308b\u30a2\u30af\u30b7\u30e7\u30f3\u3002",
+                    "name": "\u30a2\u30af\u30b7\u30e7\u30f3"
+                },
+                "count": {
+                    "description": "\u3053\u306e\u30d5\u30ed\u30fc\u3092\u5b9f\u884c\u3059\u308b\u56de\u6570\uff080\u306f\u6c38\u4e45\u306b\u5b9f\u884c\u3059\u308b\uff09\u3002",
+                    "name": "\u30ab\u30a6\u30f3\u30c8"
+                },
+                "transitions": {
+                    "description": "\u76ee\u7684\u306e\u52b9\u679c\u3092\u5f97\u308b\u305f\u3081\u306b\u30c8\u30e9\u30f3\u30b8\u30b7\u30e7\u30f3\u306e\u914d\u5217\u3002\u4f8b https://yeelight.readthedocs.io/en/stable/flow.html \u3002",
+                    "name": "\u30c8\u30e9\u30f3\u30b8\u30b7\u30e7\u30f3"
+                }
+            },
+            "name": "\u958b\u59cb\u30d5\u30ed\u30fc"
+        }
+    }
+}

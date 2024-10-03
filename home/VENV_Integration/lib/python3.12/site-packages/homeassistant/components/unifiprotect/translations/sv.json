@@ -1,0 +1,223 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Enheten \u00e4r redan konfigurerad",
+            "discovery_started": "Uppt\u00e4ckten startades"
+        },
+        "error": {
+            "cannot_connect": "Det gick inte att ansluta.",
+            "invalid_auth": "Ogiltig autentisering",
+            "protect_version": "Minsta n\u00f6dv\u00e4ndiga version \u00e4r v1.20.0. Uppgradera UniFi Protect och f\u00f6rs\u00f6k sedan igen."
+        },
+        "flow_title": "{name} ({ip_address})",
+        "step": {
+            "discovery_confirm": {
+                "data": {
+                    "password": "L\u00f6senord",
+                    "username": "Anv\u00e4ndarnamn"
+                },
+                "description": "Vill du konfigurera {name} ({ip_address})? Du beh\u00f6ver en lokal anv\u00e4ndare skapad i din UniFi OS-konsol f\u00f6r att kunna logga in. Ubiquiti Cloud-anv\u00e4ndare kommer inte att fungera. F\u00f6r mer information: {local_user_documentation_url}",
+                "title": "UniFi Protect uppt\u00e4ckt"
+            },
+            "reauth_confirm": {
+                "data": {
+                    "host": "IP/v\u00e4rd f\u00f6r UniFi Protect Server",
+                    "password": "L\u00f6senord",
+                    "port": "Port",
+                    "username": "Anv\u00e4ndarnamn"
+                },
+                "title": "UniFi Protect Reauth"
+            },
+            "user": {
+                "data": {
+                    "host": "V\u00e4rd",
+                    "password": "L\u00f6senord",
+                    "port": "Port",
+                    "username": "Anv\u00e4ndarnamn",
+                    "verify_ssl": "Verifiera SSL-certifikat"
+                },
+                "data_description": {
+                    "host": "V\u00e4rdnamn eller IP-adress f\u00f6r din UniFi Protect-enhet."
+                },
+                "description": "Du beh\u00f6ver en lokal anv\u00e4ndare skapad i din UniFi OS-konsol f\u00f6r att kunna logga in. Ubiquiti Cloud-anv\u00e4ndare kommer inte att fungera. F\u00f6r mer information: {local_user_documentation_url}",
+                "title": "Installation av UniFi Protect"
+            }
+        }
+    },
+    "entity": {
+        "event": {
+            "doorbell": {
+                "state_attributes": {
+                    "event_type": {
+                        "state": {
+                            "ring": "Signal"
+                        }
+                    }
+                }
+            }
+        },
+        "sensor": {
+            "license_plate": {
+                "state": {
+                    "none": "Klart"
+                }
+            }
+        }
+    },
+    "issues": {
+        "cloud_user": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Fr\u00e5n och med den 22 juli 2024 kommer Ubiquiti att kr\u00e4va att alla molnanv\u00e4ndare registrerar sig f\u00f6r multifaktorautentisering (MFA), vilket inte \u00e4r kompatibelt med Home Assistant.\n\nDet \u00e4r b\u00e4st att migrera till att anv\u00e4nda en [lokal anv\u00e4ndare]({learn_more}) s\u00e5 snart som m\u00f6jligt f\u00f6r att integrationen ska fungera.\n\nOm du bekr\u00e4ftar denna reparation utl\u00f6ses ett nytt autentiseringsfl\u00f6de f\u00f6r att ange de autentiseringsuppgifter som beh\u00f6vs.",
+                        "title": "Ubiquiti Cloud-anv\u00e4ndare st\u00f6ds inte"
+                    }
+                }
+            }
+        },
+        "deprecate_hdr_switch": {
+            "description": "UniFi Protect v3 lade till ett nytt tillst\u00e5nd f\u00f6r HDR (auto). Som ett resultat av detta har HDR Mode Switch ersatts med HDR Mode Select, och det \u00e4r inte l\u00e4ngre aktuellt.\n\nNedan visas de uppt\u00e4ckta automatiseringar eller skript som anv\u00e4nder en eller flera av de avskrivna enheterna:\n{items}\nOvanst\u00e5ende lista kan vara ofullst\u00e4ndig och den inkluderar inte n\u00e5gra mallanv\u00e4ndningar inuti instrumentpaneler. Uppdatera alla mallar, automatiseringar eller skript i enlighet med detta.",
+            "title": "HDR-l\u00e4gesomkopplare f\u00f6r\u00e5ldrad"
+        },
+        "deprecate_package_sensor": {
+            "description": "Sensorn f\u00f6r paketh\u00e4ndelser utl\u00f6stes aldrig p\u00e5 grund av hur h\u00e4ndelser rapporteras i UniFi Protect. Som ett resultat av detta \u00e4r sensorn f\u00f6r\u00e5ldrad och kommer att tas bort.\n\nNedan visas de uppt\u00e4ckta automatiseringar eller skript som anv\u00e4nder en eller flera av de avf\u00f6rklarade enheterna:\n{items}\nOvanst\u00e5ende lista kan vara ofullst\u00e4ndig och den inkluderar inte n\u00e5gra mallanv\u00e4ndningar inuti instrumentpaneler. Uppdatera alla mallar, automatiseringar eller skript i enlighet med detta."
+        },
+        "deprecate_smart_sensor": {
+            "description": "Den enhetliga sensorn \"Detekterat objekt\" f\u00f6r smarta detektioner \u00e4r nu f\u00f6r\u00e5ldrad. Den har ersatts med individuella bin\u00e4ra sensorer f\u00f6r smarta detektioner f\u00f6r varje typ av smart detektion.\n\nNedan visas de uppt\u00e4ckta automatiseringar eller skript som anv\u00e4nder en eller flera av de f\u00f6r\u00e5ldrade entiteterna:\n{items}\nOvanst\u00e5ende lista kan vara ofullst\u00e4ndig och den inneh\u00e5ller inte n\u00e5gra mallanv\u00e4ndningar i instrumentpaneler. V\u00e4nligen uppdatera alla mallar, automatiseringar eller skript i enlighet med detta.",
+            "title": "Smart detekteringssensor \u00e4r utfasad"
+        },
+        "deprecated_service_set_doorbell_message": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Tj\u00e4nsten `unifiprotect.set_doorbell_message` \u00e4r f\u00f6r\u00e5ldrad till f\u00f6rm\u00e5n f\u00f6r den nya Doorbell Text-entiteten som l\u00e4ggs till i varje Doorbell-enhet. Den kommer att tas bort i v2023.3.0. Uppdatera f\u00f6r att anv\u00e4nda tj\u00e4nsten [`text.set_value`]({link}).",
+                        "title": "set_doorbell_message \u00e4r f\u00f6r\u00e5ldrad"
+                    }
+                }
+            },
+            "title": "set_doorbell_message \u00e4r f\u00f6r\u00e5ldrad"
+        },
+        "ea_channel_warning": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "\u00c4r du s\u00e4ker p\u00e5 att du vill k\u00f6ra versioner av UniFi Protect som inte st\u00f6ds? Detta kan leda till att din Home Assistant-integration inte fungerar.",
+                        "title": "UniFi Protect Early Access aktiverad"
+                    },
+                    "start": {
+                        "description": "Du k\u00f6r antingen en Early Access-version av UniFi Protect (v{version}) eller har valt en releasekanal som inte \u00e4r den officiella releasekanalen.\n\nEftersom dessa Early Access-versioner kanske inte har testats \u00e4nnu kan det h\u00e4nda att UniFi Protect-integrationen beter sig ov\u00e4ntat om du anv\u00e4nder den. [L\u00e4s mer om Early Access och Home Assistant]({learn_more}).\n\nSkicka f\u00f6r att avf\u00e4rda detta meddelande.",
+                        "title": "UniFi Protect Early Access aktiverad"
+                    }
+                }
+            },
+            "title": "UniFi Protect Early Access aktiverad"
+        },
+        "ea_setup_failed": {
+            "description": "Du anv\u00e4nder v{version} av UniFi Protect som \u00e4r en Early Access-version. Ett o\u00e5terkalleligt fel uppstod n\u00e4r du f\u00f6rs\u00f6kte ladda integrationen. V\u00e4nligen [nedgradera till en stabil version](https://www.home-assistant.io/integrations/unifiprotect#downgrading-unifi-protect) av UniFi Protect f\u00f6r att forts\u00e4tta anv\u00e4nda integrationen.\n\nFel: {error}",
+            "title": "Inst\u00e4llningsfel vid anv\u00e4ndning av Early Access-versionen"
+        },
+        "ea_warning": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "\u00c4r du verkligen s\u00e4ker p\u00e5 att du vill k\u00f6ra en version av UniFi Protect som inte st\u00f6ds? Detta kan orsaka att din Home Assistant-integration slutar fungera.",
+                        "title": "v{version} \u00e4r en Early Access-version"
+                    },
+                    "start": {
+                        "description": "Du anv\u00e4nder v{version} av UniFi Protect som \u00e4r en Early Access-version. [Early Access-versioner st\u00f6ds inte av Home Assistant](https://www.home-assistant.io/integrations/unifiprotect#about-unifi-early-access) och det rekommenderas att du g\u00e5r tillbaka till en stabil version s\u00e5 snart som m\u00f6jligt.\n\nGenom att skicka in detta formul\u00e4r har du antingen [nedgraderat UniFi Protect](https://www.home-assistant.io/integrations/unifiprotect#downgrading-unifi-protect) eller s\u00e5 accepterar du att k\u00f6ra en version av UniFi Protect som inte st\u00f6ds.",
+                        "title": "v{version} \u00e4r en Early Access-version"
+                    }
+                }
+            },
+            "title": "UniFi Protect v{version} \u00e4r en Early Access-version"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "all_updates": "Realtidsm\u00e4tningar (VARNING: \u00d6kar CPU-anv\u00e4ndningen avsev\u00e4rt)",
+                    "allow_ea": "Till\u00e5t Early Access-versioner av Protect (VARNING: Kommer att markera din integration som icke-st\u00f6dd)",
+                    "allow_ea_channel": "Till\u00e5t Early Access-versioner av Protect (VARNING: Kommer att markera din integration som icke-st\u00f6dd)",
+                    "disable_rtsp": "Inaktivera RTSP-str\u00f6mmen",
+                    "max_media": "Max antal h\u00e4ndelser som ska laddas f\u00f6r Media Browser (\u00f6kar RAM-anv\u00e4ndning)",
+                    "override_connection_host": "\u00c5sidos\u00e4tt anslutningsv\u00e4rd"
+                },
+                "description": "Alternativet Realtidsm\u00e4tv\u00e4rden b\u00f6r endast aktiveras om du har aktiverat diagnostiksensorerna och vill att de ska uppdateras i realtid. Om det inte \u00e4r aktiverat kommer de bara att uppdateras en g\u00e5ng var 15:e minut.",
+                "title": "UniFi Protect-alternativ"
+            }
+        }
+    },
+    "services": {
+        "add_doorbell_text": {
+            "description": "L\u00e4gger till ett nytt anpassat meddelande till d\u00f6rrklockor.",
+            "fields": {
+                "device_id": {
+                    "description": "N\u00e5gon enhet fr\u00e5n UniFi Protect-instansen som du vill \u00e4ndra. Om du har flera Protect-instanser.",
+                    "name": "UniFI Protect NVR"
+                },
+                "message": {
+                    "description": "Nytt meddelande att l\u00e4gga till f\u00f6r d\u00f6rrklockor. M\u00e5ste vara f\u00e4rre \u00e4n 30 tecken.",
+                    "name": "Anpassat meddelande"
+                }
+            },
+            "name": "L\u00e4gg till anpassad text f\u00f6r d\u00f6rrklockan"
+        },
+        "remove_doorbell_text": {
+            "description": "Tar bort ett existerande meddelande f\u00f6r d\u00f6rrklockor.",
+            "fields": {
+                "device_id": {
+                    "description": "N\u00e5gon enhet fr\u00e5n UniFi Protect-instansen som du vill \u00e4ndra. Om du har flera Protect-instanser.",
+                    "name": "UniFI Protect NVR"
+                },
+                "message": {
+                    "description": "Ett befintligt anpassat meddelande som ska tas bort f\u00f6r d\u00f6rrklockor.",
+                    "name": "Anpassat meddelande"
+                }
+            },
+            "name": "Ta bort anpassad text f\u00f6r d\u00f6rrklockan"
+        },
+        "remove_privacy_zone": {
+            "description": "Anv\u00e4nds f\u00f6r att ta bort en sekretesszon fr\u00e5n en kamera.",
+            "fields": {
+                "device_id": {
+                    "description": "Kamera som du vill ta bort sekretesszonen fr\u00e5n.",
+                    "name": "Kamera"
+                },
+                "name": {
+                    "description": "Namnet p\u00e5 den zon som ska tas bort.",
+                    "name": "Namn p\u00e5 sekretesszon"
+                }
+            },
+            "name": "Ta bort kamerans sekretesszon"
+        },
+        "set_chime_paired_doorbells": {
+            "description": "Anv\u00e4nds f\u00f6r att st\u00e4lla in parkopplade d\u00f6rrklockor(na) med en smart ringklocka.",
+            "fields": {
+                "device_id": {
+                    "description": "Ringklockor som ska l\u00e4nkas ihop med d\u00f6rrklockorna.",
+                    "name": "Ringklocka"
+                },
+                "doorbells": {
+                    "description": "D\u00f6rrklockorna som ska l\u00e4nkas till ringklockan.",
+                    "name": "D\u00f6rrklockor"
+                }
+            },
+            "name": "St\u00e4ll in parade d\u00f6rrklockor"
+        },
+        "set_default_doorbell_text": {
+            "description": "St\u00e4ller in standardmeddelandet f\u00f6r d\u00f6rrklockan. Detta kommer att vara det meddelande som automatiskt v\u00e4ljs n\u00e4r ett meddelande upph\u00f6r att g\u00e4lla.",
+            "fields": {
+                "device_id": {
+                    "description": "N\u00e5gon enhet fr\u00e5n UniFi Protect-instansen som du vill \u00e4ndra. Om du har flera Protect-instanser.",
+                    "name": "UniFI Protect NVR"
+                },
+                "message": {
+                    "description": "Standardmeddelandet f\u00f6r din d\u00f6rrklocka. M\u00e5ste vara f\u00e4rre \u00e4n 30 tecken.",
+                    "name": "Standardmeddelande"
+                }
+            },
+            "name": "Ange standardtext f\u00f6r d\u00f6rrklocka"
+        }
+    }
+}

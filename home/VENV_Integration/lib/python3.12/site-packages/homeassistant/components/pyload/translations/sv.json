@@ -1,0 +1,125 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Enheten \u00e4r redan konfigurerad",
+            "reauth_successful": "\u00c5terautentisering lyckades",
+            "reconfigure_successful": "Omkonfigurationen lyckades"
+        },
+        "error": {
+            "cannot_connect": "Det gick inte att ansluta.",
+            "invalid_auth": "Ogiltig autentisering",
+            "unknown": "Ov\u00e4ntat fel"
+        },
+        "step": {
+            "reauth_confirm": {
+                "data": {
+                    "password": "L\u00f6senord",
+                    "username": "Anv\u00e4ndarnamn"
+                },
+                "title": "Autentiseringen har upph\u00f6rt att g\u00e4lla f\u00f6r {name}"
+            },
+            "reconfigure_confirm": {
+                "data": {
+                    "host": "V\u00e4rd",
+                    "password": "L\u00f6senord",
+                    "port": "Port",
+                    "ssl": "Anv\u00e4nder ett SSL certifikat",
+                    "username": "Anv\u00e4ndarnamn",
+                    "verify_ssl": "Verifiera SSL-certifikat"
+                },
+                "data_description": {
+                    "host": "V\u00e4rdnamn eller IP-adress f\u00f6r den enhet som k\u00f6r din pyLoad-instans.",
+                    "port": "pyLoad anv\u00e4nder port 8000 som standard."
+                }
+            },
+            "user": {
+                "data": {
+                    "host": "V\u00e4rd",
+                    "name": "Namn",
+                    "password": "L\u00f6senord",
+                    "port": "Port",
+                    "ssl": "Anv\u00e4nder ett SSL certifikat",
+                    "username": "Anv\u00e4ndarnamn",
+                    "verify_ssl": "Verifiera SSL-certifikat"
+                },
+                "data_description": {
+                    "host": "V\u00e4rdnamn eller IP-adress f\u00f6r den enhet som k\u00f6r din pyLoad-instans.",
+                    "name": "Det namn som ska anv\u00e4ndas f\u00f6r din pyLoad-instans i Home Assistant",
+                    "port": "pyLoad anv\u00e4nder port 8000 som standard."
+                }
+            }
+        }
+    },
+    "entity": {
+        "button": {
+            "abort_downloads": {
+                "name": "Avbryta alla p\u00e5g\u00e5ende nedladdningar"
+            },
+            "delete_finished": {
+                "name": "Ta bort f\u00e4rdiga filer/paket"
+            },
+            "restart": {
+                "name": "Starta om pyload-k\u00e4rnan"
+            },
+            "restart_failed": {
+                "name": "Starta om alla misslyckade filer"
+            }
+        },
+        "sensor": {
+            "active": {
+                "name": "Aktiva nedladdningar"
+            },
+            "free_space": {
+                "name": "Ledigt utrymme"
+            },
+            "queue": {
+                "name": "Nedladdningar i k\u00f6"
+            },
+            "speed": {
+                "name": "Hastighet"
+            },
+            "total": {
+                "name": "Nedladdningar totalt"
+            }
+        },
+        "switch": {
+            "download": {
+                "name": "Pausa/\u00e5teruppta k\u00f6"
+            },
+            "reconnect": {
+                "name": "Automatisk \u00e5teranslutning"
+            }
+        }
+    },
+    "exceptions": {
+        "service_call_auth_exception": {
+            "message": "Det gick inte att skicka ett kommando till pyLoad p\u00e5 grund av ett autentiseringsfel, f\u00f6rs\u00f6k igen senare"
+        },
+        "service_call_exception": {
+            "message": "Det gick inte att skicka ett kommando till pyLoad p\u00e5 grund av ett anslutningsfel, f\u00f6rs\u00f6k igen senare"
+        },
+        "setup_authentication_exception": {
+            "message": "Autentiseringen misslyckades f\u00f6r {username}, kontrollera dina inloggningsuppgifter"
+        },
+        "setup_parse_exception": {
+            "message": "Det gick inte att tolka data fr\u00e5n pyLoad API, f\u00f6rs\u00f6k igen senare"
+        },
+        "setup_request_exception": {
+            "message": "Det gick inte att ansluta och h\u00e4mta data fr\u00e5n pyLoad API, f\u00f6rs\u00f6k igen senare"
+        }
+    },
+    "issues": {
+        "deprecated_yaml_import_issue_cannot_connect": {
+            "description": "Konfigurationen av pyLoad med YAML tas bort, men det uppstod ett anslutningsfel n\u00e4r man f\u00f6rs\u00f6kte importera YAML-konfigurationen.\n\nKontrollera att du har en stabil internetanslutning och starta om Home Assistant f\u00f6r att f\u00f6rs\u00f6ka igen eller ta bort pyLoad YAML-konfigurationen fr\u00e5n din configuration.yaml-fil och forts\u00e4tt att [konfigurera integrationen]({url}) manuellt.",
+            "title": "Importen av pyLoad YAML-konfigurationen misslyckades"
+        },
+        "deprecated_yaml_import_issue_invalid_auth": {
+            "description": "Konfigurationen av pyLoad med YAML tas bort, men det uppstod ett autentiseringsfel n\u00e4r man f\u00f6rs\u00f6kte importera YAML-konfigurationen.\n\nKorrigera YAML-konfigurationen och starta om Home Assistant f\u00f6r att f\u00f6rs\u00f6ka igen eller ta bort pyLoad YAML-konfigurationen fr\u00e5n din configuration.yaml-fil och forts\u00e4tt att [konfigurera integrationen]({url}) manuellt.",
+            "title": "Importen av pyLoad YAML-konfigurationen misslyckades"
+        },
+        "deprecated_yaml_import_issue_unknown": {
+            "description": "Konfigurationen av pyLoad med YAML har tagits bort, men det uppstod ett ok\u00e4nt fel n\u00e4r man f\u00f6rs\u00f6kte importera YAML-konfigurationen.\n\nSe till att YAML-konfigurationen \u00e4r korrekt och starta om Home Assistant f\u00f6r att f\u00f6rs\u00f6ka igen eller ta bort pyLoad YAML-konfigurationen fr\u00e5n din configuration.yaml-fil och forts\u00e4tt att [konfigurera integrationen]({url}) manuellt.",
+            "title": "Importen av pyLoad YAML-konfigurationen misslyckades"
+        }
+    }
+}

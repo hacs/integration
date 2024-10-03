@@ -1,0 +1,86 @@
+{
+    "device_automation": {
+        "trigger_type": {
+            "changed_states": "{entity_name} Update Verf\u00fcgbarkeit ge\u00e4ndert",
+            "turned_off": "{entity_name} wurde auf den neuesten Stand gebracht",
+            "turned_on": "F\u00fcr {entity_name} ist ein Update verf\u00fcgbar"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Update",
+            "state": {
+                "off": "Aktuell",
+                "on": "Update verf\u00fcgbar"
+            },
+            "state_attributes": {
+                "auto_update": {
+                    "name": "Automatische Aktualisierung",
+                    "state": {
+                        "false": "Nein",
+                        "true": "Ja"
+                    }
+                },
+                "in_progress": {
+                    "name": "In Arbeit",
+                    "state": {
+                        "false": "Nein",
+                        "true": "Ja"
+                    }
+                },
+                "installed_version": {
+                    "name": "Installierte Version"
+                },
+                "latest_version": {
+                    "name": "Neueste Version"
+                },
+                "release_summary": {
+                    "name": "Release-Zusammenfassung"
+                },
+                "release_url": {
+                    "name": "Release-URL"
+                },
+                "skipped_version": {
+                    "name": "\u00dcbersprungene Version"
+                },
+                "title": {
+                    "name": "Titel"
+                }
+            }
+        },
+        "firmware": {
+            "name": "Firmware"
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "Die {platform}-Plattform f\u00fcr die {domain}-Integration unterst\u00fctzt die Plattform-Einrichtung nicht. \n\nBitte entferne es aus deiner Konfiguration und starte Home Assistant neu, um dieses Problem zu beheben.",
+            "title": "Plattform-Unterst\u00fctzung nicht unterst\u00fctzt"
+        }
+    },
+    "services": {
+        "clear_skipped": {
+            "description": "Entfernt die Markierung f\u00fcr \u00fcbersprungene Versionen von einem Update.",
+            "name": "\u00dcbersprungenes Update l\u00f6schen"
+        },
+        "install": {
+            "description": "Installiert ein Update f\u00fcr dieses Ger\u00e4t oder diesen Dienst.",
+            "fields": {
+                "backup": {
+                    "description": "Erstellt ein Backup vor Beginn des Updates, falls von der Integration unterst\u00fctzt.",
+                    "name": "Backup"
+                },
+                "version": {
+                    "description": "Die zu installierende Version. Wenn sie weggelassen wird, wird die neueste Version installiert.",
+                    "name": "Version"
+                }
+            },
+            "name": "Update installieren"
+        },
+        "skip": {
+            "description": "Markiert das aktuell verf\u00fcgbare Update als \u00fcbersprungen.",
+            "name": "Update \u00fcberspringen"
+        }
+    },
+    "title": "Update"
+}

@@ -1,0 +1,159 @@
+{
+    "device_automation": {
+        "action_type": {
+            "toggle": "V\u00e4xla {entity_name}",
+            "turn_off": "St\u00e4ng av {entity_name}",
+            "turn_on": "Sl\u00e5 p\u00e5 {entity_name}"
+        },
+        "condition_type": {
+            "is_off": "{entity_name} \u00e4r avst\u00e4ngd",
+            "is_on": "{entity_name} \u00e4r p\u00e5"
+        },
+        "trigger_type": {
+            "changed_states": "{entity_name} slogs p\u00e5 eller av",
+            "turned_off": "{entity_name} st\u00e4ngdes av",
+            "turned_on": "{entity_name} slogs p\u00e5"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Fl\u00e4kt",
+            "state": {
+                "off": "Av",
+                "on": "P\u00e5"
+            },
+            "state_attributes": {
+                "direction": {
+                    "name": "Riktning",
+                    "state": {
+                        "forward": "Fram\u00e5t",
+                        "reverse": "Omv\u00e4nd"
+                    }
+                },
+                "oscillating": {
+                    "name": "Oscillerande",
+                    "state": {
+                        "false": "Nej",
+                        "true": "Ja"
+                    }
+                },
+                "percentage": {
+                    "name": "Hastighet"
+                },
+                "percentage_step": {
+                    "name": "Hastighetssteg"
+                },
+                "preset_mode": {
+                    "name": "F\u00f6rinst\u00e4llt l\u00e4ge"
+                },
+                "preset_modes": {
+                    "name": "Tillg\u00e4ngliga f\u00f6rinst\u00e4llningsl\u00e4gen"
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "not_valid_preset_mode": {
+            "message": "F\u00f6rinst\u00e4llt l\u00e4ge {preset_mode} \u00e4r inte giltigt, giltiga f\u00f6rinst\u00e4llda l\u00e4gen \u00e4r: {preset_modes}."
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "{platform}-plattformen f\u00f6r integrationen {domain} st\u00f6ds inte.\n\nTa bort den fr\u00e5n din konfiguration och starta om Home Assistant f\u00f6r att \u00e5tg\u00e4rda detta problem.",
+            "title": "Plattformen st\u00f6ds inte"
+        }
+    },
+    "selector": {
+        "direction": {
+            "options": {
+                "forward": "Fram\u00e5t",
+                "reverse": "Omv\u00e4nd"
+            }
+        }
+    },
+    "services": {
+        "decrease_speed": {
+            "description": "Minskar fl\u00e4ktens hastighet.",
+            "fields": {
+                "percentage_step": {
+                    "description": "Minskar hastigheten med ett procentsteg.",
+                    "name": "Minskning"
+                }
+            },
+            "name": "Minska hastigheten"
+        },
+        "increase_speed": {
+            "description": "\u00d6kar fl\u00e4ktens hastighet.",
+            "fields": {
+                "percentage_step": {
+                    "description": "\u00d6kar hastigheten med ett procentsteg.",
+                    "name": "\u00d6kning"
+                }
+            },
+            "name": "\u00d6ka hastigheten"
+        },
+        "oscillate": {
+            "description": "Styr fl\u00e4ktens sv\u00e4ngning.",
+            "fields": {
+                "oscillating": {
+                    "description": "Sl\u00e5 p\u00e5 / av sv\u00e4ngning.",
+                    "name": "Sv\u00e4ngning"
+                }
+            },
+            "name": "Sv\u00e4nga"
+        },
+        "set_direction": {
+            "description": "St\u00e4ller in fl\u00e4ktens rotationsriktning.",
+            "fields": {
+                "direction": {
+                    "description": "Riktning f\u00f6r rotation.",
+                    "name": "Riktning"
+                }
+            },
+            "name": "Ange riktning"
+        },
+        "set_percentage": {
+            "description": "St\u00e4ller in fl\u00e4kthastigheten.",
+            "fields": {
+                "percentage": {
+                    "description": "Fl\u00e4ktens hastighet.",
+                    "name": "Procent"
+                }
+            },
+            "name": "St\u00e4ll in hastighet"
+        },
+        "set_preset_mode": {
+            "description": "St\u00e4ller in f\u00f6rinst\u00e4llt l\u00e4ge.",
+            "fields": {
+                "preset_mode": {
+                    "description": "F\u00f6rinst\u00e4llt l\u00e4ge.",
+                    "name": "F\u00f6rinst\u00e4llt l\u00e4ge"
+                }
+            },
+            "name": "St\u00e4ll in f\u00f6rinst\u00e4llt l\u00e4ge"
+        },
+        "toggle": {
+            "description": "Sl\u00e5r p\u00e5/av fl\u00e4kten.",
+            "name": "V\u00e4xla"
+        },
+        "turn_off": {
+            "description": "St\u00e4ng av fl\u00e4kten.",
+            "name": "St\u00e4ng av"
+        },
+        "turn_on": {
+            "description": "Sl\u00e5r p\u00e5 fl\u00e4kten.",
+            "fields": {
+                "percentage": {
+                    "description": "Fl\u00e4ktens hastighet.",
+                    "name": "Procent"
+                },
+                "preset_mode": {
+                    "description": "F\u00f6rinst\u00e4llt l\u00e4ge.",
+                    "name": "F\u00f6rinst\u00e4llt l\u00e4ge"
+                }
+            },
+            "name": "Starta"
+        }
+    },
+    "title": "Fl\u00e4kt"
+}

@@ -1,0 +1,344 @@
+{
+    "device_automation": {
+        "condition_type": {
+            "is_buffering": "{entity_name} est en train de mettre en m\u00e9moire tampon",
+            "is_idle": "{entity_name} est inactif",
+            "is_off": "{entity_name} est d\u00e9sactiv\u00e9",
+            "is_on": "{entity_name} est activ\u00e9",
+            "is_paused": "{entity_name} est en pause",
+            "is_playing": "{entity_name} est en cours de lecture"
+        },
+        "extra_fields": {
+            "for": "Dur\u00e9e"
+        },
+        "trigger_type": {
+            "buffering": "{entity_name} commence \u00e0 mettre en m\u00e9moire tampon",
+            "changed_states": "{entity_name} a \u00e9t\u00e9 activ\u00e9 ou d\u00e9sactiv\u00e9",
+            "idle": "{entity_name} devient inactif",
+            "paused": "{entity_name} est mis en pause",
+            "playing": "{entity_name} commence \u00e0 jouer",
+            "turned_off": "{entity_name} a \u00e9t\u00e9 \u00e9teint",
+            "turned_on": "{entity_name} a \u00e9t\u00e9 activ\u00e9"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Lecteur multim\u00e9dia",
+            "state": {
+                "buffering": "Mise en m\u00e9moire tampon",
+                "idle": "Inactif",
+                "off": "\u00c9teint",
+                "on": "Allum\u00e9",
+                "paused": "En pause",
+                "playing": "Lecture en cours",
+                "standby": "En veille"
+            },
+            "state_attributes": {
+                "app_id": {
+                    "name": "ID de l'application"
+                },
+                "app_name": {
+                    "name": "Application"
+                },
+                "entity_picture_local": {
+                    "name": "Image de l'entit\u00e9 accessible localement"
+                },
+                "groups_members": {
+                    "name": "Membres du groupe"
+                },
+                "is_volume_muted": {
+                    "name": "En sourdine",
+                    "state": {
+                        "false": "Non",
+                        "true": "Oui"
+                    }
+                },
+                "media_album_artist": {
+                    "name": "Artiste de l'album"
+                },
+                "media_album_name": {
+                    "name": "Album"
+                },
+                "media_artist": {
+                    "name": "Artiste"
+                },
+                "media_channel": {
+                    "name": "Canal"
+                },
+                "media_content_id": {
+                    "name": "ID de contenu"
+                },
+                "media_content_type": {
+                    "name": "Type de contenu",
+                    "state": {
+                        "album": "Album",
+                        "app": "Application",
+                        "artist": "Artiste",
+                        "channel": "Canal",
+                        "channels": "Canaux",
+                        "composer": "Compositeur",
+                        "contributing_artist": "Artiste collaborateur",
+                        "episode": "\u00c9pisode",
+                        "game": "Jeu",
+                        "genre": "Genre",
+                        "image": "Image",
+                        "movie": "Film",
+                        "music": "Musique",
+                        "playlist": "Liste de lecture",
+                        "podcast": "Podcast",
+                        "season": "Saison",
+                        "track": "Piste",
+                        "tvshow": "\u00c9mission de t\u00e9l\u00e9vision",
+                        "url": "URL",
+                        "video": "Vid\u00e9o"
+                    }
+                },
+                "media_duration": {
+                    "name": "Dur\u00e9e"
+                },
+                "media_episode": {
+                    "name": "\u00c9pisode"
+                },
+                "media_playlist": {
+                    "name": "Liste de lecture"
+                },
+                "media_position": {
+                    "name": "Position"
+                },
+                "media_position_updated_at": {
+                    "name": "Position mise \u00e0 jour"
+                },
+                "media_season": {
+                    "name": "Saison"
+                },
+                "media_series_title": {
+                    "name": "S\u00e9rie"
+                },
+                "media_title": {
+                    "name": "Titre"
+                },
+                "media_track": {
+                    "name": "Piste"
+                },
+                "repeat": {
+                    "name": "R\u00e9p\u00e9ter",
+                    "state": {
+                        "all": "Tout",
+                        "off": "D\u00e9sactiv\u00e9",
+                        "one": "Une fois"
+                    }
+                },
+                "shuffle": {
+                    "name": "Al\u00e9atoire",
+                    "state": {
+                        "false": "D\u00e9sactiv\u00e9",
+                        "true": "Activ\u00e9"
+                    }
+                },
+                "sound_mode": {
+                    "name": "Mode sonore"
+                },
+                "sound_mode_list": {
+                    "name": "Modes sonores disponibles"
+                },
+                "source": {
+                    "name": "Source"
+                },
+                "source_list": {
+                    "name": "Sources disponibles"
+                },
+                "volume_level": {
+                    "name": "Volume"
+                }
+            }
+        },
+        "receiver": {
+            "name": "R\u00e9cepteur"
+        },
+        "speaker": {
+            "name": "Haut-parleur"
+        },
+        "tv": {
+            "name": "TV"
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "La plateforme {platform} pour l'int\u00e9gration {domain} ne prend pas en charge la configuration de la plateforme.\n\nVeuillez la supprimer de votre configuration et red\u00e9marrer Home Assistant pour r\u00e9soudre ce probl\u00e8me.",
+            "title": "Prise en charge de la plateforme non prise en charge"
+        }
+    },
+    "selector": {
+        "enqueue": {
+            "options": {
+                "add": "Ajouter \u00e0 la file d'attente",
+                "next": "Lire ensuite",
+                "play": "Lire",
+                "replace": "Lire maintenant et videz la file d'attente"
+            }
+        },
+        "repeat": {
+            "options": {
+                "all": "R\u00e9p\u00e9ter tout",
+                "off": "D\u00e9sactiv\u00e9",
+                "one": "R\u00e9p\u00e9ter une fois"
+            }
+        }
+    },
+    "services": {
+        "clear_playlist": {
+            "description": "Efface la liste de lecture.",
+            "name": "Effacer la liste de lecture"
+        },
+        "join": {
+            "description": "Regroupe les lecteurs multim\u00e9dias pour une lecture synchrone. Fonctionne uniquement sur les syst\u00e8mes audio multiroom pris en charge.",
+            "fields": {
+                "group_members": {
+                    "description": "Les lecteurs qui seront synchronis\u00e9s avec la lecture sp\u00e9cifi\u00e9e dans `cible`.",
+                    "name": "Membres du groupe"
+                }
+            },
+            "name": "Associer"
+        },
+        "media_next_track": {
+            "description": "S\u00e9lectionne la piste suivante.",
+            "name": "Suivant"
+        },
+        "media_pause": {
+            "description": "Met en pause.",
+            "name": "Mettre en pause"
+        },
+        "media_play": {
+            "description": "D\u00e9marre la lecture.",
+            "name": "Lecture"
+        },
+        "media_play_pause": {
+            "description": "Bascule entre lecture/pause.",
+            "name": "Lecture/Pause"
+        },
+        "media_previous_track": {
+            "description": "S\u00e9lectionne la piste pr\u00e9c\u00e9dente.",
+            "name": "Pr\u00e9c\u00e9dent"
+        },
+        "media_seek": {
+            "description": "Vous permet d'acc\u00e9der \u00e0 une autre partie du m\u00e9dia en cours de lecture.",
+            "fields": {
+                "seek_position": {
+                    "description": "Position cible dans le m\u00e9dia en cours de lecture. Le format d\u00e9pend de la plateforme.",
+                    "name": "Position"
+                }
+            }
+        },
+        "media_stop": {
+            "description": "Arr\u00eate la lecture.",
+            "name": "Arr\u00eater"
+        },
+        "play_media": {
+            "description": "Lance la lecture du m\u00e9dia sp\u00e9cifi\u00e9.",
+            "fields": {
+                "announce": {
+                    "description": "Si les m\u00e9dias doivent \u00eatre diffus\u00e9s comme une annonce.",
+                    "name": "Annoncer"
+                },
+                "enqueue": {
+                    "description": "Si le contenu doit \u00eatre lu maintenant ou ajout\u00e9 \u00e0 la file d'attente.",
+                    "name": "Mettre en file d'attente"
+                },
+                "media_content_id": {
+                    "description": "L'ID du contenu \u00e0 lire. D\u00e9pend de la plateforme.",
+                    "name": "ID de contenu"
+                },
+                "media_content_type": {
+                    "description": "Le type de contenu \u00e0 lire. Tels qu'une image, de la musique, une \u00e9mission de t\u00e9l\u00e9vision, une vid\u00e9o, un \u00e9pisode, une cha\u00eene ou une liste de lecture.",
+                    "name": "Type de contenu"
+                }
+            },
+            "name": "Lire des m\u00e9dias"
+        },
+        "repeat_set": {
+            "description": "Mode de lecture qui lit le m\u00e9dia en boucle.",
+            "fields": {
+                "repeat": {
+                    "description": "Mode de r\u00e9p\u00e9tition \u00e0 d\u00e9finir.",
+                    "name": "Mode de r\u00e9p\u00e9tition"
+                }
+            },
+            "name": "R\u00e9p\u00e9ter"
+        },
+        "select_sound_mode": {
+            "description": "S\u00e9lectionne un mode sonore sp\u00e9cifique.",
+            "fields": {
+                "sound_mode": {
+                    "description": "Nom du mode sonore vers lequel basculer.",
+                    "name": "Mode sonore"
+                }
+            },
+            "name": "S\u00e9lectionner le mode sonore"
+        },
+        "select_source": {
+            "description": "Envoie au lecteur multim\u00e9dia la commande pour changer la source d\u2019entr\u00e9e.",
+            "fields": {
+                "source": {
+                    "description": "Nom de la source vers laquelle basculer. D\u00e9pend de la plate-forme.",
+                    "name": "Source"
+                }
+            },
+            "name": "S\u00e9lectionner une source"
+        },
+        "shuffle_set": {
+            "description": "Mode de lecture qui s\u00e9lectionne les m\u00e9dias dans un ordre al\u00e9atoire.",
+            "fields": {
+                "shuffle": {
+                    "description": "Indique si le mode al\u00e9atoire est activ\u00e9 ou non.",
+                    "name": "Al\u00e9atoire"
+                }
+            },
+            "name": "Al\u00e9atoire"
+        },
+        "toggle": {
+            "description": "Allume/\u00e9teint un lecteur multim\u00e9dia.",
+            "name": "Basculer"
+        },
+        "turn_off": {
+            "description": "\u00c9teint l\u2019alimentation du lecteur multim\u00e9dia.",
+            "name": "\u00c9teindre"
+        },
+        "turn_on": {
+            "description": "Allume l\u2019alimentation du lecteur multim\u00e9dia.",
+            "name": "Allumer"
+        },
+        "unjoin": {
+            "description": "Supprime le lecteur d'un groupe. Fonctionne uniquement sur les plateformes qui prennent en charge les groupes de lecteurs",
+            "name": "Dissocier"
+        },
+        "volume_down": {
+            "description": "Baisse le volume.",
+            "name": "Baisser le volume"
+        },
+        "volume_mute": {
+            "description": "Coupe ou r\u00e9active le son du lecteur multim\u00e9dia.",
+            "fields": {
+                "is_volume_muted": {
+                    "description": "D\u00e9finit s'il est mis en sourdine ou non.",
+                    "name": "En sourdine"
+                }
+            },
+            "name": "D\u00e9sactiver/activer le volume"
+        },
+        "volume_set": {
+            "description": "R\u00e8gle le niveau du volume.",
+            "fields": {
+                "volume_level": {
+                    "description": "Le volume. 0 est inaudible, 1 est le volume maximum.",
+                    "name": "Niveau"
+                }
+            },
+            "name": "R\u00e9gler le volume"
+        },
+        "volume_up": {
+            "description": "Augmente le volume.",
+            "name": "Augmenter le volume"
+        }
+    },
+    "title": "Lecteur multim\u00e9dia"
+}

@@ -1,0 +1,129 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "Calendario",
+            "state": {
+                "off": "Spento/a",
+                "on": "Acceso/a"
+            },
+            "state_attributes": {
+                "all_day": {
+                    "name": "Tutto il giorno",
+                    "state": {
+                        "false": "No",
+                        "true": "S\u00ec"
+                    }
+                },
+                "description": {
+                    "name": "Descrizione"
+                },
+                "end_time": {
+                    "name": "Ora di fine"
+                },
+                "location": {
+                    "name": "Posizione"
+                },
+                "message": {
+                    "name": "Messaggio"
+                },
+                "messages": {
+                    "name": "Messaggio"
+                },
+                "start_time": {
+                    "name": "Ora di inizio"
+                }
+            }
+        }
+    },
+    "issues": {
+        "deprecated_service_calendar_list_events": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "title": "Rilevato utilizzo del servizio deprecato `calendar.list_events`"
+                    }
+                }
+            }
+        },
+        "platform_integration_no_support": {
+            "description": "La piattaforma {platform} per l'integrazione {domain} non supporta l'impostazione della piattaforma. \n\nRimuovilo dalla configurazione e riavvia Home Assistant per risolvere questo problema.",
+            "title": "Supporto della piattaforma non supportato"
+        }
+    },
+    "services": {
+        "create_event": {
+            "description": "Aggiunge un nuovo evento del calendario.",
+            "fields": {
+                "description": {
+                    "description": "Una descrizione dell'evento pi\u00f9 completa di quella fornita dal riepilogo.",
+                    "name": "Descrizione"
+                },
+                "end_date": {
+                    "description": "La data in cui l'evento di tutto il giorno dovrebbe terminare (esclusiva).",
+                    "name": "Data di fine"
+                },
+                "end_date_time": {
+                    "description": "La data e l'ora in cui l'evento dovrebbe concludersi.",
+                    "name": "Ora di fine"
+                },
+                "in": {
+                    "description": "Giorni o settimane in cui desideri creare l'evento.",
+                    "name": "Tra"
+                },
+                "location": {
+                    "description": "Il luogo dell'evento.",
+                    "name": "Posizione"
+                },
+                "start_date": {
+                    "description": "La data in cui dovrebbe iniziare l'evento che dura tutto il giorno.",
+                    "name": "Data di inizio"
+                },
+                "start_date_time": {
+                    "description": "La data e l'ora in cui dovrebbe iniziare l'evento.",
+                    "name": "Ora di inizio"
+                },
+                "summary": {
+                    "description": "Definisce il breve riepilogo o l'oggetto dell'evento.",
+                    "name": "Riepilogo"
+                }
+            },
+            "name": "Crea Evento"
+        },
+        "get_events": {
+            "description": "Ricevi eventi su un calendario entro un intervallo di tempo.",
+            "fields": {
+                "duration": {
+                    "description": "Restituisce eventi attivi da start_date_time fino alla durata specificata.",
+                    "name": "Durata"
+                },
+                "end_date_time": {
+                    "description": "Restituisce gli eventi attivi prima di questo orario (esclusivo). Non pu\u00f2 essere utilizzato con \"durata\".",
+                    "name": "Orario di fine"
+                },
+                "start_date_time": {
+                    "description": "Restituisce gli eventi attivi dopo questo orario (esclusivo). Se non impostato, il valore predefinito \u00e8 adesso.",
+                    "name": "Orario di inizio"
+                }
+            }
+        },
+        "list_events": {
+            "description": "Elenca gli eventi su un calendario all'interno di un intervallo di tempo.",
+            "fields": {
+                "duration": {
+                    "description": "Restituisce eventi attivi da start_date_time fino alla durata specificata.",
+                    "name": "Durata"
+                },
+                "end_date_time": {
+                    "description": "Restituisce gli eventi attivi prima di questo orario (esclusivo). Non pu\u00f2 essere utilizzato con \"durata\".",
+                    "name": "Orario di fine"
+                },
+                "start_date_time": {
+                    "description": "Restituisce gli eventi attivi dopo questo orario (esclusivo). Se non impostato, il valore predefinito \u00e8 adesso.",
+                    "name": "Orario di inizio"
+                }
+            },
+            "name": "Elenco eventi"
+        }
+    },
+    "title": "Calendario"
+}

@@ -1,0 +1,141 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Il dispositivo \u00e8 gi\u00e0 configurato",
+            "reconfigure_successful": "La riconfigurazione \u00e8 stata completata con successo"
+        },
+        "error": {
+            "cannot_connect": "Impossibile connettersi",
+            "invalid_auth": "Autenticazione non valida",
+            "no_homes": "Non ci sono case collegate a questo account tado.",
+            "unknown": "Errore imprevisto"
+        },
+        "step": {
+            "reconfigure_confirm": {
+                "data": {
+                    "password": "Password"
+                }
+            },
+            "user": {
+                "data": {
+                    "password": "Password",
+                    "username": "Nome utente"
+                },
+                "title": "Collegati al tuo account Tado"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "connection_state": {
+                "name": "Stato della connessione"
+            },
+            "early_start": {
+                "name": "Inizio anticipato"
+            },
+            "overlay": {
+                "name": "Sovrapponi"
+            }
+        },
+        "climate": {
+            "tado": {
+                "state_attributes": {
+                    "preset_mode": {
+                        "state": {
+                            "auto": "Auto"
+                        }
+                    }
+                }
+            }
+        },
+        "sensor": {
+            "ac": {
+                "name": "Corrente alternata"
+            },
+            "automatic_geofencing": {
+                "name": "Geofencing automatico"
+            },
+            "geofencing_mode": {
+                "name": "Modalit\u00e0 geofencing"
+            },
+            "heating": {
+                "name": "Riscaldamento"
+            },
+            "outdoor_temperature": {
+                "name": "Temperatura esterna"
+            },
+            "solar_percentage": {
+                "name": "Percentuale solare"
+            },
+            "tado_mode": {
+                "name": "Modalit\u00e0 Tado"
+            },
+            "weather_condition": {
+                "name": "Condizioni metereologiche"
+            }
+        }
+    },
+    "issues": {
+        "import_failed": {
+            "title": "Impossibile importare"
+        },
+        "import_failed_invalid_auth": {
+            "title": "Impossibile importare, credenziali non valide"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "fallback": "Scegli la modalit\u00e0 di ripiego."
+                },
+                "description": "La modalit\u00e0 di ripiego ti consente di scegliere quando eseguire il ripiego alla pianificazione intelligente dalla sovrapposizione manuale delle zone. (NEXT_TIME_BLOCK:= Modifica alla successiva modifica della pianificazione intelligente; MANUAL:= Non modificare fino all'annullamento; TADO_DEFAULT:= Modifica in base alle tue impostazioni nell'applicazione Tado).",
+                "title": "Regola le opzioni di Tado."
+            }
+        }
+    },
+    "services": {
+        "set_climate_temperature_offset": {
+            "description": "Imposta l'offset della temperatura delle entit\u00e0 climatiche.",
+            "fields": {
+                "offset": {
+                    "description": "Offset desiderato (a seconda del dispositivo).",
+                    "name": "Offset"
+                }
+            },
+            "name": "Imposta l'offset della temperatura climatica"
+        },
+        "set_climate_timer": {
+            "description": "Attiva le entit\u00e0 climatiche per un tempo prestabilito.",
+            "fields": {
+                "requested_overlay": {
+                    "description": "Scegli questo o Periodo di tempo. Consente di scegliere una sovrapposizione. MANUAL:=Sovrapponi finch\u00e9 l'utente non rimuove; NEXT_TIME_BLOCK:=Sovrapponi fino al prossimo periodo di tempo; TADO_DEFAULT:=Sovrapposizione basata sull'impostazione dell'app Tado.",
+                    "name": "Sovrapposizione"
+                },
+                "temperature": {
+                    "description": "Temperatura a cui impostare l'entit\u00e0 climatica.",
+                    "name": "Temperatura"
+                },
+                "time_period": {
+                    "description": "Scegli questo o Sovrapponi. Imposta il periodo di tempo per la modifica se vuoi essere specifico. In alternativa, usa Sovrapposizione.",
+                    "name": "Periodo di tempo"
+                }
+            },
+            "name": "Imposta timer clima"
+        },
+        "set_water_heater_timer": {
+            "description": "Accende lo scaldabagno per un tempo prestabilito.",
+            "fields": {
+                "temperature": {
+                    "description": "Temperatura a cui impostare il riscaldatore.",
+                    "name": "Temperatura"
+                },
+                "time_period": {
+                    "description": "Imposta il periodo di tempo per il boost.",
+                    "name": "Periodo di tempo"
+                }
+            },
+            "name": "Imposta il timer del scaldabagno"
+        }
+    }
+}

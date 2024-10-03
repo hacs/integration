@@ -1,0 +1,70 @@
+{
+    "services": {
+        "power_on": {
+            "description": "Enciende todos los dispositivos que lo admitan.",
+            "name": "Encender"
+        },
+        "select_device": {
+            "description": "Selecciona el dispositivo HDMI.",
+            "fields": {
+                "device": {
+                    "description": "Direcci\u00f3n del dispositivo a seleccionar. Puede ser entity_id, direcci\u00f3n f\u00edsica o alias de la configuraci\u00f3n.",
+                    "name": "Dispositivo"
+                }
+            },
+            "name": "Selecciona el dispositivo"
+        },
+        "send_command": {
+            "description": "Env\u00eda el comando CEC al adaptador compatible con HDMI CEC.",
+            "fields": {
+                "att": {
+                    "description": "Par\u00e1metros opcionales.",
+                    "name": "Att"
+                },
+                "cmd": {
+                    "description": "El propio comando. Podr\u00eda ser un n\u00famero decimal o una cadena con notaci\u00f3n hexadecimal: \"0x10\".",
+                    "name": "Comando"
+                },
+                "dst": {
+                    "description": "Destino del comando. Puede ser un n\u00famero decimal o una cadena con notaci\u00f3n hexadecimal: \"0x10\".",
+                    "name": "Destino"
+                },
+                "raw": {
+                    "description": "Comando CEC sin formato en formato \"00:00:00:00\" donde los primeros dos d\u00edgitos son fuente y destino, el segundo byte es comando y los otros bytes opcionales son par\u00e1metros de comando. Si se especifica un comando sin procesar, se ignoran otros par\u00e1metros.",
+                    "name": "En crudo"
+                },
+                "src": {
+                    "description": "Fuente del comando. Puede ser un n\u00famero decimal o una cadena con notaci\u00f3n hexadecimal: \"0x10\".",
+                    "name": "Fuente"
+                }
+            },
+            "name": "Enviar comando"
+        },
+        "standby": {
+            "description": "Poner en reposo todos los dispositivos que lo soporten.",
+            "name": "En espera"
+        },
+        "update": {
+            "description": "Actualiza el estado de los dispositivos desde la red.",
+            "name": "Actualizar"
+        },
+        "volume": {
+            "description": "Aumenta o disminuye el volumen del sistema.",
+            "fields": {
+                "down": {
+                    "description": "Disminuye el volumen x niveles.",
+                    "name": "Bajar"
+                },
+                "mute": {
+                    "description": "Silencia el sistema de audio.",
+                    "name": "Silenciar"
+                },
+                "up": {
+                    "description": "Aumenta el volumen x niveles.",
+                    "name": "Subir"
+                }
+            },
+            "name": "Volumen"
+        }
+    }
+}

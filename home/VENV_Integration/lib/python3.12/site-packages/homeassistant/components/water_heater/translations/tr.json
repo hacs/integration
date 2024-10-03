@@ -1,0 +1,107 @@
+{
+    "device_automation": {
+        "action_type": {
+            "turn_off": "{entity_name} kapat",
+            "turn_on": "{entity_name} a\u00e7\u0131n"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Su \u0131s\u0131t\u0131c\u0131",
+            "state": {
+                "eco": "Eko",
+                "electric": "Elektrik",
+                "gas": "Gaz",
+                "heat_pump": "Is\u0131 pompas\u0131",
+                "high_demand": "Y\u00fcksek talep",
+                "off": "Kapal\u0131",
+                "performance": "Performans"
+            },
+            "state_attributes": {
+                "away_mode": {
+                    "name": "D\u0131\u015far\u0131da modu",
+                    "state": {
+                        "off": "Kapal\u0131",
+                        "on": "A\u00e7\u0131k"
+                    }
+                },
+                "current_operation": {
+                    "name": "\u015eu anki i\u015flem"
+                },
+                "current_temperature": {
+                    "name": "Mevcut s\u0131cakl\u0131k"
+                },
+                "max_temp": {
+                    "name": "Maksimum hedef s\u0131cakl\u0131k"
+                },
+                "min_temp": {
+                    "name": "Minimum hedef s\u0131cakl\u0131k"
+                },
+                "target_temp_high": {
+                    "name": "\u00dcst hedef s\u0131cakl\u0131k"
+                },
+                "target_temp_low": {
+                    "name": "Daha d\u00fc\u015f\u00fck hedef s\u0131cakl\u0131k"
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "not_valid_operation_mode": {
+            "message": "{operation_mode} \u00e7al\u0131\u015fma modu, {entity_id} i\u00e7in ge\u00e7erli de\u011fil. Ge\u00e7erli \u00e7al\u0131\u015fma modlar\u0131 \u015funlard\u0131r: {operation_list} ."
+        },
+        "operation_list_not_defined": {
+            "message": "{operation_mode} \u00e7al\u0131\u015fma modu, {entity_id} i\u00e7in ge\u00e7erli de\u011fil. \u0130\u015flem listesi tan\u0131ml\u0131 de\u011fil."
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "{domain} entegrasyonu i\u00e7in {platform} platformu, platform kurulumunu desteklemiyor. \n\n L\u00fctfen yap\u0131land\u0131rman\u0131zdan kald\u0131r\u0131n ve bu sorunu \u00e7\u00f6zmek i\u00e7in Home Assistant'\u0131 yeniden ba\u015flat\u0131n.",
+            "title": "Platform deste\u011fi desteklenmiyor"
+        }
+    },
+    "services": {
+        "set_away_mode": {
+            "description": "D\u0131\u015far\u0131da modunu a\u00e7ar/kapat\u0131r.",
+            "fields": {
+                "away_mode": {
+                    "description": "Uzakta modunun yeni de\u011feri.",
+                    "name": "D\u0131\u015far\u0131da modu"
+                }
+            },
+            "name": "Uzakla\u015fma modunu ayarla"
+        },
+        "set_operation_mode": {
+            "description": "\u00c7al\u0131\u015fma modunu ayarlar.",
+            "fields": {
+                "operation_mode": {
+                    "description": "\u00c7al\u0131\u015fma modunun yeni de\u011feri. Olas\u0131 modlar\u0131n bir listesi i\u00e7in entegrasyon belgelerine bak\u0131n.",
+                    "name": "\u00c7al\u0131\u015fma modu"
+                }
+            },
+            "name": "\u00c7al\u0131\u015fma modunu ayarlama"
+        },
+        "set_temperature": {
+            "description": "Hedef s\u0131cakl\u0131\u011f\u0131 ayarlar.",
+            "fields": {
+                "operation_mode": {
+                    "description": "\u00c7al\u0131\u015fma modunun yeni de\u011feri. Olas\u0131 modlar\u0131n bir listesi i\u00e7in entegrasyon belgelerine bak\u0131n.",
+                    "name": "\u00c7al\u0131\u015fma modu"
+                },
+                "temperature": {
+                    "description": "Su \u0131s\u0131t\u0131c\u0131 i\u00e7in yeni hedef s\u0131cakl\u0131k.",
+                    "name": "S\u0131cakl\u0131k"
+                }
+            },
+            "name": "S\u0131cakl\u0131k ayar\u0131"
+        },
+        "turn_off": {
+            "description": "Su \u0131s\u0131t\u0131c\u0131s\u0131n\u0131 kapat\u0131r.",
+            "name": "Kapat"
+        },
+        "turn_on": {
+            "description": "Su \u0131s\u0131t\u0131c\u0131s\u0131n\u0131 a\u00e7ar.",
+            "name": "A\u00e7"
+        }
+    }
+}

@@ -1,0 +1,87 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Dispositivo j\u00e1 est\u00e1 configurado",
+            "success": "Altera\u00e7\u00f5es salvas"
+        },
+        "flow_title": "Proximidade",
+        "step": {
+            "user": {
+                "data": {
+                    "ignored_zones": "Zonas a serem ignoradas",
+                    "tolerance": "Dist\u00e2ncia de toler\u00e2ncia",
+                    "tracked_entities": "Dispositivos ou pessoas a serem rastreadas",
+                    "zone": "Zona para rastrear a dist\u00e2ncia"
+                }
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "dir_of_travel": {
+                "name": "{tracked_entity} dire\u00e7\u00e3o da viagem",
+                "state": {
+                    "arrived": "Chegou",
+                    "away_from": "Longe de",
+                    "stationary": "Estacion\u00e1rio",
+                    "towards": "Em dire\u00e7\u00e3o a"
+                }
+            },
+            "dist_to_zone": {
+                "name": "{tracked_entity} dist\u00e2ncia"
+            },
+            "nearest": {
+                "name": "Dispositivo mais pr\u00f3ximo"
+            },
+            "nearest_dir_of_travel": {
+                "name": "Dire\u00e7\u00e3o de viagem mais pr\u00f3xima",
+                "state": {
+                    "arrived": "Chegou",
+                    "away_from": "Longe de",
+                    "stationary": "Estacion\u00e1rio",
+                    "towards": "Em dire\u00e7\u00e3o a"
+                }
+            },
+            "nearest_dist_to_zone": {
+                "name": "Dist\u00e2ncia mais pr\u00f3xima"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_proximity_entity": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "A entidade de proximidade `{entity}` foi preterida e ser\u00e1 removida em '2024.8'. No entanto, ele \u00e9 usado dentro das seguintes configura\u00e7\u00f5es:\n- {used_in}\n\nAjuste quaisquer automa\u00e7\u00f5es ou scripts que usem essa entidade de Proximidade preterida.\nPara cada pessoa ou dispositivo rastreado \u00e9 criado um sensor para a dist\u00e2ncia e a dire\u00e7\u00e3o de viagem de/para a zona monitorada. Al\u00e9m disso, para cada configura\u00e7\u00e3o de proximidade, um sensor que mostra o dispositivo ou pessoa mais pr\u00f3xima da zona monitorada \u00e9 criado. Com isso, voc\u00ea pode usar a integra\u00e7\u00e3o Min/Max para determinar a dist\u00e2ncia mais pr\u00f3xima e mais distante.",
+                        "title": "A entidade de proximidade est\u00e1 obsoleta"
+                    }
+                }
+            },
+            "title": "A entidade de proximidade est\u00e1 obsoleta"
+        },
+        "tracked_entity_removed": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "A entidade `{entity_id}` foi removida do HA, mas \u00e9 usada na proximidade {name}. Remova `{entity_id}` da lista de entidades rastreadas. As entidades de sensores de proximidade relacionadas foram definidas como indispon\u00edveis e podem ser removidas.",
+                        "title": "A entidade rastreada foi removida"
+                    }
+                }
+            },
+            "title": "A entidade rastreada foi removida"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "ignored_zones": "Zonas a serem ignoradas",
+                    "tolerance": "Dist\u00e2ncia de toler\u00e2ncia",
+                    "tracked_entities": "Dispositivos ou pessoas a serem rastreadas",
+                    "zone": "Zona para rastrear a dist\u00e2ncia"
+                }
+            }
+        }
+    },
+    "title": "Proximidade"
+}

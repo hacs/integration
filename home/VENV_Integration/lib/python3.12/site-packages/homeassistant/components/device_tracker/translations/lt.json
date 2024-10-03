@@ -1,0 +1,90 @@
+{
+    "device_automation": {
+        "condition_type": {
+            "is_home": "{entity_name} yra namuose",
+            "is_not_home": "{entity_name} n\u0117ra namuose"
+        },
+        "extra_fields": {
+            "zone": "Zona"
+        },
+        "trigger_type": {
+            "enters": "{entity_name} patenka \u012f zon\u0105",
+            "leaves": "{entity_name} palieka zon\u0105"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "\u012erenginio sekimo priemon\u0117",
+            "state": {
+                "home": "Namai",
+                "not_home": "I\u0161vyk\u0119s"
+            },
+            "state_attributes": {
+                "battery": {
+                    "name": "Baterija"
+                },
+                "gps_accuracy": {
+                    "name": "GPS tikslumas"
+                },
+                "latitude": {
+                    "name": "Platuma"
+                },
+                "longitude": {
+                    "name": "Ilguma"
+                },
+                "source_type": {
+                    "name": "\u0160altinis",
+                    "state": {
+                        "bluetooth": "Bluetooth",
+                        "bluetooth_le": "Bluetooth LE",
+                        "gps": "GPS",
+                        "router": "Mar\u0161rutizatorius"
+                    }
+                }
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "{platform} platforma, skirta {domain} integravimui, nepalaiko platformos s\u0105rankos. \n\n Pa\u0161alinkite j\u012f i\u0161 konfig\u016bracijos ir i\u0161 naujo paleiskite \u201eHome Assistant\u201c, kad i\u0161spr\u0119stum\u0117te \u0161i\u0105 problem\u0105.",
+            "title": "Platformos palaikymas nepalaikomas"
+        }
+    },
+    "services": {
+        "see": {
+            "description": "\u012era\u0161o matyt\u0105 sekam\u0105j\u012f \u012frengin\u012f.",
+            "fields": {
+                "battery": {
+                    "description": "\u012erenginio baterijos lygis.",
+                    "name": "Baterijos lygis"
+                },
+                "dev_id": {
+                    "description": "\u012erenginio ID (ID raskite `known_devices.yaml`).",
+                    "name": "\u012erenginio ID"
+                },
+                "gps": {
+                    "description": "GPS koordinat\u0117s, kur yra \u012frenginys, nurodytos pagal platum\u0105 ir ilgum\u0105 (pvz.: [51.513845, -0.100539]).",
+                    "name": "GPS koordinat\u0117s"
+                },
+                "gps_accuracy": {
+                    "description": "GPS koordina\u010di\u0173 tikslumas.",
+                    "name": "GPS tikslumas"
+                },
+                "host_name": {
+                    "description": "\u012erenginio pagrindinio kompiuterio pavadinimas.",
+                    "name": "Pagrindinio kompiuterio pavadinimas"
+                },
+                "location_name": {
+                    "description": "Vietos, kurioje yra \u012frenginys, pavadinimas. Galimos parinktys: \u201enamai\u201c, \u201ene_namai\u201c arba zonos pavadinimas.",
+                    "name": "Vieta"
+                },
+                "mac": {
+                    "description": "\u012erenginio MAC adresas.",
+                    "name": "MAC adresas"
+                }
+            },
+            "name": "Matyti"
+        }
+    },
+    "title": "\u012erenginio sekimo priemon\u0117"
+}

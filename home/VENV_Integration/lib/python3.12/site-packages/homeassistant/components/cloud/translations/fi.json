@@ -1,0 +1,84 @@
+{
+    "config": {
+        "abort": {
+            "single_instance_allowed": "Jo m\u00e4\u00e4ritetty. Vain yksi konfiguraatio mahdollinen."
+        }
+    },
+    "exceptions": {
+        "no_url_available": {
+            "message": "Pilvi-URL ei ole k\u00e4ytett\u00e4viss\u00e4.\nMerkitse, ett\u00e4 sinulla on toimiva Remote UI."
+        },
+        "strict_connection_not_enabled": {
+            "message": "Tiukka yhteys ei ole k\u00e4yt\u00f6ss\u00e4 pilvipyynn\u00f6iss\u00e4"
+        }
+    },
+    "issues": {
+        "deprecated_gender": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Tekstist\u00e4 puheeksi -vaihtoehto \"{deprecated_option}\" {integration_name} -integraatiossa on vanhentunut ja se poistetaan.\nP\u00e4ivit\u00e4 automaatiot ja skriptit niin, ett\u00e4 voit korvata vaihtoehdon `{deprecated_option}` vaihtoehdolla tuetulle vaihtoehdolle `{replacement_option}`.",
+                        "title": "K\u00e4ytettiin vanhentunutta \u00e4\u00e4nt\u00e4"
+                    }
+                }
+            }
+        },
+        "deprecated_tts_platform_config": {
+            "description": "Koko `platform: cloud`-merkint\u00e4 configuration.yaml-tiedoston `tts:`-osiossa on vanhentunut ja se tulisi poistaa. Voit k\u00e4ytt\u00e4\u00e4 k\u00e4ytt\u00f6liittym\u00e4\u00e4 muuttaaksesi Cloud-tekstink\u00e4ytt\u00f6alustan asetuksia. Muuta configuration.yaml-tiedostoa ja k\u00e4ynnist\u00e4 Home Assistant uudelleen ongelman korjaamiseksi.",
+            "title": "Cloud text-to-speech -alustan konfiguraatio on vanhentunut."
+        },
+        "deprecated_voice": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "`{deprecated_voice}`\u00e4\u00e4ni on vanhentunut ja se poistetaan.\nP\u00e4ivit\u00e4 automaatiot ja skriptit siten, ett\u00e4 korvaa `{deprecated_voice}` toisella \u00e4\u00e4nell\u00e4, kuten `{replacement_voice}`.",
+                        "title": "K\u00e4ytettiin vanhentunutta \u00e4\u00e4nt\u00e4"
+                    }
+                }
+            },
+            "title": "K\u00e4ytettiin vanhentunutta \u00e4\u00e4nt\u00e4"
+        },
+        "legacy_subscription": {
+            "fix_flow": {
+                "abort": {
+                    "operation_took_too_long": "Operaatio kesti liian kauan. Yrit\u00e4 my\u00f6hemmin uudelleen."
+                },
+                "step": {
+                    "confirm_change_plan": {
+                        "description": "Olemme hiljattain p\u00e4ivitt\u00e4neet tilausj\u00e4rjestelm\u00e4mme. Jotta voit jatkaa Home Assistant Cloudin k\u00e4ytt\u00f6\u00e4, sinun on hyv\u00e4ksytt\u00e4v\u00e4 muutos kertaluonteisesti PayPalissa.\n\nT\u00e4m\u00e4 kest\u00e4\u00e4 1 minuutin eik\u00e4 lis\u00e4\u00e4 hintaa."
+                    }
+                }
+            },
+            "title": "Legacy-tilaus havaittu"
+        },
+        "reset_bad_custom_domain_configuration": {
+            "description": "Mukautetun toimialueen ({custom_domains}) DNS-m\u00e4\u00e4ritykset eiv\u00e4t ole oikein. T\u00e4m\u00e4 toimialue on nyt ohitettu, eik\u00e4 sit\u00e4 k\u00e4ytet\u00e4 Home Assistant Cloudissa. Jos haluat k\u00e4ytt\u00e4\u00e4 t\u00e4t\u00e4 verkkotunnusta, korjaa DNS-m\u00e4\u00e4ritykset ja k\u00e4ynnist\u00e4 Home Assistant uudelleen. Jos et en\u00e4\u00e4 tarvitse t\u00e4t\u00e4, voit poistaa sen tilisivulta.",
+            "title": "Muokattu verkkotunnus ohitettu"
+        },
+        "warn_bad_custom_domain_configuration": {
+            "description": "Mukautetun toimialueen ({custom_domains}) DNS-m\u00e4\u00e4ritykset eiv\u00e4t ole oikein. Tarkista verkkotunnuksesi DNS-m\u00e4\u00e4ritykset ja varmista, ett\u00e4 se osoittaa oikeaan CNAME-nimeen.",
+            "title": "Havaittiin v\u00e4\u00e4r\u00e4 mukautetun verkkotunnuksen m\u00e4\u00e4ritys"
+        }
+    },
+    "services": {
+        "create_temporary_strict_connection_url": {
+            "description": "Luo v\u00e4liaikainen tiukka yhteys-URL, jota voidaan k\u00e4ytt\u00e4\u00e4 kirjautumiseen toisella laitteella.",
+            "name": "Luo v\u00e4liaikainen tiukka yhteys URL-osoite"
+        },
+        "remote_connect": {
+            "description": "Tekee instanssin k\u00e4ytt\u00f6liittym\u00e4st\u00e4 paikallisen verkon ulkopuolelta k\u00e4ytett\u00e4viss\u00e4 olevan version Home Assistant Cloudin avulla.",
+            "name": "Et\u00e4yhteys"
+        },
+        "remote_disconnect": {
+            "description": "Katkaisee Home Assistant -k\u00e4ytt\u00f6liittym\u00e4n yhteyden Home Assistant Cloudiin. Et voi en\u00e4\u00e4 k\u00e4ytt\u00e4\u00e4 Home Assistant -instanssia l\u00e4hiverkon ulkopuolelta.",
+            "name": "Kaukoirtikytkent\u00e4"
+        }
+    },
+    "system_health": {
+        "info": {
+            "can_reach_cloud": "Saavuta Home Assistant Cloud",
+            "instance_id": "Instanssin tunnus",
+            "logged_in": "Kirjautunut sis\u00e4\u00e4n"
+        }
+    }
+}

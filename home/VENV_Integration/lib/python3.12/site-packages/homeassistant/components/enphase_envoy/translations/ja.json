@@ -1,0 +1,355 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "\u30c7\u30d0\u30a4\u30b9\u306f\u3059\u3067\u306b\u8a2d\u5b9a\u3055\u308c\u3066\u3044\u307e\u3059",
+            "reauth_successful": "\u518d\u8a8d\u8a3c\u306b\u6210\u529f\u3057\u307e\u3057\u305f"
+        },
+        "error": {
+            "cannot_connect": "\u63a5\u7d9a\u306b\u5931\u6557\u3057\u307e\u3057\u305f: {reason}",
+            "invalid_auth": "\u7121\u52b9\u306a\u8a8d\u8a3c: {reason}",
+            "unexpected_envoy": "\u4e88\u671f\u3057\u306a\u3044Envoy: {reason}",
+            "unknown": "\u4e88\u671f\u3057\u306a\u3044\u30a8\u30e9\u30fc"
+        },
+        "flow_title": "{serial} ({host})",
+        "step": {
+            "reconfigure": {
+                "data": {
+                    "host": "\u30db\u30b9\u30c8",
+                    "password": "\u30d1\u30b9\u30ef\u30fc\u30c9",
+                    "username": "\u30e6\u30fc\u30b6\u30fc\u540d"
+                },
+                "data_description": {
+                    "host": "Enphase Envoy \u30b2\u30fc\u30c8\u30a6\u30a7\u30a4\u306e\u30db\u30b9\u30c8\u540d\u307e\u305f\u306f IP \u30a2\u30c9\u30ec\u30b9\u3002"
+                },
+                "description": "\u30d5\u30a1\u30fc\u30e0\u30a6\u30a7\u30a2 \u30d0\u30fc\u30b8\u30e7\u30f3 7.0 \u4ee5\u964d\u306e\u5834\u5408\u306f\u3001Enphase \u30af\u30e9\u30a6\u30c9\u306e\u8a8d\u8a3c\u60c5\u5831\u3092\u5165\u529b\u3057\u3001\u53e4\u3044\u30e2\u30c7\u30eb\u306e\u5834\u5408\u306f\u3001\u30d1\u30b9\u30ef\u30fc\u30c9\u306a\u3057\u3067\u30e6\u30fc\u30b6\u30fc\u540d\u300cinstaller\u300d\u3092\u5165\u529b\u3057\u307e\u3059\u3002"
+            },
+            "user": {
+                "data": {
+                    "host": "\u30db\u30b9\u30c8",
+                    "password": "\u30d1\u30b9\u30ef\u30fc\u30c9",
+                    "username": "\u30e6\u30fc\u30b6\u30fc\u540d"
+                },
+                "data_description": {
+                    "host": "Enphase Envoy \u30b2\u30fc\u30c8\u30a6\u30a7\u30a4\u306e\u30db\u30b9\u30c8\u540d\u307e\u305f\u306f IP \u30a2\u30c9\u30ec\u30b9\u3002"
+                },
+                "description": "\u30d5\u30a1\u30fc\u30e0\u30a6\u30a7\u30a2 \u30d0\u30fc\u30b8\u30e7\u30f3 7.0 \u4ee5\u964d\u306e\u5834\u5408\u306f\u3001Enphase \u30af\u30e9\u30a6\u30c9\u306e\u8a8d\u8a3c\u60c5\u5831\u3092\u5165\u529b\u3057\u3001\u53e4\u3044\u30e2\u30c7\u30eb\u306e\u5834\u5408\u306f\u3001\u30d1\u30b9\u30ef\u30fc\u30c9\u306a\u3057\u3067\u30e6\u30fc\u30b6\u30fc\u540d\u300cinstaller\u300d\u3092\u5165\u529b\u3057\u307e\u3059\u3002"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "communicating": {
+                "name": "\u901a\u4fe1\u4e2d"
+            },
+            "dc_switch": {
+                "name": "DC\u30b9\u30a4\u30c3\u30c1"
+            },
+            "grid_status": {
+                "name": "\u30b0\u30ea\u30c3\u30c9\u306e\u72b6\u614b"
+            },
+            "operating": {
+                "name": "\u904b\u8ee2\u4e2d"
+            },
+            "relay": {
+                "name": "\u30ea\u30ec\u30fc\u306e\u72b6\u614b"
+            }
+        },
+        "number": {
+            "cutoff_battery_level": {
+                "name": "\u30d0\u30c3\u30c6\u30ea\u30fc\u6b8b\u91cf\u306e\u5207\u6368\u3066"
+            },
+            "reserve_soc": {
+                "name": "\u4e88\u5099\u30d0\u30c3\u30c6\u30ea\u30fc\u6b8b\u91cf"
+            },
+            "restore_battery_level": {
+                "name": "\u30d0\u30c3\u30c6\u30ea\u30fc\u6b8b\u91cf\u306e\u5fa9\u5143"
+            }
+        },
+        "select": {
+            "relay_generator_action": {
+                "name": "\u767a\u96fb\u6a5f\u306e\u52d5\u4f5c",
+                "state": {
+                    "none": "\u306a\u3057",
+                    "not_powered": "\u96fb\u6e90\u306a\u3057",
+                    "powered": "\u901a\u96fb",
+                    "schedule": "\u30b9\u30b1\u30b8\u30e5\u30fc\u30eb\u306b\u5f93\u3046"
+                }
+            },
+            "relay_grid_action": {
+                "name": "\u30b0\u30ea\u30c3\u30c9\u30a2\u30af\u30b7\u30e7\u30f3",
+                "state": {
+                    "none": "\u306a\u3057",
+                    "not_powered": "\u96fb\u6e90\u306a\u3057",
+                    "powered": "\u901a\u96fb",
+                    "schedule": "\u30b9\u30b1\u30b8\u30e5\u30fc\u30eb\u306b\u5f93\u3046"
+                }
+            },
+            "relay_microgrid_action": {
+                "name": "\u30de\u30a4\u30af\u30ed\u30b0\u30ea\u30c3\u30c9\u30a2\u30af\u30b7\u30e7\u30f3",
+                "state": {
+                    "none": "\u306a\u3057",
+                    "not_powered": "\u96fb\u6e90\u306a\u3057",
+                    "powered": "\u901a\u96fb",
+                    "schedule": "\u30b9\u30b1\u30b8\u30e5\u30fc\u30eb\u306b\u5f93\u3046"
+                }
+            },
+            "relay_mode": {
+                "name": "\u30e2\u30fc\u30c9",
+                "state": {
+                    "battery": "\u30d0\u30c3\u30c6\u30ea\u30fc\u6b8b\u91cf",
+                    "standard": "\u6a19\u6e96"
+                }
+            },
+            "storage_mode": {
+                "name": "\u30b9\u30c8\u30ec\u30fc\u30b8\u30e2\u30fc\u30c9",
+                "state": {
+                    "backup": "\u30d5\u30eb\u30d0\u30c3\u30af\u30a2\u30c3\u30d7",
+                    "savings": "\u7bc0\u7d04\u30e2\u30fc\u30c9",
+                    "self_consumption": "\u81ea\u5bb6\u6d88\u8cbb"
+                }
+            }
+        },
+        "sensor": {
+            "available_energy": {
+                "name": "\u5229\u7528\u53ef\u80fd\u306a\u30d0\u30c3\u30c6\u30ea\u30fc\u30a8\u30cd\u30eb\u30ae\u30fc"
+            },
+            "balanced_net_consumption": {
+                "name": "\u30d0\u30e9\u30f3\u30b9\u306e\u3068\u308c\u305f\u7d14\u6d88\u8cbb\u96fb\u529b"
+            },
+            "balanced_net_consumption_phase": {
+                "name": "\u30d0\u30e9\u30f3\u30b9\u306e\u3068\u308c\u305f\u7d14\u6d88\u8cbb\u96fb\u529b{phase_name}"
+            },
+            "battery_discharge": {
+                "name": "\u73fe\u5728\u306e\u30d0\u30c3\u30c6\u30ea\u30fc\u653e\u96fb"
+            },
+            "battery_discharge_phase": {
+                "name": "\u73fe\u5728\u306e\u30d0\u30c3\u30c6\u30ea\u30fc\u653e\u96fb{phase_name}"
+            },
+            "configured_reserve_soc": {
+                "name": "\u8a2d\u5b9a\u3055\u308c\u305f\u4e88\u5099\u30d0\u30c3\u30c6\u30ea\u30fc\u30ec\u30d9\u30eb"
+            },
+            "current_power_consumption": {
+                "name": "\u73fe\u5728\u306e\u6d88\u8cbb\u96fb\u529b"
+            },
+            "current_power_consumption_phase": {
+                "name": "\u73fe\u5728\u306e\u6d88\u8cbb\u96fb\u529b{phase_name}"
+            },
+            "current_power_production": {
+                "name": "\u73fe\u5728\u306e\u767a\u96fb\u91cf"
+            },
+            "current_power_production_phase": {
+                "name": "\u73fe\u5728\u306e\u767a\u96fb\u91cf{phase_name}"
+            },
+            "daily_consumption": {
+                "name": "\u4eca\u65e5\u306e\u30a8\u30cd\u30eb\u30ae\u30fc\u6d88\u8cbb\u91cf"
+            },
+            "daily_consumption_phase": {
+                "name": "\u4eca\u65e5\u306e\u30a8\u30cd\u30eb\u30ae\u30fc\u6d88\u8cbb\u91cf{phase_name}"
+            },
+            "daily_production": {
+                "name": "\u4eca\u65e5\u306e\u30a8\u30cd\u30eb\u30ae\u30fc\u751f\u7523\u91cf"
+            },
+            "daily_production_phase": {
+                "name": "\u4eca\u65e5\u306e\u30a8\u30cd\u30eb\u30ae\u30fc\u751f\u7523\u91cf{phase_name}"
+            },
+            "last_reported": {
+                "name": "\u6700\u7d42\u5831\u544a"
+            },
+            "lifetime_balanced_net_consumption": {
+                "name": "\u751f\u6daf\u30d0\u30e9\u30f3\u30b9\u306e\u3068\u308c\u305f\u7d14\u6d88\u8cbb\u96fb\u529b"
+            },
+            "lifetime_balanced_net_consumption_phase": {
+                "name": "\u751f\u6daf\u30d0\u30e9\u30f3\u30b9\u306e\u3068\u308c\u305f\u7d14\u6d88\u8cbb\u96fb\u529b{phase_name}"
+            },
+            "lifetime_battery_charged": {
+                "name": "\u30d0\u30c3\u30c6\u30ea\u30fc\u306e\u5145\u96fb\u5bff\u547d"
+            },
+            "lifetime_battery_charged_phase": {
+                "name": "\u30d0\u30c3\u30c6\u30ea\u30fc\u306e\u5145\u96fb\u5bff\u547d{phase_name}"
+            },
+            "lifetime_battery_discharged": {
+                "name": "\u653e\u96fb\u3055\u308c\u305f\u30d0\u30c3\u30c6\u30ea\u30fc\u306e\u30a8\u30cd\u30eb\u30ae\u30fc\u5bff\u547d"
+            },
+            "lifetime_battery_discharged_phase": {
+                "name": "\u653e\u96fb\u3055\u308c\u305f\u30d0\u30c3\u30c6\u30ea\u30fc\u306e\u30a8\u30cd\u30eb\u30ae\u30fc\u5bff\u547d{phase_name}"
+            },
+            "lifetime_consumption": {
+                "name": "\u751f\u6daf\u30a8\u30cd\u30eb\u30ae\u30fc\u6d88\u8cbb\u91cf"
+            },
+            "lifetime_consumption_phase": {
+                "name": "\u751f\u6daf\u30a8\u30cd\u30eb\u30ae\u30fc\u6d88\u8cbb\u91cf{phase_name}"
+            },
+            "lifetime_net_consumption": {
+                "name": "\u751f\u6daf\u306e\u6b63\u5473\u30a8\u30cd\u30eb\u30ae\u30fc\u6d88\u8cbb\u91cf"
+            },
+            "lifetime_net_consumption_phase": {
+                "name": "\u751f\u6daf\u6b63\u5473\u30a8\u30cd\u30eb\u30ae\u30fc\u6d88\u8cbb\u91cf{phase_name}"
+            },
+            "lifetime_net_production": {
+                "name": "\u751f\u6daf\u306e\u6b63\u5473\u30a8\u30cd\u30eb\u30ae\u30fc\u751f\u7523"
+            },
+            "lifetime_net_production_phase": {
+                "name": "\u751f\u6daf\u6b63\u5473\u30a8\u30cd\u30eb\u30ae\u30fc\u751f\u7523{phase_name}"
+            },
+            "lifetime_production": {
+                "name": "\u751f\u6daf\u30a8\u30cd\u30eb\u30ae\u30fc\u751f\u7523\u91cf"
+            },
+            "lifetime_production_phase": {
+                "name": "\u751f\u6daf\u30a8\u30cd\u30eb\u30ae\u30fc\u751f\u7523\u91cf{phase_name}"
+            },
+            "max_capacity": {
+                "name": "\u30d0\u30c3\u30c6\u30ea\u30fc\u5bb9\u91cf"
+            },
+            "net_consumption": {
+                "name": "\u73fe\u5728\u306e\u6b63\u5473\u6d88\u8cbb\u96fb\u529b"
+            },
+            "net_consumption_phase": {
+                "name": "\u73fe\u5728\u306e\u6b63\u5473\u6d88\u8cbb\u96fb\u529b{phase_name}"
+            },
+            "net_ct_current": {
+                "name": "\u6b63\u5473\u6d88\u8cbb CT\u96fb\u6d41"
+            },
+            "net_ct_current_phase": {
+                "name": "\u6b63\u5473\u6d88\u8cbb CT\u96fb\u6d41{phase_name}"
+            },
+            "net_ct_frequency": {
+                "name": "\u5468\u6ce2\u6570\u6b63\u5473\u6d88\u8cbbCT"
+            },
+            "net_ct_frequency_phase": {
+                "name": "\u5468\u6ce2\u6570\u6b63\u5473\u6d88\u8cbb\u91cf CT {phase_name}"
+            },
+            "net_ct_metering_status": {
+                "name": "\u8a08\u91cf\u30b9\u30c6\u30fc\u30bf\u30b9\u6b63\u5473\u6d88\u8cbbCT"
+            },
+            "net_ct_metering_status_phase": {
+                "name": "\u30e1\u30fc\u30bf\u30ea\u30f3\u30b0\u30b9\u30c6\u30fc\u30bf\u30b9\u306e\u6b63\u5473\u6d88\u8cbb\u91cf CT {phase_name}"
+            },
+            "net_ct_powerfactor": {
+                "name": "\u529b\u7387\u6b63\u5473\u6d88\u8cbbCT"
+            },
+            "net_ct_powerfactor_phase": {
+                "name": "\u529b\u7387\u6b63\u5473\u6d88\u8cbb CT {phase_name}"
+            },
+            "net_ct_status_flags": {
+                "name": "\u30e1\u30fc\u30bf\u30fc\u30b9\u30c6\u30fc\u30bf\u30b9\u30d5\u30e9\u30b0\u30a2\u30af\u30c6\u30a3\u30d6\u6b63\u5473\u6d88\u8cbbCT"
+            },
+            "net_ct_status_flags_phase": {
+                "name": "\u30e1\u30fc\u30bf\u30fc\u30b9\u30c6\u30fc\u30bf\u30b9\u30d5\u30e9\u30b0\u306e\u30a2\u30af\u30c6\u30a3\u30d6\u306a\u6b63\u5473\u6d88\u8cbb\u91cf CT {phase_name}"
+            },
+            "net_ct_voltage": {
+                "name": "\u96fb\u5727\u6b63\u5473\u6d88\u8cbb\u91cfCT"
+            },
+            "net_ct_voltage_phase": {
+                "name": "\u96fb\u5727\u6b63\u5473\u6d88\u8cbb\u91cf CT {phase_name}"
+            },
+            "production_ct_current": {
+                "name": "\u751f\u7523\u7528CT\u96fb\u6d41"
+            },
+            "production_ct_current_phase": {
+                "name": "\u751f\u7523\u7528CT\u96fb\u6d41{phase_name}"
+            },
+            "production_ct_frequency": {
+                "name": "\u5468\u6ce2\u6570\u751f\u6210CT"
+            },
+            "production_ct_frequency_phase": {
+                "name": "\u5468\u6ce2\u6570\u751f\u6210 CT {phase_name}"
+            },
+            "production_ct_metering_status": {
+                "name": "\u30e1\u30fc\u30bf\u30ea\u30f3\u30b0\u72b6\u614b \u751f\u7523 CT"
+            },
+            "production_ct_metering_status_phase": {
+                "name": "\u30e1\u30fc\u30bf\u30ea\u30f3\u30b0\u30b9\u30c6\u30fc\u30bf\u30b9\u306e\u751f\u7523CT {phase_name}"
+            },
+            "production_ct_powerfactor": {
+                "name": "\u529b\u7387\u751f\u7523CT"
+            },
+            "production_ct_powerfactor_phase": {
+                "name": "\u529b\u7387\u751f\u7523 CT {phase_name}"
+            },
+            "production_ct_status_flags": {
+                "name": "\u30e1\u30fc\u30bf\u30fc\u30b9\u30c6\u30fc\u30bf\u30b9\u306f\u3001\u30a2\u30af\u30c6\u30a3\u30d6\u306a\u751f\u7523CT\u306b\u30d5\u30e9\u30b0\u3092\u7acb\u3066\u307e\u3059"
+            },
+            "production_ct_status_flags_phase": {
+                "name": "\u30e1\u30fc\u30bf\u30fc\u306e\u72b6\u614b\u306f\u3001\u30a2\u30af\u30c6\u30a3\u30d6\u306a\u751f\u7523 CT {phase_name} \u306b\u30d5\u30e9\u30b0\u3092\u7acb\u3066\u307e\u3059"
+            },
+            "production_ct_voltage": {
+                "name": "\u96fb\u5727\u751f\u6210 CT"
+            },
+            "production_ct_voltage_phase": {
+                "name": "\u96fb\u5727\u751f\u6210 CT {phase_name}"
+            },
+            "reserve_energy": {
+                "name": "\u4e88\u5099\u30d0\u30c3\u30c6\u30ea\u30fc\u30a8\u30cd\u30eb\u30ae\u30fc"
+            },
+            "reserve_soc": {
+                "name": "\u4e88\u5099\u30d0\u30c3\u30c6\u30ea\u30fc\u6b8b\u91cf"
+            },
+            "seven_days_consumption": {
+                "name": "\u76f4\u8fd17\u65e5\u9593\u306e\u30a8\u30cd\u30eb\u30ae\u30fc\u6d88\u8cbb\u91cf"
+            },
+            "seven_days_consumption_phase": {
+                "name": "\u76f4\u8fd17\u65e5\u9593\u306e\u30a8\u30cd\u30eb\u30ae\u30fc\u6d88\u8cbb\u91cf{phase_name}"
+            },
+            "seven_days_production": {
+                "name": "\u76f4\u8fd17\u65e5\u9593\u306e\u30a8\u30cd\u30eb\u30ae\u30fc\u751f\u7523\u91cf"
+            },
+            "seven_days_production_phase": {
+                "name": "\u76f4\u8fd17\u65e5\u9593\u306e\u30a8\u30cd\u30eb\u30ae\u30fc\u751f\u7523\u91cf{phase_name}"
+            },
+            "storage_ct_current": {
+                "name": "\u30b9\u30c8\u30ec\u30fc\u30b8CT\u96fb\u6d41"
+            },
+            "storage_ct_current_phase": {
+                "name": "\u30b9\u30c8\u30ec\u30fc\u30b8CT\u96fb\u6d41{phase_name}"
+            },
+            "storage_ct_frequency": {
+                "name": "\u5468\u6ce2\u6570\u30b9\u30c8\u30ec\u30fc\u30b8CT"
+            },
+            "storage_ct_frequency_phase": {
+                "name": "\u5468\u6ce2\u6570\u30b9\u30c8\u30ec\u30fc\u30b8 CT {phase_name}"
+            },
+            "storage_ct_metering_status": {
+                "name": "\u30e1\u30fc\u30bf\u30ea\u30f3\u30b0\u30b9\u30c6\u30fc\u30bf\u30b9\u30b9\u30c8\u30ec\u30fc\u30b8CT"
+            },
+            "storage_ct_metering_status_phase": {
+                "name": "\u30e1\u30fc\u30bf\u30ea\u30f3\u30b0\u30b9\u30c6\u30fc\u30bf\u30b9\u30b9\u30c8\u30ec\u30fc\u30b8CT {phase_name}"
+            },
+            "storage_ct_powerfactor": {
+                "name": "\u529b\u7387\u30b9\u30c8\u30ec\u30fc\u30b8CT"
+            },
+            "storage_ct_powerfactor_phase": {
+                "name": "\u529b\u7387\u30b9\u30c8\u30ec\u30fc\u30b8 CT {phase_name}"
+            },
+            "storage_ct_status_flags": {
+                "name": "\u30e1\u30fc\u30bf\u30fc\u30fb\u30b9\u30c6\u30fc\u30bf\u30b9\u30fb\u30d5\u30e9\u30b0\u30fb\u30a2\u30af\u30c6\u30a3\u30d6\u30fb\u30b9\u30c8\u30ec\u30fc\u30b8CT"
+            },
+            "storage_ct_status_flags_phase": {
+                "name": "\u30e1\u30fc\u30bf\u30fc\u30fb\u30b9\u30c6\u30fc\u30bf\u30b9\u30fb\u30d5\u30e9\u30b0\u30fb\u30a2\u30af\u30c6\u30a3\u30d6\u30fb\u30b9\u30c8\u30ec\u30fc\u30b8CT{phase_name}"
+            },
+            "storage_ct_voltage": {
+                "name": "\u96fb\u5727\u8caf\u8535CT"
+            },
+            "storage_ct_voltage_phase": {
+                "name": "\u96fb\u5727\u8caf\u8535CT {phase_name}"
+            }
+        },
+        "switch": {
+            "charge_from_grid": {
+                "name": "\u30b0\u30ea\u30c3\u30c9\u304b\u3089\u306e\u5145\u96fb"
+            },
+            "grid_enabled": {
+                "name": "\u30b0\u30ea\u30c3\u30c9\u6709\u52b9"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "diagnostics_include_fixtures": "\u8a3a\u65ad\u30ec\u30dd\u30fc\u30c8\u306b\u30c6\u30b9\u30c8 \u30d5\u30a3\u30af\u30b9\u30c1\u30e3 \u30c7\u30fc\u30bf\u3092\u542b\u3081\u307e\u3059\u3002\u30c8\u30e9\u30d6\u30eb\u30b7\u30e5\u30fc\u30c6\u30a3\u30f3\u30b0\u307e\u305f\u306f\u958b\u767a\u30a2\u30af\u30c6\u30a3\u30d3\u30c6\u30a3\u7528\u306e\u30c6\u30b9\u30c8 \u30c7\u30fc\u30bf\u3092\u63d0\u4f9b\u3059\u308b\u3088\u3046\u8981\u6c42\u3055\u308c\u305f\u5834\u5408\u306b\u4f7f\u7528\u3057\u307e\u3059\u3002\u3053\u306e\u30aa\u30d7\u30b7\u30e7\u30f3\u3092\u6709\u52b9\u306b\u3059\u308b\u3068\u3001\u8a3a\u65ad\u30ec\u30dd\u30fc\u30c8\u306e\u30c0\u30a6\u30f3\u30ed\u30fc\u30c9\u306b\u6642\u9593\u304c\u304b\u304b\u308b\u5834\u5408\u304c\u3042\u308a\u307e\u3059\u3002\u30ec\u30dd\u30fc\u30c8\u3092\u4f5c\u6210\u3059\u308b\u3068\u304d\u306f\u3001\u3053\u306e\u30aa\u30d7\u30b7\u30e7\u30f3\u3092\u518d\u5ea6\u7121\u52b9\u306b\u3059\u308b\u3053\u3068\u3092\u304a\u52e7\u3081\u3057\u307e\u3059\u3002"
+                },
+                "title": "Envoy {serial} {host}\u30aa\u30d7\u30b7\u30e7\u30f3"
+            }
+        }
+    }
+}

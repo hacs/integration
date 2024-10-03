@@ -1,0 +1,87 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Seade on juba h\u00e4\u00e4lestatud",
+            "success": "Muudatused on salvestatud"
+        },
+        "flow_title": "L\u00e4hedus",
+        "step": {
+            "user": {
+                "data": {
+                    "ignored_zones": "Eiratavad tsoonid",
+                    "tolerance": "Sallivuskaugus",
+                    "tracked_entities": "J\u00e4lgitavad seadmed v\u00f5i isikud",
+                    "zone": "Tsoon milleni kaugust j\u00e4lgida"
+                }
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "dir_of_travel": {
+                "name": "{tracked_entity} liikumise suund",
+                "state": {
+                    "arrived": "Kohale j\u00f5udnud",
+                    "away_from": "Eemal",
+                    "stationary": "Paigal",
+                    "towards": "Suunas"
+                }
+            },
+            "dist_to_zone": {
+                "name": "{tracked_entity} kaugus"
+            },
+            "nearest": {
+                "name": "L\u00e4him seade"
+            },
+            "nearest_dir_of_travel": {
+                "name": "L\u00e4him liikumissuund",
+                "state": {
+                    "arrived": "Saabunud",
+                    "away_from": "Eemal",
+                    "stationary": "Paigal",
+                    "towards": "Suunas"
+                }
+            },
+            "nearest_dist_to_zone": {
+                "name": "V\u00e4him kaugus"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_proximity_entity": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "L\u00e4hedusolem ' {entity}' on kasutuselt k\u00f5rvaldatud ja eemaldatakse 2024.8. Kuid seda kasutatakse j\u00e4rgmistes konfiguratsioonides:\n- {used_in}\n\nKohanda k\u00f5iki automaatikaid v\u00f5i skripte, mis kasutavad seda aegunud l\u00e4heduse olemit.\nIga j\u00e4lgitava isiku v\u00f5i seadme jaoks luuakse \u00fcks andur vahemaa ja s\u00f5idusuuna jaoks j\u00e4lgitavasse tsooni / sealt v\u00e4lja. Lisaks luuakse iga l\u00e4heduse konfiguratsiooni jaoks \u00fcks andur, mis n\u00e4itab j\u00e4lgitavale tsoonile l\u00e4himat seadet v\u00f5i inimest. Selle abil saad kasutada Min/Max integratsiooni l\u00e4hima ja kaugeima vahemaa m\u00e4\u00e4ramiseks.",
+                        "title": "L\u00e4heduse olem on aegunud"
+                    }
+                }
+            },
+            "title": "L\u00e4heduse olem on aegunud"
+        },
+        "tracked_entity_removed": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Olem ` {entity_id} ` on HA-st eemaldatud, kuid seda kasutatakse l\u00e4heduseks {name} . Eemalda ` {entity_id} ` j\u00e4lgitavate \u00fcksuste loendist. Seotud l\u00e4hedusanduri \u00fcksused m\u00e4\u00e4rati k\u00e4ttesaamatuks ja neid saab eemaldada.",
+                        "title": "J\u00e4lgitav olem on eemaldatud"
+                    }
+                }
+            },
+            "title": "J\u00e4lgitav olem on eemaldatud"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "ignored_zones": "Eiratavad tsoonid",
+                    "tolerance": "Sallivuskaugus",
+                    "tracked_entities": "J\u00e4lgitavad seadmed v\u00f5i isikud",
+                    "zone": "Tsoon milleni kaugust j\u00e4lgida"
+                }
+            }
+        }
+    },
+    "title": "L\u00e4hedus"
+}

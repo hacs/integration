@@ -1,0 +1,120 @@
+{
+    "device_automation": {
+        "action_type": {
+            "toggle": "{entity_name} umschalten",
+            "turn_off": "{entity_name} ausschalten",
+            "turn_on": "{entity_name} einschalten"
+        },
+        "condition_type": {
+            "is_off": "{entity_name} ist ausgeschaltet",
+            "is_on": "{entity_name} ist eingeschaltet"
+        },
+        "trigger_type": {
+            "changed_states": "{entity_name} ein- oder ausgeschaltet",
+            "turned_off": "{entity_name} ausgeschaltet",
+            "turned_on": "{entity_name} eingeschaltet"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Fernbedienung",
+            "state": {
+                "off": "Aus",
+                "on": "An"
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "Die {platform}-Plattform f\u00fcr die {domain}-Integration unterst\u00fctzt die Plattform-Einrichtung nicht. \n\nBitte entferne es aus deiner Konfiguration und starte Home Assistant neu, um dieses Problem zu beheben.",
+            "title": "Plattform-Unterst\u00fctzung nicht unterst\u00fctzt"
+        }
+    },
+    "services": {
+        "delete_command": {
+            "description": "L\u00f6scht einen Befehl oder eine Liste von Befehlen aus der Datenbank.",
+            "fields": {
+                "command": {
+                    "description": "Der einzelne Befehl oder die Liste der zu l\u00f6schenden Befehle.",
+                    "name": "Befehl"
+                },
+                "device": {
+                    "description": "Ger\u00e4t, von dem Befehle gel\u00f6scht werden.",
+                    "name": "Ger\u00e4t"
+                }
+            },
+            "name": "Befehl l\u00f6schen"
+        },
+        "learn_command": {
+            "description": "Lernt einen Befehl oder eine Liste von Befehlen von einem Ger\u00e4t.",
+            "fields": {
+                "alternative": {
+                    "description": "Wenn der Code als Alternative gespeichert werden soll. Dies ist n\u00fctzlich bei diskreten Codes. Diskrete Codes kommen bei Schaltern zum Einsatz, die nur eine Funktion haben. Ein Beispiel hierf\u00fcr w\u00e4re ein Code, der ein Ger\u00e4t ausschlie\u00dflich einschaltet. Ist das Ger\u00e4t bereits eingeschaltet, hat das Senden des Codes keine Auswirkung auf den Zustand.",
+                    "name": "Alternative"
+                },
+                "command": {
+                    "description": "Ein einzelner Befehl oder eine Liste von Befehlen zum Lernen.",
+                    "name": "Befehl"
+                },
+                "command_type": {
+                    "description": "Der Typ des zu lernenden Befehls.",
+                    "name": "Befehlstyp"
+                },
+                "device": {
+                    "description": "Ger\u00e4te-ID, von der der Befehl gelernt werden soll.",
+                    "name": "Ger\u00e4t"
+                },
+                "timeout": {
+                    "description": "Zeit\u00fcberschreitung f\u00fcr das Erlernen des Befehls.",
+                    "name": "Zeit\u00fcberschreitung"
+                }
+            },
+            "name": "Befehl lernen"
+        },
+        "send_command": {
+            "description": "Sendet einen Befehl oder eine Liste von Befehlen an ein Ger\u00e4t.",
+            "fields": {
+                "command": {
+                    "description": "Ein einzelner Befehl oder eine Liste von zu sendenden Befehlen.",
+                    "name": "Befehl"
+                },
+                "delay_secs": {
+                    "description": "Die Zeit, die du zwischen wiederholten Befehlen warten m\u00f6chtest.",
+                    "name": "Sekunden verz\u00f6gern"
+                },
+                "device": {
+                    "description": "Ger\u00e4te-ID, an die der Befehl gesendet werden soll.",
+                    "name": "Ger\u00e4t"
+                },
+                "hold_secs": {
+                    "description": "Die Zeit, die aufbewahrt werden soll, bevor die Freigabe gesendet wird.",
+                    "name": "Sekunden halten"
+                },
+                "num_repeats": {
+                    "description": "Die Anzahl der Wiederholungen der Befehle.",
+                    "name": "Wiederholt"
+                }
+            },
+            "name": "Befehl senden"
+        },
+        "toggle": {
+            "description": "Schaltet ein Ger\u00e4t ein/aus.",
+            "name": "Umschalten"
+        },
+        "turn_off": {
+            "description": "Schaltet das Ger\u00e4t aus.",
+            "name": "Ausschalten"
+        },
+        "turn_on": {
+            "description": "Sendet den Befehl zum Einschalten.",
+            "fields": {
+                "activity": {
+                    "description": "Aktivit\u00e4ts-ID oder Aktivit\u00e4tsname, die gestartet werden soll.",
+                    "name": "Aktivit\u00e4t"
+                }
+            },
+            "name": "Einschalten"
+        }
+    },
+    "title": "Fernbedienung"
+}

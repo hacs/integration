@@ -1,0 +1,228 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Laite on jo m\u00e4\u00e4ritetty",
+            "already_in_progress": "M\u00e4\u00e4ritysprosessi on jo k\u00e4ynniss\u00e4",
+            "no_devices_found": "Verkosta ei l\u00f6ytynyt laitteita"
+        },
+        "error": {
+            "cannot_connect": "Yhteyden muodostaminen ep\u00e4onnistui"
+        },
+        "flow_title": "{label} ({group})",
+        "step": {
+            "discovery_confirm": {
+                "description": "Haluatko m\u00e4\u00e4ritt\u00e4\u00e4 {label} ({group})?"
+            },
+            "pick_device": {
+                "data": {
+                    "device": "Laite"
+                }
+            },
+            "user": {
+                "data": {
+                    "host": "Palvelin"
+                },
+                "data_description": {
+                    "host": "LIFX -laitteen is\u00e4nt\u00e4nimi tai IP-osoite."
+                },
+                "description": "Jos j\u00e4t\u00e4t is\u00e4nn\u00e4n tyhj\u00e4ksi, laitteiden l\u00f6yt\u00e4miseen k\u00e4ytet\u00e4\u00e4n Discovery -toimintoa."
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "clean_cycle": {
+                "name": "Puhdas sykli"
+            }
+        },
+        "select": {
+            "infrared_brightness": {
+                "name": "Infrapunan kirkkausm"
+            },
+            "theme": {
+                "name": "Teema"
+            }
+        },
+        "sensor": {
+            "rssi": {
+                "name": "RSSI"
+            }
+        }
+    },
+    "services": {
+        "effect_colorloop": {
+            "description": "Suorittaa efektin, jossa on silmukoituvia v\u00e4rej\u00e4.",
+            "fields": {
+                "brightness": {
+                    "description": "V\u00e4risilmukan kirkkautta osoittava numero, jossa 1 on pienin kirkkaus ja 255 on valon tukema enimm\u00e4iskirkkaus.",
+                    "name": "Kirkkauden arvo"
+                },
+                "brightness_pct": {
+                    "description": "V\u00e4risilmukan kirkkautta osoittava prosenttiosuus, jossa 1 on v\u00e4himm\u00e4iskirkkaus ja 100 on valon tukema enimm\u00e4iskirkkaus.",
+                    "name": "Kirkkaus"
+                },
+                "change": {
+                    "description": "V\u00e4ris\u00e4vyn liike jaksoa kohti, asteina v\u00e4riympyr\u00e4ss\u00e4.",
+                    "name": "Vaihda"
+                },
+                "period": {
+                    "description": "V\u00e4rinmuutosten kesto.",
+                    "name": "Aikajakso"
+                },
+                "power_on": {
+                    "description": "Sammutetut valot syttyv\u00e4t v\u00e4liaikaisesti efektin aikana.",
+                    "name": "Virta p\u00e4\u00e4ll\u00e4"
+                },
+                "saturation_max": {
+                    "description": "Prosenttiosuus, joka ilmaisee silmukan v\u00e4rien enimm\u00e4iskyll\u00e4isyyden.",
+                    "name": "Suurin kyll\u00e4styminen"
+                },
+                "saturation_min": {
+                    "description": "Prosenttiosuus, joka osoittaa silmukan v\u00e4rien v\u00e4himm\u00e4iskyll\u00e4isyyden.",
+                    "name": "V\u00e4himm\u00e4iskyll\u00e4stys"
+                },
+                "spread": {
+                    "description": "Suurin v\u00e4ris\u00e4vyero osallistuvien valojen v\u00e4lill\u00e4 asteina v\u00e4riympyr\u00e4ss\u00e4.",
+                    "name": "Levitys"
+                }
+            },
+            "name": "V\u00e4risilmukkaefekti"
+        },
+        "effect_flame": {
+            "description": "K\u00e4ynnist\u00e4\u00e4 firmware-pohjaisen Flame-efektin LIFX-laatoilla tai kynttil\u00e4ll\u00e4.",
+            "fields": {
+                "power_on": {
+                    "description": "Sammutetut valot syttyv\u00e4t ennen efektin k\u00e4ynnist\u00e4mist\u00e4.",
+                    "name": "Virta p\u00e4\u00e4ll\u00e4"
+                },
+                "speed": {
+                    "description": "Kuinka nopeasti liekit liikkuvat.",
+                    "name": "Nopeus"
+                }
+            },
+            "name": "Liekkiefekti"
+        },
+        "effect_morph": {
+            "description": "K\u00e4ynnist\u00e4\u00e4 firmware-pohjaisen Morph-efektin LIFX Tiles on Candle -laatoilla.",
+            "fields": {
+                "palette": {
+                    "description": "Luettelo v\u00e4hint\u00e4\u00e4n kahdesta ja enint\u00e4\u00e4n 16 v\u00e4rist\u00e4 s\u00e4vy- (0-360), kyll\u00e4isyys- (0-100), kirkkaus- (0-100) ja kelvin- (1500-900) arvoina, joita k\u00e4ytet\u00e4\u00e4n t\u00e4ss\u00e4 efektiss\u00e4. Ohittaa teema-attribuutin.",
+                    "name": "Paletti"
+                },
+                "power_on": {
+                    "description": "Sammutetut valot syttyv\u00e4t ennen efektin k\u00e4ynnist\u00e4mist\u00e4.",
+                    "name": "Virta p\u00e4\u00e4ll\u00e4"
+                },
+                "speed": {
+                    "description": "Kuinka nopeasti v\u00e4rit liikkuvat.",
+                    "name": "Nopeus"
+                },
+                "theme": {
+                    "description": "Esiasetettu v\u00e4riteema, jota k\u00e4ytet\u00e4\u00e4n efektiss\u00e4. Ohitetaan palettiattribuutilla.",
+                    "name": "Teema"
+                }
+            },
+            "name": "Morph-efekti"
+        },
+        "effect_move": {
+            "description": "K\u00e4ynnist\u00e4\u00e4 firmware-pohjaisen Move-efektin LIFX Z:ss\u00e4, Lightstripiss\u00e4 tai Beamissa.",
+            "fields": {
+                "direction": {
+                    "description": "Suunta, jonka efekti liikkuu laitteen poikki.",
+                    "name": "Suunta"
+                },
+                "power_on": {
+                    "description": "Sammutetut valot syttyv\u00e4t ennen efektin k\u00e4ynnist\u00e4mist\u00e4.",
+                    "name": "Virta p\u00e4\u00e4ll\u00e4"
+                },
+                "speed": {
+                    "description": "Kuinka kauan kest\u00e4\u00e4 sekunteina, ett\u00e4 efekti siirtyy valon yli.",
+                    "name": "Nopeus"
+                },
+                "theme": {
+                    "description": "(Valinnainen) aseta jokin ennalta m\u00e4\u00e4ritetyist\u00e4 teemoista laitteeseen ennen tehosteen k\u00e4ynnist\u00e4mist\u00e4.",
+                    "name": "Teema"
+                }
+            },
+            "name": "Move-efekti"
+        },
+        "effect_pulse": {
+            "description": "Suorittaa salamaefektin vaihtamalla v\u00e4rin ja takaisin.",
+            "fields": {
+                "brightness": {
+                    "description": "V\u00e4liaikaisen v\u00e4rin kirkkautta osoittava numero, jossa 1 on pienin kirkkaus ja 255 on valon tukema enimm\u00e4iskirkkaus.",
+                    "name": "Kirkkauden arvo"
+                },
+                "brightness_pct": {
+                    "description": "V\u00e4liaikaisen v\u00e4rin kirkkautta osoittava prosenttiosuus, jossa 1 on v\u00e4himm\u00e4iskirkkaus ja 100 on valon tukema enimm\u00e4iskirkkaus.",
+                    "name": "Kirkkaus"
+                },
+                "color_name": {
+                    "description": "Luettavissa oleva v\u00e4rin nimi.",
+                    "name": "V\u00e4rin nimi"
+                },
+                "cycles": {
+                    "description": "Kuinka monta kertaa efektin pit\u00e4isi toimia.",
+                    "name": "Syklit"
+                },
+                "mode": {
+                    "description": "P\u00e4\u00e4tt\u00e4\u00e4, miten v\u00e4rej\u00e4 muutetaan.",
+                    "name": "Tila"
+                },
+                "period": {
+                    "description": "Efektin kesto.",
+                    "name": "Aikajakso"
+                },
+                "power_on": {
+                    "description": "Sammutetut valot syttyv\u00e4t v\u00e4liaikaisesti efektin aikana.",
+                    "name": "Virta p\u00e4\u00e4ll\u00e4"
+                },
+                "rgb_color": {
+                    "description": "V\u00e4liaikainen v\u00e4ri RGB-muodossa.",
+                    "name": "RGB v\u00e4ri"
+                }
+            },
+            "name": "Pulssiefekti"
+        },
+        "effect_stop": {
+            "description": "Pys\u00e4ytt\u00e4\u00e4 k\u00e4ynniss\u00e4 olevan efektin.",
+            "name": "Lopeta efekti"
+        },
+        "set_hev_cycle_state": {
+            "description": "Ohjaa LIFX Clean -lampun HEV-ledien toimintaa.",
+            "fields": {
+                "duration": {
+                    "description": "Kuinka kauan HEV-ledit palavat. K\u00e4ytt\u00e4\u00e4 m\u00e4\u00e4ritetty\u00e4 oletusarvoisen keston kestoa, jos sit\u00e4 ei ole m\u00e4\u00e4ritetty.",
+                    "name": "Kesto"
+                },
+                "power": {
+                    "description": "K\u00e4ynnist\u00e4\u00e4 tai pys\u00e4ytt\u00e4\u00e4 Puhdistusjakson.",
+                    "name": "Ota k\u00e4ytt\u00f6\u00f6n"
+                }
+            },
+            "name": "Aseta HEV-syklin tila"
+        },
+        "set_state": {
+            "description": "Asettaa v\u00e4rin/kirkkauden ja mahdollisesti kytkee valon p\u00e4\u00e4lle/pois.",
+            "fields": {
+                "infrared": {
+                    "description": "Automaattinen infrapunataso, kun valon kirkkaus on alhainen.",
+                    "name": "Infrapuna"
+                },
+                "power": {
+                    "description": "Kytke valo p\u00e4\u00e4lle tai pois p\u00e4\u00e4lt\u00e4. J\u00e4t\u00e4 pois pit\u00e4\u00e4ksesi virran ennallaan.",
+                    "name": "Virta"
+                },
+                "transition": {
+                    "description": "Kesto, joka tarvitaan lopulliseen tilaan p\u00e4\u00e4semiseksi.",
+                    "name": "Siirtym\u00e4"
+                },
+                "zones": {
+                    "description": "Luettelo vy\u00f6hykkeiden numeroista, joihin halutaan vaikuttaa (8 per LIFX Z, alkaa 0:sta).",
+                    "name": "Alueet"
+                }
+            },
+            "name": "Aseta tila"
+        }
+    }
+}

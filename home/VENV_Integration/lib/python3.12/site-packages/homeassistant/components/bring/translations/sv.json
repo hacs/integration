@@ -1,0 +1,118 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Tj\u00e4nsten \u00e4r redan konfigurerad",
+            "reauth_successful": "\u00c5terautentisering lyckades"
+        },
+        "error": {
+            "cannot_connect": "Det gick inte att ansluta.",
+            "invalid_auth": "Ogiltig autentisering",
+            "unknown": "Ov\u00e4ntat fel"
+        },
+        "step": {
+            "reauth_confirm": {
+                "data": {
+                    "email": "E-post",
+                    "password": "L\u00f6senord"
+                },
+                "description": "Bring! integrationen beh\u00f6ver autentisera ditt konto p\u00e5 nytt",
+                "title": "Autentiseringen har upph\u00f6rt att g\u00e4lla f\u00f6r {name}"
+            },
+            "user": {
+                "data": {
+                    "email": "E-post",
+                    "password": "L\u00f6senord"
+                }
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "list_language": {
+                "state": {
+                    "de-at": "\u00d6sterrike",
+                    "de-ch": "Schweiz (tyska)",
+                    "de-de": "Tyskland",
+                    "en-au": "Australien",
+                    "en-ca": "Kanada",
+                    "en-gb": "Storbritannien",
+                    "en-us": "USA",
+                    "es-es": "Spanien",
+                    "fr-ch": "Schweiz (franska)",
+                    "fr-fr": "Frankrike",
+                    "hu-hu": "Ungern",
+                    "it-ch": "Schweiz (italienska)",
+                    "it-it": "Italien",
+                    "nb-no": "Norge",
+                    "nl-nl": "Nederl\u00e4nderna",
+                    "pl-pl": "Polen",
+                    "pt-br": "Portugal",
+                    "ru-ru": "Ryssland",
+                    "sv-se": "Sverige"
+                }
+            },
+            "urgent": {
+                "name": "Br\u00e5dskande"
+            }
+        }
+    },
+    "exceptions": {
+        "notify_missing_argument_item": {
+            "message": "Det gick inte att utf\u00f6ra \u00e5tg\u00e4rden {service} . 'URGENT_MESSAGE' kr\u00e4ver ett v\u00e4rde @ data['artikel']. Fick inget"
+        },
+        "notify_request_failed": {
+            "message": "Misslyckades med att skicka push-meddelande f\u00f6r Bring p\u00e5 grund av ett anslutningsfel, f\u00f6rs\u00f6k igen senare"
+        },
+        "setup_authentication_exception": {
+            "message": "Autentiseringen misslyckades f\u00f6r {email}, kontrollera din e-postadress och ditt l\u00f6senord"
+        },
+        "setup_parse_exception": {
+            "message": "Det gick inte att analysera serversvaret, f\u00f6rs\u00f6k igen senare"
+        },
+        "setup_request_exception": {
+            "message": "Det gick inte att ansluta till servern, f\u00f6rs\u00f6k igen senare"
+        },
+        "todo_delete_item_failed": {
+            "message": "Misslyckades med att ta bort {count} objekt fr\u00e5n Bring! listan"
+        },
+        "todo_rename_item_failed": {
+            "message": "Misslyckades med att byta namn p\u00e5 objekt {name} i Bring! listan"
+        },
+        "todo_save_item_failed": {
+            "message": "Misslyckades med att spara objekt {name} till Bring! listan"
+        },
+        "todo_update_item_failed": {
+            "message": "Misslyckades med att uppdatera objekt {name} i Bring! listan"
+        }
+    },
+    "selector": {
+        "notification_type_selector": {
+            "options": {
+                "changed_list": "Listan uppdaterad - Ta en titt p\u00e5 artiklarna",
+                "going_shopping": "Jag ska ut och shoppa! - Sista chansen att g\u00f6ra \u00e4ndringar",
+                "shopping_done": "Shoppingen \u00e4r klar - Kylsk\u00e5pet \u00e4r v\u00e4lfyllt",
+                "urgent_message": "Br\u00e5dskande meddelande - V\u00e4nligen k\u00f6p `Artikelnamn` snarast"
+            }
+        }
+    },
+    "services": {
+        "send_message": {
+            "description": "Skicka en push-notis till medlemmar i en delad Bring!-lista.",
+            "fields": {
+                "entity_id": {
+                    "description": "Bring! lista vars medlemmar (f\u00f6rutom avs\u00e4ndaren) kommer att meddelas.",
+                    "name": "Lista"
+                },
+                "item": {
+                    "description": "Artikelnamn som ska inkluderas i ett br\u00e5dskande meddelande, t.ex. `Br\u00e5dskande meddelande - V\u00e4nligen k\u00f6p Koriander snarast`",
+                    "name": "Artikel (Obligatoriskt om meddelandetypen \"Br\u00e5dskande meddelande\" har valts)"
+                },
+                "message": {
+                    "description": "Typ av push-notis som ska skickas till listans medlemmar.",
+                    "name": "Typ av meddelande"
+                }
+            },
+            "name": "Skicka ett meddelande"
+        }
+    }
+}

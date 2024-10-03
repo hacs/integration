@@ -1,0 +1,243 @@
+{
+    "device_automation": {
+        "action_type": {
+            "set_hvac_mode": "Thay \u0111\u1ed5i ch\u1ebf \u0111\u1ed9 \u0111i\u1ec1u h\u00f2a tr\u00ean {entity_name}",
+            "set_preset_mode": "Thay \u0111\u1ed5i gi\u00e1 tr\u1ecb c\u00e0i s\u1eb5n tr\u00ean {entity_name}"
+        },
+        "condition_type": {
+            "is_hvac_mode": "{entity_name} \u0111\u01b0\u1ee3c \u0111\u1eb7t \u1edf ch\u1ebf \u0111\u1ed9 \u0111i\u1ec1u h\u00f2a c\u1ee5 th\u1ec3",
+            "is_preset_mode": "{entity_name} \u0111\u01b0\u1ee3c \u0111\u1eb7t \u1edf ch\u1ebf \u0111\u1ed9 c\u00e0i s\u1eb5n c\u1ee5 th\u1ec3"
+        },
+        "trigger_type": {
+            "current_humidity_changed": "\u0110\u1ed9 \u1ea9m {entity_name} \u0111o \u0111\u01b0\u1ee3c \u0111\u00e3 thay \u0111\u1ed5i",
+            "current_temperature_changed": "Nhi\u1ec7t \u0111\u1ed9 {entity_name} \u0111o \u0111\u01b0\u1ee3c \u0111\u00e3 thay \u0111\u1ed5i",
+            "hvac_mode_changed": "Ch\u1ebf \u0111\u1ed9 \u0111i\u1ec1u h\u00f2a {entity_name} \u0111\u00e3 thay \u0111\u1ed5i"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "B\u1ed9 \u0111i\u1ec1u nhi\u1ec7t",
+            "state": {
+                "auto": "T\u01b0\u0323 \u0111\u00f4\u0323ng",
+                "cool": "M\u00e1t",
+                "dry": "Kh\u00f4",
+                "fan_only": "Ch\u1ec9 qu\u1ea1t",
+                "heat": "\u1ea4m",
+                "heat_cool": "\u1ea4m/M\u00e1t",
+                "off": "T\u1eaft"
+            },
+            "state_attributes": {
+                "aux_heat": {
+                    "name": "Nhi\u1ec7t ph\u1ee5 tr\u1ee3"
+                },
+                "current_humidity": {
+                    "name": "\u0110\u1ed9 \u1ea9m hi\u1ec7n t\u1ea1i"
+                },
+                "current_temperature": {
+                    "name": "Nhi\u1ec7t \u0111\u1ed9 hi\u1ec7n t\u1ea1i"
+                },
+                "fan_mode": {
+                    "name": "Ch\u1ebf \u0111\u1ed9 qu\u1ea1t",
+                    "state": {
+                        "auto": "T\u01b0\u0323 \u0111\u00f4\u0323ng",
+                        "diffuse": "Khu\u1ebfch t\u00e1n",
+                        "focus": "T\u1eadp trung",
+                        "high": "Cao",
+                        "low": "Th\u1ea5p",
+                        "medium": "Trung b\u00ecnh",
+                        "middle": "Gi\u1eefa",
+                        "off": "T\u1eaft",
+                        "on": "B\u1eadt",
+                        "top": "Tr\u00ean"
+                    }
+                },
+                "fan_modes": {
+                    "name": "Ch\u1ebf \u0111\u1ed9 qu\u1ea1t"
+                },
+                "humidity": {
+                    "name": "\u0110\u1ed9 \u1ea9m m\u1ee5c ti\u00eau"
+                },
+                "hvac_action": {
+                    "name": "H\u00e0nh \u0111\u1ed9ng hi\u1ec7n t\u1ea1i",
+                    "state": {
+                        "cooling": "L\u00e0m m\u00e1t",
+                        "drying": "L\u00e0m kh\u00f4",
+                        "fan": "Qu\u1ea1t",
+                        "heating": "L\u00e0m \u1ea5m",
+                        "idle": "Nh\u00e0n r\u1ed7i",
+                        "off": "T\u1eaft",
+                        "preheating": "L\u00e0m \u1ea5m tr\u01b0\u1edbc"
+                    }
+                },
+                "hvac_modes": {
+                    "name": "Ch\u1ebf \u0111\u1ed9 \u0111i\u1ec1u h\u00f2a"
+                },
+                "max_humidity": {
+                    "name": "\u0110\u1ed9 \u1ea9m m\u1ee5c ti\u00eau t\u1ed1i \u0111a"
+                },
+                "max_temp": {
+                    "name": "Nhi\u1ec7t \u0111\u1ed9 m\u1ee5c ti\u00eau t\u1ed1i \u0111a"
+                },
+                "min_humidity": {
+                    "name": "\u0110\u1ed9 \u1ea9m m\u1ee5c ti\u00eau t\u1ed1i thi\u1ec3u"
+                },
+                "min_temp": {
+                    "name": "Nhi\u1ec7t \u0111\u1ed9 m\u1ee5c ti\u00eau t\u1ed1i thi\u1ec3u"
+                },
+                "preset_mode": {
+                    "name": "C\u00e0i s\u1eb5n",
+                    "state": {
+                        "activity": "Ho\u1ea1t \u0111\u1ed9ng",
+                        "away": "\u0110i v\u1eafng",
+                        "boost": "T\u0103ng c\u01b0\u1eddng",
+                        "comfort": "Tho\u1ea3i m\u00e1i",
+                        "eco": "Ti\u1ebft ki\u1ec7m",
+                        "home": "\u1ede nh\u00e0",
+                        "none": "Kh\u00f4ng c\u00f3",
+                        "sleep": "Ng\u1ee7"
+                    }
+                },
+                "preset_modes": {
+                    "name": "C\u00e0i s\u1eb5n"
+                },
+                "swing_mode": {
+                    "name": "Ch\u1ebf \u0111\u1ed9 xoay",
+                    "state": {
+                        "both": "C\u1ea3 hai",
+                        "horizontal": "Ngang",
+                        "off": "T\u1eaft",
+                        "on": "B\u1eadt",
+                        "vertical": "D\u1ecdc"
+                    }
+                },
+                "swing_modes": {
+                    "name": "Ch\u1ebf \u0111\u1ed9 xoay"
+                },
+                "target_temp_high": {
+                    "name": "Nhi\u1ec7t \u0111\u1ed9 m\u1ee5c ti\u00eau c\u1eadn tr\u00ean"
+                },
+                "target_temp_low": {
+                    "name": "Nhi\u1ec7t \u0111\u1ed9 m\u1ee5c ti\u00eau c\u1eadn d\u01b0\u1edbi"
+                },
+                "target_temp_step": {
+                    "name": "B\u01b0\u1edbc nhi\u1ec7t \u0111\u1ed9 m\u1ee5c ti\u00eau"
+                },
+                "temperature": {
+                    "name": "Nhi\u1ec7t \u0111\u1ed9 m\u1ee5c ti\u00eau"
+                }
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "N\u1ec1n t\u1ea3ng {platform} d\u00e0nh cho b\u1ed9 t\u00edch h\u1ee3p {domain} kh\u00f4ng h\u1ed7 tr\u1ee3 thi\u1ebft l\u1eadp n\u1ec1n t\u1ea3ng. \n\nVui l\u00f2ng x\u00f3a n\u00f3 kh\u1ecfi c\u1ea5u h\u00ecnh c\u1ee7a b\u1ea1n v\u00e0 kh\u1edfi \u0111\u1ed9ng l\u1ea1i Home Assistant \u0111\u1ec3 kh\u1eafc ph\u1ee5c s\u1ef1 c\u1ed1 n\u00e0y.",
+            "title": "H\u1ed7 tr\u1ee3 n\u1ec1n t\u1ea3ng kh\u00f4ng \u0111\u01b0\u1ee3c h\u1ed7 tr\u1ee3"
+        }
+    },
+    "selector": {
+        "hvac_mode": {
+            "options": {
+                "auto": "T\u01b0\u0323 \u0111\u00f4\u0323ng",
+                "cool": "M\u00e1t",
+                "dry": "Kh\u00f4",
+                "fan_only": "Ch\u1ec9 qu\u1ea1t",
+                "heat": "\u1ea4m",
+                "heat_cool": "\u1ea4m/m\u00e1t",
+                "off": "T\u1eaft"
+            }
+        }
+    },
+    "services": {
+        "set_aux_heat": {
+            "description": "B\u1eadt/t\u1eaft b\u1ed9 s\u01b0\u1edfi ph\u1ee5.",
+            "fields": {
+                "aux_heat": {
+                    "description": "Gi\u00e1 tr\u1ecb m\u1edbi c\u1ee7a b\u1ed9 s\u01b0\u1edfi ph\u1ee5.",
+                    "name": "S\u01b0\u1edfi ph\u1ee5 tr\u1ee3"
+                }
+            },
+            "name": "B\u1eadt/t\u1eaft b\u1ed9 s\u01b0\u1edfi ph\u1ee5"
+        },
+        "set_fan_mode": {
+            "description": "\u0110\u1eb7t ch\u1ebf \u0111\u1ed9 ho\u1ea1t \u0111\u1ed9ng c\u1ee7a qu\u1ea1t.",
+            "fields": {
+                "fan_mode": {
+                    "description": "Ch\u1ebf \u0111\u1ed9 ho\u1ea1t \u0111\u1ed9ng c\u1ee7a qu\u1ea1t.",
+                    "name": "Ch\u1ebf \u0111\u1ed9 qu\u1ea1t"
+                }
+            },
+            "name": "\u0110\u1eb7t ch\u1ebf \u0111\u1ed9 qu\u1ea1t"
+        },
+        "set_humidity": {
+            "description": "\u0110\u1eb7t \u0111\u1ed9 \u1ea9m m\u1ee5c ti\u00eau.",
+            "fields": {
+                "humidity": {
+                    "description": "\u0110\u1ed9 \u1ea9m m\u1ee5c ti\u00eau.",
+                    "name": "\u0110\u1ed9 \u1ea9m"
+                }
+            },
+            "name": "\u0110\u1eb7t \u0111\u1ed9 \u1ea9m m\u1ee5c ti\u00eau"
+        },
+        "set_hvac_mode": {
+            "description": "\u0110\u1eb7t ch\u1ebf \u0111\u1ed9 ho\u1ea1t \u0111\u1ed9ng \u0111i\u1ec1u h\u00f2a.",
+            "fields": {
+                "hvac_mode": {
+                    "description": "Ch\u1ebf \u0111\u1ed9 ho\u1ea1t \u0111\u1ed9ng \u0111i\u1ec1u h\u00f2a.",
+                    "name": "Ch\u1ebf \u0111\u1ed9 \u0111i\u1ec1u h\u00f2a"
+                }
+            },
+            "name": "\u0110\u1eb7t ch\u1ebf \u0111\u1ed9 \u0111i\u1ec1u h\u00f2a"
+        },
+        "set_preset_mode": {
+            "description": "\u0110\u1eb7t ch\u1ebf \u0111\u1ed9 c\u00e0i s\u1eb5n.",
+            "fields": {
+                "preset_mode": {
+                    "description": "Ch\u1ebf \u0111\u1ed9 c\u00e0i s\u1eb5n.",
+                    "name": "Ch\u1ebf \u0111\u1ed9 c\u00e0i s\u1eb5n"
+                }
+            },
+            "name": "\u0110\u1eb7t ch\u1ebf \u0111\u1ed9 c\u00e0i s\u1eb5n"
+        },
+        "set_swing_mode": {
+            "description": "\u0110\u1eb7t ch\u1ebf \u0111\u1ed9 ho\u1ea1t \u0111\u1ed9ng xoay.",
+            "fields": {
+                "swing_mode": {
+                    "description": "Ch\u1ebf \u0111\u1ed9 ho\u1ea1t \u0111\u1ed9ng xoay.",
+                    "name": "Ch\u1ebf \u0111\u1ed9 xoay"
+                }
+            },
+            "name": "\u0110\u1eb7t ch\u1ebf \u0111\u1ed9 xoay"
+        },
+        "set_temperature": {
+            "description": "\u0110\u1eb7t nhi\u1ec7t \u0111\u1ed9 m\u1ee5c ti\u00eau.",
+            "fields": {
+                "hvac_mode": {
+                    "description": "Ch\u1ebf \u0111\u1ed9 ho\u1ea1t \u0111\u1ed9ng \u0111i\u1ec1u h\u00f2a.",
+                    "name": "Ch\u1ebf \u0111\u1ed9 \u0111i\u1ec1u h\u00f2a"
+                },
+                "target_temp_high": {
+                    "description": "Nhi\u1ec7t \u0111\u1ed9 m\u1ee5c ti\u00eau cao.",
+                    "name": "Nhi\u1ec7t \u0111\u1ed9 m\u1ee5c ti\u00eau cao"
+                },
+                "target_temp_low": {
+                    "description": "Nhi\u1ec7t \u0111\u1ed9 m\u1ee5c ti\u00eau th\u1ea5p.",
+                    "name": "Nhi\u1ec7t \u0111\u1ed9 m\u1ee5c ti\u00eau th\u1ea5p"
+                },
+                "temperature": {
+                    "description": "Nhi\u1ec7t \u0111\u1ed9 m\u1ee5c ti\u00eau.",
+                    "name": "Nhi\u1ec7t \u0111\u1ed9"
+                }
+            },
+            "name": "\u0110\u1eb7t nhi\u1ec7t \u0111\u1ed9 m\u1ee5c ti\u00eau"
+        },
+        "turn_off": {
+            "description": "T\u1eaft thi\u1ebft b\u1ecb \u0111i\u1ec1u h\u00f2a.",
+            "name": "T\u1eaft"
+        },
+        "turn_on": {
+            "description": "B\u1eadt thi\u1ebft b\u1ecb \u0111i\u1ec1u h\u00f2a.",
+            "name": "B\u1eadt"
+        }
+    },
+    "title": "\u0110i\u1ec1u h\u00f2a"
+}

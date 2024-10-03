@@ -1,0 +1,101 @@
+{
+    "device_automation": {
+        "action_type": {
+            "turn_off": "St\u00e4ng av {entity_name}",
+            "turn_on": "Sl\u00e5 p\u00e5 {entity_name}"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Vattenv\u00e4rmare",
+            "state": {
+                "eco": "Eko",
+                "electric": "Elektrisk",
+                "gas": "Gas",
+                "heat_pump": "V\u00e4rmepump",
+                "high_demand": "H\u00f6g efterfr\u00e5gan",
+                "off": "Av",
+                "performance": "Prestanda"
+            },
+            "state_attributes": {
+                "away_mode": {
+                    "name": "Bortal\u00e4ge",
+                    "state": {
+                        "off": "Av",
+                        "on": "P\u00e5"
+                    }
+                },
+                "current_operation": {
+                    "name": "Nuvarande driftl\u00e4ge"
+                },
+                "current_temperature": {
+                    "name": "Aktuell temperatur"
+                },
+                "max_temp": {
+                    "name": "Max m\u00e5ltemperatur"
+                },
+                "target_temp_high": {
+                    "name": "\u00d6vre m\u00e5ltemperatur"
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "not_valid_operation_mode": {
+            "message": "Drifts\u00e4ttet {operation_mode} \u00e4r inte giltigt f\u00f6r {entity_id}. Giltiga driftl\u00e4gen \u00e4r: {operation_list}."
+        },
+        "operation_list_not_defined": {
+            "message": "Driftl\u00e4ge {operation_mode} \u00e4r inte giltigt f\u00f6r {entity_id}. Operationslistan \u00e4r inte definierad."
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "{platform}-plattformen f\u00f6r integrationen {domain} st\u00f6ds inte.\n\nTa bort den fr\u00e5n din konfiguration och starta om Home Assistant f\u00f6r att \u00e5tg\u00e4rda detta problem.",
+            "title": "Plattformen st\u00f6ds inte"
+        }
+    },
+    "services": {
+        "set_away_mode": {
+            "description": "Sl\u00e5r p\u00e5/av bortal\u00e4get.",
+            "fields": {
+                "away_mode": {
+                    "description": "Nytt v\u00e4rde f\u00f6r bortal\u00e4ge.",
+                    "name": "Bortal\u00e4ge"
+                }
+            },
+            "name": "St\u00e4ll in bortal\u00e4ge"
+        },
+        "set_operation_mode": {
+            "description": "St\u00e4ller in driftl\u00e4ge.",
+            "fields": {
+                "operation_mode": {
+                    "description": "Nytt v\u00e4rde f\u00f6r driftl\u00e4get. F\u00f6r en lista \u00f6ver m\u00f6jliga l\u00e4gen, se integrationsdokumentationen.",
+                    "name": "Driftl\u00e4ge"
+                }
+            },
+            "name": "St\u00e4ll in driftl\u00e4ge"
+        },
+        "set_temperature": {
+            "description": "St\u00e4ller in m\u00e5ltemperaturen.",
+            "fields": {
+                "operation_mode": {
+                    "description": "Nytt v\u00e4rde f\u00f6r driftl\u00e4get. F\u00f6r en lista \u00f6ver m\u00f6jliga l\u00e4gen, se integrationsdokumentationen.",
+                    "name": "Driftl\u00e4ge"
+                },
+                "temperature": {
+                    "description": "Ny m\u00e5ltemperatur f\u00f6r varmvattenberedaren.",
+                    "name": "Temperatur"
+                }
+            },
+            "name": "St\u00e4ll temperatur"
+        },
+        "turn_off": {
+            "description": "St\u00e4nger av varmvattenberedaren.",
+            "name": "St\u00e4ng av"
+        },
+        "turn_on": {
+            "description": "Sl\u00e5r p\u00e5 varmvattenberedaren.",
+            "name": "Starta"
+        }
+    }
+}

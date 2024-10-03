@@ -1,0 +1,228 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "El dispositivo ya est\u00e1 configurado",
+            "reauth_successful": "La autenticaci\u00f3n se volvi\u00f3 a realizar correctamente",
+            "unknown": "Error inesperado",
+            "unsupported_version": "Tu versi\u00f3n de System Bridge no es compatible. Por favor, actualiza a la \u00faltima versi\u00f3n."
+        },
+        "error": {
+            "cannot_connect": "No se pudo conectar",
+            "invalid_auth": "Autenticaci\u00f3n no v\u00e1lida",
+            "unknown": "Error inesperado"
+        },
+        "flow_title": "{name}",
+        "step": {
+            "authenticate": {
+                "data": {
+                    "api_key": "Clave API",
+                    "token": "Token API"
+                },
+                "description": "Por favor, introduce el token establecido en tu configuraci\u00f3n para {name}."
+            },
+            "user": {
+                "data": {
+                    "api_key": "Clave API",
+                    "host": "Host",
+                    "port": "Puerto",
+                    "token": "Token"
+                },
+                "description": "Por favor, introduce tus datos de conexi\u00f3n."
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "camera_in_use": {
+                "name": "C\u00e1mara en uso"
+            },
+            "pending_reboot": {
+                "name": "Reinicio pendiente"
+            }
+        },
+        "media_player": {
+            "media": {
+                "name": "Medios"
+            }
+        },
+        "sensor": {
+            "amount_memory_used": {
+                "name": "Cantidad de memoria utilizada"
+            },
+            "battery_time_remaining": {
+                "name": "Tiempo de bater\u00eda restante"
+            },
+            "boot_time": {
+                "name": "Tiempo de arranque"
+            },
+            "cpu_power_package": {
+                "name": "Potencia del paquete de CPU"
+            },
+            "cpu_speed": {
+                "name": "Velocidad de la CPU"
+            },
+            "cpu_temperature": {
+                "name": "Temperatura de la CPU"
+            },
+            "cpu_voltage": {
+                "name": "Voltaje de la CPU"
+            },
+            "displays_connected": {
+                "name": "Pantallas conectadas"
+            },
+            "kernel": {
+                "name": "N\u00facleo"
+            },
+            "load": {
+                "name": "Carga"
+            },
+            "memory_free": {
+                "name": "Memoria libre"
+            },
+            "memory_used": {
+                "name": "Memoria utilizada"
+            },
+            "os": {
+                "name": "Sistema operativo"
+            },
+            "processes": {
+                "name": "Procesos"
+            },
+            "version": {
+                "name": "Versi\u00f3n"
+            },
+            "version_latest": {
+                "name": "\u00daltima versi\u00f3n"
+            }
+        }
+    },
+    "exceptions": {
+        "authentication_failed": {
+            "message": "Error de autenticaci\u00f3n para {title} ({host})"
+        },
+        "connection_failed": {
+            "message": "Se produjo un error de conexi\u00f3n para {title} ({host})"
+        },
+        "device_not_found": {
+            "message": "No se pudo encontrar el dispositivo {device}"
+        },
+        "no_data_received": {
+            "message": "No se recibieron datos de {host}"
+        },
+        "process_not_found": {
+            "message": "No se pudo encontrar el proceso con id {id}."
+        },
+        "timeout": {
+            "message": "Se agot\u00f3 el tiempo de espera para {title} ({host})"
+        },
+        "unsupported_version": {
+            "message": "No est\u00e1s ejecutando una versi\u00f3n compatible de System Bridge para {title} ({host}). Por favor, actualiza a la \u00faltima versi\u00f3n"
+        }
+    },
+    "issues": {
+        "unsupported_version": {
+            "description": "Tu versi\u00f3n de System Bridge para el host {host} no es compatible. \n\nPor favor, actualiza a la \u00faltima versi\u00f3n.",
+            "title": "Se requiere actualizaci\u00f3n de System Bridge"
+        }
+    },
+    "services": {
+        "get_process_by_id": {
+            "description": "Obtiene un proceso por el ID.",
+            "fields": {
+                "bridge": {
+                    "description": "El servidor con el que hablar.",
+                    "name": "Puente"
+                },
+                "id": {
+                    "description": "ID del proceso a obtener.",
+                    "name": "ID"
+                }
+            },
+            "name": "Obtener proceso por ID"
+        },
+        "get_processes_by_name": {
+            "description": "Obtiene una lista de procesos por el nombre.",
+            "fields": {
+                "bridge": {
+                    "description": "El servidor con el que hablar.",
+                    "name": "Puente"
+                },
+                "name": {
+                    "description": "Nombre del proceso a obtener.",
+                    "name": "Nombre"
+                }
+            },
+            "name": "Obtener procesos por nombre"
+        },
+        "open_path": {
+            "description": "Abre un archivo en el servidor utilizando la aplicaci\u00f3n predeterminada.",
+            "fields": {
+                "bridge": {
+                    "description": "El servidor con el que hablar.",
+                    "name": "Puente"
+                },
+                "path": {
+                    "description": "Ruta para abrir.",
+                    "name": "Ruta"
+                }
+            },
+            "name": "Abrir ruta"
+        },
+        "open_url": {
+            "description": "Abre una URL en el servidor utilizando la aplicaci\u00f3n predeterminada.",
+            "fields": {
+                "bridge": {
+                    "description": "El servidor con el que hablar.",
+                    "name": "Puente"
+                },
+                "url": {
+                    "description": "URL para abrir.",
+                    "name": "URL"
+                }
+            },
+            "name": "Abrir URL"
+        },
+        "power_command": {
+            "description": "Env\u00eda un comando de energ\u00eda al sistema.",
+            "fields": {
+                "bridge": {
+                    "description": "El servidor al que enviar el comando.",
+                    "name": "Puente"
+                },
+                "command": {
+                    "description": "Comando a llamar.",
+                    "name": "Comando"
+                }
+            },
+            "name": "Comando de energ\u00eda"
+        },
+        "send_keypress": {
+            "description": "Env\u00eda una pulsaci\u00f3n de teclado.",
+            "fields": {
+                "bridge": {
+                    "description": "El servidor al que enviar el comando.",
+                    "name": "Puente"
+                },
+                "key": {
+                    "description": "Tecla para presionar. Lista disponible aqu\u00ed: http://robotjs.io/docs/syntax#keys.",
+                    "name": "Tecla"
+                }
+            },
+            "name": "Enviar pulsaci\u00f3n de teclado"
+        },
+        "send_text": {
+            "description": "Env\u00eda texto para que el servidor lo escriba.",
+            "fields": {
+                "bridge": {
+                    "description": "El servidor al que enviar el comando.",
+                    "name": "Puente"
+                },
+                "text": {
+                    "description": "Texto para escribir.",
+                    "name": "Texto"
+                }
+            },
+            "name": "Enviar texto de teclado"
+        }
+    }
+}

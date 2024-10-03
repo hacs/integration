@@ -1,0 +1,447 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "A szolg\u00e1ltat\u00e1s m\u00e1r konfigur\u00e1lva van",
+            "single_instance_allowed": "M\u00e1r konfigur\u00e1lva van. Csak egy konfigur\u00e1ci\u00f3 lehets\u00e9ges."
+        },
+        "error": {
+            "cannot_connect": "Sikertelen csatlakoz\u00e1s",
+            "invalid_backbone_key": "\u00c9rv\u00e9nytelen gerinckulcs. 32 hexadecim\u00e1lis sz\u00e1m az elv\u00e1rt.",
+            "invalid_individual_address": "Az \u00e9rt\u00e9k nem felel meg a KNX egyedi c\u00edm mint\u00e1j\u00e1nak.\n'area.line.device'",
+            "invalid_ip_address": "\u00c9rv\u00e9nytelen IPv4-c\u00edm.",
+            "keyfile_invalid_signature": "A \".knxkeys\" f\u00e1jl visszafejt\u00e9s\u00e9hez haszn\u00e1lt jelsz\u00f3 helytelen.",
+            "keyfile_no_backbone_key": "A \".knxkeys\" f\u00e1jl nem tartalmaz gerinckulcsot a biztons\u00e1gos \u00fatv\u00e1laszt\u00e1shoz.",
+            "keyfile_no_tunnel_for_host": "A \".knxkeys\" f\u00e1jl nem tartalmazza a \"{host}\" hiteles\u00edt\u0151 adatait.",
+            "keyfile_not_found": "A megadott \".knxkeys\" f\u00e1jl nem tal\u00e1lhat\u00f3 a config/.storage/knx/ el\u00e9r\u00e9si \u00fatvonalon.",
+            "no_router_discovered": "Nem tal\u00e1lhat\u00f3 KNXnet/IP \u00fatv\u00e1laszt\u00f3 a h\u00e1l\u00f3zaton.",
+            "no_tunnel_discovered": "Nem tal\u00e1lhat\u00f3 KNX alag\u00fat-kiszolg\u00e1l\u00f3 a h\u00e1l\u00f3zaton.",
+            "unsupported_tunnel_type": "A kiv\u00e1lasztott alag\u00fatt\u00edpust az \u00e1tj\u00e1r\u00f3 nem t\u00e1mogatja."
+        },
+        "step": {
+            "connection_type": {
+                "data": {
+                    "connection_type": "KNX csatlakoz\u00e1s t\u00edpusa"
+                },
+                "description": "K\u00e9rem, adja meg a KNX-kapcsolathoz haszn\u00e1land\u00f3 kapcsolatt\u00edpust. \n AUTOMATIC - Az integr\u00e1ci\u00f3 gondoskodik a KNX buszhoz val\u00f3 kapcsol\u00f3d\u00e1sr\u00f3l egy \u00e1tj\u00e1r\u00f3 keres\u00e9s elv\u00e9gz\u00e9s\u00e9vel. \n TUNNELING - Az integr\u00e1ci\u00f3 alag\u00faton kereszt\u00fcl csatlakozik a KNX buszhoz. \n ROUTING - Az integr\u00e1ci\u00f3 \u00fatv\u00e1laszt\u00f3n kereszt\u00fcl csatlakozik a KNX buszhoz.",
+                "title": "KNX kapcsolat"
+            },
+            "knxkeys_tunnel_select": {
+                "data": {
+                    "user_id": "Az `Automatic` az els\u0151 szabad alag\u00fatv\u00e9gpontot fogja haszn\u00e1lni."
+                },
+                "description": "V\u00e1lassza ki a csatlakoz\u00e1shoz haszn\u00e1lt alagutat.",
+                "title": "Alag\u00fat v\u00e9gpont"
+            },
+            "manual_tunnel": {
+                "data": {
+                    "host": "Hoszt",
+                    "local_ip": "Helyi IP-interf\u00e9sz",
+                    "port": "Port",
+                    "route_back": "Vissza\u00fat / NAT m\u00f3d",
+                    "tunneling_type": "KNX alag\u00fat t\u00edpusa"
+                },
+                "data_description": {
+                    "host": "A KNX/IP alag\u00fatk\u00e9pz\u0151 eszk\u00f6z g\u00e9pneve vagy IP-c\u00edme.",
+                    "local_ip": "A Home Assistant alkalmaz\u00e1sb\u00f3l kimen\u0151 kapcsolathoz haszn\u00e1lt helyi IP-c\u00edm vagy n\u00e9v. Hagyja \u00fcresen az automatikus \u00e9szlel\u00e9shez.",
+                    "port": "A KNX/IP alag\u00fatk\u00e9pz\u0151 eszk\u00f6z portsz\u00e1ma.",
+                    "route_back": "Enged\u00e9lyezze, ha a KNXnet/IP alag\u00fatkiszolg\u00e1l\u00f3 NAT m\u00f6g\u00f6tt van. Csak UDP-kapcsolatokra vonatkozik."
+                },
+                "description": "Adja meg az alag\u00fatk\u00e9pz\u0151 \"tunneling\" eszk\u00f6z csatlakoz\u00e1si adatait.",
+                "title": "Alag\u00fat be\u00e1ll\u00edt\u00e1sok"
+            },
+            "routing": {
+                "data": {
+                    "individual_address": "Egy\u00e9ni c\u00edm",
+                    "local_ip": "Helyi IP-interf\u00e9sz",
+                    "multicast_group": "Multicast csoport",
+                    "multicast_port": "Multicast port",
+                    "routing_secure": "KNX IP Secure haszn\u00e1lata"
+                },
+                "data_description": {
+                    "individual_address": "A Home Assistant \u00e1ltal haszn\u00e1land\u00f3 KNX-c\u00edm, pl. \"0.0.4\".",
+                    "local_ip": "A Home Assistant alkalmaz\u00e1sb\u00f3l kimen\u0151 kapcsolathoz haszn\u00e1lt helyi IP-c\u00edm vagy n\u00e9v. Hagyja \u00fcresen az automatikus \u00e9szlel\u00e9shez."
+                },
+                "description": "K\u00e9rem, konfigur\u00e1lja az \u00fatv\u00e1laszt\u00e1si \"routing\" be\u00e1ll\u00edt\u00e1sokat.",
+                "title": "\u00datv\u00e1laszt\u00e1s"
+            },
+            "secure_key_source": {
+                "description": "V\u00e1lassza ki, hogyan szeretn\u00e9 konfigur\u00e1lni az KNX/IP Secure-t.",
+                "menu_options": {
+                    "secure_knxkeys": "IP secure kulcsokat tartalmaz\u00f3 \".knxkeys\" f\u00e1jl haszn\u00e1lata",
+                    "secure_routing_manual": "IP secure gerinch\u00e1l\u00f3zati kulcs manu\u00e1lis konfigur\u00e1l\u00e1sa",
+                    "secure_tunnel_manual": "IP secure hiteles\u00edt\u0151adatok manu\u00e1lis konfigur\u00e1l\u00e1sa"
+                },
+                "title": "KNX IP-Secure"
+            },
+            "secure_key_source_menu_routing": {
+                "description": "V\u00e1lassza ki, hogyan szeretn\u00e9 konfigur\u00e1lni a KNX/IP Secure-t.",
+                "menu_options": {
+                    "secure_knxkeys": "Biztons\u00e1gos IP-kulcsokat tartalmaz\u00f3 \".knxkeys\" f\u00e1jl haszn\u00e1lata",
+                    "secure_routing_manual": "\u00c1ll\u00edtsa be k\u00e9zzel a biztons\u00e1gos IP gerinckulcsot"
+                },
+                "title": "KNX IP-Secure"
+            },
+            "secure_key_source_menu_tunnel": {
+                "description": "V\u00e1lassza ki, hogyan szeretn\u00e9 konfigur\u00e1lni a KNX/IP Secure-t.",
+                "menu_options": {
+                    "secure_knxkeys": "Biztons\u00e1gos IP-kulcsokat tartalmaz\u00f3 \".knxkeys\" f\u00e1jl haszn\u00e1lata",
+                    "secure_tunnel_manual": "Konfigur\u00e1lja manu\u00e1lisan a biztons\u00e1gos IP hiteles\u00edt\u00e9si adatokat"
+                },
+                "title": "KNX IP-Secure"
+            },
+            "secure_knxkeys": {
+                "data": {
+                    "knxkeys_file": "Kulcstart\u00f3 f\u00e1jl",
+                    "knxkeys_password": "A \".knxkeys\" f\u00e1jl visszafejt\u00e9s\u00e9hez sz\u00fcks\u00e9ges jelsz\u00f3"
+                },
+                "data_description": {
+                    "knxkeys_password": "Ez az ETS-b\u0151l t\u00f6rt\u00e9n\u0151 export\u00e1l\u00e1sakor ker\u00fclt be\u00e1ll\u00edt\u00e1sra."
+                },
+                "description": "K\u00e9rem, v\u00e1lassza ki az import\u00e1land\u00f3 \".knxkeys\" f\u00e1jlt.",
+                "title": "KNX kulcstart\u00f3 import\u00e1l\u00e1sa"
+            },
+            "secure_routing_manual": {
+                "data": {
+                    "backbone_key": "Gerinch\u00e1l\u00f3zati kulcs",
+                    "sync_latency_tolerance": "H\u00e1l\u00f3zatk\u00e9sleltet\u00e9si tolerancia"
+                },
+                "data_description": {
+                    "backbone_key": "Megtekinthet\u0151 egy ETS projekt 'Biztons\u00e1g' jelent\u00e9s\u00e9ben. P\u00e9ld\u00e1ul '00112233445566778899AABBCCDDEEFF'",
+                    "sync_latency_tolerance": "Az alap\u00e9rtelmezett \u00e9rt\u00e9k 1000."
+                },
+                "description": "K\u00e9rem, adja meg az IP secure adatokat.",
+                "title": "Biztons\u00e1gos \u00fatv\u00e1laszt\u00e1s"
+            },
+            "secure_tunnel_manual": {
+                "data": {
+                    "device_authentication": "Eszk\u00f6z hiteles\u00edt\u00e9si jelsz\u00f3",
+                    "user_id": "Felhaszn\u00e1l\u00f3i azonos\u00edt\u00f3",
+                    "user_password": "Felhaszn\u00e1l\u00f3i jelsz\u00f3"
+                },
+                "data_description": {
+                    "device_authentication": "Ez az ETS-ben az interf\u00e9sz \"IP\" panelj\u00e9n van be\u00e1ll\u00edtva.",
+                    "user_id": "Ez gyakran a tunnel sz\u00e1ma +1. Teh\u00e1t a \"Tunnel 2\" felhaszn\u00e1l\u00f3i azonos\u00edt\u00f3ja \"3\".",
+                    "user_password": "Jelsz\u00f3 az adott tunnelhez, amely a tunnel \u201eProperties\u201d panelj\u00e9n van be\u00e1ll\u00edtva az ETS-ben."
+                },
+                "description": "K\u00e9rem, adja meg az IP secure adatokat.",
+                "title": "Biztons\u00e1gos alag\u00fat"
+            },
+            "tunnel": {
+                "data": {
+                    "gateway": "KNX alag\u00fat \"tunnel\" kapcsolat"
+                },
+                "description": "V\u00e1lasszon egy \u00e1tj\u00e1r\u00f3t a list\u00e1b\u00f3l.",
+                "title": "Alag\u00fat"
+            }
+        }
+    },
+    "device_automation": {
+        "extra_fields": {
+            "destination": "Csoportc\u00edmek",
+            "group_value_read": "GroupValueRead (Csoport\u00e9rt\u00e9k olvas\u00e1sa)",
+            "group_value_response": "GroupValueResponse (Csoport\u00e9rt\u00e9k v\u00e1lasz)",
+            "group_value_write": "GroupValueWrite (Csoport\u00e9rt\u00e9k \u00edr\u00e1sa)",
+            "incoming": "Bej\u00f6v\u0151",
+            "outgoing": "Kimen\u0151"
+        },
+        "extra_fields_descriptions": {
+            "destination": "Az esem\u00e9nyfigyel\u0151 figyelni fog a megadott csoportc\u00edmekre k\u00fcld\u00f6tt vagy fogadott \u00fczenetekre. Ha nincs c\u00edm kiv\u00e1lasztva, az esem\u00e9ny minden csoportc\u00edmre aktiv\u00e1l\u00f3dik.",
+            "group_value_read": "Figyelje a GroupValueRead \u00fczeneteket.",
+            "group_value_response": "Figyelje a GroupValueResponse \u00fczeneteket.",
+            "group_value_write": "Figyelje a GroupValueWrite \u00fczeneteket.",
+            "incoming": "Figyelje a be\u00e9rkez\u0151 \u00fczeneteket.",
+            "outgoing": "Figyelje a kimen\u0151 \u00fczeneteket."
+        },
+        "trigger_type": {
+            "telegram": "Telegram"
+        }
+    },
+    "entity": {
+        "sensor": {
+            "connected_since": {
+                "name": "A kapcsolat l\u00e9trej\u00f6tt"
+            },
+            "connection_type": {
+                "name": "Kapcsolat t\u00edpusa"
+            },
+            "individual_address": {
+                "name": "Egy\u00e9ni c\u00edm"
+            },
+            "telegram_count": {
+                "name": "\u00dczenetek"
+            },
+            "telegrams_incoming": {
+                "name": "Be\u00e9rkez\u0151 \u00fczenetek"
+            },
+            "telegrams_incoming_error": {
+                "name": "Be\u00e9rkez\u0151 \u00fczenet hib\u00e1k"
+            },
+            "telegrams_outgoing": {
+                "name": "Kimen\u0151 \u00fczenetek"
+            },
+            "telegrams_outgoing_error": {
+                "name": "Kimen\u0151 \u00fczenet hib\u00e1k"
+            }
+        }
+    },
+    "issues": {
+        "migrate_notify": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "A KNX `notify` szolg\u00e1ltat\u00e1s \u00e1t lett migr\u00e1lva. Mostant\u00f3l \u00faj `notify` entit\u00e1sok \u00e1llnak rendelkez\u00e9sre.\n\nFriss\u00edtse az automatiz\u00e1l\u00e1sokat, hogy az \u00faj entit\u00e1sok \u00e1ltal megjelen\u00edtett \u00faj `notify.send_message` funkci\u00f3t haszn\u00e1lhass\u00e1k. Ha ez megt\u00f6rt\u00e9nt, jav\u00edtsa ki ezt a probl\u00e9m\u00e1t \u00e9s ind\u00edtsa \u00fajra a Home Assistantot.",
+                        "title": "A r\u00e9gi KNX \u00e9rtes\u00edt\u0151 szolg\u00e1ltat\u00e1s letilt\u00e1sa"
+                    }
+                }
+            },
+            "title": "A KNX \u00e9rtes\u00edt\u0151 szolg\u00e1ltat\u00e1s migr\u00e1ci\u00f3ja"
+        }
+    },
+    "options": {
+        "error": {
+            "cannot_connect": "Sikertelen csatlakoz\u00e1s",
+            "invalid_backbone_key": "\u00c9rv\u00e9nytelen gerinckulcs. 32 hexadecim\u00e1lis sz\u00e1m az elv\u00e1rt.",
+            "invalid_individual_address": "Az \u00e9rt\u00e9k nem felel meg a KNX egyedi c\u00edm mint\u00e1j\u00e1nak.\n'area.line.device'",
+            "invalid_ip_address": "\u00c9rv\u00e9nytelen IPv4-c\u00edm.",
+            "keyfile_invalid_signature": "A \".knxkeys\" f\u00e1jl visszafejt\u00e9s\u00e9hez haszn\u00e1lt jelsz\u00f3 helytelen.",
+            "keyfile_no_backbone_key": "A \".knxkeys\" f\u00e1jl nem tartalmaz gerinckulcsot a biztons\u00e1gos \u00fatv\u00e1laszt\u00e1shoz.",
+            "keyfile_no_tunnel_for_host": "A \".knxkeys\" f\u00e1jl nem tartalmazza a \"{host}\" hiteles\u00edt\u0151 adatait.",
+            "keyfile_not_found": "A megadott \".knxkeys\" f\u00e1jl nem tal\u00e1lhat\u00f3 a config/.storage/knx/ el\u00e9r\u00e9si \u00fatvonalon.",
+            "no_router_discovered": "Nem tal\u00e1lhat\u00f3 KNXnet/IP \u00fatv\u00e1laszt\u00f3 a h\u00e1l\u00f3zaton.",
+            "no_tunnel_discovered": "Nem tal\u00e1lhat\u00f3 KNX alag\u00fat-kiszolg\u00e1l\u00f3 a h\u00e1l\u00f3zaton.",
+            "unsupported_tunnel_type": "A kiv\u00e1lasztott alag\u00fatt\u00edpust az \u00e1tj\u00e1r\u00f3 nem t\u00e1mogatja."
+        },
+        "step": {
+            "communication_settings": {
+                "data": {
+                    "rate_limit": "Lek\u00e9r\u00e9si korl\u00e1toz\u00e1s",
+                    "state_updater": "\u00c1llapot friss\u00edt\u0151",
+                    "telegram_log_size": "\u00dczenet el\u0151zm\u00e9nyek korl\u00e1tja"
+                },
+                "data_description": {
+                    "rate_limit": "Maxim\u00e1lisan kimen\u0151 \u00fczenet m\u00e1sodpercenk\u00e9nt. 0 a korl\u00e1t kikapcsol\u00e1s\u00e1hoz.\nAj\u00e1nlott: 0, vagy 20 \u00e9s 40 k\u00f6z\u00f6tt",
+                    "state_updater": "Alap\u00e9rtelmezett be\u00e1ll\u00edt\u00e1s a KNX busz \u00e1llapotainak olvas\u00e1s\u00e1hoz. Ha le va tiltva, Home Assistant nem fog akt\u00edvan lek\u00e9rdezni egys\u00e9g\u00e1llapotokat a KNX buszr\u00f3l. Fel\u00fclb\u00edr\u00e1lhat\u00f3 a `sync_state` entit\u00e1s opci\u00f3kkal.",
+                    "telegram_log_size": "A KNX panelcsoport monitoroz\u00e1s\u00e1hoz a mem\u00f3ri\u00e1ban tartand\u00f3 \u00fczenetek. Maximum: {telegram_log_size_max}"
+                },
+                "title": "Kommunik\u00e1ci\u00f3s be\u00e1ll\u00edt\u00e1sok"
+            },
+            "connection_type": {
+                "data": {
+                    "connection_type": "KNX csatlakoz\u00e1s t\u00edpusa"
+                },
+                "description": "K\u00e9rem, adja meg a KNX-kapcsolathoz haszn\u00e1land\u00f3 kapcsolatt\u00edpust. \n AUTOMATIC - Az integr\u00e1ci\u00f3 gondoskodik a KNX buszhoz val\u00f3 kapcsol\u00f3d\u00e1sr\u00f3l egy \u00e1tj\u00e1r\u00f3 keres\u00e9s elv\u00e9gz\u00e9s\u00e9vel. \n TUNNELING - Az integr\u00e1ci\u00f3 alag\u00faton kereszt\u00fcl csatlakozik a KNX buszhoz. \n ROUTING - Az integr\u00e1ci\u00f3 \u00fatv\u00e1laszt\u00f3n kereszt\u00fcl csatlakozik a KNX buszhoz.",
+                "title": "KNX kapcsolat"
+            },
+            "init": {
+                "menu_options": {
+                    "communication_settings": "Kommunik\u00e1ci\u00f3s be\u00e1ll\u00edt\u00e1sok",
+                    "connection_type": "KNX interf\u00e9sz konfigur\u00e1l\u00e1sa",
+                    "secure_knxkeys": "\".knxkeys\" f\u00e1jl import\u00e1l\u00e1sa"
+                },
+                "title": "KNX be\u00e1ll\u00edt\u00e1sok"
+            },
+            "knxkeys_tunnel_select": {
+                "data": {
+                    "user_id": "Az `Automatic` az els\u0151 szabad alag\u00fatv\u00e9gpontot fogja haszn\u00e1lni."
+                },
+                "description": "V\u00e1lassza ki a csatlakoz\u00e1shoz haszn\u00e1lt alagutat.",
+                "title": "Alag\u00fat v\u00e9gpont"
+            },
+            "manual_tunnel": {
+                "data": {
+                    "host": "Hoszt",
+                    "local_ip": "Helyi IP-interf\u00e9sz",
+                    "port": "Port",
+                    "route_back": "Vissza\u00fat / NAT m\u00f3d",
+                    "tunneling_type": "KNX alag\u00fat t\u00edpusa"
+                },
+                "data_description": {
+                    "host": "A KNX/IP alag\u00fatk\u00e9pz\u0151 eszk\u00f6z g\u00e9pneve vagy IP-c\u00edme.",
+                    "local_ip": "A Home Assistant alkalmaz\u00e1sb\u00f3l kimen\u0151 kapcsolathoz haszn\u00e1lt helyi IP-c\u00edm vagy n\u00e9v. Hagyja \u00fcresen az automatikus \u00e9szlel\u00e9shez.",
+                    "port": "A KNX/IP alag\u00fatk\u00e9pz\u0151 eszk\u00f6z portsz\u00e1ma.",
+                    "route_back": "Enged\u00e9lyezze, ha a KNXnet/IP alag\u00fatkiszolg\u00e1l\u00f3 NAT m\u00f6g\u00f6tt van. Csak UDP-kapcsolatokra vonatkozik."
+                },
+                "description": "Adja meg az alag\u00fatk\u00e9pz\u0151 \"tunneling\" eszk\u00f6z csatlakoz\u00e1si adatait.",
+                "title": "Alag\u00fat be\u00e1ll\u00edt\u00e1sok"
+            },
+            "options_init": {
+                "menu_options": {
+                    "communication_settings": "Kommunik\u00e1ci\u00f3s be\u00e1ll\u00edt\u00e1sok",
+                    "connection_type": "KNX interf\u00e9sz konfigur\u00e1l\u00e1sa",
+                    "secure_knxkeys": "\".knxkeys\" f\u00e1jl import\u00e1l\u00e1sa"
+                },
+                "title": "KNX be\u00e1ll\u00edt\u00e1sok"
+            },
+            "routing": {
+                "data": {
+                    "individual_address": "Egy\u00e9ni c\u00edm",
+                    "local_ip": "Helyi IP-interf\u00e9sz",
+                    "multicast_group": "Multicast csoport",
+                    "multicast_port": "Multicast port",
+                    "routing_secure": "KNX IP Secure haszn\u00e1lata"
+                },
+                "data_description": {
+                    "individual_address": "A Home Assistant \u00e1ltal haszn\u00e1land\u00f3 KNX-c\u00edm, pl. \"0.0.4\".",
+                    "local_ip": "A Home Assistant alkalmaz\u00e1sb\u00f3l kimen\u0151 kapcsolathoz haszn\u00e1lt helyi IP-c\u00edm vagy n\u00e9v. Hagyja \u00fcresen az automatikus \u00e9szlel\u00e9shez."
+                },
+                "description": "K\u00e9rem, konfigur\u00e1lja az \u00fatv\u00e1laszt\u00e1si \"routing\" be\u00e1ll\u00edt\u00e1sokat.",
+                "title": "\u00datv\u00e1laszt\u00e1s"
+            },
+            "secure_key_source": {
+                "description": "V\u00e1lassza ki, hogyan szeretn\u00e9 konfigur\u00e1lni az KNX/IP Secure-t.",
+                "menu_options": {
+                    "secure_knxkeys": "IP secure kulcsokat tartalmaz\u00f3 \".knxkeys\" f\u00e1jl haszn\u00e1lata",
+                    "secure_routing_manual": "IP secure gerinch\u00e1l\u00f3zati kulcs manu\u00e1lis konfigur\u00e1l\u00e1sa",
+                    "secure_tunnel_manual": "IP secure hiteles\u00edt\u0151adatok manu\u00e1lis konfigur\u00e1l\u00e1sa"
+                },
+                "title": "KNX IP-Secure"
+            },
+            "secure_key_source_menu_routing": {
+                "description": "V\u00e1lassza ki, hogyan szeretn\u00e9 konfigur\u00e1lni a KNX/IP Secure-t.",
+                "menu_options": {
+                    "secure_knxkeys": "Biztons\u00e1gos IP-kulcsokat tartalmaz\u00f3 \".knxkeys\" f\u00e1jl haszn\u00e1lata",
+                    "secure_routing_manual": "\u00c1ll\u00edtsa be k\u00e9zzel a biztons\u00e1gos IP gerinckulcsot"
+                },
+                "title": "KNX IP-Secure"
+            },
+            "secure_key_source_menu_tunnel": {
+                "description": "V\u00e1lassza ki, hogyan szeretn\u00e9 konfigur\u00e1lni a KNX/IP Secure-t.",
+                "menu_options": {
+                    "secure_knxkeys": "Biztons\u00e1gos IP-kulcsokat tartalmaz\u00f3 \".knxkeys\" f\u00e1jl haszn\u00e1lata",
+                    "secure_tunnel_manual": "Konfigur\u00e1lja manu\u00e1lisan a biztons\u00e1gos IP hiteles\u00edt\u00e9si adatokat"
+                },
+                "title": "KNX IP-Secure"
+            },
+            "secure_knxkeys": {
+                "data": {
+                    "knxkeys_file": "Kulcstart\u00f3 f\u00e1jl",
+                    "knxkeys_password": "A \".knxkeys\" f\u00e1jl visszafejt\u00e9s\u00e9hez sz\u00fcks\u00e9ges jelsz\u00f3"
+                },
+                "data_description": {
+                    "knxkeys_password": "Ez az ETS-b\u0151l t\u00f6rt\u00e9n\u0151 export\u00e1l\u00e1sakor ker\u00fclt be\u00e1ll\u00edt\u00e1sra."
+                },
+                "description": "K\u00e9rem, v\u00e1lassza ki az import\u00e1land\u00f3 \".knxkeys\" f\u00e1jlt.",
+                "title": "KNX kulcstart\u00f3 import\u00e1l\u00e1sa"
+            },
+            "secure_routing_manual": {
+                "data": {
+                    "backbone_key": "Gerinch\u00e1l\u00f3zati kulcs",
+                    "sync_latency_tolerance": "H\u00e1l\u00f3zatk\u00e9sleltet\u00e9si tolerancia"
+                },
+                "data_description": {
+                    "backbone_key": "Megtekinthet\u0151 egy ETS projekt 'Biztons\u00e1g' jelent\u00e9s\u00e9ben. P\u00e9ld\u00e1ul '00112233445566778899AABBCCDDEEFF'",
+                    "sync_latency_tolerance": "Az alap\u00e9rtelmezett \u00e9rt\u00e9k 1000."
+                },
+                "description": "K\u00e9rem, adja meg az IP secure adatokat.",
+                "title": "Biztons\u00e1gos \u00fatv\u00e1laszt\u00e1s"
+            },
+            "secure_tunnel_manual": {
+                "data": {
+                    "device_authentication": "Eszk\u00f6z hiteles\u00edt\u00e9si jelsz\u00f3",
+                    "user_id": "Felhaszn\u00e1l\u00f3i azonos\u00edt\u00f3",
+                    "user_password": "Felhaszn\u00e1l\u00f3i jelsz\u00f3"
+                },
+                "data_description": {
+                    "device_authentication": "Ez az ETS-ben az interf\u00e9sz \"IP\" panelj\u00e9n van be\u00e1ll\u00edtva.",
+                    "user_id": "Ez gyakran a tunnel sz\u00e1ma +1. Teh\u00e1t a \"Tunnel 2\" felhaszn\u00e1l\u00f3i azonos\u00edt\u00f3ja \"3\".",
+                    "user_password": "Jelsz\u00f3 az adott tunnelhez, amely a tunnel \u201eProperties\u201d panelj\u00e9n van be\u00e1ll\u00edtva az ETS-ben."
+                },
+                "description": "K\u00e9rem, adja meg az IP secure adatokat.",
+                "title": "Biztons\u00e1gos alag\u00fat"
+            },
+            "tunnel": {
+                "data": {
+                    "gateway": "KNX alag\u00fat \"tunnel\" kapcsolat"
+                },
+                "description": "V\u00e1lasszon egy \u00e1tj\u00e1r\u00f3t a list\u00e1b\u00f3l.",
+                "title": "Alag\u00fat"
+            }
+        }
+    },
+    "services": {
+        "event_register": {
+            "description": "Adjon hozz\u00e1 vagy t\u00e1vol\u00edtson el csoportc\u00edmeket a knx_event sz\u0171r\u0151h\u00f6z a `knx_event`ek ind\u00edt\u00e1s\u00e1hoz. Csak az ezzel a szolg\u00e1ltat\u00e1ssal hozz\u00e1adott c\u00edmek t\u00e1vol\u00edthat\u00f3k el.",
+            "fields": {
+                "address": {
+                    "description": "Csoportc\u00edm(ek), amely(ek)et hozz\u00e1 kell adni vagy el kell t\u00e1vol\u00edtani. List\u00e1k enged\u00e9lyezettek.",
+                    "name": "Csoport c\u00edme"
+                },
+                "remove": {
+                    "description": "Ha `True`, akkor a csoportc\u00edmek elt\u00e1vol\u00edt\u00e1sra ker\u00fclnek.",
+                    "name": "Esem\u00e9ny regisztr\u00e1ci\u00f3j\u00e1nak elt\u00e1vol\u00edt\u00e1sa"
+                },
+                "type": {
+                    "description": "Ha be van \u00e1ll\u00edtva, az adattartalmat (Payload) a megadott DPT-k\u00e9nt fogjuk dek\u00f3dolni az esem\u00e9ny adat \"value\" kulcs\u00e1ban. A KNX szenzor t\u00edpusai \u00e9rv\u00e9nyes \u00e9rt\u00e9kek (l\u00e1sd: https://www.home-assistant.io/integrations/knx/#value-types).",
+                    "name": "\u00c9rt\u00e9k t\u00edpus"
+                }
+            },
+            "name": "Regisztr\u00e1lja a knx_eventet"
+        },
+        "exposure_register": {
+            "description": "Hozz\u00e1ad vagy elt\u00e1vol\u00edt expoz\u00edci\u00f3kat a KNX buszhoz. Csak az ezzel a szolg\u00e1ltat\u00e1ssal hozz\u00e1adott expoz\u00edci\u00f3kat lehet elt\u00e1vol\u00edtani.",
+            "fields": {
+                "address": {
+                    "description": "A csoportc\u00edm \u00e1llapot vagy attrib\u00fatum friss\u00edt\u00e9seket fog kapni. A GroupValueRead k\u00e9r\u00e9sekre v\u00e1laszolni fog. C\u00edmenk\u00e9nt csak egy expoz\u00edci\u00f3 regisztr\u00e1lhat\u00f3.",
+                    "name": "Csoport c\u00edme"
+                },
+                "attribute": {
+                    "description": "Az entit\u00e1s atrib\u00fatuma, amit a KNX buszra tov\u00e1bb\u00edtanak. Ha nincs megadva, akkor az \u00e1llapotot k\u00fcldik el. P\u00e9ld\u00e1ul egy l\u00e1mpa eset\u00e9ben az \u00e1llapot lehet \"be\" vagy \"ki\", de az attrib\u00fatum seg\u00edts\u00e9g\u00e9vel megjelen\u00edthet\u0151 a \"f\u00e9nyer\u0151\".",
+                    "name": "Entit\u00e1s attrib\u00fatum"
+                },
+                "default": {
+                    "description": "Alap\u00e9rtelmezett \u00e9rt\u00e9k, amelyet a buszhoz k\u00fcld\u00fcnk, ha az \u00e1llapot vagy az attrib\u00fatum \u00e9rt\u00e9ke \"None\". Pl. egy \"off\" \u00e1llapot\u00fa l\u00e1mp\u00e1nak nincs f\u00e9nyer\u0151 attrib\u00fatuma, \u00edgy haszn\u00e1lhat\u00f3 lehet a 0 alap\u00e9rtelmezett \u00e9rt\u00e9k. Ha nincs be\u00e1ll\u00edtva (vagy None), akkor nem k\u00fcld \u00e9rt\u00e9ket a busznak \u00e9s egy GroupReadRequest a c\u00edmhez az utolj\u00e1ra ismert \u00e9rt\u00e9ket adja vissza.",
+                    "name": "Alap\u00e9rtelmezett \u00e9rt\u00e9k"
+                },
+                "entity_id": {
+                    "description": "Az entit\u00e1s azonos\u00edt\u00f3, amelynek \u00e1llapot\u00e1t vagy jellemz\u0151it k\u00f6zz\u00e9 kell tenni.",
+                    "name": "Entit\u00e1s"
+                },
+                "remove": {
+                    "description": "Ha `True`, akkor az expoz\u00edci\u00f3 elt\u00e1vol\u00edt\u00e1sra ker\u00fcl. Csak az `address` sz\u00fcks\u00e9ges az elt\u00e1vol\u00edt\u00e1shoz.",
+                    "name": "T\u00e1vol\u00edtsa el az expoz\u00edci\u00f3t"
+                },
+                "type": {
+                    "description": "Az \u00fczenteket a megadott DPT-k\u00e9nt k\u00f3dolj\u00e1k. A 'binary' \u00e9s minden KNX \u00e9rz\u00e9kel\u0151t\u00edpus \u00e9rv\u00e9nyes \u00e9rt\u00e9kek (l\u00e1sd https://www.home-assistant.io/integrations/knx/#value-types).",
+                    "name": "\u00c9rt\u00e9k t\u00edpus"
+                }
+            },
+            "name": "KNX buszon k\u00f6zz\u00e9tesz"
+        },
+        "read": {
+            "description": "K\u00fcldj\u00f6n GroupValueRead k\u00e9r\u00e9seket a KNX buszra. A v\u00e1laszt a `knx_event` haszn\u00e1lhatja fel \u00e9s a KNX entit\u00e1sok dolgozz\u00e1k fel.",
+            "fields": {
+                "address": {
+                    "description": "Csoportc\u00edm(ek), ahova olvas\u00e1si k\u00e9relmet kell k\u00fcldeni. A list\u00e1k t\u00f6bb csoportc\u00edmet is beolvasnak.",
+                    "name": "Csoport c\u00edme"
+                }
+            },
+            "name": "KNX buszr\u00f3l olvas"
+        },
+        "reload": {
+            "description": "\u00dajrat\u00f6lti a KNX integr\u00e1ci\u00f3t.",
+            "name": "\u00dajrat\u00f6lt\u00e9s"
+        },
+        "send": {
+            "description": "K\u00fcldj\u00f6n tetsz\u0151leges adatokat k\u00f6zvetlen\u00fcl a KNX buszra.",
+            "fields": {
+                "address": {
+                    "description": "Csoportc\u00edm(ek), amely(ek)re \u00edrni kell. A list\u00e1k egym\u00e1s ut\u00e1n t\u00f6bb csoportc\u00edmre is k\u00fcldenek.",
+                    "name": "Csoport c\u00edme"
+                },
+                "payload": {
+                    "description": "K\u00fcldend\u0151 adattartalom (Payload) a buszhoz. Az eg\u00e9sz sz\u00e1mokat DPT 1/2/3 adatk\u00e9nt kezelj\u00fck. A 6 bitn\u00e9l nagyobb DPT-k eset\u00e9n k\u00fcldj\u00f6n list\u00e1t. Minden \u00e9rt\u00e9k 1 oktetet (0-255) k\u00e9pvisel. T\u00f6ltse ki 0-val a DPT b\u00e1jt hossz\u00e1ig.",
+                    "name": "Adattartalom"
+                },
+                "response": {
+                    "description": "Ha `True` \u00e9rt\u00e9kre van \u00e1ll\u00edtva, az \u00fczenetet `GroupValueResponse`-k\u00e9nt k\u00fcldj\u00fck el, `GroupValueWrite` helyett.",
+                    "name": "K\u00fcld\u00e9s v\u00e1laszk\u00e9nt"
+                },
+                "type": {
+                    "description": "Ha be van \u00e1ll\u00edtva, az adattartalmat (Payload) nem nyers b\u00e1jtokk\u00e9nt k\u00fcldj\u00fck, hanem a megadott DPT-k\u00e9nt k\u00f3dolva. \u00c9rv\u00e9nyes \u00e9rt\u00e9kek a KNX szenzort\u00edpusok (l\u00e1sd: https://www.home-assistant.io/integrations/knx/#value-types).",
+                    "name": "\u00c9rt\u00e9k t\u00edpus"
+                }
+            },
+            "name": "KNX buszra k\u00fcld\u00e9s"
+        }
+    }
+}

@@ -1,0 +1,127 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Za\u0159\u00edzen\u00ed je ji\u017e nastaveno",
+            "already_in_progress": "Nastaven\u00ed ji\u017e prob\u00edh\u00e1",
+            "mdns_missing_mac": "Chyb\u011bj\u00edc\u00ed MAC adresa ve vlastnostech MDNS.",
+            "mqtt_missing_api": "Chyb\u011bj\u00edc\u00ed port API ve vlastnostech MQTT.",
+            "mqtt_missing_ip": "Chyb\u011bj\u00edc\u00ed IP adresa ve vlastnostech MQTT.",
+            "mqtt_missing_mac": "Chyb\u011bj\u00edc\u00ed MAC adresa ve vlastnostech MQTT.",
+            "reauth_successful": "Op\u011btovn\u00e9 ov\u011b\u0159en\u00ed bylo \u00fasp\u011b\u0161n\u00e9",
+            "service_received": "Akce p\u0159ijata"
+        },
+        "error": {
+            "connection_error": "Nelze se p\u0159ipojit k ESP. Zkontrolujte, zda v\u00e1\u0161 soubor s nastaven\u00edm YAML obsahuje \u0159\u00e1dek \"api:\".",
+            "invalid_auth": "Neplatn\u00e9 ov\u011b\u0159en\u00ed",
+            "invalid_psk": "Transportn\u00ed \u0161ifrovac\u00ed kl\u00ed\u010d je neplatn\u00fd. Ujist\u011bte se, \u017ee odpov\u00edd\u00e1 tomu, co m\u00e1te ve sv\u00e9m nastaven\u00ed.",
+            "resolve_error": "Nelze vy\u0159e\u0161it adresu ESP. Pokud tato chyba p\u0159etrv\u00e1v\u00e1, nastavte statickou IP adresu."
+        },
+        "flow_title": "{name}",
+        "step": {
+            "authenticate": {
+                "data": {
+                    "password": "Heslo"
+                },
+                "description": "Zadejte heslo, kter\u00e9 jste nastavili pro {name}."
+            },
+            "discovery_confirm": {
+                "description": "Chcete p\u0159idat uzel ESPHome \"{name}\" do Home Assistanta?",
+                "title": "Nalezen uzel ESPHome"
+            },
+            "encryption_key": {
+                "data": {
+                    "noise_psk": "\u0160ifrovac\u00ed kl\u00ed\u010d"
+                },
+                "description": "Zadejte \u0161ifrovac\u00ed kl\u00ed\u010d pro {name}. Najdete jej v ovl\u00e1dac\u00edm panelu ESPHome nebo v nastaven\u00ed za\u0159\u00edzen\u00ed."
+            },
+            "reauth_confirm": {
+                "data": {
+                    "noise_psk": "\u0160ifrovac\u00ed kl\u00ed\u010d"
+                },
+                "description": "Za\u0159\u00edzen\u00ed ESPHome {name} povolilo transportn\u00ed \u0161ifrov\u00e1n\u00ed nebo zm\u011bnilo \u0161ifrovac\u00ed kl\u00ed\u010d. Zadejte aktualizovan\u00fd kl\u00ed\u010d. Najdete jej v ovl\u00e1dac\u00edm panelu ESPHome nebo v nastaven\u00ed za\u0159\u00edzen\u00ed."
+            },
+            "user": {
+                "data": {
+                    "host": "Hostitel",
+                    "port": "Port"
+                },
+                "description": "Zadejte nastaven\u00ed p\u0159ipojen\u00ed va\u0161eho uzlu [ESPHome]({esphome_url})."
+            }
+        }
+    },
+    "entity": {
+        "assist_satellite": {
+            "assist_satellite": {
+                "name": "Assist satellite"
+            }
+        },
+        "binary_sensor": {
+            "assist_in_progress": {
+                "name": "Asistence prob\u00edh\u00e1"
+            },
+            "call_active": {
+                "name": "Aktivn\u00ed vol\u00e1n\u00ed"
+            }
+        },
+        "climate": {
+            "climate": {
+                "state_attributes": {
+                    "fan_mode": {
+                        "state": {
+                            "quiet": "Tich\u00fd"
+                        }
+                    }
+                }
+            }
+        },
+        "select": {
+            "pipeline": {
+                "name": "Asistent",
+                "state": {
+                    "preferred": "Preferov\u00e1no"
+                }
+            },
+            "vad_sensitivity": {
+                "name": "Detekce mluven\u00ed dokon\u010dena",
+                "state": {
+                    "aggressive": "Agresivn\u00ed",
+                    "default": "V\u00fdchoz\u00ed",
+                    "relaxed": "Uvoln\u011bn\u00e1"
+                }
+            }
+        }
+    },
+    "issues": {
+        "api_password_deprecated": {
+            "description": "Pou\u017e\u00edv\u00e1n\u00ed hesla API pro ESPHome je zastaral\u00e9 a m\u00edsto n\u011bj se doporu\u010duje pou\u017e\u00edvat \u0161ifrovac\u00ed kl\u00ed\u010d API.\n\nPro vy\u0159e\u0161en\u00ed tohoto probl\u00e9mu odeberte heslo API a p\u0159idejte \u0161ifrovac\u00ed kl\u00ed\u010d k za\u0159\u00edzen\u00ed ESPHome.",
+            "title": "Pou\u017e\u00edv\u00e1n\u00ed hesla API na {name} je zastaral\u00e9"
+        },
+        "assist_in_progress_deprecated": {
+            "fix_flow": {
+                "step": {
+                    "confirm_disable_entity": {
+                        "description": "{integration_name} asistuj\u00edc\u00ed bin\u00e1rn\u00edmu senzoru \"{entity_id}\" je zastaral\u00fd.\n\nProve\u010fte migraci nastaven\u00ed tak, aby byla pou\u017eita odpov\u00eddaj\u00edc\u00ed entita \"{assist_satellite_domain}\" a pot\u00e9 klepnut\u00edm na tla\u010d\u00edtko Odeslat deaktivujte bin\u00e1rn\u00ed senzor prob\u00edhaj\u00edc\u00ed asistence a t\u00edm oprav\u00edte tento probl\u00e9m."
+                    }
+                }
+            },
+            "title": "{integration_name} asistuj\u00edc\u00ed bin\u00e1rn\u00edmu senzoru je zastaral\u00fd"
+        },
+        "ble_firmware_outdated": {
+            "description": "Chcete-li zlep\u0161it spolehlivost a v\u00fdkon Bluetooth, d\u016frazn\u011b doporu\u010dujeme aktualizovat {name} na ESPHome {version} nebo nov\u011bj\u0161\u00ed. P\u0159i aktualizaci za\u0159\u00edzen\u00ed z ESPHome star\u0161\u00ed ne\u017e 2022.12.0 se doporu\u010duje pou\u017e\u00edt s\u00e9riov\u00fd kabel nam\u00edsto bezdr\u00e1tov\u00e9 aktualizace, abyste mohli vyu\u017e\u00edt nov\u00e9 sch\u00e9ma rozd\u011blen\u00ed.",
+            "title": "Aktualizovat {name} pomoc\u00ed ESPHome {version} nebo nov\u011bj\u0161\u00ed"
+        },
+        "service_calls_not_allowed": {
+            "description": "Za\u0159\u00edzen\u00ed ESPHome se pokusilo prov\u00e9st akci Home Assistanta, ale tato funkcionalita nen\u00ed povolena. \n\nPokud tomuto za\u0159\u00edzen\u00ed d\u016fv\u011b\u0159ujete a chcete mu povolit prov\u00e1d\u011bn\u00ed akc\u00ed Home Assistantem, m\u016f\u017eete tuto funkci povolit v nastaven\u00ed.",
+            "title": "{name} nem\u00e1 opr\u00e1vn\u011bn\u00ed prov\u00e1d\u011bt akce Home Assistanta"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "allow_service_calls": "Povol\u00ed za\u0159\u00edzen\u00ed prov\u00e1d\u011bt akce Home Assistanta."
+                }
+            }
+        }
+    }
+}

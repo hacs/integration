@@ -1,0 +1,593 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Za\u0159\u00edzen\u00ed je ji\u017e nastaveno",
+            "already_in_progress": "Nastaven\u00ed ji\u017e prob\u00edh\u00e1",
+            "incomplete_info": "Ne\u00fapln\u00e9 informace pro nastaven\u00ed za\u0159\u00edzen\u00ed, chyb\u00ed hostitel nebo token.",
+            "not_xiaomi_miio": "Za\u0159\u00edzen\u00ed (zat\u00edm) nen\u00ed podporov\u00e1no integrac\u00ed Xiaomi Miio.",
+            "reauth_successful": "Op\u011btovn\u00e9 ov\u011b\u0159en\u00ed bylo \u00fasp\u011b\u0161n\u00e9",
+            "unknown": "Neo\u010dek\u00e1van\u00e1 chyba"
+        },
+        "error": {
+            "cannot_connect": "Nepoda\u0159ilo se p\u0159ipojit",
+            "cloud_credentials_incomplete": "P\u0159ihla\u0161ovac\u00ed \u00fadaje cloudu nejsou \u00fapln\u00e9, vypl\u0148te u\u017eivatelsk\u00e9 jm\u00e9no, heslo a zemi.",
+            "cloud_login_error": "Nelze se p\u0159ihl\u00e1sit do Xiaomi Miio Cloud, zkontrolujte p\u0159ihla\u0161ovac\u00ed \u00fadaje.",
+            "cloud_no_devices": "V tomto cloudov\u00e9m \u00fa\u010dtu Xiaomi Miio nebyla nalezena \u017e\u00e1dn\u00e1 za\u0159\u00edzen\u00ed.",
+            "unknown_device": "Model za\u0159\u00edzen\u00ed nen\u00ed zn\u00e1m, nastaven\u00ed za\u0159\u00edzen\u00ed nen\u00ed mo\u017en\u00e9 dokon\u010dit.",
+            "wrong_token": "Chyba kontroln\u00edho sou\u010dtu, \u0161patn\u00fd token."
+        },
+        "flow_title": "{name}",
+        "step": {
+            "cloud": {
+                "data": {
+                    "cloud_country": "Zem\u011b cloudov\u00e9ho serveru",
+                    "cloud_password": "Heslo do cloudu",
+                    "cloud_username": "U\u017eivatelsk\u00e9 jm\u00e9no do cloudu",
+                    "manual": "Nastavit ru\u010dn\u011b (nedoporu\u010deno)"
+                },
+                "description": "P\u0159ihlaste se do cloudu Xiaomi Miio. Pro informace o tom, jak\u00fd pou\u017e\u00edt cloudov\u00fd sever, se pod\u00edvejte sem: https://www.openhab.org/addons/bindings/miio/#country-servers"
+            },
+            "connect": {
+                "data": {
+                    "model": "Model za\u0159\u00edzen\u00ed"
+                }
+            },
+            "manual": {
+                "data": {
+                    "host": "IP adresa",
+                    "token": "Token API"
+                },
+                "description": "Budete pot\u0159ebovat 32 znakov\u00fd API token. Pokyny naleznete na https://www.home-assistant.io/integrations/xiaomi_miio#retrieving-the-access-token. Upozor\u0148ujeme, \u017ee tento token se li\u0161\u00ed od kl\u00ed\u010de pou\u017e\u00edvan\u00e9ho v integraci Xiaomi Aqara."
+            },
+            "reauth_confirm": {
+                "description": "Integrace Xiaomi Miio pot\u0159ebuje znovu ov\u011b\u0159it v\u00e1\u0161 \u00fa\u010det, aby bylo mo\u017en\u00e9 aktualizovat tokeny nebo p\u0159idat chyb\u011bj\u00edc\u00ed cloudov\u00e9 p\u0159ihla\u0161ovac\u00ed \u00fadaje.",
+                "title": "Platnost ov\u011b\u0159en\u00ed pro {name} vypr\u0161ela"
+            },
+            "select": {
+                "data": {
+                    "select_device": "Za\u0159\u00edzen\u00ed Miio"
+                },
+                "description": "Vyberte za\u0159\u00edzen\u00ed Xiaomi Miio, kter\u00e9 chcete nastavit."
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "is_water_box_attached": {
+                "name": "Mop p\u0159ipojen"
+            },
+            "is_water_box_carriage_attached": {
+                "name": "Mop p\u0159ipojen"
+            },
+            "is_water_shortage": {
+                "name": "Nedostatek vody"
+            },
+            "no_water": {
+                "name": "Pr\u00e1zdn\u00e1 n\u00e1dr\u017e na vodu"
+            },
+            "powersupply_attached": {
+                "name": "Nap\u00e1jen\u00ed"
+            },
+            "ptc_status": {
+                "name": "Stav pomocn\u00e9ho oh\u0159evu"
+            },
+            "water_tank_detached": {
+                "name": "N\u00e1dr\u017e na vodu"
+            }
+        },
+        "button": {
+            "reset_dust_filter": {
+                "name": "Resetovat prachov\u00fd filtr"
+            },
+            "reset_upper_filter": {
+                "name": "Resetovat horn\u00ed filtr"
+            },
+            "reset_vacuum_filter": {
+                "name": "Resetovat filtr"
+            },
+            "reset_vacuum_main_brush": {
+                "name": "Resetovat hlavn\u00ed kart\u00e1\u010d"
+            },
+            "reset_vacuum_sensor_dirty": {
+                "name": "Resetovat vy\u010di\u0161t\u011bn\u00ed senzor\u016f"
+            },
+            "reset_vacuum_side_brush": {
+                "name": "Resetovat bo\u010dn\u00ed kart\u00e1\u010d"
+            }
+        },
+        "fan": {
+            "generic_fan": {
+                "state_attributes": {
+                    "preset_mode": {
+                        "state": {
+                            "nature": "P\u0159\u00edrodn\u00ed",
+                            "normal": "Norm\u00e1ln\u00ed"
+                        }
+                    }
+                }
+            }
+        },
+        "number": {
+            "angle": {
+                "name": "\u00dahel oscilace"
+            },
+            "delay_off_countdown": {
+                "name": "Zpo\u017ed\u011bn\u00ed odpo\u010d\u00edt\u00e1v\u00e1n\u00ed"
+            },
+            "fan_level": {
+                "name": "\u00darove\u0148 ventil\u00e1toru"
+            },
+            "favorite_level": {
+                "name": "Obl\u00edben\u00e1 \u00farove\u0148"
+            },
+            "favorite_rpm": {
+                "name": "Obl\u00edben\u00e1 rychlost motoru"
+            },
+            "led_brightness": {
+                "name": "Jas LED"
+            },
+            "led_brightness_level": {
+                "name": "Jas LED"
+            },
+            "motor_speed": {
+                "name": "Rychlost motoru"
+            },
+            "volume": {
+                "name": "Hlasitost"
+            }
+        },
+        "select": {
+            "airpurifier_mode": {
+                "state": {
+                    "auto": "Auto",
+                    "favorite": "Obl\u00edben\u00e9",
+                    "silent": "Tich\u00fd"
+                }
+            },
+            "display_orientation": {
+                "state": {
+                    "forward": "Vp\u0159ed",
+                    "left": "Vlevo",
+                    "right": "Vpravo"
+                }
+            },
+            "led_brightness": {
+                "state": {
+                    "bright": "Jas",
+                    "dim": "Ztlumit",
+                    "off": "Vypnuto"
+                }
+            },
+            "ptc_level": {
+                "state": {
+                    "high": "Vysok\u00e1",
+                    "low": "N\u00edzk\u00e1",
+                    "medium": "St\u0159edn\u00ed"
+                }
+            }
+        },
+        "sensor": {
+            "actual_speed": {
+                "name": "Aktu\u00e1ln\u00ed rychlost"
+            },
+            "air_quality": {
+                "name": "Kvalita vzduchu"
+            },
+            "air_quality_index": {
+                "name": "Index kvality ovzdu\u0161\u00ed"
+            },
+            "area": {
+                "name": "Posledn\u00ed uklizen\u00e1 oblast"
+            },
+            "clean_area": {
+                "name": "Aku\u00e1ln\u00ed oblast \u00faklidu"
+            },
+            "clean_time": {
+                "name": "Aktu\u00e1ln\u00ed doba \u00faklidu"
+            },
+            "control_speed": {
+                "name": "Ovl\u00e1d\u00e1n\u00ed rychlosti"
+            },
+            "count": {
+                "name": "Celkov\u00fd po\u010det \u00faklid\u016f"
+            },
+            "dnd_end": {
+                "name": "Konec re\u017eimu Neru\u0161it"
+            },
+            "dnd_start": {
+                "name": "Za\u010d\u00e1tek re\u017eimu Neru\u0161it"
+            },
+            "duration": {
+                "name": "Doba posledn\u00edho \u00faklidu"
+            },
+            "dust_collection_count": {
+                "name": "Celkov\u00fd po\u010det zachycen\u00e9ho prachu"
+            },
+            "dust_filter_life_remaining": {
+                "name": "Zb\u00fdvaj\u00edc\u00ed \u017eivotnost prachov\u00e9ho filtru"
+            },
+            "dust_filter_life_remaining_days": {
+                "name": "Zb\u00fdvaj\u00edc\u00ed dny \u017eivotnosti prachov\u00e9ho filtru"
+            },
+            "favorite_speed": {
+                "name": "Obl\u00edben\u00e1 rychlost"
+            },
+            "filter_hours_used": {
+                "name": "Pou\u017eit\u00ed filtru"
+            },
+            "filter_left": {
+                "name": "Zb\u00fdvaj\u00edc\u00ed filtr"
+            },
+            "filter_left_time": {
+                "name": "Zb\u00fdv\u00e1 ze \u017eivotnosti"
+            },
+            "filter_life_remaining": {
+                "name": "Zb\u00fdvaj\u00edc\u00ed \u017eivotnost filtru"
+            },
+            "illuminance": {
+                "name": "Osv\u011btlen\u00ed"
+            },
+            "last_clean_end": {
+                "name": "Konec posledn\u00edho \u00faklidu"
+            },
+            "last_clean_start": {
+                "name": "Za\u010d\u00e1tek posledn\u00edho \u00faklidu"
+            },
+            "load_power": {
+                "name": "V\u00fdkon z\u00e1t\u011b\u017ee"
+            },
+            "main_brush_left": {
+                "name": "Z hlavn\u00edho kart\u00e1\u010de zb\u00fdv\u00e1"
+            },
+            "motor2_speed": {
+                "name": "Rychlost druh\u00e9ho motoru"
+            },
+            "motor_speed": {
+                "name": "Rychlost motoru"
+            },
+            "purify_volume": {
+                "name": "Objem vy\u010di\u0161t\u011bn\u00ed"
+            },
+            "sensor_dirty_left": {
+                "name": "Zb\u00fdv\u00e1 ze senzoru za\u0161pin\u011bn\u00ed"
+            },
+            "side_brush_left": {
+                "name": "Zb\u00fdv\u00e1 z bo\u010dn\u00edho kart\u00e1\u010de"
+            },
+            "total_area": {
+                "name": "Celkov\u00e1 uklizen\u00e1 plocha"
+            },
+            "total_duration": {
+                "name": "Celkov\u00e1 doba trv\u00e1n\u00ed"
+            },
+            "tvoc": {
+                "name": "TVOC"
+            },
+            "upper_filter_life_remaining": {
+                "name": "Zb\u00fdvaj\u00edc\u00ed \u017eivotnost horn\u00edho filtru"
+            },
+            "upper_filter_life_remaining_days": {
+                "name": "Zb\u00fdvaj\u00edc\u00ed dny \u017eivotnosti horn\u00edho filtru"
+            },
+            "use_time": {
+                "name": "\u010cas pou\u017eit\u00ed"
+            },
+            "water_level": {
+                "name": "Hladina vody"
+            }
+        },
+        "switch": {
+            "anion": {
+                "name": "Ioniz\u00e1tor"
+            },
+            "auto_detect": {
+                "name": "Automatick\u00e1 detekce"
+            },
+            "buzzer": {
+                "name": "Bzu\u010d\u00e1k"
+            },
+            "child_lock": {
+                "name": "D\u011btsk\u00fd z\u00e1mek"
+            },
+            "clean_mode": {
+                "name": "Re\u017eim \u00faklidu"
+            },
+            "display": {
+                "name": "Displej"
+            },
+            "dry": {
+                "name": "Re\u017eim su\u0161en\u00ed"
+            },
+            "ionizer": {
+                "name": "Ioniz\u00e1tor"
+            },
+            "learn_mode": {
+                "name": "Re\u017eim u\u010den\u00ed"
+            },
+            "led": {
+                "name": "LED"
+            },
+            "ptc": {
+                "name": "Pomocn\u00e9 teplo"
+            }
+        }
+    },
+    "options": {
+        "error": {
+            "cloud_credentials_incomplete": "P\u0159ihla\u0161ovac\u00ed \u00fadaje cloudu nejsou \u00fapln\u00e9, vypl\u0148te u\u017eivatelsk\u00e9 jm\u00e9no, heslo a zemi."
+        },
+        "step": {
+            "init": {
+                "data": {
+                    "cloud_subdevices": "Pou\u017e\u00edt cloud pro z\u00edsk\u00e1n\u00ed p\u0159ipojen\u00fdch podru\u017en\u00fdch za\u0159\u00edzen\u00ed"
+                }
+            }
+        }
+    },
+    "services": {
+        "fan_reset_filter": {
+            "description": "Resetuje \u017eivotnost a pou\u017eit\u00ed filtru.",
+            "fields": {
+                "entity_id": {
+                    "description": "N\u00e1zev entity Xiaomi Miio.",
+                    "name": "ID entity"
+                }
+            },
+            "name": "Resetovat filtr ventil\u00e1toru"
+        },
+        "fan_set_extra_features": {
+            "description": "Manipuluje s registrem \u00falo\u017ei\u0161t\u011b, kter\u00fd inzeruje dal\u0161\u00ed funkce. Aplikace Mi Home vyhodnot\u00ed hodnotu. P\u0159i hodnot\u011b 1 se v aplikaci odemkne funkce zvan\u00e1 \"re\u017eim turbo\".",
+            "fields": {
+                "entity_id": {
+                    "description": "N\u00e1zev entity Xiaomi Miio.",
+                    "name": "ID entity"
+                },
+                "features": {
+                    "description": "Cel\u00e9 \u010d\u00edslo, zn\u00e1m\u00e9 hodnoty jsou 0 (v\u00fdchoz\u00ed) a 1 (re\u017eim turbo).",
+                    "name": "Funkce"
+                }
+            },
+            "name": "Nastavit extra funkce ventil\u00e1toru"
+        },
+        "light_eyecare_mode_off": {
+            "description": "Zak\u00e1\u017ee upozorn\u011bn\u00ed na \u00fanavu o\u010di (jen EYECARE SMART LAMP 2).",
+            "fields": {
+                "entity_id": {
+                    "description": "N\u00e1zev entity, se kterou se m\u00e1 pracovat.",
+                    "name": "ID entity"
+                }
+            },
+            "name": "Re\u017eim p\u00e9\u010de o o\u010di je vypnut\u00fd"
+        },
+        "light_eyecare_mode_on": {
+            "description": "Povol\u00ed upozorn\u011bn\u00ed na \u00fanavu o\u010di (jen EYECARE SMART LAMP 2).",
+            "fields": {
+                "entity_id": {
+                    "description": "N\u00e1zev entity, se kterou se m\u00e1 pracovat.",
+                    "name": "ID entity"
+                }
+            },
+            "name": "Re\u017eim p\u00e9\u010de o o\u010di je zapnut\u00fd"
+        },
+        "light_night_light_mode_off": {
+            "description": "Vypne re\u017eim p\u00e9\u010de o o\u010di (jen EYECARE SMART LAMP 2).",
+            "fields": {
+                "entity_id": {
+                    "description": "N\u00e1zev entity, se kterou se m\u00e1 pracovat.",
+                    "name": "ID entity"
+                }
+            },
+            "name": "Re\u017eim no\u010dn\u00edho sv\u011btla je vypnut\u00fd"
+        },
+        "light_night_light_mode_on": {
+            "description": "Zapne re\u017eim p\u00e9\u010de o o\u010di (jen EYECARE SMART LAMP 2).",
+            "fields": {
+                "entity_id": {
+                    "description": "N\u00e1zev entity, se kterou se m\u00e1 pracovat.",
+                    "name": "ID entity"
+                }
+            },
+            "name": "Re\u017eim no\u010dn\u00edho sv\u011btla je zapnut\u00fd"
+        },
+        "light_reminder_off": {
+            "description": "Zak\u00e1\u017ee upozorn\u011bn\u00ed na \u00fanavu o\u010di (jen EYECARE SMART LAMP 2).",
+            "fields": {
+                "entity_id": {
+                    "description": "N\u00e1zev entity, se kterou se m\u00e1 pracovat.",
+                    "name": "ID entity"
+                }
+            },
+            "name": "P\u0159ipom\u00ednka sv\u011btla je vypnut\u00e1"
+        },
+        "light_reminder_on": {
+            "description": "Povol\u00ed upozorn\u011bn\u00ed na \u00fanavu o\u010di (jen EYECARE SMART LAMP 2).",
+            "fields": {
+                "entity_id": {
+                    "description": "N\u00e1zev entity, se kterou se m\u00e1 pracovat.",
+                    "name": "ID entity"
+                }
+            },
+            "name": "P\u0159ipom\u00ednka sv\u011btla je zapnut\u00e1"
+        },
+        "light_set_delayed_turn_off": {
+            "description": "Zpo\u017ed\u011bn\u00e9 vypnut\u00ed.",
+            "fields": {
+                "entity_id": {
+                    "description": "N\u00e1zev entity sv\u011btla.",
+                    "name": "ID entity"
+                },
+                "time_period": {
+                    "description": "\u010casov\u00e9 obdob\u00ed pro zpo\u017ed\u011bn\u00e9 vypnut\u00ed.",
+                    "name": "\u010casov\u00e9 obdob\u00ed"
+                }
+            },
+            "name": "Nastavit zpo\u017ed\u011bn\u00e9 vypnut\u00ed sv\u011btla"
+        },
+        "light_set_scene": {
+            "description": "Nastav\u00ed pevnou sc\u00e9nu.",
+            "fields": {
+                "entity_id": {
+                    "description": "N\u00e1zev entity sv\u011btla.",
+                    "name": "ID entity"
+                },
+                "scene": {
+                    "description": "\u010c\u00edslo pevn\u00e9 sc\u00e9ny.",
+                    "name": "Sc\u00e9na"
+                }
+            },
+            "name": "Nastavit sc\u00e9nu sv\u011btla"
+        },
+        "remote_learn_command": {
+            "description": "Nau\u010d\u00ed se IR p\u0159\u00edkaz; stiskn\u011bte \"Perform action\", nami\u0159te d\u00e1lkov\u00fd ovlada\u010d na IR za\u0159\u00edzen\u00ed a nau\u010den\u00fd p\u0159\u00edkaz se zobraz\u00ed jako upozorn\u011bn\u00ed v p\u0159ehledu.",
+            "fields": {
+                "slot": {
+                    "description": "Definujte slot pou\u017eit\u00fd k ulo\u017een\u00ed IR p\u0159\u00edkazu.",
+                    "name": "Slot"
+                },
+                "timeout": {
+                    "description": "Definujte \u010dasov\u00fd limit, do kter\u00e9ho mus\u00ed b\u00fdt p\u0159\u00edkaz nau\u010den.",
+                    "name": "\u010casov\u00fd limit"
+                }
+            },
+            "name": "Nau\u010dit p\u0159\u00edkaz ovlada\u010de"
+        },
+        "remote_set_led_off": {
+            "description": "Vypne modrou LED.",
+            "name": "Vypnout modrou LED na ovlada\u010di"
+        },
+        "remote_set_led_on": {
+            "description": "Zapne modrou LED.",
+            "name": "Zapnout modrou LED na ovlada\u010di"
+        },
+        "switch_set_power_mode": {
+            "description": "Nastav\u00ed re\u017eim nap\u00e1jen\u00ed.",
+            "fields": {
+                "entity_id": {
+                    "description": "N\u00e1zev entity Xiaomi Miio.",
+                    "name": "ID entity"
+                },
+                "mode": {
+                    "description": "Re\u017eim nap\u00e1jen\u00ed.",
+                    "name": "Re\u017eim"
+                }
+            },
+            "name": "Nastavit re\u017eim nap\u00e1jen\u00ed"
+        },
+        "switch_set_power_price": {
+            "description": "Nastav\u00ed cenu energie.",
+            "fields": {
+                "entity_id": {
+                    "description": "N\u00e1zev entity Xiaomi Miio.",
+                    "name": "ID entity"
+                },
+                "mode": {
+                    "description": "Cena energie.",
+                    "name": "Re\u017eim"
+                }
+            },
+            "name": "Nastavit cenu energie"
+        },
+        "switch_set_wifi_led_off": {
+            "description": "Vypne indik\u00e1tor Wi-Fi.",
+            "fields": {
+                "entity_id": {
+                    "description": "N\u00e1zev entity Xiaomi Miio.",
+                    "name": "ID entity"
+                }
+            },
+            "name": "Vypnout indik\u00e1tor Wi-Fi"
+        },
+        "switch_set_wifi_led_on": {
+            "description": "Zapne indik\u00e1tor Wi-Fi.",
+            "fields": {
+                "entity_id": {
+                    "description": "N\u00e1zev entity Xiaomi Miio.",
+                    "name": "ID entity"
+                }
+            },
+            "name": "Zapne indik\u00e1tor Wi-Fi."
+        },
+        "vacuum_clean_segment": {
+            "description": "Spust\u00ed \u00faklid zadan\u00e9ho segmentu.",
+            "fields": {
+                "segments": {
+                    "description": "Segmenty.",
+                    "name": "Segmenty"
+                }
+            },
+            "name": "Uklidit segment"
+        },
+        "vacuum_clean_zone": {
+            "description": "Spust\u00ed \u00faklid ve vybran\u00fdch oblastech na uveden\u00fd po\u010det opakov\u00e1n\u00ed.",
+            "fields": {
+                "repeats": {
+                    "description": "Po\u010det opakov\u00e1n\u00ed \u00faklidu pro ka\u017edou z\u00f3nu.",
+                    "name": "Opakov\u00e1n\u00ed"
+                },
+                "zone": {
+                    "description": "Pole z\u00f3n. Ka\u017ed\u00e1 z\u00f3na je polem 4 celo\u010d\u00edseln\u00fdch hodnot.",
+                    "name": "Z\u00f3na"
+                }
+            },
+            "name": "Uklidit z\u00f3nu"
+        },
+        "vacuum_goto": {
+            "description": "P\u0159ejde na zadan\u00e9 sou\u0159adnice.",
+            "fields": {
+                "x_coord": {
+                    "description": "Sou\u0159adnice X.",
+                    "name": "Sou\u0159adnice X"
+                },
+                "y_coord": {
+                    "description": "Sou\u0159adnice Y.",
+                    "name": "Sou\u0159adnice Y"
+                }
+            },
+            "name": "P\u0159ej\u00edt na"
+        },
+        "vacuum_remote_control_move": {
+            "description": "D\u00e1lkov\u00e9 ovl\u00e1d\u00e1n\u00ed vysava\u010de. Ujist\u011bte se, \u017ee jste jej nejprve p\u0159epnuli do re\u017eimu d\u00e1lkov\u00e9ho ovl\u00e1d\u00e1n\u00ed pomoc\u00ed \"remote_control_start\".",
+            "fields": {
+                "duration": {
+                    "description": "Doba trv\u00e1n\u00ed pohybu.",
+                    "name": "Doba trv\u00e1n\u00ed"
+                },
+                "rotation": {
+                    "description": "Oto\u010den\u00ed, v rozmez\u00ed od -179\u00b0 do 179\u00b0.",
+                    "name": "Oto\u010den\u00ed"
+                },
+                "velocity": {
+                    "description": "Rychlost.",
+                    "name": "Rychlost"
+                }
+            },
+            "name": "Pohyb vysava\u010de d\u00e1lkov\u00fdm ovl\u00e1d\u00e1n\u00edm"
+        },
+        "vacuum_remote_control_move_step": {
+            "description": "D\u00e1lkov\u00e9 ovl\u00e1d\u00e1n\u00ed vysava\u010de. Provede jen jeden pohyb a pak se zastav\u00ed.",
+            "fields": {
+                "duration": {
+                    "description": "Doba trv\u00e1n\u00ed pohybu.",
+                    "name": "Doba trv\u00e1n\u00ed"
+                },
+                "rotation": {
+                    "description": "Oto\u010den\u00ed.",
+                    "name": "Oto\u010den\u00ed"
+                },
+                "velocity": {
+                    "description": "Rychlost.",
+                    "name": "Rychlost"
+                }
+            },
+            "name": "Krok vysava\u010de d\u00e1lkov\u00fdm ovl\u00e1d\u00e1n\u00edm"
+        },
+        "vacuum_remote_control_start": {
+            "description": "Spust\u00ed d\u00e1lkov\u00e9 ovl\u00e1d\u00e1n\u00ed vysava\u010de. Pot\u00e9 jej m\u016f\u017eete p\u0159esunout pomoc\u00ed \"remote_control_move\" a po dokon\u010den\u00ed zavolat \"remote_control_stop\".",
+            "name": "Spustit vysava\u010d d\u00e1lkov\u00fdm ovl\u00e1d\u00e1n\u00edm"
+        },
+        "vacuum_remote_control_stop": {
+            "description": "Zastav\u00ed re\u017eim d\u00e1lkov\u00e9ho ovl\u00e1d\u00e1n\u00ed vysava\u010de.",
+            "name": "Zastavit vysava\u010d d\u00e1lkov\u00fdm ovl\u00e1d\u00e1n\u00edm"
+        }
+    }
+}

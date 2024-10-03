@@ -1,0 +1,433 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "\u012erenginys jau sukonfig\u016bruotas",
+            "no_ups_found": "NUT serveryje n\u0117ra UPS \u012frengini\u0173.",
+            "reauth_successful": "Pakartotinis autentifikavimas buvo s\u0117kmingas"
+        },
+        "error": {
+            "cannot_connect": "Ry\u0161io klaida: {error}",
+            "invalid_auth": "Neteisingas autentifikavimas",
+            "unknown": "Netik\u0117ta klaida"
+        },
+        "step": {
+            "reauth_confirm": {
+                "data": {
+                    "password": "Slapta\u017eodis",
+                    "username": "Prisijungimos vardas"
+                },
+                "description": "I\u0161 naujo autentifikuoti NUT server\u012f {host} : {port}"
+            },
+            "ups": {
+                "data": {
+                    "alias": "Pseudonimas"
+                },
+                "title": "Pasirinkite UPS, kur\u012f norite steb\u0117ti"
+            },
+            "user": {
+                "data": {
+                    "host": "Host",
+                    "password": "Slapta\u017eodis",
+                    "port": "Prievadas",
+                    "username": "Prisijungimos vardas"
+                },
+                "data_description": {
+                    "host": "NUT serverio pagrindinio kompiuterio pavadinimas arba IP adresas."
+                },
+                "description": "Prisijunkite prie NUT serverio",
+                "title": "Prisijunkite prie NUT serverio"
+            }
+        }
+    },
+    "device_automation": {
+        "action_type": {
+            "beeper_disable": "I\u0161jungti UPS pyptel\u0117jim\u0105 / garsin\u012f signal\u0105",
+            "beeper_enable": "\u012ejungti UPS pyptel\u0117jim\u0105 / garsin\u012f signal\u0105",
+            "beeper_mute": "Laikinai nutildykite UPS pyptel\u0117jim\u0105 / garsin\u012f signal\u0105",
+            "beeper_toggle": "Perjungti UPS pyptel\u0117jim\u0105 / garsin\u012f signal\u0105",
+            "bypass_start": "\u012ejunkite UPS ap\u0117jimo re\u017eim\u0105",
+            "bypass_stop": "I\u0161junkite UPS i\u0161 ap\u0117jimo re\u017eimo",
+            "calibrate_start": "Prad\u0117ti kalibravim\u0105 paleidimo metu",
+            "calibrate_stop": "Sustabdyti kalibravim\u0105 paleidimo metu",
+            "load_off": "Nedelsdami i\u0161junkite apkrov\u0105",
+            "load_on": "Nedelsdami \u012fjunkite apkrov\u0105",
+            "reset_input_minmax": "I\u0161 naujo nustatykite minimali\u0105 ir maksimali\u0105 \u012f\u0117jimo \u012ftampos b\u016bsen\u0105",
+            "reset_watchdog": "I\u0161 naujo nustatyti bud\u0117jimo laikmat\u012f (priverstinis \u012fkrovos paleidimas i\u0161 naujo)",
+            "shutdown_reboot": "I\u0161 naujo paleisdami UPS trumpam i\u0161junkite apkrov\u0105",
+            "shutdown_reboot_graceful": "Po delsos trumpam i\u0161junkite apkrov\u0105, i\u0161 naujo paleisdami UPS",
+            "shutdown_return": "I\u0161junkite apkrov\u0105 galb\u016bt po u\u017edelsimo ir gr\u0105\u017einkite, kai v\u0117l bus \u012fjungtas maitinimas.",
+            "shutdown_stayoff": "I\u0161jungti apkrov\u0105 galb\u016bt po u\u017edelsimo ir likti i\u0161jungtai, net jei maitinimas gr\u012f\u017eta.",
+            "shutdown_stop": "Sustabdyti vykstant\u012f i\u0161jungim\u0105",
+            "test_battery_start": "Prad\u0117kite akumuliatoriaus test\u0105",
+            "test_battery_start_deep": "Prad\u0117kite gil\u0173 akumuliatoriaus test\u0105",
+            "test_battery_start_quick": "Prad\u0117kite greit\u0105 akumuliatoriaus test\u0105",
+            "test_battery_stop": "Sustabdykite akumuliatoriaus bandym\u0105",
+            "test_failure_start": "Prad\u0117kite imituojam\u0105 elektros energijos tiekimo sutrikim\u0105",
+            "test_failure_stop": "Nustokite imituoti elektros energijos tiekimo sutrikim\u0105",
+            "test_panel_start": "Prad\u0117kite testuoti UPS skydel\u012f",
+            "test_panel_stop": "Sustabdykite UPS skydelio test\u0105",
+            "test_system_start": "Prad\u0117kite sistemos test\u0105"
+        }
+    },
+    "entity": {
+        "sensor": {
+            "ambient_humidity": {
+                "name": "Aplinkos dr\u0117gm\u0117"
+            },
+            "ambient_temperature": {
+                "name": "Aplinkos temperat\u016bra"
+            },
+            "battery_alarm_threshold": {
+                "name": "Akumuliatoriaus pavojaus slenkstis"
+            },
+            "battery_capacity": {
+                "name": "Baterijos talpa"
+            },
+            "battery_charge": {
+                "name": "Akumuliatoriaus \u012fkrovimas"
+            },
+            "battery_charge_low": {
+                "name": "\u017dema akumuliatoriaus kontrolin\u0117 vert\u0117"
+            },
+            "battery_charge_restart": {
+                "name": "Minimalus akumuliatoriaus \u012fkrovimas"
+            },
+            "battery_charge_warning": {
+                "name": "\u012esp\u0117jamasis akumuliatoriaus nustatymo ta\u0161kas"
+            },
+            "battery_charger_status": {
+                "name": "\u012ekrovimo b\u016bsena"
+            },
+            "battery_current": {
+                "name": "Akumuliatoriaus srov\u0117"
+            },
+            "battery_current_total": {
+                "name": "Bendra akumuliatoriaus srov\u0117"
+            },
+            "battery_date": {
+                "name": "Baterijos data"
+            },
+            "battery_mfr_date": {
+                "name": "Akumuliatoriaus pagaminimo data"
+            },
+            "battery_packs": {
+                "name": "Baterij\u0173 skai\u010dius"
+            },
+            "battery_packs_bad": {
+                "name": "Blog\u0173 baterij\u0173 skai\u010dius"
+            },
+            "battery_runtime": {
+                "name": "Baterijos veikimo laikas"
+            },
+            "battery_runtime_low": {
+                "name": "Ma\u017eas akumuliatoriaus veikimo laikas"
+            },
+            "battery_runtime_restart": {
+                "name": "Minimalus akumuliatoriaus veikimo laikas norint prad\u0117ti"
+            },
+            "battery_temperature": {
+                "name": "Baterijos temperat\u016bra"
+            },
+            "battery_type": {
+                "name": "Akumuliatoriaus chemija"
+            },
+            "battery_voltage": {
+                "name": "Akumuliatoriaus \u012ftampa"
+            },
+            "battery_voltage_high": {
+                "name": "Auk\u0161ta akumuliatoriaus \u012ftampa"
+            },
+            "battery_voltage_low": {
+                "name": "\u017dema akumuliatoriaus \u012ftampa"
+            },
+            "battery_voltage_nominal": {
+                "name": "Nominali akumuliatoriaus \u012ftampa"
+            },
+            "input_bypass_current": {
+                "name": "\u012evesties ap\u0117jimo srov\u0117"
+            },
+            "input_bypass_frequency": {
+                "name": "\u012evesties ap\u0117jimo da\u017enis"
+            },
+            "input_bypass_l1_current": {
+                "name": "\u012evesties ap\u0117jimo L1 srov\u0117"
+            },
+            "input_bypass_l1_n_voltage": {
+                "name": "\u012e\u0117jimo aplinkkelio L1-N \u012ftampa"
+            },
+            "input_bypass_l1_realpower": {
+                "name": "Srov\u0117s \u012fvesties aplinkkelio L1 tikroji galia"
+            },
+            "input_bypass_l2_current": {
+                "name": "\u012evesties ap\u0117jimo L2 srov\u0117"
+            },
+            "input_bypass_l2_n_voltage": {
+                "name": "\u012evesties aplinkkelio L2-N \u012ftampa"
+            },
+            "input_bypass_l2_realpower": {
+                "name": "Srov\u0117s \u012fvesties aplinkkelio L2 tikroji galia"
+            },
+            "input_bypass_l3_current": {
+                "name": "\u012evesties ap\u0117jimo L3 srov\u0117"
+            },
+            "input_bypass_l3_n_voltage": {
+                "name": "\u012evesties aplinkkelio L3-N \u012ftampa"
+            },
+            "input_bypass_l3_realpower": {
+                "name": "Srov\u0117s \u012fvesties aplinkkelio L3 tikroji galia"
+            },
+            "input_bypass_phases": {
+                "name": "\u012evesties ap\u0117jimo faz\u0117s"
+            },
+            "input_bypass_realpower": {
+                "name": "Srov\u0117s \u012fvesties ap\u0117jimo realioji galia"
+            },
+            "input_bypass_voltage": {
+                "name": "\u012evesties apsaugos \u012ftampa"
+            },
+            "input_current": {
+                "name": "\u012evesties srov\u0117"
+            },
+            "input_frequency": {
+                "name": "\u012evesties da\u017enis"
+            },
+            "input_frequency_nominal": {
+                "name": "\u012evesties vardinis da\u017enis"
+            },
+            "input_frequency_status": {
+                "name": "\u012evesties da\u017enio b\u016bsena"
+            },
+            "input_l1_current": {
+                "name": "\u012evesties L1 srov\u0117"
+            },
+            "input_l1_frequency": {
+                "name": "\u012evesties L1 linijos da\u017enis"
+            },
+            "input_l1_n_voltage": {
+                "name": "\u012evesties L1 \u012ftampa"
+            },
+            "input_l1_realpower": {
+                "name": "Srov\u0117s \u012fvestis L1 realioji galia"
+            },
+            "input_l2_current": {
+                "name": "\u012evesties L2 srov\u0117"
+            },
+            "input_l2_frequency": {
+                "name": "\u012evesties L2 linijos da\u017enis"
+            },
+            "input_l2_n_voltage": {
+                "name": "\u012evesties L2 \u012ftampa"
+            },
+            "input_l2_realpower": {
+                "name": "Srov\u0117s \u012fvestis L2 realioji galia"
+            },
+            "input_l3_current": {
+                "name": "\u012evesties L3 srov\u0117"
+            },
+            "input_l3_frequency": {
+                "name": "\u012evesties L3 linijos da\u017enis"
+            },
+            "input_l3_n_voltage": {
+                "name": "L3 \u012f\u0117jimo \u012ftampa"
+            },
+            "input_l3_realpower": {
+                "name": "Srov\u0117s \u012fvestis L3 realioji galia"
+            },
+            "input_phases": {
+                "name": "\u012evesties faz\u0117s"
+            },
+            "input_realpower": {
+                "name": "Dabartin\u0117 \u012fvesties tikroji galia"
+            },
+            "input_sensitivity": {
+                "name": "\u012evesties galios jautrumas"
+            },
+            "input_transfer_high": {
+                "name": "Auk\u0161tos \u012ftampos perdavimas"
+            },
+            "input_transfer_low": {
+                "name": "\u017demos \u012ftampos perdavimas"
+            },
+            "input_transfer_reason": {
+                "name": "\u012etampos perdavimo prie\u017eastis"
+            },
+            "input_voltage": {
+                "name": "\u012e\u0117jimo \u012ftampa"
+            },
+            "input_voltage_nominal": {
+                "name": "Nominali \u012f\u0117jimo \u012ftampa"
+            },
+            "output_current": {
+                "name": "I\u0161\u0117jimo srov\u0117"
+            },
+            "output_current_nominal": {
+                "name": "Nominali i\u0161\u0117jimo srov\u0117"
+            },
+            "output_frequency": {
+                "name": "I\u0161vesties da\u017enis"
+            },
+            "output_frequency_nominal": {
+                "name": "Nominalus i\u0161\u0117jimo da\u017enis"
+            },
+            "output_l1_current": {
+                "name": "I\u0161\u0117jimo L1 srov\u0117"
+            },
+            "output_l1_n_voltage": {
+                "name": "I\u0161\u0117jimo L1-N \u012ftampa"
+            },
+            "output_l1_power_percent": {
+                "name": "I\u0161\u0117jimo L1 galios naudojimas"
+            },
+            "output_l1_realpower": {
+                "name": "Srov\u0117s i\u0161\u0117jimo L1 tikroji galia"
+            },
+            "output_l2_current": {
+                "name": "I\u0161\u0117jimo L2 srov\u0117"
+            },
+            "output_l2_n_voltage": {
+                "name": "I\u0161\u0117jimo L2-N \u012ftampa"
+            },
+            "output_l2_power_percent": {
+                "name": "L2 i\u0161\u0117jimo galios naudojimas"
+            },
+            "output_l2_realpower": {
+                "name": "Srov\u0117s i\u0161\u0117jimo L2 tikroji galia"
+            },
+            "output_l3_current": {
+                "name": "I\u0161\u0117jimo L3 srov\u0117"
+            },
+            "output_l3_n_voltage": {
+                "name": "I\u0161\u0117jimo L3-N \u012ftampa"
+            },
+            "output_l3_power_percent": {
+                "name": "L3 i\u0161\u0117jimo galios naudojimas"
+            },
+            "output_l3_realpower": {
+                "name": "Srov\u0117s i\u0161\u0117jimo L3 tikroji galia"
+            },
+            "output_phases": {
+                "name": "I\u0161vesties faz\u0117s"
+            },
+            "output_power": {
+                "name": "I\u0161\u0117jimo tariama galia"
+            },
+            "output_power_nominal": {
+                "name": "Nominali i\u0161\u0117jimo galia"
+            },
+            "output_realpower": {
+                "name": "Dabartin\u0117 i\u0161\u0117jimo tikroji galia"
+            },
+            "output_realpower_nominal": {
+                "name": "Nominali i\u0161\u0117jimo realioji galia"
+            },
+            "output_voltage": {
+                "name": "I\u0161\u0117jimo \u012ftampa"
+            },
+            "output_voltage_nominal": {
+                "name": "Nominali i\u0161\u0117jimo \u012ftampa"
+            },
+            "ups_alarm": {
+                "name": "Aliarmai"
+            },
+            "ups_beeper_status": {
+                "name": "Pyptel\u0117jimo b\u016bsena"
+            },
+            "ups_contacts": {
+                "name": "I\u0161oriniai kontaktai"
+            },
+            "ups_delay_reboot": {
+                "name": "UPS perkrovimo delsa"
+            },
+            "ups_delay_shutdown": {
+                "name": "UPS i\u0161jungimo delsa"
+            },
+            "ups_delay_start": {
+                "name": "\u012ek\u0117limo i\u0161 naujo paleidimo delsa"
+            },
+            "ups_display_language": {
+                "name": "Kalba"
+            },
+            "ups_efficiency": {
+                "name": "Efektyvumas"
+            },
+            "ups_id": {
+                "name": "Sistemos identifikatorius"
+            },
+            "ups_load": {
+                "name": "\u012ekelti"
+            },
+            "ups_load_high": {
+                "name": "Perkrovos nustatymas"
+            },
+            "ups_power": {
+                "name": "Dabartin\u0117 tariama galia"
+            },
+            "ups_power_nominal": {
+                "name": "Nominali galia"
+            },
+            "ups_realpower": {
+                "name": "Dabartin\u0117 tikroji galia"
+            },
+            "ups_realpower_nominal": {
+                "name": "Nominali realioji galia"
+            },
+            "ups_shutdown": {
+                "name": "I\u0161jungimo galimyb\u0117"
+            },
+            "ups_start_auto": {
+                "name": "Prad\u0117kite nuo ac"
+            },
+            "ups_start_battery": {
+                "name": "\u012ejungti akumuliatori\u0173"
+            },
+            "ups_start_reboot": {
+                "name": "Perkraukite i\u0161 akumuliatoriaus"
+            },
+            "ups_status": {
+                "name": "B\u016bsenos duomenys"
+            },
+            "ups_status_display": {
+                "name": "B\u016bsena"
+            },
+            "ups_temperature": {
+                "name": "UPS temperat\u016bra"
+            },
+            "ups_test_date": {
+                "name": "Sav\u0119s patikrinimo data"
+            },
+            "ups_test_interval": {
+                "name": "Savitikros intervalas"
+            },
+            "ups_test_result": {
+                "name": "Sav\u0119s patikrinimo rezultatas"
+            },
+            "ups_timer_reboot": {
+                "name": "\u012ekelti perkrovimo laikmat\u012f"
+            },
+            "ups_timer_shutdown": {
+                "name": "\u012ekelkite i\u0161jungimo laikmat\u012f"
+            },
+            "ups_timer_start": {
+                "name": "\u012ekelti prad\u017eios laikmat\u012f"
+            },
+            "ups_type": {
+                "name": "UPS tipas"
+            },
+            "ups_watchdog_status": {
+                "name": "\"Watchdog\" b\u016bsena"
+            },
+            "watts": {
+                "name": "Vatai"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "scan_interval": "Nuskaitymo intervalas (sekund\u0117mis)"
+                }
+            }
+        }
+    }
+}

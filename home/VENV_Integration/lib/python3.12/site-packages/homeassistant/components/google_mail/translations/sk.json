@@ -1,0 +1,84 @@
+{
+    "application_credentials": {
+        "description": "Postupujte pod\u013ea [pokynov]({more_info_url}) pre [obrazovku s\u00fahlasu OAuth]({oauth_consent_url}), aby ste poskytli asistentovi Home Assistant pr\u00edstup k va\u0161ej po\u0161te Google. Mus\u00edte tie\u017e vytvori\u0165 aplika\u010dn\u00e9 poverenia prepojen\u00e9 s va\u0161\u00edm \u00fa\u010dtom:\n1. Prejdite na str\u00e1nku [Credentials]({oauth_creds_url}) a vyberte mo\u017enos\u0165 **Create Credentials** (Vytvori\u0165 poverenia**).\n2. Z rozba\u013eovacieho zoznamu vyberte polo\u017eku **OAuth client ID**.\n3. Pre typ aplik\u00e1cie vyberte **Webov\u00e1 aplik\u00e1cia**."
+    },
+    "config": {
+        "abort": {
+            "already_configured": "\u00da\u010det je u\u017e nakonfigurovan\u00fd",
+            "already_in_progress": "Konfigur\u00e1cia u\u017e prebieha",
+            "cannot_connect": "Nepodarilo sa pripoji\u0165",
+            "invalid_access_token": "Neplatn\u00fd pr\u00edstupov\u00fd token",
+            "missing_configuration": "Komponent nie je nakonfigurovan\u00fd. Postupujte pod\u013ea dokument\u00e1cie.",
+            "oauth_error": "Prijat\u00e9 neplatn\u00e9 \u00fadaje tokenu.",
+            "oauth_failed": "Chyba pri z\u00edskavan\u00ed pr\u00edstupov\u00e9ho tokenu.",
+            "oauth_timeout": "\u010casov\u00fd limit na vyrie\u0161enie tokenu OAuth.",
+            "oauth_unauthorized": "Chyba autoriz\u00e1cie OAuth pri z\u00edskavan\u00ed pr\u00edstupov\u00e9ho tokenu.",
+            "reauth_successful": "Op\u00e4tovn\u00e9 overenie bolo \u00faspe\u0161n\u00e9",
+            "timeout_connect": "\u010casov\u00fd limit na nadviazanie spojenia",
+            "unknown": "Neo\u010dak\u00e1van\u00e1 chyba",
+            "wrong_account": "Nespr\u00e1vny \u00fa\u010det: Overte sa pomocou {email}."
+        },
+        "create_entry": {
+            "default": "\u00daspe\u0161ne overen\u00e9"
+        },
+        "step": {
+            "auth": {
+                "title": "Prepoji\u0165 \u00fa\u010det Google"
+            },
+            "pick_implementation": {
+                "title": "Vyberte met\u00f3du overenia"
+            },
+            "reauth_confirm": {
+                "description": "Integr\u00e1cia slu\u017eby Google Mail vy\u017eaduje op\u00e4tovn\u00e9 overenie v\u00e1\u0161ho \u00fa\u010dtu",
+                "title": "Vypr\u0161ala platnos\u0165 overenia pre {name}"
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "vacation_end_date": {
+                "name": "D\u00e1tum ukon\u010denia dovolenky"
+            }
+        }
+    },
+    "services": {
+        "set_vacation": {
+            "description": "Nastav\u00ed nastavenia automatickej odpovede pre slu\u017ebu Google Mail.",
+            "fields": {
+                "enabled": {
+                    "description": "Vypnite, ak chcete ukon\u010di\u0165 pr\u00e1zdninov\u00e9 odpovede.",
+                    "name": "Povolen\u00e9"
+                },
+                "end": {
+                    "description": "Posledn\u00fd de\u0148 pr\u00e1zdnin.",
+                    "name": "Koniec"
+                },
+                "message": {
+                    "description": "Telo e-mailu.",
+                    "name": "Spr\u00e1va"
+                },
+                "plain_text": {
+                    "description": "Vyberte si, \u010di chcete posla\u0165 spr\u00e1vu v oby\u010dajnom texte alebo HTML.",
+                    "name": "Oby\u010dajn\u00fd text"
+                },
+                "restrict_contacts": {
+                    "description": "Obmedzi\u0165 automatick\u00fa odpove\u010f na kontakty.",
+                    "name": "Obmedzi\u0165 na kontakty"
+                },
+                "restrict_domain": {
+                    "description": "Obmedzi\u0165 automatick\u00fa odpove\u010f na dom\u00e9nu. Toto sa t\u00fdka len \u00fa\u010dtov GSuite.",
+                    "name": "Obmedzi\u0165 na dom\u00e9nu"
+                },
+                "start": {
+                    "description": "Prv\u00fd de\u0148 dovolenky.",
+                    "name": "\u0160tart"
+                },
+                "title": {
+                    "description": "Predmet e-mailu.",
+                    "name": "N\u00e1zov"
+                }
+            },
+            "name": "Nastavi\u0165 dovolenku"
+        }
+    }
+}

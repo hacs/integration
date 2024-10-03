@@ -1,0 +1,58 @@
+{
+    "services": {
+        "clear_zone_override": {
+            "description": "Stellt eine Zone so ein, dass sie ihrem Zeitplan folgt.",
+            "fields": {
+                "entity_id": {
+                    "description": "Die \u201eentity_id\u201c der Zone.",
+                    "name": "Entit\u00e4t"
+                }
+            },
+            "name": "Zonen\u00fcberschreibung aufheben"
+        },
+        "refresh_system": {
+            "description": "Bezieht die neuesten Daten jetzt von den Servern des Anbieters, anstatt auf die n\u00e4chste geplante Aktualisierung zu warten.",
+            "name": "System aktualisieren"
+        },
+        "reset_system": {
+            "description": "Versetzt das System in den Auto-Modus und setzt alle Zonen zur\u00fcck, damit sie ihren Zeitpl\u00e4nen folgen. Nicht alle Evohome-Systeme unterst\u00fctzen diese Funktion (d. h. AutoWithReset-Modus).",
+            "name": "System zur\u00fccksetzen"
+        },
+        "set_system_mode": {
+            "description": "Legt den Systemmodus fest, entweder auf unbestimmte Zeit oder f\u00fcr einen bestimmten Zeitraum, nach der er auf Auto zur\u00fcckgesetzt wird. Nicht alle Systeme unterst\u00fctzen alle Modi.",
+            "fields": {
+                "duration": {
+                    "description": "Die Dauer in Stunden; wird nur mit AutoWithEco verwendet (bis zu 24 Stunden).",
+                    "name": "Dauer"
+                },
+                "mode": {
+                    "description": "Modus, auf den das System eingestellt werden soll.",
+                    "name": "Modus"
+                },
+                "period": {
+                    "description": "Ein Zeitraum in Tagen; wird nur in Verbindung mit Away, DayOff oder Custom verwendet. Das System schaltet um Mitternacht auf Auto zur\u00fcck (bis zu 99 Tage, heute ist Tag 1).",
+                    "name": "Zeitraum"
+                }
+            },
+            "name": "Systemmodus einstellen"
+        },
+        "set_zone_override": {
+            "description": "\u00dcberschreibt den Sollwert einer Zone, entweder auf unbestimmte Zeit oder f\u00fcr einen bestimmten Zeitraum, danach folgt die Zone wieder ihrem Zeitplan.",
+            "fields": {
+                "duration": {
+                    "description": "Nach dieser Zeit kehrt die Zone zu ihrem Zeitplan zur\u00fcck. Bei 0 erfolgt die \u00c4nderung bis zum n\u00e4chsten geplanten Sollwert.",
+                    "name": "Dauer"
+                },
+                "entity_id": {
+                    "description": "Die entity_id der Evohome-Zone.",
+                    "name": "Entit\u00e4t"
+                },
+                "setpoint": {
+                    "description": "Die Temperatur, die anstelle des geplanten Sollwerts verwendet werden soll.",
+                    "name": "Sollwert"
+                }
+            },
+            "name": "Zonen\u00fcberschreibung festlegen"
+        }
+    }
+}

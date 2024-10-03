@@ -1,0 +1,112 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Ger\u00e4t ist bereits konfiguriert"
+        },
+        "error": {
+            "cannot_connect": "Verbindung fehlgeschlagen",
+            "invalid_auth": "Ung\u00fcltige Authentifizierung"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "password": "Passwort",
+                    "url": "URL",
+                    "username": "Benutzername",
+                    "verify_ssl": "SSL-Zertifikat \u00fcberpr\u00fcfen"
+                }
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "active_torrents": {
+                "name": "Aktive Torrents"
+            },
+            "all_torrents": {
+                "name": "Alle Torrents"
+            },
+            "current_status": {
+                "name": "Status",
+                "state": {
+                    "downloading": "Herunterladen",
+                    "idle": "Unt\u00e4tig",
+                    "seeding": "Seeding",
+                    "up_down": "Auf/Ab"
+                }
+            },
+            "download_speed": {
+                "name": "Download-Geschwindigkeit"
+            },
+            "inactive_torrents": {
+                "name": "Inaktive Torrents"
+            },
+            "paused_torrents": {
+                "name": "Pausierte Torrents"
+            },
+            "transmission_status": {
+                "name": "Status",
+                "state": {
+                    "downloading": "Herunterladen",
+                    "idle": "Unt\u00e4tig",
+                    "seeding": "Seeding",
+                    "up_down": "Up/Down"
+                }
+            },
+            "upload_speed": {
+                "name": "Upload-Geschwindigkeit"
+            }
+        },
+        "switch": {
+            "alternative_speed": {
+                "name": "Alternative Geschwindigkeit"
+            }
+        }
+    },
+    "exceptions": {
+        "cannot_connect": {
+            "message": "Es kann keine Verbindung zu QBittorrent hergestellt werden. Bitte \u00fcberpr\u00fcfe deine Konfiguration."
+        },
+        "invalid_device": {
+            "message": "Es wurde kein Ger\u00e4t mit der ID {device_id} gefunden"
+        },
+        "invalid_entry_id": {
+            "message": "Es wurde kein Eintrag mit der ID {device_id} gefunden"
+        },
+        "login_error": {
+            "message": "Bei der Anmeldung ist ein Fehler aufgetreten. Bitte \u00fcberpr\u00fcfe deinen Benutzernamen und dein Passwort."
+        }
+    },
+    "issues": {
+        "deprecated_yaml": {
+            "description": "Die Konfiguration von qBittorrent mit YAML wird entfernt. \n\nDeine vorhandene YAML-Konfiguration wurde automatisch in die Benutzeroberfl\u00e4che importiert. \n\nEntferne die qBittorrent-YAML-Konfiguration aus deiner configuration.yaml-Datei und starte Home Assistant neu, um dieses Problem zu beheben.",
+            "title": "Die qBittorrent-YAML-Konfiguration wird entfernt"
+        }
+    },
+    "services": {
+        "get_all_torrents": {
+            "description": "Ruft eine Liste der aktuellen Torrents von allen Instanzen von qBittorrent ab",
+            "fields": {
+                "torrent_filter": {
+                    "description": "Welche Art von Torrents du zur\u00fcckgeben m\u00f6chtest, z. B. \u201eAlle\u201c oder \u201eAktiv\u201c.",
+                    "name": "Torrent-Filter"
+                }
+            },
+            "name": "Alle Torrents abrufen"
+        },
+        "get_torrents": {
+            "description": "Ruft eine Liste der aktuellen Torrents ab",
+            "fields": {
+                "device_id": {
+                    "description": "Von welchem Dienst die Liste abgerufen werden soll",
+                    "name": "Ger\u00e4t"
+                },
+                "torrent_filter": {
+                    "description": "Welche Art von Torrents du zur\u00fcckgeben m\u00f6chtest, z. B. \u201eAlle\u201c oder \u201eAktiv\u201c.",
+                    "name": "Torrent-Filter"
+                }
+            },
+            "name": "Torrents abrufen"
+        }
+    }
+}

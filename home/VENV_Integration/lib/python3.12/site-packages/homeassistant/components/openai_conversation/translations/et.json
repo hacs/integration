@@ -1,0 +1,75 @@
+{
+    "config": {
+        "error": {
+            "cannot_connect": "\u00dchendamine nurjus",
+            "invalid_auth": "Tuvastamine nurjus",
+            "unknown": "Ootamatu t\u00f5rge"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "api_key": "API v\u00f5ti"
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "invalid_config_entry": {
+            "message": "Esitatud on vigane seadekanne. Saadi {config_entry}."
+        }
+    },
+    "issues": {
+        "image_size_deprecated_format": {
+            "description": "OpenAI kasutab n\u00fc\u00fcd Dall-E 3 piltide loomiseks kui kutsutakse `openai_conversation.generate_image`, mis toetab erinevaid suurusi. Kehtivad v\u00e4\u00e4rtused on n\u00fc\u00fcd \"1024x1024\", \"1024x1792\", \"1792x1024\". Vanad v\u00e4\u00e4rtused \"256\", \"512\", \"1024\" t\u00f5lgendatakse praegu kui \"1024x1024\".\nPalun uuenda oma skripte v\u00f5i automaatikaid uute parameetritega.",
+            "title": "Piltide loomise teenuse jaoks aegunud suurusevorming"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "chat_model": "Mudel",
+                    "llm_hass_api": "Home Assistanti juhtimine",
+                    "max_tokens": "Vastuseks tagastatavate fraaside maksimaalne arv",
+                    "model": "L\u00f5petamise mudel",
+                    "prompt": "Juhised",
+                    "recommended": "Soovitatavad mudeli seaded",
+                    "temperature": "Temperatuur",
+                    "top_p": "\u00dclemine P"
+                },
+                "data_description": {
+                    "prompt": "Juhenda kuidas LLM peaks reageerima. See v\u00f5ib olla mall."
+                }
+            }
+        }
+    },
+    "services": {
+        "generate_image": {
+            "description": "Muuda viip pildiks",
+            "fields": {
+                "config_entry": {
+                    "description": "Selle teenuse jaoks kasutatav seadekanne",
+                    "name": "Seade kanne"
+                },
+                "prompt": {
+                    "description": "Pildiks muudetav tekst",
+                    "example": "Foto koerast",
+                    "name": "Viip"
+                },
+                "quality": {
+                    "description": "Loodava pildi kvaliteet",
+                    "name": "Pildi kvaliteet"
+                },
+                "size": {
+                    "description": "Loodava pildi suurus",
+                    "name": "Suurus"
+                },
+                "style": {
+                    "description": "Loodud pildi stiil",
+                    "name": "Stiil"
+                }
+            },
+            "name": "Loo pilt"
+        }
+    }
+}

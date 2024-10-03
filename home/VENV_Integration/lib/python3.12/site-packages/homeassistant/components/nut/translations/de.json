@@ -1,0 +1,433 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Ger\u00e4t ist bereits konfiguriert",
+            "no_ups_found": "Es sind keine USV-Ger\u00e4te auf dem NUT-Server verf\u00fcgbar.",
+            "reauth_successful": "Die erneute Authentifizierung war erfolgreich"
+        },
+        "error": {
+            "cannot_connect": "Verbindungsfehler: {error}",
+            "invalid_auth": "Ung\u00fcltige Authentifizierung",
+            "unknown": "Unerwarteter Fehler"
+        },
+        "step": {
+            "reauth_confirm": {
+                "data": {
+                    "password": "Passwort",
+                    "username": "Benutzername"
+                },
+                "description": "Re-Authentifizierung des NUT-Servers unter {host}:{port}"
+            },
+            "ups": {
+                "data": {
+                    "alias": "Alias"
+                },
+                "title": "W\u00e4hle die zu \u00fcberwachende USV"
+            },
+            "user": {
+                "data": {
+                    "host": "Host",
+                    "password": "Passwort",
+                    "port": "Port",
+                    "username": "Benutzername"
+                },
+                "data_description": {
+                    "host": "Der Hostname oder die IP-Adresse deines NUT-Servers."
+                },
+                "description": "Stelle eine Verbindung zum NUT-Server her",
+                "title": "Stelle eine Verbindung zum NUT-Server her"
+            }
+        }
+    },
+    "device_automation": {
+        "action_type": {
+            "beeper_disable": "UPS Piepser/Summer deaktivieren",
+            "beeper_enable": "USV-Piepser/Summer aktivieren",
+            "beeper_mute": "USV-Piepser/Summer vor\u00fcbergehend stumm schalten",
+            "beeper_toggle": "USV-Piepser/Summer umschalten",
+            "bypass_start": "Versetzt die USV in den Bypass-Modus",
+            "bypass_stop": "Die USV aus dem Bypass-Modus nehmen",
+            "calibrate_start": "Laufzeitkalibrierung starten",
+            "calibrate_stop": "Laufzeitkalibrierung stoppen",
+            "load_off": "Last sofort ausschalten",
+            "load_on": "Last sofort einschalten",
+            "reset_input_minmax": "Zur\u00fccksetzen des Status der minimalen und maximalen Eingangsspannung",
+            "reset_watchdog": "Watchdog-Timer zur\u00fccksetzen (erzwungener Neustart des Ladevorgangs)",
+            "shutdown_reboot": "Schalte die Last kurz ab, w\u00e4hrend die USV neu startet",
+            "shutdown_reboot_graceful": "Schalte die Last nach einer Verz\u00f6gerung kurz ab und starte die USV neu.",
+            "shutdown_return": "Verbraucher ggf. verz\u00f6gert abschalten und zur\u00fcckkehren, wenn die Stromversorgung wiederhergestellt ist",
+            "shutdown_stayoff": "Verbraucher ggf. verz\u00f6gert abschalten und auch bei Netzwiederkehr ausgeschaltet lassen",
+            "shutdown_stop": "Beenden eines laufenden Herunterfahrens",
+            "test_battery_start": "Starte einen Batterietest",
+            "test_battery_start_deep": "Starte einen ausf\u00fchrlichen Batterietest",
+            "test_battery_start_quick": "Starte einen schnellen Batterietest",
+            "test_battery_stop": "Stoppe den Batterietest",
+            "test_failure_start": "Starte einen simulierten Stromausfall",
+            "test_failure_stop": "Stoppe die Simulation eines Stromausfalls",
+            "test_panel_start": "Beginne mit dem Test des UPS-Panels",
+            "test_panel_stop": "Stoppen eines UPS Panel-Tests",
+            "test_system_start": "Starte einen Systemtest"
+        }
+    },
+    "entity": {
+        "sensor": {
+            "ambient_humidity": {
+                "name": "Luftfeuchtigkeit"
+            },
+            "ambient_temperature": {
+                "name": "Umgebungstemperatur"
+            },
+            "battery_alarm_threshold": {
+                "name": "Batteriealarmschwelle"
+            },
+            "battery_capacity": {
+                "name": "Batteriekapazit\u00e4t"
+            },
+            "battery_charge": {
+                "name": "Batterie-Ladung"
+            },
+            "battery_charge_low": {
+                "name": "Sollwert f\u00fcr schwache Batterie"
+            },
+            "battery_charge_restart": {
+                "name": "Minimale Batterie zum Starten"
+            },
+            "battery_charge_warning": {
+                "name": "Sollwert f\u00fcr Warnung Batterie"
+            },
+            "battery_charger_status": {
+                "name": "Ladezustand"
+            },
+            "battery_current": {
+                "name": "Batteriestrom"
+            },
+            "battery_current_total": {
+                "name": "Gesamtbatteriestrom"
+            },
+            "battery_date": {
+                "name": "Batteriedatum"
+            },
+            "battery_mfr_date": {
+                "name": "Batterieherst. Datum"
+            },
+            "battery_packs": {
+                "name": "Anzahl Batterien"
+            },
+            "battery_packs_bad": {
+                "name": "Anzahl defekter Batterien"
+            },
+            "battery_runtime": {
+                "name": "Batterielaufzeit"
+            },
+            "battery_runtime_low": {
+                "name": "Niedrige Batterielaufzeit"
+            },
+            "battery_runtime_restart": {
+                "name": "Mindestbatterielaufzeit zum Starten"
+            },
+            "battery_temperature": {
+                "name": "Batterietemperatur"
+            },
+            "battery_type": {
+                "name": "Batteriechemie"
+            },
+            "battery_voltage": {
+                "name": "Batteriespannung"
+            },
+            "battery_voltage_high": {
+                "name": "Hohe Batteriespannung"
+            },
+            "battery_voltage_low": {
+                "name": "Niedrige Batteriespannung"
+            },
+            "battery_voltage_nominal": {
+                "name": "Nominale Batteriespannung"
+            },
+            "input_bypass_current": {
+                "name": "Eingangs-Bypass Strom"
+            },
+            "input_bypass_frequency": {
+                "name": "Eingangs-Bypass-Frequenz"
+            },
+            "input_bypass_l1_current": {
+                "name": "Eingangs-Bypass L1 Strom"
+            },
+            "input_bypass_l1_n_voltage": {
+                "name": "Eingangs-Bypass L1-N Spannung"
+            },
+            "input_bypass_l1_realpower": {
+                "name": "Stromeingang Bypass L1 Wirkleistung"
+            },
+            "input_bypass_l2_current": {
+                "name": "Eingangs-Bypass L2 Strom"
+            },
+            "input_bypass_l2_n_voltage": {
+                "name": "Eingangs-Bypass L2-N Spannung"
+            },
+            "input_bypass_l2_realpower": {
+                "name": "Stromeingang Bypass L2 Wirkleistung"
+            },
+            "input_bypass_l3_current": {
+                "name": "Eingangs-Bypass L3 Strom"
+            },
+            "input_bypass_l3_n_voltage": {
+                "name": "Eingangs-Bypass L3-N Spannung"
+            },
+            "input_bypass_l3_realpower": {
+                "name": "Stromeingang Bypass L3 Wirkleistung"
+            },
+            "input_bypass_phases": {
+                "name": "Eingangs-Bypass-Phasen"
+            },
+            "input_bypass_realpower": {
+                "name": "Stromeingang Bypass Wirkleistung"
+            },
+            "input_bypass_voltage": {
+                "name": "Eingangs-Bypass Spannung"
+            },
+            "input_current": {
+                "name": "Eingangsstrom"
+            },
+            "input_frequency": {
+                "name": "Eingangsfrequenz"
+            },
+            "input_frequency_nominal": {
+                "name": "Eingangsnennfrequenz"
+            },
+            "input_frequency_status": {
+                "name": "Eingangsfrequenzstatus"
+            },
+            "input_l1_current": {
+                "name": "Eingang L1 Strom"
+            },
+            "input_l1_frequency": {
+                "name": "Eingang L1 Netzfrequenz"
+            },
+            "input_l1_n_voltage": {
+                "name": "Eingangsspannung L1"
+            },
+            "input_l1_realpower": {
+                "name": "Stromeingang L1 Wirkleistung"
+            },
+            "input_l2_current": {
+                "name": "Eingang L2 Strom"
+            },
+            "input_l2_frequency": {
+                "name": "Eingang L2 Netzfrequenz"
+            },
+            "input_l2_n_voltage": {
+                "name": "Eingangsspannung L2"
+            },
+            "input_l2_realpower": {
+                "name": "Stromeingang L2 Wirkleistung"
+            },
+            "input_l3_current": {
+                "name": "Eingang L3 Strom"
+            },
+            "input_l3_frequency": {
+                "name": "Eingang L3 Netzfrequenz"
+            },
+            "input_l3_n_voltage": {
+                "name": "Eingangsspannung L3"
+            },
+            "input_l3_realpower": {
+                "name": "Stromeingang L3 Wirkleistung"
+            },
+            "input_phases": {
+                "name": "Eingangsphasen"
+            },
+            "input_realpower": {
+                "name": "Aktuelle Eingangswirkleistung"
+            },
+            "input_sensitivity": {
+                "name": "Empfindlichkeit der Eingangsleistung"
+            },
+            "input_transfer_high": {
+                "name": "Hochspannungs\u00fcbertragung"
+            },
+            "input_transfer_low": {
+                "name": "Niederspannungs\u00fcbertragung"
+            },
+            "input_transfer_reason": {
+                "name": "Spannungs\u00fcbertragungsgrund"
+            },
+            "input_voltage": {
+                "name": "Eingangsspannung"
+            },
+            "input_voltage_nominal": {
+                "name": "Nominale Eingangsspannung"
+            },
+            "output_current": {
+                "name": "Ausgangsstrom"
+            },
+            "output_current_nominal": {
+                "name": "Nominaler Ausgangsstrom"
+            },
+            "output_frequency": {
+                "name": "Ausgangsfrequenz"
+            },
+            "output_frequency_nominal": {
+                "name": "Nominale Ausgangsfrequenz"
+            },
+            "output_l1_current": {
+                "name": "Ausgang L1 Strom"
+            },
+            "output_l1_n_voltage": {
+                "name": "Ausgang L1-N Spannung"
+            },
+            "output_l1_power_percent": {
+                "name": "Ausgang L1 Stromverbrauch"
+            },
+            "output_l1_realpower": {
+                "name": "Stromausgang L1 Wirkleistung"
+            },
+            "output_l2_current": {
+                "name": "Ausgang L2 Strom"
+            },
+            "output_l2_n_voltage": {
+                "name": "Ausgang L2-N Spannung"
+            },
+            "output_l2_power_percent": {
+                "name": "Ausgang L2 Stromverbrauch"
+            },
+            "output_l2_realpower": {
+                "name": "Stromausgang L2 Wirkleistung"
+            },
+            "output_l3_current": {
+                "name": "Ausgang L3 Strom"
+            },
+            "output_l3_n_voltage": {
+                "name": "Ausgang L3-N Spannung"
+            },
+            "output_l3_power_percent": {
+                "name": "Ausgang L3 Stromverbrauch"
+            },
+            "output_l3_realpower": {
+                "name": "Stromausgang L3 Wirkleistung"
+            },
+            "output_phases": {
+                "name": "Ausgangsphasen"
+            },
+            "output_power": {
+                "name": "Ausgangsscheinleistung"
+            },
+            "output_power_nominal": {
+                "name": "Nominale Ausgangsleistung"
+            },
+            "output_realpower": {
+                "name": "Aktuelle Ausgangswirkleistung"
+            },
+            "output_realpower_nominal": {
+                "name": "Nominale reale Ausgangsleistung"
+            },
+            "output_voltage": {
+                "name": "Ausgangsspannung"
+            },
+            "output_voltage_nominal": {
+                "name": "Nominale Ausgangsspannung"
+            },
+            "ups_alarm": {
+                "name": "Alarme"
+            },
+            "ups_beeper_status": {
+                "name": "Piepser-Status"
+            },
+            "ups_contacts": {
+                "name": "Externe Kontakte"
+            },
+            "ups_delay_reboot": {
+                "name": "USV-Neustartverz\u00f6gerung"
+            },
+            "ups_delay_shutdown": {
+                "name": "USV-Abschaltverz\u00f6gerung"
+            },
+            "ups_delay_start": {
+                "name": "Verz\u00f6gerung beim Wiederanlauf der Last"
+            },
+            "ups_display_language": {
+                "name": "Sprache"
+            },
+            "ups_efficiency": {
+                "name": "Effizienz"
+            },
+            "ups_id": {
+                "name": "Systemkennung"
+            },
+            "ups_load": {
+                "name": "Last"
+            },
+            "ups_load_high": {
+                "name": "\u00dcberlasteinstellung"
+            },
+            "ups_power": {
+                "name": "Scheinleistung"
+            },
+            "ups_power_nominal": {
+                "name": "Nennleistung"
+            },
+            "ups_realpower": {
+                "name": "Wirkleistung"
+            },
+            "ups_realpower_nominal": {
+                "name": "Nominale Wirkleistung"
+            },
+            "ups_shutdown": {
+                "name": "F\u00e4higkeit zum Herunterfahren"
+            },
+            "ups_start_auto": {
+                "name": "Start mit AC"
+            },
+            "ups_start_battery": {
+                "name": "Start mit Batterie"
+            },
+            "ups_start_reboot": {
+                "name": "Neustart auf Batterie"
+            },
+            "ups_status": {
+                "name": "Statusdaten"
+            },
+            "ups_status_display": {
+                "name": "Status"
+            },
+            "ups_temperature": {
+                "name": "USV-Temperatur"
+            },
+            "ups_test_date": {
+                "name": "Datum des Selbsttests"
+            },
+            "ups_test_interval": {
+                "name": "Selbsttest-Intervall"
+            },
+            "ups_test_result": {
+                "name": "Ergebnis des Selbsttests"
+            },
+            "ups_timer_reboot": {
+                "name": "Neustart-Timer laden"
+            },
+            "ups_timer_shutdown": {
+                "name": "Timer zum Herunterfahren laden"
+            },
+            "ups_timer_start": {
+                "name": "Starttimer laden"
+            },
+            "ups_type": {
+                "name": "USV-Typ"
+            },
+            "ups_watchdog_status": {
+                "name": "Watchdog-Status"
+            },
+            "watts": {
+                "name": "Watt"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "scan_interval": "Scan-Intervall (Sekunden)"
+                }
+            }
+        }
+    }
+}

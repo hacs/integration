@@ -1,0 +1,104 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "Kamera",
+            "state": {
+                "idle": "Ne\u010dinn\u00e1",
+                "recording": "Z\u00e1znam",
+                "streaming": "Streamovanie"
+            },
+            "state_attributes": {
+                "access_token": {
+                    "name": "Pr\u00edstupov\u00fd token"
+                },
+                "brand": {
+                    "name": "Zna\u010dka"
+                },
+                "frontend_stream_type": {
+                    "name": "Typ streamu",
+                    "state": {
+                        "hls": "HLS",
+                        "webrtc": "WebRTC"
+                    }
+                },
+                "model_name": {
+                    "name": "Model"
+                },
+                "motion_detection": {
+                    "name": "Detekcia pohybu",
+                    "state": {
+                        "false": "Zak\u00e1zan\u00e9",
+                        "true": "Povolen\u00e9"
+                    }
+                }
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "Platforma {platform} pre integr\u00e1ciu {domain} nepodporuje nastavenie platformy. \n\n Odstr\u00e1\u0148te ho z konfigur\u00e1cie a re\u0161tartujte Home Assistant, aby ste tento probl\u00e9m vyrie\u0161ili.",
+            "title": "Podpora platformy nie je podporovan\u00e1"
+        }
+    },
+    "services": {
+        "disable_motion_detection": {
+            "description": "Vypne detekciu pohybu.",
+            "name": "Zak\u00e1zanie detekcie pohybu"
+        },
+        "enable_motion_detection": {
+            "description": "Zapne detekciu pohybu.",
+            "name": "Povolenie detekcie pohybu"
+        },
+        "play_stream": {
+            "description": "Prehr\u00e1va pr\u00fad z kamery v podporovanom prehr\u00e1va\u010di m\u00e9di\u00ed.",
+            "fields": {
+                "format": {
+                    "description": "Form\u00e1t streamu podporovan\u00fd prehr\u00e1va\u010dom m\u00e9di\u00ed.",
+                    "name": "Form\u00e1t"
+                },
+                "media_player": {
+                    "description": "Prehr\u00e1va\u010de m\u00e9di\u00ed na streamovanie.",
+                    "name": "Prehr\u00e1va\u010d m\u00e9di\u00ed"
+                }
+            },
+            "name": "Prehra\u0165 stream"
+        },
+        "record": {
+            "description": "Vytvor\u00ed z\u00e1znam \u017eiv\u00e9ho prenosu z kamery.",
+            "fields": {
+                "duration": {
+                    "description": "Pl\u00e1novan\u00e9 trvanie z\u00e1znamu. Skuto\u010dn\u00e9 trvanie sa m\u00f4\u017ee l\u00ed\u0161i\u0165.",
+                    "name": "Trvanie"
+                },
+                "filename": {
+                    "description": "\u0160abl\u00f3na n\u00e1zvu s\u00faboru. K dispoz\u00edcii je premenn\u00e1 `entity_id`. Mus\u00ed to by\u0165 mp4.",
+                    "name": "N\u00e1zov s\u00faboru"
+                },
+                "lookback": {
+                    "description": "Pl\u00e1novan\u00e9 obdobie sp\u00e4tn\u00e9ho sledovania, ktor\u00e9 sa m\u00e1 zahrn\u00fa\u0165 do z\u00e1znamu (okrem trvania). K dispoz\u00edcii len vtedy, ak je v s\u00fa\u010dasnosti akt\u00edvny pr\u00fad HLS. Skuto\u010dn\u00e1 d\u013a\u017eka obdobia sp\u00e4tn\u00e9ho sledovania sa m\u00f4\u017ee l\u00ed\u0161i\u0165.",
+                    "name": "Sp\u00e4tn\u00e9 vyh\u013ead\u00e1vanie"
+                }
+            },
+            "name": "Z\u00e1znam"
+        },
+        "snapshot": {
+            "description": "Nasn\u00edma sn\u00edmku z kamery.",
+            "fields": {
+                "filename": {
+                    "description": "\u0160abl\u00f3na n\u00e1zvu s\u00faboru. K dispoz\u00edcii je premenn\u00e1 `entity_id`.",
+                    "name": "N\u00e1zov s\u00faboru"
+                }
+            },
+            "name": "Vytvorenie sn\u00edmky"
+        },
+        "turn_off": {
+            "description": "Vypne kameru.",
+            "name": "Vypn\u00fa\u0165"
+        },
+        "turn_on": {
+            "description": "Zapne kameru.",
+            "name": "Zapn\u00fa\u0165"
+        }
+    },
+    "title": "Kamera"
+}

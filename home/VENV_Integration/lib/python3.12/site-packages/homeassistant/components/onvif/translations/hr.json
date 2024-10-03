@@ -1,0 +1,111 @@
+{
+    "config": {
+        "abort": {
+            "no_h264": "Nije bilo dostupnih H264 streamova.  Provjerite konfiguraciju profila na ure\u0111aju.",
+            "no_mac": "Nije mogu\u0107e konfigurirati jedinstveni ID za ONVIF ure\u0111aj.",
+            "onvif_error": "Pogre\u0161ka pri postavljanju ONVIF ure\u0111aja. Provjerite zapise za vi\u0161e informacija."
+        },
+        "error": {
+            "auth_failed": "Nije mogu\u0107e provjeriti autentifikaciju: {error}",
+            "no_onvif_service": "Nije prona\u0111ena ONVIF usluga. Provjerite je li broj porta to\u010dan.",
+            "onvif_error": "Pogre\u0161ka pri postavljanju ONVIF ure\u0111aja: {error} . Provjerite zapise za vi\u0161e informacija."
+        },
+        "step": {
+            "configure": {
+                "data_description": {
+                    "host": "Naziv hosta ili IP adresa va\u0161eg ONVIF ure\u0111aja."
+                },
+                "title": "Konfigurirajte ONVIF ure\u0111aj"
+            },
+            "configure_profile": {
+                "data": {
+                    "include": "Stvorite entitet kamere"
+                },
+                "description": "\u017delite li izraditi entitet kamere za {profile} u razlu\u010divosti od {resolution} ?",
+                "title": "Konfigurirajte profile"
+            },
+            "device": {
+                "data": {
+                    "host": "Odaberite otkriveni ONVIF ure\u0111aj"
+                },
+                "title": "Odaberite ONVIF ure\u0111aj"
+            },
+            "reauth_confirm": {
+                "description": "Neki \u0107e ure\u0111aji odbiti autentifikaciju ako vrijeme nije sinkronizirano u vi\u0161e od 5 sekundi. Ako provjera autenti\u010dnosti nije uspje\u0161na, provjerite je li vrijeme na ure\u0111aju to\u010dno i poku\u0161ajte ponovno.",
+                "title": "Ponovo autentificirajte ONVIF ure\u0111aj"
+            },
+            "user": {
+                "data": {
+                    "auto": "Tra\u017ei automatski"
+                },
+                "title": "Postavljanje ONVIF ure\u0111aja"
+            }
+        }
+    },
+    "entity": {
+        "switch": {
+            "autofocus": {
+                "name": "Autofokus"
+            },
+            "ir_lamp": {
+                "name": "IR lampa"
+            },
+            "wiper": {
+                "name": "Brisa\u010d"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "onvif_devices": {
+                "data": {
+                    "enable_webhooks": "Omogu\u0107ite Webhookove",
+                    "extra_arguments": "Dodatni argumenti FFMPEG",
+                    "rtsp_transport": "RTSP transportni mehanizam ",
+                    "use_wallclock_as_timestamps": "Koristite zidni sat kao vremenske oznake"
+                },
+                "title": "Opcije ONVIF ure\u0111aja"
+            }
+        }
+    },
+    "services": {
+        "ptz": {
+            "description": "Ako va\u0161a ONVIF kamera podr\u017eava PTZ, mo\u0107i \u0107ete pomicati, naginjati ili zumirati kameru.",
+            "fields": {
+                "continuous_duration": {
+                    "description": "Postavite ka\u0161njenje ContinuousMove u sekundama prije zaustavljanja premje\u0161tanja.",
+                    "name": "Neprekidno trajanje"
+                },
+                "distance": {
+                    "description": "Koeficijent udaljenosti. Postavlja koliko se PTZ-a treba izvr\u0161iti u jednom zahtjevu.",
+                    "name": "Udaljenost"
+                },
+                "move_mode": {
+                    "description": "PTZ na\u010din kretanja.",
+                    "name": "Na\u010din kretanja"
+                },
+                "pan": {
+                    "description": "Smjer pomicanja.",
+                    "name": "Pomicanje"
+                },
+                "preset": {
+                    "description": "PTZ token unaprijed postavljenog profila. Postavlja token unaprijed postavljenog profila koji se izvr\u0161ava s GotoPreset.",
+                    "name": "Unaprijed postavljeno"
+                },
+                "speed": {
+                    "description": "Koeficijent brzine. Postavlja koliko brzo \u0107e se PTZ izvr\u0161iti.",
+                    "name": "Brzina"
+                },
+                "tilt": {
+                    "description": "Smjer nagiba.",
+                    "name": "Nagib"
+                },
+                "zoom": {
+                    "description": "Zum.",
+                    "name": "Zum"
+                }
+            },
+            "name": "PTZ"
+        }
+    }
+}

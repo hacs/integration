@@ -1,0 +1,86 @@
+{
+    "device_automation": {
+        "trigger_type": {
+            "changed_states": "{entity_name} disponibilidade de atualiza\u00e7\u00e3o alterada",
+            "turned_off": "{entity_name} foi atualizado",
+            "turned_on": "{entity_name} tem uma atualiza\u00e7\u00e3o dispon\u00edvel"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Atualiza\u00e7\u00e3o",
+            "state": {
+                "off": "Atualizado",
+                "on": "Atualiza\u00e7\u00e3o dispon\u00edvel"
+            },
+            "state_attributes": {
+                "auto_update": {
+                    "name": "Atualiza\u00e7\u00e3o autom\u00e1tica",
+                    "state": {
+                        "false": "N\u00e3o",
+                        "true": "Sim"
+                    }
+                },
+                "in_progress": {
+                    "name": "Em andamento",
+                    "state": {
+                        "false": "N\u00e3o",
+                        "true": "Sim"
+                    }
+                },
+                "installed_version": {
+                    "name": "Vers\u00e3o instalada"
+                },
+                "latest_version": {
+                    "name": "\u00daltima vers\u00e3o"
+                },
+                "release_summary": {
+                    "name": "Resumo da vers\u00e3o"
+                },
+                "release_url": {
+                    "name": "URL da vers\u00e3o"
+                },
+                "skipped_version": {
+                    "name": "Vers\u00e3o ignorada"
+                },
+                "title": {
+                    "name": "T\u00edtulo"
+                }
+            }
+        },
+        "firmware": {
+            "name": "Firmware"
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "A plataforma {platform} para a integra\u00e7\u00e3o {domain} n\u00e3o \u00e9 compat\u00edvel com a configura\u00e7\u00e3o da plataforma. \n\n Remova-o da sua configura\u00e7\u00e3o e reinicie o Home Assistant para corrigir esse problema.",
+            "title": "Suporte \u00e0 plataforma n\u00e3o suportado"
+        }
+    },
+    "services": {
+        "clear_skipped": {
+            "description": "Remove o marcador de vers\u00e3o ignorada de uma atualiza\u00e7\u00e3o.",
+            "name": "Limpar atualiza\u00e7\u00e3o ignorada"
+        },
+        "install": {
+            "description": "Instala uma atualiza\u00e7\u00e3o para este dispositivo ou servi\u00e7o.",
+            "fields": {
+                "backup": {
+                    "description": "Se suportado pela integra\u00e7\u00e3o, isso cria um backup antes de iniciar a atualiza\u00e7\u00e3o.",
+                    "name": "Backup"
+                },
+                "version": {
+                    "description": "A vers\u00e3o a ser instalada. Se omitida, a vers\u00e3o mais recente ser\u00e1 instalada.",
+                    "name": "Vers\u00e3o"
+                }
+            },
+            "name": "Instalar atualiza\u00e7\u00e3o"
+        },
+        "skip": {
+            "description": "Marca a atualiza\u00e7\u00e3o dispon\u00edvel atualmente para ser pulada.",
+            "name": "Pular atualiza\u00e7\u00e3o"
+        }
+    },
+    "title": "Atualiza\u00e7\u00e3o"
+}

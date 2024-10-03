@@ -1,0 +1,131 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Az eszk\u00f6z m\u00e1r konfigur\u00e1lva van",
+            "already_in_progress": "A konfigur\u00e1l\u00e1s m\u00e1r folyamatban van",
+            "cannot_connect": "Sikertelen csatlakoz\u00e1s"
+        },
+        "step": {
+            "discovery_confirm": {
+                "description": "Szeretn\u00e9 be\u00e1ll\u00edtani ezt a Guardian eszk\u00f6zt?"
+            },
+            "user": {
+                "data": {
+                    "ip_address": "IP-c\u00edm",
+                    "port": "Port"
+                },
+                "description": "Konfigur\u00e1lja a helyi Elexa Guardian eszk\u00f6zt."
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "leak": {
+                "name": "Sziv\u00e1rg\u00e1s \u00e9szlelve"
+            },
+            "moved": {
+                "name": "Nemr\u00e9g mozdult"
+            }
+        },
+        "button": {
+            "reset_diagnostics": {
+                "name": "Szelepdiagnosztika vissza\u00e1ll\u00edt\u00e1sa"
+            }
+        },
+        "sensor": {
+            "current": {
+                "name": "\u00c1ramer\u0151ss\u00e9g"
+            },
+            "instantaneous_current": {
+                "name": "Pillanatnyi \u00e1ramer\u0151ss\u00e9g"
+            },
+            "instantaneous_current_ddt": {
+                "name": "Pillanatnyi \u00e1ramer\u0151ss\u00e9g (DDT)"
+            },
+            "travel_count": {
+                "name": "Utaz\u00e1s sz\u00e1m"
+            },
+            "uptime": {
+                "name": "\u00dczemid\u0151"
+            }
+        },
+        "switch": {
+            "onboard_access_point": {
+                "name": "Saj\u00e1t hozz\u00e1f\u00e9r\u00e9si pont"
+            },
+            "valve_controller": {
+                "name": "Szelepvez\u00e9rl\u0151"
+            }
+        },
+        "valve": {
+            "valve_controller": {
+                "name": "Szelepvez\u00e9rl\u0151"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_service": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Friss\u00edtse a szolg\u00e1ltat\u00e1st haszn\u00e1l\u00f3 automatizmusokat vagy szkripteket, hogy helyette az `{alternate_service}` szolg\u00e1ltat\u00e1st haszn\u00e1lhassa `{alternate_target}` c\u00e9lentit\u00e1s-azonos\u00edt\u00f3val.",
+                        "title": "{deprecated_service} szolg\u00e1ltat\u00e1s elt\u00e1vol\u00edt\u00e1sra ker\u00fcl"
+                    }
+                }
+            },
+            "title": "{deprecated_service} szolg\u00e1ltat\u00e1s elt\u00e1vol\u00edt\u00e1sra ker\u00fcl"
+        }
+    },
+    "services": {
+        "pair_sensor": {
+            "description": "Hozz\u00e1ad egy \u00faj, p\u00e1ros\u00edtott \u00e9rz\u00e9kel\u0151t a szelepvez\u00e9rl\u0151h\u00f6z.",
+            "fields": {
+                "device_id": {
+                    "description": "Az a szelepvez\u00e9rl\u0151, amelyhez az \u00e9rz\u00e9kel\u0151t hozz\u00e1 kell adni.",
+                    "name": "Szelepvez\u00e9rl\u0151"
+                },
+                "uid": {
+                    "description": "A p\u00e1ros\u00edtott \u00e9rz\u00e9kel\u0151 UID-ja (egyedi azonos\u00edt\u00f3ja).",
+                    "name": "UID"
+                }
+            },
+            "name": "\u00c9rz\u00e9kel\u0151 p\u00e1ros\u00edt\u00e1sa"
+        },
+        "unpair_sensor": {
+            "description": "Elt\u00e1vol\u00edt egy p\u00e1ros\u00edtott \u00e9rz\u00e9kel\u0151t a szelepvez\u00e9rl\u0151b\u0151l.",
+            "fields": {
+                "device_id": {
+                    "description": "A szelepvez\u00e9rl\u0151, amelyb\u0151l az \u00e9rz\u00e9kel\u0151t el kell t\u00e1vol\u00edtani.",
+                    "name": "Szelepvez\u00e9rl\u0151"
+                },
+                "uid": {
+                    "description": "A p\u00e1ros\u00edtott \u00e9rz\u00e9kel\u0151 UID-ja (egyedi azonos\u00edt\u00f3ja).",
+                    "name": "UID"
+                }
+            },
+            "name": "\u00c9rz\u00e9kel\u0151 p\u00e1ros\u00edt\u00e1s\u00e1nak megsz\u00fcntet\u00e9se"
+        },
+        "upgrade_firmware": {
+            "description": "Friss\u00edti az eszk\u00f6z firmware-j\u00e9t.",
+            "fields": {
+                "device_id": {
+                    "description": "Az szelepvez\u00e9rl\u0151, amelynek firmware-j\u00e9t friss\u00edteni kell.",
+                    "name": "Szelepvez\u00e9rl\u0151"
+                },
+                "filename": {
+                    "description": "A firmware f\u00e1jlneve.",
+                    "name": "F\u00e1jln\u00e9v"
+                },
+                "port": {
+                    "description": "A port, amelyen a firmware-f\u00e1jlt kiszolg\u00e1lj\u00e1k.",
+                    "name": "Port"
+                },
+                "url": {
+                    "description": "A firmware-f\u00e1jlt t\u00e1rol\u00f3 kiszolg\u00e1l\u00f3 URL-c\u00edme.",
+                    "name": "URL"
+                }
+            },
+            "name": "Firmware friss\u00edt\u00e9se"
+        }
+    }
+}

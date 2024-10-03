@@ -1,0 +1,256 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "El dispositivo ya est\u00e1 configurado",
+            "discovery_started": "Descubrimiento iniciado"
+        },
+        "error": {
+            "cannot_connect": "No se pudo conectar",
+            "cloud_user": "Los usuarios de Ubiquiti Cloud no son compatibles. Por favor, utiliza un usuario solo local.",
+            "invalid_auth": "Autenticaci\u00f3n no v\u00e1lida",
+            "protect_version": "La versi\u00f3n m\u00ednima requerida es v1.20.0. Por favor, actualiza UniFi Protect y vuelve a intentarlo."
+        },
+        "flow_title": "{name} ({ip_address})",
+        "step": {
+            "discovery_confirm": {
+                "data": {
+                    "password": "Contrase\u00f1a",
+                    "username": "Nombre de usuario"
+                },
+                "description": "\u00bfQuieres configurar {name} ({ip_address})? Necesitar\u00e1s un usuario local creado en tu consola UniFi OS para iniciar sesi\u00f3n. Los usuarios de Ubiquiti Cloud no funcionar\u00e1n. Para m\u00e1s informaci\u00f3n: {local_user_documentation_url}",
+                "title": "UniFi Protect descubierto"
+            },
+            "reauth_confirm": {
+                "data": {
+                    "host": "IP/Host del servidor UniFi Protect",
+                    "password": "Contrase\u00f1a",
+                    "port": "Puerto",
+                    "username": "Nombre de usuario"
+                },
+                "title": "Reautorizaci\u00f3n de UniFi Protect"
+            },
+            "user": {
+                "data": {
+                    "host": "Host",
+                    "password": "Contrase\u00f1a",
+                    "port": "Puerto",
+                    "username": "Nombre de usuario",
+                    "verify_ssl": "Verificar el certificado SSL"
+                },
+                "data_description": {
+                    "host": "Nombre de host o direcci\u00f3n IP de tu dispositivo UniFi Protect."
+                },
+                "description": "Necesitar\u00e1s un usuario local creado en tu consola UniFi OS para iniciar sesi\u00f3n. Los usuarios de Ubiquiti Cloud no funcionar\u00e1n. Para m\u00e1s informaci\u00f3n: {local_user_documentation_url}",
+                "title": "Configuraci\u00f3n de UniFi Protect"
+            }
+        }
+    },
+    "entity": {
+        "event": {
+            "doorbell": {
+                "state_attributes": {
+                    "event_type": {
+                        "state": {
+                            "ring": "Timbre"
+                        }
+                    }
+                }
+            }
+        },
+        "sensor": {
+            "license_plate": {
+                "state": {
+                    "none": "No detectado"
+                }
+            }
+        }
+    },
+    "issues": {
+        "cloud_user": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "A partir del 22 de julio de 2024, Ubiquiti exigir\u00e1 que todos los usuarios de la nube se registren en la autenticaci\u00f3n multifactor (MFA), que es incompatible con Home Assistant. \n\nLo mejor ser\u00eda migrar y usar un [usuario local]({learn_more}) lo antes posible para que la integraci\u00f3n siga funcionando. \n\nLa confirmaci\u00f3n de esta reparaci\u00f3n activar\u00e1 un flujo de reautenticaci\u00f3n para introducir las credenciales de autenticaci\u00f3n necesarias.",
+                        "title": "Los usuarios de Ubiquiti Cloud no son compatibles"
+                    }
+                }
+            },
+            "title": "Los usuarios de Ubiquiti Cloud no son compatibles"
+        },
+        "deprecate_hdr_switch": {
+            "description": "UniFi Protect v3 a\u00f1adi\u00f3 un nuevo estado para HDR (auto). Como resultado, el cambio de modo HDR ha sido reemplazado por una selecci\u00f3n de modo HDR y est\u00e1 obsoleto. \n\nA continuaci\u00f3n se muestran las automatizaciones o scripts detectados que utilizan una o m\u00e1s de las entidades obsoletas:\n{items}\nLa lista anterior puede estar incompleta y no incluye ning\u00fan uso de plantilla dentro de los paneles. Por favor, actualiza las plantillas, automatizaciones o scripts en consecuencia.",
+            "title": "Interruptor de modo HDR obsoleto"
+        },
+        "deprecate_package_sensor": {
+            "description": "El sensor de eventos del paquete nunca se dispar\u00f3 debido a la forma en que se informan los eventos en UniFi Protect. Como resultado, el sensor est\u00e1 obsoleto y se eliminar\u00e1. \n\nA continuaci\u00f3n se muestran las automatizaciones o scripts detectados que utilizan una o m\u00e1s de las entidades obsoletas:\n{items}\nLa lista anterior puede estar incompleta y no incluye ning\u00fan uso de plantilla dentro de los paneles. Por favor, actualiza las plantillas, automatizaciones o scripts en consecuencia.",
+            "title": "Sensor de eventos de paquete obsoleto"
+        },
+        "deprecate_smart_sensor": {
+            "description": "El sensor unificado de \"Objeto detectado\" para detecciones inteligentes ahora est\u00e1 obsoleto. Ha sido reemplazado por sensores binarios de detecci\u00f3n inteligente individuales para cada tipo de detecci\u00f3n inteligente. \n\nA continuaci\u00f3n se muestran las automatizaciones o secuencias de comandos detectadas que usan una o m\u00e1s de las entidades obsoletas:\n{items}\nLa lista anterior puede estar incompleta y no incluye ning\u00fan uso de plantilla dentro de los paneles. Por favor, actualiza las plantillas, automatizaciones o scripts en consecuencia.",
+            "title": "Sensor de detecci\u00f3n inteligente obsoleto"
+        },
+        "deprecated_service_set_doorbell_message": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "El servicio `unifiprotect.set_doorbell_message` est\u00e1 en desuso en favor de la nueva entidad Doorbell Text agregada a cada dispositivo Doorbell. Se eliminar\u00e1 en v2023.3.0. Por favor, actualiza para usar el servicio [`text.set_value`]({link}).",
+                        "title": "set_doorbell_message est\u00e1 obsoleto"
+                    }
+                }
+            },
+            "title": "set_doorbell_message est\u00e1 obsoleto"
+        },
+        "ea_channel_warning": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "\u00bfEst\u00e1s seguro de que quieres ejecutar versiones no soportadas de UniFi Protect? Esto puede causar que tu integraci\u00f3n con Home Assistant deje de funcionar.",
+                        "title": "Acceso anticipado a UniFi Protect habilitado"
+                    },
+                    "start": {
+                        "description": "Est\u00e1s ejecutando una versi\u00f3n de acceso anticipado de UniFi Protect (v{version} ) o has optado por un canal de lanzamiento que no es el canal de lanzamiento oficial. \n\nComo es posible que estas versiones de acceso anticipado a\u00fan no se hayan probado, su uso puede provocar que la integraci\u00f3n de UniFi Protect se comporte de forma inesperada. [Lee m\u00e1s sobre Acceso anticipado y Home Assistant]({learn_more}). \n\nEnviar para descartar este mensaje.",
+                        "title": "Acceso anticipado a UniFi Protect habilitado"
+                    }
+                }
+            },
+            "title": "Acceso anticipado a UniFi Protect habilitado"
+        },
+        "ea_setup_failed": {
+            "description": "Est\u00e1s utilizando la versi\u00f3n v{version} de UniFi Protect, que es una versi\u00f3n de acceso anticipado. Se produjo un error irrecuperable al intentar cargar la integraci\u00f3n. Por favor, restaura una copia de seguridad de una versi\u00f3n estable de UniFi Protect para continuar usando la integraci\u00f3n. \n\nError: {error}",
+            "title": "Error de configuraci\u00f3n al usar la versi\u00f3n Early Access"
+        },
+        "ea_warning": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "\u00bfEst\u00e1s seguro de que deseas ejecutar versiones no compatibles de UniFi Protect? Esto puede causar que la integraci\u00f3n de Home Assistant se rompa.",
+                        "title": "v{version} es una versi\u00f3n Early Access"
+                    },
+                    "start": {
+                        "description": "Est\u00e1s utilizando v{version} de UniFi Protect, que es una versi\u00f3n Early Access. [Las versiones Early Access no son compatibles con Home Assistant](https://www.home-assistant.io/integrations/unifiprotect#about-unifi-early-access) y se recomienda volver a una versi\u00f3n estable tan pronto como sea posible. \n\nAl enviar este formulario, tienes [UniFi Protect degradado](https://www.home-assistant.io/integrations/unifiprotect#downgrading-unifi-protect) o aceptas ejecutar una versi\u00f3n no compatible de UniFi Protect.",
+                        "title": "v{version} es una versi\u00f3n Early Access"
+                    }
+                }
+            },
+            "title": "UniFi Protect v{version} es una versi\u00f3n Early Access"
+        },
+        "rtsp_disabled_readonly": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "\u00bfEst\u00e1s seguro de que deseas dejar RTSPS deshabilitado para {camera}?",
+                        "title": "RTSPS est\u00e1 deshabilitado en la c\u00e1mara {camera}"
+                    },
+                    "start": {
+                        "description": "RTSPS est\u00e1 deshabilitado en la c\u00e1mara {camera}. Se requiere RTSPS para poder transmitir en vivo tu c\u00e1mara dentro de Home Assistant. Si no habilitas RTSPS, puedes crear una carga adicional en tu UniFi Protect NVR, ya que cualquier reproductor de video en vivo tomar\u00e1 instant\u00e1neas r\u00e1pidamente de la c\u00e1mara de forma predeterminada. \n\nPor favor, [habilita RTSPS]({learn_more}) en la c\u00e1mara y luego regresa y confirma esta reparaci\u00f3n.",
+                        "title": "RTSPS est\u00e1 deshabilitado en la c\u00e1mara {camera}"
+                    }
+                }
+            },
+            "title": "RTSPS est\u00e1 deshabilitado en la c\u00e1mara {camera}"
+        },
+        "rtsp_disabled_writable": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "\u00bfEst\u00e1s seguro de que deseas dejar RTSPS deshabilitado para {camera}?",
+                        "title": "RTSPS est\u00e1 deshabilitado en la c\u00e1mara {camera}"
+                    },
+                    "start": {
+                        "description": "RTSPS est\u00e1 deshabilitado en la c\u00e1mara {camera}. Se requiere RTSPS para transmitir en vivo tu c\u00e1mara dentro de Home Assistant. Si no habilitas RTSPS, puedes crear una carga adicional en tu UniFi Protect NVR, ya que cualquier reproductor de video en vivo tomar\u00e1 r\u00e1pidamente instant\u00e1neas de la c\u00e1mara de forma predeterminada. \n\nPuedes [habilitar RTSPS]({learn_more}) manualmente en el canal de calidad de c\u00e1mara seleccionado o Home Assistant puede habilitar autom\u00e1ticamente el canal de mayor calidad para ti. Confirma esta reparaci\u00f3n una vez que hayas habilitado el canal RTSPS o si quieres que Home Assistant habilite la m\u00e1xima calidad autom\u00e1ticamente.",
+                        "title": "RTSPS est\u00e1 deshabilitado en la c\u00e1mara {camera}"
+                    }
+                }
+            },
+            "title": "RTSPS est\u00e1 deshabilitado en la c\u00e1mara {camera}"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "all_updates": "M\u00e9tricas en tiempo real (ADVERTENCIA: aumenta considerablemente el uso de la CPU)",
+                    "allow_ea": "Permitir versiones Early Access de Protect (ADVERTENCIA: marcar\u00e1 tu integraci\u00f3n como no admitida)",
+                    "allow_ea_channel": "Permitir versiones Early Access de Protect (ADVERTENCIA: marcar\u00e1 tu integraci\u00f3n como no admitida)",
+                    "disable_rtsp": "Deshabilitar la transmisi\u00f3n RTSP",
+                    "max_media": "N\u00famero m\u00e1ximo de eventos a cargar para el Navegador de Medios (aumenta el uso de RAM)",
+                    "override_connection_host": "Anular la conexi\u00f3n del host"
+                },
+                "description": "La opci\u00f3n de m\u00e9tricas en tiempo real solo debe habilitarse si has habilitado los sensores de diagn\u00f3stico y deseas que se actualicen en tiempo real. Si no est\u00e1n habilitados, solo se actualizar\u00e1n una vez cada 15 minutos.",
+                "title": "Opciones de UniFi Protect"
+            }
+        }
+    },
+    "services": {
+        "add_doorbell_text": {
+            "description": "A\u00f1ade un nuevo mensaje personalizado para los timbres de puerta.",
+            "fields": {
+                "device_id": {
+                    "description": "Cualquier dispositivo de la instancia de UniFi Protect que quieras cambiar. En caso de que tenga varias instancias Protect.",
+                    "name": "UniFi Protect NVR"
+                },
+                "message": {
+                    "description": "Nuevo mensaje personalizado para a\u00f1adir a los timbres de puerta. Debe tener menos de 30 caracteres.",
+                    "name": "Mensaje personalizado"
+                }
+            },
+            "name": "A\u00f1adir texto personalizado al timbre de la puerta"
+        },
+        "remove_doorbell_text": {
+            "description": "Elimina un mensaje existente para timbres de puerta.",
+            "fields": {
+                "device_id": {
+                    "description": "Cualquier dispositivo de la instancia de UniFi Protect que quieras cambiar. En caso de que tenga varias instancias Protect.",
+                    "name": "UniFi Protect NVR"
+                },
+                "message": {
+                    "description": "Mensaje personalizado existente a eliminar de los timbres de puerta.",
+                    "name": "Mensaje personalizado"
+                }
+            },
+            "name": "Eliminar el texto personalizado del timbre de la puerta"
+        },
+        "remove_privacy_zone": {
+            "description": "Sirve para eliminar una zona de privacidad de una c\u00e1mara.",
+            "fields": {
+                "device_id": {
+                    "description": "C\u00e1mara de la que deseas eliminar la zona de privacidad.",
+                    "name": "C\u00e1mara"
+                },
+                "name": {
+                    "description": "El nombre de la zona a eliminar.",
+                    "name": "Nombre de la zona de privacidad"
+                }
+            },
+            "name": "Eliminar la zona de privacidad de la c\u00e1mara"
+        },
+        "set_chime_paired_doorbells": {
+            "description": "Sirve para configurar el timbre o timbres emparejados con un timbre inteligente.",
+            "fields": {
+                "device_id": {
+                    "description": "Los timbres para vincular a los timbres de las puertas.",
+                    "name": "Campanilla"
+                },
+                "doorbells": {
+                    "description": "Los timbres de puerta para enlazar con el timbre.",
+                    "name": "Timbres de puerta"
+                }
+            },
+            "name": "Establecer timbres emparejados"
+        },
+        "set_default_doorbell_text": {
+            "description": "Establece el mensaje predeterminado del timbre de la puerta. Este ser\u00e1 el mensaje que se selecciona autom\u00e1ticamente cuando un mensaje \"caduca\".",
+            "fields": {
+                "device_id": {
+                    "description": "Cualquier dispositivo de la instancia de UniFi Protect que quieras cambiar. En caso de que tenga varias instancias Protect.",
+                    "name": "UniFi Protect NVR"
+                },
+                "message": {
+                    "description": "El mensaje predeterminado para tu timbre de la puerta. Debe tener menos de 30 caracteres.",
+                    "name": "Mensaje predeterminado"
+                }
+            },
+            "name": "Establecer el texto predeterminado del timbre de la puerta"
+        }
+    }
+}

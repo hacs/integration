@@ -1,0 +1,107 @@
+{
+    "issues": {
+        "deprecated_close_comm_config": {
+            "description": "Poista `{config_key}`-avain {integration}-merkinn\u00e4st\u00e4 `configuration.yaml`-tiedostossa ja k\u00e4ynnist\u00e4 Home Assistant uudelleen ongelman korjaamiseksi. \n\nKaikki virheet ilmoitetaan, koska `lazy_error_count` hyv\u00e4ksyt\u00e4\u00e4n mutta j\u00e4tet\u00e4\u00e4n huomiotta.",
+            "title": "`{config_key}` konfiguraatioavain poistetaan."
+        },
+        "deprecated_retries": {
+            "description": "Poista {config_key}-avain configuration.yaml-tiedoston {integration}-merkinn\u00e4st\u00e4 ja korjaa ongelma k\u00e4ynnist\u00e4m\u00e4ll\u00e4 Home Assistant uudelleen.\n\nUudelleenyritysten enimm\u00e4ism\u00e4\u00e4r\u00e4ksi on nyt m\u00e4\u00e4ritetty 3."
+        },
+        "deprecated_retry_on_empty": {
+            "description": "Poista `{config_key}`-avain {integration}-merkinn\u00e4st\u00e4 configuration.yaml-tiedostossa ja k\u00e4ynnist\u00e4 Home Assistant uudelleen ongelman korjaamiseksi.\n\nRetry on empty (yrit\u00e4 uudelleen tyhj\u00e4n\u00e4) on k\u00e4yt\u00f6ss\u00e4 automaattisesti, katso [dokumentaatio]({url}) muista virheenk\u00e4sittelyparametreista.",
+            "title": "`{config_key}` konfiguraatioavain poistetaan."
+        },
+        "duplicate_entity_entry": {
+            "description": "Osoite voidaan yhdist\u00e4\u00e4 vain yhteen yksikk\u00f6\u00f6n, Korjaa merkint\u00e4 configuration.yaml-tiedostossa ja k\u00e4ynnist\u00e4 Home Assistant uudelleen ongelman korjaamiseksi.",
+            "title": "Modbus {sub_1} osoite {sub_2} on p\u00e4\u00e4llekk\u00e4inen, toista merkint\u00e4\u00e4 ei ole ladattu."
+        },
+        "duplicate_entity_name": {
+            "description": "Entiteetin nimen on oltava yksil\u00f6llinen, Korjaa merkint\u00e4 configuration.yaml-tiedostossa ja k\u00e4ynnist\u00e4 Home Assistant uudelleen ongelman korjaamiseksi.",
+            "title": "Modbus {sub_1} on p\u00e4\u00e4llekk\u00e4inen, toista merkint\u00e4\u00e4 ei ole ladattu."
+        },
+        "duplicate_modbus_entry": {
+            "description": "P\u00e4ivit\u00e4 {sub_2} ja/tai {sub_1} configuration.yaml-tiedoston merkint\u00e4 ja k\u00e4ynnist\u00e4 Home Assistant uudelleen ongelman korjaamiseksi.",
+            "title": "Modbus {sub_2} host/portti {sub_1} on p\u00e4\u00e4llekk\u00e4inen, toista merkint\u00e4\u00e4 ei ole ladattu."
+        },
+        "missing_modbus_name": {
+            "description": "Lis\u00e4\u00e4 `{sub_1}` -avain {integration} -merkint\u00e4\u00e4n is\u00e4nt\u00e4 `{sub_2}` configuration.yaml-tiedostoon ja k\u00e4ynnist\u00e4 Home Assistant uudelleen ongelman korjaamiseksi.\n\n. `{sub_1}: {sub_3}` on lis\u00e4tty."
+        },
+        "no_entities": {
+            "description": "Lis\u00e4\u00e4 ainakin yksi Modbus {sub_1} -olio configuration.yaml-tiedostoon ja k\u00e4ynnist\u00e4 Home Assistant uudelleen ongelman korjaamiseksi.",
+            "title": "Modbus {sub_1} ei sis\u00e4ll\u00e4 yksik\u00f6it\u00e4, merkint\u00e4\u00e4 ei ole ladattu."
+        },
+        "removed_lazy_error_count": {
+            "description": "Poista `{config_key}`-avain {integration} configuration.yaml-tiedostosta ja k\u00e4ynnist\u00e4 Home Assistant uudelleen ongelman korjaamiseksi. Kaikki virheet raportoidaan, kun lazy_error_count hyv\u00e4ksyt\u00e4\u00e4n mutta j\u00e4tet\u00e4\u00e4n huomiotta."
+        }
+    },
+    "services": {
+        "reload": {
+            "description": "Lataa kaikki modbus-entiteetit uudelleen.",
+            "name": "Uudelleenlataa"
+        },
+        "restart": {
+            "description": "K\u00e4ynnist\u00e4\u00e4 modbuskeskittimen uudelleen (jos se on k\u00e4ynniss\u00e4, pys\u00e4yt\u00e4 ja k\u00e4ynnist\u00e4 sitten).",
+            "fields": {
+                "hub": {
+                    "description": "Modbuskeskittimen nimi.",
+                    "name": "Keskitin"
+                }
+            },
+            "name": "Uudelleenk\u00e4ynnist\u00e4"
+        },
+        "stop": {
+            "description": "Pys\u00e4ytt\u00e4\u00e4 modbuskeskittimen.",
+            "fields": {
+                "hub": {
+                    "description": "Modbuskeskittimen nimi.",
+                    "name": "Keskitin"
+                }
+            },
+            "name": "Pys\u00e4yt\u00e4"
+        },
+        "write_coil": {
+            "description": "Kirjoittaa modbuskelalle.",
+            "fields": {
+                "address": {
+                    "description": "Rekisterin osoite, johon kirjoitetaan.",
+                    "name": "Osoite"
+                },
+                "hub": {
+                    "description": "Modbuskeskittimen nimi.",
+                    "name": "Keskitin"
+                },
+                "slave": {
+                    "description": "Modbus-yksik\u00f6n/orjan osoite.",
+                    "name": "Orja"
+                },
+                "state": {
+                    "description": "Kirjoitettava tila.",
+                    "name": "Tila"
+                }
+            },
+            "name": "Kirjoita kela"
+        },
+        "write_register": {
+            "description": "Kirjoittaa modbus-pitorekisteriin.",
+            "fields": {
+                "address": {
+                    "description": "Kirjoitettavan holding-rekisterin osoite.",
+                    "name": "Osoite"
+                },
+                "hub": {
+                    "description": "Modbuskeskittimen nimi.",
+                    "name": "Keskitin"
+                },
+                "slave": {
+                    "description": "Modbus-yksik\u00f6n/orjan osoite.",
+                    "name": "Orja"
+                },
+                "value": {
+                    "description": "Kirjoitettava arvo (yksitt\u00e4inen arvo tai joukko).",
+                    "name": "Arvo"
+                }
+            },
+            "name": "Kirjoita rekisteri"
+        }
+    }
+}

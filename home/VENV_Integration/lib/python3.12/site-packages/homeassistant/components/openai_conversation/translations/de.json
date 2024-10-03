@@ -1,0 +1,75 @@
+{
+    "config": {
+        "error": {
+            "cannot_connect": "Verbindung fehlgeschlagen",
+            "invalid_auth": "Ung\u00fcltige Authentifizierung",
+            "unknown": "Unerwarteter Fehler"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "api_key": "API-Schl\u00fcssel"
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "invalid_config_entry": {
+            "message": "Ung\u00fcltiger Konfigurationseintrag angegeben. {config_entry} erhalten."
+        }
+    },
+    "issues": {
+        "image_size_deprecated_format": {
+            "description": "OpenAI verwendet jetzt Dall-E 3, um Bilder mit `openai_conversation.generate_image` zu generieren, das verschiedene Gr\u00f6\u00dfen unterst\u00fctzt. G\u00fcltige Werte sind jetzt `1024x1024`, `1024x1792`, `1792x1024`. Die alten Werte `256`, `512`, `1024` werden derzeit als `1024x1024` interpretiert. Bitte aktualisiere deine Skripte oder Automatisierungen mit den neuen Parametern.",
+            "title": "Veraltetes Gr\u00f6\u00dfenformat f\u00fcr die Bildgenerierungsaktion"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "chat_model": "Modell",
+                    "llm_hass_api": "Home Assistant steuern",
+                    "max_tokens": "Maximale Anzahl von Token, die als Antwort zur\u00fcckgegeben werden",
+                    "model": "Abschlussmodell",
+                    "prompt": "Anweisungen",
+                    "recommended": "Empfohlene Modelleinstellungen",
+                    "temperature": "Temperatur",
+                    "top_p": "Top P"
+                },
+                "data_description": {
+                    "prompt": "Gib Anweisungen, wie der LLM reagieren soll. Dies kann eine Vorlage sein."
+                }
+            }
+        }
+    },
+    "services": {
+        "generate_image": {
+            "description": "Umwandeln einer Eingabeaufforderung in ein Bild",
+            "fields": {
+                "config_entry": {
+                    "description": "Der f\u00fcr diese Aktion zu verwendende Konfigurationseintrag",
+                    "name": "Konfigurationseintrag"
+                },
+                "prompt": {
+                    "description": "Der Text, der in ein Bild umgewandelt werden soll",
+                    "example": "Ein Foto eines Hundes",
+                    "name": "Eingabeaufforderung"
+                },
+                "quality": {
+                    "description": "Die Qualit\u00e4t des Bildes, das generiert wird",
+                    "name": "Qualit\u00e4t"
+                },
+                "size": {
+                    "description": "Die Gr\u00f6\u00dfe des zu generierenden Bildes",
+                    "name": "Gr\u00f6\u00dfe"
+                },
+                "style": {
+                    "description": "Der Stil des generierten Bildes",
+                    "name": "Stil"
+                }
+            },
+            "name": "Bild generieren"
+        }
+    }
+}

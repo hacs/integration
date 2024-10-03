@@ -1,0 +1,416 @@
+{
+    "entity": {
+        "binary_sensor": {
+            "state": {
+                "name": "T\u00f6\u00f6tab"
+            }
+        },
+        "sensor": {
+            "agent_version": {
+                "name": "OS-i agendi versioon"
+            },
+            "apparmor_version": {
+                "name": "Apparmori versioon"
+            },
+            "cpu_percent": {
+                "name": "Protsessori kasutus"
+            },
+            "disk_free": {
+                "name": "Vaba kettaruum"
+            },
+            "disk_total": {
+                "name": "Kettaruum kokku"
+            },
+            "disk_used": {
+                "name": "Kasutatud kettaruum"
+            },
+            "memory_percent": {
+                "name": "M\u00e4lu protsent"
+            },
+            "version": {
+                "name": "Versioon"
+            },
+            "version_latest": {
+                "name": "Uusim versioon"
+            }
+        }
+    },
+    "issues": {
+        "issue_addon_detached_addon_missing": {
+            "description": "Lisandmooduli {addon} hoidla puudub. See t\u00e4hendab, et see ei saa v\u00e4rskendusi ja varukoopiaid ei pruugita \u00f5igesti taastada, kuna superviisor ei pruugi vajalikke ressursse \u00fcles ehitada / alla laadida.\n\nKontrolli [lisandmooduli dokumentatsioonist]({addon_url}) installimisjuhiseid ja lisa hoidla poodi.",
+            "title": "Paigaldatud lisandmooduli hoidla puudub"
+        },
+        "issue_addon_detached_addon_removed": {
+            "fix_flow": {
+                "abort": {
+                    "apply_suggestion_fail": "Lisandmoodulit ei saanud desinstallida. Lisateabe saamiseks vaata Supervisori logisid."
+                },
+                "step": {
+                    "addon_execute_remove": {
+                        "description": "Lisandmoodul {addon} eemaldati hoidlast kust see installiti. See t\u00e4hendab, et see ei saa v\u00e4rskendusi ja varukoopiaid ei pruugita \u00f5igesti taastada, kuna j\u00e4relevaatajal ei pruugi olla v\u00f5imalik vajalikke ressursse luua/alla laadida. \n\n Kl\u00f5psates Esita, desinstallitakse see aegunud lisandmoodul. Teise v\u00f5imalusena v\u00f5id vaadata [Koduabilise abi]( {help_url} ) ja [kogukonna foorumit]( {community_url} ), et leida alternatiive, kuhu \u00fcle minna."
+                    }
+                }
+            },
+            "title": "Installitud lisandmoodul on hoidlast eemaldatud"
+        },
+        "issue_mount_mount_failed": {
+            "fix_flow": {
+                "abort": {
+                    "apply_suggestion_fail": "Ei saanud parandada. T\u00e4psemate \u00fcksikasjade saamiseks vaata Supervisori logisid."
+                },
+                "step": {
+                    "fix_menu": {
+                        "description": "V\u00f5rguga ` {reference} ` ei saanud \u00fchendust luua. Lisateabe saamiseks kontrolli hosti logisid paigaldusteenuse vigade suhtes. \n\n Kasuta uuesti \u00fchenduse loomiseks taaslaadimist. Kui on vaja ` {reference} ` v\u00e4rskendada, mine saidile [salvestusruum]( {storage_url} ).",
+                        "menu_options": {
+                            "mount_execute_reload": "Taaslae",
+                            "mount_execute_remove": "Eemalda"
+                        }
+                    }
+                }
+            },
+            "title": "V\u00f5rgusalvestusseade andis t\u00f5rke"
+        },
+        "issue_system_docker_config": {
+            "fix_flow": {
+                "abort": {
+                    "apply_suggestion_fail": "\u00dcks v\u00f5i mitu taask\u00e4ivitust nurjus. T\u00e4psemate \u00fcksikasjade saamiseks vaata Supervisori logisid."
+                },
+                "step": {
+                    "system_execute_rebuild": {
+                        "description": "Lisandmoodulite ja Home Assistanti vaikes\u00e4tted on muutunud. S\u00e4tetei v\u00e4rskendamiseks uute vaikes\u00e4tetega on vajalik taask\u00e4ivitamine j\u00e4rgmistel juhtudel.\n\n- {components}"
+                    }
+                }
+            },
+            "title": "N\u00f5utav on taask\u00e4ivitamine"
+        },
+        "issue_system_multiple_data_disks": {
+            "fix_flow": {
+                "abort": {
+                    "apply_suggestion_fail": "Failis\u00fcsteemi \u00fcmbernimetamine nurjus. T\u00e4psemate \u00fcksikasjade saamiseks vaata Supevisori logisid."
+                },
+                "step": {
+                    "fix_menu": {
+                        "description": "Veebilehel `{reference}` avastasime teise aktiivse andmeketta (mis sisaldab failis\u00fcsteemi `hassos-data` \u00fchest teisest Home Assistanti paigaldusest).\n\nPead otsustama mida sellega teha. Vastasel juhul v\u00f5ib Home Assistant s\u00fcsteemi taask\u00e4ivitamisel valida vale andmeketta.\n\nKui ei soovi seda andmeketast kasutada, \u00fchenda see s\u00fcsteemist lahti. Kui j\u00e4tad selle \u00fchendatuks, vali \u00fcks j\u00e4rgmistest v\u00f5imalustest:",
+                        "menu_options": {
+                            "system_adopt_data_disk": "Kasuta praeguse s\u00fcsteemi asemel tuvastatud andmeketast",
+                            "system_rename_data_disk": "M\u00e4rgi mitteaktiivseks andmekettaks (failis\u00fcsteemi \u00fcmbernimetamine)"
+                        }
+                    },
+                    "system_adopt_data_disk": {
+                        "description": "Vali Esita, et muuta ' {reference}' aktiivseks andmekettaks. \u00dcks ja ainus.\n\nSul pole enam juurdep\u00e4\u00e4su Home Assistanti praegustele andmetele (need m\u00e4rgitakse passiivseks andmekettaks). P\u00e4rast taask\u00e4ivitamist on s\u00fcsteem Home Assistanti andmete olekus ' {reference}'."
+                    },
+                    "system_rename_data_disk": {
+                        "description": "` {reference} ` on failis\u00fcsteem nimega hassos-data ja see ei ole aktiivne andmeketas. See v\u00f5ib p\u00f5hjustada selle, et Home Assistant valib s\u00fcsteemi taask\u00e4ivitamisel vale andmeketta. \n\n Selle v\u00e4ltimiseks kasuta failis\u00fcsteemi \u00fcmbernimetamiseks suvandit fix. Teise v\u00f5imalusena saad andmeketta draivi teisaldada (selle sisu \u00fcle kirjutades) v\u00f5i draivi s\u00fcsteemist eemaldada."
+                    }
+                }
+            },
+            "title": "Tuvastati mitu andmeketast"
+        },
+        "issue_system_reboot_required": {
+            "fix_flow": {
+                "abort": {
+                    "apply_suggestion_fail": "S\u00fcsteemi ei saanud taask\u00e4ivitada. Lisateabe saamiseks vaata Supervisori logisid."
+                },
+                "step": {
+                    "system_execute_reboot": {
+                        "description": "Muudeti seadeid, mille j\u00f5ustumiseks on vaja s\u00fcsteemi taask\u00e4ivitamine.\n\nSee parandus algatab s\u00fcsteemi taask\u00e4ivituse mis muudab Home Assistant'i ja k\u00f5ik lisaseadmed l\u00fchikeseks ajaks k\u00e4ttesaamatuks."
+                    }
+                }
+            },
+            "title": "Vajalik on taask\u00e4ivitamine"
+        },
+        "unhealthy": {
+            "description": "S\u00fcsteem ei ole praegu korras {reason} t\u00f5ttu. Kasuta linki, et saada rohkem teavet ja kuidas seda parandada.",
+            "title": "Vigane s\u00fcsteem \u2013 {reason}"
+        },
+        "unhealthy_docker": {
+            "description": "S\u00fcsteem on praegu ebatervislik, sest Docker on valesti konfigureeritud. Kasuta linki, et rohkem teada saada ja kuidas seda parandada.",
+            "title": "Ebatervislik s\u00fcsteem \u2013 Docker on valesti konfigureeritud"
+        },
+        "unhealthy_privileged": {
+            "description": "S\u00fcsteem on praegu ebatervislik, sest tal puudub privilegeeritud juurdep\u00e4\u00e4s dokkerite k\u00e4ivituskoodile. Kasuta linki, et rohkem teada saada ja kuidas seda parandada.",
+            "title": "Ebaterve s\u00fcsteem - \u00f5igused puuduvad"
+        },
+        "unhealthy_setup": {
+            "description": "S\u00fcsteem on hetkel ebatervislik, sest seadistamist ei \u00f5nnestunud l\u00f5pule viia. Sellel v\u00f5ib olla mitu p\u00f5hjust, kasuta linki, et saada rohkem teavet ja teada, kuidas seda parandada.",
+            "title": "Ebaterve s\u00fcsteem - seadistamine eba\u00f5nnestus"
+        },
+        "unhealthy_supervisor": {
+            "description": "S\u00fcsteem on hetkel ebatervislik, sest Supervisori uuendamise katse viimasele versioonile eba\u00f5nnestus. Kasuta linki, et teada saada rohkem ja kuidas seda parandada.",
+            "title": "Ebaterve s\u00fcsteem - Supervisori uuendamine eba\u00f5nnestus"
+        },
+        "unhealthy_untrusted": {
+            "description": "S\u00fcsteem on hetkel ebatervislik, sest on tuvastanud kasutuses oleva ebausaldusv\u00e4\u00e4rse koodi v\u00f5i kujutiste kasutamise. Kasuta linki, et rohkem teada saada ja kuidas seda parandada.",
+            "title": "Ebaterve s\u00fcsteem - ebausaldusv\u00e4\u00e4rne kood"
+        },
+        "unsupported": {
+            "description": "S\u00fcsteemi ei toetata {reason} t\u00f5ttu. Kasuta linki, et saada lisateavet ja kuidas seda parandada.",
+            "title": "Toetamata s\u00fcsteem \u2013 {reason}"
+        },
+        "unsupported_apparmor": {
+            "description": "S\u00fcsteem ei ole toetatud, sest AppArmor t\u00f6\u00f6tab valesti ja lisad t\u00f6\u00f6tavad kaitsmata ja ebaturvaliselt. Kasuta linki, et rohkem teada saada ja kuidas seda parandada.",
+            "title": "Toetamata s\u00fcsteem \u2013 AppArmori probleemid"
+        },
+        "unsupported_cgroup_version": {
+            "description": "S\u00fcsteem ei ole toetatud, sest kasutusel on vale Docker CGroupi versioon. Kasuta linki, et teada saada, milline on \u00f5ige versioon ja kuidas seda parandada.",
+            "title": "Toetamata s\u00fcsteem \u2013 CGroupi versioon"
+        },
+        "unsupported_connectivity_check": {
+            "description": "S\u00fcsteem ei ole toetatud, sest Home Assistant ei suuda kindlaks teha, millal interneti\u00fchendus on saadaval. Kasuta linki, et rohkem teada saada ja kuidas seda parandada.",
+            "title": "S\u00fcsteemi ei toetata \u2013 \u00fchenduvuse kontroll on keelatud"
+        },
+        "unsupported_content_trust": {
+            "description": "S\u00fcsteemi ei toetata, kuna Home Assistant ei saa kontrollida, kas k\u00e4itatav sisu on usaldusv\u00e4\u00e4rne ja seda pole r\u00fcndajad muutnud. Lisateabe saamiseks ja selle parandamiseks kasuta linki.",
+            "title": "Toetamata s\u00fcsteem \u2013 sisu usaldusv\u00e4\u00e4rsuse kontroll on keelatud"
+        },
+        "unsupported_dbus": {
+            "description": "S\u00fcsteem ei ole toetatud, sest D-Bus t\u00f6\u00f6tab valesti. Paljud asjad ei \u00f5nnestu ilma selleta, sest Supervisor ei saa suhelda hostiga. Kasuta linki, et rohkem teada saada ja kuidas seda parandada.",
+            "title": "Toetamata s\u00fcsteem - D-Bus probleemid"
+        },
+        "unsupported_dns_server": {
+            "description": "S\u00fcsteem ei ole toetatud, sest pakutav DNS-server ei t\u00f6\u00f6ta \u00f5igesti ja varu-DNS-variant on v\u00e4lja l\u00fclitatud. Kasuta linki, et rohkem teada saada ja kuidas seda parandada.",
+            "title": "Toetamata s\u00fcsteem \u2013 DNS-serveri probleemid"
+        },
+        "unsupported_docker_configuration": {
+            "description": "S\u00fcsteem ei ole toetatud, sest Dockeri deemon t\u00f6\u00f6tab ootamatul viisil. Kasuta linki, et rohkem teada saada ja kuidas seda parandada.",
+            "title": "Toetamata s\u00fcsteem \u2013 Docker on valesti konfigureeritud"
+        },
+        "unsupported_docker_version": {
+            "description": "S\u00fcsteemi ei toetata kuna kasutusel on vale Dockeri versioon. Kasuta linki, et saada teavet \u00f5ige versiooni ja selle parandamise kohta.",
+            "title": "Toetamata s\u00fcsteem \u2013 Dockeri versioon"
+        },
+        "unsupported_job_conditions": {
+            "description": "S\u00fcsteemi ei toetata kuna \u00fcks v\u00f5i mitu t\u00f6\u00f6tingimust on blokeeritud, mis kaitsevad ootamatute rikete ja purunemiste eest. Kasuta linki, et saada lisateavet ja kuidas seda parandada.",
+            "title": "Toetamata s\u00fcsteem - kaitsed v\u00e4lja l\u00fclitatud"
+        },
+        "unsupported_lxc": {
+            "description": "S\u00fcsteemi ei toetata, kuna seda k\u00e4itatakse LXC virtuaalmasinas. Lisateabe saamiseks ja selle parandamiseks kasuta linki.",
+            "title": "Toetamata s\u00fcsteem \u2013 tuvastati LXC"
+        },
+        "unsupported_network_manager": {
+            "description": "S\u00fcsteemi ei toetata, kuna Network Manager puudub, on passiivne v\u00f5i valesti konfigureeritud. Lisateabe saamiseks ja selle parandamiseks kasuta linki.",
+            "title": "Toetamata s\u00fcsteem \u2013 v\u00f5rguhalduri probleemid"
+        },
+        "unsupported_os": {
+            "description": "S\u00fcsteem ei ole toetatud, sest kasutatavat operatsioonis\u00fcsteemi ei ole testitud ega hooldatud Supervisoriga kasutamiseks. Kasuta linki, milliseid operatsioonis\u00fcsteeme toetatakse ja kuidas seda parandada.",
+            "title": "Toetamata s\u00fcsteem \u2013 operatsioonis\u00fcsteem"
+        },
+        "unsupported_os_agent": {
+            "description": "S\u00fcsteem ei ole toetatud, sest OS-Agent puudub, on mitteaktiivne v\u00f5i valesti konfigureeritud. Kasuta linki, et rohkem teada saada ja kuidas seda parandada.",
+            "title": "Toetamata s\u00fcsteem \u2013 OS-agendi probleemid"
+        },
+        "unsupported_restart_policy": {
+            "description": "S\u00fcsteem ei ole toetatud, sest Dockeri konteinerile on m\u00e4\u00e4ratud taask\u00e4ivitamise poliitika, mis v\u00f5ib k\u00e4ivitamisel probleeme tekitada. Kasuta linki, et rohkem teada saada ja kuidas seda parandada.",
+            "title": "Toetamata s\u00fcsteem \u2013 konteineri taask\u00e4ivitamise reegel"
+        },
+        "unsupported_software": {
+            "description": "S\u00fcsteem ei ole toetatud, sest on tuvastatud lisatarkvara v\u00e4ljaspool Home Assistant'i \u00f6kos\u00fcsteemi. Kasuta linki, et rohkem teada saada ja kuidas seda parandada.",
+            "title": "Toetamata s\u00fcsteem \u2013 toetamata tarkvara"
+        },
+        "unsupported_source_mods": {
+            "description": "S\u00fcsteem ei ole toetatud, sest Supervisori l\u00e4htekoodi on muudetud. Kasuta linki, et rohkem teada saada ja kuidas seda parandada.",
+            "title": "Toetamata s\u00fcsteem \u2013 Supervisori allika muudatused"
+        },
+        "unsupported_supervisor_version": {
+            "description": "S\u00fcsteem ei ole toetatud, sest kasutusel on vananenud Supervisori versioon ja automaatne uuendamine on v\u00e4lja l\u00fclitatud. Kasuta linki, et saada rohkem teavet ja teada, kuidas seda parandada.",
+            "title": "Toetamata s\u00fcsteem - Supervisori versioon"
+        },
+        "unsupported_systemd": {
+            "description": "S\u00fcsteemi ei toetata kuna Systemd puudub, on passiivne v\u00f5i valesti konfigureeritud. Lisateabe saamiseks ja selle parandamiseks kasuta linki.",
+            "title": "Toetamata s\u00fcsteem - Systemd probleemid"
+        },
+        "unsupported_systemd_journal": {
+            "description": "S\u00fcsteemi ei toetata kuna Systemd Journal ja/v\u00f5i l\u00fc\u00fcsiteenus puudub, on passiivne v\u00f5i valesti konfigureeritud. Lisateabe saamiseks ja selle parandamiseks kasuta linki.",
+            "title": "Toetamata s\u00fcsteem \u2013 Systemd Journali probleemid"
+        },
+        "unsupported_systemd_resolved": {
+            "description": "S\u00fcsteemi ei toetata kuna Systemd Resolved puudub, on passiivne v\u00f5i valesti konfigureeritud. Lisateabe saamiseks ja selle parandamiseks kasuta linki.",
+            "title": "Toetamata s\u00fcsteem \u2013 Systemd lahendatud probleemid"
+        },
+        "unsupported_virtualization_image": {
+            "description": "S\u00fcsteemi ei toetata, kuna kasutatav OS-i Home Assistant t\u00f5mmis ei ole m\u00f5eldud kasutamiseks virtualiseeritud keskkonnas. Lisateabe saamiseks ja selle parandamiseks kasuta linki.",
+            "title": "Toetamata s\u00fcsteem \u2013 virtualiseerimiseks on vale OS t\u00f5mmis"
+        }
+    },
+    "services": {
+        "addon_restart": {
+            "description": "Taask\u00e4ivitab lisandmooduli.",
+            "fields": {
+                "addon": {
+                    "description": "Lisandmooduli l\u00fchend.",
+                    "name": "Lisandmoodul"
+                }
+            },
+            "name": "Taask\u00e4ivita lisandmoodul."
+        },
+        "addon_start": {
+            "description": "K\u00e4ivitab lisandmooduli.",
+            "fields": {
+                "addon": {
+                    "description": "Lisandmooduli l\u00fchend.",
+                    "name": "Lisandmoodul"
+                }
+            },
+            "name": "K\u00e4ivita lisandmoodul"
+        },
+        "addon_stdin": {
+            "description": "Kirjutab andmed lisandmoodulisse stdin.",
+            "fields": {
+                "addon": {
+                    "description": "Lisandmooduli l\u00fchend.",
+                    "name": "Lisandmoodul"
+                }
+            },
+            "name": "Kirjuta andmed lisandmoodulisse."
+        },
+        "addon_stop": {
+            "description": "Peatab lisandmooduli.",
+            "fields": {
+                "addon": {
+                    "description": "Lisandmooduli l\u00fchend.",
+                    "name": "Lisandmoodul"
+                }
+            },
+            "name": "Peata lisandmoodul."
+        },
+        "addon_update": {
+            "description": "V\u00e4rskendab lisandmoodulit. Seda teenust tuleks kasutada ettevaatusega kuna lisandmoodulite v\u00e4rskendused v\u00f5ivad sisaldada murrangulisi muudatusi. Enne lisandmooduli v\u00e4rskendamist on tungivalt soovitatav vaadata \u00fcle v\u00e4ljalaskem\u00e4rkmed/muudatuste logid.",
+            "fields": {
+                "addon": {
+                    "description": "Lisandmooduli l\u00fchend.",
+                    "name": "Lisandmoodul"
+                }
+            },
+            "name": "V\u00e4rskenda lisandmoodulit."
+        },
+        "backup_full": {
+            "description": "Loob t\u00e4ieliku varukoopia.",
+            "fields": {
+                "compressed": {
+                    "description": "Tihendab varukoopia kirjed.",
+                    "name": "Tihendatud"
+                },
+                "homeassistant_exclude_database": {
+                    "description": "\u00c4ra kaasa andmebaasi Home Assistanti varukoopiasse",
+                    "name": "V\u00e4lista Home Assistanti andmebaas"
+                },
+                "location": {
+                    "description": "Varukoopiaid sisaldava v\u00f5rgu salvestusruumi nimi.",
+                    "name": "Asukoht"
+                },
+                "name": {
+                    "description": "Valikuline (vaikev\u00e4\u00e4rtus = praegune kuup\u00e4ev ja kellaaeg).",
+                    "name": "Nimi"
+                },
+                "password": {
+                    "description": "Salas\u00f5na, millega varukoopiat kaitsta.",
+                    "name": "Salas\u00f5na"
+                }
+            },
+            "name": "Loo t\u00e4ielik varukoopia."
+        },
+        "backup_partial": {
+            "description": "Loob osalise varukoopia.",
+            "fields": {
+                "addons": {
+                    "description": "Varukoopiasse lisatavate lisandmoodulite loend. Kasuta lisandmooduli nime.",
+                    "name": "Lisandmoodulid"
+                },
+                "compressed": {
+                    "description": "Tihendab varukoopia kirjed.",
+                    "name": "Tihendatud"
+                },
+                "folders": {
+                    "description": "Varukoopiasse lisatavate kaustade loend.",
+                    "name": "Kaustad"
+                },
+                "homeassistant": {
+                    "description": "Kaasab varukoopiasse Home Assistanti s\u00e4tted.",
+                    "name": "Home Assistanti s\u00e4tted"
+                },
+                "homeassistant_exclude_database": {
+                    "description": "\u00c4ra kaasa andmebaasi Home Assistanti varukoopiasse",
+                    "name": "V\u00e4lista Home Assistanti andmebaas"
+                },
+                "location": {
+                    "description": "Varukoopiaid sisaldava v\u00f5rgu salvestusruumi nimi.",
+                    "name": "Asukoht"
+                },
+                "name": {
+                    "description": "Valikuline (vaikev\u00e4\u00e4rtus = praegune kuup\u00e4ev ja kellaaeg).",
+                    "name": "Nimi"
+                },
+                "password": {
+                    "description": "Salas\u00f5na, millega varukoopiat kaitsta.",
+                    "name": "Salas\u00f5na"
+                }
+            },
+            "name": "Loo osaline varukoopia."
+        },
+        "host_reboot": {
+            "description": "Taask\u00e4ivitab s\u00fcsteemi.",
+            "name": "Taask\u00e4ivita s\u00fcsteem."
+        },
+        "host_shutdown": {
+            "description": "L\u00fclitab s\u00fcsteemi v\u00e4lja.",
+            "name": "L\u00fclita s\u00fcsteem v\u00e4lja."
+        },
+        "restore_full": {
+            "description": "Taastab t\u00e4ielikust varukoopiast.",
+            "fields": {
+                "password": {
+                    "description": "Valikuline salas\u00f5na.",
+                    "name": "Salas\u00f5na"
+                },
+                "slug": {
+                    "description": "Tagavarakoopia millest taastada.",
+                    "name": "Pesa"
+                }
+            },
+            "name": "Taasta t\u00e4ielikust varukoopiast."
+        },
+        "restore_partial": {
+            "description": "Taastab osalisest varukoopiast.",
+            "fields": {
+                "addons": {
+                    "description": "Varukoopiasse lisatavate lisandmoodulite loend. Kasuta lisandmooduli nime.",
+                    "name": "Lisandmoodulid"
+                },
+                "folders": {
+                    "description": "Varukoopiasse lisatavate kaustade loend.",
+                    "name": "Kaustad"
+                },
+                "homeassistant": {
+                    "description": "Taastab Home Assistanti paigalduse.",
+                    "name": "Home Assistanti s\u00e4tted"
+                },
+                "password": {
+                    "description": "Valikuline salas\u00f5na.",
+                    "name": "Salas\u00f5na"
+                },
+                "slug": {
+                    "description": "Tagavarakoopia millest taastada.",
+                    "name": "Pesa"
+                }
+            },
+            "name": "Taasta osalisest varukoopiast."
+        }
+    },
+    "system_health": {
+        "info": {
+            "agent_version": "Agendi versioon",
+            "board": "Seade",
+            "disk_total": "Kettaruum kokku",
+            "disk_used": "Kasutatud kettaruum",
+            "docker_version": "Dockeri versioon",
+            "healthy": "Korras",
+            "host_os": "Host-i operatsioonis\u00fcsteem",
+            "installed_addons": "Paigaldatud lisandmoodulid",
+            "supervisor_api": "Superviisori API",
+            "supervisor_version": "Superviisori j\u00e4rk",
+            "supported": "Toetatud",
+            "update_channel": "V\u00e4rskenduskanal",
+            "version_api": "API versioon"
+        }
+    }
+}

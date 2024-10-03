@@ -1,0 +1,130 @@
+{
+    "device_automation": {
+        "action_type": {
+            "set_humidity": "D\u00e9finir l'humidit\u00e9 pour {entity_name}",
+            "set_mode": "Changer le mode de {entity_name}",
+            "toggle": "Basculer {entity_name}",
+            "turn_off": "D\u00e9sactiver {entity_name}",
+            "turn_on": "Allumer {entity_name}"
+        },
+        "condition_type": {
+            "is_mode": "{entity_name} est d\u00e9fini sur un mode sp\u00e9cifique",
+            "is_off": "{entity_name} est d\u00e9sactiv\u00e9",
+            "is_on": "{entity_name} est activ\u00e9"
+        },
+        "extra_fields": {
+            "above": "Sup\u00e9rieur \u00e0",
+            "below": "Inf\u00e9rieur \u00e0",
+            "for": "Dur\u00e9e",
+            "humidity": "Humidit\u00e9",
+            "mode": "Mode"
+        },
+        "trigger_type": {
+            "changed_states": "{entity_name} a \u00e9t\u00e9 activ\u00e9 ou d\u00e9sactiv\u00e9",
+            "target_humidity_changed": "L'humidit\u00e9 cible de {entity_name} a chang\u00e9",
+            "turned_off": "{entity_name} a \u00e9t\u00e9 d\u00e9sactiv\u00e9",
+            "turned_on": "{entity_name} a \u00e9t\u00e9 activ\u00e9"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Humidificateur",
+            "state": {
+                "off": "\u00c9teint",
+                "on": "Allum\u00e9"
+            },
+            "state_attributes": {
+                "action": {
+                    "name": "Action",
+                    "state": {
+                        "drying": "S\u00e9chage",
+                        "humidifying": "Humidification",
+                        "idle": "Inactif",
+                        "off": "D\u00e9sactiv\u00e9"
+                    }
+                },
+                "available_modes": {
+                    "name": "Modes disponibles"
+                },
+                "current_humidity": {
+                    "name": "Humidit\u00e9 actuelle"
+                },
+                "humidity": {
+                    "name": "Humidit\u00e9 cible"
+                },
+                "max_humidity": {
+                    "name": "Humidit\u00e9 cible maximale"
+                },
+                "min_humidity": {
+                    "name": "Humidit\u00e9 cible minimale"
+                },
+                "mode": {
+                    "name": "Mode",
+                    "state": {
+                        "auto": "Automatique",
+                        "away": "Absent",
+                        "baby": "B\u00e9b\u00e9",
+                        "boost": "Boost",
+                        "comfort": "Confort",
+                        "eco": "\u00c9co",
+                        "home": "Maison",
+                        "normal": "Normal",
+                        "sleep": "Nuit"
+                    }
+                }
+            }
+        },
+        "dehumidifier": {
+            "name": "D\u00e9shumidificateur"
+        },
+        "humidifier": {
+            "name": "Humidificateur"
+        }
+    },
+    "exceptions": {
+        "humidity_out_of_range": {
+            "message": "L'humidit\u00e9 fournie {humidity} n'est pas valide. La plage accept\u00e9e est {min_humidity} \u00e0 {max_humidity}."
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "La plateforme {platform} pour l'int\u00e9gration {domain} ne prend pas en charge la configuration de la plateforme.\n\nVeuillez la supprimer de votre configuration et red\u00e9marrer Home Assistant pour r\u00e9soudre ce probl\u00e8me.",
+            "title": "Prise en charge de la plateforme non prise en charge"
+        }
+    },
+    "services": {
+        "set_humidity": {
+            "description": "D\u00e9finit l'humidit\u00e9 cible.",
+            "fields": {
+                "humidity": {
+                    "description": "Humidit\u00e9 cible.",
+                    "name": "Humidit\u00e9"
+                }
+            },
+            "name": "R\u00e9gler l'humidit\u00e9"
+        },
+        "set_mode": {
+            "description": "D\u00e9finit le mode de fonctionnement de l'humidificateur.",
+            "fields": {
+                "mode": {
+                    "description": "Mode de fonctionnement. Par exemple, _normal_, _\u00e9co_ ou _continu_. Pour obtenir une liste des valeurs possibles, reportez-vous \u00e0 la documentation d'int\u00e9gration.",
+                    "name": "Mode"
+                }
+            },
+            "name": "R\u00e9gler sur mode"
+        },
+        "toggle": {
+            "description": "Allume/\u00e9teint l'humidificateur.",
+            "name": "Basculer"
+        },
+        "turn_off": {
+            "description": "\u00c9teint l'humidificateur.",
+            "name": "\u00c9teindre"
+        },
+        "turn_on": {
+            "description": "Allume l'humidificateur.",
+            "name": "Allumer"
+        }
+    },
+    "title": "Humidificateur"
+}

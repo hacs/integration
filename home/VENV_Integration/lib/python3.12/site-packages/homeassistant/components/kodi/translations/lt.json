@@ -1,0 +1,98 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "\u012erenginys jau sukonfig\u016bruotas",
+            "cannot_connect": "Nepavyko prisijungti",
+            "invalid_auth": "Neteisingas autentifikavimas",
+            "no_uuid": "Kodi egzempliorius neturi unikalaus ID. Grei\u010diausiai taip yra d\u0117l senos \u201eKodi\u201c versijos (17.x arba senesn\u0117s). Integravim\u0105 galite konfig\u016bruoti rankiniu b\u016bdu arba atnaujinti \u012f naujesn\u0119 Kodi versij\u0105.",
+            "unknown": "Netik\u0117ta klaida"
+        },
+        "error": {
+            "cannot_connect": "Nepavyko prisijungti",
+            "invalid_auth": "Neteisingas autentifikavimas",
+            "unknown": "Netik\u0117ta klaida"
+        },
+        "flow_title": "{name}",
+        "step": {
+            "credentials": {
+                "data": {
+                    "password": "Slapta\u017eodis",
+                    "username": "Prisijungimos vardas"
+                },
+                "description": "\u012eveskite savo Kodi vartotojo vard\u0105 ir slapta\u017eod\u012f. Juos galite rasti Sistema/Nustatymai/Tinklas/Paslaugos."
+            },
+            "discovery_confirm": {
+                "description": "Ar norite prid\u0117ti Kodi (` {name} `) prie nam\u0173 asistento?",
+                "title": "Atrado Kodi"
+            },
+            "user": {
+                "data": {
+                    "host": "Host",
+                    "port": "Prievadas",
+                    "ssl": "Naudoja SSL sertifikat\u0105"
+                },
+                "data_description": {
+                    "host": "Sistemos, kurioje yra j\u016bs\u0173 Kodi serveris, pagrindinio kompiuterio pavadinimas arba IP adresas."
+                },
+                "description": "Kodi ry\u0161io informacija. \u012esitikinkite, kad Sistema / Nustatymai / Tinklas / Paslaugos \u012fgalino \u201eLeisti valdyti Kodi per HTTP\u201c."
+            },
+            "ws_port": {
+                "data": {
+                    "ws_port": "Prievadas"
+                },
+                "description": "\u201eWebSocket\u201c prievadas (kartais \u201eKodi\u201c vadinamas TCP prievadu). Nor\u0117dami prisijungti per \u201eWebSocket\u201c, skiltyje Sistema / Nustatymai / Tinklas / Paslaugos turite \u012fjungti \u201eLeisti programoms ... valdyti Kodi\u201c. Jei WebSocket ne\u012fjungtas, pa\u0161alinkite prievad\u0105 ir palikite tu\u0161\u010di\u0105."
+            }
+        }
+    },
+    "device_automation": {
+        "trigger_type": {
+            "turn_off": "{entity_name} i\u0161jungtas",
+            "turn_on": "{entity_name} \u012fjungtas"
+        }
+    },
+    "entity": {
+        "media_player": {
+            "media_player": {
+                "state_attributes": {
+                    "dynamic_range": {
+                        "name": "Dinaminis diapazonas"
+                    }
+                }
+            }
+        }
+    },
+    "services": {
+        "add_to_playlist": {
+            "description": "Prideda muzik\u0105 \u012f numatyt\u0105j\u012f grojara\u0161t\u012f (t.y. playlistid=0).",
+            "fields": {
+                "artist_name": {
+                    "description": "Pasirenkamas atlik\u0117jo vardas, skirtas medijai filtruoti.",
+                    "name": "Menininko vardas"
+                },
+                "media_id": {
+                    "description": "Unikalus medijos \u012fra\u0161o, kur\u012f reikia prid\u0117ti, ID (\u201esongid\u201c arba albumid). Jei neapibr\u0117\u017eta, norint ie\u0161koti Kodi muzikos bibliotekoje, reikia \u201emedia_name\u201c ir \u201eatlik\u0117jo_vardas\u201c.",
+                    "name": "Medijos ID"
+                },
+                "media_name": {
+                    "description": "Neprivalomas medijos pavadinimas, skirtas medijai filtruoti. Gali b\u016bti \u201eALL\u201c, kai \u201emedia_type\u201c yra \u201eALBUM\u201c ir nurodytas \u201eatlik\u0117jo_vardas\u201c, kad b\u016bt\u0173 \u012ftrauktos visos vieno atlik\u0117jo dainos.",
+                    "name": "\u017diniasklaidos pavadinimas"
+                },
+                "media_type": {
+                    "description": "Medijos tipo identifikatorius. Tai turi b\u016bti viena i\u0161 DAINA arba ALBUMAS.",
+                    "name": "Medijos tipas"
+                }
+            },
+            "name": "Prid\u0117ti \u012f grojara\u0161t\u012f"
+        },
+        "call_method": {
+            "description": "I\u0161kvie\u010dia Kodi JSONRPC API metod\u0105 su pasirenkamais parametrais. \u201eKodi\u201c API skambu\u010dio rezultatai bus nukreipti \u012f \u201eHome Assistant\u201c \u012fvyk\u012f: \u201ekodi_call_method_result\u201c.",
+            "fields": {
+                "method": {
+                    "description": "I\u0161kvie\u010diamo Kodi JSONRPC API metodo pavadinimas.",
+                    "name": "Metodas"
+                }
+            },
+            "name": "Skambinimo metodas"
+        }
+    }
+}

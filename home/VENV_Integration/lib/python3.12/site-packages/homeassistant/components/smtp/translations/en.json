@@ -1,0 +1,63 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Service is already configured",
+            "cannot_connect": "Failed to connect"
+        },
+        "error": {
+            "authentication_failed": "Login not possible. Please check your setting and/or your credentials",
+            "connection_refused": "SMTP server not found or refused connection. Please check the IP address, hostname, and availability of your SMTP server",
+            "invalid_email_address": "Invalid email address specified",
+            "username_and_password": "Username and password should be configured together"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "debug": "Enable SMTP debug",
+                    "encryption": "Encryption",
+                    "name": "Name",
+                    "password": "Password",
+                    "port": "Port",
+                    "recipient": "Recipients",
+                    "sender": "Sender",
+                    "sender_name": "Sender name",
+                    "server": "Host",
+                    "timeout": "Request Timeout (seconds)",
+                    "username": "Username",
+                    "verify_ssl": "Verify SSL certificate"
+                },
+                "data_description": {
+                    "encryption": "The encryption type of the email server.",
+                    "name": "When set it will create a specific notify service with this name, defaults to `notify.notify`",
+                    "password": "The password for authentication to the SMTP server",
+                    "port": "The port of the SMTP server",
+                    "recipient": "The email addres(ses) of the receipient(s) that should receive an email notification",
+                    "sender": "The email address of the sender",
+                    "sender_name": "The name of the sender",
+                    "server": "The SMTP server hostname or IP-adress",
+                    "username": "The username for authentication to the SMTP server"
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "remote_path_not_allowed": {
+            "message": "Cannot send email with attachment \"{file_name}\" from directory \"{file_path}\" which is not secure to load data from. Only folders added to `{allow_list}` are accessible. See {url} for more information."
+        }
+    },
+    "selector": {
+        "encryption": {
+            "options": {
+                "none": "No encryption (usually over port 25)",
+                "starttls": "STARTTLS (usually over port 587 or 25)",
+                "tls": "TLS (usually over port 465)"
+            }
+        }
+    },
+    "services": {
+        "reload": {
+            "description": "Reloads smtp notify services.",
+            "name": "Reload"
+        }
+    }
+}

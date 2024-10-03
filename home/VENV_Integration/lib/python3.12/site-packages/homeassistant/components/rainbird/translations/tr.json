@@ -1,0 +1,94 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Cihaz zaten yap\u0131land\u0131r\u0131lm\u0131\u015f"
+        },
+        "error": {
+            "cannot_connect": "Ba\u011flanma hatas\u0131",
+            "timeout_connect": "Ba\u011flant\u0131 kurulurken zaman a\u015f\u0131m\u0131"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "host": "Sunucu",
+                    "password": "\u015eifre"
+                },
+                "data_description": {
+                    "host": "Rain Bird cihaz\u0131n\u0131z\u0131n ana bilgisayar ad\u0131 veya IP adresi."
+                },
+                "description": "L\u00fctfen Rain Bird cihaz\u0131n\u0131z i\u00e7in LNK WiFi mod\u00fcl\u00fc bilgilerini girin.",
+                "title": "Rain Bird'\u00fc yap\u0131land\u0131r\u0131n"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "rainsensor": {
+                "name": "Ya\u011fmur sens\u00f6r\u00fc"
+            }
+        },
+        "number": {
+            "rain_delay": {
+                "name": "Ya\u011fmur gecikmesi"
+            }
+        },
+        "sensor": {
+            "raindelay": {
+                "name": "Ya\u011fmur gecikmesi"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_raindelay": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Rain Bird hizmeti \"rainbird.set_rain_delay\" kald\u0131r\u0131l\u0131yor ve ya\u011fmur gecikmesini y\u00f6netmek i\u00e7in bir Number varl\u0131\u011f\u0131yla de\u011fi\u015ftiriliyor. Bunun yerine \"number.set_value\" hedefini \" {alternate_target} \" hedefiyle kullanmak i\u00e7in mevcut t\u00fcm otomasyonlar\u0131n veya komut dosyalar\u0131n\u0131n g\u00fcncellenmesi gerekir.",
+                        "title": "Rain Bird Ya\u011fmur Geciktirme Hizmeti kald\u0131r\u0131l\u0131yor"
+                    }
+                }
+            },
+            "title": "Rain Bird Ya\u011fmur Geciktirme Hizmeti kald\u0131r\u0131l\u0131yor"
+        },
+        "deprecated_yaml": {
+            "description": "Configuration.yaml'de Rain Bird yap\u0131land\u0131rmas\u0131, Home Assistant 2023.4'te kald\u0131r\u0131l\u0131yor. \n\n Yap\u0131land\u0131rman\u0131z kullan\u0131c\u0131 aray\u00fcz\u00fcne otomatik olarak aktar\u0131ld\u0131, ancak her b\u00f6lge i\u00e7in varsay\u0131lan sulama s\u00fcreleri art\u0131k desteklenmiyor. Rain Bird YAML yap\u0131land\u0131rmas\u0131n\u0131 configuration.yaml dosyan\u0131zdan kald\u0131r\u0131n ve bu sorunu \u00e7\u00f6zmek i\u00e7in Home Assistant'\u0131 yeniden ba\u015flat\u0131n.",
+            "title": "Rain Bird YAML yap\u0131land\u0131rmas\u0131 kald\u0131r\u0131l\u0131yor"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "duration": "Dakika cinsinden varsay\u0131lan sulama s\u00fcresi"
+                },
+                "title": "Rain Bird'\u00fc yap\u0131land\u0131r\u0131n"
+            }
+        }
+    },
+    "services": {
+        "set_rain_delay": {
+            "description": "Otomatik sulaman\u0131n ne kadar s\u00fcreyle kapat\u0131laca\u011f\u0131n\u0131 ayarlar.",
+            "fields": {
+                "config_entry_id": {
+                    "description": "Ayar, belirtilen denetleyicide yap\u0131lacakt\u0131r.",
+                    "name": "Rainbird Kontrol Cihaz\u0131 Yap\u0131land\u0131rma Giri\u015fi"
+                },
+                "duration": {
+                    "description": "Bu sistemin kapat\u0131lmas\u0131 i\u00e7in gereken s\u00fcre.",
+                    "name": "S\u00fcre"
+                }
+            },
+            "name": "Ya\u011fmur gecikmesini ayarla"
+        },
+        "start_irrigation": {
+            "description": "Sulamay\u0131 ba\u015flat\u0131r.",
+            "fields": {
+                "duration": {
+                    "description": "Bu f\u0131skiyenin a\u00e7\u0131k kalma s\u00fcresi.",
+                    "name": "S\u00fcre"
+                }
+            },
+            "name": "Sulamaya ba\u015flay\u0131n"
+        }
+    }
+}

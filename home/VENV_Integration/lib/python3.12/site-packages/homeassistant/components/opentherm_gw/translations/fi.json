@@ -1,0 +1,194 @@
+{
+    "config": {
+        "error": {
+            "already_configured": "Laite on jo m\u00e4\u00e4ritetty",
+            "cannot_connect": "Yhteyden muodostaminen ep\u00e4onnistui",
+            "id_exists": "Yhdysk\u00e4yt\u00e4v\u00e4n tunnus on jo olemassa",
+            "timeout_connect": "Aikakatkaisu yhteytt\u00e4 luodessa"
+        },
+        "step": {
+            "init": {
+                "data": {
+                    "device": "Polku tai URL-osoite",
+                    "id": "Tunniste",
+                    "name": "Nimi"
+                }
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "floor_temperature": "Lattian l\u00e4mp\u00f6tila",
+                    "read_precision": "Lukutarkkuus",
+                    "set_precision": "Asetustarkkuus",
+                    "temporary_override_mode": "Tilap\u00e4inen asetusarvon ohitustila"
+                }
+            }
+        }
+    },
+    "services": {
+        "reset_gateway": {
+            "description": "Nollaa OpenTherm Gatewayn.",
+            "fields": {
+                "gateway_id": {
+                    "description": "OpenTherm Gatewayn gateway_id.",
+                    "name": "Yhdysk\u00e4yt\u00e4v\u00e4n tunnus"
+                }
+            },
+            "name": "Nollaa yhdysk\u00e4yt\u00e4v\u00e4"
+        },
+        "set_central_heating_ovrd": {
+            "fields": {
+                "ch_override": {
+                    "description": "Haluttu boolean-arvo keskusl\u00e4mmityksen ohitukselle.",
+                    "name": "Keskusl\u00e4mmityksen ohitus"
+                },
+                "gateway_id": {
+                    "description": "OpenTherm Gatewayn gateway_id.",
+                    "name": "Yhdysk\u00e4yt\u00e4v\u00e4n tunnus"
+                }
+            },
+            "name": "Aseta keskusl\u00e4mmityksen ohitus"
+        },
+        "set_clock": {
+            "description": "Asettaa kellon ja viikonp\u00e4iv\u00e4n yhdistetylle termostaatille.",
+            "fields": {
+                "date": {
+                    "description": "Valinnainen p\u00e4iv\u00e4m\u00e4\u00e4r\u00e4, josta viikonp\u00e4iv\u00e4 poimitaan. Oletusarvo t\u00e4h\u00e4n p\u00e4iv\u00e4\u00e4n.",
+                    "name": "P\u00e4iv\u00e4m\u00e4\u00e4r\u00e4"
+                },
+                "gateway_id": {
+                    "description": "OpenTherm Gatewayn gateway_id.",
+                    "name": "Yhdysk\u00e4yt\u00e4v\u00e4n tunnus"
+                },
+                "time": {
+                    "description": "Valinnainen aika 24 tunnin muodossa, joka annetaan termostaatille. Oletusarvo on nykyinen aika.",
+                    "name": "Aika"
+                }
+            },
+            "name": "Aseta kello"
+        },
+        "set_control_setpoint": {
+            "description": "Asettaa keskusl\u00e4mmityksen ohjauksen asetusarvon ohituksen yhdysk\u00e4yt\u00e4v\u00e4lle. Tarvitset t\u00e4t\u00e4 vain, jos kirjoitat oman ohjelmistotermostaatin.\n.",
+            "fields": {
+                "gateway_id": {
+                    "description": "OpenTherm Gatewayn gateway_id.",
+                    "name": "Yhdysk\u00e4yt\u00e4v\u00e4n tunnus"
+                },
+                "temperature": {
+                    "description": "Keskusl\u00e4mmityksen asetusarvo, joka asetetaan yhdysk\u00e4yt\u00e4v\u00e4\u00e4n. Arvot v\u00e4lill\u00e4 0-90 hyv\u00e4ksyt\u00e4\u00e4n, mutta kaikki kattilat eiv\u00e4t tue t\u00e4t\u00e4 aluetta. Arvo 0 poistaa keskusl\u00e4mmityksen asetusarvon ohituksen k\u00e4yt\u00f6st\u00e4.\n.",
+                    "name": "L\u00e4mp\u00f6tila"
+                }
+            },
+            "name": "Aseta s\u00e4\u00e4d\u00f6n asetusarvo"
+        },
+        "set_gpio_mode": {
+            "description": "Muuttaa yhdysk\u00e4yt\u00e4v\u00e4n GPIO-nastojen toimintaa.",
+            "fields": {
+                "gateway_id": {
+                    "description": "OpenTherm Gatewayn gateway_id.",
+                    "name": "Yhdysk\u00e4yt\u00e4v\u00e4n tunnus"
+                },
+                "id": {
+                    "description": "GPIO-nastan tunnus.",
+                    "name": "Tunnus"
+                },
+                "mode": {
+                    "description": "GPIO-nastalle asetettava tila. Arvot 0-6 hyv\u00e4ksyt\u00e4\u00e4n molemmille GPIO:ille, 7 hyv\u00e4ksyt\u00e4\u00e4n vain GPIO \"B\":lle. Katso arvojen selitykset osoitteesta https://www.home-assistant.io/integrations/opentherm_gw/#gpio-modes.\n.",
+                    "name": "Tila"
+                }
+            },
+            "name": "Aseta gpio-tila"
+        },
+        "set_hot_water_ovrd": {
+            "description": "Asettaa yhdysk\u00e4yt\u00e4v\u00e4n l\u00e4mpim\u00e4n k\u00e4ytt\u00f6veden k\u00e4ytt\u00f6\u00f6nottoasetuksen.",
+            "fields": {
+                "dhw_override": {
+                    "description": "Ohjaa l\u00e4mpim\u00e4n k\u00e4ytt\u00f6veden k\u00e4ytt\u00f6\u00f6notto -vaihtoehtoa. Jos kattila on m\u00e4\u00e4ritetty siten, ett\u00e4 huoneyksikk\u00f6 voi ohjata, milloin pieni m\u00e4\u00e4r\u00e4 vett\u00e4 pidet\u00e4\u00e4n esil\u00e4mmitettyn\u00e4, t\u00e4m\u00e4 komento voi vaikuttaa siihen. Arvon on oltava 0 tai 1, jotta ohitus voidaan ottaa k\u00e4ytt\u00f6\u00f6n pois p\u00e4\u00e4lt\u00e4 tai p\u00e4\u00e4lle -tilassa, tai \"A\", jotta ohitus poistetaan k\u00e4yt\u00f6st\u00e4.\n.",
+                    "name": "L\u00e4mpim\u00e4n k\u00e4ytt\u00f6veden ohitus"
+                },
+                "gateway_id": {
+                    "description": "OpenTherm Gatewayn gateway_id.",
+                    "name": "Yhdysk\u00e4yt\u00e4v\u00e4n tunnus"
+                }
+            },
+            "name": "Aseta kuuman veden ohitus"
+        },
+        "set_hot_water_setpoint": {
+            "description": "Asettaa l\u00e4mpim\u00e4n k\u00e4ytt\u00f6veden asetusarvon yhdysk\u00e4yt\u00e4v\u00e4\u00e4n.",
+            "fields": {
+                "gateway_id": {
+                    "description": "OpenTherm Gatewayn gateway_id.",
+                    "name": "Yhdysk\u00e4yt\u00e4v\u00e4n tunnus"
+                },
+                "temperature": {
+                    "description": "K\u00e4ytt\u00f6veden asetusarvo, joka asetetaan yhdysk\u00e4yt\u00e4v\u00e4\u00e4n. Kaikki kattilat eiv\u00e4t tue t\u00e4t\u00e4 ominaisuutta. Arvot v\u00e4lill\u00e4 0-90 hyv\u00e4ksyt\u00e4\u00e4n, mutta kaikki kattilat eiv\u00e4t tue t\u00e4t\u00e4 aluetta. Tarkista slave_dhw_min_setp- ja slave_dhw_max_setp-antureiden arvot n\u00e4hd\u00e4ksesi kattilasi tukeman alueen.\n.",
+                    "name": "L\u00e4mp\u00f6tila"
+                }
+            },
+            "name": "Aseta kuuman veden asetusarvo"
+        },
+        "set_led_mode": {
+            "description": "Muuttaa yhdysk\u00e4yt\u00e4v\u00e4n LEDien toimintaa.",
+            "fields": {
+                "gateway_id": {
+                    "description": "OpenTherm Gatewayn gateway_id.",
+                    "name": "Yhdysk\u00e4yt\u00e4v\u00e4n tunnus"
+                },
+                "id": {
+                    "description": "LEDin tunnus.",
+                    "name": "Tunnus"
+                },
+                "mode": {
+                    "description": "LEDille m\u00e4\u00e4ritett\u00e4v\u00e4 toiminto. Katso arvojen selitykset osoitteesta https://www.home-assistant.io/integrations/opentherm_gw/#led-modes.\n.",
+                    "name": "Tila"
+                }
+            },
+            "name": "Aseta LED-tila"
+        },
+        "set_max_modulation": {
+            "description": "Ohittaa suurimman suhteellisen modulaatiotason. Tarvitset t\u00e4t\u00e4 vain, jos kirjoitat oman ohjelmistotermostaatin.\n.",
+            "fields": {
+                "gateway_id": {
+                    "description": "OpenTherm Gatewayn gateway_id.",
+                    "name": "Yhdysk\u00e4yt\u00e4v\u00e4n tunnus"
+                },
+                "level": {
+                    "description": "Yhdysk\u00e4yt\u00e4v\u00e4lle annettava modulaatiotaso. Jos annat arvon -1, voit poistaa ohituksen ja v\u00e4litt\u00e4\u00e4 arvon termostaatilta uudelleen.\n.",
+                    "name": "Taso"
+                }
+            },
+            "name": "Aseta maksimimodulaatio"
+        },
+        "set_outside_temperature": {
+            "description": "Antaa ulkol\u00e4mp\u00f6tilan termostaatille. Jos termostaatti ei pysty n\u00e4ytt\u00e4m\u00e4\u00e4n ulkol\u00e4mp\u00f6tilaa eik\u00e4 tue OTC:t\u00e4 (ulkol\u00e4mp\u00f6tilan korjaus), t\u00e4ll\u00e4 ei ole vaikutusta.\n.",
+            "fields": {
+                "gateway_id": {
+                    "description": "OpenTherm Gatewayn gateway_id.",
+                    "name": "Yhdysk\u00e4yt\u00e4v\u00e4n tunnus"
+                },
+                "temperature": {
+                    "description": "Termostaatille annettava l\u00e4mp\u00f6tila. Arvot v\u00e4lill\u00e4 -40,0-64,0 hyv\u00e4ksyt\u00e4\u00e4n, mutta kaikki termostaatit eiv\u00e4t voi n\u00e4ytt\u00e4\u00e4 koko aluetta. Kaikki arvot yli 64,0 tyhjent\u00e4v\u00e4t aiemmin m\u00e4\u00e4ritetyn arvon (ehdotus: 99).\n.",
+                    "name": "L\u00e4mp\u00f6tila"
+                }
+            },
+            "name": "Aseta ulkol\u00e4mp\u00f6tila"
+        },
+        "set_setback_temperature": {
+            "description": "M\u00e4\u00e4ritt\u00e4\u00e4 palautusl\u00e4mp\u00f6tilan, jota k\u00e4ytet\u00e4\u00e4n GPIO away mode -toiminnon kanssa.",
+            "fields": {
+                "gateway_id": {
+                    "description": "OpenTherm Gatewayn gateway_id.",
+                    "name": "Yhdysk\u00e4yt\u00e4v\u00e4n tunnus"
+                },
+                "temperature": {
+                    "description": "Yhdysk\u00e4yt\u00e4v\u00e4ss\u00e4 m\u00e4\u00e4ritett\u00e4v\u00e4 alennusl\u00e4mp\u00f6tila.",
+                    "name": "L\u00e4mp\u00f6tila"
+                }
+            },
+            "name": "Aseta alennusl\u00e4mp\u00f6tila"
+        }
+    }
+}

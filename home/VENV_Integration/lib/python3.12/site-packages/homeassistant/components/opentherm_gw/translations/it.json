@@ -1,0 +1,194 @@
+{
+    "config": {
+        "error": {
+            "already_configured": "Il dispositivo \u00e8 gi\u00e0 configurato",
+            "cannot_connect": "Impossibile connettersi",
+            "id_exists": "ID del gateway esiste gi\u00e0",
+            "timeout_connect": "Tempo scaduto per stabile la connessione."
+        },
+        "step": {
+            "init": {
+                "data": {
+                    "device": "Percorso o URL",
+                    "id": "ID",
+                    "name": "Nome"
+                }
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "floor_temperature": "Temperatura del pavimento",
+                    "read_precision": "Leggi la precisione",
+                    "set_precision": "Imposta la precisione",
+                    "temporary_override_mode": "Modalit\u00e0 di esclusione temporanea del setpoint"
+                }
+            }
+        }
+    },
+    "services": {
+        "reset_gateway": {
+            "description": "Reimposta il gateway OpenTherm.",
+            "fields": {
+                "gateway_id": {
+                    "description": "Il gateway_id del gateway OpenTherm.",
+                    "name": "ID del gateway"
+                }
+            },
+            "name": "Reimposta il gateway"
+        },
+        "set_central_heating_ovrd": {
+            "fields": {
+                "ch_override": {
+                    "description": "Il valore booleano desiderato per l'override del riscaldamento centrale.",
+                    "name": "Esclusione del riscaldamento centralizzato"
+                },
+                "gateway_id": {
+                    "description": "Il gateway_id del gateway OpenTherm.",
+                    "name": "ID del gateway"
+                }
+            },
+            "name": "Imposta l'esclusione del riscaldamento centralizzato"
+        },
+        "set_clock": {
+            "description": "Imposta l'orologio e il giorno della settimana sul termostato collegato.",
+            "fields": {
+                "date": {
+                    "description": "Data opzionale da cui estrarre il giorno della settimana. Si imposta come data predefinita oggi.",
+                    "name": "Data"
+                },
+                "gateway_id": {
+                    "description": "Il gateway_id del gateway OpenTherm.",
+                    "name": "ID del gateway"
+                },
+                "time": {
+                    "description": "Ora opzionale in formato 24 ore che verr\u00e0 fornita al termostato. L'impostazione predefinita \u00e8 l'ora corrente.",
+                    "name": "Ore"
+                }
+            },
+            "name": "Imposta l'orologio"
+        },
+        "set_control_setpoint": {
+            "description": "Imposta l'override del setpoint di controllo del riscaldamento centrale sul gateway. \u00c8 necessario solo se si sta scrivendo il proprio termostato software.\n.",
+            "fields": {
+                "gateway_id": {
+                    "description": "Il gateway_id del gateway OpenTherm.",
+                    "name": "ID del gateway"
+                },
+                "temperature": {
+                    "description": "Il setpoint di riscaldamento centralizzato da impostare sul gateway. Sono accettati valori compresi tra 0 e 90, ma non tutte le caldaie supportano questo intervallo. Un valore pari a 0 disabilita l'overpoint del setpoint del riscaldamento centrale.\n.",
+                    "name": "Temperatura"
+                }
+            },
+            "name": "Imposta il punto di controllo"
+        },
+        "set_gpio_mode": {
+            "description": "Modifica la funzione dei pin GPIO del gateway.",
+            "fields": {
+                "gateway_id": {
+                    "description": "Il gateway_id del gateway OpenTherm.",
+                    "name": "ID del gateway"
+                },
+                "id": {
+                    "description": "L'ID del pin GPIO.",
+                    "name": "ID"
+                },
+                "mode": {
+                    "description": "Modalit\u00e0 da impostare sul pin GPIO. I valori da 0 a 6 sono accettati per entrambi i GPIO, 7 \u00e8 accettato solo per GPIO \"B\". Vedere https://www.home-assistant.io/integrations/opentherm_gw/#gpio-modes per una spiegazione dei valori.\n .",
+                    "name": "Modalit\u00e0"
+                }
+            },
+            "name": "Imposta la modalit\u00e0 gpio"
+        },
+        "set_hot_water_ovrd": {
+            "description": "Imposta l'opzione di abilitazione dell'acqua calda sanitaria sul gateway.",
+            "fields": {
+                "dhw_override": {
+                    "description": "Controlla l'opzione di abilitazione dell'acqua calda sanitaria. Se la caldaia \u00e8 stata configurata in modo da consentire all'unit\u00e0 ambiente di controllare quando mantenere una piccola quantit\u00e0 di acqua preriscaldata, questo comando pu\u00f2 influire su tale opzione. Il valore deve essere 0 o 1 per abilitare l'override in stato off o on, oppure \"A\" per disabilitare l'override.\n.",
+                    "name": "Esclusione dell'acqua calda sanitaria"
+                },
+                "gateway_id": {
+                    "description": "Il gateway_id del gateway OpenTherm.",
+                    "name": "ID del gateway"
+                }
+            },
+            "name": "Imposta l'esclusione dell'acqua calda"
+        },
+        "set_hot_water_setpoint": {
+            "description": "Imposta il setpoint dell'acqua calda sanitaria sul gateway.",
+            "fields": {
+                "gateway_id": {
+                    "description": "Il gateway_id del gateway OpenTherm.",
+                    "name": "ID del gateway"
+                },
+                "temperature": {
+                    "description": "Il setpoint dell'acqua calda sanitaria da impostare sul gateway. Non tutte le caldaie supportano questa funzione. Sono accettati valori compresi tra 0 e 90, ma non tutte le caldaie supportano questo intervallo. Controlla i valori delle sonde slave_dhw_min_setp e slave_dhw_max_setp per vedere l'intervallo supportato sulla tua caldaia.\n .",
+                    "name": "Temperatura"
+                }
+            },
+            "name": "Imposta il punto di riferimento per l'acqua calda"
+        },
+        "set_led_mode": {
+            "description": "Cambia la funzione dei LED del gateway.",
+            "fields": {
+                "gateway_id": {
+                    "description": "Il gateway_id del gateway OpenTherm.",
+                    "name": "ID del gateway"
+                },
+                "id": {
+                    "description": "L'ID del LED.",
+                    "name": "ID"
+                },
+                "mode": {
+                    "description": "La funzione da assegnare al LED. Vedere https://www.home-assistant.io/integrations/opentherm_gw/#led-modes per una spiegazione dei valori.\n .",
+                    "name": "Modalit\u00e0"
+                }
+            },
+            "name": "Imposta la modalit\u00e0 LED"
+        },
+        "set_max_modulation": {
+            "description": "Sostituisce il livello di modulazione relativo massimo. Ne avrai bisogno solo se stai scrivendo il tuo termostato software.\n .",
+            "fields": {
+                "gateway_id": {
+                    "description": "Il gateway_id del gateway OpenTherm.",
+                    "name": "ID del gateway"
+                },
+                "level": {
+                    "description": "Il livello di modulazione da fornire al gateway. Fornisci un valore pari a -1 per cancellare l'override e inoltrare nuovamente il valore dal termostato.\n .",
+                    "name": "Livello"
+                }
+            },
+            "name": "Imposta la massima modulazione"
+        },
+        "set_outside_temperature": {
+            "description": "Fornisce una temperatura esterna al termostato. Se il tuo termostato non \u00e8 in grado di visualizzare una temperatura esterna e non supporta OTC (Outside Temperature Correction), questo non ha alcun effetto.\n .",
+            "fields": {
+                "gateway_id": {
+                    "description": "Il gateway_id del gateway OpenTherm.",
+                    "name": "ID del gateway"
+                },
+                "temperature": {
+                    "description": "La temperatura da fornire al termostato. Saranno accettati valori compresi tra -40,0 e 64,0, ma non tutti i termostati possono visualizzare l'intervallo completo. Qualsiasi valore superiore a 64,0 canceller\u00e0 un valore precedentemente configurato (suggerimento: 99)\n .",
+                    "name": "Temperatura"
+                }
+            },
+            "name": "Imposta la temperatura esterna"
+        },
+        "set_setback_temperature": {
+            "description": "Configura la temperatura di setback da utilizzare con la funzione GPIO modalit\u00e0 fuori casa.",
+            "fields": {
+                "gateway_id": {
+                    "description": "Il gateway_id del gateway OpenTherm.",
+                    "name": "ID del gateway"
+                },
+                "temperature": {
+                    "description": "La temperatura di setback da configurare sul gateway.",
+                    "name": "Temperatura"
+                }
+            },
+            "name": "Imposta la temperatura di setback"
+        }
+    }
+}

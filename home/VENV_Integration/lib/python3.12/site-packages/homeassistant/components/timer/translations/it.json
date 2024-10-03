@@ -1,0 +1,84 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "Temporizzatore",
+            "state": {
+                "active": "Attivo",
+                "idle": "Inattivo",
+                "paused": "In pausa"
+            },
+            "state_attributes": {
+                "duration": {
+                    "name": "Durata"
+                },
+                "editable": {
+                    "name": "Gestito tramite interfaccia utente",
+                    "state": {
+                        "false": "No",
+                        "true": "S\u00ec"
+                    }
+                },
+                "finishes_at": {
+                    "name": "Finisce alle"
+                },
+                "remaining": {
+                    "name": "Rimanente"
+                },
+                "restore": {
+                    "name": "Ripristina"
+                }
+            }
+        }
+    },
+    "issues": {
+        "deprecated_duration_in_start": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Il parametro di durata opzionale 'timer.start' del servizio timer viene rimosso ed \u00e8 stato rilevato il suo utilizzo. Per modificare la durata si prega di creare un nuovo timer.\n\nRimuovere l'uso del parametro 'duration' nel servizio 'timer.start' nelle automazioni e negli script e selezionare **invia** per chiudere il problema.",
+                        "title": "Il parametro relativo alla durata del servizio di avvio del timer \u00e8 in fase di rimozione"
+                    }
+                }
+            },
+            "title": "Il parametro relativo alla durata del servizio di avvio del timer \u00e8 in fase di rimozione"
+        }
+    },
+    "services": {
+        "cancel": {
+            "description": "Annulla un timer.",
+            "name": "Annulla"
+        },
+        "change": {
+            "description": "Cambia un timer.",
+            "fields": {
+                "duration": {
+                    "description": "Durata da aggiungere o sottrarre al timer in esecuzione.",
+                    "name": "Durata"
+                }
+            },
+            "name": "Cambia"
+        },
+        "finish": {
+            "description": "Finisce un timer.",
+            "name": "Fine"
+        },
+        "pause": {
+            "description": "Mette in pausa un timer.",
+            "name": "Pausa"
+        },
+        "reload": {
+            "description": "Ricarica i timer dalla configurazione YAML.",
+            "name": "Ricarica"
+        },
+        "start": {
+            "description": "Avvia un timer.",
+            "fields": {
+                "duration": {
+                    "description": "Durata richiesta dal timer per terminare. [opzionale].",
+                    "name": "Durata"
+                }
+            },
+            "name": "Avvia"
+        }
+    }
+}

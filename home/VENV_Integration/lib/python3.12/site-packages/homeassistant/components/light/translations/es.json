@@ -1,0 +1,461 @@
+{
+    "common": {
+        "field_brightness_description": "N\u00famero que indica el brillo, donde 0 apaga la luz, 1 es el brillo m\u00ednimo y 255 es el brillo m\u00e1ximo.",
+        "field_brightness_name": "Valor de brillo",
+        "field_brightness_pct_description": "N\u00famero que indica el porcentaje de brillo total, donde 0 apaga la luz, 1 es el brillo m\u00ednimo y 100 es el brillo m\u00e1ximo.",
+        "field_brightness_pct_name": "Brillo",
+        "field_brightness_step_description": "Cambia el brillo en una cantidad.",
+        "field_brightness_step_name": "Valor de paso de brillo",
+        "field_brightness_step_pct_description": "Cambia el brillo en un porcentaje.",
+        "field_brightness_step_pct_name": "Paso de brillo",
+        "field_color_name_description": "Un nombre de color legible por humanos.",
+        "field_color_name_name": "Nombre del color",
+        "field_color_temp_description": "Temperatura de color en mireds.",
+        "field_color_temp_name": "Temperatura de color",
+        "field_effect_description": "Efecto de luz.",
+        "field_effect_name": "Efecto",
+        "field_flash_description": "Indicar a la luz que parpadee, puede ser un valor corto o largo.",
+        "field_flash_name": "Destello",
+        "field_hs_color_description": "Color en formato hue/sat. Una lista de dos n\u00fameros enteros. Hue es 0-360 y Sat es 0-100.",
+        "field_hs_color_name": "Tono/saturaci\u00f3n de color",
+        "field_kelvin_description": "Temperatura de color en Kelvin.",
+        "field_kelvin_name": "Temperatura de color",
+        "field_profile_description": "Nombre de un perfil de luz a utilizar.",
+        "field_profile_name": "Perfil",
+        "field_rgb_color_description": "El color en formato RGB. Una lista de tres n\u00fameros enteros entre 0 y 255 que representan los valores de rojo, verde y azul.",
+        "field_rgb_color_name": "Color",
+        "field_rgbw_color_description": "El color en formato RGBW. Una lista de cuatro n\u00fameros enteros entre 0 y 255 que representan los valores de rojo, verde, azul y blanco.",
+        "field_rgbw_color_name": "Color RGBW",
+        "field_rgbww_color_description": "El color en formato RGBWW. Una lista de cinco n\u00fameros enteros entre 0 y 255 que representan los valores de rojo, verde, azul, blanco fr\u00edo y blanco c\u00e1lido.",
+        "field_rgbww_color_name": "Color RGBWW",
+        "field_transition_description": "Tiempo que se tarda en llegar al siguiente estado.",
+        "field_transition_name": "Transici\u00f3n",
+        "field_white_description": "Pone la luz en modo blanco.",
+        "field_white_name": "Blanco",
+        "field_xy_color_description": "Color en formato XY. Una lista de dos n\u00fameros decimales entre 0 y 1.",
+        "field_xy_color_name": "Color XY",
+        "section_advanced_fields_name": "Opciones avanzadas"
+    },
+    "device_automation": {
+        "action_type": {
+            "brightness_decrease": "Disminuir brillo de {entity_name}",
+            "brightness_increase": "Aumentar brillo de {entity_name}",
+            "flash": "Destellear {entity_name}",
+            "toggle": "Alternar {entity_name}",
+            "turn_off": "Apagar {entity_name}",
+            "turn_on": "Encender {entity_name}"
+        },
+        "condition_type": {
+            "is_off": "{entity_name} est\u00e1 apagado",
+            "is_on": "{entity_name} est\u00e1 encendido"
+        },
+        "extra_fields": {
+            "brightness_pct": "Brillo",
+            "flash": "Destello"
+        },
+        "trigger_type": {
+            "changed_states": "{entity_name} se encendi\u00f3 o apag\u00f3",
+            "turned_off": "{entity_name} apagado",
+            "turned_on": "{entity_name} encendido"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Luz",
+            "state": {
+                "off": "Apagado",
+                "on": "Encendido"
+            },
+            "state_attributes": {
+                "brightness": {
+                    "name": "Brillo"
+                },
+                "color_mode": {
+                    "name": "Modo de color",
+                    "state": {
+                        "brightness": "S\u00f3lo brillo",
+                        "color_temp": "Temperatura de color",
+                        "hs": "HS",
+                        "onoff": "Encendido/Apagado",
+                        "rgb": "RGB",
+                        "rgbw": "RGBW",
+                        "rgbww": "RGBWW",
+                        "unknown": "Desconocido",
+                        "white": "Blanco",
+                        "xy": "XY"
+                    }
+                },
+                "color_temp": {
+                    "name": "Temperatura de color (mireds)"
+                },
+                "color_temp_kelvin": {
+                    "name": "Temperatura de color (Kelvin)"
+                },
+                "effect": {
+                    "name": "Efecto"
+                },
+                "effect_list": {
+                    "name": "Efectos disponibles"
+                },
+                "max_color_temp_kelvin": {
+                    "name": "Temperatura de color m\u00e1xima (Kelvin)"
+                },
+                "max_mireds": {
+                    "name": "Temperatura de color m\u00e1xima (mireds)"
+                },
+                "min_color_temp_kelvin": {
+                    "name": "Temperatura de color m\u00ednima (Kelvin)"
+                },
+                "min_mireds": {
+                    "name": "Temperatura de color m\u00ednima (mireds)"
+                },
+                "supported_color_modes": {
+                    "name": "Modos de color disponibles",
+                    "state": {
+                        "brightness": "S\u00f3lo brillo",
+                        "color_temp": "Temperatura de color",
+                        "hs": "HS",
+                        "onoff": "Encendido/Apagado",
+                        "rgb": "RGB",
+                        "rgbw": "RGBW",
+                        "rgbww": "RGBWW",
+                        "unknown": "Desconocido",
+                        "white": "Blanco",
+                        "xy": "XY"
+                    }
+                }
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "La plataforma {platform} para la integraci\u00f3n {domain} no es compatible con la configuraci\u00f3n de la plataforma. \n\nElim\u00ednala de tu configuraci\u00f3n y reinicia Home Assistant para solucionar este problema.",
+            "title": "Soporte de plataforma no compatible"
+        }
+    },
+    "selector": {
+        "color_name": {
+            "options": {
+                "aliceblue": "Azul Alicia",
+                "antiquewhite": "Blanco antiguo",
+                "aqua": "Aqua",
+                "aquamarine": "Aguamarina",
+                "azure": "Azur",
+                "beige": "Beige",
+                "bisque": "Bizcocho",
+                "blanchedalmond": "Almendra blanqueada",
+                "blue": "Azul",
+                "blueviolet": "Azul violeta",
+                "brown": "Marr\u00f3n",
+                "burlywood": "Burlywood",
+                "cadetblue": "Azul cadete",
+                "chartreuse": "Chartreuse",
+                "chocolate": "Chocolate",
+                "coral": "Coral",
+                "cornflowerblue": "Azul aciano",
+                "cornsilk": "Seda de ma\u00edz",
+                "crimson": "Carmes\u00ed",
+                "cyan": "Cian",
+                "darkblue": "Azul oscuro",
+                "darkcyan": "Cian oscuro",
+                "darkgoldenrod": "Vara de oro oscuro",
+                "darkgray": "Gris oscuro",
+                "darkgreen": "Verde oscuro",
+                "darkgrey": "Gris oscura",
+                "darkkhaki": "Caqui oscuro",
+                "darkmagenta": "Magenta oscuro",
+                "darkolivegreen": "Verde oliva oscuro",
+                "darkorange": "Naranja oscuro",
+                "darkorchid": "Orqu\u00eddea oscuro",
+                "darkred": "Rojo oscuro",
+                "darksalmon": "Salm\u00f3n oscuro",
+                "darkseagreen": "Verde mar oscuro",
+                "darkslateblue": "Azul pizarra oscuro",
+                "darkslategray": "Gris pizarra oscuro",
+                "darkslategrey": "Gris pizarra oscuro",
+                "darkturquoise": "Turquesa oscuro",
+                "darkviolet": "Violeta oscuro",
+                "deeppink": "Rosa intenso",
+                "deepskyblue": "Azul cielo profundo",
+                "dimgray": "Gris tenue",
+                "dimgrey": "Gris tenue",
+                "dodgerblue": "Azul Dodger",
+                "firebrick": "Ladrillo refractario",
+                "floralwhite": "Blanco floral",
+                "forestgreen": "Verde bosque",
+                "fuchsia": "Fucsia",
+                "gainsboro": "Gainsboro",
+                "ghostwhite": "Blanco fantasma",
+                "gold": "Oro",
+                "goldenrod": "Vara de oro",
+                "gray": "Gris",
+                "green": "Verde",
+                "greenyellow": "Verde amarillo",
+                "grey": "Gris",
+                "homeassistant": "Home Assistant",
+                "honeydew": "Gotas de miel",
+                "hotpink": "Rosa vivo",
+                "indianred": "Rojo indio",
+                "indigo": "A\u00f1il",
+                "ivory": "Marfil",
+                "khaki": "Caqui",
+                "lavender": "Lavanda",
+                "lavenderblush": "Rubor de lavanda",
+                "lawngreen": "Verde c\u00e9sped",
+                "lemonchiffon": "Gasa de lim\u00f3n",
+                "lightblue": "Azul claro",
+                "lightcoral": "Coral claro",
+                "lightcyan": "Cian claro",
+                "lightgoldenrodyellow": "Amarillo vara de oro claro",
+                "lightgray": "Gris claro",
+                "lightgreen": "Verde claro",
+                "lightgrey": "Gris claro",
+                "lightpink": "Rosa claro",
+                "lightsalmon": "Salm\u00f3n claro",
+                "lightseagreen": "Verde mar claro",
+                "lightskyblue": "Azul cielo claro",
+                "lightslategray": "Gris pizarra claro",
+                "lightslategrey": "Gris pizarra claro",
+                "lightsteelblue": "Azul acero claro",
+                "lightyellow": "Amarillo claro",
+                "lime": "Lima",
+                "limegreen": "Verde lima",
+                "linen": "Lino",
+                "magenta": "Magenta",
+                "maroon": "Granate",
+                "mediumaquamarine": "Aguamarina medio",
+                "mediumblue": "Azul medio",
+                "mediumorchid": "Orqu\u00eddea medio",
+                "mediumpurple": "Morado medio",
+                "mediumseagreen": "Verde mar medio",
+                "mediumslateblue": "Azul pizarra medio",
+                "mediumspringgreen": "Verde primavera medio",
+                "mediumturquoise": "Turquesa medio",
+                "mediumvioletred": "Rojo viol\u00e1ceo medio",
+                "midnightblue": "Azul medianoche",
+                "mintcream": "Crema de menta",
+                "mistyrose": "Rosa brumosa",
+                "moccasin": "Mocas\u00edn",
+                "navajowhite": "Navajo blanco",
+                "navy": "Marino",
+                "navyblue": "Azul marina",
+                "oldlace": "Encaje viejo",
+                "olive": "Aceituna",
+                "olivedrab": "Verde oliva",
+                "orange": "Naranja",
+                "orangered": "Rojo anaranjado",
+                "orchid": "Orqu\u00eddea",
+                "palegoldenrod": "Vara de oro p\u00e1lida",
+                "palegreen": "Verde p\u00e1lido",
+                "paleturquoise": "Turquesa p\u00e1lido",
+                "palevioletred": "Rojo violeta p\u00e1lido",
+                "papayawhip": "L\u00e1tigo de papaya",
+                "peachpuff": "Hojaldre de melocot\u00f3n",
+                "peru": "Per\u00fa",
+                "pink": "Rosa",
+                "plum": "Ciruela",
+                "powderblue": "Azul p\u00e1lido",
+                "purple": "Morado",
+                "red": "Rojo",
+                "rosybrown": "Marr\u00f3n rosado",
+                "royalblue": "Azul real",
+                "saddlebrown": "Sill\u00edn marr\u00f3n",
+                "salmon": "Salm\u00f3n",
+                "sandybrown": "Marr\u00f3n arenoso",
+                "seagreen": "Verde mar",
+                "seashell": "Concha",
+                "sienna": "Sienna",
+                "silver": "Plata",
+                "skyblue": "Azul cielo",
+                "slateblue": "Azul pizarra",
+                "slategray": "Gris pizarra",
+                "slategrey": "Gris pizarra",
+                "snow": "Nieve",
+                "springgreen": "Verde primavera",
+                "steelblue": "Azul acero",
+                "tan": "Bronceado",
+                "teal": "Verde azulado",
+                "thistle": "Cardo",
+                "tomato": "Tomate",
+                "turquoise": "Turquesa",
+                "violet": "Violeta",
+                "wheat": "Trigo",
+                "white": "Blanco",
+                "whitesmoke": "Humo blanco",
+                "yellow": "Amarillo",
+                "yellowgreen": "Amarillo verde"
+            }
+        }
+    },
+    "services": {
+        "toggle": {
+            "description": "Conmuta una o m\u00e1s luces, de encendido a apagado, o, de apagado a encendido, en funci\u00f3n de su estado actual.",
+            "fields": {
+                "brightness": {
+                    "description": "N\u00famero que indica el brillo, donde 0 apaga la luz, 1 es el brillo m\u00ednimo y 255 es el brillo m\u00e1ximo.",
+                    "name": "Valor de brillo"
+                },
+                "brightness_pct": {
+                    "description": "N\u00famero que indica el porcentaje de brillo total, donde 0 apaga la luz, 1 es el brillo m\u00ednimo y 100 es el brillo m\u00e1ximo.",
+                    "name": "Brillo"
+                },
+                "color_name": {
+                    "description": "Un nombre de color legible por humanos.",
+                    "name": "Nombre del color"
+                },
+                "color_temp": {
+                    "description": "Temperatura de color en mireds.",
+                    "name": "Temperatura de color"
+                },
+                "effect": {
+                    "description": "Efecto de luz.",
+                    "name": "Efecto"
+                },
+                "flash": {
+                    "description": "Indicar a la luz que parpadee, puede ser un valor corto o largo.",
+                    "name": "Destello"
+                },
+                "hs_color": {
+                    "description": "Color en formato hue/sat. Una lista de dos n\u00fameros enteros. Hue es 0-360 y Sat es 0-100.",
+                    "name": "Tono/saturaci\u00f3n de color"
+                },
+                "kelvin": {
+                    "description": "Temperatura de color en Kelvin.",
+                    "name": "Temperatura de color"
+                },
+                "profile": {
+                    "description": "Nombre de un perfil de luz a utilizar.",
+                    "name": "Perfil"
+                },
+                "rgb_color": {
+                    "description": "El color en formato RGB. Una lista de tres n\u00fameros enteros entre 0 y 255 que representan los valores de rojo, verde y azul.",
+                    "name": "Color"
+                },
+                "rgbw_color": {
+                    "description": "El color en formato RGBW. Una lista de cuatro n\u00fameros enteros entre 0 y 255 que representan los valores de rojo, verde, azul y blanco.",
+                    "name": "Color RGBW"
+                },
+                "rgbww_color": {
+                    "description": "El color en formato RGBWW. Una lista de cinco n\u00fameros enteros entre 0 y 255 que representan los valores de rojo, verde, azul, blanco fr\u00edo y blanco c\u00e1lido.",
+                    "name": "Color RGBWW"
+                },
+                "transition": {
+                    "description": "Tiempo que se tarda en llegar al siguiente estado.",
+                    "name": "Transici\u00f3n"
+                },
+                "white": {
+                    "description": "Pone la luz en modo blanco.",
+                    "name": "Blanco"
+                },
+                "xy_color": {
+                    "description": "Color en formato XY. Una lista de dos n\u00fameros decimales entre 0 y 1.",
+                    "name": "Color XY"
+                }
+            },
+            "name": "Alternar",
+            "sections": {
+                "advanced_fields": {
+                    "name": "Opciones avanzadas"
+                }
+            }
+        },
+        "turn_off": {
+            "description": "Apaga una o varias luces.",
+            "fields": {
+                "flash": {
+                    "description": "Indicar a la luz que parpadee, puede ser un valor corto o largo.",
+                    "name": "Destello"
+                },
+                "transition": {
+                    "description": "Tiempo que se tarda en llegar al siguiente estado.",
+                    "name": "Transici\u00f3n"
+                }
+            },
+            "name": "Apagar",
+            "sections": {
+                "advanced_fields": {
+                    "name": "Opciones avanzadas"
+                }
+            }
+        },
+        "turn_on": {
+            "description": "Enciende una o varias luces y ajusta sus propiedades, aunque ya est\u00e9n encendidas.",
+            "fields": {
+                "brightness": {
+                    "description": "N\u00famero que indica el brillo, donde 0 apaga la luz, 1 es el brillo m\u00ednimo y 255 es el brillo m\u00e1ximo.",
+                    "name": "Valor de brillo"
+                },
+                "brightness_pct": {
+                    "description": "N\u00famero que indica el porcentaje de brillo total, donde 0 apaga la luz, 1 es el brillo m\u00ednimo y 100 es el brillo m\u00e1ximo.",
+                    "name": "Brillo"
+                },
+                "brightness_step": {
+                    "description": "Cambia el brillo en una cantidad.",
+                    "name": "Valor de paso de brillo"
+                },
+                "brightness_step_pct": {
+                    "description": "Cambia el brillo en un porcentaje.",
+                    "name": "Paso de brillo"
+                },
+                "color_name": {
+                    "description": "Un nombre de color legible por humanos.",
+                    "name": "Nombre del color"
+                },
+                "color_temp": {
+                    "description": "Temperatura de color en mireds.",
+                    "name": "Temperatura de color"
+                },
+                "effect": {
+                    "description": "Efecto de luz.",
+                    "name": "Efecto"
+                },
+                "flash": {
+                    "description": "Indicar a la luz que parpadee, puede ser un valor corto o largo.",
+                    "name": "Destello"
+                },
+                "hs_color": {
+                    "description": "Color en formato hue/sat. Una lista de dos n\u00fameros enteros. Hue es 0-360 y Sat es 0-100.",
+                    "name": "Tono/saturaci\u00f3n de color"
+                },
+                "kelvin": {
+                    "description": "Temperatura de color en Kelvin.",
+                    "name": "Temperatura de color"
+                },
+                "profile": {
+                    "description": "Nombre de un perfil de luz a utilizar.",
+                    "name": "Perfil"
+                },
+                "rgb_color": {
+                    "description": "El color en formato RGB. Una lista de tres n\u00fameros enteros entre 0 y 255 que representan los valores de rojo, verde y azul.",
+                    "name": "Color"
+                },
+                "rgbw_color": {
+                    "name": "Color RGBW"
+                },
+                "rgbww_color": {
+                    "description": "El color en formato RGBWW. Una lista de cinco n\u00fameros enteros entre 0 y 255 que representan los valores de rojo, verde, azul, blanco fr\u00edo y blanco c\u00e1lido.",
+                    "name": "Color RGBWW"
+                },
+                "transition": {
+                    "description": "Tiempo que se tarda en llegar al siguiente estado.",
+                    "name": "Transici\u00f3n"
+                },
+                "white": {
+                    "description": "Pone la luz en modo blanco.",
+                    "name": "Blanco"
+                },
+                "xy_color": {
+                    "description": "Color en formato XY. Una lista de dos n\u00fameros decimales entre 0 y 1.",
+                    "name": "Color XY"
+                }
+            },
+            "name": "Encender",
+            "sections": {
+                "advanced_fields": {
+                    "name": "Opciones avanzadas"
+                }
+            }
+        }
+    },
+    "title": "Luz"
+}

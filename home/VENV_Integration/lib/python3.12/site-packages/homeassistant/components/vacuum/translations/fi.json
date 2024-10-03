@@ -1,0 +1,112 @@
+{
+    "device_automation": {
+        "action_type": {
+            "clean": "Anna {entity_name} puhdistaa",
+            "dock": "Anna {entity_name} palata telakkaan"
+        },
+        "condition_type": {
+            "is_cleaning": "{entity_name} on siivoamassa",
+            "is_docked": "{entity_name} on telakoituna"
+        },
+        "trigger_type": {
+            "cleaning": "{entity_name} aloitti siivouksen",
+            "docked": "{entity_name} telakoitu"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Imuri",
+            "state": {
+                "cleaning": "Siivoaa",
+                "docked": "Telakoituna",
+                "error": "Virhe",
+                "idle": "Toimeton",
+                "off": "Pois",
+                "on": "P\u00e4\u00e4ll\u00e4",
+                "paused": "Pys\u00e4ytetty",
+                "returning": "Palaamassa telakkaan"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_vacuum_base_class": {
+            "description": "Mukautettu integraatio `{platform}` laajentaa vanhentunutta perusluokkaa `VacuumEntity` eik\u00e4 `StateVacuumEntity`.\n\nIlmoita siit\u00e4 `{platform}`-integraation tekij\u00e4lle.\n\nKun `{platform}`:n p\u00e4ivitetty versio on saatavilla, asenna se ja k\u00e4ynnist\u00e4 Home Assistant uudelleen ongelman korjaamiseksi.",
+            "title": "{platform}:n mukautettu integraatio k\u00e4ytt\u00e4\u00e4 vanhentunutta imurointiominaisuutta."
+        },
+        "deprecated_vacuum_base_class_url": {
+            "description": "Mukautettu integraatio `{platform}` laajentaa vanhentunutta perusluokkaa `VacuumEntity` eik\u00e4 `StateVacuumEntity`.\n\nLuo vikailmoitus osoitteessa {issue_tracker}.\n\nKun `{platform}`:n p\u00e4ivitetty versio on saatavilla, asenna se ja k\u00e4ynnist\u00e4 Home Assistant uudelleen ongelman korjaamiseksi.",
+            "title": "{platform}:n mukautettu integraatio k\u00e4ytt\u00e4\u00e4 vanhentunutta imurointiominaisuutta."
+        },
+        "platform_integration_no_support": {
+            "description": "{platform}-integraation {domain}-alusta ei tue alustan asetuksia.\n\nPoista se asetuksista ja k\u00e4ynnist\u00e4 Home Assistant uudelleen ongelman korjaamiseksi.",
+            "title": "Alustan tukea ei tueta"
+        }
+    },
+    "services": {
+        "clean_spot": {
+            "description": "K\u00e4skee p\u00f6lynimuria siivoamaan paikan.",
+            "name": "Puhdista paikka"
+        },
+        "locate": {
+            "description": "Paikantaa p\u00f6lynimurirobotin.",
+            "name": "Paikanna"
+        },
+        "pause": {
+            "description": "Keskeytt\u00e4\u00e4 puhdistusteht\u00e4v\u00e4n.",
+            "name": "Keskeyt\u00e4"
+        },
+        "return_to_base": {
+            "description": "K\u00e4skee p\u00f6lynimurin palaamaan telakkaan.",
+            "name": "Palaa telakkaan"
+        },
+        "send_command": {
+            "description": "L\u00e4hett\u00e4\u00e4 komennon p\u00f6lynimurille.",
+            "fields": {
+                "command": {
+                    "description": "Suoritettava komento. Komennot ovat integraatiokohtaisia.",
+                    "name": "Komento"
+                },
+                "params": {
+                    "description": "Komennon parametrit. Parametrit ovat integraatiokohtaisia.",
+                    "name": "Parametrit"
+                }
+            },
+            "name": "L\u00e4het\u00e4 komento"
+        },
+        "set_fan_speed": {
+            "description": "Asettaa p\u00f6lynimurin tuulettimen nopeuden.",
+            "fields": {
+                "fan_speed": {
+                    "description": "Tuulettimen nopeus. Arvo riippuu integroinnista. Joissakin integroinneissa on nopeusportaita, kuten 'medium'. Joissakin k\u00e4ytet\u00e4\u00e4n prosenttilukua 0 ja 100 v\u00e4lill\u00e4.",
+                    "name": "Tuulettimen nopeus"
+                }
+            },
+            "name": "Aseta tuulettimen nopeus"
+        },
+        "start": {
+            "description": "K\u00e4ynnist\u00e4\u00e4 tai jatkaa puhdistusteht\u00e4v\u00e4\u00e4.",
+            "name": "K\u00e4ynnist\u00e4"
+        },
+        "start_pause": {
+            "description": "K\u00e4ynnist\u00e4\u00e4, keskeytt\u00e4\u00e4 tai jatkaa puhdistusteht\u00e4v\u00e4\u00e4.",
+            "name": "K\u00e4ynnist\u00e4/tauko"
+        },
+        "stop": {
+            "description": "Pys\u00e4ytt\u00e4\u00e4 nykyisen puhdistusteht\u00e4v\u00e4n.",
+            "name": "Pys\u00e4yt\u00e4"
+        },
+        "toggle": {
+            "description": "Kytkee p\u00f6lynimurin p\u00e4\u00e4lle/pois.",
+            "name": "Vaihda"
+        },
+        "turn_off": {
+            "description": "Pys\u00e4ytt\u00e4\u00e4 nykyisen puhdistusteht\u00e4v\u00e4n ja palaa telakkaan.",
+            "name": "Sammuta"
+        },
+        "turn_on": {
+            "description": "Aloittaa uuden siivousteht\u00e4v\u00e4n.",
+            "name": "Laita p\u00e4\u00e4lle"
+        }
+    },
+    "title": "Imuri"
+}

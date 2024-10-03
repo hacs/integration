@@ -1,0 +1,56 @@
+{
+    "config": {
+        "abort": {
+            "cloud_not_connected": "Nen\u00ed p\u0159ipojeno k Home Assistant Cloud.",
+            "single_instance_allowed": "Ji\u017e nastaveno. Je mo\u017en\u00e9 jen jedin\u00e9 nastaven\u00ed.",
+            "webhook_not_internet_accessible": "V\u00e1\u0161 Home Assistant mus\u00ed b\u00fdt p\u0159\u00edstupn\u00fd z internetu, aby mohl p\u0159ij\u00edmat zpr\u00e1vy webhook."
+        },
+        "create_entry": {
+            "default": "Chcete-li odeslat ud\u00e1losti do Home Assistanta, budete muset pou\u017e\u00edt akci \"Vytvo\u0159it webovou \u017e\u00e1dost\" z [IFTTT Webhook appletu]({applet_url}).\n\nVypl\u0148te n\u00e1sleduj\u00edc\u00ed informace:\n\n- URL: \"{webhook_url}\"\n- Metoda: POST\n- Typ obsahu: aplikace/json\n\nPod\u00edvejte se do [dokumentace]({docs_url}), jak nastavit automatizace pro zpracov\u00e1n\u00ed p\u0159\u00edchoz\u00edch dat."
+        },
+        "step": {
+            "user": {
+                "description": "Opravdu chcete nastavit IFTTT?",
+                "title": "Nastavit applet webhooku IFTTT"
+            }
+        }
+    },
+    "services": {
+        "push_alarm_state": {
+            "description": "Aktualizuje stav alarmu na zadanou hodnotu.",
+            "fields": {
+                "entity_id": {
+                    "description": "N\u00e1zev ovl\u00e1dac\u00edho panelu alarmu, jeho\u017e stav m\u00e1 b\u00fdt aktualizov\u00e1n.",
+                    "name": "ID entity"
+                },
+                "state": {
+                    "description": "Stav, do kter\u00e9ho mus\u00ed b\u00fdt nastaven ovl\u00e1dac\u00ed panel alarmu.",
+                    "name": "Stav"
+                }
+            },
+            "name": "Stav push alarmu"
+        },
+        "trigger": {
+            "description": "Spust\u00ed nastaven\u00fd webhook IFTTT.",
+            "fields": {
+                "event": {
+                    "description": "N\u00e1zev ud\u00e1losti, kter\u00e1 se m\u00e1 odeslat.",
+                    "name": "Ud\u00e1lost"
+                },
+                "value1": {
+                    "description": "Obecn\u00e9 pole pro odesl\u00e1n\u00ed dat prost\u0159ednictv\u00edm ud\u00e1losti.",
+                    "name": "Hodnota 1"
+                },
+                "value2": {
+                    "description": "Obecn\u00e9 pole pro odesl\u00e1n\u00ed dat prost\u0159ednictv\u00edm ud\u00e1losti.",
+                    "name": "Hodnota 2"
+                },
+                "value3": {
+                    "description": "Obecn\u00e9 pole pro odesl\u00e1n\u00ed dat prost\u0159ednictv\u00edm ud\u00e1losti.",
+                    "name": "Hodnota 3"
+                }
+            },
+            "name": "Spou\u0161t\u011b\u010d"
+        }
+    }
+}

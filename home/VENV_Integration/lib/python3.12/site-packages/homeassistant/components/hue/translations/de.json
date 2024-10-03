@@ -1,0 +1,185 @@
+{
+    "config": {
+        "abort": {
+            "all_configured": "Es sind bereits alle Philips Hue Bridges konfiguriert",
+            "already_configured": "Ger\u00e4t ist bereits konfiguriert",
+            "already_in_progress": "Der Konfigurationsablauf wird bereits ausgef\u00fchrt",
+            "cannot_connect": "Verbindung fehlgeschlagen",
+            "discover_timeout": "Es k\u00f6nnen keine Hue Bridges erkannt werden",
+            "invalid_host": "Ung\u00fcltiger Hostname oder IP-Adresse",
+            "no_bridges": "Keine Philips Hue Bridges erkannt",
+            "not_hue_bridge": "Keine Philips Hue Bridge entdeckt",
+            "unknown": "Unerwarteter Fehler"
+        },
+        "error": {
+            "linking": "Unerwarteter Fehler",
+            "register_failed": "Registrieren fehlgeschlagen, bitte versuche es erneut"
+        },
+        "step": {
+            "init": {
+                "data": {
+                    "host": "Host"
+                },
+                "data_description": {
+                    "host": "Der Hostname oder die IP-Adresse deiner Hue-Bridge."
+                },
+                "title": "W\u00e4hle eine Hue Bridge"
+            },
+            "link": {
+                "description": "Dr\u00fccke den Knopf auf der Bridge, um Philips Hue mit Home Assistant zu verkn\u00fcpfen.\n\n![Position des Buttons auf der Bridge](/static/images/config_philips_hue.jpg)",
+                "title": "Hub verbinden"
+            },
+            "manual": {
+                "data": {
+                    "host": "Host"
+                },
+                "data_description": {
+                    "host": "Der Hostname oder die IP-Adresse deiner Hue-Bridge."
+                },
+                "title": "Manuelles Konfigurieren einer Hue Bridge"
+            }
+        }
+    },
+    "device_automation": {
+        "trigger_subtype": {
+            "1": "Erste Taste",
+            "2": "Zweite Taste",
+            "3": "Dritte Taste",
+            "4": "Vierte Taste",
+            "button_1": "Erste Taste",
+            "button_2": "Zweite Taste",
+            "button_3": "Dritte Taste",
+            "button_4": "Vierte Taste",
+            "clock_wise": "Drehung im Uhrzeigersinn",
+            "counter_clock_wise": "Drehung gegen den Uhrzeigersinn",
+            "dim_down": "Dimmer runter",
+            "dim_up": "Dimmer hoch",
+            "double_buttons_1_3": "Erste und dritte Taste",
+            "double_buttons_2_4": "Zweite und vierte Taste",
+            "turn_off": "Ausschalten",
+            "turn_on": "Einschalten"
+        },
+        "trigger_type": {
+            "double_short_release": "Beide \u201e{subtype}\u201c losgelassen",
+            "initial_press": "\u201e{subtype}\u201c anfangs gedr\u00fcckt",
+            "long_release": "\u201e{subtype}\u201c nach langem Dr\u00fccken losgelassen",
+            "remote_button_long_release": "\u201e{subtype}\u201c nach langem Dr\u00fccken losgelassen",
+            "remote_button_short_press": "\u201e{subtype}\u201c gedr\u00fcckt",
+            "remote_button_short_release": "\u201e{subtype}\u201c losgelassen",
+            "remote_double_button_long_press": "Beide \u201e{subtype}\u201c nach langem Dr\u00fccken losgelassen",
+            "remote_double_button_short_press": "Beide \u201e{subtype}\u201c losgelassen",
+            "repeat": "\u201e{subtype}\u201c gedr\u00fcckt gehalten",
+            "short_release": "\u201e{subtype}\u201c nach kurzem Dr\u00fccken losgelassen",
+            "start": "\u201e{subtype}\u201c anfangs gedr\u00fcckt"
+        }
+    },
+    "entity": {
+        "event": {
+            "button": {
+                "name": "Button {button_id}",
+                "state_attributes": {
+                    "event_type": {
+                        "state": {
+                            "double_short_release": "Doppeltes Dr\u00fccken",
+                            "initial_press": "Erstes Dr\u00fccken",
+                            "long_press": "Langes Dr\u00fccken",
+                            "long_release": "Langes Loslassen",
+                            "repeat": "Wiederholen",
+                            "short_release": "Kurz dr\u00fccken"
+                        }
+                    }
+                }
+            },
+            "rotary": {
+                "name": "Rotierend",
+                "state_attributes": {
+                    "event_type": {
+                        "state": {
+                            "clock_wise": "Im Uhrzeigersinn",
+                            "counter_clock_wise": "Entgegen dem Uhrzeigersinn"
+                        }
+                    }
+                }
+            }
+        },
+        "sensor": {
+            "zigbee_connectivity": {
+                "name": "Zigbee-Konnektivit\u00e4t",
+                "state": {
+                    "connected": "Verbunden",
+                    "connectivity_issue": "Verbindungsproblem",
+                    "disconnected": "Getrennt",
+                    "unidirectional_incoming": "Unidirektionaler Eingang"
+                }
+            }
+        },
+        "switch": {
+            "automation": {
+                "state": {
+                    "off": "Deaktiviert",
+                    "on": "Aktiviert"
+                }
+            },
+            "light_sensor_enabled": {
+                "name": "Lichtsensor aktiviert"
+            },
+            "motion_sensor_enabled": {
+                "name": "Bewegungssensor aktiviert"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "allow_hue_groups": "Hue-Gruppen erlauben",
+                    "allow_hue_scenes": "Hue-Szenen zulassen",
+                    "allow_unreachable": "Erlaube nicht erreichbaren Gl\u00fchlampen, ihren Zustand korrekt zu melden",
+                    "ignore_availability": "Verbindungsstatus f\u00fcr die angegebenen Ger\u00e4te ignorieren"
+                }
+            }
+        }
+    },
+    "services": {
+        "activate_scene": {
+            "description": "Aktiviert eine Hue-Szene mit mehr Kontrolle \u00fcber die Optionen.",
+            "fields": {
+                "brightness": {
+                    "description": "Stelle die Helligkeit f\u00fcr die Szene ein.",
+                    "name": "Helligkeit"
+                },
+                "dynamic": {
+                    "description": "Aktiviere den dynamischen Modus der Szene.",
+                    "name": "Dynamisch"
+                },
+                "speed": {
+                    "description": "Geschwindigkeit der dynamischen Palette f\u00fcr diese Szene.",
+                    "name": "Geschwindigkeit"
+                },
+                "transition": {
+                    "description": "\u00dcbergangsdauer, die ben\u00f6tigt wird, um Ger\u00e4te in den in der Szene definierten Zustand zu versetzen.",
+                    "name": "\u00dcbergang"
+                }
+            },
+            "name": "Aktivieren der Hue-Szene"
+        },
+        "hue_activate_scene": {
+            "description": "Aktiviert eine im Hue-Hub gespeicherte Hue-Szene.",
+            "fields": {
+                "dynamic": {
+                    "description": "Aktiviere den dynamischen Modus der Szene (nur V2-Bridges und unterst\u00fctzte Szenen).",
+                    "name": "Dynamisch"
+                },
+                "group_name": {
+                    "description": "Name der Hue-Gruppe/des Hue-Raums aus der Hue-App.",
+                    "name": "Gruppe"
+                },
+                "scene_name": {
+                    "description": "Name der Hue-Szene aus der Hue-App.",
+                    "name": "Szene"
+                }
+            },
+            "name": "Szene aktivieren"
+        }
+    }
+}

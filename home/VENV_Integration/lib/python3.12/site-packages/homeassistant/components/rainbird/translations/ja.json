@@ -1,0 +1,94 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "\u30c7\u30d0\u30a4\u30b9\u306f\u3059\u3067\u306b\u8a2d\u5b9a\u3055\u308c\u3066\u3044\u307e\u3059"
+        },
+        "error": {
+            "cannot_connect": "\u63a5\u7d9a\u306b\u5931\u6557\u3057\u307e\u3057\u305f",
+            "timeout_connect": "\u63a5\u7d9a\u78ba\u7acb\u6642\u306b\u30bf\u30a4\u30e0\u30a2\u30a6\u30c8"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "host": "\u30db\u30b9\u30c8",
+                    "password": "\u30d1\u30b9\u30ef\u30fc\u30c9"
+                },
+                "data_description": {
+                    "host": "Rain Bird \u30c7\u30d0\u30a4\u30b9\u306e\u30db\u30b9\u30c8\u540d\u307e\u305f\u306f IP \u30a2\u30c9\u30ec\u30b9\u3002"
+                },
+                "description": "Rain Bird \u30c7\u30d0\u30a4\u30b9\u306e LNK Wi-Fi \u30e2\u30b8\u30e5\u30fc\u30eb\u60c5\u5831\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044\u3002",
+                "title": "Rain Bird \u3092\u69cb\u6210\u3059\u308b"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "rainsensor": {
+                "name": "\u30ec\u30a4\u30f3\u30bb\u30f3\u30b5\u30fc"
+            }
+        },
+        "number": {
+            "rain_delay": {
+                "name": "\u96e8\u306e\u9045\u308c"
+            }
+        },
+        "sensor": {
+            "raindelay": {
+                "name": "\u96e8\u306e\u9045\u308c"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_raindelay": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Rain Bird \u30b5\u30fc\u30d3\u30b9 `rainbird.set_rain_lay` \u306f\u524a\u9664\u3055\u308c\u3001\u96e8\u306b\u3088\u308b\u9045\u5ef6\u3092\u7ba1\u7406\u3059\u308b\u305f\u3081\u306e Number \u30a8\u30f3\u30c6\u30a3\u30c6\u30a3\u306b\u7f6e\u304d\u63db\u3048\u3089\u308c\u307e\u3059\u3002\u65e2\u5b58\u306e\u30aa\u30fc\u30c8\u30e1\u30fc\u30b7\u30e7\u30f3\u307e\u305f\u306f\u30b9\u30af\u30ea\u30d7\u30c8\u306f\u3001\u4ee3\u308f\u308a\u306b ` {alternate_target} ` \u306e\u30bf\u30fc\u30b2\u30c3\u30c8\u3092\u6301\u3064 `number.set_value` \u3092\u4f7f\u7528\u3059\u308b\u3088\u3046\u306b\u66f4\u65b0\u3059\u308b\u5fc5\u8981\u304c\u3042\u308a\u307e\u3059\u3002",
+                        "title": "Rain Bird Rain Delay \u30b5\u30fc\u30d3\u30b9\u306f\u5ec3\u6b62\u3055\u308c\u307e\u3059"
+                    }
+                }
+            },
+            "title": "Rain Bird Rain Delay \u30b5\u30fc\u30d3\u30b9\u306f\u5ec3\u6b62\u3055\u308c\u307e\u3059"
+        },
+        "deprecated_yaml": {
+            "description": "configuration.yaml \u3067\u306e Rain Bird \u306e\u69cb\u6210\u306f\u3001Home Assistant 2023.4 \u3067\u524a\u9664\u3055\u308c\u307e\u3059\u3002 \n\n\u8a2d\u5b9a\u306f UI \u306b\u81ea\u52d5\u7684\u306b\u30a4\u30f3\u30dd\u30fc\u30c8\u3055\u308c\u307e\u3057\u305f\u304c\u3001\u30be\u30fc\u30f3\u3054\u3068\u306e\u30c7\u30d5\u30a9\u30eb\u30c8\u306e\u704c\u6c34\u6642\u9593\u306f\u30b5\u30dd\u30fc\u30c8\u3055\u308c\u306a\u304f\u306a\u308a\u307e\u3057\u305f\u3002\u3053\u306e\u554f\u984c\u3092\u89e3\u6c7a\u3059\u308b\u306b\u306f\u3001configuration.yaml \u30d5\u30a1\u30a4\u30eb\u304b\u3089 Rain Bird YAML \u69cb\u6210\u3092\u524a\u9664\u3057\u3001Home Assistant \u3092\u518d\u8d77\u52d5\u3057\u307e\u3059\u3002",
+            "title": "Rain Bird YAML \u69cb\u6210\u306f\u524a\u9664\u3055\u308c\u307e\u3059"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "duration": "\u30c7\u30d5\u30a9\u30eb\u30c8\u306e\u704c\u6c34\u6642\u9593\uff08\u5206\uff09"
+                },
+                "title": "Rain Bird \u3092\u69cb\u6210\u3059\u308b"
+            }
+        }
+    },
+    "services": {
+        "set_rain_delay": {
+            "description": "\u81ea\u52d5\u704c\u6f11\u3092\u30aa\u30d5\u306b\u3059\u308b\u6642\u9593\u3092\u8a2d\u5b9a\u3057\u307e\u3059\u3002",
+            "fields": {
+                "config_entry_id": {
+                    "description": "\u8a2d\u5b9a\u306f\u6307\u5b9a\u3055\u308c\u305f\u30b3\u30f3\u30c8\u30ed\u30fc\u30e9\u30fc\u3067\u8abf\u6574\u3055\u308c\u307e\u3059\u3002",
+                    "name": "Rainbird \u30b3\u30f3\u30c8\u30ed\u30fc\u30e9\u30fc\u69cb\u6210\u30a8\u30f3\u30c8\u30ea\u30fc"
+                },
+                "duration": {
+                    "description": "\u3053\u306e\u30b7\u30b9\u30c6\u30e0\u306e\u96fb\u6e90\u304c\u30aa\u30d5\u306b\u306a\u308b\u307e\u3067\u306e\u6642\u9593\u3002",
+                    "name": "\u671f\u9593"
+                }
+            },
+            "name": "\u96e8\u306e\u9045\u5ef6\u3092\u8a2d\u5b9a\u3059\u308b"
+        },
+        "start_irrigation": {
+            "description": "\u704c\u6f11\u3092\u958b\u59cb\u3057\u307e\u3059\u3002",
+            "fields": {
+                "duration": {
+                    "description": "\u3053\u306e\u30b9\u30d7\u30ea\u30f3\u30af\u30e9\u30fc\u304c\u4f5c\u52d5\u3059\u308b\u307e\u3067\u306e\u6642\u9593\u3002",
+                    "name": "\u671f\u9593"
+                }
+            },
+            "name": "\u704c\u6f11\u958b\u59cb"
+        }
+    }
+}

@@ -1,0 +1,148 @@
+{
+    "device_automation": {
+        "action_type": {
+            "arm_away": "Aktiviere {entity_name} Unterwegs",
+            "arm_home": "Aktiviere {entity_name} Zu Hause",
+            "arm_night": "Aktiviere {entity_name} Nacht-Modus",
+            "arm_vacation": "Aktiviere {entity_name} Urlaub",
+            "disarm": "Deaktiviere {entity_name}",
+            "trigger": "{entity_name} ausl\u00f6sen"
+        },
+        "condition_type": {
+            "is_armed_away": "{entity_name} ist aktiviert - Abwesend",
+            "is_armed_home": "{entity_name} ist aktiviert - Zu Hause",
+            "is_armed_night": "{entity_name} ist aktiviert - Nacht",
+            "is_armed_vacation": "{entity_name} ist aktiviert - Urlaub",
+            "is_disarmed": "{entity_name} ist deaktiviert",
+            "is_triggered": "{entity_name} wurde ausgel\u00f6st"
+        },
+        "extra_fields": {
+            "code": "Code",
+            "for": "Dauer"
+        },
+        "trigger_type": {
+            "armed_away": "{entity_name} abwesend",
+            "armed_home": "{entity_name} zu Hause",
+            "armed_night": "{entity_name} Nacht-Modus",
+            "armed_vacation": "{entity_name} Urlaub",
+            "disarmed": "{entity_name} deaktiviert",
+            "triggered": "{entity_name} ausgel\u00f6st"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Alarmanlage",
+            "state": {
+                "armed": "Aktiv",
+                "armed_away": "Aktiv, abwesend",
+                "armed_custom_bypass": "Aktiv, benutzerdefiniert",
+                "armed_home": "Aktiv, zu Hause",
+                "armed_night": "Aktiv, Nacht",
+                "armed_vacation": "Aktiv, Urlaub",
+                "arming": "Aktiviere",
+                "disarmed": "Inaktiv",
+                "disarming": "Deaktiviere",
+                "pending": "Ausstehend",
+                "triggered": "Ausgel\u00f6st"
+            },
+            "state_attributes": {
+                "changed_by": {
+                    "name": "Ge\u00e4ndert durch"
+                },
+                "code_arm_required": {
+                    "name": "Code zum aktivieren",
+                    "state": {
+                        "false": "Nicht erforderlich",
+                        "true": "Erforderlich"
+                    }
+                },
+                "code_format": {
+                    "name": "Codeformat",
+                    "state": {
+                        "number": "Nummer",
+                        "text": "Text"
+                    }
+                }
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "Die {platform}-Plattform f\u00fcr die {domain}-Integration unterst\u00fctzt die Plattform-Einrichtung nicht. \n\nBitte entferne es aus deiner Konfiguration und starte Home Assistant neu, um dieses Problem zu beheben.",
+            "title": "Plattform-Unterst\u00fctzung nicht unterst\u00fctzt"
+        }
+    },
+    "services": {
+        "alarm_arm_away": {
+            "description": "Stellt den Alarm auf: _aktiv, niemand zu Hause_.",
+            "fields": {
+                "code": {
+                    "description": "Code zum Aktivieren des Alarms.",
+                    "name": "Code"
+                }
+            },
+            "name": "Aktiv, abwesend"
+        },
+        "alarm_arm_custom_bypass": {
+            "description": "Aktiviert den Alarm und erm\u00f6glicht den Bypass eines benutzerdefinierten Bereichs.",
+            "fields": {
+                "code": {
+                    "description": "Code zum Aktivieren des Alarms.",
+                    "name": "Code"
+                }
+            },
+            "name": "Aktivieren mit benutzerdefiniertem Bypass"
+        },
+        "alarm_arm_home": {
+            "description": "Stellt den Alarm auf: _aktiv, aber jemand ist zu Hause_.",
+            "fields": {
+                "code": {
+                    "description": "Code zum Aktivieren des Alarms.",
+                    "name": "Code"
+                }
+            },
+            "name": "Aktiv, Zu Hause"
+        },
+        "alarm_arm_night": {
+            "description": "Stellt den Alarm auf: _aktiv \u00fcber Nacht_.",
+            "fields": {
+                "code": {
+                    "description": "Code zum Aktivieren des Alarms.",
+                    "name": "Code"
+                }
+            },
+            "name": "Aktiv, Nacht"
+        },
+        "alarm_arm_vacation": {
+            "description": "Stellt den Alarm auf: _aktiv f\u00fcr Urlaub_.",
+            "fields": {
+                "code": {
+                    "description": "Code zum Aktivieren des Alarms.",
+                    "name": "Code"
+                }
+            },
+            "name": "Aktiv, Urlaub"
+        },
+        "alarm_disarm": {
+            "description": "Deaktiviert den Alarm.",
+            "fields": {
+                "code": {
+                    "description": "Code zum Deaktivieren des Alarms.",
+                    "name": "Code"
+                }
+            },
+            "name": "Deaktivieren"
+        },
+        "alarm_trigger": {
+            "description": "Aktiviert einen externen Alarmausl\u00f6ser.",
+            "fields": {
+                "code": {
+                    "description": "Code zum Aktivieren des Alarms.",
+                    "name": "Code"
+                }
+            },
+            "name": "Ausl\u00f6sen"
+        }
+    },
+    "title": "Alarmanlage"
+}

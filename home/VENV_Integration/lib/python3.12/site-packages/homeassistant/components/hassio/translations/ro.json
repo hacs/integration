@@ -1,0 +1,212 @@
+{
+    "entity": {
+        "binary_sensor": {
+            "state": {
+                "name": "Rulare"
+            }
+        },
+        "sensor": {
+            "agent_version": {
+                "name": "Versiunea OS Agent"
+            },
+            "apparmor_version": {
+                "name": "Versiunea Apparmor"
+            },
+            "cpu_percent": {
+                "name": "Procentul CPU"
+            },
+            "disk_free": {
+                "name": "Disc liber"
+            },
+            "disk_total": {
+                "name": "Capacitate disc"
+            },
+            "disk_used": {
+                "name": "Discul utilizat"
+            },
+            "memory_percent": {
+                "name": "Procent de memorie"
+            },
+            "version": {
+                "name": "Versiune"
+            },
+            "version_latest": {
+                "name": "Cea mai nou\u0103 versiune"
+            }
+        }
+    },
+    "issues": {
+        "issue_mount_mount_failed": {
+            "fix_flow": {
+                "abort": {
+                    "apply_suggestion_fail": "Nu s-a putut aplica remedierea. Verific\u0103 jurnalele supervizorului pentru mai multe detalii."
+                },
+                "step": {
+                    "fix_menu": {
+                        "description": "A e\u0219uat conectarea la `{reference}`. Verific\u0103 jurnalele gazdei pentru a g\u0103si erori de la serviciul de montare, ce con\u021bin mai multe detalii.\n\nPo\u021bi re\u00eenc\u0103rca pentru a \u00eencerca o nou\u0103 conectare. Dac\u0103 trebuie s\u0103 actualizezi `{reference}`, acceseaz\u0103 [stocare]({storage_url}).",
+                        "menu_options": {
+                            "mount_execute_remove": "Eliminare"
+                        }
+                    }
+                }
+            },
+            "title": "Stocarea \u00een re\u021bea a e\u0219uat"
+        },
+        "issue_system_docker_config": {
+            "fix_flow": {
+                "abort": {
+                    "apply_suggestion_fail": "Una sau mai multe reporniri au e\u0219uat. Verific\u0103 jurnalele Supervizorului pentru mai multe detalii."
+                },
+                "step": {
+                    "system_execute_rebuild": {
+                        "description": "Configura\u021bia implicit\u0103 pentru add-on-uri \u0219i Home Assistant s-a modificat. Pentru a actualiza configura\u021bia cu noile valori implicite, este necesar\u0103 o repornire pentru urm\u0103toarele:\n\n- {components}"
+                    }
+                }
+            },
+            "title": "Repornire/reporniri necesare"
+        },
+        "issue_system_multiple_data_disks": {
+            "fix_flow": {
+                "abort": {
+                    "apply_suggestion_fail": "Nu s-a putut redenumi sistemul de fi\u0219iere. Verific\u0103 jurnalele Supervizorului pentru mai multe detalii."
+                },
+                "step": {
+                    "system_rename_data_disk": {
+                        "description": "`{reference}` este un sistem de fi\u0219iere cu numele 'hassos-data' \u0219i nu este discul de date activ. Acest lucru poate determina Home Assistant s\u0103 aleag\u0103 discul de date gre\u0219it la repornirea sistemului.\n\nUtilizeaz\u0103 op\u021biunea de remediere pentru a redenumi sistemul de fi\u0219iere \u0219i pentru a preveni acest lucru. Alternativ, po\u021bi muta discul de date pe unitate (suprascriindu-i con\u021binutul) sau po\u021bi elimina unitatea din sistem."
+                    }
+                }
+            },
+            "title": "Mai multe discuri de date detectate"
+        },
+        "issue_system_reboot_required": {
+            "fix_flow": {
+                "abort": {
+                    "apply_suggestion_fail": "Nu a putut reporni sistemul. Verific\u0103 jurnalele Supervizorului pentru mai multe detalii."
+                },
+                "step": {
+                    "system_execute_reboot": {
+                        "description": "Au fost modificate set\u0103ri care necesit\u0103 o repornire a sistemului pentru a avea efect.\n\nAceast\u0103 remediere va ini\u021bia o repornire a sistemului care va face Home Assistant \u0219i toate add-on-urile inaccesibile pentru o perioad\u0103 scurt\u0103 de timp."
+                    }
+                }
+            },
+            "title": "Este necesar\u0103 repornirea"
+        },
+        "unhealthy": {
+            "description": "Sistemul este momentan nes\u0103n\u0103tos din cauza {reason}. Urmeaz\u0103 linkul pentru a afla mai multe, inclusiv pa\u0219i de remediere.",
+            "title": "Sistem nes\u0103n\u0103tos - {reason}"
+        },
+        "unhealthy_docker": {
+            "description": "Sistemul este momentan nes\u0103n\u0103tos, deoarece Docker este configurat incorect. Urmeaz\u0103 linkul pentru a afla mai multe, inclusiv pa\u0219i de remediere.",
+            "title": "Sistem nes\u0103n\u0103tos - Docker configurat gre\u0219it"
+        },
+        "unhealthy_privileged": {
+            "description": "Sistemul este momentan nes\u0103n\u0103tos, deoarece nu are acces privilegiat la runtime-ul Docker. Urmeaz\u0103 linkul pentru a afla mai multe, inclusiv pa\u0219i de remediere.",
+            "title": "Sistem nes\u0103n\u0103tos - Neprivilegiat"
+        },
+        "unhealthy_setup": {
+            "description": "Sistemul este momentan nes\u0103n\u0103tos, deoarece nu s-a finalizat configurarea ini\u021bial\u0103. Exist\u0103 o serie de motive pentru care acest lucru poate ap\u0103rea, urmeaz\u0103 linkul pentru a afla mai multe, inclusiv pa\u0219i de remediere.",
+            "title": "Sistem nes\u0103n\u0103tos - Configurarea nu a reu\u0219it"
+        },
+        "unhealthy_supervisor": {
+            "description": "Sistemul este momentan nes\u0103n\u0103tos, deoarece o tentativ\u0103 de a actualiza supervizorul la cea mai recent\u0103 versiune a e\u0219uat. Urmeaz\u0103 linkul pentru a afla mai multe, inclusiv pa\u0219i de remediere.",
+            "title": "Sistem nes\u0103n\u0103tos - Actualizarea supervizorului a e\u0219uat"
+        },
+        "unhealthy_untrusted": {
+            "description": "Sistemul este momentan nes\u0103n\u0103tos, deoarece a detectat cod sau imagini \u00een care nu poate avea incredere. Urmeaz\u0103 linkul pentru a afla mai multe, inclusiv pa\u0219i de remediere.",
+            "title": "Sistem nes\u0103n\u0103tos - Cod lipsit de \u00eencredere"
+        },
+        "unsupported": {
+            "description": "Sistemul nu este compatibil din cauza {reason}. Urmeaz\u0103 linkul pentru a afla mai multe, inclusiv pa\u0219i de remediere.",
+            "title": "Sistem incompatibil - {reason}"
+        },
+        "unsupported_apparmor": {
+            "description": "Sistemul nu este compatibil, deoarece AppArmor func\u021bioneaz\u0103 incorect iar add-on-urile ruleaz\u0103 \u00eentr-un mod neprotejat \u0219i nesigur. Urmeaz\u0103 linkul pentru a afla mai multe, inclusiv pa\u0219i de remediere.",
+            "title": "Sistem incompatibil - Probleme AppArmor"
+        },
+        "unsupported_cgroup_version": {
+            "description": "Sistemul nu este compatibil, deoarece se utilizeaz\u0103 o versiune gre\u0219it\u0103 de Docker CGroup. Urmeaz\u0103 linkul pentru a afla versiunea corect\u0103 \u0219i cum s\u0103 remediezi acest lucru.",
+            "title": "Sistem incompatibil - Versiunea CGroup"
+        },
+        "unsupported_connectivity_check": {
+            "description": "Sistemul nu este compatibil, deoarece Home Assistant nu poate determina c\u00e2nd este disponibil\u0103 o conexiune la internet. Urmeaz\u0103 linkul pentru a afla mai multe, inclusiv pa\u0219i de remediere.",
+            "title": "Sistem incompatibil - Verificarea conectivit\u0103\u021bii este dezactivat\u0103"
+        },
+        "unsupported_content_trust": {
+            "description": "Sistemul nu este compatibil, deoarece Home Assistant nu poate verifica dac\u0103 ruleaz\u0103 con\u021binut de \u00eencredere \u0219i nealterat de atacatori. Urmeaz\u0103 linkul pentru a afla mai multe, inclusiv pa\u0219i de remediere.",
+            "title": "Sistem incompatibil - Verificarea \u00eencrederii con\u021binutului este dezactivat\u0103"
+        },
+        "unsupported_dbus": {
+            "description": "Sistemul nu este compatibil, deoarece D-Bus func\u021bioneaz\u0103 incorect. Multe lucruri e\u0219ueaz\u0103 f\u0103r\u0103 el, deoarece Supervizorul nu poate comunica cu gazda. Urmeaz\u0103 linkul pentru a afla mai multe, inclusiv pa\u0219i de remediere.",
+            "title": "Sistem incompatibil - Probleme D-Bus"
+        },
+        "unsupported_dns_server": {
+            "description": "Sistemul este compatibil, deoarece serverul DNS furnizat nu func\u021bioneaz\u0103 corect \u0219i op\u021biunea DNS de rezerv\u0103 a fost dezactivat\u0103. Urmeaz\u0103 linkul pentru a afla mai multe, inclusiv pa\u0219i de remediere.",
+            "title": "Sistem neacceptat - Probleme de server DNS"
+        },
+        "unsupported_docker_configuration": {
+            "description": "Sistemul nu este compatibil, deoarece daemonul Docker ruleaz\u0103 \u00eentr-un fel nea\u0219teptat. Utilizeaz\u0103 linkul pentru a afla mai multe, inclusiv pa\u0219i de remediere.",
+            "title": "Sistem incompatibil - Docker configurat gre\u0219it"
+        },
+        "unsupported_docker_version": {
+            "description": "Sistemul nu este compatibil, deoarece folose\u0219te o versiune gre\u0219it\u0103 de Docker. Urmeaz\u0103 linkul pentru a afla versiunea corect\u0103 \u0219i cum s\u0103 remediezi acest lucru.",
+            "title": "Sistem incompatibil - Versiunea Docker"
+        },
+        "unsupported_job_conditions": {
+            "description": "Sistemul nu este compatibil, deoarece una sau mai multe condi\u021bii de lucru care protejeaz\u0103 \u00eempotriva defec\u021biunilor \u0219i \u00eentreruperilor nea\u0219teptate au fost dezactivate. Urmeaz\u0103 linkul pentru a afla mai multe, inclusiv pa\u0219i de remediere.",
+            "title": "Sistem incompatibil - Protec\u021bii dezactivate"
+        },
+        "unsupported_lxc": {
+            "description": "Sistemul nu este compatibil, deoarece ruleaz\u0103 \u00eentr-o ma\u0219in\u0103 virtual\u0103 LXC. Urmeaz\u0103 linkul pentru a afla mai multe, inclusiv pa\u0219i de remediere.",
+            "title": "Sistem neacceptat - LXC detectat"
+        },
+        "unsupported_network_manager": {
+            "description": "Sistemul nu este compatibil, deoarece Network Manager lipse\u0219te, este inactiv sau configurat gre\u0219it. Urmeaz\u0103 linkul pentru a afla mai multe, inclusiv pa\u0219i de remediere.",
+            "title": "Sistem incompatibil - Probleme cu managerul de re\u021bea"
+        },
+        "unsupported_os": {
+            "description": "Sistemul nu este compatibil, deoarece sistemul de operare utilizat nu este testat sau men\u021binut pentru a fi utilizat \u00eempreun\u0103 cu Supervizorul. Urmeaz\u0103 linkul la care g\u0103se\u0219ti sistemele de operare acceptate, precum \u0219i cum s\u0103 remediezi acest lucru.",
+            "title": "Sistem incompatibil - Sistem de operare"
+        },
+        "unsupported_os_agent": {
+            "description": "Sistemul nu este compatibil, deoarece OS-Agent lipse\u0219te, este inactiv sau configurat gre\u0219it. Urmeaz\u0103 linkul pentru a afla mai multe, inclusiv pa\u0219i de remediere.",
+            "title": "Sistem incompatibil - Probleme cu OS-Agent"
+        },
+        "unsupported_restart_policy": {
+            "description": "Sistemul nu este compatibil, deoarece un container Docker are un set de politici de repornire care ar putea provoca probleme la pornire. Urmeaz\u0103 linkul pentru a afla mai multe, inclusiv pa\u0219i de remediere.",
+            "title": "Sistem incompatibil - Politica de repornire a containerului"
+        },
+        "unsupported_software": {
+            "description": "Sistemul nu este acceptat, deoarece a fost detectat software din afara ecosistemului Home Assistant. Urmeaz\u0103 linkul pentru a afla mai multe, inclusiv pa\u0219i de remediere.",
+            "title": "Sistem incompatibil - Software neacceptat"
+        },
+        "unsupported_source_mods": {
+            "description": "Sistemul nu este compatibil, deoarece codul surs\u0103 al Supervizorului a fost modificat. Urmeaz\u0103 linkul pentru a afla mai multe, inclusiv pa\u0219i de remediere.",
+            "title": "Sistem incompatibil - Modific\u0103ri surs\u0103 supervizor"
+        },
+        "unsupported_supervisor_version": {
+            "description": "Sistemul nu este compatibil, deoarece folose\u0219te o versiune neactualizat\u0103 de Supervizor, iar actualizarea automat\u0103 a fost dezactivat\u0103. Urmeaz\u0103 linkul pentru a afla mai multe, inclusiv pa\u0219i de remediere.",
+            "title": "Sistem incompatibil - Versiunea de Supervizor"
+        },
+        "unsupported_systemd": {
+            "description": "Sistemul nu este compatibil, deoarece systemd lipse\u0219te, este inactiv sau configurat gre\u0219it. Urmeaz\u0103 linkul pentru a afla mai multe, inclusiv pa\u0219i de remediere.",
+            "title": "Sistem incompatibil - Probleme cu systemd"
+        },
+        "unsupported_systemd_journal": {
+            "description": "Sistemul nu este compatibil, deoarece Systemd Journal \u0219i/sau serviciul gateway lipsesc, sunt inactive sau configurate gre\u0219it . Urmeaz\u0103 linkul pentru a afla mai multe, inclusiv pa\u0219i de remediere.",
+            "title": "Sistem incompatibil - Probleme cu Systemd Journal"
+        },
+        "unsupported_systemd_resolved": {
+            "description": "Sistemul nu este compatibil, deoarece Systemd Resolved lipse\u0219te, este inactiv sau configurat gre\u0219it. Urmeaz\u0103 linkul pentru a afla mai multe, inclusiv pa\u0219i de remediere.",
+            "title": "Sistem incompatibil - Probleme cu System-Resolved"
+        }
+    },
+    "system_health": {
+        "info": {
+            "board": "Plac\u0103",
+            "healthy": "S\u0103n\u0103tos",
+            "supervisor_api": "API supervizor",
+            "supported": "Cu suport",
+            "version_api": "API versiune"
+        }
+    }
+}

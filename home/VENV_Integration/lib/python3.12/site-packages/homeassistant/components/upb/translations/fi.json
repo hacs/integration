@@ -1,0 +1,111 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Laite on jo m\u00e4\u00e4ritetty"
+        },
+        "error": {
+            "cannot_connect": "Yhteyden muodostaminen ep\u00e4onnistui",
+            "invalid_upb_file": "Puuttuva tai virheellinen UPB UPStart -vientitiedosto, tarkista tiedoston nimi ja polku.",
+            "unknown": "Odottamaton virhe"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "address": "Osoite (katso kuvaus yll\u00e4)",
+                    "file_path": "UPStart UPB -vientitiedoston polku ja nimi.",
+                    "protocol": "Protokolla"
+                },
+                "description": "Kytke Universal Powerline Bus Powerline Interface Module (UPB PIM). Osoitejonon on oltava muodossa 'address[:port]', jos kyseess\u00e4 on 'tcp'. Portti on valinnainen ja sen oletusarvo on 2101. Esimerkki: '192.168.1.42'. Sarjaprotokollaa varten osoitteen on oltava muodossa 'tty[:baud]'. Baud on valinnainen ja sen oletusarvo on 4800. Esimerkki: '/dev/ttyS1'.",
+                "title": "Yhdist\u00e4 UPB PIM:\u00e4\u00e4n"
+            }
+        }
+    },
+    "services": {
+        "light_blink": {
+            "description": "Vilkuttaa valoa.",
+            "fields": {
+                "rate": {
+                    "description": "Aika, jonka linkki vilkkuu.",
+                    "name": "Tahti"
+                }
+            },
+            "name": "Vilkuta valoa"
+        },
+        "light_fade_start": {
+            "description": "Aloittaa valon h\u00e4ivytt\u00e4misen joko yl\u00f6s- tai alasp\u00e4in nykyisest\u00e4 kirkkaudesta.",
+            "fields": {
+                "brightness": {
+                    "description": "Kirkkautta osoittava numero, jossa 0 sammuttaa valon, 1 on v\u00e4himm\u00e4iskirkkaus ja 255 on enimm\u00e4iskirkkaus.",
+                    "name": "Kirkkaus"
+                },
+                "brightness_pct": {
+                    "description": "Numero, joka ilmaisee prosenttiosuuden t\u00e4ydest\u00e4 kirkkaudesta, jossa 0 sammuttaa valon, 1 on v\u00e4himm\u00e4iskirkkaus ja 100 on enimm\u00e4iskirkkaus.",
+                    "name": "Kirkkausprosentti"
+                },
+                "rate": {
+                    "description": "Valon siirtymisnopeus uuteen kirkkauteen.",
+                    "name": "Tahti"
+                }
+            },
+            "name": "Aloita valon h\u00e4ivytys"
+        },
+        "light_fade_stop": {
+            "description": "Pys\u00e4ytt\u00e4\u00e4 valon h\u00e4ivytt\u00e4misen.",
+            "name": "Pys\u00e4yty\u00e4 valon h\u00e4ivytys"
+        },
+        "link_blink": {
+            "description": "Vilkuttaa linkki\u00e4.",
+            "fields": {
+                "blink_rate": {
+                    "description": "Aika, jonka linkki vilkkuu.",
+                    "name": "Vilkkumisnopeus"
+                }
+            },
+            "name": "Vilkuta linkki\u00e4"
+        },
+        "link_deactivate": {
+            "description": "Poistaa UPB-tilanteen k\u00e4yt\u00f6st\u00e4.",
+            "name": "Deaktivoi linkki"
+        },
+        "link_fade_start": {
+            "description": "Aloittaa linkin h\u00e4ivytt\u00e4misen joko yl\u00f6s- tai alasp\u00e4in nykyisest\u00e4 kirkkaudesta.",
+            "fields": {
+                "brightness": {
+                    "description": "Numero, joka ilmaisee valoisuuden bin\u00e4\u00e4rilukuna t\u00e4ydest\u00e4 kirkkaudesta. 0 on sammuksissa, 1 on v\u00e4himm\u00e4iskirkkaus ja 255 on suurin kirkkaus.",
+                    "name": "Kirkkaus"
+                },
+                "brightness_pct": {
+                    "description": "Numero, joka ilmaisee valoisuuden prosenttina t\u00e4ydest\u00e4 kirkkaudesta. 0% on sammuksissa, 1% on v\u00e4himm\u00e4iskirkkaus ja 100% on suurin kirkkaus.",
+                    "name": "Kirkkausprosentti"
+                },
+                "rate": {
+                    "description": "Aika, jonka kuluessa tilanne siirtyy uuteen kirkkauteen.",
+                    "name": "Tahti"
+                }
+            },
+            "name": "Aloita linkin h\u00e4ivytys"
+        },
+        "link_fade_stop": {
+            "description": "Pys\u00e4ytt\u00e4\u00e4 linkin h\u00e4ivytt\u00e4misen.",
+            "name": "Lopeta linkin h\u00e4ivytys"
+        },
+        "link_goto": {
+            "description": "Aseta tIlanne kirkkauteen.",
+            "fields": {
+                "brightness": {
+                    "description": "Numero, joka ilmaisee valoisuuden bin\u00e4\u00e4rilukuna t\u00e4ydest\u00e4 kirkkaudesta. 0 on sammuksissa, 1 on v\u00e4himm\u00e4iskirkkaus ja 255 on suurin kirkkaus.",
+                    "name": "Kirkkaus"
+                },
+                "brightness_pct": {
+                    "description": "Numero, joka ilmaisee valoisuuden prosenttina t\u00e4ydest\u00e4 kirkkaudesta. 0% on sammuksissa, 1% on v\u00e4himm\u00e4iskirkkaus ja 100% on suurin kirkkaus.",
+                    "name": "Kirkkausprosentti"
+                },
+                "rate": {
+                    "description": "Aika, jonka kuluessa tilanne siirtyy uuteen kirkkauteen.",
+                    "name": "Tahti"
+                }
+            },
+            "name": "Siirry linkkiin"
+        }
+    }
+}

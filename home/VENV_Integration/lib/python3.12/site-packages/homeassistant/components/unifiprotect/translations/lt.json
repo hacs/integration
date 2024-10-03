@@ -1,0 +1,256 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "\u012erenginys jau sukonfig\u016bruotas",
+            "discovery_started": "Prasid\u0117jo atradimas"
+        },
+        "error": {
+            "cannot_connect": "Nepavyko prisijungti",
+            "cloud_user": "\u201eUbiquiti Cloud\u201c naudotojai nepalaikomi. Naudokite tik vietin\u012f naudotoj\u0105.",
+            "invalid_auth": "Neteisingas autentifikavimas",
+            "protect_version": "Minimali reikalinga versija yra v1.20.0. Atnaujinkite UniFi Protect ir bandykite dar kart\u0105."
+        },
+        "flow_title": "{name} ( {ip_address} )",
+        "step": {
+            "discovery_confirm": {
+                "data": {
+                    "password": "Slapta\u017eodis",
+                    "username": "Prisijungimos vardas"
+                },
+                "description": "Ar norite nustatyti {name} ( {ip_address} )? Jums reik\u0117s vietinio vartotojo, sukurto j\u016bs\u0173 UniFi OS konsol\u0117je, kad gal\u0117tum\u0117te prisijungti. \u201eUbiquiti Cloud\u201c naudotojai neveiks. Daugiau informacijos: {local_user_documentation_url}",
+                "title": "Aptikta UniFi Protect"
+            },
+            "reauth_confirm": {
+                "data": {
+                    "host": "\u201eUniFi Protect\u201c serverio IP / priegloba",
+                    "password": "Slapta\u017eodis",
+                    "port": "Prievadas",
+                    "username": "Prisijungimos vardas"
+                },
+                "title": "UniFi Protect Reauth"
+            },
+            "user": {
+                "data": {
+                    "host": "Host",
+                    "password": "Slapta\u017eodis",
+                    "port": "Prievadas",
+                    "username": "Prisijungimos vardas",
+                    "verify_ssl": "Patikrinkite SSL sertifikat\u0105"
+                },
+                "data_description": {
+                    "host": "\u201eUniFi Protect\u201c \u012frenginio pagrindinio kompiuterio pavadinimas arba IP adresas."
+                },
+                "description": "Jums reik\u0117s vietinio vartotojo, sukurto j\u016bs\u0173 UniFi OS konsol\u0117je, kad gal\u0117tum\u0117te prisijungti. \u201eUbiquiti Cloud\u201c naudotojai neveiks. Daugiau informacijos: {local_user_documentation_url}",
+                "title": "\u201eUniFi Protect\u201c s\u0105ranka"
+            }
+        }
+    },
+    "entity": {
+        "event": {
+            "doorbell": {
+                "state_attributes": {
+                    "event_type": {
+                        "state": {
+                            "ring": "\u017diedas"
+                        }
+                    }
+                }
+            }
+        },
+        "sensor": {
+            "license_plate": {
+                "state": {
+                    "none": "I\u0161valyti"
+                }
+            }
+        }
+    },
+    "issues": {
+        "cloud_user": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Nuo 2024 m. liepos 22 d. \u201eUbiquiti\u201c prival\u0117s visus debesies naudotojus u\u017esiregistruoti naudoti keli\u0173 veiksni\u0173 autentifikavim\u0105 (MFA), kuris nesuderinamas su \u201eHome Assistant\u201c. \n\n Geriausia b\u016bt\u0173 kuo grei\u010diau pereiti prie [vietinio naudotojo] ( {learn_more} ) naudojimo, kad integravimas veikt\u0173. \n\n Patvirtinus \u0161\u012f taisym\u0105, bus prad\u0117tas pakartotinio autentifikavimo srautas, kad b\u016bt\u0173 \u012fvesti reikalingi autentifikavimo kredencialai.",
+                        "title": "\u201eUbiquiti Cloud\u201c naudotojai nepalaikomi"
+                    }
+                }
+            },
+            "title": "\u201eUbiquiti Cloud\u201c naudotojai nepalaikomi"
+        },
+        "deprecate_hdr_switch": {
+            "description": "UniFi Protect v3 prid\u0117jo nauj\u0105 HDR b\u016bsen\u0105 (automatinis). D\u0117l to HDR re\u017eimo jungiklis buvo pakeistas HDR re\u017eimo pasirinkimu ir jis nebenaudojamas. \n\n Toliau pateikiami aptikti automatika arba scenarijai, naudojantys vien\u0105 ar daugiau nebenaudojam\u0173 objekt\u0173:\n {items}\n Anks\u010diau pateiktas s\u0105ra\u0161as gali b\u016bti nei\u0161samus ir jame n\u0117ra joki\u0173 \u0161ablon\u0173 naudojimo prietais\u0173 skydeliuose. Atitinkamai atnaujinkite visus \u0161ablonus, automatizavim\u0105 ar scenarijus.",
+            "title": "HDR re\u017eimo jungiklis nebenaudojamas"
+        },
+        "deprecate_package_sensor": {
+            "description": "Paketo \u012fvyki\u0173 jutiklis niekada nesuveik\u0117, nes \u012fvykiai prane\u0161ami UniFi Protect. D\u0117l to jutiklis nebenaudojamas ir bus pa\u0161alintas. \n\n Toliau pateikiami aptikti automatika arba scenarijai, naudojantys vien\u0105 ar daugiau nebenaudojam\u0173 objekt\u0173:\n {items}\n Anks\u010diau pateiktas s\u0105ra\u0161as gali b\u016bti nei\u0161samus ir jame n\u0117ra joki\u0173 \u0161ablon\u0173 naudojimo prietais\u0173 skydeliuose. Atitinkamai atnaujinkite visus \u0161ablonus, automatizavim\u0105 ar scenarijus.",
+            "title": "Paketo \u012fvyki\u0173 jutiklis nebenaudojamas"
+        },
+        "deprecate_smart_sensor": {
+            "description": "Dabar nebenaudojamas vieningas \"Aptikto objekto\" jutiklis, skirtas i\u0161maniosioms aptikimo funkcijoms. J\u012f pakeit\u0117 atskiri i\u0161mani\u0173j\u0173 aptikim\u0173 dvejetainiai jutikliai kiekvienam i\u0161mani\u0173j\u0173 aptikim\u0173 tipui.\n\nToliau pateikiamos aptiktos automatikos arba scenarijai, kuriuose naudojamas vienas ar daugiau nebenaudojam\u0173 esybi\u0173:\n{items}\nAuk\u0161\u010diau pateiktas s\u0105ra\u0161as gali b\u016bti nei\u0161samus ir \u012f j\u012f ne\u012ftraukti \u0161ablon\u0173 naudojimo b\u016bdai prietais\u0173 skydeli\u0173 viduje. Atitinkamai atnaujinkite visus \u0161ablonus, automatizacijas ar scenarijus.",
+            "title": "I\u0161manusis aptikimo jutiklis nebenaudojamas"
+        },
+        "deprecated_service_set_doorbell_message": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Paslauga \u201eunifiprotect.set_doorbell_message\u201c nebenaudojama, tod\u0117l naujasis \u201eDoorbell Text\u201c subjektas pridedamas prie kiekvieno dur\u0173 skambu\u010dio \u012frenginio. Jis bus pa\u0161alintas naudojant v2023.3.0. Atnaujinkite, kad gal\u0117tum\u0117te naudoti [`text.set_value` paslaug\u0105]( {link} ).",
+                        "title": "set_doorbell_message yra nebenaudojamas"
+                    }
+                }
+            },
+            "title": "set_doorbell_message yra nebenaudojamas"
+        },
+        "ea_channel_warning": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Ar tikrai norite paleisti nepalaikomas \u201eUniFi Protect\u201c versijas? D\u0117l to gali nutr\u016bkti nam\u0173 asistento integracija.",
+                        "title": "\u201eUniFi Protect\u201c i\u0161ankstin\u0117 prieiga \u012fjungta"
+                    },
+                    "start": {
+                        "description": "Naudojate \u201eUniFi Protect\u201c ankstyvosios prieigos versij\u0105 (v {version} ) arba pasirinkote leidimo kanal\u0105, kuris n\u0117ra oficialus leidimo kanalas. \n\n Kadangi \u0161ie ankstyvosios prieigos leidimai dar gali b\u016bti nei\u0161bandyti, naudojant j\u012f UniFi Protect integracija gali veikti netik\u0117tai. [Skaitykite daugiau apie i\u0161ankstin\u0119 prieig\u0105 ir nam\u0173 asistent\u0105]( {learn_more} ). \n\n Pateikite, kad atmestum\u0117te \u0161\u012f prane\u0161im\u0105.",
+                        "title": "\u201eUniFi Protect\u201c i\u0161ankstin\u0117 prieiga \u012fjungta"
+                    }
+                }
+            },
+            "title": "\u201eUniFi Protect\u201c i\u0161ankstin\u0117 prieiga \u012fjungta"
+        },
+        "ea_setup_failed": {
+            "description": "Naudojate v {version} UniFi Protect, kuri yra ankstyvosios prieigos versija. Bandant \u012fkelti integracij\u0105 \u012fvyko nepataisoma klaida. Jei norite t\u0119sti integravim\u0105, atkurkite stabilios UniFi Protect leidimo atsargin\u0119 kopij\u0105. \n\n Klaida: {error}",
+            "title": "S\u0105rankos klaida naudojant i\u0161ankstin\u0117s prieigos versij\u0105"
+        },
+        "ea_warning": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Ar tikrai norite paleisti nepalaikomas \u201eUniFi Protect\u201c versijas? D\u0117l to gali nutr\u016bkti nam\u0173 asistento integracija.",
+                        "title": "v {version} yra i\u0161ankstin\u0117s prieigos versija"
+                    },
+                    "start": {
+                        "description": "Naudojate v {version} UniFi Protect, kuri yra ankstyvosios prieigos versija. [Home Assistant nepalaiko ankstyvos prieigos versij\u0173](https://www.home-assistant.io/integrations/unifiprotect#about-unifi-early-access) ir rekomenduojama gr\u012f\u017eti prie stabilaus leidimo, kai tik galima. \n\n Pateikdami \u0161i\u0105 form\u0105 j\u016bs arba [atnaujinote UniFi Protect] (https://www.home-assistant.io/integrations/unifiprotect#downgrading-unifi-protect) arba sutinkate paleisti nepalaikom\u0105 UniFi Protect versij\u0105.",
+                        "title": "v {version} yra i\u0161ankstin\u0117s prieigos versija"
+                    }
+                }
+            },
+            "title": "UniFi Protect v {version} yra i\u0161ankstin\u0117s prieigos versija"
+        },
+        "rtsp_disabled_readonly": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Ar tikrai norite palikti RTSPS i\u0161jungt\u0105 {camera} ?",
+                        "title": "RTSPS i\u0161jungtas fotoaparate {camera}"
+                    },
+                    "start": {
+                        "description": "RTSPS i\u0161jungtas fotoaparate {camera} . RTSPS reikalingas, kad gal\u0117tum\u0117te tiesiogiai transliuoti fotoaparat\u0105 naudodami \u201eHome Assistant\u201c. Jei ne\u012fjungsite RTSPS, tai gali papildomai apkrauti j\u016bs\u0173 \u201eUniFi Protect\u201c NVR, nes visi tiesioginio vaizdo grotuvai pagal numatytuosius nustatymus greitai traukia momentines nuotraukas i\u0161 fotoaparato. \n\n [\u012egalinkite RTSPS]( {learn_more} ) fotoaparate, tada gr\u012f\u017ekite ir patvirtinkite taisym\u0105.",
+                        "title": "RTSPS i\u0161jungtas fotoaparate {camera}"
+                    }
+                }
+            },
+            "title": "RTSPS i\u0161jungtas fotoaparate {camera}"
+        },
+        "rtsp_disabled_writable": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Ar tikrai norite palikti RTSPS i\u0161jungt\u0105 {camera} ?",
+                        "title": "RTSPS i\u0161jungtas fotoaparate {camera}"
+                    },
+                    "start": {
+                        "description": "RTSPS i\u0161jungtas fotoaparate {camera} . Norint tiesiogiai transliuoti kamer\u0105 naudojant nam\u0173 asistent\u0105, reikalingas RTSPS. Jei ne\u012fjungsite RTSPS, tai gali papildomai apkrauti j\u016bs\u0173 \u201eUniFi Protect\u201c NVR, nes bet kuri tiesioginio vaizdo grotuvas pagal numatytuosius nustatymus greitai i\u0161skirs momentines nuotraukas i\u0161 fotoaparato. \n\n Galite neautomati\u0161kai [\u012fgalinti RTSPS]( {learn_more} ) pasirinktame fotoaparato kokyb\u0117s kanale arba \u201eHome Assistant\u201c gali automati\u0161kai \u012fgalinti auk\u0161\u010diausios kokyb\u0117s kanal\u0105 u\u017e jus. Patvirtinkite \u0161\u012f taisym\u0105, kai \u012fgalinsite RTSPS kanal\u0105 arba jei norite, kad nam\u0173 asistentas automati\u0161kai \u012fgalint\u0173 auk\u0161\u010diausi\u0105 kokyb\u0119.",
+                        "title": "RTSPS i\u0161jungtas fotoaparate {camera}"
+                    }
+                }
+            },
+            "title": "RTSPS i\u0161jungtas fotoaparate {camera}"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "all_updates": "Realaus laiko metrika (\u012eSP\u0116JIMAS: labai padidina procesoriaus naudojim\u0105)",
+                    "allow_ea": "Leisti i\u0161ankstin\u0117s prieigos \u201eProtect\u201c versijas (\u012eSP\u0116JIMAS: j\u016bs\u0173 integracija bus pa\u017eym\u0117ta kaip nepalaikoma)",
+                    "allow_ea_channel": "Leisti i\u0161ankstin\u0117s prieigos \u201eProtect\u201c versijas (\u012eSP\u0116JIMAS: j\u016bs\u0173 integracija bus pa\u017eym\u0117ta kaip nepalaikoma)",
+                    "disable_rtsp": "I\u0161junkite RTSP sraut\u0105",
+                    "max_media": "Maksimalus \u012fvyki\u0173, kuriuos reikia \u012fkelti medijos nar\u0161yklei, skai\u010dius (padidina RAM naudojim\u0105)",
+                    "override_connection_host": "Nepaisyti ry\u0161io pagrindinio kompiuterio"
+                },
+                "description": "Realaus laiko metrikos parinktis tur\u0117t\u0173 b\u016bti \u012fjungta, tik jei \u012fjung\u0117te diagnostikos jutiklius ir norite, kad jie b\u016bt\u0173 atnaujinami realiuoju laiku. Jei ne\u012fjungta, jie bus atnaujinami tik kart\u0105 per 15 minu\u010di\u0173.",
+                "title": "\u201eUniFi Protect\u201c parinktys"
+            }
+        }
+    },
+    "services": {
+        "add_doorbell_text": {
+            "description": "Prideda nauj\u0105 tinkint\u0105 dur\u0173 skambu\u010diams skirt\u0105 prane\u0161im\u0105.",
+            "fields": {
+                "device_id": {
+                    "description": "Bet kuris \u012frenginys i\u0161 UniFi Protect egzemplioriaus, kur\u012f norite pakeisti. Jei turite kelis apsaugos atvejus.",
+                    "name": "UniFi Protect NVR"
+                },
+                "message": {
+                    "description": "Naujas pasirinktinis prane\u0161imas, kur\u012f galima prid\u0117ti prie dur\u0173 skambu\u010di\u0173. Turi b\u016bti trumpesn\u0117 nei 30 simboli\u0173.",
+                    "name": "Pasirinktinis prane\u0161imas"
+                }
+            },
+            "name": "Prid\u0117kite pasirinktin\u012f dur\u0173 skambu\u010dio tekst\u0105"
+        },
+        "remove_doorbell_text": {
+            "description": "Pa\u0161alina esam\u0105 dur\u0173 skambu\u010dio prane\u0161im\u0105.",
+            "fields": {
+                "device_id": {
+                    "description": "Bet kuris \u012frenginys i\u0161 UniFi Protect egzemplioriaus, kur\u012f norite pakeisti. Jei turite kelis apsaugos atvejus.",
+                    "name": "UniFi Protect NVR"
+                },
+                "message": {
+                    "description": "Esamas tinkintas prane\u0161imas, skirtas dur\u0173 skambu\u010diams pa\u0161alinti.",
+                    "name": "Pasirinktinis prane\u0161imas"
+                }
+            },
+            "name": "Pa\u0161alinkite pasirinktin\u012f dur\u0173 skambu\u010dio tekst\u0105"
+        },
+        "remove_privacy_zone": {
+            "description": "Naudokite, kad pa\u0161alintum\u0117te privatumo zon\u0105 i\u0161 fotoaparato.",
+            "fields": {
+                "device_id": {
+                    "description": "Kamera, i\u0161 kurios norite pa\u0161alinti privatumo zon\u0105.",
+                    "name": "Kamera"
+                },
+                "name": {
+                    "description": "Pa\u0161alintinos zonos pavadinimas.",
+                    "name": "Privatumo zonos pavadinimas"
+                }
+            },
+            "name": "Pa\u0161alinkite fotoaparato privatumo zon\u0105"
+        },
+        "set_chime_paired_doorbells": {
+            "description": "Naudokite, nor\u0117dami nustatyti suporuot\u0105 (-us) dur\u0173 skambut\u012f (-ius) i\u0161maniuoju varpeliu.",
+            "fields": {
+                "device_id": {
+                    "description": "Skambu\u010diai, skirti susieti su dur\u0173 skambu\u010diais.",
+                    "name": "Skambutis"
+                },
+                "doorbells": {
+                    "description": "Dur\u0173 skambu\u010diai, skirti susieti su varpeliu.",
+                    "name": "Dur\u0173 skambu\u010diai"
+                }
+            },
+            "name": "Nustatykite suporuotus dur\u0173 skambu\u010dius"
+        },
+        "set_default_doorbell_text": {
+            "description": "Nustato numatyt\u0105j\u012f dur\u0173 skambu\u010dio prane\u0161im\u0105. Tai bus prane\u0161imas, kuris automati\u0161kai pasirenkamas, kai prane\u0161imo galiojimo laikas baigiasi.",
+            "fields": {
+                "device_id": {
+                    "description": "Bet kuris \u012frenginys i\u0161 UniFi Protect egzemplioriaus, kur\u012f norite pakeisti. Jei turite kelis apsaugos atvejus.",
+                    "name": "UniFi Protect NVR"
+                },
+                "message": {
+                    "description": "Numatytasis dur\u0173 skambu\u010dio prane\u0161imas. Turi b\u016bti ma\u017eiau nei 30 simboli\u0173.",
+                    "name": "Numatytasis prane\u0161imas"
+                }
+            },
+            "name": "Nustatyti numatyt\u0105j\u012f dur\u0173 skambu\u010dio tekst\u0105"
+        }
+    }
+}

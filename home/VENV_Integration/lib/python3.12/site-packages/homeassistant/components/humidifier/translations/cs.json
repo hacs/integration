@@ -1,0 +1,130 @@
+{
+    "device_automation": {
+        "action_type": {
+            "set_humidity": "Nastavit vlhkost pro {entity_name}",
+            "set_mode": "Zm\u011bnit re\u017eim na {entity_name}",
+            "toggle": "P\u0159epnout {entity_name}",
+            "turn_off": "Vypnout {entity_name}",
+            "turn_on": "Zapnout {entity_name}"
+        },
+        "condition_type": {
+            "is_mode": "{entity_name} je nastaven na konkr\u00e9tn\u00ed re\u017eim",
+            "is_off": "{entity_name} je vypnuto",
+            "is_on": "{entity_name} je zapnuto"
+        },
+        "extra_fields": {
+            "above": "V\u011bt\u0161\u00ed ne\u017e",
+            "below": "Men\u0161\u00ed ne\u017e",
+            "for": "Doba trv\u00e1n\u00ed",
+            "humidity": "Vlhkost",
+            "mode": "Re\u017eim"
+        },
+        "trigger_type": {
+            "changed_states": "{entity_name} bylo zapnuto nebo vypnuto",
+            "target_humidity_changed": "C\u00edlov\u00e1 vlhkost {entity_name} zm\u011bn\u011bna",
+            "turned_off": "{entity_name} bylo vypnuto",
+            "turned_on": "{entity_name} bylo zapnuto"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Zvlh\u010dova\u010d",
+            "state": {
+                "off": "Vypnuto",
+                "on": "Zapnuto"
+            },
+            "state_attributes": {
+                "action": {
+                    "name": "Akce",
+                    "state": {
+                        "drying": "Odvlh\u010dov\u00e1n\u00ed",
+                        "humidifying": "Zvlh\u010dov\u00e1n\u00ed",
+                        "idle": "Ne\u010dinn\u00fd",
+                        "off": "Vypnuto"
+                    }
+                },
+                "available_modes": {
+                    "name": "Dostupn\u00e9 re\u017eimy"
+                },
+                "current_humidity": {
+                    "name": "Aktu\u00e1ln\u00ed vlhkost"
+                },
+                "humidity": {
+                    "name": "C\u00edlov\u00e1 vlhkost"
+                },
+                "max_humidity": {
+                    "name": "Maxim\u00e1ln\u00ed c\u00edlov\u00e1 vlhkost"
+                },
+                "min_humidity": {
+                    "name": "Minim\u00e1ln\u00ed c\u00edlov\u00e1 vlhkost"
+                },
+                "mode": {
+                    "name": "Re\u017eim",
+                    "state": {
+                        "auto": "Auto",
+                        "away": "Pry\u010d",
+                        "baby": "D\u00edt\u011b",
+                        "boost": "Boost",
+                        "comfort": "Komfort",
+                        "eco": "EKO",
+                        "home": "Doma",
+                        "normal": "Norm\u00e1ln\u00ed",
+                        "sleep": "Sp\u00e1nek"
+                    }
+                }
+            }
+        },
+        "dehumidifier": {
+            "name": "Odvlh\u010dova\u010d"
+        },
+        "humidifier": {
+            "name": "Zvlh\u010dova\u010d"
+        }
+    },
+    "exceptions": {
+        "humidity_out_of_range": {
+            "message": "Zadan\u00e1 vlhkost {humidity} nen\u00ed platn\u00e1. Akceptovan\u00fd rozsah je {min_humidity} a\u017e {max_humidity}."
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "Platforma {platform} pro integraci {domain} nepodporuje nastaven\u00ed platformy.\n\nOdeberte ji z nastaven\u00ed a restartujte Home Assistanta, abyste tento probl\u00e9m vy\u0159e\u0161ili.",
+            "title": "Podpora platformy nen\u00ed podporov\u00e1na"
+        }
+    },
+    "services": {
+        "set_humidity": {
+            "description": "Nastav\u00ed c\u00edlovou vlhkost.",
+            "fields": {
+                "humidity": {
+                    "description": "C\u00edlov\u00e1 vlhkost.",
+                    "name": "Vlhkost"
+                }
+            },
+            "name": "Nastavit vlhkost"
+        },
+        "set_mode": {
+            "description": "Nastav\u00ed provozn\u00ed re\u017eim zvlh\u010dova\u010de.",
+            "fields": {
+                "mode": {
+                    "description": "Provozn\u00ed re\u017eim. Nap\u0159\u00edklad \"Norm\u00e1ln\u00ed\", \"EKO\" nebo \"Pry\u010d\". Seznam mo\u017en\u00fdch hodnot naleznete v integra\u010dn\u00ed dokumentaci.",
+                    "name": "Re\u017eim"
+                }
+            },
+            "name": "Nastavit re\u017eim"
+        },
+        "toggle": {
+            "description": "Zapne/Vypne zvlh\u010dova\u010d.",
+            "name": "P\u0159epnout"
+        },
+        "turn_off": {
+            "description": "Vypne zvlh\u010dova\u010d.",
+            "name": "Vypnout"
+        },
+        "turn_on": {
+            "description": "Zapne zvlh\u010dova\u010d.",
+            "name": "Zapnout"
+        }
+    },
+    "title": "Zvlh\u010dova\u010d"
+}

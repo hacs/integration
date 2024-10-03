@@ -1,0 +1,109 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Dispositivo j\u00e1 est\u00e1 configurado",
+            "connection_aborted": "Falha ao conectar",
+            "unknown": "Erro inesperado"
+        },
+        "error": {
+            "invalid_sgtin_or_pin": "C\u00f3digo SGTIN ou PIN inv\u00e1lido, tente novamente.",
+            "press_the_button": "Por favor, pressione o bot\u00e3o azul.",
+            "register_failed": "Falha ao registrar, por favor tente novamente.",
+            "timeout_button": "Tempo para pressionar o Bot\u00e3o Azul expirou, por favor tente novamente."
+        },
+        "step": {
+            "init": {
+                "data": {
+                    "hapid": "ID do AccessPoint (SGTIN)",
+                    "name": "Nome (opcional, usado como prefixo de nome para todos os dispositivos)",
+                    "pin": "C\u00f3digo PIN"
+                },
+                "title": "Escolha um HomematicIP Accesspoint"
+            },
+            "link": {
+                "title": "Link ponto de acesso"
+            }
+        }
+    },
+    "services": {
+        "activate_eco_mode_with_duration": {
+            "description": "Ativa o modo eco com per\u00edodo.",
+            "fields": {
+                "accesspoint_id": {
+                    "description": "O ID do ponto de acesso IP homematic.",
+                    "name": "ID do ponto de acesso"
+                },
+                "duration": {
+                    "description": "A dura\u00e7\u00e3o do modo eco em minutos.",
+                    "name": "Dura\u00e7\u00e3o"
+                }
+            },
+            "name": "Ativar o modo eco com dura\u00e7\u00e3o"
+        },
+        "activate_eco_mode_with_period": {
+            "description": "Ativa o modo eco com per\u00edodo.",
+            "fields": {
+                "accesspoint_id": {
+                    "description": "O ID do ponto de acesso IP homematic.",
+                    "name": "ID do ponto de acesso"
+                },
+                "endtime": {
+                    "description": "A hora em que o modo eco deve ser desativado automaticamente.",
+                    "name": "Hor\u00e1rio de t\u00e9rmino"
+                }
+            },
+            "name": "Ativar eco mais com per\u00edodo"
+        },
+        "activate_vacation": {
+            "description": "Ativa o modo de f\u00e9rias at\u00e9 o hor\u00e1rio determinado.",
+            "fields": {
+                "accesspoint_id": {
+                    "description": "O ID do ponto de acesso IP homematic.",
+                    "name": "ID do ponto de acesso"
+                },
+                "endtime": {
+                    "description": "A hora em que o modo de f\u00e9rias deve ser desativado automaticamente.",
+                    "name": "Hor\u00e1rio de t\u00e9rmino"
+                },
+                "temperature": {
+                    "description": "A temperatura definida durante o modo de f\u00e9rias.",
+                    "name": "Temperatura"
+                }
+            },
+            "name": "Ativar f\u00e9rias"
+        },
+        "deactivate_eco_mode": {
+            "description": "Desativa o modo eco imediatamente.",
+            "fields": {
+                "accesspoint_id": {
+                    "description": "O ID do ponto de acesso IP homematic.",
+                    "name": "ID do ponto de acesso"
+                }
+            },
+            "name": "Desativar modo eco"
+        },
+        "deactivate_vacation": {
+            "description": "Desativa o modo de f\u00e9rias imediatamente.",
+            "fields": {
+                "accesspoint_id": {
+                    "description": "O ID do ponto de acesso IP homematic.",
+                    "name": "ID do ponto de acesso"
+                }
+            },
+            "name": "Desativar f\u00e9rias"
+        },
+        "dump_hap_config": {
+            "description": "Despeja a configura\u00e7\u00e3o do(s) ponto(s) de acesso Homematic IP.",
+            "fields": {
+                "anonymize": {
+                    "description": "A configura\u00e7\u00e3o deve ser anonimizada?",
+                    "name": "Anonimizar"
+                },
+                "config_output_file_prefix": {
+                    "description": "Nome do arquivo de configura\u00e7\u00e3o. O SGTIN do AP sempre ser\u00e1 anexado.",
+                    "name": "Prefixo do arquivo de sa\u00edda de configura\u00e7\u00e3o"
+                }
+            }
+        }
+    }
+}

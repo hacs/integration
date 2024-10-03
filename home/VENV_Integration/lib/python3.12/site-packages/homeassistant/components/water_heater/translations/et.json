@@ -1,0 +1,107 @@
+{
+    "device_automation": {
+        "action_type": {
+            "turn_off": "L\u00fclita {entity_name} v\u00e4lja",
+            "turn_on": "L\u00fclita {entity_name} sisse"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Veesoojendi",
+            "state": {
+                "eco": "\u00d6ko",
+                "electric": "Elektriline",
+                "gas": "Gaas",
+                "heat_pump": "Soojuspump",
+                "high_demand": "Suur n\u00f5udlus",
+                "off": "V\u00e4ljas",
+                "performance": "J\u00f5udlus"
+            },
+            "state_attributes": {
+                "away_mode": {
+                    "name": "Eemalolekure\u017eiim",
+                    "state": {
+                        "off": "V\u00e4ljas",
+                        "on": "Sees"
+                    }
+                },
+                "current_operation": {
+                    "name": "Praegune tegevus"
+                },
+                "current_temperature": {
+                    "name": "Praegune temperatuur"
+                },
+                "max_temp": {
+                    "name": "Max sihttemperatuur"
+                },
+                "min_temp": {
+                    "name": "Min sihttemperatuur"
+                },
+                "target_temp_high": {
+                    "name": "K\u00f5rgeim sihttemperatuur"
+                },
+                "target_temp_low": {
+                    "name": "Madalaim sihttemperatuur"
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "not_valid_operation_mode": {
+            "message": "T\u00f6\u00f6re\u017eiim {operation_mode} ei kehti {entity_id} jaoks. Kehtivad t\u00f6\u00f6re\u017eiimid on: {operation_list} ."
+        },
+        "operation_list_not_defined": {
+            "message": "T\u00f6\u00f6re\u017eiim {operation_mode} ei kehti {entity_id} jaoks. Toimingute loend pole m\u00e4\u00e4ratletud."
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "{domain} integreerimise platvorm {platform} ei toeta platvormi seadistamist. \n\n Selle probleemi lahendamiseks eemalda see oma konfiguratsioonist ja taask\u00e4ivita Home Assistant.",
+            "title": "Platvormi tuge ei toetata"
+        }
+    },
+    "services": {
+        "set_away_mode": {
+            "description": "L\u00fclitab eemaloluku re\u017eiimi sisse/v\u00e4lja.",
+            "fields": {
+                "away_mode": {
+                    "description": "Eemalolekure\u017eiimi uus v\u00e4\u00e4rtus.",
+                    "name": "Eemalolekure\u017eiim"
+                }
+            },
+            "name": "M\u00e4\u00e4ra eemalolekure\u017eiim"
+        },
+        "set_operation_mode": {
+            "description": "M\u00e4\u00e4rab t\u00f6\u00f6re\u017eiimi.",
+            "fields": {
+                "operation_mode": {
+                    "description": "T\u00f6\u00f6re\u017eiimi uus v\u00e4\u00e4rtus. V\u00f5imalike re\u017eiimide loendi leiad sidumise dokumentatsioonist.",
+                    "name": "T\u00f6\u00f6re\u017eiim"
+                }
+            },
+            "name": "M\u00e4\u00e4ra t\u00f6\u00f6re\u017eiim"
+        },
+        "set_temperature": {
+            "description": "M\u00e4\u00e4rab sihttemperatuuri.",
+            "fields": {
+                "operation_mode": {
+                    "description": "T\u00f6\u00f6re\u017eiimi uus v\u00e4\u00e4rtus. V\u00f5imalike re\u017eiimide loendi leiad sidumise dokumentatsioonist.",
+                    "name": "T\u00f6\u00f6re\u017eiim"
+                },
+                "temperature": {
+                    "description": "Veesoojendi uus sihttemperatuur.",
+                    "name": "Temperatuur"
+                }
+            },
+            "name": "M\u00e4\u00e4ra temperatuur"
+        },
+        "turn_off": {
+            "description": "L\u00fclitab veesoojendi v\u00e4lja.",
+            "name": "L\u00fclita v\u00e4lja"
+        },
+        "turn_on": {
+            "description": "L\u00fclitab veesoojendi sisse.",
+            "name": "L\u00fclita sisse"
+        }
+    }
+}

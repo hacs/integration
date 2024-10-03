@@ -1,0 +1,335 @@
+{
+    "config": {
+        "abort": {
+            "reconfigure_successful": "Omkonfigurationen lyckades"
+        },
+        "step": {
+            "reconfigure": {
+                "data": {
+                    "acknowledge": "Beg\u00e4r bekr\u00e4ftelse fr\u00e5n moduler",
+                    "ip_address": "IP-adress",
+                    "password": "L\u00f6senord",
+                    "port": "Port",
+                    "sk_num_tries": "Skanningsf\u00f6rs\u00f6k f\u00f6r segmentkopplare",
+                    "username": "Anv\u00e4ndarnamn"
+                },
+                "data_description": {
+                    "acknowledge": "F\u00f6rs\u00f6k att skicka kommandon igen om inget svar erh\u00e5lls (\u00f6kar busstrafiken).",
+                    "dim_mode": "Antalet steg som anv\u00e4nds f\u00f6r dimmerutg\u00e5ngar."
+                }
+            },
+            "reconfigure_confirm": {
+                "data": {
+                    "password": "L\u00f6senord",
+                    "port": "Port",
+                    "sk_num_tries": "Skanningsf\u00f6rs\u00f6k f\u00f6r segmentkopplare",
+                    "username": "Anv\u00e4ndarnamn"
+                },
+                "data_description": {
+                    "acknowledge": "F\u00f6rs\u00f6k att skicka kommandon igen om inget svar erh\u00e5lls (\u00f6kar busstrafiken).",
+                    "dim_mode": "Antalet steg som anv\u00e4nds f\u00f6r dimmerutg\u00e5ngar."
+                }
+            },
+            "user": {
+                "data": {
+                    "acknowledge": "Beg\u00e4r bekr\u00e4ftelse fr\u00e5n moduler",
+                    "host": "Namn",
+                    "ip_address": "IP-adress",
+                    "password": "L\u00f6senord",
+                    "port": "Port",
+                    "sk_num_tries": "Skanningsf\u00f6rs\u00f6k f\u00f6r segmentkopplare",
+                    "username": "Anv\u00e4ndarnamn"
+                },
+                "data_description": {
+                    "acknowledge": "F\u00f6rs\u00f6k att skicka kommandon igen om inget svar erh\u00e5lls (\u00f6kar busstrafiken).",
+                    "dim_mode": "Antalet steg som anv\u00e4nds f\u00f6r dimmerutg\u00e5ngar."
+                }
+            }
+        }
+    },
+    "device_automation": {
+        "extra_fields": {
+            "action": "\u00c5tg\u00e4rd",
+            "code": "Kod",
+            "key": "Nyckel",
+            "level": "Niv\u00e5"
+        },
+        "trigger_type": {
+            "codelock": "L\u00e5skod mottagen",
+            "fingerprint": "Kod f\u00f6r fingeravtryck mottagen",
+            "send_keys": "Skicka nycklar mottagen",
+            "transmitter": "S\u00e4ndarkod mottagen",
+            "transponder": "Transponderkod mottagen"
+        }
+    },
+    "issues": {
+        "authentication_error": {
+            "description": "Konfigurering av LCN med YAML tas bort men det uppstod ett fel vid import av din YAML-konfiguration.\n\nKontrollera att anv\u00e4ndarnamn och l\u00f6senord \u00e4r korrekta.\n\n\u00d6verv\u00e4g att ta bort LCN YAML-konfigurationen fr\u00e5n din configuration.yaml-fil och forts\u00e4tt att [konfigurera integrationen]({url}) manuellt.",
+            "title": "Autentiseringen misslyckades."
+        },
+        "connection_refused": {
+            "description": "Konfigurering av LCN med YAML tas bort men det uppstod ett fel vid import av din YAML-konfiguration.\n\nKontrollera att anslutningen (IP och port) till LCN:s busskopplare \u00e4r korrekt.\n\n\u00d6verv\u00e4g att ta bort LCN YAML-konfigurationen fr\u00e5n din configuration.yaml-fil och forts\u00e4tt att [konfigurera integrationen]({url}) manuellt.",
+            "title": "Det g\u00e5r inte att ansluta till PCHK."
+        },
+        "license_error": {
+            "description": "Konfigurering av LCN med YAML tas bort men det uppstod ett fel vid import av din YAML-konfiguration.\n\nSe till att tillr\u00e4ckligt m\u00e5nga PCHK-licenser \u00e4r registrerade och starta om Home Assistant.\n\n\u00d6verv\u00e4g att ta bort LCN YAML-konfigurationen fr\u00e5n din configuration.yaml-fil och forts\u00e4tt att [konfigurera integrationen]({url}) manuellt.",
+            "title": "Det maximala antalet anslutningar har uppn\u00e5tts."
+        }
+    },
+    "services": {
+        "dyn_text": {
+            "description": "Skickar dynamisk text till LCN-GTxD-sk\u00e4rmar.",
+            "fields": {
+                "address": {
+                    "description": "Modulens adress.",
+                    "name": "Adress"
+                },
+                "row": {
+                    "description": "Textrad.",
+                    "name": "Rad"
+                },
+                "text": {
+                    "description": "Text att skicka (upp till 60 tecken kodade som UTF-8).",
+                    "name": "Text"
+                }
+            },
+            "name": "Dynamisk text"
+        },
+        "led": {
+            "description": "St\u00e4ller in LED-tillst\u00e5ndet.",
+            "fields": {
+                "address": {
+                    "description": "Modulens adress.",
+                    "name": "Adress"
+                },
+                "led": {
+                    "description": "LED",
+                    "name": "LED"
+                },
+                "state": {
+                    "description": "LED tillst\u00e5nd",
+                    "name": "Tillst\u00e5nd"
+                }
+            },
+            "name": "LED"
+        },
+        "lock_keys": {
+            "description": "L\u00e5ser nycklar.",
+            "fields": {
+                "address": {
+                    "description": "Modulens adress.",
+                    "name": "Adress"
+                },
+                "state": {
+                    "description": "Status f\u00f6r nyckell\u00e5s som str\u00e4ng (1=p\u00e5, 2=av, T=v\u00e4xla, -=ingen f\u00f6r\u00e4ndring).",
+                    "name": "Tillst\u00e5nd"
+                },
+                "table": {
+                    "description": "Tabell med nycklar att l\u00e5sa (m\u00e5ste vara A f\u00f6r intervall).",
+                    "name": "Tabell"
+                },
+                "time": {
+                    "description": "L\u00e5sintervall.",
+                    "name": "Tid"
+                },
+                "time_unit": {
+                    "description": "Tidsenhet f\u00f6r l\u00e5sintervall.",
+                    "name": "Tidsenhet"
+                }
+            },
+            "name": "L\u00e5s nycklar"
+        },
+        "lock_regulator": {
+            "description": "L\u00e5ser en termostats b\u00f6rv\u00e4rde",
+            "fields": {
+                "address": {
+                    "description": "Modulens adress.",
+                    "name": "Adress"
+                },
+                "setpoint": {
+                    "description": "B\u00f6rv\u00e4rde namn",
+                    "name": "B\u00f6rv\u00e4rde"
+                },
+                "state": {
+                    "description": "Nytt b\u00f6rv\u00e4rde tillst\u00e5nd.",
+                    "name": "Tillst\u00e5nd"
+                }
+            },
+            "name": "L\u00e5s termostat"
+        },
+        "output_abs": {
+            "description": "St\u00e4ller in absolut ljusstyrka f\u00f6r utg\u00e5ngsporten i procent.",
+            "fields": {
+                "address": {
+                    "description": "Modulens adress.",
+                    "name": "Adress"
+                },
+                "brightness": {
+                    "description": "Absolut ljusstyrka.",
+                    "name": "Ljusstyrka"
+                },
+                "output": {
+                    "description": "Utg\u00e5ngsport.",
+                    "name": "Utg\u00e5ng"
+                },
+                "transition": {
+                    "description": "\u00d6verg\u00e5ngstid.",
+                    "name": "\u00d6verg\u00e5ng"
+                }
+            },
+            "name": "Utg\u00e5ngsport absolut ljusstyrka"
+        },
+        "output_rel": {
+            "description": "St\u00e4ller in relativ ljusstyrka f\u00f6r utg\u00e5ngsporten i procent.",
+            "fields": {
+                "address": {
+                    "description": "Modulens adress.",
+                    "name": "Adress"
+                },
+                "brightness": {
+                    "description": "Relativ ljusstyrka.",
+                    "name": "Ljusstyrka"
+                },
+                "output": {
+                    "description": "Utg\u00e5ngsport.",
+                    "name": "Utg\u00e5ng"
+                }
+            },
+            "name": "Utg\u00e5ngsport relativ ljusstyrka"
+        },
+        "output_toggle": {
+            "description": "V\u00e4xlar utg\u00e5ngsport.",
+            "fields": {
+                "address": {
+                    "description": "Modulens adress.",
+                    "name": "Adress"
+                },
+                "output": {
+                    "description": "Utg\u00e5ngsport.",
+                    "name": "Utg\u00e5ng"
+                },
+                "transition": {
+                    "description": "\u00d6verg\u00e5ngstid.",
+                    "name": "\u00d6verg\u00e5ng"
+                }
+            },
+            "name": "V\u00e4xla utg\u00e5ngsport"
+        },
+        "pck": {
+            "description": "Skickar godtyckligt PCK-kommando.",
+            "fields": {
+                "address": {
+                    "description": "Modulens adress.",
+                    "name": "Adress"
+                },
+                "pck": {
+                    "description": "PCK-kommando (utan adresshuvud).",
+                    "name": "PCK"
+                }
+            },
+            "name": "PCK"
+        },
+        "relays": {
+            "description": "St\u00e4ller in rel\u00e4status.",
+            "fields": {
+                "address": {
+                    "description": "Modulens adress.",
+                    "name": "Adress"
+                },
+                "state": {
+                    "description": "Rel\u00e4ets tillst\u00e5nd som str\u00e4ng (1=p\u00e5, 2=av, t=v\u00e4xla, -=ingen f\u00f6r\u00e4ndring).",
+                    "name": "Tillst\u00e5nd"
+                }
+            },
+            "name": "Rel\u00e4er"
+        },
+        "send_keys": {
+            "description": "Skickar nycklar (som utf\u00f6r bundna kommandon).",
+            "fields": {
+                "address": {
+                    "description": "Modulens adress.",
+                    "name": "Adress"
+                },
+                "keys": {
+                    "description": "Nycklar att skicka.",
+                    "name": "Nycklar"
+                },
+                "state": {
+                    "description": "Nyckelns tillst\u00e5nd vid s\u00e4ndning (m\u00e5ste tr\u00e4ffas f\u00f6r att skickas).",
+                    "name": "Tillst\u00e5nd"
+                },
+                "time": {
+                    "description": "Skicka f\u00f6rdr\u00f6jning.",
+                    "name": "Tid"
+                },
+                "time_unit": {
+                    "description": "Tidsenhet f\u00f6r s\u00e4ndningsf\u00f6rdr\u00f6jning.",
+                    "name": "Tidsenhet"
+                }
+            },
+            "name": "Skicka nycklar"
+        },
+        "var_abs": {
+            "description": "St\u00e4ller in absolut v\u00e4rde f\u00f6r en variabel eller ett b\u00f6rv\u00e4rde.",
+            "fields": {
+                "address": {
+                    "description": "Modulens adress.",
+                    "name": "Adress"
+                },
+                "unit_of_measurement": {
+                    "description": "V\u00e4rdeenhet.",
+                    "name": "M\u00e5ttenhet"
+                },
+                "value": {
+                    "description": "V\u00e4rde att st\u00e4lla in.",
+                    "name": "V\u00e4rde"
+                },
+                "variable": {
+                    "description": "Namn p\u00e5 variabel eller b\u00f6rv\u00e4rde.",
+                    "name": "Variabel"
+                }
+            },
+            "name": "St\u00e4ll in absolut variabel"
+        },
+        "var_rel": {
+            "description": "\u00c4ndra v\u00e4rde f\u00f6r en variabel, ett b\u00f6rv\u00e4rde eller ett tr\u00f6skelv\u00e4rde.",
+            "fields": {
+                "address": {
+                    "description": "Modulens adress.",
+                    "name": "Adress"
+                },
+                "unit_of_measurement": {
+                    "description": "V\u00e4rdeenhet.",
+                    "name": "M\u00e5ttenhet"
+                },
+                "value": {
+                    "description": "\u00c4ndra v\u00e4rde",
+                    "name": "V\u00e4rde"
+                },
+                "value_reference": {
+                    "description": "Referensv\u00e4rde f\u00f6r b\u00f6rv\u00e4rde och tr\u00f6skelv\u00e4rde.",
+                    "name": "Referensv\u00e4rde"
+                },
+                "variable": {
+                    "description": "Namn p\u00e5 variabel eller b\u00f6rv\u00e4rde.",
+                    "name": "Variabel"
+                }
+            },
+            "name": "\u00c4ndra variabel"
+        },
+        "var_reset": {
+            "description": "\u00c5terst\u00e4ller v\u00e4rde p\u00e5 variabel eller b\u00f6rv\u00e4rde.",
+            "fields": {
+                "address": {
+                    "description": "Modulens adress.",
+                    "name": "Adress"
+                },
+                "variable": {
+                    "description": "Namn p\u00e5 variabel eller b\u00f6rv\u00e4rde.",
+                    "name": "Variabel"
+                }
+            },
+            "name": "\u00c5terst\u00e4ll variabel"
+        }
+    }
+}

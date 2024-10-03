@@ -1,0 +1,206 @@
+{
+    "config": {
+        "abort": {
+            "address_already_configured": "\u5df2\u914d\u7f6e\u5177\u6709\u6b64\u5730\u5740\u7684 ElkM1",
+            "already_configured": "\u5177\u6709\u6b64\u524d\u7f00\u7684 ElkM1 \u5df2\u914d\u7f6e",
+            "already_in_progress": "\u914d\u7f6e\u6d41\u7a0b\u5df2\u5728\u8fdb\u884c\u4e2d",
+            "cannot_connect": "\u8fde\u63a5\u5931\u8d25",
+            "invalid_auth": "\u8eab\u4efd\u9a8c\u8bc1\u65e0\u6548",
+            "unknown": "\u610f\u5916\u9519\u8bef"
+        },
+        "error": {
+            "cannot_connect": "\u8fde\u63a5\u5931\u8d25",
+            "invalid_auth": "\u8eab\u4efd\u9a8c\u8bc1\u65e0\u6548",
+            "unknown": "\u610f\u5916\u9519\u8bef"
+        },
+        "flow_title": "{mac_address} ({host})",
+        "step": {
+            "discovered_connection": {
+                "data": {
+                    "password": "\u5bc6\u7801",
+                    "protocol": "\u534f\u8bae",
+                    "temperature_unit": "ElkM1 \u4f7f\u7528\u7684\u6e29\u5ea6\u5355\u4f4d\u3002",
+                    "username": "\u7528\u6237\u540d"
+                },
+                "description": "\u8fde\u63a5\u5230\u53d1\u73b0\u7684\u7cfb\u7edf\uff1a{mac_address} ({host})",
+                "title": "\u8fde\u63a5\u5230 Elk-M1 \u63a7\u5236"
+            },
+            "manual_connection": {
+                "data": {
+                    "address": "IP \u5730\u5740\u3001\u57df\u540d\u6216\u4e32\u884c\u7aef\u53e3\uff08\u5982\u679c\u901a\u8fc7\u4e32\u53e3\u8fde\u63a5\uff09\u3002",
+                    "password": "\u5bc6\u7801",
+                    "prefix": "\u552f\u4e00\u7684\u524d\u7f00\uff08\u5982\u679c\u60a8\u53ea\u6709\u4e00\u53f0 ElkM1\uff0c\u5219\u7559\u7a7a\uff09\u3002",
+                    "protocol": "\u534f\u8bae",
+                    "temperature_unit": "ElkM1 \u4f7f\u7528\u7684\u6e29\u5ea6\u5355\u4f4d\u3002",
+                    "username": "\u7528\u6237\u540d"
+                },
+                "description": "\u5bf9\u4e8e\u201c\u5b89\u5168\u201d\u548c\u201c\u975e\u5b89\u5168\u201d\uff0c\u5730\u5740\u5b57\u7b26\u4e32\u5fc5\u987b\u91c7\u7528\u201c\u5730\u5740[:\u7aef\u53e3]\u201d\u5f62\u5f0f\u3002\u4f8b\u5982\uff1a\u201c192.168.1.1\u201d\u3002\u7aef\u53e3\u662f\u53ef\u9009\u7684\uff0c\u9ed8\u8ba4\u4e3a 2101\uff08\u975e\u5b89\u5168\uff09\u6216 2601\uff08\u5b89\u5168\uff09\u3002\u5bf9\u4e8e\u4e32\u884c\u534f\u8bae\uff0c\u5730\u5740\u5fc5\u987b\u91c7\u7528\u201ctty[:\u6ce2\u7279\u7387]\u201d\u5f62\u5f0f\u3002\u793a\u4f8b\uff1a\u201c/dev/ttyS1\u201d\u3002\u6ce2\u7279\u7387\u662f\u53ef\u9009\u7684\uff0c\u9ed8\u8ba4\u4e3a 115200\u3002",
+                "title": "\u8fde\u63a5\u5230 Elk-M1 \u63a7\u5236"
+            },
+            "user": {
+                "data": {
+                    "device": "\u8bbe\u5907"
+                },
+                "description": "\u9009\u62e9\u4e00\u4e2a\u5df2\u53d1\u73b0\u7684\u7cfb\u7edf\uff0c\u5982\u679c\u5c1a\u672a\u53d1\u73b0\u4efb\u4f55\u8bbe\u5907\uff0c\u5219\u9009\u62e9\u201c\u624b\u52a8\u8f93\u5165\u201d\u3002",
+                "title": "\u8fde\u63a5\u5230 Elk-M1 \u63a7\u5236"
+            }
+        }
+    },
+    "issues": {
+        "migrate_aux_heat": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Elk-M1 \u201cset_aux_heat\u201d \u64cd\u4f5c\u5df2\u8fc1\u79fb\u3002\u6bcf\u4e2a\u6052\u6e29\u5668\u90fd\u6709\u4e00\u4e2a\u65b0\u7684\u7d27\u6025\u52a0\u70ed\u5f00\u5173\u5b9e\u4f53\u3002\n\n\u66f4\u65b0\u6240\u6709\u81ea\u52a8\u5316\u4ee5\u4f7f\u7528\u65b0\u7684\u7d27\u6025\u52a0\u70ed\u5f00\u5173\u5b9e\u4f53\u3002\u5b8c\u6210\u540e\uff0c\u6309\u201c\u63d0\u4ea4\u201d\u53ef\u4fee\u590d\u6b64\u95ee\u9898\u3002",
+                        "title": "Elk-M1 set_aux_heat \u52a8\u4f5c\u7684\u8fc1\u79fb"
+                    }
+                }
+            },
+            "title": "Elk-M1 set_aux_heat \u52a8\u4f5c\u7684\u8fc1\u79fb"
+        }
+    },
+    "services": {
+        "alarm_arm_home_instant": {
+            "description": "\u5c06 ElkM1 \u5e03\u9632\u4e3a\u5728\u5bb6\u5373\u65f6\u6a21\u5f0f\u3002",
+            "fields": {
+                "code": {
+                    "description": "\u7528\u4e8e\u8b66\u62a5\u63a7\u5236\u5668\u5e03\u9632\u7684\u5bc6\u7801\u3002",
+                    "name": "\u5bc6\u7801"
+                }
+            },
+            "name": "\u5728\u5bb6\u5373\u65f6\u8b66\u62a5"
+        },
+        "alarm_arm_night_instant": {
+            "description": "\u5c06 ElkM1 \u5e03\u9632\u4e3a\u591c\u95f4\u5373\u65f6\u6a21\u5f0f\u3002",
+            "fields": {
+                "code": {
+                    "description": "\u7528\u4e8e\u8b66\u62a5\u63a7\u5236\u5668\u5e03\u9632\u7684\u5bc6\u7801\u3002",
+                    "name": "\u5bc6\u7801"
+                }
+            },
+            "name": "\u591c\u95f4\u5373\u65f6\u8b66\u62a5"
+        },
+        "alarm_arm_vacation": {
+            "description": "\u5c06 ElkM1 \u8bbe\u7f6e\u4e3a\u5ea6\u5047\u6a21\u5f0f\u3002",
+            "fields": {
+                "code": {
+                    "description": "\u7528\u4e8e\u8b66\u62a5\u63a7\u5236\u5668\u5e03\u9632\u7684\u5bc6\u7801\u3002",
+                    "name": "\u5bc6\u7801"
+                }
+            },
+            "name": "\u5ea6\u5047\u5e03\u9632\u62a5\u8b66"
+        },
+        "alarm_bypass": {
+            "description": "\u7ed5\u8fc7\u6b64\u533a\u57df\u7684\u6240\u6709\u9632\u533a\u3002",
+            "fields": {
+                "code": {
+                    "description": "\u7528\u4e8e\u8b66\u62a5\u63a7\u5236\u9762\u677f\u7684\u7ed5\u8fc7\u7684\u6388\u6743\u4ee3\u7801\u3002",
+                    "name": "\u4ee3\u7801"
+                }
+            },
+            "name": "\u8b66\u62a5\u65c1\u8def"
+        },
+        "alarm_clear_bypass": {
+            "description": "\u53d6\u6d88\u7ed5\u8fc7\u6b64\u533a\u57df\u7684\u6240\u6709\u9632\u533a\u3002",
+            "fields": {
+                "code": {
+                    "description": "\u7528\u4e8e\u8b66\u62a5\u63a7\u5236\u9762\u677f\u7684\u6e05\u9664\u7ed5\u8fc7\u7684\u6388\u6743\u4ee3\u7801\u3002",
+                    "name": "\u5bc6\u7801"
+                }
+            },
+            "name": "\u8b66\u62a5\u6e05\u9664\u65c1\u8def"
+        },
+        "alarm_display_message": {
+            "description": "\u5728\u67d0\u4e2a\u533a\u57df\u7684\u6240\u6709 ElkM1 \u952e\u76d8\u4e0a\u663e\u793a\u6d88\u606f\u3002",
+            "fields": {
+                "beep": {
+                    "description": "0=\u65e0\u8702\u9e23\u58f0\uff0c1=\u8702\u9e23\u58f0\u3002",
+                    "name": "\u561f"
+                },
+                "clear": {
+                    "description": "0=\u6e05\u9664\u6d88\u606f\uff0c1=\u7528*\u952e\u6e05\u9664\u6d88\u606f\uff0c2=\u663e\u793a\u76f4\u5230\u8d85\u65f6\u3002",
+                    "name": "\u6e05\u9664"
+                },
+                "line1": {
+                    "description": "\u6700\u591a 16 \u4e2a\u5b57\u7b26\u7684\u6587\u672c\uff08\u5982\u679c\u592a\u957f\u5219\u88ab\u622a\u65ad\uff09\u3002",
+                    "name": "1\u53f7\u7ebf"
+                },
+                "line2": {
+                    "description": "\u6700\u591a 16 \u4e2a\u5b57\u7b26\u7684\u6587\u672c\uff08\u5982\u679c\u592a\u957f\u5219\u88ab\u622a\u65ad\uff09\u3002",
+                    "name": "2\u53f7\u7ebf"
+                },
+                "timeout": {
+                    "description": "\u663e\u793a\u6d88\u606f\u7684\u65f6\u95f4\uff0c0=\u6c38\u8fdc\uff0c\u6700\u592765535\u3002",
+                    "name": "\u6682\u505c"
+                }
+            },
+            "name": "\u8b66\u62a5\u663e\u793a\u4fe1\u606f"
+        },
+        "sensor_counter_refresh": {
+            "description": "\u4ece\u9762\u677f\u5237\u65b0\u8ba1\u6570\u5668\u7684\u503c\u3002",
+            "name": "\u4f20\u611f\u5668\u8ba1\u6570\u5668\u5237\u65b0"
+        },
+        "sensor_counter_set": {
+            "description": "\u8bbe\u7f6e\u9762\u677f\u4e0a\u8ba1\u6570\u5668\u7684\u503c\u3002",
+            "fields": {
+                "value": {
+                    "description": "\u5c06\u8ba1\u6570\u5668\u8bbe\u7f6e\u4e3a\u7684\u503c\u3002",
+                    "name": "\u4ef7\u503c"
+                }
+            },
+            "name": "\u4f20\u611f\u5668\u8ba1\u6570\u5668\u7ec4"
+        },
+        "sensor_zone_bypass": {
+            "description": "\u7ed5\u8fc7\u533a\u57df\u3002",
+            "fields": {
+                "code": {
+                    "description": "\u6388\u6743\u7ed5\u8fc7\u6b64\u5730\u70b9\u7684\u4ee3\u7801\u3002",
+                    "name": "\u4ee3\u7801"
+                }
+            },
+            "name": "\u4f20\u611f\u5668\u533a\u57df\u65c1\u8def"
+        },
+        "sensor_zone_trigger": {
+            "description": "\u89e6\u53d1\u533a\u3002",
+            "name": "\u4f20\u611f\u5668\u533a\u57df\u89e6\u53d1"
+        },
+        "set_time": {
+            "description": "\u8bbe\u7f6e\u9762\u677f\u7684\u65f6\u95f4\u3002",
+            "fields": {
+                "prefix": {
+                    "description": "\u9762\u677f\u7684\u524d\u7f00\u3002",
+                    "name": "\u524d\u7f00"
+                }
+            },
+            "name": "\u8bbe\u7f6e\u65f6\u95f4"
+        },
+        "speak_phrase": {
+            "description": "\u8bf4\u51fa\u4e00\u4e2a\u77ed\u8bed\u3002\u8bf7\u53c2\u9605 ElkM1 ASCII \u534f\u8bae\u6587\u6863\u4e2d\u7684\u77ed\u8bed\u5217\u8868\u3002",
+            "fields": {
+                "number": {
+                    "description": "\u8981\u8bf4\u7684\u77ed\u8bed\u7f16\u53f7",
+                    "name": "\u77ed\u8bed\u7f16\u53f7"
+                },
+                "prefix": {
+                    "description": "\u914d\u7f6e\u591a\u4e2a\u9762\u677f\u65f6\u7528\u4e8e\u8bc6\u522b\u9762\u677f\u7684\u524d\u7f00\u3002",
+                    "name": "\u524d\u7f00"
+                }
+            },
+            "name": "\u8bf4\u51fa\u77ed\u8bed"
+        },
+        "speak_word": {
+            "description": "\u8bf4\u4e00\u53e5\u8bdd\u3002\u8bf7\u53c2\u9605 ElkM1 ASCII \u534f\u8bae\u6587\u6863\u4e2d\u7684\u5355\u8bcd\u5217\u8868\u3002",
+            "fields": {
+                "number": {
+                    "description": "\u8981\u8bf4\u7684\u5355\u8bcd\u7f16\u53f7\u3002",
+                    "name": "\u5355\u8bcd\u7f16\u53f7"
+                },
+                "prefix": {
+                    "description": "\u914d\u7f6e\u591a\u4e2a\u9762\u677f\u65f6\u7528\u4e8e\u8bc6\u522b\u9762\u677f\u7684\u524d\u7f00\u3002",
+                    "name": "\u524d\u7f00"
+                }
+            },
+            "name": "\u8bf4\u51fa\u5355\u8bcd"
+        }
+    }
+}

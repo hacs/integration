@@ -1,0 +1,164 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Konto har redan konfigurerats",
+            "reauth_successful": "\u00c5terautentisering lyckades",
+            "reauth_wrong_account": "Du kan bara \u00e5terautentisera denna post med samma Overkiz-konto och hub"
+        },
+        "error": {
+            "cannot_connect": "Det gick inte att ansluta.",
+            "certificate_verify_failed": "Kan inte ansluta till v\u00e4rden, certifikatverifieringen misslyckades.",
+            "developer_mode_disabled": "Utvecklarl\u00e4get \u00e4r inaktiverat. Aktivera f\u00f6rst utvecklingsl\u00e4get f\u00f6r din Somfy TaHoma-box.",
+            "invalid_auth": "Ogiltig autentisering",
+            "no_such_token": "Det g\u00e5r inte att skapa en token f\u00f6r den h\u00e4r gatewayen. V\u00e4nligen bekr\u00e4fta om kontot \u00e4r l\u00e4nkat till denna gateway.",
+            "server_in_maintenance": "Servern ligger nere f\u00f6r underh\u00e5ll",
+            "too_many_attempts": "F\u00f6r m\u00e5nga f\u00f6rs\u00f6k med en ogiltig token, tillf\u00e4lligt avst\u00e4ngd",
+            "too_many_requests": "F\u00f6r m\u00e5nga f\u00f6rfr\u00e5gningar, f\u00f6rs\u00f6k igen senare",
+            "unknown": "Ov\u00e4ntat fel",
+            "unsupported_hardware": "Din {unsupported_device} h\u00e5rdvara st\u00f6ds inte av den h\u00e4r integrationen."
+        },
+        "flow_title": "Gateway: {gateway_id}",
+        "step": {
+            "cloud": {
+                "data": {
+                    "password": "L\u00f6senord",
+                    "username": "Anv\u00e4ndarnamn"
+                },
+                "description": "Ange dina autentiseringsuppgifter f\u00f6r applikationen."
+            },
+            "local": {
+                "data": {
+                    "host": "V\u00e4rd",
+                    "password": "L\u00f6senord",
+                    "username": "Anv\u00e4ndarnamn",
+                    "verify_ssl": "Verifiera SSL-certifikat"
+                },
+                "description": "Genom att aktivera [Utvecklarl\u00e4ge f\u00f6r din TaHoma box](https://github.com/Somfy-Developer/Somfy-TaHoma-Developer-Mode#getting-started) kan du till\u00e5ta tredjepartsprogramvara (t.ex. Home Assistant) att ansluta till den via ditt lokala n\u00e4tverk. \n\n Efter aktivering anger du dina autentiseringsuppgifter f\u00f6r applikationen och \u00e4ndrar v\u00e4rd till att inkludera din gateway-pin eller anger gatewayens IP-adress."
+            },
+            "local_or_cloud": {
+                "data": {
+                    "api_type": "API-typ"
+                },
+                "description": "V\u00e4lj mellan lokalt API eller moln-API. Lokalt API st\u00f6der TaHoma Connexoon, TaHoma v2 och TaHoma Switch. Klimatenheter och scenarier st\u00f6ds inte i det lokala API:et."
+            },
+            "user": {
+                "data": {
+                    "host": "V\u00e4rd",
+                    "hub": "Hubb",
+                    "password": "L\u00f6senord",
+                    "username": "Anv\u00e4ndarnamn"
+                },
+                "description": "Overkiz-plattformen anv\u00e4nds av olika leverant\u00f6rer som Somfy (Connexoon / TaHoma), Hitachi (Hi Kumo), Rexel (Energeasy Connect) och Atlantic (Cozytouch). Ange dina applikationsuppgifter och v\u00e4lj din hubb."
+            }
+        }
+    },
+    "entity": {
+        "climate": {
+            "overkiz": {
+                "state_attributes": {
+                    "fan_mode": {
+                        "state": {
+                            "away": "Borta",
+                            "bypass_boost": "Boost f\u00f6rbikoppling",
+                            "home_boost": "Boost hemma",
+                            "kitchen_boost": "Boost k\u00f6k"
+                        }
+                    },
+                    "preset_mode": {
+                        "state": {
+                            "auto": "Auto",
+                            "comfort-1": "Komfort 1",
+                            "comfort-2": "Komfort 2",
+                            "drying": "Torkar",
+                            "external": "Externt",
+                            "freeze": "Frost",
+                            "frost_protection": "Frostskydd",
+                            "manual": "Manuell",
+                            "night": "Natt",
+                            "prog": "Prog"
+                        }
+                    }
+                }
+            }
+        },
+        "select": {
+            "memorized_simple_volume": {
+                "state": {
+                    "highest": "H\u00f6gsta",
+                    "standard": "Standard"
+                }
+            },
+            "open_closed_partial": {
+                "state": {
+                    "closed": "St\u00e4ngd",
+                    "open": "\u00d6ppen",
+                    "partial": "Delvis"
+                }
+            },
+            "open_closed_pedestrian": {
+                "state": {
+                    "closed": "St\u00e4ngd",
+                    "open": "\u00d6ppen",
+                    "pedestrian": "G\u00e5ende"
+                }
+            }
+        },
+        "sensor": {
+            "battery": {
+                "state": {
+                    "full": "Fulladdad",
+                    "low": "L\u00e5g",
+                    "medium": "Medium",
+                    "normal": "Normal",
+                    "verylow": "V\u00e4ldigt l\u00e5g"
+                }
+            },
+            "discrete_rssi_level": {
+                "state": {
+                    "good": "God",
+                    "low": "L\u00e5g",
+                    "normal": "Normal",
+                    "verylow": "V\u00e4ldigt l\u00e5g"
+                }
+            },
+            "priority_lock_originator": {
+                "state": {
+                    "external_gateway": "Extern gateway",
+                    "local_user": "Lokal anv\u00e4ndare",
+                    "lsc": "LSC",
+                    "myself": "Jag sj\u00e4lv",
+                    "rain": "Regn",
+                    "saac": "SAAC",
+                    "security": "S\u00e4kerhet",
+                    "sfc": "SFC",
+                    "temperature": "Temperatur",
+                    "timer": "Timer",
+                    "ups": "UPS",
+                    "user": "Anv\u00e4ndare",
+                    "wind": "Vind"
+                }
+            },
+            "sensor_defect": {
+                "state": {
+                    "dead": "D\u00f6d",
+                    "low_battery": "L\u00e5g batteriniv\u00e5",
+                    "maintenance_required": "Service kr\u00e4vs",
+                    "no_defect": "Ingen defekt"
+                }
+            },
+            "sensor_room": {
+                "state": {
+                    "clean": "Rent",
+                    "dirty": "Smutsigt"
+                }
+            },
+            "three_way_handle_direction": {
+                "state": {
+                    "closed": "St\u00e4ngd",
+                    "open": "\u00d6ppen",
+                    "tilt": "Lutning"
+                }
+            }
+        }
+    }
+}

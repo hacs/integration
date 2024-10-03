@@ -1,0 +1,115 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "El dispositivo ya est\u00e1 configurado",
+            "no_server_found": "No se ha encontrado servidor LMS."
+        },
+        "error": {
+            "cannot_connect": "No se pudo conectar",
+            "invalid_auth": "Autenticaci\u00f3n no v\u00e1lida",
+            "no_server_found": "No se pudo descubrir autom\u00e1ticamente el servidor.",
+            "unknown": "Error inesperado"
+        },
+        "flow_title": "{host}",
+        "step": {
+            "edit": {
+                "data": {
+                    "host": "Host",
+                    "https": "Conexi\u00f3n a trav\u00e9s de https (requiere proxy inverso)",
+                    "password": "Contrase\u00f1a",
+                    "port": "Puerto",
+                    "username": "Nombre de usuario"
+                },
+                "title": "Edita la informaci\u00f3n de conexi\u00f3n"
+            },
+            "user": {
+                "data": {
+                    "host": "Host"
+                },
+                "data_description": {
+                    "host": "El nombre de host o direcci\u00f3n IP de tu Lyrion Music Server."
+                }
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "needsrestart": {
+                "name": "Necesita reiniciarse"
+            },
+            "rescan": {
+                "name": "Volver a escanear la biblioteca"
+            }
+        },
+        "sensor": {
+            "info_total_albums": {
+                "name": "Total de \u00e1lbumes"
+            },
+            "info_total_artists": {
+                "name": "Total de artistas"
+            },
+            "info_total_duration": {
+                "name": "Duraci\u00f3n total"
+            },
+            "info_total_genres": {
+                "name": "G\u00e9neros totales"
+            },
+            "info_total_songs": {
+                "name": "Total de canciones"
+            },
+            "lastscan": {
+                "name": "\u00daltimo escaneo"
+            },
+            "other_player_count": {
+                "name": "Servicio de recuento de reproducciones"
+            },
+            "player_count": {
+                "name": "Recuento de reproducciones"
+            }
+        }
+    },
+    "services": {
+        "call_method": {
+            "description": "Llama a una API JSONRPC de Squeezebox personalizada.",
+            "fields": {
+                "command": {
+                    "description": "Comando para pasar a Lyrion Music Server (p0 en la documentaci\u00f3n CLI).",
+                    "name": "Comando"
+                },
+                "parameters": {
+                    "description": "Matriz de par\u00e1metros adicionales para pasar a Lyrion Music Server (p1, ..., pN en la documentaci\u00f3n CLI).\n.",
+                    "name": "Par\u00e1metros"
+                }
+            },
+            "name": "M\u00e9todo de llamada"
+        },
+        "call_query": {
+            "description": "Llama a una API JSONRPC de Squeezebox personalizada. El resultado se almacenar\u00e1 en el atributo 'query_result' de la entidad Squeezebox.\n.",
+            "fields": {
+                "command": {
+                    "description": "Comando para pasar a Lyrion Music Server (p0 en la documentaci\u00f3n CLI).",
+                    "name": "Comando"
+                },
+                "parameters": {
+                    "description": "Matriz de par\u00e1metros adicionales para pasar a Lyrion Music Server (p1, ..., pN en la documentaci\u00f3n CLI).\n.",
+                    "name": "Par\u00e1metros"
+                }
+            },
+            "name": "Llamar a la consulta"
+        },
+        "sync": {
+            "description": "A\u00f1ade otro reproductor al grupo de sincronizaci\u00f3n de este reproductor. Si el otro reproductor ya est\u00e1 en un grupo de sincronizaci\u00f3n, lo abandonar\u00e1.\n.",
+            "fields": {
+                "other_player": {
+                    "description": "Nombre del otro reproductor de Squeezebox para vincular.",
+                    "name": "Otro reproductor"
+                }
+            },
+            "name": "Sincronizar"
+        },
+        "unsync": {
+            "description": "Elimina este reproductor de su grupo de sincronizaci\u00f3n.",
+            "name": "Anular sincronizaci\u00f3n"
+        }
+    }
+}

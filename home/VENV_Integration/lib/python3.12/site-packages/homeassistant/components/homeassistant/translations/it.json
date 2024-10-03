@@ -1,0 +1,176 @@
+{
+    "exceptions": {
+        "component_import_err": {
+            "message": "Impossibile importare {domain}:{error}"
+        },
+        "config_schema_unknown_err": {
+            "message": "Errore sconosciuto durante la chiamata di {domain} CONFIG_SCHEMA - {error}."
+        },
+        "config_validation_err": {
+            "message": "Configurazione non valida per l'integrazione {domain} in {config_file}, riga {line}: {error}."
+        },
+        "config_validator_unknown_err": {
+            "message": "Errore sconosciuto durante la chiamata del validatore di configurazione {domain} - {error}."
+        },
+        "max_length_exceeded": {
+            "message": "Il valore {value} per la propriet\u00e0 {property_name} ha una lunghezza massima di {max_length} caratteri."
+        },
+        "multiple_integration_config_errors": {
+            "message": "Impossibile elaborare la configurazione per l'integrazione {domain} a causa di pi\u00f9 errori ({errors}). Per ulteriori informazioni, consultare i registri."
+        },
+        "platform_component_load_err": {
+            "message": "Errore della piattaforma: {domain} - {error}."
+        },
+        "platform_component_load_exc": {
+            "message": "Errore della piattaforma: {domain} - {error}."
+        },
+        "platform_schema_validator_err": {
+            "message": "Errore sconosciuto durante la convalida della configurazione per {domain} dall'integrazione {p_name} - {error}."
+        }
+    },
+    "issues": {
+        "config_entry_only": {
+            "description": "L'integrazione {domain} non supporta la configurazione tramite file YAML. Potresti non notare alcun problema evidente con l'integrazione, ma qualsiasi impostazione di configurazione definita in YAML non \u00e8 effettivamente applicata. \n\nPer risolvere questo problema: \n\n1. Se non l'hai gi\u00e0 fatto, [imposta l'integrazione]({add_integration}). \n\n2. Rimuovi `{domain}:` dal tuo file di configurazione YAML. \n\n 3. Riavvia Home Assistant.",
+            "title": "L'integrazione {domain} non supporta la configurazione YAML"
+        },
+        "config_entry_reauth": {
+            "title": "Autenticazione scaduta per {name}"
+        },
+        "country_not_configured": {
+            "description": "Nessuna nazione \u00e8 stata configurata, aggiornare la configurazione facendo clic sul pulsante \"Ulteriori informazioni\" in basso.",
+            "title": "La nazione non \u00e8 stata configurata"
+        },
+        "deprecated_yaml": {
+            "description": "La configurazione di {integration_title} tramite YAML \u00e8 stata rimossa. \n\n La configurazione YAML esistente \u00e8 stata importata automaticamente nell'interfaccia utente. \n\n Rimuovi la configurazione \" {domain} \" dal tuo file configuration.yaml e riavvia Home Assistant per risolvere questo problema.",
+            "title": "La configurazione YAML {integration_title} \u00e8 in fase di rimozione"
+        },
+        "historic_currency": {
+            "description": "La valuta {currency} non \u00e8 pi\u00f9 in uso, riconfigura la configurazione della valuta.",
+            "title": "La valuta configurata non \u00e8 pi\u00f9 in uso"
+        },
+        "integration_key_no_support": {
+            "description": "L'integrazione {domain} non supporta la configurazione tramite file YAML. Potresti non notare alcun problema evidente con l'integrazione, ma qualsiasi impostazione di configurazione definita in YAML non \u00e8 effettivamente applicata. \n\nPer risolvere questo problema: \n\n1. Se non l'hai gi\u00e0 fatto, [imposta l'integrazione]({add_integration}). \n\n2. Rimuovi `{domain}:` dal tuo file di configurazione YAML. \n\n3. Riavvia Home Assistant.",
+            "title": "L'integrazione {domain} non supporta la configurazione YAML"
+        },
+        "integration_not_found": {
+            "fix_flow": {
+                "step": {
+                    "remove_entries": {
+                        "menu_options": {
+                            "confirm": "Rimuovi configurazioni precedenti",
+                            "ignore": "Ignora"
+                        }
+                    }
+                }
+            },
+            "title": "Integrazione {domain} non trovata"
+        },
+        "no_platform_setup": {
+            "title": "Configurazione YAML inutilizzata per l'integrazione {platform}"
+        },
+        "platform_only": {
+            "description": "L'integrazione {domain} non supporta la configurazione con la propria chiave, deve essere configurata con le piattaforme supportate. \n\nPer risolvere questo problema: \n\n1. Rimuovi `{domain}:` dal tuo file di configurazione YAML. \n\n2. Riavvia Home Assistant.",
+            "title": "L'integrazione {domain} non supporta la configurazione YAML con la propria chiave"
+        },
+        "python_version": {
+            "description": "Il supporto per l'esecuzione di Home Assistant nell'attuale versione di Python utilizzata {current_python_version} \u00e8 deprecato e verr\u00e0 rimosso in Home Assistant {breaks_in_ha_version}. Aggiorna Python a {required_python_version} per evitare che la tua istanza di Home Assistant non funzioni pi\u00f9.",
+            "title": "Il supporto per Python {current_python_version} \u00e8 stato rimosso"
+        },
+        "storage_corruption": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "title": "Rilevato danneggiamento dell'archiviazione per `{storage_key}`"
+                    }
+                }
+            }
+        }
+    },
+    "services": {
+        "check_config": {
+            "description": "Verifica la presenza di errori nei file di configurazione YAML di Home Assistant. Gli errori verranno visualizzati nei registri di Home Assistant.",
+            "name": "Controlla la configurazione"
+        },
+        "reload_all": {
+            "description": "Ricarica tutta la configurazione YAML che pu\u00f2 essere ricaricata senza riavviare Home Assistant.",
+            "name": "Ricarica tutto"
+        },
+        "reload_config_entry": {
+            "description": "Ricarica la voce di configurazione specificata.",
+            "fields": {
+                "entry_id": {
+                    "description": "L'ID della voce di configurazione da ricaricare.",
+                    "name": "ID voce di configurazione"
+                }
+            },
+            "name": "Ricarica la voce di configurazione"
+        },
+        "reload_core_config": {
+            "description": "Ricarica la configurazione principale dalla configurazione YAML.",
+            "name": "Ricarica la configurazione del nucleo"
+        },
+        "reload_custom_templates": {
+            "description": "Ricarica i modelli Jinja2 trovati nella cartella 'custom_templates' nella tua configurazione. I nuovi valori saranno applicati al successivo rendering del modello.",
+            "name": "Ricarica i modelli Jinja2 personalizzati"
+        },
+        "restart": {
+            "description": "Riavvia Home Assistant.",
+            "fields": {
+                "safe_mode": {
+                    "description": "Disattiva le integrazioni e le schede personalizzate.",
+                    "name": "Modalit\u00e0 provvisoria"
+                }
+            },
+            "name": "Riavvia"
+        },
+        "save_persistent_states": {
+            "description": "Salva immediatamente gli stati persistenti. Mantiene il normale intervallo di salvataggio periodico.",
+            "name": "Salvare gli stati persistenti"
+        },
+        "set_location": {
+            "description": "Aggiorna la posizione di Home Assistant.",
+            "fields": {
+                "elevation": {
+                    "description": "Altezza della tua posizione.",
+                    "name": "Altitudine"
+                },
+                "latitude": {
+                    "description": "Latitudine della tua posizione.",
+                    "name": "Latitudine"
+                },
+                "longitude": {
+                    "description": "Longitudine della tua posizione.",
+                    "name": "Logitudine"
+                }
+            },
+            "name": "Imposta posizione"
+        },
+        "stop": {
+            "description": "Arresta Home Assistant.",
+            "name": "Ferma"
+        },
+        "toggle": {
+            "name": "Interruttore generico"
+        },
+        "turn_off": {
+            "name": "Spegnimento generico"
+        },
+        "turn_on": {
+            "name": "Accensione generica"
+        },
+        "update_entity": {
+            "description": "Forza una o pi\u00f9 entit\u00e0 ad aggiornare i propri dati.",
+            "name": "Aggiorna entit\u00e0"
+        }
+    },
+    "system_health": {
+        "info": {
+            "dev": "Sviluppo",
+            "docker": "Docker",
+            "hassio": "Supervisor",
+            "timezone": "Fuso orario",
+            "user": "Utente",
+            "version": "Versione"
+        }
+    }
+}

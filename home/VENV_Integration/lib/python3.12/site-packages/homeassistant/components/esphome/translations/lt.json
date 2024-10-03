@@ -1,0 +1,122 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "\u012erenginys jau sukonfig\u016bruotas",
+            "already_in_progress": "Konfig\u016bracijos procesas jau vyksta",
+            "mdns_missing_mac": "Tr\u016bksta MAC adreso MDNS ypatyb\u0117se.",
+            "mqtt_missing_api": "Tr\u016bksta API prievado MQTT ypatyb\u0117se.",
+            "mqtt_missing_ip": "Tr\u016bksta IP adreso MQTT ypatyb\u0117se.",
+            "mqtt_missing_mac": "Tr\u016bksta MAC adreso MQTT ypatyb\u0117se.",
+            "reauth_successful": "Pakartotinis autentifikavimas buvo s\u0117kmingas",
+            "service_received": "Gautas veiksmas"
+        },
+        "error": {
+            "connection_error": "Nepavyksta prisijungti prie ESP. \u012esitikinkite, kad j\u016bs\u0173 YAML faile yra eilut\u0117 \u201eapi:\u201c.",
+            "invalid_auth": "Neteisingas autentifikavimas",
+            "invalid_psk": "Transportavimo \u0161ifravimo raktas neteisingas. \u012esitikinkite, kad jis atitinka konfig\u016bracijoje pateikt\u0105 informacij\u0105",
+            "resolve_error": "Nepavyko nustatyti ESP adreso. Jei \u0161i klaida i\u0161lieka, nustatykite statin\u012f IP adres\u0105"
+        },
+        "flow_title": "{name}",
+        "step": {
+            "authenticate": {
+                "data": {
+                    "password": "Slapta\u017eodis"
+                },
+                "description": "\u012eveskite slapta\u017eod\u012f, kur\u012f nustat\u0117te {name} konfig\u016bracijoje."
+            },
+            "discovery_confirm": {
+                "description": "Ar norite prid\u0117ti ESPHome mazg\u0105 ` {name} ` prie nam\u0173 asistento?",
+                "title": "Atrastas ESPHome mazgas"
+            },
+            "encryption_key": {
+                "data": {
+                    "noise_psk": "\u0160ifravimo raktas"
+                },
+                "description": "\u012eveskite {name} \u0161ifravimo rakt\u0105. J\u012f galite rasti ESPHome prietais\u0173 skydelyje arba \u012frenginio konfig\u016bracijoje."
+            },
+            "reauth_confirm": {
+                "data": {
+                    "noise_psk": "\u0160ifravimo raktas"
+                },
+                "description": "ESPHome \u012frenginys {name} \u012fgalino perdavimo \u0161ifravim\u0105 arba pakeit\u0117 \u0161ifravimo rakt\u0105. \u012eveskite atnaujint\u0105 rakt\u0105. J\u012f galite rasti ESPHome prietais\u0173 skydelyje arba \u012frenginio konfig\u016bracijoje."
+            },
+            "user": {
+                "data": {
+                    "host": "Host",
+                    "port": "Prievadas"
+                },
+                "description": "\u012eveskite savo [ESPHome]( {esphome_url} ) mazgo ry\u0161io nustatymus."
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "assist_in_progress": {
+                "name": "Pagalba vykstant"
+            },
+            "call_active": {
+                "name": "Skambutis Aktyvus"
+            }
+        },
+        "climate": {
+            "climate": {
+                "state_attributes": {
+                    "fan_mode": {
+                        "state": {
+                            "quiet": "Tyliai"
+                        }
+                    }
+                }
+            }
+        },
+        "select": {
+            "pipeline": {
+                "name": "Assist vamzdynas",
+                "state": {
+                    "preferred": "Pageidautina"
+                }
+            },
+            "vad_sensitivity": {
+                "name": "Baigtas kalb\u0117jimo aptikimas",
+                "state": {
+                    "aggressive": "Agresyvus",
+                    "default": "Numatytas",
+                    "relaxed": "Atsipalaidav\u0119s"
+                }
+            }
+        }
+    },
+    "issues": {
+        "api_password_deprecated": {
+            "description": "ESPHome API slapta\u017eodis nebenaudojamas, tod\u0117l rekomenduojama naudoti API \u0161ifravimo rakt\u0105. \n\n Pa\u0161alinkite API slapta\u017eod\u012f ir prid\u0117kite \u0161ifravimo rakt\u0105 prie savo ESPHome \u012frenginio, kad i\u0161spr\u0119stum\u0117te \u0161i\u0105 problem\u0105.",
+            "title": "API slapta\u017eodis nebenaudojamas {name}"
+        },
+        "assist_in_progress_deprecated": {
+            "fix_flow": {
+                "step": {
+                    "confirm_disable_entity": {
+                        "description": "Vykdomas dvejetainis jutiklis {integration_name} {entity_id} yra nebenaudojamas. Perkelkite savo konfig\u016bracij\u0105, kad gal\u0117tum\u0117te naudoti atitinkam\u0105 objekt\u0105 \u201e {assist_satellite_domain} \u201c, tada spustel\u0117kite PATEIKTI, kad i\u0161jungtum\u0117te vykdom\u0105 dvejetain\u012f jutikl\u012f ir i\u0161spr\u0119stum\u0117te \u0161i\u0105 problem\u0105."
+                    }
+                }
+            },
+            "title": "{integration_name} pagalbos eigoje dvejetainiai jutikliai nebenaudojami"
+        },
+        "ble_firmware_outdated": {
+            "description": "Norint pagerinti \u201eBluetooth\u201c patikimum\u0105 ir na\u0161um\u0105, primygtinai rekomenduojame atnaujinti {name} naudojant ESPHome {version} arba naujesn\u0119 versij\u0105. Atnaujinant \u012frengin\u012f i\u0161 ESPHome anks\u010diau nei 2022.12.0, rekomenduojama naudoti nuosekl\u0173j\u012f kabel\u012f, o ne naujinim\u0105 belaid\u017eiu b\u016bdu, kad b\u016bt\u0173 galima pasinaudoti naujos skaidinio schemos prana\u0161umais.",
+            "title": "Atnaujinkite {name} naudodami ESPHome {version} arba naujesn\u0119 versij\u0105"
+        },
+        "service_calls_not_allowed": {
+            "description": "ESPHome \u012frenginys band\u0117 atlikti nam\u0173 asistento veiksm\u0105, bet \u0161i funkcija ne\u012fjungta. \n\n Jei pasitikite \u0161iuo \u012frenginiu ir norite leisti jam atlikti nam\u0173 asistento veiksm\u0105, galite \u012fgalinti \u0161i\u0105 funkcij\u0105 parink\u010di\u0173 sraute.",
+            "title": "{name} neleid\u017eiama atlikti nam\u0173 asistento veiksm\u0173"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "allow_service_calls": "Leiskite \u012frenginiui atlikti nam\u0173 asistento veiksmus."
+                }
+            }
+        }
+    }
+}

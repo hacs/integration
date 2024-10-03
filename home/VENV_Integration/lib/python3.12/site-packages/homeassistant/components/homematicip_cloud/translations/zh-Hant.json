@@ -1,0 +1,158 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "\u88dd\u7f6e\u5df2\u7d93\u8a2d\u5b9a\u5b8c\u6210",
+            "connection_aborted": "\u9023\u7dda\u5931\u6557",
+            "unknown": "\u672a\u9810\u671f\u932f\u8aa4"
+        },
+        "error": {
+            "invalid_sgtin_or_pin": "SGTIN \u6216 PIN \u78bc\u7121\u6548\uff0c\u8acb\u518d\u8a66\u4e00\u6b21\u3002",
+            "press_the_button": "\u8acb\u6309\u4e0b\u85cd\u8272\u6309\u9215\u3002",
+            "register_failed": "\u8a3b\u518a\u5931\u6557\uff0c\u8acb\u518d\u8a66\u4e00\u6b21\u3002",
+            "timeout_button": "\u85cd\u8272\u6309\u9215\u903e\u6642\uff0c\u8acb\u518d\u8a66\u4e00\u6b21\u3002"
+        },
+        "step": {
+            "init": {
+                "data": {
+                    "hapid": "Access point ID (SGTIN)",
+                    "name": "\u540d\u7a31\uff08\u9078\u9805\uff0c\u7528\u4ee5\u4f5c\u70ba\u6240\u6709\u88dd\u7f6e\u7684\u5b57\u9996\u7528\uff09",
+                    "pin": "PIN \u78bc"
+                },
+                "title": "\u9078\u64c7 HomematicIP Access point"
+            },
+            "link": {
+                "description": "\u6309\u4e0b AP \u4e0a\u7684\u85cd\u8272\u6309\u9215\u8207 **\u50b3\u9001** \u6309\u9215\uff0c\u4ee5\u65bc Home Assistant \u4e0a\u9032\u884c HomematicIP \u8a3b\u518a\u3002\n\n![\u6a4b\u63a5\u5668\u4e0a\u7684\u6309\u9215\u4f4d\u7f6e](/static/images/config_flows/config_homematicip_cloud.png)",
+                "title": "\u9023\u7d50 Access point"
+            }
+        }
+    },
+    "exceptions": {
+        "access_point_not_found": {
+            "message": "\u627e\u4e0d\u5230\u8207\u5b58\u53d6\u9ede id {id} \u7b26\u5408\u7684\u5b58\u53d6\u9ede"
+        }
+    },
+    "services": {
+        "activate_eco_mode_with_duration": {
+            "description": "\u4ee5\u6301\u7e8c\u6642\u9593\u555f\u52d5\u7bc0\u80fd\u6a21\u5f0f",
+            "fields": {
+                "accesspoint_id": {
+                    "description": "Homematic IP Access Point \u7684 ID\u3002",
+                    "name": "Accesspoint ID"
+                },
+                "duration": {
+                    "description": "\u7bc0\u80fd\u6a21\u5f0f\u6301\u7e8c\u6642\u9593\uff08\u5206\u9418\uff09\u3002",
+                    "name": "\u6301\u7e8c\u6642\u9593"
+                }
+            },
+            "name": "\u4ee5\u6301\u7e8c\u6642\u9593\u555f\u52d5\u7bc0\u80fd\u6a21\u5f0f"
+        },
+        "activate_eco_mode_with_period": {
+            "description": "\u4ee5\u6301\u7e8c\u6642\u9593\u555f\u52d5\u7bc0\u80fd\u6a21\u5f0f",
+            "fields": {
+                "accesspoint_id": {
+                    "description": "Homematic IP Access Point \u7684 ID\u3002",
+                    "name": "Accesspoint ID"
+                },
+                "endtime": {
+                    "description": "\u7bc0\u80fd\u6a21\u5f0f\u61c9\u81ea\u52d5\u95dc\u9589\u7684\u6642\u9593\u3002",
+                    "name": "\u7d50\u675f\u6642\u9593"
+                }
+            },
+            "name": "\u4ee5\u6301\u7e8c\u6642\u9593\u555f\u52d5\u7bc0\u80fd\u6a21\u5f0f"
+        },
+        "activate_vacation": {
+            "description": "\u555f\u7528\u5047\u671f\u6a21\u5f0f\u76f4\u5230\u8a2d\u5b9a\u6642\u9593\u3002",
+            "fields": {
+                "accesspoint_id": {
+                    "description": "Homematic IP Access Point \u7684 ID\u3002",
+                    "name": "Accesspoint ID"
+                },
+                "endtime": {
+                    "description": "\u5047\u671f\u6a21\u5f0f\u61c9\u81ea\u52d5\u95dc\u9589\u7684\u6642\u9593\u3002",
+                    "name": "\u7d50\u675f\u6642\u9593"
+                },
+                "temperature": {
+                    "description": "\u5047\u671f\u6a21\u5f0f\u8a2d\u5b9a\u6eab\u5ea6\u3002",
+                    "name": "\u6eab\u5ea6"
+                }
+            },
+            "name": "\u555f\u52d5\u5047\u671f"
+        },
+        "deactivate_eco_mode": {
+            "description": "\u7acb\u5373\u505c\u7528\u7bc0\u80fd\u6a21\u5f0f\u3002",
+            "fields": {
+                "accesspoint_id": {
+                    "description": "Homematic IP Access Point \u7684 ID\u3002",
+                    "name": "Accesspoint ID"
+                }
+            },
+            "name": "\u505c\u7528\u7bc0\u80fd\u6a21\u5f0f"
+        },
+        "deactivate_vacation": {
+            "description": "\u7acb\u5373\u505c\u7528\u5047\u671f\u6a21\u5f0f\u3002",
+            "fields": {
+                "accesspoint_id": {
+                    "description": "Homematic IP Access Point \u7684 ID\u3002",
+                    "name": "Accesspoint ID"
+                }
+            },
+            "name": "\u505c\u7528\u5047\u671f"
+        },
+        "dump_hap_config": {
+            "description": "\u8f49\u79fb Homematic IP Accesspoint \u7684\u8a2d\u5b9a\u3002",
+            "fields": {
+                "anonymize": {
+                    "description": "\u662f\u5426\u5c07\u8a2d\u5b9a\u533f\u540d\u5316\uff1f",
+                    "name": "\u533f\u540d\u5316"
+                },
+                "config_output_file_prefix": {
+                    "description": "\u8a2d\u5b9a\u6a94\u6848\u540d\u7a31\u3002\u5c07\u9644\u52a0 AP \u4e4b SGTIN\u3002",
+                    "name": "\u8a2d\u5b9a\u8f38\u51fa\u6a94\u6848\u524d\u7db4"
+                },
+                "config_output_path": {
+                    "description": "(\u9810\u8a2d\u70ba 'home-assistant \u8a2d\u5b9a\u6a94\u6848\u593e') \u5132\u5b58\u8a2d\u5b9a\u7684\u8def\u5f91\u3002",
+                    "name": "\u8a2d\u5b9a\u8f38\u51fa\u8def\u5f91"
+                }
+            },
+            "name": "\u8f49\u5b58 hap \u8a2d\u5b9a"
+        },
+        "reset_energy_counter": {
+            "description": "\u91cd\u7f6e\u6e2c\u91cf\u5be6\u9ad4\u7684\u80fd\u6e90\u8a08\u6578\u5668\u3002",
+            "fields": {
+                "entity_id": {
+                    "description": "\u6e2c\u91cf\u5be6\u9ad4 ID\u3002\u4f7f\u7528 'all' \u95dc\u9375\u5b57\u4ee5\u91cd\u7f6e\u6240\u6709\u80fd\u6e90\u8a08\u6578\u5668\u3002",
+                    "name": "\u5be6\u9ad4"
+                }
+            },
+            "name": "\u91cd\u7f6e\u80fd\u6e90\u8a08\u6578"
+        },
+        "set_active_climate_profile": {
+            "description": "\u8a2d\u7f6e\u555f\u7528\u6eab\u63a7\u5668\u8a2d\u5b9a\u6a94\u7d22\u5f15\u3002",
+            "fields": {
+                "climate_profile_index": {
+                    "description": "\u6eab\u63a7\u5668\u8a2d\u5b9a\u6a94\u7d22\u5f15\u3002",
+                    "name": "\u6eab\u63a7\u5668\u8a2d\u5b9a\u6a94\u7f6e\u7d22\u5f15"
+                },
+                "entity_id": {
+                    "description": "\u6eab\u63a7\u5668\u5be6\u9ad4 ID\u3002\u4f7f\u7528 \u201call\u201d \u95dc\u9375\u5b57\u5207\u63db\u6240\u6709\u5be6\u9ad4\u7684\u8a2d\u5b9a\u6a94\u3002",
+                    "name": "\u5be6\u9ad4"
+                }
+            },
+            "name": "\u8a2d\u5b9a\u555f\u7528\u6eab\u63a7\u5668\u8a2d\u5b9a\u6a94"
+        },
+        "set_home_cooling_mode": {
+            "description": "\u70ba\u6574\u500b\u5bb6\u5ead\u8a2d\u5b9a\u6696\u6c23/\u51b7\u6c23\u6a21\u5f0f",
+            "fields": {
+                "accesspoint_id": {
+                    "description": "Homematic IP Access Point \u7684 ID\u3002",
+                    "name": "Accesspoint ID"
+                },
+                "cooling": {
+                    "description": "\u958b\u555f\u51b7\u6c23\u6a21\u5f0f\u3001\u95dc\u9589\u6696\u6c23\u6a21\u5f0f",
+                    "name": "\u51b7\u6c23"
+                }
+            },
+            "name": "\u8a2d\u5b9a\u5728\u5bb6\u51b7\u6c23\u6a21\u5f0f"
+        }
+    }
+}

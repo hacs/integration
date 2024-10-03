@@ -1,0 +1,292 @@
+{
+    "config": {
+        "abort": {
+            "already_configured_account": "L'account \u00e8 gi\u00e0 configurato",
+            "ezviz_cloud_account_missing": "Account EZVIZ cloud mancante. Si prega di riconfigurare l'account EZVIZ cloud",
+            "reauth_successful": "La riautenticazione ha avuto successo",
+            "unknown": "Errore imprevisto"
+        },
+        "error": {
+            "cannot_connect": "Impossibile connettersi",
+            "invalid_auth": "Autenticazione non valida",
+            "invalid_host": "Nome host o indirizzo IP non valido",
+            "mfa_required": "2FA abilitato sull'account, disabilita e riprova"
+        },
+        "flow_title": "{serial}",
+        "step": {
+            "confirm": {
+                "data": {
+                    "password": "Password",
+                    "username": "Nome utente"
+                },
+                "description": "Inserisci le credenziali RTSP per la videocamera EZVIZ {serial} con IP {ip_address}",
+                "title": "Rilevata videocamera EZVIZ"
+            },
+            "reauth_confirm": {
+                "data": {
+                    "password": "Password",
+                    "username": "Nome utente"
+                },
+                "description": "Immettere le credenziali per eseguire nuovamente l'autenticazione nell'account cloud ezviz",
+                "title": "Autenticazione scaduta per {name}"
+            },
+            "user": {
+                "data": {
+                    "password": "Password",
+                    "url": "URL",
+                    "username": "Nome utente"
+                },
+                "title": "Connettiti a EZVIZ Cloud"
+            },
+            "user_custom_url": {
+                "data": {
+                    "password": "Password",
+                    "url": "URL",
+                    "username": "Nome utente"
+                },
+                "description": "Specifica manualmente l'URL dell'area geografica",
+                "title": "Connettiti all'URL EZVIZ personalizzato"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "alarm_schedules_enabled": {
+                "name": "Pianificazioni di allarme abilitate"
+            },
+            "encrypted": {
+                "name": "Crittografia"
+            }
+        },
+        "button": {
+            "ptz_down": {
+                "name": "PTZ gi\u00f9"
+            },
+            "ptz_left": {
+                "name": "PTZ sinistra"
+            },
+            "ptz_right": {
+                "name": "PTZ destra"
+            },
+            "ptz_up": {
+                "name": "PTZ su"
+            }
+        },
+        "image": {
+            "last_motion_image": {
+                "name": "Ultima immagine motion"
+            }
+        },
+        "light": {
+            "light": {
+                "name": "Luce"
+            }
+        },
+        "number": {
+            "detection_sensibility": {
+                "name": "Sensibilit\u00e0 di rilevamento"
+            }
+        },
+        "select": {
+            "alarm_sound_mode": {
+                "name": "Suono di avviso",
+                "state": {
+                    "intensive": "Intensivo",
+                    "silent": "Silenzioso",
+                    "soft": "Morbido"
+                }
+            }
+        },
+        "sensor": {
+            "alarm_sound_mod": {
+                "name": "Livello sonoro dell'allarme"
+            },
+            "last_alarm_pic": {
+                "name": "URL dell'immagine dell'ultimo allarme"
+            },
+            "last_alarm_time": {
+                "name": "Orario dell'ultimo allarme"
+            },
+            "last_alarm_type_code": {
+                "name": "Codice del tipo di ultimo allarme"
+            },
+            "last_alarm_type_name": {
+                "name": "Nome dell'ultimo tipo di allarme"
+            },
+            "local_ip": {
+                "name": "IP locale"
+            },
+            "pir_status": {
+                "name": "Stato PIR"
+            },
+            "seconds_last_trigger": {
+                "name": "Secondi dall'ultima attivazione"
+            },
+            "supported_channels": {
+                "name": "Canali supportati"
+            },
+            "wan_ip": {
+                "name": "IP WAN"
+            }
+        },
+        "siren": {
+            "siren": {
+                "name": "Sirena"
+            }
+        },
+        "switch": {
+            "all_day_video_recording": {
+                "name": "Registrazione video per tutto il giorno"
+            },
+            "audio": {
+                "name": "Audio"
+            },
+            "auto_sleep": {
+                "name": "Sospensione automatica"
+            },
+            "flicker_light_on_movement": {
+                "name": "Luce a intermittenza sul movimento"
+            },
+            "follow_movement": {
+                "name": "Segui il movimento"
+            },
+            "infrared_light": {
+                "name": "Luce infrarossa"
+            },
+            "motion_tracking": {
+                "name": "Tracciamento del movimento"
+            },
+            "pir_motion_activated_light": {
+                "name": "Luce PIR attivata dal movimento"
+            },
+            "privacy": {
+                "name": "Riservatezza"
+            },
+            "sleep": {
+                "name": "Sospensione"
+            },
+            "status_light": {
+                "name": "Luce di stato"
+            },
+            "tamper_alarm": {
+                "name": "Allarme manomissione"
+            }
+        },
+        "update": {
+            "firmware": {
+                "name": "Firmware"
+            }
+        }
+    },
+    "issues": {
+        "service_deprecation_alarm_sound_level": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Il servizio Ezviz Alarm sound level \u00e8 deprecato e sar\u00e0 rimosso.\nPer impostare il livello sonoro dell'allarme, si pu\u00f2 invece utilizzare il servizio `select.select_option` che punta all'entit\u00e0 sonora Warning.\n\nRimuovere questo servizio dalle automazioni e dagli script e selezionare **invia** per chiudere il problema.",
+                        "title": "Il servizio di livello sonoro Ezviz Alarm \u00e8 stato rimosso."
+                    }
+                }
+            },
+            "title": "Il servizio di livello sonoro Ezviz Alarm \u00e8 stato rimosso."
+        },
+        "service_depreciation_detection_sensibility": {
+            "description": "Il servizio di sensibilit\u00e0 di rilevamento Ezviz \u00e8 deprecato e verr\u00e0 rimosso in Home Assistant 2023.12; Modifica l'automazione o lo script che utilizza il servizio e seleziona Invia di seguito per contrassegnare il problema come risolto.",
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Il servizio di sensibilit\u00e0 di rilevamento Ezviz \u00e8 deprecato e verr\u00e0 rimosso in Home Assistant 2023.12.\n Per impostare la sensibilit\u00e0, puoi invece utilizzare il servizio `number.set_value` che ha come target l'entit\u00e0 Sensibilit\u00e0 rilevamento. \n\n Rimuovi questo servizio dalle tue automazioni e script e seleziona **invia** per chiudere questo problema.",
+                        "title": "Il servizio di sensibilit\u00e0 al rilevamento di Ezviz \u00e8 stato rimosso"
+                    }
+                }
+            },
+            "title": "Il servizio di sensibilit\u00e0 al rilevamento di Ezviz \u00e8 stato rimosso"
+        },
+        "service_depreciation_ptz": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Il servizio EZVIZ PTZ \u00e8 deprecato e verr\u00e0 rimosso.\nPer spostare la telecamera, \u00e8 invece possibile utilizzare il servizio 'button.press' indirizzando le entit\u00e0 PTZ*.\n\nRimuovere l'uso di questo servizio dalle automazioni e dagli script e selezionare **invia** per chiudere il problema.",
+                        "title": "Il servizio EZVIZ PTZ \u00e8 stato rimosso"
+                    }
+                }
+            },
+            "title": "Il servizio EZVIZ PTZ \u00e8 stato rimosso"
+        },
+        "service_depreciation_sound_alarm": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Il servizio di allarme sonoro Ezviz \u00e8 deprecato e verr\u00e0 rimosso.\nPer suonare l'allarme, puoi invece utilizzare il servizio `siren.toggle` destinato all'entit\u00e0 Sirena.\n\nRimuovere l'uso di questo servizio dalle automazioni e dagli script e selezionare **invia** per risolvere il problema.",
+                        "title": "Il servizio di allarme Ezviz Sound \u00e8 stato rimosso"
+                    }
+                }
+            },
+            "title": "Il servizio di allarme Ezviz Sound \u00e8 stato rimosso"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "ffmpeg_arguments": "Argomenti passati a ffmpeg per le fotocamere",
+                    "timeout": "Richiesta Timeout (secondi)"
+                }
+            }
+        }
+    },
+    "services": {
+        "alarm_sound": {
+            "description": "Imposta il livello sonoro di avviso del movimento.",
+            "fields": {
+                "level": {
+                    "description": "Livello sonoro (2 \u00e8 disattivato, 1 intenso, 0 morbido).",
+                    "name": "Livello audio"
+                }
+            },
+            "name": "Impostare il livello sonoro dell'avviso."
+        },
+        "ptz": {
+            "description": "Sposta la telecamera nella direzione, con velocit\u00e0 definita.",
+            "fields": {
+                "direction": {
+                    "description": "Direzione per spostare la telecamera (su, gi\u00f9, sinistra, destra).",
+                    "name": "Direzione"
+                },
+                "speed": {
+                    "description": "Velocit\u00e0 di movimento (da 1 a 9).",
+                    "name": "Velocit\u00e0"
+                }
+            },
+            "name": "PTZ"
+        },
+        "set_alarm_detection_sensibility": {
+            "description": "Imposta il livello di sensibilit\u00e0 di rilevamento.",
+            "fields": {
+                "level": {
+                    "description": "Livello di sensibilit\u00e0 (1-6) per il tipo 0 (telecamera normale) o (1-100) per il tipo 3 (telecamera con sensore PIR).",
+                    "name": "Livello di sensibilit\u00e0"
+                },
+                "type_value": {
+                    "description": "Tipo di rilevamento. Opzioni: 0 - Fotocamera o 3 - Fotocamera con sensore PIR.",
+                    "name": "Tipo di rilevamento"
+                }
+            },
+            "name": "Sensibilit\u00e0 di rilevamento"
+        },
+        "sound_alarm": {
+            "description": "Suona l'allarme sulla tua fotocamera.",
+            "fields": {
+                "enable": {
+                    "description": "Immettere 1 o 2 (1=disabilita, 2=abilita).",
+                    "name": "Suono di allarme"
+                }
+            },
+            "name": "Allarme sonoro"
+        },
+        "wake_device": {
+            "description": "Questo pu\u00f2 essere utilizzato per riattivare la fotocamera/dispositivo dall'ibernazione.",
+            "name": "Attiva la fotocamera"
+        }
+    }
+}

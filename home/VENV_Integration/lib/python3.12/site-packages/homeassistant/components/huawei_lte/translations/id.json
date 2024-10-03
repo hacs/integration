@@ -1,0 +1,144 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Perangkat sudah dikonfigurasi",
+            "already_in_progress": "Alur konfigurasi sedang berlangsung",
+            "reauth_successful": "Autentikasi ulang berhasil",
+            "unsupported_device": "Perangkat tidak didukung"
+        },
+        "error": {
+            "connection_timeout": "Tenggang waktu terhubung habis",
+            "incorrect_password": "Kata sandi salah",
+            "incorrect_username": "Nama pengguna salah",
+            "invalid_auth": "Autentikasi tidak valid",
+            "invalid_url": "URL tidak valid",
+            "login_attempts_exceeded": "Upaya login maksimum telah terlampaui, coba lagi nanti",
+            "response_error": "Kesalahan tidak dikenal dari perangkat",
+            "ssl_error_try_plain": "Kesalahan HTTPS, coba URL HTTP biasa",
+            "ssl_error_try_unverified": "Kesalahan HTTPS, coba nonaktifkan verifikasi sertifikat atau gunakan URL HTTP biasa",
+            "unknown": "Kesalahan tak terduga"
+        },
+        "flow_title": "{name}",
+        "step": {
+            "reauth_confirm": {
+                "data": {
+                    "password": "Kata Sandi",
+                    "username": "Nama Pengguna"
+                },
+                "description": "Masukkan kredensial akses perangkat.",
+                "title": "Autentikasi ulang integrasi untuk {name}"
+            },
+            "user": {
+                "data": {
+                    "password": "Kata Sandi",
+                    "url": "URL",
+                    "username": "Nama Pengguna",
+                    "verify_ssl": "Verifikasi sertifikat SSL"
+                },
+                "description": "Masukkan detail akses perangkat.",
+                "title": "Konfigurasikan Huawei LTE"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "mobile_connection": {
+                "name": "Koneksi seluler"
+            }
+        },
+        "select": {
+            "preferred_network_mode": {
+                "name": "Mode jaringan pilihan",
+                "state": {
+                    "00": "4G/3G/2G otomatis",
+                    "01": "Hanya 2G",
+                    "02": "Hanya 3G",
+                    "0201": "3G/2G otomatis",
+                    "03": "Hanya 4G",
+                    "0301": "4G/2G otomatis",
+                    "0302": "4G/3G otomatis"
+                }
+            }
+        },
+        "sensor": {
+            "operator_search_mode": {
+                "state": {
+                    "0": "Otomatis",
+                    "1": "Manual"
+                }
+            },
+            "preferred_network_mode": {
+                "name": "Mode jaringan pilihan",
+                "state": {
+                    "00": "4G/3G/2G otomatis",
+                    "01": "Hanya 2G",
+                    "02": "Hanya 3G",
+                    "0201": "3G/2G otomatis",
+                    "03": "Hanya 4G",
+                    "0301": "4G/2G otomatis",
+                    "0302": "4G/3G otomatis"
+                }
+            },
+            "wan_ip_address": {
+                "name": "Alamat IP WAN"
+            }
+        },
+        "switch": {
+            "mobile_data": {
+                "name": "Data seluler"
+            },
+            "wifi_guest_network": {
+                "name": "Jaringan tamu Wi-Fi"
+            }
+        }
+    },
+    "issues": {
+        "service_changed_to_button": {
+            "description": "Layanan {service} sudah tidak digunakan lagi, gunakan tombol {button} yang sesuai sebagai gantinya.",
+            "title": "Layanan diubah menjadi tombol"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "name": "Nama layanan notifikasi (perubahan membutuhkan proses mulai ulang)",
+                    "recipient": "Penerima notifikasi SMS",
+                    "track_wired_clients": "Lacak klien jaringan kabel",
+                    "unauthenticated_mode": "Mode tidak diautentikasi (perubahan memerlukan pemuatan ulang)"
+                }
+            }
+        }
+    },
+    "services": {
+        "clear_traffic_statistics": {
+            "fields": {
+                "url": {
+                    "name": "URL"
+                }
+            }
+        },
+        "reboot": {
+            "fields": {
+                "url": {
+                    "name": "URL"
+                }
+            }
+        },
+        "resume_integration": {
+            "fields": {
+                "url": {
+                    "name": "URL"
+                }
+            }
+        },
+        "suspend_integration": {
+            "fields": {
+                "url": {
+                    "description": "URL router untuk menangguhkan integrasi; opsional jika hanya satu yang dikonfigurasi.",
+                    "name": "URL"
+                }
+            }
+        }
+    }
+}

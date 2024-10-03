@@ -1,0 +1,179 @@
+{
+    "config": {
+        "abort": {
+            "single_instance_allowed": "Ja configurat. Nom\u00e9s \u00e9s possible una sola configuraci\u00f3."
+        },
+        "error": {
+            "pin_request_failed": "Error al sol\u00b7licitar els PIN d'ecobee; verifica que la clau API \u00e9s correcta.",
+            "token_request_failed": "Error al sol\u00b7licitar els tokens d'autenticaci\u00f3 d'ecobee; torna-ho a provar."
+        },
+        "step": {
+            "authorize": {
+                "title": "Autoritzaci\u00f3 de l'aplicaci\u00f3 a ecobee.com"
+            },
+            "user": {
+                "data": {
+                    "api_key": "Clau API"
+                },
+                "description": "Introdueix la clau API obteinguda a trav\u00e9s del lloc web ecobee.com.",
+                "title": "Clau API d'ecobee"
+            }
+        }
+    },
+    "entity": {
+        "climate": {
+            "ecobee": {
+                "state_attributes": {
+                    "preset_mode": {
+                        "state": {
+                            "away_indefinitely": "A fora indefinidament"
+                        }
+                    }
+                }
+            }
+        },
+        "number": {
+            "ventilator_min_type_away": {
+                "name": "Temps m\u00ednim a fora"
+            },
+            "ventilator_min_type_home": {
+                "name": "Temps m\u00ednim a casa"
+            }
+        }
+    },
+    "issues": {
+        "migrate_aux_heat": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "L'acci\u00f3 d'Ecobee `set_aux_heat` s'ha migrat. Hi ha disponible una nova entitat d'interruptor `aux_heat_only` per a cada term\u00f2stat que admeti la bomba de calor.\n\nModifica totes les automatitzacions i/o scripts perqu\u00e8 utilitzin la nova entitat d'interruptor `aux_heat_only`. Un cop fet aix\u00f2, pots marcar el problema com a resolt i reiniciar Home Assistant.",
+                        "title": "Desactiva l'acci\u00f3 heretada d'Ecobee set_aux_heat"
+                    }
+                }
+            },
+            "title": "Migraci\u00f3 de l'acci\u00f3 Ecobee set_aux_heat"
+        }
+    },
+    "services": {
+        "create_vacation": {
+            "description": "Crea unes vacances al term\u00f2stat seleccionat. Nota: la data i hora d'inici/finalitzaci\u00f3 i finalitzaci\u00f3 s'han d'especificar conjuntament perqu\u00e8 aquests par\u00e0metres tinguin efecte. Si no s'especifiquen la data i hora d'inici/finalitzaci\u00f3, les vacances comen\u00e7aran immediatament i duraran 14 dies (tret que s'eliminin abans).",
+            "fields": {
+                "cool_temp": {
+                    "description": "Temperatura freda durant les vacances.",
+                    "name": "Temperatura freda"
+                },
+                "end_date": {
+                    "name": "Data final"
+                },
+                "end_time": {
+                    "description": "Hora final de les vacances (en l'hora local del term\u00f2stat), en format 24 hores \"HH:MM:SS\".",
+                    "name": "Hora final"
+                },
+                "entity_id": {
+                    "description": "Term\u00f2stat Ecobee on crear les vacances.",
+                    "name": "Entitat"
+                },
+                "fan_min_on_time": {
+                    "description": "Nombre m\u00ednim de minuts a activar el ventilador cada hora (de 0 a 60) durant les vacances.",
+                    "name": "Temps m\u00ednim d'activaci\u00f3 del ventilador"
+                },
+                "fan_mode": {
+                    "description": "Mode del ventilador del term\u00f2stat durant les vacances.",
+                    "name": "Mode del ventilador"
+                },
+                "heat_temp": {
+                    "description": "Temperatura de calefacci\u00f3 durant les vacances.",
+                    "name": "Temperatura de calefacci\u00f3"
+                },
+                "start_date": {
+                    "name": "Data inici"
+                },
+                "start_time": {
+                    "description": "Hora d'inici de les vacances (en l'hora local del term\u00f2stat), en format 24 hores \"HH:MM:SS\".",
+                    "name": "Hora d'inici"
+                },
+                "vacation_name": {
+                    "description": "Nom de les vacances a crear; ha de ser \u00fanic dins el term\u00f2stat.",
+                    "name": "Nom de les vacances"
+                }
+            },
+            "name": "Crea vacances"
+        },
+        "delete_vacation": {
+            "description": "Elimina unes vacances del term\u00f2stat seleccionat.",
+            "fields": {
+                "entity_id": {
+                    "description": "Term\u00f2stat Ecobee on eliminar les vacances.",
+                    "name": "Entitat"
+                },
+                "vacation_name": {
+                    "description": "Nom de les vacances a eliminar.",
+                    "name": "Nom de les vacances"
+                }
+            },
+            "name": "Elimina vacances"
+        },
+        "resume_program": {
+            "description": "Repr\u00e8n l'horari programat.",
+            "fields": {
+                "entity_id": {
+                    "description": "Nom(s) de les entitats a canviar.",
+                    "name": "Entitat"
+                },
+                "resume_all": {
+                    "description": "Repr\u00e8n tots els esdeveniments i torna al programa planificat.",
+                    "name": "Repr\u00e8n-ho tot"
+                }
+            },
+            "name": "Repr\u00e8n el programa"
+        },
+        "set_dst_mode": {
+            "description": "Activa/desactiva l'horari d'estiu autom\u00e0tic.",
+            "fields": {
+                "dst_enabled": {
+                    "description": "Activa l'horari d'estiu autom\u00e0tic.",
+                    "name": "Horari d'estiu activat"
+                }
+            },
+            "name": "Configura el mode d'horari d'estiu"
+        },
+        "set_fan_min_on_time": {
+            "description": "Configura el temps m\u00ednim d'activaci\u00f3 del ventilador.",
+            "fields": {
+                "entity_id": {
+                    "description": "Nom(s) de les entitats a canviar.",
+                    "name": "Entitat"
+                },
+                "fan_min_on_time": {
+                    "description": "Nou valor de temps m\u00ednim d'activaci\u00f3 del ventilador.",
+                    "name": "Temps m\u00ednim d'activaci\u00f3 del ventilador"
+                }
+            },
+            "name": "Configura temps m\u00ednim d'activaci\u00f3 del ventilador"
+        },
+        "set_mic_mode": {
+            "description": "Activa/desactiva el micr\u00f2fon d'Alexa (nom\u00e9s per a Ecobee 4).",
+            "fields": {
+                "mic_enabled": {
+                    "description": "Activa el micr\u00f2fon d'Alexa.",
+                    "name": "Micr\u00f2fon activat"
+                }
+            },
+            "name": "Configura el mode micr\u00f2fon"
+        },
+        "set_occupancy_modes": {
+            "description": "Activa/desactiva els modes: casa intel\u00b7ligent / a fora i segueix-me.",
+            "fields": {
+                "auto_away": {
+                    "description": "Activa el mode casa intel\u00b7ligent / a fora.",
+                    "name": "A fora, autom\u00e0tic"
+                },
+                "follow_me": {
+                    "description": "Activa el mode Segueix-me.",
+                    "name": "Segueix-me"
+                }
+            },
+            "name": "Configura els modes d'ocupaci\u00f3"
+        }
+    }
+}

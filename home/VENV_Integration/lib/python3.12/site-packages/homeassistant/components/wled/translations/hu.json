@@ -1,0 +1,175 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Az eszk\u00f6z m\u00e1r konfigur\u00e1lva van",
+            "cannot_connect": "Sikertelen csatlakoz\u00e1s",
+            "cct_unsupported": "Ez a WLED-eszk\u00f6z CCT-csatorn\u00e1kat haszn\u00e1l, amit ez az integr\u00e1ci\u00f3 nem t\u00e1mogat"
+        },
+        "error": {
+            "cannot_connect": "Sikertelen csatlakoz\u00e1s"
+        },
+        "flow_title": "{name}",
+        "step": {
+            "user": {
+                "data": {
+                    "host": "Hoszt"
+                },
+                "data_description": {
+                    "host": "WLED-eszk\u00f6z\u00e9nek g\u00e9pneve vagy IP-c\u00edme."
+                },
+                "description": "A WLED be\u00e1ll\u00edt\u00e1sa a Home Assistantba val\u00f3 integr\u00e1ci\u00f3hoz."
+            },
+            "zeroconf_confirm": {
+                "description": "Szeretn\u00e9 hozz\u00e1adni WLED-et amelnyek a neve: `{name}` a Home Assistanthoz?",
+                "title": "Felfedezett WLED eszk\u00f6z"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "firmware": {
+                "name": "Firmware"
+            }
+        },
+        "light": {
+            "main": {
+                "name": "F\u0151"
+            },
+            "segment": {
+                "name": "{segment} szegmens"
+            }
+        },
+        "number": {
+            "intensity": {
+                "name": "Intenzit\u00e1s"
+            },
+            "segment_intensity": {
+                "name": "{segment} intenzit\u00e1sa"
+            },
+            "segment_speed": {
+                "name": "{segment} sebess\u00e9ge"
+            },
+            "speed": {
+                "name": "Sebess\u00e9g"
+            }
+        },
+        "select": {
+            "color_palette": {
+                "name": "Sz\u00ednpaletta"
+            },
+            "live_override": {
+                "name": "\u00c9l\u0151 fel\u00fclb\u00edr\u00e1l\u00e1s",
+                "state": {
+                    "0": "Ki",
+                    "1": "Be",
+                    "2": "Am\u00edg az eszk\u00f6z \u00fajraindul"
+                }
+            },
+            "playlist": {
+                "name": "Lej\u00e1tsz\u00e1si lista"
+            },
+            "preset": {
+                "name": "El\u0151be\u00e1ll\u00edt\u00e1s"
+            },
+            "segment_color_palette": {
+                "name": "{segment} szegmens sz\u00ednpalett\u00e1ja"
+            }
+        },
+        "sensor": {
+            "estimated_current": {
+                "name": "Becs\u00fclt \u00e1ramer\u0151ss\u00e9g"
+            },
+            "free_heap": {
+                "name": "Szabad mem\u00f3ria"
+            },
+            "info_leds_count": {
+                "name": "LED-ek sz\u00e1ma"
+            },
+            "info_leds_max_power": {
+                "name": "Maxim\u00e1lis \u00e1ramer\u0151ss\u00e9g"
+            },
+            "ip": {
+                "name": "IP"
+            },
+            "uptime": {
+                "name": "\u00dczemid\u0151"
+            },
+            "wifi_bssid": {
+                "name": "Wi-Fi BSSID"
+            },
+            "wifi_channel": {
+                "name": "Wi-Fi csatorna"
+            },
+            "wifi_rssi": {
+                "name": "Wi-Fi RSSI"
+            },
+            "wifi_signal": {
+                "name": "Wi-Fi jel"
+            }
+        },
+        "switch": {
+            "nightlight": {
+                "name": "\u00c9jjeli f\u00e9ny"
+            },
+            "reverse": {
+                "name": "Ford\u00edtott"
+            },
+            "segment_reverse": {
+                "name": "{segment} ford\u00edtott"
+            },
+            "sync_receive": {
+                "name": "Szinkroniz\u00e1l\u00e1s fogad\u00e1sa"
+            },
+            "sync_send": {
+                "name": "Szinkroniz\u00e1l\u00e1s k\u00fcld\u00e9se"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "keep_master_light": "Tartsa bekapcsolva a f\u0151 vil\u00e1g\u00edt\u00e1st akkor is, ha csak 1 LED szegmens van."
+                }
+            }
+        }
+    },
+    "services": {
+        "effect": {
+            "description": "Szab\u00e1lyozza a WLED hat\u00e1s be\u00e1ll\u00edt\u00e1sait.",
+            "fields": {
+                "effect": {
+                    "description": "A WLED f\u00e9nyhat\u00e1s neve vagy azonos\u00edt\u00f3ja.",
+                    "name": "Hat\u00e1s"
+                },
+                "intensity": {
+                    "description": "A hat\u00e1s intenzit\u00e1sa. Sz\u00e1m 0 \u00e9s 255 k\u00f6z\u00f6tt.",
+                    "name": "Hat\u00e1sintenzit\u00e1s"
+                },
+                "palette": {
+                    "description": "A WLED f\u00e9ny paletta neve vagy azonos\u00edt\u00f3ja.",
+                    "name": "Sz\u00ednpaletta"
+                },
+                "reverse": {
+                    "description": "Ford\u00edtsa meg a hat\u00e1st. Igaz, ha meg akarja ford\u00edtani, egy\u00e9bk\u00e9nt hamis.",
+                    "name": "Ford\u00edtott hat\u00e1s"
+                },
+                "speed": {
+                    "description": "A hat\u00e1s sebess\u00e9ge.",
+                    "name": "Hat\u00e1s sebess\u00e9g"
+                }
+            },
+            "name": "Hat\u00e1s be\u00e1ll\u00edt\u00e1sa"
+        },
+        "preset": {
+            "description": "Be\u00e1ll\u00edt egy el\u0151be\u00e1ll\u00edt\u00e1st a WLED eszk\u00f6z sz\u00e1m\u00e1ra.",
+            "fields": {
+                "preset": {
+                    "description": "A WLED el\u0151be\u00e1ll\u00edt\u00e1s azonos\u00edt\u00f3ja.",
+                    "name": "El\u0151be\u00e1ll\u00edt\u00e1s azonos\u00edt\u00f3"
+                }
+            },
+            "name": "El\u0151be\u00e1ll\u00edt\u00e1s be\u00e1ll\u00edt\u00e1sa (elavult)"
+        }
+    }
+}

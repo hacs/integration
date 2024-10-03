@@ -1,0 +1,159 @@
+{
+    "device_automation": {
+        "action_type": {
+            "toggle": "Basculer {entity_name}",
+            "turn_off": "D\u00e9sactiver {entity_name}",
+            "turn_on": "Activer {entity_name}"
+        },
+        "condition_type": {
+            "is_off": "{entity_name} est d\u00e9sactiv\u00e9",
+            "is_on": "{entity_name} est activ\u00e9"
+        },
+        "trigger_type": {
+            "changed_states": "{entity_name} a \u00e9t\u00e9 activ\u00e9 ou d\u00e9sactiv\u00e9",
+            "turned_off": "{entity_name} a \u00e9t\u00e9 d\u00e9sactiv\u00e9",
+            "turned_on": "{entity_name} a \u00e9t\u00e9 activ\u00e9"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Ventilateur",
+            "state": {
+                "off": "\u00c9teint",
+                "on": "Allum\u00e9"
+            },
+            "state_attributes": {
+                "direction": {
+                    "name": "Direction",
+                    "state": {
+                        "forward": "Vers l'avant",
+                        "reverse": "Sens inverse"
+                    }
+                },
+                "oscillating": {
+                    "name": "Oscillant",
+                    "state": {
+                        "false": "Non",
+                        "true": "Oui"
+                    }
+                },
+                "percentage": {
+                    "name": "Vitesse"
+                },
+                "percentage_step": {
+                    "name": "Pas de vitesse"
+                },
+                "preset_mode": {
+                    "name": "Mode pr\u00e9d\u00e9fini"
+                },
+                "preset_modes": {
+                    "name": "Modes pr\u00e9d\u00e9finis disponibles"
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "not_valid_preset_mode": {
+            "message": "Le mode pr\u00e9d\u00e9fini {preset_mode} n'est pas valide, les modes pr\u00e9d\u00e9finis valides sont\u00a0: {preset_modes}."
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "La plateforme {platform} pour l'int\u00e9gration {domain} ne prend pas en charge la configuration de la plateforme.\n\nVeuillez la supprimer de votre configuration et red\u00e9marrer Home Assistant pour r\u00e9soudre ce probl\u00e8me.",
+            "title": "Prise en charge de la plateforme non prise en charge"
+        }
+    },
+    "selector": {
+        "direction": {
+            "options": {
+                "forward": "En avant",
+                "reverse": "Inverser"
+            }
+        }
+    },
+    "services": {
+        "decrease_speed": {
+            "description": "Diminue la vitesse du ventilateur.",
+            "fields": {
+                "percentage_step": {
+                    "description": "Diminue la vitesse d'un pourcentage.",
+                    "name": "D\u00e9cr\u00e9menter"
+                }
+            },
+            "name": "Diminuer la vitesse"
+        },
+        "increase_speed": {
+            "description": "Augmente la vitesse du ventilateur.",
+            "fields": {
+                "percentage_step": {
+                    "description": "Augmente la vitesse d'un pourcentage.",
+                    "name": "Incr\u00e9menter"
+                }
+            },
+            "name": "Augmenter la vitesse"
+        },
+        "oscillate": {
+            "description": "Contr\u00f4le l'oscillation du ventilateur.",
+            "fields": {
+                "oscillating": {
+                    "description": "Activer/d\u00e9sactiver l'oscillation.",
+                    "name": "Oscillation"
+                }
+            },
+            "name": "Osciller"
+        },
+        "set_direction": {
+            "description": "D\u00e9finit le sens de rotation du ventilateur.",
+            "fields": {
+                "direction": {
+                    "description": "Sens de rotation.",
+                    "name": "Direction"
+                }
+            },
+            "name": "D\u00e9finir l'orientation"
+        },
+        "set_percentage": {
+            "description": "D\u00e9finit la vitesse du ventilateur.",
+            "fields": {
+                "percentage": {
+                    "description": "Vitesse du ventilateur.",
+                    "name": "Pourcentage"
+                }
+            },
+            "name": "R\u00e9gler la vitesse"
+        },
+        "set_preset_mode": {
+            "description": "D\u00e9finit le mode pr\u00e9r\u00e9gl\u00e9.",
+            "fields": {
+                "preset_mode": {
+                    "description": "Mode pr\u00e9r\u00e9gl\u00e9.",
+                    "name": "Mode pr\u00e9r\u00e9gl\u00e9"
+                }
+            },
+            "name": "D\u00e9finir le mode pr\u00e9r\u00e9gl\u00e9"
+        },
+        "toggle": {
+            "description": "Active/d\u00e9sactive le ventilateur.",
+            "name": "Basculer"
+        },
+        "turn_off": {
+            "description": "\u00c9teint le ventilateur.",
+            "name": "\u00c9teindre"
+        },
+        "turn_on": {
+            "description": "Allume le ventilateur.",
+            "fields": {
+                "percentage": {
+                    "description": "Vitesse du ventilateur.",
+                    "name": "Pourcentage"
+                },
+                "preset_mode": {
+                    "description": "Mode pr\u00e9r\u00e9gl\u00e9.",
+                    "name": "Mode pr\u00e9r\u00e9gl\u00e9"
+                }
+            },
+            "name": "Allumer"
+        }
+    },
+    "title": "Ventilateur"
+}

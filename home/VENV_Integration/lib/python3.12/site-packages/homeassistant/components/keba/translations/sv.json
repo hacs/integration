@@ -1,0 +1,62 @@
+{
+    "services": {
+        "authorize": {
+            "description": "Auktoriserar en laddningsprocess med den f\u00f6rdefinierade RFID-taggen i konfigurationsfilen.",
+            "name": "Auktorisera"
+        },
+        "deauthorize": {
+            "description": "Avauktoriserar den p\u00e5g\u00e5ende laddningsprocessen med den f\u00f6rdefinierade RFID-taggen i konfigurationsfilen.",
+            "name": "Avauktorisera"
+        },
+        "disable": {
+            "description": "Stoppar laddningsprocessen om laddstationen \u00e4r auktoriserad.",
+            "name": "Inaktivera"
+        },
+        "enable": {
+            "description": "Startar en laddningsprocess om laddstationen \u00e4r auktoriserad.",
+            "name": "Aktivera"
+        },
+        "request_data": {
+            "description": "Beg\u00e4r ny data fr\u00e5n laddstationen.",
+            "name": "Beg\u00e4r data"
+        },
+        "set_current": {
+            "description": "St\u00e4ller in maximal str\u00f6mstyrka f\u00f6r laddningsprocesser.",
+            "fields": {
+                "current": {
+                    "description": "Den maximala str\u00f6mstyrkan som anv\u00e4nds f\u00f6r laddningsprocessen. V\u00e4rdet beror p\u00e5 DIP-switchens inst\u00e4llningar och kabeln som \u00e4r kopplad till laddstationen.",
+                    "name": "Str\u00f6mstyrka"
+                }
+            },
+            "name": "St\u00e4ll in str\u00f6mstyrka"
+        },
+        "set_energy": {
+            "description": "St\u00e4ller in energim\u00e5let varefter laddningsprocessen kommer att stoppas.",
+            "fields": {
+                "energy": {
+                    "description": "Energim\u00e5let f\u00f6r att stoppa laddningen. Inst\u00e4llning 0 kommer att inaktivera gr\u00e4nsen.",
+                    "name": "Energi"
+                }
+            },
+            "name": "St\u00e4ll in energi"
+        },
+        "set_failsafe": {
+            "description": "St\u00e4ller in fels\u00e4kert l\u00e4ge f\u00f6r laddstationen. Om alla parametrar \u00e4r 0, kommer fels\u00e4kert l\u00e4ge att inaktiveras.",
+            "fields": {
+                "failsafe_fallback": {
+                    "description": "Str\u00f6mstyrka att v\u00e4xla ned till efter timeout-tiden",
+                    "name": "Fels\u00e4kert l\u00e4ge nedv\u00e4xling (fallback)"
+                },
+                "failsafe_persist": {
+                    "description": "Om failsafe_persist \u00e4r 0, kommer fels\u00e4kert l\u00e4ge endast vara aktiverat tills laddstationen startar om. Om failsafe_persist \u00e4r 1 kommer fels\u00e4kert l\u00e4ge kvarst\u00e5 vid en omstart.",
+                    "name": "Fels\u00e4kert l\u00e4ge kvarst\u00e5r"
+                },
+                "failsafe_timeout": {
+                    "description": "Timeout efter vilken fels\u00e4kert l\u00e4ge utl\u00f6ses, s\u00e5vida set_current inte utf\u00f6rdes under denna tid.",
+                    "name": "Fels\u00e4kert l\u00e4ge timeout"
+                }
+            },
+            "name": "St\u00e4ll in fels\u00e4kert l\u00e4ge"
+        }
+    }
+}

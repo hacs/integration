@@ -1,0 +1,934 @@
+{
+    "config": {
+        "abort": {
+            "single_instance_allowed": "Redan konfigurerad. Endast en konfiguration m\u00f6jlig."
+        },
+        "create_entry": {
+            "default": "Vissa sensorer \u00e4r inte aktiverade som standard. Du kan aktivera dem i entitetsregistret efter integrationskonfigurationen."
+        },
+        "error": {
+            "cannot_connect": "Det gick inte att ansluta.",
+            "invalid_api_key": "Ogiltig API-nyckel",
+            "requests_exceeded": "Det till\u00e5tna antalet f\u00f6rfr\u00e5gningar till Accuweather API har \u00f6verskridits. Du m\u00e5ste v\u00e4nta eller \u00e4ndra API-nyckel."
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "api_key": "API-nyckel",
+                    "latitude": "Latitud",
+                    "longitude": "Longitud",
+                    "name": "Namn"
+                }
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "air_quality": {
+                "name": "Luftkvalitet, dag {forecast_day}",
+                "state": {
+                    "good": "Bra",
+                    "hazardous": "Farlig",
+                    "high": "H\u00f6g",
+                    "low": "L\u00e5g",
+                    "moderate": "M\u00e5ttlig",
+                    "unhealthy": "Oh\u00e4lsosam"
+                }
+            },
+            "air_quality_0d": {
+                "name": "Luftkvalitet idag",
+                "state": {
+                    "good": "Bra",
+                    "hazardous": "Farlig",
+                    "high": "H\u00f6g",
+                    "low": "L\u00e5g",
+                    "moderate": "M\u00e5ttlig",
+                    "unhealthy": "Oh\u00e4lsosam"
+                }
+            },
+            "air_quality_1d": {
+                "name": "Luftkvalitet dag 1",
+                "state": {
+                    "good": "Bra",
+                    "hazardous": "Farlig",
+                    "high": "H\u00f6g",
+                    "low": "L\u00e5g",
+                    "moderate": "M\u00e5ttlig",
+                    "unhealthy": "Oh\u00e4lsosam"
+                }
+            },
+            "air_quality_2d": {
+                "name": "Luftkvalitet dag 2",
+                "state": {
+                    "good": "Bra",
+                    "hazardous": "Farlig",
+                    "high": "H\u00f6g",
+                    "low": "L\u00e5g",
+                    "moderate": "M\u00e5ttlig",
+                    "unhealthy": "Oh\u00e4lsosam"
+                }
+            },
+            "air_quality_3d": {
+                "name": "Luftkvalitet dag 3",
+                "state": {
+                    "good": "Bra",
+                    "hazardous": "Farlig",
+                    "high": "H\u00f6g",
+                    "low": "L\u00e5g",
+                    "moderate": "M\u00e5ttlig",
+                    "unhealthy": "Oh\u00e4lsosam"
+                }
+            },
+            "air_quality_4d": {
+                "name": "Luftkvalitet dag 4",
+                "state": {
+                    "good": "Bra",
+                    "hazardous": "Farlig",
+                    "high": "H\u00f6g",
+                    "low": "L\u00e5g",
+                    "moderate": "M\u00e5ttlig",
+                    "unhealthy": "Oh\u00e4lsosam"
+                }
+            },
+            "apparent_temperature": {
+                "name": "Upplevd temperatur"
+            },
+            "cloud_ceiling": {
+                "name": "Molntak"
+            },
+            "cloud_cover": {
+                "name": "Molnt\u00e4cke"
+            },
+            "cloud_cover_day": {
+                "name": "Molnt\u00e4cke, dag {forecast_day}"
+            },
+            "cloud_cover_day_0d": {
+                "name": "Molnt\u00e4cke idag"
+            },
+            "cloud_cover_day_1d": {
+                "name": "Molnt\u00e4cke dag 1"
+            },
+            "cloud_cover_day_2d": {
+                "name": "Molnt\u00e4cke dag 2"
+            },
+            "cloud_cover_day_3d": {
+                "name": "Molnt\u00e4cke dag 3"
+            },
+            "cloud_cover_day_4d": {
+                "name": "Molnt\u00e4cke dag 4"
+            },
+            "cloud_cover_night": {
+                "name": "Molnt\u00e4cke, natt {forecast_day}"
+            },
+            "cloud_cover_night_0d": {
+                "name": "Molnt\u00e4cke ikv\u00e4ll"
+            },
+            "cloud_cover_night_1d": {
+                "name": "Molnt\u00e4cke natt 1"
+            },
+            "cloud_cover_night_2d": {
+                "name": "Molnt\u00e4cke natt 2"
+            },
+            "cloud_cover_night_3d": {
+                "name": "Molnt\u00e4cke natt 3"
+            },
+            "cloud_cover_night_4d": {
+                "name": "Molnt\u00e4cke natt 4"
+            },
+            "condition_day_0d": {
+                "name": "V\u00e4derf\u00f6rh\u00e5llande idag"
+            },
+            "condition_day_1d": {
+                "name": "V\u00e4derf\u00f6rh\u00e5llande dag 1"
+            },
+            "condition_day_2d": {
+                "name": "V\u00e4derf\u00f6rh\u00e5llande dag 2"
+            },
+            "condition_day_3d": {
+                "name": "V\u00e4derf\u00f6rh\u00e5llande dag 3"
+            },
+            "condition_day_4d": {
+                "name": "V\u00e4derf\u00f6rh\u00e5llande dag 4"
+            },
+            "condition_night_0d": {
+                "name": "V\u00e4derf\u00f6rh\u00e5llande ikv\u00e4ll"
+            },
+            "condition_night_1d": {
+                "name": "V\u00e4derf\u00f6rh\u00e5llande natt 1"
+            },
+            "condition_night_2d": {
+                "name": "V\u00e4derf\u00f6rh\u00e5llande natt 2"
+            },
+            "condition_night_3d": {
+                "name": "V\u00e4derf\u00f6rh\u00e5llande natt 3"
+            },
+            "condition_night_4d": {
+                "name": "V\u00e4derf\u00f6rh\u00e5llande natt 4"
+            },
+            "dew_point": {
+                "name": "Daggpunkt"
+            },
+            "grass_pollen": {
+                "name": "Gr\u00e4spollen, dag {forecast_day}",
+                "state_attributes": {
+                    "level": {
+                        "name": "Niv\u00e5",
+                        "state": {
+                            "good": "Bra",
+                            "hazardous": "Farlig",
+                            "high": "H\u00f6g",
+                            "low": "L\u00e5g",
+                            "moderate": "M\u00e5ttlig",
+                            "unhealthy": "Oh\u00e4lsosam"
+                        }
+                    }
+                }
+            },
+            "grass_pollen_0d": {
+                "name": "Gr\u00e4spollen idag",
+                "state_attributes": {
+                    "level": {
+                        "name": "Niv\u00e5",
+                        "state": {
+                            "good": "Bra",
+                            "hazardous": "Farlig",
+                            "high": "H\u00f6g",
+                            "low": "L\u00e5g",
+                            "moderate": "M\u00e5ttlig",
+                            "unhealthy": "Oh\u00e4lsosam"
+                        }
+                    }
+                }
+            },
+            "grass_pollen_1d": {
+                "name": "Gr\u00e4spollen dag 1",
+                "state_attributes": {
+                    "level": {
+                        "name": "Niv\u00e5",
+                        "state": {
+                            "good": "Bra",
+                            "hazardous": "Farlig",
+                            "high": "H\u00f6g",
+                            "low": "L\u00e5g",
+                            "moderate": "M\u00e5ttlig",
+                            "unhealthy": "Oh\u00e4lsosam"
+                        }
+                    }
+                }
+            },
+            "grass_pollen_2d": {
+                "name": "Gr\u00e4spollen dag 2",
+                "state_attributes": {
+                    "level": {
+                        "name": "Niv\u00e5",
+                        "state": {
+                            "good": "Bra",
+                            "hazardous": "Farlig",
+                            "high": "H\u00f6g",
+                            "low": "L\u00e5g",
+                            "moderate": "M\u00e5ttlig",
+                            "unhealthy": "Oh\u00e4lsosam"
+                        }
+                    }
+                }
+            },
+            "grass_pollen_3d": {
+                "name": "Gr\u00e4spollen dag 3",
+                "state_attributes": {
+                    "level": {
+                        "name": "Niv\u00e5",
+                        "state": {
+                            "good": "Bra",
+                            "hazardous": "Farlig",
+                            "high": "H\u00f6g",
+                            "low": "L\u00e5g",
+                            "moderate": "M\u00e5ttlig",
+                            "unhealthy": "Oh\u00e4lsosam"
+                        }
+                    }
+                }
+            },
+            "grass_pollen_4d": {
+                "name": "Gr\u00e4spollen dag 4",
+                "state_attributes": {
+                    "level": {
+                        "name": "Niv\u00e5",
+                        "state": {
+                            "good": "Bra",
+                            "hazardous": "Farlig",
+                            "high": "H\u00f6g",
+                            "low": "L\u00e5g",
+                            "moderate": "M\u00e5ttlig",
+                            "unhealthy": "Oh\u00e4lsosam"
+                        }
+                    }
+                }
+            },
+            "hours_of_sun": {
+                "name": "Soltimmar per dag {forecast_day}"
+            },
+            "hours_of_sun_0d": {
+                "name": "Soltimmar idag"
+            },
+            "hours_of_sun_1d": {
+                "name": "Soltimmar dag 1"
+            },
+            "hours_of_sun_2d": {
+                "name": "Soltimmar dag 2"
+            },
+            "hours_of_sun_3d": {
+                "name": "Soltimmar dag 3"
+            },
+            "hours_of_sun_4d": {
+                "name": "Soltimmar dag 4"
+            },
+            "mold_pollen": {
+                "state_attributes": {
+                    "level": {
+                        "name": "Niv\u00e5",
+                        "state": {
+                            "good": "Bra",
+                            "hazardous": "Farlig",
+                            "high": "H\u00f6g",
+                            "low": "L\u00e5g",
+                            "moderate": "M\u00e5ttlig",
+                            "unhealthy": "Oh\u00e4lsosam"
+                        }
+                    }
+                }
+            },
+            "mold_pollen_0d": {
+                "name": "M\u00f6gelpollen idag",
+                "state_attributes": {
+                    "level": {
+                        "name": "Niv\u00e5",
+                        "state": {
+                            "good": "Bra",
+                            "hazardous": "Farlig",
+                            "high": "H\u00f6g",
+                            "low": "L\u00e5g",
+                            "moderate": "M\u00e5ttlig",
+                            "unhealthy": "Oh\u00e4lsosam"
+                        }
+                    }
+                }
+            },
+            "mold_pollen_1d": {
+                "name": "M\u00f6gelpollen dag 1",
+                "state_attributes": {
+                    "level": {
+                        "name": "Niv\u00e5",
+                        "state": {
+                            "good": "Bra",
+                            "hazardous": "Farlig",
+                            "high": "H\u00f6g",
+                            "low": "L\u00e5g",
+                            "moderate": "M\u00e5ttlig",
+                            "unhealthy": "Oh\u00e4lsosam"
+                        }
+                    }
+                }
+            },
+            "mold_pollen_2d": {
+                "name": "M\u00f6gelpollen dag 2",
+                "state_attributes": {
+                    "level": {
+                        "name": "Niv\u00e5",
+                        "state": {
+                            "good": "Bra",
+                            "hazardous": "Farlig",
+                            "high": "H\u00f6g",
+                            "low": "L\u00e5g",
+                            "moderate": "M\u00e5ttlig",
+                            "unhealthy": "Oh\u00e4lsosam"
+                        }
+                    }
+                }
+            },
+            "mold_pollen_3d": {
+                "name": "M\u00f6gelpollen dag 3",
+                "state_attributes": {
+                    "level": {
+                        "name": "Niv\u00e5",
+                        "state": {
+                            "good": "Bra",
+                            "hazardous": "Farlig",
+                            "high": "H\u00f6g",
+                            "low": "L\u00e5g",
+                            "moderate": "M\u00e5ttlig",
+                            "unhealthy": "Oh\u00e4lsosam"
+                        }
+                    }
+                }
+            },
+            "mold_pollen_4d": {
+                "name": "M\u00f6gelpollen dag 4",
+                "state_attributes": {
+                    "level": {
+                        "name": "Niv\u00e5",
+                        "state": {
+                            "good": "Bra",
+                            "hazardous": "Farlig",
+                            "high": "H\u00f6g",
+                            "low": "L\u00e5g",
+                            "moderate": "M\u00e5ttlig",
+                            "unhealthy": "Oh\u00e4lsosam"
+                        }
+                    }
+                }
+            },
+            "precipitation": {
+                "name": "Nederb\u00f6rd"
+            },
+            "pressure_tendency": {
+                "name": "Tendenser f\u00f6r lufttryck",
+                "state": {
+                    "falling": "Faller",
+                    "rising": "Stiger",
+                    "steady": "Stadigt"
+                }
+            },
+            "ragweed_pollen": {
+                "state_attributes": {
+                    "level": {
+                        "name": "Niv\u00e5",
+                        "state": {
+                            "good": "Bra",
+                            "hazardous": "Farlig",
+                            "high": "H\u00f6g",
+                            "low": "L\u00e5g",
+                            "moderate": "M\u00e5ttlig",
+                            "unhealthy": "Oh\u00e4lsosam"
+                        }
+                    }
+                }
+            },
+            "ragweed_pollen_0d": {
+                "name": "Ambrosiapollen idag",
+                "state_attributes": {
+                    "level": {
+                        "name": "Niv\u00e5",
+                        "state": {
+                            "good": "Bra",
+                            "hazardous": "Farlig",
+                            "high": "H\u00f6g",
+                            "low": "L\u00e5g",
+                            "moderate": "M\u00e5ttlig",
+                            "unhealthy": "Oh\u00e4lsosam"
+                        }
+                    }
+                }
+            },
+            "ragweed_pollen_1d": {
+                "name": "Ambrosiapollen dag 1",
+                "state_attributes": {
+                    "level": {
+                        "name": "Niv\u00e5",
+                        "state": {
+                            "good": "Bra",
+                            "hazardous": "Farlig",
+                            "high": "H\u00f6g",
+                            "low": "L\u00e5g",
+                            "moderate": "M\u00e5ttlig",
+                            "unhealthy": "Oh\u00e4lsosam"
+                        }
+                    }
+                }
+            },
+            "ragweed_pollen_2d": {
+                "name": "Ambrosiapollen dag 2",
+                "state_attributes": {
+                    "level": {
+                        "name": "Niv\u00e5",
+                        "state": {
+                            "good": "Bra",
+                            "hazardous": "Farlig",
+                            "high": "H\u00f6g",
+                            "low": "L\u00e5g",
+                            "moderate": "M\u00e5ttlig",
+                            "unhealthy": "Oh\u00e4lsosam"
+                        }
+                    }
+                }
+            },
+            "ragweed_pollen_3d": {
+                "name": "Ambrosiapollen dag 3",
+                "state_attributes": {
+                    "level": {
+                        "name": "Niv\u00e5",
+                        "state": {
+                            "good": "Bra",
+                            "hazardous": "Farlig",
+                            "high": "H\u00f6g",
+                            "low": "L\u00e5g",
+                            "moderate": "M\u00e5ttlig",
+                            "unhealthy": "Oh\u00e4lsosam"
+                        }
+                    }
+                }
+            },
+            "ragweed_pollen_4d": {
+                "name": "Ambrosiapollen dag 4",
+                "state_attributes": {
+                    "level": {
+                        "name": "Niv\u00e5",
+                        "state": {
+                            "good": "Bra",
+                            "hazardous": "Farlig",
+                            "high": "H\u00f6g",
+                            "low": "L\u00e5g",
+                            "moderate": "M\u00e5ttlig",
+                            "unhealthy": "Oh\u00e4lsosam"
+                        }
+                    }
+                }
+            },
+            "realfeel_temperature": {
+                "name": "RealFeel temperatur"
+            },
+            "realfeel_temperature_max_0d": {
+                "name": "RealFeel temperatur max idag"
+            },
+            "realfeel_temperature_max_1d": {
+                "name": "RealFeel temperatur max dag 1"
+            },
+            "realfeel_temperature_max_2d": {
+                "name": "RealFeel temperatur max dag 2"
+            },
+            "realfeel_temperature_max_3d": {
+                "name": "RealFeel temperatur max dag 3"
+            },
+            "realfeel_temperature_max_4d": {
+                "name": "RealFeel temperatur max dag 4"
+            },
+            "realfeel_temperature_min_0d": {
+                "name": "RealFeel temperatur min idag"
+            },
+            "realfeel_temperature_min_1d": {
+                "name": "RealFeel temperatur min dag 1"
+            },
+            "realfeel_temperature_min_2d": {
+                "name": "RealFeel temperatur min dag 2"
+            },
+            "realfeel_temperature_min_3d": {
+                "name": "RealFeel temperatur min dag 3"
+            },
+            "realfeel_temperature_min_4d": {
+                "name": "RealFeel temperatur min dag 4"
+            },
+            "realfeel_temperature_shade": {
+                "name": "RealFeel temperatur skugga"
+            },
+            "realfeel_temperature_shade_max_0d": {
+                "name": "RealFeel temperatur skugga max idag"
+            },
+            "realfeel_temperature_shade_max_1d": {
+                "name": "RealFeel temperatur skugga max dag 1"
+            },
+            "realfeel_temperature_shade_max_2d": {
+                "name": "RealFeel temperatur skugga max dag 2"
+            },
+            "realfeel_temperature_shade_max_3d": {
+                "name": "RealFeel temperatur skugga max dag 3"
+            },
+            "realfeel_temperature_shade_max_4d": {
+                "name": "RealFeel temperatur skugga max dag 4"
+            },
+            "realfeel_temperature_shade_min_0d": {
+                "name": "RealFeel temperatur skugga min idag"
+            },
+            "realfeel_temperature_shade_min_1d": {
+                "name": "RealFeel temperatur skugga min dag 1"
+            },
+            "realfeel_temperature_shade_min_2d": {
+                "name": "RealFeel temperatur skugga min dag 2"
+            },
+            "realfeel_temperature_shade_min_3d": {
+                "name": "RealFeel temperatur skugga min dag 3"
+            },
+            "realfeel_temperature_shade_min_4d": {
+                "name": "RealFeel temperatur skugga min dag 4"
+            },
+            "solar_irradiance_day": {
+                "name": "Solinstr\u00e5lning, dag {forecast_day}"
+            },
+            "solar_irradiance_day_0d": {
+                "name": "Solinstr\u00e5lning idag"
+            },
+            "solar_irradiance_day_1d": {
+                "name": "Solinstr\u00e5lning dag 1"
+            },
+            "solar_irradiance_day_2d": {
+                "name": "Solinstr\u00e5lning dag 2"
+            },
+            "solar_irradiance_day_3d": {
+                "name": "Solinstr\u00e5lning dag 3"
+            },
+            "solar_irradiance_day_4d": {
+                "name": "Solinstr\u00e5lning dag 4"
+            },
+            "solar_irradiance_night": {
+                "name": "Solinstr\u00e5lning, natt {forecast_day}"
+            },
+            "solar_irradiance_night_0d": {
+                "name": "Solinstr\u00e5lning ikv\u00e4ll"
+            },
+            "solar_irradiance_night_1d": {
+                "name": "Solinstr\u00e5lning natt 1"
+            },
+            "solar_irradiance_night_2d": {
+                "name": "Solinstr\u00e5lning natt 2"
+            },
+            "solar_irradiance_night_3d": {
+                "name": "Solinstr\u00e5lning natt 3"
+            },
+            "solar_irradiance_night_4d": {
+                "name": "Solinstr\u00e5lning natt 4"
+            },
+            "thunderstorm_probability_day": {
+                "name": "Sannolikhet f\u00f6r \u00e5ska, dag {forecast_day}"
+            },
+            "thunderstorm_probability_day_0d": {
+                "name": "Sannolikhet f\u00f6r \u00e5skv\u00e4der idag"
+            },
+            "thunderstorm_probability_day_1d": {
+                "name": "Sannolikhet f\u00f6r \u00e5skv\u00e4der dag 1"
+            },
+            "thunderstorm_probability_day_2d": {
+                "name": "Sannolikhet f\u00f6r \u00e5skv\u00e4der dag 2"
+            },
+            "thunderstorm_probability_day_3d": {
+                "name": "Sannolikhet f\u00f6r \u00e5skv\u00e4der dag 3"
+            },
+            "thunderstorm_probability_day_4d": {
+                "name": "Sannolikhet f\u00f6r \u00e5skv\u00e4der dag 4"
+            },
+            "thunderstorm_probability_night": {
+                "name": "Sannolikhet f\u00f6r \u00e5ska, natt {forecast_day}"
+            },
+            "thunderstorm_probability_night_0d": {
+                "name": "Sannolikhet f\u00f6r \u00e5skv\u00e4der ikv\u00e4ll"
+            },
+            "thunderstorm_probability_night_1d": {
+                "name": "Sannolikhet f\u00f6r \u00e5skv\u00e4der natt 1"
+            },
+            "thunderstorm_probability_night_2d": {
+                "name": "Sannolikhet f\u00f6r \u00e5skv\u00e4der natt 2"
+            },
+            "thunderstorm_probability_night_3d": {
+                "name": "Sannolikhet f\u00f6r \u00e5skv\u00e4der natt 3"
+            },
+            "thunderstorm_probability_night_4d": {
+                "name": "Sannolikhet f\u00f6r \u00e5skv\u00e4der natt 4"
+            },
+            "tree_pollen": {
+                "name": "Tr\u00e4dpollen, dag {forecast_day}",
+                "state_attributes": {
+                    "level": {
+                        "name": "Niv\u00e5",
+                        "state": {
+                            "good": "Bra",
+                            "hazardous": "Farlig",
+                            "high": "H\u00f6g",
+                            "low": "L\u00e5g",
+                            "moderate": "M\u00e5ttlig",
+                            "unhealthy": "Oh\u00e4lsosam"
+                        }
+                    }
+                }
+            },
+            "tree_pollen_0d": {
+                "name": "Tr\u00e4dpollen idag",
+                "state_attributes": {
+                    "level": {
+                        "name": "Niv\u00e5",
+                        "state": {
+                            "good": "Bra",
+                            "hazardous": "Farlig",
+                            "high": "H\u00f6g",
+                            "low": "L\u00e5g",
+                            "moderate": "M\u00e5ttlig",
+                            "unhealthy": "Oh\u00e4lsosam"
+                        }
+                    }
+                }
+            },
+            "tree_pollen_1d": {
+                "name": "Tr\u00e4dpollen dag 1",
+                "state_attributes": {
+                    "level": {
+                        "name": "Niv\u00e5",
+                        "state": {
+                            "good": "Bra",
+                            "hazardous": "Farlig",
+                            "high": "H\u00f6g",
+                            "low": "L\u00e5g",
+                            "moderate": "M\u00e5ttlig",
+                            "unhealthy": "Oh\u00e4lsosam"
+                        }
+                    }
+                }
+            },
+            "tree_pollen_2d": {
+                "name": "Tr\u00e4dpollen dag 2",
+                "state_attributes": {
+                    "level": {
+                        "name": "Niv\u00e5",
+                        "state": {
+                            "good": "Bra",
+                            "hazardous": "Farlig",
+                            "high": "H\u00f6g",
+                            "low": "L\u00e5g",
+                            "moderate": "M\u00e5ttlig",
+                            "unhealthy": "Oh\u00e4lsosam"
+                        }
+                    }
+                }
+            },
+            "tree_pollen_3d": {
+                "name": "Tr\u00e4dpollen dag 3",
+                "state_attributes": {
+                    "level": {
+                        "name": "Niv\u00e5",
+                        "state": {
+                            "good": "Bra",
+                            "hazardous": "Farlig",
+                            "high": "H\u00f6g",
+                            "low": "L\u00e5g",
+                            "moderate": "M\u00e5ttlig",
+                            "unhealthy": "Oh\u00e4lsosam"
+                        }
+                    }
+                }
+            },
+            "tree_pollen_4d": {
+                "name": "Tr\u00e4dpollen dag 4",
+                "state_attributes": {
+                    "level": {
+                        "name": "Niv\u00e5",
+                        "state": {
+                            "good": "Bra",
+                            "hazardous": "Farlig",
+                            "high": "H\u00f6g",
+                            "low": "L\u00e5g",
+                            "moderate": "M\u00e5ttlig",
+                            "unhealthy": "Oh\u00e4lsosam"
+                        }
+                    }
+                }
+            },
+            "uv_index": {
+                "name": "UV-index",
+                "state_attributes": {
+                    "level": {
+                        "name": "Niv\u00e5",
+                        "state": {
+                            "good": "Bra",
+                            "hazardous": "Farlig",
+                            "high": "H\u00f6g",
+                            "low": "L\u00e5g",
+                            "moderate": "M\u00e5ttlig",
+                            "unhealthy": "Oh\u00e4lsosam"
+                        }
+                    }
+                }
+            },
+            "uv_index_0d": {
+                "name": "UV-index idag",
+                "state_attributes": {
+                    "level": {
+                        "name": "Niv\u00e5",
+                        "state": {
+                            "good": "Bra",
+                            "hazardous": "Farlig",
+                            "high": "H\u00f6g",
+                            "low": "L\u00e5g",
+                            "moderate": "M\u00e5ttlig",
+                            "unhealthy": "Oh\u00e4lsosam"
+                        }
+                    }
+                }
+            },
+            "uv_index_1d": {
+                "name": "UV-index dag 1",
+                "state_attributes": {
+                    "level": {
+                        "name": "Niv\u00e5",
+                        "state": {
+                            "good": "Bra",
+                            "hazardous": "Farlig",
+                            "high": "H\u00f6g",
+                            "low": "L\u00e5g",
+                            "moderate": "M\u00e5ttlig",
+                            "unhealthy": "Oh\u00e4lsosam"
+                        }
+                    }
+                }
+            },
+            "uv_index_2d": {
+                "name": "UV-index dag 2",
+                "state_attributes": {
+                    "level": {
+                        "name": "Niv\u00e5",
+                        "state": {
+                            "good": "Bra",
+                            "hazardous": "Farlig",
+                            "high": "H\u00f6g",
+                            "low": "L\u00e5g",
+                            "moderate": "M\u00e5ttlig",
+                            "unhealthy": "Oh\u00e4lsosam"
+                        }
+                    }
+                }
+            },
+            "uv_index_3d": {
+                "name": "UV-index dag 3",
+                "state_attributes": {
+                    "level": {
+                        "name": "Niv\u00e5",
+                        "state": {
+                            "good": "Bra",
+                            "hazardous": "Farlig",
+                            "high": "H\u00f6g",
+                            "low": "L\u00e5g",
+                            "moderate": "M\u00e5ttlig",
+                            "unhealthy": "Oh\u00e4lsosam"
+                        }
+                    }
+                }
+            },
+            "uv_index_4d": {
+                "name": "UV-index dag 4",
+                "state_attributes": {
+                    "level": {
+                        "name": "Niv\u00e5",
+                        "state": {
+                            "good": "Bra",
+                            "hazardous": "Farlig",
+                            "high": "H\u00f6g",
+                            "low": "L\u00e5g",
+                            "moderate": "M\u00e5ttlig",
+                            "unhealthy": "Oh\u00e4lsosam"
+                        }
+                    }
+                }
+            },
+            "uv_index_forecast": {
+                "name": "UV-index, dag {forecast_day}",
+                "state_attributes": {
+                    "level": {
+                        "name": "Niv\u00e5",
+                        "state": {
+                            "good": "Bra",
+                            "hazardous": "Farlig",
+                            "high": "H\u00f6g",
+                            "low": "L\u00e5g",
+                            "moderate": "M\u00e5ttlig",
+                            "unhealthy": "Oh\u00e4lsosam"
+                        }
+                    }
+                }
+            },
+            "wet_bulb_temperature": {
+                "name": "V\u00e5t bulbtemperatur"
+            },
+            "wind_chill_temperature": {
+                "name": "Vindkyla temperatur"
+            },
+            "wind_gust_speed": {
+                "name": "Hastighet i vindbyar"
+            },
+            "wind_gust_speed_day": {
+                "name": "Hastighet vindbyar, dag {forecast_day}"
+            },
+            "wind_gust_speed_day_0d": {
+                "name": "Hastighet i vindbyar idag"
+            },
+            "wind_gust_speed_day_1d": {
+                "name": "Hastighet i vindbyar dag 1"
+            },
+            "wind_gust_speed_day_2d": {
+                "name": "Hastighet i vindbyar dag 2"
+            },
+            "wind_gust_speed_day_3d": {
+                "name": "Hastighet i vindbyar dag 3"
+            },
+            "wind_gust_speed_day_4d": {
+                "name": "Hastighet i vindbyar dag 4"
+            },
+            "wind_gust_speed_night": {
+                "name": "Hastighet vindbyar, natt {forecast_day}"
+            },
+            "wind_gust_speed_night_0d": {
+                "name": "Hastighet i vindbyar ikv\u00e4ll"
+            },
+            "wind_gust_speed_night_1d": {
+                "name": "Hastighet i vindbyar natt 1"
+            },
+            "wind_gust_speed_night_2d": {
+                "name": "Hastighet i vindbyar natt 2"
+            },
+            "wind_gust_speed_night_3d": {
+                "name": "Hastighet i vindbyar natt 3"
+            },
+            "wind_gust_speed_night_4d": {
+                "name": "Hastighet i vindbyar natt 4"
+            },
+            "wind_speed": {
+                "name": "Vindhastighet"
+            },
+            "wind_speed_day": {
+                "name": "Vindhastighet, dag {forecast_day}"
+            },
+            "wind_speed_day_0d": {
+                "name": "Vindstyrka idag"
+            },
+            "wind_speed_day_1d": {
+                "name": "Vindstyrka dag 1"
+            },
+            "wind_speed_day_2d": {
+                "name": "Vindstyrka dag 2"
+            },
+            "wind_speed_day_3d": {
+                "name": "Vindstyrka dag 3"
+            },
+            "wind_speed_day_4d": {
+                "name": "Vindstyrka dag 4"
+            },
+            "wind_speed_night": {
+                "name": "Vindhastighet, natt {forecast_day}"
+            },
+            "wind_speed_night_0d": {
+                "name": "Vindstyrka ikv\u00e4ll"
+            },
+            "wind_speed_night_1d": {
+                "name": "Vindstyrka natt 1"
+            },
+            "wind_speed_night_2d": {
+                "name": "Vindstyrka natt 2"
+            },
+            "wind_speed_night_3d": {
+                "name": "Vindstyrka natt 3"
+            },
+            "wind_speed_night_4d": {
+                "name": "Vindstyrka natt 4"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "forecast": "V\u00e4derprognos"
+                },
+                "description": "D\u00e5 det finns begr\u00e4nsningar i den fria versionen av AccuWeathers API s\u00e5 kommer v\u00e4derdata att uppdateras med intervall om 80 minuter, ist\u00e4llet f\u00f6r 40 minuter."
+            }
+        }
+    },
+    "system_health": {
+        "info": {
+            "can_reach_server": "N\u00e5 AccuWeather-servern",
+            "remaining_requests": "\u00c5terst\u00e5ende till\u00e5tna f\u00f6rfr\u00e5gningar"
+        }
+    }
+}

@@ -1,0 +1,126 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Der Dienst ist bereits konfiguriert",
+            "reauth_successful": "Die erneute Authentifizierung war erfolgreich"
+        },
+        "error": {
+            "cannot_connect": "Verbindung fehlgeschlagen",
+            "invalid_auth": "Ung\u00fcltige Authentifizierung",
+            "unknown": "Unerwarteter Fehler"
+        },
+        "step": {
+            "reauth_confirm": {
+                "data": {
+                    "email": "E-Mail",
+                    "password": "Passwort"
+                },
+                "description": "Die Bring!-Integration muss dein Konto erneut authentifizieren",
+                "title": "Die Authentifizierung ist abgelaufen f\u00fcr {name}"
+            },
+            "user": {
+                "data": {
+                    "email": "E-Mail",
+                    "password": "Passwort"
+                }
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "convenient": {
+                "name": "Bei Gelegenheit"
+            },
+            "discounted": {
+                "name": "Nur wenn im Angebot"
+            },
+            "list_language": {
+                "name": "Region und Sprache",
+                "state": {
+                    "de-at": "\u00d6sterreich",
+                    "de-ch": "Schweiz (Deutsch)",
+                    "de-de": "Deutschland",
+                    "en-au": "Australien",
+                    "en-ca": "Kanada",
+                    "en-gb": "Vereinigtes K\u00f6nigreich",
+                    "en-us": "Vereinigte Staaten",
+                    "es-es": "Spanien",
+                    "fr-ch": "Schweiz (Franz\u00f6sisch)",
+                    "fr-fr": "Frankreich",
+                    "hu-hu": "Ungarn",
+                    "it-ch": "Schweiz (Italienisch)",
+                    "it-it": "Italien",
+                    "nb-no": "Norwegen",
+                    "nl-nl": "Niederlande",
+                    "pl-pl": "Polen",
+                    "pt-br": "Portugal",
+                    "ru-ru": "Russland",
+                    "sv-se": "Schweden",
+                    "tr-tr": "T\u00fcrkei"
+                }
+            },
+            "urgent": {
+                "name": "Dringend"
+            }
+        }
+    },
+    "exceptions": {
+        "notify_missing_argument_item": {
+            "message": "Die Aktion {service} konnte nicht ausgef\u00fchrt werden. \u201eURGENT_MESSAGE\u201c erfordert einen Wert @ data['item']. Keiner vorhanden."
+        },
+        "notify_request_failed": {
+            "message": "Aufgrund eines Verbindungsfehlers konnte keine Push-Benachrichtigung f\u00fcr bring gesendet werden. Versuche es sp\u00e4ter erneut."
+        },
+        "setup_authentication_exception": {
+            "message": "Die Authentifizierung f\u00fcr {email} ist fehlgeschlagen. \u00dcberpr\u00fcfe deine E-Mail und dein Passwort."
+        },
+        "setup_parse_exception": {
+            "message": "Parsen der Serverantwort fehlgeschlagen. Versuche es sp\u00e4ter erneut."
+        },
+        "setup_request_exception": {
+            "message": "Verbindung zum Server konnte nicht hergestellt werden. Versuche es sp\u00e4ter erneut."
+        },
+        "todo_delete_item_failed": {
+            "message": "{count} Artikel konnten nicht aus der Bring!-Liste gel\u00f6scht werden."
+        },
+        "todo_rename_item_failed": {
+            "message": "Umbenennen des Artikels {name} in die Bring!-Liste ist fehlgeschlagen"
+        },
+        "todo_save_item_failed": {
+            "message": "Artikel {name} konnte nicht in der Bring!-Liste gespeichert werden"
+        },
+        "todo_update_item_failed": {
+            "message": "Aktualisierung von Artikel {name} auf der Bring!-Liste fehlgeschlagen"
+        }
+    },
+    "selector": {
+        "notification_type_selector": {
+            "options": {
+                "changed_list": "Liste ge\u00e4ndert - Schau mal \u00fcber die Artikel",
+                "going_shopping": "Ich gehe einkaufen! - Letzte Chance f\u00fcr Anpassungen",
+                "shopping_done": "Einkaufen erledigt - Der K\u00fchlschrank ist gut gef\u00fcllt",
+                "urgent_message": "Eilmeldung - Kauf bitte dringend `Artikel`"
+            }
+        }
+    },
+    "services": {
+        "send_message": {
+            "description": "Sende eine mobile Push-Benachrichtigung an Mitglieder einer geteilten Bring!-Liste.",
+            "fields": {
+                "entity_id": {
+                    "description": "Bring!-Liste, deren Mitglieder (au\u00dfer Absender) benachrichtigt werden.",
+                    "name": "Liste"
+                },
+                "item": {
+                    "description": "Artikelname, der in einer Eilmeldung eingef\u00fcgt werden soll, z. B. `Eilmeldung \u2013 Kauf bitte dringend Koriander`",
+                    "name": "Artikel (Erforderlich, wenn Nachrichtentyp `Eilmeldung` ausgew\u00e4hlt ist)"
+                },
+                "message": {
+                    "description": "Art der Push-Benachrichtigung, die an Listenmitglieder gesendet werden soll.",
+                    "name": "Benachrichtigungstyp"
+                }
+            },
+            "name": "Sende eine Benachrichtigung"
+        }
+    }
+}

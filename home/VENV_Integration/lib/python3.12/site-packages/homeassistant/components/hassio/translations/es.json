@@ -1,0 +1,416 @@
+{
+    "entity": {
+        "binary_sensor": {
+            "state": {
+                "name": "Ejecut\u00e1ndose"
+            }
+        },
+        "sensor": {
+            "agent_version": {
+                "name": "Versi\u00f3n de OS Agent"
+            },
+            "apparmor_version": {
+                "name": "Versi\u00f3n de Apparmor"
+            },
+            "cpu_percent": {
+                "name": "Porcentaje de CPU"
+            },
+            "disk_free": {
+                "name": "Disco libre"
+            },
+            "disk_total": {
+                "name": "Total del disco"
+            },
+            "disk_used": {
+                "name": "Disco utilizado"
+            },
+            "memory_percent": {
+                "name": "Porcentaje de memoria"
+            },
+            "version": {
+                "name": "Versi\u00f3n"
+            },
+            "version_latest": {
+                "name": "Versi\u00f3n m\u00e1s reciente"
+            }
+        }
+    },
+    "issues": {
+        "issue_addon_detached_addon_missing": {
+            "description": "Falta el repositorio para el complemento {addon}. Esto significa que no recibir\u00e1 actualizaciones y es posible que las copias de seguridad no se restauren correctamente, ya que es posible que el supervisor no pueda crear o descargar los recursos necesarios. \n\nPor favor, revisa la [documentaci\u00f3n del complemento]({addon_url}) para obtener instrucciones de instalaci\u00f3n y a\u00f1ade el repositorio a la tienda.",
+            "title": "Falta el repositorio de un complemento instalado"
+        },
+        "issue_addon_detached_addon_removed": {
+            "fix_flow": {
+                "abort": {
+                    "apply_suggestion_fail": "No se pudo desinstalar el complemento. Revisa los registros del Supervisor para obtener m\u00e1s detalles."
+                },
+                "step": {
+                    "addon_execute_remove": {
+                        "description": "El complemento {addon} se ha eliminado del repositorio desde el que se instal\u00f3. Esto significa que no recibir\u00e1 actualizaciones y es posible que las copias de seguridad no se restauren correctamente, ya que es posible que el supervisor no pueda crear o descargar los recursos necesarios.\n\nSi seleccionas **Enviar**, se desinstalar\u00e1 este complemento obsoleto. Como alternativa, puedes consultar la [ayuda de Home Assistant]({help_url}) y el [foro de la comunidad]({community_url}) para encontrar alternativas a las que migrar."
+                    }
+                }
+            },
+            "title": "El complemento instalado se ha eliminado del repositorio."
+        },
+        "issue_mount_mount_failed": {
+            "fix_flow": {
+                "abort": {
+                    "apply_suggestion_fail": "No se pudo aplicar la correcci\u00f3n. Revisa los registros del Supervisor para obtener m\u00e1s detalles."
+                },
+                "step": {
+                    "fix_menu": {
+                        "description": "No se pudo conectar con `{reference}`. Revisa los registros del host en busca de errores del servicio de montaje para obtener m\u00e1s detalles. \n\nUtiliza recargar para intentar conectar de nuevo. Si necesitas actualizar `{reference}`, ve a [almacenamiento]({storage_url}).",
+                        "menu_options": {
+                            "mount_execute_reload": "Recargar",
+                            "mount_execute_remove": "Eliminar"
+                        }
+                    }
+                }
+            },
+            "title": "Fallo del dispositivo de almacenamiento en red"
+        },
+        "issue_system_docker_config": {
+            "fix_flow": {
+                "abort": {
+                    "apply_suggestion_fail": "Uno o m\u00e1s de los reinicios fallaron. Revisa los registros del Supervisor para obtener m\u00e1s detalles."
+                },
+                "step": {
+                    "system_execute_rebuild": {
+                        "description": "La configuraci\u00f3n predeterminada para complementos y Home Assistant ha cambiado. Para actualizar la configuraci\u00f3n con los nuevos valores predeterminados, se requiere un reinicio para lo siguiente: \n\n- {components}"
+                    }
+                }
+            },
+            "title": "Reinicio(s) necesario(s)"
+        },
+        "issue_system_multiple_data_disks": {
+            "fix_flow": {
+                "abort": {
+                    "apply_suggestion_fail": "No se pudo cambiar el nombre del sistema de archivos. Revisa los registros del Supervisor para obtener m\u00e1s detalles."
+                },
+                "step": {
+                    "fix_menu": {
+                        "description": "En `{reference}`, detectamos otro disco de datos activo (que contiene un sistema de archivos `hassos-data` de otra instalaci\u00f3n de Home Assistant). \n\nTienes que decidir qu\u00e9 hacer con \u00e9l. De lo contrario, Home Assistant podr\u00eda elegir el disco de datos incorrecto al reiniciar el sistema. \n\nSi no quieres utilizar este disco de datos, descon\u00e9ctalo de tu sistema. Si lo dejas conectado, elige una de las siguientes opciones:",
+                        "menu_options": {
+                            "system_adopt_data_disk": "Utilizar el disco de datos detectado en lugar del sistema actual",
+                            "system_rename_data_disk": "Marcar como disco de datos inactivo (cambiar el nombre del sistema de archivos)"
+                        }
+                    },
+                    "system_adopt_data_disk": {
+                        "description": "Selecciona **Enviar** para que `{reference}` sea el disco de datos activo. El \u00fanico.\n\nYa no tendr\u00e1s acceso a los datos actuales de Home Assistant (se marcar\u00e1 como disco de datos inactivo). Despu\u00e9s de reiniciar, tu sistema estar\u00e1 en el estado de los datos de Home Assistant en `{reference}`."
+                    },
+                    "system_rename_data_disk": {
+                        "description": "`{reference}` es un sistema de archivos con el nombre hassos-data y no es el disco de datos activo. Esto puede hacer que Home Assistant elija el disco de datos incorrecto al reiniciar el sistema. \n\nUsa la opci\u00f3n de reparaci\u00f3n para cambiar el nombre del sistema de archivos para evitar esto. Alternativamente, puedes mover el disco de datos a la unidad (sobrescribiendo su contenido) o quitar la unidad del sistema."
+                    }
+                }
+            },
+            "title": "Se han detectado varios discos de datos"
+        },
+        "issue_system_reboot_required": {
+            "fix_flow": {
+                "abort": {
+                    "apply_suggestion_fail": "No se pudo reiniciar el sistema. Revisa los registros del Supervisor para obtener m\u00e1s detalles."
+                },
+                "step": {
+                    "system_execute_reboot": {
+                        "description": "Se han modificado ajustes que requieren un reinicio del sistema para que surtan efecto.\n\nEsta correcci\u00f3n realizar\u00e1 un reinicio del sistema que har\u00e1 que Home Assistant y todos los complementos sean inaccesibles durante un breve periodo de tiempo."
+                    }
+                }
+            },
+            "title": "Reinicio requerido"
+        },
+        "unhealthy": {
+            "description": "Actualmente el sistema no est\u00e1 en buen estado debido a {reason}. Utiliza el enlace para obtener m\u00e1s informaci\u00f3n y c\u00f3mo solucionarlo.",
+            "title": "Sistema en mal estado: {reason}"
+        },
+        "unhealthy_docker": {
+            "description": "Actualmente el sistema no est\u00e1 en buen estado porque Docker est\u00e1 configurado incorrectamente. Utiliza el enlace para obtener m\u00e1s informaci\u00f3n y c\u00f3mo solucionarlo.",
+            "title": "Sistema en mal estado - Docker mal configurado"
+        },
+        "unhealthy_privileged": {
+            "description": "Actualmente el sistema no est\u00e1 en buen estado porque no tiene acceso privilegiado al runtime de Docker. Utiliza el enlace para obtener m\u00e1s informaci\u00f3n y c\u00f3mo solucionarlo.",
+            "title": "Sistema en mal estado - No privilegiado"
+        },
+        "unhealthy_setup": {
+            "description": "Actualmente el sistema no est\u00e1 en buen estado porque la configuraci\u00f3n no se pudo completar. Hay varias razones por las que esto puede ocurrir, utiliza el enlace para obtener m\u00e1s informaci\u00f3n y c\u00f3mo solucionarlo.",
+            "title": "Sistema en mal estado: La configuraci\u00f3n fall\u00f3"
+        },
+        "unhealthy_supervisor": {
+            "description": "Actualmente el sistema no est\u00e1 en buen estado porque fall\u00f3 un intento de actualizar Supervisor a la \u00faltima versi\u00f3n. Utiliza el enlace para obtener m\u00e1s informaci\u00f3n y c\u00f3mo solucionarlo.",
+            "title": "Sistema en mal estado: La actualizaci\u00f3n del supervisor fall\u00f3"
+        },
+        "unhealthy_untrusted": {
+            "description": "Actualmente el sistema no est\u00e1 en buen estado porque ha detectado c\u00f3digo o im\u00e1genes en uso que no son de confianza. Utiliza el enlace para obtener m\u00e1s informaci\u00f3n y c\u00f3mo solucionarlo.",
+            "title": "Sistema no saludable: C\u00f3digo no confiable"
+        },
+        "unsupported": {
+            "description": "El sistema no es compatible debido a {reason}. Utiliza el enlace para obtener m\u00e1s informaci\u00f3n y c\u00f3mo solucionarlo.",
+            "title": "Sistema no compatible: {reason}"
+        },
+        "unsupported_apparmor": {
+            "description": "El sistema no es compatible porque AppArmor no funciona correctamente y los complementos se ejecutan sin protecci\u00f3n ni seguridad. Utiliza el enlace para obtener m\u00e1s informaci\u00f3n y c\u00f3mo solucionarlo.",
+            "title": "Sistema no compatible: Problemas con AppArmor"
+        },
+        "unsupported_cgroup_version": {
+            "description": "El sistema no es compatible porque se est\u00e1 utilizando una versi\u00f3n incorrecta de Docker CGroup. Utiliza el enlace para conocer la versi\u00f3n correcta y c\u00f3mo solucionarlo.",
+            "title": "Sistema no compatible: versi\u00f3n CGroup"
+        },
+        "unsupported_connectivity_check": {
+            "description": "El sistema no es compatible porque Home Assistant no puede determinar cu\u00e1ndo hay una conexi\u00f3n a Internet disponible. Utiliza el enlace para obtener m\u00e1s informaci\u00f3n y c\u00f3mo solucionarlo.",
+            "title": "Sistema no compatible - Verificaci\u00f3n de conectividad deshabilitada"
+        },
+        "unsupported_content_trust": {
+            "description": "El sistema no es compatible porque Home Assistant no puede verificar que el contenido que se est\u00e1 ejecutando sea confiable y que los atacantes no lo hayan modificado. Utiliza el enlace para obtener m\u00e1s informaci\u00f3n y c\u00f3mo solucionarlo.",
+            "title": "Sistema no compatible: Verificaci\u00f3n de confianza de contenido deshabilitada"
+        },
+        "unsupported_dbus": {
+            "description": "El sistema no es compatible porque D-Bus no funciona correctamente. Muchas cosas fallan sin esto, ya que Supervisor no puede comunicarse con el host. Utiliza el enlace para obtener m\u00e1s informaci\u00f3n y c\u00f3mo solucionarlo.",
+            "title": "Sistema no compatible: Problemas con D-Bus"
+        },
+        "unsupported_dns_server": {
+            "description": "El sistema no es compatible porque el servidor DNS proporcionado no funciona correctamente y la opci\u00f3n de DNS de respaldo se ha deshabilitado. Utiliza el enlace para obtener m\u00e1s informaci\u00f3n y c\u00f3mo solucionarlo.",
+            "title": "Sistema no compatible: Problemas con el servidor DNS"
+        },
+        "unsupported_docker_configuration": {
+            "description": "El sistema no es compatible porque el demonio de Docker se est\u00e1 ejecutando de forma inesperada. Utiliza el enlace para obtener m\u00e1s informaci\u00f3n y c\u00f3mo solucionarlo.",
+            "title": "Sistema no compatible - Docker mal configurado"
+        },
+        "unsupported_docker_version": {
+            "description": "El sistema no es compatible porque se est\u00e1 utilizando una versi\u00f3n incorrecta de Docker. Utiliza el enlace para conocer la versi\u00f3n correcta y c\u00f3mo solucionarlo.",
+            "title": "Sistema no compatible: Versi\u00f3n de Docker"
+        },
+        "unsupported_job_conditions": {
+            "description": "El sistema no es compatible porque se han deshabilitado una o m\u00e1s condiciones de trabajo que protegen contra fallos y roturas inesperadas. Utiliza el enlace para obtener m\u00e1s informaci\u00f3n y c\u00f3mo solucionarlo.",
+            "title": "Sistema no compatible - Protecciones deshabilitadas"
+        },
+        "unsupported_lxc": {
+            "description": "El sistema no es compatible porque se est\u00e1 ejecutando en una m\u00e1quina virtual LXC. Utiliza el enlace para obtener m\u00e1s informaci\u00f3n y c\u00f3mo solucionarlo.",
+            "title": "Sistema no compatible - LXC detectado"
+        },
+        "unsupported_network_manager": {
+            "description": "El sistema no es compatible porque falta Network Manager, est\u00e1 inactivo o mal configurado. Utiliza el enlace para obtener m\u00e1s informaci\u00f3n y c\u00f3mo solucionarlo.",
+            "title": "Sistema no compatible: Problemas con Network Manager"
+        },
+        "unsupported_os": {
+            "description": "El sistema no es compatible porque el sistema operativo en uso no se ha probado ni mantenido para su uso con Supervisor. Utiliza el enlace para saber qu\u00e9 sistemas operativos son compatibles y c\u00f3mo solucionarlo.",
+            "title": "Sistema no compatible - Sistema operativo"
+        },
+        "unsupported_os_agent": {
+            "description": "El sistema no es compatible porque OS-Agent falta, est\u00e1 inactivo o mal configurado. Utiliza el enlace para obtener m\u00e1s informaci\u00f3n y c\u00f3mo solucionarlo.",
+            "title": "Sistema no compatible: Problemas con OS-Agent"
+        },
+        "unsupported_restart_policy": {
+            "description": "El sistema no es compatible porque un contenedor Docker tiene un conjunto de pol\u00edticas de reinicio que podr\u00eda causar problemas en el inicio. Utiliza el enlace para obtener m\u00e1s informaci\u00f3n y c\u00f3mo solucionarlo.",
+            "title": "Sistema no compatible: Pol\u00edtica de reinicio del contenedor"
+        },
+        "unsupported_software": {
+            "description": "El sistema no es compatible porque se detect\u00f3 software adicional fuera del ecosistema de Home Assistant. Utiliza el enlace para obtener m\u00e1s informaci\u00f3n y c\u00f3mo solucionarlo.",
+            "title": "Sistema no compatible: Software no compatible"
+        },
+        "unsupported_source_mods": {
+            "description": "El sistema no es compatible porque se modific\u00f3 el c\u00f3digo fuente de Supervisor. Utiliza el enlace para obtener m\u00e1s informaci\u00f3n y c\u00f3mo solucionarlo.",
+            "title": "Sistema no compatible: Modificaciones de la fuente del supervisor"
+        },
+        "unsupported_supervisor_version": {
+            "description": "El sistema no es compatible porque se est\u00e1 utilizando una versi\u00f3n obsoleta de Supervisor y se ha desactivado la actualizaci\u00f3n autom\u00e1tica. Utiliza el enlace para obtener m\u00e1s informaci\u00f3n y c\u00f3mo solucionarlo.",
+            "title": "Sistema no compatible: Versi\u00f3n de supervisor"
+        },
+        "unsupported_systemd": {
+            "description": "El sistema no es compatible porque falta Systemd, est\u00e1 inactivo o est\u00e1 mal configurado. Utiliza el enlace para obtener m\u00e1s informaci\u00f3n y c\u00f3mo solucionarlo.",
+            "title": "Sistema no compatible: Problemas con Systemd"
+        },
+        "unsupported_systemd_journal": {
+            "description": "El sistema no es compatible porque Systemd Journal y/o el servicio de puerta de enlace faltan, est\u00e1n inactivos o mal configurados. Utiliza el enlace para obtener m\u00e1s informaci\u00f3n y c\u00f3mo solucionarlo.",
+            "title": "Sistema no compatible: Problemas con Systemd Journal"
+        },
+        "unsupported_systemd_resolved": {
+            "description": "El sistema no es compatible porque falta Systemd Resolved, est\u00e1 inactivo o est\u00e1 mal configurado. Utiliza el enlace para obtener m\u00e1s informaci\u00f3n y c\u00f3mo solucionarlo.",
+            "title": "Sistema no compatible: Problemas con Systemd-Resolved"
+        },
+        "unsupported_virtualization_image": {
+            "description": "El sistema no es compatible porque la imagen de Home Assistant OS en uso no est\u00e1 dise\u00f1ada para usarse en un entorno virtualizado. Utiliza el enlace para obtener m\u00e1s informaci\u00f3n y c\u00f3mo solucionar este problema.",
+            "title": "Sistema no compatible: imagen del SO incorrecta para la virtualizaci\u00f3n"
+        }
+    },
+    "services": {
+        "addon_restart": {
+            "description": "Reinicia un complemento.",
+            "fields": {
+                "addon": {
+                    "description": "El slug del complemento",
+                    "name": "Complemento"
+                }
+            },
+            "name": "Reinicia el complemento."
+        },
+        "addon_start": {
+            "description": "Inicia un complemento.",
+            "fields": {
+                "addon": {
+                    "description": "El slug del complemento",
+                    "name": "Complemento"
+                }
+            },
+            "name": "Iniciar complemento"
+        },
+        "addon_stdin": {
+            "description": "Escribe datos en la entrada est\u00e1ndar del complemento.",
+            "fields": {
+                "addon": {
+                    "description": "El slug del complemento",
+                    "name": "Complemento"
+                }
+            },
+            "name": "Escribir datos en la entrada est\u00e1ndar del complemento."
+        },
+        "addon_stop": {
+            "description": "Detiene un complemento.",
+            "fields": {
+                "addon": {
+                    "description": "El slug del complemento",
+                    "name": "Complemento"
+                }
+            },
+            "name": "Detener complemento."
+        },
+        "addon_update": {
+            "description": "Actualiza un complemento. Esta acci\u00f3n debe usarse con precauci\u00f3n, ya que las actualizaciones de complementos pueden contener cambios importantes. Se recomienda encarecidamente que revises las notas de la versi\u00f3n/registros de cambios antes de actualizar un complemento.",
+            "fields": {
+                "addon": {
+                    "description": "El slug del complemento",
+                    "name": "Complemento"
+                }
+            },
+            "name": "Actualizar complemento"
+        },
+        "backup_full": {
+            "description": "Crea una copia de seguridad completa.",
+            "fields": {
+                "compressed": {
+                    "description": "Comprime los archivos de copia de seguridad.",
+                    "name": "Comprimido"
+                },
+                "homeassistant_exclude_database": {
+                    "description": "Excluir el archivo de base de datos de Home Assistant de la copia de seguridad",
+                    "name": "Excluir base de datos de Home Assistant"
+                },
+                "location": {
+                    "description": "Nombre de un almacenamiento de red de copia de seguridad para alojarlas.",
+                    "name": "Ubicaci\u00f3n"
+                },
+                "name": {
+                    "description": "Opcional (predeterminado = fecha y hora actuales).",
+                    "name": "Nombre"
+                },
+                "password": {
+                    "description": "Contrase\u00f1a para proteger la copia de seguridad.",
+                    "name": "Contrase\u00f1a"
+                }
+            },
+            "name": "Crear una copia de seguridad completa."
+        },
+        "backup_partial": {
+            "description": "Crea una copia de seguridad parcial.",
+            "fields": {
+                "addons": {
+                    "description": "Lista de complementos a incluir en la copia de seguridad. Usa el nombre slug del complemento.",
+                    "name": "Complementos"
+                },
+                "compressed": {
+                    "description": "Comprime los archivos de copia de seguridad.",
+                    "name": "Comprimido"
+                },
+                "folders": {
+                    "description": "Lista de directorios a incluir en la copia de seguridad.",
+                    "name": "Carpetas"
+                },
+                "homeassistant": {
+                    "description": "Incluye la configuraci\u00f3n de Home Assistant en la copia de seguridad.",
+                    "name": "Ajustes de Home Assistant"
+                },
+                "homeassistant_exclude_database": {
+                    "description": "Excluir el archivo de base de datos de Home Assistant de la copia de seguridad",
+                    "name": "Excluir base de datos de Home Assistant"
+                },
+                "location": {
+                    "description": "Nombre de un almacenamiento de red de copia de seguridad para alojarlas.",
+                    "name": "Ubicaci\u00f3n"
+                },
+                "name": {
+                    "description": "Opcional (predeterminado = fecha y hora actuales).",
+                    "name": "Nombre"
+                },
+                "password": {
+                    "description": "Contrase\u00f1a para proteger la copia de seguridad.",
+                    "name": "Contrase\u00f1a"
+                }
+            },
+            "name": "Crear una copia de seguridad parcial."
+        },
+        "host_reboot": {
+            "description": "Reinicia el sistema host.",
+            "name": "Reiniciar el sistema host."
+        },
+        "host_shutdown": {
+            "description": "Apaga el sistema host.",
+            "name": "Apagar el sistema host."
+        },
+        "restore_full": {
+            "description": "Restaura desde una copia de seguridad completa.",
+            "fields": {
+                "password": {
+                    "description": "Contrase\u00f1a opcional.",
+                    "name": "Contrase\u00f1a"
+                },
+                "slug": {
+                    "description": "Slug de copia de seguridad para restaurar.",
+                    "name": "Slug"
+                }
+            },
+            "name": "Restaurar desde una copia de seguridad completa."
+        },
+        "restore_partial": {
+            "description": "Restaura desde una copia de seguridad parcial.",
+            "fields": {
+                "addons": {
+                    "description": "Lista de complementos a incluir en la copia de seguridad. Usa el nombre slug del complemento.",
+                    "name": "Complementos"
+                },
+                "folders": {
+                    "description": "Lista de directorios a incluir en la copia de seguridad.",
+                    "name": "Carpetas"
+                },
+                "homeassistant": {
+                    "description": "Restaura Home Assistant.",
+                    "name": "Ajustes de Home Assistant"
+                },
+                "password": {
+                    "description": "Contrase\u00f1a opcional.",
+                    "name": "Contrase\u00f1a"
+                },
+                "slug": {
+                    "description": "Slug de copia de seguridad para restaurar.",
+                    "name": "Slug"
+                }
+            },
+            "name": "Restaurar desde una copia de seguridad parcial."
+        }
+    },
+    "system_health": {
+        "info": {
+            "agent_version": "Versi\u00f3n del agente",
+            "board": "Placa",
+            "disk_total": "Total del disco",
+            "disk_used": "Disco utilizado",
+            "docker_version": "Versi\u00f3n de Docker",
+            "healthy": "Saludable",
+            "host_os": "Sistema operativo del host",
+            "installed_addons": "Complementos instalados",
+            "supervisor_api": "API del Supervisor",
+            "supervisor_version": "Versi\u00f3n del supervisor",
+            "supported": "Soportado",
+            "update_channel": "Canal de actualizaci\u00f3n",
+            "version_api": "Versi\u00f3n de la API"
+        }
+    }
+}

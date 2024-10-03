@@ -1,0 +1,87 @@
+{
+    "device_automation": {
+        "condition_type": {
+            "is_home": "{entity_name} \u00e9s a casa",
+            "is_not_home": "{entity_name} no \u00e9s a casa"
+        },
+        "extra_fields": {
+            "zone": "Zona"
+        },
+        "trigger_type": {
+            "enters": "{entity_name} entri a una zona",
+            "leaves": "{entity_name} surti d'una zona"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Seguiment de dispositiu",
+            "state": {
+                "home": "A casa",
+                "not_home": "Fora"
+            },
+            "state_attributes": {
+                "battery": {
+                    "name": "Bateria"
+                },
+                "gps_accuracy": {
+                    "name": "Precisi\u00f3 GPS"
+                },
+                "latitude": {
+                    "name": "Latitud"
+                },
+                "longitude": {
+                    "name": "Longitud"
+                },
+                "source_type": {
+                    "name": "Font",
+                    "state": {
+                        "bluetooth": "Bluetooth",
+                        "bluetooth_le": "Bluetooth LE",
+                        "gps": "GPS",
+                        "router": "Encaminador (router)"
+                    }
+                }
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "La plataforma {platform} de la integraci\u00f3 {domain} no \u00e9s compatible amb la configuraci\u00f3 de la plataforma.\n\nElimina-la de la teva configuraci\u00f3 i reinicia Home Assistant per solucionar aquest problema.",
+            "title": "Suport de la plataforma no compatible"
+        }
+    },
+    "services": {
+        "see": {
+            "fields": {
+                "battery": {
+                    "description": "Nivell de bateria del dispositiu.",
+                    "name": "Nivell de bateria"
+                },
+                "dev_id": {
+                    "description": "ID del dispositiu (pot buscar l'ID a `known_devices.yaml`).",
+                    "name": "ID del dispositiu"
+                },
+                "gps": {
+                    "description": "Coordenades GPS on es troba el dispositiu, especificades per latitud i longitud (per exemple: [51.513845, -0.100539]).",
+                    "name": "Coordenades GPS"
+                },
+                "gps_accuracy": {
+                    "description": "Precisi\u00f3 de les coordenades GPS.",
+                    "name": "Precisi\u00f3 del GPS"
+                },
+                "host_name": {
+                    "description": "Nom d'amfitri\u00f3 del dispositiu.",
+                    "name": "Nom d'amfitri\u00f3"
+                },
+                "location_name": {
+                    "name": "Ubicaci\u00f3"
+                },
+                "mac": {
+                    "description": "Adre\u00e7a MAC del dispositiu.",
+                    "name": "Adre\u00e7a MAC"
+                }
+            }
+        }
+    },
+    "title": "Seguiment de dispositiu"
+}

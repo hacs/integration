@@ -1,0 +1,131 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Ger\u00e4t ist bereits konfiguriert",
+            "already_in_progress": "Der Konfigurationsablauf wird bereits ausgef\u00fchrt",
+            "cannot_connect": "Verbindung fehlgeschlagen"
+        },
+        "step": {
+            "discovery_confirm": {
+                "description": "M\u00f6chtest du dieses Guardian-Ger\u00e4t einrichten?"
+            },
+            "user": {
+                "data": {
+                    "ip_address": "IP-Adresse",
+                    "port": "Port"
+                },
+                "description": "Konfiguriere ein lokales Elexa Guardian Ger\u00e4t."
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "leak": {
+                "name": "Leck erkannt"
+            },
+            "moved": {
+                "name": "K\u00fcrzlich verzogen"
+            }
+        },
+        "button": {
+            "reset_diagnostics": {
+                "name": "Ventildiagnose zur\u00fccksetzen"
+            }
+        },
+        "sensor": {
+            "current": {
+                "name": "Stromst\u00e4rke"
+            },
+            "instantaneous_current": {
+                "name": "Momentanstrom"
+            },
+            "instantaneous_current_ddt": {
+                "name": "Momentanstrom (DDT)"
+            },
+            "travel_count": {
+                "name": "Anzahl der Reisen"
+            },
+            "uptime": {
+                "name": "Betriebszeit"
+            }
+        },
+        "switch": {
+            "onboard_access_point": {
+                "name": "Integrierter Access Point"
+            },
+            "valve_controller": {
+                "name": "Ventilsteuerung"
+            }
+        },
+        "valve": {
+            "valve_controller": {
+                "name": "Ventilsteuerung"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_service": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Aktualisiere alle Automatisierungen oder Skripte, die diesen Dienst verwenden, um stattdessen den Dienst `{alternate_service}` mit einer Ziel-Entit\u00e4ts-ID von `{alternate_target}` zu verwenden.",
+                        "title": "Der Dienst {deprecated_service} wird entfernt"
+                    }
+                }
+            },
+            "title": "Der Dienst {deprecated_service} wird entfernt"
+        }
+    },
+    "services": {
+        "pair_sensor": {
+            "description": "F\u00fcgt der Ventilsteuerung einen neuen gekoppelten Sensor hinzu.",
+            "fields": {
+                "device_id": {
+                    "description": "Der Ventilregler, zu dem der Sensor hinzugef\u00fcgt werden soll.",
+                    "name": "Ventilsteuerung"
+                },
+                "uid": {
+                    "description": "Die UID des gekoppelten Sensors.",
+                    "name": "UID"
+                }
+            },
+            "name": "Sensor koppeln"
+        },
+        "unpair_sensor": {
+            "description": "Entfernt einen gekoppelten Sensor vom Ventilregler.",
+            "fields": {
+                "device_id": {
+                    "description": "Der Ventilregler, aus dem der Sensor entfernt werden soll.",
+                    "name": "Ventilsteuerung"
+                },
+                "uid": {
+                    "description": "Die UID des gekoppelten Sensors.",
+                    "name": "UID"
+                }
+            },
+            "name": "Sensor entkoppeln"
+        },
+        "upgrade_firmware": {
+            "description": "Aktualisiert die Ger\u00e4te-Firmware.",
+            "fields": {
+                "device_id": {
+                    "description": "Der Ventilregler, dessen Firmware aktualisiert werden soll.",
+                    "name": "Ventilsteuerung"
+                },
+                "filename": {
+                    "description": "Der Firmware-Dateiname.",
+                    "name": "Dateiname"
+                },
+                "port": {
+                    "description": "Der Port, auf dem die Firmware-Datei bereitgestellt wird.",
+                    "name": "Port"
+                },
+                "url": {
+                    "description": "Die URL des Servers, auf dem sich die Firmware-Datei befindet.",
+                    "name": "URL"
+                }
+            },
+            "name": "Firmware aktualisieren"
+        }
+    }
+}

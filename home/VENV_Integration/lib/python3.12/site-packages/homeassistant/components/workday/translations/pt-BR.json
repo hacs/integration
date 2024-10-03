@@ -1,0 +1,192 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "O Workday j\u00e1 foi configurado com a configura\u00e7\u00e3o escolhida",
+            "incorrect_province": "Subdivis\u00e3o incorreta da importa\u00e7\u00e3o do yaml"
+        },
+        "error": {
+            "add_holiday_error": "Formato incorreto na data (AAAA-MM-DD)",
+            "already_configured": "O servi\u00e7o j\u00e1 est\u00e1 configurado",
+            "remove_holiday_error": "Formato incorreto na data (AAAA-MM-DD) ou nome do feriado n\u00e3o encontrado"
+        },
+        "step": {
+            "options": {
+                "data": {
+                    "add_holidays": "Adicionar feriados",
+                    "days_offset": "Desvio",
+                    "excludes": "Exclui",
+                    "language": "Idioma para feriados nomeados",
+                    "province": "Estado",
+                    "remove_holidays": "Remover feriados",
+                    "workdays": "Dias \u00fateis"
+                },
+                "description": "Definir op\u00e7\u00f5es adicionais para {name} configuradas para o pa\u00eds {country}"
+            },
+            "user": {
+                "data": {
+                    "country": "Pa\u00eds",
+                    "name": "Nome"
+                }
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "workday": {
+                "state_attributes": {
+                    "days_offset": {
+                        "name": "Desvio"
+                    },
+                    "excludes": {
+                        "name": "Exclui"
+                    },
+                    "workdays": {
+                        "name": "Dias \u00fateis"
+                    }
+                }
+            }
+        }
+    },
+    "issues": {
+        "bad_country": {
+            "fix_flow": {
+                "step": {
+                    "country": {
+                        "data": {
+                            "country": "Pa\u00eds"
+                        },
+                        "description": "Selecione um pa\u00eds para usar em seu sensor Workday.",
+                        "title": "Selecione o pa\u00eds para {title}"
+                    },
+                    "province": {
+                        "data": {
+                            "province": "Estado"
+                        },
+                        "data_description": {
+                            "province": "Estado do pa\u00eds"
+                        },
+                        "description": "Selecione um estado do pa\u00eds {country} para usar em seu sensor do Workday.",
+                        "title": "Selecione o estado para {title}"
+                    }
+                }
+            },
+            "title": "O pa\u00eds configurado para {title} n\u00e3o existe"
+        },
+        "bad_date_holiday": {
+            "fix_flow": {
+                "error": {
+                    "remove_holiday_error": "Formato incorreto na data (AAAA-MM-DD) ou nome do feriado n\u00e3o encontrado"
+                },
+                "step": {
+                    "fix_remove_holiday": {
+                        "data": {
+                            "remove_holidays": "Remover feriados"
+                        },
+                        "data_description": {
+                            "remove_holidays": "Remova feriados como AAAA-MM-DD ou usando parte do nome"
+                        },
+                        "description": "Remova a data do feriado `{remove_holidays}`, pois ela n\u00e3o pode ser encontrada no pa\u00eds {country}.",
+                        "title": "A data de feriado configurada {remove_holidays} para {title} n\u00e3o existe"
+                    }
+                }
+            },
+            "title": "A data de feriado configurada {remove_holidays} para {title} n\u00e3o existe"
+        },
+        "bad_named_holiday": {
+            "fix_flow": {
+                "error": {
+                    "remove_holiday_error": "Formato incorreto na data (AAAA-MM-DD) ou nome do feriado n\u00e3o encontrado"
+                },
+                "step": {
+                    "fix_remove_holiday": {
+                        "data": {
+                            "remove_holidays": "Remover feriados"
+                        },
+                        "data_description": {
+                            "remove_holidays": "Remova feriados como AAAA-MM-DD ou usando parte do nome"
+                        },
+                        "description": "Remove named holiday `{remove_holidays}` as it can't be found in country {country}."
+                    },
+                    "named_holiday": {
+                        "data": {
+                            "remove_holidays": "Remover feriados"
+                        },
+                        "data_description": {
+                            "remove_holidays": "Remova feriados como AAAA-MM-DD ou usando parte do nome"
+                        }
+                    }
+                }
+            }
+        },
+        "bad_province": {
+            "fix_flow": {
+                "step": {
+                    "province": {
+                        "data": {
+                            "province": "Estado"
+                        },
+                        "data_description": {
+                            "province": "Estado do pa\u00eds"
+                        },
+                        "description": "Selecione um estado do pa\u00eds {country} para usar em seu sensor do Workday.",
+                        "title": "Selecione o estado para {title}"
+                    }
+                }
+            },
+            "title": "O estado do pa\u00eds {country} configurado para {title} n\u00e3o existe"
+        },
+        "deprecated_yaml": {
+            "description": "A configura\u00e7\u00e3o do Workday usando YAML est\u00e1 sendo removida. \n\n Sua configura\u00e7\u00e3o YAML existente foi importada para a IU automaticamente. \n\n Remova a configura\u00e7\u00e3o YAML do Workday do arquivo configuration.yaml e reinicie o Home Assistant para corrigir esse problema.",
+            "title": "A configura\u00e7\u00e3o YAML do Workday est\u00e1 sendo removida"
+        }
+    },
+    "options": {
+        "error": {
+            "add_holiday_error": "Formato incorreto na data (AAAA-MM-DD)",
+            "already_configured": "J\u00e1 existe servi\u00e7o com essa configura\u00e7\u00e3o",
+            "remove_holiday_error": "Formato incorreto na data (AAAA-MM-DD) ou nome do feriado n\u00e3o encontrado"
+        },
+        "step": {
+            "init": {
+                "data": {
+                    "add_holidays": "Adicionar feriados",
+                    "days_offset": "Desvio",
+                    "excludes": "Exclui",
+                    "language": "Idioma para feriados nomeados",
+                    "province": "Estado",
+                    "remove_holidays": "Remover feriados",
+                    "workdays": "Dias \u00fateis"
+                },
+                "data_description": {
+                    "add_holidays": "Adicionar feriados personalizados como AAAA-MM-DD",
+                    "days_offset": "Compensa\u00e7\u00e3o de dias",
+                    "excludes": "Lista de dias \u00fateis a excluir",
+                    "language": "Escolha o idioma no qual deseja configurar os feriados nomeados",
+                    "province": "Estado, Territ\u00f3rio, Prov\u00edncia, Regi\u00e3o do Pa\u00eds",
+                    "remove_holidays": "Remova feriados como AAAA-MM-DD ou usando parte do nome",
+                    "workdays": "Lista de dias \u00fateis"
+                },
+                "description": "Alterar op\u00e7\u00f5es adicionais para {name} configuradas para o pa\u00eds {country}"
+            }
+        }
+    },
+    "selector": {
+        "days": {
+            "options": {
+                "fri": "Sexta-feira",
+                "holiday": "Feriados",
+                "mon": "Segunda-feira",
+                "sat": "S\u00e1bado",
+                "sun": "Domingo",
+                "thu": "Quinta-feira",
+                "tue": "Ter\u00e7a-feira",
+                "wed": "Quarta-feira"
+            }
+        },
+        "province": {
+            "options": {
+                "none": "Sem subdivis\u00e3o"
+            }
+        }
+    }
+}

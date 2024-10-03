@@ -1,0 +1,95 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Laite on jo m\u00e4\u00e4ritetty"
+        },
+        "error": {
+            "cannot_connect": "Yhteyden muodostaminen ep\u00e4onnistui",
+            "invalid_auth": "Virheellinen todennus"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "password": "Salasana",
+                    "url": "URL-osoite",
+                    "username": "K\u00e4ytt\u00e4j\u00e4tunnus",
+                    "verify_ssl": "Tarkista SSL-varmenne"
+                }
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "active_torrents": {
+                "name": "Aktiiviset torrentit"
+            },
+            "all_torrents": {
+                "name": "Kaikki torrentit"
+            },
+            "download_speed": {
+                "name": "Latausnopeus"
+            },
+            "inactive_torrents": {
+                "name": "Inaktiiviset torrentit"
+            },
+            "paused_torrents": {
+                "name": "Keskeytetyt torrentit"
+            },
+            "transmission_status": {
+                "name": "Tila",
+                "state": {
+                    "downloading": "Lataaminen",
+                    "idle": "Toimeton",
+                    "seeding": "Kylv\u00f6",
+                    "up_down": "L\u00e4hetys/Vastaanotto"
+                }
+            },
+            "upload_speed": {
+                "name": "L\u00e4hetysnopeus"
+            }
+        }
+    },
+    "exceptions": {
+        "invalid_device": {
+            "message": "Laitetta, jonka tunnus on {device_id}, ei l\u00f6ytynyt"
+        },
+        "invalid_entry_id": {
+            "message": "Merkint\u00e4\u00e4 tunnuksella {device_id} ei l\u00f6ytynyt"
+        },
+        "login_error": {
+            "message": "Kirjautumisvirhe tapahtui. Tarkista k\u00e4ytt\u00e4j\u00e4tunnuksesi ja salasanasi."
+        }
+    },
+    "issues": {
+        "deprecated_yaml": {
+            "description": "qBittorrentin m\u00e4\u00e4ritt\u00e4minen YAML:n avulla poistetaan.\n\nOlemassa oleva YAML-konfiguraatiosi on tuotu k\u00e4ytt\u00f6liittym\u00e4\u00e4n automaattisesti.\n\nPoista qBittorrent YAML -m\u00e4\u00e4ritys configuration.yaml-tiedostosta ja k\u00e4ynnist\u00e4 Home Assistant uudelleen ongelman korjaamiseksi.",
+            "title": "qBittorrentin YAML-konfiguraatio poistetaan."
+        }
+    },
+    "services": {
+        "get_all_torrents": {
+            "description": "Ottaa luettelon nykyisist\u00e4 torrenteista kaikista qBittorrent-instansseista.",
+            "fields": {
+                "torrent_filter": {
+                    "description": "Mink\u00e4laisia torrentteja haluat palauttaa, esimerkiksi Kaikki tai Aktiiviset.",
+                    "name": "Torrent-suodatin"
+                }
+            },
+            "name": "Hae kaikki torrentit"
+        },
+        "get_torrents": {
+            "description": "Ottaa luettelon nykyisist\u00e4 torrenteista",
+            "fields": {
+                "device_id": {
+                    "description": "Mist\u00e4 palvelusta lista haetaan",
+                    "name": "Laite"
+                },
+                "torrent_filter": {
+                    "description": "Mink\u00e4laisia torrentteja haluat palauttaa, esimerkiksi Kaikki tai Aktiiviset.",
+                    "name": "Torrent-suodatin"
+                }
+            },
+            "name": "Hanki torrentteja"
+        }
+    }
+}

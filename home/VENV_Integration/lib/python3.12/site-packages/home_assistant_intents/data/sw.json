@@ -1,0 +1,578 @@
+{
+  "language": "sw",
+  "intents": {},
+  "responses": {
+    "errors": {
+      "no_intent": "Samahani, sikuweza kuelewa hilo",
+      "no_area": "Eneo liliotajwa {{ area }} halionikani",
+      "no_domain": "{{ area }} haina {{ domain }}",
+      "no_device_class": "{{ area }} haina {{ device_class }}",
+      "no_entity": "Kitu kilichoitwa {{ entity }} halionikani",
+      "handle_error": "Kosa lisilotarajiwa imetokea"
+    },
+    "intents": {
+      "HassGetState": {},
+      "HassTurnOff": {
+        "default": "Turned off {{ slots.name }}",
+        "lights_area": "Turned off lights in {{ slots.area }}",
+        "fans_area": "Turned off fans in {{ slots.area }}",
+        "cover": "Closed {{ slots.name }}",
+        "cover_area": "Closed {{ slots.area }}"
+      },
+      "HassTurnOn": {
+        "default": "Turned on {{ slots.name }}",
+        "lights_area": "Turned on lights in {{ slots.area }}",
+        "fans_area": "Turned on fans in {{ slots.area }}",
+        "cover": "Opened {{ slots.name }}",
+        "cover_area": "Opened {{ slots.area }}"
+      },
+      "HassLightSet": {
+        "brightness": "{{ slots.name }} brightness set to {{ slots.brightness }}",
+        "brightness_area": "Brightness in {{ slots.area }} set to {{ slots.brightness }}",
+        "color": "{{ slots.name }} color set to {{ slots.color }}",
+        "color_area": "Color in {{ slots.area }} set to {{ slots.color }}"
+      },
+      "HassClimateGetTemperature": {
+        "default": "{{ state.state }} degrees"
+      }
+    }
+  },
+  "lists": {
+    "brightness": {
+      "range": {
+        "type": "percentage",
+        "from": 0,
+        "to": 100
+      }
+    },
+    "brightness_level": {
+      "values": [
+        {
+          "in": "((ongeza|zidisha) mwanga mpaka mwisho)",
+          "out": 100
+        },
+        {
+          "in": "(punguza mwanga mpaka mwisho)",
+          "out": 1
+        }
+      ]
+    },
+    "on_off_states": {
+      "values": [
+        {
+          "in": "washa",
+          "out": "on"
+        },
+        {
+          "in": "zima",
+          "out": "off"
+        }
+      ]
+    },
+    "on_off_domains": {
+      "values": [
+        {
+          "in": "<taa>",
+          "out": "light"
+        },
+        {
+          "in": "<feni>",
+          "out": "fan"
+        },
+        {
+          "in": "<swichi>",
+          "out": "switch"
+        }
+      ]
+    },
+    "color": {
+      "values": [
+        {
+          "in": "nyeupe",
+          "out": "white"
+        },
+        {
+          "in": "nyeusi",
+          "out": "black"
+        },
+        {
+          "in": "nyekundu",
+          "out": "red"
+        },
+        {
+          "in": "(orange|[rangi ya] [ma]chungwa)",
+          "out": "orange"
+        },
+        {
+          "in": "njano",
+          "out": "yellow"
+        },
+        {
+          "in": "kijani",
+          "out": "green"
+        },
+        {
+          "in": "bluu",
+          "out": "blue"
+        },
+        {
+          "in": "zambarau",
+          "out": "purple"
+        },
+        {
+          "in": "waridi",
+          "out": "pink"
+        }
+      ]
+    },
+    "lock_states": {
+      "values": [
+        {
+          "in": "(imefungwa)",
+          "out": "locked"
+        },
+        {
+          "in": "(umebugazwa)",
+          "out": "unlocked"
+        }
+      ]
+    },
+    "temperature": {
+      "range": {
+        "type": "temperature",
+        "from": 0,
+        "to": 100
+      }
+    },
+    "temperature_unit": {
+      "values": [
+        "celsius",
+        {
+          "in": "c",
+          "out": "celsius"
+        },
+        "fahrenheit",
+        {
+          "in": "f",
+          "out": "fahrenheit"
+        }
+      ]
+    },
+    "door_lock_states": {
+      "values": [
+        {
+          "in": "(imefungwa)",
+          "out": "locked"
+        },
+        {
+          "in": "(imefunguliwa)",
+          "out": "unlocked"
+        }
+      ]
+    },
+    "cover_states": {
+      "values": [
+        {
+          "in": "(wazi)",
+          "out": "(open)"
+        },
+        {
+          "in": "(imefungwa)",
+          "out": "closed"
+        },
+        {
+          "in": "(ina(fungua|funguliwa))",
+          "out": "opening"
+        },
+        {
+          "in": "(inafungwa)",
+          "out": "closing"
+        }
+      ]
+    },
+    "cover_classes": {
+      "values": [
+        {
+          "in": "<kivuli>",
+          "out": "awning"
+        },
+        {
+          "in": "<panzia>",
+          "out": "blind"
+        },
+        {
+          "in": "<panzia>",
+          "out": "curtain"
+        },
+        {
+          "in": "<mlango>",
+          "out": "door"
+        },
+        {
+          "in": "<gereji>",
+          "out": "garage"
+        },
+        {
+          "in": "<geti>",
+          "out": "gate"
+        },
+        {
+          "in": "<kivuli>",
+          "out": "shade"
+        },
+        {
+          "in": "<shutter>",
+          "out": "shutter"
+        },
+        {
+          "in": "<dirisha>",
+          "out": "window"
+        }
+      ]
+    },
+    "bs_battery_states": {
+      "values": [
+        {
+          "in": "(chini)",
+          "out": "on"
+        },
+        {
+          "in": "(kawaida)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_battery_charging_states": {
+      "values": [
+        {
+          "in": "(inachaji)",
+          "out": "on"
+        },
+        {
+          "in": "(halingiyi chaji)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_carbon_monoxide_states": {
+      "values": [
+        {
+          "in": "(imegunduwa|imewaka)",
+          "out": "on"
+        },
+        {
+          "in": "(wazi)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_gas_states": {
+      "values": [
+        {
+          "in": "(imegunduwa|imewaka)",
+          "out": "on"
+        },
+        {
+          "in": "(wazi)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_door_states": {
+      "values": [
+        {
+          "in": "(wazi)",
+          "out": "on"
+        },
+        {
+          "in": "(imefungwa)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_cold_states": {
+      "values": [
+        {
+          "in": "(baridi)",
+          "out": "on"
+        },
+        {
+          "in": "(kawaida)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_heat_states": {
+      "values": [
+        {
+          "in": "(joto)",
+          "out": "on"
+        },
+        {
+          "in": "(kawaida)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_connectivity_states": {
+      "values": [
+        {
+          "in": "(imeunganishwa)",
+          "out": "on"
+        },
+        {
+          "in": "(haijaungishwa)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_garage_door_states": {
+      "values": [
+        {
+          "in": "(wazi)",
+          "out": "on"
+        },
+        {
+          "in": "(imefungwa)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_light_states": {
+      "values": [
+        {
+          "in": "(imegunduwa|kuna mwanga)",
+          "out": "on"
+        },
+        {
+          "in": "(giza|hakuna mwanga)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_opening_states": {
+      "values": [
+        {
+          "in": "(wazi)",
+          "out": "on"
+        },
+        {
+          "in": "(imefungwa)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_lock_states": {
+      "values": [
+        {
+          "in": "(umebugazwa)",
+          "out": "on"
+        },
+        {
+          "in": "(imefungwa)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_moisture_states": {
+      "values": [
+        {
+          "in": "(imelowa)",
+          "out": "on"
+        },
+        {
+          "in": "(imekauka)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_motion_states": {
+      "values": [
+        {
+          "in": "(imegunduwa|imewaka)",
+          "out": "on"
+        },
+        {
+          "in": "(wazi)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_occupancy_states": {
+      "values": [
+        {
+          "in": "(imegunduwa|imewaka)",
+          "out": "on"
+        },
+        {
+          "in": "(wazi)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_plug_states": {
+      "values": [
+        {
+          "in": "(imechomekwa)",
+          "out": "on"
+        },
+        {
+          "in": "(haijachomekwa)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_power_states": {
+      "values": [
+        {
+          "in": "(imewashwa|umeme upo)",
+          "out": "on"
+        },
+        {
+          "in": "(imezimwa|hakuna umeme)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_presence_states": {
+      "values": [
+        {
+          "in": "(kuna (m|wa)tu)",
+          "out": "on"
+        },
+        {
+          "in": "(hakuna (m|wa)tu)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_safety_states": {
+      "values": [
+        {
+          "in": "(hatari|hakuna usalama)",
+          "out": "on"
+        },
+        {
+          "in": "(salama|hakuna hatari)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_running_states": {
+      "values": [
+        {
+          "in": "(imewashwa)",
+          "out": "on"
+        },
+        {
+          "in": "(haijawashwa)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_smoke_states": {
+      "values": [
+        {
+          "in": "(imegunduwa|[kuna] moshi)",
+          "out": "on"
+        },
+        {
+          "in": "(hakuna moshi)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_sound_states": {
+      "values": [
+        {
+          "in": "(imegunduwa|kuna sauti)",
+          "out": "on"
+        },
+        {
+          "in": "((hakuna|hamna) sauti|pako kimya)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_tamper_states": {
+      "values": [
+        {
+          "in": "(imegunduwa|imechezewa)",
+          "out": "on"
+        },
+        {
+          "in": "(haijachezewa)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_update_states": {
+      "values": [
+        {
+          "in": "(sasisho inapatikana)",
+          "out": "on"
+        },
+        {
+          "in": "(imesasishwa)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_problem_states": {
+      "values": [
+        {
+          "in": "(kuna (tatizo|kasoro)|imegunduwa)",
+          "out": "on"
+        },
+        {
+          "in": "(hakuna (tatizo|kasoro)|pako (salama|sawa))",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_vibration_states": {
+      "values": [
+        {
+          "in": "(imegunduwa|inatetema)",
+          "out": "on"
+        },
+        {
+          "in": "(haitetemi)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_window_states": {
+      "values": [
+        {
+          "in": "(likowazi|limefunguliwa)",
+          "out": "on"
+        },
+        {
+          "in": "(limefungwa)",
+          "out": "closed"
+        }
+      ]
+    },
+    "shopping_list_item": {
+      "wildcard": true
+    }
+  },
+  "expansion_rules": {
+    "name": "(jina)",
+    "what_is": "(ni nini)",
+    "area": "(eneo)",
+    "brightness": "(mwanga)",
+    "window": "(dirisha)",
+    "in": "(kwenye)",
+    "open": "(fungua)",
+    "close": "(zima|funga)",
+    "set": "(weka)",
+    "numeric_value_set": "(weka|badilisha|ongeza|zidisha|punguza)",
+    "door": "(mlango)"
+  },
+  "skip_words": [
+    "(ni)naomba",
+    "unaweza"
+  ]
+}

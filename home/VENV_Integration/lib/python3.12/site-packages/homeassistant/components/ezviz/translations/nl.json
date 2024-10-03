@@ -1,0 +1,228 @@
+{
+    "config": {
+        "abort": {
+            "already_configured_account": "Account is al geconfigureerd",
+            "reauth_successful": "Herauthenticatie geslaagd",
+            "unknown": "Onverwachte fout"
+        },
+        "error": {
+            "cannot_connect": "Kan geen verbinding maken",
+            "invalid_auth": "Ongeldige authenticatie",
+            "invalid_host": "Ongeldige hostnaam of IP-adres",
+            "mfa_required": "2FA is ingeschakeld op het account, schakel 2FA uit en probeer het opnieuw"
+        },
+        "flow_title": "{serial}",
+        "step": {
+            "confirm": {
+                "data": {
+                    "password": "Wachtwoord",
+                    "username": "Gebruikersnaam"
+                },
+                "description": "Voer RTSP-gegevens in voor EZVIZ camera {serial} met IP {ip_address}",
+                "title": "Ontdekte EZVIZ-camera"
+            },
+            "reauth_confirm": {
+                "data": {
+                    "password": "Wachtwoord",
+                    "username": "Gebruikersnaam"
+                },
+                "description": "Voer de inloggegevens in om te herauthenticeren met het EZVIZ-cloudaccount",
+                "title": "Authenticatie is verlopen voor {name}"
+            },
+            "user": {
+                "data": {
+                    "password": "Wachtwoord",
+                    "url": "URL",
+                    "username": "Gebruikersnaam"
+                },
+                "title": "Verbinding maken met EZVIZ Cloud"
+            },
+            "user_custom_url": {
+                "data": {
+                    "password": "Wachtwoord",
+                    "url": "URL",
+                    "username": "Gebruikersnaam"
+                },
+                "description": "Geef handmatig de URL van uw regio op"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "alarm_schedules_enabled": {
+                "name": "Alarm programmering ingeschakeld"
+            },
+            "encrypted": {
+                "name": "Encryptie"
+            }
+        },
+        "button": {
+            "ptz_down": {
+                "name": "PTZ naar beneden"
+            },
+            "ptz_left": {
+                "name": "PTZ links"
+            },
+            "ptz_right": {
+                "name": "PTZ rechts"
+            },
+            "ptz_up": {
+                "name": "PTZ omhoog"
+            }
+        },
+        "image": {
+            "last_motion_image": {
+                "name": "Laatste bewegingsbeeld"
+            }
+        },
+        "light": {
+            "light": {
+                "name": "Licht"
+            }
+        },
+        "select": {
+            "alarm_sound_mode": {
+                "name": "Waarschuwingsgeluid",
+                "state": {
+                    "intensive": "Intensief",
+                    "silent": "Stil",
+                    "soft": "Zacht"
+                }
+            }
+        },
+        "sensor": {
+            "alarm_sound_mod": {
+                "name": "Alarm geluidsniveau"
+            },
+            "last_alarm_pic": {
+                "name": "Laatste alarm afbeelding URL"
+            },
+            "last_alarm_time": {
+                "name": "Laatste alarmtijd"
+            },
+            "last_alarm_type_code": {
+                "name": "Laatste alarmtype code"
+            },
+            "last_alarm_type_name": {
+                "name": "Laatste alarmtype naam"
+            },
+            "local_ip": {
+                "name": "Lokaal IP adres"
+            },
+            "pir_status": {
+                "name": "PIR status"
+            },
+            "seconds_last_trigger": {
+                "name": "Seconden sinds laatste trigger"
+            },
+            "supported_channels": {
+                "name": "Ondersteunde kanalen"
+            },
+            "wan_ip": {
+                "name": "WAN IP"
+            }
+        },
+        "switch": {
+            "all_day_video_recording": {
+                "name": "Hele dag video opname"
+            },
+            "audio": {
+                "name": "Audio"
+            },
+            "auto_sleep": {
+                "name": "Auto slaapstand"
+            },
+            "flicker_light_on_movement": {
+                "name": "Flikker licht bij beweging"
+            },
+            "follow_movement": {
+                "name": "Volg beweging"
+            },
+            "infrared_light": {
+                "name": "Infrarood licht"
+            },
+            "motion_tracking": {
+                "name": "Bewegingsopname"
+            },
+            "pir_motion_activated_light": {
+                "name": "PIR motion geactiveerd licht"
+            },
+            "privacy": {
+                "name": "Privacy"
+            },
+            "sleep": {
+                "name": "Slaapstand"
+            },
+            "status_light": {
+                "name": "Status licht"
+            },
+            "tamper_alarm": {
+                "name": "Sabotage alarm"
+            }
+        },
+        "update": {
+            "firmware": {
+                "name": "Firmware"
+            }
+        }
+    },
+    "issues": {
+        "service_deprecation_alarm_sound_level": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "De EZVIZ Alarm geluidsniveau service is verouderd en zal worden verwijderd in Home Assistant 2024.2.\nOm het alarmgeluidsniveau in te stellen, kun je in plaats daarvan de `select.select_option` service gebruiken die gericht is op de waarschuwingsgeluid entiteit.\n\nVerwijder het gebruik van deze service uit je automatiseringen en scripts en selecteer **verzenden** om dit probleem te sluiten.",
+                        "title": "Ezviz Alarm geluidsniveau service wordt verwijderd"
+                    }
+                }
+            },
+            "title": "Ezviz Alarm geluidsniveau service wordt verwijderd"
+        },
+        "service_depreciation_detection_sensibility": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "De EZVIZ detectiegevoeligheid service is verouderd en zal worden verwijderd in Home Assistant 2023.12.\nOm de gevoeligheid in te stellen, kun je in plaats daarvan de `number.set_value` service gebruiken die zich richt op de detectiegevoeligheid entiteit.\n\nVerwijder deze service uit je automatiseringen en scripts en selecteer **verzenden** om dit probleem te sluiten."
+                    }
+                }
+            }
+        },
+        "service_depreciation_ptz": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "EZVIZ PTZ dienst is verouderd and wordt verwijderd.\nOm de camera te bewegen kun je in plaats daarvan de `button.press` dienst gebruiken naar the PTZ* entities.\n\nVerwijder deze dienst van je automatiseringen en scripts en selecteer **toepassen** om dit issue te sluiten.",
+                        "title": "EZVIV PTZ dienst wordt verwijderd"
+                    }
+                }
+            },
+            "title": "EZVIV PTZ dienst wordt verwijderd"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "ffmpeg_arguments": "Argumenten doorgegeven aan ffmpeg voor camera's",
+                    "timeout": "Time-out aanvraag (seconden)"
+                }
+            }
+        }
+    },
+    "services": {
+        "alarm_sound": {
+            "fields": {
+                "level": {
+                    "name": "Geluidsniveau"
+                }
+            }
+        },
+        "ptz": {
+            "fields": {
+                "speed": {
+                    "name": "Snelheid"
+                }
+            }
+        }
+    }
+}

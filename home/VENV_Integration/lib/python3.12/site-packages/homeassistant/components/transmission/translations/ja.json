@@ -1,0 +1,153 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "\u30c7\u30d0\u30a4\u30b9\u306f\u3059\u3067\u306b\u8a2d\u5b9a\u3055\u308c\u3066\u3044\u307e\u3059",
+            "reauth_successful": "\u518d\u8a8d\u8a3c\u306b\u6210\u529f\u3057\u307e\u3057\u305f"
+        },
+        "error": {
+            "cannot_connect": "\u63a5\u7d9a\u306b\u5931\u6557\u3057\u307e\u3057\u305f",
+            "invalid_auth": "\u7121\u52b9\u306a\u8a8d\u8a3c",
+            "name_exists": "\u540d\u524d\u306f\u3059\u3067\u306b\u5b58\u5728\u3057\u307e\u3059"
+        },
+        "step": {
+            "reauth_confirm": {
+                "data": {
+                    "password": "\u30d1\u30b9\u30ef\u30fc\u30c9"
+                },
+                "description": "{username} \u306e\u30d1\u30b9\u30ef\u30fc\u30c9\u304c\u7121\u52b9\u3067\u3059\u3002",
+                "title": "{name} \u306e\u8a8d\u8a3c\u306e\u6709\u52b9\u671f\u9650\u304c\u5207\u308c\u307e\u3057\u305f"
+            },
+            "user": {
+                "data": {
+                    "host": "\u30db\u30b9\u30c8",
+                    "name": "\u540d\u524d",
+                    "password": "\u30d1\u30b9\u30ef\u30fc\u30c9",
+                    "path": "\u30d1\u30b9",
+                    "port": "\u30dd\u30fc\u30c8",
+                    "ssl": "SSL\u8a3c\u660e\u66f8\u3092\u4f7f\u7528\u3059\u308b",
+                    "username": "\u30e6\u30fc\u30b6\u30fc\u540d"
+                },
+                "data_description": {
+                    "path": "RPC \u30ea\u30af\u30a8\u30b9\u30c8\u306e\u30bf\u30fc\u30b2\u30c3\u30c8 \u30d1\u30b9\u3002\u4f8b: `/transmission/rpc`"
+                },
+                "title": "\u9001\u4fe1\u30af\u30e9\u30a4\u30a2\u30f3\u30c8\u306e\u8a2d\u5b9a"
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "active_torrents": {
+                "name": "\u7a3c\u50cd\u4e2d\u306e\u30c8\u30ec\u30f3\u30c8"
+            },
+            "completed_torrents": {
+                "name": "\u5b8c\u4e86\u3057\u305f\u30c8\u30ec\u30f3\u30c8"
+            },
+            "download_speed": {
+                "name": "\u30c0\u30a6\u30f3\u30ed\u30fc\u30c9\u901f\u5ea6"
+            },
+            "paused_torrents": {
+                "name": "\u4e00\u6642\u505c\u6b62\u4e2d\u306e\u30c8\u30ec\u30f3\u30c8"
+            },
+            "started_torrents": {
+                "name": "\u30c8\u30ec\u30f3\u30c8\u958b\u59cb"
+            },
+            "total_torrents": {
+                "name": "\u5408\u8a08\u30c8\u30ec\u30f3\u30c8"
+            },
+            "transmission_status": {
+                "name": "\u72b6\u614b",
+                "state": {
+                    "downloading": "\u30c0\u30a6\u30f3\u30ed\u30fc\u30c9\u4e2d",
+                    "idle": "\u5f85\u6a5f\u4e2d",
+                    "seeding": "\u30b7\u30fc\u30c9\u4e2d",
+                    "up_down": "\u30a2\u30c3\u30d7/\u30c0\u30a6\u30f3"
+                }
+            },
+            "upload_speed": {
+                "name": "\u30a2\u30c3\u30d7\u30ed\u30fc\u30c9\u901f\u5ea6"
+            }
+        },
+        "switch": {
+            "on_off": {
+                "name": "\u30b9\u30a4\u30c3\u30c1"
+            },
+            "turtle_mode": {
+                "name": "\u30bf\u30fc\u30c8\u30eb\u30e2\u30fc\u30c9"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "limit": "\u30ea\u30df\u30c3\u30c8",
+                    "order": "\u4e26\u3079\u66ff\u3048",
+                    "scan_interval": "\u66f4\u65b0\u983b\u5ea6"
+                },
+                "title": "Transmission\u306e\u30aa\u30d7\u30b7\u30e7\u30f3\u8a2d\u5b9a"
+            }
+        }
+    },
+    "services": {
+        "add_torrent": {
+            "description": "\u30c0\u30a6\u30f3\u30ed\u30fc\u30c9\u3059\u308b\u65b0\u3057\u3044\u30c8\u30ec\u30f3\u30c8\u3092\u8ffd\u52a0\u3057\u307e\u3059(URL\u3001\u30de\u30b0\u30cd\u30c3\u30c8\u30ea\u30f3\u30af\u3001\u307e\u305f\u306fBase64\u30a8\u30f3\u30b3\u30fc\u30c9)\u3002",
+            "fields": {
+                "entry_id": {
+                    "description": "\u8a2d\u5b9a\u30a8\u30f3\u30c8\u30ea ID\u3002",
+                    "name": "\u9001\u4fe1\u30a8\u30f3\u30c8\u30ea"
+                },
+                "torrent": {
+                    "description": "URL\u3001\u30de\u30b0\u30cd\u30c3\u30c8\u30ea\u30f3\u30af\u3001\u307e\u305f\u306fBase64\u30a8\u30f3\u30b3\u30fc\u30c9\u3055\u308c\u305f\u30d5\u30a1\u30a4\u30eb\u3002",
+                    "name": "\u30c8\u30ec\u30f3\u30c8"
+                }
+            },
+            "name": "\u30c8\u30ec\u30f3\u30c8\u3092\u8ffd\u52a0"
+        },
+        "remove_torrent": {
+            "description": "\u30c8\u30ec\u30f3\u30c8\u3092\u524a\u9664\u3057\u307e\u3059\u3002",
+            "fields": {
+                "delete_data": {
+                    "description": "\u30c8\u30ec\u30f3\u30c8\u30c7\u30fc\u30bf\u3092\u524a\u9664\u3057\u307e\u3059\u3002",
+                    "name": "\u30c7\u30fc\u30bf\u306e\u524a\u9664"
+                },
+                "entry_id": {
+                    "description": "\u8a2d\u5b9a\u30a8\u30f3\u30c8\u30ea ID\u3002",
+                    "name": "\u9001\u4fe1\u30a8\u30f3\u30c8\u30ea"
+                },
+                "id": {
+                    "description": "\u30c8\u30ec\u30f3\u30c8\u306eID\u3002",
+                    "name": "ID"
+                }
+            },
+            "name": "\u30c8\u30ec\u30f3\u30c8\u3092\u524a\u9664"
+        },
+        "start_torrent": {
+            "description": "\u30c8\u30ec\u30f3\u30c8\u3092\u958b\u59cb\u3057\u307e\u3059\u3002",
+            "fields": {
+                "entry_id": {
+                    "description": "\u8a2d\u5b9a\u30a8\u30f3\u30c8\u30ea ID\u3002",
+                    "name": "\u9001\u4fe1\u30a8\u30f3\u30c8\u30ea"
+                },
+                "id": {
+                    "description": "\u30c8\u30ec\u30f3\u30c8\u306eID\u3002",
+                    "name": "ID"
+                }
+            },
+            "name": "\u30c8\u30ec\u30f3\u30c8\u3092\u958b\u59cb"
+        },
+        "stop_torrent": {
+            "description": "\u30c8\u30ec\u30f3\u30c8\u3092\u505c\u6b62\u3057\u307e\u3059\u3002",
+            "fields": {
+                "entry_id": {
+                    "description": "\u8a2d\u5b9a\u30a8\u30f3\u30c8\u30ea ID\u3002",
+                    "name": "\u9001\u4fe1\u30a8\u30f3\u30c8\u30ea"
+                },
+                "id": {
+                    "description": "\u30c8\u30ec\u30f3\u30c8\u306eID\u3002",
+                    "name": "ID"
+                }
+            },
+            "name": "\u30c8\u30ec\u30f3\u30c8\u3092\u505c\u6b62"
+        }
+    }
+}

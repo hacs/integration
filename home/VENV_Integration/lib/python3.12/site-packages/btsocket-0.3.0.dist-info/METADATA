@@ -1,0 +1,196 @@
+Metadata-Version: 2.1
+Name: btsocket
+Version: 0.3.0
+Summary: Python library for BlueZ Bluetooth Management API
+Home-page: https://github.com/ukBaz/python-btsocket
+Author: Barry Byford
+Author-email: barry_byford@yahoo.co.uk
+Maintainer: Barry Byford
+Maintainer-email: barry_byford@yahoo.co.uk
+License: MIT
+Keywords: BlueZ Bluetooth Management MGMT API
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Education
+Classifier: Topic :: System :: Hardware
+Classifier: Topic :: Software Development :: Embedded Systems
+Classifier: Topic :: Home Automation
+Classifier: Topic :: Education
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3 :: Only
+Description-Content-Type: text/x-rst
+License-File: LICENSE
+Provides-Extra: dev
+Requires-Dist: bumpversion ; extra == 'dev'
+Requires-Dist: twine ; extra == 'dev'
+Requires-Dist: sphinx ; extra == 'dev'
+Requires-Dist: sphinx-rtd-theme ; extra == 'dev'
+Requires-Dist: pygments ; extra == 'dev'
+Requires-Dist: coverage ; extra == 'dev'
+Requires-Dist: pycodestyle ; extra == 'dev'
+Provides-Extra: docs
+Requires-Dist: sphinx ; extra == 'docs'
+Requires-Dist: sphinx-rtd-theme ; extra == 'docs'
+Requires-Dist: pygments ; extra == 'docs'
+Provides-Extra: rel
+Requires-Dist: bumpversion ; extra == 'rel'
+Requires-Dist: twine ; extra == 'rel'
+Provides-Extra: test
+Requires-Dist: coverage ; extra == 'test'
+Requires-Dist: pycodestyle ; extra == 'test'
+
+==============================
+BlueZ Bluetooth Management API
+==============================
+A Python library to interact with Bluez Bluetooth Management API on Linux.
+At this time it should be seen as a very early stage proof of concept.
+If you are new to Bluetooth this might not be the best library to start with
+
+Overview
+--------
+This library aims to offer assistance to accessing the `BlueZ Bluetooth
+Management API
+<https://git.kernel.org/pub/scm/bluetooth/bluez.git/tree/doc/mgmt-api.txt>`_
+using Python.
+With the `mgmt` API there are no commands for reading and writing data on a
+connected device.
+This library has to have root privilege to access most things.
+
+
+Three Levels
+------------
+This library has tried to split things in to the how, what and when. The aim
+is by keeping the transport, protocol, and programming paradigm separate a
+plug and play approach can be taken. For example, if the Python bug in sockets
+gets fixed, just that part can be updated without too much disruption.
+It should also be possible to use different programming paradigms (models)
+for how commands and responses are handled and still use the socket and
+protocol pieces.
+
+Socket (How)
+############
+This library came into being because of a Bug in Python as documented at:
+https://bugs.python.org/issue36132
+
+Python currently does not allow any way to initialize hci_channel, so you
+cannot use a `user channel` socket and so instead `btmgmt_socket` in
+**btsocket/btmgmt_socket.py** accesses the `user channel` by using the
+underlying libc socket.
+
+Protocol (What)
+###############
+The file **btsocket/btmgmt_protocol.py** is to assist in encoding and decoding
+the binary format that is used to communicate
+
+This module assists in encoding and decoding the binary data
+
+Programming Paradigm (When)
+###########################
+Handling communication with the sockets can be done a number of different ways
+and there are trade-offs for each of them. Initially this library is supporting
+two types. A procedural approach with  **btsocket/btmgmt_sync.py** and
+a callback (or event-driven) approach with **btsocket/btmgmt_callback.py**.
+
+For actions like turning the controller on and off then these can be done
+with either methodology. For listening for async events like the discovery
+of devices, then only the callback model is practical.
+
+Commands
+--------
+For the vast majority of the commands, the process of creating the
+mgmt socket is required to have the CAP_NET_ADMIN capability
+(e.g. root/sudo would have this).
+
+The documentation for commands is at:
+https://git.kernel.org/pub/scm/bluetooth/bluez.git/tree/doc/mgmt-api.txt
+
+That documentation has been used to auto-generate parts of `btmgmt_protocol.py`
+
+To take one command as an example; powered command:
+::
+
+    Set Powered Command
+    ===================
+
+        Command Code:		0x0005
+        Controller Index:	<controller id>
+        Command Parameters:	Powered (1 Octet)
+        Return Parameters:	Current_Settings (4 Octets)
+
+To power-on adapter at index zero, the following command would be sent with the
+synchronous API
+
+.. code-block:: python
+
+    from btsocket import btmgmt_sync
+    response = btmgmt_sync.send('SetPowered', 0, 1)
+
+The format of the `send` command is :
+
+`response = send(<command_name>, <adapter index>, <positional paramters>)`
+
+The command name is taken from the heading in the documentation with the spaces
+and the word "Command" removed. A typical response is given below:
+::
+
+    Response(
+        header=<
+            event_code=CommandCompleteEvent,
+            controller_idx=0,
+            param_len=7>,
+        event_frame=<
+            command_opcode=SetPowered,
+            status=Success>,
+        cmd_response_frame=<
+            current_settings=2752>)
+
+An example of the Python to access the values in the response is:
+
+.. code-block:: Python
+
+    print(response.event_frame.command_opcode,
+          response.event_frame.status)
+
+Callbacks on Events
+-------------------
+The structure for running with callbacks on events is below.
+
+Getting the event loop and running until complete should be familiar to
+regular users of asyncio.
+
+`mgmt = btmgmt_callback.Mgmt()` sets up the sockets and the readers and writers
+to the sockets.
+
+`mgmt.add_event_callback` takes two arguments, the first is the btmgmt event
+and the second is the callback function to use when that event is detected.
+
+`mgmt.send` is how to send commands and is similar to the synchronous API
+except it doesn't get a response. You will have to add an event callback to
+access the response.
+The command(s) are not sent until `mgmt.start()` as this is what
+starts the writers and readers of the sockets.
+
+.. code-block:: Python
+
+    from btsocket import btmgmt_callback
+    from btsocket import btmgmt_protocol
+
+    def device_found(response, mgmt_obj):
+        print('New device found', response.event_frame.address)
+        # To exit set running to False
+        mgmt_obj.stop()
+
+    def app():
+        mgmt = btmgmt_callback.Mgmt()
+        mgmt.add_event_callback(btmgmt_protocol.Events.DeviceFoundEvent,
+                                device_found)
+        mgmt.send('StartDiscovery', 0, [btmgmt_protocol.AddressType.LEPublic,
+                                        btmgmt_protocol.AddressType.LERandom,
+                                        btmgmt_protocol.AddressType.BREDR])
+        mgmt.start()
+
+
+    if __name__ == '__main__':
+        app()
+
+There are more examples in the examples folder

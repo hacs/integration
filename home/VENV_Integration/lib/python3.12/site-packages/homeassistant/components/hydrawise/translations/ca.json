@@ -1,0 +1,77 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "El servei ja est\u00e0 configurat",
+            "reauth_successful": "Re-autenticaci\u00f3 realitzada correctament"
+        },
+        "error": {
+            "cannot_connect": "Ha fallat la connexi\u00f3",
+            "timeout_connect": "S'ha esgotat el temps m\u00e0xim d'espera per establir connexi\u00f3",
+            "unknown": "Error inesperat"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "api_key": "Clau API",
+                    "password": "Contrasenya",
+                    "username": "Nom d'usuari"
+                }
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "rain_sensor": {
+                "name": "Sensor de pluja"
+            },
+            "watering": {
+                "name": "Regant"
+            }
+        },
+        "sensor": {
+            "next_cycle": {
+                "name": "Pr\u00f2xim cicle"
+            }
+        },
+        "switch": {
+            "auto_watering": {
+                "name": "Reg autom\u00e0tic"
+            },
+            "manual_watering": {
+                "name": "Reg manual"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_yaml_import_issue": {
+            "description": "La configuraci\u00f3 d'Hydrawise mitjan\u00e7ant YAML s'est\u00e0 eliminant per\u00f2 hi ha hagut un error {error_type} durant la importaci\u00f3 YAML.\n\nAssegura't que la connexi\u00f3 amb Hydrawise funciona i reinicia Home Assistant per tornar-ho a provar. Si no, elimina la configuraci\u00f3 YAML d'Hydrawise del fitxer configuration.yaml i continua amb la [configuraci\u00f3 de la integraci\u00f3]({url}) manual.",
+            "title": "La importaci\u00f3 de la configuraci\u00f3 YAML d'Hydrawise ha fallat"
+        }
+    },
+    "services": {
+        "resume": {
+            "description": "Repr\u00e8n la programaci\u00f3 de reg autom\u00e0tic d'una zona.",
+            "name": "Repr\u00e8n el reg autom\u00e0tic"
+        },
+        "start_watering": {
+            "description": "Inicia un cicle de reg a la zona seleccionada.",
+            "fields": {
+                "duration": {
+                    "description": "Temps a executar el cicle de reg. Si no s'especifica (o \u00e9s zero), s'utilitzar\u00e0 la durada predeterminada establerta a l'aplicaci\u00f3 m\u00f2bil o web d'Hydrawise per a la zona.",
+                    "name": "Durada"
+                }
+            },
+            "name": "Inicia el reg"
+        },
+        "suspend": {
+            "description": "Susp\u00e8n la programaci\u00f3 de reg autom\u00e0tic d'una zona fins al dia i l'hora indicades.",
+            "fields": {
+                "until": {
+                    "description": "Dia i hora a reprendre la programaci\u00f3 de reg automatitzat.",
+                    "name": "Fins a les"
+                }
+            },
+            "name": "Susp\u00e8n el reg autom\u00e0tic"
+        }
+    }
+}

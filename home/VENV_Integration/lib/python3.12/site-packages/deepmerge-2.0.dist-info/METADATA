@@ -1,0 +1,123 @@
+Metadata-Version: 2.1
+Name: deepmerge
+Version: 2.0
+Summary: A toolset for deeply merging Python dictionaries.
+Author-email: Yusuke Tsutsumi <yusuke@tsutsumi.io>
+License: MIT Licence
+Project-URL: Homepage, http://deepmerge.readthedocs.io/en/latest/
+Project-URL: GitHub, https://github.com/toumorokoshi/deepmerge
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Typing :: Typed
+Requires-Python: >=3.8
+Description-Content-Type: text/x-rst
+License-File: LICENSE
+Requires-Dist: typing-extensions ; python_version <= "3.9"
+Provides-Extra: dev
+Requires-Dist: validate-pyproject[all] ; extra == 'dev'
+Requires-Dist: pyupgrade ; extra == 'dev'
+Requires-Dist: black ; extra == 'dev'
+Requires-Dist: mypy ; extra == 'dev'
+Requires-Dist: pytest ; extra == 'dev'
+Requires-Dist: build ; extra == 'dev'
+Requires-Dist: twine ; extra == 'dev'
+
+=========
+deepmerge
+=========
+
+.. image:: https://img.shields.io/pypi/v/deepmerge.svg
+   :target: https://pypi.org/project/deepmerge/
+
+.. image:: https://img.shields.io/pypi/status/deepmerge.svg
+   :target: https://pypi.org/project/deepmerge/
+
+.. image:: https://img.shields.io/pypi/pyversions/pillar.svg
+   :target: https://github.com/toumorokoshi/deepmerge
+
+.. image:: https://img.shields.io/github/license/toumorokoshi/deepmerge.svg
+   :target: https://github.com/toumorokoshi/deepmerge
+
+.. image:: https://github.com/toumorokoshi/deepmerge/actions/workflows/python-package.yaml/badge.svg
+    :target: https://github.com/toumorokoshi/deepmerge/actions/workflows/python-package.yaml
+
+A tool to handle merging of nested data structures in Python.
+
+------------
+Installation
+------------
+
+deepmerge is available on `pypi <https://pypi.org/project/deepmerge/>`_:
+
+.. code-block:: bash
+
+   pip install deepmerge
+
+-------
+Example
+-------
+
+**Generic Strategy**
+
+.. code-block:: python
+
+    from deepmerge import always_merger
+
+    base = {"foo": ["bar"]}
+    next = {"foo": ["baz"]}
+
+    expected_result = {'foo': ['bar', 'baz']}
+    result = always_merger.merge(base, next)
+
+    assert expected_result == result
+
+
+**Custom Strategy**
+
+.. code-block:: python
+
+    from deepmerge import Merger
+
+    my_merger = Merger(
+        # pass in a list of tuple, with the
+        # strategies you are looking to apply
+        # to each type.
+        [
+            (list, ["append"]),
+            (dict, ["merge"]),
+            (set, ["union"])
+        ],
+        # next, choose the fallback strategies,
+        # applied to all other types:
+        ["override"],
+        # finally, choose the strategies in
+        # the case where the types conflict:
+        ["override"]
+    )
+    base = {"foo": ["bar"]}
+    next = {"bar": "baz"}
+    my_merger.merge(base, next)
+    assert base == {"foo": ["bar"], "bar": "baz"}
+
+
+You can also pass in your own merge functions, instead of a string.
+
+For more information, see the `docs <https://deepmerge.readthedocs.io/en/latest/>`_
+
+------------------
+Supported Versions
+------------------
+
+deepmerge is supported on Python 3.8+.
+
+For older Python versions the last supported version of deepmerge is listed
+below:
+
+- 3.7 : 1.1.1

@@ -1,0 +1,80 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "Automaatio",
+            "state": {
+                "off": "Pois",
+                "on": "P\u00e4\u00e4ll\u00e4"
+            },
+            "state_attributes": {
+                "current": {
+                    "name": "K\u00e4ynniss\u00e4 olevat automaatiot"
+                },
+                "id": {
+                    "name": "Tunniste"
+                },
+                "last_triggered": {
+                    "name": "Viimeksi k\u00e4ynnistetty"
+                },
+                "max": {
+                    "name": "Ajettavien automaatioiden maksimim\u00e4\u00e4r\u00e4"
+                },
+                "mode": {
+                    "name": "Ajotila",
+                    "state": {
+                        "parallel": "Rinnakkain",
+                        "queued": "Jonossa",
+                        "restart": "K\u00e4ynnist\u00e4 uudelleen",
+                        "single": "Yksitt\u00e4inen"
+                    }
+                }
+            }
+        }
+    },
+    "issues": {
+        "service_not_found": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "title": "{name} k\u00e4ytt\u00e4\u00e4 tuntematonta palvelua"
+                    }
+                }
+            }
+        }
+    },
+    "services": {
+        "reload": {
+            "description": "Lataa automaatiokonfiguraation uudelleen.",
+            "name": "Uudelleenlataa"
+        },
+        "toggle": {
+            "description": "Vaihtaa (ottaa k\u00e4ytt\u00f6\u00f6n / poistaa k\u00e4yt\u00f6st\u00e4) automaation.",
+            "name": "Vaihda"
+        },
+        "trigger": {
+            "description": "Laukaisee automaation toiminnot.",
+            "fields": {
+                "skip_condition": {
+                    "description": "M\u00e4\u00e4ritt\u00e4\u00e4, ohitetaanko ehdot vai ei.",
+                    "name": "Ohita ehdot"
+                }
+            },
+            "name": "Laukaisusehto"
+        },
+        "turn_off": {
+            "description": "Poistaa automaation k\u00e4yt\u00f6st\u00e4.",
+            "fields": {
+                "stop_actions": {
+                    "description": "Pys\u00e4ytt\u00e4\u00e4 parhaillaan k\u00e4ynniss\u00e4 olevat toiminnot.",
+                    "name": "Pys\u00e4yt\u00e4 toiminnot"
+                }
+            },
+            "name": "Sammuta"
+        },
+        "turn_on": {
+            "description": "Ottaa automaation k\u00e4ytt\u00f6\u00f6n.",
+            "name": "Laita p\u00e4\u00e4lle"
+        }
+    },
+    "title": "Automaatio"
+}

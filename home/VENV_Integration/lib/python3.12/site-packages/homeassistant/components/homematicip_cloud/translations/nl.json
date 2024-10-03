@@ -1,0 +1,149 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Apparaat is al geconfigureerd",
+            "connection_aborted": "Kan geen verbinding maken",
+            "unknown": "Onverwachte fout"
+        },
+        "error": {
+            "invalid_sgtin_or_pin": "Ongeldige SGTIN of Pincode, probeer het opnieuw.",
+            "press_the_button": "Druk op de blauwe knop.",
+            "register_failed": "Kan niet registreren, gelieve opnieuw te proberen.",
+            "timeout_button": "Blauwe knop druk op timeout, probeer het opnieuw."
+        },
+        "step": {
+            "init": {
+                "data": {
+                    "hapid": "Accesspoint ID (SGTIN)",
+                    "name": "Naam (optioneel, gebruikt als naamvoorvoegsel voor alle apparaten)",
+                    "pin": "Pincode"
+                },
+                "title": "Kies HomematicIP accesspoint"
+            },
+            "link": {
+                "title": "Link accesspoint"
+            }
+        }
+    },
+    "services": {
+        "activate_eco_mode_with_duration": {
+            "description": "Activeert eco-mode met tijdsduur.",
+            "fields": {
+                "accesspoint_id": {
+                    "description": "Het ID van het Homematic Access Point.",
+                    "name": "Accesspoint ID"
+                },
+                "duration": {
+                    "description": "De tijdsduur van de eco-mode in minuten.",
+                    "name": "Tijdsduur"
+                }
+            },
+            "name": "Activeer eco-mode met tijdsduur"
+        },
+        "activate_eco_mode_with_period": {
+            "description": "Activeert eco-mode met tijdsduur.",
+            "fields": {
+                "accesspoint_id": {
+                    "description": "Het ID van het Homematic Access Point.",
+                    "name": "Accesspoint ID"
+                },
+                "endtime": {
+                    "description": "Het tijdstip waarop de eco-mode automatisch uitgeschakeld moet worden.",
+                    "name": "Eindtijd"
+                }
+            },
+            "name": "Activeer eco verder met een periode"
+        },
+        "activate_vacation": {
+            "description": "Activeert de vakantie-mode tot een gegeven tijdstip.",
+            "fields": {
+                "accesspoint_id": {
+                    "description": "Het ID van het Homematic Access Point.",
+                    "name": "Accesspoint ID"
+                },
+                "endtime": {
+                    "description": "De tijd waarop de vakantie-mode automatisch gedeactiveerd moet worden.",
+                    "name": "Eindtijd"
+                },
+                "temperature": {
+                    "description": "De ingestelde temperatuur tijdens de vakantie-mode.",
+                    "name": "Temperatuur"
+                }
+            },
+            "name": "Activeer vakantie-mode"
+        },
+        "deactivate_eco_mode": {
+            "description": "Deactiveert de eco-mode onmiddellijk",
+            "fields": {
+                "accesspoint_id": {
+                    "description": "Het ID van het Homematic Access Point.",
+                    "name": "Accesspoint ID"
+                }
+            },
+            "name": "Deactiveer eco-mode"
+        },
+        "deactivate_vacation": {
+            "description": "Deactiveert de vakantie-mode onmiddelijk.",
+            "fields": {
+                "accesspoint_id": {
+                    "description": "Het ID van het Homematic Access Point.",
+                    "name": "Accesspoint ID"
+                }
+            },
+            "name": "Deactiveer vakantie-mode"
+        },
+        "dump_hap_config": {
+            "description": "Dumpt de configuratie van de Homeatic IP Access-point's.",
+            "fields": {
+                "anonymize": {
+                    "description": "Moet de configuratie worden geanonimiseerd?",
+                    "name": "Anonimiseren"
+                },
+                "config_output_file_prefix": {
+                    "description": "Naam van het configuratiebestand. De SGTIN van de AP wordt altijd toegevoegd.",
+                    "name": "Configuratie uitvoerbestand prefix"
+                },
+                "config_output_path": {
+                    "description": "(Standaard is 'Jou Home Assistant configuratie map') Pad waar de configuratie wordt opgeslagen.",
+                    "name": "Configuratie uitvoer pad"
+                }
+            },
+            "name": "Dumpen hap config"
+        },
+        "reset_energy_counter": {
+            "description": "Reset de energieteller van een meet entiteit.",
+            "fields": {
+                "entity_id": {
+                    "description": "Het ID van de meet entiteit. Gebruik het \"all\" sleutelwoord om alle enrgie tellers te resetten.",
+                    "name": "Entiteit"
+                }
+            },
+            "name": "Energieteller resetten"
+        },
+        "set_active_climate_profile": {
+            "description": "Stelt de actieve `climate` profielindex in.",
+            "fields": {
+                "climate_profile_index": {
+                    "description": "De index van het `climate` profiel.",
+                    "name": "`Climate` profiel index"
+                },
+                "entity_id": {
+                    "description": "Het ID van een `climate` entiteit. Gebruik het \"all\" sleutelwoord om naar het profiel te schakelen voor alle entiteiten.",
+                    "name": "Entiteit"
+                }
+            },
+            "name": "Instellen actief `climate` profiel"
+        },
+        "set_home_cooling_mode": {
+            "fields": {
+                "accesspoint_id": {
+                    "description": "Het ID van het Homematic Access Point.",
+                    "name": "Accesspoint ID"
+                },
+                "cooling": {
+                    "name": "Koelen"
+                }
+            }
+        }
+    }
+}

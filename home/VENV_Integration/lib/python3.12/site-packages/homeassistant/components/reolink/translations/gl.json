@@ -1,0 +1,93 @@
+{
+    "config": {
+        "step": {
+            "user": {
+                "data_description": {
+                    "host": "O nome do host ou o enderezo IP do teu dispositivo Reolink. Por exemplo: '192.168.1.25'."
+                }
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "motion_lens_0": {
+                "name": "Movemento de lente 0"
+            },
+            "motion_lens_1": {
+                "name": "Movemento de lente 1"
+            }
+        },
+        "camera": {
+            "main": {
+                "name": "Limpar"
+            },
+            "main_lens_0": {
+                "name": "Limpar lente 0"
+            },
+            "main_lens_1": {
+                "name": "Limpar lente 1"
+            },
+            "snapshots_main": {
+                "name": "Borrado de instant\u00e1neas"
+            },
+            "snapshots_main_lens_0": {
+                "name": "Borrado de instant\u00e1neas da lente 0"
+            },
+            "snapshots_main_lens_1": {
+                "name": "Borrado de instant\u00e1neas da lente 0"
+            }
+        },
+        "number": {
+            "motion_sensitivity": {
+                "name": "Sensibilidade ao movemento"
+            }
+        },
+        "select": {
+            "day_night_mode": {
+                "state": {
+                    "blackwhite": "Negro & branco"
+                }
+            },
+            "motion_tone": {
+                "name": "Toque de chamada para movemento",
+                "state": {
+                    "attraction": "Atracci\u00f3n",
+                    "citybird": "Paxaro de cidade",
+                    "goodday": "Bo d\u00eda",
+                    "hophop": "Salti\u00f1o salti\u00f1o",
+                    "loop": "Bucle",
+                    "moonlight": "Luar",
+                    "operetta": "Opereta",
+                    "originaltune": "Melod\u00eda orixinal",
+                    "pianokey": "Tecla de piano",
+                    "waybackhome": "De volta a casa"
+                }
+            },
+            "people_tone": {
+                "name": "Ton de chamada para persoa",
+                "state": {
+                    "attraction": "Atracci\u00f3n",
+                    "citybird": "Paxaro de cidade",
+                    "goodday": "Bo d\u00eda",
+                    "hophop": "Salti\u00f1o salti\u00f1o",
+                    "loop": "Bucle",
+                    "moonlight": "Luar",
+                    "operetta": "Opereta",
+                    "originaltune": "Melod\u00eda orixinal",
+                    "pianokey": "Tecla de piano"
+                }
+            }
+        },
+        "switch": {
+            "ptz_patrol": {
+                "name": "Patrulla PTZ"
+            }
+        }
+    },
+    "issues": {
+        "ssl": {
+            "description": "Certificado SSL global configurado no [configuration.yaml under http]({ssl_link}) mentres se configura un enderezo HTTP local `{base_url}` en \"Home Assistant URL\" nas [configuraci\u00f3ns de rede]({network_link}). Polo tanto, o dispositivo Reolink non pode alcanzar Home Assistant para enviar os seus eventos de movemento/AI. Por favor, aseg\u00farate de que o enderezo HTTP local non est\u00e1 cuberto polo certificado SSL, por exemplo, usando o [complemento NGINX]({nginx_link}) en lugar dun certificado SSL globalmente forzado.",
+            "title": "Reolink incompatible co certificado SSL global"
+        }
+    }
+}

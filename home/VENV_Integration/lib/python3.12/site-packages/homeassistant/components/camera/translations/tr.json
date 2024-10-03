@@ -1,0 +1,104 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "Kamera",
+            "state": {
+                "idle": "Bo\u015fta",
+                "recording": "Kaydediliyor",
+                "streaming": "Yay\u0131nlan\u0131yor"
+            },
+            "state_attributes": {
+                "access_token": {
+                    "name": "Eri\u015fim Anahtar\u0131"
+                },
+                "brand": {
+                    "name": "Marka"
+                },
+                "frontend_stream_type": {
+                    "name": "Ak\u0131\u015f tipi",
+                    "state": {
+                        "hls": "HLS",
+                        "webrtc": "WebRTC"
+                    }
+                },
+                "model_name": {
+                    "name": "Model"
+                },
+                "motion_detection": {
+                    "name": "Hareket alg\u0131land\u0131",
+                    "state": {
+                        "false": "Devre d\u0131\u015f\u0131",
+                        "true": "Etkin"
+                    }
+                }
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "{domain} entegrasyonu i\u00e7in {platform} platformu, platform kurulumunu desteklemiyor. \n\n L\u00fctfen yap\u0131land\u0131rman\u0131zdan kald\u0131r\u0131n ve bu sorunu \u00e7\u00f6zmek i\u00e7in Home Assistant'\u0131 yeniden ba\u015flat\u0131n.",
+            "title": "Platform deste\u011fi desteklenmiyor"
+        }
+    },
+    "services": {
+        "disable_motion_detection": {
+            "description": "Hareket alg\u0131lamay\u0131 devre d\u0131\u015f\u0131 b\u0131rak\u0131r.",
+            "name": "Hareket alg\u0131lamay\u0131 devre d\u0131\u015f\u0131 b\u0131rak"
+        },
+        "enable_motion_detection": {
+            "description": "Hareket alg\u0131lamay\u0131 etkinle\u015ftirir.",
+            "name": "Hareket alg\u0131lamay\u0131 etkinle\u015ftir"
+        },
+        "play_stream": {
+            "description": "Kamera ak\u0131\u015f\u0131n\u0131 desteklenen bir medya oynat\u0131c\u0131da oynat\u0131r.",
+            "fields": {
+                "format": {
+                    "description": "Medya oynat\u0131c\u0131 taraf\u0131ndan desteklenen ak\u0131\u015f format\u0131.",
+                    "name": "Bi\u00e7im"
+                },
+                "media_player": {
+                    "description": "Ak\u0131\u015f i\u00e7in medya oynat\u0131c\u0131lar.",
+                    "name": "Medya oynat\u0131c\u0131"
+                }
+            },
+            "name": "Ak\u0131\u015f\u0131 oynat"
+        },
+        "record": {
+            "description": "Canl\u0131 bir kamera yay\u0131n\u0131n\u0131n kayd\u0131n\u0131 olu\u015fturur.",
+            "fields": {
+                "duration": {
+                    "description": "Kayd\u0131n planlanan s\u00fcresi. Ger\u00e7ek s\u00fcre de\u011fi\u015fiklik g\u00f6sterebilir.",
+                    "name": "S\u00fcre"
+                },
+                "filename": {
+                    "description": "Bir dosya ad\u0131 \u015fablonu. Kullan\u0131labilir de\u011fi\u015fken \"entity_id\". mp4 olmal\u0131d\u0131r.",
+                    "name": "Dosya ad\u0131"
+                },
+                "lookback": {
+                    "description": "Kayda dahil edilmesi planlanan geri izleme s\u00fcresi (s\u00fcreye ek olarak). Yaln\u0131zca o anda etkin bir HLS ak\u0131\u015f\u0131 varsa kullan\u0131labilir. Geri izleme s\u00fcresinin ger\u00e7ek uzunlu\u011fu de\u011fi\u015febilir.",
+                    "name": "Geriye Bak\u0131\u015f"
+                }
+            },
+            "name": "Kay\u0131t"
+        },
+        "snapshot": {
+            "description": "Bir kameradan anl\u0131k g\u00f6r\u00fcnt\u00fc al\u0131r.",
+            "fields": {
+                "filename": {
+                    "description": "Bir dosya ad\u0131 \u015fablonu. Kullan\u0131labilir de\u011fi\u015fken \"entity_id\".",
+                    "name": "Dosya ad\u0131"
+                }
+            },
+            "name": "Anl\u0131k g\u00f6r\u00fcnt\u00fc al\u0131n"
+        },
+        "turn_off": {
+            "description": "Kameray\u0131 kapat\u0131r.",
+            "name": "Kapat"
+        },
+        "turn_on": {
+            "description": "Kameray\u0131 a\u00e7ar.",
+            "name": "A\u00e7"
+        }
+    },
+    "title": "Kamera"
+}

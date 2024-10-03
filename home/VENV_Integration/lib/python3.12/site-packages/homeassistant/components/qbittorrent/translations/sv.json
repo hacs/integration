@@ -1,0 +1,112 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Enheten \u00e4r redan konfigurerad"
+        },
+        "error": {
+            "cannot_connect": "Det gick inte att ansluta.",
+            "invalid_auth": "Ogiltig autentisering"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "password": "L\u00f6senord",
+                    "url": "URL",
+                    "username": "Anv\u00e4ndarnamn",
+                    "verify_ssl": "Verifiera SSL-certifikat"
+                }
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "active_torrents": {
+                "name": "Aktiva torrenter"
+            },
+            "all_torrents": {
+                "name": "Alla torrenter"
+            },
+            "current_status": {
+                "name": "Status",
+                "state": {
+                    "downloading": "Laddar ner",
+                    "idle": "Inaktiv",
+                    "seeding": "Seedar",
+                    "up_down": "Upp/ner"
+                }
+            },
+            "download_speed": {
+                "name": "Nerladdningshastighet"
+            },
+            "inactive_torrents": {
+                "name": "Inaktiva torrenter"
+            },
+            "paused_torrents": {
+                "name": "Pausade torrenter"
+            },
+            "transmission_status": {
+                "name": "Status",
+                "state": {
+                    "downloading": "Laddar ner",
+                    "idle": "Inaktiv",
+                    "seeding": "Seedar",
+                    "up_down": "Upp/ner"
+                }
+            },
+            "upload_speed": {
+                "name": "Uppladdningshastighet"
+            }
+        },
+        "switch": {
+            "alternative_speed": {
+                "name": "Alternativ hastighet"
+            }
+        }
+    },
+    "exceptions": {
+        "cannot_connect": {
+            "message": "Kan inte ansluta till QBittorrent, kontrollera din konfiguration."
+        },
+        "invalid_device": {
+            "message": "Ingen enhet med id {device_id} hittades"
+        },
+        "invalid_entry_id": {
+            "message": "Ingen post med id {device_id} hittades"
+        },
+        "login_error": {
+            "message": "Ett inloggningsfel har intr\u00e4ffat. V\u00e4nligen kontrollera ditt anv\u00e4ndarnamn och l\u00f6senord."
+        }
+    },
+    "issues": {
+        "deprecated_yaml": {
+            "description": "Konfiguration av qBittorrent med YAML tas bort.\n\nDin nuvarande YAML-konfiguration har blivit importerad till UI automatiskt.\n\nTa bort qBittorrents YAML-konfiguration fr\u00e5n din configuration.yaml och starta om Home Assistant f\u00f6r att fixa detta problem.",
+            "title": "YAML-konfiguration av qBittorrent kommer tas bort"
+        }
+    },
+    "services": {
+        "get_all_torrents": {
+            "description": "H\u00e4mtar en lista \u00f6ver aktuella torrenter fr\u00e5n alla instanser av qBittorrent",
+            "fields": {
+                "torrent_filter": {
+                    "description": "Vilken typ av torrents du vill returnera, till exempel Alla eller Aktiva.",
+                    "name": "Torrentfilter"
+                }
+            },
+            "name": "H\u00e4mta alla torrents"
+        },
+        "get_torrents": {
+            "description": "Visar en lista \u00f6ver aktuella torrents",
+            "fields": {
+                "device_id": {
+                    "description": "Vilken tj\u00e4nst ska listan h\u00e4mtas fr\u00e5n?",
+                    "name": "Enhet"
+                },
+                "torrent_filter": {
+                    "description": "Vilken typ av torrents du vill returnera, till exempel Alla eller Aktiva.",
+                    "name": "Torrentfilter"
+                }
+            },
+            "name": "H\u00e4mta torrenter"
+        }
+    }
+}

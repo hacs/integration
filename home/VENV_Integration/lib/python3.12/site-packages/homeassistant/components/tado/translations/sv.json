@@ -1,0 +1,142 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Enheten \u00e4r redan konfigurerad",
+            "reconfigure_successful": "Omkonfigurationen lyckades"
+        },
+        "error": {
+            "cannot_connect": "Det gick inte att ansluta.",
+            "invalid_auth": "Ogiltig autentisering",
+            "no_homes": "Det finns inga hem kopplade till detta tado-konto.",
+            "unknown": "Ov\u00e4ntat fel"
+        },
+        "step": {
+            "reconfigure_confirm": {
+                "data": {
+                    "password": "L\u00f6senord"
+                },
+                "data_description": {
+                    "password": "Ange det (nya) l\u00f6senordet f\u00f6r Tado."
+                },
+                "description": "Konfigurera om posten f\u00f6r ditt konto: `{username}`.",
+                "title": "Konfigurera om din Tado"
+            },
+            "user": {
+                "data": {
+                    "password": "L\u00f6senord",
+                    "username": "Anv\u00e4ndarnamn"
+                },
+                "title": "Anslut till ditt Tado-konto"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "connection_state": {
+                "name": "Anslutningsstatus"
+            },
+            "early_start": {
+                "name": "Tidig start"
+            },
+            "overlay": {
+                "name": "T\u00e4cka \u00f6ver"
+            }
+        },
+        "climate": {
+            "tado": {
+                "state_attributes": {
+                    "preset_mode": {
+                        "state": {
+                            "auto": "Auto"
+                        }
+                    }
+                }
+            }
+        },
+        "sensor": {
+            "ac": {
+                "name": "AC"
+            },
+            "automatic_geofencing": {
+                "name": "Automatisk geofencing"
+            },
+            "geofencing_mode": {
+                "name": "Geofencing-l\u00e4ge"
+            },
+            "heating": {
+                "name": "V\u00e4rmer"
+            },
+            "outdoor_temperature": {
+                "name": "Utomhus temperatur"
+            },
+            "solar_percentage": {
+                "name": "Sol procent"
+            },
+            "tado_mode": {
+                "name": "Tado-l\u00e4ge"
+            },
+            "weather_condition": {
+                "name": "V\u00e4derf\u00f6rh\u00e5llande"
+            }
+        }
+    },
+    "issues": {
+        "water_heater_fallback": {
+            "description": "P\u00e5 grund av ut\u00f6kat st\u00f6d f\u00f6r enheter f\u00f6r varmvattenberedare kan dessa enheter anv\u00e4nda olika \u00f6verl\u00e4gg. Konfigurera integrationsenhetens och tado-appens zon\u00f6verl\u00e4ggsalternativ f\u00f6r varmvattenberedare. Om inte, v\u00e4nligen konfigurera integrationsenheten och Tado-appens zon\u00f6verl\u00e4ggsalternativ f\u00f6r varmvattenberedare (under Inst\u00e4llningar ->; Rum och enheter -> Varmvatten)."
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "fallback": "V\u00e4lj reservl\u00e4ge."
+                },
+                "title": "Justera Tado inst\u00e4llningarna."
+            }
+        }
+    },
+    "services": {
+        "set_climate_temperature_offset": {
+            "description": "St\u00e4ller in temperaturf\u00f6rskjutning f\u00f6r klimatenheter.",
+            "fields": {
+                "offset": {
+                    "description": "\u00d6nskad f\u00f6rskjutning (beroende p\u00e5 enhet).",
+                    "name": "F\u00f6rskjutning"
+                }
+            },
+            "name": "St\u00e4ll in temperaturf\u00f6rskjutning"
+        },
+        "set_climate_timer": {
+            "description": "Sl\u00e5r p\u00e5 klimatentiteterna under en viss tid.",
+            "fields": {
+                "requested_overlay": {
+                    "description": "V\u00e4lj detta eller Tidsperiod. L\u00e5ter dig v\u00e4lja en \u00f6verlagring. MANUAL: \u00d6verlagring tills vidare, NEXT_TIME_BLOCK: \u00d6verlagring tills n\u00e4sta tidsblock; TADO_DEFAULT: \u00d6verlagring baserat p\u00e5 appens inst\u00e4llningar.",
+                    "name": "\u00d6verlagring"
+                },
+                "temperature": {
+                    "description": "Temperatur som klimatentiteten ska st\u00e4llas in p\u00e5.",
+                    "name": "Temperatur"
+                },
+                "time_period": {
+                    "description": "V\u00e4lj detta eller \u00d6verlagring. Ange tidsperioden f\u00f6r f\u00f6r\u00e4ndringen om du vill vara specifik. Alternativt kan du anv\u00e4nda Overlay.",
+                    "name": "Tidsperiod"
+                }
+            },
+            "name": "St\u00e4ll in klimattimer"
+        },
+        "set_water_heater_timer": {
+            "description": "Sl\u00e5r p\u00e5 varmvattenberedaren under en viss tid.",
+            "fields": {
+                "temperature": {
+                    "description": "Temperatur som varmvattenberedaren ska st\u00e4llas in p\u00e5.",
+                    "name": "Temperatur"
+                },
+                "time_period": {
+                    "description": "St\u00e4ll in varaktighet f\u00f6r boost-l\u00e4ge.",
+                    "name": "Tidsperiod"
+                }
+            },
+            "name": "St\u00e4ll in timer f\u00f6r varmvattenberedare"
+        }
+    }
+}

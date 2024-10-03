@@ -1,0 +1,176 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Workday zosta\u0142 ju\u017c skonfigurowany z wybran\u0105 konfiguracj\u0105",
+            "incorrect_province": "Nieprawid\u0142owy podzia\u0142 z importu yaml"
+        },
+        "error": {
+            "add_holiday_error": "Nieprawid\u0142owy format daty (YYYY-MM-DD)",
+            "add_holiday_range_error": "Nieprawid\u0142owy format zakresu dat (RRRR-MM-DD, RRRR-MM-DD)",
+            "already_configured": "Us\u0142uga jest ju\u017c skonfigurowana",
+            "remove_holiday_error": "Nieprawid\u0142owy format daty (YYYY-MM-DD) lub nie znaleziono nazwy \u015bwi\u0119ta",
+            "remove_holiday_range_error": "Nieprawid\u0142owy format zakresu dat (RRRR-MM-DD, RRRR-MM-DD)"
+        },
+        "step": {
+            "options": {
+                "data": {
+                    "add_holidays": "Dodaj \u015bwi\u0119ta",
+                    "days_offset": "Przesuni\u0119cie",
+                    "excludes": "Wykluczone",
+                    "language": "J\u0119zyk dla \u015bwi\u0105t nazwanych",
+                    "province": "Podzia\u0142 kraju",
+                    "remove_holidays": "Usu\u0144 \u015bwi\u0119ta",
+                    "workdays": "Dni robocze"
+                },
+                "description": "Ustaw dodatkowe opcje dla {name} skonfigurowane dla kraju {country}"
+            },
+            "user": {
+                "data": {
+                    "country": "Kraj",
+                    "name": "Nazwa"
+                }
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "workday": {
+                "state_attributes": {
+                    "days_offset": {
+                        "name": "Przesuni\u0119cie"
+                    },
+                    "excludes": {
+                        "name": "Wykluczone"
+                    },
+                    "workdays": {
+                        "name": "Dni robocze"
+                    }
+                }
+            }
+        }
+    },
+    "issues": {
+        "bad_country": {
+            "fix_flow": {
+                "step": {
+                    "country": {
+                        "data": {
+                            "country": "Kraj"
+                        }
+                    },
+                    "province": {
+                        "data": {
+                            "province": "Podzia\u0142 kraju"
+                        }
+                    }
+                }
+            }
+        },
+        "bad_date_holiday": {
+            "fix_flow": {
+                "error": {
+                    "remove_holiday_error": "Nieprawid\u0142owy format daty (YYYY-MM-DD) lub nie znaleziono nazwy \u015bwi\u0119ta"
+                },
+                "step": {
+                    "fix_remove_holiday": {
+                        "data": {
+                            "remove_holidays": "Usu\u0144 \u015bwi\u0119ta"
+                        },
+                        "data_description": {
+                            "remove_holidays": "Usu\u0144 \u015bwi\u0119ta jako YYYY-MM-DD lub u\u017cywaj\u0105c cz\u0119\u015bci nazwy"
+                        }
+                    }
+                }
+            }
+        },
+        "bad_named_holiday": {
+            "fix_flow": {
+                "error": {
+                    "remove_holiday_error": "Nieprawid\u0142owy format daty (YYYY-MM-DD) lub nie znaleziono nazwy \u015bwi\u0119ta"
+                },
+                "step": {
+                    "fix_remove_holiday": {
+                        "data": {
+                            "remove_holidays": "Usu\u0144 \u015bwi\u0119ta"
+                        },
+                        "data_description": {
+                            "remove_holidays": "Usu\u0144 \u015bwi\u0119ta jako YYYY-MM-DD lub u\u017cywaj\u0105c cz\u0119\u015bci nazwy"
+                        }
+                    },
+                    "named_holiday": {
+                        "data": {
+                            "remove_holidays": "Usu\u0144 \u015bwi\u0119ta"
+                        },
+                        "data_description": {
+                            "remove_holidays": "Usu\u0144 \u015bwi\u0119ta jako YYYY-MM-DD lub u\u017cywaj\u0105c cz\u0119\u015bci nazwy"
+                        }
+                    }
+                }
+            }
+        },
+        "bad_province": {
+            "fix_flow": {
+                "step": {
+                    "province": {
+                        "data": {
+                            "province": "Podzia\u0142 kraju"
+                        }
+                    }
+                }
+            }
+        },
+        "deprecated_yaml": {
+            "description": "Konfiguracja Dni roboczych przy u\u017cyciu YAML zostanie usuni\u0119ta. \n\nTwoja istniej\u0105ca konfiguracja YAML zosta\u0142a automatycznie zaimportowana do interfejsu u\u017cytkownika. \n\nUsu\u0144 konfiguracj\u0119 YAML z pliku configuration.yaml i uruchom ponownie Home Assistanta, aby rozwi\u0105za\u0107 ten problem.",
+            "title": "Konfiguracja YAML dla Dni roboczych zostanie usuni\u0119ta"
+        }
+    },
+    "options": {
+        "error": {
+            "add_holiday_error": "Nieprawid\u0142owy format daty (YYYY-MM-DD)",
+            "add_holiday_range_error": "Nieprawid\u0142owy format zakresu dat (RRRR-MM-DD, RRRR-MM-DD)",
+            "remove_holiday_error": "Nieprawid\u0142owy format daty (YYYY-MM-DD) lub nie znaleziono nazwy \u015bwi\u0119ta",
+            "remove_holiday_range_error": "Nieprawid\u0142owy format zakresu dat (RRRR-MM-DD, RRRR-MM-DD)"
+        },
+        "step": {
+            "init": {
+                "data": {
+                    "add_holidays": "Dodaj \u015bwi\u0119ta",
+                    "days_offset": "Przesuni\u0119cie",
+                    "excludes": "Wykluczone",
+                    "language": "J\u0119zyk dla \u015bwi\u0105t nazwanych",
+                    "province": "Podzia\u0142 kraju",
+                    "remove_holidays": "Usu\u0144 \u015bwi\u0119ta",
+                    "workdays": "Dni robocze"
+                },
+                "data_description": {
+                    "add_holidays": "Dodaj niestandardowe \u015bwi\u0119ta jako YYYY-MM-DD",
+                    "days_offset": "Przesuni\u0119cie dni",
+                    "excludes": "Lista dni roboczych do wykluczenia",
+                    "language": "Wybierz j\u0119zyk, wed\u0142ug kt\u00f3rego chcesz skonfigurowa\u0107 \u015bwi\u0119ta nazwane",
+                    "province": "Stan, terytorium, prowincja, region kraju",
+                    "remove_holidays": "Usu\u0144 \u015bwi\u0119ta jako YYYY-MM-DD lub u\u017cywaj\u0105c cz\u0119\u015bci nazwy",
+                    "workdays": "Lista dni roboczych"
+                }
+            }
+        }
+    },
+    "selector": {
+        "days": {
+            "options": {
+                "fri": "Pi\u0105tek",
+                "holiday": "\u015awi\u0119ta",
+                "mon": "Poniedzia\u0142ek",
+                "sat": "Sobota",
+                "sun": "Niedziela",
+                "thu": "Czwartek",
+                "tue": "Wtorek",
+                "wed": "\u015aroda"
+            }
+        },
+        "province": {
+            "options": {
+                "none": "Brak podzia\u0142u"
+            }
+        }
+    }
+}

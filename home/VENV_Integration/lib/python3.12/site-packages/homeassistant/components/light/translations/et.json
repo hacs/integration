@@ -1,0 +1,461 @@
+{
+    "common": {
+        "field_brightness_description": "Heledust t\u00e4histav number, kus 0 l\u00fclitab valguse v\u00e4lja, 1 on minimaalne heledus ja 255 on maksimaalne heledus.",
+        "field_brightness_name": "Heleduse v\u00e4\u00e4rtus",
+        "field_brightness_pct_description": "Arv, mis n\u00e4itab t\u00e4isheleduse protsenti, kus 0 l\u00fclitab valguse v\u00e4lja, 1 on minimaalne heledus ja 100 on maksimaalne heledus.",
+        "field_brightness_pct_name": "Heledus",
+        "field_brightness_step_description": "Muuda heledust teatud astme v\u00f5rra.",
+        "field_brightness_step_name": "Heleduse sammu v\u00e4\u00e4rtus",
+        "field_brightness_step_pct_description": "Muuda heledust protsentides.",
+        "field_brightness_step_pct_name": "Heleduse samm",
+        "field_color_name_description": "Inimloetav v\u00e4rvinimi.",
+        "field_color_name_name": "V\u00e4rvi nimi",
+        "field_color_temp_description": "V\u00e4rvitemperatuur miredites.",
+        "field_color_temp_name": "V\u00e4rvustemperatuur",
+        "field_effect_description": "Valgusefekt.",
+        "field_effect_name": "Efekt",
+        "field_flash_description": "K\u00e4si valgusel vilkuda, v\u00f5ib olla kas l\u00fchike v\u00f5i pikk aeg.",
+        "field_flash_name": "Vilgutamine",
+        "field_hs_color_description": "V\u00e4rv toon/k\u00fcllastuse formaadis. Kahe t\u00e4isarvu loend. Toon on 0-360 ja k\u00fcllastus on 0-100.",
+        "field_hs_color_name": "V\u00e4rvi toon/k\u00fcllastus",
+        "field_kelvin_description": "V\u00e4rvustemperatuur kelvinites.",
+        "field_kelvin_name": "V\u00e4rvustemperatuur",
+        "field_profile_description": "Kasutatava valgusprofiili nimi.",
+        "field_profile_name": "Profiil",
+        "field_rgb_color_description": "V\u00e4rv RGB-vormingus. Loend kolmest t\u00e4isarvust vahemikus 0 kuni 255, mis t\u00e4histavad punase, rohelise ja sinise v\u00e4\u00e4rtusi.",
+        "field_rgb_color_name": "V\u00e4rv",
+        "field_rgbw_color_description": "V\u00e4rv RGBW-vormingus. Loend neljast t\u00e4isarvust vahemikus 0 kuni 255, mis t\u00e4histavad punase, rohelise, sinise ja valge v\u00e4\u00e4rtusi.",
+        "field_rgbw_color_name": "RGBW-v\u00e4rv",
+        "field_rgbww_color_description": "V\u00e4rv RGBWW-vormingus. Loend viiest t\u00e4isarvust vahemikus 0 kuni 255, mis t\u00e4histavad punase, rohelise, sinise, k\u00fclma valge ja sooja valge v\u00e4\u00e4rtusi.",
+        "field_rgbww_color_name": "RGBWW-v\u00e4rv",
+        "field_transition_description": "J\u00e4rgmisesse olekusse j\u00f5udmiseks kuluv kestus.",
+        "field_transition_name": "\u00dcleminek",
+        "field_white_description": "Sea valgus valge re\u017eiimile.",
+        "field_white_name": "Valge",
+        "field_xy_color_description": "V\u00e4rv XY-vormingus. Nimekiri kahest k\u00fcmnendarvust vahemikus 0 kuni 1.",
+        "field_xy_color_name": "XY-v\u00e4rv",
+        "section_advanced_fields_name": "T\u00e4psemad s\u00e4tted"
+    },
+    "device_automation": {
+        "action_type": {
+            "brightness_decrease": "V\u00e4henda {entity_name} heledust",
+            "brightness_increase": "Suurenda{entity_name} heledust",
+            "flash": "Vilguta {entity_name}",
+            "toggle": "Muuda {entity_name} olekut",
+            "turn_off": "L\u00fclita {entity_name} v\u00e4lja",
+            "turn_on": "L\u00fclita {entity_name} sisse"
+        },
+        "condition_type": {
+            "is_off": "{entity_name} on v\u00e4lja l\u00fclitatud",
+            "is_on": "{entity_name} on sisse l\u00fclitatud"
+        },
+        "extra_fields": {
+            "brightness_pct": "Heledus",
+            "flash": "Vilgutamine"
+        },
+        "trigger_type": {
+            "changed_states": "{entity_name} l\u00fclitus sisse v\u00f5i v\u00e4lja",
+            "turned_off": "{entity_name} l\u00fclitus v\u00e4lja",
+            "turned_on": "{entity_name} l\u00fclitus sisse"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Tuled",
+            "state": {
+                "off": "V\u00e4ljas",
+                "on": "Sees"
+            },
+            "state_attributes": {
+                "brightness": {
+                    "name": "Heledus"
+                },
+                "color_mode": {
+                    "name": "V\u00e4rvire\u017eiim",
+                    "state": {
+                        "brightness": "Ainult heledus",
+                        "color_temp": "V\u00e4rvustemperatuur",
+                        "hs": "HS",
+                        "onoff": "Sees / v\u00e4ljas",
+                        "rgb": "RGB",
+                        "rgbw": "RGBW",
+                        "rgbww": "RGBWW",
+                        "unknown": "Teadmata",
+                        "white": "Valge",
+                        "xy": "XY"
+                    }
+                },
+                "color_temp": {
+                    "name": "V\u00e4rvustemperatuur (miredites)"
+                },
+                "color_temp_kelvin": {
+                    "name": "V\u00e4rvustemperatuur (Kelvinites)"
+                },
+                "effect": {
+                    "name": "Efekt"
+                },
+                "effect_list": {
+                    "name": "Saadaolevad efektid"
+                },
+                "max_color_temp_kelvin": {
+                    "name": "Maksimaalne v\u00e4rvitemperatuur (Kelvinites)"
+                },
+                "max_mireds": {
+                    "name": "Maksimaalne v\u00e4rvitemperatuur (miredites)"
+                },
+                "min_color_temp_kelvin": {
+                    "name": "Minimaalne v\u00e4rvitemperatuur (Kelvinites)"
+                },
+                "min_mireds": {
+                    "name": "Minimaalne v\u00e4rvitemperatuur (miredites)"
+                },
+                "supported_color_modes": {
+                    "name": "Saadaolevad v\u00e4rvire\u017eiimid",
+                    "state": {
+                        "brightness": "Ainult heledus",
+                        "color_temp": "V\u00e4rvustemperatuur",
+                        "hs": "HS",
+                        "onoff": "Sees / v\u00e4ljas",
+                        "rgb": "RGB",
+                        "rgbw": "RGBW",
+                        "rgbww": "RGBWW",
+                        "unknown": "Teadmata",
+                        "white": "Valge",
+                        "xy": "XY"
+                    }
+                }
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "{domain} integreerimise platvorm {platform} ei toeta platvormi seadistamist. \n\n Selle probleemi lahendamiseks eemalda see oma konfiguratsioonist ja taask\u00e4ivita Home Assistant.",
+            "title": "Platvormi tuge ei toetata"
+        }
+    },
+    "selector": {
+        "color_name": {
+            "options": {
+                "aliceblue": "Alice sinine",
+                "antiquewhite": "Antiikvalge",
+                "aqua": "Veesinine",
+                "aquamarine": "Akvamariin",
+                "azure": "Lasuursinine",
+                "beige": "Bee\u017e",
+                "bisque": "Biskviit",
+                "blanchedalmond": "Blan\u0161eeritud mandel",
+                "blue": "Sinine",
+                "blueviolet": "Sinakaslilla",
+                "brown": "Pruun",
+                "burlywood": "Burlywood",
+                "cadetblue": "Kadettsinine",
+                "chartreuse": "Chartreuse",
+                "chocolate": "\u0160okolaadipruun",
+                "coral": "Korall",
+                "cornflowerblue": "Rukkilillesinine",
+                "cornsilk": "Rukkilill",
+                "crimson": "Karmiinpunane",
+                "cyan": "Violetne",
+                "darkblue": "Tumesinine",
+                "darkcyan": "Tume ts\u00fcaan",
+                "darkgoldenrod": "Tume kuldkollane",
+                "darkgray": "Tumehall",
+                "darkgreen": "Tumeroheline",
+                "darkgrey": "Tumehall",
+                "darkkhaki": "Tume khaki",
+                "darkmagenta": "Tume magenta",
+                "darkolivegreen": "Tume oliivroheline",
+                "darkorange": "Tumeoran\u017e",
+                "darkorchid": "Tume orhidee",
+                "darkred": "Tumepunane",
+                "darksalmon": "Tume l\u00f5heroosa",
+                "darkseagreen": "Tume mereroheline",
+                "darkslateblue": "Tume kiltkivisinine",
+                "darkslategray": "Tume kiltkivihall",
+                "darkslategrey": "Tume kiltkivihall",
+                "darkturquoise": "Tume t\u00fcrkiissinine",
+                "darkviolet": "Tumelilla",
+                "deeppink": "Tumeroosa",
+                "deepskyblue": "S\u00fcgav taevasinine",
+                "dimgray": "Tuhm hall",
+                "dimgrey": "Tuhm hall",
+                "dodgerblue": "Dodger sinine",
+                "firebrick": "Tulekindel tellis",
+                "floralwhite": "Lilleline valge",
+                "forestgreen": "Metsaroheline",
+                "fuchsia": "Fuksia",
+                "gainsboro": "Gainsboro",
+                "ghostwhite": "Kummitusvalge",
+                "gold": "Kuldne",
+                "goldenrod": "Kuldvits",
+                "gray": "Hall",
+                "green": "Roheline",
+                "greenyellow": "Kollakasroheline",
+                "grey": "Hall",
+                "homeassistant": "Home Assistant",
+                "honeydew": "Mesikaste",
+                "hotpink": "Soe roosa",
+                "indianred": "India punane",
+                "indigo": "Indigosinine",
+                "ivory": "Elevandiluu",
+                "khaki": "Khaki",
+                "lavender": "Lavendel",
+                "lavenderblush": "Lavendlipunane",
+                "lawngreen": "Mururoheline",
+                "lemonchiffon": "Sidrunikollane",
+                "lightblue": "Helesinine",
+                "lightcoral": "Hele korall",
+                "lightcyan": "Hele ts\u00fcaan",
+                "lightgoldenrodyellow": "Hele kuldkollane",
+                "lightgray": "Helehall",
+                "lightgreen": "Heleroheline",
+                "lightgrey": "Helehall",
+                "lightpink": "Heleroosa",
+                "lightsalmon": "Kerge l\u00f5heroosa",
+                "lightseagreen": "Hele mereroheline",
+                "lightskyblue": "Hele taevasinine",
+                "lightslategray": "Hele kiltkivihall",
+                "lightslategrey": "Hele kiltkivihall",
+                "lightsteelblue": "Hele terassinine",
+                "lightyellow": "Helekollane",
+                "lime": "Laimikollane",
+                "limegreen": "Laimiroheline",
+                "linen": "Linane valge",
+                "magenta": "Magenta",
+                "maroon": "Maroon",
+                "mediumaquamarine": "Keskmine akvamariin",
+                "mediumblue": "Keskmine sinine",
+                "mediumorchid": "Keskmine orhidee",
+                "mediumpurple": "Keskmine lilla",
+                "mediumseagreen": "Keskmine mereroheline",
+                "mediumslateblue": "Keskmine kiltkivisinine",
+                "mediumspringgreen": "Keskmine kevadroheline",
+                "mediumturquoise": "Keskmine t\u00fcrkiissinine",
+                "mediumvioletred": "Keskmiselt violetne punane",
+                "midnightblue": "Kesk\u00f6\u00f6sinine",
+                "mintcream": "M\u00fcndikreem",
+                "mistyrose": "Udune roosa",
+                "moccasin": "Mokasiin",
+                "navajowhite": "Navajo valge",
+                "navy": "Merev\u00e4esinine",
+                "navyblue": "Merev\u00e4esinine",
+                "oldlace": "Vana pits",
+                "olive": "Oliiv",
+                "olivedrab": "Oliivipunane",
+                "orange": "Oran\u017e",
+                "orangered": "Oran\u017eikas punane",
+                "orchid": "Orhidee",
+                "palegoldenrod": "Kahvatu kuldking",
+                "palegreen": "Kahvaturoheline",
+                "paleturquoise": "Kahvatu t\u00fcrkiissinine",
+                "palevioletred": "Kahvatulilla punane",
+                "papayawhip": "Papaialeht",
+                "peachpuff": "Virsiku\u00f5is",
+                "peru": "Peruu",
+                "pink": "Roosa",
+                "plum": "Ploomililla",
+                "powderblue": "P\u00fcssirohusinine",
+                "purple": "Lilla",
+                "red": "Punane",
+                "rosybrown": "Roosakaspruun",
+                "royalblue": "S\u00fcgavsinine",
+                "saddlebrown": "Sadulapruun",
+                "salmon": "L\u00f5heroosa",
+                "sandybrown": "Liivapruun",
+                "seagreen": "Mereroheline",
+                "seashell": "Merekarp",
+                "sienna": "Sienna",
+                "silver": "H\u00f5bedane",
+                "skyblue": "Taevasinine",
+                "slateblue": "Kiltkivisinine",
+                "slategray": "Kiltkivihall",
+                "slategrey": "Kiltkivihall",
+                "snow": "Lumivalge",
+                "springgreen": "Kevadroheline",
+                "steelblue": "Terassinine",
+                "tan": "Pruunikas",
+                "teal": "Meresinine",
+                "thistle": "Ohakaroheline",
+                "tomato": "Tomatipunane",
+                "turquoise": "T\u00fcrkiissinine",
+                "violet": "Violetne",
+                "wheat": "Nisukollane",
+                "white": "Valge",
+                "whitesmoke": "Helehall",
+                "yellow": "Kollane",
+                "yellowgreen": "Kollakasroheline"
+            }
+        }
+    },
+    "services": {
+        "toggle": {
+            "description": "L\u00fclitab \u00fche v\u00f5i mitu valgustit vastavalt nende hetkeseisundile sisse- ja v\u00e4ljal\u00fclitatud v\u00f5i v\u00e4lja- ja sissel\u00fclitatud.",
+            "fields": {
+                "brightness": {
+                    "description": "Heledust t\u00e4histav number, kus 0 l\u00fclitab valguse v\u00e4lja, 1 on minimaalne heledus ja 255 on maksimaalne heledus.",
+                    "name": "Heleduse v\u00e4\u00e4rtus"
+                },
+                "brightness_pct": {
+                    "description": "Arv, mis n\u00e4itab t\u00e4isheleduse protsenti, kus 0 l\u00fclitab valguse v\u00e4lja, 1 on minimaalne heledus ja 100 on maksimaalne heledus.",
+                    "name": "Heledus"
+                },
+                "color_name": {
+                    "description": "Inimloetav v\u00e4rvinimi.",
+                    "name": "V\u00e4rvi nimi"
+                },
+                "color_temp": {
+                    "description": "V\u00e4rvitemperatuur miredites.",
+                    "name": "V\u00e4rvustemperatuur"
+                },
+                "effect": {
+                    "description": "Valgusefekt.",
+                    "name": "Efekt"
+                },
+                "flash": {
+                    "description": "K\u00e4si valgusel vilkuda, v\u00f5ib olla kas l\u00fchike v\u00f5i pikk aeg.",
+                    "name": "Vilgutamine"
+                },
+                "hs_color": {
+                    "description": "V\u00e4rv toon/k\u00fcllastuse formaadis. Kahe t\u00e4isarvu loend. Toon on 0-360 ja k\u00fcllastus on 0-100.",
+                    "name": "V\u00e4rvi toon/k\u00fcllastus"
+                },
+                "kelvin": {
+                    "description": "V\u00e4rvustemperatuur kelvinites.",
+                    "name": "V\u00e4rvustemperatuur"
+                },
+                "profile": {
+                    "description": "Kasutatava valgusprofiili nimi.",
+                    "name": "Profiil"
+                },
+                "rgb_color": {
+                    "description": "V\u00e4rv RGB-vormingus. Loend kolmest t\u00e4isarvust vahemikus 0 kuni 255, mis t\u00e4histavad punase, rohelise ja sinise v\u00e4\u00e4rtusi.",
+                    "name": "V\u00e4rviline"
+                },
+                "rgbw_color": {
+                    "description": "V\u00e4rv RGBW-vormingus. Loend neljast t\u00e4isarvust vahemikus 0 kuni 255, mis t\u00e4histavad punase, rohelise, sinise ja valge v\u00e4\u00e4rtusi.",
+                    "name": "RGBW-v\u00e4rv"
+                },
+                "rgbww_color": {
+                    "description": "V\u00e4rv RGBWW-vormingus. Loend viiest t\u00e4isarvust vahemikus 0 kuni 255, mis t\u00e4histavad punase, rohelise, sinise, k\u00fclma valge ja sooja valge v\u00e4\u00e4rtusi.",
+                    "name": "RGBWW-v\u00e4rv"
+                },
+                "transition": {
+                    "description": "J\u00e4rgmisesse olekusse j\u00f5udmiseks kuluv kestus.",
+                    "name": "\u00dcleminek"
+                },
+                "white": {
+                    "description": "Sea valgus valge re\u017eiimile.",
+                    "name": "Valge"
+                },
+                "xy_color": {
+                    "description": "V\u00e4rv XY-vormingus. Nimekiri kahest k\u00fcmnendarvust vahemikus 0 kuni 1.",
+                    "name": "XY-v\u00e4rv"
+                }
+            },
+            "name": "Muuda olekut",
+            "sections": {
+                "advanced_fields": {
+                    "name": "T\u00e4psemad s\u00e4tted"
+                }
+            }
+        },
+        "turn_off": {
+            "description": "L\u00fclita \u00fcks v\u00f5i mitu valgustit v\u00e4lja.",
+            "fields": {
+                "flash": {
+                    "description": "K\u00e4si valgusel vilkuda, v\u00f5ib olla kas l\u00fchike v\u00f5i pikk aeg.",
+                    "name": "Vilgutamine"
+                },
+                "transition": {
+                    "description": "J\u00e4rgmisesse olekusse j\u00f5udmiseks kuluv kestus.",
+                    "name": "\u00dcleminek"
+                }
+            },
+            "name": "L\u00fclita v\u00e4lja",
+            "sections": {
+                "advanced_fields": {
+                    "name": "T\u00e4psemad s\u00e4tted"
+                }
+            }
+        },
+        "turn_on": {
+            "description": "L\u00fclita sisse \u00fcks v\u00f5i mitu valgustit ja reguleeri valguse omadusi isegi kui need on juba sisse l\u00fclitatud.",
+            "fields": {
+                "brightness": {
+                    "description": "Heledust t\u00e4histav number, kus 0 l\u00fclitab valguse v\u00e4lja, 1 on minimaalne heledus ja 255 on maksimaalne heledus.",
+                    "name": "Heleduse v\u00e4\u00e4rtus"
+                },
+                "brightness_pct": {
+                    "description": "Arv, mis n\u00e4itab t\u00e4isheleduse protsenti, kus 0 l\u00fclitab valguse v\u00e4lja, 1 on minimaalne heledus ja 100 on maksimaalne heledus.",
+                    "name": "Heledus"
+                },
+                "brightness_step": {
+                    "description": "Muuda heledust teatud astme v\u00f5rra.",
+                    "name": "Heleduse sammu v\u00e4\u00e4rtus"
+                },
+                "brightness_step_pct": {
+                    "description": "Muuda heledust protsentides.",
+                    "name": "Heleduse samm"
+                },
+                "color_name": {
+                    "description": "Inimloetav v\u00e4rvinimi.",
+                    "name": "V\u00e4rvi nimi"
+                },
+                "color_temp": {
+                    "description": "V\u00e4rvitemperatuur miredites.",
+                    "name": "V\u00e4rvustemperatuur"
+                },
+                "effect": {
+                    "description": "Valgusefekt.",
+                    "name": "Efekt"
+                },
+                "flash": {
+                    "description": "K\u00e4si valgusel vilkuda, v\u00f5ib olla kas l\u00fchike v\u00f5i pikk aeg.",
+                    "name": "Vilgutamine"
+                },
+                "hs_color": {
+                    "description": "V\u00e4rv toon/k\u00fcllastuse formaadis. Kahe t\u00e4isarvu loend. Toon on 0-360 ja k\u00fcllastus on 0-100.",
+                    "name": "V\u00e4rvi toon/k\u00fcllastus"
+                },
+                "kelvin": {
+                    "description": "V\u00e4rvustemperatuur kelvinites.",
+                    "name": "V\u00e4rvustemperatuur"
+                },
+                "profile": {
+                    "description": "Kasutatava valgusprofiili nimi.",
+                    "name": "Profiil"
+                },
+                "rgb_color": {
+                    "description": "V\u00e4rv RGB-vormingus. Loend kolmest t\u00e4isarvust vahemikus 0 kuni 255, mis t\u00e4histavad punase, rohelise ja sinise v\u00e4\u00e4rtusi.",
+                    "name": "V\u00e4rviline"
+                },
+                "rgbw_color": {
+                    "name": "RGBW-v\u00e4rv"
+                },
+                "rgbww_color": {
+                    "description": "V\u00e4rv RGBWW-vormingus. Loend viiest t\u00e4isarvust vahemikus 0 kuni 255, mis t\u00e4histavad punase, rohelise, sinise, k\u00fclma valge ja sooja valge v\u00e4\u00e4rtusi.",
+                    "name": "RGBWW-v\u00e4rv"
+                },
+                "transition": {
+                    "description": "J\u00e4rgmisesse olekusse j\u00f5udmiseks kuluv kestus.",
+                    "name": "\u00dcleminek"
+                },
+                "white": {
+                    "description": "Sea valgus valge re\u017eiimile.",
+                    "name": "Valge"
+                },
+                "xy_color": {
+                    "description": "V\u00e4rv XY-vormingus. Nimekiri kahest k\u00fcmnendarvust vahemikus 0 kuni 1.",
+                    "name": "XY-v\u00e4rv"
+                }
+            },
+            "name": "L\u00fclita sisse",
+            "sections": {
+                "advanced_fields": {
+                    "name": "T\u00e4psemad s\u00e4tted"
+                }
+            }
+        }
+    },
+    "title": "Tuled"
+}

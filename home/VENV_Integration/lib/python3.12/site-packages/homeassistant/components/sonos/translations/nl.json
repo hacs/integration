@@ -1,0 +1,174 @@
+{
+    "config": {
+        "abort": {
+            "no_devices_found": "Geen apparaten gevonden op het netwerk",
+            "not_sonos_device": "Gevonden apparaat is geen Sonos-apparaat",
+            "single_instance_allowed": "Al geconfigureerd. Slechts \u00e9\u00e9n configuratie mogelijk."
+        },
+        "step": {
+            "confirm": {
+                "description": "Wilt u Sonos instellen?"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "microphone": {
+                "name": "Microfoon"
+            }
+        },
+        "number": {
+            "audio_delay": {
+                "name": "Audiovertraging"
+            },
+            "balance": {
+                "name": "Balans"
+            },
+            "bass": {
+                "name": "Bas"
+            },
+            "music_surround_level": {
+                "name": "Muziek surround niveau"
+            },
+            "sub_gain": {
+                "name": "Subwoofer gain"
+            },
+            "surround_level": {
+                "name": "Surroundniveau"
+            },
+            "treble": {
+                "name": "Hoge tonen"
+            }
+        },
+        "sensor": {
+            "audio_input_format": {
+                "name": "Audio-invoerformaat"
+            }
+        },
+        "switch": {
+            "buttons_enabled": {
+                "name": "Aanraakbedieningen"
+            },
+            "cross_fade": {
+                "name": "Crossfade"
+            },
+            "dialog_level": {
+                "name": "Spraakverbetering"
+            },
+            "loudness": {
+                "name": "Loudness"
+            },
+            "night_mode": {
+                "name": "Nachtgeluid"
+            },
+            "status_light": {
+                "name": "Statuslampje"
+            },
+            "sub_enabled": {
+                "name": "Subwoofer ingeschakeld"
+            },
+            "surround_enabled": {
+                "name": "Surround ingeschakeld"
+            },
+            "surround_mode": {
+                "name": "Surround muziek vol volume"
+            }
+        }
+    },
+    "issues": {
+        "subscriptions_failed": {
+            "description": "Terugvallen op polling, de functionaliteit kan beperkt zijn.\n\nSonos apparaat op {device_ip} kan Home Assistant op {listener_address} niet bereiken.\n\nZie onze [documentatie]({sub_fail_url}) voor meer informatie over hoe dit probleem op te lossen.",
+            "title": "Netwerkfout: inschrijvingen mislukt"
+        }
+    },
+    "services": {
+        "clear_sleep_timer": {
+            "description": "Wis een Sonos timer.",
+            "name": "Timer wissen"
+        },
+        "play_queue": {
+            "description": "Begin de wachtrij af te spelen vanaf het eerste item.",
+            "fields": {
+                "queue_position": {
+                    "description": "Positie van het nummer in de wachtrij om het afspelen te starten.",
+                    "name": "Wachtrijpositie"
+                }
+            },
+            "name": "Wachtrij afspelen"
+        },
+        "remove_from_queue": {
+            "description": "Verwijdert een item uit de wachtrij.",
+            "fields": {
+                "queue_position": {
+                    "description": "Plaats in de wachtrij om te verwijderen.",
+                    "name": "Wachtrijpositie"
+                }
+            },
+            "name": "Verwijderen uit wachtrij"
+        },
+        "restore": {
+            "description": "Herstelt een momentopname van de mediaspeler.",
+            "fields": {
+                "entity_id": {
+                    "description": "Naam van de entiteit die wordt hersteld.",
+                    "name": "Entiteit"
+                },
+                "with_group": {
+                    "description": "True of False. Maak ook een momentopname van de groepsindeling.",
+                    "name": "Met groep"
+                }
+            },
+            "name": "Herstellen"
+        },
+        "set_sleep_timer": {
+            "description": "Stelt een Sonos timer in.",
+            "fields": {
+                "sleep_time": {
+                    "description": "Aantal seconden om de timer in te stellen.",
+                    "name": "Bedtijd"
+                }
+            },
+            "name": "Timer instellen"
+        },
+        "snapshot": {
+            "description": "Maakt een momentopname van de mediaspeler.",
+            "fields": {
+                "entity_id": {
+                    "description": "Naam van de entiteit die een momentopname zal zijn.",
+                    "name": "Entiteit"
+                },
+                "with_group": {
+                    "description": "True of False. Maak ook een momentopname van de groepsindeling.",
+                    "name": "Met groep"
+                }
+            },
+            "name": "Momentopname"
+        },
+        "update_alarm": {
+            "description": "Hiermee wordt een alarm bijgewerkt met nieuwe tijd- en volume-instellingen.",
+            "fields": {
+                "alarm_id": {
+                    "description": "ID voor het alarm dat moet worden bijgewerkt.",
+                    "name": "Alarm-ID"
+                },
+                "enabled": {
+                    "description": "Schakel het alarm in of uit.",
+                    "name": "Alarm ingeschakeld"
+                },
+                "include_linked_zones": {
+                    "description": "In- of uitschakelen inclusief gegroepeerde kamers.",
+                    "name": "Inclusief gekoppelde zones"
+                },
+                "time": {
+                    "description": "Tijd instellen voor het alarm.",
+                    "name": "Tijd"
+                },
+                "volume": {
+                    "description": "Volume alarm instellen.",
+                    "name": "Volume"
+                }
+            },
+            "name": "Alarm bijwerken"
+        }
+    }
+}

@@ -1,0 +1,61 @@
+{
+    "issues": {
+        "entity_name_is_device_name_discovery": {
+            "description": "Some MQTT entities have an entity name equal to the device name. This is not expected. The entity name is set to `null` as a work-a-round to avoid a duplicate name. Please inform the maintainer of the software application that supplies the affected entities to fix this issue.\n\nList of affected entities:\n\n{config}",
+            "title": "Discovered MQTT entities with a name that is equal to the device name"
+        },
+        "entity_name_is_device_name_yaml": {
+            "description": "Some MQTT entities have an entity name equal to the device name. This is not expected. The entity name is set to `null` as a work-a-round to avoid a duplicate name. Please update your configuration and restart Home Assistant to fix this issue.\n\nList of affected entities:\n\n{config}",
+            "title": "Manual configured MQTT entities with a name that is equal to the device name"
+        },
+        "entity_name_startswith_device_name_discovery": {
+            "title": "Discovered entities with a name that starts with the device name"
+        },
+        "entity_name_startswith_device_name_yaml": {
+            "title": "Manually configured MQTT entities with a name that starts with the device name"
+        }
+    },
+    "services": {
+        "dump": {
+            "description": "Writes all messages on a specific topic into the `mqtt_dump.txt` file in your configuration folder.",
+            "fields": {
+                "duration": {
+                    "description": "How long we should listen for messages in seconds.",
+                    "name": "Duration"
+                },
+                "topic": {
+                    "description": "Topic to listen to."
+                }
+            },
+            "name": "Export"
+        },
+        "publish": {
+            "description": "Publishes a message to an MQTT topic.",
+            "fields": {
+                "payload": {
+                    "description": "The payload to publish.",
+                    "name": "Payload"
+                },
+                "payload_template": {
+                    "description": "Template to render as a payload value. If a payload is provided, the template is ignored.",
+                    "name": "Payload template"
+                },
+                "qos": {
+                    "name": "QoS"
+                },
+                "retain": {
+                    "description": "If the message should have the retain flag set. If set, the broker stores the most recent message on a topic.",
+                    "name": "Retain"
+                },
+                "topic": {
+                    "description": "Topic to publish to."
+                }
+            },
+            "name": "Publish"
+        },
+        "reload": {
+            "description": "Reloads MQTT entities from the YAML-configuration.",
+            "name": "Reload"
+        }
+    }
+}

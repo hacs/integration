@@ -1,0 +1,121 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Laite on jo m\u00e4\u00e4ritetty"
+        },
+        "step": {
+            "user": {
+                "description": "Haluatko aloittaa m\u00e4\u00e4rityksen?"
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "average_price": {
+                "name": "Keskim\u00e4\u00e4r\u00e4inen - t\u00e4n\u00e4\u00e4n"
+            },
+            "current_hour_price": {
+                "name": "Nykyinen tunti"
+            },
+            "highest_price_time": {
+                "name": "Korkeimman hinnan ajankohta - t\u00e4n\u00e4\u00e4n"
+            },
+            "hours_priced_equal_or_higher": {
+                "name": "Tuntim\u00e4\u00e4r\u00e4t, joiden hinta on yht\u00e4 suuri tai korkeampi kuin nykyinen - t\u00e4n\u00e4\u00e4n"
+            },
+            "hours_priced_equal_or_lower": {
+                "name": "Tuntien hinta on sama tai alhaisempi kuin nykyinen - t\u00e4n\u00e4\u00e4n."
+            },
+            "lowest_price_time": {
+                "name": "Alimman hinnan aika - t\u00e4n\u00e4\u00e4n"
+            },
+            "max_price": {
+                "name": "Korkein hinta - t\u00e4n\u00e4\u00e4n"
+            },
+            "min_price": {
+                "name": "Alin hinta - t\u00e4n\u00e4\u00e4n"
+            },
+            "next_hour_price": {
+                "name": "Seuraava tunti"
+            },
+            "percentage_of_max": {
+                "name": "Nykyinen prosenttiosuus korkeimmasta hinnasta - t\u00e4n\u00e4\u00e4n"
+            }
+        }
+    },
+    "exceptions": {
+        "invalid_config_entry": {
+            "message": "Virheellinen konfigurointimerkint\u00e4 annettu. Saatu: {config_entry}"
+        },
+        "invalid_date": {
+            "message": "Ilmoitettu p\u00e4iv\u00e4m\u00e4\u00e4r\u00e4 on virheellinen. Saatu {date}"
+        },
+        "unloaded_config_entry": {
+            "message": "Virheellinen konfigurointimerkint\u00e4 annettu. {config_entry} ei ole ladattu."
+        }
+    },
+    "services": {
+        "get_energy_return_prices": {
+            "description": "Pyyd\u00e4 palautusenergian hintoja easyEnergylt\u00e4.",
+            "fields": {
+                "config_entry": {
+                    "description": "T\u00e4t\u00e4 palvelua varten k\u00e4ytett\u00e4v\u00e4 m\u00e4\u00e4ritysmerkint\u00e4.",
+                    "name": "Asetus"
+                },
+                "end": {
+                    "description": "M\u00e4\u00e4ritt\u00e4\u00e4 p\u00e4iv\u00e4m\u00e4\u00e4r\u00e4n ja kellonajan, johon asti hinnat noudetaan. Oletusarvo t\u00e4h\u00e4n p\u00e4iv\u00e4\u00e4n, jos se j\u00e4tet\u00e4\u00e4n pois.",
+                    "name": "Lopetus"
+                },
+                "start": {
+                    "description": "M\u00e4\u00e4ritt\u00e4\u00e4 p\u00e4iv\u00e4m\u00e4\u00e4r\u00e4n ja kellonajan, josta hinnat haetaan. Oletusarvo t\u00e4h\u00e4n p\u00e4iv\u00e4\u00e4n, jos se j\u00e4tet\u00e4\u00e4n pois.",
+                    "name": "Alku"
+                }
+            },
+            "name": "Hanki energian palautushinnat"
+        },
+        "get_energy_usage_prices": {
+            "description": "Pyyd\u00e4 k\u00e4ytt\u00f6energian hintoja easyEnergylt\u00e4.",
+            "fields": {
+                "config_entry": {
+                    "description": "T\u00e4t\u00e4 palvelua varten k\u00e4ytett\u00e4v\u00e4 m\u00e4\u00e4ritysmerkint\u00e4.",
+                    "name": "Asetus"
+                },
+                "end": {
+                    "description": "M\u00e4\u00e4ritt\u00e4\u00e4 p\u00e4iv\u00e4m\u00e4\u00e4r\u00e4n ja kellonajan, johon asti hinnat noudetaan. Oletusarvo t\u00e4h\u00e4n p\u00e4iv\u00e4\u00e4n, jos se j\u00e4tet\u00e4\u00e4n pois.",
+                    "name": "Lopetus"
+                },
+                "incl_vat": {
+                    "description": "Sis\u00e4llyt\u00e4 tai j\u00e4t\u00e4 ALV hintoihin, oletusarvo on tosi.",
+                    "name": "Sis\u00e4lt\u00e4\u00e4 ALV: n"
+                },
+                "start": {
+                    "description": "M\u00e4\u00e4ritt\u00e4\u00e4 p\u00e4iv\u00e4m\u00e4\u00e4r\u00e4n ja kellonajan, josta hinnat haetaan. Oletusarvo t\u00e4h\u00e4n p\u00e4iv\u00e4\u00e4n, jos se j\u00e4tet\u00e4\u00e4n pois.",
+                    "name": "Alku"
+                }
+            },
+            "name": "Hanki energian k\u00e4ytt\u00f6hinnat"
+        },
+        "get_gas_prices": {
+            "description": "Kysy kaasun hintoja easyEnergylt\u00e4.",
+            "fields": {
+                "config_entry": {
+                    "description": "T\u00e4t\u00e4 palvelua varten k\u00e4ytett\u00e4v\u00e4 m\u00e4\u00e4ritysmerkint\u00e4.",
+                    "name": "Asetus"
+                },
+                "end": {
+                    "description": "M\u00e4\u00e4ritt\u00e4\u00e4 p\u00e4iv\u00e4m\u00e4\u00e4r\u00e4n ja kellonajan, johon asti hinnat noudetaan. Oletusarvo t\u00e4h\u00e4n p\u00e4iv\u00e4\u00e4n, jos se j\u00e4tet\u00e4\u00e4n pois.",
+                    "name": "Lopetus"
+                },
+                "incl_vat": {
+                    "description": "Sis\u00e4llyt\u00e4 tai j\u00e4t\u00e4 ALV hintoihin, oletusarvo on tosi.",
+                    "name": "Sis\u00e4lt\u00e4\u00e4 ALV: n"
+                },
+                "start": {
+                    "description": "M\u00e4\u00e4ritt\u00e4\u00e4 p\u00e4iv\u00e4m\u00e4\u00e4r\u00e4n ja kellonajan, josta hinnat haetaan. Oletusarvo t\u00e4h\u00e4n p\u00e4iv\u00e4\u00e4n, jos se j\u00e4tet\u00e4\u00e4n pois.",
+                    "name": "Alku"
+                }
+            },
+            "name": "Hanki kaasun hinnat"
+        }
+    }
+}

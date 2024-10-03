@@ -1,0 +1,94 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "El servicio ya est\u00e1 configurado",
+            "reauth_successful": "La autenticaci\u00f3n se volvi\u00f3 a realizar correctamente"
+        },
+        "error": {
+            "cannot_connect": "No se pudo conectar",
+            "timeout_connect": "Tiempo de espera agotado mientras se establec\u00eda la conexi\u00f3n",
+            "unknown": "Error inesperado"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "api_key": "Clave API",
+                    "password": "Contrase\u00f1a",
+                    "username": "Nombre de usuario"
+                },
+                "description": "Por favor, proporciona el nombre de usuario y la contrase\u00f1a de tu cuenta en la nube de Hydrawise:",
+                "title": "Inicio de sesi\u00f3n de Hydrawise"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "rain_sensor": {
+                "name": "Sensor de lluvia"
+            },
+            "watering": {
+                "name": "Riego"
+            }
+        },
+        "sensor": {
+            "daily_active_water_time": {
+                "name": "Tiempo de riego activo diario"
+            },
+            "daily_active_water_use": {
+                "name": "Uso activo diario del agua."
+            },
+            "daily_inactive_water_use": {
+                "name": "Uso inactivo diario del agua."
+            },
+            "daily_total_water_use": {
+                "name": "Consumo total diario de agua"
+            },
+            "next_cycle": {
+                "name": "Pr\u00f3ximo ciclo"
+            },
+            "watering_time": {
+                "name": "Tiempo de riego restante"
+            }
+        },
+        "switch": {
+            "auto_watering": {
+                "name": "Riego autom\u00e1tico"
+            },
+            "manual_watering": {
+                "name": "Riego manual"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_yaml_import_issue": {
+            "description": "Se va a eliminar la configuraci\u00f3n de Hydrawise mediante YAML, pero hubo un error {error_type} al importar tu configuraci\u00f3n YAML. \n\nAseg\u00farate de que la conexi\u00f3n a Hydrawise funcione y reinicia Home Assistant para volver a intentarlo o elimina la configuraci\u00f3n YAML de Hydrawise de tu archivo configuration.yaml y contin\u00faa [configurando la integraci\u00f3n]({url}) manualmente.",
+            "title": "Error al importar la configuraci\u00f3n YAML de Hydrawise"
+        }
+    },
+    "services": {
+        "resume": {
+            "description": "Reanuda el programa de riego autom\u00e1tico de una zona de riego.",
+            "name": "Reanudar el riego autom\u00e1tico"
+        },
+        "start_watering": {
+            "description": "Inicia un ciclo de riego en la zona de riego seleccionada.",
+            "fields": {
+                "duration": {
+                    "description": "Duraci\u00f3n del tiempo para ejecutar el ciclo de riego. Si no se especifica (o es cero), se utilizar\u00e1 la duraci\u00f3n de riego predeterminada establecida en la aplicaci\u00f3n web o m\u00f3vil de Hydrawise para la zona de riego.",
+                    "name": "Duraci\u00f3n"
+                }
+            },
+            "name": "Empezar a regar"
+        },
+        "suspend": {
+            "description": "Suspende el programa de riego autom\u00e1tico de una zona de riego hasta la fecha y hora indicadas.",
+            "fields": {
+                "until": {
+                    "description": "Fecha y hora para reanudar el programa de riego automatizado.",
+                    "name": "Hasta"
+                }
+            },
+            "name": "Suspender el riego autom\u00e1tico"
+        }
+    }
+}

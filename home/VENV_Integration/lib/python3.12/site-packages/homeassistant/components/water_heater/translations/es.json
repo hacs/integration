@@ -1,0 +1,107 @@
+{
+    "device_automation": {
+        "action_type": {
+            "turn_off": "Apagar {entity_name}",
+            "turn_on": "Encender {entity_name}"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Calentador de agua",
+            "state": {
+                "eco": "Eco",
+                "electric": "El\u00e9ctrico",
+                "gas": "Gas",
+                "heat_pump": "Bomba de calor",
+                "high_demand": "Alta demanda",
+                "off": "Apagado",
+                "performance": "Rendimiento"
+            },
+            "state_attributes": {
+                "away_mode": {
+                    "name": "Modo ausente",
+                    "state": {
+                        "off": "Apagado",
+                        "on": "Encendido"
+                    }
+                },
+                "current_operation": {
+                    "name": "Funcionamiento actual"
+                },
+                "current_temperature": {
+                    "name": "Temperatura actual"
+                },
+                "max_temp": {
+                    "name": "Temperatura deseada m\u00e1xima"
+                },
+                "min_temp": {
+                    "name": "Temperatura deseada m\u00ednima"
+                },
+                "target_temp_high": {
+                    "name": "Temperatura deseada superior"
+                },
+                "target_temp_low": {
+                    "name": "Temperatura deseada m\u00e1s baja"
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "not_valid_operation_mode": {
+            "message": "El modo de operaci\u00f3n {operation_mode} no es v\u00e1lido para {entity_id}. Los modos de operaci\u00f3n v\u00e1lidos son: {operation_list}."
+        },
+        "operation_list_not_defined": {
+            "message": "El modo de operaci\u00f3n {operation_mode} no es v\u00e1lido para {entity_id}. La lista de operaciones no est\u00e1 definida."
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "La plataforma {platform} para la integraci\u00f3n {domain} no es compatible con la configuraci\u00f3n de la plataforma. \n\nElim\u00ednala de tu configuraci\u00f3n y reinicia Home Assistant para solucionar este problema.",
+            "title": "Soporte de plataforma no compatible"
+        }
+    },
+    "services": {
+        "set_away_mode": {
+            "description": "Activa o desactiva el modo ausente.",
+            "fields": {
+                "away_mode": {
+                    "description": "Nuevo valor del modo ausente.",
+                    "name": "Modo Ausente"
+                }
+            },
+            "name": "Establecer modo ausente"
+        },
+        "set_operation_mode": {
+            "description": "Establece el modo de funcionamiento.",
+            "fields": {
+                "operation_mode": {
+                    "description": "Nuevo valor del modo de funcionamiento. Para obtener una lista de los modos posibles, consulta la documentaci\u00f3n de integraci\u00f3n.",
+                    "name": "Modo de operaci\u00f3n"
+                }
+            },
+            "name": "Configurar el modo de funcionamiento"
+        },
+        "set_temperature": {
+            "description": "Establece la temperatura deseada.",
+            "fields": {
+                "operation_mode": {
+                    "description": "Nuevo valor del modo de funcionamiento. Para obtener una lista de los modos posibles, consulta la documentaci\u00f3n de integraci\u00f3n.",
+                    "name": "Modo de operaci\u00f3n"
+                },
+                "temperature": {
+                    "description": "Nueva temperatura deseada para el calentador de agua.",
+                    "name": "Temperatura"
+                }
+            },
+            "name": "Ajustar temperatura"
+        },
+        "turn_off": {
+            "description": "Apaga el calentador de agua.",
+            "name": "Apagar"
+        },
+        "turn_on": {
+            "description": "Enciende el calentador de agua.",
+            "name": "Encender"
+        }
+    }
+}

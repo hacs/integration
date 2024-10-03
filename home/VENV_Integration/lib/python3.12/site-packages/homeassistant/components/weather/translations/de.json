@@ -1,0 +1,141 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "Wetter",
+            "state": {
+                "clear-night": "Klare Nacht",
+                "cloudy": "Bew\u00f6lkt",
+                "exceptional": "Au\u00dfergew\u00f6hnlich",
+                "fog": "Nebel",
+                "hail": "Hagel",
+                "lightning": "Gewitter",
+                "lightning-rainy": "Gewitter, regnerisch",
+                "partlycloudy": "Teilweise bew\u00f6lkt",
+                "pouring": "Str\u00f6mender Regen",
+                "rainy": "Regnerisch",
+                "snowy": "Schneefall",
+                "snowy-rainy": "Schneeregen",
+                "sunny": "Sonnig",
+                "windy": "Windig",
+                "windy-variant": "Windig, bew\u00f6lkt"
+            },
+            "state_attributes": {
+                "apparent_temperature": {
+                    "name": "Scheinbare Temperatur"
+                },
+                "cloud_coverage": {
+                    "name": "Bew\u00f6lkung"
+                },
+                "dew_point": {
+                    "name": "Taupunkttemperatur"
+                },
+                "forecast": {
+                    "name": "Prognose"
+                },
+                "humidity": {
+                    "name": "Luftfeuchtigkeit"
+                },
+                "ozone": {
+                    "name": "Ozon"
+                },
+                "precipitation_unit": {
+                    "name": "Niederschlagseinheit"
+                },
+                "pressure": {
+                    "name": "Druck"
+                },
+                "pressure_unit": {
+                    "name": "Druckeinheit"
+                },
+                "temperature": {
+                    "name": "Temperatur"
+                },
+                "temperature_unit": {
+                    "name": "Temperatureinheit"
+                },
+                "uv_index": {
+                    "name": "UV-Index"
+                },
+                "visibility": {
+                    "name": "Sichtbarkeit"
+                },
+                "visibility_unit": {
+                    "name": "Sichtbarkeitseinheit"
+                },
+                "wind_bearing": {
+                    "name": "Windlast"
+                },
+                "wind_gust_speed": {
+                    "name": "Windb\u00f6engeschwindigkeit"
+                },
+                "wind_speed": {
+                    "name": "Windgeschwindigkeit"
+                },
+                "wind_speed_unit": {
+                    "name": "Windgeschwindigkeitseinheit"
+                }
+            }
+        }
+    },
+    "issues": {
+        "deprecated_service_weather_get_forecast": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Verwende stattdessen `weather.get_forecasts`, das mehrere Entit\u00e4ten unterst\u00fctzt. \n\nBitte ersetze diesen Dienst, passe deine Automatisierungen und Skripte an und w\u00e4hle **Senden**, um dieses Problem zu schlie\u00dfen.",
+                        "title": "Verwendung des veralteten Dienstes weather.get_forecast erkannt"
+                    }
+                }
+            },
+            "title": "Verwendung des veralteten Dienstes weather.get_forecast erkannt"
+        },
+        "deprecated_weather_forecast": {
+            "description": "Die Integration `{platform}` verwendet das veraltete Vorhersage-Attribut. \n\nBitte {report_issue}.",
+            "title": "Die {platform}-Integration verwendet veraltete Vorhersagen"
+        },
+        "deprecated_weather_forecast_no_url": {
+            "description": "Die benutzerdefinierte Integration `{platform}` implementiert die Eigenschaft `forecast` oder legt `self._attr_forecast` in einer Unterklasse von WeatherEntity fest. \n\nBitte melde dies dem Autor der {platform}-Integration. \n\nSobald eine aktualisierte Version von `{platform}` verf\u00fcgbar ist, installiere sie und starte Home Assistant neu, um dieses Problem zu beheben.",
+            "title": "Die benutzerdefinierte Integration von {platform} verwendet eine veraltete Wettervorhersage"
+        },
+        "deprecated_weather_forecast_url": {
+            "description": "Die benutzerdefinierte Integration `{platform}` implementiert die Eigenschaft `forecast` oder legt `self._attr_forecast` in einer Unterklasse von WeatherEntity fest. \n\nBitte erstelle einen Fehlerbericht unter {issue_tracker}. \n\nSobald eine aktualisierte Version von `{platform}` verf\u00fcgbar ist, installiere sie und starte Home Assistant neu, um dieses Problem zu beheben.",
+            "title": "Die benutzerdefinierte Integration von {platform} verwendet eine veraltete Wettervorhersage"
+        },
+        "platform_integration_no_support": {
+            "description": "Die {platform}-Plattform f\u00fcr die {domain}-Integration unterst\u00fctzt die Plattform-Einrichtung nicht. \n\nBitte entferne es aus deiner Konfiguration und starte Home Assistant neu, um dieses Problem zu beheben.",
+            "title": "Plattform-Unterst\u00fctzung nicht unterst\u00fctzt"
+        }
+    },
+    "selector": {
+        "forecast_type": {
+            "options": {
+                "daily": "T\u00e4glich",
+                "hourly": "St\u00fcndlich",
+                "twice_daily": "Zweimal t\u00e4glich"
+            }
+        }
+    },
+    "services": {
+        "get_forecast": {
+            "description": "Wettervorhersage abrufen.",
+            "fields": {
+                "type": {
+                    "description": "Vorhersage-Typ: t\u00e4glich, st\u00fcndlich oder zweimal t\u00e4glich.",
+                    "name": "Vorhersage-Typ"
+                }
+            },
+            "name": "Vorhersage abrufen"
+        },
+        "get_forecasts": {
+            "description": "Wettervorhersagen erhalten.",
+            "fields": {
+                "type": {
+                    "description": "Vorhersage-Typ: t\u00e4glich, st\u00fcndlich oder zweimal t\u00e4glich.",
+                    "name": "Vorhersage-Typ"
+                }
+            },
+            "name": "Vorhersagen erhalten"
+        }
+    },
+    "title": "Wetter"
+}

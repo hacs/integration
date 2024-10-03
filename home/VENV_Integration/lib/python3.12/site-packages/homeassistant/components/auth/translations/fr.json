@@ -1,0 +1,56 @@
+{
+    "exceptions": {
+        "user_not_found": {
+            "message": "Utilisateur introuvable"
+        },
+        "username_already_exists": {
+            "message": "Le nom d\u2019utilisateur \u00ab\u00a0{username}\u00a0\u00bb existe d\u00e9j\u00e0"
+        },
+        "username_not_normalized": {
+            "message": "Le nom d'utilisateur \u00ab\u00a0{new_username}\u00a0\u00bb n'est pas normalis\u00e9. Veuillez vous assurer que le nom d'utilisateur est en minuscules et ne contient aucun espace."
+        }
+    },
+    "issues": {
+        "deprecated_legacy_api_password": {
+            "description": "Le fournisseur d'authentification par mot de passe de l'ancienne API est obsol\u00e8te et sera supprim\u00e9. Veuillez le supprimer de votre configuration YAML et utiliser \u00e0 la place le fournisseur d'authentification par d\u00e9faut de l'assistant personnel.",
+            "title": "Le mot de passe de l'ancienne API est obsol\u00e8te"
+        },
+        "homeassistant_provider_not_normalized_usernames": {
+            "description": "Le fournisseur d'authentification Home Assistant s'ex\u00e9cute en mode h\u00e9rit\u00e9 car nous avons d\u00e9tect\u00e9 des noms d'utilisateur non normalis\u00e9s. Le mode h\u00e9rit\u00e9 est obsol\u00e8te et sera supprim\u00e9. Veuillez modifier les noms d'utilisateur suivants\u00a0:\n\n {usernames}\n\nLes noms d\u2019utilisateur normalis\u00e9s sont *casefolded* (minuscules) et d\u00e9pourvus d\u2019espaces.",
+            "title": "Noms d'utilisateur non normalis\u00e9s d\u00e9tect\u00e9s"
+        }
+    },
+    "mfa_setup": {
+        "notify": {
+            "abort": {
+                "no_available_service": "Aucun service de notification disponible."
+            },
+            "error": {
+                "invalid_code": "Code non valide, veuillez r\u00e9essayer."
+            },
+            "step": {
+                "init": {
+                    "description": "Veuillez s\u00e9lectionner l'un des services de notification\u00a0:",
+                    "title": "Configurer un mot de passe \u00e0 usage unique d\u00e9livr\u00e9 par le composant notify"
+                },
+                "setup": {
+                    "description": "Un mot de passe unique a \u00e9t\u00e9 envoy\u00e9 par **notify.{notify_service}**. Veuillez le saisir ci-dessous\u00a0:",
+                    "title": "V\u00e9rifier la configuration"
+                }
+            },
+            "title": "Notifier le mot de passe \u00e0 usage unique"
+        },
+        "totp": {
+            "error": {
+                "invalid_code": "Code non valide, veuillez r\u00e9essayer. Si cette erreur persiste, assurez-vous que l'heure de votre syst\u00e8me Home Assistant est correcte."
+            },
+            "step": {
+                "init": {
+                    "description": "Pour activer l'authentification \u00e0 deux facteurs \u00e0 l'aide de mots de passe \u00e0 utilisation unique bas\u00e9s sur l'heure, num\u00e9risez le code QR avec votre application d'authentification. Si vous n'en avez pas, nous vous recommandons d'utiliser [Google Authenticator](https://support.google.com/accounts/answer/1066447) ou [Authy](https://authy.com/).\n\n{qr_code}\n\nApr\u00e8s avoir num\u00e9ris\u00e9 le code, entrez le code \u00e0 six chiffres de votre application pour v\u00e9rifier la configuration. Si vous rencontrez des probl\u00e8mes lors de l\u2019analyse du code QR, effectuez une configuration manuelle avec le code **`{code}`**.",
+                    "title": "Configurer une authentification \u00e0 deux facteurs \u00e0 l'aide de TOTP"
+                }
+            },
+            "title": "TOTP"
+        }
+    }
+}

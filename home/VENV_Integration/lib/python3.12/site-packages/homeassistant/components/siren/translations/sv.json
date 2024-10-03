@@ -1,0 +1,51 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "Siren",
+            "state": {
+                "off": "Av",
+                "on": "P\u00e5"
+            },
+            "state_attributes": {
+                "available_tones": {
+                    "name": "Tillg\u00e4ngliga signaler"
+                }
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "{platform}-plattformen f\u00f6r integrationen {domain} st\u00f6ds inte.\n\nTa bort den fr\u00e5n din konfiguration och starta om Home Assistant f\u00f6r att \u00e5tg\u00e4rda detta problem.",
+            "title": "Plattformen st\u00f6ds inte"
+        }
+    },
+    "services": {
+        "toggle": {
+            "description": "Sl\u00e5r p\u00e5/av sirenen.",
+            "name": "V\u00e4xla"
+        },
+        "turn_off": {
+            "description": "St\u00e4nger av sirenen.",
+            "name": "St\u00e4ng av"
+        },
+        "turn_on": {
+            "description": "Sl\u00e5r p\u00e5 sirenen.",
+            "fields": {
+                "duration": {
+                    "description": "Antal sekunder som ljudet spelas upp. M\u00e5ste st\u00f6djas av integrationen.",
+                    "name": "Varaktighet"
+                },
+                "tone": {
+                    "description": "Den ton som ska avges. N\u00e4r egenskapen `available_tones` \u00e4r en ordlsita kan antingen nyckeln eller v\u00e4rdet anv\u00e4ndas. M\u00e5ste st\u00f6djas av integrationen.",
+                    "name": "Ton"
+                },
+                "volume_level": {
+                    "description": "Volymen. 0 h\u00f6rs inte, 1 \u00e4r maxvolymen. M\u00e5ste st\u00f6djas av integrationen.",
+                    "name": "Volym"
+                }
+            },
+            "name": "Starta"
+        }
+    },
+    "title": "Siren"
+}

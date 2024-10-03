@@ -1,0 +1,197 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "El dispositivo ya est\u00e1 configurado",
+            "another_device": "No se pudo volver a configurar correctamente, se utiliz\u00f3 la direcci\u00f3n IP/nombre de host de otro dispositivo Shelly.",
+            "ipv6_not_supported": "IPv6 no es compatible.",
+            "reauth_successful": "La autenticaci\u00f3n se volvi\u00f3 a realizar correctamente",
+            "reauth_unsuccessful": "No se pudo volver a autenticar, por favor, elimina la integraci\u00f3n y vuelve a configurarla.",
+            "reconfigure_successful": "Se volvi\u00f3 a configurar correctamente",
+            "unsupported_firmware": "El dispositivo est\u00e1 usando una versi\u00f3n de firmware no compatible."
+        },
+        "error": {
+            "cannot_connect": "No se pudo conectar",
+            "custom_port_not_supported": "El dispositivo Gen1 no soporta puertos personalizados.",
+            "firmware_not_fully_provisioned": "El dispositivo no est\u00e1 completamente aprovisionado. Por favor, ponte en contacto con el servicio de asistencia de Shelly",
+            "invalid_auth": "Autenticaci\u00f3n no v\u00e1lida",
+            "unknown": "Error inesperado"
+        },
+        "flow_title": "{name}",
+        "step": {
+            "confirm_discovery": {
+                "description": "\u00bfQuieres configurar {model} en {host}? \n\nLos dispositivos alimentados por bater\u00eda que est\u00e1n protegidos por contrase\u00f1a deben despertarse antes de continuar con la configuraci\u00f3n.\nLos dispositivos que funcionan con bater\u00eda que no est\u00e1n protegidos por contrase\u00f1a se a\u00f1adir\u00e1n cuando el dispositivo se despierte. Puedes activar manualmente el dispositivo ahora con un bot\u00f3n del mismo o esperar a la pr\u00f3xima actualizaci\u00f3n de datos del dispositivo."
+            },
+            "credentials": {
+                "data": {
+                    "password": "Contrase\u00f1a",
+                    "username": "Nombre de usuario"
+                }
+            },
+            "reauth_confirm": {
+                "data": {
+                    "password": "Contrase\u00f1a",
+                    "username": "Nombre de usuario"
+                }
+            },
+            "reconfigure_confirm": {
+                "data": {
+                    "host": "Host",
+                    "port": "Puerto"
+                },
+                "data_description": {
+                    "host": "El nombre de host o la direcci\u00f3n IP del dispositivo Shelly con el que conectar.",
+                    "port": "El puerto TCP del dispositivo Shelly al cual conectarse (Gen2+)."
+                },
+                "description": "Actualiza la configuraci\u00f3n de {device_name}.\n\nAntes de la configuraci\u00f3n, los dispositivos alimentados por bater\u00eda deben despertarse, puedes despertar ahora el dispositivo usando un bot\u00f3n en \u00e9l."
+            },
+            "user": {
+                "data": {
+                    "host": "Host",
+                    "port": "Puerto"
+                },
+                "data_description": {
+                    "host": "El nombre de host o la direcci\u00f3n IP del dispositivo Shelly con el que conectar.",
+                    "port": "El puerto TCP del dispositivo Shelly al cual conectarse (Gen2+)."
+                },
+                "description": "Antes de configurarlos, los dispositivos alimentados por bater\u00eda deben despertarse. Puedes despertar el dispositivo ahora usando uno de sus botones."
+            }
+        }
+    },
+    "device_automation": {
+        "trigger_subtype": {
+            "button": "Bot\u00f3n",
+            "button1": "Primer bot\u00f3n",
+            "button2": "Segundo bot\u00f3n",
+            "button3": "Tercer bot\u00f3n",
+            "button4": "Cuarto bot\u00f3n"
+        },
+        "trigger_type": {
+            "btn_down": "Bot\u00f3n {subtype} pulsado",
+            "btn_up": "Bot\u00f3n {subtype} soltado",
+            "double": "Pulsaci\u00f3n doble de {subtype}",
+            "double_push": "Pulsaci\u00f3n doble de {subtype}",
+            "long": "Pulsaci\u00f3n larga de {subtype}",
+            "long_push": "Pulsaci\u00f3n larga de {subtype}",
+            "long_single": "Pulsaci\u00f3n larga de {subtype} seguida de una pulsaci\u00f3n simple",
+            "single": "Pulsaci\u00f3n simple de {subtype}",
+            "single_long": "Pulsaci\u00f3n simple de {subtype} seguida de una pulsaci\u00f3n larga",
+            "single_push": "Pulsaci\u00f3n simple de {subtype}",
+            "triple": "Pulsaci\u00f3n triple de {subtype}",
+            "triple_push": "{subtype} pulsaci\u00f3n triple"
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "gas": {
+                "state_attributes": {
+                    "detected": {
+                        "state": {
+                            "heavy": "Pesado",
+                            "mild": "Moderado",
+                            "none": "Ninguno",
+                            "test": "Prueba",
+                            "unknown": "Desconocido"
+                        }
+                    }
+                }
+            }
+        },
+        "event": {
+            "input": {
+                "state_attributes": {
+                    "event_type": {
+                        "state": {
+                            "btn_down": "Bot\u00f3n abajo",
+                            "btn_up": "Bot\u00f3n arriba",
+                            "double": "Pulsaci\u00f3n doble",
+                            "double_push": "Pulsaci\u00f3n doble",
+                            "long": "Pulsaci\u00f3n larga",
+                            "long_push": "Pulsaci\u00f3n larga",
+                            "long_single": "Pulsaci\u00f3n larga y a continuaci\u00f3n pulsaci\u00f3n corta",
+                            "single": "Pulsaci\u00f3n simple",
+                            "single_long": "Pulsaci\u00f3n corta y a continuaci\u00f3n pulsaci\u00f3n larga",
+                            "single_push": "Pulsaci\u00f3n simple",
+                            "triple": "Pulsaci\u00f3n triple",
+                            "triple_push": "Pulsaci\u00f3n triple"
+                        }
+                    }
+                }
+            }
+        },
+        "sensor": {
+            "operation": {
+                "state": {
+                    "fault": "Fallo",
+                    "normal": "Normal",
+                    "unknown": "Desconocido",
+                    "warmup": "Calentamiento"
+                },
+                "state_attributes": {
+                    "self_test": {
+                        "state": {
+                            "completed": "Completado",
+                            "not_completed": "Sin completar",
+                            "pending": "Pendiente",
+                            "running": "Ejecutando"
+                        }
+                    }
+                }
+            },
+            "valve_status": {
+                "state": {
+                    "checking": "Comprobando",
+                    "closed": "Cerrado",
+                    "closing": "Cerrando",
+                    "failure": "Fallo",
+                    "opened": "Abierto",
+                    "opening": "Abriendo",
+                    "unknown": "Desconocido"
+                }
+            }
+        }
+    },
+    "issues": {
+        "deprecated_valve_switch": {
+            "description": "La entidad de interruptor para Shelly Gas Valve est\u00e1 obsoleta. Hay una entidad de v\u00e1lvula {entity} disponible y se debe utilizar en el futuro. Para esta nueva entidad de v\u00e1lvula, debes utilizar el servicio {service}.",
+            "title": "La entidad de interruptor para Shelly Gas Valve est\u00e1 obsoleta"
+        },
+        "deprecated_valve_switch_entity": {
+            "description": "Tu entidad Shelly Gas Valve `{entity}` se est\u00e1 utilizando en `{info}`. Hay una entidad de v\u00e1lvula disponible y se debe utilizar en el futuro. \n\n Por favor, ajusta `{info}` para solucionar este problema.",
+            "title": "Se detect\u00f3 una entidad de interruptor obsoleta para Shelly Gas Valve en {info}"
+        },
+        "device_not_calibrated": {
+            "description": "El dispositivo Shelly {device_name} con direcci\u00f3n IP {ip_address} requiere calibraci\u00f3n. Para calibrar el dispositivo, debe reiniciarse despu\u00e9s de la instalaci\u00f3n adecuada en la v\u00e1lvula. Puedes reiniciar el dispositivo en su panel web, ve a 'Configuraci\u00f3n' > 'Reinicio del dispositivo'.",
+            "title": "El dispositivo Shelly {device_name} no est\u00e1 calibrado"
+        },
+        "push_update_failure": {
+            "description": "Home Assistant no est\u00e1 recibiendo actualizaciones autom\u00e1ticas del dispositivo Shelly {device_name} con direcci\u00f3n IP {ip_address}. Consulta la configuraci\u00f3n de CoIoT en el panel web del dispositivo y tu configuraci\u00f3n de red.",
+            "title": "Fallo en la actualizaci\u00f3n push del dispositivo {device_name} de Shelly"
+        },
+        "unsupported_firmware": {
+            "description": "Tu dispositivo Shelly {device_name} con direcci\u00f3n IP {ip_address} ejecuta un firmware no compatible. Por favor, actualiza el firmware. \n\nSi el dispositivo no ofrece una actualizaci\u00f3n, comprueba la conectividad a Internet (puerta de enlace, DNS, hora) y reinicia el dispositivo.",
+            "title": "Firmware no compatible con el dispositivo {device_name}"
+        }
+    },
+    "options": {
+        "abort": {
+            "ble_unsupported": "La compatibilidad con Bluetooth requiere la versi\u00f3n de firmware {ble_min_version} o m\u00e1s reciente."
+        },
+        "step": {
+            "init": {
+                "data": {
+                    "ble_scanner_mode": "Modo de esc\u00e1ner Bluetooth"
+                },
+                "description": "El escaneo de Bluetooth puede ser activo o pasivo. Con activo, Shelly solicita datos de dispositivos cercanos; con pasivo, Shelly recibe datos no solicitados de dispositivos cercanos."
+            }
+        }
+    },
+    "selector": {
+        "ble_scanner_mode": {
+            "options": {
+                "active": "Activo",
+                "disabled": "Deshabilitado",
+                "passive": "Pasivo"
+            }
+        }
+    }
+}

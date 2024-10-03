@@ -1,0 +1,88 @@
+{
+    "device_automation": {
+        "action_type": {
+            "lock": "{entity_name} z\u00e1r\u00e1sa",
+            "open": "{entity_name} nyit\u00e1sa",
+            "unlock": "{entity_name} felold\u00e1sa"
+        },
+        "condition_type": {
+            "is_locked": "{entity_name} z\u00e1rolva",
+            "is_open": "{entity_name} nyitva van",
+            "is_unlocked": "{entity_name} feloldva"
+        },
+        "extra_fields": {
+            "for": "Id\u0151tartam"
+        },
+        "trigger_type": {
+            "locked": "{entity_name} z\u00e1rolt",
+            "open": "{entity_name} kinyitva",
+            "unlocked": "{entity_name} fel lett oldva"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Z\u00e1r",
+            "state": {
+                "jammed": "Elakadt",
+                "locked": "Z\u00e1rolt",
+                "locking": "Z\u00e1r\u00e1s",
+                "open": "Nyitva",
+                "opening": "Nyit\u00e1s",
+                "unlocked": "Feloldva",
+                "unlocking": "Felold\u00e1s"
+            },
+            "state_attributes": {
+                "changed_by": {
+                    "name": "M\u00f3dos\u00edtotta"
+                },
+                "code_format": {
+                    "name": "K\u00f3dform\u00e1tum"
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "add_default_code": {
+            "message": "A(z) {entity_id} k\u00f3dja nem egyezik a(z) {code_format} mint\u00e1val."
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "{domain} integr\u00e1ci\u00f3 nem t\u00e1mogatja {platform} platform be\u00e1ll\u00edt\u00e1s\u00e1t.\n\nK\u00e9rem, t\u00e1vol\u00edtsa el a konfigur\u00e1ci\u00f3b\u00f3l \u00e9s ind\u00edtsa \u00fajra a Home Assistantot a probl\u00e9ma megold\u00e1s\u00e1hoz.",
+            "title": "A platform nem t\u00e1mogatott"
+        }
+    },
+    "services": {
+        "lock": {
+            "description": "Bez\u00e1r egy z\u00e1rat.",
+            "fields": {
+                "code": {
+                    "description": "A z\u00e1r z\u00e1r\u00e1s\u00e1hoz haszn\u00e1lt k\u00f3d.",
+                    "name": "K\u00f3d"
+                }
+            },
+            "name": "Z\u00e1r\u00e1s"
+        },
+        "open": {
+            "description": "Kinyit egy z\u00e1rat.",
+            "fields": {
+                "code": {
+                    "description": "A z\u00e1r kinyit\u00e1s\u00e1hoz haszn\u00e1lt k\u00f3d.",
+                    "name": "K\u00f3d"
+                }
+            },
+            "name": "Nyit\u00e1s"
+        },
+        "unlock": {
+            "description": "Felold egy z\u00e1rat.",
+            "fields": {
+                "code": {
+                    "description": "A z\u00e1r felold\u00e1s\u00e1hoz haszn\u00e1lt k\u00f3d.",
+                    "name": "K\u00f3d"
+                }
+            },
+            "name": "Felold\u00e1s"
+        }
+    },
+    "title": "Z\u00e1r"
+}

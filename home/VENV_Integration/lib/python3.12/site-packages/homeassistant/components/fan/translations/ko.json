@@ -1,0 +1,159 @@
+{
+    "device_automation": {
+        "action_type": {
+            "toggle": "{entity_name} \ud1a0\uae00",
+            "turn_off": "{entity_name} \ub044\uae30",
+            "turn_on": "{entity_name} \ucf1c\uae30"
+        },
+        "condition_type": {
+            "is_off": "{entity_name} \uaebc\uc838 \uc788\uc73c\uba74",
+            "is_on": "{entity_name} \ucf1c\uc838 \uc788\uc73c\uba74"
+        },
+        "trigger_type": {
+            "changed_states": "{entity_name}: \ucf1c\uc84c\uac70\ub098 \uaebc\uc84c\uc744 \ub54c",
+            "turned_off": "{entity_name}: \uaebc\uc84c\uc744 \ub54c",
+            "turned_on": "{entity_name}: \ucf1c\uc84c\uc744 \ub54c"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "\ud32c",
+            "state": {
+                "off": "\uaebc\uc9d0",
+                "on": "\ucf1c\uc9d0"
+            },
+            "state_attributes": {
+                "direction": {
+                    "name": "\ubc29\ud5a5",
+                    "state": {
+                        "forward": "\uc55e\uc73c\ub85c",
+                        "reverse": "\ubc18\uc804"
+                    }
+                },
+                "oscillating": {
+                    "name": "\ud68c\uc804",
+                    "state": {
+                        "false": "\uc544\ub2c8\uc694",
+                        "true": "\ub124"
+                    }
+                },
+                "percentage": {
+                    "name": "\uc18d\ub3c4"
+                },
+                "percentage_step": {
+                    "name": "\uc18d\ub3c4 \ub2e8\uacc4"
+                },
+                "preset_mode": {
+                    "name": "\ud504\ub9ac\uc14b \ubaa8\ub4dc"
+                },
+                "preset_modes": {
+                    "name": "\uc0ac\uc6a9 \uac00\ub2a5\ud55c \ud504\ub9ac\uc14b \ubaa8\ub4dc"
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "not_valid_preset_mode": {
+            "message": "\uc0ac\uc804 \uc124\uc815 \ubaa8\ub4dc {preset_mode} \uc720\ud6a8\ud558\uc9c0 \uc54a\uc2b5\ub2c8\ub2e4. \uc720\ud6a8\ud55c \uc0ac\uc804 \uc124\uc815 \ubaa8\ub4dc\ub294 {preset_modes} \uc785\ub2c8\ub2e4."
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "{domain} \ud1b5\ud569\uad6c\uc131\uc694\uc18c\ub97c \uc704\ud55c {platform} \ud50c\ub7ab\ud3fc\uc740 \ud50c\ub7ab\ud3fc \uc124\uc815\uc744 \uc9c0\uc6d0\ud558\uc9c0 \uc54a\uc2b5\ub2c8\ub2e4.\n\n\uc774 \ubb38\uc81c\ub97c \ud574\uacb0\ud558\ub824\uba74 \uad6c\uc131\uc5d0\uc11c \uc81c\uac70\ud558\uace0 Home Assistant\ub97c \ub2e4\uc2dc \uc2dc\uc791\ud558\uc2ed\uc2dc\uc624.",
+            "title": "\uc9c0\uc6d0\ub418\uc9c0 \uc54a\ub294 \ud50c\ub7ab\ud3fc \uc9c0\uc6d0"
+        }
+    },
+    "selector": {
+        "direction": {
+            "options": {
+                "forward": "\uc55e\uc73c\ub85c",
+                "reverse": "\ub4a4\ub85c"
+            }
+        }
+    },
+    "services": {
+        "decrease_speed": {
+            "description": "\ud32c\uc758 \uc18d\ub3c4\ub97c \ub0ae\ucda5\ub2c8\ub2e4.",
+            "fields": {
+                "percentage_step": {
+                    "description": "\uc18d\ub3c4\ub97c \ubc31\ubd84\uc728 \ub2e8\uc704\ub85c \ub0ae\ucda5\ub2c8\ub2e4.",
+                    "name": "\uac10\uc18c"
+                }
+            },
+            "name": "\uc18d\ub3c4 \uac10\uc18c"
+        },
+        "increase_speed": {
+            "description": "\ud32c\uc758 \uc18d\ub3c4\ub97c \ub192\uc785\ub2c8\ub2e4.",
+            "fields": {
+                "percentage_step": {
+                    "description": "\uc18d\ub3c4\ub97c \ubc31\ubd84\uc728 \ub2e8\uc704\ub85c \ub192\uc785\ub2c8\ub2e4.",
+                    "name": "\uc99d\uac00"
+                }
+            },
+            "name": "\uc18d\ub3c4 \uc99d\uac00"
+        },
+        "oscillate": {
+            "description": "\ud32c\uc758 \ud68c\uc804 \uc81c\uc5b4",
+            "fields": {
+                "oscillating": {
+                    "description": "\ud68c\uc804 \ucf1c\uac70\ub098 \ub044\uae30",
+                    "name": "\ud68c\uc804"
+                }
+            },
+            "name": "\ud68c\uc804"
+        },
+        "set_direction": {
+            "description": "\ud32c \ud68c\uc804 \ubc29\ud5a5\uc744 \uc124\uc815\ud569\ub2c8\ub2e4.",
+            "fields": {
+                "direction": {
+                    "description": "\ud68c\uc804 \ubc29\ud5a5",
+                    "name": "\ubc29\ud5a5"
+                }
+            },
+            "name": "\ubc29\ud5a5 \uc124\uc815"
+        },
+        "set_percentage": {
+            "description": "\ud32c \uc18d\ub3c4\ub97c \uc124\uc815\ud569\ub2c8\ub2e4.",
+            "fields": {
+                "percentage": {
+                    "description": "\ud32c\uc758 \uc18d\ub3c4",
+                    "name": "\ubc31\ubd84\uc728"
+                }
+            },
+            "name": "\uc18d\ub3c4 \uc124\uc815"
+        },
+        "set_preset_mode": {
+            "description": "\ud504\ub9ac\uc14b \ubaa8\ub4dc \uc124\uc815",
+            "fields": {
+                "preset_mode": {
+                    "description": "\ud504\ub9ac\uc14b \ubaa8\ub4dc",
+                    "name": "\ud504\ub9ac\uc14b \ubaa8\ub4dc"
+                }
+            },
+            "name": "\ud504\ub9ac\uc14b \ubaa8\ub4dc \uc124\uc815"
+        },
+        "toggle": {
+            "description": "\ud32c \ud1a0\uae00",
+            "name": "\ud1a0\uae00"
+        },
+        "turn_off": {
+            "description": "\ud32c \ub044\uae30",
+            "name": "\ub044\uae30"
+        },
+        "turn_on": {
+            "description": "\ud32c \ucf1c\uae30",
+            "fields": {
+                "percentage": {
+                    "description": "\ud32c\uc758 \uc18d\ub3c4",
+                    "name": "\ubc31\ubd84\uc728"
+                },
+                "preset_mode": {
+                    "description": "\ud504\ub9ac\uc14b \ubaa8\ub4dc",
+                    "name": "\ud504\ub9ac\uc14b \ubaa8\ub4dc"
+                }
+            },
+            "name": "\ucf1c\uae30"
+        }
+    },
+    "title": "\uc1a1\ud48d\uae30"
+}

@@ -1,0 +1,73 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Enhet er allerede konfigurert"
+        },
+        "step": {
+            "user": {
+                "description": "Vil du starte oppsettet?"
+            }
+        }
+    },
+    "exceptions": {
+        "invalid_config_entry": {
+            "message": "Ugyldig konfigurasjonsoppf\u00f8ring er oppgitt. Fikk {config_entry}"
+        },
+        "unloaded_config_entry": {
+            "message": "Ugyldig konfigurasjonsoppf\u00f8ring er oppgitt. {config_entry} er ikke lastet inn."
+        }
+    },
+    "services": {
+        "get_energy_prices": {
+            "fields": {
+                "config_entry": {
+                    "description": "Konfigurasjonsoppf\u00f8ringen som skal brukes for denne tjenesten.",
+                    "name": "Konfigurasjonsoppf\u00f8ring"
+                },
+                "incl_vat": {
+                    "name": "Inkludert mva."
+                },
+                "start": {
+                    "description": "Spesifiserer dato og tidspunkt som brukes til \u00e5 hente priser. Bruker i dag om utelatt.",
+                    "name": "Start"
+                }
+            }
+        },
+        "get_gas_prices": {
+            "fields": {
+                "config_entry": {
+                    "name": "Konfigurasjonsoppf\u00f8ring"
+                },
+                "incl_vat": {
+                    "name": "Inkludert mva."
+                },
+                "start": {
+                    "description": "Spesifiserer dato og tidspunkt som brukes til \u00e5 hente priser. Bruker i dag om utelatt.",
+                    "name": "Start"
+                }
+            }
+        },
+        "get_prices": {
+            "description": "Sp\u00f8r etter str\u00f8m- eller gasspriser fra EnergyZero.",
+            "fields": {
+                "end": {
+                    "description": "Hvilket tidspunkt prisene skal hentes til. Bruker i dag om ikke oppgitt.",
+                    "name": "Slutt"
+                },
+                "incl_vat": {
+                    "description": "Inkluder merverdiavgift av prisene. Settes til sann om ikke oppgitt.",
+                    "name": "Inkluder merverdiavgift"
+                },
+                "start": {
+                    "description": "Hvilket tidspunkt prisene skal hentes fra. Bruker i dag om ikke oppgitt.",
+                    "name": "Start"
+                },
+                "type": {
+                    "description": "Typen priser som skal hentes, str\u00f8m eller gass.",
+                    "name": "Type"
+                }
+            },
+            "name": "Hent priser"
+        }
+    }
+}

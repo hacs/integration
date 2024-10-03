@@ -1,0 +1,94 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Paslauga jau sukonfig\u016bruota",
+            "reauth_successful": "Pakartotinis autentifikavimas buvo s\u0117kmingas"
+        },
+        "error": {
+            "cannot_connect": "Nepavyko prisijungti",
+            "timeout_connect": "Baig\u0117si ry\u0161io u\u017emezgimo laikas",
+            "unknown": "Netik\u0117ta klaida"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "api_key": "API raktas",
+                    "password": "Slapta\u017eodis",
+                    "username": "Prisijungimos vardas"
+                },
+                "description": "Pateikite savo Hydrawise debesies paskyros naudotojo vard\u0105 ir slapta\u017eod\u012f:",
+                "title": "\u201eHydrawise\u201c prisijungimas"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "rain_sensor": {
+                "name": "Lietaus jutiklis"
+            },
+            "watering": {
+                "name": "Laistymas"
+            }
+        },
+        "sensor": {
+            "daily_active_water_time": {
+                "name": "Kasdienis aktyvaus laistymo laikas"
+            },
+            "daily_active_water_use": {
+                "name": "Kasdienis aktyvus vandens naudojimas"
+            },
+            "daily_inactive_water_use": {
+                "name": "Kasdienis neaktyvus vandens naudojimas"
+            },
+            "daily_total_water_use": {
+                "name": "Bendras vandens suvartojimas per dien\u0105"
+            },
+            "next_cycle": {
+                "name": "Kitas ciklas"
+            },
+            "watering_time": {
+                "name": "Lik\u0119s laistymo laikas"
+            }
+        },
+        "switch": {
+            "auto_watering": {
+                "name": "Automatinis laistymas"
+            },
+            "manual_watering": {
+                "name": "Rankinis laistymas"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_yaml_import_issue": {
+            "description": "\u201eHydrawise\u201c konfig\u016bravimas naudojant YAML pa\u0161alinamas, ta\u010diau importuojant YAML konfig\u016bracij\u0105 \u012fvyko {error_type} klaida. \n\n \u012esitikinkite, kad ry\u0161ys su \u201eHydrawise\u201c veikia, ir i\u0161 naujo paleiskite \u201eHome Assistant\u201c, kad pabandytum\u0117te dar kart\u0105, arba pa\u0161alinkite \u201eHydrawise YAML\u201c konfig\u016bracij\u0105 i\u0161 failo configuration.yaml ir toliau rankiniu b\u016bdu [nustatykite integracij\u0105] ( {url} ).",
+            "title": "Hydrawise YAML konfig\u016bracijos importavimas nepavyko"
+        }
+    },
+    "services": {
+        "resume": {
+            "description": "Atnaujina laistymo zonos automatin\u012f laistymo grafik\u0105.",
+            "name": "T\u0119sti automatin\u012f laistym\u0105"
+        },
+        "start_watering": {
+            "description": "Pradeda laistymo cikl\u0105 pasirinktoje laistymo zonoje.",
+            "fields": {
+                "duration": {
+                    "description": "Laistymo ciklo trukm\u0117. Jei nenurodyta (arba nulis), bus naudojama numatytoji dr\u0117kinimo zonos laistymo trukm\u0117, nustatyta Hydrawise mobiliojoje arba \u017einiatinklio program\u0117l\u0117je.",
+                    "name": "Trukm\u0117"
+                }
+            },
+            "name": "Prad\u0117kite laistyti"
+        },
+        "suspend": {
+            "description": "Sustabdo laistymo zonos automatin\u012f laistymo grafik\u0105 iki nurodytos datos ir laiko.",
+            "fields": {
+                "until": {
+                    "description": "Automatinio laistymo grafiko atnaujinimo data ir laikas.",
+                    "name": "Iki"
+                }
+            },
+            "name": "Sustabdykite automatin\u012f laistym\u0105"
+        }
+    }
+}

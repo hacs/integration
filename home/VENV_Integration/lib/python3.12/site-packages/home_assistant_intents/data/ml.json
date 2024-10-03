@@ -1,0 +1,370 @@
+{
+  "language": "ml",
+  "intents": {
+    "HassTurnOff": {
+      "data": [
+        {
+          "sentences": [
+            "<turn_off> [<the>] <name>",
+            "[<the>] <name> <turn_off>"
+          ]
+        },
+        {
+          "sentences": [
+            "<turn_off> [<all>] (<light>|<lights>) [<the>] <area><in>",
+            "<turn_off> [<all>] <area> (<light>|<lights>)",
+            "<turn> [<all>] (<light>|<lights>) <area><in> <_off>"
+          ],
+          "slots": {
+            "domain": "light"
+          }
+        },
+        {
+          "sentences": [
+            "<close> <name>"
+          ],
+          "response": "cover_device_class",
+          "slots": {
+            "device_class": "curtain",
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "<close> <name> <area>യിലെ",
+            "<area>[യിലെ] <name> <close>"
+          ],
+          "response": "cover_area",
+          "slots": {
+            "device_class": "curtain",
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "<close> [<the>] ഗരാജ് വാതിൽ",
+            "[<the>] ഗരാജ് വാതിൽ <close>"
+          ],
+          "response": "cover_device_class",
+          "slots": {
+            "device_class": "garage",
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "<close> [<the>] <window> <area>യിലെ",
+            "<close> <area>[<in>] <window>"
+          ],
+          "response": "cover_area",
+          "slots": {
+            "device_class": [
+              "window",
+              "blind",
+              "curtain",
+              "shutter"
+            ],
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "<turn_off> [<all>] [<the>] (<fan> | <fans>) [<the>] <area><in>",
+            "<turn_off> <area>[<in>] (<fan> | <fans>)",
+            "<turn> [<all>] <area>[<in>] (<fan> | <fans>) <_off>",
+            "[<the>] <area>[<in>] [<all>] [<the>] (<fan> | <fans>) <turn_off>"
+          ],
+          "slots": {
+            "domain": "fan",
+            "name": "all"
+          }
+        }
+      ]
+    },
+    "HassTurnOn": {
+      "data": [
+        {
+          "sentences": [
+            "<turn_on> [<all>] (<light> | <lights>) <area><in>",
+            "<turn_on> [<all>] <area>[<in>] (<light> | <lights>)",
+            "<turn> [<all>] (<light> | <lights>) <area><in> <_on>"
+          ],
+          "slots": {
+            "domain": "light"
+          }
+        },
+        {
+          "sentences": [
+            "<turn_on> [<all>] (<fan>|<fans>) [<the>] <area><in>",
+            "<turn_on> <area>[<in>] (<fan>|<fans>)",
+            "<turn> [<all>] <area>[<in>] (<fan>|<fans>) <_on>"
+          ],
+          "slots": {
+            "domain": "fan",
+            "name": "all"
+          }
+        },
+        {
+          "sentences": [
+            "<turn_on> [<the>] <name>",
+            "[<the>] <name> <turn_on>"
+          ]
+        },
+        {
+          "sentences": [
+            "(<open> | ഉയർത്തുക) <name>"
+          ],
+          "response": "cover"
+        },
+        {
+          "sentences": [
+            "(<open> | ഉയർത്തുക) [<the>] <name> <area><in>"
+          ],
+          "response": "cover_area"
+        },
+        {
+          "sentences": [
+            "(<open> | ഉയർത്തുക) [<the>] ഗരാജ് വാതിൽ"
+          ],
+          "response": "cover_device_class",
+          "slots": {
+            "device_class": "garage",
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "(<open> | ഉയർത്തുക) [<the>] <window> <area><in>",
+            "(<open> | ഉയർത്തുക) <area> <window>"
+          ],
+          "response": "cover_area",
+          "slots": {
+            "device_class": [
+              "window",
+              "blind",
+              "curtain",
+              "shutter"
+            ],
+            "domain": "cover"
+          }
+        }
+      ]
+    },
+    "HassLightSet": {
+      "data": [
+        {
+          "sentences": [
+            "(<set>|<change>) <name>[<of>] <_brightness> <brightness> [<to>]",
+            "(<set>|<change>) <_brightness> <name>[<of>] <brightness> [<to>]",
+            "(<set>|<change>) <name> <brightness> <_brightness> [<to>]",
+            "(<set>|<change>) <name> <brightness> [<to>]",
+            "<name><of> <_brightness> <brightness> <turn>",
+            "<name><in> <_brightness> <brightness> <turn>"
+          ],
+          "response": "brightness"
+        },
+        {
+          "sentences": [
+            "(<set>|<change>) <_brightness> <area>[<in>] <brightness> [<to>]",
+            "(<set>|<change>) <_brightness> <area>[<of>] <brightness> [<to>]",
+            "(<set>|<change>) <area>[<in>] <_brightness> <brightness> <to>",
+            "(<set>|<change>) <area> <brightness> <_brightness> <to>",
+            "(<set>|<change>) <area> <brightness> <to>",
+            "<area>[<of>] <_brightness> <brightness> <turn>",
+            "<area>[<in>] <_brightness> <brightness> <turn>"
+          ],
+          "slots": {
+            "name": "all"
+          },
+          "response": "brightness_area"
+        },
+        {
+          "sentences": [
+            "<set> <name><of> <_brightness> <max> <to>",
+            "<set> <_brightness> <name><of> <max> [<to>]",
+            "<set> <name> <max> [<to>]"
+          ],
+          "slots": {
+            "brightness": 100
+          },
+          "response": "brightness"
+        },
+        {
+          "sentences": [
+            "<set> <name>[<of>] <_brightness> <min> [<to>]",
+            "<set> <name>[<in>] <_brightness> <min> [<to>]",
+            "<set> <_brightness> <name>[<of>] <min> [<to>]",
+            "<set> <name> <min> <_brightness> [<to>]"
+          ],
+          "slots": {
+            "brightness": 1
+          },
+          "response": "brightness"
+        },
+        {
+          "sentences": [
+            "<set> <name> {color} [<colour>] [<to>]",
+            "<set> [<the>] [<colour>] <name><of> {color} [<to>]"
+          ],
+          "response": "color"
+        }
+      ]
+    },
+    "HassClimateGetTemperature": {
+      "data": [
+        {
+          "sentences": [
+            "<what_is> [<area>[<in>]] <temp>",
+            "<area>[<in>] <temp> <what_is>",
+            "<what_is> <temp> [<area><in>]"
+          ]
+        }
+      ]
+    }
+  },
+  "responses": {
+    "errors": {
+      "no_intent": "ക്ഷമിക്കണം, എനിക്ക് അത് മനസ്സിലായില്ല",
+      "no_area": "{{ area }} എന്ന പേരുള്ള ഇടമില്ല",
+      "no_domain_in_area": "{{ area }} എന്നിടത്ത് ഒരു {{ domain }} അടങ്ങിയിട്ടില്ല",
+      "no_device_class_in_area": "{{ area }} ഇൽ ഒരു {{ device_class }} അടങ്ങിയിട്ടില്ല",
+      "no_entity": "{{ entity }} എന്ന് പേരുള്ള ഉപകരണമോ എന്റിറ്റിയോ ഇല്ല",
+      "handle_error": "ഇന്റന്റ് കൈകാര്യം ചെയ്യുമ്പോൾ അപ്രതീക്ഷിതമായ ഒരു പിശക് സംഭവിച്ചു"
+    },
+    "intents": {
+      "HassGetState": {},
+      "HassTurnOff": {
+        "default": "{{ slots.name }} നിറുത്തി",
+        "lights_area": "{{ slots.area }}യിലെ ലൈറ്റുകൾ ഓഫാക്കി",
+        "fans_area": "{{ slots.area }}യിലെ പങ്കകൾ നിറുത്തി",
+        "cover": "{{ slots.name }} അടച്ചു",
+        "cover_area": "{{ slots.area }} അടച്ചു",
+        "cover_device_class": "{{ slots.device_class }} അടച്ചു"
+      },
+      "HassTurnOn": {
+        "default": "{{ slots.name }} ഓണാക്കി",
+        "lights_area": "{{ slots.area }}യിലെ ലാമ്പുകൾ തെളിച്ചു",
+        "fans_area": "{{ slots.area }}യിലെ ഫാനുകൾ ചലിപ്പിച്ചു",
+        "cover": "{{ slots.name }} തുറന്നു",
+        "cover_area": "{{ slots.area }} തുറന്നു",
+        "cover_device_class": "{{ slots.device_class }} തുറന്നു"
+      },
+      "HassLightSet": {
+        "brightness": "{{ slots.name }}ന്റെ തെളിച്ചം {{ slots.brightness }} ആക്കി",
+        "brightness_area": "{{ slots.area }}യിലെ വെളിച്ചം {{ slots.brightness }} ആയി ക്രമപ്പെടുത്തി",
+        "color": "{{ slots.name }}ന്റെ നിറം {{ slots.color }} ആക്കി മാറ്റി",
+        "color_area": "{{ slots.area }}ലെ നിറം {{ slots.color }} ആക്കി"
+      },
+      "HassClimateGetTemperature": {
+        "default": "{{ state.state }} ഡിഗ്രികൾ"
+      }
+    }
+  },
+  "lists": {
+    "color": {
+      "values": [
+        {
+          "in": "(വെ(ള്ള|ളുത്ത)|ധവള|ശ്വ്വേത)",
+          "out": "white"
+        },
+        {
+          "in": "(ക(റുപ്പ്|റുത്ത))",
+          "out": "black"
+        },
+        {
+          "in": "(ചു(വപ്പ്|വന്ന|മപ്പ്|വന്നത്)|ചെ(മപ്പ്|മപ്പു|മന്ന)|ചുമ(ന്ന|ന്നത്))",
+          "out": "red"
+        },
+        {
+          "in": "ഓറഞ്ച്",
+          "out": "orange"
+        },
+        {
+          "in": "മഞ്ഞ",
+          "out": "yellow"
+        },
+        {
+          "in": "പച്ച",
+          "out": "green"
+        },
+        {
+          "in": "നീല",
+          "out": "blue"
+        },
+        {
+          "in": "(പർപ്പിൾ|ഊത|ധൂമ്ര)",
+          "out": "purple"
+        },
+        {
+          "in": "(ത(വിട്ട്|വിട്|വിട്ടു)|ബ്രൗൺ)",
+          "out": "brown"
+        }
+      ]
+    },
+    "brightness": {
+      "range": {
+        "type": "percentage",
+        "from": 0,
+        "to": 100
+      }
+    },
+    "temperature": {
+      "range": {
+        "type": "temperature",
+        "from": 0,
+        "to": 100
+      }
+    },
+    "temperature_unit": {
+      "values": [
+        "celsius",
+        {
+          "in": "c|സെ(ൽഷ്യസ്|ന്റിഗ്രേഡ്)",
+          "out": "celsius"
+        },
+        "fahrenheit",
+        {
+          "in": "f|ഫാറൻ(ഹീറ്റ്|ഹൈറ്റ്)",
+          "out": "fahrenheit"
+        }
+      ]
+    }
+  },
+  "expansion_rules": {
+    "all": "(എല്ലാ|മുഴുവൻ|സർവ്വ|സകല)",
+    "the": "(ഈ|ആ)",
+    "in": "(ഇ(ൽ|ലെ)|യുടെ ഉള്ളി(ൽ|ലെ)|യി(ലെ|ൽ)|യുടെ അക(ത്തെ|ത്ത്|ത്തുള്ള)|ന്റെ ഉള്ളി(ൽ|ലെ|ലുള്ള)|ൽ|ലെ)",
+    "of": "(യുടെ|ഉടെ|ടെ|ന്റെ|ഇന്റെ)",
+    "to": "(ആയി|വരെ)",
+    "name": "{name}",
+    "area": "{area}",
+    "what_is": "(എന്താ|എ(ന്ത് ആണ്|ന്താണ്|ന്താകുന്നു)|(ന്താ|ന്നാ)ണ്|എ(ന്നാ|ന്നാണ്|ന്നതാണ്)|എന്തോ(ണ്ടാ|ണ്ടാണ്)|എ(ത്ര|ത്രയാ|ത്രയാണ്|ത്രയാകുന്നു))",
+    "colour": "(നിറം|വർണം|ചായം)",
+    "_brightness": "(തെളിച്ചം|വെണ്മ|പ്രകാശം)",
+    "brightness": "{brightness}[%| percent|ശതമാനം]",
+    "min": "(കുറ(ഞ്ഞ|ഞ്ഞത്)|ന്യൂനത(മ|മം))",
+    "max": "(കൂടിയത്|പരമാവധി|ഉച്ചനില)",
+    "turn_on": "(ഓണാ(ക്കൂ|ക്കുക|ക്കുവിൻ)|ഇ(ടൂ|ടുക|ടുവിൻ)|ഓൺ ചെ(യ്യൂ|യ്യുക|യ്യുവിൻ)|തെളി(ക്കൂ|ക്കുക|ക്കുവിൻ)|തെളിയി(ക്കൂ|ക്കുക|ക്കുവിൻ))",
+    "turn_off": "(ഓഫാ(ക്കൂ|ക്കുക|ക്കുവിൻ)|നിർ(ത്തൂ|ത്തുക|ത്തുവിൻ)|ഓഫ് (ചെയ്യൂ|ചെയ്യുക|ആക്കൂ|ചെയ്യുവിൻ|ആക്കുവിൻ)|കെടു(ത്തുക|ത്തൂ|ത്തുവിൻ)|അണ(ക്കൂ|ക്കുക|ക്കുവിൻ))",
+    "_on": "(ഓൺ|പ്രവർത്തന നിരതം)",
+    "_off": "(ഓഫ്|പ്രവർത്തന രഹിതം)",
+    "turn": "(ചെ(യ്യൂ|യ്യുക|വിൻ)|ആ(ക്കുക|ക്കൂ|ക്കുവിൻ))",
+    "open": "(തുറ(ക്കൂ|ക്കുക|ക്കുവിൻ))",
+    "close": "(അട(ക്കൂ|ക്കുക|ക്കുവിൻ)|മൂടു(ക|വിൻ)|മൂടൂ|മറയ്(ക്കുക|ക്കൂ|ക്കുവിൻ))",
+    "window": "(ജന(ൽ|ലുകൾ)|മറ[കൾ]|തിരശ്ശീല[കൾ]|ബ്ലൈൻ(ഡ്|ഡുകൾ)|കർട്ട(ൻ|നുകൾ)|ഷട്ട(ർ|റുകൾ))",
+    "set": "(ക്രമപ്പെടുത്തുക|ആക്കുക|ക്രമീകരിക്കുക)",
+    "change": "(മാറ്റുക|ഭേദപ്പെടുത്തുക|പരിവര്‍ത്തനം ചെയ്യുക)",
+    "temp": "(താപനില|ചൂടുനില|ചൂട്|തണുപ്പ്)",
+    "temperature": "{temperature}[°| ഡിഗ്രി| ഡിഗ്രീസ്] [{temperature_unit}]",
+    "fan": "(ഫാൻ|ഫാനും|വിശറി|വിശറിയും|പങ്ക|പങ്കയും|പാറ്റൽ യന്ത്രം|പാറ്റൽ യന്ത്രവും)",
+    "fans": "(ഫാനുകളും|ഫാനുകൾ|പങ്കകളും|പങ്കകൾ|വിശറികളും|വിശറികൾ|പാറ്റൽ യന്ത്രങ്ങളും|പാറ്റൽ യന്ത്രങ്ങൾ)",
+    "light": "(വിള(ക്ക്|ക്കും)|ലാ(മ്പ്|മ്പും)|ലൈ(റ്റ്|റ്റും))",
+    "lights": "(വിളക്കുക(ൾ|ളും)|ലാമ്പുക(ൾ|ളും)|ലൈറ്റുക(ൾ|ളും))"
+  },
+  "skip_words": [
+    "ദയവായി",
+    "ദയവു ചെയ്ത്",
+    "പ്ലീസ്",
+    "കനിവായി"
+  ]
+}

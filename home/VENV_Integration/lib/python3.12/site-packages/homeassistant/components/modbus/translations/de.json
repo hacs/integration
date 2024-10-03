@@ -1,0 +1,114 @@
+{
+    "issues": {
+        "deprecated_close_comm_config": {
+            "description": "Bitte entferne den Schl\u00fcssel `{config_key}` aus dem Eintrag {integration} in deiner configuration.yaml-Datei und starte Home Assistant neu, um dieses Problem zu beheben. Alle Fehler werden gemeldet, da `lazy_error_count` akzeptiert, aber ignoriert wird.",
+            "title": "Der Konfigurationsschl\u00fcssel `{config_key}` wird entfernt"
+        },
+        "deprecated_restart": {
+            "description": "Bitte lade YAML \u00fcber die Entwicklertools in der Benutzeroberfl\u00e4che neu und nicht \u00fcber die Aktion `modbus.restart`.",
+            "title": "modbus.restart wird entfernt"
+        },
+        "deprecated_retries": {
+            "description": "Bitte entfernen den Schl\u00fcssel `{config_key}` aus dem Eintrag {integration} in deiner configuration.yaml-Datei und starte Home Assistant neu, um dieses Problem zu beheben. \n\nDie maximale Anzahl der Wiederholungsversuche ist jetzt auf 3 festgelegt.",
+            "title": "Der Konfigurationsschl\u00fcssel {config_key} wird entfernt"
+        },
+        "deprecated_retry_on_empty": {
+            "description": "Bitte entferne den Schl\u00fcssel `{config_key}` aus dem Eintrag {integration} in deiner Datei configuration.yaml und starte Home Assistant neu, um dieses Problem zu beheben. \n\nBei leerem Wert erneut versuchen wird automatisch angewendet. Weitere Fehlerbehandlungsparameter findest du in der [Dokumentation]({url}).",
+            "title": "Der Konfigurationsschl\u00fcssel `{config_key}` wird entfernt"
+        },
+        "duplicate_entity_entry": {
+            "description": "Eine Adresse kann nur einer Entit\u00e4t zugeordnet werden. Bitte korrigiere den Eintrag in deiner \u201econfiguration.yaml\u201c-Datei und starte Home Assistant neu, um dieses Problem zu beheben.",
+            "title": "Die Modbus-{sub_1}-Adresse {sub_2} ist doppelt vorhanden, der zweite Eintrag wurde nicht geladen."
+        },
+        "duplicate_entity_name": {
+            "description": "Ein Entit\u00e4tsname muss eindeutig sein. Bitte korrigiere den Eintrag in deiner \u201econfiguration.yaml\u201c-Datei und starte Home Assistant neu, um dieses Problem zu beheben.",
+            "title": "Modbus {sub_1} ist doppelt vorhanden, zweiter Eintrag nicht geladen."
+        },
+        "duplicate_modbus_entry": {
+            "description": "Bitte aktualisiere {sub_2} und/oder {sub_1} f\u00fcr den Eintrag in deiner \u201econfiguration.yaml\u201c-Datei und starte Home Assistant neu, um dieses Problem zu beheben.",
+            "title": "Modbus {sub_2} Host/Port {sub_1} ist doppelt vorhanden, zweiter Eintrag nicht geladen."
+        },
+        "missing_modbus_name": {
+            "description": "Bitte f\u00fcge den Schl\u00fcssel `{sub_1}` zum Eintrag {integration} mit dem Host `{sub_2}` in deiner configuration.yaml-Datei hinzu und starte Home Assistant neu, um dieses Problem zu beheben \n\n. `{sub_1}: {sub_3}` wurden hinzugef\u00fcgt.",
+            "title": "Modbus-Eintrag mit fehlendem Hostnamen {sub_2}"
+        },
+        "no_entities": {
+            "description": "Bitte f\u00fcge in deiner \u201econfiguration.yaml\u201c-Datei mindestens eine Entit\u00e4t zu Modbus {sub_1} hinzu und starte Home Assistant neu, um dieses Problem zu beheben.",
+            "title": "Modbus {sub_1} enth\u00e4lt keine Entit\u00e4ten, Eintrag nicht geladen."
+        },
+        "removed_lazy_error_count": {
+            "description": "Bitte entferne den Schl\u00fcssel `{config_key}` aus dem Eintrag {integration} in deiner configuration.yaml-Datei und starte Home Assistant neu, um dieses Problem zu beheben. Alle Fehler werden gemeldet, da lazy_error_count akzeptiert, aber ignoriert wird.",
+            "title": "Der Konfigurationsschl\u00fcssel {config_key} wird entfernt"
+        }
+    },
+    "services": {
+        "reload": {
+            "description": "L\u00e4dt alle Modbus-Entit\u00e4ten neu.",
+            "name": "Neu laden"
+        },
+        "restart": {
+            "description": "Startet den Modbus-Hub neu (bei Ausf\u00fchrung Stopp, dann Start).",
+            "fields": {
+                "hub": {
+                    "description": "Name des Modbus-Hubs.",
+                    "name": "Hub"
+                }
+            },
+            "name": "Neu starten"
+        },
+        "stop": {
+            "description": "Stoppt den Modbus-Hub.",
+            "fields": {
+                "hub": {
+                    "description": "Name des Modbus-Hubs.",
+                    "name": "Hub"
+                }
+            },
+            "name": "Stopp"
+        },
+        "write_coil": {
+            "description": "Schreibt in einen Modbus-Coil.",
+            "fields": {
+                "address": {
+                    "description": "Adresse des Registers, in das geschrieben werden soll.",
+                    "name": "Adresse"
+                },
+                "hub": {
+                    "description": "Name des Modbus-Hubs.",
+                    "name": "Hub"
+                },
+                "slave": {
+                    "description": "Adresse der Modbus-Einheit/Slave.",
+                    "name": "Slave"
+                },
+                "state": {
+                    "description": "Zu schreibender Zustand.",
+                    "name": "Zustand"
+                }
+            },
+            "name": "Schreib-Coil"
+        },
+        "write_register": {
+            "description": "Schreibt in ein Modbus-Halteregister.",
+            "fields": {
+                "address": {
+                    "description": "Adresse des Bestandsregisters, in das geschrieben werden soll.",
+                    "name": "Adresse"
+                },
+                "hub": {
+                    "description": "Name des Modbus-Hubs.",
+                    "name": "Hub"
+                },
+                "slave": {
+                    "description": "Adresse der Modbus-Einheit/Slave.",
+                    "name": "Slave"
+                },
+                "value": {
+                    "description": "Zu schreibender Wert (Einzelwert oder Array).",
+                    "name": "Wert"
+                }
+            },
+            "name": "Register schreiben"
+        }
+    }
+}

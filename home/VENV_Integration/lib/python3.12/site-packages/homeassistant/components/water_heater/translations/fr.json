@@ -1,0 +1,107 @@
+{
+    "device_automation": {
+        "action_type": {
+            "turn_off": "D\u00e9sactiver {entity_name}",
+            "turn_on": "Activer {entity_name}"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Chauffe-eau",
+            "state": {
+                "eco": "\u00c9co",
+                "electric": "\u00c9lectrique",
+                "gas": "Gaz",
+                "heat_pump": "Pompe \u00e0 chaleur",
+                "high_demand": "Demande \u00e9lev\u00e9e",
+                "off": "\u00c9teint",
+                "performance": "Performance"
+            },
+            "state_attributes": {
+                "away_mode": {
+                    "name": "Mode absent",
+                    "state": {
+                        "off": "D\u00e9sactiv\u00e9",
+                        "on": "Activ\u00e9"
+                    }
+                },
+                "current_operation": {
+                    "name": "Mode actuel"
+                },
+                "current_temperature": {
+                    "name": "Temp\u00e9rature actuelle"
+                },
+                "max_temp": {
+                    "name": "Temp\u00e9rature cible maximale"
+                },
+                "min_temp": {
+                    "name": "Temp\u00e9rature cible minimale"
+                },
+                "target_temp_high": {
+                    "name": "Temp\u00e9rature cible sup\u00e9rieure"
+                },
+                "target_temp_low": {
+                    "name": "Temp\u00e9rature cible inf\u00e9rieure"
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "not_valid_operation_mode": {
+            "message": "Le mode de fonctionnement {operation_mode} n'est pas valide pour {entity_id}. Les modes de fonctionnement valides sont\u00a0: {operation_list}."
+        },
+        "operation_list_not_defined": {
+            "message": "Le mode de fonctionnement {operation_mode} n'est pas valide pour {entity_id}. La liste des op\u00e9rations n'est pas d\u00e9finie."
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "La plateforme {platform} pour l'int\u00e9gration {domain} ne prend pas en charge la configuration de la plateforme.\n\nVeuillez la supprimer de votre configuration et red\u00e9marrer Home Assistant pour r\u00e9soudre ce probl\u00e8me.",
+            "title": "Prise en charge de la plateforme non prise en charge"
+        }
+    },
+    "services": {
+        "set_away_mode": {
+            "description": "Active/d\u00e9sactive le mode Absence.",
+            "fields": {
+                "away_mode": {
+                    "description": "Nouvelle valeur du mode absent.",
+                    "name": "Mode Absent"
+                }
+            },
+            "name": "R\u00e9gler le mode absent"
+        },
+        "set_operation_mode": {
+            "description": "D\u00e9finit le mode de fonctionnement.",
+            "fields": {
+                "operation_mode": {
+                    "description": "Nouvelle valeur du mode de fonctionnement. Pour une liste des modes possibles, reportez-vous \u00e0 la documentation d'int\u00e9gration.",
+                    "name": "Mode de fonctionnement"
+                }
+            },
+            "name": "D\u00e9finir le mode de fonctionnement"
+        },
+        "set_temperature": {
+            "description": "D\u00e9finit la temp\u00e9rature cible.",
+            "fields": {
+                "operation_mode": {
+                    "description": "Nouvelle valeur du mode de fonctionnement. Pour une liste des modes possibles, reportez-vous \u00e0 la documentation d'int\u00e9gration.",
+                    "name": "Mode de fonctionnement"
+                },
+                "temperature": {
+                    "description": "Nouvelle temp\u00e9rature cible pour le chauffe-eau.",
+                    "name": "Temp\u00e9rature"
+                }
+            },
+            "name": "R\u00e9gler la temp\u00e9rature"
+        },
+        "turn_off": {
+            "description": "\u00c9teint le chauffe-eau.",
+            "name": "\u00c9teindre"
+        },
+        "turn_on": {
+            "description": "Allume le chauffe-eau.",
+            "name": "Allumer"
+        }
+    }
+}

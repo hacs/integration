@@ -1,0 +1,114 @@
+{
+    "device_automation": {
+        "action_type": {
+            "toggle": "Nyala/matikan {entity_name}",
+            "turn_off": "Matikan {entity_name}",
+            "turn_on": "Nyalakan {entity_name}"
+        },
+        "condition_type": {
+            "is_off": "{entity_name} mati",
+            "is_on": "{entity_name} nyala"
+        },
+        "trigger_type": {
+            "changed_states": "{entity_name} dinyalakan atau dimatikan",
+            "turned_off": "{entity_name} dimatikan",
+            "turned_on": "{entity_name} dinyalakan"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Daring",
+            "state": {
+                "off": "Mati",
+                "on": "Nyala"
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "Platform {platform} untuk integrasi {domain} tidak mendukung penyiapan platform. \n\nHarap hapus dari konfigurasi Anda dan mulai ulang Home Assistant untuk memperbaiki masalah ini.",
+            "title": "Dukungan platform tidak didukung"
+        }
+    },
+    "services": {
+        "delete_command": {
+            "description": "Menghapus perintah atau daftar perintah dari basis data.",
+            "fields": {
+                "command": {
+                    "description": "Perintah tunggal atau daftar perintah yang akan dihapus.",
+                    "name": "Perintah"
+                },
+                "device": {
+                    "description": "Perangkat dari mana perintah akan dihapus.",
+                    "name": "Perangkat"
+                }
+            },
+            "name": "Hapus perintah"
+        },
+        "learn_command": {
+            "description": "Mempelajari perintah atau daftar perintah dari perangkat.",
+            "fields": {
+                "alternative": {
+                    "name": "Alternatif"
+                },
+                "command": {
+                    "name": "Perintah"
+                },
+                "command_type": {
+                    "name": "Jenis perintah"
+                },
+                "device": {
+                    "name": "Perangkat"
+                },
+                "timeout": {
+                    "name": "Tenggang waktu"
+                }
+            }
+        },
+        "send_command": {
+            "description": "Mengirimkan perintah atau daftar perintah ke perangkat.",
+            "fields": {
+                "command": {
+                    "description": "Perintah tunggal atau daftar perintah untuk dikirim.",
+                    "name": "Perintah"
+                },
+                "delay_secs": {
+                    "description": "Waktu tunda antar-perintah sebelum diulang.",
+                    "name": "Tunda dalam detik"
+                },
+                "device": {
+                    "description": "ID Perangkat tujuan perintah.",
+                    "name": "Perangkat"
+                },
+                "hold_secs": {
+                    "description": "Waktu jeda sebelum rilis dikirim.",
+                    "name": "Jeda dalam detik"
+                },
+                "num_repeats": {
+                    "description": "Berapa kali Anda ingin mengulangi perintah.",
+                    "name": "Berulang"
+                }
+            },
+            "name": "Kirim perintah"
+        },
+        "toggle": {
+            "description": "Mengaktifkan/menonaktifkan perangkat.",
+            "name": "Alihkan"
+        },
+        "turn_off": {
+            "description": "Matikan perangkat.",
+            "name": "Matikan"
+        },
+        "turn_on": {
+            "description": "Mengirimkan perintah nyalakan.",
+            "fields": {
+                "activity": {
+                    "description": "ID Aktivitas atau nama aktivitas yang akan dimulai.",
+                    "name": "Aktivitas"
+                }
+            },
+            "name": "Nyalakan"
+        }
+    },
+    "title": "Daring"
+}

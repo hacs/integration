@@ -1,0 +1,163 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Laite on jo m\u00e4\u00e4ritetty"
+        },
+        "error": {
+            "cannot_connect": "Yhteyden muodostaminen ep\u00e4onnistui",
+            "invalid_auth": "Virheellinen todennus",
+            "no_homes": "T\u00e4h\u00e4n tado-tiliin ei ole liitetty koteja.",
+            "unknown": "Odottamaton virhe"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "password": "Salasana",
+                    "username": "K\u00e4ytt\u00e4j\u00e4tunnus"
+                },
+                "title": "Yhdist\u00e4 Tado-tiliisi"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "connection_state": {
+                "name": "Yhteyden tila"
+            },
+            "early_start": {
+                "name": "Varhainen aloitus"
+            },
+            "overlay": {
+                "name": "Peittokuva"
+            }
+        },
+        "climate": {
+            "tado": {
+                "state_attributes": {
+                    "preset_mode": {
+                        "state": {
+                            "auto": "Automaattinen"
+                        }
+                    }
+                }
+            }
+        },
+        "sensor": {
+            "ac": {
+                "name": "AC"
+            },
+            "automatic_geofencing": {
+                "name": "Automaattinen geoaidoitus"
+            },
+            "geofencing_mode": {
+                "name": "Geoaitaustila"
+            },
+            "heating": {
+                "name": "L\u00e4mmitys"
+            },
+            "outdoor_temperature": {
+                "name": "Ulkol\u00e4mp\u00f6tila"
+            },
+            "solar_percentage": {
+                "name": "Aurinko prosentti"
+            },
+            "tado_mode": {
+                "name": "Tado-tila"
+            },
+            "weather_condition": {
+                "name": "S\u00e4\u00e4tila"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_yaml_import_device_tracker": {
+            "description": "Tado Device Trackerin m\u00e4\u00e4ritt\u00e4minen YAML:n avulla poistetaan.\nPoista YAML-laitteenseurannan konfigurointi ja k\u00e4ynnist\u00e4 Home Assistant uudelleen.",
+            "title": "Tado YAML -laiteseurannan konfiguraatio tuotu"
+        },
+        "failed_to_import": {
+            "description": "Tado Device Trackerin m\u00e4\u00e4ritysten tuonti ep\u00e4onnistui. K\u00e4yt\u00e4 k\u00e4ytt\u00f6liittym\u00e4\u00e4 Tadon m\u00e4\u00e4ritt\u00e4miseen. \u00c4l\u00e4 unohda poistaa YAML-m\u00e4\u00e4rityksi\u00e4.",
+            "title": "Tuonti ep\u00e4onnistui"
+        },
+        "import_aborted": {
+            "description": "Tado Device Trackerin m\u00e4\u00e4ritt\u00e4minen YAML:n avulla poistetaan.\n Tuonti keskeytettiin, koska olemassa oleva konfigurointimerkint\u00e4 oli sama kuin YAML:ss\u00e4 tuotavat tiedot. Poista YAML-laitteenseurannan konfigurointi ja k\u00e4ynnist\u00e4 Home Assistant uudelleen. K\u00e4yt\u00e4 k\u00e4ytt\u00f6liittym\u00e4\u00e4 Tadon konfigurointiin.",
+            "title": "Tuonti keskeytetty"
+        },
+        "import_failed": {
+            "description": "Tado Device Trackerin m\u00e4\u00e4ritysten tuonti ep\u00e4onnistui. K\u00e4yt\u00e4 k\u00e4ytt\u00f6liittym\u00e4\u00e4 Tadon m\u00e4\u00e4ritt\u00e4miseen. \u00c4l\u00e4 unohda poistaa YAML-m\u00e4\u00e4rityksi\u00e4.",
+            "title": "Tuonti ep\u00e4onnistui"
+        },
+        "import_failed_invalid_auth": {
+            "description": "Tado Device Trackerin konfiguraation tuonti ep\u00e4onnistui virheellisten tunnusten vuoksi. Korjaa YAML-konfiguraatio ja k\u00e4ynnist\u00e4 Home Assistant uudelleen. Vaihtoehtoisesti voit k\u00e4ytt\u00e4\u00e4 k\u00e4ytt\u00f6liittym\u00e4\u00e4 Tadon konfigurointiin. Muista poistaa YAML-konfiguraatio, kun tuonti on onnistunut.",
+            "title": "Tuonti ep\u00e4onnistui, virheelliset kirjautumistiedot"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "fallback": "Valitse varatila."
+                },
+                "description": "Varatilassa voit valita, milloin haluat palata \u00e4lykk\u00e4\u00e4seen aikatauluun manuaalisesta vy\u00f6hykepeittokuvasta. (NEXT_TIME_BLOCK:= Muutos seuraavan Smart Schedule -muutoksen yhteydess\u00e4; MANUAALINEN:= \u00c4l\u00e4 muuta ennen kuin peruutat tilauksen; TADO_DEFAULT:= Muutos Tado-sovelluksen asetusten mukaan).",
+                "title": "S\u00e4\u00e4d\u00e4 Tado-asetuksia."
+            }
+        }
+    },
+    "services": {
+        "add_meter_reading": {
+            "description": "Lis\u00e4\u00e4 mittarilukemat Tado Energy IQ:hen.",
+            "fields": {
+                "config_entry": {
+                    "description": "Konfigurointimerkint\u00e4, johon lis\u00e4t\u00e4\u00e4n mittarin lukemat.",
+                    "name": "Asetus"
+                },
+                "reading": {
+                    "description": "Lukema m\u00b3 tai kWh ilman desimaaleja.",
+                    "name": "Lukema"
+                }
+            },
+            "name": "Lis\u00e4\u00e4 mittarin lukemat"
+        },
+        "set_climate_temperature_offset": {
+            "description": "M\u00e4\u00e4ritt\u00e4\u00e4 ilmastoentiteettien l\u00e4mp\u00f6tilapoikkeaman.",
+            "fields": {
+                "offset": {
+                    "description": "Haluamasi poikkeama (laitteestasi riippuen).",
+                    "name": "Poikkeama"
+                }
+            },
+            "name": "Aseta ilmastointil\u00e4mp\u00f6tilan poikkeama"
+        },
+        "set_climate_timer": {
+            "description": "Kytkee ilmastoyksik\u00f6t p\u00e4\u00e4lle asetetuksi ajaksi.",
+            "fields": {
+                "requested_overlay": {
+                    "description": "Valitse t\u00e4m\u00e4 tai Ajanjakso. Voit valita p\u00e4\u00e4llekk\u00e4isyyden. MANUAALINEN:=P\u00e4\u00e4llekk\u00e4isyys, kunnes k\u00e4ytt\u00e4j\u00e4 poistaa; NEXT_TIME_BLOCK:=P\u00e4\u00e4llekk\u00e4isyys seuraavaan aikalohkoon asti; TADO_DEFAULT:=P\u00e4\u00e4llekk\u00e4isyys, joka perustuu tado-sovelluksen asetuksiin.",
+                    "name": "Peittokuva"
+                },
+                "temperature": {
+                    "description": "L\u00e4mp\u00f6tila, johon ilmastoentiteetti asetetaan.",
+                    "name": "L\u00e4mp\u00f6tila"
+                },
+                "time_period": {
+                    "description": "Valitse t\u00e4m\u00e4 tai Overlay. M\u00e4\u00e4rit\u00e4 muutoksen ajanjakso, jos haluat olla tarkka. Vaihtoehtoisesti voit k\u00e4ytt\u00e4\u00e4 Overlay.",
+                    "name": "Ajanjakso"
+                }
+            },
+            "name": "Aseta ilmastoajastin"
+        },
+        "set_water_heater_timer": {
+            "description": "Kytkee vedenl\u00e4mmittimen p\u00e4\u00e4lle tietyksi ajaksi.",
+            "fields": {
+                "temperature": {
+                    "description": "L\u00e4mp\u00f6tila, johon l\u00e4mmitin asetetaan.",
+                    "name": "L\u00e4mp\u00f6tila"
+                },
+                "time_period": {
+                    "description": "Aseta tehostuksen aikajakso.",
+                    "name": "Ajanjakso"
+                }
+            },
+            "name": "Aseta vedenl\u00e4mmittimen ajastin"
+        }
+    }
+}

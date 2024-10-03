@@ -1,0 +1,56 @@
+{
+    "config": {
+        "abort": {
+            "cloud_not_connected": "Pilve\u00fchendus puudub",
+            "single_instance_allowed": "Juba seadistatud. V\u00f5imalik on ainult \u00fcks seadistamine.",
+            "webhook_not_internet_accessible": "Veebikonksu s\u00f5numite vastuv\u00f5tmiseks peab Home Assistant olema Interneti kaudu juurdep\u00e4\u00e4setav."
+        },
+        "create_entry": {
+            "default": "S\u00fcndmuste saatmiseks Home Assistantile peate kasutama toimingut \"Make a web request\" [IFTTT Webhooki apletilt] ({applet_url}).\n\nSisesta j\u00e4rgmine teave:\n\n- URL: {webhook_url}.\n- Method: POST\n- Content Type: application/json\n\nVaadake [dokumentatsiooni]({docs_url}) kuidas seadistada sissetulevate andmete t\u00f6\u00f6tlemiseks automatiseerimisi."
+        },
+        "step": {
+            "user": {
+                "description": "Kas soovid kindlasti IFTTT seadistada?",
+                "title": "Seadista IFTTT Webhook Applet"
+            }
+        }
+    },
+    "services": {
+        "push_alarm_state": {
+            "description": "V\u00e4rskendab valvesoleku m\u00e4\u00e4ratud v\u00e4\u00e4rtuseni.",
+            "fields": {
+                "entity_id": {
+                    "description": "Valve juhtpaneeli nimi, mille olekut tuleb v\u00e4rskendada.",
+                    "name": "Olemi ID"
+                },
+                "state": {
+                    "description": "Olek, millele valve juhtpaneel tuleb seada.",
+                    "name": "Olek"
+                }
+            },
+            "name": "T\u00f5ukeh\u00e4ire olek"
+        },
+        "trigger": {
+            "description": "K\u00e4ivitab konfigureeritud IFTTT veebihaagi.",
+            "fields": {
+                "event": {
+                    "description": "Saadetava s\u00fcndmuse nimi.",
+                    "name": "S\u00fcndmus"
+                },
+                "value1": {
+                    "description": "\u00dcldine v\u00e4li s\u00fcndmuste kaudu andmete saatmiseks.",
+                    "name": "V\u00e4\u00e4rtus 1"
+                },
+                "value2": {
+                    "description": "\u00dcldine v\u00e4li s\u00fcndmuste kaudu andmete saatmiseks.",
+                    "name": "V\u00e4\u00e4rtus 2"
+                },
+                "value3": {
+                    "description": "\u00dcldine v\u00e4li s\u00fcndmuste kaudu andmete saatmiseks.",
+                    "name": "V\u00e4\u00e4rtus 3"
+                }
+            },
+            "name": "P\u00e4\u00e4stik"
+        }
+    }
+}

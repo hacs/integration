@@ -1,0 +1,225 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Il dispositivo \u00e8 gi\u00e0 configurato",
+            "already_in_progress": "Il flusso di configurazione \u00e8 gi\u00e0 in corso",
+            "no_devices_found": "Nessun dispositivo trovato sulla rete"
+        },
+        "error": {
+            "cannot_connect": "Impossibile connettersi"
+        },
+        "flow_title": "{label} ({group})",
+        "step": {
+            "discovery_confirm": {
+                "description": "Vuoi configurare {label} ({group})?"
+            },
+            "pick_device": {
+                "data": {
+                    "device": "Dispositivo"
+                }
+            },
+            "user": {
+                "data": {
+                    "host": "Host"
+                },
+                "description": "Se lasci l'host vuoto, il rilevamento verr\u00e0 utilizzato per trovare i dispositivi."
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "clean_cycle": {
+                "name": "Ciclo di pulizia"
+            }
+        },
+        "select": {
+            "infrared_brightness": {
+                "name": "Luminosit\u00e0 infrarossa"
+            },
+            "theme": {
+                "name": "Tema"
+            }
+        },
+        "sensor": {
+            "rssi": {
+                "name": "RSSI"
+            }
+        }
+    },
+    "services": {
+        "effect_colorloop": {
+            "description": "Esegue un effetto con colori ciclici.",
+            "fields": {
+                "brightness": {
+                    "description": "Numero che indica la luminosit\u00e0 del ciclo di colore, dove 1 \u00e8 la luminosit\u00e0 minima e 255 \u00e8 la luminosit\u00e0 massima supportata dalla luce.",
+                    "name": "Valore di luminosit\u00e0"
+                },
+                "brightness_pct": {
+                    "description": "Percentuale che indica la luminosit\u00e0 del ciclo di colore, dove 1 \u00e8 la luminosit\u00e0 minima e 100 \u00e8 la luminosit\u00e0 massima supportata dalla luce.",
+                    "name": "Luminosit\u00e0"
+                },
+                "change": {
+                    "description": "Movimento della tonalit\u00e0 per periodo, in gradi su una ruota dei colori.",
+                    "name": "Cambiamento"
+                },
+                "period": {
+                    "description": "Durata tra i cambi di colore.",
+                    "name": "Periodo"
+                },
+                "power_on": {
+                    "description": "Le luci spente vengono temporaneamente accese durante l'effetto.",
+                    "name": "Accensione"
+                },
+                "saturation_max": {
+                    "description": "Percentuale che indica la saturazione massima dei colori nel ciclo.",
+                    "name": "Massima saturazione"
+                },
+                "saturation_min": {
+                    "description": "Percentuale che indica la saturazione minima dei colori nel ciclo.",
+                    "name": "Saturazione minima"
+                },
+                "spread": {
+                    "description": "Differenza massima di tonalit\u00e0 tra le luci partecipanti, in gradi su una ruota dei colori.",
+                    "name": "Diffusione"
+                }
+            },
+            "name": "Effetto ciclo di colore"
+        },
+        "effect_flame": {
+            "description": "Avvia l'effetto Fiamma basato su firmware su LIFX Tiles o Candle.",
+            "fields": {
+                "power_on": {
+                    "description": "Le luci spente verranno accese prima di iniziare l'effetto.",
+                    "name": "Accensione"
+                },
+                "speed": {
+                    "description": "Quanto velocemente si muoveranno le fiamme.",
+                    "name": "Velocit\u00e0"
+                }
+            },
+            "name": "Effetto fiamma"
+        },
+        "effect_morph": {
+            "description": "Avvia l'effetto Trasformazione basato su firmware sui riquadri LIFX su Candle.",
+            "fields": {
+                "palette": {
+                    "description": "Elenco di almeno 2 e al massimo 16 colori come valori di tinta (0-360), saturazione (0-100), luminosit\u00e0 (0-100) e kelvin (1500-900) da utilizzare per questo effetto. Sovrascrive l'attributo tema.",
+                    "name": "Tavolozza"
+                },
+                "power_on": {
+                    "description": "Le luci spente verranno accese prima di iniziare l'effetto.",
+                    "name": "Accensione"
+                },
+                "speed": {
+                    "description": "Quanto velocemente si muoveranno i colori.",
+                    "name": "Velocit\u00e0"
+                },
+                "theme": {
+                    "description": "Tema di colore predefinito da utilizzare per l'effetto. Sovrascritto dall'attributo tavolozza.",
+                    "name": "Tema"
+                }
+            },
+            "name": "Effetto di trasformazione"
+        },
+        "effect_move": {
+            "description": "Avvia l'effetto Sposta basato su firmware su LIFX Z, Lightstrip o Beam.",
+            "fields": {
+                "direction": {
+                    "description": "Direzione in cui l'effetto si sposter\u00e0 sul dispositivo.",
+                    "name": "Direzione"
+                },
+                "power_on": {
+                    "description": "Le luci spente verranno accese prima di iniziare l'effetto.",
+                    "name": "Accensione"
+                },
+                "speed": {
+                    "description": "Per quanto tempo, in secondi, l'effetto deve spostarsi lungo la lunghezza della luce.",
+                    "name": "Velocit\u00e0"
+                },
+                "theme": {
+                    "description": "(Facoltativo) imposta uno dei temi predefiniti sul dispositivo prima di iniziare l'effetto.",
+                    "name": "Tema"
+                }
+            },
+            "name": "Effetto di movimento"
+        },
+        "effect_pulse": {
+            "description": "Esegue un effetto flash passando da un colore all'altro.",
+            "fields": {
+                "brightness": {
+                    "description": "Numero che indica la luminosit\u00e0 del colore temporaneo, dove 1 \u00e8 la luminosit\u00e0 minima e 255 \u00e8 la luminosit\u00e0 massima supportata dalla luce.",
+                    "name": "Valore di luminosit\u00e0"
+                },
+                "brightness_pct": {
+                    "description": "Percentuale che indica la luminosit\u00e0 del colore temporaneo, dove 1 \u00e8 la luminosit\u00e0 minima e 100 \u00e8 la luminosit\u00e0 massima supportata dalla luce.",
+                    "name": "Luminosit\u00e0"
+                },
+                "color_name": {
+                    "description": "Un nome di colore leggibile dall'uomo.",
+                    "name": "Nome del colore"
+                },
+                "cycles": {
+                    "description": "Numero di volte in cui l'effetto deve essere eseguito.",
+                    "name": "Cicli"
+                },
+                "mode": {
+                    "description": "Decide come vengono cambiati i colori.",
+                    "name": "Modalit\u00e0"
+                },
+                "period": {
+                    "description": "Durata dell'effetto.",
+                    "name": "Periodo"
+                },
+                "power_on": {
+                    "description": "Le luci spente vengono temporaneamente accese durante l'effetto.",
+                    "name": "Accensione"
+                },
+                "rgb_color": {
+                    "description": "Il colore temporaneo in formato RGB.",
+                    "name": "Colore RGB"
+                }
+            },
+            "name": "Effetto impulso"
+        },
+        "effect_stop": {
+            "description": "Arresta un effetto in esecuzione.",
+            "name": "Ferma effetto"
+        },
+        "set_hev_cycle_state": {
+            "description": "Controlla i LED HEV su una lampadina LIFX Clean.",
+            "fields": {
+                "duration": {
+                    "description": "Per quanto tempo i LED HEV rimarranno accesi. Utilizza la durata predefinita configurata se non specificata.",
+                    "name": "Durata"
+                },
+                "power": {
+                    "description": "Avviare o interrompere un ciclo di pulizia.",
+                    "name": "Abilita"
+                }
+            },
+            "name": "Impostare lo stato del ciclo HEV"
+        },
+        "set_state": {
+            "description": "Imposta un colore/luminosit\u00e0 ed eventualmente accende/spegne la luce.",
+            "fields": {
+                "infrared": {
+                    "description": "Livello automatico di infrarossi quando la luminosit\u00e0 della luce \u00e8 bassa.",
+                    "name": "Infrarossi"
+                },
+                "power": {
+                    "description": "Attiva o disattiva la luce. Lasciala invariata per mantenere la potenza cos\u00ec com'\u00e8.",
+                    "name": "Potenza"
+                },
+                "transition": {
+                    "description": "Durata necessaria per raggiungere lo stato finale.",
+                    "name": "Transizione"
+                },
+                "zones": {
+                    "description": "Elenco dei numeri di zona da interessare (8 per LIFX Z, inizia da 0).",
+                    "name": "Zone"
+                }
+            },
+            "name": "Imposta stato"
+        }
+    }
+}

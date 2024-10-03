@@ -1,0 +1,256 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Zariadenie u\u017e je nakonfigurovan\u00e9",
+            "discovery_started": "Vyh\u013ead\u00e1vanie za\u010dalo"
+        },
+        "error": {
+            "cannot_connect": "Nepodarilo sa pripoji\u0165",
+            "cloud_user": "Pou\u017e\u00edvatelia slu\u017eby Ubiquiti Cloud nie s\u00fa podporovan\u00ed. Pou\u017eite iba lok\u00e1lneho pou\u017e\u00edvate\u013ea.",
+            "invalid_auth": "Neplatn\u00e9 overenie",
+            "protect_version": "Minim\u00e1lna po\u017eadovan\u00e1 verzia je v1.20.0. Inovujte UniFi Protect a potom to sk\u00faste znova."
+        },
+        "flow_title": "{name} ({ip_address})",
+        "step": {
+            "discovery_confirm": {
+                "data": {
+                    "password": "Heslo",
+                    "username": "Pou\u017e\u00edvate\u013esk\u00e9 meno"
+                },
+                "description": "Chcete nastavi\u0165 {name} ({ip_address})? Na prihl\u00e1senie budete potrebova\u0165 lok\u00e1lneho pou\u017e\u00edvate\u013ea vytvoren\u00e9ho vo va\u0161ej konzole UniFi OS. Pou\u017e\u00edvatelia cloudu Ubiquiti nebud\u00fa fungova\u0165. \u010eal\u0161ie inform\u00e1cie: {local_user_documentation_url}",
+                "title": "Objaven\u00fd UniFi Protect"
+            },
+            "reauth_confirm": {
+                "data": {
+                    "host": "IP/hostite\u013e servera UniFi Protect Server",
+                    "password": "Heslo",
+                    "port": "Port",
+                    "username": "Pou\u017e\u00edvate\u013esk\u00e9 meno"
+                },
+                "title": "UniFi Protect Reauth"
+            },
+            "user": {
+                "data": {
+                    "host": "Hostite\u013e",
+                    "password": "Heslo",
+                    "port": "Port",
+                    "username": "Pou\u017e\u00edvate\u013esk\u00e9 meno",
+                    "verify_ssl": "Overi\u0165 SSL certifik\u00e1t"
+                },
+                "data_description": {
+                    "host": "N\u00e1zov hostite\u013ea alebo IP adresa zariadenia UniFi Protect."
+                },
+                "description": "Na prihl\u00e1senie budete potrebova\u0165 lok\u00e1lneho pou\u017e\u00edvate\u013ea vytvoren\u00e9ho vo va\u0161ej konzole UniFi OS. Pou\u017e\u00edvatelia cloudu Ubiquiti nebud\u00fa fungova\u0165. \u010eal\u0161ie inform\u00e1cie: {local_user_documentation_url}",
+                "title": "Nastavenie UniFi Protect"
+            }
+        }
+    },
+    "entity": {
+        "event": {
+            "doorbell": {
+                "state_attributes": {
+                    "event_type": {
+                        "state": {
+                            "ring": "Zvonenie"
+                        }
+                    }
+                }
+            }
+        },
+        "sensor": {
+            "license_plate": {
+                "state": {
+                    "none": "Zmaza\u0165"
+                }
+            }
+        }
+    },
+    "issues": {
+        "cloud_user": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Od 22. j\u00fala 2024 bude spolo\u010dnos\u0165 Ubiquiti vy\u017eadova\u0165, aby sa v\u0161etci pou\u017e\u00edvatelia cloudu zaregistrovali do viacfaktorov\u00e9ho overovania (MFA), ktor\u00e9 nie je kompatibiln\u00e9 s aplik\u00e1ciou Home Assistant.\n\nNajlep\u0161ie by bolo \u010do najsk\u00f4r prejs\u0165 na pou\u017e\u00edvanie [lok\u00e1lneho pou\u017e\u00edvate\u013ea]({learn_more}), aby integr\u00e1cia fungovala.\n\nPotvrden\u00edm tejto opravy sa spust\u00ed op\u00e4tovn\u00fd autentifika\u010dn\u00fd tok na zadanie potrebn\u00fdch autentifika\u010dn\u00fdch \u00fadajov.",
+                        "title": "Pou\u017e\u00edvatelia slu\u017eby Ubiquiti Cloud nie s\u00fa podporovan\u00ed"
+                    }
+                }
+            },
+            "title": "Pou\u017e\u00edvatelia slu\u017eby Ubiquiti Cloud nie s\u00fa podporovan\u00ed"
+        },
+        "deprecate_hdr_switch": {
+            "description": "Do UniFi Protect v3 bol pridan\u00fd nov\u00fd stav pre HDR (auto). V d\u00f4sledku toho bol prep\u00edna\u010d re\u017eimu HDR nahraden\u00fd vo\u013ebou re\u017eimu HDR a je zastaran\u00fd.\n\nNi\u017e\u0161ie s\u00fa uveden\u00e9 zisten\u00e9 automatiz\u00e1cie alebo skripty, ktor\u00e9 pou\u017e\u00edvaj\u00fa jednu alebo viacero zastaran\u00fdch ent\u00edt:\n{items}\nUveden\u00fd zoznam m\u00f4\u017ee by\u0165 ne\u00fapln\u00fd a nezah\u0155\u0148a \u017eiadne pou\u017eitie \u0161abl\u00f3n vo vn\u00fatri ovl\u00e1dac\u00edch panelov. V\u0161etky \u0161abl\u00f3ny, automatiz\u00e1cie alebo skripty zodpovedaj\u00facim sp\u00f4sobom aktualizujte.",
+            "title": "Prep\u00edna\u010d re\u017eimu HDR zastaran\u00fd"
+        },
+        "deprecate_package_sensor": {
+            "description": "Senzor udalost\u00ed bal\u00edka sa nikdy nespustil kv\u00f4li sp\u00f4sobu hl\u00e1senia udalost\u00ed v syst\u00e9me UniFi Protect. V d\u00f4sledku toho je senzor zastaran\u00fd a bude odstr\u00e1nen\u00fd.\n\nNi\u017e\u0161ie s\u00fa uveden\u00e9 zisten\u00e9 automatiz\u00e1cie alebo skripty, ktor\u00e9 pou\u017e\u00edvaj\u00fa jednu alebo viacero zastaran\u00fdch ent\u00edt:\n{items}\nUveden\u00fd zoznam m\u00f4\u017ee by\u0165 ne\u00fapln\u00fd a nezah\u0155\u0148a \u017eiadne pou\u017eitie \u0161abl\u00f3n vo vn\u00fatri ovl\u00e1dac\u00edch panelov. V\u0161etky \u0161abl\u00f3ny, automatiz\u00e1cie alebo skripty zodpovedaj\u00facim sp\u00f4sobom aktualizujte.",
+            "title": "Sn\u00edma\u010d udalost\u00ed bal\u00edka zastaran\u00fd"
+        },
+        "deprecate_smart_sensor": {
+            "description": "Unifikovan\u00fd sn\u00edma\u010d \"Zisten\u00fd objekt\" pre inteligentn\u00e9 detekcie je teraz zastaran\u00fd. Bol nahraden\u00fd samostatn\u00fdmi bin\u00e1rnymi sn\u00edma\u010dmi inteligentnej detekcie pre ka\u017ed\u00fd typ inteligentnej detekcie. \n\nNi\u017e\u0161ie s\u00fa uveden\u00e9 zisten\u00e9 automatiz\u00e1cie alebo skripty, ktor\u00e9 pou\u017e\u00edvaj\u00fa jednu alebo viacero zastaran\u00fdch ent\u00edt:\n{items}\nVy\u0161\u0161ie uveden\u00fd zoznam m\u00f4\u017ee by\u0165 ne\u00fapln\u00fd a nezah\u0155\u0148a pou\u017eitie \u0161abl\u00f3n v informa\u010dn\u00fdch paneloch. Pod\u013ea toho aktualizujte v\u0161etky \u0161abl\u00f3ny, automatiz\u00e1cie alebo skripty.",
+            "title": "Inteligentn\u00fd detek\u010dn\u00fd senzor zastaran\u00fd"
+        },
+        "deprecated_service_set_doorbell_message": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Slu\u017eba `unifiprotect.set_doorbell_message` je zastaran\u00e1 v prospech novej entity Doorbell Text pridanej do ka\u017ed\u00e9ho zariadenia Doorbell. Bude odstr\u00e1nen\u00e1 vo verzii 2023.3.0. Aktualizujte, aby ste mohli pou\u017e\u00edva\u0165 slu\u017ebu [`text.set_value`]({link}).",
+                        "title": "set_doorbell_message je zastaran\u00fd"
+                    }
+                }
+            },
+            "title": "set_doorbell_message je zastaran\u00fd"
+        },
+        "ea_channel_warning": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Ste si ist\u00ed, \u017ee chcete spusti\u0165 nepodporovan\u00e9 verzie syst\u00e9mu UniFi Protect? M\u00f4\u017ee to sp\u00f4sobi\u0165 preru\u0161enie integr\u00e1cie Home Assistant.",
+                        "title": "UniFi Protect Early Access povolen\u00fd"
+                    },
+                    "start": {
+                        "description": "Bu\u010f pou\u017e\u00edvate verziu Early Access syst\u00e9mu UniFi Protect (v{version}), alebo ste sa prihl\u00e1sili do kan\u00e1la vydania, ktor\u00fd nie je ofici\u00e1lnym kan\u00e1lom vydania.\n\nKe\u010f\u017ee tieto Early Access verzie e\u0161te nemusia by\u0165 otestovan\u00e9, ich pou\u017e\u00edvanie m\u00f4\u017ee sp\u00f4sobi\u0165 neo\u010dak\u00e1van\u00e9 spr\u00e1vanie integr\u00e1cie UniFi Protect. [Viac inform\u00e1ci\u00ed o Early Access a Home Assistant]({learn_more}).\n\nOdosla\u0165 na zamietnutie tejto spr\u00e1vy.",
+                        "title": "UniFi Protect Early Access povolen\u00fd"
+                    }
+                }
+            },
+            "title": "UniFi Protect Early Access povolen\u00fd"
+        },
+        "ea_setup_failed": {
+            "description": "Pou\u017e\u00edvate verziu{version} aplik\u00e1cie UniFi Protect, ktor\u00e1 je verziou Early Access. Pri pokuse o na\u010d\u00edtanie integr\u00e1cie do\u0161lo k neopravite\u013enej chybe. Ak chcete pokra\u010dova\u0165 v pou\u017e\u00edvan\u00ed integr\u00e1cie, obnovte pros\u00edm z\u00e1lohu stabilnej verzie UniFi Protect.\n\nChyba: {error}",
+            "title": "Chyba nastavenia pri pou\u017eit\u00ed verzie predbe\u017en\u00e9ho pr\u00edstupu"
+        },
+        "ea_warning": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Naozaj chcete spusti\u0165 nepodporovan\u00e9 verzie UniFi Protect? M\u00f4\u017ee to sp\u00f4sobi\u0165 zlyhanie integr\u00e1cie Home Assistant.",
+                        "title": "v {version} je verzia predbe\u017en\u00e9ho pr\u00edstupu"
+                    },
+                    "start": {
+                        "description": "Pou\u017e\u00edvate v{version} UniFi Protect, \u010do je verzia skor\u00e9ho pr\u00edstupu. [Verzie s pred\u010dasn\u00fdm pr\u00edstupom Home Assistant nepodporuje](https://www.home-assistant.io/integrations/unifiprotect#about-unifi-early-access) a odpor\u00fa\u010da sa, aby ste sa \u010do najsk\u00f4r vr\u00e1tili k stabiln\u00e9mu vydaniu mo\u017en\u00e9. \n\n Odoslan\u00edm tohto formul\u00e1ra ste bu\u010f [pre\u0161li na star\u0161iu verziu UniFi Protect](https://www.home-assistant.io/integrations/unifiprotect#downgrading-unifi-protect), alebo s\u00fahlas\u00edte so spusten\u00edm nepodporovanej verzie UniFi Protect.",
+                        "title": "v {version} je verzia predbe\u017en\u00e9ho pr\u00edstupu"
+                    }
+                }
+            },
+            "title": "UniFi Protect v {version} je verzia skor\u00e9ho pr\u00edstupu"
+        },
+        "rtsp_disabled_readonly": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Ste si ist\u00ed, \u017ee chcete ponecha\u0165 RTSPS vypnut\u00e9 pre {camera}?",
+                        "title": "Funkcia RTSPS je na kamere vypnut\u00e1 {camera}"
+                    },
+                    "start": {
+                        "description": "Funkcia RTSPS je vo fotoapar\u00e1te vypnut\u00e1 {camera}. RTSPS je potrebn\u00fd na to, aby ste mohli v aplik\u00e1cii Home Assistant vysiela\u0165 priamy prenos z kamery. Ak RTSPS nepovol\u00edte, m\u00f4\u017ee to sp\u00f4sobi\u0165 dodato\u010dn\u00e9 za\u0165a\u017eenie v\u00e1\u0161ho zariadenia UniFi Protect NVR, preto\u017ee v\u0161etky prehr\u00e1va\u010de \u017eiv\u00e9ho videa bud\u00fa predvolene r\u00fdchlo \u0165aha\u0165 sn\u00edmky z kamery.\n\nPros\u00edm, [povo\u013ete RTSPS]({learn_more}) na kamere a potom sa vr\u00e1\u0165te a potvr\u010fte t\u00fato opravu.",
+                        "title": "Funkcia RTSPS je na kamere vypnut\u00e1 {camera}"
+                    }
+                }
+            },
+            "title": "Funkcia RTSPS je na kamere vypnut\u00e1 {camera}"
+        },
+        "rtsp_disabled_writable": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Ste si ist\u00ed, \u017ee chcete ponecha\u0165 RTSPS vypnut\u00e9 pre {camera}?",
+                        "title": "Funkcia RTSPS je na kamere vypnut\u00e1 {camera}"
+                    },
+                    "start": {
+                        "description": "Funkcia RTSPS je vo fotoapar\u00e1te vypnut\u00e1 {camera}. RTSPS sa vy\u017eaduje na \u017eiv\u00e9 vysielanie z kamery v r\u00e1mci aplik\u00e1cie Home Assistant. Ak nepovol\u00edte RTSPS, m\u00f4\u017ee to sp\u00f4sobi\u0165 dodato\u010dn\u00e9 za\u0165a\u017eenie v\u00e1\u0161ho zariadenia UniFi Protect NVR, preto\u017ee v\u0161etky prehr\u00e1va\u010de \u017eiv\u00e9ho videa bud\u00fa predvolene r\u00fdchlo \u0165aha\u0165 sn\u00edmky z kamery.\n\nM\u00f4\u017eete manu\u00e1lne [povoli\u0165 RTSPS]({learn_more}) na vybranom kan\u00e1li kvality kamery alebo Home Assistant m\u00f4\u017ee automaticky povoli\u0165 kan\u00e1l najvy\u0161\u0161ej kvality za v\u00e1s. Potvr\u010fte t\u00fato opravu, ke\u010f povol\u00edte kan\u00e1l RTSPS alebo ak chcete, aby aplik\u00e1cia Home Assistant automaticky povolila najvy\u0161\u0161iu kvalitu.",
+                        "title": "Funkcia RTSPS je na kamere vypnut\u00e1 {camera}"
+                    }
+                }
+            },
+            "title": "Funkcia RTSPS je na kamere vypnut\u00e1 {camera}"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "all_updates": "Metriky v re\u00e1lnom \u010dase (UPOZORNENIE: V\u00fdrazne zvy\u0161uje vyu\u017eitie procesora)",
+                    "allow_ea": "Povoli\u0165 prednostn\u00fd pr\u00edstup verzie Protect (UPOZORNENIE: Va\u0161a integr\u00e1cia bude ozna\u010den\u00e1 ako nepodporovan\u00e1)",
+                    "allow_ea_channel": "Povoli\u0165 prednostn\u00fd pr\u00edstup verzie Protect (UPOZORNENIE: Va\u0161a integr\u00e1cia bude ozna\u010den\u00e1 ako nepodporovan\u00e1)",
+                    "disable_rtsp": "Zak\u00e1za\u0165 stream RTSP",
+                    "max_media": "Maxim\u00e1lny po\u010det udalost\u00ed na na\u010d\u00edtanie pre prehliada\u010d m\u00e9di\u00ed (zvy\u0161uje vyu\u017eitie pam\u00e4te RAM)",
+                    "override_connection_host": "Prep\u00edsa\u0165 hostite\u013ea pripojenia"
+                },
+                "description": "Mo\u017enos\u0165 metr\u00edk v re\u00e1lnom \u010dase by mala by\u0165 povolen\u00e1 iba vtedy, ak ste povolili diagnostick\u00e9 senzory a chcete ich aktualizova\u0165 v re\u00e1lnom \u010dase. Ak nie s\u00fa povolen\u00e9, aktualizuj\u00fa sa iba raz za 15 min\u00fat.",
+                "title": "Mo\u017enosti UniFi Protect"
+            }
+        }
+    },
+    "services": {
+        "add_doorbell_text": {
+            "description": "Prid\u00e1 nov\u00fa vlastn\u00fa spr\u00e1vu pre zvon\u010deky.",
+            "fields": {
+                "device_id": {
+                    "description": "Ak\u00e9ko\u013evek zariadenie z in\u0161tancie UniFi Protect, ktor\u00e9 chcete zmeni\u0165. V pr\u00edpade, \u017ee m\u00e1te viacero in\u0161tanci\u00ed Protect.",
+                    "name": "UniFi Protect NVR"
+                },
+                "message": {
+                    "description": "Pridanie novej vlastnej spr\u00e1vy pre zvon\u010deky. Mus\u00ed ma\u0165 menej ako 30 znakov.",
+                    "name": "Prisp\u00f4soben\u00e9 vyl\u00fa\u010denie"
+                }
+            },
+            "name": "Pridanie vlastn\u00e9ho textu zvon\u010deka"
+        },
+        "remove_doorbell_text": {
+            "description": "Odstr\u00e1ni existuj\u00facu spr\u00e1vu pre zvon\u010deky.",
+            "fields": {
+                "device_id": {
+                    "description": "Ak\u00e9ko\u013evek zariadenie z in\u0161tancie UniFi Protect, ktor\u00e9 chcete zmeni\u0165. V pr\u00edpade, \u017ee m\u00e1te viacero in\u0161tanci\u00ed Protect.",
+                    "name": "UniFi Protect NVR"
+                },
+                "message": {
+                    "description": "Odstr\u00e1nenie existuj\u00facej vlastnej spr\u00e1vy pre zvon\u010deky.",
+                    "name": "Prisp\u00f4soben\u00e9 vyl\u00fa\u010denie"
+                }
+            },
+            "name": "Odstr\u00e1nenie vlastn\u00e9ho textu zvon\u010deka"
+        },
+        "remove_privacy_zone": {
+            "description": "Sl\u00fa\u017ei na odstr\u00e1nenie z\u00f3ny s\u00fakromia z kamery.",
+            "fields": {
+                "device_id": {
+                    "description": "Kamera, z ktorej chcete odstr\u00e1ni\u0165 z\u00f3nu s\u00fakromia.",
+                    "name": "Kamera"
+                },
+                "name": {
+                    "description": "N\u00e1zov z\u00f3ny, ktor\u00e1 sa m\u00e1 odstr\u00e1ni\u0165.",
+                    "name": "N\u00e1zov z\u00f3ny s\u00fakromia"
+                }
+            },
+            "name": "Odstr\u00e1nenie z\u00f3ny s\u00fakromia kamery"
+        },
+        "set_chime_paired_doorbells": {
+            "description": "Sl\u00fa\u017ei na nastavenie sp\u00e1rovan\u00e9ho zvon\u010deka (zvon\u010dekov) s inteligentn\u00fdm zvonen\u00edm.",
+            "fields": {
+                "device_id": {
+                    "description": "Zvon\u010deky na prepojenie so zvon\u010dekmi.",
+                    "name": "Zvonkohra"
+                },
+                "doorbells": {
+                    "description": "Zvon\u010deky na prepojenie s gongom.",
+                    "name": "Zvon\u010deky"
+                }
+            },
+            "name": "Nastavenie zvonenia sp\u00e1rovan\u00fdch zvon\u010dekov"
+        },
+        "set_default_doorbell_text": {
+            "description": "Nastav\u00ed predvolen\u00fa spr\u00e1vu zvon\u010deka. Toto bude spr\u00e1va, ktor\u00e1 sa automaticky vyberie po uplynut\u00ed platnosti spr\u00e1vy.",
+            "fields": {
+                "device_id": {
+                    "description": "Ak\u00e9ko\u013evek zariadenie z in\u0161tancie UniFi Protect, ktor\u00e9 chcete zmeni\u0165. V pr\u00edpade, \u017ee m\u00e1te viacero in\u0161tanci\u00ed Protect.",
+                    "name": "UniFi Protect NVR"
+                },
+                "message": {
+                    "description": "Predvolen\u00e1 spr\u00e1va pre v\u00e1\u0161 zvon\u010dek. Mus\u00ed ma\u0165 menej ako 30 znakov.",
+                    "name": "Predvolen\u00e1 spr\u00e1va"
+                }
+            },
+            "name": "Nastavi\u0165 predvolen\u00fd text zvon\u010deka"
+        }
+    }
+}

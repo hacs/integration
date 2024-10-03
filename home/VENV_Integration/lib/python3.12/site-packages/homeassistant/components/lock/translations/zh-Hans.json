@@ -1,0 +1,88 @@
+{
+    "device_automation": {
+        "action_type": {
+            "lock": "\u9501\u5b9a {entity_name}",
+            "open": "\u6253\u5f00 {entity_name}",
+            "unlock": "\u89e3\u9501 {entity_name}"
+        },
+        "condition_type": {
+            "is_locked": "{entity_name} \u5df2\u9501\u4e0a",
+            "is_open": "{entity_name} \u5df2\u6253\u5f00",
+            "is_unlocked": "{entity_name} \u5df2\u89e3\u9501"
+        },
+        "extra_fields": {
+            "for": "\u65f6\u957f"
+        },
+        "trigger_type": {
+            "locked": "{entity_name} \u88ab\u9501\u5b9a",
+            "open": "{entity_name} \u88ab\u6253\u5f00",
+            "unlocked": "{entity_name} \u88ab\u89e3\u9501"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "\u9501",
+            "state": {
+                "jammed": "\u5361\u4f4f",
+                "locked": "\u5df2\u9501\u5b9a",
+                "locking": "\u6b63\u5728\u9501\u5b9a",
+                "open": "\u5df2\u6253\u5f00",
+                "opening": "\u6b63\u5728\u6253\u5f00",
+                "unlocked": "\u5df2\u89e3\u9501",
+                "unlocking": "\u6b63\u5728\u89e3\u9501"
+            },
+            "state_attributes": {
+                "changed_by": {
+                    "name": "\u66f4\u6539\u8005"
+                },
+                "code_format": {
+                    "name": "\u4ee3\u7801\u683c\u5f0f"
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "add_default_code": {
+            "message": "\u201c{entity_id}\u201d\u7684\u5bc6\u7801\u4e0e\u6a21\u5f0f\u201c{code_format}\u201d\u4e0d\u5339\u914d\u3002"
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "\u201c{domain}\u201d\u96c6\u6210\u7684\u201c{platform}\u201d\u5e73\u53f0\u4e0d\u652f\u6301\u5e73\u53f0\u8bbe\u7f6e\u3002\n\n\u8bf7\u5c06\u5176\u4ece\u914d\u7f6e\u6587\u4ef6\u4e2d\u79fb\u9664\uff0c\u7136\u540e\u91cd\u65b0\u542f\u52a8 Home Assistant \u89e3\u51b3\u6b64\u95ee\u9898\u3002",
+            "title": "\u6ca1\u6709\u5e73\u53f0\u652f\u6301"
+        }
+    },
+    "services": {
+        "lock": {
+            "description": "\u9501\u4e0a\u4e00\u628a\u9501\u3002",
+            "fields": {
+                "code": {
+                    "description": "\u7528\u4e8e\u9501\u4e0a\u9501\u7684\u5bc6\u7801\u3002",
+                    "name": "\u5bc6\u7801"
+                }
+            },
+            "name": "\u9501\u5b9a"
+        },
+        "open": {
+            "description": "\u6253\u5f00\u4e00\u628a\u9501\u3002",
+            "fields": {
+                "code": {
+                    "description": "\u7528\u4e8e\u6253\u5f00\u9501\u7684\u5bc6\u7801\u3002",
+                    "name": "\u5bc6\u7801"
+                }
+            },
+            "name": "\u6253\u5f00"
+        },
+        "unlock": {
+            "description": "\u89e3\u5f00\u4e00\u628a\u9501\u3002",
+            "fields": {
+                "code": {
+                    "description": "\u7528\u4e8e\u89e3\u5f00\u9501\u7684\u5bc6\u7801\u3002",
+                    "name": "\u5bc6\u7801"
+                }
+            },
+            "name": "\u89e3\u9501"
+        }
+    },
+    "title": "\u9501"
+}

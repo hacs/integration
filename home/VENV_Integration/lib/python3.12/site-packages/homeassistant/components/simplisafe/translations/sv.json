@@ -1,0 +1,126 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Det h\u00e4r SimpliSafe-kontot har redan konfigurerats.",
+            "reauth_successful": "\u00c5terautentisering lyckades",
+            "wrong_account": "De angivna anv\u00e4ndaruppgifterna matchar inte detta SimpliSafe-konto."
+        },
+        "error": {
+            "identifier_exists": "Kontot \u00e4r redan registrerat",
+            "invalid_auth": "Ogiltig autentisering",
+            "invalid_auth_code_length": "SimpliSafe auktoriseringskoder \u00e4r 45 tecken l\u00e5nga",
+            "unknown": "Ov\u00e4ntat fel"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "auth_code": "Auktoriseringskod"
+                },
+                "description": "SimpliSafe autentiserar anv\u00e4ndare via sin webbapp. P\u00e5 grund av tekniska begr\u00e4nsningar finns det ett manuellt steg i slutet av denna process; se till att du l\u00e4ser [dokumentationen](http://home-assistant.io/integrations/simplisafe#getting-an-authorization-code) innan du b\u00f6rjar. \n\n N\u00e4r du \u00e4r redo klickar du [h\u00e4r]( {url} ) f\u00f6r att \u00f6ppna webbappen SimpliSafe och ange dina referenser. N\u00e4r processen \u00e4r klar, \u00e5terv\u00e4nd hit och mata in auktoriseringskoden fr\u00e5n SimpliSafe-webbappens URL."
+            }
+        }
+    },
+    "entity": {
+        "button": {
+            "clear_notifications": {
+                "name": "Rensa notifikationer"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_service": {
+            "description": "Uppdatera alla automatiseringar eller skript som anv\u00e4nder den h\u00e4r tj\u00e4nsten f\u00f6r att ist\u00e4llet anv\u00e4nda tj\u00e4nsten ` {alternate_service} ` med ett m\u00e5lenhets-ID p\u00e5 ` {alternate_target} `. Klicka sedan p\u00e5 SKICKA nedan f\u00f6r att markera problemet som l\u00f6st.",
+            "title": "Tj\u00e4nsten {deprecated_service} tas bort"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "code": "Kod (anv\u00e4ndsi Home Assistant UI)"
+                },
+                "title": "Konfigurera SimpliSafe"
+            }
+        }
+    },
+    "services": {
+        "remove_pin": {
+            "description": "Tar bort en PIN-kod med dess etikett eller v\u00e4rde.",
+            "fields": {
+                "device_id": {
+                    "description": "Systemet som PIN-koden ska tas bort fr\u00e5n.",
+                    "name": "System"
+                },
+                "label_or_pin": {
+                    "description": "Etikett/v\u00e4rde som ska tas bort.",
+                    "name": "Etikett/PIN"
+                }
+            },
+            "name": "Ta bort PIN-kod"
+        },
+        "set_pin": {
+            "description": "St\u00e4ller in/uppdaterar PIN-kod.",
+            "fields": {
+                "device_id": {
+                    "description": "Systemet som PIN-koden ska st\u00e4llas in p\u00e5.",
+                    "name": "System"
+                },
+                "label": {
+                    "description": "Etiketten f\u00f6r PIN-koden.",
+                    "name": "Etikett"
+                },
+                "pin": {
+                    "description": "V\u00e4rdet f\u00f6r PIN-koden.",
+                    "name": "PIN"
+                }
+            },
+            "name": "St\u00e4ll in PIN-kod"
+        },
+        "set_system_properties": {
+            "description": "St\u00e4ller in en eller flera systemegenskaper.",
+            "fields": {
+                "alarm_duration": {
+                    "description": "L\u00e4ngden p\u00e5 ett utl\u00f6st larm.",
+                    "name": "Larmets varaktighet"
+                },
+                "alarm_volume": {
+                    "description": "Volymniv\u00e5n f\u00f6r ett utl\u00f6st larm.",
+                    "name": "Larmvolym"
+                },
+                "chime_volume": {
+                    "description": "Volymniv\u00e5 f\u00f6r d\u00f6rrklockan.",
+                    "name": "D\u00f6rrklocka volym"
+                },
+                "device_id": {
+                    "description": "Det system som egenskaperna ska st\u00e4llas in p\u00e5.",
+                    "name": "System"
+                },
+                "entry_delay_away": {
+                    "description": "Hur l\u00e5ng f\u00f6rdr\u00f6jning vid ing\u00e5ng medan man \u00e4r 'borta'.",
+                    "name": "Ing\u00e5ngsf\u00f6rdr\u00f6jning bortal\u00e4ge"
+                },
+                "entry_delay_home": {
+                    "description": "Hur l\u00e5ng f\u00f6rdr\u00f6jning vid ing\u00e5ng medan man \u00e4r 'hemma'.",
+                    "name": "Ing\u00e5ngsf\u00f6rdr\u00f6jning hemmal\u00e4ge"
+                },
+                "exit_delay_away": {
+                    "description": "Hur l\u00e5ng f\u00f6rdr\u00f6jning vid utg\u00e5ng medan man \u00e4r 'borta'.",
+                    "name": "Utg\u00e5ngsf\u00f6rdr\u00f6jning bortal\u00e4ge"
+                },
+                "exit_delay_home": {
+                    "description": "Hur l\u00e5ng f\u00f6rdr\u00f6jning vid utg\u00e5ng medan man \u00e4r 'hemma'.",
+                    "name": "Utg\u00e5ngsf\u00f6rdr\u00f6jning hemmal\u00e4ge"
+                },
+                "light": {
+                    "description": "Anger om ljus-indikatorn f\u00f6r 'Larmat' ska vara synlig",
+                    "name": "Ljus"
+                },
+                "voice_prompt_volume": {
+                    "description": "Volymniv\u00e5n f\u00f6r r\u00f6stmeddelanden.",
+                    "name": "Volym f\u00f6r r\u00f6stmeddelanden"
+                }
+            },
+            "name": "St\u00e4ll in systemegenskaper"
+        }
+    }
+}

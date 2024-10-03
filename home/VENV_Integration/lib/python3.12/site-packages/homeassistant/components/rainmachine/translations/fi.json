@@ -1,0 +1,268 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Laite on jo m\u00e4\u00e4ritetty"
+        },
+        "error": {
+            "invalid_auth": "Virheellinen todennus"
+        },
+        "flow_title": "{ip}",
+        "step": {
+            "user": {
+                "data": {
+                    "ip_address": "Palvelin tai IP-osoite",
+                    "password": "Salasana",
+                    "port": "Portti"
+                },
+                "title": "T\u00e4yt\u00e4 tietosi."
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "flow_sensor": {
+                "name": "Virtausanturi"
+            },
+            "freeze": {
+                "name": "J\u00e4\u00e4tymisrajoitukset"
+            },
+            "hourly": {
+                "name": "Tuntirajoitukset"
+            },
+            "month": {
+                "name": "Kuukausirajoitukset"
+            },
+            "raindelay": {
+                "name": "Sadeviiveen rajoitukset"
+            },
+            "rainsensor": {
+                "name": "Sadesensorin rajoitukset"
+            },
+            "weekday": {
+                "name": "Viikonp\u00e4iv\u00e4rajoitukset"
+            }
+        },
+        "select": {
+            "freeze_protection_temperature": {
+                "name": "J\u00e4\u00e4tymissuojal\u00e4mp\u00f6tila"
+            }
+        },
+        "sensor": {
+            "flow_sensor_clicks_cubic_meter": {
+                "name": "Virtausanturin napsautukset kuutiometri\u00e4 kohti"
+            },
+            "flow_sensor_consumed_liters": {
+                "name": "Virtaussensorin kulutetut litrat"
+            },
+            "flow_sensor_leak_clicks": {
+                "name": "Virtaussensorin vuoto napsahtaa"
+            },
+            "flow_sensor_leak_volume": {
+                "name": "Virtaussensorin vuototilavuus"
+            },
+            "flow_sensor_start_index": {
+                "name": "Virtaussensorin aloitusindeksi"
+            },
+            "flow_sensor_watering_clicks": {
+                "name": "Virtaussensori naksahtaa"
+            },
+            "last_leak_detected": {
+                "name": "Viimeisin havaittu vuoto"
+            },
+            "rain_sensor_rain_start": {
+                "name": "Sadetunnistin sade alkaa"
+            }
+        },
+        "switch": {
+            "freeze_protect_enabled": {
+                "name": "Pakkassuojaus"
+            },
+            "hot_days_extra_watering": {
+                "name": "Lis\u00e4vett\u00e4 kuumina p\u00e4ivin\u00e4"
+            }
+        },
+        "update": {
+            "firmware": {
+                "name": "Laiteohjelmisto"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "allow_inactive_zones_to_run": "Salli k\u00e4yt\u00f6st\u00e4 poistettujen vy\u00f6hykkeiden ajaminen manuaalisesti",
+                    "use_app_run_times": "K\u00e4yt\u00e4 vy\u00f6hykkeen ajoaikoja RainMachine-sovelluksesta",
+                    "zone_run_time": "Alueen oletusajoaika (sekunteina)"
+                },
+                "title": "M\u00e4\u00e4rit\u00e4 RainMachine"
+            }
+        }
+    },
+    "services": {
+        "pause_watering": {
+            "description": "Keskeytt\u00e4\u00e4 kaikki kastelutoiminnot muutamaksi sekunniksi.",
+            "fields": {
+                "device_id": {
+                    "description": "Ohjain, jonka kastelutoiminnot tulisi keskeytt\u00e4\u00e4.",
+                    "name": "Ohjain"
+                },
+                "seconds": {
+                    "description": "Aika (sekunteina) kastelun keskeytt\u00e4miseen.",
+                    "name": "Kesto"
+                }
+            },
+            "name": "Keskeyt\u00e4 kaikki kastelu"
+        },
+        "push_flow_meter_data": {
+            "description": "Ty\u00f6nn\u00e4 virtausmittarin tiedot RainMachine-laitteeseen.",
+            "fields": {
+                "device_id": {
+                    "description": "S\u00e4\u00e4din, johon virtausmittarin tiedot l\u00e4hetet\u00e4\u00e4n.",
+                    "name": "Ohjain"
+                },
+                "unit_of_measurement": {
+                    "description": "L\u00e4hetett\u00e4v\u00e4t virtausmittarin yksik\u00f6t.",
+                    "name": "Mittayksikk\u00f6"
+                },
+                "value": {
+                    "description": "L\u00e4hetett\u00e4v\u00e4 virtausmittarin arvo.",
+                    "name": "Arvo"
+                }
+            },
+            "name": "Ty\u00f6nn\u00e4 virtausmittarin tiedot"
+        },
+        "push_weather_data": {
+            "description": "Ty\u00f6nn\u00e4 s\u00e4\u00e4tiedot Home Assistantista RainMachine-laitteeseen.\nLocal Weather Push -palvelu on otettava k\u00e4ytt\u00f6\u00f6n Asetukset > S\u00e4\u00e4 > Developer-v\u00e4lilehdell\u00e4, jotta RainMachine voi huomioida l\u00e4hetett\u00e4v\u00e4t arvot. Yksik\u00f6t on l\u00e4hetett\u00e4v\u00e4 metrisin\u00e4; integraatio ei suorita muunnoksia.\nKatso RainMachine API:n yksityiskohdat t\u00e4\u00e4lt\u00e4: https://rainmachine.docs.apiary.io/#reference/weather-services/parserdata/post.",
+            "fields": {
+                "condition": {
+                    "description": "Nykyisen s\u00e4\u00e4tilan koodi (WNUM).",
+                    "name": "S\u00e4\u00e4tilan koodi"
+                },
+                "device_id": {
+                    "description": "Ohjain, jonka kautta s\u00e4\u00e4tiedot l\u00e4hetet\u00e4\u00e4n.",
+                    "name": "Ohjain"
+                },
+                "dewpoint": {
+                    "description": "Kastepiste (\u00b0C).",
+                    "name": "Kastepiste"
+                },
+                "et": {
+                    "description": "Haihtuminen (mm).",
+                    "name": "Kokonaishaihdunta"
+                },
+                "maxrh": {
+                    "description": "Suurin suhteellinen kosteus (% RH).",
+                    "name": "Suurin suhteellinen kosteus"
+                },
+                "maxtemp": {
+                    "description": "Enimm\u00e4isl\u00e4mp\u00f6tila (\u00b0C).",
+                    "name": "Maksimil\u00e4mp\u00f6tila"
+                },
+                "minrh": {
+                    "description": "Minimi suhteellinen kosteus (%RH).",
+                    "name": "Minimi suhteellinen kosteus"
+                },
+                "mintemp": {
+                    "description": "Minimil\u00e4mp\u00f6tila (\u00b0C).",
+                    "name": "Minimil\u00e4mp\u00f6tila"
+                },
+                "pressure": {
+                    "description": "Ilmanpaine (kPa).",
+                    "name": "Ilmanpaine"
+                },
+                "qpf": {
+                    "description": "Kvantitatiivinen sade-ennuste (mm) tai QPF. Huomautus: QPF-arvoja ei pit\u00e4isi l\u00e4hett\u00e4\u00e4 kumulatiivisina arvoina vaan kunkin tunnin tai p\u00e4iv\u00e4n mitattuina/ennustettuina arvoina. RainMachine Mixer laskee yhteen kaikki kuluvan p\u00e4iv\u00e4n QPF-arvot, jotta saadaan p\u00e4iv\u00e4n QPF-kokonaisarvo.",
+                    "name": "Kvantitatiivinen sade-ennuste"
+                },
+                "rain": {
+                    "description": "Mitattu sadem\u00e4\u00e4r\u00e4 (mm). Huomautus: RAIN-arvoja ei pit\u00e4isi l\u00e4hett\u00e4\u00e4 kumulatiivisina arvoina vaan kunkin tunnin tai p\u00e4iv\u00e4n mitattuina/ennustettuina arvoina. RainMachine Mixer laskee yhteen kaikki nykyisen p\u00e4iv\u00e4n RAIN-arvot, jotta saadaan p\u00e4iv\u00e4n kokonaissadem\u00e4\u00e4r\u00e4.",
+                    "name": "Mitattu sadem\u00e4\u00e4r\u00e4"
+                },
+                "solarrad": {
+                    "description": "Auringon s\u00e4teily (MJ/m\u00b2/h).",
+                    "name": "Auringon s\u00e4teily"
+                },
+                "temperature": {
+                    "description": "Nykyinen l\u00e4mp\u00f6tila (\u00b0C).",
+                    "name": "L\u00e4mp\u00f6tila"
+                },
+                "timestamp": {
+                    "description": "UNIX-aikaleima s\u00e4\u00e4tiedoille. Jos j\u00e4tet\u00e4\u00e4n pois, k\u00e4ytet\u00e4\u00e4n RainMachine-laitteen paikallista aikaa puhelun aikana.",
+                    "name": "Aikaleima"
+                },
+                "wind": {
+                    "description": "Tuulen nopeus (m/s).",
+                    "name": "Tuulennopeus"
+                }
+            },
+            "name": "Push s\u00e4\u00e4tiedot"
+        },
+        "restrict_watering": {
+            "description": "Rajoittaa kaikkien kastelutoimintojen alkamista tietyksi ajaksi.",
+            "fields": {
+                "device_id": {
+                    "description": "Ohjain, jonka kastelutoimintaa tulisi rajoittaa.",
+                    "name": "Ohjain"
+                },
+                "duration": {
+                    "description": "Aika, jonka kuluessa kastelutoiminnan aloittaminen rajoitetaan.",
+                    "name": "Kesto"
+                }
+            },
+            "name": "Rajoita kaikkea kastelua"
+        },
+        "start_program": {
+            "description": "K\u00e4ynnist\u00e4\u00e4 ohjelman.",
+            "name": "K\u00e4ynnist\u00e4 ohjelma"
+        },
+        "start_zone": {
+            "description": "Aloittaa alueen.",
+            "fields": {
+                "zone_run_time": {
+                    "description": "Vy\u00f6hykkeen kastelemiseen kuluva aika (sekunteina).",
+                    "name": "Ajoaika"
+                }
+            },
+            "name": "Aloitusalue"
+        },
+        "stop_all": {
+            "description": "Lopettaa kaikki kastelutoiminnot.",
+            "fields": {
+                "device_id": {
+                    "description": "S\u00e4\u00e4din, jonka kastelutoiminnot on lopetettava.",
+                    "name": "Ohjain"
+                }
+            },
+            "name": "Lopeta kaikki kastelu"
+        },
+        "stop_program": {
+            "description": "Lopettaa ohjelman.",
+            "name": "Lopeta ohjelma"
+        },
+        "stop_zone": {
+            "description": "Pys\u00e4ytt\u00e4\u00e4 alueen.",
+            "name": "Pys\u00e4yt\u00e4 alue"
+        },
+        "unpause_watering": {
+            "description": "Jatkaa kaikkia keskeytettyj\u00e4 kastelutoimintoja.",
+            "fields": {
+                "device_id": {
+                    "description": "Ohjain, jonka kastelutoimintoja ei keskeytet\u00e4.",
+                    "name": "Ohjain"
+                }
+            },
+            "name": "Jatka kaikkea kastelua"
+        },
+        "unrestrict_watering": {
+            "description": "\u00c4l\u00e4 rajoita kaikkia kastelutoimintoja.",
+            "fields": {
+                "device_id": {
+                    "description": "Ohjain, jonka kastelutoimintaa ei saa rajoittaa.",
+                    "name": "Ohjain"
+                }
+            },
+            "name": "\u00c4l\u00e4 rajoita kaikkea kastelua"
+        }
+    }
+}

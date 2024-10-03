@@ -1,0 +1,104 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "Kamera",
+            "state": {
+                "idle": "Inaktiv",
+                "recording": "Inspelning",
+                "streaming": "Str\u00f6mmar"
+            },
+            "state_attributes": {
+                "access_token": {
+                    "name": "\u00c5tkomsttoken"
+                },
+                "brand": {
+                    "name": "M\u00e4rke"
+                },
+                "frontend_stream_type": {
+                    "name": "Str\u00f6mtyp",
+                    "state": {
+                        "hls": "HLS",
+                        "webrtc": "WebRTC"
+                    }
+                },
+                "model_name": {
+                    "name": "Modell"
+                },
+                "motion_detection": {
+                    "name": "R\u00f6relsedetektering",
+                    "state": {
+                        "false": "Inaktiverad",
+                        "true": "Aktiverad"
+                    }
+                }
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "{platform}-plattformen f\u00f6r integrationen {domain} st\u00f6ds inte.\n\nTa bort den fr\u00e5n din konfiguration och starta om Home Assistant f\u00f6r att \u00e5tg\u00e4rda detta problem.",
+            "title": "Plattformen st\u00f6ds inte"
+        }
+    },
+    "services": {
+        "disable_motion_detection": {
+            "description": "Inaktiverar r\u00f6relsedetektering.",
+            "name": "Inaktivera r\u00f6relsedetektering"
+        },
+        "enable_motion_detection": {
+            "description": "Aktiverar r\u00f6relsedetektering.",
+            "name": "Aktivera r\u00f6relsedetektering"
+        },
+        "play_stream": {
+            "description": "Spelar upp kamerastr\u00f6mmen p\u00e5 en mediaspelare som st\u00f6ds.",
+            "fields": {
+                "format": {
+                    "description": "Str\u00f6mformat som st\u00f6ds av mediaspelaren.",
+                    "name": "Format"
+                },
+                "media_player": {
+                    "description": "Mediaspelare att str\u00f6mma till.",
+                    "name": "Mediaspelare"
+                }
+            },
+            "name": "Spela str\u00f6m"
+        },
+        "record": {
+            "description": "Skapar en inspelning av ett livekamerafl\u00f6de.",
+            "fields": {
+                "duration": {
+                    "description": "Planerad varaktighet f\u00f6r inspelningen. Den faktiska varaktigheten kan variera.",
+                    "name": "Varaktighet"
+                },
+                "filename": {
+                    "description": "Mall f\u00f6r ett filnamn. Tillg\u00e4nglig variabel \u00e4r `entity_id`. M\u00e5ste vara mp4.",
+                    "name": "Filnamn"
+                },
+                "lookback": {
+                    "description": "Planerad \u00e5terblicksperiod som ska inkluderas i inspelningen (ut\u00f6ver varaktigheten). Endast tillg\u00e4ngligt om det f\u00f6r n\u00e4rvarande finns en aktiv HLS-str\u00f6m. Den faktiska l\u00e4ngden p\u00e5 \u00e5terblicksperioden kan variera.",
+                    "name": "\u00c5terblick"
+                }
+            },
+            "name": "Spela in"
+        },
+        "snapshot": {
+            "description": "Tar en avbild fr\u00e5n en kamera.",
+            "fields": {
+                "filename": {
+                    "description": "Mall f\u00f6r ett filnamn. Tillg\u00e4nglig variabel \u00e4r `entity_id`.",
+                    "name": "Filnamn"
+                }
+            },
+            "name": "Tar en avbild"
+        },
+        "turn_off": {
+            "description": "St\u00e4nger av kameran.",
+            "name": "St\u00e4ng av"
+        },
+        "turn_on": {
+            "description": "Sl\u00e5r p\u00e5 kameran.",
+            "name": "Starta"
+        }
+    },
+    "title": "Kamera"
+}

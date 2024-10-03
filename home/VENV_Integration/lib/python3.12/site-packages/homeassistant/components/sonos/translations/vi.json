@@ -1,0 +1,174 @@
+{
+    "config": {
+        "abort": {
+            "no_devices_found": "Kh\u00f4ng t\u00ecm th\u1ea5y thi\u1ebft b\u1ecb n\u00e0o tr\u00ean m\u1ea1ng",
+            "not_sonos_device": "Thi\u1ebft b\u1ecb \u0111\u01b0\u1ee3c ph\u00e1t hi\u1ec7n kh\u00f4ng ph\u1ea3i l\u00e0 thi\u1ebft b\u1ecb Sonos",
+            "single_instance_allowed": "\u0110\u00e3 \u0111\u01b0\u1ee3c c\u1ea5u h\u00ecnh. Ch\u1ec9 c\u00f3 th\u1ec3 c\u00f3 m\u1ed9t c\u1ea5u h\u00ecnh duy nh\u1ea5t."
+        },
+        "step": {
+            "confirm": {
+                "description": "B\u1ea1n c\u00f3 mu\u1ed1n thi\u1ebft l\u1eadp Sonos kh\u00f4ng?"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "microphone": {
+                "name": "Micr\u00f4"
+            }
+        },
+        "number": {
+            "audio_delay": {
+                "name": "\u0110\u1ed9 tr\u1ec5 \u00e2m thanh"
+            },
+            "balance": {
+                "name": "C\u00e2n b\u1eb1ng"
+            },
+            "bass": {
+                "name": "\u00c2m tr\u1ea7m"
+            },
+            "music_surround_level": {
+                "name": "M\u1ee9c \u00e2m thanh v\u00f2m"
+            },
+            "sub_gain": {
+                "name": "T\u0103ng ph\u1ee5"
+            },
+            "surround_level": {
+                "name": "C\u1ea5p \u0111\u1ed9 v\u00f2m"
+            },
+            "treble": {
+                "name": "\u00c2m cao"
+            }
+        },
+        "sensor": {
+            "audio_input_format": {
+                "name": "\u0110\u1ecbnh d\u1ea1ng \u0111\u1ea7u v\u00e0o \u00e2m thanh"
+            }
+        },
+        "switch": {
+            "buttons_enabled": {
+                "name": "\u0110i\u1ec1u khi\u1ec3n c\u1ea3m \u1ee9ng"
+            },
+            "cross_fade": {
+                "name": "Crossfade"
+            },
+            "dialog_level": {
+                "name": "C\u1ea3i thi\u1ec7n gi\u1ecdng n\u00f3i"
+            },
+            "loudness": {
+                "name": "\u0110\u1ed9 \u1ed3n"
+            },
+            "night_mode": {
+                "name": "\u00c2m thanh ban \u0111\u00eam"
+            },
+            "status_light": {
+                "name": "\u0110\u00e8n tr\u1ea1ng th\u00e1i"
+            },
+            "sub_enabled": {
+                "name": "\u0110\u00e3 b\u1eadt loa si\u00eau tr\u1ea7m"
+            },
+            "surround_enabled": {
+                "name": "\u0110\u00e3 b\u1eadt \u00e2m thanh v\u00f2m"
+            },
+            "surround_mode": {
+                "name": "Nh\u1ea1c v\u00f2m \u00e2m l\u01b0\u1ee3ng \u0111\u1ea7y \u0111\u1ee7"
+            }
+        }
+    },
+    "issues": {
+        "subscriptions_failed": {
+            "description": "Quay tr\u1edf l\u1ea1i th\u0103m d\u00f2, ch\u1ee9c n\u0103ng c\u00f3 th\u1ec3 b\u1ecb h\u1ea1n ch\u1ebf.\n\nThi\u1ebft b\u1ecb Sonos t\u1ea1i {device_ip} kh\u00f4ng th\u1ec3 truy c\u1eadp Home Assistant t\u1ea1i {listener_address}.\n\nXem [t\u00e0i li\u1ec7u]({sub_fail_url}) c\u1ee7a ch\u00fang t\u00f4i \u0111\u1ec3 bi\u1ebft th\u00eam th\u00f4ng tin v\u1ec1 c\u00e1ch gi\u1ea3i quy\u1ebft v\u1ea5n \u0111\u1ec1 n\u00e0y.",
+            "title": "L\u1ed7i m\u1ea1ng: \u0111\u0103ng k\u00fd kh\u00f4ng th\u00e0nh c\u00f4ng"
+        }
+    },
+    "services": {
+        "clear_sleep_timer": {
+            "description": "X\u00f3a b\u1ed9 h\u1eb9n gi\u1edd Sonos.",
+            "name": "X\u00f3a h\u1eb9n gi\u1edd"
+        },
+        "play_queue": {
+            "description": "B\u1eaft \u0111\u1ea7u ph\u00e1t h\u00e0ng \u0111\u1ee3i t\u1eeb m\u1ee5c \u0111\u1ea7u ti\u00ean.",
+            "fields": {
+                "queue_position": {
+                    "description": "V\u1ecb tr\u00ed c\u1ee7a b\u00e0i h\u00e1t trong h\u00e0ng \u0111\u1ee3i \u0111\u1ec3 b\u1eaft \u0111\u1ea7u ph\u00e1t.",
+                    "name": "V\u1ecb tr\u00ed h\u00e0ng \u0111\u1ee3i"
+                }
+            },
+            "name": "Ph\u00e1t h\u00e0ng \u0111\u1ee3i"
+        },
+        "remove_from_queue": {
+            "description": "X\u00f3a m\u1ed9t m\u1ee5c kh\u1ecfi h\u00e0ng \u0111\u1ee3i.",
+            "fields": {
+                "queue_position": {
+                    "description": "V\u1ecb tr\u00ed trong h\u00e0ng \u0111\u1ee3i c\u1ea7n x\u00f3a.",
+                    "name": "V\u1ecb tr\u00ed h\u00e0ng \u0111\u1ee3i"
+                }
+            },
+            "name": "X\u00f3a kh\u1ecfi h\u00e0ng \u0111\u1ee3i"
+        },
+        "restore": {
+            "description": "Kh\u00f4i ph\u1ee5c \u1ea3nh ch\u1ee5p nhanh c\u1ee7a tr\u00ecnh ph\u00e1t \u0111a ph\u01b0\u01a1ng ti\u1ec7n.",
+            "fields": {
+                "entity_id": {
+                    "description": "T\u00ean c\u1ee7a th\u1ef1c th\u1ec3 s\u1ebd \u0111\u01b0\u1ee3c kh\u00f4i ph\u1ee5c.",
+                    "name": "Th\u1ef1c th\u1ec3"
+                },
+                "with_group": {
+                    "description": "\u0110\u00fang hay Sai. \u0110\u1ed3ng th\u1eddi kh\u00f4i ph\u1ee5c b\u1ed1 c\u1ee5c nh\u00f3m.",
+                    "name": "V\u1edbi nh\u00f3m"
+                }
+            },
+            "name": "Kh\u00f4i ph\u1ee5c"
+        },
+        "set_sleep_timer": {
+            "description": "\u0110\u1eb7t h\u1eb9n gi\u1edd Sonos.",
+            "fields": {
+                "sleep_time": {
+                    "description": "S\u1ed1 gi\u00e2y \u0111\u1ec3 \u0111\u1eb7t h\u1eb9n gi\u1edd.",
+                    "name": "Th\u1eddi gian ng\u1ee7"
+                }
+            },
+            "name": "\u0110\u1eb7t h\u1eb9n gi\u1edd"
+        },
+        "snapshot": {
+            "description": "Ch\u1ee5p \u1ea3nh nhanh tr\u00ecnh ph\u00e1t \u0111a ph\u01b0\u01a1ng ti\u1ec7n.",
+            "fields": {
+                "entity_id": {
+                    "description": "T\u00ean c\u1ee7a th\u1ef1c th\u1ec3 s\u1ebd \u0111\u01b0\u1ee3c ch\u1ee5p nhanh.",
+                    "name": "Th\u1ef1c th\u1ec3"
+                },
+                "with_group": {
+                    "description": "\u0110\u00fang hay Sai. \u0110\u1ed3ng th\u1eddi ch\u1ee5p nhanh b\u1ed1 c\u1ee5c nh\u00f3m.",
+                    "name": "V\u1edbi nh\u00f3m"
+                }
+            },
+            "name": "Ch\u1ee5p nhanh"
+        },
+        "update_alarm": {
+            "description": "C\u1eadp nh\u1eadt b\u00e1o th\u1ee9c v\u1edbi c\u00e0i \u0111\u1eb7t th\u1eddi gian v\u00e0 \u00e2m l\u01b0\u1ee3ng m\u1edbi.",
+            "fields": {
+                "alarm_id": {
+                    "description": "ID c\u1ee7a b\u00e1o th\u1ee9c \u0111\u01b0\u1ee3c c\u1eadp nh\u1eadt.",
+                    "name": "ID b\u00e1o th\u1ee9c"
+                },
+                "enabled": {
+                    "description": "B\u1eadt ho\u1eb7c t\u1eaft b\u00e1o th\u1ee9c.",
+                    "name": "\u0110\u00e3 b\u1eadt b\u00e1o th\u1ee9c"
+                },
+                "include_linked_zones": {
+                    "description": "B\u1eadt ho\u1eb7c t\u1eaft bao g\u1ed3m c\u00e1c ph\u00f2ng \u0111\u01b0\u1ee3c nh\u00f3m.",
+                    "name": "Bao g\u1ed3m c\u00e1c v\u00f9ng \u0111\u01b0\u1ee3c li\u00ean k\u1ebft"
+                },
+                "time": {
+                    "description": "\u0110\u1eb7t th\u1eddi gian cho b\u00e1o th\u1ee9c.",
+                    "name": "Th\u1eddi gian"
+                },
+                "volume": {
+                    "description": "\u0110\u1eb7t m\u1ee9c \u00e2m l\u01b0\u1ee3ng b\u00e1o th\u1ee9c.",
+                    "name": "\u00c2m l\u01b0\u1ee3ng"
+                }
+            },
+            "name": "C\u1eadp nh\u1eadt b\u00e1o th\u1ee9c"
+        }
+    }
+}

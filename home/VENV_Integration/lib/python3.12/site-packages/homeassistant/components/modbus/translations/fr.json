@@ -1,0 +1,86 @@
+{
+    "issues": {
+        "deprecated_close_comm_config": {
+            "description": "Veuillez supprimer la cl\u00e9 `{config_key}` de l'entr\u00e9e {integration} dans votre fichier `configuration.yaml` et red\u00e9marrer Home Assistant pour r\u00e9soudre ce probl\u00e8me. Toutes les erreurs seront signal\u00e9es, car `lazy_error_count` est accept\u00e9 mais ignor\u00e9.",
+            "title": "`{config_key}` la cl\u00e9 de configuration est en train d'\u00eatre supprim\u00e9e"
+        },
+        "deprecated_retries": {
+            "description": "Veuillez supprimer la cl\u00e9 `{config_key}` de l'entr\u00e9e {integration} dans votre fichier configuration.yaml et red\u00e9marrer Home Assistant pour r\u00e9soudre ce probl\u00e8me. \n\n Le nombre maximum de tentatives est d\u00e9sormais fix\u00e9 \u00e0 3."
+        },
+        "deprecated_retry_on_empty": {
+            "description": "Veuillez supprimer la cl\u00e9 `{config_key}` de l'entr\u00e9e {integration} dans votre fichier configuration.yaml et red\u00e9marrer Home Assistant pour r\u00e9soudre ce probl\u00e8me. \n\n La nouvelle tentative vide est automatiquement appliqu\u00e9e, voir [la documentation]({url}) pour d'autres param\u00e8tres de gestion des erreurs.",
+            "title": "`{config_key}` la cl\u00e9 de configuration est en train d'\u00eatre supprim\u00e9e"
+        },
+        "removed_lazy_error_count": {
+            "description": "Veuillez supprimer la cl\u00e9 `{config_key}` de l'entr\u00e9e {integration} dans votre fichier configuration.yaml et red\u00e9marrer Home Assistant pour r\u00e9soudre ce probl\u00e8me. Toutes les erreurs seront signal\u00e9es, car lazy_error_count est accept\u00e9 mais ignor\u00e9"
+        }
+    },
+    "services": {
+        "reload": {
+            "description": "Recharge toutes les entit\u00e9s Modbus.",
+            "name": "Recharger"
+        },
+        "restart": {
+            "description": "Red\u00e9marre le hub Modbus (s'il est en cours d'ex\u00e9cution, arr\u00eate puis d\u00e9marre).",
+            "fields": {
+                "hub": {
+                    "description": "Nom du hub Modbus.",
+                    "name": "Hub"
+                }
+            },
+            "name": "Red\u00e9marrer"
+        },
+        "stop": {
+            "description": "Arr\u00eate le hub Modbus.",
+            "fields": {
+                "hub": {
+                    "description": "Nom du hub Modbus.",
+                    "name": "Hub"
+                }
+            },
+            "name": "Arr\u00eater"
+        },
+        "write_coil": {
+            "fields": {
+                "address": {
+                    "description": "Adresse du registre dans lequel \u00e9crire.",
+                    "name": "Adresse"
+                },
+                "hub": {
+                    "description": "Nom du hub Modbus.",
+                    "name": "Hub"
+                },
+                "slave": {
+                    "description": "Adresse de l'unit\u00e9/esclave Modbus.",
+                    "name": "Esclave"
+                },
+                "state": {
+                    "description": "\u00c9tat \u00e0 \u00e9crire.",
+                    "name": "\u00c9tat"
+                }
+            }
+        },
+        "write_register": {
+            "description": "\u00c9criture dans un registre de maintien modbus.",
+            "fields": {
+                "address": {
+                    "description": "Adresse du registre de maintien dans lequel \u00e9crire.",
+                    "name": "Adresse"
+                },
+                "hub": {
+                    "description": "Nom du hub Modbus.",
+                    "name": "Hub"
+                },
+                "slave": {
+                    "description": "Adresse de l'unit\u00e9/esclave Modbus.",
+                    "name": "Esclave"
+                },
+                "value": {
+                    "description": "Valeur (valeur unique ou tableau) \u00e0 \u00e9crire.",
+                    "name": "Valeur"
+                }
+            },
+            "name": "Registre d'\u00e9criture"
+        }
+    }
+}

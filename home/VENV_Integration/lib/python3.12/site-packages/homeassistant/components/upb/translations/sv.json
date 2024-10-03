@@ -1,0 +1,111 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Enheten \u00e4r redan konfigurerad"
+        },
+        "error": {
+            "cannot_connect": "Det gick inte att ansluta.",
+            "invalid_upb_file": "Saknar eller ogiltig UPB UPStart-exportfil, kontrollera filens namn och s\u00f6kv\u00e4g.",
+            "unknown": "Ov\u00e4ntat fel"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "address": "Adress (se beskrivning ovan)",
+                    "file_path": "S\u00f6kv\u00e4g och namn f\u00f6r UPStart UPB-exportfilen.",
+                    "protocol": "Protokoll"
+                },
+                "description": "Anslut en Universal Powerline Bus Powerline Interface Module (UPB PIM). Adressstr\u00e4ngen m\u00e5ste vara i formen 'adress[:port]' f\u00f6r 'tcp'. Porten \u00e4r valfri och har som standard 2101. Exempel: '192.168.1.42'. F\u00f6r det seriella protokollet m\u00e5ste adressen vara i formen 'tty[:baud]'. Bauden \u00e4r valfri och \u00e4r standard till 4800. Exempel: '/dev/ttyS1'.",
+                "title": "Anslut till UPB PIM"
+            }
+        }
+    },
+    "services": {
+        "light_blink": {
+            "description": "Blinkar med en lampa.",
+            "fields": {
+                "rate": {
+                    "description": "Hur l\u00e5ng tid som l\u00e4nken blinkar.",
+                    "name": "Hastighet"
+                }
+            },
+            "name": "Blinka lampa"
+        },
+        "light_fade_start": {
+            "description": "B\u00f6rjar tona en lampa antingen upp eller ned fr\u00e5n nuvarande ljusstyrka.",
+            "fields": {
+                "brightness": {
+                    "description": "Siffra som anger ljusstyrka, d\u00e4r 0 sl\u00e4cker ljuset, 1 \u00e4r l\u00e4gsta ljusstyrka och 255 \u00e4r h\u00f6gsta ljusstyrka.",
+                    "name": "Ljusstyrka"
+                },
+                "brightness_pct": {
+                    "description": "Siffra som indikerar procent av full ljusstyrka, d\u00e4r 0 sl\u00e4cker ljuset, 1 \u00e4r l\u00e4gsta ljusstyrka och 100 \u00e4r maximal ljusstyrka.",
+                    "name": "Ljusstyrka i procent"
+                },
+                "rate": {
+                    "description": "Hastighet f\u00f6r ljus att \u00f6verg\u00e5 till ny ljusstyrka.",
+                    "name": "Hastighet"
+                }
+            },
+            "name": "B\u00f6rja tona ljus"
+        },
+        "light_fade_stop": {
+            "description": "Stoppar en p\u00e5g\u00e5ende ljustoning",
+            "name": "Stoppa tona ljus"
+        },
+        "link_blink": {
+            "description": "Blinkar med en link.",
+            "fields": {
+                "blink_rate": {
+                    "description": "Hur l\u00e5ng tid som l\u00e4nken blinkar.",
+                    "name": "Blinkhastighet"
+                }
+            },
+            "name": "Blinka link"
+        },
+        "link_deactivate": {
+            "description": "Inaktiverar en UPB-scen.",
+            "name": "Inaktivera link"
+        },
+        "link_fade_start": {
+            "description": "B\u00f6rjar tona en link antingen upp eller ned fr\u00e5n nuvarande ljusstyrka.",
+            "fields": {
+                "brightness": {
+                    "description": "Siffra som anger ljusstyrka, d\u00e4r 0 st\u00e4nger av scenen, 1 \u00e4r l\u00e4gsta ljusstyrka och 255 \u00e4r h\u00f6gsta ljusstyrka.",
+                    "name": "Ljusstyrka"
+                },
+                "brightness_pct": {
+                    "description": "Siffra som anger procentandelen av full ljusstyrka, d\u00e4r 0 st\u00e4nger av scenen, 1 \u00e4r l\u00e4gsta ljusstyrka och 100 \u00e4r maximal ljusstyrka.",
+                    "name": "Ljusstyrka i procent"
+                },
+                "rate": {
+                    "description": "Hur l\u00e5ng tid det tar f\u00f6r scenen att \u00f6verg\u00e5 till ny ljusstyrka.",
+                    "name": "Hastighet"
+                }
+            },
+            "name": "B\u00f6rja tona link"
+        },
+        "link_fade_stop": {
+            "description": "Stoppar en l\u00e4nktoning.",
+            "name": "Stoppa l\u00e4nkens nedtoning"
+        },
+        "link_goto": {
+            "description": "St\u00e4ll in scenen p\u00e5 ljusstyrka.",
+            "fields": {
+                "brightness": {
+                    "description": "Siffra som anger ljusstyrka, d\u00e4r 0 st\u00e4nger av scenen, 1 \u00e4r l\u00e4gsta ljusstyrka och 255 \u00e4r h\u00f6gsta ljusstyrka.",
+                    "name": "Ljusstyrka"
+                },
+                "brightness_pct": {
+                    "description": "Siffra som anger procentandelen av full ljusstyrka, d\u00e4r 0 st\u00e4nger av scenen, 1 \u00e4r l\u00e4gsta ljusstyrka och 100 \u00e4r maximal ljusstyrka.",
+                    "name": "Ljusstyrka i procent"
+                },
+                "rate": {
+                    "description": "Hur l\u00e5ng tid det tar f\u00f6r scenen att \u00f6verg\u00e5 till ny ljusstyrka.",
+                    "name": "Hastighet"
+                }
+            },
+            "name": "G\u00e5 till l\u00e4nk"
+        }
+    }
+}

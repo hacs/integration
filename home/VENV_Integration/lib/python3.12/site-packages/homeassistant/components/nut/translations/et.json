@@ -1,0 +1,433 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Seade on juba h\u00e4\u00e4lestatud",
+            "no_ups_found": "NUT-serveris ei ole UPS-seadmeid.",
+            "reauth_successful": "Taastuvastamine \u00f5nnestus"
+        },
+        "error": {
+            "cannot_connect": "\u00dchendamine nurjus: {error}",
+            "invalid_auth": "Tuvastamine nurjus",
+            "unknown": "Tundmatu viga"
+        },
+        "step": {
+            "reauth_confirm": {
+                "data": {
+                    "password": "Salas\u00f5na",
+                    "username": "Kasutajanimi"
+                },
+                "description": "Taastuvasta NUT-server aadressil {host} : {port}"
+            },
+            "ups": {
+                "data": {
+                    "alias": ""
+                },
+                "title": "Vali j\u00e4lgitava UPS"
+            },
+            "user": {
+                "data": {
+                    "host": "",
+                    "password": "Salas\u00f5na",
+                    "port": "",
+                    "username": "Kasutajanimi"
+                },
+                "data_description": {
+                    "host": "NUT-serveri hostinimi v\u00f5i IP-aadress."
+                },
+                "description": "Loo \u00fchendus NUT-serveriga",
+                "title": "Loo \u00fchendus NUT-serveriga"
+            }
+        }
+    },
+    "device_automation": {
+        "action_type": {
+            "beeper_disable": "Keela UPSi helisignaal",
+            "beeper_enable": "Luba UPSi helisignaal",
+            "beeper_mute": "Vaigista ajutiselt UPSi helisignaal",
+            "beeper_toggle": "UPS-i helisignaali l\u00fclitamine",
+            "bypass_start": "Pane UPS m\u00f6\u00f6daviigure\u017eiimi",
+            "bypass_stop": "L\u00fclita UPS m\u00f6\u00f6daviigure\u017eiimist v\u00e4lja",
+            "calibrate_start": "K\u00e4itusaja kalibreerimise alustamine",
+            "calibrate_stop": "K\u00e4itusaja kalibreerimise peatamine",
+            "load_off": "L\u00fclita koormus kohe v\u00e4lja",
+            "load_on": "L\u00fclita koormus kohe sisse",
+            "reset_input_minmax": "L\u00e4htesta minimaalse ja maksimaalse sisendpinge olek",
+            "reset_watchdog": "Valvetaimeri l\u00e4htestamine (koormuse sunniviisiline taask\u00e4ivitamine)",
+            "shutdown_reboot": "L\u00fclita UPSi taask\u00e4ivitamise ajal korraks koormus v\u00e4lja",
+            "shutdown_reboot_graceful": "P\u00e4rast viivitust l\u00fclita koormus l\u00fchiajaliselt v\u00e4lja, k\u00e4ivitades samal ajal UPSi uuesti.",
+            "shutdown_return": "L\u00fclita koormus v\u00f5imalusel p\u00e4rast viivitust v\u00e4lja ja naase kui toide taastub.",
+            "shutdown_stayoff": "L\u00fclita koormus v\u00f5imalusel p\u00e4rast viivitust v\u00e4lja ja j\u00e4\u00e4 v\u00e4lja ka siis, kui toide taastub",
+            "shutdown_stop": "Peata k\u00e4imasolev seiskamine",
+            "test_battery_start": "Alusta aku testimist",
+            "test_battery_start_deep": "Alusta aku s\u00fcvatesti",
+            "test_battery_start_quick": "K\u00e4ivita aku kiirtest",
+            "test_battery_stop": "L\u00f5peta aku testimine",
+            "test_failure_start": "K\u00e4ivita simuleeritud voolukatkestus",
+            "test_failure_stop": "L\u00f5peta voolukatkestuse simuleerimine",
+            "test_panel_start": "Alusta UPS-i paneeli testimist",
+            "test_panel_stop": "Peata UPS-i paneeli test",
+            "test_system_start": "S\u00fcsteemitesti k\u00e4ivitamine"
+        }
+    },
+    "entity": {
+        "sensor": {
+            "ambient_humidity": {
+                "name": "\u00dcmbritsev \u00f5huniiskus"
+            },
+            "ambient_temperature": {
+                "name": "\u00dcmbritsev temperatuur"
+            },
+            "battery_alarm_threshold": {
+                "name": "Aku h\u00e4irel\u00e4vi"
+            },
+            "battery_capacity": {
+                "name": "Aku mahutavus"
+            },
+            "battery_charge": {
+                "name": "Aku laetus"
+            },
+            "battery_charge_low": {
+                "name": "Aku t\u00fchjenemise seadistuspunkt"
+            },
+            "battery_charge_restart": {
+                "name": "Minimaalne aku k\u00e4ivitamiseks"
+            },
+            "battery_charge_warning": {
+                "name": "Aku seadepunkti hoiatus"
+            },
+            "battery_charger_status": {
+                "name": "Laadimise olek"
+            },
+            "battery_current": {
+                "name": "Aku vool"
+            },
+            "battery_current_total": {
+                "name": "Aku koguvool"
+            },
+            "battery_date": {
+                "name": "Aku kuup\u00e4ev"
+            },
+            "battery_mfr_date": {
+                "name": "Aku valmistamise kuup\u00e4ev"
+            },
+            "battery_packs": {
+                "name": "Akude arv"
+            },
+            "battery_packs_bad": {
+                "name": "Halbade akude arv"
+            },
+            "battery_runtime": {
+                "name": "Aku t\u00f6\u00f6aeg"
+            },
+            "battery_runtime_low": {
+                "name": "Madala aku t\u00f6\u00f6aeg"
+            },
+            "battery_runtime_restart": {
+                "name": "Minimaalne aku t\u00f6\u00f6aeg k\u00e4ivitamiseks"
+            },
+            "battery_temperature": {
+                "name": "Aku temperatuur"
+            },
+            "battery_type": {
+                "name": "Aku keemia"
+            },
+            "battery_voltage": {
+                "name": "Aku pinge"
+            },
+            "battery_voltage_high": {
+                "name": "K\u00f5rge aku pinge"
+            },
+            "battery_voltage_low": {
+                "name": "Madal aku pinge"
+            },
+            "battery_voltage_nominal": {
+                "name": "Aku nimipinge"
+            },
+            "input_bypass_current": {
+                "name": "Sisendi m\u00f6\u00f6daviiguvool"
+            },
+            "input_bypass_frequency": {
+                "name": "Sisendi m\u00f6\u00f6daviigu sagedus"
+            },
+            "input_bypass_l1_current": {
+                "name": "Sisendi m\u00f6\u00f6daviik L1 vool"
+            },
+            "input_bypass_l1_n_voltage": {
+                "name": "Sisendi m\u00f6\u00f6daviik L1-N pinge"
+            },
+            "input_bypass_l1_realpower": {
+                "name": "Praegune sisendi m\u00f6\u00f6davool L1 tegelik v\u00f5imsus"
+            },
+            "input_bypass_l2_current": {
+                "name": "Sisendi m\u00f6\u00f6daviik L2 vool"
+            },
+            "input_bypass_l2_n_voltage": {
+                "name": "Sisendi m\u00f6\u00f6daviik L2-N pinge"
+            },
+            "input_bypass_l2_realpower": {
+                "name": "Praegune sisendi m\u00f6\u00f6davool L2 tegelik v\u00f5imsus"
+            },
+            "input_bypass_l3_current": {
+                "name": "Sisendi m\u00f6\u00f6daviik L3 vool"
+            },
+            "input_bypass_l3_n_voltage": {
+                "name": "Sisendi m\u00f6\u00f6daviik L3-N pinge"
+            },
+            "input_bypass_l3_realpower": {
+                "name": "Voolu sisendi m\u00f6\u00f6daviigu L3 tegelik v\u00f5imsus"
+            },
+            "input_bypass_phases": {
+                "name": "Sisendi m\u00f6\u00f6daviigu faasid"
+            },
+            "input_bypass_realpower": {
+                "name": "Praegune sisendi m\u00f6\u00f6daviigu tegelik v\u00f5imsus"
+            },
+            "input_bypass_voltage": {
+                "name": "Sisendi m\u00f6\u00f6daviigu pinge"
+            },
+            "input_current": {
+                "name": "Sisendvool"
+            },
+            "input_frequency": {
+                "name": "Sisendi sagedus"
+            },
+            "input_frequency_nominal": {
+                "name": "Sisendi nimisagedus"
+            },
+            "input_frequency_status": {
+                "name": "Sisendsageduse olek"
+            },
+            "input_l1_current": {
+                "name": "Sisend L1 vool"
+            },
+            "input_l1_frequency": {
+                "name": "Sisendi L1 liini sagedus"
+            },
+            "input_l1_n_voltage": {
+                "name": "Sisend L1 pinge"
+            },
+            "input_l1_realpower": {
+                "name": "Praegune sisend L1 reaalv\u00f5imsus"
+            },
+            "input_l2_current": {
+                "name": "Sisend L2 vool"
+            },
+            "input_l2_frequency": {
+                "name": "Sisend L2 liini sagedus"
+            },
+            "input_l2_n_voltage": {
+                "name": "Sisend L2 pinge"
+            },
+            "input_l2_realpower": {
+                "name": "Praegune sisend L2 reaalv\u00f5imsus"
+            },
+            "input_l3_current": {
+                "name": "Sisend L3 vool"
+            },
+            "input_l3_frequency": {
+                "name": "Sisendi L3 liini sagedus"
+            },
+            "input_l3_n_voltage": {
+                "name": "Sisend L3 pinge"
+            },
+            "input_l3_realpower": {
+                "name": "Praegune sisend L3 reaalv\u00f5imsus"
+            },
+            "input_phases": {
+                "name": "Sisendfaasid"
+            },
+            "input_realpower": {
+                "name": "Praegune sisendi reaalne v\u00f5imsus"
+            },
+            "input_sensitivity": {
+                "name": "Sisendv\u00f5imsuse tundlikkus"
+            },
+            "input_transfer_high": {
+                "name": "K\u00f5rgepinge \u00fclekanne"
+            },
+            "input_transfer_low": {
+                "name": "Madalpinge \u00fclekanne"
+            },
+            "input_transfer_reason": {
+                "name": "Pinge \u00fclekande p\u00f5hjus"
+            },
+            "input_voltage": {
+                "name": "Sisendpinge"
+            },
+            "input_voltage_nominal": {
+                "name": "Nominaalne sisendpinge"
+            },
+            "output_current": {
+                "name": "V\u00e4ljundvool"
+            },
+            "output_current_nominal": {
+                "name": "Nominaalne v\u00e4ljundvool"
+            },
+            "output_frequency": {
+                "name": "V\u00e4ljundsagedus"
+            },
+            "output_frequency_nominal": {
+                "name": "Nominaalne v\u00e4ljundsagedus"
+            },
+            "output_l1_current": {
+                "name": "V\u00e4ljund L1 vool"
+            },
+            "output_l1_n_voltage": {
+                "name": "V\u00e4ljund L1-N pinge"
+            },
+            "output_l1_power_percent": {
+                "name": "V\u00e4ljund L1 energiatarve"
+            },
+            "output_l1_realpower": {
+                "name": "Praegune v\u00e4ljund L1 tegelik v\u00f5imsus"
+            },
+            "output_l2_current": {
+                "name": "V\u00e4ljund L2 vool"
+            },
+            "output_l2_n_voltage": {
+                "name": "V\u00e4ljund L2-N pinge"
+            },
+            "output_l2_power_percent": {
+                "name": "V\u00e4ljund L2 energiatarve"
+            },
+            "output_l2_realpower": {
+                "name": "Praegune v\u00e4ljund L2 tegelik v\u00f5imsus"
+            },
+            "output_l3_current": {
+                "name": "V\u00e4ljund L3 vool"
+            },
+            "output_l3_n_voltage": {
+                "name": "V\u00e4ljund L3-N pinge"
+            },
+            "output_l3_power_percent": {
+                "name": "V\u00e4ljund L3 energiatarve"
+            },
+            "output_l3_realpower": {
+                "name": "Praegune v\u00e4ljund L3 tegelik v\u00f5imsus"
+            },
+            "output_phases": {
+                "name": "V\u00e4ljundfaasid"
+            },
+            "output_power": {
+                "name": "N\u00e4ivv\u00f5imsus v\u00e4ljundis"
+            },
+            "output_power_nominal": {
+                "name": "Kavandatud v\u00e4ljundv\u00f5imsus"
+            },
+            "output_realpower": {
+                "name": "Praegune v\u00e4ljundv\u00f5imsus"
+            },
+            "output_realpower_nominal": {
+                "name": "V\u00e4ljundi tegelik v\u00f5imsus"
+            },
+            "output_voltage": {
+                "name": "V\u00e4ljundpinge"
+            },
+            "output_voltage_nominal": {
+                "name": "Nominaalne v\u00e4ljundpinge"
+            },
+            "ups_alarm": {
+                "name": "H\u00e4ired"
+            },
+            "ups_beeper_status": {
+                "name": "Helisignaali olek"
+            },
+            "ups_contacts": {
+                "name": "V\u00e4lised kontaktid"
+            },
+            "ups_delay_reboot": {
+                "name": "UPSi taask\u00e4ivitamise viivitus"
+            },
+            "ups_delay_shutdown": {
+                "name": "UPSi v\u00e4ljal\u00fclitamise viivitus"
+            },
+            "ups_delay_start": {
+                "name": "Taask\u00e4ivitamise viivitus"
+            },
+            "ups_display_language": {
+                "name": "Keel"
+            },
+            "ups_efficiency": {
+                "name": "T\u00f5husus"
+            },
+            "ups_id": {
+                "name": "S\u00fcsteemi identifikaator"
+            },
+            "ups_load": {
+                "name": "Koormus"
+            },
+            "ups_load_high": {
+                "name": "\u00dclekoormuse seadistus"
+            },
+            "ups_power": {
+                "name": "Praegune n\u00e4ivv\u00f5imsus"
+            },
+            "ups_power_nominal": {
+                "name": "Nimiv\u00f5imsus"
+            },
+            "ups_realpower": {
+                "name": "Praegune tegelik v\u00f5imsus"
+            },
+            "ups_realpower_nominal": {
+                "name": "Tegelik nimiv\u00f5imsus"
+            },
+            "ups_shutdown": {
+                "name": "Seiskamisv\u00f5ime"
+            },
+            "ups_start_auto": {
+                "name": "K\u00e4ivita vahelduvvoolult"
+            },
+            "ups_start_battery": {
+                "name": "K\u00e4ivita aku pealt"
+            },
+            "ups_start_reboot": {
+                "name": "Taask\u00e4ivita aku pealt"
+            },
+            "ups_status": {
+                "name": "Oleku andmed"
+            },
+            "ups_status_display": {
+                "name": "Olek"
+            },
+            "ups_temperature": {
+                "name": "UPSi temperatuur"
+            },
+            "ups_test_date": {
+                "name": "Enesetesti kuup\u00e4ev"
+            },
+            "ups_test_interval": {
+                "name": "Enesetesti intervall"
+            },
+            "ups_test_result": {
+                "name": "Enesetesti tulemus"
+            },
+            "ups_timer_reboot": {
+                "name": "Lae taask\u00e4ivitustaimer"
+            },
+            "ups_timer_shutdown": {
+                "name": "Lae v\u00e4ljal\u00fclitustaimer"
+            },
+            "ups_timer_start": {
+                "name": "Lae k\u00e4ivitustaimer"
+            },
+            "ups_type": {
+                "name": "UPSi t\u00fc\u00fcp"
+            },
+            "ups_watchdog_status": {
+                "name": "Valvetaimeri olek"
+            },
+            "watts": {
+                "name": "vatti"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "scan_interval": "P\u00e4ringute intervall (sekundites)"
+                }
+            }
+        }
+    }
+}

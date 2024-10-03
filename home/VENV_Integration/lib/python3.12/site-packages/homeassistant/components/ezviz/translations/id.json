@@ -1,0 +1,292 @@
+{
+    "config": {
+        "abort": {
+            "already_configured_account": "Akun sudah dikonfigurasi",
+            "ezviz_cloud_account_missing": "Akun cloud Ezviz tidak tersedia. Konfigurasi ulang akun cloud Ezviz",
+            "reauth_successful": "Autentikasi ulang berhasil",
+            "unknown": "Kesalahan tak terduga"
+        },
+        "error": {
+            "cannot_connect": "Gagal terhubung",
+            "invalid_auth": "Autentikasi tidak valid",
+            "invalid_host": "Nama host atau alamat IP tidak valid",
+            "mfa_required": "2FA diaktifkan pada akun, harap nonaktifkan dan coba lagi"
+        },
+        "flow_title": "{serial}",
+        "step": {
+            "confirm": {
+                "data": {
+                    "password": "Kata Sandi",
+                    "username": "Nama Pengguna"
+                },
+                "description": "Masukkan kredensial RTSP untuk kamera EZVIZ {serial} dengan IP {ip_address}",
+                "title": "Kamera EZVIZ yang ditemukan"
+            },
+            "reauth_confirm": {
+                "data": {
+                    "password": "Kata Sandi",
+                    "username": "Nama Pengguna"
+                },
+                "description": "Masukkan kredensial untuk mengautentikasi ulang ke akun cloud ezviz",
+                "title": "Autentikasi ulang integrasi untuk {name}"
+            },
+            "user": {
+                "data": {
+                    "password": "Kata Sandi",
+                    "url": "URL",
+                    "username": "Nama Pengguna"
+                },
+                "title": "Hubungkan ke EZVIZ Cloud"
+            },
+            "user_custom_url": {
+                "data": {
+                    "password": "Kata Sandi",
+                    "url": "URL",
+                    "username": "Nama Pengguna"
+                },
+                "description": "Tentukan URL wilayah Anda secara manual",
+                "title": "Hubungkan ke URL EZVIZ khusus"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "alarm_schedules_enabled": {
+                "name": "Jadwal alarm diaktifkan"
+            },
+            "encrypted": {
+                "name": "Enkripsi"
+            }
+        },
+        "button": {
+            "ptz_down": {
+                "name": "PTZ bawah"
+            },
+            "ptz_left": {
+                "name": "PTZ kiri"
+            },
+            "ptz_right": {
+                "name": "PTZ kanan"
+            },
+            "ptz_up": {
+                "name": "PTZ atas"
+            }
+        },
+        "image": {
+            "last_motion_image": {
+                "name": "Gambar gerakan terakhir"
+            }
+        },
+        "light": {
+            "light": {
+                "name": "Lampu"
+            }
+        },
+        "number": {
+            "detection_sensibility": {
+                "name": "Sensitivitas deteksi"
+            }
+        },
+        "select": {
+            "alarm_sound_mode": {
+                "name": "Suara peringatan",
+                "state": {
+                    "intensive": "Intensif",
+                    "silent": "Bisu",
+                    "soft": "Lembut"
+                }
+            }
+        },
+        "sensor": {
+            "alarm_sound_mod": {
+                "name": "Tingkat suara alarm"
+            },
+            "last_alarm_pic": {
+                "name": "URL gambar alarm terakhir"
+            },
+            "last_alarm_time": {
+                "name": "Waktu alarm terakhir"
+            },
+            "last_alarm_type_code": {
+                "name": "Kode jenis alarm terakhir"
+            },
+            "last_alarm_type_name": {
+                "name": "Nama jenis alarm terakhir"
+            },
+            "local_ip": {
+                "name": "IP Lokal"
+            },
+            "pir_status": {
+                "name": "Status PIR"
+            },
+            "seconds_last_trigger": {
+                "name": "Detik sejak pemicu terakhir"
+            },
+            "supported_channels": {
+                "name": "Saluran yang didukung"
+            },
+            "wan_ip": {
+                "name": "IP WAN"
+            }
+        },
+        "siren": {
+            "siren": {
+                "name": "Sirene"
+            }
+        },
+        "switch": {
+            "all_day_video_recording": {
+                "name": "Perekaman video sepanjang hari"
+            },
+            "audio": {
+                "name": "Audio"
+            },
+            "auto_sleep": {
+                "name": "Tidur otomatis"
+            },
+            "flicker_light_on_movement": {
+                "name": "Lampu berkedip saat ada gerakan"
+            },
+            "follow_movement": {
+                "name": "Ikuti gerakan"
+            },
+            "infrared_light": {
+                "name": "Lampu inframerah"
+            },
+            "motion_tracking": {
+                "name": "Pelacakan gerakan"
+            },
+            "pir_motion_activated_light": {
+                "name": "Lampu yang diaktifkan gerakan PIR"
+            },
+            "privacy": {
+                "name": "Privasi"
+            },
+            "sleep": {
+                "name": "Tidur"
+            },
+            "status_light": {
+                "name": "Lampu status"
+            },
+            "tamper_alarm": {
+                "name": "Alarm tamper"
+            }
+        },
+        "update": {
+            "firmware": {
+                "name": "Firmware"
+            }
+        }
+    },
+    "issues": {
+        "service_deprecation_alarm_sound_level": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Layanan tingkat suara Ezviz Alarm sudah tidak digunakan lagi dan akan dihapus.\nUntuk mengatur tingkat suara Alarm, Anda dapat menggunakan layanan `select.select_option` dengan target entitas Suara Peringatan.\n\nHapus penggunaan layanan ini dari otomasi dan skrip Anda dan pilih **Kirim** untuk menyelesaikan masalah ini.",
+                        "title": "Layanan tingkat suara Alarm Ezviz dalam proses penghapusan"
+                    }
+                }
+            },
+            "title": "Layanan tingkat suara Alarm Ezviz dalam proses penghapusan"
+        },
+        "service_depreciation_detection_sensibility": {
+            "description": "Layanan sensitivitas Ezviz Detection sudah tidak digunakan lagi dan akan dihapus di Home Assistant 2023.12. Sesuaikan otomasi atau skrip yang menggunakan layanan ini dan pilih kirimkan di bawah untuk menandai masalah ini telah teratasi.",
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Layanan sensitivitas Deteksi Ezviz sudah tidak digunakan lagi dan akan dihapus di Home Assistant 2023.12.\nUntuk mengatur sensitivitas, Anda dapat menggunakan layanan `number.set_value` dengan target entitas Sensitivitas Deteksi.\n\nHapus penggunaan layanan ini dari otomasi dan skrip Anda dan pilih **Kirim** untuk menyelesaikan masalah ini.",
+                        "title": "Layanan sensitivitas Ezviz Detection dalam proses penghapusan"
+                    }
+                }
+            },
+            "title": "Layanan sensitivitas Ezviz Detection dalam proses penghapusan"
+        },
+        "service_depreciation_ptz": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Layanan EZVIZ PTZ sudah tidak digunakan lagi dan akan dihapus.\nUntuk menggerakkan kamera, Anda dapat menggunakan layanan `button.press` dengan target entitas PTZ*.\n\nHapus penggunaan layanan ini dari otomasi dan skrip Anda dan pilih **Kirim** untuk menyelesaikan masalah ini.",
+                        "title": "Layanan EZVIZ PTZ dalam proses penghapusan"
+                    }
+                }
+            },
+            "title": "Layanan EZVIZ PTZ dalam proses penghapusan"
+        },
+        "service_depreciation_sound_alarm": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Layanan alarm suara Ezviz telah dihentikan dan akan dihapus.\nUntuk membunyikan alarm, Anda dapat menggunakan layanan `siren.toggle` yang ditujukan pada entitas Sirene.\n\nHarap hapus penggunaan layanan ini dari otomasi dan skrip Anda, lalu pilih **Kirim** untuk memperbaiki masalah ini.",
+                        "title": "Layanan alarm Ezviz Sound dalam proses penghapusan"
+                    }
+                }
+            },
+            "title": "Layanan alarm Ezviz Sound dalam proses penghapusan"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "ffmpeg_arguments": "Argumen yang diteruskan ke ffmpeg untuk kamera",
+                    "timeout": "Tenggang Waktu Permintaan (detik)"
+                }
+            }
+        }
+    },
+    "services": {
+        "alarm_sound": {
+            "description": "Setel tingkat suara peringatan gerakan.",
+            "fields": {
+                "level": {
+                    "description": "Tingkat suara (2 dinonaktifkan, 1 intensif, 0 lembut).",
+                    "name": "Tingkat suara"
+                }
+            },
+            "name": "Setel tingkat suara peringatan."
+        },
+        "ptz": {
+            "description": "Menggerakkan kamera ke arah dan kecepatan yang ditentukan.",
+            "fields": {
+                "direction": {
+                    "description": "Arah untuk menggerakkan kamera (atas, bawah, kiri, kanan).",
+                    "name": "Arah"
+                },
+                "speed": {
+                    "description": "Kecepatan gerakan (dari 1 hingga 9).",
+                    "name": "Kecepatan"
+                }
+            },
+            "name": "PTZ"
+        },
+        "set_alarm_detection_sensibility": {
+            "description": "Mengatur tingkat sensitivitas deteksi.",
+            "fields": {
+                "level": {
+                    "description": "Tingkat sensitivitas (1-6) untuk tipe 0 (kamera normal) atau (1-100) untuk tipe 3 (kamera sensor PIR).",
+                    "name": "Tingkat sensitivitas"
+                },
+                "type_value": {
+                    "description": "Jenis deteksi. Pilihan : 0 - Kamera atau 3 - Kamera Sensor PIR.",
+                    "name": "Jenis deteksi"
+                }
+            },
+            "name": "Sensitivitas deteksi"
+        },
+        "sound_alarm": {
+            "description": "Membunyikan alarm di kamera Anda.",
+            "fields": {
+                "enable": {
+                    "description": "Masukkan 1 atau 2 (1=nonaktif, 2=aktif).",
+                    "name": "Suara alarm"
+                }
+            },
+            "name": "Alarm suara"
+        },
+        "wake_device": {
+            "description": "Hal ini dapat digunakan untuk membangunkan kamera/perangkat dari hibernasi.",
+            "name": "Bangunkan kamera"
+        }
+    }
+}

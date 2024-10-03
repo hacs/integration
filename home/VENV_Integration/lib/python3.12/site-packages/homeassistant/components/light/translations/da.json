@@ -1,0 +1,287 @@
+{
+    "common": {
+        "field_brightness_description": "Tal, der angiver lysstyrken, hvor 0 slukker lyset, 1 er den mindste lysstyrke, og 255 er den st\u00f8rste lysstyrke.",
+        "field_brightness_name": "Lysstyrkev\u00e6rdi",
+        "field_brightness_pct_description": "Tal, der angiver procentdelen af fuld lysstyrke, hvor 0 slukker lyset, 1 er den mindste lysstyrke, og 100 er den maksimale lysstyrke.",
+        "field_brightness_pct_name": "Lysstyrke",
+        "field_brightness_step_description": "Skift lysstyrke med en m\u00e6ngde.",
+        "field_brightness_step_name": "Lysstyrketrinv\u00e6rdi",
+        "field_brightness_step_pct_description": "Skift lysstyrke i procent.",
+        "field_brightness_step_pct_name": "Trin for lysstyrke",
+        "field_color_name_description": "Et menneskeligt l\u00e6sbart farvenavn.",
+        "field_color_name_name": "Farvenavn",
+        "field_color_temp_description": "Farvetemperatur i mireds.",
+        "field_color_temp_name": "Farvetemperatur",
+        "field_effect_description": "Lyseffekt.",
+        "field_effect_name": "Effekt",
+        "field_flash_description": "Bed lyset om at blinke. Kan enten v\u00e6re kort eller lang.",
+        "field_flash_name": "Blink",
+        "field_hs_color_description": "Farve i tone/m\u00e6tning-format (hue/sat). En liste med to heltal. Tone er 0-360 og M\u00e6tning er 0-100.",
+        "field_hs_color_name": "Farvetone/-m\u00e6tning",
+        "field_kelvin_description": "Farvetemperatur i Kelvin.",
+        "field_kelvin_name": "Farvetemperatur",
+        "field_profile_description": "Navnet p\u00e5 den lysprofil, der skal bruges.",
+        "field_profile_name": "Profil",
+        "field_rgb_color_description": "Farven i RGB-format. En liste med tre heltal mellem 0 og 255, der repr\u00e6senterer v\u00e6rdierne for r\u00f8d, gr\u00f8n og bl\u00e5.",
+        "field_rgb_color_name": "Farve",
+        "field_rgbw_color_description": "Farven i RGBW-format. En liste med fire heltal mellem 0 og 255, der repr\u00e6senterer v\u00e6rdierne for r\u00f8d, gr\u00f8n, bl\u00e5 og hvid.",
+        "field_rgbw_color_name": "RGBW-farve",
+        "field_rgbww_color_description": "Farven i RGBWW-format. En liste med fem heltal mellem 0 og 255, der repr\u00e6senterer v\u00e6rdierne for r\u00f8d, gr\u00f8n, bl\u00e5, kold hvid og varm hvid.",
+        "field_rgbww_color_name": "RGBWW-farve",
+        "field_transition_description": "Varighed det tager at overg\u00e5 til n\u00e6ste tilstand.",
+        "field_transition_name": "Overgang",
+        "field_white_description": "Indstil lyset til hvid tilstand.",
+        "field_white_name": "Hvid",
+        "field_xy_color_description": "Farve i XY-format. En liste med to decimaltal mellem 0 og 1.",
+        "field_xy_color_name": "XY-farve"
+    },
+    "device_automation": {
+        "action_type": {
+            "brightness_decrease": "Formindsk lysstyrken p\u00e5 {entity_name}",
+            "brightness_increase": "For\u00f8g lysstyrken p\u00e5 {entity_name}",
+            "flash": "Flash {entity_name}",
+            "toggle": "Skift {entity_name} til/fra",
+            "turn_off": "Sluk {entity_name}",
+            "turn_on": "T\u00e6nd for {entity_name}"
+        },
+        "condition_type": {
+            "is_off": "{entity_name} er fra",
+            "is_on": "{entity_name} er til"
+        },
+        "trigger_type": {
+            "changed_states": "{entity_name} t\u00e6ndte eller slukkede",
+            "turned_off": "{entity_name} slukkede",
+            "turned_on": "{entity_name} t\u00e6ndte"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Lys",
+            "state": {
+                "off": "Slukket",
+                "on": "T\u00e6ndt"
+            },
+            "state_attributes": {
+                "brightness": {
+                    "name": "Lysstyrke"
+                },
+                "color_mode": {
+                    "name": "Farvetilstand",
+                    "state": {
+                        "brightness": "Kun lysstyrke",
+                        "color_temp": "Farvetemperatur",
+                        "hs": "HS",
+                        "onoff": "T\u00e6ndt/Slukket",
+                        "rgb": "RGB",
+                        "rgbw": "RGBW",
+                        "rgbww": "RGBWW",
+                        "unknown": "Ukendt",
+                        "white": "Hvid",
+                        "xy": "XY"
+                    }
+                },
+                "color_temp": {
+                    "name": "Farvetemperatur (mireds)"
+                },
+                "color_temp_kelvin": {
+                    "name": "Farvetemperatur (Kelvin)"
+                },
+                "effect": {
+                    "name": "Effekt"
+                },
+                "effect_list": {
+                    "name": "Tilg\u00e6ngelige effekter"
+                },
+                "max_color_temp_kelvin": {
+                    "name": "H\u00f8jeste farvetemperatur (Kelvin)"
+                },
+                "max_mireds": {
+                    "name": "H\u00f8jeste farvetemperatur (mireds)"
+                },
+                "min_color_temp_kelvin": {
+                    "name": "Laveste farvetemperatur (Kelvin)"
+                },
+                "min_mireds": {
+                    "name": "Laveste farvetemperatur (mireds)"
+                },
+                "supported_color_modes": {
+                    "name": "Tilg\u00e6ngelige farvetilstande",
+                    "state": {
+                        "brightness": "Kun lysstyrke",
+                        "color_temp": "Farvetemperatur",
+                        "hs": "HS",
+                        "onoff": "T\u00e6ndt/Slukket",
+                        "rgb": "RGB",
+                        "rgbw": "RGBW",
+                        "rgbww": "RGBWW",
+                        "unknown": "Ukendt",
+                        "white": "Hvid",
+                        "xy": "XY"
+                    }
+                }
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "{platform}-platformen til {domain}-integrationen underst\u00f8tter ikke platformsops\u00e6tning.\n\nFjern den venligst fra din konfiguration, og genstart Home Assistant for at l\u00f8se dette problem.",
+            "title": "Platformsunderst\u00f8ttelsen er ikke underst\u00f8ttet"
+        }
+    },
+    "selector": {
+        "color_name": {
+            "options": {
+                "homeassistant": "Home Assistant"
+            }
+        }
+    },
+    "services": {
+        "toggle": {
+            "fields": {
+                "brightness": {
+                    "description": "Tal, der angiver lysstyrken, hvor 0 slukker lyset, 1 er den mindste lysstyrke, og 255 er den st\u00f8rste lysstyrke.",
+                    "name": "Lysstyrkev\u00e6rdi"
+                },
+                "brightness_pct": {
+                    "description": "Tal, der angiver procentdelen af fuld lysstyrke, hvor 0 slukker lyset, 1 er den mindste lysstyrke, og 100 er den maksimale lysstyrke.",
+                    "name": "Lysstyrke"
+                },
+                "color_name": {
+                    "description": "Et menneskeligt l\u00e6sbart farvenavn.",
+                    "name": "Farvenavn"
+                },
+                "color_temp": {
+                    "description": "Farvetemperatur i mireds.",
+                    "name": "Farvetemperatur"
+                },
+                "effect": {
+                    "description": "Lyseffekt.",
+                    "name": "Effekt"
+                },
+                "flash": {
+                    "description": "Bed lyset om at blinke. Kan enten v\u00e6re kort eller lang.",
+                    "name": "Blink"
+                },
+                "hs_color": {
+                    "description": "Farve i tone/m\u00e6tning-format (hue/sat). En liste med to heltal. Tone er 0-360 og M\u00e6tning er 0-100.",
+                    "name": "Farvetone/-m\u00e6tning"
+                },
+                "kelvin": {
+                    "description": "Farvetemperatur i Kelvin.",
+                    "name": "Farvetemperatur"
+                },
+                "profile": {
+                    "description": "Navnet p\u00e5 den lysprofil, der skal bruges.",
+                    "name": "Profil"
+                },
+                "rgb_color": {
+                    "description": "Farven i RGB-format. En liste med tre heltal mellem 0 og 255, der repr\u00e6senterer v\u00e6rdierne for r\u00f8d, gr\u00f8n og bl\u00e5.",
+                    "name": "Farve"
+                },
+                "rgbw_color": {
+                    "description": "Farven i RGBW-format. En liste med fire heltal mellem 0 og 255, der repr\u00e6senterer v\u00e6rdierne for r\u00f8d, gr\u00f8n, bl\u00e5 og hvid.",
+                    "name": "RGBW-farve"
+                },
+                "rgbww_color": {
+                    "description": "Farven i RGBWW-format. En liste med fem heltal mellem 0 og 255, der repr\u00e6senterer v\u00e6rdierne for r\u00f8d, gr\u00f8n, bl\u00e5, kold hvid og varm hvid."
+                },
+                "transition": {
+                    "description": "Varighed det tager at overg\u00e5 til n\u00e6ste tilstand.",
+                    "name": "Overgang"
+                },
+                "white": {
+                    "description": "Indstil lyset til hvid tilstand.",
+                    "name": "Hvid"
+                },
+                "xy_color": {
+                    "description": "Farve i XY-format. En liste med to decimaltal mellem 0 og 1.",
+                    "name": "XY-farve"
+                }
+            }
+        },
+        "turn_off": {
+            "fields": {
+                "flash": {
+                    "description": "Bed lyset om at blinke. Kan enten v\u00e6re kort eller lang.",
+                    "name": "Blink"
+                },
+                "transition": {
+                    "description": "Varighed det tager at overg\u00e5 til n\u00e6ste tilstand.",
+                    "name": "Overgang"
+                }
+            }
+        },
+        "turn_on": {
+            "fields": {
+                "brightness": {
+                    "description": "Tal, der angiver lysstyrken, hvor 0 slukker lyset, 1 er den mindste lysstyrke, og 255 er den st\u00f8rste lysstyrke.",
+                    "name": "Lysstyrkev\u00e6rdi"
+                },
+                "brightness_pct": {
+                    "description": "Tal, der angiver procentdelen af fuld lysstyrke, hvor 0 slukker lyset, 1 er den mindste lysstyrke, og 100 er den maksimale lysstyrke.",
+                    "name": "Lysstyrke"
+                },
+                "brightness_step": {
+                    "description": "Skift lysstyrke med en m\u00e6ngde.",
+                    "name": "Lysstyrketrinv\u00e6rdi"
+                },
+                "brightness_step_pct": {
+                    "description": "Skift lysstyrke i procent.",
+                    "name": "Trin for lysstyrke"
+                },
+                "color_name": {
+                    "description": "Et menneskeligt l\u00e6sbart farvenavn.",
+                    "name": "Farvenavn"
+                },
+                "color_temp": {
+                    "description": "Farvetemperatur i mireds.",
+                    "name": "Farvetemperatur"
+                },
+                "effect": {
+                    "description": "Lyseffekt.",
+                    "name": "Effekt"
+                },
+                "flash": {
+                    "description": "Bed lyset om at blinke. Kan enten v\u00e6re kort eller lang.",
+                    "name": "Blink"
+                },
+                "hs_color": {
+                    "description": "Farve i tone/m\u00e6tning-format (hue/sat). En liste med to heltal. Tone er 0-360 og M\u00e6tning er 0-100.",
+                    "name": "Farvetone/-m\u00e6tning"
+                },
+                "kelvin": {
+                    "description": "Farvetemperatur i Kelvin.",
+                    "name": "Farvetemperatur"
+                },
+                "profile": {
+                    "description": "Navnet p\u00e5 den lysprofil, der skal bruges.",
+                    "name": "Profil"
+                },
+                "rgb_color": {
+                    "description": "Farven i RGB-format. En liste med tre heltal mellem 0 og 255, der repr\u00e6senterer v\u00e6rdierne for r\u00f8d, gr\u00f8n og bl\u00e5.",
+                    "name": "Farve"
+                },
+                "rgbw_color": {
+                    "name": "RGBW-farve"
+                },
+                "rgbww_color": {
+                    "description": "Farven i RGBWW-format. En liste med fem heltal mellem 0 og 255, der repr\u00e6senterer v\u00e6rdierne for r\u00f8d, gr\u00f8n, bl\u00e5, kold hvid og varm hvid.",
+                    "name": "RGBWW-farve"
+                },
+                "transition": {
+                    "description": "Varighed det tager at overg\u00e5 til n\u00e6ste tilstand.",
+                    "name": "Overgang"
+                },
+                "white": {
+                    "description": "Indstil lyset til hvid tilstand.",
+                    "name": "Hvid"
+                },
+                "xy_color": {
+                    "description": "Farve i XY-format. En liste med to decimaltal mellem 0 og 1.",
+                    "name": "XY-farve"
+                }
+            }
+        }
+    },
+    "title": "Lys"
+}

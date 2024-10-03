@@ -1,0 +1,130 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "Takvim",
+            "state": {
+                "off": "Kapal\u0131",
+                "on": "A\u00e7\u0131k"
+            },
+            "state_attributes": {
+                "all_day": {
+                    "name": "T\u00fcm G\u00fcn",
+                    "state": {
+                        "false": "Hay\u0131r",
+                        "true": "Evet"
+                    }
+                },
+                "description": {
+                    "name": "A\u00e7\u0131klama"
+                },
+                "end_time": {
+                    "name": "Biti\u015f zaman\u0131"
+                },
+                "location": {
+                    "name": "Konum"
+                },
+                "message": {
+                    "name": "\u0130leti"
+                },
+                "messages": {
+                    "name": "\u0130leti"
+                },
+                "start_time": {
+                    "name": "Ba\u015flang\u0131\u00e7 zaman\u0131"
+                }
+            }
+        }
+    },
+    "issues": {
+        "deprecated_service_calendar_list_events": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "title": "Kullan\u0131m d\u0131\u015f\u0131 b\u0131rak\u0131lm\u0131\u015f `calendar.list_events` eyleminin kullan\u0131m\u0131 alg\u0131land\u0131"
+                    }
+                }
+            }
+        },
+        "platform_integration_no_support": {
+            "description": "{domain} entegrasyonu i\u00e7in {platform} platformu, platform kurulumunu desteklemiyor. \n\n L\u00fctfen yap\u0131land\u0131rman\u0131zdan kald\u0131r\u0131n ve bu sorunu \u00e7\u00f6zmek i\u00e7in Home Assistant'\u0131 yeniden ba\u015flat\u0131n.",
+            "title": "Platform deste\u011fi desteklenmiyor"
+        }
+    },
+    "services": {
+        "create_event": {
+            "description": "Yeni bir takvim etkinli\u011fi ekler.",
+            "fields": {
+                "description": {
+                    "description": "Olay\u0131n, \u00f6zet taraf\u0131ndan sa\u011flanandan daha eksiksiz bir a\u00e7\u0131klamas\u0131.",
+                    "name": "A\u00e7\u0131klama"
+                },
+                "end_date": {
+                    "description": "T\u00fcm g\u00fcn s\u00fcren etkinli\u011fin bitmesi gereken tarih (hari\u00e7).",
+                    "name": "Biti\u015f tarihi"
+                },
+                "end_date_time": {
+                    "description": "Etkinli\u011fin sona ermesi gereken tarih ve saat.",
+                    "name": "Biti\u015f zaman\u0131"
+                },
+                "in": {
+                    "description": "Etkinli\u011fi olu\u015fturmak istedi\u011finiz g\u00fcnler veya haftalar.",
+                    "name": "\u0130\u00e7inde"
+                },
+                "location": {
+                    "description": "Etkinli\u011fin yeri.",
+                    "name": "Konum"
+                },
+                "start_date": {
+                    "description": "T\u00fcm g\u00fcn s\u00fcren etkinli\u011fin ba\u015flamas\u0131 gereken tarih.",
+                    "name": "Ba\u015flang\u0131\u00e7 tarihi"
+                },
+                "start_date_time": {
+                    "description": "Etkinli\u011fin ba\u015flamas\u0131 gereken tarih ve saat.",
+                    "name": "Ba\u015flang\u0131\u00e7 zaman\u0131"
+                },
+                "summary": {
+                    "description": "Etkinlik i\u00e7in k\u0131sa \u00f6zeti veya konuyu tan\u0131mlar.",
+                    "name": "\u00d6zet"
+                }
+            },
+            "name": "Etkinlik olu\u015ftur"
+        },
+        "get_events": {
+            "description": "Bir zaman aral\u0131\u011f\u0131ndaki takvimdeki etkinlikleri al\u0131n.",
+            "fields": {
+                "duration": {
+                    "description": "Start_date_time'dan belirtilen s\u00fcreye kadar olan etkin olaylar\u0131 d\u00f6nd\u00fcr\u00fcr.",
+                    "name": "S\u00fcre"
+                },
+                "end_date_time": {
+                    "description": "Bu saatten \u00f6nceki etkin etkinlikleri d\u00f6nd\u00fcr\u00fcr (hari\u00e7). 'S\u00fcre' ile kullan\u0131lamaz.",
+                    "name": "Biti\u015f zaman\u0131"
+                },
+                "start_date_time": {
+                    "description": "Bu s\u00fcreden sonraki etkin etkinlikleri d\u00f6nd\u00fcr\u00fcr (hari\u00e7). Ayarlanmad\u0131\u011f\u0131nda varsay\u0131lan olarak \u015fimdi olur.",
+                    "name": "Ba\u015flang\u0131\u00e7 zaman\u0131"
+                }
+            },
+            "name": "Etkinlikleri al\u0131n"
+        },
+        "list_events": {
+            "description": "Belirli bir zaman aral\u0131\u011f\u0131ndaki bir takvimdeki etkinlikleri listeler.",
+            "fields": {
+                "duration": {
+                    "description": "Start_date_time'dan belirtilen s\u00fcreye kadar olan etkin olaylar\u0131 d\u00f6nd\u00fcr\u00fcr.",
+                    "name": "S\u00fcre"
+                },
+                "end_date_time": {
+                    "description": "Bu saatten \u00f6nceki etkin etkinlikleri d\u00f6nd\u00fcr\u00fcr (hari\u00e7). 'S\u00fcre' ile kullan\u0131lamaz.",
+                    "name": "Biti\u015f zaman\u0131"
+                },
+                "start_date_time": {
+                    "description": "Bu s\u00fcreden sonraki etkin etkinlikleri d\u00f6nd\u00fcr\u00fcr (hari\u00e7). Ayarlanmad\u0131\u011f\u0131nda varsay\u0131lan olarak \u015fimdi olur.",
+                    "name": "Ba\u015flang\u0131\u00e7 zaman\u0131"
+                }
+            },
+            "name": "Etkinli\u011fi listele"
+        }
+    },
+    "title": "Takvim"
+}

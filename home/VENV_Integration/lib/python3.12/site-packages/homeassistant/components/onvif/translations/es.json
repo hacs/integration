@@ -1,0 +1,128 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "El dispositivo ya est\u00e1 configurado",
+            "already_in_progress": "El flujo de configuraci\u00f3n ya est\u00e1 en curso",
+            "no_devices_found": "No se encontraron dispositivos en la red",
+            "no_h264": "No hab\u00eda transmisiones H264 disponibles. Comprueba la configuraci\u00f3n del perfil en tu dispositivo.",
+            "no_mac": "No se pudo configurar un ID \u00fanico para el dispositivo ONVIF.",
+            "onvif_error": "Error al configurar el dispositivo ONVIF. Revisa los registros para obtener m\u00e1s informaci\u00f3n.",
+            "reauth_successful": "La autenticaci\u00f3n se volvi\u00f3 a realizar correctamente"
+        },
+        "error": {
+            "auth_failed": "No se pudo autenticar: {error}",
+            "cannot_connect": "No se pudo conectar",
+            "no_onvif_service": "No se encontr\u00f3 ning\u00fan servicio ONVIF. Comprueba que el n\u00famero de puerto es correcto.",
+            "onvif_error": "Error al configurar el dispositivo ONVIF: {error}. Revisa los registros para obtener m\u00e1s informaci\u00f3n."
+        },
+        "step": {
+            "configure": {
+                "data": {
+                    "host": "Host",
+                    "name": "Nombre",
+                    "password": "Contrase\u00f1a",
+                    "port": "Puerto",
+                    "username": "Nombre de usuario"
+                },
+                "data_description": {
+                    "host": "El nombre de host o la direcci\u00f3n IP de tu dispositivo ONVIF."
+                },
+                "title": "Configurar dispositivo ONVIF"
+            },
+            "configure_profile": {
+                "data": {
+                    "include": "Crear la entidad de c\u00e1mara"
+                },
+                "description": "\u00bfCrear la entidad de c\u00e1mara para {profile} a {resolution} de resoluci\u00f3n?",
+                "title": "Configurar perfiles"
+            },
+            "device": {
+                "data": {
+                    "host": "Selecciona el dispositivo ONVIF descubierto"
+                },
+                "title": "Selecciona el dispositivo ONVIF"
+            },
+            "reauth_confirm": {
+                "data": {
+                    "password": "Contrase\u00f1a",
+                    "username": "Nombre de usuario"
+                },
+                "description": "Algunos dispositivos rechazar\u00e1n la autenticaci\u00f3n si la hora est\u00e1 desincronizada por m\u00e1s de 5 segundos. Si la autenticaci\u00f3n no tiene \u00e9xito, verifica que la hora en el dispositivo sea correcta e int\u00e9ntalo de nuevo.",
+                "title": "Volver a autenticar el dispositivo ONVIF"
+            },
+            "user": {
+                "data": {
+                    "auto": "Buscar autom\u00e1ticamente"
+                },
+                "description": "Al seleccionar **Enviar**, buscaremos en tu red dispositivos ONVIF compatibles con el Perfil S.\n\nAlgunos fabricantes han empezado a desactivar ONVIF por defecto. Por favor. aseg\u00farate de que ONVIF est\u00e1 activado en la configuraci\u00f3n de tu c\u00e1mara.",
+                "title": "Configuraci\u00f3n del dispositivo ONVIF"
+            }
+        }
+    },
+    "entity": {
+        "switch": {
+            "autofocus": {
+                "name": "Enfoque autom\u00e1tico"
+            },
+            "ir_lamp": {
+                "name": "L\u00e1mpara IR"
+            },
+            "wiper": {
+                "name": "Limpiaparabrisas"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "onvif_devices": {
+                "data": {
+                    "enable_webhooks": "Habilitar Webhooks",
+                    "extra_arguments": "Argumentos extra de FFMPEG",
+                    "rtsp_transport": "Mecanismo de transporte RTSP",
+                    "use_wallclock_as_timestamps": "Usar reloj de pared como marca de tiempo"
+                },
+                "title": "Opciones del dispositivo ONVIF"
+            }
+        }
+    },
+    "services": {
+        "ptz": {
+            "description": "Si tu c\u00e1mara ONVIF es compatible con PTZ, podr\u00e1 girar, inclinar o acercar tu c\u00e1mara.",
+            "fields": {
+                "continuous_duration": {
+                    "description": "Establece el retardo de ContinuousMove en segundos antes de detener el movimiento.",
+                    "name": "Duraci\u00f3n continua"
+                },
+                "distance": {
+                    "description": "Coeficiente de distancia. Establece cu\u00e1nto movimiento PTZ debe ejecutarse en una solicitud.",
+                    "name": "Distancia"
+                },
+                "move_mode": {
+                    "description": "Modo de movimiento PTZ.",
+                    "name": "Modo de movimiento"
+                },
+                "pan": {
+                    "description": "Direcci\u00f3n del giro",
+                    "name": "Giro"
+                },
+                "preset": {
+                    "description": "Token de perfil preestablecido PTZ. Establece el token de perfil preestablecido que se ejecuta con GotoPreset.",
+                    "name": "Preajuste"
+                },
+                "speed": {
+                    "description": "Coeficiente de velocidad. Establece qu\u00e9 tan r\u00e1pido se ejecutar\u00e1 el movimiento PTZ.",
+                    "name": "Velocidad"
+                },
+                "tilt": {
+                    "description": "Direcci\u00f3n de inclinaci\u00f3n.",
+                    "name": "Inclinar"
+                },
+                "zoom": {
+                    "description": "Zoom.",
+                    "name": "Zoom"
+                }
+            },
+            "name": "PTZ"
+        }
+    }
+}

@@ -1,0 +1,161 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Laite on jo m\u00e4\u00e4ritetty",
+            "already_in_progress": "M\u00e4\u00e4ritysprosessi on jo k\u00e4ynniss\u00e4",
+            "no_devices_found": "Verkosta ei l\u00f6ytynyt laitteita"
+        },
+        "error": {
+            "cannot_connect": "Yhteyden muodostaminen ep\u00e4onnistui"
+        },
+        "flow_title": "{model} {id} ({ipaddr})",
+        "step": {
+            "discovery_confirm": {
+                "description": "Haluatko m\u00e4\u00e4ritt\u00e4\u00e4 {model} {id} ({ipaddr})?"
+            },
+            "user": {
+                "data": {
+                    "host": "Palvelin"
+                },
+                "description": "Jos j\u00e4t\u00e4t is\u00e4nn\u00e4n tyhj\u00e4ksi, laitteiden l\u00f6yt\u00e4miseen k\u00e4ytet\u00e4\u00e4n Discovery -toimintoa."
+            }
+        }
+    },
+    "entity": {
+        "button": {
+            "unpair_remotes": {
+                "name": "Poista kaukos\u00e4\u00e4timien pariliitos"
+            }
+        },
+        "number": {
+            "effect_speed": {
+                "name": "Efektin nopeus"
+            },
+            "music_pixels_per_segment": {
+                "name": "Musiikkipikseleit\u00e4 segmentti\u00e4 kohden"
+            },
+            "music_segments": {
+                "name": "Musiikkisegmentit"
+            },
+            "pixels_per_segment": {
+                "name": "Pikseli\u00e4 segmentti\u00e4 kohti"
+            },
+            "segments": {
+                "name": "Segmentit"
+            }
+        },
+        "select": {
+            "ic_type": {
+                "name": "IC tyyppi"
+            },
+            "operating_mode": {
+                "name": "Toimintatila"
+            },
+            "power_restored": {
+                "name": "Virta palautettu"
+            },
+            "remote_config": {
+                "name": "Et\u00e4konfigurointi"
+            },
+            "white_channel": {
+                "name": "Valkoinen kanava"
+            },
+            "wiring": {
+                "name": "Johdotus"
+            }
+        },
+        "sensor": {
+            "paired_remotes": {
+                "name": "Paritetut kaukos\u00e4\u00e4timet"
+            }
+        },
+        "switch": {
+            "music": {
+                "name": "Musiikki"
+            },
+            "remote_access": {
+                "name": "Et\u00e4yhteys"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "custom_effect_colors": "Mukautettu efekti: Luettelo 1-16 [R,G,B]-v\u00e4rist\u00e4. Esimerkki: [255,0,255],[60,128,0]",
+                    "custom_effect_speed_pct": "Mukautettu efekti: Nopeus prosentteina v\u00e4rit vaihtaville efekteille.",
+                    "custom_effect_transition": "Mukautettu efekti: V\u00e4rien v\u00e4lisen siirtym\u00e4n tyyppi.",
+                    "mode": "Valittu kirkkaustila."
+                }
+            }
+        }
+    },
+    "services": {
+        "set_custom_effect": {
+            "description": "Asettaa mukautetun valotehosteen.",
+            "fields": {
+                "colors": {
+                    "description": "Luettelo mukautetun efekti v\u00e4reist\u00e4 (RGB) (enint\u00e4\u00e4n 16 v\u00e4ri\u00e4).",
+                    "name": "V\u00e4rit"
+                },
+                "speed_pct": {
+                    "description": "Efektinopeus mukautetulle efektille (0-100).",
+                    "name": "Nopeus"
+                },
+                "transition": {
+                    "description": "Efektin siirtym\u00e4aika.",
+                    "name": "Siirtym\u00e4"
+                }
+            },
+            "name": "Aseta mukautettu efekti"
+        },
+        "set_music_mode": {
+            "description": "Konfiguroi musiikkitilan Controller RGB:ss\u00e4, jossa on MIC (0x08), Addressable v2 (0xA2) ja Addressable v3 (0xA3) -laitteet, joissa on sis\u00e4\u00e4nrakennettu mikrofoni.",
+            "fields": {
+                "background_color": {
+                    "description": "Taustan RGB-v\u00e4ri (vain osoitteelliset mallit).",
+                    "name": "Taustav\u00e4ri"
+                },
+                "brightness": {
+                    "description": "Valon kirkkaus (0-100).",
+                    "name": "Kirkkaus"
+                },
+                "effect": {
+                    "description": "Efekti (1-16 osoitteellisissa malleissa, 0-3 RGB with MIC -malleissa).",
+                    "name": "Efekti"
+                },
+                "foreground_color": {
+                    "description": "Etualan RGB-v\u00e4ri.",
+                    "name": "Etualan v\u00e4ri"
+                },
+                "light_screen": {
+                    "description": "Valon\u00e4ytt\u00f6tila 2-ulotteisille pikseleille (vain osoitteelliset mallit).",
+                    "name": "Valon\u00e4ytt\u00f6"
+                },
+                "sensitivity": {
+                    "description": "Mikrofonin herkkyys (0-100).",
+                    "name": "Herkkyys"
+                }
+            },
+            "name": "Aseta musiikkitila"
+        },
+        "set_zones": {
+            "description": "Asettaa nauha-alueet osoitteellisia v3-ohjaimia varten (0xA3).",
+            "fields": {
+                "colors": {
+                    "description": "Luettelo kunkin alueeb v\u00e4reist\u00e4 (RGB). Kunkin alueen pituus on pikseleiden lukum\u00e4\u00e4r\u00e4 segmentti\u00e4 kohti jaettuna v\u00e4rien lukum\u00e4\u00e4r\u00e4ll\u00e4. (Enint\u00e4\u00e4n 2048 v\u00e4ri\u00e4).",
+                    "name": "V\u00e4rit"
+                },
+                "effect": {
+                    "description": "Efekti.",
+                    "name": "Efekti"
+                },
+                "speed_pct": {
+                    "description": "Efektinopeus mukautetulle efektille (0-100).",
+                    "name": "Nopeus"
+                }
+            },
+            "name": "Aseta alueet"
+        }
+    }
+}

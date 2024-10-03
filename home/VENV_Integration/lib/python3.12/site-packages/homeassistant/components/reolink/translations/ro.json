@@ -1,0 +1,99 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Dispozitivul a fost configurat deja",
+            "reauth_successful": "Re-autentificarea s-a realizat cu succes"
+        },
+        "error": {
+            "api_error": "A ap\u0103rut o eroare API",
+            "cannot_connect": "Conexiunea a e\u0219uat, verific\u0103 adresa IP a camerei",
+            "invalid_auth": "Autentificare nevalid\u0103",
+            "unknown": "Eroare nea\u0219teptat\u0103"
+        },
+        "flow_title": "{hostname} ({ip_address})",
+        "step": {
+            "reauth_confirm": {
+                "description": "Integrarea Reolink trebuie s\u0103 \u00ee\u021bi autentifice din nou detaliile de conexiune",
+                "title": "Autentificarea a expirat pentru {name}"
+            },
+            "user": {
+                "data": {
+                    "host": "Gazd\u0103 (host)",
+                    "password": "Parola",
+                    "port": "Port",
+                    "use_https": "Activeaz\u0103 HTTPS",
+                    "username": "Utilizator"
+                },
+                "description": "Consult\u0103 [pa\u0219ii de depanare]({troubleshooting_link}) dac\u0103 \u00eent\u00e2mpini probleme. {error}"
+            }
+        }
+    },
+    "entity": {
+        "select": {
+            "auto_track_method": {
+                "state": {
+                    "digital": "Digital",
+                    "digitalfirst": "Mai \u00eent\u00e2i digital",
+                    "pantiltfirst": "Panoramare/\u00eenclinare mai \u00eent\u00e2i"
+                }
+            },
+            "day_night_mode": {
+                "state": {
+                    "auto": "Automat",
+                    "color": "Color"
+                }
+            },
+            "floodlight_mode": {
+                "state": {
+                    "adaptive": "Adaptiv",
+                    "auto": "Automat",
+                    "autoadaptive": "Auto adaptativ",
+                    "schedule": "Program"
+                }
+            },
+            "status_led": {
+                "state": {
+                    "alwaysonatnight": "Auto \u0219i \u00eentotdeauna pornit pe timp de noapte",
+                    "auto": "Auto",
+                    "stayoff": "R\u0103m\u00e2i oprit"
+                }
+            }
+        }
+    },
+    "issues": {
+        "enable_port": {
+            "description": "A e\u0219uat activarea automat\u0103 a portului sau porturilor {ports} pe {name}. Utilizeaz\u0103 [clientul Reolink]({info_link}) pentru a-l seta manual la ON",
+            "title": "Portul Reolink nu este activat"
+        },
+        "firmware_update": {
+            "description": "\"{name}\" modelul \"{model}\" \u0219i versiunea hardware \"{hw_version}\" ruleaz\u0103 o versiune veche de firmware \"{current_firmware}\", fiind necesar\u0103 cel pu\u021bin versiunea de firmware \"{required_firmware}\" pentru buna func\u021bionare a integr\u0103rii Reolink. Cel mai recent firmware poate fi desc\u0103rcat de la [Centrul de desc\u0103rcare Reolink]({download_link}).",
+            "title": "Este necesar\u0103 actualizarea firmware-ului Reolink"
+        },
+        "https_webhook": {
+            "description": "Produsele Reolink nu pot trimite evenimentele de mi\u0219care la o adres\u0103 HTTPS (SSL), te rug\u0103m s\u0103 configurezi o adres\u0103 HTTP (local\u0103) sub \"URL-ul Home Assistant\" \u00een [set\u0103rile de re\u021bea]({network_link}). Adresa curent\u0103 (local\u0103) este: `{base_url}`, o adres\u0103 valid\u0103 ar putea fi, de exemplu, `http://192.168.1.10:8123` unde `192.168.1.10` este IP-ul dispozitivului Home Assistant",
+            "title": "URL-ul webhook Reolink folose\u0219te HTTPS (SSL)"
+        },
+        "webhook_url": {
+            "description": "Nu s-a primit starea ini\u021bial\u0103 ONVIF de la {name}. Cel mai probabil, camera Reolink nu poate accesa adresa URL curent\u0103 (local\u0103) a Home Assistant `{base_url}`, configureaz\u0103 o adres\u0103 HTTP (local\u0103) \u00een dreptul \"URL-ul Home Assistant\" din [set\u0103rile de re\u021bea]({network_link}) care indic\u0103 spre Home Assistant. De exemplu, `http://192.168.1.10:8123` unde `192.168.1.10` este IP-ul dispozitivului Home Assistant. De asemenea, asigur\u0103-te c\u0103 poate ajunge la acea adres\u0103 URL camera Reolink. Se va folosi sondajul rapid pentru starea de mi\u0219care/IA p\u00e2n\u0103 la primirea primului mesaj push ONVIF.",
+            "title": "URL webhook Reolink inaccesibil"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "protocol": "Protocol"
+                }
+            }
+        }
+    },
+    "services": {
+        "play_chime": {
+            "fields": {
+                "ringtone": {
+                    "name": "Ton de apel"
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,159 @@
+{
+    "device_automation": {
+        "action_type": {
+            "toggle": "{entity_name} kapcsol\u00e1sa",
+            "turn_off": "{entity_name} kikapcsol\u00e1sa",
+            "turn_on": "{entity_name} bekapcsol\u00e1sa"
+        },
+        "condition_type": {
+            "is_off": "{entity_name} ki van kapcsolva",
+            "is_on": "{entity_name} be van kapcsolva"
+        },
+        "trigger_type": {
+            "changed_states": "{entity_name} be- vagy kikapcsolt",
+            "turned_off": "{entity_name} ki lett kapcsolva",
+            "turned_on": "{entity_name} be lett kapcsolva"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Ventil\u00e1tor",
+            "state": {
+                "off": "Ki",
+                "on": "Be"
+            },
+            "state_attributes": {
+                "direction": {
+                    "name": "Ir\u00e1ny",
+                    "state": {
+                        "forward": "El\u0151re",
+                        "reverse": "H\u00e1tra"
+                    }
+                },
+                "oscillating": {
+                    "name": "Legyez\u00e9s bekapcsolva",
+                    "state": {
+                        "false": "Nem",
+                        "true": "Igen"
+                    }
+                },
+                "percentage": {
+                    "name": "Sebess\u00e9g"
+                },
+                "percentage_step": {
+                    "name": "Sebess\u00e9gfokozat"
+                },
+                "preset_mode": {
+                    "name": "Profil"
+                },
+                "preset_modes": {
+                    "name": "El\u00e9rhet\u0151 gy\u00e1ri profilok"
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "not_valid_preset_mode": {
+            "message": "A(z) {preset_mode} el\u0151re be\u00e1ll\u00edtott m\u00f3d nem \u00e9rv\u00e9nyes, az \u00e9rv\u00e9nyes el\u0151re be\u00e1ll\u00edtott m\u00f3dok a k\u00f6vetkez\u0151k: {preset_modes} ."
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "{domain} integr\u00e1ci\u00f3 nem t\u00e1mogatja {platform} platform be\u00e1ll\u00edt\u00e1s\u00e1t.\n\nK\u00e9rem, t\u00e1vol\u00edtsa el a konfigur\u00e1ci\u00f3b\u00f3l \u00e9s ind\u00edtsa \u00fajra a Home Assistantot a probl\u00e9ma megold\u00e1s\u00e1hoz.",
+            "title": "A platform nem t\u00e1mogatott"
+        }
+    },
+    "selector": {
+        "direction": {
+            "options": {
+                "forward": "El\u0151re",
+                "reverse": "Ford\u00edtott"
+            }
+        }
+    },
+    "services": {
+        "decrease_speed": {
+            "description": "Cs\u00f6kkenti a ventil\u00e1tor sebess\u00e9g\u00e9t.",
+            "fields": {
+                "percentage_step": {
+                    "description": "Sz\u00e1zal\u00e9kos l\u00e9p\u00e9sekkel cs\u00f6kkenti a sebess\u00e9get.",
+                    "name": "Cs\u00f6kkent\u00e9s"
+                }
+            },
+            "name": "Sebess\u00e9g cs\u00f6kkent\u00e9se"
+        },
+        "increase_speed": {
+            "description": "N\u00f6veli a ventil\u00e1tor sebess\u00e9g\u00e9t.",
+            "fields": {
+                "percentage_step": {
+                    "description": "Sz\u00e1zal\u00e9kos l\u00e9p\u00e9sekkel n\u00f6veli a sebess\u00e9get.",
+                    "name": "N\u00f6vel\u00e9s"
+                }
+            },
+            "name": "Sebess\u00e9g n\u00f6vel\u00e9se"
+        },
+        "oscillate": {
+            "description": "Szab\u00e1lyozza a ventil\u00e1tor legyez\u00e9s\u00e9t.",
+            "fields": {
+                "oscillating": {
+                    "description": "Legyez\u00e9s ki/bekapcsol\u00e1sa",
+                    "name": "Legyez\u00e9s"
+                }
+            },
+            "name": "Legyez\u00e9s"
+        },
+        "set_direction": {
+            "description": "Be\u00e1ll\u00edtja a ventil\u00e1tor forg\u00e1sir\u00e1ny\u00e1t.",
+            "fields": {
+                "direction": {
+                    "description": "Forg\u00e1s ir\u00e1nya.",
+                    "name": "Ir\u00e1ny"
+                }
+            },
+            "name": "Ir\u00e1ny be\u00e1ll\u00edt\u00e1sa"
+        },
+        "set_percentage": {
+            "description": "Be\u00e1ll\u00edtja a ventil\u00e1tor sebess\u00e9g\u00e9t.",
+            "fields": {
+                "percentage": {
+                    "description": "A ventil\u00e1tor sebess\u00e9ge.",
+                    "name": "Sz\u00e1zal\u00e9k"
+                }
+            },
+            "name": "Sebess\u00e9g be\u00e1ll\u00edt\u00e1sa"
+        },
+        "set_preset_mode": {
+            "description": "Gy\u00e1ri profil be\u00e1ll\u00edt\u00e1sa.",
+            "fields": {
+                "preset_mode": {
+                    "description": "Gy\u00e1ri profil.",
+                    "name": "Profil"
+                }
+            },
+            "name": "Gy\u00e1ri profil be\u00e1ll\u00edt\u00e1sa"
+        },
+        "toggle": {
+            "description": "Be-/kikapcsolja a ventil\u00e1tort.",
+            "name": "Kapcsol\u00e1s"
+        },
+        "turn_off": {
+            "description": "Kikapcsolja a ventil\u00e1tort.",
+            "name": "Kikapcsol\u00e1s"
+        },
+        "turn_on": {
+            "description": "Bekapcsolja a ventil\u00e1tort.",
+            "fields": {
+                "percentage": {
+                    "description": "A ventil\u00e1tor sebess\u00e9ge.",
+                    "name": "Sz\u00e1zal\u00e9k"
+                },
+                "preset_mode": {
+                    "description": "Gy\u00e1ri profil.",
+                    "name": "Profil"
+                }
+            },
+            "name": "Bekapcsol\u00e1s"
+        }
+    },
+    "title": "Ventil\u00e1tor"
+}

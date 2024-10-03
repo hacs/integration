@@ -1,0 +1,227 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Ty\u00f6p\u00e4iv\u00e4 on jo asetettu valitulla konfiguraatiolla",
+            "incorrect_province": "Virheellinen alajako yaml-tuonnista"
+        },
+        "error": {
+            "add_holiday_error": "V\u00e4\u00e4r\u00e4 p\u00e4iv\u00e4m\u00e4\u00e4r\u00e4n muoto (VVVV-KK-PP)",
+            "add_holiday_range_error": "Virheellinen p\u00e4iv\u00e4m\u00e4\u00e4r\u00e4n muoto (VVVV-KK-PV,VVVV-KK-PV)",
+            "already_configured": "Palvelu on jo m\u00e4\u00e4ritetty",
+            "remove_holiday_error": "V\u00e4\u00e4r\u00e4 p\u00e4iv\u00e4m\u00e4\u00e4r\u00e4n muoto (VVVV-KK-PP) tai loman nime\u00e4 ei l\u00f6ydy",
+            "remove_holiday_range_error": "Virheellinen p\u00e4iv\u00e4m\u00e4\u00e4r\u00e4n muoto (VVVV-KK-PV,VVVV-KK-PV)"
+        },
+        "step": {
+            "options": {
+                "data": {
+                    "add_holidays": "Lis\u00e4\u00e4 lomat",
+                    "days_offset": "Poikkeama",
+                    "excludes": "Sulkee pois",
+                    "language": "Nimettyjen juhlap\u00e4ivien kieli",
+                    "province": "Maan alajako",
+                    "remove_holidays": "Poista lomat",
+                    "workdays": "Ty\u00f6p\u00e4iv\u00e4t"
+                },
+                "data_description": {
+                    "add_holidays": "Lis\u00e4\u00e4 mukautettuja vapaap\u00e4ivi\u00e4 muodossa VVVV-KK-PP tai alueena k\u00e4ytt\u00e4en erotinmerkki\u00e4 `,`.",
+                    "days_offset": "P\u00e4ivien poikkeama nykyisest\u00e4 p\u00e4iv\u00e4st\u00e4",
+                    "excludes": "Luettelo pois suljettavista arkip\u00e4ivist\u00e4, huomaa avainsana `holiday` ja lue dokumentaatio siit\u00e4, miten sit\u00e4 k\u00e4ytet\u00e4\u00e4n oikein.",
+                    "language": "Kieli, jota j\u00e4ytet\u00e4\u00e4n m\u00e4\u00e4ritt\u00e4ess\u00e4 nimettyj\u00e4 juhlapyhi\u00e4",
+                    "province": "Osavaltio, alue, maakunta tai maan alue",
+                    "remove_holidays": "Poista vapaap\u00e4iv\u00e4t muodossa VVVVV-KK-PP, alueena k\u00e4ytt\u00e4m\u00e4ll\u00e4 erottimena ',' tai k\u00e4ytt\u00e4m\u00e4ll\u00e4 nimen osaa",
+                    "workdays": "Lista ty\u00f6p\u00e4ivist\u00e4"
+                },
+                "description": "Aseta lis\u00e4asetukset {name}:lle, joka on m\u00e4\u00e4ritetty maalle {country}."
+            },
+            "user": {
+                "data": {
+                    "country": "Maa",
+                    "name": "Nimi"
+                }
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "workday": {
+                "state_attributes": {
+                    "days_offset": {
+                        "name": "Poikkeama"
+                    },
+                    "excludes": {
+                        "name": "Sulkee pois"
+                    },
+                    "workdays": {
+                        "name": "Ty\u00f6p\u00e4iv\u00e4t"
+                    }
+                }
+            }
+        }
+    },
+    "issues": {
+        "bad_country": {
+            "fix_flow": {
+                "step": {
+                    "country": {
+                        "data": {
+                            "country": "Maa"
+                        },
+                        "description": "Valitse maa, jota haluat k\u00e4ytt\u00e4\u00e4 ty\u00f6p\u00e4iv\u00e4sensorissasi.",
+                        "title": "Valitse maa kohteelle {title}"
+                    },
+                    "province": {
+                        "data": {
+                            "province": "Maan alajako"
+                        },
+                        "data_description": {
+                            "province": "Osavaltio, alue, maakunta, maan alue"
+                        },
+                        "description": "Valitse maan {country} maakunta, jota haluat k\u00e4ytt\u00e4\u00e4 Workday -sensoria varten.",
+                        "title": "Valitse maakunta {title}"
+                    }
+                }
+            },
+            "title": "M\u00e4\u00e4ritetty\u00e4 maata {title} ei ole olemassa"
+        },
+        "bad_date_holiday": {
+            "fix_flow": {
+                "error": {
+                    "remove_holiday_error": "V\u00e4\u00e4r\u00e4 p\u00e4iv\u00e4m\u00e4\u00e4r\u00e4n muoto (VVVV-KK-PP) tai loman nime\u00e4 ei l\u00f6ydy"
+                },
+                "step": {
+                    "fix_remove_holiday": {
+                        "data": {
+                            "remove_holidays": "Poista lomat"
+                        },
+                        "data_description": {
+                            "remove_holidays": "Poista vapaap\u00e4iv\u00e4t muodossa VVVVV-KK-PP, alueena k\u00e4ytt\u00e4m\u00e4ll\u00e4 erottimena ',' tai k\u00e4ytt\u00e4m\u00e4ll\u00e4 nimen osaa"
+                        },
+                        "description": "Poista lomap\u00e4iv\u00e4 `{remove_holidays}`, koska sit\u00e4 ei l\u00f6ydy maasta {country}.",
+                        "title": "M\u00e4\u00e4ritetty\u00e4 lomap\u00e4iv\u00e4\u00e4 {remove_holidays} kohteelle {title} ei ole olemassa"
+                    }
+                }
+            },
+            "title": "M\u00e4\u00e4ritetty\u00e4 lomap\u00e4iv\u00e4\u00e4 {remove_holidays} kohteelle {title} ei ole olemassa"
+        },
+        "bad_named_holiday": {
+            "fix_flow": {
+                "error": {
+                    "remove_holiday_error": "V\u00e4\u00e4r\u00e4 p\u00e4iv\u00e4m\u00e4\u00e4r\u00e4n muoto (VVVV-KK-PP) tai loman nime\u00e4 ei l\u00f6ydy"
+                },
+                "step": {
+                    "fix_remove_holiday": {
+                        "data": {
+                            "remove_holidays": "Poista lomat"
+                        },
+                        "data_description": {
+                            "remove_holidays": "Poista vapaap\u00e4iv\u00e4t muodossa VVVVV-KK-PP, alueena k\u00e4ytt\u00e4m\u00e4ll\u00e4 erottimena ',' tai k\u00e4ytt\u00e4m\u00e4ll\u00e4 nimen osaa"
+                        },
+                        "description": "Poista nimetty loma {remove_holidays}, koska sit\u00e4 ei l\u00f6ydy maasta {country}.",
+                        "title": "M\u00e4\u00e4ritetty\u00e4 nimetty\u00e4 lomaa {remove_holidays} {title}:lle ei ole olemassa"
+                    },
+                    "named_holiday": {
+                        "data": {
+                            "remove_holidays": "Poista lomat"
+                        },
+                        "data_description": {
+                            "remove_holidays": "Poista vapaap\u00e4iv\u00e4t muodossa VVVVV-KK-PP, alueena k\u00e4ytt\u00e4m\u00e4ll\u00e4 erottimena ',' tai k\u00e4ytt\u00e4m\u00e4ll\u00e4 nimen osaa"
+                        },
+                        "description": "Poista nimetty loma {remove_holidays}, koska sit\u00e4 ei l\u00f6ydy maasta {country}.",
+                        "title": "M\u00e4\u00e4ritetty\u00e4 nimetty\u00e4 lomaa {remove_holidays} {title}:lle ei ole olemassa"
+                    }
+                }
+            },
+            "title": "M\u00e4\u00e4ritetty\u00e4 nimetty\u00e4 lomaa {remove_holidays} {title}:lle ei ole olemassa"
+        },
+        "bad_province": {
+            "fix_flow": {
+                "step": {
+                    "province": {
+                        "data": {
+                            "province": "Maan alajako"
+                        },
+                        "data_description": {
+                            "province": "Osavaltio, alue, maakunta, maan alue"
+                        },
+                        "description": "Valitse maan {country} maakunta, jota haluat k\u00e4ytt\u00e4\u00e4 Workday -sensoria varten.",
+                        "title": "Valitse maakunta {title}"
+                    }
+                }
+            },
+            "title": "Maassa {country} m\u00e4\u00e4ritetty\u00e4 maakuntaa {title}:lle ei ole olemassa"
+        },
+        "deprecated_yaml": {
+            "description": "Workdayn m\u00e4\u00e4ritt\u00e4minen YAML:n avulla poistetaan.\n\nOlemassa oleva YAML-konfiguraatiosi on tuotu k\u00e4ytt\u00f6liittym\u00e4\u00e4n automaattisesti.\n\nPoista Workdayn YAML-konfiguraatio configuration.yaml-tiedostosta ja k\u00e4ynnist\u00e4 Home Assistant uudelleen ongelman korjaamiseksi.",
+            "title": "Workdayn YAML-konfiguraatio poistetaan."
+        }
+    },
+    "options": {
+        "error": {
+            "add_holiday_error": "V\u00e4\u00e4r\u00e4 p\u00e4iv\u00e4m\u00e4\u00e4r\u00e4n muoto (VVVV-KK-PP)",
+            "add_holiday_range_error": "Virheellinen p\u00e4iv\u00e4m\u00e4\u00e4r\u00e4n muoto (VVVV-KK-PV,VVVV-KK-PV)",
+            "already_configured": "Palvelu t\u00e4ll\u00e4 konfiguraatiolla on jo olemassa",
+            "remove_holiday_error": "V\u00e4\u00e4r\u00e4 p\u00e4iv\u00e4m\u00e4\u00e4r\u00e4n muoto (VVVV-KK-PP) tai loman nime\u00e4 ei l\u00f6ydy",
+            "remove_holiday_range_error": "Virheellinen p\u00e4iv\u00e4m\u00e4\u00e4r\u00e4n muoto (VVVV-KK-PV,VVVV-KK-PV)"
+        },
+        "step": {
+            "init": {
+                "data": {
+                    "add_holidays": "Lis\u00e4\u00e4 lomat",
+                    "days_offset": "Poikkeama",
+                    "excludes": "Sulkee pois",
+                    "language": "Nimettyjen juhlap\u00e4ivien kieli",
+                    "province": "Maan alajako",
+                    "remove_holidays": "Poista lomat",
+                    "workdays": "Ty\u00f6p\u00e4iv\u00e4t"
+                },
+                "data_description": {
+                    "add_holidays": "Lis\u00e4\u00e4 mukautettuja vapaap\u00e4ivi\u00e4 muodossa VVVV-KK-PP tai alueena k\u00e4ytt\u00e4en erotinmerkki\u00e4 `,`.",
+                    "days_offset": "P\u00e4ivien poikkeama nykyisest\u00e4 p\u00e4iv\u00e4st\u00e4",
+                    "excludes": "Luettelo pois suljettavista arkip\u00e4ivist\u00e4, huomaa avainsana `holiday` ja lue dokumentaatio siit\u00e4, miten sit\u00e4 k\u00e4ytet\u00e4\u00e4n oikein.",
+                    "language": "Kieli, jota j\u00e4ytet\u00e4\u00e4n m\u00e4\u00e4ritt\u00e4ess\u00e4 nimettyj\u00e4 juhlapyhi\u00e4",
+                    "province": "Osavaltio, alue, maakunta tai maan alue",
+                    "remove_holidays": "Poista vapaap\u00e4iv\u00e4t muodossa VVVVV-KK-PP, alueena k\u00e4ytt\u00e4m\u00e4ll\u00e4 erottimena ',' tai k\u00e4ytt\u00e4m\u00e4ll\u00e4 nimen osaa",
+                    "workdays": "Lista ty\u00f6p\u00e4ivist\u00e4"
+                },
+                "description": "Muuta lis\u00e4asetuksia maalle {name} m\u00e4\u00e4ritettyn\u00e4 maalle {country}"
+            }
+        }
+    },
+    "selector": {
+        "country": {
+            "options": {
+                "none": "Ei maata"
+            }
+        },
+        "days": {
+            "options": {
+                "fri": "Perjantai",
+                "holiday": "Lomat",
+                "mon": "Maanantai",
+                "sat": "Lauantai",
+                "sun": "Sunnuntai",
+                "thu": "Torstai",
+                "tue": "Tiistai",
+                "wed": "Keskiviikko"
+            }
+        },
+        "province": {
+            "options": {
+                "none": "Ei alajakoa"
+            }
+        }
+    },
+    "services": {
+        "check_date": {
+            "description": "Tarkista, onko p\u00e4iv\u00e4m\u00e4\u00e4r\u00e4 ty\u00f6p\u00e4iv\u00e4.",
+            "fields": {
+                "check_date": {
+                    "description": "P\u00e4iv\u00e4m\u00e4\u00e4r\u00e4 tarkistaa, onko ty\u00f6p\u00e4iv\u00e4.",
+                    "name": "P\u00e4iv\u00e4m\u00e4\u00e4r\u00e4"
+                }
+            },
+            "name": "Tarkista p\u00e4iv\u00e4m\u00e4\u00e4r\u00e4"
+        }
+    },
+    "title": "Ty\u00f6p\u00e4iv\u00e4"
+}

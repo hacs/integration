@@ -1,0 +1,153 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Device is already configured",
+            "reauth_successful": "Re-authentication was successful"
+        },
+        "error": {
+            "cannot_connect": "Failed to connect",
+            "invalid_auth": "Invalid authentication",
+            "name_exists": "Name already exists"
+        },
+        "step": {
+            "reauth_confirm": {
+                "data": {
+                    "password": "Password"
+                },
+                "description": "The password for {username} is invalid.",
+                "title": "Authentication expired for {name}"
+            },
+            "user": {
+                "data": {
+                    "host": "Host",
+                    "name": "Name",
+                    "password": "Password",
+                    "path": "Path",
+                    "port": "Port",
+                    "ssl": "Uses an SSL certificate",
+                    "username": "Username"
+                },
+                "data_description": {
+                    "path": "The RPC request target path. E.g. `/transmission/rpc`"
+                },
+                "title": "Set up Transmission Client"
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "active_torrents": {
+                "name": "Active torrents"
+            },
+            "completed_torrents": {
+                "name": "Completed torrents"
+            },
+            "download_speed": {
+                "name": "Download speed"
+            },
+            "paused_torrents": {
+                "name": "Paused torrents"
+            },
+            "started_torrents": {
+                "name": "Started torrents"
+            },
+            "total_torrents": {
+                "name": "Total torrents"
+            },
+            "transmission_status": {
+                "name": "Status",
+                "state": {
+                    "downloading": "Downloading",
+                    "idle": "Idle",
+                    "seeding": "Seeding",
+                    "up_down": "Up/Down"
+                }
+            },
+            "upload_speed": {
+                "name": "Upload speed"
+            }
+        },
+        "switch": {
+            "on_off": {
+                "name": "Switch"
+            },
+            "turtle_mode": {
+                "name": "Turtle mode"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "limit": "Limit",
+                    "order": "Order",
+                    "scan_interval": "Update frequency"
+                },
+                "title": "Configure options for Transmission"
+            }
+        }
+    },
+    "services": {
+        "add_torrent": {
+            "description": "Adds a new torrent to download (URL, magnet link or Base64 encoded).",
+            "fields": {
+                "entry_id": {
+                    "description": "Config entry id.",
+                    "name": "Transmission entry"
+                },
+                "torrent": {
+                    "description": "URL, magnet link or Base64 encoded file.",
+                    "name": "Torrent"
+                }
+            },
+            "name": "Add torrent"
+        },
+        "remove_torrent": {
+            "description": "Removes a torrent.",
+            "fields": {
+                "delete_data": {
+                    "description": "Delete torrent data.",
+                    "name": "Delete data"
+                },
+                "entry_id": {
+                    "description": "Config entry id.",
+                    "name": "Transmission entry"
+                },
+                "id": {
+                    "description": "ID of a torrent.",
+                    "name": "ID"
+                }
+            },
+            "name": "Remove torrent"
+        },
+        "start_torrent": {
+            "description": "Starts a torrent.",
+            "fields": {
+                "entry_id": {
+                    "description": "Config entry id.",
+                    "name": "Transmission entry"
+                },
+                "id": {
+                    "description": "ID of a torrent.",
+                    "name": "ID"
+                }
+            },
+            "name": "Start torrent"
+        },
+        "stop_torrent": {
+            "description": "Stops a torrent.",
+            "fields": {
+                "entry_id": {
+                    "description": "Config entry id.",
+                    "name": "Transmission entry"
+                },
+                "id": {
+                    "description": "ID of a torrent.",
+                    "name": "ID"
+                }
+            },
+            "name": "Stop torrent"
+        }
+    }
+}

@@ -1,0 +1,134 @@
+{
+    "application_credentials": {
+        "description": "Folge den [Anweisungen]({more_info_url}) f\u00fcr den [OAuth-Zustimmungsbildschirm]({oauth_consent_url}), um Home Assistant Zugriff auf deinen Google-Kalender zu geben. Du musst auch Anwendungs-Anmeldeinformationen erstellen, die mit deinem Kalender verkn\u00fcpft sind:\n1. Gehe zu [Anmeldeinformationen]({oauth_creds_url}) und dr\u00fccke auf **Anmeldeinformationen erstellen**.\n2. W\u00e4hle in der Dropdown-Liste **OAuth-Client-ID**.\n3. W\u00e4hle **TV und eingeschr\u00e4nkte Eingabeger\u00e4te** f\u00fcr den Anwendungstyp."
+    },
+    "config": {
+        "abort": {
+            "already_configured": "Konto wurde bereits konfiguriert",
+            "already_in_progress": "Der Konfigurationsablauf wird bereits ausgef\u00fchrt",
+            "api_disabled": "Du musst die Google Kalender-API in der Google Cloud Console aktivieren",
+            "cannot_connect": "Verbindung fehlgeschlagen",
+            "code_expired": "Der Authentifizierungscode ist abgelaufen oder die Anmeldedaten sind ung\u00fcltig, bitte versuche es erneut.",
+            "invalid_access_token": "Ung\u00fcltiger Zugriffs-Token",
+            "missing_configuration": "Die Komponente ist nicht konfiguriert. Bitte der Dokumentation folgen.",
+            "oauth_error": "Ung\u00fcltige Token-Daten empfangen.",
+            "oauth_failed": "Fehler beim Abrufen des Zugriffstokens.",
+            "oauth_timeout": "Zeit\u00fcberschreitung beim Aufl\u00f6sen des OAuth-Tokens.",
+            "oauth_unauthorized": "OAuth-Autorisierungsfehler beim Abrufen des Zugriffstokens.",
+            "reauth_successful": "Die erneute Authentifizierung war erfolgreich",
+            "timeout_connect": "Zeit\u00fcberschreitung beim Verbindungsaufbau"
+        },
+        "create_entry": {
+            "default": "Erfolgreich authentifiziert"
+        },
+        "progress": {
+            "exchange": "Um dein Google-Konto zu verkn\u00fcpfen, besuche [{url}]({url}) und gib folgenden Code ein:\n\n{user_code}"
+        },
+        "step": {
+            "auth": {
+                "title": "Google-Konto verkn\u00fcpfen"
+            },
+            "pick_implementation": {
+                "title": "W\u00e4hle die Authentifizierungsmethode"
+            },
+            "reauth_confirm": {
+                "description": "Die Google Kalender-Integration muss dein Konto erneut authentifizieren",
+                "title": "Die Authentifizierung ist abgelaufen f\u00fcr {name}"
+            }
+        }
+    },
+    "entity": {
+        "calendar": {
+            "working_location": {
+                "name": "Arbeitsort"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "calendar_access": "Home Assistant-Zugriff auf Google Kalender"
+                }
+            }
+        }
+    },
+    "services": {
+        "add_event": {
+            "description": "F\u00fcgt ein neues Kalenderereignis hinzu.",
+            "fields": {
+                "calendar_id": {
+                    "description": "Die ID des gew\u00fcnschten Kalenders.",
+                    "name": "Kalender-ID"
+                },
+                "description": {
+                    "description": "Die Beschreibung des Ereignisses. Optional.",
+                    "name": "Beschreibung"
+                },
+                "end_date": {
+                    "description": "Das Datum, an dem die ganzt\u00e4gige Veranstaltung enden soll.",
+                    "name": "Enddatum"
+                },
+                "end_date_time": {
+                    "description": "Das Datum und die Uhrzeit, zu der das Ereignis enden soll.",
+                    "name": "Endzeit"
+                },
+                "in": {
+                    "description": "Tage oder Wochen, in denen du das Ereignis erstellen m\u00f6chtest.",
+                    "name": "In"
+                },
+                "start_date": {
+                    "description": "Das Datum, an dem die ganzt\u00e4gige Veranstaltung beginnen soll.",
+                    "name": "Startdatum"
+                },
+                "start_date_time": {
+                    "description": "Datum und Uhrzeit, zu der das Ereignis beginnen soll.",
+                    "name": "Startzeit"
+                },
+                "summary": {
+                    "description": "Dient als Titel der Veranstaltung.",
+                    "name": "Zusammenfassung"
+                }
+            },
+            "name": "Ereignis hinzuf\u00fcgen"
+        },
+        "create_event": {
+            "description": "F\u00fcgt ein neues Kalenderereignis hinzu.",
+            "fields": {
+                "description": {
+                    "description": "Die Beschreibung des Ereignisses. Optional.",
+                    "name": "Beschreibung"
+                },
+                "end_date": {
+                    "description": "Das Datum, an dem die ganzt\u00e4gige Veranstaltung enden soll.",
+                    "name": "Enddatum"
+                },
+                "end_date_time": {
+                    "description": "Das Datum und die Uhrzeit, zu der das Ereignis enden soll.",
+                    "name": "Endzeit"
+                },
+                "in": {
+                    "description": "Tage oder Wochen, in denen du das Ereignis erstellen m\u00f6chtest.",
+                    "name": "In"
+                },
+                "location": {
+                    "description": "Der Ort der Veranstaltung. Optional.",
+                    "name": "Standort"
+                },
+                "start_date": {
+                    "description": "Das Datum, an dem die ganzt\u00e4gige Veranstaltung beginnen soll.",
+                    "name": "Startdatum"
+                },
+                "start_date_time": {
+                    "description": "Datum und Uhrzeit, zu der das Ereignis beginnen soll.",
+                    "name": "Startzeit"
+                },
+                "summary": {
+                    "description": "Dient als Titel der Veranstaltung.",
+                    "name": "Zusammenfassung"
+                }
+            },
+            "name": "Erstellt ein Ereignis"
+        }
+    }
+}

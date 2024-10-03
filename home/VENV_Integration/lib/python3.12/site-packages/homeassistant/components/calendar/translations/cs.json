@@ -1,0 +1,132 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "Kalend\u00e1\u0159",
+            "state": {
+                "off": "Vypnuto",
+                "on": "Zapnuto"
+            },
+            "state_attributes": {
+                "all_day": {
+                    "name": "Cel\u00fd den",
+                    "state": {
+                        "false": "Ne",
+                        "true": "Ano"
+                    }
+                },
+                "description": {
+                    "name": "Popis"
+                },
+                "end_time": {
+                    "name": "Konec"
+                },
+                "location": {
+                    "name": "Poloha"
+                },
+                "message": {
+                    "name": "Zpr\u00e1va"
+                },
+                "messages": {
+                    "name": "Zpr\u00e1va"
+                },
+                "start_time": {
+                    "name": "Za\u010d\u00e1tek"
+                }
+            }
+        }
+    },
+    "issues": {
+        "deprecated_service_calendar_list_events": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "M\u00edsto toho pou\u017eijte \"calendar.get_events\", kter\u00fd podporuje v\u00edce entit.\n\nNahra\u010fte tuto akci a upravte automatizace a skripty a klepnut\u00edm na Odeslat tento probl\u00e9m zav\u0159ete.",
+                        "title": "Bylo zji\u0161t\u011bno pou\u017eit\u00ed zastaral\u00e9 slu\u017eby \"calendar.list_events\""
+                    }
+                }
+            },
+            "title": "Bylo zji\u0161t\u011bno pou\u017eit\u00ed zastaral\u00e9 slu\u017eby \"calendar.list_events\""
+        },
+        "platform_integration_no_support": {
+            "description": "Platforma {platform} pro integraci {domain} nepodporuje nastaven\u00ed platformy.\n\nOdeberte ji z nastaven\u00ed a restartujte Home Assistanta, abyste tento probl\u00e9m vy\u0159e\u0161ili.",
+            "title": "Podpora platformy nen\u00ed podporov\u00e1na"
+        }
+    },
+    "services": {
+        "create_event": {
+            "description": "P\u0159id\u00e1 novou ud\u00e1lost do kalend\u00e1\u0159e.",
+            "fields": {
+                "description": {
+                    "description": "\u00dapln\u011bj\u0161\u00ed popis ud\u00e1losti ne\u017e ten, kter\u00fd poskytuje souhrn.",
+                    "name": "Popis"
+                },
+                "end_date": {
+                    "description": "Datum, kdy m\u00e1 celodenn\u00ed akce skon\u010dit (v\u00fdhradn\u011b).",
+                    "name": "Datum konce"
+                },
+                "end_date_time": {
+                    "description": "Datum a \u010das, kdy m\u00e1 ud\u00e1lost skon\u010dit.",
+                    "name": "\u010cas konce"
+                },
+                "in": {
+                    "description": "Dny nebo t\u00fddny, ve kter\u00fdch chcete ud\u00e1lost vytvo\u0159it.",
+                    "name": "V"
+                },
+                "location": {
+                    "description": "M\u00edsto kon\u00e1n\u00ed akce.",
+                    "name": "M\u00edsto"
+                },
+                "start_date": {
+                    "description": "Datum, kdy m\u00e1 celodenn\u00ed akce za\u010d\u00edt.",
+                    "name": "Datum za\u010d\u00e1tku"
+                },
+                "start_date_time": {
+                    "description": "Datum a \u010das, kdy m\u00e1 ud\u00e1lost za\u010d\u00edt.",
+                    "name": "\u010cas zah\u00e1jen\u00ed"
+                },
+                "summary": {
+                    "description": "Definuje kr\u00e1tk\u00e9 shrnut\u00ed nebo p\u0159edm\u011bt ud\u00e1losti.",
+                    "name": "Souhrn"
+                }
+            },
+            "name": "Vytvo\u0159it ud\u00e1lost"
+        },
+        "get_events": {
+            "description": "Z\u00edsk\u00e1 ud\u00e1losti v kalend\u00e1\u0159i v \u010dasov\u00e9m rozsahu.",
+            "fields": {
+                "duration": {
+                    "description": "Vr\u00e1t\u00ed aktivn\u00ed ud\u00e1losti od start_date_time do zadan\u00e9 doby trv\u00e1n\u00ed.",
+                    "name": "Doba trv\u00e1n\u00ed"
+                },
+                "end_date_time": {
+                    "description": "Vr\u00e1t\u00ed aktivn\u00ed ud\u00e1losti p\u0159ed touto dobou (v\u00fdhradn\u011b). Nelze pou\u017e\u00edt s \"Dobou trv\u00e1n\u00ed\".",
+                    "name": "\u010cas ukon\u010den\u00ed"
+                },
+                "start_date_time": {
+                    "description": "Vr\u00e1t\u00ed aktivn\u00ed ud\u00e1losti po uplynut\u00ed t\u00e9to doby (v\u00fdhradn\u011b). Pokud nen\u00ed nastaveno, v\u00fdchoz\u00ed nastaven\u00ed je nyn\u00ed.",
+                    "name": "\u010cas zah\u00e1jen\u00ed"
+                }
+            },
+            "name": "Z\u00edskat ud\u00e1losti"
+        },
+        "list_events": {
+            "description": "Zobraz\u00ed ud\u00e1losti v kalend\u00e1\u0159i v \u010dasov\u00e9m rozsahu.",
+            "fields": {
+                "duration": {
+                    "description": "Vr\u00e1t\u00ed aktivn\u00ed ud\u00e1losti od start_date_time do zadan\u00e9 doby trv\u00e1n\u00ed.",
+                    "name": "Doba trv\u00e1n\u00ed"
+                },
+                "end_date_time": {
+                    "description": "Vr\u00e1t\u00ed aktivn\u00ed ud\u00e1losti p\u0159ed touto dobou (v\u00fdhradn\u011b). Nelze pou\u017e\u00edt s \"Dobou trv\u00e1n\u00ed\".",
+                    "name": "\u010cas ukon\u010den\u00ed"
+                },
+                "start_date_time": {
+                    "description": "Vr\u00e1t\u00ed aktivn\u00ed ud\u00e1losti po uplynut\u00ed t\u00e9to doby (v\u00fdhradn\u011b). Pokud nen\u00ed nastaveno, v\u00fdchoz\u00ed nastaven\u00ed je nyn\u00ed.",
+                    "name": "\u010cas zah\u00e1jen\u00ed"
+                }
+            },
+            "name": "Vypsat ud\u00e1lost"
+        }
+    },
+    "title": "Kalend\u00e1\u0159"
+}

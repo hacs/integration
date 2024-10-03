@@ -1,0 +1,96 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Integraci\u00f3n MELCloud ya configurada para este correo electr\u00f3nico. El token de acceso se ha actualizado.",
+            "reauth_successful": "La autenticaci\u00f3n se volvi\u00f3 a realizar correctamente",
+            "reconfigure_successful": "Se volvi\u00f3 a configurar correctamente"
+        },
+        "error": {
+            "cannot_connect": "No se pudo conectar",
+            "invalid_auth": "Autenticaci\u00f3n no v\u00e1lida",
+            "unknown": "Error inesperado"
+        },
+        "step": {
+            "reauth_confirm": {
+                "data": {
+                    "password": "Contrase\u00f1a",
+                    "username": "Correo electr\u00f3nico"
+                },
+                "description": "La integraci\u00f3n Melcloud necesita volver a autenticar los detalles de tu conexi\u00f3n.",
+                "title": "Autenticaci\u00f3n caducada para {name}"
+            },
+            "reconfigure_confirm": {
+                "data": {
+                    "password": "Contrase\u00f1a"
+                },
+                "data_description": {
+                    "password": "Introduce la (nueva) contrase\u00f1a para MelCloud."
+                },
+                "description": "Vuelve a configurar la entrada para obtener un nuevo token para tu cuenta: `{username}`.",
+                "title": "Vuelve a configurar tu MelCloud"
+            },
+            "user": {
+                "data": {
+                    "password": "Contrase\u00f1a",
+                    "username": "Correo electr\u00f3nico"
+                },
+                "description": "Con\u00e9ctate usando tu cuenta MELCloud.",
+                "title": "Conectar con MELCloud"
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "daily_energy": {
+                "name": "Energ\u00eda consumida diariamente"
+            },
+            "flow_temperature": {
+                "name": "Temperatura del flujo"
+            },
+            "outside_temperature": {
+                "name": "Temperatura exterior"
+            },
+            "return_temperature": {
+                "name": "Temperatura del flujo de retorno"
+            },
+            "room_temperature": {
+                "name": "Temperatura ambiente"
+            },
+            "tank_temperature": {
+                "name": "Temperatura del dep\u00f3sito"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_yaml_import_issue_cannot_connect": {
+            "description": "Se va a eliminar la configuraci\u00f3n de MELCloud mediante YAML, pero se ha producido un error de conexi\u00f3n al importar tu configuraci\u00f3n YAML.\n\nAseg\u00farate de que la conexi\u00f3n con MELCloud funciona y reinicia Home Assistant para volver a intentarlo o elimina la configuraci\u00f3n YAML de MELCloud de tu archivo configuration.yaml y contin\u00faa con [configurar la integraci\u00f3n](/config/integrations/dashboard/add?domain=melcoud) manualmente.",
+            "title": "Error al importar la configuraci\u00f3n YAML de MELCloud"
+        },
+        "deprecated_yaml_import_issue_invalid_auth": {
+            "description": "Se va a eliminar la configuraci\u00f3n de MELCloud mediante YAML, pero se ha producido un error de autenticaci\u00f3n al importar tu configuraci\u00f3n YAML.\n\nCorrige la configuraci\u00f3n YAML y reinicia Home Assistant para volver a intentarlo o elimina la configuraci\u00f3n YAML de MELCloud de tu archivo configuration.yaml y contin\u00faa con [configurar la integraci\u00f3n](/config/integrations/dashboard/add?domain=melcoud) manualmente.",
+            "title": "Error al importar la configuraci\u00f3n YAML de MELCloud"
+        }
+    },
+    "services": {
+        "set_vane_horizontal": {
+            "description": "Establece la posici\u00f3n horizontal de las paletas.",
+            "fields": {
+                "position": {
+                    "description": "Posici\u00f3n horizontal de las paletas. Las opciones posibles se encuentran en el atributo de estado vane_horizontal_positions.",
+                    "name": "Posici\u00f3n"
+                }
+            },
+            "name": "Establecer paletas horizontales"
+        },
+        "set_vane_vertical": {
+            "description": "Establece la posici\u00f3n vertical de las paletas.",
+            "fields": {
+                "position": {
+                    "description": "Posici\u00f3n vertical de la paletas. Las opciones posibles se pueden encontrar en el atributo de estado vane_vertical_positions.",
+                    "name": "Posici\u00f3n"
+                }
+            },
+            "name": "Establecer paletas verticales"
+        }
+    }
+}

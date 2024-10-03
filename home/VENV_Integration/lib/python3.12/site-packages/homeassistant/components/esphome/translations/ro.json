@@ -1,0 +1,81 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Dispozitivul a fost configurat deja",
+            "already_in_progress": "Fluxul de configura\u021bie este deja \u00een desf\u0103\u0219urare",
+            "mdns_missing_mac": "Lipse\u0219te adresa MAC din propriet\u0103\u021bile MDNS.",
+            "reauth_successful": "Re-autentificarea s-a realizat cu succes"
+        },
+        "error": {
+            "connection_error": "Conexiunea la ESP nu se poate realiza. Asigur\u0103-te c\u0103 fi\u0219ierul YAML con\u021bine o linie cu \u201eapi:\u201d.",
+            "invalid_auth": "Autentificare nevalid\u0103",
+            "invalid_psk": "Cheia de criptare a transportului nu este valid\u0103. Te rug\u0103m s\u0103 verifici c\u0103 este cea pe care ai specificat-o \u00een configura\u021bie",
+            "resolve_error": "Nu se poate rezolva adresa ESP-ului. Dac\u0103 aceast\u0103 eroare persist\u0103, te rug\u0103m s\u0103 setezi o adrsea IP static\u0103."
+        },
+        "flow_title": "{name}",
+        "step": {
+            "authenticate": {
+                "data": {
+                    "password": "Parola"
+                },
+                "description": "Te rug\u0103m s\u0103 introduci parola pe care ai setat-o in configura\u021bia pentru {name}."
+            },
+            "discovery_confirm": {
+                "description": "Dore\u0219ti s\u0103 adaugi nodul ESPHome `{name}` \u00een Home Assistant?",
+                "title": "Nod ESPHome descoperit"
+            },
+            "encryption_key": {
+                "data": {
+                    "noise_psk": "Cheie de criptare"
+                },
+                "description": "Te rug\u0103m s\u0103 introduci cheia de criptare pentru {name}. O po\u021bi reg\u0103si \u00een panoul de bord ESPHome sau \u00een configura\u021bia dispozitivului t\u0103u."
+            },
+            "reauth_confirm": {
+                "description": "Dispozitivul ESPHome {name} a activat criptarea transportului sau a schimbat cheia de criptare. Te rug\u0103m s\u0103 introduci cheia actualizat\u0103. O po\u021bi reg\u0103si \u00een panoul de bord ESPHome sau \u00een configura\u021bia dispozitivului t\u0103u."
+            },
+            "user": {
+                "data": {
+                    "host": "Gazd\u0103 (host)",
+                    "port": "Port"
+                },
+                "description": "Te rug\u0103m s\u0103 introduci set\u0103rile de conexiune pentru nodul t\u0103u [ESPHome]({esphome_url})."
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "assist_in_progress": {
+                "name": "Assist \u00een curs"
+            },
+            "call_active": {
+                "name": "Apel activ"
+            }
+        },
+        "select": {
+            "pipeline": {
+                "name": "Pipeline Assist",
+                "state": {
+                    "preferred": "Preferat"
+                }
+            },
+            "vad_sensitivity": {
+                "name": "Detec\u021bie de terminare a vorbirii",
+                "state": {
+                    "aggressive": "Agresiv\u0103",
+                    "default": "Implicit\u0103",
+                    "relaxed": "Relaxat\u0103"
+                }
+            }
+        }
+    },
+    "issues": {
+        "api_password_deprecated": {
+            "description": "Parola API pentru ESPHome va fi eliminat\u0103 \u0219i se recomand\u0103 \u00een schimb utilizarea unei chei de criptare API.\n\nElimin\u0103 parola API \u0219i adaug\u0103 o cheie de criptare pe dispozitivul ESPHome pentru a rezolva aceast\u0103 problem\u0103.",
+            "title": "Parola API perimat\u0103 pe {name}"
+        },
+        "ble_firmware_outdated": {
+            "description": "Pentru a \u00eembun\u0103t\u0103\u021bi fiabilitatea \u0219i performan\u021ba Bluetooth, \u00ee\u021bi recomand\u0103m s\u0103 actualiza\u021bi {name} cu ESPHome {version} sau o versiune ulterioar\u0103. Dac\u0103 actualizezi dispozitivului de la o versiune de ESPHome mai veche dec\u00e2t 2022.12.0, se recomand\u0103 utilizarea unui cablu serial \u00een loc de o actualizare over-the-air pentru a profita de noua schem\u0103 de parti\u021bii.",
+            "title": "Actualizeaz\u0103 {name} cu ESPHome {version} sau o versiune ulterioar\u0103"
+        }
+    }
+}

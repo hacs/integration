@@ -1,0 +1,58 @@
+{
+    "config": {
+        "abort": {
+            "single_instance_allowed": "Sudah dikonfigurasi. Hanya satu konfigurasi yang diizinkan."
+        },
+        "error": {
+            "invalid_ip_address": "Alamat IPv4 tidak valid"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "ip_address": "Alamat IP"
+                },
+                "description": "Terima panggilan Voice over IP untuk berinteraksi dengan Assist."
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "call_active": {
+                "name": "Panggilan Aktif"
+            },
+            "call_in_progress": {
+                "name": "Panggilan sedang berlangsung"
+            }
+        },
+        "select": {
+            "pipeline": {
+                "name": "Assistant",
+                "state": {
+                    "preferred": "Diutamakan"
+                }
+            },
+            "vad_sensitivity": {
+                "name": "Deteksi berbicara selesai",
+                "state": {
+                    "aggressive": "Agresif",
+                    "default": "Baku",
+                    "relaxed": "Santai"
+                }
+            }
+        },
+        "switch": {
+            "allow_call": {
+                "name": "Izinkan panggilan"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "sip_port": "Port SIP"
+                }
+            }
+        }
+    }
+}

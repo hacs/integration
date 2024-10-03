@@ -1,0 +1,174 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "El dispositiu ja est\u00e0 configurat",
+            "ipv6_not_supported": "No \u00e9s compatible amb IPv6.",
+            "reauth_successful": "Re-autenticaci\u00f3 realitzada correctament",
+            "reauth_unsuccessful": "La re-autenticaci\u00f3 no ha tingut \u00e8xit, elimina la integraci\u00f3 i torna-la a configurar.",
+            "reconfigure_successful": "Reconfiguraci\u00f3 realitzada correctament",
+            "unsupported_firmware": "El dispositiu utilitza una versi\u00f3 de programari no compatible."
+        },
+        "error": {
+            "cannot_connect": "Ha fallat la connexi\u00f3",
+            "firmware_not_fully_provisioned": "Dispositiu no totalment aprovisionat. Posa't en contacte amb l'assist\u00e8ncia de Shelly",
+            "invalid_auth": "Autenticaci\u00f3 inv\u00e0lida",
+            "unknown": "Error inesperat"
+        },
+        "flow_title": "{name}",
+        "step": {
+            "confirm_discovery": {
+                "description": "Vols configurar el {model} a {host}? \n\nAbans de configurar-lo, els dispositius amb bateria protegits amb contrasenya s'han de despertar prement el bot\u00f3 del dispositiu.\nEls dispositius que no tinguin contrasenya s'afegiran tan bon punt es despertin. Ja pots despertar el dispositiu manualment mitjan\u00e7ant el bot\u00f3 o esperar a la seg\u00fcent transmissi\u00f3 de dades del dispositiu."
+            },
+            "credentials": {
+                "data": {
+                    "password": "Contrasenya",
+                    "username": "Nom d'usuari"
+                }
+            },
+            "reauth_confirm": {
+                "data": {
+                    "password": "Contrasenya",
+                    "username": "Nom d'usuari"
+                }
+            },
+            "reconfigure_confirm": {
+                "data": {
+                    "host": "Amfitri\u00f3",
+                    "port": "Port"
+                }
+            },
+            "user": {
+                "data": {
+                    "host": "Amfitri\u00f3",
+                    "port": "Port"
+                },
+                "description": "Abans de configurar-ho, els dispositius amb bateria s'han de despertar, pots clicar el bot\u00f3 del dispositiu per a despertar-lo, ara."
+            }
+        }
+    },
+    "device_automation": {
+        "trigger_subtype": {
+            "button": "Bot\u00f3",
+            "button1": "Primer bot\u00f3",
+            "button2": "Segon bot\u00f3",
+            "button3": "Tercer bot\u00f3",
+            "button4": "Quart bot\u00f3"
+        },
+        "trigger_type": {
+            "btn_down": "Bot\u00f3 {subtype} avall",
+            "btn_up": "Bot\u00f3 {subtype} amunt",
+            "double": "{subtype} clicat dues vegades",
+            "double_push": "{subtype} clicat dues vegades",
+            "long": "{subtype} clicat durant una estona",
+            "long_push": "{subtype} premut durant una estona",
+            "long_single": "{subtype} clicat durant una estona i despr\u00e9s r\u00e0pid",
+            "single": "{subtype} clicat una vegada",
+            "single_long": "{subtype} clicat r\u00e0pid i, despr\u00e9s, durant una estona",
+            "single_push": "{subtype} clicat una vegada",
+            "triple": "{subtype} clicat tres vegades",
+            "triple_push": "{subtype} clicat tres vegades"
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "gas": {
+                "state_attributes": {
+                    "detected": {
+                        "state": {
+                            "heavy": "Alt",
+                            "mild": "Mitj\u00e0",
+                            "none": "Cap",
+                            "test": "Prova",
+                            "unknown": "Desconegut"
+                        }
+                    }
+                }
+            }
+        },
+        "event": {
+            "input": {
+                "state_attributes": {
+                    "event_type": {
+                        "state": {
+                            "btn_down": "Bot\u00f3 avall",
+                            "btn_up": "Bot\u00f3 amunt",
+                            "double": "Clicat dues vegades",
+                            "double_push": "Clicat dues vegades",
+                            "long": "Clicat durant una estona",
+                            "long_push": "Clicat durant una estona",
+                            "long_single": "Clicat durant una estona i despr\u00e9s clicat breument",
+                            "single": "Clicat una vegada",
+                            "single_long": "Clicat breument i despr\u00e9s clicat durant una estona",
+                            "single_push": "Clicat una vegada",
+                            "triple": "Clicat tres vegades",
+                            "triple_push": "Clicat tres vegades"
+                        }
+                    }
+                }
+            }
+        },
+        "sensor": {
+            "operation": {
+                "state": {
+                    "fault": "Error",
+                    "normal": "Normal",
+                    "unknown": "Desconegut",
+                    "warmup": "Iniciant"
+                },
+                "state_attributes": {
+                    "self_test": {
+                        "state": {
+                            "completed": "Completat",
+                            "not_completed": "No completat",
+                            "pending": "Pendent",
+                            "running": "En funcionament"
+                        }
+                    }
+                }
+            },
+            "valve_status": {
+                "state": {
+                    "checking": "Comprovant",
+                    "closed": "Tancat/ada",
+                    "closing": "Tancant",
+                    "failure": "Fallada",
+                    "opened": "Oberta",
+                    "opening": "Obrint",
+                    "unknown": "Desconegut"
+                }
+            }
+        }
+    },
+    "issues": {
+        "device_not_calibrated": {
+            "description": "El dispositiu Shelly {device_name} amb adre\u00e7a IP {ip_address} necessita calibrar-se. Per calibrar el dispositiu, s'ha de reiniciar un cop enllestida la instal\u00b7laci\u00f3 a la v\u00e0lvula. Pots reiniciar el dispositiu al tauler web; v\u00e9s a 'Configuraci\u00f3' > 'Reinici del dispositiu'.",
+            "title": "El dispositiu Shelly {device_name} no est\u00e0 calibrat"
+        },
+        "push_update_failure": {
+            "description": "Home Assistant no est\u00e0 rebent actualitzacions push del dispositiu Shelly {device_name} amb adre\u00e7a IP {ip_address}. Comprova la configuraci\u00f3 de CoIoT al tauler web del dispositiu i la configuraci\u00f3 de la teva xarxa.",
+            "title": "Error d'actualitzaci\u00f3 push del dispositiu Shelly {device_name}"
+        }
+    },
+    "options": {
+        "abort": {
+            "ble_unsupported": "La compatibilitat amb Bluetooth necessita la versi\u00f3 de microprogramari {ble_min_version} o una de m\u00e9s recent."
+        },
+        "step": {
+            "init": {
+                "data": {
+                    "ble_scanner_mode": "Mode d'escaneig Bluetooth"
+                },
+                "description": "L'escaneig Bluetooth pot ser actiu o passiu. Si \u00e9s actiu, el Shelly sol\u00b7licita dades a dispositius propers; en passiu, el Shelly rep dades no sol\u00b7licitades de dispositius propers."
+            }
+        }
+    },
+    "selector": {
+        "ble_scanner_mode": {
+            "options": {
+                "active": "Actiu",
+                "disabled": "Desactivada",
+                "passive": "Passiu"
+            }
+        }
+    }
+}

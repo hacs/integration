@@ -1,0 +1,84 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "Timer",
+            "state": {
+                "active": "Actief",
+                "idle": "Inactief",
+                "paused": "Gepauzeerd"
+            },
+            "state_attributes": {
+                "duration": {
+                    "name": "Duur"
+                },
+                "editable": {
+                    "name": "Beheerd via UI",
+                    "state": {
+                        "false": "Nee",
+                        "true": "Ja"
+                    }
+                },
+                "finishes_at": {
+                    "name": "Eindigt om"
+                },
+                "remaining": {
+                    "name": "Resterend"
+                },
+                "restore": {
+                    "name": "Herstellen"
+                }
+            }
+        }
+    },
+    "issues": {
+        "deprecated_duration_in_start": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "De optionele `duration` parameter van de timer service `timer.start` wordt verwijderd, maar het gebruik ervan is ontdekt. Maak in plaats daarvan een nieuwe timer aan om de duur te wijzigen.\n\nPas automatiseringen en scripts aan op zodat de `duration` parameter in the `timer.start` service niet langer wordt gebruikt en klik **toepassen** om dit issue te sluiten",
+                        "title": "De timer start service `duration` parameter wordt verwijderd"
+                    }
+                }
+            },
+            "title": "De timer start service `duration` parameter wordt verwijderd"
+        }
+    },
+    "services": {
+        "cancel": {
+            "description": "Annuleert een timer.",
+            "name": "Annuleren"
+        },
+        "change": {
+            "description": "Wijzigt een timer.",
+            "fields": {
+                "duration": {
+                    "description": "Tijdsduur om toe te voegen of af te trekken van een lopende timer.",
+                    "name": "Duur"
+                }
+            },
+            "name": "Wijzig"
+        },
+        "finish": {
+            "description": "Voltooien van een timer.",
+            "name": "Voltooien"
+        },
+        "pause": {
+            "description": "Pauzeert een timer.",
+            "name": "Pauzeren"
+        },
+        "reload": {
+            "description": "Herlaadt timers vanaf de YAML-configuratie.",
+            "name": "Herladen"
+        },
+        "start": {
+            "description": "Start een timer.",
+            "fields": {
+                "duration": {
+                    "description": "Duur die de timer nodig heeft om te voltooien. [optioneel].",
+                    "name": "Duur"
+                }
+            },
+            "name": "Starten"
+        }
+    }
+}

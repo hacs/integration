@@ -1,0 +1,130 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "Kalender",
+            "state": {
+                "off": "Av",
+                "on": "P\u00e5"
+            },
+            "state_attributes": {
+                "all_day": {
+                    "name": "Hela dagen ",
+                    "state": {
+                        "false": "Nej",
+                        "true": "Ja"
+                    }
+                },
+                "description": {
+                    "name": "Beskrivning"
+                },
+                "end_time": {
+                    "name": "Slut tid"
+                },
+                "location": {
+                    "name": "Plats"
+                },
+                "message": {
+                    "name": "Meddelande"
+                },
+                "messages": {
+                    "name": "Meddelande"
+                },
+                "start_time": {
+                    "name": "Start tid"
+                }
+            }
+        }
+    },
+    "issues": {
+        "deprecated_service_calendar_list_events": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "title": "Uppt\u00e4ckt anv\u00e4ndning av f\u00f6r\u00e5ldrad tj\u00e4nst `calendar.list_events`"
+                    }
+                }
+            }
+        },
+        "platform_integration_no_support": {
+            "description": "{platform}-plattformen f\u00f6r integrationen {domain} st\u00f6ds inte.\n\nTa bort den fr\u00e5n din konfiguration och starta om Home Assistant f\u00f6r att \u00e5tg\u00e4rda detta problem.",
+            "title": "Plattformen st\u00f6ds inte"
+        }
+    },
+    "services": {
+        "create_event": {
+            "description": "L\u00e4gger till en ny kalenderh\u00e4ndelse.",
+            "fields": {
+                "description": {
+                    "description": "En mer fullst\u00e4ndig beskrivning av h\u00e4ndelsen \u00e4n den som ges i sammanfattningen.",
+                    "name": "Beskrivning"
+                },
+                "end_date": {
+                    "description": "Det datum d\u00e5 heldagsevenemanget ska avslutas (exklusivt).",
+                    "name": "Slutdatum"
+                },
+                "end_date_time": {
+                    "description": "Datum och tid d\u00e5 h\u00e4ndelsen ska avslutas.",
+                    "name": "Sluttid"
+                },
+                "in": {
+                    "description": "Dagar eller veckor som du vill skapa evenemanget under.",
+                    "name": "i"
+                },
+                "location": {
+                    "description": "Plats f\u00f6r evenemanget.",
+                    "name": "Plats"
+                },
+                "start_date": {
+                    "description": "Det datum d\u00e5 heldagsevenemanget ska b\u00f6rja.",
+                    "name": "Startdatum"
+                },
+                "start_date_time": {
+                    "description": "Datum och tid d\u00e5 h\u00e4ndelsen ska starta.",
+                    "name": "Starttid"
+                },
+                "summary": {
+                    "description": "Definierar den korta sammanfattningen eller \u00e4mnet f\u00f6r h\u00e4ndelsen.",
+                    "name": "Sammanfattning"
+                }
+            },
+            "name": "Skapa h\u00e4ndelse"
+        },
+        "get_events": {
+            "description": "H\u00e4mta h\u00e4ndelser i en kalender inom ett visst tidsintervall.",
+            "fields": {
+                "duration": {
+                    "description": "Returnerar aktiva h\u00e4ndelser fr\u00e5n start_date_time till den angivna varaktigheten.",
+                    "name": "Varaktighet"
+                },
+                "end_date_time": {
+                    "description": "Returnerar aktiva h\u00e4ndelser f\u00f6re denna tidpunkt (exklusivt). Kan inte anv\u00e4ndas med 'varaktighet'.",
+                    "name": "Sluttid"
+                },
+                "start_date_time": {
+                    "description": "Returnerar aktiva h\u00e4ndelser efter denna tidpunkt (exklusiv). Om detta inte anges \u00e4r standardv\u00e4rdet nu.",
+                    "name": "Starttid"
+                }
+            },
+            "name": "H\u00e4mta h\u00e4ndelser"
+        },
+        "list_events": {
+            "description": "Visar h\u00e4ndelser i en kalender inom ett visst tidsintervall.",
+            "fields": {
+                "duration": {
+                    "description": "Returnerar aktiva h\u00e4ndelser fr\u00e5n start_date_time till den angivna varaktigheten.",
+                    "name": "Varaktighet"
+                },
+                "end_date_time": {
+                    "description": "Returnerar aktiva h\u00e4ndelser f\u00f6re denna tidpunkt (exklusivt). Kan inte anv\u00e4ndas med 'varaktighet'.",
+                    "name": "Sluttid"
+                },
+                "start_date_time": {
+                    "description": "Returnerar aktiva h\u00e4ndelser efter denna tidpunkt (exklusiv). Om detta inte anges \u00e4r standardv\u00e4rdet nu.",
+                    "name": "Starttid"
+                }
+            },
+            "name": "Lista h\u00e4ndelser"
+        }
+    },
+    "title": "Kalender"
+}

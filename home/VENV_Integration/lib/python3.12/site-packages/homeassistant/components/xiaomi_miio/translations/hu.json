@@ -1,0 +1,376 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Az eszk\u00f6z m\u00e1r konfigur\u00e1lva van",
+            "already_in_progress": "A konfigur\u00e1l\u00e1s m\u00e1r folyamatban van",
+            "incomplete_info": "Az eszk\u00f6z be\u00e1ll\u00edt\u00e1s\u00e1hoz sz\u00fcks\u00e9ges inform\u00e1ci\u00f3k hi\u00e1nyosak, nincs megadva c\u00edm vagy token.",
+            "not_xiaomi_miio": "Az eszk\u00f6zt (m\u00e9g) nem t\u00e1mogatja a Xiaomi Miio integr\u00e1ci\u00f3.",
+            "reauth_successful": "Az \u00fajrahiteles\u00edt\u00e9s sikeres volt.",
+            "unknown": "V\u00e1ratlan hiba"
+        },
+        "error": {
+            "cannot_connect": "Sikertelen csatlakoz\u00e1s",
+            "cloud_credentials_incomplete": "A felh\u0151alap\u00fa hiteles\u00edt\u0151 adatok hi\u00e1nyosak, k\u00e9rem, adja meg a felhaszn\u00e1l\u00f3nevet, a jelsz\u00f3t \u00e9s az orsz\u00e1got",
+            "cloud_login_error": "Nem siker\u00fclt bejelentkezni a Xioami Miio Cloud szolg\u00e1ltat\u00e1sba, ellen\u0151rizze a hiteles\u00edt\u0151 adatokat.",
+            "cloud_no_devices": "Nincs eszk\u00f6z ebben a Xiaomi Miio felh\u0151fi\u00f3kban.",
+            "unknown_device": "Az eszk\u00f6z modell nem ismert, nem tudja be\u00e1ll\u00edtani az eszk\u00f6zt a konfigur\u00e1ci\u00f3s folyamat seg\u00edts\u00e9g\u00e9vel.",
+            "wrong_token": "Ellen\u0151rz\u0151\u00f6sszeg-hiba, hib\u00e1s token"
+        },
+        "flow_title": "{name}",
+        "step": {
+            "cloud": {
+                "data": {
+                    "cloud_country": "Felh\u0151kiszolg\u00e1l\u00f3 orsz\u00e1ga",
+                    "cloud_password": "Felh\u0151 jelszava",
+                    "cloud_username": "Felh\u0151 felhaszn\u00e1l\u00f3neve",
+                    "manual": "Konfigur\u00e1l\u00e1s manu\u00e1lisan (nem aj\u00e1nlott)"
+                },
+                "description": "Jelentkezzen be a Xiaomi Miio felh\u0151be, a felh\u0151szerver haszn\u00e1lat\u00e1hoz: https://www.openhab.org/addons/bindings/miio/#country-servers."
+            },
+            "connect": {
+                "data": {
+                    "model": "Eszk\u00f6z modell"
+                }
+            },
+            "manual": {
+                "data": {
+                    "host": "IP-c\u00edm",
+                    "token": "API Token"
+                },
+                "description": "Sz\u00fcks\u00e9ge lesz a 32 karakterb\u0151l \u00e1ll\u00f3 API-tokenre, \u00fatmutat\u00e1s\u00e9rt tekintse meg https://www.home-assistant.io/integrations/xiaomi_miio#retrieving-the-access-token. Felh\u00edvjuk figyelm\u00e9t, hogy ez az API token elt\u00e9r a Xiaomi Aqara integr\u00e1ci\u00f3 \u00e1ltal haszn\u00e1lt kulcst\u00f3l."
+            },
+            "reauth_confirm": {
+                "description": "A Xiaomi Miio integr\u00e1ci\u00f3nak \u00fajra kell hiteles\u00edtenie a fi\u00f3kj\u00e1t a tokenek friss\u00edt\u00e9s\u00e9hez vagy a hi\u00e1nyz\u00f3 felh\u0151alap\u00fa hiteles\u00edt\u00e9si adatok hozz\u00e1ad\u00e1s\u00e1hoz.",
+                "title": "A(z) {name} hiteles\u00edt\u00e9se lej\u00e1rt"
+            },
+            "select": {
+                "data": {
+                    "select_device": "Miio eszk\u00f6z"
+                },
+                "description": "V\u00e1lassza ki a be\u00e1ll\u00edtand\u00f3 Xiaomi Miio eszk\u00f6zt."
+            }
+        }
+    },
+    "entity": {
+        "fan": {
+            "generic_fan": {
+                "state_attributes": {
+                    "preset_mode": {
+                        "state": {
+                            "nature": "Term\u00e9szetes",
+                            "normal": "Norm\u00e1l"
+                        }
+                    }
+                }
+            }
+        },
+        "select": {
+            "airpurifier_mode": {
+                "state": {
+                    "auto": "Automatikus",
+                    "favorite": "Kedvenc",
+                    "silent": "Csendes"
+                }
+            },
+            "display_orientation": {
+                "state": {
+                    "forward": "El\u0151re",
+                    "left": "Bal",
+                    "right": "Jobb"
+                }
+            },
+            "led_brightness": {
+                "state": {
+                    "bright": "F\u00e9nyes",
+                    "dim": "Halv\u00e1ny",
+                    "off": "Ki"
+                }
+            },
+            "ptc_level": {
+                "state": {
+                    "high": "Magas",
+                    "low": "Alacsony",
+                    "medium": "K\u00f6zepes"
+                }
+            }
+        }
+    },
+    "options": {
+        "error": {
+            "cloud_credentials_incomplete": "A felh\u0151alap\u00fa hiteles\u00edt\u0151 adatok hi\u00e1nyosak, k\u00e9rem, adja meg a felhaszn\u00e1l\u00f3nevet, a jelsz\u00f3t \u00e9s az orsz\u00e1got"
+        },
+        "step": {
+            "init": {
+                "data": {
+                    "cloud_subdevices": "Eszk\u00f6z\u00f6k csatlakoztat\u00e1sa a felh\u0151 haszn\u00e1lat\u00e1val"
+                }
+            }
+        }
+    },
+    "services": {
+        "fan_reset_filter": {
+            "description": "\u00dajraind\u00edtja a sz\u0171r\u0151 \u00e9lettartam\u00e1t \u00e9s haszn\u00e1lat\u00e1t.",
+            "fields": {
+                "entity_id": {
+                    "description": "A Xiaomi miio entit\u00e1s neve.",
+                    "name": "Entit\u00e1s azonos\u00edt\u00f3"
+                }
+            },
+            "name": "Ventil\u00e1tor sz\u0171r\u0151 vissza\u00e1ll\u00edt\u00e1sa"
+        },
+        "fan_set_extra_features": {
+            "description": "Manipul\u00e1l egy t\u00e1rol\u00f3regisztert, amely extra funkci\u00f3kat hirdet. A Mi Home alkalmaz\u00e1s \u00e9rt\u00e9keli az \u00e9rt\u00e9ket. Az alkalmaz\u00e1sban egy \"turb\u00f3 m\u00f3d\" nev\u0171 funkci\u00f3 lesz el\u00e9rhet\u0151, ha az \u00e9rt\u00e9k 1.",
+            "fields": {
+                "entity_id": {
+                    "description": "A Xiaomi miio entit\u00e1s neve.",
+                    "name": "Entit\u00e1s azonos\u00edt\u00f3"
+                },
+                "features": {
+                    "description": "Eg\u00e9sz sz\u00e1m, ismert \u00e9rt\u00e9kek a 0 (alap\u00e9rtelmezett) \u00e9s az 1 (turb\u00f3 m\u00f3d).",
+                    "name": "Funkci\u00f3k"
+                }
+            },
+            "name": "Ventil\u00e1tor extra be\u00e1ll\u00edt\u00e1sok"
+        },
+        "light_eyecare_mode_off": {
+            "description": "Letiltja a szemf\u00e1radts\u00e1g eml\u00e9keztet\u0151t/\u00e9rtes\u00edt\u00e9st (CSAK AZ EYECARE SMART LAMP 2 eset\u00e9ben).",
+            "fields": {
+                "entity_id": {
+                    "description": "Az entit\u00e1s neve, amin m\u0171veletet kell v\u00e9gezni.",
+                    "name": "Entit\u00e1s azonos\u00edt\u00f3"
+                }
+            },
+            "name": "Vil\u00e1g\u00edt\u00e1s szemv\u00e9delmi m\u00f3d kikapcsolva"
+        },
+        "light_eyecare_mode_on": {
+            "description": "Enged\u00e9lyezi a szemf\u00e1radts\u00e1g eml\u00e9keztet\u0151t/\u00e9rtes\u00edt\u00e9st (CSAK AZ EYECARE SMART LAMP 2 eset\u00e9ben).",
+            "fields": {
+                "entity_id": {
+                    "description": "Az entit\u00e1s neve, amin m\u0171veletet kell v\u00e9gezni.",
+                    "name": "Entit\u00e1s azonos\u00edt\u00f3"
+                }
+            },
+            "name": "Vil\u00e1g\u00edt\u00e1s szemv\u00e9delmi m\u00f3d bekapcsolva"
+        },
+        "light_night_light_mode_off": {
+            "description": "Kikapcsolja a szemv\u00e9delmi m\u00f3dot [fan_set_dry_off] (CSAK AZ EYECARE SMART LAMP 2 eset\u00e9ben).",
+            "fields": {
+                "entity_id": {
+                    "description": "Az entit\u00e1s neve, amin m\u0171veletet kell v\u00e9gezni.",
+                    "name": "Entit\u00e1s azonos\u00edt\u00f3"
+                }
+            },
+            "name": "\u00c9jszakai f\u00e9ny m\u00f3d kikapcsolva"
+        },
+        "light_night_light_mode_on": {
+            "description": "Bekapcsolja a szemv\u00e9delmi m\u00f3dot (CSAK AZ EYECARE SMART LAMP 2 eset\u00e9ben).",
+            "fields": {
+                "entity_id": {
+                    "description": "Az entit\u00e1s neve, amin m\u0171veletet kell v\u00e9gezni.",
+                    "name": "Entit\u00e1s azonos\u00edt\u00f3"
+                }
+            },
+            "name": "\u00c9jszakai f\u00e9ny m\u00f3d bekapcsolva"
+        },
+        "light_reminder_off": {
+            "description": "Letiltja a szemf\u00e1radts\u00e1g eml\u00e9keztet\u0151t/\u00e9rtes\u00edt\u00e9st (CSAK AZ EYECARE SMART LAMP 2 eset\u00e9ben).",
+            "fields": {
+                "entity_id": {
+                    "description": "Az entit\u00e1s neve, amin m\u0171veletet kell v\u00e9gezni.",
+                    "name": "Entit\u00e1s azonos\u00edt\u00f3"
+                }
+            },
+            "name": "F\u00e9nyeml\u00e9keztet\u0151 kikapcsolva"
+        },
+        "light_reminder_on": {
+            "description": "Enged\u00e9lyezi a szemf\u00e1radts\u00e1g eml\u00e9keztet\u0151t/\u00e9rtes\u00edt\u00e9st (CSAK AZ EYECARE SMART LAMP 2 eset\u00e9ben).",
+            "fields": {
+                "entity_id": {
+                    "description": "Az entit\u00e1s neve, amin m\u0171veletet kell v\u00e9gezni.",
+                    "name": "Entit\u00e1s azonos\u00edt\u00f3"
+                }
+            },
+            "name": "F\u00e9nyeml\u00e9keztet\u0151 bekapcsolva"
+        },
+        "light_set_delayed_turn_off": {
+            "description": "K\u00e9sleltetett kikapcsol\u00e1s.",
+            "fields": {
+                "entity_id": {
+                    "description": "A l\u00e1mpa entit\u00e1s neve.",
+                    "name": "Entit\u00e1s azonos\u00edt\u00f3"
+                },
+                "time_period": {
+                    "description": "A k\u00e9sleltetett kikapcsol\u00e1s id\u0151szaka.",
+                    "name": "Id\u0151szak"
+                }
+            },
+            "name": "L\u00e1mpa k\u00e9sleltetett kikapcsol\u00e1s be\u00e1ll\u00edt\u00e1sa"
+        },
+        "light_set_scene": {
+            "description": "R\u00f6gz\u00edtett jelenetet \u00e1ll\u00edt be.",
+            "fields": {
+                "entity_id": {
+                    "description": "A l\u00e1mpa entit\u00e1s neve.",
+                    "name": "Entit\u00e1s azonos\u00edt\u00f3"
+                },
+                "scene": {
+                    "description": "A r\u00f6gz\u00edtett jelenet sz\u00e1ma.",
+                    "name": "Jelenet"
+                }
+            },
+            "name": "Vil\u00e1g\u00edt\u00e1s jelenet be\u00e1ll\u00edt\u00e1sa"
+        },
+        "remote_learn_command": {
+            "description": "IR parancs tanul\u00e1sa, v\u00e1lassza a **M\u0171velet v\u00e9grehajt\u00e1sa** lehet\u0151s\u00e9get, ir\u00e1ny\u00edtsa a t\u00e1vir\u00e1ny\u00edt\u00f3t az IR eszk\u00f6z fel\u00e9 \u00e9s a megtanult parancs \u00e9rtes\u00edt\u00e9sk\u00e9nt fog megjelenni az \u00c1ttekint\u00e9sben.",
+            "fields": {
+                "slot": {
+                    "description": "Hat\u00e1rott meg az IR-parancs ment\u00e9s\u00e9re haszn\u00e1lt helyet (Slotot).",
+                    "name": "Hely (Slot)"
+                },
+                "timeout": {
+                    "description": "Hat\u00e1rozza meg az id\u0151korl\u00e1tot, amely el\u0151tt a parancsot meg kell tanulni.",
+                    "name": "Id\u0151t\u00fall\u00e9p\u00e9s"
+                }
+            },
+            "name": "Infravez\u00e9rl\u0151 parancs tanul\u00e1s"
+        },
+        "remote_set_led_off": {
+            "description": "Kikapcsolja a k\u00e9k LED-et.",
+            "name": "Infravez\u00e9rl\u0151 LED kikapcsol\u00e1sa"
+        },
+        "remote_set_led_on": {
+            "description": "Bekapcsolja a k\u00e9k LED-et.",
+            "name": "Infravez\u00e9rl\u0151 LED bekapcsol\u00e1sa"
+        },
+        "switch_set_power_mode": {
+            "description": "Be\u00e1ll\u00edtja az energiagazd\u00e1lkod\u00e1si m\u00f3dot.",
+            "fields": {
+                "entity_id": {
+                    "description": "A Xiaomi miio entit\u00e1s neve.",
+                    "name": "Entit\u00e1s azonos\u00edt\u00f3"
+                },
+                "mode": {
+                    "description": "Energiagazd\u00e1lkod\u00e1si m\u00f3d",
+                    "name": "M\u00f3d"
+                }
+            },
+            "name": "A kapcsol\u00f3 be\u00e1ll\u00edtja az energia m\u00f3dot"
+        },
+        "switch_set_power_price": {
+            "description": "Be\u00e1ll\u00edtja az \u00e1ram \u00e1r\u00e1t.",
+            "fields": {
+                "entity_id": {
+                    "description": "A Xiaomi miio entit\u00e1s neve.",
+                    "name": "Entit\u00e1s azonos\u00edt\u00f3"
+                },
+                "mode": {
+                    "description": "\u00c1ram \u00e1ra.",
+                    "name": "M\u00f3d"
+                }
+            },
+            "name": "A kapcsol\u00f3 be\u00e1ll\u00edtja az \u00e1ram \u00e1r\u00e1t"
+        },
+        "switch_set_wifi_led_off": {
+            "description": "Kapcsolja ki a Wi-Fi ledet.",
+            "fields": {
+                "entity_id": {
+                    "description": "A Xiaomi miio entit\u00e1s neve.",
+                    "name": "Entit\u00e1s azonos\u00edt\u00f3"
+                }
+            },
+            "name": "A kapcsol\u00f3 kikapcsolja a Wi-Fi LED-et"
+        },
+        "switch_set_wifi_led_on": {
+            "description": "Bekapcsolja a Wi-Fi LED-et.",
+            "fields": {
+                "entity_id": {
+                    "description": "A Xiaomi miio entit\u00e1s neve.",
+                    "name": "Entit\u00e1s azonos\u00edt\u00f3"
+                }
+            },
+            "name": "A kapcsol\u00f3 bekapcsolja a Wi-Fi LED-et"
+        },
+        "vacuum_clean_segment": {
+            "description": "Elkezdi a megadott szegmens(ek) tiszt\u00edt\u00e1s\u00e1t.",
+            "fields": {
+                "segments": {
+                    "description": "Szegmensek.",
+                    "name": "Szegmensek"
+                }
+            },
+            "name": "Porsz\u00edv\u00f3zza ki a szegmenst"
+        },
+        "vacuum_clean_zone": {
+            "description": "Elind\u00edtja a takar\u00edt\u00e1si m\u0171veletet a kiv\u00e1lasztott ter\u00fcleteken az megadott ism\u00e9tl\u00e9ssz\u00e1m szerint.",
+            "fields": {
+                "repeats": {
+                    "description": "Minden z\u00f3na takar\u00edt\u00e1s\u00e1nak ism\u00e9tl\u00e9ssz\u00e1ma.",
+                    "name": "Ism\u00e9tl\u00e9sek"
+                },
+                "zone": {
+                    "description": "T\u00f6mb z\u00f3n\u00e1kb\u00f3l. Minden z\u00f3na 4 eg\u00e9sz sz\u00e1m\u00e9rt\u00e9kb\u0151l \u00e1ll\u00f3 t\u00f6mb.",
+                    "name": "Z\u00f3na"
+                }
+            },
+            "name": "Porsz\u00edv\u00f3 tiszt\u00edt\u00e1si z\u00f3na"
+        },
+        "vacuum_goto": {
+            "description": "Menjen a megadott koordin\u00e1t\u00e1kra.",
+            "fields": {
+                "x_coord": {
+                    "description": "X-koordin\u00e1ta.",
+                    "name": "X koordin\u00e1ta"
+                },
+                "y_coord": {
+                    "description": "Y-koordin\u00e1ta.",
+                    "name": "Y koordin\u00e1ta"
+                }
+            },
+            "name": "Porsz\u00edv\u00f3 menjen a"
+        },
+        "vacuum_remote_control_move": {
+            "description": "A t\u00e1vir\u00e1ny\u00edt\u00f3 ir\u00e1ny\u00edtja a porsz\u00edv\u00f3t, gy\u0151z\u0151dj meg r\u00f3la, hogy el\u0151sz\u00f6r \u00e1ll\u00edtsd t\u00e1vir\u00e1ny\u00edt\u00f3 m\u00f3dba a remote_control_start parancs haszn\u00e1lat\u00e1val.",
+            "fields": {
+                "duration": {
+                    "description": "A mozg\u00e1s id\u0151tartama.",
+                    "name": "Id\u0151tartam"
+                },
+                "rotation": {
+                    "description": "Forgat\u00e1s, -179 fok \u00e9s 179 fok k\u00f6z\u00f6tt.",
+                    "name": "Forgat\u00e1s"
+                },
+                "velocity": {
+                    "description": "Sebess\u00e9g.",
+                    "name": "Sebess\u00e9g"
+                }
+            },
+            "name": "Porsz\u00edv\u00f3 t\u00e1vvez\u00e9relt mozgat\u00e1sa"
+        },
+        "vacuum_remote_control_move_step": {
+            "description": "A t\u00e1vir\u00e1ny\u00edt\u00f3 vez\u00e9rli a porsz\u00edv\u00f3t, csak egy mozdulatot tesz, majd meg\u00e1ll.",
+            "fields": {
+                "duration": {
+                    "description": "A mozg\u00e1s id\u0151tartama.",
+                    "name": "Id\u0151tartam"
+                },
+                "rotation": {
+                    "description": "Forg\u00e1s.",
+                    "name": "Forgat\u00e1s"
+                },
+                "velocity": {
+                    "description": "Sebess\u00e9g.",
+                    "name": "Sebess\u00e9g"
+                }
+            },
+            "name": "Porsz\u00edv\u00f3 t\u00e1vvez\u00e9rl\u0151vel t\u00f6rt\u00e9n\u0151 mozgat\u00e1sa egy l\u00e9p\u00e9sben"
+        },
+        "vacuum_remote_control_start": {
+            "description": "Elind\u00edtja a porsz\u00edv\u00f3 t\u00e1vir\u00e1ny\u00edt\u00e1s\u00e1t. Ezut\u00e1n mozgathatja a `remote_control_move` seg\u00edts\u00e9g\u00e9vel, ha k\u00e9sz, h\u00edvja meg a `remote_control_stop` parancsot.",
+            "name": "Porsz\u00edv\u00f3 t\u00e1vvez\u00e9relt ind\u00edt\u00e1sa"
+        },
+        "vacuum_remote_control_stop": {
+            "description": "Le\u00e1ll\u00edtja a porsz\u00edv\u00f3 t\u00e1vvez\u00e9relt m\u00f3dj\u00e1t.",
+            "name": "Porsz\u00edv\u00f3 t\u00e1vvez\u00e9rl\u00e9s le\u00e1ll\u00edt\u00e1s"
+        }
+    }
+}

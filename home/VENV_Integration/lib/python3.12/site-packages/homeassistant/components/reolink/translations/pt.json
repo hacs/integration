@@ -1,0 +1,142 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Dispositivo j\u00e1 configurado",
+            "reauth_successful": "Reautentica\u00e7\u00e3o bem sucedida"
+        },
+        "error": {
+            "api_error": "Ocorreu um erro de API",
+            "invalid_auth": "Autentica\u00e7\u00e3o inv\u00e1lida",
+            "unknown": "Erro inesperado"
+        },
+        "flow_title": "{hostname} ({ip_address})",
+        "step": {
+            "reauth_confirm": {
+                "description": "A integra\u00e7\u00e3o Reolink precisa autenticar novamente seus detalhes de liga\u00e7\u00e3o",
+                "title": "A autentica\u00e7\u00e3o expirou para {name}"
+            },
+            "user": {
+                "data": {
+                    "host": "Anfitri\u00e3o",
+                    "password": "Palavra-passe",
+                    "port": "Porta",
+                    "use_https": "Ativar HTTPS",
+                    "username": "Nome de Utilizador"
+                }
+            }
+        }
+    },
+    "entity": {
+        "light": {
+            "floodlight": {
+                "name": "Projetor"
+            },
+            "ir_lights": {
+                "name": "Luzes de infravermelhos em modo noturno"
+            },
+            "status_led": {
+                "name": "LED de estado"
+            }
+        },
+        "number": {
+            "ai_animal_sensitivity": {
+                "name": "Sensibilidade IA para animais"
+            },
+            "ai_face_sensitivity": {
+                "name": "Sensibilidade IA para caras"
+            },
+            "ai_package_sensitivity": {
+                "name": "Sensibilidade IA para pacotes"
+            },
+            "ai_person_sensitivity": {
+                "name": "Sensibilidade IA para pessoas"
+            },
+            "ai_pet_sensitivity": {
+                "name": "Sensibilidade IA para animais de estima\u00e7\u00e3o"
+            },
+            "ai_vehicle_sensitivity": {
+                "name": "Sensibilidade IA para ve\u00edculos"
+            }
+        },
+        "select": {
+            "auto_track_method": {
+                "state": {
+                    "digital": "Digital"
+                }
+            },
+            "day_night_mode": {
+                "state": {
+                    "auto": "Autom\u00e1tico",
+                    "color": "Cor"
+                }
+            },
+            "floodlight_mode": {
+                "state": {
+                    "auto": "Autom\u00e1tico",
+                    "schedule": "Hor\u00e1rio"
+                }
+            },
+            "hdr": {
+                "name": "HDR",
+                "state": {
+                    "auto": "Auto",
+                    "off": "Desligado",
+                    "on": "Ligado"
+                }
+            },
+            "motion_tone": {
+                "state": {
+                    "goodday": "Bom dia",
+                    "off": "Desligado"
+                }
+            },
+            "people_tone": {
+                "state": {
+                    "off": "Desligado"
+                }
+            },
+            "play_quick_reply_message": {
+                "name": "Tocar uma mensagem de resposta r\u00e1pida"
+            },
+            "status_led": {
+                "state": {
+                    "alwayson": "Sempre ligado",
+                    "alwaysonatnight": "Autom\u00e1tico e sempre ligado \u00e0 noite",
+                    "auto": "Autom\u00e1tico",
+                    "stayoff": "Manter desligado"
+                }
+            },
+            "visitor_tone": {
+                "state": {
+                    "goodday": "Bom dia"
+                }
+            }
+        },
+        "sensor": {
+            "hdd_storage": {
+                "name": "Armazenamento {hdd_index} HDD"
+            },
+            "sd_storage": {
+                "name": "Armazenamento {hdd_index} SD"
+            }
+        }
+    },
+    "issues": {
+        "https_webhook": {
+            "description": "Os produtos Reolink n\u00e3o podem enviar eventos de movimento para um endere\u00e7o HTTPS (SSL). Configure um endere\u00e7o HTTP (local) em \"URL do Home Assistant\" nas [configura\u00e7\u00f5es de rede] ( {network_link} ). O endere\u00e7o atual (local) \u00e9: ` {base_url} `, um endere\u00e7o v\u00e1lido pode, por exemplo, ser `http://192.168.1.10:8123` onde `192.168.1.10` \u00e9 o IP do dispositivo Home Assistant",
+            "title": "Reolink webhook URL usa HTTPS (SSL)"
+        },
+        "webhook_url": {
+            "description": "N\u00e3o foi recebido o estado ONVIF inicial de {name}. Muito provavelmente, a c\u00e2mara Reolink n\u00e3o consegue aceder ao URL atual (local) do Assistente Dom\u00e9stico `{base_url}`, configure um endere\u00e7o HTTP (local) em \"URL do Assistente Dom\u00e9stico\" nas [defini\u00e7\u00f5es de rede]({network_link}) que aponte para o Assistente Dom\u00e9stico. Por exemplo, `http://192.168.1.10:8123` em que `192.168.1.10` \u00e9 o IP do dispositivo do Assistente Dom\u00e9stico. Al\u00e9m disso, certifique-se de que a c\u00e2mara Reolink consegue aceder a esse URL. Usar a sondagem de estado de movimento r\u00e1pido/AI at\u00e9 que o primeiro envio ONVIF seja recebido."
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "protocol": "Protocolo"
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,94 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Slu\u017eba u\u017e je nakonfigurovan\u00e1",
+            "reauth_successful": "Op\u00e4tovn\u00e9 overenie bolo \u00faspe\u0161n\u00e9"
+        },
+        "error": {
+            "cannot_connect": "Nepodarilo sa pripoji\u0165",
+            "timeout_connect": "\u010casov\u00fd limit na nadviazanie spojenia",
+            "unknown": "Neo\u010dak\u00e1van\u00e1 chyba"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "api_key": "API k\u013e\u00fa\u010d",
+                    "password": "Heslo",
+                    "username": "Pou\u017e\u00edvate\u013esk\u00e9 meno"
+                },
+                "description": "Zadajte pou\u017e\u00edvate\u013esk\u00e9 meno a heslo pre svoje konto Hydrawise cloud:",
+                "title": "Prihl\u00e1senie Hydrawise"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "rain_sensor": {
+                "name": "Da\u017e\u010fov\u00fd senzor"
+            },
+            "watering": {
+                "name": "Zalievanie"
+            }
+        },
+        "sensor": {
+            "daily_active_water_time": {
+                "name": "Denn\u00fd \u010das akt\u00edvneho zavla\u017eovania"
+            },
+            "daily_active_water_use": {
+                "name": "Denn\u00e1 akt\u00edvna spotreba vody"
+            },
+            "daily_inactive_water_use": {
+                "name": "Denn\u00e1 neakt\u00edvna spotreba vody"
+            },
+            "daily_total_water_use": {
+                "name": "Celkov\u00e1 denn\u00e1 spotreba vody"
+            },
+            "next_cycle": {
+                "name": "\u010eal\u0161\u00ed cyklus"
+            },
+            "watering_time": {
+                "name": "Zost\u00e1vaj\u00faci \u010das zavla\u017eovania"
+            }
+        },
+        "switch": {
+            "auto_watering": {
+                "name": "Automatick\u00e9 zavla\u017eovanie"
+            },
+            "manual_watering": {
+                "name": "Ru\u010dn\u00e9 zavla\u017eovanie"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_yaml_import_issue": {
+            "description": "Konfigur\u00e1cia Hydrawise pomocou YAML sa odstra\u0148uje, ale pri importovan\u00ed va\u0161ej konfigur\u00e1cie YAML sa vyskytla chyba {error_type}. \n\n Uistite sa, \u017ee pripojenie k Hydrawise funguje a re\u0161tartujte Home Assistant, aby ste to mohli sk\u00fasi\u0165 znova, alebo odstr\u00e1\u0148te konfigur\u00e1ciu Hydrawise YAML zo s\u00faboru configuration.yaml a pokra\u010dujte v [nastavovan\u00ed integr\u00e1cie]({url}) manu\u00e1lne.",
+            "title": "Import konfigur\u00e1cie Hydrawise YAML zlyhal"
+        }
+    },
+    "services": {
+        "resume": {
+            "description": "Obnov\u00ed automatick\u00fd pl\u00e1n zavla\u017eovania z\u00f3ny.",
+            "name": "Obnovenie automatick\u00e9ho zavla\u017eovania"
+        },
+        "start_watering": {
+            "description": "Spust\u00ed zavla\u017eovac\u00ed cyklus vo vybranej zavla\u017eovacej z\u00f3ne.",
+            "fields": {
+                "duration": {
+                    "description": "D\u013a\u017eka trvania zavla\u017eovacieho cyklu. Ak nie je zadan\u00e1 (alebo je nulov\u00e1), pou\u017eije sa predvolen\u00e1 d\u013a\u017eka trvania zavla\u017eovacieho cyklu nastaven\u00e1 v mobilnej alebo webovej aplik\u00e1cii Hydrawise pre dan\u00fa zavla\u017eovaciu z\u00f3nu.",
+                    "name": "Trvanie"
+                }
+            },
+            "name": "Za\u010da\u0165 zalieva\u0165"
+        },
+        "suspend": {
+            "description": "Pozastav\u00ed automatick\u00fd pl\u00e1n zavla\u017eovania z\u00f3ny do dan\u00e9ho d\u00e1tumu a \u010dasu.",
+            "fields": {
+                "until": {
+                    "description": "D\u00e1tum a \u010das obnovenia automatick\u00e9ho pl\u00e1nu zavla\u017eovania.",
+                    "name": "Until"
+                }
+            },
+            "name": "Pozastavenie automatick\u00e9ho zavla\u017eovania"
+        }
+    }
+}

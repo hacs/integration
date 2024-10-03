@@ -1,0 +1,84 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Laite on jo m\u00e4\u00e4ritetty"
+        },
+        "error": {
+            "cannot_connect": "Yhteyden muodostaminen ep\u00e4onnistui"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "host": "Palvelin"
+                },
+                "data_description": {
+                    "host": "Bose SoundTouch -laitteen is\u00e4nt\u00e4nimi tai IP-osoite."
+                }
+            },
+            "zeroconf_confirm": {
+                "description": "Olet lis\u00e4\u00e4m\u00e4ss\u00e4 SoundTouch -laitetta nimelt\u00e4 `{name}` Home Assistantiin.",
+                "title": "Vahvista Bose SoundTouch -laitteen lis\u00e4\u00e4minen"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_yaml": {
+            "description": "Bose SoundTouchin m\u00e4\u00e4ritt\u00e4minen YAML:n avulla poistetaan.\n\nOlemassa oleva YAML-konfiguraatiosi on tuotu k\u00e4ytt\u00f6liittym\u00e4\u00e4n automaattisesti.\n\nPoista Bose SoundTouch YAML -m\u00e4\u00e4ritys configuration.yaml-tiedostosta ja k\u00e4ynnist\u00e4 Home Assistant uudelleen ongelman korjaamiseksi.",
+            "title": "Bose SoundTouchin YAML-konfiguraatio poistetaan."
+        }
+    },
+    "services": {
+        "add_zone_slave": {
+            "description": "Lis\u00e4\u00e4 orjan SoundTouch-monihuonealueeseen.",
+            "fields": {
+                "master": {
+                    "description": "Monihuonealuetta koordinoivan p\u00e4\u00e4yksik\u00f6n nimi. Alustariippuvainen.",
+                    "name": "Master"
+                },
+                "slaves": {
+                    "description": "Olemassa olevaan alueeseen lis\u00e4tt\u00e4vien orjayksik\u00f6iden nimet.",
+                    "name": "Orjat"
+                }
+            },
+            "name": "Lis\u00e4\u00e4 alueorja"
+        },
+        "create_zone": {
+            "description": "Luo SoundTouchin monihuonealueen.",
+            "fields": {
+                "master": {
+                    "description": "Monihuonealuetta koordinoivan p\u00e4\u00e4yksik\u00f6n nimi. Alustariippuvainen.",
+                    "name": "Master"
+                },
+                "slaves": {
+                    "description": "Uudelle alueelle lis\u00e4tt\u00e4vien orjayksik\u00f6iden nimet.",
+                    "name": "Orjat"
+                }
+            },
+            "name": "Luo alue"
+        },
+        "play_everywhere": {
+            "description": "Toistaa kaikissa Bose SoundTouch -laitteissa.",
+            "fields": {
+                "master": {
+                    "description": "Ryhmittely\u00e4 koordinoivan p\u00e4\u00e4yksik\u00f6n nimi. Alustariippuvainen. Se on oikotie, jolla luodaan monihuonealue, jossa on kaikki laitteet.",
+                    "name": "Master"
+                }
+            },
+            "name": "Soita kaikkialla"
+        },
+        "remove_zone_slave": {
+            "description": "Poistaa orjan SoundTouch-monihuonealueelta.",
+            "fields": {
+                "master": {
+                    "description": "Monihuonealuetta koordinoivan p\u00e4\u00e4yksik\u00f6n nimi. Alustariippuvainen.",
+                    "name": "Master"
+                },
+                "slaves": {
+                    "description": "Nykyiselt\u00e4 alueelta poistettavien orjayksik\u00f6iden nimet.",
+                    "name": "Orjat"
+                }
+            },
+            "name": "Poista alueorja"
+        }
+    }
+}

@@ -1,0 +1,64 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Apparaat is al geconfigureerd"
+        },
+        "error": {
+            "invalid_auth": "Ongeldige authenticatie"
+        },
+        "flow_title": "{ip}",
+        "step": {
+            "user": {
+                "data": {
+                    "ip_address": "Hostnaam of IP-adres",
+                    "password": "Wachtwoord",
+                    "port": "Poort"
+                },
+                "title": "Vul uw gegevens in"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "zone_run_time": "Standaardlooptijd van de zone (in seconden)"
+                },
+                "title": "Configureer RainMachine"
+            }
+        }
+    },
+    "services": {
+        "push_flow_meter_data": {
+            "description": "Pushen flow meter data naar het RainMachine apparaat.",
+            "fields": {
+                "device_id": {
+                    "description": "De controller waarnaar de flow meter data gestuurd moeten worden."
+                }
+            }
+        },
+        "push_weather_data": {
+            "fields": {
+                "condition": {
+                    "description": "Huidige weersomstandighedencode (WNUM).",
+                    "name": "Code weersomstandigheden"
+                },
+                "maxtemp": {
+                    "name": "Maximale temperatuur"
+                },
+                "mintemp": {
+                    "name": "Minimale temperatuur"
+                },
+                "timestamp": {
+                    "description": "UNIX tijdstempel voor alle weerdata. Als dit wordt weggelaten, dan wordt de lokale tijd gehanteerd van het moment dat de aanroep op het RainMachine apparaat.",
+                    "name": "Tijdstempel"
+                },
+                "wind": {
+                    "description": "Windsnelheid (m/s).",
+                    "name": "Windsnelheid"
+                }
+            },
+            "name": "Push weergegevens"
+        }
+    }
+}

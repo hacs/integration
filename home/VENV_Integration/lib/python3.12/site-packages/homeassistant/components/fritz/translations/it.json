@@ -1,0 +1,196 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Il dispositivo \u00e8 gi\u00e0 configurato",
+            "already_in_progress": "Il flusso di configurazione \u00e8 gi\u00e0 in corso",
+            "ignore_ip6_link_local": "L'indirizzo locale del collegamento IPv6 non \u00e8 supportato.",
+            "reauth_successful": "La riautenticazione ha avuto successo",
+            "reconfigure_successful": "La riconfigurazione \u00e8 stata completata con successo"
+        },
+        "error": {
+            "already_configured": "Il dispositivo \u00e8 gi\u00e0 configurato",
+            "already_in_progress": "Il flusso di configurazione \u00e8 gi\u00e0 in corso",
+            "cannot_connect": "Impossibile connettersi",
+            "invalid_auth": "Autenticazione non valida",
+            "upnp_not_configured": "Impostazioni UPnP mancanti sul dispositivo."
+        },
+        "flow_title": "{name}",
+        "step": {
+            "confirm": {
+                "data": {
+                    "password": "Password",
+                    "username": "Nome utente"
+                },
+                "description": "FRITZ!Box rilevato: {name} \n\nConfigura gli strumenti di FRITZ!Box per controllare il tuo {name}",
+                "title": "Configura gli strumenti di FRITZ!Box"
+            },
+            "reauth_confirm": {
+                "data": {
+                    "password": "Password",
+                    "username": "Nome utente"
+                },
+                "description": "Aggiorna le credenziali di FRITZ!Box Tools per: {host} . \n\n FRITZ!Box Tools non riesce ad accedere al tuo FRITZ! Box.",
+                "title": "Aggiornamento degli strumenti del FRITZ!Box - credenziali"
+            },
+            "reconfigure_confirm": {
+                "data": {
+                    "host": "Host",
+                    "port": "Porta",
+                    "ssl": "Utilizza un certificato SSL"
+                }
+            },
+            "user": {
+                "data": {
+                    "host": "Host",
+                    "password": "Password",
+                    "port": "Porta",
+                    "ssl": "Utilizza un certificato SSL",
+                    "username": "Nome utente"
+                },
+                "description": "Configura gli strumenti di FRITZ!Box per controllare il tuo FRITZ!Box.\nMinimo necessario: nome utente, password.",
+                "title": "Configura gli strumenti di FRITZ!Box"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "is_connected": {
+                "name": "Connessione"
+            },
+            "is_linked": {
+                "name": "Collegamento"
+            }
+        },
+        "button": {
+            "cleanup": {
+                "name": "Pulizia"
+            },
+            "firmware_update": {
+                "name": "Aggiornamento del firmware"
+            },
+            "reboot": {
+                "name": "Riavvia"
+            },
+            "reconnect": {
+                "name": "Riconnetti"
+            }
+        },
+        "sensor": {
+            "connection_uptime": {
+                "name": "Tempo di attivit\u00e0 della connessione"
+            },
+            "device_uptime": {
+                "name": "Ultimo riavvio"
+            },
+            "external_ip": {
+                "name": "IP esterno"
+            },
+            "external_ipv6": {
+                "name": "IPv6 esterno"
+            },
+            "gb_received": {
+                "name": "GB ricevuti"
+            },
+            "gb_sent": {
+                "name": "GB inviati"
+            },
+            "kb_s_received": {
+                "name": "Velocit\u00e0 effettiva di scaricamento"
+            },
+            "kb_s_sent": {
+                "name": "Velocit\u00e0 effettiva di caricamento"
+            },
+            "link_attenuation_received": {
+                "name": "Attenuazione della potenza di scaricamento del collegamento"
+            },
+            "link_attenuation_sent": {
+                "name": "Attenuazione della potenza di caricamento del collegamento"
+            },
+            "link_kb_s_received": {
+                "name": "Velocit\u00e0 effettiva di scaricamento del collegamento"
+            },
+            "link_kb_s_sent": {
+                "name": "Velocit\u00e0 effettiva di caricamento del collegamento"
+            },
+            "link_noise_margin_received": {
+                "name": "Margine di rumore di scaricamento del collegamento"
+            },
+            "link_noise_margin_sent": {
+                "name": "Margine del rumore di caricamento del collegamento"
+            },
+            "max_kb_s_received": {
+                "name": "Velocit\u00e0 massima di scaricamento della connessione"
+            },
+            "max_kb_s_sent": {
+                "name": "Velocit\u00e0 massima di caricamento della connessione"
+            }
+        }
+    },
+    "exceptions": {
+        "error_refresh_hosts_info": {
+            "message": "Errore durante l'aggiornamento delle informazioni sugli host"
+        },
+        "unable_to_connect": {
+            "message": "Impossibile stabilire una connessione"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "consider_home": "Secondi per considerare un dispositivo \"a casa\"",
+                    "old_discovery": "Abilita il vecchio metodo di rilevamento"
+                }
+            }
+        }
+    },
+    "services": {
+        "cleanup": {
+            "description": "Rimuovi le entit\u00e0 device_tracker obsolete del FRITZ!Box.",
+            "fields": {
+                "device_id": {
+                    "description": "Seleziona il Fritz!Box da verificare.",
+                    "name": "Dispositivo Fritz!Box"
+                }
+            },
+            "name": "Rimuovere le entit\u00e0 obsolete del tracker dei dispositivi"
+        },
+        "reboot": {
+            "description": "Riavvia il FRITZ!Box.",
+            "fields": {
+                "device_id": {
+                    "description": "Selezionare il Fritz!Box da riavviare.",
+                    "name": "Dispositivo Fritz!Box"
+                }
+            },
+            "name": "Riavvia"
+        },
+        "reconnect": {
+            "description": "Ristabilisce la connessione Internet del FRITZ!Box.",
+            "fields": {
+                "device_id": {
+                    "description": "Seleziona il Fritz! Box da ricollegare.",
+                    "name": "Dispositivo Fritz!Box"
+                }
+            },
+            "name": "Riconnetti"
+        },
+        "set_guest_wifi_password": {
+            "description": "Imposta una nuova password per il Wi-Fi ospite. La password deve avere una lunghezza compresa tra 8 e 63 caratteri. Se non viene impostato alcun parametro aggiuntivo, la password verr\u00e0 generata automaticamente con una lunghezza di 12 caratteri.",
+            "fields": {
+                "device_id": {
+                    "description": "Seleziona il Fritz!Box da configurare."
+                },
+                "length": {
+                    "description": "Lunghezza della nuova password. La password verr\u00e0 generata automaticamente, se non \u00e8 stata impostata alcuna password.",
+                    "name": "Lunghezza della password"
+                },
+                "password": {
+                    "description": "Nuova password per il Wi-Fi ospite.",
+                    "name": "Password"
+                }
+            },
+            "name": "Imposta password Wi-Fi ospite"
+        }
+    }
+}

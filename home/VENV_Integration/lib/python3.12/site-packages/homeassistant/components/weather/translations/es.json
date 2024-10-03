@@ -1,0 +1,141 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "Clima",
+            "state": {
+                "clear-night": "Despejado, de noche",
+                "cloudy": "Nublado",
+                "exceptional": "Excepcional",
+                "fog": "Niebla",
+                "hail": "Granizo",
+                "lightning": "Rel\u00e1mpagos",
+                "lightning-rainy": "Rel\u00e1mpagos, lluvioso",
+                "partlycloudy": "Parcialmente nublado",
+                "pouring": "Lluvia torrencial",
+                "rainy": "Lluvioso",
+                "snowy": "Nevado",
+                "snowy-rainy": "Nevado, lluvioso",
+                "sunny": "Soleado",
+                "windy": "Ventoso",
+                "windy-variant": "Ventoso, nublado"
+            },
+            "state_attributes": {
+                "apparent_temperature": {
+                    "name": "Temperatura aparente"
+                },
+                "cloud_coverage": {
+                    "name": "Cobertura de nubes"
+                },
+                "dew_point": {
+                    "name": "Temperatura del punto de roc\u00edo"
+                },
+                "forecast": {
+                    "name": "Previsi\u00f3n"
+                },
+                "humidity": {
+                    "name": "Humedad"
+                },
+                "ozone": {
+                    "name": "Ozono"
+                },
+                "precipitation_unit": {
+                    "name": "Unidad de precipitaci\u00f3n"
+                },
+                "pressure": {
+                    "name": "Presi\u00f3n"
+                },
+                "pressure_unit": {
+                    "name": "Unidad de presi\u00f3n"
+                },
+                "temperature": {
+                    "name": "Temperatura"
+                },
+                "temperature_unit": {
+                    "name": "Unidad de temperatura"
+                },
+                "uv_index": {
+                    "name": "\u00cdndice UV"
+                },
+                "visibility": {
+                    "name": "Visibilidad"
+                },
+                "visibility_unit": {
+                    "name": "Unidad de visibilidad"
+                },
+                "wind_bearing": {
+                    "name": "Direcci\u00f3n del viento"
+                },
+                "wind_gust_speed": {
+                    "name": "Velocidad de r\u00e1fagas de viento"
+                },
+                "wind_speed": {
+                    "name": "Velocidad del viento"
+                },
+                "wind_speed_unit": {
+                    "name": "Unidad de velocidad del viento"
+                }
+            }
+        }
+    },
+    "issues": {
+        "deprecated_service_weather_get_forecast": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "En su lugar, utiliza `weather.get_forecasts`, que admite m\u00faltiples entidades.\n\nPor favor, sustituye este servicio, ajusta tus automatizaciones y scripts y selecciona **Enviar** para cerrar este problema.",
+                        "title": "Detectado el uso del servicio obsoleto weather.get_forecast"
+                    }
+                }
+            },
+            "title": "Detectado el uso del servicio obsoleto weather.get_forecast"
+        },
+        "deprecated_weather_forecast": {
+            "description": "La integraci\u00f3n `{platform}` est\u00e1 utilizando el atributo de previsi\u00f3n obsoleto.\n\nPor favor, {report_issue}.",
+            "title": "La integraci\u00f3n {platform} est\u00e1 utilizando previsiones obsoletas"
+        },
+        "deprecated_weather_forecast_no_url": {
+            "description": "La integraci\u00f3n personalizada `{platform}` implementa la propiedad `forecast` o establece `self._attr_forecast` en una subclase de WeatherEntity. \n\nPor favor, informa de ello al autor de la integraci\u00f3n {platform}. \n\nUna vez que est\u00e9 disponible una versi\u00f3n actualizada de `{platform}`, inst\u00e1lala y reinicia Home Assistant para solucionar este problema.",
+            "title": "La integraci\u00f3n personalizada {platform} utiliza previsi\u00f3n meteorol\u00f3gica obsoleta."
+        },
+        "deprecated_weather_forecast_url": {
+            "description": "La integraci\u00f3n personalizada `{platform}` implementa la propiedad `forecast` o establece `self._attr_forecast` en una subclase de WeatherEntity. \n\nPor favor, crea un informe de error en {issue_tracker} . \n\nUna vez que est\u00e9 disponible una versi\u00f3n actualizada de `{platform}`, inst\u00e1lala y reinicia Home Assistant para solucionar este problema.",
+            "title": "La integraci\u00f3n personalizada {platform} utiliza previsi\u00f3n meteorol\u00f3gica obsoleta."
+        },
+        "platform_integration_no_support": {
+            "description": "La plataforma {platform} para la integraci\u00f3n {domain} no es compatible con la configuraci\u00f3n de la plataforma. \n\nElim\u00ednala de tu configuraci\u00f3n y reinicia Home Assistant para solucionar este problema.",
+            "title": "Soporte de plataforma no compatible"
+        }
+    },
+    "selector": {
+        "forecast_type": {
+            "options": {
+                "daily": "Diariamente",
+                "hourly": "Cada hora",
+                "twice_daily": "Dos veces al d\u00eda"
+            }
+        }
+    },
+    "services": {
+        "get_forecast": {
+            "description": "Obt\u00e9n la previsi\u00f3n meteorol\u00f3gica.",
+            "fields": {
+                "type": {
+                    "description": "Tipo de previsi\u00f3n: diaria, horaria o dos veces al d\u00eda.",
+                    "name": "Tipo de previsi\u00f3n"
+                }
+            },
+            "name": "Obtener previsi\u00f3n"
+        },
+        "get_forecasts": {
+            "description": "Obtener previsiones meteorol\u00f3gicas.",
+            "fields": {
+                "type": {
+                    "description": "Tipo de previsi\u00f3n: diaria, horaria o dos veces al d\u00eda.",
+                    "name": "Tipo de previsi\u00f3n"
+                }
+            },
+            "name": "Obtener previsiones"
+        }
+    },
+    "title": "Clima"
+}

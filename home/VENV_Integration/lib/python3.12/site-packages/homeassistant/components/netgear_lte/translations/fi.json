@@ -1,0 +1,138 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Laite on jo m\u00e4\u00e4ritetty",
+            "cannot_connect": "Yhteyden muodostaminen ep\u00e4onnistui"
+        },
+        "error": {
+            "cannot_connect": "Yhteyden muodostaminen ep\u00e4onnistui",
+            "unknown": "Odottamaton virhe"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "host": "Palvelin",
+                    "password": "Salasana"
+                }
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "mobile_connected": {
+                "name": "Mobiiliyhteys"
+            },
+            "roaming": {
+                "name": "Verkkovierailu"
+            },
+            "wire_connected": {
+                "name": "Johto kytketty"
+            }
+        },
+        "sensor": {
+            "band": {
+                "name": "Nykyinen kaista"
+            },
+            "cell_id": {
+                "name": "Kennon tunnus"
+            },
+            "connection_text": {
+                "name": "Yhteysteksti"
+            },
+            "connection_type": {
+                "name": "Yhteystyyppi"
+            },
+            "radio_quality": {
+                "name": "Radion laatu"
+            },
+            "register_network_display": {
+                "name": "Rekister\u00f6i verkkon\u00e4ytt\u00f6"
+            },
+            "rx_level": {
+                "name": "Rx-taso"
+            },
+            "service_type": {
+                "name": "Palvelun tyyppi"
+            },
+            "sms": {
+                "name": "SMS"
+            },
+            "sms_total": {
+                "name": "SMS yhteens\u00e4"
+            },
+            "tx_level": {
+                "name": "Tx-taso"
+            },
+            "upstream": {
+                "name": "L\u00e4hetys"
+            },
+            "usage": {
+                "name": "K\u00e4ytt\u00f6"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_notify": {
+            "description": "Netgear LTE -ilmoituspalvelu m\u00e4\u00e4ritettiin aiemmin YAML-m\u00e4\u00e4rityksen kautta.\n\nT\u00e4m\u00e4 loi palvelun m\u00e4\u00e4ritetylle vastaanottajalle tarvitsematta sis\u00e4llytt\u00e4\u00e4 puhelinnumeroa.\n\nS\u00e4\u00e4d\u00e4 automaatioita tai komentosarjoja, joita saatat joutua k\u00e4ytt\u00e4m\u00e4\u00e4n {name}-palvelua, ja sis\u00e4llyt\u00e4 kohde vastaanottajan m\u00e4\u00e4ritt\u00e4miseen.",
+            "title": "Netgear LTE -ilmoituspalvelu muuttuu"
+        },
+        "import_failure": {
+            "description": "Netgear LTE notify -palvelu m\u00e4\u00e4ritettiin aiemmin YAML-konfiguraation avulla.\n\nVirhe tapahtui, kun yritettiin kommunikoida laitteen kanssa, kun yritettiin tuoda konfiguraatio k\u00e4ytt\u00f6liittym\u00e4\u00e4n.\n\nPoista Netgear LTE notify -osio YAML-konfiguraatiosta ja m\u00e4\u00e4rit\u00e4 se sen sijaan k\u00e4ytt\u00f6liittym\u00e4ss\u00e4.",
+            "title": "Netgear LTE -integraation tuonti ep\u00e4onnistui"
+        }
+    },
+    "services": {
+        "connect_lte": {
+            "description": "Pyyt\u00e4\u00e4 modeemia muodostamaan LTE-yhteyden.",
+            "fields": {
+                "host": {
+                    "description": "Modeemi, jonka pit\u00e4isi muodostaa yhteys.",
+                    "name": "Palvelin"
+                }
+            },
+            "name": "Yhdist\u00e4 LTE"
+        },
+        "delete_sms": {
+            "description": "Poistaa viestit modeemin Saapuneet-kansiosta.",
+            "fields": {
+                "host": {
+                    "description": "Modeemi, jonka viesti pit\u00e4isi poistaa.",
+                    "name": "Palvelin"
+                },
+                "sms_id": {
+                    "description": "Kokonaisluku tai luettelo kokonaisluvuista, jotka sis\u00e4lt\u00e4v\u00e4t poistettavien viestien saapuneiden viestien tunnukset.",
+                    "name": "SMS-tunnus"
+                }
+            },
+            "name": "Poista tekstiviesti"
+        },
+        "disconnect_lte": {
+            "description": "Pyyt\u00e4\u00e4 modeemia sulkemaan LTE-yhteyden.",
+            "fields": {
+                "host": {
+                    "description": "Modeemi, jonka yhteys pit\u00e4isi katkaista.",
+                    "name": "Palvelin"
+                }
+            },
+            "name": "Katkaise LTE-yhteys"
+        },
+        "set_option": {
+            "description": "Asettaa modeemin asetukset.",
+            "fields": {
+                "autoconnect": {
+                    "description": "Automaattisen yhteyden tila.",
+                    "name": "Automaattinen yhdist\u00e4minen"
+                },
+                "failover": {
+                    "description": "Vikasietotila.",
+                    "name": "Vikasietoisuus"
+                },
+                "host": {
+                    "description": "Modeemi, jonka asetukset asetetaan.",
+                    "name": "Palvelin"
+                }
+            },
+            "name": "Aseta vaihtoehto"
+        }
+    }
+}

@@ -1,0 +1,89 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "El dispositivo ya est\u00e1 configurado",
+            "reauth_successful": "La autenticaci\u00f3n se volvi\u00f3 a realizar correctamente"
+        },
+        "error": {
+            "cannot_connect": "No se pudo conectar",
+            "invalid_auth": "Autenticaci\u00f3n no v\u00e1lida",
+            "unknown": "Error inesperado"
+        },
+        "step": {
+            "reauth_confirm": {
+                "data": {
+                    "encrypt_token": "Utilizar un token encriptado para la autenticaci\u00f3n.",
+                    "token": "Token de acceso"
+                },
+                "description": "La integraci\u00f3n Nuki debe volver a autenticarse con tu bridge.",
+                "title": "Autenticaci\u00f3n caducada para {name}"
+            },
+            "user": {
+                "data": {
+                    "encrypt_token": "Utilizar un token encriptado para la autenticaci\u00f3n.",
+                    "host": "Host",
+                    "port": "Puerto",
+                    "token": "Token de acceso"
+                },
+                "data_description": {
+                    "host": "El nombre de host o la direcci\u00f3n IP de tu puente Nuki. Por ejemplo: 192.168.1.25."
+                }
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "battery_critical": {
+                "name": "Bater\u00eda cr\u00edtica"
+            },
+            "ring_action": {
+                "name": "Acci\u00f3n del timbre"
+            }
+        },
+        "lock": {
+            "nuki_lock": {
+                "state_attributes": {
+                    "battery_critical": {
+                        "state": {
+                            "off": "Normal",
+                            "on": "Baja"
+                        }
+                    }
+                }
+            }
+        },
+        "sensor": {
+            "battery": {
+                "name": "Bater\u00eda"
+            }
+        }
+    },
+    "issues": {
+        "https_webhook": {
+            "description": "El puente Nuki no puede enviar eventos a una direcci\u00f3n HTTPS (SSL), por favor, configura una direcci\u00f3n HTTP (local) en \"URL de Home Assistant\" en la [configuraci\u00f3n de red]({network_link}). La direcci\u00f3n (local) actual es: `{base_url}`, una direcci\u00f3n v\u00e1lida podr\u00eda ser, por ejemplo, `http://192.168.1.10:8123` donde `192.168.1.10` es la IP del dispositivo Home Assistant",
+            "title": "La URL del webhook de Nuki utiliza HTTPS (SSL)"
+        }
+    },
+    "services": {
+        "lock_n_go": {
+            "description": "Nuki Lock'n'Go.",
+            "fields": {
+                "unlatch": {
+                    "description": "Si se abre la cerradura.",
+                    "name": "Desbloquear"
+                }
+            },
+            "name": "Bloquear y listo"
+        },
+        "set_continuous_mode": {
+            "description": "Habilita o deshabilita el modo continuo en Nuki Opener.",
+            "fields": {
+                "enable": {
+                    "description": "Si se habilita o deshabilita la funci\u00f3n.",
+                    "name": "Habilitar"
+                }
+            },
+            "name": "Establecer modo continuo"
+        }
+    }
+}

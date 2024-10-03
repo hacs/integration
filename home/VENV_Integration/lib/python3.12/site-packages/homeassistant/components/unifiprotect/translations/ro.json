@@ -1,0 +1,103 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Dispozitivul a fost configurat deja",
+            "discovery_started": "Descoperirea a \u00eenceput"
+        },
+        "error": {
+            "cannot_connect": "A e\u0219uat conectarea",
+            "invalid_auth": "Autentificare nevalid\u0103",
+            "protect_version": "Versiunea minim\u0103 necesar\u0103 este v1.20.0. Actualizeaz\u0103 UniFi Protect \u0219i apoi \u00eencearc\u0103 din nou."
+        },
+        "flow_title": "{name} ({ip_address})",
+        "step": {
+            "discovery_confirm": {
+                "data": {
+                    "password": "Parola",
+                    "username": "Utilizator"
+                },
+                "description": "Dore\u0219ti s\u0103 configurezi {name} ({ip_address})? Va fi nevoie de un utilizator local creat \u00een consola UniFi OS cu care s\u0103 te autentifici. Utilizatorii Ubiquiti Cloud nu vor func\u021biona. Pentru mai multe informa\u021bii: {local_user_documentation_url}",
+                "title": "UniFi Protect descoperit"
+            },
+            "reauth_confirm": {
+                "data": {
+                    "host": "IP/Host al serverului UniFi Protect",
+                    "password": "Parola",
+                    "port": "Port",
+                    "username": "Utilizator"
+                },
+                "title": "Re-autentificare UniFi Protect"
+            },
+            "user": {
+                "data": {
+                    "host": "Gazd\u0103 (host)",
+                    "password": "Parola",
+                    "port": "Port",
+                    "username": "Utilizator",
+                    "verify_ssl": "Verific\u0103 certificat SSL"
+                },
+                "description": "Vei avea nevoie de un utilizator local creat \u00een consola UniFi OS cu care s\u0103te conectezi. Utilizatorii Ubiquiti Cloud nu vor func\u021biona. Pentru mai multe informa\u021bii: {local_user_documentation_url}",
+                "title": "Configurare UniFi Protect"
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "license_plate": {
+                "state": {
+                    "none": "Liber"
+                }
+            }
+        }
+    },
+    "issues": {
+        "deprecate_smart_sensor": {
+            "description": "Senzorul unificat \"Obiect detectat\" pentru detectii inteligente este acum perimat. Acesta a fost \u00eenlocuit cu senzori binari individuali de detec\u021bie inteligent\u0103 pentru fiecare tip de detec\u021bie inteligent\u0103.\n\nMai jos sunt automatiz\u0103rile \u0219i scripturile care au fost detectate c\u0103 utilizeaz\u0103 una sau mai multe dintre entit\u0103\u021bile perimate:\n{items}\nLista de mai sus poate fi incomplet\u0103 \u0219i nu include nicio utilizare a \u0219ablonelor \u00een cadrul tablourilor de bord. Te rug\u0103m s\u0103 actualizezi orice \u0219abloane, automatiz\u0103ri sau scripturi \u00een consecin\u021b\u0103.",
+            "title": "Senzor inteligent de detec\u021bie perimat"
+        },
+        "deprecated_service_set_doorbell_message": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Serviciul `unifiprotect.set_doorbell_message` este perimat \u00een favoarea noii entit\u0103\u021bi Doorbell Text ad\u0103ugat\u0103 la fiecare dispozitiv Sonerie. Acesta va fi eliminat \u00een v2023.3.0. Te rug\u0103m s\u0103 actualizezi pentru a utiliza serviciul [`text.set_value`]({link}).",
+                        "title": "set_doorbell_message este perimat"
+                    }
+                }
+            },
+            "title": "set_doorbell_message este perimat"
+        },
+        "ea_setup_failed": {
+            "title": "Eroare de instalare utiliz\u00e2nd versiunea Early Access"
+        },
+        "ea_warning": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Sigur dore\u0219ti s\u0103 rulezi versiuni neacceptate de UniFi Protect? Acest lucru poate face ca integrarea s\u0103 nu func\u021bioneze.",
+                        "title": "v{version} este o versiune early access"
+                    },
+                    "start": {
+                        "description": "Folose\u0219ti versiunea v{version} de UniFi Protect, care este o versiune early access. [Versiunile early access nu sunt acceptate de Home Assistant](https://www.home-assistant.io/integrations/unifiprotect#about-unifi-early-access) \u0219i se recomand\u0103 revenirea la o versiune stabil\u0103 c\u00e2t mai cur\u00e2nd posibil.\n\nPrin trimiterea acestui formular ne spui fie c\u0103 ai [f\u0103cut downgrade la UniFi Protect](https://www.home-assistant.io/integrations/unifiprotect#downgrading-unifi-protect), fie c\u0103 e\u0219ti de acord s\u0103 rulezi o versiune neacceptat\u0103 a UniFi Protect.",
+                        "title": "v{version} este o versiune early access"
+                    }
+                }
+            },
+            "title": "UniFi Protect v{version} este o versiune early access"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "all_updates": "Valori \u00een timp real (AVERTISMENT: Cre\u0219te foarte mult utilizarea procesorului)",
+                    "allow_ea": "Permite versiunile early access ale Protect (AVERTISMENT: Va marca integrarea ca neacceptat\u0103)",
+                    "disable_rtsp": "Dezactivare flux RTSP",
+                    "max_media": "Num\u0103rul maxim de evenimente de \u00eenc\u0103rcat pentru Media Browser (cre\u0219te utilizarea RAM)",
+                    "override_connection_host": "Suprascriere host conectare"
+                },
+                "description": "Op\u021biunea de m\u0103surare \u00een timp real ar trebui s\u0103 fie activat\u0103 numai dac\u0103 ai activat senzorii de diagnosticare \u0219i dore\u0219ti ca ace\u0219tia s\u0103 fie actualiza\u021bi \u00een timp real. Dac\u0103 op\u021biunea nu este activat\u0103, actualizarea se va face doar o dat\u0103 la 15 minute.",
+                "title": "Op\u021biuni UniFi Protect"
+            }
+        }
+    }
+}

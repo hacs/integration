@@ -1,0 +1,50 @@
+# Describes the format for available recorder services
+
+purge:
+  fields:
+    keep_days:
+      selector:
+        number:
+          min: 0
+          max: 365
+          unit_of_measurement: days
+
+    repack:
+      default: false
+      selector:
+        boolean:
+
+    apply_filter:
+      default: false
+      selector:
+        boolean:
+
+purge_entities:
+  fields:
+    entity_id:
+      required: false
+      selector:
+        entity:
+          multiple: true
+    domains:
+      example: "sun"
+      required: false
+      selector:
+        object:
+
+    entity_globs:
+      example: "domain*.object_id*"
+      required: false
+      selector:
+        object:
+
+    keep_days:
+      default: 0
+      selector:
+        number:
+          min: 0
+          max: 365
+          unit_of_measurement: days
+
+disable:
+enable:

@@ -1,0 +1,90 @@
+{
+    "device_automation": {
+        "condition_type": {
+            "is_home": "{entity_name} \u00e4r hemma",
+            "is_not_home": "{entity_name} \u00e4r inte hemma"
+        },
+        "extra_fields": {
+            "zone": "Zon"
+        },
+        "trigger_type": {
+            "enters": "{entity_name} g\u00e5r in i en zon",
+            "leaves": "{entity_name} l\u00e4mnar en zon"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Enhetssp\u00e5rare",
+            "state": {
+                "home": "Hemma",
+                "not_home": "Borta"
+            },
+            "state_attributes": {
+                "battery": {
+                    "name": "Batteri"
+                },
+                "gps_accuracy": {
+                    "name": "GPS-noggrannhet"
+                },
+                "latitude": {
+                    "name": "Latitud"
+                },
+                "longitude": {
+                    "name": "Longitud"
+                },
+                "source_type": {
+                    "name": "K\u00e4lla",
+                    "state": {
+                        "bluetooth": "Bluetooth",
+                        "bluetooth_le": "Bluetooth LE",
+                        "gps": "GPS",
+                        "router": "Router"
+                    }
+                }
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "{platform}-plattformen f\u00f6r integrationen {domain} st\u00f6ds inte.\n\nTa bort den fr\u00e5n din konfiguration och starta om Home Assistant f\u00f6r att \u00e5tg\u00e4rda detta problem.",
+            "title": "Plattformen st\u00f6ds inte"
+        }
+    },
+    "services": {
+        "see": {
+            "description": "Registrerar en sp\u00e5rad enhet.",
+            "fields": {
+                "battery": {
+                    "description": "Enhetens batteriniv\u00e5.",
+                    "name": "Batteriniv\u00e5"
+                },
+                "dev_id": {
+                    "description": "Enhetens ID (ID:t finns i `known_devices.yaml`).",
+                    "name": "Enhets-ID"
+                },
+                "gps": {
+                    "description": "GPS-koordinater d\u00e4r enheten \u00e4r placerad, angivna med latitud och longitud (till exempel: [51.513845, -0.100539]).",
+                    "name": "GPS-koordinater"
+                },
+                "gps_accuracy": {
+                    "description": "GPS-koordinaternas noggrannhet.",
+                    "name": "GPS-noggrannhet"
+                },
+                "host_name": {
+                    "description": "V\u00e4rdnamn f\u00f6r enheten.",
+                    "name": "V\u00e4rdnamn"
+                },
+                "location_name": {
+                    "description": "Namn p\u00e5 den plats d\u00e4r enheten \u00e4r placerad. Alternativen \u00e4r: `home`, `not_home` eller namnet p\u00e5 zonen.",
+                    "name": "Plats"
+                },
+                "mac": {
+                    "description": "Enhetens MAC-adress.",
+                    "name": "MAC-adress"
+                }
+            },
+            "name": "Se"
+        }
+    },
+    "title": "Enhetssp\u00e5rare"
+}

@@ -1,0 +1,120 @@
+{
+    "device_automation": {
+        "action_type": {
+            "toggle": "V\u00e4xla {entity_name}",
+            "turn_off": "St\u00e4ng av {entity_name}",
+            "turn_on": "Sl\u00e5 p\u00e5 {entity_name}"
+        },
+        "condition_type": {
+            "is_off": "{entity_name} \u00e4r avst\u00e4ngd",
+            "is_on": "{entity_name} \u00e4r p\u00e5"
+        },
+        "trigger_type": {
+            "changed_states": "{entity_name} slogs p\u00e5 eller av",
+            "turned_off": "{entity_name} st\u00e4ngdes av",
+            "turned_on": "{entity_name} slogs p\u00e5"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Fj\u00e4rrkontroll",
+            "state": {
+                "off": "Av",
+                "on": "P\u00e5"
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "{platform}-plattformen f\u00f6r integrationen {domain} st\u00f6ds inte.\n\nTa bort den fr\u00e5n din konfiguration och starta om Home Assistant f\u00f6r att \u00e5tg\u00e4rda detta problem.",
+            "title": "Plattformen st\u00f6ds inte"
+        }
+    },
+    "services": {
+        "delete_command": {
+            "description": "Raderar ett kommando eller en lista med kommandon fr\u00e5n databasen.",
+            "fields": {
+                "command": {
+                    "description": "Ett kommando eller en lista med kommandon som ska raderas.",
+                    "name": "Kommando"
+                },
+                "device": {
+                    "description": "Den enhet fr\u00e5n vilken kommandot kommer att raderas.",
+                    "name": "Enhet"
+                }
+            },
+            "name": "Radera kommando"
+        },
+        "learn_command": {
+            "description": "L\u00e4r sig ett kommando eller en lista med kommandon fr\u00e5n en enhet.",
+            "fields": {
+                "alternative": {
+                    "description": "Om koden m\u00e5ste lagras som ett alternativ. Detta \u00e4r anv\u00e4ndbart f\u00f6r diskreta koder. Diskreta koder anv\u00e4nds f\u00f6r reglage som bara utf\u00f6r en funktion. Till exempel en kod som endast sl\u00e5r p\u00e5 en enhet. Om den redan \u00e4r p\u00e5slagen kommer inte tillst\u00e5ndet att \u00e4ndras om koden skickas.",
+                    "name": "Alternativ"
+                },
+                "command": {
+                    "description": "Ett kommando eller en lista med kommandon som ska l\u00e4ras in.",
+                    "name": "Kommando"
+                },
+                "command_type": {
+                    "description": "Den typ av kommando som ska l\u00e4ras in.",
+                    "name": "Typ av kommando"
+                },
+                "device": {
+                    "description": "Enhets-ID som kommandot ska h\u00e4mtas fr\u00e5n.",
+                    "name": "Enhet"
+                },
+                "timeout": {
+                    "description": "Timeout f\u00f6r kommandot att l\u00e4ras in.",
+                    "name": "Timeout"
+                }
+            },
+            "name": "L\u00e4r in kommando"
+        },
+        "send_command": {
+            "description": "Skickar ett kommando eller en lista med kommandon till en enhet.",
+            "fields": {
+                "command": {
+                    "description": "Ett kommando eller en lista med kommandon som ska skickas.",
+                    "name": "Kommando"
+                },
+                "delay_secs": {
+                    "description": "Den tid du vill v\u00e4nta mellan upprepade kommandon.",
+                    "name": "F\u00f6rdr\u00f6jning sekunder"
+                },
+                "device": {
+                    "description": "Enhets-ID att skicka kommando till.",
+                    "name": "Enhet"
+                },
+                "hold_secs": {
+                    "description": "Den tid du vill att den ska h\u00e5llas innan release skickas.",
+                    "name": "H\u00e5ll i sekunder"
+                },
+                "num_repeats": {
+                    "description": "Antal g\u00e5nger du vill upprepa kommandona.",
+                    "name": "Upprepningar"
+                }
+            },
+            "name": "Skicka kommando"
+        },
+        "toggle": {
+            "description": "Sl\u00e5r p\u00e5/av en enhet.",
+            "name": "V\u00e4xla"
+        },
+        "turn_off": {
+            "description": "St\u00e4nger av enheten.",
+            "name": "St\u00e4ng av"
+        },
+        "turn_on": {
+            "description": "Skickar power on-kommando.",
+            "fields": {
+                "activity": {
+                    "description": "Aktivitets-ID eller aktivitetsnamn som ska startas.",
+                    "name": "Aktivitet"
+                }
+            },
+            "name": "Starta"
+        }
+    },
+    "title": "Fj\u00e4rrkontroll"
+}

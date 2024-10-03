@@ -1,0 +1,420 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Il dispositivo \u00e8 gi\u00e0 configurato",
+            "no_ups_found": "Non ci sono dispositivi UPS disponibili sul server NUT.",
+            "reauth_successful": "La riautenticazione ha avuto successo"
+        },
+        "error": {
+            "cannot_connect": "Errore di connessione: {error}",
+            "invalid_auth": "Autenticazione non valida",
+            "unknown": "Errore imprevisto"
+        },
+        "step": {
+            "reauth_confirm": {
+                "data": {
+                    "password": "Password",
+                    "username": "Nome utente"
+                },
+                "description": "Riautenticare il server NUT in {host}:{port}"
+            },
+            "ups": {
+                "data": {
+                    "alias": "Alias"
+                },
+                "title": "Scegli l'UPS da monitorare"
+            },
+            "user": {
+                "data": {
+                    "host": "Host",
+                    "password": "Password",
+                    "port": "Porta",
+                    "username": "Nome utente"
+                },
+                "title": "Connettiti al server NUT"
+            }
+        }
+    },
+    "device_automation": {
+        "action_type": {
+            "beeper_disable": "Disabilitare il segnale acustico/cicalino dell'UPS",
+            "beeper_enable": "Abilita segnale acustico/cicalino UPS",
+            "beeper_mute": "Disattivare temporaneamente il segnale acustico/cicalino dell'UPS",
+            "beeper_toggle": "Attiva/disattiva il segnale acustico/cicalino dell'UPS",
+            "bypass_start": "Mettere l'UPS in modalit\u00e0 bypass",
+            "bypass_stop": "Togliere l'UPS dalla modalit\u00e0 bypass",
+            "calibrate_start": "Avviare la calibrazione del tempo di esecuzione",
+            "calibrate_stop": "Arrestare la calibrazione del tempo di esecuzione",
+            "load_off": "Spegnere immediatamente il carico",
+            "load_on": "Accendere immediatamente il carico",
+            "reset_input_minmax": "Ripristina lo stato della tensione di ingresso minima e massima",
+            "reset_watchdog": "Reimposta timer watchdog (riavvio forzato del carico)",
+            "shutdown_reboot": "Spegnere brevemente il carico mentre si riavvia l'UPS.",
+            "shutdown_reboot_graceful": "Dopo un certo ritardo, spegnere brevemente il carico e riavviare l'UPS.",
+            "shutdown_return": "Spegnere il carico eventualmente dopo un ritardo e ripristinarlo al ritorno della corrente.",
+            "shutdown_stayoff": "Spegnere il carico eventualmente dopo un ritardo e mantenerlo spento anche in caso di ritorno della corrente.",
+            "shutdown_stop": "Arrestare uno spegnimento in corso",
+            "test_battery_start": "Avvia un test della batteria",
+            "test_battery_start_deep": "Avvia un test approfondito della batteria",
+            "test_battery_start_quick": "Avvia un rapido test della batteria",
+            "test_battery_stop": "Interrompere il test della batteria",
+            "test_failure_start": "Avviare un'interruzione di corrente simulata",
+            "test_failure_stop": "Interrompere la simulazione di un'interruzione di corrente",
+            "test_panel_start": "Inizia a testare il pannello UPS",
+            "test_panel_stop": "Interrompere il test di un pannello UPS",
+            "test_system_start": "Avvia un test di sistema"
+        }
+    },
+    "entity": {
+        "sensor": {
+            "ambient_humidity": {
+                "name": "Umidit\u00e0 ambientale"
+            },
+            "ambient_temperature": {
+                "name": "Temperatura ambiente"
+            },
+            "battery_alarm_threshold": {
+                "name": "Soglia di allarme della batteria"
+            },
+            "battery_capacity": {
+                "name": "Capacit\u00e0 della batteria"
+            },
+            "battery_charge": {
+                "name": "Carica batterie"
+            },
+            "battery_charge_low": {
+                "name": "Setpoint batteria scarica"
+            },
+            "battery_charge_restart": {
+                "name": "Batteria minima per iniziare"
+            },
+            "battery_charge_warning": {
+                "name": "Setpoint di avviso della batteria"
+            },
+            "battery_charger_status": {
+                "name": "Stato di carica"
+            },
+            "battery_current": {
+                "name": "Corrente della batteria"
+            },
+            "battery_current_total": {
+                "name": "Corrente totale della batteria"
+            },
+            "battery_date": {
+                "name": "Data della batteria"
+            },
+            "battery_mfr_date": {
+                "name": "Data di fabbricazione della batteria"
+            },
+            "battery_packs": {
+                "name": "Numero di batterie"
+            },
+            "battery_packs_bad": {
+                "name": "Numero di batterie difettose"
+            },
+            "battery_runtime": {
+                "name": "Autonomia della batteria"
+            },
+            "battery_runtime_low": {
+                "name": "Autonomia della batteria scarica"
+            },
+            "battery_runtime_restart": {
+                "name": "Autonomia minima della batteria per l'avvio"
+            },
+            "battery_temperature": {
+                "name": "Temperatura della batteria"
+            },
+            "battery_type": {
+                "name": "Chimica della batteria"
+            },
+            "battery_voltage": {
+                "name": "Tensione della batteria"
+            },
+            "battery_voltage_high": {
+                "name": "Alta tensione della batteria"
+            },
+            "battery_voltage_low": {
+                "name": "Bassa tensione della batteria"
+            },
+            "battery_voltage_nominal": {
+                "name": "Tensione nominale della batteria"
+            },
+            "input_bypass_current": {
+                "name": "Corrente di bypass in ingresso"
+            },
+            "input_bypass_frequency": {
+                "name": "Frequenza di bypass in ingresso"
+            },
+            "input_bypass_l1_current": {
+                "name": "Corrente di bypass d'ingresso L1"
+            },
+            "input_bypass_l1_n_voltage": {
+                "name": "Tensione L1-N del bypass d'ingresso"
+            },
+            "input_bypass_l1_realpower": {
+                "name": "Potenza reale L1 del bypass della corrente di ingresso "
+            },
+            "input_bypass_l2_current": {
+                "name": "Corrente di bypass d'ingresso L2"
+            },
+            "input_bypass_l2_n_voltage": {
+                "name": "Tensione di bypass L2-N in ingresso"
+            },
+            "input_bypass_l2_realpower": {
+                "name": "Potenza reale della corrente di ingresso bypass L2"
+            },
+            "input_bypass_l3_current": {
+                "name": "Corrente L3 del bypass di ingresso"
+            },
+            "input_bypass_l3_n_voltage": {
+                "name": "Tensione L3-N del bypass di ingresso"
+            },
+            "input_bypass_l3_realpower": {
+                "name": "Potenza reale L3 del bypass della corrente di ingresso "
+            },
+            "input_bypass_phases": {
+                "name": "Fasi di bypass in ingresso"
+            },
+            "input_bypass_realpower": {
+                "name": "Potenza reale di bypass dell'ingresso di corrente"
+            },
+            "input_bypass_voltage": {
+                "name": "Tensione di bypass in ingresso"
+            },
+            "input_current": {
+                "name": "Corrente di ingresso"
+            },
+            "input_frequency_status": {
+                "name": "Stato della frequenza di ingresso"
+            },
+            "input_l1_current": {
+                "name": "Corrente di ingresso L1"
+            },
+            "input_l1_frequency": {
+                "name": "Frequenza di linea L1 in ingresso"
+            },
+            "input_l1_n_voltage": {
+                "name": "Tensione in ingresso L1"
+            },
+            "input_l1_realpower": {
+                "name": "Potenza reale dell'ingresso in corrente L1"
+            },
+            "input_l2_current": {
+                "name": "Corrente di ingresso L2"
+            },
+            "input_l2_frequency": {
+                "name": "Frequenza di linea dell'ingresso L2"
+            },
+            "input_l2_n_voltage": {
+                "name": "Tensione in ingresso L2"
+            },
+            "input_l2_realpower": {
+                "name": "Potenza reale dell'ingresso in corrente L2"
+            },
+            "input_l3_current": {
+                "name": "Corrente di ingresso L3"
+            },
+            "input_l3_frequency": {
+                "name": "Frequenza di linea L3 in ingresso"
+            },
+            "input_l3_n_voltage": {
+                "name": "Tensione in ingresso L3"
+            },
+            "input_l3_realpower": {
+                "name": "Potenza reale dell'ingresso in corrente L3"
+            },
+            "input_phases": {
+                "name": "Fasi di ingresso"
+            },
+            "input_realpower": {
+                "name": "Potenza reale in ingresso corrente"
+            },
+            "input_sensitivity": {
+                "name": "Sensibilit\u00e0 alla potenza in ingresso"
+            },
+            "input_transfer_high": {
+                "name": "Trasferimento ad alta tensione"
+            },
+            "input_transfer_low": {
+                "name": "Trasferimento a bassa tensione"
+            },
+            "input_transfer_reason": {
+                "name": "Motivo del trasferimento di tensione"
+            },
+            "input_voltage": {
+                "name": "Tensione di ingresso"
+            },
+            "input_voltage_nominal": {
+                "name": "Tensione nominale di ingresso"
+            },
+            "output_current": {
+                "name": "Corrente di uscita"
+            },
+            "output_current_nominal": {
+                "name": "Corrente di uscita nominale"
+            },
+            "output_frequency": {
+                "name": "Frequenza di uscita"
+            },
+            "output_frequency_nominal": {
+                "name": "Frequenza di uscita nominale"
+            },
+            "output_l1_current": {
+                "name": "Corrente di uscita L1"
+            },
+            "output_l1_n_voltage": {
+                "name": "Tensione in uscita L1-N"
+            },
+            "output_l1_power_percent": {
+                "name": "Utilizzo della potenza L1 in uscita"
+            },
+            "output_l1_realpower": {
+                "name": "Potenza reale dell'uscita in corrente L1"
+            },
+            "output_l2_current": {
+                "name": "Corrente di uscita L2"
+            },
+            "output_l2_n_voltage": {
+                "name": "Tensione di uscita L2-N"
+            },
+            "output_l2_power_percent": {
+                "name": "Utilizzo di potenza dell'uscita L2"
+            },
+            "output_l2_realpower": {
+                "name": "Potenza reale dell'uscita in corrente L2"
+            },
+            "output_l3_current": {
+                "name": "Corrente di uscita L3"
+            },
+            "output_l3_n_voltage": {
+                "name": "Tensione di uscita L3-N"
+            },
+            "output_l3_power_percent": {
+                "name": "Utilizzo di potenza dell'uscita L3"
+            },
+            "output_l3_realpower": {
+                "name": "Potenza reale dell'uscita in corrente L3"
+            },
+            "output_phases": {
+                "name": "Fasi di uscita"
+            },
+            "output_power": {
+                "name": "Potenza apparente in uscita"
+            },
+            "output_power_nominal": {
+                "name": "Potenza di uscita nominale"
+            },
+            "output_realpower": {
+                "name": "Potenza reale in uscita attuale"
+            },
+            "output_realpower_nominal": {
+                "name": "Potenza reale nominale in uscita"
+            },
+            "output_voltage": {
+                "name": "Tensione di uscita"
+            },
+            "output_voltage_nominal": {
+                "name": "Tensione di uscita nominale"
+            },
+            "ups_alarm": {
+                "name": "Allarmi"
+            },
+            "ups_beeper_status": {
+                "name": "Stato del segnalatore acustico"
+            },
+            "ups_contacts": {
+                "name": "Contatti esterni"
+            },
+            "ups_delay_reboot": {
+                "name": "Ritardo di riavvio dell'UPS"
+            },
+            "ups_delay_shutdown": {
+                "name": "Ritardo di spegnimento dell'UPS"
+            },
+            "ups_delay_start": {
+                "name": "Ritardo nel riavvio del carico"
+            },
+            "ups_efficiency": {
+                "name": "Efficienza"
+            },
+            "ups_id": {
+                "name": "Identificatore di sistema"
+            },
+            "ups_load": {
+                "name": "Carico"
+            },
+            "ups_load_high": {
+                "name": "Impostazione del sovraccarico"
+            },
+            "ups_power": {
+                "name": "Potenza apparente attuale"
+            },
+            "ups_power_nominal": {
+                "name": "Potenza nominale"
+            },
+            "ups_realpower": {
+                "name": "Potenza reale attuale"
+            },
+            "ups_realpower_nominal": {
+                "name": "Potenza reale nominale"
+            },
+            "ups_shutdown": {
+                "name": "Capacit\u00e0 di spegnimento"
+            },
+            "ups_start_auto": {
+                "name": "Avvia a corrente alternata"
+            },
+            "ups_start_battery": {
+                "name": "Avvia a batteria"
+            },
+            "ups_start_reboot": {
+                "name": "Riavvia a batteria"
+            },
+            "ups_status": {
+                "name": "Dati di stato"
+            },
+            "ups_status_display": {
+                "name": "Stato"
+            },
+            "ups_temperature": {
+                "name": "Temperatura dell'UPS"
+            },
+            "ups_test_date": {
+                "name": "Data dell'autotest"
+            },
+            "ups_test_interval": {
+                "name": "Intervallo di autotest"
+            },
+            "ups_test_result": {
+                "name": "Risultato dell'autotest"
+            },
+            "ups_timer_reboot": {
+                "name": "Timer di riavvio del carico"
+            },
+            "ups_timer_shutdown": {
+                "name": "Timer di spegnimento del carico"
+            },
+            "ups_timer_start": {
+                "name": "Timer di avvio del carico"
+            },
+            "ups_type": {
+                "name": "Tipo di UPS"
+            },
+            "ups_watchdog_status": {
+                "name": "Stato del watchdog"
+            },
+            "watts": {
+                "name": "Watt"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "scan_interval": "Intervallo di scansione (secondi)"
+                }
+            }
+        }
+    }
+}

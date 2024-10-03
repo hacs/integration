@@ -1,0 +1,266 @@
+{
+    "device_automation": {
+        "action_type": {
+            "set_hvac_mode": "Vaihda HVAC-tilaa {entity_name}:ss\u00e4.",
+            "set_preset_mode": "Muuta esiasetusta kohteessa {entity_name}"
+        },
+        "condition_type": {
+            "is_hvac_mode": "{entity_name} on asetettu tiettyyn HVAC-tilaan.",
+            "is_preset_mode": "{entity_name} on asetettu tiettyyn esiasetettuun tilaan."
+        },
+        "trigger_type": {
+            "current_humidity_changed": "{entity_name} mitattu kosteus muuttui",
+            "current_temperature_changed": "{entity_name} l\u00e4mp\u00f6tila muuttui",
+            "hvac_mode_changed": "{entity_name} HVAC-tila muuttui"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Termostaatti",
+            "state": {
+                "auto": "Automaattinen",
+                "cool": "J\u00e4\u00e4hdytys",
+                "dry": "Kuivaus",
+                "fan_only": "Vain tuuletin",
+                "heat": "L\u00e4mmitys",
+                "heat_cool": "L\u00e4mmitys/j\u00e4\u00e4hdytys",
+                "off": "Pois"
+            },
+            "state_attributes": {
+                "aux_heat": {
+                    "name": "Lis\u00e4l\u00e4mp\u00f6"
+                },
+                "current_humidity": {
+                    "name": "Nykyinen kosteus"
+                },
+                "current_temperature": {
+                    "name": "Nykyinen l\u00e4mp\u00f6tila"
+                },
+                "fan_mode": {
+                    "name": "Tuuletintila",
+                    "state": {
+                        "auto": "Automaattinen",
+                        "diffuse": "Diffuusi",
+                        "focus": "Keskity",
+                        "high": "Korkea",
+                        "low": "Hidas",
+                        "medium": "Keskitaso",
+                        "middle": "Keski",
+                        "off": "Pois",
+                        "on": "P\u00e4\u00e4ll\u00e4",
+                        "top": "Huippu"
+                    }
+                },
+                "fan_modes": {
+                    "name": "Tuuletintilat"
+                },
+                "humidity": {
+                    "name": "Tavoitekosteus"
+                },
+                "hvac_action": {
+                    "name": "Nykyinen toiminta",
+                    "state": {
+                        "cooling": "J\u00e4\u00e4hdytys",
+                        "drying": "Kuivaus",
+                        "fan": "Tuuletin",
+                        "heating": "L\u00e4mmitys",
+                        "idle": "Toimeton",
+                        "off": "Pois",
+                        "preheating": "Esil\u00e4mmitys"
+                    }
+                },
+                "hvac_modes": {
+                    "name": "HVAC-tilat"
+                },
+                "max_humidity": {
+                    "name": "Maksimi tavoitekosteus"
+                },
+                "max_temp": {
+                    "name": "Maksimi tavoitel\u00e4mp\u00f6tila"
+                },
+                "min_humidity": {
+                    "name": "Minimi tavoitekosteus"
+                },
+                "min_temp": {
+                    "name": "Minimi tavoitel\u00e4mp\u00f6tila"
+                },
+                "preset_mode": {
+                    "name": "Esiasetus",
+                    "state": {
+                        "activity": "Toiminta",
+                        "away": "Poissa",
+                        "boost": "Tehostus",
+                        "comfort": "Mukavuus",
+                        "eco": "Eko",
+                        "home": "Kotona",
+                        "none": "Ei mit\u00e4\u00e4n",
+                        "sleep": "Nukkuminen"
+                    }
+                },
+                "preset_modes": {
+                    "name": "Esiasetukset"
+                },
+                "swing_mode": {
+                    "name": "Heilutustila",
+                    "state": {
+                        "both": "Molemmat",
+                        "horizontal": "Vaakasuora",
+                        "off": "Pois",
+                        "on": "P\u00e4\u00e4ll\u00e4",
+                        "vertical": "Pystysuuntainen"
+                    }
+                },
+                "swing_modes": {
+                    "name": "Heilutustila"
+                },
+                "target_temp_high": {
+                    "name": "Yl\u00e4-tavoitel\u00e4mp\u00f6tila"
+                },
+                "target_temp_low": {
+                    "name": "Ala-tavoitel\u00e4mp\u00f6tila"
+                },
+                "target_temp_step": {
+                    "name": "Tavoitel\u00e4mp\u00f6tila-askel"
+                },
+                "temperature": {
+                    "name": "Tavoitel\u00e4mp\u00f6tila"
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "not_valid_fan_mode": {
+            "message": "Tuulettimen tila {mode} ei kelpaa. Kelvolliset tuuletintilat ovat: {modes}."
+        },
+        "not_valid_preset_mode": {
+            "message": "Esiasetustila {mode} ei kelpaa. Voimassa olevat esiasetustilat ovat: {modes}."
+        },
+        "not_valid_swing_mode": {
+            "message": "Swing-tila {mode} ei kelpaa. Kelvolliset swing-tilat ovat: {modes}."
+        }
+    },
+    "issues": {
+        "deprecated_climate_aux_no_url": {
+            "description": "Mukautettu integraatio `{platform}` toteuttaa ominaisuuden `is_aux_heat` tai k\u00e4ytt\u00e4\u00e4 ClimateEntityn alaluokan lis\u00e4l\u00e4mmitinmenetelmi\u00e4.\n\nIlmoita siit\u00e4 {platform} -integraation tekij\u00e4lle.\n\nKun p\u00e4ivitetty versio `{platform}` on saatavilla, asenna se ja k\u00e4ynnist\u00e4 Home Assistant uudelleen ongelman korjaamiseksi.",
+            "title": "{platform} mukautettu integraatio k\u00e4ytt\u00e4\u00e4 vanhentunutta ilmaston lis\u00e4l\u00e4mmitint\u00e4."
+        },
+        "deprecated_climate_aux_url_custom": {
+            "description": "Mukautettu integraatio `{platform}` toteuttaa ominaisuuden `is_aux_heat` tai k\u00e4ytt\u00e4\u00e4 ClimateEntityn alaluokan lis\u00e4l\u00e4mmitinmenetelmi\u00e4.\n\nLuo vikailmoitus osoitteessa {issue_tracker}.\n\nKun p\u00e4ivitetty versio `{platform}` on saatavilla, asenna se ja k\u00e4ynnist\u00e4 Home Assistant uudelleen ongelman korjaamiseksi.",
+            "title": "{platform} mukautettu integraatio k\u00e4ytt\u00e4\u00e4 vanhentunutta ilmaston lis\u00e4l\u00e4mmitint\u00e4."
+        },
+        "platform_integration_no_support": {
+            "description": "{platform}-integraation {domain}-alusta ei tue alustan asetuksia.\n\nPoista se asetuksista ja k\u00e4ynnist\u00e4 Home Assistant uudelleen ongelman korjaamiseksi.",
+            "title": "Alustan tukea ei tueta"
+        }
+    },
+    "selector": {
+        "hvac_mode": {
+            "options": {
+                "auto": "Automaattinen",
+                "cool": "J\u00e4\u00e4hdytys",
+                "dry": "Kuivaus",
+                "fan_only": "Vain tuuletin",
+                "heat": "L\u00e4mmitys",
+                "heat_cool": "L\u00e4mmitys/j\u00e4\u00e4hdytys",
+                "off": "Pois"
+            }
+        }
+    },
+    "services": {
+        "set_aux_heat": {
+            "description": "Kytkee lis\u00e4l\u00e4mmittimen p\u00e4\u00e4lle/pois p\u00e4\u00e4lt\u00e4.",
+            "fields": {
+                "aux_heat": {
+                    "description": "Lis\u00e4l\u00e4mmittimen uusi arvo.",
+                    "name": "Lis\u00e4l\u00e4mmitys"
+                }
+            },
+            "name": "Lis\u00e4l\u00e4mmittimen kytkeminen p\u00e4\u00e4lle/pois p\u00e4\u00e4lt\u00e4"
+        },
+        "set_fan_mode": {
+            "description": "Asettaa tuulettimen toimintatilan.",
+            "fields": {
+                "fan_mode": {
+                    "description": "Tuulettimen toimintatila.",
+                    "name": "Tuuletintila"
+                }
+            },
+            "name": "Aseta tuuletintila"
+        },
+        "set_humidity": {
+            "description": "Asettaa tavoitekosteuden.",
+            "fields": {
+                "humidity": {
+                    "description": "Tavoitekosteus.",
+                    "name": "Kosteus"
+                }
+            },
+            "name": "Aseta tavoitekosteus"
+        },
+        "set_hvac_mode": {
+            "description": "Asettaa HVAC-toimintatilan.",
+            "fields": {
+                "hvac_mode": {
+                    "description": "HVAC-toimintatila.",
+                    "name": "HVAC-tila"
+                }
+            },
+            "name": "Aseta HVAC-tila"
+        },
+        "set_preset_mode": {
+            "description": "Asettaa esiasetetun tilan.",
+            "fields": {
+                "preset_mode": {
+                    "description": "Esiasetettu tila.",
+                    "name": "Esiasetettu tila"
+                }
+            },
+            "name": "Aseta esiasetustila"
+        },
+        "set_swing_mode": {
+            "description": "Asettaa heilutus toimintatilan.",
+            "fields": {
+                "swing_mode": {
+                    "description": "Heilutus toimintatila.",
+                    "name": "Heilutustila"
+                }
+            },
+            "name": "Aseta heilutustila"
+        },
+        "set_temperature": {
+            "description": "Asettaa tavoitel\u00e4mp\u00f6tilan.",
+            "fields": {
+                "hvac_mode": {
+                    "description": "HVAC-toimintatila.",
+                    "name": "HVAC-tila"
+                },
+                "target_temp_high": {
+                    "description": "Korkea tavoitel\u00e4mp\u00f6tila.",
+                    "name": "Tavoitel\u00e4mp\u00f6tila korkea"
+                },
+                "target_temp_low": {
+                    "description": "Alhainen tavoitel\u00e4mp\u00f6tila.",
+                    "name": "Tavoitel\u00e4mp\u00f6tila alhainen"
+                },
+                "temperature": {
+                    "description": "Tavoitel\u00e4mp\u00f6tila.",
+                    "name": "L\u00e4mp\u00f6tila"
+                }
+            },
+            "name": "Aseta tavoitel\u00e4mp\u00f6tila"
+        },
+        "toggle": {
+            "description": "Vaihtaa ilmastolaitteen p\u00e4\u00e4lle, pois p\u00e4\u00e4lt\u00e4 tai pois p\u00e4\u00e4lt\u00e4 p\u00e4\u00e4lle.",
+            "name": "Vaihda"
+        },
+        "turn_off": {
+            "description": "Kytkee ilmastolaitteen pois p\u00e4\u00e4lt\u00e4.",
+            "name": "Sammuta"
+        },
+        "turn_on": {
+            "description": "Kytkee ilmastolaitteen p\u00e4\u00e4lle.",
+            "name": "Laita p\u00e4\u00e4lle"
+        }
+    },
+    "title": "Ilmasto"
+}

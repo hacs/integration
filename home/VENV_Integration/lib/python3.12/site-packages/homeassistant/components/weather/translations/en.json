@@ -1,0 +1,141 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "Weather",
+            "state": {
+                "clear-night": "Clear, night",
+                "cloudy": "Cloudy",
+                "exceptional": "Exceptional",
+                "fog": "Fog",
+                "hail": "Hail",
+                "lightning": "Lightning",
+                "lightning-rainy": "Lightning, rainy",
+                "partlycloudy": "Partly cloudy",
+                "pouring": "Pouring",
+                "rainy": "Rainy",
+                "snowy": "Snowy",
+                "snowy-rainy": "Snowy, rainy",
+                "sunny": "Sunny",
+                "windy": "Windy",
+                "windy-variant": "Windy, cloudy"
+            },
+            "state_attributes": {
+                "apparent_temperature": {
+                    "name": "Apparent temperature"
+                },
+                "cloud_coverage": {
+                    "name": "Cloud coverage"
+                },
+                "dew_point": {
+                    "name": "Dew point temperature"
+                },
+                "forecast": {
+                    "name": "Forecast"
+                },
+                "humidity": {
+                    "name": "Humidity"
+                },
+                "ozone": {
+                    "name": "Ozone"
+                },
+                "precipitation_unit": {
+                    "name": "Precipitation unit"
+                },
+                "pressure": {
+                    "name": "Pressure"
+                },
+                "pressure_unit": {
+                    "name": "Pressure unit"
+                },
+                "temperature": {
+                    "name": "Temperature"
+                },
+                "temperature_unit": {
+                    "name": "Temperature unit"
+                },
+                "uv_index": {
+                    "name": "UV index"
+                },
+                "visibility": {
+                    "name": "Visibility"
+                },
+                "visibility_unit": {
+                    "name": "Visibility unit"
+                },
+                "wind_bearing": {
+                    "name": "Wind bearing"
+                },
+                "wind_gust_speed": {
+                    "name": "Wind gust speed"
+                },
+                "wind_speed": {
+                    "name": "Wind speed"
+                },
+                "wind_speed_unit": {
+                    "name": "Wind speed unit"
+                }
+            }
+        }
+    },
+    "issues": {
+        "deprecated_service_weather_get_forecast": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Use `weather.get_forecasts` instead which supports multiple entities.\n\nPlease replace this service and adjust your automations and scripts and select **Submit** to close this issue.",
+                        "title": "Detected use of deprecated service weather.get_forecast"
+                    }
+                }
+            },
+            "title": "Detected use of deprecated service weather.get_forecast"
+        },
+        "deprecated_weather_forecast": {
+            "description": "The integration `{platform}` is using the deprecated forecast attribute.\n\nPlease {report_issue}.",
+            "title": "The {platform} integration is using deprecated forecast"
+        },
+        "deprecated_weather_forecast_no_url": {
+            "description": "The custom integration `{platform}` implements the `forecast` property or sets `self._attr_forecast` in a subclass of WeatherEntity.\n\nPlease report it to the author of the {platform} integration.\n\nOnce an updated version of `{platform}` is available, install it and restart Home Assistant to fix this issue.",
+            "title": "The {platform} custom integration is using deprecated weather forecast"
+        },
+        "deprecated_weather_forecast_url": {
+            "description": "The custom integration `{platform}` implements the `forecast` property or sets `self._attr_forecast` in a subclass of WeatherEntity.\n\nPlease create a bug report at {issue_tracker}.\n\nOnce an updated version of `{platform}` is available, install it and restart Home Assistant to fix this issue.",
+            "title": "The {platform} custom integration is using deprecated weather forecast"
+        },
+        "platform_integration_no_support": {
+            "description": "The {platform} platform for the {domain} integration does not support platform setup.\n\nPlease remove it from your configuration and restart Home Assistant to fix this issue.",
+            "title": "Platform support not supported"
+        }
+    },
+    "selector": {
+        "forecast_type": {
+            "options": {
+                "daily": "Daily",
+                "hourly": "Hourly",
+                "twice_daily": "Twice daily"
+            }
+        }
+    },
+    "services": {
+        "get_forecast": {
+            "description": "Get weather forecast.",
+            "fields": {
+                "type": {
+                    "description": "Forecast type: daily, hourly or twice daily.",
+                    "name": "Forecast type"
+                }
+            },
+            "name": "Get forecast"
+        },
+        "get_forecasts": {
+            "description": "Get weather forecasts.",
+            "fields": {
+                "type": {
+                    "description": "Forecast type: daily, hourly or twice daily.",
+                    "name": "Forecast type"
+                }
+            },
+            "name": "Get forecasts"
+        }
+    },
+    "title": "Weather"
+}

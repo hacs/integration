@@ -1,0 +1,121 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "\u30c7\u30d0\u30a4\u30b9\u306f\u3059\u3067\u306b\u8a2d\u5b9a\u3055\u308c\u3066\u3044\u307e\u3059"
+        },
+        "step": {
+            "user": {
+                "description": "\u30bb\u30c3\u30c8\u30a2\u30c3\u30d7\u3092\u958b\u59cb\u3057\u307e\u3059\u304b\uff1f"
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "average_price": {
+                "name": "\u5e73\u5747 - \u4eca\u65e5"
+            },
+            "current_hour_price": {
+                "name": "\u73fe\u5728\u306e\u6642\u9593"
+            },
+            "highest_price_time": {
+                "name": "\u6700\u9ad8\u5024\u306e\u6642\u9593 - \u4eca\u65e5"
+            },
+            "hours_priced_equal_or_higher": {
+                "name": "\u73fe\u5728\u3068\u540c\u7b49\u304b\u305d\u308c\u4ee5\u4e0a\u306e\u4fa1\u683c\u306e\u6642\u9593 - \u4eca\u65e5"
+            },
+            "hours_priced_equal_or_lower": {
+                "name": "\u73fe\u5728\u3068\u540c\u7b49\u304b\u305d\u308c\u4ee5\u4e0b\u306e\u4fa1\u683c\u306e\u6642\u9593 - \u4eca\u65e5"
+            },
+            "lowest_price_time": {
+                "name": "\u6700\u4f4e\u4fa1\u683c\u306e\u6642\u9593 - \u4eca\u65e5"
+            },
+            "max_price": {
+                "name": "\u6700\u9ad8\u4fa1\u683c - \u4eca\u65e5"
+            },
+            "min_price": {
+                "name": "\u6700\u4f4e\u4fa1\u683c - \u4eca\u65e5"
+            },
+            "next_hour_price": {
+                "name": "\u6b21\u306e\u6642\u9593"
+            },
+            "percentage_of_max": {
+                "name": "\u73fe\u5728\u306e\u6700\u9ad8\u4fa1\u683c\u306e\u5272\u5408 - \u4eca\u65e5"
+            }
+        }
+    },
+    "exceptions": {
+        "invalid_config_entry": {
+            "message": "\u7121\u52b9\u306a\u69cb\u6210\u30a8\u30f3\u30c8\u30ea\u304c\u6307\u5b9a\u3055\u308c\u307e\u3057\u305f\u3002 {config_entry}\u3092\u53d6\u5f97\u3057\u307e\u3057\u305f"
+        },
+        "invalid_date": {
+            "message": "\u7121\u52b9\u306a\u65e5\u4ed8\u304c\u6307\u5b9a\u3055\u308c\u307e\u3057\u305f\u3002 {date}\u3092\u53d6\u5f97\u3057\u307e\u3057\u305f"
+        },
+        "unloaded_config_entry": {
+            "message": "\u7121\u52b9\u306a\u69cb\u6210\u30a8\u30f3\u30c8\u30ea\u304c\u6307\u5b9a\u3055\u308c\u307e\u3057\u305f\u3002 {config_entry}\u304c\u30ed\u30fc\u30c9\u3055\u308c\u3066\u3044\u307e\u305b\u3093\u3002"
+        }
+    },
+    "services": {
+        "get_energy_return_prices": {
+            "description": "easyEnergy \u306b\u30a8\u30cd\u30eb\u30ae\u30fc\u306e\u30ea\u30bf\u30fc\u30f3\u4fa1\u683c\u3092\u30ea\u30af\u30a8\u30b9\u30c8\u3057\u307e\u3059\u3002",
+            "fields": {
+                "config_entry": {
+                    "description": "\u3053\u306e\u30b5\u30fc\u30d3\u30b9\u306b\u4f7f\u7528\u3059\u308b\u69cb\u6210\u30a8\u30f3\u30c8\u30ea\u3002",
+                    "name": "\u69cb\u6210\u30a8\u30f3\u30c8\u30ea"
+                },
+                "end": {
+                    "description": "\u4fa1\u683c\u3092\u53d6\u5f97\u3059\u308b\u307e\u3067\u306e\u65e5\u6642\u3092\u6307\u5b9a\u3057\u307e\u3059\u3002\u7701\u7565\u3057\u305f\u5834\u5408\u306e\u30c7\u30d5\u30a9\u30eb\u30c8\u306f\u4eca\u65e5\u3067\u3059\u3002",
+                    "name": "\u7d42\u4e86"
+                },
+                "start": {
+                    "description": "\u4fa1\u683c\u3092\u53d6\u5f97\u3059\u308b\u65e5\u4ed8\u3068\u6642\u523b\u3092\u6307\u5b9a\u3057\u307e\u3059\u3002\u7701\u7565\u3057\u305f\u5834\u5408\u306e\u30c7\u30d5\u30a9\u30eb\u30c8\u306f\u4eca\u65e5\u3067\u3059\u3002",
+                    "name": "\u958b\u59cb"
+                }
+            },
+            "name": "\u30a8\u30cd\u30eb\u30ae\u30fc\u306e\u30ea\u30bf\u30fc\u30f3\u4fa1\u683c\u3092\u53d6\u5f97\u3059\u308b"
+        },
+        "get_energy_usage_prices": {
+            "description": "easyEnergy \u306b\u4f7f\u7528\u91cf\u30a8\u30cd\u30eb\u30ae\u30fc\u4fa1\u683c\u3092\u30ea\u30af\u30a8\u30b9\u30c8\u3057\u307e\u3059\u3002",
+            "fields": {
+                "config_entry": {
+                    "description": "\u3053\u306e\u30b5\u30fc\u30d3\u30b9\u306b\u4f7f\u7528\u3059\u308b\u69cb\u6210\u30a8\u30f3\u30c8\u30ea\u3002",
+                    "name": "\u69cb\u6210\u30a8\u30f3\u30c8\u30ea"
+                },
+                "end": {
+                    "description": "\u4fa1\u683c\u3092\u53d6\u5f97\u3059\u308b\u307e\u3067\u306e\u65e5\u6642\u3092\u6307\u5b9a\u3057\u307e\u3059\u3002\u7701\u7565\u3057\u305f\u5834\u5408\u306e\u30c7\u30d5\u30a9\u30eb\u30c8\u306f\u4eca\u65e5\u3067\u3059\u3002",
+                    "name": "\u7d42\u4e86"
+                },
+                "incl_vat": {
+                    "description": "\u4fa1\u683c\u306b VAT \u3092\u542b\u3081\u308b\u304b\u9664\u5916\u3057\u307e\u3059\u3002\u30c7\u30d5\u30a9\u30eb\u30c8\u306f true \u3067\u3059\u3002",
+                    "name": "VAT\u8fbc\u307f"
+                },
+                "start": {
+                    "description": "\u4fa1\u683c\u3092\u53d6\u5f97\u3059\u308b\u65e5\u4ed8\u3068\u6642\u523b\u3092\u6307\u5b9a\u3057\u307e\u3059\u3002\u7701\u7565\u3057\u305f\u5834\u5408\u306e\u30c7\u30d5\u30a9\u30eb\u30c8\u306f\u4eca\u65e5\u3067\u3059\u3002",
+                    "name": "\u958b\u59cb"
+                }
+            },
+            "name": "\u30a8\u30cd\u30eb\u30ae\u30fc\u4f7f\u7528\u91cf\u306e\u4fa1\u683c\u3092\u53d6\u5f97\u3059\u308b"
+        },
+        "get_gas_prices": {
+            "description": "easyEnergy\u306b\u30ac\u30b9\u4fa1\u683c\u3092\u30ea\u30af\u30a8\u30b9\u30c8\u3059\u308b\u3002",
+            "fields": {
+                "config_entry": {
+                    "description": "\u3053\u306e\u30b5\u30fc\u30d3\u30b9\u306b\u4f7f\u7528\u3059\u308b\u69cb\u6210\u30a8\u30f3\u30c8\u30ea\u3002",
+                    "name": "\u69cb\u6210\u30a8\u30f3\u30c8\u30ea"
+                },
+                "end": {
+                    "description": "\u4fa1\u683c\u3092\u53d6\u5f97\u3059\u308b\u307e\u3067\u306e\u65e5\u6642\u3092\u6307\u5b9a\u3057\u307e\u3059\u3002\u7701\u7565\u3057\u305f\u5834\u5408\u306e\u30c7\u30d5\u30a9\u30eb\u30c8\u306f\u4eca\u65e5\u3067\u3059\u3002",
+                    "name": "\u7d42\u4e86"
+                },
+                "incl_vat": {
+                    "description": "\u4fa1\u683c\u306b VAT \u3092\u542b\u3081\u308b\u304b\u9664\u5916\u3057\u307e\u3059\u3002\u30c7\u30d5\u30a9\u30eb\u30c8\u306f true \u3067\u3059\u3002",
+                    "name": "VAT\u8fbc\u307f"
+                },
+                "start": {
+                    "description": "\u4fa1\u683c\u3092\u53d6\u5f97\u3059\u308b\u65e5\u4ed8\u3068\u6642\u523b\u3092\u6307\u5b9a\u3057\u307e\u3059\u3002\u7701\u7565\u3057\u305f\u5834\u5408\u306e\u30c7\u30d5\u30a9\u30eb\u30c8\u306f\u4eca\u65e5\u3067\u3059\u3002",
+                    "name": "\u958b\u59cb"
+                }
+            },
+            "name": "\u30ac\u30b9\u4fa1\u683c\u3092\u53d6\u5f97"
+        }
+    }
+}

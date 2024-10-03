@@ -1,0 +1,104 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "Kamera",
+            "state": {
+                "idle": "Toimeton",
+                "recording": "Tallentaa",
+                "streaming": "Toistaa"
+            },
+            "state_attributes": {
+                "access_token": {
+                    "name": "K\u00e4ytt\u00f6oikeustunnus"
+                },
+                "brand": {
+                    "name": "Merkki"
+                },
+                "frontend_stream_type": {
+                    "name": "Striimin tyyppi",
+                    "state": {
+                        "hls": "HLS",
+                        "webrtc": "WebRTC"
+                    }
+                },
+                "model_name": {
+                    "name": "Malli"
+                },
+                "motion_detection": {
+                    "name": "Liiketunnistus",
+                    "state": {
+                        "false": "Ei k\u00e4yt\u00f6ss\u00e4",
+                        "true": "K\u00e4yt\u00f6ss\u00e4"
+                    }
+                }
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "{platform}-integraation {domain}-alusta ei tue alustan asetuksia.\n\nPoista se asetuksista ja k\u00e4ynnist\u00e4 Home Assistant uudelleen ongelman korjaamiseksi.",
+            "title": "Alustan tukea ei tueta"
+        }
+    },
+    "services": {
+        "disable_motion_detection": {
+            "description": "Poistaa liiketunnistuksen k\u00e4yt\u00f6st\u00e4.",
+            "name": "Poista liiketunnistus k\u00e4yt\u00f6st\u00e4"
+        },
+        "enable_motion_detection": {
+            "description": "Ottaa liiketunnistuksen k\u00e4ytt\u00f6\u00f6n.",
+            "name": "Ota liiketunnistus k\u00e4ytt\u00f6\u00f6n"
+        },
+        "play_stream": {
+            "description": "Toistaa kameravirran tuetulla mediasoittimella.",
+            "fields": {
+                "format": {
+                    "description": "Mediasoittimen tukema suoratoistomuoto.",
+                    "name": "Muoto"
+                },
+                "media_player": {
+                    "description": "Mediasoittimet suoratoistoon.",
+                    "name": "Mediasoitin"
+                }
+            },
+            "name": "Toista striimi"
+        },
+        "record": {
+            "description": "Luo tallenteen suorasta kamerasy\u00f6tteest\u00e4.",
+            "fields": {
+                "duration": {
+                    "description": "Tallenteen suunniteltu kesto. Todellinen kesto voi vaihdella.",
+                    "name": "Kesto"
+                },
+                "filename": {
+                    "description": "Tiedostonimen malli. K\u00e4ytett\u00e4viss\u00e4 oleva muuttuja on `entity_id`. Sen on oltava mp4.",
+                    "name": "Tiedoston nimi"
+                },
+                "lookback": {
+                    "description": "Tallenteeseen sis\u00e4llytett\u00e4v\u00e4 suunniteltu takautumisaika (keston lis\u00e4ksi). K\u00e4ytett\u00e4viss\u00e4 vain, jos t\u00e4ll\u00e4 hetkell\u00e4 on aktiivinen HLS-virta. Takautumisjakson todellinen pituus voi vaihdella.",
+                    "name": "Katso taaksep\u00e4in"
+                }
+            },
+            "name": "Tallenna"
+        },
+        "snapshot": {
+            "description": "Ottaa tilannekuvan kamerasta.",
+            "fields": {
+                "filename": {
+                    "description": "Tiedostonimen malli. K\u00e4ytett\u00e4viss\u00e4 oleva muuttuja on `entity_id`.",
+                    "name": "Tiedoston nimi"
+                }
+            },
+            "name": "Ota tilannekuva"
+        },
+        "turn_off": {
+            "description": "Sammuttaa kameran.",
+            "name": "Sammuta"
+        },
+        "turn_on": {
+            "description": "Kytkee kameran p\u00e4\u00e4lle.",
+            "name": "Laita p\u00e4\u00e4lle"
+        }
+    },
+    "title": "Kamera"
+}

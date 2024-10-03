@@ -1,0 +1,135 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Account is al geconfigureerd",
+            "reauth_successful": "Herauthenticatie geslaagd",
+            "unknown_entry": "Kan bestaand item niet vinden."
+        },
+        "error": {
+            "invalid_code": "Aanmelden bij Hive is mislukt. Uw tweefactorauthenticatiecode was onjuist.",
+            "invalid_password": "Aanmelden bij Hive is mislukt. Onjuist wachtwoord, probeer het opnieuw.",
+            "invalid_username": "Aanmelden bij Hive is mislukt. Uw e-mailadres wordt niet herkend.",
+            "no_internet_available": "Een internetverbinding is vereist om verbinding te maken met Hive.",
+            "unknown": "Onverwachte fout"
+        },
+        "step": {
+            "2fa": {
+                "data": {
+                    "2fa": "Tweefactorauthenticatiecode"
+                },
+                "description": "Voer uw Hive-verificatiecode in. \n \n Voer code 0000 in om een andere code aan te vragen.",
+                "title": "Hive tweefactorauthenticatie"
+            },
+            "configuration": {
+                "data": {
+                    "device_name": "Apparaatnaam"
+                },
+                "title": "Hive-configuratie."
+            },
+            "reauth": {
+                "data": {
+                    "password": "Wachtwoord",
+                    "username": "Gebruikersnaam"
+                },
+                "description": "Voer uw Hive-aanmeldingsgegevens opnieuw in.",
+                "title": "Hive-aanmelding"
+            },
+            "user": {
+                "data": {
+                    "password": "Wachtwoord",
+                    "scan_interval": "Scaninterval (seconden)",
+                    "username": "Gebruikersnaam"
+                },
+                "title": "Hive-aanmelding"
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "heating": {
+                "state": {
+                    "manual": "Handmatig",
+                    "off": "Uit",
+                    "on": "Aan",
+                    "schedule": "Schema"
+                }
+            },
+            "hot_water": {
+                "state": {
+                    "off": "Uit",
+                    "on": "Aan",
+                    "schedule": "Schema"
+                }
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "user": {
+                "data": {
+                    "scan_interval": "Scaninterval (seconden)"
+                },
+                "description": "Werk het scaninterval bij om vaker gegevens op te vragen.",
+                "title": "Opties voor Hive"
+            }
+        }
+    },
+    "services": {
+        "boost_heating": {
+            "description": "Wordt een verouderde instelling, gebruik a.u.b. `boost_heating_on`.",
+            "fields": {
+                "temperature": {
+                    "description": "Stel een doeltemperatuur in voor de boost periode.",
+                    "name": "Temperatuur"
+                },
+                "time_period": {
+                    "description": "Instellen tijdsperiode voor de boost.",
+                    "name": "Tijdsperiode"
+                }
+            },
+            "name": "Boost verwarming (wordt een verouderde instelling)"
+        },
+        "boost_heating_off": {
+            "description": "Schakelt boost mode uit (OFF).",
+            "fields": {
+                "entity_id": {
+                    "description": "Selecteer enity_id om boost uit te schakelen.",
+                    "name": "Entiteit ID"
+                }
+            },
+            "name": "Boost verwarming uitgeschakeld"
+        },
+        "boost_heating_on": {
+            "description": "Stelt boost-mode in op `ON` op basis van een gedefinieerd tijdsperiode en doeltemperatuur voor de boost.",
+            "fields": {
+                "temperature": {
+                    "description": "Stel een doeltemperatuur in voor de boost periode.",
+                    "name": "Temperatuur"
+                },
+                "time_period": {
+                    "description": "Instellen tijdsperiode voor de boost.",
+                    "name": "Tijdsperiode"
+                }
+            },
+            "name": "Boost verwarming ingeschakeld"
+        },
+        "boost_hot_water": {
+            "description": "Stelt boost-mode in op `ON` of `OFF` op basis van een gedefinieerd tijdsperiode voor de boost.",
+            "fields": {
+                "entity_id": {
+                    "description": "Selecteer het `entity_id` voor de boost.",
+                    "name": "Entiteit ID"
+                },
+                "on_off": {
+                    "description": "Stel de boost-functie op aan of uit (on/off).",
+                    "name": "Modus"
+                },
+                "time_period": {
+                    "description": "Stel de tijdsperiode in voor de boost.",
+                    "name": "Tijdsperiode"
+                }
+            },
+            "name": "Heet water boost"
+        }
+    }
+}

@@ -1,0 +1,350 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "[%key::common::config_flow::abort::already_configured_device%]",
+            "already_in_progress": "El flux de configuraci\u00f3 ja est\u00e0 en curs",
+            "incomplete_info": "Informaci\u00f3 incompleta per configurar el dispositiu, no s'ha proporcionat cap amfitri\u00f3 o token.",
+            "not_xiaomi_miio": "Xiaomi Miio encara no \u00e9s compatible amb el dispositiu.",
+            "reauth_successful": "Re-autenticaci\u00f3 realitzada correctament",
+            "unknown": "Error inesperat"
+        },
+        "error": {
+            "cannot_connect": "Ha fallat la connexi\u00f3",
+            "cloud_credentials_incomplete": "Credencials del n\u00favol incompletes, introdueix el nom d'usuari, la contrasenya i el pa\u00eds",
+            "cloud_login_error": "No s'ha pogut iniciar sessi\u00f3 a Xiaomi Miio Cloud, comprova les credencials.",
+            "cloud_no_devices": "No s'han trobat dispositius en aquest compte al n\u00favol de Xiaomi Miio.",
+            "unknown_device": "No es reconeix el model del dispositiu, no es pot configurar el dispositiu mitjan\u00e7ant el flux de configuraci\u00f3.",
+            "wrong_token": "Error de verificaci\u00f3, token erroni"
+        },
+        "flow_title": "{name}",
+        "step": {
+            "cloud": {
+                "data": {
+                    "cloud_country": "Pa\u00eds del servidor al n\u00favol",
+                    "cloud_password": "Contrasenya del n\u00favol",
+                    "cloud_username": "Nom d'usuari del n\u00favol",
+                    "manual": "Configuraci\u00f3 manual (no recomanada)"
+                },
+                "description": "Inicia sessi\u00f3 al n\u00favol Xiaomi Miio, consulta https://www.openhab.org/addons/bindings/miio/#country-servers per obtenir el servidor al n\u00favol."
+            },
+            "connect": {
+                "data": {
+                    "model": "Model de dispositiu"
+                }
+            },
+            "manual": {
+                "data": {
+                    "host": "Adre\u00e7a IP",
+                    "token": "Token d'API"
+                },
+                "description": "Necessitar\u00e0s el 'token' d'API de 32 car\u00e0cters, consulta https://www.home-assistant.io/integrations/xiaomi_miio#retrieving-the-access-token per saber com fer-ho. Tingues en compte que aquest 'token' d'API \u00e9s diferent de la clau utilitzada per la integraci\u00f3 Xiaomi Aqara."
+            },
+            "reauth_confirm": {
+                "description": "La integraci\u00f3 Xiaomi Miio ha de tornar a autenticar-se amb el teu compte per poder actualitzar els tokens o afegir credencials pel n\u00favol.",
+                "title": "L'autenticaci\u00f3 de {name} ha caducat"
+            },
+            "select": {
+                "data": {
+                    "select_device": "Dispositiu Miio"
+                },
+                "description": "Selecciona el dispositiu Xiaomi Miio a configurar."
+            }
+        }
+    },
+    "entity": {
+        "fan": {
+            "generic_fan": {
+                "state_attributes": {
+                    "preset_mode": {
+                        "state": {
+                            "nature": "Natura",
+                            "normal": "Normal"
+                        }
+                    }
+                }
+            }
+        },
+        "select": {
+            "airpurifier_mode": {
+                "state": {
+                    "auto": "Autom\u00e0tic",
+                    "favorite": "Preferit",
+                    "silent": "Silenci\u00f3s"
+                }
+            },
+            "display_orientation": {
+                "state": {
+                    "forward": "Endavant",
+                    "left": "Esquerra",
+                    "right": "Dreta"
+                }
+            },
+            "led_brightness": {
+                "state": {
+                    "bright": "Llumin\u00f3s",
+                    "dim": "Atenuat",
+                    "off": "OFF"
+                }
+            },
+            "ptc_level": {
+                "state": {
+                    "high": "Alt",
+                    "low": "Baix",
+                    "medium": "Mitj\u00e0"
+                }
+            }
+        },
+        "sensor": {
+            "illuminance": {
+                "name": "Il\u00b7luminaci\u00f3"
+            }
+        },
+        "switch": {
+            "led": {
+                "name": "LED"
+            }
+        }
+    },
+    "options": {
+        "error": {
+            "cloud_credentials_incomplete": "Credencials del n\u00favol incompletes, introdueix el nom d'usuari, la contrasenya i el pa\u00eds"
+        },
+        "step": {
+            "init": {
+                "data": {
+                    "cloud_subdevices": "Utilitza el n\u00favol per obtenir subdispositius connectats"
+                }
+            }
+        }
+    },
+    "services": {
+        "fan_reset_filter": {
+            "fields": {
+                "entity_id": {
+                    "name": "ID de l'entitat"
+                }
+            }
+        },
+        "fan_set_extra_features": {
+            "fields": {
+                "entity_id": {
+                    "name": "ID de l'entitat"
+                },
+                "features": {
+                    "name": "Caracter\u00edstiques"
+                }
+            }
+        },
+        "light_eyecare_mode_off": {
+            "fields": {
+                "entity_id": {
+                    "name": "ID d'entitat"
+                }
+            }
+        },
+        "light_eyecare_mode_on": {
+            "fields": {
+                "entity_id": {
+                    "name": "ID d'entitat"
+                }
+            }
+        },
+        "light_night_light_mode_off": {
+            "fields": {
+                "entity_id": {
+                    "name": "ID d'entitat"
+                }
+            }
+        },
+        "light_night_light_mode_on": {
+            "fields": {
+                "entity_id": {
+                    "name": "ID d'entitat"
+                }
+            }
+        },
+        "light_reminder_off": {
+            "fields": {
+                "entity_id": {
+                    "name": "ID d'entitat"
+                }
+            }
+        },
+        "light_reminder_on": {
+            "fields": {
+                "entity_id": {
+                    "name": "ID de l'entitat"
+                }
+            }
+        },
+        "light_set_delayed_turn_off": {
+            "description": "Apagada amb retard.",
+            "fields": {
+                "entity_id": {
+                    "name": "ID de l'entitat"
+                },
+                "time_period": {
+                    "description": "Per\u00edode de temps de l'apagada retardada.",
+                    "name": "Per\u00edode de temps"
+                }
+            },
+            "name": "Configura desactivaci\u00f3 retardada"
+        },
+        "light_set_scene": {
+            "fields": {
+                "entity_id": {
+                    "name": "ID de l'entitat"
+                },
+                "scene": {
+                    "name": "Escena"
+                }
+            }
+        },
+        "remote_learn_command": {
+            "fields": {
+                "slot": {
+                    "description": "Defineix la ranura utilitzada per desar la comanda IR.",
+                    "name": "Ranura"
+                },
+                "timeout": {
+                    "name": "Temps m\u00e0xim d'espera"
+                }
+            },
+            "name": "Apr\u00e8n comandament remot"
+        },
+        "remote_set_led_off": {
+            "description": "Apaga el LED blau.",
+            "name": "Desactiva LED remotament"
+        },
+        "remote_set_led_on": {
+            "description": "Enc\u00e9n el LED blau.",
+            "name": "Activa LED remotament"
+        },
+        "switch_set_power_mode": {
+            "description": "Configura el mode de pot\u00e8ncia.",
+            "fields": {
+                "entity_id": {
+                    "name": "ID de l'entitat"
+                },
+                "mode": {
+                    "description": "Mode de pot\u00e8ncia.",
+                    "name": "Mode"
+                }
+            },
+            "name": "Configura mode de pot\u00e8ncia"
+        },
+        "switch_set_power_price": {
+            "description": "Configura el preu de l'electricitat.",
+            "fields": {
+                "entity_id": {
+                    "name": "ID d'entitat"
+                },
+                "mode": {
+                    "description": "Preu de l'electricitat.",
+                    "name": "Mode"
+                }
+            },
+            "name": "Configura preu de l'electricitat"
+        },
+        "switch_set_wifi_led_off": {
+            "description": "Apaga el LED del Wi-Fi.",
+            "fields": {
+                "entity_id": {
+                    "name": "ID d'entitat"
+                }
+            },
+            "name": "Desactiva LED Wi-Fi"
+        },
+        "switch_set_wifi_led_on": {
+            "description": "Enc\u00e9n el LED del Wi-Fi.",
+            "fields": {
+                "entity_id": {
+                    "name": "ID d'entitat"
+                }
+            },
+            "name": "Activa LED Wi-Fi"
+        },
+        "vacuum_clean_segment": {
+            "description": "Comen\u00e7a a netejar els segments especificats.",
+            "fields": {
+                "segments": {
+                    "description": "Segments.",
+                    "name": "Segments"
+                }
+            },
+            "name": "Aspira/neteja segment"
+        },
+        "vacuum_clean_zone": {
+            "description": "Inicia l'operaci\u00f3 de neteja a les zones seleccionades pel nombre de repeticions indicades.",
+            "fields": {
+                "repeats": {
+                    "description": "Nombre de repeticions de neteja per a cada zona.",
+                    "name": "Repeticions"
+                },
+                "zone": {
+                    "description": "Llista de zones. Cada zona \u00e9s una llista de 4 valors enters.",
+                    "name": "Zona"
+                }
+            },
+            "name": "Aspira/neteja zona"
+        },
+        "vacuum_goto": {
+            "description": "Va a les coordenades especificades.",
+            "fields": {
+                "x_coord": {
+                    "description": "Coordenada-X.",
+                    "name": "Coordenada X"
+                },
+                "y_coord": {
+                    "description": "Coordenada-Y.",
+                    "name": "Coordenada Y."
+                }
+            },
+            "name": "V\u00e9s a (aspirador)"
+        },
+        "vacuum_remote_control_move": {
+            "description": "Controla a dist\u00e0ncia l'aspirador, assegura't que primer l'hagis configurat en mode de control remot mitjan\u00e7ant `remote_control_start`.",
+            "fields": {
+                "duration": {
+                    "description": "Durada del moviment.",
+                    "name": "Durada"
+                },
+                "rotation": {
+                    "description": "Rotaci\u00f3, entre -179 i 179 graus.",
+                    "name": "Rotaci\u00f3."
+                },
+                "velocity": {
+                    "description": "Velocitat.",
+                    "name": "Velocitat"
+                }
+            },
+            "name": "Mou remotament aspirador"
+        },
+        "vacuum_remote_control_move_step": {
+            "description": "Controla a dist\u00e0ncia l'aspirador, nom\u00e9s fa un moviment i despr\u00e9s s'atura.",
+            "fields": {
+                "duration": {
+                    "description": "Durada del moviment.",
+                    "name": "Durada"
+                },
+                "rotation": {
+                    "description": "Rotaci\u00f3.",
+                    "name": "Rotaci\u00f3."
+                },
+                "velocity": {
+                    "description": "Velocitat.",
+                    "name": "Velocitat"
+                }
+            },
+            "name": "Mou remotament aspirador, un pas"
+        },
+        "vacuum_remote_control_start": {
+            "description": "Inicia el control remot de l'aspirador. Despr\u00e9s, podr\u00e0s moure'l amb `remote_control_move`. Quan acabis, crida a `remote_control_stop`.",
+            "name": "Inicia control remota aspirador"
+        },
+        "vacuum_remote_control_stop": {
+            "description": "Atura el control remot de l'aspirador.",
+            "name": "Atura control remot aspirador"
+        }
+    }
+}

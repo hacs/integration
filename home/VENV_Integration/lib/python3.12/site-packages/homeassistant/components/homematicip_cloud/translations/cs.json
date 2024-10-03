@@ -1,0 +1,158 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Za\u0159\u00edzen\u00ed je ji\u017e nastaveno",
+            "connection_aborted": "Nepoda\u0159ilo se p\u0159ipojit",
+            "unknown": "Neo\u010dek\u00e1van\u00e1 chyba"
+        },
+        "error": {
+            "invalid_sgtin_or_pin": "Neplatn\u00fd k\u00f3d SGTIN nebo PIN, zkuste to znovu.",
+            "press_the_button": "Stiskn\u011bte modr\u00e9 tla\u010d\u00edtko.",
+            "register_failed": "Registrace se nezda\u0159ila, zkuste to znovu.",
+            "timeout_button": "\u010casov\u00fd limit stisknut\u00ed modr\u00e9ho tla\u010d\u00edtka vypr\u0161el. Zkuste to znovu."
+        },
+        "step": {
+            "init": {
+                "data": {
+                    "hapid": "ID p\u0159\u00edstupov\u00e9ho bodu (SGTIN)",
+                    "name": "N\u00e1zev (voliteln\u00e9, pou\u017e\u00edv\u00e1 se jako p\u0159edpona n\u00e1zvu pro v\u0161echna za\u0159\u00edzen\u00ed)",
+                    "pin": "PIN k\u00f3d"
+                },
+                "title": "Vybrat p\u0159\u00edstupov\u00fd bod HomematicIP"
+            },
+            "link": {
+                "description": "Stiskn\u011bte modr\u00e9 tla\u010d\u00edtko na p\u0159\u00edstupov\u00e9m bodu a tla\u010d\u00edtko pro registraci HomematicIP s Home Asistentem. \n\n![Um\u00edst\u011bn\u00ed tla\u010d\u00edtka na za\u0159\u00edzen\u00ed](/static/images/config_flows/config_homematicip_cloud.png)",
+                "title": "P\u0159ipojit se k p\u0159\u00edstupov\u00e9mu bodu"
+            }
+        }
+    },
+    "exceptions": {
+        "access_point_not_found": {
+            "message": "Nebyl nalezen \u017e\u00e1dn\u00fd odpov\u00eddaj\u00edc\u00ed p\u0159\u00edstupov\u00fd bod pro ID p\u0159\u00edstupov\u00e9ho bodu {id}"
+        }
+    },
+    "services": {
+        "activate_eco_mode_with_duration": {
+            "description": "Aktivuje re\u017eim ECO s obdob\u00edm.",
+            "fields": {
+                "accesspoint_id": {
+                    "description": "ID p\u0159\u00edstupov\u00e9ho bodu Homematic IP.",
+                    "name": "ID p\u0159\u00edstupov\u00e9ho bodu"
+                },
+                "duration": {
+                    "description": "D\u00e9lka re\u017eimu ECO v minut\u00e1ch.",
+                    "name": "D\u00e9lka"
+                }
+            },
+            "name": "Aktivovat re\u017eim ECO s d\u00e9lkou"
+        },
+        "activate_eco_mode_with_period": {
+            "description": "Aktivuje re\u017eim ECO s obdob\u00edm.",
+            "fields": {
+                "accesspoint_id": {
+                    "description": "ID p\u0159\u00edstupov\u00e9ho bodu Homematic IP.",
+                    "name": "ID p\u0159\u00edstupov\u00e9ho bodu"
+                },
+                "endtime": {
+                    "description": "\u010cas, kdy by m\u011bl b\u00fdt re\u017eim ECO automaticky zak\u00e1z\u00e1n.",
+                    "name": "\u010cas ukon\u010den\u00ed"
+                }
+            },
+            "name": "Aktivovat re\u017eim ECO s obdob\u00edm"
+        },
+        "activate_vacation": {
+            "description": "Aktivuje re\u017eim Dovolen\u00e1 do p\u0159ednastaven\u00e9ho obdob\u00ed.",
+            "fields": {
+                "accesspoint_id": {
+                    "description": "ID p\u0159\u00edstupov\u00e9ho bodu Homematic IP.",
+                    "name": "ID p\u0159\u00edstupov\u00e9ho bodu"
+                },
+                "endtime": {
+                    "description": "\u010cas, kdy by m\u011bl b\u00fdt re\u017eim Dovolen\u00e1 automaticky zak\u00e1z\u00e1n.",
+                    "name": "\u010cas ukon\u010den\u00ed"
+                },
+                "temperature": {
+                    "description": "Nastaven\u00e1 teplota b\u011bhem re\u017eimu Dovolen\u00e1.",
+                    "name": "Teplota"
+                }
+            },
+            "name": "Aktivovat re\u017eim Dovolen\u00e1"
+        },
+        "deactivate_eco_mode": {
+            "description": "Okam\u017eit\u011b deaktivuje re\u017eim ECO.",
+            "fields": {
+                "accesspoint_id": {
+                    "description": "ID p\u0159\u00edstupov\u00e9ho bodu Homematic IP.",
+                    "name": "ID p\u0159\u00edstupov\u00e9ho bodu"
+                }
+            },
+            "name": "Deaktivovat re\u017eim ECO"
+        },
+        "deactivate_vacation": {
+            "description": "Okam\u017eit\u011b deaktivuje re\u017eim Dovolen\u00e1.",
+            "fields": {
+                "accesspoint_id": {
+                    "description": "ID p\u0159\u00edstupov\u00e9ho bodu Homematic IP.",
+                    "name": "ID p\u0159\u00edstupov\u00e9ho bodu"
+                }
+            },
+            "name": "Deaktivovat re\u017eim Dovolen\u00e1"
+        },
+        "dump_hap_config": {
+            "description": "Vyp\u00ed\u0161e nastaven\u00ed p\u0159\u00edstupov\u00fdch bod\u016f Homematic IP.",
+            "fields": {
+                "anonymize": {
+                    "description": "M\u011blo by b\u00fdt nastaven\u00ed anonymizov\u00e1no?",
+                    "name": "Anonymizovat"
+                },
+                "config_output_file_prefix": {
+                    "description": "N\u00e1zev konfigura\u010dn\u00edho souboru. SGTIN p\u0159\u00edstupov\u00e9ho bodu bude v\u017edy p\u0159ipojen.",
+                    "name": "P\u0159edpona v\u00fdstupn\u00edho konfigura\u010dn\u00edho souboru"
+                },
+                "config_output_path": {
+                    "description": "Cesta, kam ulo\u017eit nastaven\u00ed (v\u00fdchoz\u00ed je slo\u017eka s nastaven\u00edmi Home Assistanta).",
+                    "name": "V\u00fdstupn\u00ed cesta nastaven\u00ed"
+                }
+            },
+            "name": "Vypsat nastaven\u00ed hap"
+        },
+        "reset_energy_counter": {
+            "description": "Resetuje po\u010d\u00edtadlo energie m\u011b\u0159ic\u00ed entity.",
+            "fields": {
+                "entity_id": {
+                    "description": "ID m\u011b\u0159ic\u00ed entity. Pou\u017eijte kl\u00ed\u010dov\u00e9 slovo \"all\" k vynulov\u00e1n\u00ed v\u0161ech po\u010d\u00edtadel energi\u00ed.",
+                    "name": "Entita"
+                }
+            },
+            "name": "Resetovat po\u010d\u00edtadlo energie"
+        },
+        "set_active_climate_profile": {
+            "description": "Nastav\u00ed index aktivn\u00edho klimatick\u00e9ho profilu.",
+            "fields": {
+                "climate_profile_index": {
+                    "description": "Index klimatick\u00e9ho profilu.",
+                    "name": "Index klimatick\u00e9ho profilu"
+                },
+                "entity_id": {
+                    "description": "ID klimatick\u00e9 entity. Pou\u017eijte kl\u00ed\u010dov\u00e9 slovo \"all\" pro p\u0159epnut\u00ed profilu pro v\u0161echny entity.",
+                    "name": "Entita"
+                }
+            },
+            "name": "Nastavit aktivn\u00ed klimatick\u00fd profil"
+        },
+        "set_home_cooling_mode": {
+            "description": "Nastav\u00ed re\u017eim vyt\u00e1p\u011bn\u00ed/chlazen\u00ed pro cel\u00fd d\u016fm.",
+            "fields": {
+                "accesspoint_id": {
+                    "description": "ID p\u0159\u00edstupov\u00e9ho bodu Homematic IP.",
+                    "name": "ID p\u0159\u00edstupov\u00e9ho bodu"
+                },
+                "cooling": {
+                    "description": "Povolte pro re\u017eim chlazen\u00ed, zaka\u017ete pro re\u017eim vyt\u00e1p\u011bn\u00ed.",
+                    "name": "Chlazen\u00ed"
+                }
+            },
+            "name": "Nastavit re\u017eim dom\u00e1c\u00edho chlazen\u00ed"
+        }
+    }
+}

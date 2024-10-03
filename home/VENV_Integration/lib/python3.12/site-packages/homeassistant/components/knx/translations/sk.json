@@ -1,0 +1,463 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Slu\u017eba u\u017e je nakonfigurovan\u00e1",
+            "single_instance_allowed": "U\u017e je nakonfigurovan\u00fd. Mo\u017en\u00e1 je len jedna konfigur\u00e1cia."
+        },
+        "error": {
+            "cannot_connect": "Nepodarilo sa pripoji\u0165",
+            "invalid_backbone_key": "Neplatn\u00fd k\u013e\u00fa\u010d backbone. O\u010dak\u00e1va sa 32 hexadecim\u00e1lnych \u010d\u00edsel.",
+            "invalid_individual_address": "Hodnota sa nezhoduje so vzorom pre individu\u00e1lnu adresu KNX.\n 'area.line.device'",
+            "invalid_ip_address": "Neplatn\u00e1 adresa IPv4.",
+            "keyfile_invalid_signature": "Heslo na de\u0161ifrovanie s\u00faboru `.knxkeys` je nespr\u00e1vne.",
+            "keyfile_no_backbone_key": "S\u00fabor `.knxkeys` neobsahuje k\u013e\u00fa\u010d chrbtice pre bezpe\u010dn\u00e9 smerovanie.",
+            "keyfile_no_tunnel_for_host": "S\u00fabor `.knxkeys` neobsahuje poverenia pre hostite\u013ea `{host}`.",
+            "keyfile_not_found": "Zadan\u00fd s\u00fabor `.knxkeys` sa nena\u0161iel v ceste config/.storage/knx/",
+            "no_router_discovered": "V sieti nebol n\u00e1jden\u00fd \u017eiadny router KNXnet/IP.",
+            "no_tunnel_discovered": "Vo va\u0161ej sieti sa nepodarilo n\u00e1js\u0165 tunelovac\u00ed server KNX.",
+            "unsupported_tunnel_type": "Vybran\u00fd typ tunelovania nie je podporovan\u00fd br\u00e1nou."
+        },
+        "step": {
+            "connection_type": {
+                "data": {
+                    "connection_type": "Typ pripojenia KNX"
+                },
+                "description": "Zadajte typ pripojenia, ktor\u00fd by sme mali pou\u017ei\u0165 pre va\u0161e pripojenie KNX.\n AUTOMATICKY - Integr\u00e1cia sa star\u00e1 o pripojenie k va\u0161ej zbernici KNX vykonan\u00edm skenovania br\u00e1ny.\n TUNNELING - Integr\u00e1cia sa pripoj\u00ed k va\u0161ej KNX zbernici prostredn\u00edctvom tunelovania.\n ROUTOVANIE - Integr\u00e1cia sa pripoj\u00ed k va\u0161ej KNX zbernici cez smerovanie.",
+                "title": "Pripojenie KNX"
+            },
+            "knxkeys_tunnel_select": {
+                "data": {
+                    "user_id": "`Automaticky` pou\u017eije prv\u00fd vo\u013en\u00fd koncov\u00fd bod tunela."
+                },
+                "description": "Vyberte tunel pou\u017eit\u00fd na pripojenie.",
+                "title": "Koncov\u00fd bod tunela"
+            },
+            "manual_tunnel": {
+                "data": {
+                    "host": "Hostite\u013e",
+                    "local_ip": "Lok\u00e1lne rozhranie IP",
+                    "port": "Port",
+                    "route_back": "Sp\u00e4tn\u00e1 trasa / re\u017eim NAT",
+                    "tunneling_type": "Typ tunelovania KNX"
+                },
+                "data_description": {
+                    "host": "IP adresa alebo n\u00e1zov hostite\u013ea tunelovacieho zariadenia KNX/IP.",
+                    "local_ip": "Lok\u00e1lna IP alebo n\u00e1zov rozhrania pou\u017e\u00edvan\u00fd na pripojenie z Home Assistant. Ak chcete pou\u017ei\u0165 automatick\u00e9 zis\u0165ovanie, nechajte pole pr\u00e1zdne.",
+                    "port": "Port tunelovacieho zariadenia KNX/IP.",
+                    "route_back": "Povo\u013ete, ak je v\u00e1\u0161 server tunelovania KNXnet/IP za NAT. Plat\u00ed len pre pripojenia UDP."
+                },
+                "description": "Zadajte inform\u00e1cie o pripojen\u00ed v\u00e1\u0161ho tunelovacieho zariadenia.",
+                "title": "Nastavenia tunela"
+            },
+            "routing": {
+                "data": {
+                    "individual_address": "Individu\u00e1lna adresa",
+                    "local_ip": "Lok\u00e1lne rozhranie IP",
+                    "multicast_group": "Skupina multicast",
+                    "multicast_port": "Multicast port",
+                    "routing_secure": "Pou\u017eite KNX IP Secure"
+                },
+                "data_description": {
+                    "individual_address": "Adresa KNX, ktor\u00fa bude pou\u017e\u00edva\u0165 Home Assistant, napr. `0.0.4`",
+                    "local_ip": "Lok\u00e1lna IP alebo n\u00e1zov rozhrania pou\u017e\u00edvan\u00fd na pripojenie z Home Assistant. Ak chcete pou\u017ei\u0165 automatick\u00e9 zis\u0165ovanie, nechajte pole pr\u00e1zdne."
+                },
+                "description": "Nakonfigurujte mo\u017enosti smerovania.",
+                "title": "Routing"
+            },
+            "secure_key_source": {
+                "description": "Vyberte, ako chcete nakonfigurova\u0165 KNX/IP Secure.",
+                "menu_options": {
+                    "secure_knxkeys": "Pou\u017eite s\u00fabor `.knxkeys` obsahuj\u00faci bezpe\u010dnostn\u00e9 k\u013e\u00fa\u010de IP",
+                    "secure_routing_manual": "Nakonfigurujte zabezpe\u010den\u00fd k\u013e\u00fa\u010d chrbticovej siete IP manu\u00e1lne",
+                    "secure_tunnel_manual": "Manu\u00e1lne nakonfigurujte bezpe\u010dnostn\u00e9 poverenia IP"
+                },
+                "title": "KNX IP-Secure"
+            },
+            "secure_key_source_menu_routing": {
+                "description": "Vyberte, ako chcete nakonfigurova\u0165 KNX/IP Secure.",
+                "menu_options": {
+                    "secure_knxkeys": "Pou\u017eite s\u00fabor `.knxkeys` obsahuj\u00faci bezpe\u010dnostn\u00e9 k\u013e\u00fa\u010de IP",
+                    "secure_routing_manual": "Nakonfigurujte zabezpe\u010den\u00fd k\u013e\u00fa\u010d chrbticovej siete IP manu\u00e1lne"
+                },
+                "title": "KNX IP-Secure"
+            },
+            "secure_key_source_menu_tunnel": {
+                "description": "Vyberte, ako chcete nakonfigurova\u0165 KNX/IP Secure.",
+                "menu_options": {
+                    "secure_knxkeys": "Pou\u017eite s\u00fabor `.knxkeys` obsahuj\u00faci bezpe\u010dnostn\u00e9 k\u013e\u00fa\u010de IP",
+                    "secure_tunnel_manual": "Manu\u00e1lne nakonfigurujte bezpe\u010dnostn\u00e9 poverenia IP"
+                },
+                "title": "KNX IP-Secure"
+            },
+            "secure_knxkeys": {
+                "data": {
+                    "knxkeys_file": "S\u00fabor k\u013e\u00fa\u010denky",
+                    "knxkeys_password": "Heslo na de\u0161ifrovanie s\u00faboru `.knxkeys`"
+                },
+                "data_description": {
+                    "knxkeys_password": "Toto bolo nastaven\u00e9 pri exporte s\u00faboru z ETS."
+                },
+                "description": "Vyberte s\u00fabor `.knxkeys`, ktor\u00fd chcete importova\u0165.",
+                "title": "Import pr\u00edvesku na k\u013e\u00fa\u010de KNX"
+            },
+            "secure_routing_manual": {
+                "data": {
+                    "backbone_key": "Backbone k\u013e\u00fa\u010d",
+                    "sync_latency_tolerance": "Tolerancia latencie siete"
+                },
+                "data_description": {
+                    "backbone_key": "Mo\u017eno ho vidie\u0165 v spr\u00e1ve `Bezpe\u010dnos\u0165` projektu ETS. Napr. '00112233445566778899AABBCCDDEEFF'",
+                    "sync_latency_tolerance": "Predvolen\u00e1 hodnota je 1000."
+                },
+                "description": "Pros\u00edm, zadajte svoje IP zabezpe\u010den\u00e9 inform\u00e1cie.",
+                "title": "Bezpe\u010dn\u00fd routing"
+            },
+            "secure_tunnel_manual": {
+                "data": {
+                    "device_authentication": "Heslo na overenie zariadenia",
+                    "user_id": "ID pou\u017e\u00edvate\u013ea",
+                    "user_password": "Pou\u017e\u00edvate\u013esk\u00e9 heslo"
+                },
+                "data_description": {
+                    "device_authentication": "Toto sa nastavuje na paneli `IP` rozhrania v ETS.",
+                    "user_id": "Toto je \u010dasto \u010d\u00edslo tunela +1. Tak\u017ee 'Tunnel 2' bude ma\u0165 User-ID '3'.",
+                    "user_password": "Heslo pre \u0161pecifick\u00e9 pripojenie tunela nastaven\u00e9 na paneli 'Vlastnosti' tunela v ETS."
+                },
+                "description": "Pros\u00edm, zadajte svoje IP zabezpe\u010den\u00e9 inform\u00e1cie.",
+                "title": "Bezpe\u010dn\u00e9 tuneling"
+            },
+            "tunnel": {
+                "data": {
+                    "gateway": "Pripojenie tunela KNX"
+                },
+                "description": "Vyberte br\u00e1nu zo zoznamu.",
+                "title": "Tunel"
+            }
+        }
+    },
+    "device_automation": {
+        "extra_fields": {
+            "destination": "Skupinov\u00e9 adresy",
+            "group_value_read": "SkupinaHodnota\u010c\u00edtanie",
+            "group_value_response": "SkupinaHodnotaOdpove\u010f",
+            "group_value_write": "SkupinaHodnotaZ\u00e1pis",
+            "incoming": "Prich\u00e1dzaj\u00face",
+            "outgoing": "Odch\u00e1dzaj\u00face"
+        },
+        "extra_fields_descriptions": {
+            "destination": "Sp\u00fa\u0161\u0165a\u010d bude po\u010d\u00fava\u0165 telegramy odoslan\u00e9 alebo prijat\u00e9 na t\u00fdchto skupinov\u00fdch adres\u00e1ch. Ak nie je vybran\u00e1 \u017eiadna adresa, sp\u00fa\u0161\u0165a\u010d sa spust\u00ed pre ka\u017ed\u00fa skupinov\u00fa adresu.",
+            "group_value_read": "Po\u010d\u00favanie telegramov SkupinaHodnotaZ\u00e1pis.",
+            "group_value_response": "Po\u010d\u00favanie telegramov SkupinaHodnotaOdpove\u010f.",
+            "group_value_write": "Po\u010d\u00favajte telegramy SkupinaHodnotaZ\u00e1pis.",
+            "incoming": "Po\u010d\u00favajte prich\u00e1dzaj\u00face telegramy.",
+            "outgoing": "Po\u010d\u00favajte odch\u00e1dzaj\u00face telegramy."
+        },
+        "trigger_type": {
+            "telegram": "Telegram"
+        }
+    },
+    "entity": {
+        "climate": {
+            "knx_climate": {
+                "state_attributes": {
+                    "preset_mode": {
+                        "name": "Predvo\u013eba",
+                        "state": {
+                            "auto": "Auto",
+                            "building_protection": "Ochrana budovy",
+                            "comfort": "Komfort",
+                            "economy": "Eco",
+                            "standby": "Pohotovostn\u00fd re\u017eim"
+                        }
+                    }
+                }
+            }
+        },
+        "sensor": {
+            "connected_since": {
+                "name": "Spojenie nadviazan\u00e9"
+            },
+            "connection_type": {
+                "name": "Typ pripojenia"
+            },
+            "individual_address": {
+                "name": "Individu\u00e1lna adresa"
+            },
+            "telegram_count": {
+                "name": "Telegramy"
+            },
+            "telegrams_incoming": {
+                "name": "Prich\u00e1dzaj\u00face telegramy"
+            },
+            "telegrams_incoming_error": {
+                "name": "Chyby prich\u00e1dzaj\u00facich telegramov"
+            },
+            "telegrams_outgoing": {
+                "name": "Odch\u00e1dzaj\u00face telegramy"
+            },
+            "telegrams_outgoing_error": {
+                "name": "Chyby odch\u00e1dzaj\u00faceho telegramu"
+            }
+        }
+    },
+    "issues": {
+        "migrate_notify": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Slu\u017eba KNX `notify` bola migrovan\u00e1. Teraz s\u00fa k dispoz\u00edcii nov\u00e9 entity `notify`.\n\nAktualizujte v\u0161etky automatiz\u00e1cie tak, aby pou\u017e\u00edvali nov\u00fa funkciu `notify.send_message`, ktor\u00fa tieto nov\u00e9 entity poskytuj\u00fa. Po dokon\u010den\u00ed tohto kroku opravte tento probl\u00e9m a re\u0161tartujte aplik\u00e1ciu Home Assistant.",
+                        "title": "Zak\u00e1za\u0165 star\u0161iu slu\u017ebu upozornen\u00ed KNX"
+                    }
+                }
+            },
+            "title": "Migr\u00e1cia notifika\u010dnej slu\u017eby KNX"
+        }
+    },
+    "options": {
+        "error": {
+            "cannot_connect": "Nepodarilo sa pripoji\u0165",
+            "invalid_backbone_key": "Neplatn\u00fd k\u013e\u00fa\u010d backbone. O\u010dak\u00e1va sa 32 hexadecim\u00e1lnych \u010d\u00edsel.",
+            "invalid_individual_address": "Hodnota sa nezhoduje so vzorom pre individu\u00e1lnu adresu KNX.\n 'area.line.device'",
+            "invalid_ip_address": "Neplatn\u00e1 adresa IPv4.",
+            "keyfile_invalid_signature": "Heslo na de\u0161ifrovanie s\u00faboru `.knxkeys` je nespr\u00e1vne.",
+            "keyfile_no_backbone_key": "S\u00fabor `.knxkeys` neobsahuje k\u013e\u00fa\u010d chrbtice pre bezpe\u010dn\u00e9 smerovanie.",
+            "keyfile_no_tunnel_for_host": "S\u00fabor `.knxkeys` neobsahuje poverenia pre hostite\u013ea `{host}`.",
+            "keyfile_not_found": "Zadan\u00fd s\u00fabor `.knxkeys` sa nena\u0161iel v ceste config/.storage/knx/",
+            "no_router_discovered": "V sieti nebol n\u00e1jden\u00fd \u017eiadny router KNXnet/IP.",
+            "no_tunnel_discovered": "Vo va\u0161ej sieti sa nepodarilo n\u00e1js\u0165 tunelovac\u00ed server KNX.",
+            "unsupported_tunnel_type": "Vybran\u00fd typ tunelovania nie je podporovan\u00fd br\u00e1nou."
+        },
+        "step": {
+            "communication_settings": {
+                "data": {
+                    "rate_limit": "Limit",
+                    "state_updater": "Aktualiz\u00e1tor stavu",
+                    "telegram_log_size": "Limit hist\u00f3rie telegramov"
+                },
+                "data_description": {
+                    "rate_limit": "Maxim\u00e1lny po\u010det odch\u00e1dzaj\u00facich telegramov za sekundu.\n `0` pre deaktiv\u00e1ciu limitu. Odpor\u00fa\u010dan\u00e9: 0 alebo 20 a\u017e 40",
+                    "state_updater": "Nastavi\u0165 predvolen\u00e9 pre \u010d\u00edtanie stavov zo zbernice KNX. Ke\u010f je vypnut\u00fd, Home Assistant nebude akt\u00edvne z\u00edskava\u0165 stavy ent\u00edt zo zbernice KNX. D\u00e1 sa prep\u00edsa\u0165 mo\u017enos\u0165ami entity `sync_state`.",
+                    "telegram_log_size": "Telegramy na uchovanie v pam\u00e4ti pre skupinov\u00fd monitor KNX panelov. Maximum: {telegram_log_size_max}"
+                },
+                "title": "Nastavenia komunik\u00e1cie"
+            },
+            "connection_type": {
+                "data": {
+                    "connection_type": "Typ pripojenia KNX"
+                },
+                "description": "Zadajte typ pripojenia, ktor\u00fd by sme mali pou\u017ei\u0165 pre va\u0161e pripojenie KNX.\n AUTOMATICKY - Integr\u00e1cia sa star\u00e1 o pripojenie k va\u0161ej zbernici KNX vykonan\u00edm skenovania br\u00e1ny.\n TUNNELING - Integr\u00e1cia sa pripoj\u00ed k va\u0161ej KNX zbernici prostredn\u00edctvom tunelovania.\n ROUTOVANIE - Integr\u00e1cia sa pripoj\u00ed k va\u0161ej KNX zbernici cez smerovanie.",
+                "title": "Pripojenie KNX"
+            },
+            "init": {
+                "menu_options": {
+                    "communication_settings": "Nastavenia komunik\u00e1cie",
+                    "connection_type": "Konfigur\u00e1cia rozhrania KNX",
+                    "secure_knxkeys": "Importujte s\u00fabor `.knxkeys`"
+                },
+                "title": "Nastavenia KNX"
+            },
+            "knxkeys_tunnel_select": {
+                "data": {
+                    "user_id": "`Automaticky` pou\u017eije prv\u00fd vo\u013en\u00fd koncov\u00fd bod tunela."
+                },
+                "description": "Vyberte tunel pou\u017eit\u00fd na pripojenie.",
+                "title": "Koncov\u00fd bod tunela"
+            },
+            "manual_tunnel": {
+                "data": {
+                    "host": "Hostite\u013e",
+                    "local_ip": "Lok\u00e1lne rozhranie IP",
+                    "port": "Port",
+                    "route_back": "Sp\u00e4tn\u00e1 trasa / re\u017eim NAT",
+                    "tunneling_type": "Typ tunelovania KNX"
+                },
+                "data_description": {
+                    "host": "IP adresa alebo n\u00e1zov hostite\u013ea tunelovacieho zariadenia KNX/IP.",
+                    "local_ip": "Lok\u00e1lna IP alebo n\u00e1zov rozhrania pou\u017e\u00edvan\u00fd na pripojenie z Home Assistant. Ak chcete pou\u017ei\u0165 automatick\u00e9 zis\u0165ovanie, nechajte pole pr\u00e1zdne.",
+                    "port": "Port tunelovacieho zariadenia KNX/IP.",
+                    "route_back": "Povo\u013ete, ak je v\u00e1\u0161 server tunelovania KNXnet/IP za NAT. Plat\u00ed len pre pripojenia UDP."
+                },
+                "description": "Zadajte inform\u00e1cie o pripojen\u00ed v\u00e1\u0161ho tunelovacieho zariadenia.",
+                "title": "Nastavenia tunela"
+            },
+            "options_init": {
+                "menu_options": {
+                    "communication_settings": "Nastavenia komunik\u00e1cie",
+                    "connection_type": "Konfigur\u00e1cia rozhrania KNX",
+                    "secure_knxkeys": "Importujte s\u00fabor `.knxkeys`"
+                },
+                "title": "Nastavenia KNX"
+            },
+            "routing": {
+                "data": {
+                    "individual_address": "Individu\u00e1lna adresa",
+                    "local_ip": "Lok\u00e1lne rozhranie IP",
+                    "multicast_group": "Skupina multicast",
+                    "multicast_port": "Multicast port",
+                    "routing_secure": "Pou\u017eite KNX IP Secure"
+                },
+                "data_description": {
+                    "individual_address": "Adresa KNX, ktor\u00fa bude pou\u017e\u00edva\u0165 Home Assistant, napr. `0.0.4`",
+                    "local_ip": "Lok\u00e1lna IP alebo n\u00e1zov rozhrania pou\u017e\u00edvan\u00fd na pripojenie z Home Assistant. Ak chcete pou\u017ei\u0165 automatick\u00e9 zis\u0165ovanie, nechajte pole pr\u00e1zdne."
+                },
+                "description": "Nakonfigurujte mo\u017enosti smerovania.",
+                "title": "Routing"
+            },
+            "secure_key_source": {
+                "description": "Vyberte, ako chcete nakonfigurova\u0165 KNX/IP Secure.",
+                "menu_options": {
+                    "secure_knxkeys": "Pou\u017eite s\u00fabor `.knxkeys` obsahuj\u00faci bezpe\u010dnostn\u00e9 k\u013e\u00fa\u010de IP",
+                    "secure_routing_manual": "Nakonfigurujte zabezpe\u010den\u00fd k\u013e\u00fa\u010d chrbticovej siete IP manu\u00e1lne",
+                    "secure_tunnel_manual": "Manu\u00e1lne nakonfigurujte bezpe\u010dnostn\u00e9 poverenia IP"
+                },
+                "title": "KNX IP-Secure"
+            },
+            "secure_key_source_menu_routing": {
+                "description": "Vyberte, ako chcete nakonfigurova\u0165 KNX/IP Secure.",
+                "menu_options": {
+                    "secure_knxkeys": "Pou\u017eite s\u00fabor `.knxkeys` obsahuj\u00faci bezpe\u010dnostn\u00e9 k\u013e\u00fa\u010de IP",
+                    "secure_routing_manual": "Nakonfigurujte zabezpe\u010den\u00fd k\u013e\u00fa\u010d chrbticovej siete IP manu\u00e1lne"
+                },
+                "title": "KNX IP-Secure"
+            },
+            "secure_key_source_menu_tunnel": {
+                "description": "Vyberte, ako chcete nakonfigurova\u0165 KNX/IP Secure.",
+                "menu_options": {
+                    "secure_knxkeys": "Pou\u017eite s\u00fabor `.knxkeys` obsahuj\u00faci bezpe\u010dnostn\u00e9 k\u013e\u00fa\u010de IP",
+                    "secure_tunnel_manual": "Manu\u00e1lne nakonfigurujte bezpe\u010dnostn\u00e9 poverenia IP"
+                },
+                "title": "KNX IP-Secure"
+            },
+            "secure_knxkeys": {
+                "data": {
+                    "knxkeys_file": "S\u00fabor k\u013e\u00fa\u010denky",
+                    "knxkeys_password": "Heslo na de\u0161ifrovanie s\u00faboru `.knxkeys`"
+                },
+                "data_description": {
+                    "knxkeys_password": "Toto bolo nastaven\u00e9 pri exporte s\u00faboru z ETS."
+                },
+                "description": "Vyberte s\u00fabor `.knxkeys`, ktor\u00fd chcete importova\u0165.",
+                "title": "Import pr\u00edvesku na k\u013e\u00fa\u010de KNX"
+            },
+            "secure_routing_manual": {
+                "data": {
+                    "backbone_key": "Backbone k\u013e\u00fa\u010d",
+                    "sync_latency_tolerance": "Tolerancia latencie siete"
+                },
+                "data_description": {
+                    "backbone_key": "Mo\u017eno ho vidie\u0165 v spr\u00e1ve `Bezpe\u010dnos\u0165` projektu ETS. Napr. '00112233445566778899AABBCCDDEEFF'",
+                    "sync_latency_tolerance": "Predvolen\u00e1 hodnota je 1000."
+                },
+                "description": "Pros\u00edm, zadajte svoje IP zabezpe\u010den\u00e9 inform\u00e1cie.",
+                "title": "Bezpe\u010dn\u00fd routing"
+            },
+            "secure_tunnel_manual": {
+                "data": {
+                    "device_authentication": "Heslo na overenie zariadenia",
+                    "user_id": "ID pou\u017e\u00edvate\u013ea",
+                    "user_password": "Pou\u017e\u00edvate\u013esk\u00e9 heslo"
+                },
+                "data_description": {
+                    "device_authentication": "Toto sa nastavuje na paneli `IP` rozhrania v ETS.",
+                    "user_id": "Toto je \u010dasto \u010d\u00edslo tunela +1. Tak\u017ee 'Tunnel 2' bude ma\u0165 User-ID '3'.",
+                    "user_password": "Heslo pre \u0161pecifick\u00e9 pripojenie tunela nastaven\u00e9 na paneli 'Vlastnosti' tunela v ETS."
+                },
+                "description": "Pros\u00edm, zadajte svoje IP zabezpe\u010den\u00e9 inform\u00e1cie.",
+                "title": "Bezpe\u010dn\u00e9 tuneling"
+            },
+            "tunnel": {
+                "data": {
+                    "gateway": "Pripojenie tunela KNX"
+                },
+                "description": "Vyberte br\u00e1nu zo zoznamu.",
+                "title": "Tunel"
+            }
+        }
+    },
+    "services": {
+        "event_register": {
+            "description": "Pridanie alebo odstr\u00e1nenie adries skup\u00edn do filtra knx_event na sp\u00fa\u0161\u0165anie `knx_event`. Odstr\u00e1ni\u0165 mo\u017eno len adresy pridan\u00e9 pomocou tejto slu\u017eby.",
+            "fields": {
+                "address": {
+                    "description": "Adresa(y) skupiny, ktor\u00e1 sa prid\u00e1 alebo odstr\u00e1ni. Zoznamy s\u00fa povolen\u00e9.",
+                    "name": "Adresa skupiny"
+                },
+                "remove": {
+                    "description": "Ak je \u201eTrue\u201c, adresy skupiny bud\u00fa odstr\u00e1nen\u00e9.",
+                    "name": "Odstr\u00e1nenie registr\u00e1cie udalosti"
+                },
+                "type": {
+                    "description": "Ak je nastaven\u00e9, u\u017eito\u010dn\u00e9 za\u0165a\u017eenie bude dek\u00f3dovan\u00e9 ako dan\u00fd DPT v k\u013e\u00fa\u010di `hodnota` d\u00e1t udalosti. Platn\u00e9 hodnoty s\u00fa typy sn\u00edma\u010dov KNX (pozri https://www.home-assistant.io/integrations/knx/#value-types).",
+                    "name": "Typ hodnoty"
+                }
+            },
+            "name": "Registre knx_event"
+        },
+        "exposure_register": {
+            "description": "Prid\u00e1va alebo odstra\u0148uje expoz\u00edcie na zbernici KNX. Odstr\u00e1ni\u0165 mo\u017eno len expoz\u00edcie pridan\u00e9 pomocou tejto slu\u017eby.",
+            "fields": {
+                "address": {
+                    "description": "Aktualiz\u00e1cie stavu alebo atrib\u00fatov skupiny bud\u00fa odosielan\u00e9 na adresu. Na po\u017eiadavky GroupValueRead sa bude odpoveda\u0165. Na jednu adresu mo\u017eno zaregistrova\u0165 len jednu expoz\u00edciu.",
+                    "name": "Adresa skupiny"
+                },
+                "attribute": {
+                    "description": "Atrib\u00fat entity, ktor\u00e1 sa m\u00e1 odosla\u0165 na zbernicu KNX. Ak nie je nastaven\u00fd, odo\u0161le sa stav. Napr. pre svetlo je stav bu\u010f \"zapnut\u00e9\" alebo \"vypnut\u00e9\" - pomocou atrib\u00fatu m\u00f4\u017eete vystavi\u0165 jeho \"jas\".",
+                    "name": "Atrib\u00fat entity"
+                },
+                "default": {
+                    "description": "Predvolen\u00e1 hodnota, ktor\u00e1 sa m\u00e1 odosla\u0165 do zbernice, ak je hodnota stavu alebo atrib\u00fatu None. Napr. svetlo so stavom \u201cvypnut\u00e9\u201c nem\u00e1 \u017eiadny atrib\u00fat jasu, tak\u017ee sa m\u00f4\u017ee pou\u017ei\u0165 predvolen\u00e1 hodnota 0. Ak by nebola nastaven\u00e1 (alebo by bola hodnota None), na zbernicu by sa neposlala \u017eiadna hodnota a \u017eiados\u0165 GroupReadRequest na adresu by vr\u00e1tila posledn\u00fa zn\u00e1mu hodnotu.",
+                    "name": "Predvolen\u00e1 hodnota"
+                },
+                "entity_id": {
+                    "description": "Id entity, ktorej stav alebo atrib\u00fat sa m\u00e1 vystavi\u0165.",
+                    "name": "Entita"
+                },
+                "remove": {
+                    "description": "Ak je `True`, expoz\u00edcia sa odstr\u00e1ni. Na odstr\u00e1nenie sa vy\u017eaduje len `adresa`.",
+                    "name": "Odstr\u00e1nenie expoz\u00edcie"
+                },
+                "type": {
+                    "description": "Telegramy bud\u00fa k\u00f3dovan\u00e9 pod\u013ea DPT. 'binary' a v\u0161etky typy sn\u00edma\u010dov KNX s\u00fa platn\u00e9 hodnoty (pozri https://www.home-assistant.io/integrations/knx/#value-types).",
+                    "name": "Typ hodnoty"
+                }
+            },
+            "name": "Vystavenie na zbernicu KNX"
+        },
+        "read": {
+            "description": "Odoslanie po\u017eiadaviek na \u010d\u00edtanie hodnoty skupiny na zbernicu KNX. Odpove\u010f m\u00f4\u017ee by\u0165 pou\u017eit\u00e1 z `knx_event` a bude spracovan\u00e1 v entit\u00e1ch KNX.",
+            "fields": {
+                "address": {
+                    "description": "Adresa(-y) skupiny, na ktor\u00fa sa m\u00e1 posla\u0165 \u017eiados\u0165 o \u010d\u00edtanie. Zoznamy bud\u00fa \u010d\u00edta\u0165 viacer\u00e9 skupinov\u00e9 adresy.",
+                    "name": "Adresa skupiny"
+                }
+            },
+            "name": "\u010c\u00edta zo zbernice KNX"
+        },
+        "reload": {
+            "description": "Znovu na\u010d\u00edta integr\u00e1ciu KNX.",
+            "name": "Znovu na\u010d\u00edta\u0165"
+        },
+        "send": {
+            "description": "Odosiela \u013eubovo\u013en\u00e9 \u00fadaje priamo na zbernicu KNX.",
+            "fields": {
+                "address": {
+                    "description": "Adresa(-y) skupiny, na ktor\u00fa m\u00f4\u017eete p\u00edsa\u0165. Zoznamy sa bud\u00fa posiela\u0165 na viacero skupinov\u00fdch adries postupne.",
+                    "name": "Adresa skupiny"
+                },
+                "payload": {
+                    "description": "U\u017eito\u010dn\u00e9 za\u0165a\u017eenie, ktor\u00e9 sa m\u00e1 odosla\u0165 na zbernicu. Cel\u00e9 \u010d\u00edsla sa pova\u017euj\u00fa za u\u017eito\u010dn\u00e9 za\u0165a\u017eenie DPT 1/2/3. Pre DPT &gt; 6 bitov po\u0161lite zoznam. Ka\u017ed\u00e1 hodnota predstavuje 1 oktet (0-255). Dopl\u0148te 0 do d\u013a\u017eky DPT bajtu.",
+                    "name": "Za\u0165a\u017eenie"
+                },
+                "response": {
+                    "description": "Ak je nastaven\u00e9 na `True`, telegram bude odoslan\u00fd ako `GroupValueResponse` namiesto `GroupValueWrite`.",
+                    "name": "Odosla\u0165 ako odpove\u010f"
+                },
+                "type": {
+                    "description": "Ak je nastaven\u00e9, u\u017eito\u010dn\u00e9 za\u0165a\u017eenie sa nebude posiela\u0165 ako surov\u00e9 bajty, ale zak\u00f3dovan\u00e9 ako dan\u00fd DPT. Platn\u00e9 hodnoty s\u00fa typy sn\u00edma\u010dov KNX (pozri https://www.home-assistant.io/integrations/knx/#value-types).",
+                    "name": "Typ hodnoty"
+                }
+            },
+            "name": "Odoslanie na zbernicu KNX"
+        }
+    }
+}

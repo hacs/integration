@@ -1,0 +1,94 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "\u012erenginys jau sukonfig\u016bruotas"
+        },
+        "error": {
+            "cannot_connect": "Nepavyko prisijungti",
+            "timeout_connect": "Baig\u0117si ry\u0161io u\u017emezgimo laikas"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "host": "Host",
+                    "password": "Slapta\u017eodis"
+                },
+                "data_description": {
+                    "host": "Rain Bird \u012frenginio pagrindinio kompiuterio pavadinimas arba IP adresas."
+                },
+                "description": "\u012eveskite savo Rain Bird \u012frenginio LNK WiFi modulio informacij\u0105.",
+                "title": "Konfig\u016bruokite Rain Bird"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "rainsensor": {
+                "name": "Lietaus jutiklis"
+            }
+        },
+        "number": {
+            "rain_delay": {
+                "name": "Lietaus v\u0117lavimas"
+            }
+        },
+        "sensor": {
+            "raindelay": {
+                "name": "Lietaus delsimas"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_raindelay": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "\u201eRain Bird\u201c paslauga \u201erainbird.set_rain_delay\u201c pa\u0161alinama ir pakei\u010diama numerio objektu, skirtu lietaus delsai valdyti. Bet kokias esamas automatizacijas ar scenarijus reik\u0117s atnaujinti, kad b\u016bt\u0173 galima naudoti \u201enumber.set_value\u201c su \u201e {alternate_target} \u201c tikslu.",
+                        "title": "Lietaus pauk\u0161\u010dio lietaus delsimo paslauga pa\u0161alinama"
+                    }
+                }
+            },
+            "title": "Lietaus pauk\u0161\u010dio lietaus delsimo paslauga pa\u0161alinama"
+        },
+        "deprecated_yaml": {
+            "description": "Rain Bird konfig\u016bravimas configuration.yaml pa\u0161alinamas i\u0161 Home Assistant 2023.4. \n\n J\u016bs\u0173 konfig\u016bracija \u012f vartotojo s\u0105saj\u0105 buvo importuota automati\u0161kai, ta\u010diau numatytieji zonos dr\u0117kinimo laikai nebepalaikomi. Pa\u0161alinkite Rain Bird YAML konfig\u016bracij\u0105 i\u0161 savo configuration.yaml failo ir i\u0161 naujo paleiskite \u201eHome Assistant\u201c, kad i\u0161spr\u0119stum\u0117te \u0161i\u0105 problem\u0105.",
+            "title": "Rain Bird YAML konfig\u016bracija pa\u0161alinama"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "duration": "Numatytasis dr\u0117kinimo laikas minut\u0117mis"
+                },
+                "title": "Konfig\u016bruokite Rain Bird"
+            }
+        }
+    },
+    "services": {
+        "set_rain_delay": {
+            "description": "Nustato, kiek laiko i\u0161jungiamas automatinis laistymas.",
+            "fields": {
+                "config_entry_id": {
+                    "description": "Nustatymas bus sureguliuotas nurodytame valdiklyje.",
+                    "name": "Rainbird valdiklio konfig\u016bracijos \u012fra\u0161as"
+                },
+                "duration": {
+                    "description": "\u0160ios sistemos i\u0161jungimo trukm\u0117.",
+                    "name": "Trukm\u0117"
+                }
+            },
+            "name": "Nustatykite lietaus dels\u0105"
+        },
+        "start_irrigation": {
+            "description": "Pradedamas laistymas.",
+            "fields": {
+                "duration": {
+                    "description": "\u0160io purk\u0161tuvo \u012fjungimo trukm\u0117.",
+                    "name": "Trukm\u0117"
+                }
+            },
+            "name": "Prad\u0117kite laistym\u0105"
+        }
+    }
+}

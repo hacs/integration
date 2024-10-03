@@ -1,0 +1,90 @@
+{
+    "device_automation": {
+        "condition_type": {
+            "is_home": "{entity_name}\u5728\u5bb6",
+            "is_not_home": "{entity_name}\u4e0d\u5728\u5bb6"
+        },
+        "extra_fields": {
+            "zone": "\u5206\u5340"
+        },
+        "trigger_type": {
+            "enters": "{entity_name}\u9032\u5165\u5340\u57df",
+            "leaves": "{entity_name}\u96e2\u958b\u5340\u57df"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "\u88dd\u7f6e\u8ffd\u8e64\u5668",
+            "state": {
+                "home": "\u5728\u5bb6",
+                "not_home": "\u96e2\u5bb6"
+            },
+            "state_attributes": {
+                "battery": {
+                    "name": "\u96fb\u91cf"
+                },
+                "gps_accuracy": {
+                    "name": "GPS \u7cbe\u51c6\u5ea6"
+                },
+                "latitude": {
+                    "name": "\u7def\u5ea6"
+                },
+                "longitude": {
+                    "name": "\u7d93\u5ea6"
+                },
+                "source_type": {
+                    "name": "\u4f86\u6e90",
+                    "state": {
+                        "bluetooth": "\u85cd\u7259",
+                        "bluetooth_le": "\u85cd\u7259 BLE",
+                        "gps": "GPS",
+                        "router": "\u8def\u7531\u5668"
+                    }
+                }
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "{domain} \u6574\u5408\u7684 {platform} \u5e73\u53f0\u4e0d\u652f\u63f4\u5e73\u53f0\u8a2d\u5b9a\u3002\n\n\u8acb\u5c07\u5176\u7531\u8a2d\u5b9a\u4e2d\u79fb\u9664\uff0c\u4e26\u91cd\u65b0\u555f\u52d5 Home Assistant \u4ee5\u4fee\u6b63\u6b64\u554f\u984c\u3002",
+            "title": "\u4e0d\u652f\u63f4\u5e73\u53f0\u652f\u63f4"
+        }
+    },
+    "services": {
+        "see": {
+            "description": "\u8a18\u9304\u6240\u767c\u73fe\u7684\u8ffd\u8e64\u88dd\u7f6e\u3002",
+            "fields": {
+                "battery": {
+                    "description": "\u88dd\u7f6e\u96fb\u6c60\u96fb\u91cf\u3002",
+                    "name": "\u96fb\u91cf"
+                },
+                "dev_id": {
+                    "description": "\u88dd\u7f6e ID\uff08\u53ef\u65bc `known_devices.yaml` \u4e2d\u627e\u5230\u5176 ID\uff09\u3002",
+                    "name": "\u88dd\u7f6e ID"
+                },
+                "gps": {
+                    "description": "\u88dd\u7f6e\u6240\u5728 GPS \u5ea7\u6a19\u3001\u7531\u7d93\u5ea6\u8207\u7def\u5ea6\u7d44\u6210\uff08\u4f8b\u5982\uff1a[51.513845\uff0c-0.100539]\uff09\u3002",
+                    "name": "GPS \u5ea7\u6a19"
+                },
+                "gps_accuracy": {
+                    "description": "GPS \u5ea7\u6a19\u7684\u6e96\u78ba\u5ea6\u3002",
+                    "name": "GPS \u7cbe\u51c6\u5ea6"
+                },
+                "host_name": {
+                    "description": "\u88dd\u7f6e\u4e3b\u6a5f\u540d\u7a31\u3002",
+                    "name": "\u4e3b\u6a5f\u540d\u7a31"
+                },
+                "location_name": {
+                    "description": "\u88dd\u7f6e\u6240\u5728\u4f4d\u7f6e\u7684\u540d\u7a31\u3002\u9078\u9805\u5305\u62ec\uff1a`home`\u3001`not_home`,\uff0c\u6216\u5206\u5340\u540d\u7a31\u3002",
+                    "name": "\u4f4d\u7f6e"
+                },
+                "mac": {
+                    "description": "\u88dd\u7f6e MAC \u4f4d\u5740\u3002",
+                    "name": "MAC \u4f4d\u5740"
+                }
+            },
+            "name": "\u767c\u73fe"
+        }
+    },
+    "title": "\u88dd\u7f6e\u8ffd\u8e64\u5668"
+}

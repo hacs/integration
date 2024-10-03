@@ -1,0 +1,185 @@
+{
+    "config": {
+        "abort": {
+            "all_configured": "V\u0161echny mosty Philips Hue jsou ji\u017e nastaveny",
+            "already_configured": "Za\u0159\u00edzen\u00ed je ji\u017e nastaveno",
+            "already_in_progress": "Nastaven\u00ed ji\u017e prob\u00edh\u00e1",
+            "cannot_connect": "Nepoda\u0159ilo se p\u0159ipojit",
+            "discover_timeout": "Nelze nal\u00e9zt most Hue",
+            "invalid_host": "Neplatn\u00fd hostitel nebo IP adresa",
+            "no_bridges": "Nebyly nalezeny \u017e\u00e1dn\u00e9 mosty Philips Hue",
+            "not_hue_bridge": "Nejedn\u00e1 se o most Hue",
+            "unknown": "Neo\u010dek\u00e1van\u00e1 chyba"
+        },
+        "error": {
+            "linking": "Neo\u010dek\u00e1van\u00e1 chyba",
+            "register_failed": "Registrace se nezda\u0159ila, zkuste to znovu"
+        },
+        "step": {
+            "init": {
+                "data": {
+                    "host": "Hostitel"
+                },
+                "data_description": {
+                    "host": "N\u00e1zev hostitele nebo IP adresa va\u0161eho mostu Hue."
+                },
+                "title": "Vybrat most Hue"
+            },
+            "link": {
+                "description": "Stiskn\u011bte tla\u010d\u00edtko na mostu k registraci Philips Hue v Home Assistantovi.\n\n![Um\u00edst\u011bn\u00ed tla\u010d\u00edtka na mostu](/static/images/config_philips_hue.jpg)",
+                "title": "P\u0159ipojit Hub"
+            },
+            "manual": {
+                "data": {
+                    "host": "Hostitel"
+                },
+                "data_description": {
+                    "host": "N\u00e1zev hostitele nebo IP adresa va\u0161eho mostu Hue."
+                },
+                "title": "Ru\u010dn\u011b nastavit most Hue"
+            }
+        }
+    },
+    "device_automation": {
+        "trigger_subtype": {
+            "1": "Prvn\u00ed tla\u010d\u00edtko",
+            "2": "Druh\u00e9 tla\u010d\u00edtko",
+            "3": "T\u0159et\u00ed tla\u010d\u00edtko",
+            "4": "\u010ctvrt\u00e9 tla\u010d\u00edtko",
+            "button_1": "Prvn\u00ed tla\u010d\u00edtko",
+            "button_2": "Druh\u00e9 tla\u010d\u00edtko",
+            "button_3": "T\u0159et\u00ed tla\u010d\u00edtko",
+            "button_4": "\u010ctvrt\u00e9 tla\u010d\u00edtko",
+            "clock_wise": "Oto\u010dit vpravo",
+            "counter_clock_wise": "Oto\u010dit vlevo",
+            "dim_down": "Sn\u00ed\u017eit ztlumen\u00ed",
+            "dim_up": "Zv\u00fd\u0161it ztlumen\u00ed",
+            "double_buttons_1_3": "Prvn\u00ed a t\u0159et\u00ed tla\u010d\u00edtko",
+            "double_buttons_2_4": "Druh\u00e9 a \u010dtvrt\u00e9 tla\u010d\u00edtko",
+            "turn_off": "Vypnout",
+            "turn_on": "Zapnout"
+        },
+        "trigger_type": {
+            "double_short_release": "Ob\u011b tla\u010d\u00edtka \"{subtype}\" uvoln\u011bna",
+            "initial_press": "Tla\u010d\u00edtko \"{subtype}\" stisknuto",
+            "long_release": "\"{subtype}\" uvoln\u011bno po dlouh\u00e9m stisku",
+            "remote_button_long_release": "\"{subtype}\" uvoln\u011bno po dlouh\u00e9m stisku",
+            "remote_button_short_press": "\"{subtype}\" stisknuto",
+            "remote_button_short_release": "Tla\u010d\u00edtko \"{subtype}\" uvoln\u011bno",
+            "remote_double_button_long_press": "Ob\u011b tla\u010d\u00edtka \"{subtype}\" uvoln\u011bna po dlouh\u00e9m stisku",
+            "remote_double_button_short_press": "Ob\u011b tla\u010d\u00edtka \"{subtype}\" uvoln\u011bna",
+            "repeat": "\"{subtype}\" podr\u017eeno",
+            "short_release": "\"{subtype}\" uvoln\u011bno po kr\u00e1tk\u00e9m stisku",
+            "start": "Tla\u010d\u00edtko \"{subtype}\" stisknuto"
+        }
+    },
+    "entity": {
+        "event": {
+            "button": {
+                "name": "Tla\u010d\u00edtko {button_id}",
+                "state_attributes": {
+                    "event_type": {
+                        "state": {
+                            "double_short_release": "Dvojit\u00e9 stisknut\u00ed",
+                            "initial_press": "Stisknut\u00ed",
+                            "long_press": "Dlouh\u00e9 stisknut\u00ed",
+                            "long_release": "Dlouh\u00e9 uvoln\u011bn\u00ed",
+                            "repeat": "Opakovat",
+                            "short_release": "Kr\u00e1tk\u00e9 stisknut\u00ed"
+                        }
+                    }
+                }
+            },
+            "rotary": {
+                "name": "Rotace",
+                "state_attributes": {
+                    "event_type": {
+                        "state": {
+                            "clock_wise": "Vpravo",
+                            "counter_clock_wise": "Vlevo"
+                        }
+                    }
+                }
+            }
+        },
+        "sensor": {
+            "zigbee_connectivity": {
+                "name": "P\u0159ipojen\u00ed Zigbee",
+                "state": {
+                    "connected": "P\u0159ipojeno",
+                    "connectivity_issue": "Probl\u00e9m s p\u0159ipojen\u00edm",
+                    "disconnected": "Odpojeno",
+                    "unidirectional_incoming": "Unidirectional incoming"
+                }
+            }
+        },
+        "switch": {
+            "automation": {
+                "state": {
+                    "off": "Zak\u00e1z\u00e1no",
+                    "on": "Povoleno"
+                }
+            },
+            "light_sensor_enabled": {
+                "name": "Sv\u011bteln\u00fd senzor povolen"
+            },
+            "motion_sensor_enabled": {
+                "name": "Pohybov\u00fd senzor povolen"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "allow_hue_groups": "Povolit skupiny Hue",
+                    "allow_hue_scenes": "Povolit sc\u00e9ny Hue",
+                    "allow_unreachable": "Povolit nedostupn\u00fdm \u017e\u00e1rovk\u00e1m spr\u00e1vn\u011b hl\u00e1sit jejich stav",
+                    "ignore_availability": "Ignorovat stav spojen\u00ed pro dan\u00e9 za\u0159\u00edzen\u00ed"
+                }
+            }
+        }
+    },
+    "services": {
+        "activate_scene": {
+            "description": "Aktivuje sc\u00e9nu Hue s v\u011bt\u0161\u00ed kontrolou nad volbami.",
+            "fields": {
+                "brightness": {
+                    "description": "Nastav\u00ed jas pro sc\u00e9nu.",
+                    "name": "Jas"
+                },
+                "dynamic": {
+                    "description": "Povol\u00ed dynamick\u00fd re\u017eim sc\u00e9ny.",
+                    "name": "Dynamick\u00fd"
+                },
+                "speed": {
+                    "description": "Rychlost dynamick\u00e9 palety pro tuto sc\u00e9nu.",
+                    "name": "Rychlost"
+                },
+                "transition": {
+                    "description": "Doba trv\u00e1n\u00ed p\u0159echodu, kter\u00e1 je nutn\u00e1 k uveden\u00ed za\u0159\u00edzen\u00ed do stavu definovan\u00e9ho ve sc\u00e9n\u011b.",
+                    "name": "P\u0159echod"
+                }
+            },
+            "name": "Aktivovat sc\u00e9nu Hue"
+        },
+        "hue_activate_scene": {
+            "description": "Aktivuje sc\u00e9nu Hue ulo\u017eenou v most\u011b Hue.",
+            "fields": {
+                "dynamic": {
+                    "description": "Povol\u00ed dynamick\u00fd re\u017eim sc\u00e9ny (jen mosty V2 a podporovan\u00e9 sc\u00e9ny).",
+                    "name": "Dynamick\u00fd"
+                },
+                "group_name": {
+                    "description": "N\u00e1zev skupiny/m\u00edstnosti Hue z aplikace Hue.",
+                    "name": "Skupina"
+                },
+                "scene_name": {
+                    "description": "N\u00e1zev sc\u00e9ny Hue z aplikace Hue.",
+                    "name": "Sc\u00e9na"
+                }
+            },
+            "name": "Aktivovat sc\u00e9nu"
+        }
+    }
+}

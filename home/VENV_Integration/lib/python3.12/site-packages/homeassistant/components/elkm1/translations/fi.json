@@ -1,0 +1,193 @@
+{
+    "config": {
+        "abort": {
+            "address_already_configured": "ElkM1 t\u00e4ll\u00e4 osoitteella on jo m\u00e4\u00e4ritetty",
+            "already_configured": "T\u00e4ll\u00e4 etuliitteell\u00e4 varustettu ElkM1 on jo m\u00e4\u00e4ritetty",
+            "already_in_progress": "M\u00e4\u00e4ritysprosessi on jo k\u00e4ynniss\u00e4",
+            "cannot_connect": "Yhteyden muodostaminen ep\u00e4onnistui",
+            "invalid_auth": "Virheellinen todennus",
+            "unknown": "Odottamaton virhe"
+        },
+        "error": {
+            "cannot_connect": "Yhteyden muodostaminen ep\u00e4onnistui",
+            "invalid_auth": "Virheellinen todennus",
+            "unknown": "Odottamaton virhe"
+        },
+        "flow_title": "{mac_address} ({host})",
+        "step": {
+            "discovered_connection": {
+                "data": {
+                    "password": "Salasana",
+                    "protocol": "Protokolla",
+                    "temperature_unit": "L\u00e4mp\u00f6tilayksikk\u00f6, jota ElkM1 k\u00e4ytt\u00e4\u00e4.",
+                    "username": "K\u00e4ytt\u00e4j\u00e4tunnus"
+                },
+                "description": "Muodosta yhteys l\u00f6ydettyyn j\u00e4rjestelm\u00e4\u00e4n: {mac_address} ({host})",
+                "title": "Yhdist\u00e4 Elk-M1 Controliin"
+            },
+            "manual_connection": {
+                "data": {
+                    "address": "IP-osoite tai verkkotunnus tai sarjaportti, jos yhteys muodostetaan sarjaliit\u00e4nn\u00e4n kautta.",
+                    "password": "Salasana",
+                    "prefix": "Yksil\u00f6llinen etuliite (j\u00e4t\u00e4 tyhj\u00e4ksi, jos sinulla on vain yksi ElkM1).",
+                    "protocol": "Protokolla",
+                    "temperature_unit": "L\u00e4mp\u00f6tilayksikk\u00f6, jota ElkM1 k\u00e4ytt\u00e4\u00e4.",
+                    "username": "K\u00e4ytt\u00e4j\u00e4tunnus"
+                },
+                "description": "Osoitejonon on oltava muodossa 'address[:port]', kun kyseess\u00e4 on 'secure' ja 'non-secure'. Esimerkki: '192.168.1.1'. Portti on valinnainen, ja sen oletusarvo on 2101, kun kyseess\u00e4 on 'ei-turvallinen', ja 2601, kun kyseess\u00e4 on 'suojattu'. Sarjaprotokollaa varten osoitteen on oltava muodossa 'tty[:baud]'. Esimerkki: '/dev/ttyS1'. Baud on valinnainen ja sen oletusarvo on 115200.",
+                "title": "Yhdist\u00e4 Elk-M1 Controliin"
+            },
+            "user": {
+                "data": {
+                    "device": "Laite"
+                },
+                "description": "Valitse l\u00f6ydetty j\u00e4rjestelm\u00e4 tai \"Manuaalinen sy\u00f6tt\u00f6\", jos laitteita ei ole l\u00f6ydetty.",
+                "title": "Yhdist\u00e4 Elk-M1 Controliin"
+            }
+        }
+    },
+    "services": {
+        "alarm_arm_home_instant": {
+            "description": "Viritt\u00e4\u00e4 ElkM1 kotona v\u00e4litt\u00f6m\u00e4sti.",
+            "fields": {
+                "code": {
+                    "description": "Koodi h\u00e4lytyskeskuksen viritt\u00e4miseksi.",
+                    "name": "Koodi"
+                }
+            },
+            "name": "H\u00e4lytys on kotona v\u00e4litt\u00f6m\u00e4sti"
+        },
+        "alarm_arm_night_instant": {
+            "description": "Viritt\u00e4\u00e4 ElkM1 y\u00f6ll\u00e4 v\u00e4litt\u00f6m\u00e4sti.",
+            "fields": {
+                "code": {
+                    "description": "Koodi h\u00e4lytyskeskuksen viritt\u00e4miseksi.",
+                    "name": "Koodi"
+                }
+            },
+            "name": "H\u00e4lytys virit\u00e4 y\u00f6 v\u00e4litt\u00f6m\u00e4sti"
+        },
+        "alarm_arm_vacation": {
+            "description": "Virit\u00e4 ElkM1 lomatilaan.",
+            "fields": {
+                "code": {
+                    "description": "Koodi h\u00e4lytyskeskuksen viritt\u00e4miseksi.",
+                    "name": "Koodi"
+                }
+            },
+            "name": "H\u00e4lytys virit\u00e4 loma"
+        },
+        "alarm_bypass": {
+            "description": "Ohittaa kaikki alueen vy\u00f6hykkeet.",
+            "fields": {
+                "code": {
+                    "description": "Koodi, joka sallii h\u00e4lytyskeskuksen ohituksen.",
+                    "name": "Koodi"
+                }
+            },
+            "name": "H\u00e4lytyksen ohitus"
+        },
+        "alarm_clear_bypass": {
+            "description": "Poistaa alueen kaikkien alueiden ohituksen.",
+            "fields": {
+                "code": {
+                    "description": "Koodi, jolla sallitaan h\u00e4lytysvalvontakeskuksen ohituspoisto.",
+                    "name": "Koodi"
+                }
+            },
+            "name": "H\u00e4lytyksen tyhjennys ohitus"
+        },
+        "alarm_display_message": {
+            "description": "N\u00e4ytt\u00e4\u00e4 viestin kaikissa alueen ElkM1-n\u00e4pp\u00e4imist\u00f6iss\u00e4.",
+            "fields": {
+                "beep": {
+                    "description": "0 = ei piippausta, 1 = piippaus.",
+                    "name": "Piippaus"
+                },
+                "clear": {
+                    "description": "0=Tyhjenn\u00e4 viesti, 1=Tyhjenn\u00e4 viesti *-n\u00e4pp\u00e4imell\u00e4, 2=N\u00e4ytt\u00e4\u00e4 viestin aikakatkaisuun asti.",
+                    "name": "Ei havaintoja"
+                },
+                "line1": {
+                    "description": "Enint\u00e4\u00e4n 16 merkki\u00e4 teksti\u00e4 (katkaistaan, jos se on liian pitk\u00e4).",
+                    "name": "Rivi 1"
+                },
+                "line2": {
+                    "description": "Enint\u00e4\u00e4n 16 merkki\u00e4 teksti\u00e4 (katkaistaan, jos se on liian pitk\u00e4).",
+                    "name": "Rivi 2"
+                },
+                "timeout": {
+                    "description": "Viestin n\u00e4ytt\u00e4miseen k\u00e4ytett\u00e4v\u00e4 aika, 0 = ikuisesti, enint\u00e4\u00e4n 65535.",
+                    "name": "Aikakatkaisu"
+                }
+            },
+            "name": "H\u00e4lytysn\u00e4yt\u00f6n viesti"
+        },
+        "sensor_counter_refresh": {
+            "description": "P\u00e4ivitt\u00e4\u00e4 laskurin arvon paneelista.",
+            "name": "Sensorin laskurin p\u00e4ivitys"
+        },
+        "sensor_counter_set": {
+            "description": "Asettaa laskurin arvon paneelissa.",
+            "fields": {
+                "value": {
+                    "description": "Arvo, johon laskuri asetetaan.",
+                    "name": "Arvo"
+                }
+            },
+            "name": "Sensorilaskurin asetus"
+        },
+        "sensor_zone_bypass": {
+            "description": "Ohittaa alueen.",
+            "fields": {
+                "code": {
+                    "description": "Koodi, joka sallii alueen ohituksen.",
+                    "name": "Koodi"
+                }
+            },
+            "name": "Sensorialueen ohitus"
+        },
+        "sensor_zone_trigger": {
+            "description": "Laukaisualue.",
+            "name": "Sensorivy\u00f6hykkeen laukaisu"
+        },
+        "set_time": {
+            "description": "Asettaa paneelin ajan.",
+            "fields": {
+                "prefix": {
+                    "description": "Paneelin etuliite.",
+                    "name": "Etuliite"
+                }
+            },
+            "name": "Aseta aika"
+        },
+        "speak_phrase": {
+            "description": "Puhuu lauseen. Katso luettelo lausekkeista ElkM1 ASCII Protocol -dokumentaatiosta.",
+            "fields": {
+                "number": {
+                    "description": "Puhuttava lausenumero.",
+                    "name": "Lausenumero"
+                },
+                "prefix": {
+                    "description": "Etuliite paneelin tunnistamiseksi, kun useita paneeleita on m\u00e4\u00e4ritetty.",
+                    "name": "Etuliite"
+                }
+            },
+            "name": "Puhu lause"
+        },
+        "speak_word": {
+            "description": "Puhuu sanan. Katso sanaluettelo ElkM1 ASCII Protocol -dokumentaatiosta.",
+            "fields": {
+                "number": {
+                    "description": "Puhuttava sananumero.",
+                    "name": "Sananumero"
+                },
+                "prefix": {
+                    "description": "Etuliite paneelin tunnistamiseksi, kun useita paneeleita on m\u00e4\u00e4ritetty.",
+                    "name": "Etuliite"
+                }
+            },
+            "name": "Puhu sana"
+        }
+    }
+}

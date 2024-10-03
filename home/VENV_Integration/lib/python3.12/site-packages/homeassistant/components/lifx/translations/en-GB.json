@@ -1,0 +1,71 @@
+{
+    "services": {
+        "effect_colorloop": {
+            "description": "Runs an effect with looping colours.",
+            "fields": {
+                "brightness": {
+                    "description": "Number indicating brightness of the colour loop, where 1 is the minimum brightness and 255 is the maximum brightness supported by the light."
+                },
+                "brightness_pct": {
+                    "description": "Percentage indicating the brightness of the colour loop, where 1 is the minimum brightness and 100 is the maximum brightness supported by the light."
+                },
+                "change": {
+                    "description": "Hue movement per period, in degrees on a colour wheel."
+                },
+                "period": {
+                    "description": "Duration between colour changes."
+                },
+                "saturation_max": {
+                    "description": "Percentage indicating the maximum saturation of the colours in the loop.",
+                    "name": "Maximum saturation"
+                },
+                "saturation_min": {
+                    "description": "Percentage indicating the minimum saturation of the colours in the loop.",
+                    "name": "Minimum saturation"
+                },
+                "spread": {
+                    "description": "Maximum hue difference between participating lights, in degrees on a colour wheel.",
+                    "name": "Spread"
+                }
+            },
+            "name": "Colour loop effect"
+        },
+        "effect_morph": {
+            "fields": {
+                "palette": {
+                    "description": "List of at least 2 and at most 16 colours as hue (0-360), saturation (0-100), brightness (0-100) and kelvin (1500-900) values to use for this effect. Overrides the theme attribute."
+                },
+                "speed": {
+                    "description": "How fast the colours will move."
+                },
+                "theme": {
+                    "description": "Predefined colour theme to use for the effect. Overridden by the palette attribute."
+                }
+            }
+        },
+        "effect_pulse": {
+            "description": "Runs a flash effect by changing to a colour and back.",
+            "fields": {
+                "brightness": {
+                    "description": "Number indicating brightness of the temporary colour, where 1 is the minimum brightness and 255 is the maximum brightness supported by the light."
+                },
+                "brightness_pct": {
+                    "description": "Percentage indicating the brightness of the temporary colour, where 1 is the minimum brightness and 100 is the maximum brightness supported by the light."
+                },
+                "color_name": {
+                    "name": "Colour name"
+                },
+                "mode": {
+                    "description": "Decides how colours are changed."
+                },
+                "rgb_color": {
+                    "description": "The temporary colour in RGB-format.",
+                    "name": "RGB colour"
+                }
+            }
+        },
+        "set_state": {
+            "description": "Sets a colour/brightness and possibly turn the light on/off."
+        }
+    }
+}

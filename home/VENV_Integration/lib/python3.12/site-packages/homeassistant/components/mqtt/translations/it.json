@@ -1,0 +1,239 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Il servizio \u00e8 gi\u00e0 configurato",
+            "reauth_successful": "La riautenticazione ha avuto successo",
+            "single_instance_allowed": "Gi\u00e0 configurato. \u00c8 possibile una sola configurazione."
+        },
+        "error": {
+            "bad_birth": "Argomento di nascita non valido",
+            "bad_certificate": "Il certificato CA non \u00e8 valido",
+            "bad_client_cert": "Certificato client non valido, assicurarsi che venga fornito un file codificato PEM",
+            "bad_client_cert_key": "Il certificato client e la chiave privata non sono una coppia valida",
+            "bad_client_key": "Chiave privata non valida, assicurarsi che venga fornito un file codificato PEM senza password",
+            "bad_discovery_prefix": "Prefisso di rilevamento non valido",
+            "bad_will": "Argomento testamento non valido",
+            "bad_ws_headers": "Fornisci intestazioni HTTP valide come oggetto JSON",
+            "cannot_connect": "Impossibile connettersi",
+            "invalid_auth": "Autenticazione non valida",
+            "invalid_inclusion": "Il certificato del client e la chiave privata devono essere configurati insieme"
+        },
+        "step": {
+            "broker": {
+                "data": {
+                    "advanced_options": "Opzioni avanzate",
+                    "broker": "Broker",
+                    "certificate": "Carica il file del certificato CA personalizzato",
+                    "client_cert": "Carica il file del certificato client",
+                    "client_id": "ID client (lasciare vuoto per generarne uno casualmente)",
+                    "client_key": "Carica il file della chiave privata",
+                    "keepalive": "L'intervallo di tempo tra l'invio di messaggi di mantenimento in attivit\u00e0",
+                    "password": "Password",
+                    "port": "Porta",
+                    "protocol": "protocollo MQTT",
+                    "set_ca_cert": "Convalida del certificato del broker",
+                    "set_client_cert": "Usa un certificato client",
+                    "tls_insecure": "Ignora la convalida del certificato del broker",
+                    "transport": "Trasporto MQTT",
+                    "username": "Nome utente",
+                    "ws_headers": "Intestazioni WebSocket in formato JSON",
+                    "ws_path": "Percorso WebSocket"
+                },
+                "description": "Inserisci le informazioni di connessione del tuo broker MQTT."
+            },
+            "hassio_confirm": {
+                "data": {
+                    "discovery": "Abilita il rilevamento"
+                },
+                "description": "Vuoi configurare Home Assistant per connettersi al broker MQTT fornito dal componente aggiuntivo: {addon}?",
+                "title": "Broker MQTT tramite il componente aggiuntivo di Home Assistant"
+            },
+            "reauth_confirm": {
+                "data": {
+                    "password": "Password",
+                    "username": "Nome utente"
+                }
+            }
+        }
+    },
+    "device_automation": {
+        "trigger_subtype": {
+            "button_1": "Primo pulsante",
+            "button_2": "Secondo pulsante",
+            "button_3": "Terzo pulsante",
+            "button_4": "Quarto pulsante",
+            "button_5": "Quinto pulsante",
+            "button_6": "Sesto pulsante",
+            "turn_off": "Spegni",
+            "turn_on": "Accendi"
+        },
+        "trigger_type": {
+            "button_double_press": "\"{subtype}\" cliccato due volte",
+            "button_long_press": "\"{subtype}\" premuto continuamente",
+            "button_long_release": "\"{subtype}\" rilasciato dopo una lunga pressione",
+            "button_quadruple_press": "\"{subtype}\" cliccato quattro volte",
+            "button_quintuple_press": "\"{subtype}\" cliccato cinque volte",
+            "button_short_press": "\"{subtype}\" premuto",
+            "button_short_release": "\"{subtype}\" rilasciato",
+            "button_triple_press": "\"{subtype}\" cliccato tre volte"
+        }
+    },
+    "issues": {
+        "deprecated_climate_aux_property": {
+            "description": "L'entit\u00e0 `{entity_id}` ha abilitato il supporto del riscaldamento ausiliario, che \u00e8 stato deprecato per i dispositivi climatici MQTT. Modifica la configurazione e rimuovi le opzioni di configurazione obsolete dalla configurazione e riavvia Home Assistant per risolvere il problema.",
+            "title": "Trovate entit\u00e0 MQTT con supporto termico ausiliario"
+        },
+        "deprecated_yaml": {
+            "description": "{platform} MQTT configurata manualmente trovata sotto la voce della piattaforma `{platform}`. \n\nSposta la configurazione sulla voce di integrazione `mqtt` e riavvia Home Assistant per risolvere questo problema. Consulta la [documentazione]({more_info_url}), per ulteriori informazioni.",
+            "title": "La/e tua/e {platform} MQTT configurata/e manualmente ha/hanno bisogno di attenzione"
+        },
+        "deprecated_yaml_broker_settings": {
+            "description": "Le seguenti impostazioni trovate in 'configuration.yaml' sono state migrate alla voce di configurazione MQTT e ora sovrascriveranno le impostazioni in 'configuration.yaml':\n`{deprecated_settings}`\n\nRimuovi queste impostazioni da 'configuration.yaml' e riavvia Home Assistant per risolvere il problema. Per ulteriori informazioni, vedere la [documentazione]({more_info_url}).",
+            "title": "Impostazioni MQTT obsolete trovate in `configuration.yaml`"
+        },
+        "deprecation_mqtt_legacy_vacuum_discovery": {
+            "description": "Le entit\u00e0 vacuum MQTT che utilizzano lo schema legacy sono obsolete, regola i tuoi dispositivi in modo che utilizzino lo schema corretto e riavvia Home Assistant per risolvere questo problema.",
+            "title": "Entit\u00e0 vuoto MQTT con schema legacy aggiunto tramite l'individuazione MQTT"
+        },
+        "deprecation_mqtt_legacy_vacuum_yaml": {
+            "description": "Le entit\u00e0 del vuoto MQTT che utilizzano lo schema legacy sono deprecate, modificare il file configuration.yaml e riavviare Home Assistant per risolvere il problema.",
+            "title": "Entit\u00e0 vuoto MQTT con schema legacy trovato nel file configuration.yaml"
+        },
+        "entity_name_is_device_name_discovery": {
+            "description": "Alcune entit\u00e0 MQTT hanno un nome di entit\u00e0 uguale al nome del dispositivo. Questo non \u00e8 previsto. Il nome dell'entit\u00e0 \u00e8 impostato su `null` come soluzione per evitare un nome duplicato. Si prega di informare il manutentore dell'applicazione software che fornisce le entit\u00e0 interessate per risolvere questo problema.\n\nElenco delle entit\u00e0 interessate:\n\n{config}",
+            "title": "Individuate entit\u00e0 MQTT con un nome uguale al nome del dispositivo"
+        },
+        "entity_name_is_device_name_yaml": {
+            "description": "Alcune entit\u00e0 MQTT hanno un nome di entit\u00e0 uguale al nome del dispositivo. Questo non \u00e8 previsto. Il nome dell'entit\u00e0 \u00e8 impostato su `null` come soluzione per evitare un nome duplicato. Aggiornare la configurazione e riavviare Home Assistant per risolvere il problema.\n\nElenco delle entit\u00e0 interessate:\n\n{config}",
+            "title": "Entit\u00e0 MQTT configurate manualmente con un nome uguale al nome del dispositivo"
+        },
+        "entity_name_startswith_device_name_discovery": {
+            "description": "Alcune entit\u00e0 MQTT hanno un nome di entit\u00e0 che inizia con il nome del dispositivo. Questo non \u00e8 previsto. Per evitare un nome duplicato, il prefisso del nome del dispositivo viene rimosso dal nome dell'entit\u00e0 come soluzione alternativa. Si prega di informare il manutentore dell'applicazione software che fornisce le entit\u00e0 interessate per risolvere questo problema. \n\nElenco delle entit\u00e0 interessate: \n\n{config}",
+            "title": "Entit\u00e0 rilevate con un nome che inizia con il nome del dispositivo"
+        },
+        "entity_name_startswith_device_name_yaml": {
+            "description": "Alcune entit\u00e0 MQTT hanno un nome di entit\u00e0 che inizia con il nome del dispositivo. Questo non \u00e8 previsto. Per evitare un nome duplicato, il prefisso del nome del dispositivo viene rimosso dal nome dell'entit\u00e0 come soluzione alternativa. Aggiorna la tua configurazione e riavvia Home Assistant per risolvere questo problema. \n\nElenco delle entit\u00e0 interessate: \n\n{config}",
+            "title": "Entit\u00e0 MQTT configurate manualmente con un nome che inizia con il nome del dispositivo"
+        },
+        "invalid_entity_category": {
+            "description": "Home Assistant ha rilevato un'entit\u00e0 MQTT `{domain}` configurata manualmente con una `entity_category` impostata su `config`.\n File di configurazione: **{config_file}**\n Vicino alla linea: **{line}** \n\n Configurazione con impostazione non valida: \n\n ```yaml\n {config}\n ``` \n\nQuando impostato, assicurati che `entity_category` per un `{domain}` sia impostato su `diagnostic` o `None`. Aggiorna la tua configurazione YAML e riavvia Home Assistant per risolvere questo problema.",
+            "title": "\u00c8 stato trovato un {domain} MQTT con una categoria di entit\u00e0 non valida"
+        },
+        "invalid_platform_config": {
+            "description": "Home Assistant ha rilevato una configurazione non valida per un elemento configurato manualmente. \n\n Dominio della piattaforma: **{domain}**\n File di configurazione: **{config_file}**\n Vicino alla linea: **{line}**\n Configurazione trovata:\n ```yaml\n {config}\n ```\n Errore: **{error}**. \n\nAssicurati che la configurazione sia valida e [ricarica](/developer-tools/yaml) gli elementi MQTT configurati manualmente o riavvia Home Assistant per risolvere questo problema.",
+            "title": "Trovata configurazione non valida per l'elemento mqtt {domain}"
+        }
+    },
+    "options": {
+        "error": {
+            "bad_birth": "Argomento di nascita non valido",
+            "bad_certificate": "Il certificato CA non \u00e8 valido",
+            "bad_client_cert": "Certificato client non valido, assicurarsi che venga fornito un file codificato PEM",
+            "bad_client_cert_key": "Il certificato client e la chiave privata non sono una coppia valida",
+            "bad_client_key": "Chiave privata non valida, assicurarsi che venga fornito un file codificato PEM senza password",
+            "bad_discovery_prefix": "Prefisso di rilevamento non valido",
+            "bad_will": "Argomento testamento non valido",
+            "bad_ws_headers": "Fornisci intestazioni HTTP valide come oggetto JSON",
+            "cannot_connect": "Impossibile connettersi",
+            "invalid_inclusion": "Il certificato del client e la chiave privata devono essere configurati insieme"
+        },
+        "step": {
+            "broker": {
+                "data": {
+                    "advanced_options": "Opzioni avanzate",
+                    "broker": "Broker",
+                    "certificate": "Carica il file del certificato CA personalizzato",
+                    "client_cert": "Carica il file del certificato client",
+                    "client_id": "ID client (lasciare vuoto per generarne uno casualmente)",
+                    "client_key": "Carica il file della chiave privata",
+                    "keepalive": "L'intervallo di tempo tra l'invio di messaggi di mantenimento in attivit\u00e0",
+                    "password": "Password",
+                    "port": "Porta",
+                    "protocol": "protocollo MQTT",
+                    "set_ca_cert": "Convalida del certificato del broker",
+                    "set_client_cert": "Usa un certificato client",
+                    "tls_insecure": "Ignora la convalida del certificato del broker",
+                    "transport": "Trasporto MQTT",
+                    "username": "Nome utente",
+                    "ws_headers": "Intestazioni WebSocket in formato JSON",
+                    "ws_path": "Percorso WebSocket"
+                },
+                "description": "Inserisci le informazioni di connessione del tuo broker MQTT.",
+                "title": "Opzioni del broker"
+            },
+            "options": {
+                "data": {
+                    "birth_enable": "Abilita messaggio di nascita",
+                    "birth_payload": "Payload del messaggio birth",
+                    "birth_qos": "QoS del messaggio birth",
+                    "birth_retain": "Persistenza del messaggio birth",
+                    "birth_topic": "Argomento del messaggio birth",
+                    "discovery": "Abilita il rilevamento",
+                    "discovery_prefix": "Rileva prefisso",
+                    "will_enable": "Abilita il messaggio testamento",
+                    "will_payload": "Payload del messaggio testamento",
+                    "will_qos": "QoS del messaggio testamento",
+                    "will_retain": "Persistenza del messaggio will",
+                    "will_topic": "Argomento del messaggio will"
+                },
+                "description": "Rilevamento - Se il rilevamento \u00e8 abilitato (consigliato), Home Assistant rilever\u00e0 automaticamente i dispositivi e le entit\u00e0 che pubblicano la loro configurazione sul broker MQTT. Se il rilevamento \u00e8 disabilitato, tutta la configurazione deve essere fatta manualmente.\nPrefisso di rilevamento - Il prefisso con cui deve iniziare un argomento di configurazione per il rilevamento automatico.\nMessaggio di nascita - Il messaggio di nascita viene inviato ogni volta che Home Assistant si (ri)connette al broker MQTT.\nMessaggio di testamento - Il messaggio di testamento verr\u00e0 inviato ogni volta che Home Assistant perde la connessione al broker, sia in caso di disconnessione pulita (ad esempio, Home Assistant si spegne) sia in caso di disconnessione non pulita (ad esempio, Home Assistant si blocca o perde la connessione di rete).",
+                "title": "Opzioni MQTT"
+            }
+        }
+    },
+    "selector": {
+        "set_ca_cert": {
+            "options": {
+                "auto": "Automatico",
+                "custom": "Personalizzato",
+                "off": "Spento/a"
+            }
+        }
+    },
+    "services": {
+        "dump": {
+            "description": "Scrive tutti i messaggi su un argomento specifico nel file `mqtt_dump.txt` nella cartella di configurazione.",
+            "fields": {
+                "duration": {
+                    "description": "Durata dell'ascolto dei messaggi in secondi.",
+                    "name": "Durata"
+                },
+                "topic": {
+                    "description": "Argomento da ascoltare.",
+                    "name": "Argomento"
+                }
+            },
+            "name": "Esporta"
+        },
+        "publish": {
+            "description": "Pubblica un messaggio in un argomento MQTT.",
+            "fields": {
+                "payload": {
+                    "description": "Il payload da pubblicare.",
+                    "name": "Payload"
+                },
+                "payload_template": {
+                    "description": "Modello di cui eseguire il rendering come valore di payload. Se viene fornito un payload, il modello viene ignorato.",
+                    "name": "Modello di payload"
+                },
+                "qos": {
+                    "description": "Qualit\u00e0 del servizio da utilizzare. 0: Al massimo una volta. 1: Almeno una volta. 2: Esattamente una volta.",
+                    "name": "QoS"
+                },
+                "retain": {
+                    "description": "Se il messaggio deve avere il flag di conservazione impostato. Se impostato, il broker memorizza il messaggio pi\u00f9 recente su un argomento.",
+                    "name": "Conserva"
+                },
+                "topic": {
+                    "description": "Argomento in cui pubblicare.",
+                    "name": "Argomento"
+                }
+            },
+            "name": "Pubblica"
+        },
+        "reload": {
+            "description": "Ricarica le entit\u00e0 MQTT dalla configurazione YAML.",
+            "name": "Ricarica"
+        }
+    }
+}

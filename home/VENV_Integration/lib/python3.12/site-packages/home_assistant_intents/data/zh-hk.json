@@ -1,0 +1,1278 @@
+{
+  "language": "zh-hk",
+  "intents": {
+    "HassTurnOff": {
+      "data": [
+        {
+          "sentences": [
+            "<turn_off>[<area>]{name}",
+            "[<let>][<area>]{name}<turn_off>"
+          ],
+          "excludes_context": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "<turn_off> <area> <light>",
+            "[<let>] <area> <light> <turn_off>"
+          ],
+          "slots": {
+            "domain": "light"
+          },
+          "response": "lights_area"
+        },
+        {
+          "sentences": [
+            "<close>[<area>]{name}",
+            "[<let>][<area>]{name}<close>"
+          ],
+          "requires_context": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "<close>車房[的][大|捲閘]門",
+            "[<let>]車房[的][大|捲閘]門<close>"
+          ],
+          "slots": {
+            "domain": "cover",
+            "device_class": "garage"
+          }
+        },
+        {
+          "sentences": [
+            "<close>[<area>]{cover_classes:device_class}",
+            "[<let>][<area>]{cover_classes:device_class}<close>"
+          ],
+          "slots": {
+            "domain": "cover"
+          },
+          "response": "cover_device_class"
+        },
+        {
+          "sentences": [
+            "<turn_off> <area> (風扇 | 吊扇)"
+          ],
+          "slots": {
+            "domain": "fan",
+            "name": "all"
+          },
+          "response": "fans_area"
+        },
+        {
+          "sentences": [
+            "[打|解]開[<area>]{name}[[的|嘅]鎖]",
+            "[<let>][<area>]{name}[[的|嘅]鎖](打開|解鎖)"
+          ],
+          "requires_context": {
+            "domain": "lock"
+          },
+          "response": "lock"
+        },
+        {
+          "sentences": [
+            "[打|解]開<area>[<all>][門]鎖",
+            "[<let>]<area>[<all>][門]鎖[都](打開|解鎖)",
+            "{area}(開|解)鎖"
+          ],
+          "slots": {
+            "domain": "lock"
+          },
+          "response": "lock"
+        }
+      ]
+    },
+    "HassCancelTimer": {
+      "data": [
+        {
+          "sentences": [
+            "<timer_cancel> [<the>| <my>] <timer>",
+            "<timer_cancel> [<the>| <my>] <timer_start> [<the>| <my>] <timer>",
+            "<timer_cancel> [<the>| <my>] {area} [<the>| <my>] <timer>",
+            "<timer_cancel> [<the>| <my>] {timer_name:name} [<the>| <my>] <timer>"
+          ]
+        }
+      ]
+    },
+    "HassTimerStatus": {
+      "data": [
+        {
+          "sentences": [
+            "[<my>] <timer> <status>",
+            "[<my>] <timer> <left> <how much><time>",
+            "<timer_start> <timer> <status>",
+            "<timer_start> <timer> <left> <how much> <time>",
+            "{area} <timer> <status>",
+            "<area> <timer> <left> <how much> <time>",
+            "{timer_name:name} <timer> <status>",
+            "{timer_name:name} <timer> <left> <how much> <time>"
+          ]
+        }
+      ]
+    },
+    "HassGetWeather": {
+      "data": [
+        {
+          "sentences": [
+            "<what_is>[ the] <weather>[ <like>]"
+          ]
+        },
+        {
+          "sentences": [
+            "<what_is>[ the] <name> <weather>[ <like>]"
+          ],
+          "requires_context": {
+            "domain": "weather"
+          }
+        }
+      ]
+    },
+    "HassGetCurrentTime": {
+      "data": [
+        {
+          "sentences": [
+            "[<current>]<what_is><time>"
+          ]
+        }
+      ]
+    },
+    "HassTurnOn": {
+      "data": [
+        {
+          "sentences": [
+            "<turn_on> <area> <light>",
+            "[<let>] <area> <light> <turn_on>"
+          ],
+          "slots": {
+            "domain": "light"
+          },
+          "response": "lights_area"
+        },
+        {
+          "sentences": [
+            "<turn_on><area>(風扇|吊扇)"
+          ],
+          "slots": {
+            "domain": "fan",
+            "name": "all"
+          },
+          "response": "fans_area"
+        },
+        {
+          "sentences": [
+            "[運行|執行]<name>[腳本|script]"
+          ],
+          "requires_context": {
+            "domain": "script"
+          },
+          "slots": {
+            "domain": "script"
+          },
+          "response": "script"
+        },
+        {
+          "sentences": [
+            "[激活|開啟|打開|(切|轉|更)換[到]]<name>[場景|模式]",
+            "<name>[場景|模式]開啟"
+          ],
+          "requires_context": {
+            "domain": "scene"
+          },
+          "slots": {
+            "domain": "scene"
+          },
+          "response": "scene"
+        },
+        {
+          "sentences": [
+            "關[閉|上][<area>]{name}[[的|嘅]鎖]",
+            "[<let>][<area>]{name}[[的|嘅]鎖](關(閉|上)|上鎖)"
+          ],
+          "requires_context": {
+            "domain": "lock"
+          },
+          "response": "lock"
+        },
+        {
+          "sentences": [
+            "關(閉|上)<area>[<all>][門]鎖",
+            "[<let>]<area>[<all>][門]鎖[都](關(閉|上)|上鎖)",
+            "{area}(上|關)鎖"
+          ],
+          "slots": {
+            "domain": "lock"
+          },
+          "response": "lock"
+        },
+        {
+          "sentences": [
+            "<turn_on>[<area>]{name}",
+            "[<let>][<area>]{name}<turn_on>"
+          ],
+          "excludes_context": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "<open>[<area>]{name}",
+            "[<let>][<area>]{name}<open>"
+          ],
+          "requires_context": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "<open>車房[的][大|捲閘]門",
+            "[<let>]車房[的][大|捲閘]門<open>"
+          ],
+          "slots": {
+            "domain": "cover",
+            "device_class": "garage"
+          }
+        },
+        {
+          "sentences": [
+            "<open>[<area>]{cover_classes:device_class}",
+            "[<let>][<area>]{cover_classes:device_class}<open>"
+          ],
+          "slots": {
+            "domain": "cover"
+          },
+          "response": "cover_device_class"
+        }
+      ]
+    },
+    "HassMediaUnpause": {
+      "data": [
+        {
+          "sentences": [
+            "((<unpause>);<name>)"
+          ],
+          "requires_context": {
+            "domain": "media_player"
+          }
+        },
+        {
+          "sentences": [
+            "<unpause>"
+          ],
+          "requires_context": {
+            "area": {
+              "slot": true
+            }
+          }
+        },
+        {
+          "sentences": [
+            "<unpause> <area> [ [<the>| <my>](music|[tv ]show[s]|media[ player[s]]) ]"
+          ]
+        }
+      ]
+    },
+    "HassShoppingListAddItem": {
+      "data": [
+        {
+          "sentences": [
+            "<add> <item> <to> <my_list>"
+          ],
+          "response": "item_added",
+          "expansion_rules": {
+            "my_list": "[ my| the][ shopping] list",
+            "item": "{shopping_list_item:item}"
+          }
+        }
+      ]
+    },
+    "HassNevermind": {
+      "data": [
+        {
+          "sentences": [
+            "沒關係",
+            "無事",
+            "算數"
+          ]
+        }
+      ]
+    },
+    "HassSetPosition": {
+      "data": [
+        {
+          "sentences": [
+            "(<numeric_value_set>|<open>|<close>) <name> [position ] <to> <position>"
+          ],
+          "requires_context": {
+            "domain": "valve"
+          },
+          "slots": {
+            "domain": "valve"
+          }
+        },
+        {
+          "sentences": [
+            "(<numeric_value_set>|<open>|<close>) <name> [position ] <to> <position>"
+          ],
+          "requires_context": {
+            "domain": "cover"
+          },
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "(<numeric_value_set>|<open>|<close>)<area>{cover_classes:device_class}[ position] <to> <position>"
+          ],
+          "slots": {
+            "domain": "cover"
+          }
+        }
+      ]
+    },
+    "HassGetCurrentDate": {
+      "data": [
+        {
+          "sentences": [
+            "(<today>)(<what_is>)(<date>)"
+          ]
+        }
+      ]
+    },
+    "HassIncreaseTimer": {
+      "data": [
+        {
+          "sentences": [
+            "<increase> <timer_duration> <to> [<the>| <my>] <timer>",
+            "<increase> [<the>| <my>] <timer> <timer_duration> ",
+            "<increase> <timer_duration> <to> [<the>| <my>] <timer_start> [<the>| <my>] <timer>",
+            "<increase> [<the>| <my>] <timer_start> [<the>| <my>] <timer> <timer_duration>",
+            "<increase> <timer_duration> <to> [<the>| <my>] {area} [<the>| <my>] <timer>",
+            "<increase> [<the>| <my>] {area} [<the>| <my>] <timer> <timer_duration>",
+            "<increase> <timer_duration> <to> [<the>| <my>] {timer_name:name} [<the>| <my>] <timer>",
+            "<increase> [<the>| <my>] {timer_name:name} [<the>| <my>] <timer> <timer_duration>"
+          ]
+        }
+      ]
+    },
+    "HassLightSet": {
+      "data": [
+        {
+          "sentences": [
+            "(設置|調節|調整|調教)<name>(亮度)[<set_to>]<brightness>"
+          ],
+          "response": "brightness",
+          "requires_context": {
+            "domain": "light"
+          }
+        },
+        {
+          "sentences": [
+            "(設置|調節|調整|調教)<area>[<light>](亮度)[<set_to>]<brightness>"
+          ],
+          "slots": {
+            "name": "all"
+          },
+          "response": "brightness_area"
+        },
+        {
+          "sentences": [
+            "(設置|調節|調整|調教)<name>[<light>](亮度)[<set_to>]{brightness_level:brightness}"
+          ],
+          "requires_context": {
+            "domain": "light"
+          },
+          "response": "brightness"
+        },
+        {
+          "sentences": [
+            "(設置|調節|調整|調教)<area>[<light>](亮度)[<set_to>]{brightness_level:brightness}"
+          ],
+          "slots": {
+            "name": "all"
+          },
+          "response": "brightness_area"
+        },
+        {
+          "sentences": [
+            "(設置|調節|調整|調教)<name>[顏色][<set_to>]{color}"
+          ],
+          "requires_context": {
+            "domain": "light"
+          },
+          "response": "color"
+        },
+        {
+          "sentences": [
+            "(設置|調節|調整|調教)<area><light>[顏色][<set_to>]{color}"
+          ],
+          "slots": {
+            "name": "all"
+          },
+          "response": "color_area"
+        }
+      ]
+    },
+    "HassMediaNext": {
+      "data": [
+        {
+          "sentences": [
+            "<name> <next> [<item>] "
+          ],
+          "requires_context": {
+            "domain": "media_player"
+          }
+        },
+        {
+          "sentences": [
+            "<next> [<item>] "
+          ],
+          "requires_context": {
+            "area": {
+              "slot": true
+            }
+          }
+        },
+        {
+          "sentences": [
+            "<area> <next> [<item>]"
+          ]
+        }
+      ]
+    },
+    "HassPauseTimer": {
+      "data": [
+        {
+          "sentences": [
+            "<pause> [<the>| <my>] <timer>",
+            "<pause> [<the>| <my>] <timer_start> [<the>| <my>] <timer>",
+            "<pause> [<the>| <my>] {area} [<the>| <my>] <timer>",
+            "<pause> [<the>| <my>] {timer_name:name} [<the>| <my>] <timer>"
+          ]
+        }
+      ]
+    },
+    "HassDecreaseTimer": {
+      "data": [
+        {
+          "sentences": [
+            "<decrease> <timer_duration> <to> [<the>| <my>] <timer>",
+            "<decrease> [<the>| <my>] <timer> <timer_duration> ",
+            "<decrease> <timer_duration> <to> [<the>| <my>] <timer_start> [<the>| <my>] <timer>",
+            "<decrease> [<the>| <my>] <timer_start> [<the>| <my>] <timer> <timer_duration>",
+            "<decrease> <timer_duration> <to> [<the>| <my>] {area} [<the>| <my>] <timer>",
+            "<decrease> [<the>| <my>] {area} [<the>| <my>] <timer> <timer_duration>",
+            "<decrease> <timer_duration> <to> [<the>| <my>] {timer_name:name} [<the>| <my>] <timer>",
+            "<decrease> [<the>| <my>] {timer_name:name} [<the>| <my>] <timer> <timer_duration>"
+          ]
+        }
+      ]
+    },
+    "HassMediaPause": {
+      "data": [
+        {
+          "sentences": [
+            "(<pause>;<name>)"
+          ],
+          "requires_context": {
+            "domain": "media_player"
+          }
+        },
+        {
+          "sentences": [
+            "<pause>"
+          ],
+          "requires_context": {
+            "area": {
+              "slot": true
+            }
+          }
+        },
+        {
+          "sentences": [
+            "<pause> <area> [ [<the>| <my>](music|[tv ]show[s]|media[ player[s]]) ]"
+          ]
+        }
+      ]
+    },
+    "HassUnpauseTimer": {
+      "data": [
+        {
+          "sentences": [
+            "<resume> [<the>| <my>] <timer>",
+            "<resume> [<the>| <my>] <timer_start> [<the>| <my>] <timer>",
+            "<resume> [<the>| <my>] {area} [<the>| <my>] <timer>",
+            "<resume> [<the>| <my>] {timer_name:name} [<the>| <my>] <timer>"
+          ]
+        }
+      ]
+    },
+    "HassStartTimer": {
+      "data": [
+        {
+          "sentences": [
+            "<timer_duration> <timer>",
+            "<timer_set> [<the>| <my>] <timer_duration> [<the>| <my>] <timer>",
+            "<timer_set> [<the>| <my>] [<the>| <my>] <timer> <for> <timer_duration>",
+            "<timer_set> [<the>| <my>] {timer_name:name} [<the>| <my>] <timer> <for> <timer_duration>",
+            "{timer_command:conversation_command} in <timer_duration>",
+            "<timer_duration> 後 {timer_command:conversation_command} "
+          ],
+          "response": "command"
+        }
+      ]
+    },
+    "HassClimateGetTemperature": {
+      "data": [
+        {
+          "sentences": [
+            "[<area>] <temp> <how_many_is>",
+            "[<area>](現在|依家)多少度",
+            "[<area>](現在|依家)幾度"
+          ]
+        }
+      ]
+    },
+    "HassGetState": {
+      "data": [
+        {
+          "sentences": [
+            "[<area>]{name}(是不是|有没有|係唔係){lock_states:state}[嗎|不]",
+            "[<area>]{name}[是|有|有無|有冇]{lock_states:state}[嗎|不]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "lock"
+          },
+          "slots": {
+            "domain": "lock"
+          }
+        },
+        {
+          "sentences": [
+            "[{area}][有|有没有|有無|有冇](門|鎖|門鎖)[是|係]{lock_states:state}[嗎|不]",
+            "{area}(門|鎖|門鎖)[有|有没有|有無|有冇]{lock_states:state}[嗎|不]"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "lock"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>][<all>](門|鎖|門鎖)[是|是不是|係唔係]都[是|係]{lock_states:state}[嗎|不]"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "lock"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>](<which>|(哪|邊)[一](扇|道|個))(門|鎖|門鎖)[是|係]{lock_states:state}",
+            "(<which>|(哪|邊)[一](扇|道|個))[<area>](門|鎖|門鎖)[是|係]{lock_states:state}",
+            "<area>(門|鎖|門鎖)(<which>|(哪|邊)[一](扇|道|個))[是|係]{lock_states:state}"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "lock"
+          }
+        },
+        {
+          "sentences": [
+            "[{area}](<how_many_is>|有幾(扇|道|個))(門|鎖|門鎖)[是|係]{lock_states:state}",
+            "(<how_many_is>|有幾(扇|道|個))[<area>](門|鎖|門鎖)[是|係]{lock_states:state}",
+            "{area}(門|鎖|門鎖)(<how_many_is>|有幾(扇|道|個))[是|係]{lock_states:state}"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "lock"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>]<name>[狀態](<what_is>|<how_many_is>)",
+            "[<area>]<name>[<what_is>]狀態"
+          ],
+          "response": "one"
+        },
+        {
+          "sentences": [
+            "[<area>]{name}係唔係{on_off_states:state}",
+            "[<area>]{name}[是]{on_off_states:state}[嗎|咗|咗嗎]"
+          ],
+          "response": "one_yesno",
+          "excludes_context": {
+            "domain": [
+              "cover"
+            ]
+          }
+        },
+        {
+          "sentences": [
+            "[{area}][有|有没有|有冇|有無]{on_off_domains:domain}[是|是不是|係唔係]{on_off_states:state}[嗎|不|咗嗎]"
+          ],
+          "response": "any"
+        },
+        {
+          "sentences": [
+            "[<area>][<all>]{on_off_domains:domain}[是|是不是|係唔係]都[是|係]{on_off_states:state}[嗎|不]"
+          ],
+          "response": "all"
+        },
+        {
+          "sentences": [
+            "[<area>]<which>{on_off_domains:domain}[是|係]{on_off_states:state}",
+            "<which>[<area>]{on_off_domains:domain}[是]{on_off_states:state}"
+          ],
+          "response": "which"
+        },
+        {
+          "sentences": [
+            "[{area}]<how_many_is>{on_off_domains:domain}[是|係]{on_off_states:state}",
+            "<how_many_is>[<area>]{on_off_domains:domain}[是|係]{on_off_states:state}"
+          ],
+          "response": "how_many"
+        },
+        {
+          "sentences": [
+            "[<area>]{name}(是|是不是|係|係唔係){cover_states:state}[嗎|不]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "cover"
+          },
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "[{area}][有|有没有|有無]{cover_classes:device_class}[是|是不是|係|係唔係]{cover_states:state}[嗎|不]"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>][<all>]{cover_classes:device_class}[是|是不是|係|係唔係]都[是|係]{cover_states:state}[嗎|不]",
+            "<all><area>{cover_classes:device_class}[是|是不是|係|係唔係]都[是|係]{cover_states:state}[嗎|不]"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>]<which>{cover_classes:device_class}[是|係]{cover_states:state}",
+            "<which>[<area>]{cover_classes:device_class}[是|係]{cover_states:state}"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "[{area}]<how_many_is>{cover_classes:device_class}[是|係]{cover_states:state}",
+            "<how_many_is>[<area>]{cover_classes:device_class}[是|係]{cover_states:state}"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "cover"
+          }
+        }
+      ]
+    },
+    "HassVacuumReturnToBase": {
+      "data": [
+        {
+          "sentences": [
+            "<return> <name>",
+            "<return> <name>[<to>基地]"
+          ],
+          "requires_context": {
+            "domain": "vacuum"
+          }
+        }
+      ]
+    },
+    "HassVacuumStart": {
+      "data": [
+        {
+          "sentences": [
+            "開始 <name>"
+          ],
+          "requires_context": {
+            "domain": "vacuum"
+          }
+        }
+      ]
+    },
+    "HassMediaPrevious": {
+      "data": [
+        {
+          "sentences": [
+            "<name> <replay> [<item>] ",
+            "<name> <previous> [<item>] "
+          ],
+          "requires_context": {
+            "domain": "media_player"
+          }
+        },
+        {
+          "sentences": [
+            "<replay> [<item>] ",
+            "<previous> [<item>] "
+          ],
+          "requires_context": {
+            "area": {
+              "slot": true
+            }
+          }
+        },
+        {
+          "sentences": [
+            "<area> <replay> [<item>]",
+            "<area> <previous> [<item>]"
+          ]
+        }
+      ]
+    },
+    "HassListAddItem": {
+      "data": [
+        {
+          "sentences": [
+            "<add> <item> <to> <my_list>"
+          ],
+          "response": "item_added",
+          "requires_context": {
+            "domain": "todo"
+          },
+          "expansion_rules": {
+            "my_list": "[ my| the] {name}[ list]",
+            "item": "{shopping_list_item:item}"
+          }
+        }
+      ]
+    },
+    "HassSetVolume": {
+      "data": [
+        {
+          "sentences": [
+            "<numeric_value_set> <name> <volume> <to> <volume_percentage>",
+            "<numeric_value_set> (<up>|<down>) <name> <volume> <to> <volume_percentage>",
+            "將 <name> <volume> <numeric_value_set> (<up>|<down>) <to> <volume_percentage>"
+          ],
+          "requires_context": {
+            "domain": "media_player"
+          }
+        },
+        {
+          "sentences": [
+            "<numeric_value_set> <area> <volume> <to> <volume_percentage>",
+            "<numeric_value_set> (<up>|<down>) <area> <volume> <to> <volume_percentage>",
+            "將 <area> <volume> <numeric_value_set> (<up>|<down>) <to> <volume_percentage>"
+          ]
+        },
+        {
+          "sentences": [
+            "<numeric_value_set> <volume> <to> <volume_percentage>",
+            "<numeric_value_set> (<up>|<down>) <volume> <to> <volume_percentage>",
+            "將 <volume> <numeric_value_set> (<up>|<down>) <to> <volume_percentage>"
+          ],
+          "requires_context": {
+            "area": {
+              "slot": true
+            }
+          }
+        }
+      ]
+    }
+  },
+  "settings": {
+    "ignore_whitespace": true
+  },
+  "responses": {
+    "errors": {
+      "no_intent": "對唔住，我聽唔明白",
+      "handle_error": "處理時發生意外錯誤",
+      "no_area": "唔好意思，無區域名叫 {{ area }}",
+      "no_floor": "唔好意思，無樓層名叫 {{ floor }}",
+      "no_domain": "唔好意思，無領域名叫 {{ domain }}",
+      "no_domain_in_area": "唔好意思，區域名 {{ area }} 不包括領域名 {{ domain }}",
+      "no_domain_in_floor": "唔好意思，樓層名 {{ floor }} 不包括領域名 {{ domain }}",
+      "no_device_class": "唔好意思，無設備類別名叫 {{ device_class }}",
+      "no_device_class_in_area": "唔好意思，區域名 {{ area }} 不包括備類別 {{ device_class }}",
+      "no_device_class_in_floor": "唔好意思，樓層名 {{ floor }} 不包括備類別 {{ device_class }}",
+      "no_entity": "唔好意思，無設備或實體叫 {{ entity }}",
+      "no_entity_in_area": "唔好意思，區域名 {{ area }} 不包括實體 {{ device_class }}",
+      "no_entity_in_floor": "唔好意思，樓層名 {{ floor }} 不包括實體 {{ device_class }}",
+      "entity_wrong_state": "唔好意思，無實體狀況係 {{ state | lower }}",
+      "feature_not_supported": "唔好意思，無設備支援所需的功能",
+      "no_entity_exposed": "唔好意思， {{ entity }} 無暴露",
+      "no_entity_in_area_exposed": "唔好意思， {{ entity }} 係 {{ area }} 地區 無暴露",
+      "no_entity_in_floor_exposed": "唔好意思， {{ entity }} 係 {{ floor }} 樓層 無暴露",
+      "no_domain_exposed": "唔好意思， 無 {{ domain }} 暴露",
+      "no_domain_in_area_exposed": "唔好意思， 無 {{ domain }} 係 {{ area }} 地區 暴露",
+      "no_domain_in_floor_exposed": "唔好意思， 無 {{ domain }} 係 {{ floor }} 樓層 暴露",
+      "no_device_class_exposed": "唔好意思， 無 {{ device_class }} 暴露",
+      "no_device_class_in_area_exposed": "唔好意思， 無 {{ device_class }} 係 {{ area }} 地區 暴露",
+      "no_device_class_in_floor_exposed": "唔好意思， 無 {{ device_class }} 係 {{ floor }} 樓層 暴露",
+      "timer_not_found": "唔好意思，找不到那個計時器",
+      "multiple_timers_matched": "唔好意思，我無法定位多個計時器",
+      "no_timer_support": "唔好意思，本設備不支援計時器"
+    },
+    "intents": {
+      "HassGetState": {
+        "one": "{{ slots.name }}現在係{{state.state_with_unit}}",
+        "one_yesno": "{% if query.matched: %}\n係呀\n{% else: %}\n唔係呀，{{ slots.name }}係{{ state.state }}咗\n{% endif %}\n",
+        "any": "{% if query.matched %}\n  {% set match = query.matched | map(attribute=\"name\") | sort | list %}\n  係呀，{{ match[:4] | join(\"、\") }}{{ '等' if match|length > 4 else '' }}\n  {{- slots.state[:-1] if slots.state[-1] == '的' else slots.state }}\n{%- else -%}\n  無呀\n{% endif %}\n",
+        "all": "{% if not query.unmatched: %}\n  係呀\n{%- else -%}\n  {% set no_match = query.unmatched | map(attribute=\"name\") | sort | list %}\n  唔係呀，{{ no_match[:4] | join(\"、\") }}{{ '等' if match|length > 4 else '' }}除外\n{% endif %}\n",
+        "which": "{% if not query.matched %}\n  無呀\n{% else: %}\n  {% set match = query.matched | map(attribute=\"name\") | sort | list %}\n  {{ match[:4] | join(\"、\") }}{{ '等' if match|length > 4 else '' }}{{ slots.state }}\n{% endif %}\n",
+        "how_many": "{{ query.matched | length }}\n"
+      },
+      "HassTurnOff": {
+        "default": "{{ slots.name|default('') }}已關閉",
+        "lights_area": "{{ slots.area }}燈已關閉",
+        "fans_area": "{{ slots.area }}風扇已關閉",
+        "cover": "{{ slots.name }}已關閉",
+        "cover_device_class": "{{ slots.area|default('') }}{{ slots.device_class }}已關閉",
+        "cover_area": "{{ slots.area }}窗簾已關閉",
+        "cover_door": "{{ slots.area }}門已關閉",
+        "cover_window": "{{ slots.area }}窗戶已關閉",
+        "lock": "{{ slots.name|default('') }}已解鎖"
+      },
+      "HassStartTimer": {
+        "default": "Timer started",
+        "command": "收到命令"
+      },
+      "HassShoppingListAddItem": {
+        "item_added": "加佐 {{ slots.item }}"
+      },
+      "HassTurnOn": {
+        "default": "{{ slots.name }}已打開",
+        "lights_area": "{{ slots.area }}燈已打開",
+        "fans_area": "{{ slots.area }}風扇已打開",
+        "cover": "{{ slots.name }}已打開",
+        "cover_device_class": "{{ slots.area|default('') }}{{ slots.device_class }}已打開",
+        "cover_area": "{{ slots.area }}窗簾已打開",
+        "cover_door": "{{ slots.area }}門已打開",
+        "cover_window": "{{ slots.area }}窗戶已打開",
+        "scene": "{{ slots.name|default('') }}已開啟",
+        "script": "{{ slots.name|default('') }}腳本已執行",
+        "lock": "{{ slots.name|default('') }}已上鎖"
+      },
+      "HassMediaPause": {
+        "default": "暫停完成"
+      },
+      "HassGetCurrentTime": {
+        "default": "{% set minute_str = '{0:02d}'.format(slots.time.minute) %}\n{% if slots.time.hour <= 12: %} 上晝 {{ slots.time.hour }}點{{ minute_str }}分 {% else: %} 下晝 {{ slots.time.hour - 12 }}點{{ minute_str }}分 {% endif %}\n"
+      },
+      "HassPauseTimer": {
+        "default": "計時器暫停"
+      },
+      "HassTimerStatus": {
+        "default": "{% set num_timers = slots.timers | length %}\n{% set active_timers = slots.timers | selectattr('is_active') | list %}\n{% set num_active_timers = active_timers | length %}\n{% set paused_timers = slots.timers | rejectattr('is_active') | list %}\n{% set num_paused_timers = paused_timers | length %}\n{% set next_timer = None %}\n\n{% if num_timers == 0: %}\n  No timers.\n{% elif num_active_timers == 0: %}\n  {# No active timers #}\n  {% if num_paused_timers == 1: %}\n    {% set next_timer = paused_timers[0] %}\n    Timer is paused.\n  {% else: %}\n    {{ num_paused_timers }} paused timers.\n  {% endif %}\n{% else: %}\n  {# At least one active timer #}\n  {% if num_active_timers == 1: %}\n    {% set next_timer = active_timers[0] %}\n  {% else: %}\n    {# Get active timer that will finish soonest #}\n    {% set sorted_timers = active_timers | sort(attribute='total_seconds_left') %}\n    {% set next_timer = sorted_timers[0] %}\n    {{ num_active_timers }} running timers.\n  {% endif %}\n\n  {% if num_paused_timers == 1: %}\n    1 paused timer.\n  {% elif num_paused_timers > 0: %}\n    {{ num_paused_timers }} paused timers.\n  {% endif %}\n{% endif %}\n\n{% if next_timer: %}\n  {# At least one active timer #}\n  {% if (next_timer.rounded_hours_left == 1) and (next_timer.rounded_minutes_left > 0): %}\n    1 hour and {{ next_timer.rounded_minutes_left }} minutes\n  {% elif (next_timer.rounded_hours_left == 1): %}\n    1 hour\n  {% elif (next_timer.rounded_hours_left > 1) and (next_timer.rounded_minutes_left > 0): %}\n    {{ next_timer.rounded_hours_left }} hours and {{ next_timer.rounded_minutes_left }} minutes\n  {% elif (next_timer.rounded_hours_left > 1): %}\n    {{ next_timer.rounded_hours_left }} hours\n  {% elif (next_timer.rounded_minutes_left == 1) and (next_timer.rounded_seconds_left > 0): %}\n    1 minute and {{ next_timer.rounded_seconds_left }} seconds\n  {% elif (next_timer.rounded_minutes_left == 1): %}\n    1 minute\n  {% elif (next_timer.rounded_minutes_left > 1) and (next_timer.rounded_seconds_left > 0): %}\n    {{ next_timer.rounded_minutes_left }} minutes and {{ next_timer.rounded_seconds_left }} seconds\n  {% elif (next_timer.rounded_minutes_left > 1): %}\n    {{ next_timer.rounded_minutes_left }} minutes\n  {% elif (next_timer.rounded_seconds_left == 1): %}\n    1 second\n  {% elif (next_timer.rounded_seconds_left > 1): %}\n    {{ next_timer.rounded_seconds_left }} seconds\n  {% endif %}\n\n  {% if num_timers > 1: %}\n    {# Give some extra information to disambiguate #}\n    left on\n    {% if (next_timer.start_hours > 0) and (next_timer.start_minutes > 0): %}\n      {{ next_timer.start_hours }} hour and {{ next_timer.start_minutes }} minute\n    {% elif (next_timer.start_hours > 0): %}\n      {{ next_timer.start_hours }} hour\n    {% elif (next_timer.start_minutes > 0) and (next_timer.start_seconds > 0): %}\n      {{ next_timer.start_minutes }} minute and {{ next_timer.start_seconds }} second\n    {% elif (next_timer.start_minutes > 0): %}\n      {{ next_timer.start_minutes }} minute\n    {% elif (next_timer.start_seconds > 0): %}\n      {{ next_timer.start_seconds }} second\n    {% endif %}\n\n    {% if next_timer.name: %}\n      {{ next_timer.name }}\n    {% elif next_timer.area: %}\n      {{ next_timer.area }}\n    {% endif %}\n\n    timer.\n  {% else: %}\n    left.\n  {% endif %}\n{% endif %}\n"
+      },
+      "HassListAddItem": {
+        "item_added": "加佐 {{ slots.item }}"
+      },
+      "HassGetCurrentDate": {
+        "default": "{% set months = {\n   1: '1月',\n   2: '2月',\n   3: '3月',\n   4: '4月',\n   5: '5月',\n   6: '6月',\n   7: '7月',\n   8: '8月',\n   9: '9月',\n   10: '10月',\n   11: '11月',\n   12: '12月',\n} %} {% set ordinal = {\n   1: '1號',\n   2: '2號',\n   3: '3號',\n   4: '4號',\n   5: '5號',\n   6: '6號',\n   7: '7號',\n   8: '8號',\n   9: '9號',\n   10: '10號',\n   11: '11號',\n   12: '12號',\n   13: '13號',\n   14: '14號',\n   15: '15號',\n   16: '16號',\n   17: '17號',\n   18: '18號',\n   19: '19號',\n   20: '20號',\n   21: '21號',\n   22: '22號',\n   23: '23號',\n   24: '24號',\n   25: '25號',\n   26: '26號',\n   27: '27號',\n   28: '28號',\n   29: '29號',\n   30: '30號',\n   31: '31號',\n } %}\n{{ months[slots.date.month] }} {{ ordinal[slots.date.day] }}, {{ slots.date.year }}\n"
+      },
+      "HassUnpauseTimer": {
+        "default": "計時器恢復"
+      },
+      "HassMediaPrevious": {
+        "default": "播放上一個單元"
+      },
+      "HassGetWeather": {
+        "default": "{% set weather_condition = {\n  'clear': '同晴朗',\n  'clear-night': '同晴朗',\n  'cloudy': '同多雲',\n  'exceptional': '同異常',\n  'fog': '有霧',\n  'hail': '有冰雹',\n  'lightning': '有閃電',\n  'lightning-rainy': '有閃電和雨',\n  'partlycloudy': '有時多雲',\n  'pouring': '有傾盆大雨',\n  'rainy': '有雨',\n  'snowy': '有雪',\n  'snowy-rainy': '有雪雨',\n  'sunny': '有陽光',\n  'windy': '有風',\n  'windy-variant': '有風同有雲'\n} %} {{ state.attributes.get('temperature') }} {{ state.attributes.get('temperature_unit') }} {{ weather_condition.get((state.state | string).lower(), \"\") }}\n"
+      },
+      "HassLightSet": {
+        "brightness": "{{ slots.name }}亮度已設置為{{ slots.brightness }}",
+        "brightness_area": "{{ slots.area }}燈亮度已設置為{{ slots.brightness }}",
+        "color": "{{ slots.name }}顏色已設置為{{ slots.color }}",
+        "color_area": "{{ slots.area }}燈顏色已設置為{{ slots.color }}"
+      },
+      "HassVacuumStart": {
+        "default": "開始"
+      },
+      "HassMediaUnpause": {
+        "default": "繼續"
+      },
+      "HassSetPosition": {
+        "default": "Position set"
+      },
+      "HassMediaNext": {
+        "default": "播放下一個單元"
+      },
+      "HassCancelTimer": {
+        "default": "計時器取消"
+      },
+      "HassClimateGetTemperature": {
+        "default": "{{ state.state }} 度"
+      },
+      "HassSetVolume": {
+        "default": "音量設定完成"
+      },
+      "HassDecreaseTimer": {
+        "default": "計時器更新完成"
+      },
+      "HassIncreaseTimer": {
+        "default": "計時器更新完成"
+      },
+      "HassVacuumReturnToBase": {
+        "default": "開始返回"
+      }
+    }
+  },
+  "lists": {
+    "color": {
+      "values": [
+        {
+          "in": "红色",
+          "out": "red"
+        },
+        {
+          "in": "橙色",
+          "out": "orange"
+        },
+        {
+          "in": "黄色",
+          "out": "yellow"
+        },
+        {
+          "in": "綠色",
+          "out": "green"
+        },
+        {
+          "in": "藍色",
+          "out": "blue"
+        },
+        {
+          "in": "紫色",
+          "out": "purple"
+        },
+        {
+          "in": "白色",
+          "out": "white"
+        },
+        {
+          "in": "黑色",
+          "out": "black"
+        },
+        {
+          "in": "棕色",
+          "out": "brown"
+        }
+      ]
+    },
+    "brightness": {
+      "range": {
+        "type": "percentage",
+        "from": 0,
+        "to": 100
+      }
+    },
+    "temperature": {
+      "range": {
+        "type": "temperature",
+        "from": 0,
+        "to": 100
+      }
+    },
+    "temperature_unit": {
+      "values": [
+        {
+          "in": "c|攝氏|度|度攝氏|°C|℃",
+          "out": "celsius"
+        },
+        {
+          "in": "f|華氏|度|度華氏|°F|℉",
+          "out": "fahrenheit"
+        }
+      ]
+    },
+    "brightness_level": {
+      "values": [
+        {
+          "in": "(最大|最光|最高|最亮)",
+          "out": 100
+        },
+        {
+          "in": "(最小|最暗|最低|最黑)",
+          "out": 1
+        }
+      ]
+    },
+    "on_off_states": {
+      "values": [
+        {
+          "in": "(打開|開著|開了|開咗|開)[的]",
+          "out": "on"
+        },
+        {
+          "in": "(關閉|關著|關了|關咗|閂咗|閂)[的]",
+          "out": "off"
+        }
+      ]
+    },
+    "on_off_domains": {
+      "values": [
+        {
+          "in": "(燈|天花燈|筒燈|射燈|檯燈|床頭燈|燈光)",
+          "out": "light"
+        },
+        {
+          "in": "(風扇|電風扇|塔扇|吊扇)",
+          "out": "fan"
+        },
+        {
+          "in": "(開關|開關制|電源|插座|通斷器)",
+          "out": "switch"
+        }
+      ]
+    },
+    "cover_states": {
+      "values": [
+        {
+          "in": "(打開|開著|開了|開咗|打開)[的|咗]",
+          "out": "open"
+        },
+        {
+          "in": "(關閉|關著|關了|關咗|閂咗)[的|咗]",
+          "out": "closed"
+        },
+        {
+          "in": "打開緊",
+          "out": "opening"
+        },
+        {
+          "in": "關閉緊",
+          "out": "closing"
+        }
+      ]
+    },
+    "cover_classes": {
+      "values": [
+        {
+          "in": "(遮陽|雨)(蓬|棚)",
+          "out": "awning"
+        },
+        {
+          "in": "(百葉窗|百葉簾|捲簾)",
+          "out": "blind"
+        },
+        {
+          "in": "窗簾",
+          "out": "curtain"
+        },
+        {
+          "in": "(門|房門|捲閘門)",
+          "out": "door"
+        },
+        {
+          "in": "車房門",
+          "out": "garage"
+        },
+        {
+          "in": "(大門|院子門|鐵門)",
+          "out": "gate"
+        },
+        {
+          "in": "遮陽簾",
+          "out": "shade"
+        },
+        {
+          "in": "百葉窗戶",
+          "out": "shutter"
+        },
+        {
+          "in": "窗戶",
+          "out": "window"
+        }
+      ]
+    },
+    "lock_states": {
+      "values": [
+        {
+          "in": "(已上鎖|鎖著|鎖上|鎖了|鎖咗)[的|嘅]",
+          "out": "locked"
+        },
+        {
+          "in": "(已解鎖|沒[有][上]鎖|無[上]鎖)[的|嘅]",
+          "out": "unlocked"
+        }
+      ]
+    },
+    "position": {
+      "range": {
+        "type": "percentage",
+        "from": 0,
+        "to": 100
+      }
+    },
+    "shopping_list_item": {
+      "wildcard": true
+    },
+    "timer_seconds": {
+      "range": {
+        "from": 1,
+        "to": 100
+      }
+    },
+    "timer_minutes": {
+      "range": {
+        "from": 1,
+        "to": 100
+      }
+    },
+    "timer_hours": {
+      "range": {
+        "from": 1,
+        "to": 100
+      }
+    },
+    "timer_half": {
+      "values": [
+        {
+          "in": "半",
+          "out": 30
+        },
+        {
+          "in": "1/2",
+          "out": 30
+        }
+      ]
+    },
+    "timer_5minute": {
+      "values": [
+        {
+          "in": "一個字",
+          "out": 5
+        },
+        {
+          "in": "兩個字",
+          "out": 10
+        },
+        {
+          "in": "三個字",
+          "out": 15
+        },
+        {
+          "in": "四個字",
+          "out": 20
+        },
+        {
+          "in": "五個字",
+          "out": 25
+        },
+        {
+          "in": "七個字",
+          "out": 35
+        },
+        {
+          "in": "八個字",
+          "out": 40
+        },
+        {
+          "in": "九個字",
+          "out": 45
+        },
+        {
+          "in": "十個字",
+          "out": 50
+        },
+        {
+          "in": "十一個字",
+          "out": 55
+        }
+      ]
+    },
+    "timer_name": {
+      "wildcard": true
+    },
+    "timer_command": {
+      "wildcard": true
+    },
+    "volume_percentage": {
+      "range": {
+        "type": "percentage",
+        "from": 0,
+        "to": 100
+      }
+    }
+  },
+  "expansion_rules": {
+    "name": "{name}[的|嘅]",
+    "area": "{area}[的|嘅]",
+    "what_is": "(什麼係|是什麼|而家|今日|幾|what's|whats|what is)",
+    "today": "今日|今天",
+    "date": "號|日",
+    "time": "(點|時間)",
+    "weather": "天氣|weather",
+    "like": "怎樣|like",
+    "in": "係",
+    "current": "現在|依家|目前",
+    "let": "[請|把|给|讓|張]",
+    "all": "(全部|所有)[的|嘅]",
+    "how_many_is": "(是|有)(多少|幾|幾個)",
+    "which": "[有|有没有|有無]哪[一](個|些)",
+    "brightness": "[百分之]{brightness}[%]",
+    "to": "(為|到|至)",
+    "set_to": "(設置|設定|調節|調)(為|到|至)",
+    "turn_on": "(打開|開啟|開|着)",
+    "turn_off": "(關閉|關掉|關了|關|閂)",
+    "open": "(打開|開|開大|開放|擴大)",
+    "close": "(關閉|關掉|關了|關|閂)",
+    "light": "(燈|吸頂燈|筒燈|射燈|檯燈|台燈|床頭燈|燈光)[的|嘅]",
+    "temp": "溫度",
+    "temperature": "{temperature} [{temperature_unit}]",
+    "numeric_value_set": "(設定|調整|調教||調|set|change|increase|decrease|make)",
+    "position": "{position}[[ ]%| percent]",
+    "volume_percentage": "{volume_percentage:volume_level}[[ ]%| percent]",
+    "volume": "(音量)",
+    "start": "(開始|開動)",
+    "return": "(返回)",
+    "add": "(加[添]|增加)",
+    "increase": "(增加)",
+    "decrease": "(撤除|減少)",
+    "status": "(狀況)",
+    "timer": "(計時器|倒時器|倒數器)",
+    "the": "(嗰個)",
+    "my": "(我的|我個|我嗰個|我嘅)",
+    "how much": "(幾多)",
+    "left": "([還|重]剩)",
+    "resume": "(恢復|繼續)",
+    "for": "(到)",
+    "hour": "(小時|鐘|個|個鐘|鐘頭|個鐘頭|)",
+    "minute": "(分鐘|分|)",
+    "second": "(秒|)",
+    "up": "(高)",
+    "down": "(低)",
+    "pause": "(暫停)",
+    "unpause": "(取消暫停|恢復|繼續)",
+    "next": "(跳|轉)[到](下一)(個|首)",
+    "replay": "(再播放這)(個|首)",
+    "previous": "(再播放上一)(個|首)",
+    "item": "(台|曲|曲目|歌)",
+    "timer_set": "(開始|放置|撥|set)",
+    "timer_cancel": "(取消|停止|cancel|stop)",
+    "timer_duration_seconds": "{timer_seconds:seconds} <second>",
+    "timer_duration_minutes": "({timer_minutes:minutes} <minute>[ [and ]{timer_seconds:seconds} <second>])|({timer_minutes:minutes} [and[ a]] {timer_half:seconds}[<minute>])|({timer_half:seconds} <minute>)|({timer_5minute:minutes} [<minute>])",
+    "timer_duration_hours": "({timer_hours:hours} <hour>[ [and ]{timer_minutes:minutes} <minute>][ [and ]{timer_seconds:seconds} <second>])|({timer_hours:hours}[<hour>] [and[ a]] {timer_half:minutes} [<hour>])|({timer_half:minutes} <hour>)",
+    "timer_duration": "<timer_duration_seconds>|<timer_duration_minutes>|<timer_duration_hours>",
+    "timer_start_seconds": "{timer_seconds:start_seconds} <second>",
+    "timer_start_minutes": "{timer_minutes:start_minutes} <minute>[ [and ]{timer_seconds:start_seconds} <second>]",
+    "timer_start_hours": "{timer_hours:start_hours} <hour>[ [and ]{timer_minutes:start_minutes} <minute>][ [and ]{timer_seconds:start_seconds} <second>]",
+    "timer_start": "<timer_start_seconds>|<timer_start_minutes>|<timer_start_hours>"
+  },
+  "skip_words": []
+}

@@ -1,0 +1,164 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Konto on juba h\u00e4\u00e4lestatud",
+            "reauth_successful": "Taastuvastamine \u00f5nnestus",
+            "reauth_wrong_account": "Seda kirjet saab uuesti autentida ainult sama Overkiz'i konto ja keskuse abil."
+        },
+        "error": {
+            "cannot_connect": "\u00dchendamine nurjus",
+            "certificate_verify_failed": "\u00dchendus hostiga nurjus, sertifikaadi kontrollimine eba\u00f5nnestus.",
+            "developer_mode_disabled": "Arendaja re\u017eiim on keelatud. Aktiveeri esmalt oma Somfy TaHoma seadme arendajare\u017eiim.",
+            "invalid_auth": "Tuvastamine nurjus",
+            "no_such_token": "Selle l\u00fc\u00fcsi jaoks ei saa luba luua. Palun kinnita kas konto on selle l\u00fc\u00fcsiga lingitud.",
+            "server_in_maintenance": "Server on hoolduse t\u00f5ttu maas",
+            "too_many_attempts": "Liiga palju katseid kehtetu v\u00f5tmega, ajutiselt keelatud",
+            "too_many_requests": "Liiga palju p\u00e4ringuid, proovi hiljem uuesti",
+            "unknown": "Ootamatu t\u00f5rge",
+            "unsupported_hardware": "See sidumine ei toeta {unsupported_device} riistvara."
+        },
+        "flow_title": "L\u00fc\u00fcs: {gateway_id}",
+        "step": {
+            "cloud": {
+                "data": {
+                    "password": "Salas\u00f5na",
+                    "username": "Kasutajanimi"
+                },
+                "description": "Sisesta oma rakenduse andmed."
+            },
+            "local": {
+                "data": {
+                    "host": "Host",
+                    "password": "Salas\u00f5na",
+                    "username": "Kasutajanimi",
+                    "verify_ssl": "Kontrolli SSL sertifikaati"
+                },
+                "description": "Aktiveerides [oma TaHoma kasti arendajare\u017eiimi](https://github.com/Somfy-Developer/Somfy-TaHoma-Developer-Mode#getting-started), saad volitada kolmanda osapoole tarkvara (nt Home Assistant) \u00fchenduma sellega oma kohaliku v\u00f5rgu kaudu. \n\n P\u00e4rast aktiveerimist sisesta oma rakenduse volitused ja muuda hosti, et lisada oma l\u00fc\u00fcsi PIN-kood v\u00f5i sisesta oma l\u00fc\u00fcsi IP-aadress."
+            },
+            "local_or_cloud": {
+                "data": {
+                    "api_type": "API t\u00fc\u00fcp"
+                },
+                "description": "Vali kohaliku v\u00f5i pilvep\u00f5hise API vahel. Kohalik API toetab TaHoma Connexoon, TaHoma v2 ja TaHoma Switch. Kliimaseadmeid ja stseene ei toetata kohalikus API-s."
+            },
+            "user": {
+                "data": {
+                    "host": "Host",
+                    "hub": "Server",
+                    "password": "Salas\u00f5na",
+                    "username": "Kasutajanimi"
+                },
+                "description": "Vali oma server. Overkizi platvormi kasutavad erinevad m\u00fc\u00fcjad nagu Somfy (Connexoon / TaHoma), Hitachi (Hi Kumo) ja Atlantic (Cozytouch)."
+            }
+        }
+    },
+    "entity": {
+        "climate": {
+            "overkiz": {
+                "state_attributes": {
+                    "fan_mode": {
+                        "state": {
+                            "away": "Eemal",
+                            "bypass_boost": "M\u00f6\u00f6daviigu v\u00f5imendus",
+                            "home_boost": "Kodu v\u00f5imendus",
+                            "kitchen_boost": "K\u00f6\u00f6gi v\u00f5imendus"
+                        }
+                    },
+                    "preset_mode": {
+                        "state": {
+                            "auto": "Automaatne",
+                            "comfort-1": "Mugavus 1",
+                            "comfort-2": "Mugavus 2",
+                            "drying": "Kuivatamine",
+                            "external": "V\u00e4line",
+                            "freeze": "Jahutamine",
+                            "frost_protection": "K\u00fclmumiskaitse",
+                            "manual": "K\u00e4sitsi",
+                            "night": "\u00d6\u00f6",
+                            "prog": "Ajastatud"
+                        }
+                    }
+                }
+            }
+        },
+        "select": {
+            "memorized_simple_volume": {
+                "state": {
+                    "highest": "K\u00f5rgeim",
+                    "standard": "Tavaline"
+                }
+            },
+            "open_closed_partial": {
+                "state": {
+                    "closed": "Suletud",
+                    "open": "Avatud",
+                    "partial": "Osaline"
+                }
+            },
+            "open_closed_pedestrian": {
+                "state": {
+                    "closed": "Suletud",
+                    "open": "Avatud",
+                    "pedestrian": "Jalak\u00e4ija"
+                }
+            }
+        },
+        "sensor": {
+            "battery": {
+                "state": {
+                    "full": "T\u00e4is",
+                    "low": "Madal",
+                    "medium": "Keskmine",
+                    "normal": "Tavaline",
+                    "verylow": "V\u00e4ga madal"
+                }
+            },
+            "discrete_rssi_level": {
+                "state": {
+                    "good": "Hea",
+                    "low": "Madal",
+                    "normal": "Tavaline",
+                    "verylow": "V\u00e4ga madal"
+                }
+            },
+            "priority_lock_originator": {
+                "state": {
+                    "external_gateway": "V\u00e4line l\u00fc\u00fcs",
+                    "local_user": "Kohalik kasutaja",
+                    "lsc": "LSC",
+                    "myself": "Kasutaja",
+                    "rain": "Vihm",
+                    "saac": "SAAC",
+                    "security": "Turvalisus",
+                    "sfc": "SFC",
+                    "temperature": "Temperatuur",
+                    "timer": "Taimer",
+                    "ups": "UPS",
+                    "user": "Kasutaja",
+                    "wind": "Tuul"
+                }
+            },
+            "sensor_defect": {
+                "state": {
+                    "dead": "Surnud",
+                    "low_battery": "Madal akutase",
+                    "maintenance_required": "Vajab hooldust",
+                    "no_defect": "Korras"
+                }
+            },
+            "sensor_room": {
+                "state": {
+                    "clean": "Puhas",
+                    "dirty": "R\u00e4pane"
+                }
+            },
+            "three_way_handle_direction": {
+                "state": {
+                    "closed": "Suletud",
+                    "open": "Avatud",
+                    "tilt": "Kallutamine"
+                }
+            }
+        }
+    }
+}

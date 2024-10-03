@@ -1,0 +1,734 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "\u30c7\u30d0\u30a4\u30b9\u306f\u3059\u3067\u306b\u8a2d\u5b9a\u3055\u308c\u3066\u3044\u307e\u3059",
+            "reauth_successful": "\u518d\u8a8d\u8a3c\u306b\u6210\u529f\u3057\u307e\u3057\u305f",
+            "reconfigure_successful": "\u518d\u8a2d\u5b9a\u306b\u6210\u529f\u3057\u307e\u3057\u305f"
+        },
+        "error": {
+            "api_error": "API\u30a8\u30e9\u30fc\u304c\u767a\u751f\u3057\u307e\u3057\u305f",
+            "cannot_connect": "\u63a5\u7d9a\u306b\u5931\u6557\u3057\u307e\u3057\u305f\u3002\u30ab\u30e1\u30e9\u306eIP\u30a2\u30c9\u30ec\u30b9\u3092\u78ba\u8a8d\u3057\u3066\u304f\u3060\u3055\u3044",
+            "invalid_auth": "\u7121\u52b9\u306a\u8a8d\u8a3c",
+            "not_admin": "\u30e6\u30fc\u30b6\u30fc\u306f\u7ba1\u7406\u8005\u3067\u3042\u308b\u5fc5\u8981\u304c\u3042\u308a\u307e\u3059\u3002\u30e6\u30fc\u30b6\u30fc\u300c {username} \u300d\u306b\u306f\u627f\u8a8d\u30ec\u30d9\u30eb\u300c {userlevel} \u300d\u304c\u3042\u308a\u307e\u3059\u3002",
+            "password_incompatible": "\u30d1\u30b9\u30ef\u30fc\u30c9\u306b\u4e92\u63db\u6027\u306e\u306a\u3044\u7279\u6b8a\u6587\u5b57\u304c\u542b\u307e\u308c\u3066\u3044\u307e\u3059\u3002\u4f7f\u7528\u3067\u304d\u308b\u6587\u5b57\u306f\u3001az\u3001AZ\u30010-9\u3001\u307e\u305f\u306f{special_chars}\u306e\u307f\u3067\u3059\u3002",
+            "unknown": "\u4e88\u671f\u3057\u306a\u3044\u30a8\u30e9\u30fc",
+            "webhook_exception": "Home Assistant\u306e URL \u304c\u5229\u7528\u3067\u304d\u307e\u305b\u3093\u3002[\u8a2d\u5b9a] > [\u30b7\u30b9\u30c6\u30e0]> [\u30cd\u30c3\u30c8\u30ef\u30fc\u30af] > [Home Assistant\u306e URL] \u306b\u79fb\u52d5\u3057\u3066 URL \u3092\u4fee\u6b63\u3057\u3066\u304f\u3060\u3055\u3044\u3002 {more_info}\u3092\u53c2\u7167\u3057\u3066\u304f\u3060\u3055\u3044\u3002"
+        },
+        "flow_title": "{hostname} ({ip_address})",
+        "step": {
+            "reauth_confirm": {
+                "description": "Reolink \u7d71\u5408\u3067\u306f\u63a5\u7d9a\u306e\u8a73\u7d30\u3092\u518d\u8a8d\u8a3c\u3059\u308b\u5fc5\u8981\u304c\u3042\u308a\u307e\u3059",
+                "title": "{name} \u306e\u8a8d\u8a3c\u306e\u6709\u52b9\u671f\u9650\u304c\u5207\u308c\u307e\u3057\u305f"
+            },
+            "user": {
+                "data": {
+                    "host": "\u30db\u30b9\u30c8",
+                    "password": "\u30d1\u30b9\u30ef\u30fc\u30c9",
+                    "port": "\u30dd\u30fc\u30c8",
+                    "use_https": "HTTPS\u3092\u6709\u52b9",
+                    "username": "\u30e6\u30fc\u30b6\u30fc\u540d"
+                },
+                "data_description": {
+                    "host": "Reolink \u30c7\u30d0\u30a4\u30b9\u306e\u30db\u30b9\u30c8\u540d\u307e\u305f\u306f IP \u30a2\u30c9\u30ec\u30b9\u3002\u4f8b:\u300c192.168.1.25\u300d\u3002",
+                    "password": "Reolink\u30c7\u30d0\u30a4\u30b9\u81ea\u4f53\u306b\u30ed\u30b0\u30a4\u30f3\u3059\u308b\u305f\u3081\u306e\u30d1\u30b9\u30ef\u30fc\u30c9\u3002Reolink\u30af\u30e9\u30a6\u30c9\u30a2\u30ab\u30a6\u30f3\u30c8\u3067\u306f\u3042\u308a\u307e\u305b\u3093\u3002",
+                    "port": "Reolink \u30c7\u30d0\u30a4\u30b9\u306b\u63a5\u7d9a\u3059\u308b\u30dd\u30fc\u30c8\u3002HTTP\u306e\u5834\u5408\u306f\u901a\u5e38\u300c80\u300d\u3001HTTPS\u306e\u5834\u5408\u306f\u901a\u5e38\u300c443\u300d\u3067\u3059\u3002",
+                    "use_https": "Reolink \u30c7\u30d0\u30a4\u30b9\u3078\u306e HTTPS (SSL) \u63a5\u7d9a\u3092\u4f7f\u7528\u3057\u307e\u3059\u3002",
+                    "username": "Reolink\u30c7\u30d0\u30a4\u30b9\u81ea\u4f53\u306b\u30ed\u30b0\u30a4\u30f3\u3059\u308b\u305f\u3081\u306e\u30e6\u30fc\u30b6\u30fc\u540d\u3002Reolink\u30af\u30e9\u30a6\u30c9\u30a2\u30ab\u30a6\u30f3\u30c8\u3067\u306f\u3042\u308a\u307e\u305b\u3093\u3002"
+                },
+                "description": "\u554f\u984c\u304c\u767a\u751f\u3057\u305f\u5834\u5408\u306f\u3001[\u30c8\u30e9\u30d6\u30eb\u30b7\u30e5\u30fc\u30c6\u30a3\u30f3\u30b0\u624b\u9806]({troubleshooting_link})\u3092\u53c2\u7167\u3057\u3066\u304f\u3060\u3055\u3044\u3002{error}"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "animal": {
+                "name": "\u52d5\u7269",
+                "state": {
+                    "off": "\u30af\u30ea\u30a2",
+                    "on": "\u691c\u51fa\u3055\u308c\u307e\u3057\u305f"
+                }
+            },
+            "animal_lens_0": {
+                "name": "\u52d5\u7269\u30ec\u30f3\u30ba 0",
+                "state": {
+                    "off": "\u30af\u30ea\u30a2",
+                    "on": "\u691c\u51fa\u3055\u308c\u307e\u3057\u305f"
+                }
+            },
+            "animal_lens_1": {
+                "name": "\u52d5\u7269\u30ec\u30f3\u30ba 1",
+                "state": {
+                    "off": "\u30af\u30ea\u30a2",
+                    "on": "\u691c\u51fa\u3055\u308c\u307e\u3057\u305f"
+                }
+            },
+            "face": {
+                "name": "\u30d5\u30a7\u30a4\u30b9",
+                "state": {
+                    "off": "\u30af\u30ea\u30a2",
+                    "on": "\u691c\u51fa\u3055\u308c\u307e\u3057\u305f"
+                }
+            },
+            "face_lens_0": {
+                "name": "\u30d5\u30a7\u30a4\u30b9\u30ec\u30f3\u30ba0",
+                "state": {
+                    "off": "\u30af\u30ea\u30a2",
+                    "on": "\u691c\u51fa\u3055\u308c\u307e\u3057\u305f"
+                }
+            },
+            "face_lens_1": {
+                "name": "\u30d5\u30a7\u30a4\u30b9\u30ec\u30f3\u30ba1",
+                "state": {
+                    "off": "\u30af\u30ea\u30a2",
+                    "on": "\u691c\u51fa\u3055\u308c\u307e\u3057\u305f"
+                }
+            },
+            "motion_lens_0": {
+                "name": "\u30e2\u30fc\u30b7\u30e7\u30f3\u30ec\u30f3\u30ba0",
+                "state": {
+                    "off": "\u30af\u30ea\u30a2",
+                    "on": "\u691c\u51fa\u3055\u308c\u307e\u3057\u305f"
+                }
+            },
+            "motion_lens_1": {
+                "name": "\u30e2\u30fc\u30b7\u30e7\u30f3\u30ec\u30f3\u30ba1",
+                "state": {
+                    "off": "\u30af\u30ea\u30a2",
+                    "on": "\u691c\u51fa\u3055\u308c\u307e\u3057\u305f"
+                }
+            },
+            "package": {
+                "name": "\u30d1\u30c3\u30b1\u30fc\u30b8",
+                "state": {
+                    "off": "\u30af\u30ea\u30a2",
+                    "on": "\u691c\u51fa\u3055\u308c\u307e\u3057\u305f"
+                }
+            },
+            "package_lens_0": {
+                "name": "\u30d1\u30c3\u30b1\u30fc\u30b8\u30ec\u30f3\u30ba0",
+                "state": {
+                    "off": "\u30af\u30ea\u30a2",
+                    "on": "\u691c\u51fa\u3055\u308c\u307e\u3057\u305f"
+                }
+            },
+            "package_lens_1": {
+                "name": "\u30d1\u30c3\u30b1\u30fc\u30b8\u30ec\u30f3\u30ba1",
+                "state": {
+                    "off": "\u30af\u30ea\u30a2",
+                    "on": "\u691c\u51fa\u3055\u308c\u307e\u3057\u305f"
+                }
+            },
+            "person": {
+                "name": "\u4eba\u7269",
+                "state": {
+                    "off": "\u30af\u30ea\u30a2",
+                    "on": "\u691c\u51fa\u3055\u308c\u307e\u3057\u305f"
+                }
+            },
+            "person_lens_0": {
+                "name": "\u4eba\u7269\u30ec\u30f3\u30ba 0",
+                "state": {
+                    "off": "\u30af\u30ea\u30a2",
+                    "on": "\u691c\u51fa\u3055\u308c\u307e\u3057\u305f"
+                }
+            },
+            "person_lens_1": {
+                "name": "\u4eba\u7269\u30ec\u30f3\u30ba 1",
+                "state": {
+                    "off": "\u30af\u30ea\u30a2",
+                    "on": "\u691c\u51fa\u3055\u308c\u307e\u3057\u305f"
+                }
+            },
+            "pet": {
+                "name": "\u30da\u30c3\u30c8",
+                "state": {
+                    "off": "\u30af\u30ea\u30a2",
+                    "on": "\u691c\u51fa\u3055\u308c\u307e\u3057\u305f"
+                }
+            },
+            "pet_lens_0": {
+                "name": "\u30da\u30c3\u30c8\u30ec\u30f3\u30ba 0",
+                "state": {
+                    "off": "\u30af\u30ea\u30a2",
+                    "on": "\u691c\u51fa\u3055\u308c\u307e\u3057\u305f"
+                }
+            },
+            "pet_lens_1": {
+                "name": "\u30da\u30c3\u30c8\u30ec\u30f3\u30ba 1",
+                "state": {
+                    "off": "\u30af\u30ea\u30a2",
+                    "on": "\u691c\u51fa\u3055\u308c\u307e\u3057\u305f"
+                }
+            },
+            "sleep": {
+                "name": "\u30b9\u30ea\u30fc\u30d7\u72b6\u614b",
+                "state": {
+                    "off": "\u8d77\u304d\u3066\u3044\u308b",
+                    "on": "\u30b9\u30ea\u30fc\u30d7"
+                }
+            },
+            "vehicle": {
+                "name": "\u8eca\u4e21",
+                "state": {
+                    "off": "\u30af\u30ea\u30a2",
+                    "on": "\u691c\u51fa\u3055\u308c\u307e\u3057\u305f"
+                }
+            },
+            "vehicle_lens_0": {
+                "name": "\u8eca\u4e21\u30ec\u30f3\u30ba 0",
+                "state": {
+                    "off": "\u30af\u30ea\u30a2",
+                    "on": "\u691c\u51fa\u3055\u308c\u307e\u3057\u305f"
+                }
+            },
+            "vehicle_lens_1": {
+                "name": "\u8eca\u4e21\u30ec\u30f3\u30ba 1",
+                "state": {
+                    "off": "\u30af\u30ea\u30a2",
+                    "on": "\u691c\u51fa\u3055\u308c\u307e\u3057\u305f"
+                }
+            },
+            "visitor": {
+                "name": "\u30d3\u30b8\u30bf\u30fc"
+            },
+            "visitor_lens_0": {
+                "name": "\u30d3\u30b8\u30bf\u30fc\u30ec\u30f3\u30ba 0"
+            },
+            "visitor_lens_1": {
+                "name": "\u30d3\u30b8\u30bf\u30fc\u30ec\u30f3\u30ba1"
+            }
+        },
+        "button": {
+            "guard_go_to": {
+                "name": "\u8b66\u5099\u3059\u308b"
+            },
+            "guard_set": {
+                "name": "\u30ac\u30fc\u30c9\u30bb\u30c3\u30c8\u73fe\u5728\u4f4d\u7f6e"
+            },
+            "ptz_calibrate": {
+                "name": "PTZ \u30ad\u30e3\u30ea\u30d6\u30ec\u30fc\u30b7\u30e7\u30f3"
+            },
+            "ptz_down": {
+                "name": "PTZ \u4e0b"
+            },
+            "ptz_left": {
+                "name": "PTZ \u5de6"
+            },
+            "ptz_right": {
+                "name": "PTZ \u53f3"
+            },
+            "ptz_stop": {
+                "name": "PTZ \u30b9\u30c8\u30c3\u30d7"
+            },
+            "ptz_up": {
+                "name": "PTZ \u4e0a"
+            },
+            "ptz_zoom_in": {
+                "name": "PTZ \u30ba\u30fc\u30e0\u30a4\u30f3"
+            },
+            "ptz_zoom_out": {
+                "name": "PTZ \u30ba\u30fc\u30e0\u30a2\u30a6\u30c8"
+            }
+        },
+        "camera": {
+            "autotrack_snapshots_main": {
+                "name": "\u30af\u30ea\u30a2\u306a\u81ea\u52d5\u8ffd\u8de1\u30b9\u30ca\u30c3\u30d7\u30b7\u30e7\u30c3\u30c8"
+            },
+            "autotrack_snapshots_sub": {
+                "name": "\u30b9\u30e0\u30fc\u30ba\u306a\u81ea\u52d5\u8ffd\u8de1\u30b9\u30ca\u30c3\u30d7\u30b7\u30e7\u30c3\u30c8"
+            },
+            "autotrack_sub": {
+                "name": "\u30b9\u30e0\u30fc\u30ba\u306a\u81ea\u52d5\u8ffd\u8de1"
+            },
+            "ext": {
+                "name": "\u30d0\u30e9\u30f3\u30b9"
+            },
+            "ext_lens_0": {
+                "name": "\u30d0\u30e9\u30f3\u30b9\u30ec\u30f3\u30ba 0"
+            },
+            "ext_lens_1": {
+                "name": "\u30d0\u30e9\u30f3\u30b9\u30ec\u30f3\u30ba 1"
+            },
+            "main": {
+                "name": "\u30af\u30ea\u30a2"
+            },
+            "main_lens_0": {
+                "name": "\u30af\u30ea\u30a2\u30ec\u30f3\u30ba 0"
+            },
+            "main_lens_1": {
+                "name": "\u30af\u30ea\u30a2\u30ec\u30f3\u30ba 1"
+            },
+            "snapshots_main": {
+                "name": "\u30b9\u30ca\u30c3\u30d7\u30b7\u30e7\u30c3\u30c8 \u30af\u30ea\u30a2"
+            },
+            "snapshots_main_lens_0": {
+                "name": "\u30b9\u30ca\u30c3\u30d7\u30b7\u30e7\u30c3\u30c8 \u30af\u30ea\u30a2\u30ec\u30f3\u30ba 0"
+            },
+            "snapshots_main_lens_1": {
+                "name": "\u30b9\u30ca\u30c3\u30d7\u30b7\u30e7\u30c3\u30c8 \u30af\u30ea\u30a2\u30ec\u30f3\u30ba 1"
+            },
+            "snapshots_sub": {
+                "name": "\u30b9\u30ca\u30c3\u30d7\u30b7\u30e7\u30c3\u30c8 \u6ed1\u3089\u304b"
+            },
+            "snapshots_sub_lens_0": {
+                "name": "\u30b9\u30ca\u30c3\u30d7\u30b7\u30e7\u30c3\u30c8 \u6ed1\u3089\u304b\u306a\u30ec\u30f3\u30ba 0"
+            },
+            "snapshots_sub_lens_1": {
+                "name": "\u30b9\u30ca\u30c3\u30d7\u30b7\u30e7\u30c3\u30c8 \u6ed1\u3089\u304b\u306a\u30ec\u30f3\u30ba 1"
+            },
+            "sub": {
+                "name": "\u6ed1\u3089\u304b"
+            },
+            "sub_lens_0": {
+                "name": "\u6ed1\u3089\u304b\u306a\u30ec\u30f3\u30ba 0"
+            },
+            "sub_lens_1": {
+                "name": "\u6ed1\u3089\u304b\u306a\u30ec\u30f3\u30ba 1"
+            }
+        },
+        "light": {
+            "floodlight": {
+                "name": "\u6295\u5149\u5668"
+            },
+            "ir_lights": {
+                "name": "\u591c\u9593\u30e2\u30fc\u30c9\u306e\u8d64\u5916\u7dda\u30e9\u30a4\u30c8"
+            },
+            "status_led": {
+                "name": "\u30b9\u30c6\u30fc\u30bf\u30b9LED"
+            }
+        },
+        "number": {
+            "ai_animal_delay": {
+                "name": "AI\u52d5\u7269\u306e\u9045\u5ef6"
+            },
+            "ai_animal_sensititvity": {
+                "name": "AI\u52d5\u7269\u306e\u611f\u53d7\u6027"
+            },
+            "ai_animal_sensitivity": {
+                "name": "AI\u52d5\u7269\u306e\u611f\u5ea6"
+            },
+            "ai_face_delay": {
+                "name": "AI\u9854\u306e\u9045\u5ef6"
+            },
+            "ai_face_sensititvity": {
+                "name": "AI\u9854\u611f\u5ea6"
+            },
+            "ai_face_sensitivity": {
+                "name": "AI\u9854\u611f\u5ea6"
+            },
+            "ai_package_delay": {
+                "name": "AI\u30d1\u30c3\u30b1\u30fc\u30b8\u306e\u9045\u5ef6"
+            },
+            "ai_package_sensititvity": {
+                "name": "AI\u30d1\u30c3\u30b1\u30fc\u30b8\u306e\u611f\u5ea6"
+            },
+            "ai_package_sensitivity": {
+                "name": "AI\u30d1\u30c3\u30b1\u30fc\u30b8\u306e\u611f\u5ea6"
+            },
+            "ai_person_delay": {
+                "name": "AI\u4eba\u9593\u306e\u9045\u5ef6"
+            },
+            "ai_person_sensititvity": {
+                "name": "AI\u4eba\u9593\u306e\u611f\u5ea6"
+            },
+            "ai_person_sensitivity": {
+                "name": "AI\u4eba\u9593\u306e\u611f\u5ea6"
+            },
+            "ai_pet_delay": {
+                "name": "AI\u30da\u30c3\u30c8\u306e\u9045\u5ef6"
+            },
+            "ai_pet_sensititvity": {
+                "name": "AI\u30da\u30c3\u30c8\u306e\u611f\u5ea6"
+            },
+            "ai_pet_sensitivity": {
+                "name": "AI\u30da\u30c3\u30c8\u306e\u611f\u5ea6"
+            },
+            "ai_vehicle_delay": {
+                "name": "AI\u8eca\u4e21\u306e\u9045\u5ef6"
+            },
+            "ai_vehicle_sensititvity": {
+                "name": "AI\u8eca\u4e21\u306e\u611f\u5ea6"
+            },
+            "ai_vehicle_sensitivity": {
+                "name": "AI\u8eca\u4e21\u306e\u611f\u5ea6"
+            },
+            "auto_quick_reply_time": {
+                "name": "\u81ea\u52d5\u30af\u30a4\u30c3\u30af\u8fd4\u4fe1\u6642\u9593"
+            },
+            "auto_track_disappear_time": {
+                "name": "\u30aa\u30fc\u30c8\u30c8\u30e9\u30c3\u30af\u6d88\u6ec5\u6642\u9593"
+            },
+            "auto_track_limit_left": {
+                "name": "\u30aa\u30fc\u30c8\u30c8\u30e9\u30c3\u30af \u5de6\u9650\u754c"
+            },
+            "auto_track_limit_right": {
+                "name": "\u30aa\u30fc\u30c8\u30c8\u30e9\u30c3\u30af \u53f3\u9650\u754c"
+            },
+            "auto_track_stop_time": {
+                "name": "\u30aa\u30fc\u30c8\u30c8\u30e9\u30c3\u30af\u505c\u6b62\u6642\u9593"
+            },
+            "day_night_switch_threshold": {
+                "name": "\u663c\u591c\u5207\u308a\u66ff\u3048\u3057\u304d\u3044\u5024"
+            },
+            "floodlight_brightness": {
+                "name": "\u6295\u5149\u5668\u306e\u660e\u308b\u3055\u3092\u30aa\u30f3\u306b\u3059\u308b"
+            },
+            "focus": {
+                "name": "\u30d5\u30a9\u30fc\u30ab\u30b9"
+            },
+            "guard_return_time": {
+                "name": "\u30ac\u30fc\u30c9\u30ea\u30bf\u30fc\u30f3\u30bf\u30a4\u30e0"
+            },
+            "image_brightness": {
+                "name": "\u753b\u50cf\u306e\u660e\u308b\u3055"
+            },
+            "image_contrast": {
+                "name": "\u753b\u50cf\u306e\u30b3\u30f3\u30c8\u30e9\u30b9\u30c8"
+            },
+            "image_hue": {
+                "name": "\u753b\u50cf\u306e\u8272\u5408\u3044"
+            },
+            "image_saturation": {
+                "name": "\u753b\u50cf\u306e\u5f69\u5ea6"
+            },
+            "image_sharpness": {
+                "name": "\u753b\u50cf\u306e\u9bae\u660e\u3055"
+            },
+            "motion_sensitivity": {
+                "name": "\u30e2\u30fc\u30b7\u30e7\u30f3\u611f\u5ea6"
+            },
+            "pir_sensitivity": {
+                "name": "PIR\u611f\u5ea6"
+            },
+            "volume": {
+                "name": "\u30dc\u30ea\u30e5\u30fc\u30e0"
+            },
+            "zoom": {
+                "name": "\u30ba\u30fc\u30e0"
+            }
+        },
+        "select": {
+            "auto_quick_reply_message": {
+                "name": "\u81ea\u52d5\u30af\u30a4\u30c3\u30af\u8fd4\u4fe1\u30e1\u30c3\u30bb\u30fc\u30b8",
+                "state": {
+                    "off": "\u30aa\u30d5"
+                }
+            },
+            "auto_track_method": {
+                "name": "\u30aa\u30fc\u30c8\u30c8\u30e9\u30c3\u30af\u65b9\u5f0f",
+                "state": {
+                    "digital": "\u30c7\u30b8\u30bf\u30eb",
+                    "digitalfirst": "\u30c7\u30b8\u30bf\u30eb\u30d5\u30a1\u30fc\u30b9\u30c8",
+                    "pantiltfirst": "\u30d1\u30f3/\u30c1\u30eb\u30c8\u30d5\u30a1\u30fc\u30b9\u30c8"
+                }
+            },
+            "day_night_mode": {
+                "name": "\u30c7\u30a4\u30ca\u30a4\u30c8\u30e2\u30fc\u30c9",
+                "state": {
+                    "auto": "\u81ea\u52d5",
+                    "blackwhite": "\u30d6\u30e9\u30c3\u30af\uff06\u30db\u30ef\u30a4\u30c8",
+                    "color": "\u30ab\u30e9\u30fc"
+                }
+            },
+            "doorbell_led": {
+                "name": "\u30c9\u30a2\u30d9\u30eb LED",
+                "state": {
+                    "alwayson": "\u5e38\u306b\u30aa\u30f3",
+                    "alwaysonatnight": "\u30aa\u30fc\u30c8\uff06\u591c\u9593\u5e38\u6642\u70b9\u706f",
+                    "auto": "\u81ea\u52d5",
+                    "stayoff": "\u6ede\u5728\u30aa\u30d5"
+                }
+            },
+            "floodlight_mode": {
+                "name": "\u6295\u5149\u5668\u30e2\u30fc\u30c9",
+                "state": {
+                    "adaptive": "\u9069\u5fdc",
+                    "auto": "\u81ea\u52d5",
+                    "autoadaptive": "\u81ea\u52d5\u9069\u5fdc",
+                    "off": "\u30aa\u30d5",
+                    "onatnight": "\u591c\u306b\u30aa\u30f3",
+                    "schedule": "\u30b9\u30b1\u30b8\u30e5\u30fc\u30eb"
+                }
+            },
+            "hdr": {
+                "name": "HDR",
+                "state": {
+                    "auto": "\u81ea\u52d5",
+                    "off": "\u30aa\u30d5",
+                    "on": "\u30aa\u30f3"
+                }
+            },
+            "motion_tone": {
+                "name": "\u30e2\u30fc\u30b7\u30e7\u30f3\u7740\u4fe1\u97f3",
+                "state": {
+                    "attraction": "\u30a2\u30c8\u30e9\u30af\u30b7\u30e7\u30f3",
+                    "citybird": "\u30b7\u30c6\u30a3\u30fb\u30d0\u30fc\u30c9",
+                    "goodday": "\u826f\u3044\u4e00\u65e5",
+                    "hophop": "Hop hop",
+                    "loop": "\u30eb\u30fc\u30d7",
+                    "moonlight": "\u6708\u660e\u304b\u308a",
+                    "off": "\u30aa\u30d5",
+                    "operetta": "\u30aa\u30da\u30ec\u30c3\u30bf",
+                    "originaltune": "\u30aa\u30ea\u30b8\u30ca\u30eb\u66f2",
+                    "pianokey": "\u30d4\u30a2\u30ce\u30ad\u30fc",
+                    "waybackhome": "\u5bb6\u3078\u306e\u5e30\u308a\u9053"
+                }
+            },
+            "package_tone": {
+                "name": "\u30d1\u30c3\u30b1\u30fc\u30b8\u7740\u4fe1\u97f3",
+                "state": {
+                    "attraction": "\u30a2\u30c8\u30e9\u30af\u30b7\u30e7\u30f3",
+                    "citybird": "\u30b7\u30c6\u30a3\u30fb\u30d0\u30fc\u30c9",
+                    "goodday": "\u826f\u3044\u4e00\u65e5",
+                    "hophop": "Hop hop",
+                    "loop": "\u30eb\u30fc\u30d7",
+                    "moonlight": "\u6708\u660e\u304b\u308a",
+                    "off": "\u30aa\u30d5",
+                    "operetta": "\u30aa\u30da\u30ec\u30c3\u30bf",
+                    "originaltune": "\u30aa\u30ea\u30b8\u30ca\u30eb\u66f2",
+                    "pianokey": "\u30d4\u30a2\u30ce\u30ad\u30fc",
+                    "waybackhome": "\u5bb6\u3078\u306e\u5e30\u308a\u9053"
+                }
+            },
+            "people_tone": {
+                "name": "\u4eba\u7269\u7740\u4fe1\u97f3",
+                "state": {
+                    "attraction": "\u30a2\u30c8\u30e9\u30af\u30b7\u30e7\u30f3",
+                    "citybird": "\u30b7\u30c6\u30a3\u30fb\u30d0\u30fc\u30c9",
+                    "goodday": "\u826f\u3044\u4e00\u65e5",
+                    "hophop": "Hop hop",
+                    "loop": "\u30eb\u30fc\u30d7",
+                    "moonlight": "\u6708\u660e\u304b\u308a",
+                    "off": "\u30aa\u30d5",
+                    "operetta": "\u30aa\u30da\u30ec\u30c3\u30bf",
+                    "originaltune": "\u30aa\u30ea\u30b8\u30ca\u30eb\u66f2",
+                    "pianokey": "\u30d4\u30a2\u30ce\u30ad\u30fc",
+                    "waybackhome": "\u5bb6\u3078\u306e\u5e30\u308a\u9053"
+                }
+            },
+            "play_quick_reply_message": {
+                "name": "\u30af\u30a4\u30c3\u30af\u8fd4\u4fe1\u30e1\u30c3\u30bb\u30fc\u30b8\u3092\u518d\u751f\u3059\u308b"
+            },
+            "ptz_preset": {
+                "name": "PTZ\u30d7\u30ea\u30bb\u30c3\u30c8"
+            },
+            "status_led": {
+                "name": "\u30b9\u30c6\u30fc\u30bf\u30b9LED",
+                "state": {
+                    "alwayson": "\u5e38\u306b\u30aa\u30f3",
+                    "alwaysonatnight": "\u30aa\u30fc\u30c8\uff06\u591c\u9593\u5e38\u6642\u70b9\u706f",
+                    "auto": "\u30aa\u30fc\u30c8",
+                    "stayoff": "\u8fd1\u5bc4\u3089\u306a\u3044"
+                }
+            },
+            "visitor_tone": {
+                "name": "\u30d3\u30b8\u30bf\u30fc\u7740\u4fe1\u97f3",
+                "state": {
+                    "attraction": "\u30a2\u30c8\u30e9\u30af\u30b7\u30e7\u30f3",
+                    "citybird": "\u30b7\u30c6\u30a3\u30fb\u30d0\u30fc\u30c9",
+                    "goodday": "\u826f\u3044\u4e00\u65e5",
+                    "hophop": "Hop hop",
+                    "loop": "\u30eb\u30fc\u30d7",
+                    "moonlight": "\u6708\u660e\u304b\u308a",
+                    "off": "\u30aa\u30d5",
+                    "operetta": "\u30aa\u30da\u30ec\u30c3\u30bf",
+                    "originaltune": "\u30aa\u30ea\u30b8\u30ca\u30eb\u66f2",
+                    "pianokey": "\u30d4\u30a2\u30ce\u30ad\u30fc",
+                    "waybackhome": "\u5bb6\u3078\u306e\u5e30\u308a\u9053"
+                }
+            }
+        },
+        "sensor": {
+            "battery_percent": {
+                "name": "\u30d0\u30c3\u30c6\u30ea\u30fc\u306e\u30d1\u30fc\u30bb\u30f3\u30c6\u30fc\u30b8"
+            },
+            "battery_state": {
+                "name": "\u30d0\u30c3\u30c6\u30ea\u30fc\u306e\u72b6\u614b",
+                "state": {
+                    "chargecomplete": "\u5145\u96fb\u5b8c\u4e86",
+                    "charging": "\u5145\u96fb\u4e2d",
+                    "discharging": "\u653e\u96fb\u4e2d"
+                }
+            },
+            "battery_temperature": {
+                "name": "\u30d0\u30c3\u30c6\u30ea\u30fc\u6e29\u5ea6"
+            },
+            "event_connection": {
+                "name": "\u30a4\u30d9\u30f3\u30c8\u63a5\u7d9a",
+                "state": {
+                    "fast_poll": "\u9ad8\u901f\u30dd\u30fc\u30ea\u30f3\u30b0",
+                    "onvif_long_poll": "ONVIF \u30ed\u30f3\u30b0\u30dd\u30fc\u30ea\u30f3\u30b0",
+                    "onvif_push": "ONVIF \u30d7\u30c3\u30b7\u30e5"
+                }
+            },
+            "hdd_storage": {
+                "name": "HDD {hdd_index}\u30b9\u30c8\u30ec\u30fc\u30b8"
+            },
+            "ptz_pan_position": {
+                "name": "PTZ\u30d1\u30f3\u4f4d\u7f6e"
+            },
+            "sd_storage": {
+                "name": "SD {hdd_index}\u30b9\u30c8\u30ec\u30fc\u30b8"
+            },
+            "wifi_signal": {
+                "name": "Wi-Fi\u4fe1\u53f7"
+            }
+        },
+        "siren": {
+            "siren": {
+                "name": "\u30b5\u30a4\u30ec\u30f3"
+            }
+        },
+        "switch": {
+            "auto_focus": {
+                "name": "\u30aa\u30fc\u30c8\u30d5\u30a9\u30fc\u30ab\u30b9"
+            },
+            "auto_tracking": {
+                "name": "\u30aa\u30fc\u30c8\u30c8\u30e9\u30c3\u30ad\u30f3\u30b0"
+            },
+            "buzzer": {
+                "name": "\u30a4\u30d9\u30f3\u30c8\u6642\u306e\u30d6\u30b6\u30fc"
+            },
+            "doorbell_button_sound": {
+                "name": "\u30c9\u30a2\u30d9\u30eb\u30dc\u30bf\u30f3\u306e\u97f3"
+            },
+            "email": {
+                "name": "\u30a4\u30d9\u30f3\u30c8\u306b\u95a2\u3059\u308bE\u30e1\u30fc\u30eb"
+            },
+            "ftp_upload": {
+                "name": "FTP\u30a2\u30c3\u30d7\u30ed\u30fc\u30c9"
+            },
+            "gaurd_return": {
+                "name": "\u30ac\u30fc\u30c9\u30ea\u30bf\u30fc\u30f3"
+            },
+            "guard_return": {
+                "name": "\u30ac\u30fc\u30c9\u30ea\u30bf\u30fc\u30f3"
+            },
+            "hdr": {
+                "name": "HDR"
+            },
+            "ir_lights": {
+                "name": "\u591c\u9593\u30e2\u30fc\u30c9\u306e\u8d64\u5916\u7dda\u30e9\u30a4\u30c8"
+            },
+            "led": {
+                "name": "LED"
+            },
+            "manual_record": {
+                "name": "\u30de\u30cb\u30e5\u30a2\u30eb\u8a18\u9332"
+            },
+            "pir_enabled": {
+                "name": "PIR\u6709\u52b9"
+            },
+            "pir_reduce_alarm": {
+                "name": "PIR\u306e\u8aa4\u5831\u3092\u6e1b\u3089\u3059"
+            },
+            "ptz_patrol": {
+                "name": "PTZ\u30d1\u30c8\u30ed\u30fc\u30eb"
+            },
+            "push_notifications": {
+                "name": "\u30d7\u30c3\u30b7\u30e5\u901a\u77e5"
+            },
+            "record": {
+                "name": "\u8a18\u9332"
+            },
+            "record_audio": {
+                "name": "\u30aa\u30fc\u30c7\u30a3\u30aa\u306e\u9332\u97f3"
+            },
+            "siren_on_event": {
+                "name": "\u30a4\u30d9\u30f3\u30c8\u306e\u30b5\u30a4\u30ec\u30f3"
+            }
+        }
+    },
+    "exceptions": {
+        "service_entry_ex": {
+            "message": "Reolink {service_name}\u30a8\u30e9\u30fc: \u69cb\u6210\u30a8\u30f3\u30c8\u30ea\u304c\u898b\u3064\u304b\u3089\u306a\u3044\u304b\u3001\u30ed\u30fc\u30c9\u3055\u308c\u3066\u3044\u307e\u305b\u3093"
+        },
+        "service_not_chime": {
+            "message": "Reolink play_chime \u30a8\u30e9\u30fc: {device_name}\u30c1\u30e3\u30a4\u30e0\u3067\u306f\u3042\u308a\u307e\u305b\u3093"
+        }
+    },
+    "issues": {
+        "enable_port": {
+            "description": "{name}\u3067{ports}\u500b\u306e\u30dd\u30fc\u30c8\u3092\u81ea\u52d5\u7684\u306b\u6709\u52b9\u306b\u3067\u304d\u307e\u305b\u3093\u3067\u3057\u305f\u3002 [Reolink\u30af\u30e9\u30a4\u30a2\u30f3\u30c8]( {info_link} )\u3092\u4f7f\u7528\u3057\u3066\u624b\u52d5\u3067ON\u306b\u8a2d\u5b9a\u3057\u3066\u304f\u3060\u3055\u3044",
+            "title": "Reolink\u30dd\u30fc\u30c8\u304c\u6709\u52b9\u306b\u306a\u3063\u3066\u3044\u307e\u305b\u3093"
+        },
+        "firmware_update": {
+            "description": "\u30e2\u30c7\u30eb\"{model}\"\u3068\u30cf\u30fc\u30c9\u30a6\u30a7\u30a2\u30d0\u30fc\u30b8\u30e7\u30f3\"{hw_version}\"\u306e\"{name}\"\u306f\u53e4\u3044\u30d5\u30a1\u30fc\u30e0\u30a6\u30a7\u30a2\u30d0\u30fc\u30b8\u30e7\u30f3\"{current_firmware}\"\u3092\u5b9f\u884c\u3057\u3066\u3044\u307e\u3059\u304c\u3001Reolink\u7d71\u5408\u3092\u9069\u5207\u306b\u52d5\u4f5c\u3055\u305b\u308b\u306b\u306f\u5c11\u306a\u304f\u3068\u3082\u30d5\u30a1\u30fc\u30e0\u30a6\u30a7\u30a2\u30d0\u30fc\u30b8\u30e7\u30f3\"{required_firmware}\"\u304c\u5fc5\u8981\u3067\u3059\u3002\u6700\u65b0\u306e\u30d5\u30a1\u30fc\u30e0\u30a6\u30a7\u30a2\u306f[Reolink\u30c0\u30a6\u30f3\u30ed\u30fc\u30c9\u30bb\u30f3\u30bf\u30fc]({download_link})\u304b\u3089\u30c0\u30a6\u30f3\u30ed\u30fc\u30c9\u3067\u304d\u307e\u3059\u3002",
+            "title": "Reolink\u30d5\u30a1\u30fc\u30e0\u30a6\u30a7\u30a2\u306e\u30a2\u30c3\u30d7\u30c7\u30fc\u30c8\u304c\u5fc5\u8981"
+        },
+        "hdr_switch_deprecated": {
+            "description": "Reolink HDR \u30b9\u30a4\u30c3\u30c1 \u30a8\u30f3\u30c6\u30a3\u30c6\u30a3\u306f\u975e\u63a8\u5968\u3068\u306a\u308a\u3001HA 2025.2.0 \u3067\u524a\u9664\u3055\u308c\u307e\u3059\u3002\u3053\u308c\u306f\u3001\u30aa\u30d7\u30b7\u30e7\u30f3 `on`\u3001`off`\u3001`auto` \u3092\u63d0\u4f9b\u3059\u308b HDR \u9078\u629e\u30a8\u30f3\u30c6\u30a3\u30c6\u30a3\u306b\u7f6e\u304d\u63db\u3048\u3089\u308c\u307e\u3057\u305f\u3002\u3053\u306e\u554f\u984c\u3092\u89e3\u6d88\u3059\u308b\u306b\u306f\u3001\u30aa\u30fc\u30c8\u30e1\u30fc\u30b7\u30e7\u30f3\u3092\u9069\u5207\u306b\u8abf\u6574\u3057\u3001HDR \u30b9\u30a4\u30c3\u30c1 \u30a8\u30f3\u30c6\u30a3\u30c6\u30a3\u3092\u7121\u52b9\u306b\u3057\u3066\u304f\u3060\u3055\u3044\u3002",
+            "title": "Reolink HDR\u30b9\u30a4\u30c3\u30c1\u304c\u975e\u63a8\u5968\u306b"
+        },
+        "https_webhook": {
+            "description": "Reolink \u88fd\u54c1\u306f\u30e2\u30fc\u30b7\u30e7\u30f3 \u30a4\u30d9\u30f3\u30c8\u3092 HTTPS \u30a2\u30c9\u30ec\u30b9 (SSL) \u306b\u30d7\u30c3\u30b7\u30e5\u3067\u304d\u307e\u305b\u3093\u3002[\u30cd\u30c3\u30c8\u30ef\u30fc\u30af\u8a2d\u5b9a]( {network_link} ) \u306e\u300cHome Assistant URL\u300d\u3067 (\u30ed\u30fc\u30ab\u30eb) HTTP \u30a2\u30c9\u30ec\u30b9\u3092\u8a2d\u5b9a\u3057\u3066\u304f\u3060\u3055\u3044\u3002\u73fe\u5728\u306e (\u30ed\u30fc\u30ab\u30eb) \u30a2\u30c9\u30ec\u30b9\u306f ` {base_url} ` \u3067\u3059\u3002\u6709\u52b9\u306a\u30a2\u30c9\u30ec\u30b9\u306f\u305f\u3068\u3048\u3070 `http://192.168.1.10:8123` \u3067\u3059\u3002\u3053\u3053\u3067 `192.168.1.10` \u306fHome Assistant\u30c7\u30d0\u30a4\u30b9\u306e IP \u3067\u3059",
+            "title": "Reolink Webhook URL \u306f HTTPS (SSL) \u3092\u4f7f\u7528\u3057\u307e\u3059"
+        },
+        "hub_switch_deprecated": {
+            "description": "Reolink Home Hub \u306e\u5197\u9577\u306a\u300c\u9332\u753b\u300d\u3001\u300c\u30a4\u30d9\u30f3\u30c8\u6642\u306b\u30e1\u30fc\u30eb\u300d\u3001\u300cFTP \u30a2\u30c3\u30d7\u30ed\u30fc\u30c9\u300d\u3001\u300c\u30d7\u30c3\u30b7\u30e5\u901a\u77e5\u300d\u3001\u304a\u3088\u3073\u300c\u30a4\u30d9\u30f3\u30c8\u6642\u306b\u30d6\u30b6\u30fc\u300d\u30b9\u30a4\u30c3\u30c1\u306f\u3001\u65b0\u3057\u3044\u30d5\u30a1\u30fc\u30e0\u30a6\u30a7\u30a2\u3067\u30b5\u30dd\u30fc\u30c8\u3055\u308c\u306a\u304f\u306a\u3063\u305f\u305f\u3081\u5ec3\u6b62\u3055\u308c\u307e\u3057\u305f\u3002\u4ee3\u308f\u308a\u306b\u3001Home Hub \u306b\u63a5\u7d9a\u3055\u308c\u3066\u3044\u308b\u5404\u30ab\u30e1\u30e9 \u30c7\u30d0\u30a4\u30b9\u306e\u4e0b\u306b\u3042\u308b\u540c\u3058\u540d\u524d\u306e\u30b9\u30a4\u30c3\u30c1\u3092\u4f7f\u7528\u3057\u3066\u304f\u3060\u3055\u3044\u3002\u3053\u306e\u554f\u984c\u3092\u89e3\u6d88\u3059\u308b\u306b\u306f\u3001\u81ea\u52d5\u5316\u3092\u9069\u5b9c\u8abf\u6574\u3057\u3001\u8a18\u8f09\u3055\u308c\u3066\u3044\u308b\u30b9\u30a4\u30c3\u30c1 \u30a8\u30f3\u30c6\u30a3\u30c6\u30a3\u3092\u7121\u52b9\u306b\u3057\u3066\u304f\u3060\u3055\u3044\u3002",
+            "title": "Reolink\u30db\u30fc\u30e0\u30cf\u30d6\u30b9\u30a4\u30c3\u30c1\u304c\u975e\u63a8\u5968\u306b\u306a\u308a\u307e\u3057\u305f"
+        },
+        "ssl": {
+            "description": "\u30b0\u30ed\u30fc\u30d0\u30eb SSL \u8a3c\u660e\u66f8\u306f {ssl_link} ) \u306e [configuration.yaml\u306ehttp] \u3067\u69cb\u6210\u3055\u308c\u3001\u30ed\u30fc\u30ab\u30ebHTTP\u30a2\u30c9\u30ec\u30b9 ` {base_url} ` \u306f [\u30cd\u30c3\u30c8\u30ef\u30fc\u30af\u8a2d\u5b9a] ( {network_link} ) \u306e\"Home Assistant URL\u201d\u3067\u69cb\u6210\u3055\u308c\u307e\u3059\u3002\u3057\u305f\u304c\u3063\u3066\u3001Reolink \u30c7\u30d0\u30a4\u30b9\u306fHome Assistant\u306b\u30a2\u30af\u30bb\u30b9\u3057\u3066\u30e2\u30fc\u30b7\u30e7\u30f3/AI \u30a4\u30d9\u30f3\u30c8\u3092\u30d7\u30c3\u30b7\u30e5\u3067\u304d\u307e\u305b\u3093\u3002\u30b0\u30ed\u30fc\u30d0\u30eb\u306b\u9069\u7528\u3055\u308c\u308b SSL\u8a3c\u660e\u66f8\u306e\u4ee3\u308f\u308a\u306b [NGINX \u30a2\u30c9\u30aa\u30f3]( {nginx_link} ) \u3092\u4f7f\u7528\u3059\u308b\u306a\u3069\u3057\u3066\u3001\u30ed\u30fc\u30ab\u30ebHTTP\u30a2\u30c9\u30ec\u30b9\u304c SSL\u8a3c\u660e\u66f8\u3067\u30ab\u30d0\u30fc\u3055\u308c\u3066\u3044\u306a\u3044\u3053\u3068\u3092\u78ba\u8a8d\u3057\u3066\u304f\u3060\u3055\u3044\u3002",
+            "title": "Reolink \u306f\u30b0\u30ed\u30fc\u30d0\u30eb SSL \u8a3c\u660e\u66f8\u3068\u4e92\u63db\u6027\u304c\u3042\u308a\u307e\u305b\u3093"
+        },
+        "webhook_url": {
+            "description": "{name}\u304b\u3089\u521d\u671f ONVIF \u72b6\u614b\u3092\u53d7\u4fe1\u3057\u307e\u305b\u3093\u3067\u3057\u305f\u3002\u307b\u3068\u3093\u3069\u306e\u5834\u5408\u3001Reolink\u30ab\u30e1\u30e9\u306f\u73fe\u5728\u306e(\u30ed\u30fc\u30ab\u30eb) Home Assistant URL\u300c{base_url}\u300d\u306b\u5230\u9054\u3067\u304d\u307e\u305b\u3093\u306e\u3067\u3001Home Assistant\u3092\u6307\u3059[\u30cd\u30c3\u30c8\u30ef\u30fc\u30af\u8a2d\u5b9a]({network_link})\u306e\u300cHome Assistant URL\u300d\u306e\u4e0b\u306b(\u30ed\u30fc\u30ab\u30eb)HTTP\u30a2\u30c9\u30ec\u30b9\u3092\u8a2d\u5b9a\u3057\u3066\u304f\u3060\u3055\u3044\u3002\u305f\u3068\u3048\u3070\u3001http://192.168.1.10:8123 \u3053\u3053\u3067\u3001 192.168.1.10 \u306fHome Assistant\u30c7\u30d0\u30a4\u30b9\u306eIP\u3067\u3059\u3002\u307e\u305f\u3001Reolink\u30ab\u30e1\u30e9\u304c\u305d\u306eURL\u306b\u5230\u9054\u3067\u304d\u308b\u3053\u3068\u3092\u78ba\u8a8d\u3057\u3066\u304f\u3060\u3055\u3044\u3002\u6700\u521d\u306eONVIF\u30d7\u30c3\u30b7\u30e5\u304c\u53d7\u4fe1\u3055\u308c\u308b\u307e\u3067\u3001\u9ad8\u901f\u30e2\u30fc\u30b7\u30e7\u30f3/AI\u72b6\u614b\u30dd\u30fc\u30ea\u30f3\u30b0\u3092\u4f7f\u7528\u3057\u307e\u3059\u3002",
+            "title": "Reolink Webhook URL \u306b\u5230\u9054\u3067\u304d\u307e\u305b\u3093"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "protocol": "\u30d7\u30ed\u30c8\u30b3\u30eb"
+                },
+                "data_description": {
+                    "protocol": "\u30ab\u30e1\u30e9 \u30a8\u30f3\u30c6\u30a3\u30c6\u30a3\u306b\u4f7f\u7528\u3059\u308b\u30b9\u30c8\u30ea\u30fc\u30df\u30f3\u30b0 \u30d7\u30ed\u30c8\u30b3\u30eb\u3002 RTSP \u306f 4K \u30b9\u30c8\u30ea\u30fc\u30e0 (h265 \u30a8\u30f3\u30b3\u30fc\u30c7\u30a3\u30f3\u30b0) \u3092\u30b5\u30dd\u30fc\u30c8\u3057\u307e\u3059\u304c\u3001RTMP \u3068 FLV \u306f\u30b5\u30dd\u30fc\u30c8\u3057\u307e\u305b\u3093\u3002 FLV \u306f\u30ab\u30e1\u30e9\u3078\u306e\u8981\u6c42\u304c\u6700\u3082\u4f4e\u3044\u3067\u3059\u3002"
+                }
+            }
+        }
+    },
+    "selector": {
+        "ringtone": {
+            "options": {
+                "attraction": "\u30a2\u30c8\u30e9\u30af\u30b7\u30e7\u30f3",
+                "citybird": "\u30b7\u30c6\u30a3\u30fb\u30d0\u30fc\u30c9",
+                "goodday": "\u826f\u3044\u4e00\u65e5",
+                "hophop": "Hop hop",
+                "loop": "\u30eb\u30fc\u30d7",
+                "moonlight": "\u6708\u660e\u304b\u308a",
+                "operetta": "\u30aa\u30da\u30ec\u30c3\u30bf",
+                "originaltune": "\u30aa\u30ea\u30b8\u30ca\u30eb\u66f2",
+                "pianokey": "\u30d4\u30a2\u30ce\u30ad\u30fc",
+                "waybackhome": "\u5bb6\u3078\u306e\u5e30\u308a\u9053"
+            }
+        }
+    },
+    "services": {
+        "play_chime": {
+            "description": "\u30c1\u30e3\u30a4\u30e0\u3067\u7740\u4fe1\u97f3\u3092\u518d\u751f\u3057\u307e\u3059\u3002",
+            "fields": {
+                "device_id": {
+                    "description": "\u7740\u4fe1\u97f3\u3092\u518d\u751f\u3059\u308b\u30c1\u30e3\u30a4\u30e0\u3002",
+                    "name": "\u30bf\u30fc\u30b2\u30c3\u30c8\u30c1\u30e3\u30a4\u30e0"
+                },
+                "ringtone": {
+                    "description": "\u518d\u751f\u3059\u308b\u7740\u4fe1\u97f3\u3002",
+                    "name": "\u7740\u4fe1\u97f3"
+                }
+            },
+            "name": "\u30c1\u30e3\u30a4\u30e0\u3092\u9cf4\u3089\u3059"
+        },
+        "ptz_move": {
+            "description": "\u30ab\u30e1\u30e9\u3092\u7279\u5b9a\u306e\u901f\u5ea6\u3067\u52d5\u304b\u3057\u307e\u3059\u3002",
+            "fields": {
+                "speed": {
+                    "description": "PTZ \u306e\u79fb\u52d5\u901f\u5ea6\u3002",
+                    "name": "\u901f\u5ea6"
+                }
+            },
+            "name": "PTZ \u79fb\u52d5"
+        }
+    }
+}

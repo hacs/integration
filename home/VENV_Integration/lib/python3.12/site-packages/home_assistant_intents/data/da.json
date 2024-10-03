@@ -1,0 +1,934 @@
+{
+  "language": "da",
+  "intents": {
+    "HassTurnOff": {
+      "data": [
+        {
+          "sentences": [
+            "<sluk> <navn>"
+          ]
+        },
+        {
+          "sentences": [
+            "<luk> <navn>",
+            "<luk> <navn> <i_på> <område>"
+          ],
+          "response": "cover"
+        },
+        {
+          "sentences": [
+            "<sluk> [<al>] <lys> <i_på> <område>",
+            "<sluk> [<al>] <område> <lys>"
+          ],
+          "slots": {
+            "domain": "light",
+            "name": "all"
+          }
+        },
+        {
+          "sentences": [
+            "<luk> <persienne> <i_på> <område>",
+            "<luk> <rullegardin> <i_på> <område>",
+            "rul <rullegardin> ned <i_på> <område>"
+          ],
+          "response": "cover_device_class",
+          "slots": {
+            "device_class": "blind",
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "<luk> <gardin> <i_på> <område>",
+            "træk <gardin> for <i_på> <område>"
+          ],
+          "response": "cover_device_class",
+          "slots": {
+            "device_class": "curtain",
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "<luk> <garagedør>"
+          ],
+          "response": "cover_device_class",
+          "slots": {
+            "device_class": "garage",
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "<luk> <skodde> <i_på> <område>"
+          ],
+          "response": "cover_device_class",
+          "slots": {
+            "device_class": "shutter",
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "<sluk> [<al>] <blæser> <i_på> <område>",
+            "<sluk> [<al>] <område> <blæser>"
+          ],
+          "slots": {
+            "domain": "fan",
+            "name": "all"
+          }
+        }
+      ]
+    },
+    "HassTurnOn": {
+      "data": [
+        {
+          "sentences": [
+            "<tænd> [<al>] <lys> <i_på> <område>",
+            "<tænd> [<al>] <område> <lys>"
+          ],
+          "slots": {
+            "domain": "light",
+            "name": "all"
+          }
+        },
+        {
+          "sentences": [
+            "<tænd> [<al>] <blæser> <i_på> <område>",
+            "<tænd> [<al>] <område> <blæser>"
+          ],
+          "slots": {
+            "domain": "fan",
+            "name": "all"
+          }
+        },
+        {
+          "sentences": [
+            "[aktiver] <navn> [scene]",
+            "<navn> [scene] til",
+            "<tænd> <navn> [scene]",
+            "slå <navn> [scene] til",
+            "skift til (<navn> [scene]|scene <navn>)"
+          ],
+          "requires_context": {
+            "domain": "scene"
+          },
+          "slots": {
+            "domain": "scene"
+          },
+          "response": "scene"
+        },
+        {
+          "sentences": [
+            "[aktiver] <område> <navn> [scene]",
+            "<område> <navn> til",
+            "<tænd> <område> <navn> [scene]",
+            "[aktiver] <navn> [scene] <i> <område>",
+            "<tænd> <navn> [scene] <i> <område>",
+            "skift til <navn> [scene] <i> <område>",
+            "skift <område> til <navn> [scene]"
+          ],
+          "requires_context": {
+            "domain": "scene"
+          },
+          "slots": {
+            "domain": "scene"
+          },
+          "response": "scene"
+        },
+        {
+          "sentences": [
+            "<tænd> <navn>"
+          ]
+        },
+        {
+          "sentences": [
+            "<åbn> <navn>",
+            "<åbn> <navn> <i_på> <område>"
+          ],
+          "response": "cover"
+        },
+        {
+          "sentences": [
+            "<åbn> <persienne> <i_på> <område>",
+            "<åbn> <rullegardin> <i_på> <område>",
+            "rul <rullegardin> op <i_på> <område>"
+          ],
+          "response": "cover_device_class",
+          "slots": {
+            "device_class": "blind",
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "<åbn> <gardin> <i_på> <område>",
+            "træk <gardin> fra <i_på> <område>"
+          ],
+          "response": "cover_device_class",
+          "slots": {
+            "device_class": "curtain",
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "<åbn> <garagedør>"
+          ],
+          "response": "cover_device_class",
+          "slots": {
+            "device_class": "garage",
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "<åbn> <skodde> <i_på> <område>"
+          ],
+          "response": "cover_device_class",
+          "slots": {
+            "device_class": "shutter",
+            "domain": "cover"
+          }
+        }
+      ]
+    },
+    "HassLightSet": {
+      "data": [
+        {
+          "sentences": [
+            "sæt <navn>[s] lysstyrke til <lysstyrke>",
+            "sæt lysstyrke[n] på <navn> til <lysstyrke>",
+            "sæt <navn> til [lysstyrke] <lysstyrke>"
+          ],
+          "response": "brightness"
+        },
+        {
+          "sentences": [
+            "sæt lysstyrke[n] <i_på> <område> til <lysstyrke>",
+            "sæt <område>[s] lysstyrke til <lysstyrke>",
+            "sæt <område> til [lysstyrke] <lysstyrke>"
+          ],
+          "slots": {
+            "name": "all"
+          },
+          "response": "brightness"
+        },
+        {
+          "sentences": [
+            "sæt <navn>[s] farve til {color}",
+            "sæt [farve[n] på] <navn> til {color}"
+          ],
+          "response": "color"
+        },
+        {
+          "sentences": [
+            "sæt {color}[t] lys <i_på> <område>"
+          ],
+          "slots": {
+            "name": "all"
+          },
+          "response": "color"
+        }
+      ]
+    },
+    "HassClimateGetTemperature": {
+      "data": [
+        {
+          "sentences": [
+            "hvad er temperatur[en] [<i_på> <område>]",
+            "hvor <koldt_varmt> er <område>",
+            "hvor <koldt_varmt> er (der | det) [<i_på> <område>]",
+            "er (der | det) <koldt_varmt> [<i_på> <område>]",
+            "hvad er <område>[s] temperatur"
+          ]
+        }
+      ]
+    },
+    "HassGetState": {
+      "data": [
+        {
+          "sentences": [
+            "hvad er [(status|tilstand) (på|for)] <navn> [<i_på> <område>]"
+          ],
+          "response": "one",
+          "excludes_context": {
+            "domain": [
+              "scene",
+              "script"
+            ]
+          }
+        },
+        {
+          "sentences": [
+            "er [(tilstand|tilstanden|status) (på|for)] <navn> {on_off_states:state} [<i_på> <område>]"
+          ],
+          "response": "one_yesno",
+          "excludes_context": {
+            "domain": [
+              "cover"
+            ]
+          }
+        },
+        {
+          "sentences": [
+            "er [(nogen|nogle)] {on_off_domains:domain} {on_off_states:state} [<i_på> <område>]"
+          ],
+          "response": "any"
+        },
+        {
+          "sentences": [
+            "er alle {on_off_domains:domain} {on_off_states:state} [<i_på> <område>]"
+          ],
+          "response": "all"
+        },
+        {
+          "sentences": [
+            "(hvilken|hvilke) {on_off_domains:domain} er {on_off_states:state} [<i_på> <område>]"
+          ],
+          "response": "which"
+        },
+        {
+          "sentences": [
+            "hvor mange {on_off_domains:domain} er {on_off_states:state} [<i_på> <område>]"
+          ],
+          "response": "how_many"
+        },
+        {
+          "sentences": [
+            "er <navn> {cover_states:state} [<i_på> <område>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "cover"
+          },
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "er [der] (nogen|nogle) {cover_classes:device_class} {cover_states:state} [<i_på> <område>]"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "er alle {cover_classes:device_class} {cover_states:state} [<i_på> <område>]"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "(hvilken|hvilke) {cover_classes:device_class} er {cover_states:state} [<i_på> <område>]"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "hvor mange {cover_classes:device_class} er {cover_states:state} [<i_på> <område>]"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "cover"
+          }
+        }
+      ]
+    }
+  },
+  "responses": {
+    "errors": {
+      "no_intent": "Undskyld, det forstod jeg ikke",
+      "no_area": "Området med navnet {{ area }} findes ikke",
+      "no_domain_in_area": "{{ domain }} findes ikke i området {{ area }}",
+      "no_device_class_in_area": "{{ device_class }} findes ikke i området {{ area }}",
+      "no_entity": "{{ entity }} findes ikke",
+      "handle_error": "Der opstod en uventet fejl under håndtering af hensigten"
+    },
+    "intents": {
+      "HassGetState": {
+        "one": "{{ slots.name | capitalize }} er {{ state.state_with_unit }}\n",
+        "one_yesno": "{% if query.matched %}\n  Ja\n{% else %}\n  Nej, {{ state.state_with_unit }}\n{% endif %}\n",
+        "any": "{% if query.matched %}\n  {% set match = query.matched | map(attribute=\"name\") | sort | list %}\n  {% if match | length > 4 %}\n    Ja, {{ match[:3] | join(\", \") }} og {{ (match | length - 3) }} mere\n  {%- else -%}\n    Ja,\n    {% for name in match -%}\n      {% if not loop.first and not loop.last %}, {% elif loop.last and not loop.first %} og {% endif -%}\n      {{ name }}\n    {%- endfor -%}\n  {% endif %}\n{% else %}\n  Nej\n{% endif %}\n",
+        "all": "{% if not query.unmatched: %}\n  Ja\n{% else %}\n  {% set no_match = query.unmatched | map(attribute=\"name\") | sort | list %}\n  {% if no_match | length > 4 %}\n    Nej, ikke {{ no_match[:3] | join(\", \") }} og {{ (no_match | length - 3) }} mere\n  {%- else -%}\n    Nej, ikke\n    {% for name in no_match -%}\n      {% if not loop.first and not loop.last %}, {% elif loop.last and not loop.first %} og {% endif -%}\n      {{ name }}\n    {%- endfor %}\n  {% endif %}\n{% endif %}\n",
+        "which": "{% if not query.matched %}\n  Ikke nogen\n{% else: %}\n  {% set match = query.matched | map(attribute=\"name\") | sort | list %}\n  {% if match | length > 4 %}\n    {{ match[:3] | join(\", \") }} og {{ (match | length - 3) }} mere\n  {% else %}\n    {%- for name in match -%}\n      {% if not loop.first and not loop.last %}, {% elif loop.last and not loop.first %} og {% endif -%}\n      {{ name }}\n    {%- endfor -%}\n  {% endif %}\n{% endif %}\n",
+        "how_many": "{{ query.matched | length }}\n"
+      },
+      "HassTurnOff": {
+        "default": "Slukkede {{ slots.name }}",
+        "lights_area": "Slukkede lys i {{ slots.name }}",
+        "fans_area": "Slukkede blæsere i {{ slots.name }}",
+        "cover": "Lukkede {{ slots.name }}",
+        "cover_area": "Lukkede {{ slots.area}}",
+        "cover_device_class": "Lukkede {{ slots.device_class }}"
+      },
+      "HassTurnOn": {
+        "default": "Tændte {{ slots.name }}",
+        "lights_area": "Tændte lys i {{ slots.area }}",
+        "fans_area": "Tændte blæsere i {{ slots.area }}",
+        "cover": "Åbnede {{ slots.name }}",
+        "cover_area": "Åbnede {{ slots.area }}",
+        "cover_device_class": "Åbnede {{ slots.device_class }}",
+        "scene": "Aktiveret"
+      },
+      "HassLightSet": {
+        "brightness": "{{ slots.name }} lysstyrke sat til {{ slots.brightness }}",
+        "brightness_area": "lysstyrke i {{ slots.area }} sat til {{ slots.brightness }}",
+        "color": "{{ slots.name }} farve sat til {{ slots.color }}",
+        "color_area": "Farve i {{ slots.area }} sat til {{ slots.color }}"
+      },
+      "HassClimateGetTemperature": {
+        "default": "{{ state.state }} grader"
+      }
+    }
+  },
+  "lists": {
+    "brightness": {
+      "range": {
+        "type": "percentage",
+        "from": 0,
+        "to": 100
+      }
+    },
+    "brightness_level": {
+      "values": [
+        {
+          "in": "(højest[e]|maksimal[e]|maksimum|max)",
+          "out": 100
+        },
+        {
+          "in": "(lavest[e]|mindst[e]|minimal[e]|minimum)",
+          "out": 1
+        }
+      ]
+    },
+    "color": {
+      "values": [
+        {
+          "in": "hvid",
+          "out": "white"
+        },
+        {
+          "in": "sort",
+          "out": "black"
+        },
+        {
+          "in": "rød",
+          "out": "red"
+        },
+        {
+          "in": "orange",
+          "out": "orange"
+        },
+        {
+          "in": "gul",
+          "out": "yellow"
+        },
+        {
+          "in": "grøn",
+          "out": "green"
+        },
+        {
+          "in": "blå",
+          "out": "blue"
+        },
+        {
+          "in": "lilla",
+          "out": "purple"
+        },
+        {
+          "in": "brun",
+          "out": "brown"
+        },
+        {
+          "in": "lyserød",
+          "out": "pink"
+        },
+        {
+          "in": "turkis",
+          "out": "turquoise"
+        }
+      ]
+    },
+    "cover_classes": {
+      "values": [
+        {
+          "in": "markise[(n|r|rne)]",
+          "out": "awning"
+        },
+        {
+          "in": "persienne[(n|r|rne)]",
+          "out": "blind"
+        },
+        {
+          "in": "gardin[(et|er|erne)]",
+          "out": "curtain"
+        },
+        {
+          "in": "dør[(en|e|ene)]",
+          "out": "door"
+        },
+        {
+          "in": "garage(dør|port)[(en|e|ene)]",
+          "out": "garage"
+        },
+        {
+          "in": "låge[(en|r|rne)]",
+          "out": "gate"
+        },
+        {
+          "in": "(persienne[(en|r|rne)]|rullegardin[(et|er|erne)])",
+          "out": "shade"
+        },
+        {
+          "in": "skodde[(n|r|rne)]",
+          "out": "shutter"
+        },
+        {
+          "in": "vindue[(t|r|rne)]",
+          "out": "window"
+        }
+      ]
+    },
+    "cover_states": {
+      "values": [
+        {
+          "in": "(åben[t]|åbne[t])",
+          "out": "open"
+        },
+        {
+          "in": "lukket",
+          "out": "closed"
+        },
+        {
+          "in": "åbner",
+          "out": "opening"
+        },
+        {
+          "in": "lukker",
+          "out": "closing"
+        }
+      ]
+    },
+    "lock_states": {
+      "values": [
+        {
+          "in": "låst",
+          "out": "locked"
+        },
+        {
+          "in": "ulåst",
+          "out": "unlocked"
+        }
+      ]
+    },
+    "on_off_states": {
+      "values": [
+        {
+          "in": "(på|tændt)",
+          "out": "on"
+        },
+        {
+          "in": "(af|slukket)",
+          "out": "off"
+        }
+      ]
+    },
+    "on_off_domains": {
+      "values": [
+        {
+          "in": "lys[(et|ene)]",
+          "out": "light"
+        },
+        {
+          "in": "ventilator([en|er|erne])",
+          "out": "fan"
+        },
+        {
+          "in": "(afbryder[(en|ne)]|kontakt[(en|er|erne)])",
+          "out": "switch"
+        }
+      ]
+    },
+    "temperature": {
+      "range": {
+        "type": "temperature",
+        "from": 0,
+        "to": 100
+      }
+    },
+    "temperature_unit": {
+      "values": [
+        "celsius",
+        {
+          "in": "c",
+          "out": "celsius"
+        },
+        "fahrenheit",
+        {
+          "in": "f",
+          "out": "fahrenheit"
+        }
+      ]
+    },
+    "bs_battery_states": {
+      "values": [
+        {
+          "in": "lav",
+          "out": "on"
+        },
+        {
+          "in": "normal",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_battery_charging_states": {
+      "values": [
+        {
+          "in": "lader",
+          "out": "on"
+        },
+        {
+          "in": "lader ikke",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_carbon_monoxide_states": {
+      "values": [
+        {
+          "in": "(detekteret|fundet|registreret)",
+          "out": "on"
+        },
+        {
+          "in": "(ikke detekteret|ikke fundet|ikke registreret)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_cold_states": {
+      "values": [
+        {
+          "in": "kold[t]",
+          "out": "on"
+        },
+        {
+          "in": "normal[t]",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_connectivity_states": {
+      "values": [
+        {
+          "in": "forbundet",
+          "out": "on"
+        },
+        {
+          "in": "afbrudt",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_door_states": {
+      "values": [
+        {
+          "in": "(åben[t]|åbne[t])",
+          "out": "on"
+        },
+        {
+          "in": "lukket",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_garage_door_states": {
+      "values": [
+        {
+          "in": "(åben[t]|åbne[t])",
+          "out": "on"
+        },
+        {
+          "in": "lukket",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_gas_states": {
+      "values": [
+        {
+          "in": "(detekteret|fundet|registreret)",
+          "out": "on"
+        },
+        {
+          "in": "(ikke detekteret|ikke fundet|ikke registreret)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_heat_states": {
+      "values": [
+        {
+          "in": "varm[t]",
+          "out": "on"
+        },
+        {
+          "in": "normal[t]",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_light_states": {
+      "values": [
+        {
+          "in": "(detekteret|registreret)",
+          "out": "on"
+        },
+        {
+          "in": "(ikke detekteret|ikke registreret)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_lock_states": {
+      "values": [
+        {
+          "in": "(låst op|ulåst)",
+          "out": "on"
+        },
+        {
+          "in": "låst",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_moisture_states": {
+      "values": [
+        {
+          "in": "våd[t]",
+          "out": "on"
+        },
+        {
+          "in": "tør[t]",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_motion_states": {
+      "values": [
+        {
+          "in": "(detekteret|registreret)",
+          "out": "on"
+        },
+        {
+          "in": "(ikke detekteret|ikke registreret)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_occupancy_states": {
+      "values": [
+        {
+          "in": "(detekteret|registreret)",
+          "out": "on"
+        },
+        {
+          "in": "(ikke detekteret|ikke registreret)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_opening_states": {
+      "values": [
+        {
+          "in": "(åben[t]|åbne[t])",
+          "out": "on"
+        },
+        {
+          "in": "lukket",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_plug_states": {
+      "values": [
+        {
+          "in": "(koblet til|sat i)",
+          "out": "on"
+        },
+        {
+          "in": "(ikke koblet til|ikke sat i)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_power_states": {
+      "values": [
+        {
+          "in": "tændt",
+          "out": "on"
+        },
+        {
+          "in": "slukket",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_presence_states": {
+      "values": [
+        {
+          "in": "(hjemme|tilstedeværende)",
+          "out": "on"
+        },
+        {
+          "in": "(fraværende|ikke hjemme|ude)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_problem_states": {
+      "values": [
+        {
+          "in": "(detekteret|fundet|registreret)",
+          "out": "on"
+        },
+        {
+          "in": "(ikke detekteret|ikke fundet|ikke registreret)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_running_states": {
+      "values": [
+        {
+          "in": "kører",
+          "out": "on"
+        },
+        {
+          "in": "kører ikke",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_safety_states": {
+      "values": [
+        {
+          "in": "(farlig|usikker)",
+          "out": "on"
+        },
+        {
+          "in": "(sikker|ufarlig)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_smoke_states": {
+      "values": [
+        {
+          "in": "(detekteret|fundet|registreret)",
+          "out": "on"
+        },
+        {
+          "in": "(ikke detekteret|ikke fundet|ikke registreret)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_sound_states": {
+      "values": [
+        {
+          "in": "(detekteret|registreret)",
+          "out": "on"
+        },
+        {
+          "in": "(ikke detekteret|ikke registreret)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_tamper_states": {
+      "values": [
+        {
+          "in": "(detekteret|pillet ved|registreret)",
+          "out": "on"
+        },
+        {
+          "in": "(ikke detekteret|ikke pillet ved|ikke registreret)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_update_states": {
+      "values": [
+        {
+          "in": "opdatering tilgængelig",
+          "out": "on"
+        },
+        {
+          "in": "opdateret",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_vibration_states": {
+      "values": [
+        {
+          "in": "(detekteret|registreret|vibrerer)",
+          "out": "on"
+        },
+        {
+          "in": "(ikke detekteret|ikke registreret|vibrerer ikke)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_window_states": {
+      "values": [
+        {
+          "in": "(åben[t]|åbne[t])",
+          "out": "on"
+        },
+        {
+          "in": "lukket",
+          "out": "closed"
+        }
+      ]
+    }
+  },
+  "expansion_rules": {
+    "al": "(alle | alt)",
+    "blæser": "blæser[(e|en|ne)]",
+    "garagedør": "garage(dør|port)[(en|e|ene)]",
+    "gardin": "gardin[(et|er|erne)]",
+    "i_på": "(i | på)",
+    "koldt_varmt": "(kold[t] | varm[t])",
+    "luk": "luk [for]",
+    "lys": "lys[(ene|et)]",
+    "lysstyrke": "{brightness}[%| procent]",
+    "navn": "{name}[(en|et|n|t)]",
+    "område": "{area}[(en|et|n|t)]",
+    "persienne": "persienne[(n|r|rne)]",
+    "rullegardin": "rullegardin[(et|er|erne)]",
+    "skodde": "skodde[(n|r|rne)]",
+    "sluk": "sluk [for]",
+    "temperatur": "{temperature}[°| grader] [{temperature_unit}]",
+    "tænd": "tænd [for]",
+    "åbn": "åbn [for]",
+    "i": "(i|[oppe ]på)"
+  },
+  "skip_words": [
+    "venligst",
+    "vil du",
+    "vær så venlig"
+  ]
+}

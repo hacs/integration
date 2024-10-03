@@ -1,0 +1,87 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Laite on jo m\u00e4\u00e4ritetty",
+            "cannot_connect": "Yhteyden muodostaminen ep\u00e4onnistui",
+            "invalid_auth": "Virheellinen todennus",
+            "no_uuid": "Kodi-instanssilla ei ole yksil\u00f6llist\u00e4 tunnusta. T\u00e4m\u00e4 johtuu todenn\u00e4k\u00f6isesti vanhasta Kodi-versiosta (17.x tai sit\u00e4 nuorempi). Voit m\u00e4\u00e4ritt\u00e4\u00e4 integroinnin manuaalisesti tai p\u00e4ivitt\u00e4\u00e4 uudempaan Kodi-versioon.",
+            "unknown": "Odottamaton virhe"
+        },
+        "error": {
+            "cannot_connect": "Yhteyden muodostaminen ep\u00e4onnistui",
+            "invalid_auth": "Virheellinen todennus",
+            "unknown": "Odottamaton virhe"
+        },
+        "flow_title": "{name}",
+        "step": {
+            "credentials": {
+                "data": {
+                    "password": "Salasana",
+                    "username": "K\u00e4ytt\u00e4j\u00e4tunnus"
+                },
+                "description": "Anna Kodi-k\u00e4ytt\u00e4j\u00e4nimesi ja salasanasi. Ne l\u00f6ytyv\u00e4t kohdasta J\u00e4rjestelm\u00e4/Asetukset/Verkko/Palvelut."
+            },
+            "discovery_confirm": {
+                "description": "Haluatko lis\u00e4t\u00e4 Kodin (`{name}`) Home Assistantiin?",
+                "title": "L\u00f6ytyi Kodi"
+            },
+            "user": {
+                "data": {
+                    "host": "Palvelin",
+                    "port": "Portti",
+                    "ssl": "K\u00e4ytt\u00e4\u00e4 SSL-varmennetta"
+                },
+                "data_description": {
+                    "host": "Kodi -palvelimen is\u00e4nt\u00e4j\u00e4rjestelm\u00e4n nimi tai IP-osoite."
+                },
+                "description": "Kodin yhteystiedot. Varmista, ett\u00e4 otat k\u00e4ytt\u00f6\u00f6n kohdan \"Salli Kodin hallinta HTTP:n kautta\" kohdassa J\u00e4rjestelm\u00e4/Asetukset/Verkko/Palvelut."
+            },
+            "ws_port": {
+                "data": {
+                    "ws_port": "Portti"
+                },
+                "description": "WebSocket-portti (Kodissa joskus my\u00f6s TCP-portti). Jotta voit muodostaa yhteyden WebSocketin kautta, sinun on otettava k\u00e4ytt\u00f6\u00f6n \"Salli ohjelmien ... hallita Kodia\" kohdassa J\u00e4rjestelm\u00e4/Asetukset/Verkko/Palvelut. Jos WebSocket ei ole k\u00e4yt\u00f6ss\u00e4, poista portti ja j\u00e4t\u00e4 se tyhj\u00e4ksi."
+            }
+        }
+    },
+    "device_automation": {
+        "trigger_type": {
+            "turn_off": "{entity_name} sammui",
+            "turn_on": "{entity_name} laitettiin p\u00e4\u00e4lle"
+        }
+    },
+    "services": {
+        "add_to_playlist": {
+            "description": "Lis\u00e4\u00e4 musiikkia oletussoittolistaan (eli playlistid=0).",
+            "fields": {
+                "artist_name": {
+                    "description": "Valinnainen artistin nimi suodatettavaa mediaa varten.",
+                    "name": "Artistin nimi"
+                },
+                "media_id": {
+                    "description": "Lis\u00e4tt\u00e4v\u00e4n mediatiedoston yksil\u00f6llinen tunniste (`songid` tai albumid`). Jos sit\u00e4 ei ole m\u00e4\u00e4ritetty, `media_name` ja `artist_name` tarvitaan Kodin musiikkikirjastosta teht\u00e4viin hakuihin.",
+                    "name": "Mediatunnus"
+                },
+                "media_name": {
+                    "description": "Valinnainen media nimi suodattavaa mediaa varten. Voi olla 'ALL', kun `media_type` on 'ALBUM' ja `artist_name` on m\u00e4\u00e4ritetty, jotta voidaan lis\u00e4t\u00e4 kaikki kappaleet yhdelt\u00e4 artistilta.",
+                    "name": "Median nimi"
+                },
+                "media_type": {
+                    "description": "Mediatyypin tunniste. Sen on oltava jokin seuraavista: SONG tai ALBUM.",
+                    "name": "Mediatyyppi"
+                }
+            },
+            "name": "Lis\u00e4\u00e4 soittolistaan"
+        },
+        "call_method": {
+            "description": "Kutsuu Kodin JSONRPC API -menetelm\u00e4\u00e4 valinnaisilla parametreilla. Kodin API-kutsun tulokset ohjataan uudelleen Home Assistant -tapahtumassa: `kodi_call_method_result`.",
+            "fields": {
+                "method": {
+                    "description": "Kutsuttavan Kodin JSONRPC API -menetelm\u00e4n nimi.",
+                    "name": "Menetelm\u00e4"
+                }
+            },
+            "name": "Kutsumenetelm\u00e4"
+        }
+    }
+}

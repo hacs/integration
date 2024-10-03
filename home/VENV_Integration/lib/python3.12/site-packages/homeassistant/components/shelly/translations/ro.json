@@ -1,0 +1,143 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Dispozitivul a fost configurat deja",
+            "reauth_successful": "Re-autentificarea s-a realizat cu succes",
+            "reauth_unsuccessful": "Re-autentificarea nu a reu\u0219it, te rug\u0103m s\u0103 elimini integrarea \u0219i s\u0103 o configurezi din nou.",
+            "unsupported_firmware": "Dispozitivul folose\u0219te o versiune neacceptat\u0103 de firmware."
+        },
+        "error": {
+            "cannot_connect": "A e\u0219uat conectarea",
+            "firmware_not_fully_provisioned": "Dispozitivul nu este complet provizionat. Te rug\u0103m s\u0103 contactezi serviciul de asisten\u021b\u0103 Shelly",
+            "invalid_auth": "Autentificare nevalid\u0103",
+            "unknown": "Eroare nea\u0219teptat\u0103"
+        },
+        "flow_title": "{name}",
+        "step": {
+            "confirm_discovery": {
+                "description": "Dore\u0219ti s\u0103 configurezi {model} de la {host}?\n\nDispozitivele pe baterie care sunt protejate cu parol\u0103 vor trebui \u201etrezite\u201d \u00eenainte de a continua.\nDispozitivele pe baterie care nu sunt protejate cu parol\u0103 vor fi ad\u0103ugate c\u00e2nd se trezesc. Le po\u021bi trezi manual ap\u0103s\u021bnd un buton de pe ele sau po\u021bi a\u0219tepta urm\u0103toarea actualizare de date dinspre dispozitiv."
+            },
+            "credentials": {
+                "data": {
+                    "password": "Parola",
+                    "username": "Utilizator"
+                }
+            },
+            "reauth_confirm": {
+                "data": {
+                    "password": "Parola",
+                    "username": "Utilizator"
+                }
+            },
+            "user": {
+                "data": {
+                    "host": "Gazd\u0103 (host)"
+                },
+                "description": "\u00cenainte de configurare, dispozitivele alimentate de baterii trebuie trezite, po\u021bi trezi dispozitivul ap\u0103s\u00e2nd un buton de pe el."
+            }
+        }
+    },
+    "device_automation": {
+        "trigger_subtype": {
+            "button": "Buton",
+            "button1": "Primul buton",
+            "button2": "Al doilea buton",
+            "button3": "Al treilea buton",
+            "button4": "Al patrulea buton"
+        },
+        "trigger_type": {
+            "btn_down": "Buton {subtype} ap\u0103sat",
+            "btn_up": "Buton {subtype} eliberat",
+            "double": "La dublu click pe {subtype}",
+            "double_push": "Dublu clic pe {subtype}",
+            "long": "La ap\u0103sare lung\u0103 pe {subtype}",
+            "long_push": "Ap\u0103sare prelung\u0103 pe {subtype}",
+            "long_single": "La ap\u0103sare lung\u0103, urmat\u0103 de click pe {subtype}",
+            "single": "La click pe {subtype}",
+            "single_long": "La ap\u0103sare simpl\u0103 urmat\u0103 de ap\u0103sare lung\u0103 pe {subtype}",
+            "single_push": "Ap\u0103sare simpl\u0103 pe {subtype}",
+            "triple": "La triplu click pe {subtype}",
+            "triple_push": "Ap\u0103sare tripl\u0103 {subtype}"
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "gas": {
+                "state_attributes": {
+                    "detected": {
+                        "state": {
+                            "heavy": "Semnificativ",
+                            "mild": "Moderat",
+                            "none": "Deloc",
+                            "test": "Test",
+                            "unknown": "Necunoscut"
+                        }
+                    }
+                }
+            }
+        },
+        "sensor": {
+            "operation": {
+                "state": {
+                    "fault": "Defec\u021biune",
+                    "normal": "Normal",
+                    "unknown": "Necunoscut",
+                    "warmup": "\u00cenc\u0103lzire"
+                },
+                "state_attributes": {
+                    "self_test": {
+                        "state": {
+                            "completed": "Finalizat",
+                            "not_completed": "Nefinalizat",
+                            "pending": "Urmeaz\u0103",
+                            "running": "\u00cen derulare"
+                        }
+                    }
+                }
+            },
+            "valve_status": {
+                "state": {
+                    "checking": "Verificare",
+                    "closed": "\u00cenchis\u0103",
+                    "closing": "\u00cen curs de \u00eenchidere",
+                    "failure": "E\u0219ec",
+                    "opened": "Deschis",
+                    "opening": "\u00cen curs de deschidere",
+                    "unknown": "Necunoscut"
+                }
+            }
+        }
+    },
+    "issues": {
+        "device_not_calibrated": {
+            "description": "Dispozitivul Shelly {device_name} cu adresa IP {ip_address} necesit\u0103 calibrare. Pentru a calibra dispozitivul, acesta trebuie repornit dup\u0103 instalarea corect\u0103 pe supap\u0103. Po\u021bi reporni dispozitivul \u00een panoul s\u0103u web, acces\u00e2nd \"Settings\" > \"Device reboot\".",
+            "title": "Dispozitivul Shelly {device_name} nu este calibrat"
+        },
+        "push_update_failure": {
+            "description": "Home Assistant nu primeste actualiz\u0103ri push de la dispozitivul Shelly {device_name} cu adresa IP {ip_address}. Verific\u0103 configura\u021bia CoIoT \u00een panoul web al dispozitivului \u0219i configura\u021bia re\u021belei.",
+            "title": "E\u0219ec de actualizare push a dispozitivului Shelly {device_name}"
+        }
+    },
+    "options": {
+        "abort": {
+            "ble_unsupported": "Suportul Bluetooth necesit\u0103 versiunea de firmware {ble_min_version} sau mai nou\u0103."
+        },
+        "step": {
+            "init": {
+                "data": {
+                    "ble_scanner_mode": "Mod scaner Bluetooth"
+                },
+                "description": "Scanarea Bluetooth poate fi activ\u0103 sau pasiv\u0103. C\u00e2nd e activ\u0103, Shelly solicit\u0103 date de la dispozitivele din apropiere; C\u00e2nd e pasiv\u0103, Shelly prime\u0219te date nesolicitate de la dispozitivele din apropiere."
+            }
+        }
+    },
+    "selector": {
+        "ble_scanner_mode": {
+            "options": {
+                "active": "Activ",
+                "disabled": "Dezactivat\u0103",
+                "passive": "Pasiv"
+            }
+        }
+    }
+}

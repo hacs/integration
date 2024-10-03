@@ -1,0 +1,148 @@
+{
+    "device_automation": {
+        "action_type": {
+            "arm_away": "Valvesta {entity_name}",
+            "arm_home": "Valvesta {entity_name} kodus re\u017eiimis",
+            "arm_night": "Valvesta {entity_name} \u00f6\u00f6re\u017eiimis",
+            "arm_vacation": "Valvesta {entity_name} puhkusere\u017eiimis",
+            "disarm": "V\u00f5ta {entity_name} valvest maha",
+            "trigger": "K\u00e4ivita {entity_name}"
+        },
+        "condition_type": {
+            "is_armed_away": "{entity_name} on valvestatud",
+            "is_armed_home": "{entity_name} on valvestatud kodure\u017eiimis",
+            "is_armed_night": "{entity_name} on valvestatud \u00f6\u00f6re\u017eiimis",
+            "is_armed_vacation": "{entity_name} on valvestatud puhkuse reziimis",
+            "is_disarmed": "{entity_name} on valve alt maas",
+            "is_triggered": "{entity_name} on h\u00e4iret andnud"
+        },
+        "extra_fields": {
+            "code": "Kood",
+            "for": "Kestus"
+        },
+        "trigger_type": {
+            "armed_away": "{entity_name} valvestati",
+            "armed_home": "{entity_name} valvestati kodure\u017eiimis",
+            "armed_night": "{entity_name} valvestati \u00f6\u00f6re\u017eiimis",
+            "armed_vacation": "{entity_name} puhkuse re\u017eiim",
+            "disarmed": "{entity_name} v\u00f5eti valvest maha",
+            "triggered": "{entity_name} andis h\u00e4iret"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Valvekeskuse juhtpaneel",
+            "state": {
+                "armed": "Valves",
+                "armed_away": "Valves eemal",
+                "armed_custom_bypass": "Valves, eranditega",
+                "armed_home": "Valves kodus",
+                "armed_night": "Valves \u00f6ine",
+                "armed_vacation": "Valvestatud puhkuse re\u017eiimis",
+                "arming": "Valvestab",
+                "disarmed": "Maas",
+                "disarming": "Valvest maha",
+                "pending": "Ootel",
+                "triggered": "H\u00e4ires"
+            },
+            "state_attributes": {
+                "changed_by": {
+                    "name": "Muutis"
+                },
+                "code_arm_required": {
+                    "name": "Valvestamise kood",
+                    "state": {
+                        "false": "Pole n\u00f5utud",
+                        "true": "N\u00f5utav"
+                    }
+                },
+                "code_format": {
+                    "name": "Koodi vorming",
+                    "state": {
+                        "number": "Arv",
+                        "text": "Tekst"
+                    }
+                }
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "{domain} integreerimise platvorm {platform} ei toeta platvormi seadistamist. \n\n Selle probleemi lahendamiseks eemalda see oma konfiguratsioonist ja taask\u00e4ivita Home Assistant.",
+            "title": "Platvormi tuge ei toetata"
+        }
+    },
+    "services": {
+        "alarm_arm_away": {
+            "description": "Valvesta: _valves ja kedagi pole kodus_.",
+            "fields": {
+                "code": {
+                    "description": "Kood alarmi valvestamiseks.",
+                    "name": "Kood"
+                }
+            },
+            "name": "Valvesta eemal"
+        },
+        "alarm_arm_custom_bypass": {
+            "description": "Valvestab v\u00f5imaldades samal ajal kohandatud alast m\u00f6\u00f6da minna.",
+            "fields": {
+                "code": {
+                    "description": "Kood alarmi valvestamiseks.",
+                    "name": "Kood"
+                }
+            },
+            "name": "Valvesta valikuliselt"
+        },
+        "alarm_arm_home": {
+            "description": "Seadistab valve: Valvestatud kuid keegi on kodus.",
+            "fields": {
+                "code": {
+                    "description": "Kood alarmi valvestamiseks.",
+                    "name": "Kood"
+                }
+            },
+            "name": "Valvesta kodus"
+        },
+        "alarm_arm_night": {
+            "description": "Seadistab valveestamise: \u00d6ine re\u017eiim",
+            "fields": {
+                "code": {
+                    "description": "Kood alarmi valvestamiseks.",
+                    "name": "Kood"
+                }
+            },
+            "name": "\u00d6ine valvestus"
+        },
+        "alarm_arm_vacation": {
+            "description": "Seadistab valvestamise: Aktiveeritud puhkuse ajaks.",
+            "fields": {
+                "code": {
+                    "description": "Kood alarmi valvestamiseks.",
+                    "name": "Kood"
+                }
+            },
+            "name": "Valvesta puhkuse re\u017eiimis"
+        },
+        "alarm_disarm": {
+            "description": "L\u00fclitab valve v\u00e4lja.",
+            "fields": {
+                "code": {
+                    "description": "Kood alarmi v\u00e4ljal\u00fclitamiseks.",
+                    "name": "Kood"
+                }
+            },
+            "name": "Valvest maha"
+        },
+        "alarm_trigger": {
+            "description": "Lubab v\u00e4lise h\u00e4irep\u00e4\u00e4stiku.",
+            "fields": {
+                "code": {
+                    "description": "Kood alarmi valvestamiseks.",
+                    "name": "Kood"
+                }
+            },
+            "name": "P\u00e4\u00e4stik"
+        }
+    },
+    "title": "Valvekeskuse juhtpaneel"
+}

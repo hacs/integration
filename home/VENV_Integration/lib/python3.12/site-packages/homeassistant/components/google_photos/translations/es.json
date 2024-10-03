@@ -1,0 +1,87 @@
+{
+    "application_credentials": {
+        "description": "Sigue las [instrucciones]({more_info_url}) de la [pantalla de consentimiento de OAuth]({oauth_consent_url}) para dar acceso a Home Assistant a tu Google Fotos. Tambi\u00e9n debes crear Credenciales de aplicaci\u00f3n vinculadas a tu cuenta:\n1. Ve a [Credenciales]({oauth_creds_url}) y selecciona **Crear credenciales**.\n1. En la lista desplegable, selecciona **ID de cliente de OAuth**.\n1. Selecciona **Aplicaci\u00f3n web** para el Tipo de aplicaci\u00f3n."
+    },
+    "config": {
+        "abort": {
+            "access_not_configured": "No se puede acceder a la API de Google: \n\n{message}",
+            "already_configured": "La cuenta ya est\u00e1 configurada",
+            "already_in_progress": "El flujo de configuraci\u00f3n ya est\u00e1 en curso",
+            "authorize_url_timeout": "Tiempo de espera agotado mientras se generaba la URL de autorizaci\u00f3n.",
+            "missing_configuration": "El componente no est\u00e1 configurado. Por favor, sigue la documentaci\u00f3n.",
+            "no_url_available": "No hay URL disponible. Para obtener informaci\u00f3n sobre este error, [revisa la secci\u00f3n de ayuda]({docs_url})",
+            "oauth_error": "Se han recibido datos de token no v\u00e1lidos.",
+            "oauth_failed": "Error al obtener el token de acceso.",
+            "oauth_timeout": "Tiempo de espera agotado mientras se resolv\u00eda el token OAuth.",
+            "oauth_unauthorized": "Error de autorizaci\u00f3n OAuth al obtener el token de acceso.",
+            "unknown": "Error inesperado",
+            "user_rejected_authorize": "V\u00ednculo de cuenta rechazado: {error}",
+            "wrong_account": "Cuenta incorrecta: por favor, autent\u00edcate con la cuenta correcta."
+        },
+        "create_entry": {
+            "default": "Autenticado correctamente"
+        },
+        "step": {
+            "pick_implementation": {
+                "title": "Selecciona el m\u00e9todo de autenticaci\u00f3n"
+            }
+        }
+    },
+    "exceptions": {
+        "albums_failed": {
+            "message": "No se pudieron obtener \u00e1lbumes de la API de Google Photos"
+        },
+        "api_error": {
+            "message": "La API de Google Fotos respondi\u00f3 con el error: {message}"
+        },
+        "create_album_error": {
+            "message": "No se pudo crear el \u00e1lbum: {message}"
+        },
+        "file_too_large": {
+            "message": "` {filename} ` es demasiado grande ({size} > {limit})"
+        },
+        "filename_does_not_exist": {
+            "message": "`{filename}` no existe"
+        },
+        "filename_is_not_image": {
+            "message": "`{filename}` no es una imagen"
+        },
+        "integration_not_found": {
+            "message": "La integraci\u00f3n \"{target}\" no se encuentra en el registro."
+        },
+        "missing_upload_permission": {
+            "message": "Home Assistant no tiene permiso para subir fotos a Google Fotos"
+        },
+        "no_access_to_path": {
+            "message": "No se puede leer {filename}, no hay acceso a la ruta; es posible que sea necesario ajustar `allowlist_external_dirs` en `configuration.yaml`"
+        },
+        "not_loaded": {
+            "message": "{target} no est\u00e1 cargado."
+        },
+        "upload_error": {
+            "message": "No se pudo subir el contenido: {message}"
+        }
+    },
+    "services": {
+        "upload": {
+            "description": "Subir im\u00e1genes o v\u00eddeos a Google Fotos.",
+            "fields": {
+                "album": {
+                    "description": "Nombre del \u00e1lbum que es el destino del contenido cargado.",
+                    "example": "Fotos de familia",
+                    "name": "\u00c1lbum"
+                },
+                "config_entry_id": {
+                    "description": "El ID de integraci\u00f3n de Google Photos.",
+                    "name": "ID de integraci\u00f3n"
+                },
+                "filename": {
+                    "description": "Ruta a la imagen o v\u00eddeo a subir.",
+                    "example": "/config/www/image.jpg",
+                    "name": "Nombre de archivo"
+                }
+            },
+            "name": "Subir contenido multimedia"
+        }
+    }
+}

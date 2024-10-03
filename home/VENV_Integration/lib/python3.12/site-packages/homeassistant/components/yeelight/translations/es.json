@@ -1,0 +1,192 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "El dispositivo ya est\u00e1 configurado",
+            "no_devices_found": "No se encontraron dispositivos en la red"
+        },
+        "error": {
+            "cannot_connect": "No se pudo conectar"
+        },
+        "flow_title": "{model} {id} ({host})",
+        "step": {
+            "discovery_confirm": {
+                "description": "\u00bfQuieres configurar {model} ({host})?"
+            },
+            "pick_device": {
+                "data": {
+                    "device": "Dispositivo"
+                }
+            },
+            "user": {
+                "data": {
+                    "host": "Host"
+                },
+                "data_description": {
+                    "host": "Nombre de host o direcci\u00f3n IP de tu bombilla Wi-Fi Yeelight."
+                },
+                "description": "Si dejas el host vac\u00edo, se usar\u00e1 el descubrimiento para encontrar dispositivos."
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "nightlight": {
+                "name": "Luz nocturna"
+            }
+        },
+        "light": {
+            "ambilight": {
+                "name": "Ambilight"
+            },
+            "nightlight": {
+                "name": "Luz nocturna"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "model": "Modelo",
+                    "nightlight_switch": "Usar interruptor de Nightlight",
+                    "save_on_change": "Guardar estado al cambiar",
+                    "transition": "Tiempo de transici\u00f3n (ms)",
+                    "use_music_mode": "Activar el Modo M\u00fasica"
+                }
+            }
+        }
+    },
+    "selector": {
+        "action": {
+            "options": {
+                "off": "Apagado",
+                "recover": "Recuperar",
+                "stay": "Permanecer"
+            }
+        },
+        "mode": {
+            "options": {
+                "color_flow": "Flujo de color",
+                "hsv": "HSV",
+                "last": "\u00daltimo",
+                "moonlight": "Luz de luna",
+                "normal": "Normal",
+                "rgb": "RGB"
+            }
+        }
+    },
+    "services": {
+        "set_auto_delay_off_scene": {
+            "description": "Enciende la luz al brillo especificado y configura un temporizador para volver a apagarla despu\u00e9s de la cantidad de minutos dada. Si la luz est\u00e1 apagada, configura una escena de color, y adem\u00e1s se encender\u00e1.",
+            "fields": {
+                "brightness": {
+                    "description": "El valor de brillo a configurar.",
+                    "name": "Brillo"
+                },
+                "minutes": {
+                    "description": "El tiempo de espera antes de apagar autom\u00e1ticamente la luz.",
+                    "name": "Minutos"
+                }
+            },
+            "name": "Establecer el retardo de apagado autom\u00e1tico de la escena"
+        },
+        "set_color_flow_scene": {
+            "description": "Inicia un flujo de color. Si la luz est\u00e1 apagada, se encender\u00e1.",
+            "fields": {
+                "action": {
+                    "description": "La acci\u00f3n a tomar despu\u00e9s de que se detenga el flujo.",
+                    "name": "Acci\u00f3n"
+                },
+                "count": {
+                    "description": "El n\u00famero de veces para ejecutar este flujo (0 para ejecutar para siempre).",
+                    "name": "Cuenta"
+                },
+                "transitions": {
+                    "description": "Matriz de transiciones, para el efecto deseado. Ejemplos https://yeelight.readthedocs.io/en/stable/flow.html.",
+                    "name": "Transiciones"
+                }
+            },
+            "name": "Establecer escena de flujo de color"
+        },
+        "set_color_scene": {
+            "description": "Cambia la luz al color y brillo RGB especificados. Si la luz est\u00e1 apagada, se encender\u00e1.",
+            "fields": {
+                "brightness": {
+                    "description": "El valor de brillo a configurar.",
+                    "name": "Brillo"
+                },
+                "rgb_color": {
+                    "description": "Color para la luz en formato RGB.",
+                    "name": "Color RGB"
+                }
+            },
+            "name": "Establecer escena de color"
+        },
+        "set_color_temp_scene": {
+            "description": "Cambia la luz a la temperatura de color especificada. Si la luz est\u00e1 apagada, se encender\u00e1.",
+            "fields": {
+                "brightness": {
+                    "description": "El valor de brillo a configurar.",
+                    "name": "Brillo"
+                },
+                "kelvin": {
+                    "description": "Temperatura de color de la luz en Kelvin.",
+                    "name": "Kelvin"
+                }
+            },
+            "name": "Establecer escena de temperatura de color"
+        },
+        "set_hsv_scene": {
+            "description": "Cambia la luz al color y brillo HSV especificados. Si la luz est\u00e1 apagada, se encender\u00e1.",
+            "fields": {
+                "brightness": {
+                    "description": "El valor de brillo a configurar.",
+                    "name": "Brillo"
+                },
+                "hs_color": {
+                    "description": "Color para la luz en formato hue/sat. Hue es 0-359 y Sat es 0-100.",
+                    "name": "Tono/saturaci\u00f3n de color"
+                }
+            },
+            "name": "Establecer escena HSV"
+        },
+        "set_mode": {
+            "description": "Establece un modo de funcionamiento.",
+            "fields": {
+                "mode": {
+                    "description": "Modo de operaci\u00f3n.",
+                    "name": "Modo"
+                }
+            },
+            "name": "Establecer modo"
+        },
+        "set_music_mode": {
+            "description": "Habilita o deshabilita music_mode.",
+            "fields": {
+                "music_mode": {
+                    "description": "Usa verdadero o falso para habilitar/deshabilitar music_mode.",
+                    "name": "Modo de m\u00fasica"
+                }
+            },
+            "name": "Establecer el modo de m\u00fasica"
+        },
+        "start_flow": {
+            "description": "Inicia un flujo personalizado, usando transiciones desde https://yeelight.readthedocs.io/en/stable/yeelight.html#flow-objects.",
+            "fields": {
+                "action": {
+                    "description": "La acci\u00f3n a tomar despu\u00e9s de que se detenga el flujo.",
+                    "name": "Acci\u00f3n"
+                },
+                "count": {
+                    "description": "El n\u00famero de veces para ejecutar este flujo (0 para ejecutar para siempre).",
+                    "name": "Cuenta"
+                },
+                "transitions": {
+                    "description": "Matriz de transiciones, para el efecto deseado. Ejemplos https://yeelight.readthedocs.io/en/stable/flow.html.",
+                    "name": "Transiciones"
+                }
+            },
+            "name": "Iniciar flujo"
+        }
+    }
+}

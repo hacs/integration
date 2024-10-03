@@ -1,0 +1,75 @@
+{
+    "config": {
+        "error": {
+            "cannot_connect": "Nepodarilo sa pripoji\u0165",
+            "invalid_auth": "Neplatn\u00e9 overenie",
+            "unknown": "Neo\u010dak\u00e1van\u00e1 chyba"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "api_key": "API k\u013e\u00fa\u010d"
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "invalid_config_entry": {
+            "message": "Zadan\u00e1 neplatn\u00e1 konfigura\u010dn\u00e1 polo\u017eka. M\u00e1m {config_entry}"
+        }
+    },
+    "issues": {
+        "image_size_deprecated_format": {
+            "description": "OpenAI teraz pou\u017e\u00edva Dall-E 3 na generovanie obr\u00e1zkov pomocou pr\u00edkazu `openai_conversation.generate_image`, ktor\u00fd podporuje r\u00f4zne ve\u013ekosti. Platn\u00e9 hodnoty s\u00fa teraz \"1024x1024\", \"1024x1792\", \"1792x1024\". Star\u00e9 hodnoty \"256\", \"512\", \"1024\" sa v s\u00fa\u010dasnosti interpretuj\u00fa ako \"1024x1024\".\nAktualizujte, pros\u00edm, svoje skripty alebo automatiz\u00e1cie s nov\u00fdmi parametrami.",
+            "title": "Zastaran\u00fd form\u00e1t ve\u013ekosti pre akciu generovania obr\u00e1zkov"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "chat_model": "Model",
+                    "llm_hass_api": "Ovl\u00e1danie Home Assistant",
+                    "max_tokens": "Maxim\u00e1lny po\u010det tokenov, ktor\u00e9 sa maj\u00fa vr\u00e1ti\u0165 v odpovedi",
+                    "model": "Model dokon\u010denia",
+                    "prompt": "In\u0161trukcie",
+                    "recommended": "Odpor\u00fa\u010dan\u00e9 nastavenia modelu",
+                    "temperature": "Teplota",
+                    "top_p": "Top P"
+                },
+                "data_description": {
+                    "prompt": "Pokyn, ako by mal LLM reagova\u0165. M\u00f4\u017ee \u00eds\u0165 o \u0161abl\u00f3nu."
+                }
+            }
+        }
+    },
+    "services": {
+        "generate_image": {
+            "description": "Premena v\u00fdzvy na obr\u00e1zok",
+            "fields": {
+                "config_entry": {
+                    "description": "Polo\u017eka konfigur\u00e1cie, ktor\u00e1 sa m\u00e1 pou\u017ei\u0165 pre t\u00fato akciu",
+                    "name": "Zadanie konfigur\u00e1cie"
+                },
+                "prompt": {
+                    "description": "Text, ktor\u00fd sa m\u00e1 zmeni\u0165 na obr\u00e1zok",
+                    "example": "Fotografia psa",
+                    "name": "Prompt"
+                },
+                "quality": {
+                    "description": "Kvalita vygenerovan\u00e9ho obrazu",
+                    "name": "Kvalita"
+                },
+                "size": {
+                    "description": "Ve\u013ekos\u0165 obr\u00e1zka, ktor\u00fd sa m\u00e1 vygenerova\u0165",
+                    "name": "Ve\u013ekos\u0165"
+                },
+                "style": {
+                    "description": "\u0160t\u00fdl vygenerovan\u00e9ho obr\u00e1zka",
+                    "name": "\u0160t\u00fdl"
+                }
+            },
+            "name": "Generovanie obr\u00e1zka"
+        }
+    }
+}

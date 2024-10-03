@@ -1,0 +1,1605 @@
+{
+  "language": "hr",
+  "intents": {
+    "HassTurnOff": {
+      "data": [
+        {
+          "sentences": [
+            "<isključi> {name}",
+            "<isključi> {name} [u|na] {area}"
+          ],
+          "response": "default_name",
+          "excludes_context": {
+            "domain": [
+              "binary_sensor",
+              "cover",
+              "lock",
+              "scene",
+              "script",
+              "sensor"
+            ]
+          }
+        },
+        {
+          "sentences": [
+            "<isključi> [svjetlo|svjetla|rasvjetu] [u|na] [prostoriji] <area>",
+            "<isključi> [sva] [svjetl(a|o)] [u] <area> [svjetla|rasvjetu]"
+          ],
+          "slots": {
+            "domain": "light"
+          },
+          "response": "lights_area"
+        },
+        {
+          "sentences": [
+            "<zatvori> <sve> {cover_classes:device_class} [u|na] [<area>]",
+            "<zatvori> <area> {cover_classes:device_class}"
+          ],
+          "slots": {
+            "domain": "cover"
+          },
+          "response": "cover_device_class"
+        },
+        {
+          "sentences": [
+            "<zatvori> <name>"
+          ],
+          "requires_context": {
+            "domain": "cover"
+          },
+          "slots": {
+            "device_class": [
+              "awning",
+              "blind",
+              "curtain",
+              "door",
+              "garage",
+              "gate",
+              "shade",
+              "shutter",
+              "window"
+            ]
+          },
+          "response": "cover_single"
+        },
+        {
+          "sentences": [
+            "<zatvori> <name> [u|na] {area}"
+          ],
+          "requires_context": {
+            "domain": "cover"
+          },
+          "slots": {
+            "device_class": [
+              "awning",
+              "blind",
+              "curtain",
+              "door",
+              "garage",
+              "gate",
+              "shade",
+              "shutter",
+              "window"
+            ]
+          },
+          "response": "cover_single"
+        },
+        {
+          "sentences": [
+            "<isključi> [sve] (ventilator[e]|ventilaciju) [u|na] <area>",
+            "<isključi> <area> (ventilator[e]|ventilaciju)"
+          ],
+          "slots": {
+            "domain": "fan",
+            "name": "all"
+          },
+          "response": "fans_area"
+        },
+        {
+          "sentences": [
+            "<isključi> [sve|svu] (ventilatore|ventilaciju) [u (stanu|kući)]"
+          ],
+          "response": "fans_area",
+          "slots": {
+            "domain": "fan",
+            "name": "all"
+          }
+        },
+        {
+          "sentences": [
+            "otključaj <name> [[u|na] <area>]"
+          ],
+          "requires_context": {
+            "domain": "lock"
+          },
+          "response": "lock"
+        },
+        {
+          "sentences": [
+            "otključaj [sva|sve] <lock> [[u|na] <area>]",
+            "otključaj [sva|sve] <area> <lock>"
+          ],
+          "slots": {
+            "domain": "lock",
+            "name": "all"
+          },
+          "response": "lock"
+        }
+      ]
+    },
+    "HassTurnOn": {
+      "data": [
+        {
+          "sentences": [
+            "<uključi> [svjetlo|svjetla|rasvjetu] [u|na] [prostoriji] <area>",
+            "<uključi> [sva] [svjetl(a|o)] [u] <area> [svjetla|rasvjetu]"
+          ],
+          "slots": {
+            "domain": "light"
+          },
+          "response": "lights_area"
+        },
+        {
+          "sentences": [
+            "<uključi> [sve] (ventilator[e]|ventilaciju) [u|na] <area>",
+            "<uključi> <area> (ventilator[e]|ventilaciju)"
+          ],
+          "slots": {
+            "domain": "fan",
+            "name": "all"
+          },
+          "response": "fans_area"
+        },
+        {
+          "sentences": [
+            "<uključi> [sve|svu] (ventilatore|ventilaciju) [u (stanu|kući)]"
+          ],
+          "response": "fans_area",
+          "slots": {
+            "domain": "fan",
+            "name": "all"
+          }
+        },
+        {
+          "sentences": [
+            "(aktiviraj|<uključi>|pokreni) [skriptu] <name>"
+          ],
+          "requires_context": {
+            "domain": "script"
+          },
+          "slots": {
+            "domain": "script"
+          },
+          "response": "script"
+        },
+        {
+          "sentences": [
+            "(aktiviraj|<uključi>|pokreni) [scenu] <name> [scenu]"
+          ],
+          "requires_context": {
+            "domain": "scene"
+          },
+          "slots": {
+            "domain": "scene"
+          },
+          "response": "scene"
+        },
+        {
+          "sentences": [
+            "zaključaj <name> [[u|na] <area>]"
+          ],
+          "requires_context": {
+            "domain": "lock"
+          },
+          "response": "lock"
+        },
+        {
+          "sentences": [
+            "zaključaj [sva|sve] <lock> [[u|na] <area>]",
+            "zaključaj [sva|sve] <area> <lock>"
+          ],
+          "slots": {
+            "domain": "lock",
+            "name": "all"
+          },
+          "response": "lock"
+        },
+        {
+          "sentences": [
+            "(<uključi>|<otvori>) {name}",
+            "(<uključi>|<otvori>) {name} [u|na] {area}"
+          ],
+          "response": "default_name",
+          "excludes_context": {
+            "domain": [
+              "binary_sensor",
+              "cover",
+              "lock",
+              "scene",
+              "script",
+              "sensor"
+            ]
+          }
+        },
+        {
+          "sentences": [
+            "<otvori> <sve> {cover_classes:device_class} [u|na] [<area>]",
+            "<otvori> <area> {cover_classes:device_class}"
+          ],
+          "slots": {
+            "domain": "cover"
+          },
+          "response": "cover_device_class"
+        },
+        {
+          "sentences": [
+            "<otvori> <name>"
+          ],
+          "requires_context": {
+            "domain": "cover"
+          },
+          "slots": {
+            "device_class": [
+              "awning",
+              "blind",
+              "curtain",
+              "door",
+              "garage",
+              "gate",
+              "shade",
+              "shutter",
+              "window"
+            ]
+          },
+          "response": "cover_single"
+        },
+        {
+          "sentences": [
+            "<otvori> <name> [u|na] {area}"
+          ],
+          "requires_context": {
+            "domain": "cover"
+          },
+          "slots": {
+            "device_class": [
+              "awning",
+              "blind",
+              "curtain",
+              "door",
+              "garage",
+              "gate",
+              "shade",
+              "shutter",
+              "window"
+            ]
+          },
+          "response": "cover_single"
+        }
+      ]
+    },
+    "HassShoppingListAddItem": {
+      "data": [
+        {
+          "sentences": [
+            "(dodaj|stavi) <item> (u|na) [moj] <my_list>"
+          ],
+          "response": "item_added",
+          "expansion_rules": {
+            "my_list": "popis za (kupnju|kupovinu|trgovinu|nabavu)",
+            "item": "{shopping_list_item:item}"
+          }
+        }
+      ]
+    },
+    "HassNevermind": {
+      "data": [
+        {
+          "sentences": [
+            "odustani",
+            "prekini",
+            "nema veze",
+            "zaboravi [na] [to] [što sam rek[ao|la]]"
+          ]
+        }
+      ]
+    },
+    "HassGetState": {
+      "data": [
+        {
+          "sentences": [
+            "<koja_je_vrijednost_senzora>"
+          ],
+          "response": "sensor_value",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "apparent_power"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "apparent_power"
+          },
+          "expansion_rules": {
+            "class": "prividna snaga"
+          }
+        },
+        {
+          "sentences": [
+            "<koja_je_vrijednost_senzora>"
+          ],
+          "response": "sensor_value",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "aqi"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "aqi"
+          },
+          "expansion_rules": {
+            "class": "(AQI [inde(x|ks)]|kvaliteta zraka|indeks kvalitete zraka)"
+          }
+        },
+        {
+          "sentences": [
+            "<koja_je_vrijednost_senzora>"
+          ],
+          "response": "sensor_value",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "atmospheric_pressure"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "atmospheric_pressure"
+          },
+          "expansion_rules": {
+            "class": "tlak zraka"
+          }
+        },
+        {
+          "sentences": [
+            "<koja_je_vrijednost_senzora>"
+          ],
+          "response": "sensor_value",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "battery"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "battery"
+          },
+          "expansion_rules": {
+            "class": "ostalo baterije|puna baterija"
+          }
+        },
+        {
+          "sentences": [
+            "<koja_je_vrijednost_senzora>"
+          ],
+          "response": "sensor_value",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "carbon_dioxide"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "carbon_dioxide"
+          },
+          "expansion_rules": {
+            "class": "[vrijednost|koncentracija|nivo] [CO2|ugljičnog dioksida]"
+          }
+        },
+        {
+          "sentences": [
+            "<koja_je_vrijednost_senzora>"
+          ],
+          "response": "sensor_value",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "carbon_monoxide"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "carbon_monoxide"
+          },
+          "expansion_rules": {
+            "class": "[vrijednost|koncentracija|nivo] [CO|ugljičnog monoksida]"
+          }
+        },
+        {
+          "sentences": [
+            "<koja_je_vrijednost_senzora>"
+          ],
+          "response": "sensor_value",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "current"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "current"
+          },
+          "expansion_rules": {
+            "class": "jakost struje|struje vuće"
+          }
+        },
+        {
+          "sentences": [
+            "<koja_je_vrijednost_senzora>"
+          ],
+          "response": "sensor_value",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "data_rate"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "data_rate"
+          },
+          "expansion_rules": {
+            "class": "[brzina] download[a]"
+          }
+        },
+        {
+          "sentences": [
+            "<koja_je_vrijednost_senzora>"
+          ],
+          "response": "sensor_value",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "data_size"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "data_size"
+          },
+          "expansion_rules": {
+            "class": "veličina"
+          }
+        },
+        {
+          "sentences": [
+            "<koja_je_vrijednost_senzora>",
+            "when ((is|was) <name>|will <name> be|(will|did) <name> happen)"
+          ],
+          "response": "sensor_value",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "date"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "date"
+          },
+          "expansion_rules": {
+            "class": "datum"
+          }
+        },
+        {
+          "sentences": [
+            "<koja_je_vrijednost_senzora>"
+          ],
+          "response": "sensor_value",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "distance"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "distance"
+          },
+          "expansion_rules": {
+            "class": "udaljen(a|ost)|daleko [je]"
+          }
+        },
+        {
+          "sentences": [
+            "<koja_je_vrijednost_senzora>"
+          ],
+          "response": "sensor_value",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "duration"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "duration"
+          },
+          "expansion_rules": {
+            "class": "trajanje|[dugo] traje"
+          }
+        },
+        {
+          "sentences": [
+            "<koja_je_vrijednost_senzora>"
+          ],
+          "response": "sensor_value",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "energy"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "energy"
+          },
+          "expansion_rules": {
+            "class": "struje (proizvod(i|e)|troš[i|e])"
+          }
+        },
+        {
+          "sentences": [
+            "<koja_je_vrijednost_senzora>"
+          ],
+          "response": "sensor_value",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "energy_storage"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "energy_storage"
+          },
+          "expansion_rules": {
+            "class": "spremljno (struje|energije)|(struje|energije) spremljeno"
+          }
+        },
+        {
+          "sentences": [
+            "<koja_je_vrijednost_senzora>"
+          ],
+          "response": "sensor_value",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "frequency"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "frequency"
+          },
+          "expansion_rules": {
+            "class": "frekvencija"
+          }
+        },
+        {
+          "sentences": [
+            "<koja_je_vrijednost_senzora>"
+          ],
+          "response": "sensor_value",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "gas"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "gas"
+          },
+          "expansion_rules": {
+            "class": "(potrošnja|volumen) plina"
+          }
+        },
+        {
+          "sentences": [
+            "<koja_je_vrijednost_senzora>"
+          ],
+          "response": "sensor_value",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "humidity"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "humidity"
+          },
+          "expansion_rules": {
+            "class": "[relativna] vlažnost zraka"
+          }
+        },
+        {
+          "sentences": [
+            "<koja_je_vrijednost_senzora>"
+          ],
+          "response": "sensor_value",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "illuminance"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "illuminance"
+          },
+          "expansion_rules": {
+            "class": "(jačina|nivo) (svjetla|svjetlosti|osvjetljenja)"
+          }
+        },
+        {
+          "sentences": [
+            "<koja_je_vrijednost_senzora>"
+          ],
+          "response": "sensor_value",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "irradiance"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "irradiance"
+          },
+          "expansion_rules": {
+            "class": "snaga zračenja"
+          }
+        },
+        {
+          "sentences": [
+            "<koja_je_vrijednost_senzora>"
+          ],
+          "response": "sensor_value",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "moisture"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "moisture"
+          },
+          "expansion_rules": {
+            "class": "vlažnost [u]|postotak (vlažnosti|vode)"
+          }
+        },
+        {
+          "sentences": [
+            "<koja_je_vrijednost_senzora>"
+          ],
+          "response": "sensor_value",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "monetary"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "monetary"
+          },
+          "expansion_rules": {
+            "class": "cijena|vrijednost|trošak"
+          }
+        },
+        {
+          "sentences": [
+            "<koja_je_vrijednost_senzora>"
+          ],
+          "response": "sensor_value",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "nitrogen_dioxide"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "nitrogen_dioxide"
+          },
+          "expansion_rules": {
+            "class": "(koncentracij(a|u)|nivo) (dušikovog dioksida|NO2)"
+          }
+        },
+        {
+          "sentences": [
+            "<koja_je_vrijednost_senzora>"
+          ],
+          "response": "sensor_value",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "nitrogen_monoxide"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "nitrogen_monoxide"
+          },
+          "expansion_rules": {
+            "class": "(koncentracija(a|u)|nivo) (dušikovog monoksida|NO)"
+          }
+        },
+        {
+          "sentences": [
+            "<koja_je_vrijednost_senzora>"
+          ],
+          "response": "sensor_value",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "nitrous_oxide"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "nitrous_oxide"
+          },
+          "expansion_rules": {
+            "class": "(koncentracija(a|u)|nivo) (dušikovog oksida|N2O)"
+          }
+        },
+        {
+          "sentences": [
+            "<koja_je_vrijednost_senzora>"
+          ],
+          "response": "sensor_value",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "ozone"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "ozone"
+          },
+          "expansion_rules": {
+            "class": "(koncentracija(a|u)|nivo) (ozona|O3)"
+          }
+        },
+        {
+          "sentences": [
+            "<koja_je_vrijednost_senzora>"
+          ],
+          "response": "sensor_value",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "pm1"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "pm1"
+          },
+          "expansion_rules": {
+            "class": "[vrijednost] ([pokazuje]|koncentracij[a|e]) (PM1|PM 1|PM jedan) [čestica]"
+          }
+        },
+        {
+          "sentences": [
+            "<koja_je_vrijednost_senzora>"
+          ],
+          "response": "sensor_value",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "pm25"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "pm25"
+          },
+          "expansion_rules": {
+            "class": "[vrijednost] ([pokazuje]|koncentracij[a|e]) (PM25|PM2.5|PM 2.5|PM dva i pol) [čestica]"
+          }
+        },
+        {
+          "sentences": [
+            "<koja_je_vrijednost_senzora>"
+          ],
+          "response": "sensor_value",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "pm10"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "pm10"
+          },
+          "expansion_rules": {
+            "class": "[vrijednost] ([pokazuje]|koncentracij[a|e]) (PM10|PM 10|PM deset) [čestica]"
+          }
+        },
+        {
+          "sentences": [
+            "<koja_je_vrijednost_senzora>"
+          ],
+          "response": "sensor_value",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "power_factor"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "power_factor"
+          },
+          "expansion_rules": {
+            "class": "faktor snage"
+          }
+        },
+        {
+          "sentences": [
+            "<koja_je_vrijednost_senzora>"
+          ],
+          "response": "sensor_value",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "power"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "power"
+          },
+          "expansion_rules": {
+            "class": "snaga"
+          }
+        },
+        {
+          "sentences": [
+            "<koja_je_vrijednost_senzora>"
+          ],
+          "response": "sensor_value",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "precipitation"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "precipitation"
+          },
+          "expansion_rules": {
+            "class": "[ukupna] količina (padalina|oborin(a|e))"
+          }
+        },
+        {
+          "sentences": [
+            "<koja_je_vrijednost_senzora>"
+          ],
+          "response": "sensor_value",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "precipitation_intensity"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "precipitation_intensity"
+          },
+          "expansion_rules": {
+            "class": "intenzitet (padalina|oborin(a|e))"
+          }
+        },
+        {
+          "sentences": [
+            "<koja_je_vrijednost_senzora>"
+          ],
+          "response": "sensor_value",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "pressure"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "pressure"
+          },
+          "expansion_rules": {
+            "class": "tlak|pritisak [zraka]"
+          }
+        },
+        {
+          "sentences": [
+            "<koja_je_vrijednost_senzora>"
+          ],
+          "response": "sensor_value",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "reactive_power"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "reactive_power"
+          },
+          "expansion_rules": {
+            "class": "reaktivna|jalova snaga"
+          }
+        },
+        {
+          "sentences": [
+            "<koja_je_vrijednost_senzora>"
+          ],
+          "response": "sensor_value",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "signal_strength"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "signal_strength"
+          },
+          "expansion_rules": {
+            "class": "snaga signala"
+          }
+        },
+        {
+          "sentences": [
+            "<koja_je_vrijednost_senzora>"
+          ],
+          "response": "sensor_value",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "sound_pressure"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "sound_pressure"
+          },
+          "expansion_rules": {
+            "class": "(zvučni|akustični) tlak"
+          }
+        },
+        {
+          "sentences": [
+            "<koja_je_vrijednost_senzora>"
+          ],
+          "response": "sensor_value",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "speed"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "speed"
+          },
+          "expansion_rules": {
+            "class": "brzin(a|e|om) [kreće]"
+          }
+        },
+        {
+          "sentences": [
+            "<koja_je_vrijednost_senzora>"
+          ],
+          "response": "sensor_value",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "sulphur_dioxide"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "sulphur_dioxide"
+          },
+          "expansion_rules": {
+            "class": "[nivo|koncentracija] (sumpornog dioksida|SO2)"
+          }
+        },
+        {
+          "sentences": [
+            "<koja_je_vrijednost_senzora>",
+            "<koja_je> <name> <class> [(u|na) <area>]"
+          ],
+          "response": "sensor_value_temperature",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "temperature"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "temperature"
+          },
+          "expansion_rules": {
+            "class": "temperatur(a|e)"
+          }
+        },
+        {
+          "sentences": [
+            "<koja_je_vrijednost_senzora>"
+          ],
+          "response": "sensor_value",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "volatile_organic_compounds"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "volatile_organic_compounds"
+          },
+          "expansion_rules": {
+            "class": "(koncentracija|nivo) (VOC|hlapivih organskih spojeva|ispraljivih organskih) [čestica]"
+          }
+        },
+        {
+          "sentences": [
+            "koji je količina VOC čestica senzora <name>"
+          ],
+          "response": "sensor_value",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "volatile_organic_compounds_parts"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "volatile_organic_compounds_parts"
+          },
+          "expansion_rules": {
+            "class": "(omjer|udio|količina) (VOC|hlapivih organskih spojeva|ispraljivih organskih) [čestica]"
+          }
+        },
+        {
+          "sentences": [
+            "<koja_je_vrijednost_senzora>"
+          ],
+          "response": "sensor_value",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "voltage"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "voltage"
+          },
+          "expansion_rules": {
+            "class": "(napon|pad napona)"
+          }
+        },
+        {
+          "sentences": [
+            "<koja_je_vrijednost_senzora>"
+          ],
+          "response": "sensor_value",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "volume"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "volume"
+          },
+          "expansion_rules": {
+            "class": "(volumen|zapremnina) [potrošnje]|potrošnja"
+          }
+        },
+        {
+          "sentences": [
+            "<koja_je_vrijednost_senzora>"
+          ],
+          "response": "sensor_value",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "volume_storage"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "volume_storage"
+          },
+          "expansion_rules": {
+            "class": "[ukupni] [spremljen(i|a)|preostali[i|a]] (volumen|zapremnina)"
+          }
+        },
+        {
+          "sentences": [
+            "<koja_je_vrijednost_senzora>"
+          ],
+          "response": "sensor_value",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "water"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "water"
+          },
+          "expansion_rules": {
+            "class": "potrošnja vode"
+          }
+        },
+        {
+          "sentences": [
+            "<koja_je_vrijednost_senzora>"
+          ],
+          "response": "sensor_value",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "weight"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "weight"
+          },
+          "expansion_rules": {
+            "class": "(masa|težina)"
+          }
+        },
+        {
+          "sentences": [
+            "<koja_je_vrijednost_senzora>"
+          ],
+          "response": "sensor_value",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "wind_speed"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "wind_speed"
+          },
+          "expansion_rules": {
+            "class": "brzina vjetra"
+          }
+        },
+        {
+          "sentences": [
+            "(jesu li|je li|da li (su|je)) <name> {lock_states:state}  [[u|na] <area>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "lock"
+          },
+          "slots": {
+            "domain": "lock"
+          }
+        },
+        {
+          "sentences": [
+            "(jesu li|da li su|ima li) [koja|kojih] <lock> {lock_states:state} [[u|na] <area>]",
+            "(jesu li|da li su|ima li) [koja|kojih] {lock_states:state} <lock> [[u|na] <area>]"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "lock"
+          }
+        },
+        {
+          "sentences": [
+            "(jesu li|da li su) (sva|svi|sve) <lock> {lock_states:state} [[u|na] <area>]"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "lock"
+          }
+        },
+        {
+          "sentences": [
+            "(koja|koji) [su] <lock> {lock_states:state} [[u|na] <area>]"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "lock"
+          }
+        },
+        {
+          "sentences": [
+            "(koliko ima|koliko je) {lock_states:state} <lock> [[u|na] <area>]",
+            "(koliko ima|koliko je) <lock> {lock_states:state} [[u|na] <area>]"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "lock"
+          }
+        },
+        {
+          "sentences": [
+            "(koja je|koji je|reci mi) [status|vrijednost] <name> [[u|na] <area>]"
+          ],
+          "response": "one",
+          "excludes_context": {
+            "domain": [
+              "scene",
+              "script",
+              "sensor"
+            ]
+          }
+        },
+        {
+          "sentences": [
+            "(je li|da li je|postoji li) <name> {on_off_states:state} [[u|na] <area>]"
+          ],
+          "response": "one_yesno",
+          "excludes_context": {
+            "domain": [
+              "cover"
+            ]
+          }
+        },
+        {
+          "sentences": [
+            "(je li|da li je|ima li|postoji li) [[bilo] koj[i|a|e]] {on_off_domains:domain} {on_off_states:state} [[u|na] <area>]"
+          ],
+          "response": "any"
+        },
+        {
+          "sentences": [
+            "(je li|da li je|ima li|postoji li) [[bilo] koj[i|a|e]] {on_off_domains:domain} [[u|na] <area>] {on_off_states:state}"
+          ],
+          "response": "any"
+        },
+        {
+          "sentences": [
+            "(je li|da li je|ima li|postoji li) [[bilo] koj[i|a|e]] {on_off_states:state} {on_off_domains:domain} [[u|na] <area>]"
+          ],
+          "response": "any"
+        },
+        {
+          "sentences": [
+            "(je li|jesu li) {on_off_domains:domain} {on_off_states:state} [in <area>]"
+          ],
+          "response": "all"
+        },
+        {
+          "sentences": [
+            "(koji|koja) [su] {on_off_domains:domain} [su] {on_off_states:state} [[u|na] <area>]"
+          ],
+          "response": "which"
+        },
+        {
+          "sentences": [
+            "koliko je ({on_off_states:state} {on_off_domains:domain}|{on_off_domains:domain} {on_off_states:state}) [[u|na] <area>]"
+          ],
+          "response": "how_many",
+          "excludes_context": {
+            "domain": [
+              "scene",
+              "script",
+              "sensor"
+            ]
+          }
+        },
+        {
+          "sentences": [
+            "(je li|da li je|ima li) <name> [[u|na|iz] <area>] {cover_states:state} [[u|na|iz] <area>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "cover"
+          },
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "(je li|da li je|ima li) {cover_states:state} {cover_classes:device_class} [[u|na|iz] <area>]"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "(jesu li|da li su) {cover_states:state} (svi) {cover_classes:device_class}  [[u|na|iz] <area>]"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "(koja [su]|koji [su]) {cover_classes:device_class} [su] {cover_states:state} [[u|na|iz] <area>]"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "(koliko je) ({cover_classes:device_class}|{cover_states:state}) ({cover_states:state}|{cover_classes:device_class}) [[u|na|iz] <area>]"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "cover"
+          }
+        }
+      ]
+    },
+    "HassLightSet": {
+      "data": [
+        {
+          "sentences": [
+            "<promijeni> <name> na <brightness>",
+            "<promijeni> [osvjetljenje|jačinu|svjetlinu] [svjetla|svjetlo|rasvjet(e|u)] [u|na] <name> na <brightness> [snage|jačine|svjetline|posto]"
+          ],
+          "response": "brightness"
+        },
+        {
+          "sentences": [
+            "<promijeni> [jačinu|intenzitet] [svjetl(a|o)|osvjetljenje|rasvjetu] [u|na] <area> [na] <brightness> [snage|jačine|svjetline|posto]"
+          ],
+          "response": "brightness"
+        },
+        {
+          "sentences": [
+            "<promijeni> <name> na {brightness_level:brightness}",
+            "<promijeni> [osvjetljenje|jačinu|svjetlinu|svjetlost] [svjetla|svjetlo|rasvjet(e|u)] [u|na] <name> na {brightness_level:brightness} [snagu|jačinu|svjetlinu|osvjetljenje]"
+          ],
+          "slots": {
+            "brightness": 100
+          },
+          "response": "brightness"
+        },
+        {
+          "sentences": [
+            "<promijeni> [jačinu|intenzitet] [svjetl(a|o|la)|osvjetljenje|rasvjetu] [u|na] <area> [na] {brightness_level:brightness} [snagu|jačinu|svjetlinu]",
+            "<promijeni> <area> [jačinu|intenzitet] (svjetl(a|o|la)|osvjetljenje|rasvjet(e|u)) [na] {brightness_level:brightness} [snagu|jačinu|svjetlinu]"
+          ],
+          "slots": {
+            "brightness": 100
+          },
+          "response": "brightness"
+        },
+        {
+          "sentences": [
+            "<promijeni> [boju] <name> [na|u] {color}",
+            "<promijeni> <name> [na|u] {color} [boju]"
+          ],
+          "response": "color"
+        },
+        {
+          "sentences": [
+            "<promijeni> [boju] [svjetl(a|o)|rasvjet(e|u)] [u|na] [prostoriji] <area> [na|u] {color}",
+            "<promijeni> [svjetl(a|o)|osvjetljenje|rasvjetu] [u|na] <area> [na|u] {color}",
+            "<promijeni> [u|na] <area> [svjetl(a|o)|osvjetljenje|rasvjetu] [na|u] {color}"
+          ],
+          "response": "color"
+        }
+      ]
+    },
+    "HassClimateGetTemperature": {
+      "data": [
+        {
+          "sentences": [
+            "<koja_je> <temp> [[u|na] <area>]",
+            "je li (toplo|hladno|vruće) [[u|na] <area>]",
+            "<koja_je> <area> <temp>",
+            "koliko je stupnjeva [[u|na] <area>]"
+          ]
+        }
+      ]
+    }
+  },
+  "responses": {
+    "errors": {
+      "no_intent": "Nažalost, ne razumijem zahtjev",
+      "no_area": "Prostorija s imenom {{ area }} ne postoji",
+      "no_domain_in_area": "Ne postoji {{ domain }} u prostoriji {{ area }}",
+      "no_device_class_in_area": "Prostorija {{ area }} ne sadrži {{ device_class }}",
+      "no_entity": "Ne postoji uređaj ili entitet pod imenom {{ entity }}",
+      "handle_error": "Došlo je do neočekivane pogreške prilikom obrade zahtjeva"
+    },
+    "intents": {
+      "HassGetState": {
+        "one": "{{ slots.name | capitalize }} je {{ state.state_with_unit }}\n",
+        "one_yesno": "{% if query.matched %}\n  Da\n{% else %}\n  Ne\n{% endif %}\n",
+        "any": "{% if query.matched %}\n  {% set match = query.matched | map(attribute=\"name\") | sort | list %}\n  {% if match | length > 4 %}\n    Da, {{ match[:3] | join(\", \") }} i još {{ (match | length - 3) }}\n  {%- else -%}\n    Da,\n    {% for name in match -%}\n      {% if not loop.first and not loop.last %}, {% elif loop.last and not loop.first %} i {% endif -%}\n      {{ name }}\n    {%- endfor -%}\n  {% endif %}\n{% else %}\n  Ne\n{% endif %}\n",
+        "all": "{% if not query.unmatched: %}\n  Da\n{% else %}\n  {% set no_match = query.unmatched | map(attribute=\"name\") | sort | list %}\n  {% if no_match | length > 4 %}\n    Ne, nisu {{ no_match[:3] | join(\", \") }} i još {{ (no_match | length - 3) }}\n  {%- else -%}\n    Ne,\n      {% if no_match | length > 1 %}\n        nisu\n      {%- else -%}\n        nije\n      {% endif %}\n    {% for name in no_match -%}\n      {% if not loop.first and not loop.last %}, {% elif loop.last and not loop.first %} i {% endif -%}\n      {{ name }}\n    {%- endfor %}\n  {% endif %}\n{% endif %}\n",
+        "which": "{% if not query.matched %}\n  Nema {{ slots.state[:-1]}}ih {{ slots.device_class[:-1] }}a\n{% else: %}\n  {% set match = query.matched | map(attribute=\"name\") | sort | list %}\n  {% if match | length > 4 %}\n    {{ match[:3] | join(\", \") }} and {{ (match | length - 3) }} more\n  {% else %}\n    {%- for name in match -%}\n      {% if not loop.first and not loop.last %}, {% elif loop.last and not loop.first %} i {% endif -%}\n      {{ name }}\n    {%- endfor -%}\n  {% endif %}\n{% endif %}\n",
+        "how_many": "{{ query.matched | length }}\n",
+        "sensor_value": "Vrijednost senzora je {{ state.state_with_unit }}\n",
+        "sensor_value_temperature": "Temperatura je {{ state.state_with_unit }}\n"
+      },
+      "HassTurnOff": {
+        "default": "Gasim {{ state.domain }}",
+        "default_name": "Gasim {{ slots.name }}",
+        "lights_area": "Svjetla su ugašena",
+        "cover_device_class": "Zatvaram {{ slots.device_class }}",
+        "cover_single": "Zatvaram {{ slots.name }}",
+        "fans_area": "Ventilatori su isključeni",
+        "lock": "Otključana"
+      },
+      "HassShoppingListAddItem": {
+        "item_added": "Stavka je dodana na popis za trgovinu"
+      },
+      "HassTurnOn": {
+        "default": "Palim {{ state.domain }}",
+        "default_name": "Palim {{ slots.name }}",
+        "lights_area": "Svjetla su upaljena",
+        "cover_single": "Otvaram {{ slots.name }}",
+        "cover_device_class": "Otvaram {{ slots.device_class }}",
+        "fans_area": "Ventilatori su uključeni",
+        "lock": "Zaključana",
+        "scene": "Aktivirana",
+        "script": "Pokrenuta"
+      },
+      "HassLightSet": {
+        "brightness": "Jačina svjetla je postavljena",
+        "color": "Boja svjetla je postavljena"
+      },
+      "HassClimateGetTemperature": {
+        "default": "{{ state_attr(state.entity_id, 'current_temperature') }}"
+      }
+    }
+  },
+  "lists": {
+    "color": {
+      "values": [
+        {
+          "in": "bijel(a|o|u)",
+          "out": "white"
+        },
+        {
+          "in": "crna(a|o|u)",
+          "out": "black"
+        },
+        {
+          "in": "crven(a|o|u)",
+          "out": "red"
+        },
+        {
+          "in": "narandžast(a|o|u)",
+          "out": "orange"
+        },
+        {
+          "in": "žut(a|o|u)",
+          "out": "yellow"
+        },
+        {
+          "in": "zelen(a|o|u)",
+          "out": "green"
+        },
+        {
+          "in": "plav(a|o|u)",
+          "out": "blue"
+        },
+        {
+          "in": "ljubičast(a|o|u)",
+          "out": "purple"
+        },
+        {
+          "in": "smeđ(a|e|u)",
+          "out": "brown"
+        },
+        {
+          "in": "roz(a|o|u)",
+          "out": "pink"
+        }
+      ]
+    },
+    "brightness": {
+      "range": {
+        "type": "percentage",
+        "from": 0,
+        "to": 100
+      }
+    },
+    "brightness_level": {
+      "values": [
+        {
+          "in": "(maksimum|najjače|maksimalnu|maksimalno)",
+          "out": 100
+        },
+        {
+          "in": "(minimum|minimalnu|minimalno|najslabije|najmanje)",
+          "out": 1
+        }
+      ]
+    },
+    "temperature": {
+      "range": {
+        "type": "temperature",
+        "from": 0,
+        "to": 100
+      }
+    },
+    "temperature_unit": {
+      "values": [
+        "celsius",
+        {
+          "in": "c|celzijus|celzijusa|celzija|celzijev|celzijevih|celczijeva",
+          "out": "celsius"
+        },
+        "fahrenheit",
+        {
+          "in": "f | faranhajd | faranhajda",
+          "out": "fahrenheit"
+        }
+      ]
+    },
+    "on_off_states": {
+      "values": [
+        {
+          "in": "uključen[a|e|i|o|ih]|upaljen[a|e|i|o|ih]",
+          "out": "on"
+        },
+        {
+          "in": "isključen[a|e|i|o|ih]|ugašen[a|e|i|o|ih]",
+          "out": "off"
+        }
+      ]
+    },
+    "on_off_domains": {
+      "values": [
+        {
+          "in": "svjetl(o|a)|svjetala",
+          "out": "light"
+        },
+        {
+          "in": "ventilator(i|a)",
+          "out": "fan"
+        },
+        {
+          "in": "prekidač[a|i]|sklopk[a|e|i]",
+          "out": "switch"
+        }
+      ]
+    },
+    "cover_states": {
+      "values": [
+        {
+          "in": "otvoren[a|o|i|ih]|podignut(a)",
+          "out": "open"
+        },
+        {
+          "in": "zatvoren[a|o|i|ih]|spušten(a)|navučen(a)",
+          "out": "closed"
+        },
+        {
+          "in": "otvaram",
+          "out": "opening"
+        },
+        {
+          "in": "zatvaram",
+          "out": "closing"
+        }
+      ]
+    },
+    "cover_classes": {
+      "values": [
+        {
+          "in": "cerad(a|e|u)|tend(a|e|u)|nadstrešnic(a|e|u)",
+          "out": "awning"
+        },
+        {
+          "in": "rolet(a|e|u)|sjenil(o|a)|zasun[e]",
+          "out": "blind"
+        },
+        {
+          "in": "zavjes(a|e|u)|zastor[e]",
+          "out": "curtain"
+        },
+        {
+          "in": "vrata",
+          "out": "door"
+        },
+        {
+          "in": "garažna vrata",
+          "out": "garage"
+        },
+        {
+          "in": "kapij(a|e|u)",
+          "out": "gate"
+        },
+        {
+          "in": "žaluzin(a|e|u)|škura(a|e)",
+          "out": "shade"
+        },
+        {
+          "in": "zasun[e]|kapak|kapke",
+          "out": "shutter"
+        },
+        {
+          "in": "prozor[a|e|i]",
+          "out": "window"
+        }
+      ]
+    },
+    "lock_states": {
+      "values": [
+        {
+          "in": "zaključan[a|i|o|ih]|zaključaj",
+          "out": "locked"
+        },
+        {
+          "in": "otključan[a|i|o|ih]|otključaj",
+          "out": "unlocked"
+        }
+      ]
+    },
+    "shopping_list_item": {
+      "wildcard": true
+    }
+  },
+  "expansion_rules": {
+    "name": "{name}",
+    "area": "[prostorij[i|a]] {area}",
+    "brightness": "{brightness}[%| posto]",
+    "temperature": "{temperature}[°| <stupanj>] [{temperature_unit}]",
+    "stupanj": "[stupanj|stupnjeva]",
+    "temp": "temperatura|temperaturu",
+    "uključi": "uključi[te|mo]|[u]pali[te|mo]",
+    "isključi": "isključi[te|mo]|[u]gasi[te|mo]",
+    "promijeni": "podesi[te|mo]|namjesti[te|mo]|postavi[te|mo]|stavi|promijeni[te|mo]|smanji|povećaj",
+    "otvori": "otvori[te|mo]|[po]digni[te|mo]",
+    "zatvori": "zatvori[te|mo]|spusti[te|mo]|navuci",
+    "koja_je": "koja je|kolika je|kakva je|koji je|kolik(i|a|o) [je]|koliko [je]|kada je|reci [mi]|koju|kojom se",
+    "sve": "[sve|sva|svi]",
+    "lock": "vrata|brav[a|u|e]",
+    "koja_je_vrijednost_senzora": "<koja_je> <class> [u|na] [pokazuje] [senzor|senzora] [pokazuje] <name> [senzor|senzora] [(u|na) <area>]|<koja_je> <class> [senzor|senzora|uređaja] <name> [(u|na) <area>]|<koja_je> <name> <class> [(u|na) <area>]"
+  },
+  "skip_words": [
+    "molim [te|vas] [da]",
+    "može(š|te) [li] [da]",
+    "idemo",
+    "odmah"
+  ]
+}

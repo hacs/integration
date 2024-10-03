@@ -1,0 +1,88 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "Upozornenie"
+        }
+    },
+    "issues": {
+        "migrate_notify": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Akcia(e) {integration_title} `notify` s\u00fa migrovan\u00e9. Teraz je k dispoz\u00edcii nov\u00e1 entita `notify`, ktor\u00e1 nahrad\u00ed ka\u017ed\u00fa star\u0161iu akciu `notify`.\n\nAktualizujte v\u0161etky automatiz\u00e1cie, aby pou\u017e\u00edvali nov\u00fa akciu `notify.send_message` vystaven\u00fa s touto novou entitou. Po dokon\u010den\u00ed tohto kroku opravte tento probl\u00e9m a re\u0161tartujte aplik\u00e1ciu Home Assistant.",
+                        "title": "Migr\u00e1cia star\u0161ej akcie {integration_title} notify pre dom\u00e9nu `{domain}`"
+                    }
+                }
+            },
+            "title": "Migr\u00e1cia {integration_title} ozn\u00e1mi\u0165 akciu"
+        },
+        "migrate_notify_service": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Akcia {integration_title} `notify.{service_name}` je presunut\u00e1, ale zd\u00e1 sa, \u017ee sa st\u00e1le pou\u017e\u00edva star\u00e1 akcia `notify`.\n\nTeraz je k dispoz\u00edcii nov\u00e1 entita `notify`, ktor\u00e1 nahrad\u00ed ka\u017ed\u00fa star\u0161iu akciu `notify`.\n\nAktualizujte v\u0161etky automatiz\u00e1cie alebo skripty tak, aby pou\u017e\u00edvali nov\u00fa akciu `notify.send_message` vystaven\u00fa pomocou tejto novej entity. Po dokon\u010den\u00ed vyberte mo\u017enos\u0165 Odosla\u0165 a re\u0161tartujte aplik\u00e1ciu Home Assistant.",
+                        "title": "Migr\u00e1cia star\u0161ej akcie {integration_title} notify pre dom\u00e9nu `{domain}`"
+                    }
+                }
+            },
+            "title": "St\u00e1le sa pou\u017e\u00edva star\u0161ia akcia notify.{service_name}"
+        }
+    },
+    "services": {
+        "notify": {
+            "description": "Odo\u0161le notifika\u010dn\u00fa spr\u00e1vu vybran\u00fdm cie\u013eom.",
+            "fields": {
+                "data": {
+                    "description": "Niektor\u00e9 integr\u00e1cie poskytuj\u00fa roz\u0161\u00edren\u00e9 funkcie. Inform\u00e1cie o tom, ako pou\u017e\u00edva\u0165 _data_, n\u00e1jdete v dokument\u00e1cii k integr\u00e1cii.",
+                    "name": "\u00dadaje"
+                },
+                "message": {
+                    "description": "Telo spr\u00e1vy ozn\u00e1menia.",
+                    "name": "Spr\u00e1va"
+                },
+                "target": {
+                    "description": "Niektor\u00e9 integr\u00e1cie umo\u017e\u0148uj\u00fa ur\u010di\u0165 ciele, ktor\u00e9 dostan\u00fa ozn\u00e1menie. \u010eal\u0161ie inform\u00e1cie n\u00e1jdete v dokument\u00e1cii k integr\u00e1cii.",
+                    "name": "Cie\u013e"
+                },
+                "title": {
+                    "description": "N\u00e1zov ozn\u00e1menia.",
+                    "name": "N\u00e1zov"
+                }
+            },
+            "name": "Odosla\u0165 ozn\u00e1menie"
+        },
+        "persistent_notification": {
+            "description": "Odo\u0161le ozn\u00e1menie, ktor\u00e9 je vidite\u013en\u00e9 na paneli ozn\u00e1men\u00ed.",
+            "fields": {
+                "data": {
+                    "description": "Niektor\u00e9 integr\u00e1cie poskytuj\u00fa roz\u0161\u00edren\u00e9 funkcie. Inform\u00e1cie o tom, ako pou\u017e\u00edva\u0165 _data_, n\u00e1jdete v dokument\u00e1cii k integr\u00e1cii.",
+                    "name": "\u00dadaje"
+                },
+                "message": {
+                    "description": "Telo spr\u00e1vy ozn\u00e1menia.",
+                    "name": "Spr\u00e1va"
+                },
+                "title": {
+                    "description": "N\u00e1zov ozn\u00e1menia.",
+                    "name": "N\u00e1zov"
+                }
+            },
+            "name": "Odoslanie trval\u00e9ho ozn\u00e1menia"
+        },
+        "send_message": {
+            "description": "Odo\u0161le notifika\u010dn\u00fa spr\u00e1vu.",
+            "fields": {
+                "message": {
+                    "description": "Va\u0161a notifika\u010dn\u00e1 spr\u00e1va.",
+                    "name": "Spr\u00e1va"
+                },
+                "title": {
+                    "description": "N\u00e1zov pre va\u0161u notifika\u010dn\u00fa spr\u00e1vu.",
+                    "name": "N\u00e1zov"
+                }
+            },
+            "name": "Odoslanie notifika\u010dnej spr\u00e1vy"
+        }
+    },
+    "title": "Upozornenie"
+}

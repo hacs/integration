@@ -1,0 +1,134 @@
+{
+    "application_credentials": {
+        "description": "\u6309\u7167\u3010OAuth \u540c\u610f\u5c4f\u5e55\u3011({oauth_consent_url}) \u4e2d\u7684\u3010\u6307\u5bfc\u3011({more_info_url}) \uff0c\u6388\u4e88 Home Assistant \u8bbf\u95ee\u60a8 Google \u65e5\u5386\u7684\u6743\u9650\u3002\u60a8\u8fd8\u9700\u8981\u521b\u5efa\u94fe\u63a5\u5230\u60a8\u65e5\u5386\u7684\u5e94\u7528\u7a0b\u5e8f\u51ed\u636e\uff1a\n 1. \u8f6c\u5230\u3010\u51ed\u636e\u3011({oauth_creds_url}) \u5e76\u9009\u62e9**\u521b\u5efa\u51ed\u636e**\u3002\n 1. \u5728\u4e0b\u62c9\u5217\u8868\u4e2d\u9009\u62e9 **OAuth \u5ba2\u6237\u7aef\u6807\u8bc6\u7b26**\u3002\n 1. \u9009\u62e9**\u7535\u89c6\u548c\u53d7\u9650\u8f93\u5165\u8bbe\u5907**\u4f5c\u4e3a\u5e94\u7528\u7a0b\u5e8f\u7c7b\u578b\u3002\n\n"
+    },
+    "config": {
+        "abort": {
+            "already_configured": "\u8d26\u6237\u5df2\u914d\u7f6e",
+            "already_in_progress": "\u914d\u7f6e\u6d41\u7a0b\u5df2\u5728\u8fdb\u884c\u4e2d",
+            "api_disabled": "\u60a8\u5fc5\u987b\u5728 Google Cloud Console \u4e2d\u542f\u7528 Google \u65e5\u5386 API",
+            "cannot_connect": "\u8fde\u63a5\u5931\u8d25",
+            "code_expired": "\u9a8c\u8bc1\u7801\u5df2\u8fc7\u671f\u6216\u51ed\u636e\u8bbe\u7f6e\u65e0\u6548\uff0c\u8bf7\u91cd\u8bd5\u3002",
+            "invalid_access_token": "\u8bbf\u95ee\u4ee4\u724c\u65e0\u6548",
+            "missing_configuration": "\u6b64\u7ec4\u4ef6\u5c1a\u672a\u914d\u7f6e\u3002\u8bf7\u53c2\u9605\u6587\u6863\u3002",
+            "oauth_error": "\u6536\u5230\u65e0\u6548\u7684\u4ee4\u724c\u6570\u636e\u3002",
+            "oauth_failed": "\u83b7\u53d6\u8bbf\u95ee\u4ee4\u724c\u65f6\u51fa\u9519\u3002",
+            "oauth_timeout": "\u89e3\u6790 OAuth \u4ee4\u724c\u8d85\u65f6\u3002",
+            "oauth_unauthorized": "\u83b7\u53d6\u8bbf\u95ee\u4ee4\u724c\u65f6\u51fa\u73b0 OAuth \u6388\u6743\u9519\u8bef\u3002",
+            "reauth_successful": "\u91cd\u65b0\u8ba4\u8bc1\u6210\u529f",
+            "timeout_connect": "\u5efa\u7acb\u8fde\u63a5\u8d85\u65f6"
+        },
+        "create_entry": {
+            "default": "\u8ba4\u8bc1\u6210\u529f"
+        },
+        "progress": {
+            "exchange": "\u8981\u5173\u8054\u60a8\u7684 Google \u8d26\u6237\uff0c\u8bf7\u8bbf\u95ee\u3010{url}\u3011({url}) \u5e76\u8f93\u5165\u4ee3\u7801\uff1a\n\n {user_code}"
+        },
+        "step": {
+            "auth": {
+                "title": "\u5173\u8054 Google \u8d26\u6237"
+            },
+            "pick_implementation": {
+                "title": "\u9009\u62e9\u8eab\u4efd\u9a8c\u8bc1\u65b9\u6cd5"
+            },
+            "reauth_confirm": {
+                "description": "Google \u65e5\u5386\u96c6\u6210\u9700\u8981\u91cd\u65b0\u9a8c\u8bc1\u60a8\u7684\u8d26\u6237",
+                "title": "\u201d{name}\u201c\u7684\u8eab\u4efd\u9a8c\u8bc1\u5df2\u8fc7\u671f"
+            }
+        }
+    },
+    "entity": {
+        "calendar": {
+            "working_location": {
+                "name": "\u5de5\u4f5c\u5730\u70b9"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "calendar_access": "Home Assistant \u8bbf\u95ee Google \u65e5\u5386"
+                }
+            }
+        }
+    },
+    "services": {
+        "add_event": {
+            "description": "\u6dfb\u52a0\u65b0\u7684\u65e5\u5386\u4e8b\u4ef6\u3002",
+            "fields": {
+                "calendar_id": {
+                    "description": "\u60a8\u60f3\u8981\u7684\u65e5\u5386\u7684\u6807\u8bc6\u7b26\u3002",
+                    "name": "\u65e5\u5386\u6807\u8bc6\u7b26"
+                },
+                "description": {
+                    "description": "\u4e8b\u4ef6\u7684\u63cf\u8ff0\u3002\u53ef\u9009\u7684\u3002",
+                    "name": "\u63cf\u8ff0"
+                },
+                "end_date": {
+                    "description": "\u5168\u5929\u6d3b\u52a8\u5e94\u7ed3\u675f\u7684\u65e5\u671f\u3002",
+                    "name": "\u7ed3\u675f\u65e5\u671f"
+                },
+                "end_date_time": {
+                    "description": "\u4e8b\u4ef6\u5e94\u8be5\u7ed3\u675f\u7684\u65e5\u671f\u548c\u65f6\u95f4\u3002",
+                    "name": "\u7ed3\u675f\u65f6\u95f4"
+                },
+                "in": {
+                    "description": "\u60a8\u60f3\u8981\u521b\u5efa\u4e8b\u4ef6\u7684\u5929\u6570\u6216\u5468\u6570\u3002",
+                    "name": "\u5728\u672a\u6765"
+                },
+                "start_date": {
+                    "description": "\u5168\u5929\u6d3b\u52a8\u5e94\u5f00\u59cb\u7684\u65e5\u671f\u3002",
+                    "name": "\u5f00\u59cb\u65e5\u671f"
+                },
+                "start_date_time": {
+                    "description": "\u4e8b\u4ef6\u5e94\u8be5\u5f00\u59cb\u7684\u65e5\u671f\u548c\u65f6\u95f4\u3002",
+                    "name": "\u5f00\u59cb\u65f6\u95f4"
+                },
+                "summary": {
+                    "description": "\u4f5c\u4e3a\u4e8b\u4ef6\u7684\u6807\u9898\u3002",
+                    "name": "\u6458\u8981"
+                }
+            },
+            "name": "\u6dfb\u52a0\u4e8b\u4ef6"
+        },
+        "create_event": {
+            "description": "\u6dfb\u52a0\u65b0\u7684\u65e5\u5386\u4e8b\u4ef6\u3002",
+            "fields": {
+                "description": {
+                    "description": "\u4e8b\u4ef6\u7684\u63cf\u8ff0\u3002\u53ef\u9009\u7684\u3002",
+                    "name": "\u63cf\u8ff0"
+                },
+                "end_date": {
+                    "description": "\u5168\u5929\u6d3b\u52a8\u5e94\u7ed3\u675f\u7684\u65e5\u671f\u3002",
+                    "name": "\u7ed3\u675f\u65e5\u671f"
+                },
+                "end_date_time": {
+                    "description": "\u4e8b\u4ef6\u5e94\u8be5\u7ed3\u675f\u7684\u65e5\u671f\u548c\u65f6\u95f4\u3002",
+                    "name": "\u7ed3\u675f\u65f6\u95f4"
+                },
+                "in": {
+                    "description": "\u60a8\u60f3\u8981\u5728\u672a\u6765\u51e0\u5929\u6216\u51e0\u5468\u521b\u5efa\u4e8b\u4ef6\u3002",
+                    "name": "\u5728\u672a\u6765"
+                },
+                "location": {
+                    "description": "\u4e8b\u4ef6\u5730\u70b9\u3002\u53ef\u9009\u3002",
+                    "name": "\u4f4d\u7f6e"
+                },
+                "start_date": {
+                    "description": "\u5168\u5929\u6d3b\u52a8\u5e94\u5f00\u59cb\u7684\u65e5\u671f\u3002",
+                    "name": "\u5f00\u59cb\u65e5\u671f"
+                },
+                "start_date_time": {
+                    "description": "\u4e8b\u4ef6\u5e94\u8be5\u5f00\u59cb\u7684\u65e5\u671f\u548c\u65f6\u95f4\u3002",
+                    "name": "\u5f00\u59cb\u65f6\u95f4"
+                },
+                "summary": {
+                    "description": "\u4f5c\u4e3a\u4e8b\u4ef6\u7684\u6807\u9898\u3002",
+                    "name": "\u6458\u8981"
+                }
+            },
+            "name": "\u521b\u5efa\u4e8b\u4ef6"
+        }
+    }
+}

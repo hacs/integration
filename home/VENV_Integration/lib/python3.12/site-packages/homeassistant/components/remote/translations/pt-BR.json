@@ -1,0 +1,120 @@
+{
+    "device_automation": {
+        "action_type": {
+            "toggle": "Alternar {entity_name}",
+            "turn_off": "Desativar {entity_name}",
+            "turn_on": "Ativar {entity_name}"
+        },
+        "condition_type": {
+            "is_off": "{entity_name} est\u00e1 desativado",
+            "is_on": "{entity_name} est\u00e1 ativado"
+        },
+        "trigger_type": {
+            "changed_states": "{entity_name} ativado ou desativado",
+            "turned_off": "{entity_name} desativado",
+            "turned_on": "{entity_name} ativado"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Remoto",
+            "state": {
+                "off": "Desligado",
+                "on": "Ligado"
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "A plataforma {platform} para a integra\u00e7\u00e3o {domain} n\u00e3o \u00e9 compat\u00edvel com a configura\u00e7\u00e3o da plataforma. \n\n Remova-o da sua configura\u00e7\u00e3o e reinicie o Home Assistant para corrigir esse problema.",
+            "title": "Suporte \u00e0 plataforma n\u00e3o suportado"
+        }
+    },
+    "services": {
+        "delete_command": {
+            "description": "Exclui um comando ou uma lista de comandos do banco de dados.",
+            "fields": {
+                "command": {
+                    "description": "O comando ou lista de comandos a serem exclu\u00eddos.",
+                    "name": "Comando"
+                },
+                "device": {
+                    "description": "Dispositivo do qual os comandos ser\u00e3o exclu\u00eddos.",
+                    "name": "DIspositivo"
+                }
+            },
+            "name": "Excluir comando"
+        },
+        "learn_command": {
+            "description": "Aprende um comando ou uma lista de comandos de um dispositivo.",
+            "fields": {
+                "alternative": {
+                    "description": "Se o c\u00f3digo deve ser armazenado como uma alternativa. Isso \u00e9 \u00fatil para c\u00f3digos discretos. C\u00f3digos discretos s\u00e3o usados para altern\u00e2ncias que executam apenas uma fun\u00e7\u00e3o. Por exemplo, um c\u00f3digo para ligar apenas um dispositivo. Se j\u00e1 estiver ativado, enviar o c\u00f3digo n\u00e3o alterar\u00e1 o estado.",
+                    "name": "Alternativa"
+                },
+                "command": {
+                    "description": "Um \u00fanico comando ou uma lista de comandos para aprender.",
+                    "name": "Comando"
+                },
+                "command_type": {
+                    "description": "O tipo de comando a ser aprendido.",
+                    "name": "Tipo de comando"
+                },
+                "device": {
+                    "description": "ID do dispositivo para aprender o comando.",
+                    "name": "Dispositivo"
+                },
+                "timeout": {
+                    "description": "Tempo limite para que o comando seja aprendido.",
+                    "name": "Tempo esgotado"
+                }
+            },
+            "name": "Aprender comando"
+        },
+        "send_command": {
+            "description": "Envia um comando ou uma lista de comandos para um dispositivo.",
+            "fields": {
+                "command": {
+                    "description": "Um \u00fanico comando ou uma lista de comandos a serem enviados.",
+                    "name": "Comando"
+                },
+                "delay_secs": {
+                    "description": "O tempo que voc\u00ea deseja esperar entre comandos repetidos.",
+                    "name": "Atraso em segundos"
+                },
+                "device": {
+                    "description": "ID do dispositivo para o qual enviar o comando.",
+                    "name": "Dispositivo"
+                },
+                "hold_secs": {
+                    "description": "O tempo que voc\u00ea deseja que seja mantido antes do envio da libera\u00e7\u00e3o.",
+                    "name": "Segundos de espera"
+                },
+                "num_repeats": {
+                    "description": "O n\u00famero de vezes que voc\u00ea deseja repetir os comandos.",
+                    "name": "Repete"
+                }
+            },
+            "name": "Enviar comando"
+        },
+        "toggle": {
+            "description": "Liga/desliga um dispositivo.",
+            "name": "Alternar"
+        },
+        "turn_off": {
+            "description": "Desliga o aparelho.",
+            "name": "Desligar"
+        },
+        "turn_on": {
+            "description": "Envia o comando de ligar.",
+            "fields": {
+                "activity": {
+                    "description": "ID da atividade ou nome da atividade a ser iniciada.",
+                    "name": "Atividade"
+                }
+            },
+            "name": "Ligar"
+        }
+    },
+    "title": "Remoto"
+}

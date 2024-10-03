@@ -1,0 +1,139 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "Cuaca",
+            "state": {
+                "clear-night": "Cerah, malam",
+                "cloudy": "Berawan",
+                "exceptional": "Luar biasa",
+                "fog": "Kabut",
+                "hail": "Hujan es",
+                "lightning": "Petir",
+                "lightning-rainy": "Petir, hujan",
+                "partlycloudy": "Sebagian berawan",
+                "pouring": "Hujan lebat",
+                "rainy": "Hujan",
+                "snowy": "Bersalju",
+                "snowy-rainy": "Bersalju, hujan",
+                "sunny": "Cerah",
+                "windy": "Berangin",
+                "windy-variant": "Berangin, berawan"
+            },
+            "state_attributes": {
+                "apparent_temperature": {
+                    "name": "Suhu yang tampak"
+                },
+                "cloud_coverage": {
+                    "name": "Cakupan awan"
+                },
+                "dew_point": {
+                    "name": "Suhu titik embun"
+                },
+                "forecast": {
+                    "name": "Prakiraan"
+                },
+                "humidity": {
+                    "name": "Kelembapan"
+                },
+                "ozone": {
+                    "name": "Ozon"
+                },
+                "precipitation_unit": {
+                    "name": "Satuan presipitasi"
+                },
+                "pressure": {
+                    "name": "Tekanan"
+                },
+                "pressure_unit": {
+                    "name": "Unit tekanan"
+                },
+                "temperature": {
+                    "name": "Temperatur"
+                },
+                "temperature_unit": {
+                    "name": "Satuan temperatur"
+                },
+                "uv_index": {
+                    "name": "Indeks UV"
+                },
+                "visibility": {
+                    "name": "Visibilitas"
+                },
+                "visibility_unit": {
+                    "name": "Satuan visibilitas"
+                },
+                "wind_bearing": {
+                    "name": "Arah angin"
+                },
+                "wind_gust_speed": {
+                    "name": "Kecepatan gust angin"
+                },
+                "wind_speed": {
+                    "name": "Kecepatan angin"
+                },
+                "wind_speed_unit": {
+                    "name": "Satuan kecepatan angin"
+                }
+            }
+        }
+    },
+    "issues": {
+        "deprecated_service_weather_get_forecast": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "title": "Terdeteksi penggunaan layanan `weather.get_forecast` yang tidak digunakan lagi"
+                    }
+                }
+            }
+        },
+        "deprecated_weather_forecast": {
+            "description": "Integrasi `{platform}` menggunakan atribut prakiraan yang sudah tidak digunakan lagi.\n\n{report_issue}.",
+            "title": "Integrasi {platform} menggunakan prakiraan yang tidak digunakan lagi"
+        },
+        "deprecated_weather_forecast_no_url": {
+            "description": "Integrasi khusus `{platform}` mengimplementasikan properti `forecast` atau menyetel `self._attr_forecast` dalam subkelas WeatherEntity. \n\nLaporkan ke penyusun integrasi {platform}. \n\nSetelah versi terbaru `{platform}` tersedia, instal dan mulai ulang Home Assistant untuk memperbaiki masalah ini.",
+            "title": "Integrasi khusus {platform} menggunakan prakiraan yang tidak digunakan lagi"
+        },
+        "deprecated_weather_forecast_url": {
+            "description": "Integrasi khusus `{platform}` mengimplementasikan properti `forecast` atau menyetel `self._attr_forecast` dalam subkelas WeatherEntity. \n\nBuat laporan bug di {issue_tracker}. \n\nSetelah versi terbaru `{platform}` tersedia, instal dan mulai ulang Home Assistant untuk memperbaiki masalah ini.",
+            "title": "Integrasi khusus {platform} menggunakan prakiraan yang tidak digunakan lagi"
+        },
+        "platform_integration_no_support": {
+            "description": "Platform {platform} untuk integrasi {domain} tidak mendukung penyiapan platform. \n\nHarap hapus dari konfigurasi Anda dan mulai ulang Home Assistant untuk memperbaiki masalah ini.",
+            "title": "Dukungan platform tidak didukung"
+        }
+    },
+    "selector": {
+        "forecast_type": {
+            "options": {
+                "daily": "Harian",
+                "hourly": "Per jam",
+                "twice_daily": "Dua kali sehari"
+            }
+        }
+    },
+    "services": {
+        "get_forecast": {
+            "description": "Dapatkan prakiraan cuaca.",
+            "fields": {
+                "type": {
+                    "description": "Jenis prakiraan: harian, per jam, atau dua kali sehari.",
+                    "name": "Jenis prakiraan"
+                }
+            },
+            "name": "Dapatkan prakiraan"
+        },
+        "get_forecasts": {
+            "description": "Dapatkan prakiraan cuaca.",
+            "fields": {
+                "type": {
+                    "description": "Jenis prakiraan: harian, per jam, atau dua kali sehari.",
+                    "name": "Jenis prakiraan"
+                }
+            },
+            "name": "Dapatkan prakiraan cuaca"
+        }
+    },
+    "title": "Cuaca"
+}

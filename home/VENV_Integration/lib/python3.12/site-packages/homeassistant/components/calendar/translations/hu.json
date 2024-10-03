@@ -1,0 +1,131 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "Napt\u00e1r",
+            "state": {
+                "off": "Ki",
+                "on": "Be"
+            },
+            "state_attributes": {
+                "all_day": {
+                    "name": "Eg\u00e9sz nap",
+                    "state": {
+                        "false": "Nem",
+                        "true": "Igen"
+                    }
+                },
+                "description": {
+                    "name": "Le\u00edr\u00e1s"
+                },
+                "end_time": {
+                    "name": "Befejez\u00e9si id\u0151"
+                },
+                "location": {
+                    "name": "Helysz\u00edn"
+                },
+                "message": {
+                    "name": "\u00dczenet"
+                },
+                "messages": {
+                    "name": "\u00dczenet"
+                },
+                "start_time": {
+                    "name": "Kezd\u00e9si id\u0151"
+                }
+            }
+        }
+    },
+    "issues": {
+        "deprecated_service_calendar_list_events": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Haszn\u00e1lja a `calendar.get_events` szolg\u00e1ltat\u00e1st, amely t\u00f6bb entit\u00e1st is t\u00e1mogat.\n\nK\u00e9rj\u00fck, cser\u00e9lje le ezt a m\u0171veletet, \u00e9s m\u00f3dos\u00edtsa az automatiz\u00e1l\u00e1sait \u00e9s szkriptjeit, majd v\u00e1lassza a **Mehet** lehet\u0151s\u00e9get a probl\u00e9ma lez\u00e1r\u00e1s\u00e1hoz.",
+                        "title": "Elavult `calendar.list_events` m\u0171velet haszn\u00e1lata \u00e9szlelve"
+                    }
+                }
+            }
+        },
+        "platform_integration_no_support": {
+            "description": "{domain} integr\u00e1ci\u00f3 nem t\u00e1mogatja {platform} platform be\u00e1ll\u00edt\u00e1s\u00e1t.\n\nK\u00e9rem, t\u00e1vol\u00edtsa el a konfigur\u00e1ci\u00f3b\u00f3l \u00e9s ind\u00edtsa \u00fajra a Home Assistantot a probl\u00e9ma megold\u00e1s\u00e1hoz.",
+            "title": "A platform nem t\u00e1mogatott"
+        }
+    },
+    "services": {
+        "create_event": {
+            "description": "\u00daj napt\u00e1ri esem\u00e9ny hozz\u00e1ad\u00e1sa.",
+            "fields": {
+                "description": {
+                    "description": "Az esem\u00e9nynek az \u00f6sszefoglal\u00f3n\u00e1l teljesebb le\u00edr\u00e1sa.",
+                    "name": "Le\u00edr\u00e1s"
+                },
+                "end_date": {
+                    "description": "Az eg\u00e9sz napos esem\u00e9ny befejez\u00e9s\u00e9nek d\u00e1tuma (kiz\u00e1r\u00f3lagos).",
+                    "name": "Befejez\u00e9s d\u00e1tuma"
+                },
+                "end_date_time": {
+                    "description": "Az esem\u00e9ny befejez\u00e9s\u00e9nek d\u00e1tuma \u00e9s ideje.",
+                    "name": "Befejez\u00e9s ideje"
+                },
+                "in": {
+                    "description": "Az esem\u00e9nyt h\u00e1ny nap vagy h\u00e9t m\u00falva szeretn\u00e9 l\u00e9trehozni.",
+                    "name": "M\u00falva"
+                },
+                "location": {
+                    "description": "Az esem\u00e9ny helysz\u00edne.",
+                    "name": "Helysz\u00edn"
+                },
+                "start_date": {
+                    "description": "Az eg\u00e9sz napos esem\u00e9ny kezdet\u00e9nek d\u00e1tuma.",
+                    "name": "Kezd\u00e9s d\u00e1tuma"
+                },
+                "start_date_time": {
+                    "description": "Az esem\u00e9ny kezd\u00e9s\u00e9nek d\u00e1tuma \u00e9s ideje.",
+                    "name": "Kezd\u00e9s ideje"
+                },
+                "summary": {
+                    "description": "Meghat\u00e1rozza az esem\u00e9ny r\u00f6vid \u00f6sszefoglal\u00e1s\u00e1t vagy t\u00e1rgy\u00e1t.",
+                    "name": "\u00d6sszefoglal\u00f3"
+                }
+            },
+            "name": "Esem\u00e9ny l\u00e9trehoz\u00e1sa"
+        },
+        "get_events": {
+            "description": "Esem\u00e9nyek megjelen\u00edt\u00e9se napt\u00e1rban adott id\u0151tartom\u00e1nyon bel\u00fcl.",
+            "fields": {
+                "duration": {
+                    "description": "Akt\u00edv esem\u00e9nyeket ad vissza a kezd\u00e9s idej\u00e9t\u0151l a megadott id\u0151tartamig.",
+                    "name": "Id\u0151tartam"
+                },
+                "end_date_time": {
+                    "description": "Ezen id\u0151pont el\u0151tti akt\u00edv esem\u00e9nyeket adja vissza (kiz\u00e1r\u00f3lagos). Nem haszn\u00e1lhat\u00f3 az id\u0151tartammal egy\u00fctt.",
+                    "name": "Befejez\u00e9s ideje"
+                },
+                "start_date_time": {
+                    "description": "Ezen id\u0151pont ut\u00e1ni akt\u00edv esem\u00e9nyeket adja vissza (kiz\u00e1r\u00f3lagos). Ha nincs be\u00e1ll\u00edtva, az alap\u00e9rtelmezett \u00e9rt\u00e9k most.",
+                    "name": "Kezd\u00e9s ideje"
+                }
+            },
+            "name": "Esem\u00e9nyek lek\u00e9r\u00e9se"
+        },
+        "list_events": {
+            "description": "Felsorolja a napt\u00e1rban szerepl\u0151 esem\u00e9nyeket egy adott id\u0151tartom\u00e1nyon bel\u00fcl.",
+            "fields": {
+                "duration": {
+                    "description": "Akt\u00edv esem\u00e9nyeket ad vissza a kezd\u00e9s idej\u00e9t\u0151l a megadott id\u0151tartamig.",
+                    "name": "Id\u0151tartam"
+                },
+                "end_date_time": {
+                    "description": "Ezen id\u0151pont el\u0151tti akt\u00edv esem\u00e9nyeket adja vissza (kiz\u00e1r\u00f3lagos). Nem haszn\u00e1lhat\u00f3 az id\u0151tartammal egy\u00fctt.",
+                    "name": "Befejez\u00e9s ideje"
+                },
+                "start_date_time": {
+                    "description": "Ezen id\u0151pont ut\u00e1ni akt\u00edv esem\u00e9nyeket adja vissza (kiz\u00e1r\u00f3lagos). Ha nincs be\u00e1ll\u00edtva, az alap\u00e9rtelmezett \u00e9rt\u00e9k most.",
+                    "name": "Kezd\u00e9s ideje"
+                }
+            },
+            "name": "Esem\u00e9ny list\u00e1z\u00e1sa"
+        }
+    },
+    "title": "Napt\u00e1r"
+}

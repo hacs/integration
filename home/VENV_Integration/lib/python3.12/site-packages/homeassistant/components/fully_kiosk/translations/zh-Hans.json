@@ -1,0 +1,163 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "\u8d26\u6237\u5df2\u914d\u7f6e"
+        },
+        "error": {
+            "cannot_connect": "\u65e0\u6cd5\u8fde\u63a5\u3002\u8be6\u7ec6\u4fe1\u606f\uff1a{error_detail}",
+            "unknown": "\u672a\u77e5\u3002\u8be6\u7ec6\u4fe1\u606f\uff1a{error_detail}"
+        },
+        "step": {
+            "discovery_confirm": {
+                "data": {
+                    "password": "\u5bc6\u7801"
+                },
+                "description": "\u60a8\u8981\u8bbe\u7f6e{name} ({host}) \u5417 \uff1f"
+            },
+            "user": {
+                "data": {
+                    "host": "\u4e3b\u673a",
+                    "password": "\u5bc6\u7801",
+                    "ssl": "\u4f7f\u7528 SSL \u8bc1\u4e66",
+                    "verify_ssl": "\u9a8c\u8bc1 SSL \u8bc1\u4e66"
+                },
+                "data_description": {
+                    "host": "\u8fd0\u884c\u60a8\u7684 Fully Kiosk Browser \u5e94\u7528\u7a0b\u5e8f\u7684\u8bbe\u5907\u7684\u4e3b\u673a\u540d\u6216 IP \u5730\u5740\u3002"
+                }
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "device_admin": {
+                "name": "\u8bbe\u5907\u7ba1\u7406\u5458"
+            },
+            "kiosk_mode": {
+                "name": "\u8d44\u8baf\u7ad9\u6a21\u5f0f"
+            },
+            "plugged_in": {
+                "name": "\u63d2\u5165"
+            }
+        },
+        "button": {
+            "load_start_url": {
+                "name": "\u52a0\u8f7d\u8d77\u59cb URL"
+            },
+            "restart_browser": {
+                "name": "\u91cd\u542f\u6d4f\u89c8\u5668"
+            },
+            "restart_device": {
+                "name": "\u91cd\u542f\u8bbe\u5907"
+            },
+            "to_background": {
+                "name": "\u53d1\u9001\u5230\u540e\u53f0"
+            },
+            "to_foreground": {
+                "name": "\u5e26\u5230\u524d\u53f0"
+            }
+        },
+        "image": {
+            "screenshot": {
+                "name": "\u622a\u5c4f"
+            }
+        },
+        "notify": {
+            "overlay_message": {
+                "name": "\u53e0\u52a0\u6d88\u606f"
+            },
+            "tts": {
+                "name": "\u6587\u5b57\u8f6c\u8bed\u97f3"
+            }
+        },
+        "number": {
+            "screen_brightness": {
+                "name": "\u5c4f\u5e55\u4eae\u5ea6"
+            },
+            "screen_off_time": {
+                "name": "\u5c4f\u5e55\u5173\u95ed\u8ba1\u65f6\u5668"
+            },
+            "screensaver_brightness": {
+                "name": "\u5c4f\u4fdd\u4eae\u5ea6"
+            },
+            "screensaver_time": {
+                "name": "\u5c4f\u5e55\u4fdd\u62a4\u8ba1\u65f6\u5668"
+            }
+        },
+        "sensor": {
+            "current_page": {
+                "name": "\u5f53\u524d\u9875\u9762"
+            },
+            "foreground_app": {
+                "name": "\u524d\u53f0\u5e94\u7528\u7a0b\u5e8f"
+            },
+            "internal_storage_free_space": {
+                "name": "\u5185\u90e8\u5b58\u50a8\u53ef\u7528\u7a7a\u95f4"
+            },
+            "internal_storage_total_space": {
+                "name": "\u5185\u90e8\u5b58\u50a8\u603b\u7a7a\u95f4"
+            },
+            "ram_free_memory": {
+                "name": "\u7a7a\u95f2\u5185\u5b58"
+            },
+            "ram_total_memory": {
+                "name": "\u603b\u5185\u5b58"
+            },
+            "screen_orientation": {
+                "name": "\u5c4f\u5e55\u65b9\u5411"
+            }
+        },
+        "switch": {
+            "kiosk": {
+                "name": "\u81ea\u52a9\u7ec8\u7aef\u9501"
+            },
+            "maintenance": {
+                "name": "\u7ef4\u62a4\u6a21\u5f0f"
+            },
+            "motion_detection": {
+                "name": "\u8fd0\u52a8\u4fa6\u6d4b"
+            },
+            "screen_on": {
+                "name": "\u5c4f\u5e55"
+            },
+            "screensaver": {
+                "name": "\u5c4f\u5e55\u4fdd\u62a4\u7a0b\u5e8f"
+            }
+        }
+    },
+    "services": {
+        "load_url": {
+            "description": "\u5728 Fully Kiosk \u6d4f\u89c8\u5668\u4e0a\u52a0\u8f7d URL\u3002",
+            "fields": {
+                "url": {
+                    "description": "\u8981\u52a0\u8f7d\u7684 URL\u3002",
+                    "name": "\u7f51\u5740"
+                }
+            },
+            "name": "\u52a0\u8f7d URL"
+        },
+        "set_config": {
+            "description": "\u5728 Full Kiosk \u6d4f\u89c8\u5668\u4e0a\u8bbe\u7f6e\u914d\u7f6e\u53c2\u6570\u3002",
+            "fields": {
+                "key": {
+                    "description": "\u8981\u8bbe\u7f6e\u7684\u914d\u7f6e\u53c2\u6570\u3002",
+                    "name": "\u94a5\u5319"
+                },
+                "value": {
+                    "description": "\u914d\u7f6e\u53c2\u6570\u7684\u503c\u3002",
+                    "name": "\u503c"
+                }
+            },
+            "name": "\u8bbe\u7f6e\u914d\u7f6e"
+        },
+        "start_application": {
+            "description": "\u5728\u8fd0\u884c Full Kiosk \u6d4f\u89c8\u5668\u7684\u8bbe\u5907\u4e0a\u542f\u52a8\u5e94\u7528\u7a0b\u5e8f\u3002",
+            "fields": {
+                "application": {
+                    "description": "\u8981\u542f\u52a8\u7684\u5e94\u7528\u7a0b\u5e8f\u7684\u5305\u540d\u79f0\u3002",
+                    "name": "\u5e94\u7528"
+                }
+            },
+            "name": "\u542f\u52a8\u5e94\u7528"
+        }
+    }
+}

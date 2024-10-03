@@ -1,0 +1,90 @@
+{
+    "device_automation": {
+        "condition_type": {
+            "is_home": "{entity_name} \u306f\u3001\u5728\u5b85\u3067\u3059",
+            "is_not_home": "{entity_name} \u306f\u3001\u4e0d\u5728\u3067\u3059"
+        },
+        "extra_fields": {
+            "zone": "\u30be\u30fc\u30f3"
+        },
+        "trigger_type": {
+            "enters": "{entity_name} \u304c\u30be\u30fc\u30f3\u306b\u5165\u308b",
+            "leaves": "{entity_name} \u304c\u30be\u30fc\u30f3\u304b\u3089\u96e2\u308c\u308b"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "\u30c7\u30d0\u30a4\u30b9\u30c8\u30e9\u30c3\u30ab\u30fc",
+            "state": {
+                "home": "\u5728\u5b85",
+                "not_home": "\u4e0d\u5728"
+            },
+            "state_attributes": {
+                "battery": {
+                    "name": "\u30d0\u30c3\u30c6\u30ea\u30fc"
+                },
+                "gps_accuracy": {
+                    "name": "GPS\u7cbe\u5ea6"
+                },
+                "latitude": {
+                    "name": "\u7def\u5ea6"
+                },
+                "longitude": {
+                    "name": "\u7d4c\u5ea6"
+                },
+                "source_type": {
+                    "name": "\u30bd\u30fc\u30b9",
+                    "state": {
+                        "bluetooth": "Bluetooth",
+                        "bluetooth_le": "Bluetooth LE",
+                        "gps": "GPS",
+                        "router": "\u30eb\u30fc\u30bf\u30fc"
+                    }
+                }
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "{domain}\u7d71\u5408\u306e{platform}\u30d7\u30e9\u30c3\u30c8\u30d5\u30a9\u30fc\u30e0\u306f\u3001\u30d7\u30e9\u30c3\u30c8\u30d5\u30a9\u30fc\u30e0\u306e\u30bb\u30c3\u30c8\u30a2\u30c3\u30d7\u3092\u30b5\u30dd\u30fc\u30c8\u3057\u3066\u3044\u307e\u305b\u3093\u3002 \n\n\u3053\u306e\u554f\u984c\u3092\u89e3\u6c7a\u3059\u308b\u306b\u306f\u3001\u69cb\u6210\u304b\u3089\u524a\u9664\u3057\u3001Home Assistant \u3092\u518d\u8d77\u52d5\u3057\u3066\u304f\u3060\u3055\u3044\u3002",
+            "title": "\u30d7\u30e9\u30c3\u30c8\u30d5\u30a9\u30fc\u30e0\u306e\u30b5\u30dd\u30fc\u30c8\u306f\u30b5\u30dd\u30fc\u30c8\u3055\u308c\u3066\u3044\u307e\u305b\u3093"
+        }
+    },
+    "services": {
+        "see": {
+            "description": "\u76e3\u8996\u3055\u308c\u305f\u30c7\u30d0\u30a4\u30b9\u3092\u8a18\u9332\u3057\u307e\u3059\u3002",
+            "fields": {
+                "battery": {
+                    "description": "\u30c7\u30d0\u30a4\u30b9\u306e\u30d0\u30c3\u30c6\u30ea\u30fc\u6b8b\u91cf\u3002",
+                    "name": "\u30d0\u30c3\u30c6\u30ea\u30fc\u6b8b\u91cf"
+                },
+                "dev_id": {
+                    "description": "\u30c7\u30d0\u30a4\u30b9\u306eID\uff08ID\u306f`known_devices.yaml`\u3067\u8abf\u3079\u308b\uff09\u3002",
+                    "name": "\u30c7\u30d0\u30a4\u30b9ID"
+                },
+                "gps": {
+                    "description": "\u30c7\u30d0\u30a4\u30b9\u304c\u4f4d\u7f6e\u3059\u308b GPS \u5ea7\u6a19\u3002\u7def\u5ea6\u3068\u7d4c\u5ea6\u3067\u6307\u5b9a\u3055\u308c\u307e\u3059 (\u4f8b: [51.513845, -0.100539])\u3002",
+                    "name": "GPS\u5ea7\u6a19"
+                },
+                "gps_accuracy": {
+                    "description": "GPS \u5ea7\u6a19\u306e\u7cbe\u5ea6\u3002",
+                    "name": "GPS\u7cbe\u5ea6"
+                },
+                "host_name": {
+                    "description": "\u30c7\u30d0\u30a4\u30b9\u306e\u30db\u30b9\u30c8\u540d\u3002",
+                    "name": "\u30db\u30b9\u30c8\u540d"
+                },
+                "location_name": {
+                    "description": "\u30c7\u30d0\u30a4\u30b9\u304c\u8a2d\u7f6e\u3055\u308c\u3066\u3044\u308b\u5834\u6240\u306e\u540d\u524d\u3002\u30aa\u30d7\u30b7\u30e7\u30f3\u306fhome`\u3001`not_home`\u3001\u307e\u305f\u306f\u30be\u30fc\u30f3\u540d\u3067\u3042\u308b\u3002",
+                    "name": "\u4f4d\u7f6e"
+                },
+                "mac": {
+                    "description": "\u30c7\u30d0\u30a4\u30b9\u306eMAC\u30a2\u30c9\u30ec\u30b9\u3002",
+                    "name": "Mac\u30a2\u30c9\u30ec\u30b9"
+                }
+            },
+            "name": "\u898b\u308b"
+        }
+    },
+    "title": "\u30c7\u30d0\u30a4\u30b9\u30c8\u30e9\u30c3\u30ab\u30fc"
+}

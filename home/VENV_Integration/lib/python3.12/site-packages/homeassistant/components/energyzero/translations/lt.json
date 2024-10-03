@@ -1,0 +1,125 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "\u012erenginys jau sukonfig\u016bruotas"
+        },
+        "step": {
+            "user": {
+                "description": "Ar norite prad\u0117ti s\u0105rank\u0105?"
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "average_price": {
+                "name": "Vidutini\u0161kai \u2013 \u0161iandien"
+            },
+            "current_hour_price": {
+                "name": "Dabartin\u0117 valanda"
+            },
+            "highest_price_time": {
+                "name": "Auk\u0161\u010diausios kainos laikas \u2013 \u0161iandien"
+            },
+            "hours_priced_equal_or_higher": {
+                "name": "Valandos, kuri\u0173 kaina yra lygi arba didesn\u0117 u\u017e dabartin\u0119 \u2013 \u0161iandien"
+            },
+            "hours_priced_equal_or_lower": {
+                "name": "Valandos, kuri\u0173 kaina yra lygi arba ma\u017eesn\u0117 nei dabartin\u0117 \u2013 \u0161iandien"
+            },
+            "lowest_price_time": {
+                "name": "Ma\u017eiausios kainos laikas \u2013 \u0161iandien"
+            },
+            "max_price": {
+                "name": "Auk\u0161\u010diausia kaina \u2013 \u0161iandien"
+            },
+            "min_price": {
+                "name": "Ma\u017eiausia kaina \u2013 \u0161iandien"
+            },
+            "next_hour_price": {
+                "name": "Kit\u0105 valand\u0105"
+            },
+            "percentage_of_max": {
+                "name": "Dabartinis auk\u0161\u010diausios kainos procentas \u2013 \u0161iandien"
+            }
+        }
+    },
+    "exceptions": {
+        "invalid_config_entry": {
+            "message": "Pateiktas neteisingas konfig\u016bracijos \u012fra\u0161as. Gauta {config_entry}"
+        },
+        "invalid_date": {
+            "message": "Pateikta neteisinga data. Gavau {date}"
+        },
+        "unloaded_config_entry": {
+            "message": "Pateiktas neteisingas konfig\u016bracijos \u012fra\u0161as. {config_entry} ne\u012fkeltas."
+        }
+    },
+    "services": {
+        "get_energy_prices": {
+            "description": "Teiraukit\u0117s energijos kain\u0173 i\u0161 EnergyZero.",
+            "fields": {
+                "config_entry": {
+                    "description": "\u0160iam veiksmui naudojamas konfig\u016bracijos \u012fra\u0161as.",
+                    "name": "Konfig\u016bracijos \u012fra\u0161as"
+                },
+                "end": {
+                    "description": "Nurodoma data ir laikas, iki kurio reikia gauti kainas. Numatytoji reik\u0161m\u0117 yra \u0161iandien, jei praleista.",
+                    "name": "Pabaiga"
+                },
+                "incl_vat": {
+                    "description": "\u012e kainas \u012ftraukti PVM.",
+                    "name": "Su PVM"
+                },
+                "start": {
+                    "description": "Nurodoma data ir laikas, nuo kurio reikia gauti kainas. Numatytoji reik\u0161m\u0117 yra \u0161iandien, jei praleista.",
+                    "name": "Prad\u0117ti"
+                }
+            },
+            "name": "Gaukite energijos kainas"
+        },
+        "get_gas_prices": {
+            "description": "Duj\u0173 kain\u0173 teiraukit\u0117s EnergyZero.",
+            "fields": {
+                "config_entry": {
+                    "description": "\u0160iam veiksmui naudojamas konfig\u016bracijos \u012fra\u0161as.",
+                    "name": "Konfig\u016bracijos \u012fra\u0161as"
+                },
+                "end": {
+                    "description": "Nurodoma data ir laikas, iki kurio reikia gauti kainas. Numatytoji reik\u0161m\u0117 yra \u0161iandien, jei praleista.",
+                    "name": "Pabaiga"
+                },
+                "incl_vat": {
+                    "description": "\u012e kainas \u012ftraukti PVM.",
+                    "name": "Su PVM"
+                },
+                "start": {
+                    "description": "Nurodoma data ir laikas, nuo kurio reikia gauti kainas. Numatytoji reik\u0161m\u0117 yra \u0161iandien, jei praleista.",
+                    "name": "Prad\u0117ti"
+                }
+            },
+            "name": "Gaukite duj\u0173 kainas"
+        },
+        "get_prices": {
+            "description": "Teiraukit\u0117s energijos ar duj\u0173 kain\u0173 i\u0161 EnergyZero.",
+            "fields": {
+                "end": {
+                    "description": "Iki kurio momento gauti kainas. Numatytoji reik\u0161m\u0117 yra \u0161iandien, jei praleista.",
+                    "name": "Pabaiga"
+                },
+                "incl_vat": {
+                    "description": "\u012e kainas \u012ftraukti PVM. Numatytoji vert\u0117 yra tiesa, jei praleista.",
+                    "name": "Su PVM"
+                },
+                "start": {
+                    "description": "Nuo kurio momento gauti kainas. Numatytoji reik\u0161m\u0117 yra \u0161iandien, jei praleista.",
+                    "name": "Prad\u017eia"
+                },
+                "type": {
+                    "description": "Kain\u0173, kurias reikia gauti, tipas, energija ar dujos.",
+                    "name": "Tipas"
+                }
+            },
+            "name": "Gaukite kainas"
+        }
+    }
+}

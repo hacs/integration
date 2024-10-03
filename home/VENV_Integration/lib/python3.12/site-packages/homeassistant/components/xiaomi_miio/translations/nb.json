@@ -1,0 +1,153 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Enhet er allerede konfigurert",
+            "already_in_progress": "Konfigurasjonsflyten p\u00e5g\u00e5r allerede",
+            "incomplete_info": "Ufullstendig informasjon for \u00e5 konfigurere enheten, ingen vert eller token levert.",
+            "not_xiaomi_miio": "Enheten st\u00f8ttes (enn\u00e5) ikke av Xiaomi Miio.",
+            "reauth_successful": "Autentisering p\u00e5 nytt var vellykket",
+            "unknown": "Uventet feil"
+        },
+        "error": {
+            "cannot_connect": "Tilkobling mislyktes",
+            "cloud_credentials_incomplete": "Utskriftsinformasjon for skyen er fullstendig. Fyll ut brukernavn, passord og land",
+            "cloud_login_error": "Kunne ikke logge inn p\u00e5 Xiaomi Miio Cloud, sjekk legitimasjonen.",
+            "cloud_no_devices": "Ingen enheter funnet i denne Xiaomi Miio-skykontoen.",
+            "unknown_device": "Enhetsmodellen er ikke kjent, kan ikke sette opp enheten ved hjelp av konfigurasjonsflyt.",
+            "wrong_token": "Kontrollsumfeil, feil token"
+        },
+        "flow_title": "{name}",
+        "step": {
+            "cloud": {
+                "data": {
+                    "cloud_country": "Land for skyserver",
+                    "cloud_password": "Passord for sky",
+                    "cloud_username": "Brukernavn i skyen",
+                    "manual": "Konfigurer manuelt (anbefales ikke)"
+                },
+                "description": "Logg deg p\u00e5 Xiaomi Miio-skyen, se https://www.openhab.org/addons/bindings/miio/#country-servers for skyserveren du kan bruke."
+            },
+            "connect": {
+                "data": {
+                    "model": "Enhetsmodell"
+                }
+            },
+            "manual": {
+                "data": {
+                    "host": "IP-adresse",
+                    "token": "API-token"
+                }
+            },
+            "reauth_confirm": {
+                "description": "Xiaomi Miio-integrasjonen m\u00e5 autentisere kontoen din p\u00e5 nytt for \u00e5 oppdatere tokens eller legge til manglende skylegitimasjon.",
+                "title": "Autentisering er utl\u00f8pt for {name}"
+            },
+            "select": {
+                "data": {
+                    "select_device": "Miio-enhet"
+                },
+                "description": "Velg Xiaomi Miio-enheten du vil konfigurere."
+            }
+        }
+    },
+    "entity": {
+        "select": {
+            "airpurifier_mode": {
+                "state": {
+                    "auto": "Auto",
+                    "favorite": "Favoritt",
+                    "silent": "Stille"
+                }
+            },
+            "display_orientation": {
+                "state": {
+                    "forward": "Framover",
+                    "left": "Venstre",
+                    "right": "H\u00f8yre"
+                }
+            },
+            "led_brightness": {
+                "state": {
+                    "bright": "Lys",
+                    "dim": "Dim",
+                    "off": "Av"
+                }
+            },
+            "ptc_level": {
+                "state": {
+                    "high": "H\u00f8y",
+                    "low": "Lav",
+                    "medium": "Medium"
+                }
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "cloud_subdevices": "Bruk skyen for \u00e5 f\u00e5 tilkoblede underenheter"
+                }
+            }
+        }
+    },
+    "services": {
+        "switch_set_power_mode": {
+            "fields": {
+                "mode": {
+                    "name": "Modus"
+                }
+            }
+        },
+        "switch_set_power_price": {
+            "fields": {
+                "mode": {
+                    "name": "Modus"
+                }
+            }
+        },
+        "vacuum_remote_control_move": {
+            "fields": {
+                "duration": {
+                    "description": "Bevegelsens varighet.",
+                    "name": "Varighet"
+                },
+                "rotation": {
+                    "description": "Rotasjon, mellom -179 grader og 179 grader",
+                    "name": "Rotasjon"
+                },
+                "velocity": {
+                    "description": "Fart",
+                    "name": "Hastighet"
+                }
+            },
+            "name": "St\u00f8vsuger fjernstyring flytt"
+        },
+        "vacuum_remote_control_move_step": {
+            "description": "Fjernstyring styrer st\u00f8vsugeren, gj\u00f8r en bevegelse og s\u00e5 stopper.",
+            "fields": {
+                "duration": {
+                    "description": "Bevegelsens varighet.",
+                    "name": "Varighet"
+                },
+                "rotation": {
+                    "description": "Rotasjon",
+                    "name": "Rotasjon"
+                },
+                "velocity": {
+                    "description": "Fart",
+                    "name": "Hastighet"
+                }
+            },
+            "name": "St\u00f8vsuger fjernstyring flytt steg"
+        },
+        "vacuum_remote_control_start": {
+            "description": "Starter fjernstyring av st\u00f8vsugeren.Du kan etter det flytte den med `remote_control_move`, n\u00e5r du er ferdig kan du kalle `remote_control_stop`.",
+            "name": "St\u00f8vsuger fjernstyring start"
+        },
+        "vacuum_remote_control_stop": {
+            "description": "Stopper st\u00f8vsugerens fjernstyringsmodus.",
+            "name": "St\u00f8vsuger fjernstyring stopp"
+        }
+    }
+}

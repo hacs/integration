@@ -1,0 +1,90 @@
+{
+    "device_automation": {
+        "condition_type": {
+            "is_home": "{entity_name} est \u00e0 la maison",
+            "is_not_home": "{entity_name} n'est pas \u00e0 la maison"
+        },
+        "extra_fields": {
+            "zone": "Zone"
+        },
+        "trigger_type": {
+            "enters": "{entity_name} entre dans une zone",
+            "leaves": "{entity_name} quitte une zone"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Dispositif de suivi",
+            "state": {
+                "home": "Maison",
+                "not_home": "Absent"
+            },
+            "state_attributes": {
+                "battery": {
+                    "name": "Batterie"
+                },
+                "gps_accuracy": {
+                    "name": "Pr\u00e9cision du GPS"
+                },
+                "latitude": {
+                    "name": "Latitude"
+                },
+                "longitude": {
+                    "name": "Longitude"
+                },
+                "source_type": {
+                    "name": "Source",
+                    "state": {
+                        "bluetooth": "Bluetooth",
+                        "bluetooth_le": "Bluetooth LE",
+                        "gps": "GPS",
+                        "router": "Routeur"
+                    }
+                }
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "La plateforme {platform} pour l'int\u00e9gration {domain} ne prend pas en charge la configuration de la plateforme.\n\nVeuillez la supprimer de votre configuration et red\u00e9marrer Home Assistant pour r\u00e9soudre ce probl\u00e8me.",
+            "title": "Prise en charge de la plateforme non prise en charge"
+        }
+    },
+    "services": {
+        "see": {
+            "description": "Enregistre un appareil suivi vu.",
+            "fields": {
+                "battery": {
+                    "description": "Niveau de batterie de l'appareil.",
+                    "name": "Niveau de la batterie"
+                },
+                "dev_id": {
+                    "description": "ID de l'appareil (recherchez l'ID dans `known_devices.yaml`).",
+                    "name": "ID de l\u2019appareil"
+                },
+                "gps": {
+                    "description": "Coordonn\u00e9es GPS o\u00f9 se trouve l'appareil, sp\u00e9cifi\u00e9es par la latitude et la longitude (par exemple\u00a0: [51.513845, -0.100539]).",
+                    "name": "Les coordonn\u00e9es GPS"
+                },
+                "gps_accuracy": {
+                    "description": "Pr\u00e9cision des coordonn\u00e9es GPS.",
+                    "name": "Pr\u00e9cision du GPS"
+                },
+                "host_name": {
+                    "description": "Nom d'h\u00f4te de l'appareil.",
+                    "name": "Nom d'h\u00f4te"
+                },
+                "location_name": {
+                    "description": "Nom de l'emplacement o\u00f9 se trouve l'appareil. Les options sont\u00a0: `home`, `not_home` ou le nom de la zone.",
+                    "name": "Emplacement"
+                },
+                "mac": {
+                    "description": "Adresse MAC de l'appareil.",
+                    "name": "Adresse MAC"
+                }
+            },
+            "name": "Voir"
+        }
+    },
+    "title": "Dispositif de suivi"
+}

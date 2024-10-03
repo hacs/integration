@@ -1,0 +1,115 @@
+{
+    "device_automation": {
+        "action_type": {
+            "clean": "{entity_name} takar\u00edt\u00e1s ind\u00edt\u00e1sa",
+            "dock": "{entity_name} visszak\u00fcld\u00e9se a dokkol\u00f3ra"
+        },
+        "condition_type": {
+            "is_cleaning": "{entity_name} takar\u00edt",
+            "is_docked": "{entity_name} dokkolva van"
+        },
+        "extra_fields": {
+            "for": "Id\u0151tartam"
+        },
+        "trigger_type": {
+            "cleaning": "{entity_name} elkezdett takar\u00edtani",
+            "docked": "{entity_name} dokkolt"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Porsz\u00edv\u00f3",
+            "state": {
+                "cleaning": "Takar\u00edt\u00e1s",
+                "docked": "Dokkolva",
+                "error": "Hiba",
+                "idle": "T\u00e9tlen",
+                "off": "Ki",
+                "on": "Be",
+                "paused": "Sz\u00fcnetel",
+                "returning": "Dokkol\u00e1s folyamatban"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_vacuum_base_class": {
+            "description": "A(z) `{platform}` egy\u00e9ni integr\u00e1ci\u00f3 a megsz\u0171n\u0151 `VacuumEntity` alaposzt\u00e1lyt b\u0151v\u00edti a `StateVacuumEntity` helyett.\n\nK\u00e9rj\u00fck, jelentse ezt a(z) `{platform}` egy\u00e9ni integr\u00e1ci\u00f3 szerz\u0151j\u00e9nek.\n\nAmint el\u00e9rhet\u0151 a(z) `{platform}` friss\u00edtett verzi\u00f3ja, telep\u00edtse azt \u00e9s ind\u00edtsa \u00fajra a Home Assistantot a probl\u00e9ma megold\u00e1s\u00e1hoz.",
+            "title": "A {platform} egy\u00e9ni integr\u00e1ci\u00f3ja a nem t\u00e1mogatott porsz\u00edv\u00f3 funkci\u00f3t haszn\u00e1lja"
+        },
+        "deprecated_vacuum_base_class_url": {
+            "description": "A(z) \"{platform}\" egy\u00e9ni integr\u00e1ci\u00f3 a \"StateVacuumEntity\" helyett az elavult \"VacuumEntity\" alaposzt\u00e1lyt b\u0151v\u00edti ki.\n\nK\u00e9rj\u00fck, hozzon l\u00e9tre hibajelent\u00e9st a {issue_tracker} c\u00edmen.\n\nHa el\u00e9rhet\u0151v\u00e9 v\u00e1lik a(z) \"{platform}\" friss\u00edtett verzi\u00f3ja, telep\u00edtse azt, \u00e9s ind\u00edtsa \u00fajra a Home Assistant alkalmaz\u00e1st a probl\u00e9ma megold\u00e1s\u00e1hoz.",
+            "title": "A {platform} egy\u00e9ni integr\u00e1ci\u00f3ja a nem t\u00e1mogatott porsz\u00edv\u00f3 funkci\u00f3t haszn\u00e1lja"
+        },
+        "platform_integration_no_support": {
+            "description": "{domain} integr\u00e1ci\u00f3 nem t\u00e1mogatja {platform} platform be\u00e1ll\u00edt\u00e1s\u00e1t.\n\nK\u00e9rem, t\u00e1vol\u00edtsa el a konfigur\u00e1ci\u00f3b\u00f3l \u00e9s ind\u00edtsa \u00fajra a Home Assistantot a probl\u00e9ma megold\u00e1s\u00e1hoz.",
+            "title": "A platform nem t\u00e1mogatott"
+        }
+    },
+    "services": {
+        "clean_spot": {
+            "description": "Utas\u00edt\u00e1st ad a porsz\u00edv\u00f3nak egy poz\u00edci\u00f3 takar\u00edt\u00e1sra.",
+            "name": "Poz\u00edci\u00f3 takar\u00edt\u00e1sa"
+        },
+        "locate": {
+            "description": "Megkeresi a porsz\u00edv\u00f3 robotot.",
+            "name": "Keres\u00e9se"
+        },
+        "pause": {
+            "description": "Sz\u00fcnetelteti a takar\u00edt\u00e1si feladatot.",
+            "name": "Sz\u00fcneteltet\u00e9s"
+        },
+        "return_to_base": {
+            "description": "Utas\u00edtja a porsz\u00edv\u00f3t, hogy t\u00e9rjen vissza a dokkol\u00f3j\u00e1hoz.",
+            "name": "Visszat\u00e9r\u00e9s a dokkol\u00f3hoz"
+        },
+        "send_command": {
+            "description": "Parancsot k\u00fcld a porsz\u00edv\u00f3nak.",
+            "fields": {
+                "command": {
+                    "description": "V\u00e9grehajtand\u00f3 parancs. A parancsok integr\u00e1ci\u00f3-specifikusak.",
+                    "name": "Parancs"
+                },
+                "params": {
+                    "description": "A parancs param\u00e9terei. A param\u00e9terek integr\u00e1ci\u00f3-specifikusak.",
+                    "name": "Param\u00e9terek"
+                }
+            },
+            "name": "Parancs k\u00fcld\u00e9se"
+        },
+        "set_fan_speed": {
+            "description": "Be\u00e1ll\u00edtja a porsz\u00edv\u00f3 ventil\u00e1tor\u00e1nak sebess\u00e9g\u00e9t.",
+            "fields": {
+                "fan_speed": {
+                    "description": "Ventil\u00e1tor sebess\u00e9g. Az \u00e9rt\u00e9k az integr\u00e1ci\u00f3t\u00f3l f\u00fcgg. N\u00e9h\u00e1ny integr\u00e1ci\u00f3nak sebess\u00e9gi l\u00e9p\u00e9sei vannak, mint p\u00e9ld\u00e1ul a 'k\u00f6zepes'. N\u00e9h\u00e1ny sz\u00e1zal\u00e9kban m\u00e9ri, 0 \u00e9s 100 k\u00f6z\u00f6tt.",
+                    "name": "Ventil\u00e1tor sebess\u00e9g"
+                }
+            },
+            "name": "Ventil\u00e1tor sebess\u00e9g be\u00e1ll\u00edt\u00e1sa"
+        },
+        "start": {
+            "description": "Elind\u00edtja vagy folytatja a takar\u00edt\u00e1si feladatot.",
+            "name": "Ind\u00edt\u00e1s"
+        },
+        "start_pause": {
+            "description": "Elind\u00edtja, sz\u00fcnetelteti vagy folytatja a takar\u00edt\u00e1si feladatot.",
+            "name": "Ind\u00edt\u00e1s/sz\u00fcnet"
+        },
+        "stop": {
+            "description": "Le\u00e1ll\u00edtja az aktu\u00e1lis takar\u00edt\u00e1si feladatot.",
+            "name": "Le\u00e1ll\u00edt\u00e1s"
+        },
+        "toggle": {
+            "description": "Be- \u00e9s kikapcsolja a porsz\u00edv\u00f3t.",
+            "name": "Kapcsol\u00e1s"
+        },
+        "turn_off": {
+            "description": "Meg\u00e1ll\u00edtja az aktu\u00e1lis takar\u00edt\u00e1si feladatot \u00e9s visszat\u00e9r a dokkol\u00f3j\u00e1hoz.",
+            "name": "Kikapcsol\u00e1s"
+        },
+        "turn_on": {
+            "description": "\u00daj takar\u00edt\u00e1si feladatot ind\u00edt.",
+            "name": "Bekapcsol\u00e1s"
+        }
+    },
+    "title": "Porsz\u00edv\u00f3"
+}

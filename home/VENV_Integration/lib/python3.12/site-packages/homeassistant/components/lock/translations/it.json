@@ -1,0 +1,77 @@
+{
+    "device_automation": {
+        "action_type": {
+            "lock": "Chiudi {entity_name}",
+            "open": "Apri {entity_name}",
+            "unlock": "Sblocca {entity_name}"
+        },
+        "condition_type": {
+            "is_locked": "{entity_name} \u00e8 chiusa",
+            "is_unlocked": "{entity_name} \u00e8 aperta"
+        },
+        "trigger_type": {
+            "locked": "{entity_name} \u00e8 chiusa",
+            "unlocked": "{entity_name} \u00e8 aperta"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Serratura",
+            "state": {
+                "jammed": "Inceppata",
+                "locked": "Bloccato/a",
+                "locking": "In chiusura",
+                "open": "Aperto/a",
+                "unlocked": "Sbloccato/a",
+                "unlocking": "In apertura"
+            },
+            "state_attributes": {
+                "changed_by": {
+                    "name": "Modificato da"
+                },
+                "code_format": {
+                    "name": "Formato del codice"
+                }
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "La piattaforma {platform} per l'integrazione {domain} non supporta l'impostazione della piattaforma. \n\nRimuovilo dalla configurazione e riavvia Home Assistant per risolvere questo problema.",
+            "title": "Supporto della piattaforma non supportato"
+        }
+    },
+    "services": {
+        "lock": {
+            "description": "Blocca una serratura.",
+            "fields": {
+                "code": {
+                    "description": "Codice utilizzato per bloccare la serratura.",
+                    "name": "Codice"
+                }
+            },
+            "name": "Blocca"
+        },
+        "open": {
+            "description": "Apre una serratura.",
+            "fields": {
+                "code": {
+                    "description": "Codice utilizzato per aprire la serratura.",
+                    "name": "Codice"
+                }
+            },
+            "name": "Apri"
+        },
+        "unlock": {
+            "description": "Sblocca una serratura.",
+            "fields": {
+                "code": {
+                    "description": "Codice utilizzato per sbloccare la serratura.",
+                    "name": "Codice"
+                }
+            },
+            "name": "Sblocca"
+        }
+    },
+    "title": "Serratura"
+}

@@ -1,0 +1,89 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "\u88dd\u7f6e\u5df2\u7d93\u8a2d\u5b9a\u5b8c\u6210",
+            "reauth_successful": "\u91cd\u65b0\u8a8d\u8b49\u6210\u529f"
+        },
+        "error": {
+            "cannot_connect": "\u9023\u7dda\u5931\u6557",
+            "invalid_auth": "\u8eab\u4efd\u9a57\u8b49\u7121\u6548",
+            "unknown": "\u672a\u9810\u671f\u932f\u8aa4"
+        },
+        "step": {
+            "reauth_confirm": {
+                "data": {
+                    "encrypt_token": "\u4f7f\u7528\u52a0\u5bc6\u6b0a\u6756\u9032\u884c\u9a57\u8b49\u3002",
+                    "token": "\u5b58\u53d6\u6b0a\u6756"
+                },
+                "description": "Nuki \u6574\u5408\u9700\u8981\u91cd\u65b0\u8a8d\u8b49 Bridge\u3002",
+                "title": "{name} \u8a8d\u8b49\u5df2\u904e\u671f"
+            },
+            "user": {
+                "data": {
+                    "encrypt_token": "\u4f7f\u7528\u52a0\u5bc6\u6b0a\u6756\u9032\u884c\u9a57\u8b49\u3002",
+                    "host": "\u4e3b\u6a5f\u7aef",
+                    "port": "\u901a\u8a0a\u57e0",
+                    "token": "\u5b58\u53d6\u6b0a\u6756"
+                },
+                "data_description": {
+                    "host": "\u8f38\u5165 Nuki \u6a4b\u63a5\u5668\u4e4b\u4e3b\u6a5f\u540d\u7a31\u6216 IP \u4f4d\u5740\u3002\u4f8b\u5982\uff1a'192.168.1.25'\u3002"
+                }
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "battery_critical": {
+                "name": "\u96fb\u6c60\u96fb\u91cf\u4e0d\u8db3"
+            },
+            "ring_action": {
+                "name": "Ring \u52d5\u4f5c"
+            }
+        },
+        "lock": {
+            "nuki_lock": {
+                "state_attributes": {
+                    "battery_critical": {
+                        "state": {
+                            "off": "\u6b63\u5e38",
+                            "on": "\u4f4e"
+                        }
+                    }
+                }
+            }
+        },
+        "sensor": {
+            "battery": {
+                "name": "\u96fb\u91cf"
+            }
+        }
+    },
+    "issues": {
+        "https_webhook": {
+            "description": "Nuki \u6a4b\u63a5\u5668\u7121\u6cd5\u63a8\u9001\u4e8b\u4ef6\u81f3 HTTPS \u4f4d\u5740\uff08SSL\uff09\u3001\u8acb\u65bc [\u7db2\u8def\u8a2d\u5b9a]({network_link}) \u5167\u7684 \"Home Assistant URL\" \u8a2d\u5b9a\u4e00\u7d44\uff08\u672c\u5730\uff09HTTP \u4f4d\u5740\u3002\u76ee\u524d\uff08\u672c\u5730\uff09\u4f4d\u5740\u70ba\uff1a`{base_url}`\u3001\u6709\u6548\u7684\u4f4d\u5740\u61c9\u8a72\u70ba\u985e\u4f3c `http://192.168.1.10:8123`\u3002\u5176\u4e2d `192.168.1.10` \u70ba Home Assistant \u88dd\u7f6e\u7684 IP \u4f4d\u5740",
+            "title": "\u4f7f\u7528 HTTPS (SSL) \u7684 Nuki webhook URL"
+        }
+    },
+    "services": {
+        "lock_n_go": {
+            "description": "Nuki Lock 'n' Go.",
+            "fields": {
+                "unlatch": {
+                    "description": "\u662f\u5426\u8981\u89e3\u9396\u3002",
+                    "name": "\u89e3\u9396"
+                }
+            },
+            "name": "Lock 'n' go"
+        },
+        "set_continuous_mode": {
+            "description": "\u5728 Nuki Opener \u4e0a\u555f\u7528\u6216\u95dc\u9589\u9023\u7e8c\u6a21\u5f0f\u3002",
+            "fields": {
+                "enable": {
+                    "description": "\u662f\u5426\u958b\u555f\u6216\u95dc\u9589\u6b64\u529f\u80fd\u3002",
+                    "name": "\u958b\u555f"
+                }
+            },
+            "name": "\u8a2d\u5b9a\u9023\u7e8c\u6a21\u5f0f"
+        }
+    }
+}

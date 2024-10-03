@@ -1,0 +1,136 @@
+{
+    "config": {
+        "error": {
+            "error_auth_app": "ID applicazione o Segreto errati",
+            "error_auth_mfa": "Codice errato",
+            "error_auth_user": "Nome utente o password errati"
+        },
+        "step": {
+            "auth_app": {
+                "data": {
+                    "app_id": "ID applicazione",
+                    "app_secret": "Segreto"
+                },
+                "description": "ID applicazione e codice segreto dall'[account sviluppatore StarLine](https://my.starline.ru/developer)",
+                "title": "Credenziali dell'applicazione"
+            },
+            "auth_captcha": {
+                "data": {
+                    "captcha_code": "Codice dall'immagine"
+                },
+                "description": "{captcha_img}",
+                "title": "Captcha"
+            },
+            "auth_mfa": {
+                "data": {
+                    "mfa_code": "Codice SMS"
+                },
+                "description": "Inserisci il codice inviato al telefono {phone_number}.",
+                "title": "Autenticazione a due fattori"
+            },
+            "auth_user": {
+                "data": {
+                    "password": "Password",
+                    "username": "Nome utente"
+                },
+                "description": "Email e password dell'account StarLine",
+                "title": "Credenziali utente"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "alarm": {
+                "name": "Allarme"
+            },
+            "doors": {
+                "name": "Portiere"
+            },
+            "hand_brake": {
+                "name": "Freno a mano"
+            },
+            "hood": {
+                "name": "Cofano"
+            },
+            "trunk": {
+                "name": "Bagagliaio"
+            }
+        },
+        "device_tracker": {
+            "location": {
+                "name": "Posizione"
+            }
+        },
+        "lock": {
+            "security": {
+                "name": "Sicurezza"
+            }
+        },
+        "sensor": {
+            "balance": {
+                "name": "Bilanciamento"
+            },
+            "battery": {
+                "name": "Batteria"
+            },
+            "engine_temperature": {
+                "name": "Temperatura del motore"
+            },
+            "errors": {
+                "name": "Errori OBD"
+            },
+            "fuel": {
+                "name": "Volume carburante"
+            },
+            "gsm_signal": {
+                "name": "Segnale GSM"
+            },
+            "interior_temperature": {
+                "name": "Temperatura interna"
+            },
+            "mileage": {
+                "name": "Chilometraggio"
+            }
+        },
+        "switch": {
+            "additional_channel": {
+                "name": "Canale aggiuntivo"
+            },
+            "engine": {
+                "name": "Motore"
+            },
+            "horn": {
+                "name": "Clacson"
+            },
+            "webasto": {
+                "name": "Webasto"
+            }
+        }
+    },
+    "services": {
+        "set_scan_interval": {
+            "description": "Imposta la frequenza di aggiornamento.",
+            "fields": {
+                "scan_interval": {
+                    "description": "Frequenza di aggiornamento.",
+                    "name": "Intervallo di scansione"
+                }
+            },
+            "name": "Imposta l'intervallo di scansione"
+        },
+        "set_scan_obd_interval": {
+            "description": "Imposta la frequenza di aggiornamento delle informazioni OBD.",
+            "fields": {
+                "scan_interval": {
+                    "description": "Frequenza di aggiornamento.",
+                    "name": "Intervallo di scansione"
+                }
+            },
+            "name": "Imposta l'intervallo di scansione OBD"
+        },
+        "update_state": {
+            "description": "Recupera l'ultimo stato dei dispositivi dal server StarLine.\n .",
+            "name": "Stato di aggiornamento"
+        }
+    }
+}

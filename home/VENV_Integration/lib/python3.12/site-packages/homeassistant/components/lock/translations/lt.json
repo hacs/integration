@@ -1,0 +1,88 @@
+{
+    "device_automation": {
+        "action_type": {
+            "lock": "U\u017erakinti {entity_name}",
+            "open": "Atidaryti {entity_name}",
+            "unlock": "Atrakinti {entity_name}"
+        },
+        "condition_type": {
+            "is_locked": "{entity_name} yra u\u017erakintas",
+            "is_open": "{entity_name} yra atidarytas",
+            "is_unlocked": "{entity_name} yra atrakintas"
+        },
+        "extra_fields": {
+            "for": "Trukm\u0117"
+        },
+        "trigger_type": {
+            "locked": "{entity_name} u\u017erakinta",
+            "open": "{entity_name} atidaryta",
+            "unlocked": "{entity_name} atrakinta"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "U\u017eraktas",
+            "state": {
+                "jammed": "U\u017estrig\u0119s",
+                "locked": "U\u017erakinta",
+                "locking": "U\u017erakinimas",
+                "open": "Atidaryta",
+                "opening": "Atidaroma",
+                "unlocked": "Atrakinta",
+                "unlocking": "Atrakinimas"
+            },
+            "state_attributes": {
+                "changed_by": {
+                    "name": "Pakeit\u0117"
+                },
+                "code_format": {
+                    "name": "Kodo formatas"
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "add_default_code": {
+            "message": "{entity_id} kodas neatitinka \u0161ablono {code_format} ."
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "{platform} platforma, skirta {domain} integravimui, nepalaiko platformos s\u0105rankos. \n\n Pa\u0161alinkite j\u012f i\u0161 konfig\u016bracijos ir i\u0161 naujo paleiskite \u201eHome Assistant\u201c, kad i\u0161spr\u0119stum\u0117te \u0161i\u0105 problem\u0105.",
+            "title": "Platformos palaikymas nepalaikomas"
+        }
+    },
+    "services": {
+        "lock": {
+            "description": "U\u017erakina spyn\u0105.",
+            "fields": {
+                "code": {
+                    "description": "Kodas naudojamas spynai u\u017erakinti.",
+                    "name": "Kodas"
+                }
+            },
+            "name": "U\u017eraktas"
+        },
+        "open": {
+            "description": "Atidaro spyn\u0105.",
+            "fields": {
+                "code": {
+                    "description": "Kodas naudojamas u\u017eraktui atidaryti.",
+                    "name": "Kodas"
+                }
+            },
+            "name": "Atidaryta"
+        },
+        "unlock": {
+            "description": "Atrakina spyn\u0105.",
+            "fields": {
+                "code": {
+                    "description": "Kodas naudojamas u\u017eraktui atrakinti.",
+                    "name": "Kodas"
+                }
+            },
+            "name": "Atrakinti"
+        }
+    },
+    "title": "U\u017eraktas"
+}

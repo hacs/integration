@@ -1,0 +1,164 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Hesap zaten yap\u0131land\u0131r\u0131lm\u0131\u015f",
+            "reauth_successful": "Yeniden kimlik do\u011frulama ba\u015far\u0131l\u0131 oldu",
+            "reauth_wrong_account": "Bu giri\u015fi yaln\u0131zca ayn\u0131 Overkiz hesab\u0131 ve hub ile yeniden do\u011frulayabilirsiniz."
+        },
+        "error": {
+            "cannot_connect": "Ba\u011flanma hatas\u0131",
+            "certificate_verify_failed": "Ana makineye ba\u011flan\u0131lam\u0131yor, sertifika do\u011frulamas\u0131 ba\u015far\u0131s\u0131z oldu.",
+            "developer_mode_disabled": "Geli\u015ftirici Modu devre d\u0131\u015f\u0131. \u00d6ncelikle Somfy TaHoma kutunuzun Geli\u015ftirici Modunu etkinle\u015ftirin.",
+            "invalid_auth": "Ge\u00e7ersiz kimlik do\u011frulama",
+            "no_such_token": "Bu a\u011f ge\u00e7idi i\u00e7in belirte\u00e7 olu\u015fturulam\u0131yor. L\u00fctfen hesab\u0131n bu a\u011f ge\u00e7idine ba\u011fl\u0131 olup olmad\u0131\u011f\u0131n\u0131 onaylay\u0131n.",
+            "server_in_maintenance": "Sunucu bak\u0131m nedeniyle kapal\u0131",
+            "too_many_attempts": "Ge\u00e7ersiz anahtarla \u00e7ok fazla deneme, ge\u00e7ici olarak yasakland\u0131",
+            "too_many_requests": "\u00c7ok fazla istek var, daha sonra tekrar deneyin",
+            "unknown": "Beklenmeyen hata",
+            "unsupported_hardware": "{unsupported_device} donan\u0131m\u0131n\u0131z bu entegrasyon taraf\u0131ndan desteklenmiyor."
+        },
+        "flow_title": "A\u011f ge\u00e7idi: {gateway_id}",
+        "step": {
+            "cloud": {
+                "data": {
+                    "password": "\u015eifre",
+                    "username": "Kullan\u0131c\u0131 Ad\u0131"
+                },
+                "description": "Uygulama kimlik bilgilerinizi girin."
+            },
+            "local": {
+                "data": {
+                    "host": "Sunucu",
+                    "password": "\u015eifre",
+                    "username": "Kullan\u0131c\u0131 Ad\u0131",
+                    "verify_ssl": "SSL sertifikas\u0131n\u0131 do\u011frulay\u0131n"
+                },
+                "description": "[TaHoma kutunuzun Geli\u015ftirici Modunu](https://github.com/Somfy-Developer/Somfy-TaHoma-Developer-Mode#getting-started) etkinle\u015ftirerek, \u00fc\u00e7\u00fcnc\u00fc taraf yaz\u0131l\u0131mlara (Home Assistant gibi) yetki verebilirsiniz. yerel a\u011f\u0131n\u0131z \u00fczerinden ona ba\u011flan\u0131n. \n\n Etkinle\u015ftirmeden sonra, uygulama kimlik bilgilerinizi girin ve ana bilgisayar\u0131, a\u011f ge\u00e7idi pininizi i\u00e7erecek \u015fekilde de\u011fi\u015ftirin veya a\u011f ge\u00e7idinizin IP adresini girin."
+            },
+            "local_or_cloud": {
+                "data": {
+                    "api_type": "API t\u00fcr\u00fc"
+                },
+                "description": "Yerel veya bulut API aras\u0131nda se\u00e7im yap\u0131n. Yerel API, TaHoma Connexoon, TaHoma v2 ve TaHoma Switch'i destekler. \u0130klim cihazlar\u0131 ve senaryolar\u0131 yerel API'de desteklenmez."
+            },
+            "user": {
+                "data": {
+                    "host": "Sunucu",
+                    "hub": "Sunucu",
+                    "password": "\u015eifre",
+                    "username": "Kullan\u0131c\u0131 Ad\u0131"
+                },
+                "description": "Sunucunuzu se\u00e7in. Overkiz platformu, Somfy (Connexoon / TaHoma), Hitachi (Hi Kumo) ve Atlantic (Cozytouch) gibi \u00e7e\u015fitli sat\u0131c\u0131lar taraf\u0131ndan kullan\u0131l\u0131yor."
+            }
+        }
+    },
+    "entity": {
+        "climate": {
+            "overkiz": {
+                "state_attributes": {
+                    "fan_mode": {
+                        "state": {
+                            "away": "D\u0131\u015far\u0131da",
+                            "bypass_boost": "Bypass deste\u011fi",
+                            "home_boost": "Ev deste\u011fi",
+                            "kitchen_boost": "Mutfak deste\u011fi"
+                        }
+                    },
+                    "preset_mode": {
+                        "state": {
+                            "auto": "Otomatik",
+                            "comfort-1": "Konfor 1",
+                            "comfort-2": "Konfor 2",
+                            "drying": "Kurutuluyor",
+                            "external": "Harici",
+                            "freeze": "Dondurmak",
+                            "frost_protection": "Donma korumas\u0131",
+                            "manual": "Manuel",
+                            "night": "Gece",
+                            "prog": "Prog"
+                        }
+                    }
+                }
+            }
+        },
+        "select": {
+            "memorized_simple_volume": {
+                "state": {
+                    "highest": "En y\u00fcksek",
+                    "standard": "Standart"
+                }
+            },
+            "open_closed_partial": {
+                "state": {
+                    "closed": "Kapal\u0131",
+                    "open": "A\u00e7\u0131k",
+                    "partial": "K\u0131smi"
+                }
+            },
+            "open_closed_pedestrian": {
+                "state": {
+                    "closed": "Kapal\u0131",
+                    "open": "A\u00e7\u0131k",
+                    "pedestrian": "Yaya"
+                }
+            }
+        },
+        "sensor": {
+            "battery": {
+                "state": {
+                    "full": "Tam",
+                    "low": "D\u00fc\u015f\u00fck",
+                    "medium": "Orta",
+                    "normal": "Normal",
+                    "verylow": "\u00c7ok d\u00fc\u015f\u00fck"
+                }
+            },
+            "discrete_rssi_level": {
+                "state": {
+                    "good": "\u0130yi",
+                    "low": "D\u00fc\u015f\u00fck",
+                    "normal": "Normal",
+                    "verylow": "\u00c7ok d\u00fc\u015f\u00fck"
+                }
+            },
+            "priority_lock_originator": {
+                "state": {
+                    "external_gateway": "Harici a\u011f ge\u00e7idi",
+                    "local_user": "Yerel kullan\u0131c\u0131",
+                    "lsc": "LSC",
+                    "myself": "Kendim",
+                    "rain": "Ya\u011fmur",
+                    "saac": "SAAC",
+                    "security": "G\u00fcvenlik",
+                    "sfc": "SFC",
+                    "temperature": "S\u0131cakl\u0131k",
+                    "timer": "Zamanlay\u0131c\u0131",
+                    "ups": "G\u00fc\u00e7 Kayna\u011f\u0131",
+                    "user": "Kullan\u0131c\u0131",
+                    "wind": "R\u00fczg\u00e2r"
+                }
+            },
+            "sensor_defect": {
+                "state": {
+                    "dead": "\u00d6l\u00fc",
+                    "low_battery": "D\u00fc\u015f\u00fck pil",
+                    "maintenance_required": "Bak\u0131m gerekli",
+                    "no_defect": "Hasar yok"
+                }
+            },
+            "sensor_room": {
+                "state": {
+                    "clean": "Temiz",
+                    "dirty": "Kirli"
+                }
+            },
+            "three_way_handle_direction": {
+                "state": {
+                    "closed": "Kapal\u0131",
+                    "open": "A\u00e7\u0131k",
+                    "tilt": "E\u011fim"
+                }
+            }
+        }
+    }
+}

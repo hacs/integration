@@ -1,0 +1,111 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Servis je ve\u0107 konfiguriran",
+            "cannot_connect": "Povezivanje nije uspjelo",
+            "invalid_auth": "Gre\u0161ka pri autentifikaciji"
+        },
+        "error": {
+            "cannot_connect": "Povezivanje nije uspjelo",
+            "invalid_auth": "Gre\u0161ka pri autentifikaciji"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "password": "Lozinka",
+                    "username": "Korisni\u010dko ime"
+                }
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "delivered": {
+                "name": "Isporu\u010deno"
+            },
+            "expired": {
+                "name": "Isteklo"
+            },
+            "in_transit": {
+                "name": "U tranzitu"
+            },
+            "not_found": {
+                "name": "Nije prona\u0111eno"
+            },
+            "package": {
+                "name": "Po\u0161iljka {name}"
+            },
+            "ready_to_be_picked_up": {
+                "name": "Spremno za preuzimanje"
+            },
+            "returned": {
+                "name": "Vra\u0107eno"
+            },
+            "undelivered": {
+                "name": "Neisporu\u010deno"
+            }
+        }
+    },
+    "exceptions": {
+        "invalid_config_entry": {
+            "message": "Naveden je neva\u017ee\u0107i unos konfiguracije. Dobio sam {config_entry_id}"
+        },
+        "unloaded_config_entry": {
+            "message": "Naveden je neva\u017ee\u0107i unos konfiguracije. {config_entry_id} nije u\u010ditan."
+        }
+    },
+    "issues": {
+        "deprecated_yaml_import_issue_cannot_connect": {
+            "description": "Konfiguriranje 17Track-a pomo\u0107u YAML-a se uklanja, ali do\u0161lo je do pogre\u0161ke veze prilikom uvoza va\u0161e YAML konfiguracije. \n\n Stvari koje mo\u017eete isprobati:\n Provjerite mo\u017ee li va\u0161 Home Assistant pristupiti webu. \n\nZatim ponovno pokrenite Home Assistant kako biste ponovno poku\u0161ali uvesti ovu integraciju. \n\nAlternativno, mo\u017eete u potpunosti ukloniti konfiguraciju 17Track iz va\u0161e YAML konfiguracije, ponovno pokrenuti Home Assistant i dodati integraciju 17Track ru\u010dno.",
+            "title": "Uvoz konfiguracije 17Track YAML ne mo\u017ee se povezati s poslu\u017eiteljem"
+        },
+        "deprecated_yaml_import_issue_invalid_auth": {
+            "description": "Konfiguriranje 17Track-a pomo\u0107u YAML-a je uklonjeno, ali prilikom uvoza va\u0161e postoje\u0107e konfiguracije pojavile su se neva\u017ee\u0107e vjerodajnice.\nUvoz konfiguracije se ne\u0107e nastaviti. \n\nProvjerite jesu li va\u0161e 17Track vjerodajnice ispravne i ponovno pokrenite Home Assistant kako biste poku\u0161ali uvesti ih jo\u0161 jednom. \n\nAlternativno, mo\u017eete u potpunosti ukloniti konfiguraciju 17Track iz va\u0161e YAML konfiguracije, ponovno pokrenuti Home Assistant i dodati integraciju 17Track ru\u010dno.",
+            "title": "Zahtjev za uvoz konfiguracije 17Track YAML nije uspio zbog neuspjele provjere autenti\u010dnosti"
+        },
+        "deprecated_yaml_import_issue_invalid_credentials": {
+            "description": "Konfiguriranje 17Track-a pomo\u0107u YAML-a se uklanja, a prilikom uvoza va\u0161e postoje\u0107e konfiguracije detektirane su neva\u017ee\u0107e vjerodajnice.\nPostavljanje se ne\u0107e nastaviti. \n\nProvjerite jesu li va\u0161e 17Track vjerodajnice to\u010dne i ponovno pokrenite Home Assistant kako biste ponovno poku\u0161ali uvoz. \n\nAlternativno, mo\u017eete u potpunosti ukloniti konfiguraciju 17Track iz va\u0161e YAML konfiguracije, ponovno pokrenuti Home Assistant i dodati integraciju 17Track ru\u010dno.",
+            "title": "Zahtjev za uvoz konfiguracije 17Track YAML nije uspio zbog neispravnih vjerodajnica"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "show_archived": "Treba li kreirati senzore za arhivirane po\u0161iljke",
+                    "show_delivered": "Treba li izraditi senzore za isporu\u010dene po\u0161iljke"
+                },
+                "description": "Konfigurirajte osnovne postavke"
+            }
+        }
+    },
+    "selector": {
+        "package_state": {
+            "options": {
+                "delivered": "Isporu\u010deno",
+                "expired": "Isteklo",
+                "in_transit": "U tranzitu",
+                "not_found": "Nije prona\u0111eno",
+                "ready_to_be_picked_up": "Spremno za preuzimanje",
+                "returned": "Vra\u0107eno",
+                "undelivered": "Neisporu\u010deno"
+            }
+        }
+    },
+    "services": {
+        "get_packages": {
+            "description": "Povucitepo\u0161iljke sa 17Track",
+            "fields": {
+                "config_entry_id": {
+                    "description": "Po\u0161iljke \u0107e biti preuzeti za odabranu uslugu.",
+                    "name": "17Track servis"
+                },
+                "package_state": {
+                    "description": "Vra\u0107ajte samo po\u0161iljke s navedenim stanjem. Vra\u0107a sve po\u0161iljke ako nisu navedena.",
+                    "name": "Status paketa"
+                }
+            },
+            "name": "Povucite po\u0161iljke"
+        }
+    }
+}

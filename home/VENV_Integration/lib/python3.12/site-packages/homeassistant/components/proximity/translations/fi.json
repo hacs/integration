@@ -1,0 +1,87 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Laite on jo m\u00e4\u00e4ritetty",
+            "success": "Muutokset tallennettu"
+        },
+        "flow_title": "L\u00e4heisyys",
+        "step": {
+            "user": {
+                "data": {
+                    "ignored_zones": "Alueet, jotka j\u00e4tet\u00e4\u00e4n huomiotta",
+                    "tolerance": "Toleranssiet\u00e4isyys",
+                    "tracked_entities": "Seurattavat laitteet tai henkil\u00f6t",
+                    "zone": "Alue, johon et\u00e4isyytt\u00e4 seurataan"
+                }
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "dir_of_travel": {
+                "name": "{tracked_entity} Kuljetussuunta",
+                "state": {
+                    "arrived": "Saapunut",
+                    "away_from": "Poisp\u00e4in",
+                    "stationary": "Paikallaan",
+                    "towards": "Kohti"
+                }
+            },
+            "dist_to_zone": {
+                "name": "{tracked_entity} Et\u00e4isyys"
+            },
+            "nearest": {
+                "name": "L\u00e4hin laite"
+            },
+            "nearest_dir_of_travel": {
+                "name": "L\u00e4hin kulkusuunta",
+                "state": {
+                    "arrived": "Saapunut",
+                    "away_from": "Poisp\u00e4in",
+                    "stationary": "Paikallaan",
+                    "towards": "Kohti"
+                }
+            },
+            "nearest_dist_to_zone": {
+                "name": "L\u00e4hin et\u00e4isyys"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_proximity_entity": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "L\u00e4heisyysentiteetti {entity} on vanhentunut, ja se poistetaan 2024.8:ssa. Sit\u00e4 k\u00e4ytet\u00e4\u00e4n kuitenkin seuraavissa konfiguraatioissa:\n- {used_in}\n\nMuokkaa automaatioita tai komentosarjoja, jotka k\u00e4ytt\u00e4v\u00e4t t\u00e4t\u00e4 vanhentunutta l\u00e4heisyysentiteetti\u00e4.\nJokaiselle seurattavalle henkil\u00f6lle tai laitteelle luodaan yksi anturi et\u00e4isyydelle ja kulkusuunnalle valvotulle alueelle ja sielt\u00e4 pois. Lis\u00e4ksi jokaiselle l\u00e4heisyyskonfiguraatiolle luodaan yksi anturi, joka n\u00e4ytt\u00e4\u00e4 valvottua aluetta l\u00e4himm\u00e4n laitteen tai henkil\u00f6n. T\u00e4m\u00e4n avulla voit k\u00e4ytt\u00e4\u00e4 Min/Max-integraatiota l\u00e4himm\u00e4n ja kauimpana olevan et\u00e4isyyden m\u00e4\u00e4ritt\u00e4miseen.",
+                        "title": "L\u00e4heisyysentiteetti on vanhentunut"
+                    }
+                }
+            },
+            "title": "L\u00e4heisyysentiteetti on vanhentunut"
+        },
+        "tracked_entity_removed": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Entiteetti \"{entity_id}\" on poistettu HA:sta, mutta sit\u00e4 k\u00e4ytet\u00e4\u00e4n l\u00e4heisyydess\u00e4 {name}. Poistakaa `{entity_id}` seurattavien entiteettien luettelosta. Asiaan liittyv\u00e4t l\u00e4heisyysanturin entiteetit asetettiin muotoon \"ei k\u00e4ytett\u00e4viss\u00e4\" ja ne voidaan poistaa.",
+                        "title": "Seurattu entiteetti on poistettu"
+                    }
+                }
+            },
+            "title": "Seurattu entiteetti on poistettu"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "ignored_zones": "Alueet, jotka j\u00e4tet\u00e4\u00e4n huomiotta",
+                    "tolerance": "Toleranssiet\u00e4isyys",
+                    "tracked_entities": "Seurattavat laitteet tai henkil\u00f6t",
+                    "zone": "Alue, johon et\u00e4isyytt\u00e4 seurataan"
+                }
+            }
+        }
+    },
+    "title": "L\u00e4heisyys"
+}

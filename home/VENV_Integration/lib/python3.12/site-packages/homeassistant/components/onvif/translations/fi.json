@@ -1,0 +1,127 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Laite on jo m\u00e4\u00e4ritetty",
+            "already_in_progress": "M\u00e4\u00e4ritysprosessi on jo k\u00e4ynniss\u00e4",
+            "no_devices_found": "Verkosta ei l\u00f6ytynyt laitteita",
+            "no_h264": "H264-streameja ei ollut saatavilla. Tarkista laitteesi profiiliasetukset.",
+            "no_mac": "ONVIF -laitteelle ei voitu m\u00e4\u00e4ritt\u00e4\u00e4 yksil\u00f6llist\u00e4 tunnusta.",
+            "onvif_error": "Virhe ONVIF -laitteen m\u00e4\u00e4ritt\u00e4misess\u00e4.  Tarkista lokit saadaksesi lis\u00e4tietoja.",
+            "reauth_successful": "Uudelleentodennus onnistui"
+        },
+        "error": {
+            "auth_failed": "Todennus ep\u00e4onnistui: {error}",
+            "cannot_connect": "Yhteyden muodostaminen ep\u00e4onnistui",
+            "no_onvif_service": "ONVIF-palvelua ei l\u00f6ytynyt. Tarkista, ett\u00e4 porttinumero on oikea.",
+            "onvif_error": "Virhe ONVIF -laitteen m\u00e4\u00e4ritt\u00e4misess\u00e4: {error}. Tarkista lokit saadaksesi lis\u00e4tietoja."
+        },
+        "step": {
+            "configure": {
+                "data": {
+                    "host": "Palvelin",
+                    "name": "Nimi",
+                    "password": "Salasana",
+                    "port": "Portti",
+                    "username": "K\u00e4ytt\u00e4j\u00e4tunnus"
+                },
+                "data_description": {
+                    "host": "ONVIF -laitteen is\u00e4nt\u00e4nimi tai IP-osoite."
+                },
+                "title": "M\u00e4\u00e4rit\u00e4 ONVIF-laite"
+            },
+            "configure_profile": {
+                "data": {
+                    "include": "Luo kameraentiteetti"
+                },
+                "description": "Luo kamerayksikk\u00f6 {profile}, resoluutiolla {resolution}?",
+                "title": "M\u00e4\u00e4rit\u00e4 profiilit"
+            },
+            "device": {
+                "data": {
+                    "host": "Valitse l\u00f6ydetty ONVIF -laite"
+                },
+                "title": "Valitse ONVIF -laite"
+            },
+            "reauth_confirm": {
+                "data": {
+                    "password": "Salasana",
+                    "username": "K\u00e4ytt\u00e4j\u00e4tunnus"
+                },
+                "description": "Jotkin laitteet hylk\u00e4\u00e4v\u00e4t todennuksen, jos aika on yli 5 sekuntia erilainen. Jos todennus ei onnistu, tarkista, ett\u00e4 laitteen kellonaika on oikea, ja yrit\u00e4 uudelleen.",
+                "title": "Todenna ONVIF-laite uudelleen"
+            },
+            "user": {
+                "data": {
+                    "auto": "Hae automaattisesti"
+                },
+                "title": "ONVIF-laitteen asennus"
+            }
+        }
+    },
+    "entity": {
+        "switch": {
+            "autofocus": {
+                "name": "Automaattitarkennus"
+            },
+            "ir_lamp": {
+                "name": "IR-lamppu"
+            },
+            "wiper": {
+                "name": "Pyyhin"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "onvif_devices": {
+                "data": {
+                    "enable_webhooks": "Ota Webhookit k\u00e4ytt\u00f6\u00f6n",
+                    "extra_arguments": "Ylim\u00e4\u00e4r\u00e4iset FFMPEG-argumentit",
+                    "rtsp_transport": "RTSP-siirtomekanismi",
+                    "use_wallclock_as_timestamps": "K\u00e4yt\u00e4 sein\u00e4kelloa aikaleimana"
+                },
+                "title": "ONVIF-laiteasetukset"
+            }
+        }
+    },
+    "services": {
+        "ptz": {
+            "description": "Jos ONVIF-kamerasi tukee PTZ-toimintoa, voit panoroida, kallistaa tai zoomata kameraa.",
+            "fields": {
+                "continuous_duration": {
+                    "description": "Asettaa ContinuousMove-viiveen sekunteina ennen liikkeen pys\u00e4ytt\u00e4mist\u00e4.",
+                    "name": "Jatkuva kesto"
+                },
+                "distance": {
+                    "description": "Et\u00e4isyyskerroin. Asettaa, kuinka paljon PTZ:t\u00e4 on suoritettava yhdess\u00e4 pyynn\u00f6ss\u00e4.",
+                    "name": "Et\u00e4isyys"
+                },
+                "move_mode": {
+                    "description": "PTZ liikkuva tila.",
+                    "name": "Siirtotila"
+                },
+                "pan": {
+                    "description": "Panoroinnin suunta.",
+                    "name": "Panorointi"
+                },
+                "preset": {
+                    "description": "PTZ esiasetetun profiilin merkki. Asettaa esiasetusprofiilin tunnuksen, joka suoritetaan GotoPreset-ohjelmalla.",
+                    "name": "Esiasetus"
+                },
+                "speed": {
+                    "description": "Nopeuskerroin. M\u00e4\u00e4ritt\u00e4\u00e4, kuinka nopeasti PTZ suoritetaan.",
+                    "name": "Nopeus"
+                },
+                "tilt": {
+                    "description": "Kallistussuunta.",
+                    "name": "Kallistus"
+                },
+                "zoom": {
+                    "description": "Zoomaus.",
+                    "name": "Zoomaus"
+                }
+            },
+            "name": "PTZ"
+        }
+    }
+}

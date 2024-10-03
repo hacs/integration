@@ -1,0 +1,342 @@
+{
+    "device_automation": {
+        "condition_type": {
+            "is_buffering": "{entity_name} \u00e8 in buffering",
+            "is_idle": "{entity_name} \u00e8 inattivo",
+            "is_off": "{entity_name} \u00e8 disattivato",
+            "is_on": "{entity_name} \u00e8 attivo",
+            "is_paused": "{entity_name} \u00e8 in pausa",
+            "is_playing": "{entity_name} \u00e8 in esecuzione"
+        },
+        "trigger_type": {
+            "buffering": "{entity_name} avvia il buffering",
+            "changed_states": "{entity_name} attivato o disattivato",
+            "idle": "{entity_name} diventa inattivo",
+            "paused": "{entity_name} \u00e8 in pausa",
+            "playing": "{entity_name} inizia l'esecuzione",
+            "turned_off": "{entity_name} disattivato",
+            "turned_on": "{entity_name} attivato"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Lettore multimediale",
+            "state": {
+                "buffering": "Precaricamento",
+                "idle": "Inattivo",
+                "off": "Spento/a",
+                "on": "Acceso/a",
+                "paused": "In pausa",
+                "playing": "In esecuzione",
+                "standby": "In attesa"
+            },
+            "state_attributes": {
+                "app_id": {
+                    "name": "ID dell'app"
+                },
+                "app_name": {
+                    "name": "App"
+                },
+                "entity_picture_local": {
+                    "name": "Immagine dell'entit\u00e0 accessibile localmente"
+                },
+                "groups_members": {
+                    "name": "Membri del gruppo"
+                },
+                "is_volume_muted": {
+                    "name": "Silenzioso",
+                    "state": {
+                        "false": "No",
+                        "true": "S\u00ec"
+                    }
+                },
+                "media_album_artist": {
+                    "name": "Artista dell'album"
+                },
+                "media_album_name": {
+                    "name": "Album"
+                },
+                "media_artist": {
+                    "name": "Artista"
+                },
+                "media_channel": {
+                    "name": "Canale"
+                },
+                "media_content_id": {
+                    "name": "ID contenuto"
+                },
+                "media_content_type": {
+                    "name": "Tipo di contenuto",
+                    "state": {
+                        "album": "Album",
+                        "app": "App",
+                        "artist": "Artista",
+                        "channel": "Canale",
+                        "channels": "Canali",
+                        "composer": "Compositore",
+                        "contributing_artist": "Artista collaboratore",
+                        "episode": "Episodio",
+                        "game": "Gioco",
+                        "genre": "Genere",
+                        "image": "Immagine",
+                        "movie": "Film",
+                        "music": "Musica",
+                        "playlist": "Elenco di riproduzione",
+                        "podcast": "Podcast",
+                        "season": "Stagione",
+                        "track": "Traccia",
+                        "tvshow": "Programma televisivo",
+                        "url": "URL",
+                        "video": "Video"
+                    }
+                },
+                "media_duration": {
+                    "name": "Durata"
+                },
+                "media_episode": {
+                    "name": "Episodio"
+                },
+                "media_playlist": {
+                    "name": "Elenco di riproduzione"
+                },
+                "media_position": {
+                    "name": "Posizione"
+                },
+                "media_position_updated_at": {
+                    "name": "Posizione aggiornata"
+                },
+                "media_season": {
+                    "name": "Stagione"
+                },
+                "media_series_title": {
+                    "name": "Serie"
+                },
+                "media_title": {
+                    "name": "Titolo"
+                },
+                "media_track": {
+                    "name": "Traccia"
+                },
+                "repeat": {
+                    "name": "Ripeti",
+                    "state": {
+                        "all": "Tutti",
+                        "off": "Spento/a",
+                        "one": "Uno"
+                    }
+                },
+                "shuffle": {
+                    "name": "Mescola",
+                    "state": {
+                        "false": "Spento/a",
+                        "true": "Acceso/a"
+                    }
+                },
+                "sound_mode": {
+                    "name": "Modalit\u00e0 audio"
+                },
+                "sound_mode_list": {
+                    "name": "Modalit\u00e0 audio disponibili"
+                },
+                "source": {
+                    "name": "Fonte"
+                },
+                "source_list": {
+                    "name": "Fonti disponibili"
+                },
+                "volume_level": {
+                    "name": "Volume"
+                }
+            }
+        },
+        "receiver": {
+            "name": "Ricevitore"
+        },
+        "speaker": {
+            "name": "Altoparlante"
+        },
+        "tv": {
+            "name": "TV"
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "La piattaforma {platform} per l'integrazione {domain} non supporta l'impostazione della piattaforma. \n\nRimuovilo dalla configurazione e riavvia Home Assistant per risolvere questo problema.",
+            "title": "Supporto della piattaforma non supportato"
+        }
+    },
+    "selector": {
+        "enqueue": {
+            "options": {
+                "add": "Aggiungi alla coda",
+                "next": "Riproduci successivo",
+                "play": "Riproduci",
+                "replace": "Riproduci ora e cancella la coda"
+            }
+        },
+        "repeat": {
+            "options": {
+                "all": "Ripeti tutto",
+                "off": "Spento",
+                "one": "Ripeti una volta"
+            }
+        }
+    },
+    "services": {
+        "clear_playlist": {
+            "description": "Cancella la playlist.",
+            "name": "Cancella playlist"
+        },
+        "join": {
+            "description": "Raggruppa i lettori multimediali insieme per la riproduzione sincrona. Funziona solo su sistemi audio multiroom supportati.",
+            "fields": {
+                "group_members": {
+                    "description": "I lettori che verranno sincronizzati con la riproduzione specificata in `target`.",
+                    "name": "Membri del gruppo"
+                }
+            },
+            "name": "Unisci"
+        },
+        "media_next_track": {
+            "description": "Seleziona il brano successivo.",
+            "name": "Prossimo"
+        },
+        "media_pause": {
+            "description": "Pausa.",
+            "name": "Pausa"
+        },
+        "media_play": {
+            "description": "Inizia la riproduzione.",
+            "name": "Riproduci"
+        },
+        "media_play_pause": {
+            "description": "Commuta riproduzione/pausa.",
+            "name": "Riproduci/Pausa"
+        },
+        "media_previous_track": {
+            "description": "Seleziona la traccia precedente.",
+            "name": "Precedente"
+        },
+        "media_seek": {
+            "description": "Consente di accedere a una parte diversa del contenuto multimediale attualmente in riproduzione.",
+            "fields": {
+                "seek_position": {
+                    "description": "Posizione di destinazione nel supporto attualmente in riproduzione. Il formato dipende dalla piattaforma.",
+                    "name": "Posizione"
+                }
+            },
+            "name": "Cerca"
+        },
+        "media_stop": {
+            "description": "Interrompe la riproduzione.",
+            "name": "Ferma"
+        },
+        "play_media": {
+            "description": "Avvia la riproduzione di file multimediali specificati.",
+            "fields": {
+                "announce": {
+                    "description": "Se i media devono essere riprodotti come un annuncio.",
+                    "name": "Annuncia"
+                },
+                "enqueue": {
+                    "description": "Se il contenuto deve essere riprodotto ora o essere aggiunto alla coda.",
+                    "name": "Accoda"
+                },
+                "media_content_id": {
+                    "description": "L'ID del contenuto da riprodurre. Dipendente dalla piattaforma.",
+                    "name": "ID contenuto"
+                },
+                "media_content_type": {
+                    "description": "Il tipo di contenuto da riprodurre. Come immagini, musica, programmi TV, video, episodi, canali o playlist.",
+                    "name": "Tipo di contenuto"
+                }
+            },
+            "name": "Riproduci contenuti multimediali"
+        },
+        "repeat_set": {
+            "description": "Modalit\u00e0 di riproduzione che riproduce i file multimediali in un ciclo continuo.",
+            "fields": {
+                "repeat": {
+                    "description": "Modalit\u00e0 di ripetizione da impostare.",
+                    "name": "Modalit\u00e0 di ripetizione"
+                }
+            },
+            "name": "Ripeti"
+        },
+        "select_sound_mode": {
+            "description": "Seleziona una modalit\u00e0 audio specifica.",
+            "fields": {
+                "sound_mode": {
+                    "description": "Nome della modalit\u00e0 audio a cui passare.",
+                    "name": "Modalit\u00e0 audio"
+                }
+            },
+            "name": "Seleziona la modalit\u00e0 audio"
+        },
+        "select_source": {
+            "description": "Invia al lettore multimediale il comando per modificare la sorgente di input.",
+            "fields": {
+                "source": {
+                    "description": "Nome della sorgente a cui passare. Dipende dalla piattaforma.",
+                    "name": "Fonte"
+                }
+            },
+            "name": "Seleziona sorgente"
+        },
+        "shuffle_set": {
+            "description": "Modalit\u00e0 di riproduzione che seleziona i media in ordine casuale.",
+            "fields": {
+                "shuffle": {
+                    "description": "Se la modalit\u00e0 shuffle \u00e8 abilitata o meno.",
+                    "name": "Mescola"
+                }
+            },
+            "name": "Mescola"
+        },
+        "toggle": {
+            "description": "Attiva/disattiva un lettore multimediale.",
+            "name": "Commuta"
+        },
+        "turn_off": {
+            "description": "Disattiva l'alimentazione del lettore multimediale.",
+            "name": "Spegni"
+        },
+        "turn_on": {
+            "description": "Accende l'alimentazione del lettore multimediale.",
+            "name": "Accendi"
+        },
+        "unjoin": {
+            "description": "Rimuove il lettore da un gruppo. Funziona solo su piattaforme che supportano gruppi di lettori.",
+            "name": "Rimuovi la partecipazione"
+        },
+        "volume_down": {
+            "description": "Abbassa il volume.",
+            "name": "Abbassa il volume"
+        },
+        "volume_mute": {
+            "description": "Attiva o disattiva l'audio del lettore multimediale.",
+            "fields": {
+                "is_volume_muted": {
+                    "description": "Definisce se \u00e8 disattivato o meno.",
+                    "name": "Disattivato"
+                }
+            },
+            "name": "Disattiva/riattiva il volume"
+        },
+        "volume_set": {
+            "description": "Imposta il livello del volume.",
+            "fields": {
+                "volume_level": {
+                    "description": "Il volume. 0 \u00e8 impercettibile, 1 \u00e8 il volume massimo.",
+                    "name": "Livello"
+                }
+            },
+            "name": "Imposta il volume"
+        },
+        "volume_up": {
+            "description": "Alza il volume.",
+            "name": "Alza il volume"
+        }
+    },
+    "title": "Lettore multimediale"
+}

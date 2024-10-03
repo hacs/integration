@@ -1,0 +1,192 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Az eszk\u00f6z m\u00e1r konfigur\u00e1lva van",
+            "no_devices_found": "Nem tal\u00e1lhat\u00f3 eszk\u00f6z a h\u00e1l\u00f3zaton"
+        },
+        "error": {
+            "cannot_connect": "Sikertelen csatlakoz\u00e1s"
+        },
+        "flow_title": "{model} {id} ({host})",
+        "step": {
+            "discovery_confirm": {
+                "description": "Szeretn\u00e9 be\u00e1ll\u00edtani a(z) {model} ({host}) eszk\u00f6zt?"
+            },
+            "pick_device": {
+                "data": {
+                    "device": "Eszk\u00f6z"
+                }
+            },
+            "user": {
+                "data": {
+                    "host": "Hoszt"
+                },
+                "data_description": {
+                    "host": "A Yeelight Wi-Fi izz\u00f3 g\u00e9pneve vagy IP-c\u00edme."
+                },
+                "description": "Ha nem ad meg c\u00edmet, akkor az eszk\u00f6z\u00f6k keres\u00e9se a felder\u00edt\u00e9ssel t\u00f6rt\u00e9nik."
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "nightlight": {
+                "name": "Alv\u00f3f\u00e9ny"
+            }
+        },
+        "light": {
+            "ambilight": {
+                "name": "K\u00f6rnyezetf\u00e9ny"
+            },
+            "nightlight": {
+                "name": "Alv\u00f3f\u00e9ny"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "model": "Modell",
+                    "nightlight_switch": "\u00c9jjeli f\u00e9ny kapcsol\u00f3 haszn\u00e1lata",
+                    "save_on_change": "\u00c1llapot ment\u00e9se v\u00e1ltoz\u00e1skor",
+                    "transition": "\u00c1tmenet ideje (ms)",
+                    "use_music_mode": "Zene m\u00f3d enged\u00e9lyez\u00e9se"
+                }
+            }
+        }
+    },
+    "selector": {
+        "action": {
+            "options": {
+                "off": "Ki",
+                "recover": "Vissza\u00e1ll\u00edt",
+                "stay": "Marad"
+            }
+        },
+        "mode": {
+            "options": {
+                "color_flow": "Sz\u00edn\u00e1tmenet",
+                "hsv": "HSV",
+                "last": "Utols\u00f3",
+                "moonlight": "Holdf\u00e9ny",
+                "normal": "Norm\u00e1l",
+                "rgb": "RGB"
+            }
+        }
+    },
+    "services": {
+        "set_auto_delay_off_scene": {
+            "description": "Bekapcsolja a l\u00e1mp\u00e1t a megadott f\u00e9nyer\u0151ss\u00e9gre \u00e9s be\u00e1ll\u00edt egy id\u0151z\u00edt\u0151t, amely a megadott sz\u00e1m\u00fa perc eltelt\u00e9vel kikapcsolja. Ha a l\u00e1mpa ki van kapcsolva, be\u00e1ll\u00edt egy sz\u00ednjelenetet, ha a l\u00e1mpa ki van kapcsolva, akkor bekapcsol.",
+            "fields": {
+                "brightness": {
+                    "description": "A be\u00e1ll\u00edtand\u00f3 f\u00e9nyer\u0151 \u00e9rt\u00e9ke.",
+                    "name": "F\u00e9nyer\u0151"
+                },
+                "minutes": {
+                    "description": "A v\u00e1rakoz\u00e1si id\u0151 a l\u00e1mpa automatikus kikapcsol\u00e1sa el\u0151tt.",
+                    "name": "Perc"
+                }
+            },
+            "name": "Automatikus k\u00e9sleltet\u00e9s\u0171 kikapcsol\u00e1s be\u00e1ll\u00edt\u00e1sa a jelenetben"
+        },
+        "set_color_flow_scene": {
+            "description": "Elind\u00edtja a sz\u00edn\u00e1tmenetet. Ha a l\u00e1mpa ki van kapcsolva, bekapcsolja.",
+            "fields": {
+                "action": {
+                    "description": "A teend\u0151 l\u00e9p\u00e9s az \u00e1tmenet le\u00e1ll\u00e1sa ut\u00e1n.",
+                    "name": "M\u0171velet"
+                },
+                "count": {
+                    "description": "A futtat\u00e1sok sz\u00e1ma ebben a folyamatban (0 a v\u00e9gtelen futtat\u00e1shoz).",
+                    "name": "Sz\u00e1ml\u00e1l\u00f3"
+                },
+                "transitions": {
+                    "description": "\u00c1tmenetek sora a k\u00edv\u00e1nt hat\u00e1s \u00e9rdek\u00e9ben. P\u00e9ld\u00e1k https://yeelight.readthedocs.io/en/stable/flow.html.",
+                    "name": "\u00c1tmenetek"
+                }
+            },
+            "name": "Sz\u00edn\u00e1tmenet jelenet be\u00e1ll\u00edt\u00e1sa"
+        },
+        "set_color_scene": {
+            "description": "A f\u00e9nyt az adott RGB sz\u00ednre \u00e9s f\u00e9nyer\u0151re v\u00e1ltoztatja. Ha a l\u00e1mpa ki van kapcsolva, bekapcsolja.",
+            "fields": {
+                "brightness": {
+                    "description": "A be\u00e1ll\u00edtand\u00f3 f\u00e9nyer\u0151 \u00e9rt\u00e9ke.",
+                    "name": "F\u00e9nyer\u0151"
+                },
+                "rgb_color": {
+                    "description": "A f\u00e9ny sz\u00edne RGB-form\u00e1tumban.",
+                    "name": "RGB sz\u00edn"
+                }
+            },
+            "name": "Sz\u00ednjelenet be\u00e1ll\u00edt\u00e1sa"
+        },
+        "set_color_temp_scene": {
+            "description": "A f\u00e9nyt az adott sz\u00ednh\u0151m\u00e9rs\u00e9klethez igaz\u00edtja. Ha a f\u00e9ny ki van kapcsolva, bekapcsolja.",
+            "fields": {
+                "brightness": {
+                    "description": "A be\u00e1ll\u00edtand\u00f3 f\u00e9nyer\u0151 \u00e9rt\u00e9ke.",
+                    "name": "F\u00e9nyer\u0151"
+                },
+                "kelvin": {
+                    "description": "A f\u00e9ny sz\u00ednh\u0151m\u00e9rs\u00e9klete Kelvinben.",
+                    "name": "Kelvin"
+                }
+            },
+            "name": "Sz\u00ednh\u0151m\u00e9rs\u00e9klet-jelenet be\u00e1ll\u00edt\u00e1sa"
+        },
+        "set_hsv_scene": {
+            "description": "A f\u00e9nyt az adott HSV sz\u00ednre \u00e9s f\u00e9nyer\u0151re v\u00e1ltoztatja. Ha a f\u00e9ny ki van kapcsolva, bekapcsolja.",
+            "fields": {
+                "brightness": {
+                    "description": "A be\u00e1ll\u00edtand\u00f3 f\u00e9nyer\u0151 \u00e9rt\u00e9ke.",
+                    "name": "F\u00e9nyer\u0151"
+                },
+                "hs_color": {
+                    "description": "A f\u00e9ny sz\u00edne hue/sat form\u00e1tumban. A Hue 0-359, a Sat pedig 0-100.",
+                    "name": "Hue/sat sz\u00edn"
+                }
+            },
+            "name": "HSV jelenet be\u00e1ll\u00edt\u00e1sa"
+        },
+        "set_mode": {
+            "description": "M\u0171k\u00f6d\u00e9si \u00fczemm\u00f3d be\u00e1ll\u00edt\u00e1sa.",
+            "fields": {
+                "mode": {
+                    "description": "\u00dczemm\u00f3d.",
+                    "name": "M\u00f3d"
+                }
+            },
+            "name": "\u00dczemm\u00f3d be\u00e1ll\u00edt\u00e1sa"
+        },
+        "set_music_mode": {
+            "description": "Enged\u00e9lyezi vagy letiltja a zene m\u00f3dot",
+            "fields": {
+                "music_mode": {
+                    "description": "Haszn\u00e1lja az igaz vagy hamis \u00e9rt\u00e9ket a zene m\u00f3d be-/kikapcsol\u00e1s\u00e1hoz.",
+                    "name": "Zene m\u00f3d"
+                }
+            },
+            "name": "Zene m\u00f3d be\u00e1ll\u00edt\u00e1sa"
+        },
+        "start_flow": {
+            "description": "Ind\u00edts egy egy\u00e9ni \u00e1tmenetet, a https://yeelight.readthedocs.io/en/stable/yeelight.html#flow-objects c\u00edmr\u0151l sz\u00e1rmaz\u00f3 \u00e1tmenetek felhaszn\u00e1l\u00e1s\u00e1val.",
+            "fields": {
+                "action": {
+                    "description": "A teend\u0151 l\u00e9p\u00e9s az \u00e1tmenet le\u00e1ll\u00e1sa ut\u00e1n.",
+                    "name": "M\u0171velet"
+                },
+                "count": {
+                    "description": "A futtat\u00e1sok sz\u00e1ma ebben a folyamatban (0 a v\u00e9gtelen futtat\u00e1shoz).",
+                    "name": "Sz\u00e1ml\u00e1l\u00f3"
+                },
+                "transitions": {
+                    "description": "\u00c1tmenetek sora a k\u00edv\u00e1nt hat\u00e1s \u00e9rdek\u00e9ben. P\u00e9ld\u00e1k https://yeelight.readthedocs.io/en/stable/flow.html.",
+                    "name": "\u00c1tmenetek"
+                }
+            },
+            "name": "\u00c1tmenet ind\u00edt\u00e1sa"
+        }
+    }
+}

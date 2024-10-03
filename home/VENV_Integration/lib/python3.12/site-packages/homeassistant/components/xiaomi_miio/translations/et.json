@@ -1,0 +1,593 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Seade on juba h\u00e4\u00e4lestatud",
+            "already_in_progress": "Seadistamine on juba k\u00e4imas",
+            "incomplete_info": "Puudulik seadistusteave, hosti v\u00f5i p\u00e4\u00e4suluba pole esitatud.",
+            "not_xiaomi_miio": "Seade ei ole (veel) Xiaomi Miio poolt toetatud.",
+            "reauth_successful": "Taastuvastamine \u00f5nnestus",
+            "unknown": "Ootamatu t\u00f5rge"
+        },
+        "error": {
+            "cannot_connect": "\u00dchendus nurjus",
+            "cloud_credentials_incomplete": "Pilve mandaat on poolik, palun t\u00e4ida kasutajanimi, salas\u00f5na ja riik",
+            "cloud_login_error": "Xiaomi Miio Cloudi ei saanud sisse logida, kontrolli mandaati.",
+            "cloud_no_devices": "Xiaomi Miio pilvekontolt ei leitud \u00fchtegi seadet.",
+            "unknown_device": "Seadme mudel pole teada, seadet ei saa seadistamisvoo abil seadistada.",
+            "wrong_token": "Kontrollsumma t\u00f5rge, vigane r\u00e4si"
+        },
+        "flow_title": "{name}",
+        "step": {
+            "cloud": {
+                "data": {
+                    "cloud_country": "Pilveserveri riik",
+                    "cloud_password": "Pilve salas\u00f5na",
+                    "cloud_username": "Pilve kasutajatunnus",
+                    "manual": "Seadista k\u00e4sitsi (pole soovitatav)"
+                },
+                "description": "Logi sisse Xiaomi Miio pilve, vaata https://www.openhab.org/addons/bindings/miio/#country-servers pilveserveri kasutamiseks."
+            },
+            "connect": {
+                "data": {
+                    "model": "Seadme mudel"
+                }
+            },
+            "manual": {
+                "data": {
+                    "host": "IP aadress",
+                    "token": "API v\u00f5ti"
+                },
+                "description": "On vajalik 32 t\u00e4hem\u00e4rki pikk API v\u00f5ti, vt. https://www.home-assistant.io/integrations/xiaomi_miio#retrieving-the-access-token juhiseid. Pane t\u00e4hele, et see API v\u00f5ti erineb Xiaomi Aqara sidumises kasutatavast v\u00f5tmest."
+            },
+            "reauth_confirm": {
+                "description": "Xiaomi Miio sidumine peab  konto uuesti tuvastama, et v\u00e4rskendada p\u00e4\u00e4sulube v\u00f5i lisada puuduv pilvemandaat.",
+                "title": "{name} autentimine aegus"
+            },
+            "select": {
+                "data": {
+                    "select_device": "Miio seade"
+                },
+                "description": "Vali seadistamiseks Xiaomi Miio seade."
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "is_water_box_attached": {
+                "name": "Mopp on k\u00fcljes"
+            },
+            "is_water_box_carriage_attached": {
+                "name": "Mopp on k\u00fcljes"
+            },
+            "is_water_shortage": {
+                "name": "Vesi on otsas"
+            },
+            "no_water": {
+                "name": "Veepaak on t\u00fchi"
+            },
+            "powersupply_attached": {
+                "name": "Toiteallikas"
+            },
+            "ptc_status": {
+                "name": "Lisak\u00f6tte olek"
+            },
+            "water_tank_detached": {
+                "name": "Veepaak"
+            }
+        },
+        "button": {
+            "reset_dust_filter": {
+                "name": "L\u00e4htesta tolmufilter"
+            },
+            "reset_upper_filter": {
+                "name": "L\u00e4htesta \u00fclemine filter"
+            },
+            "reset_vacuum_filter": {
+                "name": "L\u00e4htesta filter"
+            },
+            "reset_vacuum_main_brush": {
+                "name": "L\u00e4htesta p\u00f5hihari"
+            },
+            "reset_vacuum_sensor_dirty": {
+                "name": "L\u00e4htesta m\u00e4\u00e4rdumisandur"
+            },
+            "reset_vacuum_side_brush": {
+                "name": "K\u00fclgharja l\u00e4htestamine"
+            }
+        },
+        "fan": {
+            "generic_fan": {
+                "state_attributes": {
+                    "preset_mode": {
+                        "state": {
+                            "nature": "Loodus",
+                            "normal": "Tavaline"
+                        }
+                    }
+                }
+            }
+        },
+        "number": {
+            "angle": {
+                "name": "V\u00f5nkumisnurk"
+            },
+            "delay_off_countdown": {
+                "name": "P\u00f6\u00f6rdloenduse edasil\u00fckkamine"
+            },
+            "fan_level": {
+                "name": "Ventilaatori kiirus"
+            },
+            "favorite_level": {
+                "name": "Lemmiktase"
+            },
+            "favorite_rpm": {
+                "name": "Mootori lemmikkiirus"
+            },
+            "led_brightness": {
+                "name": "LED heledus"
+            },
+            "led_brightness_level": {
+                "name": "LED heledus"
+            },
+            "motor_speed": {
+                "name": "Mootori kiirus"
+            },
+            "volume": {
+                "name": "Maht"
+            }
+        },
+        "select": {
+            "airpurifier_mode": {
+                "state": {
+                    "auto": "Automaatne",
+                    "favorite": "Lemmik",
+                    "silent": "Vaikne"
+                }
+            },
+            "display_orientation": {
+                "state": {
+                    "forward": "Edaspidi",
+                    "left": "Vasakule",
+                    "right": "Paremale"
+                }
+            },
+            "led_brightness": {
+                "state": {
+                    "bright": "Hele",
+                    "dim": "Tuhm",
+                    "off": "V\u00e4ljas"
+                }
+            },
+            "ptc_level": {
+                "state": {
+                    "high": "K\u00f5rge",
+                    "low": "Madal",
+                    "medium": "Keskmine"
+                }
+            }
+        },
+        "sensor": {
+            "actual_speed": {
+                "name": "Tegelik kiirus"
+            },
+            "air_quality": {
+                "name": "\u00d5hu kvaliteet"
+            },
+            "air_quality_index": {
+                "name": "\u00d5hukvaliteedi indeks"
+            },
+            "area": {
+                "name": "Viimati puhastatud ala"
+            },
+            "clean_area": {
+                "name": "Praegune puhastatud ala"
+            },
+            "clean_time": {
+                "name": "Praegune puhastuse kestus"
+            },
+            "control_speed": {
+                "name": "Kontrolli kiirust"
+            },
+            "count": {
+                "name": "Puhaste arv kokku"
+            },
+            "dnd_end": {
+                "name": "DnD l\u00f5pp"
+            },
+            "dnd_start": {
+                "name": "DnD algus"
+            },
+            "duration": {
+                "name": "Viimane puhastusaeg"
+            },
+            "dust_collection_count": {
+                "name": "Tolmu kogumiste koguarv"
+            },
+            "dust_filter_life_remaining": {
+                "name": "Tolmufiltri eluiga alles"
+            },
+            "dust_filter_life_remaining_days": {
+                "name": "Tolmufiltri elua j\u00e4\u00e4nud p\u00e4evad"
+            },
+            "favorite_speed": {
+                "name": "Lemmikkiirus"
+            },
+            "filter_hours_used": {
+                "name": "Filtri kasutamine"
+            },
+            "filter_left": {
+                "name": "Filtrit  j\u00e4\u00e4nud"
+            },
+            "filter_left_time": {
+                "name": "Filtri eluiga on j\u00e4\u00e4nud"
+            },
+            "filter_life_remaining": {
+                "name": "Filtri j\u00e4relej\u00e4\u00e4nud eluiga"
+            },
+            "illuminance": {
+                "name": "Valgustatus"
+            },
+            "last_clean_end": {
+                "name": "Viimane koristuse l\u00f5pp"
+            },
+            "last_clean_start": {
+                "name": "Viimase puhastuse algus"
+            },
+            "load_power": {
+                "name": "Laadimisv\u00f5imsus"
+            },
+            "main_brush_left": {
+                "name": "P\u00f5hiharja on j\u00e4\u00e4nud"
+            },
+            "motor2_speed": {
+                "name": "Teise mootori kiirus"
+            },
+            "motor_speed": {
+                "name": "Mootori kiirus"
+            },
+            "purify_volume": {
+                "name": "Puhastamise maht"
+            },
+            "sensor_dirty_left": {
+                "name": "Anduri eluiga on j\u00e4\u00e4nud"
+            },
+            "side_brush_left": {
+                "name": "K\u00fclgharja on j\u00e4\u00e4nud"
+            },
+            "total_area": {
+                "name": "Puhastatud ala kokku"
+            },
+            "total_duration": {
+                "name": "Kogukestus"
+            },
+            "tvoc": {
+                "name": "TVOC"
+            },
+            "upper_filter_life_remaining": {
+                "name": "\u00dclemise filtri kasutusiga on j\u00e4\u00e4nud"
+            },
+            "upper_filter_life_remaining_days": {
+                "name": "\u00dclemise filtri eluea j\u00e4relej\u00e4\u00e4nud p\u00e4evad"
+            },
+            "use_time": {
+                "name": "Kasutusaeg"
+            },
+            "water_level": {
+                "name": "Veetase"
+            }
+        },
+        "switch": {
+            "anion": {
+                "name": "Ionisaator"
+            },
+            "auto_detect": {
+                "name": "Automaatne tuvastamine"
+            },
+            "buzzer": {
+                "name": "Sumisti"
+            },
+            "child_lock": {
+                "name": "Lapselukk"
+            },
+            "clean_mode": {
+                "name": "Puhastusre\u017eiim"
+            },
+            "display": {
+                "name": "Kuva"
+            },
+            "dry": {
+                "name": "Kuivatusre\u017eiim"
+            },
+            "ionizer": {
+                "name": "Ionisaator"
+            },
+            "learn_mode": {
+                "name": "\u00d5ppimisre\u017eiim"
+            },
+            "led": {
+                "name": "LED"
+            },
+            "ptc": {
+                "name": "Lisak\u00fcte"
+            }
+        }
+    },
+    "options": {
+        "error": {
+            "cloud_credentials_incomplete": "Pilve mandaat on poolik, palun t\u00e4ida kasutajanimi, salas\u00f5na ja riik"
+        },
+        "step": {
+            "init": {
+                "data": {
+                    "cloud_subdevices": "\u00dchendatud alamseadmete hankimiseks kasuta pilve"
+                }
+            }
+        }
+    },
+    "services": {
+        "fan_reset_filter": {
+            "description": "L\u00e4htestab filtri eluea ja kasutuse.",
+            "fields": {
+                "entity_id": {
+                    "description": "Xiaomi miio olemi nimi.",
+                    "name": "Olemi ID"
+                }
+            },
+            "name": "Ventilaatori filtri l\u00e4htestamie"
+        },
+        "fan_set_extra_features": {
+            "description": "Manipuleerib salvestusregistrit, mis reklaamib lisafunktsioone. Rakendus Mi Home hindab v\u00e4\u00e4rtust. Funktsioon nimega \"turbore\u017eiim\" avatakse rakenduses v\u00e4\u00e4rtusel 1.",
+            "fields": {
+                "entity_id": {
+                    "description": "Xiaomi miio olemi nimi.",
+                    "name": "Olemi ID"
+                },
+                "features": {
+                    "description": "T\u00e4isarv, teadaolevad v\u00e4\u00e4rtused on 0 (vaikimisi) ja 1 (turbore\u017eiim).",
+                    "name": "Funktsioonid"
+                }
+            },
+            "name": "M\u00e4\u00e4ra ventilaatori lisafunktsioonid"
+        },
+        "light_eyecare_mode_off": {
+            "description": "Keelab silmade v\u00e4simuse meeldetuletuse/teavituse (AINULT EYECARE SMART LAMP 2).",
+            "fields": {
+                "entity_id": {
+                    "description": "Olemi nimi, mille alusel tegutseda.",
+                    "name": "Olemi ID"
+                }
+            },
+            "name": "Valgusti silmahooldusre\u017eiim v\u00e4lja l\u00fclitatud"
+        },
+        "light_eyecare_mode_on": {
+            "description": "Lubab silmade v\u00e4simuse meeldetuletuse/teavituse (AINULT EYECARE SMART LAMP 2).",
+            "fields": {
+                "entity_id": {
+                    "description": "Olemi nimi, mille alusel tegutseda.",
+                    "name": "Olemi ID"
+                }
+            },
+            "name": "Valgusti silmahooldusre\u017eiim sisse l\u00fclitatud"
+        },
+        "light_night_light_mode_off": {
+            "description": "L\u00fclitab silmahooldusre\u017eiimi fan_set_dry_off (ainult EYECARE SMART LAMP 2).",
+            "fields": {
+                "entity_id": {
+                    "description": "Olemi nimi, mille alusel tegutseda.",
+                    "name": "Olemi ID"
+                }
+            },
+            "name": "\u00d6\u00f6valgustuse re\u017eiim v\u00e4lja l\u00fclitatud"
+        },
+        "light_night_light_mode_on": {
+            "description": "Lubab silmade v\u00e4simuse meeldetuletuse/teavituse (AINULT EYECARE SMART LAMP 2).",
+            "fields": {
+                "entity_id": {
+                    "description": "Olemi nimi, mille alusel tegutseda.",
+                    "name": "Olemi ID"
+                }
+            },
+            "name": "\u00d6ine valgustusre\u017eiim sisse"
+        },
+        "light_reminder_off": {
+            "description": "Keelab silmade v\u00e4simuse meeldetuletuse/teavituse (AINULT EYECARE SMART LAMP 2).",
+            "fields": {
+                "entity_id": {
+                    "description": "Olemi nimi, mille alusel tegutseda.",
+                    "name": "Olemi ID"
+                }
+            },
+            "name": "Valguse meeldetuletus v\u00e4lja l\u00fclitatud"
+        },
+        "light_reminder_on": {
+            "description": "Lubab silmade v\u00e4simuse meeldetuletuse/teavituse (AINULT EYECARE SMART LAMP 2).",
+            "fields": {
+                "entity_id": {
+                    "description": "Olemi nimi, mille alusel tegutseda.",
+                    "name": "Olemi ID"
+                }
+            },
+            "name": "Valguse meeldetuletus sisse l\u00fclitatud"
+        },
+        "light_set_delayed_turn_off": {
+            "description": "Viivitusega v\u00e4ljal\u00fclitamine.",
+            "fields": {
+                "entity_id": {
+                    "description": "Valgusolemi nimi.",
+                    "name": "Olemi ID"
+                },
+                "time_period": {
+                    "description": "Viivitatud v\u00e4ljal\u00fclitamise ajavahemik.",
+                    "name": "Ajavahemik"
+                }
+            },
+            "name": "Valgustuse v\u00e4ljal\u00fclitamine viivitusega"
+        },
+        "light_set_scene": {
+            "description": "M\u00e4\u00e4rab fikseeritud stseeni.",
+            "fields": {
+                "entity_id": {
+                    "description": "Valgusolemi nimi.",
+                    "name": "Olemi ID"
+                },
+                "scene": {
+                    "description": "Fikseeritud stseeni number.",
+                    "name": "Stseen"
+                }
+            },
+            "name": "Valguse stseen"
+        },
+        "remote_learn_command": {
+            "description": "\u00d5pib selgeks IR-k\u00e4skluse, vajuta **Kutsu teenus**, suuna kaugjuhtimispult IR-seadme poole ja \u00f5pitud k\u00e4su kuvatakse \u00fclevaates m\u00e4rguandina.",
+            "fields": {
+                "slot": {
+                    "description": "M\u00e4\u00e4ra IR-k\u00e4su salvestamiseks kasutatav pesa.",
+                    "name": "Pesa"
+                },
+                "timeout": {
+                    "description": "M\u00e4\u00e4ra aeg, enne mida tuleb k\u00e4sk \u00e4ra \u00f5ppida.",
+                    "name": "Ajal\u00f5pp"
+                }
+            },
+            "name": "\u00d5pi kaugjuhtimise k\u00e4sk"
+        },
+        "remote_set_led_off": {
+            "description": "L\u00fclitab sinise LED-i v\u00e4lja.",
+            "name": "Kaugjuhtimise LED v\u00e4ljas"
+        },
+        "remote_set_led_on": {
+            "description": "L\u00fclitab sisse sinise LED-i.",
+            "name": "KaugjuhtimiseLED p\u00f5leb"
+        },
+        "switch_set_power_mode": {
+            "description": "M\u00e4\u00e4rab v\u00f5imsusre\u017eiimi.",
+            "fields": {
+                "entity_id": {
+                    "description": "Xiaomi miio olemi nimi.",
+                    "name": "Olemi ID"
+                },
+                "mode": {
+                    "description": "V\u00f5imsusre\u017eiim.",
+                    "name": "Re\u017eiim"
+                }
+            },
+            "name": "L\u00fclita seadistatud toitere\u017eiim"
+        },
+        "switch_set_power_price": {
+            "description": "M\u00e4\u00e4rab elektrihinna.",
+            "fields": {
+                "entity_id": {
+                    "description": "Xiaomi miio olemi nimi.",
+                    "name": "Olemi ID"
+                },
+                "mode": {
+                    "description": "Elektri hind.",
+                    "name": "Re\u017eiim"
+                }
+            },
+            "name": "L\u00fclita seadistatud elektrihind"
+        },
+        "switch_set_wifi_led_off": {
+            "description": "L\u00fclita Wi-Fi LED v\u00e4lja",
+            "fields": {
+                "entity_id": {
+                    "description": "Xiaomi miio olemi nimi.",
+                    "name": "Olemi ID"
+                }
+            },
+            "name": "L\u00fclita Wi-Fi LED v\u00e4lja"
+        },
+        "switch_set_wifi_led_on": {
+            "description": "L\u00fclitab wifi LED-i sisse.",
+            "fields": {
+                "entity_id": {
+                    "description": "Xiaomi miio olemi nimi.",
+                    "name": "Olemi ID"
+                }
+            },
+            "name": "L\u00fclita Wi-Fi LED sisse"
+        },
+        "vacuum_clean_segment": {
+            "description": "Alustab m\u00e4\u00e4ratud segmendi (segmentide) puhastamist.",
+            "fields": {
+                "segments": {
+                    "description": "Segmendid.",
+                    "name": "Segmendid"
+                }
+            },
+            "name": "Tolmuimeja puhastussegment"
+        },
+        "vacuum_clean_zone": {
+            "description": "K\u00e4ivitab puhastustoimingu valitud piirkondades n\u00e4idatud korduste arvu jaoks.",
+            "fields": {
+                "repeats": {
+                    "description": "Puhastuskorduste arv iga tsooni jaoks.",
+                    "name": "Kordused"
+                },
+                "zone": {
+                    "description": "Alade massiiv. Iga ala on 4 t\u00e4isarvulise v\u00e4\u00e4rtusega massiiv.",
+                    "name": "Ala"
+                }
+            },
+            "name": "Tolmuimeja tsoon"
+        },
+        "vacuum_goto": {
+            "description": "Min m\u00e4\u00e4ratud koordinaatidele.",
+            "fields": {
+                "x_coord": {
+                    "description": "X-koordinaat.",
+                    "name": "X koordinaat"
+                },
+                "y_coord": {
+                    "description": "Y-koordinaat.",
+                    "name": "Y koordinaat"
+                }
+            },
+            "name": "Juhitav tolmuimeja"
+        },
+        "vacuum_remote_control_move": {
+            "description": "Kaugjuhtimispult juhib tolmuimejat, veendu, et seadsid selle esmalt kaugjuhtimisre\u017eiimile funktsiooniga \"remote_control_start\".",
+            "fields": {
+                "duration": {
+                    "description": "Liikumise kestus.",
+                    "name": "Kestus"
+                },
+                "rotation": {
+                    "description": "P\u00f6\u00f6ramine vahemikus -179 kraadi kuni 179 kraadi.",
+                    "name": "P\u00f6\u00f6ramine"
+                },
+                "velocity": {
+                    "description": "Kiirus.",
+                    "name": "Kiirus"
+                }
+            },
+            "name": "Tomuimeja kontrollliigutus kaugjuhtimiseks"
+        },
+        "vacuum_remote_control_move_step": {
+            "description": "Kaugjuhtimispult juhib tolmuimejat, teeb ainult \u00fche liigutuse ja siis peatub.",
+            "fields": {
+                "duration": {
+                    "description": "Liikumise kestus.",
+                    "name": "Kestus"
+                },
+                "rotation": {
+                    "description": "P\u00f6\u00f6ramine.",
+                    "name": "P\u00f6\u00f6ramine"
+                },
+                "velocity": {
+                    "description": "Kiirus.",
+                    "name": "Kiirus"
+                }
+            },
+            "name": "Tolmuimeja kaugjuhtimispuldi samm"
+        },
+        "vacuum_remote_control_start": {
+            "description": "K\u00e4ivitab tolmuimeja kaugjuhtimispuldi. Seej\u00e4rel saad selle teisaldada k\u00e4suga \u201eremote_control_move\u201d, kui see on tehtud, kutsu k\u00e4sk \u201eremote_control_stop\u201d.",
+            "name": "Tolmuimeja kaugjuhtimispuldi lubamine"
+        },
+        "vacuum_remote_control_stop": {
+            "description": "Peatab tolmuimeja kaugjuhtimisre\u017eiimi.",
+            "name": "Tolmuimeja kaugjuhtimispuldi seiskamine"
+        }
+    }
+}

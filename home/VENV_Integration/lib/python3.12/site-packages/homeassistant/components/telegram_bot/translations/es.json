@@ -1,0 +1,686 @@
+{
+    "issues": {
+        "proxy_params_auth_deprecation": {
+            "description": "Los detalles de autenticaci\u00f3n para el proxy configurado en la integraci\u00f3n {telegram_bot} deben trasladarse a {proxy_url}. Por favor, actualiza tu configuraci\u00f3n y reinicia Home Assistant para solucionar este problema. \n\nLa clave de configuraci\u00f3n {proxy_params} se eliminar\u00e1 en una versi\u00f3n futura.",
+            "title": "{telegram_bot}: la autenticaci\u00f3n de proxy debe trasladarse a la URL"
+        },
+        "proxy_params_deprecation": {
+            "description": "La clave de configuraci\u00f3n {proxy_params} para la integraci\u00f3n de {telegram_bot} se eliminar\u00e1 en una versi\u00f3n futura. \n\nAhora se puede proporcionar autenticaci\u00f3n a trav\u00e9s de la clave {proxy_url}.\n\nLa librer\u00eda subyacente ha cambiado a {httpx} que no es compatible con los par\u00e1metros anteriores. Si a\u00fan necesitas esta funcionalidad para otras opciones, deja un comentario en el enlace para obtener m\u00e1s informaci\u00f3n. \n\nPor favor, actualiza tu configuraci\u00f3n para eliminar la clave {proxy_params} y reinicia Home Assistant para solucionar este problema.",
+            "title": "{telegram_bot}: se eliminar\u00e1 la opci\u00f3n de par\u00e1metros de proxy"
+        }
+    },
+    "services": {
+        "answer_callback_query": {
+            "description": "Responde a una consulta de devoluci\u00f3n de llamada originada al hacer clic en un bot\u00f3n del teclado en l\u00ednea. La respuesta se mostrar\u00e1 al usuario como una notificaci\u00f3n en la parte superior de la pantalla de chat o como una alerta.",
+            "fields": {
+                "callback_query_id": {
+                    "description": "ID \u00fanico de la respuesta de devoluci\u00f3n de llamada.",
+                    "name": "ID de consulta de devoluci\u00f3n de llamada"
+                },
+                "message": {
+                    "description": "Cuerpo del mensaje de texto sin formato de la notificaci\u00f3n.",
+                    "name": "Mensaje"
+                },
+                "show_alert": {
+                    "description": "Mostrar una notificaci\u00f3n permanente.",
+                    "name": "Mostrar alerta"
+                },
+                "timeout": {
+                    "description": "Tiempo de espera para enviar la respuesta.",
+                    "name": "Tiempo de espera"
+                }
+            },
+            "name": "Responder a la consulta de devoluci\u00f3n de llamada"
+        },
+        "delete_message": {
+            "description": "Borra un mensaje enviado anteriormente.",
+            "fields": {
+                "chat_id": {
+                    "description": "El chat_id donde borrar el mensaje.",
+                    "name": "ID del Chat"
+                },
+                "message_id": {
+                    "description": "Id del mensaje a borrar.",
+                    "name": "ID del mensaje"
+                }
+            },
+            "name": "Borrar mensaje"
+        },
+        "edit_caption": {
+            "description": "Edita el t\u00edtulo de un mensaje enviado anteriormente.",
+            "fields": {
+                "caption": {
+                    "description": "Cuerpo del mensaje de la notificaci\u00f3n.",
+                    "name": "Subt\u00edtulo"
+                },
+                "chat_id": {
+                    "description": "El chat_id donde editar el t\u00edtulo.",
+                    "name": "ID del Chat"
+                },
+                "inline_keyboard": {
+                    "description": "Lista de filas de comandos, separados por comas, para crear un teclado en l\u00ednea personalizado con botones con datos de devoluci\u00f3n de llamada asociados.",
+                    "name": "Teclado en l\u00ednea"
+                },
+                "message_id": {
+                    "description": "Id del mensaje a editar.",
+                    "name": "ID del mensaje"
+                }
+            },
+            "name": "Editar subt\u00edtulo"
+        },
+        "edit_message": {
+            "description": "Edita un mensaje enviado previamente.",
+            "fields": {
+                "chat_id": {
+                    "description": "El chat_id donde editar el mensaje.",
+                    "name": "ID del Chat"
+                },
+                "disable_web_page_preview": {
+                    "description": "Deshabilita las vistas previas de enlaces para enlaces en el mensaje.",
+                    "name": "Deshabilitar la vista previa de la p\u00e1gina web"
+                },
+                "inline_keyboard": {
+                    "description": "Lista de filas de comandos, separados por comas, para crear un teclado en l\u00ednea personalizado con botones con datos de devoluci\u00f3n de llamada asociados.",
+                    "name": "Teclado en l\u00ednea"
+                },
+                "message": {
+                    "description": "Cuerpo del mensaje de la notificaci\u00f3n.",
+                    "name": "Mensaje"
+                },
+                "message_id": {
+                    "description": "Id del mensaje a editar.",
+                    "name": "ID del mensaje"
+                },
+                "parse_mode": {
+                    "description": "Analizador del texto del mensaje.",
+                    "name": "Modo de an\u00e1lisis"
+                },
+                "title": {
+                    "description": "T\u00edtulo opcional para tu notificaci\u00f3n. Se compondr\u00e1 como '%t\u00edtulo\n %mensaje'.",
+                    "name": "T\u00edtulo"
+                }
+            },
+            "name": "Editar mensaje"
+        },
+        "edit_replymarkup": {
+            "description": "Edita el teclado en l\u00ednea de un mensaje enviado anteriormente.",
+            "fields": {
+                "chat_id": {
+                    "description": "El chat_id donde editar el reply_markup.",
+                    "name": "ID del Chat"
+                },
+                "inline_keyboard": {
+                    "description": "Lista de filas de comandos, separados por comas, para crear un teclado en l\u00ednea personalizado con botones con datos de devoluci\u00f3n de llamada asociados.",
+                    "name": "Teclado en l\u00ednea"
+                },
+                "message_id": {
+                    "description": "Id del mensaje a editar.",
+                    "name": "ID del mensaje"
+                }
+            },
+            "name": "Editar marca de respuesta"
+        },
+        "send_animation": {
+            "description": "Env\u00eda una animaci\u00f3n.",
+            "fields": {
+                "authentication": {
+                    "description": "Define el m\u00e9todo de autenticaci\u00f3n utilizar. Establ\u00e9celo en `digest` para usar la autenticaci\u00f3n de resumen HTTP, o `bearer_token` para la autenticaci\u00f3n por bearer token de OAuth 2.0. El valor predeterminado es `basic`.",
+                    "name": "M\u00e9todo de autentificaci\u00f3n"
+                },
+                "caption": {
+                    "description": "El t\u00edtulo de la animaci\u00f3n.",
+                    "name": "Subt\u00edtulo"
+                },
+                "disable_notification": {
+                    "description": "Env\u00eda el mensaje en silencio. Los usuarios de iOS y los usuarios Web no recibir\u00e1n una notificaci\u00f3n, los usuarios de Android recibir\u00e1n una notificaci\u00f3n sin sonido.",
+                    "name": "Deshabilitar notificaci\u00f3n"
+                },
+                "file": {
+                    "description": "Ruta local a un video GIF o H.264/MPEG-4 AVC sin sonido.",
+                    "name": "Archivo"
+                },
+                "inline_keyboard": {
+                    "description": "Lista de filas de comandos, separados por comas, para crear un teclado en l\u00ednea personalizado con botones con datos de devoluci\u00f3n de llamada asociados.",
+                    "name": "Teclado en l\u00ednea"
+                },
+                "keyboard": {
+                    "description": "Lista de filas de comandos, separados por comas, para hacer un teclado personalizado.",
+                    "name": "Teclado"
+                },
+                "message_tag": {
+                    "description": "Etiqueta para el mensaje enviado.",
+                    "name": "Etiqueta de mensaje"
+                },
+                "message_thread_id": {
+                    "description": "Identificador \u00fanico para el hilo del mensaje de destino (tema) del foro; S\u00f3lo para supergrupos de foros.",
+                    "name": "ID del hilo del mensaje"
+                },
+                "parse_mode": {
+                    "description": "Analizador del texto del mensaje.",
+                    "name": "Modo de an\u00e1lisis"
+                },
+                "password": {
+                    "description": "Contrase\u00f1a (o bearer token) para una URL que requiere autenticaci\u00f3n HTTP.",
+                    "name": "Contrase\u00f1a"
+                },
+                "reply_to_message_id": {
+                    "description": "Marca el mensaje como respuesta a un mensaje anterior.",
+                    "name": "Responder al ID del mensaje"
+                },
+                "target": {
+                    "description": "Una matriz de chat_ids preautorizados para enviar el documento. Si no est\u00e1 presente, el primer chat_id permitido es el valor predeterminado.",
+                    "name": "Objetivo"
+                },
+                "timeout": {
+                    "description": "Tiempo de espera para enviar sticker.",
+                    "name": "Tiempo de espera"
+                },
+                "url": {
+                    "description": "Ruta remota a un video GIF o H.264/MPEG-4 AVC sin sonido.",
+                    "name": "URL"
+                },
+                "username": {
+                    "description": "Nombre de usuario para una URL que requiere autenticaci\u00f3n HTTP.",
+                    "name": "Nombre de usuario"
+                },
+                "verify_ssl": {
+                    "description": "Habilita o deshabilita la verificaci\u00f3n del certificado SSL. Establ\u00e9celo a falso si est\u00e1s descargando el archivo desde una URL y no quieres validar el certificado SSL del servidor.",
+                    "name": "Verificar SSL"
+                }
+            },
+            "name": "Enviar animaci\u00f3n"
+        },
+        "send_document": {
+            "description": "Env\u00eda un documento.",
+            "fields": {
+                "authentication": {
+                    "description": "Define el m\u00e9todo de autenticaci\u00f3n utilizar. Establ\u00e9celo en `digest` para usar la autenticaci\u00f3n de resumen HTTP, o `bearer_token` para la autenticaci\u00f3n por bearer token de OAuth 2.0. El valor predeterminado es `basic`.",
+                    "name": "M\u00e9todo de autentificaci\u00f3n"
+                },
+                "caption": {
+                    "description": "El t\u00edtulo del documento.",
+                    "name": "Subt\u00edtulo"
+                },
+                "disable_notification": {
+                    "description": "Env\u00eda el mensaje en silencio. Los usuarios de iOS y los usuarios Web no recibir\u00e1n una notificaci\u00f3n, los usuarios de Android recibir\u00e1n una notificaci\u00f3n sin sonido.",
+                    "name": "Deshabilitar notificaci\u00f3n"
+                },
+                "file": {
+                    "description": "Ruta local a un documento.",
+                    "name": "Archivo"
+                },
+                "inline_keyboard": {
+                    "description": "Lista de filas de comandos, separados por comas, para crear un teclado en l\u00ednea personalizado con botones con datos de devoluci\u00f3n de llamada asociados.",
+                    "name": "Teclado en l\u00ednea"
+                },
+                "keyboard": {
+                    "description": "Lista de filas de comandos, separados por comas, para hacer un teclado personalizado.",
+                    "name": "Teclado"
+                },
+                "message_tag": {
+                    "description": "Etiqueta para el mensaje enviado.",
+                    "name": "Etiqueta de mensaje"
+                },
+                "message_thread_id": {
+                    "description": "Identificador \u00fanico para el hilo del mensaje de destino (tema) del foro; S\u00f3lo para supergrupos de foros.",
+                    "name": "ID del hilo del mensaje"
+                },
+                "parse_mode": {
+                    "description": "Analizador del texto del mensaje.",
+                    "name": "Modo de an\u00e1lisis"
+                },
+                "password": {
+                    "description": "Contrase\u00f1a (o bearer token) para una URL que requiere autenticaci\u00f3n HTTP.",
+                    "name": "Contrase\u00f1a"
+                },
+                "reply_to_message_id": {
+                    "description": "Marca el mensaje como respuesta a un mensaje anterior.",
+                    "name": "Responder al ID del mensaje"
+                },
+                "target": {
+                    "description": "Una matriz de chat_ids preautorizados para enviar el documento. Si no est\u00e1 presente, el primer chat_id permitido es el valor predeterminado.",
+                    "name": "Objetivo"
+                },
+                "timeout": {
+                    "description": "Tiempo de espera para enviar documento.",
+                    "name": "Tiempo de espera"
+                },
+                "url": {
+                    "description": "Ruta remota a un documento.",
+                    "name": "URL"
+                },
+                "username": {
+                    "description": "Nombre de usuario para una URL que requiere autenticaci\u00f3n HTTP.",
+                    "name": "Nombre de usuario"
+                },
+                "verify_ssl": {
+                    "description": "Habilita o deshabilita la verificaci\u00f3n del certificado SSL. Establ\u00e9celo a falso si est\u00e1s descargando el archivo desde una URL y no quieres validar el certificado SSL del servidor.",
+                    "name": "Verificar SSL"
+                }
+            },
+            "name": "Enviar documento"
+        },
+        "send_location": {
+            "description": "Env\u00eda una ubicaci\u00f3n.",
+            "fields": {
+                "disable_notification": {
+                    "description": "Env\u00eda el mensaje en silencio. Los usuarios de iOS y los usuarios Web no recibir\u00e1n una notificaci\u00f3n, los usuarios de Android recibir\u00e1n una notificaci\u00f3n sin sonido.",
+                    "name": "Deshabilitar notificaci\u00f3n"
+                },
+                "inline_keyboard": {
+                    "description": "Lista de filas de comandos, separados por comas, para crear un teclado en l\u00ednea personalizado con botones con datos de devoluci\u00f3n de llamada asociados.",
+                    "name": "Teclado en l\u00ednea"
+                },
+                "keyboard": {
+                    "description": "Lista de filas de comandos, separados por comas, para hacer un teclado personalizado.",
+                    "name": "Teclado"
+                },
+                "latitude": {
+                    "description": "La latitud a enviar.",
+                    "name": "Latitud"
+                },
+                "longitude": {
+                    "description": "La longitud a enviar.",
+                    "name": "Longitud"
+                },
+                "message_tag": {
+                    "description": "Etiqueta para el mensaje enviado.",
+                    "name": "Etiqueta de mensaje"
+                },
+                "message_thread_id": {
+                    "description": "Identificador \u00fanico para el hilo del mensaje de destino (tema) del foro; S\u00f3lo para supergrupos de foros.",
+                    "name": "ID del hilo del mensaje"
+                },
+                "reply_to_message_id": {
+                    "description": "Marca el mensaje como respuesta a un mensaje anterior.",
+                    "name": "Responder al ID del mensaje"
+                },
+                "target": {
+                    "description": "Una matriz de chat_ids preautorizados para enviar la ubicaci\u00f3n. Si no est\u00e1 presente, el primer chat_id permitido es el valor predeterminado.",
+                    "name": "Objetivo"
+                },
+                "timeout": {
+                    "description": "Tiempo de espera para enviar foto.",
+                    "name": "Tiempo de espera"
+                }
+            },
+            "name": "Enviar ubicaci\u00f3n"
+        },
+        "send_message": {
+            "description": "Env\u00eda una notificaci\u00f3n.",
+            "fields": {
+                "disable_notification": {
+                    "description": "Env\u00eda el mensaje en silencio. Los usuarios de iOS y los usuarios Web no recibir\u00e1n una notificaci\u00f3n, los usuarios de Android recibir\u00e1n una notificaci\u00f3n sin sonido.",
+                    "name": "Deshabilitar notificaci\u00f3n"
+                },
+                "disable_web_page_preview": {
+                    "description": "Deshabilita las vistas previas de enlaces para enlaces en el mensaje.",
+                    "name": "Deshabilitar la vista previa de la p\u00e1gina web"
+                },
+                "inline_keyboard": {
+                    "description": "Lista de filas de comandos, separados por comas, para crear un teclado en l\u00ednea personalizado con botones con datos de devoluci\u00f3n de llamada asociados.",
+                    "name": "Teclado en l\u00ednea"
+                },
+                "keyboard": {
+                    "description": "Lista de filas de comandos, separados por comas, para hacer un teclado personalizado. La lista vac\u00eda borra un teclado configurado previamente.",
+                    "name": "Teclado"
+                },
+                "message": {
+                    "description": "Cuerpo del mensaje de la notificaci\u00f3n.",
+                    "name": "Mensaje"
+                },
+                "message_tag": {
+                    "description": "Etiqueta para el mensaje enviado.",
+                    "name": "Etiqueta de mensaje"
+                },
+                "message_thread_id": {
+                    "description": "Identificador \u00fanico para el hilo del mensaje de destino (tema) del foro; S\u00f3lo para supergrupos de foros.",
+                    "name": "ID del hilo del mensaje"
+                },
+                "parse_mode": {
+                    "description": "Analizador del texto del mensaje.",
+                    "name": "Modo de an\u00e1lisis"
+                },
+                "reply_to_message_id": {
+                    "description": "Marca el mensaje como respuesta a un mensaje anterior.",
+                    "name": "Responder al ID del mensaje"
+                },
+                "target": {
+                    "description": "Una matriz de chat_ids preautorizados para enviar la notificaci\u00f3n. Si no est\u00e1 presente, el primer chat_id permitido es el valor predeterminado.",
+                    "name": "Objetivo"
+                },
+                "timeout": {
+                    "description": "Tiempo de espera para enviar mensaje. Ayudar\u00e1 con los errores de tiempo de espera (mala conexi\u00f3n a Internet, etc.).",
+                    "name": "Tiempo de espera"
+                },
+                "title": {
+                    "description": "T\u00edtulo opcional para tu notificaci\u00f3n. Se compondr\u00e1 como '%t\u00edtulo\n %mensaje'.",
+                    "name": "T\u00edtulo"
+                }
+            },
+            "name": "Enviar mensaje"
+        },
+        "send_photo": {
+            "description": "Env\u00eda una foto.",
+            "fields": {
+                "authentication": {
+                    "description": "Define el m\u00e9todo de autenticaci\u00f3n utilizar. Establ\u00e9celo en `digest` para usar la autenticaci\u00f3n de resumen HTTP, o `bearer_token` para la autenticaci\u00f3n por bearer token de OAuth 2.0. El valor predeterminado es `basic`.",
+                    "name": "M\u00e9todo de autentificaci\u00f3n"
+                },
+                "caption": {
+                    "description": "El t\u00edtulo de la imagen.",
+                    "name": "Subt\u00edtulo"
+                },
+                "disable_notification": {
+                    "description": "Env\u00eda el mensaje en silencio. Los usuarios de iOS y los usuarios Web no recibir\u00e1n una notificaci\u00f3n, los usuarios de Android recibir\u00e1n una notificaci\u00f3n sin sonido.",
+                    "name": "Deshabilitar notificaci\u00f3n"
+                },
+                "file": {
+                    "description": "Ruta local a una imagen.",
+                    "name": "Archivo"
+                },
+                "inline_keyboard": {
+                    "description": "Lista de filas de comandos, separados por comas, para crear un teclado en l\u00ednea personalizado con botones con datos de devoluci\u00f3n de llamada asociados.",
+                    "name": "Teclado en l\u00ednea"
+                },
+                "keyboard": {
+                    "description": "Lista de filas de comandos, separados por comas, para hacer un teclado personalizado.",
+                    "name": "Teclado"
+                },
+                "message_tag": {
+                    "description": "Etiqueta para el mensaje enviado.",
+                    "name": "Etiqueta de mensaje"
+                },
+                "message_thread_id": {
+                    "description": "Identificador \u00fanico para el hilo del mensaje de destino (tema) del foro; S\u00f3lo para supergrupos de foros.",
+                    "name": "ID del hilo del mensaje"
+                },
+                "parse_mode": {
+                    "description": "Analizador del texto del mensaje.",
+                    "name": "Modo de an\u00e1lisis"
+                },
+                "password": {
+                    "description": "Contrase\u00f1a (o bearer token) para una URL que requiere autenticaci\u00f3n HTTP.",
+                    "name": "Contrase\u00f1a"
+                },
+                "reply_to_message_id": {
+                    "description": "Marca el mensaje como respuesta a un mensaje anterior.",
+                    "name": "Responder al ID del mensaje"
+                },
+                "target": {
+                    "description": "Una matriz de chat_ids preautorizados para enviar el documento. Si no est\u00e1 presente, el primer chat_id permitido es el valor predeterminado.",
+                    "name": "Objetivo"
+                },
+                "timeout": {
+                    "description": "Tiempo de espera para enviar foto.",
+                    "name": "Tiempo de espera"
+                },
+                "url": {
+                    "description": "Ruta remota a una imagen.",
+                    "name": "URL"
+                },
+                "username": {
+                    "description": "Nombre de usuario para una URL que requiere autenticaci\u00f3n HTTP.",
+                    "name": "Nombre de usuario"
+                },
+                "verify_ssl": {
+                    "description": "Habilita o deshabilita la verificaci\u00f3n del certificado SSL. Establ\u00e9celo a falso si est\u00e1s descargando el archivo desde una URL y no quieres validar el certificado SSL del servidor.",
+                    "name": "Verificar SSL"
+                }
+            },
+            "name": "Enviar foto"
+        },
+        "send_poll": {
+            "description": "Env\u00eda una encuesta.",
+            "fields": {
+                "allows_multiple_answers": {
+                    "description": "Si la encuesta permite varias respuestas, el valor predeterminado es Falso.",
+                    "name": "Permitir m\u00faltiples respuestas"
+                },
+                "disable_notification": {
+                    "description": "Env\u00eda el mensaje en silencio. Los usuarios de iOS y los usuarios Web no recibir\u00e1n una notificaci\u00f3n, los usuarios de Android recibir\u00e1n una notificaci\u00f3n sin sonido.",
+                    "name": "Deshabilitar notificaci\u00f3n"
+                },
+                "is_anonymous": {
+                    "description": "Si la encuesta debe ser an\u00f3nima, el valor predeterminado es Verdadero.",
+                    "name": "Es an\u00f3nimo"
+                },
+                "message_tag": {
+                    "description": "Etiqueta para el mensaje enviado.",
+                    "name": "Etiqueta de mensaje"
+                },
+                "message_thread_id": {
+                    "description": "Identificador \u00fanico para el hilo del mensaje de destino (tema) del foro; S\u00f3lo para supergrupos de foros.",
+                    "name": "ID del hilo del mensaje"
+                },
+                "open_period": {
+                    "description": "Cantidad de tiempo en segundos que la encuesta estar\u00e1 activa despu\u00e9s de la creaci\u00f3n, 5-600.",
+                    "name": "Plazo abierto"
+                },
+                "options": {
+                    "description": "Lista de opciones de respuesta, de 2 a 10 cadenas de 1 a 100 caracteres cada una.",
+                    "name": "Opciones"
+                },
+                "question": {
+                    "description": "Pregunta de encuesta, 1-300 caracteres.",
+                    "name": "Pregunta"
+                },
+                "reply_to_message_id": {
+                    "description": "Marca el mensaje como respuesta a un mensaje anterior.",
+                    "name": "Responder al ID del mensaje"
+                },
+                "target": {
+                    "description": "Una matriz de chat_ids preautorizados para enviar la ubicaci\u00f3n. Si no est\u00e1 presente, el primer chat_id permitido es el valor predeterminado.",
+                    "name": "Objetivo"
+                },
+                "timeout": {
+                    "description": "Tiempo de espera para enviar encuesta.",
+                    "name": "Tiempo de espera"
+                }
+            },
+            "name": "Enviar encuesta"
+        },
+        "send_sticker": {
+            "description": "Env\u00eda un sticker.",
+            "fields": {
+                "authentication": {
+                    "description": "Define el m\u00e9todo de autenticaci\u00f3n utilizar. Establ\u00e9celo en `digest` para usar la autenticaci\u00f3n de resumen HTTP, o `bearer_token` para la autenticaci\u00f3n por bearer token de OAuth 2.0. El valor predeterminado es `basic`.",
+                    "name": "M\u00e9todo de autentificaci\u00f3n"
+                },
+                "disable_notification": {
+                    "description": "Env\u00eda el mensaje en silencio. Los usuarios de iOS y los usuarios Web no recibir\u00e1n una notificaci\u00f3n, los usuarios de Android recibir\u00e1n una notificaci\u00f3n sin sonido.",
+                    "name": "Deshabilitar notificaci\u00f3n"
+                },
+                "file": {
+                    "description": "Ruta local a un sticker .webp est\u00e1tico o .tgs animado.",
+                    "name": "Archivo"
+                },
+                "inline_keyboard": {
+                    "description": "Lista de filas de comandos, separados por comas, para crear un teclado en l\u00ednea personalizado con botones con datos de devoluci\u00f3n de llamada asociados.",
+                    "name": "Teclado en l\u00ednea"
+                },
+                "keyboard": {
+                    "description": "Lista de filas de comandos, separados por comas, para hacer un teclado personalizado.",
+                    "name": "Teclado"
+                },
+                "message_tag": {
+                    "description": "Etiqueta para el mensaje enviado.",
+                    "name": "Etiqueta de mensaje"
+                },
+                "message_thread_id": {
+                    "description": "Identificador \u00fanico para el hilo del mensaje de destino (tema) del foro; S\u00f3lo para supergrupos de foros.",
+                    "name": "ID del hilo del mensaje"
+                },
+                "password": {
+                    "description": "Contrase\u00f1a (o bearer token) para una URL que requiere autenticaci\u00f3n HTTP.",
+                    "name": "Contrase\u00f1a"
+                },
+                "reply_to_message_id": {
+                    "description": "Marca el mensaje como respuesta a un mensaje anterior.",
+                    "name": "Responder al ID del mensaje"
+                },
+                "sticker_id": {
+                    "description": "ID de un sticker que existe en los servidores de Telegram.",
+                    "name": "ID de sticker"
+                },
+                "target": {
+                    "description": "Una matriz de chat_ids preautorizados para enviar el documento. Si no est\u00e1 presente, el primer chat_id permitido es el valor predeterminado.",
+                    "name": "Objetivo"
+                },
+                "timeout": {
+                    "description": "Tiempo de espera para enviar sticker.",
+                    "name": "Tiempo de espera"
+                },
+                "url": {
+                    "description": "Ruta remota a un sticker est\u00e1tico .webp o animado .tgs.",
+                    "name": "URL"
+                },
+                "username": {
+                    "description": "Nombre de usuario para una URL que requiere autenticaci\u00f3n HTTP.",
+                    "name": "Nombre de usuario"
+                },
+                "verify_ssl": {
+                    "description": "Habilita o deshabilita la verificaci\u00f3n del certificado SSL. Establ\u00e9celo a falso si est\u00e1s descargando el archivo desde una URL y no quieres validar el certificado SSL del servidor.",
+                    "name": "Verificar SSL"
+                }
+            },
+            "name": "Enviar sticker"
+        },
+        "send_video": {
+            "description": "Env\u00eda un v\u00eddeo.",
+            "fields": {
+                "authentication": {
+                    "description": "Define el m\u00e9todo de autenticaci\u00f3n utilizar. Establ\u00e9celo en `digest` para usar la autenticaci\u00f3n de resumen HTTP, o `bearer_token` para la autenticaci\u00f3n por bearer token de OAuth 2.0. El valor predeterminado es `basic`.",
+                    "name": "M\u00e9todo de autentificaci\u00f3n"
+                },
+                "caption": {
+                    "description": "El t\u00edtulo del v\u00eddeo.",
+                    "name": "Subt\u00edtulo"
+                },
+                "disable_notification": {
+                    "description": "Env\u00eda el mensaje en silencio. Los usuarios de iOS y los usuarios Web no recibir\u00e1n una notificaci\u00f3n, los usuarios de Android recibir\u00e1n una notificaci\u00f3n sin sonido.",
+                    "name": "Deshabilitar notificaci\u00f3n"
+                },
+                "file": {
+                    "description": "Ruta local a un v\u00eddeo.",
+                    "name": "Archivo"
+                },
+                "inline_keyboard": {
+                    "description": "Lista de filas de comandos, separados por comas, para crear un teclado en l\u00ednea personalizado con botones con datos de devoluci\u00f3n de llamada asociados.",
+                    "name": "Teclado en l\u00ednea"
+                },
+                "keyboard": {
+                    "description": "Lista de filas de comandos, separados por comas, para hacer un teclado personalizado.",
+                    "name": "Teclado"
+                },
+                "message_tag": {
+                    "description": "Etiqueta para el mensaje enviado.",
+                    "name": "Etiqueta de mensaje"
+                },
+                "message_thread_id": {
+                    "description": "Identificador \u00fanico para el hilo del mensaje de destino (tema) del foro; S\u00f3lo para supergrupos de foros.",
+                    "name": "ID del hilo del mensaje"
+                },
+                "parse_mode": {
+                    "description": "Analizador del texto del mensaje.",
+                    "name": "Modo de an\u00e1lisis"
+                },
+                "password": {
+                    "description": "Contrase\u00f1a (o bearer token) para una URL que requiere autenticaci\u00f3n HTTP.",
+                    "name": "Contrase\u00f1a"
+                },
+                "reply_to_message_id": {
+                    "description": "Marca el mensaje como respuesta a un mensaje anterior.",
+                    "name": "Responder al ID del mensaje"
+                },
+                "target": {
+                    "description": "Una matriz de chat_ids preautorizados para enviar el documento. Si no est\u00e1 presente, el primer chat_id permitido es el valor predeterminado.",
+                    "name": "Objetivo"
+                },
+                "timeout": {
+                    "description": "Tiempo de espera para enviar v\u00eddeo.",
+                    "name": "Tiempo de espera"
+                },
+                "url": {
+                    "description": "Ruta remota a un v\u00eddeo.",
+                    "name": "URL"
+                },
+                "username": {
+                    "description": "Nombre de usuario para una URL que requiere autenticaci\u00f3n HTTP.",
+                    "name": "Nombre de usuario"
+                },
+                "verify_ssl": {
+                    "description": "Habilita o deshabilita la verificaci\u00f3n del certificado SSL. Establ\u00e9celo a falso si est\u00e1s descargando el archivo desde una URL y no quieres validar el certificado SSL del servidor.",
+                    "name": "Verificar SSL"
+                }
+            },
+            "name": "Enviar v\u00eddeo"
+        },
+        "send_voice": {
+            "description": "Env\u00eda un mensaje de voz.",
+            "fields": {
+                "authentication": {
+                    "description": "Define el m\u00e9todo de autenticaci\u00f3n utilizar. Establ\u00e9celo en `digest` para usar la autenticaci\u00f3n de resumen HTTP, o `bearer_token` para la autenticaci\u00f3n por bearer token de OAuth 2.0. El valor predeterminado es `basic`.",
+                    "name": "M\u00e9todo de autentificaci\u00f3n"
+                },
+                "caption": {
+                    "description": "El t\u00edtulo del mensaje de voz.",
+                    "name": "Subt\u00edtulo"
+                },
+                "disable_notification": {
+                    "description": "Env\u00eda el mensaje en silencio. Los usuarios de iOS y los usuarios Web no recibir\u00e1n una notificaci\u00f3n, los usuarios de Android recibir\u00e1n una notificaci\u00f3n sin sonido.",
+                    "name": "Deshabilitar notificaci\u00f3n"
+                },
+                "file": {
+                    "description": "Ruta local a un mensaje de voz.",
+                    "name": "Archivo"
+                },
+                "inline_keyboard": {
+                    "description": "Lista de filas de comandos, separados por comas, para crear un teclado en l\u00ednea personalizado con botones con datos de devoluci\u00f3n de llamada asociados.",
+                    "name": "Teclado en l\u00ednea"
+                },
+                "keyboard": {
+                    "description": "Lista de filas de comandos, separados por comas, para hacer un teclado personalizado.",
+                    "name": "Teclado"
+                },
+                "message_tag": {
+                    "description": "Etiqueta para el mensaje enviado.",
+                    "name": "Etiqueta de mensaje"
+                },
+                "message_thread_id": {
+                    "description": "Identificador \u00fanico para el hilo del mensaje de destino (tema) del foro; S\u00f3lo para supergrupos de foros.",
+                    "name": "ID del hilo del mensaje"
+                },
+                "password": {
+                    "description": "Contrase\u00f1a (o bearer token) para una URL que requiere autenticaci\u00f3n HTTP.",
+                    "name": "Contrase\u00f1a"
+                },
+                "reply_to_message_id": {
+                    "description": "Marca el mensaje como respuesta a un mensaje anterior.",
+                    "name": "Responder al ID del mensaje"
+                },
+                "target": {
+                    "description": "Una matriz de chat_ids preautorizados para enviar el documento. Si no est\u00e1 presente, el primer chat_id permitido es el valor predeterminado.",
+                    "name": "Objetivo"
+                },
+                "timeout": {
+                    "description": "Tiempo de espera para enviar voz.",
+                    "name": "Tiempo de espera"
+                },
+                "url": {
+                    "description": "Ruta remota a un mensaje de voz.",
+                    "name": "URL"
+                },
+                "username": {
+                    "description": "Nombre de usuario para una URL que requiere autenticaci\u00f3n HTTP.",
+                    "name": "Nombre de usuario"
+                },
+                "verify_ssl": {
+                    "description": "Habilita o deshabilita la verificaci\u00f3n del certificado SSL. Establ\u00e9celo a falso si est\u00e1s descargando el archivo desde una URL y no quieres validar el certificado SSL del servidor.",
+                    "name": "Verificar SSL"
+                }
+            },
+            "name": "Enviar voz"
+        }
+    }
+}

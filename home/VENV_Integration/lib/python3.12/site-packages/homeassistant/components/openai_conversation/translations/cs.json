@@ -1,0 +1,75 @@
+{
+    "config": {
+        "error": {
+            "cannot_connect": "Nepoda\u0159ilo se p\u0159ipojit",
+            "invalid_auth": "Neplatn\u00e9 ov\u011b\u0159en\u00ed",
+            "unknown": "Neo\u010dek\u00e1van\u00e1 chyba"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "api_key": "Kl\u00ed\u010d API"
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "invalid_config_entry": {
+            "message": "Byla zad\u00e1na neplatn\u00e1 polo\u017eka nastaven\u00ed. M\u00e1m {config_entry}."
+        }
+    },
+    "issues": {
+        "image_size_deprecated_format": {
+            "description": "OpenAI nyn\u00ed pou\u017e\u00edv\u00e1 Dall-E 3 ke generov\u00e1n\u00ed obr\u00e1zk\u016f p\u0159i vol\u00e1n\u00ed \"openai_conversation.generate_image\", kter\u00fd podporuje r\u016fzn\u00e9 velikosti. Platn\u00e9 hodnoty jsou nyn\u00ed \"1024x1024\", \"1024x1792\", \"1792x1024\". Star\u00e9 hodnoty \"256\", \"512\", \"1024\" jsou v sou\u010dasnosti interpretov\u00e1ny jako \"1024x1024\".\nAktualizujte sv\u00e9 skripty nebo automatizace nov\u00fdmi parametry.",
+            "title": "Zastaral\u00fd form\u00e1t velikosti pro akci generov\u00e1n\u00ed obr\u00e1zk\u016f"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "chat_model": "Model",
+                    "llm_hass_api": "Ovl\u00e1d\u00e1n\u00ed Home Assistanta",
+                    "max_tokens": "Maxim\u00e1ln\u00ed po\u010det token\u016f, kter\u00e9 se maj\u00ed vr\u00e1tit jako odpov\u011b\u010f",
+                    "model": "Model dokon\u010den\u00ed",
+                    "prompt": "Instrukce",
+                    "recommended": "Doporu\u010den\u00e1 nastaven\u00ed modelu",
+                    "temperature": "Teplota",
+                    "top_p": "Top P"
+                },
+                "data_description": {
+                    "prompt": "Pou\u010dte LLM, jak m\u00e1 reagovat. M\u016f\u017ee to b\u00fdt \u0161ablona."
+                }
+            }
+        }
+    },
+    "services": {
+        "generate_image": {
+            "description": "P\u0159evede v\u00fdzvu na obr\u00e1zek.",
+            "fields": {
+                "config_entry": {
+                    "description": "Polo\u017eka nastaven\u00ed, kter\u00e1 se m\u00e1 pro tuto akci pou\u017e\u00edt.",
+                    "name": "Polo\u017eka nastaven\u00ed"
+                },
+                "prompt": {
+                    "description": "P\u0159evede text na obr\u00e1zek.",
+                    "example": "Fotka psa",
+                    "name": "V\u00fdzva"
+                },
+                "quality": {
+                    "description": "Kvalita obr\u00e1zku, kter\u00fd bude generov\u00e1n",
+                    "name": "Kvalita"
+                },
+                "size": {
+                    "description": "Velikost obr\u00e1zku, kter\u00fd se m\u00e1 vygenerovat.",
+                    "name": "Velikost"
+                },
+                "style": {
+                    "description": "Styl generovan\u00e9ho obr\u00e1zku",
+                    "name": "Styl"
+                }
+            },
+            "name": "Vygenerovat obr\u00e1zek"
+        }
+    }
+}

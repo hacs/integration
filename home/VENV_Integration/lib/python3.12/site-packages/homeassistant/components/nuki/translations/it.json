@@ -1,0 +1,78 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Il dispositivo \u00e8 gi\u00e0 configurato",
+            "reauth_successful": "La riautenticazione ha avuto successo"
+        },
+        "error": {
+            "cannot_connect": "Impossibile connettersi",
+            "invalid_auth": "Autenticazione non valida",
+            "unknown": "Errore imprevisto"
+        },
+        "step": {
+            "reauth_confirm": {
+                "data": {
+                    "encrypt_token": "Utilizza un token crittografato per l'autenticazione.",
+                    "token": "Token di accesso"
+                },
+                "description": "L'integrazione Nuki deve essere nuovamente autenticata con il tuo bridge.",
+                "title": "Autenticazione scaduta per {name}"
+            },
+            "user": {
+                "data": {
+                    "encrypt_token": "Utilizza un token crittografato per l'autenticazione.",
+                    "host": "Host",
+                    "port": "Porta",
+                    "token": "Token di accesso"
+                }
+            }
+        }
+    },
+    "entity": {
+        "lock": {
+            "nuki_lock": {
+                "state_attributes": {
+                    "battery_critical": {
+                        "state": {
+                            "off": "Normale",
+                            "on": "Bassa"
+                        }
+                    }
+                }
+            }
+        },
+        "sensor": {
+            "battery": {
+                "name": "Batteria"
+            }
+        }
+    },
+    "issues": {
+        "https_webhook": {
+            "description": "Il bridge Nuki non pu\u00f2 inviare eventi a un indirizzo HTTPS (SSL), per favore configura un indirizzo HTTP (locale) in \"Home Assistant URL\" nelle [impostazioni di rete]({network_link}). L'indirizzo (locale) corrente \u00e8: `{base_url}`, un indirizzo valido potrebbe essere, ad esempio, `http://192.168.1.10:8123` dove `192.168.1.10` \u00e8 l'IP del dispositivo Home Assistant",
+            "title": "L'URL del webhook di Nuki utilizza HTTPS (SSL)"
+        }
+    },
+    "services": {
+        "lock_n_go": {
+            "description": "Nuki Lock 'n' Go.",
+            "fields": {
+                "unlatch": {
+                    "description": "Se sbloccare la serratura.",
+                    "name": "Sblocca"
+                }
+            },
+            "name": "Blocca e vai"
+        },
+        "set_continuous_mode": {
+            "description": "Abilita o disabilita la modalit\u00e0 continua su Nuki Opener.",
+            "fields": {
+                "enable": {
+                    "description": "Se abilitare o disabilitare la funzione.",
+                    "name": "Abilita"
+                }
+            },
+            "name": "Imposta la modalit\u00e0 continua"
+        }
+    }
+}

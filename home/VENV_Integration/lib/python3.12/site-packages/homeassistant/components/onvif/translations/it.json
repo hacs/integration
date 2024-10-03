@@ -1,0 +1,121 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Il dispositivo \u00e8 gi\u00e0 configurato",
+            "already_in_progress": "Il flusso di configurazione \u00e8 gi\u00e0 in corso",
+            "no_devices_found": "Nessun dispositivo trovato sulla rete",
+            "no_h264": "Non c'erano flussi H264 disponibili.  Controllare la configurazione del profilo sul dispositivo.",
+            "no_mac": "Impossibile configurare l'ID univoco per il dispositivo ONVIF.",
+            "onvif_error": "Errore durante la configurazione del dispositivo ONVIF.  Controlla i registri per ulteriori informazioni.",
+            "reauth_successful": "La riautenticazione ha avuto successo"
+        },
+        "error": {
+            "auth_failed": "Impossibile autenticare: {error}",
+            "cannot_connect": "Impossibile connettersi",
+            "no_onvif_service": "Nessun servizio ONVIF trovato. Verificare che il numero di porta sia corretto.",
+            "onvif_error": "Errore durante la configurazione del dispositivo ONVIF: {error}. Controlla i registri per ulteriori informazioni."
+        },
+        "step": {
+            "configure": {
+                "data": {
+                    "host": "Host",
+                    "name": "Nome",
+                    "password": "Password",
+                    "port": "Porta",
+                    "username": "Nome utente"
+                },
+                "title": "Configura il dispositivo ONVIF"
+            },
+            "configure_profile": {
+                "data": {
+                    "include": "Crea entit\u00e0 telecamera"
+                },
+                "description": "Crea un'entit\u00e0 telecamera per {profile} alla risoluzione {resolution}?",
+                "title": "Configura i profili"
+            },
+            "device": {
+                "data": {
+                    "host": "Seleziona il dispositivo ONVIF rilevato"
+                },
+                "title": "Seleziona il dispositivo ONVIF"
+            },
+            "reauth_confirm": {
+                "data": {
+                    "password": "Password",
+                    "username": "Nome utente"
+                },
+                "description": "Alcuni dispositivi rifiutano l'autenticazione se l'ora non \u00e8 sincronizzata di oltre 5 secondi. Se l'autenticazione non riesce, verificare che l'ora sul dispositivo sia corretta e riprovare.",
+                "title": "Riautenticare il dispositivo ONVIF"
+            },
+            "user": {
+                "data": {
+                    "auto": "Cerca automaticamente"
+                },
+                "title": "Configurazione del dispositivo ONVIF"
+            }
+        }
+    },
+    "entity": {
+        "switch": {
+            "ir_lamp": {
+                "name": "Lampada IR"
+            },
+            "wiper": {
+                "name": "Tergicristallo"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "onvif_devices": {
+                "data": {
+                    "enable_webhooks": "Abilita webhook",
+                    "extra_arguments": "Argomenti FFMPEG aggiuntivi",
+                    "rtsp_transport": "Meccanismo di trasporto RTSP",
+                    "use_wallclock_as_timestamps": "Usa l'orologio come marca temporale"
+                },
+                "title": "Opzioni dispositivo ONVIF"
+            }
+        }
+    },
+    "services": {
+        "ptz": {
+            "description": "Se la tua telecamera ONVIF supporta PTZ, sarai in grado di eseguire la panoramica, l'inclinazione o lo zoom della telecamera.",
+            "fields": {
+                "continuous_duration": {
+                    "description": "Imposta il ritardo ContinuousMove in secondi prima di interrompere lo spostamento.",
+                    "name": "Durata continua"
+                },
+                "distance": {
+                    "description": "Coefficiente di distanza. Imposta la quantit\u00e0 di PTZ da eseguire in una richiesta.",
+                    "name": "Distanza"
+                },
+                "move_mode": {
+                    "description": "Modalit\u00e0 di spostamento PTZ.",
+                    "name": "Modalit\u00e0 di spostamento"
+                },
+                "pan": {
+                    "description": "Direzione della panoramica.",
+                    "name": "Panoramica"
+                },
+                "preset": {
+                    "description": "Token di profilo predefinito PTZ. Imposta il token del profilo preimpostato che viene eseguito con GotoPreset.",
+                    "name": "Preimpostazione"
+                },
+                "speed": {
+                    "description": "Coefficiente di velocit\u00e0. Imposta la velocit\u00e0 di esecuzione di PTZ.",
+                    "name": "Velocit\u00e0"
+                },
+                "tilt": {
+                    "description": "Direzione dell'inclinazione.",
+                    "name": "Inclinazione"
+                },
+                "zoom": {
+                    "description": "Ingrandimento.",
+                    "name": "Zoom"
+                }
+            },
+            "name": "PTZ"
+        }
+    }
+}

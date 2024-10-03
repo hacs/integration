@@ -1,0 +1,97 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Tj\u00e4nsten \u00e4r redan konfigurerad"
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "process": {
+                "name": "Process {process}"
+            }
+        },
+        "sensor": {
+            "disk_use_percent": {
+                "name": "Diskanv\u00e4ndning {mount_point}"
+            },
+            "ipv4_address": {
+                "name": "IPv4-adress {ip_address}"
+            },
+            "ipv6_address": {
+                "name": "IPv6-adress {ip_address}"
+            },
+            "last_boot": {
+                "name": "Senaste uppstart"
+            },
+            "load_15m": {
+                "name": "Belastning (15m)"
+            },
+            "load_1m": {
+                "name": "Belastning (1m)"
+            },
+            "load_5m": {
+                "name": "Belastning (5m)"
+            },
+            "memory_free": {
+                "name": "Ledigt minne"
+            },
+            "memory_use": {
+                "name": "Anv\u00e4nt minne"
+            },
+            "memory_use_percent": {
+                "name": "Minnesanv\u00e4ndning"
+            },
+            "network_in": {
+                "name": "N\u00e4tverk in {interface}"
+            },
+            "network_out": {
+                "name": "N\u00e4tverk ut {interface}"
+            },
+            "packets_in": {
+                "name": "Paket in {interface}"
+            },
+            "packets_out": {
+                "name": "Paket ut {interface}"
+            },
+            "process": {
+                "name": "Bearbeta {process}"
+            },
+            "processor_temperature": {
+                "name": "Processortemperatur"
+            },
+            "processor_use": {
+                "name": "Processoranv\u00e4ndning"
+            },
+            "throughput_network_in": {
+                "name": "N\u00e4tverksgenomstr\u00f6mning in {interface}"
+            },
+            "throughput_network_out": {
+                "name": "N\u00e4tverksgenomstr\u00f6mning ut {interface}"
+            }
+        }
+    },
+    "issues": {
+        "process_sensor": {
+            "fix_flow": {
+                "step": {
+                    "migrate_process_sensor": {
+                        "description": "Processens sensorer `{processes}` har skapats som bin\u00e4ra sensorer och sensorerna kommer att tas bort i 2024.9.0.\n\nUppdatera alla automatiseringar, skript, instrumentpaneler eller andra saker som \u00e4r beroende av dessa sensorer s\u00e5 att de anv\u00e4nder de nyskapade bin\u00e4ra sensorerna ist\u00e4llet och tryck p\u00e5 **Submit** f\u00f6r att \u00e5tg\u00e4rda problemet."
+                    }
+                }
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "process": "Processer att l\u00e4gga till som sensor(er)"
+                },
+                "data_description": {
+                    "process": "V\u00e4lj en p\u00e5g\u00e5ende process fr\u00e5n listan eller l\u00e4gg till ett eget v\u00e4rde. Flera val/egna v\u00e4rden st\u00f6ds"
+                },
+                "description": "Konfigurera en \u00f6vervakningssensor f\u00f6r en p\u00e5g\u00e5ende process"
+            }
+        }
+    }
+}

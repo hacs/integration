@@ -1,0 +1,115 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Cihaz zaten yap\u0131land\u0131r\u0131lm\u0131\u015f"
+        },
+        "error": {
+            "cannot_connect": "Ba\u011flanma hatas\u0131",
+            "invalid_auth": "Ge\u00e7ersiz kimlik do\u011frulama",
+            "unknown": "Beklenmeyen hata"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "api_key": "API Anahtar\u0131"
+                },
+                "title": "Rachio cihaz\u0131n\u0131za ba\u011flan\u0131n"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "rain": {
+                "name": "Ya\u011fmur"
+            }
+        },
+        "calendar": {
+            "calendar": {
+                "name": "Rachio Baz \u0130stasyonu {base}"
+            }
+        },
+        "switch": {
+            "rain_delay": {
+                "name": "Ya\u011fmur gecikmesi"
+            },
+            "standby": {
+                "name": "Bekleme modu"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "manual_run_mins": "Bir b\u00f6lge anahtar\u0131 etkinle\u015ftirilirken \u00e7al\u0131\u015ft\u0131r\u0131lacak dakika cinsinden s\u00fcre"
+                }
+            }
+        }
+    },
+    "services": {
+        "pause_watering": {
+            "description": "\u015eu anda \u00e7al\u0131\u015fan b\u00f6lgeleri veya programlar\u0131 duraklat\u0131n.",
+            "fields": {
+                "devices": {
+                    "description": "Duraklat\u0131lacak denetleyicilerin ad\u0131. Sa\u011flanmam\u0131\u015fsa varsay\u0131lan olarak hesaptaki t\u00fcm denetleyicilerdir.",
+                    "name": "Cihazlar"
+                },
+                "duration": {
+                    "description": "\u00c7al\u0131\u015fma programlar\u0131n\u0131 duraklatma zaman\u0131.",
+                    "name": "S\u00fcre"
+                }
+            },
+            "name": "Sulamay\u0131 duraklat\u0131n"
+        },
+        "resume_watering": {
+            "description": "Duraklat\u0131lan b\u00f6lge \u00e7al\u0131\u015ft\u0131rmalar\u0131n\u0131 veya programlar\u0131n\u0131 devam ettirin.",
+            "fields": {
+                "devices": {
+                    "description": "Devam ettirilecek denetleyicilerin ad\u0131. Sa\u011flanmam\u0131\u015fsa varsay\u0131lan olarak hesaptaki t\u00fcm denetleyicilerdir.",
+                    "name": "Cihazlar"
+                }
+            },
+            "name": "Sulamaya devam edin"
+        },
+        "set_zone_moisture_percent": {
+            "description": "Bir b\u00f6lgenin veya b\u00f6lgeler listesinin nem y\u00fczdesini ayarlar.",
+            "fields": {
+                "percent": {
+                    "description": "\u0130stenen b\u00f6lge nem y\u00fczdesini ayarlay\u0131n.",
+                    "name": "Y\u00fczde"
+                }
+            },
+            "name": "B\u00f6lge nem y\u00fczdesini ayarlama"
+        },
+        "start_multiple_zone_schedule": {
+            "description": "B\u00f6lgeler ve \u00e7al\u0131\u015fma zamanlar\u0131ndan olu\u015fan \u00f6zel bir program olu\u015fturur. Sorunlar\u0131 \u00f6nlemek i\u00e7in t\u00fcm b\u00f6lgelerin ayn\u0131 denetleyicide olmas\u0131 gerekti\u011fini unutmay\u0131n.",
+            "fields": {
+                "duration": {
+                    "description": "B\u00f6lge(ler)i \u00e7al\u0131\u015ft\u0131rmak i\u00e7in dakika say\u0131s\u0131. Yaln\u0131zca 1 s\u00fcre verilirse, bu s\u00fcre t\u00fcm b\u00f6lgeler i\u00e7in kullan\u0131lacakt\u0131r. Bir s\u00fcre listesi verilirse, s\u00fcreler yukar\u0131da listelenen ilgili b\u00f6lgeler i\u00e7in ge\u00e7erli olacakt\u0131r.",
+                    "name": "S\u00fcre"
+                }
+            },
+            "name": "Birden \u00e7ok b\u00f6lgeyi ba\u015flat\u0131n"
+        },
+        "start_watering": {
+            "description": "Tek bir b\u00f6lgeyi, bir program\u0131 veya herhangi bir say\u0131da ak\u0131ll\u0131 hortum zamanlay\u0131c\u0131s\u0131n\u0131 ba\u015flat\u0131n.",
+            "fields": {
+                "duration": {
+                    "description": "\u00c7al\u0131\u015ft\u0131r\u0131lacak dakika say\u0131s\u0131. Sprinkler b\u00f6lgeleri i\u00e7in maksimum s\u00fcre 3 saat, ak\u0131ll\u0131 hortum zamanlay\u0131c\u0131lar\u0131 i\u00e7in ise 24 saattir. Programlar i\u00e7in bo\u015f b\u0131rak\u0131n.",
+                    "name": "S\u00fcre"
+                }
+            },
+            "name": "Sulamay\u0131 ba\u015flat"
+        },
+        "stop_watering": {
+            "description": "Halihaz\u0131rda \u00e7al\u0131\u015fan t\u00fcm b\u00f6lgeleri veya programlar\u0131 durdurun.",
+            "fields": {
+                "devices": {
+                    "description": "Durdurulacak denetleyicilerin ad\u0131. Sa\u011flanmam\u0131\u015fsa varsay\u0131lan olarak hesaptaki t\u00fcm denetleyicilerdir.",
+                    "name": "Cihazlar"
+                }
+            },
+            "name": "Sulamay\u0131 durdurun"
+        }
+    }
+}

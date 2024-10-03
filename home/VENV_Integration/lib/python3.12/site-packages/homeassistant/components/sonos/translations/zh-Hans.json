@@ -1,0 +1,198 @@
+{
+    "config": {
+        "abort": {
+            "no_devices_found": "\u7f51\u7edc\u4e0a\u672a\u627e\u5230\u4efb\u4f55\u8bbe\u5907",
+            "not_sonos_device": "\u53d1\u73b0\u7684\u8bbe\u5907\u4e0d\u662f Sonos \u8bbe\u5907",
+            "single_instance_allowed": "\u5df2\u7ecf\u914d\u7f6e\u8fc7\u4e86\uff0c\u4e14\u53ea\u80fd\u914d\u7f6e\u4e00\u6b21\u3002"
+        },
+        "step": {
+            "confirm": {
+                "description": "\u60a8\u60f3\u8981\u8bbe\u7f6e Sonos \u5417 \uff1f"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "microphone": {
+                "name": "\u9ea6\u514b\u98ce"
+            }
+        },
+        "number": {
+            "audio_delay": {
+                "name": "\u97f3\u9891\u5ef6\u8fdf"
+            },
+            "balance": {
+                "name": "\u5e73\u8861"
+            },
+            "bass": {
+                "name": "\u4f4e\u97f3"
+            },
+            "music_surround_level": {
+                "name": "\u97f3\u4e50\u73af\u7ed5\u58f0\u7535\u5e73"
+            },
+            "sub_crossover": {
+                "name": "\u526f\u4ea4\u53c9\u9891\u7387"
+            },
+            "sub_gain": {
+                "name": "\u5b50\u589e\u76ca"
+            },
+            "surround_level": {
+                "name": "\u73af\u7ed5\u58f0\u7535\u5e73"
+            },
+            "treble": {
+                "name": "\u9ad8\u97f3"
+            }
+        },
+        "sensor": {
+            "audio_input_format": {
+                "name": "\u97f3\u9891\u8f93\u5165\u683c\u5f0f"
+            }
+        },
+        "switch": {
+            "buttons_enabled": {
+                "name": "\u89e6\u6478\u63a7\u5236"
+            },
+            "cross_fade": {
+                "name": "\u6de1\u5165\u6de1\u51fa"
+            },
+            "dialog_level": {
+                "name": "\u8bed\u97f3\u589e\u5f3a"
+            },
+            "loudness": {
+                "name": "\u54cd\u5ea6"
+            },
+            "night_mode": {
+                "name": "\u591c\u95f4\u6a21\u5f0f"
+            },
+            "status_light": {
+                "name": "\u72b6\u6001\u706f"
+            },
+            "sub_enabled": {
+                "name": "\u542f\u7528\u4f4e\u97f3\u70ae"
+            },
+            "surround_enabled": {
+                "name": "\u542f\u7528\u73af\u7ed5\u58f0"
+            },
+            "surround_mode": {
+                "name": "\u73af\u7ed5\u97f3\u4e50\u5168\u97f3\u91cf"
+            }
+        }
+    },
+    "exceptions": {
+        "announce_media_error": {
+            "message": "\u64ad\u62a5\u7247\u6bb5 {media_id} \u5931\u8d25 {response}"
+        },
+        "invalid_content_type": {
+            "message": "Sonos \u4e0d\u652f\u6301\u5a92\u4f53\u5185\u5bb9\u7c7b\u578b\uff1a{media_type}"
+        },
+        "invalid_favorite": {
+            "message": "\u672a\u627e\u5230 Sonos \u6536\u85cf\uff1a{name}"
+        },
+        "invalid_media": {
+            "message": "\u65e0\u6cd5\u5728\u5e93\u4e2d\u627e\u5230\u5a92\u4f53\uff1a{media_id}"
+        },
+        "invalid_sonos_playlist": {
+            "message": "\u627e\u4e0d\u5230 Sonos \u64ad\u653e\u5217\u8868\uff1a{name}"
+        }
+    },
+    "issues": {
+        "subscriptions_failed": {
+            "description": "\u56de\u9000\u5230\u8f6e\u8be2\uff0c\u529f\u80fd\u53ef\u80fd\u4f1a\u53d7\u5230\u9650\u5236\u3002\n\nSonos \u8bbe\u5907\u201d{device_ip}\u201c\u65e0\u6cd5\u8fde\u63a5\u5230\u4f4d\u4e8e {listener_address} \u7684 Home Assistant \u3002\n\n\u6709\u5173\u5982\u4f55\u89e3\u51b3\u6b64\u95ee\u9898\u7684\u66f4\u591a\u4fe1\u606f\uff0c\u8bf7\u53c2\u9605\u6211\u4eec\u7684\u3010\u6587\u6863\u3011({sub_fail_url}) \u3002",
+            "title": "\u7f51\u7edc\u9519\u8bef\uff1a\u8ba2\u9605\u5931\u8d25"
+        }
+    },
+    "services": {
+        "clear_sleep_timer": {
+            "description": "\u6e05\u9664 Sonos \u8ba1\u65f6\u5668\u3002",
+            "name": "\u6e05\u9664\u8ba1\u65f6\u5668"
+        },
+        "get_queue": {
+            "description": "\u8fd4\u56de\u961f\u5217\u7684\u5185\u5bb9\u3002",
+            "name": "\u83b7\u53d6\u961f\u5217"
+        },
+        "play_queue": {
+            "description": "\u4ece\u7b2c\u4e00\u9879\u5f00\u59cb\u64ad\u653e\u961f\u5217\u3002",
+            "fields": {
+                "queue_position": {
+                    "description": "\u8981\u5f00\u59cb\u64ad\u653e\u7684\u6b4c\u66f2\u5728\u961f\u5217\u4e2d\u7684\u4f4d\u7f6e\u3002",
+                    "name": "\u961f\u5217\u4f4d\u7f6e"
+                }
+            },
+            "name": "\u64ad\u653e\u961f\u5217"
+        },
+        "remove_from_queue": {
+            "description": "\u4ece\u961f\u5217\u4e2d\u79fb\u9664\u4e00\u4e2a\u9879\u76ee\u3002",
+            "fields": {
+                "queue_position": {
+                    "description": "\u961f\u5217\u4e2d\u8981\u79fb\u9664\u7684\u4f4d\u7f6e\u3002",
+                    "name": "\u961f\u5217\u4f4d\u7f6e"
+                }
+            },
+            "name": "\u4ece\u961f\u5217\u4e2d\u79fb\u9664"
+        },
+        "restore": {
+            "description": "\u6062\u590d\u5a92\u4f53\u64ad\u653e\u5668\u7684\u5feb\u7167\u3002",
+            "fields": {
+                "entity_id": {
+                    "description": "\u5c06\u8981\u6062\u590d\u7684\u5b9e\u4f53\u7684\u540d\u79f0\u3002",
+                    "name": "\u5b9e\u4f53"
+                },
+                "with_group": {
+                    "description": "True\uff08\u662f\uff09\u6216 False\uff08\u5426\uff09\u3002\u540c\u65f6\u6062\u590d\u7ec4\u5e03\u5c40\u3002",
+                    "name": "\u6240\u5c5e\u7ec4"
+                }
+            },
+            "name": "\u6062\u590d"
+        },
+        "set_sleep_timer": {
+            "description": "\u8bbe\u7f6e Sonos \u8ba1\u65f6\u5668\u3002",
+            "fields": {
+                "sleep_time": {
+                    "description": "\u8bbe\u7f6e\u8ba1\u65f6\u5668\u7684\u79d2\u6570\u3002",
+                    "name": "\u7761\u89c9\u65f6\u95f4"
+                }
+            },
+            "name": "\u8bbe\u7f6e\u8ba1\u65f6\u5668"
+        },
+        "snapshot": {
+            "description": "\u622a\u53d6\u5a92\u4f53\u64ad\u653e\u5668\u7684\u4e00\u4e2a\u5feb\u7167\u3002",
+            "fields": {
+                "entity_id": {
+                    "description": "\u5c06\u88ab\u622a\u53d6\u5feb\u7167\u7684\u5b9e\u4f53\u7684\u540d\u79f0\u3002",
+                    "name": "\u5b9e\u4f53"
+                },
+                "with_group": {
+                    "description": "True\uff08\u662f\uff09\u6216 False\uff08\u5426\uff09\u3002\u540c\u65f6\u622a\u53d6\u7ec4\u5e03\u5c40\u7684\u5feb\u7167\u3002",
+                    "name": "\u6240\u5c5e\u7ec4"
+                }
+            },
+            "name": "\u5feb\u7167"
+        },
+        "update_alarm": {
+            "description": "\u4f7f\u7528\u65b0\u7684\u65f6\u95f4\u548c\u97f3\u91cf\u8bbe\u7f6e\u66f4\u65b0\u8b66\u62a5\u3002",
+            "fields": {
+                "alarm_id": {
+                    "description": "\u8981\u66f4\u65b0\u7684\u8b66\u62a5\u7684\u6807\u8bc6\u7b26\u3002",
+                    "name": "\u8b66\u62a5\u6807\u8bc6\u7b26"
+                },
+                "enabled": {
+                    "description": "\u542f\u7528\u6216\u7981\u7528\u8b66\u62a5\u3002",
+                    "name": "\u62a5\u8b66\u5df2\u542f\u7528"
+                },
+                "include_linked_zones": {
+                    "description": "\u542f\u7528\u6216\u7981\u7528\u5305\u62ec\u5206\u7ec4\u623f\u95f4\u3002",
+                    "name": "\u5305\u62ec\u94fe\u63a5\u533a\u57df"
+                },
+                "time": {
+                    "description": "\u8bbe\u7f6e\u95f9\u949f\u65f6\u95f4\u3002",
+                    "name": "\u65f6\u95f4"
+                },
+                "volume": {
+                    "description": "\u8bbe\u7f6e\u8b66\u62a5\u97f3\u91cf\u7ea7\u522b\u3002",
+                    "name": "\u97f3\u91cf"
+                }
+            },
+            "name": "\u66f4\u65b0\u8b66\u62a5"
+        }
+    }
+}

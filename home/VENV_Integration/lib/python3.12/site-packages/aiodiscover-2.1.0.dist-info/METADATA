@@ -1,0 +1,188 @@
+Metadata-Version: 2.1
+Name: aiodiscover
+Version: 2.1.0
+Summary: Discover hosts by arp and ptr lookup
+Home-page: https://github.com/bdraco/aiodiscover
+Author: J. Nick Koston
+Author-email: nick@koston.org
+License: Apache Software License 2.0
+Keywords: aiodiscover
+Platform: UNKNOWN
+Classifier: Development Status :: 2 - Pre-Alpha
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Natural Language :: English
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: async-timeout >=4.0.1
+Requires-Dist: netifaces >=0.11.0
+Requires-Dist: aiodns >=3.1.1
+Requires-Dist: ifaddr
+Requires-Dist: pyroute2 >=0.7.3
+Requires-Dist: cached-ipaddress >=0.2.0
+Provides-Extra: all
+Requires-Dist: async-timeout >=4.0.1 ; extra == 'all'
+Requires-Dist: netifaces >=0.11.0 ; extra == 'all'
+Requires-Dist: aiodns >=3.1.1 ; extra == 'all'
+Requires-Dist: ifaddr ; extra == 'all'
+Requires-Dist: pyroute2 >=0.7.3 ; extra == 'all'
+Requires-Dist: cached-ipaddress >=0.2.0 ; extra == 'all'
+Requires-Dist: pytest-asyncio ; extra == 'all'
+Requires-Dist: black >=19.10b0 ; extra == 'all'
+Requires-Dist: codecov >=2.1.4 ; extra == 'all'
+Requires-Dist: flake8 >=3.8.3 ; extra == 'all'
+Requires-Dist: flake8-debugger >=3.2.1 ; extra == 'all'
+Requires-Dist: pytest >=5.4.3 ; extra == 'all'
+Requires-Dist: pytest-cov >=2.9.0 ; extra == 'all'
+Requires-Dist: pytest-raises >=0.11 ; extra == 'all'
+Requires-Dist: bump2version >=1.0.1 ; extra == 'all'
+Requires-Dist: coverage >=5.1 ; extra == 'all'
+Requires-Dist: ipython >=7.15.0 ; extra == 'all'
+Requires-Dist: m2r2 >=0.2.7 ; extra == 'all'
+Requires-Dist: Sphinx >=3.4.3 ; extra == 'all'
+Requires-Dist: sphinx-rtd-theme >=0.5.1 ; extra == 'all'
+Requires-Dist: tox >=3.15.2 ; extra == 'all'
+Requires-Dist: twine >=3.1.1 ; extra == 'all'
+Requires-Dist: wheel >=0.34.2 ; extra == 'all'
+Provides-Extra: dev
+Requires-Dist: pytest-asyncio ; extra == 'dev'
+Requires-Dist: black >=19.10b0 ; extra == 'dev'
+Requires-Dist: codecov >=2.1.4 ; extra == 'dev'
+Requires-Dist: flake8 >=3.8.3 ; extra == 'dev'
+Requires-Dist: flake8-debugger >=3.2.1 ; extra == 'dev'
+Requires-Dist: pytest >=5.4.3 ; extra == 'dev'
+Requires-Dist: pytest-cov >=2.9.0 ; extra == 'dev'
+Requires-Dist: pytest-raises >=0.11 ; extra == 'dev'
+Requires-Dist: bump2version >=1.0.1 ; extra == 'dev'
+Requires-Dist: coverage >=5.1 ; extra == 'dev'
+Requires-Dist: ipython >=7.15.0 ; extra == 'dev'
+Requires-Dist: m2r2 >=0.2.7 ; extra == 'dev'
+Requires-Dist: Sphinx >=3.4.3 ; extra == 'dev'
+Requires-Dist: sphinx-rtd-theme >=0.5.1 ; extra == 'dev'
+Requires-Dist: tox >=3.15.2 ; extra == 'dev'
+Requires-Dist: twine >=3.1.1 ; extra == 'dev'
+Requires-Dist: wheel >=0.34.2 ; extra == 'dev'
+Provides-Extra: setup
+Provides-Extra: test
+Requires-Dist: pytest-asyncio ; extra == 'test'
+Requires-Dist: black >=19.10b0 ; extra == 'test'
+Requires-Dist: codecov >=2.1.4 ; extra == 'test'
+Requires-Dist: flake8 >=3.8.3 ; extra == 'test'
+Requires-Dist: flake8-debugger >=3.2.1 ; extra == 'test'
+Requires-Dist: pytest >=5.4.3 ; extra == 'test'
+Requires-Dist: pytest-cov >=2.9.0 ; extra == 'test'
+Requires-Dist: pytest-raises >=0.11 ; extra == 'test'
+
+# Async Host discovery
+
+[![Build Status](https://github.com/bdraco/aiodiscover/workflows/Build%20Main/badge.svg)](https://github.com/bdraco/aiodiscover/actions)
+[![Documentation](https://github.com/bdraco/aiodiscover/workflows/Documentation/badge.svg)](https://bdraco.github.io/aiodiscover/)
+[![Code Coverage](https://codecov.io/gh/bdraco/aiodiscover/branch/main/graph/badge.svg)](https://codecov.io/gh/bdraco/aiodiscover)
+
+Discover hosts by arp and ptr lookup
+
+---
+
+## Features
+
+-   Discover hosts on the network via ARP and PTR lookup
+
+## Quick Start
+
+```python
+import asyncio
+import pprint
+from aiodiscover import DiscoverHosts
+
+discover_hosts = DiscoverHosts()
+hosts = asyncio.run(discover_hosts.async_discover())
+pprint.pprint(hosts)
+```
+
+## Installation
+
+**Stable Release:** `pip install aiodiscover`<br>
+**Development Head:** `pip install git+https://github.com/bdraco/aiodiscover.git`
+
+## Documentation
+
+For full package documentation please visit [bdraco.github.io/aiodiscover](https://bdraco.github.io/aiodiscover).
+
+## Development
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for information related to developing the code.
+
+## The Four Commands You Need To Know
+
+1. `pip install -e .[dev]`
+
+    This will install your package in editable mode with all the required development
+    dependencies (i.e. `tox`).
+
+2. `make build`
+
+    This will run `tox` which will run all your tests in both Python 3.7
+    and Python 3.8 as well as linting your code.
+
+3. `make clean`
+
+    This will clean up various Python and build generated files so that you can ensure
+    that you are working in a clean environment.
+
+4. `make docs`
+
+    This will generate and launch a web browser to view the most up-to-date
+    documentation for your Python package.
+
+#### Additional Optional Setup Steps:
+
+-   Turn your project into a GitHub repository:
+    -   Make an account on [github.com](https://github.com)
+    -   Go to [make a new repository](https://github.com/new)
+    -   _Recommendations:_
+        -   _It is strongly recommended to make the repository name the same as the Python
+            package name_
+        -   _A lot of the following optional steps are *free* if the repository is Public,
+            plus open source is cool_
+    -   After a GitHub repo has been created, run the commands listed under:
+        "...or push an existing repository from the command line"
+-   Register your project with Codecov:
+    -   Make an account on [codecov.io](https://codecov.io)(Recommended to sign in with GitHub)
+        everything else will be handled for you.
+-   Ensure that you have set GitHub pages to build the `gh-pages` branch by selecting the
+    `gh-pages` branch in the dropdown in the "GitHub Pages" section of the repository settings.
+    ([Repo Settings](https://github.com/bdraco/aiodiscover/settings))
+-   Register your project with PyPI:
+    -   Make an account on [pypi.org](https://pypi.org)
+    -   Go to your GitHub repository's settings and under the
+        [Secrets tab](https://github.com/bdraco/aiodiscover/settings/secrets/actions),
+        add a secret called `PYPI_TOKEN` with your password for your PyPI account.
+        Don't worry, no one will see this password because it will be encrypted.
+    -   Next time you push to the branch `main` after using `bump2version`, GitHub
+        actions will build and deploy your Python package to PyPI.
+
+#### Suggested Git Branch Strategy
+
+1. `main` is for the most up-to-date development, very rarely should you directly
+   commit to this branch. GitHub Actions will run on every push and on a CRON to this
+   branch but still recommended to commit to your development branches and make pull
+   requests to main. If you push a tagged commit with bumpversion, this will also release to PyPI.
+2. Your day-to-day work should exist on branches separate from `main`. Even if it is
+   just yourself working on the repository, make a PR from your working branch to `main`
+   so that you can ensure your commits don't break the development head. GitHub Actions
+   will run on every push to any branch or any pull request from any branch to any other
+   branch.
+3. It is recommended to use "Squash and Merge" commits when committing PR's. It makes
+   each set of changes to `main` atomic and as a side effect naturally encourages small
+   well defined PR's.
+
+
+**Apache Software License 2.0**
+
+
+

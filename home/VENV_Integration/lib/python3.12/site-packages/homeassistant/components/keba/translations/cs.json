@@ -1,0 +1,62 @@
+{
+    "services": {
+        "authorize": {
+            "description": "Ov\u011b\u0159\u00ed proces nab\u00edjen\u00ed pomoc\u00ed p\u0159eddefinovan\u00e9ho RFID \u0161t\u00edtku souboru s nastaven\u00edm.",
+            "name": "Ov\u011b\u0159it"
+        },
+        "deauthorize": {
+            "description": "Zru\u0161\u00ed ov\u011b\u0159en\u00ed prob\u00edhaj\u00edc\u00edho procesu nab\u00edjen\u00ed pomoc\u00ed p\u0159eddefinovan\u00e9ho RFID \u0161t\u00edtku souboru s nastaven\u00edm.",
+            "name": "Zru\u0161it ov\u011b\u0159en\u00ed"
+        },
+        "disable": {
+            "description": "Zastav\u00ed proces nab\u00edjen\u00ed, pokud je nab\u00edjec\u00ed stanice ov\u011b\u0159ena.",
+            "name": "Zak\u00e1zat"
+        },
+        "enable": {
+            "description": "Spust\u00ed proces nab\u00edjen\u00ed, pokud je nab\u00edjec\u00ed stanice ov\u011b\u0159ena.",
+            "name": "Povolit"
+        },
+        "request_data": {
+            "description": "Vy\u017e\u00e1d\u00e1 si nov\u00e1 data z nab\u00edjec\u00ed stanice.",
+            "name": "Vy\u017e\u00e1dat data"
+        },
+        "set_current": {
+            "description": "Nastav\u00ed maxim\u00e1ln\u00ed proud pro nab\u00edjec\u00ed procesy.",
+            "fields": {
+                "current": {
+                    "description": "Maxim\u00e1ln\u00ed proud pou\u017eit\u00fd pro proces nab\u00edjen\u00ed. Hodnota z\u00e1vis\u00ed na nastaven\u00ed p\u0159ep\u00edna\u010de DIP a pou\u017eit\u00e9m kabelu nab\u00edjec\u00ed stanice.",
+                    "name": "Proud"
+                }
+            },
+            "name": "Nastavit proud"
+        },
+        "set_energy": {
+            "description": "Nastav\u00ed c\u00edlovou energii, po kter\u00e9 se proces nab\u00edjen\u00ed zastav\u00ed.",
+            "fields": {
+                "energy": {
+                    "description": "C\u00edlov\u00e1 energie pro zastaven\u00ed nab\u00edjen\u00ed. Nastaven\u00ed 0 limit deaktivuje.",
+                    "name": "Energie"
+                }
+            },
+            "name": "Nastavit energii"
+        },
+        "set_failsafe": {
+            "description": "Nastav\u00ed re\u017eim Failsafe nab\u00edjec\u00ed stanice. Pokud jsou v\u0161echny parametry rovny 0, je re\u017eim Failsafe vypnut.",
+            "fields": {
+                "failsafe_fallback": {
+                    "description": "Z\u00e1lo\u017en\u00ed proud, kter\u00fd bude nastaven po vypr\u0161en\u00ed \u010dasov\u00e9ho limitu.",
+                    "name": "Z\u00e1lo\u017en\u00ed \u0159e\u0161en\u00ed Failsafe"
+                },
+                "failsafe_persist": {
+                    "description": "Pokud je failsafe_persist 0, volba z\u00e1lo\u017en\u00edho \u0159e\u0161en\u00ed p\u0159i selh\u00e1n\u00ed je aktivn\u00ed jen do restartu nab\u00edjec\u00ed stanice. Pokud je failsafe_persist 1, volba failsafe p\u0159e\u017eije restart.",
+                    "name": "Failsafe persist"
+                },
+                "failsafe_timeout": {
+                    "description": "\u010casov\u00fd limit, po jeho\u017e uplynut\u00ed se spust\u00ed re\u017eim Failsafe, pokud b\u011bhem t\u00e9to doby nebyl proveden set_current.",
+                    "name": "\u010casov\u00fd limit Failsafe"
+                }
+            },
+            "name": "Nastavit Failsafe"
+        }
+    }
+}

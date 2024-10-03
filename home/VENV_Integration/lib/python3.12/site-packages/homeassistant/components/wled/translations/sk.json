@@ -1,0 +1,175 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Zariadenie u\u017e je nakonfigurovan\u00e9",
+            "cannot_connect": "Nepodarilo sa pripoji\u0165",
+            "cct_unsupported": "Toto zariadenie WLED pou\u017e\u00edva CCT kan\u00e1ly, ktor\u00e9 t\u00e1to integr\u00e1cia nepodporuje"
+        },
+        "error": {
+            "cannot_connect": "Nepodarilo sa pripoji\u0165"
+        },
+        "flow_title": "{name}",
+        "step": {
+            "user": {
+                "data": {
+                    "host": "Hostite\u013e"
+                },
+                "data_description": {
+                    "host": "N\u00e1zov hostite\u013ea alebo IP adresa zariadenia WLED."
+                },
+                "description": "Nastavte si WLED na integr\u00e1ciu s Home Assistant."
+            },
+            "zeroconf_confirm": {
+                "description": "Chcete prida\u0165 WLED s n\u00e1zvom `{name}` do Home Assistant?",
+                "title": "Objaven\u00e9 zariadenie WLED"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "firmware": {
+                "name": "Firmv\u00e9r"
+            }
+        },
+        "light": {
+            "main": {
+                "name": "Hlavn\u00e1"
+            },
+            "segment": {
+                "name": "Segment {segment}"
+            }
+        },
+        "number": {
+            "intensity": {
+                "name": "Intenzita"
+            },
+            "segment_intensity": {
+                "name": "Intenzita segmentu {segment}"
+            },
+            "segment_speed": {
+                "name": "R\u00fdchlos\u0165 segmentu {segment}"
+            },
+            "speed": {
+                "name": "R\u00fdchlos\u0165"
+            }
+        },
+        "select": {
+            "color_palette": {
+                "name": "Paleta farieb"
+            },
+            "live_override": {
+                "name": "Prep\u00edsanie v re\u017eime Live",
+                "state": {
+                    "0": "Neakt\u00edvny",
+                    "1": "Akt\u00edvny",
+                    "2": "K\u00fdm sa zariadenie nere\u0161tartuje"
+                }
+            },
+            "playlist": {
+                "name": "Zoznam skladieb"
+            },
+            "preset": {
+                "name": "Predvo\u013eba"
+            },
+            "segment_color_palette": {
+                "name": "Farebn\u00e1 paleta segmentu {segment}"
+            }
+        },
+        "sensor": {
+            "estimated_current": {
+                "name": "Odhadovan\u00fd pr\u00fad"
+            },
+            "free_heap": {
+                "name": "Vo\u013en\u00e1 pam\u00e4\u0165"
+            },
+            "info_leds_count": {
+                "name": "Po\u010det LED"
+            },
+            "info_leds_max_power": {
+                "name": "Maxim\u00e1lny pr\u00fad"
+            },
+            "ip": {
+                "name": "IP"
+            },
+            "uptime": {
+                "name": "\u010cas prev\u00e1dzky"
+            },
+            "wifi_bssid": {
+                "name": "WiFi BSSID"
+            },
+            "wifi_channel": {
+                "name": "WiFi kan\u00e1l"
+            },
+            "wifi_rssi": {
+                "name": "WiFi RSSI"
+            },
+            "wifi_signal": {
+                "name": "WiFi sign\u00e1l"
+            }
+        },
+        "switch": {
+            "nightlight": {
+                "name": "No\u010dn\u00e9 svetlo"
+            },
+            "reverse": {
+                "name": "Reverzn\u00fd"
+            },
+            "segment_reverse": {
+                "name": "Segment {segment} reverzn\u00fd"
+            },
+            "sync_receive": {
+                "name": "Synchroniz\u00e1cia prij\u00edmania"
+            },
+            "sync_send": {
+                "name": "Synchroniz\u00e1cia odoslania"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "keep_master_light": "Udr\u017eujte hlavn\u00e9 svetlo aj s 1 LED segmentom."
+                }
+            }
+        }
+    },
+    "services": {
+        "effect": {
+            "description": "Ovl\u00e1da nastavenia efektu WLED.",
+            "fields": {
+                "effect": {
+                    "description": "N\u00e1zov alebo ID sveteln\u00e9ho efektu WLED.",
+                    "name": "Efekt"
+                },
+                "intensity": {
+                    "description": "Intenzita \u00fa\u010dinku. \u010c\u00edslo od 0 do 255.",
+                    "name": "Intenzita \u00fa\u010dinku"
+                },
+                "palette": {
+                    "description": "N\u00e1zov alebo ID svetelnej palety WLED.",
+                    "name": "Paleta farieb"
+                },
+                "reverse": {
+                    "description": "Obr\u00e1ten\u00fd \u00fa\u010dinok. Bu\u010f true, aby sa efekt obr\u00e1til, alebo false v opa\u010dnom pr\u00edpade.",
+                    "name": "Opa\u010dn\u00fd \u00fa\u010dinok"
+                },
+                "speed": {
+                    "description": "R\u00fdchlos\u0165 \u00fa\u010dinku.",
+                    "name": "R\u00fdchlos\u0165 efektu"
+                }
+            },
+            "name": "Nastavi\u0165 efekt"
+        },
+        "preset": {
+            "description": "Nastav\u00ed predvo\u013ebu pre zariadenie WLED.",
+            "fields": {
+                "preset": {
+                    "description": "ID predvo\u013eby WLED.",
+                    "name": "ID predvo\u013eby"
+                }
+            },
+            "name": "Nastavi\u0165 predvo\u013ebu (zastaran\u00e9)"
+        }
+    }
+}

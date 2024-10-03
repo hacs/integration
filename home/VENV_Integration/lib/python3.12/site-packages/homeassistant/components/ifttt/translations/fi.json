@@ -1,0 +1,56 @@
+{
+    "config": {
+        "abort": {
+            "cloud_not_connected": "Ei yhdistetty Home Assistant Cloudiin",
+            "single_instance_allowed": "Jo m\u00e4\u00e4ritetty. Vain yksi konfiguraatio mahdollinen.",
+            "webhook_not_internet_accessible": "Home Assistant -esiintym\u00e4n on oltava k\u00e4ytett\u00e4viss\u00e4 Internetist\u00e4, jotta se voi vastaanottaa webhook-viestej\u00e4."
+        },
+        "create_entry": {
+            "default": "Jos haluat l\u00e4hett\u00e4\u00e4 tapahtumia Home Assistantille, sinun on k\u00e4ytett\u00e4v\u00e4 [IFTTT Webhook -sovelluksen] ({applet_url}) toimintoa \"Tee verkkopyynt\u00f6\".\n\nT\u00e4yt\u00e4 seuraavat tiedot:\n\n- URL: `{webhook_url}`\n- Menetelm\u00e4: POST\n- Sis\u00e4lt\u00f6tyyppi: application/json\n\nKatso [dokumentaatiosta]({docs_url}), miten automaatiot m\u00e4\u00e4ritet\u00e4\u00e4n k\u00e4sittelem\u00e4\u00e4n saapuvia tietoja."
+        },
+        "step": {
+            "user": {
+                "description": "Haluatko varmasti m\u00e4\u00e4ritt\u00e4\u00e4 IFTTT:n?",
+                "title": "M\u00e4\u00e4rit\u00e4 IFTTT Webhook -sovelma"
+            }
+        }
+    },
+    "services": {
+        "push_alarm_state": {
+            "description": "P\u00e4ivitt\u00e4\u00e4 h\u00e4lytystilan m\u00e4\u00e4ritettyyn arvoon.",
+            "fields": {
+                "entity_id": {
+                    "description": "Sen h\u00e4lytyskeskuksen nimi, jonka tila on p\u00e4ivitett\u00e4v\u00e4.",
+                    "name": "Kohteen tunnus"
+                },
+                "state": {
+                    "description": "Tila, johon h\u00e4lytysohjauspaneeli on asetettava.",
+                    "name": "Tila"
+                }
+            },
+            "name": "Push-h\u00e4lytystila"
+        },
+        "trigger": {
+            "description": "K\u00e4ynnist\u00e4\u00e4 m\u00e4\u00e4ritetyn IFTTT Webhookin.",
+            "fields": {
+                "event": {
+                    "description": "L\u00e4hetett\u00e4v\u00e4n tapahtuman nimi.",
+                    "name": "Tapahtuma"
+                },
+                "value1": {
+                    "description": "Yleinen kentt\u00e4 tietojen l\u00e4hett\u00e4miseen tapahtuman kautta.",
+                    "name": "Arvo 1"
+                },
+                "value2": {
+                    "description": "Yleinen kentt\u00e4 tietojen l\u00e4hett\u00e4miseen tapahtuman kautta.",
+                    "name": "Arvo 2"
+                },
+                "value3": {
+                    "description": "Yleinen kentt\u00e4 tietojen l\u00e4hett\u00e4miseen tapahtuman kautta.",
+                    "name": "Arvo 3"
+                }
+            },
+            "name": "Laukaisin"
+        }
+    }
+}

@@ -1,0 +1,105 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Il dispositivo \u00e8 gi\u00e0 configurato"
+        },
+        "error": {
+            "cannot_connect": "Impossibile connettersi",
+            "invalid_access_token": "Token di accesso non valido",
+            "invalid_auth": "Autenticazione non valida",
+            "unknown": "Errore imprevisto"
+        },
+        "step": {
+            "2fa": {
+                "data": {
+                    "2fa": "Codice a due fattori"
+                },
+                "description": "Inserisci il PIN inviato via email o SMS",
+                "title": "Autenticazione a due fattori"
+            },
+            "user": {
+                "data": {
+                    "password": "Password",
+                    "username": "Nome utente"
+                },
+                "title": "Accedi con l'account Blink"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "camera_armed": {
+                "name": "Telecamera armata"
+            }
+        },
+        "sensor": {
+            "wifi_rssi": {
+                "name": "Wi-Fi RSSI"
+            }
+        },
+        "switch": {
+            "camera_motion": {
+                "name": "Rilevamento del movimento della telecamera"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "simple_options": {
+                "data": {
+                    "scan_interval": "Intervallo di scansione (secondi)"
+                },
+                "description": "Configura l'integrazione di Blink",
+                "title": "Opzioni di Blink"
+            }
+        }
+    },
+    "services": {
+        "blink_update": {
+            "description": "Forza un aggiornamento.",
+            "name": "Aggiorna"
+        },
+        "save_recent_clips": {
+            "description": "Salva tutti i video clip recenti nella cartella locale con il modello di file \"%Y%m%d_%H%M%S_[nome telecamera].mp4\".",
+            "fields": {
+                "file_path": {
+                    "description": "Nome della directory del percorso scrivibile (potrebbe essere necessario includere la directory in allowlist_external_dirs nella configurazione).",
+                    "name": "Cartella di destinazione"
+                },
+                "name": {
+                    "description": "Nome della videocamera da cui acquisire le clip recenti.",
+                    "name": "Nome"
+                }
+            },
+            "name": "Salva clip recenti"
+        },
+        "save_video": {
+            "description": "Salva l'ultimo video clip registrato in un file locale.",
+            "fields": {
+                "filename": {
+                    "description": "Nome del file al percorso scrivibile (la directory potrebbe dover essere inclusa in allowlist_external_dirs nella configurazione).",
+                    "name": "Nome del file"
+                },
+                "name": {
+                    "description": "Nome della telecamera da cui acquisire il video.",
+                    "name": "Nome"
+                }
+            },
+            "name": "Salva il video"
+        },
+        "send_pin": {
+            "description": "Invia un nuovo PIN a blink per 2FA.",
+            "fields": {
+                "pin": {
+                    "description": "PIN ricevuto da blink. Lascia vuoto se hai ricevuto solo un'e-mail di verifica.",
+                    "name": "Pin"
+                }
+            },
+            "name": "Invia pin"
+        },
+        "trigger_camera": {
+            "description": "Richiede alla fotocamera di acquisire una nuova immagine.",
+            "name": "Attiva la fotocamera"
+        }
+    }
+}

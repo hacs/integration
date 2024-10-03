@@ -1,0 +1,75 @@
+{
+    "config": {
+        "error": {
+            "cannot_connect": "No se pudo conectar",
+            "invalid_auth": "Autenticaci\u00f3n no v\u00e1lida",
+            "unknown": "Error inesperado"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "api_key": "Clave API"
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "invalid_config_entry": {
+            "message": "Se proporcion\u00f3 una entrada de configuraci\u00f3n no v\u00e1lida. Se obtuvo {config_entry}"
+        }
+    },
+    "issues": {
+        "image_size_deprecated_format": {
+            "description": "OpenAI ahora usa Dall-E 3 para generar im\u00e1genes usando `openai_conversation.generate_image`, que admite diferentes tama\u00f1os. Los valores v\u00e1lidos ahora son \"1024x1024\", \"1024x1792\", \"1792x1024\". Los valores antiguos de \"256\", \"512\", \"1024\" se interpretan actualmente como \"1024x1024\".\nPor favor, actualiza tus scripts o automatizaciones con los nuevos par\u00e1metros.",
+            "title": "Formato de tama\u00f1o obsoleto para la acci\u00f3n de generaci\u00f3n de im\u00e1genes"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "chat_model": "Modelo",
+                    "llm_hass_api": "Controla Home Assistant",
+                    "max_tokens": "M\u00e1ximo de tokens para devolver en respuesta",
+                    "model": "Modelo de finalizaci\u00f3n",
+                    "prompt": "Instrucciones",
+                    "recommended": "Ajustes recomendados del modelo",
+                    "temperature": "Temperatura",
+                    "top_p": "Top P"
+                },
+                "data_description": {
+                    "prompt": "Indica c\u00f3mo debe responder el LLM. Puede ser una plantilla."
+                }
+            }
+        }
+    },
+    "services": {
+        "generate_image": {
+            "description": "Convierte un mensaje en una imagen",
+            "fields": {
+                "config_entry": {
+                    "description": "La entrada de configuraci\u00f3n que se utilizar\u00e1 para esta acci\u00f3n.",
+                    "name": "Entrada de configuraci\u00f3n"
+                },
+                "prompt": {
+                    "description": "El texto a convertir en imagen",
+                    "example": "Una foto de un perro",
+                    "name": "Entrada"
+                },
+                "quality": {
+                    "description": "La calidad de la imagen que se generar\u00e1.",
+                    "name": "Calidad"
+                },
+                "size": {
+                    "description": "El tama\u00f1o de la imagen a generar.",
+                    "name": "Tama\u00f1o"
+                },
+                "style": {
+                    "description": "El estilo de la imagen generada.",
+                    "name": "Estilo"
+                }
+            },
+            "name": "Generar imagen"
+        }
+    }
+}

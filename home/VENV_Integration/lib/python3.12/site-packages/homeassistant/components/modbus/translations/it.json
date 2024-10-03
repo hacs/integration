@@ -1,0 +1,82 @@
+{
+    "issues": {
+        "deprecated_close_comm_config": {
+            "description": "Rimuovi la chiave `{config_key}` dalla voce {integration} nel file `configuration.yaml` e riavvia Home Assistant per risolvere questo problema. Tutti gli errori verranno segnalati, poich\u00e9 `lazy_error_count` viene accettato ma ignorato.",
+            "title": "La chiave di configurazione `{config_key}` \u00e8 stata rimossa"
+        },
+        "deprecated_retry_on_empty": {
+            "description": "Rimuovi la chiave `{config_key}` dalla voce {integration} nel file configuration.yaml e riavvia Home Assistant per risolvere il problema.\n\nLa funzione Retry on empty viene applicata automaticamente; vedi [la documentazione]({url}) per altri parametri di gestione degli errori.",
+            "title": "La chiave di configurazione `{config_key}` \u00e8 stata rimossa"
+        }
+    },
+    "services": {
+        "reload": {
+            "description": "Ricarica tutte le entit\u00e0 modbus.",
+            "name": "Ricarica"
+        },
+        "restart": {
+            "description": "Riavvia l'hub modbus (se in esecuzione arrestare quindi avviare).",
+            "fields": {
+                "hub": {
+                    "description": "Nome dell'hub Modbus.",
+                    "name": "Hub"
+                }
+            },
+            "name": "Riavvia"
+        },
+        "stop": {
+            "description": "Arresta l'hub modbus.",
+            "fields": {
+                "hub": {
+                    "description": "Nome dell'hub Modbus.",
+                    "name": "Hub"
+                }
+            },
+            "name": "Ferma"
+        },
+        "write_coil": {
+            "description": "Scrive su una bobina modbus.",
+            "fields": {
+                "address": {
+                    "description": "Indirizzo del registro su cui scrivere.",
+                    "name": "Indirizzo"
+                },
+                "hub": {
+                    "description": "Nome dell'hub Modbus.",
+                    "name": "Hub"
+                },
+                "slave": {
+                    "description": "Indirizzo dell'unit\u00e0/slave modbus.",
+                    "name": "Slave"
+                },
+                "state": {
+                    "description": "Stato da scrivere.",
+                    "name": "Stato"
+                }
+            },
+            "name": "Scrivi bobina"
+        },
+        "write_register": {
+            "description": "Scrive su un registro di memorizzazione modbus.",
+            "fields": {
+                "address": {
+                    "description": "Indirizzo del registro di memorizzazione su cui scrivere.",
+                    "name": "Indirizzo"
+                },
+                "hub": {
+                    "description": "Nome dell'hub Modbus.",
+                    "name": "Hub"
+                },
+                "slave": {
+                    "description": "Indirizzo dell'unit\u00e0/slave modbus.",
+                    "name": "Slave"
+                },
+                "value": {
+                    "description": "Valore (singolo valore o matrice) da scrivere.",
+                    "name": "Valore"
+                }
+            },
+            "name": "Scrivi registro"
+        }
+    }
+}

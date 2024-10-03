@@ -1,0 +1,290 @@
+{
+    "device_automation": {
+        "action_type": {
+            "set_hvac_mode": "HLK-Modus auf {entity_name} \u00e4ndern",
+            "set_preset_mode": "Voreinstellung von {entity_name} \u00e4ndern"
+        },
+        "condition_type": {
+            "is_hvac_mode": "{entity_name} ist auf einen bestimmten HLK-Modus festgelegt",
+            "is_preset_mode": "{entity_name} ist auf einen bestimmten voreingestellten Modus eingestellt"
+        },
+        "extra_fields": {
+            "above": "\u00dcber",
+            "below": "Unter",
+            "for": "Dauer",
+            "hvac_mode": "HLK-Modus",
+            "preset_mode": "Voreinstellung",
+            "to": "Auf"
+        },
+        "trigger_type": {
+            "current_humidity_changed": "Gemessene Luftfeuchtigkeit von {entity_name} ge\u00e4ndert",
+            "current_temperature_changed": "Gemessene Temperatur von {entity_name} ge\u00e4ndert",
+            "hvac_mode_changed": "{entity_name} HLK-Modus ge\u00e4ndert"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Thermostat",
+            "state": {
+                "auto": "Auto",
+                "cool": "K\u00fchlung",
+                "dry": "Trocknen",
+                "fan_only": "Nur L\u00fcfter",
+                "heat": "Heizbetrieb",
+                "heat_cool": "Heizen/K\u00fchlen",
+                "off": "Aus"
+            },
+            "state_attributes": {
+                "aux_heat": {
+                    "name": "Hilfsw\u00e4rme"
+                },
+                "current_humidity": {
+                    "name": "Aktuelle Luftfeuchtigkeit"
+                },
+                "current_temperature": {
+                    "name": "Aktuelle Temperatur"
+                },
+                "fan_mode": {
+                    "name": "L\u00fcftermodus",
+                    "state": {
+                        "auto": "Auto",
+                        "diffuse": "Diffus",
+                        "focus": "Fokus",
+                        "high": "Hoch",
+                        "low": "Niedrig",
+                        "medium": "Mittel",
+                        "middle": "Mittel",
+                        "off": "Aus",
+                        "on": "An",
+                        "top": "Top"
+                    }
+                },
+                "fan_modes": {
+                    "name": "L\u00fcftermodi"
+                },
+                "humidity": {
+                    "name": "Ziel-Luftfeuchtigkeit"
+                },
+                "hvac_action": {
+                    "name": "Aktuelle Aktion",
+                    "state": {
+                        "cooling": "K\u00fchlung",
+                        "defrosting": "Auftauen",
+                        "drying": "Trocknen",
+                        "fan": "L\u00fcfter",
+                        "heating": "Heizbetrieb",
+                        "idle": "Unt\u00e4tig",
+                        "off": "Aus",
+                        "preheating": "Vorheizen"
+                    }
+                },
+                "hvac_modes": {
+                    "name": "HLK-Modi"
+                },
+                "max_humidity": {
+                    "name": "Maximale Zielfeuchtigkeit"
+                },
+                "max_temp": {
+                    "name": "Maximale Zieltemperatur"
+                },
+                "min_humidity": {
+                    "name": "Minimale Zielfeuchtigkeit"
+                },
+                "min_temp": {
+                    "name": "Minimale Zieltemperatur"
+                },
+                "preset_mode": {
+                    "name": "Voreinstellung",
+                    "state": {
+                        "activity": "Aktivit\u00e4t",
+                        "away": "Abwesend",
+                        "boost": "Boost",
+                        "comfort": "Komfort",
+                        "eco": "Eco",
+                        "home": "Zu Hause",
+                        "none": "Keine",
+                        "sleep": "Schlafen"
+                    }
+                },
+                "preset_modes": {
+                    "name": "Voreinstellungen"
+                },
+                "swing_mode": {
+                    "name": "Schwenk-Modus",
+                    "state": {
+                        "both": "Beide",
+                        "horizontal": "Horizontal",
+                        "off": "Aus",
+                        "on": "An",
+                        "vertical": "Vertikal"
+                    }
+                },
+                "swing_modes": {
+                    "name": "Schwenk-Modi"
+                },
+                "target_temp_high": {
+                    "name": "Obere Zieltemperatur"
+                },
+                "target_temp_low": {
+                    "name": "Untere Zieltemperatur"
+                },
+                "target_temp_step": {
+                    "name": "Zieltemperaturschritt"
+                },
+                "temperature": {
+                    "name": "Zieltemperatur"
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "humidity_out_of_range": {
+            "message": "Die angegebene Luftfeuchtigkeit {humidity} ist ung\u00fcltig. Der zul\u00e4ssige Bereich liegt zwischen {min_humidity} und {max_humidity}."
+        },
+        "low_temp_higher_than_high_temp": {
+            "message": "Die untere Zieltemperatur darf nicht h\u00f6her sein als die obere Zieltemperatur."
+        },
+        "missing_target_temperature_entity_feature": {
+            "message": "Die \u201eTemperatur einstellen\u201c-Aktion wurde mit dem Parameter Zieltemperatur verwendet, aber die Entit\u00e4t unterst\u00fctzt diese nicht."
+        },
+        "missing_target_temperature_range_entity_feature": {
+            "message": "Die \u201eTemperatur einstellen\u201c-Aktion wurde mit dem Parameter \u201eZieltemperatur niedrig/hoch\u201c verwendet, die Entit\u00e4t unterst\u00fctzt diese jedoch nicht."
+        },
+        "not_valid_fan_mode": {
+            "message": "Der L\u00fcftermodus {mode} ist ung\u00fcltig. G\u00fcltige L\u00fcftermodi sind: {modes}."
+        },
+        "not_valid_preset_mode": {
+            "message": "Der voreingestellte Modus {mode} ist ung\u00fcltig. G\u00fcltige voreingestellte Modi sind: {modes}."
+        },
+        "not_valid_swing_mode": {
+            "message": "Der Schwing-Modus {mode} ist ung\u00fcltig. G\u00fcltige Schwing-Modi sind: {modes}."
+        },
+        "temp_out_of_range": {
+            "message": "Die angegebene Temperatur {check_temp} ist ung\u00fcltig. Akzeptierter Bereich ist {min_temp} bis {max_temp}"
+        }
+    },
+    "issues": {
+        "deprecated_climate_aux_no_url": {
+            "description": "Die benutzerdefinierte Integration `{platform}` implementiert die Eigenschaft `is_aux_heat` oder verwendet die Zusatzheizungsmethoden in einer Unterklasse von ClimateEntity. \n\nBitte melde es dem Autor der {platform}-Integration. \n\nSobald eine aktualisierte Version von `{platform}` verf\u00fcgbar ist, installiere sie und starte Home Assistant neu, um dieses Problem zu beheben.",
+            "title": "Die benutzerdefinierte Integration {platform} verwendet eine veraltete Klimazusatzheizung"
+        },
+        "deprecated_climate_aux_url_custom": {
+            "description": "Die benutzerdefinierte Integration `{platform}` implementiert die Eigenschaft `is_aux_heat` oder verwendet die Zusatzheizungsmethoden in einer Unterklasse von ClimateEntity. \n\nBitte erstelle einen Fehlerbericht unter {issue_tracker}. \n\nSobald eine aktualisierte Version von `{platform}` verf\u00fcgbar ist, installiere sie und starte Home Assistant neu, um dieses Problem zu beheben.",
+            "title": "Die benutzerdefinierte Integration {platform} verwendet eine veraltete Klimazusatzheizung"
+        },
+        "platform_integration_no_support": {
+            "description": "Die {platform}-Plattform f\u00fcr die {domain}-Integration unterst\u00fctzt die Plattform-Einrichtung nicht. \n\nBitte entferne es aus deiner Konfiguration und starte Home Assistant neu, um dieses Problem zu beheben.",
+            "title": "Plattform-Unterst\u00fctzung nicht unterst\u00fctzt"
+        }
+    },
+    "selector": {
+        "hvac_mode": {
+            "options": {
+                "auto": "Auto",
+                "cool": "K\u00fchlen",
+                "dry": "Trocken",
+                "fan_only": "Nur L\u00fcfter",
+                "heat": "Heizen",
+                "heat_cool": "Heizen/K\u00fchlen",
+                "off": "Aus"
+            }
+        }
+    },
+    "services": {
+        "set_aux_heat": {
+            "description": "Schaltet die Zusatzheizung ein/aus.",
+            "fields": {
+                "aux_heat": {
+                    "description": "Neuer Wert der Zusatzheizung.",
+                    "name": "Zusatzheizung"
+                }
+            },
+            "name": "Zusatzheizung ein-/ausschalten"
+        },
+        "set_fan_mode": {
+            "description": "Stellt den Betriebsmodus des L\u00fcfters ein.",
+            "fields": {
+                "fan_mode": {
+                    "description": "Betriebsmodus des L\u00fcfters.",
+                    "name": "L\u00fcfter-Modus"
+                }
+            },
+            "name": "L\u00fcftermodus einstellen"
+        },
+        "set_humidity": {
+            "description": "Legt die Ziel-Luftfeuchtigkeit fest.",
+            "fields": {
+                "humidity": {
+                    "description": "Ziel-Luftfeuchtigkeit.",
+                    "name": "Luftfeuchtigkeit"
+                }
+            },
+            "name": "Ziel-Luftfeuchtigkeit festlegen"
+        },
+        "set_hvac_mode": {
+            "description": "Stellt den HLK-Betriebsmodus ein.",
+            "fields": {
+                "hvac_mode": {
+                    "description": "HLK-Betriebsmodus.",
+                    "name": "HLK-Modus"
+                }
+            },
+            "name": "HLK-Modus einstellen"
+        },
+        "set_preset_mode": {
+            "description": "Stellt die Voreinstellung ein.",
+            "fields": {
+                "preset_mode": {
+                    "description": "Voreinstellung",
+                    "name": "Voreinstellung"
+                }
+            },
+            "name": "Voreinstellung einstellen"
+        },
+        "set_swing_mode": {
+            "description": "Stellt den Schwenk-Betriebsmodus ein.",
+            "fields": {
+                "swing_mode": {
+                    "description": "Schwenk-Betriebsmodus",
+                    "name": "Schwenk-Modus"
+                }
+            },
+            "name": "Schwenk-Modus einstellen"
+        },
+        "set_temperature": {
+            "description": "Legt die Zieltemperatur fest.",
+            "fields": {
+                "hvac_mode": {
+                    "description": "HLK-Betriebsmodus.",
+                    "name": "HLK-Modus"
+                },
+                "target_temp_high": {
+                    "description": "Obere Zieltemperatur.",
+                    "name": "Obere Zieltemperatur"
+                },
+                "target_temp_low": {
+                    "description": "Untere Zieltemperatur.",
+                    "name": "Untere Zieltemperatur"
+                },
+                "temperature": {
+                    "description": "Zieltemperatur.",
+                    "name": "Temperatur"
+                }
+            },
+            "name": "Zieltemperatur einstellen"
+        },
+        "toggle": {
+            "description": "Schaltet das Klimager\u00e4t von \u201eEin\u201c auf \u201eAus\u201c oder \u201eAus\u201c auf \u201eEin\u201c um.",
+            "name": "Umschalten"
+        },
+        "turn_off": {
+            "description": "Schaltet das Klimager\u00e4t aus.",
+            "name": "Ausschalten"
+        },
+        "turn_on": {
+            "description": "Schaltet das Klimager\u00e4t ein.",
+            "name": "Einschalten"
+        }
+    },
+    "title": "Klima"
+}

@@ -1,0 +1,88 @@
+{
+    "device_automation": {
+        "action_type": {
+            "lock": "L\u00e5s {entity_name}",
+            "open": "\u00d6ppna {entity_name}",
+            "unlock": "L\u00e5s upp {entity_name}"
+        },
+        "condition_type": {
+            "is_locked": "{entity_name} \u00e4r l\u00e5st",
+            "is_open": "{entity_name} \u00e4r \u00f6ppen",
+            "is_unlocked": "{entity_name} \u00e4r ol\u00e5st"
+        },
+        "extra_fields": {
+            "for": "Varaktighet"
+        },
+        "trigger_type": {
+            "locked": "{entity_name} l\u00e5st",
+            "open": "{entity_name} har \u00f6ppnats",
+            "unlocked": "{entity_name} ol\u00e5st"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "L\u00e5s",
+            "state": {
+                "jammed": "Fastnat",
+                "locked": "L\u00e5st",
+                "locking": "L\u00e5ser",
+                "open": "\u00d6ppen",
+                "opening": "\u00d6ppnar",
+                "unlocked": "Ol\u00e5st",
+                "unlocking": "L\u00e5ser upp"
+            },
+            "state_attributes": {
+                "changed_by": {
+                    "name": "\u00c4ndrat av"
+                },
+                "code_format": {
+                    "name": "Kodformat"
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "add_default_code": {
+            "message": "Koden f\u00f6r {entity_id} matchar inte m\u00f6nstret {code_format} ."
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "{platform}-plattformen f\u00f6r integrationen {domain} st\u00f6ds inte.\n\nTa bort den fr\u00e5n din konfiguration och starta om Home Assistant f\u00f6r att \u00e5tg\u00e4rda detta problem.",
+            "title": "Plattformen st\u00f6ds inte"
+        }
+    },
+    "services": {
+        "lock": {
+            "description": "L\u00e5ser ett l\u00e5s.",
+            "fields": {
+                "code": {
+                    "description": "Kod som anv\u00e4nds f\u00f6r att l\u00e5sa.",
+                    "name": "Kod"
+                }
+            },
+            "name": "L\u00e5s"
+        },
+        "open": {
+            "description": "\u00d6ppnar ett l\u00e5s.",
+            "fields": {
+                "code": {
+                    "description": "Kod som anv\u00e4nds f\u00f6r att \u00f6ppna.",
+                    "name": "Kod"
+                }
+            },
+            "name": "\u00d6ppen"
+        },
+        "unlock": {
+            "description": "L\u00e5ser upp ett l\u00e5s.",
+            "fields": {
+                "code": {
+                    "description": "Kod som anv\u00e4nds f\u00f6r att l\u00e5sa upp.",
+                    "name": "Kod"
+                }
+            },
+            "name": "L\u00e5s upp"
+        }
+    },
+    "title": "L\u00e5s"
+}

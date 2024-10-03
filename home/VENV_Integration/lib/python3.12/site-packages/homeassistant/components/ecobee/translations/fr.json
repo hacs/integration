@@ -1,0 +1,123 @@
+{
+    "config": {
+        "abort": {
+            "single_instance_allowed": "D\u00e9j\u00e0 configur\u00e9. Une seule configuration possible."
+        },
+        "error": {
+            "pin_request_failed": "Erreur lors de la demande du code PIN \u00e0 ecobee; veuillez v\u00e9rifier que la cl\u00e9 API est correcte.",
+            "token_request_failed": "Erreur lors de la demande de jetons \u00e0 ecobee; Veuillez r\u00e9essayer."
+        },
+        "step": {
+            "authorize": {
+                "title": "Autoriser l'application sur ecobee.com"
+            },
+            "user": {
+                "data": {
+                    "api_key": "Cl\u00e9 d'API"
+                },
+                "description": "Veuillez entrer la cl\u00e9 API obtenue aupr\u00e8s d'ecobee.com.",
+                "title": "Cl\u00e9 d'API ecobee"
+            }
+        }
+    },
+    "entity": {
+        "number": {
+            "ventilator_min_type_away": {
+                "name": "Temps minimum du ventilateur en mode absence"
+            },
+            "ventilator_min_type_home": {
+                "name": "Temps minimum du ventilateur \u00e0 la maison"
+            }
+        }
+    },
+    "services": {
+        "create_vacation": {
+            "description": "Cr\u00e9e des vacances sur le thermostat s\u00e9lectionn\u00e9. Remarque : la date et l'heure de d\u00e9but et de fin doivent \u00eatre sp\u00e9cifi\u00e9es ensemble pour que ces param\u00e8tres aient un effet. Si la date et l'heure de d\u00e9but et de fin ne sont pas sp\u00e9cifi\u00e9es, les vacances commencent imm\u00e9diatement et durent 14 jours (sauf si elles sont supprim\u00e9es plus t\u00f4t).",
+            "fields": {
+                "cool_temp": {
+                    "description": "Temp\u00e9rature de refroidissement pendant les vacances.",
+                    "name": "Temp\u00e9rature de refroidissement"
+                },
+                "end_date": {
+                    "description": "Date de fin des vacances au format AAAA-MM-JJ (facultatif, 14 jours \u00e0 partir de maintenant s'il n'est pas fourni avec end_time).",
+                    "name": "Date de fin"
+                }
+            },
+            "name": "Cr\u00e9er des vacances"
+        },
+        "delete_vacation": {
+            "description": "Supprime une vacance sur le thermostat s\u00e9lectionn\u00e9.",
+            "fields": {
+                "entity_id": {
+                    "description": "Thermostat Ecobee sur lequel supprimer les vacances.",
+                    "name": "Entit\u00e9"
+                },
+                "vacation_name": {
+                    "description": "Nom des vacances \u00e0 supprimer."
+                }
+            },
+            "name": "Supprimer les vacances"
+        },
+        "resume_program": {
+            "description": "Reprend l'horaire programm\u00e9.",
+            "fields": {
+                "entity_id": {
+                    "description": "Nom(s) des entit\u00e9s \u00e0 modifier.",
+                    "name": "Entit\u00e9"
+                },
+                "resume_all": {
+                    "description": "R\u00e9sumer tous les \u00e9v\u00e9nements et revenir au programme programm\u00e9.",
+                    "name": "Tout r\u00e9sumer"
+                }
+            },
+            "name": "R\u00e9sumer le programme"
+        },
+        "set_dst_mode": {
+            "description": "Active/d\u00e9sactive l'heure d'\u00e9t\u00e9 automatique.",
+            "fields": {
+                "dst_enabled": {
+                    "description": "Activer l'heure d'\u00e9t\u00e9 automatique.",
+                    "name": "Heure d\u2019\u00e9t\u00e9 activ\u00e9e"
+                }
+            },
+            "name": "D\u00e9finir le mode d'heure d'\u00e9t\u00e9"
+        },
+        "set_fan_min_on_time": {
+            "description": "D\u00e9finit la dur\u00e9e minimale de fonctionnement du ventilateur.",
+            "fields": {
+                "entity_id": {
+                    "description": "Nom(s) des entit\u00e9s \u00e0 modifier.",
+                    "name": "Entit\u00e9"
+                },
+                "fan_min_on_time": {
+                    "description": "Nouvelle valeur de l'heure minimale du ventilateur."
+                }
+            },
+            "name": "R\u00e9gler la dur\u00e9e minimale de fonctionnement du ventilateur"
+        },
+        "set_mic_mode": {
+            "description": "Active/d\u00e9sactive le micro Alexa (uniquement pour l'Ecobee 4).",
+            "fields": {
+                "mic_enabled": {
+                    "description": "Activer le micro d'Alexa.",
+                    "name": "Micro activ\u00e9"
+                }
+            },
+            "name": "D\u00e9finir le mode micro"
+        },
+        "set_occupancy_modes": {
+            "description": "Active/d\u00e9sactive les modes Maison intelligente/Absent et Suivez-moi.",
+            "fields": {
+                "auto_away": {
+                    "description": "Activez le mode Maison intelligente/Absent.",
+                    "name": "Absence automatique"
+                },
+                "follow_me": {
+                    "description": "Activez le mode Suivez-moi.",
+                    "name": "Suivez-moi"
+                }
+            },
+            "name": "D\u00e9finir les modes d'occupation"
+        }
+    }
+}

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE ldml SYSTEM "../../common/dtd/ldml.dtd">
+<!--
+Copyright © 1991-2013 Unicode, Inc.
+CLDR data files are interpreted according to the LDML specification (http://unicode.org/reports/tr35/)
+For terms of use, see http://www.unicode.org/copyright.html
+-->
+<ldml>
+    <identity>
+		<version number="$Revision$"/>
+		<language type="ee"/>
+    </identity>
+    <rbnf>
+        <!-- Thanks to Gilbert Adjoyi for instructions on Ewe number spellout. -->
+        <!-- Some of the explanatory comments are quoted from -->
+        <!-- http://www.uni-koeln.de/phil-fak/afrikanistik/down/publikationen/basic_ewe.pdf -->
+        <rulesetGrouping type="SpelloutRules">
+            <ruleset type="spellout-numbering-year">
+				<rbnfrule value="x.x">=0.0=;</rbnfrule>
+                <rbnfrule value="0">=%spellout-numbering=;</rbnfrule>
+            </ruleset>
+            <ruleset type="spellout-numbering">
+                <rbnfrule value="0">=%spellout-cardinal=;</rbnfrule>
+            </ruleset>
+			<ruleset type="after-hundreds" access="private"><!-- insert "kple" (and) per Ewe conventions -->
+                <rbnfrule value="0">kple =%spellout-cardinal=;</rbnfrule>
+                <rbnfrule value="21">=%spellout-cardinal=;</rbnfrule>
+                <rbnfrule value="30">kple =%spellout-cardinal=;</rbnfrule>
+                <rbnfrule value="31">=%spellout-cardinal=;</rbnfrule>
+                <rbnfrule value="40">kple =%spellout-cardinal=;</rbnfrule>
+                <rbnfrule value="41">=%spellout-cardinal=;</rbnfrule>
+                <rbnfrule value="50">kple =%spellout-cardinal=;</rbnfrule>
+                <rbnfrule value="51">=%spellout-cardinal=;</rbnfrule>
+                <rbnfrule value="60">kple =%spellout-cardinal=;</rbnfrule>
+                <rbnfrule value="61">=%spellout-cardinal=;</rbnfrule>
+                <rbnfrule value="70">kple =%spellout-cardinal=;</rbnfrule>
+                <rbnfrule value="71">=%spellout-cardinal=;</rbnfrule>
+                <rbnfrule value="80">kple =%spellout-cardinal=;</rbnfrule>
+                <rbnfrule value="81">=%spellout-cardinal=;</rbnfrule>
+                <rbnfrule value="90">kple =%spellout-cardinal=;</rbnfrule>
+                <rbnfrule value="91">=%spellout-cardinal=;</rbnfrule>
+            </ruleset>
+            <ruleset type="after-thousands" access="private">
+                <rbnfrule value="0">' kple =%spellout-cardinal=;</rbnfrule>
+                <rbnfrule value="100">' =%spellout-cardinal=;</rbnfrule>
+            </ruleset>
+            <ruleset type="after-hundred-thousands" access="private">
+                <rbnfrule value="0">' kpakple =%spellout-cardinal=;</rbnfrule>
+                <rbnfrule value="100">' =%spellout-cardinal=;</rbnfrule>
+            </ruleset>
+            <ruleset type="after-millions" access="private">
+                <rbnfrule value="0">' kpakple =%spellout-cardinal=;</rbnfrule>
+                <rbnfrule value="1000">' kple =%spellout-cardinal=;</rbnfrule>
+                <rbnfrule value="100000">' =%spellout-cardinal=;</rbnfrule>
+            </ruleset>
+            <ruleset type="after-billions" access="private">
+                <rbnfrule value="0">' kpakple =%spellout-cardinal=;</rbnfrule>
+                <rbnfrule value="1000">' kple =%spellout-cardinal=;</rbnfrule>
+                <rbnfrule value="100000000">' kple =%spellout-cardinal=;</rbnfrule>
+                <rbnfrule value="100000000000">' =%spellout-cardinal=;</rbnfrule>
+            </ruleset>
+            <ruleset type="spellout-base" access="private">
+                <rbnfrule value="0">ɖekeo;</rbnfrule>
+                <rbnfrule value="1">ɖekɛ;</rbnfrule>
+                <rbnfrule value="2">eve;</rbnfrule>
+                <rbnfrule value="3">etɔ̃;</rbnfrule>
+                <rbnfrule value="4">ene;</rbnfrule>
+                <rbnfrule value="5">atɔ̃;</rbnfrule>
+                <rbnfrule value="6">ade;</rbnfrule>
+                <rbnfrule value="7">adre;</rbnfrule>
+                <rbnfrule value="8">enyi;</rbnfrule>
+                <rbnfrule value="9">asieke;</rbnfrule>
+                <rbnfrule value="10">ewo;</rbnfrule>
+                <rbnfrule value="11">wui→→;</rbnfrule>
+                <rbnfrule value="20">bla←←[ vɔ →→];</rbnfrule>
+                <rbnfrule value="100">alafa ←%spellout-cardinal←[ →%%after-hundreds→];</rbnfrule>
+                <rbnfrule value="1000">akpe ←%spellout-cardinal←[→%%after-thousands→];</rbnfrule>
+                <rbnfrule value="100000" radix="1000">akpe ←%spellout-cardinal←[→%%after-hundred-thousands→];</rbnfrule>
+                <rbnfrule value="1000000">miliɔn ←%spellout-cardinal←[→%%after-millions→];</rbnfrule>
+                <rbnfrule value="1000000000">miliɔn akpe ←%spellout-cardinal←[→%%after-millions→];</rbnfrule>
+                <rbnfrule value="1000000000000">biliɔn ←%spellout-cardinal←[→%%after-billions→];</rbnfrule>
+                <rbnfrule value="1000000000000000000">=#,##0=;</rbnfrule>
+            </ruleset>
+            <ruleset type="spellout-cardinal">
+                <rbnfrule value="-x">→→ xlẽyimegbee;</rbnfrule>
+                <rbnfrule value="0.x">kakɛ →→;</rbnfrule>
+                <rbnfrule value="x.x">←← kple kakɛ →→;</rbnfrule>
+                <rbnfrule value="0">ɖekeo;</rbnfrule>
+                <rbnfrule value="1">ɖeka;</rbnfrule>
+                <rbnfrule value="2">=%%spellout-base=;</rbnfrule>
+            </ruleset>
+            <ruleset type="spellout-ordinal">
+                <rbnfrule value="-x">→→ xlẽyimegbee;</rbnfrule>
+                <rbnfrule value="x.x">=#,##0.0=lia;</rbnfrule>
+                <rbnfrule value="0">ɖekeolia;</rbnfrule>
+                <rbnfrule value="1">gbãtɔ;</rbnfrule>
+                <rbnfrule value="2">=%spellout-cardinal=lia;</rbnfrule>
+            </ruleset>
+        </rulesetGrouping>
+        <rulesetGrouping type="OrdinalRules">
+            <ruleset type="digits-ordinal">
+                <rbnfrule value="-x">−→→;</rbnfrule>
+                <rbnfrule value="0">=#,##0= lia;</rbnfrule>
+                <rbnfrule value="1">=#,##0= tɔ;</rbnfrule>
+                <rbnfrule value="2">=#,##0= lia;</rbnfrule>
+            </ruleset>
+        </rulesetGrouping>
+    </rbnf>
+</ldml>

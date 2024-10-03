@@ -1,0 +1,251 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Enheten \u00e4r redan konfigurerad",
+            "already_in_progress": "Konfigurationsfl\u00f6det p\u00e5g\u00e5r redan",
+            "no_devices_found": "Inga enheter hittades i n\u00e4tverket"
+        },
+        "error": {
+            "cannot_connect": "Det gick inte att ansluta."
+        },
+        "flow_title": "{label} ({group})",
+        "step": {
+            "discovery_confirm": {
+                "description": "Vill du st\u00e4lla in {label} ({group})?"
+            },
+            "pick_device": {
+                "data": {
+                    "device": "Enhet"
+                }
+            },
+            "user": {
+                "data": {
+                    "host": "V\u00e4rd"
+                },
+                "data_description": {
+                    "host": "V\u00e4rdnamnet eller IP-adressen f\u00f6r din LIFX-enhet."
+                },
+                "description": "Om du l\u00e4mnar v\u00e4rden tomt anv\u00e4nds discovery f\u00f6r att hitta enheter."
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "clean_cycle": {
+                "name": "Reng\u00f6ringscykel"
+            }
+        },
+        "select": {
+            "infrared_brightness": {
+                "name": "Infrar\u00f6d ljusstyrka"
+            },
+            "theme": {
+                "name": "Tema"
+            }
+        },
+        "sensor": {
+            "rssi": {
+                "name": "RSSI"
+            }
+        }
+    },
+    "services": {
+        "effect_colorloop": {
+            "description": "K\u00f6r en effekt med loopade f\u00e4rger.",
+            "fields": {
+                "brightness": {
+                    "description": "Tal som anger effektens ljusstyrka, d\u00e4r 1 \u00e4r l\u00e4gsta och 255 \u00e4r den h\u00f6gsta ljusstyrkan.",
+                    "name": "V\u00e4rde f\u00f6r ljusstyrka"
+                },
+                "brightness_pct": {
+                    "description": "Procent som anger effektens ljusstyrka, d\u00e4r 1 \u00e4r l\u00e4gsta och 100 \u00e4r den h\u00f6gsta ljusstyrkan.",
+                    "name": "Ljusstyrka"
+                },
+                "change": {
+                    "description": "Nyansf\u00f6r\u00e4ndring per period, i grader p\u00e5 ett f\u00e4rghjul.",
+                    "name": "\u00c4ndring"
+                },
+                "period": {
+                    "description": "Varaktighet mellan f\u00e4rgbytena.",
+                    "name": "Period"
+                },
+                "power_on": {
+                    "description": "Lampor som \u00e4r sl\u00e4ckta t\u00e4nds tillf\u00e4lligt under effekten.",
+                    "name": "Sl\u00e5 p\u00e5"
+                },
+                "saturation_max": {
+                    "description": "Procent som anger den maximala m\u00e4ttnaden av f\u00e4rgerna i effekten.",
+                    "name": "Maximal m\u00e4ttnad"
+                },
+                "saturation_min": {
+                    "description": "Procent som anger den minsta m\u00e4ttnaden av f\u00e4rgerna i effekten.",
+                    "name": "Minsta m\u00e4ttnad"
+                },
+                "spread": {
+                    "description": "Maximal nyansskillnad mellan ber\u00f6rda ljusk\u00e4llor, i grader p\u00e5 ett f\u00e4rghjul.",
+                    "name": "Spridning"
+                }
+            },
+            "name": "Effekt f\u00f6r f\u00e4rg-loop"
+        },
+        "effect_flame": {
+            "description": "Startar den firmware-baserade Flame-effekten p\u00e5 LIFX Tiles eller Candle.",
+            "fields": {
+                "power_on": {
+                    "description": "Sl\u00e4ckta lampor kommer att t\u00e4ndas innan effekten startas.",
+                    "name": "Sl\u00e5 p\u00e5"
+                },
+                "speed": {
+                    "description": "Hur snabbt l\u00e5gorna r\u00f6r sig.",
+                    "name": "Hastighet"
+                }
+            },
+            "name": "Flame-effekt"
+        },
+        "effect_morph": {
+            "description": "Startar den firmware-baserade Morph-effekten p\u00e5 LIFX Tiles eller Candle.",
+            "fields": {
+                "palette": {
+                    "description": "Lista med minst 2 och h\u00f6gst 16 f\u00e4rger som nyans (0-360), m\u00e4ttnad (0-100), ljusstyrka (0-100) och kelvin (1500-9000) som ska anv\u00e4ndas f\u00f6r denna effekt. \u00c5sidos\u00e4tter attributet tema.",
+                    "name": "Palett"
+                },
+                "power_on": {
+                    "description": "Sl\u00e4ckta lampor kommer att t\u00e4ndas innan effekten startas.",
+                    "name": "Sl\u00e5 p\u00e5"
+                },
+                "speed": {
+                    "description": "Hur snabbt f\u00e4rgerna kommer att r\u00f6ra sig.",
+                    "name": "Hastighet"
+                },
+                "theme": {
+                    "description": "F\u00f6rdefinierat f\u00e4rgtema att anv\u00e4nda f\u00f6r effekten. \u00c5sidos\u00e4tts av palettattributet.",
+                    "name": "Tema"
+                }
+            },
+            "name": "Morph-effekt"
+        },
+        "effect_move": {
+            "description": "Startar den firmware-baserade Move-effekten p\u00e5 en LIFX Z, Lightstrip eller Beam.",
+            "fields": {
+                "direction": {
+                    "description": "Den riktning som effekten kommer att r\u00f6ra sig \u00f6ver enheten.",
+                    "name": "Riktning"
+                },
+                "power_on": {
+                    "description": "Sl\u00e4ckta lampor kommer att t\u00e4ndas innan effekten startas.",
+                    "name": "Sl\u00e5 p\u00e5"
+                },
+                "speed": {
+                    "description": "Hur l\u00e5ng tid i sekunder det tar f\u00f6r effekten att f\u00f6rflytta sig \u00f6ver lampans l\u00e4ngd.",
+                    "name": "Hastighet"
+                },
+                "theme": {
+                    "description": "(Valfritt) St\u00e4ll in ett av de f\u00f6rdefinierade teman p\u00e5 enheten innan du startar effekten.",
+                    "name": "Tema"
+                }
+            },
+            "name": "Flytta effekt"
+        },
+        "effect_pulse": {
+            "description": "K\u00f6r en pulseffekt genom att \u00e4ndra till en f\u00e4rg och tillbaka.",
+            "fields": {
+                "brightness": {
+                    "description": "Tal som anger den tillf\u00e4lliga f\u00e4rgens ljusstyrka, d\u00e4r 1 \u00e4r l\u00e4gsta och 255 \u00e4r den h\u00f6gsta ljusstyrkan.",
+                    "name": "V\u00e4rde f\u00f6r ljusstyrka"
+                },
+                "brightness_pct": {
+                    "description": "Procent som anger den tillf\u00e4lliga f\u00e4rgens ljusstyrka, d\u00e4r 1 \u00e4r l\u00e4gsta och 100 \u00e4r den h\u00f6gsta ljusstyrkan.",
+                    "name": "Ljusstyrka"
+                },
+                "color_name": {
+                    "description": "Ett f\u00e4rgnamn som kan l\u00e4sas av m\u00e4nniskor.",
+                    "name": "F\u00e4rgnamn"
+                },
+                "cycles": {
+                    "description": "Antal g\u00e5nger effekten ska k\u00f6ras.",
+                    "name": "Cykler"
+                },
+                "mode": {
+                    "description": "Best\u00e4mmer hur f\u00e4rgerna \u00e4ndras.",
+                    "name": "L\u00e4ge"
+                },
+                "period": {
+                    "description": "Effektens varaktighet.",
+                    "name": "Period"
+                },
+                "power_on": {
+                    "description": "Lampor som \u00e4r sl\u00e4ckta t\u00e4nds tillf\u00e4lligt under effekten.",
+                    "name": "Sl\u00e5 p\u00e5"
+                },
+                "rgb_color": {
+                    "description": "Den tillf\u00e4lliga f\u00e4rgen i RGB-format.",
+                    "name": "RGB-f\u00e4rg"
+                }
+            },
+            "name": "Pulseffekt"
+        },
+        "effect_sky": {
+            "fields": {
+                "cloud_saturation_max": {
+                    "description": "Mesta molnt\u00e4cke.",
+                    "name": "Maximalt molnt\u00e4cke"
+                },
+                "cloud_saturation_min": {
+                    "description": "Minsta molnt\u00e4cke.",
+                    "name": "Minimalt molnt\u00e4cke"
+                },
+                "palette": {
+                    "description": "Lista med 1 till 6 f\u00e4rger som v\u00e4rden f\u00f6r nyans (0-360), m\u00e4ttnad (0-100), ljusstyrka (0-100) och kelvin (1500-9000) som ska anv\u00e4ndas f\u00f6r denna effekt.",
+                    "name": "Palett"
+                },
+                "power_on": {
+                    "description": "Sl\u00e4ckta lampor kommer att t\u00e4ndas innan effekten startas.",
+                    "name": "Str\u00f6m p\u00e5"
+                },
+                "speed": {
+                    "name": "Hastighet"
+                }
+            }
+        },
+        "effect_stop": {
+            "description": "Stoppar en p\u00e5g\u00e5ende effekt",
+            "name": "Stoppa effekt"
+        },
+        "set_hev_cycle_state": {
+            "description": "Styr HEV-dioderna p\u00e5 en LIFX Clean-lampa.",
+            "fields": {
+                "duration": {
+                    "description": "Hur l\u00e4nge HEV-dioderna ska vara t\u00e4nda. Anv\u00e4nder den konfigurerade standardvaraktigheten om inget annat anges.",
+                    "name": "Varaktighet"
+                },
+                "power": {
+                    "description": "Starta eller stoppa en reng\u00f6ringscykel.",
+                    "name": "Aktivera"
+                }
+            },
+            "name": "St\u00e4ll in tillst\u00e5nd f\u00f6r HEV-cykel"
+        },
+        "set_state": {
+            "description": "St\u00e4ller in f\u00e4rg/ljusstyrka och kan ocks\u00e5 t\u00e4nda/sl\u00e4cka lampan.",
+            "fields": {
+                "infrared": {
+                    "description": "Automatisk infrar\u00f6d niv\u00e5 n\u00e4r ljusstyrkan \u00e4r l\u00e5g.",
+                    "name": "Infrar\u00f6d"
+                },
+                "power": {
+                    "description": "T\u00e4nd eller sl\u00e4ck lampan. L\u00e4mna f\u00e4ltet tomt f\u00f6r att beh\u00e5lla som den \u00e4r.",
+                    "name": "Str\u00f6m"
+                },
+                "transition": {
+                    "description": "Varaktighet det tar att komma till det sista tillst\u00e5ndet.",
+                    "name": "\u00d6verg\u00e5ng"
+                },
+                "zones": {
+                    "description": "Lista \u00f6ver zonnummer som ska p\u00e5verkas (8 per LIFX Z, b\u00f6rjar p\u00e5 0).",
+                    "name": "Zoner"
+                }
+            },
+            "name": "Ange tillst\u00e5nd"
+        }
+    }
+}

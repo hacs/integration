@@ -1,0 +1,132 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "\u65e5\u5386",
+            "state": {
+                "off": "\u5173\u95ed",
+                "on": "\u5f00\u542f"
+            },
+            "state_attributes": {
+                "all_day": {
+                    "name": "\u5168\u5929",
+                    "state": {
+                        "false": "\u5426",
+                        "true": "\u662f"
+                    }
+                },
+                "description": {
+                    "name": "\u63cf\u8ff0"
+                },
+                "end_time": {
+                    "name": "\u7ed3\u675f\u65f6\u95f4"
+                },
+                "location": {
+                    "name": "\u4f4d\u7f6e"
+                },
+                "message": {
+                    "name": "\u6d88\u606f"
+                },
+                "messages": {
+                    "name": "\u6d88\u606f"
+                },
+                "start_time": {
+                    "name": "\u5f00\u59cb\u65f6\u95f4"
+                }
+            }
+        }
+    },
+    "issues": {
+        "deprecated_service_calendar_list_events": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "\u8bf7\u6362\u7528\u652f\u6301\u591a\u4e2a\u5b9e\u4f53\u7684 calendar.get_events \u3002\n\n\u8bf7\u66ff\u6362\u6b64\u52a8\u4f5c\u5e76\u8c03\u6574\u60a8\u7684\u81ea\u52a8\u5316\u548c\u811a\u672c\uff0c\u7136\u540e\u9009\u62e9\u201c\u63d0\u4ea4\u201d\u53ef\u89e3\u51b3\u6b64\u95ee\u9898\u3002",
+                        "title": "\u68c0\u6d4b\u5230\u4f7f\u7528\u4e86\u5df2\u5f03\u7528\u52a8\u4f5c calendar.list_events"
+                    }
+                }
+            },
+            "title": "\u68c0\u6d4b\u5230\u4f7f\u7528\u4e86\u5df2\u5f03\u7528\u52a8\u4f5c calendar.list_events"
+        },
+        "platform_integration_no_support": {
+            "description": "\u201c{domain}\u201d\u96c6\u6210\u7684\u201c{platform}\u201d\u5e73\u53f0\u4e0d\u652f\u6301\u5e73\u53f0\u8bbe\u7f6e\u3002\n\n\u8bf7\u5c06\u5176\u4ece\u914d\u7f6e\u6587\u4ef6\u4e2d\u79fb\u9664\uff0c\u7136\u540e\u91cd\u65b0\u542f\u52a8 Home Assistant \u89e3\u51b3\u6b64\u95ee\u9898\u3002",
+            "title": "\u6ca1\u6709\u5e73\u53f0\u652f\u6301"
+        }
+    },
+    "services": {
+        "create_event": {
+            "description": "\u6dfb\u52a0\u65b0\u7684\u65e5\u5386\u4e8b\u4ef6\u3002",
+            "fields": {
+                "description": {
+                    "description": "\u6bd4\u6458\u8981\u66f4\u5b8c\u6574\u7684\u4e8b\u4ef6\u63cf\u8ff0\u3002",
+                    "name": "\u63cf\u8ff0"
+                },
+                "end_date": {
+                    "description": "\u4e00\u5929\u5168\u90e8\u4e8b\u4ef6\u5e94\u7ed3\u675f\u7684\u65e5\u671f\uff08\u4e0d\u542b\uff09\u3002",
+                    "name": "\u7ed3\u675f\u65e5\u671f"
+                },
+                "end_date_time": {
+                    "description": "\u4e8b\u4ef6\u5e94\u8be5\u7ed3\u675f\u7684\u65e5\u671f\u548c\u65f6\u95f4\u3002",
+                    "name": "\u7ed3\u675f\u65f6\u95f4"
+                },
+                "in": {
+                    "description": "\u60a8\u60f3\u8981\u521b\u5efa\u4e8b\u4ef6\u7684\u5929\u6570\u6216\u5468\u6570\u3002",
+                    "name": "\u4f4d\u4e8e"
+                },
+                "location": {
+                    "description": "\u4e8b\u4ef6\u7684\u4f4d\u7f6e\u3002",
+                    "name": "\u4f4d\u7f6e"
+                },
+                "start_date": {
+                    "description": "\u4e00\u5929\u5168\u90e8\u4e8b\u4ef6\u5e94\u5f00\u59cb\u7684\u65e5\u671f\u3002",
+                    "name": "\u5f00\u59cb\u65e5\u671f"
+                },
+                "start_date_time": {
+                    "description": "\u4e8b\u4ef6\u5e94\u8be5\u5f00\u59cb\u7684\u65e5\u671f\u548c\u65f6\u95f4\u3002",
+                    "name": "\u5f00\u59cb\u65f6\u95f4"
+                },
+                "summary": {
+                    "description": "\u5b9a\u4e49\u4e8b\u4ef6\u7684\u7b80\u77ed\u6458\u8981\u6216\u4e3b\u9898\u3002",
+                    "name": "\u6458\u8981"
+                }
+            },
+            "name": "\u521b\u5efa\u4e8b\u4ef6"
+        },
+        "get_events": {
+            "description": "\u83b7\u53d6\u65e5\u5386\u4e0a\u67d0\u4e00\u65f6\u95f4\u8303\u56f4\u5185\u7684\u4e8b\u4ef6\u3002",
+            "fields": {
+                "duration": {
+                    "description": "\u8fd4\u56de\u4ece start_date_time\uff08\u5f00\u59cb\u65f6\u95f4\uff09 \u5230\u6307\u5b9a\u65f6\u957f\u5185\u7684\u6d3b\u52a8\u4e8b\u4ef6\u3002",
+                    "name": "\u65f6\u957f"
+                },
+                "end_date_time": {
+                    "description": "\u8fd4\u56de\u6b64\u65f6\u95f4\uff08\u4e0d\u5305\u62ec\uff09\u4e4b\u524d\u7684\u6d3b\u52a8\u4e8b\u4ef6\u3002\u4e0d\u80fd\u4e0e\u201c\u65f6\u957f\u201d\u4e00\u8d77\u4f7f\u7528\u3002",
+                    "name": "\u7ed3\u675f\u65f6\u95f4"
+                },
+                "start_date_time": {
+                    "description": "\u8fd4\u56de\u6b64\u65f6\u95f4\uff08\u4e0d\u5305\u62ec\uff09\u4e4b\u540e\u7684\u6d3b\u52a8\u4e8b\u4ef6\u3002\u5982\u679c\u672a\u8bbe\u7f6e\uff0c\u5219\u9ed8\u8ba4\u4e3a\u73b0\u5728\u3002",
+                    "name": "\u5f00\u59cb\u65f6\u95f4"
+                }
+            },
+            "name": "\u83b7\u53d6\u4e8b\u4ef6"
+        },
+        "list_events": {
+            "description": "\u5217\u51fa\u65e5\u5386\u4e0a\u67d0\u4e2a\u65f6\u95f4\u8303\u56f4\u5185\u7684\u4e8b\u4ef6\u3002",
+            "fields": {
+                "duration": {
+                    "description": "\u8fd4\u56de\u4ece start_date_time\uff08\u5f00\u59cb\u65f6\u95f4\uff09 \u5230\u6307\u5b9a\u65f6\u957f\u5185\u7684\u6d3b\u52a8\u4e8b\u4ef6\u3002",
+                    "name": "\u65f6\u957f"
+                },
+                "end_date_time": {
+                    "description": "\u8fd4\u56de\u6b64\u65f6\u95f4\uff08\u4e0d\u5305\u62ec\uff09\u4e4b\u524d\u7684\u6d3b\u52a8\u4e8b\u4ef6\u3002\u4e0d\u80fd\u4e0e\u201c\u65f6\u957f\u201d\u4e00\u8d77\u4f7f\u7528\u3002",
+                    "name": "\u7ed3\u675f\u65f6\u95f4"
+                },
+                "start_date_time": {
+                    "description": "\u8fd4\u56de\u6b64\u65f6\u95f4\uff08\u4e0d\u5305\u62ec\uff09\u4e4b\u540e\u7684\u6d3b\u52a8\u4e8b\u4ef6\u3002\u5982\u679c\u672a\u8bbe\u7f6e\uff0c\u5219\u9ed8\u8ba4\u4e3a\u73b0\u5728\u3002",
+                    "name": "\u5f00\u59cb\u65f6\u95f4"
+                }
+            },
+            "name": "\u5217\u51fa\u4e8b\u4ef6"
+        }
+    },
+    "title": "\u65e5\u5386"
+}

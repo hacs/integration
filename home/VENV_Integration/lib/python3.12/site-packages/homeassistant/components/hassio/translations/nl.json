@@ -1,0 +1,302 @@
+{
+    "entity": {
+        "sensor": {
+            "agent_version": {
+                "name": "OS Agent-versie"
+            },
+            "apparmor_version": {
+                "name": "Apparmor-versie"
+            },
+            "cpu_percent": {
+                "name": "CPU-percentage"
+            },
+            "disk_free": {
+                "name": "Schijfruimte vrij"
+            },
+            "disk_total": {
+                "name": "Schijfruimte totaal"
+            },
+            "disk_used": {
+                "name": "Schijfruimte gebruikt"
+            },
+            "memory_percent": {
+                "name": "Geheugenpercentage"
+            },
+            "version": {
+                "name": "Versie"
+            },
+            "version_latest": {
+                "name": "Nieuwste versie"
+            }
+        }
+    },
+    "issues": {
+        "issue_mount_mount_failed": {
+            "fix_flow": {
+                "step": {
+                    "fix_menu": {
+                        "menu_options": {
+                            "mount_execute_reload": "Herladen",
+                            "mount_execute_remove": "Verwijderen"
+                        }
+                    }
+                }
+            }
+        },
+        "issue_system_docker_config": {
+            "fix_flow": {
+                "abort": {
+                    "apply_suggestion_fail": "Een of meer herstarts zijn mislukt. Controleer de supervisorlogboeken voor meer details."
+                },
+                "step": {
+                    "system_execute_rebuild": {
+                        "description": "De standaardconfiguratie voor add-ons en Home Assistant is gewijzigd. Om de configuratie bij te werken met de nieuwe standaardinstellingen, is een herstart vereist voor het volgende: \n\n - {components}"
+                    }
+                }
+            },
+            "title": "Herstart vereist"
+        },
+        "issue_system_multiple_data_disks": {
+            "fix_flow": {
+                "step": {
+                    "fix_menu": {
+                        "description": "Op `{reference}` hebben we nog een andere actieve datadisk (met een `hassos-data` bestandssysteem van een andere Home Assistant installatie) gevonden.\n\nJe moet besluiten wat je hiermee wilt doen, anders zou Home Assistant de verkeerde datadisk partitie kunnen kiezen wanneer het systeem opnieuw start.\n\nAls je de datadisk niet wilt gebruiken, koppel deze dan los van je systeem. Als je de disk wilt houden, kies dan \u00e9\u00e9n van de volgende opties:",
+                        "menu_options": {
+                            "system_adopt_data_disk": "Gebruik de gedetecteerde datadisk in plaats van het huidige systeemdisk",
+                            "system_rename_data_disk": "Markeren als inactieve datadisk (hernoemen bestandssysteem)"
+                        }
+                    }
+                }
+            },
+            "title": "Meerdere dataschijven gedetecteerd"
+        },
+        "issue_system_reboot_required": {
+            "title": "Herstart is vereist"
+        },
+        "unhealthy": {
+            "description": "Systeem is momenteel niet in orde vanwege {reason} . Gebruik de link voor meer informatie en hoe u dit kunt oplossen.",
+            "title": "Ongezond systeem - {reason}"
+        },
+        "unhealthy_docker": {
+            "description": "Het systeem is momenteel niet in orde omdat Docker onjuist is geconfigureerd. Gebruik de link voor meer informatie en hoe u dit kunt oplossen.",
+            "title": "Ongezond systeem - Docker verkeerd geconfigureerd"
+        },
+        "unhealthy_privileged": {
+            "description": "Het systeem is momenteel niet in orde omdat het geen bevoorrechte toegang heeft tot de docker runtime. Gebruik de link voor meer informatie en hoe u dit kunt oplossen."
+        },
+        "unhealthy_setup": {
+            "description": "Systeem is momenteel niet in orde omdat de setup niet afgerond kon worden. Dit kan het gevolg zijn van meerdere oorzaken, gebruik de link voor meer informatie en voor aanwijzingen hoe je dit kan oplossen.",
+            "title": "Ongezond systeem - Setup mislukt"
+        },
+        "unhealthy_supervisor": {
+            "description": "Het systeem is momenteel ongezond omdat een poging om Supervisor bij te werken naar de nieuwste versie is mislukt. Gebruik de link om meer te leren en hoe dit te repareren.",
+            "title": "Ongezond systeem - Supervisor-update mislukt"
+        },
+        "unhealthy_untrusted": {
+            "description": "Systeem is momenteel niet in orde omdat er niet vertrouwde code of images in gebruik zijn. Gebruik de link voor meer informatie en voor aanwijzingen hoe je dit kan oplossen",
+            "title": "Systeem niet in orde - Niet vertrouwde code"
+        },
+        "unsupported": {
+            "description": "Het systeem wordt niet ondersteund vanwege {reason}. Gebruik de link om meer te leren en te ontdekken hoe je dit kunt oplossen.",
+            "title": "Niet-ondersteund systeem - {reason}"
+        },
+        "unsupported_apparmor": {
+            "description": "Systeem wordt niet ondersteund omdat AppArmor niet correct werkt en add-ons op een onbeschermde en onveilige manier worden uitgevoerd. Gebruik de link voor meer informatie en hoe je dit kunt oplossen.",
+            "title": "Niet-ondersteund systeem - AppArmor-problemen"
+        },
+        "unsupported_cgroup_version": {
+            "description": "Systeem wordt niet ondersteund omdat de verkeerde versie van Docker CGroup in gebruik is. Gebruik de link om de juiste versie te vinden en hoe je dit kunt oplossen.",
+            "title": "Niet-ondersteund systeem - CGroup version"
+        },
+        "unsupported_connectivity_check": {
+            "title": "Niet-ondersteund systeem - Connectiviteitscontrole uitgeschakeld"
+        },
+        "unsupported_content_trust": {
+            "title": "Niet-ondersteund systeem - Controle op inhoudstrouw uitgeschakeld"
+        },
+        "unsupported_docker_version": {
+            "title": "Niet ondersteund systeem - Docker versie"
+        },
+        "unsupported_os": {
+            "title": "Niet ondersteund systeem - Besturingssysteem"
+        },
+        "unsupported_os_agent": {
+            "title": "Niet ondersteund systeem - Besturingssysteem-agent problemen"
+        },
+        "unsupported_restart_policy": {
+            "title": "Niet ondersteund systeem - Container herstart policy"
+        },
+        "unsupported_virtualization_image": {
+            "description": "Het systeem is niet ondersteund omdat het gebruikte Home Assistant OS image niet is bedoeld om toe te passen in een gevirtualiseerde omgeving. Gebruik de link om hierover meer te leren en hoe dit op te lossen.",
+            "title": "Niet ondersteund systeem - Incorrect OS image voor virtualisatie"
+        }
+    },
+    "services": {
+        "addon_restart": {
+            "description": "Herstart een add-on.",
+            "fields": {
+                "addon": {
+                    "description": "De `slug` van de add-on",
+                    "name": "Add-on"
+                }
+            },
+            "name": "Add-on herstarten."
+        },
+        "addon_start": {
+            "description": "Start een add-on.",
+            "fields": {
+                "addon": {
+                    "description": "De `slug` van de add-on",
+                    "name": "Add-on"
+                }
+            },
+            "name": "Add-on starten"
+        },
+        "addon_stdin": {
+            "description": "Stuurt data naar de `stdin` van een add-on.",
+            "fields": {
+                "addon": {
+                    "description": "De `slug` van de add-on",
+                    "name": "Add-on"
+                }
+            },
+            "name": "Stuur data naar de `stdin` van een add-on."
+        },
+        "addon_stop": {
+            "description": "Stopt een add-on.",
+            "fields": {
+                "addon": {
+                    "description": "De `slug` van de add-on",
+                    "name": "Add-on"
+                }
+            },
+            "name": "Stop add-on."
+        },
+        "addon_update": {
+            "fields": {
+                "addon": {
+                    "description": "De `slug` van de add-on",
+                    "name": "Add-on"
+                }
+            },
+            "name": "Add-on bijwerken."
+        },
+        "backup_full": {
+            "description": "Maakt een volledige back-up",
+            "fields": {
+                "compressed": {
+                    "description": "Comprimeert de back-up bestanden",
+                    "name": "Gecomprimeerd"
+                },
+                "homeassistant_exclude_database": {
+                    "description": "Het Home Assistant databasebestand uitsluiten van de backup",
+                    "name": "Home Assistant database uitsluiten"
+                },
+                "location": {
+                    "description": "De naam van de back-up netwerkopslag voor het bewaren van back-up's.",
+                    "name": "Locatie"
+                },
+                "name": {
+                    "description": "Optioneel (standaard = huidige datum en tijd).",
+                    "name": "Naam"
+                },
+                "password": {
+                    "description": "Wachtwoord om de back-up te beveiligen.",
+                    "name": "Wachtwoord"
+                }
+            },
+            "name": "Maak een volledige back-up."
+        },
+        "backup_partial": {
+            "description": "Maakt een gedeeltelijke back-up.",
+            "fields": {
+                "addons": {
+                    "description": "Lijst van add-ons om meetenemen in de back-up. Gebruik de `slug` naam van de add-on.",
+                    "name": "Add-ons"
+                },
+                "compressed": {
+                    "description": "Comprimeert de back-up bestanden",
+                    "name": "Gecomprimeerd"
+                },
+                "folders": {
+                    "description": "Lijst met mappen om meetenemen in de back-up.",
+                    "name": "Mappen"
+                },
+                "homeassistant": {
+                    "description": "Home Assistant instellingen meenemen in de back-up.",
+                    "name": "Home Assistant instellingen"
+                },
+                "homeassistant_exclude_database": {
+                    "description": "Het Home Assistant databasebestand uitsluiten van de backup",
+                    "name": "Home Assistant database uitsluiten"
+                },
+                "location": {
+                    "description": "De naam van de back-up netwerkopslag voor het bewaren van back-up's.",
+                    "name": "Locatie"
+                },
+                "name": {
+                    "description": "Optioneel (standaard = huidige datum en tijd)."
+                },
+                "password": {
+                    "description": "Wachtwoord om de back-up te beveiligen."
+                }
+            },
+            "name": "Gedeeltelijke back-up maken."
+        },
+        "host_reboot": {
+            "description": "Herstart het systeem.",
+            "name": "Het systeem opnieuw starten."
+        },
+        "host_shutdown": {
+            "description": "Schakelt het systeem uit.",
+            "name": "Uitschakelen systeem."
+        },
+        "restore_full": {
+            "description": "Herstellen van volledige back-up.",
+            "fields": {
+                "password": {
+                    "description": "Optioneel wachtwoord."
+                },
+                "slug": {
+                    "description": "Geef de `slug` van een back-up om van te herstellen.",
+                    "name": "Slug"
+                }
+            },
+            "name": "Herstellen van een volledige back-up."
+        },
+        "restore_partial": {
+            "description": "Herstellen van een gedeeltelijke back-up.",
+            "fields": {
+                "addons": {
+                    "description": "Lijst van add-ons om meetenemen in de back-up. Gebruik de `slug` naam van de add-on.",
+                    "name": "Add-ons"
+                },
+                "folders": {
+                    "description": "Lijst met mappen om meetenemen in de back-up.",
+                    "name": "Mappen"
+                },
+                "homeassistant": {
+                    "description": "Herstelt Home Assistant.",
+                    "name": "Home Assistant instellingen"
+                },
+                "password": {
+                    "description": "Optioneel wachtwoord."
+                },
+                "slug": {
+                    "description": "Geef de `slug` van een back-up om van te herstellen.",
+                    "name": "Slug"
+                }
+            },
+            "name": "Herstellen van gedeeltelijke back-up."
+        }
+    },
+    "system_health": {
+        "info": {
+            "board": "Bord",
+            "healthy": "Gezond",
+            "supervisor_api": "Supervisor API",
+            "supported": "Ondersteund",
+            "version_api": "API Versie"
+        }
+    }
+}

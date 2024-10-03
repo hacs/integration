@@ -1,0 +1,146 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "To-Do\u30ea\u30b9\u30c8"
+        }
+    },
+    "exceptions": {
+        "item_not_found": {
+            "message": "To-Do \u30ea\u30b9\u30c8\u9805\u76ee\u304c\u898b\u3064\u304b\u308a\u307e\u305b\u3093: {item}"
+        },
+        "update_field_not_supported": {
+            "message": "\u30a8\u30f3\u30c6\u30a3\u30c6\u30a3\u306f\u30d5\u30a3\u30fc\u30eb\u30c9\u306e\u8a2d\u5b9a\u3092\u30b5\u30dd\u30fc\u30c8\u3057\u3066\u3044\u307e\u305b\u3093: {service_field}"
+        }
+    },
+    "selector": {
+        "status": {
+            "options": {
+                "completed": "\u5b8c\u4e86",
+                "needs_action": "\u672a\u5b8c\u4e86"
+            }
+        }
+    },
+    "services": {
+        "add_item": {
+            "description": "\u65b0\u3057\u3044To-Do\u30ea\u30b9\u30c8\u9805\u76ee\u3092\u8ffd\u52a0\u3059\u308b\u3002",
+            "fields": {
+                "description": {
+                    "description": "\u9805\u76ee\u540d\u3067\u63d0\u4f9b\u3055\u308c\u308b\u3082\u306e\u3088\u308a\u3082 ToDo \u9805\u76ee\u306e\u3088\u308a\u5b8c\u5168\u306a\u8aac\u660e\u3002",
+                    "name": "\u8aac\u660e"
+                },
+                "due_date": {
+                    "description": "ToDo\u9805\u76ee\u306e\u5b8c\u4e86\u4e88\u5b9a\u65e5\u3002",
+                    "name": "\u671f\u65e5"
+                },
+                "due_date_time": {
+                    "description": "ToDo\u9805\u76ee\u306e\u5b8c\u4e86\u4e88\u5b9a\u65e5\u6642\u3002",
+                    "name": "\u671f\u65e5\u6642\u523b"
+                },
+                "due_datetime": {
+                    "description": "ToDo\u9805\u76ee\u306e\u5b8c\u4e86\u4e88\u5b9a\u65e5\u6642\u3002",
+                    "name": "\u671f\u65e5\u3068\u6642\u523b"
+                },
+                "item": {
+                    "description": "To-Do\u9805\u76ee\u3092\u8868\u3059\u540d\u524d\u3002",
+                    "name": "\u9805\u76ee\u540d"
+                }
+            },
+            "name": "To-Do\u30ea\u30b9\u30c8\u9805\u76ee\u306e\u8ffd\u52a0"
+        },
+        "create_item": {
+            "description": "\u65b0\u3057\u3044 ToDo \u30ea\u30b9\u30c8\u9805\u76ee\u3092\u8ffd\u52a0\u3057\u307e\u3059\u3002",
+            "fields": {
+                "status": {
+                    "description": "To-Do\u30a2\u30a4\u30c6\u30e0\u306e\u30b9\u30c6\u30fc\u30bf\u30b9\u307e\u305f\u306f\u78ba\u8a8d\u3002",
+                    "name": "\u72b6\u614b"
+                },
+                "summary": {
+                    "description": "To-Do \u30a2\u30a4\u30c6\u30e0\u3092\u8868\u3059\u77ed\u3044\u6982\u8981\u3002",
+                    "name": "\u307e\u3068\u3081"
+                }
+            },
+            "name": "To-Do \u30ea\u30b9\u30c8\u9805\u76ee\u306e\u4f5c\u6210"
+        },
+        "delete_item": {
+            "description": "\u56fa\u6709\u306e ID \u307e\u305f\u306f\u6982\u8981\u3092\u4f7f\u7528\u3057\u3066\u3001\u65e2\u5b58\u306e To-do \u30ea\u30b9\u30c8\u9805\u76ee\u3092\u524a\u9664\u3057\u307e\u3059\u3002",
+            "fields": {
+                "summary": {
+                    "description": "To-Do \u30a2\u30a4\u30c6\u30e0\u3092\u8868\u3059\u77ed\u3044\u6982\u8981\u3002",
+                    "name": "\u307e\u3068\u3081"
+                },
+                "uid": {
+                    "description": "To-do \u30ea\u30b9\u30c8\u9805\u76ee\u306e\u4e00\u610f\u306e\u8b58\u5225\u5b50\u3002",
+                    "name": "To-Do \u30a2\u30a4\u30c6\u30e0\u306e\u4e00\u610f\u306e ID"
+                }
+            },
+            "name": "To-do \u30ea\u30b9\u30c8\u9805\u76ee\u3092\u524a\u9664\u3059\u308b"
+        },
+        "get_items": {
+            "description": "To Do \u30ea\u30b9\u30c8\u306e\u9805\u76ee\u3092\u53d6\u5f97\u3057\u307e\u3059\u3002",
+            "fields": {
+                "status": {
+                    "description": "\u6307\u5b9a\u3055\u308c\u305f\u30b9\u30c6\u30fc\u30bf\u30b9\u3092\u6301\u3064ToDo\u9805\u76ee\u306e\u307f\u3092\u8fd4\u3057\u307e\u3059\u3002\u30c7\u30d5\u30a9\u30eb\u30c8\u3067\u306f\u672a\u5b8c\u4e86\u306e\u30a2\u30af\u30b7\u30e7\u30f3\u3092\u8fd4\u3057\u307e\u3059\u3002",
+                    "name": "\u30b9\u30c6\u30fc\u30bf\u30b9"
+                }
+            },
+            "name": "To Do \u30ea\u30b9\u30c8\u306e\u9805\u76ee\u3092\u53d6\u5f97\u3059\u308b"
+        },
+        "remove_completed_items": {
+            "description": "\u5b8c\u4e86\u3057\u305f To Do \u30ea\u30b9\u30c8\u9805\u76ee\u3092\u3059\u3079\u3066\u524a\u9664\u3057\u307e\u3059\u3002",
+            "name": "\u5b8c\u4e86\u3057\u305f To Do \u30ea\u30b9\u30c8\u9805\u76ee\u3092\u3059\u3079\u3066\u524a\u9664\u3059\u308b"
+        },
+        "remove_item": {
+            "description": "\u65e2\u5b58\u306eTo-Do\u30ea\u30b9\u30c8\u9805\u76ee\u3092\u305d\u306e\u540d\u524d\u3067\u524a\u9664\u3059\u308b\u3002",
+            "fields": {
+                "item": {
+                    "description": "To-Do\u30ea\u30b9\u30c8\u9805\u76ee\u306e\u540d\u524d\u3002",
+                    "name": "\u9805\u76ee\u540d"
+                }
+            },
+            "name": "To-Do\u30ea\u30b9\u30c8\u306e\u9805\u76ee\u3092\u524a\u9664\u3059\u308b"
+        },
+        "update_item": {
+            "description": "\u65e2\u5b58\u306eTo-Do\u30ea\u30b9\u30c8\u9805\u76ee\u3092\u305d\u306e\u540d\u524d\u306b\u57fa\u3065\u3044\u3066\u66f4\u65b0\u3057\u307e\u3059\u3002",
+            "fields": {
+                "description": {
+                    "description": "\u9805\u76ee\u540d\u3067\u63d0\u4f9b\u3055\u308c\u308b\u3082\u306e\u3088\u308a\u3082 ToDo \u9805\u76ee\u306e\u3088\u308a\u5b8c\u5168\u306a\u8aac\u660e\u3002",
+                    "name": "\u8aac\u660e"
+                },
+                "due_date": {
+                    "description": "ToDo\u9805\u76ee\u306e\u5b8c\u4e86\u4e88\u5b9a\u65e5\u3002",
+                    "name": "\u671f\u65e5"
+                },
+                "due_date_time": {
+                    "description": "ToDo\u9805\u76ee\u306e\u5b8c\u4e86\u4e88\u5b9a\u65e5\u6642\u3002",
+                    "name": "\u671f\u65e5\u6642\u523b"
+                },
+                "due_datetime": {
+                    "description": "ToDo\u9805\u76ee\u306e\u5b8c\u4e86\u4e88\u5b9a\u65e5\u6642\u3002",
+                    "name": "\u671f\u65e5\u3068\u6642\u523b"
+                },
+                "item": {
+                    "description": "To-Do\u30ea\u30b9\u30c8\u9805\u76ee\u306e\u540d\u524d\u3002",
+                    "name": "\u9805\u76ee\u540d"
+                },
+                "rename": {
+                    "description": "To-Do\u9805\u76ee\u306e\u65b0\u3057\u3044\u540d\u524d",
+                    "name": "\u9805\u76ee\u540d\u306e\u5909\u66f4"
+                },
+                "status": {
+                    "description": "To-Do\u30a2\u30a4\u30c6\u30e0\u306e\u30b9\u30c6\u30fc\u30bf\u30b9\u307e\u305f\u306f\u78ba\u8a8d\u3002",
+                    "name": "\u30b9\u30c6\u30fc\u30bf\u30b9\u306e\u8a2d\u5b9a"
+                },
+                "summary": {
+                    "description": "To-Do \u30a2\u30a4\u30c6\u30e0\u3092\u8868\u3059\u77ed\u3044\u6982\u8981\u3002",
+                    "name": "\u307e\u3068\u3081"
+                },
+                "uid": {
+                    "description": "To-do \u30ea\u30b9\u30c8\u9805\u76ee\u306e\u4e00\u610f\u306e\u8b58\u5225\u5b50\u3002",
+                    "name": "To-Do \u30a2\u30a4\u30c6\u30e0\u306e\u4e00\u610f\u306e ID"
+                }
+            },
+            "name": "To-Do \u30ea\u30b9\u30c8\u306e\u9805\u76ee\u3092\u66f4\u65b0\u3059\u308b"
+        }
+    },
+    "title": "To-Do\u30ea\u30b9\u30c8"
+}

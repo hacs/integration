@@ -1,0 +1,112 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "\u88dd\u7f6e\u5df2\u7d93\u8a2d\u5b9a\u5b8c\u6210"
+        },
+        "error": {
+            "cannot_connect": "\u9023\u7dda\u5931\u6557",
+            "invalid_auth": "\u8eab\u4efd\u9a57\u8b49\u7121\u6548"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "password": "\u5bc6\u78bc",
+                    "url": "\u7db2\u5740",
+                    "username": "\u4f7f\u7528\u8005\u540d\u7a31",
+                    "verify_ssl": "\u78ba\u8a8d SSL \u8a8d\u8b49"
+                }
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "active_torrents": {
+                "name": "\u4f7f\u7528\u4e2d Torrent"
+            },
+            "all_torrents": {
+                "name": "\u6240\u6709 Torrent"
+            },
+            "current_status": {
+                "name": "\u72c0\u614b",
+                "state": {
+                    "downloading": "\u4e0b\u8f09\u4e2d",
+                    "idle": "\u5f85\u547d",
+                    "seeding": "\u505a\u7a2e\u4e2d",
+                    "up_down": "\u4e0a\u50b3/\u4e0b\u8f09"
+                }
+            },
+            "download_speed": {
+                "name": "\u4e0b\u8f09\u901f\u5ea6"
+            },
+            "inactive_torrents": {
+                "name": "\u7121\u6d3b\u52d5\u7684 Torrent"
+            },
+            "paused_torrents": {
+                "name": "\u5df2\u66ab\u505c\u7684 Torrent"
+            },
+            "transmission_status": {
+                "name": "\u72c0\u614b",
+                "state": {
+                    "downloading": "\u4e0b\u8f09\u4e2d",
+                    "idle": "\u5f85\u547d",
+                    "seeding": "\u505a\u7a2e\u4e2d",
+                    "up_down": "\u4e0a\u50b3/\u4e0b\u8f09"
+                }
+            },
+            "upload_speed": {
+                "name": "\u4e0a\u50b3\u901f\u5ea6"
+            }
+        },
+        "switch": {
+            "alternative_speed": {
+                "name": "\u66ff\u4ee3\u901f\u5ea6"
+            }
+        }
+    },
+    "exceptions": {
+        "cannot_connect": {
+            "message": "\u7121\u6cd5\u9023\u7dda\u81f3 QBittorrent\u3001\u8acb\u6aa2\u67e5\u8a2d\u5b9a\u3002"
+        },
+        "invalid_device": {
+            "message": "\u627e\u4e0d\u5230 ID \u70ba {device_id} \u7684\u88dd\u7f6e"
+        },
+        "invalid_entry_id": {
+            "message": "\u627e\u4e0d\u5230 ID \u70ba {device_id} \u7684\u689d\u76ee"
+        },
+        "login_error": {
+            "message": "\u767c\u751f\u767b\u5165\u932f\u8aa4\u3002\u8acb\u78ba\u8a8d\u96fb\u5b50\u90f5\u4ef6\u8207\u5bc6\u78bc\u3002"
+        }
+    },
+    "issues": {
+        "deprecated_yaml": {
+            "description": "\u4f7f\u7528 YAML \u8a2d\u5b9a\u7684 qBittorrent \u5373\u5c07\u9032\u884c\u79fb\u9664\u3002\n\n\u65e2\u6709\u7684 YAML \u8a2d\u5b9a\u5c07\u81ea\u52d5\u532f\u5165\u81f3 UI \u5167\u3002\n\n\u8acb\u65bc configuration.yaml \u6a94\u6848\u4e2d\u79fb\u9664 qBittorrent YAML \u8a2d\u5b9a\u4e26\u91cd\u65b0\u555f\u52d5 Home Assistant \u4ee5\u4fee\u6b63\u6b64\u554f\u984c\u3002",
+            "title": "qBittorrent YAML \u8a2d\u5b9a\u5373\u5c07\u79fb\u9664"
+        }
+    },
+    "services": {
+        "get_all_torrents": {
+            "description": "\u7531\u5168\u90e8 qBittorrent \u53d6\u5f97\u76ee\u524d Torrent \u5217\u8868",
+            "fields": {
+                "torrent_filter": {
+                    "description": "\u60f3\u8981\u8fd4\u56de\u54ea\u500b\u985e\u578b\u7684 Torrent\u3001\u4f8b\u5982\u300c\u5168\u90e8\u300d\u6216\u300c\u6d3b\u8e8d\u4e2d\u300d\u3002",
+                    "name": "Torrent \u904e\u6ffe\u5668"
+                }
+            },
+            "name": "\u53d6\u5f97\u6240\u6709 Torrent"
+        },
+        "get_torrents": {
+            "description": "\u53d6\u5f97\u76ee\u524d Torrent \u5217\u8868",
+            "fields": {
+                "device_id": {
+                    "description": "\u5f9e\u54ea\u500b\u670d\u52d9\u53d6\u5f97\u5217\u8868",
+                    "name": "\u88dd\u7f6e"
+                },
+                "torrent_filter": {
+                    "description": "\u60f3\u8981\u8fd4\u56de\u54ea\u500b\u985e\u578b\u7684 Torrent\u3001\u4f8b\u5982\u300c\u5168\u90e8\u300d\u6216\u300c\u6d3b\u8e8d\u4e2d\u300d\u3002",
+                    "name": "Torrent \u904e\u6ffe\u5668"
+                }
+            },
+            "name": "\u53d6\u5f97 Torrent"
+        }
+    }
+}

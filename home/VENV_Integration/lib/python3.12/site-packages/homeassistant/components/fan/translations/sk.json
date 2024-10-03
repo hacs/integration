@@ -1,0 +1,159 @@
+{
+    "device_automation": {
+        "action_type": {
+            "toggle": "Prepn\u00fa\u0165 {entity_name}",
+            "turn_off": "Vypn\u00fa\u0165 {entity_name}",
+            "turn_on": "Zapn\u00fa\u0165 {entity_name}"
+        },
+        "condition_type": {
+            "is_off": "{entity_name} je vypnut\u00e9",
+            "is_on": "{entity_name} je zapnut\u00e9"
+        },
+        "trigger_type": {
+            "changed_states": "{entity_name} zapnut\u00e9 alebo vypnut\u00e9",
+            "turned_off": "{entity_name} vypnut\u00e9",
+            "turned_on": "{entity_name} zapnut\u00e9"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Ventil\u00e1tor",
+            "state": {
+                "off": "Neakt\u00edvny",
+                "on": "Akt\u00edvny"
+            },
+            "state_attributes": {
+                "direction": {
+                    "name": "Smer",
+                    "state": {
+                        "forward": "Dopredu",
+                        "reverse": "Reverzn\u00fd"
+                    }
+                },
+                "oscillating": {
+                    "name": "Osciluj\u00face",
+                    "state": {
+                        "false": "Nie",
+                        "true": "\u00c1no"
+                    }
+                },
+                "percentage": {
+                    "name": "R\u00fdchlos\u0165"
+                },
+                "percentage_step": {
+                    "name": "R\u00fdchlostn\u00fd krok"
+                },
+                "preset_mode": {
+                    "name": "Prednastaven\u00fd re\u017eim"
+                },
+                "preset_modes": {
+                    "name": "Dostupn\u00e9 prednastaven\u00e9 re\u017eimy"
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "not_valid_preset_mode": {
+            "message": "Prednastaven\u00fd re\u017eim {preset_mode} nie je platn\u00fd, platn\u00e9 prednastaven\u00e9 re\u017eimy s\u00fa: {preset_modes}."
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "Platforma {platform} pre integr\u00e1ciu {domain} nepodporuje nastavenie platformy. \n\n Odstr\u00e1\u0148te ho z konfigur\u00e1cie a re\u0161tartujte Home Assistant, aby ste tento probl\u00e9m vyrie\u0161ili.",
+            "title": "Podpora platformy nie je podporovan\u00e1"
+        }
+    },
+    "selector": {
+        "direction": {
+            "options": {
+                "forward": "Dopredu",
+                "reverse": "Reverzn\u00fd"
+            }
+        }
+    },
+    "services": {
+        "decrease_speed": {
+            "description": "Zn\u00ed\u017ei r\u00fdchlos\u0165 ventil\u00e1tora.",
+            "fields": {
+                "percentage_step": {
+                    "description": "Zn\u00ed\u017ei r\u00fdchlos\u0165 o percentu\u00e1lny krok.",
+                    "name": "Zn\u00ed\u017eenie"
+                }
+            },
+            "name": "Zn\u00ed\u017eenie r\u00fdchlosti"
+        },
+        "increase_speed": {
+            "description": "Zvy\u0161uje r\u00fdchlos\u0165 ventil\u00e1tora.",
+            "fields": {
+                "percentage_step": {
+                    "description": "Zvy\u0161uje r\u00fdchlos\u0165 o percentu\u00e1lny krok.",
+                    "name": "Pripo\u010d\u00edtanie"
+                }
+            },
+            "name": "Zv\u00fd\u0161enie r\u00fdchlosti"
+        },
+        "oscillate": {
+            "description": "Ovl\u00e1da oscil\u00e1ciu ventil\u00e1tora.",
+            "fields": {
+                "oscillating": {
+                    "description": "Zapnutie/vypnutie oscil\u00e1cie.",
+                    "name": "Osciluj\u00face"
+                }
+            },
+            "name": "Oscil\u00e1cia"
+        },
+        "set_direction": {
+            "description": "Nastavuje smer ot\u00e1\u010dania ventil\u00e1tora.",
+            "fields": {
+                "direction": {
+                    "description": "Smer ot\u00e1\u010dania.",
+                    "name": "Smer"
+                }
+            },
+            "name": "Nastavenie smeru"
+        },
+        "set_percentage": {
+            "description": "Nastav\u00ed r\u00fdchlos\u0165 ventil\u00e1tora.",
+            "fields": {
+                "percentage": {
+                    "description": "R\u00fdchlos\u0165 ventil\u00e1tora.",
+                    "name": "Percento"
+                }
+            },
+            "name": "Nastavenie r\u00fdchlosti"
+        },
+        "set_preset_mode": {
+            "description": "Nastav\u00ed re\u017eim predvo\u013eby.",
+            "fields": {
+                "preset_mode": {
+                    "description": "Prednastaven\u00fd re\u017eim.",
+                    "name": "Prednastaven\u00fd re\u017eim"
+                }
+            },
+            "name": "Nastavenie prednastaven\u00e9ho re\u017eimu"
+        },
+        "toggle": {
+            "description": "Prep\u00edna zapnutie/vypnutie ventil\u00e1tora.",
+            "name": "Prepn\u00fa\u0165"
+        },
+        "turn_off": {
+            "description": "Vypne ventil\u00e1tor.",
+            "name": "Vypn\u00fa\u0165"
+        },
+        "turn_on": {
+            "description": "Zapne ventil\u00e1tor.",
+            "fields": {
+                "percentage": {
+                    "description": "R\u00fdchlos\u0165 ventil\u00e1tora.",
+                    "name": "Percento"
+                },
+                "preset_mode": {
+                    "description": "Prednastaven\u00fd re\u017eim.",
+                    "name": "Prednastaven\u00fd re\u017eim"
+                }
+            },
+            "name": "Zapn\u00fa\u0165"
+        }
+    },
+    "title": "Ventil\u00e1tor"
+}

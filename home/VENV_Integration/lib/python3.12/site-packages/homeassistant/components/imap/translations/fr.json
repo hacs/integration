@@ -1,0 +1,164 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "L'appareil est d\u00e9j\u00e0 configur\u00e9",
+            "reauth_successful": "La r\u00e9-authentification a r\u00e9ussi"
+        },
+        "error": {
+            "cannot_connect": "\u00c9chec de connexion",
+            "invalid_auth": "Authentification non valide",
+            "invalid_charset": "Le jeu de caract\u00e8res sp\u00e9cifi\u00e9 n'est pas pris en charge",
+            "invalid_folder": "Le dossier s\u00e9lectionn\u00e9 n'est pas valide",
+            "invalid_search": "La recherche s\u00e9lectionn\u00e9e est invalide"
+        },
+        "step": {
+            "reauth_confirm": {
+                "data": {
+                    "password": "Mot de passe"
+                },
+                "description": "Le mot de passe pour {username} n'est pas valide.",
+                "title": "L'authentification a expir\u00e9 pour {name}"
+            },
+            "user": {
+                "data": {
+                    "charset": "Jeu de caract\u00e8res",
+                    "folder": "Dossier",
+                    "password": "Mot de passe",
+                    "port": "Port",
+                    "search": "Recherche IMAP",
+                    "server": "Serveur",
+                    "username": "Nom d'utilisateur",
+                    "verify_ssl": "V\u00e9rifier le certificat SSL"
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "copy_failed": {
+            "message": "La copie du message a \u00e9chou\u00e9 avec \"{error}\"."
+        },
+        "delete_failed": {
+            "message": "Le marquage du message pour suppression a \u00e9chou\u00e9 avec \"{error}\"."
+        },
+        "expunge_failed": {
+            "message": "La suppression du message a \u00e9chou\u00e9 avec \"{error}\"."
+        },
+        "imap_server_fail": {
+            "message": "Le serveur IMAP n'a pas r\u00e9ussi \u00e0 se connecter\u00a0: {error}."
+        },
+        "invalid_auth": {
+            "message": "Authentification non valide"
+        },
+        "invalid_entry": {
+            "message": "Aucune entr\u00e9e IMAP valide n'a \u00e9t\u00e9 trouv\u00e9e."
+        },
+        "invalid_folder": {
+            "message": "Le dossier s\u00e9lectionn\u00e9 n'est pas valide"
+        },
+        "seen_failed": {
+            "message": "Le marquage du message comme vu a \u00e9chou\u00e9 avec \"{error}\"."
+        }
+    },
+    "options": {
+        "error": {
+            "already_configured": "Une entr\u00e9e avec ces options de dossier et de recherche existe d\u00e9j\u00e0.",
+            "cannot_connect": "\u00c9chec de connexion",
+            "invalid_auth": "Authentification non valide",
+            "invalid_charset": "Le jeu de caract\u00e8res sp\u00e9cifi\u00e9 n'est pas pris en charge",
+            "invalid_folder": "Le dossier s\u00e9lectionn\u00e9 n'est pas valide",
+            "invalid_search": "La recherche s\u00e9lectionn\u00e9e est invalide",
+            "invalid_template": "Mod\u00e8le invalide"
+        },
+        "step": {
+            "init": {
+                "data": {
+                    "custom_event_data_template": "Mod\u00e8le pour cr\u00e9er des donn\u00e9es d'\u00e9v\u00e9nement personnalis\u00e9es",
+                    "enable_push": "Activer la fonction Push-IMAP si le serveur la prend en charge. D\u00e9sactiver si les mises \u00e0 jour Push-IMAP ne sont pas fiables.",
+                    "event_message_data": "Donn\u00e9es de message \u00e0 inclure dans les donn\u00e9es d\u2019\u00e9v\u00e9nement `imap_content` :",
+                    "folder": "Dossier",
+                    "max_message_size": "Taille maximale des messages (2048 < taille < 30000)",
+                    "search": "Recherche IMAP"
+                }
+            }
+        }
+    },
+    "selector": {
+        "event_message_data": {
+            "options": {
+                "headers": "En-t\u00eates de message",
+                "text": "Corps du texte"
+            }
+        },
+        "ssl_cipher_list": {
+            "options": {
+                "python_default": "Param\u00e8tres par d\u00e9faut"
+            }
+        }
+    },
+    "services": {
+        "delete": {
+            "description": "Supprime un e-mail.",
+            "fields": {
+                "entry": {
+                    "description": "L'entr\u00e9e de configuration IMAP.",
+                    "name": "Entr\u00e9e"
+                },
+                "uid": {
+                    "description": "L'identifiant de messagerie (UID).",
+                    "name": "UID"
+                }
+            },
+            "name": "Supprimer un message"
+        },
+        "fetch": {
+            "description": "R\u00e9cup\u00e8re un e-mail sur le serveur.",
+            "fields": {
+                "entry": {
+                    "description": "L'entr\u00e9e de configuration IMAP.",
+                    "name": "Entr\u00e9e"
+                },
+                "uid": {
+                    "description": "L'identifiant de messagerie (UID).",
+                    "name": "UID"
+                }
+            },
+            "name": "R\u00e9cup\u00e9rer un message"
+        },
+        "move": {
+            "description": "D\u00e9place un courriel vers un dossier cible.",
+            "fields": {
+                "entry": {
+                    "description": "L'entr\u00e9e de configuration IMAP.",
+                    "name": "Entr\u00e9e"
+                },
+                "seen": {
+                    "description": "Marquez l'e-mail comme vu.",
+                    "name": "Vu"
+                },
+                "target_folder": {
+                    "description": "Le dossier cible vers lequel l'e-mail doit \u00eatre d\u00e9plac\u00e9.",
+                    "name": "Dossier cible"
+                },
+                "uid": {
+                    "description": "L'identifiant de messagerie (UID).",
+                    "name": "UID"
+                }
+            },
+            "name": "D\u00e9placer un message"
+        },
+        "seen": {
+            "description": "Marquez un e-mail comme vu.",
+            "fields": {
+                "entry": {
+                    "description": "L'entr\u00e9e de configuration IMAP.",
+                    "name": "Entr\u00e9e"
+                },
+                "uid": {
+                    "description": "L'identifiant de messagerie (UID).",
+                    "name": "UID"
+                }
+            },
+            "name": "Marquer un message comme vu"
+        }
+    }
+}

@@ -1,0 +1,128 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Zariadenie u\u017e je nakonfigurovan\u00e9",
+            "already_in_progress": "Konfigur\u00e1cia u\u017e prebieha",
+            "no_devices_found": "V sieti sa nena\u0161li \u017eiadne zariadenia",
+            "no_h264": "Neboli dostupn\u00e9 \u017eiadne streamy H264. Skontrolujte konfigur\u00e1ciu profilu na svojom zariaden\u00ed.",
+            "no_mac": "Nepodarilo sa nakonfigurova\u0165 jedine\u010dn\u00e9 ID pre zariadenie ONVIF.",
+            "onvif_error": "Chyba pri nastavovan\u00ed zariadenia ONVIF. \u010eal\u0161ie inform\u00e1cie n\u00e1jdete v protokoloch.",
+            "reauth_successful": "Op\u00e4tovn\u00e9 overenie bolo \u00faspe\u0161n\u00e9"
+        },
+        "error": {
+            "auth_failed": "Nepodarilo sa overi\u0165: {error}",
+            "cannot_connect": "Nepodarilo sa pripoji\u0165",
+            "no_onvif_service": "Nena\u0161la sa \u017eiadna slu\u017eba ONVIF. Skontrolujte, \u010di je \u010d\u00edslo portu spr\u00e1vne.",
+            "onvif_error": "Chyba pri nastavovan\u00ed zariadenia ONVIF: {error}. \u010eal\u0161ie inform\u00e1cie n\u00e1jdete v protokoloch."
+        },
+        "step": {
+            "configure": {
+                "data": {
+                    "host": "Hostite\u013e",
+                    "name": "N\u00e1zov",
+                    "password": "Heslo",
+                    "port": "Port",
+                    "username": "Pou\u017e\u00edvate\u013esk\u00e9 meno"
+                },
+                "data_description": {
+                    "host": "N\u00e1zov hostite\u013ea alebo IP adresa v\u00e1\u0161ho zariadenia ONVIF."
+                },
+                "title": "Nakonfigurujte zariadenie ONVIF"
+            },
+            "configure_profile": {
+                "data": {
+                    "include": "Vytvorenie entity kamery"
+                },
+                "description": "Chcete vytvori\u0165 entitu kamery pre {profile} s rozl\u00ed\u0161en\u00edm {resolution}?",
+                "title": "Konfigur\u00e1cia profilov"
+            },
+            "device": {
+                "data": {
+                    "host": "Vyberte n\u00e1jden\u00e9 zariadenie ONVIF"
+                },
+                "title": "Vyberte zariadenie ONVIF"
+            },
+            "reauth_confirm": {
+                "data": {
+                    "password": "Heslo",
+                    "username": "Pou\u017e\u00edvate\u013esk\u00e9 meno"
+                },
+                "description": "Niektor\u00e9 zariadenia odmietnu overenie, ak je \u010das nesynchronizovan\u00fd o viac ako 5 sek\u00fand. Ak je overenie ne\u00faspe\u0161n\u00e9, overte, \u010di je \u010das na zariaden\u00ed spr\u00e1vny, a sk\u00faste to znova.",
+                "title": "Znova overte zariadenie ONVIF"
+            },
+            "user": {
+                "data": {
+                    "auto": "Automatick\u00e9 vyh\u013ead\u00e1vanie"
+                },
+                "description": "V\u00fdberom mo\u017enosti **Odosla\u0165** vyh\u013ead\u00e1me vo va\u0161ej sieti zariadenia ONVIF, ktor\u00e9 podporuj\u00fa profil S.\n\nNiektor\u00ed v\u00fdrobcovia za\u010dali \u0161tandardne vyp\u00edna\u0165 ONVIF. Uistite sa, \u017ee je ONVIF v konfigur\u00e1cii va\u0161ej kamery povolen\u00fd.",
+                "title": "Nastavenie zariadenia ONVIF"
+            }
+        }
+    },
+    "entity": {
+        "switch": {
+            "autofocus": {
+                "name": "Autofokus"
+            },
+            "ir_lamp": {
+                "name": "IR lampa"
+            },
+            "wiper": {
+                "name": "Stiera\u010d"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "onvif_devices": {
+                "data": {
+                    "enable_webhooks": "Povoli\u0165 Webhooks",
+                    "extra_arguments": "\u010eal\u0161ie argumenty FFMPEG",
+                    "rtsp_transport": "RTSP transportn\u00fd mechanizmus",
+                    "use_wallclock_as_timestamps": "Pou\u017eite n\u00e1stenn\u00e9 hodiny ako \u010dasov\u00e9 pe\u010diatky"
+                },
+                "title": "Mo\u017enosti zariadenia ONVIF"
+            }
+        }
+    },
+    "services": {
+        "ptz": {
+            "description": "Ak va\u0161a kamera ONVIF podporuje funkciu PTZ, budete m\u00f4c\u0165 kameru ot\u00e1\u010da\u0165, nakl\u00e1\u0148a\u0165 alebo pribli\u017eova\u0165.",
+            "fields": {
+                "continuous_duration": {
+                    "description": "Nastavenie oneskorenia ContinuousMove v sekund\u00e1ch pred zastaven\u00edm pohybu.",
+                    "name": "Nepretr\u017eit\u00e9 trvanie"
+                },
+                "distance": {
+                    "description": "Koeficient vzdialenosti. Nastavuje, ko\u013eko PTZ sa m\u00e1 vykona\u0165 v jednej po\u017eiadavke.",
+                    "name": "Vzdialenos\u0165"
+                },
+                "move_mode": {
+                    "description": "PTZ re\u017eim pohybu.",
+                    "name": "Re\u017eim pohybu"
+                },
+                "pan": {
+                    "description": "Smer pos\u00favania.",
+                    "name": "Pan"
+                },
+                "preset": {
+                    "description": "Token prednastaven\u00e9ho profilu PTZ. Nastav\u00ed token prednastaven\u00e9ho profilu, ktor\u00fd sa vykon\u00e1 pomocou funkcie GotoPreset.",
+                    "name": "Predvo\u013eba"
+                },
+                "speed": {
+                    "description": "R\u00fdchlostn\u00fd koeficient. Nastavuje, ako r\u00fdchlo sa bude vykon\u00e1va\u0165 PTZ.",
+                    "name": "R\u00fdchlos\u0165"
+                },
+                "tilt": {
+                    "description": "Smer naklonenia.",
+                    "name": "Naklonenie"
+                },
+                "zoom": {
+                    "description": "Pribl\u00ed\u017eenie.",
+                    "name": "Pribl\u00ed\u017eenie"
+                }
+            },
+            "name": "PTZ"
+        }
+    }
+}

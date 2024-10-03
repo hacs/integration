@@ -1,0 +1,115 @@
+{
+    "device_automation": {
+        "action_type": {
+            "clean": "Laissez {entity_name} nettoyer",
+            "dock": "Laisser {entity_name} retourner \u00e0 la base"
+        },
+        "condition_type": {
+            "is_cleaning": "{entity_name} nettoie",
+            "is_docked": "{entity_name} est sur la base"
+        },
+        "extra_fields": {
+            "for": "Dur\u00e9e"
+        },
+        "trigger_type": {
+            "cleaning": "{entity_name} commence \u00e0 nettoyer",
+            "docked": "{entity_name} est sur la base"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Aspirateur",
+            "state": {
+                "cleaning": "Nettoyage",
+                "docked": "Sur la base",
+                "error": "Erreur",
+                "idle": "Inactif",
+                "off": "D\u00e9sactiv\u00e9",
+                "on": "Activ\u00e9",
+                "paused": "En pause",
+                "returning": "Retour \u00e0 la base"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_vacuum_base_class": {
+            "description": "L'int\u00e9gration personnalis\u00e9e `{platform}` \u00e9tend la classe de base obsol\u00e8te `VacuumEntity` au lieu de `StateVacuumEntity`.\n\nVeuillez le signaler \u00e0 l'auteur de l'int\u00e9gration personnalis\u00e9e `{platform}`.\n\nUne fois qu'une version mise \u00e0 jour de `{platform}` est disponible, installez-la et red\u00e9marrez Home Assistant pour r\u00e9soudre ce probl\u00e8me.",
+            "title": "L'int\u00e9gration personnalis\u00e9e {platform} utilise une fonctionnalit\u00e9 d'aspirateur obsol\u00e8te."
+        },
+        "deprecated_vacuum_base_class_url": {
+            "description": "L'int\u00e9gration personnalis\u00e9e `{platform}` \u00e9tend la classe de base obsol\u00e8te `VacuumEntity` au lieu de `StateVacuumEntity`.\n\nVeuillez cr\u00e9er un rapport de bug sur {issue_tracker}.\n\nUne fois qu'une version mise \u00e0 jour de `{platform}` est disponible, installez-la et red\u00e9marrez Home Assistant pour r\u00e9soudre ce probl\u00e8me.",
+            "title": "L'int\u00e9gration personnalis\u00e9e {platform} utilise une fonctionnalit\u00e9 d'aspirateur obsol\u00e8te."
+        },
+        "platform_integration_no_support": {
+            "description": "La plateforme {platform} pour l'int\u00e9gration {domain} ne prend pas en charge la configuration de la plateforme.\n\nVeuillez la supprimer de votre configuration et red\u00e9marrer Home Assistant pour r\u00e9soudre ce probl\u00e8me.",
+            "title": "Prise en charge de la plateforme non prise en charge"
+        }
+    },
+    "services": {
+        "clean_spot": {
+            "description": "Indique \u00e0 l'aspirateur de faire un nettoyage localis\u00e9.",
+            "name": "Nettoyer l'endroit"
+        },
+        "locate": {
+            "description": "Localise le robot aspirateur.",
+            "name": "Localiser"
+        },
+        "pause": {
+            "description": "Suspend la t\u00e2che de nettoyage.",
+            "name": "Mettre en pause"
+        },
+        "return_to_base": {
+            "description": "Indique \u00e0 l'aspirateur de retourner \u00e0 sa station d'accueil.",
+            "name": "Retour \u00e0 la base"
+        },
+        "send_command": {
+            "description": "Envoie une commande \u00e0 l'aspirateur.",
+            "fields": {
+                "command": {
+                    "description": "Commande \u00e0 ex\u00e9cuter. Les commandes sont sp\u00e9cifiques \u00e0 l'int\u00e9gration.",
+                    "name": "Commande"
+                },
+                "params": {
+                    "description": "Param\u00e8tres de la commande. Les param\u00e8tres sont sp\u00e9cifiques \u00e0 l'int\u00e9gration.",
+                    "name": "Param\u00e8tres"
+                }
+            },
+            "name": "Envoyer la commande"
+        },
+        "set_fan_speed": {
+            "description": "R\u00e8gle la vitesse du ventilateur de l'aspirateur.",
+            "fields": {
+                "fan_speed": {
+                    "description": "Vitesse du ventilateur. La valeur d\u00e9pend de l'int\u00e9gration. Certaines int\u00e9grations ont des \u00e9tapes de vitesse, comme \"moyen\". Certains utilisent un pourcentage compris entre 0 et 100.",
+                    "name": "Vitesse du ventilateur"
+                }
+            },
+            "name": "R\u00e9gler la vitesse du ventilateur"
+        },
+        "start": {
+            "description": "D\u00e9marre ou reprend la t\u00e2che de nettoyage.",
+            "name": "D\u00e9marrer"
+        },
+        "start_pause": {
+            "description": "D\u00e9marre, met en pause ou reprend la t\u00e2che de nettoyage.",
+            "name": "D\u00e9marrer/mettre en pause"
+        },
+        "stop": {
+            "description": "Arr\u00eate la t\u00e2che de nettoyage en cours.",
+            "name": "Arr\u00eater"
+        },
+        "toggle": {
+            "description": "Permet d\u2019activer/d\u00e9sactiver l\u2019aspirateur.",
+            "name": "Basculer"
+        },
+        "turn_off": {
+            "description": "Arr\u00eate la t\u00e2che de nettoyage en cours et retourne \u00e0 sa station d'accueil.",
+            "name": "\u00c9teindre"
+        },
+        "turn_on": {
+            "description": "D\u00e9marre une nouvelle t\u00e2che de nettoyage.",
+            "name": "Allumer"
+        }
+    },
+    "title": "Aspirateur"
+}

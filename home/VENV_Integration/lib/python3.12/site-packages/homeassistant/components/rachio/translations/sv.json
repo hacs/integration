@@ -1,0 +1,100 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Enheten \u00e4r redan konfigurerad"
+        },
+        "error": {
+            "cannot_connect": "Det gick inte att ansluta.",
+            "invalid_auth": "Ogiltig autentisering",
+            "unknown": "Ov\u00e4ntat fel"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "api_key": "API-nyckel"
+                },
+                "title": "Anslut till Rachio-enheten"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "rain": {
+                "name": "Regn"
+            }
+        },
+        "switch": {
+            "rain_delay": {
+                "name": "Regn f\u00f6rdr\u00f6jning"
+            },
+            "standby": {
+                "name": "Standby"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "manual_run_mins": "Varaktighet i minuter att k\u00f6ra n\u00e4r du aktiverar en zonomkopplare"
+                }
+            }
+        }
+    },
+    "services": {
+        "pause_watering": {
+            "description": "Pausa aktuella zoner eller scheman.",
+            "fields": {
+                "devices": {
+                    "description": "Namn p\u00e5 styrenheter som ska pausas. Standardv\u00e4rdet \u00e4r alla enheter p\u00e5 kontot om inget annat anges.",
+                    "name": "Enheter"
+                },
+                "duration": {
+                    "description": "Hur l\u00e4nge k\u00f6rscheman ska pausas.",
+                    "name": "Varaktighet"
+                }
+            },
+            "name": "Pausa bevattning"
+        },
+        "resume_watering": {
+            "description": "\u00c5teruppta pausade zoner eller scheman.",
+            "fields": {
+                "devices": {
+                    "description": "Namn p\u00e5 styrenheter som ska \u00e5terupptas. Standardv\u00e4rdet \u00e4r alla enheter p\u00e5 kontot om inget annat anges.",
+                    "name": "Enheter"
+                }
+            },
+            "name": "\u00c5teruppta bevattning"
+        },
+        "set_zone_moisture_percent": {
+            "description": "St\u00e4ller in fuktprocenten f\u00f6r en zon eller en lista med zoner.",
+            "fields": {
+                "percent": {
+                    "description": "St\u00e4ll in \u00f6nskad fuktprocent f\u00f6r zonen.",
+                    "name": "Procent"
+                }
+            },
+            "name": "St\u00e4ll in zonens fuktprocent"
+        },
+        "start_multiple_zone_schedule": {
+            "description": "Skapar ett anpassat schema med zoner och k\u00f6rtider. Observera att alla zoner b\u00f6r vara p\u00e5 samma styrenhet f\u00f6r att undvika problem.",
+            "fields": {
+                "duration": {
+                    "description": "Antal minuter som zonen/zonerna ska k\u00f6ras. Om endast en tidsangivelse anges, kommer den tiden att anv\u00e4ndas f\u00f6r alla zoner. Om en lista med tidsangivelser anges, kommer tiderna att g\u00e4lla f\u00f6r respektive zon som anges ovan.",
+                    "name": "Varaktighet"
+                }
+            },
+            "name": "Starta flera zoner"
+        },
+        "stop_watering": {
+            "description": "Stoppa aktuella zoner eller scheman.",
+            "fields": {
+                "devices": {
+                    "description": "Namn p\u00e5 styrenheter som ska stoppas. Standardv\u00e4rdet \u00e4r alla enheter p\u00e5 kontot om inget annat anges.",
+                    "name": "Enheter"
+                }
+            },
+            "name": "Stoppa bevattning"
+        }
+    }
+}

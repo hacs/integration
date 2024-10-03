@@ -1,0 +1,144 @@
+{
+    "device_automation": {
+        "action_type": {
+            "arm_away": "Schakel {entity_name} in voor vertrek",
+            "arm_home": "Schakel {entity_name} in voor thuis",
+            "arm_night": "Schakel {entity_name} in voor 's nachts",
+            "arm_vacation": "Schakel {entity_name} in voor vakantie",
+            "disarm": "Schakel {entity_name} uit",
+            "trigger": "Laat {entity_name} afgaan"
+        },
+        "condition_type": {
+            "is_armed_away": "{entity_name} ingeschakeld voor vertrek",
+            "is_armed_home": "{entity_name} ingeschakeld voor thuis",
+            "is_armed_night": "{entity_name} is ingeschakeld voor 's nachts",
+            "is_armed_vacation": "{entity_name} is ingeschakeld voor vakantie",
+            "is_disarmed": "{entity_name} is uitgeschakeld",
+            "is_triggered": "{entity_name} gaat af"
+        },
+        "trigger_type": {
+            "armed_away": "{entity_name} ingeschakeld voor vertrek",
+            "armed_home": "{entity_name} ingeschakeld voor thuis",
+            "armed_night": "{entity_name} ingeschakeld voor 's nachts",
+            "armed_vacation": "{entity_name} schakelde in voor vakantie",
+            "disarmed": "{entity_name} uitgeschakeld",
+            "triggered": "{entity_name} afgegaan"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Alarmbedieningspaneel",
+            "state": {
+                "armed": "Ingeschakeld",
+                "armed_away": "Ingeschakeld afwezig",
+                "armed_custom_bypass": "Ingeschakeld met overbrugging",
+                "armed_home": "Ingeschakeld thuis",
+                "armed_night": "Ingeschakeld nacht",
+                "armed_vacation": "Ingeschakeld vakantie",
+                "arming": "Schakelt in",
+                "disarmed": "Uitgeschakeld",
+                "disarming": "Schakelt uit",
+                "pending": "In behandeling",
+                "triggered": "Getriggerd"
+            },
+            "state_attributes": {
+                "changed_by": {
+                    "name": "Gewijzigd door"
+                },
+                "code_arm_required": {
+                    "name": "Code voor inschakelen",
+                    "state": {
+                        "false": "Niet vereist",
+                        "true": "Vereist"
+                    }
+                },
+                "code_format": {
+                    "name": "Code formaat",
+                    "state": {
+                        "number": "Nummer",
+                        "text": "Tekst"
+                    }
+                }
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "Platform {platform} van de {domain} integratie heeft geen platformondersteuning.\n\nVerwijder dit uit je configuratie en herstart Home Assistant om dit issue op te lossen.",
+            "title": "Platformondersteuning is niet ondersteund"
+        }
+    },
+    "services": {
+        "alarm_arm_away": {
+            "description": "Stelt het alarm in op: _ingeschakeld, niemand thuis_.",
+            "fields": {
+                "code": {
+                    "description": "Code om het alarm in te schakelen.",
+                    "name": "Code"
+                }
+            },
+            "name": "Inschakelen afwezig"
+        },
+        "alarm_arm_custom_bypass": {
+            "description": "Schakelt het alarm in en laat toe om een aangepast gebied te omzeilen.",
+            "fields": {
+                "code": {
+                    "description": "Code om het alarm in te schakelen.",
+                    "name": "Code"
+                }
+            },
+            "name": "Inschakelen met overbrugging"
+        },
+        "alarm_arm_home": {
+            "description": "Stelt het alarm in op: _ingeschakeld, maar er is iemand thuis_.",
+            "fields": {
+                "code": {
+                    "description": "Code om het alarm in te schakelen.",
+                    "name": "Code"
+                }
+            },
+            "name": "Inschakelen thuis"
+        },
+        "alarm_arm_night": {
+            "description": "Stelt het alarm in op: _ingeschakeld voor de nacht_.",
+            "fields": {
+                "code": {
+                    "description": "Code om het alarm in te schakelen.",
+                    "name": "Code"
+                }
+            },
+            "name": "Inschakelen voor 's nachts"
+        },
+        "alarm_arm_vacation": {
+            "description": "Stelt het alarm in op: _ingeschakeld voor vakantie_.",
+            "fields": {
+                "code": {
+                    "description": "Code om het alarm in te schakelen.",
+                    "name": "Code"
+                }
+            },
+            "name": "Inschakelen vakantie"
+        },
+        "alarm_disarm": {
+            "description": "Schakelt het alarm uit.",
+            "fields": {
+                "code": {
+                    "description": "Code om het alarm uit te schakelen.",
+                    "name": "Code"
+                }
+            },
+            "name": "Uitschakelen"
+        },
+        "alarm_trigger": {
+            "description": "Schakelt een externe alarmtrigger in.",
+            "fields": {
+                "code": {
+                    "description": "Code om het alarm in te schakelen.",
+                    "name": "Code"
+                }
+            },
+            "name": "Trigger"
+        }
+    },
+    "title": "Alarmbedieningspaneel"
+}

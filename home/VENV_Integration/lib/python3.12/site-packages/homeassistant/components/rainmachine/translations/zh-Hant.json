@@ -1,0 +1,268 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "\u88dd\u7f6e\u5df2\u7d93\u8a2d\u5b9a\u5b8c\u6210"
+        },
+        "error": {
+            "invalid_auth": "\u8eab\u4efd\u9a57\u8b49\u7121\u6548"
+        },
+        "flow_title": "{ip}",
+        "step": {
+            "user": {
+                "data": {
+                    "ip_address": "\u4e3b\u6a5f\u540d\u6216 IP \u4f4d\u5740",
+                    "password": "\u5bc6\u78bc",
+                    "port": "\u901a\u8a0a\u57e0"
+                },
+                "title": "\u586b\u5beb\u8cc7\u8a0a"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "flow_sensor": {
+                "name": "\u6d41\u91cf\u611f\u6e2c\u5668"
+            },
+            "freeze": {
+                "name": "\u51cd\u7d50\u9650\u5236"
+            },
+            "hourly": {
+                "name": "\u5c0f\u6642\u9650\u5236"
+            },
+            "month": {
+                "name": "\u6708\u4efd\u9650\u5236"
+            },
+            "raindelay": {
+                "name": "\u96e8\u5ef6\u9072\u9650\u5236"
+            },
+            "rainsensor": {
+                "name": "\u96e8\u6c34\u611f\u6e2c\u5668\u9650\u5236"
+            },
+            "weekday": {
+                "name": "\u5de5\u4f5c\u65e5\u9650\u5236"
+            }
+        },
+        "select": {
+            "freeze_protection_temperature": {
+                "name": "\u9632\u51cd\u4fdd\u8b77\u6eab\u5ea6"
+            }
+        },
+        "sensor": {
+            "flow_sensor_clicks_cubic_meter": {
+                "name": "\u6d41\u91cf\u611f\u6e2c\u5668\u6bcf\u7acb\u65b9\u516c\u5c3a\u9ede\u64ca\u6b21\u6578"
+            },
+            "flow_sensor_consumed_liters": {
+                "name": "\u6d41\u91cf\u611f\u6e2c\u5668\u6d88\u8017\u516c\u5347\u6578"
+            },
+            "flow_sensor_leak_clicks": {
+                "name": "\u6d41\u91cf\u611f\u6e2c\u5668\u6d29\u6f0f\u9ede\u64ca"
+            },
+            "flow_sensor_leak_volume": {
+                "name": "\u6d41\u91cf\u611f\u6e2c\u5668\u6d29\u6f0f\u91cf"
+            },
+            "flow_sensor_start_index": {
+                "name": "\u6d41\u91cf\u611f\u6e2c\u5668\u8d77\u59cb\u7d22\u5f15"
+            },
+            "flow_sensor_watering_clicks": {
+                "name": "\u6d41\u91cf\u611f\u6e2c\u5668\u9ede\u64ca"
+            },
+            "last_leak_detected": {
+                "name": "\u6700\u5f8c\u6aa2\u6e2c\u5230\u5916\u6d29"
+            },
+            "rain_sensor_rain_start": {
+                "name": "\u96e8\u5929\u611f\u6e2c\u5668\u96e8\u5929\u555f\u52d5"
+            }
+        },
+        "switch": {
+            "freeze_protect_enabled": {
+                "name": "\u9632\u51cd\u4fdd\u8b77"
+            },
+            "hot_days_extra_watering": {
+                "name": "\u708e\u71b1\u5929\u6c23\u984d\u5916\u7528\u6c34"
+            }
+        },
+        "update": {
+            "firmware": {
+                "name": "\u97cc\u9ad4"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "allow_inactive_zones_to_run": "\u5141\u8a31\u624b\u52d5\u95dc\u9589\u57f7\u884c\u5206\u5340",
+                    "use_app_run_times": "Use zone run times \u4f7f\u7528 RainMachine App \u4e2d\u7684\u5340\u57df\u57f7\u884c\u6b21\u6578",
+                    "zone_run_time": "\u9810\u8a2d\u5340\u57df\u57f7\u884c\u6642\u9593\uff08\u79d2\uff09"
+                },
+                "title": "\u8a2d\u5b9a RainMachine"
+            }
+        }
+    },
+    "services": {
+        "pause_watering": {
+            "description": "\u66ab\u505c\u6240\u6709\u6f86\u6c34\u6d3b\u52d5\u79d2\u6578\u3002",
+            "fields": {
+                "device_id": {
+                    "description": "\u66ab\u505c\u6f86\u6c34\u6d3b\u52d5\u63a7\u5236\u5668\u3002",
+                    "name": "\u63a7\u5236\u5668"
+                },
+                "seconds": {
+                    "description": "\u66ab\u505c\u6f86\u6c34\u79d2\u6578\u3002",
+                    "name": "\u6301\u7e8c\u6642\u9593"
+                }
+            },
+            "name": "\u66ab\u505c\u6240\u6709\u6f86\u6c34"
+        },
+        "push_flow_meter_data": {
+            "description": "\u63a8\u9001\u6d41\u91cf\u8a08\u8cc7\u6599\u81f3 Rainmachine \u88dd\u7f6e\u3002",
+            "fields": {
+                "device_id": {
+                    "description": "\u7528\u65bc\u50b3\u9001\u6d41\u91cf\u8a08\u8cc7\u6599\u63a7\u5236\u5668\u3002",
+                    "name": "\u63a7\u5236\u5668"
+                },
+                "unit_of_measurement": {
+                    "description": "\u8981\u50b3\u9001\u7684\u6d41\u91cf\u8a08\u55ae\u4f4d\u3002",
+                    "name": "\u6e2c\u91cf\u55ae\u4f4d"
+                },
+                "value": {
+                    "description": "\u8981\u50b3\u9001\u7684\u6d41\u91cf\u8a08\u6578\u503c\u3002",
+                    "name": "\u6578\u503c"
+                }
+            },
+            "name": "\u63a8\u9001\u6d41\u91cf\u8a08\u8cc7\u6599"
+        },
+        "push_weather_data": {
+            "description": "\u5c07 Home Assistant \u7684\u5929\u6c23\u8cc7\u6599\u63a8\u9001\u81f3 RainMachine \u88dd\u7f6e\u3002\n\u5fc5\u9808\u7531\u8a2d\u5b9a > \u5929\u6c23 > \u958b\u767c\u4eba\u54e1\u9078\u9805\u5167\u555f\u7528\u672c\u5730\u5929\u6c23\u63a8\u9001\u670d\u52d9\uff0cRainMachine \u624d\u6703\u9032\u884c\u8003\u6578\u503c\u50b3\u9001\u3002\u55ae\u4f4d\u5fc5\u9808\u4ee5\u516c\u5236\u63a8\u9001\uff1b\u6574\u5408\u4e26\u4e0d\u6703\u9032\u884c\u8f49\u63db\u3002\n\u8acb\u53c3\u95b1 RainMachine API \u7684\u8a73\u7d30\u8cc7\u8a0a\uff1ahttps://rainmachine.docs.apiary.io/#reference/weather-services/parserdata/post",
+            "fields": {
+                "condition": {
+                    "description": "\u76ee\u524d\u5929\u6c23\u72c0\u6cc1\u4ee3\u78bc\uff08WNUM\uff09\u3002",
+                    "name": "\u5929\u6c23\u72c0\u6cc1\u4ee3\u78bc"
+                },
+                "device_id": {
+                    "description": "\u7528\u65bc\u63a8\u9001\u5929\u6c23\u8cc7\u6599\u7684\u63a7\u5236\u5668\u3002",
+                    "name": "\u63a7\u5236\u5668"
+                },
+                "dewpoint": {
+                    "description": "\u9732\u9ede\uff08\u00b0C\uff09\u3002",
+                    "name": "\u9732\u9ede"
+                },
+                "et": {
+                    "description": "\u84b8\u6563\u91cf\uff08mm\uff09\u3002",
+                    "name": "\u84b8\u6563\u91cf"
+                },
+                "maxrh": {
+                    "description": "\u6700\u9ad8\u76f8\u5c0d\u6fd5\u5ea6\uff08%RH\uff09\u3002",
+                    "name": "\u6700\u9ad8\u76f8\u5c0d\u6fd5\u5ea6"
+                },
+                "maxtemp": {
+                    "description": "\u6700\u9ad8\u6eab\u5ea6\uff08\u00b0C\uff09\u3002",
+                    "name": "\u6700\u9ad8\u6eab\u5ea6"
+                },
+                "minrh": {
+                    "description": "\u6700\u4f4e\u76f8\u5c0d\u6fd5\u5ea6\uff08%RH\uff09\u3002",
+                    "name": "\u6700\u4f4e\u76f8\u5c0d\u6fd5\u5ea6"
+                },
+                "mintemp": {
+                    "description": "\u6700\u4f4e\u6eab\u5ea6\uff08\u00b0C\uff09\u3002",
+                    "name": "\u6700\u4f4e\u6eab\u5ea6"
+                },
+                "pressure": {
+                    "description": "\u6c23\u58d3\uff08kPa\uff09\u3002",
+                    "name": "\u6c23\u58d3"
+                },
+                "qpf": {
+                    "description": "\u5b9a\u91cf\u964d\u96e8\u9810\u5831\uff08mm\uff09\u6216 QPF\u3002\u8acb\u6ce8\u610f\uff1aQPF \u6578\u503c\u4e0d\u61c9\u8a72\u4f5c\u70ba\u7d2f\u8a08\u91cf\u50b3\u9001\uff0c\u800c\u61c9\u8a72\u662f\u6bcf\u5c0f\u6642\u6216\u6bcf\u5929\u7684\u6e2c\u91cf/\u9810\u5831\u6578\u503c\u3002RainMachine Mixer \u5c07\u5728\u7576\u5929\u5167\u5c07\u6240\u6709 QPF \u6578\u503c\u7e3d\u548c\u3001\u4ee5\u53d6\u7684\u7576\u5929\u7e3d QPF\u3002",
+                    "name": "\u5b9a\u91cf\u964d\u96e8\u9810\u5831"
+                },
+                "rain": {
+                    "description": "\u5be6\u6e2c\u964d\u96e8\u91cf\uff08mm\uff09\u3002\u8acb\u6ce8\u610f\uff1a\u96e8\u91cf\u6578\u503c RAIN \u4e0d\u61c9\u8a72\u4f5c\u70ba\u7d2f\u8a08\u91cf\u50b3\u9001\uff0c\u800c\u61c9\u8a72\u662f\u6bcf\u5c0f\u6642\u6216\u6bcf\u5929\u7684\u6e2c\u91cf/\u9810\u5831\u6578\u503c\u3002RainMachine Mixer \u5c07\u5728\u7576\u5929\u5167\u5c07\u6240\u6709 RAIN \u6578\u503c\u7e3d\u548c\u3001\u4ee5\u53d6\u7684\u7576\u5929\u7e3d RAIN\u3002",
+                    "name": "\u5be6\u6e2c\u964d\u96e8\u91cf"
+                },
+                "solarrad": {
+                    "description": "\u592a\u967d\u8f3b\u5c04\uff08MJ/m\u00b2/h\uff09\u3002",
+                    "name": "\u592a\u967d\u8f3b\u5c04"
+                },
+                "temperature": {
+                    "description": "\u76ee\u524d\u6eab\u5ea6\uff08\u00b0C\uff09\u3002",
+                    "name": "\u6eab\u5ea6"
+                },
+                "timestamp": {
+                    "description": "\u5929\u6c23\u8cc7\u6599 UNIX \u6642\u9593\u6233\u8a18\u3002\u5047\u5982\u7701\u7565\u3001\u5247\u5c07\u6703\u4f7f\u7528\u547c\u53eb\u6642 RainMachine \u88dd\u7f6e\u7684\u672c\u5730\u6642\u9593\u3002",
+                    "name": "\u6642\u9593\u6233\u8a18"
+                },
+                "wind": {
+                    "description": "\u98a8\u901f\uff08m/s\uff09\u3002",
+                    "name": "\u98a8\u901f"
+                }
+            },
+            "name": "\u63a8\u9001\u5929\u6c23\u8cc7\u6599"
+        },
+        "restrict_watering": {
+            "description": "\u9650\u5236\u6240\u6709\u6f86\u6c34\u6d3b\u52d5\u958b\u59cb\u7684\u6642\u9593\u5340\u6bb5\u3002",
+            "fields": {
+                "device_id": {
+                    "description": "\u9650\u5236\u6f86\u6c34\u6d3b\u52d5\u63a7\u5236\u5668\u3002",
+                    "name": "\u63a7\u5236\u5668"
+                },
+                "duration": {
+                    "description": "\u9650\u5236\u958b\u59cb\u6f86\u6c34\u6d3b\u52d5\u7684\u6642\u9593\u5340\u6bb5\u3002",
+                    "name": "\u6301\u7e8c\u6642\u9593"
+                }
+            },
+            "name": "\u9650\u5236\u6240\u6709\u6f86\u6c34"
+        },
+        "start_program": {
+            "description": "\u958b\u59cb\u7a0b\u5f0f\u3002",
+            "name": "\u958b\u59cb\u7a0b\u5f0f"
+        },
+        "start_zone": {
+            "description": "\u958b\u59cb\u5206\u5340\u3002",
+            "fields": {
+                "zone_run_time": {
+                    "description": "\u57f7\u884c\u5206\u5340\u79d2\u6578\u3002",
+                    "name": "\u57f7\u884c\u6642\u9593"
+                }
+            },
+            "name": "\u958b\u59cb\u5206\u5340"
+        },
+        "stop_all": {
+            "description": "\u505c\u6b62\u6240\u6709\u6f86\u6c34\u6d3b\u52d5\u3002",
+            "fields": {
+                "device_id": {
+                    "description": "\u6f86\u6c34\u6d3b\u52d5\u63a7\u5236\u5668\u505c\u6b62\u3002",
+                    "name": "\u63a7\u5236\u5668"
+                }
+            },
+            "name": "\u505c\u6b62\u6240\u6709\u6f86\u6c34"
+        },
+        "stop_program": {
+            "description": "\u505c\u6b62\u7a0b\u5f0f\u3002",
+            "name": "\u505c\u6b62\u7a0b\u5f0f"
+        },
+        "stop_zone": {
+            "description": "\u505c\u6b62\u5206\u5340\u3002",
+            "name": "\u505c\u6b62\u5206\u5340"
+        },
+        "unpause_watering": {
+            "description": "\u53d6\u6d88\u6240\u6709\u6f86\u6c34\u6d3b\u52d5\u66ab\u505c\u3002",
+            "fields": {
+                "device_id": {
+                    "description": "\u53d6\u6d88\u6f86\u6c34\u6d3b\u52d5\u63a7\u5236\u5668\u66ab\u505c\u3002",
+                    "name": "\u63a7\u5236\u5668"
+                }
+            },
+            "name": "\u53d6\u6d88\u6240\u6709\u66ab\u505c\u6f86\u6c34"
+        },
+        "unrestrict_watering": {
+            "description": "\u53d6\u6d88\u6240\u6709\u6f86\u6c34\u6d3b\u52d5\u9650\u5236\u3002",
+            "fields": {
+                "device_id": {
+                    "description": "\u53d6\u6d88\u6f86\u6c34\u6d3b\u52d5\u63a7\u5236\u5668\u9650\u5236\u3002",
+                    "name": "\u63a7\u5236\u5668"
+                }
+            },
+            "name": "\u53d6\u6d88\u6240\u6709\u6f86\u6c34\u9650\u5236"
+        }
+    }
+}

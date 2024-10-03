@@ -1,0 +1,131 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Laite on jo m\u00e4\u00e4ritetty",
+            "already_in_progress": "M\u00e4\u00e4ritysprosessi on jo k\u00e4ynniss\u00e4",
+            "cannot_connect": "Yhteyden muodostaminen ep\u00e4onnistui"
+        },
+        "step": {
+            "discovery_confirm": {
+                "description": "Haluatko m\u00e4\u00e4ritt\u00e4\u00e4 t\u00e4m\u00e4n Guardian -laitteen?"
+            },
+            "user": {
+                "data": {
+                    "ip_address": "IP-osoite",
+                    "port": "Portti"
+                },
+                "description": "M\u00e4\u00e4rit\u00e4 paikallinen Elexa Guardian -laite."
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "leak": {
+                "name": "Vuoto havaittu"
+            },
+            "moved": {
+                "name": "\u00c4skett\u00e4in muutettu"
+            }
+        },
+        "button": {
+            "reset_diagnostics": {
+                "name": "Nollaa venttiilin diagnostiikka"
+            }
+        },
+        "sensor": {
+            "current": {
+                "name": "Virta"
+            },
+            "instantaneous_current": {
+                "name": "Hetkellinen virta"
+            },
+            "instantaneous_current_ddt": {
+                "name": "Hetkellinen virta (DDT)"
+            },
+            "travel_count": {
+                "name": "Matkustusm\u00e4\u00e4r\u00e4"
+            },
+            "uptime": {
+                "name": "P\u00e4\u00e4ll\u00e4"
+            }
+        },
+        "switch": {
+            "onboard_access_point": {
+                "name": "Sis\u00e4inen yhteyspiste"
+            },
+            "valve_controller": {
+                "name": "Venttiilin ohjain"
+            }
+        },
+        "valve": {
+            "valve_controller": {
+                "name": "Venttiilin ohjain"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_service": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "P\u00e4ivit\u00e4 kaikki t\u00e4t\u00e4 palvelua k\u00e4ytt\u00e4v\u00e4t automaatiot tai skriptit k\u00e4ytt\u00e4m\u00e4\u00e4n sen sijaan `{alternate_service}` -palvelua, jonka entiteettitunnus on `{alternate_target}`.",
+                        "title": "{deprecated_service} -palvelu poistetaan."
+                    }
+                }
+            },
+            "title": "Palvelu {deprecated_service} poistetaan"
+        }
+    },
+    "services": {
+        "pair_sensor": {
+            "description": "Lis\u00e4\u00e4 uuden paritetun sensorin venttiilis\u00e4\u00e4timeen.",
+            "fields": {
+                "device_id": {
+                    "description": "Venttiiliohjain, johon sensori lis\u00e4t\u00e4\u00e4n.",
+                    "name": "Venttiilin ohjain"
+                },
+                "uid": {
+                    "description": "Pariksi liitetyn sensorin UID.",
+                    "name": "UID"
+                }
+            },
+            "name": "Parita sensori"
+        },
+        "unpair_sensor": {
+            "description": "Poistaa paritetun sensorin venttiilinohjaimesta.",
+            "fields": {
+                "device_id": {
+                    "description": "Venttiilinohjain, josta sensori poistetaan.",
+                    "name": "Venttiilin ohjain"
+                },
+                "uid": {
+                    "description": "Pariksi liitetyn sensorin UID.",
+                    "name": "UID"
+                }
+            },
+            "name": "Poista sensorin pariliitos"
+        },
+        "upgrade_firmware": {
+            "description": "P\u00e4ivitt\u00e4\u00e4 laitteen laiteohjelmiston.",
+            "fields": {
+                "device_id": {
+                    "description": "Venttiilinohjain, jonka laiteohjelmisto on p\u00e4ivitett\u00e4v\u00e4.",
+                    "name": "Venttiilin ohjain"
+                },
+                "filename": {
+                    "description": "Laiteohjelmiston tiedostonimi.",
+                    "name": "Tiedoston nimi"
+                },
+                "port": {
+                    "description": "Portti, jossa laiteohjelmistotiedosto toimitetaan.",
+                    "name": "Portti"
+                },
+                "url": {
+                    "description": "Sen palvelimen URL-osoite, jossa laiteohjelmistotiedosto sijaitsee.",
+                    "name": "URL-osoite"
+                }
+            },
+            "name": "P\u00e4ivit\u00e4 laiteohjelmisto"
+        }
+    }
+}

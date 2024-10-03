@@ -1,0 +1,112 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Zariadenie u\u017e je nakonfigurovan\u00e9",
+            "invalid_unique_id": "Nie je mo\u017en\u00e9 ur\u010di\u0165 platn\u00e9 jedine\u010dn\u00e9 ID zariadenia"
+        },
+        "error": {
+            "adbkey_not_file": "S\u00fabor k\u013e\u00fa\u010da ADB sa nena\u0161iel",
+            "cannot_connect": "Nepodarilo sa pripoji\u0165",
+            "invalid_host": "Neplatn\u00fd n\u00e1zov hostite\u013ea alebo IP adresa",
+            "key_and_server": "Poskytnite iba k\u013e\u00fa\u010d ADB alebo server ADB",
+            "unknown": "Neo\u010dak\u00e1van\u00e1 chyba"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "adb_server_ip": "IP adresa servera ADB (nechajte pr\u00e1zdnu, ak sa nepou\u017e\u00edva)",
+                    "adb_server_port": "Port servera ADB",
+                    "adbkey": "Cesta k s\u00faboru k\u013e\u00fa\u010da ADB (pre automatick\u00e9 vygenerovanie nechajte pr\u00e1zdne)",
+                    "device_class": "Typ zariadenia",
+                    "host": "Hostite\u013e",
+                    "port": "Port"
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "failed_send": {
+            "message": "Nepodarilo sa odosla\u0165 pr\u00edkaz {cmd}"
+        }
+    },
+    "options": {
+        "error": {
+            "invalid_det_rules": "Neplatn\u00e9 pravidl\u00e1 detekcie stavu"
+        },
+        "step": {
+            "apps": {
+                "data": {
+                    "app_delete": "Za\u010diarknut\u00edm tejto mo\u017enosti odstr\u00e1nite t\u00fato aplik\u00e1ciu",
+                    "app_id": "ID aplik\u00e1cie",
+                    "app_name": "N\u00e1zov aplik\u00e1cie"
+                },
+                "description": "Konfigurova\u0165 ID aplik\u00e1cie {app_id}",
+                "title": "Konfigur\u00e1cia aplik\u00e1ci\u00ed pre Android"
+            },
+            "init": {
+                "data": {
+                    "apps": "Konfigur\u00e1cia zoznamu aplik\u00e1ci\u00ed",
+                    "exclude_unnamed_apps": "Vyl\u00fa\u010dte aplik\u00e1cie s nezn\u00e1mym n\u00e1zvom zo zoznamu zdrojov",
+                    "get_sources": "Z\u00edskanie spusten\u00fdch aplik\u00e1ci\u00ed ako zoznamu zdrojov",
+                    "screencap": "Pou\u017eitie sn\u00edmania obrazovky pre obal albumu",
+                    "state_detection_rules": "Konfigur\u00e1cia pravidiel detekcie stavu",
+                    "turn_off_command": "Pr\u00edkaz na vypnutie prostredia ADB (pre predvolen\u00e9 nastavenie ponechajte pr\u00e1zdne)",
+                    "turn_on_command": "Pr\u00edkaz na zapnutie prostredia ADB (pre predvolen\u00e9 nastavenie ponechajte pr\u00e1zdne)"
+                }
+            },
+            "rules": {
+                "data": {
+                    "rule_delete": "Za\u010diarknut\u00edm tohto pravidla odstr\u00e1nite",
+                    "rule_id": "ID aplik\u00e1cie",
+                    "rule_values": "Zoznam pravidiel zis\u0165ovania stavu (pozri dokument\u00e1ciu)"
+                },
+                "description": "Konfigur\u00e1cia pravidla detekcie pre ID aplik\u00e1cie {rule_id}",
+                "title": "Nakonfigurujte pravidl\u00e1 zis\u0165ovania stavu syst\u00e9mu Android"
+            }
+        }
+    },
+    "services": {
+        "adb_command": {
+            "description": "Odo\u0161le pr\u00edkaz ADB do zariadenia Android / Fire TV.",
+            "fields": {
+                "command": {
+                    "description": "Bu\u010f kl\u00e1vesov\u00fd pr\u00edkaz, alebo pr\u00edkaz shellu ADB.",
+                    "name": "Pr\u00edkaz"
+                }
+            },
+            "name": "Pr\u00edkaz ADB"
+        },
+        "download": {
+            "description": "Stiahnutie s\u00faboru zo zariadenia Android / Fire TV do in\u0161tancie aplik\u00e1cie Home Assistant.",
+            "fields": {
+                "device_path": {
+                    "description": "Cesta k s\u00faboru v zariaden\u00ed Android / Fire TV.",
+                    "name": "Cesta k zariadeniu"
+                },
+                "local_path": {
+                    "description": "Cesta k s\u00faboru v in\u0161tancii aplik\u00e1cie Home Assistant.",
+                    "name": "Miestna cesta"
+                }
+            },
+            "name": "Stiahnu\u0165"
+        },
+        "learn_sendevent": {
+            "description": "Prevedie stla\u010denie kl\u00e1vesu na dia\u013ekovom ovl\u00e1da\u010di na pr\u00edkazy ADB 'sendevent'. Do 8 sek\u00fand od vykonania tejto akcie mus\u00edte stla\u010di\u0165 jedno tla\u010didlo na dia\u013ekovom ovl\u00e1da\u010di.",
+            "name": "Nau\u010di\u0165 sa sendevent"
+        },
+        "upload": {
+            "description": "Odoslanie s\u00faboru z in\u0161tancie aplik\u00e1cie Home Assistant do zariadenia so syst\u00e9mom Android / Fire TV.",
+            "fields": {
+                "device_path": {
+                    "description": "Cesta k s\u00faboru v zariaden\u00ed Android / Fire TV.",
+                    "name": "Cesta k zariadeniu"
+                },
+                "local_path": {
+                    "description": "Cesta k s\u00faboru v in\u0161tancii aplik\u00e1cie Home Assistant.",
+                    "name": "Miestna cesta"
+                }
+            },
+            "name": "Nahra\u0165"
+        }
+    }
+}

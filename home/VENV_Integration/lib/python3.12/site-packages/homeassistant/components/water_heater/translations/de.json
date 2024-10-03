@@ -1,0 +1,107 @@
+{
+    "device_automation": {
+        "action_type": {
+            "turn_off": "{entity_name} ausschalten",
+            "turn_on": "{entity_name} einschalten"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Warmwasserbereiter",
+            "state": {
+                "eco": "Eco",
+                "electric": "Elektrisch",
+                "gas": "Gas",
+                "heat_pump": "W\u00e4rmepumpe",
+                "high_demand": "Hoher Bedarf",
+                "off": "Aus",
+                "performance": "Leistung"
+            },
+            "state_attributes": {
+                "away_mode": {
+                    "name": "Abwesend-Modus",
+                    "state": {
+                        "off": "Aus",
+                        "on": "An"
+                    }
+                },
+                "current_operation": {
+                    "name": "Aktueller Betrieb"
+                },
+                "current_temperature": {
+                    "name": "Aktuelle Temperatur"
+                },
+                "max_temp": {
+                    "name": "Maximale Zieltemperatur"
+                },
+                "min_temp": {
+                    "name": "Minimale Zieltemperatur"
+                },
+                "target_temp_high": {
+                    "name": "Obere Zieltemperatur"
+                },
+                "target_temp_low": {
+                    "name": "Untere Zieltemperatur"
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "not_valid_operation_mode": {
+            "message": "Der Betriebsmodus {operation_mode} ist f\u00fcr {entity_id} ung\u00fcltig. G\u00fcltige Betriebsmodi sind: {operation_list}."
+        },
+        "operation_list_not_defined": {
+            "message": "Der Betriebsmodus {operation_mode} ist f\u00fcr {entity_id} ung\u00fcltig. Die Operationsliste ist nicht definiert."
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "Die {platform}-Plattform f\u00fcr die {domain}-Integration unterst\u00fctzt die Plattform-Einrichtung nicht. \n\nBitte entferne es aus deiner Konfiguration und starte Home Assistant neu, um dieses Problem zu beheben.",
+            "title": "Plattform-Unterst\u00fctzung nicht unterst\u00fctzt"
+        }
+    },
+    "services": {
+        "set_away_mode": {
+            "description": "Schaltet den Abwesend-Modus ein/aus.",
+            "fields": {
+                "away_mode": {
+                    "description": "Neuer Wert des Abwesend-Modus.",
+                    "name": "Abwesend-Modus"
+                }
+            },
+            "name": "Abwesend-Modus einstellen"
+        },
+        "set_operation_mode": {
+            "description": "Stellt die Betriebsart ein.",
+            "fields": {
+                "operation_mode": {
+                    "description": "Neuer Wert der Betriebsart. Eine Liste der m\u00f6glichen Modi findest du in der Integrationsdokumentation.",
+                    "name": "Betriebsmodus"
+                }
+            },
+            "name": "Betriebsart einstellen"
+        },
+        "set_temperature": {
+            "description": "Legt die Zieltemperatur fest.",
+            "fields": {
+                "operation_mode": {
+                    "description": "Neuer Wert der Betriebsart. Eine Liste der m\u00f6glichen Modi findest du in der Integrationsdokumentation.",
+                    "name": "Betriebsmodus"
+                },
+                "temperature": {
+                    "description": "Neue Zieltemperatur f\u00fcr den Warmwasserbereiter.",
+                    "name": "Temperatur"
+                }
+            },
+            "name": "Temperatur einstellen"
+        },
+        "turn_off": {
+            "description": "Schaltet den Warmwasserbereiter aus.",
+            "name": "Ausschalten"
+        },
+        "turn_on": {
+            "description": "Schaltet den Warmwasserbereiter ein.",
+            "name": "Einschalten"
+        }
+    }
+}

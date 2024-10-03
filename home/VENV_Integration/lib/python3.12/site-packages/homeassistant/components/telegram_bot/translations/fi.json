@@ -1,0 +1,650 @@
+{
+    "issues": {
+        "proxy_params_auth_deprecation": {
+            "description": "{telegram_bot} -integraatiossa m\u00e4\u00e4ritetyn v\u00e4lityspalvelimen todennustiedot olisi siirrett\u00e4v\u00e4 sen sijaan osoitteeseen {proxy_url}. P\u00e4ivit\u00e4 kokoonpano ja k\u00e4ynnist\u00e4 Home Assistant uudelleen ongelman korjaamiseksi.\n\n {proxy_params} konfiguraatioavain poistetaan tulevassa versiossa.",
+            "title": "{telegram_bot}: V\u00e4lityspalvelimen todennus pit\u00e4isi siirt\u00e4\u00e4 URL-osoitteeseen."
+        },
+        "proxy_params_deprecation": {
+            "description": "{proxy_params} config-avain {telegram_bot} -integraatiota varten poistetaan tulevassa versiossa.\n\nTunnistautuminen voidaan nyt tarjota {proxy_url} -avaimen kautta.\n\nTaustalla oleva kirjasto on muuttunut {httpx} -kirjastoksi, joka ei ole yhteensopiva aiempien parametrien kanssa. Jos tarvitset edelleen t\u00e4t\u00e4 toimintoa muita vaihtoehtoja varten, j\u00e4t\u00e4 kommentti lis\u00e4tietoja-linkist\u00e4.\n\nP\u00e4ivit\u00e4 kokoonpanosi poistaaksesi {proxy_params} -avaimen ja k\u00e4ynnist\u00e4 Home Assistant uudelleen ongelman korjaamiseksi.",
+            "title": "{telegram_bot}: Proxy params -vaihtoehto poistetaan"
+        }
+    },
+    "services": {
+        "answer_callback_query": {
+            "description": "Vastaa verkkon\u00e4pp\u00e4imist\u00f6n painiketta napsauttamalla k\u00e4ynnistettyyn takaisinsoittokyselyyn. Vastaus n\u00e4ytet\u00e4\u00e4n k\u00e4ytt\u00e4j\u00e4lle ilmoituksena chat-n\u00e4yt\u00f6n yl\u00e4osassa tai h\u00e4lytyksen\u00e4.",
+            "fields": {
+                "callback_query_id": {
+                    "description": "Takaisinsoittovastauksen yksil\u00f6llinen tunniste.",
+                    "name": "Takaisinsoittokyselyn tunnus"
+                },
+                "message": {
+                    "description": "Muotoilematon ilmoituksen tekstiviesti.",
+                    "name": "Viesti"
+                },
+                "show_alert": {
+                    "description": "N\u00e4yt\u00e4 pysyv\u00e4 ilmoitus.",
+                    "name": "N\u00e4yt\u00e4 h\u00e4lytys"
+                },
+                "timeout": {
+                    "description": "Lukuaika vastauksen l\u00e4hett\u00e4miselle.",
+                    "name": "Lukemisen aikakatkaisu"
+                }
+            },
+            "name": "Vastaa takaisinsoittokyselyyn"
+        },
+        "delete_message": {
+            "description": "Poistaa aiemmin l\u00e4hetetyn viestin.",
+            "fields": {
+                "chat_id": {
+                    "description": "Chat_id, josta viesti poistetaan.",
+                    "name": "Chat-tunnus"
+                },
+                "message_id": {
+                    "description": "Poistettavan viestin tunnus.",
+                    "name": "Viestin tunnus"
+                }
+            },
+            "name": "Poista viesti"
+        },
+        "edit_caption": {
+            "description": "Muokkaa aiemmin l\u00e4hetetyn viestin otsikkoa.",
+            "fields": {
+                "caption": {
+                    "description": "Ilmoituksen tekstiosa.",
+                    "name": "Kuvateksti"
+                },
+                "chat_id": {
+                    "description": "Chat_id, jossa kuvateksti\u00e4 muokataan.",
+                    "name": "Chat-tunnus"
+                },
+                "inline_keyboard": {
+                    "description": "Luettelo komentoriveist\u00e4, jotka on erotettu pilkulla, jotta voidaan luoda mukautettu rivin\u00e4pp\u00e4imist\u00f6, jossa on painikkeita ja niihin liittyvi\u00e4 takaisinsoittotietoja.",
+                    "name": "Sis\u00e4\u00e4nrakennettu n\u00e4pp\u00e4imist\u00f6"
+                },
+                "message_id": {
+                    "description": "Muokattavan viestin tunnus.",
+                    "name": "Viestin tunnus"
+                }
+            },
+            "name": "Muokkaa kuvateksti\u00e4"
+        },
+        "edit_message": {
+            "description": "Muokkaa aiemmin l\u00e4hetetty\u00e4 viesti\u00e4.",
+            "fields": {
+                "chat_id": {
+                    "description": "Chat_id, jossa viesti\u00e4 muokataan.",
+                    "name": "Chat-tunnus"
+                },
+                "disable_web_page_preview": {
+                    "description": "Poistaa viestiss\u00e4 olevien linkkien esikatselun k\u00e4yt\u00f6st\u00e4.",
+                    "name": "Poista verkkosivun esikatselu k\u00e4yt\u00f6st\u00e4"
+                },
+                "inline_keyboard": {
+                    "description": "Luettelo komentoriveist\u00e4, jotka on erotettu pilkulla, jotta voidaan luoda mukautettu rivin\u00e4pp\u00e4imist\u00f6, jossa on painikkeita ja niihin liittyvi\u00e4 takaisinsoittotietoja.",
+                    "name": "Sis\u00e4\u00e4nrakennettu n\u00e4pp\u00e4imist\u00f6"
+                },
+                "message": {
+                    "description": "Ilmoituksen tekstiosa.",
+                    "name": "Viesti"
+                },
+                "message_id": {
+                    "description": "Muokattavan viestin tunnus.",
+                    "name": "Viestin tunnus"
+                },
+                "parse_mode": {
+                    "description": "Viestin tekstin j\u00e4sent\u00e4j\u00e4.",
+                    "name": "J\u00e4sennystila"
+                },
+                "title": {
+                    "description": "Ilmoituksen valinnainen otsikko. Muodostetaan muotoon \"%title\n%message'.",
+                    "name": "Otsikko"
+                }
+            },
+            "name": "Muokkaa viesti\u00e4"
+        },
+        "edit_replymarkup": {
+            "description": "Muokkaa aiemmin l\u00e4hetetyn viestin rivin\u00e4pp\u00e4imist\u00f6\u00e4.",
+            "fields": {
+                "chat_id": {
+                    "description": "Chat_id, jossa reply_markupia muokataan.",
+                    "name": "Chat-tunnus"
+                },
+                "inline_keyboard": {
+                    "description": "Luettelo komentoriveist\u00e4, jotka on erotettu pilkulla, jotta voidaan luoda mukautettu rivin\u00e4pp\u00e4imist\u00f6, jossa on painikkeita ja niihin liittyvi\u00e4 takaisinsoittotietoja.",
+                    "name": "Sis\u00e4\u00e4nrakennettu n\u00e4pp\u00e4imist\u00f6"
+                },
+                "message_id": {
+                    "description": "Muokattavan viestin tunnus.",
+                    "name": "Viestin tunnus"
+                }
+            },
+            "name": "Muokkaa vastausmerkint\u00e4\u00e4"
+        },
+        "send_animation": {
+            "description": "L\u00e4hett\u00e4\u00e4 animaation.",
+            "fields": {
+                "authentication": {
+                    "description": "M\u00e4\u00e4rit\u00e4 k\u00e4ytett\u00e4v\u00e4 todennusmenetelm\u00e4. Aseta arvoksi `digest`, jos haluat k\u00e4ytt\u00e4\u00e4 HTTP-digest-todennusta, tai `bearer_token`, jos haluat k\u00e4ytt\u00e4\u00e4 OAuth 2.0:n bearer token -todennusta. Oletusarvo on `basic`.",
+                    "name": "Tunnistusmenetelm\u00e4"
+                },
+                "caption": {
+                    "description": "Animaation nimi.",
+                    "name": "Kuvateksti"
+                },
+                "disable_notification": {
+                    "description": "L\u00e4hett\u00e4\u00e4 viestin \u00e4\u00e4nett\u00f6m\u00e4sti. iOS- ja Web-k\u00e4ytt\u00e4j\u00e4t eiv\u00e4t saa ilmoitusta, Android-k\u00e4ytt\u00e4j\u00e4t saavat ilmoituksen ilman \u00e4\u00e4nt\u00e4.",
+                    "name": "Ilmoituksen poistaminen k\u00e4yt\u00f6st\u00e4"
+                },
+                "file": {
+                    "description": "Paikallinen polku GIF- tai H.264/MPEG-4 AVC-videoon ilman \u00e4\u00e4nt\u00e4.",
+                    "name": "Tiedosto"
+                },
+                "inline_keyboard": {
+                    "description": "Luettelo komentoriveist\u00e4, jotka on erotettu pilkulla, jotta voidaan luoda mukautettu rivin\u00e4pp\u00e4imist\u00f6, jossa on painikkeita ja niihin liittyvi\u00e4 takaisinsoittotietoja.",
+                    "name": "Sis\u00e4\u00e4nrakennettu n\u00e4pp\u00e4imist\u00f6"
+                },
+                "keyboard": {
+                    "description": "Luettelo komentoriveist\u00e4, pilkulla eroteltuina, mukautetun n\u00e4pp\u00e4imist\u00f6n tekemist\u00e4 varten.",
+                    "name": "N\u00e4pp\u00e4imist\u00f6"
+                },
+                "message_tag": {
+                    "description": "Tagi l\u00e4hetetylle viestille.",
+                    "name": "Viestin tunniste"
+                },
+                "parse_mode": {
+                    "description": "Viestin tekstin j\u00e4sent\u00e4j\u00e4.",
+                    "name": "J\u00e4sennystila"
+                },
+                "password": {
+                    "description": "HTTP-todennusta edellytt\u00e4v\u00e4n URL-osoitteen salasana (tai tunniste).",
+                    "name": "Salasana"
+                },
+                "reply_to_message_id": {
+                    "description": "Merkitse viesti vastaukseksi edelliseen viestiin.",
+                    "name": "Vastaa viestitunnukseen"
+                },
+                "target": {
+                    "description": "Joukko ennalta hyv\u00e4ksyttyj\u00e4 chat_id-tunnuksia, joille asiakirja l\u00e4hetet\u00e4\u00e4n. Jos sit\u00e4 ei ole, oletuksena on ensimm\u00e4inen sallittu chat_id.",
+                    "name": "Kohde"
+                },
+                "timeout": {
+                    "description": "Tarran l\u00e4hetyksen lukemisen aikakatkaisu.",
+                    "name": "Lukemisen aikakatkaisu"
+                },
+                "url": {
+                    "description": "Et\u00e4polku GIF- tai H.264/MPEG-4 AVC-videoon ilman \u00e4\u00e4nt\u00e4.",
+                    "name": "URL-osoite"
+                },
+                "username": {
+                    "description": "K\u00e4ytt\u00e4j\u00e4tunnus URL-osoitteelle, joka vaatii HTTP-todennuksen.",
+                    "name": "K\u00e4ytt\u00e4j\u00e4tunnus"
+                },
+                "verify_ssl": {
+                    "description": "Ota SSL-varmenteen tarkistus k\u00e4ytt\u00f6\u00f6n tai poista se k\u00e4yt\u00f6st\u00e4. Aseta arvoksi false, jos lataat tiedoston URL-osoitteesta etk\u00e4 halua vahvistaa palvelimen SSL-varmentetta.",
+                    "name": "Vahvista SSL"
+                }
+            },
+            "name": "L\u00e4het\u00e4 animaatio"
+        },
+        "send_document": {
+            "description": "L\u00e4hett\u00e4\u00e4 asiakirjan.",
+            "fields": {
+                "authentication": {
+                    "description": "M\u00e4\u00e4rit\u00e4 k\u00e4ytett\u00e4v\u00e4 todennusmenetelm\u00e4. Aseta arvoksi `digest`, jos haluat k\u00e4ytt\u00e4\u00e4 HTTP-digest-todennusta, tai `bearer_token`, jos haluat k\u00e4ytt\u00e4\u00e4 OAuth 2.0:n bearer token -todennusta. Oletusarvo on `basic`.",
+                    "name": "Tunnistusmenetelm\u00e4"
+                },
+                "caption": {
+                    "description": "Asiakirjan otsikko.",
+                    "name": "Kuvateksti"
+                },
+                "disable_notification": {
+                    "description": "L\u00e4hett\u00e4\u00e4 viestin \u00e4\u00e4nett\u00f6m\u00e4sti. iOS- ja Web-k\u00e4ytt\u00e4j\u00e4t eiv\u00e4t saa ilmoitusta, Android-k\u00e4ytt\u00e4j\u00e4t saavat ilmoituksen ilman \u00e4\u00e4nt\u00e4.",
+                    "name": "Ilmoituksen poistaminen k\u00e4yt\u00f6st\u00e4"
+                },
+                "file": {
+                    "description": "Paikallinen polku asiakirjaan.",
+                    "name": "Tiedosto"
+                },
+                "inline_keyboard": {
+                    "description": "Luettelo komentoriveist\u00e4, jotka on erotettu pilkulla, jotta voidaan luoda mukautettu rivin\u00e4pp\u00e4imist\u00f6, jossa on painikkeita ja niihin liittyvi\u00e4 takaisinsoittotietoja.",
+                    "name": "Sis\u00e4\u00e4nrakennettu n\u00e4pp\u00e4imist\u00f6"
+                },
+                "keyboard": {
+                    "description": "Luettelo komentoriveist\u00e4, pilkulla eroteltuina, mukautetun n\u00e4pp\u00e4imist\u00f6n tekemist\u00e4 varten.",
+                    "name": "N\u00e4pp\u00e4imist\u00f6"
+                },
+                "message_tag": {
+                    "description": "Tagi l\u00e4hetetylle viestille.",
+                    "name": "Viestin tunniste"
+                },
+                "parse_mode": {
+                    "description": "Viestin tekstin j\u00e4sent\u00e4j\u00e4.",
+                    "name": "J\u00e4sennystila"
+                },
+                "password": {
+                    "description": "HTTP-todennusta edellytt\u00e4v\u00e4n URL-osoitteen salasana (tai tunniste).",
+                    "name": "Salasana"
+                },
+                "reply_to_message_id": {
+                    "description": "Merkitse viesti vastaukseksi edelliseen viestiin.",
+                    "name": "Vastaa viestitunnukseen"
+                },
+                "target": {
+                    "description": "Joukko ennalta hyv\u00e4ksyttyj\u00e4 chat_id-tunnuksia, joille asiakirja l\u00e4hetet\u00e4\u00e4n. Jos sit\u00e4 ei ole, oletuksena on ensimm\u00e4inen sallittu chat_id.",
+                    "name": "Kohde"
+                },
+                "timeout": {
+                    "description": "Lukemisen aikakatkaisu l\u00e4hetett\u00e4v\u00e4\u00e4 asiakirjaa varten.",
+                    "name": "Lukemisen aikakatkaisu"
+                },
+                "url": {
+                    "description": "Et\u00e4polku asiakirjaan.",
+                    "name": "URL-osoite"
+                },
+                "username": {
+                    "description": "K\u00e4ytt\u00e4j\u00e4tunnus URL-osoitteelle, joka vaatii HTTP-todennuksen.",
+                    "name": "K\u00e4ytt\u00e4j\u00e4tunnus"
+                },
+                "verify_ssl": {
+                    "description": "Ota SSL-varmenteen tarkistus k\u00e4ytt\u00f6\u00f6n tai poista se k\u00e4yt\u00f6st\u00e4. Aseta arvoksi false, jos lataat tiedoston URL-osoitteesta etk\u00e4 halua vahvistaa palvelimen SSL-varmentetta.",
+                    "name": "Vahvista SSL"
+                }
+            },
+            "name": "L\u00e4het\u00e4 asiakirja"
+        },
+        "send_location": {
+            "description": "L\u00e4hett\u00e4\u00e4 sijainnin.",
+            "fields": {
+                "disable_notification": {
+                    "description": "L\u00e4hett\u00e4\u00e4 viestin \u00e4\u00e4nett\u00f6m\u00e4sti. iOS- ja Web-k\u00e4ytt\u00e4j\u00e4t eiv\u00e4t saa ilmoitusta, Android-k\u00e4ytt\u00e4j\u00e4t saavat ilmoituksen ilman \u00e4\u00e4nt\u00e4.",
+                    "name": "Ilmoituksen poistaminen k\u00e4yt\u00f6st\u00e4"
+                },
+                "inline_keyboard": {
+                    "description": "Luettelo komentoriveist\u00e4, jotka on erotettu pilkulla, jotta voidaan luoda mukautettu rivin\u00e4pp\u00e4imist\u00f6, jossa on painikkeita ja niihin liittyvi\u00e4 takaisinsoittotietoja.",
+                    "name": "Sis\u00e4\u00e4nrakennettu n\u00e4pp\u00e4imist\u00f6"
+                },
+                "keyboard": {
+                    "description": "Luettelo komentoriveist\u00e4, pilkulla eroteltuina, mukautetun n\u00e4pp\u00e4imist\u00f6n tekemist\u00e4 varten.",
+                    "name": "N\u00e4pp\u00e4imist\u00f6"
+                },
+                "latitude": {
+                    "description": "L\u00e4hetett\u00e4v\u00e4 leveysaste.",
+                    "name": "Leveysaste"
+                },
+                "longitude": {
+                    "description": "L\u00e4hetett\u00e4v\u00e4 pituusaste.",
+                    "name": "Pituusaste"
+                },
+                "message_tag": {
+                    "description": "Tagi l\u00e4hetetylle viestille.",
+                    "name": "Viestin tunniste"
+                },
+                "reply_to_message_id": {
+                    "description": "Merkitse viesti vastaukseksi edelliseen viestiin.",
+                    "name": "Vastaa viestitunnukseen"
+                },
+                "target": {
+                    "description": "Joukko ennalta hyv\u00e4ksyttyj\u00e4 chat_id:it\u00e4, joille sijainti l\u00e4hetet\u00e4\u00e4n. Jos sit\u00e4 ei ole, oletuksena on ensimm\u00e4inen sallittu chat_id.",
+                    "name": "Kohde"
+                },
+                "timeout": {
+                    "description": "Lukemisen aikakatkaisu kuvan l\u00e4hett\u00e4miselle.",
+                    "name": "Lukemisen aikakatkaisu"
+                }
+            },
+            "name": "L\u00e4het\u00e4 sijainti"
+        },
+        "send_message": {
+            "description": "L\u00e4hett\u00e4\u00e4 ilmoituksen.",
+            "fields": {
+                "disable_notification": {
+                    "description": "L\u00e4hett\u00e4\u00e4 viestin \u00e4\u00e4nett\u00f6m\u00e4sti. iOS- ja Web-k\u00e4ytt\u00e4j\u00e4t eiv\u00e4t saa ilmoitusta, Android-k\u00e4ytt\u00e4j\u00e4t saavat ilmoituksen ilman \u00e4\u00e4nt\u00e4.",
+                    "name": "Ilmoituksen poistaminen k\u00e4yt\u00f6st\u00e4"
+                },
+                "disable_web_page_preview": {
+                    "description": "Poistaa viestiss\u00e4 olevien linkkien esikatselun k\u00e4yt\u00f6st\u00e4.",
+                    "name": "Poista verkkosivun esikatselu k\u00e4yt\u00f6st\u00e4"
+                },
+                "inline_keyboard": {
+                    "description": "Luettelo komentoriveist\u00e4, jotka on erotettu pilkulla, jotta voidaan luoda mukautettu rivin\u00e4pp\u00e4imist\u00f6, jossa on painikkeita ja niihin liittyvi\u00e4 takaisinsoittotietoja.",
+                    "name": "Sis\u00e4\u00e4nrakennettu n\u00e4pp\u00e4imist\u00f6"
+                },
+                "keyboard": {
+                    "description": "Luettelo komentoriveist\u00e4, pilkulla eroteltuina, mukautetun n\u00e4pp\u00e4imist\u00f6n tekemist\u00e4 varten. Tyhj\u00e4 lista tyhjent\u00e4\u00e4 aiemmin asetetun n\u00e4pp\u00e4imist\u00f6n.",
+                    "name": "N\u00e4pp\u00e4imist\u00f6"
+                },
+                "message": {
+                    "description": "Ilmoituksen tekstiosa.",
+                    "name": "Viesti"
+                },
+                "message_tag": {
+                    "description": "Tagi l\u00e4hetetylle viestille.",
+                    "name": "Viestin tunniste"
+                },
+                "parse_mode": {
+                    "description": "Viestin tekstin j\u00e4sent\u00e4j\u00e4.",
+                    "name": "J\u00e4sennystila"
+                },
+                "reply_to_message_id": {
+                    "description": "Merkitse viesti vastaukseksi edelliseen viestiin.",
+                    "name": "Vastaa viestitunnukseen"
+                },
+                "target": {
+                    "description": "Joukko ennalta hyv\u00e4ksyttyj\u00e4 chat_id-tunnuksia, joille ilmoitus l\u00e4hetet\u00e4\u00e4n. Jos sit\u00e4 ei ole, oletuksena on ensimm\u00e4inen sallittu chat_id.",
+                    "name": "Kohde"
+                },
+                "timeout": {
+                    "description": "Lukemisen aikakatkaisu l\u00e4hetett\u00e4v\u00e4\u00e4 viesti\u00e4 varten. Auttaa aikakatkaisuvirheiss\u00e4 (huono internet-yhteys jne.).",
+                    "name": "Lukemisen aikakatkaisu"
+                },
+                "title": {
+                    "description": "Ilmoituksen valinnainen otsikko. Muodostetaan muotoon \"%title\n%message'.",
+                    "name": "Otsikko"
+                }
+            },
+            "name": "L\u00e4het\u00e4 viesti"
+        },
+        "send_photo": {
+            "description": "L\u00e4hett\u00e4\u00e4 valokuvan.",
+            "fields": {
+                "authentication": {
+                    "description": "M\u00e4\u00e4rit\u00e4 k\u00e4ytett\u00e4v\u00e4 todennusmenetelm\u00e4. Aseta arvoksi `digest`, jos haluat k\u00e4ytt\u00e4\u00e4 HTTP-digest-todennusta, tai `bearer_token`, jos haluat k\u00e4ytt\u00e4\u00e4 OAuth 2.0:n bearer token -todennusta. Oletusarvo on `basic`.",
+                    "name": "Tunnistusmenetelm\u00e4"
+                },
+                "caption": {
+                    "description": "Kuvan otsikko.",
+                    "name": "Kuvateksti"
+                },
+                "disable_notification": {
+                    "description": "L\u00e4hett\u00e4\u00e4 viestin \u00e4\u00e4nett\u00f6m\u00e4sti. iOS- ja Web-k\u00e4ytt\u00e4j\u00e4t eiv\u00e4t saa ilmoitusta, Android-k\u00e4ytt\u00e4j\u00e4t saavat ilmoituksen ilman \u00e4\u00e4nt\u00e4.",
+                    "name": "Ilmoituksen poistaminen k\u00e4yt\u00f6st\u00e4"
+                },
+                "file": {
+                    "description": "Paikallinen polku kuvaan.",
+                    "name": "Tiedosto"
+                },
+                "inline_keyboard": {
+                    "description": "Luettelo komentoriveist\u00e4, jotka on erotettu pilkulla, jotta voidaan luoda mukautettu rivin\u00e4pp\u00e4imist\u00f6, jossa on painikkeita ja niihin liittyvi\u00e4 takaisinsoittotietoja.",
+                    "name": "Sis\u00e4\u00e4nrakennettu n\u00e4pp\u00e4imist\u00f6"
+                },
+                "keyboard": {
+                    "description": "Luettelo komentoriveist\u00e4, pilkulla eroteltuina, mukautetun n\u00e4pp\u00e4imist\u00f6n tekemist\u00e4 varten.",
+                    "name": "N\u00e4pp\u00e4imist\u00f6"
+                },
+                "message_tag": {
+                    "description": "Tagi l\u00e4hetetylle viestille.",
+                    "name": "Viestin tunniste"
+                },
+                "parse_mode": {
+                    "description": "Viestin tekstin j\u00e4sent\u00e4j\u00e4.",
+                    "name": "J\u00e4sennystila"
+                },
+                "password": {
+                    "description": "HTTP-todennusta edellytt\u00e4v\u00e4n URL-osoitteen salasana (tai tunniste).",
+                    "name": "Salasana"
+                },
+                "reply_to_message_id": {
+                    "description": "Merkitse viesti vastaukseksi edelliseen viestiin.",
+                    "name": "Vastaa viestitunnukseen"
+                },
+                "target": {
+                    "description": "Joukko ennalta hyv\u00e4ksyttyj\u00e4 chat_id-tunnuksia, joille asiakirja l\u00e4hetet\u00e4\u00e4n. Jos sit\u00e4 ei ole, oletuksena on ensimm\u00e4inen sallittu chat_id.",
+                    "name": "Kohde"
+                },
+                "timeout": {
+                    "description": "Lukemisen aikakatkaisu kuvan l\u00e4hett\u00e4miselle.",
+                    "name": "Lukemisen aikakatkaisu"
+                },
+                "url": {
+                    "description": "Kuvan et\u00e4polku.",
+                    "name": "URL-osoite"
+                },
+                "username": {
+                    "description": "K\u00e4ytt\u00e4j\u00e4tunnus URL-osoitteelle, joka vaatii HTTP-todennuksen.",
+                    "name": "K\u00e4ytt\u00e4j\u00e4tunnus"
+                },
+                "verify_ssl": {
+                    "description": "Ota SSL-varmenteen tarkistus k\u00e4ytt\u00f6\u00f6n tai poista se k\u00e4yt\u00f6st\u00e4. Aseta arvoksi false, jos lataat tiedoston URL-osoitteesta etk\u00e4 halua vahvistaa palvelimen SSL-varmentetta.",
+                    "name": "Vahvista SSL"
+                }
+            },
+            "name": "L\u00e4het\u00e4 kuva"
+        },
+        "send_poll": {
+            "description": "L\u00e4hett\u00e4\u00e4 kyselyn.",
+            "fields": {
+                "allows_multiple_answers": {
+                    "description": "Jos kyselyss\u00e4 sallitaan useita vastauksia, oletuksena on False.",
+                    "name": "Salli useita vastauksia"
+                },
+                "disable_notification": {
+                    "description": "L\u00e4hett\u00e4\u00e4 viestin \u00e4\u00e4nett\u00f6m\u00e4sti. iOS- ja Web-k\u00e4ytt\u00e4j\u00e4t eiv\u00e4t saa ilmoitusta, Android-k\u00e4ytt\u00e4j\u00e4t saavat ilmoituksen ilman \u00e4\u00e4nt\u00e4.",
+                    "name": "Ilmoituksen poistaminen k\u00e4yt\u00f6st\u00e4"
+                },
+                "is_anonymous": {
+                    "description": "Jos kyselyn on oltava anonyymi, oletuksena on True.",
+                    "name": "On anonyymi"
+                },
+                "message_tag": {
+                    "description": "Tagi l\u00e4hetetylle viestille.",
+                    "name": "Viestin tunniste"
+                },
+                "open_period": {
+                    "description": "Aika sekunteina, jonka kysely on aktiivinen luomisen j\u00e4lkeen, 5-600.",
+                    "name": "Avoin aika"
+                },
+                "options": {
+                    "description": "Luettelo vastausvaihtoehdoista, 2-10 merkkijonoa, kukin 1-100 merkki\u00e4.",
+                    "name": "Asetukset"
+                },
+                "question": {
+                    "description": "Kyselyn kysymys, 1-300 merkki\u00e4.",
+                    "name": "Kysymys"
+                },
+                "reply_to_message_id": {
+                    "description": "Merkitse viesti vastaukseksi edelliseen viestiin.",
+                    "name": "Vastaa viestitunnukseen"
+                },
+                "target": {
+                    "description": "Joukko ennalta hyv\u00e4ksyttyj\u00e4 chat_id:it\u00e4, joille sijainti l\u00e4hetet\u00e4\u00e4n. Jos sit\u00e4 ei ole, oletuksena on ensimm\u00e4inen sallittu chat_id.",
+                    "name": "Kohde"
+                },
+                "timeout": {
+                    "description": "Lukemisen aikakatkaisu l\u00e4hetyskysely\u00e4 varten.",
+                    "name": "Lukemisen aikakatkaisu"
+                }
+            },
+            "name": "L\u00e4het\u00e4 kysely"
+        },
+        "send_sticker": {
+            "description": "L\u00e4hett\u00e4\u00e4 tarran.",
+            "fields": {
+                "authentication": {
+                    "description": "M\u00e4\u00e4rit\u00e4 k\u00e4ytett\u00e4v\u00e4 todennusmenetelm\u00e4. Aseta arvoksi `digest`, jos haluat k\u00e4ytt\u00e4\u00e4 HTTP-digest-todennusta, tai `bearer_token`, jos haluat k\u00e4ytt\u00e4\u00e4 OAuth 2.0:n bearer token -todennusta. Oletusarvo on `basic`.",
+                    "name": "Tunnistusmenetelm\u00e4"
+                },
+                "disable_notification": {
+                    "description": "L\u00e4hett\u00e4\u00e4 viestin \u00e4\u00e4nett\u00f6m\u00e4sti. iOS- ja Web-k\u00e4ytt\u00e4j\u00e4t eiv\u00e4t saa ilmoitusta, Android-k\u00e4ytt\u00e4j\u00e4t saavat ilmoituksen ilman \u00e4\u00e4nt\u00e4.",
+                    "name": "Ilmoituksen poistaminen k\u00e4yt\u00f6st\u00e4"
+                },
+                "file": {
+                    "description": "Paikallinen polku staattiseen .webp- tai animoituun .tgs-tarraan.",
+                    "name": "Tiedosto"
+                },
+                "inline_keyboard": {
+                    "description": "Luettelo komentoriveist\u00e4, jotka on erotettu pilkulla, jotta voidaan luoda mukautettu rivin\u00e4pp\u00e4imist\u00f6, jossa on painikkeita ja niihin liittyvi\u00e4 takaisinsoittotietoja.",
+                    "name": "Sis\u00e4\u00e4nrakennettu n\u00e4pp\u00e4imist\u00f6"
+                },
+                "keyboard": {
+                    "description": "Luettelo komentoriveist\u00e4, pilkulla eroteltuina, mukautetun n\u00e4pp\u00e4imist\u00f6n tekemist\u00e4 varten.",
+                    "name": "N\u00e4pp\u00e4imist\u00f6"
+                },
+                "message_tag": {
+                    "description": "Tagi l\u00e4hetetylle viestille.",
+                    "name": "Viestin tunniste"
+                },
+                "password": {
+                    "description": "HTTP-todennusta edellytt\u00e4v\u00e4n URL-osoitteen salasana (tai tunniste).",
+                    "name": "Salasana"
+                },
+                "reply_to_message_id": {
+                    "description": "Merkitse viesti vastaukseksi edelliseen viestiin.",
+                    "name": "Vastaa viestitunnukseen"
+                },
+                "sticker_id": {
+                    "description": "Telegram-palvelimilla olevan tarran tunnus.",
+                    "name": "Tarran tunnus"
+                },
+                "target": {
+                    "description": "Joukko ennalta hyv\u00e4ksyttyj\u00e4 chat_id-tunnuksia, joille asiakirja l\u00e4hetet\u00e4\u00e4n. Jos sit\u00e4 ei ole, oletuksena on ensimm\u00e4inen sallittu chat_id.",
+                    "name": "Kohde"
+                },
+                "timeout": {
+                    "description": "Tarran l\u00e4hetyksen lukemisen aikakatkaisu.",
+                    "name": "Lukemisen aikakatkaisu"
+                },
+                "url": {
+                    "description": "Et\u00e4polku staattiseen .webp- tai animoituun .tgs-tarraan.",
+                    "name": "URL-osoite"
+                },
+                "username": {
+                    "description": "K\u00e4ytt\u00e4j\u00e4tunnus URL-osoitteelle, joka vaatii HTTP-todennuksen.",
+                    "name": "K\u00e4ytt\u00e4j\u00e4tunnus"
+                },
+                "verify_ssl": {
+                    "description": "Ota SSL-varmenteen tarkistus k\u00e4ytt\u00f6\u00f6n tai poista se k\u00e4yt\u00f6st\u00e4. Aseta arvoksi false, jos lataat tiedoston URL-osoitteesta etk\u00e4 halua vahvistaa palvelimen SSL-varmentetta.",
+                    "name": "Vahvista SSL"
+                }
+            },
+            "name": "L\u00e4het\u00e4 tarra"
+        },
+        "send_video": {
+            "description": "L\u00e4hett\u00e4\u00e4 videon.",
+            "fields": {
+                "authentication": {
+                    "description": "M\u00e4\u00e4rit\u00e4 k\u00e4ytett\u00e4v\u00e4 todennusmenetelm\u00e4. Aseta arvoksi `digest`, jos haluat k\u00e4ytt\u00e4\u00e4 HTTP-digest-todennusta, tai `bearer_token`, jos haluat k\u00e4ytt\u00e4\u00e4 OAuth 2.0:n bearer token -todennusta. Oletusarvo on `basic`.",
+                    "name": "Tunnistusmenetelm\u00e4"
+                },
+                "caption": {
+                    "description": "Videon otsikko.",
+                    "name": "Kuvateksti"
+                },
+                "disable_notification": {
+                    "description": "L\u00e4hett\u00e4\u00e4 viestin \u00e4\u00e4nett\u00f6m\u00e4sti. iOS- ja Web-k\u00e4ytt\u00e4j\u00e4t eiv\u00e4t saa ilmoitusta, Android-k\u00e4ytt\u00e4j\u00e4t saavat ilmoituksen ilman \u00e4\u00e4nt\u00e4.",
+                    "name": "Ilmoituksen poistaminen k\u00e4yt\u00f6st\u00e4"
+                },
+                "file": {
+                    "description": "Paikallinen polku videoon.",
+                    "name": "Tiedosto"
+                },
+                "inline_keyboard": {
+                    "description": "Luettelo komentoriveist\u00e4, jotka on erotettu pilkulla, jotta voidaan luoda mukautettu rivin\u00e4pp\u00e4imist\u00f6, jossa on painikkeita ja niihin liittyvi\u00e4 takaisinsoittotietoja.",
+                    "name": "Sis\u00e4\u00e4nrakennettu n\u00e4pp\u00e4imist\u00f6"
+                },
+                "keyboard": {
+                    "description": "Luettelo komentoriveist\u00e4, pilkulla eroteltuina, mukautetun n\u00e4pp\u00e4imist\u00f6n tekemist\u00e4 varten.",
+                    "name": "N\u00e4pp\u00e4imist\u00f6"
+                },
+                "message_tag": {
+                    "description": "Tagi l\u00e4hetetylle viestille.",
+                    "name": "Viestin tunniste"
+                },
+                "parse_mode": {
+                    "description": "Viestin tekstin j\u00e4sent\u00e4j\u00e4.",
+                    "name": "J\u00e4sennystila"
+                },
+                "password": {
+                    "description": "HTTP-todennusta edellytt\u00e4v\u00e4n URL-osoitteen salasana (tai tunniste).",
+                    "name": "Salasana"
+                },
+                "reply_to_message_id": {
+                    "description": "Merkitse viesti vastaukseksi edelliseen viestiin.",
+                    "name": "Vastaa viestitunnukseen"
+                },
+                "target": {
+                    "description": "Joukko ennalta hyv\u00e4ksyttyj\u00e4 chat_id-tunnuksia, joille asiakirja l\u00e4hetet\u00e4\u00e4n. Jos sit\u00e4 ei ole, oletuksena on ensimm\u00e4inen sallittu chat_id.",
+                    "name": "Kohde"
+                },
+                "timeout": {
+                    "description": "Lukemisen aikakatkaisu videon l\u00e4hett\u00e4mist\u00e4 varten.",
+                    "name": "Lukemisen aikakatkaisu"
+                },
+                "url": {
+                    "description": "Et\u00e4polku videoon.",
+                    "name": "URL-osoite"
+                },
+                "username": {
+                    "description": "K\u00e4ytt\u00e4j\u00e4tunnus URL-osoitteelle, joka vaatii HTTP-todennuksen.",
+                    "name": "K\u00e4ytt\u00e4j\u00e4tunnus"
+                },
+                "verify_ssl": {
+                    "description": "Ota SSL-varmenteen tarkistus k\u00e4ytt\u00f6\u00f6n tai poista se k\u00e4yt\u00f6st\u00e4. Aseta arvoksi false, jos lataat tiedoston URL-osoitteesta etk\u00e4 halua vahvistaa palvelimen SSL-varmentetta.",
+                    "name": "Vahvista SSL"
+                }
+            },
+            "name": "L\u00e4het\u00e4 video"
+        },
+        "send_voice": {
+            "description": "L\u00e4hett\u00e4\u00e4 \u00e4\u00e4niviestin.",
+            "fields": {
+                "authentication": {
+                    "description": "M\u00e4\u00e4rit\u00e4 k\u00e4ytett\u00e4v\u00e4 todennusmenetelm\u00e4. Aseta arvoksi `digest`, jos haluat k\u00e4ytt\u00e4\u00e4 HTTP-digest-todennusta, tai `bearer_token`, jos haluat k\u00e4ytt\u00e4\u00e4 OAuth 2.0:n bearer token -todennusta. Oletusarvo on `basic`.",
+                    "name": "Tunnistusmenetelm\u00e4"
+                },
+                "caption": {
+                    "description": "\u00c4\u00e4niviestin otsikko.",
+                    "name": "Kuvateksti"
+                },
+                "disable_notification": {
+                    "description": "L\u00e4hett\u00e4\u00e4 viestin \u00e4\u00e4nett\u00f6m\u00e4sti. iOS- ja Web-k\u00e4ytt\u00e4j\u00e4t eiv\u00e4t saa ilmoitusta, Android-k\u00e4ytt\u00e4j\u00e4t saavat ilmoituksen ilman \u00e4\u00e4nt\u00e4.",
+                    "name": "Ilmoituksen poistaminen k\u00e4yt\u00f6st\u00e4"
+                },
+                "file": {
+                    "description": "Paikallinen polku \u00e4\u00e4niviestiin.",
+                    "name": "Tiedosto"
+                },
+                "inline_keyboard": {
+                    "description": "Luettelo komentoriveist\u00e4, jotka on erotettu pilkulla, jotta voidaan luoda mukautettu rivin\u00e4pp\u00e4imist\u00f6, jossa on painikkeita ja niihin liittyvi\u00e4 takaisinsoittotietoja.",
+                    "name": "Sis\u00e4\u00e4nrakennettu n\u00e4pp\u00e4imist\u00f6"
+                },
+                "keyboard": {
+                    "description": "Luettelo komentoriveist\u00e4, pilkulla eroteltuina, mukautetun n\u00e4pp\u00e4imist\u00f6n tekemist\u00e4 varten.",
+                    "name": "N\u00e4pp\u00e4imist\u00f6"
+                },
+                "message_tag": {
+                    "description": "Tagi l\u00e4hetetylle viestille.",
+                    "name": "Viestin tunniste"
+                },
+                "password": {
+                    "description": "HTTP-todennusta edellytt\u00e4v\u00e4n URL-osoitteen salasana (tai tunniste).",
+                    "name": "Salasana"
+                },
+                "reply_to_message_id": {
+                    "description": "Merkitse viesti vastaukseksi edelliseen viestiin.",
+                    "name": "Vastaa viestitunnukseen"
+                },
+                "target": {
+                    "description": "Joukko ennalta hyv\u00e4ksyttyj\u00e4 chat_id-tunnuksia, joille asiakirja l\u00e4hetet\u00e4\u00e4n. Jos sit\u00e4 ei ole, oletuksena on ensimm\u00e4inen sallittu chat_id.",
+                    "name": "Kohde"
+                },
+                "timeout": {
+                    "description": "Lukemisen aikakatkaisu \u00e4\u00e4nen l\u00e4hett\u00e4miselle.",
+                    "name": "Lukemisen aikakatkaisu"
+                },
+                "url": {
+                    "description": "Et\u00e4polku \u00e4\u00e4niviestiin.",
+                    "name": "URL-osoite"
+                },
+                "username": {
+                    "description": "K\u00e4ytt\u00e4j\u00e4tunnus URL-osoitteelle, joka vaatii HTTP-todennuksen.",
+                    "name": "K\u00e4ytt\u00e4j\u00e4tunnus"
+                },
+                "verify_ssl": {
+                    "description": "Ota SSL-varmenteen tarkistus k\u00e4ytt\u00f6\u00f6n tai poista se k\u00e4yt\u00f6st\u00e4. Aseta arvoksi false, jos lataat tiedoston URL-osoitteesta etk\u00e4 halua vahvistaa palvelimen SSL-varmentetta.",
+                    "name": "Vahvista SSL"
+                }
+            },
+            "name": "L\u00e4het\u00e4 \u00e4\u00e4ni"
+        }
+    }
+}

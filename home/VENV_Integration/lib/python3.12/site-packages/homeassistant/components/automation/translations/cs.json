@@ -1,0 +1,105 @@
+{
+    "common": {
+        "validation_failed_title": "Automatizaci {name} se nepoda\u0159ilo nastavit"
+    },
+    "entity_component": {
+        "_": {
+            "name": "Automatizace",
+            "state": {
+                "off": "Vypnuto",
+                "on": "Zapnuto"
+            },
+            "state_attributes": {
+                "current": {
+                    "name": "Spu\u0161t\u011bn\u00e9 automatizace"
+                },
+                "id": {
+                    "name": "ID"
+                },
+                "last_triggered": {
+                    "name": "Naposledy spu\u0161t\u011bno"
+                },
+                "max": {
+                    "name": "Maxim\u00e1ln\u00ed po\u010det spu\u0161t\u011bn\u00fdch automatizac\u00ed"
+                },
+                "mode": {
+                    "name": "Re\u017eim spu\u0161t\u011bn\u00ed",
+                    "state": {
+                        "parallel": "Paraleln\u011b",
+                        "queued": "Fronta",
+                        "restart": "Restart",
+                        "single": "Jedin\u00fd"
+                    }
+                }
+            }
+        }
+    },
+    "issues": {
+        "service_not_found": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Automatizace \"{name}\" (ID entity {entity_id}) m\u00e1 nezn\u00e1mou akci \"{service}\".\n\nTato chyba br\u00e1n\u00ed spr\u00e1vn\u00e9mu spu\u0161t\u011bn\u00ed automatizace. Mo\u017en\u00e1 tato akce ji\u017e nen\u00ed k dispozici, nebo chybu zp\u016fsobil p\u0159eklep.\n\nChcete-li tuto chybu opravit, [upravte automatizaci]({edit}) a odeberte tuto akci.\n\nKlepnut\u00edm na tla\u010d\u00edtko Odeslat potvr\u010fte, \u017ee jste tuto automatizaci opravili.",
+                        "title": "{name} pou\u017e\u00edv\u00e1 nezn\u00e1mou akci"
+                    }
+                }
+            },
+            "title": "{name} pou\u017e\u00edv\u00e1 nezn\u00e1mou akci"
+        },
+        "validation_failed_actions": {
+            "description": "Automatizace \"{name}\" (\"{entity_id}\") nen\u00ed aktivn\u00ed, proto\u017ee jej\u00ed akce nelze nastavit.\n\nChyba: \"{error}\".\n\nChcete-li tuto chybu opravit, [upravte automatizaci]({edit}), pot\u00e9 ulo\u017ete a znovu na\u010dt\u011bte nastaven\u00ed automatizace.",
+            "title": "Automatizaci {name} se nepoda\u0159ilo nastavit"
+        },
+        "validation_failed_blueprint": {
+            "description": "Blueprint automatizaci \"{name}\" (\"{entity_id}\") se nepoda\u0159ilo nastavit.\n\nChyba: \"{error}\".\n\nChcete-li tuto chybu opravit, [upravte automatizaci]({edit}), pot\u00e9 ulo\u017ete a znovu na\u010dt\u011bte nastaven\u00ed automatizace.",
+            "title": "Automatizaci {name} se nepoda\u0159ilo nastavit"
+        },
+        "validation_failed_conditions": {
+            "description": "Automatizace \"{name}\" (\"{entity_id}\") nen\u00ed aktivn\u00ed, proto\u017ee jej\u00ed podm\u00ednky nelze nastavit.\n\nChyba: \"{error}\".\n\nChcete-li tuto chybu opravit, [upravte automatizaci]({edit}), pot\u00e9 ulo\u017ete a znovu na\u010dt\u011bte nastaven\u00ed automatizace.",
+            "title": "Automatizaci {name} se nepoda\u0159ilo nastavit"
+        },
+        "validation_failed_schema": {
+            "description": "Automatizace \"{name}\" (\"{entity_id}\") nen\u00ed aktivn\u00ed, proto\u017ee nastaven\u00ed obsahuje chyby.\n\nChyba: \"{error}\".\n\nChcete-li tuto chybu opravit, [upravte automatizaci]({edit}), pot\u00e9 ulo\u017ete a znovu na\u010dt\u011bte nastaven\u00ed automatizace.",
+            "title": "Automatizaci {name} se nepoda\u0159ilo nastavit"
+        },
+        "validation_failed_triggers": {
+            "description": "Automatizace \"{name}\" (\"{entity_id}\") nen\u00ed aktivn\u00ed, proto\u017ee jej\u00ed spou\u0161t\u011b\u010de nelze nastavit.\n\nChyba: \"{error}\".\n\nChcete-li tuto chybu opravit, [upravte automatizaci]({edit}), pot\u00e9 ulo\u017ete a znovu na\u010dt\u011bte nastaven\u00ed automatizace.",
+            "title": "Automatizaci {name} se nepoda\u0159ilo nastavit"
+        }
+    },
+    "services": {
+        "reload": {
+            "description": "Znovu na\u010dte nastaven\u00ed automatizace.",
+            "name": "Znovu na\u010d\u00edst"
+        },
+        "toggle": {
+            "description": "P\u0159ep\u00edn\u00e1 (povoluje/zakazuje) automatizaci.",
+            "name": "P\u0159epnout"
+        },
+        "trigger": {
+            "description": "Spust\u00ed akce automatizace.",
+            "fields": {
+                "skip_condition": {
+                    "description": "Ur\u010d\u00ed, zda budou podm\u00ednky p\u0159esko\u010deny nebo ne.",
+                    "name": "P\u0159esko\u010dit podm\u00ednky"
+                }
+            },
+            "name": "Spou\u0161t\u011b\u010d"
+        },
+        "turn_off": {
+            "description": "Zak\u00e1\u017ee automatizaci.",
+            "fields": {
+                "stop_actions": {
+                    "description": "Zastav\u00ed aktu\u00e1ln\u011b spu\u0161t\u011bn\u00e9 akce.",
+                    "name": "Zastavit akce"
+                }
+            },
+            "name": "Vypnout"
+        },
+        "turn_on": {
+            "description": "Povol\u00ed automatizaci.",
+            "name": "Zapnout"
+        }
+    },
+    "title": "Automatizace"
+}

@@ -1,0 +1,125 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "\u8bbe\u5907\u5df2\u914d\u7f6e"
+        },
+        "step": {
+            "user": {
+                "description": "\u60a8\u8981\u5f00\u59cb\u8bbe\u7f6e\u5417 \uff1f"
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "average_price": {
+                "name": "\u5e73\u5747 - \u4eca\u5929"
+            },
+            "current_hour_price": {
+                "name": "\u5f53\u524d\u5c0f\u65f6"
+            },
+            "highest_price_time": {
+                "name": "\u6700\u9ad8\u4ef7\u65f6\u95f4 - \u4eca\u5929"
+            },
+            "hours_priced_equal_or_higher": {
+                "name": "\u5c0f\u65f6\u4ef7\u683c\u7b49\u4e8e\u6216\u9ad8\u4e8e\u5f53\u524d\u4ef7\u683c - \u4eca\u5929"
+            },
+            "hours_priced_equal_or_lower": {
+                "name": "\u5c0f\u65f6\u4ef7\u683c\u7b49\u4e8e\u6216\u4f4e\u4e8e\u5f53\u524d\u4ef7\u683c - \u4eca\u5929"
+            },
+            "lowest_price_time": {
+                "name": "\u6700\u4f4e\u4ef7\u65f6\u95f4 - \u4eca\u65e5"
+            },
+            "max_price": {
+                "name": "\u6700\u9ad8\u4ef7 - \u4eca\u65e5"
+            },
+            "min_price": {
+                "name": "\u6700\u4f4e\u4ef7 - \u4eca\u65e5"
+            },
+            "next_hour_price": {
+                "name": "\u4e0b\u4e00\u5c0f\u65f6"
+            },
+            "percentage_of_max": {
+                "name": "\u5f53\u524d\u6700\u9ad8\u4ef7\u683c\u767e\u5206\u6bd4 - \u4eca\u65e5"
+            }
+        }
+    },
+    "exceptions": {
+        "invalid_config_entry": {
+            "message": "\u63d0\u4f9b\u7684\u914d\u7f6e\u6761\u76ee\u65e0\u6548\u3002\u73b0\u5728\u662f\u201c{config_entry}\u201d"
+        },
+        "invalid_date": {
+            "message": "\u63d0\u4f9b\u7684\u65e5\u671f\u65e0\u6548\u3002\u5f97\u5230\u7684\u662f {date}"
+        },
+        "unloaded_config_entry": {
+            "message": "\u63d0\u4f9b\u7684\u914d\u7f6e\u6761\u76ee\u65e0\u6548\u3002\u201c{config_entry}\u201d\u672a\u52a0\u8f7d\u3002"
+        }
+    },
+    "services": {
+        "get_energy_prices": {
+            "description": "\u5411 EnergyZero \u8bf7\u6c42\u80fd\u6e90\u4ef7\u683c\u3002",
+            "fields": {
+                "config_entry": {
+                    "description": "\u6b64\u52a8\u4f5c\u4f7f\u7528\u7684\u914d\u7f6e\u6761\u76ee\u3002",
+                    "name": "\u914d\u7f6e\u6761\u76ee"
+                },
+                "end": {
+                    "description": "\u6307\u5b9a\u83b7\u53d6\u4ef7\u683c\u7684\u65e5\u671f\u548c\u65f6\u95f4\u3002\u5982\u679c\u7701\u7565\uff0c\u9ed8\u8ba4\u4e3a\u4eca\u5929\u3002",
+                    "name": "\u7ed3\u675f"
+                },
+                "incl_vat": {
+                    "description": "\u4ef7\u683c\u4e2d\u5305\u542b\u589e\u503c\u7a0e\u3002",
+                    "name": "\u5305\u62ec\u589e\u503c\u7a0e"
+                },
+                "start": {
+                    "description": "\u6307\u5b9a\u68c0\u7d22\u4ef7\u683c\u7684\u65e5\u671f\u548c\u65f6\u95f4\u3002\u5982\u679c\u7701\u7565\uff0c\u5219\u9ed8\u8ba4\u4e3a\u4eca\u5929\u3002",
+                    "name": "\u542f\u52a8"
+                }
+            },
+            "name": "\u83b7\u53d6\u80fd\u6e90\u4ef7\u683c"
+        },
+        "get_gas_prices": {
+            "description": "\u5411 EnergyZero \u8bf7\u6c42\u71c3\u6c14\u4ef7\u683c\u3002",
+            "fields": {
+                "config_entry": {
+                    "description": "\u6b64\u52a8\u4f5c\u4f7f\u7528\u7684\u914d\u7f6e\u6761\u76ee\u3002",
+                    "name": "\u914d\u7f6e\u6761\u76ee"
+                },
+                "end": {
+                    "description": "\u6307\u5b9a\u83b7\u53d6\u4ef7\u683c\u7684\u65e5\u671f\u548c\u65f6\u95f4\u3002\u5982\u679c\u7701\u7565\uff0c\u9ed8\u8ba4\u4e3a\u4eca\u5929\u3002",
+                    "name": "\u7ed3\u675f"
+                },
+                "incl_vat": {
+                    "description": "\u4ef7\u683c\u4e2d\u5305\u542b\u589e\u503c\u7a0e\u3002",
+                    "name": "\u5305\u62ec\u589e\u503c\u7a0e"
+                },
+                "start": {
+                    "description": "\u6307\u5b9a\u68c0\u7d22\u4ef7\u683c\u7684\u65e5\u671f\u548c\u65f6\u95f4\u3002\u5982\u679c\u7701\u7565\uff0c\u5219\u9ed8\u8ba4\u4e3a\u4eca\u5929\u3002",
+                    "name": "\u542f\u52a8"
+                }
+            },
+            "name": "\u83b7\u53d6\u71c3\u6c14\u4ef7\u683c"
+        },
+        "get_prices": {
+            "description": "\u5411 EnergyZero \u8bf7\u6c42\u80fd\u6e90\u6216\u71c3\u6c14\u4ef7\u683c\u3002",
+            "fields": {
+                "end": {
+                    "description": "\u83b7\u53d6\u4ef7\u683c\u7684\u622a\u6b62\u65f6\u523b\u3002\u5982\u679c\u7701\u7565\uff0c\u5219\u9ed8\u8ba4\u4e3a\u4eca\u5929\u3002",
+                    "name": "\u7ed3\u675f"
+                },
+                "incl_vat": {
+                    "description": "\u4ef7\u683c\u4e2d\u5305\u542b\u589e\u503c\u7a0e\u3002\u5982\u679c\u7559\u7a7a\u5219\u9ed8\u8ba4\u4e3a true\uff08\u662f\uff09\u3002",
+                    "name": "\u5305\u542b\u589e\u503c\u7a0e"
+                },
+                "start": {
+                    "description": "\u4ece\u54ea\u4e2a\u65f6\u523b\u5f00\u59cb\u83b7\u53d6\u4ef7\u683c\u3002\u5982\u679c\u7701\u7565\uff0c\u5219\u9ed8\u8ba4\u4e3a\u4eca\u5929\u3002",
+                    "name": "\u5f00\u59cb"
+                },
+                "type": {
+                    "description": "\u83b7\u53d6\u4ef7\u683c\u7c7b\u578b\uff1a\u80fd\u6e90\u6216\u71c3\u6c14",
+                    "name": "\u7c7b\u578b"
+                }
+            },
+            "name": "\u83b7\u53d6\u4ef7\u683c"
+        }
+    }
+}

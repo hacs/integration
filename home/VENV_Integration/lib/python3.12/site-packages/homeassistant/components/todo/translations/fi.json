@@ -1,0 +1,146 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "Teht\u00e4v\u00e4lista"
+        }
+    },
+    "exceptions": {
+        "item_not_found": {
+            "message": "Teht\u00e4v\u00e4listan kohdetta ei l\u00f6ydy: {item}"
+        },
+        "update_field_not_supported": {
+            "message": "Entiteetti ei tue asetuskentt\u00e4\u00e4: {service_field}"
+        }
+    },
+    "selector": {
+        "status": {
+            "options": {
+                "completed": "Valmis",
+                "needs_action": "Ei valmis"
+            }
+        }
+    },
+    "services": {
+        "add_item": {
+            "description": "Luo uusi teht\u00e4v\u00e4listan kohta.",
+            "fields": {
+                "description": {
+                    "description": "Teht\u00e4v\u00e4kohteen nime\u00e4 kattavampi kuvaus teht\u00e4v\u00e4st\u00e4.",
+                    "name": "Kuvaus"
+                },
+                "due_date": {
+                    "description": "P\u00e4iv\u00e4m\u00e4\u00e4r\u00e4, jolloin teht\u00e4v\u00e4 on tarkoitus saada valmiiksi.",
+                    "name": "Er\u00e4p\u00e4iv\u00e4"
+                },
+                "due_date_time": {
+                    "description": "P\u00e4iv\u00e4m\u00e4\u00e4r\u00e4 ja kellonaika, jolloin teht\u00e4v\u00e4n odotetaan valmistuvan.",
+                    "name": "Er\u00e4p\u00e4iv\u00e4 ja aika"
+                },
+                "due_datetime": {
+                    "description": "P\u00e4iv\u00e4m\u00e4\u00e4r\u00e4 ja kellonaika, jolloin teht\u00e4v\u00e4n odotetaan valmistuvan.",
+                    "name": "Er\u00e4p\u00e4iv\u00e4 ja aika"
+                },
+                "item": {
+                    "description": "Nimi, joka edustaa teht\u00e4v\u00e4\u00e4.",
+                    "name": "Kohteen nimi"
+                }
+            },
+            "name": "Lis\u00e4\u00e4 teht\u00e4v\u00e4listan kohde"
+        },
+        "create_item": {
+            "description": "Luo uusi teht\u00e4v\u00e4listan kohta.",
+            "fields": {
+                "status": {
+                    "description": "Teht\u00e4v\u00e4listan kohteen tila tai vahvistus.",
+                    "name": "Tila"
+                },
+                "summary": {
+                    "description": "Lyhyt yhteenveto, joka edustaa teht\u00e4v\u00e4lista -kohdetta.",
+                    "name": "Yhteenveto"
+                }
+            },
+            "name": "Luo teht\u00e4v\u00e4listan kohta"
+        },
+        "delete_item": {
+            "description": "Poista olemassa oleva teht\u00e4v\u00e4listan kohde joko sen yksil\u00f6llisen tunnuksen tai yhteenvedon perusteella.",
+            "fields": {
+                "summary": {
+                    "description": "Lyhyt yhteenveto, joka edustaa teht\u00e4v\u00e4lista -kohdetta.",
+                    "name": "Yhteenveto"
+                },
+                "uid": {
+                    "description": "Teht\u00e4v\u00e4listan kohteiden yksil\u00f6lliset tunnisteet.",
+                    "name": "Teht\u00e4v\u00e4listan kohteiden yksil\u00f6lliset tunnukset"
+                }
+            },
+            "name": "Teht\u00e4v\u00e4listan kohteen poistaminen"
+        },
+        "get_items": {
+            "description": "Hanki kohteita teht\u00e4v\u00e4listalle.",
+            "fields": {
+                "status": {
+                    "description": "Palauttaa vain teht\u00e4v\u00e4t, joiden tila on m\u00e4\u00e4ritetty. Palauttaa oletusarvoisesti keskener\u00e4iset toimet.",
+                    "name": "Tila"
+                }
+            },
+            "name": "Hanki teht\u00e4v\u00e4listan kohteet"
+        },
+        "remove_completed_items": {
+            "description": "Poista kaikki valmiit teht\u00e4v\u00e4listan kohteet.",
+            "name": "Poista kaikki valmiit teht\u00e4v\u00e4listan kohteet"
+        },
+        "remove_item": {
+            "description": "Poista olemassa oleva teht\u00e4v\u00e4listan kohde sen nimen perusteella.",
+            "fields": {
+                "item": {
+                    "description": "Teht\u00e4v\u00e4listan kohteiden nimi.",
+                    "name": "Kohteen nimi"
+                }
+            },
+            "name": "Teht\u00e4v\u00e4listan kohteen poistaminen"
+        },
+        "update_item": {
+            "description": "P\u00e4ivit\u00e4 olemassa oleva teht\u00e4v\u00e4listan kohde sen nimen perusteella.",
+            "fields": {
+                "description": {
+                    "description": "Teht\u00e4v\u00e4kohteen nime\u00e4 kattavampi kuvaus teht\u00e4v\u00e4st\u00e4.",
+                    "name": "Kuvaus"
+                },
+                "due_date": {
+                    "description": "P\u00e4iv\u00e4m\u00e4\u00e4r\u00e4, jolloin teht\u00e4v\u00e4 on tarkoitus saada valmiiksi.",
+                    "name": "Er\u00e4p\u00e4iv\u00e4"
+                },
+                "due_date_time": {
+                    "description": "P\u00e4iv\u00e4m\u00e4\u00e4r\u00e4 ja kellonaika, jolloin teht\u00e4v\u00e4n odotetaan valmistuvan.",
+                    "name": "Er\u00e4p\u00e4iv\u00e4 ja aika"
+                },
+                "due_datetime": {
+                    "description": "P\u00e4iv\u00e4m\u00e4\u00e4r\u00e4 ja kellonaika, jolloin teht\u00e4v\u00e4n odotetaan valmistuvan.",
+                    "name": "Er\u00e4p\u00e4iv\u00e4 ja aika"
+                },
+                "item": {
+                    "description": "Teht\u00e4v\u00e4listan kohteen nimi.",
+                    "name": "Kohteen nimi"
+                },
+                "rename": {
+                    "description": "Teht\u00e4v\u00e4n kohteen uusi nimi",
+                    "name": "Uudelleennime\u00e4 kohta"
+                },
+                "status": {
+                    "description": "Teht\u00e4v\u00e4listan kohteen tila tai vahvistus.",
+                    "name": "Aseta tila"
+                },
+                "summary": {
+                    "description": "Lyhyt yhteenveto, joka edustaa teht\u00e4v\u00e4lista -kohdetta.",
+                    "name": "Yhteenveto"
+                },
+                "uid": {
+                    "description": "Teht\u00e4v\u00e4luettelon kohteen yksil\u00f6llinen tunniste.",
+                    "name": "Teht\u00e4v\u00e4listan yksil\u00f6llinen tunniste"
+                }
+            },
+            "name": "P\u00e4ivit\u00e4 teht\u00e4v\u00e4listan kohta"
+        }
+    },
+    "title": "Teht\u00e4v\u00e4lista"
+}

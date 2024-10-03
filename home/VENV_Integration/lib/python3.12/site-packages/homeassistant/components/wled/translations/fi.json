@@ -1,0 +1,175 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Laite on jo m\u00e4\u00e4ritetty",
+            "cannot_connect": "Yhteyden muodostaminen ep\u00e4onnistui",
+            "cct_unsupported": "T\u00e4m\u00e4 WLED-laite k\u00e4ytt\u00e4\u00e4 CCT-kanavia, joita t\u00e4m\u00e4 integrointi ei tue."
+        },
+        "error": {
+            "cannot_connect": "Yhteyden muodostaminen ep\u00e4onnistui"
+        },
+        "flow_title": "{name}",
+        "step": {
+            "user": {
+                "data": {
+                    "host": "Palvelin"
+                },
+                "data_description": {
+                    "host": "WLED -laitteesi is\u00e4nt\u00e4nimi tai IP-osoite."
+                },
+                "description": "M\u00e4\u00e4rit\u00e4 WLED -j\u00e4rjestelm\u00e4si integroidaksesi Home Assistantiin."
+            },
+            "zeroconf_confirm": {
+                "description": "Haluatko lis\u00e4t\u00e4 WLED:n nimelt\u00e4 `{name}` Home Assistantiin?",
+                "title": "L\u00f6ydetty WLED -laite"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "firmware": {
+                "name": "Laiteohjelmisto"
+            }
+        },
+        "light": {
+            "main": {
+                "name": "Ensisijainen"
+            },
+            "segment": {
+                "name": "Segmentti {segment}"
+            }
+        },
+        "number": {
+            "intensity": {
+                "name": "Intensiteetti"
+            },
+            "segment_intensity": {
+                "name": "Segmentin {segment} intensiteetti"
+            },
+            "segment_speed": {
+                "name": "Segmentin {segment} nopeus"
+            },
+            "speed": {
+                "name": "Nopeus"
+            }
+        },
+        "select": {
+            "color_palette": {
+                "name": "V\u00e4ripaletti"
+            },
+            "live_override": {
+                "name": "Reaaliaikainen ohitus",
+                "state": {
+                    "0": "Pois",
+                    "1": "P\u00e4\u00e4ll\u00e4",
+                    "2": "Kunnes laite k\u00e4ynnistyy uudelleen"
+                }
+            },
+            "playlist": {
+                "name": "Soittolista"
+            },
+            "preset": {
+                "name": "Esiasetus"
+            },
+            "segment_color_palette": {
+                "name": "Segmentin {segment} v\u00e4ripaletti"
+            }
+        },
+        "sensor": {
+            "estimated_current": {
+                "name": "Arvioitu virta"
+            },
+            "free_heap": {
+                "name": "Vapaa muisti"
+            },
+            "info_leds_count": {
+                "name": "LED-luku"
+            },
+            "info_leds_max_power": {
+                "name": "Maksimivirta"
+            },
+            "ip": {
+                "name": "IP"
+            },
+            "uptime": {
+                "name": "P\u00e4\u00e4ll\u00e4"
+            },
+            "wifi_bssid": {
+                "name": "Wi-Fi BSSID"
+            },
+            "wifi_channel": {
+                "name": "Wi-Fi-kanava"
+            },
+            "wifi_rssi": {
+                "name": "Wi-Fi RSSI"
+            },
+            "wifi_signal": {
+                "name": "Wi-Fi-signaali"
+            }
+        },
+        "switch": {
+            "nightlight": {
+                "name": "Y\u00f6ajastin"
+            },
+            "reverse": {
+                "name": "K\u00e4\u00e4nteinen"
+            },
+            "segment_reverse": {
+                "name": "Segmentti {segment} k\u00e4\u00e4nteinen"
+            },
+            "sync_receive": {
+                "name": "Synkronoi vastaanotto"
+            },
+            "sync_send": {
+                "name": "Synkronoi l\u00e4hetys"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "keep_master_light": "Pid\u00e4 p\u00e4\u00e4valo, vaikka siin\u00e4 olisi 1 LED-segmentti."
+                }
+            }
+        }
+    },
+    "services": {
+        "effect": {
+            "description": "Ohjaa WLEDin efektiasetuksia.",
+            "fields": {
+                "effect": {
+                    "description": "WLED-valoefektin nimi tai tunnus.",
+                    "name": "Efekti"
+                },
+                "intensity": {
+                    "description": "Efektin intensiteetti. Numero v\u00e4lilt\u00e4 0-255.",
+                    "name": "Efektin intensiteetti"
+                },
+                "palette": {
+                    "description": "WLED-valopaletin nimi tai tunnus.",
+                    "name": "V\u00e4ripaletti"
+                },
+                "reverse": {
+                    "description": "K\u00e4\u00e4nn\u00e4 efekti. Joko TOTTA k\u00e4\u00e4nteiseksi tai EP\u00c4TOSI muuten.",
+                    "name": "K\u00e4\u00e4nteinen efekti"
+                },
+                "speed": {
+                    "description": "Efektin nopeus.",
+                    "name": "Efektin nopeus"
+                }
+            },
+            "name": "Aseta efekti"
+        },
+        "preset": {
+            "description": "Asettaa esiasetuksen WLED-laitteelle.",
+            "fields": {
+                "preset": {
+                    "description": "WLED-esiasetuksen tunnus.",
+                    "name": "Esiasetus -tunnus"
+                }
+            },
+            "name": "Aseta esiasetus (poistettu k\u00e4yt\u00f6st\u00e4)"
+        }
+    }
+}

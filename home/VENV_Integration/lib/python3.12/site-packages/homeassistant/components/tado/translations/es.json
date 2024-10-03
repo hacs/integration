@@ -1,0 +1,178 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "El dispositivo ya est\u00e1 configurado",
+            "reconfigure_successful": "Se volvi\u00f3 a configurar correctamente"
+        },
+        "error": {
+            "cannot_connect": "No se pudo conectar",
+            "invalid_auth": "Autenticaci\u00f3n no v\u00e1lida",
+            "no_homes": "No hay casas vinculadas a esta cuenta Tado",
+            "unknown": "Error inesperado"
+        },
+        "step": {
+            "reconfigure_confirm": {
+                "data": {
+                    "password": "Contrase\u00f1a"
+                },
+                "data_description": {
+                    "password": "Introduce la (nueva) contrase\u00f1a para Tado."
+                },
+                "description": "Vuelve a configurar la entrada para tu cuenta: `{username}`.",
+                "title": "Vuelve a configurar tu Tado"
+            },
+            "user": {
+                "data": {
+                    "password": "Contrase\u00f1a",
+                    "username": "Nombre de usuario"
+                },
+                "title": "Conectar con tu cuenta Tado"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "connection_state": {
+                "name": "Estado de la conexi\u00f3n"
+            },
+            "early_start": {
+                "name": "Inicio temprano"
+            },
+            "overlay": {
+                "name": "Superposici\u00f3n"
+            }
+        },
+        "climate": {
+            "tado": {
+                "state_attributes": {
+                    "preset_mode": {
+                        "state": {
+                            "auto": "Auto"
+                        }
+                    }
+                }
+            }
+        },
+        "sensor": {
+            "ac": {
+                "name": "AA"
+            },
+            "automatic_geofencing": {
+                "name": "Geofencing autom\u00e1tico"
+            },
+            "geofencing_mode": {
+                "name": "Modo Geofencing"
+            },
+            "heating": {
+                "name": "Calefacci\u00f3n"
+            },
+            "outdoor_temperature": {
+                "name": "Temperatura exterior"
+            },
+            "solar_percentage": {
+                "name": "Porcentaje solar"
+            },
+            "tado_mode": {
+                "name": "Modo Tado"
+            },
+            "weather_condition": {
+                "name": "Condici\u00f3n meteorol\u00f3gica"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_yaml_import_device_tracker": {
+            "description": "Se va a eliminar la configuraci\u00f3n de Tado Device Tracker mediante YAML.\n Elimina la configuraci\u00f3n YAML del rastreador de dispositivos y reinicia Home Assistant.",
+            "title": "Configuraci\u00f3n YAML del rastreador de dispositivos Tado importada"
+        },
+        "failed_to_import": {
+            "description": "No se pudo importar la configuraci\u00f3n de Tado Device Tracker. Por favor, utiliza la IU para configurar Tado. No olvides eliminar la configuraci\u00f3n YAML.",
+            "title": "No se pudo importar"
+        },
+        "import_aborted": {
+            "description": "Se va a eliminar la configuraci\u00f3n de Tado Device Tracker mediante YAML.\n La importaci\u00f3n se cancel\u00f3 debido a que una entrada de configuraci\u00f3n existente era la misma que los datos que se importaban en YAML. Elimina la configuraci\u00f3n del rastreador de dispositivos YAML y reinicia Home Assistant. Por favor, utiliza la IU para configurar Tado.",
+            "title": "Importaci\u00f3n cancelada"
+        },
+        "import_failed": {
+            "description": "No se pudo importar la configuraci\u00f3n de Tado Device Tracker. Por favor, utiliza la IU para configurar Tado. No olvides eliminar la configuraci\u00f3n YAML.",
+            "title": "No se pudo importar"
+        },
+        "import_failed_invalid_auth": {
+            "description": "No se pudo importar la configuraci\u00f3n de Tado Device Tracker debido a credenciales no v\u00e1lidas. Por favor, corrige la configuraci\u00f3n YAML y reinicia Home Assistant. Alternativamente, puedes utilizar la IU para configurar Tado. No olvides eliminar la configuraci\u00f3n YAML una vez que la importaci\u00f3n sea exitosa.",
+            "title": "No se pudo importar, credenciales no v\u00e1lidas"
+        },
+        "water_heater_fallback": {
+            "description": "Debido al soporte adicional para entidades de calentadores de agua, estas entidades pueden usar una superposici\u00f3n diferente. Por favor, configura la entidad de integraci\u00f3n y las opciones de superposici\u00f3n de zona del calentador de agua de la aplicaci\u00f3n tado. De lo contrario, por favor, configura la entidad de integraci\u00f3n y las opciones de superposici\u00f3n de zonas del calentador de agua de la aplicaci\u00f3n Tado (en Configuraci\u00f3n -> Habitaciones y dispositivos -> Agua caliente).",
+            "title": "Las entidades de calentadores de agua de Tado ahora admiten opciones alternativas"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "fallback": "Elige el modo de respaldo."
+                },
+                "description": "El modo de respaldo te permite elegir cu\u00e1ndo retroceder a Smart Schedule desde tu superposici\u00f3n de zona manual. (NEXT_TIME_BLOCK:= Cambiar en el pr\u00f3ximo cambio de Smart Schedule; MANUAL:= No cambiar hasta que canceles; TADO_DEFAULT:= Cambiar seg\u00fan tu configuraci\u00f3n en la aplicaci\u00f3n Tado).",
+                "title": "Ajustar las opciones de Tado"
+            }
+        }
+    },
+    "services": {
+        "add_meter_reading": {
+            "description": "A\u00f1ade lecturas del contador a Tado Energy IQ.",
+            "fields": {
+                "config_entry": {
+                    "description": "Entrada de configuraci\u00f3n para a\u00f1adir lecturas del contador.",
+                    "name": "Entrada de configuraci\u00f3n"
+                },
+                "reading": {
+                    "description": "Lectura en m\u00b3 o kWh sin decimales.",
+                    "name": "Lectura"
+                }
+            },
+            "name": "A\u00f1adir lecturas de contador"
+        },
+        "set_climate_temperature_offset": {
+            "description": "Establece el desfase de temperatura de las entidades de clima.",
+            "fields": {
+                "offset": {
+                    "description": "Compensaci\u00f3n que te gustar\u00eda (dependiendo de su dispositivo).",
+                    "name": "Desfase"
+                }
+            },
+            "name": "Ajustar el desfase de temperatura de clima"
+        },
+        "set_climate_timer": {
+            "description": "Enciende las entidades de clima durante un tiempo determinado.",
+            "fields": {
+                "requested_overlay": {
+                    "description": "Elige este o Per\u00edodo de tiempo. Te permite elegir una superposici\u00f3n. MANUAL:=Superposici\u00f3n hasta que el usuario la elimine; NEXT_TIME_BLOCK:=Superposici\u00f3n hasta el siguiente bloque de tiempo; TADO_DEFAULT:=Superposici\u00f3n basada en la configuraci\u00f3n de la aplicaci\u00f3n tado.",
+                    "name": "Superposici\u00f3n"
+                },
+                "temperature": {
+                    "description": "Temperatura a la que se ajusta la entidad de clima.",
+                    "name": "Temperatura"
+                },
+                "time_period": {
+                    "description": "Elige esto o Superposici\u00f3n. Establece el per\u00edodo de tiempo para el cambio si quieres ser espec\u00edfico. Alternativamente, usa Superposici\u00f3n.",
+                    "name": "Periodo de tiempo"
+                }
+            },
+            "name": "Establecer temporizador de clima"
+        },
+        "set_water_heater_timer": {
+            "description": "Enciende el calentador de agua durante un tiempo determinado.",
+            "fields": {
+                "temperature": {
+                    "description": "Temperatura a la que ajustar el calentador.",
+                    "name": "Temperatura"
+                },
+                "time_period": {
+                    "description": "Establece el periodo de tiempo para el refuerzo.",
+                    "name": "Periodo de tiempo"
+                }
+            },
+            "name": "Configurar el temporizador del calentador de agua"
+        }
+    }
+}

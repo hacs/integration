@@ -1,0 +1,84 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "L'appareil est d\u00e9j\u00e0 configur\u00e9"
+        },
+        "error": {
+            "cannot_connect": "\u00c9chec de connexion"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "host": "H\u00f4te"
+                },
+                "data_description": {
+                    "host": "Le nom d'h\u00f4te ou l'adresse IP de votre appareil Bose SoundTouch."
+                }
+            },
+            "zeroconf_confirm": {
+                "description": "Vous \u00eates sur le point d'ajouter l'appareil SoundTouch nomm\u00e9 `{name}` \u00e0 Home Assistant.",
+                "title": "Confirmer l'ajout de l'appareil Bose SoundTouch"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_yaml": {
+            "description": "La configuration de Bose SoundTouch \u00e0 l'aide de YAML est en cours de suppression. \n\nVotre configuration YAML existante a \u00e9t\u00e9 import\u00e9e automatiquement dans l'interface utilisateur. \n\nSupprimez la configuration Bose SoundTouch YAML de votre fichier configuration.yaml et red\u00e9marrez Home Assistant pour r\u00e9soudre ce probl\u00e8me.",
+            "title": "La configuration YAML pour Bose SoundTouch sera bient\u00f4t supprim\u00e9e"
+        }
+    },
+    "services": {
+        "add_zone_slave": {
+            "description": "Ajoute un esclave \u00e0 une zone multi-pi\u00e8ces SoundTouch.",
+            "fields": {
+                "master": {
+                    "description": "Nom de l'entit\u00e9 ma\u00eetre qui coordonne la zone multi-pi\u00e8ces. D\u00e9pend de la plateforme.",
+                    "name": "Ma\u00eetre"
+                },
+                "slaves": {
+                    "description": "Nom des entit\u00e9s esclaves \u00e0 ajouter \u00e0 la zone existante.",
+                    "name": "Esclaves"
+                }
+            },
+            "name": "Ajouter un esclave \u00e0 la zone"
+        },
+        "create_zone": {
+            "description": "Cr\u00e9e une zone multi-pi\u00e8ces SoundTouch.",
+            "fields": {
+                "master": {
+                    "description": "Nom de l'entit\u00e9 ma\u00eetre qui coordonnera la zone multi-pi\u00e8ces. D\u00e9pend de la plateforme.",
+                    "name": "Ma\u00eetre"
+                },
+                "slaves": {
+                    "description": "Nom des entit\u00e9s esclaves \u00e0 ajouter \u00e0 la nouvelle zone.",
+                    "name": "Esclaves"
+                }
+            },
+            "name": "Cr\u00e9er une zone"
+        },
+        "play_everywhere": {
+            "description": "Joue sur tous les appareils Bose SoundTouch.",
+            "fields": {
+                "master": {
+                    "description": "Nom de l'entit\u00e9 ma\u00eetre qui coordonnera le regroupement. D\u00e9pend de la plateforme. Il s'agit d'un raccourci pour cr\u00e9er une zone multi-pi\u00e8ces avec tous les appareils.",
+                    "name": "Ma\u00eetre"
+                }
+            },
+            "name": "Jouer partout"
+        },
+        "remove_zone_slave": {
+            "description": "Supprime un esclave de la zone multi-pi\u00e8ces SoundTouch.",
+            "fields": {
+                "master": {
+                    "description": "Nom de l'entit\u00e9 ma\u00eetre qui coordonne la zone multi-pi\u00e8ces. D\u00e9pend de la plateforme.",
+                    "name": "Ma\u00eetre"
+                },
+                "slaves": {
+                    "description": "Nom des entit\u00e9s esclaves \u00e0 supprimer de la zone existante.",
+                    "name": "Esclaves"
+                }
+            },
+            "name": "Supprimer l'esclave de zone"
+        }
+    }
+}

@@ -1,0 +1,272 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "El dispositiu ja est\u00e0 configurat",
+            "no_devices_found": "No s'han trobat dispositius a la xarxa",
+            "reauth_successful": "Re-autenticaci\u00f3 realitzada correctament"
+        },
+        "error": {
+            "cannot_connect": "Error de connexi\u00f3: {error}",
+            "invalid_auth": "Autenticaci\u00f3 inv\u00e0lida: {error}"
+        },
+        "flow_title": "{name} {model} ({host})",
+        "step": {
+            "discovery_auth_confirm": {
+                "data": {
+                    "password": "Contrasenya",
+                    "username": "Nom d'usuari"
+                },
+                "description": "El dispositiu necessita autenticar-te. Introdueix les teves credencials a continuaci\u00f3.",
+                "title": "Autenticaci\u00f3"
+            },
+            "discovery_confirm": {
+                "description": "Vols configurar {name} {model} ({host})?"
+            },
+            "pick_device": {
+                "data": {
+                    "device": "Dispositiu"
+                }
+            },
+            "reauth": {
+                "description": "El dispositiu necessita autenticar-te. Introdueix les teves credencials a continuaci\u00f3.",
+                "title": "L'autenticaci\u00f3 de {name} ha caducat"
+            },
+            "reauth_confirm": {
+                "data": {
+                    "password": "Contrasenya",
+                    "username": "Nom d'usuari"
+                },
+                "description": "El dispositiu necessita autenticar-te. Introdueix les teves credencials a continuaci\u00f3.",
+                "title": "L'autenticaci\u00f3 de {name} ha caducat"
+            },
+            "user": {
+                "data": {
+                    "host": "Amfitri\u00f3"
+                },
+                "description": "Si deixes l'amfitri\u00f3 buit, s'utilitzar\u00e0 el descobriment per cercar dispositius."
+            },
+            "user_auth_confirm": {
+                "data": {
+                    "password": "Contrasenya",
+                    "username": "Nom d'usuari"
+                },
+                "title": "Autenticaci\u00f3"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "is_open": {
+                "name": "Porta",
+                "state": {
+                    "off": "Tancat/ada",
+                    "on": "Obert/a"
+                }
+            },
+            "overheated": {
+                "name": "Sobreescalfat"
+            },
+            "update_available": {
+                "name": "Actualitzaci\u00f3",
+                "state": {
+                    "off": "Actualitzat/da",
+                    "on": "Actualitzaci\u00f3 disponible"
+                }
+            },
+            "water_alert": {
+                "name": "Humitat",
+                "state": {
+                    "off": "Sec",
+                    "on": "Humit"
+                }
+            }
+        },
+        "button": {
+            "stop_alarm": {
+                "name": "Aturar l'alarma"
+            },
+            "test_alarm": {
+                "name": "Provar l'alarma"
+            }
+        },
+        "number": {
+            "temperature_offset": {
+                "name": "\u00d2fset de temperatura"
+            }
+        },
+        "select": {
+            "alarm_sound": {
+                "name": "So de l'alarma"
+            },
+            "alarm_volume": {
+                "name": "Volum de l'alarma"
+            }
+        },
+        "sensor": {
+            "auto_off_at": {
+                "name": "Apagat autom\u00e0tic a les"
+            },
+            "available_firmware_version": {
+                "name": "Versi\u00f3 de microprogramari disponible"
+            },
+            "battery_level": {
+                "name": "Nivell de bateria"
+            },
+            "consumption_this_month": {
+                "name": "Consum d'aquest mes"
+            },
+            "consumption_today": {
+                "name": "Consum d'avui"
+            },
+            "consumption_total": {
+                "name": "Consum total"
+            },
+            "current": {
+                "name": "Intensitat"
+            },
+            "current_consumption": {
+                "name": "Consum actual"
+            },
+            "current_firmware_version": {
+                "name": "Versi\u00f3 del microprogramari actual"
+            },
+            "humidity": {
+                "name": "Humitat"
+            },
+            "on_since": {
+                "name": "Enc\u00e8s des de"
+            },
+            "rssi": {
+                "name": "Pot\u00e8ncia del senyal"
+            },
+            "signal_level": {
+                "name": "Nivell de senyal"
+            },
+            "ssid": {
+                "name": "SSID"
+            },
+            "temperature": {
+                "name": "Temperatura"
+            },
+            "today_consumption": {
+                "name": "Consum d'avui"
+            },
+            "total_consumption": {
+                "name": "Consum total"
+            },
+            "voltage": {
+                "name": "Voltatge"
+            }
+        },
+        "switch": {
+            "auto_off_enabled": {
+                "name": "Apagat autom\u00e0tic activat"
+            },
+            "auto_update_enabled": {
+                "name": "Actualitzaci\u00f3 autom\u00e0tica activada"
+            },
+            "led": {
+                "name": "LED"
+            },
+            "smooth_transitions": {
+                "name": "Transicions suaus"
+            }
+        }
+    },
+    "exceptions": {
+        "device_authentication": {
+            "message": "Error d'autenticaci\u00f3 del dispositiu {func}: {exc}"
+        },
+        "device_error": {
+            "message": "No s'ha pogut comunicar amb el dispositiu {func}:{exc}"
+        },
+        "device_timeout": {
+            "message": "S'ha acabat el temps d'espera comunicant amb el dispositiu {func}: {exc}"
+        }
+    },
+    "services": {
+        "random_effect": {
+            "description": "Configura un efecte aleatori.",
+            "fields": {
+                "backgrounds": {
+                    "description": "Llista de seq\u00fc\u00e8ncies de HSV (m\u00e0x. 16).",
+                    "name": "Fons"
+                },
+                "brightness": {
+                    "description": "Lluminositat inicial.",
+                    "name": "Lluminositat"
+                },
+                "brightness_range": {
+                    "description": "Rang de lluminositat.",
+                    "name": "Rang de lluminositat"
+                },
+                "duration": {
+                    "description": "Durada.",
+                    "name": "Durada"
+                },
+                "fadeoff": {
+                    "description": "Esvaeix.",
+                    "name": "Esvaeix"
+                },
+                "init_states": {
+                    "name": "Estats inicials"
+                },
+                "random_seed": {
+                    "description": "Llavor aleat\u00f2ria.",
+                    "name": "Llavor aleat\u00f2ria"
+                },
+                "segments": {
+                    "description": "Llista de segments (0 per a tots).",
+                    "name": "Segments"
+                },
+                "transition": {
+                    "description": "Transici\u00f3.",
+                    "name": "Transici\u00f3"
+                },
+                "transition_range": {
+                    "description": "Rang de la transici\u00f3.",
+                    "name": "Rang de transici\u00f3"
+                }
+            },
+            "name": "Efecte aleatori"
+        },
+        "sequence_effect": {
+            "description": "Configura un efecte de seq\u00fc\u00e8ncia.",
+            "fields": {
+                "brightness": {
+                    "description": "Lluminositat inicial.",
+                    "name": "Lluminositat"
+                },
+                "direction": {
+                    "description": "Direcci\u00f3.",
+                    "name": "Direcci\u00f3"
+                },
+                "duration": {
+                    "description": "Durada.",
+                    "name": "Durada"
+                },
+                "repeat_times": {
+                    "description": "Repeticions (0 per continu).",
+                    "name": "Repeticions"
+                },
+                "segments": {
+                    "description": "Llista de segments (0 per tot).",
+                    "name": "Segments"
+                },
+                "sequence": {
+                    "description": "Llista de seq\u00fc\u00e8ncies de HSV (m\u00e0x. 16).",
+                    "name": "Seq\u00fc\u00e8ncia"
+                },
+                "spread": {
+                    "description": "Velocitat de propagaci\u00f3.",
+                    "name": "Propagaci\u00f3"
+                },
+                "transition": {
+                    "description": "Transici\u00f3.",
+                    "name": "Transici\u00f3"
+                }
+            },
+            "name": "Efecte seq\u00fc\u00e8ncia"
+        }
+    }
+}

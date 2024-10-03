@@ -1,0 +1,125 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Teenus on juba seadistatud",
+            "auth_error": "Sobimatu mandaat.",
+            "no_heaters": "K\u00fctteseadmeid ei leitud.",
+            "not_found": "Lan2RF-l\u00fc\u00fcsi ei leitud.",
+            "timeout_error": "Lan2RF-i l\u00fc\u00fcsiga \u00fchenduse loomise ajal\u00f5pp.",
+            "unknown": "Tundmatu viga Lan2RF-l\u00fc\u00fcsiga \u00fchenduse loomisel."
+        },
+        "error": {
+            "auth_error": "Sobimatu mandaat.",
+            "no_heaters": "K\u00fctteseadmeid ei leitud.",
+            "not_found": "Lan2RF-l\u00fc\u00fcsi ei leitud.",
+            "timeout_error": "Lan2RF-i l\u00fc\u00fcsiga \u00fchenduse loomise ajal\u00f5pp.",
+            "unknown": "Tundmatu viga Lan2RF-l\u00fc\u00fcsiga \u00fchenduse loomisel."
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "host": "Host",
+                    "password": "Salas\u00f5na",
+                    "username": "Kasutajanimi"
+                },
+                "data_description": {
+                    "host": "Intergas InComfort Lan2RF Gateway hostinimi v\u00f5i IP-aadress.",
+                    "password": "Salas\u00f5na v\u00e4ravasse sisselogimiseks on tr\u00fckitud Lan2RF v\u00e4rava alumisele k\u00fcljele v\u00f5i on m\u00f5ne vanema seadme puhul \"intergas\".",
+                    "username": "Kasutajanimi l\u00fc\u00fcsi sisselogimiseks. See on enamikul juhtudel \"admin\"."
+                },
+                "description": "Seadista uus Intergas InComfort Lan2RF Gateway, m\u00f5ned vanemad s\u00fcsteemid ei pruugi vajada seadistamiseks mandaate. Uuemate seadmete puhul on autentimine vajalik."
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "fault": {
+                "name": "T\u00f5rge",
+                "state_attributes": {
+                    "fault_code": {
+                        "state": {
+                            "none": "Puudub"
+                        }
+                    }
+                }
+            },
+            "is_burning": {
+                "name": "P\u00f5leti"
+            },
+            "is_pumping": {
+                "name": "Pump"
+            },
+            "is_tapping": {
+                "name": "Kuuma vee kraan"
+            }
+        },
+        "sensor": {
+            "tap_temperature": {
+                "name": "Kraanivee temperatuur"
+            }
+        },
+        "water_heater": {
+            "boiler": {
+                "state": {
+                    "boiler_ext": "Katla v\u00e4line",
+                    "boiler_int": "Katla sisemine",
+                    "buffer": "Puhver",
+                    "central_heating": "Keskk\u00fcte",
+                    "central_heating_rf": "Keskk\u00fctte rf",
+                    "cv_temperature_too_high_e1": "Liiga k\u00f5rge temperatuur",
+                    "flame_detection_fault_e6": "Leegi tuvastamise viga",
+                    "frost": "K\u00fclmumiskaitse",
+                    "gas_valve_relay_faulty_e29": "Gaasiklapi relee on vigane",
+                    "gas_valve_relay_faulty_e30": "Gaasiklapi relee on vigane",
+                    "incorrect_fan_speed_e8": "Vale ventilaatori kiirus",
+                    "no_flame_signal_e4": "Leegisignaal puudub",
+                    "opentherm": "OpenTherm",
+                    "poor_flame_signal_e5": "Halb leegisignaal",
+                    "postrun_boyler": "Boileri j\u00e4tkut\u00f6\u00f6",
+                    "postrun_ch": "Keskk\u00fctte j\u00e4relp\u00f5lemine",
+                    "s1_and_s2_interchanged_e2": "S1 ja S2 on vahetatuses",
+                    "sensor_fault_after_self_check_e0": "Anduri viga p\u00e4rast enesekontrolli",
+                    "sensor_fault_s1_e10": "Anduri viga S1",
+                    "sensor_fault_s1_e11": "Anduri viga S1",
+                    "sensor_fault_s1_e12": "Anduri viga S1",
+                    "sensor_fault_s1_e13": "Anduri viga S1",
+                    "sensor_fault_s1_e14": "Anduri viga S1",
+                    "sensor_fault_s2_e20": "Anduri viga S2",
+                    "sensor_fault_s2_e21": "Anduri viga S2",
+                    "sensor_fault_s2_e22": "Anduri viga S2",
+                    "sensor_fault_s2_e23": "Anduri viga S2",
+                    "sensor_fault_s2_e24": "Anduri viga S2",
+                    "sensor_test": "Anduri test",
+                    "service": "Teenus",
+                    "shortcut_outside_sensor_temperature_e27": "V\u00e4lisanduri temperatuuri otsetee",
+                    "standby": "Ootel",
+                    "tapwater": "Kraanivesi",
+                    "tapwater_int": "Kraanivesi sisemine",
+                    "unknown": "Teadmata"
+                }
+            }
+        }
+    },
+    "issues": {
+        "deprecated_yaml_import_issue_auth_error": {
+            "description": "{integration_title} seadistamine YAML-i abil eemaldatakse kuid olemasoleva konfiguratsiooni importimisel tekkis autentimise viga.\nSeadistamist ei j\u00e4tkata.\n\nKontrolli kas {integration_title} t\u00f6\u00f6tab \u00f5igesti ja taask\u00e4ivita Home Assistant, et importimist uuesti proovida.\n\nAlternatiivina v\u00f5id eemaldada konfiguratsiooni `{domain}` onfiguration.yaml-st t\u00e4ielikult, taask\u00e4ivitada Home Assistanti ja lisada {integration_title} sidumie k\u00e4sitsi.",
+            "title": "YAML-i import nurjus autentimisvea t\u00f5ttu"
+        },
+        "deprecated_yaml_import_issue_no_heaters": {
+            "description": "{integration_title} seadistamine YAML-i abil eemaldatakse kuid olemasoleva konfiguratsiooni importimisel tekkis  viga: k\u00fctteseadmeid ei leitud.\nSeadistamist ei j\u00e4tkata.\n\nKontrolli kas {integration_title} t\u00f6\u00f6tab \u00f5igesti ja taask\u00e4ivita Home Assistant, et importimist uuesti proovida.\n\nAlternatiivina v\u00f5id eemaldada konfiguratsiooni `{domain}` onfiguration.yaml-st t\u00e4ielikult, taask\u00e4ivitada Home Assistanti ja lisada {integration_title} sidumie k\u00e4sitsi.",
+            "title": "YAML-i import eba\u00f5nnestus kuna k\u00fctteseadmeid ei leitud"
+        },
+        "deprecated_yaml_import_issue_not_found": {
+            "description": "{integration_title} seadistamine YAML-i abil eemaldatakse kuid olemasoleva konfiguratsiooni importimisel tekkis  viga: Lan2RF l\u00fc\u00fcsi ei leitud.\nSeadistamist ei j\u00e4tkata.\n\nKontrolli kas {integration_title} t\u00f6\u00f6tab \u00f5igesti ja taask\u00e4ivita Home Assistant, et importimist uuesti proovida.\n\nAlternatiivina v\u00f5id eemaldada konfiguratsiooni `{domain}` onfiguration.yaml-st t\u00e4ielikult, taask\u00e4ivitada Home Assistanti ja lisada {integration_title} sidumie k\u00e4sitsi.",
+            "title": "YAML-i importimine nurjus kuna l\u00fc\u00fcsi ei leitud"
+        },
+        "deprecated_yaml_import_issue_timeout_error": {
+            "description": "{integration_title} seadistamine YAML-i abil eemaldatakse kuid olemasoleva {integration_title} konfiguratsiooni importimisel tekkis ajal\u00f5pu viga.\nSeadistamist ei j\u00e4tkata.\n\nKontrolli kas {integration_title} t\u00f6\u00f6tab \u00f5igesti ja taask\u00e4ivita Home Assistant, et importimist uuesti proovida.\n\nAlternatiivina v\u00f5id eemaldada konfiguratsiooni `{domain}` onfiguration.yaml-st t\u00e4ielikult, taask\u00e4ivitada Home Assistanti ja lisada {integration_title} sidumie k\u00e4sitsi.",
+            "title": "YAML-i import nurjus ajal\u00f5puprobleemide t\u00f5ttu"
+        },
+        "deprecated_yaml_import_issue_unknown": {
+            "description": "{integration_title} seadistamine YAML-i abil eemaldatakse kuid olemasoleva konfiguratsiooni importimisel tekkis tundmatu viga.\nSeadistamist ei j\u00e4tkata.\n\nKontrolli kas {integration_title} t\u00f6\u00f6tab \u00f5igesti ja taask\u00e4ivita Home Assistant, et importimist uuesti proovida.\n\nAlternatiivina v\u00f5id eemaldada konfiguratsiooni `{domain}` onfiguration.yaml-st t\u00e4ielikult, taask\u00e4ivitada Home Assistanti ja lisada {integration_title} sidumie k\u00e4sitsi.",
+            "title": "YAML-i import nurjus tundmatu vea t\u00f5ttu"
+        }
+    }
+}

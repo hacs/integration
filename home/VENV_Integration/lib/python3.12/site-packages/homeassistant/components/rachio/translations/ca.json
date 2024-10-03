@@ -1,0 +1,103 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "El dispositiu ja est\u00e0 configurat"
+        },
+        "error": {
+            "cannot_connect": "Ha fallat la connexi\u00f3",
+            "invalid_auth": "Autenticaci\u00f3 inv\u00e0lida",
+            "unknown": "Error inesperat"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "api_key": "Clau API"
+                },
+                "title": "Connexi\u00f3 amb dispositiu Rachio"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "rain": {
+                "name": "Pluja"
+            }
+        },
+        "calendar": {
+            "calendar": {
+                "name": "Estaci\u00f3 base Rachio {base}"
+            }
+        },
+        "switch": {
+            "standby": {
+                "name": "En espera"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "manual_run_mins": "Durada en minuts a executar quan s'activi un interruptor de zona"
+                }
+            }
+        }
+    },
+    "services": {
+        "pause_watering": {
+            "description": "Posa en pausa qualsevol zona en execuci\u00f3 o programaci\u00f3.",
+            "fields": {
+                "devices": {
+                    "description": "Nom dels controladors a aturar. Per defecte, tots els controladors del compte si no se'n proporciona cap.",
+                    "name": "Dispositius"
+                },
+                "duration": {
+                    "description": "Temps/duraci\u00f3 de la pausa de les programacions en execuci\u00f3.",
+                    "name": "Durada"
+                }
+            },
+            "name": "Pausa el reg"
+        },
+        "resume_watering": {
+            "description": "Repr\u00e8n qualsevol zona en execuci\u00f3 o programaci\u00f3 en pausa.",
+            "fields": {
+                "devices": {
+                    "description": "Nom dels controladors a reprendre. Per defecte, tots els controladors del compte si no se'n proporciona cap.",
+                    "name": "Dispositius"
+                }
+            },
+            "name": "Repren el reg"
+        },
+        "set_zone_moisture_percent": {
+            "description": "Configura el percentatge d'humitat desitjat de la zona o llista de zones.",
+            "fields": {
+                "percent": {
+                    "description": "Configura el percentatge d'humitat desitjat de la zona.",
+                    "name": "Percentatge"
+                }
+            }
+        },
+        "start_multiple_zone_schedule": {
+            "fields": {
+                "duration": {
+                    "name": "Durada"
+                }
+            }
+        },
+        "start_watering": {
+            "fields": {
+                "duration": {
+                    "name": "Durada"
+                }
+            },
+            "name": "Comen\u00e7a a regar"
+        },
+        "stop_watering": {
+            "fields": {
+                "devices": {
+                    "name": "Dispositius"
+                }
+            }
+        }
+    }
+}

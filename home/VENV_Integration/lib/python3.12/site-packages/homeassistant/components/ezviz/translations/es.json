@@ -1,0 +1,292 @@
+{
+    "config": {
+        "abort": {
+            "already_configured_account": "La cuenta ya est\u00e1 configurada",
+            "ezviz_cloud_account_missing": "Falta la cuenta en la nube de Ezviz. Por favor, vuelve a configurar la cuenta en la nube de Ezviz",
+            "reauth_successful": "La autenticaci\u00f3n se volvi\u00f3 a realizar correctamente",
+            "unknown": "Error inesperado"
+        },
+        "error": {
+            "cannot_connect": "No se pudo conectar",
+            "invalid_auth": "Autenticaci\u00f3n no v\u00e1lida",
+            "invalid_host": "Nombre de host o direcci\u00f3n IP no v\u00e1lidos",
+            "mfa_required": "2FA habilitado en la cuenta, por favor, desact\u00edvalo y vuelve a intentarlo"
+        },
+        "flow_title": "{serial}",
+        "step": {
+            "confirm": {
+                "data": {
+                    "password": "Contrase\u00f1a",
+                    "username": "Nombre de usuario"
+                },
+                "description": "Introduce las credenciales RTSP para la c\u00e1mara EZVIZ {serial} con IP {ip_address}",
+                "title": "Descubierta c\u00e1mara EZVIZ"
+            },
+            "reauth_confirm": {
+                "data": {
+                    "password": "Contrase\u00f1a",
+                    "username": "Nombre de usuario"
+                },
+                "description": "Introduce las credenciales para volver a autenticarte en la cuenta de la nube de ezviz",
+                "title": "Autenticaci\u00f3n caducada para {name}"
+            },
+            "user": {
+                "data": {
+                    "password": "Contrase\u00f1a",
+                    "url": "URL",
+                    "username": "Nombre de usuario"
+                },
+                "title": "Conectar con EZVIZ Cloud"
+            },
+            "user_custom_url": {
+                "data": {
+                    "password": "Contrase\u00f1a",
+                    "url": "URL",
+                    "username": "Nombre de usuario"
+                },
+                "description": "Especificar manualmente la URL de tu regi\u00f3n",
+                "title": "Conectar a la URL personalizada de EZVIZ"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "alarm_schedules_enabled": {
+                "name": "Programaciones de alarma habilitadas"
+            },
+            "encrypted": {
+                "name": "Cifrado"
+            }
+        },
+        "button": {
+            "ptz_down": {
+                "name": "PTZ abajo"
+            },
+            "ptz_left": {
+                "name": "PTZ izquierda"
+            },
+            "ptz_right": {
+                "name": "PTZ derecha"
+            },
+            "ptz_up": {
+                "name": "PTZ arriba"
+            }
+        },
+        "image": {
+            "last_motion_image": {
+                "name": "Imagen de \u00faltimo movimiento"
+            }
+        },
+        "light": {
+            "light": {
+                "name": "Luz"
+            }
+        },
+        "number": {
+            "detection_sensibility": {
+                "name": "Sensibilidad de detecci\u00f3n"
+            }
+        },
+        "select": {
+            "alarm_sound_mode": {
+                "name": "Sonido de advertencia",
+                "state": {
+                    "intensive": "Intensivo",
+                    "silent": "Silencioso",
+                    "soft": "Suave"
+                }
+            }
+        },
+        "sensor": {
+            "alarm_sound_mod": {
+                "name": "Nivel de sonido de alarma"
+            },
+            "last_alarm_pic": {
+                "name": "URL de la \u00faltima imagen de alarma"
+            },
+            "last_alarm_time": {
+                "name": "\u00daltima hora de alarma"
+            },
+            "last_alarm_type_code": {
+                "name": "C\u00f3digo del \u00faltimo tipo de alarma"
+            },
+            "last_alarm_type_name": {
+                "name": "Nombre del \u00faltimo tipo de alarma"
+            },
+            "local_ip": {
+                "name": "IP local"
+            },
+            "pir_status": {
+                "name": "Estado del PIR"
+            },
+            "seconds_last_trigger": {
+                "name": "Segundos desde el \u00faltimo desencadenante"
+            },
+            "supported_channels": {
+                "name": "Canales admitidos"
+            },
+            "wan_ip": {
+                "name": "IP WAN"
+            }
+        },
+        "siren": {
+            "siren": {
+                "name": "Sirena"
+            }
+        },
+        "switch": {
+            "all_day_video_recording": {
+                "name": "Grabaci\u00f3n de v\u00eddeo todo el d\u00eda"
+            },
+            "audio": {
+                "name": "Audio"
+            },
+            "auto_sleep": {
+                "name": "Suspensi\u00f3n autom\u00e1tica"
+            },
+            "flicker_light_on_movement": {
+                "name": "Parpadeo de luz en movimiento"
+            },
+            "follow_movement": {
+                "name": "Seguir movimiento"
+            },
+            "infrared_light": {
+                "name": "Luz infrarroja"
+            },
+            "motion_tracking": {
+                "name": "Seguimiento del movimiento"
+            },
+            "pir_motion_activated_light": {
+                "name": "Luz activada por movimiento PIR"
+            },
+            "privacy": {
+                "name": "Privacidad"
+            },
+            "sleep": {
+                "name": "Suspender"
+            },
+            "status_light": {
+                "name": "Luz de estado"
+            },
+            "tamper_alarm": {
+                "name": "Alarma de manipulaci\u00f3n"
+            }
+        },
+        "update": {
+            "firmware": {
+                "name": "Firmware"
+            }
+        }
+    },
+    "issues": {
+        "service_deprecation_alarm_sound_level": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "El servicio de nivel de sonido de Ezviz Alarm est\u00e1 obsoleto y se eliminar\u00e1.\nPara configurar el nivel de sonido de la alarma, puedes usar el servicio `select.select_option` dirigido a la entidad de sonido de advertencia. \n\nPor favor, elimina este servicio de tus automatizaciones y scripts y selecciona **enviar** para cerrar este problema.",
+                        "title": "Se va a eliminar el servicio de nivel de sonido de la alarma Ezviz"
+                    }
+                }
+            },
+            "title": "Se va a eliminar el servicio de nivel de sonido de la alarma Ezviz"
+        },
+        "service_depreciation_detection_sensibility": {
+            "description": "El servicio de sensibilidad de detecci\u00f3n de Ezviz est\u00e1 obsoleto y se eliminar\u00e1 en Home Assistant 2023.12; Ajusta la automatizaci\u00f3n o el script que usa el servicio y selecciona enviar a continuaci\u00f3n para marcar este problema como resuelto.",
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "El servicio de sensibilidad de Ezviz Detection est\u00e1 obsoleto y se eliminar\u00e1 en Home Assistant 2023.12.\nPara establecer la sensibilidad, puedes usar el servicio `number.set_value` dirigido a la entidad de sensibilidad de detecci\u00f3n. \n\nPor favor, elimina este servicio de tus automatizaciones y scripts y selecciona **enviar** para cerrar este problema.",
+                        "title": "Se va a eliminar el servicio de sensibilidad de detecci\u00f3n de Ezviz"
+                    }
+                }
+            },
+            "title": "Se va a eliminar el servicio de sensibilidad de detecci\u00f3n de Ezviz"
+        },
+        "service_depreciation_ptz": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "El servicio EZVIZ PTZ est\u00e1 obsoleto y se eliminar\u00e1.\nPara mover la c\u00e1mara, puedes usar el servicio `button.press` apuntando a las entidades PTZ*. \n\nPor favor, elimina el uso de este servicio de tus automatizaciones y scripts y selecciona **enviar** para cerrar este problema.",
+                        "title": "Se va a eliminar el servicio EZVIZ PTZ"
+                    }
+                }
+            },
+            "title": "Se va a eliminar el servicio EZVIZ PTZ"
+        },
+        "service_depreciation_sound_alarm": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "El servicio de alarma Ezviz Sound est\u00e1 obsoleto y se va a eliminar.\nPara hacer sonar la alarma, puedes utilizar el servicio `siren.toggle` dirigido a la entidad Siren.\n\nPor favor, elimina el uso de este servicio de tus automatizaciones y scripts y selecciona **enviar** para solucionar este problema.",
+                        "title": "Se va a eliminar el servicio de la alarma Ezviz Sound"
+                    }
+                }
+            },
+            "title": "Se va a eliminar el servicio de la alarma Ezviz Sound"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "ffmpeg_arguments": "Argumentos pasados a ffmpeg para las c\u00e1maras",
+                    "timeout": "Tiempo de espera de solicitud (segundos)"
+                }
+            }
+        }
+    },
+    "services": {
+        "alarm_sound": {
+            "description": "Ajusta el nivel sonoro de aviso de movimiento.",
+            "fields": {
+                "level": {
+                    "description": "Nivel de sonido (2 es desactivado, 1 intensivo, 0 suave).",
+                    "name": "Nivel de sonido"
+                }
+            },
+            "name": "Ajustar el nivel de sonido de advertencia."
+        },
+        "ptz": {
+            "description": "Mueve la c\u00e1mara en la direcci\u00f3n, con una velocidad definida.",
+            "fields": {
+                "direction": {
+                    "description": "Direcci\u00f3n para mover la c\u00e1mara (arriba, abajo, izquierda, derecha).",
+                    "name": "Direcci\u00f3n"
+                },
+                "speed": {
+                    "description": "Velocidad de movimiento (de 1 a 9).",
+                    "name": "Velocidad"
+                }
+            },
+            "name": "PTZ"
+        },
+        "set_alarm_detection_sensibility": {
+            "description": "Establece el nivel de sensibilidad de detecci\u00f3n.",
+            "fields": {
+                "level": {
+                    "description": "Nivel de sensibilidad (1-6) para el tipo 0 (c\u00e1mara normal) o (1-100) para el tipo 3 (c\u00e1mara con sensor PIR).",
+                    "name": "Nivel de sensibilidad"
+                },
+                "type_value": {
+                    "description": "Tipo de detecci\u00f3n. Opciones: 0 - C\u00e1mara o 3 - C\u00e1mara con sensor PIR.",
+                    "name": "Tipo de detecci\u00f3n"
+                }
+            },
+            "name": "Sensibilidad de detecci\u00f3n"
+        },
+        "sound_alarm": {
+            "description": "Activa la alarma de tu c\u00e1mara.",
+            "fields": {
+                "enable": {
+                    "description": "Introduce 1 o 2 (1=desactivar, 2=activar).",
+                    "name": "Sonido de alarma"
+                }
+            },
+            "name": "Sonido de alarma"
+        },
+        "wake_device": {
+            "description": "Esto se puede usar para despertar la c\u00e1mara/dispositivo de la hibernaci\u00f3n.",
+            "name": "Despertar c\u00e1mara"
+        }
+    }
+}

@@ -1,0 +1,161 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Enheten \u00e4r redan konfigurerad",
+            "already_in_progress": "Konfigurationsfl\u00f6det p\u00e5g\u00e5r redan",
+            "no_devices_found": "Inga enheter hittades i n\u00e4tverket"
+        },
+        "error": {
+            "cannot_connect": "Det gick inte att ansluta."
+        },
+        "flow_title": "{model} {id} ({ipaddr})",
+        "step": {
+            "discovery_confirm": {
+                "description": "Vill du konfigurera {model} {id} ({ipaddr})?"
+            },
+            "user": {
+                "data": {
+                    "host": "V\u00e4rd"
+                },
+                "description": "Om du l\u00e4mnar v\u00e4rden tomt anv\u00e4nds discovery f\u00f6r att hitta enheter."
+            }
+        }
+    },
+    "entity": {
+        "button": {
+            "unpair_remotes": {
+                "name": "Ta bort parkoppling f\u00f6r fj\u00e4rrkontroller"
+            }
+        },
+        "number": {
+            "effect_speed": {
+                "name": "Effekthastighet"
+            },
+            "music_pixels_per_segment": {
+                "name": "Musik pixlar per segment"
+            },
+            "music_segments": {
+                "name": "Musiksegment"
+            },
+            "pixels_per_segment": {
+                "name": "Pixlar per segment"
+            },
+            "segments": {
+                "name": "Segment"
+            }
+        },
+        "select": {
+            "ic_type": {
+                "name": "IC-typ"
+            },
+            "operating_mode": {
+                "name": "Driftl\u00e4ge"
+            },
+            "power_restored": {
+                "name": "Str\u00f6mmen \u00e5terst\u00e4lld"
+            },
+            "remote_config": {
+                "name": "Konfigurera fj\u00e4rrkontroll"
+            },
+            "white_channel": {
+                "name": "Vit kanal"
+            },
+            "wiring": {
+                "name": "Kabeldragning"
+            }
+        },
+        "sensor": {
+            "paired_remotes": {
+                "name": "Parkopplade fj\u00e4rrkontroller"
+            }
+        },
+        "switch": {
+            "music": {
+                "name": "Musik"
+            },
+            "remote_access": {
+                "name": "Fj\u00e4rranslutning"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "custom_effect_colors": "Anpassad effekt: Lista med 1 till 16 [R,G,B] f\u00e4rger. Exempel: [255,0,255],[60,128,0]",
+                    "custom_effect_speed_pct": "Anpassad effekt: Hastighet i procent f\u00f6r effekterna som byter f\u00e4rg.",
+                    "custom_effect_transition": "Anpassad effekt: Typ av \u00f6verg\u00e5ng mellan f\u00e4rgerna.",
+                    "mode": "Det valda l\u00e4get f\u00f6r ljusstyrka."
+                }
+            }
+        }
+    },
+    "services": {
+        "set_custom_effect": {
+            "description": "St\u00e4ller in en anpassad ljuseffekt.",
+            "fields": {
+                "colors": {
+                    "description": "Lista \u00f6ver f\u00e4rger f\u00f6r den anpassade effekten (RGB) (max 16 f\u00e4rger).",
+                    "name": "F\u00e4rger"
+                },
+                "speed_pct": {
+                    "description": "Effekthastighet f\u00f6r den anpassade effekten (0-100).",
+                    "name": "Hastighet"
+                },
+                "transition": {
+                    "description": "Effekt\u00f6verg\u00e5ng.",
+                    "name": "\u00d6verg\u00e5ng"
+                }
+            },
+            "name": "St\u00e4ll in anpassad effekt"
+        },
+        "set_music_mode": {
+            "description": "Konfigurerar musikl\u00e4ge p\u00e5 RGB-kontroller med MIC (0x08), Addressable v2 (0xA2) och Addressable v3 (0xA3) enheter som har en inbyggd mikrofon.",
+            "fields": {
+                "background_color": {
+                    "description": "Bakgrundens RGB-f\u00e4rg (endast adresserbara modeller).",
+                    "name": "Bakgrundsf\u00e4rg"
+                },
+                "brightness": {
+                    "description": "Ljusstyrka (0-100).",
+                    "name": "Ljusstyrka"
+                },
+                "effect": {
+                    "description": "Effekt (1-16 p\u00e5 adresserbara modeller, 0-3 p\u00e5 RGB med MIC-modeller).",
+                    "name": "Effekt"
+                },
+                "foreground_color": {
+                    "description": "F\u00f6rgrundens RGB-f\u00e4rg.",
+                    "name": "F\u00f6rgrundsf\u00e4rg"
+                },
+                "light_screen": {
+                    "description": "Ljussk\u00e4rmsl\u00e4ge f\u00f6r 2-dimensionella pixlar (endast adresserbara modeller).",
+                    "name": "Ljussk\u00e4rm"
+                },
+                "sensitivity": {
+                    "description": "Mikrofonens k\u00e4nslighet (0-100).",
+                    "name": "K\u00e4nslighet"
+                }
+            },
+            "name": "St\u00e4ll in musikl\u00e4ge"
+        },
+        "set_zones": {
+            "description": "St\u00e4ller in LED-stripzoner f\u00f6r adresserbara v3-styrenheter (0xA3).",
+            "fields": {
+                "colors": {
+                    "description": "Lista \u00f6ver f\u00e4rger f\u00f6r varje zon (RGB). L\u00e4ngden p\u00e5 varje zon \u00e4r antalet pixlar per segment dividerat med antalet f\u00e4rger. (Max 2048 f\u00e4rger).",
+                    "name": "F\u00e4rger"
+                },
+                "effect": {
+                    "description": "Effekt.",
+                    "name": "Effekt"
+                },
+                "speed_pct": {
+                    "description": "Effekthastighet f\u00f6r den anpassade effekten (0-100).",
+                    "name": "Hastighet"
+                }
+            },
+            "name": "St\u00e4ll in zoner"
+        }
+    }
+}

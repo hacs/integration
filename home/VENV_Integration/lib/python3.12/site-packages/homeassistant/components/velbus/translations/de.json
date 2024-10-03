@@ -1,0 +1,79 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Ger\u00e4t ist bereits konfiguriert"
+        },
+        "error": {
+            "already_configured": "Ger\u00e4t ist bereits konfiguriert",
+            "cannot_connect": "Verbindung fehlgeschlagen"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "name": "Der Name f\u00fcr diese Velbus Verbindung",
+                    "port": "Verbindungsdetails"
+                },
+                "title": "Definieren des Velbus Verbindungstyps"
+            }
+        }
+    },
+    "exceptions": {
+        "invalid_hvac_mode": {
+            "message": "Der Klimamodus {hvac_mode} wird nicht unterst\u00fctzt."
+        }
+    },
+    "services": {
+        "clear_cache": {
+            "description": "L\u00f6scht den Velbuscache und startet dann einen neuen Scan.",
+            "fields": {
+                "address": {
+                    "description": "Die Moduladresse im Dezimalformat. Wenn dies angegeben ist, l\u00f6schen wir nur dieses Modul. Wenn nichts angegeben ist, l\u00f6schen wir das gesamte Cache-Verzeichnis (alle Module). Die Dezimaladressen werden vor den auf der Integrationsseite aufgef\u00fchrten Modulen angezeigt.",
+                    "name": "Adresse"
+                },
+                "interface": {
+                    "description": "Die Velbus-Schnittstelle, an die der Befehl gesendet werden soll. Dabei handelt es sich um denselben Wert, der bei der Konfiguration verwendet wurde.",
+                    "name": "Schnittstelle"
+                }
+            },
+            "name": "Cache leeren"
+        },
+        "scan": {
+            "description": "Scannt die Velbus-Module. Dies ist erforderlich, wenn in den Protokollen Warnungen zu unbekannten Modulen angezeigt werden oder wenn du neue Module hinzugef\u00fcgt hast.",
+            "fields": {
+                "interface": {
+                    "description": "Die Velbus-Schnittstelle, an die der Befehl gesendet werden soll. Dabei handelt es sich um denselben Wert, der bei der Konfiguration verwendet wurde.",
+                    "name": "Schnittstelle"
+                }
+            },
+            "name": "Scannen"
+        },
+        "set_memo_text": {
+            "description": "Legt den Memotext f\u00fcr die Anzeige von Modulen wie VMBGPO, VMBGPOD fest. Stelle sicher, dass die Seiten des Moduls f\u00fcr die Anzeige des Memotexts konfiguriert sind.",
+            "fields": {
+                "address": {
+                    "description": "Die Moduladresse im Dezimalformat. Die Dezimaladressen werden vor den auf der Integrationsseite aufgef\u00fchrten Modulen angezeigt.",
+                    "name": "Adresse"
+                },
+                "interface": {
+                    "description": "Die Velbus-Schnittstelle, an die der Befehl gesendet werden soll. Dabei handelt es sich um denselben Wert, der bei der Konfiguration verwendet wurde.",
+                    "name": "Schnittstelle"
+                },
+                "memo_text": {
+                    "description": "Der eigentliche Text, der angezeigt werden soll. Der Text ist auf 64 Zeichen begrenzt.",
+                    "name": "Memotext"
+                }
+            },
+            "name": "Memotext festlegen"
+        },
+        "sync_clock": {
+            "description": "Synchronisiert die Uhr des Velbus-Moduls mit der Uhr des Home Assistant. Dies ist dasselbe wie die \u201eSynchronisierungsuhr\u201c von VelbusLink.",
+            "fields": {
+                "interface": {
+                    "description": "Die Velbus-Schnittstelle, an die der Befehl gesendet werden soll. Dabei handelt es sich um denselben Wert, der bei der Konfiguration verwendet wurde.",
+                    "name": "Schnittstelle"
+                }
+            },
+            "name": "Uhr synchronisieren"
+        }
+    }
+}

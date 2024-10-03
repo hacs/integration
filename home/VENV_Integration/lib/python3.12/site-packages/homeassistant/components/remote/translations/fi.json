@@ -1,0 +1,120 @@
+{
+    "device_automation": {
+        "action_type": {
+            "toggle": "Vaihda {entity_name}",
+            "turn_off": "Sammuta {entity_name}",
+            "turn_on": "Kytke p\u00e4\u00e4lle {entity_name}"
+        },
+        "condition_type": {
+            "is_off": "{entity_name} on pois p\u00e4\u00e4lt\u00e4",
+            "is_on": "{entity_name} on p\u00e4\u00e4ll\u00e4"
+        },
+        "trigger_type": {
+            "changed_states": "{entity_name} laitettiin p\u00e4\u00e4lle tai pois",
+            "turned_off": "{entity_name} sammui",
+            "turned_on": "{entity_name} laitettiin p\u00e4\u00e4lle"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Kauko-ohjaus",
+            "state": {
+                "off": "Pois",
+                "on": "P\u00e4\u00e4ll\u00e4"
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "{platform}-integraation {domain}-alusta ei tue alustan asetuksia.\n\nPoista se asetuksista ja k\u00e4ynnist\u00e4 Home Assistant uudelleen ongelman korjaamiseksi.",
+            "title": "Alustan tukea ei tueta"
+        }
+    },
+    "services": {
+        "delete_command": {
+            "description": "Poistaa komennon tai komentoluettelon tietokannasta.",
+            "fields": {
+                "command": {
+                    "description": "Yksitt\u00e4inen komento tai poistettavien komentojen luettelo.",
+                    "name": "Komento"
+                },
+                "device": {
+                    "description": "Laite, josta komennot poistetaan.",
+                    "name": "Laite"
+                }
+            },
+            "name": "Poista komento"
+        },
+        "learn_command": {
+            "description": "Oppii komennon tai komentoluettelon laitteesta.",
+            "fields": {
+                "alternative": {
+                    "description": "Jos koodi on tallennettava vaihtoehtona. T\u00e4m\u00e4 on hy\u00f6dyllist\u00e4 erillisille koodeille. Diskreettej\u00e4 koodeja k\u00e4ytet\u00e4\u00e4n kytkimiss\u00e4, jotka suorittavat vain yhden toiminnon. Esimerkiksi koodi, jolla laite kytket\u00e4\u00e4n vain p\u00e4\u00e4lle. Jos laite on jo p\u00e4\u00e4ll\u00e4, koodin l\u00e4hett\u00e4minen ei muuta sen tilaa.",
+                    "name": "Vaihtoehtoinen"
+                },
+                "command": {
+                    "description": "Yksi komento tai luettelo opittavista komennoista.",
+                    "name": "Komento"
+                },
+                "command_type": {
+                    "description": "Opittavan komennon tyyppi.",
+                    "name": "Komennon tyyppi"
+                },
+                "device": {
+                    "description": "Laitteen ID, josta komento opitaan.",
+                    "name": "Laite"
+                },
+                "timeout": {
+                    "description": "Aikakatkaisu komennon oppimiselle.",
+                    "name": "Aikakatkaisu"
+                }
+            },
+            "name": "Opi komento"
+        },
+        "send_command": {
+            "description": "L\u00e4hett\u00e4\u00e4 komennon tai komentoluettelon laitteelle.",
+            "fields": {
+                "command": {
+                    "description": "Yksitt\u00e4inen komento tai luettelo l\u00e4hetett\u00e4vist\u00e4 komennoista.",
+                    "name": "Komento"
+                },
+                "delay_secs": {
+                    "description": "Aika, jonka haluat odottaa toistuvien komentojen v\u00e4lill\u00e4.",
+                    "name": "Viive sekuntia"
+                },
+                "device": {
+                    "description": "Laitteen ID, johon komento l\u00e4hetet\u00e4\u00e4n.",
+                    "name": "Laite"
+                },
+                "hold_secs": {
+                    "description": "Aika, jonka haluat sen olevan hallussasi ennen kuin julkaisu l\u00e4hetet\u00e4\u00e4n.",
+                    "name": "Pid\u00e4 sekuntia"
+                },
+                "num_repeats": {
+                    "description": "Kuinka monta kertaa haluat toistaa komennot.",
+                    "name": "Toistot"
+                }
+            },
+            "name": "L\u00e4het\u00e4 komento"
+        },
+        "toggle": {
+            "description": "Kytkee laitteen p\u00e4\u00e4lle/pois p\u00e4\u00e4lt\u00e4.",
+            "name": "Vaihda"
+        },
+        "turn_off": {
+            "description": "Sammuttaa laitteen.",
+            "name": "Sammuta"
+        },
+        "turn_on": {
+            "description": "L\u00e4hett\u00e4\u00e4 virta p\u00e4\u00e4lle -komennon.",
+            "fields": {
+                "activity": {
+                    "description": "K\u00e4ynnistett\u00e4v\u00e4n toiminnon tunnus tai nimi.",
+                    "name": "Aktiviteetti"
+                }
+            },
+            "name": "Laita p\u00e4\u00e4lle"
+        }
+    },
+    "title": "Kauko-ohjaus"
+}

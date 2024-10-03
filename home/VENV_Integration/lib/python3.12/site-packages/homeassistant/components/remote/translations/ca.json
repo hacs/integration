@@ -1,0 +1,116 @@
+{
+    "device_automation": {
+        "action_type": {
+            "toggle": "Commuta {entity_name}",
+            "turn_off": "Apaga {entity_name}",
+            "turn_on": "Engega {entity_name}"
+        },
+        "condition_type": {
+            "is_off": "{entity_name} est\u00e0 apagat/ada",
+            "is_on": "{entity_name} est\u00e0 engegat/ada"
+        },
+        "trigger_type": {
+            "changed_states": "{entity_name} s'engegui o s'apagui",
+            "turned_off": "{entity_name} s'apagui",
+            "turned_on": "{entity_name} s'engegui"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Comandament",
+            "state": {
+                "off": "OFF",
+                "on": "ON"
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "La plataforma {platform} de la integraci\u00f3 {domain} no \u00e9s compatible amb la configuraci\u00f3 de la plataforma.\n\nElimina-la de la teva configuraci\u00f3 i reinicia Home Assistant per solucionar aquest problema.",
+            "title": "Suport de la plataforma no compatible"
+        }
+    },
+    "services": {
+        "delete_command": {
+            "description": "Elimina una ordre o una llista d'ordres de la base de dades.",
+            "fields": {
+                "command": {
+                    "description": "Ordre individual o llista d'ordres a eliminar.",
+                    "name": "Ordre"
+                },
+                "device": {
+                    "description": "Dispositiu del qual s'eliminaran les ordres.",
+                    "name": "Dispositiu"
+                }
+            },
+            "name": "Elimina ordre"
+        },
+        "learn_command": {
+            "description": "Apr\u00e8n una ordre o una llista d'ordres d'un dispositiu.",
+            "fields": {
+                "alternative": {
+                    "description": "Tria si el codi s'ha d'emmagatzemar com a alternativa. Aix\u00f2 \u00e9s \u00fatil per a codis discrets. Els codis discrets s'utilitzen per a commutacions que nom\u00e9s realitzen una funci\u00f3. Per exemple, un codi per nom\u00e9s encendre un dispositiu; si ja est\u00e0 activat, l'enviament del codi no en canviar\u00e0 l'estat.",
+                    "name": "Alternativa"
+                },
+                "command": {
+                    "description": "Ordre individual o llista d'ordres a aprendre.",
+                    "name": "Comanda"
+                },
+                "command_type": {
+                    "description": "El tipus d'ordre a aprendre.",
+                    "name": "Tipus de comanda"
+                },
+                "device": {
+                    "description": "ID del dispositiu a aprendre'n l'ordre.",
+                    "name": "Dispositiu"
+                },
+                "timeout": {
+                    "description": "Temps d'espera per a l'ordre a aprendre.",
+                    "name": "Temps d'espera"
+                }
+            },
+            "name": "Apr\u00e8n ordre"
+        },
+        "send_command": {
+            "description": "Envia una ordre o una llista d'ordres a un dispositiu.",
+            "fields": {
+                "command": {
+                    "description": "Ordre individual o llista d'ordres a enviar.",
+                    "name": "Comanda"
+                },
+                "delay_secs": {
+                    "description": "Temps que vols esperar entre ordres repetides."
+                },
+                "device": {
+                    "name": "Dispositiu"
+                },
+                "hold_secs": {
+                    "description": "Temps a mantenir premut abans d'enviar l'alliberament."
+                },
+                "num_repeats": {
+                    "name": "Repeticions"
+                }
+            },
+            "name": "Envia comanda"
+        },
+        "toggle": {
+            "description": "Activa/desactiva un interruptor.",
+            "name": "Commuta"
+        },
+        "turn_off": {
+            "description": "Desactiva el dispositiu.",
+            "name": "Apaga"
+        },
+        "turn_on": {
+            "description": "Envia la comanda d'activaci\u00f3.",
+            "fields": {
+                "activity": {
+                    "description": "ID d'activitat o nom de l'activitat a iniciar.",
+                    "name": "Activitat"
+                }
+            },
+            "name": "Enc\u00e9n"
+        }
+    },
+    "title": "Comandament"
+}

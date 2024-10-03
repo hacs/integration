@@ -1,0 +1,138 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Dispositivo j\u00e1 est\u00e1 configurado",
+            "reauth_successful": "A reautentica\u00e7\u00e3o foi bem-sucedida"
+        },
+        "error": {
+            "api_error": "Ocorreu um erro de API",
+            "cannot_connect": "Falha ao conectar, verifique o endere\u00e7o IP da c\u00e2mera",
+            "invalid_auth": "Autentica\u00e7\u00e3o inv\u00e1lida",
+            "unknown": "Erro inesperado",
+            "webhook_exception": "URL do Home Assistant indispon\u00edvel. V\u00e1 para Configura\u00e7\u00f5es > Sistema > Rede > URL do Home Assistant e corrija as URLs. Veja {more_info}"
+        },
+        "flow_title": "{hostname} ({ip_address})",
+        "step": {
+            "reauth_confirm": {
+                "description": "A integra\u00e7\u00e3o Reolink precisa autenticar novamente seus detalhes de conex\u00e3o",
+                "title": "A autentica\u00e7\u00e3o expirada para {name}"
+            },
+            "user": {
+                "data": {
+                    "host": "Host",
+                    "password": "Senha",
+                    "port": "Porta",
+                    "use_https": "Ativar HTTPS",
+                    "username": "Usu\u00e1rio"
+                },
+                "description": "Consulte as [etapas de solu\u00e7\u00e3o de problemas]({troubleshooting_link}) se encontrar problemas. {error}"
+            }
+        }
+    },
+    "entity": {
+        "number": {
+            "image_brightness": {
+                "name": "Brilho da imagem"
+            },
+            "image_contrast": {
+                "name": "Contraste da imagem"
+            },
+            "image_hue": {
+                "name": "Matiz da imagem"
+            },
+            "image_saturation": {
+                "name": "Satura\u00e7\u00e3o de imagem"
+            },
+            "image_sharpness": {
+                "name": "Nitidez da imagem"
+            }
+        },
+        "select": {
+            "auto_quick_reply_message": {
+                "state": {
+                    "off": "Desligado"
+                }
+            },
+            "auto_track_method": {
+                "state": {
+                    "digital": "Digital",
+                    "digitalfirst": "Digital primeiro",
+                    "pantiltfirst": "Panor\u00e2mica/inclina\u00e7\u00e3o primeiro"
+                }
+            },
+            "day_night_mode": {
+                "state": {
+                    "auto": "Auto",
+                    "color": "Cor"
+                }
+            },
+            "floodlight_mode": {
+                "state": {
+                    "auto": "Auto",
+                    "off": "Desligado",
+                    "schedule": "Hor\u00e1rio"
+                }
+            },
+            "status_led": {
+                "state": {
+                    "alwaysonatnight": "Autom\u00e1tico e sempre ligado \u00e0 noite",
+                    "auto": "Autom\u00e1tico",
+                    "stayoff": "Fique longe"
+                }
+            }
+        },
+        "sensor": {
+            "wifi_signal": {
+                "name": "Sinal de Wi-Fi"
+            }
+        },
+        "siren": {
+            "siren": {
+                "name": "Sirene"
+            }
+        }
+    },
+    "issues": {
+        "enable_port": {
+            "description": "Falha ao habilitar automaticamente {ports} porta(s) em {name}. Use o [cliente Reolink]({info_link}) para configur\u00e1-lo manualmente para ON",
+            "title": "Porta reolink n\u00e3o habilitada"
+        },
+        "firmware_update": {
+            "description": "\" {name} \" com modelo \" {model} \" e vers\u00e3o de hardware \" {hw_version} \" est\u00e1 executando uma vers\u00e3o de firmware antiga \" {current_firmware} \", enquanto pelo menos a vers\u00e3o de firmware \" {required_firmware} \" \u00e9 necess\u00e1ria para a opera\u00e7\u00e3o adequada do Reolink integra\u00e7\u00e3o. O firmware mais recente pode ser baixado do [Centro de download Reolink] ( {download_link} ).",
+            "title": "Atualiza\u00e7\u00e3o de firmware Reolink necess\u00e1ria"
+        },
+        "https_webhook": {
+            "description": "Os produtos Reolink n\u00e3o podem enviar eventos de movimento para um endere\u00e7o HTTPS (SSL), configure um endere\u00e7o HTTP (local) em \"URL do Home Assistant\" nas [configura\u00e7\u00f5es de rede] ({network_link}). O endere\u00e7o (local) atual \u00e9: `{base_url}`, um endere\u00e7o v\u00e1lido pode, por exemplo, ser `http://192.168.1.10:8123` onde `192.168.1.10` \u00e9 o IP do dispositivo Home Assistant",
+            "title": "Reolink webhook URL usa HTTPS (SSL)"
+        },
+        "ssl": {
+            "description": "Certificado SSL global configurado em [configuration.yaml sob http]({ssl_link}) enquanto um endere\u00e7o HTTP local `{base_url}` \u00e9 configurado em \"Home Assistant URL\" em [network settings]({network_link}). Portanto, o dispositivo Reolink n\u00e3o consegue acessar o Home Assistant para enviar seus eventos de movimento/IA. Certifique-se de que o endere\u00e7o HTTP local n\u00e3o esteja coberto pelo certificado SSL, por exemplo, usando [NGINX add-on]({nginx_link}) em vez de um certificado SSL aplicado globalmente.",
+            "title": "Reolink incompat\u00edvel com o certificado SSL global"
+        },
+        "webhook_url": {
+            "description": "N\u00e3o recebeu o estado ONVIF inicial de {name}. Muito provavelmente, a c\u00e2mera Reolink n\u00e3o pode acessar o URL atual (local) do Home Assistant `{base_url}`, configure um endere\u00e7o HTTP (local) em \"Home Assistant URL\" nas [configura\u00e7\u00f5es de rede] ({network_link}) que aponta para Home Assistant. Por exemplo `http://192.168.1.10:8123` onde `192.168.1.10` \u00e9 o IP do dispositivo Home Assistant. Al\u00e9m disso, verifique se a c\u00e2mera Reolink pode acessar esse URL. Usando sondagem de estado de movimento r\u00e1pido/AI at\u00e9 que o primeiro push ONVIF seja recebido.",
+            "title": "URL do webhook Reolink inacess\u00edvel"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "protocol": "Protocolo"
+                }
+            }
+        }
+    },
+    "services": {
+        "ptz_move": {
+            "description": "Mova a c\u00e2mera com uma velocidade espec\u00edfica.",
+            "fields": {
+                "speed": {
+                    "description": "Velocidade de movimento PTZ.",
+                    "name": "Velocidade"
+                }
+            },
+            "name": "Movimento PTZ"
+        }
+    }
+}

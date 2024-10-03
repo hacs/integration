@@ -1,0 +1,433 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Az eszk\u00f6z m\u00e1r konfigur\u00e1lva van",
+            "no_ups_found": "A NUT-kiszolg\u00e1l\u00f3n nincsenek UPS-eszk\u00f6z\u00f6k.",
+            "reauth_successful": "Az \u00fajrahiteles\u00edt\u00e9s sikeres volt."
+        },
+        "error": {
+            "cannot_connect": "Csatlakoz\u00e1si hiba: {error}",
+            "invalid_auth": "\u00c9rv\u00e9nytelen hiteles\u00edt\u00e9s",
+            "unknown": "V\u00e1ratlan hiba"
+        },
+        "step": {
+            "reauth_confirm": {
+                "data": {
+                    "password": "Jelsz\u00f3",
+                    "username": "Felhaszn\u00e1l\u00f3n\u00e9v"
+                },
+                "description": "A NUT-kiszolg\u00e1l\u00f3 \u00fajrahiteles\u00edt\u00e9se: {host} : {port}"
+            },
+            "ups": {
+                "data": {
+                    "alias": "\u00c1ln\u00e9v"
+                },
+                "title": "V\u00e1lassza ki a fel\u00fcgyelni k\u00edv\u00e1nt UPS-t"
+            },
+            "user": {
+                "data": {
+                    "host": "Hoszt",
+                    "password": "Jelsz\u00f3",
+                    "port": "Port",
+                    "username": "Felhaszn\u00e1l\u00f3n\u00e9v"
+                },
+                "data_description": {
+                    "host": "A NUT kiszolg\u00e1l\u00f3 g\u00e9pneve vagy IP-c\u00edme."
+                },
+                "description": "Csatlakoz\u00e1s a NUT szerverhez",
+                "title": "Csatlakozzon a NUT szerverhez"
+            }
+        }
+    },
+    "device_automation": {
+        "action_type": {
+            "beeper_disable": "UPS hangjelz\u00e9s letilt\u00e1sa",
+            "beeper_enable": "UPS hangjelz\u00e9s enged\u00e9lyez\u00e9se",
+            "beeper_mute": "UPS hangjelz\u00e9s n\u00e9m\u00edt\u00e1sa",
+            "beeper_toggle": "UPS hangjelz\u00e9s \u00e1tkapcsol\u00e1sa",
+            "bypass_start": "\u00c1ll\u00edtsa az UPS-t bypass \u00fczemm\u00f3dba",
+            "bypass_stop": "Vegye ki az UPS-t a bypass \u00fczemm\u00f3db\u00f3l",
+            "calibrate_start": "Fut\u00e1sid\u0151 kalibr\u00e1l\u00e1s ind\u00edt\u00e1sa",
+            "calibrate_stop": "Fut\u00e1sid\u0151 kalibr\u00e1l\u00e1s le\u00e1ll\u00edt\u00e1sa",
+            "load_off": "Terhel\u00e9s lekapcsol\u00e1sa azonnal",
+            "load_on": "Terhel\u00e9s bekapcsol\u00e1sa azonnal",
+            "reset_input_minmax": "A minim\u00e1lis \u00e9s maxim\u00e1lis bemeneti fesz\u00fclts\u00e9g \u00e1llapot\u00e1nak vissza\u00e1ll\u00edt\u00e1sa",
+            "reset_watchdog": "Watchdog id\u0151z\u00edt\u0151 vissza\u00e1ll\u00edt\u00e1sa (a terhel\u00e9s k\u00e9nyszer\u00edtett \u00fajraind\u00edt\u00e1sa)",
+            "shutdown_reboot": "Kapcsolja le a terhel\u00e9st r\u00f6vid id\u0151re, mik\u00f6zben \u00fajraind\u00edtja az UPS-t.",
+            "shutdown_reboot_graceful": "K\u00e9sleltet\u00e9s ut\u00e1n r\u00f6vid id\u0151re kapcsolja le a terhel\u00e9st, mik\u00f6zben \u00fajraind\u00edtja az UPS-t.",
+            "shutdown_return": "Kapcsolja ki a terhel\u00e9st esetleg egy k\u00e9sleltet\u00e9s ut\u00e1n \u00e9s t\u00e9rjen vissza, amikor a bet\u00e1p visszat\u00e9r.",
+            "shutdown_stayoff": "K\u00e9sleltet\u00e9s ut\u00e1n esetleg kikapcsolja a terhel\u00e9st \u00e9s akkor is kikapcsolva marad, ha a bet\u00e1p visszat\u00e9r.",
+            "shutdown_stop": "Folyamatban l\u00e9v\u0151 le\u00e1ll\u00edt\u00e1s meg\u00e1ll\u00edt\u00e1sa",
+            "test_battery_start": "Akkumul\u00e1tor teszt ind\u00edt\u00e1sa",
+            "test_battery_start_deep": "Akkumul\u00e1tor m\u00e9lyteszt ind\u00edt\u00e1sa",
+            "test_battery_start_quick": "Akkumul\u00e1tor gyorsteszt ind\u00edt\u00e1sa",
+            "test_battery_stop": "Akkumul\u00e1tor teszt le\u00e1ll\u00edt\u00e1sa",
+            "test_failure_start": "Bet\u00e1pkimarad\u00e1s szimul\u00e1l\u00e1sa",
+            "test_failure_stop": "Bet\u00e1pkimarad\u00e1s szimul\u00e1l\u00e1s le\u00e1ll\u00edt\u00e1sa",
+            "test_panel_start": "UPS panel teszt ind\u00edt\u00e1sa",
+            "test_panel_stop": "UPS panel teszt le\u00e1ll\u00edt\u00e1sa",
+            "test_system_start": "Rendszerteszt ind\u00edt\u00e1sa"
+        }
+    },
+    "entity": {
+        "sensor": {
+            "ambient_humidity": {
+                "name": "K\u00f6rnyezeti p\u00e1ratartalom"
+            },
+            "ambient_temperature": {
+                "name": "K\u00f6rnyezeti h\u0151m\u00e9rs\u00e9klet"
+            },
+            "battery_alarm_threshold": {
+                "name": "Akkumul\u00e1tor riaszt\u00e1si szint"
+            },
+            "battery_capacity": {
+                "name": "Akkumul\u00e1tor kapacit\u00e1s"
+            },
+            "battery_charge": {
+                "name": "Akkumul\u00e1tor t\u00f6lt\u00f6tts\u00e9ge"
+            },
+            "battery_charge_low": {
+                "name": "Lemer\u00fclt akkumul\u00e1tor szint"
+            },
+            "battery_charge_restart": {
+                "name": "Minim\u00e1lis akkumul\u00e1tor szint az ind\u00edt\u00e1shoz"
+            },
+            "battery_charge_warning": {
+                "name": "Figyelmeztet\u00e9si akkumul\u00e1tor szint"
+            },
+            "battery_charger_status": {
+                "name": "T\u00f6lt\u00e9s \u00e1llapota"
+            },
+            "battery_current": {
+                "name": "Akkumul\u00e1tor \u00e1ram"
+            },
+            "battery_current_total": {
+                "name": "\u00d6sszes akkumul\u00e1tor \u00e1ram"
+            },
+            "battery_date": {
+                "name": "Akkumul\u00e1tor telep\u00edt\u00e9s d\u00e1tum"
+            },
+            "battery_mfr_date": {
+                "name": "Akkumul\u00e1tor gy\u00e1rt\u00e1si d\u00e1tum"
+            },
+            "battery_packs": {
+                "name": "Akkumul\u00e1torok sz\u00e1ma"
+            },
+            "battery_packs_bad": {
+                "name": "Hib\u00e1s akkumul\u00e1torok sz\u00e1ma"
+            },
+            "battery_runtime": {
+                "name": "Akkumul\u00e1toros tartal\u00e9k \u00fczemid\u0151"
+            },
+            "battery_runtime_low": {
+                "name": "Alacsony tartal\u00e9k \u00fczemid\u0151"
+            },
+            "battery_runtime_restart": {
+                "name": "Ind\u00edt\u00e1shoz sz\u00fcks\u00e9ges minim\u00e1lis akkumul\u00e1toros \u00fczemid\u0151"
+            },
+            "battery_temperature": {
+                "name": "Akkumul\u00e1tor h\u0151m\u00e9rs\u00e9klete"
+            },
+            "battery_type": {
+                "name": "Akkumul\u00e1tor anyag\u00f6sszet\u00e9tele"
+            },
+            "battery_voltage": {
+                "name": "Akkumul\u00e1tor fesz\u00fclts\u00e9g"
+            },
+            "battery_voltage_high": {
+                "name": "Magas akkumul\u00e1tor fesz\u00fclts\u00e9g"
+            },
+            "battery_voltage_low": {
+                "name": "Alacsony akkumul\u00e1tor fesz\u00fclts\u00e9g"
+            },
+            "battery_voltage_nominal": {
+                "name": "N\u00e9vleges akkumul\u00e1tor fesz\u00fclts\u00e9g"
+            },
+            "input_bypass_current": {
+                "name": "\u00c1tmen\u0151 \u00e1ramer\u0151ss\u00e9g"
+            },
+            "input_bypass_frequency": {
+                "name": "Bemeneti bypass frekvencia"
+            },
+            "input_bypass_l1_current": {
+                "name": "\u00c1tmen\u0151 L1 \u00e1ramer\u0151ss\u00e9g"
+            },
+            "input_bypass_l1_n_voltage": {
+                "name": "\u00c1tmen\u0151 L1-N fesz\u00fclts\u00e9g"
+            },
+            "input_bypass_l1_realpower": {
+                "name": "Aktu\u00e1lis \u00e1tmen\u0151 L1 val\u00f3s teljes\u00edtm\u00e9ny"
+            },
+            "input_bypass_l2_current": {
+                "name": "\u00c1tmen\u0151 L2 \u00e1ramer\u0151ss\u00e9g"
+            },
+            "input_bypass_l2_n_voltage": {
+                "name": "\u00c1tmen\u0151 L2-N fesz\u00fclts\u00e9g"
+            },
+            "input_bypass_l2_realpower": {
+                "name": "Aktu\u00e1lis \u00e1tmen\u0151 L2 val\u00f3s teljes\u00edtm\u00e9ny"
+            },
+            "input_bypass_l3_current": {
+                "name": "\u00c1tmen\u0151 L3 \u00e1ramer\u0151ss\u00e9g"
+            },
+            "input_bypass_l3_n_voltage": {
+                "name": "\u00c1tmen\u0151 L3-N fesz\u00fclts\u00e9g"
+            },
+            "input_bypass_l3_realpower": {
+                "name": "Aktu\u00e1lis \u00e1tmen\u0151 L3 val\u00f3s teljes\u00edtm\u00e9ny"
+            },
+            "input_bypass_phases": {
+                "name": "Bemeneti bypass f\u00e1zis"
+            },
+            "input_bypass_realpower": {
+                "name": "Aktu\u00e1lis \u00e1tmen\u0151 val\u00f3s teljes\u00edtm\u00e9ny"
+            },
+            "input_bypass_voltage": {
+                "name": "\u00c1tmen\u0151 t\u00e1pfesz\u00fclts\u00e9g"
+            },
+            "input_current": {
+                "name": "Bemeneti \u00e1ram"
+            },
+            "input_frequency": {
+                "name": "Bemeneti frekvencia"
+            },
+            "input_frequency_nominal": {
+                "name": "N\u00e9vleges bemeneti frekvencia"
+            },
+            "input_frequency_status": {
+                "name": "Bemeneti frekvencia \u00e1llapot"
+            },
+            "input_l1_current": {
+                "name": "L1 bemeneti \u00e1ramer\u0151ss\u00e9g"
+            },
+            "input_l1_frequency": {
+                "name": "L1 bemeneti frekvencia"
+            },
+            "input_l1_n_voltage": {
+                "name": "L1 bemeneti fesz\u00fclts\u00e9g"
+            },
+            "input_l1_realpower": {
+                "name": "Aktu\u00e1lis L1 bemeneti val\u00f3s teljes\u00edtm\u00e9ny"
+            },
+            "input_l2_current": {
+                "name": "L2 bemeneti \u00e1ramer\u0151ss\u00e9g"
+            },
+            "input_l2_frequency": {
+                "name": "L2 bemeneti frekvencia"
+            },
+            "input_l2_n_voltage": {
+                "name": "L2 bemeneti fesz\u00fclts\u00e9g"
+            },
+            "input_l2_realpower": {
+                "name": "Aktu\u00e1lis L2 bemeneti val\u00f3s teljes\u00edtm\u00e9ny"
+            },
+            "input_l3_current": {
+                "name": "L3 bemeneti \u00e1ramer\u0151ss\u00e9g"
+            },
+            "input_l3_frequency": {
+                "name": "L3 bemeneti frekvencia"
+            },
+            "input_l3_n_voltage": {
+                "name": "L3 bemeneti fesz\u00fclts\u00e9g"
+            },
+            "input_l3_realpower": {
+                "name": "Aktu\u00e1lis L3 bemeneti val\u00f3s teljes\u00edtm\u00e9ny"
+            },
+            "input_phases": {
+                "name": "Bemeneti f\u00e1zisok"
+            },
+            "input_realpower": {
+                "name": "Aktu\u00e1lis bemeneti val\u00f3s teljes\u00edtm\u00e9ny"
+            },
+            "input_sensitivity": {
+                "name": "Bemeneti \u00e9rz\u00e9kenys\u00e9g"
+            },
+            "input_transfer_high": {
+                "name": "T\u00falfesz\u00fclts\u00e9g v\u00e9delem"
+            },
+            "input_transfer_low": {
+                "name": "Kisfesz\u00fclts\u00e9g v\u00e9delem"
+            },
+            "input_transfer_reason": {
+                "name": "V\u00e9delem oka"
+            },
+            "input_voltage": {
+                "name": "Bemeneti fesz\u00fclts\u00e9g"
+            },
+            "input_voltage_nominal": {
+                "name": "N\u00e9vleges bemeneti fesz\u00fclts\u00e9g"
+            },
+            "output_current": {
+                "name": "Kimeneti \u00e1ram"
+            },
+            "output_current_nominal": {
+                "name": "N\u00e9vleges kimeneti \u00e1ram"
+            },
+            "output_frequency": {
+                "name": "Kimeneti frekvencia"
+            },
+            "output_frequency_nominal": {
+                "name": "N\u00e9vleges kimeneti frekvencia"
+            },
+            "output_l1_current": {
+                "name": "L1 kimeneti \u00e1ramer\u0151ss\u00e9g"
+            },
+            "output_l1_n_voltage": {
+                "name": "L1-N kimeneti fesz\u00fclts\u00e9g"
+            },
+            "output_l1_power_percent": {
+                "name": "L1 kimeneti energiafelhaszn\u00e1l\u00e1s"
+            },
+            "output_l1_realpower": {
+                "name": "Aktu\u00e1lis L1 kimeneti val\u00f3s teljes\u00edtm\u00e9ny"
+            },
+            "output_l2_current": {
+                "name": "L2 kimeneti \u00e1ramer\u0151ss\u00e9g"
+            },
+            "output_l2_n_voltage": {
+                "name": "L2-N kimeneti fesz\u00fclts\u00e9g"
+            },
+            "output_l2_power_percent": {
+                "name": "L2 kimeneti energiafelhaszn\u00e1l\u00e1s"
+            },
+            "output_l2_realpower": {
+                "name": "Aktu\u00e1lis L2 kimeneti val\u00f3s teljes\u00edtm\u00e9ny"
+            },
+            "output_l3_current": {
+                "name": "L3 kimeneti \u00e1ramer\u0151ss\u00e9g"
+            },
+            "output_l3_n_voltage": {
+                "name": "L3-N kimeneti fesz\u00fclts\u00e9g"
+            },
+            "output_l3_power_percent": {
+                "name": "L3 kimeneti energiafelhaszn\u00e1l\u00e1s"
+            },
+            "output_l3_realpower": {
+                "name": "Aktu\u00e1lis L3 kimeneti val\u00f3s teljes\u00edtm\u00e9ny"
+            },
+            "output_phases": {
+                "name": "Kimeneti f\u00e1zisok"
+            },
+            "output_power": {
+                "name": "Kimeneti l\u00e1tsz\u00f3lagos teljes\u00edtm\u00e9ny"
+            },
+            "output_power_nominal": {
+                "name": "N\u00e9vleges kimeneti teljes\u00edtm\u00e9ny"
+            },
+            "output_realpower": {
+                "name": "Aktu\u00e1lis kimeneti val\u00f3s teljes\u00edtm\u00e9ny"
+            },
+            "output_realpower_nominal": {
+                "name": "N\u00e9vleges kimeneti val\u00f3s teljes\u00edtm\u00e9ny"
+            },
+            "output_voltage": {
+                "name": "Kimeneti fesz\u00fclts\u00e9g"
+            },
+            "output_voltage_nominal": {
+                "name": "N\u00e9vleges kimeneti fesz\u00fclts\u00e9g"
+            },
+            "ups_alarm": {
+                "name": "Riaszt\u00e1sok"
+            },
+            "ups_beeper_status": {
+                "name": "Hangjelz\u00e9s \u00e1llapot"
+            },
+            "ups_contacts": {
+                "name": "Rel\u00e9 kimenetek"
+            },
+            "ups_delay_reboot": {
+                "name": "UPS \u00fajraind\u00edt\u00e1si k\u00e9sleltet\u00e9s"
+            },
+            "ups_delay_shutdown": {
+                "name": "UPS le\u00e1ll\u00e1si k\u00e9sleltet\u00e9s"
+            },
+            "ups_delay_start": {
+                "name": "Fogyaszt\u00f3k \u00fajraind\u00edt\u00e1si k\u00e9sleltet\u00e9se"
+            },
+            "ups_display_language": {
+                "name": "Nyelv"
+            },
+            "ups_efficiency": {
+                "name": "Hat\u00e9konys\u00e1g"
+            },
+            "ups_id": {
+                "name": "Rendszerazonos\u00edt\u00f3"
+            },
+            "ups_load": {
+                "name": "Terhel\u00e9s"
+            },
+            "ups_load_high": {
+                "name": "T\u00falterhel\u00e9s be\u00e1ll\u00edt\u00e1s"
+            },
+            "ups_power": {
+                "name": "Aktu\u00e1lis l\u00e1tsz\u00f3lagos teljes\u00edtm\u00e9ny"
+            },
+            "ups_power_nominal": {
+                "name": "N\u00e9vleges teljes\u00edtm\u00e9ny"
+            },
+            "ups_realpower": {
+                "name": "Aktu\u00e1lis val\u00f3s teljes\u00edtm\u00e9ny"
+            },
+            "ups_realpower_nominal": {
+                "name": "N\u00e9vleges val\u00f3s teljes\u00edtm\u00e9ny"
+            },
+            "ups_shutdown": {
+                "name": "Le\u00e1ll\u00edt\u00e1si k\u00e9pess\u00e9g"
+            },
+            "ups_start_auto": {
+                "name": "Bekapcsol\u00e1s AC-r\u0151l"
+            },
+            "ups_start_battery": {
+                "name": "Bekapcsol\u00e1s akkur\u00f3l"
+            },
+            "ups_start_reboot": {
+                "name": "\u00dajraind\u00edt\u00e1s akkumul\u00e1torr\u00f3l"
+            },
+            "ups_status": {
+                "name": "\u00c1llapotadatok"
+            },
+            "ups_status_display": {
+                "name": "\u00c1llapot"
+            },
+            "ups_temperature": {
+                "name": "UPS h\u0151m\u00e9rs\u00e9klet"
+            },
+            "ups_test_date": {
+                "name": "\u00d6nteszt d\u00e1tuma"
+            },
+            "ups_test_interval": {
+                "name": "\u00d6ntesztel\u00e9si id\u0151k\u00f6z"
+            },
+            "ups_test_result": {
+                "name": "\u00d6nteszt eredm\u00e9nye"
+            },
+            "ups_timer_reboot": {
+                "name": "\u00dajraind\u00edt\u00e1si id\u0151z\u00edt\u0151 bet\u00f6lt\u00e9se"
+            },
+            "ups_timer_shutdown": {
+                "name": "Fogyaszt\u00f3k le\u00e1ll\u00edt\u00e1si id\u0151z\u00edt\u0151je"
+            },
+            "ups_timer_start": {
+                "name": "Fogyaszt\u00f3k ind\u00edt\u00e1si id\u0151z\u00edt\u0151je"
+            },
+            "ups_type": {
+                "name": "UPS t\u00edpus"
+            },
+            "ups_watchdog_status": {
+                "name": "Watchdog \u00e1llapot"
+            },
+            "watts": {
+                "name": "Watt"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "scan_interval": "Szkennel\u00e9si intervallum (m\u00e1sodperc)"
+                }
+            }
+        }
+    }
+}

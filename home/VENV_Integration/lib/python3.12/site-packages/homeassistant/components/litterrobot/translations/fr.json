@@ -1,0 +1,156 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Le compte est d\u00e9j\u00e0 configur\u00e9",
+            "reauth_successful": "La r\u00e9-authentification a r\u00e9ussi"
+        },
+        "error": {
+            "cannot_connect": "\u00c9chec de connexion",
+            "invalid_auth": "Authentification non valide",
+            "unknown": "Erreur inattendue"
+        },
+        "step": {
+            "reauth_confirm": {
+                "data": {
+                    "password": "Mot de passe"
+                },
+                "description": "Veuillez mettre \u00e0 jour votre mot de passe pour {username}",
+                "title": "L'authentification a expir\u00e9 pour {name}"
+            },
+            "user": {
+                "data": {
+                    "password": "Mot de passe",
+                    "username": "Nom d'utilisateur"
+                }
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "power_status": {
+                "name": "\u00c9tat de l'alimentation"
+            },
+            "sleep_mode": {
+                "name": "Mode veille"
+            },
+            "sleeping": {
+                "name": "Veille"
+            }
+        },
+        "button": {
+            "give_snack": {
+                "name": "Donner une friandise"
+            },
+            "reset_waste_drawer": {
+                "name": "R\u00e9initialiser le tiroir \u00e0 d\u00e9chets"
+            }
+        },
+        "select": {
+            "brightness_level": {
+                "name": "Luminosit\u00e9 du panneau",
+                "state": {
+                    "high": "\u00c9lev\u00e9e",
+                    "low": "Faible",
+                    "medium": "Moyenne"
+                }
+            }
+        },
+        "sensor": {
+            "last_seen": {
+                "name": "Derni\u00e8re connexion"
+            },
+            "litter_level": {
+                "name": "Niveau de liti\u00e8re"
+            },
+            "pet_weight": {
+                "name": "Poids de l'animal"
+            },
+            "sleep_mode_end_time": {
+                "name": "Heure de fin du mode veille"
+            },
+            "sleep_mode_start_time": {
+                "name": "Heure de d\u00e9but du mode veille"
+            },
+            "status_code": {
+                "name": "Code d'\u00e9tat",
+                "state": {
+                    "br": "Capot retir\u00e9",
+                    "ccc": "Cycle de nettoyage termin\u00e9",
+                    "ccp": "Cycle de nettoyage en cours",
+                    "cd": "Chat d\u00e9tect\u00e9",
+                    "spf": "D\u00e9tection de pincement au d\u00e9marrage"
+                }
+            },
+            "waste_drawer": {
+                "name": "Tiroir \u00e0 d\u00e9chets"
+            }
+        },
+        "switch": {
+            "night_light_mode": {
+                "name": "Mode \u00e9clairage nocturne"
+            },
+            "panel_lockout": {
+                "name": "Verrouillage du panneau"
+            }
+        },
+        "time": {
+            "sleep_mode_start_time": {
+                "name": "Heure de d\u00e9but du mode veille"
+            }
+        },
+        "update": {
+            "firmware": {
+                "name": "Micrologiciel"
+            }
+        },
+        "vacuum": {
+            "litter_box": {
+                "name": "Bac \u00e0 liti\u00e8re"
+            }
+        }
+    },
+    "issues": {
+        "migrated_attributes": {
+            "description": "Les attributs de l'entit\u00e9 de vide sont d\u00e9sormais disponibles en tant que capteurs de diagnostic.\n\nVeuillez adapter vos automatismes ou vos scripts qui utilisent ces attributs.",
+            "title": "Les attributs de Litter-Robot sont d\u00e9sormais leurs propres capteurs"
+        },
+        "service_deprecation_turn_off": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "La prise en charge de l'aspirateur Litter-Robot pour le service {old_service} est obsol\u00e8te et sera supprim\u00e9e dans Home Assistant 2024.2 ; Veuillez ajuster tout automatisme ou script qui utilise le service pour appeler \u00e0 la place {new_service} et s\u00e9lectionnez soumettre ci-dessous pour marquer ce probl\u00e8me comme r\u00e9solu.",
+                        "title": "Litter-Robot : le support d'aspiration pour {old_service} est en train d'\u00eatre supprim\u00e9"
+                    }
+                }
+            },
+            "title": "Litter-Robot : le support d'aspiration pour {old_service} est en train d'\u00eatre supprim\u00e9"
+        },
+        "service_deprecation_turn_on": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "La prise en charge de l'aspirateur Litter-Robot pour le service {old_service} est obsol\u00e8te et sera supprim\u00e9e dans Home Assistant 2024.2 ; Veuillez ajuster tout automatisme ou script qui utilise le service pour appeler \u00e0 la place {new_service} et s\u00e9lectionnez soumettre ci-dessous pour marquer ce probl\u00e8me comme r\u00e9solu.",
+                        "title": "Litter-Robot : le support d'aspiration pour {old_service} est en train d'\u00eatre supprim\u00e9"
+                    }
+                }
+            },
+            "title": "Litter-Robot : le support d'aspiration pour {old_service} est en train d'\u00eatre supprim\u00e9"
+        }
+    },
+    "services": {
+        "set_sleep_mode": {
+            "description": "D\u00e9finit le mode veille et l'heure de d\u00e9marrage.",
+            "fields": {
+                "enabled": {
+                    "description": "Indique si le mode veille doit \u00eatre activ\u00e9.",
+                    "name": "Activ\u00e9"
+                },
+                "start_time": {
+                    "description": "L'heure de d\u00e9marrage \u00e0 laquelle le Litter-Robot entrera en mode veille et emp\u00eachera un cycle de nettoyage automatique pendant 8 heures.",
+                    "name": "Heure de d\u00e9marrage"
+                }
+            },
+            "name": "D\u00e9finis le mode veille"
+        }
+    }
+}

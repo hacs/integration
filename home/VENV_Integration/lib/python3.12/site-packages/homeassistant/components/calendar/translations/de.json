@@ -1,0 +1,132 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "Kalender",
+            "state": {
+                "off": "Aus",
+                "on": "An"
+            },
+            "state_attributes": {
+                "all_day": {
+                    "name": "Ganzt\u00e4gig",
+                    "state": {
+                        "false": "Nein",
+                        "true": "Ja"
+                    }
+                },
+                "description": {
+                    "name": "Beschreibung"
+                },
+                "end_time": {
+                    "name": "Endzeit"
+                },
+                "location": {
+                    "name": "Standort"
+                },
+                "message": {
+                    "name": "Nachricht"
+                },
+                "messages": {
+                    "name": "Nachricht"
+                },
+                "start_time": {
+                    "name": "Startzeit"
+                }
+            }
+        }
+    },
+    "issues": {
+        "deprecated_service_calendar_list_events": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Verwende stattdessen `calendar.get_events`, das mehrere Entit\u00e4ten unterst\u00fctzt. \n\nBitte ersetze diese Aktion, passe deine Automatisierungen und Skripte an und w\u00e4hle **Senden**, um dieses Problem zu schlie\u00dfen.",
+                        "title": "Verwendung der veralteten Aktion calendar.list_events erkannt"
+                    }
+                }
+            },
+            "title": "Verwendung der veralteten Aktion calendar.list_events erkannt"
+        },
+        "platform_integration_no_support": {
+            "description": "Die {platform}-Plattform f\u00fcr die {domain}-Integration unterst\u00fctzt die Plattform-Einrichtung nicht. \n\nBitte entferne es aus deiner Konfiguration und starte Home Assistant neu, um dieses Problem zu beheben.",
+            "title": "Plattform-Unterst\u00fctzung nicht unterst\u00fctzt"
+        }
+    },
+    "services": {
+        "create_event": {
+            "description": "F\u00fcgt ein neues Kalenderereignis hinzu.",
+            "fields": {
+                "description": {
+                    "description": "Eine umfassendere Beschreibung des Ereignisses als in der Zusammenfassung angegeben.",
+                    "name": "Beschreibung"
+                },
+                "end_date": {
+                    "description": "Das Datum, an dem die ganzt\u00e4gige Veranstaltung enden soll (exklusiv).",
+                    "name": "Enddatum"
+                },
+                "end_date_time": {
+                    "description": "Das Datum und die Uhrzeit, zu der das Ereignis enden soll.",
+                    "name": "Endzeit"
+                },
+                "in": {
+                    "description": "Tage oder Wochen, in denen du das Ereignis erstellen m\u00f6chtest.",
+                    "name": "In"
+                },
+                "location": {
+                    "description": "Der Ort der Veranstaltung.",
+                    "name": "Ort"
+                },
+                "start_date": {
+                    "description": "Das Datum, an dem die ganzt\u00e4gige Veranstaltung beginnen soll.",
+                    "name": "Startdatum"
+                },
+                "start_date_time": {
+                    "description": "Datum und Uhrzeit, zu der das Ereignis beginnen soll.",
+                    "name": "Startzeit"
+                },
+                "summary": {
+                    "description": "Legt die kurze Zusammenfassung oder das Thema f\u00fcr das Ereignis fest.",
+                    "name": "Zusammenfassung"
+                }
+            },
+            "name": "Ereignis erstellen"
+        },
+        "get_events": {
+            "description": "Abrufen von Ereignissen in einem Kalender innerhalb eines bestimmten Zeitraums.",
+            "fields": {
+                "duration": {
+                    "description": "Liefert aktive Ereignisse von start_date_time bis zur angegebenen Dauer.",
+                    "name": "Dauer"
+                },
+                "end_date_time": {
+                    "description": "Gibt aktive Ereignisse vor dieser Zeit zur\u00fcck (exklusiv). Kann nicht mit \u201eDauer\u201c verwendet werden.",
+                    "name": "Endzeit"
+                },
+                "start_date_time": {
+                    "description": "Gibt aktive Ereignisse nach dieser Zeit zur\u00fcck (exklusiv). Wenn nicht festgelegt, ist der Standardwert \u201ejetzt\u201c.",
+                    "name": "Startzeit"
+                }
+            },
+            "name": "Abrufen von Ereignissen"
+        },
+        "list_events": {
+            "description": "Listet Ereignisse in einem Kalender innerhalb eines Zeitraums auf.",
+            "fields": {
+                "duration": {
+                    "description": "Liefert aktive Ereignisse von start_date_time bis zur angegebenen Dauer.",
+                    "name": "Dauer"
+                },
+                "end_date_time": {
+                    "description": "Gibt aktive Ereignisse vor dieser Zeit zur\u00fcck (exklusiv). Kann nicht mit \u201eDauer\u201c verwendet werden.",
+                    "name": "Endzeit"
+                },
+                "start_date_time": {
+                    "description": "Gibt aktive Ereignisse nach dieser Zeit zur\u00fcck (exklusiv). Wenn nicht festgelegt, ist der Standardwert \u201ejetzt\u201c.",
+                    "name": "Startzeit"
+                }
+            },
+            "name": "Ereignisse auflisten"
+        }
+    },
+    "title": "Kalender"
+}

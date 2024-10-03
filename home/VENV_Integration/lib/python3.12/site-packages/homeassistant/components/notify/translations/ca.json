@@ -1,0 +1,73 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "Notificacions"
+        }
+    },
+    "issues": {
+        "migrate_notify": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "title": "Migra l'acci\u00f3 de notificaci\u00f3 heretada de {integration_title} del domini `{domain}`"
+                    }
+                }
+            },
+            "title": "Migraci\u00f3 de l'acci\u00f3 de notificaci\u00f3 de {integration_title}"
+        },
+        "migrate_notify_service": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "L'acci\u00f3 `notify.{service_name}` de {integration_title} s'ha migrat, per\u00f2 sembla que l'antiga acci\u00f3 `notify` encara s'est\u00e0 utilitzant.\n\nHi ha disponible una nova entitat de tipus `notify` per substituir cada acci\u00f3 `notify` heretada.\n\nActualitza totes les automatitzacions i/o scripts perqu\u00e8 utilitzin la nova acci\u00f3 `notify.send_message` exposada amb aquesta nova entitat. Un cop fet aix\u00f2, selecciona Envia i reinicia Home Assistant.",
+                        "title": "Migra l'acci\u00f3 de notificaci\u00f3 heretada de {integration_title} del domini `{domain}`"
+                    }
+                }
+            }
+        }
+    },
+    "services": {
+        "notify": {
+            "fields": {
+                "message": {
+                    "description": "Missatge/cos de la notificaci\u00f3.",
+                    "name": "Missatge"
+                },
+                "title": {
+                    "name": "T\u00edtol"
+                }
+            },
+            "name": "Envia una notificaci\u00f3"
+        },
+        "persistent_notification": {
+            "description": "Envia una notificaci\u00f3 visible al panell de notificacions.",
+            "fields": {
+                "data": {
+                    "name": "Dades"
+                },
+                "message": {
+                    "name": "Missatge"
+                },
+                "title": {
+                    "name": "T\u00edtol"
+                }
+            },
+            "name": "Envia una notificaci\u00f3 persistent"
+        },
+        "send_message": {
+            "description": "Envia un missatge de notificaci\u00f3.",
+            "fields": {
+                "message": {
+                    "description": "El missatge de notificaci\u00f3.",
+                    "name": "Missatge"
+                },
+                "title": {
+                    "description": "T\u00edtol del missatge de notificaci\u00f3.",
+                    "name": "T\u00edtol"
+                }
+            },
+            "name": "Envia missatge de notificaci\u00f3"
+        }
+    },
+    "title": "Notificacions"
+}

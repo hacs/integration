@@ -1,0 +1,49 @@
+{
+    "config": {
+        "error": {
+            "address": "Ogiltig fj\u00e4rr-IP-adress har angetts. Adressen m\u00e5ste vara en IPv4-adress.",
+            "address_in_use": "Den valda lyssningsporten anv\u00e4nds redan p\u00e5 detta system.",
+            "model": "Den valda modellen verkar inte st\u00f6dja modbus40",
+            "read": "Fel p\u00e5 l\u00e4sf\u00f6rfr\u00e5gan fr\u00e5n pumpen. Verifiera din \"Fj\u00e4rrl\u00e4sningsport\" eller \"Fj\u00e4rr-IP-adress\".",
+            "unknown": "Ov\u00e4ntat fel",
+            "url": "Den angivna webbadressen \u00e4r inte v\u00e4l utformad eller st\u00f6ds inte",
+            "write": "Fel vid skrivbeg\u00e4ran till pumpen. Verifiera din `Fj\u00e4rrskrivport` eller `Fj\u00e4rr-IP-adress`."
+        },
+        "step": {
+            "modbus": {
+                "data": {
+                    "modbus_unit": "Identifierare f\u00f6r Modbus-enhet",
+                    "modbus_url": "Modbus URL",
+                    "model": "Modell av v\u00e4rmepump"
+                },
+                "data_description": {
+                    "modbus_unit": "Enhetsidentifiering f\u00f6r din v\u00e4rmepump. Kan vanligtvis l\u00e4mnas p\u00e5 0.",
+                    "modbus_url": "Modbus URL som beskriver anslutningen till din v\u00e4rmepump eller MODBUS40-enhet. Den b\u00f6r vara i formen:\n - `tcp://[HOST]:[PORT]` f\u00f6r Modbus TCP-anslutning\n - `serial://[LOCAL DEVICE]` f\u00f6r en lokal Modbus RTU-anslutning\n - `rfc2217://[HOST]:[PORT]` f\u00f6r en fj\u00e4rrstyrd telnetbaserad Modbus RTU-anslutning."
+                }
+            },
+            "nibegw": {
+                "data": {
+                    "ip_address": "Fj\u00e4rradress",
+                    "listening_port": "Lokal lyssningsport",
+                    "model": "Modell av v\u00e4rmepump",
+                    "remote_read_port": "Port f\u00f6r fj\u00e4rrl\u00e4sning",
+                    "remote_write_port": "Port f\u00f6r fj\u00e4rrskrivning"
+                },
+                "data_description": {
+                    "ip_address": "Adressen till NibeGW-enheten. Enheten b\u00f6r ha konfigurerats med en statisk adress.",
+                    "listening_port": "Den lokala porten p\u00e5 detta system som NibeGW-enheten \u00e4r konfigurerad f\u00f6r att skicka data till.",
+                    "remote_read_port": "Den port som NibeGW-enheten lyssnar efter l\u00e4sf\u00f6rfr\u00e5gningar p\u00e5.",
+                    "remote_write_port": "Den port som NibeGW-enheten lyssnar efter skrivf\u00f6rfr\u00e5gningar p\u00e5."
+                },
+                "description": "Innan du f\u00f6rs\u00f6ker konfigurera integrationen, kontrollera att:\n - NibeGW-enheten \u00e4r ansluten till en v\u00e4rmepump.\n - MODBUS40-tillbeh\u00f6ret har aktiverats i v\u00e4rmepumpens konfiguration.\n - Pumpen har inte g\u00e5tt in i ett larml\u00e4ge om att MODBUS40-tillbeh\u00f6r saknas."
+            },
+            "user": {
+                "description": "V\u00e4lj anslutningsmetod till din pump. I allm\u00e4nhet kr\u00e4ver pumpar i F-serien ett anpassat NibeGW-tillbeh\u00f6r, medan en pump i S-serien har inbyggt Modbus-st\u00f6d.",
+                "menu_options": {
+                    "modbus": "Modbus",
+                    "nibegw": "NibeGW"
+                }
+            }
+        }
+    }
+}

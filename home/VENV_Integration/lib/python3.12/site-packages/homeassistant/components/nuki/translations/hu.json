@@ -1,0 +1,89 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Az eszk\u00f6z m\u00e1r konfigur\u00e1lva van",
+            "reauth_successful": "Az \u00fajrahiteles\u00edt\u00e9s sikeres volt."
+        },
+        "error": {
+            "cannot_connect": "Sikertelen csatlakoz\u00e1s",
+            "invalid_auth": "\u00c9rv\u00e9nytelen hiteles\u00edt\u00e9s",
+            "unknown": "V\u00e1ratlan hiba"
+        },
+        "step": {
+            "reauth_confirm": {
+                "data": {
+                    "encrypt_token": "Haszn\u00e1ljon titkos\u00edtott tokent a hiteles\u00edt\u00e9shez.",
+                    "token": "Hozz\u00e1f\u00e9r\u00e9si token"
+                },
+                "description": "A Nuki integr\u00e1ci\u00f3nak \u00fajb\u00f3l hiteles\u00edtenie kell a h\u00edddal.",
+                "title": "A(z) {name} hiteles\u00edt\u00e9se lej\u00e1rt"
+            },
+            "user": {
+                "data": {
+                    "encrypt_token": "Haszn\u00e1ljon titkos\u00edtott tokent a hiteles\u00edt\u00e9shez.",
+                    "host": "Hoszt",
+                    "port": "Port",
+                    "token": "Hozz\u00e1f\u00e9r\u00e9si token"
+                },
+                "data_description": {
+                    "host": "A Nuki-h\u00edd g\u00e9pneve vagy IP-c\u00edme. P\u00e9ld\u00e1ul: 192.168.1.25."
+                }
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "battery_critical": {
+                "name": "Az akkumul\u00e1tor kritikus"
+            },
+            "ring_action": {
+                "name": "Cseng\u0151 m\u0171velet"
+            }
+        },
+        "lock": {
+            "nuki_lock": {
+                "state_attributes": {
+                    "battery_critical": {
+                        "state": {
+                            "off": "Norm\u00e1l",
+                            "on": "Alacsony"
+                        }
+                    }
+                }
+            }
+        },
+        "sensor": {
+            "battery": {
+                "name": "Elem/Akku"
+            }
+        }
+    },
+    "issues": {
+        "https_webhook": {
+            "description": "A Nuki h\u00edd nem tud esem\u00e9nyeket HTTPS-c\u00edmre (SSL) tov\u00e1bb\u00edtani, ez\u00e9rt a [h\u00e1l\u00f3zati be\u00e1ll\u00edt\u00e1sok]({network_link}) \"Home Assistant URL\" alatt sz\u00fcks\u00e9ges bekonfigur\u00e1lni egy (helyi) HTTP-c\u00edmet. A jelenlegi (helyi) c\u00edm a k\u00f6vetkez\u0151: `{base_url}`, egy \u00e9rv\u00e9nyes c\u00edm lehet p\u00e9ld\u00e1ul `http://192.168.1.10:8123`, ahol `192.168.1.10` a Home Assistant eszk\u00f6z IP-c\u00edme.",
+            "title": "A Nuki webhook URL-je HTTPS-t (SSL) haszn\u00e1l"
+        }
+    },
+    "services": {
+        "lock_n_go": {
+            "description": "Nuki z\u00e1r \u00e9s megy (Lock 'n' Go).",
+            "fields": {
+                "unlatch": {
+                    "description": "Meghat\u00e1rozza, hogy kinyitja-e a z\u00e1rat.",
+                    "name": "Kinyit\u00e1s"
+                }
+            },
+            "name": "Z\u00e1r \u00e9s megy"
+        },
+        "set_continuous_mode": {
+            "description": "Bekapcsolja vagy kikapcsolja a folyamatos m\u00f3dot a Nuki nyit\u00f3n.",
+            "fields": {
+                "enable": {
+                    "description": "Meghat\u00e1rozza, hogy bekapcsolja-e vagy kikapcsolja-e a funkci\u00f3t.",
+                    "name": "Enged\u00e9lyez\u00e9s"
+                }
+            },
+            "name": "Folyamatos \u00fczemm\u00f3d be\u00e1ll\u00edt\u00e1sa"
+        }
+    }
+}

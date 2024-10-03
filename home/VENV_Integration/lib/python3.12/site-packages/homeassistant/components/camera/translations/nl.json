@@ -1,0 +1,104 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "Camera",
+            "state": {
+                "idle": "Inactief",
+                "recording": "Opnemen",
+                "streaming": "Streamen"
+            },
+            "state_attributes": {
+                "access_token": {
+                    "name": "Toegangstoken"
+                },
+                "brand": {
+                    "name": "Merk"
+                },
+                "frontend_stream_type": {
+                    "name": "Streamtype",
+                    "state": {
+                        "hls": "HLS",
+                        "webrtc": "WebRTC"
+                    }
+                },
+                "model_name": {
+                    "name": "Model"
+                },
+                "motion_detection": {
+                    "name": "Bewegingsdetectie",
+                    "state": {
+                        "false": "Uitgeschakeld",
+                        "true": "Ingeschakeld"
+                    }
+                }
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "Platform {platform} van de {domain} integratie heeft geen platformondersteuning.\n\nVerwijder dit uit je configuratie en herstart Home Assistant om dit issue op te lossen.",
+            "title": "Platformondersteuning is niet ondersteund"
+        }
+    },
+    "services": {
+        "disable_motion_detection": {
+            "description": "Schakelt de bewegingsdetectie uit.",
+            "name": "Bewegingsdetectie uitschakelen"
+        },
+        "enable_motion_detection": {
+            "description": "Schakelt de bewegingsdetectie in.",
+            "name": "Bewegingsdetectie inschakelen"
+        },
+        "play_stream": {
+            "description": "Speelt de camerastream af op een ondersteunde mediaspeler.",
+            "fields": {
+                "format": {
+                    "description": "Streamformaat ondersteund door de mediaspeler.",
+                    "name": "Formaat"
+                },
+                "media_player": {
+                    "description": "Mediaspelers om naar te streamen.",
+                    "name": "Mediaspeler"
+                }
+            },
+            "name": "Stream afspelen"
+        },
+        "record": {
+            "description": "Maakt een opname van een live camerafeed.",
+            "fields": {
+                "duration": {
+                    "description": "Geplande duur van de opname. De werkelijke duur kan vari\u00ebren.",
+                    "name": "Duur"
+                },
+                "filename": {
+                    "description": "Template van een bestandsnaam. Beschikbare variabele is `entity_id`. Moet mp4 zijn.",
+                    "name": "Bestandsnaam"
+                },
+                "lookback": {
+                    "description": "Geplande terugkijkperiode om op te nemen in de opname (ook naast de duur). Alleen beschikbaar als er momenteel een actieve HLS-stream is. De werkelijke lengte van de terugkijkperiode kan vari\u00ebren.",
+                    "name": "Terugblik"
+                }
+            },
+            "name": "Opnemen"
+        },
+        "snapshot": {
+            "description": "Maakt een momentopname van een camera.",
+            "fields": {
+                "filename": {
+                    "description": "Template van een bestandsnaam. Beschikbare variabele is `entity_id`.",
+                    "name": "Bestandsnaam"
+                }
+            },
+            "name": "Maak een momentopname"
+        },
+        "turn_off": {
+            "description": "Zet de camera uit.",
+            "name": "Uitzetten"
+        },
+        "turn_on": {
+            "description": "Zet de camera aan.",
+            "name": "Aanzetten"
+        }
+    },
+    "title": "Camera"
+}

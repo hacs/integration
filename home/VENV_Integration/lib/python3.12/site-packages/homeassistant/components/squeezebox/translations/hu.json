@@ -1,0 +1,79 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Az eszk\u00f6z m\u00e1r konfigur\u00e1lva van",
+            "no_server_found": "Nem tal\u00e1lhat\u00f3 LMS szerver."
+        },
+        "error": {
+            "cannot_connect": "Sikertelen csatlakoz\u00e1s",
+            "invalid_auth": "\u00c9rv\u00e9nytelen hiteles\u00edt\u00e9s",
+            "no_server_found": "Nem siker\u00fclt automatikusan felfedezni a szervert.",
+            "unknown": "V\u00e1ratlan hiba"
+        },
+        "flow_title": "{host}",
+        "step": {
+            "edit": {
+                "data": {
+                    "host": "Hoszt",
+                    "https": "Csatlakoz\u00e1s https-en kereszt\u00fcl (ford\u00edtott proxy sz\u00fcks\u00e9ges)",
+                    "password": "Jelsz\u00f3",
+                    "port": "Port",
+                    "username": "Felhaszn\u00e1l\u00f3n\u00e9v"
+                },
+                "title": "Kapcsolati inform\u00e1ci\u00f3k szerkeszt\u00e9se"
+            },
+            "user": {
+                "data": {
+                    "host": "Hoszt"
+                },
+                "data_description": {
+                    "host": "A Lyrion Music Server hosztneve vagy IP-c\u00edme"
+                }
+            }
+        }
+    },
+    "services": {
+        "call_method": {
+            "description": "Egy\u00e9ni Squeezebox JSONRPC API-t h\u00edv meg.",
+            "fields": {
+                "command": {
+                    "description": "A Lyrion Music Server sz\u00e1m\u00e1ra tov\u00e1bb\u00edtand\u00f3 parancs (a CLI dokument\u00e1ci\u00f3ban p0).",
+                    "name": "Parancs"
+                },
+                "parameters": {
+                    "description": "Tov\u00e1bbi param\u00e9terek t\u00f6mbje, amelyeket a Lyrion Music Server sz\u00e1m\u00e1ra kell tov\u00e1bb\u00edtani (a CLI dokument\u00e1ci\u00f3ban p1, ..., pN).\n.",
+                    "name": "Param\u00e9terek"
+                }
+            },
+            "name": "H\u00edv\u00e1si m\u00f3dszer"
+        },
+        "call_query": {
+            "description": "Megh\u00edv egy egy\u00e9ni Squeezebox JSONRPC API-t. Az eredm\u00e9ny a Squeezebox entit\u00e1s 'query_result' attrib\u00fatum\u00e1ban lesz t\u00e1rolva.\n.",
+            "fields": {
+                "command": {
+                    "description": "A Lyrion Music Server sz\u00e1m\u00e1ra tov\u00e1bb\u00edtand\u00f3 parancs (a CLI dokument\u00e1ci\u00f3ban p0).",
+                    "name": "Parancs"
+                },
+                "parameters": {
+                    "description": "Tov\u00e1bbi param\u00e9terek t\u00f6mbje, amelyeket a Lyrion Music Server sz\u00e1m\u00e1ra kell tov\u00e1bb\u00edtani (a CLI dokument\u00e1ci\u00f3ban p1, ..., pN).\n.",
+                    "name": "Param\u00e9terek"
+                }
+            },
+            "name": "Lek\u00e9rdez\u00e9s h\u00edv\u00e1sa"
+        },
+        "sync": {
+            "description": "Hozz\u00e1ad egy m\u00e1sik lej\u00e1tsz\u00f3t ehhez a lej\u00e1tsz\u00f3 szinkron csoportj\u00e1hoz. Ha a m\u00e1sik lej\u00e1tsz\u00f3 m\u00e1r egy szinkron csoportban van, elhagyja azt.\n.",
+            "fields": {
+                "other_player": {
+                    "description": "A csatoland\u00f3 m\u00e1sik Squeezebox lej\u00e1tsz\u00f3 neve.",
+                    "name": "M\u00e1sik lej\u00e1tsz\u00f3"
+                }
+            },
+            "name": "Szinkroniz\u00e1l\u00e1s"
+        },
+        "unsync": {
+            "description": "Elt\u00e1vol\u00edtja ezt a lej\u00e1tsz\u00f3t a szinkron csoportj\u00e1b\u00f3l.",
+            "name": "Szinkroniz\u00e1l\u00e1s megsz\u00fcntet\u00e9se"
+        }
+    }
+}

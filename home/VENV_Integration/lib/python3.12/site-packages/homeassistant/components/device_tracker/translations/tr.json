@@ -1,0 +1,90 @@
+{
+    "device_automation": {
+        "condition_type": {
+            "is_home": "{entity_name} evde",
+            "is_not_home": "{entity_name} evde de\u011fil"
+        },
+        "extra_fields": {
+            "zone": "B\u00f6lge"
+        },
+        "trigger_type": {
+            "enters": "{entity_name} bir b\u00f6lgeye girdi",
+            "leaves": "{entity_name} bir b\u00f6lgeden ayr\u0131l\u0131yor"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Cihaz izleyici",
+            "state": {
+                "home": "Evde",
+                "not_home": "D\u0131\u015far\u0131da"
+            },
+            "state_attributes": {
+                "battery": {
+                    "name": "Pil"
+                },
+                "gps_accuracy": {
+                    "name": "GPS do\u011frulu\u011fu"
+                },
+                "latitude": {
+                    "name": "Enlem"
+                },
+                "longitude": {
+                    "name": "Boylam"
+                },
+                "source_type": {
+                    "name": "Kaynak",
+                    "state": {
+                        "bluetooth": "Bluetooth",
+                        "bluetooth_le": "Bluetooth LE",
+                        "gps": "GPS",
+                        "router": "Y\u00f6nlendirici"
+                    }
+                }
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "{domain} entegrasyonu i\u00e7in {platform} platformu, platform kurulumunu desteklemiyor. \n\n L\u00fctfen yap\u0131land\u0131rman\u0131zdan kald\u0131r\u0131n ve bu sorunu \u00e7\u00f6zmek i\u00e7in Home Assistant'\u0131 yeniden ba\u015flat\u0131n.",
+            "title": "Platform deste\u011fi desteklenmiyor"
+        }
+    },
+    "services": {
+        "see": {
+            "description": "G\u00f6r\u00fclen izlenen bir cihaz\u0131 kaydeder.",
+            "fields": {
+                "battery": {
+                    "description": "Cihaz\u0131n pil seviyesi.",
+                    "name": "Pil seviyesi"
+                },
+                "dev_id": {
+                    "description": "Cihaz\u0131n kimli\u011fi ('known_devices.yaml' i\u00e7inde kimli\u011fi bulun).",
+                    "name": "Cihaz Kimli\u011fi"
+                },
+                "gps": {
+                    "description": "Cihaz\u0131n bulundu\u011fu konumdaki GPS koordinatlar\u0131, enlem ve boylamla belirtilir (\u00f6rne\u011fin: [51.513845, -0.100539]).",
+                    "name": "GPS koordinatlar\u0131"
+                },
+                "gps_accuracy": {
+                    "description": "GPS koordinatlar\u0131n\u0131n do\u011frulu\u011fu.",
+                    "name": "GPS do\u011frulu\u011fu"
+                },
+                "host_name": {
+                    "description": "Cihaz\u0131n ana bilgisayar ad\u0131.",
+                    "name": "Ana bilgisayar ad\u0131"
+                },
+                "location_name": {
+                    "description": "Cihaz\u0131n bulundu\u011fu konumun ad\u0131. Se\u00e7enekler \u015funlard\u0131r: \"ev\", \"ev_de\u011fil\" veya b\u00f6lgenin ad\u0131.",
+                    "name": "Konum"
+                },
+                "mac": {
+                    "description": "Cihaz\u0131n MAC adresi.",
+                    "name": "MAC adresi"
+                }
+            },
+            "name": "G\u00f6r"
+        }
+    },
+    "title": "Cihaz izleyici"
+}

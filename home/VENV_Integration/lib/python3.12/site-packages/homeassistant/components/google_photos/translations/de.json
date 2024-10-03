@@ -1,0 +1,87 @@
+{
+    "application_credentials": {
+        "description": "Folge den [Anweisungen]({more_info_url}) f\u00fcr den [OAuth-Zustimmungsbildschirm]({oauth_consent_url}), um Home Assistant Zugriff auf deine Google Fotos zu gew\u00e4hren. Du musst au\u00dferdem Anwendungs-Anmeldeinformationen erstellen, die mit deinem Konto verkn\u00fcpft sind:\n1. Gehe zu [Anmeldeinformationen]({oauth_creds_url}) und klicke auf **Anmeldeinformationen erstellen**.\n2. W\u00e4hle aus der Dropdownliste **OAuth-Client-ID**.\n3. W\u00e4hle **Webanwendung** als Anwendungstyp."
+    },
+    "config": {
+        "abort": {
+            "access_not_configured": "Kein Zugriff auf die Google-API m\u00f6glich: {message}",
+            "already_configured": "Konto wurde bereits konfiguriert",
+            "already_in_progress": "Der Konfigurationsablauf wird bereits ausgef\u00fchrt",
+            "authorize_url_timeout": "Zeit\u00fcberschreitung beim Erstellen der Authorisierungs-URL.",
+            "missing_configuration": "Die Komponente ist nicht konfiguriert. Bitte der Dokumentation folgen.",
+            "no_url_available": "Keine URL verf\u00fcgbar. Informationen zu diesem Fehler findest du [im Hilfebereich]({docs_url}).",
+            "oauth_error": "Ung\u00fcltige Token-Daten empfangen.",
+            "oauth_failed": "Fehler beim Abrufen des Zugriffstokens.",
+            "oauth_timeout": "Zeit\u00fcberschreitung beim Aufl\u00f6sen des OAuth-Tokens.",
+            "oauth_unauthorized": "OAuth-Autorisierungsfehler beim Abrufen des Zugriffstokens.",
+            "unknown": "Unerwarteter Fehler",
+            "user_rejected_authorize": "Kontoverkn\u00fcpfung abgelehnt: {error}",
+            "wrong_account": "Falsches Konto: Bitte authentifiziere dich mit dem richtigen Konto."
+        },
+        "create_entry": {
+            "default": "Erfolgreich authentifiziert"
+        },
+        "step": {
+            "pick_implementation": {
+                "title": "W\u00e4hle die Authentifizierungsmethode"
+            }
+        }
+    },
+    "exceptions": {
+        "albums_failed": {
+            "message": "Alben k\u00f6nnen nicht von der Google Photos API abgerufen werden"
+        },
+        "api_error": {
+            "message": "Google Photos API hat mit Fehler geantwortet: {message}"
+        },
+        "create_album_error": {
+            "message": "Erstellen des Albums fehlgeschlagen: {message}"
+        },
+        "file_too_large": {
+            "message": "`{filename}` ist zu gro\u00df ({size} > {limit})"
+        },
+        "filename_does_not_exist": {
+            "message": "`{filename}` existiert nicht"
+        },
+        "filename_is_not_image": {
+            "message": "`{filename}` ist kein Bild"
+        },
+        "integration_not_found": {
+            "message": "Integration \u201e{target}\u201c nicht in der Registrierung gefunden."
+        },
+        "missing_upload_permission": {
+            "message": "Home Assistant wurde keine Berechtigung zum Hochladen auf Google Fotos erteilt"
+        },
+        "no_access_to_path": {
+            "message": "{filename} kann nicht gelesen werden, kein Zugriff auf den Pfad; `allowlist_external_dirs` muss m\u00f6glicherweise in `configuration.yaml` angepasst werden."
+        },
+        "not_loaded": {
+            "message": "{target} ist nicht geladen."
+        },
+        "upload_error": {
+            "message": "Hochladen des Inhalts fehlgeschlagen: {message}"
+        }
+    },
+    "services": {
+        "upload": {
+            "description": "Lade Bilder oder Videos auf Google Fotos hoch.",
+            "fields": {
+                "album": {
+                    "description": "Name des Albums, das das Ziel f\u00fcr den hochgeladenen Inhalt ist.",
+                    "example": "Familienfotos",
+                    "name": "Album"
+                },
+                "config_entry_id": {
+                    "description": "Die Google Photos-Integrations-ID.",
+                    "name": "Integrations-ID"
+                },
+                "filename": {
+                    "description": "Pfad zum hochzuladenden Bild oder Video.",
+                    "example": "/config/www/image.jpg",
+                    "name": "Dateiname"
+                }
+            },
+            "name": "Medien hochladen"
+        }
+    }
+}

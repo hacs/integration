@@ -1,0 +1,192 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Laite on jo m\u00e4\u00e4ritetty"
+        },
+        "error": {
+            "cannot_connect": "Yhteyden muodostaminen ep\u00e4onnistui",
+            "invalid_auth": "Virheellinen todennus",
+            "invalid_host": "Palvelimen osoite ei ollut t\u00e4ydess\u00e4 URL-muodossa, esim. http://192.168.10.100:80",
+            "reauth_successful": "Uudelleentodennus onnistui",
+            "unknown": "Odottamaton virhe"
+        },
+        "flow_title": "{name} ({host})",
+        "step": {
+            "reauth_confirm": {
+                "data": {
+                    "password": "Salasana",
+                    "username": "K\u00e4ytt\u00e4j\u00e4tunnus"
+                },
+                "description": "K\u00e4ytt\u00e4j\u00e4n {host} kirjautumistiedot eiv\u00e4t ole en\u00e4\u00e4 voimassa.",
+                "title": "Todenna ISY:si uudelleen"
+            },
+            "user": {
+                "data": {
+                    "host": "URL-osoite",
+                    "password": "Salasana",
+                    "tls": "ISY-ohjaimen TLS-versio.",
+                    "username": "K\u00e4ytt\u00e4j\u00e4tunnus"
+                },
+                "description": "Is\u00e4nt\u00e4kohteen merkinn\u00e4n on oltava t\u00e4ydellisess\u00e4 URL-muodossa, esimerkiksi http://192.168.10.100:80.",
+                "title": "Yhdist\u00e4 ISY:hen"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_service": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "P\u00e4ivit\u00e4 kaikki t\u00e4t\u00e4 palvelua k\u00e4ytt\u00e4v\u00e4t automaatiot tai skriptit k\u00e4ytt\u00e4m\u00e4\u00e4n sen sijaan `{alternate_service}` -palvelua, jonka entiteettitunnus on `{alternate_target}`.",
+                        "title": "Palvelu {deprecated_service} poistetaan"
+                    },
+                    "deprecated_yaml": {
+                        "description": "Universal Devices ISY/IoX -laitteiden m\u00e4\u00e4ritt\u00e4minen YAML:n avulla poistetaan.\n\nOlemassa oleva YAML-konfiguraatiosi on tuotu k\u00e4ytt\u00f6liittym\u00e4\u00e4n automaattisesti.\n\nPoista `isy994` YAML-konfiguraatio configuration.yaml-tiedostosta ja k\u00e4ynnist\u00e4 Home Assistant uudelleen ongelman korjaamiseksi.",
+                        "title": "ISY/IoX YAML-konfiguraatio poistetaan."
+                    }
+                }
+            },
+            "title": "Palvelu {deprecated_service} poistetaan"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "ignore_string": "Ohita merkkijono",
+                    "restore_light_state": "Valon kirkkauden palauttaminen",
+                    "sensor_string": "Solmun sensorin merkkijono",
+                    "variable_sensor_string": "Muuttuva sensorin merkkijono"
+                },
+                "description": "Aseta ISY-integraation asetukset: \n - Node Sensor String: Kaikki laitteet tai kansiot, joiden nimess\u00e4 on 'Node Sensor String', k\u00e4sitell\u00e4\u00e4n anturina tai bin\u00e4\u00e4rianturina. \n - Ignore String: Kaikki laitteet, joiden nimess\u00e4 on 'Ignore String', j\u00e4tet\u00e4\u00e4n huomiotta. \n - Muuttuva anturijono: Kaikki muuttujat, jotka sis\u00e4lt\u00e4v\u00e4t 'Variable Sensor String', lis\u00e4t\u00e4\u00e4n anturiksi. \n - Palauta valon kirkkaus: Jos t\u00e4m\u00e4 toiminto on k\u00e4yt\u00f6ss\u00e4, aiempi kirkkaus palautetaan, kun valoa kytket\u00e4\u00e4n p\u00e4\u00e4lle laitteen sis\u00e4\u00e4nrakennetun On-tason sijaan.",
+                "title": "ISY-asetukset"
+            }
+        }
+    },
+    "services": {
+        "delete_zwave_lock_user_code": {
+            "description": "Z-Wave-lukon k\u00e4ytt\u00e4j\u00e4koodin poistaminen ISY:n kautta.",
+            "fields": {
+                "user_num": {
+                    "description": "Lukossa oleva k\u00e4ytt\u00e4j\u00e4paikan numero.",
+                    "name": "K\u00e4ytt\u00e4j\u00e4numero"
+                }
+            },
+            "name": "Z-Wave-lukon k\u00e4ytt\u00e4j\u00e4koodin poistaminen"
+        },
+        "get_zwave_parameter": {
+            "description": "Pyyt\u00e4\u00e4 Z-Wave-laitteen parametria ISY:n kautta. Parametrin arvo palautetaan ylim\u00e4\u00e4r\u00e4isen\u00e4 tila-attribuuttina, jonka nimi on \"ZW_#\", jossa \"#\" on parametrin numero.",
+            "fields": {
+                "parameter": {
+                    "description": "Laitteesta haettavan parametrin numero.",
+                    "name": "Parametri"
+                }
+            },
+            "name": "Hae Z-Wave-parametri"
+        },
+        "rename_node": {
+            "description": "Nime\u00e4\u00e4 ISY:n solmun tai ryhm\u00e4n (tilanteen) uudelleen. Huomautus: t\u00e4m\u00e4 ei automaattisesti muuta Home Assistant entieettinime\u00e4 tai -tunnusta vastaavaksi. Entiteetin nimi ja tunnus p\u00e4ivittyv\u00e4t vasta, kun uudelleenlataat integraation tai k\u00e4ynnist\u00e4t Home Assistantin uudelleen, ja VAIN JOS et ole jo mukauttanut nime\u00e4 Home Assistantissa.",
+            "fields": {
+                "name": {
+                    "description": "Uusi nimi, jota k\u00e4ytet\u00e4\u00e4n ISY:ss\u00e4.",
+                    "name": "Uusi nimi"
+                }
+            },
+            "name": "Nime\u00e4 solmu uudelleen ISY:ss\u00e4"
+        },
+        "send_node_command": {
+            "description": "L\u00e4hett\u00e4\u00e4 komennon ISY-laitteelle k\u00e4ytt\u00e4en sen Home Assistant -yksik\u00f6n tunnusta. Kelvollisia komentoja ovat: beep, brighten, dim, disable, enable, fade_down, fade_stop, fade_up, fast_off, fast_on ja query.",
+            "fields": {
+                "command": {
+                    "description": "Laitteelle l\u00e4hetett\u00e4v\u00e4 komento.",
+                    "name": "Komento"
+                }
+            },
+            "name": "L\u00e4het\u00e4 solmukomento"
+        },
+        "send_program_command": {
+            "description": "L\u00e4hett\u00e4\u00e4 komennon ISY-ohjelman tai kansion ohjaamiseksi. Kelvollisia komentoja ovat run, run_then, run_else, stop, enable, disable, enable_run_at_startup ja disable_run_at_startup.",
+            "fields": {
+                "address": {
+                    "description": "Ohjattavan ohjelman osoite (k\u00e4yt\u00e4 joko osoitetta tai nime\u00e4).",
+                    "name": "Osoite"
+                },
+                "command": {
+                    "description": "L\u00e4hetett\u00e4v\u00e4 ISY-ohjelmakomento.",
+                    "name": "Komento"
+                },
+                "isy": {
+                    "description": "Jos sinulla on useampi kuin yksi ISY liitettyn\u00e4, anna kysytt\u00e4v\u00e4n ISY:n nimi (joka n\u00e4kyy laiterekisteriss\u00e4 tai ISY:n hallintakonsolin ylimp\u00e4n\u00e4 ensimm\u00e4isen\u00e4 solmuna).  Jos sinulla on sama ohjelman nimi tai osoite useassa ISY:ss\u00e4, t\u00e4m\u00e4n kohdan pois j\u00e4tt\u00e4minen suorittaa komennon kaikissa ISY:ss\u00e4.",
+                    "name": "ISY"
+                },
+                "name": {
+                    "description": "Ohjattavan ohjelman nimi (k\u00e4yt\u00e4 joko osoitetta tai nime\u00e4).",
+                    "name": "Nimi"
+                }
+            },
+            "name": "L\u00e4het\u00e4 ohjelmakomento"
+        },
+        "send_raw_node_command": {
+            "description": "Aseta ISY-integraation asetukset: \n - Node Sensor String: Kaikki laitteet tai kansiot, joiden nimess\u00e4 on 'Node Sensor String', k\u00e4sitell\u00e4\u00e4n anturina tai bin\u00e4\u00e4rianturina. \n - Ignore String: Kaikki laitteet, joiden nimess\u00e4 on 'Ignore String', j\u00e4tet\u00e4\u00e4n huomiotta. \n - Muuttuva anturijono: Kaikki muuttujat, jotka sis\u00e4lt\u00e4v\u00e4t 'Variable Sensor String', lis\u00e4t\u00e4\u00e4n anturiksi. \n - Palauta valon kirkkaus: Jos t\u00e4m\u00e4 toiminto on k\u00e4yt\u00f6ss\u00e4, aiempi kirkkaus palautetaan, kun valoa kytket\u00e4\u00e4n p\u00e4\u00e4lle laitteen sis\u00e4\u00e4nrakennetun On-tason sijaan.",
+            "fields": {
+                "command": {
+                    "description": "Laitteelle l\u00e4hetett\u00e4v\u00e4 ISY REST -komento.",
+                    "name": "Komento"
+                },
+                "parameters": {
+                    "description": "Kyselymerkkijonossa l\u00e4hetett\u00e4vien parametrien sanasto (esim. v\u00e4rillisten lamppujen ohjausta varten).",
+                    "name": "Parametrit"
+                },
+                "unit_of_measurement": {
+                    "description": "ISY-mittayksikk\u00f6 (UOM), joka l\u00e4hetet\u00e4\u00e4n tarvittaessa komennon mukana.",
+                    "name": "Mittayksikk\u00f6"
+                },
+                "value": {
+                    "description": "Komennon mukana l\u00e4hetett\u00e4v\u00e4 kokonaislukuarvo.",
+                    "name": "Arvo"
+                }
+            },
+            "name": "L\u00e4het\u00e4 raa'an solmukomennon komento"
+        },
+        "set_zwave_lock_user_code": {
+            "description": "Asettaa Z-Wave-lukon k\u00e4ytt\u00e4j\u00e4koodin ISY:n kautta.",
+            "fields": {
+                "code": {
+                    "description": "K\u00e4ytt\u00e4j\u00e4lle asetettava koodi.",
+                    "name": "Koodi"
+                },
+                "user_num": {
+                    "description": "Lukossa oleva k\u00e4ytt\u00e4j\u00e4paikan numero.",
+                    "name": "K\u00e4ytt\u00e4j\u00e4numero"
+                }
+            },
+            "name": "Z-Wave-lukon k\u00e4ytt\u00e4j\u00e4koodin asettaminen"
+        },
+        "set_zwave_parameter": {
+            "description": "P\u00e4ivitt\u00e4\u00e4 Z-Wave-laitteen parametrin ISY:n kautta. Parametrin arvo palautetaan my\u00f6s ylim\u00e4\u00e4r\u00e4isen\u00e4 tilaattribuuttina, jonka nimi on \"ZW_#\", jossa \"#\" on parametrin numero.",
+            "fields": {
+                "parameter": {
+                    "description": "P\u00e4\u00e4telaitteeseen asetettavan parametrin numero.",
+                    "name": "Parametri"
+                },
+                "size": {
+                    "description": "Parametrin koko, joko 1, 2 tai 4 tavua.",
+                    "name": "Koko"
+                },
+                "value": {
+                    "description": "Parametrille asetettava arvo. Voi olla kokonaisluku tai tavujono (esim. \"0xFFFFFF\").",
+                    "name": "Arvo"
+                }
+            },
+            "name": "Aseta Z-Wave-parametri"
+        }
+    },
+    "system_health": {
+        "info": {
+            "device_connected": "ISY yhdistetty",
+            "host_reachable": "Is\u00e4nt\u00e4 tavoitettavissa",
+            "last_heartbeat": "Viimeinen syd\u00e4menly\u00f6ntiaika",
+            "websocket_status": "Tapahtumaliittimen tila"
+        }
+    }
+}

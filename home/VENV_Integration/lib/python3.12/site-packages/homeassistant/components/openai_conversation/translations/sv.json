@@ -1,0 +1,75 @@
+{
+    "config": {
+        "error": {
+            "cannot_connect": "Det gick inte att ansluta.",
+            "invalid_auth": "Ogiltig autentisering",
+            "unknown": "Ov\u00e4ntat fel"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "api_key": "API-nyckel"
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "invalid_config_entry": {
+            "message": "Ogiltig konfigurationspost har angetts. Fick {config_entry}"
+        }
+    },
+    "issues": {
+        "image_size_deprecated_format": {
+            "description": "OpenAI anv\u00e4nder nu Dall-E 3 f\u00f6r att generera bilder n\u00e4r `openai_conversation.generate_image` anropas, vilket st\u00f6der olika storlekar. Giltiga v\u00e4rden \u00e4r nu \"1024x1024\", \"1024x1792\", \"1792x1024\". De gamla v\u00e4rdena \"256\", \"512\", \"1024\" tolkas f\u00f6r n\u00e4rvarande som \"1024x1024\".\nV\u00e4nligen uppdatera dina skript eller automatiseringar med de nya parametrarna.",
+            "title": "Inaktuellt storleksformat f\u00f6r bildgenereringstj\u00e4nsten"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "chat_model": "Modell",
+                    "llm_hass_api": "Styr Home Assistant",
+                    "max_tokens": "Maximalt antal tokens som ska returneras i svaret",
+                    "model": "Modell f\u00f6r f\u00e4rdigst\u00e4llande",
+                    "prompt": "Instruktioner",
+                    "recommended": "Rekommenderade modellinst\u00e4llningar",
+                    "temperature": "Temperatur",
+                    "top_p": "Top-P"
+                },
+                "data_description": {
+                    "prompt": "Instruera hur LLM ska svara. Detta kan vara en mall."
+                }
+            }
+        }
+    },
+    "services": {
+        "generate_image": {
+            "description": "F\u00f6rvandla en prompt till en bild",
+            "fields": {
+                "config_entry": {
+                    "description": "Den konfigurationspost som ska anv\u00e4ndas f\u00f6r den h\u00e4r tj\u00e4nsten",
+                    "name": "Konfigurationspost"
+                },
+                "prompt": {
+                    "description": "Texten som ska omvandlas till bild",
+                    "example": "Ett foto p\u00e5 en hund",
+                    "name": "Prompt"
+                },
+                "quality": {
+                    "description": "Kvaliteten p\u00e5 den bild som kommer att genereras",
+                    "name": "Kvalitet"
+                },
+                "size": {
+                    "description": "Storleken p\u00e5 bilden som ska genereras",
+                    "name": "Storlek"
+                },
+                "style": {
+                    "description": "Stilen f\u00f6r den genererade bilden",
+                    "name": "Stil"
+                }
+            },
+            "name": "Generera bild"
+        }
+    }
+}

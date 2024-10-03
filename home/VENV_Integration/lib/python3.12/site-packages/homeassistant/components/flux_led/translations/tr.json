@@ -1,0 +1,161 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Cihaz zaten yap\u0131land\u0131r\u0131lm\u0131\u015f",
+            "already_in_progress": "Yap\u0131land\u0131rma ak\u0131\u015f\u0131 zaten devam ediyor",
+            "no_devices_found": "A\u011fda cihaz bulunamad\u0131"
+        },
+        "error": {
+            "cannot_connect": "Ba\u011flanma hatas\u0131"
+        },
+        "flow_title": "{model} {id} ({ipaddr})",
+        "step": {
+            "discovery_confirm": {
+                "description": "{model} {id} ( {ipaddr} ) kurmak istiyor musunuz?"
+            },
+            "user": {
+                "data": {
+                    "host": "Sunucu"
+                },
+                "description": "Ana bilgisayar\u0131 bo\u015f b\u0131rak\u0131rsan\u0131z, cihazlar\u0131 bulmak i\u00e7in ke\u015fif kullan\u0131lacakt\u0131r."
+            }
+        }
+    },
+    "entity": {
+        "button": {
+            "unpair_remotes": {
+                "name": "Uzaktan kumandalar\u0131n e\u015fle\u015ftirmesini kald\u0131r\u0131n"
+            }
+        },
+        "number": {
+            "effect_speed": {
+                "name": "Etki h\u0131z\u0131"
+            },
+            "music_pixels_per_segment": {
+                "name": "Segment ba\u015f\u0131na m\u00fczik pikseli"
+            },
+            "music_segments": {
+                "name": "M\u00fczik b\u00f6l\u00fcmleri"
+            },
+            "pixels_per_segment": {
+                "name": "Segment ba\u015f\u0131na piksel"
+            },
+            "segments": {
+                "name": "Segmentler"
+            }
+        },
+        "select": {
+            "ic_type": {
+                "name": "IC tipi"
+            },
+            "operating_mode": {
+                "name": "\u00c7al\u0131\u015fma modu"
+            },
+            "power_restored": {
+                "name": "G\u00fc\u00e7 yeniden sa\u011fland\u0131"
+            },
+            "remote_config": {
+                "name": "Uzaktan yap\u0131land\u0131rma"
+            },
+            "white_channel": {
+                "name": "Beyaz kanal"
+            },
+            "wiring": {
+                "name": "Kablolama"
+            }
+        },
+        "sensor": {
+            "paired_remotes": {
+                "name": "E\u015fle\u015ftirilmi\u015f uzaktan kumandalar"
+            }
+        },
+        "switch": {
+            "music": {
+                "name": "M\u00fczik"
+            },
+            "remote_access": {
+                "name": "Uzaktan eri\u015fim"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "custom_effect_colors": "\u00d6zel Efekt: 1 ila 16 [R,G,B] renk listesi. \u00d6rnek: [255,0,255],[60,128,0]",
+                    "custom_effect_speed_pct": "\u00d6zel Efekt: Renk de\u011fi\u015ftiren efektler i\u00e7in y\u00fczde cinsinden h\u0131z.",
+                    "custom_effect_transition": "\u00d6zel Efekt: Renkler aras\u0131ndaki ge\u00e7i\u015f t\u00fcr\u00fc.",
+                    "mode": "Se\u00e7ilen parlakl\u0131k modu."
+                }
+            }
+        }
+    },
+    "services": {
+        "set_custom_effect": {
+            "description": "\u00d6zel bir \u0131\u015f\u0131k efekti ayarlar.",
+            "fields": {
+                "colors": {
+                    "description": "\u00d6zel efekt (RGB) i\u00e7in renk listesi. (Maks. 16 Renk).",
+                    "name": "Renkler"
+                },
+                "speed_pct": {
+                    "description": "\u00d6zel efekt i\u00e7in efekt h\u0131z\u0131 (0-100).",
+                    "name": "H\u0131z"
+                },
+                "transition": {
+                    "description": "Efekt ge\u00e7i\u015fi.",
+                    "name": "Ge\u00e7i\u015f"
+                }
+            },
+            "name": "\u00d6zel efekt ayarla"
+        },
+        "set_music_mode": {
+            "description": "Yerle\u015fik bir mikrofona sahip MIC (0x08), Adreslenebilir v2 (0xA2) ve Adreslenebilir v3 (0xA3) cihazlar\u0131yla Denetleyici RGB'de m\u00fczik modunu yap\u0131land\u0131r\u0131r.",
+            "fields": {
+                "background_color": {
+                    "description": "Arka plan RGB rengi (Yaln\u0131zca adreslenebilir modeller).",
+                    "name": "Arka plan rengi"
+                },
+                "brightness": {
+                    "description": "I\u015f\u0131k parlakl\u0131\u011f\u0131 (0-100).",
+                    "name": "Parlakl\u0131k"
+                },
+                "effect": {
+                    "description": "Efekt (Adreslenebilir modellerde 1-16, MIC modellerinde RGB \u00fczerinde 0-3).",
+                    "name": "Efekt"
+                },
+                "foreground_color": {
+                    "description": "\u00d6n plan RGB rengi.",
+                    "name": "\u00d6n plan rengi"
+                },
+                "light_screen": {
+                    "description": "2 boyutlu pikseller i\u00e7in hafif ekran modu (Yaln\u0131zca adreslenebilir modeller).",
+                    "name": "Hafif ekran"
+                },
+                "sensitivity": {
+                    "description": "Mikrofon hassasiyeti (0-100).",
+                    "name": "Hassasiyet"
+                }
+            },
+            "name": "M\u00fczik modunu ayarla"
+        },
+        "set_zones": {
+            "description": "Adreslenebilir v3 denetleyicileri (0xA3) i\u00e7in \u015ferit b\u00f6lgelerini ayarlar.",
+            "fields": {
+                "colors": {
+                    "description": "Her b\u00f6lge i\u00e7in renk listesi (RGB). Her b\u00f6lgenin uzunlu\u011fu, renk say\u0131s\u0131na b\u00f6l\u00fcnen segment ba\u015f\u0131na piksel say\u0131s\u0131d\u0131r. (Maks. 2048 Renk).",
+                    "name": "Renkler"
+                },
+                "effect": {
+                    "description": "Efekt.",
+                    "name": "Efekt"
+                },
+                "speed_pct": {
+                    "description": "\u00d6zel efekt i\u00e7in efekt h\u0131z\u0131 (0-100).",
+                    "name": "H\u0131z"
+                }
+            },
+            "name": "B\u00f6lgeleri ayarla"
+        }
+    }
+}

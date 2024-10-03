@@ -1,0 +1,463 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Der Dienst ist bereits konfiguriert",
+            "single_instance_allowed": "Bereits konfiguriert. Nur eine einzige Konfiguration m\u00f6glich."
+        },
+        "error": {
+            "cannot_connect": "Verbindung fehlgeschlagen",
+            "invalid_backbone_key": "Ung\u00fcltiger Backbone-Schl\u00fcssel. 32 Hexadezimalzahlen erwartet.",
+            "invalid_individual_address": "Wert ist keine g\u00fcltige physikalische Adresse. \u201earea.line.device\u201c",
+            "invalid_ip_address": "Ung\u00fcltige IPv4-Adresse.",
+            "keyfile_invalid_signature": "Das Passwort f\u00fcr die `.knxkeys` Datei ist falsch.",
+            "keyfile_no_backbone_key": "Die `.knxkeys` Datei enth\u00e4lt keinen Backbone-Schl\u00fcssel f\u00fcr Secure Routing.",
+            "keyfile_no_tunnel_for_host": "Die `.knxkeys` Datei enth\u00e4lt keine Verbindungsinformationen f\u00fcr Host `{host}`.",
+            "keyfile_not_found": "Die angegebene `.knxkeys` Datei wurde nicht in config/.storage/knx/ gefunden",
+            "no_router_discovered": "Es wurde kein KNXnet/IP-Router im Netzwerk gefunden.",
+            "no_tunnel_discovered": "Es konnte kein KNX-Tunneling-Server in deinem Netzwerk gefunden werden.",
+            "unsupported_tunnel_type": "Ausgew\u00e4hlter Tunneltyp wird vom Gateway nicht unterst\u00fctzt."
+        },
+        "step": {
+            "connection_type": {
+                "data": {
+                    "connection_type": "KNX-Verbindungstyp"
+                },
+                "description": "Bitte gib den Verbindungstyp ein, den wir f\u00fcr deine KNX-Verbindung verwenden sollen. \n AUTOMATISCH - Die Integration k\u00fcmmert sich um die Verbindung zu deinem KNX-Bus, indem sie einen Gateway-Scan durchf\u00fchrt. \n TUNNELING - Die Integration stellt die Verbindung zu deinem KNX-Bus \u00fcber Tunneling her. \n ROUTING - Die Integration stellt die Verbindung zu deinem KNX-Bus \u00fcber Routing her.",
+                "title": "KNX-Verbindung"
+            },
+            "knxkeys_tunnel_select": {
+                "data": {
+                    "user_id": "`Automatisch` verwendet den ersten freien Tunnelendpunkt."
+                },
+                "description": "W\u00e4hle den f\u00fcr die Verbindung verwendeten Tunnel aus.",
+                "title": "Tunnelendpunkt"
+            },
+            "manual_tunnel": {
+                "data": {
+                    "host": "Host",
+                    "local_ip": "Lokale IP-Schnittstelle",
+                    "port": "Port",
+                    "route_back": "Route back / NAT-Modus",
+                    "tunneling_type": "KNX-Tunneling-Typ"
+                },
+                "data_description": {
+                    "host": "IP-Adresse oder Hostname des KNX/IP-Tunneling-Ger\u00e4ts.",
+                    "local_ip": "Lokale IP oder Schnittstellenname, der f\u00fcr die Verbindung von Home Assistant verwendet wird. Lasse das Feld leer, um die automatische Erkennung zu verwenden.",
+                    "port": "Port der KNX/IP-Tunneling Schnittstelle.",
+                    "route_back": "Aktiviere diese Option, wenn sich dein KNXnet/IP-Tunnelserver hinter NAT befindet. Gilt nur f\u00fcr UDP-Verbindungen."
+                },
+                "description": "Bitte gib die Verbindungsinformationen deiner Tunnel-Schnittstelle ein.",
+                "title": "Tunnel Einstellungen"
+            },
+            "routing": {
+                "data": {
+                    "individual_address": "Physikalische Adresse",
+                    "local_ip": "Lokale IP-Schnittstelle",
+                    "multicast_group": "Multicast Gruppe",
+                    "multicast_port": "Multicast Port",
+                    "routing_secure": "KNX IP-Secure verwenden"
+                },
+                "data_description": {
+                    "individual_address": "Physikalische Adresse, die von Home Assistant verwendet werden soll, z. B. `0.0.4`.",
+                    "local_ip": "Lokale IP oder Schnittstellenname, der f\u00fcr die Verbindung von Home Assistant verwendet wird. Lasse das Feld leer, um die automatische Erkennung zu verwenden."
+                },
+                "description": "Bitte konfiguriere die Routing-Optionen.",
+                "title": "Routing"
+            },
+            "secure_key_source": {
+                "description": "W\u00e4hle aus, wie du KNX/IP-Secure konfigurieren m\u00f6chtest.",
+                "menu_options": {
+                    "secure_knxkeys": "Verwende eine `.knxkeys` Datei mit IP-Secure Schl\u00fcsseln",
+                    "secure_routing_manual": "IP-Secure Backbone-Schl\u00fcssel manuell konfigurieren",
+                    "secure_tunnel_manual": "IP-Secure Schl\u00fcssel manuell konfigurieren"
+                },
+                "title": "KNX IP-Secure"
+            },
+            "secure_key_source_menu_routing": {
+                "description": "W\u00e4hle aus, wie du KNX/IP-Secure konfigurieren m\u00f6chtest.",
+                "menu_options": {
+                    "secure_knxkeys": "Verwende eine `.knxkeys` Datei mit IP-Secure Schl\u00fcsseln",
+                    "secure_routing_manual": "IP-Secure Backbone-Schl\u00fcssel manuell konfigurieren"
+                },
+                "title": "KNX IP-Secure"
+            },
+            "secure_key_source_menu_tunnel": {
+                "description": "W\u00e4hle aus, wie du KNX/IP-Secure konfigurieren m\u00f6chtest.",
+                "menu_options": {
+                    "secure_knxkeys": "Verwende eine `.knxkeys` Datei mit IP-Secure Schl\u00fcsseln",
+                    "secure_tunnel_manual": "IP-Secure Schl\u00fcssel manuell konfigurieren"
+                },
+                "title": "KNX IP-Secure"
+            },
+            "secure_knxkeys": {
+                "data": {
+                    "knxkeys_file": "Schl\u00fcsselbund-Datei",
+                    "knxkeys_password": "Das Passwort zum Entschl\u00fcsseln der `.knxkeys` Datei"
+                },
+                "data_description": {
+                    "knxkeys_password": "Dies wurde beim Exportieren der Datei aus ETS gesetzt."
+                },
+                "description": "Bitte w\u00e4hle eine `.knxkeys` Datei zum Importieren aus.",
+                "title": "KNX-Schl\u00fcsselbund importieren"
+            },
+            "secure_routing_manual": {
+                "data": {
+                    "backbone_key": "Backbone-Schl\u00fcssel",
+                    "sync_latency_tolerance": "Netzwerklatenz-Toleranz"
+                },
+                "data_description": {
+                    "backbone_key": "Kann im Report \u201eProjekt-Sicherheit\u201c eines ETS-Projekts eingesehen werden. z. B. \u201e00112233445566778899AABBCCDDEEFF\u201c",
+                    "sync_latency_tolerance": "Der Standardwert ist 1000."
+                },
+                "description": "Bitte gib deine IP-Secure Informationen ein.",
+                "title": "Secure Routing"
+            },
+            "secure_tunnel_manual": {
+                "data": {
+                    "device_authentication": "Ger\u00e4te-Authentifizierungscode",
+                    "user_id": "Benutzer-ID",
+                    "user_password": "Benutzer-Passwort"
+                },
+                "data_description": {
+                    "device_authentication": "Dies wird im Feld \u201eIP\u201c der Schnittstelle in ETS eingestellt.",
+                    "user_id": "Dies ist oft die Tunnelnummer +1. \u201eTunnel 2\u201c h\u00e4tte also die Benutzer-ID \u201e3\u201c.",
+                    "user_password": "Passwort f\u00fcr die spezifische Tunnelverbindung, die im Bereich \u201eEigenschaften\u201c des Tunnels in ETS festgelegt wurde."
+                },
+                "description": "Bitte gib deine IP-Secure Informationen ein.",
+                "title": "Secure Tunneling"
+            },
+            "tunnel": {
+                "data": {
+                    "gateway": "KNX-Tunnel-Verbindung"
+                },
+                "description": "Bitte w\u00e4hle eine Schnittstelle aus der Liste aus.",
+                "title": "Tunnel"
+            }
+        }
+    },
+    "device_automation": {
+        "extra_fields": {
+            "destination": "Gruppenadressen",
+            "group_value_read": "GroupValueRead",
+            "group_value_response": "GroupValueResponse",
+            "group_value_write": "GroupValueWrite",
+            "incoming": "Eingehend",
+            "outgoing": "Ausgehend"
+        },
+        "extra_fields_descriptions": {
+            "destination": "Der Trigger h\u00f6rt auf Telegramme, die an diese Gruppenadressen adressiert sind. Wenn keine Adresse ausgew\u00e4hlt ist, wird der Trigger f\u00fcr jede Gruppenadresse ausgel\u00f6st.",
+            "group_value_read": "Bei GroupValueRead-Telegrammen ausl\u00f6sen.",
+            "group_value_response": "Bei GroupValueResponse-Telegrammen ausl\u00f6sen.",
+            "group_value_write": "Bei GroupValueWrite-Telegrammen ausl\u00f6sen.",
+            "incoming": "Ausl\u00f6sen bei eingehenden Telegrammen.",
+            "outgoing": "Ausl\u00f6sen bei ausgehenden Telegrammen."
+        },
+        "trigger_type": {
+            "telegram": "Telegramm"
+        }
+    },
+    "entity": {
+        "climate": {
+            "knx_climate": {
+                "state_attributes": {
+                    "preset_mode": {
+                        "name": "Voreinstellung",
+                        "state": {
+                            "auto": "Auto",
+                            "building_protection": "Geb\u00e4udeschutz",
+                            "comfort": "Komfort",
+                            "economy": "Eco",
+                            "standby": "Standby"
+                        }
+                    }
+                }
+            }
+        },
+        "sensor": {
+            "connected_since": {
+                "name": "Verbindung hergestellt"
+            },
+            "connection_type": {
+                "name": "Verbindungstyp"
+            },
+            "individual_address": {
+                "name": "Physikalische Adresse"
+            },
+            "telegram_count": {
+                "name": "Telegramme"
+            },
+            "telegrams_incoming": {
+                "name": "Empfangene Telegramme"
+            },
+            "telegrams_incoming_error": {
+                "name": "Empfangsfehler"
+            },
+            "telegrams_outgoing": {
+                "name": "Gesendete Telegramme"
+            },
+            "telegrams_outgoing_error": {
+                "name": "Sendefehler"
+            }
+        }
+    },
+    "issues": {
+        "migrate_notify": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Der KNX `notify` Dienst wurde migriert. Neue `notify`-Entit\u00e4ten sind jetzt verf\u00fcgbar.\n\nAktualisiere alle Automatisierungen, um das neue `notify.send_message` zu verwenden, das von diesen neuen Entit\u00e4ten bereitgestellt wird. Behebe anschlie\u00dfend das Problem und starte Home Assistant neu.",
+                        "title": "Legacy-KNX-Notify-Dienst deaktivieren"
+                    }
+                }
+            },
+            "title": "Migration des KNX Notify-Dienstes"
+        }
+    },
+    "options": {
+        "error": {
+            "cannot_connect": "Verbindung fehlgeschlagen",
+            "invalid_backbone_key": "Ung\u00fcltiger Backbone-Schl\u00fcssel. 32 Hexadezimalzahlen erwartet.",
+            "invalid_individual_address": "Wert ist keine g\u00fcltige physikalische Adresse. \u201earea.line.device\u201c",
+            "invalid_ip_address": "Ung\u00fcltige IPv4-Adresse.",
+            "keyfile_invalid_signature": "Das Passwort f\u00fcr die `.knxkeys` Datei ist falsch.",
+            "keyfile_no_backbone_key": "Die `.knxkeys` Datei enth\u00e4lt keinen Backbone-Schl\u00fcssel f\u00fcr Secure Routing.",
+            "keyfile_no_tunnel_for_host": "Die `.knxkeys` Datei enth\u00e4lt keine Verbindungsinformationen f\u00fcr Host `{host}`.",
+            "keyfile_not_found": "Die angegebene `.knxkeys` Datei wurde nicht in config/.storage/knx/ gefunden",
+            "no_router_discovered": "Es wurde kein KNXnet/IP-Router im Netzwerk gefunden.",
+            "no_tunnel_discovered": "Es konnte kein KNX-Tunneling-Server in deinem Netzwerk gefunden werden.",
+            "unsupported_tunnel_type": "Ausgew\u00e4hlter Tunneltyp wird vom Gateway nicht unterst\u00fctzt."
+        },
+        "step": {
+            "communication_settings": {
+                "data": {
+                    "rate_limit": "Ratenlimit",
+                    "state_updater": "Status-Updater",
+                    "telegram_log_size": "Gr\u00f6\u00dfe des Telegrammverlaufs"
+                },
+                "data_description": {
+                    "rate_limit": "Maximal ausgehende Telegramme pro Sekunde.\n `0`, um das Limit zu deaktivieren. Empfohlen: 0 oder 20 bis 40",
+                    "state_updater": "Standardeinstellung f\u00fcr das Lesen von Zust\u00e4nden aus dem KNX-Bus. Wenn diese Option deaktiviert ist, wird der Home Assistant den Zustand der Entit\u00e4ten nicht aktiv vom KNX-Bus abrufen. Kann durch die Entity-Optionen `sync_state` au\u00dfer Kraft gesetzt werden.",
+                    "telegram_log_size": "Telegramme, die f\u00fcr den Gruppenmonitor im KNX-Panel gespeichert werden. Maximum: {telegram_log_size_max}"
+                },
+                "title": "Kommunikationseinstellungen"
+            },
+            "connection_type": {
+                "data": {
+                    "connection_type": "KNX-Verbindungstyp"
+                },
+                "description": "Bitte gib den Verbindungstyp ein, den wir f\u00fcr deine KNX-Verbindung verwenden sollen. \n AUTOMATISCH - Die Integration k\u00fcmmert sich um die Verbindung zu deinem KNX-Bus, indem sie einen Gateway-Scan durchf\u00fchrt. \n TUNNELING - Die Integration stellt die Verbindung zu deinem KNX-Bus \u00fcber Tunneling her. \n ROUTING - Die Integration stellt die Verbindung zu deinem KNX-Bus \u00fcber Routing her.",
+                "title": "KNX-Verbindung"
+            },
+            "init": {
+                "menu_options": {
+                    "communication_settings": "Kommunikationseinstellungen",
+                    "connection_type": "KNX-Schnittstelle konfigurieren",
+                    "secure_knxkeys": "Importieren einer `.knxkeys` Datei"
+                },
+                "title": "KNX-Einstellungen"
+            },
+            "knxkeys_tunnel_select": {
+                "data": {
+                    "user_id": "`Automatisch` verwendet den ersten freien Tunnelendpunkt."
+                },
+                "description": "W\u00e4hle den f\u00fcr die Verbindung verwendeten Tunnel aus.",
+                "title": "Tunnelendpunkt"
+            },
+            "manual_tunnel": {
+                "data": {
+                    "host": "Host",
+                    "local_ip": "Lokale IP-Schnittstelle",
+                    "port": "Port",
+                    "route_back": "Route back / NAT-Modus",
+                    "tunneling_type": "KNX-Tunneling-Typ"
+                },
+                "data_description": {
+                    "host": "IP-Adresse oder Hostname des KNX/IP-Tunneling-Ger\u00e4ts.",
+                    "local_ip": "Lokale IP oder Schnittstellenname, der f\u00fcr die Verbindung von Home Assistant verwendet wird. Lasse das Feld leer, um die automatische Erkennung zu verwenden.",
+                    "port": "Port der KNX/IP-Tunneling Schnittstelle.",
+                    "route_back": "Aktiviere diese Option, wenn sich dein KNXnet/IP-Tunnelserver hinter NAT befindet. Gilt nur f\u00fcr UDP-Verbindungen."
+                },
+                "description": "Bitte gib die Verbindungsinformationen deiner Tunnel-Schnittstelle ein.",
+                "title": "Tunnel Einstellungen"
+            },
+            "options_init": {
+                "menu_options": {
+                    "communication_settings": "Kommunikationseinstellungen",
+                    "connection_type": "KNX-Schnittstelle konfigurieren",
+                    "secure_knxkeys": "Importieren einer `.knxkeys` Datei"
+                },
+                "title": "KNX-Einstellungen"
+            },
+            "routing": {
+                "data": {
+                    "individual_address": "Physikalische Adresse",
+                    "local_ip": "Lokale IP-Schnittstelle",
+                    "multicast_group": "Multicast Gruppe",
+                    "multicast_port": "Multicast Port",
+                    "routing_secure": "KNX IP-Secure verwenden"
+                },
+                "data_description": {
+                    "individual_address": "Physikalische Adresse, die von Home Assistant verwendet werden soll, z. B. `0.0.4`.",
+                    "local_ip": "Lokale IP oder Schnittstellenname, der f\u00fcr die Verbindung von Home Assistant verwendet wird. Lasse das Feld leer, um die automatische Erkennung zu verwenden."
+                },
+                "description": "Bitte konfiguriere die Routing-Optionen.",
+                "title": "Routing"
+            },
+            "secure_key_source": {
+                "description": "W\u00e4hle aus, wie du KNX/IP-Secure konfigurieren m\u00f6chtest.",
+                "menu_options": {
+                    "secure_knxkeys": "Verwende eine `.knxkeys` Datei mit IP-Secure Schl\u00fcsseln",
+                    "secure_routing_manual": "IP-Secure Backbone-Schl\u00fcssel manuell konfigurieren",
+                    "secure_tunnel_manual": "IP-Secure Schl\u00fcssel manuell konfigurieren"
+                },
+                "title": "KNX IP-Secure"
+            },
+            "secure_key_source_menu_routing": {
+                "description": "W\u00e4hle aus, wie du KNX/IP-Secure konfigurieren m\u00f6chtest.",
+                "menu_options": {
+                    "secure_knxkeys": "Verwende eine `.knxkeys` Datei mit IP-Secure Schl\u00fcsseln",
+                    "secure_routing_manual": "IP-Secure Backbone-Schl\u00fcssel manuell konfigurieren"
+                },
+                "title": "KNX IP-Secure"
+            },
+            "secure_key_source_menu_tunnel": {
+                "description": "W\u00e4hle aus, wie du KNX/IP-Secure konfigurieren m\u00f6chtest.",
+                "menu_options": {
+                    "secure_knxkeys": "Verwende eine `.knxkeys` Datei mit IP-Secure Schl\u00fcsseln",
+                    "secure_tunnel_manual": "IP-Secure Schl\u00fcssel manuell konfigurieren"
+                },
+                "title": "KNX IP-Secure"
+            },
+            "secure_knxkeys": {
+                "data": {
+                    "knxkeys_file": "Schl\u00fcsselbund-Datei",
+                    "knxkeys_password": "Das Passwort zum Entschl\u00fcsseln der `.knxkeys` Datei"
+                },
+                "data_description": {
+                    "knxkeys_password": "Dies wurde beim Exportieren der Datei aus ETS gesetzt."
+                },
+                "description": "Bitte w\u00e4hle eine `.knxkeys` Datei zum Importieren aus.",
+                "title": "KNX-Schl\u00fcsselbund importieren"
+            },
+            "secure_routing_manual": {
+                "data": {
+                    "backbone_key": "Backbone-Schl\u00fcssel",
+                    "sync_latency_tolerance": "Netzwerklatenz-Toleranz"
+                },
+                "data_description": {
+                    "backbone_key": "Kann im Report \u201eProjekt-Sicherheit\u201c eines ETS-Projekts eingesehen werden. z. B. \u201e00112233445566778899AABBCCDDEEFF\u201c",
+                    "sync_latency_tolerance": "Der Standardwert ist 1000."
+                },
+                "description": "Bitte gib deine IP-Secure Informationen ein.",
+                "title": "Secure Routing"
+            },
+            "secure_tunnel_manual": {
+                "data": {
+                    "device_authentication": "Ger\u00e4te-Authentifizierungscode",
+                    "user_id": "Benutzer-ID",
+                    "user_password": "Benutzer-Passwort"
+                },
+                "data_description": {
+                    "device_authentication": "Dies wird im Feld \u201eIP\u201c der Schnittstelle in ETS eingestellt.",
+                    "user_id": "Dies ist oft die Tunnelnummer +1. \u201eTunnel 2\u201c h\u00e4tte also die Benutzer-ID \u201e3\u201c.",
+                    "user_password": "Passwort f\u00fcr die spezifische Tunnelverbindung, die im Bereich \u201eEigenschaften\u201c des Tunnels in ETS festgelegt wurde."
+                },
+                "description": "Bitte gib deine IP-Secure Informationen ein.",
+                "title": "Secure Tunneling"
+            },
+            "tunnel": {
+                "data": {
+                    "gateway": "KNX-Tunnel-Verbindung"
+                },
+                "description": "Bitte w\u00e4hle eine Schnittstelle aus der Liste aus.",
+                "title": "Tunnel"
+            }
+        }
+    },
+    "services": {
+        "event_register": {
+            "description": "F\u00fcge Gruppenadressen zum knx_event-Filter hinzu oder entferne sie, um `knx_event` auszul\u00f6sen. Nur mit diesem Dienst hinzugef\u00fcgte Adressen k\u00f6nnen entfernt werden.",
+            "fields": {
+                "address": {
+                    "description": "Gruppenadresse(n), die hinzugef\u00fcgt oder entfernt werden sollen. Listen sind erlaubt.",
+                    "name": "Gruppenadresse"
+                },
+                "remove": {
+                    "description": "Bei `True` werden die Gruppenadresse(n) entfernt.",
+                    "name": "Event-Registrierung entfernen"
+                },
+                "type": {
+                    "description": "Wenn festgelegt, wird die Nutzlast als DPT im Schl\u00fcssel `Wert` der Ereignisdaten dekodiert. KNX-Sensortypen sind g\u00fcltige Werte (siehe https://www.home-assistant.io/integrations/knx/#value-types).",
+                    "name": "Werttyp"
+                }
+            },
+            "name": "Registriert knx_event"
+        },
+        "exposure_register": {
+            "description": "F\u00fcgt Expositionen zum KNX-Bus hinzu oder entfernt sie. Es k\u00f6nnen nur mit diesem Dienst hinzugef\u00fcgte Expositionen entfernt werden.",
+            "fields": {
+                "address": {
+                    "description": "An die Gruppenadresse werden Status- oder Attributaktualisierungen gesendet. GroupValueRead-Anfragen werden beantwortet. Pro Adresse kann nur eine Aufnahme registriert werden.",
+                    "name": "Gruppenadresse"
+                },
+                "attribute": {
+                    "description": "Attribut der Entit\u00e4t, die an den KNX-Bus gesendet werden soll. Wenn nicht festgelegt, wird der Status gesendet. z. B. F\u00fcr ein Licht ist der Zustand entweder \u201ean\u201c oder \u201eaus\u201c \u2013 mit dem Attribut kannst du seine \u201ebrightness\u201c senden.",
+                    "name": "Entit\u00e4tsattribut"
+                },
+                "default": {
+                    "description": "Standardwert, der an den Bus gesendet wird, wenn der Status- oder Attributwert \u201eNone\u201c ist. z. B. Ein Licht mit dem Status \u201eAus\u201c hat kein Helligkeitsattribut, daher k\u00f6nnte ein Standardwert von 0 verwendet werden. Wenn nicht festgelegt (oder None), wird kein Wert an den Bus gesendet und ein GroupReadRequest an die Adresse w\u00fcrde den letzten bekannten Wert zur\u00fcckgeben.",
+                    "name": "Standardwert"
+                },
+                "entity_id": {
+                    "description": "Entit\u00e4ts-ID, deren Status oder Attribut offengelegt werden soll.",
+                    "name": "Entit\u00e4t"
+                },
+                "remove": {
+                    "description": "Bei `True` wird die Exposition entfernt. Nur `address` ist f\u00fcr die Entfernung erforderlich.",
+                    "name": "Exposition entfernen"
+                },
+                "type": {
+                    "description": "Telegramme werden entsprechend dem angegebenen DPT kodiert. \u201ebinary\u201c und alle KNX-Sensortypen sind g\u00fcltige Werte (siehe https://www.home-assistant.io/integrations/knx/#value-types).",
+                    "name": "Datenpunkttyp"
+                }
+            },
+            "name": "Bereitstellen f\u00fcr KNX-Bus"
+        },
+        "read": {
+            "description": "Sendet GroupValueRead-Anfragen an den KNX-Bus. Die Antwort kann von `knx_event` verwendet werden und wird in KNX-Entit\u00e4ten verarbeitet.",
+            "fields": {
+                "address": {
+                    "description": "Gruppenadresse(n), an die Leseanfragen gesendet werden sollen. Listen lesen mehrere Gruppenadressen.",
+                    "name": "Gruppenadresse"
+                }
+            },
+            "name": "Lesen von KNX"
+        },
+        "reload": {
+            "description": "L\u00e4dt die KNX-Integration neu",
+            "name": "Neu laden"
+        },
+        "send": {
+            "description": "Sendet beliebige Daten direkt an den KNX-Bus.",
+            "fields": {
+                "address": {
+                    "description": "Gruppenadresse(n), an die geschrieben werden soll. Listen werden nacheinander an mehrere Gruppenadressen gesendet.",
+                    "name": "Gruppenadresse"
+                },
+                "payload": {
+                    "description": "Nutzlast, die an den Bus gesendet werden soll. Ganzzahlen werden als DPT 1/2/3-Nutzdaten behandelt. F\u00fcr DPTs > 6 Bit wird eine Liste erwartet. Jeder Wert repr\u00e4sentiert 1 Oktett (0-255). Mit 0 bis zur erwarteten DPT Bytel\u00e4nge auff\u00fcllen.",
+                    "name": "Nutzdaten"
+                },
+                "response": {
+                    "description": "Wenn auf `True` gesetzt, wird das Telegramm als `GroupValueResponse` statt als `GroupValueWrite` gesendet.",
+                    "name": "Als Antwort senden"
+                },
+                "type": {
+                    "description": "Wenn festgelegt, wird die Nutzlast nicht als Rohbytes gesendet, sondern als angegebener DPT codiert. KNX-Sensortypen sind g\u00fcltige Werte (siehe https://www.home-assistant.io/integrations/knx/#value-types).",
+                    "name": "Datenpunkttyp"
+                }
+            },
+            "name": "Senden an KNX"
+        }
+    }
+}

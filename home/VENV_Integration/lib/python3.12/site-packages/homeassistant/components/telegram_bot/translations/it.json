@@ -1,0 +1,572 @@
+{
+    "issues": {
+        "proxy_params_auth_deprecation": {
+            "description": "I dettagli di autenticazione per il proxy configurato nell'integrazione {telegram_bot} devono invece essere spostati in {proxy_url}. Aggiorna la configurazione e riavvia Home Assistant per risolvere il problema.\n\nLa chiave di configurazione {proxy_params} verr\u00e0 rimossa in una versione futura.",
+            "title": "{telegram_bot}: l'autenticazione proxy deve essere spostata all'URL"
+        },
+        "proxy_params_deprecation": {
+            "description": "La chiave di configurazione {proxy_params} per l'integrazione {telegram_bot} verr\u00e0 rimossa in una futura release.\n\nL'autenticazione pu\u00f2 ora essere fornita attraverso la chiave {proxy_url}.\n\nLa libreria sottostante \u00e8 cambiata in {httpx} che \u00e8 incompatibile con i parametri precedenti. Se hai ancora bisogno di questa funzionalit\u00e0 per altre opzioni, lascia un commento sul link per saperne di pi\u00f9.\n\nAggiorna la tua configurazione per rimuovere la chiave {proxy_params} e riavvia Home Assistant per risolvere questo problema.",
+            "title": "{telegram_bot}: L'opzione dei parametri proxy verr\u00e0 rimossa"
+        }
+    },
+    "services": {
+        "answer_callback_query": {
+            "description": "Risponde a una query di callback originata facendo clic su un pulsante della tastiera online. La risposta verr\u00e0 visualizzata all'utente come notifica nella parte superiore della schermata della chat o come avviso.",
+            "fields": {
+                "callback_query_id": {
+                    "description": "ID univoco della risposta di richiamata.",
+                    "name": "ID query di richiamata"
+                },
+                "message": {
+                    "description": "Corpo del messaggio di testo non formattato della notifica.",
+                    "name": "Messaggio"
+                },
+                "show_alert": {
+                    "description": "Mostra una notifica permanente.",
+                    "name": "Mostra avviso"
+                }
+            },
+            "name": "Rispondi alla richiesta di richiamata"
+        },
+        "delete_message": {
+            "description": "Elimina un messaggio inviato in precedenza.",
+            "fields": {
+                "chat_id": {
+                    "description": "Il chat_id dove eliminare il messaggio.",
+                    "name": "ID chat"
+                },
+                "message_id": {
+                    "description": "ID del messaggio da eliminare.",
+                    "name": "ID messaggio"
+                }
+            },
+            "name": "Cancella il messaggio"
+        },
+        "edit_caption": {
+            "description": "Modifica la didascalia di un messaggio inviato in precedenza.",
+            "fields": {
+                "caption": {
+                    "description": "Corpo del messaggio della notifica.",
+                    "name": "Didascalia"
+                },
+                "chat_id": {
+                    "description": "Il chat_id dove modificare la didascalia.",
+                    "name": "ID chat"
+                },
+                "inline_keyboard": {
+                    "description": "Elenco di righe di comandi, separati da virgole, per creare una tastiera in linea personalizzata con pulsanti e dati di richiamo associati.",
+                    "name": "Tastiera in linea"
+                },
+                "message_id": {
+                    "description": "ID del messaggio da modificare.",
+                    "name": "ID messaggio"
+                }
+            },
+            "name": "Modifica didascalia"
+        },
+        "edit_message": {
+            "description": "Modifica un messaggio inviato in precedenza.",
+            "fields": {
+                "chat_id": {
+                    "description": "Il chat_id dove modificare il messaggio.",
+                    "name": "ID chat"
+                },
+                "disable_web_page_preview": {
+                    "description": "Disattiva le anteprime dei collegamenti nel messaggio.",
+                    "name": "Disabilita l'anteprima della pagina web"
+                },
+                "inline_keyboard": {
+                    "description": "Elenco di righe di comandi, separati da virgole, per creare una tastiera in linea personalizzata con pulsanti e dati di richiamo associati.",
+                    "name": "Tastiera in linea"
+                },
+                "message": {
+                    "description": "Corpo del messaggio della notifica.",
+                    "name": "Messaggio"
+                },
+                "message_id": {
+                    "description": "ID del messaggio da modificare.",
+                    "name": "ID messaggio"
+                },
+                "parse_mode": {
+                    "description": "Parser per il testo del messaggio.",
+                    "name": "Modalit\u00e0 di transito"
+                },
+                "title": {
+                    "description": "Titolo facoltativo per la notifica. Sar\u00e0 composto come '%title\n %Messaggio'.",
+                    "name": "Titolo"
+                }
+            },
+            "name": "Modifica messaggio"
+        },
+        "edit_replymarkup": {
+            "description": "Modifica la tastiera in linea di un messaggio inviato in precedenza.",
+            "fields": {
+                "chat_id": {
+                    "description": "Il chat_id dove modificare il reply_markup.",
+                    "name": "ID chat"
+                },
+                "inline_keyboard": {
+                    "description": "Elenco di righe di comandi, separati da virgole, per creare una tastiera in linea personalizzata con pulsanti e dati di richiamo associati.",
+                    "name": "Tastiera in linea"
+                },
+                "message_id": {
+                    "description": "ID del messaggio da modificare.",
+                    "name": "ID messaggio"
+                }
+            },
+            "name": "Modifica il markup della risposta"
+        },
+        "send_animation": {
+            "description": "Invia un'animazione.",
+            "fields": {
+                "authentication": {
+                    "description": "Definire il metodo di autenticazione da utilizzare. Impostare su \"digest\" per utilizzare l'autenticazione digest HTTP o su \"bearer_token\" per l'autenticazione del token di connessione OAuth 2.0. L'impostazione predefinita \u00e8 \"basic\".",
+                    "name": "Metodo di autenticazione"
+                },
+                "caption": {
+                    "description": "Il titolo dell'animazione.",
+                    "name": "Didascalia"
+                },
+                "disable_notification": {
+                    "description": "Invia il messaggio in modo silenzioso. Gli utenti iOS e gli utenti Web non riceveranno alcuna notifica, mentre gli utenti Android riceveranno una notifica senza suono.",
+                    "name": "Disabilita la notifica"
+                },
+                "file": {
+                    "description": "Percorso locale di un video GIF o H.264/MPEG-4 AVC senza audio.",
+                    "name": "File"
+                },
+                "inline_keyboard": {
+                    "description": "Elenco di righe di comandi, separati da virgole, per creare una tastiera in linea personalizzata con pulsanti e dati di richiamo associati.",
+                    "name": "Tastiera in linea"
+                },
+                "keyboard": {
+                    "description": "Elenco di righe di comandi, separate da virgole, per creare una tastiera personalizzata.",
+                    "name": "Tastiera"
+                },
+                "parse_mode": {
+                    "description": "Parser per il testo del messaggio.",
+                    "name": "Modalit\u00e0 di analisi"
+                },
+                "password": {
+                    "description": "Password (o token di connessione) per un URL che richiede l'autenticazione HTTP.",
+                    "name": "Password"
+                },
+                "target": {
+                    "description": "Un array di chat_id pre-autorizzati a cui inviare il documento. Se non \u00e8 presente, il primo chat_id consentito \u00e8 quello predefinito.",
+                    "name": "Destinazione"
+                },
+                "timeout": {
+                    "description": "Timeout per l'invio dell'adesivo. Aiuter\u00e0 a risolvere gli errori di timeout (scarsa connessione a Internet, ecc.)."
+                },
+                "url": {
+                    "description": "Percorso remoto di un video GIF o H.264/MPEG-4 AVC senza audio.",
+                    "name": "URL"
+                },
+                "username": {
+                    "description": "Nome utente per un URL che richiede l'autenticazione HTTP.",
+                    "name": "Nome utente"
+                },
+                "verify_ssl": {
+                    "description": "Abilita o disabilita la verifica del certificato SSL. Impostare false se si sta scaricando il file da un URL e non si vuole convalidare il certificato SSL del server.",
+                    "name": "Verifica SSL"
+                }
+            },
+            "name": "Invia animazione"
+        },
+        "send_document": {
+            "description": "Invia un documento.",
+            "fields": {
+                "authentication": {
+                    "description": "Definire il metodo di autenticazione da utilizzare. Impostare su \"digest\" per utilizzare l'autenticazione digest HTTP o su \"bearer_token\" per l'autenticazione del token di connessione OAuth 2.0. L'impostazione predefinita \u00e8 \"basic\".",
+                    "name": "Metodo di autenticazione"
+                },
+                "caption": {
+                    "description": "Il titolo del documento.",
+                    "name": "Didascalia"
+                },
+                "disable_notification": {
+                    "description": "Invia il messaggio in modo silenzioso. Gli utenti iOS e gli utenti Web non riceveranno alcuna notifica, mentre gli utenti Android riceveranno una notifica senza suono.",
+                    "name": "Disabilita la notifica"
+                },
+                "file": {
+                    "description": "Percorso locale di un documento.",
+                    "name": "File"
+                },
+                "inline_keyboard": {
+                    "description": "Elenco di righe di comandi, separati da virgole, per creare una tastiera in linea personalizzata con pulsanti e dati di richiamo associati.",
+                    "name": "Tastiera in linea"
+                },
+                "keyboard": {
+                    "description": "Elenco di righe di comandi, separate da virgole, per creare una tastiera personalizzata.",
+                    "name": "Tastiera"
+                },
+                "message_tag": {
+                    "description": "Etichetta per il messaggio inviato.",
+                    "name": "Etichetta del messaggio"
+                },
+                "parse_mode": {
+                    "description": "Parser per il testo del messaggio.",
+                    "name": "Modalit\u00e0 di transito"
+                },
+                "password": {
+                    "description": "Password (o token di connessione) per un URL che richiede l'autenticazione HTTP.",
+                    "name": "Password"
+                },
+                "target": {
+                    "description": "Un array di chat_id pre-autorizzati a cui inviare il documento. Se non \u00e8 presente, il primo chat_id consentito \u00e8 quello predefinito.",
+                    "name": "Destinazione"
+                },
+                "url": {
+                    "description": "Percorso remoto di un documento.",
+                    "name": "URL"
+                },
+                "username": {
+                    "description": "Nome utente per un URL che richiede l'autenticazione HTTP.",
+                    "name": "Nome utente"
+                },
+                "verify_ssl": {
+                    "description": "Abilita o disabilita la verifica del certificato SSL. Impostare false se si sta scaricando il file da un URL e non si vuole convalidare il certificato SSL del server.",
+                    "name": "Verifica SSL"
+                }
+            },
+            "name": "Invia documento"
+        },
+        "send_location": {
+            "description": "Invia una posizione.",
+            "fields": {
+                "disable_notification": {
+                    "description": "Invia il messaggio in modo silenzioso. Gli utenti iOS e gli utenti Web non riceveranno alcuna notifica, mentre gli utenti Android riceveranno una notifica senza suono.",
+                    "name": "Disabilita la notifica"
+                },
+                "inline_keyboard": {
+                    "description": "Elenco di righe di comandi, separati da virgole, per creare una tastiera in linea personalizzata con pulsanti e dati di richiamo associati.",
+                    "name": "Tastiera in linea"
+                },
+                "keyboard": {
+                    "description": "Elenco di righe di comandi, separate da virgole, per creare una tastiera personalizzata.",
+                    "name": "Tastiera"
+                },
+                "latitude": {
+                    "description": "La latitudine da inviare.",
+                    "name": "Latitudine"
+                },
+                "longitude": {
+                    "description": "La longitudine da inviare.",
+                    "name": "Logitudine"
+                },
+                "message_tag": {
+                    "description": "Etichetta per il messaggio inviato.",
+                    "name": "Etichetta del messaggio"
+                },
+                "target": {
+                    "description": "Un array di chat_id pre-autorizzati a cui inviare la posizione. Se non \u00e8 presente, il primo chat_id consentito \u00e8 quello predefinito.",
+                    "name": "Destinazione"
+                },
+                "timeout": {
+                    "description": "Timeout per l'invio di foto. Aiuter\u00e0 con gli errori di timeout (scarsa connessione Internet, ecc.)."
+                }
+            },
+            "name": "Invia posizione"
+        },
+        "send_message": {
+            "description": "Invia una notifica.",
+            "fields": {
+                "disable_notification": {
+                    "description": "Invia il messaggio in modo silenzioso. Gli utenti iOS e gli utenti Web non riceveranno alcuna notifica, mentre gli utenti Android riceveranno una notifica senza suono.",
+                    "name": "Disabilita la notifica"
+                },
+                "disable_web_page_preview": {
+                    "description": "Disattiva le anteprime dei collegamenti nel messaggio.",
+                    "name": "Disabilita l'anteprima della pagina web"
+                },
+                "inline_keyboard": {
+                    "description": "Elenco di righe di comandi, separati da virgole, per creare una tastiera in linea personalizzata con pulsanti e dati di richiamo associati.",
+                    "name": "Tastiera in linea"
+                },
+                "keyboard": {
+                    "description": "Elenco di righe di comandi, separate da virgole, per creare una tastiera personalizzata. L'elenco vuoto cancella una tastiera precedentemente impostata.",
+                    "name": "Tastiera"
+                },
+                "message": {
+                    "description": "Corpo del messaggio della notifica.",
+                    "name": "Messaggio"
+                },
+                "message_tag": {
+                    "description": "Etichetta per il messaggio inviato.",
+                    "name": "Etichetta del messaggio"
+                },
+                "parse_mode": {
+                    "description": "Parser per il testo del messaggio.",
+                    "name": "Modalit\u00e0 di transito"
+                },
+                "target": {
+                    "description": "Un array di chat_id pre-autorizzati a cui inviare la notifica. Se non \u00e8 presente, il primo chat_id consentito \u00e8 quello predefinito.",
+                    "name": "Destinazione"
+                },
+                "title": {
+                    "description": "Titolo facoltativo per la notifica. Sar\u00e0 composto come '%title\n %Messaggio'.",
+                    "name": "Titolo"
+                }
+            },
+            "name": "Invia messaggio"
+        },
+        "send_photo": {
+            "description": "Invia una foto.",
+            "fields": {
+                "authentication": {
+                    "description": "Definire il metodo di autenticazione da utilizzare. Impostare su \"digest\" per utilizzare l'autenticazione digest HTTP o su \"bearer_token\" per l'autenticazione del token di connessione OAuth 2.0. L'impostazione predefinita \u00e8 \"basic\".",
+                    "name": "Metodo di autenticazione"
+                },
+                "caption": {
+                    "description": "Il titolo dell'immagine.",
+                    "name": "Didascalia"
+                },
+                "disable_notification": {
+                    "description": "Invia il messaggio in modo silenzioso. Gli utenti iOS e gli utenti Web non riceveranno alcuna notifica, mentre gli utenti Android riceveranno una notifica senza suono.",
+                    "name": "Disabilita la notifica"
+                },
+                "file": {
+                    "description": "Percorso locale di un'immagine.",
+                    "name": "File"
+                },
+                "inline_keyboard": {
+                    "description": "Elenco di righe di comandi, separati da virgole, per creare una tastiera in linea personalizzata con pulsanti e dati di richiamo associati.",
+                    "name": "Tastiera in linea"
+                },
+                "keyboard": {
+                    "description": "Elenco di righe di comandi, separate da virgole, per creare una tastiera personalizzata.",
+                    "name": "Tastiera"
+                },
+                "message_tag": {
+                    "description": "Etichetta per il messaggio inviato.",
+                    "name": "Etichetta del messaggio"
+                },
+                "parse_mode": {
+                    "description": "Parser per il testo del messaggio.",
+                    "name": "Modalit\u00e0 di transito"
+                },
+                "password": {
+                    "description": "Password (o token di connessione) per un URL che richiede l'autenticazione HTTP.",
+                    "name": "Password"
+                },
+                "target": {
+                    "description": "Un array di chat_id pre-autorizzati a cui inviare il documento. Se non \u00e8 presente, il primo chat_id consentito \u00e8 quello predefinito.",
+                    "name": "Destinazione"
+                },
+                "url": {
+                    "description": "Percorso remoto di un'immagine.",
+                    "name": "URL"
+                },
+                "username": {
+                    "description": "Nome utente per un URL che richiede l'autenticazione HTTP.",
+                    "name": "Nome utente"
+                },
+                "verify_ssl": {
+                    "description": "Abilita o disabilita la verifica del certificato SSL. Impostare false se si sta scaricando il file da un URL e non si vuole convalidare il certificato SSL del server.",
+                    "name": "Verifica SSL"
+                }
+            },
+            "name": "Invia una foto"
+        },
+        "send_poll": {
+            "description": "Invia un sondaggio.",
+            "fields": {
+                "allows_multiple_answers": {
+                    "description": "Se il sondaggio consente pi\u00f9 risposte, il valore predefinito \u00e8 False.",
+                    "name": "Consenti pi\u00f9 risposte"
+                },
+                "disable_notification": {
+                    "description": "Invia il messaggio in modo silenzioso. Gli utenti iOS e gli utenti Web non riceveranno alcuna notifica, mentre gli utenti Android riceveranno una notifica senza suono.",
+                    "name": "Disabilita la notifica"
+                },
+                "is_anonymous": {
+                    "description": "Se il sondaggio deve essere anonimo, il valore predefinito \u00e8 True.",
+                    "name": "\u00c8 anonimo"
+                },
+                "open_period": {
+                    "description": "Periodo di tempo in secondi in cui il sondaggio sar\u00e0 attivo dopo la creazione, 5-600.",
+                    "name": "Periodo aperto"
+                },
+                "options": {
+                    "description": "Elenco delle opzioni di risposta, 2-10 stringhe 1-100 caratteri ciascuna.",
+                    "name": "Opzioni"
+                },
+                "question": {
+                    "description": "Domanda del sondaggio, 1-300 caratteri.",
+                    "name": "Domanda"
+                },
+                "target": {
+                    "description": "Un array di chat_id pre-autorizzati a cui inviare la posizione. Se non \u00e8 presente, il primo chat_id consentito \u00e8 quello predefinito.",
+                    "name": "Destinazione"
+                }
+            },
+            "name": "Invia sondaggio"
+        },
+        "send_sticker": {
+            "description": "Invia un adesivo.",
+            "fields": {
+                "authentication": {
+                    "description": "Definire il metodo di autenticazione da utilizzare. Impostare su \"digest\" per utilizzare l'autenticazione digest HTTP o su \"bearer_token\" per l'autenticazione del token di connessione OAuth 2.0. L'impostazione predefinita \u00e8 \"basic\".",
+                    "name": "Metodo di autenticazione"
+                },
+                "disable_notification": {
+                    "description": "Invia il messaggio in modo silenzioso. Gli utenti iOS e gli utenti Web non riceveranno alcuna notifica, mentre gli utenti Android riceveranno una notifica senza suono.",
+                    "name": "Disabilita la notifica"
+                },
+                "file": {
+                    "description": "Percorso locale a un adesivo .webp statico o .tgs animato.",
+                    "name": "File"
+                },
+                "inline_keyboard": {
+                    "description": "Elenco di righe di comandi, separati da virgole, per creare una tastiera in linea personalizzata con pulsanti e dati di richiamo associati.",
+                    "name": "Tastiera in linea"
+                },
+                "keyboard": {
+                    "description": "Elenco di righe di comandi, separate da virgole, per creare una tastiera personalizzata.",
+                    "name": "Tastiera"
+                },
+                "message_tag": {
+                    "description": "Etichetta per il messaggio inviato.",
+                    "name": "Etichetta del messaggio"
+                },
+                "password": {
+                    "description": "Password (o token di connessione) per un URL che richiede l'autenticazione HTTP.",
+                    "name": "Password"
+                },
+                "sticker_id": {
+                    "description": "ID di un adesivo che esiste sui server di Telegram.",
+                    "name": "ID adesivo"
+                },
+                "target": {
+                    "description": "Un array di chat_id pre-autorizzati a cui inviare il documento. Se non \u00e8 presente, il primo chat_id consentito \u00e8 quello predefinito.",
+                    "name": "Destinazione"
+                },
+                "url": {
+                    "description": "Percorso remoto a un adesivo .webp statico o .tgs animato.",
+                    "name": "URL"
+                },
+                "username": {
+                    "description": "Nome utente per un URL che richiede l'autenticazione HTTP.",
+                    "name": "Nome utente"
+                },
+                "verify_ssl": {
+                    "description": "Abilita o disabilita la verifica del certificato SSL. Impostare false se si sta scaricando il file da un URL e non si vuole convalidare il certificato SSL del server.",
+                    "name": "Verifica SSL"
+                }
+            },
+            "name": "Invia adesivo"
+        },
+        "send_video": {
+            "description": "Invia un video.",
+            "fields": {
+                "authentication": {
+                    "description": "Definire il metodo di autenticazione da utilizzare. Impostare su \"digest\" per utilizzare l'autenticazione digest HTTP o su \"bearer_token\" per l'autenticazione del token di connessione OAuth 2.0. L'impostazione predefinita \u00e8 \"basic\".",
+                    "name": "Metodo di autenticazione"
+                },
+                "caption": {
+                    "description": "Il titolo del video.",
+                    "name": "Didascalia"
+                },
+                "disable_notification": {
+                    "description": "Invia il messaggio in modo silenzioso. Gli utenti iOS e gli utenti Web non riceveranno alcuna notifica, mentre gli utenti Android riceveranno una notifica senza suono.",
+                    "name": "Disabilita la notifica"
+                },
+                "file": {
+                    "description": "Percorso locale di un video.",
+                    "name": "File"
+                },
+                "inline_keyboard": {
+                    "description": "Elenco di righe di comandi, separati da virgole, per creare una tastiera in linea personalizzata con pulsanti e dati di richiamo associati.",
+                    "name": "Tastiera in linea"
+                },
+                "keyboard": {
+                    "description": "Elenco di righe di comandi, separate da virgole, per creare una tastiera personalizzata.",
+                    "name": "Tastiera"
+                },
+                "message_tag": {
+                    "description": "Etichetta per il messaggio inviato.",
+                    "name": "Etichetta del messaggio"
+                },
+                "parse_mode": {
+                    "description": "Parser per il testo del messaggio.",
+                    "name": "Modalit\u00e0 di transito"
+                },
+                "password": {
+                    "description": "Password (o token di connessione) per un URL che richiede l'autenticazione HTTP.",
+                    "name": "Password"
+                },
+                "target": {
+                    "description": "Un array di chat_id pre-autorizzati a cui inviare il documento. Se non \u00e8 presente, il primo chat_id consentito \u00e8 quello predefinito.",
+                    "name": "Destinazione"
+                },
+                "url": {
+                    "description": "Percorso remoto di un video.",
+                    "name": "URL"
+                },
+                "username": {
+                    "description": "Nome utente per un URL che richiede l'autenticazione HTTP.",
+                    "name": "Nome utente"
+                },
+                "verify_ssl": {
+                    "description": "Abilita o disabilita la verifica del certificato SSL. Impostare false se si sta scaricando il file da un URL e non si vuole convalidare il certificato SSL del server.",
+                    "name": "Verifica SSL"
+                }
+            },
+            "name": "Invia video"
+        },
+        "send_voice": {
+            "description": "Invia un messaggio vocale.",
+            "fields": {
+                "authentication": {
+                    "description": "Definire il metodo di autenticazione da utilizzare. Impostare su \"digest\" per utilizzare l'autenticazione digest HTTP o su \"bearer_token\" per l'autenticazione del token di connessione OAuth 2.0. L'impostazione predefinita \u00e8 \"basic\".",
+                    "name": "Metodo di autenticazione"
+                },
+                "caption": {
+                    "description": "Il titolo del messaggio vocale.",
+                    "name": "Didascalia"
+                },
+                "disable_notification": {
+                    "description": "Invia il messaggio in modo silenzioso. Gli utenti iOS e gli utenti Web non riceveranno alcuna notifica, mentre gli utenti Android riceveranno una notifica senza suono.",
+                    "name": "Disabilita la notifica"
+                },
+                "file": {
+                    "description": "Percorso locale di un messaggio vocale.",
+                    "name": "File"
+                },
+                "inline_keyboard": {
+                    "description": "Elenco di righe di comandi, separati da virgole, per creare una tastiera in linea personalizzata con pulsanti e dati di richiamo associati.",
+                    "name": "Tastiera in linea"
+                },
+                "keyboard": {
+                    "description": "Elenco di righe di comandi, separate da virgole, per creare una tastiera personalizzata.",
+                    "name": "Tastiera"
+                },
+                "message_tag": {
+                    "description": "Etichetta per il messaggio inviato.",
+                    "name": "Etichetta del messaggio"
+                },
+                "password": {
+                    "description": "Password (o token di connessione) per un URL che richiede l'autenticazione HTTP.",
+                    "name": "Password"
+                },
+                "target": {
+                    "description": "Un array di chat_id pre-autorizzati a cui inviare il documento. Se non \u00e8 presente, il primo chat_id consentito \u00e8 quello predefinito.",
+                    "name": "Destinazione"
+                },
+                "url": {
+                    "description": "Percorso remoto di un messaggio vocale.",
+                    "name": "URL"
+                },
+                "username": {
+                    "description": "Nome utente per un URL che richiede l'autenticazione HTTP.",
+                    "name": "Nome utente"
+                },
+                "verify_ssl": {
+                    "description": "Abilita o disabilita la verifica del certificato SSL. Impostare false se si sta scaricando il file da un URL e non si vuole convalidare il certificato SSL del server.",
+                    "name": "Verifica SSL"
+                }
+            },
+            "name": "Invia voce"
+        }
+    }
+}

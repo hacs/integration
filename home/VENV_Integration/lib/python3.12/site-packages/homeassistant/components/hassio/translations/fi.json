@@ -1,0 +1,387 @@
+{
+    "entity": {
+        "binary_sensor": {
+            "state": {
+                "name": "K\u00e4ynniss\u00e4"
+            }
+        },
+        "sensor": {
+            "agent_version": {
+                "name": "K\u00e4ytt\u00f6j\u00e4rjestelm\u00e4n agentin versio"
+            },
+            "apparmor_version": {
+                "name": "Apparmor-versio"
+            },
+            "cpu_percent": {
+                "name": "Suorittimen k\u00e4ytt\u00f6 prosentteina"
+            },
+            "disk_free": {
+                "name": "Tallennustilaa vapaana"
+            },
+            "disk_total": {
+                "name": "Tallennustilaa yhteens\u00e4"
+            },
+            "disk_used": {
+                "name": "Tallennustilaa k\u00e4yetty"
+            },
+            "memory_percent": {
+                "name": "Muistin k\u00e4ytt\u00f6 prosentteina"
+            },
+            "version": {
+                "name": "Versio"
+            },
+            "version_latest": {
+                "name": "Uusin versio"
+            }
+        }
+    },
+    "issues": {
+        "issue_mount_mount_failed": {
+            "fix_flow": {
+                "abort": {
+                    "apply_suggestion_fail": "Korjausta ei voitu k\u00e4ytt\u00e4\u00e4. Tarkista tarkemmat tiedot Supervisor-lokeista."
+                },
+                "step": {
+                    "fix_menu": {
+                        "description": "Yhteytt\u00e4 `{reference}` ei saatu muodostettua. Tarkista tarkempia tietoja is\u00e4nn\u00e4n lokitiedostoista mount-palvelun virheiden varalta.\n\nYrit\u00e4 muodostaa yhteys uudelleen k\u00e4ytt\u00e4m\u00e4ll\u00e4 reloadia. Jos sinun on p\u00e4ivitett\u00e4v\u00e4 `{reference}`, siirry osoitteeseen [storage]({storage_url}).",
+                        "menu_options": {
+                            "mount_execute_reload": "Uudelleenlataa",
+                            "mount_execute_remove": "Poista"
+                        }
+                    }
+                }
+            },
+            "title": "Verkkotallennuslaite ep\u00e4onnistui"
+        },
+        "issue_system_docker_config": {
+            "fix_flow": {
+                "abort": {
+                    "apply_suggestion_fail": "Yksi tai useampi uudelleenk\u00e4ynnistys ep\u00e4onnistui. Tarkista tarkemmat tiedot Supervisorin lokitiedoista."
+                },
+                "step": {
+                    "system_execute_rebuild": {
+                        "description": "Lis\u00e4osien ja Home Assistantin oletusasetukset ovat muuttuneet. Jotta konfiguraatio voidaan p\u00e4ivitt\u00e4\u00e4 uusilla oletusasetuksilla, seuraavat on k\u00e4ynnistett\u00e4v\u00e4 uudelleen:\n\n- {components}"
+                    }
+                }
+            },
+            "title": "Uudelleenk\u00e4ynnistys vaaditaan"
+        },
+        "issue_system_multiple_data_disks": {
+            "fix_flow": {
+                "abort": {
+                    "apply_suggestion_fail": "Tiedostoj\u00e4rjestelm\u00e4\u00e4 ei voitu nimet\u00e4 uudelleen. Tarkista tarkemmat tiedot Supervisorin lokitiedoista."
+                },
+                "step": {
+                    "fix_menu": {
+                        "description": "Kohdassa `{reference}` havaittiin toinen aktiivinen datalevy (joka sis\u00e4lsi tiedostoj\u00e4rjestelm\u00e4n `hassos-data` toisesta Home Assistant -asennuksesta).\n\nSinun on p\u00e4\u00e4tett\u00e4v\u00e4, mit\u00e4 sille tehd\u00e4\u00e4n. Muuten Home Assistant saattaa valita v\u00e4\u00e4r\u00e4n tietolevyn j\u00e4rjestelm\u00e4n uudelleenk\u00e4ynnistyksen yhteydess\u00e4.\n\nJos et halua k\u00e4ytt\u00e4\u00e4 t\u00e4t\u00e4 tietolevy\u00e4, irrota se j\u00e4rjestelm\u00e4st\u00e4. Jos j\u00e4t\u00e4t sen kytkettyn\u00e4, valitse jokin seuraavista vaihtoehdoista:",
+                        "menu_options": {
+                            "system_adopt_data_disk": "K\u00e4yt\u00e4 havaittua tietolevyasemaa nykyisen j\u00e4rjestelm\u00e4n sijasta.",
+                            "system_rename_data_disk": "Merkitse inaktiiviseksi datalevyksi (nime\u00e4 tiedostoj\u00e4rjestelm\u00e4 uudelleen)"
+                        }
+                    },
+                    "system_rename_data_disk": {
+                        "description": "`{reference}` on tiedostoj\u00e4rjestelm\u00e4, jonka nimi on hassos-data, eik\u00e4 se ole aktiivinen datalevy. T\u00e4m\u00e4 voi aiheuttaa sen, ett\u00e4 Home Assistant valitsee v\u00e4\u00e4r\u00e4n datalevyn j\u00e4rjestelm\u00e4n uudelleenk\u00e4ynnistyksen yhteydess\u00e4.\n\nK\u00e4yt\u00e4 fix-vaihtoehtoa tiedostoj\u00e4rjestelm\u00e4n uudelleennime\u00e4miseen t\u00e4m\u00e4n est\u00e4miseksi. Vaihtoehtoisesti voit siirt\u00e4\u00e4 datalevyn asemalle (korvaten sen sis\u00e4ll\u00f6n) tai poistaa aseman j\u00e4rjestelm\u00e4st\u00e4."
+                    }
+                }
+            },
+            "title": "Useita tietolevyj\u00e4 havaittu"
+        },
+        "issue_system_reboot_required": {
+            "fix_flow": {
+                "abort": {
+                    "apply_suggestion_fail": "J\u00e4rjestelm\u00e4\u00e4 ei voitu k\u00e4ynnist\u00e4\u00e4 uudelleen. Katso lis\u00e4tietoja Supervisorin lokeista."
+                },
+                "step": {
+                    "system_execute_reboot": {
+                        "description": "Asetuksia on muutettu, ja niiden voimaantulo edellytt\u00e4\u00e4 j\u00e4rjestelm\u00e4n uudelleenk\u00e4ynnistyst\u00e4.\n\nT\u00e4m\u00e4 korjaus k\u00e4ynnist\u00e4\u00e4 j\u00e4rjestelm\u00e4n uudelleenk\u00e4ynnistyksen, jolloin Home Assistant ja kaikki lis\u00e4osat eiv\u00e4t ole k\u00e4ytett\u00e4viss\u00e4 lyhyen aikaa."
+                    }
+                }
+            },
+            "title": "Uudelleenk\u00e4ynnistys vaaditaan"
+        },
+        "unhealthy": {
+            "description": "J\u00e4rjestelm\u00e4 on t\u00e4ll\u00e4 hetkell\u00e4 ep\u00e4kunnossa {reason} vuoksi. K\u00e4yt\u00e4 linkki\u00e4 saadaksesi lis\u00e4tietoja ja saadaksesi selville, miten asia korjataan.",
+            "title": "Ep\u00e4terveellinen j\u00e4rjestelm\u00e4 - {reason}"
+        },
+        "unhealthy_docker": {
+            "description": "J\u00e4rjestelm\u00e4 on t\u00e4ll\u00e4 hetkell\u00e4 ep\u00e4terve, koska Docker on m\u00e4\u00e4ritetty v\u00e4\u00e4rin. Linkin kautta saat lis\u00e4tietoja ja voit korjata asian.",
+            "title": "Ep\u00e4terve j\u00e4rjestelm\u00e4 - Docker v\u00e4\u00e4rin konfiguroitu"
+        },
+        "unhealthy_privileged": {
+            "description": "J\u00e4rjestelm\u00e4 on t\u00e4ll\u00e4 hetkell\u00e4 ep\u00e4terve, koska sill\u00e4 ei ole oikeutettua p\u00e4\u00e4sy\u00e4 docker-runtimeen. K\u00e4yt\u00e4 linkki\u00e4 saadaksesi lis\u00e4tietoja ja saadaksesi tiet\u00e4\u00e4, miten t\u00e4m\u00e4 korjataan.",
+            "title": "Ep\u00e4terve j\u00e4rjestelm\u00e4 - Ei oikeutettu"
+        },
+        "unhealthy_setup": {
+            "description": "J\u00e4rjestelm\u00e4 ei ole t\u00e4ll\u00e4 hetkell\u00e4 terve, koska asennusta ei onnistuttu suorittamaan loppuun. T\u00e4h\u00e4n voi olla useita syit\u00e4, k\u00e4yt\u00e4 linkki\u00e4 saadaksesi lis\u00e4tietoja ja saadaksesi tiet\u00e4\u00e4, miten t\u00e4m\u00e4 korjataan.",
+            "title": "Ep\u00e4terve j\u00e4rjestelm\u00e4 - Asennus ep\u00e4onnistui"
+        },
+        "unhealthy_supervisor": {
+            "description": "J\u00e4rjestelm\u00e4 on t\u00e4ll\u00e4 hetkell\u00e4 ep\u00e4terve, koska yritys p\u00e4ivitt\u00e4\u00e4 Supervisor uusimpaan versioon ep\u00e4onnistui. Linkin kautta saat lis\u00e4tietoja ja voit korjata ongelman.",
+            "title": "Ep\u00e4terve j\u00e4rjestelm\u00e4 - Supervisor-p\u00e4ivitys ep\u00e4onnistui"
+        },
+        "unhealthy_untrusted": {
+            "description": "J\u00e4rjestelm\u00e4 on t\u00e4ll\u00e4 hetkell\u00e4 ep\u00e4terve, koska se on havainnut ep\u00e4luotettavaa koodia tai kuvia k\u00e4yt\u00f6ss\u00e4. Linkin kautta saat lis\u00e4tietoja ja voit korjata asian.",
+            "title": "Ep\u00e4terve j\u00e4rjestelm\u00e4 - Ep\u00e4luotettava koodi"
+        },
+        "unsupported": {
+            "description": "J\u00e4rjestelm\u00e4 ei ole tuettu syyn: {reason} vuoksi. K\u00e4yt\u00e4 linkki\u00e4 saadaksesi lis\u00e4tietoja ja saadaksesi tiet\u00e4\u00e4, miten t\u00e4m\u00e4 korjataan.",
+            "title": "J\u00e4rjestelm\u00e4\u00e4 ei tueta \u2013 {reason}"
+        },
+        "unsupported_apparmor": {
+            "description": "J\u00e4rjestelm\u00e4 ei ole tuettu, koska AppArmor toimii virheellisesti ja lis\u00e4osia k\u00e4ytet\u00e4\u00e4n suojaamattomalla ja turvattomalla tavalla. Linkin kautta saat lis\u00e4tietoja ja voit korjata asian.",
+            "title": "Ei tuettu j\u00e4rjestelm\u00e4 - AppArmor-ongelmat"
+        },
+        "unsupported_cgroup_version": {
+            "description": "J\u00e4rjestelm\u00e4 ei ole tuettu, koska k\u00e4yt\u00f6ss\u00e4 on Docker CGroupin v\u00e4\u00e4r\u00e4 versio. K\u00e4yt\u00e4 linkki\u00e4 saadaksesi tiet\u00e4\u00e4 oikean version ja kuinka korjata asia.",
+            "title": "Ei tuettu j\u00e4rjestelm\u00e4 - CGroup-versio"
+        },
+        "unsupported_connectivity_check": {
+            "description": "J\u00e4rjestelm\u00e4 ei ole tuettu, koska Home Assistant ei pysty m\u00e4\u00e4ritt\u00e4m\u00e4\u00e4n, milloin internet-yhteys on k\u00e4ytett\u00e4viss\u00e4. Linkin kautta saat lis\u00e4tietoja ja voit korjata ongelman.",
+            "title": "Ei tuettu j\u00e4rjestelm\u00e4 - Yhteyden tarkistus poistettu k\u00e4yt\u00f6st\u00e4"
+        },
+        "unsupported_content_trust": {
+            "description": "J\u00e4rjestelm\u00e4 ei ole tuettu, koska Home Assistant ei voi varmistaa, ett\u00e4 suoritettava sis\u00e4lt\u00f6 on luotettavaa eik\u00e4 hy\u00f6kk\u00e4\u00e4jien muokkaamaa. Linkin kautta saat lis\u00e4tietoja ja voit korjata ongelman.",
+            "title": "Ei tuettu j\u00e4rjestelm\u00e4 - Sis\u00e4ll\u00f6n luotettavuuden tarkistus poistettu k\u00e4yt\u00f6st\u00e4"
+        },
+        "unsupported_dbus": {
+            "description": "J\u00e4rjestelm\u00e4 ei ole tuettu, koska D-Bus-v\u00e4yl\u00e4 toimii virheellisesti. Monet asiat ep\u00e4onnistuvat ilman t\u00e4t\u00e4, koska Supervisor ei voi kommunikoida is\u00e4nt\u00e4koneen kanssa. K\u00e4yt\u00e4 linkki\u00e4 saadaksesi lis\u00e4tietoja ja kuinka t\u00e4m\u00e4 korjataan.",
+            "title": "Ei tuettu j\u00e4rjestelm\u00e4 - D-Bus-ongelmat"
+        },
+        "unsupported_dns_server": {
+            "description": "J\u00e4rjestelm\u00e4 ei ole tuettu, koska tarjottu DNS-palvelin ei toimi oikein ja varaj\u00e4rjestelm\u00e4n DNS-vaihtoehto on poistettu k\u00e4yt\u00f6st\u00e4. Linkin kautta saat lis\u00e4tietoja ja voit korjata asian.",
+            "title": "Ei tuettu j\u00e4rjestelm\u00e4 - DNS-palvelimen ongelmat"
+        },
+        "unsupported_docker_configuration": {
+            "description": "J\u00e4rjestelm\u00e4 ei ole tuettu, koska Docker-demoni toimii odottamattomalla tavalla. Linkin kautta saat lis\u00e4tietoja ja voit korjata asian.",
+            "title": "Ei tuettu j\u00e4rjestelm\u00e4 - Docker v\u00e4\u00e4rin konfiguroitu"
+        },
+        "unsupported_docker_version": {
+            "description": "J\u00e4rjestelm\u00e4 ei ole tuettu, koska k\u00e4yt\u00f6ss\u00e4 on v\u00e4\u00e4r\u00e4 Docker-versio. K\u00e4yt\u00e4 linkki\u00e4 saadaksesi selville oikean version ja kuinka korjata asia.",
+            "title": "Ei tuettu j\u00e4rjestelm\u00e4 - Docker-versio"
+        },
+        "unsupported_job_conditions": {
+            "description": "J\u00e4rjestelm\u00e4 ei ole tuettu, koska yksi tai useampi ty\u00f6ehto, joka suojaa odottamattomilta vioilta ja rikkoutumisilta, on poistettu k\u00e4yt\u00f6st\u00e4. Linkin kautta saat lis\u00e4tietoja ja tietoa siit\u00e4, miten t\u00e4m\u00e4 korjataan.",
+            "title": "J\u00e4rjestelm\u00e4\u00e4 ei tueta - Suojaukset pois k\u00e4yt\u00f6st\u00e4"
+        },
+        "unsupported_lxc": {
+            "description": "J\u00e4rjestelm\u00e4 ei ole tuettu, koska sit\u00e4 k\u00e4ytet\u00e4\u00e4n LXC-virtuaalikoneessa. Linkin kautta saat lis\u00e4tietoja ja voit korjata t\u00e4m\u00e4n.",
+            "title": "Ei tuettu j\u00e4rjestelm\u00e4 - LXC havaittu"
+        },
+        "unsupported_network_manager": {
+            "description": "J\u00e4rjestelm\u00e4 ei ole tuettu, koska Network Manager puuttuu, ei ole aktiivinen tai se on m\u00e4\u00e4ritetty v\u00e4\u00e4rin. Linkin kautta saat lis\u00e4tietoja ja voit korjata asian.",
+            "title": "Ei tuettu j\u00e4rjestelm\u00e4 - Network Manager -ongelmat"
+        },
+        "unsupported_os": {
+            "description": "J\u00e4rjestelm\u00e4 ei ole tuettu, koska k\u00e4yt\u00f6ss\u00e4 olevaa k\u00e4ytt\u00f6j\u00e4rjestelm\u00e4\u00e4 ei ole testattu tai yll\u00e4pidetty k\u00e4ytett\u00e4v\u00e4ksi Supervisorin kanssa. K\u00e4yt\u00e4 linkki\u00e4, josta n\u00e4et, mitk\u00e4 k\u00e4ytt\u00f6j\u00e4rjestelm\u00e4t ovat tuettuja ja miten asia korjataan.",
+            "title": "Ei tuettu j\u00e4rjestelm\u00e4 - K\u00e4ytt\u00f6j\u00e4rjestelm\u00e4"
+        },
+        "unsupported_os_agent": {
+            "description": "J\u00e4rjestelm\u00e4 ei ole tuettu, koska OS-Agentti puuttuu, ei ole aktiivinen tai se on m\u00e4\u00e4ritetty v\u00e4\u00e4rin. Linkin kautta saat lis\u00e4tietoja ja voit korjata asian.",
+            "title": "Ei tuettu j\u00e4rjestelm\u00e4 - OS-Agent-ongelmat"
+        },
+        "unsupported_restart_policy": {
+            "description": "J\u00e4rjestelm\u00e4 ei ole tuettu, koska Docker-s\u00e4ili\u00f6ll\u00e4 on uudelleenk\u00e4ynnistysk\u00e4yt\u00e4nt\u00f6, joka voi aiheuttaa ongelmia k\u00e4ynnistyksen yhteydess\u00e4. Linkin kautta saat lis\u00e4tietoja ja voit korjata asian.",
+            "title": "Ei tuettu j\u00e4rjestelm\u00e4 - Kontin uudelleenk\u00e4ynnistysk\u00e4yt\u00e4nt\u00f6"
+        },
+        "unsupported_software": {
+            "description": "J\u00e4rjestelm\u00e4 ei ole tuettu, koska Home Assistant -ekosysteemin ulkopuolisia lis\u00e4ohjelmia on havaittu. Linkin kautta saat lis\u00e4tietoja ja voit korjata asian.",
+            "title": "Tukematon j\u00e4rjestelm\u00e4 - Tukematon ohjelmisto"
+        },
+        "unsupported_source_mods": {
+            "description": "J\u00e4rjestelm\u00e4\u00e4 ei tueta, koska valvojan l\u00e4hdekoodia on muutettu. K\u00e4yt\u00e4 linkki\u00e4 saadaksesi lis\u00e4tietoja ja saadaksesi tiet\u00e4\u00e4, miten t\u00e4m\u00e4 korjataan.",
+            "title": "Tukematon j\u00e4rjestelm\u00e4 - Valvojan l\u00e4hdekoodin muutokset"
+        },
+        "unsupported_supervisor_version": {
+            "description": "J\u00e4rjestelm\u00e4 ei ole tuettu, koska k\u00e4yt\u00f6ss\u00e4 on vanhentunut Supervisor-versio ja automaattinen p\u00e4ivitys on poistettu k\u00e4yt\u00f6st\u00e4. Linkin kautta saat lis\u00e4tietoja ja voit korjata ongelman.",
+            "title": "Ei tuettu j\u00e4rjestelm\u00e4 - Supervisor-versio"
+        },
+        "unsupported_systemd": {
+            "description": "J\u00e4rjestelm\u00e4 ei ole tuettu, koska Systemd puuttuu, ei ole aktiivinen tai on konfiguroitu v\u00e4\u00e4rin. Linkin kautta saat lis\u00e4tietoja ja voit korjata asian.",
+            "title": "Ei tuettu j\u00e4rjestelm\u00e4 - Systemd-ongelmat"
+        },
+        "unsupported_systemd_journal": {
+            "description": "J\u00e4rjestelm\u00e4 ei ole tuettu, koska Systemd Journal ja/tai yhdysk\u00e4yt\u00e4v\u00e4palvelu puuttuu, ei ole aktiivinen tai on m\u00e4\u00e4ritetty v\u00e4\u00e4rin. Linkin kautta saat lis\u00e4tietoja ja voit korjata asian.",
+            "title": "J\u00e4rjestelm\u00e4\u00e4 ei tueta \u2013 Systemd Journal -ongelmat"
+        },
+        "unsupported_systemd_resolved": {
+            "description": "J\u00e4rjestelm\u00e4 ei ole tuettu, koska Systemd Resolved puuttuu, ei ole aktiivinen tai on m\u00e4\u00e4ritetty v\u00e4\u00e4rin. Linkin kautta saat lis\u00e4tietoja ja voit korjata asian.",
+            "title": "Ei tuettu j\u00e4rjestelm\u00e4 - Systemd-Resolved issues (Ratkaistut ongelmat)"
+        },
+        "unsupported_virtualization_image": {
+            "description": "J\u00e4rjestelm\u00e4\u00e4 ei tueta, koska k\u00e4yt\u00f6ss\u00e4 olevaa Home Assistant -k\u00e4ytt\u00f6j\u00e4rjestelm\u00e4n kuvaa ei ole tarkoitettu k\u00e4ytett\u00e4v\u00e4ksi virtualisoidussa ymp\u00e4rist\u00f6ss\u00e4. Linkin kautta saat lis\u00e4tietoja ja voit korjata ongelman.",
+            "title": "Ei tuettu j\u00e4rjestelm\u00e4 - Virheellinen k\u00e4ytt\u00f6j\u00e4rjestelm\u00e4kuva virtualisointia varten."
+        }
+    },
+    "services": {
+        "addon_restart": {
+            "description": "K\u00e4ynnist\u00e4\u00e4 lis\u00e4osan uudelleen.",
+            "fields": {
+                "addon": {
+                    "description": "Lis\u00e4osan etuliite.",
+                    "name": "Lis\u00e4osa"
+                }
+            },
+            "name": "K\u00e4ynnist\u00e4 lis\u00e4osa uudelleen."
+        },
+        "addon_start": {
+            "description": "K\u00e4ynnist\u00e4\u00e4 lis\u00e4osan.",
+            "fields": {
+                "addon": {
+                    "description": "Lis\u00e4osan etuliite.",
+                    "name": "Lis\u00e4osa"
+                }
+            },
+            "name": "K\u00e4ynnist\u00e4 lis\u00e4osa"
+        },
+        "addon_stdin": {
+            "description": "Kirjoittaa tiedot lis\u00e4osaan.",
+            "fields": {
+                "addon": {
+                    "description": "Lis\u00e4osan etuliite.",
+                    "name": "Lis\u00e4osa"
+                }
+            },
+            "name": "Kirjoita tiedot lis\u00e4osaan."
+        },
+        "addon_stop": {
+            "description": "Pys\u00e4ytt\u00e4\u00e4 lis\u00e4osan.",
+            "fields": {
+                "addon": {
+                    "description": "Lis\u00e4osan etuliite.",
+                    "name": "Lis\u00e4osa"
+                }
+            },
+            "name": "Pys\u00e4yt\u00e4 lis\u00e4osa."
+        },
+        "addon_update": {
+            "fields": {
+                "addon": {
+                    "description": "Lis\u00e4osan etuliite.",
+                    "name": "Lis\u00e4osa"
+                }
+            },
+            "name": "P\u00e4ivit\u00e4 lis\u00e4osa."
+        },
+        "backup_full": {
+            "description": "Luo t\u00e4ydellisen varmuuskopion.",
+            "fields": {
+                "compressed": {
+                    "description": "Pakkaa varmuuskopiotiedostot.",
+                    "name": "Pakattu"
+                },
+                "homeassistant_exclude_database": {
+                    "description": "Sulje Home Assistant -tietokantatiedosto pois varmuuskopiosta",
+                    "name": "Home Assistant j\u00e4tt\u00e4\u00e4 tietokannan ulkopuolelle"
+                },
+                "location": {
+                    "description": "Varmuuskopiointiverkon tallennustilan nimi, johon varmuuskopiot tallennetaan.",
+                    "name": "Sijainti"
+                },
+                "name": {
+                    "description": "Valinnainen (oletusarvo = nykyinen p\u00e4iv\u00e4m\u00e4\u00e4r\u00e4 ja kellonaika).",
+                    "name": "Nimi"
+                },
+                "password": {
+                    "description": "Salasana, jolla varmuuskopio suojataan.",
+                    "name": "Salasana"
+                }
+            },
+            "name": "Luo t\u00e4ydellinen varmuuskopio."
+        },
+        "backup_partial": {
+            "description": "Luo osittaisen varmuuskopion.",
+            "fields": {
+                "addons": {
+                    "description": "Luettelo varmuuskopioon lis\u00e4tt\u00e4vist\u00e4 lis\u00e4osista. K\u00e4yt\u00e4 lis\u00e4osan nimimerkki\u00e4.",
+                    "name": "Lis\u00e4osat"
+                },
+                "compressed": {
+                    "description": "Pakkaa varmuuskopiotiedostot.",
+                    "name": "Pakattu"
+                },
+                "folders": {
+                    "description": "Luettelo varmuuskopioon sis\u00e4llytett\u00e4vist\u00e4 hakemistoista.",
+                    "name": "Kansiot"
+                },
+                "homeassistant": {
+                    "description": "Sis\u00e4llytt\u00e4\u00e4 Home Assistantin asetukset varmuuskopioon.",
+                    "name": "Home Assistant -asetukset"
+                },
+                "homeassistant_exclude_database": {
+                    "description": "Sulje Home Assistant -tietokantatiedosto pois varmuuskopiosta",
+                    "name": "Home Assistant j\u00e4tt\u00e4\u00e4 tietokannan ulkopuolelle"
+                },
+                "location": {
+                    "description": "Varmuuskopiointiverkon tallennustilan nimi, johon varmuuskopiot tallennetaan.",
+                    "name": "Sijainti"
+                },
+                "name": {
+                    "description": "Valinnainen (oletusarvo = nykyinen p\u00e4iv\u00e4m\u00e4\u00e4r\u00e4 ja kellonaika).",
+                    "name": "Nimi"
+                },
+                "password": {
+                    "description": "Salasana, jolla varmuuskopio suojataan.",
+                    "name": "Salasana"
+                }
+            },
+            "name": "Luo osittainen varmuuskopio."
+        },
+        "host_reboot": {
+            "description": "K\u00e4ynnist\u00e4\u00e4 is\u00e4nt\u00e4j\u00e4rjestelm\u00e4n uudelleen.",
+            "name": "K\u00e4ynnist\u00e4 is\u00e4nt\u00e4j\u00e4rjestelm\u00e4 uudelleen."
+        },
+        "host_shutdown": {
+            "description": "Sammuttaa is\u00e4nt\u00e4j\u00e4rjestelm\u00e4n.",
+            "name": "Sammuta is\u00e4nt\u00e4j\u00e4rjestelm\u00e4."
+        },
+        "restore_full": {
+            "description": "Palauttaa t\u00e4ydest\u00e4 varmuuskopiosta.",
+            "fields": {
+                "password": {
+                    "description": "Valinnainen salasana.",
+                    "name": "Salasana"
+                },
+                "slug": {
+                    "description": "Varmuuskopio, josta palautetaan.",
+                    "name": "Etana"
+                }
+            },
+            "name": "Palauta t\u00e4ydest\u00e4 varmuuskopiosta."
+        },
+        "restore_partial": {
+            "description": "Palauttaa osittaisesta varmuuskopiosta.",
+            "fields": {
+                "addons": {
+                    "description": "Luettelo varmuuskopioon lis\u00e4tt\u00e4vist\u00e4 lis\u00e4osista. K\u00e4yt\u00e4 lis\u00e4osan nimimerkki\u00e4.",
+                    "name": "Lis\u00e4osat"
+                },
+                "folders": {
+                    "description": "Luettelo varmuuskopioon sis\u00e4llytett\u00e4vist\u00e4 hakemistoista.",
+                    "name": "Kansiot"
+                },
+                "homeassistant": {
+                    "description": "Palauttaa Home Assistantin.",
+                    "name": "Home Assistant -asetukset"
+                },
+                "password": {
+                    "description": "Valinnainen salasana.",
+                    "name": "Salasana"
+                },
+                "slug": {
+                    "description": "Varmuuskopio, josta palautetaan.",
+                    "name": "Etana"
+                }
+            },
+            "name": "Palauta osittaisesta varmuuskopiosta."
+        }
+    },
+    "system_health": {
+        "info": {
+            "board": "Taulu",
+            "healthy": "Terveellinen",
+            "supervisor_api": "Valvojan API",
+            "supported": "Tuettu",
+            "version_api": "Versio API"
+        }
+    }
+}

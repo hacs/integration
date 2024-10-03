@@ -1,0 +1,91 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "MELCloud-integration redan konfigurerad f\u00f6r den h\u00e4r e-postadressen. \u00c5tkomsttoken har uppdaterats.",
+            "reauth_successful": "\u00c5terautentisering lyckades",
+            "reconfigure_successful": "Omkonfigurationen lyckades"
+        },
+        "error": {
+            "cannot_connect": "Det gick inte att ansluta.",
+            "invalid_auth": "Ogiltig autentisering",
+            "unknown": "Ov\u00e4ntat fel"
+        },
+        "step": {
+            "reauth_confirm": {
+                "data": {
+                    "password": "L\u00f6senord",
+                    "username": "E-post"
+                },
+                "description": "Melcloud-integrationen m\u00e5ste autentisera dina anslutningsuppgifter p\u00e5 nytt",
+                "title": "Autentiseringen har upph\u00f6rt att g\u00e4lla f\u00f6r {name}"
+            },
+            "reconfigure_confirm": {
+                "data": {
+                    "password": "L\u00f6senord"
+                }
+            },
+            "user": {
+                "data": {
+                    "password": "L\u00f6senord",
+                    "username": "E-post"
+                },
+                "description": "Anslut med ditt MELCloud-konto.",
+                "title": "Anslut till MELCloud"
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "daily_energy": {
+                "name": "Daglig elf\u00f6rbrukning"
+            },
+            "flow_temperature": {
+                "name": "Framledningstemperatur"
+            },
+            "outside_temperature": {
+                "name": "Utomhustemperatur"
+            },
+            "return_temperature": {
+                "name": "Returtemperatur"
+            },
+            "room_temperature": {
+                "name": "Rumstemperatur"
+            },
+            "tank_temperature": {
+                "name": "Tanktemperatur"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_yaml_import_issue_cannot_connect": {
+            "description": "Konfigurering av MELCloud med YAML tas bort, men det uppstod ett anslutningsfel vid import av YAML-konfigurationen.\n\nKontrollera att anslutningen till MELCloud fungerar och starta om Home Assistant f\u00f6r att f\u00f6rs\u00f6ka igen eller ta bort MELCloud YAML-konfigurationen fr\u00e5n filen configuration.yaml och forts\u00e4tt till [konfigurera integration](/config/integrations/dashboard/add?domain=melcoud) manuellt.",
+            "title": "Importen av YAML-konfigurationen f\u00f6r MELCloud misslyckades"
+        },
+        "deprecated_yaml_import_issue_invalid_auth": {
+            "description": "Konfigurering av MELCloud med YAML tas bort, men det uppstod ett autentiseringsfel vid import av din YAML-konfiguration.\n\nKorrigera YAML-konfigurationen och starta om Home Assistant f\u00f6r att f\u00f6rs\u00f6ka igen eller ta bort MELCloud YAML-konfigurationen fr\u00e5n filen configuration.yaml och forts\u00e4tt att [konfigurera integrationen](/config/integrations/dashboard/add?domain=melcoud) manuellt.",
+            "title": "Importen av YAML-konfigurationen f\u00f6r MELCloud misslyckades"
+        }
+    },
+    "services": {
+        "set_vane_horizontal": {
+            "description": "St\u00e4ller in horisontell lamellposition.",
+            "fields": {
+                "position": {
+                    "description": "Horisontell lamellposition. M\u00f6jliga alternativ finns i vane_horizontal_positions tillst\u00e5ndsattribut.",
+                    "name": "Position"
+                }
+            },
+            "name": "St\u00e4ll in horisontell lamell"
+        },
+        "set_vane_vertical": {
+            "description": "St\u00e4ller in vertikal lamellposition.",
+            "fields": {
+                "position": {
+                    "description": "Vertikal lamellposition. M\u00f6jliga alternativ finns i vane_vertical_positions tillst\u00e5ndsattribut.",
+                    "name": "Position"
+                }
+            },
+            "name": "St\u00e4ll in vertikal lamell"
+        }
+    }
+}

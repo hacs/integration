@@ -1,0 +1,51 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "Sireen",
+            "state": {
+                "off": "V\u00e4ljas",
+                "on": "Sees"
+            },
+            "state_attributes": {
+                "available_tones": {
+                    "name": "Saadaolevad elid"
+                }
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "{domain} integreerimise platvorm {platform} ei toeta platvormi seadistamist. \n\n Selle probleemi lahendamiseks eemalda see oma konfiguratsioonist ja taask\u00e4ivita Home Assistant.",
+            "title": "Platvormi tuge ei toetata"
+        }
+    },
+    "services": {
+        "toggle": {
+            "description": "L\u00fclitab sireeni sisse/v\u00e4lja.",
+            "name": "Muuda olekut"
+        },
+        "turn_off": {
+            "description": "L\u00fclitab sireeni v\u00e4lja.",
+            "name": "L\u00fclita v\u00e4lja"
+        },
+        "turn_on": {
+            "description": "L\u00fclitab sireeni sisse.",
+            "fields": {
+                "duration": {
+                    "description": "Heli esitamise sekundite arv. Seda peab toetama sidumine.",
+                    "name": "Kestus"
+                },
+                "tone": {
+                    "description": "Toon, mida v\u00e4ljastada. Kui atribuut \u201eavailable_tones\u201d on kaart, saab kasutada kas v\u00f5tit v\u00f5i v\u00e4\u00e4rtust. Seda peab toetama sidumine.",
+                    "name": "Toon"
+                },
+                "volume_level": {
+                    "description": "Helitugevus. 0 on kuuldamatu, 1 on maksimaalne helitugevus. Peab olema sidumise poolt toetatud.",
+                    "name": "Helitugevus"
+                }
+            },
+            "name": "L\u00fclita sisse"
+        }
+    },
+    "title": "Sireen"
+}

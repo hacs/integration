@@ -1,0 +1,51 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "Sirena",
+            "state": {
+                "off": "Apagado",
+                "on": "Encendido"
+            },
+            "state_attributes": {
+                "available_tones": {
+                    "name": "Tonos disponibles"
+                }
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "La plataforma {platform} para la integraci\u00f3n {domain} no es compatible con la configuraci\u00f3n de la plataforma. \n\nElim\u00ednala de tu configuraci\u00f3n y reinicia Home Assistant para solucionar este problema.",
+            "title": "Soporte de plataforma no compatible"
+        }
+    },
+    "services": {
+        "toggle": {
+            "description": "Activa o desactiva la sirena.",
+            "name": "Alternar"
+        },
+        "turn_off": {
+            "description": "Apaga la sirena.",
+            "name": "Apagar"
+        },
+        "turn_on": {
+            "description": "Enciende la sirena.",
+            "fields": {
+                "duration": {
+                    "description": "N\u00famero de segundos que se reproduce el sonido. Debe ser compatible con la integraci\u00f3n.",
+                    "name": "Duraci\u00f3n"
+                },
+                "tone": {
+                    "description": "El tono a emitir. Cuando la propiedad `disponible_tonos` es un mapa, se puede usar la clave o el valor. Debe ser compatible con la integraci\u00f3n.",
+                    "name": "Tono"
+                },
+                "volume_level": {
+                    "description": "El volumen. 0 es inaudible, 1 es el volumen m\u00e1ximo. Debe ser compatible con la integraci\u00f3n.",
+                    "name": "Volumen"
+                }
+            },
+            "name": "Encender"
+        }
+    },
+    "title": "Sirena"
+}

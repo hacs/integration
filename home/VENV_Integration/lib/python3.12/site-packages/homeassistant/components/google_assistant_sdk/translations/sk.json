@@ -1,0 +1,63 @@
+{
+    "application_credentials": {
+        "description": "Postupujte pod\u013ea [pokynov]({more_info_url}) pre [obrazovku s\u00fahlasu OAuth]({oauth_consent_url}), aby ste poskytli asistentovi Home Assistant pr\u00edstup k v\u00e1\u0161mu Google Assistant SDK. Mus\u00edte tie\u017e vytvori\u0165 aplika\u010dn\u00e9 poverenia prepojen\u00e9 s va\u0161\u00edm \u00fa\u010dtom:\n1. Prejdite na str\u00e1nku [Credentials]({oauth_creds_url}) a vyberte mo\u017enos\u0165 **Create Credentials** (Vytvori\u0165 poverenia**).\n2. Z rozba\u013eovacieho zoznamu vyberte polo\u017eku **OAuth client ID**.\n3. Pre typ aplik\u00e1cie vyberte **Webov\u00e1 aplik\u00e1cia**."
+    },
+    "config": {
+        "abort": {
+            "already_configured": "\u00da\u010det je u\u017e nakonfigurovan\u00fd",
+            "already_in_progress": "Konfigur\u00e1cia u\u017e prebieha",
+            "cannot_connect": "Nepodarilo sa pripoji\u0165",
+            "invalid_access_token": "Neplatn\u00fd pr\u00edstupov\u00fd token",
+            "missing_configuration": "Komponent nie je nakonfigurovan\u00fd. Postupujte pod\u013ea dokument\u00e1cie.",
+            "oauth_error": "Prijat\u00e9 neplatn\u00e9 \u00fadaje tokenu.",
+            "oauth_failed": "Chyba pri z\u00edskavan\u00ed pr\u00edstupov\u00e9ho tokenu.",
+            "oauth_timeout": "\u010casov\u00fd limit na vyrie\u0161enie tokenu OAuth.",
+            "oauth_unauthorized": "Chyba autoriz\u00e1cie OAuth pri z\u00edskavan\u00ed pr\u00edstupov\u00e9ho tokenu.",
+            "reauth_successful": "Op\u00e4tovn\u00e9 overenie bolo \u00faspe\u0161n\u00e9",
+            "timeout_connect": "\u010casov\u00fd limit na nadviazanie spojenia",
+            "unknown": "Neo\u010dak\u00e1van\u00e1 chyba"
+        },
+        "create_entry": {
+            "default": "\u00daspe\u0161ne overen\u00e9"
+        },
+        "step": {
+            "auth": {
+                "title": "Prepoji\u0165 \u00fa\u010det Google"
+            },
+            "pick_implementation": {
+                "title": "Vyberte met\u00f3du overenia"
+            },
+            "reauth_confirm": {
+                "description": "Integr\u00e1cia s\u00fapravy Google Assistant SDK vy\u017eaduje op\u00e4tovn\u00e9 overenie v\u00e1\u0161ho \u00fa\u010dtu",
+                "title": "Vypr\u0161ala platnos\u0165 overenia pre {name}"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "enable_conversation_agent": "Povolenie agenta pre konverz\u00e1ciu",
+                    "language_code": "K\u00f3d jazyka"
+                },
+                "description": "Nastavte jazyk pre interakcie s Asistentom Google a \u010di chcete povoli\u0165 agenta konverz\u00e1cie."
+            }
+        }
+    },
+    "services": {
+        "send_text_command": {
+            "description": "Odo\u0161le pr\u00edkaz ako textov\u00fa po\u017eiadavku asistentovi Google.",
+            "fields": {
+                "command": {
+                    "description": "Pr\u00edkaz(y) na odoslanie Asistentovi Google.",
+                    "name": "Pr\u00edkaz"
+                },
+                "media_player": {
+                    "description": "N\u00e1zov(-y) subjektov prehr\u00e1va\u010da m\u00e9di\u00ed, na ktor\u00fdch sa m\u00e1 prehra\u0165 odpove\u010f.",
+                    "name": "Entita prehr\u00e1va\u010da m\u00e9di\u00ed"
+                }
+            },
+            "name": "Odosla\u0165 textov\u00fd pr\u00edkaz"
+        }
+    }
+}

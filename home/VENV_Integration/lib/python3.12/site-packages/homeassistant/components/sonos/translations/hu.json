@@ -1,0 +1,182 @@
+{
+    "config": {
+        "abort": {
+            "no_devices_found": "Nem tal\u00e1lhat\u00f3 eszk\u00f6z a h\u00e1l\u00f3zaton",
+            "not_sonos_device": "A felfedezett eszk\u00f6z nem Sonos eszk\u00f6z",
+            "single_instance_allowed": "M\u00e1r konfigur\u00e1lva van. Csak egy konfigur\u00e1ci\u00f3 lehets\u00e9ges."
+        },
+        "step": {
+            "confirm": {
+                "description": "Szeretn\u00e9 be\u00e1ll\u00edtani a Sonos-t?"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "microphone": {
+                "name": "Mikrofon"
+            }
+        },
+        "number": {
+            "audio_delay": {
+                "name": "Hang k\u00e9sleltet\u00e9s"
+            },
+            "balance": {
+                "name": "Balansz"
+            },
+            "bass": {
+                "name": "M\u00e9ly"
+            },
+            "music_surround_level": {
+                "name": "Zenei t\u00e9rhat\u00e1s szintje"
+            },
+            "sub_crossover": {
+                "name": "Sub m\u00e9lysug\u00e1rz\u00f3 \u00e1tviteli frekvencia"
+            },
+            "sub_gain": {
+                "name": "Szub er\u0151s\u00edt\u00e9s"
+            },
+            "surround_level": {
+                "name": "T\u00e9rhat\u00e1s szint"
+            },
+            "treble": {
+                "name": "Magas"
+            }
+        },
+        "sensor": {
+            "audio_input_format": {
+                "name": "Audio bemeneti form\u00e1tum"
+            }
+        },
+        "switch": {
+            "buttons_enabled": {
+                "name": "\u00c9rint\u00e9svez\u00e9rl\u00e9s"
+            },
+            "cross_fade": {
+                "name": "Mixel\u00e9s"
+            },
+            "dialog_level": {
+                "name": "Besz\u00e9d\u00e9rthet\u0151s\u00e9g jav\u00edt\u00e1sa"
+            },
+            "loudness": {
+                "name": "Hangoss\u00e1g"
+            },
+            "night_mode": {
+                "name": "\u00c9jszakai hang"
+            },
+            "status_light": {
+                "name": "Helyzetjelz\u0151"
+            },
+            "sub_enabled": {
+                "name": "Subwoofer enged\u00e9lyezve"
+            },
+            "surround_enabled": {
+                "name": "Surround enged\u00e9lyezve"
+            },
+            "surround_mode": {
+                "name": "Surround zene teljes hanger\u0151"
+            }
+        }
+    },
+    "exceptions": {
+        "invalid_favorite": {
+            "message": "Nem tal\u00e1lhat\u00f3 a Sonos kedvenc: {name}"
+        }
+    },
+    "issues": {
+        "subscriptions_failed": {
+            "description": "Lek\u00e9rdez\u00e9s \u00fczemm\u00f3dban, a funkcionalit\u00e1s korl\u00e1tozott lehet.\n\nA {device_ip} helyen tal\u00e1lhat\u00f3 Sonos eszk\u00f6z nem tudja el\u00e9rni a Home Assistant alkalmaz\u00e1st {listener_address} c\u00edmen.\n\nA probl\u00e9ma megold\u00e1s\u00e1val kapcsolatos tov\u00e1bbi inform\u00e1ci\u00f3k\u00e9rt tekintse meg a [dokument\u00e1ci\u00f3]({sub_fail_url}) dokumentumot.",
+            "title": "H\u00e1l\u00f3zati hiba: a feliratkoz\u00e1s sikertelen"
+        }
+    },
+    "services": {
+        "clear_sleep_timer": {
+            "description": "T\u00f6r\u00f6l egy Sonos id\u0151z\u00edt\u0151t.",
+            "name": "Id\u0151z\u00edt\u0151 t\u00f6rl\u00e9se"
+        },
+        "play_queue": {
+            "description": "Kezdje el lej\u00e1tszani a sort a legels\u0151 elemt\u0151l.",
+            "fields": {
+                "queue_position": {
+                    "description": "A dal poz\u00edci\u00f3ja a lej\u00e1tsz\u00e1si sorban, ahonnan el kell kezdeni a lej\u00e1tsz\u00e1st.",
+                    "name": "Sor poz\u00edci\u00f3"
+                }
+            },
+            "name": "Lej\u00e1tsz\u00e1si lista"
+        },
+        "remove_from_queue": {
+            "description": "Elt\u00e1vol\u00edt egy elemet a sorb\u00f3l.",
+            "fields": {
+                "queue_position": {
+                    "description": "Az elt\u00e1vol\u00edtand\u00f3 sorban elfoglalt poz\u00edci\u00f3.",
+                    "name": "Sor poz\u00edci\u00f3"
+                }
+            },
+            "name": "Elt\u00e1vol\u00edt\u00e1s a sorb\u00f3l"
+        },
+        "restore": {
+            "description": "Vissza\u00e1ll\u00edtja a m\u00e9dialej\u00e1tsz\u00f3 pillanatk\u00e9p\u00e9t.",
+            "fields": {
+                "entity_id": {
+                    "description": "A vissza\u00e1ll\u00edtand\u00f3 entit\u00e1s neve.",
+                    "name": "Entit\u00e1s"
+                },
+                "with_group": {
+                    "description": "Igaz vagy hamis. \u00c1ll\u00edtsa vissza a csoport elrendez\u00e9s\u00e9t is.",
+                    "name": "Csoportr\u00f3l is"
+                }
+            },
+            "name": "Vissza\u00e1ll\u00edt\u00e1s"
+        },
+        "set_sleep_timer": {
+            "description": "Be\u00e1ll\u00edt egy Sonos id\u0151z\u00edt\u0151t.",
+            "fields": {
+                "sleep_time": {
+                    "description": "Az id\u0151z\u00edt\u0151 be\u00e1ll\u00edt\u00e1s\u00e1hoz sz\u00fcks\u00e9ges m\u00e1sodpercek sz\u00e1ma.",
+                    "name": "Alv\u00e1si id\u0151"
+                }
+            },
+            "name": "Id\u0151z\u00edt\u0151 be\u00e1ll\u00edt\u00e1sa"
+        },
+        "snapshot": {
+            "description": "Pillanatk\u00e9pet k\u00e9sz\u00edt a m\u00e9dialej\u00e1tsz\u00f3r\u00f3l.",
+            "fields": {
+                "entity_id": {
+                    "description": "Az entit\u00e1s neve, amelyr\u0151l pillanatk\u00e9p k\u00e9sz\u00fcl.",
+                    "name": "Entit\u00e1s"
+                },
+                "with_group": {
+                    "description": "Igaz vagy hamis. K\u00e9sz\u00edtsen pillanatk\u00e9pet a csoport elrendez\u00e9s\u00e9r\u0151l is.",
+                    "name": "Csoportr\u00f3l is"
+                }
+            },
+            "name": "Pillanatk\u00e9p"
+        },
+        "update_alarm": {
+            "description": "Friss\u00edti az \u00e9breszt\u0151t \u00faj id\u0151- \u00e9s hanger\u0151be\u00e1ll\u00edt\u00e1sokkal.",
+            "fields": {
+                "alarm_id": {
+                    "description": "Azonos\u00edt\u00f3 az aktualiz\u00e1land\u00f3 \u00e9breszt\u0151h\u00f6z.",
+                    "name": "\u00c9breszt\u0151 azonos\u00edt\u00f3"
+                },
+                "enabled": {
+                    "description": "Az \u00e9breszt\u0151 enged\u00e9lyez\u00e9se vagy letilt\u00e1sa.",
+                    "name": "\u00c9breszt\u0151 enged\u00e9lyezve"
+                },
+                "include_linked_zones": {
+                    "description": "Enged\u00e9lyezze vagy tiltsa le a csoportos\u00edtott helyis\u00e9gek bevon\u00e1s\u00e1t.",
+                    "name": "Csoportos\u00edtott z\u00f3n\u00e1k bevon\u00e1sa"
+                },
+                "time": {
+                    "description": "\u00c1ll\u00edtsa be az \u00e9breszt\u0151 idej\u00e9t.",
+                    "name": "Id\u0151"
+                },
+                "volume": {
+                    "description": "\u00c1ll\u00edtsa be az \u00e9breszt\u0151 hanger\u0151szintj\u00e9t.",
+                    "name": "Hanger\u0151"
+                }
+            },
+            "name": "\u00c9breszt\u0151 friss\u00edt\u00e9se"
+        }
+    }
+}

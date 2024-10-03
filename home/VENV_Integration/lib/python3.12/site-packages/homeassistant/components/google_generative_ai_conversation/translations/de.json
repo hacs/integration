@@ -1,0 +1,74 @@
+{
+    "config": {
+        "abort": {
+            "reauth_successful": "Die erneute Authentifizierung war erfolgreich"
+        },
+        "error": {
+            "cannot_connect": "Verbindung fehlgeschlagen",
+            "invalid_auth": "Ung\u00fcltige Authentifizierung",
+            "unknown": "Unerwarteter Fehler"
+        },
+        "step": {
+            "api": {
+                "data": {
+                    "api_key": "API-Schl\u00fcssel"
+                },
+                "description": "Hole dir deinen API-Schl\u00fcssel [hier]({api_key_url})."
+            },
+            "reauth_confirm": {
+                "description": "Dein aktueller API-Schl\u00fcssel: {api_key} ist nicht mehr g\u00fcltig. Bitte gib einen neuen g\u00fcltigen API-Schl\u00fcssel ein.",
+                "title": "Die Authentifizierung ist abgelaufen f\u00fcr {name}"
+            },
+            "user": {
+                "data": {
+                    "api_key": "API-Schl\u00fcssel",
+                    "llm_hass_api": "Home Assistant steuern"
+                }
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "chat_model": "Modell",
+                    "dangerous_block_threshold": "F\u00f6rdert, erleichtert oder ermutigt sch\u00e4dliche Handlungen",
+                    "harassment_block_threshold": "Negative oder verletzende Kommentare, die auf die Identit\u00e4t und/oder gesch\u00fctzte Attribute abzielen",
+                    "hate_block_threshold": "Unh\u00f6flicher, respektloser oder vulg\u00e4rer Inhalt",
+                    "llm_hass_api": "Home Assistant steuern",
+                    "max_tokens": "Maximale Anzahl von Token, die als Antwort zur\u00fcckgegeben werden",
+                    "model": "Modell",
+                    "prompt": "Anweisungen",
+                    "recommended": "Empfohlene Modelleinstellungen",
+                    "sexual_block_threshold": "Enth\u00e4lt Hinweise auf sexuelle Handlungen oder andere anst\u00f6\u00dfige Inhalte",
+                    "temperature": "Temperatur",
+                    "tone_prompt": "Ton",
+                    "top_k": "Top K",
+                    "top_p": "Top P"
+                },
+                "data_description": {
+                    "prompt": "Gib Anweisungen, wie der LLM reagieren soll. Dies kann eine Vorlage sein.",
+                    "tone_prompt": "Hinweise f\u00fcr den LLM zum Stil des generierten Textes. Dies kann eine Vorlage sein."
+                }
+            }
+        }
+    },
+    "services": {
+        "generate_content": {
+            "description": "Erzeugen von Inhalten aus einer Eingabeaufforderung, die aus Text und optional aus Bildern besteht",
+            "fields": {
+                "image_filename": {
+                    "description": "Bilder",
+                    "example": "/config/www/image.jpg",
+                    "name": "Dateiname des Bildes"
+                },
+                "prompt": {
+                    "description": "Die Eingabeaufforderung",
+                    "example": "Beschreibe, was du auf diesen Bildern siehst:",
+                    "name": "Eingabeaufforderung"
+                }
+            },
+            "name": "Inhalte generieren"
+        }
+    }
+}

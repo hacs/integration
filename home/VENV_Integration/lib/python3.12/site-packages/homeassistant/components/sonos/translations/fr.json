@@ -1,0 +1,182 @@
+{
+    "config": {
+        "abort": {
+            "no_devices_found": "Aucun appareil trouv\u00e9 sur le r\u00e9seau",
+            "not_sonos_device": "L'appareil d\u00e9couvert n'est pas un appareil Sonos",
+            "single_instance_allowed": "D\u00e9j\u00e0 configur\u00e9. Une seule configuration possible."
+        },
+        "step": {
+            "confirm": {
+                "description": "Voulez-vous configurer Sonos\u00a0?"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "microphone": {
+                "name": "Microphone"
+            }
+        },
+        "number": {
+            "audio_delay": {
+                "name": "D\u00e9lai audio"
+            },
+            "balance": {
+                "name": "Balance"
+            },
+            "bass": {
+                "name": "Basses"
+            },
+            "music_surround_level": {
+                "name": "Volume son surround"
+            },
+            "sub_crossover": {
+                "name": "Fr\u00e9quence de crossover du caisson de basse (subwoofer)"
+            },
+            "sub_gain": {
+                "name": "Gain caisson de basses"
+            },
+            "surround_level": {
+                "name": "Volume son surround"
+            },
+            "treble": {
+                "name": "Aig\u00fces"
+            }
+        },
+        "sensor": {
+            "audio_input_format": {
+                "name": "Format d'entr\u00e9e audio"
+            }
+        },
+        "switch": {
+            "buttons_enabled": {
+                "name": "Contr\u00f4les tactiles"
+            },
+            "cross_fade": {
+                "name": "Crossfade"
+            },
+            "dialog_level": {
+                "name": "Am\u00e9lioration des dialogues"
+            },
+            "loudness": {
+                "name": "Loudness"
+            },
+            "night_mode": {
+                "name": "Son mode nuit"
+            },
+            "status_light": {
+                "name": "Lumi\u00e8re d'\u00e9tat"
+            },
+            "sub_enabled": {
+                "name": "Caisson de basses activ\u00e9"
+            },
+            "surround_enabled": {
+                "name": "Son surround activ\u00e9"
+            },
+            "surround_mode": {
+                "name": "Son surround plein volume"
+            }
+        }
+    },
+    "exceptions": {
+        "invalid_sonos_playlist": {
+            "message": "Impossible de trouver la liste de lecture Sonos\u00a0: {name}"
+        }
+    },
+    "issues": {
+        "subscriptions_failed": {
+            "description": "Retour au polling, les fonctionnalit\u00e9s peuvent \u00eatre limit\u00e9es.\n\nLe p\u00e9riph\u00e9rique Sonos \u00e0 {device_ip} ne peut pas atteindre Home Assistant \u00e0 {listener_address}.\n\nConsultez notre [documentation]({sub_fail_url}) pour plus d'informations sur la fa\u00e7on de r\u00e9soudre ce probl\u00e8me.",
+            "title": "Erreur de mise en r\u00e9seau : les abonnements ont \u00e9chou\u00e9"
+        }
+    },
+    "services": {
+        "clear_sleep_timer": {
+            "description": "Efface une minuterie Sonos.",
+            "name": "Effacer la minuterie"
+        },
+        "play_queue": {
+            "description": "Commencez \u00e0 lire la file d'attente \u00e0 partir du premier \u00e9l\u00e9ment.",
+            "fields": {
+                "queue_position": {
+                    "description": "Position du morceau dans la file d'attente \u00e0 partir de laquelle la lecture doit commencer.",
+                    "name": "Position dans la file d'attente"
+                }
+            },
+            "name": "File d'attente"
+        },
+        "remove_from_queue": {
+            "description": "Supprime un \u00e9l\u00e9ment de la file d'attente.",
+            "fields": {
+                "queue_position": {
+                    "description": "Position dans la file d'attente \u00e0 supprimer.",
+                    "name": "Position dans la file d'attente"
+                }
+            },
+            "name": "Retirer de la file d'attente"
+        },
+        "restore": {
+            "description": "Restaure un instantan\u00e9 du lecteur multim\u00e9dia.",
+            "fields": {
+                "entity_id": {
+                    "description": "Nom de l'entit\u00e9 qui sera restaur\u00e9e.",
+                    "name": "entity"
+                },
+                "with_group": {
+                    "description": "Vrai ou faux. R\u00e9tablissez \u00e9galement la pr\u00e9sentation du groupe.",
+                    "name": "Avec le groupe"
+                }
+            },
+            "name": "Restaurer"
+        },
+        "set_sleep_timer": {
+            "description": "D\u00e9finit une minuterie Sonos.",
+            "fields": {
+                "sleep_time": {
+                    "description": "Nombre de secondes pour r\u00e9gler la minuterie.",
+                    "name": "Temps de sommeil"
+                }
+            },
+            "name": "R\u00e9gler le minuteur"
+        },
+        "snapshot": {
+            "description": "Prend un instantan\u00e9 du lecteur multim\u00e9dia.",
+            "fields": {
+                "entity_id": {
+                    "description": "Nom de l'entity qui sera l'instantan\u00e9.",
+                    "name": "entityentity"
+                },
+                "with_group": {
+                    "description": "Vrai ou faux. Mettez \u00e9galement en \u00e9vidence la disposition du groupe.",
+                    "name": "Avec le groupe"
+                }
+            },
+            "name": "Aper\u00e7u"
+        },
+        "update_alarm": {
+            "description": "Met \u00e0 jour une alarme avec les nouveaux param\u00e8tres d'heure et de volume.",
+            "fields": {
+                "alarm_id": {
+                    "description": "ID de l'alarme \u00e0 mettre \u00e0 jour.",
+                    "name": "ID de l'alarme"
+                },
+                "enabled": {
+                    "description": "Activer ou d\u00e9sactiver l'alarme.",
+                    "name": "Alarme activ\u00e9e"
+                },
+                "include_linked_zones": {
+                    "description": "Activer ou d\u00e9sactiver l'inclusion des pi\u00e8ces group\u00e9es.",
+                    "name": "Inclure les zones li\u00e9es"
+                },
+                "time": {
+                    "description": "R\u00e9gler l'heure de l'alarme.",
+                    "name": "Heure"
+                },
+                "volume": {
+                    "description": "R\u00e9gler le volume de l'alarme.",
+                    "name": "Volume"
+                }
+            },
+            "name": "Mise \u00e0 jour de l'alarme"
+        }
+    }
+}

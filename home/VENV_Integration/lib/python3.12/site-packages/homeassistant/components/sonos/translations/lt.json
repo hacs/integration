@@ -1,0 +1,198 @@
+{
+    "config": {
+        "abort": {
+            "no_devices_found": "Tinkle nerasta joki\u0173 \u012frengini\u0173",
+            "not_sonos_device": "Atrastas \u012frenginys n\u0117ra \u201eSonos\u201c \u012frenginys",
+            "single_instance_allowed": "Jau sukonfig\u016bruota. Galima tik viena konfig\u016bracija."
+        },
+        "step": {
+            "confirm": {
+                "description": "Ar norite nustatyti \u201eSonos\u201c?"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "microphone": {
+                "name": "Mikrofonas"
+            }
+        },
+        "number": {
+            "audio_delay": {
+                "name": "Garso v\u0117lavimas"
+            },
+            "balance": {
+                "name": "Balansas"
+            },
+            "bass": {
+                "name": "Bosas"
+            },
+            "music_surround_level": {
+                "name": "Muzikos erdvinio garso lygis"
+            },
+            "sub_crossover": {
+                "name": "Antrinis kry\u017eminis da\u017enis"
+            },
+            "sub_gain": {
+                "name": "Papildomas padid\u0117jimas"
+            },
+            "surround_level": {
+                "name": "Aplinkos lygis"
+            },
+            "treble": {
+                "name": "Treble"
+            }
+        },
+        "sensor": {
+            "audio_input_format": {
+                "name": "Garso \u012fvesties formatas"
+            }
+        },
+        "switch": {
+            "buttons_enabled": {
+                "name": "Jutikliniai valdikliai"
+            },
+            "cross_fade": {
+                "name": "Crossfade"
+            },
+            "dialog_level": {
+                "name": "Kalbos tobulinimas"
+            },
+            "loudness": {
+                "name": "Garsumas"
+            },
+            "night_mode": {
+                "name": "Naktinis garsas"
+            },
+            "status_light": {
+                "name": "B\u016bsenos lemput\u0117"
+            },
+            "sub_enabled": {
+                "name": "\u017dem\u0173j\u0173 da\u017eni\u0173 garsiakalbis \u012fjungtas"
+            },
+            "surround_enabled": {
+                "name": "Erdvinis garsas \u012fjungtas"
+            },
+            "surround_mode": {
+                "name": "Erdvin\u0117 muzika visu garsu"
+            }
+        }
+    },
+    "exceptions": {
+        "announce_media_error": {
+            "message": "Nepavyko paskelbti klipo {media_id} {response}"
+        },
+        "invalid_content_type": {
+            "message": "\u201eSonos\u201c nepalaiko medijos turinio tipo: {media_type}"
+        },
+        "invalid_favorite": {
+            "message": "Nepavyko rasti \u201eSonos\u201c m\u0117gstamiausio: {name}"
+        },
+        "invalid_media": {
+            "message": "Nepavyko rasti medijos bibliotekoje: {media_id}"
+        },
+        "invalid_sonos_playlist": {
+            "message": "Nepavyko rasti \u201eSonos\u201c grojara\u0161\u010dio: {name}"
+        }
+    },
+    "issues": {
+        "subscriptions_failed": {
+            "description": "Gr\u012f\u017etant prie apklausos, funkcionalumas gali b\u016bti ribotas. \n\n \u201eSonos\u201c \u012frenginys, esantis {device_ip} negali pasiekti nam\u0173 asistento adresu {listener_address} . \n\n Nor\u0117dami gauti daugiau informacijos, kaip i\u0161spr\u0119sti \u0161i\u0105 problem\u0105, \u017er. m\u016bs\u0173 [dokumentacij\u0105]( {sub_fail_url} ).",
+            "title": "Tinklo klaida: nepavyko u\u017esiprenumeruoti"
+        }
+    },
+    "services": {
+        "clear_sleep_timer": {
+            "description": "I\u0161valo Sonos laikmat\u012f.",
+            "name": "I\u0161valyti laikmat\u012f"
+        },
+        "get_queue": {
+            "description": "Gr\u0105\u017eina eil\u0117s turin\u012f.",
+            "name": "Gauti eil\u0119"
+        },
+        "play_queue": {
+            "description": "Prad\u0117kite leisti eil\u0119 nuo pirmojo elemento.",
+            "fields": {
+                "queue_position": {
+                    "description": "Dainos vieta eil\u0117je, nuo kurios prad\u0117ti groti.",
+                    "name": "Eil\u0117s pad\u0117tis"
+                }
+            },
+            "name": "Leisti eil\u0119"
+        },
+        "remove_from_queue": {
+            "description": "Pa\u0161alina element\u0105 i\u0161 eil\u0117s.",
+            "fields": {
+                "queue_position": {
+                    "description": "Pad\u0117kite viet\u0105 eil\u0117je, kuri\u0105 norite pa\u0161alinti.",
+                    "name": "Eil\u0117s pad\u0117tis"
+                }
+            },
+            "name": "Pa\u0161alinti i\u0161 eil\u0117s"
+        },
+        "restore": {
+            "description": "Atkuria medijos leistuvo momentin\u0119 nuotrauk\u0105.",
+            "fields": {
+                "entity_id": {
+                    "description": "Objekto, kuris bus atkurtas, pavadinimas.",
+                    "name": "Subjektas"
+                },
+                "with_group": {
+                    "description": "Tiesa ar melas. Taip pat atkurkite grup\u0117s i\u0161d\u0117stym\u0105.",
+                    "name": "Su grupe"
+                }
+            },
+            "name": "Atkurti"
+        },
+        "set_sleep_timer": {
+            "description": "Nustato Sonos laikmat\u012f.",
+            "fields": {
+                "sleep_time": {
+                    "description": "Laikma\u010dio nustatymo sekund\u017ei\u0173 skai\u010dius.",
+                    "name": "Miego laikas"
+                }
+            },
+            "name": "Nustatykite laikmat\u012f"
+        },
+        "snapshot": {
+            "description": "Daro medijos leistuvo momentin\u0119 nuotrauk\u0105.",
+            "fields": {
+                "entity_id": {
+                    "description": "Objekto, kuris bus momentinis vaizdas, pavadinimas.",
+                    "name": "Subjektas"
+                },
+                "with_group": {
+                    "description": "Tiesa ar melas. Taip pat nufotografuokite grup\u0117s i\u0161d\u0117stym\u0105.",
+                    "name": "Su grupe"
+                }
+            },
+            "name": "Momentin\u0117 nuotrauka"
+        },
+        "update_alarm": {
+            "description": "Atnaujina \u017eadintuv\u0105 su naujais laiko ir garsumo nustatymais.",
+            "fields": {
+                "alarm_id": {
+                    "description": "ID, kad b\u016bt\u0173 atnaujintas signalas.",
+                    "name": "Aliarmo ID"
+                },
+                "enabled": {
+                    "description": "\u012ejungti arba i\u0161jungti pavojaus signal\u0105.",
+                    "name": "Signalizacija \u012fjungta"
+                },
+                "include_linked_zones": {
+                    "description": "\u012ejungti arba i\u0161jungti, \u012fskaitant sugrupuotas patalpas.",
+                    "name": "\u012etraukite susietas zonas"
+                },
+                "time": {
+                    "description": "Nustatykite \u017eadintuvo laik\u0105.",
+                    "name": "Laikas"
+                },
+                "volume": {
+                    "description": "Nustatykite aliarmo garsumo lyg\u012f.",
+                    "name": "Garsas"
+                }
+            },
+            "name": "Atnaujinti apsaug\u0105"
+        }
+    }
+}

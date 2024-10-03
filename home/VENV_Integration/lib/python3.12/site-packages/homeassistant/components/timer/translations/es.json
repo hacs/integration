@@ -1,0 +1,84 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "Temporizador",
+            "state": {
+                "active": "Activo",
+                "idle": "Inactivo",
+                "paused": "En pausa"
+            },
+            "state_attributes": {
+                "duration": {
+                    "name": "Duraci\u00f3n"
+                },
+                "editable": {
+                    "name": "Gestionado a trav\u00e9s de la IU",
+                    "state": {
+                        "false": "No",
+                        "true": "S\u00ed"
+                    }
+                },
+                "finishes_at": {
+                    "name": "Acaba a las"
+                },
+                "remaining": {
+                    "name": "Restantes"
+                },
+                "restore": {
+                    "name": "Restaurar"
+                }
+            }
+        }
+    },
+    "issues": {
+        "deprecated_duration_in_start": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Se va a eliminar el par\u00e1metro opcional de duraci\u00f3n del servicio de temporizador `timer.start` y se ha detectado su uso. Para cambiar la duraci\u00f3n, por favor, crea un nuevo temporizador. \n\nPor favor, elimina el uso del par\u00e1metro `duration` en el servicio `timer.start` en tus automatizaciones y scripts y selecciona **enviar** para cerrar este problema.",
+                        "title": "Se va a eliminar el par\u00e1metro de duraci\u00f3n del servicio de inicio del temporizador."
+                    }
+                }
+            },
+            "title": "Se va a eliminar el par\u00e1metro de duraci\u00f3n del servicio de inicio del temporizador."
+        }
+    },
+    "services": {
+        "cancel": {
+            "description": "Cancela un temporizador.",
+            "name": "Cancelar"
+        },
+        "change": {
+            "description": "Cambia un temporizador.",
+            "fields": {
+                "duration": {
+                    "description": "Duraci\u00f3n para sumar o restar al temporizador de ejecuci\u00f3n.",
+                    "name": "Duraci\u00f3n"
+                }
+            },
+            "name": "Cambiar"
+        },
+        "finish": {
+            "description": "Finaliza un temporizador.",
+            "name": "Finalizar"
+        },
+        "pause": {
+            "description": "Pausa un temporizador.",
+            "name": "Pausar"
+        },
+        "reload": {
+            "description": "Recarga los temporizadores desde la configuraci\u00f3n YAML.",
+            "name": "Recargar"
+        },
+        "start": {
+            "description": "Inicia un temporizador.",
+            "fields": {
+                "duration": {
+                    "description": "Duraci\u00f3n que requiere el temporizador para finalizar. [opcional].",
+                    "name": "Duraci\u00f3n"
+                }
+            },
+            "name": "Iniciar"
+        }
+    }
+}

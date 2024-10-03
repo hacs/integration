@@ -1,0 +1,1133 @@
+{
+    "config": {
+        "abort": {
+            "not_zha_device": "Bu cihaz bir zha cihaz\u0131 de\u011fil",
+            "single_instance_allowed": "Zaten yap\u0131land\u0131r\u0131lm\u0131\u015f. Yaln\u0131zca tek bir konfig\u00fcrasyon m\u00fcmk\u00fcnd\u00fcr.",
+            "usb_probe_failed": "USB ayg\u0131t\u0131 ara\u015ft\u0131r\u0131lamad\u0131",
+            "wrong_firmware_installed": "Cihaz\u0131n\u0131z yanl\u0131\u015f donan\u0131m yaz\u0131l\u0131m\u0131n\u0131 \u00e7al\u0131\u015ft\u0131r\u0131yor ve do\u011fru donan\u0131m yaz\u0131l\u0131m\u0131 y\u00fcklenene kadar ZHA ile kullan\u0131lamaz. Daha fazla bilgi ve bunun nas\u0131l d\u00fczeltilece\u011fine ili\u015fkin talimatlar i\u00e7eren [bir onar\u0131m olu\u015fturuldu]( {repair_url} )."
+        },
+        "error": {
+            "cannot_connect": "Ba\u011flanma hatas\u0131",
+            "invalid_backup_json": "Ge\u00e7ersiz yedek JSON"
+        },
+        "flow_title": "{name}",
+        "step": {
+            "choose_automatic_backup": {
+                "data": {
+                    "choose_automatic_backup": "Otomatik bir yedekleme se\u00e7in"
+                },
+                "description": "Otomatik bir yedeklemeden a\u011f ayarlar\u0131n\u0131z\u0131 geri y\u00fckleyin",
+                "title": "Otomatik Yedeklemeyi Geri Y\u00fckle"
+            },
+            "choose_formation_strategy": {
+                "description": "Radyonuz i\u00e7in a\u011f ayarlar\u0131n\u0131 se\u00e7in.",
+                "menu_options": {
+                    "choose_automatic_backup": "Otomatik yedeklemeyi geri y\u00fckleyin",
+                    "form_initial_network": "Bir a\u011f olu\u015ftur",
+                    "form_new_network": "A\u011f ayarlar\u0131n\u0131 silin ve yeni bir a\u011f olu\u015fturun",
+                    "reuse_settings": "Radyo a\u011f\u0131 ayarlar\u0131n\u0131 koru",
+                    "upload_manual_backup": "Manuel bir yedekleme y\u00fckleyin"
+                },
+                "title": "A\u011f Olu\u015fumu"
+            },
+            "choose_serial_port": {
+                "data": {
+                    "path": "Seri Cihaz Yolu"
+                },
+                "description": "Zigbee radyonuz i\u00e7in seri ba\u011flant\u0131 noktas\u0131n\u0131 se\u00e7in",
+                "title": "Seri Ba\u011flant\u0131 Noktas\u0131 Se\u00e7in"
+            },
+            "confirm": {
+                "description": "{name} 'i kurmak istiyor musunuz?"
+            },
+            "confirm_hardware": {
+                "description": "{name} 'i kurmak istiyor musunuz?"
+            },
+            "manual_pick_radio_type": {
+                "data": {
+                    "radio_type": "Radyo Tipi"
+                },
+                "description": "Zigbee radyo tipinizi se\u00e7in",
+                "title": "Radyo Tipi"
+            },
+            "manual_port_config": {
+                "data": {
+                    "baudrate": "Ba\u011flant\u0131 noktas\u0131 h\u0131z\u0131",
+                    "flow_control": "Veri ak\u0131\u015f\u0131 kontrol\u00fc",
+                    "path": "Seri cihaz yolu"
+                },
+                "description": "Seri ba\u011flant\u0131 noktas\u0131 ayarlar\u0131n\u0131 girin",
+                "title": "Seri Ba\u011flant\u0131 Noktas\u0131 Ayarlar\u0131"
+            },
+            "maybe_confirm_ezsp_restore": {
+                "data": {
+                    "overwrite_coordinator_ieee": "Radyo IEEE adresini kal\u0131c\u0131 olarak de\u011fi\u015ftirin"
+                },
+                "description": "Yede\u011finiz, radyonuzdan farkl\u0131 bir IEEE adresine sahip. A\u011f\u0131n\u0131z\u0131n d\u00fczg\u00fcn \u00e7al\u0131\u015fabilmesi i\u00e7in radyonuzun IEEE adresinin de de\u011fi\u015ftirilmesi gerekmektedir. \n\n Bu kal\u0131c\u0131 bir operasyondur.",
+                "title": "Radyo IEEE Adresinin \u00dczerine Yaz"
+            },
+            "upload_manual_backup": {
+                "data": {
+                    "uploaded_backup_file": "Bir dosya y\u00fckleyin"
+                },
+                "description": "Y\u00fcklenen bir yedek JSON dosyas\u0131ndan a\u011f ayarlar\u0131n\u0131z\u0131 geri y\u00fckleyin. **A\u011f Ayarlar\u0131**'ndan farkl\u0131 bir ZHA kurulumundan bir tane indirebilir veya bir Zigbee2MQTT `coordinator_backup.json` dosyas\u0131 kullanabilirsiniz.",
+                "title": "Manuel Yedekleme Y\u00fckleyin"
+            },
+            "verify_radio": {
+                "description": "Kullanmakta oldu\u011funuz radyo ( {name} ) \u00f6nerilmez ve gelecekte radyo deste\u011fi kald\u0131r\u0131labilir. L\u00fctfen [\u00f6nerilen adapt\u00f6rlerin listesi]( {docs_recommended_adapters_url} ) i\u00e7in Zigbee Ev Otomasyonu entegrasyonunun belgelerine bak\u0131n.",
+                "title": "Radyo tavsiye edilmez"
+            }
+        }
+    },
+    "config_panel": {
+        "zha_alarm_options": {
+            "alarm_arm_requires_code": "Kurma eylemleri i\u00e7in gerekli kod",
+            "alarm_failed_tries": "Bir alarm\u0131 tetiklemek i\u00e7in ard\u0131\u015f\u0131k ba\u015far\u0131s\u0131z kod giri\u015flerinin say\u0131s\u0131",
+            "alarm_master_code": "Alarm kontrol panel(ler)i i\u00e7in ana kod",
+            "title": "Alarm Kontrol Paneli Se\u00e7enekleri"
+        },
+        "zha_options": {
+            "always_prefer_xy_color_mode": "Her zaman XY renk modunu tercih edin",
+            "consider_unavailable_battery": "Pille \u00e7al\u0131\u015fan ayg\u0131tlar\u0131n kullan\u0131lamad\u0131\u011f\u0131n\u0131 g\u00f6z \u00f6n\u00fcnde bulundurun (saniye)",
+            "consider_unavailable_mains": "\u015eebekeyle \u00e7al\u0131\u015fan ayg\u0131tlar\u0131n kullan\u0131lamad\u0131\u011f\u0131n\u0131 g\u00f6z \u00f6n\u00fcnde bulundurun (saniye)",
+            "default_light_transition": "Varsay\u0131lan \u0131\u015f\u0131k ge\u00e7i\u015f s\u00fcresi (saniye)",
+            "enable_identify_on_join": "Cihazlar a\u011fa kat\u0131ld\u0131\u011f\u0131nda tan\u0131mlama efektini etkinle\u015ftir",
+            "enhanced_light_transition": "Kapal\u0131 durumdan geli\u015fmi\u015f \u0131\u015f\u0131k rengi/s\u0131cakl\u0131\u011f\u0131 ge\u00e7i\u015fini etkinle\u015ftirme",
+            "group_members_assume_state": "Grup \u00fcyeleri grubun durumunu \u00fcstlenir",
+            "light_transitioning_flag": "I\u015f\u0131k ge\u00e7i\u015fi s\u0131ras\u0131nda geli\u015fmi\u015f parlakl\u0131k kayd\u0131r\u0131c\u0131s\u0131n\u0131 etkinle\u015ftirin",
+            "title": "Genel Se\u00e7enekler"
+        }
+    },
+    "device_automation": {
+        "action_type": {
+            "issue_all_led_effect": "T\u00fcm LED'ler i\u00e7in sorun efekti",
+            "issue_individual_led_effect": "Bireysel LED i\u00e7in sorun efekti",
+            "squawk": "Squawk",
+            "warn": "Uyarmak"
+        },
+        "extra_fields": {
+            "color": "Renk tonu",
+            "duration": "Saniye cinsinden s\u00fcre",
+            "effect_type": "Efekt t\u00fcr\u00fc",
+            "led_number": "LED numaras\u0131",
+            "level": "Parlakl\u0131k (%)"
+        },
+        "trigger_subtype": {
+            "both_buttons": "\u00c7ift d\u00fc\u011fmeler",
+            "button": "D\u00fc\u011fme",
+            "button_1": "\u0130lk d\u00fc\u011fme",
+            "button_2": "\u0130kinci d\u00fc\u011fme",
+            "button_3": "\u00dc\u00e7\u00fcnc\u00fc d\u00fc\u011fme",
+            "button_4": "D\u00f6rd\u00fcnc\u00fc d\u00fc\u011fme",
+            "button_5": "Be\u015finci d\u00fc\u011fme",
+            "button_6": "Alt\u0131nc\u0131 d\u00fc\u011fme",
+            "close": "Kapat",
+            "dim_down": "K\u0131sma",
+            "dim_up": "A\u00e7ma",
+            "face_1": "Y\u00fcz 1 etkinle\u015ftirildi\u011finde",
+            "face_2": "Y\u00fcz 2 etkinle\u015ftirildi\u011finde",
+            "face_3": "Y\u00fcz 3 etkinle\u015ftirildi\u011finde",
+            "face_4": "Y\u00fcz 4 etkinle\u015ftirildi\u011finde",
+            "face_5": "Y\u00fcz 5 etkinle\u015ftirildi\u011finde",
+            "face_6": "Y\u00fcz 6 etkinle\u015ftirildi\u011finde",
+            "face_any": "Herhangi bir/belirtilen y\u00fcz(ler) etkinle\u015ftirildi\u011finde",
+            "left": "Sol",
+            "open": "A\u00e7\u0131k",
+            "right": "Sa\u011f",
+            "turn_off": "Kapat",
+            "turn_on": "A\u00e7"
+        },
+        "trigger_type": {
+            "device_dropped": "Cihaz d\u00fc\u015ft\u00fc",
+            "device_flipped": "Ayg\u0131t \u00e7evrilmi\u015f \"{subtype}\"",
+            "device_knocked": "Cihaz \" {subtype} \" \u00f6\u011fesini \u00e7ald\u0131",
+            "device_offline": "Cihaz \u00e7evrimd\u0131\u015f\u0131",
+            "device_rotated": "Cihaz d\u00f6nd\u00fcr\u00fcld\u00fc \" {subtype} \"",
+            "device_shaken": "Cihaz salland\u0131",
+            "device_slid": "Cihaz kayd\u0131rd\u0131 \" {subtype} \"",
+            "device_tilted": "Cihaz e\u011fik",
+            "remote_button_alt_double_press": "\" {subtype} \" \u00e7ift t\u0131kland\u0131 (Alternatif mod)",
+            "remote_button_alt_long_press": "\" {subtype} \" s\u00fcrekli bas\u0131ld\u0131 (Alternatif mod)",
+            "remote_button_alt_long_release": "\" {subtype} \" uzun s\u00fcre bas\u0131ld\u0131ktan sonra serbest b\u0131rak\u0131l\u0131r (Alternatif mod)",
+            "remote_button_alt_quadruple_press": "\" {subtype} \" d\u00f6rt kez t\u0131kland\u0131 (Alternatif mod)",
+            "remote_button_alt_quintuple_press": "\" {subtype} \" be\u015f kat t\u0131kland\u0131 (Alternatif mod)",
+            "remote_button_alt_short_press": "\" {subtype} \" bas\u0131ld\u0131 (Alternatif mod)",
+            "remote_button_alt_short_release": "\" {subtype} \" yay\u0131nland\u0131 (Alternatif mod)",
+            "remote_button_alt_triple_press": "\" {subtype} \" \u00fc\u00e7 kez t\u0131kland\u0131 (Alternatif mod)",
+            "remote_button_double_press": "\" {subtype} \" \u00e7ift t\u0131kland\u0131",
+            "remote_button_long_press": "\" {subtype} \" s\u00fcrekli olarak bas\u0131ld\u0131",
+            "remote_button_long_release": "\" {subtype} \" uzun bas\u0131\u015ftan sonra serbest b\u0131rak\u0131ld\u0131",
+            "remote_button_quadruple_press": "\" {subtype} \" d\u00f6rt kez t\u0131kland\u0131",
+            "remote_button_quintuple_press": "\" {subtype} \" be\u015f kez t\u0131kland\u0131",
+            "remote_button_short_press": "\" {subtype} \" bas\u0131ld\u0131",
+            "remote_button_short_release": "\" {subtype} \" yay\u0131nland\u0131",
+            "remote_button_triple_press": "\" {subtype} \" \u00fc\u00e7 kez t\u0131kland\u0131"
+        }
+    },
+    "entity": {
+        "alarm_control_panel": {
+            "alarm_control_panel": {
+                "name": "Alarm Kontrol Paneli"
+            }
+        },
+        "binary_sensor": {
+            "accelerometer": {
+                "name": "\u0130vme\u00f6l\u00e7er"
+            },
+            "binary_input": {
+                "name": "\u0130kili giri\u015f"
+            },
+            "calibrated": {
+                "name": "Kalibre edildi"
+            },
+            "consumer_connected": {
+                "name": "T\u00fcketici ba\u011flant\u0131l\u0131"
+            },
+            "external_sensor": {
+                "name": "Harici sens\u00f6r"
+            },
+            "frost_lock": {
+                "name": "Donma kilidi"
+            },
+            "hand_open": {
+                "name": "Elle a\u00e7\u0131ld\u0131"
+            },
+            "heat_required": {
+                "name": "Is\u0131 gerekli"
+            },
+            "ias_zone": {
+                "name": "IAS b\u00f6lgesi"
+            },
+            "linkage_alarm_state": {
+                "name": "Ba\u011flant\u0131 alarm durumu"
+            },
+            "mounting_mode_active": {
+                "name": "Montaj modu etkin"
+            },
+            "preheat_status": {
+                "name": "\u00d6n \u0131s\u0131tma durumu"
+            },
+            "replace_filter": {
+                "name": "Filtreyi de\u011fi\u015ftirin"
+            },
+            "valve_alarm": {
+                "name": "Valf alarm\u0131"
+            }
+        },
+        "button": {
+            "feed": {
+                "name": "Besleme"
+            },
+            "reset_frost_lock": {
+                "name": "Donma kilidi s\u0131f\u0131rlama"
+            },
+            "reset_no_presence_status": {
+                "name": "\u0130leti\u015fim durumu s\u0131f\u0131rlama"
+            },
+            "self_test": {
+                "name": "Kendi kendini test"
+            }
+        },
+        "climate": {
+            "thermostat": {
+                "name": "Termostat"
+            }
+        },
+        "cover": {
+            "cover": {
+                "name": "Panjur"
+            },
+            "keen_vent": {
+                "name": "Keskin havaland\u0131rma"
+            },
+            "shade": {
+                "name": "G\u00f6lgelik"
+            }
+        },
+        "fan": {
+            "fan": {
+                "name": "Fan"
+            },
+            "fan_group": {
+                "name": "Fan grubu"
+            }
+        },
+        "light": {
+            "light": {
+                "name": "I\u015f\u0131k"
+            },
+            "light_group": {
+                "name": "I\u015f\u0131k grubu"
+            }
+        },
+        "lock": {
+            "door_lock": {
+                "name": "Kap\u0131 kilidi"
+            }
+        },
+        "number": {
+            "auto_off_timer": {
+                "name": "Otomatik anahtar kapatma zamanlay\u0131c\u0131s\u0131"
+            },
+            "away_preset_temperature": {
+                "name": "D\u0131\u015far\u0131da \u00f6nceden ayarlanm\u0131\u015f s\u0131cakl\u0131k"
+            },
+            "button_delay": {
+                "name": "D\u00fc\u011fme gecikmesi"
+            },
+            "default_move_rate": {
+                "name": "Varsay\u0131lan hareket oran\u0131"
+            },
+            "detection_interval": {
+                "name": "Alg\u0131lama aral\u0131\u011f\u0131"
+            },
+            "dimming_speed_down_local": {
+                "name": "R\u00fczgar h\u0131z\u0131"
+            },
+            "dimming_speed_down_remote": {
+                "name": "Uzaktan karartma h\u0131z\u0131"
+            },
+            "dimming_speed_up_local": {
+                "name": "Yerel karartma h\u0131z\u0131"
+            },
+            "dimming_speed_up_remote": {
+                "name": "Uzaktan karartma h\u0131z\u0131"
+            },
+            "double_tap_down_level": {
+                "name": "Seviyeyi iki kez hafif\u00e7e vurun"
+            },
+            "double_tap_up_level": {
+                "name": "Seviyeyi iki kez hafif\u00e7e vurun"
+            },
+            "exercise_trigger_time": {
+                "name": "Egzersiz ba\u015flama zaman\u0131"
+            },
+            "external_temperature_sensor": {
+                "name": "Harici s\u0131cakl\u0131k sens\u00f6r\u00fc"
+            },
+            "filter_life_time": {
+                "name": "Ya\u015fam s\u00fcresini filtrele"
+            },
+            "led_color_when_off": {
+                "name": "Varsay\u0131lan t\u00fcm LED kapal\u0131 renk"
+            },
+            "led_color_when_on": {
+                "name": "Varsay\u0131lan olarak t\u00fcm LED'ler renklidir"
+            },
+            "led_intensity_when_off": {
+                "name": "Varsay\u0131lan t\u00fcm LED kapal\u0131 yo\u011funlu\u011fu"
+            },
+            "led_intensity_when_on": {
+                "name": "Varsay\u0131lan olarak t\u00fcm LED'ler yo\u011funlukta"
+            },
+            "load_level_indicator_timeout": {
+                "name": "Y\u00fck seviyesi g\u00f6stergesi zaman a\u015f\u0131m\u0131"
+            },
+            "load_room_mean": {
+                "name": "Y\u00fck odas\u0131 ortalamas\u0131"
+            },
+            "local_temperature_calibration": {
+                "name": "Yerel s\u0131cakl\u0131k fark\u0131"
+            },
+            "max_heat_setpoint_limit": {
+                "name": "Maksimum \u0131s\u0131 ayar noktas\u0131 limiti"
+            },
+            "maximum_level": {
+                "name": "Maksimum y\u00fck karartma seviyesi"
+            },
+            "min_heat_setpoint_limit": {
+                "name": "Min \u0131s\u0131 ayar noktas\u0131 limiti"
+            },
+            "minimum_level": {
+                "name": "Minimum y\u00fck karartma seviyesi"
+            },
+            "number": {
+                "name": "Numara"
+            },
+            "off_transition_time": {
+                "name": "Kapal\u0131 ge\u00e7i\u015f s\u00fcresi"
+            },
+            "on_level": {
+                "name": "Seviyesinde"
+            },
+            "on_off_transition_time": {
+                "name": "A\u00e7ma/Kapama ge\u00e7i\u015f s\u00fcresi"
+            },
+            "on_transition_time": {
+                "name": "Ge\u00e7i\u015f zaman\u0131nda"
+            },
+            "portion_weight": {
+                "name": "Porsiyon a\u011f\u0131rl\u0131\u011f\u0131"
+            },
+            "presence_detection_timeout": {
+                "name": "Varl\u0131k alg\u0131lama zaman a\u015f\u0131m\u0131"
+            },
+            "quick_start_time": {
+                "name": "H\u0131zl\u0131 ba\u015flang\u0131\u00e7 zaman\u0131"
+            },
+            "ramp_rate_off_to_on_local": {
+                "name": "Yerel rampa oran\u0131 kapal\u0131dan a\u00e7\u0131ka"
+            },
+            "ramp_rate_off_to_on_remote": {
+                "name": "Uzaktan rampa h\u0131z\u0131 kapal\u0131dan a\u00e7\u0131ka"
+            },
+            "ramp_rate_on_to_off_local": {
+                "name": "Yerel rampa oran\u0131 a\u00e7\u0131ktan kapal\u0131ya"
+            },
+            "ramp_rate_on_to_off_remote": {
+                "name": "Uzaktan rampa h\u0131z\u0131 a\u00e7\u0131ktan kapal\u0131ya"
+            },
+            "regulation_setpoint_offset": {
+                "name": "D\u00fczenleme ayar noktas\u0131 ofseti"
+            },
+            "serving_size": {
+                "name": "Da\u011f\u0131t\u0131ma hizmet ediyor"
+            },
+            "start_up_color_temperature": {
+                "name": "Ba\u015flang\u0131\u00e7 renk s\u0131cakl\u0131\u011f\u0131"
+            },
+            "start_up_current_level": {
+                "name": "Ba\u015flang\u0131\u00e7 ak\u0131m\u0131 seviyesi"
+            },
+            "timer_duration": {
+                "name": "Zamanlay\u0131c\u0131 s\u00fcresi"
+            },
+            "transmit_power": {
+                "name": "\u0130letim g\u00fcc\u00fc"
+            }
+        },
+        "select": {
+            "adaptation_run_command": {
+                "name": "Adaptasyon \u00e7al\u0131\u015ft\u0131rma komutu"
+            },
+            "approach_distance": {
+                "name": "Yakla\u015fma mesafesi"
+            },
+            "backlight_mode": {
+                "name": "Arka \u0131\u015f\u0131k modu"
+            },
+            "decoupled_mode": {
+                "name": "Ayr\u0131lm\u0131\u015f mod"
+            },
+            "default_siren_level": {
+                "name": "Varsay\u0131lan siren seviyesi"
+            },
+            "default_siren_tone": {
+                "name": "Varsay\u0131lan siren sesi"
+            },
+            "default_strobe": {
+                "name": "Varsay\u0131lan fla\u015f"
+            },
+            "default_strobe_level": {
+                "name": "Varsay\u0131lan fla\u015f seviyesi"
+            },
+            "detection_distance": {
+                "name": "Alg\u0131lama mesafesi"
+            },
+            "detection_sensitivity": {
+                "name": "Alg\u0131lama Hassasiyeti"
+            },
+            "exercise_day_of_week": {
+                "name": "Haftan\u0131n egzersiz g\u00fcn\u00fc"
+            },
+            "feeding_mode": {
+                "name": "Mod"
+            },
+            "increased_non_neutral_output": {
+                "name": "N\u00f6tr olmayan \u00e7\u0131k\u0131\u015f"
+            },
+            "keypad_lockout": {
+                "name": "Tu\u015f tak\u0131m\u0131 kilitleme"
+            },
+            "led_scaling_mode": {
+                "name": "Led \u00f6l\u00e7eklendirme modu"
+            },
+            "monitoring_mode": {
+                "name": "\u0130zleme modu"
+            },
+            "motion_sensitivity": {
+                "name": "Hareket hassasiyeti"
+            },
+            "output_mode": {
+                "name": "\u00c7\u0131k\u0131\u015f modu"
+            },
+            "power_on_state": {
+                "name": "G\u00fc\u00e7 a\u00e7\u0131k durumu"
+            },
+            "preset": {
+                "name": "\u00d6n ayar"
+            },
+            "setpoint_response_time": {
+                "name": "Ayar noktas\u0131 yan\u0131t s\u00fcresi"
+            },
+            "smart_fan_led_display_levels": {
+                "name": "Ak\u0131ll\u0131 fan ledli ekran seviyeleri"
+            },
+            "start_up_on_off": {
+                "name": "Ba\u015flatma davran\u0131\u015f\u0131"
+            },
+            "switch_mode": {
+                "name": "Modu de\u011fi\u015ftir"
+            },
+            "switch_type": {
+                "name": "Anahtar t\u00fcr\u00fc"
+            },
+            "valve_orientation": {
+                "name": "Valf y\u00f6n\u00fc"
+            },
+            "viewing_direction": {
+                "name": "G\u00f6r\u00fcnt\u00fcleme y\u00f6n\u00fc"
+            },
+            "window_covering_mode": {
+                "name": "Perde modu"
+            }
+        },
+        "sensor": {
+            "ac_frequency": {
+                "name": "AC frekans\u0131"
+            },
+            "adaptation_run_status": {
+                "name": "Adaptasyon \u00e7al\u0131\u015ft\u0131rma durumu",
+                "state": {
+                    "nothing": "Bo\u015fta",
+                    "something": "Durum"
+                },
+                "state_attributes": {
+                    "in_progress": {
+                        "name": "Devam ediyor"
+                    },
+                    "run_successful": {
+                        "name": "Ba\u015far\u0131l\u0131 \u00e7al\u0131\u015ft\u0131r"
+                    },
+                    "valve_characteristic_lost": {
+                        "name": "Valf karakteristi\u011fi kayboldu"
+                    }
+                }
+            },
+            "analog_input": {
+                "name": "Analog giri\u015f"
+            },
+            "device_run_time": {
+                "name": "Cihaz \u00e7al\u0131\u015fma s\u00fcresi"
+            },
+            "device_temperature": {
+                "name": "Cihaz s\u0131cakl\u0131\u011f\u0131"
+            },
+            "filter_run_time": {
+                "name": "\u00c7al\u0131\u015fma s\u00fcresini filtrele"
+            },
+            "formaldehyde": {
+                "name": "Formaldehit konsantrasyonu"
+            },
+            "hooks_state": {
+                "name": "Kanca durumu"
+            },
+            "hvac_action": {
+                "name": "HVAC eylemi"
+            },
+            "instantaneous_demand": {
+                "name": "Anl\u0131k talep"
+            },
+            "last_feeding_size": {
+                "name": "Son besleme boyutu"
+            },
+            "last_feeding_source": {
+                "name": "Son besleme kayna\u011f\u0131"
+            },
+            "last_illumination_state": {
+                "name": "Son ayd\u0131nlatma durumu"
+            },
+            "leaf_wetness": {
+                "name": "Yaprak \u0131slakl\u0131\u011f\u0131"
+            },
+            "load_estimate": {
+                "name": "Y\u00fck tahmini"
+            },
+            "lqi": {
+                "name": "LQI"
+            },
+            "motor_stepcount": {
+                "name": "Motor ad\u0131m say\u0131s\u0131"
+            },
+            "open_window_detected": {
+                "name": "A\u00e7\u0131k pencere alg\u0131land\u0131"
+            },
+            "pi_heating_demand": {
+                "name": "Pi \u0131s\u0131tma talebi"
+            },
+            "portions_dispensed_today": {
+                "name": "Bug\u00fcn da\u011f\u0131t\u0131lan porsiyonlar"
+            },
+            "power_source": {
+                "name": "G\u00fc\u00e7 kayna\u011f\u0131"
+            },
+            "preheat_time": {
+                "name": "\u00d6n \u0131s\u0131tma s\u00fcresi"
+            },
+            "rssi": {
+                "name": "RSSI"
+            },
+            "setpoint_change_source": {
+                "name": "Ayar noktas\u0131 de\u011fi\u015ftirme kayna\u011f\u0131"
+            },
+            "smoke_density": {
+                "name": "Duman yo\u011funlu\u011fu"
+            },
+            "software_error": {
+                "name": "Yaz\u0131l\u0131m hatas\u0131",
+                "state": {
+                    "nothing": "\u0130yi",
+                    "something": "Hata"
+                },
+                "state_attributes": {
+                    "critical_low_battery": {
+                        "name": "Kritik d\u00fczeyde d\u00fc\u015f\u00fck pil"
+                    },
+                    "encoder_jammed": {
+                        "name": "Kodlay\u0131c\u0131 s\u0131k\u0131\u015fm\u0131\u015f"
+                    },
+                    "invalid_clock_information": {
+                        "name": "Ge\u00e7ersiz saat bilgisi"
+                    },
+                    "invalid_internal_communication": {
+                        "name": "Ge\u00e7ersiz dahili ileti\u015fim"
+                    },
+                    "low_battery": {
+                        "name": "D\u00fc\u015f\u00fck pil"
+                    },
+                    "motor_error": {
+                        "name": "Motor hatas\u0131"
+                    },
+                    "non_volatile_memory_error": {
+                        "name": "Kal\u0131c\u0131 bellek hatas\u0131"
+                    },
+                    "radio_communication_error": {
+                        "name": "Radyo ileti\u015fim hatas\u0131"
+                    },
+                    "side_pcb_sensor_error": {
+                        "name": "Yan PCB sens\u00f6r hatas\u0131"
+                    },
+                    "top_pcb_sensor_error": {
+                        "name": "\u00dcst PCB sens\u00f6r hatas\u0131"
+                    },
+                    "unknown_hw_error": {
+                        "name": "Bilinmeyen donan\u0131m hatas\u0131"
+                    }
+                }
+            },
+            "soil_moisture": {
+                "name": "Toprak nemi"
+            },
+            "summation_delivered": {
+                "name": "Toplama teslim edildi"
+            },
+            "summation_received": {
+                "name": "\u00d6zet al\u0131nd\u0131"
+            },
+            "tier1_summation_delivered": {
+                "name": "1. A\u015fama toplam\u0131 teslim edildi"
+            },
+            "tier2_summation_delivered": {
+                "name": "2. A\u015fama toplam\u0131 teslim edildi"
+            },
+            "tier3_summation_delivered": {
+                "name": "3. A\u015fama toplam\u0131 teslim edildi"
+            },
+            "tier4_summation_delivered": {
+                "name": "4. A\u015fama toplam\u0131 teslim edildi"
+            },
+            "tier5_summation_delivered": {
+                "name": "5. A\u015fama toplam\u0131 teslim edildi"
+            },
+            "tier6_summation_delivered": {
+                "name": "6. A\u015fama toplam\u0131 teslim edildi"
+            },
+            "timer_time_left": {
+                "name": "Kalan zaman"
+            },
+            "weight_dispensed_today": {
+                "name": "Bug\u00fcn verilen a\u011f\u0131rl\u0131k"
+            },
+            "window_covering_type": {
+                "name": "Pencere kaplama tipi"
+            }
+        },
+        "switch": {
+            "adaptation_run_enabled": {
+                "name": "Adaptasyon \u00e7al\u0131\u015ft\u0131rmas\u0131 etkinle\u015ftirildi"
+            },
+            "aux_switch_scenes": {
+                "name": "Aux ge\u00e7i\u015f sahneleri"
+            },
+            "binding_off_to_on_sync_level": {
+                "name": "Senkronizasyon d\u00fczeyinde ba\u011flanma"
+            },
+            "buzzer_manual_alarm": {
+                "name": "Sesli manuel alarm"
+            },
+            "buzzer_manual_mute": {
+                "name": "Buzzer'\u0131n manuel olarak kapat\u0131lmas\u0131"
+            },
+            "child_lock": {
+                "name": "\u00c7o\u00e7uk kilidi"
+            },
+            "disable_clear_notifications_double_tap": {
+                "name": "Bildirimleri temizlemek i\u00e7in yap\u0131land\u0131rmaya 2 kez dokunmay\u0131 devre d\u0131\u015f\u0131 b\u0131rak\u0131n"
+            },
+            "disable_led": {
+                "name": "LED'i devre d\u0131\u015f\u0131 b\u0131rak"
+            },
+            "double_tap_down_enabled": {
+                "name": "\u00c7ift dokunma etkin"
+            },
+            "double_tap_up_enabled": {
+                "name": "\u00c7ift dokunma etkin"
+            },
+            "external_window_sensor": {
+                "name": "Harici pencere sens\u00f6r\u00fc"
+            },
+            "firmware_progress_led": {
+                "name": "Donan\u0131m yaz\u0131l\u0131m\u0131 ilerleme LED'i"
+            },
+            "heartbeat_indicator": {
+                "name": "Kalp at\u0131\u015f\u0131 g\u00f6stergesi"
+            },
+            "heat_available": {
+                "name": "Mevcut \u0131s\u0131"
+            },
+            "hooks_locked": {
+                "name": "Kancalar kilitli"
+            },
+            "invert_switch": {
+                "name": "Ters \u00e7evirme anahtar\u0131"
+            },
+            "inverted": {
+                "name": "Ters \u00e7evrilmi\u015f"
+            },
+            "led_indicator": {
+                "name": "LED g\u00f6stergesi"
+            },
+            "linkage_alarm": {
+                "name": "Ba\u011flant\u0131 alarm\u0131"
+            },
+            "local_protection": {
+                "name": "Yerel koruma"
+            },
+            "mounting_mode": {
+                "name": "Montaj modu"
+            },
+            "one_led_mode": {
+                "name": "Yaln\u0131zca 1 LED modu"
+            },
+            "power_outage_memory": {
+                "name": "Elektrik kesintisi haf\u0131zas\u0131"
+            },
+            "prioritize_external_temperature_sensor": {
+                "name": "Harici s\u0131cakl\u0131k sens\u00f6r\u00fcne \u00f6ncelik verin"
+            },
+            "relay_click_in_on_off_mode": {
+                "name": "Kapal\u0131 modda ge\u00e7i\u015f t\u0131klamas\u0131n\u0131 devre d\u0131\u015f\u0131 b\u0131rak\u0131n"
+            },
+            "smart_bulb_mode": {
+                "name": "Ak\u0131ll\u0131 ampul modu"
+            },
+            "smart_fan_mode": {
+                "name": "Ak\u0131ll\u0131 fan modu"
+            },
+            "switch": {
+                "name": "Anahtar"
+            },
+            "trigger_indicator": {
+                "name": "LED tetik g\u00f6stergesi"
+            },
+            "use_internal_window_detection": {
+                "name": "Dahili pencere alg\u0131lamay\u0131 kullan"
+            },
+            "use_load_balancing": {
+                "name": "Y\u00fck dengelemeyi kullan"
+            },
+            "valve_detection": {
+                "name": "Valf alg\u0131lama"
+            },
+            "window_detection": {
+                "name": "Pencere alg\u0131lama"
+            },
+            "window_detection_function": {
+                "name": "Pencere alg\u0131lamay\u0131 tersine \u00e7evir"
+            }
+        }
+    },
+    "issues": {
+        "inconsistent_network_settings": {
+            "fix_flow": {
+                "step": {
+                    "init": {
+                        "description": "Zigbee telsizinizin a\u011f ayarlar\u0131 en son a\u011f yedeklemesiyle tutars\u0131z. Bu genellikle ba\u015fka bir Zigbee entegrasyonunun (\u00f6rn. Zigbee2MQTT veya deCONZ) bunlar\u0131n \u00fczerine yazmas\u0131 durumunda meydana gelir. \n\n {diff}\n\n A\u011f ayarlar\u0131n\u0131z\u0131 kas\u0131tl\u0131 olarak de\u011fi\u015ftirmediyseniz, en son yedeklemeden geri y\u00fckleyin: aksi takdirde cihazlar\u0131n\u0131z \u00e7al\u0131\u015fmayacakt\u0131r.",
+                        "menu_options": {
+                            "restore_old_settings": "Yedeklemeyi geri y\u00fckle (\u00f6nerilir)",
+                            "use_new_settings": "Yeni ayarlar\u0131 saklay\u0131n"
+                        },
+                        "title": "Zigbee a\u011f ayarlar\u0131 de\u011fi\u015fti"
+                    }
+                }
+            },
+            "title": "Zigbee a\u011f ayarlar\u0131 de\u011fi\u015fti"
+        },
+        "wrong_silabs_firmware_installed_nabucasa": {
+            "description": "Zigbee telsiziniz daha \u00f6nce \u00e7oklu protokol (Zigbee ve Thread) ile kullan\u0131lm\u0131\u015ft\u0131 ve hala \u00e7oklu protokol donan\u0131m yaz\u0131l\u0131m\u0131 y\u00fckl\u00fcyd\u00fc: ( {firmware_type} ).\n Se\u00e7enek 1: Telsizinizi yaln\u0131zca ZHA ile \u00e7al\u0131\u015ft\u0131rmak i\u00e7in Zigbee donan\u0131m yaz\u0131l\u0131m\u0131n\u0131 y\u00fcklemeniz gerekir:\n - \"Daha Fazla Bilgi Edinin\" alt\u0131ndaki ba\u011flant\u0131y\u0131 se\u00e7erek belgeleri a\u00e7\u0131n.\n - 'Silicon Labs radyo Zigbee donan\u0131m yaz\u0131l\u0131m\u0131n\u0131 fla\u015flamak' i\u00e7in 2. Ad\u0131mda (ve yaln\u0131zca 2. Ad\u0131mda) a\u00e7\u0131klanan talimatlar\u0131 izleyin.\n Se\u00e7enek 2: Telsizinizi \u00e7oklu protokolle \u00e7al\u0131\u015ft\u0131rmak i\u00e7in \u015fu ad\u0131mlar\u0131 izleyin:\n - Ayarlar > Sistem > Donan\u0131m'a gidin, cihaz\u0131 se\u00e7in ve Yap\u0131land\u0131r'\u0131 se\u00e7in.\n - IEEE 802.15.4 radyo \u00e7oklu protokol deste\u011fini yap\u0131land\u0131r se\u00e7ene\u011fini se\u00e7in.\n - Onay kutusunu se\u00e7in ve G\u00f6nder'i se\u00e7in.\n - Kurulduktan sonra yeni ke\u015ffedilen ZHA entegrasyonunu yap\u0131land\u0131r\u0131n.",
+            "title": "\u00c7oklu protokol \u00fcr\u00fcn yaz\u0131l\u0131m\u0131na sahip Zigbee radyosu alg\u0131land\u0131"
+        },
+        "wrong_silabs_firmware_installed_other": {
+            "description": "Zigbee telsiziniz daha \u00f6nce \u00e7oklu protokolle (Zigbee ve Thread) kullan\u0131lm\u0131\u015ft\u0131 ve halen \u00e7ok protokoll\u00fc donan\u0131m yaz\u0131l\u0131m\u0131 kuruluydu: ( {firmware_type} ). Radyonuzu yaln\u0131zca ZHA ile \u00e7al\u0131\u015ft\u0131rmak i\u00e7in Zigbee \u00fcr\u00fcn yaz\u0131l\u0131m\u0131n\u0131 y\u00fcklemeniz gerekir. Bunun nas\u0131l yap\u0131laca\u011f\u0131 konusunda Zigbee radyo \u00fcreticinizin talimatlar\u0131n\u0131 izleyin.",
+            "title": "\u00c7oklu protokol \u00fcr\u00fcn yaz\u0131l\u0131m\u0131na sahip Zigbee radyosu alg\u0131land\u0131"
+        }
+    },
+    "options": {
+        "abort": {
+            "not_zha_device": "Bu cihaz bir zha cihaz\u0131 de\u011fil",
+            "single_instance_allowed": "Zaten yap\u0131land\u0131r\u0131lm\u0131\u015f. Yaln\u0131zca tek bir konfig\u00fcrasyon m\u00fcmk\u00fcnd\u00fcr.",
+            "usb_probe_failed": "USB ayg\u0131t\u0131 ara\u015ft\u0131r\u0131lamad\u0131",
+            "wrong_firmware_installed": "Cihaz\u0131n\u0131z yanl\u0131\u015f donan\u0131m yaz\u0131l\u0131m\u0131n\u0131 \u00e7al\u0131\u015ft\u0131r\u0131yor ve do\u011fru donan\u0131m yaz\u0131l\u0131m\u0131 y\u00fcklenene kadar ZHA ile kullan\u0131lamaz. Daha fazla bilgi ve bunun nas\u0131l d\u00fczeltilece\u011fine ili\u015fkin talimatlar i\u00e7eren [bir onar\u0131m olu\u015fturuldu]( {repair_url} )."
+        },
+        "error": {
+            "cannot_connect": "Ba\u011flanma hatas\u0131",
+            "invalid_backup_json": "Ge\u00e7ersiz yedek JSON"
+        },
+        "flow_title": "{name}",
+        "step": {
+            "choose_automatic_backup": {
+                "data": {
+                    "choose_automatic_backup": "Otomatik bir yedekleme se\u00e7in"
+                },
+                "description": "Otomatik bir yedeklemeden a\u011f ayarlar\u0131n\u0131z\u0131 geri y\u00fckleyin",
+                "title": "Otomatik Yedeklemeyi Geri Y\u00fckle"
+            },
+            "choose_formation_strategy": {
+                "description": "Radyonuz i\u00e7in a\u011f ayarlar\u0131n\u0131 se\u00e7in.",
+                "menu_options": {
+                    "choose_automatic_backup": "Otomatik yedeklemeyi geri y\u00fckleyin",
+                    "form_initial_network": "Bir a\u011f olu\u015ftur",
+                    "form_new_network": "A\u011f ayarlar\u0131n\u0131 silin ve yeni bir a\u011f olu\u015fturun",
+                    "reuse_settings": "Radyo a\u011f\u0131 ayarlar\u0131n\u0131 koru",
+                    "upload_manual_backup": "Manuel bir yedekleme y\u00fckleyin"
+                },
+                "title": "A\u011f Olu\u015fumu"
+            },
+            "choose_serial_port": {
+                "data": {
+                    "path": "Seri Cihaz Yolu"
+                },
+                "description": "Zigbee radyonuz i\u00e7in seri ba\u011flant\u0131 noktas\u0131n\u0131 se\u00e7in",
+                "title": "Seri Ba\u011flant\u0131 Noktas\u0131 Se\u00e7in"
+            },
+            "init": {
+                "description": "ZHA durdurulacak. Devam etmek istiyor musun?",
+                "title": "ZHA'y\u0131 yeniden yap\u0131land\u0131r\u0131n"
+            },
+            "instruct_unplug": {
+                "description": "Eski radyonuz s\u0131f\u0131rland\u0131. Donan\u0131ma art\u0131k ihtiya\u00e7 duyulmuyorsa, \u015fimdi fi\u015fini \u00e7ekebilirsiniz. \n\n Art\u0131k yeni radyonuzu takabilirsiniz.",
+                "title": "Eski radyonuzu \u00e7\u0131kart\u0131n"
+            },
+            "intent_migrate": {
+                "description": "Yeni radyonuzu prize takmadan \u00f6nce eski radyonuzun s\u0131f\u0131rlanmas\u0131 gerekir. Otomatik yedekleme yap\u0131lacakt\u0131r. HUSBZB-1 gibi birle\u015fik bir Z-Wave ve Zigbee adapt\u00f6r\u00fc kullan\u0131yorsan\u0131z, bu sadece Zigbee k\u0131sm\u0131n\u0131 s\u0131f\u0131rlayacakt\u0131r. \n\n *Not: Bir **ConBee/RaspBee**'den ge\u00e7i\u015f yap\u0131yorsan\u0131z, bunun '0x26720700' veya daha yeni bir \u00fcretici yaz\u0131l\u0131m\u0131 \u00e7al\u0131\u015ft\u0131rd\u0131\u011f\u0131ndan emin olun! Aksi takdirde, ge\u00e7i\u015ften sonra baz\u0131 cihazlar g\u00fc\u00e7 a\u00e7\u0131l\u0131ncaya kadar kontrol edilemeyebilir.* \n\n Devam etmek istiyor musun?",
+                "title": "Yeni bir radyoya ge\u00e7i\u015f yap\u0131n"
+            },
+            "manual_pick_radio_type": {
+                "data": {
+                    "radio_type": "Radyo Tipi"
+                },
+                "description": "Zigbee radyo tipinizi se\u00e7in",
+                "title": "Radyo Tipi"
+            },
+            "manual_port_config": {
+                "data": {
+                    "baudrate": "Ba\u011flant\u0131 noktas\u0131 h\u0131z\u0131",
+                    "flow_control": "Veri ak\u0131\u015f\u0131 kontrol\u00fc",
+                    "path": "Seri cihaz yolu"
+                },
+                "description": "Seri ba\u011flant\u0131 noktas\u0131 ayarlar\u0131n\u0131 girin",
+                "title": "Seri Ba\u011flant\u0131 Noktas\u0131 Ayarlar\u0131"
+            },
+            "maybe_confirm_ezsp_restore": {
+                "data": {
+                    "overwrite_coordinator_ieee": "Radyo IEEE adresini kal\u0131c\u0131 olarak de\u011fi\u015ftirin"
+                },
+                "description": "Yede\u011finiz, radyonuzdan farkl\u0131 bir IEEE adresine sahip. A\u011f\u0131n\u0131z\u0131n d\u00fczg\u00fcn \u00e7al\u0131\u015fabilmesi i\u00e7in radyonuzun IEEE adresinin de de\u011fi\u015ftirilmesi gerekmektedir. \n\n Bu kal\u0131c\u0131 bir operasyondur.",
+                "title": "Radyo IEEE Adresinin \u00dczerine Yaz"
+            },
+            "prompt_migrate_or_reconfigure": {
+                "description": "Yeni bir radyoya m\u0131 ge\u00e7iyorsunuz yoksa mevcut radyoyu yeniden mi yap\u0131land\u0131r\u0131yorsunuz?",
+                "menu_options": {
+                    "intent_migrate": "Yeni bir radyoya ge\u00e7i\u015f yap\u0131n",
+                    "intent_reconfigure": "Mevcut radyoyu yeniden yap\u0131land\u0131r\u0131n"
+                },
+                "title": "Ta\u015f\u0131ma veya yeniden yap\u0131land\u0131rma"
+            },
+            "upload_manual_backup": {
+                "data": {
+                    "uploaded_backup_file": "Bir dosya y\u00fckleyin"
+                },
+                "description": "Y\u00fcklenen bir yedek JSON dosyas\u0131ndan a\u011f ayarlar\u0131n\u0131z\u0131 geri y\u00fckleyin. **A\u011f Ayarlar\u0131**'ndan farkl\u0131 bir ZHA kurulumundan bir tane indirebilir veya bir Zigbee2MQTT `coordinator_backup.json` dosyas\u0131 kullanabilirsiniz.",
+                "title": "Manuel Yedekleme Y\u00fckleyin"
+            },
+            "verify_radio": {
+                "description": "Kullanmakta oldu\u011funuz radyo ( {name} ) \u00f6nerilmez ve gelecekte radyo deste\u011fi kald\u0131r\u0131labilir. L\u00fctfen [\u00f6nerilen adapt\u00f6rlerin listesi]( {docs_recommended_adapters_url} ) i\u00e7in Zigbee Ev Otomasyonu entegrasyonunun belgelerine bak\u0131n.",
+                "title": "Radyo tavsiye edilmez"
+            }
+        }
+    },
+    "services": {
+        "clear_lock_user_code": {
+            "description": "Bir kilitten bir kullan\u0131c\u0131 kodunu siler.",
+            "fields": {
+                "code_slot": {
+                    "description": "Kodu temizlemek i\u00e7in kod yuvas\u0131.",
+                    "name": "Kod yuvas\u0131"
+                }
+            },
+            "name": "Kilit kullan\u0131c\u0131s\u0131n\u0131 temizle"
+        },
+        "disable_lock_user_code": {
+            "description": "Bir kilitteki kullan\u0131c\u0131 kodunu devre d\u0131\u015f\u0131 b\u0131rak\u0131r.",
+            "fields": {
+                "code_slot": {
+                    "description": "Devre d\u0131\u015f\u0131 b\u0131rak\u0131lacak kod yuvas\u0131.",
+                    "name": "Kod yuvas\u0131"
+                }
+            },
+            "name": "Kilit kullan\u0131c\u0131s\u0131n\u0131 devre d\u0131\u015f\u0131 b\u0131rak"
+        },
+        "enable_lock_user_code": {
+            "description": "Bir kilitte kullan\u0131c\u0131 kodunu etkinle\u015ftirir.",
+            "fields": {
+                "code_slot": {
+                    "description": "Etkinle\u015ftirilecek kod yuvas\u0131.",
+                    "name": "Kod yuvas\u0131"
+                }
+            },
+            "name": "Kilit kullan\u0131c\u0131s\u0131n\u0131 etkinle\u015ftir"
+        },
+        "issue_zigbee_cluster_command": {
+            "description": "Belirtilen varl\u0131kta belirtilen k\u00fcmede bir komut verir.",
+            "fields": {
+                "args": {
+                    "description": "Komuta iletilecek ba\u011f\u0131ms\u0131z de\u011fi\u015fkenler.",
+                    "name": "Arg\u00fcmanlar"
+                },
+                "cluster_id": {
+                    "description": "\u00d6znitelikleri almak i\u00e7in ZCL k\u00fcmesi.",
+                    "name": "K\u00fcme Kimli\u011fi"
+                },
+                "cluster_type": {
+                    "description": "K\u00fcmenin t\u00fcr\u00fc.",
+                    "name": "K\u00fcme T\u00fcr\u00fc"
+                },
+                "command": {
+                    "description": "Y\u00fcr\u00fct\u00fclecek komutun kimli\u011fi.",
+                    "name": "Komut"
+                },
+                "command_type": {
+                    "description": "Y\u00fcr\u00fct\u00fclecek komutun t\u00fcr\u00fc.",
+                    "name": "Komut T\u00fcr\u00fc"
+                },
+                "endpoint_id": {
+                    "description": "K\u00fcme i\u00e7in biti\u015f noktas\u0131 kimli\u011fi.",
+                    "name": "Biti\u015f noktas\u0131 kimli\u011fi"
+                },
+                "ieee": {
+                    "description": "Cihaz i\u00e7in IEEE adresi.",
+                    "name": "IEEE"
+                },
+                "manufacturer": {
+                    "description": "\u00dcretici kodu. Hi\u00e7bir kodun ayarlanmamas\u0131n\u0131 sa\u011flamak i\u00e7in \"-1\" de\u011ferini kullan\u0131n.",
+                    "name": "\u00dcretici"
+                },
+                "params": {
+                    "description": "Komuta iletilecek parametreler.",
+                    "name": "Parametreler"
+                }
+            },
+            "name": "Zigbee k\u00fcme komutunu yay\u0131nlay\u0131n"
+        },
+        "issue_zigbee_group_command": {
+            "description": "Belirtilen grupta belirtilen k\u00fcmede komut verin.",
+            "fields": {
+                "args": {
+                    "description": "Komuta iletilecek ba\u011f\u0131ms\u0131z de\u011fi\u015fkenler.",
+                    "name": "Arg\u00fcmanlar"
+                },
+                "cluster_id": {
+                    "description": "Komut g\u00f6ndermek i\u00e7in ZCL k\u00fcmesi.",
+                    "name": "K\u00fcme Kimli\u011fi"
+                },
+                "cluster_type": {
+                    "description": "K\u00fcmenin t\u00fcr\u00fc.",
+                    "name": "K\u00fcme t\u00fcr\u00fc"
+                },
+                "command": {
+                    "description": "Y\u00fcr\u00fct\u00fclecek komutun kimli\u011fi.",
+                    "name": "Komut"
+                },
+                "group": {
+                    "description": "Grubun onalt\u0131l\u0131k adresi.",
+                    "name": "Grup"
+                },
+                "manufacturer": {
+                    "description": "\u00dcretici kodu. Hi\u00e7bir kodun ayarlanmamas\u0131n\u0131 sa\u011flamak i\u00e7in \"-1\" de\u011ferini kullan\u0131n.",
+                    "name": "\u00dcretici"
+                }
+            },
+            "name": "Zigbee grubu komutu ver"
+        },
+        "permit": {
+            "description": "D\u00fc\u011f\u00fcmlerin Zigbee a\u011f\u0131na kat\u0131lmas\u0131na izin verir.",
+            "fields": {
+                "duration": {
+                    "description": "Birle\u015ftirmelere izin verme zaman\u0131.",
+                    "name": "S\u00fcre"
+                },
+                "ieee": {
+                    "description": "Yeni birle\u015ftirmelere izin veren d\u00fc\u011f\u00fcm\u00fcn IEEE adresi.",
+                    "name": "IEEE"
+                },
+                "install_code": {
+                    "description": "Birle\u015ftirme cihaz\u0131n\u0131n kodunu y\u00fckleyin (source_ieee ile birlikte kullan\u0131lmal\u0131d\u0131r).",
+                    "name": "Kodu y\u00fckle"
+                },
+                "qr_code": {
+                    "description": "QR y\u00fckleme kodunun de\u011feri (sat\u0131c\u0131lar aras\u0131nda farkl\u0131l\u0131k g\u00f6sterir).",
+                    "name": "QR kodu"
+                },
+                "source_ieee": {
+                    "description": "Birle\u015ftirme cihaz\u0131n\u0131n IEEE adresi (y\u00fckleme koduyla birlikte kullan\u0131lmal\u0131d\u0131r).",
+                    "name": "Kaynak IEEE"
+                }
+            },
+            "name": "\u0130zin Belgesi"
+        },
+        "reconfigure_device": {
+            "description": "Bir ZHA cihaz\u0131n\u0131 (iyile\u015ftirme cihaz\u0131) yeniden yap\u0131land\u0131r\u0131r. Cihazla ilgili sorun ya\u015f\u0131yorsan\u0131z bunu kullan\u0131n. S\u00f6z konusu cihaz pille \u00e7al\u0131\u015fan bir cihazsa, bu hizmeti kullan\u0131rken uyan\u0131k oldu\u011fundan ve komutlar\u0131 kabul etti\u011finden emin olun.",
+            "fields": {
+                "ieee": {
+                    "description": "Yeniden yap\u0131land\u0131r\u0131lacak cihaz\u0131n IEEE adresi.",
+                    "name": "IEEE"
+                }
+            },
+            "name": "Cihaz\u0131 yeniden yap\u0131land\u0131r\u0131n"
+        },
+        "remove": {
+            "description": "Zigbee a\u011f\u0131ndan bir d\u00fc\u011f\u00fcm\u00fc kald\u0131r\u0131r.",
+            "fields": {
+                "ieee": {
+                    "description": "Kald\u0131r\u0131lacak d\u00fc\u011f\u00fcm\u00fcn IEEE adresi.",
+                    "name": "IEEE"
+                }
+            },
+            "name": "Kald\u0131r"
+        },
+        "set_lock_user_code": {
+            "description": "Bir kilide bir kullan\u0131c\u0131 kodu ayarlar.",
+            "fields": {
+                "code_slot": {
+                    "description": "Kodu ayarlamak i\u00e7in kod yuvas\u0131.",
+                    "name": "Kod yuvas\u0131"
+                },
+                "user_code": {
+                    "description": "Ayarlanacak kod.",
+                    "name": "Kod"
+                }
+            },
+            "name": "Kilit kullan\u0131c\u0131 kodunu ayarla"
+        },
+        "set_zigbee_cluster_attribute": {
+            "description": "Belirtilen varl\u0131kta belirtilen k\u00fcme i\u00e7in bir \u00f6znitelik de\u011feri ayarlar.",
+            "fields": {
+                "attribute": {
+                    "description": "Ayarlanacak \u00f6zelli\u011fin kimli\u011fi.",
+                    "name": "\u00d6znitelik"
+                },
+                "cluster_id": {
+                    "description": "\u00d6znitelikleri almak i\u00e7in ZCL k\u00fcmesi.",
+                    "name": "K\u00fcme Kimli\u011fi"
+                },
+                "cluster_type": {
+                    "description": "K\u00fcmenin t\u00fcr\u00fc.",
+                    "name": "K\u00fcme T\u00fcr\u00fc"
+                },
+                "endpoint_id": {
+                    "description": "K\u00fcme i\u00e7in biti\u015f noktas\u0131 kimli\u011fi.",
+                    "name": "Biti\u015f noktas\u0131 kimli\u011fi"
+                },
+                "ieee": {
+                    "description": "Cihaz i\u00e7in IEEE adresi.",
+                    "name": "IEEE"
+                },
+                "manufacturer": {
+                    "description": "\u00dcretici kodu. Hi\u00e7bir kodun ayarlanmamas\u0131n\u0131 sa\u011flamak i\u00e7in \"-1\" de\u011ferini kullan\u0131n.",
+                    "name": "\u00dcretici"
+                },
+                "value": {
+                    "description": "\u00d6zniteli\u011fe yaz\u0131lacak de\u011fer.",
+                    "name": "De\u011fer"
+                }
+            },
+            "name": "Zigbee k\u00fcme \u00f6zniteli\u011fini ayarla"
+        },
+        "warning_device_squawk": {
+            "description": "Bu eylem, \"squawk\" ad\u0131 verilen h\u0131zl\u0131 bir duyulabilir/g\u00f6r\u00fcn\u00fcr darbe yaymak i\u00e7in WD yeteneklerini kullan\u0131r. WD \u015fu anda etkinse (uyar\u0131 devam ediyor) squawk komutunun hi\u00e7bir etkisi yoktur.",
+            "fields": {
+                "ieee": {
+                    "description": "Cihaz i\u00e7in IEEE adresi.",
+                    "name": "IEEE"
+                },
+                "level": {
+                    "description": "C\u0131z\u0131rt\u0131 seviyesi alan\u0131, 2 bitlik bir say\u0131m olarak kullan\u0131l\u0131r ve ZCL spec - Squawk Level Field Values Tablo 8-26'da g\u00f6sterildi\u011fi gibi duyulabilir ciyaklama sesinin yo\u011funlu\u011funu belirler.",
+                    "name": "D\u00fczey"
+                },
+                "mode": {
+                    "description": "Squawk Modu alan\u0131 4 bitlik bir numaraland\u0131rma olarak kullan\u0131l\u0131r ve Tablo 8-24'te ZCL spec - Squawk Modu Alan\u0131nda g\u00f6sterilen de\u011ferlerden birine sahip olabilir. Her bir modun tam olarak \u00e7al\u0131\u015fmas\u0131 (WD'nin \"ciyak sesi\") uygulamaya \u00f6zeldir.",
+                    "name": "Mod"
+                },
+                "strobe": {
+                    "description": "Fla\u015f alan\u0131 bir Boole de\u011feri olarak kullan\u0131l\u0131r ve ZCL spesifikasyonu - Fla\u015f Biti'nin Tablo 8-25'inde g\u00f6sterildi\u011fi gibi, i\u015fitilebilir ciyaklamaya ek olarak g\u00f6rsel g\u00f6stergenin de gerekli olup olmad\u0131\u011f\u0131n\u0131 belirler.",
+                    "name": "Fla\u015f\u00f6r"
+                }
+            },
+            "name": "Uyar\u0131 cihaz\u0131 squawk"
+        },
+        "warning_device_warn": {
+            "description": "Bu eylem uyar\u0131 cihaz\u0131n\u0131n \u00e7al\u0131\u015fmas\u0131n\u0131 ba\u015flat\u0131r. Uyar\u0131 cihaz\u0131 \u00e7evredeki alan\u0131 sesli (siren) ve g\u00f6rsel (strobe) sinyallerle uyar\u0131r.",
+            "fields": {
+                "duration": {
+                    "description": "\u0130stenen uyar\u0131 s\u00fcresi, saniye cinsinden (16 bit). Hem Fla\u015f\u00f6r hem de Uyar\u0131 Modu \"0\" ise bu alan dikkate al\u0131nmaz.",
+                    "name": "S\u00fcre"
+                },
+                "duty_cycle": {
+                    "description": "Fla\u015f d\u00f6ng\u00fcs\u00fcn\u00fcn uzunlu\u011funu g\u00f6sterir. Bu, farkl\u0131 alarm t\u00fcrleri (\u00f6rn. yang\u0131n, polis, h\u0131rs\u0131z) i\u00e7in fla\u015f s\u00fcresini de\u011fi\u015ftirmenize olanak tan\u0131r. Ge\u00e7erli aral\u0131k, 10'luk art\u0131\u015flarla 0-100'd\u00fcr. Di\u011fer t\u00fcm de\u011ferler, en yak\u0131n ge\u00e7erli de\u011fere yuvarlanmal\u0131d\u0131r. Strobe, bir saniyelik s\u00fcre boyunca g\u00f6rev d\u00f6ng\u00fcs\u00fcn\u00fc hesaplar. A\u00c7IK durumu KAPALI durumundan \u00f6nce gelmelidir. \u00d6rne\u011fin, Fla\u015f G\u00f6rev D\u00f6ng\u00fcs\u00fc alan\u0131nda \u201c40\u201d belirtilirse fla\u015f saniyenin 4/10'u kadar A\u00c7IK yan\u0131p s\u00f6ner ve ard\u0131ndan saniyenin 6/10'u kadar KAPALI konuma ge\u00e7er.",
+                    "name": "G\u00f6rev d\u00f6ng\u00fcs\u00fc"
+                },
+                "ieee": {
+                    "description": "Cihaz i\u00e7in IEEE adresi.",
+                    "name": "IEEE"
+                },
+                "intensity": {
+                    "description": "ZCL spesifikasyonu Tablo 8-23'te g\u00f6sterildi\u011fi gibi fla\u015f\u0131n yo\u011funlu\u011funu g\u00f6sterir. Bu \u00f6znitelik, ZCL spesifikasyonunun 8.4.2.3.1.6 b\u00f6l\u00fcm\u00fcnde ayr\u0131nt\u0131l\u0131 olarak a\u00e7\u0131klanan frekans\u0131n\u0131 de\u011fil fla\u015f\u0131n \u00e7\u0131k\u0131\u015f\u0131n\u0131 (yani parlakl\u0131\u011f\u0131n\u0131) de\u011fi\u015ftirmek i\u00e7in tasarlanm\u0131\u015ft\u0131r.",
+                    "name": "Yo\u011funluk"
+                },
+                "level": {
+                    "description": "Siren D\u00fczeyi alan\u0131, 2 bitlik bir say\u0131m olarak kullan\u0131l\u0131r ve ZCL spesifikasyonu Tablo 8-22'de g\u00f6sterildi\u011fi gibi duyulabilir ciyaklama sesinin yo\u011funlu\u011funu g\u00f6sterir.",
+                    "name": "D\u00fczey"
+                },
+                "mode": {
+                    "description": "Uyar\u0131 Modu alan\u0131 4 bitlik bir numaraland\u0131rma olarak kullan\u0131l\u0131r, a\u015fa\u011f\u0131da ZCL spesifikasyonunun tablo 8-20'sinde tan\u0131mlanan 0-6 de\u011ferlerinden birine sahip olabilir. Uyar\u0131 cihaz\u0131n\u0131n her modda tam davran\u0131\u015f\u0131, ilgili g\u00fcvenlik standartlar\u0131na g\u00f6redir.",
+                    "name": "Mod"
+                },
+                "strobe": {
+                    "description": "Fla\u015f alan\u0131, 2 bitlik bir say\u0131m olarak kullan\u0131l\u0131r ve ZCL spesifikasyonu Tablo 8-21'de g\u00f6sterildi\u011fi gibi sesli sirene ek olarak g\u00f6rsel g\u00f6stergenin gerekli olup olmad\u0131\u011f\u0131n\u0131 belirler. \"0\" fla\u015f yok anlam\u0131na gelir, \"1\" fla\u015f anlam\u0131na gelir. Fla\u015f alan\u0131 \"1\" ve Uyar\u0131 Modu \"0\" (\"Durdur\") ise, yaln\u0131zca fla\u015f etkinle\u015ftirilir.",
+                    "name": "Fla\u015f\u00f6r"
+                }
+            },
+            "name": "Uyar\u0131 cihaz\u0131 alarm vermeye ba\u015flar"
+        }
+    }
+}

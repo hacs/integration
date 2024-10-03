@@ -1,0 +1,205 @@
+{
+    "config": {
+        "abort": {
+            "address_already_configured": "ElkM1 su \u0161iuo adresu jau sukonfig\u016bruotas",
+            "already_configured": "ElkM1 su \u0161iuo prie\u0161d\u0117liu jau sukonfig\u016bruotas",
+            "already_in_progress": "Konfig\u016bracijos procesas jau vyksta",
+            "cannot_connect": "Nepavyko prisijungti",
+            "invalid_auth": "Neteisingas autentifikavimas",
+            "unknown": "Netik\u0117ta klaida"
+        },
+        "error": {
+            "cannot_connect": "Nepavyko prisijungti",
+            "invalid_auth": "Neteisingas autentifikavimas",
+            "unknown": "Netik\u0117ta klaida"
+        },
+        "flow_title": "{mac_address} ( {host} )",
+        "step": {
+            "discovered_connection": {
+                "data": {
+                    "password": "Slapta\u017eodis",
+                    "protocol": "Protokolas",
+                    "temperature_unit": "Naudojamas temperat\u016bros vienetas ElkM1.",
+                    "username": "Prisijungimos vardas"
+                },
+                "description": "Prisijunkite prie aptiktos sistemos: {mac_address} ( {host} )",
+                "title": "Prisijunkite prie Elk-M1 Control"
+            },
+            "manual_connection": {
+                "data": {
+                    "address": "IP adresas arba domenas arba nuoseklusis prievadas, jei jungiamasi per nuosekl\u0173j\u012f ry\u0161\u012f.",
+                    "password": "Slapta\u017eodis",
+                    "prefix": "Unikalus prie\u0161d\u0117lis (jei turite tik vien\u0105 ElkM1, palikite tu\u0161\u010di\u0105).",
+                    "protocol": "Protokolas",
+                    "temperature_unit": "Naudojamas temperat\u016bros vienetas ElkM1.",
+                    "username": "Prisijungimos vardas"
+                },
+                "description": "Adreso eilut\u0117 turi b\u016bti \u201esaugus\u201c ir \u201enesaugus\u201c formos \u201eadresas[:portas]\u201c. Pavyzdys: \u201e192.168.1.1\u201c. Prievadas yra neprivalomas ir pagal numatytuosius nustatymus yra 2101, jei yra \u201enesaugus\u201c, ir 2601 \u2013 \u201esaugus\u201c. Serijinio protokolo adresas turi b\u016bti \u201etty[:baud]\u201c. Pavyzdys: '/dev/ttyS1'. Bodas yra neprivalomas ir numatytasis 115200.",
+                "title": "Prisijunkite prie Elk-M1 Control"
+            },
+            "user": {
+                "data": {
+                    "device": "\u012erenginys"
+                },
+                "description": "Pasirinkite aptikt\u0105 sistem\u0105 arba \u201eRankinis \u012fvedimas\u201c, jei neaptikta joki\u0173 \u012frengini\u0173.",
+                "title": "Prisijunkite prie Elk-M1 Control"
+            }
+        }
+    },
+    "issues": {
+        "migrate_aux_heat": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "title": "Elk-M1 set_aux_heat veiksmo perk\u0117limas"
+                    }
+                }
+            },
+            "title": "Elk-M1 set_aux_heat veiksmo perk\u0117limas"
+        }
+    },
+    "services": {
+        "alarm_arm_home_instant": {
+            "description": "\u012ejungia ElkM1 momentiniu nam\u0173 re\u017eimu.",
+            "fields": {
+                "code": {
+                    "description": "Kodas signalizacijos valdymo pultui \u012fjungti.",
+                    "name": "Kodas"
+                }
+            },
+            "name": "Signalizacija namuose i\u0161kart"
+        },
+        "alarm_arm_night_instant": {
+            "description": "Apsaugokite ElkM1 naktin\u012f momentin\u012f re\u017eim\u0105.",
+            "fields": {
+                "code": {
+                    "description": "Kodas signalizacijos valdymo pultui \u012fjungti.",
+                    "name": "Kodas"
+                }
+            },
+            "name": "Signalizacija nakt\u012f akimirksniu"
+        },
+        "alarm_arm_vacation": {
+            "description": "Apsaugokite ElkM1 atostog\u0173 re\u017eimu.",
+            "fields": {
+                "code": {
+                    "description": "Kodas signalizacijos valdymo pultui \u012fjungti.",
+                    "name": "Kodas"
+                }
+            },
+            "name": "Signalizacijos atostogos"
+        },
+        "alarm_bypass": {
+            "description": "Apeina visas zonos zonas.",
+            "fields": {
+                "code": {
+                    "description": "Kodas, leid\u017eiantis apeiti signalizacijos valdymo pult\u0105.",
+                    "name": "Kodas"
+                }
+            },
+            "name": "Signalizacijos ap\u0117jimas"
+        },
+        "alarm_clear_bypass": {
+            "description": "Pa\u0161alinamas vis\u0173 zonos zon\u0173 ap\u0117jimas.",
+            "fields": {
+                "code": {
+                    "description": "Kodas, leid\u017eiantis i\u0161jungti signalizacijos valdymo pulto ap\u0117jim\u0105.",
+                    "name": "Kodas"
+                }
+            },
+            "name": "Aliarmo i\u0161valymo ap\u0117jimas"
+        },
+        "alarm_display_message": {
+            "description": "Visose ElkM1 klaviat\u016brose rodomas tam tikros srities prane\u0161imas.",
+            "fields": {
+                "beep": {
+                    "description": "0=n\u0117ra pyptel\u0117jimo, 1=pyptel\u0117jimas.",
+                    "name": "Pyptel\u0117jimas"
+                },
+                "clear": {
+                    "description": "0=i\u0161valyti prane\u0161im\u0105, 1=i\u0161valyti prane\u0161im\u0105 mygtuku *, 2=rodyti iki skirtojo laiko.",
+                    "name": "Skaidrus"
+                },
+                "line1": {
+                    "description": "Iki 16 simboli\u0173 teksto (sutrumpinama, jei per ilgas).",
+                    "name": "1 eilut\u0117"
+                },
+                "line2": {
+                    "description": "Iki 16 simboli\u0173 teksto (sutrumpinama, jei per ilgas).",
+                    "name": "2 eilut\u0117"
+                },
+                "timeout": {
+                    "description": "Laikas parodyti prane\u0161im\u0105, 0 = visam laikui, maks. 65535.",
+                    "name": "Laikas baig\u0117si"
+                }
+            },
+            "name": "Pavojaus signalo rodymo prane\u0161imas"
+        },
+        "sensor_counter_refresh": {
+            "description": "Atnaujina skaitiklio reik\u0161m\u0119 skydelyje.",
+            "name": "Jutiklio skaitiklio atnaujinimas"
+        },
+        "sensor_counter_set": {
+            "description": "Nustato skaitiklio reik\u0161m\u0119 skydelyje.",
+            "fields": {
+                "value": {
+                    "description": "Vert\u0117, \u012f kuri\u0105 reikia nustatyti skaitikl\u012f.",
+                    "name": "Vert\u0117"
+                }
+            },
+            "name": "Jutiklio skaitiklio rinkinys"
+        },
+        "sensor_zone_bypass": {
+            "description": "Apeina zona.",
+            "fields": {
+                "code": {
+                    "description": "Kodas, leid\u017eiantis apeiti zon\u0105.",
+                    "name": "Kodas"
+                }
+            },
+            "name": "Jutiklio zonos ap\u0117jimas"
+        },
+        "sensor_zone_trigger": {
+            "description": "Trigeri\u0173 zona.",
+            "name": "Jutiklio zonos paleidiklis"
+        },
+        "set_time": {
+            "description": "Nustato skydelio laik\u0105.",
+            "fields": {
+                "prefix": {
+                    "description": "Skydo prie\u0161d\u0117lis.",
+                    "name": "Prie\u0161d\u0117lis"
+                }
+            },
+            "name": "Nustatyti laik\u0105"
+        },
+        "speak_phrase": {
+            "description": "I\u0161taria fraz\u0119. \u017dr. frazi\u0173 s\u0105ra\u0161\u0105 ElkM1 ASCII protokolo dokumentacijoje.",
+            "fields": {
+                "number": {
+                    "description": "Fraz\u0117s numeris, kur\u012f reikia pasakyti.",
+                    "name": "Fraz\u0117s numeris"
+                },
+                "prefix": {
+                    "description": "Prie\u0161d\u0117lis skydeliui identifikuoti, kai sukonfig\u016bruotos kelios plok\u0161t\u0117s.",
+                    "name": "Prie\u0161d\u0117lis"
+                }
+            },
+            "name": "Kalb\u0117kite fraz\u0119"
+        },
+        "speak_word": {
+            "description": "I\u0161taria \u017eod\u012f. \u017dr. \u017eod\u017ei\u0173 s\u0105ra\u0161\u0105 ElkM1 ASCII protokolo dokumentacijoje.",
+            "fields": {
+                "number": {
+                    "description": "\u017dod\u017eio skai\u010dius, kur\u012f reikia kalb\u0117ti.",
+                    "name": "\u017dod\u017eio numeris"
+                },
+                "prefix": {
+                    "description": "Prie\u0161d\u0117lis skydeliui identifikuoti, kai sukonfig\u016bruotos kelios plok\u0161t\u0117s.",
+                    "name": "Prie\u0161d\u0117lis"
+                }
+            },
+            "name": "Kalb\u0117ti \u017eod\u012f"
+        }
+    }
+}

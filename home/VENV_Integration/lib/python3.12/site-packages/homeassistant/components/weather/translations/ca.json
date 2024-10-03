@@ -1,0 +1,129 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "Temps",
+            "state": {
+                "clear-night": "Ser\u00e8, nit",
+                "cloudy": "Ennuvolat",
+                "exceptional": "Excepcional",
+                "fog": "Boira",
+                "hail": "Calamarsa",
+                "lightning": "Llamps",
+                "lightning-rainy": "Tempesta",
+                "partlycloudy": "Parcialment ennuvolat",
+                "pouring": "Pluja",
+                "rainy": "Pluj\u00f3s",
+                "snowy": "Neu",
+                "snowy-rainy": "Aiguaneu",
+                "sunny": "Assolellat",
+                "windy": "Vent\u00f3s"
+            },
+            "state_attributes": {
+                "apparent_temperature": {
+                    "name": "Temperatura aparent"
+                },
+                "cloud_coverage": {
+                    "name": "Cobertura dels n\u00favols"
+                },
+                "dew_point": {
+                    "name": "Temperatura del punt de rosada"
+                },
+                "forecast": {
+                    "name": "Previsi\u00f3"
+                },
+                "humidity": {
+                    "name": "Humitat"
+                },
+                "ozone": {
+                    "name": "Oz\u00f3"
+                },
+                "precipitation_unit": {
+                    "name": "Unitat de precipitaci\u00f3"
+                },
+                "pressure": {
+                    "name": "Pressi\u00f3"
+                },
+                "pressure_unit": {
+                    "name": "Unitat de pressi\u00f3"
+                },
+                "temperature": {
+                    "name": "Temperatura"
+                },
+                "temperature_unit": {
+                    "name": "Unitat de temperatura"
+                },
+                "uv_index": {
+                    "name": "\u00cdndex UV"
+                },
+                "visibility": {
+                    "name": "Visibilitat"
+                },
+                "visibility_unit": {
+                    "name": "Unitat de visibilitat"
+                },
+                "wind_bearing": {
+                    "name": "Direcci\u00f3 del vent"
+                },
+                "wind_gust_speed": {
+                    "name": "Velocitat de les r\u00e0fegues de vent"
+                },
+                "wind_speed": {
+                    "name": "Velocitat del vent"
+                },
+                "wind_speed_unit": {
+                    "name": "Unitat de velocitat del vent"
+                }
+            }
+        }
+    },
+    "issues": {
+        "deprecated_weather_forecast": {
+            "description": "La integraci\u00f3 `{platform}` utilitza un atribut de previsi\u00f3 meteorol\u00f2gica obsolet. \n\nSi us plau, {report_issue}.",
+            "title": "La integraci\u00f3 {platform} utilitza una previsi\u00f3 meteorol\u00f2gica obsoleta"
+        },
+        "deprecated_weather_forecast_no_url": {
+            "description": "La integraci\u00f3 personalitzada `{platform}` implementa la propietat `forecast` o estableix `self._attr_forecast` en una subclasse de `WeatherEntity`.\n\nSi us plau, informa'n a l'autor de la integraci\u00f3 personalitzada {platform}.\n\nQuan estigui disponible una versi\u00f3 actualitzada de `{platform}`, instal\u00b7la-la i reinicia Home Assistant per solucionar aquest problema.",
+            "title": "La integraci\u00f3 personalitzada {platform} utilitza una previsi\u00f3 meteorol\u00f2gica obsoleta"
+        },
+        "deprecated_weather_forecast_url": {
+            "description": "La integraci\u00f3 personalitzada `{platform}` implementa la propietat `forecast` o estableix `self._attr_forecast` en una subclasse de `WeatherEntity`.\n\nSi us plau, crea un missatge informant de l'error a {issue_tracker}. \n\nQuan estigui disponible una versi\u00f3 actualitzada de `{platform}`, instal\u00b7la-la i reinicia Home Assistant per solucionar aquest problema.",
+            "title": "La integraci\u00f3 personalitzada {platform} utilitza una previsi\u00f3 meteorol\u00f2gica obsoleta"
+        },
+        "platform_integration_no_support": {
+            "description": "La plataforma {platform} de la integraci\u00f3 {domain} no \u00e9s compatible amb la configuraci\u00f3 de la plataforma.\n\nElimina-la de la teva configuraci\u00f3 i reinicia Home Assistant per solucionar aquest problema.",
+            "title": "Suport de la plataforma no compatible"
+        }
+    },
+    "selector": {
+        "forecast_type": {
+            "options": {
+                "daily": "Di\u00e0riament",
+                "hourly": "Cada hora",
+                "twice_daily": "Dues vegades al dia"
+            }
+        }
+    },
+    "services": {
+        "get_forecast": {
+            "description": "Obt\u00e9 la previsi\u00f3 del temps.",
+            "fields": {
+                "type": {
+                    "description": "Tipus de previsi\u00f3: di\u00e0ria, cada hora o dues vegades al dia.",
+                    "name": "Tipus de previsi\u00f3"
+                }
+            },
+            "name": "Obt\u00e9 previsi\u00f3"
+        },
+        "get_forecasts": {
+            "description": "Obt\u00e9 les previsions meteorol\u00f2giques.",
+            "fields": {
+                "type": {
+                    "description": "Tipus de previsi\u00f3: di\u00e0ria, cada hora o dues vegades al dia.",
+                    "name": "Tipus de previsi\u00f3"
+                }
+            },
+            "name": "Obt\u00e9 previsions"
+        }
+    },
+    "title": "Temps"
+}

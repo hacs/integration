@@ -1,0 +1,290 @@
+{
+    "device_automation": {
+        "action_type": {
+            "set_hvac_mode": "Cambiar el modo HVAC de {entity_name}.",
+            "set_preset_mode": "Cambiar la configuraci\u00f3n preestablecida de {entity_name}"
+        },
+        "condition_type": {
+            "is_hvac_mode": "{entity_name} est\u00e1 configurado en un modo HVAC espec\u00edfico",
+            "is_preset_mode": "{entity_name} se establece en un modo preestablecido espec\u00edfico"
+        },
+        "extra_fields": {
+            "above": "Por encima de",
+            "below": "Por debajo de",
+            "for": "Duraci\u00f3n",
+            "hvac_mode": "Modo del sistema de climatizaci\u00f3n",
+            "preset_mode": "Modo preestablecido",
+            "to": "A"
+        },
+        "trigger_type": {
+            "current_humidity_changed": "La humedad medida por {entity_name} cambi\u00f3",
+            "current_temperature_changed": "La temperatura medida por {entity_name} cambi\u00f3",
+            "hvac_mode_changed": "El modo HVAC de {entity_name} cambi\u00f3"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Termostato",
+            "state": {
+                "auto": "Auto",
+                "cool": "Fr\u00edo",
+                "dry": "Seco",
+                "fan_only": "Solo ventilador",
+                "heat": "Calor",
+                "heat_cool": "Calor/Fr\u00edo",
+                "off": "Apagado"
+            },
+            "state_attributes": {
+                "aux_heat": {
+                    "name": "Calor auxiliar"
+                },
+                "current_humidity": {
+                    "name": "Humedad actual"
+                },
+                "current_temperature": {
+                    "name": "Temperatura actual"
+                },
+                "fan_mode": {
+                    "name": "Modo de ventilador",
+                    "state": {
+                        "auto": "Auto",
+                        "diffuse": "Difuso",
+                        "focus": "Enfoque",
+                        "high": "Alto",
+                        "low": "Bajo",
+                        "medium": "Medio",
+                        "middle": "Medio",
+                        "off": "Apagado",
+                        "on": "Encendido",
+                        "top": "Parte superior"
+                    }
+                },
+                "fan_modes": {
+                    "name": "Modos de ventilador"
+                },
+                "humidity": {
+                    "name": "Humedad objetivo"
+                },
+                "hvac_action": {
+                    "name": "Acci\u00f3n en curso",
+                    "state": {
+                        "cooling": "Refrigeraci\u00f3n",
+                        "defrosting": "Antihielo",
+                        "drying": "Secando",
+                        "fan": "Ventilador",
+                        "heating": "Calefacci\u00f3n",
+                        "idle": "Inactivo",
+                        "off": "Apagado",
+                        "preheating": "Precalentamiento"
+                    }
+                },
+                "hvac_modes": {
+                    "name": "Modos del sistema de climatizaci\u00f3n"
+                },
+                "max_humidity": {
+                    "name": "Humedad objetivo m\u00e1xima"
+                },
+                "max_temp": {
+                    "name": "Temperatura deseada m\u00e1xima"
+                },
+                "min_humidity": {
+                    "name": "Humedad objetivo m\u00ednima"
+                },
+                "min_temp": {
+                    "name": "Temperatura deseada m\u00ednima"
+                },
+                "preset_mode": {
+                    "name": "Preestablecido",
+                    "state": {
+                        "activity": "Actividad",
+                        "away": "Ausente",
+                        "boost": "Impulso",
+                        "comfort": "Confort",
+                        "eco": "Eco",
+                        "home": "En casa",
+                        "none": "Ninguno",
+                        "sleep": "Dormir"
+                    }
+                },
+                "preset_modes": {
+                    "name": "Preajustes"
+                },
+                "swing_mode": {
+                    "name": "Modo de oscilaci\u00f3n",
+                    "state": {
+                        "both": "Ambos",
+                        "horizontal": "Horizontal",
+                        "off": "Apagado",
+                        "on": "Encendido",
+                        "vertical": "Vertical"
+                    }
+                },
+                "swing_modes": {
+                    "name": "Modos de oscilaci\u00f3n"
+                },
+                "target_temp_high": {
+                    "name": "Temperatura deseada superior"
+                },
+                "target_temp_low": {
+                    "name": "Temperatura deseada m\u00e1s baja"
+                },
+                "target_temp_step": {
+                    "name": "Paso de temperatura deseada"
+                },
+                "temperature": {
+                    "name": "Temperatura deseada"
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "humidity_out_of_range": {
+            "message": "La humedad proporcionada {humidity} no es v\u00e1lida. El rango aceptado es de {min_humidity} a {max_humidity}."
+        },
+        "low_temp_higher_than_high_temp": {
+            "message": "La temperatura objetivo inferior no puede ser mayor que la temperatura objetivo superior."
+        },
+        "missing_target_temperature_entity_feature": {
+            "message": "Se utiliz\u00f3 la acci\u00f3n de establecer temperatura con el par\u00e1metro de temperatura objetivo, pero la entidad no la admite."
+        },
+        "missing_target_temperature_range_entity_feature": {
+            "message": "Se utiliz\u00f3 la acci\u00f3n de temperatura establecida con el par\u00e1metro de temperatura objetivo baja/alta, pero la entidad no lo admite."
+        },
+        "not_valid_fan_mode": {
+            "message": "El modo ventilador {mode} no es v\u00e1lido. Los modos de ventilador v\u00e1lidos son: {modes}."
+        },
+        "not_valid_preset_mode": {
+            "message": "El modo preestablecido {mode} no es v\u00e1lido. Los modos preestablecidos v\u00e1lidos son: {modes}."
+        },
+        "not_valid_swing_mode": {
+            "message": "El modo de oscilaci\u00f3n {mode} no es v\u00e1lido. Los modos de oscilaci\u00f3n v\u00e1lidos son: {modes}."
+        },
+        "temp_out_of_range": {
+            "message": "La temperatura proporcionada {check_temp} no es v\u00e1lida. El rango aceptado es de {min_temp} a {max_temp}."
+        }
+    },
+    "issues": {
+        "deprecated_climate_aux_no_url": {
+            "description": "La integraci\u00f3n personalizada `{platform}` implementa la propiedad `is_aux_heat` o utiliza los m\u00e9todos del calentador auxiliar en una subclase de ClimateEntity. \n\nPor favor, informa de ello al autor de la integraci\u00f3n {platform}.\n\nUna vez que est\u00e9 disponible una versi\u00f3n actualizada de `{platform}`, inst\u00e1lala y reinicia Home Assistant para solucionar este problema.",
+            "title": "La integraci\u00f3n personalizada {platform} utiliza un calentador auxiliar clim\u00e1tico obsoleto."
+        },
+        "deprecated_climate_aux_url_custom": {
+            "description": "La integraci\u00f3n personalizada `{platform}` implementa la propiedad `is_aux_heat` o utiliza los m\u00e9todos del calentador auxiliar en una subclase de ClimateEntity. \n\nPor favor, crea un informe de error en {issue_tracker}.\n\nUna vez que est\u00e9 disponible una versi\u00f3n actualizada de `{platform}`, inst\u00e1lala y reinicia Home Assistant para solucionar este problema.",
+            "title": "La integraci\u00f3n personalizada {platform} utiliza un calentador auxiliar clim\u00e1tico obsoleto."
+        },
+        "platform_integration_no_support": {
+            "description": "La plataforma {platform} para la integraci\u00f3n {domain} no es compatible con la configuraci\u00f3n de la plataforma. \n\nElim\u00ednala de tu configuraci\u00f3n y reinicia Home Assistant para solucionar este problema.",
+            "title": "Soporte de plataforma no compatible"
+        }
+    },
+    "selector": {
+        "hvac_mode": {
+            "options": {
+                "auto": "Auto",
+                "cool": "Refrigeraci\u00f3n",
+                "dry": "Deshumidificador",
+                "fan_only": "Solo ventilador",
+                "heat": "Calefacci\u00f3n",
+                "heat_cool": "Calefacci\u00f3n/refrigeraci\u00f3n",
+                "off": "Apagada"
+            }
+        }
+    },
+    "services": {
+        "set_aux_heat": {
+            "description": "Enciende/apaga la calefacci\u00f3n auxiliar.",
+            "fields": {
+                "aux_heat": {
+                    "description": "Nuevo valor del calefactor auxiliar.",
+                    "name": "Calefacci\u00f3n auxiliar"
+                }
+            },
+            "name": "Encender/apagar el calefactor auxiliar"
+        },
+        "set_fan_mode": {
+            "description": "Establece el modo de funcionamiento del ventilador.",
+            "fields": {
+                "fan_mode": {
+                    "description": "Modo de funcionamiento del ventilador.",
+                    "name": "Modo del ventilador"
+                }
+            },
+            "name": "Establecer el modo de ventilador"
+        },
+        "set_humidity": {
+            "description": "Establece la humedad objetivo.",
+            "fields": {
+                "humidity": {
+                    "description": "Humedad objetivo.",
+                    "name": "Humedad"
+                }
+            },
+            "name": "Establecer la humedad objetivo"
+        },
+        "set_hvac_mode": {
+            "description": "Establece el modo de funcionamiento de la climatizaci\u00f3n.",
+            "fields": {
+                "hvac_mode": {
+                    "description": "Modo de funcionamiento HVAC.",
+                    "name": "Modo del sistema de climatizaci\u00f3n"
+                }
+            },
+            "name": "Establecer el modo HVAC"
+        },
+        "set_preset_mode": {
+            "description": "Establece el modo preestablecido.",
+            "fields": {
+                "preset_mode": {
+                    "description": "Modo preestablecido.",
+                    "name": "Modo preestablecido"
+                }
+            },
+            "name": "Establecer el modo de preajuste"
+        },
+        "set_swing_mode": {
+            "description": "Establece el modo de funcionamiento de oscilaci\u00f3n.",
+            "fields": {
+                "swing_mode": {
+                    "description": "Modo de funcionamiento oscilante.",
+                    "name": "Modo de oscilaci\u00f3n"
+                }
+            },
+            "name": "Establecer el modo de oscilaci\u00f3n"
+        },
+        "set_temperature": {
+            "description": "Establece la temperatura deseada.",
+            "fields": {
+                "hvac_mode": {
+                    "description": "Modo de funcionamiento HVAC.",
+                    "name": "Modo del sistema de climatizaci\u00f3n"
+                },
+                "target_temp_high": {
+                    "description": "Temperatura deseada superior.",
+                    "name": "Temperatura deseada superior"
+                },
+                "target_temp_low": {
+                    "description": "Temperatura deseada inferior.",
+                    "name": "Temperatura deseada inferior"
+                },
+                "temperature": {
+                    "description": "Temperatura deseada.",
+                    "name": "Temperatura"
+                }
+            },
+            "name": "Establecer la temperatura deseada"
+        },
+        "toggle": {
+            "description": "Alterna el dispositivo de climatizaci\u00f3n de encendido a apagado o de apagado a encendido.",
+            "name": "Alternar"
+        },
+        "turn_off": {
+            "description": "Apaga el dispositivo de climatizaci\u00f3n.",
+            "name": "Apagar"
+        },
+        "turn_on": {
+            "description": "Enciende el dispositivo de climatizaci\u00f3n.",
+            "name": "Encender"
+        }
+    },
+    "title": "Climatizaci\u00f3n"
+}

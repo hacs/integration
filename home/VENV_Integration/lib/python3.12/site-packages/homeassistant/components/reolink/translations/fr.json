@@ -1,0 +1,437 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "L'appareil est d\u00e9j\u00e0 configur\u00e9",
+            "reauth_successful": "La r\u00e9-authentification a r\u00e9ussi"
+        },
+        "error": {
+            "api_error": "Une erreur d'API est survenue",
+            "cannot_connect": "\u00c9chec de la connexion, v\u00e9rifier l'adresse IP de la cam\u00e9ra",
+            "invalid_auth": "Authentification non valide",
+            "not_admin": "L'utilisateur doit \u00eatre administrateur, l'utilisateur \"{username}\" a le niveau d'autorisation \"{userlevel}\"",
+            "password_incompatible": "Le mot de passe contient un caract\u00e8re sp\u00e9cial incompatible, seuls ces caract\u00e8res sont autoris\u00e9s\u00a0: a-z, A-Z, 0-9 ou {special_chars}",
+            "unknown": "Erreur inattendue",
+            "webhook_exception": "L'URL de Home Assistant n'est pas disponible, allez dans Param\u00e8tres > Syst\u00e8me > R\u00e9seau > URL de Home Assistant et corrigez-la, voir {more_info}"
+        },
+        "flow_title": "{hostname} ({ip_address})",
+        "step": {
+            "reauth_confirm": {
+                "description": "L\u2019int\u00e9gration Reolink doit r\u00e9authentifier vos informations de connexion",
+                "title": "L'authentification a expir\u00e9 pour {name}"
+            },
+            "user": {
+                "data": {
+                    "host": "H\u00f4te",
+                    "password": "Mot de passe",
+                    "port": "Port",
+                    "use_https": "Activer HTTPS",
+                    "username": "Nom d'utilisateur"
+                },
+                "data_description": {
+                    "host": "Le nom d'h\u00f4te ou l'adresse IP de votre appareil Reolink. Par exemple : '192.168.1.25'.",
+                    "password": "Nom d'utilisateur pour se connecter \u00e0 l'appareil Reolink. Pas le compte cloud de Reolink.",
+                    "port": "Le port pour se connecter au dispositif Reolink. Pour HTTP par d\u00e9faut : '80', pour HTTPS par d\u00e9faut : '443'.",
+                    "use_https": "Utilisez une connexion HTTPS (SSL) avec l'appareil Reolink.",
+                    "username": "Nom d'utilisateur pour se connecter \u00e0 l'appareil Reolink. Pas le compte cloud de Reolink."
+                },
+                "description": "Voir les [\u00e9tapes de d\u00e9pannage]({troubleshooting_link}) si vous rencontrez des probl\u00e8mes. {error}"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "animal": {
+                "name": "Animal"
+            },
+            "animal_lens_0": {
+                "name": "Lentille animale 0"
+            },
+            "animal_lens_1": {
+                "name": "Lentille animale 1"
+            },
+            "face": {
+                "name": "Visage"
+            },
+            "person": {
+                "name": "Humain"
+            },
+            "pet": {
+                "name": "Animal domestique"
+            },
+            "pet_lens_0": {
+                "name": "Lentille animale domestique 0"
+            },
+            "pet_lens_1": {
+                "name": "Lentille animale domestique 1"
+            },
+            "vehicle": {
+                "name": "V\u00e9hicule"
+            },
+            "vehicle_lens_0": {
+                "name": "Lentille v\u00e9hicule 0"
+            },
+            "vehicle_lens_1": {
+                "name": "Lentille v\u00e9hicule 1"
+            },
+            "visitor": {
+                "name": "Visiteur"
+            }
+        },
+        "button": {
+            "guard_set": {
+                "name": "Garde fixe la position actuelle"
+            },
+            "ptz_calibrate": {
+                "name": "Calibrage PTZ"
+            },
+            "ptz_down": {
+                "name": "PTZ bas"
+            },
+            "ptz_left": {
+                "name": "PTZ gauche"
+            },
+            "ptz_right": {
+                "name": "PTZ droit"
+            },
+            "ptz_stop": {
+                "name": "Arr\u00eat PTZ"
+            },
+            "ptz_up": {
+                "name": "PTZ haut"
+            },
+            "ptz_zoom_in": {
+                "name": "PTZ zoom avant"
+            },
+            "ptz_zoom_out": {
+                "name": "PTZ zoom arri\u00e8re"
+            }
+        },
+        "camera": {
+            "autotrack_snapshots_main": {
+                "name": "Instantan\u00e9s de suivi automatique clair"
+            },
+            "autotrack_snapshots_sub": {
+                "name": "Instantan\u00e9s de suivi automatique fluides"
+            },
+            "autotrack_sub": {
+                "name": "Suivi automatique fluide"
+            },
+            "ext": {
+                "name": "\u00c9quilibr\u00e9"
+            },
+            "ext_lens_0": {
+                "name": "Lentille \u00e9quilibr\u00e9e 0"
+            },
+            "ext_lens_1": {
+                "name": "Lentille \u00e9quilibr\u00e9e 1"
+            },
+            "main": {
+                "name": "Clair"
+            },
+            "main_lens_0": {
+                "name": "Clair lentille 0"
+            },
+            "main_lens_1": {
+                "name": "Clair lentille 1"
+            },
+            "snapshots_main": {
+                "name": "Les instantan\u00e9s clair"
+            },
+            "snapshots_main_lens_0": {
+                "name": "Les instantan\u00e9s clair (lentille 0)"
+            },
+            "snapshots_main_lens_1": {
+                "name": "Les instantan\u00e9s clair (lentille 1)"
+            }
+        },
+        "light": {
+            "floodlight": {
+                "name": "Projecteur"
+            },
+            "ir_lights": {
+                "name": "Lumi\u00e8res infrarouges en mode nuit"
+            },
+            "status_led": {
+                "name": "LED d'\u00e9tat"
+            }
+        },
+        "number": {
+            "ai_animal_delay": {
+                "name": "D\u00e9lai IA animaux"
+            },
+            "ai_animal_sensititvity": {
+                "name": "Sensibilit\u00e9 IA animaux"
+            },
+            "ai_face_delay": {
+                "name": "D\u00e9lai IA visage"
+            },
+            "ai_face_sensititvity": {
+                "name": "Sensibilit\u00e9 d\u00e9tection IA visage"
+            },
+            "ai_person_delay": {
+                "name": "D\u00e9lai IA humain"
+            },
+            "ai_person_sensititvity": {
+                "name": "Sensibilit\u00e9 d\u00e9tection IA humain"
+            },
+            "ai_pet_delay": {
+                "name": "D\u00e9lai IA animal domestiques"
+            },
+            "ai_pet_sensititvity": {
+                "name": "Sensibilit\u00e9 d\u00e9tection IA animaux domestiques"
+            },
+            "ai_vehicle_delay": {
+                "name": "D\u00e9lai IA v\u00e9hicule"
+            },
+            "ai_vehicle_sensititvity": {
+                "name": "Sensibilit\u00e9 d\u00e9tection IA v\u00e9hicule"
+            },
+            "auto_quick_reply_time": {
+                "name": "Temps de r\u00e9ponse rapide automatique"
+            },
+            "auto_track_disappear_time": {
+                "name": "Suivi automatique arr\u00eat apr\u00e8s disparition"
+            },
+            "auto_track_limit_left": {
+                "name": "Limite de suivi automatique \u00e0 gauche"
+            },
+            "auto_track_limit_right": {
+                "name": "Limite de suivi automatique \u00e0 droite"
+            },
+            "auto_track_stop_time": {
+                "name": "Suivi automatique arr\u00eat du suivi apr\u00e8s"
+            },
+            "day_night_switch_threshold": {
+                "name": "Seuil de commutation jour/nuit"
+            },
+            "floodlight_brightness": {
+                "name": "Luminosit\u00e9 du projecteur \u00e0 l'allumage"
+            },
+            "focus": {
+                "name": "Mise au point"
+            },
+            "image_brightness": {
+                "name": "Luminosit\u00e9 de l'image"
+            },
+            "image_contrast": {
+                "name": "Contraste de l\u2019image"
+            },
+            "image_hue": {
+                "name": "Teinte de l'image"
+            },
+            "image_saturation": {
+                "name": "Saturation de l'image"
+            },
+            "image_sharpness": {
+                "name": "Nettet\u00e9 de l'image"
+            },
+            "motion_sensitivity": {
+                "name": "Sensibilit\u00e9 mouvement"
+            },
+            "volume": {
+                "name": "Volume"
+            },
+            "zoom": {
+                "name": "Zoom"
+            }
+        },
+        "select": {
+            "auto_quick_reply_message": {
+                "name": "Message de r\u00e9ponse rapide automatique",
+                "state": {
+                    "off": "D\u00e9sactiv\u00e9"
+                }
+            },
+            "auto_track_method": {
+                "name": "M\u00e9thode de suivi automatique",
+                "state": {
+                    "digital": "Num\u00e9rique",
+                    "digitalfirst": "Num\u00e9rique d'abord",
+                    "pantiltfirst": "Panoramique/inclinaison d\u2019abord"
+                }
+            },
+            "day_night_mode": {
+                "name": "Mode Jour/nuit",
+                "state": {
+                    "auto": "Automatique",
+                    "blackwhite": "Noir et blanc",
+                    "color": "Couleur"
+                }
+            },
+            "doorbell_led": {
+                "name": "LED de la sonnette",
+                "state": {
+                    "alwayson": "Toujours allum\u00e9",
+                    "alwaysonatnight": "Auto & toujours allum\u00e9 la nuit",
+                    "auto": "Auto",
+                    "stayoff": "Rester \u00e9teint"
+                }
+            },
+            "floodlight_mode": {
+                "name": "Mode projecteur",
+                "state": {
+                    "adaptive": "Adaptatif",
+                    "auto": "Automatique",
+                    "autoadaptive": "Auto-adaptatif",
+                    "off": "D\u00e9sactiv\u00e9",
+                    "onatnight": "Allum\u00e9 la nuit",
+                    "schedule": "Planification"
+                }
+            },
+            "hdr": {
+                "name": "HDR",
+                "state": {
+                    "auto": "Auto",
+                    "off": "D\u00e9sactiv\u00e9",
+                    "on": "Activ\u00e9"
+                }
+            },
+            "people_tone": {
+                "state": {
+                    "goodday": "Bonne journ\u00e9e",
+                    "hophop": "Hop hop",
+                    "loop": "Boucle",
+                    "off": "\u00c9teint",
+                    "pianokey": "Touche de piano",
+                    "waybackhome": "Route retour vers la maison"
+                }
+            },
+            "ptz_preset": {
+                "name": "Pr\u00e9r\u00e9glage PTZ"
+            },
+            "status_led": {
+                "name": "LED d'\u00e9tat",
+                "state": {
+                    "alwaysonatnight": "Auto & toujours allum\u00e9 la nuit",
+                    "auto": "Automatique",
+                    "stayoff": "Restez \u00e9teint"
+                }
+            },
+            "visitor_tone": {
+                "state": {
+                    "attraction": "Attraction",
+                    "citybird": "Oiseau de ville",
+                    "hophop": "Hop hop",
+                    "loop": "Boucle",
+                    "off": "\u00c9teint",
+                    "pianokey": "touche de piano",
+                    "waybackhome": "Route retour vers la maison"
+                }
+            }
+        },
+        "sensor": {
+            "event_connection": {
+                "state": {
+                    "fast_poll": "Interrogation rapide",
+                    "onvif_long_poll": "ONVIF long poll",
+                    "onvif_push": "ONVIF push"
+                }
+            },
+            "ptz_pan_position": {
+                "name": "Position panoramique PTZ"
+            },
+            "wifi_signal": {
+                "name": "Signal Wi-Fi"
+            }
+        },
+        "siren": {
+            "siren": {
+                "name": "Sir\u00e8ne"
+            }
+        },
+        "switch": {
+            "auto_focus": {
+                "name": "Focus automatique"
+            },
+            "auto_tracking": {
+                "name": "Suivi automatique"
+            },
+            "buzzer": {
+                "name": "Buzzer lors d'\u00e9v\u00e9nement"
+            },
+            "doorbell_button_sound": {
+                "name": "Son du bouton de la sonnette"
+            },
+            "email": {
+                "name": "Courriel lors de l'\u00e9v\u00e9nement"
+            },
+            "ftp_upload": {
+                "name": "Chargement (upload) FTP"
+            },
+            "hdr": {
+                "name": "HDR"
+            },
+            "ir_lights": {
+                "name": "Lumi\u00e8res infrarouges en mode nuit"
+            },
+            "led": {
+                "name": "LED"
+            },
+            "manual_record": {
+                "name": "Enregistrement manuel"
+            },
+            "push_notifications": {
+                "name": "Notifications push"
+            },
+            "record": {
+                "name": "Enregistrer"
+            },
+            "record_audio": {
+                "name": "Enregistrer l'audio"
+            },
+            "siren_on_event": {
+                "name": "Sir\u00e8ne lors de l'\u00e9v\u00e9nement"
+            }
+        }
+    },
+    "issues": {
+        "enable_port": {
+            "description": "\u00c9chec de l'activation automatique de {ports}port(s) sur {name}. Utilisez le [client Reolink]({info_link}) pour l'activer manuellement.",
+            "title": "Le port Reolink n'est pas activ\u00e9"
+        },
+        "firmware_update": {
+            "description": "\"{name}\", mod\u00e8le \"{model}\" avec la version mat\u00e9rielle \"{hw_version}\" utilise une ancienne version du micrologiciel \"{current_firmware}\", alors qu'au moins la version du micrologiciel \"{required_firmware}\" est requise pour le bon fonctionnement de l'int\u00e9gration de Reolink. Le dernier micrologiciel peut \u00eatre t\u00e9l\u00e9charg\u00e9 \u00e0 partir du [centre de t\u00e9l\u00e9chargement Reolink]({download_link}).",
+            "title": "Mise \u00e0 jour du micrologiciel Reolink n\u00e9cessaire"
+        },
+        "hdr_switch_deprecated": {
+            "description": "L'entit\u00e9 de commutateur Reolink HDR est obsol\u00e8te et sera supprim\u00e9e dans HA 2025.2.0. Il a \u00e9t\u00e9 remplac\u00e9 par une entit\u00e9 de s\u00e9lection HDR proposant les options \u00ab\u00a0on\u00a0\u00bb, \u00ab off \u00bb et \u00ab auto \u00bb. Pour supprimer ce probl\u00e8me, veuillez ajuster les automatisations en cons\u00e9quence et d\u00e9sactiver l'entit\u00e9 de commutation HDR.",
+            "title": "Le commutateur Reolink HDR est obsol\u00e8te"
+        },
+        "https_webhook": {
+            "description": "Les produits Reolink ne peuvent pas envoyer les \u00e9v\u00e9nements de mouvement \u00e0 une adresse HTTPS (SSL), veuillez configurer une adresse HTTP (locale) sous \"Home Assistant URL\" dans les [param\u00e8tres r\u00e9seau]({network_link}). L'adresse (locale) actuelle est la suivante : `{base_url}`, une adresse valide pourrait, par exemple, \u00eatre `http://192.168.1.10:8123` o\u00f9 `192.168.1.10` est l'IP de l'Assistant locale.",
+            "title": "L'URL du webhook de Reolink utilise HTTPS (SSL)"
+        },
+        "ssl": {
+            "description": "Le certificat SSL global configur\u00e9 dans [configuration.yaml sous http]({ssl_link}) alors qu'une adresse HTTP locale `{base_url}` est configur\u00e9e sous \"Home Assistant URL\" dans [network settings]({network_link}). Par cons\u00e9quent, l'appareil Reolink ne peut pas atteindre Home Assistant pour transmettre ses \u00e9v\u00e9nements de mouvement/AI. Veuillez vous assurer que l'adresse HTTP locale n'est pas couverte par le certificat SSL, en utilisant par exemple [NGINX add-on]({nginx_link}) au lieu d'un certificat SSL global.",
+            "title": "Reolink incompatible avec le certificat SSL global"
+        },
+        "webhook_url": {
+            "description": "Non r\u00e9ception de l'\u00e9tat ONVIF initial de {name}. La cam\u00e9ra Reolink ne peut probablement pas atteindre l'URL actuelle (locale) de Home Assistant `{base_url}`, veuillez configurer une adresse HTTP (locale) sous \"Home Assistant URL\" dans les [param\u00e8tres r\u00e9seau]({network_link}) qui pointe vers Home Assistant. Par exemple `http://192.168.1.10:8123` o\u00f9 `192.168.1.10` est l'IP de Home Assistant. Assurez-vous \u00e9galement que la cam\u00e9ra Reolink peut acc\u00e9der \u00e0 cette URL. Utiliser l'interrogation rapide de l'\u00e9tat de mouvement/AI jusqu'\u00e0 ce que le premier push ONVIF soit re\u00e7u.",
+            "title": "URL du webhook Reolink inaccessible"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "protocol": "Protocole"
+                },
+                "data_description": {
+                    "protocol": "Protocole de streaming \u00e0 utiliser pour les entit\u00e9s de la cam\u00e9ra. RTSP prend en charge les flux 4K (encodage h265), contrairement \u00e0 RTMP et FLV. FLV est le moins sollicitant pour la cam\u00e9ra."
+                }
+            }
+        }
+    },
+    "services": {
+        "ptz_move": {
+            "description": "D\u00e9placez la cam\u00e9ra avec une vitesse sp\u00e9cifique.",
+            "fields": {
+                "speed": {
+                    "description": "Vitesse de d\u00e9placement PTZ.",
+                    "name": "Vitesse"
+                }
+            },
+            "name": "D\u00e9placement PTZ"
+        }
+    }
+}

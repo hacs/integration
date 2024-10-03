@@ -1,0 +1,192 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "\u012erenginys jau sukonfig\u016bruotas"
+        },
+        "error": {
+            "cannot_connect": "Nepavyko prisijungti",
+            "invalid_auth": "Neteisingas autentifikavimas",
+            "invalid_host": "Prieglobos \u012fra\u0161as nebuvo viso URL formato, pvz., http://192.168.10.100:80",
+            "reauth_successful": "Pakartotinis autentifikavimas buvo s\u0117kmingas",
+            "unknown": "Netik\u0117ta klaida"
+        },
+        "flow_title": "{name} ( {host} )",
+        "step": {
+            "reauth_confirm": {
+                "data": {
+                    "password": "Slapta\u017eodis",
+                    "username": "Prisijungimos vardas"
+                },
+                "description": "{host} kredencialai nebegalioja.",
+                "title": "I\u0161 naujo autentifikuokite savo ISY"
+            },
+            "user": {
+                "data": {
+                    "host": "URL",
+                    "password": "Slapta\u017eodis",
+                    "tls": "ISY valdiklio TLS versija.",
+                    "username": "Prisijungimos vardas"
+                },
+                "description": "Prieglobos \u012fra\u0161as turi b\u016bti viso URL formato, pvz., http://192.168.10.100:80",
+                "title": "Prisijunkite prie savo ISY"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_service": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Atnaujinkite visus automatizavimus ar scenarijus, kurie naudoja \u0161i\u0105 paslaug\u0105, kad vietoj to b\u016bt\u0173 naudojama paslauga \u201e {alternate_service} \u201c, kurios tikslinio objekto ID yra \u201e {alternate_target} \u201c.",
+                        "title": "Paslauga {deprecated_service} bus pa\u0161alinta"
+                    },
+                    "deprecated_yaml": {
+                        "description": "Universali\u0173 \u012frengini\u0173 ISY/IoX konfig\u016bravimas naudojant YAML pa\u0161alinamas. \n\n J\u016bs\u0173 esama YAML konfig\u016bracija buvo automati\u0161kai importuota \u012f vartotojo s\u0105saj\u0105. \n\n Pa\u0161alinkite \u201eisy994\u201c YAML konfig\u016bracij\u0105 i\u0161 savo configuration.yaml failo ir i\u0161 naujo paleiskite \u201eHome Assistant\u201c, kad i\u0161spr\u0119stum\u0117te \u0161i\u0105 problem\u0105.",
+                        "title": "ISY/IoX YAML konfig\u016bracija pa\u0161alinama"
+                    }
+                }
+            },
+            "title": "Paslauga {deprecated_service} bus pa\u0161alinta"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "ignore_string": "Ignoruoti eilut\u0119",
+                    "restore_light_state": "Atkurti \u0161viesos ry\u0161kum\u0105",
+                    "sensor_string": "Mazgo jutiklio eilut\u0117",
+                    "variable_sensor_string": "Kintamo jutiklio eilut\u0117"
+                },
+                "description": "Nustatykite ISY integravimo parinktis:\n \u2022 Mazgo jutiklio eilut\u0117: bet koks \u012frenginys arba aplankas, kurio pavadinime yra \u201eMazgo jutiklio eilut\u0117\u201c, bus traktuojamas kaip jutiklis arba dvejetainis jutiklis.\n \u2022 Ignoruoti eilut\u0119: bet koks \u012frenginys, kurio pavadinime yra \u201eIgnoruoti eilut\u0119\u201c, bus ignoruojamas.\n \u2022 Kintamojo jutiklio eilut\u0117: bet koks kintamasis, kuriame yra \u201eKintamojo jutiklio eilut\u0117\u201c, bus \u012ftrauktas kaip jutiklis.\n \u2022 Atkurti \u0161viesos ry\u0161kum\u0105: jei \u012fjungta, \u012fjungiant \u0161vies\u0105 bus atkurtas ankstesnis ry\u0161kumas, o ne \u012frenginyje \u012ftaisytasis lygis.",
+                "title": "ISY parinktys"
+            }
+        }
+    },
+    "services": {
+        "delete_zwave_lock_user_code": {
+            "description": "I\u0161trinkite Z-Wave Lock vartotojo kod\u0105 per ISY.",
+            "fields": {
+                "user_num": {
+                    "description": "Vartotojo lizdo numeris ant u\u017erakto.",
+                    "name": "Vartotojo numeris"
+                }
+            },
+            "name": "I\u0161trinkite Z-Wave Lock vartotojo kod\u0105"
+        },
+        "get_zwave_parameter": {
+            "description": "Pra\u0161o Z-Wave Device parametro per ISY. Parametro reik\u0161m\u0117 bus gr\u0105\u017einta kaip objekto papildomos b\u016bsenos atributas pavadinimu \u201eZW_#\u201c, kur \u201e#\u201c yra parametro numeris.",
+            "fields": {
+                "parameter": {
+                    "description": "Parametro numeris, kur\u012f reikia gauti i\u0161 \u012frenginio.",
+                    "name": "Parametras"
+                }
+            },
+            "name": "Gaukite \u201eZ-Wave\u201c parametr\u0105"
+        },
+        "rename_node": {
+            "description": "Pervardija mazg\u0105 arba grup\u0119 (scen\u0105) ISY. Pastaba: tai automati\u0161kai nepakeis nam\u0173 pad\u0117j\u0117jo subjekto pavadinimo arba subjekto ID, kad atitikt\u0173. Objekto pavadinimas ir ID bus atnaujinti tik i\u0161 naujo \u012fk\u0117lus integracij\u0105 arba i\u0161 naujo paleidus nam\u0173 asistent\u0105 ir TIK JEI dar nepritaik\u0117te pavadinimo programoje \u201eHome Assistant\u201c.",
+            "fields": {
+                "name": {
+                    "description": "Naujas pavadinimas, naudojamas ISY.",
+                    "name": "Naujas Vardas"
+                }
+            },
+            "name": "Pervardykite mazg\u0105 ISY"
+        },
+        "send_node_command": {
+            "description": "Siun\u010dia komand\u0105 \u012f ISY \u012frengin\u012f, naudodamas nam\u0173 asistento subjekto ID. Tinkamos komandos yra: pyptel\u0117jimas, \u0161viesinimas, pritemdymas, i\u0161jungimas, \u012fjungimas, fade_down, fade_stop, fade_up, fast_off, fast_on ir query.",
+            "fields": {
+                "command": {
+                    "description": "Komanda, kuri\u0105 reikia si\u0173sti \u012f \u012frengin\u012f.",
+                    "name": "Komanda"
+                }
+            },
+            "name": "Si\u0173sti mazgo komand\u0105"
+        },
+        "send_program_command": {
+            "description": "Siun\u010dia komand\u0105 valdyti ISY program\u0105 arba aplank\u0105. Galiojan\u010dios komandos yra paleisti, run_then, run_else, stop, enable, disable, enable_run_at_startup ir disable_run_at_startup.",
+            "fields": {
+                "address": {
+                    "description": "Valdomos programos adresas (naudokite adres\u0105 arba pavadinim\u0105).",
+                    "name": "Adresas"
+                },
+                "command": {
+                    "description": "Turi b\u016bti i\u0161si\u0173sta ISY programos komanda.",
+                    "name": "Komanda"
+                },
+                "isy": {
+                    "description": "Jei esate prijung\u0119 daugiau nei vien\u0105 ISY, nurodykite ISY pavadinim\u0105 (kaip parodyta \u012frengini\u0173 registre arba kaip ISY administratoriaus pulto vir\u0161uje pirmas mazgas). Jei keliuose ISY naudojate t\u0105 pat\u012f programos pavadinim\u0105 arba adres\u0105, tai praleidus komanda bus paleista visuose juose.",
+                    "name": "ISY"
+                },
+                "name": {
+                    "description": "Valdomos programos pavadinimas (naudokite adres\u0105 arba pavadinim\u0105).",
+                    "name": "Vardas"
+                }
+            },
+            "name": "Si\u0173sti programos komand\u0105"
+        },
+        "send_raw_node_command": {
+            "description": "Nustatykite ISY integravimo parinktis:\n \u2022 Mazgo jutiklio eilut\u0117: bet koks \u012frenginys arba aplankas, kurio pavadinime yra \u201eMazgo jutiklio eilut\u0117\u201c, bus traktuojamas kaip jutiklis arba dvejetainis jutiklis.\n \u2022 Ignoruoti eilut\u0119: bet koks \u012frenginys, kurio pavadinime yra \u201eIgnoruoti eilut\u0119\u201c, bus ignoruojamas.\n \u2022 Kintamojo jutiklio eilut\u0117: bet koks kintamasis, kuriame yra \u201eKintamojo jutiklio eilut\u0117\u201c, bus \u012ftrauktas kaip jutiklis.\n \u2022 Atkurti \u0161viesos ry\u0161kum\u0105: jei \u012fjungta, \u012fjungiant \u0161vies\u0105 bus atkurtas ankstesnis ry\u0161kumas, o ne \u012frenginyje \u012ftaisytasis lygis.",
+            "fields": {
+                "command": {
+                    "description": "ISY REST komanda turi b\u016bti i\u0161si\u0173sta \u012f \u012frengin\u012f.",
+                    "name": "Komanda"
+                },
+                "parameters": {
+                    "description": "U\u017eklausos eilut\u0117je siun\u010diam\u0173 parametr\u0173 s\u0105ra\u0161as (pvz., spalvotoms lemput\u0117ms valdyti).",
+                    "name": "Parametrai"
+                },
+                "unit_of_measurement": {
+                    "description": "ISY matavimo vienetas (UOM), kur\u012f reikia si\u0173sti su komanda, jei reikia.",
+                    "name": "Matavimo vienetas"
+                },
+                "value": {
+                    "description": "Sveikasis skai\u010dius, kur\u012f reikia si\u0173sti su komanda.",
+                    "name": "Vert\u0117"
+                }
+            },
+            "name": "Si\u0173sti neapdoroto mazgo komand\u0105"
+        },
+        "set_zwave_lock_user_code": {
+            "description": "Per ISY nustato Z-Wave Lock vartotojo kod\u0105.",
+            "fields": {
+                "code": {
+                    "description": "Kodas, kur\u012f reikia nustatyti vartotojui.",
+                    "name": "Kodas"
+                },
+                "user_num": {
+                    "description": "Vartotojo lizdo numeris ant u\u017erakto.",
+                    "name": "Vartotojo numeris"
+                }
+            },
+            "name": "Nustatykite Z-Wave Lock vartotojo kod\u0105"
+        },
+        "set_zwave_parameter": {
+            "description": "Atnaujina Z-Wave Device parametr\u0105 per ISY. Parametro reik\u0161m\u0117 taip pat bus gr\u0105\u017einta kaip objekto papildomos b\u016bsenos atributas pavadinimu \u201eZW_#\u201c, kur \u201e#\u201c yra parametro numeris.",
+            "fields": {
+                "parameter": {
+                    "description": "Parametro numeris, kur\u012f reikia nustatyti galutiniame \u012frenginyje.",
+                    "name": "Parametras"
+                },
+                "size": {
+                    "description": "Parametro dydis \u2013 1, 2 arba 4 baitai.",
+                    "name": "Dydis"
+                },
+                "value": {
+                    "description": "Reik\u0161m\u0117, kuri\u0105 reikia nustatyti parametrui. Gali b\u016bti sveikasis skai\u010dius arba bait\u0173 eilut\u0117 (pvz., \"0xFFFF\").",
+                    "name": "Vert\u0117"
+                }
+            },
+            "name": "Nustatykite Z-Wave parametr\u0105"
+        }
+    },
+    "system_health": {
+        "info": {
+            "device_connected": "ISY prijungtas",
+            "host_reachable": "Pasiekiamas \u0161eimininkas",
+            "last_heartbeat": "Paskutinis \u0161irdies plakimo laikas",
+            "websocket_status": "\u012evykio lizdo b\u016bsena"
+        }
+    }
+}

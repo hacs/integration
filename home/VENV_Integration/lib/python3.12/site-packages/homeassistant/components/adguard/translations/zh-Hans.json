@@ -1,0 +1,135 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "\u670d\u52a1\u5df2\u914d\u7f6e",
+            "existing_instance_updated": "\u66f4\u65b0\u4e86\u73b0\u6709\u914d\u7f6e\u3002"
+        },
+        "error": {
+            "cannot_connect": "\u8fde\u63a5\u5931\u8d25"
+        },
+        "step": {
+            "hassio_confirm": {
+                "description": "\u60a8\u8981\u914d\u7f6e Home Assistant \u4ee5\u8fde\u63a5\u5230\u52a0\u8f7d\u9879\u63d0\u4f9b\u7684 AdGuard Home\uff1a {addon}\u5417\uff1f",
+                "title": "\u4f7f\u7528 Home Assistant \u52a0\u8f7d\u9879 AdGuard Home"
+            },
+            "user": {
+                "data": {
+                    "host": "\u4e3b\u673a",
+                    "password": "\u5bc6\u7801",
+                    "port": "\u7aef\u53e3",
+                    "ssl": "\u4f7f\u7528 SSL \u8bc1\u4e66",
+                    "username": "\u7528\u6237\u540d",
+                    "verify_ssl": "\u9a8c\u8bc1 SSL \u8bc1\u4e66"
+                },
+                "data_description": {
+                    "host": "\u8fd0\u884c\u60a8\u7684 AdGuard Home \u7684\u8bbe\u5907\u7684\u4e3b\u673a\u540d\u6216 IP \u5730\u5740\u3002"
+                },
+                "description": "\u8bbe\u7f6e\u60a8\u7684 AdGuard Home \u5b9e\u4f8b\u4ee5\u5141\u8bb8\u76d1\u89c6\u548c\u63a7\u5236"
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "average_processing_speed": {
+                "name": "\u5e73\u5747\u5904\u7406\u901f\u5ea6"
+            },
+            "dns_queries": {
+                "name": "DNS \u67e5\u8be2"
+            },
+            "dns_queries_blocked": {
+                "name": "DNS \u67e5\u8be2\u88ab\u963b\u6b62"
+            },
+            "dns_queries_blocked_ratio": {
+                "name": "DNS \u67e5\u8be2\u963b\u585e\u7387"
+            },
+            "parental_control_blocked": {
+                "name": "\u5bb6\u957f\u63a7\u5236\u88ab\u963b\u6b62"
+            },
+            "rules_count": {
+                "name": "\u89c4\u5219\u8ba1\u6570"
+            },
+            "safe_browsing_blocked": {
+                "name": "\u5b89\u5168\u6d4f\u89c8\u5df2\u88ab\u963b\u6b62"
+            },
+            "safe_searches_enforced": {
+                "name": "\u5f3a\u5236\u5b89\u5168\u641c\u67e5"
+            }
+        },
+        "switch": {
+            "filtering": {
+                "name": "\u8fc7\u6ee4"
+            },
+            "parental": {
+                "name": "\u5bb6\u957f\u63a7\u5236"
+            },
+            "protection": {
+                "name": "\u4fdd\u62a4"
+            },
+            "query_log": {
+                "name": "\u67e5\u8be2\u65e5\u5fd7"
+            },
+            "safe_browsing": {
+                "name": "\u5b89\u5168\u6d4f\u89c8"
+            },
+            "safe_search": {
+                "name": "\u5b89\u5168\u641c\u7d22"
+            }
+        }
+    },
+    "services": {
+        "add_url": {
+            "description": "\u6dfb\u52a0\u5c06\u65b0\u7684\u8fc7\u6ee4\u5668\u8ba2\u9605\u5230 AdGuard Home \u3002",
+            "fields": {
+                "name": {
+                    "description": "\u8fc7\u6ee4\u5668\u8ba2\u9605\u7684\u540d\u79f0\u3002",
+                    "name": "\u540d\u79f0"
+                },
+                "url": {
+                    "description": "\u8981\u8ba2\u9605\u7684\u8fc7\u6ee4\u5668 URL\uff0c\u5305\u542b\u8fc7\u6ee4\u5668\u89c4\u5219\u3002",
+                    "name": "\u7f51\u5740"
+                }
+            },
+            "name": "\u6dfb\u52a0 URL"
+        },
+        "disable_url": {
+            "description": "\u7981\u7528 AdGuard Home \u4e2d\u7684\u8fc7\u6ee4\u5668\u8ba2\u9605\u3002",
+            "fields": {
+                "url": {
+                    "description": "\u8981\u7981\u7528\u7684\u8fc7\u6ee4\u5668\u8ba2\u9605 URL\u3002",
+                    "name": "\u7f51\u5740"
+                }
+            },
+            "name": "\u7981\u7528 URL"
+        },
+        "enable_url": {
+            "description": "\u5728 AdGuard Home \u4e2d\u542f\u7528\u8fc7\u6ee4\u5668\u8ba2\u9605\u3002",
+            "fields": {
+                "url": {
+                    "description": "\u8981\u542f\u7528\u7684\u8fc7\u6ee4\u5668\u8ba2\u9605 URL\u3002",
+                    "name": "\u7f51\u5740"
+                }
+            },
+            "name": "\u542f\u7528 URL"
+        },
+        "refresh": {
+            "description": "\u5237\u65b0 AdGuard Home \u4e2d\u7684\u6240\u6709\u8fc7\u6ee4\u5668\u8ba2\u9605\u3002",
+            "fields": {
+                "force": {
+                    "description": "\u5f3a\u5236\u66f4\u65b0\uff08\u7ed5\u8fc7 AdGuard Home \u9650\u5236\uff09\u3002 true\uff08\u771f\uff09\u8868\u793a\u5f3a\u5236\u6267\u884c\uff0cfalse\uff08\u5047\uff09\u8868\u793a\u5ffd\u7565\u5b9a\u671f\u5237\u65b0\u3002",
+                    "name": "\u5f3a\u5236"
+                }
+            },
+            "name": "\u5237\u65b0"
+        },
+        "remove_url": {
+            "description": "\u4ece AdGuard Home \u4e2d\u5220\u9664\u8fc7\u6ee4\u5668\u8ba2\u9605\u3002",
+            "fields": {
+                "url": {
+                    "description": "\u8981\u5220\u9664\u7684\u8fc7\u6ee4\u5668\u8ba2\u9605 URL\u3002",
+                    "name": "\u7f51\u5740"
+                }
+            },
+            "name": "\u5220\u9664 URL"
+        }
+    }
+}

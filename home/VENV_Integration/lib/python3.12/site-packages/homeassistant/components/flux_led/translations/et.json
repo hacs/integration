@@ -1,0 +1,161 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Seade on juba h\u00e4\u00e4lestatud",
+            "already_in_progress": "Seadistamine on juba k\u00e4imas",
+            "no_devices_found": "V\u00f5rgust seadmeid ei leitud"
+        },
+        "error": {
+            "cannot_connect": "\u00dchendamine nurjus"
+        },
+        "flow_title": "{model} {id} ({ipaddr})",
+        "step": {
+            "discovery_confirm": {
+                "description": "Kas seadistada {model} {id} ({ipaddr})?"
+            },
+            "user": {
+                "data": {
+                    "host": "Host"
+                },
+                "description": "Kui j\u00e4tad hosti t\u00fchjaks kasutatakse seadmete leidmiseks avastamist."
+            }
+        }
+    },
+    "entity": {
+        "button": {
+            "unpair_remotes": {
+                "name": "Kaugjuhtimispultide lahti sidumine"
+            }
+        },
+        "number": {
+            "effect_speed": {
+                "name": "Efekti kiirus"
+            },
+            "music_pixels_per_segment": {
+                "name": "Muusika piksleid segmendi kohta"
+            },
+            "music_segments": {
+                "name": "Muusika segmendid"
+            },
+            "pixels_per_segment": {
+                "name": "Piksleid segmendi kohta"
+            },
+            "segments": {
+                "name": "Segmendid"
+            }
+        },
+        "select": {
+            "ic_type": {
+                "name": "Kiibi t\u00fc\u00fcp"
+            },
+            "operating_mode": {
+                "name": "T\u00f6\u00f6re\u017eiim"
+            },
+            "power_restored": {
+                "name": "Toide on taastunud"
+            },
+            "remote_config": {
+                "name": "Kaugseadistamine"
+            },
+            "white_channel": {
+                "name": "Valge kanal"
+            },
+            "wiring": {
+                "name": "Juhtmestik"
+            }
+        },
+        "sensor": {
+            "paired_remotes": {
+                "name": "Seotud kaugjuhtimispuldid"
+            }
+        },
+        "switch": {
+            "music": {
+                "name": "Muusika"
+            },
+            "remote_access": {
+                "name": "Kaugjuurdep\u00e4\u00e4s"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "custom_effect_colors": "Kohandatud efekt: Loetelu 1 kuni 16 [R,G,B] v\u00e4rvist. N\u00e4ide: [255,0,255],[60,128,0]",
+                    "custom_effect_speed_pct": "Kohandatud efekt: v\u00e4rvide vahetumise efekti kiirus protsentides.",
+                    "custom_effect_transition": "Kohandatud efekt: v\u00e4rvide vahelise \u00fclemineku t\u00fc\u00fcp.",
+                    "mode": "Valitud heleduse re\u017eiim."
+                }
+            }
+        }
+    },
+    "services": {
+        "set_custom_effect": {
+            "description": "M\u00e4\u00e4rab kohandatud valgusefekti.",
+            "fields": {
+                "colors": {
+                    "description": "Kohandatud efekti (RGB) v\u00e4rvide loend. (Max 16 v\u00e4rvi).",
+                    "name": "V\u00e4rvid"
+                },
+                "speed_pct": {
+                    "description": "Kohandatud efekti kiirus (0-100).",
+                    "name": "Kiirus"
+                },
+                "transition": {
+                    "description": "Efekti \u00fcleminek.",
+                    "name": "\u00dcleminek"
+                }
+            },
+            "name": "M\u00e4\u00e4ra kohandatud efekt"
+        },
+        "set_music_mode": {
+            "description": "Seadistab muusikare\u017eiimi mikrofoniga (0x08), aadressiga v2 (0xA2) ja aadressiga v3 (0xA3) seadmetel, millel on sisseehitatud mikrofon.",
+            "fields": {
+                "background_color": {
+                    "description": "Tausta RGB-v\u00e4rv (ainult adresseeritavad mudelid).",
+                    "name": "Taustav\u00e4rv"
+                },
+                "brightness": {
+                    "description": "Valguse heledus (0-100).",
+                    "name": "Heledus"
+                },
+                "effect": {
+                    "description": "Efekt (1-16 adresseeritavatel mudelitel, 0-3 RGB MIC-mudelitel).",
+                    "name": "Efekt"
+                },
+                "foreground_color": {
+                    "description": "Esiplaani RGB v\u00e4rv.",
+                    "name": "Esiplaani v\u00e4rv"
+                },
+                "light_screen": {
+                    "description": "Valgusekraani re\u017eiim 2-m\u00f5\u00f5tmeliste pikslite jaoks (ainult adresseeritavad mudelid).",
+                    "name": "Valgusekraan"
+                },
+                "sensitivity": {
+                    "description": "Mikrofoni tundlikkus (0-100).",
+                    "name": "Tundlikkus"
+                }
+            },
+            "name": "M\u00e4\u00e4ra muusikare\u017eiim"
+        },
+        "set_zones": {
+            "description": "M\u00e4\u00e4rab ribade tsoonid Addressable v3 kontrollerite (0xA3) jaoks.",
+            "fields": {
+                "colors": {
+                    "description": "Iga tsooni v\u00e4rvide loend (RGB). Iga tsooni pikkus on pikslite arv segmendi kohta jagatud v\u00e4rvide arvuga. (Max 2048 v\u00e4rvi).",
+                    "name": "V\u00e4rvid"
+                },
+                "effect": {
+                    "description": "Efekt.",
+                    "name": "Efekt"
+                },
+                "speed_pct": {
+                    "description": "Kohandatud efekti kiirus (0-100).",
+                    "name": "Kiirus"
+                }
+            },
+            "name": "M\u00e4\u00e4ra tsoonid"
+        }
+    }
+}

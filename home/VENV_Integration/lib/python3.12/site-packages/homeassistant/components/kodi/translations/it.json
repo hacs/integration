@@ -1,0 +1,95 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Il dispositivo \u00e8 gi\u00e0 configurato",
+            "cannot_connect": "Impossibile connettersi",
+            "invalid_auth": "Autenticazione non valida",
+            "no_uuid": "L'istanza di Kodi non ha un ID univoco. Ci\u00f2 \u00e8 molto probabilmente dovuto a una vecchia versione di Kodi (17.xo inferiore). Puoi configurare l'integrazione manualmente o eseguire l'aggiornamento a una versione di Kodi pi\u00f9 recente.",
+            "unknown": "Errore imprevisto"
+        },
+        "error": {
+            "cannot_connect": "Impossibile connettersi",
+            "invalid_auth": "Autenticazione non valida",
+            "unknown": "Errore imprevisto"
+        },
+        "flow_title": "{name}",
+        "step": {
+            "credentials": {
+                "data": {
+                    "password": "Password",
+                    "username": "Nome utente"
+                },
+                "description": "Inserisci il tuo nome utente e la password Kodi. Questi sono disponibili in Sistema/Impostazioni/Rete/Servizi."
+            },
+            "discovery_confirm": {
+                "description": "Vuoi aggiungere Kodi (`{name}`) a Home Assistant?",
+                "title": "Rilevato Kodi"
+            },
+            "user": {
+                "data": {
+                    "host": "Host",
+                    "port": "Porta",
+                    "ssl": "Utilizza un certificato SSL"
+                },
+                "description": "Informazioni sulla connessione Kodi. Assicurati di abilitare \"Consenti il controllo di Kodi tramite HTTP\" in Sistema/Impostazioni/Rete/Servizi."
+            },
+            "ws_port": {
+                "data": {
+                    "ws_port": "Porta"
+                },
+                "description": "La porta WebSocket (a volte chiamata porta TCP in Kodi). Per connetterti tramite WebSocket, devi abilitare \"Consenti ai programmi ... di controllare Kodi\" in Sistema/Impostazioni/Rete/Servizi. Se WebSocket non \u00e8 abilitato, rimuovere la porta e lasciare vuoto."
+            }
+        }
+    },
+    "device_automation": {
+        "trigger_type": {
+            "turn_off": "{entity_name} disattivato",
+            "turn_on": "{entity_name} attivato"
+        }
+    },
+    "entity": {
+        "media_player": {
+            "media_player": {
+                "state_attributes": {
+                    "dynamic_range": {
+                        "name": "Gamma dinamica"
+                    }
+                }
+            }
+        }
+    },
+    "services": {
+        "add_to_playlist": {
+            "description": "Aggiunge musica alla playlist predefinita (ad es. playlistid=0).",
+            "fields": {
+                "artist_name": {
+                    "description": "Nome dell'artista facoltativo per filtrare i media.",
+                    "name": "Nome dell'artista"
+                },
+                "media_id": {
+                    "description": "ID univoco della voce multimediale da aggiungere (`songid` o albumid`). Se non definito, \"media_name\" e \"artist_name\" sono necessari per cercare nella libreria musicale di Kodi.",
+                    "name": "ID media"
+                },
+                "media_name": {
+                    "description": "Nome del media facoltativo per filtrare i media. Pu\u00f2 essere 'ALL' quando `media_type` \u00e8 'ALBUM' e `artist_name` \u00e8 specificato, per aggiungere tutti i brani di un artista.",
+                    "name": "Nome del media"
+                },
+                "media_type": {
+                    "description": "Identificatore del tipo di media. Deve essere uno tra SONG o ALBUM.",
+                    "name": "Tipo di media"
+                }
+            },
+            "name": "Aggiungi alla playlist"
+        },
+        "call_method": {
+            "description": "Chiama un metodo API Kodi JSONRPC con parametri facoltativi. I risultati della chiamata API Kodi verranno reindirizzati in un evento Home Assistant: `kodi_call_method_result`.",
+            "fields": {
+                "method": {
+                    "description": "Nome del metodo API Kodi JSONRPC da chiamare.",
+                    "name": "Metodo"
+                }
+            },
+            "name": "Metodo di chiamata"
+        }
+    }
+}

@@ -1,0 +1,180 @@
+{
+    "config": {
+        "abort": {
+            "single_instance_allowed": "Al geconfigureerd. Slechts \u00e9\u00e9n configuratie mogelijk."
+        }
+    },
+    "exceptions": {
+        "component_import_err": {
+            "message": "Importeren {domain} niet mogelijk: {error}"
+        },
+        "config_platform_import_err": {
+            "message": "Fout bij het importeren van configuratieplatform {domain}: {error}"
+        },
+        "config_schema_unknown_err": {
+            "message": "Onbekende fout bij het aanroepen van CONFIG_SCHEMA voor {domain} - {error}."
+        },
+        "config_validation_err": {
+            "message": "Ongeldige configuratie voor informatie {domain} in {config_file}, regel {line}: {error}."
+        },
+        "config_validator_unknown_err": {
+            "message": "Onbekende fout bij het aanroepen van de config-validator voor {domain} - {error}."
+        },
+        "integration_config_error": {
+            "message": "Verwerking configuratie voor integratie {domain} is mislukt als gevolg van meerdere ({errors}) fouten. Controleer het logboek voor meer informatie."
+        },
+        "max_length_exceeded": {
+            "message": "Waarde {value} voor eigenschap {property_name} heeft een maximum lengte van {max_length} tekens."
+        },
+        "multiple_integration_config_errors": {
+            "message": "Het verwerken van de configuratie voor integratie {domain} is niet gelukt als gevolg van meerdere ({errors}) fouten."
+        },
+        "platform_component_load_err": {
+            "message": "Platformfout: {domain} - {error}."
+        },
+        "platform_component_load_exc": {
+            "message": "Platformfout: {domain} - {error}."
+        },
+        "platform_config_validation_err": {
+            "message": "Ongeldige configuratie voor {domain} van informatie {p_name} in bestand {config_file}, regel {line}: {error}. Controleer het logboek voor meer informatie."
+        },
+        "platform_schema_validator_err": {
+            "message": "Onbekende fout bij het valideren van configuratie voor {domain} van integratie {p_name} - {error}."
+        }
+    },
+    "issues": {
+        "config_entry_only": {
+            "description": "De {domain}-integratie ondersteunt geen configuratie via een YAML-bestand. Je merkt misschien geen duidelijke problemen met de integratie, maar eventuele configuratie-instellingen die in YAML zijn gedefinieerd, worden niet daadwerkelijk toegepast. \n\n Om dit op te lossen: \n\n 1. Als je dit nog niet hebt gedaan, [stel de integratie in]({add_integration}). \n\n 2. Verwijder `{domain}:` uit jouw YAML-configuratiebestand. \n\n 3. Start Home Assistant opnieuw.",
+            "title": "De {domain}-integratie ondersteunt geen YAML-configuratie"
+        },
+        "config_entry_reauth": {
+            "title": "Authenticatie is verlopen voor {name}"
+        },
+        "country_not_configured": {
+            "description": "Er is geen land geconfigureerd. Werk de configuratie bij door hieronder op de knop \"meer informatie\" te klikken.",
+            "title": "Het land is niet geconfigureerd"
+        },
+        "deprecated_yaml": {
+            "description": "Het configureren van {integration_title} met behulp van YAML wordt verwijderd.\n\nJe bestaande YAML configuratie is automatisch ge\u00efmporteerd in de UI.\n\nVerwijder de `{domain}` configuratie uit je configuration.yaml bestand en herstart Home Assistant om dit probleem op te lossen.",
+            "title": "De {integration_title} YAML configuratie wordt verwijderd"
+        },
+        "historic_currency": {
+            "description": "De valuta {currency} is niet langer in gebruik, gelieve de valuta opnieuw te configureren.",
+            "title": "De geconfigureerde valuta is niet meer in gebruik"
+        },
+        "integration_key_no_support": {
+            "description": "De {domain}-integratie ondersteunt geen configuratie via een YAML-bestand. Je merkt misschien geen duidelijke problemen met de integratie, maar eventuele configuratie-instellingen die in YAML zijn gedefinieerd, worden niet daadwerkelijk toegepast. \n\n Om dit op te lossen: \n\n 1. Als je dit nog niet hebt gedaan, [stel de integratie in]({add_integration}). \n\n 2. Verwijder `{domain}:` uit jouw YAML-configuratiebestand. \n\n 3. Start Home Assistant opnieuw.",
+            "title": "De {domain}-integratie ondersteunt geen YAML-configuratie"
+        },
+        "integration_not_found": {
+            "fix_flow": {
+                "step": {
+                    "init": {
+                        "menu_options": {
+                            "ignore": "Negeer"
+                        }
+                    }
+                }
+            }
+        },
+        "platform_only": {
+            "description": "De {domain}-integratie ondersteunt geen configuratie onder zijn eigen sleutel, deze moet worden geconfigureerd onder de ondersteunde platformen. \n\n Om dit op te lossen: \n\n 1. Verwijder `{domain}:` uit jouw YAML-configuratiebestand.\n\n 2. Start Home Assistant opnieuw.",
+            "title": "De {domain}-integratie ondersteunt geen YAML-configuratie onder zijn eigen sleutel"
+        },
+        "python_version": {
+            "description": "Ondersteuning om Home Assistant met de huidige Python (versie {current_python_version}) gaat vervallen en zal vervalleen in Home Assistant {breaks_in_ha_version}. Werk de Python software bij naar minimaal versie {required_python_version} om te voorkomen dat je Home Assistant instantie niet meer goed werkt.",
+            "title": "Ondersteuning voor Python {current_python_version} gaat vervallen"
+        },
+        "storage_corruption": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "title": "Opslag corruptie gedetecteerd voor `{storage_key}`"
+                    }
+                }
+            }
+        }
+    },
+    "services": {
+        "check_config": {
+            "description": "Controleert de Home Assistant YAML-configuratiebestanden op fouten. Fouten worden getoond in de Home Assistant logboeken.",
+            "name": "Controleer configuratie"
+        },
+        "reload_all": {
+            "description": "Herladen van YAML configuraties die opnieuw kunnen worden geladen zonder Home Assistant opnieuw te starten.",
+            "name": "Alles herladen"
+        },
+        "reload_config_entry": {
+            "description": "Herlaad de specifieke config-entry.",
+            "fields": {
+                "entry_id": {
+                    "name": "Config-entry ID"
+                }
+            },
+            "name": "Herladen config-entry"
+        },
+        "reload_core_config": {
+            "name": "Kern-configuratie opnieuw laden"
+        },
+        "reload_custom_templates": {
+            "name": "Herlaad aangepaste Jinja2-sjablonen"
+        },
+        "restart": {
+            "description": "Herstart Home Assistant.",
+            "fields": {
+                "safe_mode": {
+                    "name": "Veilige modus"
+                }
+            },
+            "name": "Herstarten"
+        },
+        "save_persistent_states": {
+            "description": "Bewaart de aanhoudende toestanden onmiddellijk. Houdt de normale periodieke opslaginterval in stand.",
+            "name": "Bewaar aanhoudende toestanden"
+        },
+        "set_location": {
+            "description": "Werkt de Home Assistant locatie bij.",
+            "fields": {
+                "elevation": {
+                    "name": "Hoogte"
+                },
+                "latitude": {
+                    "description": "Breedtegraad van je locatie.",
+                    "name": "Breedtegraad"
+                },
+                "longitude": {
+                    "description": "Lengtegraad van je locatie.",
+                    "name": "Lengtegraad"
+                }
+            },
+            "name": "Locatie instellen"
+        },
+        "stop": {
+            "description": "Stopt Home Assistant.",
+            "name": "Stoppen"
+        },
+        "toggle": {
+            "name": "Generiek omschaken"
+        },
+        "turn_off": {
+            "name": "Generiek uitschakelen"
+        },
+        "turn_on": {
+            "name": "Generiek inschakelen"
+        },
+        "update_entity": {
+            "description": "Forceert \u00e9\u00e9n of meer entiteiten om hun data bij te werken.",
+            "name": "Bijwerken entiteit"
+        }
+    },
+    "system_health": {
+        "info": {
+            "dev": "Ontwikkeling",
+            "docker": "Docker",
+            "hassio": "Supervisor",
+            "timezone": "Tijdzone",
+            "user": "Gebruiker",
+            "version": "Versie"
+        }
+    }
+}

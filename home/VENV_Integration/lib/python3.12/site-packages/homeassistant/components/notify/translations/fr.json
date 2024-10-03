@@ -1,0 +1,87 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "Notifications"
+        }
+    },
+    "issues": {
+        "migrate_notify": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Les actions `notify` de {integration_title} sont migr\u00e9es. Une nouvelle entit\u00e9 `notify` est maintenant disponible pour remplacer chaque ancienne action `notify`.\n\nMettez \u00e0 jour tous les automatismes pour utiliser la nouvelle action `notify.send_message` expos\u00e9e avec cette nouvelle entit\u00e9. Lorsque cela est fait, corrigez ce probl\u00e8me et red\u00e9marrez Home Assistant.",
+                        "title": "Migrer l'ancienne action de notification {integration_title} pour le domaine `{domain}`"
+                    }
+                }
+            },
+            "title": "Migration de l'action de notification {integration_title}"
+        },
+        "migrate_notify_service": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "L'action de {integration_title} `notify.{service_name}` a \u00e9t\u00e9 migr\u00e9e, mais il semble que l'ancienne action `notify` soit toujours utilis\u00e9e.\n\nUne nouvelle entit\u00e9 `notify` est maintenant disponible pour remplacer chaque ancienne action `notify`.\n\nMettez \u00e0 jour tous les automatismes ou scripts pour utiliser la nouvelle action `notify.send_message` expos\u00e9e avec cette nouvelle entit\u00e9. Lorsque cela est fait, s\u00e9lectionnez Soumettre et red\u00e9marrez Home Assistant.",
+                        "title": "Migrer l'ancienne action de notification {integration_title} pour le domaine `{domain}`"
+                    }
+                }
+            }
+        }
+    },
+    "services": {
+        "notify": {
+            "description": "Envoie un message de notification aux cibles s\u00e9lectionn\u00e9es.",
+            "fields": {
+                "data": {
+                    "description": "Certaines int\u00e9grations offrent des fonctionnalit\u00e9s \u00e9tendues. Pour plus d'informations sur l'utilisation de _data_, reportez-vous \u00e0 la documentation d'int\u00e9gration.",
+                    "name": "Donn\u00e9es"
+                },
+                "message": {
+                    "description": "Corps du message de la notification.",
+                    "name": "Message"
+                },
+                "target": {
+                    "description": "Certaines int\u00e9grations vous permettent de sp\u00e9cifier les cibles qui re\u00e7oivent la notification. Pour plus d'informations, reportez-vous \u00e0 la documentation d'int\u00e9gration.",
+                    "name": "Cible"
+                },
+                "title": {
+                    "description": "Titre de votre notification.",
+                    "name": "Titre"
+                }
+            },
+            "name": "Envoyer une notification"
+        },
+        "persistent_notification": {
+            "description": "Envoie une notification visible dans le panneau de notifications.",
+            "fields": {
+                "data": {
+                    "description": "Certaines int\u00e9grations offrent des fonctionnalit\u00e9s \u00e9tendues. Pour plus d'informations sur l'utilisation de _data_, reportez-vous \u00e0 la documentation d'int\u00e9gration.",
+                    "name": "Donn\u00e9es"
+                },
+                "message": {
+                    "description": "Corps du message de la notification.",
+                    "name": "Message"
+                },
+                "title": {
+                    "description": "Titre de la notification.",
+                    "name": "Titre"
+                }
+            },
+            "name": "Envoyer une notification persistante"
+        },
+        "send_message": {
+            "description": "Envoie un message de notification.",
+            "fields": {
+                "message": {
+                    "description": "Votre message de notification.",
+                    "name": "Message"
+                },
+                "title": {
+                    "description": "Titre de votre message de notification.",
+                    "name": "Titre"
+                }
+            },
+            "name": "Envoyer un message de notification"
+        }
+    },
+    "title": "Notifications"
+}

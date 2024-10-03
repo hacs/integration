@@ -1,0 +1,111 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "\u8bbe\u5907\u5df2\u914d\u7f6e"
+        },
+        "error": {
+            "cannot_connect": "\u8fde\u63a5\u5931\u8d25",
+            "invalid_upb_file": "UPB UStart \u5bfc\u51fa\u6587\u4ef6\u4e22\u5931\u6216\u65e0\u6548\uff0c\u8bf7\u68c0\u67e5\u6587\u4ef6\u7684\u540d\u79f0\u548c\u8def\u5f84\u3002",
+            "unknown": "\u610f\u5916\u9519\u8bef"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "address": "\u5730\u5740\uff08\u89c1\u4e0a\u6587\u63cf\u8ff0\uff09",
+                    "file_path": "UStart UPB \u5bfc\u51fa\u6587\u4ef6\u7684\u8def\u5f84\u548c\u540d\u79f0\u3002",
+                    "protocol": "\u534f\u8bae"
+                },
+                "description": "\u8fde\u63a5\u901a\u7528\u7535\u529b\u7ebf\u603b\u7ebf\u7535\u529b\u7ebf\u63a5\u53e3\u6a21\u5757 (UPB PIM)\u3002\u5730\u5740\u5b57\u7b26\u4e32\u5fc5\u987b\u91c7\u7528\u201ctcp\u201d\u7684\u201c\u5730\u5740[:\u7aef\u53e3]\u201d\u683c\u5f0f\u3002\u7aef\u53e3\u662f\u53ef\u9009\u7684\uff0c\u9ed8\u8ba4\u4e3a 2101\u3002\u793a\u4f8b\uff1a\u201c192.168.1.42\u201d\u3002\u5bf9\u4e8e\u4e32\u884c\u534f\u8bae\uff0c\u5730\u5740\u5fc5\u987b\u91c7\u7528\u201ctty[:baud]\u201d\u5f62\u5f0f\u3002\u6ce2\u7279\u7387\u662f\u53ef\u9009\u7684\uff0c\u9ed8\u8ba4\u4e3a 4800\u3002\u793a\u4f8b\uff1a'/dev/ttyS1'\u3002",
+                "title": "\u8fde\u63a5\u5230 UPB PIM"
+            }
+        }
+    },
+    "services": {
+        "light_blink": {
+            "description": "\u706f\u95ea\u70c1\u3002",
+            "fields": {
+                "rate": {
+                    "description": "\u706f\u5149\u95ea\u70c1\u7684\u65f6\u95f4\u91cf\u3002",
+                    "name": "\u901f\u7387"
+                }
+            },
+            "name": "\u95ea\u70c1\u706f"
+        },
+        "light_fade_start": {
+            "description": "\u5f00\u59cb\u4ece\u5f53\u524d\u4eae\u5ea6\u5411\u4e0a\u6216\u5411\u4e0b\u51cf\u5f31\u706f\u5149\u3002",
+            "fields": {
+                "brightness": {
+                    "description": "\u8868\u793a\u4eae\u5ea6\u7684\u6570\u5b57\uff0c\u5176\u4e2d 0 \u8868\u793a\u5173\u95ed\u706f\u5149\uff0c1 \u8868\u793a\u6700\u5c0f\u4eae\u5ea6\uff0c255 \u8868\u793a\u6700\u5927\u4eae\u5ea6\u3002",
+                    "name": "\u4eae\u5ea6"
+                },
+                "brightness_pct": {
+                    "description": "\u8868\u793a\u5168\u4eae\u5ea6\u767e\u5206\u6bd4\u7684\u6570\u5b57\uff0c\u5176\u4e2d 0 \u8868\u793a\u5173\u95ed\u706f\u5149\uff0c1 \u8868\u793a\u6700\u5c0f\u4eae\u5ea6\uff0c100 \u8868\u793a\u6700\u5927\u4eae\u5ea6\u3002",
+                    "name": "\u4eae\u5ea6\u767e\u5206\u6bd4"
+                },
+                "rate": {
+                    "description": "\u706f\u5149\u8f6c\u6362\u5230\u65b0\u4eae\u5ea6\u7684\u901f\u7387\u3002",
+                    "name": "\u901f\u7387"
+                }
+            },
+            "name": "\u5f00\u59cb\u706f\u5149\u6e10\u53d8"
+        },
+        "light_fade_stop": {
+            "description": "\u505c\u6b62\u706f\u5149\u6e10\u53d8\u3002",
+            "name": "\u505c\u6b62\u706f\u5149\u6e10\u53d8"
+        },
+        "link_blink": {
+            "description": "Blink\u4e00\u4e2a\u94fe\u63a5\u3002",
+            "fields": {
+                "blink_rate": {
+                    "description": "\u706f\u5149\u95ea\u70c1\u7684\u65f6\u95f4\u91cf\u3002",
+                    "name": "Blink\u901f\u5ea6"
+                }
+            },
+            "name": "Blink\u94fe\u63a5"
+        },
+        "link_deactivate": {
+            "description": "\u505c\u7528 UPB \u573a\u666f\u3002",
+            "name": "\u505c\u7528\u94fe\u63a5"
+        },
+        "link_fade_start": {
+            "description": "\u5f00\u59cb\u4ece\u5f53\u524d\u4eae\u5ea6\u5411\u4e0a\u6216\u5411\u4e0b\u6de1\u51fa\u94fe\u63a5\u3002",
+            "fields": {
+                "brightness": {
+                    "description": "\u8868\u793a\u4eae\u5ea6\u7684\u6570\u5b57\uff0c\u5176\u4e2d 0 \u5173\u95ed\u573a\u666f\uff0c1 \u662f\u6700\u5c0f\u4eae\u5ea6\uff0c255 \u662f\u6700\u5927\u4eae\u5ea6\u3002",
+                    "name": "\u4eae\u5ea6"
+                },
+                "brightness_pct": {
+                    "description": "\u8868\u793a\u5168\u4eae\u5ea6\u767e\u5206\u6bd4\u7684\u6570\u5b57\uff0c\u5176\u4e2d 0 \u5173\u95ed\u573a\u666f\uff0c1 \u662f\u6700\u5c0f\u4eae\u5ea6\uff0c100 \u662f\u6700\u5927\u4eae\u5ea6\u3002",
+                    "name": "\u4eae\u5ea6\u767e\u5206\u6bd4"
+                },
+                "rate": {
+                    "description": "\u573a\u666f\u4e2d\u8f6c\u6362\u5230\u65b0\u4eae\u5ea6\u7684\u65f6\u95f4\u91cf\u3002",
+                    "name": "\u901f\u7387"
+                }
+            },
+            "name": "\u5f00\u59cb\u94fe\u63a5\u6de1\u5165\u6de1\u51fa"
+        },
+        "link_fade_stop": {
+            "description": "\u505c\u6b62\u94fe\u63a5\u6de1\u5165\u6de1\u51fa\u3002",
+            "name": "\u505c\u6b62\u94fe\u63a5\u6de1\u5165\u6de1\u51fa"
+        },
+        "link_goto": {
+            "description": "\u5c06\u573a\u666f\u8bbe\u7f6e\u4e3a\u4eae\u5ea6\u3002",
+            "fields": {
+                "brightness": {
+                    "description": "\u8868\u793a\u4eae\u5ea6\u7684\u6570\u5b57\uff0c\u5176\u4e2d 0 \u5173\u95ed\u573a\u666f\uff0c1 \u662f\u6700\u5c0f\u4eae\u5ea6\uff0c255 \u662f\u6700\u5927\u4eae\u5ea6\u3002",
+                    "name": "\u4eae\u5ea6"
+                },
+                "brightness_pct": {
+                    "description": "\u8868\u793a\u5168\u4eae\u5ea6\u767e\u5206\u6bd4\u7684\u6570\u5b57\uff0c\u5176\u4e2d 0 \u5173\u95ed\u573a\u666f\uff0c1 \u662f\u6700\u5c0f\u4eae\u5ea6\uff0c100 \u662f\u6700\u5927\u4eae\u5ea6\u3002",
+                    "name": "\u4eae\u5ea6\u767e\u5206\u6bd4"
+                },
+                "rate": {
+                    "description": "\u573a\u666f\u4e2d\u8f6c\u6362\u5230\u65b0\u4eae\u5ea6\u7684\u65f6\u95f4\u91cf\u3002",
+                    "name": "\u901f\u7387"
+                }
+            },
+            "name": "\u8f6c\u5230\u94fe\u63a5"
+        }
+    }
+}

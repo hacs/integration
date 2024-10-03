@@ -1,0 +1,207 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Tj\u00e4nsten \u00e4r redan konfigurerad",
+            "reauth_successful": "\u00c5terautentisering lyckades",
+            "reconfigure_successful": "Omkonfigurationen lyckades",
+            "wrong_account": "Du m\u00e5ste anv\u00e4nda samma konto som anv\u00e4ndes f\u00f6r att konfigurera integrationen."
+        },
+        "error": {
+            "cannot_connect": "Det gick inte att ansluta.",
+            "invalid_auth": "Ogiltig autentisering",
+            "mealie_version": "L\u00e4gsta version som kr\u00e4vs \u00e4r v1.0.0. V\u00e4nligen uppgradera Mealie och f\u00f6rs\u00f6k sedan igen.",
+            "unknown": "Ov\u00e4ntat fel"
+        },
+        "step": {
+            "reauth_confirm": {
+                "data": {
+                    "api_token": "API-token"
+                },
+                "description": "V\u00e4nligen autentisera dig igen med Mealie."
+            },
+            "reconfigure_confirm": {
+                "data": {
+                    "api_token": "API-token",
+                    "host": "URL",
+                    "verify_ssl": "Verifiera SSL-certifikat"
+                },
+                "description": "V\u00e4nligen konfigurera om med Mealie."
+            },
+            "user": {
+                "data": {
+                    "api_token": "API-token",
+                    "host": "V\u00e4rd",
+                    "verify_ssl": "Verifiera SSL-certifikat"
+                },
+                "data_description": {
+                    "host": "URL-adressen till din Mealie-instans."
+                }
+            }
+        }
+    },
+    "entity": {
+        "calendar": {
+            "breakfast": {
+                "name": "Frukost"
+            },
+            "dinner": {
+                "name": "Middag"
+            },
+            "lunch": {
+                "name": "Lunch"
+            },
+            "side": {
+                "name": "Mellanm\u00e5l"
+            }
+        },
+        "sensor": {
+            "categories": {
+                "name": "Kategorier"
+            },
+            "recipes": {
+                "name": "Recept"
+            },
+            "tags": {
+                "name": "Taggar"
+            },
+            "tools": {
+                "name": "Verktyg"
+            },
+            "users": {
+                "name": "Anv\u00e4ndare"
+            }
+        }
+    },
+    "exceptions": {
+        "add_item_error": {
+            "message": "Ett fel uppstod n\u00e4r en vara lades till i {shopping_list_name}."
+        },
+        "connection_error": {
+            "message": "Fel vid anslutning till Mealie-instansen."
+        },
+        "could_not_import_recipe": {
+            "message": "Mealie kunde inte importera receptet fr\u00e5n URL:en."
+        },
+        "delete_item_error": {
+            "message": "Ett fel uppstod n\u00e4r en vara skulle tas bort i {shopping_list_name}."
+        },
+        "end_date_before_start_date": {
+            "message": "Slutdatum m\u00e5ste vara efter startdatum."
+        },
+        "integration_not_found": {
+            "message": "Integrationen \" {target} \" hittades inte i registret."
+        },
+        "item_not_found_error": {
+            "message": "Varan {shopping_list_item} hittades inte."
+        },
+        "not_loaded": {
+            "message": "{target} \u00e4r inte inl\u00e4st."
+        },
+        "update_item_error": {
+            "message": "Ett fel uppstod vid uppdatering av en vara i {shopping_list_name} ."
+        },
+        "version_error": {
+            "message": "Du k\u00f6r {mealie_version} av Mealie. Minsta version som kr\u00e4vs \u00e4r {min_version}. V\u00e4nligen uppgradera Mealie och f\u00f6rs\u00f6k sedan igen."
+        }
+    },
+    "selector": {
+        "mealplan_entry_type": {
+            "options": {
+                "breakfast": "Frukost",
+                "dinner": "Middag",
+                "lunch": "Lunch",
+                "side": "Mellanm\u00e5l"
+            }
+        }
+    },
+    "services": {
+        "get_mealplan": {
+            "fields": {
+                "config_entry_id": {
+                    "description": "V\u00e4lj den Mealie-instans som du vill h\u00e4mta m\u00e5ltidsplanen fr\u00e5n",
+                    "name": "Mealie-instans"
+                },
+                "end_date": {
+                    "description": "Slutdatum f\u00f6r de data som ska h\u00e4mtas (standard: idag).",
+                    "name": "Slutdatum"
+                },
+                "start_date": {
+                    "description": "Startdatum f\u00f6r de data som ska h\u00e4mtas (standard: idag).",
+                    "name": "Startdatum"
+                }
+            },
+            "name": "H\u00e4mta m\u00e5ltidsplan"
+        },
+        "get_recipe": {
+            "description": "H\u00e4mta recept fr\u00e5n Mealie",
+            "fields": {
+                "config_entry_id": {
+                    "description": "V\u00e4lj den Mealie-instans som du vill h\u00e4mta m\u00e5ltidsplanen fr\u00e5n",
+                    "name": "Mealie-instans"
+                }
+            },
+            "name": "H\u00e4mta recept"
+        },
+        "import_recipe": {
+            "description": "Importera recept fr\u00e5n en URL",
+            "fields": {
+                "config_entry_id": {
+                    "description": "V\u00e4lj den Mealie-instans som du vill h\u00e4mta m\u00e5ltidsplanen fr\u00e5n",
+                    "name": "Mealie-instans"
+                },
+                "include_tags": {
+                    "description": "Inkludera taggar fr\u00e5n webbplatsen till receptet.",
+                    "name": "Inkludera taggar"
+                },
+                "url": {
+                    "description": "URL till det recept som ska importeras.",
+                    "name": "URL till receptet"
+                }
+            },
+            "name": "Importera recept"
+        },
+        "set_mealplan": {
+            "fields": {
+                "config_entry_id": {
+                    "description": "V\u00e4lj den Mealie-instans som du vill h\u00e4mta m\u00e5ltidsplanen fr\u00e5n",
+                    "name": "Mealie-instans"
+                },
+                "date": {
+                    "description": "Det datum som m\u00e5ltidsplanen ska st\u00e4llas in f\u00f6r.",
+                    "name": "Datum"
+                },
+                "entry_type": {
+                    "description": "Vilken typ av matr\u00e4tt som receptet ska st\u00e4llas in p\u00e5.",
+                    "name": "Typ av post"
+                },
+                "note_text": {
+                    "description": "M\u00e5ltidsanteckning n\u00e4r du planerar utan recept.",
+                    "name": "Anteckning"
+                },
+                "note_title": {
+                    "description": "Titel p\u00e5 m\u00e5ltidsanteckning f\u00f6r planering utan recept.",
+                    "name": "Titel p\u00e5 m\u00e5ltidsanteckning"
+                }
+            },
+            "name": "S\u00e4tt upp en m\u00e5ltidsplan"
+        },
+        "set_random_mealplan": {
+            "description": "St\u00e4ll in en slumpm\u00e4ssig m\u00e5ltidsplan f\u00f6r ett visst datum",
+            "fields": {
+                "config_entry_id": {
+                    "description": "V\u00e4lj den Mealie-instans som du vill h\u00e4mta m\u00e5ltidsplanen fr\u00e5n",
+                    "name": "Mealie-instans"
+                },
+                "date": {
+                    "description": "Det datum som m\u00e5ltidsplanen ska st\u00e4llas in f\u00f6r.",
+                    "name": "Datum"
+                },
+                "entry_type": {
+                    "description": "Vilken typ av matr\u00e4tt som ska slumpas.",
+                    "name": "Typ av post"
+                }
+            },
+            "name": "St\u00e4ll in en slumpm\u00e4ssig m\u00e5ltidsplan"
+        }
+    }
+}

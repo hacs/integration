@@ -1,0 +1,616 @@
+{
+    "issues": {
+        "proxy_params_auth_deprecation": {
+            "description": "Os detalhes de autentica\u00e7\u00e3o para o proxy configurado na integra\u00e7\u00e3o {telegram_bot} devem ser movidos para {proxy_url}. Atualize sua configura\u00e7\u00e3o e reinicie o Home Assistant para corrigir esse problema.\n\nA chave de configura\u00e7\u00e3o {proxy_params} ser\u00e1 removida numa vers\u00e3o futura.",
+            "title": "{telegram_bot}: A autentica\u00e7\u00e3o proxy deve ser movida para o URL"
+        },
+        "proxy_params_deprecation": {
+            "description": "A chave de configura\u00e7\u00e3o {proxy_params} para a integra\u00e7\u00e3o {telegram_bot} ser\u00e1 removida numa futura vers\u00e3o.\n\nA autentica\u00e7\u00e3o pode agora ser fornecida atrav\u00e9s da chave {proxy_url}.\n\nA biblioteca subjacente foi alterada para {httpx}, o que \u00e9 incompat\u00edvel com os par\u00e2metros anteriores. Se ainda precisar desta funcionalidade para outras op\u00e7\u00f5es, deixe um coment\u00e1rio na hiperliga\u00e7\u00e3o Saiba mais.\n\nAtualize a sua configura\u00e7\u00e3o para remover a chave {proxy_params} e reinicie o Home Assistant para corrigir este problema.",
+            "title": "{telegram_bot}:  A op\u00e7\u00e3o Proxy params ser\u00e1 removida"
+        }
+    },
+    "services": {
+        "answer_callback_query": {
+            "description": "Responde a uma consulta de retorno de chamada originada por um clique num bot\u00e3o do teclado online. A resposta ser\u00e1 apresentada ao utilizador como uma notifica\u00e7\u00e3o na parte superior do ecr\u00e3 de conversa\u00e7\u00e3o ou como um alerta.",
+            "fields": {
+                "callback_query_id": {
+                    "description": "ID \u00fanico da resposta de retorno de chamada.",
+                    "name": "ID da consulta de retorno de chamada"
+                },
+                "message": {
+                    "description": "Corpo da mensagem de texto n\u00e3o formatado da notifica\u00e7\u00e3o.",
+                    "name": "Mensagem"
+                },
+                "show_alert": {
+                    "description": "Mostrar uma notifica\u00e7\u00e3o permanente.",
+                    "name": "Mostrar alerta"
+                }
+            },
+            "name": "Responder \u00e0 consulta de retorno de chamada"
+        },
+        "delete_message": {
+            "description": "Elimina uma mensagem enviada anteriormente.",
+            "fields": {
+                "chat_id": {
+                    "description": "O chat_id onde se pretende apagar a mensagem.",
+                    "name": "ID do chat"
+                },
+                "message_id": {
+                    "description": "Id da mensagem a eliminar.",
+                    "name": "ID da mensagem"
+                }
+            },
+            "name": "Apagar mensagem"
+        },
+        "edit_caption": {
+            "description": "Edita a legenda de uma mensagem enviada anteriormente.",
+            "fields": {
+                "caption": {
+                    "description": "Corpo da mensagem da notifica\u00e7\u00e3o.",
+                    "name": "Legenda"
+                },
+                "chat_id": {
+                    "description": "O chat_id onde deve ser editada a legenda.",
+                    "name": "ID do chat"
+                },
+                "inline_keyboard": {
+                    "description": "Lista de linhas de comandos, separadas por v\u00edrgulas, para criar um teclado embutido personalizado com bot\u00f5es e dados de retorno associados.",
+                    "name": "Teclado embutido"
+                },
+                "message_id": {
+                    "description": "ID da mensagem a editar.",
+                    "name": "ID da mensagem"
+                }
+            },
+            "name": "Editar legenda"
+        },
+        "edit_message": {
+            "description": "Edita uma mensagem enviada anteriormente.",
+            "fields": {
+                "chat_id": {
+                    "description": "O chat_id onde a mensagem deve ser editada.",
+                    "name": "ID do chat"
+                },
+                "disable_web_page_preview": {
+                    "description": "Desativa as pr\u00e9-visualiza\u00e7\u00f5es de links na mensagem.",
+                    "name": "Desativar a pr\u00e9-visualiza\u00e7\u00e3o da p\u00e1gina Web"
+                },
+                "inline_keyboard": {
+                    "description": "Lista de linhas de comandos, separadas por v\u00edrgulas, para criar um teclado embutido personalizado com bot\u00f5es e dados de retorno associados.",
+                    "name": "Teclado embutido"
+                },
+                "message": {
+                    "description": "Corpo da mensagem da notifica\u00e7\u00e3o.",
+                    "name": "Mensagem"
+                },
+                "message_id": {
+                    "description": "ID da mensagem a editar.",
+                    "name": "ID da mensagem"
+                },
+                "parse_mode": {
+                    "description": "Analisador do texto da mensagem.",
+                    "name": "Modo de an\u00e1lise"
+                },
+                "title": {
+                    "description": "T\u00edtulo opcional para a sua notifica\u00e7\u00e3o. Ser\u00e1 composto como \"%title\n%mensagem'.",
+                    "name": "T\u00edtulo"
+                }
+            },
+            "name": "Editar mensagem"
+        },
+        "edit_replymarkup": {
+            "description": "Editar o teclado embutido de uma mensagem enviada anteriormente.",
+            "fields": {
+                "chat_id": {
+                    "description": "O chat_id onde deve ser editado a marca\u00e7\u00e3o de resposta.",
+                    "name": "ID do chat"
+                },
+                "inline_keyboard": {
+                    "description": "Lista de linhas de comandos, separadas por v\u00edrgulas, para criar um teclado embutido personalizado com bot\u00f5es e dados de retorno associados.",
+                    "name": "Teclado embutido"
+                },
+                "message_id": {
+                    "description": "ID da mensagem a editar.",
+                    "name": "ID da mensagem"
+                }
+            },
+            "name": "Editar marca\u00e7\u00e3o de resposta"
+        },
+        "send_animation": {
+            "description": "Envia uma anima\u00e7\u00e3o.",
+            "fields": {
+                "authentication": {
+                    "description": "Define o m\u00e9todo de autentica\u00e7\u00e3o a ser utilizado. Defina como `digest` para usar a autentica\u00e7\u00e3o HTTP digest, ou `bearer_token` para autentica\u00e7\u00e3o de token de portador OAuth 2.0. O padr\u00e3o \u00e9 `basic`.",
+                    "name": "M\u00e9todo de autentica\u00e7\u00e3o"
+                },
+                "caption": {
+                    "description": "O t\u00edtulo da anima\u00e7\u00e3o.",
+                    "name": "Legenda"
+                },
+                "disable_notification": {
+                    "description": "Envia a mensagem silenciosamente. Os utilizadores iOS e Web n\u00e3o receber\u00e3o uma notifica\u00e7\u00e3o, os utilizadores Android receber\u00e3o uma notifica\u00e7\u00e3o sem som.",
+                    "name": "Desativar a notifica\u00e7\u00e3o"
+                },
+                "file": {
+                    "description": "Caminho local para um GIF ou v\u00eddeo H.264/MPEG-4 AVC sem som.",
+                    "name": "Ficheiro"
+                },
+                "inline_keyboard": {
+                    "description": "Lista de linhas de comandos, separadas por v\u00edrgulas, para criar um teclado embutido personalizado com bot\u00f5es e dados de retorno associados.",
+                    "name": "Teclado embutido"
+                },
+                "keyboard": {
+                    "description": "Lista de linhas de comandos, separadas por v\u00edrgulas, para criar um teclado personalizado.",
+                    "name": "Teclado"
+                },
+                "message_tag": {
+                    "description": "Etiqueta para a mensagem enviada.",
+                    "name": "Etiqueta de mensagem"
+                },
+                "parse_mode": {
+                    "description": "Analisador do texto da mensagem.",
+                    "name": "Modo de an\u00e1lise"
+                },
+                "password": {
+                    "description": "Palavra-passe (ou token de portador) para um URL que requer autentica\u00e7\u00e3o HTTP.",
+                    "name": "Palavra-passe"
+                },
+                "reply_to_message_id": {
+                    "description": "Marcar a mensagem como resposta a uma mensagem anterior.",
+                    "name": "Responder \u00e0 mensagem id"
+                },
+                "target": {
+                    "description": "Uma matriz de chat_ids pr\u00e9-autorizados para enviar o documento. Se n\u00e3o estiver presente, o primeiro chat_id permitido \u00e9 o padr\u00e3o.",
+                    "name": "Alvo"
+                },
+                "timeout": {
+                    "description": "Tempo limite para o envio de autocolantes. Ajudar\u00e1 com erros de tempo limite (m\u00e1 liga\u00e7\u00e3o \u00e0 Internet, etc.)."
+                },
+                "url": {
+                    "description": "Caminho remoto para um v\u00eddeo GIF ou H.264/MPEG-4 AVC sem som.",
+                    "name": "URL"
+                },
+                "username": {
+                    "description": "Nome de utilizador para um URL que requer autentica\u00e7\u00e3o HTTP.",
+                    "name": "Nome de Utilizador"
+                },
+                "verify_ssl": {
+                    "description": "Ativar ou desativar a verifica\u00e7\u00e3o do certificado SSL. Defina como falso se estiver a descarregar o ficheiro a partir de um URL e n\u00e3o pretender validar o certificado SSL do servidor.",
+                    "name": "Verificar SSL"
+                }
+            },
+            "name": "Enviar anima\u00e7\u00e3o"
+        },
+        "send_document": {
+            "description": "Envia um documento.",
+            "fields": {
+                "authentication": {
+                    "description": "Define o m\u00e9todo de autentica\u00e7\u00e3o a ser utilizado. Defina como `digest` para usar a autentica\u00e7\u00e3o HTTP digest, ou `bearer_token` para autentica\u00e7\u00e3o de token de portador OAuth 2.0. O padr\u00e3o \u00e9 `basic`.",
+                    "name": "M\u00e9todo de autentica\u00e7\u00e3o"
+                },
+                "caption": {
+                    "description": "O t\u00edtulo do documento.",
+                    "name": "Legenda"
+                },
+                "disable_notification": {
+                    "description": "Envia a mensagem silenciosamente. Os utilizadores iOS e Web n\u00e3o receber\u00e3o uma notifica\u00e7\u00e3o, os utilizadores Android receber\u00e3o uma notifica\u00e7\u00e3o sem som.",
+                    "name": "Desativar a notifica\u00e7\u00e3o"
+                },
+                "file": {
+                    "description": "Caminho local para um documento.",
+                    "name": "Ficheiro"
+                },
+                "inline_keyboard": {
+                    "description": "Lista de linhas de comandos, separadas por v\u00edrgulas, para criar um teclado embutido personalizado com bot\u00f5es e dados de retorno associados.",
+                    "name": "Teclado embutido"
+                },
+                "keyboard": {
+                    "description": "Lista de linhas de comandos, separadas por v\u00edrgulas, para criar um teclado personalizado.",
+                    "name": "Teclado"
+                },
+                "message_tag": {
+                    "description": "Etiqueta para a mensagem enviada.",
+                    "name": "Etiqueta de mensagem"
+                },
+                "parse_mode": {
+                    "description": "Analisador do texto da mensagem.",
+                    "name": "Modo de an\u00e1lise"
+                },
+                "password": {
+                    "description": "Palavra-passe (ou token de portador) para um URL que requer autentica\u00e7\u00e3o HTTP.",
+                    "name": "Palavra-passe"
+                },
+                "reply_to_message_id": {
+                    "description": "Marcar a mensagem como resposta a uma mensagem anterior.",
+                    "name": "Responder \u00e0 mensagem id"
+                },
+                "target": {
+                    "description": "Uma matriz de chat_ids pr\u00e9-autorizados para enviar o documento. Se n\u00e3o estiver presente, o primeiro chat_id permitido \u00e9 o padr\u00e3o.",
+                    "name": "Alvo"
+                },
+                "url": {
+                    "description": "Caminho remoto para um documento.",
+                    "name": "URL"
+                },
+                "username": {
+                    "description": "Nome de utilizador para um URL que requer autentica\u00e7\u00e3o HTTP.",
+                    "name": "Nome de Utilizador"
+                },
+                "verify_ssl": {
+                    "description": "Ativar ou desativar a verifica\u00e7\u00e3o do certificado SSL. Defina como falso se estiver a descarregar o ficheiro a partir de um URL e n\u00e3o pretender validar o certificado SSL do servidor.",
+                    "name": "Verificar SSL"
+                }
+            },
+            "name": "Enviar documento"
+        },
+        "send_location": {
+            "description": "Envia uma localiza\u00e7\u00e3o.",
+            "fields": {
+                "disable_notification": {
+                    "description": "Envia a mensagem silenciosamente. Os utilizadores iOS e Web n\u00e3o receber\u00e3o uma notifica\u00e7\u00e3o, os utilizadores Android receber\u00e3o uma notifica\u00e7\u00e3o sem som.",
+                    "name": "Desativar a notifica\u00e7\u00e3o"
+                },
+                "inline_keyboard": {
+                    "description": "Lista de linhas de comandos, separadas por v\u00edrgulas, para criar um teclado embutido personalizado com bot\u00f5es e dados de retorno associados.",
+                    "name": "Teclado embutido"
+                },
+                "keyboard": {
+                    "description": "Lista de linhas de comandos, separadas por v\u00edrgulas, para criar um teclado personalizado.",
+                    "name": "Teclado"
+                },
+                "latitude": {
+                    "description": "A latitude do envio.",
+                    "name": "Latitude"
+                },
+                "longitude": {
+                    "description": "A longitude do enviar.",
+                    "name": "Longitude"
+                },
+                "message_tag": {
+                    "description": "Etiqueta para a mensagem enviada.",
+                    "name": "Etiqueta de mensagem"
+                },
+                "reply_to_message_id": {
+                    "description": "Marcar a mensagem como resposta a uma mensagem anterior.",
+                    "name": "Responder \u00e0 mensagem id"
+                },
+                "target": {
+                    "description": "Uma lista de chat_ids pr\u00e9-autorizados para enviar a localiza\u00e7\u00e3o. Se n\u00e3o estiver presente, o primeiro chat_id permitido \u00e9 o padr\u00e3o.",
+                    "name": "Alvo"
+                },
+                "timeout": {
+                    "description": "Tempo limite para enviar uma fotografia. Ajudar\u00e1 com erros de tempo limite (m\u00e1 liga\u00e7\u00e3o \u00e0 Internet, etc.)."
+                }
+            },
+            "name": "Enviar localiza\u00e7\u00e3o"
+        },
+        "send_message": {
+            "description": "Envia uma notifica\u00e7\u00e3o.",
+            "fields": {
+                "disable_notification": {
+                    "description": "Envia a mensagem silenciosamente. Os utilizadores iOS e Web n\u00e3o receber\u00e3o uma notifica\u00e7\u00e3o, os utilizadores Android receber\u00e3o uma notifica\u00e7\u00e3o sem som.",
+                    "name": "Desativar a notifica\u00e7\u00e3o"
+                },
+                "disable_web_page_preview": {
+                    "description": "Desativa as pr\u00e9-visualiza\u00e7\u00f5es de links na mensagem.",
+                    "name": "Desativar a pr\u00e9-visualiza\u00e7\u00e3o da p\u00e1gina Web"
+                },
+                "inline_keyboard": {
+                    "description": "Lista de linhas de comandos, separadas por v\u00edrgulas, para criar um teclado embutido personalizado com bot\u00f5es e dados de retorno associados.",
+                    "name": "Teclado embutido"
+                },
+                "keyboard": {
+                    "description": "Lista de linhas de comandos, separadas por v\u00edrgulas, para criar um teclado personalizado. Uma lista vazia limpa um teclado previamente definido.",
+                    "name": "Teclado"
+                },
+                "message": {
+                    "description": "Corpo da mensagem da notifica\u00e7\u00e3o.",
+                    "name": "Mensagem"
+                },
+                "message_tag": {
+                    "description": "Etiqueta para a mensagem enviada.",
+                    "name": "Etiqueta de mensagem"
+                },
+                "parse_mode": {
+                    "description": "Analisador do texto da mensagem.",
+                    "name": "Modo de an\u00e1lise"
+                },
+                "reply_to_message_id": {
+                    "description": "Marcar a mensagem como resposta a uma mensagem anterior.",
+                    "name": "Responder \u00e0 mensagem id"
+                },
+                "target": {
+                    "description": "Uma matriz de chat_ids pr\u00e9-autorizados para enviar a notifica\u00e7\u00e3o. Se n\u00e3o estiver presente, o primeiro chat_id permitido \u00e9 o padr\u00e3o.",
+                    "name": "Alvo"
+                },
+                "title": {
+                    "description": "T\u00edtulo opcional para a sua notifica\u00e7\u00e3o. Ser\u00e1 composto como \"%title\n%mensagem'.",
+                    "name": "T\u00edtulo"
+                }
+            },
+            "name": "Enviar mensagem"
+        },
+        "send_photo": {
+            "description": "Envia uma fotografia.",
+            "fields": {
+                "authentication": {
+                    "description": "Define o m\u00e9todo de autentica\u00e7\u00e3o a ser utilizado. Defina como `digest` para usar a autentica\u00e7\u00e3o HTTP digest, ou `bearer_token` para autentica\u00e7\u00e3o de token de portador OAuth 2.0. O padr\u00e3o \u00e9 `basic`.",
+                    "name": "M\u00e9todo de autentica\u00e7\u00e3o"
+                },
+                "caption": {
+                    "description": "O t\u00edtulo da imagem.",
+                    "name": "Legenda"
+                },
+                "disable_notification": {
+                    "description": "Envia a mensagem silenciosamente. Os utilizadores iOS e Web n\u00e3o receber\u00e3o uma notifica\u00e7\u00e3o, os utilizadores Android receber\u00e3o uma notifica\u00e7\u00e3o sem som.",
+                    "name": "Desativar a notifica\u00e7\u00e3o"
+                },
+                "file": {
+                    "description": "Caminho local para uma imagem.",
+                    "name": "Ficheiro"
+                },
+                "inline_keyboard": {
+                    "description": "Lista de linhas de comandos, separadas por v\u00edrgulas, para criar um teclado embutido personalizado com bot\u00f5es e dados de retorno associados.",
+                    "name": "Teclado embutido"
+                },
+                "keyboard": {
+                    "description": "Lista de linhas de comandos, separadas por v\u00edrgulas, para criar um teclado personalizado.",
+                    "name": "Teclado"
+                },
+                "message_tag": {
+                    "description": "Etiqueta para a mensagem enviada.",
+                    "name": "Etiqueta de mensagem"
+                },
+                "parse_mode": {
+                    "description": "Analisador do texto da mensagem.",
+                    "name": "Modo de an\u00e1lise"
+                },
+                "password": {
+                    "description": "Palavra-passe (ou token de portador) para um URL que requer autentica\u00e7\u00e3o HTTP.",
+                    "name": "Palavra-passe"
+                },
+                "reply_to_message_id": {
+                    "description": "Marcar a mensagem como resposta a uma mensagem anterior.",
+                    "name": "Responder \u00e0 mensagem id"
+                },
+                "target": {
+                    "description": "Uma matriz de chat_ids pr\u00e9-autorizados para enviar o documento. Se n\u00e3o estiver presente, o primeiro chat_id permitido \u00e9 o padr\u00e3o.",
+                    "name": "Alvo"
+                },
+                "url": {
+                    "description": "Caminho remoto para uma imagem.",
+                    "name": "URL"
+                },
+                "username": {
+                    "description": "Nome de utilizador para um URL que requer autentica\u00e7\u00e3o HTTP.",
+                    "name": "Nome de Utilizador"
+                },
+                "verify_ssl": {
+                    "description": "Ativar ou desativar a verifica\u00e7\u00e3o do certificado SSL. Defina como falso se estiver a descarregar o ficheiro a partir de um URL e n\u00e3o pretender validar o certificado SSL do servidor.",
+                    "name": "Verificar SSL"
+                }
+            },
+            "name": "Enviar fotografia"
+        },
+        "send_poll": {
+            "description": "Envia uma sondagem.",
+            "fields": {
+                "allows_multiple_answers": {
+                    "description": "Se a sondagem permitir respostas m\u00faltiplas, a predefini\u00e7\u00e3o \u00e9 Falso.",
+                    "name": "Permitir respostas m\u00faltiplas"
+                },
+                "disable_notification": {
+                    "description": "Envia a mensagem silenciosamente. Os utilizadores iOS e Web n\u00e3o receber\u00e3o uma notifica\u00e7\u00e3o, os utilizadores Android receber\u00e3o uma notifica\u00e7\u00e3o sem som.",
+                    "name": "Desativar a notifica\u00e7\u00e3o"
+                },
+                "is_anonymous": {
+                    "description": "Se a sondagem tiver de ser an\u00f3nima, a predefini\u00e7\u00e3o \u00e9 Verdadeiro.",
+                    "name": "\u00c9 an\u00f3nimo"
+                },
+                "message_tag": {
+                    "description": "Etiqueta para a mensagem enviada.",
+                    "name": "Etiqueta de mensagem"
+                },
+                "open_period": {
+                    "description": "Tempo em segundos que a sondagem estar\u00e1 ativa ap\u00f3s a cria\u00e7\u00e3o, 5-600.",
+                    "name": "Per\u00edodo aberto"
+                },
+                "options": {
+                    "description": "Lista de op\u00e7\u00f5es de resposta, 2-10 cadeias de 1-100 caracteres cada.",
+                    "name": "Op\u00e7\u00f5es"
+                },
+                "question": {
+                    "description": "Pergunta de sondagem, 1-300 caracteres.",
+                    "name": "Pergunta"
+                },
+                "reply_to_message_id": {
+                    "description": "Marcar a mensagem como resposta a uma mensagem anterior.",
+                    "name": "Responder \u00e0 mensagem id"
+                },
+                "target": {
+                    "description": "Uma lista de chat_ids pr\u00e9-autorizados para enviar a localiza\u00e7\u00e3o. Se n\u00e3o estiver presente, o primeiro chat_id permitido \u00e9 o padr\u00e3o.",
+                    "name": "Alvo"
+                }
+            },
+            "name": "Enviar sondagem"
+        },
+        "send_sticker": {
+            "description": "Envia um autocolante.",
+            "fields": {
+                "authentication": {
+                    "description": "Define o m\u00e9todo de autentica\u00e7\u00e3o a ser utilizado. Defina como `digest` para usar a autentica\u00e7\u00e3o HTTP digest, ou `bearer_token` para autentica\u00e7\u00e3o de token de portador OAuth 2.0. O padr\u00e3o \u00e9 `basic`.",
+                    "name": "M\u00e9todo de autentica\u00e7\u00e3o"
+                },
+                "disable_notification": {
+                    "description": "Envia a mensagem silenciosamente. Os utilizadores iOS e Web n\u00e3o receber\u00e3o uma notifica\u00e7\u00e3o, os utilizadores Android receber\u00e3o uma notifica\u00e7\u00e3o sem som.",
+                    "name": "Desativar a notifica\u00e7\u00e3o"
+                },
+                "file": {
+                    "description": "Caminho local para um autocolante .webp est\u00e1tico ou .tgs animado.",
+                    "name": "Ficheiro"
+                },
+                "inline_keyboard": {
+                    "description": "Lista de linhas de comandos, separadas por v\u00edrgulas, para criar um teclado embutido personalizado com bot\u00f5es e dados de retorno associados.",
+                    "name": "Teclado embutido"
+                },
+                "keyboard": {
+                    "description": "Lista de linhas de comandos, separadas por v\u00edrgulas, para criar um teclado personalizado.",
+                    "name": "Teclado"
+                },
+                "message_tag": {
+                    "description": "Etiqueta para a mensagem enviada.",
+                    "name": "Etiqueta de mensagem"
+                },
+                "password": {
+                    "description": "Palavra-passe (ou token de portador) para um URL que requer autentica\u00e7\u00e3o HTTP.",
+                    "name": "Palavra-passe"
+                },
+                "reply_to_message_id": {
+                    "description": "Marcar a mensagem como resposta a uma mensagem anterior.",
+                    "name": "Responder \u00e0 mensagem id"
+                },
+                "sticker_id": {
+                    "description": "ID de um autocolante que existe nos servidores de telegram.",
+                    "name": "ID do autocolante"
+                },
+                "target": {
+                    "description": "Uma matriz de chat_ids pr\u00e9-autorizados para enviar o documento. Se n\u00e3o estiver presente, o primeiro chat_id permitido \u00e9 o padr\u00e3o.",
+                    "name": "Alvo"
+                },
+                "url": {
+                    "description": "Caminho remoto para um autocolante .webp est\u00e1tico ou .tgs animado.",
+                    "name": "URL"
+                },
+                "username": {
+                    "description": "Nome de utilizador para um URL que requer autentica\u00e7\u00e3o HTTP.",
+                    "name": "Nome de Utilizador"
+                },
+                "verify_ssl": {
+                    "description": "Ativar ou desativar a verifica\u00e7\u00e3o do certificado SSL. Defina como falso se estiver a descarregar o ficheiro a partir de um URL e n\u00e3o pretender validar o certificado SSL do servidor.",
+                    "name": "Verificar SSL"
+                }
+            },
+            "name": "Enviar autocolante"
+        },
+        "send_video": {
+            "description": "Envia um v\u00eddeo.",
+            "fields": {
+                "authentication": {
+                    "description": "Define o m\u00e9todo de autentica\u00e7\u00e3o a ser utilizado. Defina como `digest` para usar a autentica\u00e7\u00e3o HTTP digest, ou `bearer_token` para autentica\u00e7\u00e3o de token de portador OAuth 2.0. O padr\u00e3o \u00e9 `basic`.",
+                    "name": "M\u00e9todo de autentica\u00e7\u00e3o"
+                },
+                "caption": {
+                    "description": "O t\u00edtulo do v\u00eddeo.",
+                    "name": "Legenda"
+                },
+                "disable_notification": {
+                    "description": "Envia a mensagem silenciosamente. Os utilizadores iOS e Web n\u00e3o receber\u00e3o uma notifica\u00e7\u00e3o, os utilizadores Android receber\u00e3o uma notifica\u00e7\u00e3o sem som.",
+                    "name": "Desativar a notifica\u00e7\u00e3o"
+                },
+                "file": {
+                    "description": "Caminho local para um v\u00eddeo.",
+                    "name": "Ficheiro"
+                },
+                "inline_keyboard": {
+                    "description": "Lista de linhas de comandos, separadas por v\u00edrgulas, para criar um teclado embutido personalizado com bot\u00f5es e dados de retorno associados.",
+                    "name": "Teclado embutido"
+                },
+                "keyboard": {
+                    "description": "Lista de linhas de comandos, separadas por v\u00edrgulas, para criar um teclado personalizado.",
+                    "name": "Teclado"
+                },
+                "message_tag": {
+                    "description": "Etiqueta para a mensagem enviada.",
+                    "name": "Etiqueta de mensagem"
+                },
+                "parse_mode": {
+                    "description": "Analisador do texto da mensagem.",
+                    "name": "Modo de an\u00e1lise"
+                },
+                "password": {
+                    "description": "Palavra-passe (ou token de portador) para um URL que requer autentica\u00e7\u00e3o HTTP.",
+                    "name": "Palavra-passe"
+                },
+                "reply_to_message_id": {
+                    "description": "Marcar a mensagem como resposta a uma mensagem anterior.",
+                    "name": "Responder \u00e0 mensagem id"
+                },
+                "target": {
+                    "description": "Uma matriz de chat_ids pr\u00e9-autorizados para enviar o documento. Se n\u00e3o estiver presente, o primeiro chat_id permitido \u00e9 o padr\u00e3o.",
+                    "name": "Alvo"
+                },
+                "url": {
+                    "description": "Caminho remoto para um v\u00eddeo.",
+                    "name": "URL"
+                },
+                "username": {
+                    "description": "Nome de utilizador para um URL que requer autentica\u00e7\u00e3o HTTP.",
+                    "name": "Nome de Utilizador"
+                },
+                "verify_ssl": {
+                    "description": "Ativar ou desativar a verifica\u00e7\u00e3o do certificado SSL. Defina como falso se estiver a descarregar o ficheiro a partir de um URL e n\u00e3o pretender validar o certificado SSL do servidor.",
+                    "name": "Verificar SSL"
+                }
+            },
+            "name": "Enviar v\u00eddeo"
+        },
+        "send_voice": {
+            "description": "Envia uma mensagem de voz.",
+            "fields": {
+                "authentication": {
+                    "description": "Define o m\u00e9todo de autentica\u00e7\u00e3o a ser utilizado. Defina como `digest` para usar a autentica\u00e7\u00e3o HTTP digest, ou `bearer_token` para autentica\u00e7\u00e3o de token de portador OAuth 2.0. O padr\u00e3o \u00e9 `basic`.",
+                    "name": "M\u00e9todo de autentica\u00e7\u00e3o"
+                },
+                "caption": {
+                    "description": "O t\u00edtulo da mensagem de voz.",
+                    "name": "Legenda"
+                },
+                "disable_notification": {
+                    "description": "Envia a mensagem silenciosamente. Os utilizadores iOS e Web n\u00e3o receber\u00e3o uma notifica\u00e7\u00e3o, os utilizadores Android receber\u00e3o uma notifica\u00e7\u00e3o sem som.",
+                    "name": "Desativar a notifica\u00e7\u00e3o"
+                },
+                "file": {
+                    "description": "Caminho local para uma mensagem de voz.",
+                    "name": "Ficheiro"
+                },
+                "inline_keyboard": {
+                    "description": "Lista de linhas de comandos, separadas por v\u00edrgulas, para criar um teclado embutido personalizado com bot\u00f5es e dados de retorno associados.",
+                    "name": "Teclado embutido"
+                },
+                "keyboard": {
+                    "description": "Lista de linhas de comandos, separadas por v\u00edrgulas, para criar um teclado personalizado.",
+                    "name": "Teclado"
+                },
+                "message_tag": {
+                    "description": "Etiqueta para a mensagem enviada.",
+                    "name": "Etiqueta de mensagem"
+                },
+                "password": {
+                    "description": "Palavra-passe (ou token de portador) para um URL que requer autentica\u00e7\u00e3o HTTP.",
+                    "name": "Palavra-passe"
+                },
+                "reply_to_message_id": {
+                    "description": "Marcar a mensagem como resposta a uma mensagem anterior.",
+                    "name": "Responder \u00e0 mensagem id"
+                },
+                "target": {
+                    "description": "Uma matriz de chat_ids pr\u00e9-autorizados para enviar o documento. Se n\u00e3o estiver presente, o primeiro chat_id permitido \u00e9 o padr\u00e3o.",
+                    "name": "Alvo"
+                },
+                "url": {
+                    "description": "Caminho remoto para uma mensagem de voz.",
+                    "name": "URL"
+                },
+                "username": {
+                    "description": "Nome de utilizador para um URL que requer autentica\u00e7\u00e3o HTTP.",
+                    "name": "Nome de Utilizador"
+                },
+                "verify_ssl": {
+                    "description": "Ativar ou desativar a verifica\u00e7\u00e3o do certificado SSL. Defina como falso se estiver a descarregar o ficheiro a partir de um URL e n\u00e3o pretender validar o certificado SSL do servidor.",
+                    "name": "Verificar SSL"
+                }
+            },
+            "name": "Enviar voz"
+        }
+    }
+}

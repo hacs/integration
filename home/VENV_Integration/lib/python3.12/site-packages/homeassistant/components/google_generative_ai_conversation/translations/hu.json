@@ -1,0 +1,74 @@
+{
+    "config": {
+        "abort": {
+            "reauth_successful": "Az \u00fajrahiteles\u00edt\u00e9s sikeres volt."
+        },
+        "error": {
+            "cannot_connect": "Sikertelen csatlakoz\u00e1s",
+            "invalid_auth": "\u00c9rv\u00e9nytelen hiteles\u00edt\u00e9s",
+            "unknown": "V\u00e1ratlan hiba"
+        },
+        "step": {
+            "api": {
+                "data": {
+                    "api_key": "API kulcs"
+                },
+                "description": "Szerezze be API kulcs\u00e1t [innen]({api_key_url})"
+            },
+            "reauth_confirm": {
+                "description": "Jelenlegi API kulcsa: {api_key} m\u00e1r nem \u00e9rv\u00e9nyes. K\u00e9rj\u00fck, adjon meg egy \u00faj \u00e9rv\u00e9nyes API kulcsot.",
+                "title": "A(z) {name} hiteles\u00edt\u00e9se lej\u00e1rt"
+            },
+            "user": {
+                "data": {
+                    "api_key": "API kulcs",
+                    "llm_hass_api": "Home Assistant vez\u00e9rl\u00e9se"
+                }
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "chat_model": "Modell",
+                    "dangerous_block_threshold": "El\u0151seg\u00edti, t\u00e1mogatja vagy b\u00e1tor\u00edtja a k\u00e1ros cselekedeteket",
+                    "harassment_block_threshold": "Negat\u00edv vagy k\u00e1ros megjegyz\u00e9sek, amelyek az identit\u00e1st \u00e9s/vagy v\u00e9dett jellemz\u0151ket c\u00e9loz meg",
+                    "hate_block_threshold": "Durva, tiszteletlen vagy tr\u00e1g\u00e1r tartalom",
+                    "llm_hass_api": "Home Assistant vez\u00e9rl\u00e9se",
+                    "max_tokens": "A v\u00e1laszk\u00e9nt visszak\u00fcldhet\u0151 tokenek maxim\u00e1lis sz\u00e1ma",
+                    "model": "Modell",
+                    "prompt": "Utas\u00edt\u00e1sok",
+                    "recommended": "Aj\u00e1nlott modellspecifik\u00e1ci\u00f3k",
+                    "sexual_block_threshold": "Szexu\u00e1lis cselekedetekre vagy m\u00e1s illetlen tartalomra vonatkoz\u00f3 utal\u00e1sokat tartalmaz",
+                    "temperature": "H\u0151m\u00e9rs\u00e9klet",
+                    "tone_prompt": "Hangnem",
+                    "top_k": "Fels\u0151 K",
+                    "top_p": "Fels\u0151 P"
+                },
+                "data_description": {
+                    "prompt": "Adja meg, hogyan kell a nagy nyelvi modellnek (LLM) v\u00e1laszolnia. Ez lehet egy sablon.",
+                    "tone_prompt": "Utas\u00edt\u00e1sok a nagy nyelvi modell (LLM) sz\u00e1m\u00e1ra a gener\u00e1lt sz\u00f6veg st\u00edlus\u00e1ra vonatkoz\u00f3an. Ez lehet egy sablon."
+                }
+            }
+        }
+    },
+    "services": {
+        "generate_content": {
+            "description": "Sz\u00f6vegb\u0151l \u00e9s opcion\u00e1lisan k\u00e9pekb\u0151l \u00e1ll\u00f3 feladatb\u00f3l tartalmat gener\u00e1l",
+            "fields": {
+                "image_filename": {
+                    "description": "K\u00e9pek",
+                    "example": "/config/www/image.jpg",
+                    "name": "K\u00e9pf\u00e1jl neve"
+                },
+                "prompt": {
+                    "description": "A feladat",
+                    "example": "\u00cdrja le, mit l\u00e1t ezeken a k\u00e9peken",
+                    "name": "Feladat"
+                }
+            },
+            "name": "Tartalom gener\u00e1l\u00e1sa"
+        }
+    }
+}

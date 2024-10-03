@@ -1,0 +1,111 @@
+{
+    "issues": {
+        "deprecated_close_comm_config": {
+            "description": "Hapus kunci `{config_key}` dari entri {integration} di file `configuration.yaml` Anda dan mulai ulang Home Assistant untuk memperbaiki masalah ini. Semua kesalahan akan dilaporkan, karena `lazy_error_count` dapat diterima namun diabaikan.",
+            "title": "Kunci konfigurasi `{config_key}` dalam proses penghapusan"
+        },
+        "deprecated_restart": {
+            "description": "Gunakan fungsi muat ulang yaml melalui alat pengembang di antarmuka, bukan melalui aksi `modbus.restart`."
+        },
+        "deprecated_retries": {
+            "description": "Hapus kunci `{config_key}` dari entri {integration} di file configuration.yaml Anda dan mulai ulang Home Assistant untuk memperbaiki masalah ini.\n\nJumlah maksimum percobaan telah ditetapkan sejumlah 3 kali.",
+            "title": "Kunci konfigurasi {config_key} sedang dihapus"
+        },
+        "deprecated_retry_on_empty": {
+            "description": "Hapus kunci `{config_key}` dari entri {integration} di file configuration.yaml Anda dan mulai ulang Home Assistant untuk memperbaiki masalah ini.\n\nCoba lagi saat kosong secara otomatis diterapkan, lihat [dokumentasi]({url}) untuk parameter penanganan kesalahan lainnya.",
+            "title": "Kunci konfigurasi `{config_key}` dalam proses penghapusan"
+        },
+        "duplicate_entity_entry": {
+            "description": "Sebuah alamat hanya dapat dikaitkan dengan satu entitas. Perbaiki entri di file configuration.yaml Anda dan mulai ulang Home Assistant untuk memperbaiki masalah ini.",
+            "title": "Modbus {sub_1} alamat {sub_2} adalah duplikat, entri kedua tidak dimuat."
+        },
+        "duplicate_entity_name": {
+            "description": "Nama entitas harus bersifat unik, Perbaiki entri di file configuration.yaml Anda dan mulai ulang Home Assistant untuk memperbaiki masalah ini.",
+            "title": "Modbus {sub_1} adalah duplikat, entri kedua tidak dimuat."
+        },
+        "duplicate_modbus_entry": {
+            "description": "Perbarui {sub_2} dan/atau {sub_1} untuk entri di file configuration.yaml Anda dan mulai ulang Home Assistant untuk memperbaiki masalah ini.",
+            "title": "Modbus {sub_2} host/port {sub_1} adalah duplikat, entri kedua tidak dimuat."
+        },
+        "missing_modbus_name": {
+            "description": "Tambahkan kunci `{sub_1}` ke entri {integration} dengan host `{sub_2}` di file configuration.yaml Anda dan mulai ulang Home Assistant untuk memperbaiki masalah ini\n\n. `{sub_1}: {sub_3}` telah ditambahkan."
+        },
+        "no_entities": {
+            "description": "Tambahkan setidaknya satu entitas ke Modbus {sub_1} di file configuration.yaml Anda dan mulai ulang Home Assistant untuk memperbaiki masalah ini.",
+            "title": "Modbus {sub_1} tidak berisi entitas, entri tidak dimuat."
+        },
+        "removed_lazy_error_count": {
+            "description": "Hapus kunci `{config_key}` dari entri {integration} di file configuration.yaml Anda dan mulai ulang Home Assistant untuk memperbaiki masalah ini. Semua kesalahan akan dilaporkan, karena lazy_error_count dapat diterima namun diabaikan"
+        }
+    },
+    "services": {
+        "reload": {
+            "description": "Memuat ulang semua entitas modbus.",
+            "name": "Muat Ulang"
+        },
+        "restart": {
+            "description": "Memulai ulang hub modbus (jika sedang berjalan, hentikan lalu mulai).",
+            "fields": {
+                "hub": {
+                    "description": "Nama hub Modbus.",
+                    "name": "Hub"
+                }
+            },
+            "name": "Mulai Ulang"
+        },
+        "stop": {
+            "description": "Menghentikan hub modbus.",
+            "fields": {
+                "hub": {
+                    "description": "Nama hub Modbus.",
+                    "name": "Hub"
+                }
+            },
+            "name": "Hentikan"
+        },
+        "write_coil": {
+            "description": "Menulis ke koil modbus.",
+            "fields": {
+                "address": {
+                    "description": "Alamat register yang akan ditulis.",
+                    "name": "Alamat"
+                },
+                "hub": {
+                    "description": "Nama hub Modbus.",
+                    "name": "Hub"
+                },
+                "slave": {
+                    "description": "Alamat unit modbus/slave.",
+                    "name": "Slave"
+                },
+                "state": {
+                    "description": "Status untuk ditulis.",
+                    "name": "Status"
+                }
+            },
+            "name": "Tulis koil"
+        },
+        "write_register": {
+            "description": "Menulis ke register penampung modbus.",
+            "fields": {
+                "address": {
+                    "description": "Alamat register penampung yang akan ditulis.",
+                    "name": "Alamat"
+                },
+                "hub": {
+                    "description": "Nama hub Modbus.",
+                    "name": "Hub"
+                },
+                "slave": {
+                    "description": "Alamat unit modbus/slave.",
+                    "name": "Slave"
+                },
+                "value": {
+                    "description": "Nilai (nilai tunggal atau array) yang akan ditulis.",
+                    "name": "Nilai"
+                }
+            },
+            "name": "Register tulis"
+        }
+    }
+}

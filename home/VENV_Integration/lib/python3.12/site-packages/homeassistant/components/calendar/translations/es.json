@@ -1,0 +1,132 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "Calendario",
+            "state": {
+                "off": "Apagado",
+                "on": "Encendido"
+            },
+            "state_attributes": {
+                "all_day": {
+                    "name": "Todo el d\u00eda",
+                    "state": {
+                        "false": "No",
+                        "true": "S\u00ed"
+                    }
+                },
+                "description": {
+                    "name": "Descripci\u00f3n"
+                },
+                "end_time": {
+                    "name": "Hora de finalizaci\u00f3n"
+                },
+                "location": {
+                    "name": "Ubicaci\u00f3n"
+                },
+                "message": {
+                    "name": "Mensaje"
+                },
+                "messages": {
+                    "name": "Mensaje"
+                },
+                "start_time": {
+                    "name": "Hora de inicio"
+                }
+            }
+        }
+    },
+    "issues": {
+        "deprecated_service_calendar_list_events": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Utiliza `calendar.get_events` en su lugar, que admite m\u00faltiples entidades.\n\nPor favor, sustituye esta acci\u00f3n, ajusta tus automatizaciones y scripts y selecciona **Enviar** para cerrar este problema.",
+                        "title": "Se ha detectado el uso de la acci\u00f3n obsoleta calendar.list_events"
+                    }
+                }
+            },
+            "title": "Se ha detectado el uso de la acci\u00f3n obsoleta calendar.list_events"
+        },
+        "platform_integration_no_support": {
+            "description": "La plataforma {platform} para la integraci\u00f3n {domain} no es compatible con la configuraci\u00f3n de la plataforma. \n\nElim\u00ednala de tu configuraci\u00f3n y reinicia Home Assistant para solucionar este problema.",
+            "title": "Soporte de plataforma no compatible"
+        }
+    },
+    "services": {
+        "create_event": {
+            "description": "A\u00f1ade un nuevo evento de calendario.",
+            "fields": {
+                "description": {
+                    "description": "Una descripci\u00f3n m\u00e1s completa del evento que la proporcionada por el resumen.",
+                    "name": "Descripci\u00f3n"
+                },
+                "end_date": {
+                    "description": "La fecha en que debe finalizar el evento de todo el d\u00eda (excluyente).",
+                    "name": "Fecha de fin"
+                },
+                "end_date_time": {
+                    "description": "La fecha y hora en que debe finalizar el evento.",
+                    "name": "Hora de finalizaci\u00f3n"
+                },
+                "in": {
+                    "description": "D\u00edas o semanas en los que quieres crear el evento.",
+                    "name": "En"
+                },
+                "location": {
+                    "description": "La ubicaci\u00f3n del evento.",
+                    "name": "Ubicaci\u00f3n"
+                },
+                "start_date": {
+                    "description": "La fecha en que debe comenzar el evento de todo el d\u00eda.",
+                    "name": "Fecha de inicio"
+                },
+                "start_date_time": {
+                    "description": "La fecha y hora en que debe comenzar el evento.",
+                    "name": "Hora de inicio"
+                },
+                "summary": {
+                    "description": "Define un breve resumen o el asunto del evento.",
+                    "name": "Resumen"
+                }
+            },
+            "name": "Crear evento"
+        },
+        "get_events": {
+            "description": "Obtener eventos en un calendario dentro de un intervalo de tiempo.",
+            "fields": {
+                "duration": {
+                    "description": "Devuelve eventos activos desde start_date_time hasta la duraci\u00f3n especificada.",
+                    "name": "Duraci\u00f3n"
+                },
+                "end_date_time": {
+                    "description": "Devuelve eventos activos antes de esta hora (exclusivo). No se puede utilizar con 'duraci\u00f3n'.",
+                    "name": "Hora de finalizaci\u00f3n"
+                },
+                "start_date_time": {
+                    "description": "Devuelve los eventos activos despu\u00e9s de este tiempo (exclusivo). Cuando no est\u00e1 configurado, el valor predeterminado es ahora.",
+                    "name": "Hora de inicio"
+                }
+            },
+            "name": "Obtener eventos"
+        },
+        "list_events": {
+            "description": "Enumera los eventos de un calendario dentro de un intervalo de tiempo.",
+            "fields": {
+                "duration": {
+                    "description": "Devuelve eventos activos desde start_date_time hasta la duraci\u00f3n especificada.",
+                    "name": "Duraci\u00f3n"
+                },
+                "end_date_time": {
+                    "description": "Devuelve eventos activos antes de esta hora (exclusivo). No se puede utilizar con 'duraci\u00f3n'.",
+                    "name": "Hora de finalizaci\u00f3n"
+                },
+                "start_date_time": {
+                    "description": "Devuelve los eventos activos despu\u00e9s de este tiempo (exclusivo). Cuando no est\u00e1 configurado, el valor predeterminado es ahora.",
+                    "name": "Hora de inicio"
+                }
+            },
+            "name": "Lista de eventos"
+        }
+    },
+    "title": "Calendario"
+}

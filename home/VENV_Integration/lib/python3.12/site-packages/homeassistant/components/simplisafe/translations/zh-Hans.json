@@ -1,0 +1,126 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "\u6b64 SimpliSafe \u8d26\u6237\u5df2\u5728\u4f7f\u7528\u4e2d\u3002",
+            "reauth_successful": "\u91cd\u65b0\u8ba4\u8bc1\u6210\u529f",
+            "wrong_account": "\u63d0\u4f9b\u7684\u7528\u6237\u51ed\u636e\u4e0e\u6b64 SimpliSafe \u8d26\u6237\u4e0d\u5339\u914d\u3002"
+        },
+        "error": {
+            "identifier_exists": "\u8d26\u6237\u5df2\u6ce8\u518c",
+            "invalid_auth": "\u8eab\u4efd\u9a8c\u8bc1\u65e0\u6548",
+            "invalid_auth_code_length": "SimpliSafe \u6388\u6743\u7801\u957f\u5ea6\u4e3a 45 \u4e2a\u5b57\u7b26",
+            "unknown": "\u610f\u5916\u9519\u8bef"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "auth_code": "\u6388\u6743\u7801"
+                },
+                "description": "SimpliSafe \u901a\u8fc7\u5176\u7f51\u7edc\u5e94\u7528\u7a0b\u5e8f\u5bf9\u7528\u6237\u8fdb\u884c\u8eab\u4efd\u9a8c\u8bc1\u3002\u7531\u4e8e\u6280\u672f\u9650\u5236\uff0c\u5728\u6b64\u8fc7\u7a0b\u7ed3\u675f\u65f6\u6709\u4e00\u4e2a\u624b\u52a8\u6b65\u9aa4\uff1b\u8bf7\u786e\u4fdd\u60a8\u5728\u5f00\u59cb\u4e4b\u524d\u9605\u8bfb\u4e86\u3010\u6587\u6863\u3011(http://home-assistant.io/integrations/simplisafe#getting-an-authorization-code) \u3002\n\n\u51c6\u5907\u5c31\u7eea\u540e\uff0c\u5355\u51fb\u3010\u6b64\u5904\u3011({url}) \u6253\u5f00 SimpliSafe \u7f51\u7edc\u5e94\u7528\u7a0b\u5e8f\u5e76\u8f93\u5165\u60a8\u7684\u51ed\u636e\u3002\u5982\u679c\u60a8\u5df2\u7ecf\u5728\u6d4f\u89c8\u5668\u4e2d\u767b\u5f55 SimpliSafe \uff0c\u60a8\u53ef\u80fd\u9700\u8981\u6253\u5f00\u4e00\u4e2a\u65b0\u9009\u9879\u5361\uff0c\u7136\u540e\u5c06\u4e0a\u8ff0\u7f51\u5740\u590d\u5236/\u7c98\u8d34\u5230\u6b64\u9009\u9879\u5361\u4e2d\u3002\n\n\u6b64\u8fc7\u7a0b\u5b8c\u6210\u540e\uff0c\u8fd4\u56de\u6b64\u5904\u5e76\u8f93\u5165\u6765\u81ea com.simplisafe.mobile \u7f51\u5740\u7684\u6388\u6743\u7801\u3002"
+            }
+        }
+    },
+    "entity": {
+        "button": {
+            "clear_notifications": {
+                "name": "\u6e05\u9664\u901a\u77e5"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_service": {
+            "description": "\u66f4\u65b0\u4f7f\u7528\u6b64\u670d\u52a1\u7684\u6240\u6709\u81ea\u52a8\u5316\u7a0b\u5e8f\u6216\u811a\u672c\uff0c\u6539\u4e3a\u4f7f\u7528\u201c{alternate_target}\u201d\u76ee\u6807\u5b9e\u4f53\u6807\u8bc6\u7b26\u7684\u201c{alternate_service}\u201d\u670d\u52a1\u3002\u7136\u540e\uff0c\u70b9\u51fb\u4e0b\u9762\u7684\u201c\u63d0\u4ea4\u201d\u5c06\u6b64\u95ee\u9898\u6807\u8bb0\u4e3a\u5df2\u89e3\u51b3\u3002",
+            "title": "\u201c{deprecated_service}\u201d\u670d\u52a1\u6b63\u88ab\u79fb\u9664"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "code": "\u4ee3\u7801\uff08\u5728 Home Assistant \u7528\u6237\u754c\u9762\u4e2d\u4f7f\u7528\uff09"
+                },
+                "title": "\u914d\u7f6e SimpliSafe"
+            }
+        }
+    },
+    "services": {
+        "remove_pin": {
+            "description": "\u6839\u636e\u6807\u7b7e\u6216\u503c\u79fb\u9664 PIN \u3002",
+            "fields": {
+                "device_id": {
+                    "description": "\u8981\u79fb\u9664 PIN \u7684\u7cfb\u7edf\u3002",
+                    "name": "\u7cfb\u7edf"
+                },
+                "label_or_pin": {
+                    "description": "\u8981\u79fb\u9664\u7684\u6807\u7b7e/\u503c\u3002",
+                    "name": "\u6807\u7b7e/PIN"
+                }
+            },
+            "name": "\u79fb\u9664 PIN"
+        },
+        "set_pin": {
+            "description": "\u8bbe\u7f6e/\u66f4\u65b0 PIN\u3002",
+            "fields": {
+                "device_id": {
+                    "description": "\u8981\u8bbe\u7f6e PIN \u7684\u7cfb\u7edf\u3002",
+                    "name": "\u7cfb\u7edf"
+                },
+                "label": {
+                    "description": "PIN \u7684\u6807\u7b7e\u3002",
+                    "name": "\u6807\u7b7e"
+                },
+                "pin": {
+                    "description": "PIN \u7684\u503c\u3002",
+                    "name": "PIN"
+                }
+            },
+            "name": "\u8bbe\u7f6e PIN"
+        },
+        "set_system_properties": {
+            "description": "\u8bbe\u7f6e\u4e00\u4e2a\u6216\u591a\u4e2a\u7cfb\u7edf\u5c5e\u6027\u3002",
+            "fields": {
+                "alarm_duration": {
+                    "description": "\u89e6\u53d1\u8b66\u62a5\u7684\u957f\u5ea6\u3002",
+                    "name": "\u8b66\u62a5\u65f6\u957f"
+                },
+                "alarm_volume": {
+                    "description": "\u88ab\u89e6\u53d1\u8b66\u62a5\u7684\u97f3\u91cf\u7ea7\u522b\u3002",
+                    "name": "\u8b66\u62a5\u97f3\u91cf"
+                },
+                "chime_volume": {
+                    "description": "\u95e8\u94c3\u7684\u97f3\u91cf\u3002",
+                    "name": "\u94c3\u58f0\u97f3\u91cf"
+                },
+                "device_id": {
+                    "description": "\u5e94\u8bbe\u7f6e\u5176\u5c5e\u6027\u7684\u7cfb\u7edf\u3002",
+                    "name": "\u7cfb\u7edf"
+                },
+                "entry_delay_away": {
+                    "description": "\u8fdb\u5165\u201d\u79bb\u5bb6\u201c\u6a21\u5f0f\u65f6\u8981\u5ef6\u8fdf\u591a\u957f\u65f6\u95f4\u3002",
+                    "name": "\u8fdb\u5165\u5ef6\u8fdf - \u79bb\u5bb6"
+                },
+                "entry_delay_home": {
+                    "description": "\u8fdb\u5165\u201d\u5728\u5bb6\u201c\u6a21\u5f0f\u65f6\u8981\u5ef6\u8fdf\u591a\u957f\u65f6\u95f4\u3002",
+                    "name": "\u8fdb\u5165\u5ef6\u8fdf - \u5728\u5bb6"
+                },
+                "exit_delay_away": {
+                    "description": "\u9000\u51fa\u201d\u79bb\u5bb6\u201c\u6a21\u5f0f\u65f6\u8981\u5ef6\u8fdf\u591a\u957f\u65f6\u95f4\u3002",
+                    "name": "\u9000\u51fa\u5ef6\u8fdf - \u79bb\u5bb6"
+                },
+                "exit_delay_home": {
+                    "description": "\u9000\u51fa\u201d\u5728\u5bb6\u201c\u6a21\u5f0f\u65f6\u8981\u5ef6\u8fdf\u591a\u957f\u65f6\u95f4\u3002",
+                    "name": "\u9000\u51fa\u5ef6\u8fdf - \u5728\u5bb6"
+                },
+                "light": {
+                    "description": "\u5e03\u9632\u706f\u662f\u5426\u53ef\u89c1\u3002",
+                    "name": "\u706f\u5149"
+                },
+                "voice_prompt_volume": {
+                    "description": "\u8bed\u97f3\u63d0\u793a\u7684\u97f3\u91cf\u3002",
+                    "name": "\u8bed\u97f3\u63d0\u793a\u97f3\u91cf"
+                }
+            },
+            "name": "\u8bbe\u7f6e\u7cfb\u7edf\u5c5e\u6027"
+        }
+    }
+}

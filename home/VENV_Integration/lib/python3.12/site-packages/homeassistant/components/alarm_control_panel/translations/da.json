@@ -1,0 +1,76 @@
+{
+    "device_automation": {
+        "action_type": {
+            "arm_away": "Tilkobl {entity_name} ude",
+            "arm_home": "Tilkobl {entity_name} hjemme",
+            "arm_night": "Tilkobl {entity_name} nat",
+            "disarm": "Frakobl {entity_name}",
+            "trigger": "Udl\u00f8s {entity_name}"
+        },
+        "trigger_type": {
+            "armed_away": "{entity_name} tilkoblet ude",
+            "armed_home": "{entity_name} tilkoblet hjemme",
+            "armed_night": "{entity_name} tilkoblet nat",
+            "disarmed": "{entity_name} frakoblet",
+            "triggered": "{entity_name} udl\u00f8st"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Alarmkontrolpanel",
+            "state": {
+                "armed": "Tilkoblet",
+                "armed_away": "Tilkoblet ude",
+                "armed_custom_bypass": "Tilkoblet brugerdefineret bypass",
+                "armed_home": "Tilkoblet hjemme",
+                "armed_night": "Tilkoblet nat",
+                "armed_vacation": "Tilkoblet ferie",
+                "arming": "Tilkobler",
+                "disarmed": "Frakoblet",
+                "disarming": "Frakobler",
+                "pending": "Afventer",
+                "triggered": "Udl\u00f8st"
+            },
+            "state_attributes": {
+                "changed_by": {
+                    "name": "\u00c6ndret af"
+                },
+                "code_arm_required": {
+                    "name": "Kode til tilkobling",
+                    "state": {
+                        "false": "Ikke p\u00e5kr\u00e6vet",
+                        "true": "P\u00e5kr\u00e6vet"
+                    }
+                },
+                "code_format": {
+                    "name": "Kodeformat",
+                    "state": {
+                        "number": "Tal",
+                        "text": "Tekst"
+                    }
+                }
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "{platform}-platformen til {domain}-integrationen underst\u00f8tter ikke platformsops\u00e6tning.\n\nFjern den venligst fra din konfiguration, og genstart Home Assistant for at l\u00f8se dette problem.",
+            "title": "Platformsunderst\u00f8ttelsen er ikke underst\u00f8ttet"
+        }
+    },
+    "services": {
+        "alarm_arm_away": {
+            "description": "Indstiller alarmen til: _tilkoblet, ingen hjemme_."
+        },
+        "alarm_arm_home": {
+            "description": "Indstiller alarmen til: _tilkoblet, men nogen er hjemme_."
+        },
+        "alarm_arm_night": {
+            "description": "Indstiller alarmen til: _tilkoblet til natten_."
+        },
+        "alarm_arm_vacation": {
+            "description": "Indstiller alarmen til: _tilkoblet til ferie_."
+        }
+    },
+    "title": "Alarmkontrolpanel"
+}

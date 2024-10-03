@@ -1,0 +1,2 @@
+export const id=59699;export const ids=[59699];export const modules={59699:(e,n,o)=>{Object.defineProperty(n,"__esModule",{value:!0});var t=o(17500);"undefined"==typeof Intl&&("undefined"!=typeof window?Object.defineProperty(window,"Intl",{value:{}}):"undefined"!=typeof global&&Object.defineProperty(global,"Intl",{value:{}})),Object.defineProperty(Intl,"getCanonicalLocales",{value:t.getCanonicalLocales,writable:!0,enumerable:!1,configurable:!0})}};
+//# sourceMappingURL=59699.uIGc1DI8nxw.js.map

@@ -1,0 +1,686 @@
+{
+    "issues": {
+        "proxy_params_auth_deprecation": {
+            "description": "Authentifizierungsdetails f\u00fcr den in der {telegram_bot}-Integration konfigurierten Proxy sollten stattdessen in die {proxy_url} verschoben werden. Bitte aktualisiere deine Konfiguration und starte Home Assistant neu, um dieses Problem zu beheben. \n\nDer Konfigurationsschl\u00fcssel {proxy_params} wird in einer zuk\u00fcnftigen Version entfernt.",
+            "title": "{telegram_bot}: Die Proxy-Authentifizierung sollte auf die URL verschoben werden"
+        },
+        "proxy_params_deprecation": {
+            "description": "Der Konfigurationsschl\u00fcssel {proxy_params} f\u00fcr die {telegram_bot}-Integration wird in einer zuk\u00fcnftigen Version entfernt.\n\nDie Authentifizierung kann jetzt \u00fcber den Schl\u00fcssel {proxy_url} erfolgen. \n\nDie zugrunde liegende Bibliothek wurde in {httpx} ge\u00e4ndert, was mit den vorherigen Parametern nicht kompatibel ist. Wenn du diese Funktionalit\u00e4t f\u00fcr andere Optionen weiterhin ben\u00f6tigst, hinterlasse bitte einen Kommentar unter dem Link \u201eWeitere Informationen\u201c. \n\nBitte aktualisiere deine Konfiguration, um den Schl\u00fcssel {proxy_params} zu entfernen, und starte Home Assistant neu, um dieses Problem zu beheben.",
+            "title": "{telegram_bot}: Die Option \u201eProxy-Parameter\u201c wird entfernt"
+        }
+    },
+    "services": {
+        "answer_callback_query": {
+            "description": "Reagiert auf eine R\u00fcckrufanfrage, die durch Klicken auf eine Online-Tastaturschaltfl\u00e4che ausgel\u00f6st wird. Die Antwort wird dem Benutzer als Benachrichtigung oben im Chat-Bildschirm oder als Alarm angezeigt.",
+            "fields": {
+                "callback_query_id": {
+                    "description": "Eindeutige ID der R\u00fcckrufantwort.",
+                    "name": "R\u00fcckrufabfrage-ID"
+                },
+                "message": {
+                    "description": "Unformatierter Textk\u00f6rper der Benachrichtigung.",
+                    "name": "Nachricht"
+                },
+                "show_alert": {
+                    "description": "Zeigt eine permanente Benachrichtigung an.",
+                    "name": "Alarm anzeigen"
+                },
+                "timeout": {
+                    "description": "Lesezeit\u00fcberschreitung beim Senden der Antwort.",
+                    "name": "Zeit\u00fcberschreitung beim Lesen"
+                }
+            },
+            "name": "R\u00fcckrufanfrage beantworten"
+        },
+        "delete_message": {
+            "description": "L\u00f6scht eine zuvor gesendete Nachricht.",
+            "fields": {
+                "chat_id": {
+                    "description": "Die chat_id, wo die Nachricht gel\u00f6scht werden soll.",
+                    "name": "Chat-ID"
+                },
+                "message_id": {
+                    "description": "ID der zu l\u00f6schenden Nachricht.",
+                    "name": "Nachrichten ID"
+                }
+            },
+            "name": "Nachricht l\u00f6schen"
+        },
+        "edit_caption": {
+            "description": "Bearbeitet die Beschriftung einer zuvor gesendeten Nachricht.",
+            "fields": {
+                "caption": {
+                    "description": "Nachrichtentext der Benachrichtigung.",
+                    "name": "Untertitel"
+                },
+                "chat_id": {
+                    "description": "Die chat_id, wo die Beschriftung bearbeitet werden soll.",
+                    "name": "Chat-ID"
+                },
+                "inline_keyboard": {
+                    "description": "Liste der durch Kommas getrennten Befehlszeilen zum Erstellen einer benutzerdefinierten Inline-Tastatur mit Schaltfl\u00e4chen und zugeh\u00f6rigen R\u00fcckrufdaten.",
+                    "name": "Inline-Tastatur"
+                },
+                "message_id": {
+                    "description": "ID der zu bearbeitenden Nachricht.",
+                    "name": "Nachrichten ID"
+                }
+            },
+            "name": "Bildunterschrift bearbeiten"
+        },
+        "edit_message": {
+            "description": "Bearbeitet eine zuvor gesendete Nachricht.",
+            "fields": {
+                "chat_id": {
+                    "description": "Die chat_id, wo die Nachricht bearbeitet werden soll.",
+                    "name": "Chat-ID"
+                },
+                "disable_web_page_preview": {
+                    "description": "Deaktiviert die Linkvorschau f\u00fcr Links in der Nachricht.",
+                    "name": "Webseitenvorschau deaktivieren"
+                },
+                "inline_keyboard": {
+                    "description": "Liste der durch Kommas getrennten Befehlszeilen zum Erstellen einer benutzerdefinierten Inline-Tastatur mit Schaltfl\u00e4chen und zugeh\u00f6rigen R\u00fcckrufdaten.",
+                    "name": "Inline-Tastatur"
+                },
+                "message": {
+                    "description": "Nachrichtentext der Benachrichtigung.",
+                    "name": "Nachricht"
+                },
+                "message_id": {
+                    "description": "ID der zu bearbeitenden Nachricht.",
+                    "name": "Nachrichten ID"
+                },
+                "parse_mode": {
+                    "description": "Parser f\u00fcr den Nachrichtentext.",
+                    "name": "Parse-Modus"
+                },
+                "title": {
+                    "description": "Optionaler Titel f\u00fcr deine Benachrichtigung. Wird als \u201e%title %message\u201c verfasst.",
+                    "name": "Titel"
+                }
+            },
+            "name": "Nachricht bearbeiten"
+        },
+        "edit_replymarkup": {
+            "description": "Bearbeite die Inline-Tastatur einer zuvor gesendeten Nachricht.",
+            "fields": {
+                "chat_id": {
+                    "description": "Die chat_id, wo das Reply_Markup bearbeitet werden soll.",
+                    "name": "Chat-ID"
+                },
+                "inline_keyboard": {
+                    "description": "Liste der durch Kommas getrennten Befehlszeilen zum Erstellen einer benutzerdefinierten Inline-Tastatur mit Schaltfl\u00e4chen und zugeh\u00f6rigen R\u00fcckrufdaten.",
+                    "name": "Inline-Tastatur"
+                },
+                "message_id": {
+                    "description": "ID der zu bearbeitenden Nachricht.",
+                    "name": "Nachrichten ID"
+                }
+            },
+            "name": "Antwort-Markup bearbeiten"
+        },
+        "send_animation": {
+            "description": "Sendet eine Animation.",
+            "fields": {
+                "authentication": {
+                    "description": "Definiere, welche Authentifizierungsmethode verwendet werden soll. Lege `digest` fest, um die HTTP-Digest-Authentifizierung zu verwenden, oder `bearer_token` f\u00fcr die OAuth 2.0-Bearer-Token-Authentifizierung. Standardm\u00e4\u00dfig ist `Basic` eingestellt.",
+                    "name": "Authentifizierungsmethode"
+                },
+                "caption": {
+                    "description": "Der Titel der Animation.",
+                    "name": "Untertitel"
+                },
+                "disable_notification": {
+                    "description": "Sendet die Nachricht stillschweigend. iOS-Benutzer und Web-Benutzer erhalten keine Benachrichtigung, Android-Benutzer erhalten eine Benachrichtigung ohne Ton.",
+                    "name": "Benachrichtigungen deaktivieren"
+                },
+                "file": {
+                    "description": "Lokaler Pfad zu einem GIF- oder H.264/MPEG-4 AVC-Video ohne Ton.",
+                    "name": "Datei"
+                },
+                "inline_keyboard": {
+                    "description": "Liste der durch Kommas getrennten Befehlszeilen zum Erstellen einer benutzerdefinierten Inline-Tastatur mit Schaltfl\u00e4chen und zugeh\u00f6rigen R\u00fcckrufdaten.",
+                    "name": "Inline-Tastatur"
+                },
+                "keyboard": {
+                    "description": "Liste der durch Kommas getrennten Befehlszeilen zum Erstellen einer benutzerdefinierten Tastatur.",
+                    "name": "Tastatur"
+                },
+                "message_tag": {
+                    "description": "Tag f\u00fcr gesendete Nachricht.",
+                    "name": "Nachrichten-Tag"
+                },
+                "message_thread_id": {
+                    "description": "Eindeutige Kennung f\u00fcr den Zielnachrichten-Thread (Thema) des Forums; nur f\u00fcr Forum-Supergruppen.",
+                    "name": "Nachrichten-Thread-ID"
+                },
+                "parse_mode": {
+                    "description": "Parser f\u00fcr den Nachrichtentext.",
+                    "name": "Parse-Modus"
+                },
+                "password": {
+                    "description": "Passwort (oder Bearer-Token) f\u00fcr eine URL, die eine HTTP-Authentifizierung erfordert.",
+                    "name": "Passwort"
+                },
+                "reply_to_message_id": {
+                    "description": "Markiere die Nachricht als Antwort auf eine vorherige Nachricht.",
+                    "name": "Antwort auf Nachrichten-ID"
+                },
+                "target": {
+                    "description": "Ein Array vorab autorisierter chat_ids, an die das Dokument gesendet werden soll. Wenn nicht vorhanden, ist die zuerst zul\u00e4ssige chat_id die Standardeinstellung.",
+                    "name": "Ziel"
+                },
+                "timeout": {
+                    "description": "Lesezeit\u00fcberschreitung beim Senden des Stickers.",
+                    "name": "Zeit\u00fcberschreitung beim Lesen"
+                },
+                "url": {
+                    "description": "Remote-Pfad zu einem GIF- oder H.264/MPEG-4 AVC-Video ohne Ton.",
+                    "name": "URL"
+                },
+                "username": {
+                    "description": "Benutzername f\u00fcr eine URL, die eine HTTP-Authentifizierung erfordert.",
+                    "name": "Benutzername"
+                },
+                "verify_ssl": {
+                    "description": "Aktivieren oder deaktivieren der SSL-Zertifikats\u00fcberpr\u00fcfung. Lege \u201efalse\u201c fest, wenn du die Datei von einer URL herunterladen und das SSL-Zertifikat des Servers nicht validieren m\u00f6chtest.",
+                    "name": "SSL \u00fcberpr\u00fcfen"
+                }
+            },
+            "name": "Animation senden"
+        },
+        "send_document": {
+            "description": "Sendet ein Dokument.",
+            "fields": {
+                "authentication": {
+                    "description": "Definiere, welche Authentifizierungsmethode verwendet werden soll. Lege `digest` fest, um die HTTP-Digest-Authentifizierung zu verwenden, oder `bearer_token` f\u00fcr die OAuth 2.0-Bearer-Token-Authentifizierung. Standardm\u00e4\u00dfig ist `Basic` eingestellt.",
+                    "name": "Authentifizierungsmethode"
+                },
+                "caption": {
+                    "description": "Der Titel des Dokuments.",
+                    "name": "Untertitel"
+                },
+                "disable_notification": {
+                    "description": "Sendet die Nachricht stillschweigend. iOS-Benutzer und Web-Benutzer erhalten keine Benachrichtigung, Android-Benutzer erhalten eine Benachrichtigung ohne Ton.",
+                    "name": "Benachrichtigungen deaktivieren"
+                },
+                "file": {
+                    "description": "Lokaler Pfad zu einem Dokument.",
+                    "name": "Datei"
+                },
+                "inline_keyboard": {
+                    "description": "Liste der durch Kommas getrennten Befehlszeilen zum Erstellen einer benutzerdefinierten Inline-Tastatur mit Schaltfl\u00e4chen und zugeh\u00f6rigen R\u00fcckrufdaten.",
+                    "name": "Inline-Tastatur"
+                },
+                "keyboard": {
+                    "description": "Liste der durch Kommas getrennten Befehlszeilen zum Erstellen einer benutzerdefinierten Tastatur.",
+                    "name": "Tastatur"
+                },
+                "message_tag": {
+                    "description": "Tag f\u00fcr gesendete Nachricht.",
+                    "name": "Nachrichten-Tag"
+                },
+                "message_thread_id": {
+                    "description": "Eindeutige Kennung f\u00fcr den Zielnachrichten-Thread (Thema) des Forums; nur f\u00fcr Forum-Supergruppen.",
+                    "name": "Nachrichten-Thread-ID"
+                },
+                "parse_mode": {
+                    "description": "Parser f\u00fcr den Nachrichtentext.",
+                    "name": "Parse-Modus"
+                },
+                "password": {
+                    "description": "Passwort (oder Bearer-Token) f\u00fcr eine URL, die eine HTTP-Authentifizierung erfordert.",
+                    "name": "Passwort"
+                },
+                "reply_to_message_id": {
+                    "description": "Markiere die Nachricht als Antwort auf eine vorherige Nachricht.",
+                    "name": "Antwort auf Nachrichten-ID"
+                },
+                "target": {
+                    "description": "Ein Array vorab autorisierter chat_ids, an die das Dokument gesendet werden soll. Wenn nicht vorhanden, ist die zuerst zul\u00e4ssige chat_id die Standardeinstellung.",
+                    "name": "Ziel"
+                },
+                "timeout": {
+                    "description": "Lesezeit\u00fcberschreitung beim Senden des Dokuments.",
+                    "name": "Zeit\u00fcberschreitung beim Lesen"
+                },
+                "url": {
+                    "description": "Remote-Pfad zu einem Dokument.",
+                    "name": "URL"
+                },
+                "username": {
+                    "description": "Benutzername f\u00fcr eine URL, die eine HTTP-Authentifizierung erfordert.",
+                    "name": "Benutzername"
+                },
+                "verify_ssl": {
+                    "description": "Aktivieren oder deaktivieren der SSL-Zertifikats\u00fcberpr\u00fcfung. Lege \u201efalse\u201c fest, wenn du die Datei von einer URL herunterladen und das SSL-Zertifikat des Servers nicht validieren m\u00f6chtest.",
+                    "name": "SSL \u00fcberpr\u00fcfen"
+                }
+            },
+            "name": "Dokument senden"
+        },
+        "send_location": {
+            "description": "Sendet einen Standort.",
+            "fields": {
+                "disable_notification": {
+                    "description": "Sendet die Nachricht stillschweigend. iOS-Benutzer und Web-Benutzer erhalten keine Benachrichtigung, Android-Benutzer erhalten eine Benachrichtigung ohne Ton.",
+                    "name": "Benachrichtigungen deaktivieren"
+                },
+                "inline_keyboard": {
+                    "description": "Liste der durch Kommas getrennten Befehlszeilen zum Erstellen einer benutzerdefinierten Inline-Tastatur mit Schaltfl\u00e4chen und zugeh\u00f6rigen R\u00fcckrufdaten.",
+                    "name": "Inline-Tastatur"
+                },
+                "keyboard": {
+                    "description": "Liste der durch Kommas getrennten Befehlszeilen zum Erstellen einer benutzerdefinierten Tastatur.",
+                    "name": "Tastatur"
+                },
+                "latitude": {
+                    "description": "Der zu sendende Breitengrad.",
+                    "name": "Breitengrad"
+                },
+                "longitude": {
+                    "description": "Der zu sendende L\u00e4ngengrad.",
+                    "name": "L\u00e4ngengrad"
+                },
+                "message_tag": {
+                    "description": "Tag f\u00fcr gesendete Nachricht.",
+                    "name": "Nachrichten-Tag"
+                },
+                "message_thread_id": {
+                    "description": "Eindeutige Kennung f\u00fcr den Zielnachrichten-Thread (Thema) des Forums; nur f\u00fcr Forum-Supergruppen.",
+                    "name": "Nachrichten-Thread-ID"
+                },
+                "reply_to_message_id": {
+                    "description": "Markiere die Nachricht als Antwort auf eine vorherige Nachricht.",
+                    "name": "Antwort auf Nachrichten-ID"
+                },
+                "target": {
+                    "description": "Ein Array vorautorisierter chat_ids, an die der Standort gesendet werden soll. Wenn nicht vorhanden, ist die zuerst zul\u00e4ssige chat_id die Standardeinstellung.",
+                    "name": "Ziel"
+                },
+                "timeout": {
+                    "description": "Lesezeit\u00fcberschreitung beim Senden des Fotos.",
+                    "name": "Zeit\u00fcberschreitung beim Lesen"
+                }
+            },
+            "name": "Standort senden"
+        },
+        "send_message": {
+            "description": "Sendet eine Benachrichtigung.",
+            "fields": {
+                "disable_notification": {
+                    "description": "Sendet die Nachricht stillschweigend. iOS-Benutzer und Web-Benutzer erhalten keine Benachrichtigung, Android-Benutzer erhalten eine Benachrichtigung ohne Ton.",
+                    "name": "Benachrichtigungen deaktivieren"
+                },
+                "disable_web_page_preview": {
+                    "description": "Deaktiviert die Linkvorschau f\u00fcr Links in der Nachricht.",
+                    "name": "Webseitenvorschau deaktivieren"
+                },
+                "inline_keyboard": {
+                    "description": "Liste der durch Kommas getrennten Befehlszeilen zum Erstellen einer benutzerdefinierten Inline-Tastatur mit Schaltfl\u00e4chen und zugeh\u00f6rigen R\u00fcckrufdaten.",
+                    "name": "Inline-Tastatur"
+                },
+                "keyboard": {
+                    "description": "Liste der durch Kommas getrennten Befehlszeilen zum Erstellen einer benutzerdefinierten Tastatur. Leere Liste l\u00f6scht eine zuvor eingestellte Tastatur.",
+                    "name": "Tastatur"
+                },
+                "message": {
+                    "description": "Nachrichtentext der Benachrichtigung.",
+                    "name": "Nachricht"
+                },
+                "message_tag": {
+                    "description": "Tag f\u00fcr gesendete Nachricht.",
+                    "name": "Nachrichten-Tag"
+                },
+                "message_thread_id": {
+                    "description": "Eindeutige Kennung f\u00fcr den Zielnachrichten-Thread (Thema) des Forums; nur f\u00fcr Forum-Supergruppen.",
+                    "name": "Nachrichten-Thread-ID"
+                },
+                "parse_mode": {
+                    "description": "Parser f\u00fcr den Nachrichtentext.",
+                    "name": "Parse-Modus"
+                },
+                "reply_to_message_id": {
+                    "description": "Markiere die Nachricht als Antwort auf eine vorherige Nachricht.",
+                    "name": "Antwort auf Nachrichten-ID"
+                },
+                "target": {
+                    "description": "Ein Array vorab autorisierter chat_ids, an die die Benachrichtigung gesendet werden soll. Wenn nicht vorhanden, ist die zuerst zul\u00e4ssige chat_id die Standardeinstellung.",
+                    "name": "Ziel"
+                },
+                "timeout": {
+                    "description": "Lesezeit\u00fcberschreitung beim Senden der Nachricht. Hilft bei Timeout-Fehlern (schlechte Internetverbindung usw.).",
+                    "name": "Zeit\u00fcberschreitung beim Lesen"
+                },
+                "title": {
+                    "description": "Optionaler Titel f\u00fcr deine Benachrichtigung. Wird als \u201e%title %message\u201c verfasst.",
+                    "name": "Titel"
+                }
+            },
+            "name": "Nachricht senden"
+        },
+        "send_photo": {
+            "description": "Sendet ein Foto.",
+            "fields": {
+                "authentication": {
+                    "description": "Definiere, welche Authentifizierungsmethode verwendet werden soll. Lege `digest` fest, um die HTTP-Digest-Authentifizierung zu verwenden, oder `bearer_token` f\u00fcr die OAuth 2.0-Bearer-Token-Authentifizierung. Standardm\u00e4\u00dfig ist `Basic` eingestellt.",
+                    "name": "Authentifizierungsmethode"
+                },
+                "caption": {
+                    "description": "Der Titel des Bildes.",
+                    "name": "Untertitel"
+                },
+                "disable_notification": {
+                    "description": "Sendet die Nachricht stillschweigend. iOS-Benutzer und Web-Benutzer erhalten keine Benachrichtigung, Android-Benutzer erhalten eine Benachrichtigung ohne Ton.",
+                    "name": "Benachrichtigungen deaktivieren"
+                },
+                "file": {
+                    "description": "Lokaler Pfad zu einem Bild.",
+                    "name": "Datei"
+                },
+                "inline_keyboard": {
+                    "description": "Liste der durch Kommas getrennten Befehlszeilen zum Erstellen einer benutzerdefinierten Inline-Tastatur mit Schaltfl\u00e4chen und zugeh\u00f6rigen R\u00fcckrufdaten.",
+                    "name": "Inline-Tastatur"
+                },
+                "keyboard": {
+                    "description": "Liste der durch Kommas getrennten Befehlszeilen zum Erstellen einer benutzerdefinierten Tastatur.",
+                    "name": "Tastatur"
+                },
+                "message_tag": {
+                    "description": "Tag f\u00fcr gesendete Nachricht.",
+                    "name": "Nachrichten-Tag"
+                },
+                "message_thread_id": {
+                    "description": "Eindeutige Kennung f\u00fcr den Zielnachrichten-Thread (Thema) des Forums; nur f\u00fcr Forum-Supergruppen.",
+                    "name": "Nachrichten-Thread-ID"
+                },
+                "parse_mode": {
+                    "description": "Parser f\u00fcr den Nachrichtentext.",
+                    "name": "Parse-Modus"
+                },
+                "password": {
+                    "description": "Passwort (oder Bearer-Token) f\u00fcr eine URL, die eine HTTP-Authentifizierung erfordert.",
+                    "name": "Passwort"
+                },
+                "reply_to_message_id": {
+                    "description": "Markiere die Nachricht als Antwort auf eine vorherige Nachricht.",
+                    "name": "Antwort auf Nachrichten-ID"
+                },
+                "target": {
+                    "description": "Ein Array vorab autorisierter chat_ids, an die das Dokument gesendet werden soll. Wenn nicht vorhanden, ist die zuerst zul\u00e4ssige chat_id die Standardeinstellung.",
+                    "name": "Ziel"
+                },
+                "timeout": {
+                    "description": "Lesezeit\u00fcberschreitung beim Senden des Fotos.",
+                    "name": "Zeit\u00fcberschreitung beim Lesen"
+                },
+                "url": {
+                    "description": "Remote-Pfad zu einem Bild.",
+                    "name": "URL"
+                },
+                "username": {
+                    "description": "Benutzername f\u00fcr eine URL, die eine HTTP-Authentifizierung erfordert.",
+                    "name": "Benutzername"
+                },
+                "verify_ssl": {
+                    "description": "Aktivieren oder deaktivieren der SSL-Zertifikats\u00fcberpr\u00fcfung. Lege \u201efalse\u201c fest, wenn du die Datei von einer URL herunterladen und das SSL-Zertifikat des Servers nicht validieren m\u00f6chtest.",
+                    "name": "SSL \u00fcberpr\u00fcfen"
+                }
+            },
+            "name": "Foto senden"
+        },
+        "send_poll": {
+            "description": "Sendet eine Umfrage.",
+            "fields": {
+                "allows_multiple_answers": {
+                    "description": "Wenn die Umfrage mehrere Antworten zul\u00e4sst, ist die Standardeinstellung \u201eFalsch\u201c.",
+                    "name": "Mehrere Antworten zulassen"
+                },
+                "disable_notification": {
+                    "description": "Sendet die Nachricht stillschweigend. iOS-Benutzer und Web-Benutzer erhalten keine Benachrichtigung, Android-Benutzer erhalten eine Benachrichtigung ohne Ton.",
+                    "name": "Benachrichtigungen deaktivieren"
+                },
+                "is_anonymous": {
+                    "description": "Wenn die Umfrage anonym sein muss, ist der Standardwert \u201eTrue\u201c.",
+                    "name": "Ist anonym"
+                },
+                "message_tag": {
+                    "description": "Tag f\u00fcr gesendete Nachricht.",
+                    "name": "Nachrichten-Tag"
+                },
+                "message_thread_id": {
+                    "description": "Eindeutige Kennung f\u00fcr den Zielnachrichten-Thread (Thema) des Forums; nur f\u00fcr Forum-Supergruppen.",
+                    "name": "Nachrichten-Thread-ID"
+                },
+                "open_period": {
+                    "description": "Zeit in Sekunden, die die Umfrage nach der Erstellung aktiv ist, 5\u2013600.",
+                    "name": "Offener Zeitraum"
+                },
+                "options": {
+                    "description": "Liste der Antwortm\u00f6glichkeiten, 2-10 Zeichenfolgen mit je 1-100 Zeichen.",
+                    "name": "Optionen"
+                },
+                "question": {
+                    "description": "Umfrage, 1\u2013300 Zeichen.",
+                    "name": "Frage"
+                },
+                "reply_to_message_id": {
+                    "description": "Markiere die Nachricht als Antwort auf eine vorherige Nachricht.",
+                    "name": "Antwort auf Nachrichten-ID"
+                },
+                "target": {
+                    "description": "Ein Array vorautorisierter chat_ids, an die der Standort gesendet werden soll. Wenn nicht vorhanden, ist die zuerst zul\u00e4ssige chat_id die Standardeinstellung.",
+                    "name": "Ziel"
+                },
+                "timeout": {
+                    "description": "Lesezeit\u00fcberschreitung beim Senden der Umfrage.",
+                    "name": "Zeit\u00fcberschreitung beim Lesen"
+                }
+            },
+            "name": "Umfrage senden"
+        },
+        "send_sticker": {
+            "description": "Sendet einen Sticker.",
+            "fields": {
+                "authentication": {
+                    "description": "Definiere, welche Authentifizierungsmethode verwendet werden soll. Lege `digest` fest, um die HTTP-Digest-Authentifizierung zu verwenden, oder `bearer_token` f\u00fcr die OAuth 2.0-Bearer-Token-Authentifizierung. Standardm\u00e4\u00dfig ist `Basic` eingestellt.",
+                    "name": "Authentifizierungsmethode"
+                },
+                "disable_notification": {
+                    "description": "Sendet die Nachricht stillschweigend. iOS-Benutzer und Web-Benutzer erhalten keine Benachrichtigung, Android-Benutzer erhalten eine Benachrichtigung ohne Ton.",
+                    "name": "Benachrichtigungen deaktivieren"
+                },
+                "file": {
+                    "description": "Lokaler Pfad zu einem statischen .webp- oder animierten .tgs-Sticker.",
+                    "name": "Datei"
+                },
+                "inline_keyboard": {
+                    "description": "Liste der durch Kommas getrennten Befehlszeilen zum Erstellen einer benutzerdefinierten Inline-Tastatur mit Schaltfl\u00e4chen und zugeh\u00f6rigen R\u00fcckrufdaten.",
+                    "name": "Inline-Tastatur"
+                },
+                "keyboard": {
+                    "description": "Liste der durch Kommas getrennten Befehlszeilen zum Erstellen einer benutzerdefinierten Tastatur.",
+                    "name": "Tastatur"
+                },
+                "message_tag": {
+                    "description": "Tag f\u00fcr gesendete Nachricht.",
+                    "name": "Nachrichten-Tag"
+                },
+                "message_thread_id": {
+                    "description": "Eindeutige Kennung f\u00fcr den Zielnachrichten-Thread (Thema) des Forums; nur f\u00fcr Forum-Supergruppen.",
+                    "name": "Nachrichten-Thread-ID"
+                },
+                "password": {
+                    "description": "Passwort (oder Bearer-Token) f\u00fcr eine URL, die eine HTTP-Authentifizierung erfordert.",
+                    "name": "Passwort"
+                },
+                "reply_to_message_id": {
+                    "description": "Markiere die Nachricht als Antwort auf eine vorherige Nachricht.",
+                    "name": "Antwort auf Nachrichten-ID"
+                },
+                "sticker_id": {
+                    "description": "ID eines Stickers, der auf Telegram-Servern vorhanden ist.",
+                    "name": "Sticker-ID"
+                },
+                "target": {
+                    "description": "Ein Array vorab autorisierter chat_ids, an die das Dokument gesendet werden soll. Wenn nicht vorhanden, ist die zuerst zul\u00e4ssige chat_id die Standardeinstellung.",
+                    "name": "Ziel"
+                },
+                "timeout": {
+                    "description": "Lesezeit\u00fcberschreitung beim Senden des Stickers.",
+                    "name": "Zeit\u00fcberschreitung beim Lesen"
+                },
+                "url": {
+                    "description": "Remote-Pfad zu einem statischen .webp- oder animierten .tgs-Sticker.",
+                    "name": "URL"
+                },
+                "username": {
+                    "description": "Benutzername f\u00fcr eine URL, die eine HTTP-Authentifizierung erfordert.",
+                    "name": "Benutzername"
+                },
+                "verify_ssl": {
+                    "description": "Aktivieren oder deaktivieren der SSL-Zertifikats\u00fcberpr\u00fcfung. Lege \u201efalse\u201c fest, wenn du die Datei von einer URL herunterladen und das SSL-Zertifikat des Servers nicht validieren m\u00f6chtest.",
+                    "name": "SSL \u00fcberpr\u00fcfen"
+                }
+            },
+            "name": "Sticker versenden"
+        },
+        "send_video": {
+            "description": "Sendet ein Video.",
+            "fields": {
+                "authentication": {
+                    "description": "Definiere, welche Authentifizierungsmethode verwendet werden soll. Lege `digest` fest, um die HTTP-Digest-Authentifizierung zu verwenden, oder `bearer_token` f\u00fcr die OAuth 2.0-Bearer-Token-Authentifizierung. Standardm\u00e4\u00dfig ist `Basic` eingestellt.",
+                    "name": "Authentifizierungsmethode"
+                },
+                "caption": {
+                    "description": "Der Titel des Videos.",
+                    "name": "Untertitel"
+                },
+                "disable_notification": {
+                    "description": "Sendet die Nachricht stillschweigend. iOS-Benutzer und Web-Benutzer erhalten keine Benachrichtigung, Android-Benutzer erhalten eine Benachrichtigung ohne Ton.",
+                    "name": "Benachrichtigungen deaktivieren"
+                },
+                "file": {
+                    "description": "Lokaler Pfad zu einem Video.",
+                    "name": "Datei"
+                },
+                "inline_keyboard": {
+                    "description": "Liste der durch Kommas getrennten Befehlszeilen zum Erstellen einer benutzerdefinierten Inline-Tastatur mit Schaltfl\u00e4chen und zugeh\u00f6rigen R\u00fcckrufdaten.",
+                    "name": "Inline-Tastatur"
+                },
+                "keyboard": {
+                    "description": "Liste der durch Kommas getrennten Befehlszeilen zum Erstellen einer benutzerdefinierten Tastatur.",
+                    "name": "Tastatur"
+                },
+                "message_tag": {
+                    "description": "Tag f\u00fcr gesendete Nachricht.",
+                    "name": "Nachrichten-Tag"
+                },
+                "message_thread_id": {
+                    "description": "Eindeutige Kennung f\u00fcr den Zielnachrichten-Thread (Thema) des Forums; nur f\u00fcr Forum-Supergruppen.",
+                    "name": "Nachrichten-Thread-ID"
+                },
+                "parse_mode": {
+                    "description": "Parser f\u00fcr den Nachrichtentext.",
+                    "name": "Parse-Modus"
+                },
+                "password": {
+                    "description": "Passwort (oder Bearer-Token) f\u00fcr eine URL, die eine HTTP-Authentifizierung erfordert.",
+                    "name": "Passwort"
+                },
+                "reply_to_message_id": {
+                    "description": "Markiere die Nachricht als Antwort auf eine vorherige Nachricht.",
+                    "name": "Antwort auf Nachrichten-ID"
+                },
+                "target": {
+                    "description": "Ein Array vorab autorisierter chat_ids, an die das Dokument gesendet werden soll. Wenn nicht vorhanden, ist die zuerst zul\u00e4ssige chat_id die Standardeinstellung.",
+                    "name": "Ziel"
+                },
+                "timeout": {
+                    "description": "Lesezeit\u00fcberschreitung beim Senden des Videos.",
+                    "name": "Zeit\u00fcberschreitung beim Lesen"
+                },
+                "url": {
+                    "description": "Remote-Pfad zu einem Video.",
+                    "name": "URL"
+                },
+                "username": {
+                    "description": "Benutzername f\u00fcr eine URL, die eine HTTP-Authentifizierung erfordert.",
+                    "name": "Benutzername"
+                },
+                "verify_ssl": {
+                    "description": "Aktivieren oder deaktivieren der SSL-Zertifikats\u00fcberpr\u00fcfung. Lege \u201efalse\u201c fest, wenn du die Datei von einer URL herunterladen und das SSL-Zertifikat des Servers nicht validieren m\u00f6chtest.",
+                    "name": "SSL \u00fcberpr\u00fcfen"
+                }
+            },
+            "name": "Video senden"
+        },
+        "send_voice": {
+            "description": "Sendet eine Sprachnachricht.",
+            "fields": {
+                "authentication": {
+                    "description": "Definiere, welche Authentifizierungsmethode verwendet werden soll. Lege `digest` fest, um die HTTP-Digest-Authentifizierung zu verwenden, oder `bearer_token` f\u00fcr die OAuth 2.0-Bearer-Token-Authentifizierung. Standardm\u00e4\u00dfig ist `Basic` eingestellt.",
+                    "name": "Authentifizierungsmethode"
+                },
+                "caption": {
+                    "description": "Der Titel der Sprachnachricht.",
+                    "name": "Untertitel"
+                },
+                "disable_notification": {
+                    "description": "Sendet die Nachricht stillschweigend. iOS-Benutzer und Web-Benutzer erhalten keine Benachrichtigung, Android-Benutzer erhalten eine Benachrichtigung ohne Ton.",
+                    "name": "Benachrichtigungen deaktivieren"
+                },
+                "file": {
+                    "description": "Lokaler Pfad zu einer Sprachnachricht.",
+                    "name": "Datei"
+                },
+                "inline_keyboard": {
+                    "description": "Liste der durch Kommas getrennten Befehlszeilen zum Erstellen einer benutzerdefinierten Inline-Tastatur mit Schaltfl\u00e4chen und zugeh\u00f6rigen R\u00fcckrufdaten.",
+                    "name": "Inline-Tastatur"
+                },
+                "keyboard": {
+                    "description": "Liste der durch Kommas getrennten Befehlszeilen zum Erstellen einer benutzerdefinierten Tastatur.",
+                    "name": "Tastatur"
+                },
+                "message_tag": {
+                    "description": "Tag f\u00fcr gesendete Nachricht.",
+                    "name": "Nachrichten-Tag"
+                },
+                "message_thread_id": {
+                    "description": "Eindeutige Kennung f\u00fcr den Zielnachrichten-Thread (Thema) des Forums; nur f\u00fcr Forum-Supergruppen.",
+                    "name": "Nachrichten-Thread-ID"
+                },
+                "password": {
+                    "description": "Passwort (oder Bearer-Token) f\u00fcr eine URL, die eine HTTP-Authentifizierung erfordert.",
+                    "name": "Passwort"
+                },
+                "reply_to_message_id": {
+                    "description": "Markiere die Nachricht als Antwort auf eine vorherige Nachricht.",
+                    "name": "Antwort auf Nachrichten-ID"
+                },
+                "target": {
+                    "description": "Ein Array vorab autorisierter chat_ids, an die das Dokument gesendet werden soll. Wenn nicht vorhanden, ist die zuerst zul\u00e4ssige chat_id die Standardeinstellung.",
+                    "name": "Ziel"
+                },
+                "timeout": {
+                    "description": "Lesezeit\u00fcberschreitung beim Senden der Stimme.",
+                    "name": "Zeit\u00fcberschreitung beim Lesen"
+                },
+                "url": {
+                    "description": "Remote-Pfad zu einer Sprachnachricht.",
+                    "name": "URL"
+                },
+                "username": {
+                    "description": "Benutzername f\u00fcr eine URL, die eine HTTP-Authentifizierung erfordert.",
+                    "name": "Benutzername"
+                },
+                "verify_ssl": {
+                    "description": "Aktivieren oder deaktivieren der SSL-Zertifikats\u00fcberpr\u00fcfung. Lege \u201efalse\u201c fest, wenn du die Datei von einer URL herunterladen und das SSL-Zertifikat des Servers nicht validieren m\u00f6chtest.",
+                    "name": "SSL \u00fcberpr\u00fcfen"
+                }
+            },
+            "name": "Stimme senden"
+        }
+    }
+}

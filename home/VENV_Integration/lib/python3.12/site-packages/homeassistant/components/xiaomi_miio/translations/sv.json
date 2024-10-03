@@ -1,0 +1,507 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Enheten \u00e4r redan konfigurerad",
+            "already_in_progress": "Konfigurationsfl\u00f6det p\u00e5g\u00e5r redan",
+            "incomplete_info": "Ofullst\u00e4ndig information till installationsenheten, ingen v\u00e4rd eller token tillhandah\u00e5lls.",
+            "not_xiaomi_miio": "Enheten st\u00f6ds (\u00e4nnu) inte av Xiaomi Miio.",
+            "reauth_successful": "\u00c5terautentisering lyckades",
+            "unknown": "Ov\u00e4ntat fel"
+        },
+        "error": {
+            "cannot_connect": "Det gick inte att ansluta.",
+            "cloud_credentials_incomplete": "Cloud-uppgifterna \u00e4r ofullst\u00e4ndiga, v\u00e4nligen fyll i anv\u00e4ndarnamn, l\u00f6senord och land",
+            "cloud_login_error": "Kunde inte logga in p\u00e5 Xiaomi Miio Cloud, kontrollera anv\u00e4ndaruppgifterna.",
+            "cloud_no_devices": "Inga enheter hittades i detta Xiaomi Miio molnkonto.",
+            "unknown_device": "Enhetsmodellen \u00e4r inte k\u00e4nd, kan inte st\u00e4lla in enheten med hj\u00e4lp av konfigurationsfl\u00f6de.",
+            "wrong_token": "Kontrollsummafel, fel token"
+        },
+        "flow_title": "{name}",
+        "step": {
+            "cloud": {
+                "data": {
+                    "cloud_country": "Molnserverland",
+                    "cloud_password": "Molnl\u00f6senord",
+                    "cloud_username": "Molnanv\u00e4ndarnamn",
+                    "manual": "Konfigurera manuellt (rekommenderas inte)"
+                },
+                "description": "Logga in p\u00e5 Xiaomi Miio-molnet, se https://www.openhab.org/addons/bindings/miio/#country-servers f\u00f6r molnservern att anv\u00e4nda."
+            },
+            "connect": {
+                "data": {
+                    "model": "Enhetsmodell"
+                }
+            },
+            "manual": {
+                "data": {
+                    "host": "IP-adress",
+                    "token": "API-token"
+                },
+                "description": "Du beh\u00f6ver API-token p\u00e5 32 tecken, se https://www.home-assistant.io/integrations/xiaomi_miio#retrieving-the-access-token f\u00f6r instruktioner. Observera att denna API-token skiljer sig fr\u00e5n nyckeln som anv\u00e4nds av Xiaomi Aqara-integrationen."
+            },
+            "reauth_confirm": {
+                "description": "Xiaomi Miio-integrationen m\u00e5ste autentisera ditt konto igen f\u00f6r att uppdatera tokens eller l\u00e4gga till saknade molnuppgifter.",
+                "title": "Autentiseringen har upph\u00f6rt att g\u00e4lla f\u00f6r {name}"
+            },
+            "select": {
+                "data": {
+                    "select_device": "Miio-enhet"
+                },
+                "description": "V\u00e4lj Xiaomi Miio-enheten f\u00f6r att st\u00e4lla in."
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "is_water_box_attached": {
+                "name": "Moppen monterad"
+            },
+            "is_water_box_carriage_attached": {
+                "name": "Moppen monterad"
+            },
+            "no_water": {
+                "name": "Vattentank tom"
+            },
+            "ptc_status": {
+                "name": "Status f\u00f6r tillsatsv\u00e4rme"
+            },
+            "water_tank_detached": {
+                "name": "Vattentank"
+            }
+        },
+        "button": {
+            "reset_dust_filter": {
+                "name": "Nollst\u00e4ll dammfilter"
+            },
+            "reset_upper_filter": {
+                "name": "Nollst\u00e4ll \u00f6vre filter"
+            },
+            "reset_vacuum_filter": {
+                "name": "Nollst\u00e4ll filter"
+            },
+            "reset_vacuum_main_brush": {
+                "name": "Nollst\u00e4ll huvudborste"
+            },
+            "reset_vacuum_side_brush": {
+                "name": "Nollst\u00e4ll sidoborste"
+            }
+        },
+        "fan": {
+            "generic_fan": {
+                "state_attributes": {
+                    "preset_mode": {
+                        "state": {
+                            "normal": "Normal"
+                        }
+                    }
+                }
+            }
+        },
+        "number": {
+            "fan_level": {
+                "name": "Fl\u00e4ktniv\u00e5"
+            },
+            "led_brightness": {
+                "name": "LED ljusstyrka"
+            },
+            "led_brightness_level": {
+                "name": "LED ljusstyrka"
+            },
+            "motor_speed": {
+                "name": "Motorhastighet"
+            },
+            "volume": {
+                "name": "Volym"
+            }
+        },
+        "select": {
+            "airpurifier_mode": {
+                "state": {
+                    "auto": "Auto",
+                    "favorite": "Favorit",
+                    "silent": "Tyst"
+                }
+            },
+            "display_orientation": {
+                "state": {
+                    "forward": "Fram\u00e5t",
+                    "left": "V\u00e4nster",
+                    "right": "H\u00f6ger"
+                }
+            },
+            "led_brightness": {
+                "state": {
+                    "bright": "Ljus",
+                    "dim": "Dimma",
+                    "off": "Av"
+                }
+            },
+            "ptc_level": {
+                "state": {
+                    "high": "H\u00f6g",
+                    "low": "L\u00e5g",
+                    "medium": "Medium"
+                }
+            }
+        },
+        "sensor": {
+            "actual_speed": {
+                "name": "Faktisk hastighet"
+            },
+            "air_quality": {
+                "name": "Luftkvalit\u00e9"
+            },
+            "clean_time": {
+                "name": "Aktuell st\u00e4dad tid"
+            },
+            "count": {
+                "name": "Totalt antal st\u00e4dningar"
+            },
+            "dnd_end": {
+                "name": "St\u00f6r ej slut"
+            },
+            "dnd_start": {
+                "name": "St\u00f6r ej start"
+            },
+            "dust_filter_life_remaining": {
+                "name": "Dammfiltrets \u00e5terst\u00e5ende livsl\u00e4ngd"
+            },
+            "dust_filter_life_remaining_days": {
+                "name": "Dammfiltrets livsl\u00e4ngd \u00e5terst\u00e5ende dagar"
+            },
+            "illuminance": {
+                "name": "Ljusstyrka"
+            },
+            "motor_speed": {
+                "name": "Motorhastighet"
+            },
+            "sensor_dirty_left": {
+                "name": "Sensorer tid kvar"
+            },
+            "side_brush_left": {
+                "name": "Sidoborste tid kvar"
+            },
+            "total_area": {
+                "name": "St\u00e4dat omr\u00e5de totalt"
+            },
+            "total_duration": {
+                "name": "Total varaktighet"
+            },
+            "use_time": {
+                "name": "Anv\u00e4nd tid"
+            },
+            "water_level": {
+                "name": "Vattenniv\u00e5"
+            }
+        },
+        "switch": {
+            "anion": {
+                "name": "Joniserare"
+            },
+            "auto_detect": {
+                "name": "Automatisk detektering"
+            },
+            "buzzer": {
+                "name": "Summer"
+            },
+            "child_lock": {
+                "name": "Barnl\u00e5s"
+            },
+            "clean_mode": {
+                "name": "St\u00e4dl\u00e4ge"
+            },
+            "dry": {
+                "name": "Torkl\u00e4ge"
+            },
+            "ionizer": {
+                "name": "Joniserare"
+            },
+            "learn_mode": {
+                "name": "Inl\u00e4rningsl\u00e4ge"
+            },
+            "led": {
+                "name": "LED"
+            },
+            "ptc": {
+                "name": "Tillsatsv\u00e4rme"
+            }
+        }
+    },
+    "options": {
+        "error": {
+            "cloud_credentials_incomplete": "Cloud-uppgifterna \u00e4r ofullst\u00e4ndiga, v\u00e4nligen fyll i anv\u00e4ndarnamn, l\u00f6senord och land"
+        },
+        "step": {
+            "init": {
+                "data": {
+                    "cloud_subdevices": "Anv\u00e4nd moln f\u00f6r att f\u00e5 anslutna underenheter"
+                }
+            }
+        }
+    },
+    "services": {
+        "fan_reset_filter": {
+            "description": "Nollst\u00e4ller filtrets livstid och anv\u00e4ndning.",
+            "fields": {
+                "entity_id": {
+                    "description": "Namn p\u00e5 xiaomi miio entiteten.",
+                    "name": "Entitets-ID"
+                }
+            },
+            "name": "Fl\u00e4kt \u00e5terst\u00e4ll filter"
+        },
+        "fan_set_extra_features": {
+            "description": "Manipulerar ett register som tillhandah\u00e5ller extra funktioner. Mi Home-appen utv\u00e4rderar v\u00e4rdet. En funktion som kallas \"turbo mode\" l\u00e5ses upp i appen p\u00e5 v\u00e4rde 1.",
+            "fields": {
+                "entity_id": {
+                    "description": "Namn p\u00e5 xiaomi miio entiteten.",
+                    "name": "Entitets-ID"
+                },
+                "features": {
+                    "description": "Heltal, k\u00e4nda v\u00e4rden \u00e4r 0 (standard) och 1 (turbol\u00e4ge).",
+                    "name": "Funktioner"
+                }
+            },
+            "name": "Extra funktioner f\u00f6r fl\u00e4ktset"
+        },
+        "light_eyecare_mode_off": {
+            "description": "Inaktiverar p\u00e5minnelse om \u00f6gontr\u00f6tthet (ENDAST EYECARE SMART LAMP 2).",
+            "fields": {
+                "entity_id": {
+                    "description": "Namn p\u00e5 entiteten att agera p\u00e5.",
+                    "name": "Entitets-ID"
+                }
+            },
+            "name": "Ljust \u00f6gonv\u00e5rdsl\u00e4ge av"
+        },
+        "light_eyecare_mode_on": {
+            "description": "Aktiverar p\u00e5minnelse/meddelande om \u00f6gontr\u00f6tthet (ENDAST EYECARE SMART LAMP 2).",
+            "fields": {
+                "entity_id": {
+                    "description": "Namn p\u00e5 entiteten att agera p\u00e5.",
+                    "name": "Entitets-ID"
+                }
+            },
+            "name": "Ljust \u00f6gonv\u00e5rdsl\u00e4ge p\u00e5"
+        },
+        "light_night_light_mode_off": {
+            "description": "Aktiverar eyecare mode fan_set_dry_off (ENDAST EYECARE SMART LAMP 2).",
+            "fields": {
+                "entity_id": {
+                    "description": "Namn p\u00e5 entiteten att agera p\u00e5.",
+                    "name": "Entitets-ID"
+                }
+            },
+            "name": "Nattljusl\u00e4ge av"
+        },
+        "light_night_light_mode_on": {
+            "description": "Sl\u00e5r p\u00e5 eyecare mode (ENDAST EYECARE SMART LAMP 2).",
+            "fields": {
+                "entity_id": {
+                    "description": "Namn p\u00e5 entiteten att agera p\u00e5.",
+                    "name": "Entitets-ID"
+                }
+            },
+            "name": "Nattljusl\u00e4ge p\u00e5"
+        },
+        "light_reminder_off": {
+            "description": "Inaktiverar p\u00e5minnelse om \u00f6gontr\u00f6tthet (ENDAST EYECARE SMART LAMP 2).",
+            "fields": {
+                "entity_id": {
+                    "description": "Namn p\u00e5 entiteten att agera p\u00e5.",
+                    "name": "Entitets-ID"
+                }
+            },
+            "name": "Ljusp\u00e5minnelse av"
+        },
+        "light_reminder_on": {
+            "description": "Aktiverar p\u00e5minnelse/meddelande om \u00f6gontr\u00f6tthet (ENDAST EYECARE SMART LAMP 2).",
+            "fields": {
+                "entity_id": {
+                    "description": "Namn p\u00e5 entiteten att agera p\u00e5.",
+                    "name": "Entitets-ID"
+                }
+            },
+            "name": "Ljus p\u00e5minnelse p\u00e5"
+        },
+        "light_set_delayed_turn_off": {
+            "description": "F\u00f6rdr\u00f6jd avst\u00e4ngning.",
+            "fields": {
+                "entity_id": {
+                    "description": "Namn p\u00e5 lampentiteten.",
+                    "name": "Entitets-ID"
+                },
+                "time_period": {
+                    "description": "Tidsperiod f\u00f6r f\u00f6rdr\u00f6jd avst\u00e4ngning.",
+                    "name": "Tidsperiod"
+                }
+            },
+            "name": "F\u00f6rdr\u00f6jd avst\u00e4ngning av ljusupps\u00e4ttning"
+        },
+        "light_set_scene": {
+            "description": "St\u00e4ller in en fast scen.",
+            "fields": {
+                "entity_id": {
+                    "description": "Namn p\u00e5 lampentiteten.",
+                    "name": "Entitets-ID"
+                },
+                "scene": {
+                    "description": "Nummer p\u00e5 den fasta scenen.",
+                    "name": "Scen"
+                }
+            },
+            "name": "Ljuss\u00e4ttning scen"
+        },
+        "remote_learn_command": {
+            "fields": {
+                "slot": {
+                    "description": "Definiera den kortplats som anv\u00e4nds f\u00f6r att spara IR-kommandot.",
+                    "name": "Slot"
+                },
+                "timeout": {
+                    "description": "Definiera tidsgr\u00e4nsen innan kommandot m\u00e5ste l\u00e4ras in.",
+                    "name": "Timeout"
+                }
+            },
+            "name": "Kommando f\u00f6r fj\u00e4rrinl\u00e4rning"
+        },
+        "remote_set_led_off": {
+            "description": "St\u00e4nger av bl\u00e5 LED.",
+            "name": "Fj\u00e4rrkontroll st\u00e4ng av LED"
+        },
+        "remote_set_led_on": {
+            "description": "T\u00e4nder bl\u00e5 lysdiod.",
+            "name": "Fj\u00e4rrkontroll sl\u00e5 p\u00e5 LED"
+        },
+        "switch_set_power_mode": {
+            "description": "St\u00e4ller in el-l\u00e4get.",
+            "fields": {
+                "entity_id": {
+                    "description": "Namn p\u00e5 xiaomi miio entiteten.",
+                    "name": "Entitets-ID"
+                },
+                "mode": {
+                    "description": "El-l\u00e4ge",
+                    "name": "L\u00e4ge"
+                }
+            },
+            "name": "V\u00e4xla inst\u00e4llt el-l\u00e4ge"
+        },
+        "switch_set_power_price": {
+            "description": "St\u00e4ller in elpriset.",
+            "fields": {
+                "entity_id": {
+                    "description": "Namn p\u00e5 xiaomi miio entiteten.",
+                    "name": "Entitets-ID"
+                },
+                "mode": {
+                    "description": "Elpris",
+                    "name": "L\u00e4ge"
+                }
+            },
+            "name": "V\u00e4xlar inst\u00e4llt elpris"
+        },
+        "switch_set_wifi_led_off": {
+            "description": "Inaktiverar Wi-Fi LED.",
+            "fields": {
+                "entity_id": {
+                    "description": "Namn p\u00e5 xiaomi miio entiteten.",
+                    "name": "Entitets-ID"
+                }
+            },
+            "name": "St\u00e4ng av inst\u00e4lld Wi-Fi LED"
+        },
+        "switch_set_wifi_led_on": {
+            "description": "Aktiverar Wi-Fi LED.",
+            "fields": {
+                "entity_id": {
+                    "description": "Namn p\u00e5 xiaomi miio entiteten.",
+                    "name": "Entitets-ID"
+                }
+            },
+            "name": "Sl\u00e5 p\u00e5 inst\u00e4lld Wi-Fi LED"
+        },
+        "vacuum_clean_segment": {
+            "description": "Startar st\u00e4dning av angivet segment.",
+            "fields": {
+                "segments": {
+                    "description": "Segment.",
+                    "name": "Segment"
+                }
+            },
+            "name": "Dammsugare st\u00e4da segment"
+        },
+        "vacuum_clean_zone": {
+            "description": "Startar reng\u00f6ringen i de valda omr\u00e5dena f\u00f6r det antal upprepningar som anges.",
+            "fields": {
+                "repeats": {
+                    "description": "Antal st\u00e4dningar i varje zon.",
+                    "name": "Upprepningar"
+                },
+                "zone": {
+                    "description": "Matris med zoner. Varje zon \u00e4r en matris med 4 heltalsv\u00e4rden.",
+                    "name": "Zon"
+                }
+            },
+            "name": "Zon f\u00f6r dammsugning"
+        },
+        "vacuum_goto": {
+            "description": "G\u00e5 till angivna koordinater.",
+            "fields": {
+                "x_coord": {
+                    "description": "X-koordinat.",
+                    "name": "X koordinat"
+                },
+                "y_coord": {
+                    "description": "Y-koordinat.",
+                    "name": "Y koordinat"
+                }
+            },
+            "name": "Punkt f\u00f6r dammsugaren att g\u00e5 till"
+        },
+        "vacuum_remote_control_move": {
+            "description": "Fj\u00e4rrstyr dammsugaren, se till att du f\u00f6rst st\u00e4ller in den i fj\u00e4rrstyrningsl\u00e4ge med `remote_control_start`.",
+            "fields": {
+                "duration": {
+                    "description": "R\u00f6relsens varaktighet.",
+                    "name": "Varaktighet"
+                },
+                "rotation": {
+                    "description": "Rotera, mellan -179 grader och 179 grader.",
+                    "name": "Rotation"
+                },
+                "velocity": {
+                    "description": "Hastighet.",
+                    "name": "Hastighet"
+                }
+            },
+            "name": "Fj\u00e4rrstyr dammsugaren"
+        },
+        "vacuum_remote_control_move_step": {
+            "description": "Fj\u00e4rrstyr dammsugaren, g\u00f6r bara en r\u00f6relse och stannar sedan.",
+            "fields": {
+                "duration": {
+                    "description": "R\u00f6relsens varaktighet.",
+                    "name": "Varaktighet"
+                },
+                "rotation": {
+                    "description": "Rotation.",
+                    "name": "Rotation"
+                },
+                "velocity": {
+                    "description": "Hastighet.",
+                    "name": "Hastighet"
+                }
+            },
+            "name": "Dammsugare fj\u00e4rrstyrning flytta steg"
+        },
+        "vacuum_remote_control_start": {
+            "description": "Startar fj\u00e4rrstyrning av dammsugaren. Du kan sedan flytta den med `remote_control_move`, n\u00e4r du \u00e4r klar anropa `remote_control_stop`.",
+            "name": "Dammsugare fj\u00e4rrstyrning start"
+        },
+        "vacuum_remote_control_stop": {
+            "description": "Stoppar dammsugarens fj\u00e4rrstyrningsl\u00e4ge.",
+            "name": "Dammsugare fj\u00e4rrstyrning stopp"
+        }
+    }
+}

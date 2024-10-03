@@ -1,0 +1,113 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "\u88dd\u7f6e\u5df2\u7d93\u8a2d\u5b9a\u5b8c\u6210"
+        },
+        "error": {
+            "cannot_connect": "\u9023\u7dda\u5931\u6557",
+            "invalid_auth": "\u8eab\u4efd\u9a57\u8b49\u7121\u6548",
+            "unknown": "\u672a\u9810\u671f\u932f\u8aa4"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "brand": "\u54c1\u724c",
+                    "password": "\u5bc6\u78bc",
+                    "username": "\u4f7f\u7528\u8005\u540d\u7a31"
+                }
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "blower_active": {
+                "name": "\u9f13\u98a8\u6a5f\u555f\u52d5"
+            },
+            "emergency_heat_active": {
+                "name": "\u7dca\u6025\u52a0\u71b1\u555f\u52d5"
+            }
+        },
+        "number": {
+            "fan_speed": {
+                "name": "\u98a8\u6247\u8f49\u901f"
+            }
+        },
+        "sensor": {
+            "air_cleaner_mode": {
+                "name": "\u7a7a\u6c23\u6e05\u6de8\u6a21\u5f0f"
+            },
+            "current_compressor_speed": {
+                "name": "\u76ee\u524d\u58d3\u7e2e\u6a5f\u8f49\u901f"
+            },
+            "outdoor_temperature": {
+                "name": "\u6236\u5916\u6eab\u5ea6"
+            },
+            "requested_compressor_speed": {
+                "name": "\u8acb\u6c42\u58d3\u7e2e\u6a5f\u8f49\u901f"
+            },
+            "system_status": {
+                "name": "\u7cfb\u7d71\u72c0\u614b"
+            },
+            "zone_setpoint_status": {
+                "name": "\u5340\u57df\u76ee\u6a19\u503c\u72c0\u614b"
+            },
+            "zone_status": {
+                "name": "\u5340\u57df\u72c0\u614b"
+            }
+        },
+        "switch": {
+            "hold": {
+                "name": "\u4fdd\u6301"
+            }
+        }
+    },
+    "issues": {
+        "migrate_aux_heat": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Nexia `set_aux_heat` \u52d5\u4f5c\u5df2\u7d93\u9032\u884c\u9077\u79fb\u3002\u6bcf\u4e00\u7d44\u6eab\u63a7\u5668\u90fd\u64c1\u6709\u65b0\u7248 `aux_heat_only` \u958b\u95dc\u5be6\u9ad4\u53ef\u4f9b\u4f7f\u7528\u3002\n\n\u8acb\u66f4\u65b0\u76f8\u95dc\u81ea\u52d5\u5316\u4ee5\u4f7f\u7528\u65b0\u7248\u7dca\u6025\u52a0\u71b1\u958b\u95dc\u5be6\u9ad4\u3002\u5b8c\u6210\u5f8c\u3001\u9078\u64c7 **\u50b3\u9001** \u4ee5\u4fee\u6b63\u6b64\u554f\u984c\u3002",
+                        "title": "\u9077\u79fb Nexia set_aux_heat \u52d5\u4f5c"
+                    }
+                }
+            },
+            "title": "\u9077\u79fb Nexia set_aux_heat \u52d5\u4f5c"
+        }
+    },
+    "services": {
+        "set_aircleaner_mode": {
+            "description": "\u7a7a\u6c23\u6e05\u6de8\u6a21\u5f0f",
+            "fields": {
+                "aircleaner_mode": {
+                    "description": "\u8a2d\u5b9a\u7a7a\u6c23\u6e05\u6de8\u6a21\u5f0f",
+                    "name": "\u7a7a\u6c23\u6e05\u6de8\u6a21\u5f0f"
+                }
+            },
+            "name": "\u8a2d\u5b9a\u7a7a\u6c23\u6e05\u6de8\u6a21\u5f0f"
+        },
+        "set_humidify_setpoint": {
+            "description": "\u6fd5\u5ea6\u76ee\u6a19\u503c\u3002",
+            "fields": {
+                "humidity": {
+                    "description": "\u6fd5\u5ea6\u76ee\u6a19\u503c\u3002",
+                    "name": "\u6fd5\u5ea6"
+                }
+            },
+            "name": "\u8a2d\u5b9a\u6fd5\u5ea6\u76ee\u6a19\u503c"
+        },
+        "set_hvac_run_mode": {
+            "description": "HVAC \u904b\u8f49\u6a21\u5f0f\u3002",
+            "fields": {
+                "hvac_mode": {
+                    "description": "\u4f7f\u7528\u6392\u7a0b\u7684 HVAC \u6a21\u5f0f\u6216\u4fdd\u7559\u3002\u5982\u679c\u672a\u6307\u5b9a\uff0c\u5c07\u4f7f\u7528\u76ee\u524d\u7684 HVAC \u904b\u8f49\u6a21\u5f0f\u3002",
+                    "name": "HVAC \u6a21\u5f0f"
+                },
+                "run_mode": {
+                    "description": "\u57f7\u884c\u6392\u7a0b\u6216\u4fdd\u7559\u3002\u5982\u679c\u672a\u6307\u5b9a\uff0c\u5c07\u4f7f\u7528\u76ee\u524d\u904b\u8f49\u6a21\u5f0f\u3002",
+                    "name": "\u57f7\u884c\u6a21\u5f0f"
+                }
+            },
+            "name": "\u8a2d\u5b9a HVAC \u904b\u8f49\u6a21\u5f0f"
+        }
+    }
+}

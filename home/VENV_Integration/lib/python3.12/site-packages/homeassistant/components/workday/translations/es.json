@@ -1,0 +1,249 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Workday ya se ha configurado con la configuraci\u00f3n elegida",
+            "incorrect_province": "Subdivisi\u00f3n incorrecta de la importaci\u00f3n de yaml"
+        },
+        "error": {
+            "add_holiday_error": "Formato incorrecto en la fecha (AAAA-MM-DD)",
+            "add_holiday_range_error": "Formato incorrecto en el intervalo de fechas (AAAA-MM-DD,AAAA-MM-DD)",
+            "already_configured": "El servicio ya est\u00e1 configurado",
+            "remove_holiday_error": "Formato incorrecto en la fecha (AAAA-MM-DD) o no se encontr\u00f3 el nombre del d\u00eda festivo",
+            "remove_holiday_range_error": "Formato incorrecto en el intervalo de fechas (AAAA-MM-DD,AAAA-MM-DD)"
+        },
+        "step": {
+            "options": {
+                "data": {
+                    "add_holidays": "A\u00f1adir d\u00edas festivos",
+                    "category": "Categor\u00eda adicional como vacaciones",
+                    "days_offset": "Desfase",
+                    "excludes": "Exclusiones",
+                    "language": "Idioma para d\u00edas festivos con nombre",
+                    "province": "Subdivisi\u00f3n de pa\u00eds",
+                    "remove_holidays": "Eliminar d\u00edas festivos",
+                    "workdays": "D\u00edas laborables"
+                },
+                "data_description": {
+                    "add_holidays": "A\u00f1ade d\u00edas festivos personalizados como AAAA-MM-DD o como rango usando `,` como separador",
+                    "category": "Selecciona categor\u00edas adicionales para incluirlas como d\u00edas festivos",
+                    "days_offset": "D\u00edas desfasados desde el d\u00eda actual",
+                    "excludes": "Lista de d\u00edas laborables a excluir, f\u00edjate en la palabra clave \"vacaciones\" y lee la documentaci\u00f3n sobre c\u00f3mo usarla correctamente",
+                    "language": "Idioma que debe utilizarse al configurar las exclusiones de vacaciones por nombre",
+                    "province": "Estado, territorio, provincia o regi\u00f3n del pa\u00eds",
+                    "remove_holidays": "Elimina los d\u00edas festivos como AAAA-MM-DD, como rango usando `,` como separador o usando parte del nombre",
+                    "workdays": "Lista de d\u00edas laborables"
+                },
+                "description": "Establecer opciones adicionales para {name} configuradas para el pa\u00eds {country}"
+            },
+            "user": {
+                "data": {
+                    "country": "Pa\u00eds",
+                    "name": "Nombre"
+                }
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "workday": {
+                "state_attributes": {
+                    "days_offset": {
+                        "name": "Desfase"
+                    },
+                    "excludes": {
+                        "name": "Exclusiones"
+                    },
+                    "workdays": {
+                        "name": "D\u00edas laborables"
+                    }
+                }
+            }
+        }
+    },
+    "issues": {
+        "bad_country": {
+            "fix_flow": {
+                "step": {
+                    "country": {
+                        "data": {
+                            "country": "Pa\u00eds"
+                        },
+                        "description": "Selecciona un pa\u00eds para utilizar con tu sensor Workday.",
+                        "title": "Seleccionar pa\u00eds para {title}"
+                    },
+                    "province": {
+                        "data": {
+                            "province": "Subdivisi\u00f3n de pa\u00eds"
+                        },
+                        "data_description": {
+                            "province": "Estado, territorio, provincia, regi\u00f3n del pa\u00eds"
+                        },
+                        "description": "Selecciona una provincia en el pa\u00eds {country} para usarla con tu sensor Workday.",
+                        "title": "Seleccionar provincia para {title}"
+                    }
+                }
+            },
+            "title": "El pa\u00eds configurado para {title} no existe"
+        },
+        "bad_date_holiday": {
+            "fix_flow": {
+                "error": {
+                    "remove_holiday_error": "Formato incorrecto en la fecha (AAAA-MM-DD) o no se encontr\u00f3 el nombre del d\u00eda festivo"
+                },
+                "step": {
+                    "fix_remove_holiday": {
+                        "data": {
+                            "remove_holidays": "Eliminar d\u00edas festivos"
+                        },
+                        "data_description": {
+                            "remove_holidays": "Elimina los d\u00edas festivos como AAAA-MM-DD, como rango usando `,` como separador o usando parte del nombre"
+                        },
+                        "description": "Eliminar la fecha de vacaciones `{remove_holidays}` ya que no se puede encontrar en el pa\u00eds {country}.",
+                        "title": "La fecha de vacaciones configurada {remove_holidays} para {title} no existe"
+                    }
+                }
+            },
+            "title": "La fecha de vacaciones configurada {remove_holidays} para {title} no existe"
+        },
+        "bad_named_holiday": {
+            "fix_flow": {
+                "error": {
+                    "remove_holiday_error": "Formato incorrecto en la fecha (AAAA-MM-DD) o no se encontr\u00f3 el nombre del d\u00eda festivo"
+                },
+                "step": {
+                    "fix_remove_holiday": {
+                        "data": {
+                            "remove_holidays": "Eliminar d\u00edas festivos"
+                        },
+                        "data_description": {
+                            "remove_holidays": "Elimina los d\u00edas festivos como AAAA-MM-DD, como rango usando `,` como separador o usando parte del nombre"
+                        },
+                        "description": "Eliminar el d\u00eda festivo con nombre `{remove_holidays}` ya que no se puede encontrar en el pa\u00eds {country}.",
+                        "title": "El d\u00eda festivo con nombre configurado {remove_holidays} para {title} no existe"
+                    },
+                    "named_holiday": {
+                        "data": {
+                            "remove_holidays": "Eliminar d\u00edas festivos"
+                        },
+                        "data_description": {
+                            "remove_holidays": "Elimina los d\u00edas festivos como AAAA-MM-DD, como rango usando `,` como separador o usando parte del nombre"
+                        },
+                        "description": "Eliminar el d\u00eda festivo con nombre `{remove_holidays}` ya que no se puede encontrar en el pa\u00eds {country}.",
+                        "title": "El d\u00eda festivo con nombre configurado {remove_holidays} para {title} no existe"
+                    }
+                }
+            },
+            "title": "El d\u00eda festivo con nombre configurado {remove_holidays} para {title} no existe"
+        },
+        "bad_province": {
+            "fix_flow": {
+                "step": {
+                    "province": {
+                        "data": {
+                            "province": "Subdivisi\u00f3n de pa\u00eds"
+                        },
+                        "data_description": {
+                            "province": "Estado, territorio, provincia, regi\u00f3n del pa\u00eds"
+                        },
+                        "description": "Selecciona una provincia en el pa\u00eds {country} para usarla con tu sensor Workday.",
+                        "title": "Seleccionar provincia para {title}"
+                    }
+                }
+            },
+            "title": "La provincia configurada en el pa\u00eds {country} para {title} no existe"
+        },
+        "deprecated_yaml": {
+            "description": "Se va a eliminar la configuraci\u00f3n de Workday mediante YAML. \n\nTu configuraci\u00f3n YAML existente se ha importado a la IU autom\u00e1ticamente. \n\nElimina la configuraci\u00f3n YAML de Workday de tu archivo configuration.yaml y reinicia Home Assistant para solucionar este problema.",
+            "title": "Se va a eliminar la configuraci\u00f3n de YAML de Workday"
+        }
+    },
+    "options": {
+        "error": {
+            "add_holiday_error": "Formato incorrecto en la fecha (AAAA-MM-DD)",
+            "add_holiday_range_error": "Formato incorrecto en el intervalo de fechas (AAAA-MM-DD,AAAA-MM-DD)",
+            "already_configured": "Ya existe un servicio con esta configuraci\u00f3n",
+            "remove_holiday_error": "Formato incorrecto en la fecha (AAAA-MM-DD) o no se encontr\u00f3 el nombre del d\u00eda festivo",
+            "remove_holiday_range_error": "Formato incorrecto en el intervalo de fechas (AAAA-MM-DD,AAAA-MM-DD)"
+        },
+        "step": {
+            "init": {
+                "data": {
+                    "add_holidays": "A\u00f1adir d\u00edas festivos",
+                    "category": "Categor\u00eda adicional como vacaciones",
+                    "days_offset": "Desfase",
+                    "excludes": "Exclusiones",
+                    "language": "Idioma para d\u00edas festivos con nombre",
+                    "province": "Subdivisi\u00f3n de pa\u00eds",
+                    "remove_holidays": "Eliminar d\u00edas festivos",
+                    "workdays": "D\u00edas laborables"
+                },
+                "data_description": {
+                    "add_holidays": "A\u00f1ade d\u00edas festivos personalizados como AAAA-MM-DD o como rango usando `,` como separador",
+                    "category": "Selecciona categor\u00edas adicionales para incluirlas como d\u00edas festivos",
+                    "days_offset": "D\u00edas desfasados desde el d\u00eda actual",
+                    "excludes": "Lista de d\u00edas laborables a excluir, f\u00edjate en la palabra clave \"vacaciones\" y lee la documentaci\u00f3n sobre c\u00f3mo usarla correctamente",
+                    "language": "Idioma que debe utilizarse al configurar las exclusiones de vacaciones por nombre",
+                    "province": "Estado, territorio, provincia o regi\u00f3n del pa\u00eds",
+                    "remove_holidays": "Elimina los d\u00edas festivos como AAAA-MM-DD, como rango usando `,` como separador o usando parte del nombre",
+                    "workdays": "Lista de d\u00edas laborables"
+                },
+                "description": "Cambiar opciones adicionales de {name} configuradas para el pa\u00eds {country}"
+            }
+        }
+    },
+    "selector": {
+        "category": {
+            "options": {
+                "armed_forces": "Fuerzas armadas",
+                "bank": "Banco",
+                "chinese": "Chino",
+                "christian": "Cristiano",
+                "government": "Gobierno",
+                "half_day": "Media jornada",
+                "hebrew": "Hebreo",
+                "hindu": "Hind\u00fa",
+                "islamic": "Isl\u00e1mico",
+                "optional": "Opcional",
+                "public": "P\u00fablico",
+                "school": "Escuela",
+                "unofficial": "No oficial",
+                "workday": "D\u00eda laborable"
+            }
+        },
+        "country": {
+            "options": {
+                "none": "Ning\u00fan pa\u00eds"
+            }
+        },
+        "days": {
+            "options": {
+                "fri": "Viernes",
+                "holiday": "D\u00edas festivos",
+                "mon": "Lunes",
+                "sat": "S\u00e1bado",
+                "sun": "Domingo",
+                "thu": "Jueves",
+                "tue": "Martes",
+                "wed": "Mi\u00e9rcoles"
+            }
+        },
+        "province": {
+            "options": {
+                "none": "Sin subdivisi\u00f3n"
+            }
+        }
+    },
+    "services": {
+        "check_date": {
+            "description": "Comprueba si la fecha es un d\u00eda laborable.",
+            "fields": {
+                "check_date": {
+                    "description": "Fecha para comprobar si es d\u00eda laborable.",
+                    "name": "Fecha"
+                }
+            },
+            "name": "Comprobar fecha"
+        }
+    },
+    "title": "D\u00eda laborable"
+}

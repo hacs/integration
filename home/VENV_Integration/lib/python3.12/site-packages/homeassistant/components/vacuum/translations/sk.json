@@ -1,0 +1,115 @@
+{
+    "device_automation": {
+        "action_type": {
+            "clean": "Nechajte {entity_name} uprata\u0165",
+            "dock": "Nechajte {entity_name} vr\u00e1ti\u0165 sa do doku"
+        },
+        "condition_type": {
+            "is_cleaning": "{entity_name} upratuje",
+            "is_docked": "{entity_name} je v doku"
+        },
+        "extra_fields": {
+            "for": "Trvanie"
+        },
+        "trigger_type": {
+            "cleaning": "{entity_name} za\u010dala upratova\u0165",
+            "docked": "{entity_name} v doku"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Vys\u00e1va\u010d",
+            "state": {
+                "cleaning": "\u010cist\u00ed",
+                "docked": "V doku",
+                "error": "Chyba",
+                "idle": "Ne\u010dinn\u00e1",
+                "off": "Neakt\u00edvny",
+                "on": "Akt\u00edvny",
+                "paused": "Pozastaven\u00fd",
+                "returning": "N\u00e1vrat do doku"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_vacuum_base_class": {
+            "description": "Vlastn\u00e1 integr\u00e1cia `{platform}` roz\u0161iruje zastaran\u00fa z\u00e1kladn\u00fa triedu `VacuumEntity` namiesto `StateVacuumEntity`.\n\nNahl\u00e1ste to autorovi vlastnej integr\u00e1cie `{platform}`.\n\nKe\u010f bude k dispoz\u00edcii aktualizovan\u00e1 verzia `{platform}`, nain\u0161talujte ju a re\u0161tartujte aplik\u00e1ciu Home Assistant, aby sa tento probl\u00e9m odstr\u00e1nil.",
+            "title": "Vlastn\u00e1 integr\u00e1cia {platform} pou\u017e\u00edva zastaran\u00fa funkciu v\u00e1kua"
+        },
+        "deprecated_vacuum_base_class_url": {
+            "description": "Vlastn\u00e1 integr\u00e1cia `{platform}` roz\u0161iruje zastaran\u00fa z\u00e1kladn\u00fa triedu `VacuumEntity` namiesto `StateVacuumEntity`. \n\nVytvorte hl\u00e1senie o chybe na {issue_tracker}.\n\nKe\u010f bude k dispoz\u00edcii aktualizovan\u00e1 verzia `{platform}`, nain\u0161talujte ju a re\u0161tartujte Home Assistant, aby ste tento probl\u00e9m vyrie\u0161ili.",
+            "title": "Vlastn\u00e1 integr\u00e1cia {platform} pou\u017e\u00edva zastaran\u00fa funkciu v\u00e1kua"
+        },
+        "platform_integration_no_support": {
+            "description": "Platforma {platform} pre integr\u00e1ciu {domain} nepodporuje nastavenie platformy. \n\n Odstr\u00e1\u0148te ho z konfigur\u00e1cie a re\u0161tartujte Home Assistant, aby ste tento probl\u00e9m vyrie\u0161ili.",
+            "title": "Podpora platformy nie je podporovan\u00e1"
+        }
+    },
+    "services": {
+        "clean_spot": {
+            "description": "Povie vys\u00e1va\u010du, aby vykonal \u010distenie miesta.",
+            "name": "Vy\u010disti\u0165 miesto"
+        },
+        "locate": {
+            "description": "Vyh\u013ead\u00e1 robota vys\u00e1va\u010da.",
+            "name": "Lokalizova\u0165"
+        },
+        "pause": {
+            "description": "Pozastav\u00ed \u00falohu \u010distenia.",
+            "name": "Pauza"
+        },
+        "return_to_base": {
+            "description": "Povie vys\u00e1va\u010du, aby sa vr\u00e1til do doku.",
+            "name": "N\u00e1vrat do doku"
+        },
+        "send_command": {
+            "description": "Odo\u0161le pr\u00edkaz do vys\u00e1va\u010da.",
+            "fields": {
+                "command": {
+                    "description": "Pr\u00edkaz na vykonanie. Pr\u00edkazy s\u00fa \u0161pecifick\u00e9 pre integr\u00e1ciu.",
+                    "name": "Pr\u00edkaz"
+                },
+                "params": {
+                    "description": "Parametre pr\u00edkazu. Parametre s\u00fa \u0161pecifick\u00e9 pre integr\u00e1ciu.",
+                    "name": "Parametre"
+                }
+            },
+            "name": "Odosla\u0165 pr\u00edkaz"
+        },
+        "set_fan_speed": {
+            "description": "Nastavuje r\u00fdchlos\u0165 ventil\u00e1tora vys\u00e1va\u010da.",
+            "fields": {
+                "fan_speed": {
+                    "description": "R\u00fdchlos\u0165 ventil\u00e1tora. Hodnota z\u00e1vis\u00ed od integr\u00e1cie. Niektor\u00e9 integr\u00e1cie maj\u00fa stupne r\u00fdchlosti, napr\u00edklad 'stredn\u00fd'. Niektor\u00e9 pou\u017e\u00edvaj\u00fa percentu\u00e1lnu hodnotu od 0 do 100.",
+                    "name": "R\u00fdchlos\u0165 ventil\u00e1tora"
+                }
+            },
+            "name": "Nastavenie r\u00fdchlosti ventil\u00e1tora"
+        },
+        "start": {
+            "description": "Spust\u00ed alebo obnov\u00ed \u00falohu \u010distenia.",
+            "name": "\u0160tart"
+        },
+        "start_pause": {
+            "description": "Spust\u00ed, pozastav\u00ed alebo obnov\u00ed \u00falohu \u010distenia.",
+            "name": "Spustenie/pozastavenie"
+        },
+        "stop": {
+            "description": "Zastav\u00ed aktu\u00e1lnu \u00falohu \u010distenia.",
+            "name": "Zastavi\u0165"
+        },
+        "toggle": {
+            "description": "Zap\u00edna/vyp\u00edna vys\u00e1va\u010d.",
+            "name": "Prepn\u00fa\u0165"
+        },
+        "turn_off": {
+            "description": "Zastav\u00ed aktu\u00e1lnu \u00falohu \u010distenia a vr\u00e1ti sa do doku.",
+            "name": "Vypn\u00fa\u0165"
+        },
+        "turn_on": {
+            "description": "Spust\u00ed nov\u00fa \u00falohu \u010distenia.",
+            "name": "Zapn\u00fa\u0165"
+        }
+    },
+    "title": "Vys\u00e1va\u010d"
+}

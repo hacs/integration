@@ -1,0 +1,148 @@
+{
+    "device_automation": {
+        "action_type": {
+            "arm_away": "{entity_name} \u00e9les\u00edt\u00e9se t\u00e1voli m\u00f3dban",
+            "arm_home": "{entity_name} \u00e9les\u00edt\u00e9se otthoni m\u00f3dban",
+            "arm_night": "{entity_name} \u00e9les\u00edt\u00e9se \u00e9jszakai m\u00f3dban",
+            "arm_vacation": "{entity_name} \u00e9les\u00edt\u00e9se vak\u00e1ci\u00f3 m\u00f3dban",
+            "disarm": "{entity_name} hat\u00e1stalan\u00edt\u00e1sa",
+            "trigger": "{entity_name} \u00e9les\u00edt\u00e9se"
+        },
+        "condition_type": {
+            "is_armed_away": "{entity_name} \u00e1llapota \u00e9les\u00edtve t\u00e1voli m\u00f3dban",
+            "is_armed_home": "{entity_name} \u00e1llapota \u00e9les\u00edtve othoni m\u00f3dban",
+            "is_armed_night": "{entity_name} \u00e1llapota \u00e9les\u00edtve \u00e9jszakai m\u00f3dban",
+            "is_armed_vacation": "{entity_name} \u00e1llapota \u00e9les\u00edtve vak\u00e1ci\u00f3 m\u00f3dban",
+            "is_disarmed": "{entity_name} \u00e1llapota hat\u00e1stalan\u00edtva",
+            "is_triggered": "{entity_name} aktiv\u00e1lva van"
+        },
+        "extra_fields": {
+            "code": "K\u00f3d",
+            "for": "Id\u0151tartam"
+        },
+        "trigger_type": {
+            "armed_away": "{entity_name} \u00e9les\u00edtve t\u00e1voli m\u00f3dban",
+            "armed_home": "{entity_name} \u00e9les\u00edtve otthoni m\u00f3dban",
+            "armed_night": "{entity_name} \u00e9les\u00edtve \u00e9jszakai m\u00f3dban",
+            "armed_vacation": "{entity_name} \u00e9les\u00edtve vak\u00e1ci\u00f3 m\u00f3dban",
+            "disarmed": "{entity_name} hat\u00e1stalan\u00edtva",
+            "triggered": "{entity_name} riaszt\u00e1sba ker\u00fclt"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Riaszt\u00f3 k\u00f6zpont",
+            "state": {
+                "armed": "\u00c9les\u00edtve",
+                "armed_away": "\u00c9les\u00edtve t\u00e1voli",
+                "armed_custom_bypass": "\u00c9les\u00edtve \u00e1thidal\u00e1ssal",
+                "armed_home": "\u00c9les\u00edtve otthoni",
+                "armed_night": "\u00c9les\u00edtve \u00e9jszakai",
+                "armed_vacation": "\u00c9les\u00edtve vak\u00e1ci\u00f3",
+                "arming": "\u00c9les\u00edt\u00e9s",
+                "disarmed": "Hat\u00e1stalan\u00edtva",
+                "disarming": "Hat\u00e1stalan\u00edt\u00e1s",
+                "pending": "F\u00fcgg\u0151ben",
+                "triggered": "Riasztva"
+            },
+            "state_attributes": {
+                "changed_by": {
+                    "name": "M\u00f3dos\u00edtotta"
+                },
+                "code_arm_required": {
+                    "name": "\u00c9les\u00edt\u00e9si k\u00f3d",
+                    "state": {
+                        "false": "Nem sz\u00fcks\u00e9ges",
+                        "true": "Sz\u00fcks\u00e9ges"
+                    }
+                },
+                "code_format": {
+                    "name": "K\u00f3dform\u00e1tum",
+                    "state": {
+                        "number": "Sz\u00e1m",
+                        "text": "Sz\u00f6veg"
+                    }
+                }
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "{domain} integr\u00e1ci\u00f3 nem t\u00e1mogatja {platform} platform be\u00e1ll\u00edt\u00e1s\u00e1t.\n\nK\u00e9rem, t\u00e1vol\u00edtsa el a konfigur\u00e1ci\u00f3b\u00f3l \u00e9s ind\u00edtsa \u00fajra a Home Assistantot a probl\u00e9ma megold\u00e1s\u00e1hoz.",
+            "title": "A platform nem t\u00e1mogatott"
+        }
+    },
+    "services": {
+        "alarm_arm_away": {
+            "description": "A riaszt\u00f3t a k\u00f6vetkez\u0151re \u00e1ll\u00edtja: _\u00e9les\u00edtve t\u00e1voli m\u00f3dban_.",
+            "fields": {
+                "code": {
+                    "description": "K\u00f3d a riaszt\u00f3 \u00e9les\u00edt\u00e9s\u00e9hez.",
+                    "name": "K\u00f3d"
+                }
+            },
+            "name": "\u00c9les\u00edt t\u00e1voli m\u00f3dban"
+        },
+        "alarm_arm_custom_bypass": {
+            "description": "\u00c9les\u00edti a riaszt\u00f3t \u00fagy, hogy lehet\u0151v\u00e9 teszi egy egy\u00e9ni ter\u00fclet kihagy\u00e1s\u00e1t.",
+            "fields": {
+                "code": {
+                    "description": "K\u00f3d a riaszt\u00f3 \u00e9les\u00edt\u00e9s\u00e9hez.",
+                    "name": "K\u00f3d"
+                }
+            },
+            "name": "\u00c9les\u00edt \u00e1thidal\u00e1ssal"
+        },
+        "alarm_arm_home": {
+            "description": "A riaszt\u00f3t a k\u00f6vetkez\u0151re \u00e1ll\u00edtja: _\u00e9les\u00edtve otthoni m\u00f3dban_.",
+            "fields": {
+                "code": {
+                    "description": "K\u00f3d a riaszt\u00f3 \u00e9les\u00edt\u00e9s\u00e9hez.",
+                    "name": "K\u00f3d"
+                }
+            },
+            "name": "\u00c9les\u00edt otthoni m\u00f3dban"
+        },
+        "alarm_arm_night": {
+            "description": "A riaszt\u00f3t a k\u00f6vetkez\u0151re \u00e1ll\u00edtja: _\u00e9les\u00edtve \u00e9jszakai m\u00f3dban_.",
+            "fields": {
+                "code": {
+                    "description": "K\u00f3d a riaszt\u00f3 \u00e9les\u00edt\u00e9s\u00e9hez.",
+                    "name": "K\u00f3d"
+                }
+            },
+            "name": "\u00c9les\u00edt \u00e9jszakai m\u00f3dban"
+        },
+        "alarm_arm_vacation": {
+            "description": "A riaszt\u00f3t a k\u00f6vetkez\u0151re \u00e1ll\u00edtja: _\u00e9les\u00edtve vak\u00e1ci\u00f3 m\u00f3dban_.",
+            "fields": {
+                "code": {
+                    "description": "K\u00f3d a riaszt\u00f3 \u00e9les\u00edt\u00e9s\u00e9hez.",
+                    "name": "K\u00f3d"
+                }
+            },
+            "name": "\u00c9les\u00edt vak\u00e1ci\u00f3 m\u00f3dban"
+        },
+        "alarm_disarm": {
+            "description": "Hat\u00e1stalan\u00edtja a riaszt\u00f3t.",
+            "fields": {
+                "code": {
+                    "description": "K\u00f3d a riaszt\u00f3 hat\u00e1stalan\u00edt\u00e1s\u00e1hoz.",
+                    "name": "K\u00f3d"
+                }
+            },
+            "name": "Hat\u00e1stalan\u00edt\u00e1s"
+        },
+        "alarm_trigger": {
+            "description": "Riaszt\u00f3ind\u00edt\u00e1s enged\u00e9lyez\u00e9se k\u00fcls\u0151 forr\u00e1sb\u00f3l.",
+            "fields": {
+                "code": {
+                    "description": "K\u00f3d a riaszt\u00f3 \u00e9les\u00edt\u00e9s\u00e9hez.",
+                    "name": "K\u00f3d"
+                }
+            },
+            "name": "Riaszt\u00e1s"
+        }
+    },
+    "title": "Riaszt\u00f3 k\u00f6zpont"
+}

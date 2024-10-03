@@ -1,0 +1,103 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Ger\u00e4t ist bereits konfiguriert",
+            "already_in_progress": "Der Konfigurationsablauf wird bereits ausgef\u00fchrt",
+            "error_pairing": "Verbunden mit LG webOS TV, aber nicht gekoppelt",
+            "reauth_successful": "Die erneute Authentifizierung war erfolgreich",
+            "reauth_unsuccessful": "Die erneute Authentifizierung war nicht erfolgreich. Bitte schalte deinen Fernseher ein und versuche es erneut."
+        },
+        "error": {
+            "cannot_connect": "Verbindung fehlgeschlagen, bitte schalte deinen Fernseher ein oder \u00fcberpr\u00fcfe die IP-Adresse"
+        },
+        "flow_title": "LG webOS Smart TV",
+        "step": {
+            "pairing": {
+                "description": "Dr\u00fccke auf **Senden** und akzeptiere die Kopplungsanfrage auf deinem Fernsehger\u00e4t.\n\n![Bild](/static/images/config_webos.png)",
+                "title": "webOS TV-Kopplung"
+            },
+            "reauth_confirm": {
+                "description": "Dr\u00fccke auf **Senden** und akzeptiere die Kopplungsanfrage auf deinem Fernsehger\u00e4t.\n\n![Bild](/static/images/config_webos.png)",
+                "title": "webOS TV-Kopplung"
+            },
+            "user": {
+                "data": {
+                    "host": "Host",
+                    "name": "Name"
+                },
+                "data_description": {
+                    "host": "Hostname oder IP-Adresse deines webOS TV."
+                },
+                "description": "Schalte den Fernseher ein, f\u00fclle die folgenden Felder aus und dr\u00fccke auf **Senden**",
+                "title": "Mit webOS TV verbinden"
+            }
+        }
+    },
+    "device_automation": {
+        "trigger_type": {
+            "webostv.turn_on": "Ger\u00e4t wird zum Einschalten aufgefordert"
+        }
+    },
+    "options": {
+        "error": {
+            "cannot_retrieve": "Die Liste der Quellen kann nicht abgerufen werden. Stelle sicher, dass das Ger\u00e4t eingeschaltet ist."
+        },
+        "step": {
+            "init": {
+                "data": {
+                    "sources": "Quellenliste"
+                },
+                "description": "Aktivierte Quellen ausw\u00e4hlen",
+                "title": "Optionen f\u00fcr webOS Smart TV"
+            }
+        }
+    },
+    "services": {
+        "button": {
+            "description": "Sendet einen Tastendruckbefehl.",
+            "fields": {
+                "button": {
+                    "description": "Name der zu dr\u00fcckenden Taste. Bekannte m\u00f6gliche Werte sind LEFT, RIGHT, DOWN, UP, HOME, MENU, BACK, ENTER, DASH, INFO, ASTERISK, CC, EXIT, MUTE, RED, GREEN, BLUE, YELLOW, VOLUMEUP, VOLUMEDOWN, CHANNELUP, CHANNELDOWN, PLAY, PAUSE, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9.",
+                    "name": "Button"
+                },
+                "entity_id": {
+                    "description": "Namen der Webostv-Entit\u00e4ten, in denen die API-Methode ausgef\u00fchrt werden soll.",
+                    "name": "Entit\u00e4t"
+                }
+            },
+            "name": "Button"
+        },
+        "command": {
+            "description": "Sendet einen Befehl.",
+            "fields": {
+                "command": {
+                    "description": "Endpunkt des Befehls.",
+                    "name": "Befehl"
+                },
+                "entity_id": {
+                    "description": "Namen der Webostv-Entit\u00e4ten, in denen die API-Methode ausgef\u00fchrt werden soll.",
+                    "name": "Entit\u00e4t"
+                },
+                "payload": {
+                    "description": "Eine optionale Nutzlast, die dem Endpunkt im Format von Schl\u00fcssel-Wert-Paaren zur Verf\u00fcgung gestellt wird.",
+                    "name": "Nutzlast"
+                }
+            },
+            "name": "Befehl"
+        },
+        "select_sound_output": {
+            "description": "Sendet dem Fernsehger\u00e4t den Befehl, die Tonausgabe zu \u00e4ndern.",
+            "fields": {
+                "entity_id": {
+                    "description": "Namen der webostv-Entit\u00e4ten, f\u00fcr die die Tonausgabe ge\u00e4ndert werden soll.",
+                    "name": "Entit\u00e4t"
+                },
+                "sound_output": {
+                    "description": "Name des Tonausgangs, auf den umgeschaltet werden soll.",
+                    "name": "Tonausgabe"
+                }
+            },
+            "name": "Tonausgabe ausw\u00e4hlen"
+        }
+    }
+}

@@ -1,0 +1,112 @@
+{
+    "device_automation": {
+        "action_type": {
+            "clean": "Lascia pulire {entity_name}",
+            "dock": "Lascia che {entity_name} ritorni alla base"
+        },
+        "condition_type": {
+            "is_cleaning": "{entity_name} sta pulendo",
+            "is_docked": "{entity_name} \u00e8 agganciato alla base"
+        },
+        "trigger_type": {
+            "cleaning": "{entity_name} ha iniziato la pulizia",
+            "docked": "{entity_name} agganciato"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Aspirapolvere",
+            "state": {
+                "cleaning": "In pulizia",
+                "docked": "Alla base",
+                "error": "Errore",
+                "idle": "Inattivo",
+                "off": "Spento/a",
+                "on": "Acceso/a",
+                "paused": "In pausa",
+                "returning": "Ritornando alla base"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_vacuum_base_class": {
+            "description": "L'integrazione personalizzata `{platform}` sta estendendo la classe di base deprecata `VacuumEntity` invece di `StateVacuumEntity`. \n\nSi prega di segnalarlo all'autore dell'integrazione personalizzata `{platform}`. \n\nUna volta che una versione aggiornata di \"{platform}\" \u00e8 disponibile, installala e riavvia Home Assistant per risolvere il problema.",
+            "title": "L'integrazione personalizzata {platform} utilizza la funzione aspirapolvere deprecata"
+        },
+        "deprecated_vacuum_base_class_url": {
+            "description": "L'integrazione personalizzata `{platform} ` sta estendendo la classe base deprecata `VacuumEntity` invece di `StateVacuumEntity`. \n\n Crea una segnalazione di bug su {issue_tracker}. \n\n Una volta disponibile una versione aggiornata di `{platform}`, installala e riavvia Home Assistant per risolvere questo problema.",
+            "title": "L'integrazione personalizzata {platform} utilizza la funzione aspirapolvere deprecata"
+        },
+        "platform_integration_no_support": {
+            "description": "La piattaforma {platform} per l'integrazione {domain} non supporta l'impostazione della piattaforma. \n\nRimuovilo dalla configurazione e riavvia Home Assistant per risolvere questo problema.",
+            "title": "Supporto della piattaforma non supportato"
+        }
+    },
+    "services": {
+        "clean_spot": {
+            "description": "Indica all'aspirapolvere di pulire un punto.",
+            "name": "Pulisci macchia"
+        },
+        "locate": {
+            "description": "Individua il robot aspirapolvere.",
+            "name": "Individua"
+        },
+        "pause": {
+            "description": "Sospende l'attivit\u00e0 di pulizia.",
+            "name": "Pausa"
+        },
+        "return_to_base": {
+            "description": "Indica all'aspirapolvere di tornare alla sua base.",
+            "name": "Ritorna alla base"
+        },
+        "send_command": {
+            "description": "Invia un comando all'aspirapolvere.",
+            "fields": {
+                "command": {
+                    "description": "Comando da eseguire. I comandi sono specifici dell'integrazione.",
+                    "name": "Comando"
+                },
+                "params": {
+                    "description": "Parametri per il comando. I parametri sono specifici dell'integrazione.",
+                    "name": "Parametri"
+                }
+            },
+            "name": "Invia comando"
+        },
+        "set_fan_speed": {
+            "description": "Imposta la velocit\u00e0 della ventola dell'aspirapolvere.",
+            "fields": {
+                "fan_speed": {
+                    "description": "Velocit\u00e0 della ventola. Il valore dipende dall'integrazione. Alcune integrazioni hanno passaggi di velocit\u00e0, come \"medio\". Alcuni usano una percentuale, tra 0 e 100.",
+                    "name": "Velocit\u00e0 della ventola"
+                }
+            },
+            "name": "Imposta la velocit\u00e0 della ventola"
+        },
+        "start": {
+            "description": "Avvia o riprende l'attivit\u00e0 di pulizia.",
+            "name": "Avvia"
+        },
+        "start_pause": {
+            "description": "Avvia, sospende o riprende l'attivit\u00e0 di pulizia.",
+            "name": "Avvio/pausa"
+        },
+        "stop": {
+            "description": "Interrompe l'attivit\u00e0 di pulizia corrente.",
+            "name": "Ferma"
+        },
+        "toggle": {
+            "description": "Accende/spegne l'aspirapolvere.",
+            "name": "Interruttore"
+        },
+        "turn_off": {
+            "description": "Interrompe l'attivit\u00e0 di pulizia corrente e torna alla sua base.",
+            "name": "Spegni"
+        },
+        "turn_on": {
+            "description": "Avvia una nuova attivit\u00e0 di pulizia.",
+            "name": "Accendi"
+        }
+    },
+    "title": "Aspirapolvere"
+}

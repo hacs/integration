@@ -1,0 +1,256 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Ger\u00e4t ist bereits konfiguriert",
+            "discovery_started": "Erkennung gestartet"
+        },
+        "error": {
+            "cannot_connect": "Verbindung fehlgeschlagen",
+            "cloud_user": "Ubiquiti Cloud-Benutzer werden nicht unterst\u00fctzt. Bitte verwende lokale Benutzer.",
+            "invalid_auth": "Ung\u00fcltige Authentifizierung",
+            "protect_version": "Die erforderliche Mindestversion ist v1.20.0. Bitte aktualisiere UniFi Protect und versuche es dann erneut."
+        },
+        "flow_title": "{name} ({ip_address})",
+        "step": {
+            "discovery_confirm": {
+                "data": {
+                    "password": "Passwort",
+                    "username": "Benutzername"
+                },
+                "description": "M\u00f6chtest du {name} ({ip_address}) einrichten? Du ben\u00f6tigst einen lokalen Benutzer, der in deiner UniFi OS-Konsole erstellt wurde, um dich anzumelden. Ubiquiti Cloud-Benutzer werden nicht funktionieren. Weitere Informationen: {local_user_documentation_url}",
+                "title": "UniFi Protect erkannt"
+            },
+            "reauth_confirm": {
+                "data": {
+                    "host": "IP/Host des UniFi Protect Servers",
+                    "password": "Passwort",
+                    "port": "Port",
+                    "username": "Benutzername"
+                },
+                "title": "UniFi Protect Reauthentifizierung"
+            },
+            "user": {
+                "data": {
+                    "host": "Host",
+                    "password": "Passwort",
+                    "port": "Port",
+                    "username": "Benutzername",
+                    "verify_ssl": "SSL-Zertifikat \u00fcberpr\u00fcfen"
+                },
+                "data_description": {
+                    "host": "Hostname oder IP-Adresse deines UniFi Protect-Ger\u00e4ts."
+                },
+                "description": "Du ben\u00f6tigst einen lokalen Benutzer, den du in deiner UniFi OS-Konsole angelegt hast, um sich damit anzumelden. Ubiquiti Cloud-Benutzer funktionieren nicht. F\u00fcr weitere Informationen: {local_user_documentation_url}",
+                "title": "UniFi Protect Einrichtung"
+            }
+        }
+    },
+    "entity": {
+        "event": {
+            "doorbell": {
+                "state_attributes": {
+                    "event_type": {
+                        "state": {
+                            "ring": "Ring"
+                        }
+                    }
+                }
+            }
+        },
+        "sensor": {
+            "license_plate": {
+                "state": {
+                    "none": "L\u00f6schen"
+                }
+            }
+        }
+    },
+    "issues": {
+        "cloud_user": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Ab dem 22. Juli 2024 verlangt Ubiquiti von allen Cloud-Benutzern, sich f\u00fcr die Multi-Faktor-Authentifizierung (MFA) anzumelden, die mit Home Assistant nicht kompatibel ist.\n\nEs w\u00e4re am besten, so bald wie m\u00f6glich auf die Verwendung eines [lokalen Benutzers]({learn_more}) umzusteigen, damit die Integration weiterhin funktioniert. \n\nDurch die Best\u00e4tigung dieser Reparatur wird ein erneuter Authentifizierungsvorgang zur Eingabe der erforderlichen Authentifizierungsdaten ausgel\u00f6st.",
+                        "title": "Ubiquiti Cloud-Benutzer werden nicht unterst\u00fctzt"
+                    }
+                }
+            },
+            "title": "Ubiquiti Cloud-Benutzer werden nicht unterst\u00fctzt"
+        },
+        "deprecate_hdr_switch": {
+            "description": "UniFi Protect v3 hat einen neuen Status f\u00fcr HDR (automatisch) hinzugef\u00fcgt. Aus diesem Grund wurde der HDR Mode Switch durch einen HDR Mode Select ersetzt und ist veraltet. \n\nNachfolgend sind die erkannten Automatisierungen oder Skripte aufgef\u00fchrt, die eine oder mehrere der veralteten Entit\u00e4ten verwenden:\n{items}\nDie obige Liste ist m\u00f6glicherweise unvollst\u00e4ndig und enth\u00e4lt keine Vorlagenverwendungen innerhalb von Dashboards. Bitte aktualisiere alle Vorlagen, Automatisierungen oder Skripte entsprechend.",
+            "title": "HDR-Modusschalter veraltet"
+        },
+        "deprecate_package_sensor": {
+            "description": "Der Paketereignissensor hat aufgrund der Art und Weise, wie Ereignisse in UniFi Protect gemeldet werden, nie ausgel\u00f6st. Daher ist der Sensor veraltet und wird entfernt. \n\nNachfolgend sind die erkannten Automatisierungen oder Skripte aufgef\u00fchrt, die eine oder mehrere der veralteten Entit\u00e4ten verwenden:\n{items}\nDie obige Liste ist m\u00f6glicherweise unvollst\u00e4ndig und enth\u00e4lt keine Vorlagenverwendungen innerhalb von Dashboards. Bitte aktualisiere alle Vorlagen, Automatisierungen oder Skripte entsprechend.",
+            "title": "Paketereignissensor veraltet"
+        },
+        "deprecate_smart_sensor": {
+            "description": "Der einheitliche Sensor \u201eErkanntes Objekt\u201c f\u00fcr intelligente Erkennungen ist jetzt veraltet. Er wurde durch individuelle Bin\u00e4rsensoren f\u00fcr jeden intelligenten Erkennungstyp ersetzt.\n\nIm Folgenden findest du die erkannten Automatisierungen oder Skripte, die eine oder mehrere der veralteten Entit\u00e4ten verwenden:\n{items}\nDie obige Liste ist m\u00f6glicherweise unvollst\u00e4ndig und enth\u00e4lt keine Vorlagen, die innerhalb von Dashboards verwendet werden. Bitte aktualisiere alle Vorlagen, Automatisierungen oder Skripte entsprechend.",
+            "title": "Smart Detection Sensor veraltet"
+        },
+        "deprecated_service_set_doorbell_message": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Der Dienst `unifiprotect.set_doorbell_message` wird zugunsten der neuen Entit\u00e4t Doorbell Text, die zu jedem Doorbell-Ger\u00e4t hinzugef\u00fcgt wird, verworfen. Er wird in v2023.3.0 entfernt. Bitte aktualisiere, um den [`text.set_value`-Dienst]({link}) zu verwenden.",
+                        "title": "set_doorbell_message ist veraltet"
+                    }
+                }
+            },
+            "title": "set_doorbell_message ist veraltet"
+        },
+        "ea_channel_warning": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "M\u00f6chtest du wirklich nicht unterst\u00fctzte Versionen von UniFi Protect ausf\u00fchren? Dies kann dazu f\u00fchren, dass deine Home Assistant-Integration nicht mehr funktioniert.",
+                        "title": "UniFi Protect Early Access aktiviert"
+                    },
+                    "start": {
+                        "description": "Du verwendest entweder eine Early Access-Version von UniFi Protect (v{version}) oder hast dich f\u00fcr einen Release-Kanal entschieden, der nicht der offizielle Release-Kanal ist. \n\nDa diese Early Access-Versionen m\u00f6glicherweise noch nicht getestet wurden, kann ihre Verwendung zu unerwartetem Verhalten der UniFi Protect-Integration f\u00fchren. [Lies mehr \u00fcber Early Access und Home Assistant]({learn_more}). \n\nSenden, um diese Nachricht zu verwerfen.",
+                        "title": "UniFi Protect Early Access aktiviert"
+                    }
+                }
+            },
+            "title": "UniFi Protect Early Access aktiviert"
+        },
+        "ea_setup_failed": {
+            "description": "Du verwendest v{version} von UniFi Protect, eine Early Access-Version. Beim Versuch, die Integration zu laden, ist ein nicht behebbarer Fehler aufgetreten. Bitte stelle ein Backup einer stabilen Version von UniFi Protect wieder her, um die Integration weiterhin nutzen zu k\u00f6nnen. \n\nFehler: {error}",
+            "title": "Einrichtungsfehler bei Verwendung der Early-Access Version"
+        },
+        "ea_warning": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "M\u00f6chtest du wirklich nicht unterst\u00fctzte Versionen von UniFi Protect ausf\u00fchren? Dies kann dazu f\u00fchren, dass deine Home Assistant-Integration nicht mehr funktioniert.",
+                        "title": "v{version} ist eine Early-Access Version"
+                    },
+                    "start": {
+                        "description": "Du verwendest v{version} von UniFi Protect, eine Early-Access-Version. [Early-Access-Versionen werden von Home Assistant nicht unterst\u00fctzt](https://www.home-assistant.io/integrations/unifiprotect#about-unifi-early-access) und es wird empfohlen, so bald wie m\u00f6glich zu einer stabilen Version zur\u00fcckzukehren. \n\nDurch das Absenden dieses Formulars hast du entweder [UniFi Protect heruntergestuft](https://www.home-assistant.io/integrations/unifiprotect#downgrading-unifi-protect) oder du stimmst zu, eine nicht unterst\u00fctzte Version von UniFi Protect auszuf\u00fchren.",
+                        "title": "v{version} ist eine Early-Access Version"
+                    }
+                }
+            },
+            "title": "UniFi Protect v{version} ist eine Early Access Version"
+        },
+        "rtsp_disabled_readonly": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Bist du sicher, dass du RTSPS f\u00fcr {camera} deaktiviert lassen m\u00f6chtest?",
+                        "title": "RTSPS ist auf der Kamera {camera} deaktiviert"
+                    },
+                    "start": {
+                        "description": "RTSPS ist auf der Kamera {camera} deaktiviert. RTSPS ist erforderlich, um deine Kamera in Home Assistant live streamen zu k\u00f6nnen. Wenn du RTSPS nicht aktivierst, kann dies zu einer zus\u00e4tzlichen Belastung deines UniFi Protect NVR f\u00fchren, da alle Live-Videoplayer standardm\u00e4\u00dfig schnell Schnappsch\u00fcsse von der Kamera abrufen. \n\nBitte [aktiviere RTSPS]({learn_more}) auf der Kamera und komme dann zur\u00fcck und best\u00e4tige diese Reparatur.",
+                        "title": "RTSPS ist auf der Kamera {camera} deaktiviert"
+                    }
+                }
+            },
+            "title": "RTSPS ist auf der Kamera {camera} deaktiviert"
+        },
+        "rtsp_disabled_writable": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Bist du sicher, dass du RTSPS f\u00fcr {camera} deaktiviert lassen m\u00f6chtest?",
+                        "title": "RTSPS ist auf der Kamera {camera} deaktiviert"
+                    },
+                    "start": {
+                        "description": "RTSPS ist auf der Kamera {camera} deaktiviert. RTSPS ist erforderlich, um deine Kamera in Home Assistant live zu streamen. Wenn du RTSPS nicht aktivierst, kann dies zu einer zus\u00e4tzlichen Belastung deines UniFi Protect NVR f\u00fchren, da alle Live-Videoplayer standardm\u00e4\u00dfig schnell Schnappsch\u00fcsse von der Kamera abrufen. \n\nDu kannst [RTSPS manuell aktivieren]({learn_more}) f\u00fcr den von dir ausgew\u00e4hlten Kanal in Kameraqualit\u00e4t aktivieren, oder Home Assistant kann automatisch den Kanal mit der h\u00f6chsten Qualit\u00e4t f\u00fcr dich aktivieren. Best\u00e4tige diese Reparatur, sobald du den RTSPS-Kanal aktiviert hast oder wenn du m\u00f6chtest, dass Home Assistant automatisch die h\u00f6chste Qualit\u00e4t aktiviert.",
+                        "title": "RTSPS ist auf der Kamera {camera} deaktiviert"
+                    }
+                }
+            },
+            "title": "RTSPS ist auf der Kamera {camera} deaktiviert"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "all_updates": "Echtzeitmetriken (WARNUNG: Erh\u00f6ht die CPU-Auslastung erheblich)",
+                    "allow_ea": "Early-Access-Versionen von Protect zulassen (WARNUNG: Markiert deine Integration als nicht unterst\u00fctzt)",
+                    "allow_ea_channel": "Early-Access-Versionen von Protect zulassen (WARNUNG: Markiert deine Integration als nicht unterst\u00fctzt)",
+                    "disable_rtsp": "RTSP Stream deaktivieren",
+                    "max_media": "Maximale Anzahl von Ereignissen, die f\u00fcr den Medienbrowser geladen werden (erh\u00f6ht die RAM-Nutzung)",
+                    "override_connection_host": "Verbindungshost \u00fcberschreiben"
+                },
+                "description": "Die Option Echtzeit-Metriken sollte nur aktiviert werden, wenn du die Diagnosesensoren aktiviert hast und diese in Echtzeit aktualisiert werden sollen. Wenn sie nicht aktiviert ist, werden sie nur einmal alle 15 Minuten aktualisiert.",
+                "title": "UniFi Protect Optionen"
+            }
+        }
+    },
+    "services": {
+        "add_doorbell_text": {
+            "description": "F\u00fcgt eine neue benutzerdefinierte Nachricht f\u00fcr T\u00fcrklingeln hinzu.",
+            "fields": {
+                "device_id": {
+                    "description": "Jedes Ger\u00e4t der UniFi Protect-Instanz, das du \u00e4ndern m\u00f6chtest. Falls du mehrere Protect-Instanzen hast.",
+                    "name": "UniFi Protect NVR"
+                },
+                "message": {
+                    "description": "Neue benutzerdefinierte Nachricht, die f\u00fcr T\u00fcrklingeln hinzugef\u00fcgt werden kann. Muss weniger als 30 Zeichen umfassen.",
+                    "name": "Benutzerdefinierte Nachricht"
+                }
+            },
+            "name": "Individuellen Klingeltext hinzuf\u00fcgen"
+        },
+        "remove_doorbell_text": {
+            "description": "Entfernt eine vorhandene Meldung f\u00fcr T\u00fcrklingeln.",
+            "fields": {
+                "device_id": {
+                    "description": "Jedes Ger\u00e4t der UniFi Protect-Instanz, das du \u00e4ndern m\u00f6chtest. Falls du mehrere Protect-Instanzen hast.",
+                    "name": "UniFi Protect NVR"
+                },
+                "message": {
+                    "description": "Vorhandene benutzerdefinierte Nachricht, die f\u00fcr T\u00fcrklingeln entfernt werden soll.",
+                    "name": "Benutzerdefinierte Nachricht"
+                }
+            },
+            "name": "Benutzerdefinierten T\u00fcrklingeltext entfernen"
+        },
+        "remove_privacy_zone": {
+            "description": "Dient zum Entfernen einer Sichtschutz-Zone von einer Kamera.",
+            "fields": {
+                "device_id": {
+                    "description": "Kamera, von der du die Sichtschutz-Zone entfernen m\u00f6chtest.",
+                    "name": "Kamera"
+                },
+                "name": {
+                    "description": "Der Name der zu entfernenden Zone.",
+                    "name": "Name der Sichtschutz-Zone"
+                }
+            },
+            "name": "Kamera, von der du die Sichtschutz-Zone entfernen m\u00f6chtest."
+        },
+        "set_chime_paired_doorbells": {
+            "description": "Verwende diese Funktion, um die gekoppelten T\u00fcrklingeln mit einem intelligenten Gong zu versehen.",
+            "fields": {
+                "device_id": {
+                    "description": "Die Gongs, der mit den T\u00fcrklingeln verbunden werden sollen.",
+                    "name": "Gong"
+                },
+                "doorbells": {
+                    "description": "Die T\u00fcrklingeln, die mit dem Gong verbunden werden sollen.",
+                    "name": "T\u00fcrklingeln"
+                }
+            },
+            "name": "Gong f\u00fcr gekoppelte T\u00fcrklingeln einstellen"
+        },
+        "set_default_doorbell_text": {
+            "description": "Legt die Standard-T\u00fcrklingelnachricht fest. Dies ist die Nachricht, die automatisch ausgew\u00e4hlt wird, wenn eine Nachricht \u201eabl\u00e4uft\u201c.",
+            "fields": {
+                "device_id": {
+                    "description": "Jedes Ger\u00e4t der UniFi Protect-Instanz, das du \u00e4ndern m\u00f6chtest. Falls du mehrere Protect-Instanzen hast.",
+                    "name": "UniFi Protect NVR"
+                },
+                "message": {
+                    "description": "Die Standardnachricht f\u00fcr deine T\u00fcrklingel. Sie muss weniger als 30 Zeichen umfassen.",
+                    "name": "Standardnachricht"
+                }
+            },
+            "name": "Standardtext f\u00fcr die T\u00fcrklingel festlegen"
+        }
+    }
+}

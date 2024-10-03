@@ -1,0 +1,141 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Apparaat is al geconfigureerd",
+            "no_devices_found": "Geen apparaten gevonden op het netwerk"
+        },
+        "error": {
+            "cannot_connect": "Kan geen verbinding maken"
+        },
+        "flow_title": "{model} {id} ({host})",
+        "step": {
+            "pick_device": {
+                "data": {
+                    "device": "Apparaat"
+                }
+            },
+            "user": {
+                "data": {
+                    "host": "Host"
+                },
+                "data_description": {
+                    "host": "Hostnaam of IP-adres van je YeeLight Wi-Fi lamp."
+                },
+                "description": "Als u host leeg laat, wordt detectie gebruikt om apparaten te vinden."
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "nightlight": {
+                "name": "Nachtlicht"
+            }
+        },
+        "light": {
+            "ambilight": {
+                "name": "Ambilight"
+            },
+            "nightlight": {
+                "name": "Nachtlicht"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "model": "Model",
+                    "nightlight_switch": "Gebruik Nachtlichtschakelaar",
+                    "save_on_change": "Bewaar status bij wijziging",
+                    "transition": "Overgangstijd (ms)",
+                    "use_music_mode": "Schakel de muziekmodus in"
+                }
+            }
+        }
+    },
+    "selector": {
+        "action": {
+            "options": {
+                "off": "Uit",
+                "recover": "Herstellen"
+            }
+        },
+        "mode": {
+            "options": {
+                "moonlight": "Maanlicht"
+            }
+        }
+    },
+    "services": {
+        "set_auto_delay_off_scene": {
+            "fields": {
+                "brightness": {
+                    "name": "Helderheid"
+                }
+            }
+        },
+        "set_color_scene": {
+            "fields": {
+                "brightness": {
+                    "name": "Helderheid"
+                },
+                "rgb_color": {
+                    "name": "RGB kleur"
+                }
+            }
+        },
+        "set_color_temp_scene": {
+            "fields": {
+                "brightness": {
+                    "name": "Helderheid"
+                },
+                "kelvin": {
+                    "name": "Kelvin"
+                }
+            }
+        },
+        "set_hsv_scene": {
+            "fields": {
+                "brightness": {
+                    "name": "Helderheid"
+                },
+                "hs_color": {
+                    "description": "Kleur voor het licht in hue/sat formaat. Hue is 0-359 en Sat is 0-100.",
+                    "name": "Hue/sat-kleur"
+                }
+            },
+            "name": "HSV sc\u00e8ne instellen"
+        },
+        "set_mode": {
+            "description": "Stel een bedieningsmodus in.",
+            "fields": {
+                "mode": {
+                    "description": "Bedrijfsmodus.",
+                    "name": "Modus"
+                }
+            },
+            "name": "Stel modus in"
+        },
+        "set_music_mode": {
+            "description": "Schakel muziek mode in of uit.",
+            "fields": {
+                "music_mode": {
+                    "description": "Gebruik true of false om muziek mode in of uit te schakelen.",
+                    "name": "Muziek modus"
+                }
+            },
+            "name": "Stel de muziekmodus in"
+        },
+        "start_flow": {
+            "fields": {
+                "action": {
+                    "name": "Actie"
+                },
+                "count": {
+                    "name": "Tellen"
+                }
+            },
+            "name": "Start flow"
+        }
+    }
+}

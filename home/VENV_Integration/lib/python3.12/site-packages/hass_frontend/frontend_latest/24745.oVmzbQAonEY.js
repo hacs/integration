@@ -1,0 +1,1 @@
+export const id=24745;export const ids=[24745];export const modules={24745:(o,e,r)=>{r.r(e),r.d(e,{DIRECTION_LEFT:()=>t.wc,DIRECTION_RIGHT:()=>t.Hy,Manager:()=>t.mS,Swipe:()=>t.Hp});var t=r(81625)}};

@@ -1,0 +1,63 @@
+{
+    "exceptions": {
+        "entity_not_dynamically_created": {
+            "message": "Sc\u00e9na {entity_id} nen\u00ed vytvo\u0159ena pomoc\u00ed akce \"scene.create\"."
+        },
+        "entity_not_scene": {
+            "message": "{entity_id} nen\u00ed platn\u00e9 entity_id sc\u00e9ny."
+        }
+    },
+    "services": {
+        "apply": {
+            "description": "Aktivuje sc\u00e9nu s nastaven\u00edm.",
+            "fields": {
+                "entities": {
+                    "description": "Seznam entit a jejich c\u00edlov\u00fd stav.",
+                    "name": "Stav entit"
+                },
+                "transition": {
+                    "description": "\u010cas, kter\u00fd za\u0159\u00edzen\u00ed trv\u00e1, ne\u017e p\u0159ejdou do stav\u016f definovan\u00fdch ve sc\u00e9n\u011b.",
+                    "name": "P\u0159echod"
+                }
+            },
+            "name": "Pou\u017e\u00edt"
+        },
+        "create": {
+            "description": "Vytvo\u0159\u00ed novou sc\u00e9nu.",
+            "fields": {
+                "entities": {
+                    "description": "Seznam entit a jejich c\u00edlov\u00fd stav. Pokud jsou va\u0161e entity ji\u017e nyn\u00ed v c\u00edlov\u00e9m stavu, pou\u017eijte m\u00edsto toho \"snapshot_entities\".",
+                    "name": "Stav entit"
+                },
+                "scene_id": {
+                    "description": "ID entity nov\u00e9 sc\u00e9ny.",
+                    "name": "ID entity sc\u00e9ny"
+                },
+                "snapshot_entities": {
+                    "description": "Seznam entit, kter\u00e9 maj\u00ed b\u00fdt zahrnuty do sn\u00edmku. Po\u0159\u00edzen\u00edm sn\u00edmku zaznamen\u00e1te aktu\u00e1ln\u00ed stav t\u011bchto entit. Pokud nechcete pro tuto sc\u00e9nu pou\u017e\u00edt aktu\u00e1ln\u00ed stav v\u0161ech va\u0161ich entit, m\u016f\u017eete zkombinovat \"snapshot_entities\" s \"entities\".",
+                    "name": "Entity sn\u00edmk\u016f"
+                }
+            },
+            "name": "Vytvo\u0159it"
+        },
+        "delete": {
+            "description": "Sma\u017ee dynamicky vytvo\u0159enou sc\u00e9nu.",
+            "name": "Smazat"
+        },
+        "reload": {
+            "description": "Znovu na\u010dte sc\u00e9ny z nastaven\u00ed YAML.",
+            "name": "Znovu na\u010d\u00edst"
+        },
+        "turn_on": {
+            "description": "Aktivuje sc\u00e9nu.",
+            "fields": {
+                "transition": {
+                    "description": "\u010cas, kter\u00fd za\u0159\u00edzen\u00ed trv\u00e1, ne\u017e p\u0159ejdou do stav\u016f definovan\u00fdch ve sc\u00e9n\u011b.",
+                    "name": "P\u0159echod"
+                }
+            },
+            "name": "Aktivovat"
+        }
+    },
+    "title": "Sc\u00e9na"
+}

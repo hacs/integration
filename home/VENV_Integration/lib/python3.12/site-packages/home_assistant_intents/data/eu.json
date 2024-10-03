@@ -1,0 +1,214 @@
+{
+  "language": "eu",
+  "intents": {
+    "HassTurnOff": {
+      "data": [
+        {
+          "sentences": [
+            "<itzali> <name> [argia[k]|etengailua[k]]",
+            "<name> [argia[k]|etengailua[k]] itzali",
+            "desaktibatu <name> [argia[k]|etengailua[k]]"
+          ],
+          "excludes_context": {
+            "domain": [
+              "cover",
+              "lock",
+              "scene",
+              "script"
+            ]
+          }
+        }
+      ]
+    },
+    "HassTurnOn": {
+      "data": [
+        {
+          "sentences": [
+            "<piztu> <name> [argia[k]|etengailua[k]]",
+            "<name> [argia[k]|etengailua[k]] piztu",
+            "aktibatu <name> [argia[k]|etengailua[k]]"
+          ],
+          "excludes_context": {
+            "domain": [
+              "cover",
+              "lock",
+              "scene",
+              "script"
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "responses": {
+    "errors": {
+      "no_intent": "Barkatu, ez dizut ulertu",
+      "no_area": "Ez dago {{ area }} izeneko gunerik",
+      "no_domain_in_area": "{{ area }} guneak ez dauka {{ domain }} moduko elementurik",
+      "no_device_class_in_area": "Ez dago {{ device_class }} motako elementurik {{ area }} gunean",
+      "no_entity": "Ez da {{ entity }} izeneko gailu edo entitaterik existitzen",
+      "handle_error": "Espero ez zen errore bat gertatu da agindua prozesatzean"
+    },
+    "intents": {
+      "HassGetState": {
+        "one": "TODO: {{ slots.name | capitalize }} is {{ state.state_with_unit }}\n",
+        "one_yesno": "TODO: {% if query.matched %}\n  Yes\n{% else %}\n  No, {{ state.state_with_unit }}\n{% endif %}\n",
+        "any": "TODO: {% if query.matched %}\n  {% set match = query.matched | map(attribute=\"name\") | sort | list %}\n  {% if match | length > 4 %}\n    Yes, {{ match[:3] | join(\", \") }} and {{ (match | length - 3) }} more\n  {%- else -%}\n    Yes,\n    {% for name in match -%}\n      {% if not loop.first and not loop.last %}, {% elif loop.last and not loop.first %} and {% endif -%}\n      {{ name }}\n    {%- endfor -%}\n  {% endif %}\n{% else %}\n  No\n{% endif %}\n",
+        "all": "TODO: {% if not query.unmatched: %}\n  Yes\n{% else %}\n  {% set no_match = query.unmatched | map(attribute=\"name\") | sort | list %}\n  {% if no_match | length > 4 %}\n    No, {{ no_match[:3] | join(\", \") }} and {{ (no_match | length - 3) }} more not\n  {%- else -%}\n    No,\n    {% for name in no_match -%}\n      {% if not loop.first and not loop.last %}, {% elif loop.last and not loop.first %} and {% endif -%}\n      {{ name }}\n    {%- endfor %} not\n  {% endif %}\n{% endif %}\n",
+        "which": "TODO: {% if not query.matched %}\n  Not any\n{% else: %}\n  {% set match = query.matched | map(attribute=\"name\") | sort | list %}\n  {% if match | length > 4 %}\n    {{ match[:3] | join(\", \") }} and {{ (match | length - 3) }} more\n  {% else %}\n    {%- for name in match -%}\n      {% if not loop.first and not loop.last %}, {% elif loop.last and not loop.first %} and {% endif -%}\n      {{ name }}\n    {%- endfor -%}\n  {% endif %}\n{% endif %}\n",
+        "how_many": "TODO: {{ query.matched | length }}\n"
+      },
+      "HassTurnOff": {
+        "default": "{{ slots.name }} itzalita",
+        "lights_area": "Argiak itzalita",
+        "fans_area": "Haizegailuak itzalita",
+        "cover": "Itxita",
+        "light_all": "Argi guztiak itzalita",
+        "fan_all": "Haizegailu guztiak itzalita",
+        "cover_device_class": "{{ slots.device_class }} itxita",
+        "lock": "Irekita"
+      },
+      "HassTurnOn": {
+        "default": "{{ slots.name }} piztuta",
+        "lights_area": "Argiak piztuta",
+        "fans_area": "Haizegailuak piztuta",
+        "cover": "Irekita",
+        "cover_device_class": "{{ slots.device_class }} irekita",
+        "scene": "Aktibatuta",
+        "script": "Hasita",
+        "lock": "Itxita"
+      },
+      "HassLightSet": {
+        "brightness": "TODO: Brightness set",
+        "color": "TODO: Color set"
+      },
+      "HassClimateGetTemperature": {
+        "default": "TODO: {{ state_attr(state.entity_id, 'current_temperature') }}"
+      }
+    }
+  },
+  "lists": {
+    "color": {
+      "values": [
+        {
+          "in": "zuria",
+          "out": "white"
+        },
+        {
+          "in": "beltza",
+          "out": "black"
+        },
+        {
+          "in": "gorria",
+          "out": "red"
+        },
+        {
+          "in": "laranja",
+          "out": "orange"
+        },
+        {
+          "in": "horia",
+          "out": "yellow"
+        },
+        {
+          "in": "berdea",
+          "out": "green"
+        },
+        {
+          "in": "urdina",
+          "out": "blue"
+        },
+        {
+          "in": "morea",
+          "out": "purple"
+        },
+        {
+          "in": "marroia",
+          "out": "brown"
+        }
+      ]
+    },
+    "brightness": {
+      "range": {
+        "type": "percentage",
+        "from": 0,
+        "to": 100
+      }
+    },
+    "temperature": {
+      "range": {
+        "type": "temperature",
+        "from": 0,
+        "to": 100
+      }
+    },
+    "temperature_unit": {
+      "values": [
+        "celsius",
+        {
+          "in": "c",
+          "out": "celsius"
+        },
+        {
+          "in": "zentigrado",
+          "out": "celsius"
+        },
+        "fahrenheit",
+        {
+          "in": "f",
+          "out": "fahrenheit"
+        }
+      ]
+    },
+    "brightness_level": {
+      "values": [
+        {
+          "in": "(maximoa|altuena|gorena)",
+          "out": 100
+        },
+        {
+          "in": "(minimoa|baxuena|txikiena)",
+          "out": 1
+        }
+      ]
+    },
+    "on_off_states": {
+      "values": [
+        {
+          "in": "piztu",
+          "out": "on"
+        },
+        {
+          "in": "itzali",
+          "out": "off"
+        }
+      ]
+    },
+    "on_off_domains": {
+      "values": [
+        {
+          "in": "argi(a)[k]|lanpara[k]",
+          "out": "light"
+        },
+        {
+          "in": "haizegailu(a)[k]",
+          "out": "fan"
+        },
+        {
+          "in": "etengailu(a)[k]",
+          "out": "switch"
+        }
+      ]
+    }
+  },
+  "expansion_rules": {
+    "name": "{name}[n]",
+    "area": "{area}[n]",
+    "piztu": "(piztu|aktibatu|gaitu)",
+    "itzali": "(itzali|desaktibatu|ezgaitu)"
+  },
+  "skip_words": [
+    "mesedez",
+    "eskerrik asko"
+  ]
+}

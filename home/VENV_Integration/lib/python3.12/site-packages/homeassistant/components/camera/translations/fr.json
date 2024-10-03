@@ -1,0 +1,104 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "Cam\u00e9ra",
+            "state": {
+                "idle": "Inactif",
+                "recording": "Enregistrement",
+                "streaming": "Diffusion en cours"
+            },
+            "state_attributes": {
+                "access_token": {
+                    "name": "Jeton d'acc\u00e8s"
+                },
+                "brand": {
+                    "name": "Marque"
+                },
+                "frontend_stream_type": {
+                    "name": "Type de flux",
+                    "state": {
+                        "hls": "HLS",
+                        "webrtc": "WebRTC"
+                    }
+                },
+                "model_name": {
+                    "name": "Mod\u00e8le"
+                },
+                "motion_detection": {
+                    "name": "D\u00e9tection de mouvement",
+                    "state": {
+                        "false": "D\u00e9sactiv\u00e9",
+                        "true": "Activ\u00e9"
+                    }
+                }
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "La plateforme {platform} pour l'int\u00e9gration {domain} ne prend pas en charge la configuration de la plateforme.\n\nVeuillez la supprimer de votre configuration et red\u00e9marrer Home Assistant pour r\u00e9soudre ce probl\u00e8me.",
+            "title": "Prise en charge de la plateforme non prise en charge"
+        }
+    },
+    "services": {
+        "disable_motion_detection": {
+            "description": "D\u00e9sactive la d\u00e9tection de mouvement.",
+            "name": "D\u00e9sactiver la d\u00e9tection de mouvement"
+        },
+        "enable_motion_detection": {
+            "description": "Active la d\u00e9tection de mouvement.",
+            "name": "Activer la d\u00e9tection de mouvement"
+        },
+        "play_stream": {
+            "description": "Lit le flux de la cam\u00e9ra sur un lecteur multim\u00e9dia pris en charge.",
+            "fields": {
+                "format": {
+                    "description": "Format de flux pris en charge par le lecteur multim\u00e9dia.",
+                    "name": "Format"
+                },
+                "media_player": {
+                    "description": "Lecteurs multim\u00e9dias vers lesquels diffuser.",
+                    "name": "Lecteur multim\u00e9dia"
+                }
+            },
+            "name": "Lire le flux"
+        },
+        "record": {
+            "description": "Cr\u00e9e un enregistrement d'un flux de cam\u00e9ra en direct.",
+            "fields": {
+                "duration": {
+                    "description": "Dur\u00e9e pr\u00e9vue de l'enregistrement. La dur\u00e9e r\u00e9elle peut varier.",
+                    "name": "Dur\u00e9e"
+                },
+                "filename": {
+                    "description": "Mod\u00e8le d'un nom de fichier. La variable disponible est `entity_id`. Doit \u00eatre en mp4.",
+                    "name": "Nom de fichier"
+                },
+                "lookback": {
+                    "description": "P\u00e9riode d'analyse planifi\u00e9e \u00e0 inclure dans l'enregistrement (en plus de la dur\u00e9e). Uniquement disponible s'il existe actuellement un flux HLS actif. La dur\u00e9e r\u00e9elle de la p\u00e9riode d'analyse peut varier.",
+                    "name": "Retour en arri\u00e8re"
+                }
+            },
+            "name": "Enregistrer"
+        },
+        "snapshot": {
+            "description": "Prend un instantan\u00e9 \u00e0 partir d'une cam\u00e9ra.",
+            "fields": {
+                "filename": {
+                    "description": "Mod\u00e8le d'un nom de fichier. La variable disponible est `entity_id`.",
+                    "name": "Nom de fichier"
+                }
+            },
+            "name": "Prendre un instantan\u00e9"
+        },
+        "turn_off": {
+            "description": "\u00c9teint la cam\u00e9ra.",
+            "name": "\u00c9teindre"
+        },
+        "turn_on": {
+            "description": "Allume la cam\u00e9ra.",
+            "name": "Allumer"
+        }
+    },
+    "title": "Cam\u00e9ra"
+}

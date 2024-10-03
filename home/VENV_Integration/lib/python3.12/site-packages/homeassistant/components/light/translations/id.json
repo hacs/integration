@@ -1,0 +1,393 @@
+{
+    "common": {
+        "field_brightness_description": "Angka yang mengindikasikan kecerahan penuh, nilai 0 berarti mematikan lampu, nilai 1 berarti kecerahan minimum, dan nilai 255 berarti kecerahan maksimum.",
+        "field_brightness_name": "Nilai kecerahan",
+        "field_brightness_pct_description": "Angka yang mengindikasikan persentase kecerahan penuh, nilai 0 berarti mematikan lampu, nilai 1 berarti kecerahan minimum, dan nilai 100 berarti kecerahan maksimum.",
+        "field_brightness_pct_name": "Kecerahan",
+        "field_brightness_step_description": "Ubah kecerahan dengan jumlah tertentu.",
+        "field_brightness_step_name": "Nilai langkah kecerahan",
+        "field_brightness_step_pct_description": "Ubah kecerahan berdasarkan persentase.",
+        "field_brightness_step_pct_name": "Langkah kecerahan",
+        "field_color_name_description": "Nama warna yang dapat dibaca manusia.",
+        "field_color_name_name": "Nama warna",
+        "field_color_temp_description": "Suhu warna dalam mireds.",
+        "field_color_temp_name": "Suhu warna",
+        "field_effect_description": "Efek lampu",
+        "field_effect_name": "Efek",
+        "field_flash_description": "Perintahkan lampu untuk berkedip, dapat berupa nilai pendek atau panjang.",
+        "field_flash_name": "Flash",
+        "field_hs_color_description": "Warna dalam format rona/saturasi yaitu dua bilangan bulat. Rona bernilai 0-360 dan Saturasi bernilai 0-100.",
+        "field_hs_color_name": "Warna rona/saturasi",
+        "field_kelvin_description": "Temperatur warna dalam Kelvin.",
+        "field_kelvin_name": "Suhu warna",
+        "field_profile_description": "Nama profil cahaya yang akan digunakan.",
+        "field_profile_name": "Profil",
+        "field_rgb_color_description": "Warna dalam format RGB yaitu tiga bilangan bulat bernilai antara 0 dan 255 yang mewakili nilai merah, hijau, dan biru.",
+        "field_rgb_color_name": "Warna",
+        "field_rgbw_color_description": "Warna dalam format RGBW yaitu empat bilangan bulat bernilai antara 0 dan 255 yang mewakili nilai merah, hijau, biru, dan putih.",
+        "field_rgbw_color_name": "Warna RGBW",
+        "field_rgbww_color_description": "Warna dalam format RGBWW yaitu lima bilangan bulat bernilai antara 0 dan 255 yang mewakili nilai merah, hijau, biru, putih dingin, dan putih hangat.",
+        "field_rgbww_color_name": "Warna RGBWW",
+        "field_transition_description": "Durasi yang diperlukan untuk mencapai status berikutnya.",
+        "field_transition_name": "Transisi",
+        "field_white_description": "Atur mode lampu ke putih.",
+        "field_white_name": "Putih",
+        "field_xy_color_description": "Warna dalam format XY. Daftar dua angka desimal antara 0 dan 1.",
+        "field_xy_color_name": "Warna XY",
+        "section_advanced_fields_name": "Opsi tingkat lanjut"
+    },
+    "device_automation": {
+        "action_type": {
+            "brightness_decrease": "Kurangi kecerahan {entity_name}",
+            "brightness_increase": "Tingkatkan kecerahan {entity_name}",
+            "flash": "Lampu kilat {entity_name}",
+            "toggle": "Nyala/matikan {entity_name}",
+            "turn_off": "Matikan {entity_name}",
+            "turn_on": "Nyalakan {entity_name}"
+        },
+        "condition_type": {
+            "is_off": "{entity_name} mati",
+            "is_on": "{entity_name} nyala"
+        },
+        "extra_fields": {
+            "brightness_pct": "Kecerahan",
+            "flash": "Flash"
+        },
+        "trigger_type": {
+            "changed_states": "{entity_name} dinyalakan atau dimatikan",
+            "turned_off": "{entity_name} dimatikan",
+            "turned_on": "{entity_name} dinyalakan"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Lampu",
+            "state": {
+                "off": "Mati",
+                "on": "Nyala"
+            },
+            "state_attributes": {
+                "brightness": {
+                    "name": "Kecerahan"
+                },
+                "color_mode": {
+                    "name": "Mode warna",
+                    "state": {
+                        "brightness": "Hanya kecerahan",
+                        "color_temp": "Temperatur warna",
+                        "hs": "HS",
+                        "onoff": "Nyala/Mati",
+                        "rgb": "RGB",
+                        "rgbw": "RGBW",
+                        "rgbww": "RGBWW",
+                        "unknown": "Tidak dikenal",
+                        "white": "Putih",
+                        "xy": "XY"
+                    }
+                },
+                "color_temp": {
+                    "name": "Suhu warna (mired)"
+                },
+                "color_temp_kelvin": {
+                    "name": "Suhu warna (Kelvin)"
+                },
+                "effect": {
+                    "name": "Efek"
+                },
+                "effect_list": {
+                    "name": "Efek yang tersedia"
+                },
+                "max_color_temp_kelvin": {
+                    "name": "Suhu warna maksimum (Kelvin)"
+                },
+                "max_mireds": {
+                    "name": "Suhu warna maksimum (mired)"
+                },
+                "min_color_temp_kelvin": {
+                    "name": "Suhu warna minimum (Kelvin)"
+                },
+                "min_mireds": {
+                    "name": "Suhu warna minimum (mired)"
+                },
+                "supported_color_modes": {
+                    "name": "Mode warna tersedia",
+                    "state": {
+                        "brightness": "Hanya kecerahan",
+                        "color_temp": "Temperatur warna",
+                        "hs": "HS",
+                        "onoff": "Nyala/Mati",
+                        "rgb": "RGB",
+                        "rgbw": "RGBW",
+                        "rgbww": "RGBWW",
+                        "unknown": "Tidak dikenal",
+                        "white": "Putih",
+                        "xy": "XY"
+                    }
+                }
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "Platform {platform} untuk integrasi {domain} tidak mendukung penyiapan platform. \n\nHarap hapus dari konfigurasi Anda dan mulai ulang Home Assistant untuk memperbaiki masalah ini.",
+            "title": "Dukungan platform tidak didukung"
+        }
+    },
+    "selector": {
+        "color_name": {
+            "options": {
+                "aliceblue": "Biru alice",
+                "antiquewhite": "Putih antik",
+                "aqua": "Aqua",
+                "aquamarine": "Aquamarine",
+                "azure": "Azure",
+                "beige": "Krem",
+                "bisque": "Bisque",
+                "blanchedalmond": "Almond pucat",
+                "blue": "Biru",
+                "blueviolet": "Biru ungu",
+                "brown": "Coklat",
+                "firebrick": "Merah bata",
+                "floralwhite": "Putih bunga",
+                "forestgreen": "Hijau hutan",
+                "fuchsia": "Fuchsia",
+                "gainsboro": "Gainsboro",
+                "gold": "Emas",
+                "goldenrod": "Merah emas",
+                "gray": "Abu-abu",
+                "green": "Hijau",
+                "greenyellow": "Hijau kuning",
+                "grey": "Abu-abu",
+                "homeassistant": "Home Assistant",
+                "hotpink": "Merah muda cerah",
+                "indianred": "Merah India",
+                "indigo": "Nila",
+                "ivory": "Gading",
+                "khaki": "Khaki",
+                "lavender": "Lavender",
+                "lawngreen": "Hijau rumput",
+                "lightblue": "Biru muda",
+                "lightcyan": "Sian muda",
+                "lightgoldenrodyellow": "Kuning keemasan muda",
+                "lightgray": "Abu-abu muda",
+                "lightgreen": "Hijau muda",
+                "lightgrey": "Abu-abu muda",
+                "lightpink": "Merah muda terang",
+                "lightseagreen": "Hijau laut muda",
+                "magenta": "Magenta",
+                "maroon": "Merah tua",
+                "moccasin": "Moccasin",
+                "navajowhite": "Putih Navajo",
+                "navy": "Angkatan laut",
+                "navyblue": "Biru dongker",
+                "olive": "Zaitun",
+                "orange": "Jingga",
+                "orangered": "Oranye merah",
+                "orchid": "Anggrek",
+                "palegoldenrod": "Merah emas pucat",
+                "palegreen": "Hijau pucat",
+                "paleturquoise": "Pirus pucat",
+                "palevioletred": "Merah ungu pucat",
+                "peru": "Peru",
+                "pink": "Merah Jambu",
+                "plum": "Plum",
+                "purple": "Ungu",
+                "red": "Merah",
+                "rosybrown": "Coklat kemerahan",
+                "royalblue": "Biru dongker",
+                "saddlebrown": "Coklat pelana",
+                "salmon": "Salmon",
+                "sandybrown": "Coklat pasir",
+                "seagreen": "Hijau laut",
+                "seashell": "Kerang laut",
+                "sienna": "Sienna",
+                "silver": "Perak",
+                "skyblue": "Biru langit",
+                "slateblue": "Biru batu",
+                "slategray": "Abu-abu batu",
+                "snow": "Salju",
+                "springgreen": "Hijau musim semi",
+                "steelblue": "Biru baja",
+                "teal": "Teal",
+                "tomato": "Tomat",
+                "violet": "Ungu",
+                "wheat": "Gandum",
+                "white": "Putih",
+                "whitesmoke": "Putih asap",
+                "yellow": "Kuning",
+                "yellowgreen": "Kuning hijau"
+            }
+        }
+    },
+    "services": {
+        "toggle": {
+            "description": "Alihkan satu atau beberapa lampu, dari hidup ke mati, atau, mati ke hidup, berdasarkan kondisinya saat ini.",
+            "fields": {
+                "brightness": {
+                    "description": "Angka yang mengindikasikan kecerahan penuh, nilai 0 berarti mematikan lampu, nilai 1 berarti kecerahan minimum, dan nilai 255 berarti kecerahan maksimum.",
+                    "name": "Nilai kecerahan"
+                },
+                "brightness_pct": {
+                    "description": "Angka yang mengindikasikan persentase kecerahan penuh, nilai 0 berarti mematikan lampu, nilai 1 berarti kecerahan minimum, dan nilai 100 berarti kecerahan maksimum.",
+                    "name": "Kecerahan"
+                },
+                "color_name": {
+                    "description": "Nama warna yang dapat dibaca manusia.",
+                    "name": "Nama warna"
+                },
+                "color_temp": {
+                    "description": "Suhu warna dalam mireds.",
+                    "name": "Suhu warna"
+                },
+                "effect": {
+                    "description": "Efek lampu",
+                    "name": "Efek"
+                },
+                "flash": {
+                    "description": "Perintahkan lampu untuk berkedip, dapat berupa nilai pendek atau panjang.",
+                    "name": "Flash"
+                },
+                "hs_color": {
+                    "description": "Warna dalam format rona/saturasi yaitu dua bilangan bulat. Rona bernilai 0-360 dan Saturasi bernilai 0-100.",
+                    "name": "Warna rona/saturasi"
+                },
+                "kelvin": {
+                    "description": "Temperatur warna dalam Kelvin.",
+                    "name": "Suhu warna"
+                },
+                "profile": {
+                    "description": "Nama profil cahaya yang akan digunakan.",
+                    "name": "Profil"
+                },
+                "rgb_color": {
+                    "description": "Warna dalam format RGB yaitu tiga bilangan bulat bernilai antara 0 dan 255 yang mewakili nilai merah, hijau, dan biru.",
+                    "name": "Warna"
+                },
+                "rgbw_color": {
+                    "description": "Warna dalam format RGBW yaitu empat bilangan bulat bernilai antara 0 dan 255 yang mewakili nilai merah, hijau, biru, dan putih.",
+                    "name": "Warna RGBW"
+                },
+                "rgbww_color": {
+                    "description": "Warna dalam format RGBWW yaitu lima bilangan bulat bernilai antara 0 dan 255 yang mewakili nilai merah, hijau, biru, putih dingin, dan putih hangat.",
+                    "name": "Warna RGBWW"
+                },
+                "transition": {
+                    "description": "Durasi yang diperlukan untuk mencapai status berikutnya.",
+                    "name": "Transisi"
+                },
+                "white": {
+                    "description": "Atur mode lampu ke putih.",
+                    "name": "Putih"
+                },
+                "xy_color": {
+                    "description": "Warna dalam format XY. Daftar dua angka desimal antara 0 dan 1.",
+                    "name": "Warna XY"
+                }
+            },
+            "name": "Alihkan",
+            "sections": {
+                "advanced_fields": {
+                    "name": "Opsi tingkat lanjut"
+                }
+            }
+        },
+        "turn_off": {
+            "description": "Matikan satu atau beberapa lampu.",
+            "fields": {
+                "flash": {
+                    "description": "Perintahkan lampu untuk berkedip, dapat berupa nilai pendek atau panjang.",
+                    "name": "Flash"
+                },
+                "transition": {
+                    "description": "Durasi yang diperlukan untuk mencapai status berikutnya.",
+                    "name": "Transisi"
+                }
+            },
+            "name": "Matikan",
+            "sections": {
+                "advanced_fields": {
+                    "name": "Opsi tingkat lanjut"
+                }
+            }
+        },
+        "turn_on": {
+            "description": "Nyalakan satu atau beberapa lampu dan sesuaikan properti cahaya, bahkan apabila lampu sudah dinyalakan.",
+            "fields": {
+                "brightness": {
+                    "description": "Angka yang mengindikasikan kecerahan penuh, nilai 0 berarti mematikan lampu, nilai 1 berarti kecerahan minimum, dan nilai 255 berarti kecerahan maksimum.",
+                    "name": "Nilai kecerahan"
+                },
+                "brightness_pct": {
+                    "description": "Angka yang mengindikasikan persentase kecerahan penuh, nilai 0 berarti mematikan lampu, nilai 1 berarti kecerahan minimum, dan nilai 100 berarti kecerahan maksimum.",
+                    "name": "Kecerahan"
+                },
+                "brightness_step": {
+                    "description": "Ubah kecerahan dengan jumlah tertentu.",
+                    "name": "Nilai langkah kecerahan"
+                },
+                "brightness_step_pct": {
+                    "description": "Ubah kecerahan berdasarkan persentase.",
+                    "name": "Langkah kecerahan"
+                },
+                "color_name": {
+                    "description": "Nama warna yang dapat dibaca manusia.",
+                    "name": "Nama warna"
+                },
+                "color_temp": {
+                    "description": "Suhu warna dalam mireds.",
+                    "name": "Suhu warna"
+                },
+                "effect": {
+                    "description": "Efek lampu",
+                    "name": "Efek"
+                },
+                "flash": {
+                    "description": "Perintahkan lampu untuk berkedip, dapat berupa nilai pendek atau panjang.",
+                    "name": "Flash"
+                },
+                "hs_color": {
+                    "description": "Warna dalam format rona/saturasi yaitu dua bilangan bulat. Rona bernilai 0-360 dan Saturasi bernilai 0-100.",
+                    "name": "Warna rona/saturasi"
+                },
+                "kelvin": {
+                    "description": "Temperatur warna dalam Kelvin.",
+                    "name": "Suhu warna"
+                },
+                "profile": {
+                    "description": "Nama profil cahaya yang akan digunakan.",
+                    "name": "Profil"
+                },
+                "rgb_color": {
+                    "description": "Warna dalam format RGB yaitu tiga bilangan bulat bernilai antara 0 dan 255 yang mewakili nilai merah, hijau, dan biru.",
+                    "name": "Warna"
+                },
+                "rgbw_color": {
+                    "name": "Warna RGBW"
+                },
+                "rgbww_color": {
+                    "description": "Warna dalam format RGBWW yaitu lima bilangan bulat bernilai antara 0 dan 255 yang mewakili nilai merah, hijau, biru, putih dingin, dan putih hangat.",
+                    "name": "Warna RGBWW"
+                },
+                "transition": {
+                    "description": "Durasi yang diperlukan untuk mencapai status berikutnya.",
+                    "name": "Transisi"
+                },
+                "white": {
+                    "description": "Atur mode lampu ke putih.",
+                    "name": "Putih"
+                },
+                "xy_color": {
+                    "description": "Warna dalam format XY. Daftar dua angka desimal antara 0 dan 1.",
+                    "name": "Warna XY"
+                }
+            },
+            "name": "Nyalakan",
+            "sections": {
+                "advanced_fields": {
+                    "name": "Opsi tingkat lanjut"
+                }
+            }
+        }
+    },
+    "title": "Lampu"
+}

@@ -1,0 +1,191 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Device is already configured"
+        },
+        "error": {
+            "cannot_connect": "Failed to connect",
+            "invalid_access_token": "Invalid access token",
+            "invalid_auth": "Invalid authentication",
+            "unknown": "Unexpected error"
+        },
+        "step": {
+            "2fa": {
+                "data": {
+                    "2fa": "Two-factor code"
+                },
+                "description": "Enter the PIN sent via email or SMS",
+                "title": "Two-factor authentication"
+            },
+            "user": {
+                "data": {
+                    "password": "Password",
+                    "username": "Username"
+                },
+                "title": "Sign-in with Blink account"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "camera_armed": {
+                "name": "Camera armed"
+            }
+        },
+        "sensor": {
+            "wifi_rssi": {
+                "name": "Wi-Fi RSSI"
+            },
+            "wifi_strength": {
+                "name": "Wi-Fi signal strength"
+            }
+        },
+        "switch": {
+            "camera_motion": {
+                "name": "Camera motion detection"
+            }
+        }
+    },
+    "exceptions": {
+        "cant_write": {
+            "message": "Can't write to file."
+        },
+        "device_not_found": {
+            "message": "Device '{target}' not found in device registry"
+        },
+        "failed_arm": {
+            "message": "Blink failed to arm camera."
+        },
+        "failed_arm_motion": {
+            "message": "Blink failed to arm camera motion detection."
+        },
+        "failed_clip": {
+            "message": "Blink failed to record a clip."
+        },
+        "failed_disarm": {
+            "message": "Blink failed to disarm camera."
+        },
+        "failed_disarm_motion": {
+            "message": "Blink failed to disarm camera motion detection."
+        },
+        "failed_snap": {
+            "message": "Blink failed to snap a picture."
+        },
+        "integration_not_found": {
+            "message": "Integration \"{target}\" not found in registry."
+        },
+        "invalid_device": {
+            "message": "Device '{target}' is not a {domain} device"
+        },
+        "no_path": {
+            "message": "Can't write to directory {target}, no access to path!"
+        },
+        "not_loaded": {
+            "message": "{target} is not loaded."
+        }
+    },
+    "issues": {
+        "service_deprecation": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Blink update service is deprecated and will be removed.\nPlease update your automations and scripts to use `Home Assistant Core Integration: Update entity`.",
+                        "title": "Blink update service is being removed"
+                    }
+                }
+            },
+            "title": "Blink update service is being removed"
+        }
+    },
+    "options": {
+        "step": {
+            "simple_options": {
+                "data": {
+                    "scan_interval": "Scan Interval (seconds)"
+                },
+                "description": "Configure Blink integration",
+                "title": "Blink options"
+            }
+        }
+    },
+    "services": {
+        "blink_update": {
+            "description": "Forces a refresh.",
+            "fields": {
+                "device_id": {
+                    "description": "The Blink device id.",
+                    "name": "Device ID"
+                }
+            },
+            "name": "Update"
+        },
+        "record": {
+            "description": "Requests camera to record a clip.",
+            "name": "Record"
+        },
+        "save_recent_clips": {
+            "description": "Saves all recent video clips to local directory with file pattern \"%Y%m%d_%H%M%S_[camera name].mp4\".",
+            "fields": {
+                "device_id": {
+                    "description": "The Blink device id.",
+                    "name": "Device ID"
+                },
+                "file_path": {
+                    "description": "Directory name of writable path (directory may need to be included in allowlist_external_dirs in config).",
+                    "name": "Output directory"
+                },
+                "name": {
+                    "description": "Name of camera to grab recent clips from.",
+                    "name": "Name"
+                }
+            },
+            "name": "Save recent clips"
+        },
+        "save_video": {
+            "description": "Saves last recorded video clip to local file.",
+            "fields": {
+                "device_id": {
+                    "description": "The Blink device id.",
+                    "name": "Device ID"
+                },
+                "filename": {
+                    "description": "Filename to writable path (directory may need to be included in allowlist_external_dirs in config).",
+                    "name": "File name"
+                },
+                "name": {
+                    "description": "Name of camera to grab video from.",
+                    "name": "Name"
+                }
+            },
+            "name": "Save video"
+        },
+        "send_pin": {
+            "description": "Sends a new PIN to blink for 2FA.",
+            "fields": {
+                "config_entry_id": {
+                    "description": "The Blink Integration id.",
+                    "name": "Integration ID"
+                },
+                "device_id": {
+                    "description": "The Blink device id.",
+                    "name": "Device ID"
+                },
+                "pin": {
+                    "description": "PIN received from blink. Leave empty if you only received a verification email.",
+                    "name": "Pin"
+                }
+            },
+            "name": "Send pin"
+        },
+        "trigger_camera": {
+            "description": "Requests camera to take new image.",
+            "fields": {
+                "device_id": {
+                    "description": "The Blink device id.",
+                    "name": "Device ID"
+                }
+            },
+            "name": "Trigger camera"
+        }
+    }
+}

@@ -1,0 +1,175 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "\u8bbe\u5907\u5df2\u914d\u7f6e",
+            "cannot_connect": "\u8fde\u63a5\u5931\u8d25",
+            "cct_unsupported": "\u6b64 WLED \u8bbe\u5907\u4f7f\u7528 CCT \u901a\u9053\uff0c\u6b64\u96c6\u6210\u4e0d\u652f\u6301"
+        },
+        "error": {
+            "cannot_connect": "\u8fde\u63a5\u5931\u8d25"
+        },
+        "flow_title": "{name}",
+        "step": {
+            "user": {
+                "data": {
+                    "host": "\u4e3b\u673a"
+                },
+                "data_description": {
+                    "host": "\u60a8\u7684 WLED \u8bbe\u5907\u7684\u4e3b\u673a\u540d\u6216 IP \u5730\u5740\u3002"
+                },
+                "description": "\u8bbe\u7f6e\u60a8\u7684 WLED \u4e0e Home Assistant \u96c6\u6210\u3002"
+            },
+            "zeroconf_confirm": {
+                "description": "\u60a8\u60f3\u6dfb\u52a0\u540d\u4e3a\u201c{name}\u201d\u7684 WLED \u5230 Home Assistant \u5417 \uff1f",
+                "title": "\u5df2\u53d1\u73b0 WLED \u5668\u4ef6"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "firmware": {
+                "name": "\u56fa\u4ef6"
+            }
+        },
+        "light": {
+            "main": {
+                "name": "\u4e3b\u8981"
+            },
+            "segment": {
+                "name": "\u533a\u6bb5 {segment}"
+            }
+        },
+        "number": {
+            "intensity": {
+                "name": "\u5f3a\u5ea6"
+            },
+            "segment_intensity": {
+                "name": "\u533a\u6bb5 {segment} \u5f3a\u5ea6"
+            },
+            "segment_speed": {
+                "name": "\u533a\u6bb5 {segment} \u901f\u5ea6"
+            },
+            "speed": {
+                "name": "\u901f\u5ea6"
+            }
+        },
+        "select": {
+            "color_palette": {
+                "name": "\u8c03\u8272\u677f"
+            },
+            "live_override": {
+                "name": "\u5b9e\u65f6\u8986\u76d6",
+                "state": {
+                    "0": "\u5173\u95ed",
+                    "1": "\u5f00\u542f",
+                    "2": "\u76f4\u5230\u8bbe\u5907\u91cd\u542f"
+                }
+            },
+            "playlist": {
+                "name": "\u64ad\u653e\u5217\u8868"
+            },
+            "preset": {
+                "name": "\u9884\u8bbe"
+            },
+            "segment_color_palette": {
+                "name": "\u533a\u6bb5 {segment} \u8c03\u8272\u677f"
+            }
+        },
+        "sensor": {
+            "estimated_current": {
+                "name": "\u4f30\u8ba1\u7535\u6d41"
+            },
+            "free_heap": {
+                "name": "\u53ef\u7528\u5185\u5b58"
+            },
+            "info_leds_count": {
+                "name": "LED \u6570\u91cf"
+            },
+            "info_leds_max_power": {
+                "name": "\u6700\u5927\u7535\u6d41"
+            },
+            "ip": {
+                "name": "IP"
+            },
+            "uptime": {
+                "name": "\u6b63\u5e38\u8fd0\u884c\u65f6\u95f4"
+            },
+            "wifi_bssid": {
+                "name": "\u65e0\u7ebf BSSID"
+            },
+            "wifi_channel": {
+                "name": "\u65e0\u7ebf\u4fe1\u9053"
+            },
+            "wifi_rssi": {
+                "name": "\u65e0\u7ebf RSSI"
+            },
+            "wifi_signal": {
+                "name": "\u65e0\u7ebf\u4fe1\u53f7"
+            }
+        },
+        "switch": {
+            "nightlight": {
+                "name": "\u591c\u706f"
+            },
+            "reverse": {
+                "name": "\u53cd\u8f6c"
+            },
+            "segment_reverse": {
+                "name": "\u533a\u6bb5 {segment} \u53cd\u8f6c"
+            },
+            "sync_receive": {
+                "name": "\u540c\u6b65\u63a5\u6536"
+            },
+            "sync_send": {
+                "name": "\u540c\u6b65\u53d1\u9001"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "keep_master_light": "\u4fdd\u6301\u4e3b\u706f\u5149\uff0c\u5373\u4f7f\u53ea\u6709 1 \u4e2a LED \u533a\u6bb5\u3002"
+                }
+            }
+        }
+    },
+    "services": {
+        "effect": {
+            "description": "\u63a7\u5236 WLED \u7684\u6548\u679c\u8bbe\u7f6e\u3002",
+            "fields": {
+                "effect": {
+                    "description": "WLED \u706f\u6548\u7684\u540d\u79f0\u6216\u6807\u8bc6\u7b26\u3002",
+                    "name": "\u6548\u679c"
+                },
+                "intensity": {
+                    "description": "\u6548\u679c\u7684\u5f3a\u5ea6\u3002 0 \u5230 255 \u4e4b\u95f4\u7684\u6570\u503c\u3002",
+                    "name": "\u6548\u679c\u5f3a\u5ea6"
+                },
+                "palette": {
+                    "description": "WLED \u706f\u5149\u8c03\u8272\u677f\u7684\u540d\u79f0\u6216\u6807\u8bc6\u7b26\u3002",
+                    "name": "\u8c03\u8272\u677f"
+                },
+                "reverse": {
+                    "description": "\u53cd\u8f6c\u6548\u679c\u3002\u771f\u4e3a\u53cd\u8f6c\uff0c\u5426\u76f8\u53cd\u3002",
+                    "name": "\u53cd\u5411\u6548\u679c"
+                },
+                "speed": {
+                    "description": "\u6548\u679c\u7684\u901f\u5ea6\u3002",
+                    "name": "\u6548\u679c\u901f\u5ea6"
+                }
+            },
+            "name": "\u8bbe\u7f6e\u6548\u679c"
+        },
+        "preset": {
+            "description": "\u8bbe\u7f6e WLED \u8bbe\u5907\u7684\u9884\u8bbe\u3002",
+            "fields": {
+                "preset": {
+                    "description": "WLED \u9884\u8bbe\u7684\u6807\u8bc6\u7b26\u3002",
+                    "name": "\u9884\u8bbe\u6807\u8bc6\u7b26"
+                }
+            },
+            "name": "\u8bbe\u7f6e\u9884\u8bbe\uff08\u5df2\u5f03\u7528\uff09"
+        }
+    }
+}

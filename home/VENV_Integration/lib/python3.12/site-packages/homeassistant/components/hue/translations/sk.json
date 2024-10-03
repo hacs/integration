@@ -1,0 +1,185 @@
+{
+    "config": {
+        "abort": {
+            "all_configured": "V\u0161etky Philips Hue bridge u\u017e boli nakonfigurovan\u00e9",
+            "already_configured": "Zariadenie u\u017e je nakonfigurovan\u00e9",
+            "already_in_progress": "Konfigur\u00e1cia u\u017e prebieha",
+            "cannot_connect": "Nepodarilo sa pripoji\u0165",
+            "discover_timeout": "Nie je mo\u017en\u00e9 zisti\u0165 bridge Hue",
+            "invalid_host": "Neplatn\u00fd n\u00e1zov hostite\u013ea alebo IP adresa",
+            "no_bridges": "Neboli objaven\u00fd \u017eiaden Philips Hue bridge",
+            "not_hue_bridge": "Nie je to most Hue Bridge",
+            "unknown": "Neo\u010dak\u00e1van\u00e1 chyba"
+        },
+        "error": {
+            "linking": "Neo\u010dak\u00e1van\u00e1 chyba",
+            "register_failed": "Registr\u00e1cia zlyhala, pros\u00edm, sk\u00faste znova"
+        },
+        "step": {
+            "init": {
+                "data": {
+                    "host": "Hostite\u013e"
+                },
+                "data_description": {
+                    "host": "N\u00e1zov hostite\u013ea alebo IP adresa most\u00edka Hue."
+                },
+                "title": "Vyberte Hue bridge"
+            },
+            "link": {
+                "description": "Pre registr\u00e1ciu Philips Hue s Home Assistant stla\u010dte tla\u010didlo na Philips Hue bridge.\n\n![Poz\u00edcia tla\u010didla na bridge](/static/images/config_philips_hue.jpg)",
+                "title": "Link Hub"
+            },
+            "manual": {
+                "data": {
+                    "host": "Hostite\u013e"
+                },
+                "data_description": {
+                    "host": "N\u00e1zov hostite\u013ea alebo IP adresa most\u00edka Hue."
+                },
+                "title": "Manu\u00e1lna konfigur\u00e1cia bridge Hue"
+            }
+        }
+    },
+    "device_automation": {
+        "trigger_subtype": {
+            "1": "Prv\u00e9 tla\u010didlo",
+            "2": "Druh\u00e9 tla\u010didlo",
+            "3": "Tretie tla\u010didlo",
+            "4": "\u0160tvrt\u00e9 tla\u010didlo",
+            "button_1": "Prv\u00e9 tla\u010didlo",
+            "button_2": "Druh\u00e9 tla\u010didlo",
+            "button_3": "Tretie tla\u010didlo",
+            "button_4": "\u0160tvrt\u00e9 tla\u010didlo",
+            "clock_wise": "Ot\u00e1\u010danie v smere hodinov\u00fdch ru\u010di\u010diek",
+            "counter_clock_wise": "Ot\u00e1\u010danie proti smeru hodinov\u00fdch ru\u010di\u010diek",
+            "dim_down": "Stlmi\u0165",
+            "dim_up": "Zv\u00fd\u0161i\u0165",
+            "double_buttons_1_3": "Prv\u00e9 a tretie tla\u010didlo",
+            "double_buttons_2_4": "Druh\u00e9 a \u0161tvrt\u00e9 tla\u010didlo",
+            "turn_off": "Vypn\u00fa\u0165",
+            "turn_on": "Zapn\u00fa\u0165"
+        },
+        "trigger_type": {
+            "double_short_release": "Obe \"{subtype}\" boli uvo\u013enen\u00e9",
+            "initial_press": "\"{subtype}\" stla\u010den\u00fd na za\u010diatku",
+            "long_release": "\"{subtype}\" uvo\u013enen\u00e9 po dlhom stla\u010den\u00ed",
+            "remote_button_long_release": "\"{subtype}\" uvo\u013enen\u00e9 po dlhom stla\u010den\u00ed",
+            "remote_button_short_press": "\"{subtype}\" stla\u010den\u00e9",
+            "remote_button_short_release": "\"{subtype}\" uvo\u013enen\u00e9",
+            "remote_double_button_long_press": "Obe \"{subtype}\" uvo\u013enen\u00e9 po dlhom stla\u010den\u00ed",
+            "remote_double_button_short_press": "Obe \"{subtype}\" boli uvo\u013enen\u00e9",
+            "repeat": "\"{subtype}\" podr\u017ean\u00e9",
+            "short_release": "\"{subtype}\" uvo\u013enen\u00e9 po kr\u00e1tkom stla\u010den\u00ed",
+            "start": "\"{subtype}\" stla\u010den\u00fd na za\u010diatku"
+        }
+    },
+    "entity": {
+        "event": {
+            "button": {
+                "name": "Tla\u010didlo {button_id}",
+                "state_attributes": {
+                    "event_type": {
+                        "state": {
+                            "double_short_release": "Dvojit\u00e9 stla\u010denie",
+                            "initial_press": "Po\u010diato\u010dn\u00e9 stla\u010denie",
+                            "long_press": "Dlh\u00e9 stla\u010denie",
+                            "long_release": "Dlh\u00e9 uvo\u013enenie",
+                            "repeat": "Opakova\u0165",
+                            "short_release": "Kr\u00e1tke stla\u010denie"
+                        }
+                    }
+                }
+            },
+            "rotary": {
+                "name": "Rota\u010dn\u00fd",
+                "state_attributes": {
+                    "event_type": {
+                        "state": {
+                            "clock_wise": "V smere hodinov\u00fdch ru\u010di\u010diek",
+                            "counter_clock_wise": "Proti smeru hodinov\u00fdch ru\u010di\u010diek"
+                        }
+                    }
+                }
+            }
+        },
+        "sensor": {
+            "zigbee_connectivity": {
+                "name": "Zigbee pripojenie",
+                "state": {
+                    "connected": "Pripojen\u00fd",
+                    "connectivity_issue": "Probl\u00e9m s pripojen\u00edm",
+                    "disconnected": "Odpojen\u00fd",
+                    "unidirectional_incoming": "Jednosmern\u00fd prich\u00e1dzaj\u00faci"
+                }
+            }
+        },
+        "switch": {
+            "automation": {
+                "state": {
+                    "off": "Zak\u00e1zan\u00e9",
+                    "on": "Povolen\u00e9"
+                }
+            },
+            "light_sensor_enabled": {
+                "name": "Sveteln\u00fd senzor aktivovan\u00fd"
+            },
+            "motion_sensor_enabled": {
+                "name": "Aktivovan\u00fd pohybov\u00fd senzor"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "allow_hue_groups": "Povoli\u0165 skupiny Hue",
+                    "allow_hue_scenes": "Povoli\u0165 sc\u00e9ny Hue",
+                    "allow_unreachable": "Umo\u017enite nedostupn\u00fdm \u017eiarovk\u00e1m spr\u00e1vne hl\u00e1si\u0165 svoj stav",
+                    "ignore_availability": "Ignorova\u0165 stav pripojenia pre dan\u00e9 zariadenia"
+                }
+            }
+        }
+    },
+    "services": {
+        "activate_scene": {
+            "description": "Aktivuje sc\u00e9nu Hue s v\u00e4\u010d\u0161ou kontrolou nad mo\u017enos\u0165ami.",
+            "fields": {
+                "brightness": {
+                    "description": "Nastavenie jasu sc\u00e9ny.",
+                    "name": "Jas"
+                },
+                "dynamic": {
+                    "description": "Povolenie dynamick\u00e9ho re\u017eimu sc\u00e9ny.",
+                    "name": "Dynamick\u00fd"
+                },
+                "speed": {
+                    "description": "R\u00fdchlos\u0165 dynamickej palety pre t\u00fato sc\u00e9nu.",
+                    "name": "R\u00fdchlos\u0165"
+                },
+                "transition": {
+                    "description": "Trvanie prechodu, ktor\u00e9 je potrebn\u00e9 na uvedenie zariaden\u00ed do stavu definovan\u00e9ho v sc\u00e9ne.",
+                    "name": "Prechod"
+                }
+            },
+            "name": "Aktiv\u00e1cia sc\u00e9ny Hue"
+        },
+        "hue_activate_scene": {
+            "description": "Aktivuje sc\u00e9nu odtie\u0148ov ulo\u017een\u00fa v centre odtie\u0148ov.",
+            "fields": {
+                "dynamic": {
+                    "description": "Povolenie dynamick\u00e9ho re\u017eimu sc\u00e9ny (len pre mosty V2 a podporovan\u00e9 sc\u00e9ny).",
+                    "name": "Dynamick\u00fd"
+                },
+                "group_name": {
+                    "description": "N\u00e1zov skupiny odtie\u0148ov/miestnosti z aplik\u00e1cie hue.",
+                    "name": "Skupina"
+                },
+                "scene_name": {
+                    "description": "N\u00e1zov hue sc\u00e9ny z aplik\u00e1cie hue.",
+                    "name": "Sc\u00e9na"
+                }
+            },
+            "name": "Aktivova\u0165 sc\u00e9nu"
+        }
+    }
+}

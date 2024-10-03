@@ -1,0 +1,164 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Akun sudah dikonfigurasi",
+            "reauth_successful": "Autentikasi ulang berhasil",
+            "reauth_wrong_account": "You can only reauthenticate this entry with the same Overkiz account and hub"
+        },
+        "error": {
+            "cannot_connect": "Gagal terhubung",
+            "certificate_verify_failed": "Tidak dapat tersambung ke host, verifikasi sertifikat gagal.",
+            "developer_mode_disabled": "Mode Pengembang dinonaktifkan. Aktifkan Mode Pengembang pada kotak Somfy TaHoma Anda terlebih dahulu.",
+            "invalid_auth": "Autentikasi tidak valid",
+            "no_such_token": "Tidak dapat membuat token untuk gateway ini. Konfirmasikan apakah akun telah ditautkan ke gateway ini.",
+            "server_in_maintenance": "Server sedang dalam masa pemeliharaan",
+            "too_many_attempts": "Terlalu banyak percobaan dengan token yang tidak valid, untuk sementara diblokir",
+            "too_many_requests": "Terlalu banyak permintaan, coba lagi nanti.",
+            "unknown": "Kesalahan tak terduga",
+            "unsupported_hardware": "Perangkat keras {unsupported_device} Anda tidak didukung oleh integrasi ini."
+        },
+        "flow_title": "Gateway: {gateway_id}",
+        "step": {
+            "cloud": {
+                "data": {
+                    "password": "Kata Sandi",
+                    "username": "Nama Pengguna"
+                },
+                "description": "Masukkan kredensial aplikasi Anda."
+            },
+            "local": {
+                "data": {
+                    "host": "Host",
+                    "password": "Kata Sandi",
+                    "username": "Nama Pengguna",
+                    "verify_ssl": "Verifikasi sertifikat SSL"
+                },
+                "description": "Dengan mengaktifkan [Mode Pengembang pada kotak TaHoma Anda] (https://github.com/Somfy-Developer/Somfy-TaHoma-Developer-Mode#getting-started), Anda dapat mengotorisasi perangkat lunak pihak ketiga (seperti Home Assistant) untuk menyambungkannya melalui jaringan lokal Anda. \n\n Setelah aktivasi, masukkan kredensial aplikasi Anda dan ubah host untuk menyertakan pin gateway Anda atau masukkan alamat IP gateway Anda."
+            },
+            "local_or_cloud": {
+                "data": {
+                    "api_type": "Jenis API"
+                },
+                "description": "Pilih antara API lokal atau cloud. API lokal mendukung TaHoma Connexoon, TaHoma v2, dan TaHoma Switch. Perangkat dan skenario AC tidak didukung dalam API lokal."
+            },
+            "user": {
+                "data": {
+                    "host": "Host",
+                    "hub": "Server",
+                    "password": "Kata Sandi",
+                    "username": "Nama Pengguna"
+                },
+                "description": "Pilih server Anda. Platform Overkiz digunakan oleh berbagai vendor seperti Somfy (Connexoon/TaHoma), Hitachi (Hi Kumo), dan Atlantic (Cozytouch)."
+            }
+        }
+    },
+    "entity": {
+        "climate": {
+            "overkiz": {
+                "state_attributes": {
+                    "fan_mode": {
+                        "state": {
+                            "away": "Keluar",
+                            "bypass_boost": "Lewati kencang",
+                            "home_boost": "Kencang rumah",
+                            "kitchen_boost": "Kencang dapur"
+                        }
+                    },
+                    "preset_mode": {
+                        "state": {
+                            "auto": "Otomatis",
+                            "comfort-1": "Nyaman 1",
+                            "comfort-2": "Nyaman 2",
+                            "drying": "Mengeringkan",
+                            "external": "Eksternal",
+                            "freeze": "Beku",
+                            "frost_protection": "Perlindungan beku",
+                            "manual": "Manual",
+                            "night": "Malam",
+                            "prog": "Prog"
+                        }
+                    }
+                }
+            }
+        },
+        "select": {
+            "memorized_simple_volume": {
+                "state": {
+                    "highest": "Tertinggi",
+                    "standard": "Standar"
+                }
+            },
+            "open_closed_partial": {
+                "state": {
+                    "closed": "Tertutup",
+                    "open": "Terbuka",
+                    "partial": "Parsial"
+                }
+            },
+            "open_closed_pedestrian": {
+                "state": {
+                    "closed": "Tertutup",
+                    "open": "Terbuka",
+                    "pedestrian": "Pejalan Kaki"
+                }
+            }
+        },
+        "sensor": {
+            "battery": {
+                "state": {
+                    "full": "Penuh",
+                    "low": "Rendah",
+                    "medium": "Medium",
+                    "normal": "Normal",
+                    "verylow": "Sangat rendah"
+                }
+            },
+            "discrete_rssi_level": {
+                "state": {
+                    "good": "Bagus",
+                    "low": "Rendah",
+                    "normal": "Normal",
+                    "verylow": "Sangat rendah"
+                }
+            },
+            "priority_lock_originator": {
+                "state": {
+                    "external_gateway": "Gateway eksternal",
+                    "local_user": "Pengguna lokal",
+                    "lsc": "LSC",
+                    "myself": "Saya sendiri",
+                    "rain": "Hujan",
+                    "saac": "SAAC",
+                    "security": "Keamanan",
+                    "sfc": "SFC",
+                    "temperature": "Suhu",
+                    "timer": "Timer",
+                    "ups": "UPS",
+                    "user": "Pengguna",
+                    "wind": "Angin"
+                }
+            },
+            "sensor_defect": {
+                "state": {
+                    "dead": "Mati",
+                    "low_battery": "Baterai lemah",
+                    "maintenance_required": "Diperlukan perawatan",
+                    "no_defect": "Tidak ada cacat"
+                }
+            },
+            "sensor_room": {
+                "state": {
+                    "clean": "Bersih",
+                    "dirty": "Kotor"
+                }
+            },
+            "three_way_handle_direction": {
+                "state": {
+                    "closed": "Tertutup",
+                    "open": "Terbuka",
+                    "tilt": "Miring"
+                }
+            }
+        }
+    }
+}

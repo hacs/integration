@@ -1,0 +1,86 @@
+{
+    "device_automation": {
+        "action_type": {
+            "select_first": "Pakeiskite {entity_name} \u012f pirm\u0105j\u0105 parinkt\u012f",
+            "select_last": "Pakeiskite {entity_name} \u012f paskutin\u0119 parinkt\u012f",
+            "select_next": "Pakeiskite {entity_name} \u012f kit\u0105 parinkt\u012f",
+            "select_option": "Pakeiskite {entity_name} parinkt\u012f",
+            "select_previous": "Pakeiskite {entity_name} \u012f ankstesn\u0119 parinkt\u012f"
+        },
+        "condition_type": {
+            "selected_option": "Dabartin\u0117 pasirinkta parinktis {entity_name}"
+        },
+        "extra_fields": {
+            "cycle": "Ciklas",
+            "for": "Trukm\u0117",
+            "from": "I\u0161",
+            "option": "Parinktis",
+            "to": "\u012e"
+        },
+        "trigger_type": {
+            "current_option_changed": "{entity_name} parinktis pakeista"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Pasirinkite",
+            "state_attributes": {
+                "options": {
+                    "name": "Parinktys"
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "not_valid_option": {
+            "message": "Parinktis {option} negalioja subjektui {entity_id} , galiojan\u010dios parinktys yra: {options} ."
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "{platform} platforma, skirta {domain} integravimui, nepalaiko platformos s\u0105rankos. \n\n Pa\u0161alinkite j\u012f i\u0161 konfig\u016bracijos ir i\u0161 naujo paleiskite \u201eHome Assistant\u201c, kad i\u0161spr\u0119stum\u0117te \u0161i\u0105 problem\u0105.",
+            "title": "Platformos palaikymas nepalaikomas"
+        }
+    },
+    "services": {
+        "select_first": {
+            "description": "Pasirenkama pirmoji parinktis.",
+            "name": "Pirmas"
+        },
+        "select_last": {
+            "description": "Pasirenkama paskutin\u0117 parinktis.",
+            "name": "Paskutinis"
+        },
+        "select_next": {
+            "description": "Pasirenka kit\u0105 parinkt\u012f.",
+            "fields": {
+                "cycle": {
+                    "description": "Jei parinktis tur\u0117t\u0173 pereiti nuo paskutin\u0117s iki pirmosios.",
+                    "name": "Ciklas"
+                }
+            },
+            "name": "Kitas"
+        },
+        "select_option": {
+            "description": "Pasirenka parinkt\u012f.",
+            "fields": {
+                "option": {
+                    "description": "Galimyb\u0117 pasirinkti.",
+                    "name": "Parinktis"
+                }
+            },
+            "name": "Pasirinkite"
+        },
+        "select_previous": {
+            "description": "Pasirenkama ankstesn\u0117 parinktis.",
+            "fields": {
+                "cycle": {
+                    "description": "Jei parinktis tur\u0117t\u0173 pereiti nuo pirmos iki paskutin\u0117s.",
+                    "name": "Ciklas"
+                }
+            },
+            "name": "Ankstesnis"
+        }
+    },
+    "title": "Pasirinkite"
+}

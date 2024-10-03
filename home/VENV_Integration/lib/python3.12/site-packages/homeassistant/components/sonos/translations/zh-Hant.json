@@ -1,0 +1,198 @@
+{
+    "config": {
+        "abort": {
+            "no_devices_found": "\u7db2\u8def\u4e0a\u627e\u4e0d\u5230\u88dd\u7f6e",
+            "not_sonos_device": "\u6240\u767c\u73fe\u7684\u88dd\u7f6e\u4e26\u975e Sonos \u88dd\u7f6e",
+            "single_instance_allowed": "\u5df2\u7d93\u8a2d\u5b9a\u5b8c\u6210\u3001\u50c5\u80fd\u8a2d\u5b9a\u4e00\u7d44\u88dd\u7f6e\u3002"
+        },
+        "step": {
+            "confirm": {
+                "description": "\u662f\u5426\u8981\u8a2d\u5b9a Sonos\uff1f"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "microphone": {
+                "name": "\u9ea5\u514b\u98a8"
+            }
+        },
+        "number": {
+            "audio_delay": {
+                "name": "\u97f3\u8a0a\u5ef6\u9072"
+            },
+            "balance": {
+                "name": "\u5e73\u8861"
+            },
+            "bass": {
+                "name": "\u4f4e\u97f3"
+            },
+            "music_surround_level": {
+                "name": "\u97f3\u6a02\u74b0\u7e5e\u7b49\u7d1a"
+            },
+            "sub_crossover": {
+                "name": "\u4f4e\u97f3\u5206\u97f3\u5668\u983b\u7387"
+            },
+            "sub_gain": {
+                "name": "\u6b21\u589e\u76ca"
+            },
+            "surround_level": {
+                "name": "\u74b0\u7e5e\u7b49\u7d1a"
+            },
+            "treble": {
+                "name": "\u9ad8\u97f3"
+            }
+        },
+        "sensor": {
+            "audio_input_format": {
+                "name": "\u97f3\u6548\u8f38\u5165\u683c\u5f0f"
+            }
+        },
+        "switch": {
+            "buttons_enabled": {
+                "name": "\u89f8\u63a7\u63a7\u5236"
+            },
+            "cross_fade": {
+                "name": "Crossfade"
+            },
+            "dialog_level": {
+                "name": "\u8a9e\u97f3\u589e\u5f37"
+            },
+            "loudness": {
+                "name": "\u97ff\u5ea6"
+            },
+            "night_mode": {
+                "name": "\u591c\u9593\u97f3\u6548"
+            },
+            "status_light": {
+                "name": "\u72c0\u614b\u71c8"
+            },
+            "sub_enabled": {
+                "name": "\u4f4e\u97f3\u63da\u8072\u5668\u5df2\u958b\u555f"
+            },
+            "surround_enabled": {
+                "name": "\u74b0\u7e5e\u97f3\u6548\u5df2\u958b\u555f"
+            },
+            "surround_mode": {
+                "name": "\u74b0\u7e5e\u97f3\u6a02\u5168\u97f3\u91cf"
+            }
+        }
+    },
+    "exceptions": {
+        "announce_media_error": {
+            "message": "\u516c\u544a\u526a\u8f2f {media_id} \u5931\u6557 {response}"
+        },
+        "invalid_content_type": {
+            "message": "Sonos \u4e0d\u652f\u63f4\u5a92\u9ad4\u5167\u5bb9\u985e\u578b\uff1a{media_type}"
+        },
+        "invalid_favorite": {
+            "message": "\u627e\u4e0d\u5230 Sonos \u6700\u611b\uff1a {name}"
+        },
+        "invalid_media": {
+            "message": "\u7121\u6cd5\u65bc\u8cc7\u6599\u5eab\u4e2d\u627e\u5230\u5a92\u9ad4\uff1a {media_id}"
+        },
+        "invalid_sonos_playlist": {
+            "message": "\u627e\u4e0d\u5230 Sonos \u64ad\u653e\u5217\u8868\uff1a {name}"
+        }
+    },
+    "issues": {
+        "subscriptions_failed": {
+            "description": "\u56de\u9000\u5230Falling back to polling, \u529f\u80fd\u53ef\u80fd\u53d7\u5230\u9650\u5236\u3002\n\n\u4f4d\u65bc {device_ip} \u7684 Sonos \u88dd\u7f6e\u7121\u6cd5\u9023\u7dda\u81f3\u4f4d\u65bc {listener_address} \u7684 Home Assistant\u3002\n\n\u8acb\u53c3\u95b1 [\u6587\u4ef6]({sub_fail_url}) \u4ee5\u7372\u5f97\u5982\u4f55\u89e3\u6c7a\u6b64\u554f\u984c\u7684\u66f4\u8a73\u7d30\u8cc7\u8a0a\u3002",
+            "title": "\u7db2\u8def\u932f\u8aa4\uff1a\u8a02\u95b1\u5931\u6557"
+        }
+    },
+    "services": {
+        "clear_sleep_timer": {
+            "description": "\u6e05\u9664 Sonos \u8a08\u6642\u5668\u3002",
+            "name": "\u6e05\u9664\u8a08\u6642\u5668"
+        },
+        "get_queue": {
+            "description": "\u56de\u5230\u4f47\u5217\u5167\u5bb9\u3002",
+            "name": "\u53d6\u5f97\u4f47\u5217"
+        },
+        "play_queue": {
+            "description": "\u5f9e\u4f47\u5217\u7684\u7b2c\u4e00\u500b\u9805\u76ee\u958b\u59cb\u64ad\u653e\u3002",
+            "fields": {
+                "queue_position": {
+                    "description": "\u4f47\u5217\u4e2d\u958b\u59cb\u64ad\u653e\u6b4c\u66f2\u7684\u4f4d\u7f6e\u3002",
+                    "name": "\u4f47\u5217\u4f4d\u7f6e"
+                }
+            },
+            "name": "\u64ad\u653e\u4f47\u5217\u3002"
+        },
+        "remove_from_queue": {
+            "description": "\u7531\u4f47\u5217\u4e2d\u522a\u9664\u9805\u76ee\u3002",
+            "fields": {
+                "queue_position": {
+                    "description": "\u4f47\u5217\u4e2d\u6240\u8981\u522a\u9664\u7684\u4f4d\u7f6e\u3002",
+                    "name": "\u4f47\u5217\u4f4d\u7f6e"
+                }
+            },
+            "name": "\u7531\u4f47\u5217\u4e2d\u522a\u9664"
+        },
+        "restore": {
+            "description": "\u56de\u5fa9\u5a92\u9ad4\u64ad\u653e\u5668\u8a2d\u5b9a\u5099\u4efd\u3002",
+            "fields": {
+                "entity_id": {
+                    "description": "\u6240\u8981\u9032\u884c\u56de\u5fa9\u7684\u5be6\u9ad4\u540d\u7a31\u3002",
+                    "name": "\u5be6\u9ad4"
+                },
+                "with_group": {
+                    "description": "True \u6216 False\u3002\u540c\u6642\u9032\u884c\u7fa4\u7d44\u4f48\u5c40\u7684\u7cfb\u7d71\u56de\u5fa9\u3002",
+                    "name": "\u8ddf\u96a8\u7fa4\u7d44"
+                }
+            },
+            "name": "\u56de\u5fa9"
+        },
+        "set_sleep_timer": {
+            "description": "\u8a2d\u5b9a Sonos \u8a08\u6642\u5668\u3002",
+            "fields": {
+                "sleep_time": {
+                    "description": "\u8a2d\u5b9a\u8a08\u6642\u5668\u79d2\u6578\u3002",
+                    "name": "\u7761\u7720\u6642\u9593"
+                }
+            },
+            "name": "\u8a2d\u5b9a\u8a08\u6642\u5668"
+        },
+        "snapshot": {
+            "description": "\u9032\u884c\u5a92\u9ad4\u64ad\u653e\u5668\u8a2d\u5b9a\u5099\u4efd\u3002",
+            "fields": {
+                "entity_id": {
+                    "description": "\u6240\u8981\u9032\u884c\u5099\u4efd\u7684\u5be6\u9ad4\u540d\u7a31\u3002",
+                    "name": "\u5be6\u9ad4"
+                },
+                "with_group": {
+                    "description": "True \u6216 False\u3002\u540c\u6642\u9032\u884c\u7fa4\u7d44\u4f48\u5c40\u7684\u7cfb\u7d71\u5099\u4efd\u3002",
+                    "name": "\u8ddf\u96a8\u7fa4\u7d44"
+                }
+            },
+            "name": "\u7cfb\u7d71\u5099\u4efd"
+        },
+        "update_alarm": {
+            "description": "\u66f4\u65b0\u9b27\u9418\u65b0\u6642\u9593\u8207\u97f3\u91cf\u8a2d\u5b9a\u3002",
+            "fields": {
+                "alarm_id": {
+                    "description": "\u6240\u8981\u66f4\u65b0\u7684\u9b27\u9418 ID\u3002",
+                    "name": "\u9b27\u9418 ID"
+                },
+                "enabled": {
+                    "description": "\u958b\u555f\u6216\u95dc\u9589\u9b27\u9418\u3002",
+                    "name": "\u9b27\u9418\u5df2\u958b\u555f"
+                },
+                "include_linked_zones": {
+                    "description": "\u958b\u555f\u6216\u95dc\u9589\u5305\u542b\u7fa4\u7d44\u623f\u9593\u3002",
+                    "name": "\u5305\u542b\u6240\u9023\u7d50\u7684\u5206\u5340"
+                },
+                "time": {
+                    "description": "\u8a2d\u5b9a\u9b27\u9418\u6642\u9593\u3002",
+                    "name": "\u6642\u9593"
+                },
+                "volume": {
+                    "description": "\u8a2d\u5b9a\u9b27\u9418\u97f3\u91cf\u7b49\u7d1a",
+                    "name": "\u97f3\u91cf"
+                }
+            },
+            "name": "\u66f4\u65b0\u9b27\u9418"
+        }
+    }
+}

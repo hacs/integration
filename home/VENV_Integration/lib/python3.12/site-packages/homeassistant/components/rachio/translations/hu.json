@@ -1,0 +1,116 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Az eszk\u00f6z m\u00e1r konfigur\u00e1lva van"
+        },
+        "error": {
+            "cannot_connect": "Sikertelen csatlakoz\u00e1s",
+            "invalid_auth": "\u00c9rv\u00e9nytelen hiteles\u00edt\u00e9s",
+            "unknown": "V\u00e1ratlan hiba"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "api_key": "API kulcs"
+                },
+                "description": "Sz\u00fcks\u00e9ge lesz az API kulcsra, amelyet a https://app.rach.io/ oldalon tal\u00e1l. L\u00e9pjen a Be\u00e1ll\u00edt\u00e1sok men\u00fcpontra, majd v\u00e1lassza a 'GET API KEY' lehet\u0151s\u00e9get.",
+                "title": "Csatlakozzon a Rachio k\u00e9sz\u00fcl\u00e9khez"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "rain": {
+                "name": "Es\u0151"
+            }
+        },
+        "calendar": {
+            "calendar": {
+                "name": "Rachio b\u00e1zis\u00e1llom\u00e1s {base}"
+            }
+        },
+        "switch": {
+            "rain_delay": {
+                "name": "Es\u0151z\u00e9si k\u00e9sleltet\u00e9s"
+            },
+            "standby": {
+                "name": "K\u00e9szenl\u00e9tben"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "manual_run_mins": "Z\u00f3nakapcsol\u00f3 aktiv\u00e1l\u00e1sakor futtatand\u00f3 id\u0151tartam percben"
+                }
+            }
+        }
+    },
+    "services": {
+        "pause_watering": {
+            "description": "A jelenleg fut\u00f3 z\u00f3n\u00e1k vagy \u00fctemez\u00e9sek sz\u00fcneteltet\u00e9se.",
+            "fields": {
+                "devices": {
+                    "description": "A sz\u00fcneteltetend\u0151 vez\u00e9rl\u0151k neve. Alap\u00e9rtelmez\u00e9s szerint a fi\u00f3k \u00f6sszes vez\u00e9rl\u0151je, ha nincs megadva.",
+                    "name": "Vez\u00e9rl\u0151k"
+                },
+                "duration": {
+                    "description": "A fut\u00f3 \u00fctemez\u00e9sek sz\u00fcneteltet\u00e9s\u00e9nek ideje.",
+                    "name": "Id\u0151tartam"
+                }
+            },
+            "name": "\u00d6nt\u00f6z\u00e9s sz\u00fcneteltet\u00e9se"
+        },
+        "resume_watering": {
+            "description": "A sz\u00fcneteltetett z\u00f3n\u00e1k vagy \u00fctemez\u00e9sek folytat\u00e1sa.",
+            "fields": {
+                "devices": {
+                    "description": "A folytatni k\u00edv\u00e1nt vez\u00e9rl\u0151k neve. Alap\u00e9rtelmez\u00e9s szerint a fi\u00f3k \u00f6sszes vez\u00e9rl\u0151je, ha nincs megadva.",
+                    "name": "Vez\u00e9rl\u0151k"
+                }
+            },
+            "name": "\u00d6nt\u00f6z\u00e9s folytat\u00e1sa"
+        },
+        "set_zone_moisture_percent": {
+            "description": "Be\u00e1ll\u00edtja egy z\u00f3na vagy z\u00f3n\u00e1k list\u00e1j\u00e1nak nedvess\u00e9gtartalom sz\u00e1zal\u00e9k\u00e1t.",
+            "fields": {
+                "percent": {
+                    "description": "A k\u00edv\u00e1nt z\u00f3na nedvess\u00e9gtartalom sz\u00e1zal\u00e9k\u00e1t \u00e1ll\u00edtja be.",
+                    "name": "Sz\u00e1zal\u00e9k"
+                }
+            },
+            "name": "Z\u00f3na nedvess\u00e9gtartalom sz\u00e1zal\u00e9k\u00e1nak be\u00e1ll\u00edt\u00e1sa"
+        },
+        "start_multiple_zone_schedule": {
+            "description": "Egy\u00e9ni z\u00f3na \u00e9s fut\u00e1si \u00fctemez\u00e9st hoz l\u00e9tre. Vegye figyelembe, hogy minden z\u00f3n\u00e1nak ugyanazon a vez\u00e9rl\u0151n kell lennie a probl\u00e9m\u00e1k elker\u00fcl\u00e9se \u00e9rdek\u00e9ben.",
+            "fields": {
+                "duration": {
+                    "description": "A z\u00f3na(k) futtat\u00e1s\u00e1nak percekben megadott id\u0151tartama. Ha csak 1 id\u0151tartamot ad meg, azt az id\u0151t haszn\u00e1ljuk az \u00f6sszes z\u00f3n\u00e1ra. Ha id\u0151tartamok list\u00e1j\u00e1t adja meg, az id\u0151tartamok a fent felsorolt megfelel\u0151 z\u00f3n\u00e1kra vonatkoznak.",
+                    "name": "Id\u0151tartam"
+                }
+            },
+            "name": "T\u00f6bb z\u00f3na ind\u00edt\u00e1sa"
+        },
+        "start_watering": {
+            "description": "Ind\u00edtson el egyetlen z\u00f3n\u00e1t, \u00fctemez\u00e9st vagy tetsz\u0151leges sz\u00e1m\u00fa intelligens t\u00f6ml\u0151 id\u0151z\u00edt\u0151t.",
+            "fields": {
+                "duration": {
+                    "description": "Fut\u00e1si percek sz\u00e1ma. Sprinkler z\u00f3n\u00e1k eset\u00e9n a maxim\u00e1lis id\u0151tartam 3 \u00f3ra vagy 24 \u00f3ra az intelligens t\u00f6ml\u0151s id\u0151z\u00edt\u0151k eset\u00e9ben. Hagyja \u00fcresen az \u00fctemez\u00e9shez.",
+                    "name": "Id\u0151tartam"
+                }
+            },
+            "name": "\u00d6nt\u00f6z\u00e9s ind\u00edt\u00e1sa"
+        },
+        "stop_watering": {
+            "description": "\u00c1ll\u00edtsa le a jelenleg fut\u00f3 z\u00f3n\u00e1kat vagy \u00fctemez\u00e9seket.",
+            "fields": {
+                "devices": {
+                    "description": "A le\u00e1ll\u00edtand\u00f3 vez\u00e9rl\u0151k neve. Alap\u00e9rtelmez\u00e9s szerint a fi\u00f3k \u00f6sszes vez\u00e9rl\u0151je, ha nincs megadva.",
+                    "name": "Vez\u00e9rl\u0151k"
+                }
+            },
+            "name": "\u00d6nt\u00f6z\u00e9s le\u00e1ll\u00edt\u00e1sa"
+        }
+    }
+}

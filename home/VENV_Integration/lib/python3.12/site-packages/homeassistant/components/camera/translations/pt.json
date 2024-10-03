@@ -1,0 +1,104 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "C\u00e2mara ",
+            "state": {
+                "idle": "Em espera",
+                "recording": "A gravar",
+                "streaming": "Transmiss\u00e3o em fluxo cont\u00ednuo"
+            },
+            "state_attributes": {
+                "access_token": {
+                    "name": "Token de acesso"
+                },
+                "brand": {
+                    "name": "Marca"
+                },
+                "frontend_stream_type": {
+                    "name": "Tipo de transmiss\u00e3o",
+                    "state": {
+                        "hls": "HLS",
+                        "webrtc": "WebRTC"
+                    }
+                },
+                "model_name": {
+                    "name": "Modelo"
+                },
+                "motion_detection": {
+                    "name": "Detec\u00e7\u00e3o de movimento",
+                    "state": {
+                        "false": "Desativado",
+                        "true": "Ativo"
+                    }
+                }
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "A plataforma {platform} para a integra\u00e7\u00e3o {domain} n\u00e3o suporta a configura\u00e7\u00e3o da plataforma.\n\nRemova-a da sua configura\u00e7\u00e3o e reinicie o Home Assistant para corrigir este problema.",
+            "title": "Suporte de plataforma n\u00e3o suportado"
+        }
+    },
+    "services": {
+        "disable_motion_detection": {
+            "description": "Desativa a dete\u00e7\u00e3o de movimento.",
+            "name": "Desativar a dete\u00e7\u00e3o de movimento"
+        },
+        "enable_motion_detection": {
+            "description": "Ativa a dete\u00e7\u00e3o de movimento.",
+            "name": "Ativar a dete\u00e7\u00e3o de movimento"
+        },
+        "play_stream": {
+            "description": "Reproduz o fluxo da c\u00e2mara num leitor multim\u00e9dia suportado.",
+            "fields": {
+                "format": {
+                    "description": "Formato de fluxo suportado pelo leitor multim\u00e9dia.",
+                    "name": "Formato"
+                },
+                "media_player": {
+                    "description": "Leitores multim\u00e9dia para transmitir.",
+                    "name": "Leitor multim\u00e9dia"
+                }
+            },
+            "name": "Reproduzir fluxo"
+        },
+        "record": {
+            "description": "Cria uma grava\u00e7\u00e3o de um fluxo de c\u00e2mara em direto.",
+            "fields": {
+                "duration": {
+                    "description": "Dura\u00e7\u00e3o prevista do registo. A dura\u00e7\u00e3o efetiva pode variar.",
+                    "name": "Dura\u00e7\u00e3o"
+                },
+                "filename": {
+                    "description": "Modelo de um nome de ficheiro. A vari\u00e1vel dispon\u00edvel \u00e9 `entity_id`. Deve ser mp4.",
+                    "name": "Nome de ficheiro"
+                },
+                "lookback": {
+                    "description": "Per\u00edodo de retrospectiva planejado para incluir na grava\u00e7\u00e3o (al\u00e9m da dura\u00e7\u00e3o). Dispon\u00edvel somente se houver atualmente um fluxo HLS ativo. A dura\u00e7\u00e3o real do per\u00edodo de retrospectiva pode variar.",
+                    "name": "Retrospetiva"
+                }
+            },
+            "name": "Gravar"
+        },
+        "snapshot": {
+            "description": "Tira uma fotografia a partir de uma c\u00e2mara.",
+            "fields": {
+                "filename": {
+                    "description": "Modelo de um nome de ficheiro. A vari\u00e1vel dispon\u00edvel \u00e9 `entity_id`.",
+                    "name": "Nome de ficheiro"
+                }
+            },
+            "name": "Tirar uma fotografia"
+        },
+        "turn_off": {
+            "description": "Desliga a c\u00e2mara.",
+            "name": "Desligar"
+        },
+        "turn_on": {
+            "description": "Liga a c\u00e2mara.",
+            "name": "Ligar"
+        }
+    },
+    "title": "C\u00e2mara"
+}

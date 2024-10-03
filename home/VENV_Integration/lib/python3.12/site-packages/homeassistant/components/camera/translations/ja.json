@@ -1,0 +1,104 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "\u30ab\u30e1\u30e9",
+            "state": {
+                "idle": "\u5f85\u6a5f\u4e2d",
+                "recording": "\u30ec\u30b3\u30fc\u30c7\u30a3\u30f3\u30b0",
+                "streaming": "\u30b9\u30c8\u30ea\u30fc\u30df\u30f3\u30b0"
+            },
+            "state_attributes": {
+                "access_token": {
+                    "name": "\u30a2\u30af\u30bb\u30b9\u30c8\u30fc\u30af\u30f3"
+                },
+                "brand": {
+                    "name": "\u30d6\u30e9\u30f3\u30c9"
+                },
+                "frontend_stream_type": {
+                    "name": "\u30b9\u30c8\u30ea\u30fc\u30e0\u306e\u7a2e\u985e",
+                    "state": {
+                        "hls": "HLS",
+                        "webrtc": "WebRTC"
+                    }
+                },
+                "model_name": {
+                    "name": "\u30e2\u30c7\u30eb"
+                },
+                "motion_detection": {
+                    "name": "\u30e2\u30fc\u30b7\u30e7\u30f3\u691c\u77e5",
+                    "state": {
+                        "false": "\u7121\u52b9",
+                        "true": "\u6709\u52b9"
+                    }
+                }
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "{domain}\u7d71\u5408\u306e{platform}\u30d7\u30e9\u30c3\u30c8\u30d5\u30a9\u30fc\u30e0\u306f\u3001\u30d7\u30e9\u30c3\u30c8\u30d5\u30a9\u30fc\u30e0\u306e\u30bb\u30c3\u30c8\u30a2\u30c3\u30d7\u3092\u30b5\u30dd\u30fc\u30c8\u3057\u3066\u3044\u307e\u305b\u3093\u3002 \n\n\u3053\u306e\u554f\u984c\u3092\u89e3\u6c7a\u3059\u308b\u306b\u306f\u3001\u69cb\u6210\u304b\u3089\u524a\u9664\u3057\u3001Home Assistant \u3092\u518d\u8d77\u52d5\u3057\u3066\u304f\u3060\u3055\u3044\u3002",
+            "title": "\u30d7\u30e9\u30c3\u30c8\u30d5\u30a9\u30fc\u30e0\u306e\u30b5\u30dd\u30fc\u30c8\u306f\u30b5\u30dd\u30fc\u30c8\u3055\u308c\u3066\u3044\u307e\u305b\u3093"
+        }
+    },
+    "services": {
+        "disable_motion_detection": {
+            "description": "\u30e2\u30fc\u30b7\u30e7\u30f3\u691c\u77e5\u3092\u7121\u52b9\u306b\u3057\u307e\u3059\u3002",
+            "name": "\u30e2\u30fc\u30b7\u30e7\u30f3\u691c\u77e5\u3092\u7121\u52b9\u306b\u3059\u308b"
+        },
+        "enable_motion_detection": {
+            "description": "\u30e2\u30fc\u30b7\u30e7\u30f3\u691c\u51fa\u3092\u6709\u52b9\u306b\u3057\u307e\u3059\u3002",
+            "name": "\u30e2\u30fc\u30b7\u30e7\u30f3\u691c\u51fa\u3092\u6709\u52b9\u306b\u3057\u307e\u3059\u3002"
+        },
+        "play_stream": {
+            "description": "\u30b5\u30dd\u30fc\u30c8\u3055\u308c\u3066\u3044\u308b\u30e1\u30c7\u30a3\u30a2 \u30d7\u30ec\u30fc\u30e4\u30fc\u3067\u30ab\u30e1\u30e9 \u30b9\u30c8\u30ea\u30fc\u30e0\u3092\u518d\u751f\u3057\u307e\u3059\u3002",
+            "fields": {
+                "format": {
+                    "description": "\u30e1\u30c7\u30a3\u30a2\u30d7\u30ec\u30fc\u30e4\u30fc\u304c\u30b5\u30dd\u30fc\u30c8\u3059\u308b\u30b9\u30c8\u30ea\u30fc\u30e0\u5f62\u5f0f\u3002",
+                    "name": "\u30d5\u30a9\u30fc\u30de\u30c3\u30c8"
+                },
+                "media_player": {
+                    "description": "\u30b9\u30c8\u30ea\u30fc\u30df\u30f3\u30b0\u5148\u306e\u30e1\u30c7\u30a3\u30a2 \u30d7\u30ec\u30fc\u30e4\u30fc\u3002",
+                    "name": "\u30e1\u30c7\u30a3\u30a2\u30d7\u30ec\u30fc\u30e4\u30fc"
+                }
+            },
+            "name": "\u30b9\u30c8\u30ea\u30fc\u30e0\u3092\u518d\u751f\u3059\u308b"
+        },
+        "record": {
+            "description": "\u30e9\u30a4\u30d6\u30ab\u30e1\u30e9\u30d5\u30a3\u30fc\u30c9\u306e\u8a18\u9332\u3092\u4f5c\u6210\u3057\u307e\u3059\u3002",
+            "fields": {
+                "duration": {
+                    "description": "\u9332\u753b\u306e\u4e88\u5b9a\u6642\u9593\u3002\u5b9f\u969b\u306e\u53ce\u9332\u6642\u9593\u306f\u7570\u306a\u308b\u5834\u5408\u304c\u3042\u308a\u307e\u3059\u3002",
+                    "name": "\u671f\u9593"
+                },
+                "filename": {
+                    "description": "\u30d5\u30a1\u30a4\u30eb\u540d\u306e\u30c6\u30f3\u30d7\u30ec\u30fc\u30c8\u3002\u5229\u7528\u53ef\u80fd\u306a\u5909\u6570\u306f `entity_id` \u3067\u3042\u308b\u3002mp4\u3067\u306a\u3051\u308c\u3070\u306a\u3089\u306a\u3044\u3002",
+                    "name": "\u30d5\u30a1\u30a4\u30eb\u540d"
+                },
+                "lookback": {
+                    "description": "\u9332\u753b\u306b\u542b\u3081\u308b\u8a08\u753b\u3055\u308c\u305f\u30eb\u30c3\u30af\u30d0\u30c3\u30af\u671f\u9593\uff08\u671f\u9593\u306b\u52a0\u3048\u3066\uff09\u3002\u73fe\u5728\u30a2\u30af\u30c6\u30a3\u30d6\u306aHLS\u30b9\u30c8\u30ea\u30fc\u30e0\u304c\u3042\u308b\u5834\u5408\u306e\u307f\u5229\u7528\u53ef\u80fd\u3067\u3059\u3002\u30eb\u30c3\u30af\u30d0\u30c3\u30af\u671f\u9593\u306e\u5b9f\u969b\u306e\u9577\u3055\u306f\u7570\u306a\u308b\u5834\u5408\u304c\u3042\u308a\u307e\u3059\u3002",
+                    "name": "\u30eb\u30c3\u30af\u30d0\u30c3\u30af"
+                }
+            },
+            "name": "\u9332\u753b"
+        },
+        "snapshot": {
+            "description": "\u30ab\u30e1\u30e9\u304b\u3089\u30b9\u30ca\u30c3\u30d7\u30b7\u30e7\u30c3\u30c8\u3092\u53d6\u5f97\u3057\u307e\u3059\u3002",
+            "fields": {
+                "filename": {
+                    "description": "\u30d5\u30a1\u30a4\u30eb\u540d\u306e\u30c6\u30f3\u30d7\u30ec\u30fc\u30c8\u3002\u5229\u7528\u53ef\u80fd\u306a\u5909\u6570\u306f `entity_id` \u3067\u3042\u308b\u3002",
+                    "name": "\u30d5\u30a1\u30a4\u30eb\u540d"
+                }
+            },
+            "name": "\u30b9\u30ca\u30c3\u30d7\u30b7\u30e7\u30c3\u30c8\u3092\u3068\u308b"
+        },
+        "turn_off": {
+            "description": "\u30ab\u30e1\u30e9\u3092\u30aa\u30d5\u306b\u3057\u307e\u3059\u3002",
+            "name": "\u30aa\u30d5\u306b\u3059\u308b"
+        },
+        "turn_on": {
+            "description": "\u30ab\u30e1\u30e9\u3092\u30aa\u30f3\u306b\u3057\u307e\u3059\u3002",
+            "name": "\u30aa\u30f3\u306b\u3059\u308b"
+        }
+    },
+    "title": "\u30ab\u30e1\u30e9"
+}

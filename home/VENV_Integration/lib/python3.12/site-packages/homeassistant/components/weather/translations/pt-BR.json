@@ -1,0 +1,138 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "Clima",
+            "state": {
+                "clear-night": "Noite clara",
+                "cloudy": "Nublado",
+                "exceptional": "Excepcional",
+                "fog": "Nevoeiro",
+                "hail": "Granizo",
+                "lightning": "Rel\u00e2mpagos",
+                "lightning-rainy": "Chuvoso com raios",
+                "partlycloudy": "Parcialmente nublado",
+                "pouring": "Torrencial",
+                "rainy": "Chuvoso",
+                "snowy": "Nevado",
+                "snowy-rainy": "Chuvoso com neve",
+                "sunny": "Ensolarado",
+                "windy": "Ventania"
+            },
+            "state_attributes": {
+                "apparent_temperature": {
+                    "name": "Temperatura aparente"
+                },
+                "cloud_coverage": {
+                    "name": "Coberto de nuvem"
+                },
+                "dew_point": {
+                    "name": "Temperatura do ponto de orvalho"
+                },
+                "forecast": {
+                    "name": "Previs\u00e3o"
+                },
+                "humidity": {
+                    "name": "Umidade"
+                },
+                "ozone": {
+                    "name": "Oz\u00f4nio"
+                },
+                "precipitation_unit": {
+                    "name": "Unidade de precipita\u00e7\u00e3o"
+                },
+                "pressure": {
+                    "name": "Press\u00e3o"
+                },
+                "pressure_unit": {
+                    "name": "Unidade de press\u00e3o"
+                },
+                "temperature": {
+                    "name": "Temperatura"
+                },
+                "temperature_unit": {
+                    "name": "Unidade de temperatura"
+                },
+                "uv_index": {
+                    "name": "\u00cdndice UV"
+                },
+                "visibility": {
+                    "name": "Visibilidade"
+                },
+                "visibility_unit": {
+                    "name": "Unidade de visibilidade"
+                },
+                "wind_bearing": {
+                    "name": "Dire\u00e7\u00e3o do vento"
+                },
+                "wind_gust_speed": {
+                    "name": "Velocidade da rajada de vento"
+                },
+                "wind_speed": {
+                    "name": "Velocidade do vento"
+                },
+                "wind_speed_unit": {
+                    "name": "Unidade de velocidade do vento"
+                }
+            }
+        }
+    },
+    "issues": {
+        "deprecated_service_weather_get_forecast": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "title": "Detectado o uso do servi\u00e7o obsoleto `weather.get_forecast`"
+                    }
+                }
+            }
+        },
+        "deprecated_weather_forecast": {
+            "description": "A integra\u00e7\u00e3o `{platform}` est\u00e1 usando o atributo de previs\u00e3o obsoleto. \n\n Por favor, {report_issue}.",
+            "title": "A integra\u00e7\u00e3o {platform} est\u00e1 usando previs\u00e3o obsoleta"
+        },
+        "deprecated_weather_forecast_no_url": {
+            "description": "A integra\u00e7\u00e3o personalizada `{platform}` implementa a propriedade `forecast` ou define `self._attr_forecast` em uma subclasse de WeatherEntity.\n\nInforme o fato ao autor da integra\u00e7\u00e3o {platform}.\n\nQuando uma vers\u00e3o atualizada da `{platform}` estiver dispon\u00edvel, instale-a e reinicie o Home Assistant para corrigir esse problema.",
+            "title": "A integra\u00e7\u00e3o personalizada {platform} est\u00e1 usando previs\u00e3o do tempo obsoleta"
+        },
+        "deprecated_weather_forecast_url": {
+            "description": "A integra\u00e7\u00e3o customizada `{platform}` implementa a propriedade `forecast` ou define `self._attr_forecast` em uma subclasse de WeatherEntity. \n\nCrie um relat\u00f3rio de bug em {issue_tracker}. \n\nAssim que uma vers\u00e3o atualizada de `{platform}` estiver dispon\u00edvel, instale-a e reinicie o Home Assistant para corrigir esse problema.",
+            "title": "A integra\u00e7\u00e3o personalizada {platform} est\u00e1 usando previs\u00e3o do tempo obsoleta"
+        },
+        "platform_integration_no_support": {
+            "description": "A plataforma {platform} para a integra\u00e7\u00e3o {domain} n\u00e3o \u00e9 compat\u00edvel com a configura\u00e7\u00e3o da plataforma. \n\n Remova-o da sua configura\u00e7\u00e3o e reinicie o Home Assistant para corrigir esse problema.",
+            "title": "Suporte \u00e0 plataforma n\u00e3o suportado"
+        }
+    },
+    "selector": {
+        "forecast_type": {
+            "options": {
+                "daily": "Diariamente",
+                "hourly": "De hora em hora",
+                "twice_daily": "Duas vezes ao dia"
+            }
+        }
+    },
+    "services": {
+        "get_forecast": {
+            "description": "Obter a previs\u00e3o do tempo.",
+            "fields": {
+                "type": {
+                    "description": "Tipo de previs\u00e3o: di\u00e1ria, de hora em hora ou duas vezes ao dia.",
+                    "name": "Tipo de previs\u00e3o"
+                }
+            },
+            "name": "Obter previs\u00e3o"
+        },
+        "get_forecasts": {
+            "description": "Obter previs\u00f5es do tempo.",
+            "fields": {
+                "type": {
+                    "description": "Tipo de previs\u00e3o: di\u00e1ria, de hora em hora ou duas vezes ao dia.",
+                    "name": "Tipo de previs\u00e3o"
+                }
+            },
+            "name": "Obter previs\u00f5es"
+        }
+    },
+    "title": "Clima"
+}

@@ -1,0 +1,75 @@
+{
+    "config": {
+        "error": {
+            "cannot_connect": "Nepavyko prisijungti",
+            "invalid_auth": "Neteisingas autentifikavimas",
+            "unknown": "Netik\u0117ta klaida"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "api_key": "API raktas"
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "invalid_config_entry": {
+            "message": "Pateiktas neteisingas konfig\u016bracijos \u012fra\u0161as. Gauta {config_entry}"
+        }
+    },
+    "issues": {
+        "image_size_deprecated_format": {
+            "description": "Dabar \u201eOpenAI\u201c naudoja Dall-E 3, kad generuot\u0173 vaizdus naudodami \u201eopenai_conversation.generate_image\u201c, kuris palaiko skirtingus dyd\u017eius. Dabar galiojan\u010dios reik\u0161m\u0117s yra \u201e1024 x 1024\u201c, \u201e1024 x 1792\u201c, \u201e1792 x 1024\u201c. Senosios reik\u0161m\u0117s \u201e256\u201c, \u201e512\u201c, \u201e1024\u201c \u0161iuo metu interpretuojamos kaip \u201e1024 x 1024\u201c.\n Atnaujinkite savo scenarijus arba automatizavim\u0105 naujais parametrais.",
+            "title": "Nenaudojamas vaizdo generavimo veiksmo dyd\u017eio formatas"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "chat_model": "Modelis",
+                    "llm_hass_api": "Valdykite nam\u0173 asistent\u0105",
+                    "max_tokens": "Did\u017eiausias \u017eeton\u0173 skai\u010dius, kur\u012f reikia gr\u0105\u017einti atsakant",
+                    "model": "U\u017ebaigimo modelis",
+                    "prompt": "Instrukcijos",
+                    "recommended": "Rekomenduojami modelio nustatymai",
+                    "temperature": "Temperat\u016bra",
+                    "top_p": "Vir\u0161utin\u0117 P"
+                },
+                "data_description": {
+                    "prompt": "Nurodykite, kaip LLM tur\u0117t\u0173 reaguoti. Tai gali b\u016bti \u0161ablonas."
+                }
+            }
+        }
+    },
+    "services": {
+        "generate_image": {
+            "description": "Paverskite u\u017eklaus\u0105 vaizdu",
+            "fields": {
+                "config_entry": {
+                    "description": "\u0160iam veiksmui naudojamas konfig\u016bracijos \u012fra\u0161as",
+                    "name": "Konfig\u016bracijos \u012fra\u0161as"
+                },
+                "prompt": {
+                    "description": "Tekstas, kur\u012f reikia paversti vaizdu",
+                    "example": "\u0160uns nuotrauka",
+                    "name": "Raginimas"
+                },
+                "quality": {
+                    "description": "Vaizdo, kuris bus sugeneruotas, kokyb\u0117",
+                    "name": "Kokyb\u0117"
+                },
+                "size": {
+                    "description": "Sugeneruojamo vaizdo dydis",
+                    "name": "Dydis"
+                },
+                "style": {
+                    "description": "Sukurto vaizdo stilius",
+                    "name": "Stilius"
+                }
+            },
+            "name": "Sukurti vaizd\u0105"
+        }
+    }
+}

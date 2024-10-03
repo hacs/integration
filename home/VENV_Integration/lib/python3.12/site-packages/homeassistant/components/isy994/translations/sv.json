@@ -1,0 +1,192 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Enheten \u00e4r redan konfigurerad"
+        },
+        "error": {
+            "cannot_connect": "Det gick inte att ansluta.",
+            "invalid_auth": "Ogiltig autentisering",
+            "invalid_host": "V\u00e4rdposten var inte i fullst\u00e4ndigt URL-format, t.ex. http://192.168.10.100:80",
+            "reauth_successful": "\u00c5terautentisering lyckades",
+            "unknown": "Ov\u00e4ntat fel"
+        },
+        "flow_title": "{name} ({host})",
+        "step": {
+            "reauth_confirm": {
+                "data": {
+                    "password": "L\u00f6senord",
+                    "username": "Anv\u00e4ndarnamn"
+                },
+                "description": "Inloggningsuppgifterna f\u00f6r {host} \u00e4r inte l\u00e4ngre giltiga.",
+                "title": "Autentisera din ISY igen"
+            },
+            "user": {
+                "data": {
+                    "host": "URL",
+                    "password": "L\u00f6senord",
+                    "tls": "TLS-versionen av ISY-styrenheten.",
+                    "username": "Anv\u00e4ndarnamn"
+                },
+                "description": "V\u00e4rdposten m\u00e5ste vara i fullst\u00e4ndigt URL-format, t.ex. http://192.168.10.100:80",
+                "title": "Anslut till din ISY"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_service": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Uppdatera alla automatiseringar eller skript som anv\u00e4nder den h\u00e4r tj\u00e4nsten s\u00e5 att de ist\u00e4llet anv\u00e4nder tj\u00e4nsten `{alternate_service}` med ett entitets-ID p\u00e5 `{alternate_target}`.",
+                        "title": "Tj\u00e4nsten {deprecated_service} kommer att tas bort"
+                    },
+                    "deprecated_yaml": {
+                        "description": "Konfigurering av universella enheter ISY/IoX med YAML tas bort. \n\nDin befintliga YAML-konfiguration har automatiskt importerats till anv\u00e4ndargr\u00e4nssnittet. \n\nTa bort `isy994` YAML-konfigurationen fr\u00e5n din configuration.yaml-fil och starta om Home Assistant f\u00f6r att \u00e5tg\u00e4rda problemet.",
+                        "title": "ISY/IoX YAML-konfigurationen tas bort"
+                    }
+                }
+            },
+            "title": "Tj\u00e4nsten {deprecated_service} kommer att tas bort"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "ignore_string": "Ignorera str\u00e4ng",
+                    "restore_light_state": "\u00c5terst\u00e4ll ljusstyrkan",
+                    "sensor_string": "Nodsensorstr\u00e4ng",
+                    "variable_sensor_string": "Variabel sensorstr\u00e4ng"
+                },
+                "description": "St\u00e4ll in alternativen f\u00f6r ISY-integration:\n \u2022 Nodsensorstr\u00e4ng: Alla enheter eller mappar som inneh\u00e5ller 'Nodsensorstr\u00e4ng' i namnet kommer att behandlas som en sensor eller bin\u00e4r sensor.\n \u2022 Ignorera str\u00e4ng: Alla enheter med 'Ignorera str\u00e4ng' i namnet kommer att ignoreras.\n \u2022 Variabel sensorstr\u00e4ng: Varje variabel som inneh\u00e5ller 'Variabel sensorstr\u00e4ng' kommer att l\u00e4ggas till som en sensor.\n \u2022 \u00c5terst\u00e4ll ljusstyrka: Om den \u00e4r aktiverad kommer den tidigare ljusstyrkan att \u00e5terst\u00e4llas n\u00e4r du sl\u00e5r p\u00e5 en lampa ist\u00e4llet f\u00f6r enhetens inbyggda On-Level.",
+                "title": "ISY alternativ"
+            }
+        }
+    },
+    "services": {
+        "delete_zwave_lock_user_code": {
+            "description": "Radera en anv\u00e4ndarkod f\u00f6r ett Z-Wave-l\u00e5s via ISY.",
+            "fields": {
+                "user_num": {
+                    "description": "Anv\u00e4ndarens slotnummer p\u00e5 l\u00e5set.",
+                    "name": "Anv\u00e4ndarnummer"
+                }
+            },
+            "name": "Ta bort anv\u00e4ndarkoden f\u00f6r Z-Wave-l\u00e5s"
+        },
+        "get_zwave_parameter": {
+            "description": "Beg\u00e4r en parameter f\u00f6r en Z-Wave-enhet via ISY. Parameterv\u00e4rdet returneras som ett extra tillst\u00e5ndsattribut med namnet \"ZW_#\" d\u00e4r \"#\" \u00e4r parameternumret.",
+            "fields": {
+                "parameter": {
+                    "description": "Parameternumret som ska h\u00e4mtas fr\u00e5n enheten.",
+                    "name": "Parameter"
+                }
+            },
+            "name": "H\u00e4mta Z-Wave-parameter"
+        },
+        "rename_node": {
+            "description": "Byter namn p\u00e5 en nod eller grupp (scen) p\u00e5 ISY. Obs: detta \u00e4ndrar inte automatiskt Home Assistants entitetsnamn eller entitets-ID s\u00e5 att de matchar. Namnet och ID kommer endast att uppdateras efter anrop av `isy994.reload` eller omstart av Home Assistant, och ENDAST OM du inte redan har anpassat namnet i Home Assistant.",
+            "fields": {
+                "name": {
+                    "description": "Det nya namnet som ska anv\u00e4ndas inom ISY.",
+                    "name": "Nytt namn"
+                }
+            },
+            "name": "Byt namn p\u00e5 nod i ISY"
+        },
+        "send_node_command": {
+            "description": "Skickar ett kommando till en ISY-enhet med hj\u00e4lp av dess entitets-ID i Home Assistant. Giltiga kommandon \u00e4r: beep, brighten, dim, disable,enable, fade_down, fade_stop, fade_up, fast_off, fast_on och query.",
+            "fields": {
+                "command": {
+                    "description": "Kommandot som ska skickas till enheten.",
+                    "name": "Kommando"
+                }
+            },
+            "name": "Skicka nodkommando"
+        },
+        "send_program_command": {
+            "description": "Skickar ett kommando f\u00f6r att styra ett ISY-program eller en ISY-mapp. Giltiga kommandon \u00e4r run, run_then, run_else, stop, enable, disable, enable_run_at_startup och disable_run_at_startup.",
+            "fields": {
+                "address": {
+                    "description": "Adressen till det program som skall styras (anv\u00e4nd antingen adress eller namn).",
+                    "name": "Adress"
+                },
+                "command": {
+                    "description": "ISY Program Command som ska skickas.",
+                    "name": "Kommando"
+                },
+                "isy": {
+                    "description": "Om du har mer \u00e4n en ISY ansluten anger du namnet p\u00e5 den ISY som ska tillfr\u00e5gas (som visas i enhetsregistret eller som den \u00f6versta noden i ISY Admin Console). Om du har samma programnamn eller adress p\u00e5 flera ISY-enheter kommer kommandot att k\u00f6ras p\u00e5 alla om du utel\u00e4mnar detta f\u00e4lt.",
+                    "name": "ISY"
+                },
+                "name": {
+                    "description": "Namnet till det program som skall styras (anv\u00e4nd antingen adress eller namn).",
+                    "name": "Namn"
+                }
+            },
+            "name": "Skicka Program Command"
+        },
+        "send_raw_node_command": {
+            "description": "St\u00e4ll in alternativen f\u00f6r ISY-integration:\n \u2022 Nodsensorstr\u00e4ng: Alla enheter eller mappar som inneh\u00e5ller 'Nodsensorstr\u00e4ng' i namnet kommer att behandlas som en sensor eller bin\u00e4r sensor.\n \u2022 Ignorera str\u00e4ng: Alla enheter med 'Ignorera str\u00e4ng' i namnet kommer att ignoreras.\n \u2022 Variabel sensorstr\u00e4ng: Varje variabel som inneh\u00e5ller 'Variabel sensorstr\u00e4ng' kommer att l\u00e4ggas till som en sensor.\n \u2022 \u00c5terst\u00e4ll ljusstyrka: Om den \u00e4r aktiverad kommer den tidigare ljusstyrkan att \u00e5terst\u00e4llas n\u00e4r du sl\u00e5r p\u00e5 en lampa ist\u00e4llet f\u00f6r enhetens inbyggda On-Level.",
+            "fields": {
+                "command": {
+                    "description": "ISY REST-kommandot som ska skickas till enheten.",
+                    "name": "Kommando"
+                },
+                "parameters": {
+                    "description": "En dictionary av parametrar som ska skickas i fr\u00e5gestr\u00e4ngen (t.ex. f\u00f6r styrning av f\u00e4rgade gl\u00f6dlampor).",
+                    "name": "Parametrar"
+                },
+                "unit_of_measurement": {
+                    "description": "ISY-m\u00e5ttenhet (UOM, Unit of Measurement) som ska skickas med kommandot, om s\u00e5 kr\u00e4vs.",
+                    "name": "M\u00e5ttenhet"
+                },
+                "value": {
+                    "description": "Heltalsv\u00e4rdet som ska skickas med kommandot.",
+                    "name": "V\u00e4rde"
+                }
+            },
+            "name": "Skicka kommando f\u00f6r raw node"
+        },
+        "set_zwave_lock_user_code": {
+            "description": "St\u00e4ller in en anv\u00e4ndarkod f\u00f6r Z-Wave-l\u00e5s via ISY.",
+            "fields": {
+                "code": {
+                    "description": "Den kod som ska anges f\u00f6r anv\u00e4ndaren.",
+                    "name": "Kod"
+                },
+                "user_num": {
+                    "description": "Anv\u00e4ndarens slotnummer p\u00e5 l\u00e5set.",
+                    "name": "Anv\u00e4ndarnummer"
+                }
+            },
+            "name": "Ange anv\u00e4ndarkod f\u00f6r Z-Wave-l\u00e5s"
+        },
+        "set_zwave_parameter": {
+            "description": "Uppdaterar en parameter f\u00f6r en Z-Wave-enhet via ISY. Parameterv\u00e4rdet kommer ocks\u00e5 att returneras som ett extra tillst\u00e5ndsattribut med namnet \"ZW_#\" d\u00e4r \"#\" \u00e4r parameternumret.",
+            "fields": {
+                "parameter": {
+                    "description": "Parameternumret som ska st\u00e4llas in p\u00e5 enheten.",
+                    "name": "Parameter"
+                },
+                "size": {
+                    "description": "Parameterns storlek: antingen 1, 2 eller 4 byte.",
+                    "name": "Storlek"
+                },
+                "value": {
+                    "description": "V\u00e4rdet som ska anges f\u00f6r parametern. Kan vara ett heltal eller en bytestr\u00e4ng (t.ex. \"0xFFFF\").",
+                    "name": "V\u00e4rde"
+                }
+            },
+            "name": "St\u00e4ll in Z-Wave-parameter"
+        }
+    },
+    "system_health": {
+        "info": {
+            "device_connected": "ISY ansluten",
+            "host_reachable": "V\u00e4rden kan n\u00e5s",
+            "last_heartbeat": "Tid f\u00f6r senaste hj\u00e4rtslag",
+            "websocket_status": "Status f\u00f6r h\u00e4ndelseuttag"
+        }
+    }
+}

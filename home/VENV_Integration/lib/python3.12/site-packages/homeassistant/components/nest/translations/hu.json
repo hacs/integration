@@ -1,0 +1,176 @@
+{
+    "application_credentials": {
+        "description": "K\u00f6vesse az [\u00fatmutat\u00f3t]({more_info_url}) a Cloud Console be\u00e1ll\u00edt\u00e1s\u00e1hoz:\n\n1. L\u00e1togasson el az [OAuth hozz\u00e1j\u00e1rul\u00e1si k\u00e9perny\u0151]({oauth_consent_url}) oldalra \u00e9s konfigur\u00e1lja.\n2. L\u00e1togasson el a [Hiteles\u00edt\u0151 adatok]({oauth_creds_url}) oldalra \u00e9s v\u00e1lassza a **Create Credentials** lehet\u0151s\u00e9get.\n3. A leg\u00f6rd\u00fcl\u0151 list\u00e1b\u00f3l v\u00e1lassza az **OAuth client ID** lehet\u0151s\u00e9get.\n4. Alkalmaz\u00e1st\u00edpusk\u00e9nt v\u00e1lassza a **Web Application** opci\u00f3t.\n5. Adja hozz\u00e1 a `{redirect_url}` c\u00edmet az *Authorized redirect URI* mez\u0151be."
+    },
+    "config": {
+        "abort": {
+            "already_configured": "A fi\u00f3k m\u00e1r konfigur\u00e1lva van",
+            "authorize_url_timeout": "Id\u0151t\u00fall\u00e9p\u00e9s a hiteles\u00edt\u00e9si URL l\u00e9trehoz\u00e1sakor.",
+            "invalid_access_token": "\u00c9rv\u00e9nytelen hozz\u00e1f\u00e9r\u00e9si token",
+            "missing_configuration": "A komponens nincs konfigur\u00e1lva. K\u00e9rem, k\u00f6vesse a dokument\u00e1ci\u00f3t.",
+            "no_url_available": "Nincs el\u00e9rhet\u0151 URL. A hib\u00e1val kapcsolatos inform\u00e1ci\u00f3k\u00e9rt n\u00e9zze meg a [s\u00fag\u00f3]({docs_url}) le\u00edr\u00e1s\u00e1t.",
+            "oauth_error": "\u00c9rv\u00e9nytelen token adatok \u00e9rkeztek.",
+            "oauth_failed": "Hiba a hozz\u00e1f\u00e9r\u00e9si token megszerz\u00e9se k\u00f6zben.",
+            "oauth_timeout": "Id\u0151t\u00fall\u00e9p\u00e9s az OAuth-token felold\u00e1sakor.",
+            "oauth_unauthorized": "OAuth enged\u00e9lyez\u00e9si hiba a hozz\u00e1f\u00e9r\u00e9si token megszerz\u00e9se sor\u00e1n.",
+            "reauth_successful": "Az \u00fajrahiteles\u00edt\u00e9s sikeres volt.",
+            "unknown_authorize_url_generation": "Ismeretlen hiba a hiteles\u00edt\u00e9si URL l\u00e9trehoz\u00e1sakor."
+        },
+        "create_entry": {
+            "default": "Sikeres hiteles\u00edt\u00e9s"
+        },
+        "error": {
+            "bad_project_id": "K\u00e9rem, adjon meg egy \u00e9rv\u00e9nyes Cloud Project azonos\u00edt\u00f3t (Cloud Consoleban l\u00e1that\u00f3).",
+            "internal_error": "Bels\u0151 hiba t\u00f6rt\u00e9nt a k\u00f3d valid\u00e1l\u00e1s\u00e1n\u00e1l",
+            "invalid_pin": "\u00c9rv\u00e9nytelen PIN-k\u00f3d",
+            "subscriber_error": "Ismeretlen el\u0151fizet\u0151i hiba, b\u0151vebben a napl\u00f3kban",
+            "timeout": "Id\u0151t\u00fall\u00e9p\u00e9s a k\u00f3d \u00e9rv\u00e9nyes\u00edt\u00e9se sor\u00e1n.",
+            "unknown": "V\u00e1ratlan hiba",
+            "wrong_project_id": "K\u00e9rem, adjon meg egy \u00e9rv\u00e9nyes Cloud Project azonos\u00edt\u00f3t (Device Access Project azonos\u00edt\u00f3val azonos)"
+        },
+        "step": {
+            "auth_upgrade": {
+                "description": "A Google a biztons\u00e1g jav\u00edt\u00e1sa \u00e9rdek\u00e9ben megsz\u00fcntette az App Auth szolg\u00e1ltat\u00e1st \u00e9s \u00d6nnek \u00faj alkalmaz\u00e1s hiteles\u00edt\u00e9si adatainak l\u00e9trehoz\u00e1s\u00e1val kell tennie valamit. \n\nNyissa meg a [dokument\u00e1ci\u00f3t]({more_info_url}), hogy k\u00f6vesse, mivel a k\u00f6vetkez\u0151 l\u00e9p\u00e9sek v\u00e9gigvezetik a Nest-eszk\u00f6zeihez val\u00f3 hozz\u00e1f\u00e9r\u00e9s vissza\u00e1ll\u00edt\u00e1s\u00e1hoz sz\u00fcks\u00e9ges l\u00e9p\u00e9seken.",
+                "title": "Nest: Az alkalmaz\u00e1shiteles\u00edt\u00e9s megsz\u00fcntet\u00e9se"
+            },
+            "cloud_project": {
+                "data": {
+                    "cloud_project_id": "Google Cloud Project azonos\u00edt\u00f3"
+                },
+                "description": "Adja meg a Cloud projekt azonos\u00edt\u00f3j\u00e1t, pl. *example-project-12345*. B\u0151vebben: [Google Cloud Console]({cloud_console_url}) vagy [dokument\u00e1ci\u00f3]({more_info_url}).",
+                "title": "Nest: Adja meg a Cloud Project azonos\u00edt\u00f3t"
+            },
+            "create_cloud_project": {
+                "description": "A Nest integr\u00e1ci\u00f3 lehet\u0151v\u00e9 teszi, hogy integr\u00e1lja a Nest termoszt\u00e1tjait, kamer\u00e1it \u00e9s cseng\u0151it a Smart Device Management API seg\u00edts\u00e9g\u00e9vel. Az SDM API egyszeri **5 USD** be\u00e1ll\u00edt\u00e1si d\u00edjat ig\u00e9nyel. Tov\u00e1bbi inform\u00e1ci\u00f3k\u00e9rt tekintse meg a [dokument\u00e1ci\u00f3t]({more_info_url}).\n\n1. L\u00e1togasson el a [Google Cloud Console]({cloud_console_url}) oldalra.\n2. Ha ez az els\u0151 projektje, v\u00e1lassza a **Create Project**, majd a **New Project** lehet\u0151s\u00e9get.\n3. Adjon nevet a Cloud Projektj\u00e9nek, majd v\u00e1lassza a **Create** lehet\u0151s\u00e9get.\n4. Mentse el a Cloud Projekt azonos\u00edt\u00f3j\u00e1t, p\u00e9ld\u00e1ul *example-project-12345*, mert k\u00e9s\u0151bb sz\u00fcks\u00e9ge lesz r\u00e1.\n5. L\u00e1togasson el az [Smart Device Management API]({sdm_api_url}) API k\u00f6nyvt\u00e1rba \u00e9s v\u00e1lassza az **Enable** lehet\u0151s\u00e9get.\n6. L\u00e1togasson el az [Cloud Pub/Sub API]({pubsub_api_url}) API k\u00f6nyvt\u00e1rba, \u00e9s v\u00e1lassza az **Enable** lehet\u0151s\u00e9get.\n\nFolytassa, amikor a felh\u0151projekt be van \u00e1ll\u00edtva.",
+                "title": "Nest: Cloud Project l\u00e9trehoz\u00e1sa \u00e9s konfigur\u00e1l\u00e1sa"
+            },
+            "device_project": {
+                "data": {
+                    "project_id": "Eszk\u00f6z-hozz\u00e1f\u00e9r\u00e9s Projekt azonos\u00edt\u00f3"
+                },
+                "description": "Hozzon l\u00e9tre egy Nest Eszk\u00f6zhozz\u00e1f\u00e9r\u00e9si projektet, amelynek be\u00e1ll\u00edt\u00e1s\u00e1hoz **5 USD d\u00edjat kell fizetnie a Google-nak**.\n1. L\u00e1togasson el az [Eszk\u00f6zhozz\u00e1f\u00e9r\u00e9si konzolra]({device_access_console_url}) \u00e9s k\u00f6vesse a fizet\u00e9si folyamatot.\n2. V\u00e1lassza a **Create project** lehet\u0151s\u00e9get.\n3. Adjon nevet az Eszk\u00f6zhozz\u00e1f\u00e9r\u00e9si projektj\u00e9nek, majd v\u00e1lassza a **Next** lehet\u0151s\u00e9get.\n4. Adja meg az OAuth Client ID-t.\n5. Enged\u00e9lyezze az esem\u00e9nyeket a **Enable** \u00e9s a **Create project** gombok megnyom\u00e1s\u00e1val.\n\nAdja meg al\u00e1bb az Eszk\u00f6zhozz\u00e1f\u00e9r\u00e9si Projektazonos\u00edt\u00f3j\u00e1t ([tov\u00e1bbi inform\u00e1ci\u00f3]({more_info_url})).",
+                "title": "Nest: Hozzon l\u00e9tre egy eszk\u00f6z-hozz\u00e1f\u00e9r\u00e9si projektet"
+            },
+            "device_project_upgrade": {
+                "description": "Friss\u00edtse a Nest Device Access projektet az \u00faj OAuth \u00fcgyf\u00e9l azonos\u00edt\u00f3j\u00e1val ([more info]({more_info_url}))\n1. L\u00e9pjen az [Device Access Console]({device_access_console_url}).\n1. Kattintson a *OAuth Client ID* melletti szemetes ikonra.\n1. Kattintson a `...` t\u00falfoly\u00f3 men\u00fcre, majd a *Add Client ID* men\u00fcpontra.\n1. Adja meg az \u00faj OAuth \u00fcgyf\u00e9l azonos\u00edt\u00f3j\u00e1t \u00e9s kattintson a **Add** gombra.\n\nAz \u00d6n OAuth \u00fcgyf\u00e9l azonos\u00edt\u00f3ja a k\u00f6vetkez\u0151: `{client_id}`",
+                "title": "Nest: Friss\u00edtse az eszk\u00f6zhozz\u00e1f\u00e9r\u00e9si projektet"
+            },
+            "init": {
+                "data": {
+                    "flow_impl": "Szolg\u00e1ltat\u00f3"
+                },
+                "description": "V\u00e1lasszon egy hiteles\u00edt\u00e9si m\u00f3dszert",
+                "title": "Hiteles\u00edt\u00e9si Szolg\u00e1ltat\u00f3"
+            },
+            "link": {
+                "data": {
+                    "code": "PIN-k\u00f3d"
+                },
+                "description": "A Nest-fi\u00f3k \u00f6sszekapcsol\u00e1s\u00e1hoz [enged\u00e9lyezze fi\u00f3kj\u00e1t]({url}). \n\nAz enged\u00e9lyez\u00e9s ut\u00e1n m\u00e1solja be az PIN k\u00f3dot.",
+                "title": "Nest fi\u00f3k \u00f6sszekapcsol\u00e1sa"
+            },
+            "pick_implementation": {
+                "title": "V\u00e1lasszon egy hiteles\u00edt\u00e9si m\u00f3dszert"
+            },
+            "pubsub": {
+                "data": {
+                    "cloud_project_id": "Google Cloud Project azonos\u00edt\u00f3"
+                },
+                "description": "L\u00e1togasson el a [Cloud Console]({url}) oldalra, hogy megtal\u00e1lja a Google Cloud Project azonos\u00edt\u00f3t.",
+                "title": "Google Cloud konfigur\u00e1l\u00e1sa"
+            },
+            "reauth_confirm": {
+                "description": "A Nest integr\u00e1ci\u00f3nak \u00fajra kell hiteles\u00edtenie a fi\u00f3kj\u00e1t",
+                "title": "A(z) {name} hiteles\u00edt\u00e9se lej\u00e1rt"
+            }
+        }
+    },
+    "device_automation": {
+        "trigger_type": {
+            "camera_motion": "Mozg\u00e1s \u00e9szlelve",
+            "camera_person": "Szem\u00e9ly \u00e9szlelve",
+            "camera_sound": "Hang \u00e9szlelve",
+            "doorbell_chime": "Cseng\u0151 megnyomva"
+        }
+    },
+    "entity": {
+        "sensor": {
+            "humidity": {
+                "name": "P\u00e1ratartalom"
+            },
+            "temperature": {
+                "name": "H\u0151m\u00e9rs\u00e9klet"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_yaml": {
+            "description": "Nest konfigur\u00e1l\u00e1sa a configuration.yaml f\u00e1jl \u00e1ltal a 2022.10-es Home Assistantban elt\u00e1vol\u00edt\u00e1sra ker\u00fcl.\n\nA megl\u00e9v\u0151 OAuth alkalmaz\u00e1s hiteles\u00edt\u0151 adatai \u00e9s hozz\u00e1f\u00e9r\u00e9si be\u00e1ll\u00edt\u00e1sai automatikusan import\u00e1l\u00e1sra ker\u00fclnek a felhaszn\u00e1l\u00f3i fel\u00fcletre. A probl\u00e9ma megold\u00e1s\u00e1hoz t\u00e1vol\u00edtsa el a YAML konfigur\u00e1ci\u00f3t a configuration.yaml f\u00e1jlb\u00f3l \u00e9s ind\u00edtsa \u00fajra a Home Assistantot.",
+            "title": "A Nest YAML konfigur\u00e1ci\u00f3ja elt\u00e1vol\u00edt\u00e1sra ker\u00fcl"
+        },
+        "legacy_nest_deprecated": {
+            "description": "A Legacy Works With Nest elt\u00e1vol\u00edt\u00e1sra ker\u00fcl a Home Assistantb\u00f3l.\n\nAz SDM API haszn\u00e1lat\u00e1hoz l\u00e9p\u00e9seket kell tennie. T\u00e1vol\u00edtsa el az \u00f6sszes `nest` konfigur\u00e1ci\u00f3t a `configuration.yaml` f\u00e1jlb\u00f3l \u00e9s ind\u00edtsa \u00fajra a Home Assistantot, majd tekintse meg a Nest [integr\u00e1ci\u00f3s utas\u00edt\u00e1sok]({documentation_url}) c\u00edm\u0171 dokumentumot a be\u00e1ll\u00edt\u00e1si utas\u00edt\u00e1sok\u00e9rt \u00e9s a t\u00e1mogatott eszk\u00f6z\u00f6k\u00e9rt.",
+            "title": "A Legacy Works With Nest elt\u00e1vol\u00edt\u00e1sra ker\u00fcl"
+        },
+        "legacy_nest_removed": {
+            "description": "A Legacy Works With Nest elt\u00e1vol\u00edt\u00e1sra ker\u00fclt a Home Assistantb\u00f3l \u00e9s az API 2023. szeptember\u00e9t\u0151l megsz\u0171nik.\n\nL\u00e9p\u00e9seket kell tennie az SDM API haszn\u00e1lat\u00e1hoz. T\u00e1vol\u00edtsa el az \u00f6sszes `nest` konfigur\u00e1ci\u00f3t a `configuration.yaml`-b\u00f3l \u00e9s ind\u00edtsa \u00fajra a Home Assistantot, majd tekintse meg a Nest [integr\u00e1ci\u00f3s utas\u00edt\u00e1sokat]({documentation_url}) a be\u00e1ll\u00edt\u00e1si utas\u00edt\u00e1sokhoz \u00e9s a t\u00e1mogatott eszk\u00f6z\u00f6kh\u00f6z.",
+            "title": "A Legacy Works With Nest elt\u00e1vol\u00edt\u00e1sra ker\u00fclt"
+        },
+        "removed_app_auth": {
+            "description": "A biztons\u00e1g jav\u00edt\u00e1sa \u00e9s a adathal\u00e1szat kock\u00e1zat\u00e1nak cs\u00f6kkent\u00e9se \u00e9rdek\u00e9ben a Google megsz\u00fcntette a Home Assistant \u00e1ltal haszn\u00e1lt hiteles\u00edt\u00e9si m\u00f3dszert.\n\n**\u00d6nnek l\u00e9p\u00e9seket kell tennie az \u00fcgy megold\u00e1s\u00e1hoz** ([tov\u00e1bbi inform\u00e1ci\u00f3k]({more_info_url}))\n\n1. L\u00e1togasson el az integr\u00e1ci\u00f3k oldal\u00e1ra\n1. Kattintson a \"Reconfigure\" gombra a Nest integr\u00e1ci\u00f3n\u00e1l.\n1. A Home Assistant v\u00e9gigvezeti \u00d6nt a Webes Hiteles\u00edt\u00e9sre val\u00f3 friss\u00edt\u00e9s l\u00e9p\u00e9sein.\n\nA hibaelh\u00e1r\u00edt\u00e1si inform\u00e1ci\u00f3k\u00e9rt tekintse meg a Nest [integr\u00e1ci\u00f3s utas\u00edt\u00e1sokat]({documentation_url}).",
+            "title": "A Nest hiteles\u00edt\u0151 adatait friss\u00edteni sz\u00fcks\u00e9ges"
+        }
+    },
+    "services": {
+        "cancel_eta": {
+            "description": "T\u00f6rli a megl\u00e9v\u0151 becs\u00fclt \u00e9rkez\u00e9si id\u0151ablakot egy Nest strukt\u00far\u00e1ban.",
+            "fields": {
+                "structure": {
+                    "description": "A v\u00e1ltoztatni k\u00edv\u00e1nt strukt\u00far\u00e1k neve. Ha nincs megadva, alap\u00e9rtelmez\u00e9s szerint minden strukt\u00far\u00e1t \u00e9rint.",
+                    "name": "Strukt\u00fara"
+                },
+                "trip_id": {
+                    "description": "Az utaz\u00e1s egyedi azonos\u00edt\u00f3ja.",
+                    "name": "Utaz\u00e1s azonos\u00edt\u00f3"
+                }
+            },
+            "name": "T\u00f6r\u00f6lje az \u00e9rkez\u00e9si id\u0151t"
+        },
+        "set_away_mode": {
+            "description": "Be\u00e1ll\u00edtja a t\u00e1voll\u00e9ti m\u00f3dot egy Nest strukt\u00far\u00e1hoz.",
+            "fields": {
+                "away_mode": {
+                    "description": "\u00daj m\u00f3d be\u00e1ll\u00edt\u00e1sa.",
+                    "name": "T\u00e1voli m\u00f3d"
+                },
+                "structure": {
+                    "description": "A v\u00e1ltoztatni k\u00edv\u00e1nt strukt\u00far\u00e1k neve. Ha nincs megadva, alap\u00e9rtelmez\u00e9s szerint minden strukt\u00far\u00e1t \u00e9rint.",
+                    "name": "Strukt\u00fara"
+                }
+            },
+            "name": "T\u00e1voli m\u00f3d be\u00e1ll\u00edt\u00e1sa"
+        },
+        "set_eta": {
+            "description": "Be\u00e1ll\u00edtja vagy friss\u00edti a becs\u00fclt \u00e9rkez\u00e9si id\u0151ablakot egy Nest strukt\u00far\u00e1hoz.",
+            "fields": {
+                "eta": {
+                    "description": "Becs\u00fclt \u00e9rkez\u00e9si id\u0151 mostant\u00f3l.",
+                    "name": "Becs\u00fclt \u00e9rkez\u00e9si id\u0151"
+                },
+                "eta_window": {
+                    "description": "Becs\u00fclt \u00e9rkez\u00e9si id\u0151ablak.",
+                    "name": "Becs\u00fclt \u00e9rkez\u00e9si id\u0151ablak"
+                },
+                "structure": {
+                    "description": "A v\u00e1ltoztatni k\u00edv\u00e1nt strukt\u00far\u00e1k neve. Ha nincs megadva, alap\u00e9rtelmez\u00e9s szerint minden strukt\u00far\u00e1t \u00e9rint.",
+                    "name": "Strukt\u00fara"
+                },
+                "trip_id": {
+                    "description": "Egyedi azonos\u00edt\u00f3 az utaz\u00e1shoz. Alap\u00e9rtelmez\u00e9s szerint id\u0151b\u00e9lyegz\u0151vel automatikusan gener\u00e1l\u00f3dik.",
+                    "name": "Utaz\u00e1s azonos\u00edt\u00f3"
+                }
+            },
+            "name": "\u00c1ll\u00edtsa be a v\u00e1rhat\u00f3 \u00e9rkez\u00e9si id\u0151t"
+        }
+    }
+}

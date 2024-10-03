@@ -1,0 +1,80 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "Automatisering",
+            "state": {
+                "off": "Uit",
+                "on": "Aan"
+            },
+            "state_attributes": {
+                "current": {
+                    "name": "Lopende automatiseringen"
+                },
+                "id": {
+                    "name": "ID"
+                },
+                "last_triggered": {
+                    "name": "Laatst uitgevoerd"
+                },
+                "max": {
+                    "name": "Max lopende automatiseringen"
+                },
+                "mode": {
+                    "name": "Uitvoeringsmodus",
+                    "state": {
+                        "parallel": "Parallel",
+                        "queued": "Wachtrij",
+                        "restart": "Herstart",
+                        "single": "Enkelvoudig"
+                    }
+                }
+            }
+        }
+    },
+    "issues": {
+        "service_not_found": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "title": "{name} gebruikt een onbekende service"
+                    }
+                }
+            }
+        }
+    },
+    "services": {
+        "reload": {
+            "description": "Herlaadt de automatiseringsconfiguratie.",
+            "name": "Herladen"
+        },
+        "toggle": {
+            "description": "Schakelt een automatisering aan/uit.",
+            "name": "Omschakelen"
+        },
+        "trigger": {
+            "description": "Activeert de acties van een automatisering.",
+            "fields": {
+                "skip_condition": {
+                    "description": "Definieert of de voorwaarden wel of niet worden overgeslagen.",
+                    "name": "Voorwaarden overslaan"
+                }
+            },
+            "name": "Trigger"
+        },
+        "turn_off": {
+            "description": "Schakelt een automatisering uit.",
+            "fields": {
+                "stop_actions": {
+                    "description": "Stopt lopende acties.",
+                    "name": "Stop acties"
+                }
+            },
+            "name": "Uitzetten"
+        },
+        "turn_on": {
+            "description": "Schakelt een automatisering in.",
+            "name": "Aanzetten"
+        }
+    },
+    "title": "Automatisering"
+}

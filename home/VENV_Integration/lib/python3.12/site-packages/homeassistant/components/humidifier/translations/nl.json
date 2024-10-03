@@ -1,0 +1,118 @@
+{
+    "device_automation": {
+        "action_type": {
+            "set_humidity": "Luchtvochtigheid instellen voor {entity_name}",
+            "set_mode": "Wijzig modus van {entity_name}",
+            "toggle": "Zet {entity_name} aan/uit",
+            "turn_off": "{entity_name} uitzetten",
+            "turn_on": "{entity_name} aanzetten"
+        },
+        "condition_type": {
+            "is_mode": "{entity_name} is ingesteld op een specifieke modus",
+            "is_off": "{entity_name} is uitgeschakeld",
+            "is_on": "{entity_name} is ingeschakeld"
+        },
+        "trigger_type": {
+            "changed_states": "{entity_name} aan- of uitgezet",
+            "target_humidity_changed": "{entity_name} doel luchtvochtigheid gewijzigd",
+            "turned_off": "{entity_name} uitgezet",
+            "turned_on": "{entity_name} aangezet"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Luchtbevochtiger",
+            "state": {
+                "off": "Uit",
+                "on": "Aan"
+            },
+            "state_attributes": {
+                "action": {
+                    "name": "Actie",
+                    "state": {
+                        "drying": "Drogen",
+                        "humidifying": "Bevochtigen",
+                        "idle": "Inactief",
+                        "off": "Uit"
+                    }
+                },
+                "available_modes": {
+                    "name": "Beschikbare modes"
+                },
+                "current_humidity": {
+                    "name": "Huidige luchtvochtigheid"
+                },
+                "humidity": {
+                    "name": "Doelluchtvochtigheid"
+                },
+                "max_humidity": {
+                    "name": "Max doelluchtvochtigheid"
+                },
+                "min_humidity": {
+                    "name": "Min doelluchtvochtigheid"
+                },
+                "mode": {
+                    "name": "Modus",
+                    "state": {
+                        "auto": "Automatisch",
+                        "away": "Afwezig",
+                        "baby": "Baby",
+                        "boost": "Boost",
+                        "comfort": "Comfortabel",
+                        "eco": "Eco",
+                        "home": "Thuis",
+                        "normal": "Normaal",
+                        "sleep": "Slaapstand"
+                    }
+                }
+            }
+        },
+        "dehumidifier": {
+            "name": "Luchtontvochtiger"
+        },
+        "humidifier": {
+            "name": "Luchtbevochtiger"
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "Platform {platform} van de {domain} integratie heeft geen platformondersteuning.\n\nVerwijder dit uit je configuratie en herstart Home Assistant om dit issue op te lossen.",
+            "title": "Platformondersteuning is niet ondersteund"
+        }
+    },
+    "services": {
+        "set_humidity": {
+            "description": "Stelt doel luchtvochtigheid in.",
+            "fields": {
+                "humidity": {
+                    "description": "Doel luchtvochtigheid.",
+                    "name": "Luchtvochtigheid"
+                }
+            },
+            "name": "Luchtvochtigheid instellen"
+        },
+        "set_mode": {
+            "description": "Stelt de bedrijfsmodus van de luchtbevochtiger in.",
+            "fields": {
+                "mode": {
+                    "description": "Bedrijfsmodus. Bijvoorbeeld, _normaal_, _eco_, of _weg_. Voor een lijst met mogelijke waarden, deze naar de integratiedocumentatie.",
+                    "name": "Modus"
+                }
+            },
+            "name": "Modus instellen"
+        },
+        "toggle": {
+            "description": "Schakelt de luchtbevochtiger aan/uit.",
+            "name": "Omschakelen"
+        },
+        "turn_off": {
+            "description": "Zet de luchtbevochtiger uit.",
+            "name": "Uitzetten"
+        },
+        "turn_on": {
+            "description": "Zet de luchtbevochtiger aan.",
+            "name": "Aanzetten"
+        }
+    },
+    "title": "Luchtbevochtiger"
+}

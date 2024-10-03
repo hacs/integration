@@ -1,0 +1,95 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Ger\u00e4t ist bereits konfiguriert",
+            "already_in_progress": "Der Konfigurationsablauf wird bereits ausgef\u00fchrt",
+            "not_xiaomi_aqara": "Kein Xiaomi Aqara Gateway, gefundenes Ger\u00e4t stimmt nicht mit bekannten Gateways \u00fcberein"
+        },
+        "error": {
+            "discovery_error": "Es konnte kein Xiaomi Aqara Gateway gefunden werden, versuche die IP von Home Assistant als Interface zu nutzen",
+            "invalid_host": "Ung\u00fcltiger Hostname oder IP-Adresse, schau unter https://www.home-assistant.io/integrations/xiaomi_aqara/#connection-problem",
+            "invalid_interface": "Ung\u00fcltige Netzwerkschnittstelle",
+            "invalid_key": "Ung\u00fcltiger Gateway-Schl\u00fcssel",
+            "invalid_mac": "Ung\u00fcltige MAC-Adresse"
+        },
+        "flow_title": "{name}",
+        "step": {
+            "select": {
+                "data": {
+                    "select_ip": "IP-Adresse"
+                },
+                "description": "W\u00e4hle das Xiaomi Aqara Gateway, das du verbinden m\u00f6chtest"
+            },
+            "settings": {
+                "data": {
+                    "key": "Der Schl\u00fcssel deines Gateways",
+                    "name": "Name des Gateways"
+                },
+                "description": "Der Schl\u00fcssel (das Passwort) kann mithilfe dieser Anleitung abgerufen werden: https://www.domoticz.com/wiki/Xiaomi_Gateway_(Aqara)#Adding_the_Xiaomi_Gateway_to_Domoticz. Wenn der Schl\u00fcssel nicht angegeben wird, sind nur die Sensoren zug\u00e4nglich",
+                "title": "Optionale Einstellungen"
+            },
+            "user": {
+                "data": {
+                    "host": "IP-Adresse (optional)",
+                    "interface": "Die zu verwendende Netzwerkschnittstelle",
+                    "mac": "MAC-Adresse (optional)"
+                },
+                "description": "Wenn die IP- und MAC-Adressen leer gelassen werden, wird die automatische Erkennung verwendet"
+            }
+        }
+    },
+    "services": {
+        "add_device": {
+            "description": "Aktiviert die Verbindungserlaubnis des Xiaomi Aqara Gateway f\u00fcr 30 Sekunden. Danach kann ein neues Ger\u00e4t durch einmaliges Dr\u00fccken der Kopplungstaste hinzugef\u00fcgt werden.",
+            "fields": {
+                "gw_mac": {
+                    "description": "MAC-Adresse des Xiaomi Aqara Gateways.",
+                    "name": "Gateway-MAC"
+                }
+            },
+            "name": "Ger\u00e4t hinzuf\u00fcgen"
+        },
+        "play_ringtone": {
+            "description": "Spielt einen bestimmten Klingelton ab. Die Version der Gateway-Firmware muss mindestens 1.4.1_145 sein.",
+            "fields": {
+                "gw_mac": {
+                    "description": "MAC-Adresse des Xiaomi Aqara Gateways.",
+                    "name": "Gateway-MAC"
+                },
+                "ringtone_id": {
+                    "description": "Eine der zul\u00e4ssigen Klingelton-IDs.",
+                    "name": "Klingelton-ID"
+                },
+                "ringtone_vol": {
+                    "description": "Die Lautst\u00e4rke in Prozent.",
+                    "name": "Klingeltonlautst\u00e4rke"
+                }
+            },
+            "name": "Klingelton abspielen"
+        },
+        "remove_device": {
+            "description": "Entfernt ein bestimmtes Ger\u00e4t. Die Entfernung ist erforderlich, wenn ein Ger\u00e4t mit einem anderen Gateway gekoppelt werden soll.",
+            "fields": {
+                "device_id": {
+                    "description": "Hardwareadresse des zu entfernenden Ger\u00e4ts.",
+                    "name": "Ger\u00e4te-ID"
+                },
+                "gw_mac": {
+                    "description": "MAC-Adresse des Xiaomi Aqara Gateways.",
+                    "name": "Gateway-MAC"
+                }
+            },
+            "name": "Ger\u00e4t entfernen"
+        },
+        "stop_ringtone": {
+            "description": "Stoppt die Wiedergabe eines Klingeltons sofort.",
+            "fields": {
+                "gw_mac": {
+                    "description": "MAC-Adresse des Xiaomi Aqara Gateways.",
+                    "name": "Gateway-MAC"
+                }
+            },
+            "name": "Klingelton stoppen"
+        }
+    }
+}

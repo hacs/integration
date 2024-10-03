@@ -1,0 +1,206 @@
+{
+    "config": {
+        "abort": {
+            "address_already_configured": "Ein ElkM1 mit dieser Adresse ist bereits konfiguriert",
+            "already_configured": "Ein ElkM1 mit diesem Pr\u00e4fix ist bereits konfiguriert",
+            "already_in_progress": "Der Konfigurationsablauf wird bereits ausgef\u00fchrt",
+            "cannot_connect": "Verbindung fehlgeschlagen",
+            "invalid_auth": "Ung\u00fcltige Authentifizierung",
+            "unknown": "Unerwarteter Fehler"
+        },
+        "error": {
+            "cannot_connect": "Verbindung fehlgeschlagen",
+            "invalid_auth": "Ung\u00fcltige Authentifizierung",
+            "unknown": "Unerwarteter Fehler"
+        },
+        "flow_title": "{mac_address} ({host})",
+        "step": {
+            "discovered_connection": {
+                "data": {
+                    "password": "Passwort",
+                    "protocol": "Protokoll",
+                    "temperature_unit": "Die von ElkM1 verwendete Temperatureinheit.",
+                    "username": "Benutzername"
+                },
+                "description": "Verbinde dich mit dem ermittelten System: {mac_address} ({host})",
+                "title": "Stelle eine Verbindung zur Elk-M1-Steuerung her"
+            },
+            "manual_connection": {
+                "data": {
+                    "address": "Die IP-Adresse, die Domain oder der serielle Port bei einer seriellen Verbindung.",
+                    "password": "Passwort",
+                    "prefix": "Ein eindeutiges Pr\u00e4fix (leer lassen, wenn du nur einen ElkM1 hast).",
+                    "protocol": "Protokoll",
+                    "temperature_unit": "Die von ElkM1 verwendete Temperatureinheit.",
+                    "username": "Benutzername"
+                },
+                "description": "Die Adresszeichenfolge muss in der Form \u201eadresse[:port]\u201c f\u00fcr \u201esicher\u201c und \u201enicht sicher\u201c vorliegen. Beispiel: \u201e192.168.1.1\u201c. Der Port ist optional und standardm\u00e4\u00dfig 2101 f\u00fcr \u201enicht sicher\u201c und 2601 f\u00fcr \u201esicher\u201c. F\u00fcr das serielle Protokoll muss die Adresse die Form \u201etty[:baud]\u201c haben. Beispiel: \u201e/dev/ttyS1\u201c. Der Baudrate ist optional und standardm\u00e4\u00dfig 115200.",
+                "title": "Stelle eine Verbindung zur Elk-M1-Steuerung her"
+            },
+            "user": {
+                "data": {
+                    "device": "Ger\u00e4t"
+                },
+                "description": "W\u00e4hle ein erkanntes System oder \u201eManuelle Eingabe\u201c, wenn keine Ger\u00e4te erkannt wurden.",
+                "title": "Stelle eine Verbindung zur Elk-M1-Steuerung her"
+            }
+        }
+    },
+    "issues": {
+        "migrate_aux_heat": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Die Elk-M1-Aktion `set_aux_heat` wurde migriert. F\u00fcr jeden Thermostat ist eine neue Not-Heizschalter-Entit\u00e4t verf\u00fcgbar. Aktualisiere alle Automatisierungen, um die neue Not-Heizschalter-Entit\u00e4t zu verwenden. Wenn dies erledigt ist, dr\u00fccke auf **Senden**, um dieses Problem zu beheben.",
+                        "title": "Migration der Elk-M1 Aktion \u201eset_aux_heat\u201c"
+                    }
+                }
+            },
+            "title": "Migration der Elk-M1 Aktion \u201eset_aux_heat\u201c"
+        }
+    },
+    "services": {
+        "alarm_arm_home_instant": {
+            "description": "Aktiviert den ElkM1 im Zu Hause-Sofortmodus.",
+            "fields": {
+                "code": {
+                    "description": "Ein Code zum Aktivieren der Alarmzentrale.",
+                    "name": "Code"
+                }
+            },
+            "name": "Sofortigen Home-Alarm aktivieren"
+        },
+        "alarm_arm_night_instant": {
+            "description": "Aktiviert den ElkM1 im Nacht-Sofortmodus.",
+            "fields": {
+                "code": {
+                    "description": "Ein Code zum Aktivieren der Alarmzentrale.",
+                    "name": "Code"
+                }
+            },
+            "name": "Sofortigen Nachtalarm aktivieren"
+        },
+        "alarm_arm_vacation": {
+            "description": "Aktivieren des ElkM1 im Urlaubsmodus.",
+            "fields": {
+                "code": {
+                    "description": "Ein Code zum Aktivieren der Alarmzentrale.",
+                    "name": "Code"
+                }
+            },
+            "name": "Alarm aktiv, Urlaub"
+        },
+        "alarm_bypass": {
+            "description": "Bypass aller Zonen f\u00fcr den Bereich.",
+            "fields": {
+                "code": {
+                    "description": "Ein Code zur Autorisierung des Bypass der Alarmzentrale.",
+                    "name": "Code"
+                }
+            },
+            "name": "Alarm-Bypass"
+        },
+        "alarm_clear_bypass": {
+            "description": "Entfernt den Bypass aller Zonen f\u00fcr den Bereich.",
+            "fields": {
+                "code": {
+                    "description": "Ein Code zur Autorisierung des Bypass der Alarmzentrale.",
+                    "name": "Code"
+                }
+            },
+            "name": "Alarml\u00f6sch-Bypass"
+        },
+        "alarm_display_message": {
+            "description": "Zeigt eine Meldung auf allen ElkM1-Tastaturen f\u00fcr einen Bereich an.",
+            "fields": {
+                "beep": {
+                    "description": "0=kein Piepton, 1=Piepton.",
+                    "name": "Piep"
+                },
+                "clear": {
+                    "description": "0=Meldung l\u00f6schen, 1=Meldung mit *-Taste l\u00f6schen, 2=Anzeige bis Timeout.",
+                    "name": "L\u00f6schen"
+                },
+                "line1": {
+                    "description": "Bis zu 16 Zeichen Text (abgeschnitten, wenn zu lang).",
+                    "name": "Zeile 1"
+                },
+                "line2": {
+                    "description": "Bis zu 16 Zeichen Text (abgeschnitten, wenn zu lang).",
+                    "name": "Zeile 2"
+                },
+                "timeout": {
+                    "description": "Zeit zum Anzeigen der Nachricht, 0 = f\u00fcr immer, max. 65535.",
+                    "name": "Zeit\u00fcberschreitung"
+                }
+            },
+            "name": "Alarmanzeigemeldung"
+        },
+        "sensor_counter_refresh": {
+            "description": "Aktualisiert den Wert eines Z\u00e4hlers aus dem Panel.",
+            "name": "Aktualisierung des Sensorz\u00e4hlers"
+        },
+        "sensor_counter_set": {
+            "description": "Legt den Wert eines Z\u00e4hlers im Panel fest.",
+            "fields": {
+                "value": {
+                    "description": "Wert, auf den der Z\u00e4hler gesetzt werden soll.",
+                    "name": "Wert"
+                }
+            },
+            "name": "Sensorz\u00e4hler eingestellt"
+        },
+        "sensor_zone_bypass": {
+            "description": "Bypass einer Zone.",
+            "fields": {
+                "code": {
+                    "description": "Ein Code, der den Bypass der Zone erlaubt.",
+                    "name": "Code"
+                }
+            },
+            "name": "Sensorzonen-Bypass"
+        },
+        "sensor_zone_trigger": {
+            "description": "L\u00f6st Zone aus.",
+            "name": "Sensorzonen-Trigger"
+        },
+        "set_time": {
+            "description": "Legt die Zeit f\u00fcr das Panel fest.",
+            "fields": {
+                "prefix": {
+                    "description": "Pr\u00e4fix f\u00fcr das Panel.",
+                    "name": "Pr\u00e4fix"
+                }
+            },
+            "name": "Zeit einstellen"
+        },
+        "speak_phrase": {
+            "description": "Spricht eine Phrase. Siehe Liste der Phrasen in der ElkM1-ASCII-Protokoll-Dokumentation.",
+            "fields": {
+                "number": {
+                    "description": "Phrasennummer, die gesprochen werden soll.",
+                    "name": "Phrasennummer"
+                },
+                "prefix": {
+                    "description": "Pr\u00e4fix zur Identifizierung des Panels, wenn mehrere Panels konfiguriert sind.",
+                    "name": "Pr\u00e4fix"
+                }
+            },
+            "name": "Phrase sprechen"
+        },
+        "speak_word": {
+            "description": "Spricht ein Wort. Siehe Liste der W\u00f6rter in der Dokumentation zum ElkM1 ASCII-Protokoll.",
+            "fields": {
+                "number": {
+                    "description": "Wortzahl zum Sprechen.",
+                    "name": "Wortzahl"
+                },
+                "prefix": {
+                    "description": "Pr\u00e4fix zur Identifizierung des Panels, wenn mehrere Panels konfiguriert sind.",
+                    "name": "Pr\u00e4fix"
+                }
+            },
+            "name": "Wort sagen"
+        }
+    }
+}

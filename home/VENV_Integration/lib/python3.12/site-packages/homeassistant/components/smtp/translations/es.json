@@ -1,0 +1,63 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "El servicio ya est\u00e1 configurado",
+            "cannot_connect": "No se pudo conectar"
+        },
+        "error": {
+            "authentication_failed": "No es posible iniciar sesi\u00f3n. Por favor, comprueba tu configuraci\u00f3n y/o tus credenciales",
+            "connection_refused": "El servidor SMTP no se encontr\u00f3 o se rechaz\u00f3 la conexi\u00f3n. Por favor, comprueba la direcci\u00f3n IP, el nombre de host y la disponibilidad de tu servidor SMTP.",
+            "invalid_email_address": "Direcci\u00f3n de correo electr\u00f3nico especificada no v\u00e1lida",
+            "username_and_password": "El nombre de usuario y la contrase\u00f1a deben configurarse juntos"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "debug": "Habilitar la depuraci\u00f3n SMTP",
+                    "encryption": "Cifrado",
+                    "name": "Nombre",
+                    "password": "Contrase\u00f1a",
+                    "port": "Puerto",
+                    "recipient": "Destinatarios",
+                    "sender": "Remitente",
+                    "sender_name": "Nombre del remitente",
+                    "server": "Host",
+                    "timeout": "Tiempo de espera de solicitud (segundos)",
+                    "username": "Nombre de usuario",
+                    "verify_ssl": "Verificar el certificado SSL"
+                },
+                "data_description": {
+                    "encryption": "El tipo de cifrado del servidor de correo electr\u00f3nico.",
+                    "name": "Si se establece, se crear\u00e1 un servicio de notificaci\u00f3n espec\u00edfico con este nombre, por defecto `notify.notify`.",
+                    "password": "La contrase\u00f1a para la autenticaci\u00f3n en el servidor SMTP.",
+                    "port": "El puerto del servidor SMTP",
+                    "recipient": "Las direcciones de correo electr\u00f3nico de los destinatarios que deben recibir una notificaci\u00f3n por correo electr\u00f3nico.",
+                    "sender": "La direcci\u00f3n de correo electr\u00f3nico del remitente.",
+                    "sender_name": "El nombre del remitente",
+                    "server": "El nombre de host o la direcci\u00f3n IP del servidor SMTP",
+                    "username": "El nombre de usuario para la autenticaci\u00f3n en el servidor SMTP."
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "remote_path_not_allowed": {
+            "message": "No se puede enviar un correo electr\u00f3nico con el archivo adjunto \"{file_name}\" desde el directorio \"{file_path}\" desde el cual no es seguro cargar datos. Solo se puede acceder a las carpetas a\u00f1adidas a `{allow_list}`. Consulta {url} para obtener m\u00e1s informaci\u00f3n."
+        }
+    },
+    "selector": {
+        "encryption": {
+            "options": {
+                "none": "Sin cifrado (normalmente a trav\u00e9s del puerto 25)",
+                "starttls": "STARTTLS (normalmente a trav\u00e9s del puerto 587 o 25)",
+                "tls": "TLS (normalmente a trav\u00e9s del puerto 465)"
+            }
+        }
+    },
+    "services": {
+        "reload": {
+            "description": "Recarga los servicios de notificaci\u00f3n SMTP.",
+            "name": "Recargar"
+        }
+    }
+}

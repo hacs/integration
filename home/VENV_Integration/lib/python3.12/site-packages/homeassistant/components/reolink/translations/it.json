@@ -1,0 +1,552 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Il dispositivo \u00e8 gi\u00e0 configurato",
+            "reauth_successful": "La riautenticazione ha avuto successo"
+        },
+        "error": {
+            "api_error": "Si \u00e8 verificato un errore di API",
+            "cannot_connect": "Impossibile connettersi, controllare l'indirizzo IP della telecamera",
+            "invalid_auth": "Autenticazione non valida",
+            "password_incompatible": "La password contiene un carattere speciale incompatibile, sono ammessi solo questi caratteri: a-z, A-Z, 0-9 oppure {special_chars}",
+            "unknown": "Errore imprevisto",
+            "webhook_exception": "L'URL di Home Assistant non \u00e8 disponibile, vai su Impostazioni > Sistema > Rete > URL di Home Assistant e correggi gli URL, vedi {more_info}"
+        },
+        "flow_title": "{hostname} ({ip_address})",
+        "step": {
+            "reauth_confirm": {
+                "description": "L'integrazione Reolink ha bisogno di riautenticare i dettagli della tua connessione",
+                "title": "Autenticazione scaduta per {name}"
+            },
+            "user": {
+                "data": {
+                    "host": "Host",
+                    "password": "Password",
+                    "port": "Porta",
+                    "use_https": "Abilita HTTPS",
+                    "username": "Nome utente"
+                },
+                "description": "Consulta la [procedura per la risoluzione dei problemi]({troubleshooting_link}) in caso di problemi. {error}"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "animal": {
+                "name": "Animale",
+                "state": {
+                    "off": "Assente",
+                    "on": "Rilevato"
+                }
+            },
+            "animal_lens_0": {
+                "name": "Lente animale 0",
+                "state": {
+                    "off": "Assente",
+                    "on": "Rilevato"
+                }
+            },
+            "animal_lens_1": {
+                "name": "Lente animale 1",
+                "state": {
+                    "off": "Assente",
+                    "on": "Rilevato"
+                }
+            },
+            "face": {
+                "name": "Viso",
+                "state": {
+                    "off": "Assente",
+                    "on": "Rilevato"
+                }
+            },
+            "face_lens_0": {
+                "name": "Lente viso 0",
+                "state": {
+                    "off": "Assente",
+                    "on": "Rilevato"
+                }
+            },
+            "face_lens_1": {
+                "name": "Lente viso 1",
+                "state": {
+                    "off": "Assente",
+                    "on": "Rilevato"
+                }
+            },
+            "motion_lens_0": {
+                "name": "Lente di movimento 0",
+                "state": {
+                    "off": "Assente",
+                    "on": "Rilevato"
+                }
+            },
+            "motion_lens_1": {
+                "name": "Lente di movimento 1",
+                "state": {
+                    "off": "Assente",
+                    "on": "Rilevato"
+                }
+            },
+            "package": {
+                "state": {
+                    "off": "Assente",
+                    "on": "Rilevato"
+                }
+            },
+            "package_lens_0": {
+                "state": {
+                    "off": "Assente",
+                    "on": "Rilevato"
+                }
+            },
+            "package_lens_1": {
+                "state": {
+                    "off": "Assente",
+                    "on": "Rilevato"
+                }
+            },
+            "person": {
+                "name": "Persona",
+                "state": {
+                    "off": "Assente",
+                    "on": "Rilevato"
+                }
+            },
+            "person_lens_0": {
+                "name": "Lente persona 0",
+                "state": {
+                    "off": "Assente",
+                    "on": "Rilevato"
+                }
+            },
+            "person_lens_1": {
+                "name": "Lente persona 1",
+                "state": {
+                    "off": "Assente",
+                    "on": "Rilevato"
+                }
+            },
+            "pet": {
+                "name": "Animale domestico",
+                "state": {
+                    "off": "Assente",
+                    "on": "Rilevato"
+                }
+            },
+            "pet_lens_0": {
+                "name": "Lente per animali domestici 0",
+                "state": {
+                    "off": "Assente",
+                    "on": "Rilevato"
+                }
+            },
+            "pet_lens_1": {
+                "name": "Lente per animali domestici 1",
+                "state": {
+                    "off": "Assente",
+                    "on": "Rilevato"
+                }
+            },
+            "vehicle": {
+                "name": "Veicolo",
+                "state": {
+                    "off": "Assente",
+                    "on": "Rilevato"
+                }
+            },
+            "vehicle_lens_0": {
+                "name": "Lente del veicolo 0",
+                "state": {
+                    "off": "Assente",
+                    "on": "Rilevato"
+                }
+            },
+            "vehicle_lens_1": {
+                "name": "Lente del veicolo 1",
+                "state": {
+                    "off": "Assente",
+                    "on": "Rilevato"
+                }
+            },
+            "visitor": {
+                "name": "Visitatore"
+            },
+            "visitor_lens_0": {
+                "name": "Lente visitatore 0"
+            },
+            "visitor_lens_1": {
+                "name": "Lente visitatore 1"
+            }
+        },
+        "button": {
+            "guard_go_to": {
+                "name": "Guardia vai a"
+            },
+            "guard_set": {
+                "name": "Imposta posizione corrente della guardia"
+            },
+            "ptz_calibrate": {
+                "name": "Calibrazione PTZ"
+            },
+            "ptz_down": {
+                "name": "PTZ gi\u00f9"
+            },
+            "ptz_left": {
+                "name": "PTZ sinistra"
+            },
+            "ptz_right": {
+                "name": "PTZ destra"
+            },
+            "ptz_stop": {
+                "name": "PTZ arresto"
+            },
+            "ptz_up": {
+                "name": "PTZ su"
+            },
+            "ptz_zoom_in": {
+                "name": "Aumenta zoom PTZ"
+            },
+            "ptz_zoom_out": {
+                "name": "Riduci zoom PTZ"
+            }
+        },
+        "camera": {
+            "autotrack_snapshots_main": {
+                "name": "Istantanee con tracciamento automatico trasparente"
+            },
+            "autotrack_snapshots_sub": {
+                "name": "Istantanee con tracciamento automatico scorrevole"
+            },
+            "autotrack_sub": {
+                "name": "Tracciamento automatico scorrevole"
+            },
+            "ext": {
+                "name": "Bilanciato"
+            },
+            "ext_lens_0": {
+                "name": "Lente bilanciata 0"
+            },
+            "ext_lens_1": {
+                "name": "Lente bilanciata 1"
+            },
+            "main": {
+                "name": "Trasparente"
+            },
+            "main_lens_0": {
+                "name": "Lente trasparente 0"
+            },
+            "main_lens_1": {
+                "name": "Lente trasparente 1"
+            },
+            "snapshots_main": {
+                "name": "Istantanee trasparente"
+            },
+            "snapshots_main_lens_0": {
+                "name": "Istantanee lente trasparente 0"
+            },
+            "snapshots_main_lens_1": {
+                "name": "Istantanee lente trasparente 1"
+            },
+            "snapshots_sub": {
+                "name": "Istantanee scorrevoli"
+            },
+            "snapshots_sub_lens_0": {
+                "name": "Istantanee lente scorrevole 0"
+            },
+            "snapshots_sub_lens_1": {
+                "name": "Istantanee lente scorrevole 1"
+            },
+            "sub": {
+                "name": "Scorrevole"
+            },
+            "sub_lens_0": {
+                "name": "Lente scorrevole 0"
+            },
+            "sub_lens_1": {
+                "name": "Lente scorrevole 1"
+            }
+        },
+        "light": {
+            "floodlight": {
+                "name": "Faretto"
+            },
+            "ir_lights": {
+                "name": "Luci a infrarossi in modalit\u00e0 notturna"
+            },
+            "status_led": {
+                "name": "LED di stato"
+            }
+        },
+        "number": {
+            "ai_animal_delay": {
+                "name": "Ritardo animale dell'IA"
+            },
+            "ai_animal_sensititvity": {
+                "name": "Sensibilit\u00e0 animale dell'IA"
+            },
+            "ai_face_delay": {
+                "name": "Ritardo AI del volto"
+            },
+            "ai_face_sensititvity": {
+                "name": "Sensibilit\u00e0 AI del volto"
+            },
+            "ai_person_delay": {
+                "name": "Ritardo AI della persona"
+            },
+            "ai_person_sensititvity": {
+                "name": "Sensibilit\u00e0 AI della persona"
+            },
+            "ai_pet_delay": {
+                "name": "Ritardo AI dell'animale domestico"
+            },
+            "ai_pet_sensititvity": {
+                "name": "Sensibilit\u00e0 AI degli animali domestici"
+            },
+            "ai_vehicle_delay": {
+                "name": "Ritardo del veicolo AI"
+            },
+            "ai_vehicle_sensititvity": {
+                "name": "Sensibilit\u00e0 AI del veicolo"
+            },
+            "auto_quick_reply_time": {
+                "name": "Tempo di risposta rapida automatica"
+            },
+            "auto_track_disappear_time": {
+                "name": "Tempo di scomparsa della traccia automatica"
+            },
+            "auto_track_limit_left": {
+                "name": "Limite di traccia automatica a sinistra"
+            },
+            "auto_track_limit_right": {
+                "name": "Limite di traccia automatica a destra"
+            },
+            "auto_track_stop_time": {
+                "name": "Orario di arresto della traccia automatica"
+            },
+            "day_night_switch_threshold": {
+                "name": "Soglia di commutazione giorno-notte"
+            },
+            "floodlight_brightness": {
+                "name": "Accendi la luminosit\u00e0 del faretto"
+            },
+            "focus": {
+                "name": "Messa a fuoco"
+            },
+            "guard_return_time": {
+                "name": "Orario di ritorno della guardia"
+            },
+            "image_brightness": {
+                "name": "Luminosit\u00e0 dell'immagine"
+            },
+            "image_contrast": {
+                "name": "Contrasto dell'immagine"
+            },
+            "image_hue": {
+                "name": "Tonalit\u00e0 dell'immagine"
+            },
+            "image_saturation": {
+                "name": "Saturazione dell'immagine"
+            },
+            "image_sharpness": {
+                "name": "Nitidezza dell'immagine"
+            },
+            "motion_sensitivity": {
+                "name": "Sensibilit\u00e0 al movimento"
+            },
+            "pir_sensitivity": {
+                "name": "Sensibilit\u00e0 PIR"
+            },
+            "volume": {
+                "name": "Volume"
+            },
+            "zoom": {
+                "name": "Zoom"
+            }
+        },
+        "select": {
+            "auto_quick_reply_message": {
+                "name": "Messaggio di risposta rapida automatica",
+                "state": {
+                    "off": "Spento/a"
+                }
+            },
+            "auto_track_method": {
+                "name": "Metodo di tracciamento automatico",
+                "state": {
+                    "digital": "Digitale",
+                    "digitalfirst": "Digitale per primo",
+                    "pantiltfirst": "Panoramica/inclinazione per prima"
+                }
+            },
+            "day_night_mode": {
+                "name": "Modalit\u00e0 giorno-notte",
+                "state": {
+                    "auto": "Automatico",
+                    "blackwhite": "Bianco e nero",
+                    "color": "Colore"
+                }
+            },
+            "floodlight_mode": {
+                "name": "Modalit\u00e0 faretto",
+                "state": {
+                    "adaptive": "Adattivo",
+                    "auto": "Automatica",
+                    "autoadaptive": "Auto adattivo",
+                    "off": "Spento/a",
+                    "onatnight": "Acceso di notte",
+                    "schedule": "Programma"
+                }
+            },
+            "hdr": {
+                "name": "HDR",
+                "state": {
+                    "auto": "Automatico",
+                    "off": "Spento/a",
+                    "on": "Acceso/a"
+                }
+            },
+            "ptz_preset": {
+                "name": "Preimpostazione PTZ"
+            },
+            "status_led": {
+                "name": "LED di stato",
+                "state": {
+                    "alwaysonatnight": "Auto & sempre attivo di notte",
+                    "auto": "Auto",
+                    "stayoff": "Stai fuori"
+                }
+            }
+        },
+        "sensor": {
+            "battery_percent": {
+                "name": "Percentuale della batteria"
+            },
+            "battery_state": {
+                "name": "Stato della batteria",
+                "state": {
+                    "chargecomplete": "Carica completata",
+                    "charging": "Caricamento",
+                    "discharging": "Scaricamento"
+                }
+            },
+            "battery_temperature": {
+                "name": "Temperatura della batteria"
+            },
+            "event_connection": {
+                "name": "Collegamento eventi",
+                "state": {
+                    "fast_poll": "Sondaggio veloce",
+                    "onvif_long_poll": "Sondaggio lungo ONVIF",
+                    "onvif_push": "Invio ONVIF"
+                }
+            },
+            "hdd_storage": {
+                "name": "Memoria HDD {hdd_index}"
+            },
+            "ptz_pan_position": {
+                "name": "Posizione orizzontale PTZ"
+            },
+            "sd_storage": {
+                "name": "Memoria SD {hdd_index}"
+            },
+            "wifi_signal": {
+                "name": "Segnale Wi Fi"
+            }
+        },
+        "siren": {
+            "siren": {
+                "name": "Sirena"
+            }
+        },
+        "switch": {
+            "auto_focus": {
+                "name": "Messa a fuoco automatica"
+            },
+            "auto_tracking": {
+                "name": "Tracciamento automatico"
+            },
+            "buzzer": {
+                "name": "Cicalino sull'evento"
+            },
+            "doorbell_button_sound": {
+                "name": "Suono del pulsante del campanello"
+            },
+            "email": {
+                "name": "E-mail sull'evento"
+            },
+            "ftp_upload": {
+                "name": "Caricamento FTP"
+            },
+            "gaurd_return": {
+                "name": "Ritorno della guardia"
+            },
+            "led": {
+                "name": "LED"
+            },
+            "pir_enabled": {
+                "name": "PIR abilitato"
+            },
+            "pir_reduce_alarm": {
+                "name": "PIR riduce i falsi allarmi"
+            },
+            "push_notifications": {
+                "name": "Notifiche push"
+            },
+            "record": {
+                "name": "Registra"
+            },
+            "record_audio": {
+                "name": "Registra audio"
+            },
+            "siren_on_event": {
+                "name": "Sirena su evento"
+            }
+        }
+    },
+    "issues": {
+        "enable_port": {
+            "description": "Impossibile abilitare automaticamente {ports} porta/e su {name}. Utilizza il [client Reolink]({info_link}) per impostarlo manualmente su Acceso",
+            "title": "Porta Reolink non abilitata"
+        },
+        "firmware_update": {
+            "description": "\"{name}\" con il modello \"{model}\" e versione hardware \"{hw_version}\" esegue una vecchia versione del firmware \"{current_firmware}\", mentre \u00e8 richiesta almeno la versione del firmware \"{required_firmware}\" per il corretto funzionamento dell'integrazione Reolink. L'ultimo firmware pu\u00f2 essere scaricato dal [Centro download Reolink]({download_link}).",
+            "title": "\u00c8 richiesto l'aggiornamento del firmware Reolink"
+        },
+        "hdr_switch_deprecated": {
+            "description": "L'entit\u00e0 switch HDR di Reolink \u00e8 deprecata e sar\u00e0 rimossa in HA 2025.2.0. \u00c8 stata sostituita da un'entit\u00e0 select HDR che offre le opzioni `on`, `off` e `auto`. Per eliminare questo problema, regolare le automazioni di conseguenza e disabilitare l'entit\u00e0 switch HDR.",
+            "title": "Lo switch HDR di Reolink \u00e8 stato deprecato"
+        },
+        "https_webhook": {
+            "description": "I prodotti Reolink non possono inviare eventi di movimento a un indirizzo HTTPS (SSL), si prega di configurare un indirizzo HTTP (locale) in \"Home Assistant URL\" nelle [impostazioni di rete]({network_link}). L'indirizzo (locale) corrente \u00e8: `{base_url}`, un indirizzo valido potrebbe essere, ad esempio, `http://192.168.1.10:8123` dove `192.168.1.10` \u00e8 l'IP del dispositivo Home Assistant",
+            "title": "L'URL del webhook di Reolink utilizza HTTPS (SSL)"
+        },
+        "ssl": {
+            "description": "Certificato SSL globale configurato in [configuration.yaml in http]({ssl_link}) mentre un indirizzo HTTP locale `{base_url}` \u00e8 configurato in \"Home Assistant URL\" in [impostazioni di rete]({network_link}). Pertanto, il dispositivo Reolink non pu\u00f2 raggiungere Home Assistant per spingere i suoi eventi di movimento/AI. Assicurati che l'indirizzo HTTP locale non sia coperto dal certificato SSL, ad esempio utilizzando [NGINX add-on]({nginx_link}) invece di un certificato SSL applicato a livello globale.",
+            "title": "Reolink incompatibile con il certificato SSL globale"
+        },
+        "webhook_url": {
+            "description": "Non \u00e8 stato ricevuto lo stato ONVIF iniziale da {name}. Molto probabilmente la telecamera Reolink non riesce a raggiungere l'URL corrente (locale) di Home Assistant `{base_url}`, configurare un indirizzo HTTP (locale) sotto \"URL di Home Assistant\" nelle [impostazioni di rete]({network_link}) che punti a Home Assistant. Ad esempio `http://192.168.1.10:8123` dove `192.168.1.10` \u00e8 l'IP del dispositivo Home Assistant. Assicurarsi inoltre che la telecamera Reolink possa raggiungere tale URL. Utilizzare l'interrogazione rapida dello stato di movimento/AI fino alla ricezione del primo push ONVIF.",
+            "title": "URL webhook Reolink non raggiungibile"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "protocol": "Protocollo"
+                }
+            }
+        }
+    },
+    "services": {
+        "ptz_move": {
+            "fields": {
+                "speed": {
+                    "name": "Velocit\u00e0"
+                }
+            },
+            "name": "Movimento PTZ"
+        }
+    }
+}

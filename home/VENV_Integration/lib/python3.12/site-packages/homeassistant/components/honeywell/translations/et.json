@@ -1,0 +1,117 @@
+{
+    "config": {
+        "error": {
+            "cannot_connect": "\u00dchendamine nurjus",
+            "invalid_auth": "Tuvastamine nurjus"
+        },
+        "step": {
+            "reauth_confirm": {
+                "data": {
+                    "password": "Salas\u00f5na"
+                },
+                "description": "Honeywell sidumine peab konto uuesti tuvastama.",
+                "title": "{name} autentimine aegus"
+            },
+            "user": {
+                "data": {
+                    "password": "Salas\u00f5na",
+                    "username": "Kasutajanimi"
+                },
+                "description": "Sisesta saidile mytotalconnectcomfort.com sisenemiseks kasutatav mandaat."
+            }
+        }
+    },
+    "entity": {
+        "climate": {
+            "honeywell": {
+                "state_attributes": {
+                    "preset_mode": {
+                        "state": {
+                            "away": "Eemal",
+                            "hold": "Hoia",
+                            "none": "Puudub"
+                        }
+                    }
+                }
+            }
+        },
+        "sensor": {
+            "outdoor_humidity": {
+                "name": "V\u00e4lis\u00f5hu niiskus"
+            },
+            "outdoor_temperature": {
+                "name": "V\u00e4listemperatuur"
+            }
+        },
+        "switch": {
+            "emergency_heat": {
+                "name": "H\u00e4daolukorra soojus"
+            }
+        }
+    },
+    "exceptions": {
+        "away_mode_failed": {
+            "message": "Honeywelli \u00e4raolekure\u017eiim eba\u00f5nnestus"
+        },
+        "disable_aux_failed": {
+            "message": "Honeywell v\u00f5is v\u00e4lja l\u00fclitada lisak\u00fctte re\u017eiimi"
+        },
+        "fan_mode_failed": {
+            "message": "Honeywell ei suutnud seadistada ventilaatori re\u017eiimi"
+        },
+        "set_aux_failed": {
+            "message": "Honeywell ei saanud seadistada s\u00fcsteemire\u017eiimi lisak\u00fcttele"
+        },
+        "set_hold_failed": {
+            "message": "Honeywell ei suutnud p\u00fcsivat hoideaega seada"
+        },
+        "set_mode_failed": {
+            "message": "Honeywell tagastas kehtetu s\u00fcsteemire\u017eiimi {mode}"
+        },
+        "stop_hold_failed": {
+            "message": "Honeywell ei suutnud peatada hoidere\u017eiimi"
+        },
+        "switch_failed_off": {
+            "message": "Honeywell v\u00f5ib h\u00e4daolukorra soojusre\u017eiimi v\u00e4lja l\u00fclitada."
+        },
+        "switch_failed_on": {
+            "message": "Honeywell ei saanud seada s\u00fcsteemire\u017eiimi h\u00e4dak\u00fcttere\u017eiimile."
+        },
+        "sys_mode_failed": {
+            "message": "Honeywell ei suutnud m\u00e4\u00e4rata s\u00fcsteemi re\u017eiimi"
+        },
+        "temp_failed": {
+            "message": "Honeywelli temperatuuri seadistamine nurjus"
+        },
+        "temp_failed_range": {
+            "message": "Honeywelli temperatuuri seadistamine nurjus: temperatuur on vahemikust v\u00e4ljas. Re\u017eiim: {mode} , k\u00fctte temperatuur: {heat} , jahutuse temperatuur: {cool}"
+        },
+        "temp_failed_value": {
+            "message": "Honeywelli temperatuuri seadistamine nurjus: vale temperatuur {temperature}"
+        }
+    },
+    "issues": {
+        "service_deprecation": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Re\u017eiimi muutmiseks kasuta selle asemel `switch.{name}_emergency_heat`.\n\nPalun kohanda oma automaatikaid ja skripte ning vali **submit**, et see probleem lahendada.",
+                        "title": "Honeywelli lisak\u00fcte eemaldatakse"
+                    }
+                }
+            },
+            "title": "Honeywelli lisak\u00fcte eemaldatakse"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "away_cool_temperature": "Eemaloleku jahutuse temperatuur",
+                    "away_heat_temperature": "Eemaloleku k\u00fctte temperatuur"
+                },
+                "description": "T\u00e4iendavad Honeywelli seadistusv\u00f5imalused. Temperatuurid on Fahrenheiti kraadides."
+            }
+        }
+    }
+}

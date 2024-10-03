@@ -1,0 +1,162 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Apparaat is al geconfigureerd",
+            "cannot_connect": "Kan geen verbinding maken",
+            "cct_unsupported": "Dit WLED-apparaat maakt gebruik van CCT-kanalen, wat niet wordt ondersteund door deze integratie"
+        },
+        "error": {
+            "cannot_connect": "Kan geen verbinding maken"
+        },
+        "flow_title": "{name}",
+        "step": {
+            "user": {
+                "data": {
+                    "host": "Host"
+                },
+                "data_description": {
+                    "host": "Hostnaam of IP-adres van je WLED apparaat."
+                },
+                "description": "Stel je WLED-integratie in met Home Assistant."
+            },
+            "zeroconf_confirm": {
+                "description": "Wil je de WLED genaamd `{name}` toevoegen aan Home Assistant?",
+                "title": "Ontdekt WLED-apparaat"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "firmware": {
+                "name": "Firmware"
+            }
+        },
+        "light": {
+            "main": {
+                "name": "Primair"
+            },
+            "segment": {
+                "name": "Segment {segment}"
+            }
+        },
+        "number": {
+            "intensity": {
+                "name": "Intensiteit"
+            },
+            "segment_intensity": {
+                "name": "Segment {segment} intensiteit"
+            },
+            "segment_speed": {
+                "name": "Segment {segment} snelheid"
+            },
+            "speed": {
+                "name": "Snelheid"
+            }
+        },
+        "select": {
+            "color_palette": {
+                "name": "Kleurenpalet"
+            },
+            "live_override": {
+                "name": "Live override",
+                "state": {
+                    "0": "Uit",
+                    "1": "Aan",
+                    "2": "Tot het apparaat herstart"
+                }
+            },
+            "playlist": {
+                "name": "Afspeellijst"
+            },
+            "preset": {
+                "name": "Voorinstelling"
+            },
+            "segment_color_palette": {
+                "name": "Segment {segment} kleurenpalet"
+            }
+        },
+        "sensor": {
+            "estimated_current": {
+                "name": "Geschatte stroom"
+            },
+            "free_heap": {
+                "name": "Vrij geheugen"
+            },
+            "info_leds_count": {
+                "name": "Aantal Led's"
+            },
+            "info_leds_max_power": {
+                "name": "Max stroom"
+            },
+            "ip": {
+                "name": "IP"
+            },
+            "wifi_bssid": {
+                "name": "Wi-Fi BSSID"
+            },
+            "wifi_channel": {
+                "name": "Wi-Fi kanaal"
+            },
+            "wifi_rssi": {
+                "name": "Wi-Fi RSSI"
+            },
+            "wifi_signal": {
+                "name": "Wi-Fi signaal"
+            }
+        },
+        "switch": {
+            "nightlight": {
+                "name": "Nachtlampje"
+            },
+            "reverse": {
+                "name": "Omkeren"
+            },
+            "segment_reverse": {
+                "name": "Segment {segment} omkeren"
+            },
+            "sync_receive": {
+                "name": "Sync ontvangen"
+            },
+            "sync_send": {
+                "name": "Sync verzenden"
+            }
+        }
+    },
+    "services": {
+        "effect": {
+            "description": "Regelt de effectinstellingen van WLED.",
+            "fields": {
+                "effect": {
+                    "description": "Naam of ID van het WLED lichteffect.",
+                    "name": "Effect"
+                },
+                "intensity": {
+                    "description": "Intensiteit van het effect. Getal tussen 0 en 255.",
+                    "name": "Effectintensiteit"
+                },
+                "palette": {
+                    "description": "Naam of ID van het WLED kleurenpalet.",
+                    "name": "kleurenpalet"
+                },
+                "reverse": {
+                    "description": "Keer het effect om. Ofwel Aan voor omkeuren of anders Uit.",
+                    "name": "Effect omkeren"
+                },
+                "speed": {
+                    "description": "Snelheid van het effect.",
+                    "name": "Effectsnelheid"
+                }
+            },
+            "name": "Effect instellen"
+        },
+        "preset": {
+            "description": "Activeer een voorinstelling voor het WLED apparaat",
+            "fields": {
+                "preset": {
+                    "description": "ID van de WLED voorinstelling.",
+                    "name": "Voorinstelling ID"
+                }
+            }
+        }
+    }
+}

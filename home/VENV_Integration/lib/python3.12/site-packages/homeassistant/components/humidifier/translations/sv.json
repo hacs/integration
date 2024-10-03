@@ -1,0 +1,130 @@
+{
+    "device_automation": {
+        "action_type": {
+            "set_humidity": "St\u00e4ll in luftfuktighet f\u00f6r {entity_name}",
+            "set_mode": "\u00c4ndra l\u00e4ge p\u00e5 {entity_name}",
+            "toggle": "V\u00e4xla {entity_name}",
+            "turn_off": "St\u00e4ng av {entity_name}",
+            "turn_on": "Sl\u00e5 p\u00e5 {entity_name}"
+        },
+        "condition_type": {
+            "is_mode": "{entity_name} \u00e4r inst\u00e4lld p\u00e5 ett specifikt l\u00e4ge",
+            "is_off": "{entity_name} \u00e4r avst\u00e4ngd",
+            "is_on": "{entity_name} \u00e4r p\u00e5"
+        },
+        "extra_fields": {
+            "above": "Ovan",
+            "below": "Nedan",
+            "for": "Varaktighet",
+            "humidity": "Fuktighet",
+            "mode": "L\u00e4ge"
+        },
+        "trigger_type": {
+            "changed_states": "{entity_name} slogs p\u00e5 eller av",
+            "target_humidity_changed": "{entity_name} m\u00e5lfuktighet har \u00e4ndrats",
+            "turned_off": "{entity_name} st\u00e4ngdes av",
+            "turned_on": "{entity_name} slogs p\u00e5"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Luftfuktare",
+            "state": {
+                "off": "Av",
+                "on": "P\u00e5"
+            },
+            "state_attributes": {
+                "action": {
+                    "name": "\u00c5tg\u00e4rd",
+                    "state": {
+                        "drying": "Avfuktar",
+                        "humidifying": "Fuktande",
+                        "idle": "Inaktiv",
+                        "off": "Av"
+                    }
+                },
+                "available_modes": {
+                    "name": "Tillg\u00e4ngliga l\u00e4gen"
+                },
+                "current_humidity": {
+                    "name": "Aktuell luftfuktighet"
+                },
+                "humidity": {
+                    "name": "M\u00e5lfuktighet"
+                },
+                "max_humidity": {
+                    "name": "Max m\u00e5lfuktighet"
+                },
+                "min_humidity": {
+                    "name": "Min m\u00e5lfuktighet"
+                },
+                "mode": {
+                    "name": "L\u00e4ge",
+                    "state": {
+                        "auto": "Auto",
+                        "away": "Borta",
+                        "baby": "Bebis",
+                        "boost": "Boost-l\u00e4ge",
+                        "comfort": "Komfort",
+                        "eco": "Eco",
+                        "home": "Hemma",
+                        "normal": "Normal",
+                        "sleep": "Sov"
+                    }
+                }
+            }
+        },
+        "dehumidifier": {
+            "name": "Avfuktare"
+        },
+        "humidifier": {
+            "name": "Luftfuktare"
+        }
+    },
+    "exceptions": {
+        "humidity_out_of_range": {
+            "message": "Tillhandah\u00e5llen fuktighet {humidity} \u00e4r inte giltig. Accepterat intervall \u00e4r {min_humidity} till {max_humidity}."
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "{platform}-plattformen f\u00f6r integrationen {domain} st\u00f6ds inte.\n\nTa bort den fr\u00e5n din konfiguration och starta om Home Assistant f\u00f6r att \u00e5tg\u00e4rda detta problem.",
+            "title": "Plattformen st\u00f6ds inte"
+        }
+    },
+    "services": {
+        "set_humidity": {
+            "description": "St\u00e4ller in \u00f6nskad luftfuktighet.",
+            "fields": {
+                "humidity": {
+                    "description": "M\u00e5lfuktighet.",
+                    "name": "Luftfuktighet"
+                }
+            },
+            "name": "St\u00e4ll in luftfuktighet"
+        },
+        "set_mode": {
+            "description": "St\u00e4ller in driftl\u00e4ge f\u00f6r luftfuktare.",
+            "fields": {
+                "mode": {
+                    "description": "Driftl\u00e4ge. Till exempel _normal_, _eco_ eller _away_. En lista \u00f6ver m\u00f6jliga v\u00e4rden finns i integrationens dokumentation.",
+                    "name": "Driftl\u00e4ge"
+                }
+            },
+            "name": "St\u00e4ll in driftl\u00e4ge"
+        },
+        "toggle": {
+            "description": "V\u00e4xlar luftfuktaren p\u00e5/av.",
+            "name": "V\u00e4xla"
+        },
+        "turn_off": {
+            "description": "St\u00e4nger av luftfuktaren.",
+            "name": "St\u00e4ng av"
+        },
+        "turn_on": {
+            "description": "Sl\u00e5r p\u00e5 luftfuktaren.",
+            "name": "Starta"
+        }
+    },
+    "title": "Luftfuktare"
+}

@@ -1,0 +1,130 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "Kalendorius",
+            "state": {
+                "off": "I\u0161jungta",
+                "on": "\u012ejungta"
+            },
+            "state_attributes": {
+                "all_day": {
+                    "name": "Vis\u0105 dien\u0105",
+                    "state": {
+                        "false": "Ne",
+                        "true": "Taip"
+                    }
+                },
+                "description": {
+                    "name": "Apra\u0161ymas"
+                },
+                "end_time": {
+                    "name": "Pabaigos laikas"
+                },
+                "location": {
+                    "name": "Vieta"
+                },
+                "message": {
+                    "name": "Prane\u0161imas"
+                },
+                "messages": {
+                    "name": "Prane\u0161imas"
+                },
+                "start_time": {
+                    "name": "Prad\u017eios laikas"
+                }
+            }
+        }
+    },
+    "issues": {
+        "deprecated_service_calendar_list_events": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "title": "Aptiktas nebenaudojamo veiksmo \u201ecalendar.list_events\u201c naudojimas"
+                    }
+                }
+            }
+        },
+        "platform_integration_no_support": {
+            "description": "{platform} platforma, skirta {domain} integravimui, nepalaiko platformos s\u0105rankos. \n\n Pa\u0161alinkite j\u012f i\u0161 konfig\u016bracijos ir i\u0161 naujo paleiskite \u201eHome Assistant\u201c, kad i\u0161spr\u0119stum\u0117te \u0161i\u0105 problem\u0105.",
+            "title": "Platformos palaikymas nepalaikomas"
+        }
+    },
+    "services": {
+        "create_event": {
+            "description": "Prideda nauj\u0105 kalendoriaus \u012fvyk\u012f.",
+            "fields": {
+                "description": {
+                    "description": "I\u0161samesnis \u012fvykio apra\u0161ymas nei pateiktas santraukoje.",
+                    "name": "Apra\u0161ymas"
+                },
+                "end_date": {
+                    "description": "Vis\u0105 dien\u0105 trunkan\u010dio renginio pabaigos data (i\u0161skyrus).",
+                    "name": "Pabaigos data"
+                },
+                "end_date_time": {
+                    "description": "Data ir laikas, kada \u012fvykis tur\u0117t\u0173 baigtis.",
+                    "name": "Pabaigos laikas"
+                },
+                "in": {
+                    "description": "Dienos ar savait\u0117s, per kurias norite sukurti \u012fvyk\u012f.",
+                    "name": "\u012e"
+                },
+                "location": {
+                    "description": "Renginio vieta.",
+                    "name": "Vieta"
+                },
+                "start_date": {
+                    "description": "Vis\u0105 dien\u0105 trunkan\u010dio renginio prad\u017eios data.",
+                    "name": "Prad\u017eios data"
+                },
+                "start_date_time": {
+                    "description": "Renginio prad\u017eios data ir laikas.",
+                    "name": "Prad\u017eios laikas"
+                },
+                "summary": {
+                    "description": "Apibr\u0117\u017eia trump\u0105 \u012fvykio santrauk\u0105 arba tem\u0105.",
+                    "name": "Santrauka"
+                }
+            },
+            "name": "Sukurti \u012fvyk\u012f"
+        },
+        "get_events": {
+            "description": "Gaukite \u012fvykius kalendoriuje per tam tikr\u0105 laikotarp\u012f.",
+            "fields": {
+                "duration": {
+                    "description": "Gr\u0105\u017eina aktyvius \u012fvykius nuo start_date_time iki nurodytos trukm\u0117s.",
+                    "name": "Trukm\u0117"
+                },
+                "end_date_time": {
+                    "description": "Pateikia aktyvius \u012fvykius iki \u0161io laiko (i\u0161skyrus). Negalima naudoti su \u201etrukm\u0117\u201c.",
+                    "name": "Pabaigos laikas"
+                },
+                "start_date_time": {
+                    "description": "Pateikia aktyvius \u012fvykius po \u0161io laiko (i\u0161skyrus). Kai nenustatyta, pagal nutyl\u0117jim\u0105 yra dabar.",
+                    "name": "Prad\u017eios laikas"
+                }
+            },
+            "name": "Gaukite \u012fvykius"
+        },
+        "list_events": {
+            "description": "I\u0161vardija \u012fvykius kalendoriuje tam tikru laikotarpiu.",
+            "fields": {
+                "duration": {
+                    "description": "Gr\u0105\u017eina aktyvius \u012fvykius nuo start_date_time iki nurodytos trukm\u0117s.",
+                    "name": "Trukm\u0117"
+                },
+                "end_date_time": {
+                    "description": "Pateikia aktyvius \u012fvykius iki \u0161io laiko (i\u0161skyrus). Negalima naudoti su \u201etrukm\u0117\u201c.",
+                    "name": "Pabaigos laikas"
+                },
+                "start_date_time": {
+                    "description": "Pateikia aktyvius \u012fvykius po \u0161io laiko (i\u0161skyrus). Kai nenustatyta, pagal nutyl\u0117jim\u0105 yra dabar.",
+                    "name": "Prad\u017eios laikas"
+                }
+            },
+            "name": "\u012evykio s\u0105ra\u0161as"
+        }
+    },
+    "title": "Kalendorius"
+}

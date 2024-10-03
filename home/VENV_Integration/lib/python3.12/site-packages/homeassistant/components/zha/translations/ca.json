@@ -1,0 +1,690 @@
+{
+    "config": {
+        "abort": {
+            "not_zha_device": "Aquest no \u00e9s un dispositiu zha",
+            "single_instance_allowed": "Ja configurat. Nom\u00e9s \u00e9s possible una sola configuraci\u00f3.",
+            "usb_probe_failed": "No s'ha pogut provar el dispositiu USB",
+            "wrong_firmware_installed": "El teu dispositiu est\u00e0 executant un microprogramari incorrecte i no es pot utilitzar amb ZHA fins que no s'instal\u00b7li el microprogramari adient. [S'ha creat una reparaci\u00f3]({repair_url}) amb m\u00e9s informaci\u00f3 i instruccions sobre com solucionar-ho."
+        },
+        "error": {
+            "cannot_connect": "Ha fallat la connexi\u00f3",
+            "invalid_backup_json": "JSON de c\u00f2pia de seguretat inv\u00e0lid"
+        },
+        "flow_title": "{name}",
+        "step": {
+            "choose_automatic_backup": {
+                "data": {
+                    "choose_automatic_backup": "Trieu una c\u00f2pia de seguretat autom\u00e0tica"
+                },
+                "description": "Restaura la configuraci\u00f3 de la xarxa des d'una c\u00f2pia de seguretat autom\u00e0tica",
+                "title": "Restauraci\u00f3 de la c\u00f2pia de seguretat autom\u00e0tica"
+            },
+            "choose_formation_strategy": {
+                "description": "Trieu la configuraci\u00f3 de xarxa per a la vostra r\u00e0dio.",
+                "menu_options": {
+                    "choose_automatic_backup": "Restaura una c\u00f2pia de seguretat autom\u00e0tica",
+                    "form_initial_network": "Crea una xarxa",
+                    "form_new_network": "Esborra la configuraci\u00f3 de xarxa i crea una xarxa nova",
+                    "reuse_settings": "Mant\u00e9 la configuraci\u00f3 de xarxa r\u00e0dio",
+                    "upload_manual_backup": "Puja c\u00f2pia de seguretat manual"
+                },
+                "title": "Formaci\u00f3 de xarxa"
+            },
+            "choose_serial_port": {
+                "data": {
+                    "path": "Ruta del port s\u00e8rie al dispositiu"
+                },
+                "description": "Selecciona el port s\u00e8rie de la r\u00e0dio Zigbee",
+                "title": "Selecciona un port s\u00e8rie"
+            },
+            "confirm": {
+                "description": "Vols configurar {name}?"
+            },
+            "confirm_hardware": {
+                "description": "Vols configurar {name}?"
+            },
+            "manual_pick_radio_type": {
+                "data": {
+                    "radio_type": "Tipus de r\u00e0dio"
+                },
+                "description": "Tria el tipus de r\u00e0dio Zigbee",
+                "title": "Tipus de r\u00e0dio"
+            },
+            "manual_port_config": {
+                "data": {
+                    "baudrate": "Velocitat del port",
+                    "flow_control": "Control de flux de dades",
+                    "path": "Ruta del port s\u00e8rie al dispositiu"
+                },
+                "description": "Introdueix la configuraci\u00f3 del port s\u00e8rie",
+                "title": "Configuraci\u00f3 del port s\u00e8rie"
+            },
+            "maybe_confirm_ezsp_restore": {
+                "data": {
+                    "overwrite_coordinator_ieee": "Sobreescriu permanentment l'adre\u00e7a IEEE r\u00e0dio"
+                },
+                "title": "Sobreescriu l'adre\u00e7a IEEE r\u00e0dio"
+            },
+            "upload_manual_backup": {
+                "data": {
+                    "uploaded_backup_file": "Puja un fitxer"
+                },
+                "description": "Restaura la configuraci\u00f3 de xarxa des d'un fitxer JSON de c\u00f2pia de seguretat penjat. Pots baixar-ne un des d'una instal\u00b7laci\u00f3 ZHA diferent anant a **Configuraci\u00f3 de xarxa** o utilitzar un fitxer `coordinator_backup.json` de Zigbee2MQTT.",
+                "title": "Pujada de c\u00f2pia de seguretat manual"
+            },
+            "verify_radio": {
+                "description": "La r\u00e0dio que utilitzes ({name}) no \u00e9s recomanable i \u00e9s possible que se n'elimini el suport en el futur. Consulta la documentaci\u00f3 de la integraci\u00f3 Zigbee Home Automation per a [una llista d'adaptadors recomanats]({docs_recommended_adapters_url}).",
+                "title": "No es recomana la r\u00e0dio"
+            }
+        }
+    },
+    "config_panel": {
+        "zha_alarm_options": {
+            "alarm_arm_requires_code": "Codi necessari per activar accions",
+            "alarm_failed_tries": "Nombre d'intents de codi erronis consecutius per disparar una alarma",
+            "alarm_master_code": "Codi mestre per als panells de control d'alarma",
+            "title": "Opcions del panell de control d'alarma"
+        },
+        "zha_options": {
+            "always_prefer_xy_color_mode": "Utilitza preferentment el mode de color XY",
+            "consider_unavailable_battery": "Considera els dispositius amb bateria com a no disponibles al cap de (segons)",
+            "consider_unavailable_mains": "Considera els dispositius connectats a la xarxa el\u00e8ctrica com a no disponibles al cap de (segons)",
+            "default_light_transition": "Temps de transici\u00f3 predeterminat (segons)",
+            "enable_identify_on_join": "Activa l'efecte d'identificaci\u00f3 quan els dispositius s'uneixin a la xarxa",
+            "enhanced_light_transition": "Activa la transici\u00f3 millorada de color/temperatura de llum des de l'estat apagat",
+            "group_members_assume_state": "Els membres del grup assumeixen l'estat del grup",
+            "light_transitioning_flag": "Activa el control lliscant de lluminositat millorat durant la transici\u00f3",
+            "title": "Opcions globals"
+        }
+    },
+    "device_automation": {
+        "action_type": {
+            "issue_all_led_effect": "Envia efecte a tots els LEDs",
+            "issue_individual_led_effect": "Envia efecte a un LED individual",
+            "squawk": "Squawk",
+            "warn": "Av\u00eds"
+        },
+        "extra_fields": {
+            "color": "To de color (hue)",
+            "duration": "Durada en segons",
+            "effect_type": "Tipus d'efecte",
+            "led_number": "Nombre de LED",
+            "level": "Brillantor (%)"
+        },
+        "trigger_subtype": {
+            "both_buttons": "Ambd\u00f3s botons",
+            "button": "Bot\u00f3",
+            "button_1": "Primer bot\u00f3",
+            "button_2": "Segon bot\u00f3",
+            "button_3": "Tercer bot\u00f3",
+            "button_4": "Quart bot\u00f3",
+            "button_5": "Cinqu\u00e8 bot\u00f3",
+            "button_6": "Sis\u00e8 bot\u00f3",
+            "close": "Tanca",
+            "dim_down": "Atenua",
+            "dim_up": "Incrementa",
+            "face_1": "Amb la cara 1 activada",
+            "face_2": "Amb la cara 2 activada",
+            "face_3": "Amb la cara 3 activada",
+            "face_4": "Amb la cara 4 activada",
+            "face_5": "Amb la cara 5 activada",
+            "face_6": "Amb la cara 6 activada",
+            "face_any": "Amb qualsevol o alguna de les cares especificades activades.",
+            "left": "Esquerra",
+            "open": "Obre",
+            "right": "Dreta",
+            "turn_off": "Apaga",
+            "turn_on": "Enc\u00e9n"
+        },
+        "trigger_type": {
+            "device_dropped": "Dispositiu caigut",
+            "device_flipped": "Dispositiu voltejat a \"{subtype}\"",
+            "device_knocked": "Dispositiu colpejat a \"{subtype}\"",
+            "device_offline": "Dispositiu desconnectat",
+            "device_rotated": "Dispositiu rotat a \"{subtype}\"",
+            "device_shaken": "Dispositiu sacsejat",
+            "device_slid": "Dispositiu lliscat a \"{subtype}\"",
+            "device_tilted": "Dispositiu inclinat",
+            "remote_button_alt_double_press": "\"{subtype}\" clicat dues vegades (mode alternatiu)",
+            "remote_button_alt_long_press": "\"{subtype}\" premut cont\u00ednuament (mode alternatiu)",
+            "remote_button_alt_long_release": "\"{subtype}\" alliberat despr\u00e9s d'una estona premut (mode alternatiu)",
+            "remote_button_alt_quadruple_press": "\"{subtype}\" clicat quatre vegades (mode alternatiu)",
+            "remote_button_alt_quintuple_press": "\"{subtype}\" clicat cinc vegades (mode alternatiu)",
+            "remote_button_alt_short_press": "\"{subtype}\" premut (mode alternatiu)",
+            "remote_button_alt_short_release": "\"{subtype}\" alliberat (mode alternatiu)",
+            "remote_button_alt_triple_press": "\"{subtype}\" clicat tres vegades (mode alternatiu)",
+            "remote_button_double_press": "\"{subtype}\" clicat dues vegades",
+            "remote_button_long_press": "\"{subtype}\" premut cont\u00ednuament",
+            "remote_button_long_release": "\"{subtype}\" alliberat despr\u00e9s d'una estona premut",
+            "remote_button_quadruple_press": "\"{subtype}\" clicat quatre vegades",
+            "remote_button_quintuple_press": "\"{subtype}\" clicat cinc vegades",
+            "remote_button_short_press": "\"{subtype}\" premut",
+            "remote_button_short_release": "\"{subtype}\" alliberat",
+            "remote_button_triple_press": "\"{subtype}\" clicat tres vegades"
+        }
+    },
+    "entity": {
+        "alarm_control_panel": {
+            "alarm_control_panel": {
+                "name": "Panell de control d'alarma"
+            }
+        },
+        "binary_sensor": {
+            "calibrated": {
+                "name": "Calibrat"
+            },
+            "external_sensor": {
+                "name": "Sensor extern"
+            },
+            "ias_zone": {
+                "name": "zona IAS"
+            }
+        },
+        "button": {
+            "self_test": {
+                "name": "Autotest"
+            }
+        },
+        "climate": {
+            "thermostat": {
+                "name": "Term\u00f2stat"
+            }
+        },
+        "cover": {
+            "cover": {
+                "name": "Coberta"
+            },
+            "shade": {
+                "name": "Tendal"
+            }
+        },
+        "fan": {
+            "fan": {
+                "name": "Ventilador"
+            },
+            "fan_group": {
+                "name": "Grup de ventiladors"
+            }
+        },
+        "light": {
+            "light": {
+                "name": "Llum"
+            },
+            "light_group": {
+                "name": "Grup de llums"
+            }
+        },
+        "lock": {
+            "door_lock": {
+                "name": "Pany"
+            }
+        },
+        "number": {
+            "away_preset_temperature": {
+                "name": "Temperatura preconfigurada de mode a fora"
+            },
+            "button_delay": {
+                "name": "Retard del bot\u00f3"
+            },
+            "led_color_when_off": {
+                "name": "Color predeterminat de tots els LEDs apagats"
+            },
+            "led_color_when_on": {
+                "name": "Color predeterminat de tots els LEDs encesos"
+            },
+            "led_intensity_when_off": {
+                "name": "Intensitat predeterminada de tots els LEDs apagats"
+            },
+            "led_intensity_when_on": {
+                "name": "Intensitat predeterminada de tots els LEDs encesos"
+            },
+            "number": {
+                "name": "N\u00famero"
+            },
+            "timer_duration": {
+                "name": "Durada del temporitzador"
+            },
+            "transmit_power": {
+                "name": "Pot\u00e8ncia de transmissi\u00f3"
+            }
+        },
+        "select": {
+            "approach_distance": {
+                "name": "Dist\u00e0ncia d'aproximaci\u00f3"
+            },
+            "decoupled_mode": {
+                "name": "Mode desacoblat"
+            },
+            "detection_distance": {
+                "name": "Dist\u00e0ncia de detecci\u00f3"
+            },
+            "feeding_mode": {
+                "name": "Mode"
+            },
+            "monitoring_mode": {
+                "name": "Mode monitoratge"
+            },
+            "motion_sensitivity": {
+                "name": "Sensibilitat de moviment"
+            },
+            "preset": {
+                "name": "Preconfiguraci\u00f3"
+            },
+            "switch_type": {
+                "name": "Tipus d'interruptor"
+            },
+            "window_covering_mode": {
+                "name": "Mode cortina"
+            }
+        },
+        "sensor": {
+            "ac_frequency": {
+                "name": "Freq\u00fc\u00e8ncia CA"
+            },
+            "analog_input": {
+                "name": "Entrada anal\u00f2gica"
+            },
+            "device_run_time": {
+                "name": "Temps d'execuci\u00f3 del dispositiu"
+            },
+            "device_temperature": {
+                "name": "Temperatura del dispositiu"
+            },
+            "formaldehyde": {
+                "name": "Concentraci\u00f3 de formaldehid"
+            },
+            "hvac_action": {
+                "name": "Acci\u00f3 HVAC"
+            },
+            "instantaneous_demand": {
+                "name": "Demanda instant\u00e0nia"
+            },
+            "last_feeding_size": {
+                "name": "Quantitat \u00faltima alimentaci\u00f3"
+            },
+            "lqi": {
+                "name": "LQI"
+            },
+            "power_source": {
+                "name": "Font d'alimentaci\u00f3"
+            },
+            "rssi": {
+                "name": "RSSI"
+            },
+            "smoke_density": {
+                "name": "Densitat de fum"
+            },
+            "software_error": {
+                "name": "Error de programari",
+                "state": {
+                    "nothing": "B\u00e9",
+                    "something": "Error"
+                }
+            },
+            "soil_moisture": {
+                "name": "Humitat del s\u00f2l"
+            },
+            "timer_time_left": {
+                "name": "Temps restant"
+            }
+        },
+        "switch": {
+            "disable_led": {
+                "name": "Desactiva LED"
+            },
+            "firmware_progress_led": {
+                "name": "LED de progr\u00e9s de microprogramari"
+            },
+            "inverted": {
+                "name": "Invertit"
+            },
+            "led_indicator": {
+                "name": "Indicador LED"
+            },
+            "local_protection": {
+                "name": "Protecci\u00f3 local"
+            },
+            "one_led_mode": {
+                "name": "Mode nom\u00e9s 1 LED"
+            },
+            "smart_bulb_mode": {
+                "name": "Mode bombeta intel\u00b7ligent"
+            },
+            "switch": {
+                "name": "Interruptor"
+            }
+        }
+    },
+    "issues": {
+        "inconsistent_network_settings": {
+            "fix_flow": {
+                "step": {
+                    "init": {
+                        "description": "La configuraci\u00f3 de xarxa de la r\u00e0dio Zigbee no \u00e9s coherent amb la c\u00f2pia de seguretat m\u00e9s recent. Aix\u00f2 sol passar si una altra integraci\u00f3 de Zigbee (per exemple, Zigbee2MQTT o deCONZ) l'ha sobreescrit. \n\n{diff}\n\nSi no has canviat intencionadament la configuraci\u00f3 de la xarxa, restaura des de la c\u00f2pia de seguretat m\u00e9s recent; sin\u00f3 els teus dispositius no funcionaran correctament.",
+                        "menu_options": {
+                            "restore_old_settings": "Restaura c\u00f2pia de seguretat (recomanat)",
+                            "use_new_settings": "Mant\u00e9 la nova configuraci\u00f3"
+                        },
+                        "title": "La configuraci\u00f3 de la xarxa Zigbee ha canviat"
+                    }
+                }
+            },
+            "title": "La configuraci\u00f3 de la xarxa Zigbee ha canviat"
+        },
+        "wrong_silabs_firmware_installed_nabucasa": {
+            "title": "S'ha detectat una r\u00e0dio Zigbee amb un microprogramari multiprotocol"
+        },
+        "wrong_silabs_firmware_installed_other": {
+            "description": "La teva r\u00e0dio Zigbee utilitzava multiprotocol anteriorment (Zigbee i Thread) i encara t\u00e9 instal\u00b7lat el microprogramari multiprotocol: ({firmware_type}). Per utilitzar la r\u00e0dio exclusivament amb ZHA, has d'instal\u00b7lar el microprogramari Zigbee. Segueix les instruccions del fabricant de la teva r\u00e0dio Zigbee per saber com fer-ho.",
+            "title": "S'ha detectat una r\u00e0dio Zigbee amb un microprogramari multiprotocol"
+        }
+    },
+    "options": {
+        "abort": {
+            "not_zha_device": "Aquest no \u00e9s un dispositiu zha",
+            "single_instance_allowed": "Ja configurat. Nom\u00e9s \u00e9s possible una sola configuraci\u00f3.",
+            "usb_probe_failed": "No s'ha pogut provar el dispositiu USB",
+            "wrong_firmware_installed": "El teu dispositiu est\u00e0 executant un microprogramari incorrecte i no es pot utilitzar amb ZHA fins que no s'instal\u00b7li el microprogramari adient. [S'ha creat una reparaci\u00f3]({repair_url}) amb m\u00e9s informaci\u00f3 i instruccions sobre com solucionar-ho."
+        },
+        "error": {
+            "cannot_connect": "Ha fallat la connexi\u00f3",
+            "invalid_backup_json": "JSON de c\u00f2pia de seguretat inv\u00e0lid"
+        },
+        "flow_title": "{name}",
+        "step": {
+            "choose_automatic_backup": {
+                "data": {
+                    "choose_automatic_backup": "Trieu una c\u00f2pia de seguretat autom\u00e0tica"
+                },
+                "description": "Restaura la configuraci\u00f3 de la xarxa des d'una c\u00f2pia de seguretat autom\u00e0tica",
+                "title": "Restauraci\u00f3 de la c\u00f2pia de seguretat autom\u00e0tica"
+            },
+            "choose_formation_strategy": {
+                "description": "Trieu la configuraci\u00f3 de xarxa per a la vostra r\u00e0dio.",
+                "menu_options": {
+                    "choose_automatic_backup": "Restaura una c\u00f2pia de seguretat autom\u00e0tica",
+                    "form_initial_network": "Crea una xarxa",
+                    "form_new_network": "Esborra la configuraci\u00f3 de xarxa i crea una xarxa nova",
+                    "reuse_settings": "Mant\u00e9 la configuraci\u00f3 de xarxa r\u00e0dio",
+                    "upload_manual_backup": "Puja c\u00f2pia de seguretat manual"
+                },
+                "title": "Formaci\u00f3 de xarxa"
+            },
+            "choose_serial_port": {
+                "data": {
+                    "path": "Ruta del port s\u00e8rie al dispositiu"
+                },
+                "description": "Selecciona el port s\u00e8rie de la r\u00e0dio Zigbee",
+                "title": "Selecciona un port s\u00e8rie"
+            },
+            "init": {
+                "title": "Reconfiguraci\u00f3 de ZHA"
+            },
+            "instruct_unplug": {
+                "title": "Desconnecta la r\u00e0dio antiga"
+            },
+            "intent_migrate": {
+                "title": "Migra a una nova r\u00e0dio"
+            },
+            "manual_pick_radio_type": {
+                "data": {
+                    "radio_type": "Tipus de r\u00e0dio"
+                },
+                "description": "Tria el tipus de r\u00e0dio Zigbee",
+                "title": "Tipus de r\u00e0dio"
+            },
+            "manual_port_config": {
+                "data": {
+                    "baudrate": "Velocitat del port",
+                    "flow_control": "Control de flux de dades",
+                    "path": "Ruta del port s\u00e8rie al dispositiu"
+                },
+                "description": "Introdueix la configuraci\u00f3 del port s\u00e8rie",
+                "title": "Configuraci\u00f3 del port s\u00e8rie"
+            },
+            "maybe_confirm_ezsp_restore": {
+                "data": {
+                    "overwrite_coordinator_ieee": "Sobreescriu permanentment l'adre\u00e7a IEEE r\u00e0dio"
+                },
+                "description": "La teva c\u00f2pia de seguretat t\u00e9 una adre\u00e7a IEEE diferent de la teva r\u00e0dio. Perqu\u00e8 la xarxa funcioni correctament, tamb\u00e9 s'ha de canviar l'adre\u00e7a IEEE de la teva r\u00e0dio. \n\nAquesta \u00e9s una operaci\u00f3 permanent.",
+                "title": "Sobreescriu l'adre\u00e7a IEEE r\u00e0dio"
+            },
+            "prompt_migrate_or_reconfigure": {
+                "description": "Est\u00e0s migrant a una r\u00e0dio nova o tornant a configurar la r\u00e0dio actual?",
+                "menu_options": {
+                    "intent_migrate": "Migra a una nova r\u00e0dio",
+                    "intent_reconfigure": "Torna a configurar la r\u00e0dio actual"
+                },
+                "title": "Migraci\u00f3 o reconfiguraci\u00f3"
+            },
+            "upload_manual_backup": {
+                "data": {
+                    "uploaded_backup_file": "Puja un fitxer"
+                },
+                "description": "Restaura la configuraci\u00f3 de xarxa des d'un fitxer JSON de c\u00f2pia de seguretat penjat. Pots baixar-ne un des d'una instal\u00b7laci\u00f3 ZHA diferent anant a **Configuraci\u00f3 de xarxa** o utilitzar un fitxer `coordinator_backup.json` de Zigbee2MQTT.",
+                "title": "Pujada de c\u00f2pia de seguretat manual"
+            },
+            "verify_radio": {
+                "description": "La r\u00e0dio que utilitzes ({name}) no \u00e9s recomanable i \u00e9s possible que se n'elimini el suport en el futur. Consulta la documentaci\u00f3 de la integraci\u00f3 Zigbee Home Automation per a [una llista d'adaptadors recomanats]({docs_recommended_adapters_url}).",
+                "title": "No es recomana la r\u00e0dio"
+            }
+        }
+    },
+    "services": {
+        "issue_zigbee_cluster_command": {
+            "fields": {
+                "args": {
+                    "name": "Arguments"
+                },
+                "cluster_id": {
+                    "description": "Cl\u00faster ZCL a recuperar-ne els atributs.",
+                    "name": "ID del cl\u00faster"
+                },
+                "cluster_type": {
+                    "description": "Tipus de cl\u00faster.",
+                    "name": "Tipus de cl\u00faster"
+                },
+                "command": {
+                    "name": "Comanda"
+                },
+                "command_type": {
+                    "description": "Tipus de comanda a executar.",
+                    "name": "Tipus de comanda"
+                },
+                "endpoint_id": {
+                    "description": "ID de l'endpoint del cl\u00faster.",
+                    "name": "ID de l'endpoint"
+                },
+                "ieee": {
+                    "description": "Adre\u00e7a IEEE del dispositiu.",
+                    "name": "IEEE"
+                },
+                "manufacturer": {
+                    "description": "Codi de fabricant.",
+                    "name": "Fabricant"
+                },
+                "params": {
+                    "description": "Par\u00e0metres a passar a la comanda.",
+                    "name": "Par\u00e0metres"
+                }
+            },
+            "name": "Emet comanda zigbee de cl\u00faster"
+        },
+        "issue_zigbee_group_command": {
+            "description": "Emet una comanda al cl\u00faster especificat al grup especificat.",
+            "fields": {
+                "args": {
+                    "name": "Arguments"
+                },
+                "cluster_id": {
+                    "description": "Cl\u00faster ZCL al qual enviar la comanda.",
+                    "name": "ID del cl\u00faster"
+                },
+                "cluster_type": {
+                    "description": "Tipus de cl\u00faster.",
+                    "name": "Tipus de cl\u00faster"
+                },
+                "command": {
+                    "name": "Comanda"
+                },
+                "group": {
+                    "description": "Adre\u00e7a hexadecimal del grup.",
+                    "name": "Grup"
+                },
+                "manufacturer": {
+                    "description": "Codi de fabricant.",
+                    "name": "Fabricant"
+                }
+            },
+            "name": "Emet comanda zigbee de grup"
+        },
+        "permit": {
+            "description": "Permet que nodes s'uneixin a la xarxa Zigbee.",
+            "fields": {
+                "duration": {
+                    "description": "Temps per permetre unions.",
+                    "name": "Durada"
+                },
+                "ieee": {
+                    "description": "Adre\u00e7a IEEE del node que permet noves unions.",
+                    "name": "IEEE"
+                },
+                "install_code": {
+                    "description": "Codi d'instal\u00b7laci\u00f3 del dispositiu que s'uneix (s'ha d'utilitzar amb source_ieee).",
+                    "name": "Codi d'instal\u00b7laci\u00f3"
+                },
+                "qr_code": {
+                    "description": "Valor del codi QR d'instal\u00b7laci\u00f3 (diferent entre fabricants).",
+                    "name": "Codi QR"
+                },
+                "source_ieee": {
+                    "description": "Adre\u00e7a IEEE del dispositiu que s'uneix (s'ha d'utilitzar amb el codi d'instal\u00b7laci\u00f3).",
+                    "name": "Font IEEE"
+                }
+            },
+            "name": "Perm\u00eds"
+        },
+        "reconfigure_device": {
+            "description": "Reconfigura un dispositiu ZHA (guareix dispositiu). Utilitza-ho si tens problemes amb un dispositiu. Si el dispositiu en q\u00fcesti\u00f3 est\u00e0 alimentat per bateria, assegura't que estigui despert i accepti ordres quan utilitzis aquest servei.",
+            "fields": {
+                "ieee": {
+                    "description": "Adre\u00e7a IEEE del dispositiu a reconfigurar.",
+                    "name": "IEEE"
+                }
+            },
+            "name": "Reconfigura el dispositiu"
+        },
+        "remove": {
+            "description": "Elimina un dispositiu de la xarxa Zigbee.",
+            "fields": {
+                "ieee": {
+                    "description": "Adre\u00e7a IEEE del node a eliminar.",
+                    "name": "IEEE"
+                }
+            },
+            "name": "Elimina"
+        },
+        "set_lock_user_code": {
+            "description": "Configura un codi d'usuari a un pany.",
+            "fields": {
+                "code_slot": {
+                    "description": "Ranura de codi a configurar el codi."
+                },
+                "user_code": {
+                    "description": "Codi a configurar.",
+                    "name": "Codi"
+                }
+            },
+            "name": "Estableix codi d'usuari a un pany"
+        },
+        "set_zigbee_cluster_attribute": {
+            "description": "Estableix un valor d'atribut pel cl\u00faster especificat a l'entitat especificada.",
+            "fields": {
+                "attribute": {
+                    "description": "ID de l'atribut a configurar.",
+                    "name": "Atribut"
+                },
+                "cluster_id": {
+                    "description": "Cl\u00faster ZCL a recuperar-ne els atributs.",
+                    "name": "ID del cl\u00faster"
+                },
+                "cluster_type": {
+                    "description": "Tipus de cl\u00faster.",
+                    "name": "Tipus de cl\u00faster"
+                },
+                "endpoint_id": {
+                    "description": "ID de l'endpoint del cl\u00faster.",
+                    "name": "ID de l'endpoint"
+                },
+                "ieee": {
+                    "description": "Adre\u00e7a IEEE del dispositiu.",
+                    "name": "IEEE"
+                },
+                "manufacturer": {
+                    "name": "Fabricant"
+                },
+                "value": {
+                    "description": "Valor a escriure a l'atribut.",
+                    "name": "Valor"
+                }
+            },
+            "name": "Estableix atribut de cl\u00faster zigbee"
+        },
+        "warning_device_squawk": {
+            "description": "Aquesta acci\u00f3 utilitza les capacitats de WD per emetre un pols r\u00e0pid audible/visible anomenat 'squawk'. La comanda 'squawk' no t\u00e9 cap efecte si WD est\u00e0 actiu (alerta en curs).",
+            "fields": {
+                "ieee": {
+                    "description": "Adre\u00e7a IEEE del dispositiu.",
+                    "name": "IEEE"
+                },
+                "level": {
+                    "description": "El camp de Nivell Squawk s'utilitza com a enumeraci\u00f3 de 2 bits i determina la intensitat del so 'squawk' (tal com es mostra a la Taula 8-26 de l'especificaci\u00f3 ZCL - Squawk Level Field Values).",
+                    "name": "Nivell"
+                },
+                "mode": {
+                    "description": "El camp Mode Squawk s'utilitza com a enumeraci\u00f3 de 4 bits i pot tenir un dels valors que es mostren a la Taula 8-24 de l'especificaci\u00f3 ZCL - Squawk Mode Field. L'operaci\u00f3 exacta de cada mode (com el WD 'squawks') \u00e9s espec\u00edfic de la implementaci\u00f3.",
+                    "name": "Mode"
+                },
+                "strobe": {
+                    "description": "El camp estrobosc\u00f2pic s'utilitza com a boole\u00e0 i determina si la indicaci\u00f3 visual tamb\u00e9 \u00e9s necess\u00e0ria a m\u00e9s del so 'squawk' (Taula 8-25 de l'especificaci\u00f3 ZCL - Strobe Bit).",
+                    "name": "Estrobosc\u00f2pic"
+                }
+            },
+            "name": "'Squawk' del dispositiu d'alerta"
+        },
+        "warning_device_warn": {
+            "description": "Aquesta acci\u00f3 activa el funcionament del dispositiu d'alerta. El dispositiu d'alerta avisa la zona circumdant mitjan\u00e7ant senyals audibles (sirena) i visuals (llum estrobosc\u00f2pic).",
+            "fields": {
+                "duration": {
+                    "description": "Durada sol\u00b7licitada de l'alerta, en segons (16 bits). Si tant el mode estrobosc\u00f2pic com el mode d'alerta s\u00f3n \"0\", aquest camp s'ignora.",
+                    "name": "Durada"
+                },
+                "duty_cycle": {
+                    "description": "Indica la durada del cicle de flaixos. Et permet variar la durada del flaix per a diferents tipus d'alarma (per exemple, incendi, policia, robatori). L'interval v\u00e0lid \u00e9s de 0 a 100 en increments de 10. Tots els altres valors s'han d'arrodonir al valor v\u00e0lid m\u00e9s proper. L'estrobosc\u00f2pic calcula un cicle de treball dins un segon. L'estat ON ha de precedir a l'estat OFF. Per exemple, si el camp Cicle de treball estrobosc\u00f2pic \u00e9s \"40\", aleshores l'estrobosc\u00f2pic parpelleja durant 4/10 segons i despr\u00e9s s'apaga durant 6/10 segons.",
+                    "name": "Cicle de treball"
+                },
+                "ieee": {
+                    "description": "Adre\u00e7a IEEE del dispositiu.",
+                    "name": "IEEE"
+                },
+                "intensity": {
+                    "description": "Indica la intensitat de l'estrobosc\u00f2pic (tal com es mostra a la taula 8-23 de l'especificaci\u00f3 ZCL). Aquest atribut est\u00e0 dissenyat per variar la sortida de llum estrobosc\u00f2pica (la brillantor) i no la seva freq\u00fc\u00e8ncia (detallada a la secci\u00f3 8.4.2.3.1.6 de l'especificaci\u00f3 ZCL).",
+                    "name": "Intensitat"
+                },
+                "level": {
+                    "description": "El camp Nivell de la sirena s'utilitza com a enumeraci\u00f3 de 2 bits i indica la intensitat del so 'squawk' (tal com es mostra a la Taula 8-22 de l'especificaci\u00f3 ZCL).",
+                    "name": "Nivell"
+                },
+                "mode": {
+                    "description": "El camp Mode d'alerta s'utilitza com a enumeraci\u00f3 de 4 bits, pot tenir un dels valors 0 a 6 definits (taula 8-20 de l'especificaci\u00f3 ZCL). El comportament exacte del dispositiu d'alerta en cada mode \u00e9s segons els est\u00e0ndards de seguretat pertinents.",
+                    "name": "Mode"
+                },
+                "strobe": {
+                    "description": "El camp Estrobosc\u00f2pic s'utilitza com a enumeraci\u00f3 de 2 bits i determina si la indicaci\u00f3 visual \u00e9s necess\u00e0ria a m\u00e9s de la sirena audible (tal com s'indica a la Taula 8-21 de l'especificaci\u00f3 ZCL). \"0\" vol dir sense llum estrobosc\u00f2pic i \"1\" significa amb llum estrobosc\u00f2pic. Si el camp \u00e9s \"1\" i el mode d'alerta \u00e9s \"0\" (\"Atura\"), nom\u00e9s s'activar\u00e0 el llum estrobosc\u00f2pic.",
+                    "name": "Estrobosc\u00f2pic"
+                }
+            },
+            "name": "Inici d'av\u00eds del dispositiu d'alerta"
+        }
+    }
+}

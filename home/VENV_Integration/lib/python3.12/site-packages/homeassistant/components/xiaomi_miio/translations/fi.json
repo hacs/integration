@@ -1,0 +1,363 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Laite on jo m\u00e4\u00e4ritetty",
+            "already_in_progress": "M\u00e4\u00e4ritysprosessi on jo k\u00e4ynniss\u00e4",
+            "incomplete_info": "Puutteelliset tiedot laitteen m\u00e4\u00e4ritt\u00e4miseksi, is\u00e4nt\u00e4\u00e4 tai tunnusta ei ole annettu.",
+            "not_xiaomi_miio": "Xiaomi Miio ei (viel\u00e4) tue laitetta.",
+            "reauth_successful": "Uudelleentodennus onnistui",
+            "unknown": "Odottamaton virhe"
+        },
+        "error": {
+            "cannot_connect": "Yhteyden muodostaminen ep\u00e4onnistui",
+            "cloud_credentials_incomplete": "Pilvitunnistetiedot puutteelliset, t\u00e4yt\u00e4 k\u00e4ytt\u00e4j\u00e4nimi, salasana ja maa",
+            "cloud_login_error": "Xiaomi Miio Cloudiin kirjautuminen ei onnistunut, tarkista kirjautumistiedot.",
+            "cloud_no_devices": "T\u00e4lt\u00e4 Xiaomi Miio -pilvitililt\u00e4 ei l\u00f6ytynyt laitteita.",
+            "unknown_device": "Laitteen mallia ei tunneta, joten laitetta ei voida m\u00e4\u00e4ritt\u00e4\u00e4 m\u00e4\u00e4rityspolun avulla.",
+            "wrong_token": "Tarkistusvirhe, v\u00e4\u00e4r\u00e4 merkki"
+        },
+        "flow_title": "{name}",
+        "step": {
+            "cloud": {
+                "data": {
+                    "cloud_country": "Pilvipalvelimen maa",
+                    "cloud_password": "Pilven salasana",
+                    "cloud_username": "Pilven k\u00e4ytt\u00e4j\u00e4tunnus",
+                    "manual": "M\u00e4\u00e4rit\u00e4 manuaalisesti (ei suositella)"
+                },
+                "description": "Kirjaudu sis\u00e4\u00e4n Xiaomi Miio -pilvipalvelimeen, katso https://www.openhab.org/addons/bindings/miio/#country-servers k\u00e4ytett\u00e4v\u00e4n pilvipalvelimen kohdalta."
+            },
+            "connect": {
+                "data": {
+                    "model": "Laitteen malli"
+                }
+            },
+            "manual": {
+                "data": {
+                    "host": "IP-osoite",
+                    "token": "API-tunnus"
+                },
+                "description": "Tarvitset 32-merkkisen API-tunnuksen, katso ohjeet osoitteesta https://www.home-assistant.io/integrations/xiaomi_miio#retrieving-the-access-token. Huomaa, ett\u00e4 t\u00e4m\u00e4 API-tunniste eroaa Xiaomi Aqara -integraation k\u00e4ytt\u00e4m\u00e4st\u00e4 avaimesta."
+            },
+            "reauth_confirm": {
+                "description": "Xiaomi Miio -integraation on todennettava tilisi uudelleen, jotta voit p\u00e4ivitt\u00e4\u00e4 tunnukset tai lis\u00e4t\u00e4 puuttuvat pilvitunnukset.",
+                "title": "Todennus vanhentui kohteella {name}"
+            },
+            "select": {
+                "data": {
+                    "select_device": "Miio laite"
+                },
+                "description": "Valitse m\u00e4\u00e4ritett\u00e4v\u00e4 Xiaomi Miio -laite."
+            }
+        }
+    },
+    "entity": {
+        "select": {
+            "airpurifier_mode": {
+                "state": {
+                    "auto": "Automaattinen",
+                    "favorite": "Suosikki",
+                    "silent": "Hiljainen"
+                }
+            },
+            "display_orientation": {
+                "state": {
+                    "forward": "Eteenp\u00e4in",
+                    "left": "Vasen",
+                    "right": "Oikea"
+                }
+            },
+            "led_brightness": {
+                "state": {
+                    "bright": "Kirkas",
+                    "dim": "Himme\u00e4",
+                    "off": "Pois"
+                }
+            },
+            "ptc_level": {
+                "state": {
+                    "high": "Korkea",
+                    "low": "Alhainen",
+                    "medium": "Keskitaso"
+                }
+            }
+        }
+    },
+    "options": {
+        "error": {
+            "cloud_credentials_incomplete": "Pilvitunnistetiedot puutteelliset, t\u00e4yt\u00e4 k\u00e4ytt\u00e4j\u00e4nimi, salasana ja maa"
+        },
+        "step": {
+            "init": {
+                "data": {
+                    "cloud_subdevices": "K\u00e4yt\u00e4 pilvipalvelua saadaksesi yhdistetyt alilaitteet"
+                }
+            }
+        }
+    },
+    "services": {
+        "fan_reset_filter": {
+            "description": "Nollaa suodattimen k\u00e4ytt\u00f6i\u00e4n ja k\u00e4yt\u00f6n.",
+            "fields": {
+                "entity_id": {
+                    "description": "Xiaomi miio -entiteetin nimi.",
+                    "name": "Kohteen tunnus"
+                }
+            },
+            "name": "Tuulettimen nollaussuodatin"
+        },
+        "fan_set_extra_features": {
+            "description": "Manipuloi varastorekisteri\u00e4, joka mainostaa lis\u00e4ominaisuuksia. Mi Home -sovellus arvioi arvon. Sovelluksessa avataan ominaisuus nimelt\u00e4 \"turbotila\" arvolla 1.",
+            "fields": {
+                "entity_id": {
+                    "description": "Xiaomi miio -entiteetin nimi.",
+                    "name": "Kohteen tunnus"
+                },
+                "features": {
+                    "description": "Kokonaisluku, tunnetut arvot ovat 0 (oletusarvo) ja 1 (turbotila).",
+                    "name": "Ominaisuudet"
+                }
+            },
+            "name": "Tuulettimen lis\u00e4ominaisuudet"
+        },
+        "light_eyecare_mode_off": {
+            "description": "Poistaa silmien v\u00e4symysmuistutuksen/ilmoituksen k\u00e4yt\u00f6st\u00e4 (VAIN EYECARE SMART LAMP 2).",
+            "fields": {
+                "entity_id": {
+                    "description": "Toiminnan kohteena olevan entiteetin nimi.",
+                    "name": "Kohteen tunnus"
+                }
+            },
+            "name": "Kevyt silm\u00e4nhoitotila pois p\u00e4\u00e4lt\u00e4"
+        },
+        "light_eyecare_mode_on": {
+            "description": "Ottaa k\u00e4ytt\u00f6\u00f6n silmien v\u00e4symysmuistutuksen/ilmoituksen (VAIN EYECARE SMART LAMP 2).",
+            "fields": {
+                "entity_id": {
+                    "description": "Toiminnan kohteena olevan entiteetin nimi.",
+                    "name": "Kohteen tunnus"
+                }
+            },
+            "name": "Kevyt silm\u00e4nhoitotila p\u00e4\u00e4ll\u00e4"
+        },
+        "light_night_light_mode_off": {
+            "description": "Kytkee silmienhoitotilan fan_set_dry_off (VAIN EYECARE SMART LAMP 2).",
+            "fields": {
+                "entity_id": {
+                    "description": "Toiminnan kohteena olevan entiteetin nimi.",
+                    "name": "Kohteen tunnus"
+                }
+            },
+            "name": "Y\u00f6valotila pois p\u00e4\u00e4lt\u00e4"
+        },
+        "light_night_light_mode_on": {
+            "description": "Kytkee silmienhoitotilan p\u00e4\u00e4lle (VAIN EYECARE SMART LAMP 2).",
+            "fields": {
+                "entity_id": {
+                    "description": "Toiminnan kohteena olevan entiteetin nimi.",
+                    "name": "Kohteen tunnus"
+                }
+            },
+            "name": "Y\u00f6valotila p\u00e4\u00e4ll\u00e4"
+        },
+        "light_reminder_off": {
+            "description": "Poistaa silmien v\u00e4symysmuistutuksen/ilmoituksen k\u00e4yt\u00f6st\u00e4 (VAIN EYECARE SMART LAMP 2).",
+            "fields": {
+                "entity_id": {
+                    "description": "Toiminnan kohteena olevan entiteetin nimi.",
+                    "name": "Kohteen tunnus"
+                }
+            },
+            "name": "Valomuistutus pois p\u00e4\u00e4lt\u00e4"
+        },
+        "light_reminder_on": {
+            "description": "Ottaa k\u00e4ytt\u00f6\u00f6n silmien v\u00e4symysmuistutuksen/ilmoituksen (VAIN EYECARE SMART LAMP 2).",
+            "fields": {
+                "entity_id": {
+                    "description": "Toiminnan kohteena olevan entiteetin nimi.",
+                    "name": "Kohteen tunnus"
+                }
+            },
+            "name": "Muistutusvalo p\u00e4\u00e4ll\u00e4"
+        },
+        "light_set_delayed_turn_off": {
+            "description": "Viiv\u00e4stetty sammutus.",
+            "fields": {
+                "entity_id": {
+                    "description": "Valoentiteetin nimi.",
+                    "name": "Kohteen tunnus"
+                },
+                "time_period": {
+                    "description": "Viiv\u00e4stetyn sammutuksen aika.",
+                    "name": "Ajanjakso"
+                }
+            },
+            "name": "Valo asetettu viiv\u00e4stetty sammutus"
+        },
+        "light_set_scene": {
+            "description": "Asettaa kiinte\u00e4n tilanteen.",
+            "fields": {
+                "entity_id": {
+                    "description": "Valoentiteetin nimi.",
+                    "name": "Kohteen tunnus"
+                },
+                "scene": {
+                    "description": "Kiinte\u00e4n tilanteen numero.",
+                    "name": "Tilanne"
+                }
+            },
+            "name": "Valo aseta tilanne"
+        },
+        "remote_learn_command": {
+            "fields": {
+                "slot": {
+                    "description": "M\u00e4\u00e4rit\u00e4 IR-komennon tallennuspaikka.",
+                    "name": "Aukko"
+                },
+                "timeout": {
+                    "description": "M\u00e4\u00e4rit\u00e4 aikakatkaisu, jota ennen komento on opittava.",
+                    "name": "Aikakatkaisu"
+                }
+            },
+            "name": "Kauko-opiskelukomento"
+        },
+        "remote_set_led_off": {
+            "description": "Sammuttaa sinisen LEDin.",
+            "name": "Kaukos\u00e4\u00e4din LED pois"
+        },
+        "remote_set_led_on": {
+            "description": "Sytytt\u00e4\u00e4 sinisen LEDin.",
+            "name": "Kaukos\u00e4\u00e4din LED palaa"
+        },
+        "switch_set_power_mode": {
+            "description": "Asettaa tehotilan.",
+            "fields": {
+                "entity_id": {
+                    "description": "Xiaomi miio -entiteetin nimi.",
+                    "name": "Kohteen tunnus"
+                },
+                "mode": {
+                    "description": "Tehotila.",
+                    "name": "Tila"
+                }
+            },
+            "name": "Kytkin aseta tehotila"
+        },
+        "switch_set_power_price": {
+            "description": "Asettaa s\u00e4hk\u00f6n hinnan.",
+            "fields": {
+                "entity_id": {
+                    "description": "Xiaomi miio -entiteetin nimi.",
+                    "name": "Kohteen tunnus"
+                },
+                "mode": {
+                    "description": "S\u00e4hk\u00f6n hinta.",
+                    "name": "Tila"
+                }
+            },
+            "name": "Kytkin aseta s\u00e4hk\u00f6n hinta"
+        },
+        "switch_set_wifi_led_off": {
+            "description": "Sammuta Wi-Fi-LED.",
+            "fields": {
+                "entity_id": {
+                    "description": "Xiaomi miio -entiteetin nimi.",
+                    "name": "Kohteen tunnus"
+                }
+            },
+            "name": "Kytke Wi-Fi-LED pois p\u00e4\u00e4lt\u00e4"
+        },
+        "switch_set_wifi_led_on": {
+            "description": "Kytkee wifi ledin p\u00e4\u00e4lle.",
+            "fields": {
+                "entity_id": {
+                    "description": "Xiaomi miio -entiteetin nimi.",
+                    "name": "Kohteen tunnus"
+                }
+            },
+            "name": "Kytke Wi-Fi-LED p\u00e4\u00e4llem"
+        },
+        "vacuum_clean_segment": {
+            "description": "Aloittaa m\u00e4\u00e4ritettyjen segmenttien puhdistamisen.",
+            "fields": {
+                "segments": {
+                    "description": "Segmentit.",
+                    "name": "Segmentit"
+                }
+            },
+            "name": "Imurointisegmentti"
+        },
+        "vacuum_clean_zone": {
+            "description": "K\u00e4ynnist\u00e4\u00e4 puhdistustoiminnon valituilla alueilla ilmoitetun m\u00e4\u00e4r\u00e4n toistoja varten.",
+            "fields": {
+                "repeats": {
+                    "description": "Puhdistustoistojen lukum\u00e4\u00e4r\u00e4 jokaiselle alueelle.",
+                    "name": "Toistot"
+                },
+                "zone": {
+                    "description": "Alueiden joukko. Jokainen alue on 4 kokonaislukuarvon joukko.",
+                    "name": "Alue"
+                }
+            },
+            "name": "Imurointialue"
+        },
+        "vacuum_goto": {
+            "description": "Siirry m\u00e4\u00e4ritettyihin koordinaatteihin.",
+            "fields": {
+                "x_coord": {
+                    "description": "X-koordinaatti.",
+                    "name": "X-koordinaatti"
+                },
+                "y_coord": {
+                    "description": "Y-koordinaatti.",
+                    "name": "Y-koordinaatti"
+                }
+            },
+            "name": "Imuri siirry kohtaan"
+        },
+        "vacuum_remote_control_move": {
+            "description": "Kauko-ohjaa p\u00f6lynimuria, varmista, ett\u00e4 asetat sen ensin kauko-ohjaustilaan komennolla `remote_control_start`.",
+            "fields": {
+                "duration": {
+                    "description": "Liikkeen kesto.",
+                    "name": "Kesto"
+                },
+                "rotation": {
+                    "description": "Kierto -179 asteen ja 179 asteen v\u00e4lill\u00e4.",
+                    "name": "Kierto"
+                },
+                "velocity": {
+                    "description": "Nopeus.",
+                    "name": "Nopeus"
+                }
+            },
+            "name": "Imurin kauko-ohjauksen liike"
+        },
+        "vacuum_remote_control_move_step": {
+            "description": "Kauko-ohjaus ohjaa p\u00f6lynimuria, tekee vain yhden liikkeen ja pys\u00e4htyy sitten.",
+            "fields": {
+                "duration": {
+                    "description": "Liikkeen kesto.",
+                    "name": "Kesto"
+                },
+                "rotation": {
+                    "description": "Kierto.",
+                    "name": "Kierto"
+                },
+                "velocity": {
+                    "description": "Nopeus.",
+                    "name": "Nopeus"
+                }
+            },
+            "name": "Imurin kauko-ohjaukseen siirtovaihe"
+        },
+        "vacuum_remote_control_start": {
+            "description": "K\u00e4ynnist\u00e4\u00e4 p\u00f6lynimurin kauko-ohjauksen. Voit sitten siirt\u00e4\u00e4 sit\u00e4 `remote_control_move`-ohjaimella, kun se on valmis, kutsu `remote_control_stop`.",
+            "name": "Imurin kauko-ohjauksen k\u00e4ynnistys"
+        },
+        "vacuum_remote_control_stop": {
+            "description": "Pys\u00e4ytt\u00e4\u00e4 p\u00f6lynimurin kauko-ohjaustilan.",
+            "name": "Imurin kauko-ohjauksen pys\u00e4ytys"
+        }
+    }
+}

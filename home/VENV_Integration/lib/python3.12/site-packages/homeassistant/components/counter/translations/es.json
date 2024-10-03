@@ -1,0 +1,66 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "Contador",
+            "state_attributes": {
+                "editable": {
+                    "name": "Gestionado a trav\u00e9s de la IU",
+                    "state": {
+                        "false": "No",
+                        "true": "S\u00ed"
+                    }
+                },
+                "initial": {
+                    "name": "Valor inicial"
+                },
+                "maximum": {
+                    "name": "M\u00e1ximo"
+                },
+                "minimum": {
+                    "name": "M\u00ednimo"
+                },
+                "step": {
+                    "name": "Paso"
+                }
+            }
+        }
+    },
+    "issues": {
+        "deprecated_configure_service": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "El servicio de contador `counter.configure` se va a eliminar y se ha detectado su uso. Si quieres cambiar el valor actual de un contador, utiliza el nuevo servicio `counter.set_value` en su lugar. \n\nPor favor, elimina este servicio de tus automatizaciones y scripts y selecciona **enviar** para cerrar este problema.",
+                        "title": "Se va a eliminar el servicio de configuraci\u00f3n del contador"
+                    }
+                }
+            },
+            "title": "Se va a eliminar el servicio de configuraci\u00f3n del contador"
+        }
+    },
+    "services": {
+        "decrement": {
+            "description": "Decrementa un contador.",
+            "name": "Decrementar"
+        },
+        "increment": {
+            "description": "Incrementa un contador.",
+            "name": "Incrementar"
+        },
+        "reset": {
+            "description": "Restablece un contador.",
+            "name": "Restablecer"
+        },
+        "set_value": {
+            "description": "Establece el valor del contador.",
+            "fields": {
+                "value": {
+                    "description": "El nuevo valor del contador al que debe ajustarse la entidad.",
+                    "name": "Valor"
+                }
+            },
+            "name": "Establecer"
+        }
+    },
+    "title": "Contador"
+}

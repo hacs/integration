@@ -1,0 +1,2981 @@
+{
+  "language": "pl",
+  "intents": {
+    "HassTurnOff": {
+      "data": [
+        {
+          "sentences": [
+            "<turn_off> <name> [<area>]",
+            "[<area>] <turn_off> <name>"
+          ],
+          "excludes_context": {
+            "domain": [
+              "binary_sensor",
+              "cover",
+              "lock",
+              "scene",
+              "script",
+              "sensor",
+              "valve",
+              "vacuum",
+              "light",
+              "fan"
+            ]
+          }
+        },
+        {
+          "sentences": [
+            "(<turn_off>|<turn_off_light>) <name>"
+          ],
+          "requires_context": {
+            "domain": "light"
+          },
+          "response": "light"
+        },
+        {
+          "sentences": [
+            "(<turn_off>|<turn_off_light>) <name> <area>",
+            "(<turn_off>|<turn_off_light>) <area> <name>",
+            "<area> (<turn_off>|<turn_off_light>) <name>"
+          ],
+          "requires_context": {
+            "domain": "light"
+          },
+          "response": "light_area"
+        },
+        {
+          "sentences": [
+            "(<turn_off>|<turn_off_light>) [<all> |całe ](<light>|<lights>) <area>",
+            "(<turn_off>|<turn_off_light>) <area> [<all> |całe ](<light>|<lights>)"
+          ],
+          "slots": {
+            "domain": "light"
+          },
+          "response": "lights_area"
+        },
+        {
+          "sentences": [
+            "(<turn_off>|<turn_off_light>) [<all> |całe ]<lights>"
+          ],
+          "slots": {
+            "name": "all",
+            "domain": "light"
+          },
+          "response": "lights_all"
+        },
+        {
+          "sentences": [
+            "(<turn_off>|<turn_off_light>) [<in_here> ][<all> |całe ](<light>|<lights>)",
+            "(<turn_off>|<turn_off_light>) [<all> |całe ](<light>|<lights>)[ <in_here>]"
+          ],
+          "slots": {
+            "domain": "light"
+          },
+          "requires_context": {
+            "area": {
+              "slot": true
+            }
+          },
+          "response": "lights_area"
+        },
+        {
+          "sentences": [
+            "(<close>|<close_blind>) <name> [<area>]",
+            "(<close>|<close_blind>) [<area>] <name>",
+            "[<area>] (<close>|<close_blind>) <name>"
+          ],
+          "requires_context": {
+            "domain": "cover",
+            "device_class": "blind"
+          },
+          "response": "cover_blind"
+        },
+        {
+          "sentences": [
+            "(<close>|<close_blind>) [<all>] rolety [<area>]",
+            "(<close>|<close_blind>) [<area>] [<all>] rolety",
+            "[<area>] (<close>|<close_blind>) [<all>] rolety"
+          ],
+          "slots": {
+            "domain": "cover",
+            "device_class": "blind"
+          },
+          "response": "cover_blinds"
+        },
+        {
+          "sentences": [
+            "(<close>|<close_blind>) <name> [<area>]",
+            "(<close>|<close_blind>) [<area>] <name>",
+            "[<area>] (<close>|<close_blind>) <name>"
+          ],
+          "requires_context": {
+            "domain": "cover",
+            "device_class": "shutter"
+          },
+          "response": "cover_shutter"
+        },
+        {
+          "sentences": [
+            "(<close>|<close_blind>) [<all>] żaluzje [<area>]",
+            "(<close>|<close_blind>) [<area>] [<all>] żaluzje",
+            "[<area>] (<close>|<close_blind>) [<all>] żaluzje"
+          ],
+          "slots": {
+            "domain": "cover",
+            "device_class": "shutter"
+          },
+          "response": "cover_shutters"
+        },
+        {
+          "sentences": [
+            "(<close>|<close_blind>) <name> [<area>]",
+            "(<close>|<close_blind>) [<area>] <name>",
+            "[<area>] (<close>|<close_blind>) <name>"
+          ],
+          "requires_context": {
+            "domain": "cover",
+            "device_class": "shade"
+          },
+          "response": "cover_shade"
+        },
+        {
+          "sentences": [
+            "(<close>|<close_blind>) [<all>] osłony [<area>]",
+            "(<close>|<close_blind>) [<area>] [<all>] osłony",
+            "[<area>] (<close>|<close_blind>) [<all>] osłony"
+          ],
+          "slots": {
+            "domain": "cover",
+            "device_class": "shade"
+          },
+          "response": "cover_shades"
+        },
+        {
+          "sentences": [
+            "(<close>|<close_blind>|<close_curtain>) <name> [<area>]",
+            "(<close>|<close_blind>|<close_curtain>) [<area>] <name>",
+            "[<area>] (<close>|<close_blind>|<close_curtain>) <name>"
+          ],
+          "requires_context": {
+            "domain": "cover",
+            "device_class": "curtain"
+          },
+          "response": "cover_curtain"
+        },
+        {
+          "sentences": [
+            "(<close>|<close_blind>) [<all>] zasłony [<area>]",
+            "(<close>|<close_blind>) [<area>] [<all>] zasłony",
+            "[<area>] (<close>|<close_blind>) [<all>] zasłony"
+          ],
+          "slots": {
+            "domain": "cover",
+            "device_class": "curtain"
+          },
+          "response": "cover_curtains"
+        },
+        {
+          "sentences": [
+            "<close> <name> [<area>]",
+            "<close> [<area>] <name>",
+            "[<area>] <close> <name>"
+          ],
+          "requires_context": {
+            "domain": "cover",
+            "device_class": "garage"
+          },
+          "response": "cover_garage"
+        },
+        {
+          "sentences": [
+            "<close> (garaż|drzwi garażowe|drzwi do garażu|bramę garażową|bramę do garażu)"
+          ],
+          "slots": {
+            "domain": "cover",
+            "device_class": "garage"
+          },
+          "response": "cover_garage"
+        },
+        {
+          "sentences": [
+            "<close> <name> [<area>]",
+            "<close> [<area>] <name>",
+            "[<area>] <close> <name>"
+          ],
+          "requires_context": {
+            "domain": "cover",
+            "device_class": "gate"
+          },
+          "response": "cover_gate"
+        },
+        {
+          "sentences": [
+            "<close> bramę [<area>]",
+            "<close> [<area>] bramę",
+            "[<area>] <close> bramę"
+          ],
+          "slots": {
+            "domain": "cover",
+            "device_class": "gate"
+          },
+          "response": "cover_gate"
+        },
+        {
+          "sentences": [
+            "<close> [<all>] bramy [<area>]",
+            "<close> [<area>] [<all>] bramy",
+            "[<area>] <close> [<all>] bramy"
+          ],
+          "slots": {
+            "domain": "cover",
+            "device_class": "gate"
+          },
+          "response": "cover_gates"
+        },
+        {
+          "sentences": [
+            "<close> <name> [<area>]",
+            "<close> [<area>] <name>",
+            "[<area>] <close> <name>"
+          ],
+          "requires_context": {
+            "domain": "cover",
+            "device_class": "door"
+          },
+          "response": "cover_door"
+        },
+        {
+          "sentences": [
+            "<close> [<all>] drzwi [<area>]",
+            "<close> [<area>] [<all>] drzwi",
+            "[<area>] <close> [<all>] drzwi"
+          ],
+          "slots": {
+            "domain": "cover",
+            "device_class": "door"
+          },
+          "response": "cover_door"
+        },
+        {
+          "sentences": [
+            "(<close>|opuść) <name> [<area>]",
+            "(<close>|opuść) [<area>] <name>",
+            "[<area>] (<close>|opuść) <name>"
+          ],
+          "requires_context": {
+            "domain": "cover",
+            "device_class": "damper"
+          },
+          "response": "cover_damper"
+        },
+        {
+          "sentences": [
+            "(<close>|opuść) [<all>] klapy [<area>]",
+            "(<close>|opuść) [<area>] [<all>] klapy",
+            "[<area>] (<close>|opuść) [<all>] klapy"
+          ],
+          "slots": {
+            "domain": "cover",
+            "device_class": "damper"
+          },
+          "response": "cover_dampers"
+        },
+        {
+          "sentences": [
+            "(<close>|<close_blind>) <name> [<area>]",
+            "(<close>|<close_blind>) [<area>] <name>",
+            "[<area>] (<close>|<close_blind>) <name>"
+          ],
+          "requires_context": {
+            "domain": "cover",
+            "device_class": "awning"
+          },
+          "response": "cover_awning"
+        },
+        {
+          "sentences": [
+            "(<close>|<close_blind>) [<all>] markizy [<area>]",
+            "(<close>|<close_blind>) [<area>] [<all>] markizy",
+            "[<area>] (<close>|<close_blind>) [<all>] markizy"
+          ],
+          "slots": {
+            "domain": "cover",
+            "device_class": "awning"
+          },
+          "response": "cover_awnings"
+        },
+        {
+          "sentences": [
+            "<close> <name> [<area>]",
+            "<close> [<area>] <name>",
+            "[<area>] <close> <name>"
+          ],
+          "requires_context": {
+            "domain": "cover",
+            "device_class": "window"
+          },
+          "response": "cover_window"
+        },
+        {
+          "sentences": [
+            "<close> [<all>] okna [<area>]",
+            "<close> [<area>] [<all>] okna",
+            "[<area>] <close> [<all>] okna"
+          ],
+          "slots": {
+            "domain": "cover",
+            "device_class": "window"
+          },
+          "response": "cover_windows"
+        },
+        {
+          "sentences": [
+            "<close> <name> [<area>]",
+            "<close> [<area>] <name>",
+            "[<area>] <close> <name>"
+          ],
+          "requires_context": {
+            "domain": "cover"
+          },
+          "excludes_context": {
+            "device_class": [
+              "blind",
+              "shutter",
+              "shade",
+              "curtain",
+              "garage",
+              "gate",
+              "door",
+              "damper",
+              "awning",
+              "window"
+            ]
+          },
+          "response": "cover"
+        },
+        {
+          "sentences": [
+            "<close> {cover_classes:device_class} [<area>]",
+            "<close> [<area>] {cover_classes:device_class}",
+            "[<area>] <close> {cover_classes:device_class}"
+          ],
+          "slots": {
+            "domain": "cover"
+          },
+          "response": "cover_device_class"
+        },
+        {
+          "sentences": [
+            "<close> [<in_here>] [<all>] {cover_classes:device_class}",
+            "<close> [<all>] {cover_classes:device_class} [<in_here>]"
+          ],
+          "slots": {
+            "domain": "cover"
+          },
+          "requires_context": {
+            "area": {
+              "slot": true
+            }
+          },
+          "response": "cover_device_class"
+        },
+        {
+          "sentences": [
+            "<turn_off> <name>"
+          ],
+          "requires_context": {
+            "domain": "fan"
+          },
+          "response": "fan"
+        },
+        {
+          "sentences": [
+            "<turn_off> <name> <area>",
+            "<turn_off> <area> <name>",
+            "<area> <turn_off> <name>"
+          ],
+          "requires_context": {
+            "domain": "fan"
+          },
+          "response": "fan_area"
+        },
+        {
+          "sentences": [
+            "<turn_off> (wentylator|wiatrak) <area>",
+            "<turn_off> <area> (wentylator|wiatrak)"
+          ],
+          "slots": {
+            "domain": "fan",
+            "name": "all"
+          },
+          "response": "fan_area"
+        },
+        {
+          "sentences": [
+            "<turn_off> [<all>] (wentylatory|wiatraki) <area>",
+            "<turn_off> <area> [<all>] (wentylatory|wiatraki)"
+          ],
+          "slots": {
+            "domain": "fan",
+            "name": "all"
+          },
+          "response": "fans_area"
+        },
+        {
+          "sentences": [
+            "<turn_off> <all> (wentylatory|wiatraki)"
+          ],
+          "slots": {
+            "domain": "fan",
+            "name": "all"
+          },
+          "response": "fans_all"
+        },
+        {
+          "sentences": [
+            "<turn_off> [<in_here>] (wentylator|wiatrak)",
+            "<turn_off> (wentylator|wiatrak) [<in_here>]"
+          ],
+          "slots": {
+            "domain": "fan"
+          },
+          "requires_context": {
+            "area": {
+              "slot": true
+            }
+          },
+          "response": "fan_area"
+        },
+        {
+          "sentences": [
+            "<turn_off> [<in_here>] (wentylatory|wiatraki)",
+            "<turn_off> (wentylatory|wiatraki) [<in_here>]"
+          ],
+          "slots": {
+            "domain": "fan"
+          },
+          "requires_context": {
+            "area": {
+              "slot": true
+            }
+          },
+          "response": "fans_area"
+        },
+        {
+          "sentences": [
+            "<turn_off> [<in_here>] <all> (wentylatory|wiatraki)",
+            "<turn_off> <all> (wentylatory|wiatraki) [<in_here>]"
+          ],
+          "slots": {
+            "domain": "fan"
+          },
+          "requires_context": {
+            "area": {
+              "slot": true
+            }
+          },
+          "response": "fans_all"
+        },
+        {
+          "sentences": [
+            "<unlock> <name> [<area>]"
+          ],
+          "requires_context": {
+            "domain": "lock"
+          },
+          "response": "lock_unlock_door"
+        },
+        {
+          "sentences": [
+            "<unlock> [<all>] drzwi <area>",
+            "<unlock> <area> [<all>] drzwi",
+            "<area> <unlock> [<all>] drzwi"
+          ],
+          "slots": {
+            "name": "all",
+            "domain": "lock"
+          },
+          "response": "lock_unlock_door"
+        },
+        {
+          "sentences": [
+            "<unlock> [<all>] zamki <area>",
+            "<unlock> <area> [<all>] zamki",
+            "<area> <unlock> [<all>] zamki"
+          ],
+          "slots": {
+            "name": "all",
+            "domain": "lock"
+          },
+          "response": "lock_unlock_lock"
+        },
+        {
+          "sentences": [
+            "<open> [<all>] zamki <area>",
+            "<open> <area> [<all>] zamki",
+            "<area> <open> [<all>] zamki"
+          ],
+          "slots": {
+            "name": "all",
+            "domain": "lock"
+          },
+          "response": "lock_open_lock"
+        },
+        {
+          "sentences": [
+            "<close> <name>"
+          ],
+          "requires_context": {
+            "domain": "valve"
+          },
+          "slots": {
+            "domain": "valve"
+          },
+          "response": "valve"
+        }
+      ]
+    },
+    "HassGetState": {
+      "data": [
+        {
+          "sentences": [
+            "<where_is> [<now>] <name>",
+            "<where> [<now>] <is> <name>"
+          ],
+          "requires_context": {
+            "domain": "person"
+          },
+          "slots": {
+            "domain": "person"
+          },
+          "response": "where"
+        },
+        {
+          "sentences": [
+            "[czy] <name> jest [<now>] {presence_states:state}",
+            "[czy] <name> jest [<now>] [w] {zone:state}",
+            "[czy] {presence_states:state} jest [<now>] <name>",
+            "[czy] [w] {zone:state} jest [<now>] <name>"
+          ],
+          "requires_context": {
+            "domain": "person"
+          },
+          "slots": {
+            "domain": "person"
+          },
+          "response": "one_yesno"
+        },
+        {
+          "sentences": [
+            "[czy] jest (ktoś|ktokolwiek) [<now>] {presence_states:state} [<now>]",
+            "[czy] jest (ktoś|ktokolwiek) [<now>] [w] {zone:state} [<now>]",
+            "[czy] (ktoś|ktokolwiek) jest [<now>] {presence_states:state} [<now>]",
+            "[czy] (ktoś|ktokolwiek) jest [<now>] [w] {zone:state} [<now>]",
+            "[czy] [<now>] jest (ktoś|ktokolwiek) {presence_states:state}",
+            "[czy] [<now>] jest (ktoś|ktokolwiek) [w] {zone:state}"
+          ],
+          "slots": {
+            "domain": "person"
+          },
+          "response": "any"
+        },
+        {
+          "sentences": [
+            "[czy] wszyscy (są|przebywają|znajdują się) [<now>] {presence_states:state}",
+            "[czy] wszyscy (są|przebywają|znajdują się) [<now>] [w] {zone:state}"
+          ],
+          "slots": {
+            "domain": "person"
+          },
+          "response": "all"
+        },
+        {
+          "sentences": [
+            "kto (jest|przebywają|znajduje się) [<now>] {presence_states:state}",
+            "kto (jest|przebywają|znajduje się) [<now>] [w] {zone:state}",
+            "kto [<now>] (jest|przebywają|znajduje się) {presence_states:state}",
+            "kto [<now>] (jest|przebywają|znajduje się) [w] {zone:state}"
+          ],
+          "slots": {
+            "domain": "person"
+          },
+          "response": "which"
+        },
+        {
+          "sentences": [
+            "il(e|u) (osób|ludzi) (jest|przebywa|znajduje się) [<now>] {presence_states:state}",
+            "il(e|u) (osób|ludzi) (jest|przebywa|znajduje się) [<now>] [w] {zone:state}",
+            "il(e|u) jest {presence_states:state} (osób|ludzi) [<now>]",
+            "il(e|u) jest [w] {zone:state} (osób|ludzi) [<now>]",
+            "il(e|u) [<now>] jest {presence_states:state} (osób|ludzi)",
+            "il(e|u) [<now>] jest [w] {zone:state} (osób|ludzi)",
+            "il(e|u) {presence_states:state} jest [<now>] (osób|ludzi)",
+            "il(e|u) [w] {zone:state} [<now>] jest (osób|ludzi)"
+          ],
+          "slots": {
+            "domain": "person"
+          },
+          "response": "how_many"
+        },
+        {
+          "sentences": [
+            "czy <name> (jest|są) {lock_states:state} [<area>]",
+            "czy (jest|są) {lock_states:state} <name> [<area>]",
+            "czy [<area>] (jest|są) {lock_states:state} <name>",
+            "czy [<area>]  <name> (jest|są) {lock_states:state}"
+          ],
+          "requires_context": {
+            "domain": "lock"
+          },
+          "slots": {
+            "domain": "lock"
+          },
+          "response": "one_yesno"
+        },
+        {
+          "sentences": [
+            "czy (jest|są) [jakiś|jakieś|któryś|któreś|jakiekolwiek|którekolwiek] (zamek|zamki|drzwi) {lock_states:state} [<area>]",
+            "czy (jest|są) [jakiś|jakieś|któryś|któreś|jakiekolwiek|którekolwiek] {lock_states:state} (zamek|zamki|drzwi) [<area>]",
+            "czy (jest|są) {lock_states:state} [jakiś|jakieś|któryś|któreś|jakiekolwiek|którekolwiek] (zamek|zamki|drzwi) [<area>]",
+            "czy [<area>] (jest|są) [jakiś|jakieś|któryś|któreś|jakiekolwiek|którekolwiek] (zamek|zamki|drzwi) {lock_states:state}",
+            "czy [<area>] (jest|są) [jakiś|jakieś|któryś|któreś|jakiekolwiek|którekolwiek] {lock_states:state} (zamek|zamki|drzwi)",
+            "czy [<area>] (jest|są) {lock_states:state} [jakiś|jakieś|któryś|któreś|jakiekolwiek|którekolwiek] (zamek|zamki|drzwi)"
+          ],
+          "slots": {
+            "domain": "lock"
+          },
+          "response": "any"
+        },
+        {
+          "sentences": [
+            "czy <all> (drzwi|zamki) są {lock_states:state} [<area>]",
+            "czy [<area>] <all> (drzwi|zamki) są {lock_states:state}",
+            "czy są {lock_states:state} <all> (drzwi|zamki) [<area>]",
+            "czy są {lock_states:state} [<area>] <all> (drzwi|zamki)"
+          ],
+          "slots": {
+            "domain": "lock"
+          },
+          "response": "all"
+        },
+        {
+          "sentences": [
+            "które (drzwi|zamki) są {lock_states:state} [<area>]",
+            "który zamek jest {lock_states:state} [<area>]"
+          ],
+          "slots": {
+            "domain": "lock"
+          },
+          "response": "which"
+        },
+        {
+          "sentences": [
+            "ile (drzwi|zamków) jest {lock_states:state} [<area>]",
+            "ile jest {lock_states:state} (drzwi|zamków) [<area>]"
+          ],
+          "slots": {
+            "domain": "lock"
+          },
+          "response": "how_many"
+        },
+        {
+          "sentences": [
+            "jak(i|a|ie) (jest|są) <name> [<area>]"
+          ],
+          "excludes_context": {
+            "domain": [
+              "scene",
+              "script",
+              "climate"
+            ]
+          },
+          "response": "one"
+        },
+        {
+          "sentences": [
+            "jak(i) jest stan <name> [<area>]",
+            "stan <name> [<area>]"
+          ],
+          "excludes_context": {
+            "domain": [
+              "scene",
+              "script"
+            ]
+          },
+          "response": "one_state"
+        },
+        {
+          "sentences": [
+            "jak(i) jest status <name> [<area>]",
+            "status <name> [<area>]"
+          ],
+          "excludes_context": {
+            "domain": [
+              "scene",
+              "script"
+            ]
+          },
+          "response": "one_status"
+        },
+        {
+          "sentences": [
+            "jak(a) jest wartość <name> [<area>]",
+            "wartość <name> [<area>]"
+          ],
+          "excludes_context": {
+            "domain": [
+              "scene",
+              "script"
+            ]
+          },
+          "response": "one_value"
+        },
+        {
+          "sentences": [
+            "czy [stan|status|wartość] <name> jest {on_off_states:state} [<area>]",
+            "czy [stan|status|wartość] <name> [<area>] jest {on_off_states:state}",
+            "czy jest {on_off_states:state} <name> [<area>]"
+          ],
+          "excludes_context": {
+            "domain": [
+              "cover"
+            ]
+          },
+          "response": "one_yesno"
+        },
+        {
+          "sentences": [
+            "(czy jest|czy są) [jakiś|jakieś] {on_off_domains:domain} {on_off_states:state} [<area>]",
+            "(czy jest|czy są) {on_off_states:state} [jakiś|jakieś] {on_off_domains:domain} [<area>]",
+            "(czy jest|czy są) [<area>] [jakiś|jakieś] {on_off_domains:domain} {on_off_states:state}",
+            "czy [<area>] (jest|są) [jakiś|jakieś] {on_off_states:state} {on_off_domains:domain}",
+            "czy [<area>] (jest|są) {on_off_states:state} [jakiś|jakieś] {on_off_domains:domain}"
+          ],
+          "response": "any"
+        },
+        {
+          "sentences": [
+            "czy <all> {on_off_domains:domain} (jest|są) {on_off_states:state} [<area>]",
+            "czy <all> {on_off_domains:domain} [<area>] (jest|są) {on_off_states:state}",
+            "czy (jest|są) {on_off_states:state} <all> {on_off_domains:domain} [<area>]",
+            "czy (jest|są) {on_off_states:state} [<area>] <all> {on_off_domains:domain}",
+            "czy [<area>] <all> {on_off_domains:domain} (jest|są) {on_off_states:state}",
+            "czy [<area>] (jest|są) {on_off_states:state} <all> {on_off_domains:domain}"
+          ],
+          "response": "all"
+        },
+        {
+          "sentences": [
+            "któr(y|e|a) {on_off_domains:domain} (jest|są) {on_off_states:state} [<area>]"
+          ],
+          "response": "which"
+        },
+        {
+          "sentences": [
+            "ile {on_off_domains:domain} (jest|są) {on_off_states:state} [<area>]",
+            "<how_many_is> {on_off_states:state} {on_off_domains:domain} [<area>]"
+          ],
+          "response": "how_many"
+        },
+        {
+          "sentences": [
+            "czy <name> jest {cover_states:state} [<area>]",
+            "czy <name> [<area>] jest {cover_states:state}",
+            "czy [<area>] <name> jest {cover_states:state}",
+            "czy jest {cover_states:state} <name> [<area>]"
+          ],
+          "requires_context": {
+            "domain": "cover"
+          },
+          "slots": {
+            "domain": "cover"
+          },
+          "response": "one_yesno"
+        },
+        {
+          "sentences": [
+            "czy jest [jakaś|jakieś] {cover_states:state} {cover_classes:device_class} [<area>]",
+            "czy {cover_classes:device_class} <area> jest {cover_states:state}",
+            "czy {cover_classes:device_class} jest {cover_states:state} <area>",
+            "czy jest {cover_states:state} [jakaś|jakieś] {cover_classes:device_class} [<area>]",
+            "czy [<area>] jest [jakaś|jakieś] {cover_states:state} {cover_classes:device_class}",
+            "czy [<area>] jest {cover_states:state} [jakaś|jakieś] {cover_classes:device_class}",
+            "czy są [jakieś|któreś|jakiekolwiek|którekolwiek] {cover_classes:device_class} {cover_states:state} [<area>]",
+            "czy [<area>] są [jakieś|któreś|jakiekolwiek|którekolwiek] {cover_classes:device_class} {cover_states:state}",
+            "czy są [jakieś|któreś|jakiekolwiek|którekolwiek] {cover_states:state} {cover_classes:device_class} [<area>]",
+            "czy [<area>] są [jakieś|któreś|jakiekolwiek|którekolwiek] {cover_states:state} {cover_classes:device_class}",
+            "czy są {cover_states:state} [jakieś|któreś|jakiekolwiek|którekolwiek] {cover_classes:device_class} [<area>]",
+            "czy [<area>] są {cover_states:state} [jakieś|któreś|jakiekolwiek|którekolwiek] {cover_classes:device_class}"
+          ],
+          "slots": {
+            "domain": "cover"
+          },
+          "response": "any"
+        },
+        {
+          "sentences": [
+            "czy są {cover_states:state} <all> {cover_classes:device_class} [<area>]",
+            "czy są {cover_states:state} [<area>] <all> {cover_classes:device_class}",
+            "czy <all> {cover_classes:device_class} są {cover_states:state} [<area>]",
+            "czy <all> {cover_classes:device_class} [<area>] są {cover_states:state}"
+          ],
+          "slots": {
+            "domain": "cover"
+          },
+          "response": "all"
+        },
+        {
+          "sentences": [
+            "(która|jaka|które|jakie) {cover_classes:device_class} (jest|są) {cover_states:state} [<area>]",
+            "(która|jaka|które|jakie) są {cover_states:state} {cover_classes:device_class} [<area>]",
+            "(która|jaka|które|jakie) {cover_classes:device_class} są {cover_states:state} [<area>]"
+          ],
+          "slots": {
+            "domain": "cover"
+          },
+          "response": "which"
+        },
+        {
+          "sentences": [
+            "ile jest {cover_states:state} {cover_classes:device_class} [<area>]",
+            "ile {cover_classes:device_class} jest {cover_states:state} [<area>]"
+          ],
+          "slots": {
+            "domain": "cover"
+          },
+          "response": "how_many"
+        }
+      ]
+    },
+    "HassCancelTimer": {
+      "data": [
+        {
+          "sentences": [
+            "<timer_cancel>[ mój][ <timer_start>] <timer>",
+            "<timer_cancel>[ mój] <timer>[ <timer_start>] <area>",
+            "<timer_cancel> <area> [ mój][ <timer_start>] <timer>",
+            "<area> <timer_cancel>[ mój][ <timer_start>] <timer>",
+            "<timer_cancel>[ mój][ <timer_start>] <timer> [o nazwie |nazwany ]{timer_name:name}"
+          ]
+        }
+      ]
+    },
+    "HassTimerStatus": {
+      "data": [
+        {
+          "sentences": [
+            "<area>[ jaki| jaki jest] <timer_state>[ mojego| moich][ <timer_start>] <timer>[ {timer_name:name}]",
+            "[jaki |jaki jest ]<area> <timer_state>[ mojego| moich][ <timer_start>] <timer>[ {timer_name:name}]",
+            "[jaki |jaki jest ]<timer_state> <area>[ mojego| moich][ <timer_start>] <timer>[ {timer_name:name}]",
+            "[jaki |jaki jest ]<timer_state>[ mojego| moich][ <timer_start>] <timer>[ {timer_name:name}] <area>",
+            "[jaki |jaki jest ]<timer_state>[ mojego| moich][ <timer_start>] (<timer_plural>|<timer>)[ {timer_name:name}]",
+            "ile czasu [po]zostało na [moich |moim ][<timer_start> ](<timer_plural>|<timer>)[ {timer_name:name}] <area>",
+            "ile czasu [po]zostało na [moich |moim ][<timer_start> ](<timer_plural>|<timer>)[ {timer_name:name}]",
+            "ile jest uruchomionych <timer>",
+            "jakie (są|mam) uruchomione <timer>",
+            "czy są [jakieś] uruchomione <timer>",
+            "czy są uruchomione jakieś <timer>",
+            "czy mam jakieś uruchomione <timer>"
+          ]
+        }
+      ]
+    },
+    "HassGetWeather": {
+      "data": [
+        {
+          "sentences": [
+            "(<what_is>|jaką mamy) [dzisiaj|teraz] pogod(a|ę)"
+          ]
+        },
+        {
+          "sentences": [
+            "(<what_is>|jaką mamy) pogod(a|ę) (w|dla|we) <name>"
+          ],
+          "requires_context": {
+            "domain": "weather"
+          }
+        }
+      ]
+    },
+    "HassGetCurrentTime": {
+      "data": [
+        {
+          "sentences": [
+            "jaką mamy [teraz |obecnie ]godzinę",
+            "jaka [jest ][teraz |obecnie ]godzina",
+            "która [jest |jest teraz ]godzina",
+            "podaj mi [obcną |aktualną ]godzinę"
+          ]
+        }
+      ]
+    },
+    "HassTurnOn": {
+      "data": [
+        {
+          "sentences": [
+            "(<turn_on>|<turn_on_light>) <name>"
+          ],
+          "requires_context": {
+            "domain": "light"
+          },
+          "response": "light"
+        },
+        {
+          "sentences": [
+            "(<turn_on>|<turn_on_light>) <name> <area>",
+            "(<turn_on>|<turn_on_light>) <area> <name>",
+            "<area> (<turn_on>|<turn_on_light>) <name>"
+          ],
+          "requires_context": {
+            "domain": "light"
+          },
+          "response": "light_area"
+        },
+        {
+          "sentences": [
+            "(<turn_on>|<turn_on_light>) [<all> |całe ](<light>|<lights>) <area>",
+            "(<turn_on>|<turn_on_light>) <area> [<all> |całe ](<light>|<lights>)"
+          ],
+          "slots": {
+            "domain": "light"
+          },
+          "response": "lights_area"
+        },
+        {
+          "sentences": [
+            "(<turn_on>|<turn_on_light>) [<all> |całe ]<lights>"
+          ],
+          "slots": {
+            "name": "all",
+            "domain": "light"
+          },
+          "response": "lights_all"
+        },
+        {
+          "sentences": [
+            "(<turn_on>|<turn_on_light>) [<in_here> ][<all> |całe ](<light>|<lights>)",
+            "(<turn_on>|<turn_on_light>) [<all> |całe ](<light>|<lights>)[ <in_here>]"
+          ],
+          "slots": {
+            "domain": "light"
+          },
+          "requires_context": {
+            "area": {
+              "slot": true
+            }
+          },
+          "response": "lights_area"
+        },
+        {
+          "sentences": [
+            "<turn_on> <name>"
+          ],
+          "requires_context": {
+            "domain": "fan"
+          },
+          "response": "fan"
+        },
+        {
+          "sentences": [
+            "<turn_on> <name> <area>",
+            "<turn_on> <area> <name>",
+            "<area> <turn_on> <name>"
+          ],
+          "requires_context": {
+            "domain": "fan"
+          },
+          "response": "fan_area"
+        },
+        {
+          "sentences": [
+            "<turn_on> (wentylator|wiatrak) <area>",
+            "<turn_on> <area> (wentylator|wiatrak)"
+          ],
+          "slots": {
+            "domain": "fan",
+            "name": "all"
+          },
+          "response": "fan_area"
+        },
+        {
+          "sentences": [
+            "<turn_on> [<all>] (wentylatory|wiatraki) <area>",
+            "<turn_on> <area> [<all>] (wentylatory|wiatraki)"
+          ],
+          "slots": {
+            "domain": "fan",
+            "name": "all"
+          },
+          "response": "fans_area"
+        },
+        {
+          "sentences": [
+            "<turn_on> <all> (wentylatory|wiatraki)"
+          ],
+          "slots": {
+            "domain": "fan",
+            "name": "all"
+          },
+          "response": "fans_all"
+        },
+        {
+          "sentences": [
+            "<turn_on> [<in_here>] (wentylator|wiatrak)",
+            "<turn_on> (wentylator|wiatrak) [<in_here>]"
+          ],
+          "slots": {
+            "domain": "fan"
+          },
+          "requires_context": {
+            "area": {
+              "slot": true
+            }
+          },
+          "response": "fan_area"
+        },
+        {
+          "sentences": [
+            "<turn_on> [<in_here>] (wentylatory|wiatraki)",
+            "<turn_on> (wentylatory|wiatraki) [<in_here>]"
+          ],
+          "slots": {
+            "domain": "fan"
+          },
+          "requires_context": {
+            "area": {
+              "slot": true
+            }
+          },
+          "response": "fans_area"
+        },
+        {
+          "sentences": [
+            "<turn_on> [<in_here>] <all> (wentylatory|wiatraki)",
+            "<turn_on> <all> (wentylatory|wiatraki) [<in_here>]"
+          ],
+          "slots": {
+            "domain": "fan"
+          },
+          "requires_context": {
+            "area": {
+              "slot": true
+            }
+          },
+          "response": "fans_all"
+        },
+        {
+          "sentences": [
+            "[<activate>|<turn_on>] [skrypt] <name>"
+          ],
+          "requires_context": {
+            "domain": "script"
+          },
+          "slots": {
+            "domain": "script"
+          },
+          "response": "script"
+        },
+        {
+          "sentences": [
+            "(<activate>|<turn_on>) [scenę] <name>",
+            "scena <name>"
+          ],
+          "requires_context": {
+            "domain": "scene"
+          },
+          "slots": {
+            "domain": "scene"
+          },
+          "response": "scene"
+        },
+        {
+          "sentences": [
+            "[(<activate>|<turn_on>)] [scenę] <name> <area>",
+            "[(<activate>|<turn_on>)] <name> [scenę] <area>",
+            "<area> [(<activate>|<turn_on>)] [scenę] <name>",
+            "zmień <area> na scenę <name>",
+            "zmień na <name> [scenę] <area>",
+            "zmień na [scenę] <name> <area>"
+          ],
+          "requires_context": {
+            "domain": "scene"
+          },
+          "slots": {
+            "domain": "scene"
+          },
+          "response": "scene"
+        },
+        {
+          "sentences": [
+            "<open> <name>"
+          ],
+          "requires_context": {
+            "domain": "valve"
+          },
+          "slots": {
+            "domain": "valve"
+          },
+          "response": "valve"
+        },
+        {
+          "sentences": [
+            "<lock> <name> [<area>]"
+          ],
+          "requires_context": {
+            "domain": "lock"
+          },
+          "response": "lock_lock_door"
+        },
+        {
+          "sentences": [
+            "<lock> [<all>] drzwi <area>",
+            "<lock> <area> [<all>] drzwi",
+            "<area> <lock> [<all>] drzwi"
+          ],
+          "slots": {
+            "name": "all",
+            "domain": "lock"
+          },
+          "response": "lock_lock_door"
+        },
+        {
+          "sentences": [
+            "<lock> [<all>] zamki <area>",
+            "<lock> <area> [<all>] zamki",
+            "<area> <lock> [<all>] zamki"
+          ],
+          "slots": {
+            "name": "all",
+            "domain": "lock"
+          },
+          "response": "lock_lock_lock"
+        },
+        {
+          "sentences": [
+            "<close> [<all>] zamki <area>",
+            "<close> <area> [<all>] zamki",
+            "<area> <close> [<all>] zamki"
+          ],
+          "slots": {
+            "name": "all",
+            "domain": "lock"
+          },
+          "response": "lock_close_lock"
+        },
+        {
+          "sentences": [
+            "<turn_on> <name> [<area>]",
+            "[<area>] <turn_on> <name>"
+          ],
+          "excludes_context": {
+            "domain": [
+              "binary_sensor",
+              "cover",
+              "lock",
+              "scene",
+              "script",
+              "sensor",
+              "valve",
+              "vacuum",
+              "light",
+              "fan"
+            ]
+          }
+        },
+        {
+          "sentences": [
+            "(<open>|<open_blind>) <name> [<area>]",
+            "(<open>|<open_blind>) [<area>] <name>",
+            "[<area>] (<open>|<open_blind>) <name>"
+          ],
+          "requires_context": {
+            "domain": "cover",
+            "device_class": "blind"
+          },
+          "response": "cover_blind"
+        },
+        {
+          "sentences": [
+            "(<open>|<open_blind>) [<all>] rolety [<area>]",
+            "(<open>|<open_blind>) [<area>] [<all>] rolety",
+            "[<area>] (<open>|<open_blind>) [<all>] rolety"
+          ],
+          "slots": {
+            "domain": "cover",
+            "device_class": "blind"
+          },
+          "response": "cover_blinds"
+        },
+        {
+          "sentences": [
+            "(<open>|<open_blind>) <name> [<area>]",
+            "(<open>|<open_blind>) [<area>] <name>",
+            "[<area>] (<open>|<open_blind>) <name>"
+          ],
+          "requires_context": {
+            "domain": "cover",
+            "device_class": "shutter"
+          },
+          "response": "cover_shutter"
+        },
+        {
+          "sentences": [
+            "(<open>|<open_blind>) [<all>] żaluzje [<area>]",
+            "(<open>|<open_blind>) [<area>] [<all>] żaluzje",
+            "[<area>] (<open>|<open_blind>) [<all>] żaluzje"
+          ],
+          "slots": {
+            "domain": "cover",
+            "device_class": "shutter"
+          },
+          "response": "cover_shutters"
+        },
+        {
+          "sentences": [
+            "(<open>|<open_blind>) <name> [<area>]",
+            "(<open>|<open_blind>) [<area>] <name>",
+            "[<area>] (<open>|<open_blind>) <name>"
+          ],
+          "requires_context": {
+            "domain": "cover",
+            "device_class": "shade"
+          },
+          "response": "cover_shade"
+        },
+        {
+          "sentences": [
+            "(<open>|<open_blind>) [<all>] osłony [<area>]",
+            "(<open>|<open_blind>) [<area>] [<all>] osłony",
+            "[<area>] (<open>|<open_blind>) [<all>] osłony"
+          ],
+          "slots": {
+            "domain": "cover",
+            "device_class": "shade"
+          },
+          "response": "cover_shades"
+        },
+        {
+          "sentences": [
+            "(<open>|<open_blind>|<open_curtain>) <name> [<area>]",
+            "(<open>|<open_blind>|<open_curtain>) [<area>] <name>",
+            "[<area>] (<open>|<open_blind>|<open_curtain>) <name>"
+          ],
+          "requires_context": {
+            "domain": "cover",
+            "device_class": "curtain"
+          },
+          "response": "cover_curtain"
+        },
+        {
+          "sentences": [
+            "(<open>|<open_blind>) [<all>] zasłony [<area>]",
+            "(<open>|<open_blind>) [<area>] [<all>] zasłony",
+            "[<area>] (<open>|<open_blind>) [<all>] zasłony"
+          ],
+          "slots": {
+            "domain": "cover",
+            "device_class": "curtain"
+          },
+          "response": "cover_curtains"
+        },
+        {
+          "sentences": [
+            "<open> <name> [<area>]",
+            "<open> [<area>] <name>",
+            "[<area>] <open> <name>"
+          ],
+          "requires_context": {
+            "domain": "cover",
+            "device_class": "garage"
+          },
+          "response": "cover_garage"
+        },
+        {
+          "sentences": [
+            "<open> (garaż|drzwi garażowe|drzwi do garażu|bramę garażową|bramę do garażu)"
+          ],
+          "slots": {
+            "domain": "cover",
+            "device_class": "garage"
+          },
+          "response": "cover_garage"
+        },
+        {
+          "sentences": [
+            "<open> <name> [<area>]",
+            "<open> [<area>] <name>",
+            "[<area>] <open> <name>"
+          ],
+          "requires_context": {
+            "domain": "cover",
+            "device_class": "gate"
+          },
+          "response": "cover_gate"
+        },
+        {
+          "sentences": [
+            "<open> bramę [<area>]",
+            "<open> [<area>] bramę",
+            "[<area>] <open> bramę"
+          ],
+          "slots": {
+            "domain": "cover",
+            "device_class": "gate"
+          },
+          "response": "cover_gate"
+        },
+        {
+          "sentences": [
+            "<open> [<all>] bramy [<area>]",
+            "<open> [<area>] [<all>] bramy",
+            "[<area>] <open> [<all>] bramy"
+          ],
+          "slots": {
+            "domain": "cover",
+            "device_class": "gate"
+          },
+          "response": "cover_gates"
+        },
+        {
+          "sentences": [
+            "<open> <name> [<area>]",
+            "<open> [<area>] <name>",
+            "[<area>] <open> <name>"
+          ],
+          "requires_context": {
+            "domain": "cover",
+            "device_class": "door"
+          },
+          "response": "cover_door"
+        },
+        {
+          "sentences": [
+            "<open> [<all>] drzwi [<area>]",
+            "<open> [<area>] [<all>] drzwi",
+            "[<area>] <open> [<all>] drzwi"
+          ],
+          "slots": {
+            "domain": "cover",
+            "device_class": "door"
+          },
+          "response": "cover_door"
+        },
+        {
+          "sentences": [
+            "(<open>|podnieś) <name> [<area>]",
+            "(<open>|podnieś) [<area>] <name>",
+            "[<area>] (<open>|podnieś) <name>"
+          ],
+          "requires_context": {
+            "domain": "cover",
+            "device_class": "damper"
+          },
+          "response": "cover_damper"
+        },
+        {
+          "sentences": [
+            "(<open>|podnieś) [<all>] klapy [<area>]",
+            "(<open>|podnieś) [<area>] [<all>] klapy",
+            "[<area>] (<open>|podnieś) [<all>] klapy"
+          ],
+          "slots": {
+            "domain": "cover",
+            "device_class": "damper"
+          },
+          "response": "cover_dampers"
+        },
+        {
+          "sentences": [
+            "(<open>|<open_blind>) <name> [<area>]",
+            "(<open>|<open_blind>) [<area>] <name>",
+            "[<area>] (<open>|<open_blind>) <name>"
+          ],
+          "requires_context": {
+            "domain": "cover",
+            "device_class": "awning"
+          },
+          "response": "cover_awning"
+        },
+        {
+          "sentences": [
+            "(<open>|<open_blind>) [<all>] markizy [<area>]",
+            "(<open>|<open_blind>) [<area>] [<all>] markizy",
+            "[<area>] (<open>|<open_blind>) [<all>] markizy"
+          ],
+          "slots": {
+            "domain": "cover",
+            "device_class": "awning"
+          },
+          "response": "cover_awnings"
+        },
+        {
+          "sentences": [
+            "<open> <name> [<area>]",
+            "<open> [<area>] <name>",
+            "[<area>] <open> <name>"
+          ],
+          "requires_context": {
+            "domain": "cover",
+            "device_class": "window"
+          },
+          "response": "cover_window"
+        },
+        {
+          "sentences": [
+            "<open> [<all>] okna [<area>]",
+            "<open> [<area>] [<all>] okna",
+            "[<area>] <open> [<all>] okna"
+          ],
+          "slots": {
+            "domain": "cover",
+            "device_class": "window"
+          },
+          "response": "cover_windows"
+        },
+        {
+          "sentences": [
+            "<open> <name> [<area>]",
+            "<open> [<area>] <name>",
+            "[<area>] <open> <name>"
+          ],
+          "requires_context": {
+            "domain": "cover"
+          },
+          "excludes_context": {
+            "device_class": [
+              "blind",
+              "shutter",
+              "shade",
+              "curtain",
+              "garage",
+              "gate",
+              "door",
+              "damper",
+              "awning",
+              "window"
+            ]
+          },
+          "response": "cover"
+        },
+        {
+          "sentences": [
+            "<open> {cover_classes:device_class} [<area>]",
+            "<open> [<area>] {cover_classes:device_class}",
+            "[<area>] <open> {cover_classes:device_class}"
+          ],
+          "slots": {
+            "domain": "cover"
+          },
+          "response": "cover_device_class"
+        },
+        {
+          "sentences": [
+            "<open> [<in_here>] [<all>] {cover_classes:device_class}",
+            "<open> [<all>] {cover_classes:device_class} [<in_here>]"
+          ],
+          "slots": {
+            "domain": "cover"
+          },
+          "requires_context": {
+            "area": {
+              "slot": true
+            }
+          },
+          "response": "cover_device_class"
+        }
+      ]
+    },
+    "HassMediaUnpause": {
+      "data": [
+        {
+          "sentences": [
+            "(wznów|przywróć) (muzykę|utwór|piosenkę) (w|na) <name>",
+            "(wznów|przywróć) odtwarzanie [muzyki|utworu|piosenki] (w|na) <name>"
+          ],
+          "requires_context": {
+            "domain": "media_player"
+          }
+        },
+        {
+          "sentences": [
+            "(wznów|przywróć) odtwarzanie[ muzyki| utworu| piosenki]",
+            "(wznów|przywróć) muzykę"
+          ],
+          "requires_context": {
+            "area": {
+              "slot": true
+            }
+          }
+        },
+        {
+          "sentences": [
+            "(wznów|przywróć) odtwarzanie [muzyki|utworu|piosenki] <area>",
+            "(wznów|przywróć) (muzykę|granie|piosenki) <area>",
+            "(wznów|przywróć) <area> odtwarzanie [muzyki|utworu|piosenki]",
+            "(wznów|przywróć) <area> (muzykę|utwory|piosenki|granie)",
+            "<area> (wznów|przywróć) odtwarzanie [muzyki|utworu|piosenki]",
+            "<area> (wznów|przywróć) (muzykę|utwory|piosenki|granie)"
+          ]
+        }
+      ]
+    },
+    "HassShoppingListAddItem": {
+      "data": [
+        {
+          "sentences": [
+            "dodaj <item> do <my_list>",
+            "wrzuć <item> do <my_list>"
+          ],
+          "expansion_rules": {
+            "my_list": "[mojej] listy [zakupów]",
+            "item": "{shopping_list_item:item}"
+          },
+          "response": "item_added"
+        }
+      ]
+    },
+    "HassNevermind": {
+      "data": [
+        {
+          "sentences": [
+            "nieważne",
+            "nieistotne",
+            "anuluj"
+          ]
+        }
+      ]
+    },
+    "HassSetPosition": {
+      "data": [
+        {
+          "sentences": [
+            "(<numeric_value_set>|<open>|<close>) [pozycję ]<name> na <position>"
+          ],
+          "requires_context": {
+            "domain": "valve"
+          },
+          "slots": {
+            "domain": "valve"
+          }
+        },
+        {
+          "sentences": [
+            "(<numeric_value_set>|<open>|<close>) [pozycję |wartość |wysokość ]<name> na <position>"
+          ],
+          "requires_context": {
+            "domain": "cover"
+          },
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "(<numeric_value_set>|<open>|<close>) [pozycję ]{cover_classes:device_class} (na <position>;<area>)",
+            "(<numeric_value_set>|<open>|<close>) <area> [pozycję ]{cover_classes:device_class} na <position>",
+            "<area> (<numeric_value_set>|<open>|<close>) [pozycję ]{cover_classes:device_class} na <position>",
+            "(<numeric_value_set>|<open>|<close>) {cover_classes:device_class} <area> na <position>"
+          ],
+          "slots": {
+            "domain": "cover"
+          }
+        }
+      ]
+    },
+    "HassGetCurrentDate": {
+      "data": [
+        {
+          "sentences": [
+            "jaka jest dzisiejsza data",
+            "jaki [dzisiaj |obecnie ]mamy dzień[ tygodnia]",
+            "jaki mamy (dzisiaj|dziś|obecnie) dzień[ tygodnia]",
+            "jaki [dzisiaj |obecnie ]jest dzień[ tygodnia]",
+            "jaki jest (dzisi[aj|ejszy]|obecnie) dzień[ tygodnia]",
+            "podaj mi [dzisiejszą |obcną |aktualną |bieżącą ]datę"
+          ]
+        }
+      ]
+    },
+    "HassIncreaseTimer": {
+      "data": [
+        {
+          "sentences": [
+            "[<area> ]<timer_add> <timer_duration>[ z| od][ mojego| pozostałego czasu] (<timer>|odliczania)[ <area>]",
+            "[<area> ]<timer_add>[ mój| bieżący| ustawiony] <timer>[ <area>] o <timer_duration>[ <area>]",
+            "[<area> ]<timer_add>[ czas[ trwania]][ mojego| na] <timer>[ <area>] o <timer_duration>[ <area>]",
+            "[<area> ]<timer_add> [<area> ]odliczanie[ <timer>] o <timer_duration>[ <timer>][ <area>]",
+            "[<area> ]zrób <timer>[ <area>] o <timer_duration> dłuższy[ <area>]"
+          ]
+        },
+        {
+          "sentences": [
+            "<timer_add> <timer_duration>[ z| od][ mojego| pozostałego czasu] (<timer>|odliczania)",
+            "<timer_add>[ mój| bieżący| ustawiony] <timer>[ {timer_name:name}] o <timer_duration>",
+            "<timer_add>[ czas[ trwania]][ mojego| na] <timer>[ {timer_name:name}] o <timer_duration>",
+            "<timer_add> odliczanie[ <timer>] o <timer_duration>[ w][ <timer>][ {timer_name:name}]",
+            "zrób <timer>[ {timer_name:name}] o <timer_duration> dłuższy"
+          ]
+        },
+        {
+          "sentences": [
+            "<timer_add> <timer_start> <timer>[ o] <timer_duration>",
+            "<timer_add> <timer_duration> (od|z)[ mojego| pozostałego czasu] <timer_start> <timer>",
+            "<timer_add> <timer_duration> (od|z)[ mojego| pozostałego czasu] <timer> <timer_start>",
+            "<timer_add>[ czas| czas trwania| odliczanie][ na] <timer_start> <timer> o <timer_duration>",
+            "<timer_add>[ mój| bieżący| ustawiony] <timer_start> <timer> o <timer_duration>",
+            "zrób <timer_start> <timer> o <timer_duration> dłuższy",
+            "<timer_add> <timer> {timer_name:name} o <timer_duration>",
+            "<timer_add> <timer_duration> (od|z)[ mojego| pozostałego czasu] <timer> {timer_name:name}"
+          ]
+        }
+      ]
+    },
+    "HassLightSet": {
+      "data": [
+        {
+          "sentences": [
+            "<numeric_value_set> [jasność] <name> na <brightness>"
+          ],
+          "requires_context": {
+            "domain": "light"
+          },
+          "response": "brightness"
+        },
+        {
+          "sentences": [
+            "<numeric_value_set> [jasność] <area> na <brightness>",
+            "<numeric_value_set> [jasność] [<all>] [<light>|<lights>] <area> na <brightness>"
+          ],
+          "slots": {
+            "name": "all"
+          },
+          "response": "brightness_area"
+        },
+        {
+          "sentences": [
+            "[<numeric_value_set>] [<in_here>] jasność na <brightness>",
+            "[<numeric_value_set>] jasność [<in_here>] na <brightness>"
+          ],
+          "requires_context": {
+            "area": {
+              "slot": true
+            }
+          },
+          "response": "brightness"
+        },
+        {
+          "sentences": [
+            "[<numeric_value_set>] {brightness_level:brightness} <name>",
+            "[<numeric_value_set>] {brightness_level:brightness} jasność <name>",
+            "[<numeric_value_set>] jasność na {brightness_level:brightness} <name>",
+            "[<numeric_value_set>] <name> na {brightness_level:brightness} jasność"
+          ],
+          "requires_context": {
+            "domain": "light"
+          },
+          "response": "brightness"
+        },
+        {
+          "sentences": [
+            "[<numeric_value_set>] {brightness_level:brightness} [<light>|<lights>] <area>",
+            "[<numeric_value_set>] {brightness_level:brightness} jasność [<light>|<lights>] <area>",
+            "[<numeric_value_set>] jasność na {brightness_level:brightness} <area>",
+            "[<numeric_value_set>] <area> {brightness_level:brightness} jasność"
+          ],
+          "slots": {
+            "name": "all"
+          },
+          "response": "brightness_area"
+        },
+        {
+          "sentences": [
+            "[<numeric_value_set>] [<in_here>] jasność na {brightness_level:brightness}",
+            "[<numeric_value_set>] [<in_here>] {brightness_level:brightness} jasność",
+            "[<numeric_value_set>] jasność [<in_here>] na {brightness_level:brightness}"
+          ],
+          "requires_context": {
+            "area": {
+              "slot": true
+            }
+          },
+          "response": "brightness_area"
+        },
+        {
+          "sentences": [
+            "<set> [kolor] <name> na {color}",
+            "<set> <name> na [kolor] {color}",
+            "<set> <name> na {color} [kolor]"
+          ],
+          "requires_context": {
+            "domain": "light"
+          },
+          "response": "color"
+        },
+        {
+          "sentences": [
+            "<set> [<all>] [<color>] [<light>|<lights>] <area> na {color}",
+            "<set> [<color>] [<all>] [<light>|<lights>] <area> na {color}",
+            "<set> [<color>] {color} [<light>|<lights>] <area>",
+            "<set> [<all>] [<light>|<lights>] <area> na [kolor] {color}",
+            "<set> [<all>] [<light>|<lights>] <area> na {color} [kolor]"
+          ],
+          "expansion_rules": {
+            "color": "(kolor|kolory)"
+          },
+          "slots": {
+            "name": "all"
+          },
+          "response": "color_area"
+        },
+        {
+          "sentences": [
+            "[<set>] [<in_here>] kolor [<light>|<lights>] na {color}",
+            "[<set>] [<in_here>] {color} kolor [<light>|<lights>]",
+            "[<set>] kolor [<light>|<lights>] [<in_here>] na {color}"
+          ],
+          "requires_context": {
+            "area": {
+              "slot": true
+            }
+          },
+          "response": "color"
+        }
+      ]
+    },
+    "HassMediaNext": {
+      "data": [
+        {
+          "sentences": [
+            "<turn_on> następną (piosenkę|<track>) (w|na|przez) <name>",
+            "<turn_on> następny <track> (w|na|przez) <name>",
+            "<turn_on> kolejną (piosenkę|<track>) (w|na|przez) <name>",
+            "<turn_on> kolejny <track> (w|na|przez) <name>",
+            "odtw(órz|arzaj) następną (piosenkę|<track>) (w|na|przez) <name>",
+            "odtw(órz|arzaj) następny <track> (w|na|przez) <name>",
+            "odtw(órz|arzaj) kolejną (piosenkę|<track>) (w|na|przez) <name>",
+            "odtw(órz|arzaj) kolejny <track> (w|na|przez) <name>",
+            "[za]graj następną (piosenkę|<track>) (w|na|przez) <name>",
+            "[za]graj następny <track> (w|na|przez) <name>",
+            "[za]graj kolejną (piosenkę|<track>) (w|na|przez) <name>",
+            "[za]graj kolejny <track> (w|na|przez) <name>",
+            "[prze]skocz do (następne(j|go)|kolejne(j|go)) (piosenki|<track>) (w|na|przez) <name>",
+            "następny (utwór|element) (w|na|przez) <name>",
+            "następna (piosenka|ścieżka) (w|na|przez) <name>"
+          ],
+          "expansion_rules": {
+            "track": "utwór|element|ścieżkę"
+          },
+          "requires_context": {
+            "domain": "media_player"
+          }
+        },
+        {
+          "sentences": [
+            "<turn_on> następną (piosenkę|<track>)",
+            "<turn_on> następny <track>",
+            "<turn_on> kolejną (piosenkę|<track>)",
+            "<turn_on> kolejny <track>",
+            "odtw(órz|arzaj) następną (piosenkę|<track>)",
+            "odtw(órz|arzaj) następny <track>",
+            "odtw(órz|arzaj) kolejną (piosenkę|<track>)",
+            "odtw(órz|arzaj) kolejny <track>",
+            "[za]graj następną (piosenkę|<track>)",
+            "[za]graj następny <track>",
+            "[za]graj kolejną (piosenkę|<track>)",
+            "[za]graj kolejny <track>",
+            "[prze]skocz do (następne(j|go)|kolejne(j|go)) (piosenki|<track>)",
+            "następny (utwór|element)",
+            "następna (piosenka|ścieżka)"
+          ],
+          "expansion_rules": {
+            "track": "utwór|element|ścieżkę"
+          },
+          "requires_context": {
+            "area": {
+              "slot": true
+            }
+          }
+        },
+        {
+          "sentences": [
+            "<turn_on> następną (piosenkę|<track>) <area>",
+            "<area> <turn_on> następną (piosenkę|<track>)",
+            "<turn_on> następny <track> <area>",
+            "<area> <turn_on> następny <track>",
+            "<turn_on> kolejną (piosenkę|<track>) <area>",
+            "<area> <turn_on> kolejną (piosenkę|<track>)",
+            "<turn_on> kolejny <track> <area>",
+            "<area> <turn_on> kolejny <track>",
+            "odtw(órz|arzaj) następną (piosenkę|<track>) <area>",
+            "<area> odtw(órz|arzaj) następną (piosenkę|<track>)",
+            "odtw(órz|arzaj) następny <track> <area>",
+            "<area> odtw(órz|arzaj) następny <track>",
+            "odtw(órz|arzaj) kolejną (piosenkę|<track>) <area>",
+            "<area> odtw(órz|arzaj) kolejną (piosenkę|<track>)",
+            "odtw(órz|arzaj) kolejny <track> <area>",
+            "<area> odtw(órz|arzaj) kolejny <track>",
+            "[za]graj następną (piosenkę|<track>) <area>",
+            "<area> [za]graj następną (piosenkę|<track>)",
+            "[za]graj następny <track> <area>",
+            "<area> [za]graj następny <track>",
+            "[za]graj kolejną (piosenkę|<track>) <area>",
+            "<area> [za]graj kolejną (piosenkę|<track>)",
+            "[za]graj kolejny <track> <area>",
+            "<area> [za]graj kolejny <track>",
+            "[prze]skocz do (następne(j|go)|kolejne(j|go)) (piosenki|<track>) <area>",
+            "<area> [prze]skocz do (następne(j|go)|kolejne(j|go)) (piosenki|<track>)",
+            "następny (utwór|element) <area>",
+            "następna (piosenka|ścieżka) <area>"
+          ],
+          "expansion_rules": {
+            "track": "utwór|element|ścieżkę"
+          }
+        }
+      ]
+    },
+    "HassPauseTimer": {
+      "data": [
+        {
+          "sentences": [
+            "<timer_stop>[ mój][ <timer_start>] <timer>",
+            "<timer_stop>[ mój][ <timer_start>] <timer> <area>",
+            "<timer_stop> <area> [ mój][ <timer_start>] <timer>",
+            "<area> <timer_stop>[ mój][ <timer_start>] <timer>",
+            "<timer_stop>[ mój][ <timer_start>] <timer> [o nazwie |nazwany ]{timer_name:name}"
+          ]
+        }
+      ]
+    },
+    "HassDecreaseTimer": {
+      "data": [
+        {
+          "sentences": [
+            "[<area> ]<timer_remove> <timer_duration>[ z| od][ mojego| pozostałego czasu] (<timer>|odliczania)[ <area>]",
+            "[<area> ]<timer_remove>[ mój| bieżący| ustawiony] <timer>[ <area>] o <timer_duration>[ <area>]",
+            "[<area> ]<timer_remove>[ czas[ trwania]][ mojego| na] <timer>[ <area>] o <timer_duration>[ <area>]",
+            "[<area> ]<timer_remove> [<area> ]odliczanie[ <timer>] o <timer_duration>[ <timer>][ <area>]",
+            "[<area> ]zrób <timer>[ <area>] o <timer_duration> krótszy[ <area>]"
+          ]
+        },
+        {
+          "sentences": [
+            "<timer_remove> <timer_duration>[ z| od][ mojego| pozostałego czasu] (<timer>|odliczania)",
+            "<timer_remove>[ mój| bieżący| ustawiony] <timer>[ {timer_name:name}] o <timer_duration>",
+            "<timer_remove>[ czas[ trwania]][ mojego| na] <timer>[ {timer_name:name}] o <timer_duration>",
+            "<timer_remove> odliczanie[ <timer>] o <timer_duration>[ w][ <timer>][ {timer_name:name}]",
+            "zrób <timer>[ {timer_name:name}] o <timer_duration> krótszy"
+          ]
+        },
+        {
+          "sentences": [
+            "<timer_remove> <timer_start> <timer>[ o] <timer_duration>",
+            "<timer_remove> <timer_duration> (od|z)[ mojego| pozostałego czasu] <timer_start> <timer>",
+            "<timer_remove> <timer_duration> (od|z)[ mojego| pozostałego czasu] <timer> <timer_start>",
+            "<timer_remove>[ czas| czas trwania| odliczanie][ na] <timer_start> <timer> o <timer_duration>",
+            "<timer_remove>[ mój| bieżący| ustawiony] <timer_start> <timer> o <timer_duration>",
+            "zrób <timer_start> <timer> o <timer_duration> krótszy",
+            "<timer_remove> <timer> {timer_name:name} o <timer_duration>",
+            "<timer_remove> <timer_duration> (od|z)[ mojego| pozostałego czasu] <timer> {timer_name:name}"
+          ]
+        }
+      ]
+    },
+    "HassMediaPause": {
+      "data": [
+        {
+          "sentences": [
+            "(zatrzymaj|zastopuj) (muzykę|utwór|piosenkę) (w|na|przez) <name>",
+            "(zatrzymaj|zastopuj) odtwarzanie[ muzyki| utworu| piosenki] (w|na|przez) <name>",
+            "przestań (grać|odtwarzać)[ muzykę| utwów| piosenkę] (w|na|przez) <name>"
+          ],
+          "requires_context": {
+            "domain": "media_player"
+          }
+        },
+        {
+          "sentences": [
+            "(zatrzymaj|zastopuj) (muzykę|utwór|piosenkę)",
+            "(zatrzymaj|zastopuj) odtwarzanie[ muzyki| utworu| piosenki]",
+            "przestań (grać|odtwarzać)[ muzykę| utwów| piosenkę]"
+          ],
+          "requires_context": {
+            "area": {
+              "slot": true
+            }
+          }
+        },
+        {
+          "sentences": [
+            "(zatrzymaj|zastopuj) (muzykę|utwór|piosenkę) <area>",
+            "<area> (zatrzymaj|zastopuj) (muzykę|utwór|piosenkę)",
+            "(zatrzymaj|zastopuj) odtwarzanie[ muzyki| utworu| piosenki] <area>",
+            "<area> (zatrzymaj|zastopuj) odtwarzanie[ muzyki| utworu| piosenki]",
+            "przestań (grać|odtwarzać)[ muzykę| utwów| piosenkę] <area>",
+            "<area> przestań (grać|odtwarzać)[ muzykę| utwów| piosenkę]"
+          ]
+        }
+      ]
+    },
+    "HassUnpauseTimer": {
+      "data": [
+        {
+          "sentences": [
+            "<timer_resume>[ mój][ <timer_start>] <timer>",
+            "<timer_resume>[ mój][ <timer_start>] <timer> <area>",
+            "<timer_resume> <area> [ mój][ <timer_start>] <timer>",
+            "<area> <timer_resume>[ mój][ <timer_start>] <timer>",
+            "<timer_resume>[ mój][ <timer_start>] <timer> [o nazwie |nazwany ]{timer_name:name}",
+            "<timer_resume> {timer_name:name} <timer>"
+          ]
+        }
+      ]
+    },
+    "HassStartTimer": {
+      "data": [
+        {
+          "sentences": [
+            "[<timer_set> ]<timer> [trwający |na ]<timer_duration>",
+            "[<timer_set> ]<timer_duration> <timer> (na|o nazwie|zwany|nazwany) {timer_name:name}",
+            "[<timer_set> ]<timer> (o nazwie|zwany|nazwany) {timer_name:name} na <timer_duration>",
+            "[<timer_set> ]<timer> na <timer_duration> (o nazwie|zwany|nazwany) {timer_name:name}"
+          ]
+        },
+        {
+          "sentences": [
+            "{timer_command:conversation_command} za <timer_duration>",
+            "za <timer_duration> {timer_command:conversation_command}"
+          ],
+          "response": "command"
+        }
+      ]
+    },
+    "HassClimateGetTemperature": {
+      "data": [
+        {
+          "sentences": [
+            "(<what_is>|<how_many_is>)[ <area>] <temp> [<area>]",
+            "czy jest (ciepło|gorąco|zimno|chłodno) [<area>]",
+            "jak [bardzo] (wysoka|niska) [jest][ <area>] <temp>[ <area>]",
+            "jak [bardzo] (ciepło|gorąco|zimno|chłodno) [jest] [<area>]",
+            "jak [jest] (ciepło|gorąco|zimno|chłodno) [<area>]"
+          ]
+        },
+        {
+          "sentences": [
+            "<what_is> [aktualna|obecna] <temp> <name> [<area>]",
+            "(<what_is>|jak) (gorący | zimny | ciepły | chłodny) [jest] <name> [<area>]"
+          ],
+          "requires_context": {
+            "domain": "climate"
+          }
+        }
+      ]
+    },
+    "HassVacuumReturnToBase": {
+      "data": [
+        {
+          "sentences": [
+            "(zawróć|wróć) <name> [do bazy]"
+          ],
+          "requires_context": {
+            "domain": "vacuum"
+          }
+        }
+      ]
+    },
+    "HassVacuumStart": {
+      "data": [
+        {
+          "sentences": [
+            "(uruchom|aktywuj) <name>"
+          ],
+          "requires_context": {
+            "domain": "vacuum"
+          }
+        }
+      ]
+    },
+    "HassMediaPrevious": {
+      "data": [
+        {
+          "sentences": [
+            "<turn_on> poprzednią (piosenkę|<track>) (w|na|przez) <name>",
+            "<turn_on> poprzedni <track> (w|na|przez) <name>",
+            "<turn_on> wcześniejszą (piosenkę|<track>) (w|na|przez) <name>",
+            "<turn_on> wcześniejszy <track> (w|na|przez) <name>",
+            "odtw(órz|arzaj) poprzednią (piosenkę|<track>) (w|na|przez) <name>",
+            "odtw(órz|arzaj) poprzedni <track> (w|na|przez) <name>",
+            "odtw(órz|arzaj) wcześniejszą (piosenkę|<track>) (w|na|przez) <name>",
+            "odtw(órz|arzaj) wcześniejszy <track> (w|na|przez) <name>",
+            "[za]graj poprzednią (piosenkę|<track>) (w|na|przez) <name>",
+            "[za]graj poprzedni <track> (w|na|przez) <name>",
+            "[za]graj wcześniejszą (piosenkę|<track>) (w|na|przez) <name>",
+            "[za]graj wcześniejszy <track> (w|na|przez) <name>",
+            "[prze]skocz do (poprzedni(ej|go)|wcześniejsz(ej|go)) (piosenki|<track>) (w|na|przez) <name>",
+            "poprzedni (utwór|element) (w|na|przez) <name>",
+            "poprzednia (piosenka|ścieżka) (w|na|przez) <name>"
+          ],
+          "expansion_rules": {
+            "track": "utwór|utworu|element|ścieżkę"
+          },
+          "requires_context": {
+            "domain": "media_player"
+          }
+        },
+        {
+          "sentences": [
+            "<turn_on> poprzednią (piosenkę|<track>)",
+            "<turn_on> poprzedni <track>",
+            "<turn_on> wcześniejszą (piosenkę|<track>)",
+            "<turn_on> wcześniejszy <track>",
+            "odtw(órz|arzaj) poprzednią (piosenkę|<track>)",
+            "odtw(órz|arzaj) poprzedni <track>",
+            "odtw(órz|arzaj) wcześniejszą (piosenkę|<track>)",
+            "odtw(órz|arzaj) wcześniejszy <track>",
+            "[za]graj poprzednią (piosenkę|<track>)",
+            "[za]graj poprzedni <track>",
+            "[za]graj wcześniejszą (piosenkę|<track>)",
+            "[za]graj wcześniejszy <track>",
+            "[prze]skocz do (poprzedni(ej|ego)|wcześniejsz(ej|ego)) (piosenki|<track>)",
+            "(wcześniejszy|poprzedni) (utwór|element)",
+            "(wcześniejsza|poprzednia) (piosenka|ścieżka)"
+          ],
+          "expansion_rules": {
+            "track": "utwór|utworu|element|ścieżkę"
+          },
+          "requires_context": {
+            "area": {
+              "slot": true
+            }
+          }
+        },
+        {
+          "sentences": [
+            "<turn_on> poprzednią (piosenkę|<track>) <area>",
+            "<area> <turn_on> poprzednią (piosenkę|<track>)",
+            "<turn_on> poprzedni <track> <area>",
+            "<area> <turn_on> poprzedni <track>",
+            "<turn_on> wcześniejszą (piosenkę|<track>) <area>",
+            "<area> <turn_on> wcześniejszą (piosenkę|<track>)",
+            "<turn_on> wcześniejszy <track> <area>",
+            "<area> <turn_on> wcześniejszy <track>",
+            "odtw(órz|arzaj) poprzednią (piosenkę|<track>) <area>",
+            "<area> odtw(órz|arzaj) poprzednią (piosenkę|<track>)",
+            "odtw(órz|arzaj) poprzedni <track> <area>",
+            "<area> odtw(órz|arzaj) poprzedni <track>",
+            "odtw(órz|arzaj) wcześniejszą (piosenkę|<track>) <area>",
+            "<area> odtw(órz|arzaj) wcześniejszą (piosenkę|<track>)",
+            "odtw(órz|arzaj) wcześniejszy <track> <area>",
+            "<area> odtw(órz|arzaj) wcześniejszy <track>",
+            "[za]graj poprzednią (piosenkę|<track>) <area>",
+            "<area> [za]graj poprzednią (piosenkę|<track>)",
+            "[za]graj poprzedni <track> <area>",
+            "<area> [za]graj poprzedni <track>",
+            "[za]graj wcześniejszą (piosenkę|<track>) <area>",
+            "<area> [za]graj wcześniejszą (piosenkę|<track>)",
+            "[za]graj wcześniejszy <track> <area>",
+            "<area> [za]graj wcześniejszy <track>",
+            "[prze]skocz do (poprzedni(ej|go)|wcześniejsz(ej|go)) (piosenki|<track>) <area>",
+            "<area> [prze]skocz do (poprzedni(ej|go)|wcześniejsz(ej|go)) (piosenki|<track>)",
+            "poprzedni (utwór|element) <area>",
+            "<area> poprzedni (utwór|element)",
+            "poprzednia (piosenka|ścieżka) <area>",
+            "<area> poprzednia (piosenka|ścieżka)"
+          ],
+          "expansion_rules": {
+            "track": "utwór|element|ścieżkę"
+          }
+        }
+      ]
+    },
+    "HassListAddItem": {
+      "data": [
+        {
+          "sentences": [
+            "dodaj <item> do <my_list>",
+            "wrzuć <item> do <my_list>"
+          ],
+          "expansion_rules": {
+            "my_list": "[mojej] [listy|listy zadań] {name}",
+            "item": "{shopping_list_item:item}"
+          },
+          "requires_context": {
+            "domain": "todo"
+          },
+          "response": "item_added"
+        }
+      ]
+    },
+    "HassSetVolume": {
+      "data": [
+        {
+          "sentences": [
+            "<numeric_value_set> [poziom głośności|głośność] <name> na <volume>",
+            "<numeric_value_set> <volume> głośności [na|dla] <name>"
+          ],
+          "requires_context": {
+            "domain": "media_player"
+          }
+        },
+        {
+          "sentences": [
+            "<numeric_value_set> [poziom głośności|głośność] na <volume>",
+            "<numeric_value_set> <volume> głośności"
+          ],
+          "requires_context": {
+            "area": {
+              "slot": true
+            }
+          }
+        },
+        {
+          "sentences": [
+            "<numeric_value_set> [poziom głośności|głośność] na <volume> <area>",
+            "<area> <numeric_value_set> [poziom głośności|głośność] na <volume>",
+            "<numeric_value_set> <volume> głośności <area>",
+            "<area> <numeric_value_set> <volume> głośności"
+          ]
+        }
+      ]
+    }
+  },
+  "responses": {
+    "errors": {
+      "no_intent": "Wybacz, niestety nie mogę tego zrozumieć",
+      "handle_error": "Podczas przetwarzania zapytania wystąpił nieoczekiwany błąd",
+      "no_area": "Brak obszaru o nazwie {{ area }}",
+      "no_floor": "Brak piętra o nazwie {{ floor }}",
+      "no_domain": "Brak domeny {{ domain }}",
+      "no_domain_in_area": "W obszarze {{ area }} nie ma {{ domain }}",
+      "no_domain_in_floor": "Brak domeny {{ domain }} dla piętra {{ floor}}",
+      "no_device_class": "Brak urzadzenia {{ device_class }}",
+      "no_device_class_in_area": "Obszar {{ area }} nie zawiera {{ device_class }}",
+      "no_device_class_in_floor": "Piętro {{ floor }} nie zawiera {{ device_class }}",
+      "no_entity": "Brak urządzenia lub encji o nazwie {{ entity }}",
+      "no_entity_in_area": "Obszar {{ area }} nie zawiera urządzenia lub encji o nazwie {{ entity }}",
+      "no_entity_in_floor": "Piętro {{ floor }} nie zawiera urządzenia lub encji o nazwie {{ entity }}",
+      "entity_wrong_state": "Niestety, żadne urządzenie nie jest {{ state | lower }}",
+      "feature_not_supported": "Przepraszam, żadne urządzenie nie obsługuje wymaganych funkcji",
+      "no_entity_exposed": "Encja {{ entity }} nie została udostępniona",
+      "no_entity_in_area_exposed": "W obszarze {{ area }} {{ entity }} nie została udostępniona",
+      "no_entity_in_floor_exposed": "Na piętrze {{ floor }} {{ entity }} nie została udostępniona",
+      "no_domain_exposed": "Domena {{ domena }} nie została udostępniona",
+      "no_domain_in_area_exposed": "W obszarze {{ area }} domena {{ domena }} nie została udostępniona",
+      "no_domain_in_floor_exposed": "Na piętrze {{ floor }} domena {{ domena }} nie została udostępniona",
+      "no_device_class_exposed": "Urządzenie {{ device_class }} nie zostało udostępnione",
+      "no_device_class_in_area_exposed": "W obszarze {{ area }} urządzenie {{ device_class }} nie zostało udostępnione",
+      "no_device_class_in_floor_exposed": "Na piętrze {{ floor }} urządzenie {{ device_class }} nie zostało udostępnione",
+      "duplicate_entities": "Przykro mi, ale istnieje zbyt wiele urządzeń o nazwie {{ entity }}",
+      "duplicate_entities_in_area": "Przykro mi, ale w obszarze {{ area }} istnieje zbyt wiele urządzeń o nazwie {{ entity }}",
+      "duplicate_entities_in_floor": "Przykro mi, ale na piętrze {{ floor }} istnieje zbyt wiele urządzeń o nazwie {{ entity }}",
+      "timer_not_found": "Nie znaleziono takiego minutnika",
+      "multiple_timers_matched": "Nie monżna ustawić wielu minutników jednocześnie",
+      "no_timer_support": "To urządzenie nie obsługuje minutników"
+    },
+    "intents": {
+      "HassGetState": {
+        "default": "{% set vowelsList = ['e', 'i', 'o', 'u'] %}\n{% set lastChar = slots.name | default(\"y\", false) | last %}\n{% if state.state_with_unit == 'open': %}\n  {% if lastChar == \"a\" %}Otwarta{% elif lastChar in vowelsList %}Otwarte{% else %}Otwarty{% endif %}\n{% elif state.state_with_unit == 'close': %}\n  {% if lastChar == \"a\" %}Zamknięta{% elif lastChar in vowelsList %}Zamknięte{% else %}Zamknięty{% endif %}\n{% elif state.state_with_unit == 'on': %}\n  {% if lastChar == \"a\" %}Włączona{% elif lastChar in vowelsList %}Włączone{% else %}Włączony{% endif %}\n{% elif state.state_with_unit == 'off': %}\n  {% if lastChar == \"a\" %}Wyłączona{% elif lastChar in vowelsList %}Wyłączone{% else %}Wyłączony{% endif %}\n{% else %}{{ state.state_with_unit }}\n{% endif %}\n",
+        "one": "{% set vowelsList = ['e', 'i', 'o', 'u'] %}\n{% set lastChar = slots.name | last %}\n{{ slots.name | capitalize }} jest \n{% if state.state_with_unit == 'open': %}\n  {% if lastChar == \"a\" %}otwarta{% elif lastChar in vowelsList %}otwarte{% else %}otwarty{% endif %}\n{% elif state.state_with_unit == 'close': %}\n  {% if lastChar == \"a\" %}zamknięta{% elif lastChar in vowelsList %}zamknięte{% else %}zamknięty{% endif %}\n{% elif state.state_with_unit == 'on': %}\n  {% if lastChar == \"a\" %}włączona{% elif lastChar in vowelsList %}włączone{% else %}włączony{% endif %}\n{% elif state.state_with_unit == 'off': %}\n  {% if lastChar == \"a\" %}wyłączona{% elif lastChar in vowelsList %}wyłączone{% else %}wyłączony{% endif %}\n{% else %}{{ state.state_with_unit }}\n{% endif %}\n",
+        "one_state": "{% set vowelsList = ['e', 'i', 'o', 'u'] %}\n{% set lastChar = slots.name | last %}\nStan {{ slots.name | capitalize }} to \n{% if state.state_with_unit == 'open': %}\n  {% if lastChar == \"a\" %}otwarta{% elif lastChar in vowelsList %}otwarte{% else %}otwarty{% endif %}\n{% elif state.state_with_unit == 'close': %}\n  {% if lastChar == \"a\" %}zamknięta{% elif lastChar in vowelsList %}zamknięte{% else %}zamknięty{% endif %}\n{% elif state.state_with_unit == 'on': %}\n  {% if lastChar == \"a\" %}włączona{% elif lastChar in vowelsList %}włączone{% else %}włączony{% endif %}\n{% elif state.state_with_unit == 'off': %}\n  {% if lastChar == \"a\" %}wyłączona{% elif lastChar in vowelsList %}wyłączone{% else %}wyłączony{% endif %}\n{% else %}{{ state.state_with_unit }}\n{% endif %}\n",
+        "one_status": "{% set vowelsList = ['e', 'i', 'o', 'u'] %}\n{% set lastChar = slots.name | last %}\nStatus {{ slots.name | capitalize }} to \n{% if state.state_with_unit == 'open': %}\n  {% if lastChar == \"a\" %}otwarta{% elif lastChar in vowelsList %}otwarte{% else %}otwarty{% endif %}\n{% elif state.state_with_unit == 'close': %}\n  {% if lastChar == \"a\" %}zamknięta{% elif lastChar in vowelsList %}zamknięte{% else %}zamknięty{% endif %}\n{% elif state.state_with_unit == 'on': %}\n  {% if lastChar == \"a\" %}włączona{% elif lastChar in vowelsList %}włączone{% else %}włączony{% endif %}\n{% elif state.state_with_unit == 'off': %}\n  {% if lastChar == \"a\" %}wyłączona{% elif lastChar in vowelsList %}wyłączone{% else %}wyłączony{% endif %}\n{% else %}{{ state.state_with_unit }}\n{% endif %}\n",
+        "one_value": "{% set vowelsList = ['e', 'i', 'o', 'u'] %}\n{% set lastChar = slots.name | last %}\nWartość {{ slots.name | capitalize }} to \n{% if state.state_with_unit == 'open': %}\n  {% if lastChar == \"a\" %}otwarta{% elif lastChar in vowelsList %}otwarte{% else %}otwarty{% endif %}\n{% elif state.state_with_unit == 'close': %}\n  {% if lastChar == \"a\" %}zamknięta{% elif lastChar in vowelsList %}zamknięte{% else %}zamknięty{% endif %}\n{% elif state.state_with_unit == 'on': %}\n  {% if lastChar == \"a\" %}włączona{% elif lastChar in vowelsList %}włączone{% else %}włączony{% endif %}\n{% elif state.state_with_unit == 'off': %}\n  {% if lastChar == \"a\" %}wyłączona{% elif lastChar in vowelsList %}wyłączone{% else %}wyłączony{% endif %}\n{% else %}{{ state.state_with_unit }}\n{% endif %}\n",
+        "one_yesno": "{% set vowelsList = ['e', 'i', 'o', 'u'] %}\n{% set lastChar = slots.name | last %}\n{% if query.matched: %}\nTak\n{% else: %}\nNie, {{ slots.name | capitalize }} jest \n{% if state.state_with_unit == 'open': %}\n  {% if lastChar == \"a\" %}otwarta{% elif lastChar in vowelsList %}otwarte{% else %}otwarty{% endif %}\n{% elif state.state_with_unit == 'close': %}\n  {% if lastChar == \"a\" %}zamknięta{% elif lastChar in vowelsList %}zamknięte{% else %}zamknięty{% endif %}\n{% elif state.state_with_unit == 'on': %}\n  {% if lastChar == \"a\" %}włączona{% elif lastChar in vowelsList %}włączone{% else %}włączony{% endif %}\n{% elif state.state_with_unit == 'off': %}\n  {% if lastChar == \"a\" %}wyłączona{% elif lastChar in vowelsList %}wyłączone{% else %}wyłączony{% endif %}\n{% else %}{{ state.state_with_unit }}\n{% endif %}\n{% endif %}\n",
+        "any": "{% if query.matched %}\n  {% set match = query.matched | map(attribute=\"name\") | sort | list %}\n  {% if match | length > 4 %}\n    Tak, {{ match[:3] | join(\", \") }} oraz {{ (match | length - 3) }} więcej\n  {%- else -%}\n    Tak,\n    {% for name in match -%}\n      {% if not loop.first and not loop.last %}, {% elif loop.last and not loop.first %} i {% endif -%}\n      {{ name }}\n    {%- endfor -%}\n  {% endif %}\n{% else %}\n  Nie\n{% endif %}\n",
+        "all": "{% if not query.unmatched: %}\n  Tak\n{% else %}\n  {% set no_match = query.unmatched | map(attribute=\"name\") | sort | list %}\n  {% if no_match | length > 4 %}\n    Nie, {{ no_match[:3] | join(\", \") }} oraz {{ (no_match | length - 3) }} nie ma już więcej\n  {%- else -%}\n    Nie,\n    {% for name in no_match -%}\n      {% if not loop.first and not loop.last %}, {% elif loop.last and not loop.first %} i {% endif -%}\n      {{ name }}\n    {%- endfor %} nie {% if state.attributes.device_class == \"curtain\" and no_match|length|int|abs == 1 -%}jest\n      {%- elif state.attributes.device_class == \"lock\" and no_match|length|int|abs == 1 -%}jest\n      {%- elif state.attributes.device_class == \"door\" and no_match|length|int|abs == 1 -%}są\n      {%- else -%}{{ 'są' if no_match|length|int|abs == 1 else 'są' if no_match|length|int | abs in [2,3,4] else 'są' if (no_match|length|string)[-1] | int | abs in [2,3,4] else 'jest' }}\n      {%- endif -%}\n  {% endif %}\n{% endif %}\n",
+        "which": "{% if not query.matched %}\n  {% if state.domain == \"light\" %}\n    Żadne\n  {% elif state.attributes and state.attributes.device_class %}\n    {% if state.attributes.device_class in \"shade\" %}\n    Żadna osłona nie jest {% if state.hass_state == \"open\" %}zamknięta{% else %}otwarta{% endif %}\n    {% elif state.attributes.device_class == \"blind\" %}\n    Żadna roleta nie jest {% if state.hass_state == \"open\" %}zamknięta{% else %}otwarta{% endif %}\n    {% elif state.attributes.device_class == \"curtain\" %}\n    Żadna zasłona nie jest {% if state.hass_state == \"open\" %}zamknięta{% else %}otwarta{% endif %}\n    {% elif state.attributes.device_class == \"shutter\" %}\n    Żadna żaluzja nie jest {% if state.hass_state == \"open\" %}zamknięta{% else %}otwarta{% endif %}\n    {% elif state.attributes.device_class == \"garage\" %}\n    Żaden garaż nie jest {% if state.hass_state == \"open\" %}zamknięty{% else %}otwarty{% endif %}\n    {% elif state.attributes.device_class == \"gate\" %}\n    Żadna brama nie jest {% if state.hass_state == \"open\" %}zamknięta{% else %}otwarta{% endif %}\n    {% elif state.attributes.device_class == \"door\" %}\n    Żadne drzwi nie są {% if state.hass_state == \"open\" %}zamknięte{% else %}otwarte{% endif %}\n    {% elif state.attributes.device_class == \"damper\" %}\n    Żadna klapa nie jest {% if state.hass_state == \"open\" %}zamknięta{% else %}otwarta{% endif %}\n    {% elif state.attributes.device_class == \"awning\" %}\n    Żadna markiza nie jest {% if state.hass_state == \"open\" %}zamknięta{% else %}otwarta{% endif %}\n    {% elif state.attributes.device_class == \"window\" %}\n    Żadne okno nie jest {% if state.hass_state == \"open\" %}zamknięte{% else %}otwarte{% endif %}\n    {% endif %}\n  {% else %}\n  Żadna\n  {% endif %}\n{% else: %}\n  {% set match = query.matched | map(attribute=\"name\") | sort | list %}\n  {% if match | length > 4 %}\n    {{ match[:3] | join(\", \") }} oraz {{ (match | length - 3) }} inne\n  {% else %}\n    {%- for name in match -%}\n      {% if not loop.first and not loop.last %}, {% elif loop.last and not loop.first %} i {% endif -%}\n      {{ name }}\n    {%- endfor -%}\n  {% endif %}\n{% endif %}\n",
+        "how_many": "{{ query.matched | length }}\n",
+        "where": "{% if state.state == \"home\" %}\n  {{ slots.name | capitalize }} jest w domu\n{% elif state.state == \"not_home\" %}\n  {{ slots.name | capitalize }} jest poza domem\n{% else %}\n  {{ slots.name | capitalize }} jest w {{ state.state }}\n{% endif %}\n"
+      },
+      "HassTurnOff": {
+        "default": "Wyłączono {{ slots.name }}",
+        "light": "Wyłączono światło",
+        "light_area": "Wyłączono światło w {{ slots.area | lower }}",
+        "lights_area": "Wyłączono światła w {{ slots.area | lower }}",
+        "lights_all": "Wyłączono wszystkie światła",
+        "fan": "Wyłączono wentylator",
+        "fan_area": "Wyłączono wentylator w {{ slots.area | lower }}",
+        "fans_area": "Wyłączono wentylatory w {{ slots.area | lower }}",
+        "fans_all": "Wyłączono wszystkie wentylatory",
+        "cover": "Zamknięto",
+        "cover_garage": "Zamknięto garaż",
+        "cover_curtain": "Zamknięto zasłonę",
+        "cover_curtains": "Zamknięto zasłony",
+        "cover_blind": "Zamknięto roletę",
+        "cover_blinds": "Zamknięto rolety",
+        "cover_shade": "Zamknięto osłonę",
+        "cover_shades": "Zamknięto osłony",
+        "cover_shutter": "Zamknięto żaluzję",
+        "cover_shutters": "Zamknięto żaluzje",
+        "cover_gate": "Zamknięto bramę",
+        "cover_gates": "Zamknięto bramy",
+        "cover_door": "Zamknięto drzwi",
+        "cover_window": "Zamknięto okno",
+        "cover_windows": "Zamknięto okna",
+        "cover_damper": "Zamknięto klapę",
+        "cover_dampers": "Zamknięto klapy",
+        "cover_awning": "Zamknięto markizę",
+        "cover_awnings": "Zamknięto markizy",
+        "cover_device_class": "Zamknięto {{ slots.device_class }}",
+        "lock_open_door": "Otwarto {{ slots.name if slots.name != 'all' else 'wszystkie drzwi' }}",
+        "lock_open_lock": "Otwarto {{ slots.name if slots.name != 'all' else 'wszystkie zamki' }}",
+        "lock_unlock_door": "Odblokowano {{ slots.name if slots.name != 'all' else 'wszystkie drzwi' }}",
+        "lock_unlock_lock": "Odblokowano {{ slots.name if slots.name != 'all' else 'wszystkie zamki' }}",
+        "valve": "Zamknięto"
+      },
+      "HassStartTimer": {
+        "default": "Uruchomiono minutnik",
+        "command": "Otrzymano polecenie"
+      },
+      "HassShoppingListAddItem": {
+        "item_added": "Dodano {{ slots.item }}"
+      },
+      "HassTurnOn": {
+        "default": "Włączono {{ slots.name }}",
+        "light": "Włączono światło",
+        "light_area": "Włączono światło w {{ slots.area | lower }}",
+        "lights_area": "Włączono światła w {{ slots.area | lower }}",
+        "lights_all": "Włączono wszystkie światła",
+        "fan": "Włączono wentylator",
+        "fan_area": "Włączono wentylator w {{ slots.area | lower }}",
+        "fans_area": "Włączono wentylatory w {{ slots.area | lower }}",
+        "fans_all": "Włączono wszystkie wentylatory",
+        "cover": "Otwarto",
+        "cover_garage": "Otwarto garaż",
+        "cover_curtain": "Otwarto zasłonę",
+        "cover_curtains": "Otwarto zasłony",
+        "cover_blind": "Otwarto roletę",
+        "cover_blinds": "Otwarto rolety",
+        "cover_shade": "Otwarto osłonę",
+        "cover_shades": "Otwarto osłony",
+        "cover_shutter": "Otwarto żaluzję",
+        "cover_shutters": "Otwarto żaluzje",
+        "cover_gate": "Otwarto bramę",
+        "cover_gates": "Otwarto bramy",
+        "cover_door": "Otwarto drzwi",
+        "cover_window": "Otwarto okno",
+        "cover_windows": "Otwarto okna",
+        "cover_damper": "Otwarto klapę",
+        "cover_dampers": "Otwarto klapy",
+        "cover_awning": "Otwarto markizę",
+        "cover_awnings": "Otwarto markizy",
+        "cover_device_class": "Otwarto {{ slots.device_class }}",
+        "lock_close_door": "Zamknięto {{ slots.name if slots.name != 'all' else 'wszystkie drzwi' }}",
+        "lock_close_lock": "Zamknięto {{ slots.name if slots.name != 'all' else 'wszystkie zamki' }}",
+        "lock_lock_door": "Zablokowano {{ slots.name if slots.name != 'all' else 'wszystkie drzwi' }}",
+        "lock_lock_lock": "Zablokowano {{ slots.name if slots.name != 'all' else 'wszystkie zamki' }}",
+        "scene": "Aktywowano scenę",
+        "script": "Uruchomiono skrypt",
+        "valve": "Otwarto"
+      },
+      "HassMediaPause": {
+        "default": "Wstrzymano odtwarzanie"
+      },
+      "HassGetCurrentTime": {
+        "default": "{% set hours = {\n  '00': 'dwudziesta czwarta',\n  '01': 'pierwsza',\n  '02': 'druga',\n  '03': 'trzecia',\n  '04': 'czwarta',\n  '05': 'piąta',\n  '06': 'szósta',\n  '07': 'siódma',\n  '08': 'ósma',\n  '09': 'dziewiąta',\n  '10': 'dziesiąta',\n  '11': 'jedenasta',\n  '12': 'dwunasta',\n  '13': 'trzynasta',\n  '14': 'czternasta',\n  '15': 'piętnasta',\n  '16': 'szestnasta',\n  '17': 'siedemnasta',\n  '18': 'osiemnasta',\n  '19': 'dziewiętnasta',\n  '20': 'dwudziesta',\n  '21': 'dwudziesta pierwsza',\n  '22': 'dwudziesta druga',\n  '23': 'dwudziesta trzecia',\n  '24': 'dwudziesta czwarta'\n} %} {% set minutes = {\n  '00': 'zero zero',\n  '01': 'jeden',\n  '02': 'dwa',\n  '03': 'trzy',\n  '04': 'cztery',\n  '05': 'pięć',\n  '06': 'sześć',\n  '07': 'siedem',\n  '08': 'osiem',\n  '09': 'dziewięć',\n  '10': 'dziesięć',\n  '11': 'jedenaście',\n  '12': 'dwanaście',\n  '13': 'trzynaście',\n  '14': 'czternaście',\n  '15': 'piętnaście',\n  '16': 'szesnaście',\n  '17': 'siedemnaście',\n  '18': 'osiemnaście',\n  '19': 'dziewiętnaście',\n  '20': 'dwadzieścia',\n  '21': 'dwadzieścia jeden',\n  '22': 'dwadzieścia dwa',\n  '23': 'dwadzieścia trzy',\n  '24': 'dwadzieścia cztery',\n  '25': 'dwadzieścia pięć',\n  '26': 'dwadzieścia sześć',\n  '27': 'dwadzieścia siedem',\n  '28': 'dwadzieścia osiem',\n  '29': 'dwadzieścia dziewięć',\n  '30': 'trzydzieści',\n  '31': 'trzydzieści jeden',\n  '32': 'trzydzieści dwa',\n  '33': 'trzydzieści trzy',\n  '34': 'trzydzieści cztery',\n  '35': 'trzydzieści pięć',\n  '36': 'trzydzieści sześć',\n  '37': 'trzydzieści siedem',\n  '38': 'trzydzieści osiem',\n  '39': 'trzydzieści dziewięć',\n  '40': 'czterdzieści',\n  '41': 'czterdzieści jeden',\n  '42': 'czterdzieści dwa',\n  '43': 'czterdzieści trzy',\n  '44': 'czterdzieści cztery',\n  '45': 'czterdzieści pięć',\n  '46': 'czterdzieści sześć',\n  '47': 'czterdzieści siedem',\n  '48': 'czterdzieści osiem',\n  '49': 'czterdzieści dziewięć',\n  '50': 'pięćdziesiąt',\n  '51': 'pięćdziesiąt jeden',\n  '52': 'pięćdziesiąt dwa',\n  '53': 'pięćdziesiąt trzy',\n  '54': 'pięćdziesiąt cztery',\n  '55': 'pięćdziesiąt pięć',\n  '56': 'pięćdziesiąt sześć',\n  '57': 'pięćdziesiąt siedem',\n  '58': 'pięćdziesiąt osiem',\n  '59': 'pięćdziesiąt dziewięć'\n} %} {% set hour_str = '{0:02d}'.format(slots.time.hour) %} {% set minute_str = '{0:02d}'.format(slots.time.minute) %} Jest godzina {{ hours[hour_str] }} {{ minutes[minute_str] }}\n"
+      },
+      "HassPauseTimer": {
+        "default": "Wstrzymano minutnik"
+      },
+      "HassTimerStatus": {
+        "default": "{% set num_timers = slots.timers | length %}\n{% set active_timers = slots.timers | selectattr('is_active') | list %}\n{% set num_active_timers = active_timers | length %}\n{% set paused_timers = slots.timers | rejectattr('is_active') | list %}\n{% set num_paused_timers = paused_timers | length %}\n{% set next_timer = None %}\n\n{% if num_timers == 0: %}\n  Brak uruchomionych minutników.\n{% elif num_active_timers == 0: %}\n  {# No active timers #}\n  {% if num_paused_timers == 1: %}\n    {% set next_timer = paused_timers[0] %}\n    Minutnik jest wstrzymany.\n  {% else: %}\n    {# 2,3,4 wstrzymane minutniki #}\n    {# 5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21 wstrzymanych minutników #}\n    {# 22,23,24 wstrzymane minutniki #}\n    {% if (num_paused_timers|string)[-1] in [\"2\", \"3\", \"4\"]: %}\n    {{ num_paused_timers }} wstrzymane minutniki.\n    {% else: %}\n    {{ num_paused_timers }} wstrzymanych minutników.\n    {% endif %}\n  {% endif %}\n{% else: %}\n  {# At least one active timer #}\n  {% if num_active_timers == 1: %}\n    {% set next_timer = active_timers[0] %}\n  {% else: %}\n    {# Get active timer that will finish soonest #}\n    {% set sorted_timers = active_timers | sort(attribute='total_seconds_left') %}\n    {% set next_timer = sorted_timers[0] %}\n    {# 2,3,4 uruchomione minutniki #}\n    {# 5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21 uruchomionych minutników #}\n    {# 22,23,24 wstrzymane minutniki #}\n    {% if (num_active_timers|string)[-1] in [\"2\", \"3\", \"4\"]: %}\n    {{ num_active_timers }} uruchomione minutniki.\n    {% else: %}\n    {{ num_active_timers }} uruchomionych minutników.\n    {% endif %}\n  {% endif %}\n\n  {% if num_paused_timers == 1: %}\n    1 wstrzymany minutnik.\n  {% elif num_paused_timers > 0: %}\n    {# 2,3,4 wstrzymane minutniki #}\n    {# 5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21 wstrzymanych minutników #}\n    {# 22,23,24 wstrzymane minutniki #}\n    {% if (num_paused_timers|string)[-1] in [\"2\", \"3\", \"4\"]: %}\n    {{ num_paused_timers }} wstrzymane minutniki.\n    {% else: %}\n    {{ num_paused_timers }} wstrzymanych minutników.\n    {% endif %}\n  {% endif %}\n{% endif %}\n\n{% if next_timer: %}\n  {# At least one active timer #}\n  {% if (next_timer.rounded_hours_left == 1) and (next_timer.rounded_minutes_left > 0): %}\n    Pozostała jedna godzina i {{ next_timer.rounded_minutes_left }} {% if next_timer.rounded_minutes_left == 1: %}minuta{% elif (next_timer.rounded_minutes_left|string)[-1] in [\"2\", \"3\", \"4\"]: %}minuty{% else: %}minut{% endif %}\n  {% elif (next_timer.rounded_hours_left == 1): %}\n    Pozostała jedna godzina\n  {% elif (next_timer.rounded_hours_left > 1) and (next_timer.rounded_minutes_left > 0): %}\n    {# 2,3,4 godziny #}\n    {# 5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21 godzin #}\n    {# 22,23,24 godziny #}}\n    {# 1 minuta #}\n    {# 2,3,4 minuty #}\n    {# 5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21 minut #}\n    {# 22,23,24 minuty #}\n    {# 25,26,27,28,29,30,31 minut #}\n    {# pozostała 1 #}\n    {# pozostały 2, 3, 4 #}\n    {# pozostało 5, 6 ... #}\n    {% if next_timer.rounded_hours_left == 1: %}Pozostała{% elif (next_timer.rounded_hours_left|string)[-1] in [\"2\", \"3\", \"4\"]: %}Pozostały{% else: %}Pozostało{% endif %} \n    {{ next_timer.rounded_hours_left }} {% if (next_timer.rounded_hours_left|string)[-1] in [\"2\", \"3\", \"4\"]: %}godziny{% else: %}godzin{% endif %} i \n    {{ next_timer.rounded_minutes_left }} {% if next_timer.rounded_minutes_left == 1: %}minuta{% elif (next_timer.rounded_minutes_left|string)[-1] in [\"2\", \"3\", \"4\"]: %}minuty{% else: %}minut{% endif %}\n  {% elif (next_timer.rounded_hours_left > 1): %}\n    {% if next_timer.rounded_hours_left == 1: %}Pozostała{% elif (next_timer.rounded_hours_left|string)[-1] in [\"2\", \"3\", \"4\"]: %}Pozostały{% else: %}Pozostało{% endif %} \n    {{ next_timer.rounded_hours_left }} {% if (next_timer.rounded_hours_left|string)[-1] in [\"2\", \"3\", \"4\"]: %}godziny{% else: %}godzin{% endif %}\n  {% elif (next_timer.rounded_minutes_left == 1) and (next_timer.rounded_seconds_left > 0): %}\n    Pozostała jedna minuta i {{ next_timer.rounded_seconds_left }} {% if next_timer.rounded_seconds_left == 1: %}sekunda{% elif (next_timer.rounded_seconds_left|string)[-1] in [\"2\", \"3\", \"4\"]: %}sekundy{% else: %}sekund{% endif %}\n  {% elif (next_timer.rounded_minutes_left == 1): %}\n    Pozostała jedna minuta\n  {% elif (next_timer.rounded_minutes_left > 1) and (next_timer.rounded_seconds_left > 0): %}\n    {% if next_timer.rounded_minutes_left == 1: %}Pozostała{% elif (next_timer.rounded_minutes_left|string)[-1] in [\"2\", \"3\", \"4\"]: %}Pozostały{% else: %}Pozostało{% endif %} {{ next_timer.rounded_minutes_left }} {% if (next_timer.rounded_minutes_left|string)[-1] in [\"2\", \"3\", \"4\"]: %}minuty{% else: %}minut{% endif %} i {{ next_timer.rounded_seconds_left }} {% if next_timer.rounded_seconds_left == 1: %}sekunda{% elif (next_timer.rounded_seconds_left|string)[-1] in [\"2\", \"3\", \"4\"]: %}sekundy{% else: %}sekund{% endif %}\n  {% elif (next_timer.rounded_minutes_left > 1): %}\n    {% if next_timer.rounded_minutes_left == 1: %}Pozostała{% elif (next_timer.rounded_minutes_left|string)[-1] in [\"2\", \"3\", \"4\"]: %}Pozostały{% else: %}Pozostało{% endif %} {{ next_timer.rounded_minutes_left }} {% if next_timer.rounded_minutes_left == 1: %}minuta{% elif (next_timer.rounded_minutes_left|string)[-1] in [\"2\", \"3\", \"4\"]: %}minuty{% else: %}minut{% endif %}\n  {% elif (next_timer.rounded_seconds_left == 1): %}\n    Pozostała jedna sekunda\n  {% elif (next_timer.rounded_seconds_left > 1): %}\n    {% if next_timer.rounded_seconds_left == 1: %}Pozostała{% elif (next_timer.rounded_seconds_left|string)[-1] in [\"2\", \"3\", \"4\"]: %}Pozostały{% else: %}Pozostało{% endif %} {{ next_timer.rounded_seconds_left }} {% if (next_timer.rounded_seconds_left|string)[-1] in [\"2\", \"3\", \"4\"]: %}sekundy{% else: %}sekund{% endif %}\n  {% endif %}\n\n  {% if num_timers > 1: %}\n    {# Give some extra information to disambiguate #}\n    \n    {% if (next_timer.start_hours > 0) and (next_timer.start_minutes > 0): %}\n      na {{ next_timer.start_hours }} godzinnym i {{ next_timer.start_minutes }} minutowym minutniku\n    {% elif (next_timer.start_hours > 0): %}\n      na {{ next_timer.start_hours }} godzinnym minutniku\n    {% elif (next_timer.start_minutes > 0) and (next_timer.start_seconds > 0): %}\n      na {{ next_timer.start_minutes }} minutowym i {{ next_timer.start_seconds }} sekundowym minutniku\n    {% elif (next_timer.start_minutes > 0): %}\n      na {{ next_timer.start_minutes }} minutowym minutniku\n    {% elif (next_timer.start_seconds > 0): %}\n      na {{ next_timer.start_seconds }} sekundowym minutniku\n    {% endif %}\n\n    {% if next_timer.name: %}\n      na minutniku {{ next_timer.name }}.\n    {% elif next_timer.area: %}\n      w {{ next_timer.area }}.\n    {% endif %}\n  \n  {% else: %}\n    do zakończenia.\n  {% endif %}\n{% endif %}\n"
+      },
+      "HassListAddItem": {
+        "item_added": "Dodano {{ slots.item }}"
+      },
+      "HassGetCurrentDate": {
+        "default": "{% set year = '{0:04d}'.format(slots.date.year) %} {% set first_number = year[-4]|int %} {% set second_number = year[-3]|int %} {% set third_number = year[-2]|int %} {% set fourth_number = year[-1]|int %} {% set last_two_number = year[-2:]|int %} {% set year_1 = {\n  0: '',\n  1: 'tysiąc',\n  2: 'dwutysięcznego'\n} %} {% set year_2 = {\n  0: '',\n  1: 'sto',\n  2: 'dwieście',\n  3: 'trzysta',\n  4: 'czterysta',\n  5: 'pięćset',\n  6: 'sześćset',\n  7: 'siedemset',\n  8: 'osiemset',\n  9: 'dziewięćset'\n} %} {% set year_3 = {\n  0: '',\n  2: 'dwudziestego',\n  3: 'trzydziestego',\n  4: 'czterdziestego',\n  5: 'pięćdziesiątego',\n  6: 'sześciesiątego',\n  7: 'siedemdziesiątego',\n  8: 'osiemdziesiątego',\n  9: 'dziewiędziesiątego'\n} %} {% set year_4 = {\n  0: '',\n  1: 'pierwszego',\n  2: 'drugiego',\n  3: 'trzeciego',\n  4: 'czwartego',\n  5: 'piątego',\n  6: 'szóstego',\n  7: 'siódmego',\n  8: 'ósmego',\n  9: 'dziewiątego',\n  10: 'dziesiątego',\n  11: 'jedenastego',\n  12: 'dwunastego',\n  13: 'trzynastego',\n  14: 'czternastego',\n  15: 'piętnastego',\n  16: 'szesnastego',\n  17: 'siedemnastego',\n  18: 'osiemnastego',\n  19: 'dziewiętnastego'\n} %} {% set months = {\n  1: 'stycznia',\n  2: 'lutego',\n  3: 'marca',\n  4: 'kwietnia',\n  5: 'maja',\n  6: 'czerwca',\n  7: 'lipca',\n  8: 'sierpnia',\n  9: 'września',\n  10: 'października',\n  11: 'listopada',\n  12: 'grudnia',\n} %} {% set weekday = [\n  'poniedziałek',\n  'wtorek',\n  'środa',\n  'czwartek',\n  'piątek',\n  'sobota',\n  'niedziela'\n] %} {% set day = {\n  1: 'pierwszy',\n  2: 'drugi',\n  3: 'trzeci',\n  4: 'czwarty',\n  5: 'piąty',\n  6: 'szósty',\n  7: 'siódmy',\n  8: 'ósmy',\n  9: 'dziewiąty',\n  10: 'dziesiąty',\n  11: 'jedenastego',\n  12: 'dwunasty',\n  13: 'trzynasty',\n  14: 'czternasty',\n  15: 'piętnasty',\n  16: 'szesnasty',\n  17: 'siedemnasty',\n  18: 'osiemnasty',\n  19: 'dziewiętnasty',\n  20: 'dwudziesty',\n  21: 'dwudziesty pierwszy',\n  22: 'dwudziesty drugi',\n  23: 'dwudziesty trzeci',\n  24: 'dwudziesty czwarty',\n  25: 'dwudziesty piąty',\n  26: 'dwudziesty szósty',\n  27: 'dwudziesty siódmy',\n  28: 'dwudziesty ósmy',\n  29: 'dwudziesty dziewiąty',\n  30: 'trzydziesty',\n  31: 'trzydziesty pierwszy',\n} %} Jest {{ weekday[slots.date.weekday()] }}, {{ day[slots.date.day] }} {{ months[slots.date.month] }} {% if first_number > 0 %}{{ year_1[first_number] }} {% endif%}{% if second_number > 0 %}{{ year_2[second_number] }} {% endif%}{% if third_number >= 2 %}{{ year_3[third_number] }} {{ year_4[fourth_number] }} {% else %}{{ year_4[last_two_number] }} {% endif %}roku.\n"
+      },
+      "HassUnpauseTimer": {
+        "default": "Wznowiono minutnik"
+      },
+      "HassMediaPrevious": {
+        "default": "Odtwarzanie poprzedniego utworu"
+      },
+      "HassGetWeather": {
+        "default": "{% set weather_condition = {\n  'clear': 'bez zachmurzenia',\n  'clear-night': 'bez zachmurzenia',\n  'cloudy': 'i pochmurnie',\n  'exceptional': 'i wyjątkowo',\n  'fog': 'z mgłą',\n  'hail': 'z gradem',\n  'lightning': 'z piorunami',\n  'lightning-rainy': 'z deszczem i piorunami',\n  'partlycloudy': 'z częściowym zachmurzeniem',\n  'pouring': 'i leje deszcz',\n  'rainy': 'i pada deszcz',\n  'snowy': 'i pada śnieg',\n  'snowy-rainy': 'z deszczem i śniegiem',\n  'sunny': 'i słonecznie',\n  'windy': 'i wietrznie',\n  'windy-variant': 'i wietrznie z zachmurzeniem'\n} %} {{ state.attributes.get('temperature') }} {{ state.attributes.get('temperature_unit') }} {{ weather_condition.get((state.state | string).lower(), \"\") }}\n"
+      },
+      "HassLightSet": {
+        "brightness": "Ustawiono jasność",
+        "brightness_area": "Ustawiono jasność w {{ slots.area | lower }}",
+        "color": "Ustawiono kolor",
+        "color_area": "Ustawiono kolor w {{ slots.area | lower }}"
+      },
+      "HassVacuumStart": {
+        "default": "Uruchomiono"
+      },
+      "HassMediaUnpause": {
+        "default": "Wznowiono odtwarzanie"
+      },
+      "HassSetPosition": {
+        "default": "Pozycja ustawiona"
+      },
+      "HassMediaNext": {
+        "default": "Odtwarzanie następnego utworu"
+      },
+      "HassCancelTimer": {
+        "default": "Anulowano minutnik"
+      },
+      "HassClimateGetTemperature": {
+        "default": "{% set temperature = state_attr(state.entity_id, 'current_temperature') %} Temperatura wynosi {{ temperature }} {{ 'stopień' if temperature | int | abs == 1 else 'stopnie' if temperature | int | abs in [2,3,4] else 'stopnie' if (temperature|string)[-1] | int | abs in [2,3,4] else 'stopni' }}\n"
+      },
+      "HassSetVolume": {
+        "default": "Ustawiono głośność"
+      },
+      "HassDecreaseTimer": {
+        "default": "Zaktualizowano minutnik"
+      },
+      "HassIncreaseTimer": {
+        "default": "Zaktualizowano minutnik"
+      },
+      "HassVacuumReturnToBase": {
+        "default": "Powrót do bazy"
+      }
+    }
+  },
+  "lists": {
+    "color": {
+      "values": [
+        {
+          "in": "biel|biał(y|o|e)",
+          "out": "white"
+        },
+        {
+          "in": "czerń|czarn(y|o|e)",
+          "out": "black"
+        },
+        {
+          "in": "czerwień|czerwon(y|o|e)",
+          "out": "red"
+        },
+        {
+          "in": "pomarańcz|pomarańczow(y|o|e)",
+          "out": "orange"
+        },
+        {
+          "in": "żółt(y|o|e)",
+          "out": "yellow"
+        },
+        {
+          "in": "zieleń|zielon(y|o|e)",
+          "out": "green"
+        },
+        {
+          "in": "niebiesk(i|o|ie)",
+          "out": "blue"
+        },
+        {
+          "in": "fiolet|fioletow(y|o|e)",
+          "out": "purple"
+        },
+        {
+          "in": "brąz|brązow(y|o|e)",
+          "out": "brown"
+        }
+      ]
+    },
+    "brightness": {
+      "range": {
+        "type": "percentage",
+        "from": 0,
+        "to": 100
+      }
+    },
+    "temperature": {
+      "range": {
+        "type": "temperature",
+        "from": 0,
+        "to": 100
+      }
+    },
+    "temperature_unit": {
+      "values": [
+        {
+          "in": "c|celsjusza|celcjusza",
+          "out": "celsius"
+        },
+        {
+          "in": "f|fahrenheita",
+          "out": "fahrenheit"
+        }
+      ]
+    },
+    "brightness_level": {
+      "values": [
+        {
+          "in": "(maksymalny | maksymalną | maksymalnie | najjaśniej | maksa)",
+          "out": 100
+        },
+        {
+          "in": "(minimalnie | minimalną | najciemniej | minimum)",
+          "out": 1
+        }
+      ]
+    },
+    "on_off_states": {
+      "values": [
+        {
+          "in": "włącz[ony|one|ona|onych]",
+          "out": "on"
+        },
+        {
+          "in": "wyłącz[ony|one|ona|onych]",
+          "out": "off"
+        }
+      ]
+    },
+    "on_off_domains": {
+      "values": [
+        {
+          "in": "świat(ło|ła|eł)|lamp[a|y]",
+          "out": "light"
+        },
+        {
+          "in": "wentylator[y|ów]|wiatrak[i|ów]",
+          "out": "fan"
+        },
+        {
+          "in": "przełącznik[i|ów]|kontakt[y|ów]",
+          "out": "switch"
+        }
+      ]
+    },
+    "cover_states": {
+      "values": [
+        {
+          "in": "(otw(órz|arta|arte|artych)|odsunięt(e|ych)|odsłonięt(e|ych))",
+          "out": "open"
+        },
+        {
+          "in": "(zamkni(j|ęta|ęte|ętych)|zasunięt(e|ych)|zasłonięt(e|ych))",
+          "out": "closed"
+        },
+        {
+          "in": "otwieranie",
+          "out": "opening"
+        },
+        {
+          "in": "zamykanie",
+          "out": "closing"
+        }
+      ]
+    },
+    "cover_classes": {
+      "values": [
+        {
+          "in": "markiz[a|e|ę|y]",
+          "out": "awning"
+        },
+        {
+          "in": "rolet[e|ę|a|y]",
+          "out": "blind"
+        },
+        {
+          "in": "zasłon[a|e|ę|y]",
+          "out": "curtain"
+        },
+        {
+          "in": "drzwi",
+          "out": "door"
+        },
+        {
+          "in": "(garaż(e)|brama garażowa|(drzwi|bramy) garażowe|(drzwi|brama|bramy) do garażu)",
+          "out": "garage"
+        },
+        {
+          "in": "bram[a|e|ę|y]",
+          "out": "gate"
+        },
+        {
+          "in": "osłon[a|e|ę|y]",
+          "out": "shade"
+        },
+        {
+          "in": "żaluzj(i|a|e)",
+          "out": "shutter"
+        },
+        {
+          "in": "ok(ien|no|na)",
+          "out": "window"
+        },
+        {
+          "in": "klap[a|y]",
+          "out": "damper"
+        }
+      ]
+    },
+    "lock_states": {
+      "values": [
+        {
+          "in": "zablokowan(e|y|ych)|zamknięt(y|e|ych)",
+          "out": "locked"
+        },
+        {
+          "in": "odblokowan(e|y|ych)|otwart(e|y|ych)",
+          "out": "unlocked"
+        }
+      ]
+    },
+    "bs_battery_states": {
+      "values": [
+        {
+          "in": "niski",
+          "out": "on"
+        },
+        {
+          "in": "normalny",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_battery_charging_states": {
+      "values": [
+        {
+          "in": "ładuje się",
+          "out": "on"
+        },
+        {
+          "in": "nie ładuje się",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_carbon_monoxide_states": {
+      "values": [
+        {
+          "in": "(wykryty|wyzwolony|włączony)",
+          "out": "on"
+        },
+        {
+          "in": "brak",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_cold_states": {
+      "values": [
+        {
+          "in": "zimno",
+          "out": "on"
+        },
+        {
+          "in": "normalnie",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_connectivity_states": {
+      "values": [
+        {
+          "in": "połączony",
+          "out": "on"
+        },
+        {
+          "in": "rozłączony",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_door_states": {
+      "values": [
+        {
+          "in": "otwarte",
+          "out": "on"
+        },
+        {
+          "in": "zamknięte",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_garage_door_states": {
+      "values": [
+        {
+          "in": "otwarty",
+          "out": "on"
+        },
+        {
+          "in": "zamknięty",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_gas_states": {
+      "values": [
+        {
+          "in": "(wykryty|wyzwolony|włączony)",
+          "out": "on"
+        },
+        {
+          "in": "brak",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_heat_states": {
+      "values": [
+        {
+          "in": "gorący",
+          "out": "on"
+        },
+        {
+          "in": "normalny",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_light_states": {
+      "values": [
+        {
+          "in": "świecący",
+          "out": "on"
+        },
+        {
+          "in": "brak światła",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_lock_states": {
+      "values": [
+        {
+          "in": "odblokowany",
+          "out": "on"
+        },
+        {
+          "in": "zablokowany",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_moisture_states": {
+      "values": [
+        {
+          "in": "mokro",
+          "out": "on"
+        },
+        {
+          "in": "sucho",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_motion_states": {
+      "values": [
+        {
+          "in": "(wykryty|wyzwolony|włączony)",
+          "out": "on"
+        },
+        {
+          "in": "brak",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_occupancy_states": {
+      "values": [
+        {
+          "in": "(wykryty|wyzwolony|włączony)",
+          "out": "on"
+        },
+        {
+          "in": "brak",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_opening_states": {
+      "values": [
+        {
+          "in": "otwarty",
+          "out": "on"
+        },
+        {
+          "in": "zamknięty",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_plug_states": {
+      "values": [
+        {
+          "in": "podłączony",
+          "out": "on"
+        },
+        {
+          "in": "odłączony",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_power_states": {
+      "values": [
+        {
+          "in": "(zasilany|podłaczony)",
+          "out": "on"
+        },
+        {
+          "in": "(nie zasilany|wyłączony)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_presence_states": {
+      "values": [
+        {
+          "in": "(w domu|obecny)",
+          "out": "on"
+        },
+        {
+          "in": "(poza domem|nieobecny)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_problem_states": {
+      "values": [
+        {
+          "in": "wykryty",
+          "out": "on"
+        },
+        {
+          "in": "ok",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_running_states": {
+      "values": [
+        {
+          "in": "uruchomiony",
+          "out": "on"
+        },
+        {
+          "in": "zatrzymany",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_safety_states": {
+      "values": [
+        {
+          "in": "zabezpieczony",
+          "out": "on"
+        },
+        {
+          "in": "niezabezpieczony",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_smoke_states": {
+      "values": [
+        {
+          "in": "(wykryty|wyzwolony|włączony)",
+          "out": "on"
+        },
+        {
+          "in": "brak",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_sound_states": {
+      "values": [
+        {
+          "in": "(wykryty|wyzwolony|włączony)",
+          "out": "on"
+        },
+        {
+          "in": "brak",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_tamper_states": {
+      "values": [
+        {
+          "in": "(wykryty|wyzwolony)",
+          "out": "on"
+        },
+        {
+          "in": "brak",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_update_states": {
+      "values": [
+        {
+          "in": "dostępna aktualizacja",
+          "out": "on"
+        },
+        {
+          "in": "aktualny",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_vibration_states": {
+      "values": [
+        {
+          "in": "(wykryto|wibruje)",
+          "out": "on"
+        },
+        {
+          "in": "(brak|nie wibruje)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_window_states": {
+      "values": [
+        {
+          "in": "otwarte",
+          "out": "on"
+        },
+        {
+          "in": "zamknięte",
+          "out": "closed"
+        }
+      ]
+    },
+    "shopping_list_item": {
+      "wildcard": true
+    },
+    "zone": {
+      "wildcard": true
+    },
+    "position": {
+      "range": {
+        "type": "percentage",
+        "from": 0,
+        "to": 100
+      }
+    },
+    "volume": {
+      "range": {
+        "type": "percentage",
+        "from": 0,
+        "to": 100
+      }
+    },
+    "presence_states": {
+      "values": [
+        {
+          "in": "w domu",
+          "out": "home"
+        },
+        {
+          "in": "poza domem",
+          "out": "not_home"
+        }
+      ]
+    },
+    "timer_seconds": {
+      "range": {
+        "from": 1,
+        "to": 100
+      }
+    },
+    "timer_minutes": {
+      "range": {
+        "from": 1,
+        "to": 100
+      }
+    },
+    "timer_hours": {
+      "range": {
+        "from": 1,
+        "to": 100
+      }
+    },
+    "timer_half": {
+      "values": [
+        {
+          "in": "pół",
+          "out": 30
+        },
+        {
+          "in": "półtor[a|ej]",
+          "out": 90
+        }
+      ]
+    },
+    "timer_name": {
+      "wildcard": true
+    },
+    "timer_command": {
+      "wildcard": true
+    }
+  },
+  "expansion_rules": {
+    "name": "{name}",
+    "set": "(ustaw|zmień|przestaw|nastaw|obróć)",
+    "area": "[w|na] {area}",
+    "floor": "[w|na] {floor}",
+    "where": "Gdzie",
+    "now": "teraz|obecnie|w tej chwili",
+    "is": "jest|przebywa|znajduje się",
+    "what_is": "Jak(a jest|i jest|ie [jest|są]|ą| jest)",
+    "where_is": "<where> [<is>]",
+    "in_here": "(tutaj|w tym miejscu|w tym pokoju|w tym pomieszczeniu)",
+    "how_many_is": "Ile jest",
+    "activate": "(aktywuj|uaktywnij|rozpocznij|zacznij|uruchom)",
+    "lock": "zablokuj",
+    "unlock": "odblokuj",
+    "turn_on": "(włącz|uruchom)",
+    "turn_off": "(wyłącz|zatrzymaj)",
+    "turn_on_light": "(zapal|oświeć|zaświeć)",
+    "turn_off_light": "zgaś",
+    "open": "otwórz",
+    "open_blind": "(odsłoń|podnieś)",
+    "open_curtain": "(odsunięte|odsłonięte)",
+    "close": "(zamknij|przymknij)",
+    "close_blind": "(zasłoń|opuść)",
+    "close_curtain": "(zasunięte|zasłonięte)",
+    "brightness": "{brightness}[%| procent]",
+    "light": "(światło|lamp(a|ę)|oświetleni(a|e)|żarów(ka|kę))",
+    "lights": "(świat(ła|eł)|lamp[y]|oświetleni(a|e)|żarów(ki|ek))",
+    "temp": "temperatur(a|ę|y)|stopni|zimno|gorąco",
+    "temperature": "{temperature}[°| stopni] [{temperature_unit}]",
+    "numeric_value_set": "(ustaw|zmień|przestaw|nastaw|zwiększ|zmniejsz)",
+    "in": "(w|na)",
+    "position": "{position}[[ ]%| procent]",
+    "volume": "{volume:volume_level}[[ ]%| procent]",
+    "currently": "(obecnie|w tej chwili)",
+    "all": "(wszys[cy|tkie|tkich]|każd[y|a|e]|całe)",
+    "home": "(dom[u]|mieszkani[e|u]|apartamen[t|cie])",
+    "everywhere": "(wszędzie|we wszystkich pokojach|w każdym pokoju|w <home>)",
+    "here": "(tutaj|w tym pokoju|w pokoju|w tym pomieszczeniu|w pomieszczeniu)",
+    "what_is_the_class_of_name": "(<what_is> <class> [z [urzadzenia]|w [urządzeniu]|urządzenia|czujnika|wskaz(uje|any|ywan[a|e|y|ego] [przez])|zmierzone przez [czujnik]] <name> [<area>]|<what_is> <name> <class> [<area>]|<what_is> <area> <name> <class>)",
+    "timer": "(minutnik[a|i|u|ów]|zegar[a|ze|y|ów]|tajmer[a|ze|y|ów]|licznik[a|u|i|ów]|czasomierz[a|u|e|y]|stoper[a|ze|y|ów])",
+    "timer_plural": "(minutnik[ów|ach]|zegar[ów|ach]|tajmer[ów|ach]|licznik[ów|ach]|czasomierz[y|ach]|stoper[ów|ach])",
+    "timer_set": "(uruchom|ustaw|utwórz|rozpocznij|zacznij|włącz|nastaw)",
+    "timer_stop": "(zatrzymaj|zastopuj|uśpij|wstrzymaj)",
+    "timer_resume": "(wznów|kontynuuj|przywróć|reaktywuj)",
+    "timer_remove": "(usu(ń|nąć)|zmniejsz[yć]|odjąć|odejmij|skró(ć|cić)|zreduk(uj|ować))",
+    "timer_add": "(doł(óż|ożyć)|zwiększ[yć]|doda(ć|j)|wydłuż[yć]|powiększ[ać])",
+    "timer_cancel": "(wyłącz|anuluj|przerwij|zakończ)",
+    "timer_state": "(stan|status|podsumowanie)",
+    "timer_duration_seconds": "{timer_seconds:seconds} sekund[a|ę|y|owy]",
+    "timer_duration_minutes": "({timer_minutes:minutes} minut[a|ę|y|owy][ [i |oraz ]{timer_seconds:seconds} sekund[a|ę|y|owy]])|({timer_minutes:minutes} i {timer_half:seconds} minut[a|ę|y|owy])|({timer_half:seconds} minut[a|ę|y|owy])",
+    "timer_duration_hours": "({timer_hours:hours} godzin[a|ę|y|ny][ [i |oraz ]{timer_minutes:minutes} minut[a|ę|y|owy]][ [i |oraz ]{timer_seconds:seconds} sekund[a|ę|y|owy]])|({timer_hours:hours} i {timer_half:minutes} godzin[a|ę|y|ny])|({timer_half:minutes} godzin[a|ę|y|ny])",
+    "timer_duration": "<timer_duration_seconds>|<timer_duration_minutes>|<timer_duration_hours>",
+    "timer_start_seconds": "{timer_seconds:start_seconds} sekund[a|ę|y|owy|owym]",
+    "timer_start_minutes": "{timer_minutes:start_minutes} minut[a|ę|y|owy|owym][ [i |oraz ]{timer_seconds:start_seconds} sekund[a|ę|y|owy|owym]]",
+    "timer_start_hours": "{timer_hours:start_hours} godzin[a|ę|y|ny|nym|nego][ [i |oraz ]{timer_minutes:start_minutes} minut[a|ę|y|owy|owym]][ [i |oraz ]{timer_seconds:start_seconds} sekund[a|ę|y|owy|owym]]",
+    "timer_start": "<timer_start_seconds>|<timer_start_minutes>|<timer_start_hours>"
+  },
+  "skip_words": [
+    "Proszę",
+    "Poproszę",
+    "Możesz",
+    "Czy możesz",
+    "Powiedz mi",
+    "Sprawdź",
+    "Sprawdź mi",
+    "Sprawdź proszę",
+    "Zerknij",
+    "Zerknij czy"
+  ]
+}

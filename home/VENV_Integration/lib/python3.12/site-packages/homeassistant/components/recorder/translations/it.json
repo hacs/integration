@@ -1,0 +1,53 @@
+{
+    "issues": {
+        "maria_db_range_index_regression": {
+            "description": "Le versioni precedenti di MariaDB soffrono di una significativa riduzione delle prestazioni quando si recuperano i dati della cronologia o si cancella il database. Aggiornare a MariaDB versione {min_version} o successiva e riavviare Home Assistant. Se si utilizza il componente aggiuntivo MariaDB core, assicurarsi di aggiornarlo alla versione pi\u00f9 recente.",
+            "title": "Aggiorna MariaDB a {min_version} o versioni successive per risolvere un problema di prestazioni significativo"
+        }
+    },
+    "services": {
+        "disable": {
+            "description": "Arresta la registrazione di eventi e cambiamenti di stato.",
+            "name": "Disabilita"
+        },
+        "enable": {
+            "description": "Avvia la registrazione degli eventi e dei cambiamenti di stato.",
+            "name": "Abilita"
+        },
+        "purge": {
+            "description": "Avvia l'attivit\u00e0 di eliminazione - per ripulire i vecchi dati dal database.",
+            "fields": {
+                "apply_filter": {
+                    "name": "Applica il filtro"
+                },
+                "keep_days": {
+                    "description": "Numero di giorni per mantenere i dati nel database. A partire da oggi, contando a ritroso. Il valore \"7\" indica che tutto ci\u00f2 che \u00e8 pi\u00f9 vecchio di una settimana verr\u00e0 eliminato.",
+                    "name": "Giorni da conservare"
+                },
+                "repack": {
+                    "description": "Tentativo di risparmiare spazio su disco riscrivendo l'intero file di database.",
+                    "name": "Riorganizza"
+                }
+            },
+            "name": "Pulizia"
+        },
+        "purge_entities": {
+            "description": "Avvia un'attivit\u00e0 di eliminazione per rimuovere i dati relativi a entit\u00e0 specifiche dal database.",
+            "fields": {
+                "domains": {
+                    "description": "Elenco dei domini per i quali i dati devono essere rimossi dal database del registratore.",
+                    "name": "Domini da rimuovere"
+                },
+                "entity_globs": {
+                    "description": "Elenco dei modelli globali utilizzati per selezionare le entit\u00e0 per le quali i dati devono essere rimossi dal database del registratore.",
+                    "name": "Entit\u00e0 globali da rimuovere"
+                },
+                "keep_days": {
+                    "description": "Numero di giorni per cui conservare i dati per le righe che corrispondono al filtro. A partire da oggi, conto alla rovescia. Un valore di \"7\" significa che tutto ci\u00f2 che \u00e8 pi\u00f9 vecchio di una settimana verr\u00e0 eliminato. L'impostazione predefinita di 0 giorni rimuover\u00e0 immediatamente tutte le righe corrispondenti.",
+                    "name": "Giorni da conservare"
+                }
+            },
+            "name": "Elimina le entit\u00e0"
+        }
+    }
+}

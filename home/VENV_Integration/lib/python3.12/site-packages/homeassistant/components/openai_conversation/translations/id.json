@@ -1,0 +1,75 @@
+{
+    "config": {
+        "error": {
+            "cannot_connect": "Gagal terhubung",
+            "invalid_auth": "Autentikasi tidak valid",
+            "unknown": "Kesalahan tak terduga"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "api_key": "Kunci API"
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "invalid_config_entry": {
+            "message": "Entri konfigurasi yang diberikan tidak valid. {config_entry} didapatkan"
+        }
+    },
+    "issues": {
+        "image_size_deprecated_format": {
+            "description": "OpenAI sekarang menggunakan Dall-E 3 untuk menghasilkan gambar menggunakan `openai_conversation.generate_image`, yang mendukung berbagai ukuran. Nilai yang valid sekarang adalah \"1024x1024\", \"1024x1792\", \"1792x1024\". Nilai lama \"256\", \"512\", \"1024\" saat ini ditafsirkan sebagai \"1024x1024\".\nHarap perbarui skrip atau otomasi Anda dengan parameter baru.",
+            "title": "Format ukuran yang tidak digunakan lagi untuk aksi pembuatan gambar"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "chat_model": "Model",
+                    "llm_hass_api": "Kendalikan Home Assistant",
+                    "max_tokens": "Jumlah token maksimum untuk dikembalikan sebagai respons",
+                    "model": "Model Penyelesaian",
+                    "prompt": "Petunjuk",
+                    "recommended": "Pengaturan model yang disarankan",
+                    "temperature": "Suhu",
+                    "top_p": "P Teratas"
+                },
+                "data_description": {
+                    "prompt": "Menginstruksikan cara LLM harus merespons. Ini dapat berupa sebuah templat."
+                }
+            }
+        }
+    },
+    "services": {
+        "generate_image": {
+            "description": "Ubah prompt menjadi gambar",
+            "fields": {
+                "config_entry": {
+                    "description": "Entri konfigurasi yang akan digunakan untuk aksi ini",
+                    "name": "Entri Konfigurasi"
+                },
+                "prompt": {
+                    "description": "Teks untuk diubah ke gambar",
+                    "example": "Foto anjing",
+                    "name": "Perintah"
+                },
+                "quality": {
+                    "description": "Kualitas gambar yang akan dihasilkan",
+                    "name": "Kualitas"
+                },
+                "size": {
+                    "description": "Ukuran gambar yang akan dihasilkan",
+                    "name": "Ukuran"
+                },
+                "style": {
+                    "description": "Gaya gambar yang dihasilkan",
+                    "name": "Gaya"
+                }
+            },
+            "name": "Hasilkan gambar"
+        }
+    }
+}

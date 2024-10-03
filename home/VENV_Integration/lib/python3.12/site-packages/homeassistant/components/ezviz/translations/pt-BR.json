@@ -1,0 +1,180 @@
+{
+    "config": {
+        "abort": {
+            "already_configured_account": "A conta j\u00e1 foi configurada",
+            "ezviz_cloud_account_missing": "Conta de nuvem Ezviz ausente. Por favor, reconfigure a conta da nuvem Ezviz",
+            "reauth_successful": "A reautentica\u00e7\u00e3o foi bem-sucedida",
+            "unknown": "Erro inesperado"
+        },
+        "error": {
+            "cannot_connect": "Falha ao conectar",
+            "invalid_auth": "Autentica\u00e7\u00e3o inv\u00e1lida",
+            "invalid_host": "Nome de host ou endere\u00e7o IP inv\u00e1lido",
+            "mfa_required": "2FA ativado na conta, desative e tente novamente"
+        },
+        "flow_title": "{serial}",
+        "step": {
+            "confirm": {
+                "data": {
+                    "password": "Senha",
+                    "username": "Usu\u00e1rio"
+                },
+                "description": "Insira as credenciais RTSP para a c\u00e2mera EZVIZ {serial} com IP {ip_address}",
+                "title": "C\u00e2mera EZVIZ descoberta"
+            },
+            "reauth_confirm": {
+                "data": {
+                    "password": "Senha",
+                    "username": "Usu\u00e1rio"
+                },
+                "description": "Insira as credenciais para autenticar novamente na conta do ezviz cloud",
+                "title": "A autentica\u00e7\u00e3o expirada para {name}"
+            },
+            "user": {
+                "data": {
+                    "password": "Senha",
+                    "url": "URL",
+                    "username": "Usu\u00e1rio"
+                },
+                "title": "Conecte-se a EZVIZ Cloud"
+            },
+            "user_custom_url": {
+                "data": {
+                    "password": "Senha",
+                    "url": "URL",
+                    "username": "Usu\u00e1rio"
+                },
+                "description": "Especifique manualmente o URL da sua regi\u00e3o",
+                "title": "Conecte-se a URL personalizado do EZVIZ"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "alarm_schedules_enabled": {
+                "name": "Programa\u00e7\u00f5es de alarme ativadas"
+            },
+            "encrypted": {
+                "name": "Criptografia"
+            }
+        },
+        "image": {
+            "last_motion_image": {
+                "name": "\u00daltima imagem em movimento"
+            }
+        },
+        "light": {
+            "light": {
+                "name": "Luz"
+            }
+        },
+        "select": {
+            "alarm_sound_mode": {
+                "name": "Som de aviso",
+                "state": {
+                    "intensive": "Intenso",
+                    "silent": "Silencioso",
+                    "soft": "Suave"
+                }
+            }
+        },
+        "sensor": {
+            "alarm_sound_mod": {
+                "name": "N\u00edvel de som do alarme"
+            },
+            "last_alarm_pic": {
+                "name": "URL da \u00faltima imagem do alarme"
+            },
+            "last_alarm_time": {
+                "name": "\u00daltima hora do alarme"
+            },
+            "last_alarm_type_code": {
+                "name": "\u00daltimo c\u00f3digo de tipo de alarme"
+            },
+            "last_alarm_type_name": {
+                "name": "Nome do \u00faltimo tipo de alarme"
+            },
+            "local_ip": {
+                "name": "IP local"
+            },
+            "pir_status": {
+                "name": "Status do PIR"
+            },
+            "seconds_last_trigger": {
+                "name": "Segundos desde o \u00faltimo gatilho"
+            },
+            "supported_channels": {
+                "name": "Canais suportados"
+            },
+            "wan_ip": {
+                "name": "WAN IP"
+            }
+        },
+        "siren": {
+            "siren": {
+                "name": "Sirene"
+            }
+        },
+        "update": {
+            "firmware": {
+                "name": "Firmware"
+            }
+        }
+    },
+    "issues": {
+        "service_deprecation_alarm_sound_level": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "O servi\u00e7o de n\u00edvel de som Ezviz Alarm est\u00e1 obsoleto e ser\u00e1 removido.\n Para definir o n\u00edvel de som do alarme, voc\u00ea pode usar o servi\u00e7o `select.select_option` visando a entidade de som de aviso. \n\n Remova este servi\u00e7o de suas automa\u00e7\u00f5es e scripts e selecione **enviar** para fechar este problema.",
+                        "title": "O servi\u00e7o de n\u00edvel de som do Ezviz Alarm est\u00e1 sendo removido"
+                    }
+                }
+            },
+            "title": "O servi\u00e7o de n\u00edvel de som do Ezviz Alarm est\u00e1 sendo removido"
+        },
+        "service_depreciation_detection_sensibility": {
+            "description": "O servi\u00e7o de sensibilidade de detec\u00e7\u00e3o do Ezviz foi preterido e ser\u00e1 removido no Home Assistant 2023.12; Ajuste a automa\u00e7\u00e3o ou o script que usa o servi\u00e7o e selecione enviar abaixo para marcar o problema como resolvido.",
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "title": "O servi\u00e7o de sensibilidade de detec\u00e7\u00e3o do Ezviz est\u00e1 sendo removido"
+                    }
+                }
+            },
+            "title": "O servi\u00e7o de sensibilidade de detec\u00e7\u00e3o do Ezviz est\u00e1 sendo removido"
+        },
+        "service_depreciation_ptz": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "O servi\u00e7o EZVIZ PTZ est\u00e1 obsoleto e ser\u00e1 removido.\nPara mover a c\u00e2mera, voc\u00ea pode usar o servi\u00e7o `button.press` que tem como alvo as entidades PTZ*.\n\nRemova o uso desse servi\u00e7o de suas automa\u00e7\u00f5es e scripts e selecione **enviar** para encerrar esse problema.",
+                        "title": "O servi\u00e7o EZVIZ PTZ est\u00e1 sendo removido"
+                    }
+                }
+            },
+            "title": "O servi\u00e7o EZVIZ PTZ est\u00e1 sendo removido"
+        },
+        "service_depreciation_sound_alarm": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "O servi\u00e7o de alarme Ezviz Sound est\u00e1 obsoleto e ser\u00e1 removido.\nPara fazer soar o alarme, voc\u00ea pode usar o servi\u00e7o `siren.toggle` voltado para a entidade Siren.\n\nRemova o uso desse servi\u00e7o de suas automa\u00e7\u00f5es e scripts e selecione **enviar** para corrigir esse problema.",
+                        "title": "O servi\u00e7o de alarme Ezviz Sound est\u00e1 sendo removido"
+                    }
+                }
+            },
+            "title": "O servi\u00e7o de alarme Ezviz Sound est\u00e1 sendo removido"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "ffmpeg_arguments": "Argumentos passados para ffmpeg para c\u00e2meras",
+                    "timeout": "Tempo limite da solicita\u00e7\u00e3o (segundos)"
+                }
+            }
+        }
+    }
+}

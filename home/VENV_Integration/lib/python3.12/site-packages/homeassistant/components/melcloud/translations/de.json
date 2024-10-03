@@ -1,0 +1,96 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Die MELCloud-Integration ist bereits f\u00fcr diese E-Mail konfiguriert. Das Zugriffstoken wurde aktualisiert.",
+            "reauth_successful": "Die erneute Authentifizierung war erfolgreich",
+            "reconfigure_successful": "Die Neukonfiguration war erfolgreich"
+        },
+        "error": {
+            "cannot_connect": "Verbindung fehlgeschlagen",
+            "invalid_auth": "Ung\u00fcltige Authentifizierung",
+            "unknown": "Unerwarteter Fehler"
+        },
+        "step": {
+            "reauth_confirm": {
+                "data": {
+                    "password": "Passwort",
+                    "username": "E-Mail"
+                },
+                "description": "Die Melcloud-Integration muss deine Verbindungsdetails erneut authentifizieren",
+                "title": "Die Authentifizierung ist abgelaufen f\u00fcr {name}"
+            },
+            "reconfigure_confirm": {
+                "data": {
+                    "password": "Passwort"
+                },
+                "data_description": {
+                    "password": "Gib das (neue) Passwort f\u00fcr MelCloud ein."
+                },
+                "description": "Konfiguriere den Eintrag neu, um ein neues Token f\u00fcr dein Konto zu erhalten: `{username}`.",
+                "title": "MelCloud neu konfigurieren"
+            },
+            "user": {
+                "data": {
+                    "password": "Passwort",
+                    "username": "E-Mail"
+                },
+                "description": "Verbinde dich mit deinem MELCloud-Konto.",
+                "title": "Stelle eine Verbindung zu MELCloud her"
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "daily_energy": {
+                "name": "T\u00e4glich verbrauchte Energie"
+            },
+            "flow_temperature": {
+                "name": "Vorlauftemperatur"
+            },
+            "outside_temperature": {
+                "name": "Au\u00dfentemperatur"
+            },
+            "return_temperature": {
+                "name": "Vorlauf-R\u00fccklauftemperatur"
+            },
+            "room_temperature": {
+                "name": "Zimmertemperatur"
+            },
+            "tank_temperature": {
+                "name": "Tanktemperatur"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_yaml_import_issue_cannot_connect": {
+            "description": "Die Konfiguration von MELCloud mit YAML wird entfernt, aber beim Importieren deiner YAML-Konfiguration ist ein Verbindungsfehler aufgetreten. \n\nStelle sicher, dass die Verbindung zu MELCloud funktioniert, und starte Home Assistant neu, um es erneut zu versuchen, oder entferne die MELCloud-YAML-Konfiguration aus deiner \u201econfiguration.yaml\u201c und fahre mit der manuellen [Einrichtung der Integration](/config/integrations/dashboard/add?domain=melcoud) fort.",
+            "title": "Der Import der MELCloud YAML-Konfiguration ist fehlgeschlagen"
+        },
+        "deprecated_yaml_import_issue_invalid_auth": {
+            "description": "Die Konfiguration von MELCloud mit YAML wird entfernt, aber beim Importieren deiner YAML-Konfiguration ist ein Authentifizierungsfehler aufgetreten. \n\nKorrigiere die YAML-Konfiguration und starte Home Assistant neu, um es erneut zu versuchen, oder entferne die MELCloud-YAML-Konfiguration aus deiner \u201econfiguration.yaml\u201c und fahre mit der manuellen [Einrichtung der Integration](/config/integrations/dashboard/add?domain=melcoud) fort.",
+            "title": "Der Import der MELCloud YAML-Konfiguration ist fehlgeschlagen"
+        }
+    },
+    "services": {
+        "set_vane_horizontal": {
+            "description": "Legt die horizontale Fl\u00fcgelposition fest.",
+            "fields": {
+                "position": {
+                    "description": "Horizontale Fl\u00fcgelposition. M\u00f6gliche Optionen findest du im Statusattribut vane_horizontal_positions.",
+                    "name": "Position"
+                }
+            },
+            "name": "Fl\u00fcgel horizontal einstellen"
+        },
+        "set_vane_vertical": {
+            "description": "Legt die vertikale Fl\u00fcgelposition fest.",
+            "fields": {
+                "position": {
+                    "description": "Vertikale Fl\u00fcgelposition. M\u00f6gliche Optionen findest du im Statusattribut vane_vertical_positions.",
+                    "name": "Position"
+                }
+            },
+            "name": "Fl\u00fcgel vertikal einstellen"
+        }
+    }
+}

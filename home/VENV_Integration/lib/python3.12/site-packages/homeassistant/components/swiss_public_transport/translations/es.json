@@ -1,0 +1,102 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "El servicio ya est\u00e1 configurado",
+            "bad_config": "La solicitud fall\u00f3 debido a una mala configuraci\u00f3n: comprueba la [stationboard]({stationboard_url}) para ver las estaciones v\u00e1lidas.",
+            "cannot_connect": "No se pudo conectar con el servidor",
+            "unknown": "Se ha producido un error desconocido en python-opendata-transport"
+        },
+        "error": {
+            "bad_config": "La solicitud fall\u00f3 debido a una mala configuraci\u00f3n: comprueba en [stationboard]({stationboard_url}) si los nombres de tus estaciones son v\u00e1lidos",
+            "cannot_connect": "No se pudo conectar con el servidor",
+            "too_many_via_stations": "Demasiadas estaciones intermedias, solo se permiten hasta 5 estaciones intermedias por conexi\u00f3n.",
+            "unknown": "Se ha producido un error desconocido en python-opendata-transport"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "from": "Estaci\u00f3n de inicio",
+                    "to": "Estaci\u00f3n final",
+                    "via": "Lista de hasta 5 estaciones intermedias"
+                },
+                "description": "Proporciona la estaci\u00f3n de inicio y de finalizaci\u00f3n para tu conexi\u00f3n,\n y opcionalmente hasta 5 estaciones intermedias. \n\nComprueba el [stationboard]({stationboard_url}) para ver las estaciones v\u00e1lidas.",
+                "title": "Swiss Public Transport"
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "delay": {
+                "name": "Retraso"
+            },
+            "departure": {
+                "name": "Salida"
+            },
+            "departure0": {
+                "name": "Salida"
+            },
+            "departure1": {
+                "name": "Salida +1"
+            },
+            "departure2": {
+                "name": "Salida +2"
+            },
+            "duration": {
+                "name": "Duraci\u00f3n"
+            },
+            "platform": {
+                "name": "Plataforma"
+            },
+            "transfers": {
+                "name": "Trasbordos"
+            }
+        }
+    },
+    "exceptions": {
+        "cannot_connect": {
+            "message": "No se pudo conectar con el servidor.\n{error}"
+        },
+        "config_entry_not_found": {
+            "message": "No se encontr\u00f3 la instancia \"{target}\" de la integraci\u00f3n Swiss Public Transport."
+        },
+        "invalid_data": {
+            "message": "Error de configuraci\u00f3n para la entrada {config_title} con datos no v\u00e1lidos, comprueba en el [stationboard]({stationboard_url}) si los nombres de tus estaciones son v\u00e1lidos.\n{error}"
+        },
+        "not_loaded": {
+            "message": "{target} no est\u00e1 cargado."
+        },
+        "request_timeout": {
+            "message": "Tiempo de espera agotado mientras se conecta para la entrada {config_title}.\n{error}"
+        }
+    },
+    "issues": {
+        "deprecated_yaml_import_issue_bad_config": {
+            "description": "Se va a eliminar la configuraci\u00f3n de Swiss Public Transport usando YAML, pero se import\u00f3 una configuraci\u00f3n incorrecta en tu configuraci\u00f3n YAML. \n\nComprueba el [stationboard]({stationboard_url}) para ver las estaciones v\u00e1lidas.",
+            "title": "La solicitud de importaci\u00f3n de configuraci\u00f3n YAML de Swiss Public Transport fall\u00f3 debido a una mala configuraci\u00f3n"
+        },
+        "deprecated_yaml_import_issue_cannot_connect": {
+            "description": "Se va a eliminar la configuraci\u00f3n de Swiss Public Transport mediante YAML, pero hubo un error de conexi\u00f3n al importar tu configuraci\u00f3n YAML. \n\nAseg\u00farate de que tu Home Assistant pueda comunicarse con el [servidor de datos abiertos]({opendata_url}). En caso de que el servidor no funcione, int\u00e9ntalo de nuevo m\u00e1s tarde.",
+            "title": "La importaci\u00f3n de la configuraci\u00f3n YAML de Swiss Public Transport no pudo conectar con el servidor"
+        },
+        "deprecated_yaml_import_issue_unknown": {
+            "description": "Se va a eliminar la configuraci\u00f3n de Swiss Public Transport usando YAML, pero hubo un error desconocido al importar tu configuraci\u00f3n YAML. \n\nComprueba tu configuraci\u00f3n o echa un vistazo a la documentaci\u00f3n de la integraci\u00f3n.",
+            "title": "Error al importar la configuraci\u00f3n YAML de Swiss Public Transport con un error desconocido generado por python-opendata-transport"
+        }
+    },
+    "services": {
+        "fetch_connections": {
+            "description": "Obtener una lista de conexiones de Swiss Public Transport.",
+            "fields": {
+                "config_entry_id": {
+                    "description": "Instancia de Swiss Public Transport para obtener conexiones.",
+                    "name": "Instancia"
+                },
+                "limit": {
+                    "description": "N\u00famero de conexiones a buscar [1-15]",
+                    "name": "L\u00edmite"
+                }
+            },
+            "name": "Obtener conexiones"
+        }
+    }
+}

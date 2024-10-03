@@ -1,0 +1,88 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "Notificaciones"
+        }
+    },
+    "issues": {
+        "migrate_notify": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Las acciones de {integration_title} `notify` se van a migrar. Una nueva entidad de `notify` est\u00e1 disponible ahora para reemplazar cada acci\u00f3n de `notify` heredada. \n\nActualiza cualquier automatizaci\u00f3n para usar la nueva acci\u00f3n `notify.send_message` expuesta con esta nueva entidad. Una vez hecho esto, soluciona este problema y reinicia Home Assistant.",
+                        "title": "Migra la acci\u00f3n de notificaci\u00f3n {integration_title} heredada para el dominio `{domain}`"
+                    }
+                }
+            },
+            "title": "Migraci\u00f3n de la acci\u00f3n de notificaci\u00f3n {integration_title}"
+        },
+        "migrate_notify_service": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "La acci\u00f3n `notify.{service_name}` de {integration_title} se migra, pero parece que la antigua acci\u00f3n `notify` todav\u00eda se est\u00e1 utilizando. \n\nUna nueva entidad de `notify` est\u00e1 disponible ahora para reemplazar cada acci\u00f3n de `notify` heredada. \n\nActualiza cualquier automatizaci\u00f3n o script para usar la nueva acci\u00f3n `notify.send_message` expuesta con esta nueva entidad. Cuando termines, selecciona Enviar y reinicia Home Assistant.",
+                        "title": "Migra la acci\u00f3n de notificaci\u00f3n {integration_title} heredada para el dominio `{domain}`"
+                    }
+                }
+            },
+            "title": "Se sigue utilizando la acci\u00f3n heredada notify.{service_name}"
+        }
+    },
+    "services": {
+        "notify": {
+            "description": "Env\u00eda un mensaje de notificaci\u00f3n a los objetivos seleccionados.",
+            "fields": {
+                "data": {
+                    "description": "Algunas integraciones proporcionan una funcionalidad ampliada. Para obtener informaci\u00f3n sobre c\u00f3mo usar _data_, consulta la documentaci\u00f3n de integraci\u00f3n.",
+                    "name": "Datos"
+                },
+                "message": {
+                    "description": "Cuerpo del mensaje de la notificaci\u00f3n.",
+                    "name": "Mensaje"
+                },
+                "target": {
+                    "description": "Algunas integraciones te permiten especificar los objetivos que reciben la notificaci\u00f3n. Para obtener m\u00e1s informaci\u00f3n, consulta la documentaci\u00f3n de integraci\u00f3n.",
+                    "name": "Objetivo"
+                },
+                "title": {
+                    "description": "T\u00edtulo para tu notificaci\u00f3n.",
+                    "name": "T\u00edtulo"
+                }
+            },
+            "name": "Enviar una notificaci\u00f3n"
+        },
+        "persistent_notification": {
+            "description": "Env\u00eda una notificaci\u00f3n que es visible en el panel de notificaciones.",
+            "fields": {
+                "data": {
+                    "description": "Algunas integraciones proporcionan una funcionalidad ampliada. Para obtener informaci\u00f3n sobre c\u00f3mo usar _data_, consulta la documentaci\u00f3n de integraci\u00f3n.",
+                    "name": "Datos"
+                },
+                "message": {
+                    "description": "Cuerpo del mensaje de la notificaci\u00f3n.",
+                    "name": "Mensaje"
+                },
+                "title": {
+                    "description": "T\u00edtulo de la notificaci\u00f3n.",
+                    "name": "T\u00edtulo"
+                }
+            },
+            "name": "Enviar una notificaci\u00f3n persistente"
+        },
+        "send_message": {
+            "description": "Env\u00eda un mensaje de notificaci\u00f3n.",
+            "fields": {
+                "message": {
+                    "description": "Su mensaje de notificaci\u00f3n.",
+                    "name": "Mensaje"
+                },
+                "title": {
+                    "description": "T\u00edtulo para tu mensaje de notificaci\u00f3n",
+                    "name": "T\u00edtulo"
+                }
+            },
+            "name": "Enviar una notificaci\u00f3n"
+        }
+    },
+    "title": "Notificaciones"
+}

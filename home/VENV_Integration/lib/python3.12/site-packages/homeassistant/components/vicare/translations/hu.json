@@ -1,0 +1,431 @@
+{
+    "config": {
+        "abort": {
+            "reauth_successful": "Az \u00fajrahiteles\u00edt\u00e9s sikeres volt.",
+            "single_instance_allowed": "M\u00e1r konfigur\u00e1lva van. Csak egy konfigur\u00e1ci\u00f3 lehets\u00e9ges.",
+            "unknown": "V\u00e1ratlan hiba"
+        },
+        "error": {
+            "invalid_auth": "\u00c9rv\u00e9nytelen hiteles\u00edt\u00e9s"
+        },
+        "flow_title": "{name} ({host})",
+        "step": {
+            "reauth_confirm": {
+                "data": {
+                    "client_id": "Kliens azonos\u00edt\u00f3",
+                    "password": "Jelsz\u00f3"
+                },
+                "description": "K\u00e9rj\u00fck, ellen\u0151rizze a hiteles\u00edt\u0151 adatokat."
+            },
+            "user": {
+                "data": {
+                    "client_id": "Kliens azonos\u00edt\u00f3",
+                    "heating_type": "F\u0171t\u00e9s t\u00edpusa",
+                    "password": "Jelsz\u00f3",
+                    "username": "E-mail"
+                },
+                "description": "A ViCare integr\u00e1ci\u00f3 be\u00e1ll\u00edt\u00e1sa. Az API-kulcs gener\u00e1l\u00e1s\u00e1hoz keresse fel a https://app.developer.viessmann.com webhelyet."
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "burner": {
+                "name": "\u00c9get\u0151"
+            },
+            "circulation_pump": {
+                "name": "Keringet\u0151 szivatty\u00fa"
+            },
+            "compressor": {
+                "name": "Kompresszor"
+            },
+            "domestic_hot_water_charging": {
+                "name": "HMV t\u00f6lt\u00e9s"
+            },
+            "domestic_hot_water_circulation_pump": {
+                "name": "HMV keringet\u0151 szivatty\u00fa"
+            },
+            "domestic_hot_water_pump": {
+                "name": "HMV szivatty\u00fa"
+            },
+            "frost_protection": {
+                "name": "Fagyv\u00e9delem"
+            },
+            "solar_pump": {
+                "name": "Napelemes szivatty\u00fa"
+            }
+        },
+        "button": {
+            "activate_onetimecharge": {
+                "name": "Egyszeri t\u00f6lt\u00e9s aktiv\u00e1l\u00e1sa"
+            }
+        },
+        "climate": {
+            "heating": {
+                "name": "F\u0171t\u00e9s"
+            }
+        },
+        "fan": {
+            "ventilation": {
+                "name": "Szell\u0151z\u00e9s",
+                "state_attributes": {
+                    "preset_mode": {
+                        "state": {
+                            "permanent": "\u00e1lland\u00f3",
+                            "sensor_driven": "\u00e9rz\u00e9kel\u0151",
+                            "sensor_override": "\u00fctemezett \u00e9rz\u00e9kel\u0151 fel\u00fclvez\u00e9rl\u00e9ssel",
+                            "ventilation": "\u00fctemezett"
+                        }
+                    }
+                }
+            }
+        },
+        "number": {
+            "comfort_heating_temperature": {
+                "name": "Komfort h\u0151m\u00e9rs\u00e9klet"
+            },
+            "comfort_temperature": {
+                "name": "Komfort h\u0151m\u00e9rs\u00e9klet"
+            },
+            "dhw_secondary_temperature": {
+                "name": "HMV m\u00e1sodlagos h\u0151m\u00e9rs\u00e9klet"
+            },
+            "eco_temperature": {
+                "name": "Eco h\u0151m\u00e9rs\u00e9klet"
+            },
+            "heating_curve_shift": {
+                "name": "F\u0171t\u00e9si g\u00f6rbe eltol\u00e1s"
+            },
+            "heating_curve_slope": {
+                "name": "F\u0171t\u00e9si g\u00f6rbe es\u00e9se"
+            },
+            "normal_heating_temperature": {
+                "name": "Norm\u00e1l h\u0151m\u00e9rs\u00e9klet"
+            },
+            "normal_temperature": {
+                "name": "Norm\u00e1l h\u0151m\u00e9rs\u00e9klet"
+            },
+            "reduced_heating_temperature": {
+                "name": "Cs\u00f6kkentett h\u0151m\u00e9rs\u00e9klet"
+            },
+            "reduced_temperature": {
+                "name": "Cs\u00f6kkentett h\u0151m\u00e9rs\u00e9klet"
+            }
+        },
+        "sensor": {
+            "boiler_supply_temperature": {
+                "name": "Kaz\u00e1n bet\u00e1pl\u00e1l\u00e1si h\u0151m\u00e9rs\u00e9klet"
+            },
+            "boiler_temperature": {
+                "name": "Kaz\u00e1n h\u0151m\u00e9rs\u00e9klet"
+            },
+            "buffer_main_temperature": {
+                "name": "Puffer f\u0151 h\u0151m\u00e9rs\u00e9klet"
+            },
+            "buffer_top_temperature": {
+                "name": "Puffer fels\u0151 h\u0151m\u00e9rs\u00e9klete"
+            },
+            "burner_hours": {
+                "name": "\u00c9get\u0151 \u00fczem\u00f3ra"
+            },
+            "burner_modulation": {
+                "name": "\u00c9get\u0151 modul\u00e1ci\u00f3"
+            },
+            "burner_starts": {
+                "name": "Az \u00e9get\u0151 elindul"
+            },
+            "collector_temperature": {
+                "name": "Napkollektor h\u0151m\u00e9rs\u00e9klete"
+            },
+            "compressor_hours": {
+                "name": "Kompresszor \u00fczem\u00f3ra"
+            },
+            "compressor_hours_loadclass1": {
+                "name": "Kompresszor \u00fczem\u00f3ra terhel\u00e9si oszt\u00e1ly 1"
+            },
+            "compressor_hours_loadclass2": {
+                "name": "Kompresszor \u00fczem\u00f3ra terhel\u00e9si oszt\u00e1ly 2"
+            },
+            "compressor_hours_loadclass3": {
+                "name": "Kompresszor \u00fczem\u00f3ra terhel\u00e9si oszt\u00e1ly 3"
+            },
+            "compressor_hours_loadclass4": {
+                "name": "Kompresszor \u00fczem\u00f3ra terhel\u00e9si oszt\u00e1ly 4"
+            },
+            "compressor_hours_loadclass5": {
+                "name": "Kompresszor \u00fczem\u00f3ra terhel\u00e9si oszt\u00e1ly 5"
+            },
+            "compressor_phase": {
+                "name": "Kompresszor f\u00e1zis"
+            },
+            "compressor_starts": {
+                "name": "A kompresszor elindul"
+            },
+            "energy_dhw_summary_consumption_heating_currentday": {
+                "name": "HMV energiafogyaszt\u00e1s ma"
+            },
+            "energy_dhw_summary_consumption_heating_currentmonth": {
+                "name": "HMV energiafogyaszt\u00e1s ebben a h\u00f3napban"
+            },
+            "energy_dhw_summary_consumption_heating_currentyear": {
+                "name": "HMV energiafogyaszt\u00e1s ebben az \u00e9vben"
+            },
+            "energy_summary_consumption_heating_currentday": {
+                "name": "F\u0171t\u00e9si energiafogyaszt\u00e1s ma"
+            },
+            "energy_summary_consumption_heating_currentmonth": {
+                "name": "F\u0171t\u00e9si energiafogyaszt\u00e1s ebben a h\u00f3napban"
+            },
+            "energy_summary_consumption_heating_currentyear": {
+                "name": "F\u0171t\u00e9si energiafogyaszt\u00e1s ebben az \u00e9vben"
+            },
+            "energy_summary_consumption_heating_lastsevendays": {
+                "name": "F\u0171t\u00e9si energiafogyaszt\u00e1s - elm\u00falt h\u00e9t nap"
+            },
+            "energy_summary_dhw_consumption_heating_lastsevendays": {
+                "name": "HMV energiafogyaszt\u00e1s - elm\u00falt h\u00e9t nap"
+            },
+            "ess_discharge_this_month": {
+                "name": "Akkumul\u00e1tor mer\u00fcl\u00e9s ebben a h\u00f3napban"
+            },
+            "ess_discharge_this_week": {
+                "name": "Akkumul\u00e1tor mer\u00fcl\u00e9s ezen a h\u00e9ten"
+            },
+            "ess_discharge_this_year": {
+                "name": "Akkumul\u00e1tor mer\u00fcl\u00e9s ebben az \u00e9vben"
+            },
+            "ess_discharge_today": {
+                "name": "Akkumul\u00e1tor mer\u00fcl\u00e9s ma"
+            },
+            "ess_discharge_total": {
+                "name": "Akkumul\u00e1tor mer\u00fcl\u00e9s \u00f6sszesen"
+            },
+            "ess_power_current": {
+                "name": "Akkumul\u00e1tor teljes\u00edtm\u00e9ny"
+            },
+            "ess_state": {
+                "name": "Akkumul\u00e1tor \u00e1llapota",
+                "state": {
+                    "charge": "T\u00f6lt\u00e9s",
+                    "discharge": "Kis\u00fct\u00e9s",
+                    "standby": "K\u00e9szenl\u00e9tben"
+                }
+            },
+            "gas_consumption_fuelcell_this_month": {
+                "name": "\u00dczemanyagcella g\u00e1zfogyaszt\u00e1s ebben a h\u00f3napban"
+            },
+            "gas_consumption_fuelcell_this_week": {
+                "name": "\u00dczemanyagcella g\u00e1zfogyaszt\u00e1s ezen a h\u00e9ten"
+            },
+            "gas_consumption_fuelcell_this_year": {
+                "name": "\u00dczemanyagcella g\u00e1zfogyaszt\u00e1s ebben az \u00e9vben"
+            },
+            "gas_consumption_fuelcell_today": {
+                "name": "\u00dczemanyagcella g\u00e1zfogyaszt\u00e1s ma"
+            },
+            "gas_consumption_heating_this_month": {
+                "name": "F\u0171t\u00e9si g\u00e1zfogyaszt\u00e1s ebben a h\u00f3napban"
+            },
+            "gas_consumption_heating_this_week": {
+                "name": "F\u0171t\u00e9si g\u00e1zfogyaszt\u00e1s ezen a h\u00e9ten"
+            },
+            "gas_consumption_heating_this_year": {
+                "name": "F\u0171t\u00e9si g\u00e1zfogyaszt\u00e1s ebben az \u00e9vben"
+            },
+            "gas_consumption_heating_today": {
+                "name": "F\u0171t\u00e9si g\u00e1zfogyaszt\u00e1s ma"
+            },
+            "gas_consumption_total_this_month": {
+                "name": "G\u00e1zfogyaszt\u00e1s ebben a h\u00f3napban"
+            },
+            "gas_consumption_total_this_week": {
+                "name": "G\u00e1zfogyaszt\u00e1s ezen a h\u00e9ten"
+            },
+            "gas_consumption_total_this_year": {
+                "name": "G\u00e1zfogyaszt\u00e1s ebben az \u00e9vben"
+            },
+            "gas_consumption_total_today": {
+                "name": "G\u00e1zfogyaszt\u00e1s ma"
+            },
+            "gas_summary_consumption_heating_currentday": {
+                "name": "F\u0171t\u00e9si g\u00e1zfogyaszt\u00e1s ma"
+            },
+            "gas_summary_consumption_heating_currentmonth": {
+                "name": "F\u0171t\u00e9si g\u00e1zfogyaszt\u00e1s ebben a h\u00f3napban"
+            },
+            "gas_summary_consumption_heating_currentyear": {
+                "name": "F\u0171t\u00e9si g\u00e1zfogyaszt\u00e1s ebben az \u00e9vben"
+            },
+            "gas_summary_consumption_heating_lastsevendays": {
+                "name": "F\u0171t\u00e9si g\u00e1zfogyaszt\u00e1s az elm\u00falt h\u00e9t napban"
+            },
+            "hotwater_gas_consumption_heating_this_month": {
+                "name": "HMV g\u00e1zfogyaszt\u00e1s ebben a h\u00f3napban"
+            },
+            "hotwater_gas_consumption_heating_this_week": {
+                "name": "HMV g\u00e1zfogyaszt\u00e1s ezen a h\u00e9ten"
+            },
+            "hotwater_gas_consumption_heating_this_year": {
+                "name": "HMV g\u00e1zfogyaszt\u00e1s ebben az \u00e9vben"
+            },
+            "hotwater_gas_consumption_today": {
+                "name": "HMV g\u00e1zfogyaszt\u00e1s ma"
+            },
+            "hotwater_gas_summary_consumption_heating_currentday": {
+                "name": "HMV g\u00e1zfogyaszt\u00e1s ma"
+            },
+            "hotwater_gas_summary_consumption_heating_currentmonth": {
+                "name": "HMV g\u00e1zfogyaszt\u00e1s ebben a h\u00f3napban"
+            },
+            "hotwater_gas_summary_consumption_heating_currentyear": {
+                "name": "HMV g\u00e1zfogyaszt\u00e1s ebben az \u00e9vben"
+            },
+            "hotwater_gas_summary_consumption_heating_lastsevendays": {
+                "name": "HMV g\u00e1zfogyaszt\u00e1s az elm\u00falt h\u00e9t napban"
+            },
+            "hotwater_max_temperature": {
+                "name": "HMV max h\u0151m\u00e9rs\u00e9klet"
+            },
+            "hotwater_min_temperature": {
+                "name": "HMV min h\u0151m\u00e9rs\u00e9klet"
+            },
+            "hotwater_out_temperature": {
+                "name": "HMV kimen\u0151 h\u0151m\u00e9rs\u00e9klet"
+            },
+            "outside_temperature": {
+                "name": "K\u00fcls\u0151 h\u0151m\u00e9rs\u00e9klet"
+            },
+            "pcc_current_power_exchange": {
+                "name": "H\u00e1l\u00f3zati \u00e1ramcsere"
+            },
+            "pcc_energy_consumption": {
+                "name": "Energia import a h\u00e1l\u00f3zatb\u00f3l"
+            },
+            "pcc_energy_feed_in": {
+                "name": "Energia export a h\u00e1l\u00f3zatba"
+            },
+            "pcc_transfer_power_exchange": {
+                "name": "H\u00e1l\u00f3zati energia\u00e1tvitel"
+            },
+            "photovoltaic_energy_production_this_month": {
+                "name": "Napenergia-termel\u00e9s ebben a h\u00f3napban"
+            },
+            "photovoltaic_energy_production_this_week": {
+                "name": "Napenergia-termel\u00e9s ezen a h\u00e9ten"
+            },
+            "photovoltaic_energy_production_this_year": {
+                "name": "Napenergia termel\u00e9s ebben az \u00e9vben"
+            },
+            "photovoltaic_energy_production_today": {
+                "name": "Napenergia-termel\u00e9s ma"
+            },
+            "photovoltaic_energy_production_total": {
+                "name": "Napenergia termel\u00e9s \u00f6sszesen"
+            },
+            "photovoltaic_power_production_current": {
+                "name": "Napenergia"
+            },
+            "photovoltaic_status": {
+                "name": "Napenergia \u00e1llapot",
+                "state": {
+                    "production": "Termel\u00e9s",
+                    "ready": "K\u00e9szenl\u00e9tben"
+                }
+            },
+            "power_consumption_this_month": {
+                "name": "Energiafogyaszt\u00e1s ebben a h\u00f3napban"
+            },
+            "power_consumption_this_week": {
+                "name": "Energiafogyaszt\u00e1s ezen a h\u00e9ten"
+            },
+            "power_consumption_this_year": {
+                "name": "Energiafogyaszt\u00e1s ebben az \u00e9vben"
+            },
+            "power_consumption_today": {
+                "name": "Energiafogyaszt\u00e1s ma"
+            },
+            "power_production_current": {
+                "name": "\u00c1ramtermel\u00e9s jelenleg"
+            },
+            "power_production_this_month": {
+                "name": "Energiatermel\u00e9s ebben a h\u00f3napban"
+            },
+            "power_production_this_week": {
+                "name": "Energiatermel\u00e9s ezen a h\u00e9ten"
+            },
+            "power_production_this_year": {
+                "name": "Energiatermel\u00e9s ebben az \u00e9vben"
+            },
+            "power_production_today": {
+                "name": "Energiatermel\u00e9s ma"
+            },
+            "primary_circuit_return_temperature": {
+                "name": "Els\u0151dleges k\u00f6r visszat\u00e9r\u0151 h\u0151m\u00e9rs\u00e9klete"
+            },
+            "primary_circuit_supply_temperature": {
+                "name": "Els\u0151dleges k\u00f6r el\u0151remen\u0151 h\u0151m\u00e9rs\u00e9klete"
+            },
+            "return_temperature": {
+                "name": "Visszat\u00e9r\u0151 h\u0151m\u00e9rs\u00e9klet"
+            },
+            "secondary_circuit_return_temperature": {
+                "name": "M\u00e1sodlagos k\u00f6r visszat\u00e9r\u0151 h\u0151m\u00e9rs\u00e9klete"
+            },
+            "secondary_circuit_supply_temperature": {
+                "name": "M\u00e1sodlagos k\u00f6r el\u0151remen\u0151 h\u0151m\u00e9rs\u00e9klete"
+            },
+            "solar_power_production_this_month": {
+                "name": "Napenergia-termel\u00e9s ebben a h\u00f3napban"
+            },
+            "solar_power_production_this_week": {
+                "name": "Napenergia-termel\u00e9s ezen a h\u00e9ten"
+            },
+            "solar_power_production_this_year": {
+                "name": "Napenergia termel\u00e9s ebben az \u00e9vben"
+            },
+            "solar_power_production_today": {
+                "name": "Napenergia-termel\u00e9s ma"
+            },
+            "solar_storage_temperature": {
+                "name": "Napenergia t\u00e1rol\u00f3 h\u0151m\u00e9rs\u00e9klet"
+            },
+            "supply_temperature": {
+                "name": "Ell\u00e1t\u00e1si h\u0151m\u00e9rs\u00e9klet"
+            },
+            "volumetric_flow": {
+                "name": "T\u00e9rfogat\u00e1ram"
+            }
+        },
+        "water_heater": {
+            "domestic_hot_water": {
+                "name": "H\u00e1ztart\u00e1si melegv\u00edz"
+            },
+            "water": {
+                "name": "V\u00edz"
+            }
+        }
+    },
+    "exceptions": {
+        "program_not_activated": {
+            "message": "Nem lehet aktiv\u00e1lni a ViCare programot {program}"
+        },
+        "program_not_deactivated": {
+            "message": "Nem lehet deaktiv\u00e1lni a ViCare programot {program}"
+        },
+        "program_unknown": {
+            "message": "A(z) {preset} el\u0151be\u00e1ll\u00edt\u00e1s nem ford\u00edthat\u00f3 \u00e9rv\u00e9nyes ViCare programra"
+        }
+    },
+    "services": {
+        "set_vicare_mode": {
+            "description": "\u00c1ll\u00edtsa be a ViCare m\u00f3dot.",
+            "fields": {
+                "vicare_mode": {
+                    "description": "ViCare m\u00f3d.",
+                    "name": "ViCare m\u00f3d"
+                }
+            },
+            "name": "ViCare m\u00f3d be\u00e1ll\u00edt\u00e1sa"
+        }
+    }
+}

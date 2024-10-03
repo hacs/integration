@@ -1,0 +1,51 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "Sirene",
+            "state": {
+                "off": "Uit",
+                "on": "Aan"
+            },
+            "state_attributes": {
+                "available_tones": {
+                    "name": "Beschikbare tonen"
+                }
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "Platform {platform} van de {domain} integratie heeft geen platformondersteuning.\n\nVerwijder dit uit je configuratie en herstart Home Assistant om dit issue op te lossen.",
+            "title": "Platformondersteuning is niet ondersteund"
+        }
+    },
+    "services": {
+        "toggle": {
+            "description": "Schakelt de sirene om.",
+            "name": "Omschakelen"
+        },
+        "turn_off": {
+            "description": "Schakelt de sirene uit.",
+            "name": "Uitzetten"
+        },
+        "turn_on": {
+            "description": "Schakelt de sirene in.",
+            "fields": {
+                "duration": {
+                    "description": "Aantal seconden dat een geluid wordt afgespeeld. Vereist ondersteuning van de integratie.",
+                    "name": "Duur"
+                },
+                "tone": {
+                    "description": "De toon om uit te zenden. Wanneer de eigenschap `available_tones` een kaart is, kan zowel de sleutel als de waarde worden gebruikt. Moet worden ondersteund door de integratie.",
+                    "name": "Toon"
+                },
+                "volume_level": {
+                    "description": "Het volume. 0 is onhoorbaar, 1 is het maximale volume. Moet worden ondersteund door de integratie.",
+                    "name": "Volume"
+                }
+            },
+            "name": "Aanzetten"
+        }
+    },
+    "title": "Sirene"
+}

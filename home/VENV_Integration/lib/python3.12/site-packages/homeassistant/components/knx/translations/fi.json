@@ -1,0 +1,426 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Palvelu on jo m\u00e4\u00e4ritetty",
+            "single_instance_allowed": "Jo m\u00e4\u00e4ritetty. Vain yksi konfiguraatio mahdollinen."
+        },
+        "error": {
+            "cannot_connect": "Yhteyden muodostaminen ep\u00e4onnistui",
+            "invalid_backbone_key": "V\u00e4\u00e4r\u00e4 selk\u00e4rangan avain. Odotetaan 32 heksadesimaalilukua.",
+            "invalid_individual_address": "Arvo ei vastaa KNX-kohtaisen osoitteen mallia.\n'area.line.device'",
+            "invalid_ip_address": "Virheellinen IPv4-osoite.",
+            "keyfile_invalid_signature": "Salasana tiedoston `.knxkeys` salauksen purkamiseen on v\u00e4\u00e4r\u00e4.",
+            "keyfile_no_backbone_key": "Tiedosto `.knxkeys` ei sis\u00e4ll\u00e4 turvallista reitityst\u00e4 varten tarvittavaa runkoavainta.",
+            "keyfile_no_tunnel_for_host": ".knxkeys-tiedosto ei sis\u00e4ll\u00e4 palvelimen {host} tunnistetietoja.",
+            "keyfile_not_found": "M\u00e4\u00e4ritetty\u00e4 `.knxkeys`-tiedostoa ei l\u00f6ytynyt polusta config/.storage/knx/",
+            "no_router_discovered": "Verkossa ei havaittu KNXnet/IP-reititint\u00e4.",
+            "no_tunnel_discovered": "KNX-tunnelointipalvelinta ei l\u00f6ytynyt verkostasi.",
+            "unsupported_tunnel_type": "Yhdysk\u00e4yt\u00e4v\u00e4 ei tue valittua tunnelityyppi\u00e4."
+        },
+        "step": {
+            "connection_type": {
+                "data": {
+                    "connection_type": "KNX-yhteyden tyyppi"
+                },
+                "description": "Sy\u00f6t\u00e4 KNX-yhteydelle k\u00e4ytett\u00e4v\u00e4 yhteystyyppi. \n AUTOMAATTINEN - Integrointi huolehtii yhteyden muodostamisesta KNX-v\u00e4yl\u00e4\u00e4n suorittamalla yhdysk\u00e4yt\u00e4v\u00e4n skannauksen. \n TUNNELOINTI - Integraatio muodostaa yhteyden KNX-v\u00e4yl\u00e4\u00e4si tunneloinnin kautta. \n ROUTING - Integraatio muodostaa yhteyden KNX-v\u00e4yl\u00e4\u00e4si reitityksen kautta.",
+                "title": "KNX-yhteys"
+            },
+            "knxkeys_tunnel_select": {
+                "data": {
+                    "user_id": "`Automaattinen` k\u00e4ytt\u00e4\u00e4 ensimm\u00e4ist\u00e4 vapaata tunnelin p\u00e4\u00e4tepistett\u00e4."
+                },
+                "description": "Valitse yhteyden muodostamiseen k\u00e4ytett\u00e4v\u00e4 tunneli.",
+                "title": "Tunnelin p\u00e4\u00e4tepiste"
+            },
+            "manual_tunnel": {
+                "data": {
+                    "host": "Palvelin",
+                    "local_ip": "Paikallinen IP-liit\u00e4nt\u00e4",
+                    "port": "Portti",
+                    "route_back": "Reitti takaisin / NAT-tila",
+                    "tunneling_type": "KNX tunnelointityyppi"
+                },
+                "data_description": {
+                    "host": "KNX/IP-tunnelointilaitteen IP-osoite tai is\u00e4nt\u00e4nimi.",
+                    "local_ip": "Paikallinen IP-osoite tai liit\u00e4nn\u00e4n nimi, jota k\u00e4ytet\u00e4\u00e4n Home Assistant yhteyden muodostamiseen. J\u00e4t\u00e4 tyhj\u00e4ksi, jos haluat k\u00e4ytt\u00e4\u00e4 automaattista l\u00f6yt\u00e4mist\u00e4.",
+                    "port": "KNX/IP-tunnelointilaitteen portti.",
+                    "route_back": "Ota k\u00e4ytt\u00f6\u00f6n, jos KNXnet/IP-tunnelointipalvelin on NAT:n takana. Koskee vain UDP-yhteyksi\u00e4."
+                },
+                "description": "Sy\u00f6t\u00e4 tunnelointilaitteesi yhteystiedot.",
+                "title": "Tunnelin asetukset"
+            },
+            "routing": {
+                "data": {
+                    "individual_address": "Yksil\u00f6llinen osoite",
+                    "local_ip": "Paikallinen IP-liit\u00e4nt\u00e4",
+                    "multicast_group": "Multicast-ryhm\u00e4",
+                    "multicast_port": "Multicast-portti",
+                    "routing_secure": "K\u00e4yt\u00e4 KNX IP Secure -j\u00e4rjestelm\u00e4\u00e4"
+                },
+                "data_description": {
+                    "individual_address": "KNX-osoite, jota Home Assistant k\u00e4ytt\u00e4\u00e4, esim. `0.0.4`",
+                    "local_ip": "Paikallinen IP-osoite tai liit\u00e4nn\u00e4n nimi, jota k\u00e4ytet\u00e4\u00e4n Home Assistant yhteyden muodostamiseen. J\u00e4t\u00e4 tyhj\u00e4ksi, jos haluat k\u00e4ytt\u00e4\u00e4 automaattista l\u00f6yt\u00e4mist\u00e4."
+                },
+                "description": "M\u00e4\u00e4rit\u00e4 reititysasetukset.",
+                "title": "Reititys"
+            },
+            "secure_key_source": {
+                "description": "Valitse, miten haluat m\u00e4\u00e4ritt\u00e4\u00e4 KNX/IP Securen.",
+                "menu_options": {
+                    "secure_knxkeys": "K\u00e4yt\u00e4 suojattuja IP-avaimia sis\u00e4lt\u00e4v\u00e4\u00e4 '.knxkeys' -tiedostoa",
+                    "secure_routing_manual": "IP-suojatun runkoverkon avaimen m\u00e4\u00e4ritt\u00e4minen manuaalisesti",
+                    "secure_tunnel_manual": "M\u00e4\u00e4rit\u00e4 IP-suojatut tunnistetiedot manuaalisesti"
+                },
+                "title": "KNX IP-suojattu"
+            },
+            "secure_key_source_menu_routing": {
+                "description": "Valitse, miten haluat m\u00e4\u00e4ritt\u00e4\u00e4 KNX/IP Securen.",
+                "menu_options": {
+                    "secure_knxkeys": "K\u00e4yt\u00e4 suojattuja IP-avaimia sis\u00e4lt\u00e4v\u00e4\u00e4 '.knxkeys' -tiedostoa",
+                    "secure_routing_manual": "IP-suojatun runkoverkon avaimen m\u00e4\u00e4ritt\u00e4minen manuaalisesti"
+                },
+                "title": "KNX IP-suojattu"
+            },
+            "secure_key_source_menu_tunnel": {
+                "description": "Valitse, miten haluat m\u00e4\u00e4ritt\u00e4\u00e4 KNX/IP Securen.",
+                "menu_options": {
+                    "secure_knxkeys": "K\u00e4yt\u00e4 suojattuja IP-avaimia sis\u00e4lt\u00e4v\u00e4\u00e4 '.knxkeys' -tiedostoa",
+                    "secure_tunnel_manual": "M\u00e4\u00e4rit\u00e4 IP-suojatut tunnistetiedot manuaalisesti"
+                },
+                "title": "KNX IP-suojattu"
+            },
+            "secure_knxkeys": {
+                "data": {
+                    "knxkeys_file": "Avaimenper\u00e4n kansio",
+                    "knxkeys_password": "Salasana tiedoston `.knxkeys` salauksen purkamiseen."
+                },
+                "data_description": {
+                    "knxkeys_password": "T\u00e4m\u00e4 asetettiin, kun tiedostoa vietiin ETS:st\u00e4."
+                },
+                "description": "Valitse tuotava `.knxkeys`-tiedosto.",
+                "title": "Tuo KNX-avaimenper\u00e4"
+            },
+            "secure_routing_manual": {
+                "data": {
+                    "backbone_key": "Backbone-avain",
+                    "sync_latency_tolerance": "Verkon viiveen sietokyky"
+                },
+                "data_description": {
+                    "backbone_key": "Voidaan n\u00e4hd\u00e4 ETS-hankkeen turvallisuusraportista. Esim. '00112233445566778899AABBCCDDEEFF'",
+                    "sync_latency_tolerance": "Oletusarvo on 1000."
+                },
+                "description": "Anna suojatut IP-osoitteesi tiedot.",
+                "title": "Turvallinen reititys"
+            },
+            "secure_tunnel_manual": {
+                "data": {
+                    "device_authentication": "Laitteen todennussalasana",
+                    "user_id": "K\u00e4ytt\u00e4j\u00e4tunnus",
+                    "user_password": "K\u00e4ytt\u00e4j\u00e4n salasana"
+                },
+                "data_description": {
+                    "device_authentication": "T\u00e4m\u00e4 asetetaan ETS:n k\u00e4ytt\u00f6liittym\u00e4n IP-paneelissa.",
+                    "user_id": "T\u00e4m\u00e4 on usein tunneli numero +1. Tunnelilla 2 olisi siis k\u00e4ytt\u00e4j\u00e4tunnus 3.",
+                    "user_password": "ETS:n tunnelin Ominaisuudet-paneelissa m\u00e4\u00e4ritetyn tunneliyhteyden salasana."
+                },
+                "description": "Anna suojatut IP-osoitteesi tiedot.",
+                "title": "Turvallinen tunnelointi"
+            },
+            "tunnel": {
+                "data": {
+                    "gateway": "KNX-tunneliyhteys"
+                },
+                "description": "Valitse yhdysk\u00e4yt\u00e4v\u00e4 luettelosta.",
+                "title": "Tunneli"
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "connected_since": {
+                "name": "Yhteys muodostettu"
+            },
+            "connection_type": {
+                "name": "Yhteystyyppi"
+            },
+            "individual_address": {
+                "name": "Yksil\u00f6llinen osoite"
+            },
+            "telegram_count": {
+                "name": "S\u00e4hkeet"
+            },
+            "telegrams_incoming": {
+                "name": "Saapuvat s\u00e4hkeet"
+            },
+            "telegrams_incoming_error": {
+                "name": "Saapuvan s\u00e4hkeen virheet"
+            },
+            "telegrams_outgoing": {
+                "name": "L\u00e4htev\u00e4t s\u00e4hkeet"
+            },
+            "telegrams_outgoing_error": {
+                "name": "L\u00e4htev\u00e4n s\u00e4hkeen virheet"
+            }
+        }
+    },
+    "issues": {
+        "migrate_notify": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "KNX `notify`-palvelu on siirretty. Uudet `notify`-oliot ovat nyt k\u00e4ytett\u00e4viss\u00e4.\n\nP\u00e4ivit\u00e4 kaikki automaatiot k\u00e4ytt\u00e4m\u00e4\u00e4n n\u00e4iden uusien olioiden tarjoamaa uutta `notify.send_message`-ominaisuutta. Kun t\u00e4m\u00e4 on tehty, korjaa t\u00e4m\u00e4 ongelma ja k\u00e4ynnist\u00e4 Home Assistant uudelleen.",
+                        "title": "Vanhan KNX-ilmoituspalvelun poistaminen k\u00e4yt\u00f6st\u00e4"
+                    }
+                }
+            },
+            "title": "KNX-ilmoituspalvelun siirtyminen"
+        }
+    },
+    "options": {
+        "error": {
+            "cannot_connect": "Yhteyden muodostaminen ep\u00e4onnistui",
+            "invalid_backbone_key": "V\u00e4\u00e4r\u00e4 selk\u00e4rangan avain. Odotetaan 32 heksadesimaalilukua.",
+            "invalid_individual_address": "Arvo ei vastaa KNX-kohtaisen osoitteen mallia.\n'area.line.device'",
+            "invalid_ip_address": "Virheellinen IPv4-osoite.",
+            "keyfile_invalid_signature": "Salasana tiedoston `.knxkeys` salauksen purkamiseen on v\u00e4\u00e4r\u00e4.",
+            "keyfile_no_backbone_key": "Tiedosto `.knxkeys` ei sis\u00e4ll\u00e4 turvallista reitityst\u00e4 varten tarvittavaa runkoavainta.",
+            "keyfile_no_tunnel_for_host": ".knxkeys-tiedosto ei sis\u00e4ll\u00e4 palvelimen {host} tunnistetietoja.",
+            "keyfile_not_found": "M\u00e4\u00e4ritetty\u00e4 `.knxkeys`-tiedostoa ei l\u00f6ytynyt polusta config/.storage/knx/",
+            "no_router_discovered": "Verkossa ei havaittu KNXnet/IP-reititint\u00e4.",
+            "no_tunnel_discovered": "KNX-tunnelointipalvelinta ei l\u00f6ytynyt verkostasi.",
+            "unsupported_tunnel_type": "Yhdysk\u00e4yt\u00e4v\u00e4 ei tue valittua tunnelityyppi\u00e4."
+        },
+        "step": {
+            "communication_settings": {
+                "data": {
+                    "rate_limit": "Tilan rajoitus",
+                    "state_updater": "Tilan p\u00e4ivitt\u00e4j\u00e4",
+                    "telegram_log_size": "S\u00e4hkehistorian rajoitus"
+                },
+                "data_description": {
+                    "rate_limit": "L\u00e4htevien s\u00e4hkeiden enimm\u00e4ism\u00e4\u00e4r\u00e4 sekunnissa.\n`0` poistaa rajoituksen k\u00e4yt\u00f6st\u00e4. Suositellaan: 0 tai 20-40",
+                    "state_updater": "Aseta oletusarvo tilojen lukemiselle KNX-v\u00e4yl\u00e4st\u00e4. Kun t\u00e4m\u00e4 asetus on poistettu k\u00e4yt\u00f6st\u00e4, Home Assistant ei hae aktiivisesti yksik\u00f6n tiloja KNX-v\u00e4yl\u00e4st\u00e4. Voidaan ohittaa `sync_state`-olio-optioilla.",
+                    "telegram_log_size": "KNX -paneeliryhm\u00e4monitorin muistissa pidett\u00e4v\u00e4t s\u00e4hkeet. Enimm\u00e4ism\u00e4\u00e4r\u00e4: {telegram_log_size_max}"
+                },
+                "title": "Kommunikaatioasetukset"
+            },
+            "connection_type": {
+                "data": {
+                    "connection_type": "KNX-yhteyden tyyppi"
+                },
+                "description": "Sy\u00f6t\u00e4 KNX-yhteydelle k\u00e4ytett\u00e4v\u00e4 yhteystyyppi. \n AUTOMAATTINEN - Integrointi huolehtii yhteyden muodostamisesta KNX-v\u00e4yl\u00e4\u00e4n suorittamalla yhdysk\u00e4yt\u00e4v\u00e4n skannauksen. \n TUNNELOINTI - Integraatio muodostaa yhteyden KNX-v\u00e4yl\u00e4\u00e4si tunneloinnin kautta. \n ROUTING - Integraatio muodostaa yhteyden KNX-v\u00e4yl\u00e4\u00e4si reitityksen kautta.",
+                "title": "KNX-yhteys"
+            },
+            "init": {
+                "menu_options": {
+                    "communication_settings": "Kommunikaatioasetukset",
+                    "connection_type": "M\u00e4\u00e4rit\u00e4 KNX -liittym\u00e4",
+                    "secure_knxkeys": "Tuo '.knxkeys' -tiedosto"
+                },
+                "title": "KNX-asetukset"
+            },
+            "knxkeys_tunnel_select": {
+                "data": {
+                    "user_id": "`Automaattinen` k\u00e4ytt\u00e4\u00e4 ensimm\u00e4ist\u00e4 vapaata tunnelin p\u00e4\u00e4tepistett\u00e4."
+                },
+                "description": "Valitse yhteyden muodostamiseen k\u00e4ytett\u00e4v\u00e4 tunneli.",
+                "title": "Tunnelin p\u00e4\u00e4tepiste"
+            },
+            "manual_tunnel": {
+                "data": {
+                    "host": "Palvelin",
+                    "local_ip": "Paikallinen IP-liit\u00e4nt\u00e4",
+                    "port": "Portti",
+                    "route_back": "Reitti takaisin / NAT-tila",
+                    "tunneling_type": "KNX tunnelointityyppi"
+                },
+                "data_description": {
+                    "host": "KNX/IP-tunnelointilaitteen IP-osoite tai is\u00e4nt\u00e4nimi.",
+                    "local_ip": "Paikallinen IP-osoite tai liit\u00e4nn\u00e4n nimi, jota k\u00e4ytet\u00e4\u00e4n Home Assistant yhteyden muodostamiseen. J\u00e4t\u00e4 tyhj\u00e4ksi, jos haluat k\u00e4ytt\u00e4\u00e4 automaattista l\u00f6yt\u00e4mist\u00e4.",
+                    "port": "KNX/IP-tunnelointilaitteen portti.",
+                    "route_back": "Ota k\u00e4ytt\u00f6\u00f6n, jos KNXnet/IP-tunnelointipalvelin on NAT:n takana. Koskee vain UDP-yhteyksi\u00e4."
+                },
+                "description": "Sy\u00f6t\u00e4 tunnelointilaitteesi yhteystiedot.",
+                "title": "Tunnelin asetukset"
+            },
+            "options_init": {
+                "menu_options": {
+                    "communication_settings": "Kommunikaatioasetukset",
+                    "connection_type": "KNX-liit\u00e4nn\u00e4n m\u00e4\u00e4ritt\u00e4minen",
+                    "secure_knxkeys": "Tuo '.knxkeys' -tiedosto"
+                },
+                "title": "KNX-asetukset"
+            },
+            "routing": {
+                "data": {
+                    "individual_address": "Yksil\u00f6llinen osoite",
+                    "local_ip": "Paikallinen IP-liit\u00e4nt\u00e4",
+                    "multicast_group": "Multicast-ryhm\u00e4",
+                    "multicast_port": "Multicast-portti",
+                    "routing_secure": "K\u00e4yt\u00e4 KNX IP Secure -j\u00e4rjestelm\u00e4\u00e4"
+                },
+                "data_description": {
+                    "individual_address": "KNX-osoite, jota Home Assistant k\u00e4ytt\u00e4\u00e4, esim. `0.0.4`",
+                    "local_ip": "Paikallinen IP-osoite tai liit\u00e4nn\u00e4n nimi, jota k\u00e4ytet\u00e4\u00e4n Home Assistant yhteyden muodostamiseen. J\u00e4t\u00e4 tyhj\u00e4ksi, jos haluat k\u00e4ytt\u00e4\u00e4 automaattista l\u00f6yt\u00e4mist\u00e4."
+                },
+                "description": "M\u00e4\u00e4rit\u00e4 reititysasetukset.",
+                "title": "Reititys"
+            },
+            "secure_key_source": {
+                "description": "Valitse, miten haluat m\u00e4\u00e4ritt\u00e4\u00e4 KNX/IP Securen.",
+                "menu_options": {
+                    "secure_knxkeys": "K\u00e4yt\u00e4 suojattuja IP-avaimia sis\u00e4lt\u00e4v\u00e4\u00e4 '.knxkeys' -tiedostoa",
+                    "secure_routing_manual": "IP-suojatun runkoverkon avaimen m\u00e4\u00e4ritt\u00e4minen manuaalisesti",
+                    "secure_tunnel_manual": "M\u00e4\u00e4rit\u00e4 IP-suojatut tunnistetiedot manuaalisesti"
+                },
+                "title": "KNX IP-suojattu"
+            },
+            "secure_key_source_menu_routing": {
+                "description": "Valitse, miten haluat m\u00e4\u00e4ritt\u00e4\u00e4 KNX/IP Securen.",
+                "menu_options": {
+                    "secure_knxkeys": "K\u00e4yt\u00e4 suojattuja IP-avaimia sis\u00e4lt\u00e4v\u00e4\u00e4 '.knxkeys' -tiedostoa",
+                    "secure_routing_manual": "IP-suojatun runkoverkon avaimen m\u00e4\u00e4ritt\u00e4minen manuaalisesti"
+                },
+                "title": "KNX IP-suojattu"
+            },
+            "secure_key_source_menu_tunnel": {
+                "description": "Valitse, miten haluat m\u00e4\u00e4ritt\u00e4\u00e4 KNX/IP Securen.",
+                "menu_options": {
+                    "secure_knxkeys": "K\u00e4yt\u00e4 suojattuja IP-avaimia sis\u00e4lt\u00e4v\u00e4\u00e4 '.knxkeys' -tiedostoa",
+                    "secure_tunnel_manual": "M\u00e4\u00e4rit\u00e4 IP-suojatut tunnistetiedot manuaalisesti"
+                },
+                "title": "KNX IP-suojattu"
+            },
+            "secure_knxkeys": {
+                "data": {
+                    "knxkeys_file": "Avaimenper\u00e4n kansio",
+                    "knxkeys_password": "Salasana tiedoston `.knxkeys` salauksen purkamiseen."
+                },
+                "data_description": {
+                    "knxkeys_password": "T\u00e4m\u00e4 asetettiin, kun tiedostoa vietiin ETS:st\u00e4."
+                },
+                "description": "Valitse tuotava `.knxkeys`-tiedosto.",
+                "title": "Tuo KNX-avaimenper\u00e4"
+            },
+            "secure_routing_manual": {
+                "data": {
+                    "backbone_key": "Backbone-avain",
+                    "sync_latency_tolerance": "Verkon viiveen sietokyky"
+                },
+                "data_description": {
+                    "backbone_key": "Voidaan n\u00e4hd\u00e4 ETS-hankkeen turvallisuusraportista. Esim. '00112233445566778899AABBCCDDEEFF'",
+                    "sync_latency_tolerance": "Oletusarvo on 1000."
+                },
+                "description": "Anna suojatut IP-osoitteesi tiedot.",
+                "title": "Turvallinen reititys"
+            },
+            "secure_tunnel_manual": {
+                "data": {
+                    "device_authentication": "Laitteen todennussalasana",
+                    "user_id": "K\u00e4ytt\u00e4j\u00e4tunnus",
+                    "user_password": "K\u00e4ytt\u00e4j\u00e4n salasana"
+                },
+                "data_description": {
+                    "device_authentication": "T\u00e4m\u00e4 asetetaan ETS:n k\u00e4ytt\u00f6liittym\u00e4n IP-paneelissa.",
+                    "user_id": "T\u00e4m\u00e4 on usein tunneli numero +1. Tunnelilla 2 olisi siis k\u00e4ytt\u00e4j\u00e4tunnus 3.",
+                    "user_password": "ETS:n tunnelin Ominaisuudet-paneelissa m\u00e4\u00e4ritetyn tunneliyhteyden salasana."
+                },
+                "description": "Anna suojatut IP-osoitteesi tiedot.",
+                "title": "Turvallinen tunnelointi"
+            },
+            "tunnel": {
+                "data": {
+                    "gateway": "KNX-tunneliyhteys"
+                },
+                "description": "Valitse yhdysk\u00e4yt\u00e4v\u00e4 luettelosta.",
+                "title": "Tunneli"
+            }
+        }
+    },
+    "services": {
+        "event_register": {
+            "description": "Lis\u00e4\u00e4 tai poista ryhm\u00e4osoitteita knx_event-suodattimeen knx_eventin k\u00e4ynnist\u00e4mist\u00e4 varten. Vain t\u00e4ll\u00e4 palvelulla lis\u00e4tyt osoitteet voidaan poistaa.",
+            "fields": {
+                "address": {
+                    "description": "Ryhm\u00e4osoite(t), jotka lis\u00e4t\u00e4\u00e4n tai poistetaan. Luettelot ovat sallittuja.",
+                    "name": "Ryhm\u00e4n osoite"
+                },
+                "remove": {
+                    "description": "Jos `True`, ryhm\u00e4osoite(t) poistetaan.",
+                    "name": "Poista tapahtuman rekister\u00f6inti"
+                },
+                "type": {
+                    "description": "Jos asetettu, hy\u00f6tykuorma puretaan tapahtumatiedon `value`-avaimessa annettuna DPT:n\u00e4. KNX-anturityypit ovat kelvollisia arvoja (katso https://www.home-assistant.io/integrations/knx/#value-types).",
+                    "name": "Arvon tyyppi"
+                }
+            },
+            "name": "Rekister\u00f6i knx_event"
+        },
+        "exposure_register": {
+            "description": "Lis\u00e4\u00e4 tai poistaa KNX-v\u00e4yl\u00e4\u00e4n altistuksia. Vain t\u00e4ll\u00e4 palvelulla lis\u00e4tyt altisteet voidaan poistaa.",
+            "fields": {
+                "address": {
+                    "description": "Ryhm\u00e4n osoite, johon tila- tai attribuuttip\u00e4ivitykset l\u00e4hetet\u00e4\u00e4n. GroupValueRead-pyynt\u00f6ihin vastataan. Osoitetta kohti voidaan rekister\u00f6id\u00e4 vain yksi altistus.",
+                    "name": "Ryhm\u00e4n osoite"
+                },
+                "attribute": {
+                    "description": "KNX-v\u00e4yl\u00e4\u00e4n l\u00e4hetett\u00e4v\u00e4n entiteetin attribuutti. Jos sit\u00e4 ei ole asetettu, tila l\u00e4hetet\u00e4\u00e4n. Esim. valon tila on joko \"p\u00e4\u00e4ll\u00e4\" tai \"pois p\u00e4\u00e4lt\u00e4\" - attribuutin avulla voit ilmoittaa sen \"kirkkauden\".",
+                    "name": "Kohde attribuutti"
+                },
+                "default": {
+                    "description": "Oletusarvo, joka l\u00e4hetet\u00e4\u00e4n v\u00e4yl\u00e4\u00e4n, jos tilan tai ominaisuuden arvo on None. Esim. valolla, jonka tila on \"off\", ei ole kirkkausattribuuttia, joten voidaan k\u00e4ytt\u00e4\u00e4 oletusarvoa 0. Jos arvoa ei ole asetettu (tai None), v\u00e4yl\u00e4\u00e4n ei l\u00e4hetet\u00e4 mit\u00e4\u00e4n arvoa, ja osoitteeseen l\u00e4hetett\u00e4v\u00e4 GroupReadRequest-pyynt\u00f6 palauttaisi viimeisimm\u00e4n tunnetun arvon.",
+                    "name": "Oletusarvo"
+                },
+                "entity_id": {
+                    "description": "Kohteen tunnus, jonka tila tai attribuutti paljastetaan.",
+                    "name": "Kohde"
+                },
+                "remove": {
+                    "description": "Jos `True`, paljastus poistetaan. Vain `address` tarvitaan poistamiseen.",
+                    "name": "Poista paljastus"
+                },
+                "type": {
+                    "description": "Telegramit koodataan DPT:n mukaisesti. 'binary' ja kaikki KNX-anturityypit ovat kelvollisia arvoja (katso https://www.home-assistant.io/integrations/knx/#value-types).",
+                    "name": "Arvon tyyppi"
+                }
+            },
+            "name": "Paljasta KNX-v\u00e4yl\u00e4lle"
+        },
+        "read": {
+            "description": "L\u00e4het\u00e4 GroupValueRead-pyynt\u00f6j\u00e4 KNX-v\u00e4yl\u00e4\u00e4n. Vastausta voidaan k\u00e4ytt\u00e4\u00e4 `knx_event`:st\u00e4 ja se k\u00e4sitell\u00e4\u00e4n KNX-kokonaisuuksissa.",
+            "fields": {
+                "address": {
+                    "description": "Ryhm\u00e4osoitteet, joihin lukupyynt\u00f6 l\u00e4hetet\u00e4\u00e4n. Luettelot lukevat useita ryhmien osoitteita.",
+                    "name": "Ryhm\u00e4n osoite"
+                }
+            },
+            "name": "Lukee KNX-v\u00e4yl\u00e4st\u00e4"
+        },
+        "reload": {
+            "description": "Lataa KNX-integraation uudelleen.",
+            "name": "Uudelleenlataa"
+        },
+        "send": {
+            "description": "L\u00e4hett\u00e4\u00e4 mielivaltaisia tietoja suoraan KNX-v\u00e4yl\u00e4\u00e4n.",
+            "fields": {
+                "address": {
+                    "description": "Ryhm\u00e4n osoite (osoitteet), johon kirjoittaa. Luettelot l\u00e4hetet\u00e4\u00e4n useisiin ryhm\u00e4osoitteisiin per\u00e4kk\u00e4in.",
+                    "name": "Ryhm\u00e4n osoite"
+                },
+                "payload": {
+                    "description": "V\u00e4yl\u00e4\u00e4n l\u00e4hetett\u00e4v\u00e4 hy\u00f6tykuorma. Kokonaislukuja k\u00e4sitell\u00e4\u00e4n DPT 1/2/3 -hy\u00f6tykuormina. Jos DPT on yli 6 bitti\u00e4, l\u00e4hetet\u00e4\u00e4n luettelo. Kukin arvo edustaa 1 oktettia (0-255). T\u00e4ydenn\u00e4 0:lla DPT:n tavun pituuteen.",
+                    "name": "Hy\u00f6tykuorma"
+                },
+                "response": {
+                    "description": "Jos arvoksi asetetaan `True`, s\u00e4hke l\u00e4hetet\u00e4\u00e4n `GroupValueResponse` -vastauksena `GroupValueWrite` -viestin sijaan.",
+                    "name": "L\u00e4het\u00e4 vastauksena"
+                },
+                "type": {
+                    "description": "Jos asetettu, hy\u00f6tykuormaa ei l\u00e4hetet\u00e4 raakana tavuina vaan koodattuna annettuna DPT:n\u00e4. KNX-anturityypit ovat kelvollisia arvoja (katso https://www.home-assistant.io/integrations/knx/#value-types).",
+                    "name": "Arvon tyyppi"
+                }
+            },
+            "name": "L\u00e4het\u00e4 KNX-v\u00e4yl\u00e4\u00e4n"
+        }
+    }
+}

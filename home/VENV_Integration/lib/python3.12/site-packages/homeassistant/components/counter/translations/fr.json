@@ -1,0 +1,66 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "Compteur",
+            "state_attributes": {
+                "editable": {
+                    "name": "G\u00e9r\u00e9 via l'interface utilisateur",
+                    "state": {
+                        "false": "Non",
+                        "true": "Oui"
+                    }
+                },
+                "initial": {
+                    "name": "Valeur initiale"
+                },
+                "maximum": {
+                    "name": "Maximum"
+                },
+                "minimum": {
+                    "name": "Minimum"
+                },
+                "step": {
+                    "name": "Pas"
+                }
+            }
+        }
+    },
+    "issues": {
+        "deprecated_configure_service": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Le service de compteur \"counter.configure\" est en cours de suppression et son utilisation a \u00e9t\u00e9 d\u00e9tect\u00e9e. Si vous souhaitez modifier la valeur actuelle d'un compteur, utilisez plut\u00f4t le nouveau service `counter.set_value`. \n\n Veuillez supprimer ce service de vos automatisations et scripts et s\u00e9lectionner **soumettre** pour fermer ce probl\u00e8me.",
+                        "title": "Le service de configuration du compteur est en cours de suppression"
+                    }
+                }
+            },
+            "title": "Le service de configuration du compteur est en cours de suppression"
+        }
+    },
+    "services": {
+        "decrement": {
+            "description": "D\u00e9cr\u00e9mente un compteur.",
+            "name": "D\u00e9cr\u00e9menter"
+        },
+        "increment": {
+            "description": "Incr\u00e9mente un compteur.",
+            "name": "Incr\u00e9menter"
+        },
+        "reset": {
+            "description": "R\u00e9initialise un compteur.",
+            "name": "R\u00e9initialiser"
+        },
+        "set_value": {
+            "description": "D\u00e9finit la valeur du compteur.",
+            "fields": {
+                "value": {
+                    "description": "La nouvelle valeur de compteur \u00e0 laquelle l'entit\u00e9 doit \u00eatre d\u00e9finie.",
+                    "name": "Valeur"
+                }
+            },
+            "name": "D\u00e9finir"
+        }
+    },
+    "title": "Compteur"
+}

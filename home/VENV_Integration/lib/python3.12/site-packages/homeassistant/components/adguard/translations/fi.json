@@ -1,0 +1,135 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Palvelu on jo m\u00e4\u00e4ritetty",
+            "existing_instance_updated": "P\u00e4ivitetty olemassa oleva konfiguraatio."
+        },
+        "error": {
+            "cannot_connect": "Yhteyden muodostaminen ep\u00e4onnistui"
+        },
+        "step": {
+            "hassio_confirm": {
+                "description": "Haluatko m\u00e4\u00e4ritt\u00e4\u00e4 Home Assistantin muodostamaan yhteyden lis\u00e4osan tarjoamaan AdGuard Homeen: {addon}?",
+                "title": "AdGuard Home Home Assistant -lis\u00e4osan kautta"
+            },
+            "user": {
+                "data": {
+                    "host": "Palvelin",
+                    "password": "Salasana",
+                    "port": "Portti",
+                    "ssl": "K\u00e4ytt\u00e4\u00e4 SSL-varmennetta",
+                    "username": "K\u00e4ytt\u00e4j\u00e4tunnus",
+                    "verify_ssl": "Tarkista SSL-varmenne"
+                },
+                "data_description": {
+                    "host": "AdGuard Homea k\u00e4ytt\u00e4v\u00e4n laitteen is\u00e4nt\u00e4nimi tai IP-osoite."
+                },
+                "description": "M\u00e4\u00e4rit\u00e4 AdGuard Home -instanssi sallimaan valvonta ja hallinta."
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "average_processing_speed": {
+                "name": "Keskim\u00e4\u00e4r\u00e4inen k\u00e4sittelynopeus"
+            },
+            "dns_queries": {
+                "name": "DNS-kyselyt"
+            },
+            "dns_queries_blocked": {
+                "name": "DNS-kyselyit\u00e4 estetty"
+            },
+            "dns_queries_blocked_ratio": {
+                "name": "DNS-kyselyiden estosuhde"
+            },
+            "parental_control_blocked": {
+                "name": "Lapsilukko estetty"
+            },
+            "rules_count": {
+                "name": "S\u00e4\u00e4nt\u00f6jen m\u00e4\u00e4r\u00e4"
+            },
+            "safe_browsing_blocked": {
+                "name": "Turvallinen selailu estetty"
+            },
+            "safe_searches_enforced": {
+                "name": "Turvalliset haut pakotettu"
+            }
+        },
+        "switch": {
+            "filtering": {
+                "name": "Suodatus"
+            },
+            "parental": {
+                "name": "Lapsilukko"
+            },
+            "protection": {
+                "name": "Suojaus"
+            },
+            "query_log": {
+                "name": "Kyselyloki"
+            },
+            "safe_browsing": {
+                "name": "Turvallinen selailu"
+            },
+            "safe_search": {
+                "name": "Turvallinen haku"
+            }
+        }
+    },
+    "services": {
+        "add_url": {
+            "description": "Lis\u00e4\u00e4 uusi suodatintilaus AdGuard Homeen.",
+            "fields": {
+                "name": {
+                    "description": "Suodatintilauksen nimi.",
+                    "name": "Nimi"
+                },
+                "url": {
+                    "description": "Tilattava suodattimen URL-osoite, joka sis\u00e4lt\u00e4\u00e4 suodatuss\u00e4\u00e4nn\u00f6t.",
+                    "name": "URL-osoite"
+                }
+            },
+            "name": "Lis\u00e4\u00e4 URL-osoite"
+        },
+        "disable_url": {
+            "description": "Poistaa suodatintilauksen k\u00e4yt\u00f6st\u00e4 AdGuard Homessa.",
+            "fields": {
+                "url": {
+                    "description": "Suodatintilauksen URL-osoite, jonka haluat poistaa k\u00e4yt\u00f6st\u00e4.",
+                    "name": "URL-osoite"
+                }
+            },
+            "name": "Poista URL k\u00e4yt\u00f6st\u00e4"
+        },
+        "enable_url": {
+            "description": "Ottaa k\u00e4ytt\u00f6\u00f6n suodatintilauksen AdGuard Homessa.",
+            "fields": {
+                "url": {
+                    "description": "Suodatintilauksen URL-osoite, jonka haluat ottaa k\u00e4ytt\u00f6\u00f6n.",
+                    "name": "URL-osoite"
+                }
+            },
+            "name": "Ota URL k\u00e4ytt\u00f6\u00f6n"
+        },
+        "refresh": {
+            "description": "P\u00e4ivit\u00e4 kaikki suodatintilaukset AdGuard Homessa.",
+            "fields": {
+                "force": {
+                    "description": "Pakota p\u00e4ivitys (ohittaa AdGuard Home -palvelun rajoituksen). \"true\" pakottaa, ja \"false\" j\u00e4tt\u00e4\u00e4 pois tavallista p\u00e4ivityst\u00e4 varten.",
+                    "name": "Pakotta"
+                }
+            },
+            "name": "P\u00e4ivit\u00e4"
+        },
+        "remove_url": {
+            "description": "Poistaa suodatintilauksen AdGuard Homesta.",
+            "fields": {
+                "url": {
+                    "description": "Poistettavan suodattimen tilauksen URL-osoite.",
+                    "name": "URL-osoite"
+                }
+            },
+            "name": "Poista URL-osoite"
+        }
+    }
+}

@@ -1,0 +1,116 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "\u88dd\u7f6e\u5df2\u7d93\u8a2d\u5b9a\u5b8c\u6210"
+        },
+        "error": {
+            "cannot_connect": "\u9023\u7dda\u5931\u6557",
+            "invalid_auth": "\u8eab\u4efd\u9a57\u8b49\u7121\u6548",
+            "unknown": "\u672a\u9810\u671f\u932f\u8aa4"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "api_key": "API \u91d1\u9470"
+                },
+                "description": "\u5c07\u6703\u9700\u8981\u7531 https://app.rach.io/ \u53d6\u5f97 App \u91d1\u9470\u3002\u524d\u5f80\u8a2d\u5b9a\u3001\u7136\u5f8c\u9078\u64c7 '\u53d6\u5f97 API \u91d1\u9470'\uff08GET API KEY\uff09\u3002",
+                "title": "\u9023\u7dda\u81f3 Rachio \u88dd\u7f6e"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "rain": {
+                "name": "\u4e0b\u96e8"
+            }
+        },
+        "calendar": {
+            "calendar": {
+                "name": "Rachio \u57fa\u5730\u53f0 {base}"
+            }
+        },
+        "switch": {
+            "rain_delay": {
+                "name": "\u96e8\u5ef6\u8aa4"
+            },
+            "standby": {
+                "name": "\u5f85\u547d"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "manual_run_mins": "\u7576\u5340\u57df\u958b\u95dc\u958b\u555f\u5f8c\u3001\u6240\u8981\u958b\u555f\u7684\u5206\u9418\u6578\u3002"
+                }
+            }
+        }
+    },
+    "services": {
+        "pause_watering": {
+            "description": "\u66ab\u505c\u4efb\u4f55\u6b63\u5728\u57f7\u884c\u7684\u5206\u5340\u6216\u6392\u7a0b\u3002",
+            "fields": {
+                "devices": {
+                    "description": "\u6b32\u66ab\u505c\u7684\u63a7\u5236\u5668\u540d\u7a31\u3002\u5982\u679c\u672a\u63d0\u4f9b\u3001\u5247\u9810\u8a2d\u70ba\u5e33\u865f\u5167\u6240\u6709\u63a7\u5236\u5668\u3002",
+                    "name": "\u88dd\u7f6e"
+                },
+                "duration": {
+                    "description": "\u66ab\u505c\u57f7\u884c\u6392\u7a0b\u7684\u6642\u9593",
+                    "name": "\u6301\u7e8c\u6642\u9593"
+                }
+            },
+            "name": "\u66ab\u505c\u6f86\u6c34"
+        },
+        "resume_watering": {
+            "description": "\u7e7c\u7e8c\u4efb\u4f55\u66ab\u505c\u57f7\u884c\u7684\u5206\u5340\u6216\u6392\u7a0b\u3002",
+            "fields": {
+                "devices": {
+                    "description": "\u6b32\u7e7c\u7e8c\u7684\u63a7\u5236\u5668\u540d\u7a31\u3002\u5982\u679c\u672a\u63d0\u4f9b\u3001\u5247\u9810\u8a2d\u70ba\u5e33\u865f\u5167\u6240\u6709\u63a7\u5236\u5668\u3002",
+                    "name": "\u88dd\u7f6e"
+                }
+            },
+            "name": "\u7e7c\u7e8c\u6f86\u6c34"
+        },
+        "set_zone_moisture_percent": {
+            "description": "\u8a2d\u5b9a\u5206\u5340\u6216\u5206\u5340\u5217\u8868\u6fd5\u5ea6\u767e\u5206\u6bd4\u3002",
+            "fields": {
+                "percent": {
+                    "description": "\u8a2d\u5b9a\u6240\u9700\u5206\u5340\u6fd5\u5ea6\u767e\u5206\u6bd4\u3002",
+                    "name": "\u767e\u5206\u6bd4"
+                }
+            },
+            "name": "\u8a2d\u5b9a\u5206\u5340\u6fd5\u5ea6\u767e\u5206\u6bd4"
+        },
+        "start_multiple_zone_schedule": {
+            "description": "\u5efa\u7acb\u81ea\u8a02\u5206\u5340\u6392\u7a0b\u8207\u57f7\u884c\u6642\u9593\u3002\u8acb\u6ce8\u610f\uff1a\u6240\u6709\u5206\u5340\u61c9\u4f4d\u65bc\u540c\u4e00\u63a7\u5236\u5668\u3001\u4ee5\u907f\u514d\u554f\u984c\u3002",
+            "fields": {
+                "duration": {
+                    "description": "\u5206\u5340\u57f7\u884c\u5206\u9418\u6578\u3002\u5982\u679c\u53ea\u63d0\u4f9b 1 \u500b\u6301\u7e8c\u6642\u9593\u3001\u5247\u6240\u6709\u5206\u5340\u90fd\u6703\u4f7f\u7528\u8a72\u6642\u9593\u3002\u5982\u679c\u63d0\u4f9b\u6301\u7e8c\u6642\u9593\u5217\u8868\uff0c\u5247\u6301\u7e8c\u6642\u9593\u5c07\u9069\u7528\u65bc\u4e0a\u8ff0\u5217\u51fa\u7684\u76f8\u61c9\u5206\u5340\u3002",
+                    "name": "\u6301\u7e8c\u6642\u9593"
+                }
+            },
+            "name": "\u958b\u59cb\u591a\u500b\u5206\u5340"
+        },
+        "start_watering": {
+            "description": "\u958b\u59cb\u55ae\u4e00\u5340\u57df\u3001\u6392\u7a0b\u6216\u4efb\u4f55\u6578\u91cf\u7684\u667a\u80fd\u6c34\u7ba1\u8a08\u6642\u5668\u3002",
+            "fields": {
+                "duration": {
+                    "description": "\u904b\u884c\u7684\u5206\u9418\u6578\u3002\u5c0d\u65bc\u7051\u6c34\u5340\u3001\u6700\u9577\u6301\u7e8c\u6642\u9593\u70ba 3 \u5c0f\u6642\uff0c\u6216\u5c0d\u65bc\u667a\u80fd\u6c34\u7ba1\u8a08\u6642\u5668\u70ba 24 \u5c0f\u6642\u3002\u8acb\u7559\u7a7a\u9032\u884c\u6392\u7a0b\u3002",
+                    "name": "\u6301\u7e8c\u6642\u9593"
+                }
+            },
+            "name": "\u958b\u59cb\u6f86\u6c34"
+        },
+        "stop_watering": {
+            "description": "\u505c\u6b62\u4efb\u4f55\u6b63\u5728\u57f7\u884c\u7684\u5206\u5340\u6216\u6392\u7a0b\u3002",
+            "fields": {
+                "devices": {
+                    "description": "\u6b32\u505c\u6b62\u7684\u63a7\u5236\u5668\u540d\u7a31\u3002\u5982\u679c\u672a\u63d0\u4f9b\u3001\u5247\u9810\u8a2d\u70ba\u5e33\u865f\u5167\u6240\u6709\u63a7\u5236\u5668\u3002",
+                    "name": "\u88dd\u7f6e"
+                }
+            },
+            "name": "\u505c\u6b62\u6f86\u6c34"
+        }
+    }
+}

@@ -1,0 +1,96 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "A MELCloud integr\u00e1ci\u00f3 m\u00e1r be van \u00e1ll\u00edtva ehhez az e-mailhez. A hozz\u00e1f\u00e9r\u00e9si token friss\u00edtve lett.",
+            "reauth_successful": "Az \u00fajrahiteles\u00edt\u00e9s sikeres volt.",
+            "reconfigure_successful": "\u00dajrakonfigur\u00e1l\u00e1s sikeres volt"
+        },
+        "error": {
+            "cannot_connect": "Sikertelen csatlakoz\u00e1s",
+            "invalid_auth": "\u00c9rv\u00e9nytelen hiteles\u00edt\u00e9s",
+            "unknown": "V\u00e1ratlan hiba"
+        },
+        "step": {
+            "reauth_confirm": {
+                "data": {
+                    "password": "Jelsz\u00f3",
+                    "username": "E-mail"
+                },
+                "description": "A Melcloud-integr\u00e1ci\u00f3nak \u00fajra kell hiteles\u00edtenie a kapcsolat r\u00e9szleteit",
+                "title": "A(z) {name} hiteles\u00edt\u00e9se lej\u00e1rt"
+            },
+            "reconfigure_confirm": {
+                "data": {
+                    "password": "Jelsz\u00f3"
+                },
+                "data_description": {
+                    "password": "Adja meg a (\u00faj) jelsz\u00f3t a MelCloud-hoz."
+                },
+                "description": "Az adatbejegyz\u00e9s \u00fajrakonfigur\u00e1l\u00e1sa \u00faj token beszerz\u00e9s\u00e9hez az \u00d6n fi\u00f3kj\u00e1hoz: `{username}`.",
+                "title": "Konfigur\u00e1lja \u00fajra a MelCloudot"
+            },
+            "user": {
+                "data": {
+                    "password": "Jelsz\u00f3",
+                    "username": "E-mail"
+                },
+                "description": "Csatlakozzon a MELCloud-fi\u00f3kj\u00e1val.",
+                "title": "Csatlakoz\u00e1s a MELCloudhoz"
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "daily_energy": {
+                "name": "Napi energiafogyaszt\u00e1s"
+            },
+            "flow_temperature": {
+                "name": "Kimen\u0151 \u00e1raml\u00e1si h\u0151m\u00e9rs\u00e9klet"
+            },
+            "outside_temperature": {
+                "name": "K\u00fcls\u0151 h\u0151m\u00e9rs\u00e9klet"
+            },
+            "return_temperature": {
+                "name": "Visszat\u00e9r\u0151 \u00e1raml\u00e1si h\u0151m\u00e9rs\u00e9klet"
+            },
+            "room_temperature": {
+                "name": "Szobah\u0151m\u00e9rs\u00e9klet"
+            },
+            "tank_temperature": {
+                "name": "Tart\u00e1ly h\u0151m\u00e9rs\u00e9klete"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_yaml_import_issue_cannot_connect": {
+            "description": "A MELCloud YAML konfigur\u00e1ci\u00f3j\u00e1nak be\u00e1ll\u00edt\u00e1sa megsz\u0171nik, de hiba t\u00f6rt\u00e9nt a YAML konfigur\u00e1ci\u00f3 import\u00e1l\u00e1sakor.\n\nGy\u0151z\u0151dj\u00f6n meg r\u00f3la, hogy a MELCloud-hoz val\u00f3 kapcsolat m\u0171k\u00f6dik \u00e9s ind\u00edtsa \u00fajra a Home Assistantot, hogy \u00fajra pr\u00f3b\u00e1lkozzon, vagy t\u00e1vol\u00edtsa el a MELCloud YAML konfigur\u00e1ci\u00f3t a configuration.yaml f\u00e1jlb\u00f3l \u00e9s folytassa a [be\u00e1ll\u00edt\u00e1st manu\u00e1lisan](/config/integrations/dashboard/add?domain=melcoud).",
+            "title": "A MELCloud YAML konfigur\u00e1ci\u00f3 import\u00e1l\u00e1sa sikertelen volt"
+        },
+        "deprecated_yaml_import_issue_invalid_auth": {
+            "description": "A MELCloud YAML haszn\u00e1lat\u00e1val t\u00f6rt\u00e9n\u0151 konfigur\u00e1l\u00e1s elt\u00e1vol\u00edt\u00e1sra ker\u00fcl, de hiteles\u00edt\u00e9si hiba t\u00f6rt\u00e9nt a YAML konfigur\u00e1ci\u00f3j\u00e1nak import\u00e1l\u00e1sa sor\u00e1n.\n\nJav\u00edtsa ki a YAML konfigur\u00e1ci\u00f3t \u00e9s ind\u00edtsa \u00fajra a Home Assistantot, hogy \u00fajra pr\u00f3b\u00e1lkozzon, vagy t\u00e1vol\u00edtsa el a MELCloud YAML konfigur\u00e1ci\u00f3t a configuration.yaml f\u00e1jlb\u00f3l \u00e9s folytassa a [be\u00e1ll\u00edt\u00e1st](/config/integrations/dashboard/add?domain=melcoud) manu\u00e1lisan.",
+            "title": "A MELCloud YAML konfigur\u00e1ci\u00f3 import\u00e1l\u00e1sa sikertelen volt"
+        }
+    },
+    "services": {
+        "set_vane_horizontal": {
+            "description": "Be\u00e1ll\u00edtja a v\u00edzszintes lamella poz\u00edci\u00f3j\u00e1t.",
+            "fields": {
+                "position": {
+                    "description": "V\u00edzszintes lamella poz\u00edci\u00f3. A lehets\u00e9ges opci\u00f3k a vane_horizontal_positions \u00e1llapot attrib\u00fatumban tal\u00e1lhat\u00f3k.",
+                    "name": "Poz\u00edci\u00f3"
+                }
+            },
+            "name": "V\u00edzszintes lamella poz\u00edci\u00f3 \u00e1ll\u00edt\u00e1sa"
+        },
+        "set_vane_vertical": {
+            "description": "Be\u00e1ll\u00edtja a f\u00fcgg\u0151leges lamella poz\u00edci\u00f3j\u00e1t.",
+            "fields": {
+                "position": {
+                    "description": "F\u00fcgg\u0151leges lamella poz\u00edci\u00f3. A lehets\u00e9ges opci\u00f3k a vane_vertical_positions \u00e1llapot attrib\u00fatumban tal\u00e1lhat\u00f3k.",
+                    "name": "Poz\u00edci\u00f3"
+                }
+            },
+            "name": "F\u00fcgg\u0151leges lamella poz\u00edci\u00f3 \u00e1ll\u00edt\u00e1sa"
+        }
+    }
+}

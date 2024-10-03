@@ -1,0 +1,128 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Ger\u00e4t ist bereits konfiguriert",
+            "already_in_progress": "Der Konfigurationsablauf wird bereits ausgef\u00fchrt",
+            "no_devices_found": "Keine Ger\u00e4te im Netzwerk gefunden",
+            "no_h264": "Es waren keine H264-Streams verf\u00fcgbar. \u00dcberpr\u00fcfe die Profilkonfiguration auf deinem Ger\u00e4t.",
+            "no_mac": "Die eindeutige ID f\u00fcr das ONVIF-Ger\u00e4t konnte nicht konfiguriert werden.",
+            "onvif_error": "Fehler beim Einrichten des ONVIF-Ger\u00e4ts. \u00dcberpr\u00fcfe die Protokolle auf weitere Informationen.",
+            "reauth_successful": "Die erneute Authentifizierung war erfolgreich"
+        },
+        "error": {
+            "auth_failed": "Authentifizierung nicht m\u00f6glich: {error}",
+            "cannot_connect": "Verbindung fehlgeschlagen",
+            "no_onvif_service": "Kein ONVIF-Dienst gefunden. \u00dcberpr\u00fcfe, ob die Portnummer korrekt ist.",
+            "onvif_error": "Fehler beim Einrichten des ONVIF-Ger\u00e4ts: {error}. Pr\u00fcfe die Protokolle auf weitere Informationen."
+        },
+        "step": {
+            "configure": {
+                "data": {
+                    "host": "Host",
+                    "name": "Name",
+                    "password": "Passwort",
+                    "port": "Port",
+                    "username": "Benutzername"
+                },
+                "data_description": {
+                    "host": "Der Hostname oder die IP-Adresse deines ONVIF-Ger\u00e4ts."
+                },
+                "title": "Konfiguriere das ONVIF-Ger\u00e4t"
+            },
+            "configure_profile": {
+                "data": {
+                    "include": "Kameraentit\u00e4t erstellen"
+                },
+                "description": "Kameraentit\u00e4t f\u00fcr {profile} mit {resolution} Aufl\u00f6sung erstellen?",
+                "title": "Profile konfigurieren"
+            },
+            "device": {
+                "data": {
+                    "host": "W\u00e4hle das erkannte ONVIF-Ger\u00e4t aus"
+                },
+                "title": "W\u00e4hle ein ONVIF-Ger\u00e4t"
+            },
+            "reauth_confirm": {
+                "data": {
+                    "password": "Passwort",
+                    "username": "Benutzername"
+                },
+                "description": "Einige Ger\u00e4te lehnen die Authentifizierung ab, wenn die Zeit um mehr als 5 Sekunden abweicht. Wenn die Authentifizierung nicht erfolgreich ist, \u00fcberpr\u00fcfe, ob die Zeit auf dem Ger\u00e4t korrekt ist und versuche es erneut.",
+                "title": "Reauthentifizierung des ONVIF-Ger\u00e4ts"
+            },
+            "user": {
+                "data": {
+                    "auto": "Automatisch suchen"
+                },
+                "description": "Wenn du auf **Senden** dr\u00fcckst, durchsuchen wir dein Netzwerk nach ONVIF-Ger\u00e4ten, die Profil S unterst\u00fctzen. \n\nEinige Hersteller haben begonnen, ONVIF standardm\u00e4\u00dfig zu deaktivieren. Stelle sicher, dass ONVIF in der Konfiguration deiner Kamera aktiviert ist.",
+                "title": "ONVIF-Ger\u00e4tekonfiguration"
+            }
+        }
+    },
+    "entity": {
+        "switch": {
+            "autofocus": {
+                "name": "Autofokus"
+            },
+            "ir_lamp": {
+                "name": "IR-Lampe"
+            },
+            "wiper": {
+                "name": "Wischer"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "onvif_devices": {
+                "data": {
+                    "enable_webhooks": "Webhooks aktivieren",
+                    "extra_arguments": "Zus\u00e4tzliche FFMPEG-Argumente",
+                    "rtsp_transport": "RTSP-Transportmechanismus",
+                    "use_wallclock_as_timestamps": "Wanduhr als Zeitstempel verwenden"
+                },
+                "title": "ONVIF-Ger\u00e4teoptionen"
+            }
+        }
+    },
+    "services": {
+        "ptz": {
+            "description": "Wenn deine ONVIF-Kamera PTZ unterst\u00fctzt, kannst du deine Kamera schwenken, neigen oder zoomen.",
+            "fields": {
+                "continuous_duration": {
+                    "description": "Lege die Verz\u00f6gerung von ContinuousMove in Sekunden fest, bevor die Bewegung gestoppt wird.",
+                    "name": "Kontinuierliche Dauer"
+                },
+                "distance": {
+                    "description": "Abstands-Koeffizient. Legt fest, wie viel PTZ in einer Anfrage ausgef\u00fchrt werden soll.",
+                    "name": "Entfernung"
+                },
+                "move_mode": {
+                    "description": "PTZ-Bewegungsmodus.",
+                    "name": "Bewegungsmodus"
+                },
+                "pan": {
+                    "description": "Schwenkrichtung.",
+                    "name": "Schwenken"
+                },
+                "preset": {
+                    "description": "PTZ-Voreinstellungsprofil-Token. Legt das Voreinstellungsprofil-Token fest, das mit GotoPreset ausgef\u00fchrt wird.",
+                    "name": "Voreinstellung"
+                },
+                "speed": {
+                    "description": "Geschwindigkeitskoeffizient. Legt fest, wie schnell die PTZ-Funktion ausgef\u00fchrt werden soll.",
+                    "name": "Geschwindigkeit"
+                },
+                "tilt": {
+                    "description": "Neigungsrichtung.",
+                    "name": "Neigung"
+                },
+                "zoom": {
+                    "description": "Vergr\u00f6\u00dferung.",
+                    "name": "Vergr\u00f6\u00dfern"
+                }
+            },
+            "name": "PTZ"
+        }
+    }
+}

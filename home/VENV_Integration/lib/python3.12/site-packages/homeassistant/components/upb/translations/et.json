@@ -1,0 +1,111 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Seade on juba h\u00e4\u00e4lestatud"
+        },
+        "error": {
+            "cannot_connect": "\u00dchendamine nurjus",
+            "invalid_upb_file": "Puuduv v\u00f5i kehtetu UPB UPStart ekspordifail, kontrolli faili nime ja rada.",
+            "unknown": "Ootamatu t\u00f5rge."
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "address": "Aadress (vt \u00fclaltoodud kirjeldust)",
+                    "file_path": "UPStart UPB ekspordifaili tee ja nimi.",
+                    "protocol": "Protokoll"
+                },
+                "description": "\u00dchenda Universal PowerLine Bus liidese moodul (UPB PIM). Aadressistring peab tcp puhul olema kujul \"aadress[:port]\" \"tcp\". Port on valikuline ja vaikimisi 2101. N\u00e4ide: \"192.168.1.42\". Jadaprotokolli puhul peab aadress olema kujul \"tty[:baud]\". Bood on valikuline ja vaikimisi 4800. N\u00e4ide: \"/dev/ttyS1\".",
+                "title": "\u00dchendu UPB PIM-iga"
+            }
+        }
+    },
+    "services": {
+        "light_blink": {
+            "description": "Vilgutab valgust.",
+            "fields": {
+                "rate": {
+                    "description": "Aeg mille jooksul link vilgub.",
+                    "name": "M\u00e4\u00e4r"
+                }
+            },
+            "name": "Vilguta valgustit"
+        },
+        "light_fade_start": {
+            "description": "Alustab valguse tuhmumist praegusest heledusest kas \u00fcles- v\u00f5i allapoole.",
+            "fields": {
+                "brightness": {
+                    "description": "Heledust t\u00e4histav number, kus 0 l\u00fclitab valguse v\u00e4lja, 1 on minimaalne heledus ja 255 on maksimaalne heledus.",
+                    "name": "Heledus"
+                },
+                "brightness_pct": {
+                    "description": "Arv, mis n\u00e4itab t\u00e4isheleduse protsenti, kus 0 l\u00fclitab valguse v\u00e4lja, 1 on minimaalne heledus ja 100 on maksimaalne heledus.",
+                    "name": "Heleduse protsent"
+                },
+                "rate": {
+                    "description": "Valguse uuele heledusele \u00fclemineku kiirus.",
+                    "name": "M\u00e4\u00e4r"
+                }
+            },
+            "name": "Alusta valguse tuhmumist"
+        },
+        "light_fade_stop": {
+            "description": "Peatab valguse tuhmumise.",
+            "name": "Peata valguse tuhmumine"
+        },
+        "link_blink": {
+            "description": "Vilgutab linki.",
+            "fields": {
+                "blink_rate": {
+                    "description": "Aeg mille jooksul link vilgub.",
+                    "name": "Vilkumise kiirus"
+                }
+            },
+            "name": "Vilguta linki"
+        },
+        "link_deactivate": {
+            "description": "T\u00fchistab UPB stseeni.",
+            "name": "T\u00fchista link"
+        },
+        "link_fade_start": {
+            "description": "Alustab lingi tuhmumist praegusest heledusest \u00fcles v\u00f5i alla.",
+            "fields": {
+                "brightness": {
+                    "description": "Heledust t\u00e4histav number, kus 0 l\u00fclitab stseeni v\u00e4lja, 1 on minimaalne heledus ja 255 on maksimaalne heledus.",
+                    "name": "Heledus"
+                },
+                "brightness_pct": {
+                    "description": "Arv, mis n\u00e4itab t\u00e4isheleduse protsenti, kus 0 l\u00fclitab stseeni v\u00e4lja, 1 on minimaalne heledus ja 100 on maksimaalne heledus.",
+                    "name": "Heleduse protsent"
+                },
+                "rate": {
+                    "description": "Aeg, mis kulub stseenil uuele heledusele \u00fcleminekuks.",
+                    "name": "M\u00e4\u00e4r"
+                }
+            },
+            "name": "Alusta lingi tuhmumist"
+        },
+        "link_fade_stop": {
+            "description": "Peatab lingi tuhmumise.",
+            "name": "L\u00f5peta lingi tuhmumine"
+        },
+        "link_goto": {
+            "description": "Sea stseen heledusele.",
+            "fields": {
+                "brightness": {
+                    "description": "Heledust t\u00e4histav number, kus 0 l\u00fclitab stseeni v\u00e4lja, 1 on minimaalne heledus ja 255 on maksimaalne heledus.",
+                    "name": "Heledus"
+                },
+                "brightness_pct": {
+                    "description": "Arv, mis n\u00e4itab t\u00e4isheleduse protsenti, kus 0 l\u00fclitab stseeni v\u00e4lja, 1 on minimaalne heledus ja 100 on maksimaalne heledus.",
+                    "name": "Heleduse protsent"
+                },
+                "rate": {
+                    "description": "Aeg, mis kulub stseenil uuele heledusele \u00fcleminekuks.",
+                    "name": "M\u00e4\u00e4r"
+                }
+            },
+            "name": "Mine lingile"
+        }
+    }
+}

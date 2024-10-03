@@ -1,0 +1,162 @@
+{
+    "config": {
+        "error": {
+            "error_auth_app": "Id de aplicaci\u00f3n o secreto incorrectos",
+            "error_auth_mfa": "C\u00f3digo incorrecto",
+            "error_auth_user": "Nombre de usuario o contrase\u00f1a incorrectos"
+        },
+        "step": {
+            "auth_app": {
+                "data": {
+                    "app_id": "ID de la aplicaci\u00f3n",
+                    "app_secret": "Secreto"
+                },
+                "description": "ID de aplicaci\u00f3n y c\u00f3digo secreto de [cuenta de desarrollador StarLine](https://my.starline.ru/developer)",
+                "title": "Credenciales de la aplicaci\u00f3n"
+            },
+            "auth_captcha": {
+                "data": {
+                    "captcha_code": "C\u00f3digo de la imagen"
+                },
+                "description": "{captcha_img}",
+                "title": "Captcha"
+            },
+            "auth_mfa": {
+                "data": {
+                    "mfa_code": "C\u00f3digo SMS"
+                },
+                "description": "Introduce el c\u00f3digo enviado al tel\u00e9fono {phone_number}",
+                "title": "Autorizaci\u00f3n de dos factores"
+            },
+            "auth_user": {
+                "data": {
+                    "password": "Contrase\u00f1a",
+                    "username": "Nombre de usuario"
+                },
+                "description": "Correo electr\u00f3nico y contrase\u00f1a de la cuenta StarLine",
+                "title": "Credenciales de usuario"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "alarm": {
+                "name": "Alarma"
+            },
+            "doors": {
+                "name": "Puertas"
+            },
+            "hand_brake": {
+                "name": "Freno de mano"
+            },
+            "handsfree": {
+                "name": "Manos libres"
+            },
+            "hood": {
+                "name": "Cap\u00f3"
+            },
+            "moving_ban": {
+                "name": "Prohibici\u00f3n de traslado"
+            },
+            "neutral": {
+                "name": "Neutro programable"
+            },
+            "trunk": {
+                "name": "Maletero"
+            }
+        },
+        "button": {
+            "horn": {
+                "name": "Claxon"
+            }
+        },
+        "device_tracker": {
+            "location": {
+                "name": "Ubicaci\u00f3n"
+            }
+        },
+        "lock": {
+            "security": {
+                "name": "Seguridad"
+            }
+        },
+        "sensor": {
+            "balance": {
+                "name": "Saldo"
+            },
+            "battery": {
+                "name": "Bater\u00eda"
+            },
+            "engine_temperature": {
+                "name": "Temperatura del motor"
+            },
+            "errors": {
+                "name": "Errores OBD"
+            },
+            "fuel": {
+                "name": "Volumen de combustible"
+            },
+            "gps_count": {
+                "name": "Sat\u00e9lites GPS"
+            },
+            "gsm_signal": {
+                "name": "Se\u00f1al GSM"
+            },
+            "interior_temperature": {
+                "name": "Temperatura interior"
+            },
+            "mileage": {
+                "name": "Kilometraje"
+            }
+        },
+        "switch": {
+            "additional_channel": {
+                "name": "Canal adicional"
+            },
+            "engine": {
+                "name": "Motor"
+            },
+            "horn": {
+                "name": "Claxon"
+            },
+            "service_mode": {
+                "name": "Modo de servicio"
+            },
+            "webasto": {
+                "name": "Webasto"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_horn_switch": {
+            "description": "El uso del interruptor del claxon ahora est\u00e1 obsoleto y se eliminar\u00e1 en una versi\u00f3n futura de Home Assistant. \n\nPor favor, ajusta cualquier automatizaci\u00f3n o script que utilice la entidad de interruptor del claxon para utilizar en su lugar la entidad del bot\u00f3n del claxon.",
+            "title": "Se va a eliminar la entidad de interruptor de claxon Starline"
+        }
+    },
+    "services": {
+        "set_scan_interval": {
+            "description": "Establece la frecuencia de actualizaci\u00f3n.",
+            "fields": {
+                "scan_interval": {
+                    "description": "Frecuencia de actualizaci\u00f3n.",
+                    "name": "Intervalo de escaneo"
+                }
+            },
+            "name": "Establecer intervalo de escaneo"
+        },
+        "set_scan_obd_interval": {
+            "description": "Establece la frecuencia de actualizaci\u00f3n de la informaci\u00f3n OBD.",
+            "fields": {
+                "scan_interval": {
+                    "description": "Frecuencia de actualizaci\u00f3n.",
+                    "name": "Intervalo de escaneo"
+                }
+            },
+            "name": "Establecer el intervalo de escaneo OBD"
+        },
+        "update_state": {
+            "description": "Obtiene el \u00faltimo estado de los dispositivos del servidor StarLine.\n.",
+            "name": "Actualizar estado"
+        }
+    }
+}

@@ -1,0 +1,81 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "El dispositiu ja est\u00e0 configurat"
+        },
+        "error": {
+            "cannot_connect": "Ha fallat la connexi\u00f3"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "host": "Amfitri\u00f3"
+                }
+            },
+            "zeroconf_confirm": {
+                "description": "Est\u00e0s a punt d'afegir el dispositiu SoundTouch amb nom `{name}` a Home Assistant.",
+                "title": "Confirma l'addici\u00f3 del dispositiu Bose SoundTouch"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_yaml": {
+            "description": "La configuraci\u00f3 de Bose SoundTouch mitjan\u00e7ant YAML s'eliminar\u00e0 de Home Assistant.\n\nLa configuraci\u00f3 YAML existent s'ha importat autom\u00e0ticament a la interf\u00edcie d'usuari.\n\nElimina la configuraci\u00f3 YAML de Bose SoundTouch del fitxer configuration.yaml i reinicia Home Assistant per solucionar aquest problema.",
+            "title": "La configuraci\u00f3 YAML de Bose SoundTouch est\u00e0 sent eliminada"
+        }
+    },
+    "services": {
+        "add_zone_slave": {
+            "description": "Afegeix un esclau a la zona multi-sala SoundTouch.",
+            "fields": {
+                "master": {
+                    "description": "Nom de l'entitat mestra que coordina la zona multi-sala. Dep\u00e8n de la plataforma.",
+                    "name": "Mestre"
+                },
+                "slaves": {
+                    "description": "Noms de les entitats esclaves a afegir a la zona existent.",
+                    "name": "Esclaus"
+                }
+            },
+            "name": "Afegeix esclau a zona"
+        },
+        "create_zone": {
+            "description": "Crea una zona multi-sala SoundTouch.",
+            "fields": {
+                "master": {
+                    "description": "Nom de l'entitat mestra que coordinar\u00e0 la zona multi-sala. Dep\u00e8n de la plataforma.",
+                    "name": "Mestre"
+                },
+                "slaves": {
+                    "description": "Noms de les entitats esclaves a afegir a la nova zona.",
+                    "name": "Esclaus"
+                }
+            },
+            "name": "Crea zona"
+        },
+        "play_everywhere": {
+            "description": "Reprodueix a tots els dispositius Bose SoundTouch.",
+            "fields": {
+                "master": {
+                    "description": "Nom de l'entitat mestra que coordinar\u00e0 l'agrupaci\u00f3. Dep\u00e8n de la plataforma. \u00c9s una manera r\u00e0pida de crear una zona multi-sala amb tots els dispositius.",
+                    "name": "Mestre"
+                }
+            },
+            "name": "Reprodueix a tot arreu"
+        },
+        "remove_zone_slave": {
+            "description": "Elimina un esclau de la zona multi-sala SoundTouch.",
+            "fields": {
+                "master": {
+                    "description": "Nom de l'entitat mestra que coordina la zona multi-sala. Dep\u00e8n de la plataforma.",
+                    "name": "Mestre"
+                },
+                "slaves": {
+                    "description": "Noms de les entitats esclaves a eliminar de la zona existent.",
+                    "name": "Esclaus"
+                }
+            },
+            "name": "Elimina esclau de zona"
+        }
+    }
+}

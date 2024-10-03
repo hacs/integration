@@ -1,0 +1,121 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Seade on juba h\u00e4\u00e4lestatud"
+        },
+        "step": {
+            "user": {
+                "description": "Kas soovid alustada seadistamist?"
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "average_price": {
+                "name": "Keskmine \u2013 t\u00e4na"
+            },
+            "current_hour_price": {
+                "name": "Praegune tund"
+            },
+            "highest_price_time": {
+                "name": "K\u00f5rgeima hinna aeg \u2013 t\u00e4na"
+            },
+            "hours_priced_equal_or_higher": {
+                "name": "Tunnid, mille hind on praegusega v\u00f5rdne v\u00f5i k\u00f5rgem - t\u00e4na"
+            },
+            "hours_priced_equal_or_lower": {
+                "name": "Tunnid, mille hind on praegusega v\u00f5rdne v\u00f5i madalam - t\u00e4na"
+            },
+            "lowest_price_time": {
+                "name": "Madalaima hinna aeg \u2013 t\u00e4na"
+            },
+            "max_price": {
+                "name": "K\u00f5rgeim hind \u2013 t\u00e4na"
+            },
+            "min_price": {
+                "name": "Madalaim hind - t\u00e4na"
+            },
+            "next_hour_price": {
+                "name": "J\u00e4rgmine tund"
+            },
+            "percentage_of_max": {
+                "name": "Praegune protsent k\u00f5rgeimast hinnast - t\u00e4na"
+            }
+        }
+    },
+    "exceptions": {
+        "invalid_config_entry": {
+            "message": "Esitatud on vigane seadekanne. Saadi {config_entry}."
+        },
+        "invalid_date": {
+            "message": "Sisestatud vale kuup\u00e4ev. Sain {date}"
+        },
+        "unloaded_config_entry": {
+            "message": "Esitatud on vigane seadekanne. {config_entry} ei laetud."
+        }
+    },
+    "services": {
+        "get_energy_return_prices": {
+            "description": "K\u00fcsi easyEnergylt tagastatud energiahindu.",
+            "fields": {
+                "config_entry": {
+                    "description": "Selle teenuse jaoks kasutatav seadekanne.",
+                    "name": "Seadekanne"
+                },
+                "end": {
+                    "description": "M\u00e4\u00e4rab kuup\u00e4eva ja kellaaja, milleni hinnad alla laadida. Vaikimisi t\u00e4na kui aega ei esitata.",
+                    "name": "L\u00f5pp"
+                },
+                "start": {
+                    "description": "M\u00e4\u00e4rab kuup\u00e4eva ja kellaaja, millest alates hinnad alla laadida. Vaikimisi t\u00e4na kui aega ei esitata.",
+                    "name": "Algus"
+                }
+            },
+            "name": "Hangi energia tagastushinnad"
+        },
+        "get_energy_usage_prices": {
+            "description": "K\u00fcsi easyEnergy'lt kasutusenergia hindu.",
+            "fields": {
+                "config_entry": {
+                    "description": "Selle teenuse jaoks kasutatav seadekanne.",
+                    "name": "Seadekanne"
+                },
+                "end": {
+                    "description": "M\u00e4\u00e4rab kuup\u00e4eva ja kellaaja, milleni hinnad alla laadida. Vaikimisi t\u00e4na kui aega ei esitata.",
+                    "name": "L\u00f5pp"
+                },
+                "incl_vat": {
+                    "description": "Kas k\u00e4ibemaksuga v\u00f5i ilma, vaikimisi on maksuga",
+                    "name": "Koos k\u00e4ibemaksuga"
+                },
+                "start": {
+                    "description": "M\u00e4\u00e4rab kuup\u00e4eva ja kellaaja, millest alates hinnad alla laadida. Vaikimisi t\u00e4na kui aega ei esitata.",
+                    "name": "Algus"
+                }
+            },
+            "name": "Hangi energiakasutuse hinnad"
+        },
+        "get_gas_prices": {
+            "description": "K\u00fcsi gaasi hindu easyEnergylt.",
+            "fields": {
+                "config_entry": {
+                    "description": "Selle teenuse jaoks kasutatav seadekanne.",
+                    "name": "Seadekanne"
+                },
+                "end": {
+                    "description": "M\u00e4\u00e4rab kuup\u00e4eva ja kellaaja, milleni hinnad alla laadida. Vaikimisi t\u00e4na kui aega ei esitata.",
+                    "name": "L\u00f5pp"
+                },
+                "incl_vat": {
+                    "description": "Kas k\u00e4ibemaksuga v\u00f5i ilma, vaikimisi on maksuga",
+                    "name": "Koos k\u00e4ibemaksuga"
+                },
+                "start": {
+                    "description": "M\u00e4\u00e4rab kuup\u00e4eva ja kellaaja, millest alates hinnad alla laadida. Vaikimisi t\u00e4na kui aega ei esitata.",
+                    "name": "Algus"
+                }
+            },
+            "name": "Hangi gaasi hind"
+        }
+    }
+}

@@ -1,0 +1,145 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "L'appareil est d\u00e9j\u00e0 configur\u00e9"
+        },
+        "error": {
+            "cannot_connect": "\u00c9chec de connexion",
+            "invalid_auth": "Authentification non valide",
+            "no_homes": "Il n\u2019y a pas de maisons li\u00e9es \u00e0 ce compte tado.",
+            "unknown": "Erreur inattendue"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "password": "Mot de passe",
+                    "username": "Nom d'utilisateur"
+                },
+                "title": "Connectez-vous \u00e0 votre compte Tado"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "connection_state": {
+                "name": "\u00c9tat de connexion"
+            },
+            "early_start": {
+                "name": "D\u00e9marrage anticip\u00e9"
+            }
+        },
+        "climate": {
+            "tado": {
+                "state_attributes": {
+                    "preset_mode": {
+                        "state": {
+                            "auto": "Automatique"
+                        }
+                    }
+                }
+            }
+        },
+        "sensor": {
+            "ac": {
+                "name": "AC"
+            },
+            "automatic_geofencing": {
+                "name": "G\u00e9olocalisation automatique"
+            },
+            "geofencing_mode": {
+                "name": "Mode de g\u00e9olocalisation"
+            },
+            "heating": {
+                "name": "Chauffage"
+            },
+            "outdoor_temperature": {
+                "name": "Temp\u00e9rature ext\u00e9rieure"
+            },
+            "solar_percentage": {
+                "name": "Pourcentage solaire"
+            },
+            "tado_mode": {
+                "name": "Mode Tado"
+            },
+            "weather_condition": {
+                "name": "Condition m\u00e9t\u00e9orologique"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_yaml_import_device_tracker": {
+            "description": "La configuration du Tado Device Tracker utilisant YAML est en cours de suppression.\nSupprimez la configuration YAML du traceur de p\u00e9riph\u00e9rique et red\u00e9marrez Home Assistant.",
+            "title": "Importation de la configuration YAML de l'outil de suivi des appareils de Tado"
+        },
+        "failed_to_import": {
+            "description": "\u00c9chec de l'importation de la configuration pour le Tado Device Tracker. Veuillez utiliser l'interface utilisateur pour configurer Tado. N'oubliez pas de supprimer la configuration YAML.",
+            "title": "\u00c9chec de l'importation"
+        },
+        "import_aborted": {
+            "description": "La configuration du Tado Device Tracker \u00e0 l'aide de YAML est en cours de suppression.\n L'importation a \u00e9t\u00e9 interrompue parce qu'une entr\u00e9e de configuration existante \u00e9tait identique aux donn\u00e9es import\u00e9es dans le YAML. Supprimez la configuration YAML du traqueur d'appareils et red\u00e9marrez Home Assistant. Veuillez utiliser l'interface utilisateur pour configurer Tado.",
+            "title": "Importation interrompue"
+        },
+        "import_failed": {
+            "description": "\u00c9chec de l'importation de la configuration pour le Tado Device Tracker. Veuillez utiliser l'interface utilisateur pour configurer Tado. N'oubliez pas de supprimer la configuration YAML.",
+            "title": "\u00c9chec de l'importation"
+        },
+        "import_failed_invalid_auth": {
+            "description": "\u00c9chec de l'importation de la configuration pour le Tado Device Tracker, en raison d'informations d'identification non valides. Veuillez corriger la configuration YAML et red\u00e9marrer Home Assistant. Vous pouvez \u00e9galement utiliser l'interface utilisateur pour configurer Tado. N'oubliez pas de supprimer la configuration YAML, une fois l'importation r\u00e9ussie.",
+            "title": "\u00c9chec de l'importation, informations d'identification non valides"
+        },
+        "water_heater_fallback": {
+            "description": "En raison de la prise en charge des entit\u00e9s de chauffe-eau, ces entit\u00e9s peuvent utiliser une superposition diff\u00e9rente. Veuillez configurer les options de superposition de l'entit\u00e9 d'int\u00e9gration et de la zone du chauffe-eau de l'application tado. Sinon, veuillez configurer l'entit\u00e9 d'int\u00e9gration et les options de superposition de zone de chauffe-eau de l'application Tado (sous Param\u00e8tres -> Pi\u00e8ces et appareils -> Eau chaude).",
+            "title": "Les entit\u00e9s de chauffe-eau Tado prennent maintenant en charge les options de secours."
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "fallback": "Choisissez le mode de retour."
+                },
+                "description": "Le mode de retour vous permet de choisir le moment du retour \u00e0 la programmation intelligente depuis votre zone de superposition manuelle. (NEXT_TIME_BLOCK\u00a0:= Modifier au prochain changement de programmation intelligente\u00a0; MANUAL\u00a0:= Ne pas modifier jusqu'\u00e0 annulation manuelle\u00a0; TADO_DEFAULT\u00a0:= Modifier en fonction de vos param\u00e8tres dans l'application Tado).",
+                "title": "Ajustez les options de Tado."
+            }
+        }
+    },
+    "services": {
+        "set_climate_temperature_offset": {
+            "description": "D\u00e9finit le d\u00e9calage de temp\u00e9rature des entit\u00e9s .",
+            "fields": {
+                "offset": {
+                    "description": "D\u00e9calage souhait\u00e9 (en fonction de votre appareil).",
+                    "name": "D\u00e9calage"
+                }
+            },
+            "name": "R\u00e9glage du d\u00e9calage de la temp\u00e9rature"
+        },
+        "set_climate_timer": {
+            "description": "Active les thermostas pour une dur\u00e9e d\u00e9termin\u00e9e.",
+            "fields": {
+                "temperature": {
+                    "description": "Temp\u00e9rature \u00e0 laquelle l'entit\u00e9 doit \u00eatre r\u00e9gl\u00e9e.",
+                    "name": "Temp\u00e9rature"
+                },
+                "time_period": {
+                    "name": "P\u00e9riode de temps"
+                }
+            },
+            "name": "R\u00e9gler la minuterie de thermostat"
+        },
+        "set_water_heater_timer": {
+            "description": "Allume le chauffe-eau pour une dur\u00e9e d\u00e9termin\u00e9e.",
+            "fields": {
+                "temperature": {
+                    "description": "Temp\u00e9rature \u00e0 laquelle le chauffage doit \u00eatre r\u00e9gl\u00e9.",
+                    "name": "Temp\u00e9rature"
+                },
+                "time_period": {
+                    "description": "D\u00e9finir la p\u00e9riode de temps pour le boost.",
+                    "name": "P\u00e9riode de temps"
+                }
+            },
+            "name": "R\u00e9gler la minuterie du chauffe-eau"
+        }
+    }
+}

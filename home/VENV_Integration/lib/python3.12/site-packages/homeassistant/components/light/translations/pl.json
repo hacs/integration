@@ -1,0 +1,297 @@
+{
+    "common": {
+        "field_brightness_description": "Liczba wskazuj\u0105ca jasno\u015b\u0107, gdzie 0 wy\u0142\u0105cza \u015bwiat\u0142o, 1 oznacza minimaln\u0105 jasno\u015b\u0107, a 255 maksymaln\u0105 jasno\u015b\u0107.",
+        "field_brightness_name": "Jasno\u015b\u0107",
+        "field_brightness_pct_description": "Liczba wskazuj\u0105ca procent pe\u0142nej jasno\u015bci, gdzie 0 wy\u0142\u0105cza \u015bwiat\u0142o, 1 oznacza minimaln\u0105 jasno\u015b\u0107, a 100 maksymaln\u0105 jasno\u015b\u0107.",
+        "field_brightness_pct_name": "Jasno\u015b\u0107",
+        "field_brightness_step_description": "Zmie\u0144 jasno\u015b\u0107 o okre\u015blon\u0105 warto\u015b\u0107.",
+        "field_brightness_step_name": "Warto\u015b\u0107 kroku zmiany jasno\u015bci",
+        "field_brightness_step_pct_description": "Zmienia jasno\u015b\u0107 o stopie\u0144 procentowy.",
+        "field_brightness_step_pct_name": "Krok zmiany jasno\u015bci",
+        "field_color_name_description": "Nazwa koloru przyjazna dla u\u017cytkownika.",
+        "field_color_name_name": "Nazwa koloru",
+        "field_color_temp_description": "Temperatura barwowa w miredach.",
+        "field_color_temp_name": "Temperatura barwowa",
+        "field_effect_description": "Efekt \u015bwietlny.",
+        "field_effect_name": "Efekt",
+        "field_flash_description": "Zle\u0107 \u015bwiat\u0142u aby miga\u0142o, mo\u017ce to by\u0107 warto\u015b\u0107 kr\u00f3tka lub d\u0142uga.",
+        "field_flash_name": "B\u0142ysk",
+        "field_hs_color_description": "Kolor w formacie odcie\u0144/nasycenie. Lista dw\u00f3ch liczb ca\u0142kowitych. Odcie\u0144 to 0-360, a nasycenie to 0-100.",
+        "field_hs_color_name": "Odcie\u0144/Nasycenie koloru",
+        "field_kelvin_description": "Temperatura barwowa w Kelwinach.",
+        "field_kelvin_name": "Temperatura barwowa",
+        "field_profile_description": "Nazwa profilu \u015bwiat\u0142a do u\u017cycia.",
+        "field_profile_name": "Profil",
+        "field_rgb_color_description": "Kolor w formacie RGB. Lista trzech liczb ca\u0142kowitych od 0 do 255 reprezentuj\u0105cych warto\u015bci koloru czerwonego, zielonego i niebieskiego.",
+        "field_rgb_color_name": "Kolor",
+        "field_rgbw_color_description": "Kolor w formacie RGBW. Lista czterech liczb ca\u0142kowitych od 0 do 255 reprezentuj\u0105cych warto\u015bci koloru czerwonego, zielonego, niebieskiego i bia\u0142ego.",
+        "field_rgbw_color_name": "Kolor RGBW",
+        "field_rgbww_color_description": "Kolor w formacie RGBWW. Lista pi\u0119ciu liczb ca\u0142kowitych od 0 do 255 reprezentuj\u0105cych warto\u015bci koloru czerwonego, zielonego, niebieskiego, zimnobia\u0142ego i ciep\u0142obia\u0142ego.",
+        "field_rgbww_color_name": "Kolor RGBWW",
+        "field_transition_description": "Czas potrzebny na przej\u015bcie do nast\u0119pnego stanu.",
+        "field_transition_name": "Przej\u015bcie",
+        "field_white_description": "Ustaw \u015bwiat\u0142o w trybie bia\u0142ym.",
+        "field_white_name": "Bia\u0142y",
+        "field_xy_color_description": "Kolor w formacie XY. Lista dw\u00f3ch liczb dziesi\u0119tnych mi\u0119dzy 0 a 1.",
+        "field_xy_color_name": "Kolor XY",
+        "section_advanced_fields_name": "Opcje zaawansowane"
+    },
+    "device_automation": {
+        "action_type": {
+            "brightness_decrease": "zmniejsz jasno\u015b\u0107 {entity_name}",
+            "brightness_increase": "zwi\u0119ksz jasno\u015b\u0107 {entity_name}",
+            "flash": "b\u0142y\u015bnij {entity_name}",
+            "toggle": "Prze\u0142\u0105cz {entity_name}",
+            "turn_off": "Wy\u0142\u0105cz {entity_name}",
+            "turn_on": "W\u0142\u0105cz {entity_name}"
+        },
+        "condition_type": {
+            "is_off": "{entity_name} jest wy\u0142\u0105czone",
+            "is_on": "{entity_name} jest w\u0142\u0105czone"
+        },
+        "extra_fields": {
+            "brightness_pct": "Jasno\u015b\u0107",
+            "flash": "B\u0142ysk"
+        },
+        "trigger_type": {
+            "changed_states": "{entity_name} w\u0142\u0105czony lub wy\u0142\u0105czony",
+            "turned_off": "{entity_name} wy\u0142\u0105czony",
+            "turned_on": "{entity_name} w\u0142\u0105czony"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "\u015awiat\u0142o",
+            "state": {
+                "off": "wy\u0142\u0105czono",
+                "on": "w\u0142\u0105czono"
+            },
+            "state_attributes": {
+                "brightness": {
+                    "name": "Jasno\u015b\u0107"
+                },
+                "color_mode": {
+                    "name": "Tryb koloru",
+                    "state": {
+                        "brightness": "tylko jasno\u015b\u0107",
+                        "color_temp": "temperatura barwowa",
+                        "hs": "HS",
+                        "onoff": "w\u0142\u0105cz/wy\u0142\u0105cz",
+                        "rgb": "RGB",
+                        "rgbw": "RGBW",
+                        "rgbww": "RGBWW",
+                        "unknown": "nieznany",
+                        "white": "bia\u0142y",
+                        "xy": "XY"
+                    }
+                },
+                "color_temp": {
+                    "name": "Temperatura barwowa (mired)"
+                },
+                "color_temp_kelvin": {
+                    "name": "Temperatura barwowa (Kelwin)"
+                },
+                "effect": {
+                    "name": "Efekt"
+                },
+                "effect_list": {
+                    "name": "Dost\u0119pne efekty"
+                },
+                "max_color_temp_kelvin": {
+                    "name": "Maksymalna temperatura barwowa (Kelwin)"
+                },
+                "max_mireds": {
+                    "name": "Maksymalna temperatura barwowa (mired)"
+                },
+                "min_color_temp_kelvin": {
+                    "name": "Minimalna temperatura barwowa (Kelwin)"
+                },
+                "min_mireds": {
+                    "name": "Minimalna temperatura barwowa (mired)"
+                },
+                "supported_color_modes": {
+                    "name": "Dost\u0119pne tryby koloru",
+                    "state": {
+                        "brightness": "tylko jasno\u015b\u0107",
+                        "color_temp": "temperatura barwowa",
+                        "hs": "HS",
+                        "onoff": "w\u0142\u0105cz/wy\u0142\u0105cz",
+                        "rgb": "RGB",
+                        "rgbw": "RGBW",
+                        "rgbww": "RGBWW",
+                        "unknown": "nieznany",
+                        "white": "bia\u0142y",
+                        "xy": "XY"
+                    }
+                }
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "Platforma {platform} dla integracji {domain} nie obs\u0142uguje konfiguracji platformy.\n\nUsu\u0144 j\u0105 ze swojej konfiguracji i zrestartuj Home Assistant, aby rozwi\u0105za\u0107 ten problem.",
+            "title": "Wsparcie dla platformy nie jest obs\u0142ugiwane"
+        }
+    },
+    "selector": {
+        "color_name": {
+            "options": {
+                "beige": "Be\u017cowy",
+                "blue": "Niebieski",
+                "blueviolet": "Niebiesko-fioletowy",
+                "brown": "Br\u0105zowy",
+                "chocolate": "Czekoladowy",
+                "coral": "Koralowy",
+                "cornflowerblue": "Chabrowy niebieski",
+                "crimson": "Karmazynowy",
+                "cyan": "Cyjan",
+                "darkblue": "Ciemnoniebieski",
+                "darkcyan": "Ciemny cyjan",
+                "darkgray": "Ciemnoszary",
+                "darkgreen": "Ciemnozielony",
+                "darkgrey": "Ciemnoszary",
+                "darkkhaki": "Ciemny khaki",
+                "darkmagenta": "Ciemna magenta",
+                "darkorange": "Ciemnopomara\u0144czowy",
+                "darkred": "Ciemnoczerwony",
+                "fuchsia": "Fuksja",
+                "gold": "Z\u0142oty",
+                "gray": "Szary",
+                "green": "Zielony",
+                "grey": "Szary",
+                "homeassistant": "Home Assistant",
+                "indigo": "Indygo",
+                "ivory": "Ko\u015b\u0107 s\u0142oniowa",
+                "khaki": "Khaki",
+                "lavender": "Lawendowy",
+                "lightblue": "Jasnoniebieski",
+                "lightgray": "Jasnoszary",
+                "lightgreen": "Jasnozielony",
+                "lightgrey": "Jasnoszary",
+                "lightpink": "Jasnor\u00f3\u017cowy",
+                "lightyellow": "Jasno\u017c\u00f3\u0142ty",
+                "lime": "Limonkowy",
+                "navyblue": "Granatowy",
+                "olive": "Oliwkowy",
+                "orange": "Pomara\u0144czowy",
+                "pink": "R\u00f3\u017cowy",
+                "purple": "Purpurowy",
+                "red": "Czerwony",
+                "silver": "Srebrny",
+                "steelblue": "Stalowoniebieski",
+                "teal": "Morski",
+                "turquoise": "Turkusowy",
+                "violet": "Fioletowy",
+                "white": "Bia\u0142y",
+                "yellow": "\u017b\u00f3\u0142ty"
+            }
+        }
+    },
+    "services": {
+        "toggle": {
+            "description": "Prze\u0142\u0105cza jedno lub wi\u0119cej \u015bwiate\u0142 z w\u0142\u0105czonego na wy\u0142\u0105czone, lub odwrotnie, w zale\u017cno\u015bci od ich aktualnego stanu.",
+            "fields": {
+                "rgbw_color": {
+                    "description": "Kolor w formacie RGBW. Lista czterech liczb ca\u0142kowitych od 0 do 255 reprezentuj\u0105cych warto\u015bci koloru czerwonego, zielonego, niebieskiego i bia\u0142ego."
+                },
+                "rgbww_color": {
+                    "name": "Kolor RGBWW"
+                }
+            },
+            "name": "Prze\u0142\u0105cz",
+            "sections": {
+                "advanced_fields": {
+                    "name": "Opcje zaawansowane"
+                }
+            }
+        },
+        "turn_off": {
+            "description": "Wy\u0142\u0105cz jedno lub wi\u0119cej \u015bwiate\u0142.",
+            "name": "Wy\u0142\u0105cz",
+            "sections": {
+                "advanced_fields": {
+                    "name": "Opcje zaawansowane"
+                }
+            }
+        },
+        "turn_on": {
+            "description": "W\u0142\u0105cz jedno lub wi\u0119cej \u015bwiate\u0142 i dostosuj ich w\u0142a\u015bciwo\u015bci, nawet je\u015bli s\u0105 ju\u017c w\u0142\u0105czone.",
+            "fields": {
+                "brightness": {
+                    "description": "Liczba wskazuj\u0105ca jasno\u015b\u0107, gdzie 0 wy\u0142\u0105cza \u015bwiat\u0142o, 1 oznacza minimaln\u0105 jasno\u015b\u0107, a 255 maksymaln\u0105 jasno\u015b\u0107.",
+                    "name": "Jasno\u015b\u0107"
+                },
+                "brightness_pct": {
+                    "description": "Liczba wskazuj\u0105ca procent pe\u0142nej jasno\u015bci, gdzie 0 wy\u0142\u0105cza \u015bwiat\u0142o, 1 oznacza minimaln\u0105 jasno\u015b\u0107, a 100 maksymaln\u0105 jasno\u015b\u0107.",
+                    "name": "Jasno\u015b\u0107"
+                },
+                "brightness_step": {
+                    "description": "Zmie\u0144 jasno\u015b\u0107 o okre\u015blon\u0105 warto\u015b\u0107.",
+                    "name": "Warto\u015b\u0107 kroku zmiany jasno\u015bci"
+                },
+                "brightness_step_pct": {
+                    "description": "Zmienia jasno\u015b\u0107 o stopie\u0144 procentowy.",
+                    "name": "Krok zmiany jasno\u015bci"
+                },
+                "color_name": {
+                    "description": "Nazwa koloru przyjazna dla u\u017cytkownika.",
+                    "name": "Nazwa koloru"
+                },
+                "color_temp": {
+                    "description": "Temperatura barwowa w miredach.",
+                    "name": "Temperatura barwowa"
+                },
+                "effect": {
+                    "description": "Efekt \u015bwietlny.",
+                    "name": "Efekt"
+                },
+                "flash": {
+                    "description": "Zle\u0107 \u015bwiat\u0142u aby miga\u0142o, mo\u017ce to by\u0107 warto\u015b\u0107 kr\u00f3tka lub d\u0142uga.",
+                    "name": "B\u0142ysk"
+                },
+                "hs_color": {
+                    "description": "Kolor w formacie odcie\u0144/nasycenie. Lista dw\u00f3ch liczb ca\u0142kowitych. Odcie\u0144 to 0-360, a nasycenie to 0-100.",
+                    "name": "Odcie\u0144/Nasycenie koloru"
+                },
+                "kelvin": {
+                    "description": "Temperatura barwowa w Kelwinach.",
+                    "name": "Temperatura barwowa"
+                },
+                "profile": {
+                    "description": "Nazwa profilu \u015bwiat\u0142a do u\u017cycia.",
+                    "name": "Profil"
+                },
+                "rgb_color": {
+                    "description": "Kolor w formacie RGB. Lista trzech liczb ca\u0142kowitych od 0 do 255 reprezentuj\u0105cych warto\u015bci koloru czerwonego, zielonego i niebieskiego.",
+                    "name": "Kolor"
+                },
+                "rgbw_color": {
+                    "name": "Kolor RGBW"
+                },
+                "rgbww_color": {
+                    "description": "Kolor w formacie RGBWW. Lista pi\u0119ciu liczb ca\u0142kowitych od 0 do 255 reprezentuj\u0105cych warto\u015bci koloru czerwonego, zielonego, niebieskiego, zimnobia\u0142ego i ciep\u0142obia\u0142ego.",
+                    "name": "Kolor RGBWW"
+                },
+                "transition": {
+                    "description": "Czas potrzebny na przej\u015bcie do nast\u0119pnego stanu.",
+                    "name": "Przej\u015bcie"
+                },
+                "white": {
+                    "description": "Ustaw \u015bwiat\u0142o w trybie bia\u0142ym.",
+                    "name": "Bia\u0142y"
+                },
+                "xy_color": {
+                    "description": "Kolor w formacie XY. Lista dw\u00f3ch liczb dziesi\u0119tnych mi\u0119dzy 0 a 1.",
+                    "name": "Kolor XY"
+                }
+            },
+            "name": "W\u0142\u0105cz",
+            "sections": {
+                "advanced_fields": {
+                    "name": "Opcje zaawansowane"
+                }
+            }
+        }
+    },
+    "title": "\u015awiat\u0142o"
+}

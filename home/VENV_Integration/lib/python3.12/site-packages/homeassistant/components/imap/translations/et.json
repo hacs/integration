@@ -1,0 +1,171 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Seade on juba h\u00e4\u00e4lestatud",
+            "reauth_successful": "Taastuvastamine \u00f5nnestus"
+        },
+        "error": {
+            "cannot_connect": "\u00dchendamine nurjus",
+            "invalid_auth": "Tuvastamine nurjus",
+            "invalid_charset": "M\u00e4\u00e4ratud m\u00e4rgistikku ei toetata",
+            "invalid_folder": "Valitud kaust on sobimatu",
+            "invalid_search": "Valitud otsing on sobimatu",
+            "ssl_error": "Ilmnes SSL-i t\u00f5rge. Muuda SSL-i \u0161ifriloendit ja proovi uuesti"
+        },
+        "step": {
+            "reauth_confirm": {
+                "data": {
+                    "password": "Salas\u00f5na"
+                },
+                "description": "Kasutaja {username} salas\u00f5na on kehtetu",
+                "title": "{name} autentimine aegus"
+            },
+            "user": {
+                "data": {
+                    "charset": "T\u00e4hem\u00e4rkide komplekt",
+                    "folder": "Kaust",
+                    "password": "Salas\u00f5na",
+                    "port": "Port",
+                    "search": "IMAP otsing",
+                    "server": "Server",
+                    "ssl_cipher_list": "SSL-i \u0161ifriloend (t\u00e4psem)",
+                    "username": "Kasutajanimi",
+                    "verify_ssl": "Kontrolli SSL sertifikaati"
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "copy_failed": {
+            "message": "S\u00f5numi kopeerimine nurjus \" {error} \"."
+        },
+        "delete_failed": {
+            "message": "S\u00f5numi kustutamiseks m\u00e4rkimine nurjus veaga \"{error}\"."
+        },
+        "expunge_failed": {
+            "message": "S\u00f5numi kustutamine nurjus: \"{error}\"."
+        },
+        "fetch_failed": {
+            "message": "S\u00f5numi teksti toomine nurjus \"{error} \"."
+        },
+        "imap_server_fail": {
+            "message": "IMAP-serveriga \u00fchenduse loomine nurjus: {error} ."
+        },
+        "invalid_auth": {
+            "message": "Tuvastamine nurjus"
+        },
+        "invalid_entry": {
+            "message": "Kehtivat IMAP-kirjet ei leitud."
+        },
+        "invalid_folder": {
+            "message": "Valitud kaust on sobimatu"
+        },
+        "seen_failed": {
+            "message": "S\u00f5numi m\u00e4rgistamine n\u00e4htuks nurjus veaga \"{error} \"."
+        }
+    },
+    "options": {
+        "error": {
+            "already_configured": "Nende kaustade ja otsingusuvanditega kirje on juba olemas.",
+            "cannot_connect": "\u00dchendamine nurjus",
+            "invalid_auth": "Tuvastamine nurjus",
+            "invalid_charset": "M\u00e4\u00e4ratud m\u00e4rgistikku ei toetata",
+            "invalid_folder": "Valitud kaust on sobimatu",
+            "invalid_search": "Valitud otsing on sobimatu",
+            "invalid_template": "Mall on vigane"
+        },
+        "step": {
+            "init": {
+                "data": {
+                    "custom_event_data_template": "Mall kohandatud s\u00fcndmuse andmete loomiseks",
+                    "enable_push": "Luba Push-IMAP kui server seda toetab. L\u00fclita v\u00e4lja kui Push-IMAP-i v\u00e4rskendused pole usaldusv\u00e4\u00e4rsed.",
+                    "event_message_data": "S\u00f5numi andmed mis lisatakse s\u00fcndmuse `imap_content` andmetesse:",
+                    "folder": "Kaust",
+                    "max_message_size": "S\u00f5numi maksimaalne suurus (2048 < suurus < 30000)",
+                    "search": "IMAP otsing"
+                }
+            }
+        }
+    },
+    "selector": {
+        "event_message_data": {
+            "options": {
+                "headers": "S\u00f5numi p\u00e4ised",
+                "text": "P\u00f5hitekst"
+            }
+        },
+        "ssl_cipher_list": {
+            "options": {
+                "intermediate": "Vahepealsed \u0161ifrid",
+                "modern": "Kaasaegsed \u0161ifrid",
+                "python_default": "Vaikes\u00e4tted"
+            }
+        }
+    },
+    "services": {
+        "delete": {
+            "description": "Kustuta e-kiri.",
+            "fields": {
+                "entry": {
+                    "description": "IMAP-i konfiguratsiooni kirje.",
+                    "name": "Kanne"
+                },
+                "uid": {
+                    "description": "E-posti identifikaator (UID).",
+                    "name": "UID"
+                }
+            },
+            "name": "Kustuta s\u00f5num"
+        },
+        "fetch": {
+            "description": "Too e-posti s\u00f5num serverist.",
+            "fields": {
+                "entry": {
+                    "description": "IMAP-i konfiguratsiooni kirje.",
+                    "name": "Kanne"
+                },
+                "uid": {
+                    "description": "E-posti identifikaator (UID).",
+                    "name": "UID"
+                }
+            },
+            "name": "S\u00f5numi toomine"
+        },
+        "move": {
+            "description": "Teisalda e-kiri sihtkausta.",
+            "fields": {
+                "entry": {
+                    "description": "IMAP-i konfiguratsiooni kirje.",
+                    "name": "Kanne"
+                },
+                "seen": {
+                    "description": "M\u00e4rgista e-kiri vaadatuks.",
+                    "name": "N\u00e4htud"
+                },
+                "target_folder": {
+                    "description": "Sihtkaust kuhu e-kiri tuleb teisaldada.",
+                    "name": "Sihtkaust"
+                },
+                "uid": {
+                    "description": "E-posti identifikaator (UID).",
+                    "name": "UID"
+                }
+            },
+            "name": "Teisalda s\u00f5num"
+        },
+        "seen": {
+            "description": "M\u00e4rgista e-kiri vaadatuks.",
+            "fields": {
+                "entry": {
+                    "description": "IMAP-i konfiguratsiooni kirje.",
+                    "name": "Kanne"
+                },
+                "uid": {
+                    "description": "E-posti identifikaator (UID).",
+                    "name": "UID"
+                }
+            },
+            "name": "M\u00e4rgi s\u00f5num n\u00e4htuks"
+        }
+    }
+}

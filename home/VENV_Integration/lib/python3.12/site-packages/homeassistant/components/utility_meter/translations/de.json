@@ -1,0 +1,76 @@
+{
+    "config": {
+        "step": {
+            "user": {
+                "data": {
+                    "always_available": "Sensor immer verf\u00fcgbar",
+                    "cycle": "Z\u00e4hler-Reset-Zyklus",
+                    "delta_values": "Delta-Werte",
+                    "name": "Name",
+                    "net_consumption": "Netzverbrauch",
+                    "offset": "Z\u00e4hler-Reset-Offset",
+                    "periodically_resetting": "Regelm\u00e4\u00dfiges Zur\u00fccksetzen",
+                    "source": "Eingangssensor",
+                    "tariffs": "Unterst\u00fctzte Tarife"
+                },
+                "data_description": {
+                    "always_available": "Wenn aktiviert, zeigt der Sensor immer den letzten bekannten Wert an, auch wenn die Quell-Entit\u00e4t nicht verf\u00fcgbar oder unbekannt ist.",
+                    "delta_values": "Aktiviere diese Option, wenn die Quellwerte Deltawerte seit dem letzten Lesen anstelle von absoluten Werten sind.",
+                    "net_consumption": "Aktiviere diese Option, wenn die Quelle ein Nettoz\u00e4hler ist, was bedeutet, dass sie sowohl steigen als auch fallen kann.",
+                    "offset": "Versetzen des Tages einer monatlichen Z\u00e4hlerr\u00fccksetzung.",
+                    "periodically_resetting": "Aktivieren, wenn die Quelle regelm\u00e4\u00dfig auf 0 zur\u00fcckgesetzt werden darf, beispielsweise beim Hochfahren des Messger\u00e4ts. Wenn deaktiviert, werden neue Messwerte direkt nach Nichtverf\u00fcgbarkeit der Daten aufgezeichnet.",
+                    "tariffs": "Eine Liste der unterst\u00fctzten Tarife; leer lassen, wenn nur ein einziger Tarif ben\u00f6tigt wird."
+                },
+                "description": "Erstelle einen Sensor, der den Verbrauch verschiedener Versorgungsleistungen (z. B. Energie, Gas, Wasser, Heizung) \u00fcber einen konfigurierten Zeitraum, in der Regel monatlich, erfasst. Der Sensor f\u00fcr den Verbrauchsz\u00e4hler unterst\u00fctzt optional die Aufteilung des Verbrauchs nach Tarifen. In diesem Fall wird ein Sensor f\u00fcr jeden Tarif sowie eine Auswahlm\u00f6glichkeit zur Auswahl des aktuellen Tarifs erstellt.",
+                "title": "Verbrauchsz\u00e4hler erstellen"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "always_available": "Sensor immer verf\u00fcgbar",
+                    "periodically_resetting": "Regelm\u00e4\u00dfiges Zur\u00fccksetzen",
+                    "source": "Eingangssensor"
+                },
+                "data_description": {
+                    "always_available": "Wenn aktiviert, zeigt der Sensor immer den letzten bekannten Wert an, auch wenn die Quell-Entit\u00e4t nicht verf\u00fcgbar oder unbekannt ist.",
+                    "periodically_resetting": "Aktivieren, wenn die Quelle regelm\u00e4\u00dfig auf 0 zur\u00fcckgesetzt werden darf, beispielsweise beim Hochfahren des Messger\u00e4ts. Wenn deaktiviert, werden neue Messwerte direkt nach Nichtverf\u00fcgbarkeit der Daten aufgezeichnet."
+                }
+            }
+        }
+    },
+    "selector": {
+        "cycle": {
+            "options": {
+                "bimonthly": "Alle zwei Monate",
+                "daily": "T\u00e4glich",
+                "hourly": "St\u00fcndlich",
+                "monthly": "Monatlich",
+                "none": "Kein Zyklus",
+                "quarter-hourly": "Alle 15 Minuten",
+                "quarterly": "Viertelj\u00e4hrlich",
+                "weekly": "W\u00f6chentlich",
+                "yearly": "J\u00e4hrlich"
+            }
+        }
+    },
+    "services": {
+        "calibrate": {
+            "description": "Kalibriert einen Verbrauchsz\u00e4hlersensor.",
+            "fields": {
+                "value": {
+                    "description": "Wert, auf den der Z\u00e4hler eingestellt wird.",
+                    "name": "Wert"
+                }
+            },
+            "name": "Kalibrieren"
+        },
+        "reset": {
+            "description": "Setzt alle Z\u00e4hler eines Verbrauchsz\u00e4hlers zur\u00fcck.",
+            "name": "Zur\u00fccksetzen"
+        }
+    },
+    "title": "Verbrauchsz\u00e4hler"
+}

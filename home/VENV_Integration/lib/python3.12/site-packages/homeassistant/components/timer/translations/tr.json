@@ -1,0 +1,84 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "Zamanlay\u0131c\u0131",
+            "state": {
+                "active": "Etkin",
+                "idle": "Bo\u015fta",
+                "paused": "Durduruldu"
+            },
+            "state_attributes": {
+                "duration": {
+                    "name": "S\u00fcre"
+                },
+                "editable": {
+                    "name": "Kullan\u0131c\u0131 arabirimi arac\u0131l\u0131\u011f\u0131yla y\u00f6netilir",
+                    "state": {
+                        "false": "Hay\u0131r",
+                        "true": "Evet"
+                    }
+                },
+                "finishes_at": {
+                    "name": "Bitiyor"
+                },
+                "remaining": {
+                    "name": "Kalan"
+                },
+                "restore": {
+                    "name": "Geri Y\u00fckleme"
+                }
+            }
+        }
+    },
+    "issues": {
+        "deprecated_duration_in_start": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Zamanlay\u0131c\u0131 hizmeti 'timer.start' iste\u011fe ba\u011fl\u0131 s\u00fcre parametresi kald\u0131r\u0131l\u0131yor ve kullan\u0131ld\u0131\u011f\u0131 tespit edildi. S\u00fcreyi de\u011fi\u015ftirmek i\u00e7in l\u00fctfen yeni bir zamanlay\u0131c\u0131 olu\u015fturun. \n\n L\u00fctfen otomasyonlar\u0131n\u0131zda ve komut dosyalar\u0131n\u0131zda \"timer.start\" hizmetindeki \"s\u00fcre\" parametresinin kullan\u0131m\u0131n\u0131 kald\u0131r\u0131n ve bu sorunu kapatmak i\u00e7in **g\u00f6nder**'i se\u00e7in.",
+                        "title": "Zamanlay\u0131c\u0131 ba\u015flatma servis s\u00fcresi parametresi kald\u0131r\u0131l\u0131yor"
+                    }
+                }
+            },
+            "title": "Zamanlay\u0131c\u0131 ba\u015flatma servis s\u00fcresi parametresi kald\u0131r\u0131l\u0131yor"
+        }
+    },
+    "services": {
+        "cancel": {
+            "description": "Bir zamanlay\u0131c\u0131y\u0131 iptal eder.",
+            "name": "\u0130ptal"
+        },
+        "change": {
+            "description": "Bir zamanlay\u0131c\u0131y\u0131 de\u011fi\u015ftirir.",
+            "fields": {
+                "duration": {
+                    "description": "\u00c7al\u0131\u015fan zamanlay\u0131c\u0131ya eklenecek veya \u00e7\u0131kar\u0131lacak s\u00fcre.",
+                    "name": "S\u00fcre"
+                }
+            },
+            "name": "De\u011fi\u015ftir"
+        },
+        "finish": {
+            "description": "Bir zamanlay\u0131c\u0131y\u0131 bitirir.",
+            "name": "Bitir"
+        },
+        "pause": {
+            "description": "Bir zamanlay\u0131c\u0131y\u0131 duraklat\u0131r.",
+            "name": "Duraklat"
+        },
+        "reload": {
+            "description": "YAML yap\u0131land\u0131rmas\u0131ndaki zamanlay\u0131c\u0131lar\u0131 yeniden y\u00fckler.",
+            "name": "Tekrar y\u00fckle"
+        },
+        "start": {
+            "description": "Bir zamanlay\u0131c\u0131 ba\u015flat\u0131r.",
+            "fields": {
+                "duration": {
+                    "description": "Zamanlay\u0131c\u0131n\u0131n bitmesi i\u00e7in gereken s\u00fcre. [iste\u011fe ba\u011fl\u0131].",
+                    "name": "S\u00fcre"
+                }
+            },
+            "name": "Ba\u015flat"
+        }
+    }
+}

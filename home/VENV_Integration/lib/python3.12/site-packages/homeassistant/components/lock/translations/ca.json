@@ -1,0 +1,85 @@
+{
+    "device_automation": {
+        "action_type": {
+            "lock": "Bloqueja {entity_name}",
+            "open": "Obre {entity_name}",
+            "unlock": "Desbloqueja {entity_name}"
+        },
+        "condition_type": {
+            "is_locked": "{entity_name} est\u00e0 bloquejat/ada",
+            "is_unlocked": "{entity_name} est\u00e0 desbloquejat/ada"
+        },
+        "extra_fields": {
+            "for": "Durada"
+        },
+        "trigger_type": {
+            "locked": "{entity_name} s'ha bloquejat",
+            "unlocked": "{entity_name} s'ha desbloquejat"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Pany",
+            "state": {
+                "jammed": "Encallat",
+                "locked": "Bloquejat",
+                "locking": "Bloquejant",
+                "open": "Obert/a",
+                "unlocked": "Desbloquejat",
+                "unlocking": "Desbloquejant"
+            },
+            "state_attributes": {
+                "changed_by": {
+                    "name": "Canviat per"
+                },
+                "code_format": {
+                    "name": "Format del codi"
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "add_default_code": {
+            "message": "El codi de {entity_id} no coincideix amb el patr\u00f3/format {code_format}."
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "La plataforma {platform} de la integraci\u00f3 {domain} no \u00e9s compatible amb la configuraci\u00f3 de la plataforma.\n\nElimina-la de la teva configuraci\u00f3 i reinicia Home Assistant per solucionar aquest problema.",
+            "title": "Suport de la plataforma no compatible"
+        }
+    },
+    "services": {
+        "lock": {
+            "description": "Bloqueja un pany.",
+            "fields": {
+                "code": {
+                    "description": "Codi per bloquejar el pany.",
+                    "name": "Codi"
+                }
+            },
+            "name": "Pany"
+        },
+        "open": {
+            "description": "Obre un pany.",
+            "fields": {
+                "code": {
+                    "description": "Codi per obrir el pany.",
+                    "name": "Codi"
+                }
+            },
+            "name": "Obre"
+        },
+        "unlock": {
+            "description": "Desbloqueja un pany.",
+            "fields": {
+                "code": {
+                    "description": "Codi per desbloquejar el pany.",
+                    "name": "Codi"
+                }
+            },
+            "name": "Desbloqueja"
+        }
+    },
+    "title": "Pany"
+}

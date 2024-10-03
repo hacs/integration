@@ -1,0 +1,102 @@
+{
+    "device_automation": {
+        "action_type": {
+            "clean": "Fes que {entity_name} netegi",
+            "dock": "Fes que {entity_name} torni a la base"
+        },
+        "condition_type": {
+            "is_cleaning": "{entity_name} est\u00e0 netejant",
+            "is_docked": "{entity_name} est\u00e0 acoblada"
+        },
+        "extra_fields": {
+            "for": "Durada"
+        },
+        "trigger_type": {
+            "cleaning": "{entity_name} ha comen\u00e7at a netejar",
+            "docked": "{entity_name} acoblada"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Aspirador",
+            "state": {
+                "cleaning": "Netejant",
+                "docked": "Aparcada",
+                "error": "Error",
+                "idle": "Inactiu",
+                "off": "OFF",
+                "on": "ON",
+                "paused": "Pausat/ada",
+                "returning": "Retornant a la base"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_vacuum_base_class": {
+            "description": "La integraci\u00f3 personalitzada `{platform}` est\u00e0 estenent la classe base obsoleta `VacuumEntity` en lloc de `StateVacuumEntity`. \n\nInforma-ho a l'autor de la integraci\u00f3 personalitzada `{platform}`. \n\nUn cop estigui disponible una versi\u00f3 actualitzada de `{platform}`, instal\u00b7la-la i reinicia Home Assistant per solucionar aquest problema.",
+            "title": "La integraci\u00f3 personalitzada {platform} utilitza una funci\u00f3 d'aspirador obsoleta"
+        },
+        "deprecated_vacuum_base_class_url": {
+            "description": "La integraci\u00f3 personalitzada `{platform}` est\u00e0 estenent la classe base obsoleta `VacuumEntity` en lloc de `StateVacuumEntity`. \n\nSi us plau, crea un missatge informant de l'error a {issue_tracker}.\n\nQuan estigui disponible una versi\u00f3 actualitzada de `{platform}`, instal\u00b7la-la i reinicia Home Assistant per solucionar aquest problema.",
+            "title": "La integraci\u00f3 personalitzada {platform} utilitza una funci\u00f3 d'aspirador obsoleta"
+        },
+        "platform_integration_no_support": {
+            "description": "La plataforma {platform} de la integraci\u00f3 {domain} no \u00e9s compatible amb la configuraci\u00f3 de la plataforma.\n\nElimina-la de la teva configuraci\u00f3 i reinicia Home Assistant per solucionar aquest problema.",
+            "title": "Suport de la plataforma no compatible"
+        }
+    },
+    "services": {
+        "pause": {
+            "name": "Pausa"
+        },
+        "return_to_base": {
+            "name": "Retorn a la base"
+        },
+        "send_command": {
+            "fields": {
+                "command": {
+                    "name": "Comanda"
+                },
+                "params": {
+                    "description": "Par\u00e0metres per a la comanda. Els par\u00e0metres s\u00f3n espec\u00edfics de la integraci\u00f3.",
+                    "name": "Par\u00e0metres"
+                }
+            },
+            "name": "Envia comanda"
+        },
+        "set_fan_speed": {
+            "description": "Configura la velocitat del ventilador de l'aspirador.",
+            "fields": {
+                "fan_speed": {
+                    "description": "Velocitat del ventilador. El valor dep\u00e8n de la integraci\u00f3. Algunes integracions tenen passos de velocitat, com ara 'mitj\u00e0'. Alguns utilitzen un percentatge, entre 0 i 100.",
+                    "name": "Velocitat del ventilador"
+                }
+            },
+            "name": "Configura la velocitat del ventilador"
+        },
+        "start": {
+            "description": "Inicia o repr\u00e8n la tasca de neteja.",
+            "name": "Inicia"
+        },
+        "start_pause": {
+            "description": "Inicia, atura o repr\u00e8n la tasca de neteja.",
+            "name": "Inicia/pausa"
+        },
+        "stop": {
+            "description": "Atura la tasca de neteja actual.",
+            "name": "Atura"
+        },
+        "toggle": {
+            "name": "Commuta"
+        },
+        "turn_off": {
+            "description": "Atura la tasca de neteja actual i torna a la base.",
+            "name": "Apaga"
+        },
+        "turn_on": {
+            "description": "Inicia una nova tasca de neteja.",
+            "name": "Enc\u00e9n"
+        }
+    },
+    "title": "Aspirador"
+}

@@ -1,0 +1,71 @@
+{
+    "config": {
+        "error": {
+            "cannot_connect": "Kan geen verbinding maken",
+            "invalid_auth": "Ongeldige authenticatie"
+        },
+        "step": {
+            "reauth_confirm": {
+                "data": {
+                    "password": "Wachtwoord"
+                },
+                "description": "De Honeywell integratie vereist her-authenticatie van je account",
+                "title": "Authenticatie is verlopen voor {name}"
+            },
+            "user": {
+                "data": {
+                    "password": "Wachtwoord",
+                    "username": "Gebruikersnaam"
+                },
+                "description": "Voer de inloggegevens in die zijn gebruikt om in te loggen op mytotalconnectcomfort.com."
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "outdoor_humidity": {
+                "name": "Luchtvochtigheid buiten"
+            },
+            "outdoor_temperature": {
+                "name": "Buitentemperatuur"
+            }
+        },
+        "switch": {
+            "emergency_heat": {
+                "name": "Noodverwarming"
+            }
+        }
+    },
+    "exceptions": {
+        "switch_failed_off": {
+            "message": "Honeywell kon niet de noodverwarmingsmodus uitschakelen."
+        },
+        "switch_failed_on": {
+            "message": "Honeywell kon niet de noodverwarmingsmodus instellen."
+        }
+    },
+    "issues": {
+        "service_deprecation": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Gebruik de schakelaar `switch.{name}_emergency_heat`in plaats om de mode te wijzigen.\n\nPas a.u.b. je automatiseringen en scripts aan en selecteer **toepassen** om dit issue op te loggen.",
+                        "title": "Ondersteuning voor Honeywell 'extra warmte' wordt verwijderd"
+                    }
+                }
+            },
+            "title": "Ondersteuning voor Honeywell 'extra warmte' wordt verwijderd"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "away_cool_temperature": "Afwezig koeltemperatuur",
+                    "away_heat_temperature": "Afwezig warmte temperatuur"
+                },
+                "description": "Extra Honeywell configuratie opties. Temperaturen zijn ingesteld in Fahrenheit."
+            }
+        }
+    }
+}

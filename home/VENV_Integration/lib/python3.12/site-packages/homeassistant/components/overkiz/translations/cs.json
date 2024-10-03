@@ -1,0 +1,164 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "\u00da\u010det je ji\u017e nastaven",
+            "reauth_successful": "Op\u011btovn\u00e9 ov\u011b\u0159en\u00ed bylo \u00fasp\u011b\u0161n\u00e9",
+            "reauth_wrong_account": "Tento z\u00e1znam m\u016f\u017eete znovu ov\u011b\u0159it jen se stejn\u00fdm \u00fa\u010dtem Overkiz a hubem"
+        },
+        "error": {
+            "cannot_connect": "Nepoda\u0159ilo se p\u0159ipojit",
+            "certificate_verify_failed": "Nelze se p\u0159ipojit k hostiteli, ov\u011b\u0159en\u00ed certifik\u00e1tu se nezda\u0159ilo.",
+            "developer_mode_disabled": "V\u00fdvoj\u00e1\u0159sk\u00fd re\u017eim je zak\u00e1z\u00e1n. Nejprve aktivujte v\u00fdvoj\u00e1\u0159sk\u00fd re\u017eim va\u0161eho boxu Somfy TaHoma.",
+            "invalid_auth": "Neplatn\u00e9 ov\u011b\u0159en\u00ed",
+            "no_such_token": "Pro tuto br\u00e1nu nelze vytvo\u0159it token. Potvr\u010fte, zda je \u00fa\u010det propojen s touto br\u00e1nou.",
+            "server_in_maintenance": "Server je mimo provoz z d\u016fvodu \u00fadr\u017eby",
+            "too_many_attempts": "P\u0159\u00edli\u0161 mnoho pokus\u016f s neplatn\u00fdm tokenem, do\u010dasn\u011b zak\u00e1z\u00e1no",
+            "too_many_requests": "P\u0159\u00edli\u0161 mnoho po\u017eadavk\u016f, zkuste to znovu pozd\u011bji",
+            "unknown": "Neo\u010dek\u00e1van\u00e1 chyba",
+            "unsupported_hardware": "V\u00e1\u0161 hardware {unsupported_device} nen\u00ed touto integrac\u00ed podporov\u00e1n."
+        },
+        "flow_title": "Br\u00e1na: {gateway_id}",
+        "step": {
+            "cloud": {
+                "data": {
+                    "password": "Heslo",
+                    "username": "U\u017eivatelsk\u00e9 jm\u00e9no"
+                },
+                "description": "Zadejte p\u0159ihla\u0161ovac\u00ed \u00fadaje aplikace."
+            },
+            "local": {
+                "data": {
+                    "host": "Hostitel",
+                    "password": "Heslo",
+                    "username": "U\u017eivatelsk\u00e9 jm\u00e9no",
+                    "verify_ssl": "Ov\u011b\u0159it certifik\u00e1t SSL"
+                },
+                "description": "Aktivac\u00ed [v\u00fdvoj\u00e1\u0159sk\u00e9ho re\u017eimu ve va\u0161em boxu TaHoma](https://github.com/Somfy-Developer/Somfy-TaHoma-Developer-Mode#getting-started) m\u016f\u017eete autorizovat software t\u0159et\u00edch stran (nap\u0159. Home Assistant), aby se mohl p\u0159ipojit prost\u0159ednictv\u00edm m\u00edstn\u00ed s\u00edt\u011b.\n\nPo aktivaci zadejte p\u0159ihla\u0161ovac\u00ed \u00fadaje sv\u00e9 aplikace a zm\u011b\u0148te hostitele tak, aby zahrnoval v\u00e1\u0161 PIN br\u00e1ny nebo zadejte IP adresu va\u0161\u00ed br\u00e1ny."
+            },
+            "local_or_cloud": {
+                "data": {
+                    "api_type": "Typ API"
+                },
+                "description": "Vyberte si mezi m\u00edstn\u00edm nebo cloudov\u00fdm API. M\u00edstn\u00ed API podporuje TaHoma Connexoon, TaHoma v2 a TaHoma Switch. Klimatiza\u010dn\u00ed za\u0159\u00edzen\u00ed a sc\u00e9n\u00e1\u0159e nejsou v m\u00edstn\u00edm rozhran\u00ed API podporov\u00e1ny."
+            },
+            "user": {
+                "data": {
+                    "host": "Hostitel",
+                    "hub": "Server",
+                    "password": "Heslo",
+                    "username": "U\u017eivatelsk\u00e9 jm\u00e9no"
+                },
+                "description": "Vyberte sv\u016fj server. Platformu Overkiz pou\u017e\u00edvaj\u00ed r\u016fzn\u00ed prodejci jako Somfy (Connexoon / TaHoma), Hitachi (Hi Kumo) a Atlantic (Cozytouch)."
+            }
+        }
+    },
+    "entity": {
+        "climate": {
+            "overkiz": {
+                "state_attributes": {
+                    "fan_mode": {
+                        "state": {
+                            "away": "Pry\u010d",
+                            "bypass_boost": "Zv\u00fd\u0161it obejit\u00ed",
+                            "home_boost": "Zv\u00fd\u0161it Domov",
+                            "kitchen_boost": "Zv\u00fd\u0161it Kuchyni"
+                        }
+                    },
+                    "preset_mode": {
+                        "state": {
+                            "auto": "Auto",
+                            "comfort-1": "Komfort 1",
+                            "comfort-2": "Komfort 2",
+                            "drying": "Su\u0161en\u00ed",
+                            "external": "Extern\u00ed",
+                            "freeze": "Zmrazit",
+                            "frost_protection": "Ochrana proti mrazu",
+                            "manual": "Ru\u010dn\u011b",
+                            "night": "Noc",
+                            "prog": "Prog"
+                        }
+                    }
+                }
+            }
+        },
+        "select": {
+            "memorized_simple_volume": {
+                "state": {
+                    "highest": "Nejvy\u0161\u0161\u00ed",
+                    "standard": "Standardn\u00ed"
+                }
+            },
+            "open_closed_partial": {
+                "state": {
+                    "closed": "Zav\u0159eno",
+                    "open": "Otev\u0159eno",
+                    "partial": "\u010c\u00e1ste\u010dn\u011b"
+                }
+            },
+            "open_closed_pedestrian": {
+                "state": {
+                    "closed": "Zav\u0159eno",
+                    "open": "Otev\u0159eno",
+                    "pedestrian": "Chodec"
+                }
+            }
+        },
+        "sensor": {
+            "battery": {
+                "state": {
+                    "full": "Pln\u00e1",
+                    "low": "N\u00edzk\u00e1",
+                    "medium": "St\u0159edn\u00ed",
+                    "normal": "Norm\u00e1ln\u00ed",
+                    "verylow": "Velmi n\u00edzk\u00e1"
+                }
+            },
+            "discrete_rssi_level": {
+                "state": {
+                    "good": "Dobr\u00e1",
+                    "low": "N\u00edzk\u00e1",
+                    "normal": "Norm\u00e1ln\u00ed",
+                    "verylow": "Velmi n\u00edzk\u00e1"
+                }
+            },
+            "priority_lock_originator": {
+                "state": {
+                    "external_gateway": "Extern\u00ed br\u00e1na",
+                    "local_user": "M\u00edstn\u00ed u\u017eivatel",
+                    "lsc": "LSC",
+                    "myself": "J\u00e1 s\u00e1m",
+                    "rain": "D\u00e9\u0161\u0165",
+                    "saac": "SAAC",
+                    "security": "Zabezpe\u010den\u00ed",
+                    "sfc": "SFC",
+                    "temperature": "Teplota",
+                    "timer": "\u010casova\u010d",
+                    "ups": "UPS",
+                    "user": "U\u017eivatel",
+                    "wind": "V\u00edtr"
+                }
+            },
+            "sensor_defect": {
+                "state": {
+                    "dead": "Mrtv\u00fd",
+                    "low_battery": "Vybit\u00e1 baterie",
+                    "maintenance_required": "Nutn\u00e1 \u00fadr\u017eba",
+                    "no_defect": "\u017d\u00e1dn\u00e1 z\u00e1vada"
+                }
+            },
+            "sensor_room": {
+                "state": {
+                    "clean": "\u010cisto",
+                    "dirty": "\u0160pinav\u00e9"
+                }
+            },
+            "three_way_handle_direction": {
+                "state": {
+                    "closed": "Zav\u0159eno",
+                    "open": "Otev\u0159eno",
+                    "tilt": "N\u00e1klon"
+                }
+            }
+        }
+    }
+}

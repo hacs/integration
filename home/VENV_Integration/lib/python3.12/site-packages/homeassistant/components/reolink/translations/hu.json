@@ -1,0 +1,778 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Az eszk\u00f6z m\u00e1r konfigur\u00e1lva van",
+            "reauth_successful": "Az \u00fajrahiteles\u00edt\u00e9s sikeres volt.",
+            "reconfigure_successful": "\u00dajrakonfigur\u00e1l\u00e1s sikeres volt"
+        },
+        "error": {
+            "api_error": "API hiba t\u00f6rt\u00e9nt",
+            "cannot_connect": "Sikertelen csatlakoz\u00e1s, ellen\u0151rizze a kamera IP-c\u00edm\u00e9t.",
+            "invalid_auth": "\u00c9rv\u00e9nytelen hiteles\u00edt\u00e9s",
+            "not_admin": "A felhaszn\u00e1l\u00f3nak adminisztr\u00e1tornak kell lennie, \"{username}\" felhaszn\u00e1l\u00f3 jogosults\u00e1gi szintje pedig \"{userlevel}\".",
+            "password_incompatible": "A jelsz\u00f3 nem kompatibilis speci\u00e1lis karaktert tartalmaz, csak az al\u00e1bbi karakterek enged\u00e9lyezettek: a-z, A-Z, 0-9 vagy {special_chars}",
+            "unknown": "V\u00e1ratlan hiba",
+            "webhook_exception": "A Home Assistant URL nem \u00e9rhet\u0151 el, menjen a Be\u00e1ll\u00edt\u00e1sok > Rendszer > H\u00e1l\u00f3zat > Home Assistant URL men\u00fcpontba \u00e9s jav\u00edtsa ki az URL-eket, l\u00e1sd {more_info}"
+        },
+        "flow_title": "{hostname} ({ip_address})",
+        "step": {
+            "reauth_confirm": {
+                "description": "A Reolink integr\u00e1ci\u00f3nak \u00fajra kell hiteles\u00edtenie a kapcsolaot.",
+                "title": "A(z) {name} hiteles\u00edt\u00e9se lej\u00e1rt"
+            },
+            "user": {
+                "data": {
+                    "host": "Hoszt",
+                    "password": "Jelsz\u00f3",
+                    "port": "Port",
+                    "use_https": "HTTPS enged\u00e9lyez\u00e9se",
+                    "username": "Felhaszn\u00e1l\u00f3n\u00e9v"
+                },
+                "data_description": {
+                    "host": "A Reolink eszk\u00f6z g\u00e9pneve vagy IP-c\u00edme. P\u00e9ld\u00e1ul: '192.168.1.25'.",
+                    "password": "Jelsz\u00f3 a Reolink eszk\u00f6zre val\u00f3 bejelentkez\u00e9shez. Nem a Reolink felh\u0151fi\u00f3k.",
+                    "port": "A Reolink eszk\u00f6zh\u00f6z val\u00f3 csatlakoz\u00e1shoz haszn\u00e1lt port. HTTP eset\u00e9n \u00e1ltal\u00e1ban: \"80\", HTTPS eset\u00e9n \u00e1ltal\u00e1ban \"443\".",
+                    "use_https": "Haszn\u00e1ljon HTTPS (SSL) kapcsolatot a Reolink eszk\u00f6zzel.",
+                    "username": "Felhaszn\u00e1l\u00f3n\u00e9v a Reolink eszk\u00f6zre val\u00f3 bejelentkez\u00e9shez. Nem a Reolink felh\u0151fi\u00f3k."
+                },
+                "description": "Ha probl\u00e9m\u00e1k mer\u00fclnek fel, b\u0151vebb inform\u00e1ci\u00f3 itt: [hibaelh\u00e1r\u00edt\u00e1si l\u00e9p\u00e9sek]({troubleshooting_link}). {error}"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "animal": {
+                "name": "\u00c1llat",
+                "state": {
+                    "off": "Nincs \u00e9szlel\u00e9s",
+                    "on": "\u00c9szlelve"
+                }
+            },
+            "animal_lens_0": {
+                "name": "\u00c1llat objekt\u00edv 0",
+                "state": {
+                    "off": "Nincs \u00e9szlel\u00e9s",
+                    "on": "\u00c9szlelve"
+                }
+            },
+            "animal_lens_1": {
+                "name": "\u00c1llat objekt\u00edv 1",
+                "state": {
+                    "off": "Nincs \u00e9szlel\u00e9s",
+                    "on": "\u00c9szlelve"
+                }
+            },
+            "face": {
+                "name": "Arc",
+                "state": {
+                    "off": "Nincs \u00e9szlel\u00e9s",
+                    "on": "\u00c9szlelve"
+                }
+            },
+            "face_lens_0": {
+                "name": "Arc lencse 0",
+                "state": {
+                    "off": "Nincs \u00e9szlel\u00e9s",
+                    "on": "\u00c9szlelve"
+                }
+            },
+            "face_lens_1": {
+                "name": "Arc lencse 1",
+                "state": {
+                    "off": "Nincs \u00e9szlel\u00e9s",
+                    "on": "\u00c9szlelve"
+                }
+            },
+            "motion_lens_0": {
+                "name": "Mozg\u00e1s lencse 0",
+                "state": {
+                    "off": "Nincs \u00e9szlel\u00e9s",
+                    "on": "\u00c9szlelve"
+                }
+            },
+            "motion_lens_1": {
+                "name": "Mozg\u00e1s lencse 1",
+                "state": {
+                    "off": "Nincs \u00e9szlel\u00e9s",
+                    "on": "\u00c9szlelve"
+                }
+            },
+            "package": {
+                "name": "Csomag",
+                "state": {
+                    "off": "Nincs \u00e9szlel\u00e9s",
+                    "on": "\u00c9szlelve"
+                }
+            },
+            "package_lens_0": {
+                "name": "Csomag lencse 0",
+                "state": {
+                    "off": "Nincs \u00e9szlel\u00e9s",
+                    "on": "\u00c9szlelve"
+                }
+            },
+            "package_lens_1": {
+                "name": "Csomag lencse 1",
+                "state": {
+                    "off": "Nincs \u00e9szlel\u00e9s",
+                    "on": "\u00c9szlelve"
+                }
+            },
+            "person": {
+                "name": "Szem\u00e9ly",
+                "state": {
+                    "off": "Nincs \u00e9szlel\u00e9s",
+                    "on": "\u00c9szlelve"
+                }
+            },
+            "person_lens_0": {
+                "name": "Szem\u00e9ly lencse 0",
+                "state": {
+                    "off": "Nincs \u00e9szlel\u00e9s",
+                    "on": "\u00c9szlelve"
+                }
+            },
+            "person_lens_1": {
+                "name": "Szem\u00e9ly lencse 1",
+                "state": {
+                    "off": "Nincs \u00e9szlel\u00e9s",
+                    "on": "\u00c9szlelve"
+                }
+            },
+            "pet": {
+                "name": "Kis\u00e1llat",
+                "state": {
+                    "off": "Nincs \u00e9szlel\u00e9s",
+                    "on": "\u00c9szlelve"
+                }
+            },
+            "pet_lens_0": {
+                "name": "Kis\u00e1llat lencse 0",
+                "state": {
+                    "off": "Nincs \u00e9szlel\u00e9s",
+                    "on": "\u00c9szlelve"
+                }
+            },
+            "pet_lens_1": {
+                "name": "Kis\u00e1llat lencse 1",
+                "state": {
+                    "off": "Nincs \u00e9szlel\u00e9s",
+                    "on": "\u00c9szlelve"
+                }
+            },
+            "sleep": {
+                "name": "Alv\u00e1si \u00e1llapot",
+                "state": {
+                    "off": "\u00c9bren",
+                    "on": "Alv\u00e1s"
+                }
+            },
+            "vehicle": {
+                "name": "J\u00e1rm\u0171",
+                "state": {
+                    "off": "Nincs \u00e9szlel\u00e9s",
+                    "on": "\u00c9szlelve"
+                }
+            },
+            "vehicle_lens_0": {
+                "name": "J\u00e1rm\u0171 lencse 0",
+                "state": {
+                    "off": "Nincs \u00e9szlel\u00e9s",
+                    "on": "\u00c9szlelve"
+                }
+            },
+            "vehicle_lens_1": {
+                "name": "J\u00e1rm\u0171 lencse 1",
+                "state": {
+                    "off": "Nincs \u00e9szlel\u00e9s",
+                    "on": "\u00c9szlelve"
+                }
+            },
+            "visitor": {
+                "name": "L\u00e1togat\u00f3"
+            },
+            "visitor_lens_0": {
+                "name": "L\u00e1togat\u00f3i lencse 0"
+            },
+            "visitor_lens_1": {
+                "name": "L\u00e1togat\u00f3i lencse 1"
+            }
+        },
+        "button": {
+            "guard_go_to": {
+                "name": "\u0150rz\u00e9si pontra ugr\u00e1s"
+            },
+            "guard_set": {
+                "name": "\u0150rz\u00e9si pont be\u00e1ll\u00edt\u00e1sa az aktu\u00e1lis poz\u00edci\u00f3ra"
+            },
+            "ptz_calibrate": {
+                "name": "PTZ kalibr\u00e1l\u00e1s"
+            },
+            "ptz_down": {
+                "name": "PTZ le"
+            },
+            "ptz_left": {
+                "name": "PTZ bal"
+            },
+            "ptz_right": {
+                "name": "PTZ jobb"
+            },
+            "ptz_stop": {
+                "name": "PTZ stop"
+            },
+            "ptz_up": {
+                "name": "PTZ fel"
+            },
+            "ptz_zoom_in": {
+                "name": "PTZ nagy\u00edt\u00e1s"
+            },
+            "ptz_zoom_out": {
+                "name": "PTZ kicsiny\u00edt\u00e9s"
+            }
+        },
+        "camera": {
+            "autotrack_snapshots_main": {
+                "name": "Automatikus k\u00f6vet\u00e9s pillanatk\u00e9pek tiszta"
+            },
+            "autotrack_snapshots_sub": {
+                "name": "Automatikus k\u00f6vet\u00e9s pillanatk\u00e9pek foly\u00e9kony"
+            },
+            "autotrack_sub": {
+                "name": "Automatikus k\u00f6vet\u00e9s foly\u00e9kony"
+            },
+            "ext": {
+                "name": "Kiegyens\u00falyozott"
+            },
+            "ext_lens_0": {
+                "name": "Kiegyens\u00falyozott lencse 0"
+            },
+            "ext_lens_1": {
+                "name": "Kiegyens\u00falyozott lencse 1"
+            },
+            "main": {
+                "name": "Tiszta"
+            },
+            "main_lens_0": {
+                "name": "Tiszta lencse 0"
+            },
+            "main_lens_1": {
+                "name": "Tiszta lencse 1"
+            },
+            "snapshots_main": {
+                "name": "Pillanatk\u00e9pek tiszta"
+            },
+            "snapshots_main_lens_0": {
+                "name": "Pillanatk\u00e9pek tiszta lencse 0"
+            },
+            "snapshots_main_lens_1": {
+                "name": "Pillanatk\u00e9pek tiszta lencse 1"
+            },
+            "snapshots_sub": {
+                "name": "Pillanatk\u00e9pek foly\u00e9kony"
+            },
+            "snapshots_sub_lens_0": {
+                "name": "Pillanatk\u00e9pek foly\u00e9kony lencse 0"
+            },
+            "snapshots_sub_lens_1": {
+                "name": "Pillanatk\u00e9pek foly\u00e9kony lencse 1"
+            },
+            "sub": {
+                "name": "Foly\u00e9kony"
+            },
+            "sub_lens_0": {
+                "name": "Foly\u00e9kony lencse 0"
+            },
+            "sub_lens_1": {
+                "name": "Foly\u00e9kony lencse 1"
+            }
+        },
+        "light": {
+            "floodlight": {
+                "name": "Reflektor"
+            },
+            "ir_lights": {
+                "name": "Infrav\u00f6r\u00f6s f\u00e9nyek \u00e9jszakai \u00fczemm\u00f3dban"
+            },
+            "status_led": {
+                "name": "\u00c1llapotjelz\u0151 LED"
+            }
+        },
+        "number": {
+            "ai_animal_delay": {
+                "name": "AI \u00e1llatok k\u00e9sleltet\u00e9se"
+            },
+            "ai_animal_sensititvity": {
+                "name": "AI \u00e1llatok \u00e9rz\u00e9kenys\u00e9ge"
+            },
+            "ai_animal_sensitivity": {
+                "name": "AI \u00e1llatok \u00e9rz\u00e9kenys\u00e9ge"
+            },
+            "ai_face_delay": {
+                "name": "AI arc k\u00e9sleltet\u00e9se"
+            },
+            "ai_face_sensititvity": {
+                "name": "AI arc \u00e9rz\u00e9kenys\u00e9ge"
+            },
+            "ai_face_sensitivity": {
+                "name": "AI arc \u00e9rz\u00e9kenys\u00e9ge"
+            },
+            "ai_package_delay": {
+                "name": "AI csomag k\u00e9sleltet\u00e9se"
+            },
+            "ai_package_sensititvity": {
+                "name": "AI csomag \u00e9rz\u00e9kenys\u00e9ge"
+            },
+            "ai_package_sensitivity": {
+                "name": "AI csomag \u00e9rz\u00e9kenys\u00e9ge"
+            },
+            "ai_person_delay": {
+                "name": "AI szem\u00e9ly k\u00e9sleltet\u00e9se"
+            },
+            "ai_person_sensititvity": {
+                "name": "AI szem\u00e9ly \u00e9rz\u00e9kenys\u00e9ge"
+            },
+            "ai_person_sensitivity": {
+                "name": "AI szem\u00e9ly \u00e9rz\u00e9kenys\u00e9ge"
+            },
+            "ai_pet_delay": {
+                "name": "AI kis\u00e1llat k\u00e9sleltet\u00e9se"
+            },
+            "ai_pet_sensititvity": {
+                "name": "AI kis\u00e1llat \u00e9rz\u00e9kenys\u00e9ge"
+            },
+            "ai_pet_sensitivity": {
+                "name": "AI kis\u00e1llat \u00e9rz\u00e9kenys\u00e9ge"
+            },
+            "ai_vehicle_delay": {
+                "name": "AI j\u00e1rm\u0171 k\u00e9sleltet\u00e9se"
+            },
+            "ai_vehicle_sensititvity": {
+                "name": "AI j\u00e1rm\u0171 \u00e9rz\u00e9kenys\u00e9ge"
+            },
+            "ai_vehicle_sensitivity": {
+                "name": "AI j\u00e1rm\u0171 \u00e9rz\u00e9kenys\u00e9ge"
+            },
+            "alarm_volume": {
+                "name": "Riaszt\u00e1s hangereje"
+            },
+            "auto_quick_reply_time": {
+                "name": "Automatikus gyors v\u00e1laszid\u0151"
+            },
+            "auto_track_disappear_time": {
+                "name": "Auto. k\u00f6vet\u00e9s megsz\u0171n\u00e9s\u00e9nek ideje"
+            },
+            "auto_track_limit_left": {
+                "name": "Auto. k\u00f6vet\u00e9shez bal oldali korl\u00e1t"
+            },
+            "auto_track_limit_right": {
+                "name": "Auto. k\u00f6vet\u00e9shez jobb oldali korl\u00e1t"
+            },
+            "auto_track_stop_time": {
+                "name": "Auto. k\u00f6vet\u00e9s meg\u00e1ll\u00edt\u00e1s\u00e1nak ideje"
+            },
+            "day_night_switch_threshold": {
+                "name": "Nappali-\u00e9jszakai kapcsol\u00f3 k\u00fcsz\u00f6b\u00e9rt\u00e9k"
+            },
+            "floodlight_brightness": {
+                "name": "Reflektor bekapcsol\u00e1si f\u00e9nyereje"
+            },
+            "focus": {
+                "name": "F\u00f3kusz"
+            },
+            "guard_return_time": {
+                "name": "\u00d6rz\u00e9si pontra visszat\u00e9r\u00e9si id\u0151"
+            },
+            "image_brightness": {
+                "name": "K\u00e9p f\u00e9nyer\u0151"
+            },
+            "image_contrast": {
+                "name": "K\u00e9p kontraszt"
+            },
+            "image_hue": {
+                "name": "K\u00e9p \u00e1rnyalat"
+            },
+            "image_saturation": {
+                "name": "K\u00e9p tel\u00edtetts\u00e9g"
+            },
+            "image_sharpness": {
+                "name": "K\u00e9p \u00e9less\u00e9g"
+            },
+            "message_volume": {
+                "name": "\u00dczenet hangereje"
+            },
+            "motion_sensitivity": {
+                "name": "Mozg\u00e1s\u00e9rz\u00e9kenys\u00e9g"
+            },
+            "pir_sensitivity": {
+                "name": "PIR \u00e9rz\u00e9kenys\u00e9g"
+            },
+            "volume": {
+                "name": "Hanger\u0151"
+            },
+            "zoom": {
+                "name": "Nagy\u00edt\u00e1s"
+            }
+        },
+        "select": {
+            "auto_quick_reply_message": {
+                "name": "Automatikus gyors v\u00e1lasz\u00fczenet",
+                "state": {
+                    "off": "Ki"
+                }
+            },
+            "auto_track_method": {
+                "name": "Automatikus k\u00f6vet\u00e9si m\u00f3dszer",
+                "state": {
+                    "digital": "Digit\u00e1lis",
+                    "digitalfirst": "Digit\u00e1lis priorit\u00e1s",
+                    "pantiltfirst": "P\u00e1szt\u00e1z\u00e1s/d\u00f6nt\u00e9s priorit\u00e1s"
+                }
+            },
+            "day_night_mode": {
+                "name": "Nappali-\u00e9jszakai \u00fczemm\u00f3d",
+                "state": {
+                    "auto": "Automatikus",
+                    "blackwhite": "Fekete-feh\u00e9r",
+                    "color": "Sz\u00edn"
+                }
+            },
+            "doorbell_led": {
+                "name": "Ajt\u00f3cseng\u0151 LED",
+                "state": {
+                    "alwayson": "Mindig bekapcsolva",
+                    "alwaysonatnight": "Automatikus \u00e9s mindig bekapcsolva \u00e9jszaka",
+                    "auto": "Automatikus",
+                    "stayoff": "Kikapcsolva mindig"
+                }
+            },
+            "floodlight_mode": {
+                "name": "Reflektor \u00fczemm\u00f3d",
+                "state": {
+                    "adaptive": "Alkalmazkod\u00f3",
+                    "auto": "Automatikus",
+                    "autoadaptive": "Automatikusan alkalmazkod\u00f3",
+                    "off": "Ki",
+                    "onatnight": "\u00c9jszaka bekapcsolva",
+                    "schedule": "Id\u0151z\u00edt\u00e9s"
+                }
+            },
+            "hdr": {
+                "name": "HDR",
+                "state": {
+                    "auto": "Auto",
+                    "off": "Ki",
+                    "on": "Be"
+                }
+            },
+            "hub_alarm_ringtone": {
+                "name": "Hub riaszt\u00e1s cseng\u0151hang",
+                "state": {
+                    "alarm": "Riaszt\u00e1s",
+                    "attraction": "Attrakci\u00f3",
+                    "citybird": "V\u00e1rosi mad\u00e1r",
+                    "goodday": "J\u00f3 napot",
+                    "hophop": "Hop hop",
+                    "loop": "Ism\u00e9tl\u00e9s",
+                    "moonlight": "Holdf\u00e9ny",
+                    "operetta": "Operett",
+                    "originaltune": "Eredeti dallam",
+                    "pianokey": "Zongora billenty\u0171",
+                    "waybackhome": "\u00daton hazafel\u00e9"
+                }
+            },
+            "hub_visitor_ringtone": {
+                "name": "Hub l\u00e1togat\u00f3 cseng\u0151hang",
+                "state": {
+                    "alarm": "Riaszt\u00e1s",
+                    "attraction": "Attrakci\u00f3",
+                    "citybird": "V\u00e1rosi mad\u00e1r",
+                    "goodday": "J\u00f3 napot",
+                    "hophop": "Hop hop",
+                    "loop": "Ism\u00e9tl\u00e9s",
+                    "moonlight": "Holdf\u00e9ny",
+                    "operetta": "Operett",
+                    "originaltune": "Eredeti dallam",
+                    "pianokey": "Zongora billenty\u0171",
+                    "waybackhome": "\u00daton hazafel\u00e9"
+                }
+            },
+            "motion_tone": {
+                "name": "Mozg\u00e1s cseng\u0151hang",
+                "state": {
+                    "attraction": "Attrakci\u00f3",
+                    "citybird": "V\u00e1rosi mad\u00e1r",
+                    "goodday": "J\u00f3 napot",
+                    "hophop": "Hop hop",
+                    "loop": "Ism\u00e9tl\u00e9s",
+                    "moonlight": "Holdf\u00e9ny",
+                    "off": "Ki",
+                    "operetta": "Operett",
+                    "originaltune": "Eredeti dallam",
+                    "pianokey": "Zongora billenty\u0171",
+                    "waybackhome": "\u00daton hazafel\u00e9"
+                }
+            },
+            "package_tone": {
+                "name": "Csomag cseng\u0151hang",
+                "state": {
+                    "attraction": "Attrakci\u00f3",
+                    "citybird": "V\u00e1rosi mad\u00e1r",
+                    "goodday": "J\u00f3 napot",
+                    "hophop": "Hop hop",
+                    "loop": "Ism\u00e9tl\u00e9s",
+                    "moonlight": "Holdf\u00e9ny",
+                    "off": "Ki",
+                    "operetta": "Operett",
+                    "originaltune": "Eredeti dallam",
+                    "pianokey": "Zongora billenty\u0171",
+                    "waybackhome": "\u00daton hazafel\u00e9"
+                }
+            },
+            "people_tone": {
+                "name": "Szem\u00e9ly cseng\u0151hang",
+                "state": {
+                    "attraction": "Attrakci\u00f3",
+                    "citybird": "V\u00e1rosi mad\u00e1r",
+                    "goodday": "J\u00f3 napot",
+                    "hophop": "Hop hop",
+                    "loop": "Ism\u00e9tl\u00e9s",
+                    "moonlight": "Holdf\u00e9ny",
+                    "off": "Ki",
+                    "operetta": "Operett",
+                    "originaltune": "Eredeti dallam",
+                    "pianokey": "Zongora billenty\u0171",
+                    "waybackhome": "\u00daton hazafel\u00e9"
+                }
+            },
+            "play_quick_reply_message": {
+                "name": "Gyors v\u00e1lasz\u00fczenet lej\u00e1tsz\u00e1sa"
+            },
+            "ptz_preset": {
+                "name": "PTZ el\u0151be\u00e1ll\u00edt\u00e1s"
+            },
+            "status_led": {
+                "name": "\u00c1llapotjelz\u0151 LED",
+                "state": {
+                    "alwayson": "Mindig bekapcsolva",
+                    "alwaysonatnight": "Automatikus \u00e9s mindig bekapcsolva \u00e9jszaka",
+                    "auto": "Automatikus",
+                    "stayoff": "Kikapcsolva mindig"
+                }
+            },
+            "visitor_tone": {
+                "name": "L\u00e1togat\u00f3i cseng\u0151hang",
+                "state": {
+                    "attraction": "Attrakci\u00f3",
+                    "citybird": "V\u00e1rosi mad\u00e1r",
+                    "goodday": "J\u00f3 napot",
+                    "hophop": "Hop hop",
+                    "loop": "Ism\u00e9tl\u00e9s",
+                    "moonlight": "Holdf\u00e9ny",
+                    "off": "Ki",
+                    "operetta": "Operett",
+                    "originaltune": "Eredeti dallam",
+                    "pianokey": "Zongora billenty\u0171",
+                    "waybackhome": "\u00daton hazafel\u00e9"
+                }
+            }
+        },
+        "sensor": {
+            "battery_percent": {
+                "name": "Akkumul\u00e1tor sz\u00e1zal\u00e9k"
+            },
+            "battery_state": {
+                "name": "Akkumul\u00e1tor \u00e1llapot",
+                "state": {
+                    "chargecomplete": "T\u00f6lt\u00e9s k\u00e9sz",
+                    "charging": "T\u00f6lt\u00e9s",
+                    "discharging": "Kis\u00fct\u00e9s"
+                }
+            },
+            "battery_temperature": {
+                "name": "Akkumul\u00e1tor h\u0151m\u00e9rs\u00e9klet"
+            },
+            "cpu_usage": {
+                "name": "CPU haszn\u00e1lat"
+            },
+            "event_connection": {
+                "name": "Esem\u00e9nykapcsolat",
+                "state": {
+                    "fast_poll": "Gyors lek\u00e9rdez\u00e9s (fast poll)",
+                    "onvif_long_poll": "ONVIF hossz\u00fa lek\u00e9rdez\u00e9s (long poll)",
+                    "onvif_push": "ONVIF push"
+                }
+            },
+            "hdd_storage": {
+                "name": "HDD {hdd_index} t\u00e1rhely"
+            },
+            "ptz_pan_position": {
+                "name": "PTZ p\u00e1szt\u00e1z\u00e1si poz\u00edci\u00f3"
+            },
+            "sd_storage": {
+                "name": "SD {hdd_index} t\u00e1rhely"
+            },
+            "wifi_signal": {
+                "name": "Wi-Fi jel"
+            }
+        },
+        "siren": {
+            "siren": {
+                "name": "Szir\u00e9na"
+            }
+        },
+        "switch": {
+            "auto_focus": {
+                "name": "Automatikus f\u00f3kusz"
+            },
+            "auto_tracking": {
+                "name": "Automatikus k\u00f6vet\u00e9s"
+            },
+            "buzzer": {
+                "name": "Hangjelz\u00e9s esem\u00e9nyn\u00e9l"
+            },
+            "doorbell_button_sound": {
+                "name": "Ajt\u00f3cseng\u0151 gomb hangja"
+            },
+            "email": {
+                "name": "Email az esem\u00e9nyr\u0151l"
+            },
+            "ftp_upload": {
+                "name": "FTP felt\u00f6lt\u00e9s"
+            },
+            "gaurd_return": {
+                "name": "\u0150rz\u00e9si pont visszat\u00e9r\u00e9s"
+            },
+            "guard_return": {
+                "name": "\u0150rz\u00e9si pont visszat\u00e9r\u00e9s"
+            },
+            "hdr": {
+                "name": "HDR"
+            },
+            "hub_ringtone_on_event": {
+                "name": "Hub cseng\u0151hang esem\u00e9nykor"
+            },
+            "ir_lights": {
+                "name": "Infrav\u00f6r\u00f6s f\u00e9nyek \u00e9jszakai \u00fczemm\u00f3dban"
+            },
+            "led": {
+                "name": "LED"
+            },
+            "manual_record": {
+                "name": "K\u00e9zi r\u00f6gz\u00edt\u00e9s"
+            },
+            "pir_enabled": {
+                "name": "PIR enged\u00e9lyezve"
+            },
+            "pir_reduce_alarm": {
+                "name": "PIR t\u00e9ves riaszt\u00e1sok cs\u00f6kkent\u00e9se"
+            },
+            "ptz_patrol": {
+                "name": "PTZ j\u00e1r\u0151r"
+            },
+            "push_notifications": {
+                "name": "Push \u00e9rtes\u00edt\u00e9sek"
+            },
+            "record": {
+                "name": "R\u0151gz\u00edt\u00e9s"
+            },
+            "record_audio": {
+                "name": "Hang r\u00f6gz\u00edt\u00e9s"
+            },
+            "siren_on_event": {
+                "name": "Szir\u00e9na esem\u00e9nyn\u00e9l"
+            }
+        }
+    },
+    "exceptions": {
+        "service_entry_ex": {
+            "message": "Reolink {service_name} hiba: a konfigur\u00e1ci\u00f3s bejegyz\u00e9s nem tal\u00e1lhat\u00f3 vagy nincs bet\u00f6ltve."
+        },
+        "service_not_chime": {
+            "message": "Reolink play_chime hiba: {device_name} nem egy cseng\u0151 eszk\u00f6z."
+        }
+    },
+    "issues": {
+        "enable_port": {
+            "description": "A {ports} port(ok) automatikus enged\u00e9lyez\u00e9se sikertelen volt a(z) {name} eszk\u00f6z\u00f6n. Haszn\u00e1lja a [Reolink kliens]({info_link}) alkalmaz\u00e1st a k\u00e9zi bekapcsol\u00e1shoz.",
+            "title": "A Reolink port nincs enged\u00e9lyezve"
+        },
+        "firmware_update": {
+            "description": "\"{name}\" \"{model}\" modellel \u00e9s \"{hw_version}\" hardver verzi\u00f3val, \"{current_firmware}\" r\u00e9gi firmware verzi\u00f3t futtatja, m\u00edg a Reolink integr\u00e1ci\u00f3 megfelel\u0151 m\u0171k\u00f6d\u00e9s\u00e9hez legal\u00e1bb a \"{required_firmware}\" firmware verzi\u00f3 sz\u00fcks\u00e9ges. A leg\u00fajabb firmware let\u00f6lthet\u0151 a [Reolink let\u00f6lt\u00e9si k\u00f6zpontb\u00f3l]({download_link}).",
+            "title": "Reolink firmware friss\u00edt\u00e9s sz\u00fcks\u00e9ges"
+        },
+        "hdr_switch_deprecated": {
+            "description": "A Reolink HDR kapcsol\u00f3 entit\u00e1s elavult, \u00e9s el lesz t\u00e1vol\u00edtva a HA 2025.2.0 verzi\u00f3ban. Helyette egy HDR v\u00e1laszt\u00f3 entit\u00e1s ker\u00fclt bevezet\u00e9sre, amely az `on`, `off` \u00e9s `auto` opci\u00f3kat k\u00edn\u00e1lja. Ennek a probl\u00e9m\u00e1nak a megsz\u00fcntet\u00e9se \u00e9rdek\u00e9ben k\u00e9rj\u00fck, m\u00f3dos\u00edtsa az automatiz\u00e1l\u00e1sokat ennek megfelel\u0151en \u00e9s tiltsa le a HDR kapcsol\u00f3 entit\u00e1st.",
+            "title": "A Reolink HDR kapcsol\u00f3 elavult"
+        },
+        "https_webhook": {
+            "description": "A Reolink term\u00e9kek nem tudj\u00e1k a mozg\u00e1sesem\u00e9nyeket HTTPS-c\u00edmre (SSL) tov\u00e1bb\u00edtani, ez\u00e9rt a [h\u00e1l\u00f3zati be\u00e1ll\u00edt\u00e1sok]({network_link}) \"Home Assistant URL\" alatt sz\u00fcks\u00e9ges bekonfigur\u00e1lni egy (helyi) HTTP-c\u00edmet. A jelenlegi (helyi) c\u00edm a k\u00f6vetkez\u0151: `{base_url}`, egy \u00e9rv\u00e9nyes c\u00edm lehet p\u00e9ld\u00e1ul `http://192.168.1.10:8123`, ahol `192.168.1.10` a Home Assistant eszk\u00f6z IP-c\u00edme.",
+            "title": "A Reolink webhook URL c\u00edme HTTPS (SSL) protokollt haszn\u00e1l"
+        },
+        "hub_switch_deprecated": {
+            "description": "A felesleges 'R\u00f6gz\u00edt\u00e9s', 'E-mail esem\u00e9nykor', 'FTP felt\u00f6lt\u00e9s', 'Push \u00e9rtes\u00edt\u00e9sek' \u00e9s 'Buzzer esem\u00e9nykor' kapcsol\u00f3k a Reolink Home Hubon elavultak, mivel az \u00faj firmware m\u00e1r nem t\u00e1mogatja ezeket. K\u00e9rem, haszn\u00e1lja a Home Hubhoz csatlakoztatott kamer\u00e1khoz tartoz\u00f3, azonos nev\u0171 kapcsol\u00f3kat. A probl\u00e9ma elt\u00e1vol\u00edt\u00e1s\u00e1hoz k\u00e9rj\u00fck, m\u00f3dos\u00edtsa az automatiz\u00e1l\u00e1sokat ennek megfelel\u0151en, \u00e9s tiltsa le a megadott kapcsol\u00f3 entit\u00e1sokat.",
+            "title": "Reolink Home Hub kapcsol\u00f3k elavultak"
+        },
+        "ssl": {
+            "description": "A [configuration.yaml-ben a http alatt]({ssl_link}) be\u00e1ll\u00edtott glob\u00e1lis SSL tan\u00fas\u00edtv\u00e1ny \u00e9s a [h\u00e1l\u00f3zati be\u00e1ll\u00edt\u00e1sokban]({network_link}) be\u00e1ll\u00edtott \"Home Assistant URL\" alatti helyi HTTP c\u00edm `{base_url}` miatt a Reolink eszk\u00f6z nem k\u00e9pes kapcsolatba l\u00e9pni a Home Assistanttal a mozg\u00e1s/AI esem\u00e9nyek tov\u00e1bb\u00edt\u00e1sa \u00e9rdek\u00e9ben. K\u00e9rj\u00fck, ellen\u0151rizze, hogy az SSL tan\u00fas\u00edtv\u00e1ny nem fedi-e le a helyi HTTP c\u00edmet, p\u00e9ld\u00e1ul a [NGINX b\u0151v\u00edtm\u00e9ny]({nginx_link}) haszn\u00e1lat\u00e1val a glob\u00e1lisan alkalmazott SSL tan\u00fas\u00edtv\u00e1ny helyett.",
+            "title": "A Reolink nem kompatibilis a glob\u00e1lis SSL tan\u00fas\u00edtv\u00e1nnyal"
+        },
+        "webhook_url": {
+            "description": "Nem \u00e9rkezett meg {name} kezdeti ONVIF-\u00e1llapota. Val\u00f3sz\u00edn\u0171leg a Reolink kamera nem tudja el\u00e9rni az aktu\u00e1lis helyi Home Assistant URL-t :`{base_url}`. K\u00e9rem, \u00e1ll\u00edtson be egy (helyi) HTTP-c\u00edmet a [h\u00e1l\u00f3zati be\u00e1ll\u00edt\u00e1sok]({network_link}) \"Home Assistant URL\" alatt, amely a Home Assistantra mutat. P\u00e9ld\u00e1ul `http://192.168.1.10:8123`, ahol `192.168.1.10` a Home Assistant eszk\u00f6z IP-c\u00edme. Gy\u0151z\u0151dj\u00f6n meg arr\u00f3l is, hogy a Reolink kamera el tudja \u00e9rni ezt az URL-t. Az els\u0151 ONVIF \u00fczenet meg\u00e9rkez\u00e9s\u00e9ig gyors mozg\u00e1s/AI \u00e1llapot lek\u00e9rdez\u00e9s fog m\u0171k\u00f6dni.",
+            "title": "Reolink webhook URL el\u00e9rhetetlen"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "protocol": "Protokoll"
+                },
+                "data_description": {
+                    "protocol": "A kameraegys\u00e9gekhez haszn\u00e1land\u00f3 streaming protokoll. Az RTSP t\u00e1mogatja a 4K streameket (h265 k\u00f3dol\u00e1s), m\u00edg az RTMP \u00e9s az FLV nem. Az FLV a legkev\u00e9sb\u00e9 j\u00f3 megold\u00e1s."
+                }
+            }
+        }
+    },
+    "selector": {
+        "ringtone": {
+            "options": {
+                "attraction": "Attrakci\u00f3",
+                "citybird": "V\u00e1rosi mad\u00e1r",
+                "goodday": "J\u00f3 napot",
+                "hophop": "Hop hop",
+                "loop": "Ism\u00e9tl\u00e9s",
+                "moonlight": "Holdf\u00e9ny",
+                "operetta": "Operett",
+                "originaltune": "Eredeti dallam",
+                "pianokey": "Zongora billenty\u0171",
+                "waybackhome": "\u00daton hazafel\u00e9"
+            }
+        }
+    },
+    "services": {
+        "play_chime": {
+            "description": "Cseng\u0151hang lej\u00e1tsz\u00e1sa cseng\u0151n.",
+            "fields": {
+                "device_id": {
+                    "description": "A cseng\u0151hang lej\u00e1tsz\u00e1s\u00e1hoz haszn\u00e1lt cseng\u0151.",
+                    "name": "C\u00e9lzott cseng\u0151"
+                },
+                "ringtone": {
+                    "description": "Lej\u00e1tszand\u00f3 cseng\u0151hang.",
+                    "name": "Cseng\u0151hang"
+                }
+            },
+            "name": "Harangj\u00e1t\u00e9k lej\u00e1tsz\u00e1sa"
+        },
+        "ptz_move": {
+            "description": "Mozgassa a kamer\u00e1t meghat\u00e1rozott sebess\u00e9ggel.",
+            "fields": {
+                "speed": {
+                    "description": "PTZ mozg\u00e1si sebess\u00e9g.",
+                    "name": "Sebess\u00e9g"
+                }
+            },
+            "name": "PTZ mozg\u00e1s"
+        }
+    }
+}

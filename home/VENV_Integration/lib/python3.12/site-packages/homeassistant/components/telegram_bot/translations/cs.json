@@ -1,0 +1,686 @@
+{
+    "issues": {
+        "proxy_params_auth_deprecation": {
+            "description": "Podrobnosti o ov\u011b\u0159en\u00ed pro proxy nastaven\u00e9 v integraci {telegram_bot} by m\u011bly b\u00fdt m\u00edsto toho p\u0159esunuty do {proxy_url}. Chcete-li tento probl\u00e9m vy\u0159e\u0161it, aktualizujte nastaven\u00ed a restartujte Home Assistanta.\n\nKonfigura\u010dn\u00ed kl\u00ed\u010d {proxy_params} bude v budouc\u00ed verzi odebr\u00e1n.",
+            "title": "{telegram_bot}: Ov\u011b\u0159en\u00ed proxy by m\u011blo b\u00fdt p\u0159esunuto na adresu URL"
+        },
+        "proxy_params_deprecation": {
+            "description": "Konfigura\u010dn\u00ed kl\u00ed\u010d {proxy_params} pro integraci {telegram_bot} bude v budouc\u00ed verzi odebr\u00e1n.\n\nOv\u011b\u0159en\u00ed lze nyn\u00ed zajistit pomoc\u00ed kl\u00ed\u010de {proxy_url}.\n\nZ\u00e1kladn\u00ed knihovna se zm\u011bnila na {httpx}, kter\u00e1 nen\u00ed kompatibiln\u00ed s p\u0159edchoz\u00edmi parametry. Pokud tuto funkci st\u00e1le pot\u0159ebujete pro dal\u0161\u00ed volby, zanechte koment\u00e1\u0159 na odkazu Dal\u0161\u00ed informace.\n\nAktualizujte va\u0161e nastaven\u00ed, abyste odebrali kl\u00ed\u010d {proxy_params} a restartujte Home Assistanta, abyste tento probl\u00e9m vy\u0159e\u0161ili.",
+            "title": "{telegram_bot}: Volba parametr\u016f proxy bude odebr\u00e1na"
+        }
+    },
+    "services": {
+        "answer_callback_query": {
+            "description": "Odpov\u00edd\u00e1 na dotaz zp\u011btn\u00e9ho vol\u00e1n\u00ed vznikl\u00fd klepnut\u00edm na tla\u010d\u00edtko online kl\u00e1vesnice. Odpov\u011b\u010f se u\u017eivateli zobraz\u00ed jako upozorn\u011bn\u00ed v horn\u00ed \u010d\u00e1sti obrazovky chatu nebo jako upozorn\u011bn\u00ed.",
+            "fields": {
+                "callback_query_id": {
+                    "description": "Jedine\u010dn\u00e9 ID odpov\u011bdi na zp\u011btn\u00e9 vol\u00e1n\u00ed.",
+                    "name": "ID dotazu zp\u011btn\u00e9ho vol\u00e1n\u00ed"
+                },
+                "message": {
+                    "description": "Neform\u00e1tovan\u00e9 t\u011blo textov\u00e9 zpr\u00e1vy ozn\u00e1men\u00ed.",
+                    "name": "Zpr\u00e1va"
+                },
+                "show_alert": {
+                    "description": "Zobraz\u00ed trval\u00e9 ozn\u00e1men\u00ed.",
+                    "name": "Zobrazit upozorn\u011bn\u00ed"
+                },
+                "timeout": {
+                    "description": "\u010casov\u00fd limit \u010dten\u00ed pro odesl\u00e1n\u00ed odpov\u011bdi.",
+                    "name": "\u010casov\u00fd limit \u010dten\u00ed"
+                }
+            },
+            "name": "Odpov\u011b\u010f na zp\u011btn\u00fd dotaz"
+        },
+        "delete_message": {
+            "description": "Sma\u017ee p\u0159edt\u00edm odeslanou zpr\u00e1vu.",
+            "fields": {
+                "chat_id": {
+                    "description": "chat_id, kde se m\u00e1 zpr\u00e1va smazat.",
+                    "name": "ID chatu"
+                },
+                "message_id": {
+                    "description": "ID zpr\u00e1vy, kterou chcete smazat.",
+                    "name": "ID zpr\u00e1vy"
+                }
+            },
+            "name": "Smazat zpr\u00e1vu"
+        },
+        "edit_caption": {
+            "description": "Uprav\u00ed nadpis p\u0159edt\u00edm odeslan\u00e9 zpr\u00e1vy.",
+            "fields": {
+                "caption": {
+                    "description": "T\u011blo zpr\u00e1vy ozn\u00e1men\u00ed.",
+                    "name": "Nadpis"
+                },
+                "chat_id": {
+                    "description": "chat_id, kde se m\u00e1 nadpis upravit.",
+                    "name": "ID chatu"
+                },
+                "inline_keyboard": {
+                    "description": "Seznam \u0159\u00e1dk\u016f p\u0159\u00edkaz\u016f, odd\u011blen\u00fdch \u010d\u00e1rkami. Pro vytvo\u0159en\u00ed vlastn\u00ed vlo\u017een\u00e9 kl\u00e1vesnice s tla\u010d\u00edtky s p\u0159i\u0159azen\u00fdmi daty zp\u011btn\u00e9ho vol\u00e1n\u00ed.",
+                    "name": "Vlo\u017een\u00e1 kl\u00e1vesnice"
+                },
+                "message_id": {
+                    "description": "ID zpr\u00e1vy, kterou chcete upravit.",
+                    "name": "ID zpr\u00e1vy"
+                }
+            },
+            "name": "Upravit nadpis"
+        },
+        "edit_message": {
+            "description": "Uprav\u00ed p\u0159edt\u00edm odeslanou zpr\u00e1vu.",
+            "fields": {
+                "chat_id": {
+                    "description": "chat_id, kde se m\u00e1 zpr\u00e1va upravit.",
+                    "name": "ID chatu"
+                },
+                "disable_web_page_preview": {
+                    "description": "Zak\u00e1\u017ee n\u00e1hledy odkaz\u016f pro odkazy ve zpr\u00e1v\u011b.",
+                    "name": "Zak\u00e1zat n\u00e1hled webov\u00e9 str\u00e1nky"
+                },
+                "inline_keyboard": {
+                    "description": "Seznam \u0159\u00e1dk\u016f p\u0159\u00edkaz\u016f, odd\u011blen\u00fdch \u010d\u00e1rkami. Pro vytvo\u0159en\u00ed vlastn\u00ed vlo\u017een\u00e9 kl\u00e1vesnice s tla\u010d\u00edtky s p\u0159i\u0159azen\u00fdmi daty zp\u011btn\u00e9ho vol\u00e1n\u00ed.",
+                    "name": "Vlo\u017een\u00e1 kl\u00e1vesnice"
+                },
+                "message": {
+                    "description": "T\u011blo zpr\u00e1vy ozn\u00e1men\u00ed.",
+                    "name": "Zpr\u00e1va"
+                },
+                "message_id": {
+                    "description": "ID zpr\u00e1vy, kterou chcete upravit.",
+                    "name": "ID zpr\u00e1vy"
+                },
+                "parse_mode": {
+                    "description": "Analyz\u00e1tor textu zpr\u00e1vy.",
+                    "name": "Re\u017eim anal\u00fdzy"
+                },
+                "title": {
+                    "description": "Voliteln\u00fd n\u00e1zev pro va\u0161e ozn\u00e1men\u00ed. Bude slo\u017eeno jako \"%title %message\".",
+                    "name": "N\u00e1zev"
+                }
+            },
+            "name": "Upravit zpr\u00e1vu"
+        },
+        "edit_replymarkup": {
+            "description": "Uprav\u00ed vlo\u017eenou kl\u00e1vesnici d\u0159\u00edve odeslan\u00e9 zpr\u00e1vy.",
+            "fields": {
+                "chat_id": {
+                    "description": "chat_id, kde se m\u00e1 upravit reply_markup.",
+                    "name": "ID chatu"
+                },
+                "inline_keyboard": {
+                    "description": "Seznam \u0159\u00e1dk\u016f p\u0159\u00edkaz\u016f, odd\u011blen\u00fdch \u010d\u00e1rkami. Pro vytvo\u0159en\u00ed vlastn\u00ed vlo\u017een\u00e9 kl\u00e1vesnice s tla\u010d\u00edtky s p\u0159i\u0159azen\u00fdmi daty zp\u011btn\u00e9ho vol\u00e1n\u00ed.",
+                    "name": "Vlo\u017een\u00e1 kl\u00e1vesnice"
+                },
+                "message_id": {
+                    "description": "ID zpr\u00e1vy, kterou chcete upravit.",
+                    "name": "ID zpr\u00e1vy"
+                }
+            },
+            "name": "Upravit ozna\u010den\u00ed odpov\u011bdi"
+        },
+        "send_animation": {
+            "description": "Ode\u0161le animaci.",
+            "fields": {
+                "authentication": {
+                    "description": "Definuje, kter\u00e1 metoda ov\u011b\u0159en\u00ed se m\u00e1 pou\u017e\u00edt. Chcete-li pou\u017e\u00edt ov\u011b\u0159ov\u00e1n\u00ed HTTP digest, nastavte na \"digest\" nebo \"bearer_token\" pro ov\u011b\u0159ov\u00e1n\u00ed pomoc\u00ed tokenu nosi\u010de OAuth 2.0. V\u00fdchoz\u00ed hodnota je \"basic\".",
+                    "name": "Metoda ov\u011b\u0159en\u00ed"
+                },
+                "caption": {
+                    "description": "N\u00e1zev animace.",
+                    "name": "Nadpis"
+                },
+                "disable_notification": {
+                    "description": "Ode\u0161le zpr\u00e1vu ti\u0161e. U\u017eivatel\u00e9 syst\u00e9mu iOS a u\u017eivatel\u00e9 webu nebudou dost\u00e1vat ozn\u00e1men\u00ed, u\u017eivatel\u00e9 syst\u00e9mu Android obdr\u017e\u00ed ozn\u00e1men\u00ed bez zvuku.",
+                    "name": "Zak\u00e1zat ozn\u00e1men\u00ed"
+                },
+                "file": {
+                    "description": "M\u00edstn\u00ed cesta k videu GIF nebo H.264/MPEG-4 AVC bez zvuku.",
+                    "name": "Soubor"
+                },
+                "inline_keyboard": {
+                    "description": "Seznam \u0159\u00e1dk\u016f p\u0159\u00edkaz\u016f, odd\u011blen\u00fdch \u010d\u00e1rkami. Pro vytvo\u0159en\u00ed vlastn\u00ed vlo\u017een\u00e9 kl\u00e1vesnice s tla\u010d\u00edtky s p\u0159i\u0159azen\u00fdmi daty zp\u011btn\u00e9ho vol\u00e1n\u00ed.",
+                    "name": "Vlo\u017een\u00e1 kl\u00e1vesnice"
+                },
+                "keyboard": {
+                    "description": "Seznam \u0159\u00e1dk\u016f p\u0159\u00edkaz\u016f odd\u011blen\u00fdch \u010d\u00e1rkami pro vytvo\u0159en\u00ed vlastn\u00ed kl\u00e1vesnice.",
+                    "name": "Kl\u00e1vesnice"
+                },
+                "message_tag": {
+                    "description": "Zna\u010dka pro odeslanou zpr\u00e1vu.",
+                    "name": "Zna\u010dka zpr\u00e1vy"
+                },
+                "message_thread_id": {
+                    "description": "Jedine\u010dn\u00fd identifik\u00e1tor pro c\u00edlov\u00e9 vl\u00e1kno zpr\u00e1vy (t\u00e9ma) f\u00f3ra; jen pro superskupiny f\u00f3ra.",
+                    "name": "ID vl\u00e1kna zpr\u00e1vy"
+                },
+                "parse_mode": {
+                    "description": "Analyz\u00e1tor textu zpr\u00e1vy.",
+                    "name": "Re\u017eim anal\u00fdzy"
+                },
+                "password": {
+                    "description": "Heslo (nebo token nosi\u010de) pro URL, kter\u00e1 vy\u017eaduje ov\u011b\u0159en\u00ed HTTP.",
+                    "name": "Heslo"
+                },
+                "reply_to_message_id": {
+                    "description": "Ozna\u010d\u00ed zpr\u00e1vu jako odpov\u011b\u010f na p\u0159edchoz\u00ed zpr\u00e1vu.",
+                    "name": "ID zpr\u00e1vy jako odpov\u011b\u010f"
+                },
+                "target": {
+                    "description": "Pole p\u0159edem ov\u011b\u0159en\u00fdch chat_id, na kter\u00e9 se m\u00e1 dokument odeslat. Pokud nen\u00ed p\u0159\u00edtomno, prvn\u00ed povolen\u00e9 chat_id je v\u00fdchoz\u00ed.",
+                    "name": "C\u00edl"
+                },
+                "timeout": {
+                    "description": "\u010casov\u00fd limit \u010dten\u00ed pro odesl\u00e1n\u00ed n\u00e1lepky.",
+                    "name": "\u010casov\u00fd limit \u010dten\u00ed"
+                },
+                "url": {
+                    "description": "Vzd\u00e1len\u00e1 cesta k videu GIF nebo H.264/MPEG-4 AVC bez zvuku.",
+                    "name": "URL"
+                },
+                "username": {
+                    "description": "U\u017eivatelsk\u00e9 jm\u00e9no pro URL, kter\u00e1 vy\u017eaduje ov\u011b\u0159en\u00ed HTTP.",
+                    "name": "U\u017eivatelsk\u00e9 jm\u00e9no"
+                },
+                "verify_ssl": {
+                    "description": "Povol\u00ed nebo zak\u00e1\u017ee ov\u011b\u0159en\u00ed certifik\u00e1tu SSL. Nastavte na hodnotu false, pokud stahujete soubor z URL a nechcete ov\u011b\u0159ovat certifik\u00e1t SSL serveru.",
+                    "name": "Ov\u011b\u0159it SSL"
+                }
+            },
+            "name": "Odeslat animaci"
+        },
+        "send_document": {
+            "description": "Ode\u0161le dokument.",
+            "fields": {
+                "authentication": {
+                    "description": "Definuje, kter\u00e1 metoda ov\u011b\u0159en\u00ed se m\u00e1 pou\u017e\u00edt. Chcete-li pou\u017e\u00edt ov\u011b\u0159ov\u00e1n\u00ed HTTP digest, nastavte na \"digest\" nebo \"bearer_token\" pro ov\u011b\u0159ov\u00e1n\u00ed pomoc\u00ed tokenu nosi\u010de OAuth 2.0. V\u00fdchoz\u00ed hodnota je \"basic\".",
+                    "name": "Metoda ov\u011b\u0159en\u00ed"
+                },
+                "caption": {
+                    "description": "N\u00e1zev dokumentu.",
+                    "name": "Nadpis"
+                },
+                "disable_notification": {
+                    "description": "Ode\u0161le zpr\u00e1vu ti\u0161e. U\u017eivatel\u00e9 syst\u00e9mu iOS a u\u017eivatel\u00e9 webu nebudou dost\u00e1vat ozn\u00e1men\u00ed, u\u017eivatel\u00e9 syst\u00e9mu Android obdr\u017e\u00ed ozn\u00e1men\u00ed bez zvuku.",
+                    "name": "Zak\u00e1zat ozn\u00e1men\u00ed"
+                },
+                "file": {
+                    "description": "M\u00edstn\u00ed cesta k dokumentu.",
+                    "name": "Soubor"
+                },
+                "inline_keyboard": {
+                    "description": "Seznam \u0159\u00e1dk\u016f p\u0159\u00edkaz\u016f, odd\u011blen\u00fdch \u010d\u00e1rkami. Pro vytvo\u0159en\u00ed vlastn\u00ed vlo\u017een\u00e9 kl\u00e1vesnice s tla\u010d\u00edtky s p\u0159i\u0159azen\u00fdmi daty zp\u011btn\u00e9ho vol\u00e1n\u00ed.",
+                    "name": "Vlo\u017een\u00e1 kl\u00e1vesnice"
+                },
+                "keyboard": {
+                    "description": "Seznam \u0159\u00e1dk\u016f p\u0159\u00edkaz\u016f odd\u011blen\u00fdch \u010d\u00e1rkami pro vytvo\u0159en\u00ed vlastn\u00ed kl\u00e1vesnice.",
+                    "name": "Kl\u00e1vesnice"
+                },
+                "message_tag": {
+                    "description": "Zna\u010dka pro odeslanou zpr\u00e1vu.",
+                    "name": "Zna\u010dka zpr\u00e1vy"
+                },
+                "message_thread_id": {
+                    "description": "Jedine\u010dn\u00fd identifik\u00e1tor pro c\u00edlov\u00e9 vl\u00e1kno zpr\u00e1vy (t\u00e9ma) f\u00f3ra; jen pro superskupiny f\u00f3ra.",
+                    "name": "ID vl\u00e1kna zpr\u00e1vy"
+                },
+                "parse_mode": {
+                    "description": "Analyz\u00e1tor textu zpr\u00e1vy.",
+                    "name": "Re\u017eim anal\u00fdzy"
+                },
+                "password": {
+                    "description": "Heslo (nebo token nosi\u010de) pro URL, kter\u00e1 vy\u017eaduje ov\u011b\u0159en\u00ed HTTP.",
+                    "name": "Heslo"
+                },
+                "reply_to_message_id": {
+                    "description": "Ozna\u010d\u00ed zpr\u00e1vu jako odpov\u011b\u010f na p\u0159edchoz\u00ed zpr\u00e1vu.",
+                    "name": "ID zpr\u00e1vy jako odpov\u011b\u010f"
+                },
+                "target": {
+                    "description": "Pole p\u0159edem ov\u011b\u0159en\u00fdch chat_id, na kter\u00e9 se m\u00e1 dokument odeslat. Pokud nen\u00ed p\u0159\u00edtomno, prvn\u00ed povolen\u00e9 chat_id je v\u00fdchoz\u00ed.",
+                    "name": "C\u00edl"
+                },
+                "timeout": {
+                    "description": "\u010casov\u00fd limit \u010dten\u00ed pro odesl\u00e1n\u00ed dokumentu.",
+                    "name": "\u010casov\u00fd limit \u010dten\u00ed"
+                },
+                "url": {
+                    "description": "Vzd\u00e1len\u00e1 cesta k dokumentu.",
+                    "name": "URL"
+                },
+                "username": {
+                    "description": "U\u017eivatelsk\u00e9 jm\u00e9no pro URL, kter\u00e1 vy\u017eaduje ov\u011b\u0159en\u00ed HTTP.",
+                    "name": "U\u017eivatelsk\u00e9 jm\u00e9no"
+                },
+                "verify_ssl": {
+                    "description": "Povol\u00ed nebo zak\u00e1\u017ee ov\u011b\u0159en\u00ed certifik\u00e1tu SSL. Nastavte na hodnotu false, pokud stahujete soubor z URL a nechcete ov\u011b\u0159ovat certifik\u00e1t SSL serveru.",
+                    "name": "Ov\u011b\u0159it SSL"
+                }
+            },
+            "name": "Odeslat dokument"
+        },
+        "send_location": {
+            "description": "Ode\u0161le polohu.",
+            "fields": {
+                "disable_notification": {
+                    "description": "Ode\u0161le zpr\u00e1vu ti\u0161e. U\u017eivatel\u00e9 syst\u00e9mu iOS a u\u017eivatel\u00e9 webu nebudou dost\u00e1vat ozn\u00e1men\u00ed, u\u017eivatel\u00e9 syst\u00e9mu Android obdr\u017e\u00ed ozn\u00e1men\u00ed bez zvuku.",
+                    "name": "Zak\u00e1zat ozn\u00e1men\u00ed"
+                },
+                "inline_keyboard": {
+                    "description": "Seznam \u0159\u00e1dk\u016f p\u0159\u00edkaz\u016f, odd\u011blen\u00fdch \u010d\u00e1rkami. Pro vytvo\u0159en\u00ed vlastn\u00ed vlo\u017een\u00e9 kl\u00e1vesnice s tla\u010d\u00edtky s p\u0159i\u0159azen\u00fdmi daty zp\u011btn\u00e9ho vol\u00e1n\u00ed.",
+                    "name": "Vlo\u017een\u00e1 kl\u00e1vesnice"
+                },
+                "keyboard": {
+                    "description": "Seznam \u0159\u00e1dk\u016f p\u0159\u00edkaz\u016f odd\u011blen\u00fdch \u010d\u00e1rkami pro vytvo\u0159en\u00ed vlastn\u00ed kl\u00e1vesnice.",
+                    "name": "Kl\u00e1vesnice"
+                },
+                "latitude": {
+                    "description": "Zem\u011bpisn\u00e1 \u0161\u00ed\u0159ka k odesl\u00e1n\u00ed.",
+                    "name": "Zem\u011bpisn\u00e1 \u0161\u00ed\u0159ka"
+                },
+                "longitude": {
+                    "description": "Zem\u011bpisn\u00e1 d\u00e9lka k odesl\u00e1n\u00ed.",
+                    "name": "Zem\u011bpisn\u00e1 d\u00e9lka"
+                },
+                "message_tag": {
+                    "description": "Zna\u010dka pro odeslanou zpr\u00e1vu.",
+                    "name": "Zna\u010dka zpr\u00e1vy"
+                },
+                "message_thread_id": {
+                    "description": "Jedine\u010dn\u00fd identifik\u00e1tor pro c\u00edlov\u00e9 vl\u00e1kno zpr\u00e1vy (t\u00e9ma) f\u00f3ra; jen pro superskupiny f\u00f3ra.",
+                    "name": "ID vl\u00e1kna zpr\u00e1vy"
+                },
+                "reply_to_message_id": {
+                    "description": "Ozna\u010d\u00ed zpr\u00e1vu jako odpov\u011b\u010f na p\u0159edchoz\u00ed zpr\u00e1vu.",
+                    "name": "ID zpr\u00e1vy jako odpov\u011b\u010f"
+                },
+                "target": {
+                    "description": "Pole p\u0159edem ov\u011b\u0159en\u00fdch chat_id k odesl\u00e1n\u00ed um\u00edst\u011bn\u00ed. Pokud nen\u00ed p\u0159\u00edtomno, prvn\u00ed povolen\u00e9 chat_id je v\u00fdchoz\u00ed.",
+                    "name": "C\u00edl"
+                },
+                "timeout": {
+                    "description": "\u010casov\u00fd limit \u010dten\u00ed pro odesl\u00e1n\u00ed fotky.",
+                    "name": "\u010casov\u00fd limit \u010dten\u00ed"
+                }
+            },
+            "name": "Odeslat polohu"
+        },
+        "send_message": {
+            "description": "Ode\u0161le ozn\u00e1men\u00ed.",
+            "fields": {
+                "disable_notification": {
+                    "description": "Ode\u0161le zpr\u00e1vu ti\u0161e. U\u017eivatel\u00e9 syst\u00e9mu iOS a u\u017eivatel\u00e9 webu nebudou dost\u00e1vat ozn\u00e1men\u00ed, u\u017eivatel\u00e9 syst\u00e9mu Android obdr\u017e\u00ed ozn\u00e1men\u00ed bez zvuku.",
+                    "name": "Zak\u00e1zat ozn\u00e1men\u00ed"
+                },
+                "disable_web_page_preview": {
+                    "description": "Zak\u00e1\u017ee n\u00e1hledy odkaz\u016f pro odkazy ve zpr\u00e1v\u011b.",
+                    "name": "Zak\u00e1zat n\u00e1hled webov\u00e9 str\u00e1nky"
+                },
+                "inline_keyboard": {
+                    "description": "Seznam \u0159\u00e1dk\u016f p\u0159\u00edkaz\u016f, odd\u011blen\u00fdch \u010d\u00e1rkami. Pro vytvo\u0159en\u00ed vlastn\u00ed vlo\u017een\u00e9 kl\u00e1vesnice s tla\u010d\u00edtky s p\u0159i\u0159azen\u00fdmi daty zp\u011btn\u00e9ho vol\u00e1n\u00ed.",
+                    "name": "Vlo\u017een\u00e1 kl\u00e1vesnice"
+                },
+                "keyboard": {
+                    "description": "Seznam \u0159\u00e1dk\u016f p\u0159\u00edkaz\u016f odd\u011blen\u00fdch \u010d\u00e1rkami pro vytvo\u0159en\u00ed vlastn\u00ed kl\u00e1vesnice. Pr\u00e1zdn\u00fd seznam vyma\u017ee d\u0159\u00edve nastavenou kl\u00e1vesnici.",
+                    "name": "Kl\u00e1vesnice"
+                },
+                "message": {
+                    "description": "T\u011blo zpr\u00e1vy ozn\u00e1men\u00ed.",
+                    "name": "Zpr\u00e1va"
+                },
+                "message_tag": {
+                    "description": "Zna\u010dka pro odeslanou zpr\u00e1vu.",
+                    "name": "Zna\u010dka zpr\u00e1vy"
+                },
+                "message_thread_id": {
+                    "description": "Jedine\u010dn\u00fd identifik\u00e1tor pro c\u00edlov\u00e9 vl\u00e1kno zpr\u00e1vy (t\u00e9ma) f\u00f3ra; jen pro superskupiny f\u00f3ra.",
+                    "name": "ID vl\u00e1kna zpr\u00e1vy"
+                },
+                "parse_mode": {
+                    "description": "Analyz\u00e1tor textu zpr\u00e1vy.",
+                    "name": "Re\u017eim anal\u00fdzy"
+                },
+                "reply_to_message_id": {
+                    "description": "Ozna\u010d\u00ed zpr\u00e1vu jako odpov\u011b\u010f na p\u0159edchoz\u00ed zpr\u00e1vu.",
+                    "name": "ID zpr\u00e1vy jako odpov\u011b\u010f"
+                },
+                "target": {
+                    "description": "Pole p\u0159edem ov\u011b\u0159en\u00fdch chat_id, na kter\u00e9 se m\u00e1 ozn\u00e1men\u00ed odeslat. Pokud nen\u00ed p\u0159\u00edtomno, prvn\u00ed povolen\u00e9 chat_id je v\u00fdchoz\u00ed.",
+                    "name": "C\u00edl"
+                },
+                "timeout": {
+                    "description": "\u010casov\u00fd limit \u010dten\u00ed pro odesl\u00e1n\u00ed zpr\u00e1vy. Pom\u016f\u017ee s chybami vypr\u0161en\u00ed \u010dasov\u00e9ho limitu (\u0161patn\u00e9 p\u0159ipojen\u00ed k internetu atd.).",
+                    "name": "\u010casov\u00fd limit \u010dten\u00ed"
+                },
+                "title": {
+                    "description": "Voliteln\u00fd n\u00e1zev pro va\u0161e ozn\u00e1men\u00ed. Bude slo\u017eeno jako \"%title %message\".",
+                    "name": "N\u00e1zev"
+                }
+            },
+            "name": "Odeslat zpr\u00e1vu"
+        },
+        "send_photo": {
+            "description": "Ode\u0161le fotku.",
+            "fields": {
+                "authentication": {
+                    "description": "Definuje, kter\u00e1 metoda ov\u011b\u0159en\u00ed se m\u00e1 pou\u017e\u00edt. Chcete-li pou\u017e\u00edt ov\u011b\u0159ov\u00e1n\u00ed HTTP digest, nastavte na \"digest\" nebo \"bearer_token\" pro ov\u011b\u0159ov\u00e1n\u00ed pomoc\u00ed tokenu nosi\u010de OAuth 2.0. V\u00fdchoz\u00ed hodnota je \"basic\".",
+                    "name": "Metoda ov\u011b\u0159en\u00ed"
+                },
+                "caption": {
+                    "description": "N\u00e1zev obr\u00e1zku.",
+                    "name": "Nadpis"
+                },
+                "disable_notification": {
+                    "description": "Ode\u0161le zpr\u00e1vu ti\u0161e. U\u017eivatel\u00e9 syst\u00e9mu iOS a u\u017eivatel\u00e9 webu nebudou dost\u00e1vat ozn\u00e1men\u00ed, u\u017eivatel\u00e9 syst\u00e9mu Android obdr\u017e\u00ed ozn\u00e1men\u00ed bez zvuku.",
+                    "name": "Zak\u00e1zat ozn\u00e1men\u00ed"
+                },
+                "file": {
+                    "description": "M\u00edstn\u00ed cesta k obr\u00e1zku.",
+                    "name": "Soubor"
+                },
+                "inline_keyboard": {
+                    "description": "Seznam \u0159\u00e1dk\u016f p\u0159\u00edkaz\u016f, odd\u011blen\u00fdch \u010d\u00e1rkami. Pro vytvo\u0159en\u00ed vlastn\u00ed vlo\u017een\u00e9 kl\u00e1vesnice s tla\u010d\u00edtky s p\u0159i\u0159azen\u00fdmi daty zp\u011btn\u00e9ho vol\u00e1n\u00ed.",
+                    "name": "Vlo\u017een\u00e1 kl\u00e1vesnice"
+                },
+                "keyboard": {
+                    "description": "Seznam \u0159\u00e1dk\u016f p\u0159\u00edkaz\u016f odd\u011blen\u00fdch \u010d\u00e1rkami pro vytvo\u0159en\u00ed vlastn\u00ed kl\u00e1vesnice.",
+                    "name": "Kl\u00e1vesnice"
+                },
+                "message_tag": {
+                    "description": "Zna\u010dka pro odeslanou zpr\u00e1vu.",
+                    "name": "Zna\u010dka zpr\u00e1vy"
+                },
+                "message_thread_id": {
+                    "description": "Jedine\u010dn\u00fd identifik\u00e1tor pro c\u00edlov\u00e9 vl\u00e1kno zpr\u00e1vy (t\u00e9ma) f\u00f3ra; jen pro superskupiny f\u00f3ra.",
+                    "name": "ID vl\u00e1kna zpr\u00e1vy"
+                },
+                "parse_mode": {
+                    "description": "Analyz\u00e1tor textu zpr\u00e1vy.",
+                    "name": "Re\u017eim anal\u00fdzy"
+                },
+                "password": {
+                    "description": "Heslo (nebo token nosi\u010de) pro URL, kter\u00e1 vy\u017eaduje ov\u011b\u0159en\u00ed HTTP.",
+                    "name": "Heslo"
+                },
+                "reply_to_message_id": {
+                    "description": "Ozna\u010d\u00ed zpr\u00e1vu jako odpov\u011b\u010f na p\u0159edchoz\u00ed zpr\u00e1vu.",
+                    "name": "ID zpr\u00e1vy jako odpov\u011b\u010f"
+                },
+                "target": {
+                    "description": "Pole p\u0159edem ov\u011b\u0159en\u00fdch chat_id, na kter\u00e9 se m\u00e1 dokument odeslat. Pokud nen\u00ed p\u0159\u00edtomno, prvn\u00ed povolen\u00e9 chat_id je v\u00fdchoz\u00ed.",
+                    "name": "C\u00edl"
+                },
+                "timeout": {
+                    "description": "\u010casov\u00fd limit \u010dten\u00ed pro odesl\u00e1n\u00ed fotky.",
+                    "name": "\u010casov\u00fd limit \u010dten\u00ed"
+                },
+                "url": {
+                    "description": "Vzd\u00e1len\u00e1 cesta k obr\u00e1zku.",
+                    "name": "URL"
+                },
+                "username": {
+                    "description": "U\u017eivatelsk\u00e9 jm\u00e9no pro URL, kter\u00e1 vy\u017eaduje ov\u011b\u0159en\u00ed HTTP.",
+                    "name": "U\u017eivatelsk\u00e9 jm\u00e9no"
+                },
+                "verify_ssl": {
+                    "description": "Povol\u00ed nebo zak\u00e1\u017ee ov\u011b\u0159en\u00ed certifik\u00e1tu SSL. Nastavte na hodnotu false, pokud stahujete soubor z URL a nechcete ov\u011b\u0159ovat certifik\u00e1t SSL serveru.",
+                    "name": "Ov\u011b\u0159it SSL"
+                }
+            },
+            "name": "Odeslat fotku"
+        },
+        "send_poll": {
+            "description": "Ode\u0161le anketu.",
+            "fields": {
+                "allows_multiple_answers": {
+                    "description": "Pokud anketa umo\u017e\u0148uje v\u00edce odpov\u011bd\u00ed, v\u00fdchoz\u00ed hodnota je False.",
+                    "name": "Povolit v\u00edce odpov\u011bd\u00ed"
+                },
+                "disable_notification": {
+                    "description": "Ode\u0161le zpr\u00e1vu ti\u0161e. U\u017eivatel\u00e9 syst\u00e9mu iOS a u\u017eivatel\u00e9 webu nebudou dost\u00e1vat ozn\u00e1men\u00ed, u\u017eivatel\u00e9 syst\u00e9mu Android obdr\u017e\u00ed ozn\u00e1men\u00ed bez zvuku.",
+                    "name": "Zak\u00e1zat ozn\u00e1men\u00ed"
+                },
+                "is_anonymous": {
+                    "description": "Pokud m\u00e1 b\u00fdt anketa anonymn\u00ed, v\u00fdchoz\u00ed hodnota je True.",
+                    "name": "Je anonymn\u00ed"
+                },
+                "message_tag": {
+                    "description": "Zna\u010dka pro odeslanou zpr\u00e1vu.",
+                    "name": "Zna\u010dka zpr\u00e1vy"
+                },
+                "message_thread_id": {
+                    "description": "Jedine\u010dn\u00fd identifik\u00e1tor pro c\u00edlov\u00e9 vl\u00e1kno zpr\u00e1vy (t\u00e9ma) f\u00f3ra; jen pro superskupiny f\u00f3ra.",
+                    "name": "ID vl\u00e1kna zpr\u00e1vy"
+                },
+                "open_period": {
+                    "description": "Doba v sekund\u00e1ch, po kterou bude anketa aktivn\u00ed po vytvo\u0159en\u00ed, 5-600.",
+                    "name": "Otev\u0159en\u00e9 obdob\u00ed"
+                },
+                "options": {
+                    "description": "Seznam voleb odpov\u011bd\u00ed, 2-10 \u0159et\u011bzc\u016f, 1-100 znak\u016f ka\u017ed\u00fd.",
+                    "name": "Volby"
+                },
+                "question": {
+                    "description": "Anketn\u00ed ot\u00e1zka, 1-300 znak\u016f.",
+                    "name": "Ot\u00e1zka"
+                },
+                "reply_to_message_id": {
+                    "description": "Ozna\u010d\u00ed zpr\u00e1vu jako odpov\u011b\u010f na p\u0159edchoz\u00ed zpr\u00e1vu.",
+                    "name": "ID zpr\u00e1vy jako odpov\u011b\u010f"
+                },
+                "target": {
+                    "description": "Pole p\u0159edem ov\u011b\u0159en\u00fdch chat_id k odesl\u00e1n\u00ed um\u00edst\u011bn\u00ed. Pokud nen\u00ed p\u0159\u00edtomno, prvn\u00ed povolen\u00e9 chat_id je v\u00fdchoz\u00ed.",
+                    "name": "C\u00edl"
+                },
+                "timeout": {
+                    "description": "\u010casov\u00fd limit \u010dten\u00ed pro odesl\u00e1n\u00ed ankety.",
+                    "name": "\u010casov\u00fd limit \u010dten\u00ed"
+                }
+            },
+            "name": "Odeslat anketu"
+        },
+        "send_sticker": {
+            "description": "Ode\u0161le n\u00e1lepku.",
+            "fields": {
+                "authentication": {
+                    "description": "Definuje, kter\u00e1 metoda ov\u011b\u0159en\u00ed se m\u00e1 pou\u017e\u00edt. Chcete-li pou\u017e\u00edt ov\u011b\u0159ov\u00e1n\u00ed HTTP digest, nastavte na \"digest\" nebo \"bearer_token\" pro ov\u011b\u0159ov\u00e1n\u00ed pomoc\u00ed tokenu nosi\u010de OAuth 2.0. V\u00fdchoz\u00ed hodnota je \"basic\".",
+                    "name": "Metoda ov\u011b\u0159en\u00ed"
+                },
+                "disable_notification": {
+                    "description": "Ode\u0161le zpr\u00e1vu ti\u0161e. U\u017eivatel\u00e9 syst\u00e9mu iOS a u\u017eivatel\u00e9 webu nebudou dost\u00e1vat ozn\u00e1men\u00ed, u\u017eivatel\u00e9 syst\u00e9mu Android obdr\u017e\u00ed ozn\u00e1men\u00ed bez zvuku.",
+                    "name": "Zak\u00e1zat ozn\u00e1men\u00ed"
+                },
+                "file": {
+                    "description": "M\u00edstn\u00ed cesta ke statick\u00e9 (.webp) nebo animovan\u00e9 (.tgs) n\u00e1lepce.",
+                    "name": "Soubor"
+                },
+                "inline_keyboard": {
+                    "description": "Seznam \u0159\u00e1dk\u016f p\u0159\u00edkaz\u016f, odd\u011blen\u00fdch \u010d\u00e1rkami. Pro vytvo\u0159en\u00ed vlastn\u00ed vlo\u017een\u00e9 kl\u00e1vesnice s tla\u010d\u00edtky s p\u0159i\u0159azen\u00fdmi daty zp\u011btn\u00e9ho vol\u00e1n\u00ed.",
+                    "name": "Vlo\u017een\u00e1 kl\u00e1vesnice"
+                },
+                "keyboard": {
+                    "description": "Seznam \u0159\u00e1dk\u016f p\u0159\u00edkaz\u016f odd\u011blen\u00fdch \u010d\u00e1rkami pro vytvo\u0159en\u00ed vlastn\u00ed kl\u00e1vesnice.",
+                    "name": "Kl\u00e1vesnice"
+                },
+                "message_tag": {
+                    "description": "Zna\u010dka pro odeslanou zpr\u00e1vu.",
+                    "name": "Zna\u010dka zpr\u00e1vy"
+                },
+                "message_thread_id": {
+                    "description": "Jedine\u010dn\u00fd identifik\u00e1tor pro c\u00edlov\u00e9 vl\u00e1kno zpr\u00e1vy (t\u00e9ma) f\u00f3ra; jen pro superskupiny f\u00f3ra.",
+                    "name": "ID vl\u00e1kna zpr\u00e1vy"
+                },
+                "password": {
+                    "description": "Heslo (nebo token nosi\u010de) pro URL, kter\u00e1 vy\u017eaduje ov\u011b\u0159en\u00ed HTTP.",
+                    "name": "Heslo"
+                },
+                "reply_to_message_id": {
+                    "description": "Ozna\u010d\u00ed zpr\u00e1vu jako odpov\u011b\u010f na p\u0159edchoz\u00ed zpr\u00e1vu.",
+                    "name": "ID zpr\u00e1vy jako odpov\u011b\u010f"
+                },
+                "sticker_id": {
+                    "description": "ID n\u00e1lepky, kter\u00e1 existuje na telegramov\u00fdch serverech.",
+                    "name": "ID n\u00e1lepky"
+                },
+                "target": {
+                    "description": "Pole p\u0159edem ov\u011b\u0159en\u00fdch chat_id, na kter\u00e9 se m\u00e1 dokument odeslat. Pokud nen\u00ed p\u0159\u00edtomno, prvn\u00ed povolen\u00e9 chat_id je v\u00fdchoz\u00ed.",
+                    "name": "C\u00edl"
+                },
+                "timeout": {
+                    "description": "\u010casov\u00fd limit \u010dten\u00ed pro odesl\u00e1n\u00ed n\u00e1lepky.",
+                    "name": "\u010casov\u00fd limit \u010dten\u00ed"
+                },
+                "url": {
+                    "description": "Vzd\u00e1len\u00e1 cesta ke statick\u00e9 (.webp) nebo animovan\u00e9 (.tgs) n\u00e1lece.",
+                    "name": "URL"
+                },
+                "username": {
+                    "description": "U\u017eivatelsk\u00e9 jm\u00e9no pro URL, kter\u00e1 vy\u017eaduje ov\u011b\u0159en\u00ed HTTP.",
+                    "name": "U\u017eivatelsk\u00e9 jm\u00e9no"
+                },
+                "verify_ssl": {
+                    "description": "Povol\u00ed nebo zak\u00e1\u017ee ov\u011b\u0159en\u00ed certifik\u00e1tu SSL. Nastavte na hodnotu false, pokud stahujete soubor z URL a nechcete ov\u011b\u0159ovat certifik\u00e1t SSL serveru.",
+                    "name": "Ov\u011b\u0159it SSL"
+                }
+            },
+            "name": "Odeslat n\u00e1lepku"
+        },
+        "send_video": {
+            "description": "Ode\u0161le video.",
+            "fields": {
+                "authentication": {
+                    "description": "Definuje, kter\u00e1 metoda ov\u011b\u0159en\u00ed se m\u00e1 pou\u017e\u00edt. Chcete-li pou\u017e\u00edt ov\u011b\u0159ov\u00e1n\u00ed HTTP digest, nastavte na \"digest\" nebo \"bearer_token\" pro ov\u011b\u0159ov\u00e1n\u00ed pomoc\u00ed tokenu nosi\u010de OAuth 2.0. V\u00fdchoz\u00ed hodnota je \"basic\".",
+                    "name": "Metoda ov\u011b\u0159en\u00ed"
+                },
+                "caption": {
+                    "description": "N\u00e1zev videa.",
+                    "name": "Nadpis"
+                },
+                "disable_notification": {
+                    "description": "Ode\u0161le zpr\u00e1vu ti\u0161e. U\u017eivatel\u00e9 syst\u00e9mu iOS a u\u017eivatel\u00e9 webu nebudou dost\u00e1vat ozn\u00e1men\u00ed, u\u017eivatel\u00e9 syst\u00e9mu Android obdr\u017e\u00ed ozn\u00e1men\u00ed bez zvuku.",
+                    "name": "Zak\u00e1zat ozn\u00e1men\u00ed"
+                },
+                "file": {
+                    "description": "M\u00edstn\u00ed cesta k videu.",
+                    "name": "Soubor"
+                },
+                "inline_keyboard": {
+                    "description": "Seznam \u0159\u00e1dk\u016f p\u0159\u00edkaz\u016f, odd\u011blen\u00fdch \u010d\u00e1rkami. Pro vytvo\u0159en\u00ed vlastn\u00ed vlo\u017een\u00e9 kl\u00e1vesnice s tla\u010d\u00edtky s p\u0159i\u0159azen\u00fdmi daty zp\u011btn\u00e9ho vol\u00e1n\u00ed.",
+                    "name": "Vlo\u017een\u00e1 kl\u00e1vesnice"
+                },
+                "keyboard": {
+                    "description": "Seznam \u0159\u00e1dk\u016f p\u0159\u00edkaz\u016f odd\u011blen\u00fdch \u010d\u00e1rkami pro vytvo\u0159en\u00ed vlastn\u00ed kl\u00e1vesnice.",
+                    "name": "Kl\u00e1vesnice"
+                },
+                "message_tag": {
+                    "description": "Zna\u010dka pro odeslanou zpr\u00e1vu.",
+                    "name": "Zna\u010dka zpr\u00e1vy"
+                },
+                "message_thread_id": {
+                    "description": "Jedine\u010dn\u00fd identifik\u00e1tor pro c\u00edlov\u00e9 vl\u00e1kno zpr\u00e1vy (t\u00e9ma) f\u00f3ra; jen pro superskupiny f\u00f3ra.",
+                    "name": "ID vl\u00e1kna zpr\u00e1vy"
+                },
+                "parse_mode": {
+                    "description": "Analyz\u00e1tor textu zpr\u00e1vy.",
+                    "name": "Re\u017eim anal\u00fdzy"
+                },
+                "password": {
+                    "description": "Heslo (nebo token nosi\u010de) pro URL, kter\u00e1 vy\u017eaduje ov\u011b\u0159en\u00ed HTTP.",
+                    "name": "Heslo"
+                },
+                "reply_to_message_id": {
+                    "description": "Ozna\u010d\u00ed zpr\u00e1vu jako odpov\u011b\u010f na p\u0159edchoz\u00ed zpr\u00e1vu.",
+                    "name": "ID zpr\u00e1vy jako odpov\u011b\u010f"
+                },
+                "target": {
+                    "description": "Pole p\u0159edem ov\u011b\u0159en\u00fdch chat_id, na kter\u00e9 se m\u00e1 dokument odeslat. Pokud nen\u00ed p\u0159\u00edtomno, prvn\u00ed povolen\u00e9 chat_id je v\u00fdchoz\u00ed.",
+                    "name": "C\u00edl"
+                },
+                "timeout": {
+                    "description": "\u010casov\u00fd limit \u010dten\u00ed pro odesl\u00e1n\u00ed videa.",
+                    "name": "\u010casov\u00fd limit \u010dten\u00ed"
+                },
+                "url": {
+                    "description": "Vzd\u00e1len\u00e1 cesta k videu.",
+                    "name": "URL"
+                },
+                "username": {
+                    "description": "U\u017eivatelsk\u00e9 jm\u00e9no pro URL, kter\u00e1 vy\u017eaduje ov\u011b\u0159en\u00ed HTTP.",
+                    "name": "U\u017eivatelsk\u00e9 jm\u00e9no"
+                },
+                "verify_ssl": {
+                    "description": "Povol\u00ed nebo zak\u00e1\u017ee ov\u011b\u0159en\u00ed certifik\u00e1tu SSL. Nastavte na hodnotu false, pokud stahujete soubor z URL a nechcete ov\u011b\u0159ovat certifik\u00e1t SSL serveru.",
+                    "name": "Ov\u011b\u0159it SSL"
+                }
+            },
+            "name": "Odeslat video"
+        },
+        "send_voice": {
+            "description": "Ode\u0161le hlasovou zpr\u00e1vu.",
+            "fields": {
+                "authentication": {
+                    "description": "Definuje, kter\u00e1 metoda ov\u011b\u0159en\u00ed se m\u00e1 pou\u017e\u00edt. Chcete-li pou\u017e\u00edt ov\u011b\u0159ov\u00e1n\u00ed HTTP digest, nastavte na \"digest\" nebo \"bearer_token\" pro ov\u011b\u0159ov\u00e1n\u00ed pomoc\u00ed tokenu nosi\u010de OAuth 2.0. V\u00fdchoz\u00ed hodnota je \"basic\".",
+                    "name": "Metoda ov\u011b\u0159en\u00ed"
+                },
+                "caption": {
+                    "description": "N\u00e1zev hlasov\u00e9 zpr\u00e1vy.",
+                    "name": "Nadpis"
+                },
+                "disable_notification": {
+                    "description": "Ode\u0161le zpr\u00e1vu ti\u0161e. U\u017eivatel\u00e9 syst\u00e9mu iOS a u\u017eivatel\u00e9 webu nebudou dost\u00e1vat ozn\u00e1men\u00ed, u\u017eivatel\u00e9 syst\u00e9mu Android obdr\u017e\u00ed ozn\u00e1men\u00ed bez zvuku.",
+                    "name": "Zak\u00e1zat ozn\u00e1men\u00ed"
+                },
+                "file": {
+                    "description": "M\u00edstn\u00ed cesta k hlasov\u00e9 zpr\u00e1v\u011b.",
+                    "name": "Soubor"
+                },
+                "inline_keyboard": {
+                    "description": "Seznam \u0159\u00e1dk\u016f p\u0159\u00edkaz\u016f, odd\u011blen\u00fdch \u010d\u00e1rkami. Pro vytvo\u0159en\u00ed vlastn\u00ed vlo\u017een\u00e9 kl\u00e1vesnice s tla\u010d\u00edtky s p\u0159i\u0159azen\u00fdmi daty zp\u011btn\u00e9ho vol\u00e1n\u00ed.",
+                    "name": "Vlo\u017een\u00e1 kl\u00e1vesnice"
+                },
+                "keyboard": {
+                    "description": "Seznam \u0159\u00e1dk\u016f p\u0159\u00edkaz\u016f odd\u011blen\u00fdch \u010d\u00e1rkami pro vytvo\u0159en\u00ed vlastn\u00ed kl\u00e1vesnice.",
+                    "name": "Kl\u00e1vesnice"
+                },
+                "message_tag": {
+                    "description": "Zna\u010dka pro odeslanou zpr\u00e1vu.",
+                    "name": "Zna\u010dka zpr\u00e1vy"
+                },
+                "message_thread_id": {
+                    "description": "Jedine\u010dn\u00fd identifik\u00e1tor pro c\u00edlov\u00e9 vl\u00e1kno zpr\u00e1vy (t\u00e9ma) f\u00f3ra; jen pro superskupiny f\u00f3ra.",
+                    "name": "ID vl\u00e1kna zpr\u00e1vy"
+                },
+                "password": {
+                    "description": "Heslo (nebo token nosi\u010de) pro URL, kter\u00e1 vy\u017eaduje ov\u011b\u0159en\u00ed HTTP.",
+                    "name": "Heslo"
+                },
+                "reply_to_message_id": {
+                    "description": "Ozna\u010d\u00ed zpr\u00e1vu jako odpov\u011b\u010f na p\u0159edchoz\u00ed zpr\u00e1vu.",
+                    "name": "ID zpr\u00e1vy jako odpov\u011b\u010f"
+                },
+                "target": {
+                    "description": "Pole p\u0159edem ov\u011b\u0159en\u00fdch chat_id, na kter\u00e9 se m\u00e1 dokument odeslat. Pokud nen\u00ed p\u0159\u00edtomno, prvn\u00ed povolen\u00e9 chat_id je v\u00fdchoz\u00ed.",
+                    "name": "C\u00edl"
+                },
+                "timeout": {
+                    "description": "\u010casov\u00fd limit \u010dten\u00ed pro odesl\u00e1n\u00ed hlasu.",
+                    "name": "\u010casov\u00fd limit \u010dten\u00ed"
+                },
+                "url": {
+                    "description": "Vzd\u00e1len\u00e1 cesta k hlasov\u00e9 zpr\u00e1v\u011b.",
+                    "name": "URL"
+                },
+                "username": {
+                    "description": "U\u017eivatelsk\u00e9 jm\u00e9no pro URL, kter\u00e1 vy\u017eaduje ov\u011b\u0159en\u00ed HTTP.",
+                    "name": "U\u017eivatelsk\u00e9 jm\u00e9no"
+                },
+                "verify_ssl": {
+                    "description": "Povol\u00ed nebo zak\u00e1\u017ee ov\u011b\u0159en\u00ed certifik\u00e1tu SSL. Nastavte na hodnotu false, pokud stahujete soubor z URL a nechcete ov\u011b\u0159ovat certifik\u00e1t SSL serveru.",
+                    "name": "Ov\u011b\u0159it SSL"
+                }
+            },
+            "name": "Odeslat hlas"
+        }
+    }
+}

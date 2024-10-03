@@ -1,0 +1,93 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "El dispositivo ya est\u00e1 configurado",
+            "cannot_connect": "No se pudo conectar"
+        },
+        "error": {
+            "cannot_connect": "No se pudo conectar"
+        },
+        "flow_title": "{name}",
+        "step": {
+            "user": {
+                "data": {
+                    "host": "Host"
+                },
+                "data_description": {
+                    "host": "El nombre de host o la direcci\u00f3n IP de tu ventilador Modern Forms."
+                },
+                "description": "Configura tu ventilador de Modern Forms para que se integre con Home Assistant."
+            },
+            "zeroconf_confirm": {
+                "description": "\u00bfQuieres a\u00f1adir el ventilador de Modern Forms `{name}` a Home Assistant?",
+                "title": "Dispositivo ventilador de Modern Forms descubierto"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "fan_sleep_timer_active": {
+                "name": "Temporizador de apagado autom\u00e1tico del ventilador activo"
+            },
+            "light_sleep_timer_active": {
+                "name": "Temporizador de apagado autom\u00e1tico de la luz activo"
+            }
+        },
+        "fan": {
+            "fan": {
+                "name": "Ventilador"
+            }
+        },
+        "light": {
+            "light": {
+                "name": "Luz"
+            }
+        },
+        "sensor": {
+            "fan_timer_remaining_time": {
+                "name": "Hora de apagado autom\u00e1tico del ventilador"
+            },
+            "light_timer_remaining_time": {
+                "name": "Hora de apagado autom\u00e1tico de la luz"
+            }
+        },
+        "switch": {
+            "adaptive_learning": {
+                "name": "Aprendizaje adaptativo"
+            },
+            "away_mode": {
+                "name": "Modo ausente"
+            }
+        }
+    },
+    "services": {
+        "clear_fan_sleep_timer": {
+            "description": "Borra el temporizador de apagado autom\u00e1tico de un ventilador Modern Forms.",
+            "name": "Borrar temporizador de apagado autom\u00e1tico del ventilador"
+        },
+        "clear_light_sleep_timer": {
+            "description": "Borra el temporizador de apagado autom\u00e1tico de una luz Modern Forms.",
+            "name": "Borrar temporizador de apagado autom\u00e1tico de la luz"
+        },
+        "set_fan_sleep_timer": {
+            "description": "Establece un temporizador de apagado autom\u00e1tico de un ventilador Modern Forms.",
+            "fields": {
+                "sleep_time": {
+                    "description": "N\u00famero de minutos para configurar el temporizador.",
+                    "name": "Hora de suspensi\u00f3n"
+                }
+            },
+            "name": "Establecer temporizador de apagado autom\u00e1tico del ventilador"
+        },
+        "set_light_sleep_timer": {
+            "description": "Establece un temporizador de apagado autom\u00e1tico de una luz Modern Forms.",
+            "fields": {
+                "sleep_time": {
+                    "description": "N\u00famero de minutos para configurar el temporizador.",
+                    "name": "Hora de suspensi\u00f3n"
+                }
+            },
+            "name": "Establecer temporizador de apagado autom\u00e1tico de la luz"
+        }
+    }
+}

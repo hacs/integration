@@ -1,0 +1,136 @@
+{
+    "config": {
+        "error": {
+            "id_exists": "O id da pasarela xa existe"
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "central_heating_n": {
+                "name": "Calefacci\u00f3n central {circuit_number}"
+            },
+            "supports_central_heating_setpoint_transfer": {
+                "name": "Soporte para a transferencia do punto de axuste da calefacci\u00f3n central"
+            },
+            "supports_central_heating_setpoint_writing": {
+                "name": "Soporte de escritura para o punto de axuste da calefacci\u00f3n central"
+            },
+            "supports_ch_2": {
+                "name": "Soporte para calefacci\u00f3n central 2"
+            }
+        },
+        "select": {
+            "led_mode_n": {
+                "state": {
+                    "central_heating_on": "A calefacci\u00f3n central est\u00e1 activada"
+                }
+            }
+        },
+        "sensor": {
+            "central_heating_pressure": {
+                "name": "Presi\u00f3n da auga da calefacci\u00f3n central"
+            },
+            "central_heating_pump_hours": {
+                "name": "Tempo de funcionamento da bomba de calefacci\u00f3n central"
+            },
+            "central_heating_pump_starts": {
+                "name": "Contador de inicios da bomba de calefacci\u00f3n central"
+            },
+            "central_heating_temperature_n": {
+                "name": "Temperatura da auga da calefacci\u00f3n central {circuit_number}"
+            },
+            "max_central_heating_setpoint": {
+                "name": "Temperatura m\u00e1xima establecida para a calefacci\u00f3n central"
+            },
+            "max_central_heating_setpoint_lower": {
+                "name": "L\u00edmite inferior do punto de axuste m\u00e1ximo da calefacci\u00f3n central"
+            },
+            "max_central_heating_setpoint_upper": {
+                "name": "L\u00edmite superior do punto de axuste m\u00e1ximo da calefacci\u00f3n central"
+            },
+            "reference_voltage": {
+                "name": "Axuste de tensi\u00f3n de referencia"
+            }
+        },
+        "switch": {
+            "central_heating_override_n": {
+                "name": "Forzar a calefacci\u00f3n central {circuit_number} a encender"
+            }
+        }
+    },
+    "services": {
+        "set_central_heating_ovrd": {
+            "fields": {
+                "ch_override": {
+                    "name": "Anulaci\u00f3n da calefacci\u00f3n central"
+                }
+            },
+            "name": "Establecer a anulaci\u00f3n da calefacci\u00f3n central"
+        },
+        "set_clock": {
+            "description": "Establece o reloxo e o d\u00eda da semana no termostato conectado.",
+            "fields": {
+                "date": {
+                    "description": "Data opcional da que se extraer\u00e1 o d\u00eda da semana. Por defecto \u00e9 hoxe.",
+                    "name": "Data"
+                },
+                "time": {
+                    "description": "Hora opcional no formato de 24h que se proporcionar\u00e1 ao termostato. Por defecto, \u00e9 a hora actual.",
+                    "name": "Hora"
+                }
+            },
+            "name": "Axustar reloxo"
+        },
+        "set_control_setpoint": {
+            "description": "Establece a sobreimpresi\u00f3n do punto de control de calefacci\u00f3n central na pasarela. S\u00f3 necesitar\u00e1s isto se est\u00e1s a escribir o teu propio software de term\u00f3stato.\n."
+        },
+        "set_gpio_mode": {
+            "name": "Establecer modo gpio"
+        },
+        "set_hot_water_ovrd": {
+            "description": "Establece a opci\u00f3n de activaci\u00f3n de auga quente dom\u00e9stica na pasarela.",
+            "fields": {
+                "dhw_override": {
+                    "name": "Anulaci\u00f3n de auga quente sanitaria"
+                }
+            },
+            "name": "Establecer a anulaci\u00f3n de auga quente"
+        },
+        "set_hot_water_setpoint": {
+            "description": "Establece o punto de referencia da auga quente dom\u00e9stica na pasarela.",
+            "fields": {
+                "temperature": {
+                    "description": "O punto de referencia da auga quente dom\u00e9stica para establecer na pasarela. Non todas as caldeiras admiten esta caracter\u00edstica. Ac\u00e9ptanse valores entre 0 e 90, pero non todas admiten este rango. Comproba os valores dos sensores slave_dhw_min_setp e slave_dhw_max_setp para ver o rango admitido na t\u00faa caldeira.\n.",
+                    "name": "Temperatura"
+                }
+            },
+            "name": "Establecer o punto de auga quente"
+        },
+        "set_led_mode": {
+            "description": "Cambia a funci\u00f3n dos LEDs da pasarela.",
+            "fields": {
+                "id": {
+                    "description": "O ID do LED.",
+                    "name": "ID"
+                }
+            },
+            "name": "Establecer modo LED"
+        },
+        "set_max_modulation": {
+            "fields": {
+                "level": {
+                    "description": "O nivel de modulaci\u00f3n para proporcionar \u00e1 pasarela. Proporcione un valor de -1 para borrar a anulaci\u00f3n e reenviar o valor desde o term\u00f3stato de novo.",
+                    "name": "Nivel"
+                }
+            },
+            "name": "Establecer a modulaci\u00f3n m\u00e1xima"
+        },
+        "set_setback_temperature": {
+            "fields": {
+                "temperature": {
+                    "description": "A temperatura de retroceso para configurar na pasarela."
+                }
+            }
+        }
+    }
+}

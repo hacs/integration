@@ -1,0 +1,259 @@
+{
+    "config": {
+        "abort": {
+            "reconfigure_successful": "Reconfiguraci\u00f3 realitzada correctament"
+        },
+        "error": {
+            "already_configured": "Ja hi ha una connexi\u00f3 PCHK configurada amb la mateixa IP/port.",
+            "authentication_error": "Ha fallat l'autenticaci\u00f3. Usuari o contrasenya incorrectes.",
+            "connection_refused": "No s'ha pogut connectar a PCHK, verifica la IP i el port.",
+            "license_error": "S'ha assolit el nombre m\u00e0xim de connexions. Cal una clau de llic\u00e8ncia addicional."
+        },
+        "step": {
+            "reconfigure": {
+                "data": {
+                    "ip_address": "Adre\u00e7a IP",
+                    "password": "Contrasenya",
+                    "port": "Port",
+                    "username": "Nom d'usuari"
+                },
+                "description": "Reconfigura la connexi\u00f3 a l'amfitri\u00f3 d'LCN.",
+                "title": "Reconfiguraci\u00f3 de l'amfitri\u00f3 d'LCN"
+            },
+            "user": {
+                "data": {
+                    "dim_mode": "Mode d'atenuaci\u00f3",
+                    "host": "Nom",
+                    "ip_address": "Adre\u00e7a IP",
+                    "password": "Contrasenya",
+                    "port": "Port",
+                    "username": "Nom d'usuari"
+                },
+                "title": "Configuraci\u00f3 d'amfitri\u00f3 LCN"
+            }
+        }
+    },
+    "device_automation": {
+        "extra_fields": {
+            "action": "Acci\u00f3",
+            "code": "Codi",
+            "key": "Clau",
+            "level": "Nivell"
+        },
+        "trigger_type": {
+            "codelock": "Codi de bloqueig rebut",
+            "fingerprint": "Codi d'empremta rebut",
+            "send_keys": "Claus d'enviament rebudes",
+            "transmitter": "Codi del transmissor rebut",
+            "transponder": "Codi del transponedor rebut"
+        }
+    },
+    "issues": {
+        "authentication_error": {
+            "description": "La configuraci\u00f3 d'LCN mitjan\u00e7ant YAML s'est\u00e0 eliminant per\u00f2 hi ha hagut un error durant la importaci\u00f3 de la configuraci\u00f3 YAML.\n\nAssegura't que l'usuari i contrasenya s\u00f3n correctes.\n\nPots eliminar la configuraci\u00f3 YAML d'LCN del fitxer configuration.yaml i continuar amb la [configuraci\u00f3 de la integraci\u00f3]({url}) manual.",
+            "title": "Ha fallat l'autenticaci\u00f3."
+        },
+        "connection_refused": {
+            "description": "La configuraci\u00f3 d'LCN mitjan\u00e7ant YAML s'est\u00e0 eliminant per\u00f2 hi ha hagut un error durant la importaci\u00f3 de la configuraci\u00f3 YAML.\n\nAssegura't que la connexi\u00f3 (IP i port) al bus LCN \u00e9s correcta.\n\nPots eliminar la configuraci\u00f3 YAML d'LCN del fitxer configuration.yaml i continuar amb la [configuraci\u00f3 de la integraci\u00f3]({url}) manual.",
+            "title": "No s'ha pogut connectar a PCHK."
+        },
+        "license_error": {
+            "description": "La configuraci\u00f3 d'LCN mitjan\u00e7ant YAML s'est\u00e0 eliminant per\u00f2 hi ha hagut un error durant la importaci\u00f3 de la configuraci\u00f3 YAML.\n\nAssegura't que hi ha suficients llic\u00e8ncies PCHK registrades i reinicia Home Assistant.\n\nPots eliminar la configuraci\u00f3 YAML d'LCN del fitxer configuration.yaml i continuar amb la [configuraci\u00f3 de la integraci\u00f3]({url}) manual.",
+            "title": "Nombre m\u00e0xim de connexions assolit."
+        }
+    },
+    "services": {
+        "dyn_text": {
+            "fields": {
+                "address": {
+                    "name": "Adre\u00e7a"
+                },
+                "row": {
+                    "description": "Fila de text.",
+                    "name": "Fila"
+                },
+                "text": {
+                    "description": "Text a enviar (fins a 60 car\u00e0cters codificats en UTF-8).",
+                    "name": "Text"
+                }
+            },
+            "name": "Text din\u00e0mic"
+        },
+        "led": {
+            "description": "Configura l'estat del LED.",
+            "fields": {
+                "address": {
+                    "name": "Adre\u00e7a"
+                },
+                "led": {
+                    "description": "LED.",
+                    "name": "LED"
+                },
+                "state": {
+                    "description": "Estat del LED.",
+                    "name": "Estat"
+                }
+            },
+            "name": "LED"
+        },
+        "lock_keys": {
+            "description": "Bloqueja les claus.",
+            "fields": {
+                "address": {
+                    "name": "Adre\u00e7a"
+                },
+                "state": {
+                    "name": "Estat"
+                },
+                "table": {
+                    "name": "Taula"
+                },
+                "time": {
+                    "description": "Interval de bloqueig.",
+                    "name": "Temps"
+                },
+                "time_unit": {
+                    "description": "Unitat de temps de l'interval de bloqueig.",
+                    "name": "Unitat de temps"
+                }
+            },
+            "name": "Bloqueja claus"
+        },
+        "lock_regulator": {
+            "description": "Bloqueja un valor consigna d'un regulador.",
+            "fields": {
+                "address": {
+                    "name": "Adre\u00e7a"
+                },
+                "setpoint": {
+                    "description": "Nom de la consigna.",
+                    "name": "Consigna"
+                },
+                "state": {
+                    "name": "Estat"
+                }
+            }
+        },
+        "output_abs": {
+            "fields": {
+                "brightness": {
+                    "description": "Lluminositat absoluta.",
+                    "name": "Lluminositat"
+                },
+                "transition": {
+                    "description": "Temps de transici\u00f3.",
+                    "name": "Transici\u00f3"
+                }
+            }
+        },
+        "output_rel": {
+            "fields": {
+                "address": {
+                    "name": "Adre\u00e7a"
+                },
+                "brightness": {
+                    "description": "Lluminositat relativa.",
+                    "name": "Lluminositat"
+                }
+            }
+        },
+        "output_toggle": {
+            "fields": {
+                "address": {
+                    "name": "Adre\u00e7a"
+                },
+                "transition": {
+                    "description": "Temps de transici\u00f3.",
+                    "name": "Transici\u00f3"
+                }
+            }
+        },
+        "pck": {
+            "fields": {
+                "address": {
+                    "name": "Adre\u00e7a"
+                },
+                "pck": {
+                    "name": "PCK"
+                }
+            },
+            "name": "PCK"
+        },
+        "relays": {
+            "fields": {
+                "address": {
+                    "name": "Adre\u00e7a"
+                },
+                "state": {
+                    "name": "Estat"
+                }
+            }
+        },
+        "send_keys": {
+            "fields": {
+                "address": {
+                    "name": "Adre\u00e7a"
+                },
+                "keys": {
+                    "name": "Claus"
+                },
+                "state": {
+                    "name": "Estat"
+                },
+                "time": {
+                    "name": "Temps"
+                },
+                "time_unit": {
+                    "name": "Unitat de temps"
+                }
+            },
+            "name": "Enviar claus"
+        },
+        "var_abs": {
+            "fields": {
+                "address": {
+                    "name": "Adre\u00e7a"
+                },
+                "unit_of_measurement": {
+                    "name": "Unitat de mesura"
+                },
+                "value": {
+                    "description": "Valor a configurar.",
+                    "name": "Valor"
+                },
+                "variable": {
+                    "name": "Variable"
+                }
+            }
+        },
+        "var_rel": {
+            "fields": {
+                "address": {
+                    "name": "Adre\u00e7a"
+                },
+                "unit_of_measurement": {
+                    "name": "Unitat de mesura"
+                },
+                "value": {
+                    "name": "Valor"
+                },
+                "value_reference": {
+                    "name": "Valor de refer\u00e8ncia"
+                },
+                "variable": {
+                    "name": "Variable"
+                }
+            }
+        },
+        "var_reset": {
+            "fields": {
+                "address": {
+                    "name": "Adre\u00e7a"
+                },
+                "variable": {
+                    "name": "Variable"
+                }
+            }
+        }
+    }
+}

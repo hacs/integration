@@ -1,0 +1,171 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Slu\u017eba u\u017e je nakonfigurovan\u00e1",
+            "cannot_connect": "Nepodarilo sa pripoji\u0165",
+            "invalid_host": "Neplatn\u00fd n\u00e1zov hostite\u013ea alebo IP adresa",
+            "reconfigure_successful": "Rekonfigur\u00e1cia bola \u00faspe\u0161n\u00e1",
+            "unknown": "Neo\u010dak\u00e1van\u00e1 chyba"
+        },
+        "error": {
+            "cannot_connect": "Nepodarilo sa pripoji\u0165",
+            "invalid_host": "Neplatn\u00fd n\u00e1zov hostite\u013ea alebo IP adresa",
+            "unknown": "Neo\u010dak\u00e1van\u00e1 chyba"
+        },
+        "step": {
+            "reconfigure": {
+                "data": {
+                    "host": "Hostite\u013e"
+                },
+                "data_description": {
+                    "host": "N\u00e1zov hostite\u013ea alebo IP adresa v\u00e1\u0161ho zariadenia Vallox."
+                }
+            },
+            "reconfigure_confirm": {
+                "data": {
+                    "host": "Hostite\u013e"
+                },
+                "data_description": {
+                    "host": "N\u00e1zov hostite\u013ea alebo IP adresa v\u00e1\u0161ho zariadenia Vallox."
+                }
+            },
+            "user": {
+                "data": {
+                    "host": "Hostite\u013e"
+                },
+                "data_description": {
+                    "host": "N\u00e1zov hostite\u013ea alebo IP adresa v\u00e1\u0161ho zariadenia Vallox."
+                }
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "post_heater": {
+                "name": "Post ohrieva\u010d"
+            }
+        },
+        "date": {
+            "filter_change_date": {
+                "name": "D\u00e1tum v\u00fdmeny filtra"
+            }
+        },
+        "number": {
+            "supply_air_target_away": {
+                "name": "Teplota priv\u00e1dzan\u00e9ho vzduchu (nepr\u00edtomnos\u0165)"
+            },
+            "supply_air_target_boost": {
+                "name": "Teplota priv\u00e1dzan\u00e9ho vzduchu (Boost)"
+            },
+            "supply_air_target_home": {
+                "name": "Teplota priv\u00e1dzan\u00e9ho vzduchu (domov)"
+            }
+        },
+        "sensor": {
+            "cell_state": {
+                "name": "Stav bunky"
+            },
+            "current_profile": {
+                "name": "Aktu\u00e1lny profil"
+            },
+            "efficiency": {
+                "name": "Efekt\u00edvnos\u0165"
+            },
+            "exhaust_air": {
+                "name": "Ods\u00e1van\u00fd vzduch"
+            },
+            "extract_air": {
+                "name": "Ods\u00e1vanie vzduchu"
+            },
+            "extract_fan_speed": {
+                "name": "Ot\u00e1\u010dky ods\u00e1vacieho ventil\u00e1tora"
+            },
+            "fan_speed": {
+                "name": "R\u00fdchlos\u0165 ventil\u00e1tora"
+            },
+            "optional_air": {
+                "name": "Volite\u013en\u00fd vzduch"
+            },
+            "outdoor_air": {
+                "name": "Vonkaj\u0161\u00ed vzduch"
+            },
+            "profile_duration": {
+                "name": "Trvanie profilu"
+            },
+            "remaining_time_for_filter": {
+                "name": "Zost\u00e1vaj\u00faci \u010das pre filter"
+            },
+            "supply_air": {
+                "name": "Pr\u00edvod vzduchu"
+            },
+            "supply_cell_air": {
+                "name": "Pr\u00edvod vzduchu do bunky"
+            },
+            "supply_fan_speed": {
+                "name": "Ot\u00e1\u010dky nap\u00e1jacieho ventil\u00e1tora"
+            }
+        },
+        "switch": {
+            "bypass_locked": {
+                "name": "Bypass uzamknut\u00fd"
+            }
+        }
+    },
+    "selector": {
+        "profile": {
+            "options": {
+                "away": "Nepr\u00edtomnos\u0165",
+                "boost": "Zosilnenie",
+                "extra": "Extra",
+                "fireplace": "Krb",
+                "home": "Doma"
+            }
+        }
+    },
+    "services": {
+        "set_profile": {
+            "description": "Aktiv\u00e1cia profilu a volite\u013en\u00e9 nastavenie trvania.",
+            "fields": {
+                "duration": {
+                    "description": "Trvanie aktiv\u00e1cie, ak vynechan\u00e9 zariadenie pou\u017e\u00edva ulo\u017een\u00e9 trvanie. Trvanie 65535 aktivuje profil bez \u010dasov\u00e9ho limitu. Trvanie sa vz\u0165ahuje len na profily Boost, Fireplace a Extra.",
+                    "name": "Trvanie"
+                },
+                "profile": {
+                    "description": "Profil na aktiv\u00e1ciu",
+                    "name": "Profil"
+                }
+            },
+            "name": "Aktiv\u00e1cia profilu na dobu trvania"
+        },
+        "set_profile_fan_speed_away": {
+            "description": "Nastavuje r\u00fdchlos\u0165 ventil\u00e1tora profilu Nepr\u00edtomnos\u0165.",
+            "fields": {
+                "fan_speed": {
+                    "description": "R\u00fdchlos\u0165 ventil\u00e1tora.",
+                    "name": "R\u00fdchlos\u0165 ventil\u00e1tora"
+                }
+            },
+            "name": "Nastavte r\u00fdchlos\u0165 ventil\u00e1tora profilu nepr\u00edtomnosti"
+        },
+        "set_profile_fan_speed_boost": {
+            "description": "Nastavuje r\u00fdchlos\u0165 ventil\u00e1tora profilu Boost.",
+            "fields": {
+                "fan_speed": {
+                    "description": "R\u00fdchlos\u0165 ventil\u00e1tora.",
+                    "name": "R\u00fdchlos\u0165 ventil\u00e1tora"
+                }
+            },
+            "name": "Nastavte zv\u00fd\u0161enie r\u00fdchlosti ventil\u00e1tora profilu"
+        },
+        "set_profile_fan_speed_home": {
+            "description": "Nastavuje r\u00fdchlos\u0165 ventil\u00e1tora profilu Home.",
+            "fields": {
+                "fan_speed": {
+                    "description": "R\u00fdchlos\u0165 ventil\u00e1tora.",
+                    "name": "R\u00fdchlos\u0165 ventil\u00e1tora"
+                }
+            },
+            "name": "Nastavte r\u00fdchlos\u0165 ventil\u00e1tora profilu domov"
+        }
+    }
+}

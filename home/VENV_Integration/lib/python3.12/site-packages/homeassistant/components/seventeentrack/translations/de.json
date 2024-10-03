@@ -1,0 +1,136 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Der Dienst ist bereits konfiguriert",
+            "cannot_connect": "Verbindung fehlgeschlagen",
+            "invalid_auth": "Ung\u00fcltige Authentifizierung"
+        },
+        "error": {
+            "cannot_connect": "Verbindung fehlgeschlagen",
+            "invalid_auth": "Ung\u00fcltige Authentifizierung"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "password": "Passwort",
+                    "username": "Benutzername"
+                }
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "delivered": {
+                "name": "Zugestellt"
+            },
+            "expired": {
+                "name": "Abgelaufen"
+            },
+            "in_transit": {
+                "name": "Unterwegs"
+            },
+            "not_found": {
+                "name": "Nicht gefunden"
+            },
+            "package": {
+                "name": "Paket {name}"
+            },
+            "ready_to_be_picked_up": {
+                "name": "Bereit zur Abholung"
+            },
+            "returned": {
+                "name": "Zur\u00fcckgeschickt"
+            },
+            "undelivered": {
+                "name": "Nicht zugestellt"
+            }
+        }
+    },
+    "exceptions": {
+        "invalid_config_entry": {
+            "message": "Ung\u00fcltiger Konfigurationseintrag angegeben. {config_entry_id} erhalten."
+        },
+        "unloaded_config_entry": {
+            "message": "Ung\u00fcltiger Konfigurationseintrag angegeben. {config_entry_id} ist nicht geladen."
+        }
+    },
+    "issues": {
+        "deprecate_sensor": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "17Track-Paketsensoren sind veraltet und werden entfernt.\nBitte aktualisiere deine Automatisierungen und Skripte, um Daten mit der Aktion `seventeentrack.get_packages` abzurufen.",
+                        "title": "17Track-Paketsensoren werden nicht mehr unterst\u00fctzt"
+                    }
+                }
+            },
+            "title": "17Track-Paketsensoren werden nicht mehr unterst\u00fctzt"
+        },
+        "deprecated_yaml_import_issue_cannot_connect": {
+            "description": "Die Konfiguration von 17Track mit YAML wird entfernt, aber beim Importieren deiner YAML-Konfiguration ist ein Verbindungsfehler aufgetreten. \n\nDinge, die du ausprobieren kannst:\nStelle sicher, dass dein Heimassistent auf das Internet zugreifen kann. \n\nStarte dann Home Assistant neu, um den Import dieser Integration erneut zu versuchen. \n\nAlternativ kannst du die 17Track-Konfiguration vollst\u00e4ndig aus deiner YAML-Konfiguration entfernen, Home Assistant neu starten und die 17Track-Integration manuell hinzuf\u00fcgen.",
+            "title": "Der 17Track YAML-Konfigurationsimport kann keine Verbindung zum Server herstellen"
+        },
+        "deprecated_yaml_import_issue_invalid_auth": {
+            "description": "Die Konfiguration von 17Track mithilfe von YAML wird entfernt, aber beim Importieren deiner vorhandenen Konfiguration wurden ung\u00fcltige Anmeldeinformationen angegeben.\nDas Setup wird nicht fortgesetzt. \n\nStelle sicher, dass deine 17Track-Anmeldeinformationen korrekt sind, und starte Home Assistant neu, um den Import erneut zu versuchen. \n\nAlternativ kannst du die 17Track-Konfiguration vollst\u00e4ndig aus deiner YAML-Konfiguration entfernen, Home Assistant neu starten und die 17Track-Integration manuell hinzuf\u00fcgen.",
+            "title": "Die Importanforderung f\u00fcr die 17Track-YAML-Konfiguration ist aufgrund einer ung\u00fcltigen Authentifizierung fehlgeschlagen"
+        },
+        "deprecated_yaml_import_issue_invalid_credentials": {
+            "description": "Die Konfiguration von 17Track mithilfe von YAML wird entfernt, aber beim Importieren deiner vorhandenen Konfiguration wurden ung\u00fcltige Anmeldeinformationen angegeben.\nDas Setup wird nicht fortgesetzt. \n\nStelle sicher, dass deine 17Track-Anmeldeinformationen korrekt sind, und starte Home Assistant neu, um den Import erneut zu versuchen. \n\nAlternativ kannst du die 17Track-Konfiguration vollst\u00e4ndig aus deiner YAML-Konfiguration entfernen, Home Assistant neu starten und die 17Track-Integration manuell hinzuf\u00fcgen.",
+            "title": "Die 17Track-YAML-Konfigurationsimportanfrage ist aufgrund ung\u00fcltiger Anmeldeinformationen fehlgeschlagen"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "show_archived": "Ob Sensoren f\u00fcr archivierte Pakete erstellt werden sollen",
+                    "show_delivered": "Ob Sensoren f\u00fcr gelieferte Pakete erstellt werden sollen"
+                },
+                "description": "Allgemeine Einstellungen konfigurieren"
+            }
+        }
+    },
+    "selector": {
+        "package_state": {
+            "options": {
+                "delivered": "Zugestellt",
+                "expired": "Abgelaufen",
+                "in_transit": "Unterwegs",
+                "not_found": "Nicht gefunden",
+                "ready_to_be_picked_up": "Bereit zur Abholung",
+                "returned": "Zur\u00fcckgeschickt",
+                "undelivered": "Nicht zugestellt"
+            }
+        }
+    },
+    "services": {
+        "archive_package": {
+            "description": "Ein Paket archivieren",
+            "fields": {
+                "config_entry_id": {
+                    "description": "Das Paket wird f\u00fcr den ausgew\u00e4hlten Dienst archiviert.",
+                    "name": "17Track-Service"
+                },
+                "package_tracking_number": {
+                    "description": "Das Paket wird f\u00fcr die angegebene Sendungsnummer archiviert.",
+                    "name": "Paketverfolgungsnummer"
+                }
+            },
+            "name": "Archivpaket"
+        },
+        "get_packages": {
+            "description": "Pakete von 17Track erhalten",
+            "fields": {
+                "config_entry_id": {
+                    "description": "Die Pakete werden f\u00fcr den ausgew\u00e4hlten Dienst abgerufen.",
+                    "name": "17Track-Service"
+                },
+                "package_state": {
+                    "description": "Gibt nur Pakete mit den angegebenen Status zur\u00fcck. Gibt alle Pakete zur\u00fcck, wenn nichts anderes angegeben ist.",
+                    "name": "Paketzust\u00e4nde"
+                }
+            },
+            "name": "Pakete abrufen"
+        }
+    }
+}

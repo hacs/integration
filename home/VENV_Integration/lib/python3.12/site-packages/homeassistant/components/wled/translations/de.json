@@ -1,0 +1,175 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Ger\u00e4t ist bereits konfiguriert",
+            "cannot_connect": "Verbindung fehlgeschlagen",
+            "cct_unsupported": "Dieses WLED-Ger\u00e4t verwendet CCT Kan\u00e4le, die von dieser Integration nicht unterst\u00fctzt werden."
+        },
+        "error": {
+            "cannot_connect": "Verbindung fehlgeschlagen"
+        },
+        "flow_title": "{name}",
+        "step": {
+            "user": {
+                "data": {
+                    "host": "Host"
+                },
+                "data_description": {
+                    "host": "Hostname oder IP-Adresse deines WLED-Ger\u00e4ts."
+                },
+                "description": "Richte deinen WLED f\u00fcr die Integration mit Home Assistant ein."
+            },
+            "zeroconf_confirm": {
+                "description": "M\u00f6chtest du die WLED mit dem Namen `{name}` zu Home Assistant hinzuf\u00fcgen?",
+                "title": "WLED-Ger\u00e4t entdeckt"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "firmware": {
+                "name": "Firmware"
+            }
+        },
+        "light": {
+            "main": {
+                "name": "Haupt"
+            },
+            "segment": {
+                "name": "Segment {segment}"
+            }
+        },
+        "number": {
+            "intensity": {
+                "name": "Intensit\u00e4t"
+            },
+            "segment_intensity": {
+                "name": "Segment {segment} Intensit\u00e4t"
+            },
+            "segment_speed": {
+                "name": "Segment {segment} Geschwindigkeit"
+            },
+            "speed": {
+                "name": "Geschwindigkeit"
+            }
+        },
+        "select": {
+            "color_palette": {
+                "name": "Farbpalette"
+            },
+            "live_override": {
+                "name": "Live-\u00dcbersteuerung",
+                "state": {
+                    "0": "Aus",
+                    "1": "An",
+                    "2": "Bis zum Neustart des Ger\u00e4ts"
+                }
+            },
+            "playlist": {
+                "name": "Wiedergabeliste"
+            },
+            "preset": {
+                "name": "Voreinstellung"
+            },
+            "segment_color_palette": {
+                "name": "Segment {segment} Farbpalette"
+            }
+        },
+        "sensor": {
+            "estimated_current": {
+                "name": "Gesch\u00e4tzter Strom"
+            },
+            "free_heap": {
+                "name": "Freier Speicher"
+            },
+            "info_leds_count": {
+                "name": "LED-Anzahl"
+            },
+            "info_leds_max_power": {
+                "name": "Maximaler Strom"
+            },
+            "ip": {
+                "name": "IP"
+            },
+            "uptime": {
+                "name": "Betriebszeit"
+            },
+            "wifi_bssid": {
+                "name": "WLAN-BSSID"
+            },
+            "wifi_channel": {
+                "name": "WLAN-Kanal"
+            },
+            "wifi_rssi": {
+                "name": "WLAN-RSSI"
+            },
+            "wifi_signal": {
+                "name": "WLAN-Signal"
+            }
+        },
+        "switch": {
+            "nightlight": {
+                "name": "Nachtlicht"
+            },
+            "reverse": {
+                "name": "R\u00fcckw\u00e4rts"
+            },
+            "segment_reverse": {
+                "name": "Segment {segment} r\u00fcckw\u00e4rts"
+            },
+            "sync_receive": {
+                "name": "Empfang synchronisieren"
+            },
+            "sync_send": {
+                "name": "Senden synchronisieren"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "keep_master_light": "Hauptlicht beibehalten, auch bei 1 LED-Segment."
+                }
+            }
+        }
+    },
+    "services": {
+        "effect": {
+            "description": "Steuert die Effekteinstellungen von WLED.",
+            "fields": {
+                "effect": {
+                    "description": "Name oder ID des WLED-Lichteffekts.",
+                    "name": "Effekt"
+                },
+                "intensity": {
+                    "description": "Intensit\u00e4t des Effekts. Zahl zwischen 0 und 255.",
+                    "name": "Effektintensit\u00e4t"
+                },
+                "palette": {
+                    "description": "Name oder ID der WLED-Lichtpalette.",
+                    "name": "Farbpalette"
+                },
+                "reverse": {
+                    "description": "Kehre den Effekt um. Entweder true zum Umkehren oder false andernfalls.",
+                    "name": "Umgekehrter Effekt"
+                },
+                "speed": {
+                    "description": "Geschwindigkeit des Effekts.",
+                    "name": "Effektgeschwindigkeit"
+                }
+            },
+            "name": "Effekt einstellen"
+        },
+        "preset": {
+            "description": "Legt eine Voreinstellung f\u00fcr das WLED-Ger\u00e4t fest.",
+            "fields": {
+                "preset": {
+                    "description": "ID der WLED-Voreinstellung.",
+                    "name": "Voreinstellungs-ID"
+                }
+            },
+            "name": "Voreinstellung setzen (veraltet)"
+        }
+    }
+}

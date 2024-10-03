@@ -1,0 +1,87 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Perangkat sudah dikonfigurasi",
+            "success": "Perubahan disimpan"
+        },
+        "flow_title": "Kedekatan",
+        "step": {
+            "user": {
+                "data": {
+                    "ignored_zones": "Zona untuk diabaikan",
+                    "tolerance": "Jarak toleransi",
+                    "tracked_entities": "Perangkat atau Orang untuk dilacak",
+                    "zone": "Zona acuan untuk melacak jarak"
+                }
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "dir_of_travel": {
+                "name": "Arah perjalanan {tracked_entity}",
+                "state": {
+                    "arrived": "Tiba",
+                    "away_from": "Menjauh",
+                    "stationary": "Diam",
+                    "towards": "Menuju"
+                }
+            },
+            "dist_to_zone": {
+                "name": "Jarak {tracked_entity}"
+            },
+            "nearest": {
+                "name": "Perangkat terdekat"
+            },
+            "nearest_dir_of_travel": {
+                "name": "Arah perjalanan terdekat",
+                "state": {
+                    "arrived": "Tiba",
+                    "away_from": "Menjauh",
+                    "stationary": "Diam",
+                    "towards": "Menuju"
+                }
+            },
+            "nearest_dist_to_zone": {
+                "name": "Jarak terdekat"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_proximity_entity": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Entitas kedekatan `{entity}` sudah tidak digunakan lagi dan akan dihapus pada versi 2024.8. Namun, entitas ini masih digunakan dalam konfigurasi berikut:\n- {used_in}\n\nSesuaikan otomasi atau skrip yang menggunakan entitas Kedekatan ini.\nUntuk setiap orang atau perangkat yang dilacak, sebuah sensor akan dibuat untuk jarak dan arah perjalanan menuju/menjauhi zona yang dipantau. Sebagai tambahan, untuk setiap konfigurasi Kedekatan, sebuah sensor akan dibuat yang menunjukkan perangkat atau orang terdekat ke zona yang dipantau. Dengan ini, Anda dapat menggunakan integrasi Min/Max untuk menentukan jarak terdekat dan terjauh.",
+                        "title": "Entitas kedekatan sudah tidak digunakan lagi"
+                    }
+                }
+            },
+            "title": "Entitas kedekatan sudah tidak digunakan lagi"
+        },
+        "tracked_entity_removed": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Entitas `{entity_id}` telah dihapus dari HA, namun masih digunakan di kedekatan {name}. Hapus `{entity_id}` dari daftar entitas terlacak. Entitas sensor kedekatan yang terkait diubah menjadi tidak tersedia dan bisa dihapus.",
+                        "title": "Entitas yang dilacak telah dihapus"
+                    }
+                }
+            },
+            "title": "Entitas yang dilacak telah dihapus"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "ignored_zones": "Zona untuk diabaikan",
+                    "tolerance": "Jarak toleransi",
+                    "tracked_entities": "Perangkat atau Orang untuk dilacak",
+                    "zone": "Zona acuan untuk melacak jarak"
+                }
+            }
+        }
+    },
+    "title": "Kedekatan"
+}

@@ -1,0 +1,278 @@
+{
+    "device_automation": {
+        "action_type": {
+            "set_hvac_mode": "{entity_name} \u00fczerinde HVAC modunu de\u011fi\u015ftir",
+            "set_preset_mode": "{entity_name} \u00fczerindeki \u00f6n ayar\u0131 de\u011fi\u015ftir"
+        },
+        "condition_type": {
+            "is_hvac_mode": "{entity_name} , belirli bir HVAC moduna ayarland\u0131",
+            "is_preset_mode": "{entity_name} , belirli bir \u00f6n ayar moduna ayarland\u0131"
+        },
+        "extra_fields": {
+            "above": "\u00dczerinde",
+            "below": "Alt\u0131nda",
+            "for": "S\u00fcre",
+            "hvac_mode": "HVAC modu",
+            "preset_mode": "\u00d6n ayar modu",
+            "to": "i\u00e7in"
+        },
+        "trigger_type": {
+            "current_humidity_changed": "{entity_name} \u00f6l\u00e7\u00fclen nem de\u011fi\u015fti",
+            "current_temperature_changed": "{entity_name} \u00f6l\u00e7\u00fclen s\u0131cakl\u0131k de\u011fi\u015fti",
+            "hvac_mode_changed": "{entity_name} HVAC modu de\u011fi\u015fti"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Termostat",
+            "state": {
+                "auto": "Otomatik",
+                "cool": "So\u011futma",
+                "dry": "Kuru",
+                "fan_only": "Sadece fan",
+                "heat": "Is\u0131tma",
+                "heat_cool": "Is\u0131tma / So\u011futma",
+                "off": "Kapal\u0131"
+            },
+            "state_attributes": {
+                "aux_heat": {
+                    "name": "Yard\u0131mc\u0131 \u0131s\u0131"
+                },
+                "current_humidity": {
+                    "name": "Mevcut nem"
+                },
+                "current_temperature": {
+                    "name": "Mevcut s\u0131cakl\u0131k"
+                },
+                "fan_mode": {
+                    "name": "Fan modu",
+                    "state": {
+                        "auto": "Otomatik",
+                        "diffuse": "Da\u011f\u0131n\u0131k",
+                        "focus": "Odak",
+                        "high": "Y\u00fcksek",
+                        "low": "D\u00fc\u015f\u00fck",
+                        "medium": "Orta",
+                        "middle": "Orta",
+                        "off": "Kapal\u0131",
+                        "on": "A\u00e7\u0131k",
+                        "top": "Yukar\u0131"
+                    }
+                },
+                "fan_modes": {
+                    "name": "Fan modlar\u0131"
+                },
+                "humidity": {
+                    "name": "Hedef nem"
+                },
+                "hvac_action": {
+                    "name": "Mevcut eylem",
+                    "state": {
+                        "cooling": "So\u011futuluyor",
+                        "defrosting": "Buz \u00e7\u00f6zme",
+                        "drying": "Kurutuluyor",
+                        "fan": "Fan",
+                        "heating": "Is\u0131t\u0131l\u0131yor",
+                        "idle": "Bo\u015fta",
+                        "off": "Kapal\u0131",
+                        "preheating": "\u00d6n \u0131s\u0131tma"
+                    }
+                },
+                "hvac_modes": {
+                    "name": "HVAC modlar\u0131"
+                },
+                "max_humidity": {
+                    "name": "Maksimum hedef nem"
+                },
+                "max_temp": {
+                    "name": "Maksimum hedef s\u0131cakl\u0131k"
+                },
+                "min_humidity": {
+                    "name": "Minimum hedef nem"
+                },
+                "min_temp": {
+                    "name": "Minimum hedef s\u0131cakl\u0131k"
+                },
+                "preset_mode": {
+                    "name": "\u00d6n ayar",
+                    "state": {
+                        "activity": "Aktivite",
+                        "away": "D\u0131\u015far\u0131da",
+                        "boost": "G\u00fc\u00e7l\u00fc",
+                        "comfort": "Konfor",
+                        "eco": "Eko",
+                        "home": "Evde",
+                        "none": "Hi\u00e7biri",
+                        "sleep": "Uyku"
+                    }
+                },
+                "preset_modes": {
+                    "name": "\u00d6n Ayarlar"
+                },
+                "swing_mode": {
+                    "name": "Sal\u0131n\u0131m modu",
+                    "state": {
+                        "both": "\u00c7ift",
+                        "horizontal": "Yatay",
+                        "off": "Kapal\u0131",
+                        "on": "A\u00e7\u0131k",
+                        "vertical": "Dikey"
+                    }
+                },
+                "swing_modes": {
+                    "name": "Sal\u0131n\u0131m modlar\u0131"
+                },
+                "target_temp_high": {
+                    "name": "\u00dcst hedef s\u0131cakl\u0131k"
+                },
+                "target_temp_low": {
+                    "name": "Daha d\u00fc\u015f\u00fck hedef s\u0131cakl\u0131k"
+                },
+                "target_temp_step": {
+                    "name": "Hedef s\u0131cakl\u0131k ad\u0131m\u0131"
+                },
+                "temperature": {
+                    "name": "Hedef s\u0131cakl\u0131k"
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "not_valid_fan_mode": {
+            "message": "Fan modu {mode} ge\u00e7erli de\u011fil. Ge\u00e7erli fan modlar\u0131 \u015funlard\u0131r: {modes} ."
+        },
+        "not_valid_preset_mode": {
+            "message": "\u00d6n ayar modu {mode} ge\u00e7erli de\u011fil. Ge\u00e7erli \u00f6n ayar modlar\u0131 \u015funlard\u0131r: {modes} ."
+        },
+        "not_valid_swing_mode": {
+            "message": "Sal\u0131n\u0131m modu {mode} ge\u00e7erli de\u011fil. Ge\u00e7erli sal\u0131n\u0131m modlar\u0131 \u015funlard\u0131r: {modes} ."
+        },
+        "temp_out_of_range": {
+            "message": "Sa\u011flanan s\u0131cakl\u0131k {check_temp} ge\u00e7erli de\u011fil. Kabul edilen aral\u0131k {min_temp} ile {max_temp} aras\u0131ndad\u0131r."
+        }
+    },
+    "issues": {
+        "deprecated_climate_aux_no_url": {
+            "description": "\u00d6zel entegrasyon ` {platform} `, `is_aux_heat` \u00f6zelli\u011fini uygular veya ClimateEntity'nin bir alt s\u0131n\u0131f\u0131ndaki yard\u0131mc\u0131 \u0131s\u0131t\u0131c\u0131 y\u00f6ntemlerini kullan\u0131r. \n\n L\u00fctfen bunu {platform} entegrasyonunun yazar\u0131na bildirin. \n\n ` {platform} ` uygulamas\u0131n\u0131n g\u00fcncellenmi\u015f bir s\u00fcr\u00fcm\u00fc mevcut oldu\u011funda bunu y\u00fckleyin ve bu sorunu d\u00fczeltmek i\u00e7in Home Assistant'\u0131 yeniden ba\u015flat\u0131n.",
+            "title": "{platform} \u00f6zel entegrasyonu, kullan\u0131mdan kald\u0131r\u0131lm\u0131\u015f klima yard\u0131mc\u0131 \u0131s\u0131t\u0131c\u0131s\u0131n\u0131 kullan\u0131yor"
+        },
+        "deprecated_climate_aux_url_custom": {
+            "description": "\u00d6zel entegrasyon ` {platform} `, `is_aux_heat` \u00f6zelli\u011fini uygular veya ClimateEntity'nin bir alt s\u0131n\u0131f\u0131ndaki yard\u0131mc\u0131 \u0131s\u0131t\u0131c\u0131 y\u00f6ntemlerini kullan\u0131r. \n\n L\u00fctfen {issue_tracker} adresinde bir hata raporu olu\u015fturun. \n\n ` {platform} ` uygulamas\u0131n\u0131n g\u00fcncellenmi\u015f bir s\u00fcr\u00fcm\u00fc mevcut oldu\u011funda bunu y\u00fckleyin ve bu sorunu d\u00fczeltmek i\u00e7in Home Assistant'\u0131 yeniden ba\u015flat\u0131n.",
+            "title": "{platform} \u00f6zel entegrasyonu, kullan\u0131mdan kald\u0131r\u0131lm\u0131\u015f klima yard\u0131mc\u0131 \u0131s\u0131t\u0131c\u0131s\u0131n\u0131 kullan\u0131yor"
+        },
+        "platform_integration_no_support": {
+            "description": "{domain} entegrasyonu i\u00e7in {platform} platformu, platform kurulumunu desteklemiyor. \n\n L\u00fctfen yap\u0131land\u0131rman\u0131zdan kald\u0131r\u0131n ve bu sorunu \u00e7\u00f6zmek i\u00e7in Home Assistant'\u0131 yeniden ba\u015flat\u0131n.",
+            "title": "Platform deste\u011fi desteklenmiyor"
+        }
+    },
+    "selector": {
+        "hvac_mode": {
+            "options": {
+                "auto": "Otomatik",
+                "cool": "So\u011futma",
+                "dry": "Kuru",
+                "fan_only": "Sadece fan",
+                "heat": "Is\u0131tma",
+                "heat_cool": "Is\u0131tma/so\u011futma",
+                "off": "Kapal\u0131"
+            }
+        }
+    },
+    "services": {
+        "set_aux_heat": {
+            "description": "Yard\u0131mc\u0131 \u0131s\u0131t\u0131c\u0131y\u0131 a\u00e7ar/kapat\u0131r.",
+            "fields": {
+                "aux_heat": {
+                    "description": "Yard\u0131mc\u0131 \u0131s\u0131t\u0131c\u0131n\u0131n yeni de\u011feri.",
+                    "name": "Yard\u0131mc\u0131 \u0131s\u0131tma"
+                }
+            },
+            "name": "Yard\u0131mc\u0131 \u0131s\u0131t\u0131c\u0131y\u0131 a\u00e7ma/kapatma"
+        },
+        "set_fan_mode": {
+            "description": "Fan \u00e7al\u0131\u015fma modunu ayarlar.",
+            "fields": {
+                "fan_mode": {
+                    "description": "Fan \u00e7al\u0131\u015fma modu.",
+                    "name": "Fan modu"
+                }
+            },
+            "name": "Fan modunu ayarla"
+        },
+        "set_humidity": {
+            "description": "Hedef nemi ayarlar.",
+            "fields": {
+                "humidity": {
+                    "description": "Hedef nem.",
+                    "name": "Nem"
+                }
+            },
+            "name": "Hedef nemi ayarla"
+        },
+        "set_hvac_mode": {
+            "description": "HVAC \u00e7al\u0131\u015fma modunu ayarlar.",
+            "fields": {
+                "hvac_mode": {
+                    "description": "HVAC \u00e7al\u0131\u015fma modu.",
+                    "name": "HVAC modu"
+                }
+            },
+            "name": "HVAC modunu ayarla"
+        },
+        "set_preset_mode": {
+            "description": "\u00d6n ayar modunu ayarlar.",
+            "fields": {
+                "preset_mode": {
+                    "description": "\u00d6n ayar modu.",
+                    "name": "\u00d6n ayar modu"
+                }
+            },
+            "name": "\u00d6n ayar modunu ayarla"
+        },
+        "set_swing_mode": {
+            "description": "Sal\u0131n\u0131m \u00e7al\u0131\u015fma modunu ayarlar.",
+            "fields": {
+                "swing_mode": {
+                    "description": "Kayd\u0131rma \u00e7al\u0131\u015fma modu.",
+                    "name": "Sal\u0131n\u0131m modu"
+                }
+            },
+            "name": "Sal\u0131n\u0131m modunu ayarla"
+        },
+        "set_temperature": {
+            "description": "Hedef s\u0131cakl\u0131\u011f\u0131 ayarlar.",
+            "fields": {
+                "hvac_mode": {
+                    "description": "HVAC \u00e7al\u0131\u015fma modu.",
+                    "name": "HVAC modu"
+                },
+                "target_temp_high": {
+                    "description": "Y\u00fcksek hedef s\u0131cakl\u0131k.",
+                    "name": "Hedef s\u0131cakl\u0131k y\u00fcksek"
+                },
+                "target_temp_low": {
+                    "description": "D\u00fc\u015f\u00fck hedef s\u0131cakl\u0131k.",
+                    "name": "Hedef s\u0131cakl\u0131k d\u00fc\u015f\u00fck"
+                },
+                "temperature": {
+                    "description": "Hedef s\u0131cakl\u0131k.",
+                    "name": "S\u0131cakl\u0131k"
+                }
+            },
+            "name": "Hedef s\u0131cakl\u0131\u011f\u0131 ayarla"
+        },
+        "toggle": {
+            "description": "\u0130klimlendirme cihaz\u0131n\u0131 a\u00e7\u0131ktan kapal\u0131ya veya kapal\u0131dan a\u00e7\u0131\u011fa ge\u00e7irir.",
+            "name": "De\u011fi\u015ftir"
+        },
+        "turn_off": {
+            "description": "Klima cihaz\u0131n\u0131 kapat\u0131r.",
+            "name": "Kapat"
+        },
+        "turn_on": {
+            "description": "Klima cihaz\u0131n\u0131 a\u00e7ar.",
+            "name": "A\u00e7"
+        }
+    },
+    "title": "\u0130klimlendirme"
+}

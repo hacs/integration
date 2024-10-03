@@ -1,0 +1,290 @@
+{
+    "device_automation": {
+        "action_type": {
+            "set_hvac_mode": "D\u00e9finir le mode CVC de {entity_name}",
+            "set_preset_mode": "Changer les pr\u00e9r\u00e9glages de {entity_name}"
+        },
+        "condition_type": {
+            "is_hvac_mode": "{entity_name} est r\u00e9gl\u00e9 sur un mode CVC sp\u00e9cifique",
+            "is_preset_mode": "{entity_name} est d\u00e9fini sur un mode pr\u00e9d\u00e9fini sp\u00e9cifique"
+        },
+        "extra_fields": {
+            "above": "Sup\u00e9rieur \u00e0",
+            "below": "Inf\u00e9rieur \u00e0",
+            "for": "Dur\u00e9e",
+            "hvac_mode": "Mode CVC",
+            "preset_mode": "Mode pr\u00e9r\u00e9gl\u00e9",
+            "to": "\u00c0"
+        },
+        "trigger_type": {
+            "current_humidity_changed": "Changement d'humidit\u00e9 mesur\u00e9e par {entity_name}",
+            "current_temperature_changed": "Changement de temp\u00e9rature mesur\u00e9e par {entity_name}",
+            "hvac_mode_changed": "Modification du mode CVC de {entity_name}"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Thermostat",
+            "state": {
+                "auto": "Auto",
+                "cool": "Climatisation",
+                "dry": "D\u00e9shumidification",
+                "fan_only": "Ventilation uniquement",
+                "heat": "Chauffage",
+                "heat_cool": "Chauffage/Climatisation",
+                "off": "\u00c9teint"
+            },
+            "state_attributes": {
+                "aux_heat": {
+                    "name": "Chauffage auxiliaire"
+                },
+                "current_humidity": {
+                    "name": "Humidit\u00e9 actuelle"
+                },
+                "current_temperature": {
+                    "name": "Temp\u00e9rature actuelle"
+                },
+                "fan_mode": {
+                    "name": "Mode de ventilation",
+                    "state": {
+                        "auto": "Auto",
+                        "diffuse": "Diffuse",
+                        "focus": "Focalis\u00e9e",
+                        "high": "\u00c9lev\u00e9e",
+                        "low": "Faible",
+                        "medium": "Moyenne",
+                        "middle": "Milieu",
+                        "off": "D\u00e9sactiv\u00e9",
+                        "on": "Activ\u00e9",
+                        "top": "Haute"
+                    }
+                },
+                "fan_modes": {
+                    "name": "Modes de ventilation"
+                },
+                "humidity": {
+                    "name": "Humidit\u00e9 cible"
+                },
+                "hvac_action": {
+                    "name": "Action actuelle",
+                    "state": {
+                        "cooling": "Rafraichie",
+                        "defrosting": "D\u00e9givrage",
+                        "drying": "D\u00e9shumidifie",
+                        "fan": "Ventile",
+                        "heating": "Chauffe",
+                        "idle": "Inactif",
+                        "off": "\u00c9teint",
+                        "preheating": "Pr\u00e9chauffage"
+                    }
+                },
+                "hvac_modes": {
+                    "name": "Modes CVC"
+                },
+                "max_humidity": {
+                    "name": "Humidit\u00e9 cible maximale"
+                },
+                "max_temp": {
+                    "name": "Temp\u00e9rature cible maximale"
+                },
+                "min_humidity": {
+                    "name": "Humidit\u00e9 cible minimale"
+                },
+                "min_temp": {
+                    "name": "Temp\u00e9rature cible minimale"
+                },
+                "preset_mode": {
+                    "name": "Pr\u00e9r\u00e9glage",
+                    "state": {
+                        "activity": "Activit\u00e9",
+                        "away": "Absent",
+                        "boost": "Boost",
+                        "comfort": "Confort",
+                        "eco": "\u00c9co",
+                        "home": "Maison",
+                        "none": "Aucun",
+                        "sleep": "Nuit"
+                    }
+                },
+                "preset_modes": {
+                    "name": "Pr\u00e9r\u00e9glages"
+                },
+                "swing_mode": {
+                    "name": "Mode d\u2019oscillation",
+                    "state": {
+                        "both": "Les deux",
+                        "horizontal": "Horizontale",
+                        "off": "D\u00e9sactiv\u00e9",
+                        "on": "Activ\u00e9",
+                        "vertical": "Verticale"
+                    }
+                },
+                "swing_modes": {
+                    "name": "Modes d\u2019oscillation"
+                },
+                "target_temp_high": {
+                    "name": "Temp\u00e9rature cible sup\u00e9rieure"
+                },
+                "target_temp_low": {
+                    "name": "Temp\u00e9rature cible inf\u00e9rieure"
+                },
+                "target_temp_step": {
+                    "name": "Pas de temp\u00e9rature cible"
+                },
+                "temperature": {
+                    "name": "Temp\u00e9rature cible"
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "humidity_out_of_range": {
+            "message": "L'humidit\u00e9 fournie {humidity} n'est pas valide. La plage accept\u00e9e est {min_humidity} \u00e0 {max_humidity}."
+        },
+        "low_temp_higher_than_high_temp": {
+            "message": "La temp\u00e9rature cible basse ne peut pas \u00eatre sup\u00e9rieure \u00e0 la temp\u00e9rature cible haute."
+        },
+        "missing_target_temperature_entity_feature": {
+            "message": "L\u2019action D\u00e9finir la temp\u00e9rature a \u00e9t\u00e9 utilis\u00e9e avec le param\u00e8tre de temp\u00e9rature cible, mais l\u2019entit\u00e9 ne la prend pas en charge."
+        },
+        "missing_target_temperature_range_entity_feature": {
+            "message": "L'action D\u00e9finir la temp\u00e9rature a \u00e9t\u00e9 utilis\u00e9e avec le param\u00e8tre de temp\u00e9rature cible basse/haute, mais l'entit\u00e9 ne le prend pas en charge."
+        },
+        "not_valid_fan_mode": {
+            "message": "Le mode de ventilation {mode} n'est pas valide. Les modes de ventilation valides sont les suivants\u00a0: {modes}."
+        },
+        "not_valid_preset_mode": {
+            "message": "Le mode de pr\u00e9r\u00e9glage {mode} n'est pas valide. Les modes de pr\u00e9r\u00e9glage valides sont les suivants\u00a0: {modes}."
+        },
+        "not_valid_swing_mode": {
+            "message": "Le mode d'oscillation {mode} n'est pas valide. Les modes d'oscillation valides sont les suivants\u00a0: {modes}."
+        },
+        "temp_out_of_range": {
+            "message": "La temp\u00e9rature fournie {check_temp} n'est pas valide. La plage accept\u00e9e va de {min_temp} \u00e0 {max_temp}."
+        }
+    },
+    "issues": {
+        "deprecated_climate_aux_no_url": {
+            "description": "L'int\u00e9gration personnalis\u00e9e `{platform}` impl\u00e9mente la propri\u00e9t\u00e9 `is_aux_heat` ou utilise les m\u00e9thodes de chauffage auxiliaire dans une sous-classe de ClimateEntity.\n\nVeuillez le signaler \u00e0 l'auteur de l'int\u00e9gration {platform}. \n\nUne fois qu'une version mise \u00e0 jour de \u00ab\u00a0{platform}\u00a0\u00bb est disponible, installez-la et red\u00e9marrez Home Assistant pour r\u00e9soudre ce probl\u00e8me.",
+            "title": "L'int\u00e9gration personnalis\u00e9e {platform} utilise un chauffage auxiliaire obsol\u00e8te."
+        },
+        "deprecated_climate_aux_url_custom": {
+            "description": "L'int\u00e9gration personnalis\u00e9e `{platform}` impl\u00e9mente la propri\u00e9t\u00e9 `is_aux_heat` ou utilise les m\u00e9thodes de chauffage auxiliaire dans une sous-classe de ClimateEntity.\n\nVeuillez cr\u00e9er un rapport de bogue sur {issue_tracker}.\n\nUne fois qu'une version mise \u00e0 jour de \u00ab\u00a0{platform}\u00a0\u00bb est disponible, installez-la et red\u00e9marrez Home Assistant pour r\u00e9soudre ce probl\u00e8me.",
+            "title": "L'int\u00e9gration personnalis\u00e9e {platform} utilise un chauffage auxiliaire obsol\u00e8te."
+        },
+        "platform_integration_no_support": {
+            "description": "La plateforme {platform} pour l'int\u00e9gration {domain} ne prend pas en charge la configuration de la plateforme.\n\nVeuillez la supprimer de votre configuration et red\u00e9marrer Home Assistant pour r\u00e9soudre ce probl\u00e8me.",
+            "title": "Prise en charge de la plateforme non prise en charge"
+        }
+    },
+    "selector": {
+        "hvac_mode": {
+            "options": {
+                "auto": "Automatique",
+                "cool": "Climatisation",
+                "dry": "D\u00e9shumidification",
+                "fan_only": "Ventilation uniquement",
+                "heat": "Chauffage",
+                "heat_cool": "Chauffage/Climatisation",
+                "off": "\u00c9teint"
+            }
+        }
+    },
+    "services": {
+        "set_aux_heat": {
+            "description": "Allume/\u00e9teint le chauffage auxiliaire.",
+            "fields": {
+                "aux_heat": {
+                    "description": "Nouvelle valeur du chauffage auxiliaire.",
+                    "name": "Chauffage auxiliaire"
+                }
+            },
+            "name": "Allumer/\u00e9teindre le chauffage auxiliaire"
+        },
+        "set_fan_mode": {
+            "description": "D\u00e9finit le mode de fonctionnement de ventilation.",
+            "fields": {
+                "fan_mode": {
+                    "description": "Mode de fonctionnement de ventilation.",
+                    "name": "Mode de ventilation"
+                }
+            },
+            "name": "D\u00e9finir le mode ventilation"
+        },
+        "set_humidity": {
+            "description": "D\u00e9finit l'humidit\u00e9 cible.",
+            "fields": {
+                "humidity": {
+                    "description": "Humidit\u00e9 cible.",
+                    "name": "Humidit\u00e9"
+                }
+            },
+            "name": "D\u00e9finir l'humidit\u00e9 cible"
+        },
+        "set_hvac_mode": {
+            "description": "D\u00e9finit le mode de fonctionnement CVC.",
+            "fields": {
+                "hvac_mode": {
+                    "description": "Mode de fonctionnement CVC.",
+                    "name": "Mode CVC"
+                }
+            },
+            "name": "D\u00e9finir le mode CVC"
+        },
+        "set_preset_mode": {
+            "description": "D\u00e9finit le mode pr\u00e9r\u00e9gl\u00e9.",
+            "fields": {
+                "preset_mode": {
+                    "description": "Mode pr\u00e9r\u00e9gl\u00e9.",
+                    "name": "Mode pr\u00e9r\u00e9gl\u00e9"
+                }
+            },
+            "name": "D\u00e9finir le mode pr\u00e9r\u00e9gl\u00e9"
+        },
+        "set_swing_mode": {
+            "description": "D\u00e9finit le mode de fonctionnement des oscillations.",
+            "fields": {
+                "swing_mode": {
+                    "description": "Mode de fonctionnement oscillant.",
+                    "name": "Mode d\u2019oscillation"
+                }
+            },
+            "name": "D\u00e9finir le mode d'oscillation"
+        },
+        "set_temperature": {
+            "description": "D\u00e9finit la temp\u00e9rature cible.",
+            "fields": {
+                "hvac_mode": {
+                    "description": "Mode de fonctionnement CVC.",
+                    "name": "Mode CVC"
+                },
+                "target_temp_high": {
+                    "description": "Temp\u00e9rature cible haute.",
+                    "name": "Temp\u00e9rature cible haute"
+                },
+                "target_temp_low": {
+                    "description": "Temp\u00e9rature cible basse.",
+                    "name": "Temp\u00e9rature cible basse"
+                },
+                "temperature": {
+                    "description": "Temp\u00e9rature cible.",
+                    "name": "Temp\u00e9rature"
+                }
+            },
+            "name": "R\u00e9gler la temp\u00e9rature cible"
+        },
+        "toggle": {
+            "description": "Fait basculer le dispositif climatique, de l'activation \u00e0 la d\u00e9sactivation, ou de la d\u00e9sactivation \u00e0 l'activation.",
+            "name": "Basculer"
+        },
+        "turn_off": {
+            "description": "\u00c9teint l'appareil de climatisation.",
+            "name": "\u00c9teindre"
+        },
+        "turn_on": {
+            "description": "Allume l\u2019appareil climatique.",
+            "name": "Allumer"
+        }
+    },
+    "title": "Thermostat"
+}

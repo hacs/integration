@@ -1,0 +1,139 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "S\u00e4\u00e4",
+            "state": {
+                "clear-night": "Y\u00f6, selke\u00e4\u00e4",
+                "cloudy": "Pilvist\u00e4",
+                "exceptional": "Poikkeuksellinen",
+                "fog": "Sumuista",
+                "hail": "Raekuuroja",
+                "lightning": "Ukkoskuuroja",
+                "lightning-rainy": "Ukkosvaara, sateista",
+                "partlycloudy": "Puolipilvist\u00e4",
+                "pouring": "Kaatosadetta",
+                "rainy": "Sateista",
+                "snowy": "Lumisadetta",
+                "snowy-rainy": "R\u00e4nt\u00e4sadetta",
+                "sunny": "Aurinkoista",
+                "windy": "Tuulista",
+                "windy-variant": "Tuulista, pilvist\u00e4"
+            },
+            "state_attributes": {
+                "apparent_temperature": {
+                    "name": "N\u00e4enn\u00e4inen l\u00e4mp\u00f6tila"
+                },
+                "cloud_coverage": {
+                    "name": "Pilvipeite"
+                },
+                "dew_point": {
+                    "name": "Kastepisteen l\u00e4mp\u00f6tila"
+                },
+                "forecast": {
+                    "name": "S\u00e4\u00e4ennuste"
+                },
+                "humidity": {
+                    "name": "Kosteus"
+                },
+                "ozone": {
+                    "name": "Otsoni"
+                },
+                "precipitation_unit": {
+                    "name": "Sadem\u00e4\u00e4r\u00e4n yksikk\u00f6"
+                },
+                "pressure": {
+                    "name": "Ilmanpaine"
+                },
+                "pressure_unit": {
+                    "name": "Ilmanpaineen yksikk\u00f6"
+                },
+                "temperature": {
+                    "name": "L\u00e4mp\u00f6tila"
+                },
+                "temperature_unit": {
+                    "name": "L\u00e4mp\u00f6tilan yksikk\u00f6"
+                },
+                "uv_index": {
+                    "name": "UV-indeksi"
+                },
+                "visibility": {
+                    "name": "N\u00e4kyvyys"
+                },
+                "visibility_unit": {
+                    "name": "N\u00e4kyvyyden yksikk\u00f6"
+                },
+                "wind_bearing": {
+                    "name": "Tuulen suunta"
+                },
+                "wind_gust_speed": {
+                    "name": "Tuulen puuskanopeus"
+                },
+                "wind_speed": {
+                    "name": "Tuulennopeus"
+                },
+                "wind_speed_unit": {
+                    "name": "Tuulen nopeuden yksikk\u00f6"
+                }
+            }
+        }
+    },
+    "issues": {
+        "deprecated_service_weather_get_forecast": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "title": "Havaittiin vanhentuneen palvelun `weather.get_forecast` k\u00e4ytt\u00f6."
+                    }
+                }
+            }
+        },
+        "deprecated_weather_forecast": {
+            "description": "Integraatio `{platform}` k\u00e4ytt\u00e4\u00e4 vanhentunutta ennustetta.\n\nPyyd\u00e4mme {report_issue}.",
+            "title": "{platform} -integraatio k\u00e4ytt\u00e4\u00e4 vanhentunutta ennustetta."
+        },
+        "deprecated_weather_forecast_no_url": {
+            "description": "Mukautettu integraatio `{platform}` toteuttaa ominaisuuden `forecast` tai asettaa `self._attr_forecast` WeatherEntityn alaluokassa.\n\nIlmoita siit\u00e4 {platform}-integraation tekij\u00e4lle.\n\nKun `{platform}`:n p\u00e4ivitetty versio on saatavilla, asenna se ja k\u00e4ynnist\u00e4 Home Assistant uudelleen ongelman korjaamiseksi.",
+            "title": "Mukautettu integraatio {platform} k\u00e4ytt\u00e4\u00e4 vanhentunutta s\u00e4\u00e4ennustetta"
+        },
+        "deprecated_weather_forecast_url": {
+            "description": "Mukautettu integraatio `{platform}` toteuttaa ominaisuuden `forecast` tai asettaa `self._attr_forecast` WeatherEntityn alaluokassa.\n\nLuo vikailmoitus osoitteessa {issue_tracker}.\n\nKun `{platform}`:n p\u00e4ivitetty versio on saatavilla, asenna se ja k\u00e4ynnist\u00e4 Home Assistant uudelleen ongelman korjaamiseksi.",
+            "title": "Mukautettu integraatio {platform} k\u00e4ytt\u00e4\u00e4 vanhentunutta s\u00e4\u00e4ennustetta"
+        },
+        "platform_integration_no_support": {
+            "description": "{platform}-integraation {domain}-alusta ei tue alustan asetuksia.\n\nPoista se asetuksista ja k\u00e4ynnist\u00e4 Home Assistant uudelleen ongelman korjaamiseksi.",
+            "title": "Alustan tukea ei tueta"
+        }
+    },
+    "selector": {
+        "forecast_type": {
+            "options": {
+                "daily": "P\u00e4ivitt\u00e4in",
+                "hourly": "Tunneittain",
+                "twice_daily": "Kahdesti p\u00e4iv\u00e4ss\u00e4"
+            }
+        }
+    },
+    "services": {
+        "get_forecast": {
+            "description": "Hanki s\u00e4\u00e4ennuste.",
+            "fields": {
+                "type": {
+                    "description": "Ennustetyyppi: p\u00e4ivitt\u00e4in, tunneittain tai kahdesti p\u00e4iv\u00e4ss\u00e4.-",
+                    "name": "Ennusteen tyyppi"
+                }
+            },
+            "name": "Hanki ennuste"
+        },
+        "get_forecasts": {
+            "description": "Hanki s\u00e4\u00e4ennusteet.",
+            "fields": {
+                "type": {
+                    "description": "Ennustetyyppi: p\u00e4ivitt\u00e4in, tunneittain tai kahdesti p\u00e4iv\u00e4ss\u00e4.-",
+                    "name": "Ennusteen tyyppi"
+                }
+            },
+            "name": "Hanki ennusteita"
+        }
+    },
+    "title": "S\u00e4\u00e4"
+}

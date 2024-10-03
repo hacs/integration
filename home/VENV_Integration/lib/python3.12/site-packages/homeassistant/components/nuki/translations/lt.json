@@ -1,0 +1,89 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "\u012erenginys jau sukonfig\u016bruotas",
+            "reauth_successful": "Pakartotinis autentifikavimas buvo s\u0117kmingas"
+        },
+        "error": {
+            "cannot_connect": "Nepavyko prisijungti",
+            "invalid_auth": "Neteisingas autentifikavimas",
+            "unknown": "Netik\u0117ta klaida"
+        },
+        "step": {
+            "reauth_confirm": {
+                "data": {
+                    "encrypt_token": "Autentifikavimui naudokite u\u017e\u0161ifruot\u0105 prieigos rakt\u0105.",
+                    "token": "Prieigos raktas"
+                },
+                "description": "\u201eNuki\u201c integracija turi b\u016bti i\u0161 naujo autentifikuota naudojant j\u016bs\u0173 tilt\u0105.",
+                "title": "Baig\u0117si {name} autentifikavimo galiojimas"
+            },
+            "user": {
+                "data": {
+                    "encrypt_token": "Autentifikavimui naudokite u\u017e\u0161ifruot\u0105 prieigos rakt\u0105.",
+                    "host": "Host",
+                    "port": "Prievadas",
+                    "token": "Prieigos raktas"
+                },
+                "data_description": {
+                    "host": "Nuki tilto pagrindinio kompiuterio pavadinimas arba IP adresas. Pavyzd\u017eiui: 192.168.1.25."
+                }
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "battery_critical": {
+                "name": "Baterija kritin\u0117"
+            },
+            "ring_action": {
+                "name": "Skamb\u0117jimo veiksmas"
+            }
+        },
+        "lock": {
+            "nuki_lock": {
+                "state_attributes": {
+                    "battery_critical": {
+                        "state": {
+                            "off": "Normalus",
+                            "on": "\u017demas"
+                        }
+                    }
+                }
+            }
+        },
+        "sensor": {
+            "battery": {
+                "name": "Baterija"
+            }
+        }
+    },
+    "issues": {
+        "https_webhook": {
+            "description": "Nuki tiltas negali perkelti \u012fvyki\u0173 \u012f HTTPS adres\u0105 (SSL), sukonfig\u016bruokite (vietin\u012f) HTTP adres\u0105 skiltyje \"Home Assistant URL\" [tinklo nustatymuose]({network_link}). Dabartinis (vietinis) adresas yra: \"{base_url}\", galiojantis adresas gali b\u016bti, pavyzd\u017eiui, \"http://192.168.1.10:8123\", kur \"192.168.1.10\" yra \"Home Assistant\" \u012frenginio IP",
+            "title": "\u201eNuki Webhook\u201c URL naudoja HTTPS (SSL)"
+        }
+    },
+    "services": {
+        "lock_n_go": {
+            "description": "Nuki Lock 'n' Go.",
+            "fields": {
+                "unlatch": {
+                    "description": "Ar atrakinti u\u017erakt\u0105.",
+                    "name": "Atlaisvinkite"
+                }
+            },
+            "name": "U\u017erakink ir eik"
+        },
+        "set_continuous_mode": {
+            "description": "Nuki Opener \u012fjungia arba i\u0161jungia nuolatin\u012f re\u017eim\u0105.",
+            "fields": {
+                "enable": {
+                    "description": "\u012ejungti arba i\u0161jungti funkcij\u0105.",
+                    "name": "\u012egalinti"
+                }
+            },
+            "name": "Nustatykite nuolatin\u012f re\u017eim\u0105"
+        }
+    }
+}

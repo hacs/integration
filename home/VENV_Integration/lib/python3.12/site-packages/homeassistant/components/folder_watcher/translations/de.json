@@ -1,0 +1,75 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Der Dienst ist bereits konfiguriert"
+        },
+        "error": {
+            "not_allowed_dir": "Der konfigurierte Pfad ist nicht in der Zulassungsliste.",
+            "not_dir": "Der konfigurierte Pfad ist kein Verzeichnis",
+            "not_readable_dir": "Der konfigurierte Pfad ist nicht lesbar"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "folder": "Pfad zum \u00fcberwachten Ordner",
+                    "patterns": "Zu \u00fcberwachende Muster"
+                },
+                "data_description": {
+                    "folder": "Der Pfad muss vom Stammverzeichnis stammen, z. B. `/config`",
+                    "patterns": "Beispiel: `*.yaml` um nur YAML-Dateien anzuzeigen"
+                }
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "folder_watcher": {
+                "state_attributes": {
+                    "dest_file": {
+                        "name": "Zieldatei"
+                    },
+                    "dest_folder": {
+                        "name": "Zielordner"
+                    },
+                    "dest_path": {
+                        "name": "Zielpfad"
+                    },
+                    "event_type": {
+                        "name": "Ereignistyp"
+                    },
+                    "file": {
+                        "name": "Datei"
+                    },
+                    "folder": {
+                        "name": "Ordner"
+                    },
+                    "path": {
+                        "name": "Pfad"
+                    }
+                }
+            }
+        }
+    },
+    "issues": {
+        "import_failed_not_allowed_path": {
+            "description": "Die Konfiguration des Folder Watcher mit YAML wird entfernt, aber deine Konfiguration konnte nicht importiert werden, da sich der Ordner {path} nicht in der konfigurierten Whitelist befindet. \n\nBitte f\u00fcge es zu `{config_variable}` in config.yaml hinzu und starte Home Assistant neu, um es zu importieren und dieses Problem zu beheben.",
+            "title": "Die YAML-Konfiguration des Folder Watcher konnte nicht importiert werden"
+        },
+        "setup_not_allowed_path": {
+            "description": "Der Pfad {path} ist nicht zug\u00e4nglich oder der Zugriff ist nicht zul\u00e4ssig. \n\nBitte \u00fcberpr\u00fcfe, ob der Pfad zug\u00e4nglich ist, f\u00fcge ihn zu `{config_variable}` in config.yaml hinzu und starte Home Assistant neu, um dieses Problem zu beheben.",
+            "title": "Die Ordner\u00fcberwachungskonfiguration f\u00fcr {path} konnte nicht gestartet werden"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "patterns": "Zu \u00fcberwachende Muster"
+                },
+                "data_description": {
+                    "patterns": "Beispiel: `*.yaml` um nur YAML-Dateien anzuzeigen"
+                }
+            }
+        }
+    }
+}

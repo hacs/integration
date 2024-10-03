@@ -1,0 +1,116 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Za\u0159\u00edzen\u00ed je ji\u017e nastaveno"
+        },
+        "error": {
+            "cannot_connect": "Nepoda\u0159ilo se p\u0159ipojit",
+            "invalid_auth": "Neplatn\u00e9 ov\u011b\u0159en\u00ed",
+            "unknown": "Neo\u010dek\u00e1van\u00e1 chyba"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "api_key": "Kl\u00ed\u010d API"
+                },
+                "description": "Budete pot\u0159ebovat API kl\u00ed\u010d z https://app.rach.io/. P\u0159ejd\u011bte do \"Settings\" a pak klepn\u011bte na \"GET API KEY\".",
+                "title": "P\u0159ipojit se k za\u0159\u00edzeni Rachio"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "rain": {
+                "name": "D\u00e9\u0161\u0165"
+            }
+        },
+        "calendar": {
+            "calendar": {
+                "name": "Z\u00e1kladnov\u00e1 stanice Rachio {base}"
+            }
+        },
+        "switch": {
+            "rain_delay": {
+                "name": "Zpo\u017ed\u011bn\u00ed de\u0161t\u011b"
+            },
+            "standby": {
+                "name": "Pohotovost"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "manual_run_mins": "Doba trv\u00e1n\u00ed v minut\u00e1ch p\u0159i aktivaci sp\u00edna\u010de z\u00f3ny"
+                }
+            }
+        }
+    },
+    "services": {
+        "pause_watering": {
+            "description": "Pozastav\u00ed v\u0161echny aktu\u00e1ln\u011b spu\u0161t\u011bn\u00e9 z\u00f3ny nebo pl\u00e1ny.",
+            "fields": {
+                "devices": {
+                    "description": "N\u00e1zev ovlada\u010d\u016f k pozastaven\u00ed. Pokud nen\u00ed zad\u00e1no, jsou v\u00fdchoz\u00ed hodnotou v\u0161echny ovlada\u010de na \u00fa\u010dtu.",
+                    "name": "Za\u0159\u00edzen\u00ed"
+                },
+                "duration": {
+                    "description": "\u010cas na pozastaven\u00ed b\u011b\u017e\u00edc\u00edch pl\u00e1n\u016f.",
+                    "name": "Doba trv\u00e1n\u00ed"
+                }
+            },
+            "name": "Pozastavit zavla\u017eov\u00e1n\u00ed"
+        },
+        "resume_watering": {
+            "description": "Obnov\u00ed v\u0161echna pozastaven\u00e1 spu\u0161t\u011bn\u00ed nebo pl\u00e1ny z\u00f3ny.",
+            "fields": {
+                "devices": {
+                    "description": "N\u00e1zev ovlada\u010d\u016f k obnoven\u00ed. Pokud nen\u00ed zad\u00e1no, jsou v\u00fdchoz\u00ed hodnotou v\u0161echny ovlada\u010de na \u00fa\u010dtu.",
+                    "name": "Za\u0159\u00edzen\u00ed"
+                }
+            },
+            "name": "Obnovit zavla\u017eov\u00e1n\u00ed"
+        },
+        "set_zone_moisture_percent": {
+            "description": "Nastavuje procento vlhkosti z\u00f3ny nebo seznamu z\u00f3n.",
+            "fields": {
+                "percent": {
+                    "description": "Nastav\u00ed po\u017eadovan\u00e9 procento vlhkosti z\u00f3ny.",
+                    "name": "Procento"
+                }
+            },
+            "name": "Nastavit procento vlhkosti z\u00f3ny"
+        },
+        "start_multiple_zone_schedule": {
+            "description": "Vytvo\u0159\u00ed vlastn\u00ed pl\u00e1n z\u00f3n a \u010das\u016f b\u011bhu. Pamatujte, \u017ee v\u0161echny z\u00f3ny by m\u011bly b\u00fdt na stejn\u00e9m ovlada\u010di, aby se p\u0159ede\u0161lo probl\u00e9m\u016fm.",
+            "fields": {
+                "duration": {
+                    "description": "Po\u010det minut b\u011bhu z\u00f3ny (z\u00f3n). Pokud je zad\u00e1no pouze 1 trv\u00e1n\u00ed, bude tento \u010das pou\u017eit pro v\u0161echny z\u00f3ny. Pokud je uveden seznam trv\u00e1n\u00ed, budou se trv\u00e1n\u00ed vztahovat na p\u0159\u00edslu\u0161n\u00e9 z\u00f3ny uveden\u00e9 v\u00fd\u0161e.",
+                    "name": "Doba trv\u00e1n\u00ed"
+                }
+            },
+            "name": "Spustit v\u00edce z\u00f3n"
+        },
+        "start_watering": {
+            "description": "Spust\u00ed jednu z\u00f3nu, pl\u00e1n nebo libovoln\u00fd po\u010det \u010dasova\u010d\u016f inteligentn\u00edch hadic.",
+            "fields": {
+                "duration": {
+                    "description": "Po\u010det minut b\u011bhu. U z\u00f3n sprinkler\u016f je maxim\u00e1ln\u00ed doba trv\u00e1n\u00ed 3 hodiny nebo 24 hodin u \u010dasova\u010d\u016f inteligentn\u00edch hadic. U pl\u00e1n\u016f ponechte pr\u00e1zdn\u00e9.",
+                    "name": "Doba trv\u00e1n\u00ed"
+                }
+            },
+            "name": "Spustit zavla\u017eov\u00e1n\u00ed"
+        },
+        "stop_watering": {
+            "description": "Zastav\u00ed v\u0161echny aktu\u00e1ln\u011b b\u011b\u017e\u00edc\u00ed z\u00f3ny nebo pl\u00e1ny.",
+            "fields": {
+                "devices": {
+                    "description": "N\u00e1zev ovlada\u010d\u016f k zastaven\u00ed. Pokud nen\u00ed zad\u00e1no, jsou v\u00fdchoz\u00ed hodnotou v\u0161echny ovlada\u010de na \u00fa\u010dtu.",
+                    "name": "Za\u0159\u00edzen\u00ed"
+                }
+            },
+            "name": "Zastavit zavla\u017eov\u00e1n\u00ed"
+        }
+    }
+}

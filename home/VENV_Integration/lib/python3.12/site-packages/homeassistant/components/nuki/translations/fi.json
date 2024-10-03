@@ -1,0 +1,89 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Laite on jo m\u00e4\u00e4ritetty",
+            "reauth_successful": "Uudelleentodennus onnistui"
+        },
+        "error": {
+            "cannot_connect": "Yhteyden muodostaminen ep\u00e4onnistui",
+            "invalid_auth": "Virheellinen todennus",
+            "unknown": "Odottamaton virhe"
+        },
+        "step": {
+            "reauth_confirm": {
+                "data": {
+                    "encrypt_token": "K\u00e4yt\u00e4 todennukseen salattua tunnusta.",
+                    "token": "K\u00e4ytt\u00f6oikeustunnus"
+                },
+                "description": "Nuki-integraation on tunnistauduttava uudelleen sillan kanssa.",
+                "title": "Todennus vanhentui kohteella {name}"
+            },
+            "user": {
+                "data": {
+                    "encrypt_token": "K\u00e4yt\u00e4 todennukseen salattua tunnusta.",
+                    "host": "Palvelin",
+                    "port": "Portti",
+                    "token": "K\u00e4ytt\u00f6oikeustunnus"
+                },
+                "data_description": {
+                    "host": "Nuki -siltasi is\u00e4nt\u00e4nimi tai IP-osoite. Esimerkki: 192.168.1.25."
+                }
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "battery_critical": {
+                "name": "Akku kriittinen"
+            },
+            "ring_action": {
+                "name": "Ring toiminta"
+            }
+        },
+        "lock": {
+            "nuki_lock": {
+                "state_attributes": {
+                    "battery_critical": {
+                        "state": {
+                            "off": "Normaali",
+                            "on": "Alhainen"
+                        }
+                    }
+                }
+            }
+        },
+        "sensor": {
+            "battery": {
+                "name": "Akku"
+            }
+        }
+    },
+    "issues": {
+        "https_webhook": {
+            "description": "Nuki-silta ei voi l\u00e4hett\u00e4\u00e4 tapahtumia HTTPS -osoitteeseen (SSL), m\u00e4\u00e4rit\u00e4 (paikallinen) HTTP-osoite kohdassa \"Home Assistant URL\" [verkkoasetuksissa]({network_link}). Nykyinen (paikallinen) osoite on: `{base_url}`, kelvollinen osoite voisi olla esimerkiksi `http://192.168.1.10:8123`, jossa `192.168.1.10` on Home Assistant -laitteen IP-osoite.",
+            "title": "Nuki webhook URL k\u00e4ytt\u00e4\u00e4 HTTPS (SSL)"
+        }
+    },
+    "services": {
+        "lock_n_go": {
+            "description": "Nuki Lock 'n' Go.",
+            "fields": {
+                "unlatch": {
+                    "description": "Avataanko lukko.",
+                    "name": "Avaa lukitus"
+                }
+            },
+            "name": "Lock 'n' go"
+        },
+        "set_continuous_mode": {
+            "description": "Ottaa k\u00e4ytt\u00f6\u00f6n tai poistaa k\u00e4yt\u00f6st\u00e4 jatkuvan tilan Nuki Openeriss\u00e4.",
+            "fields": {
+                "enable": {
+                    "description": "Otetaanko ominaisuus k\u00e4ytt\u00f6\u00f6n vai poistetaanko se k\u00e4yt\u00f6st\u00e4.",
+                    "name": "Ota k\u00e4ytt\u00f6\u00f6n"
+                }
+            },
+            "name": "Aseta jatkuva tila"
+        }
+    }
+}

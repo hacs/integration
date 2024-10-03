@@ -1,0 +1,171 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Device is already configured",
+            "reauth_successful": "Re-authentication was successful"
+        },
+        "error": {
+            "cannot_connect": "Failed to connect",
+            "invalid_auth": "Invalid authentication",
+            "invalid_charset": "The specified charset is not supported",
+            "invalid_folder": "The selected folder is invalid",
+            "invalid_search": "The selected search is invalid",
+            "ssl_error": "An SSL error occurred. Change SSL cipher list and try again."
+        },
+        "step": {
+            "reauth_confirm": {
+                "data": {
+                    "password": "Password"
+                },
+                "description": "The password for {username} is invalid.",
+                "title": "Authentication expired for {name}"
+            },
+            "user": {
+                "data": {
+                    "charset": "Character set",
+                    "folder": "Folder",
+                    "password": "Password",
+                    "port": "Port",
+                    "search": "IMAP search",
+                    "server": "Server",
+                    "ssl_cipher_list": "SSL cipher list (Advanced)",
+                    "username": "Username",
+                    "verify_ssl": "Verify SSL certificate"
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "copy_failed": {
+            "message": "Copying the message failed with \"{error}\"."
+        },
+        "delete_failed": {
+            "message": "Marking the message for deletion failed with \"{error}\"."
+        },
+        "expunge_failed": {
+            "message": "Expunging the message failed with \"{error}\"."
+        },
+        "fetch_failed": {
+            "message": "Fetching the message text failed with \"{error}\"."
+        },
+        "imap_server_fail": {
+            "message": "The IMAP server failed to connect: {error}."
+        },
+        "invalid_auth": {
+            "message": "Invalid authentication"
+        },
+        "invalid_entry": {
+            "message": "No valid IMAP entry was found."
+        },
+        "invalid_folder": {
+            "message": "The selected folder is invalid"
+        },
+        "seen_failed": {
+            "message": "Marking message as seen failed with \"{error}\"."
+        }
+    },
+    "options": {
+        "error": {
+            "already_configured": "An entry with these folder and search options already exists.",
+            "cannot_connect": "Failed to connect",
+            "invalid_auth": "Invalid authentication",
+            "invalid_charset": "The specified charset is not supported",
+            "invalid_folder": "The selected folder is invalid",
+            "invalid_search": "The selected search is invalid",
+            "invalid_template": "Invalid template"
+        },
+        "step": {
+            "init": {
+                "data": {
+                    "custom_event_data_template": "Template to create custom event data",
+                    "enable_push": "Enable Push-IMAP if the server supports it. Turn off if Push-IMAP updates are unreliable.",
+                    "event_message_data": "Message data to be included in the `imap_content` event data:",
+                    "folder": "Folder",
+                    "max_message_size": "Max message size (2048 < size < 30000)",
+                    "search": "IMAP search"
+                }
+            }
+        }
+    },
+    "selector": {
+        "event_message_data": {
+            "options": {
+                "headers": "Message headers",
+                "text": "Body text"
+            }
+        },
+        "ssl_cipher_list": {
+            "options": {
+                "intermediate": "Intermediate ciphers",
+                "modern": "Modern ciphers",
+                "python_default": "Default settings"
+            }
+        }
+    },
+    "services": {
+        "delete": {
+            "description": "Delete an email.",
+            "fields": {
+                "entry": {
+                    "description": "The IMAP config entry.",
+                    "name": "Entry"
+                },
+                "uid": {
+                    "description": "The email identifier (UID).",
+                    "name": "UID"
+                }
+            },
+            "name": "Delete message"
+        },
+        "fetch": {
+            "description": "Fetch the email message from the server.",
+            "fields": {
+                "entry": {
+                    "description": "The IMAP config entry.",
+                    "name": "Entry"
+                },
+                "uid": {
+                    "description": "The email identifier (UID).",
+                    "name": "UID"
+                }
+            },
+            "name": "Fetch message"
+        },
+        "move": {
+            "description": "Move an email to a target folder.",
+            "fields": {
+                "entry": {
+                    "description": "The IMAP config entry.",
+                    "name": "Entry"
+                },
+                "seen": {
+                    "description": "Mark the email as seen.",
+                    "name": "Seen"
+                },
+                "target_folder": {
+                    "description": "The target folder the email should be moved to.",
+                    "name": "Target folder"
+                },
+                "uid": {
+                    "description": "The email identifier (UID).",
+                    "name": "UID"
+                }
+            },
+            "name": "Move message"
+        },
+        "seen": {
+            "description": "Mark an email as seen.",
+            "fields": {
+                "entry": {
+                    "description": "The IMAP config entry.",
+                    "name": "Entry"
+                },
+                "uid": {
+                    "description": "The email identifier (UID).",
+                    "name": "UID"
+                }
+            },
+            "name": "Mark message as seen"
+        }
+    }
+}

@@ -1,0 +1,151 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "L'appareil est d\u00e9j\u00e0 configur\u00e9",
+            "discovery_started": "La d\u00e9couverte a commenc\u00e9"
+        },
+        "error": {
+            "cannot_connect": "\u00c9chec de connexion",
+            "invalid_auth": "Authentification non valide",
+            "protect_version": "La version minimale requise est la v1.20.0. Veuillez mettre \u00e0 jour UniFi Protect, puis r\u00e9essayer."
+        },
+        "flow_title": "{name} ({ip_address})",
+        "step": {
+            "discovery_confirm": {
+                "data": {
+                    "password": "Mot de passe",
+                    "username": "Nom d'utilisateur"
+                },
+                "description": "Voulez-vous configurer {name} ({ip_address})\u00a0? Vous aurez besoin d'un utilisateur local cr\u00e9\u00e9 dans votre console UniFi OS pour vous connecter. Les utilisateurs Ubiquiti Cloud ne fonctionneront pas. Pour plus d'informations\u00a0: {local_user_documentation_url}",
+                "title": "UniFi Protect d\u00e9couvert"
+            },
+            "reauth_confirm": {
+                "data": {
+                    "host": "IP/H\u00f4te du serveur UniFi Protect",
+                    "password": "Mot de passe",
+                    "port": "Port",
+                    "username": "Nom d'utilisateur"
+                },
+                "title": "R\u00e9-authentification UniFi Protect"
+            },
+            "user": {
+                "data": {
+                    "host": "H\u00f4te",
+                    "password": "Mot de passe",
+                    "port": "Port",
+                    "username": "Nom d'utilisateur",
+                    "verify_ssl": "V\u00e9rifier le certificat SSL"
+                },
+                "data_description": {
+                    "host": "Nom d'h\u00f4te ou adresse IP de votre appareil UniFi Protect."
+                },
+                "description": "Vous aurez besoin d'un utilisateur local cr\u00e9\u00e9 dans votre console UniFi OS pour vous connecter. Les utilisateurs Ubiquiti Cloud ne fonctionneront pas. Pour plus d'informations\u00a0: {local_user_documentation_url}",
+                "title": "Configuration d'UniFi Protect"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_service_set_doorbell_message": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "title": "set_doorbell_message est obsol\u00e8te"
+                    }
+                }
+            },
+            "title": "set_doorbell_message est obsol\u00e8te"
+        },
+        "ea_setup_failed": {
+            "description": "Vous utilisez la v{version} d'UniFi Protect qui est une version \u00e0 acc\u00e8s anticip\u00e9. Une erreur irr\u00e9cup\u00e9rable s'est produite lors de la tentative de chargement de l'int\u00e9gration. Veuillez restaurer une sauvegarde d'une version stable d'UniFi Protect pour continuer \u00e0 utiliser l'int\u00e9gration.\n\nErreur\u00a0: {error}",
+            "title": "Erreur de configuration lors de l'utilisation de la version en acc\u00e8s anticip\u00e9"
+        },
+        "ea_warning": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "\u00cates-vous s\u00fbr de vouloir utiliser des versions non support\u00e9es de UniFi Protect ? Cela pourrait entra\u00eener une d\u00e9faillance  de l'int\u00e9gration de votre Home Assistant.",
+                        "title": "La v{version} est une version en acc\u00e8s anticip\u00e9"
+                    },
+                    "start": {
+                        "title": "La v{version} est une version en acc\u00e8s anticip\u00e9"
+                    }
+                }
+            },
+            "title": "UniFi Protect v{version} est en version en acc\u00e8s anticip\u00e9"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "all_updates": "M\u00e9triques en temps r\u00e9el (AVERTISSEMENT\u00a0: augmente consid\u00e9rablement l'utilisation du processeur)",
+                    "allow_ea": "Autoriser les versions en acc\u00e8s anticip\u00e9 de Protect (ATTENTION : marquera votre int\u00e9gration comme non prise en charge)",
+                    "allow_ea_channel": "Autoriser la pr\u00e9-version de Protect (ATTENTION\u00a0: Ceci va marquer votre int\u00e9gration comme non-support\u00e9e)",
+                    "disable_rtsp": "D\u00e9sactiver le flux RTSP",
+                    "max_media": "Nombre maximal d'\u00e9v\u00e9nements \u00e0 charger pour le navigateur multim\u00e9dia (augmente l'utilisation de la RAM)",
+                    "override_connection_host": "Ignorer l'h\u00f4te de connexion"
+                },
+                "description": "L'option Mesures en temps r\u00e9el ne doit \u00eatre activ\u00e9e que si vous avez activ\u00e9 les capteurs de diagnostic et souhaitez qu'ils soient mis \u00e0 jour en temps r\u00e9el. S'ils ne sont pas activ\u00e9s, ils ne seront mis \u00e0 jour qu'une fois toutes les 15 minutes.",
+                "title": "Options UniFi Protect"
+            }
+        }
+    },
+    "services": {
+        "add_doorbell_text": {
+            "description": "Ajoute un nouveau message personnalis\u00e9 pour les sonnettes",
+            "fields": {
+                "device_id": {
+                    "description": "Tout appareil de l'instance UniFi Protect que vous souhaitez modifier. Si vous disposez de plusieurs instances Protect.",
+                    "name": "Enregistreur NVR UniFi Protect"
+                },
+                "message": {
+                    "description": "Nouveau message personnalis\u00e9 \u00e0 ajouter pour les sonnettes. Doit \u00eatre inf\u00e9rieur \u00e0 30 caract\u00e8res.",
+                    "name": "Message personnalis\u00e9"
+                }
+            },
+            "name": "Ajouter un texte de sonnette personnalis\u00e9"
+        },
+        "remove_doorbell_text": {
+            "description": "Supprime un message existant pour les sonnettes.",
+            "fields": {
+                "device_id": {
+                    "description": "Tout appareil de l'instance UniFi Protect que vous souhaitez modifier. Si vous disposez de plusieurs instances Protect.",
+                    "name": "Enregistreur NVR UniFi Protect"
+                },
+                "message": {
+                    "description": "Message personnalis\u00e9 existant \u00e0 supprimer pour les sonnettes.",
+                    "name": "Message personnalis\u00e9"
+                }
+            },
+            "name": "Supprimer le texte personnalis\u00e9 de la sonnette"
+        },
+        "set_chime_paired_doorbells": {
+            "description": "Permet de configurer la ou les sonnettes appari\u00e9es avec un carillon intelligent.",
+            "fields": {
+                "device_id": {
+                    "description": "Les sonneries \u00e0 lier aux sonnettes",
+                    "name": "Carillon"
+                },
+                "doorbells": {
+                    "description": "Les sonnettes doivent \u00eatre reli\u00e9es au carillon.",
+                    "name": "Sonnettes"
+                }
+            },
+            "name": "R\u00e9gler le carillon des sonnettes jumel\u00e9es"
+        },
+        "set_default_doorbell_text": {
+            "description": "D\u00e9finit le message de sonnette par d\u00e9faut. Il s'agit du message qui est automatiquement s\u00e9lectionn\u00e9 lorsqu'un message \"expire\".",
+            "fields": {
+                "device_id": {
+                    "description": "Tout appareil de l'instance UniFi Protect que vous souhaitez modifier. Si vous disposez de plusieurs instances Protect.",
+                    "name": "Enregistreur NVR UniFi Protect"
+                },
+                "message": {
+                    "description": "Le message par d\u00e9faut de votre sonnette. Il doit comporter moins de 30 caract\u00e8res.",
+                    "name": "Message par d\u00e9faut"
+                }
+            },
+            "name": "D\u00e9finir le texte par d\u00e9faut de la sonnette"
+        }
+    }
+}

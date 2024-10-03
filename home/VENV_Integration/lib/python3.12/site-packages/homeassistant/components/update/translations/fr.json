@@ -1,0 +1,86 @@
+{
+    "device_automation": {
+        "trigger_type": {
+            "changed_states": "La disponibilit\u00e9 d'une mise \u00e0 jour pour {entity_name} a chang\u00e9",
+            "turned_off": "{entity_name} a \u00e9t\u00e9 mis \u00e0 jour",
+            "turned_on": "Une mise \u00e0 jour est disponible pour {entity_name}"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Mettre \u00e0 jour",
+            "state": {
+                "off": "\u00c0 jour",
+                "on": "Mise \u00e0 jour disponible"
+            },
+            "state_attributes": {
+                "auto_update": {
+                    "name": "Mise \u00e0 jour automatique",
+                    "state": {
+                        "false": "Non",
+                        "true": "Oui"
+                    }
+                },
+                "in_progress": {
+                    "name": "En cours",
+                    "state": {
+                        "false": "Non",
+                        "true": "Oui"
+                    }
+                },
+                "installed_version": {
+                    "name": "Version install\u00e9e"
+                },
+                "latest_version": {
+                    "name": "Derni\u00e8re version"
+                },
+                "release_summary": {
+                    "name": "R\u00e9sum\u00e9 de la mise \u00e0 jour"
+                },
+                "release_url": {
+                    "name": "URL de publication"
+                },
+                "skipped_version": {
+                    "name": "Version ignor\u00e9e"
+                },
+                "title": {
+                    "name": "Titre"
+                }
+            }
+        },
+        "firmware": {
+            "name": "Micrologiciel"
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "La plateforme {platform} pour l'int\u00e9gration {domain} ne prend pas en charge la configuration de la plateforme.\n\nVeuillez la supprimer de votre configuration et red\u00e9marrer Home Assistant pour r\u00e9soudre ce probl\u00e8me.",
+            "title": "Prise en charge de la plateforme non prise en charge"
+        }
+    },
+    "services": {
+        "clear_skipped": {
+            "description": "Supprime le marqueur de version ignor\u00e9e d'une mise \u00e0 jour.",
+            "name": "Effacer la mise \u00e0 jour ignor\u00e9e"
+        },
+        "install": {
+            "description": "Installe une mise \u00e0 jour pour cet appareil ou ce service.",
+            "fields": {
+                "backup": {
+                    "description": "Si pris en charge par l'int\u00e9gration, cr\u00e9e une sauvegarde avant de d\u00e9marrer la mise \u00e0 jour.",
+                    "name": "Sauvegarde"
+                },
+                "version": {
+                    "description": "La version \u00e0 installer. Si omis, la derni\u00e8re version sera install\u00e9e.",
+                    "name": "Version"
+                }
+            },
+            "name": "Installer la mise \u00e0 jour"
+        },
+        "skip": {
+            "description": "Marque la mise \u00e0 jour actuellement disponible comme ignor\u00e9e.",
+            "name": "Ignorer la mise \u00e0 jour"
+        }
+    },
+    "title": "Mettre \u00e0 jour"
+}

@@ -1,0 +1,131 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Seade on juba h\u00e4\u00e4lestatud",
+            "already_in_progress": "Seadistamine on juba k\u00e4imas",
+            "cannot_connect": "\u00dchendamine nurjus"
+        },
+        "step": {
+            "discovery_confirm": {
+                "description": "Kas soovid seadistada seda Guardian'i seadet?"
+            },
+            "user": {
+                "data": {
+                    "ip_address": "IP aadress",
+                    "port": ""
+                },
+                "description": "Seadista kohalik Elexa Guardiani seade."
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "leak": {
+                "name": "Tuvastati leke"
+            },
+            "moved": {
+                "name": "Hiljutine liikumine"
+            }
+        },
+        "button": {
+            "reset_diagnostics": {
+                "name": "Klapi diagnostika nullimine"
+            }
+        },
+        "sensor": {
+            "current": {
+                "name": "Voolutugevus"
+            },
+            "instantaneous_current": {
+                "name": "Hetkeline vool"
+            },
+            "instantaneous_current_ddt": {
+                "name": "Hetkeline vool (DDT)"
+            },
+            "travel_count": {
+                "name": "Liikumise m\u00e4\u00e4r"
+            },
+            "uptime": {
+                "name": "T\u00f6\u00f6aeg"
+            }
+        },
+        "switch": {
+            "onboard_access_point": {
+                "name": "Sisseehitatud ligip\u00e4\u00e4supunkt"
+            },
+            "valve_controller": {
+                "name": "Klapi kontroller"
+            }
+        },
+        "valve": {
+            "valve_controller": {
+                "name": "Klapi kontroller"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_service": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "V\u00e4rskenda k\u00f5iki automaatikaid v\u00f5i skripte, mis seda teenust kasutavad, et kasutada selle asemel teenust `{alternate_service}`, mille sihtolemi ID on `{alternate_target}`.",
+                        "title": "Teenus {deprecated_service} eemaldatakse"
+                    }
+                }
+            },
+            "title": "Teenus {deprecated_service} eemaldatakse"
+        }
+    },
+    "services": {
+        "pair_sensor": {
+            "description": "Lisab klapikontrollerile uue seotud anduri.",
+            "fields": {
+                "device_id": {
+                    "description": "Klapi kontroller, millele andur lisada.",
+                    "name": "Klapi kontroller"
+                },
+                "uid": {
+                    "description": "Seotud anduri UID.",
+                    "name": "UID"
+                }
+            },
+            "name": "Seo andur"
+        },
+        "unpair_sensor": {
+            "description": "Eemaldab seotud anduri klapi kontrollerist.",
+            "fields": {
+                "device_id": {
+                    "description": "Klapikontroller mille andur eemaldatakse.",
+                    "name": "Klapi kontroller"
+                },
+                "uid": {
+                    "description": "Seotud anduri UID.",
+                    "name": "UID"
+                }
+            },
+            "name": "Katkesta anduri sidumine"
+        },
+        "upgrade_firmware": {
+            "description": "Uuendab seadme p\u00fcsivara.",
+            "fields": {
+                "device_id": {
+                    "description": "Klapikontroller, mille p\u00fcsivara tuleks uuendada.",
+                    "name": "Klapi kontroller"
+                },
+                "filename": {
+                    "description": "P\u00fcsivara failinimi.",
+                    "name": "Faili nimi"
+                },
+                "port": {
+                    "description": "Port, mille kaudu p\u00fcsivara faili serveeritakse.",
+                    "name": "Port"
+                },
+                "url": {
+                    "description": "P\u00fcsivarafaili majutava serveri URL.",
+                    "name": "URL"
+                }
+            },
+            "name": "Uuenda p\u00fcsivara"
+        }
+    }
+}

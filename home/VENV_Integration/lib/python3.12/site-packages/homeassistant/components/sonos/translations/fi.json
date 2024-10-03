@@ -1,0 +1,177 @@
+{
+    "config": {
+        "abort": {
+            "no_devices_found": "Verkosta ei l\u00f6ytynyt laitteita",
+            "not_sonos_device": "L\u00f6ydetty laite ei ole Sonos-laite",
+            "single_instance_allowed": "Jo m\u00e4\u00e4ritetty. Vain yksi konfiguraatio mahdollinen."
+        },
+        "step": {
+            "confirm": {
+                "description": "Haluatko m\u00e4\u00e4ritt\u00e4\u00e4 Sonosin?"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "microphone": {
+                "name": "Mikrofoni"
+            }
+        },
+        "number": {
+            "audio_delay": {
+                "name": "\u00c4\u00e4nen viive"
+            },
+            "balance": {
+                "name": "Tasapaino"
+            },
+            "bass": {
+                "name": "Basso"
+            },
+            "music_surround_level": {
+                "name": "Musiikin surround-taso"
+            },
+            "sub_crossover": {
+                "name": "Alajakotaajuus"
+            },
+            "sub_gain": {
+                "name": "Alivahvistus"
+            },
+            "surround_level": {
+                "name": "Surround-taso"
+            },
+            "treble": {
+                "name": "Diskantti"
+            }
+        },
+        "sensor": {
+            "audio_input_format": {
+                "name": "\u00c4\u00e4nen tulomuoto"
+            }
+        },
+        "switch": {
+            "buttons_enabled": {
+                "name": "Kosketusohjaimet"
+            },
+            "cross_fade": {
+                "name": "Ristih\u00e4ivytys"
+            },
+            "dialog_level": {
+                "name": "Puheen tehostaminen"
+            },
+            "loudness": {
+                "name": "\u00c4\u00e4nekkyys"
+            },
+            "night_mode": {
+                "name": "Y\u00f6n \u00e4\u00e4ni"
+            },
+            "status_light": {
+                "name": "Tilan merkkivalo"
+            },
+            "sub_enabled": {
+                "name": "Subwoofer k\u00e4yt\u00f6ss\u00e4"
+            },
+            "surround_enabled": {
+                "name": "Surround k\u00e4yt\u00f6ss\u00e4"
+            },
+            "surround_mode": {
+                "name": "Surround-musiikin t\u00e4ysi \u00e4\u00e4nenvoimakkuus"
+            }
+        }
+    },
+    "issues": {
+        "subscriptions_failed": {
+            "description": "Toiminnallisuus voi olla rajoitettu, jos palataan kyselyyn.\n\nSonos -laite osoitteessa {device_ip} ei tavoita Home Assistantia osoitteessa {listener_address}.\n\nKatso [documentation]({sub_fail_url}) lis\u00e4tietoja t\u00e4m\u00e4n ongelman ratkaisemisesta.",
+            "title": "Verkkovirhe: tilaukset eiv\u00e4t onnistuneet"
+        }
+    },
+    "services": {
+        "clear_sleep_timer": {
+            "description": "Tyhjent\u00e4\u00e4 Sonos-ajastimen.",
+            "name": "Tyhjenn\u00e4 ajastin"
+        },
+        "play_queue": {
+            "description": "Aloita jonon toistaminen ensimm\u00e4isest\u00e4 kohdasta.",
+            "fields": {
+                "queue_position": {
+                    "description": "Kappaleen sijainti jonossa, josta toisto aloitetaan.",
+                    "name": "Paikka jonossa"
+                }
+            },
+            "name": "Toistojono"
+        },
+        "remove_from_queue": {
+            "description": "Poistaa kohteen jonosta.",
+            "fields": {
+                "queue_position": {
+                    "description": "Sijainti poistettavassa jonossa.",
+                    "name": "Paikka jonossa"
+                }
+            },
+            "name": "Poista jonosta"
+        },
+        "restore": {
+            "description": "Palauttaa mediasoittimen tilannekuvan.",
+            "fields": {
+                "entity_id": {
+                    "description": "Palautettavan entiteetin nimi.",
+                    "name": "Entiteetti"
+                },
+                "with_group": {
+                    "description": "Totta tai tarua. Palauta my\u00f6s ryhm\u00e4n asettelu.",
+                    "name": "Ryhm\u00e4n kanssa"
+                }
+            },
+            "name": "Palauta"
+        },
+        "set_sleep_timer": {
+            "description": "Asettaa Sonos-ajastimen.",
+            "fields": {
+                "sleep_time": {
+                    "description": "Sekuntien m\u00e4\u00e4r\u00e4 ajastimen asettamiseen.",
+                    "name": "Nukkumisaika"
+                }
+            },
+            "name": "Aseta ajastin"
+        },
+        "snapshot": {
+            "description": "Ottaa tilannekuvan mediasoittimesta.",
+            "fields": {
+                "entity_id": {
+                    "description": "Sen entiteetin nimi, josta tilannekuva otetaan.",
+                    "name": "Entiteetti"
+                },
+                "with_group": {
+                    "description": "Totta tai tarua. Ota my\u00f6s tilannekuva ryhm\u00e4n asettelusta.",
+                    "name": "Ryhm\u00e4n kanssa"
+                }
+            },
+            "name": "Tilannekuva"
+        },
+        "update_alarm": {
+            "description": "P\u00e4ivitt\u00e4\u00e4 h\u00e4lytyksen uusilla aika- ja \u00e4\u00e4nenvoimakkuusasetuksilla.",
+            "fields": {
+                "alarm_id": {
+                    "description": "H\u00e4lyttimen p\u00e4ivitett\u00e4v\u00e4 tunnus.",
+                    "name": "H\u00e4lytystunnus"
+                },
+                "enabled": {
+                    "description": "Ota h\u00e4lytys k\u00e4ytt\u00f6\u00f6n tai poista se k\u00e4yt\u00f6st\u00e4.",
+                    "name": "H\u00e4lytys k\u00e4yt\u00f6ss\u00e4"
+                },
+                "include_linked_zones": {
+                    "description": "Ota ryhmiteltyjen huoneiden sis\u00e4llytt\u00e4minen k\u00e4ytt\u00f6\u00f6n tai poista se k\u00e4yt\u00f6st\u00e4.",
+                    "name": "Sis\u00e4llyt\u00e4 linkitetyt alueet"
+                },
+                "time": {
+                    "description": "Aseta h\u00e4lytyksen aika.",
+                    "name": "Aika"
+                },
+                "volume": {
+                    "description": "Aseta h\u00e4lytyksen \u00e4\u00e4nenvoimakkuus.",
+                    "name": "\u00c4\u00e4nenvoimakkuus"
+                }
+            },
+            "name": "P\u00e4ivit\u00e4 h\u00e4lytys"
+        }
+    }
+}

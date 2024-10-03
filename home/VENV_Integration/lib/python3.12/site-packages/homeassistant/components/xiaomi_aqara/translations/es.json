@@ -1,0 +1,95 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "El dispositivo ya est\u00e1 configurado",
+            "already_in_progress": "El flujo de configuraci\u00f3n ya est\u00e1 en curso",
+            "not_xiaomi_aqara": "No es un Xiaomi Aqara Gateway, el dispositivo descubierto no coincide con las puertas de enlace conocidas"
+        },
+        "error": {
+            "discovery_error": "No se pudo descubrir un Xiaomi Aqara Gateway, intenta utilizar la IP del dispositivo que ejecuta HomeAssistant como interfaz",
+            "invalid_host": "Nombre de host o direcci\u00f3n IP no v\u00e1lidos, consulta https://www.home-assistant.io/integrations/xiaomi_aqara/#connection-problem",
+            "invalid_interface": "Interfaz de red no v\u00e1lida",
+            "invalid_key": "Clave de puerta de enlace no v\u00e1lida",
+            "invalid_mac": "Direcci\u00f3n MAC no v\u00e1lida"
+        },
+        "flow_title": "{name}",
+        "step": {
+            "select": {
+                "data": {
+                    "select_ip": "Direcci\u00f3n IP"
+                },
+                "description": "Selecciona el Xiaomi Aqara Gateway que deseas conectar"
+            },
+            "settings": {
+                "data": {
+                    "key": "La clave de tu puerta de enlace",
+                    "name": "Nombre de la puerta de enlace"
+                },
+                "description": "La clave (contrase\u00f1a) se puede recuperar con este tutorial: https://www.domoticz.com/wiki/Xiaomi_Gateway_(Aqara)#Adding_the_Xiaomi_Gateway_to_Domoticz. Si no se proporciona la llave, solo se podr\u00e1 acceder a los sensores",
+                "title": "Configuraciones opcionales"
+            },
+            "user": {
+                "data": {
+                    "host": "Direcci\u00f3n IP (opcional)",
+                    "interface": "La interfaz de la red a usar",
+                    "mac": "Direcci\u00f3n MAC (opcional)"
+                },
+                "description": "Si las direcciones IP y MAC se dejan vac\u00edas, se usa la detecci\u00f3n autom\u00e1tica"
+            }
+        }
+    },
+    "services": {
+        "add_device": {
+            "description": "Habilita el permiso de uni\u00f3n de Xiaomi Aqara Gateway durante 30 segundos. Se puede agregar un nuevo dispositivo despu\u00e9s presionando el bot\u00f3n de emparejamiento una vez.",
+            "fields": {
+                "gw_mac": {
+                    "description": "Direcci\u00f3n MAC del Xiaomi Aqara Gateway.",
+                    "name": "MAC de la puerta de enlace"
+                }
+            },
+            "name": "A\u00f1adir dispositivo"
+        },
+        "play_ringtone": {
+            "description": "Reproduce un tono de llamada espec\u00edfico. La versi\u00f3n del firmware de la puerta de enlace debe ser 1.4.1_145 como m\u00ednimo.",
+            "fields": {
+                "gw_mac": {
+                    "description": "Direcci\u00f3n MAC del Xiaomi Aqara Gateway.",
+                    "name": "MAC de la puerta de enlace"
+                },
+                "ringtone_id": {
+                    "description": "Uno de los identificadores de tono de llamada permitidos.",
+                    "name": "ID de tono de llamada"
+                },
+                "ringtone_vol": {
+                    "description": "El volumen en porcentaje.",
+                    "name": "Volumen del tono de llamada"
+                }
+            },
+            "name": "Reproducir tono de llamada"
+        },
+        "remove_device": {
+            "description": "Elimina un dispositivo espec\u00edfico. La eliminaci\u00f3n es necesaria si un dispositivo se emparejar\u00e1 con otra puerta de enlace.",
+            "fields": {
+                "device_id": {
+                    "description": "Direcci\u00f3n hardware del dispositivo a eliminar.",
+                    "name": "ID del dispositivo"
+                },
+                "gw_mac": {
+                    "description": "Direcci\u00f3n MAC del Xiaomi Aqara Gateway.",
+                    "name": "MAC de la puerta de enlace"
+                }
+            },
+            "name": "Eliminar dispositivo"
+        },
+        "stop_ringtone": {
+            "description": "Detiene la reproducci\u00f3n de un tono de llamada inmediatamente.",
+            "fields": {
+                "gw_mac": {
+                    "description": "Direcci\u00f3n MAC del Xiaomi Aqara Gateway.",
+                    "name": "MAC de la puerta de enlace"
+                }
+            },
+            "name": "Detener tono de llamada"
+        }
+    }
+}

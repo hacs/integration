@@ -1,0 +1,170 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "L'appareil est d\u00e9j\u00e0 configur\u00e9",
+            "no_devices_found": "Aucun appareil trouv\u00e9 sur le r\u00e9seau"
+        },
+        "error": {
+            "cannot_connect": "\u00c9chec de connexion"
+        },
+        "flow_title": "{model} {id} ({host})",
+        "step": {
+            "discovery_confirm": {
+                "description": "Voulez-vous configurer {model} ({host})\u00a0?"
+            },
+            "pick_device": {
+                "data": {
+                    "device": "Appareil"
+                }
+            },
+            "user": {
+                "data": {
+                    "host": "H\u00f4te"
+                },
+                "data_description": {
+                    "host": "Nom d'h\u00f4te ou adresse IP de votre ampoule Yeelight Wi-Fi."
+                },
+                "description": "Si vous laissez l'h\u00f4te vide, la d\u00e9couverte sera utilis\u00e9e pour trouver des appareils."
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "nightlight": {
+                "name": "Veilleuse"
+            }
+        },
+        "light": {
+            "ambilight": {
+                "name": "Ambilight"
+            },
+            "nightlight": {
+                "name": "Veilleuse"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "model": "Mod\u00e8le",
+                    "nightlight_switch": "Utiliser le commutateur de veilleuse",
+                    "save_on_change": "Enregistrer l'\u00e9tat lors d'un changement",
+                    "transition": "Dur\u00e9e de la transition (en millisecondes)",
+                    "use_music_mode": "Activer le mode musique"
+                }
+            }
+        }
+    },
+    "selector": {
+        "action": {
+            "options": {
+                "off": "D\u00e9sactiv\u00e9"
+            }
+        }
+    },
+    "services": {
+        "set_auto_delay_off_scene": {
+            "fields": {
+                "brightness": {
+                    "description": "Valeur de luminosit\u00e9 \u00e0 r\u00e9gler."
+                }
+            }
+        },
+        "set_color_flow_scene": {
+            "fields": {
+                "action": {
+                    "name": "Action"
+                },
+                "count": {
+                    "description": "Le nombre de fois que ce flux doit \u00eatre ex\u00e9cut\u00e9 (0 pour l'ex\u00e9cuter ind\u00e9finiment).",
+                    "name": "Compteur"
+                },
+                "transitions": {
+                    "description": "Tableau de transitions, pour l'effet d\u00e9sir\u00e9. Exemples https://yeelight.readthedocs.io/en/stable/flow.html.",
+                    "name": "Transitions"
+                }
+            },
+            "name": "D\u00e9finir une sc\u00e8ne de flux de couleurs"
+        },
+        "set_color_scene": {
+            "description": "Modifie la lumi\u00e8re en fonction de la couleur RVB et de la luminosit\u00e9 sp\u00e9cifi\u00e9es. Si la lumi\u00e8re est \u00e9teinte, elle s'allume.",
+            "fields": {
+                "brightness": {
+                    "description": "Valeur de luminosit\u00e9 \u00e0 r\u00e9gler.",
+                    "name": "Luminosit\u00e9"
+                },
+                "rgb_color": {
+                    "description": "Couleur de la lumi\u00e8re au format RVB.",
+                    "name": "Couleur RVB"
+                }
+            },
+            "name": "D\u00e9finir une sc\u00e8ne de couleur"
+        },
+        "set_color_temp_scene": {
+            "description": "Modifie la lumi\u00e8re en fonction de la temp\u00e9rature de couleur sp\u00e9cifi\u00e9e. Si la lumi\u00e8re est \u00e9teinte, elle s'allume.",
+            "fields": {
+                "brightness": {
+                    "description": "Valeur de luminosit\u00e9 \u00e0 r\u00e9gler.",
+                    "name": "Luminosit\u00e9"
+                },
+                "kelvin": {
+                    "description": "Temp\u00e9rature de couleur de la lumi\u00e8re en Kelvin.",
+                    "name": "Kelvin"
+                }
+            },
+            "name": "R\u00e9glage de la temp\u00e9rature de couleur de la sc\u00e8ne"
+        },
+        "set_hsv_scene": {
+            "description": "Modifie la lumi\u00e8re en fonction de la couleur et de la luminosit\u00e9 HSV sp\u00e9cifi\u00e9es. Si la lumi\u00e8re est \u00e9teinte, elle sera allum\u00e9e.",
+            "fields": {
+                "brightness": {
+                    "description": "Valeur de luminosit\u00e9 \u00e0 r\u00e9gler.",
+                    "name": "Luminosit\u00e9"
+                },
+                "hs_color": {
+                    "description": "Couleur de la lumi\u00e8re au format teinte/saturation. La teinte est comprise entre 0 et 359 et la saturation entre 0 et 100.",
+                    "name": "Teinte/Saturation couleur"
+                }
+            },
+            "name": "D\u00e9finir la sc\u00e8ne HSV"
+        },
+        "set_mode": {
+            "description": "D\u00e9finit un mode de fonctionnement.",
+            "fields": {
+                "mode": {
+                    "description": "Mode de fonctionnement.",
+                    "name": "Mode"
+                }
+            },
+            "name": "D\u00e9fini le mode"
+        },
+        "set_music_mode": {
+            "description": "Active ou d\u00e9sactive le mode musique.",
+            "fields": {
+                "music_mode": {
+                    "description": "Utilisez true ou false pour activer / d\u00e9sactiver le mode music.",
+                    "name": "Mode musique"
+                }
+            },
+            "name": "R\u00e9gler le mode musique"
+        },
+        "start_flow": {
+            "description": "Lancez un flux personnalis\u00e9 en utilisant les transitions de https://yeelight.readthedocs.io/en/stable/yeelight.html#flow-objects.",
+            "fields": {
+                "action": {
+                    "name": "Action"
+                },
+                "count": {
+                    "description": "Le nombre de fois que ce flux doit \u00eatre ex\u00e9cut\u00e9 (0 pour l'ex\u00e9cuter ind\u00e9finiment).",
+                    "name": "Compteur"
+                },
+                "transitions": {
+                    "description": "Tableau de transitions, pour l'effet d\u00e9sir\u00e9. Exemples https://yeelight.readthedocs.io/en/stable/flow.html.",
+                    "name": "Transitions"
+                }
+            },
+            "name": "D\u00e9marrer le flux"
+        }
+    }
+}

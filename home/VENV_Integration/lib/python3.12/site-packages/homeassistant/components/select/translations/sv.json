@@ -1,0 +1,85 @@
+{
+    "device_automation": {
+        "action_type": {
+            "select_first": "\u00c4ndra {entity_name} till f\u00f6rsta alternativet",
+            "select_last": "\u00c4ndra {entity_name} till sista alternativet",
+            "select_next": "\u00c4ndra {entity_name} till n\u00e4sta alternativ",
+            "select_option": "\u00c4ndra alternativ f\u00f6r {entity_name}",
+            "select_previous": "\u00c4ndra {entity_name} till f\u00f6reg\u00e5ende alternativ"
+        },
+        "condition_type": {
+            "selected_option": "Nuvarande alternativ f\u00f6r {entity_name}"
+        },
+        "extra_fields": {
+            "for": "Varaktighet",
+            "from": "Fr\u00e5n",
+            "option": "Alternativ",
+            "to": "Till"
+        },
+        "trigger_type": {
+            "current_option_changed": "Alternativ f\u00f6r {entity_name} har \u00e4ndrats"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "V\u00e4lj",
+            "state_attributes": {
+                "options": {
+                    "name": "Alternativ"
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "not_valid_option": {
+            "message": "Alternativet {option} \u00e4r inte giltigt f\u00f6r enheten {entity_id} , giltiga alternativ \u00e4r: {options} ."
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "{platform}-plattformen f\u00f6r integrationen {domain} st\u00f6ds inte.\n\nTa bort den fr\u00e5n din konfiguration och starta om Home Assistant f\u00f6r att \u00e5tg\u00e4rda detta problem.",
+            "title": "Plattformen st\u00f6ds inte"
+        }
+    },
+    "services": {
+        "select_first": {
+            "description": "V\u00e4ljer det f\u00f6rsta alternativet.",
+            "name": "F\u00f6rsta"
+        },
+        "select_last": {
+            "description": "V\u00e4ljer det sista alternativet.",
+            "name": "Sista"
+        },
+        "select_next": {
+            "description": "V\u00e4ljer n\u00e4sta alternativ.",
+            "fields": {
+                "cycle": {
+                    "description": "Om alternativet ska g\u00e5 fr\u00e5n det sista till det f\u00f6rsta.",
+                    "name": "Cykla"
+                }
+            },
+            "name": "N\u00e4sta"
+        },
+        "select_option": {
+            "description": "V\u00e4ljer ett alternativ.",
+            "fields": {
+                "option": {
+                    "description": "Alternativ som ska v\u00e4ljas.",
+                    "name": "Alternativ"
+                }
+            },
+            "name": "V\u00e4lj"
+        },
+        "select_previous": {
+            "description": "V\u00e4ljer f\u00f6reg\u00e5ende alternativ.",
+            "fields": {
+                "cycle": {
+                    "description": "Om alternativet ska g\u00e5 fr\u00e5n det f\u00f6rsta till det sista.",
+                    "name": "Cykla"
+                }
+            },
+            "name": "F\u00f6reg\u00e5ende"
+        }
+    },
+    "title": "V\u00e4lj"
+}

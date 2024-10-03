@@ -1,0 +1,111 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Az eszk\u00f6z m\u00e1r konfigur\u00e1lva van"
+        },
+        "error": {
+            "cannot_connect": "Sikertelen csatlakoz\u00e1s",
+            "invalid_upb_file": "Hi\u00e1nyz\u00f3 vagy \u00e9rv\u00e9nytelen UPB UPStart export f\u00e1jl, ellen\u0151rizze a f\u00e1jl nev\u00e9t \u00e9s el\u00e9r\u00e9si \u00fatj\u00e1t.",
+            "unknown": "V\u00e1ratlan hiba"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "address": "C\u00edm (l\u00e1sd a fenti le\u00edr\u00e1st)",
+                    "file_path": "Az UPStart UPB exportf\u00e1jl el\u00e9r\u00e9si \u00fatja \u00e9s neve.",
+                    "protocol": "Protokoll"
+                },
+                "description": "Csatlakoztasson egy Universal Powerline Bus Powerline Interface Module-t (UPB PIM). A c\u00edmnek a 'c\u00edm[:port]' form\u00e1tumban kell lennie a 'tcp' eset\u00e9ben. A port nem k\u00f6telez\u0151, alap\u00e9rtelmezetten 2101-re van be\u00e1ll\u00edtva. P\u00e9ld\u00e1ul: '192.168.1.42'. A soros protokoll eset\u00e9ben a c\u00edmnek a 'tty[:baud]' form\u00e1tumban kell lennie. A baud szint\u00e9n nem k\u00f6telez\u0151, alap\u00e9rtelmezetten 4800-ra van be\u00e1ll\u00edtva. P\u00e9ld\u00e1ul: '/dev/ttyS1'.",
+                "title": "Csatlakoz\u00e1s az UPB PIM-hez"
+            }
+        }
+    },
+    "services": {
+        "light_blink": {
+            "description": "Villogtatja a f\u00e9nyt.",
+            "fields": {
+                "rate": {
+                    "description": "Id\u0151tartam, ameddig a link villog.",
+                    "name": "Sebess\u00e9g"
+                }
+            },
+            "name": "F\u00e9ny villogtat\u00e1sa"
+        },
+        "light_fade_start": {
+            "description": "Elkezdil halv\u00e1ny\u00edtani vagy er\u0151s\u00edteni a f\u00e9nyt a jelenlegi f\u00e9nyer\u0151ss\u00e9gt\u0151l f\u00fcgg\u0151en.",
+            "fields": {
+                "brightness": {
+                    "description": "Sz\u00e1m, ami a f\u00e9nyer\u0151ss\u00e9get jelzi, ahol 0 kikapcsolja a f\u00e9nyt, 1 a minim\u00e1lis f\u00e9nyer\u0151ss\u00e9g \u00e9s 255 a maxim\u00e1lis f\u00e9nyer\u0151ss\u00e9g.",
+                    "name": "F\u00e9nyer\u0151"
+                },
+                "brightness_pct": {
+                    "description": "Sz\u00e1m, ami a teljes f\u00e9nyer\u0151ss\u00e9g sz\u00e1zal\u00e9k\u00e1t jelzi, ahol 0 kikapcsolja a f\u00e9nyt, 1 a minim\u00e1lis f\u00e9nyer\u0151ss\u00e9g \u00e9s 100 a maxim\u00e1lis f\u00e9nyer\u0151ss\u00e9g.",
+                    "name": "F\u00e9nyer\u0151 sz\u00e1zal\u00e9k"
+                },
+                "rate": {
+                    "description": "Sebess\u00e9g, amellyel a f\u00e9ny az \u00faj f\u00e9nyer\u0151ss\u00e9gre v\u00e1lt.",
+                    "name": "Sebess\u00e9g"
+                }
+            },
+            "name": "F\u00e9ny halv\u00e1ny\u00edt\u00e1s\u00e1nak ind\u00edt\u00e1sa"
+        },
+        "light_fade_stop": {
+            "description": "Le\u00e1ll\u00edtja a f\u00e9ny elhalv\u00e1nyul\u00e1s\u00e1t.",
+            "name": "F\u00e9ny halv\u00e1ny\u00edt\u00e1s\u00e1nak le\u00e1ll\u00edt\u00e1sa"
+        },
+        "link_blink": {
+            "description": "Villogtat egy linket.",
+            "fields": {
+                "blink_rate": {
+                    "description": "Id\u0151tartam, ameddig a link villog.",
+                    "name": "Villogtat\u00e1si sebess\u00e9g."
+                }
+            },
+            "name": "Link villogtat\u00e1sa"
+        },
+        "link_deactivate": {
+            "description": "Kikapcsol egy UPB jelenetet.",
+            "name": "Link deaktiv\u00e1l\u00e1sa"
+        },
+        "link_fade_start": {
+            "description": "Megkezdi a link felfel\u00e9 vagy lefel\u00e9 t\u00f6rt\u00e9n\u0151 halv\u00e1ny\u00edt\u00e1s\u00e1t az aktu\u00e1lis f\u00e9nyer\u0151ss\u00e9gt\u0151l.",
+            "fields": {
+                "brightness": {
+                    "description": "A f\u00e9nyer\u0151t jelz\u0151 sz\u00e1m, ahol 0 a jelenetet kikapcsolja, 1 a minim\u00e1lis f\u00e9nyer\u0151 \u00e9s 255 a maxim\u00e1lis f\u00e9nyer\u0151.",
+                    "name": "F\u00e9nyer\u0151"
+                },
+                "brightness_pct": {
+                    "description": "A f\u00e9nyer\u0151t jelz\u0151 sz\u00e1zal\u00e9k, ahol 0 a jelenetet kikapcsolja, 1 a minim\u00e1lis f\u00e9nyer\u0151 \u00e9s 100 a maxim\u00e1lis f\u00e9nyer\u0151.",
+                    "name": "F\u00e9nyer\u0151 sz\u00e1zal\u00e9k"
+                },
+                "rate": {
+                    "description": "Az az id\u0151tartam, amely alatt a jelenet az \u00faj f\u00e9nyer\u0151re v\u00e1lt.",
+                    "name": "Sebess\u00e9g"
+                }
+            },
+            "name": "Link halv\u00e1ny\u00edt\u00e1s\u00e1nak ind\u00edt\u00e1sa"
+        },
+        "link_fade_stop": {
+            "description": "Meg\u00e1ll\u00edtja a link elhalv\u00e1nyul\u00e1s\u00e1t.",
+            "name": "Link halv\u00e1ny\u00edt\u00e1s\u00e1nak le\u00e1ll\u00edt\u00e1sa"
+        },
+        "link_goto": {
+            "description": "Be\u00e1ll\u00edtja a jelenet f\u00e9nyerej\u00e9t.",
+            "fields": {
+                "brightness": {
+                    "description": "A f\u00e9nyer\u0151t jelz\u0151 sz\u00e1m, ahol 0 a jelenetet kikapcsolja, 1 a minim\u00e1lis f\u00e9nyer\u0151 \u00e9s 255 a maxim\u00e1lis f\u00e9nyer\u0151.",
+                    "name": "F\u00e9nyer\u0151"
+                },
+                "brightness_pct": {
+                    "description": "A f\u00e9nyer\u0151t jelz\u0151 sz\u00e1zal\u00e9k, ahol 0 a jelenetet kikapcsolja, 1 a minim\u00e1lis f\u00e9nyer\u0151 \u00e9s 100 a maxim\u00e1lis f\u00e9nyer\u0151.",
+                    "name": "F\u00e9nyer\u0151 sz\u00e1zal\u00e9k"
+                },
+                "rate": {
+                    "description": "Az az id\u0151tartam, amely alatt a jelenet az \u00faj f\u00e9nyer\u0151re v\u00e1lt.",
+                    "name": "Sebess\u00e9g"
+                }
+            },
+            "name": "Tov\u00e1bb a linkre"
+        }
+    }
+}

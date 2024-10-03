@@ -1,0 +1,81 @@
+{
+    "device_automation": {
+        "action_type": {
+            "lock": "Lukitse {entity_name}",
+            "open": "Avaa {entity_name}",
+            "unlock": "Avaa lukitus {entity_name}"
+        },
+        "condition_type": {
+            "is_locked": "{entity_name} on lukittu",
+            "is_unlocked": "{entity_name} on auki"
+        },
+        "trigger_type": {
+            "locked": "{entity_name} lukittu",
+            "unlocked": "{entity_name} auki"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Lukko",
+            "state": {
+                "jammed": "Jumissa",
+                "locked": "Lukittu",
+                "locking": "Lukitaan",
+                "unlocked": "Auki",
+                "unlocking": "Avataan"
+            },
+            "state_attributes": {
+                "changed_by": {
+                    "name": "Muuttanut"
+                },
+                "code_format": {
+                    "name": "Koodin muoto"
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "add_default_code": {
+            "message": "Entiteetin {entity_id} koodi ei vastaa mallia {code_format}."
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "{platform}-integraation {domain}-alusta ei tue alustan asetuksia.\n\nPoista se asetuksista ja k\u00e4ynnist\u00e4 Home Assistant uudelleen ongelman korjaamiseksi.",
+            "title": "Alustan tukea ei tueta"
+        }
+    },
+    "services": {
+        "lock": {
+            "description": "Lukitsee lukon.",
+            "fields": {
+                "code": {
+                    "description": "Koodi, jota k\u00e4ytet\u00e4\u00e4n lukon lukitsemiseen.",
+                    "name": "Koodi"
+                }
+            },
+            "name": "Lukitse"
+        },
+        "open": {
+            "description": "Avaa lukon.",
+            "fields": {
+                "code": {
+                    "description": "Koodi, jota k\u00e4ytet\u00e4\u00e4n lukon avaamiseen.",
+                    "name": "Koodi"
+                }
+            },
+            "name": "Avaa"
+        },
+        "unlock": {
+            "description": "Avaa lukon.",
+            "fields": {
+                "code": {
+                    "description": "Koodi, jota k\u00e4ytet\u00e4\u00e4n lukon avaamiseen.",
+                    "name": "Koodi"
+                }
+            },
+            "name": "Avaa lukitus"
+        }
+    },
+    "title": "Lukko"
+}

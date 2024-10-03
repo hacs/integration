@@ -1,0 +1,63 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Palvelu on jo m\u00e4\u00e4ritetty",
+            "cannot_connect": "Yhteyden muodostaminen ep\u00e4onnistui"
+        },
+        "error": {
+            "authentication_failed": "Sis\u00e4\u00e4nkirjautuminen ei ole mahdollista. Tarkista asetukset ja/tai tunnukset",
+            "connection_refused": "SMTP-palvelinta ei l\u00f6ydy tai yhteys on ev\u00e4tty. Tarkista SMTP-palvelimen IP-osoite, is\u00e4nt\u00e4nimi ja saatavuus.",
+            "invalid_email_address": "Virheellinen s\u00e4hk\u00f6postiosoite m\u00e4\u00e4ritetty",
+            "username_and_password": "K\u00e4ytt\u00e4j\u00e4tunnus ja salasana on m\u00e4\u00e4ritett\u00e4v\u00e4 yhdess\u00e4"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "debug": "Ota SMTP-vianm\u00e4\u00e4ritys k\u00e4ytt\u00f6\u00f6n",
+                    "encryption": "Salaus",
+                    "name": "Nimi",
+                    "password": "Salasana",
+                    "port": "Portti",
+                    "recipient": "Vastaanottajat",
+                    "sender": "L\u00e4hett\u00e4j\u00e4",
+                    "sender_name": "L\u00e4hett\u00e4j\u00e4n nimi",
+                    "server": "Palvelin",
+                    "timeout": "Pyynn\u00f6n aikakatkaisu (sekuntia)",
+                    "username": "K\u00e4ytt\u00e4j\u00e4tunnus",
+                    "verify_ssl": "Tarkista SSL-varmenne"
+                },
+                "data_description": {
+                    "encryption": "S\u00e4hk\u00f6postipalvelimen salaustyyppi.",
+                    "name": "Kun se asetetaan, se luo tietyn ilmoituspalvelun t\u00e4ll\u00e4 nimell\u00e4, oletusarvo on `notify.notify`.",
+                    "password": "Salasana SMTP-palvelimen todennusta varten.",
+                    "port": "SMTP-palvelimen portti",
+                    "recipient": "Niiden vastaanottajien s\u00e4hk\u00f6postiosoitteet, joiden pit\u00e4isi saada s\u00e4hk\u00f6posti-ilmoitus",
+                    "sender": "L\u00e4hett\u00e4j\u00e4n s\u00e4hk\u00f6postiosoite",
+                    "sender_name": "L\u00e4hett\u00e4j\u00e4n nimi",
+                    "server": "SMTP-palvelimen is\u00e4nt\u00e4nimi tai IP-osoite.",
+                    "username": "K\u00e4ytt\u00e4j\u00e4nimi SMTP-palvelimen todennusta varten."
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "remote_path_not_allowed": {
+            "message": "S\u00e4hk\u00f6postia ei voi l\u00e4hett\u00e4\u00e4 liitetiedoston \"{file_name}\" kanssa hakemistosta \"{file_path}\", josta tietojen lataaminen ei ole turvallista. Ainoastaan `{allow_list}` -luetteloon lis\u00e4tyt kansiot ovat k\u00e4ytett\u00e4viss\u00e4. Katso lis\u00e4tietoja kohdasta {url}."
+        }
+    },
+    "selector": {
+        "encryption": {
+            "options": {
+                "none": "Ei salausta (yleens\u00e4 portin 25 kautta)",
+                "starttls": "STARTTLS (yleens\u00e4 portin 587 tai 25 kautta)",
+                "tls": "TLS (yleens\u00e4 portin 465 kautta)"
+            }
+        }
+    },
+    "services": {
+        "reload": {
+            "description": "Lataa smtp-ilmoituspalvelut uudelleen.",
+            "name": "Uudelleenlataa"
+        }
+    }
+}

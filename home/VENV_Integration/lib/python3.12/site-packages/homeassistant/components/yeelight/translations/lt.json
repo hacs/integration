@@ -1,0 +1,192 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "\u012erenginys jau sukonfig\u016bruotas",
+            "no_devices_found": "Tinkle nerasta joki\u0173 \u012frengini\u0173"
+        },
+        "error": {
+            "cannot_connect": "Nepavyko prisijungti"
+        },
+        "flow_title": "{model} {id} ({host})",
+        "step": {
+            "discovery_confirm": {
+                "description": "Ar norite nustatyti {model} ( {host} )?"
+            },
+            "pick_device": {
+                "data": {
+                    "device": "\u012erenginys"
+                }
+            },
+            "user": {
+                "data": {
+                    "host": "Host"
+                },
+                "data_description": {
+                    "host": "\u201eYeelight Wi-Fi\u201c lemput\u0117s pagrindinio kompiuterio pavadinimas arba IP adresas."
+                },
+                "description": "Jei paliksite pagrindin\u012f kompiuter\u012f tu\u0161\u010di\u0105, aptikimas bus naudojamas \u012frenginiams rasti."
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "nightlight": {
+                "name": "Naktin\u0117 \u0161viesa"
+            }
+        },
+        "light": {
+            "ambilight": {
+                "name": "Ambilight"
+            },
+            "nightlight": {
+                "name": "Naktin\u0117 \u0161viesa"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "model": "Modelis",
+                    "nightlight_switch": "Naudokite Nightlight Switch",
+                    "save_on_change": "I\u0161saugoti b\u016bsen\u0105 pakeitus",
+                    "transition": "Per\u0117jimo laikas (ms)",
+                    "use_music_mode": "\u012ejungti muzikos re\u017eim\u0105"
+                }
+            }
+        }
+    },
+    "selector": {
+        "action": {
+            "options": {
+                "off": "I\u0161jungta",
+                "recover": "Atsigauti",
+                "stay": "Likti"
+            }
+        },
+        "mode": {
+            "options": {
+                "color_flow": "Spalv\u0173 srautas",
+                "hsv": "HSV",
+                "last": "Paskutinis",
+                "moonlight": "M\u0117nulio \u0161viesa",
+                "normal": "Normalus",
+                "rgb": "RGB"
+            }
+        }
+    },
+    "services": {
+        "set_auto_delay_off_scene": {
+            "description": "\u012ejungia \u0161vies\u0105 iki nurodyto ry\u0161kumo ir nustato laikmat\u012f, kad jis v\u0117l i\u0161sijungt\u0173 pra\u0117jus nurodytam minu\u010di\u0173 skai\u010diui. Jei \u0161viesa i\u0161jungta, nustatykite spalv\u0173 scen\u0105, jei \u0161viesa i\u0161jungta, ji bus \u012fjungta.",
+            "fields": {
+                "brightness": {
+                    "description": "Ry\u0161kumo reik\u0161m\u0117, kuri\u0105 reikia nustatyti.",
+                    "name": "Ry\u0161kumas"
+                },
+                "minutes": {
+                    "description": "Laikas, kur\u012f reikia laukti prie\u0161 automati\u0161kai i\u0161jungiant \u0161vies\u0105.",
+                    "name": "Minut\u0117s"
+                }
+            },
+            "name": "Nustatykite automatin\u012f scenos u\u017edelsim\u0105"
+        },
+        "set_color_flow_scene": {
+            "description": "Pradeda spalv\u0173 sraut\u0105. Jei lemput\u0117 i\u0161jungta, ji bus \u012fjungta.",
+            "fields": {
+                "action": {
+                    "description": "Veiksmas, kurio reikia imtis sustojus srautui.",
+                    "name": "Veiksmas"
+                },
+                "count": {
+                    "description": "\u0160io srauto paleidimo kart\u0173 skai\u010dius (0 \u2013 visam laikui).",
+                    "name": "Suskai\u010diuoti"
+                },
+                "transitions": {
+                    "description": "Per\u0117jim\u0173 masyvas norimam efektui pasiekti. Pavyzd\u017eiai https://yeelight.readthedocs.io/en/stable/flow.html.",
+                    "name": "Per\u0117jimai"
+                }
+            },
+            "name": "Nustatykite spalv\u0173 srauto scen\u0105"
+        },
+        "set_color_scene": {
+            "description": "Pakei\u010dia \u0161vies\u0105 \u012f nurodyt\u0105 RGB spalv\u0105 ir ry\u0161kum\u0105. Jei lemput\u0117 i\u0161jungta, ji bus \u012fjungta.",
+            "fields": {
+                "brightness": {
+                    "description": "Ry\u0161kumo reik\u0161m\u0117, kuri\u0105 reikia nustatyti.",
+                    "name": "Ry\u0161kumas"
+                },
+                "rgb_color": {
+                    "description": "\u0160viesos spalva RGB formatu.",
+                    "name": "RGB spalva"
+                }
+            },
+            "name": "Nustatyti spalv\u0173 scen\u0105"
+        },
+        "set_color_temp_scene": {
+            "description": "Pakei\u010dia \u0161vies\u0105 iki nurodytos spalvos temperat\u016bros. Jei lemput\u0117 i\u0161jungta, ji bus \u012fjungta.",
+            "fields": {
+                "brightness": {
+                    "description": "Ry\u0161kumo reik\u0161m\u0117, kuri\u0105 reikia nustatyti.",
+                    "name": "Ry\u0161kumas"
+                },
+                "kelvin": {
+                    "description": "\u0160viesos spalvos temperat\u016bra Kelvinais.",
+                    "name": "Kelvinas"
+                }
+            },
+            "name": "Nustatykite spalv\u0173 temperat\u016bros scen\u0105"
+        },
+        "set_hsv_scene": {
+            "description": "Pakei\u010dia \u0161vies\u0105 \u012f nurodyt\u0105 HSV spalv\u0105 ir ry\u0161kum\u0105. Jei lemput\u0117 i\u0161jungta, ji bus \u012fjungta.",
+            "fields": {
+                "brightness": {
+                    "description": "Ry\u0161kumo reik\u0161m\u0117, kuri\u0105 reikia nustatyti.",
+                    "name": "Ry\u0161kumas"
+                },
+                "hs_color": {
+                    "description": "Spalva \u0161viesai atspalvio / sat formatu. Atspalvis yra 0\u2013359, o \u0161e\u0161tadienis \u2013 0\u2013100.",
+                    "name": "Hue/sat spalva"
+                }
+            },
+            "name": "Nustatykite HSV scen\u0105"
+        },
+        "set_mode": {
+            "description": "Nustato veikimo re\u017eim\u0105.",
+            "fields": {
+                "mode": {
+                    "description": "Operacijos re\u017eimas.",
+                    "name": "Re\u017eimas"
+                }
+            },
+            "name": "Nustatyti re\u017eim\u0105"
+        },
+        "set_music_mode": {
+            "description": "\u012ejungia arba i\u0161jungia music_mode.",
+            "fields": {
+                "music_mode": {
+                    "description": "Nor\u0117dami \u012fjungti / i\u0161jungti music_mode, naudokite tiesa arba netiesa.",
+                    "name": "Muzikos re\u017eimas"
+                }
+            },
+            "name": "Nustatykite muzikos re\u017eim\u0105"
+        },
+        "start_flow": {
+            "description": "Prad\u0117kite tinkint\u0105 sraut\u0105 naudodami per\u0117jimus i\u0161 https://yeelight.readthedocs.io/en/stable/yeelight.html#flow-objects.",
+            "fields": {
+                "action": {
+                    "description": "Veiksmas, kurio reikia imtis sustojus srautui.",
+                    "name": "Veiksmas"
+                },
+                "count": {
+                    "description": "\u0160io srauto paleidimo kart\u0173 skai\u010dius (0 \u2013 visam laikui).",
+                    "name": "Suskai\u010diuoti"
+                },
+                "transitions": {
+                    "description": "Per\u0117jim\u0173 masyvas norimam efektui pasiekti. Pavyzd\u017eiai https://yeelight.readthedocs.io/en/stable/flow.html.",
+                    "name": "Per\u0117jimai"
+                }
+            },
+            "name": "Pradinis srautas"
+        }
+    }
+}

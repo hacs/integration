@@ -1,0 +1,433 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "El dispositivo ya est\u00e1 configurado",
+            "no_ups_found": "No hay dispositivos UPS disponibles en el servidor NUT.",
+            "reauth_successful": "La autenticaci\u00f3n se volvi\u00f3 a realizar correctamente"
+        },
+        "error": {
+            "cannot_connect": "Error de conexi\u00f3n: {error}",
+            "invalid_auth": "Autenticaci\u00f3n no v\u00e1lida",
+            "unknown": "Error inesperado"
+        },
+        "step": {
+            "reauth_confirm": {
+                "data": {
+                    "password": "Contrase\u00f1a",
+                    "username": "Nombre de usuario"
+                },
+                "description": "Volver a autenticar el servidor NUT en {host}:{port}"
+            },
+            "ups": {
+                "data": {
+                    "alias": "Alias"
+                },
+                "title": "Elige el SAI a supervisar"
+            },
+            "user": {
+                "data": {
+                    "host": "Host",
+                    "password": "Contrase\u00f1a",
+                    "port": "Puerto",
+                    "username": "Nombre de usuario"
+                },
+                "data_description": {
+                    "host": "El nombre de host o la direcci\u00f3n IP de tu servidor NUT."
+                },
+                "description": "Conectar con el servidor NUT",
+                "title": "Conectar con el servidor NUT"
+            }
+        }
+    },
+    "device_automation": {
+        "action_type": {
+            "beeper_disable": "Deshabilitar pitido/zumbador del SAI",
+            "beeper_enable": "Habilitar pitido/zumbador del SAI",
+            "beeper_mute": "Silenciar temporalmente el pitido/zumbador del SAI",
+            "beeper_toggle": "Alternar pitido/zumbador del SAI",
+            "bypass_start": "Poner el SAI en modo bypass",
+            "bypass_stop": "Sacar el SAI del modo bypass",
+            "calibrate_start": "Iniciar calibraci\u00f3n del tiempo de ejecuci\u00f3n",
+            "calibrate_stop": "Detener la calibraci\u00f3n del tiempo de ejecuci\u00f3n",
+            "load_off": "Apagar la carga inmediatamente",
+            "load_on": "Encender la carga inmediatamente",
+            "reset_input_minmax": "Restablecer el estado de voltaje de entrada m\u00ednimo y m\u00e1ximo",
+            "reset_watchdog": "Restablecer el temporizador de vigilancia (reinicio forzado de la carga)",
+            "shutdown_reboot": "Apagar la carga brevemente mientras reinicia la SAI",
+            "shutdown_reboot_graceful": "Despu\u00e9s de un retardo, apagar la carga brevemente mientras reinicia la SAI",
+            "shutdown_return": "Apagar la carga posiblemente despu\u00e9s de un retardo y volver a encender cuando vuelva la energ\u00eda",
+            "shutdown_stayoff": "Apagar la carga posiblemente despu\u00e9s de un retardo y permanecer apagado incluso si vuelve la energ\u00eda",
+            "shutdown_stop": "Detener un apagado en curso",
+            "test_battery_start": "Iniciar una prueba de bater\u00eda",
+            "test_battery_start_deep": "Iniciar una prueba profunda de la bater\u00eda",
+            "test_battery_start_quick": "Iniciar una prueba r\u00e1pida de la bater\u00eda",
+            "test_battery_stop": "Detener la prueba de la bater\u00eda",
+            "test_failure_start": "Iniciar un corte de energ\u00eda simulado",
+            "test_failure_stop": "Dejar de simular un corte de energ\u00eda",
+            "test_panel_start": "Iniciar una prueba del panel del SAI",
+            "test_panel_stop": "Detener una prueba de panel del SAI",
+            "test_system_start": "Iniciar una prueba del sistema"
+        }
+    },
+    "entity": {
+        "sensor": {
+            "ambient_humidity": {
+                "name": "Humedad ambiental"
+            },
+            "ambient_temperature": {
+                "name": "Temperatura ambiente"
+            },
+            "battery_alarm_threshold": {
+                "name": "Umbral de alarma de bater\u00eda"
+            },
+            "battery_capacity": {
+                "name": "Capacidad de la bater\u00eda"
+            },
+            "battery_charge": {
+                "name": "Carga de la bater\u00eda"
+            },
+            "battery_charge_low": {
+                "name": "Consigna de bater\u00eda baja"
+            },
+            "battery_charge_restart": {
+                "name": "Bater\u00eda m\u00ednima para arrancar"
+            },
+            "battery_charge_warning": {
+                "name": "Punto de consigna de advertencia de la bater\u00eda"
+            },
+            "battery_charger_status": {
+                "name": "Estado de carga"
+            },
+            "battery_current": {
+                "name": "Corriente de la bater\u00eda"
+            },
+            "battery_current_total": {
+                "name": "Corriente total de la bater\u00eda"
+            },
+            "battery_date": {
+                "name": "Fecha de la bater\u00eda"
+            },
+            "battery_mfr_date": {
+                "name": "Fecha de fabricaci\u00f3n de la bater\u00eda"
+            },
+            "battery_packs": {
+                "name": "N\u00famero de bater\u00edas"
+            },
+            "battery_packs_bad": {
+                "name": "N\u00famero de bater\u00edas defectuosas"
+            },
+            "battery_runtime": {
+                "name": "Autonom\u00eda de la bater\u00eda"
+            },
+            "battery_runtime_low": {
+                "name": "Autonom\u00eda de bater\u00eda baja"
+            },
+            "battery_runtime_restart": {
+                "name": "Autonom\u00eda m\u00ednima de la bater\u00eda para arrancar"
+            },
+            "battery_temperature": {
+                "name": "Temperatura de la bater\u00eda"
+            },
+            "battery_type": {
+                "name": "Qu\u00edmica de la bater\u00eda"
+            },
+            "battery_voltage": {
+                "name": "Tensi\u00f3n de la bater\u00eda"
+            },
+            "battery_voltage_high": {
+                "name": "Tensi\u00f3n de bater\u00eda alta"
+            },
+            "battery_voltage_low": {
+                "name": "Tensi\u00f3n de bater\u00eda baja"
+            },
+            "battery_voltage_nominal": {
+                "name": "Tensi\u00f3n nominal de la bater\u00eda"
+            },
+            "input_bypass_current": {
+                "name": "Corriente de derivaci\u00f3n de entrada"
+            },
+            "input_bypass_frequency": {
+                "name": "Frecuencia de derivaci\u00f3n de entrada"
+            },
+            "input_bypass_l1_current": {
+                "name": "Corriente de derivaci\u00f3n de entrada L1"
+            },
+            "input_bypass_l1_n_voltage": {
+                "name": "Tensi\u00f3n de derivaci\u00f3n de entrada L1-N"
+            },
+            "input_bypass_l1_realpower": {
+                "name": "Entrada de corriente L1 potencia real"
+            },
+            "input_bypass_l2_current": {
+                "name": "Corriente de derivaci\u00f3n de entrada L2"
+            },
+            "input_bypass_l2_n_voltage": {
+                "name": "Tensi\u00f3n de derivaci\u00f3n de entrada L2-N"
+            },
+            "input_bypass_l2_realpower": {
+                "name": "Entrada de corriente L2 potencia real"
+            },
+            "input_bypass_l3_current": {
+                "name": "Corriente de derivaci\u00f3n de entrada L3"
+            },
+            "input_bypass_l3_n_voltage": {
+                "name": "Tensi\u00f3n de derivaci\u00f3n de entrada L3-N"
+            },
+            "input_bypass_l3_realpower": {
+                "name": "Entrada de corriente L3 potencia real"
+            },
+            "input_bypass_phases": {
+                "name": "Fases de derivaci\u00f3n de entrada"
+            },
+            "input_bypass_realpower": {
+                "name": "Potencia real de derivaci\u00f3n de entrada de corriente"
+            },
+            "input_bypass_voltage": {
+                "name": "Tensi\u00f3n de derivaci\u00f3n de entrada"
+            },
+            "input_current": {
+                "name": "Corriente de entrada"
+            },
+            "input_frequency": {
+                "name": "Frecuencia de entrada"
+            },
+            "input_frequency_nominal": {
+                "name": "Frecuencia nominal de entrada"
+            },
+            "input_frequency_status": {
+                "name": "Estado de la frecuencia de entrada"
+            },
+            "input_l1_current": {
+                "name": "Corriente de entrada L1"
+            },
+            "input_l1_frequency": {
+                "name": "Frecuencia de l\u00ednea de entrada L1"
+            },
+            "input_l1_n_voltage": {
+                "name": "Tensi\u00f3n de entrada L1"
+            },
+            "input_l1_realpower": {
+                "name": "Entrada de corriente L1 potencia real"
+            },
+            "input_l2_current": {
+                "name": "Corriente de entrada L2"
+            },
+            "input_l2_frequency": {
+                "name": "Frecuencia de l\u00ednea de entrada L2"
+            },
+            "input_l2_n_voltage": {
+                "name": "Tensi\u00f3n de entrada L2"
+            },
+            "input_l2_realpower": {
+                "name": "Entrada de corriente L2 potencia real"
+            },
+            "input_l3_current": {
+                "name": "Corriente de entrada L3"
+            },
+            "input_l3_frequency": {
+                "name": "Frecuencia de l\u00ednea de entrada L3"
+            },
+            "input_l3_n_voltage": {
+                "name": "Tensi\u00f3n de entrada L3"
+            },
+            "input_l3_realpower": {
+                "name": "Entrada de corriente L3 potencia real"
+            },
+            "input_phases": {
+                "name": "Fases de entrada"
+            },
+            "input_realpower": {
+                "name": "Potencia real de entrada de corriente"
+            },
+            "input_sensitivity": {
+                "name": "Sensibilidad de la potencia de entrada"
+            },
+            "input_transfer_high": {
+                "name": "Transferencia de alto voltaje"
+            },
+            "input_transfer_low": {
+                "name": "Transferencia de bajo voltaje"
+            },
+            "input_transfer_reason": {
+                "name": "Raz\u00f3n de transferencia de voltaje"
+            },
+            "input_voltage": {
+                "name": "Tensi\u00f3n de entrada"
+            },
+            "input_voltage_nominal": {
+                "name": "Tensi\u00f3n nominal de entrada"
+            },
+            "output_current": {
+                "name": "Corriente de salida"
+            },
+            "output_current_nominal": {
+                "name": "Corriente nominal de salida"
+            },
+            "output_frequency": {
+                "name": "Frecuencia de salida"
+            },
+            "output_frequency_nominal": {
+                "name": "Frecuencia nominal de salida"
+            },
+            "output_l1_current": {
+                "name": "Corriente de salida L1"
+            },
+            "output_l1_n_voltage": {
+                "name": "Tensi\u00f3n de salida L1-N"
+            },
+            "output_l1_power_percent": {
+                "name": "Consumo de energ\u00eda de salida L1"
+            },
+            "output_l1_realpower": {
+                "name": "Potencia real de salida de corriente L1"
+            },
+            "output_l2_current": {
+                "name": "Corriente de salida L2"
+            },
+            "output_l2_n_voltage": {
+                "name": "Tensi\u00f3n de salida L2-N"
+            },
+            "output_l2_power_percent": {
+                "name": "Consumo de energ\u00eda de salida L2"
+            },
+            "output_l2_realpower": {
+                "name": "Potencia real de salida de corriente L2"
+            },
+            "output_l3_current": {
+                "name": "Corriente de salida L3"
+            },
+            "output_l3_n_voltage": {
+                "name": "Tensi\u00f3n de salida L3-N"
+            },
+            "output_l3_power_percent": {
+                "name": "Consumo de energ\u00eda de salida L3"
+            },
+            "output_l3_realpower": {
+                "name": "Potencia real de salida de corriente L3"
+            },
+            "output_phases": {
+                "name": "Fases de salida"
+            },
+            "output_power": {
+                "name": "Potencia aparente de salida"
+            },
+            "output_power_nominal": {
+                "name": "Potencia nominal de salida"
+            },
+            "output_realpower": {
+                "name": "Potencia real de salida de corriente"
+            },
+            "output_realpower_nominal": {
+                "name": "Potencia real nominal de salida"
+            },
+            "output_voltage": {
+                "name": "Tensi\u00f3n de salida"
+            },
+            "output_voltage_nominal": {
+                "name": "Tensi\u00f3n nominal de salida"
+            },
+            "ups_alarm": {
+                "name": "Alarmas"
+            },
+            "ups_beeper_status": {
+                "name": "Estado del zumbador"
+            },
+            "ups_contacts": {
+                "name": "Contactos externos"
+            },
+            "ups_delay_reboot": {
+                "name": "Retardo en el reinicio del SAI"
+            },
+            "ups_delay_shutdown": {
+                "name": "Retardo en el apagado del SAI"
+            },
+            "ups_delay_start": {
+                "name": "Retardo en el reinicio de carga"
+            },
+            "ups_display_language": {
+                "name": "Idioma"
+            },
+            "ups_efficiency": {
+                "name": "Eficiencia"
+            },
+            "ups_id": {
+                "name": "Identificador del sistema"
+            },
+            "ups_load": {
+                "name": "Carga"
+            },
+            "ups_load_high": {
+                "name": "Configuraci\u00f3n de sobrecarga"
+            },
+            "ups_power": {
+                "name": "Potencia aparente actual"
+            },
+            "ups_power_nominal": {
+                "name": "Potencia nominal"
+            },
+            "ups_realpower": {
+                "name": "Potencia real actual"
+            },
+            "ups_realpower_nominal": {
+                "name": "Potencia real nominal"
+            },
+            "ups_shutdown": {
+                "name": "Capacidad de apagado"
+            },
+            "ups_start_auto": {
+                "name": "Empezar en CA"
+            },
+            "ups_start_battery": {
+                "name": "Empezar con bater\u00eda"
+            },
+            "ups_start_reboot": {
+                "name": "Reiniciar con bater\u00eda"
+            },
+            "ups_status": {
+                "name": "Datos de estado"
+            },
+            "ups_status_display": {
+                "name": "Estado"
+            },
+            "ups_temperature": {
+                "name": "Temperatura del SAI"
+            },
+            "ups_test_date": {
+                "name": "Fecha de autodiagn\u00f3stico"
+            },
+            "ups_test_interval": {
+                "name": "Intervalo de autodiagn\u00f3stico"
+            },
+            "ups_test_result": {
+                "name": "Resultado del autodiagn\u00f3stico"
+            },
+            "ups_timer_reboot": {
+                "name": "Temporizador de reinicio de carga"
+            },
+            "ups_timer_shutdown": {
+                "name": "Temporizador de apagado de carga"
+            },
+            "ups_timer_start": {
+                "name": "Temporizador de inicio de carga"
+            },
+            "ups_type": {
+                "name": "Tipo de SAI"
+            },
+            "ups_watchdog_status": {
+                "name": "Estado de vigilante"
+            },
+            "watts": {
+                "name": "Vatios"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "scan_interval": "Intervalo de escaneo (segundos)"
+                }
+            }
+        }
+    }
+}

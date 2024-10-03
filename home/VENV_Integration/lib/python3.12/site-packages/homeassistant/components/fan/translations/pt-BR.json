@@ -1,0 +1,159 @@
+{
+    "device_automation": {
+        "action_type": {
+            "toggle": "Alternar {entity_name}",
+            "turn_off": "Desativar {entity_name}",
+            "turn_on": "Ativar {entity_name}"
+        },
+        "condition_type": {
+            "is_off": "{entity_name} est\u00e1 desativado",
+            "is_on": "{entity_name} est\u00e1 ativado"
+        },
+        "trigger_type": {
+            "changed_states": "{entity_name} ativado ou desativado",
+            "turned_off": "{entity_name} desativado",
+            "turned_on": "{entity_name} ativado"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Ventilador",
+            "state": {
+                "off": "Desligado",
+                "on": "Ligado"
+            },
+            "state_attributes": {
+                "direction": {
+                    "name": "Dire\u00e7\u00e3o",
+                    "state": {
+                        "forward": "Encaminhar",
+                        "reverse": "Reverter"
+                    }
+                },
+                "oscillating": {
+                    "name": "Oscilante",
+                    "state": {
+                        "false": "N\u00e3o",
+                        "true": "Sim"
+                    }
+                },
+                "percentage": {
+                    "name": "Velocidade"
+                },
+                "percentage_step": {
+                    "name": "Passo de velocidade"
+                },
+                "preset_mode": {
+                    "name": "Modo predefinido"
+                },
+                "preset_modes": {
+                    "name": "Modos predefinidos dispon\u00edveis"
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "not_valid_preset_mode": {
+            "message": "Modo predefinido {preset_mode} n\u00e3o \u00e9 v\u00e1lido, modos predefinidos v\u00e1lidos s\u00e3o: {preset_modes}."
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "A plataforma {platform} para a integra\u00e7\u00e3o {domain} n\u00e3o \u00e9 compat\u00edvel com a configura\u00e7\u00e3o da plataforma. \n\n Remova-o da sua configura\u00e7\u00e3o e reinicie o Home Assistant para corrigir esse problema.",
+            "title": "Suporte \u00e0 plataforma n\u00e3o suportado"
+        }
+    },
+    "selector": {
+        "direction": {
+            "options": {
+                "forward": "Encaminhar",
+                "reverse": "Inverter"
+            }
+        }
+    },
+    "services": {
+        "decrease_speed": {
+            "description": "Diminui a velocidade do ventilador.",
+            "fields": {
+                "percentage_step": {
+                    "description": "Diminui a velocidade em um ponto percentual.",
+                    "name": "Decr\u00e9scimo"
+                }
+            },
+            "name": "Diminuir a velocidade"
+        },
+        "increase_speed": {
+            "description": "Aumenta a velocidade do ventilador.",
+            "fields": {
+                "percentage_step": {
+                    "description": "Aumenta a velocidade em um ponto percentual.",
+                    "name": "Acr\u00e9scimo"
+                }
+            },
+            "name": "Aumentar a velocidade"
+        },
+        "oscillate": {
+            "description": "Controla a oscila\u00e7\u00e3o do ventilador.",
+            "fields": {
+                "oscillating": {
+                    "description": "Ligar/desligar a oscila\u00e7\u00e3o.",
+                    "name": "Oscilante"
+                }
+            },
+            "name": "Oscilar"
+        },
+        "set_direction": {
+            "description": "Define a dire\u00e7\u00e3o de rota\u00e7\u00e3o do ventilador.",
+            "fields": {
+                "direction": {
+                    "description": "Sentido para girar.",
+                    "name": "Dire\u00e7\u00e3o"
+                }
+            },
+            "name": "Definir dire\u00e7\u00e3o"
+        },
+        "set_percentage": {
+            "description": "Define a velocidade do ventilador.",
+            "fields": {
+                "percentage": {
+                    "description": "Velocidade do ventilador.",
+                    "name": "Percentagem"
+                }
+            },
+            "name": "Definir velocidade"
+        },
+        "set_preset_mode": {
+            "description": "Define o modo predefinido.",
+            "fields": {
+                "preset_mode": {
+                    "description": "Modo predefinido.",
+                    "name": "Modo predefinido"
+                }
+            },
+            "name": "Definir modo predefinido"
+        },
+        "toggle": {
+            "description": "Liga/desliga o ventilador.",
+            "name": "Alternar"
+        },
+        "turn_off": {
+            "description": "Desliga o ventilador.",
+            "name": "Desligar"
+        },
+        "turn_on": {
+            "description": "Liga o ventilador.",
+            "fields": {
+                "percentage": {
+                    "description": "Velocidade do ventilador.",
+                    "name": "Percentagem"
+                },
+                "preset_mode": {
+                    "description": "Modo predefinido.",
+                    "name": "Modo predefinido"
+                }
+            },
+            "name": "Ligar"
+        }
+    },
+    "title": "Ventilador"
+}

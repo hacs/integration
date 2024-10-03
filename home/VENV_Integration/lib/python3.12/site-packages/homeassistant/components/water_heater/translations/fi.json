@@ -1,0 +1,89 @@
+{
+    "device_automation": {
+        "action_type": {
+            "turn_off": "Sammuta {entity_name}",
+            "turn_on": "Kytke p\u00e4\u00e4lle {entity_name}"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Vedenl\u00e4mmitin",
+            "state": {
+                "eco": "Eko",
+                "electric": "S\u00e4hk\u00f6inen",
+                "gas": "Kaasu",
+                "heat_pump": "L\u00e4mp\u00f6pumppu",
+                "high_demand": "Suuri kysynt\u00e4",
+                "off": "Pois",
+                "performance": "Tehokas"
+            },
+            "state_attributes": {
+                "away_mode": {
+                    "name": "Poissa-tila",
+                    "state": {
+                        "off": "Pois",
+                        "on": "P\u00e4\u00e4ll\u00e4"
+                    }
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "not_valid_operation_mode": {
+            "message": "Toimintatila {operation_mode} ei ole voimassa osoitteessa {entity_id}. Voimassa olevat toimintatilat ovat: {operation_list}."
+        },
+        "operation_list_not_defined": {
+            "message": "Toimintatila {operation_mode} ei ole voimassa osoitteessa {entity_id}. Toimintaluetteloa ei ole m\u00e4\u00e4ritelty."
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "{platform}-integraation {domain}-alusta ei tue alustan asetuksia.\n\nPoista se asetuksista ja k\u00e4ynnist\u00e4 Home Assistant uudelleen ongelman korjaamiseksi.",
+            "title": "Alustan tukea ei tueta"
+        }
+    },
+    "services": {
+        "set_away_mode": {
+            "description": "Kytkee Poissa-tilan p\u00e4\u00e4lle/pois.",
+            "fields": {
+                "away_mode": {
+                    "description": "Poissa-tilan uusi arvo",
+                    "name": "Poissa-tila"
+                }
+            },
+            "name": "Aseta Poissa-tila"
+        },
+        "set_operation_mode": {
+            "description": "Asettaa toimintatilan.",
+            "fields": {
+                "operation_mode": {
+                    "description": "Toimintatilan uusi arvo. Luettelo mahdollisista tiloista on integrointidokumentaatiossa.",
+                    "name": "Toimintatila"
+                }
+            },
+            "name": "Aseta toimintatila"
+        },
+        "set_temperature": {
+            "description": "Asettaa tavoitel\u00e4mp\u00f6tilan.",
+            "fields": {
+                "operation_mode": {
+                    "description": "Toimintatilan uusi arvo. Luettelo mahdollisista tiloista on integrointidokumentaatiossa.",
+                    "name": "Toimintatila"
+                },
+                "temperature": {
+                    "description": "Uusi tavoitel\u00e4mp\u00f6tila vedenl\u00e4mmittimelle.",
+                    "name": "L\u00e4mp\u00f6tila"
+                }
+            },
+            "name": "Aseta l\u00e4mp\u00f6tila"
+        },
+        "turn_off": {
+            "description": "Sammuttaa vedenl\u00e4mmittimen.",
+            "name": "Sammuta"
+        },
+        "turn_on": {
+            "description": "Kytkee vedenl\u00e4mmittimen p\u00e4\u00e4lle.",
+            "name": "Laita p\u00e4\u00e4lle"
+        }
+    }
+}

@@ -1,0 +1,53 @@
+{
+    "issues": {
+        "maria_db_range_index_regression": {
+            "description": "Vers\u00f5es mais antigas do MariaDB sofrem de uma regress\u00e3o de desempenho significativa ao recuperar dados do hist\u00f3rico ou limpar o banco de dados. Atualize o MariaDB para vers\u00e3o {min_version} ou posterior e reinicie o Home Assistant. Se voc\u00ea estiver usando o addon principal do MariaDB, certifique-se de atualiz\u00e1-lo para a vers\u00e3o mais recente.",
+            "title": "Atualizar o MariaDB para vers\u00e3o {min_version} ou posterior, resolve um problema significativo de desempenho"
+        }
+    },
+    "services": {
+        "disable": {
+            "description": "Interrompe o registro de eventos e altera\u00e7\u00f5es de estado.",
+            "name": "Desativar"
+        },
+        "enable": {
+            "description": "Inicia a grava\u00e7\u00e3o de eventos e mudan\u00e7as de estado.",
+            "name": "Ativar"
+        },
+        "purge": {
+            "description": "Inicia a tarefa de limpeza - para limpar dados antigos de seu banco de dados.",
+            "fields": {
+                "apply_filter": {
+                    "name": "Aplicar filtro"
+                },
+                "keep_days": {
+                    "description": "N\u00famero de dias para manter os dados no banco de dados. A partir de hoje, contagem regressiva. Um valor de `7` significa que tudo com mais de uma semana ser\u00e1 removido.",
+                    "name": "Dias para manter"
+                },
+                "repack": {
+                    "description": "Tente economizar espa\u00e7o em disco reescrevendo todo o arquivo de banco de dados.",
+                    "name": "Reembalar"
+                }
+            },
+            "name": "Limpar"
+        },
+        "purge_entities": {
+            "description": "Inicia uma tarefa de limpeza para remover os dados relacionados a entidades espec\u00edficas de seu banco de dados.",
+            "fields": {
+                "domains": {
+                    "description": "Lista de dom\u00ednios para os quais os dados precisam ser removidos do banco de dados do gravador.",
+                    "name": "Dom\u00ednios para remover"
+                },
+                "entity_globs": {
+                    "description": "Lista de padr\u00f5es glob usados para selecionar as entidades para as quais os dados devem ser removidos do banco de dados do gravador.",
+                    "name": "Globos de entidade a serem removidos"
+                },
+                "keep_days": {
+                    "description": "N\u00famero de dias para manter os dados das linhas correspondentes ao filtro. A partir de hoje, contagem regressiva. Um valor de `7` significa que tudo com mais de uma semana ser\u00e1 removido. O padr\u00e3o de 0 dias remover\u00e1 todas as linhas correspondentes imediatamente.",
+                    "name": "Dias para manter"
+                }
+            },
+            "name": "Limpar entidades"
+        }
+    }
+}

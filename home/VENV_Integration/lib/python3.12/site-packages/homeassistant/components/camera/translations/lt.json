@@ -1,0 +1,104 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "Kamera",
+            "state": {
+                "idle": "Laukiama",
+                "recording": "\u012era\u0161oma",
+                "streaming": "Transliuojama"
+            },
+            "state_attributes": {
+                "access_token": {
+                    "name": "Prieigos raktas"
+                },
+                "brand": {
+                    "name": "Prek\u0117s \u017eenklas"
+                },
+                "frontend_stream_type": {
+                    "name": "Srauto tipas",
+                    "state": {
+                        "hls": "HLS",
+                        "webrtc": "WebRTC"
+                    }
+                },
+                "model_name": {
+                    "name": "Modelis"
+                },
+                "motion_detection": {
+                    "name": "Judesio aptikimas",
+                    "state": {
+                        "false": "I\u0161jungtas",
+                        "true": "\u012ejungtas"
+                    }
+                }
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "{platform} platforma, skirta {domain} integravimui, nepalaiko platformos s\u0105rankos. \n\n Pa\u0161alinkite j\u012f i\u0161 konfig\u016bracijos ir i\u0161 naujo paleiskite \u201eHome Assistant\u201c, kad i\u0161spr\u0119stum\u0117te \u0161i\u0105 problem\u0105.",
+            "title": "Platformos palaikymas nepalaikomas"
+        }
+    },
+    "services": {
+        "disable_motion_detection": {
+            "description": "I\u0161jungia judesio aptikim\u0105.",
+            "name": "I\u0161jungti judesio aptikim\u0105"
+        },
+        "enable_motion_detection": {
+            "description": "\u012ejungia judesio aptikim\u0105.",
+            "name": "\u012ejungti judesio aptikim\u0105"
+        },
+        "play_stream": {
+            "description": "Leid\u017eia kameros sraut\u0105 palaikomame medijos leistuve.",
+            "fields": {
+                "format": {
+                    "description": "Medijos grotuvo palaikomas srauto formatas.",
+                    "name": "Formatas"
+                },
+                "media_player": {
+                    "description": "Medijos grotuvai, \u012f kuriuos galima transliuoti.",
+                    "name": "Medijos leistuvas"
+                }
+            },
+            "name": "Paleisti sraut\u0105"
+        },
+        "record": {
+            "description": "Sukuria tiesioginio kameros tiekimo \u012fra\u0161\u0105.",
+            "fields": {
+                "duration": {
+                    "description": "Planuojama \u012fra\u0161o trukm\u0117. Tikroji trukm\u0117 gali skirtis.",
+                    "name": "Trukm\u0117"
+                },
+                "filename": {
+                    "description": "Failo pavadinimo \u0161ablonas. Galimas kintamasis yra \u201eentity_id\u201c. Turi b\u016bti mp4.",
+                    "name": "Failo pavadinimas"
+                },
+                "lookback": {
+                    "description": "Suplanuotas per\u017ei\u016bros laikotarpis, kur\u012f reikia \u012ftraukti \u012f \u012fra\u0161\u0105 (be trukm\u0117s). Galima tik tuo atveju, jei \u0161iuo metu yra aktyvus HLS srautas. Tikroji per\u017ei\u016bros laikotarpio trukm\u0117 gali skirtis.",
+                    "name": "Pa\u017ei\u016br\u0117k atgal"
+                }
+            },
+            "name": "\u012era\u0161as"
+        },
+        "snapshot": {
+            "description": "Daro momentin\u0119 nuotrauk\u0105 i\u0161 fotoaparato.",
+            "fields": {
+                "filename": {
+                    "description": "Failo pavadinimo \u0161ablonas. Galimas kintamasis yra \u201eentity_id\u201c.",
+                    "name": "Failo pavadinimas"
+                }
+            },
+            "name": "Padarykite momentin\u0119 nuotrauk\u0105"
+        },
+        "turn_off": {
+            "description": "I\u0161jungia fotoaparat\u0105.",
+            "name": "I\u0161jungti"
+        },
+        "turn_on": {
+            "description": "\u012ejungia fotoaparat\u0105.",
+            "name": "\u012ejungti"
+        }
+    },
+    "title": "Kamera"
+}

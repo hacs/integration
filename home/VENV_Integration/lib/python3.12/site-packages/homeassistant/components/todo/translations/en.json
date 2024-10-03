@@ -1,0 +1,146 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "To-do list"
+        }
+    },
+    "exceptions": {
+        "item_not_found": {
+            "message": "Unable to find to-do list item: {item}"
+        },
+        "update_field_not_supported": {
+            "message": "Entity does not support setting field: {service_field}"
+        }
+    },
+    "selector": {
+        "status": {
+            "options": {
+                "completed": "Completed",
+                "needs_action": "Not completed"
+            }
+        }
+    },
+    "services": {
+        "add_item": {
+            "description": "Add a new to-do list item.",
+            "fields": {
+                "description": {
+                    "description": "A more complete description of the to-do item than provided by the item name.",
+                    "name": "Description"
+                },
+                "due_date": {
+                    "description": "The date the to-do item is expected to be completed.",
+                    "name": "Due date"
+                },
+                "due_date_time": {
+                    "description": "The date and time the to-do item is expected to be completed.",
+                    "name": "Due date time"
+                },
+                "due_datetime": {
+                    "description": "The date and time the to-do item is expected to be completed.",
+                    "name": "Due date and time"
+                },
+                "item": {
+                    "description": "The name that represents the to-do item.",
+                    "name": "Item name"
+                }
+            },
+            "name": "Add to-do list item"
+        },
+        "create_item": {
+            "description": "Add a new to-do list item.",
+            "fields": {
+                "status": {
+                    "description": "A status or confirmation of the to-do item.",
+                    "name": "Status"
+                },
+                "summary": {
+                    "description": "The short summary that represents the to-do item.",
+                    "name": "Summary"
+                }
+            },
+            "name": "Create to-do list item"
+        },
+        "delete_item": {
+            "description": "Delete an existing to-do list item either by its unique ID or summary.",
+            "fields": {
+                "summary": {
+                    "description": "The short summary that represents the to-do item.",
+                    "name": "Summary"
+                },
+                "uid": {
+                    "description": "Unique identifiers for the to-do list items.",
+                    "name": "To-do item unique IDs"
+                }
+            },
+            "name": "Delete a to-do list item"
+        },
+        "get_items": {
+            "description": "Get items on a to-do list.",
+            "fields": {
+                "status": {
+                    "description": "Only return to-do items with the specified statuses. Returns not completed actions by default.",
+                    "name": "Status"
+                }
+            },
+            "name": "Get to-do list items"
+        },
+        "remove_completed_items": {
+            "description": "Remove all to-do list items that have been completed.",
+            "name": "Remove all completed to-do list items"
+        },
+        "remove_item": {
+            "description": "Remove an existing to-do list item by its name.",
+            "fields": {
+                "item": {
+                    "description": "The name for the to-do list items.",
+                    "name": "Item name"
+                }
+            },
+            "name": "Remove a to-do list item"
+        },
+        "update_item": {
+            "description": "Update an existing to-do list item based on its name.",
+            "fields": {
+                "description": {
+                    "description": "A more complete description of the to-do item than provided by the item name.",
+                    "name": "Description"
+                },
+                "due_date": {
+                    "description": "The date the to-do item is expected to be completed.",
+                    "name": "Due date"
+                },
+                "due_date_time": {
+                    "description": "The date and time the to-do item is expected to be completed.",
+                    "name": "Due date time"
+                },
+                "due_datetime": {
+                    "description": "The date and time the to-do item is expected to be completed.",
+                    "name": "Due date and time"
+                },
+                "item": {
+                    "description": "The name for the to-do list item.",
+                    "name": "Item name"
+                },
+                "rename": {
+                    "description": "The new name of the to-do item",
+                    "name": "Rename item"
+                },
+                "status": {
+                    "description": "A status or confirmation of the to-do item.",
+                    "name": "Set status"
+                },
+                "summary": {
+                    "description": "The short summary that represents the to-do item.",
+                    "name": "Summary"
+                },
+                "uid": {
+                    "description": "Unique identifier for the to-do list item.",
+                    "name": "To-do item unique ID"
+                }
+            },
+            "name": "Update to-do list item"
+        }
+    },
+    "title": "To-do list"
+}

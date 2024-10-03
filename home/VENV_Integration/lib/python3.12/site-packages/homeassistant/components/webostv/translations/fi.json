@@ -1,0 +1,98 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Laite on jo m\u00e4\u00e4ritetty",
+            "already_in_progress": "M\u00e4\u00e4ritysprosessi on jo k\u00e4ynniss\u00e4",
+            "error_pairing": "Yhdistetty LG webOS TV:hen, mutta ei pariliitosta",
+            "reauth_successful": "Uudelleentodennus onnistui",
+            "reauth_unsuccessful": "Uudelleen todentaminen ei onnistunut, k\u00e4ynnist\u00e4 televisio ja yrit\u00e4 uudelleen."
+        },
+        "flow_title": "LG webOS Smart TV",
+        "step": {
+            "pairing": {
+                "title": "webOS TV:n pariliitos"
+            },
+            "reauth_confirm": {
+                "description": "Napsauta l\u00e4het\u00e4 ja hyv\u00e4ksy pariliitospyynt\u00f6 televisiossasi. \n\n ![Kuva](/static/images/config_webos.png)",
+                "title": "webOS TV:n pariliitos"
+            },
+            "user": {
+                "data": {
+                    "host": "Palvelin",
+                    "name": "Nimi"
+                },
+                "data_description": {
+                    "host": "WebOS TV:n is\u00e4nt\u00e4nimi tai IP-osoite."
+                },
+                "title": "Yhdist\u00e4 webOS TV:hen"
+            }
+        }
+    },
+    "device_automation": {
+        "trigger_type": {
+            "webostv.turn_on": "Laitetta pyydet\u00e4\u00e4n k\u00e4ynnistym\u00e4\u00e4n"
+        }
+    },
+    "options": {
+        "error": {
+            "cannot_retrieve": "L\u00e4hdeluetteloa ei voi hakea. Varmista, ett\u00e4 laite on kytketty p\u00e4\u00e4lle"
+        },
+        "step": {
+            "init": {
+                "data": {
+                    "sources": "L\u00e4hdeluettelo"
+                },
+                "description": "Valitse k\u00e4yt\u00f6ss\u00e4 olevat l\u00e4hteet",
+                "title": "Asetukset webOS Smart TV:lle"
+            }
+        }
+    },
+    "services": {
+        "button": {
+            "description": "L\u00e4hett\u00e4\u00e4 painikkeen painalluskomennon.",
+            "fields": {
+                "button": {
+                    "description": "Painettavan painikkeen nimi.  Tunnetut mahdolliset arvot ovat LEFT, RIGHT, DOWN, UP, HOME, MENU, BACK, ENTER, DASH, INFO, ASTERISK, CC, EXIT, MUTE, RED, GREEN, BLUE, YELLOW, VOLUMEUP, VOLUMEDOWN, CHANNELUP, CHANNELDOWN, PLAY, PAUSE, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9.",
+                    "name": "Painike"
+                },
+                "entity_id": {
+                    "description": "Webostv-yksik\u00f6iden nimet, joissa API-menetelm\u00e4 suoritetaan.",
+                    "name": "Entiteetti"
+                }
+            },
+            "name": "Painike"
+        },
+        "command": {
+            "description": "L\u00e4hett\u00e4\u00e4 komennon.",
+            "fields": {
+                "command": {
+                    "description": "Komennon p\u00e4\u00e4tepiste.",
+                    "name": "Komento"
+                },
+                "entity_id": {
+                    "description": "Webostv-yksik\u00f6iden nimet, joissa API-menetelm\u00e4 suoritetaan.",
+                    "name": "Entiteetti"
+                },
+                "payload": {
+                    "description": "Valinnainen hy\u00f6tykuorma, joka toimitetaan p\u00e4\u00e4tepisteelle avain-arvoparin (-parien) muodossa.",
+                    "name": "Hy\u00f6tykuorma"
+                }
+            },
+            "name": "Komento"
+        },
+        "select_sound_output": {
+            "description": "L\u00e4hett\u00e4\u00e4 televisiolle komennon muuttaa \u00e4\u00e4nil\u00e4ht\u00f6\u00e4.",
+            "fields": {
+                "entity_id": {
+                    "description": "Niiden webostv-yksik\u00f6iden nimi(t), joiden \u00e4\u00e4nen ulostuloa halutaan muuttaa.",
+                    "name": "Entiteetti"
+                },
+                "sound_output": {
+                    "description": "\u00c4\u00e4nil\u00e4hd\u00f6n nimi, johon vaihdetaan.",
+                    "name": "\u00c4\u00e4nil\u00e4ht\u00f6"
+                }
+            },
+            "name": "Valitse \u00e4\u00e4nil\u00e4ht\u00f6"
+        }
+    }
+}

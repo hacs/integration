@@ -1,0 +1,121 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Dienst is al geconfigureerd",
+            "auth_error": "Ongeldige inloggegevens",
+            "no_heaters": "Geen verwarmingsketels gevonden.",
+            "not_found": "Geen Lan2RF gateway gevonden.",
+            "timeout_error": "Time-out tijdens het verbinden met de Lan2RF gateway.",
+            "unknown": "Onbekende tijdens het verbinden met de Lan2RF gateway."
+        },
+        "error": {
+            "auth_error": "Ongeldige inloggegevens",
+            "no_heaters": "Geen verwarmingsketels gevonden.",
+            "not_found": "Geen Lan2RF gateway gevonden.",
+            "timeout_error": "Time-out tijdens het verbinden met de Lan2RF gateway.",
+            "unknown": "Onbekende tijdens het verbinden met de Lan2RF gateway."
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "host": "Host",
+                    "password": "Wachtwoord",
+                    "username": "Gebruikersnaam"
+                },
+                "data_description": {
+                    "host": "Hostnaam of IP-adres van de Intergas InComfort Lan2RF Gateway.",
+                    "password": "Het wachtwoord om in te loggen op de gateway is afgedrukt op de bodem van de Lan2RF Gateway of is `intergas` voor sommige oudere apparaten.",
+                    "username": "De gebruikersnaam om mee in te loggen op de gateway. Dit is `admin` in de meeste gevallen."
+                },
+                "description": "Een Intergas InComfort Lan2RF Gateway instellen; het kan zijn dat sommige oudere systemen geen gebruikersnaam en wachtwoord nodig hebben. Voor nieuwere apparaten is authenticatie vereist."
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "fault": {
+                "name": "Fout",
+                "state_attributes": {
+                    "fault_code": {
+                        "state": {
+                            "none": "Geen"
+                        }
+                    }
+                }
+            },
+            "is_burning": {
+                "name": "Brander"
+            },
+            "is_pumping": {
+                "name": "Pomp"
+            },
+            "is_tapping": {
+                "name": "Warmwaterkraan"
+            }
+        },
+        "sensor": {
+            "tap_temperature": {
+                "name": "Warm water temperatuur"
+            }
+        },
+        "water_heater": {
+            "boiler": {
+                "state": {
+                    "boiler_ext": "Boiler extern",
+                    "boiler_int": "Boiler intern",
+                    "buffer": "Buffer",
+                    "central_heating": "Centrale verwarming",
+                    "central_heating_rf": "Centrale verwarming rf",
+                    "cv_temperature_too_high_e1": "Temperatuur te hoog",
+                    "flame_detection_fault_e6": "Vlam detectiefout",
+                    "gas_valve_relay_faulty_e29": "Probleem met rookgasklep",
+                    "gas_valve_relay_faulty_e30": "Probleem met rookgasklep",
+                    "incorrect_fan_speed_e8": "Ventilatortoerental niet juist",
+                    "no_flame_signal_e4": "Geen vlamsignaal",
+                    "opentherm": "OpenTherm",
+                    "poor_flame_signal_e5": "Slecht vlamsignaal",
+                    "s1_and_s2_interchanged_e2": "Verwisseling S1 en S2",
+                    "sensor_fault_after_self_check_e0": "Sensorfout na zelfcontrole",
+                    "sensor_fault_s1_e10": "Sensorfout S1",
+                    "sensor_fault_s1_e11": "Sensorfout S1",
+                    "sensor_fault_s1_e12": "Sensorfout S1",
+                    "sensor_fault_s1_e13": "Sensorfout S1",
+                    "sensor_fault_s1_e14": "Sensorfout S1",
+                    "sensor_fault_s2_e20": "Sensorfout S2",
+                    "sensor_fault_s2_e21": "Sensorfout S2",
+                    "sensor_fault_s2_e22": "Sensorfout S2",
+                    "sensor_fault_s2_e23": "Sensorfout S2",
+                    "sensor_fault_s2_e24": "Sensorfout S2",
+                    "sensor_test": "Sensortest",
+                    "service": "Service",
+                    "shortcut_outside_sensor_temperature_e27": "Kortsluiting buitenvoeler",
+                    "tapwater": "Warm water",
+                    "tapwater_int": "Warm water intern",
+                    "unknown": "Onbekend"
+                }
+            }
+        }
+    },
+    "issues": {
+        "deprecated_yaml_import_issue_auth_error": {
+            "description": "Het configureren van {integration_title} via YAML wordt verwijderd maar er was een authenticatiefout tijdens het importeren van je bestaande configuratie.\nDe installatie zal niet worden doorgezet.\n\nControleer dat je {integration_title} correct werkt en herstart Home Assistant om het importeren opnieuw te proberen.\n\nAls alternatief kun je de `{domain}` configuratie van je configuration.yaml in zijn geheel verwijderen, Home Assistant opnieuw starten en {integration_title} handmatig toevoegen.",
+            "title": "YAML import is mislukt door een authenticatiefout"
+        },
+        "deprecated_yaml_import_issue_no_heaters": {
+            "description": "Het configureren van {integration_title} via YAML wordt verwijderd maar er zijn geen verwarmingsketels gevonden tijdens het importeren van je bestaande configuratie.\nDe installatie zal niet worden doorgezet.\n\nControleer dat je {integration_title} correct werkt en herstart Home Assistant om het importeren opnieuw te proberen.\n\nAls alternatief kun je de `{domain}` configuratie van je configuration.yaml in zijn geheel verwijderen, Home Assistant opnieuw starten en {integration_title} handmatig toevoegen.",
+            "title": "YAML import is mislukt omdat er geen verwarmingsketels zijn gevonden"
+        },
+        "deprecated_yaml_import_issue_not_found": {
+            "description": "Het configureren van {integration_title} via YAML wordt verwijderd maar er is geen Lan2RF gateway gevonden tijdens het importeren van je bestaande configuratie.\nDe installatie zal niet worden doorgezet.\n\nControleer dat je {integration_title} correct werkt en herstart Home Assistant om het importeren opnieuw te proberen.\n\nAls alternatief kun je de `{domain}` configuratie van je configuration.yaml in zijn geheel verwijderen, Home Assistant opnieuw starten en {integration_title} handmatig toevoegen.",
+            "title": "YAML import is mislukt omdat er er geen gateway is gevonden"
+        },
+        "deprecated_yaml_import_issue_timeout_error": {
+            "description": "Het configureren van {integration_title} via YAML wordt verwijderd maar er was een time-out bij het verbinden met je {integration_title} fout tijdens het importeren van je bestaande configuratie.\nDe installatie zal niet worden doorgezet.\n\nControleer dat je {integration_title} correct werkt en herstart Home Assistant om het importeren opnieuw te proberen.\n\nAls alternatief kun je de `{domain}` configuratie van je configuration.yaml in zijn geheel verwijderen, Home Assistant opnieuw starten en {integration_title} handmatig toevoegen.",
+            "title": "YAML import is mislukt vanwege time-out problemen"
+        },
+        "deprecated_yaml_import_issue_unknown": {
+            "description": "Het configureren van {integration_title} via YAML wordt verwijderd maar er was een onbekende fout tijdens het importeren van je bestaande configuratie.\nDe installatie zal niet worden doorgezet.\n\nControleer dat je {integration_title} correct werkt en herstart Home Assistant om het importeren opnieuw te proberen.\n\nAls alternatief kun je de `{domain}` configuratie van je configuration.yaml in zijn geheel verwijderen, Home Assistant opnieuw starten en {integration_title} handmatig toevoegen.",
+            "title": "YAML import is mislukt met een onbekende fout"
+        }
+    }
+}

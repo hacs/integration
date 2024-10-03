@@ -1,0 +1,79 @@
+{
+    "config": {
+        "step": {
+            "user": {
+                "data_description": {
+                    "host": "O nome do host ou o enderezo IP do teu dispositivo LIFX."
+                }
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "clean_cycle": {
+                "name": "Ciclo de limpeza"
+            }
+        },
+        "select": {
+            "infrared_brightness": {
+                "name": "Brillo infravermello"
+            },
+            "theme": {
+                "name": "Tema"
+            }
+        },
+        "sensor": {
+            "rssi": {
+                "name": "RSSI"
+            }
+        }
+    },
+    "services": {
+        "effect_colorloop": {
+            "fields": {
+                "spread": {
+                    "name": "Espallar"
+                }
+            },
+            "name": "Efecto de bucle de cor"
+        },
+        "effect_morph": {
+            "fields": {
+                "palette": {
+                    "description": "Lista de polo menos 2 e como m\u00e1ximo 16 cores como valores de ton (0-360), saturaci\u00f3n (0-100), brillo (0-100) e kelvin (1500-900) para usar neste efecto. Anula o atributo do tema."
+                },
+                "speed": {
+                    "description": "A que velocidade se mover\u00e1n as cores."
+                },
+                "theme": {
+                    "description": "Tema de cor predefinido para usar no efecto. Anulado polo atributo de paleta."
+                }
+            }
+        },
+        "effect_pulse": {
+            "description": "Executa un efecto de flash cambiando a unha cor e retornando \u00e1 orixinal.",
+            "fields": {
+                "brightness": {
+                    "description": "N\u00famero que indica o brillo da cor temporal, onde 1 \u00e9 o brillo m\u00ednimo e 255 \u00e9 o m\u00e1ximo soportado pola luz."
+                },
+                "brightness_pct": {
+                    "description": "Porcentaxe que indica o brillo da cor temporal, onde 1 \u00e9 o brillo m\u00ednimo e 100 \u00e9 o m\u00e1ximo soportado pola luz."
+                },
+                "color_name": {
+                    "description": "Un nome de cor lexible para humanos.",
+                    "name": "Nome da cor"
+                },
+                "mode": {
+                    "description": "Decide como se cambian as cores."
+                },
+                "rgb_color": {
+                    "description": "A cor temporal en formato RGB.",
+                    "name": "Cor RGB"
+                }
+            }
+        },
+        "set_state": {
+            "description": "Establece unha cor/brillo e posiblemente acende/apaga a luz."
+        }
+    }
+}

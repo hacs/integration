@@ -1,0 +1,162 @@
+{
+    "config": {
+        "error": {
+            "error_auth_app": "Nespr\u00e1vne ID aplik\u00e1cie alebo Secret",
+            "error_auth_mfa": "Nespr\u00e1vny k\u00f3d",
+            "error_auth_user": "Nespr\u00e1vne u\u017e\u00edvate\u013esk\u00e9 meno alebo heslo"
+        },
+        "step": {
+            "auth_app": {
+                "data": {
+                    "app_id": "ID aplik\u00e1cie",
+                    "app_secret": "Secret"
+                },
+                "description": "ID aplik\u00e1cie a tajn\u00fd k\u00f3d z [\u00fa\u010dtu v\u00fdvoj\u00e1ra StarLine](https://my.starline.ru/developer)",
+                "title": "Prihlasovacie \u00fadaje aplik\u00e1cie"
+            },
+            "auth_captcha": {
+                "data": {
+                    "captcha_code": "K\u00f3d z obr\u00e1zku"
+                },
+                "description": "{captcha_img}",
+                "title": "Captcha"
+            },
+            "auth_mfa": {
+                "data": {
+                    "mfa_code": "SMS k\u00f3d"
+                },
+                "description": "Zadajte k\u00f3d odoslan\u00fd na telef\u00f3n {phone_number}",
+                "title": "Dvojfaktorov\u00e1 autoriz\u00e1cia"
+            },
+            "auth_user": {
+                "data": {
+                    "password": "Heslo",
+                    "username": "Pou\u017e\u00edvate\u013esk\u00e9 meno"
+                },
+                "description": "E-mail a heslo \u00fa\u010dtu StarLine",
+                "title": "Prihlasovacie \u00fadaje pou\u017e\u00edvate\u013ea"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "alarm": {
+                "name": "Alarm"
+            },
+            "doors": {
+                "name": "Dvere"
+            },
+            "hand_brake": {
+                "name": "Ru\u010dn\u00e1 brzda"
+            },
+            "handsfree": {
+                "name": "Handsfree"
+            },
+            "hood": {
+                "name": "H\u00e1k"
+            },
+            "moving_ban": {
+                "name": "Z\u00e1kaz s\u0165ahovania"
+            },
+            "neutral": {
+                "name": "Programovate\u013en\u00fd neutr\u00e1l"
+            },
+            "trunk": {
+                "name": "Kme\u0148"
+            }
+        },
+        "button": {
+            "horn": {
+                "name": "H\u00faka\u010dka"
+            }
+        },
+        "device_tracker": {
+            "location": {
+                "name": "Umiestnenie"
+            }
+        },
+        "lock": {
+            "security": {
+                "name": "Bezpe\u010dnos\u0165"
+            }
+        },
+        "sensor": {
+            "balance": {
+                "name": "Vyv\u00e1\u017eenos\u0165"
+            },
+            "battery": {
+                "name": "Bat\u00e9ria"
+            },
+            "engine_temperature": {
+                "name": "Teplota motora"
+            },
+            "errors": {
+                "name": "Chyby OBD"
+            },
+            "fuel": {
+                "name": "Objem paliva"
+            },
+            "gps_count": {
+                "name": "GPS satelity"
+            },
+            "gsm_signal": {
+                "name": "GSM sign\u00e1l"
+            },
+            "interior_temperature": {
+                "name": "Vn\u00fatorn\u00e1 teplota"
+            },
+            "mileage": {
+                "name": "Najazden\u00fdch kilometrov"
+            }
+        },
+        "switch": {
+            "additional_channel": {
+                "name": "\u010eal\u0161\u00ed kan\u00e1l"
+            },
+            "engine": {
+                "name": "Motor"
+            },
+            "horn": {
+                "name": "H\u00faka\u010dka"
+            },
+            "service_mode": {
+                "name": "Servisn\u00fd re\u017eim"
+            },
+            "webasto": {
+                "name": "Webasto"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_horn_switch": {
+            "description": "Pou\u017e\u00edvanie prep\u00edna\u010da Horn je teraz zastaran\u00e9 a bude odstr\u00e1nen\u00e9 v bud\u00facej verzii aplik\u00e1cie Home Assistant.\n\nUpravte v\u0161etky automatiz\u00e1cie alebo skripty, ktor\u00e9 pou\u017e\u00edvaj\u00fa entitu Horn switch, aby namiesto nej pou\u017e\u00edvali entitu Horn button.",
+            "title": "Entita sp\u00edna\u010da Starline Horn sa odstra\u0148uje"
+        }
+    },
+    "services": {
+        "set_scan_interval": {
+            "description": "Nastav\u00ed frekvenciu aktualiz\u00e1cie.",
+            "fields": {
+                "scan_interval": {
+                    "description": "Frekvencia aktualiz\u00e1cie.",
+                    "name": "Interval skenovania"
+                }
+            },
+            "name": "Nastavenie intervalu skenovania"
+        },
+        "set_scan_obd_interval": {
+            "description": "Nastav\u00ed frekvenciu aktualiz\u00e1cie inform\u00e1ci\u00ed OBD.",
+            "fields": {
+                "scan_interval": {
+                    "description": "Frekvencia aktualiz\u00e1cie.",
+                    "name": "Interval skenovania"
+                }
+            },
+            "name": "Nastavenie intervalu skenovania OBD"
+        },
+        "update_state": {
+            "description": "Stiahne posledn\u00fd stav zariaden\u00ed zo servera StarLine.\n.",
+            "name": "Aktualiz\u00e1cia stavu"
+        }
+    }
+}

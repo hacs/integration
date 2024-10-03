@@ -1,0 +1,62 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Il dispositivo \u00e8 gi\u00e0 configurato",
+            "cannot_connect": "Impossibile connettersi"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "host": "Host",
+                    "port": "Porta"
+                },
+                "description": "Indirizzo del gateway per la connessione alla rete DYNET",
+                "title": "Configura la connessione Dynalite"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_yaml": {
+            "description": "La configurazione di Dynalite tramite YAML \u00e8 stata rimossa. \n\nLa configurazione YAML esistente \u00e8 stata importata automaticamente nell'interfaccia utente. \n\nRimuovi la configurazione YAML di Dynalite dal tuo file configuration.yaml e riavvia Home Assistant per risolvere questo problema.",
+            "title": "La configurazione YAML di Dynalite \u00e8 stata rimossa"
+        }
+    },
+    "services": {
+        "request_area_preset": {
+            "description": "Richiede a Dynalite di segnalare la preimpostazione di un'area.",
+            "fields": {
+                "area": {
+                    "description": "Area per richiedere la preimpostazione riportata.",
+                    "name": "Area"
+                },
+                "channel": {
+                    "description": "Canale da cui richiedere il preset da segnalare.",
+                    "name": "Canale"
+                },
+                "host": {
+                    "description": "IP del gateway host da inviare a o a tutti i gateway configurati se non specificato.",
+                    "name": "Host"
+                }
+            },
+            "name": "Richiesta area preimpostata"
+        },
+        "request_channel_level": {
+            "description": "Richiede a Dynalite di segnalare il livello di un canale specifico.",
+            "fields": {
+                "area": {
+                    "description": "Area per il canale richiesto.",
+                    "name": "Area"
+                },
+                "channel": {
+                    "description": "Canale per cui richiedere il livello.",
+                    "name": "Canale"
+                },
+                "host": {
+                    "description": "IP del gateway host da inviare a o a tutti i gateway configurati se non specificato.",
+                    "name": "Host"
+                }
+            },
+            "name": "Richiedi livello di canale"
+        }
+    }
+}

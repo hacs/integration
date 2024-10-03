@@ -1,0 +1,174 @@
+{
+    "config": {
+        "abort": {
+            "no_devices_found": "Kes Gr\u00e4t im Netw\u00e4rch gfunde",
+            "not_sonos_device": "Ds entdeckte Gr\u00e4t isch de Sonos",
+            "single_instance_allowed": "Scho konfiguriert. Nume ei einzegi Konfiguration m\u00fcglech."
+        },
+        "step": {
+            "confirm": {
+                "description": "Wosch du Sonos yyrichte?"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "microphone": {
+                "name": "Mikorphon"
+            }
+        },
+        "number": {
+            "audio_delay": {
+                "name": "Audio-Verz\u00f6gerig"
+            },
+            "balance": {
+                "name": "Glychgwicht"
+            },
+            "bass": {
+                "name": "Bass"
+            },
+            "music_surround_level": {
+                "name": "Musig Ruumklang-Level"
+            },
+            "sub_gain": {
+                "name": "Underverstercher"
+            },
+            "surround_level": {
+                "name": "Ruumklang-Level"
+            },
+            "treble": {
+                "name": "Hocht\u00f6n"
+            }
+        },
+        "sensor": {
+            "audio_input_format": {
+                "name": "Audio-Yygangsformat"
+            }
+        },
+        "switch": {
+            "buttons_enabled": {
+                "name": "Ber\u00fcerigsst\u00fc\u00fcrig"
+            },
+            "cross_fade": {
+                "name": "\u00dcbergang"
+            },
+            "dialog_level": {
+                "name": "Sprachverbesserig"
+            },
+            "loudness": {
+                "name": "Lutsterchi"
+            },
+            "night_mode": {
+                "name": "Nachtton"
+            },
+            "status_light": {
+                "name": "Statusliecht"
+            },
+            "sub_enabled": {
+                "name": "Subwoofer aktiviert"
+            },
+            "surround_enabled": {
+                "name": "Ruumklang aktiviert"
+            },
+            "surround_mode": {
+                "name": "Musig Ruumklang voui Lutsterchi"
+            }
+        }
+    },
+    "issues": {
+        "subscriptions_failed": {
+            "description": "Mit em R\u00fcckfau uf regum\u00e4ssigi Abfrage cha d Funktionalit\u00e4t yygschr\u00e4nkt sy.\n\nDs Sonos-Gr\u00e4t {device_ip} cha Home Assistant unger {listener_address} nid erreiche.\n\nlueg ir [Dokumentation]({sub_fail_url}) f\u00fcr meh Informatione wie me d\u00e4 F\u00e4hler cha beh\u00e4be.",
+            "title": "Netzw\u00e4rchf\u00e4hler: abonnierig gschytteret"
+        }
+    },
+    "services": {
+        "clear_sleep_timer": {
+            "description": "Sonos-Schautuhr l\u00e4\u00e4re",
+            "name": "Schautuhr l\u00e4\u00e4re"
+        },
+        "play_queue": {
+            "description": "Lyste ab em erschte Elem\u00e4nt abspile.",
+            "fields": {
+                "queue_position": {
+                    "description": "Position vom Lied, wo d Lyste dervo s\u00f6u abgspiut w\u00e4rde.",
+                    "name": "Lysteposition"
+                }
+            },
+            "name": "Lyste abspile"
+        },
+        "remove_from_queue": {
+            "description": "Elem\u00e4nt us der Lyste l\u00f6sche.",
+            "fields": {
+                "queue_position": {
+                    "description": "Position ir Lyste zum l\u00f6sche.",
+                    "name": "Lysteposition"
+                }
+            },
+            "name": "Us Lyste l\u00f6sche"
+        },
+        "restore": {
+            "description": "Mom\u00e4ntufnahm vom Mediespiler widerh\u00e4rsteue.",
+            "fields": {
+                "entity_id": {
+                    "description": "Name vor Entit\u00e4t wo widerh\u00e4rgsteut wird.",
+                    "name": "Entit\u00e4t"
+                },
+                "with_group": {
+                    "description": "Wahr oder Fautsch. O d Gruppezuegh\u00f6rigkeit widerh\u00e4rsteue.",
+                    "name": "Mit Gruppe"
+                }
+            },
+            "name": "Widerh\u00e4rsteue"
+        },
+        "set_sleep_timer": {
+            "description": "E Sonos-Schautuhr steue",
+            "fields": {
+                "sleep_time": {
+                    "description": "Aazau Sekunde",
+                    "name": "Yyschlaf-Schautuhr"
+                }
+            },
+            "name": "Schautuhr steue"
+        },
+        "snapshot": {
+            "description": "Mom\u00e4ntufnahm vom Mediespiler mache.",
+            "fields": {
+                "entity_id": {
+                    "description": "Name vor Entit\u00e4t, wo dervo e Mom\u00e4ntufnahm gmacht wird.",
+                    "name": "Entit\u00e4t"
+                },
+                "with_group": {
+                    "description": "Wahr oder Fautsch. O d Gruppezuegh\u00f6rigkeit ufn\u00e4h.",
+                    "name": "Mit Gruppe"
+                }
+            },
+            "name": "Mom\u00e4ntufnahm"
+        },
+        "update_alarm": {
+            "description": "Wecker mit ere n\u00f6ie Zyt und Lutsterchi aktualisiere.",
+            "fields": {
+                "alarm_id": {
+                    "description": "ID vom Wecker wo s\u00f6u aapasst w\u00e4rde.",
+                    "name": "Wecker ID"
+                },
+                "enabled": {
+                    "description": "Wecker yy- oder usschaute.",
+                    "name": "Wecker yygschautet"
+                },
+                "include_linked_zones": {
+                    "description": "Der Yybezug vo gruppierte R\u00fc\u00fcm yy- oder usschaute.",
+                    "name": "Verbundeni Zone yybezieh"
+                },
+                "time": {
+                    "description": "Zyt f\u00fcr e Wecker steue.",
+                    "name": "Zyt"
+                },
+                "volume": {
+                    "description": "D Lutsterchi vom Wecker steue.",
+                    "name": "Lutsterchi"
+                }
+            },
+            "name": "Wecker aktualisiere"
+        }
+    }
+}

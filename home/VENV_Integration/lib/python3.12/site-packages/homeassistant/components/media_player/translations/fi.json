@@ -1,0 +1,342 @@
+{
+    "device_automation": {
+        "condition_type": {
+            "is_buffering": "{entity_name} puskuroi",
+            "is_idle": "{entity_name} on toimeton",
+            "is_off": "{entity_name} on pois p\u00e4\u00e4lt\u00e4",
+            "is_on": "{entity_name} on p\u00e4\u00e4ll\u00e4",
+            "is_paused": "{entity_name} on keskeytetty",
+            "is_playing": "{entity_name} toistaa"
+        },
+        "trigger_type": {
+            "buffering": "{entity_name} aloittaa puskuroinnin",
+            "changed_states": "{entity_name} laitettiin p\u00e4\u00e4lle tai pois",
+            "idle": "{entity_name} muuttuu toimettomaksi",
+            "paused": "{entity_name} on keskeytetty",
+            "playing": "{entity_name} aloittaa toistamisen",
+            "turned_off": "{entity_name} sammui",
+            "turned_on": "{entity_name} laitettiin p\u00e4\u00e4lle"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Mediasoitin",
+            "state": {
+                "buffering": "Puskuroi",
+                "idle": "Toimeton",
+                "off": "Pois",
+                "on": "P\u00e4\u00e4ll\u00e4",
+                "paused": "Pys\u00e4ytetty",
+                "playing": "Toistetaan",
+                "standby": "Lepotilassa"
+            },
+            "state_attributes": {
+                "app_id": {
+                    "name": "Sovelluksen tunnus"
+                },
+                "app_name": {
+                    "name": "Sovellus"
+                },
+                "entity_picture_local": {
+                    "name": "Paikallisesti saavutettava kohteen kuva"
+                },
+                "groups_members": {
+                    "name": "Ryhm\u00e4n j\u00e4senet"
+                },
+                "is_volume_muted": {
+                    "name": "Mykistetty",
+                    "state": {
+                        "false": "Ei",
+                        "true": "Kyll\u00e4"
+                    }
+                },
+                "media_album_artist": {
+                    "name": "Albumin esitt\u00e4j\u00e4"
+                },
+                "media_album_name": {
+                    "name": "Albumi"
+                },
+                "media_artist": {
+                    "name": "Artisti"
+                },
+                "media_channel": {
+                    "name": "Kanava"
+                },
+                "media_content_id": {
+                    "name": "Sis\u00e4ll\u00f6n tunnus"
+                },
+                "media_content_type": {
+                    "name": "Sis\u00e4lt\u00f6tyyppi",
+                    "state": {
+                        "album": "Albumi",
+                        "app": "Sovellus",
+                        "artist": "Artisti",
+                        "channel": "Kanava",
+                        "channels": "Kanavat",
+                        "composer": "S\u00e4velt\u00e4j\u00e4",
+                        "contributing_artist": "Osallistuva artisti",
+                        "episode": "Jakso",
+                        "game": "Peli",
+                        "genre": "Genre",
+                        "image": "Kuva",
+                        "movie": "Elokuva",
+                        "music": "Musiikki",
+                        "playlist": "Soittolista",
+                        "podcast": "Podcast",
+                        "season": "Tuotantokausi",
+                        "track": "Kappale",
+                        "tvshow": "TV-sarja",
+                        "url": "URL-osoite",
+                        "video": "Video"
+                    }
+                },
+                "media_duration": {
+                    "name": "Kesto"
+                },
+                "media_episode": {
+                    "name": "Jakso"
+                },
+                "media_playlist": {
+                    "name": "Soittolista"
+                },
+                "media_position": {
+                    "name": "Asema"
+                },
+                "media_position_updated_at": {
+                    "name": "Asema p\u00e4ivitetty"
+                },
+                "media_season": {
+                    "name": "Tuotantokausi"
+                },
+                "media_series_title": {
+                    "name": "Sarja"
+                },
+                "media_title": {
+                    "name": "Nimi"
+                },
+                "media_track": {
+                    "name": "Kappale"
+                },
+                "repeat": {
+                    "name": "Uudelleentoisto",
+                    "state": {
+                        "all": "Kaikki",
+                        "off": "Pois",
+                        "one": "Yksi"
+                    }
+                },
+                "shuffle": {
+                    "name": "Sekoitus",
+                    "state": {
+                        "false": "Pois",
+                        "true": "P\u00e4\u00e4ll\u00e4"
+                    }
+                },
+                "sound_mode": {
+                    "name": "\u00c4\u00e4nitila"
+                },
+                "sound_mode_list": {
+                    "name": "Saatavilla olevat \u00e4\u00e4nitilat"
+                },
+                "source": {
+                    "name": "L\u00e4hde"
+                },
+                "source_list": {
+                    "name": "Saatavilla olevat l\u00e4hteet"
+                },
+                "volume_level": {
+                    "name": "\u00c4\u00e4nenvoimakkuus"
+                }
+            }
+        },
+        "receiver": {
+            "name": "Vastaanotin"
+        },
+        "speaker": {
+            "name": "Kaiutin"
+        },
+        "tv": {
+            "name": "TV"
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "{platform}-integraation {domain}-alusta ei tue alustan asetuksia.\n\nPoista se asetuksista ja k\u00e4ynnist\u00e4 Home Assistant uudelleen ongelman korjaamiseksi.",
+            "title": "Alustan tukea ei tueta"
+        }
+    },
+    "selector": {
+        "enqueue": {
+            "options": {
+                "add": "Lis\u00e4\u00e4 jonoon",
+                "next": "Toista seuraavaksi",
+                "play": "Toista",
+                "replace": "Soita nyt ja tyhjenn\u00e4 jono"
+            }
+        },
+        "repeat": {
+            "options": {
+                "all": "Toista kaikki",
+                "off": "Pois",
+                "one": "Toista yksi"
+            }
+        }
+    },
+    "services": {
+        "clear_playlist": {
+            "description": "Tyhjent\u00e4\u00e4 soittolistan.",
+            "name": "Tyhjenn\u00e4 soittolista"
+        },
+        "join": {
+            "description": "Ryhmitt\u00e4\u00e4 mediasoittimet yhteen synkronista toistoa varten. Toimii vain tuetuissa monihuone\u00e4\u00e4nij\u00e4rjestelmiss\u00e4.",
+            "fields": {
+                "group_members": {
+                    "description": "Soittimet, jotka synkronoidaan kohdassa `target` m\u00e4\u00e4ritellyn toiston kanssa.",
+                    "name": "Ryhm\u00e4n j\u00e4senet"
+                }
+            },
+            "name": "Liity"
+        },
+        "media_next_track": {
+            "description": "Valitsee seuraavan kappaleen.",
+            "name": "Seuraava"
+        },
+        "media_pause": {
+            "description": "Keskeytt\u00e4\u00e4.",
+            "name": "Keskeyt\u00e4"
+        },
+        "media_play": {
+            "description": "Aloittaa soittamisen.",
+            "name": "Toista"
+        },
+        "media_play_pause": {
+            "description": "Vaihtaa toiston/tauon.",
+            "name": "Toista/Tauko"
+        },
+        "media_previous_track": {
+            "description": "Valitsee edellisen kappaleen.",
+            "name": "Edellinen"
+        },
+        "media_seek": {
+            "description": "Voit siirty\u00e4 toistettavan median eri osaan.",
+            "fields": {
+                "seek_position": {
+                    "description": "Kohteen sijainti parhaillaan toistettavassa mediassa. Muoto on alustasta riippuvainen.",
+                    "name": "Asema"
+                }
+            },
+            "name": "Etsi"
+        },
+        "media_stop": {
+            "description": "Lopettaa soittamisen.",
+            "name": "Pys\u00e4yt\u00e4"
+        },
+        "play_media": {
+            "description": "Aloittaa tietyn median toiston.",
+            "fields": {
+                "announce": {
+                    "description": "Jos mediaa pit\u00e4isi toistaa ilmoituksena.",
+                    "name": "Ilmoita"
+                },
+                "enqueue": {
+                    "description": "Toistetaanko sis\u00e4lt\u00f6 nyt vai lis\u00e4t\u00e4\u00e4nk\u00f6 se jonoon.",
+                    "name": "Jono"
+                },
+                "media_content_id": {
+                    "description": "Toistettavan sis\u00e4ll\u00f6n tunnus. Alustasta riippuvainen.",
+                    "name": "Sis\u00e4ll\u00f6n tunnus"
+                },
+                "media_content_type": {
+                    "description": "Toistettavan sis\u00e4ll\u00f6n tyyppi. Esimerkiksi kuva, musiikki, tv-ohjelma, video, jakso, kanava tai soittolista.",
+                    "name": "Sis\u00e4lt\u00f6tyyppi"
+                }
+            },
+            "name": "Toista media"
+        },
+        "repeat_set": {
+            "description": "Toistotila, jossa mediaa toistetaan silmukassa.",
+            "fields": {
+                "repeat": {
+                    "description": "Asetettava toistotila.",
+                    "name": "Toistotila"
+                }
+            },
+            "name": "Toista"
+        },
+        "select_sound_mode": {
+            "description": "Valitsee tietyn \u00e4\u00e4nitilan.",
+            "fields": {
+                "sound_mode": {
+                    "description": "Sen \u00e4\u00e4nitilan nimi, johon siirryt\u00e4\u00e4n.",
+                    "name": "\u00c4\u00e4nitila"
+                }
+            },
+            "name": "Valitse \u00e4\u00e4nitila"
+        },
+        "select_source": {
+            "description": "L\u00e4hett\u00e4\u00e4 mediasoittimelle komennon tulol\u00e4hteen vaihtamiseksi.",
+            "fields": {
+                "source": {
+                    "description": "L\u00e4hteen nimi, johon siirryt\u00e4\u00e4n. Alustariippuvainen.",
+                    "name": "L\u00e4hde"
+                }
+            },
+            "name": "Valitse l\u00e4hde"
+        },
+        "shuffle_set": {
+            "description": "Toistotila, jossa media valitaan satunnaistetussa j\u00e4rjestyksess\u00e4.",
+            "fields": {
+                "shuffle": {
+                    "description": "Onko satunnaistoisto k\u00e4yt\u00f6ss\u00e4 vai ei.",
+                    "name": "Satunnaistoisto"
+                }
+            },
+            "name": "Satunnaistoisto"
+        },
+        "toggle": {
+            "description": "Kytkee mediasoittimen p\u00e4\u00e4lle/pois.",
+            "name": "Vaihda"
+        },
+        "turn_off": {
+            "description": "Sammuttaa mediasoittimen.",
+            "name": "Sammuta"
+        },
+        "turn_on": {
+            "description": "Kytkee mediasoittimen p\u00e4\u00e4lle.",
+            "name": "Laita p\u00e4\u00e4lle"
+        },
+        "unjoin": {
+            "description": "Poistaa soittimen ryhm\u00e4st\u00e4. Toimii vain alustoilla, jotka tukevat soittoryhmi\u00e4.",
+            "name": "Peruuta liittyminen"
+        },
+        "volume_down": {
+            "description": "V\u00e4hent\u00e4\u00e4 \u00e4\u00e4nenvoimakkuutta.",
+            "name": "V\u00e4henn\u00e4 \u00e4\u00e4nenvoimakkuutta"
+        },
+        "volume_mute": {
+            "description": "Mykist\u00e4\u00e4 mediasoittimen tai poistaa sen mykistyksen.",
+            "fields": {
+                "is_volume_muted": {
+                    "description": "M\u00e4\u00e4ritt\u00e4\u00e4, onko se mykistetty vai ei.",
+                    "name": "Mykistetty"
+                }
+            },
+            "name": "Mykist\u00e4/poista mykistys"
+        },
+        "volume_set": {
+            "description": "Asettaa \u00e4\u00e4nenvoimakkuuden.",
+            "fields": {
+                "volume_level": {
+                    "description": "\u00c4\u00e4nenvoimakkuutta. 0 ei kuulu, 1 on suurin \u00e4\u00e4nenvoimakkuus.",
+                    "name": "Taso"
+                }
+            },
+            "name": "Aseta \u00e4\u00e4nenvoimakkuus"
+        },
+        "volume_up": {
+            "description": "Lis\u00e4\u00e4 \u00e4\u00e4nenvoimakkuutta.",
+            "name": "Lis\u00e4\u00e4 \u00e4\u00e4nenvoimakkuutta"
+        }
+    },
+    "title": "Mediasoitin"
+}

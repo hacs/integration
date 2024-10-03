@@ -1,0 +1,146 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "Seznam \u00fakol\u016f"
+        }
+    },
+    "exceptions": {
+        "item_not_found": {
+            "message": "Nelze naj\u00edt polo\u017eku seznamu \u00fakol\u016f: {item}"
+        },
+        "update_field_not_supported": {
+            "message": "Entita nepodporuje nastaven\u00ed pole: {service_field}"
+        }
+    },
+    "selector": {
+        "status": {
+            "options": {
+                "completed": "Dokon\u010deno",
+                "needs_action": "Nedokon\u010deno"
+            }
+        }
+    },
+    "services": {
+        "add_item": {
+            "description": "P\u0159id\u00e1 novou polo\u017eku seznamu \u00fakol\u016f.",
+            "fields": {
+                "description": {
+                    "description": "\u00dapln\u011bj\u0161\u00ed popis polo\u017eky \u00fakolu, ne\u017e poskytuje n\u00e1zev polo\u017eky.",
+                    "name": "Popis"
+                },
+                "due_date": {
+                    "description": "Datum, kdy se o\u010dek\u00e1v\u00e1 dokon\u010den\u00ed \u00fakolu.",
+                    "name": "Datum dokon\u010den\u00ed"
+                },
+                "due_date_time": {
+                    "description": "Datum a \u010das, kdy se o\u010dek\u00e1v\u00e1 dokon\u010den\u00ed \u00fakolu.",
+                    "name": "Datum a \u010das dokon\u010den\u00ed"
+                },
+                "due_datetime": {
+                    "description": "Datum a \u010das, kdy se o\u010dek\u00e1v\u00e1 dokon\u010den\u00ed \u00fakolu.",
+                    "name": "Datum a \u010das dokon\u010den\u00ed"
+                },
+                "item": {
+                    "description": "N\u00e1zev, kter\u00fd p\u0159edstavuje polo\u017eku \u00fakolu.",
+                    "name": "N\u00e1zev polo\u017eky"
+                }
+            },
+            "name": "P\u0159idat polo\u017eku seznamu \u00fakol\u016f"
+        },
+        "create_item": {
+            "description": "P\u0159id\u00e1 novou polo\u017eku do seznamu \u00fakol\u016f.",
+            "fields": {
+                "status": {
+                    "description": "Stav nebo potvrzen\u00ed polo\u017eky v seznamu \u00fakol\u016f.",
+                    "name": "Stav"
+                },
+                "summary": {
+                    "description": "Kr\u00e1tk\u00e9 shrnut\u00ed, kter\u00e9 p\u0159edstavuje polo\u017eku v seznamu \u00fakol\u016f.",
+                    "name": "Souhrn"
+                }
+            },
+            "name": "Vytvo\u0159it polo\u017eku v seznamu \u00fakol\u016f"
+        },
+        "delete_item": {
+            "description": "Sma\u017ee existuj\u00edc\u00ed polo\u017eku v seznamu \u00fakol\u016f bu\u010f podle jej\u00edho jedine\u010dn\u00e9ho ID nebo souhrnu.",
+            "fields": {
+                "summary": {
+                    "description": "Kr\u00e1tk\u00e9 shrnut\u00ed, kter\u00e9 p\u0159edstavuje polo\u017eku v seznamu \u00fakol\u016f.",
+                    "name": "Souhrn"
+                },
+                "uid": {
+                    "description": "Jedine\u010dn\u00e9 identifik\u00e1tory pro polo\u017eky v seznamu \u00fakol\u016f.",
+                    "name": "Jedine\u010dn\u00e9 ID polo\u017eek v seznamu \u00fakol\u016f"
+                }
+            },
+            "name": "Smazat polo\u017eku ze seznamu \u00fakol\u016f"
+        },
+        "get_items": {
+            "description": "Z\u00edsk\u00e1 polo\u017eky ze seznamu \u00fakol\u016f.",
+            "fields": {
+                "status": {
+                    "description": "Vr\u00e1t\u00ed jen polo\u017eky \u00fakol\u016f se zadan\u00fdmi stavy. Ve v\u00fdchoz\u00edm nastaven\u00ed vrac\u00ed nedokon\u010den\u00e9 akce.",
+                    "name": "Stav"
+                }
+            },
+            "name": "Z\u00edskat polo\u017eky seznamu \u00fakol\u016f"
+        },
+        "remove_completed_items": {
+            "description": "Odebere v\u0161echny polo\u017eky seznamu \u00fakol\u016f, kter\u00e9 byly dokon\u010deny.",
+            "name": "Odebrat v\u0161echny dokon\u010den\u00e9 polo\u017eky seznamu \u00fakol\u016f"
+        },
+        "remove_item": {
+            "description": "Odebere existuj\u00edc\u00ed polo\u017eku seznamu \u00fakol\u016f podle jej\u00edho n\u00e1zvu.",
+            "fields": {
+                "item": {
+                    "description": "N\u00e1zev polo\u017eek seznamu \u00fakol\u016f.",
+                    "name": "N\u00e1zev polo\u017eky"
+                }
+            },
+            "name": "Odebrat polo\u017eku seznamu \u00fakol\u016f"
+        },
+        "update_item": {
+            "description": "Aktualizuje existuj\u00edc\u00ed polo\u017eku seznamu \u00fakol\u016f na z\u00e1klad\u011b jej\u00edho n\u00e1zvu.",
+            "fields": {
+                "description": {
+                    "description": "\u00dapln\u011bj\u0161\u00ed popis polo\u017eky \u00fakolu, ne\u017e poskytuje n\u00e1zev polo\u017eky.",
+                    "name": "Popis"
+                },
+                "due_date": {
+                    "description": "Datum, kdy se o\u010dek\u00e1v\u00e1 dokon\u010den\u00ed \u00fakolu.",
+                    "name": "Datum dokon\u010den\u00ed"
+                },
+                "due_date_time": {
+                    "description": "Datum a \u010das, kdy se o\u010dek\u00e1v\u00e1 dokon\u010den\u00ed \u00fakolu.",
+                    "name": "Datum a \u010das dokon\u010den\u00ed"
+                },
+                "due_datetime": {
+                    "description": "Datum a \u010das, kdy se o\u010dek\u00e1v\u00e1 dokon\u010den\u00ed \u00fakolu.",
+                    "name": "Datum a \u010das dokon\u010den\u00ed"
+                },
+                "item": {
+                    "description": "N\u00e1zev polo\u017eky seznamu \u00fakol\u016f.",
+                    "name": "N\u00e1zev polo\u017eky"
+                },
+                "rename": {
+                    "description": "Nov\u00fd n\u00e1zev polo\u017eky \u00fakolu",
+                    "name": "P\u0159ejmenovat polo\u017eku"
+                },
+                "status": {
+                    "description": "Stav nebo potvrzen\u00ed polo\u017eky v seznamu \u00fakol\u016f.",
+                    "name": "Nastavit stav"
+                },
+                "summary": {
+                    "description": "Kr\u00e1tk\u00e9 shrnut\u00ed, kter\u00e9 p\u0159edstavuje polo\u017eku v seznamu \u00fakol\u016f.",
+                    "name": "Souhrn"
+                },
+                "uid": {
+                    "description": "Jedine\u010dn\u00fd identifik\u00e1tor pro polo\u017eku seznamu \u00fakol\u016f.",
+                    "name": "Jedine\u010dn\u00e9 ID polo\u017eky \u00fakolu"
+                }
+            },
+            "name": "Aktualizovat polo\u017eku v seznamu \u00fakol\u016f"
+        }
+    },
+    "title": "Seznam \u00fakol\u016f"
+}

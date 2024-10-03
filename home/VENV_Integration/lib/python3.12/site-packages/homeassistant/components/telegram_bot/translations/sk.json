@@ -1,0 +1,686 @@
+{
+    "issues": {
+        "proxy_params_auth_deprecation": {
+            "description": "Podrobnosti o overovan\u00ed pre proxy server nakonfigurovan\u00fd v integr\u00e1cii {telegram_bot} by sa mali namiesto toho presun\u00fa\u0165 do str\u00e1nky {proxy_url}. Na odstr\u00e1nenie tohto probl\u00e9mu aktualizujte konfigur\u00e1ciu a re\u0161tartujte aplik\u00e1ciu Home Assistant.\n\nKonfigura\u010dn\u00fd k\u013e\u00fa\u010d {proxy_params} bude odstr\u00e1nen\u00fd v bud\u00facej verzii.",
+            "title": "{telegram_bot}: Autentifik\u00e1cia prostredn\u00edctvom proxy servera by sa mala presun\u00fa\u0165 na adresu URL"
+        },
+        "proxy_params_deprecation": {
+            "description": "Konfigura\u010dn\u00fd k\u013e\u00fa\u010d {proxy_params} pre integr\u00e1ciu {telegram_bot} bude odstr\u00e1nen\u00fd v niektorej z bud\u00facich verzi\u00ed.\n\nAutentifik\u00e1ciu je teraz mo\u017en\u00e9 zabezpe\u010di\u0165 prostredn\u00edctvom k\u013e\u00fa\u010da {proxy_url}.\n\nZ\u00e1kladn\u00e1 kni\u017enica sa zmenila na {httpx}, ktor\u00e1 je nekompatibiln\u00e1 s predch\u00e1dzaj\u00facimi parametrami. Ak t\u00fato funkciu st\u00e1le potrebujete pre in\u00e9 mo\u017enosti, zanechajte koment\u00e1r na odkaze dozvedie\u0165 sa viac.\n\nAktualizujte svoju konfigur\u00e1ciu, aby ste odstr\u00e1nili k\u013e\u00fa\u010d {proxy_params}, a re\u0161tartujte aplik\u00e1ciu Home Assistant, aby sa tento probl\u00e9m odstr\u00e1nil.",
+            "title": "{telegram_bot} : Mo\u017enos\u0165 parametrov proxy bude odstr\u00e1nen\u00e1"
+        }
+    },
+    "services": {
+        "answer_callback_query": {
+            "description": "Reaguje na sp\u00e4tn\u00fa po\u017eiadavku vyvolan\u00fa kliknut\u00edm na tla\u010didlo online kl\u00e1vesnice. Odpove\u010f sa pou\u017e\u00edvate\u013eovi zobraz\u00ed ako upozornenie v hornej \u010dasti obrazovky chatu alebo ako upozornenie.",
+            "fields": {
+                "callback_query_id": {
+                    "description": "Jedine\u010dn\u00e9 id odpovede sp\u00e4tn\u00e9ho volania.",
+                    "name": "ID sp\u00e4tn\u00e9ho dotazu"
+                },
+                "message": {
+                    "description": "Neform\u00e1tovan\u00e9 telo textovej spr\u00e1vy ozn\u00e1menia.",
+                    "name": "Spr\u00e1va"
+                },
+                "show_alert": {
+                    "description": "Zobrazenie trval\u00e9ho ozn\u00e1menia.",
+                    "name": "Zobrazi\u0165 upozornenie"
+                },
+                "timeout": {
+                    "description": "\u010casov\u00fd limit \u010d\u00edtania na odoslanie odpovede.",
+                    "name": "\u010casov\u00fd limit \u010d\u00edtania"
+                }
+            },
+            "name": "Odpove\u010f na sp\u00e4tn\u00fd dotaz"
+        },
+        "delete_message": {
+            "description": "Odstr\u00e1ni predt\u00fdm odoslan\u00fa spr\u00e1vu.",
+            "fields": {
+                "chat_id": {
+                    "description": "Chat_id, kde sa m\u00e1 spr\u00e1va vymaza\u0165.",
+                    "name": "ID chatu"
+                },
+                "message_id": {
+                    "description": "Id spr\u00e1vy, ktor\u00e1 sa m\u00e1 odstr\u00e1ni\u0165.",
+                    "name": "ID spr\u00e1vy"
+                }
+            },
+            "name": "Odstr\u00e1ni\u0165 spr\u00e1vu"
+        },
+        "edit_caption": {
+            "description": "Uprav\u00ed nadpis predt\u00fdm odoslanej spr\u00e1vy.",
+            "fields": {
+                "caption": {
+                    "description": "Telo spr\u00e1vy ozn\u00e1menia.",
+                    "name": "Titulok"
+                },
+                "chat_id": {
+                    "description": "Chat_id, kde sa upravuje nadpis.",
+                    "name": "ID chatu"
+                },
+                "inline_keyboard": {
+                    "description": "Zoznam riadkov pr\u00edkazov oddelen\u00fdch \u010diarkami na vytvorenie vlastnej riadkovej kl\u00e1vesnice s tla\u010didlami s pr\u00edslu\u0161n\u00fdmi \u00fadajmi sp\u00e4tn\u00e9ho volania.",
+                    "name": "Vstavan\u00e1 kl\u00e1vesnica"
+                },
+                "message_id": {
+                    "description": "Id spr\u00e1vy, ktor\u00fa chcete upravi\u0165.",
+                    "name": "ID spr\u00e1vy"
+                }
+            },
+            "name": "Upravi\u0165 titulok"
+        },
+        "edit_message": {
+            "description": "Uprav\u00ed predt\u00fdm odoslan\u00fa spr\u00e1vu.",
+            "fields": {
+                "chat_id": {
+                    "description": "Chat_id, kde sa m\u00e1 spr\u00e1va upravi\u0165.",
+                    "name": "ID chatu"
+                },
+                "disable_web_page_preview": {
+                    "description": "Zak\u00e1\u017ee n\u00e1h\u013eady odkazov v spr\u00e1ve.",
+                    "name": "Zak\u00e1zanie n\u00e1h\u013eadu webovej str\u00e1nky"
+                },
+                "inline_keyboard": {
+                    "description": "Zoznam riadkov pr\u00edkazov oddelen\u00fdch \u010diarkami na vytvorenie vlastnej riadkovej kl\u00e1vesnice s tla\u010didlami s pr\u00edslu\u0161n\u00fdmi \u00fadajmi sp\u00e4tn\u00e9ho volania.",
+                    "name": "Vstavan\u00e1 kl\u00e1vesnica"
+                },
+                "message": {
+                    "description": "Telo spr\u00e1vy ozn\u00e1menia.",
+                    "name": "Spr\u00e1va"
+                },
+                "message_id": {
+                    "description": "Id spr\u00e1vy, ktor\u00fa chcete upravi\u0165.",
+                    "name": "ID spr\u00e1vy"
+                },
+                "parse_mode": {
+                    "description": "Parser textu spr\u00e1vy.",
+                    "name": "Parse re\u017eim"
+                },
+                "title": {
+                    "description": "Volite\u013en\u00fd n\u00e1zov ozn\u00e1menia. Bude zlo\u017een\u00fd ako \n'%title\n%message'.",
+                    "name": "N\u00e1zov"
+                }
+            },
+            "name": "Upravi\u0165 spr\u00e1vu"
+        },
+        "edit_replymarkup": {
+            "description": "\u00daprava riadkovej kl\u00e1vesnice predt\u00fdm odoslanej spr\u00e1vy.",
+            "fields": {
+                "chat_id": {
+                    "description": "Chat_id, kde sa m\u00e1 upravi\u0165 reply_markup.",
+                    "name": "ID chatu"
+                },
+                "inline_keyboard": {
+                    "description": "Zoznam riadkov pr\u00edkazov oddelen\u00fdch \u010diarkami na vytvorenie vlastnej riadkovej kl\u00e1vesnice s tla\u010didlami s pr\u00edslu\u0161n\u00fdmi \u00fadajmi sp\u00e4tn\u00e9ho volania.",
+                    "name": "Vstavan\u00e1 kl\u00e1vesnica"
+                },
+                "message_id": {
+                    "description": "Id spr\u00e1vy, ktor\u00fa chcete upravi\u0165.",
+                    "name": "ID spr\u00e1vy"
+                }
+            },
+            "name": "Upravi\u0165 ozna\u010denie odpovede"
+        },
+        "send_animation": {
+            "description": "Odo\u0161le anim\u00e1ciu.",
+            "fields": {
+                "authentication": {
+                    "description": "Definujte, ktor\u00e1 met\u00f3da overovania sa m\u00e1 pou\u017ei\u0165. Nastavte na `digest` pre pou\u017eitie HTTP digest autentifik\u00e1cie alebo `bearer_token` pre autentifik\u00e1ciu pomocou OAuth 2.0 bearer token. Predvolen\u00e9 nastavenie je `basic`.",
+                    "name": "Sp\u00f4sob overovania"
+                },
+                "caption": {
+                    "description": "N\u00e1zov anim\u00e1cie.",
+                    "name": "Titulok"
+                },
+                "disable_notification": {
+                    "description": "Odo\u0161le spr\u00e1vu potichu. pou\u017e\u00edvatelia iOS a pou\u017e\u00edvatelia webu nedostan\u00fa ozn\u00e1menie, pou\u017e\u00edvatelia Androidu dostan\u00fa ozn\u00e1menie bez zvuku.",
+                    "name": "Zak\u00e1za\u0165 upozornenie"
+                },
+                "file": {
+                    "description": "Miestna cesta k videu GIF alebo H.264/MPEG-4 AVC bez zvuku.",
+                    "name": "S\u00fabor"
+                },
+                "inline_keyboard": {
+                    "description": "Zoznam riadkov pr\u00edkazov oddelen\u00fdch \u010diarkami na vytvorenie vlastnej riadkovej kl\u00e1vesnice s tla\u010didlami s pr\u00edslu\u0161n\u00fdmi \u00fadajmi sp\u00e4tn\u00e9ho volania.",
+                    "name": "Vstavan\u00e1 kl\u00e1vesnica"
+                },
+                "keyboard": {
+                    "description": "Zoznam riadkov pr\u00edkazov oddelen\u00fdch \u010diarkami na vytvorenie vlastnej kl\u00e1vesnice.",
+                    "name": "Kl\u00e1vesnica"
+                },
+                "message_tag": {
+                    "description": "Zna\u010dka pre odoslan\u00fa spr\u00e1vu.",
+                    "name": "Zna\u010dka spr\u00e1vy"
+                },
+                "message_thread_id": {
+                    "description": "Jedine\u010dn\u00fd identifik\u00e1tor cie\u013eov\u00e9ho vl\u00e1kna spr\u00e1vy (t\u00e9my) f\u00f3ra; len pre nadskupiny f\u00f3ra.",
+                    "name": "Id vl\u00e1kna spr\u00e1vy"
+                },
+                "parse_mode": {
+                    "description": "Parser textu spr\u00e1vy.",
+                    "name": "Re\u017eim anal\u00fdzy"
+                },
+                "password": {
+                    "description": "Heslo (alebo token nosi\u010da) pre adresu URL, ktor\u00e1 vy\u017eaduje overenie HTTP.",
+                    "name": "Heslo"
+                },
+                "reply_to_message_id": {
+                    "description": "Ozna\u010di\u0165 spr\u00e1vu ako odpove\u010f na predch\u00e1dzaj\u00facu spr\u00e1vu.",
+                    "name": "Odpoveda\u0165 na ID spr\u00e1vy"
+                },
+                "target": {
+                    "description": "Pole vopred schv\u00e1len\u00fdch chat_ids, ktor\u00fdm sa m\u00e1 dokument odosla\u0165. Ak nie je pr\u00edtomn\u00e9, prv\u00e9 povolen\u00e9 chat_id je predvolen\u00e9.",
+                    "name": "Cie\u013e"
+                },
+                "timeout": {
+                    "description": "\u010casov\u00fd limit \u010d\u00edtania pre odoslanie n\u00e1lepky.",
+                    "name": "\u010casov\u00fd limit \u010d\u00edtania"
+                },
+                "url": {
+                    "description": "Vzdialen\u00e1 cesta k videu GIF alebo H.264/MPEG-4 AVC bez zvuku.",
+                    "name": "URL"
+                },
+                "username": {
+                    "description": "Pou\u017e\u00edvate\u013esk\u00e9 meno pre adresu URL, ktor\u00e1 vy\u017eaduje overenie HTTP.",
+                    "name": "Pou\u017e\u00edvate\u013esk\u00e9 meno"
+                },
+                "verify_ssl": {
+                    "description": "Povolenie alebo zak\u00e1zanie overovania certifik\u00e1tu SSL. Nastavte na false, ak s\u0165ahujete s\u00fabor z adresy URL a nechcete overova\u0165 certifik\u00e1t SSL servera.",
+                    "name": "Overenie SSL"
+                }
+            },
+            "name": "Odosla\u0165 anim\u00e1ciu"
+        },
+        "send_document": {
+            "description": "Odo\u0161le dokument.",
+            "fields": {
+                "authentication": {
+                    "description": "Definujte, ktor\u00e1 met\u00f3da overovania sa m\u00e1 pou\u017ei\u0165. Nastavte na `digest` pre pou\u017eitie HTTP digest autentifik\u00e1cie alebo `bearer_token` pre autentifik\u00e1ciu pomocou OAuth 2.0 bearer token. Predvolen\u00e9 nastavenie je `basic`.",
+                    "name": "Sp\u00f4sob overovania"
+                },
+                "caption": {
+                    "description": "N\u00e1zov dokumentu.",
+                    "name": "Titulok"
+                },
+                "disable_notification": {
+                    "description": "Odo\u0161le spr\u00e1vu potichu. pou\u017e\u00edvatelia iOS a pou\u017e\u00edvatelia webu nedostan\u00fa ozn\u00e1menie, pou\u017e\u00edvatelia Androidu dostan\u00fa ozn\u00e1menie bez zvuku.",
+                    "name": "Zak\u00e1za\u0165 upozornenie"
+                },
+                "file": {
+                    "description": "Miestna cesta k dokumentu.",
+                    "name": "S\u00fabor"
+                },
+                "inline_keyboard": {
+                    "description": "Zoznam riadkov pr\u00edkazov oddelen\u00fdch \u010diarkami na vytvorenie vlastnej riadkovej kl\u00e1vesnice s tla\u010didlami s pr\u00edslu\u0161n\u00fdmi \u00fadajmi sp\u00e4tn\u00e9ho volania.",
+                    "name": "Vstavan\u00e1 kl\u00e1vesnica"
+                },
+                "keyboard": {
+                    "description": "Zoznam riadkov pr\u00edkazov oddelen\u00fdch \u010diarkami na vytvorenie vlastnej kl\u00e1vesnice.",
+                    "name": "Kl\u00e1vesnica"
+                },
+                "message_tag": {
+                    "description": "Zna\u010dka pre odoslan\u00fa spr\u00e1vu.",
+                    "name": "Zna\u010dka spr\u00e1vy"
+                },
+                "message_thread_id": {
+                    "description": "Jedine\u010dn\u00fd identifik\u00e1tor cie\u013eov\u00e9ho vl\u00e1kna spr\u00e1vy (t\u00e9my) f\u00f3ra; len pre nadskupiny f\u00f3ra.",
+                    "name": "Id vl\u00e1kna spr\u00e1vy"
+                },
+                "parse_mode": {
+                    "description": "Parser textu spr\u00e1vy.",
+                    "name": "Parse re\u017eim"
+                },
+                "password": {
+                    "description": "Heslo (alebo token nosi\u010da) pre adresu URL, ktor\u00e1 vy\u017eaduje overenie HTTP.",
+                    "name": "Heslo"
+                },
+                "reply_to_message_id": {
+                    "description": "Ozna\u010di\u0165 spr\u00e1vu ako odpove\u010f na predch\u00e1dzaj\u00facu spr\u00e1vu.",
+                    "name": "Odpoveda\u0165 na ID spr\u00e1vy"
+                },
+                "target": {
+                    "description": "Pole vopred schv\u00e1len\u00fdch chat_ids, ktor\u00fdm sa m\u00e1 dokument odosla\u0165. Ak nie je pr\u00edtomn\u00e9, prv\u00e9 povolen\u00e9 chat_id je predvolen\u00e9.",
+                    "name": "Cie\u013e"
+                },
+                "timeout": {
+                    "description": "\u010casov\u00fd limit \u010d\u00edtania pre odoslanie dokumentu.",
+                    "name": "\u010casov\u00fd limit \u010d\u00edtania"
+                },
+                "url": {
+                    "description": "Vzdialen\u00e1 cesta k dokumentu.",
+                    "name": "URL"
+                },
+                "username": {
+                    "description": "Pou\u017e\u00edvate\u013esk\u00e9 meno pre adresu URL, ktor\u00e1 vy\u017eaduje overenie HTTP.",
+                    "name": "Pou\u017e\u00edvate\u013esk\u00e9 meno"
+                },
+                "verify_ssl": {
+                    "description": "Povolenie alebo zak\u00e1zanie overovania certifik\u00e1tu SSL. Nastavte na false, ak s\u0165ahujete s\u00fabor z adresy URL a nechcete overova\u0165 certifik\u00e1t SSL servera.",
+                    "name": "Overenie SSL"
+                }
+            },
+            "name": "Odosla\u0165 dokument"
+        },
+        "send_location": {
+            "description": "Odo\u0161le polohu.",
+            "fields": {
+                "disable_notification": {
+                    "description": "Odo\u0161le spr\u00e1vu potichu. pou\u017e\u00edvatelia iOS a pou\u017e\u00edvatelia webu nedostan\u00fa ozn\u00e1menie, pou\u017e\u00edvatelia Androidu dostan\u00fa ozn\u00e1menie bez zvuku.",
+                    "name": "Zak\u00e1za\u0165 upozornenie"
+                },
+                "inline_keyboard": {
+                    "description": "Zoznam riadkov pr\u00edkazov oddelen\u00fdch \u010diarkami na vytvorenie vlastnej riadkovej kl\u00e1vesnice s tla\u010didlami s pr\u00edslu\u0161n\u00fdmi \u00fadajmi sp\u00e4tn\u00e9ho volania.",
+                    "name": "Vstavan\u00e1 kl\u00e1vesnica"
+                },
+                "keyboard": {
+                    "description": "Zoznam riadkov pr\u00edkazov oddelen\u00fdch \u010diarkami na vytvorenie vlastnej kl\u00e1vesnice.",
+                    "name": "Kl\u00e1vesnica"
+                },
+                "latitude": {
+                    "description": "Zemepisn\u00e1 \u0161\u00edrka na odoslanie.",
+                    "name": "Zemepisn\u00e1 \u0161\u00edrka"
+                },
+                "longitude": {
+                    "description": "Zemepisn\u00e1 d\u013a\u017eka na odoslanie.",
+                    "name": "Zemepisn\u00e1 d\u013a\u017eka"
+                },
+                "message_tag": {
+                    "description": "Zna\u010dka pre odoslan\u00fa spr\u00e1vu.",
+                    "name": "Zna\u010dka spr\u00e1vy"
+                },
+                "message_thread_id": {
+                    "description": "Jedine\u010dn\u00fd identifik\u00e1tor cie\u013eov\u00e9ho vl\u00e1kna spr\u00e1vy (t\u00e9my) f\u00f3ra; len pre nadskupiny f\u00f3ra.",
+                    "name": "Id vl\u00e1kna spr\u00e1vy"
+                },
+                "reply_to_message_id": {
+                    "description": "Ozna\u010di\u0165 spr\u00e1vu ako odpove\u010f na predch\u00e1dzaj\u00facu spr\u00e1vu.",
+                    "name": "Odpoveda\u0165 na ID spr\u00e1vy"
+                },
+                "target": {
+                    "description": "Pole vopred schv\u00e1len\u00fdch chat_ids, ktor\u00fdm sa m\u00e1 odosla\u0165 umiestnenie. Ak nie je pr\u00edtomn\u00e9, prv\u00e9 povolen\u00e9 chat_id je predvolen\u00e9.",
+                    "name": "Cie\u013e"
+                },
+                "timeout": {
+                    "description": "\u010casov\u00fd limit \u010d\u00edtania pre odoslanie fotografie.",
+                    "name": "\u010casov\u00fd limit \u010d\u00edtania"
+                }
+            },
+            "name": "Odosla\u0165 polohu"
+        },
+        "send_message": {
+            "description": "Odo\u0161le upozornenie.",
+            "fields": {
+                "disable_notification": {
+                    "description": "Odo\u0161le spr\u00e1vu potichu. pou\u017e\u00edvatelia iOS a pou\u017e\u00edvatelia webu nedostan\u00fa ozn\u00e1menie, pou\u017e\u00edvatelia Androidu dostan\u00fa ozn\u00e1menie bez zvuku.",
+                    "name": "Zak\u00e1za\u0165 upozornenie"
+                },
+                "disable_web_page_preview": {
+                    "description": "Zak\u00e1\u017ee n\u00e1h\u013eady odkazov v spr\u00e1ve.",
+                    "name": "Zak\u00e1zanie n\u00e1h\u013eadu webovej str\u00e1nky"
+                },
+                "inline_keyboard": {
+                    "description": "Zoznam riadkov pr\u00edkazov oddelen\u00fdch \u010diarkami na vytvorenie vlastnej riadkovej kl\u00e1vesnice s tla\u010didlami s pr\u00edslu\u0161n\u00fdmi \u00fadajmi sp\u00e4tn\u00e9ho volania.",
+                    "name": "Vstavan\u00e1 kl\u00e1vesnica"
+                },
+                "keyboard": {
+                    "description": "Zoznam riadkov pr\u00edkazov oddelen\u00fdch \u010diarkami na vytvorenie vlastnej kl\u00e1vesnice. Pr\u00e1zdny zoznam vyma\u017ee predt\u00fdm nastaven\u00fa kl\u00e1vesnicu.",
+                    "name": "Kl\u00e1vesnica"
+                },
+                "message": {
+                    "description": "Telo spr\u00e1vy ozn\u00e1menia.",
+                    "name": "Spr\u00e1va"
+                },
+                "message_tag": {
+                    "description": "Zna\u010dka pre odoslan\u00fa spr\u00e1vu.",
+                    "name": "Zna\u010dka spr\u00e1vy"
+                },
+                "message_thread_id": {
+                    "description": "Jedine\u010dn\u00fd identifik\u00e1tor cie\u013eov\u00e9ho vl\u00e1kna spr\u00e1vy (t\u00e9my) f\u00f3ra; len pre nadskupiny f\u00f3ra.",
+                    "name": "Id vl\u00e1kna spr\u00e1vy"
+                },
+                "parse_mode": {
+                    "description": "Parser textu spr\u00e1vy.",
+                    "name": "Parse re\u017eim"
+                },
+                "reply_to_message_id": {
+                    "description": "Ozna\u010di\u0165 spr\u00e1vu ako odpove\u010f na predch\u00e1dzaj\u00facu spr\u00e1vu.",
+                    "name": "Odpoveda\u0165 na ID spr\u00e1vy"
+                },
+                "target": {
+                    "description": "Pole vopred schv\u00e1len\u00fdch chat_ids, ktor\u00fdm sa m\u00e1 posla\u0165 ozn\u00e1menie. Ak nie je pr\u00edtomn\u00e9, prv\u00e9 povolen\u00e9 chat_id je predvolen\u00e9.",
+                    "name": "Cie\u013e"
+                },
+                "timeout": {
+                    "description": "\u010casov\u00fd limit \u010d\u00edtania pre odoslanie spr\u00e1vy. Pom\u00f4\u017ee pri chyb\u00e1ch \u010dasov\u00e9ho limitu (zl\u00e9 internetov\u00e9 pripojenie at\u010f.).",
+                    "name": "\u010casov\u00fd limit \u010d\u00edtania"
+                },
+                "title": {
+                    "description": "Volite\u013en\u00fd n\u00e1zov ozn\u00e1menia. Bude zlo\u017een\u00fd ako \n'%title\n%message'.",
+                    "name": "N\u00e1zov"
+                }
+            },
+            "name": "Odosla\u0165 spr\u00e1vu"
+        },
+        "send_photo": {
+            "description": "Odo\u0161le fotografiu.",
+            "fields": {
+                "authentication": {
+                    "description": "Definujte, ktor\u00e1 met\u00f3da overovania sa m\u00e1 pou\u017ei\u0165. Nastavte na `digest` pre pou\u017eitie HTTP digest autentifik\u00e1cie alebo `bearer_token` pre autentifik\u00e1ciu pomocou OAuth 2.0 bearer token. Predvolen\u00e9 nastavenie je `basic`.",
+                    "name": "Sp\u00f4sob overovania"
+                },
+                "caption": {
+                    "description": "N\u00e1zov obr\u00e1zka.",
+                    "name": "Titulok"
+                },
+                "disable_notification": {
+                    "description": "Odo\u0161le spr\u00e1vu potichu. pou\u017e\u00edvatelia iOS a pou\u017e\u00edvatelia webu nedostan\u00fa ozn\u00e1menie, pou\u017e\u00edvatelia Androidu dostan\u00fa ozn\u00e1menie bez zvuku.",
+                    "name": "Zak\u00e1za\u0165 upozornenie"
+                },
+                "file": {
+                    "description": "Miestna cesta k obr\u00e1zku.",
+                    "name": "S\u00fabor"
+                },
+                "inline_keyboard": {
+                    "description": "Zoznam riadkov pr\u00edkazov oddelen\u00fdch \u010diarkami na vytvorenie vlastnej riadkovej kl\u00e1vesnice s tla\u010didlami s pr\u00edslu\u0161n\u00fdmi \u00fadajmi sp\u00e4tn\u00e9ho volania.",
+                    "name": "Vstavan\u00e1 kl\u00e1vesnica"
+                },
+                "keyboard": {
+                    "description": "Zoznam riadkov pr\u00edkazov oddelen\u00fdch \u010diarkami na vytvorenie vlastnej kl\u00e1vesnice.",
+                    "name": "Kl\u00e1vesnica"
+                },
+                "message_tag": {
+                    "description": "Zna\u010dka pre odoslan\u00fa spr\u00e1vu.",
+                    "name": "Zna\u010dka spr\u00e1vy"
+                },
+                "message_thread_id": {
+                    "description": "Jedine\u010dn\u00fd identifik\u00e1tor cie\u013eov\u00e9ho vl\u00e1kna spr\u00e1vy (t\u00e9my) f\u00f3ra; len pre nadskupiny f\u00f3ra.",
+                    "name": "Id vl\u00e1kna spr\u00e1vy"
+                },
+                "parse_mode": {
+                    "description": "Parser textu spr\u00e1vy.",
+                    "name": "Parse re\u017eim"
+                },
+                "password": {
+                    "description": "Heslo (alebo token nosi\u010da) pre adresu URL, ktor\u00e1 vy\u017eaduje overenie HTTP.",
+                    "name": "Heslo"
+                },
+                "reply_to_message_id": {
+                    "description": "Ozna\u010di\u0165 spr\u00e1vu ako odpove\u010f na predch\u00e1dzaj\u00facu spr\u00e1vu.",
+                    "name": "Odpoveda\u0165 na ID spr\u00e1vy"
+                },
+                "target": {
+                    "description": "Pole vopred schv\u00e1len\u00fdch chat_ids, ktor\u00fdm sa m\u00e1 dokument odosla\u0165. Ak nie je pr\u00edtomn\u00e9, prv\u00e9 povolen\u00e9 chat_id je predvolen\u00e9.",
+                    "name": "Cie\u013e"
+                },
+                "timeout": {
+                    "description": "\u010casov\u00fd limit \u010d\u00edtania pre odoslanie fotografie.",
+                    "name": "\u010casov\u00fd limit \u010d\u00edtania"
+                },
+                "url": {
+                    "description": "Vzdialen\u00e1 cesta k obr\u00e1zku.",
+                    "name": "URL"
+                },
+                "username": {
+                    "description": "Pou\u017e\u00edvate\u013esk\u00e9 meno pre adresu URL, ktor\u00e1 vy\u017eaduje overenie HTTP.",
+                    "name": "Pou\u017e\u00edvate\u013esk\u00e9 meno"
+                },
+                "verify_ssl": {
+                    "description": "Povolenie alebo zak\u00e1zanie overovania certifik\u00e1tu SSL. Nastavte na false, ak s\u0165ahujete s\u00fabor z adresy URL a nechcete overova\u0165 certifik\u00e1t SSL servera.",
+                    "name": "Overenie SSL"
+                }
+            },
+            "name": "Odosla\u0165 fotografiu"
+        },
+        "send_poll": {
+            "description": "Posiela poll.",
+            "fields": {
+                "allows_multiple_answers": {
+                    "description": "Ak anketa umo\u017e\u0148uje viacero odpoved\u00ed, predvolen\u00e1 hodnota je False.",
+                    "name": "Povoli\u0165 viacero odpoved\u00ed"
+                },
+                "disable_notification": {
+                    "description": "Odo\u0161le spr\u00e1vu potichu. pou\u017e\u00edvatelia iOS a pou\u017e\u00edvatelia webu nedostan\u00fa ozn\u00e1menie, pou\u017e\u00edvatelia Androidu dostan\u00fa ozn\u00e1menie bez zvuku.",
+                    "name": "Zak\u00e1za\u0165 upozornenie"
+                },
+                "is_anonymous": {
+                    "description": "Ak m\u00e1 by\u0165 anketa anonymn\u00e1, predvolen\u00e1 hodnota je True.",
+                    "name": "Je anonymn\u00fd"
+                },
+                "message_tag": {
+                    "description": "Zna\u010dka pre odoslan\u00fa spr\u00e1vu.",
+                    "name": "Zna\u010dka spr\u00e1vy"
+                },
+                "message_thread_id": {
+                    "description": "Jedine\u010dn\u00fd identifik\u00e1tor cie\u013eov\u00e9ho vl\u00e1kna spr\u00e1vy (t\u00e9my) f\u00f3ra; len pre nadskupiny f\u00f3ra.",
+                    "name": "Id vl\u00e1kna spr\u00e1vy"
+                },
+                "open_period": {
+                    "description": "\u010cas v sekund\u00e1ch, po\u010das ktor\u00e9ho bude anketa akt\u00edvna po vytvoren\u00ed, 5-600.",
+                    "name": "Otvoren\u00e9 obdobie"
+                },
+                "options": {
+                    "description": "Zoznam mo\u017enost\u00ed odpovede, 2-10 re\u0165azcov po 1-100 znakov.",
+                    "name": "Mo\u017enosti"
+                },
+                "question": {
+                    "description": "Poll ot\u00e1zka, 1-300 znakov.",
+                    "name": "Ot\u00e1zka"
+                },
+                "reply_to_message_id": {
+                    "description": "Ozna\u010di\u0165 spr\u00e1vu ako odpove\u010f na predch\u00e1dzaj\u00facu spr\u00e1vu.",
+                    "name": "Odpoveda\u0165 na ID spr\u00e1vy"
+                },
+                "target": {
+                    "description": "Pole vopred schv\u00e1len\u00fdch chat_ids, ktor\u00fdm sa m\u00e1 odosla\u0165 umiestnenie. Ak nie je pr\u00edtomn\u00e9, prv\u00e9 povolen\u00e9 chat_id je predvolen\u00e9.",
+                    "name": "Cie\u013e"
+                },
+                "timeout": {
+                    "description": "\u010casov\u00fd limit \u010d\u00edtania pre odoslanie ankety.",
+                    "name": "\u010casov\u00fd limit \u010d\u00edtania"
+                }
+            },
+            "name": "Posla\u0165 poll"
+        },
+        "send_sticker": {
+            "description": "Odo\u0161le n\u00e1lepku.",
+            "fields": {
+                "authentication": {
+                    "description": "Definujte, ktor\u00e1 met\u00f3da overovania sa m\u00e1 pou\u017ei\u0165. Nastavte na `digest` pre pou\u017eitie HTTP digest autentifik\u00e1cie alebo `bearer_token` pre autentifik\u00e1ciu pomocou OAuth 2.0 bearer token. Predvolen\u00e9 nastavenie je `basic`.",
+                    "name": "Sp\u00f4sob overovania"
+                },
+                "disable_notification": {
+                    "description": "Odo\u0161le spr\u00e1vu potichu. pou\u017e\u00edvatelia iOS a pou\u017e\u00edvatelia webu nedostan\u00fa ozn\u00e1menie, pou\u017e\u00edvatelia Androidu dostan\u00fa ozn\u00e1menie bez zvuku.",
+                    "name": "Zak\u00e1za\u0165 upozornenie"
+                },
+                "file": {
+                    "description": "Miestna cesta k statickej n\u00e1lepke .webp alebo animovanej n\u00e1lepke .tgs.",
+                    "name": "S\u00fabor"
+                },
+                "inline_keyboard": {
+                    "description": "Zoznam riadkov pr\u00edkazov oddelen\u00fdch \u010diarkami na vytvorenie vlastnej riadkovej kl\u00e1vesnice s tla\u010didlami s pr\u00edslu\u0161n\u00fdmi \u00fadajmi sp\u00e4tn\u00e9ho volania.",
+                    "name": "Vstavan\u00e1 kl\u00e1vesnica"
+                },
+                "keyboard": {
+                    "description": "Zoznam riadkov pr\u00edkazov oddelen\u00fdch \u010diarkami na vytvorenie vlastnej kl\u00e1vesnice.",
+                    "name": "Kl\u00e1vesnica"
+                },
+                "message_tag": {
+                    "description": "Zna\u010dka pre odoslan\u00fa spr\u00e1vu.",
+                    "name": "Zna\u010dka spr\u00e1vy"
+                },
+                "message_thread_id": {
+                    "description": "Jedine\u010dn\u00fd identifik\u00e1tor cie\u013eov\u00e9ho vl\u00e1kna spr\u00e1vy (t\u00e9my) f\u00f3ra; len pre nadskupiny f\u00f3ra.",
+                    "name": "Id vl\u00e1kna spr\u00e1vy"
+                },
+                "password": {
+                    "description": "Heslo (alebo token nosi\u010da) pre adresu URL, ktor\u00e1 vy\u017eaduje overenie HTTP.",
+                    "name": "Heslo"
+                },
+                "reply_to_message_id": {
+                    "description": "Ozna\u010di\u0165 spr\u00e1vu ako odpove\u010f na predch\u00e1dzaj\u00facu spr\u00e1vu.",
+                    "name": "Odpoveda\u0165 na ID spr\u00e1vy"
+                },
+                "sticker_id": {
+                    "description": "ID n\u00e1lepky, ktor\u00e1 existuje na telegramov\u00fdch serveroch.",
+                    "name": "ID n\u00e1lepky"
+                },
+                "target": {
+                    "description": "Pole vopred schv\u00e1len\u00fdch chat_ids, ktor\u00fdm sa m\u00e1 dokument odosla\u0165. Ak nie je pr\u00edtomn\u00e9, prv\u00e9 povolen\u00e9 chat_id je predvolen\u00e9.",
+                    "name": "Cie\u013e"
+                },
+                "timeout": {
+                    "description": "\u010casov\u00fd limit \u010d\u00edtania pre odoslanie n\u00e1lepky.",
+                    "name": "\u010casov\u00fd limit \u010d\u00edtania"
+                },
+                "url": {
+                    "description": "Vzdialen\u00e1 cesta k statickej n\u00e1lepke .webp alebo animovanej n\u00e1lepke .tgs.",
+                    "name": "URL"
+                },
+                "username": {
+                    "description": "Pou\u017e\u00edvate\u013esk\u00e9 meno pre adresu URL, ktor\u00e1 vy\u017eaduje overenie HTTP.",
+                    "name": "Pou\u017e\u00edvate\u013esk\u00e9 meno"
+                },
+                "verify_ssl": {
+                    "description": "Povolenie alebo zak\u00e1zanie overovania certifik\u00e1tu SSL. Nastavte na false, ak s\u0165ahujete s\u00fabor z adresy URL a nechcete overova\u0165 certifik\u00e1t SSL servera.",
+                    "name": "Overenie SSL"
+                }
+            },
+            "name": "Odosla\u0165 n\u00e1lepku"
+        },
+        "send_video": {
+            "description": "Odo\u0161le video.",
+            "fields": {
+                "authentication": {
+                    "description": "Definujte, ktor\u00e1 met\u00f3da overovania sa m\u00e1 pou\u017ei\u0165. Nastavte na `digest` pre pou\u017eitie HTTP digest autentifik\u00e1cie alebo `bearer_token` pre autentifik\u00e1ciu pomocou OAuth 2.0 bearer token. Predvolen\u00e9 nastavenie je `basic`.",
+                    "name": "Sp\u00f4sob overovania"
+                },
+                "caption": {
+                    "description": "N\u00e1zov videa.",
+                    "name": "Titulok"
+                },
+                "disable_notification": {
+                    "description": "Odo\u0161le spr\u00e1vu potichu. pou\u017e\u00edvatelia iOS a pou\u017e\u00edvatelia webu nedostan\u00fa ozn\u00e1menie, pou\u017e\u00edvatelia Androidu dostan\u00fa ozn\u00e1menie bez zvuku.",
+                    "name": "Zak\u00e1za\u0165 upozornenie"
+                },
+                "file": {
+                    "description": "Miestna cesta k videu.",
+                    "name": "S\u00fabor"
+                },
+                "inline_keyboard": {
+                    "description": "Zoznam riadkov pr\u00edkazov oddelen\u00fdch \u010diarkami na vytvorenie vlastnej riadkovej kl\u00e1vesnice s tla\u010didlami s pr\u00edslu\u0161n\u00fdmi \u00fadajmi sp\u00e4tn\u00e9ho volania.",
+                    "name": "Vstavan\u00e1 kl\u00e1vesnica"
+                },
+                "keyboard": {
+                    "description": "Zoznam riadkov pr\u00edkazov oddelen\u00fdch \u010diarkami na vytvorenie vlastnej kl\u00e1vesnice.",
+                    "name": "Kl\u00e1vesnica"
+                },
+                "message_tag": {
+                    "description": "Zna\u010dka pre odoslan\u00fa spr\u00e1vu.",
+                    "name": "Zna\u010dka spr\u00e1vy"
+                },
+                "message_thread_id": {
+                    "description": "Jedine\u010dn\u00fd identifik\u00e1tor cie\u013eov\u00e9ho vl\u00e1kna spr\u00e1vy (t\u00e9my) f\u00f3ra; len pre nadskupiny f\u00f3ra.",
+                    "name": "Id vl\u00e1kna spr\u00e1vy"
+                },
+                "parse_mode": {
+                    "description": "Parser textu spr\u00e1vy.",
+                    "name": "Parse re\u017eim"
+                },
+                "password": {
+                    "description": "Heslo (alebo token nosi\u010da) pre adresu URL, ktor\u00e1 vy\u017eaduje overenie HTTP.",
+                    "name": "Heslo"
+                },
+                "reply_to_message_id": {
+                    "description": "Ozna\u010di\u0165 spr\u00e1vu ako odpove\u010f na predch\u00e1dzaj\u00facu spr\u00e1vu.",
+                    "name": "Odpoveda\u0165 na ID spr\u00e1vy"
+                },
+                "target": {
+                    "description": "Pole vopred schv\u00e1len\u00fdch chat_ids, ktor\u00fdm sa m\u00e1 dokument odosla\u0165. Ak nie je pr\u00edtomn\u00e9, prv\u00e9 povolen\u00e9 chat_id je predvolen\u00e9.",
+                    "name": "Cie\u013e"
+                },
+                "timeout": {
+                    "description": "\u010casov\u00fd limit \u010d\u00edtania pre odoslanie videa.",
+                    "name": "\u010casov\u00fd limit \u010d\u00edtania"
+                },
+                "url": {
+                    "description": "Vzdialen\u00e1 cesta k videu.",
+                    "name": "URL"
+                },
+                "username": {
+                    "description": "Pou\u017e\u00edvate\u013esk\u00e9 meno pre adresu URL, ktor\u00e1 vy\u017eaduje overenie HTTP.",
+                    "name": "Pou\u017e\u00edvate\u013esk\u00e9 meno"
+                },
+                "verify_ssl": {
+                    "description": "Povolenie alebo zak\u00e1zanie overovania certifik\u00e1tu SSL. Nastavte na false, ak s\u0165ahujete s\u00fabor z adresy URL a nechcete overova\u0165 certifik\u00e1t SSL servera.",
+                    "name": "Overenie SSL"
+                }
+            },
+            "name": "Odosla\u0165 video"
+        },
+        "send_voice": {
+            "description": "Odo\u0161le hlasov\u00fa spr\u00e1vu.",
+            "fields": {
+                "authentication": {
+                    "description": "Definujte, ktor\u00e1 met\u00f3da overovania sa m\u00e1 pou\u017ei\u0165. Nastavte na `digest` pre pou\u017eitie HTTP digest autentifik\u00e1cie alebo `bearer_token` pre autentifik\u00e1ciu pomocou OAuth 2.0 bearer token. Predvolen\u00e9 nastavenie je `basic`.",
+                    "name": "Sp\u00f4sob overovania"
+                },
+                "caption": {
+                    "description": "N\u00e1zov hlasovej spr\u00e1vy.",
+                    "name": "Titulok"
+                },
+                "disable_notification": {
+                    "description": "Odo\u0161le spr\u00e1vu potichu. pou\u017e\u00edvatelia iOS a pou\u017e\u00edvatelia webu nedostan\u00fa ozn\u00e1menie, pou\u017e\u00edvatelia Androidu dostan\u00fa ozn\u00e1menie bez zvuku.",
+                    "name": "Zak\u00e1za\u0165 upozornenie"
+                },
+                "file": {
+                    "description": "Miestna cesta k hlasovej spr\u00e1ve.",
+                    "name": "S\u00fabor"
+                },
+                "inline_keyboard": {
+                    "description": "Zoznam riadkov pr\u00edkazov oddelen\u00fdch \u010diarkami na vytvorenie vlastnej riadkovej kl\u00e1vesnice s tla\u010didlami s pr\u00edslu\u0161n\u00fdmi \u00fadajmi sp\u00e4tn\u00e9ho volania.",
+                    "name": "Vstavan\u00e1 kl\u00e1vesnica"
+                },
+                "keyboard": {
+                    "description": "Zoznam riadkov pr\u00edkazov oddelen\u00fdch \u010diarkami na vytvorenie vlastnej kl\u00e1vesnice.",
+                    "name": "Kl\u00e1vesnica"
+                },
+                "message_tag": {
+                    "description": "Zna\u010dka pre odoslan\u00fa spr\u00e1vu.",
+                    "name": "Zna\u010dka spr\u00e1vy"
+                },
+                "message_thread_id": {
+                    "description": "Jedine\u010dn\u00fd identifik\u00e1tor cie\u013eov\u00e9ho vl\u00e1kna spr\u00e1vy (t\u00e9my) f\u00f3ra; len pre nadskupiny f\u00f3ra.",
+                    "name": "Id vl\u00e1kna spr\u00e1vy"
+                },
+                "password": {
+                    "description": "Heslo (alebo token nosi\u010da) pre adresu URL, ktor\u00e1 vy\u017eaduje overenie HTTP.",
+                    "name": "Heslo"
+                },
+                "reply_to_message_id": {
+                    "description": "Ozna\u010di\u0165 spr\u00e1vu ako odpove\u010f na predch\u00e1dzaj\u00facu spr\u00e1vu.",
+                    "name": "Odpoveda\u0165 na ID spr\u00e1vy"
+                },
+                "target": {
+                    "description": "Pole vopred schv\u00e1len\u00fdch chat_ids, ktor\u00fdm sa m\u00e1 dokument odosla\u0165. Ak nie je pr\u00edtomn\u00e9, prv\u00e9 povolen\u00e9 chat_id je predvolen\u00e9.",
+                    "name": "Cie\u013e"
+                },
+                "timeout": {
+                    "description": "\u010casov\u00fd limit \u010d\u00edtania pre odosielanie hlasu.",
+                    "name": "\u010casov\u00fd limit \u010d\u00edtania"
+                },
+                "url": {
+                    "description": "Vzdialen\u00e1 cesta k hlasovej spr\u00e1ve.",
+                    "name": "URL"
+                },
+                "username": {
+                    "description": "Pou\u017e\u00edvate\u013esk\u00e9 meno pre adresu URL, ktor\u00e1 vy\u017eaduje overenie HTTP.",
+                    "name": "Pou\u017e\u00edvate\u013esk\u00e9 meno"
+                },
+                "verify_ssl": {
+                    "description": "Povolenie alebo zak\u00e1zanie overovania certifik\u00e1tu SSL. Nastavte na false, ak s\u0165ahujete s\u00fabor z adresy URL a nechcete overova\u0165 certifik\u00e1t SSL servera.",
+                    "name": "Overenie SSL"
+                }
+            },
+            "name": "Odosla\u0165 hlas"
+        }
+    }
+}

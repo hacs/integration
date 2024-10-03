@@ -1,0 +1,402 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Za\u0159\u00edzen\u00ed je ji\u017e nastaveno",
+            "already_in_progress": "Nastaven\u00ed ji\u017e prob\u00edh\u00e1",
+            "reauth_successful": "Op\u011btovn\u00e9 ov\u011b\u0159en\u00ed bylo \u00fasp\u011b\u0161n\u00e9",
+            "unsupported_device": "Nepodporovan\u00e9 za\u0159\u00edzen\u00ed"
+        },
+        "error": {
+            "connection_timeout": "\u010casov\u00fd limit spojen\u00ed",
+            "incorrect_password": "Nespr\u00e1vn\u00e9 heslo",
+            "incorrect_username": "Nespr\u00e1vn\u00e9 u\u017eivatelsk\u00e9 jm\u00e9no",
+            "invalid_auth": "Neplatn\u00e9 ov\u011b\u0159en\u00ed",
+            "invalid_url": "Neplatn\u00e1 URL",
+            "login_attempts_exceeded": "Maxim\u00e1ln\u00ed pokus o p\u0159ihl\u00e1\u0161en\u00ed byl p\u0159ekro\u010den, zkuste to znovu pozd\u011bji",
+            "response_error": "Nezn\u00e1m\u00e1 chyba ze za\u0159\u00edzen\u00ed",
+            "ssl_error_try_plain": "Chyba HTTPS, zkuste pou\u017e\u00edt oby\u010dejnou HTTP",
+            "ssl_error_try_unverified": "Chyba HTTPS, zkuste deaktivovat ov\u011b\u0159en\u00ed certifik\u00e1tu nebo oby\u010dejnou HTTP",
+            "unknown": "Neo\u010dek\u00e1van\u00e1 chyba"
+        },
+        "flow_title": "{name}",
+        "step": {
+            "reauth_confirm": {
+                "data": {
+                    "password": "Heslo",
+                    "username": "U\u017eivatelsk\u00e9 jm\u00e9no"
+                },
+                "description": "Zadejte p\u0159ihla\u0161ovac\u00ed \u00fadaje pro p\u0159\u00edstup k za\u0159\u00edzen\u00ed.",
+                "title": "Platnost ov\u011b\u0159en\u00ed pro {name} vypr\u0161ela"
+            },
+            "user": {
+                "data": {
+                    "password": "Heslo",
+                    "url": "URL",
+                    "username": "U\u017eivatelsk\u00e9 jm\u00e9no",
+                    "verify_ssl": "Ov\u011b\u0159it certifik\u00e1t SSL"
+                },
+                "description": "Zadejte podrobnosti pro p\u0159\u00edstup k za\u0159\u00edzen\u00ed.",
+                "title": "Nastavit Huawei LTE"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "24ghz_wifi_status": {
+                "name": "Stav Wi-Fi 2,4 GHz"
+            },
+            "5ghz_wifi_status": {
+                "name": "Stav Wi-Fi 5 GHz"
+            },
+            "mobile_connection": {
+                "name": "Mobiln\u00ed p\u0159ipojen\u00ed"
+            },
+            "sms_storage_full": {
+                "name": "\u00dalo\u017ei\u0161t\u011b SMS je pln\u00e9"
+            },
+            "wifi_status": {
+                "name": "Stav Wi-Fi"
+            }
+        },
+        "select": {
+            "preferred_network_mode": {
+                "name": "Preferovan\u00fd re\u017eim s\u00edt\u011b",
+                "state": {
+                    "00": "4G/3G/2G Auto",
+                    "01": "Jen 2G",
+                    "02": "Jen 3G",
+                    "0201": "3G/2G Auto",
+                    "03": "Jen 4G",
+                    "0301": "4G/2G Auto",
+                    "0302": "4G/3G Auto"
+                }
+            }
+        },
+        "sensor": {
+            "arfcn": {
+                "name": "ARFCN"
+            },
+            "band": {
+                "name": "P\u00e1smo"
+            },
+            "base_station_identity_code": {
+                "name": "Identifika\u010dn\u00ed k\u00f3d z\u00e1kladnov\u00e9 stanice"
+            },
+            "cell_id": {
+                "name": "ID bu\u0148ky"
+            },
+            "cqi0": {
+                "name": "CQI 0"
+            },
+            "cqi1": {
+                "name": "CQI 1"
+            },
+            "current_connection_download": {
+                "name": "Aktu\u00e1ln\u00ed p\u0159ipojen\u00ed - stahov\u00e1n\u00ed"
+            },
+            "current_connection_duration": {
+                "name": "Aktu\u00e1ln\u00ed p\u0159ipojen\u00ed - d\u00e9lka"
+            },
+            "current_connection_upload": {
+                "name": "Aktu\u00e1ln\u00ed p\u0159ipojen\u00ed - nahr\u00e1v\u00e1n\u00ed"
+            },
+            "current_day_transfer": {
+                "name": "Aktu\u00e1ln\u00ed p\u0159enos za den"
+            },
+            "current_download_rate": {
+                "name": "Aktu\u00e1ln\u00ed rychlost stahov\u00e1n\u00ed"
+            },
+            "current_month_download": {
+                "name": "Aktu\u00e1ln\u00ed m\u011bs\u00edc - stahov\u00e1n\u00ed"
+            },
+            "current_month_upload": {
+                "name": "Aktu\u00e1ln\u00ed m\u011bs\u00edc - nahr\u00e1v\u00e1n\u00ed"
+            },
+            "current_upload_rate": {
+                "name": "Aktu\u00e1ln\u00ed rychlost - nahr\u00e1v\u00e1n\u00ed"
+            },
+            "downlink_bandwidth": {
+                "name": "\u0160\u00ed\u0159ka p\u00e1sma pro downlink"
+            },
+            "downlink_frequency": {
+                "name": "Frekvence pro downlink"
+            },
+            "downlink_mcs": {
+                "name": "MCS downlinku"
+            },
+            "earfcn": {
+                "name": "EARFCN"
+            },
+            "ecio": {
+                "name": "EC/IO"
+            },
+            "enodeb_id": {
+                "name": "ID eNodeB"
+            },
+            "lac": {
+                "name": "LAC"
+            },
+            "lte_downlink_frequency": {
+                "name": "Frekvence downlinku LTE"
+            },
+            "lte_uplink_frequency": {
+                "name": "Frekvence uplinku LTE"
+            },
+            "nrbler": {
+                "name": "Chybovost 5G bloku"
+            },
+            "nrcqi0": {
+                "name": "5G CQI 0"
+            },
+            "nrcqi1": {
+                "name": "5G CQI 1"
+            },
+            "nrdlbandwidth": {
+                "name": "\u0160\u00ed\u0159ka p\u00e1sma pro 5G downlink"
+            },
+            "nrdlmcs": {
+                "name": "MCS pro 5G downlink"
+            },
+            "nrearfcn": {
+                "name": "5G EARFCN"
+            },
+            "nrrank": {
+                "name": "Hodnocen\u00ed 5G"
+            },
+            "nrrsrp": {
+                "name": "5G RSRP"
+            },
+            "nrrsrq": {
+                "name": "5G RSRQ"
+            },
+            "nrsinr": {
+                "name": "5G SINR"
+            },
+            "nrtxpower": {
+                "name": "Vys\u00edlac\u00ed v\u00fdkon 5G"
+            },
+            "nrulbandwidth": {
+                "name": "\u0160\u00ed\u0159ka p\u00e1sma pro 5G uplink"
+            },
+            "nrulmcs": {
+                "name": "MCS pro 5G uplink"
+            },
+            "operator_code": {
+                "name": "K\u00f3d oper\u00e1tora"
+            },
+            "operator_name": {
+                "name": "N\u00e1zev oper\u00e1tora"
+            },
+            "operator_search_mode": {
+                "name": "Re\u017eim vyhled\u00e1v\u00e1n\u00ed oper\u00e1tora",
+                "state": {
+                    "0": "Auto",
+                    "1": "Ru\u010dn\u011b"
+                }
+            },
+            "pci": {
+                "name": "PCI"
+            },
+            "plmn": {
+                "name": "PLMN"
+            },
+            "preferred_mode": {
+                "name": "Preferovan\u00fd re\u017eim"
+            },
+            "preferred_network_mode": {
+                "name": "Preferovan\u00fd re\u017eim s\u00edt\u011b",
+                "state": {
+                    "00": "4G/3G/2G Auto",
+                    "01": "Jen 2G",
+                    "02": "Jen 3G",
+                    "0201": "3G/2G Auto",
+                    "03": "Jen 4G",
+                    "0301": "4G/2G Auto",
+                    "0302": "4G/3G Auto"
+                }
+            },
+            "primary_dns_server": {
+                "name": "Prim\u00e1rn\u00ed server DNS"
+            },
+            "primary_ipv6_dns_server": {
+                "name": "Prim\u00e1rn\u00ed server DNS IPv6"
+            },
+            "rac": {
+                "name": "RAC"
+            },
+            "rrc_status": {
+                "name": "Stav RRC"
+            },
+            "rscp": {
+                "name": "RSCP"
+            },
+            "rsrp": {
+                "name": "RSRP"
+            },
+            "rsrq": {
+                "name": "RSRQ"
+            },
+            "rssi": {
+                "name": "RSSI"
+            },
+            "secondary_dns_server": {
+                "name": "Sekund\u00e1rn\u00ed server DNS"
+            },
+            "secondary_ipv6_dns_server": {
+                "name": "Sekund\u00e1rn\u00ed server DNS IPv6"
+            },
+            "sinr": {
+                "name": "SINR"
+            },
+            "sms_capacity_device": {
+                "name": "Kapacita SMS (za\u0159\u00edzen\u00ed)"
+            },
+            "sms_capacity_sim": {
+                "name": "Kapacita SMS (SIM)"
+            },
+            "sms_deleted_device": {
+                "name": "Smazan\u00e9 SMS (za\u0159\u00edzen\u00ed)"
+            },
+            "sms_drafts_device": {
+                "name": "Koncepty SMS (za\u0159\u00edzen\u00ed)"
+            },
+            "sms_drafts_sim": {
+                "name": "N\u00e1vrhy SMS (SIM)"
+            },
+            "sms_inbox_device": {
+                "name": "Doru\u010den\u00e9 SMS (za\u0159\u00edzen\u00ed)"
+            },
+            "sms_inbox_sim": {
+                "name": "P\u0159\u00edchoz\u00ed SMS (SIM)"
+            },
+            "sms_messages_sim": {
+                "name": "Zpr\u00e1vy SMS (SIM)"
+            },
+            "sms_outbox_device": {
+                "name": "Odchoz\u00ed SMS (za\u0159\u00edzen\u00ed)"
+            },
+            "sms_outbox_sim": {
+                "name": "Odchoz\u00ed SMS (SIM)"
+            },
+            "sms_unread": {
+                "name": "Nep\u0159e\u010dten\u00e9 SMS"
+            },
+            "sms_unread_device": {
+                "name": "Nep\u0159e\u010dten\u00e9 SMS (za\u0159\u00edzen\u00ed)"
+            },
+            "sms_unread_sim": {
+                "name": "Nep\u0159e\u010dten\u00e9 SMS (SIM)"
+            },
+            "tac": {
+                "name": "TAC"
+            },
+            "tdd": {
+                "name": "TDD"
+            },
+            "total_connected_duration": {
+                "name": "Celkov\u00e1 doba p\u0159ipojen\u00ed"
+            },
+            "total_download": {
+                "name": "Celkov\u00e9 sta\u017een\u00ed"
+            },
+            "total_upload": {
+                "name": "Celkov\u00e9 nahr\u00e1n\u00ed"
+            },
+            "transmission_mode": {
+                "name": "Re\u017eim p\u0159enosu"
+            },
+            "transmit_power": {
+                "name": "Vys\u00edlac\u00ed v\u00fdkon"
+            },
+            "uplink_bandwidth": {
+                "name": "\u0160\u00ed\u0159ka p\u00e1sma uplinku"
+            },
+            "uplink_frequency": {
+                "name": "Frekvence uplinku"
+            },
+            "uplink_mcs": {
+                "name": "MCS uplinku"
+            },
+            "uptime": {
+                "name": "Doba b\u011bhu"
+            },
+            "wan_ip_address": {
+                "name": "IP adresa WAN"
+            },
+            "wan_ipv6_address": {
+                "name": "WAN IPv6 adresa"
+            },
+            "wifi_clients_connected": {
+                "name": "P\u0159ipojen\u00ed klienti k Wi-Fi"
+            }
+        },
+        "switch": {
+            "mobile_data": {
+                "name": "Mobiln\u00ed data"
+            },
+            "wifi_guest_network": {
+                "name": "S\u00ed\u0165 Wi-Fi pro hosty"
+            }
+        }
+    },
+    "issues": {
+        "service_changed_to_button": {
+            "description": "Slu\u017eba {service} je zastaral\u00e1, pou\u017eijte m\u00edsto n\u00ed odpov\u00eddaj\u00edc\u00ed tla\u010d\u00edtko {button}.",
+            "title": "Slu\u017eba se zm\u011bnila na tla\u010d\u00edtko"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "name": "Jm\u00e9no slu\u017eby ozn\u00e1men\u00ed (zm\u011bna vy\u017eaduje restart)",
+                    "recipient": "P\u0159\u00edjemci ozn\u00e1men\u00ed SMS",
+                    "track_wired_clients": "Sledovat klienty kabelov\u00e9 s\u00edt\u011b",
+                    "unauthenticated_mode": "Neov\u011b\u0159en\u00fd re\u017eim (zm\u011bna vy\u017eaduje op\u011btovn\u00e9 na\u010dten\u00ed)"
+                }
+            }
+        }
+    },
+    "services": {
+        "clear_traffic_statistics": {
+            "description": "Vyma\u017ee statistiky provozu.",
+            "fields": {
+                "url": {
+                    "description": "URL routeru k vymaz\u00e1n\u00ed; voliteln\u00e9, pokud je nastaven jen jeden.",
+                    "name": "URL"
+                }
+            },
+            "name": "Vymazat statistiky provozu"
+        },
+        "reboot": {
+            "description": "Restartuje router.",
+            "fields": {
+                "url": {
+                    "description": "URL routeru pro restartov\u00e1n\u00ed; voliteln\u00e9, pokud je nastaven jen jeden.",
+                    "name": "URL"
+                }
+            },
+            "name": "Restartovat"
+        },
+        "resume_integration": {
+            "description": "Obnov\u00ed pozastavenou integraci.",
+            "fields": {
+                "url": {
+                    "description": "URL routeru pro obnoven\u00ed integrace; voliteln\u00e9, pokud je nastaven jen jeden.",
+                    "name": "URL"
+                }
+            },
+            "name": "Obnovit integraci"
+        },
+        "suspend_integration": {
+            "description": "Pozastav\u00ed integraci. Pozastaven\u00edm se odhl\u00e1s\u00ed integrace z routeru a zastav\u00ed se k n\u00ed p\u0159\u00edstup. U\u017eite\u010dn\u00e9 nap\u0159. pokud je do\u010dasn\u011b vy\u017eadov\u00e1n p\u0159\u00edstup k webov\u00e9mu rozhran\u00ed routeru z jin\u00e9ho zdroje, jako je webov\u00fd prohl\u00ed\u017ee\u010d. Chcete-li pokra\u010dovat, vyvolejte akci \"restore_integration\".",
+            "fields": {
+                "url": {
+                    "description": "URL routeru pro pozastaven\u00ed integrace; voliteln\u00e9, pokud je nastaven jen jeden.",
+                    "name": "URL"
+                }
+            },
+            "name": "Pozastavit integraci"
+        }
+    }
+}

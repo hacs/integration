@@ -1,0 +1,162 @@
+{
+    "config": {
+        "error": {
+            "error_auth_app": "Incorrect application id or secret",
+            "error_auth_mfa": "Incorrect code",
+            "error_auth_user": "Incorrect username or password"
+        },
+        "step": {
+            "auth_app": {
+                "data": {
+                    "app_id": "App ID",
+                    "app_secret": "Secret"
+                },
+                "description": "Application ID and secret code from [StarLine developer account](https://my.starline.ru/developer)",
+                "title": "Application credentials"
+            },
+            "auth_captcha": {
+                "data": {
+                    "captcha_code": "Code from image"
+                },
+                "description": "{captcha_img}",
+                "title": "Captcha"
+            },
+            "auth_mfa": {
+                "data": {
+                    "mfa_code": "SMS code"
+                },
+                "description": "Enter the code sent to phone {phone_number}",
+                "title": "Two-factor authorization"
+            },
+            "auth_user": {
+                "data": {
+                    "password": "Password",
+                    "username": "Username"
+                },
+                "description": "StarLine account email and password",
+                "title": "User credentials"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "alarm": {
+                "name": "Alarm"
+            },
+            "doors": {
+                "name": "Doors"
+            },
+            "hand_brake": {
+                "name": "Hand brake"
+            },
+            "handsfree": {
+                "name": "Handsfree"
+            },
+            "hood": {
+                "name": "Hood"
+            },
+            "moving_ban": {
+                "name": "Moving ban"
+            },
+            "neutral": {
+                "name": "Programmable neutral"
+            },
+            "trunk": {
+                "name": "Trunk"
+            }
+        },
+        "button": {
+            "horn": {
+                "name": "Horn"
+            }
+        },
+        "device_tracker": {
+            "location": {
+                "name": "Location"
+            }
+        },
+        "lock": {
+            "security": {
+                "name": "Security"
+            }
+        },
+        "sensor": {
+            "balance": {
+                "name": "Balance"
+            },
+            "battery": {
+                "name": "Battery"
+            },
+            "engine_temperature": {
+                "name": "Engine temperature"
+            },
+            "errors": {
+                "name": "OBD errors"
+            },
+            "fuel": {
+                "name": "Fuel volume"
+            },
+            "gps_count": {
+                "name": "GPS satellites"
+            },
+            "gsm_signal": {
+                "name": "GSM signal"
+            },
+            "interior_temperature": {
+                "name": "Interior temperature"
+            },
+            "mileage": {
+                "name": "Mileage"
+            }
+        },
+        "switch": {
+            "additional_channel": {
+                "name": "Additional channel"
+            },
+            "engine": {
+                "name": "Engine"
+            },
+            "horn": {
+                "name": "Horn"
+            },
+            "service_mode": {
+                "name": "Service mode"
+            },
+            "webasto": {
+                "name": "Webasto"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_horn_switch": {
+            "description": "Using the Horn switch is now deprecated and will be removed in a future version of Home Assistant.\n\nPlease adjust any automations or scripts that use Horn switch entity to instead use the Horn button entity.",
+            "title": "The Starline Horn switch entity is being removed"
+        }
+    },
+    "services": {
+        "set_scan_interval": {
+            "description": "Sets update frequency.",
+            "fields": {
+                "scan_interval": {
+                    "description": "Update frequency.",
+                    "name": "Scan interval"
+                }
+            },
+            "name": "Set scan interval"
+        },
+        "set_scan_obd_interval": {
+            "description": "Sets OBD info update frequency.",
+            "fields": {
+                "scan_interval": {
+                    "description": "Update frequency.",
+                    "name": "Scan interval"
+                }
+            },
+            "name": "Set scan OBD interval"
+        },
+        "update_state": {
+            "description": "Fetches the last state of the devices from the StarLine server.\n.",
+            "name": "Update state"
+        }
+    }
+}

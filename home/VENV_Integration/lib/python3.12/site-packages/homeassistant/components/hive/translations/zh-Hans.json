@@ -1,0 +1,137 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "\u8d26\u6237\u5df2\u914d\u7f6e",
+            "reauth_successful": "\u91cd\u65b0\u8ba4\u8bc1\u6210\u529f",
+            "unknown_entry": "\u65e0\u6cd5\u627e\u5230\u73b0\u6709\u6761\u76ee\u3002"
+        },
+        "error": {
+            "invalid_code": "\u65e0\u6cd5\u767b\u5f55 Hive\u3002\u60a8\u7684\u4e24\u6b65\u9a8c\u8bc1\u7801\u4e0d\u6b63\u786e\u3002",
+            "invalid_password": "\u65e0\u6cd5\u767b\u5f55 Hive\uff0c\u5bc6\u7801\u9519\u8bef\uff0c\u8bf7\u91cd\u8bd5\u3002",
+            "invalid_username": "\u65e0\u6cd5\u767b\u5f55 Hive\u3002\u60a8\u7684\u7535\u5b50\u90ae\u4ef6\u5730\u5740\u65e0\u6cd5\u8bc6\u522b\u3002",
+            "no_internet_available": "\u9700\u8981\u4e92\u8054\u7f51\u8fde\u63a5\u624d\u80fd\u8fde\u63a5\u5230 Hive\u3002",
+            "unknown": "\u610f\u5916\u9519\u8bef"
+        },
+        "step": {
+            "2fa": {
+                "data": {
+                    "2fa": "\u53cc\u91cd\u9a8c\u8bc1\u7801"
+                },
+                "description": "\u8f93\u5165\u60a8\u7684 Hive \u8eab\u4efd\u9a8c\u8bc1\u4ee3\u7801\u3002 \n\n\u8bf7\u8f93\u5165\u4ee3\u7801 0000 \u4ee5\u8bf7\u6c42\u53e6\u4e00\u4e2a\u4ee3\u7801\u3002",
+                "title": "Hive \u53cc\u91cd\u8ba4\u8bc1"
+            },
+            "configuration": {
+                "data": {
+                    "device_name": "\u8bbe\u5907\u540d\u79f0"
+                },
+                "description": "\u8f93\u5165\u60a8\u7684 Hive \u914d\u7f6e",
+                "title": "Hive \u914d\u7f6e\u3002"
+            },
+            "reauth": {
+                "data": {
+                    "password": "\u5bc6\u7801",
+                    "username": "\u7528\u6237\u540d"
+                },
+                "description": "\u91cd\u65b0\u8f93\u5165\u60a8\u7684 Hive \u767b\u5f55\u4fe1\u606f\u3002",
+                "title": "Hive \u767b\u5f55"
+            },
+            "user": {
+                "data": {
+                    "password": "\u5bc6\u7801",
+                    "scan_interval": "\u626b\u63cf\u95f4\u9694\uff08\u79d2\uff09",
+                    "username": "\u7528\u6237\u540d"
+                },
+                "description": "\u8f93\u5165\u60a8\u7684 Hive \u767b\u5f55\u4fe1\u606f\u3002",
+                "title": "Hive \u767b\u5f55"
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "heating": {
+                "state": {
+                    "manual": "\u624b\u52a8",
+                    "off": "\u5173\u95ed",
+                    "on": "\u5f00\u542f",
+                    "schedule": "\u8ba1\u5212\u8868"
+                }
+            },
+            "hot_water": {
+                "state": {
+                    "off": "\u5173\u95ed",
+                    "on": "\u5f00\u542f",
+                    "schedule": "\u8ba1\u5212\u8868"
+                }
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "user": {
+                "data": {
+                    "scan_interval": "\u626b\u63cf\u95f4\u9694\uff08\u79d2\uff09"
+                },
+                "description": "\u66f4\u65b0\u626b\u63cf\u95f4\u9694\u4ee5\u66f4\u9891\u7e41\u5730\u8f6e\u8be2\u6570\u636e\u3002",
+                "title": "Hive \u9009\u9879"
+            }
+        }
+    },
+    "services": {
+        "boost_heating": {
+            "description": "\u5373\u5c06\u5f03\u7528\uff0c\u8bf7\u6539\u7528 boost_heating_on \u3002",
+            "fields": {
+                "temperature": {
+                    "description": "\u8bbe\u7f6e\u5f3a\u52b2\u671f\u7684\u76ee\u6807\u6e29\u5ea6\u3002",
+                    "name": "\u6e29\u5ea6"
+                },
+                "time_period": {
+                    "description": "\u8bbe\u7f6e\u5f3a\u52b2\u7684\u65f6\u95f4\u6bb5\u3002",
+                    "name": "\u65f6\u95f4\u6bb5"
+                }
+            },
+            "name": "\u5f3a\u52b2\u4f9b\u6696\uff08\u5373\u5c06\u5f03\u7528\uff09"
+        },
+        "boost_heating_off": {
+            "description": "\u8bbe\u7f6e\u5f3a\u52b2\u6a21\u5f0f\u4e3a\u5173\u95ed\u3002",
+            "fields": {
+                "entity_id": {
+                    "description": "\u9009\u62e9\u8981\u5173\u95ed\u5f3a\u52b2\u7684\u5b9e\u4f53\u6807\u8bc6\u7b26\u3002",
+                    "name": "\u5b9e\u4f53\u6807\u8bc6\u7b26"
+                }
+            },
+            "name": "\u5f3a\u52b2\u4f9b\u6696\u5173\u95ed"
+        },
+        "boost_heating_on": {
+            "description": "\u8bbe\u7f6e\u5f3a\u52b2\u6a21\u5f0f\u4e3a\u5f00\u542f\uff0c\u5b9a\u4e49\u5f3a\u52b2\u7684\u65f6\u95f4\u6bb5\u548c\u6240\u9700\u7684\u76ee\u6807\u6e29\u5ea6\u3002",
+            "fields": {
+                "temperature": {
+                    "description": "\u8bbe\u7f6e\u5f3a\u52b2\u671f\u7684\u76ee\u6807\u6e29\u5ea6\u3002",
+                    "name": "\u6e29\u5ea6"
+                },
+                "time_period": {
+                    "description": "\u8bbe\u7f6e\u5f3a\u52b2\u7684\u65f6\u95f4\u6bb5\u3002",
+                    "name": "\u65f6\u95f4\u6bb5"
+                }
+            },
+            "name": "\u5f3a\u52b2\u4f9b\u6696\u5f00\u542f"
+        },
+        "boost_hot_water": {
+            "description": "\u5c06\u5f3a\u52b2\u6a21\u5f0f\u8bbe\u7f6e\u4e3a\u5f00\u6216\u5173\uff0c\u5b9a\u4e49\u5f3a\u52b2\u65f6\u95f4\u6bb5\u3002",
+            "fields": {
+                "entity_id": {
+                    "description": "\u9009\u62e9\u8981\u5f3a\u52b2\u7684\u5b9e\u4f53\u6807\u8bc6\u7b26\u3002",
+                    "name": "\u5b9e\u4f53\u6807\u8bc6\u7b26"
+                },
+                "on_off": {
+                    "description": "\u8bbe\u7f6e\u5f3a\u52b2\u529f\u80fd\u6253\u5f00\u6216\u5173\u95ed\u3002",
+                    "name": "\u6a21\u5f0f"
+                },
+                "time_period": {
+                    "description": "\u8bbe\u7f6e\u5f3a\u52b2\u7684\u65f6\u95f4\u6bb5\u3002",
+                    "name": "\u65f6\u95f4\u6bb5"
+                }
+            },
+            "name": "\u5f3a\u52b2\u70ed\u6c34"
+        }
+    }
+}

@@ -1,0 +1,352 @@
+{
+    "config": {
+        "abort": {
+            "reconfigure_successful": "Se volvi\u00f3 a configurar correctamente"
+        },
+        "error": {
+            "already_configured": "Ya est\u00e1 configurada una conexi\u00f3n PCHK con la misma direcci\u00f3n/puerto.",
+            "authentication_error": "Error de autenticaci\u00f3n. Nombre de usuario o contrase\u00f1a incorrectos.",
+            "connection_refused": "No se pudo conectar con PCHK. Comprueba la direcci\u00f3n IP y el puerto.",
+            "license_error": "Se alcanz\u00f3 el n\u00famero m\u00e1ximo de conexiones. Se requiere una clave de licencia adicional."
+        },
+        "step": {
+            "reconfigure": {
+                "data": {
+                    "acknowledge": "Solicitar el acuse de recibo de los m\u00f3dulos",
+                    "dim_mode": "Modo de atenuaci\u00f3n",
+                    "ip_address": "Direcci\u00f3n IP",
+                    "password": "Contrase\u00f1a",
+                    "port": "Puerto",
+                    "sk_num_tries": "Intentos de escaneo del acoplador de segmentos",
+                    "username": "Nombre de usuario"
+                },
+                "data_description": {
+                    "acknowledge": "Volver a intentar enviar comandos si no recibe respuesta (aumenta el tr\u00e1fico del bus).",
+                    "dim_mode": "El n\u00famero de pasos utilizados para atenuar las salidas."
+                },
+                "description": "Volver a configurar la conexi\u00f3n al host LCN.",
+                "title": "Volver a configurar el host LCN"
+            },
+            "reconfigure_confirm": {
+                "data": {
+                    "acknowledge": "Solicitar el acuse de recibo de los m\u00f3dulos",
+                    "dim_mode": "Modo de atenuaci\u00f3n",
+                    "ip_address": "Direcci\u00f3n IP",
+                    "password": "Contrase\u00f1a",
+                    "port": "Puerto",
+                    "sk_num_tries": "Intentos de escaneo del acoplador de segmentos",
+                    "username": "Nombre de usuario"
+                },
+                "data_description": {
+                    "acknowledge": "Volver a intentar enviar comandos si no recibe respuesta (aumenta el tr\u00e1fico del bus).",
+                    "dim_mode": "El n\u00famero de pasos utilizados para atenuar las salidas."
+                },
+                "description": "Volver a configurar la conexi\u00f3n al host LCN.",
+                "title": "Volver a configurar el host LCN"
+            },
+            "user": {
+                "data": {
+                    "acknowledge": "Solicitar el acuse de recibo de los m\u00f3dulos",
+                    "dim_mode": "Modo de atenuaci\u00f3n",
+                    "host": "Nombre",
+                    "ip_address": "Direcci\u00f3n IP",
+                    "password": "Contrase\u00f1a",
+                    "port": "Puerto",
+                    "sk_num_tries": "Intentos de escaneo del acoplador de segmentos",
+                    "username": "Nombre de usuario"
+                },
+                "data_description": {
+                    "acknowledge": "Volver a intentar enviar comandos si no recibe respuesta (aumenta el tr\u00e1fico del bus).",
+                    "dim_mode": "El n\u00famero de pasos utilizados para atenuar las salidas."
+                },
+                "description": "Configurar una nueva conexi\u00f3n al host LCN.",
+                "title": "Configurar el host LCN"
+            }
+        }
+    },
+    "device_automation": {
+        "extra_fields": {
+            "action": "Acci\u00f3n",
+            "code": "C\u00f3digo",
+            "key": "Clave",
+            "level": "Nivel"
+        },
+        "trigger_type": {
+            "codelock": "C\u00f3digo de bloqueo de c\u00f3digo recibido",
+            "fingerprint": "C\u00f3digo de huella dactilar recibido",
+            "send_keys": "Enviar claves recibidas",
+            "transmitter": "C\u00f3digo del transmisor recibido",
+            "transponder": "C\u00f3digo de transpondedor recibido"
+        }
+    },
+    "issues": {
+        "authentication_error": {
+            "description": "Se va a eliminar la configuraci\u00f3n de LCN mediante YAML, pero se produjo un error al importar la configuraci\u00f3n YAML.\n\nAseg\u00farate de que el nombre de usuario y la contrase\u00f1a sean correctos.\n\nConsidera eliminar la configuraci\u00f3n YAML de LCN de tu archivo configuration.yaml y contin\u00faa [configurando de la integraci\u00f3n]({url}) manualmente.",
+            "title": "Error de autenticaci\u00f3n."
+        },
+        "connection_refused": {
+            "description": "Se va a eliminar la configuraci\u00f3n de LCN mediante YAML, pero se produjo un error al importar la configuraci\u00f3n YAML.\n\nAseg\u00farate de que la conexi\u00f3n (IP y puerto) al acoplador de bus LCN sea correcta.\n\nConsidera eliminar la configuraci\u00f3n YAML de LCN de tu archivo configuration.yaml y contin\u00faa [configurando la integraci\u00f3n]({url}) manualmente.",
+            "title": "No se pudo conectar con PCHK."
+        },
+        "license_error": {
+            "description": "Se va a eliminar la configuraci\u00f3n de LCN mediante YAML, pero se produjo un error al importar la configuraci\u00f3n YAML.\n\nAseg\u00farate de que haya suficientes licencias PCHK registradas y reinicia Home Assistant.\n\nConsidera eliminar la configuraci\u00f3n YAML de LCN de tu archivo configuration.yaml y contin\u00faa [configurando la integraci\u00f3n]({url}) manualmente.",
+            "title": "Se alcanz\u00f3 el n\u00famero m\u00e1ximo de conexiones."
+        }
+    },
+    "services": {
+        "dyn_text": {
+            "description": "Env\u00eda texto din\u00e1mico a las pantallas LCN-GTxD.",
+            "fields": {
+                "address": {
+                    "description": "Direcci\u00f3n del m\u00f3dulo.",
+                    "name": "Direcci\u00f3n"
+                },
+                "row": {
+                    "description": "Fila de texto.",
+                    "name": "Fila"
+                },
+                "text": {
+                    "description": "Texto a enviar (hasta 60 caracteres codificados como UTF-8).",
+                    "name": "Texto"
+                }
+            },
+            "name": "Texto din\u00e1mico"
+        },
+        "led": {
+            "description": "Establece el estado del led.",
+            "fields": {
+                "address": {
+                    "description": "Direcci\u00f3n del m\u00f3dulo.",
+                    "name": "Direcci\u00f3n"
+                },
+                "led": {
+                    "description": "Led.",
+                    "name": "LED"
+                },
+                "state": {
+                    "description": "Estado led.",
+                    "name": "Estado"
+                }
+            },
+            "name": "LED"
+        },
+        "lock_keys": {
+            "description": "Bloquea llaves.",
+            "fields": {
+                "address": {
+                    "description": "Direcci\u00f3n del m\u00f3dulo.",
+                    "name": "Direcci\u00f3n"
+                },
+                "state": {
+                    "description": "Estados de bloqueo de llaves en forma de cadena (1=activado, 2=desactivado, T=cambiar, -=no cambiar).",
+                    "name": "Estado"
+                },
+                "table": {
+                    "description": "Tabla con llaves para bloquear (debe ser A para el intervalo).",
+                    "name": "Tabla"
+                },
+                "time": {
+                    "description": "Intervalo de bloqueo.",
+                    "name": "Hora"
+                },
+                "time_unit": {
+                    "description": "Unidad de tiempo del intervalo de bloqueo.",
+                    "name": "Unidad de tiempo"
+                }
+            },
+            "name": "Bloquear llaves"
+        },
+        "lock_regulator": {
+            "description": "Bloquea un punto de consigna del regulador.",
+            "fields": {
+                "address": {
+                    "description": "Direcci\u00f3n del m\u00f3dulo.",
+                    "name": "Direcci\u00f3n"
+                },
+                "setpoint": {
+                    "description": "Nombre de la consigna.",
+                    "name": "Consigna"
+                },
+                "state": {
+                    "description": "Nuevo estado de consigna.",
+                    "name": "Estado"
+                }
+            },
+            "name": "Bloquear regulador"
+        },
+        "output_abs": {
+            "description": "Establece el brillo absoluto del puerto de salida en porcentaje.",
+            "fields": {
+                "address": {
+                    "description": "Direcci\u00f3n del m\u00f3dulo.",
+                    "name": "Direcci\u00f3n"
+                },
+                "brightness": {
+                    "description": "Brillo absoluto.",
+                    "name": "Brillo"
+                },
+                "output": {
+                    "description": "Puerto de salida.",
+                    "name": "Salida"
+                },
+                "transition": {
+                    "description": "Tiempo de transici\u00f3n.",
+                    "name": "Transici\u00f3n"
+                }
+            },
+            "name": "Brillo absoluto de salida"
+        },
+        "output_rel": {
+            "description": "Establece el brillo relativo del puerto de salida en porcentaje.",
+            "fields": {
+                "address": {
+                    "description": "Direcci\u00f3n del m\u00f3dulo.",
+                    "name": "Direcci\u00f3n"
+                },
+                "brightness": {
+                    "description": "Brillo relativo.",
+                    "name": "Brillo"
+                },
+                "output": {
+                    "description": "Puerto de salida.",
+                    "name": "Salida"
+                }
+            },
+            "name": "Brillo relativo de salida"
+        },
+        "output_toggle": {
+            "description": "Alterna el puerto de salida.",
+            "fields": {
+                "address": {
+                    "description": "Direcci\u00f3n del m\u00f3dulo.",
+                    "name": "Direcci\u00f3n"
+                },
+                "output": {
+                    "description": "Puerto de salida.",
+                    "name": "Salida"
+                },
+                "transition": {
+                    "description": "Tiempo de transici\u00f3n.",
+                    "name": "Transici\u00f3n"
+                }
+            },
+            "name": "Alternar salida"
+        },
+        "pck": {
+            "description": "Env\u00eda un comando PCK arbitrario.",
+            "fields": {
+                "address": {
+                    "description": "Direcci\u00f3n del m\u00f3dulo.",
+                    "name": "Direcci\u00f3n"
+                },
+                "pck": {
+                    "description": "Comando PCK (sin cabecera de direcci\u00f3n).",
+                    "name": "PCK"
+                }
+            },
+            "name": "PCK"
+        },
+        "relays": {
+            "description": "Establece el estado de los rel\u00e9s.",
+            "fields": {
+                "address": {
+                    "description": "Direcci\u00f3n del m\u00f3dulo.",
+                    "name": "Direcci\u00f3n"
+                },
+                "state": {
+                    "description": "Estados de los rel\u00e9s como cadena (1=encendido, 2=apagado, t=cambio, -=sin cambio).",
+                    "name": "Estado"
+                }
+            },
+            "name": "Rel\u00e9s"
+        },
+        "send_keys": {
+            "description": "Env\u00eda claves (que ejecuta comandos enlazados).",
+            "fields": {
+                "address": {
+                    "description": "Direcci\u00f3n del m\u00f3dulo.",
+                    "name": "Direcci\u00f3n"
+                },
+                "keys": {
+                    "description": "Claves para enviar.",
+                    "name": "Claves"
+                },
+                "state": {
+                    "description": "Estado de la tecla al enviar (debe ser pulsada para diferido).",
+                    "name": "Estado"
+                },
+                "time": {
+                    "description": "Enviar retardo.",
+                    "name": "Hora"
+                },
+                "time_unit": {
+                    "description": "Unidad de tiempo del retardo de env\u00edo.",
+                    "name": "Unidad de tiempo"
+                }
+            },
+            "name": "Enviar claves"
+        },
+        "var_abs": {
+            "description": "Establece el valor absoluto de una variable o consigna.",
+            "fields": {
+                "address": {
+                    "description": "Direcci\u00f3n del m\u00f3dulo.",
+                    "name": "Direcci\u00f3n"
+                },
+                "unit_of_measurement": {
+                    "description": "Unidad de valor.",
+                    "name": "Unidad de medida"
+                },
+                "value": {
+                    "description": "Valor a configurar.",
+                    "name": "Valor"
+                },
+                "variable": {
+                    "description": "Nombre de la variable o del punto de consigna.",
+                    "name": "Variable"
+                }
+            },
+            "name": "Establecer variable absoluta"
+        },
+        "var_rel": {
+            "description": "Valor de cambio de una variable, punto de consigna o umbral.",
+            "fields": {
+                "address": {
+                    "description": "Direcci\u00f3n del m\u00f3dulo.",
+                    "name": "Direcci\u00f3n"
+                },
+                "unit_of_measurement": {
+                    "description": "Unidad de valor.",
+                    "name": "Unidad de medida"
+                },
+                "value": {
+                    "description": "Valor de cambio.",
+                    "name": "Valor"
+                },
+                "value_reference": {
+                    "description": "Valor de referencia para la consigna y el umbral.",
+                    "name": "Valor de referencia"
+                },
+                "variable": {
+                    "description": "Nombre de la variable o del punto de consigna.",
+                    "name": "Variable"
+                }
+            },
+            "name": "Variable de cambio"
+        },
+        "var_reset": {
+            "description": "Restablece el valor de la variable o consigna.",
+            "fields": {
+                "address": {
+                    "description": "Direcci\u00f3n del m\u00f3dulo.",
+                    "name": "Direcci\u00f3n"
+                },
+                "variable": {
+                    "description": "Nombre de la variable o del punto de consigna.",
+                    "name": "Variable"
+                }
+            },
+            "name": "Restablecer variable"
+        }
+    }
+}

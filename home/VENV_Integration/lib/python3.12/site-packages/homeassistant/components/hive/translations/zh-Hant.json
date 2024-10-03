@@ -1,0 +1,137 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "\u5e33\u865f\u5df2\u7d93\u8a2d\u5b9a\u5b8c\u6210",
+            "reauth_successful": "\u91cd\u65b0\u8a8d\u8b49\u6210\u529f",
+            "unknown_entry": "\u7121\u6cd5\u627e\u5230\u73fe\u6709\u5be6\u9ad4\u3002"
+        },
+        "error": {
+            "invalid_code": "Hive \u767b\u5165\u5931\u6557\u3002\u96d9\u91cd\u8a8d\u8b49\u78bc\u4e0d\u6b63\u78ba\u3002",
+            "invalid_password": "Hive \u767b\u5165\u5931\u6557\u3002\u5bc6\u78bc\u932f\u8aa4\uff0c\u8acb\u518d\u8a66\u4e00\u6b21\u3002",
+            "invalid_username": "Hive \u767b\u5165\u5931\u6557\u3002\u627e\u4e0d\u5230\u96fb\u5b50\u90f5\u4ef6\u3002",
+            "no_internet_available": "\u9700\u8981\u7db2\u969b\u7db2\u8def\u9023\u7dda\u4ee5\u9023\u7dda\u81f3 Hive\u3002",
+            "unknown": "\u672a\u9810\u671f\u932f\u8aa4"
+        },
+        "step": {
+            "2fa": {
+                "data": {
+                    "2fa": "\u96d9\u91cd\u8a8d\u8b49\u78bc"
+                },
+                "description": "\u8f38\u5165 Hive \u8a8d\u8b49\u78bc\u3002\n \n \u8acb\u8f38\u5165 0000 \u4ee5\u7372\u53d6\u5176\u4ed6\u8a8d\u8b49\u78bc\u3002",
+                "title": "\u96d9\u91cd\u8a8d\u8b49"
+            },
+            "configuration": {
+                "data": {
+                    "device_name": "\u88dd\u7f6e\u540d\u7a31"
+                },
+                "description": "\u8f38\u5165 Hive \u8a2d\u5b9a",
+                "title": "Hive \u8a2d\u5b9a\u3002"
+            },
+            "reauth": {
+                "data": {
+                    "password": "\u5bc6\u78bc",
+                    "username": "\u4f7f\u7528\u8005\u540d\u7a31"
+                },
+                "description": "\u91cd\u65b0\u8f38\u5165 Hive \u767b\u5165\u8cc7\u8a0a\u3002",
+                "title": "Hive \u767b\u5165\u8cc7\u8a0a"
+            },
+            "user": {
+                "data": {
+                    "password": "\u5bc6\u78bc",
+                    "scan_interval": "\u6383\u63cf\u9593\u8ddd\uff08\u79d2\uff09",
+                    "username": "\u4f7f\u7528\u8005\u540d\u7a31"
+                },
+                "description": "\u8f38\u5165 Hive \u767b\u5165\u8cc7\u8a0a\u3002",
+                "title": "Hive \u767b\u5165\u8cc7\u8a0a"
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "heating": {
+                "state": {
+                    "manual": "\u624b\u52d5",
+                    "off": "\u95dc\u9589",
+                    "on": "\u958b\u555f",
+                    "schedule": "\u6392\u7a0b"
+                }
+            },
+            "hot_water": {
+                "state": {
+                    "off": "\u95dc\u9589",
+                    "on": "\u958b\u555f",
+                    "schedule": "\u6392\u7a0b"
+                }
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "user": {
+                "data": {
+                    "scan_interval": "\u6383\u63cf\u9593\u8ddd\uff08\u79d2\uff09"
+                },
+                "description": "\u66f4\u65b0\u6383\u63cf\u9593\u8ddd\u4ee5\u66f4\u983b\u7e41\u7372\u53d6\u66f4\u65b0\u3002",
+                "title": "Hive \u9078\u9805"
+            }
+        }
+    },
+    "services": {
+        "boost_heating": {
+            "description": "\u5373\u5c07\u68c4\u7528\uff0c\u8acb\u4f7f\u7528 boost_heating_on\u3002",
+            "fields": {
+                "temperature": {
+                    "description": "\u8a2d\u5b9a\u52a0\u901f\u9031\u671f\u7684\u76ee\u6a19\u6eab\u5ea6\u3002",
+                    "name": "\u6eab\u5ea6"
+                },
+                "time_period": {
+                    "description": "\u8a2d\u5b9a\u52a0\u901f\u7684\u6642\u9593\u9031\u671f\u3002",
+                    "name": "\u6642\u9593\u9031\u671f"
+                }
+            },
+            "name": "\u52a0\u901f\u52a0\u71b1\uff08\u5373\u5c07\u68c4\u7528\uff09"
+        },
+        "boost_heating_off": {
+            "description": "\u5c07\u52a0\u901f\u6a21\u5f0f\u8a2d\u70ba\u95dc\u9589\u3002",
+            "fields": {
+                "entity_id": {
+                    "description": "\u9078\u64c7 entity_id \u4ee5\u95dc\u9589\u52a0\u901f\u3002",
+                    "name": "\u5be6\u9ad4 ID"
+                }
+            },
+            "name": "\u52a0\u901f\u52a0\u71b1\u95dc\u9589"
+        },
+        "boost_heating_on": {
+            "description": "\u8a2d\u5b9a\u52a0\u901f\u6a21\u5f0f\u958b\u555f\u3001\u5b9a\u7fa9\u52a0\u901f\u6642\u9593\u9031\u671f\u3002",
+            "fields": {
+                "temperature": {
+                    "description": "\u8a2d\u5b9a\u52a0\u901f\u9031\u671f\u7684\u76ee\u6a19\u6eab\u5ea6\u3002",
+                    "name": "\u6eab\u5ea6"
+                },
+                "time_period": {
+                    "description": "\u8a2d\u5b9a\u52a0\u901f\u7684\u6642\u9593\u9031\u671f\u3002",
+                    "name": "\u6642\u9593\u9031\u671f"
+                }
+            },
+            "name": "\u52a0\u901f\u52a0\u71b1\u958b\u555f"
+        },
+        "boost_hot_water": {
+            "description": "\u8a2d\u5b9a\u52a0\u901f\u6a21\u5f0f\u958b\u555f\u6216\u95dc\u9589\u3001\u5b9a\u7fa9\u52a0\u901f\u6642\u9593\u9031\u671f\u3002",
+            "fields": {
+                "entity_id": {
+                    "description": "\u9078\u64c7\u52a0\u901f entity_id\u3002",
+                    "name": "\u5be6\u9ad4 ID"
+                },
+                "on_off": {
+                    "description": "\u8a2d\u5b9a\u52a0\u901f\u529f\u80fd\u958b\u555f\u6216\u95dc\u9589\u3002",
+                    "name": "\u6a21\u5f0f"
+                },
+                "time_period": {
+                    "description": "\u8a2d\u5b9a\u52a0\u901f\u7684\u6642\u9593\u9031\u671f\u3002",
+                    "name": "\u6642\u9593\u9031\u671f"
+                }
+            },
+            "name": "\u52a0\u901f\u71b1\u6c34"
+        }
+    }
+}

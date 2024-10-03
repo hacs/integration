@@ -1,0 +1,92 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Device is already configured"
+        },
+        "error": {
+            "cannot_connect": "Failed to connect"
+        },
+        "flow_title": "{name}",
+        "step": {
+            "gateway_entry": {
+                "data": {
+                    "ip_address": "IP address",
+                    "port": "Port"
+                },
+                "description": "Enter your ScreenLogic Gateway information.",
+                "title": "ScreenLogic"
+            },
+            "gateway_select": {
+                "data": {
+                    "selected_gateway": "Gateway"
+                },
+                "description": "The following ScreenLogic gateways were discovered. Please select one to configure, or choose to manually configure a ScreenLogic gateway.",
+                "title": "ScreenLogic"
+            }
+        }
+    },
+    "issues": {
+        "service_target_deprecation": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Use of an Area, Device, or Entity as a target for ScreenLogic actions is being deprecated. Instead, use `config_entry` with the entry_id of the desired ScreenLogic integration.\n\nPlease update your automations and scripts and select **submit** to fix this issue.",
+                        "title": "Deprecating target for ScreenLogic actions"
+                    }
+                }
+            },
+            "title": "Deprecating use of target for ScreenLogic actions"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "scan_interval": "Seconds between scans"
+                },
+                "description": "Specify settings for {gateway_name}",
+                "title": "ScreenLogic"
+            }
+        }
+    },
+    "services": {
+        "set_color_mode": {
+            "description": "Sets the color mode for all color-capable lights attached to this ScreenLogic gateway.",
+            "fields": {
+                "color_mode": {
+                    "description": "The ScreenLogic color mode to set.",
+                    "name": "Color Mode"
+                },
+                "config_entry": {
+                    "description": "The config entry to use for this action.",
+                    "name": "Config Entry"
+                }
+            },
+            "name": "Set Color Mode"
+        },
+        "start_super_chlorination": {
+            "description": "Begins super chlorination, running for the specified period or 24 hours if none is specified.",
+            "fields": {
+                "config_entry": {
+                    "description": "The config entry to use for this action.",
+                    "name": "Config Entry"
+                },
+                "runtime": {
+                    "description": "Number of hours for super chlorination to run.",
+                    "name": "Run Time"
+                }
+            },
+            "name": "Start Super Chlorination"
+        },
+        "stop_super_chlorination": {
+            "description": "Stops super chlorination.",
+            "fields": {
+                "config_entry": {
+                    "description": "The config entry to use for this action.",
+                    "name": "Config Entry"
+                }
+            },
+            "name": "Stop Super Chlorination"
+        }
+    }
+}

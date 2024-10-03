@@ -1,0 +1,413 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "\uae30\uae30\uac00 \uc774\ubbf8 \uad6c\uc131\ub418\uc5c8\uc2b5\ub2c8\ub2e4"
+        },
+        "error": {
+            "unknown": "\uc608\uc0c1\uce58 \ubabb\ud55c \uc624\ub958\uac00 \ubc1c\uc0dd\ud588\uc2b5\ub2c8\ub2e4"
+        },
+        "step": {
+            "ups": {
+                "data": {
+                    "alias": "\ubcc4\uba85"
+                },
+                "title": "\ubaa8\ub2c8\ud130\ub9c1\ud560 UPS \uc120\ud0dd\ud558\uae30"
+            },
+            "user": {
+                "data": {
+                    "host": "\ud638\uc2a4\ud2b8",
+                    "password": "\uc554\ud638",
+                    "port": "\ud3ec\ud2b8",
+                    "username": "\uc0ac\uc6a9\uc790 \uc774\ub984"
+                },
+                "data_description": {
+                    "host": "NUT \uc11c\ubc84\uc758 \ud638\uc2a4\ud2b8 \uc774\ub984 \ub610\ub294 IP \uc8fc\uc18c"
+                },
+                "description": "NUT \uc11c\ubc84\uc5d0 \uc5f0\uacb0\ud558\uae30",
+                "title": "NUT \uc11c\ubc84\uc5d0 \uc5f0\uacb0\ud558\uae30"
+            }
+        }
+    },
+    "device_automation": {
+        "action_type": {
+            "beeper_disable": "UPS \uc2e0\ud638\uc74c/\ubd80\uc800 \ube44\ud65c\uc131\ud654",
+            "beeper_enable": "UPS \uc2e0\ud638\uc74c/\ubd80\uc800 \ud65c\uc131\ud654",
+            "beeper_mute": "UPS \uc2e0\ud638\uc74c/\ubd80\uc800\ub97c \uc77c\uc2dc\uc801\uc73c\ub85c \uc74c\uc18c\uac70",
+            "beeper_toggle": "UPS \uc2e0\ud638\uc74c/\ubd80\uc800 \uc804\ud658",
+            "bypass_start": "UPS\ub97c \ubc14\uc774\ud328\uc2a4 \ubaa8\ub4dc\ub85c \uc804\ud658\ud569\ub2c8\ub2e4.",
+            "bypass_stop": "UPS\ub97c \ubc14\uc774\ud328\uc2a4 \ubaa8\ub4dc\uc5d0\uc11c \ud574\uc81c\ud569\ub2c8\ub2e4.",
+            "calibrate_start": "\ub7f0\ud0c0\uc784 \ubcf4\uc815 \uc2dc\uc791",
+            "calibrate_stop": "\ub7f0\ud0c0\uc784 \ubcf4\uc815 \uc911\uc9c0",
+            "load_off": "\ubd80\ud558\ub97c \uc989\uc2dc \ub044\uc2ed\uc2dc\uc624.",
+            "load_on": "\ubd80\ud558\ub97c \uc989\uc2dc \ucf1c\uc2ed\uc2dc\uc624.",
+            "reset_input_minmax": "\ucd5c\uc18c \ubc0f \ucd5c\ub300 \uc785\ub825 \uc804\uc555 \uc0c1\ud0dc \uc7ac\uc124\uc815",
+            "reset_watchdog": "\uc6cc\uce58\ub3c5 \ud0c0\uc774\uba38 \uc7ac\uc124\uc815 (\ubd80\ud558 \uac15\uc81c \uc7ac\ubd80\ud305)",
+            "shutdown_reboot": "UPS\ub97c \uc7ac\ubd80\ud305\ud558\ub294 \ub3d9\uc548 \ubd80\ud558\ub97c \uc7a0\uc2dc \uc885\ub8cc\ud569\ub2c8\ub2e4.",
+            "shutdown_reboot_graceful": "\uc9c0\uc5f0 \ud6c4 UPS\ub97c \uc7ac\ubd80\ud305\ud558\ub294 \ub3d9\uc548 \ubd80\ud558\ub97c \uc7a0\uc2dc \uc885\ub8cc\ud558\uc2ed\uc2dc\uc624.",
+            "shutdown_return": "\uc9c0\uc5f0 \ud6c4 \uac00\ub2a5\ud558\uba74 \ubd80\ud558\ub97c \ub044\uace0 \uc804\uc6d0\uc774 \ub2e4\uc2dc \ub4e4\uc5b4\uc624\uba74 \ubcf5\uadc0\ud569\ub2c8\ub2e4.",
+            "shutdown_stayoff": "\uc9c0\uc5f0 \ud6c4 \uac00\ub2a5\ud558\uba74 \ubd80\ud558\ub97c \ub044\uace0 \uc804\uc6d0\uc774 \ubcf5\uad6c\ub418\ub354\ub77c\ub3c4 \uaebc\uc9c4 \uc0c1\ud0dc\ub97c \uc720\uc9c0\ud569\ub2c8\ub2e4.",
+            "shutdown_stop": "\uc9c4\ud589 \uc911\uc778 \uc885\ub8cc \uc911\uc9c0",
+            "test_battery_start": "\ubc30\ud130\ub9ac \ud14c\uc2a4\ud2b8 \uc2dc\uc791",
+            "test_battery_start_deep": "\uc2ec\uce35 \ubc30\ud130\ub9ac \ud14c\uc2a4\ud2b8 \uc2dc\uc791",
+            "test_battery_start_quick": "\ube60\ub978 \ubc30\ud130\ub9ac \ud14c\uc2a4\ud2b8 \uc2dc\uc791",
+            "test_battery_stop": "\ubc30\ud130\ub9ac \ud14c\uc2a4\ud2b8 \uc911\uc9c0",
+            "test_failure_start": "\uc815\uc804 \uc2dc\ubbac\ub808\uc774\uc158 \uc2dc\uc791",
+            "test_failure_stop": "\uc815\uc804 \uc2dc\ubbac\ub808\uc774\uc158 \uc911\uc9c0",
+            "test_panel_start": "UPS \ud328\ub110 \ud14c\uc2a4\ud2b8 \uc2dc\uc791",
+            "test_panel_stop": "UPS \ud328\ub110 \ud14c\uc2a4\ud2b8 \uc911\uc9c0",
+            "test_system_start": "\uc2dc\uc2a4\ud15c \ud14c\uc2a4\ud2b8 \uc2dc\uc791"
+        }
+    },
+    "entity": {
+        "sensor": {
+            "ambient_humidity": {
+                "name": "\uc8fc\ubcc0 \uc2b5\ub3c4"
+            },
+            "ambient_temperature": {
+                "name": "\uc8fc\ubcc0 \uc628\ub3c4"
+            },
+            "battery_alarm_threshold": {
+                "name": "\ubc30\ud130\ub9ac \uacbd\ubcf4 \uc784\uacc4\uac12"
+            },
+            "battery_capacity": {
+                "name": "\ubc30\ud130\ub9ac \uc6a9\ub7c9"
+            },
+            "battery_charge": {
+                "name": "\ubc30\ud130\ub9ac \ucda9\uc804"
+            },
+            "battery_charge_low": {
+                "name": "\ubc30\ud130\ub9ac \ubd80\uc871 \uc124\uc815\uac12"
+            },
+            "battery_charge_restart": {
+                "name": "\uc2dc\uc791\ud558\uae30 \uc704\ud55c \ucd5c\uc18c \ubc30\ud130\ub9ac"
+            },
+            "battery_charge_warning": {
+                "name": "\uacbd\uace0 \ubc30\ud130\ub9ac \uc124\uc815\uac12"
+            },
+            "battery_charger_status": {
+                "name": "\ucda9\uc804 \uc0c1\ud0dc"
+            },
+            "battery_current": {
+                "name": "\ubc30\ud130\ub9ac \uc804\ub958"
+            },
+            "battery_current_total": {
+                "name": "\ucd1d \ubc30\ud130\ub9ac \uc804\ub958"
+            },
+            "battery_date": {
+                "name": "\ubc30\ud130\ub9ac \ub0a0\uc9dc"
+            },
+            "battery_mfr_date": {
+                "name": "\ubc30\ud130\ub9ac \uc81c\uc870 \ub0a0\uc9dc"
+            },
+            "battery_packs": {
+                "name": "\ubc30\ud130\ub9ac \uac1c\uc218"
+            },
+            "battery_packs_bad": {
+                "name": "\ubd88\ub7c9 \ubc30\ud130\ub9ac \uac1c\uc218"
+            },
+            "battery_runtime": {
+                "name": "\ubc30\ud130\ub9ac \ub7f0\ud0c0\uc784"
+            },
+            "battery_runtime_low": {
+                "name": "\ub0ae\uc740 \ubc30\ud130\ub9ac \ub7f0\ud0c0\uc784"
+            },
+            "battery_runtime_restart": {
+                "name": "\uc2dc\uc791\ud558\uae30 \uc704\ud55c \ucd5c\uc18c \ubc30\ud130\ub9ac \uc0ac\uc6a9 \uc2dc\uac04"
+            },
+            "battery_temperature": {
+                "name": "\ubc30\ud130\ub9ac \uc628\ub3c4"
+            },
+            "battery_type": {
+                "name": "\ubc30\ud130\ub9ac \ud654\ud559"
+            },
+            "battery_voltage": {
+                "name": "\ubc30\ud130\ub9ac \uc804\uc555"
+            },
+            "battery_voltage_high": {
+                "name": "\ub192\uc740 \ubc30\ud130\ub9ac \uc804\uc555"
+            },
+            "battery_voltage_low": {
+                "name": "\ubc30\ud130\ub9ac \uc804\uc555 \ubd80\uc871"
+            },
+            "battery_voltage_nominal": {
+                "name": "\uacf5\uce6d \ubc30\ud130\ub9ac \uc804\uc555"
+            },
+            "input_bypass_current": {
+                "name": "\uc785\ub825 \ubc14\uc774\ud328\uc2a4 \uc804\ub958"
+            },
+            "input_bypass_frequency": {
+                "name": "\uc785\ub825 \ubc14\uc774\ud328\uc2a4 \uc8fc\ud30c\uc218"
+            },
+            "input_bypass_l1_current": {
+                "name": "\uc785\ub825 \ubc14\uc774\ud328\uc2a4 L1 \uc804\ub958"
+            },
+            "input_bypass_l1_n_voltage": {
+                "name": "\uc785\ub825 \ubc14\uc774\ud328\uc2a4 L1-N \uc804\uc555"
+            },
+            "input_bypass_l1_realpower": {
+                "name": "\uc804\ub958 \uc785\ub825 \ubc14\uc774\ud328\uc2a4 L1 \uc720\ud6a8 \uc804\ub825"
+            },
+            "input_bypass_l2_current": {
+                "name": "\uc785\ub825 \ubc14\uc774\ud328\uc2a4 L2 \uc804\ub958"
+            },
+            "input_bypass_l2_n_voltage": {
+                "name": "\uc785\ub825 \ubc14\uc774\ud328\uc2a4 L2-N \uc804\uc555"
+            },
+            "input_bypass_l2_realpower": {
+                "name": "\uc804\ub958 \uc785\ub825 \ubc14\uc774\ud328\uc2a4 L2 \uc720\ud6a8 \uc804\ub825"
+            },
+            "input_bypass_l3_current": {
+                "name": "\uc785\ub825 \ubc14\uc774\ud328\uc2a4 L3 \uc804\ub958"
+            },
+            "input_bypass_l3_n_voltage": {
+                "name": "\uc785\ub825 \ubc14\uc774\ud328\uc2a4 L3-N \uc804\uc555"
+            },
+            "input_bypass_l3_realpower": {
+                "name": "\uc804\ub958 \uc785\ub825 \ubc14\uc774\ud328\uc2a4 L3 \uc720\ud6a8 \uc804\ub825"
+            },
+            "input_bypass_phases": {
+                "name": "\uc785\ub825 \ubc14\uc774\ud328\uc2a4 \ub2e8\uacc4"
+            },
+            "input_bypass_realpower": {
+                "name": "\uc804\ub958 \uc785\ub825 \ubc14\uc774\ud328\uc2a4 \uc720\ud6a8 \uc804\ub825"
+            },
+            "input_bypass_voltage": {
+                "name": "\uc785\ub825 \ubc14\uc774\ud328\uc2a4 \uc804\uc555"
+            },
+            "input_current": {
+                "name": "\uc785\ub825 \uc804\ub958"
+            },
+            "input_frequency_status": {
+                "name": "\uc785\ub825 \uc8fc\ud30c\uc218 \uc0c1\ud0dc"
+            },
+            "input_l1_current": {
+                "name": "\uc785\ub825 L1 \uc804\ub958"
+            },
+            "input_l1_frequency": {
+                "name": "\uc785\ub825 L1 \ub77c\uc778 \uc8fc\ud30c\uc218"
+            },
+            "input_l1_n_voltage": {
+                "name": "\uc785\ub825 L1 \uc804\uc555"
+            },
+            "input_l1_realpower": {
+                "name": "\uc804\ub958 \uc785\ub825 L1 \uc720\ud6a8 \uc804\ub825"
+            },
+            "input_l2_current": {
+                "name": "\uc785\ub825 L2 \uc804\ub958"
+            },
+            "input_l2_frequency": {
+                "name": "\uc785\ub825 L2 \ub77c\uc778 \uc8fc\ud30c\uc218"
+            },
+            "input_l2_n_voltage": {
+                "name": "\uc785\ub825 L2 \uc804\uc555"
+            },
+            "input_l2_realpower": {
+                "name": "\uc804\ub958 \uc785\ub825 L2 \uc720\ud6a8 \uc804\ub825"
+            },
+            "input_l3_current": {
+                "name": "\uc785\ub825 L3 \uc804\ub958"
+            },
+            "input_l3_frequency": {
+                "name": "\uc785\ub825 L3 \ub77c\uc778 \uc8fc\ud30c\uc218"
+            },
+            "input_l3_n_voltage": {
+                "name": "\uc785\ub825 L3 \uc804\uc555"
+            },
+            "input_l3_realpower": {
+                "name": "\uc804\ub958 \uc785\ub825 L3 \uc720\ud6a8 \uc804\ub825"
+            },
+            "input_phases": {
+                "name": "\uc785\ub825 \ub2e8\uacc4"
+            },
+            "input_realpower": {
+                "name": "\ud604\uc7ac \uc785\ub825 \uc720\ud6a8 \uc804\ub825"
+            },
+            "input_sensitivity": {
+                "name": "\uc785\ub825 \uc804\ub825 \uac10\ub3c4"
+            },
+            "input_transfer_high": {
+                "name": "\uace0\uc804\uc555 \uc804\uc1a1"
+            },
+            "input_transfer_low": {
+                "name": "\uc800\uc804\uc555 \uc804\uc1a1"
+            },
+            "input_transfer_reason": {
+                "name": "\uc804\uc555 \uc804\uc1a1 \uc774\uc720"
+            },
+            "input_voltage": {
+                "name": "\uc785\ub825 \uc804\uc555"
+            },
+            "input_voltage_nominal": {
+                "name": "\uacf5\uce6d \uc785\ub825 \uc804\uc555"
+            },
+            "output_current": {
+                "name": "\ucd9c\ub825 \uc804\ub958"
+            },
+            "output_current_nominal": {
+                "name": "\uacf5\uce6d \ucd9c\ub825 \uc804\ub958"
+            },
+            "output_frequency": {
+                "name": "\ucd9c\ub825 \uc8fc\ud30c\uc218"
+            },
+            "output_frequency_nominal": {
+                "name": "\uacf5\uce6d \ucd9c\ub825 \uc8fc\ud30c\uc218"
+            },
+            "output_l1_current": {
+                "name": "\ucd9c\ub825 L1 \uc804\ub958"
+            },
+            "output_l1_n_voltage": {
+                "name": "\ucd9c\ub825 L1-N \uc804\uc555"
+            },
+            "output_l1_power_percent": {
+                "name": "\ucd9c\ub825 L1 \uc804\ub825 \uc0ac\uc6a9\ub7c9"
+            },
+            "output_l1_realpower": {
+                "name": "\uc804\ub958 \ucd9c\ub825 L1 \uc720\ud6a8 \uc804\ub825"
+            },
+            "output_l2_current": {
+                "name": "\ucd9c\ub825 L2 \uc804\ub958"
+            },
+            "output_l2_n_voltage": {
+                "name": "\ucd9c\ub825 L2-N \uc804\uc555"
+            },
+            "output_l2_power_percent": {
+                "name": "\ucd9c\ub825 L2 \uc804\ub825 \uc0ac\uc6a9\ub7c9"
+            },
+            "output_l2_realpower": {
+                "name": "\uc804\ub958 \ucd9c\ub825 L2 \uc720\ud6a8 \uc804\ub825"
+            },
+            "output_l3_current": {
+                "name": "\ucd9c\ub825 L3 \uc804\ub958"
+            },
+            "output_l3_n_voltage": {
+                "name": "\ucd9c\ub825 L3-N \uc804\uc555"
+            },
+            "output_l3_power_percent": {
+                "name": "\ucd9c\ub825 L3 \uc804\ub825 \uc0ac\uc6a9\ub7c9"
+            },
+            "output_l3_realpower": {
+                "name": "\uc804\ub958 \ucd9c\ub825 L3 \uc720\ud6a8 \uc804\ub825"
+            },
+            "output_phases": {
+                "name": "\ucd9c\ub825 \uc704\uc0c1"
+            },
+            "output_power": {
+                "name": "\ucd9c\ub825 \ud53c\uc0c1 \uc804\ub825"
+            },
+            "output_power_nominal": {
+                "name": "\uacf5\uce6d \ucd9c\ub825 \uc804\ub825"
+            },
+            "output_realpower": {
+                "name": "\ud604\uc7ac \ucd9c\ub825 \uc2e4\uc81c \uc804\ub825"
+            },
+            "output_realpower_nominal": {
+                "name": "\uacf5\uce6d \ucd9c\ub825 \uc2e4\uc81c \uc804\ub825"
+            },
+            "output_voltage": {
+                "name": "\ucd9c\ub825 \uc804\uc555"
+            },
+            "output_voltage_nominal": {
+                "name": "\uacf5\uce6d \ucd9c\ub825 \uc804\uc555"
+            },
+            "ups_alarm": {
+                "name": "\uacbd\ubcf4"
+            },
+            "ups_beeper_status": {
+                "name": "\uc2e0\ud638\uc74c \uc0c1\ud0dc"
+            },
+            "ups_contacts": {
+                "name": "\uc678\ubd80 \uc5f0\ub77d\ucc98"
+            },
+            "ups_delay_reboot": {
+                "name": "UPS \uc7ac\ubd80\ud305 \uc9c0\uc5f0"
+            },
+            "ups_delay_shutdown": {
+                "name": "UPS \uc885\ub8cc \uc9c0\uc5f0"
+            },
+            "ups_delay_start": {
+                "name": "\ub85c\ub4dc \uc7ac\uc2dc\uc791 \uc9c0\uc5f0"
+            },
+            "ups_efficiency": {
+                "name": "\ud6a8\uc728\uc131"
+            },
+            "ups_id": {
+                "name": "\uc2dc\uc2a4\ud15c \uc2dd\ubcc4\uc790"
+            },
+            "ups_load": {
+                "name": "\ubd80\ud558"
+            },
+            "ups_load_high": {
+                "name": "\uacfc\ubd80\ud558 \uc124\uc815"
+            },
+            "ups_power": {
+                "name": "\ud604\uc7ac \ud53c\uc0c1 \uc804\ub825"
+            },
+            "ups_power_nominal": {
+                "name": "\uacf5\uce6d \uc804\ub825"
+            },
+            "ups_realpower": {
+                "name": "\ud604\uc7ac \uc2e4\uc81c \uc804\ub825"
+            },
+            "ups_realpower_nominal": {
+                "name": "\uacf5\uce6d \uc2e4\uc81c \uc804\ub825"
+            },
+            "ups_shutdown": {
+                "name": "\uc885\ub8cc \ub2a5\ub825"
+            },
+            "ups_start_auto": {
+                "name": "AC\uc5d0\uc11c \uc2dc\uc791"
+            },
+            "ups_start_battery": {
+                "name": "\ubc30\ud130\ub9ac\ub85c \uc2dc\uc791"
+            },
+            "ups_start_reboot": {
+                "name": "\ubc30\ud130\ub9ac\ub85c \uc7ac\ubd80\ud305"
+            },
+            "ups_status": {
+                "name": "\uc0c1\ud0dc \ub370\uc774\ud130"
+            },
+            "ups_status_display": {
+                "name": "\uc0c1\ud0dc"
+            },
+            "ups_temperature": {
+                "name": "UPS \uc628\ub3c4"
+            },
+            "ups_test_date": {
+                "name": "\uc790\uccb4 \ud14c\uc2a4\ud2b8 \ub0a0\uc9dc"
+            },
+            "ups_test_interval": {
+                "name": "\uc790\uccb4 \ud14c\uc2a4\ud2b8 \uac04\uaca9"
+            },
+            "ups_test_result": {
+                "name": "\uc790\uccb4 \ud14c\uc2a4\ud2b8 \uacb0\uacfc"
+            },
+            "ups_timer_reboot": {
+                "name": "\ub85c\ub4dc \uc7ac\ubd80\ud305 \ud0c0\uc774\uba38"
+            },
+            "ups_timer_shutdown": {
+                "name": "\ub85c\ub4dc \uc885\ub8cc \ud0c0\uc774\uba38"
+            },
+            "ups_timer_start": {
+                "name": "\ub85c\ub4dc \uc2dc\uc791 \ud0c0\uc774\uba38"
+            },
+            "ups_type": {
+                "name": "UPS \uc720\ud615"
+            },
+            "ups_watchdog_status": {
+                "name": "\uac10\uc2dc \uc0c1\ud0dc"
+            },
+            "watts": {
+                "name": "\uc640\ud2b8"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "scan_interval": "\uc2a4\uce94 \uac04\uaca9 (\ucd08)"
+                }
+            }
+        }
+    }
+}

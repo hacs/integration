@@ -1,0 +1,98 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "\u88dd\u7f6e\u5df2\u7d93\u8a2d\u5b9a\u5b8c\u6210",
+            "cannot_connect": "\u9023\u7dda\u5931\u6557",
+            "invalid_auth": "\u8eab\u4efd\u9a57\u8b49\u7121\u6548",
+            "no_uuid": "Kodi \u5be6\u4f8b\u6c92\u6709\u552f\u4e00 ID\u3002\u901a\u5e38\u662f\u56e0\u70ba Kodi \u7248\u672c\u904e\u820a\uff08\u4f4e\u65bc 17.x\uff09\u3002\u53ef\u4ee5\u624b\u52d5\u8a2d\u5b9a\u6574\u5408\u6216\u66f4\u65b0\u81f3\u6700\u65b0\u7248\u672c Kodi\u3002",
+            "unknown": "\u672a\u9810\u671f\u932f\u8aa4"
+        },
+        "error": {
+            "cannot_connect": "\u9023\u7dda\u5931\u6557",
+            "invalid_auth": "\u8eab\u4efd\u9a57\u8b49\u7121\u6548",
+            "unknown": "\u672a\u9810\u671f\u932f\u8aa4"
+        },
+        "flow_title": "{name}",
+        "step": {
+            "credentials": {
+                "data": {
+                    "password": "\u5bc6\u78bc",
+                    "username": "\u4f7f\u7528\u8005\u540d\u7a31"
+                },
+                "description": "\u8acb\u8f38\u5165 Kodi \u4f7f\u7528\u8005\u540d\u7a31\u8207\u5bc6\u78bc\uff0c\u53ef\u4ee5\u65bc\u300c\u7cfb\u7d71/\u8a2d\u5b9a/\u7db2\u8def/\u670d\u52d9\u300d\u4e2d\u627e\u5230\u3002"
+            },
+            "discovery_confirm": {
+                "description": "\u662f\u5426\u8981\u65b0\u589e Kodi (`{name}`) \u81f3 Home Assistant\uff1f",
+                "title": "\u81ea\u52d5\u641c\u7d22\u5230\u7684 Kodi"
+            },
+            "user": {
+                "data": {
+                    "host": "\u4e3b\u6a5f\u7aef",
+                    "port": "\u901a\u8a0a\u57e0",
+                    "ssl": "\u4f7f\u7528 SSL \u8a8d\u8b49"
+                },
+                "data_description": {
+                    "host": "Kodi  \u4f3a\u670d\u5668\u4e3b\u6a5f\u7cfb\u7d71\u4e4b\u4e3b\u6a5f\u540d\u7a31\u6216 IP \u4f4d\u5740\u3002"
+                },
+                "description": "Kodi \u9023\u7dda\u8cc7\u8a0a\uff0c\u8acb\u78ba\u5b9a\u5df2\u65bc\u300c\u7cfb\u7d71/\u8a2d\u5b9a/\u7db2\u8def/\u670d\u52d9\u300d\u4e2d\u958b\u555f \"\u5141\u8a31\u900f\u904e HTTP \u63a7\u5236 Kodi\"\u3002"
+            },
+            "ws_port": {
+                "data": {
+                    "ws_port": "\u901a\u8a0a\u57e0"
+                },
+                "description": "WebSocket \u901a\u8a0a\u57e0\uff08Kodi \u6709\u6642\u5019\u7a31\u4e4b\u70ba TCP \u57e0\uff09\u3002\u6b32\u900f\u904e WebSocket \u9032\u884c\u9023\u7dda\uff0c\u5fc5\u9808\u5148\u65bc\u300c\u7cfb\u7d71/\u8a2d\u5b9a/\u7db2\u8def/\u670d\u52d9\u300d\u4e2d\u958b\u555f \"\u5141\u8a31\u7a0b\u5f0f ... \u63a7\u5236 Kodi\"\u3002\u5047\u5982 WebSocket \u672a\u958b\u555f\uff0c\u8acb\u79fb\u9664\u901a\u8a0a\u57e0\u8f38\u5165\u3001\u4fdd\u6301\u7a7a\u767d\u3002"
+            }
+        }
+    },
+    "device_automation": {
+        "trigger_type": {
+            "turn_off": "{entity_name}\u5df2\u95dc\u9589",
+            "turn_on": "{entity_name}\u5df2\u958b\u555f"
+        }
+    },
+    "entity": {
+        "media_player": {
+            "media_player": {
+                "state_attributes": {
+                    "dynamic_range": {
+                        "name": "\u52d5\u614b\u7bc4\u570d"
+                    }
+                }
+            }
+        }
+    },
+    "services": {
+        "add_to_playlist": {
+            "description": "\u65b0\u589e\u97f3\u6a02\u81f3\u9810\u8a2d\u64ad\u653e\u5217\u8868\uff08\u4f8b\u5982\uff1aplaylistid=0\uff09\u3002",
+            "fields": {
+                "artist_name": {
+                    "description": "\u7528\u65bc\u7be9\u9078\u5a92\u9ad4\u7684\u9078\u9805\u6f14\u5531\u8005\u540d\u5b57\u3002",
+                    "name": "\u6f14\u5531\u8005\u540d\u5b57"
+                },
+                "media_id": {
+                    "description": "\u8981\u65b0\u589e\u5a92\u9ad4\u689d\u76ee\u7684\u552f\u4e00 Id (`songid` \u6216 albumid`)\u3002\u5047\u5982\u672a\u5b9a\u7fa9\u3001\u5247\u9700\u8981 `media_name` \u548c `artist_name` \u4ee5\u641c\u5c0b Kodi \u97f3\u6a02\u8cc7\u6599\u5eab\u3002",
+                    "name": "\u5a92\u9ad4 ID"
+                },
+                "media_name": {
+                    "description": "\u7528\u65bc\u7be9\u9078\u5a92\u9ad4\u7684\u9078\u9805\u5a92\u9ad4\u540d\u7a31\u3002\u7576 `media_type`\u70ba 'ALBUM' \u4e14\u6307\u5b9a `artist_name` \u6642\u3001\u53ef\u4ee5\u70ba 'ALL'\u3001\u4ee5\u65b0\u589e\u4f86\u81ea\u67d0\u4f4d\u6f14\u5531\u8005\u7684\u6240\u6709\u6b4c\u66f2\u3002",
+                    "name": "\u5a92\u9ad4\u540d\u7a31"
+                },
+                "media_type": {
+                    "description": "\u5a92\u9ad4\u985e\u578b\u8b58\u5225\u3002\u5fc5\u9808\u70ba SONG \u6b4c\u66f2\u6216 ALBUM \u5c08\u8f2f\u4e4b\u4e00\u3002",
+                    "name": "\u5a92\u9ad4\u985e\u578b"
+                }
+            },
+            "name": "\u65b0\u589e\u81f3\u64ad\u653e\u5217\u8868"
+        },
+        "call_method": {
+            "description": "\u4f7f\u7528\u9078\u9805\u53c3\u6578\u547c\u53eb Kodi JSONRPC API \u65b9\u5f0f\u3002Kodi API \u7684\u547c\u53eb\u7d50\u679c\u5c07\u6703\u65bc Home Assistant \u4e8b\u4ef6\u4e2d\u91cd\u5b9a\u5411\u81f3\uff1a`kodi_call_method_result`\u3002",
+            "fields": {
+                "method": {
+                    "description": "\u547c\u53eb Kodi JSONRPC API \u65b9\u5f0f\u540d\u7a31\u3002",
+                    "name": "\u65b9\u5f0f"
+                }
+            },
+            "name": "\u547c\u53eb\u65b9\u5f0f"
+        }
+    }
+}

@@ -1,0 +1,86 @@
+{
+    "device_automation": {
+        "action_type": {
+            "select_first": "{entity_name} ilk se\u00e7ene\u011fe de\u011fi\u015ftirin",
+            "select_last": "{entity_name} \u00f6\u011fesini son se\u00e7ene\u011fe de\u011fi\u015ftirin",
+            "select_next": "{entity_name} \u00f6\u011fesini sonraki se\u00e7ene\u011fe de\u011fi\u015ftir",
+            "select_option": "{entity_name} se\u00e7ene\u011fini de\u011fi\u015ftirin",
+            "select_previous": "{entity_name} \u00f6nceki se\u00e7ene\u011fe de\u011fi\u015ftir"
+        },
+        "condition_type": {
+            "selected_option": "Ge\u00e7erli {entity_name} se\u00e7ili se\u00e7enek"
+        },
+        "extra_fields": {
+            "cycle": "D\u00f6ng\u00fc",
+            "for": "S\u00fcre",
+            "from": "Kaynak",
+            "option": "Se\u00e7enek",
+            "to": "i\u00e7in"
+        },
+        "trigger_type": {
+            "current_option_changed": "{entity_name} se\u00e7ene\u011fi de\u011fi\u015fti"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Se\u00e7",
+            "state_attributes": {
+                "options": {
+                    "name": "Se\u00e7enekler"
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "not_valid_option": {
+            "message": "{option} se\u00e7ene\u011fi, {entity_id} varl\u0131\u011f\u0131 i\u00e7in ge\u00e7erli de\u011fil, ge\u00e7erli se\u00e7enekler \u015funlard\u0131r: {options} ."
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "{domain} entegrasyonu i\u00e7in {platform} platformu, platform kurulumunu desteklemiyor. \n\n L\u00fctfen yap\u0131land\u0131rman\u0131zdan kald\u0131r\u0131n ve bu sorunu \u00e7\u00f6zmek i\u00e7in Home Assistant'\u0131 yeniden ba\u015flat\u0131n.",
+            "title": "Platform deste\u011fi desteklenmiyor"
+        }
+    },
+    "services": {
+        "select_first": {
+            "description": "\u0130lk se\u00e7ene\u011fi se\u00e7er.",
+            "name": "Birinci"
+        },
+        "select_last": {
+            "description": "Son se\u00e7ene\u011fi se\u00e7er.",
+            "name": "En son"
+        },
+        "select_next": {
+            "description": "Sonraki se\u00e7ene\u011fi se\u00e7er.",
+            "fields": {
+                "cycle": {
+                    "description": "Se\u00e7ene\u011fin sondan ba\u015fa do\u011fru d\u00f6nmesi gerekiyorsa.",
+                    "name": "D\u00f6ng\u00fc"
+                }
+            },
+            "name": "Sonraki"
+        },
+        "select_option": {
+            "description": "Bir se\u00e7enek se\u00e7er.",
+            "fields": {
+                "option": {
+                    "description": "Se\u00e7ilecek se\u00e7enek.",
+                    "name": "Se\u00e7enek"
+                }
+            },
+            "name": "Se\u00e7"
+        },
+        "select_previous": {
+            "description": "\u00d6nceki se\u00e7ene\u011fi se\u00e7er.",
+            "fields": {
+                "cycle": {
+                    "description": "Se\u00e7enek ilkinden sonuncusuna do\u011fru d\u00f6ng\u00fc yapmal\u0131d\u0131r.",
+                    "name": "D\u00f6ng\u00fc"
+                }
+            },
+            "name": "\u00d6nceki"
+        }
+    },
+    "title": "Se\u00e7"
+}

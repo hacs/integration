@@ -1,0 +1,87 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "\u8bbe\u5907\u5df2\u914d\u7f6e",
+            "success": "\u4fee\u6539\u5df2\u4fdd\u5b58"
+        },
+        "flow_title": "\u63a5\u8fd1",
+        "step": {
+            "user": {
+                "data": {
+                    "ignored_zones": "\u8981\u5ffd\u7565\u7684\u533a\u57df",
+                    "tolerance": "\u516c\u5dee\u8ddd\u79bb",
+                    "tracked_entities": "\u8981\u8ddf\u8e2a\u7684\u8bbe\u5907\u6216\u4eba\u5458",
+                    "zone": "\u8981\u8ddf\u8e2a\u8ddd\u79bb\u7684\u533a\u57df"
+                }
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "dir_of_travel": {
+                "name": "{tracked_entity}\u884c\u8fdb\u65b9\u5411",
+                "state": {
+                    "arrived": "\u5df2\u5230\u8fbe",
+                    "away_from": "\u79bb\u5f00",
+                    "stationary": "\u9759\u6b62",
+                    "towards": "\u524d\u5f80"
+                }
+            },
+            "dist_to_zone": {
+                "name": "{tracked_entity}\u8ddd\u79bb"
+            },
+            "nearest": {
+                "name": "\u6700\u8fd1\u7684\u8bbe\u5907"
+            },
+            "nearest_dir_of_travel": {
+                "name": "\u51fa\u884c\u7684\u6700\u8fd1\u65b9\u5411",
+                "state": {
+                    "arrived": "\u5df2\u5230\u8fbe",
+                    "away_from": "\u79bb\u5f00",
+                    "stationary": "\u9759\u6b62",
+                    "towards": "\u524d\u5f80"
+                }
+            },
+            "nearest_dist_to_zone": {
+                "name": "\u6700\u8fd1\u8ddd\u79bb"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_proximity_entity": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "\u63a5\u8fd1\u5b9e\u4f53\u201c{entity}\u201d\u5df2\u5f03\u7528\uff0c\u5e76\u5c06\u5728 2024.8 \u4e2d\u79fb\u9664\u3002\u4f46\u5b83\u53ef\u5728\u4ee5\u4e0b\u914d\u7f6e\u4e2d\u4f7f\u7528\uff1a\n - {used_in} \n\n\u8bf7\u8c03\u6574\u4f7f\u7528\u6b64\u5f03\u7528\u7684\u63a5\u8fd1\u5b9e\u4f53\u7684\u4efb\u4f55\u81ea\u52a8\u5316\u6216\u811a\u672c\u3002\n\u5bf9\u4e8e\u6bcf\u4e2a\u88ab\u8ddf\u8e2a\u7684\u4eba\u5458\u6216\u8bbe\u5907\uff0c\u90fd\u4f1a\u521b\u5efa\u4e00\u4e2a\u4f20\u611f\u5668\uff0c\u7528\u4e8e\u6d4b\u91cf\u5f80\u8fd4\u4e8e\u76d1\u63a7\u533a\u57df\u7684\u8ddd\u79bb\u548c\u884c\u8fdb\u65b9\u5411\u3002\u6b64\u5916\uff0c\u5bf9\u4e8e\u6bcf\u4e2a\u63a5\u8fd1\u914d\u7f6e\uff0c\u90fd\u4f1a\u521b\u5efa\u4e00\u4e2a\u4f20\u611f\u5668\uff0c\u7528\u4e8e\u663e\u793a\u8ddd\u79bb\u76d1\u63a7\u533a\u57df\u6700\u8fd1\u7684\u8bbe\u5907\u6216\u4eba\u5458\u3002\u901a\u8fc7\u8fd9\u4e2a\uff0c\u60a8\u53ef\u4ee5\u4f7f\u7528\u6700\u5c0f/\u6700\u5927\u96c6\u6210\u6765\u786e\u5b9a\u6700\u8fd1\u548c\u6700\u8fdc\u7684\u8ddd\u79bb\u3002",
+                        "title": "\u63a5\u8fd1\u5b9e\u4f53\u5df2\u5f03\u7528"
+                    }
+                }
+            },
+            "title": "\u63a5\u8fd1\u5b9e\u4f53\u5df2\u5f03\u7528"
+        },
+        "tracked_entity_removed": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "\u5b9e\u4f53\u201c{entity_id}\u201d\u5df2\u4ece HA \u4e2d\u79fb\u9664\uff0c\u4f46\u5728\u63a5\u8fd1{name}\u4e2d\u4f7f\u7528\u3002\u8bf7\u4ece\u8ddf\u8e2a\u5b9e\u4f53\u5217\u8868\u4e2d\u79fb\u9664\u201c{entity_id}\u201d\u3002\u76f8\u5173\u63a5\u8fd1\u4f20\u611f\u5668\u5b9e\u4f53\u5df2\u8bbe\u7f6e\u4e3a\u4e0d\u53ef\u7528\uff0c\u53ef\u4ee5\u79fb\u9664\u3002",
+                        "title": "\u8ddf\u8e2a\u5b9e\u4f53\u5df2\u88ab\u79fb\u9664"
+                    }
+                }
+            },
+            "title": "\u8ddf\u8e2a\u5b9e\u4f53\u5df2\u88ab\u79fb\u9664"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "ignored_zones": "\u8981\u5ffd\u7565\u7684\u533a\u57df",
+                    "tolerance": "\u516c\u5dee\u8ddd\u79bb",
+                    "tracked_entities": "\u8981\u8ddf\u8e2a\u7684\u8bbe\u5907\u6216\u4eba\u5458",
+                    "zone": "\u8981\u8ddf\u8e2a\u8ddd\u79bb\u7684\u533a\u57df"
+                }
+            }
+        }
+    },
+    "title": "\u63a5\u8fd1"
+}

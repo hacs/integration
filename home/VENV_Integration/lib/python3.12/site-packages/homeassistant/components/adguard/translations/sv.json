@@ -1,0 +1,135 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Tj\u00e4nsten \u00e4r redan konfigurerad",
+            "existing_instance_updated": "Uppdaterade existerande konfiguration."
+        },
+        "error": {
+            "cannot_connect": "Det gick inte att ansluta."
+        },
+        "step": {
+            "hassio_confirm": {
+                "description": "Vill du konfigurera Home Assistant f\u00f6r att ansluta till AdGuard Home som tillhandah\u00e5lls av Supervisor-till\u00e4gget: {addon}?",
+                "title": "AdGuard Home via Supervisor-till\u00e4gget"
+            },
+            "user": {
+                "data": {
+                    "host": "V\u00e4rd",
+                    "password": "L\u00f6senord",
+                    "port": "Port",
+                    "ssl": "Anv\u00e4nder ett SSL certifikat",
+                    "username": "Anv\u00e4ndarnamn",
+                    "verify_ssl": "Verifiera SSL-certifikat"
+                },
+                "data_description": {
+                    "host": "V\u00e4rdnamnet eller IP-adressen f\u00f6r enheten som k\u00f6r din AdGuard Home."
+                },
+                "description": "St\u00e4ll in din AdGuard Home-instans f\u00f6r att till\u00e5ta \u00f6vervakning och kontroll."
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "average_processing_speed": {
+                "name": "Genomsnittlig bearbetningshastighet"
+            },
+            "dns_queries": {
+                "name": "DNS-fr\u00e5gor"
+            },
+            "dns_queries_blocked": {
+                "name": "DNS-fr\u00e5gor blockerade"
+            },
+            "dns_queries_blocked_ratio": {
+                "name": "Andel blockerade DNS-fr\u00e5gor"
+            },
+            "parental_control_blocked": {
+                "name": "F\u00f6r\u00e4ldrakontroll blockerad"
+            },
+            "rules_count": {
+                "name": "Antal regler"
+            },
+            "safe_browsing_blocked": {
+                "name": "S\u00e4ker surfning blockerad"
+            },
+            "safe_searches_enforced": {
+                "name": "S\u00e4kra s\u00f6kningar till\u00e4mpas"
+            }
+        },
+        "switch": {
+            "filtering": {
+                "name": "Filtrering"
+            },
+            "parental": {
+                "name": "F\u00f6r\u00e4ldrakontroll"
+            },
+            "protection": {
+                "name": "Skydd"
+            },
+            "query_log": {
+                "name": "Logg f\u00f6r f\u00f6rfr\u00e5gningar"
+            },
+            "safe_browsing": {
+                "name": "S\u00e4ker surfning"
+            },
+            "safe_search": {
+                "name": "S\u00e4ker s\u00f6kning"
+            }
+        }
+    },
+    "services": {
+        "add_url": {
+            "description": "L\u00e4gg till en ny filterprenumeration till AdGuard Home.",
+            "fields": {
+                "name": {
+                    "description": "Namnet p\u00e5 filterprenumerationen.",
+                    "name": "Namn"
+                },
+                "url": {
+                    "description": "Den filter-URL som ska prenumereras p\u00e5 och som inneh\u00e5ller filterreglerna.",
+                    "name": "URL"
+                }
+            },
+            "name": "L\u00e4gg till URL"
+        },
+        "disable_url": {
+            "description": "Inaktiverar en filterprenumeration i AdGuard Home.",
+            "fields": {
+                "url": {
+                    "description": "URL f\u00f6r filterprenumeration som ska inaktiveras.",
+                    "name": "URL"
+                }
+            },
+            "name": "Inaktivera URL"
+        },
+        "enable_url": {
+            "description": "Aktiverar en filterprenumeration i AdGuard Home.",
+            "fields": {
+                "url": {
+                    "description": "URL f\u00f6r filterprenumeration som ska aktiveras.",
+                    "name": "URL"
+                }
+            },
+            "name": "Aktivera URL"
+        },
+        "refresh": {
+            "description": "Uppdatera alla filterprenumerationer i AdGuard Home.",
+            "fields": {
+                "force": {
+                    "description": "Tvinga fram uppdatering (kringg\u00e5r begr\u00e4nsningen av AdGuard Home). \"true\" f\u00f6r att tvinga eller \"false\" f\u00f6r att utel\u00e4mna f\u00f6r en regelbunden uppdatering.",
+                    "name": "Tvinga"
+                }
+            },
+            "name": "Uppdatera"
+        },
+        "remove_url": {
+            "description": "Tar bort en filterprenumeration fr\u00e5n AdGuard Home.",
+            "fields": {
+                "url": {
+                    "description": "URL f\u00f6r filterprenumeration som ska tas bort.",
+                    "name": "URL"
+                }
+            },
+            "name": "Ta bort URL"
+        }
+    }
+}

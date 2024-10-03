@@ -1,0 +1,678 @@
+{
+    "issues": {
+        "proxy_params_auth_deprecation": {
+            "description": "Autentiseringsdetaljer f\u00f6r proxyn som konfigurerats i {telegram_bot} integrationen ska flyttas till {proxy_url} ist\u00e4llet. Uppdatera din konfiguration och starta om Home Assistant f\u00f6r att \u00e5tg\u00e4rda problemet.\n\nKonfigurationsnyckeln {proxy_params} kommer att tas bort i en framtida version.",
+            "title": "{telegram_bot} : Proxyautentisering b\u00f6r flyttas till webbadressen"
+        },
+        "proxy_params_deprecation": {
+            "description": "Konfigurationsnyckeln {proxy_params} f\u00f6r integrationen {telegram_bot} kommer att tas bort i en framtida version.\n\nAutentisering kan nu tillhandah\u00e5llas via {proxy_url} -nyckeln.\n\nDet underliggande biblioteket har \u00e4ndrats till {httpx} vilket \u00e4r inkompatibelt med tidigare parametrar. Om du fortfarande beh\u00f6ver den h\u00e4r funktionen f\u00f6r andra alternativ, v\u00e4nligen l\u00e4mna en kommentar p\u00e5 l\u00e4nken L\u00e4s mer.\n\nUppdatera din konfiguration f\u00f6r att ta bort {proxy_params} -nyckeln och starta om Home Assistant f\u00f6r att \u00e5tg\u00e4rda problemet.",
+            "title": "{telegram_bot}: Alternativet f\u00f6r proxyparametrar kommer att tas bort"
+        }
+    },
+    "services": {
+        "answer_callback_query": {
+            "description": "Svarar p\u00e5 en callback-fr\u00e5ga som st\u00e4lls genom att klicka p\u00e5 en tangentbordsknapp online. Svaret visas f\u00f6r anv\u00e4ndaren som ett meddelande h\u00f6gst upp p\u00e5 chattsk\u00e4rmen eller som en varning.",
+            "fields": {
+                "callback_query_id": {
+                    "description": "Unikt id f\u00f6r \u00e5teruppringningssvaret.",
+                    "name": "Callback query-ID"
+                },
+                "message": {
+                    "description": "Oformaterat textmeddelande i notifikationen.",
+                    "name": "Meddelande"
+                },
+                "show_alert": {
+                    "description": "Visa ett permanent meddelande.",
+                    "name": "Visa varning"
+                },
+                "timeout": {
+                    "name": "Timeout f\u00f6r l\u00e4sning"
+                }
+            },
+            "name": "Svara callback query"
+        },
+        "delete_message": {
+            "description": "Raderar ett tidigare skickat meddelande.",
+            "fields": {
+                "chat_id": {
+                    "description": "Chat_id d\u00e4r meddelandet ska raderas.",
+                    "name": "Chatt-ID"
+                },
+                "message_id": {
+                    "description": "Id f\u00f6r det meddelande som ska raderas.",
+                    "name": "Meddelande-ID"
+                }
+            },
+            "name": "Radera meddelande"
+        },
+        "edit_caption": {
+            "description": "Redigerar bildtexten i ett tidigare skickat meddelande.",
+            "fields": {
+                "caption": {
+                    "description": "Meddelandets huvudtext.",
+                    "name": "Bildtext"
+                },
+                "chat_id": {
+                    "description": "Chat_id d\u00e4r bildtexten ska redigeras.",
+                    "name": "Chatt-ID"
+                },
+                "inline_keyboard": {
+                    "description": "Kommaseparerad lista \u00f6ver rader med kommandon f\u00f6r att skapa ett anpassat inline-tangentbord med knappar och tillh\u00f6rande callback-data.",
+                    "name": "Inline-tangentbord"
+                },
+                "message_id": {
+                    "description": "Id f\u00f6r det meddelande som ska redigeras.",
+                    "name": "Meddelande-ID"
+                }
+            },
+            "name": "Redigera bildtext"
+        },
+        "edit_message": {
+            "description": "Redigerar ett tidigare skickat meddelande.",
+            "fields": {
+                "chat_id": {
+                    "description": "Chat_id d\u00e4r meddelandet ska redigeras.",
+                    "name": "Chatt-ID"
+                },
+                "disable_web_page_preview": {
+                    "description": "Inaktiverar f\u00f6rhandsgranskning av l\u00e4nkar i meddelandet.",
+                    "name": "Inaktivera f\u00f6rhandsgranskning av webbsidor"
+                },
+                "inline_keyboard": {
+                    "description": "Kommaseparerad lista \u00f6ver rader med kommandon f\u00f6r att skapa ett anpassat inline-tangentbord med knappar och tillh\u00f6rande callback-data.",
+                    "name": "Inline-tangentbord"
+                },
+                "message": {
+                    "description": "Meddelandets text",
+                    "name": "Meddelande"
+                },
+                "message_id": {
+                    "description": "Id f\u00f6r det meddelande som ska redigeras.",
+                    "name": "Meddelande-ID"
+                },
+                "parse_mode": {
+                    "description": "Parser f\u00f6r meddelandetexten.",
+                    "name": "Parse-l\u00e4ge"
+                },
+                "title": {
+                    "description": "Valfri titel f\u00f6r ditt meddelande. Kommer att komponeras som '%title\n%message\".",
+                    "name": "Titel"
+                }
+            },
+            "name": "Redigera meddelande"
+        },
+        "edit_replymarkup": {
+            "description": "Redigera det infogade tangentbordet f\u00f6r ett tidigare skickat meddelande.",
+            "fields": {
+                "chat_id": {
+                    "description": "Chat_id d\u00e4r reply_markup ska redigeras.",
+                    "name": "Chatt-ID"
+                },
+                "inline_keyboard": {
+                    "description": "Kommaseparerad lista \u00f6ver rader med kommandon f\u00f6r att skapa ett anpassat inline-tangentbord med knappar och tillh\u00f6rande callback-data.",
+                    "name": "Inline-tangentbord"
+                },
+                "message_id": {
+                    "description": "Id f\u00f6r det meddelande som ska redigeras.",
+                    "name": "Meddelande-ID"
+                }
+            },
+            "name": "Redigera markering av svar"
+        },
+        "send_animation": {
+            "description": "Skickar en animation.",
+            "fields": {
+                "authentication": {
+                    "description": "Definiera vilken autentiseringsmetod som ska anv\u00e4ndas. St\u00e4ll in p\u00e5 `digest` f\u00f6r att anv\u00e4nda HTTP digest-autentisering, eller `bearer_token` f\u00f6r OAuth 2.0 bearer token-autentisering. Standardinst\u00e4llningen \u00e4r `basic`.",
+                    "name": "Autentiseringsmetod"
+                },
+                "caption": {
+                    "description": "Animeringens titel.",
+                    "name": "Bildtext"
+                },
+                "disable_notification": {
+                    "description": "Skickar meddelandet tyst. iOS-anv\u00e4ndare och webbanv\u00e4ndare kommer inte att f\u00e5 n\u00e5got meddelande, Android-anv\u00e4ndare kommer att f\u00e5 ett meddelande utan ljud.",
+                    "name": "Inaktivera avisering"
+                },
+                "file": {
+                    "description": "Lokal s\u00f6kv\u00e4g till en GIF eller H.264/MPEG-4 AVC-video utan ljud.",
+                    "name": "Fil"
+                },
+                "inline_keyboard": {
+                    "description": "Kommaseparerad lista \u00f6ver rader med kommandon f\u00f6r att skapa ett anpassat inline-tangentbord med knappar och tillh\u00f6rande callback-data.",
+                    "name": "Inline-tangentbord"
+                },
+                "keyboard": {
+                    "description": "Kommaseparerad lista \u00f6ver rader med kommandon f\u00f6r att skapa ett anpassat tangentbord.",
+                    "name": "Tangentbord"
+                },
+                "message_tag": {
+                    "description": "Tagg f\u00f6r skickat meddelande.",
+                    "name": "Meddelandetagg"
+                },
+                "message_thread_id": {
+                    "description": "Unik identifierare f\u00f6r forumets m\u00e5lmeddelandetr\u00e5d (\u00e4mne); Endast f\u00f6r forumets supergrupper.",
+                    "name": "Meddelandetr\u00e5ds-ID"
+                },
+                "parse_mode": {
+                    "description": "Parser f\u00f6r meddelandetexten.",
+                    "name": "Parse-l\u00e4ge"
+                },
+                "password": {
+                    "description": "L\u00f6senord (eller b\u00e4rartoken) f\u00f6r en URL som kr\u00e4ver HTTP-autentisering.",
+                    "name": "L\u00f6senord"
+                },
+                "reply_to_message_id": {
+                    "description": "Markera meddelandet som ett svar p\u00e5 ett tidigare meddelande.",
+                    "name": "Svara p\u00e5 meddelande-ID"
+                },
+                "target": {
+                    "description": "En matris med f\u00f6rhandsgodk\u00e4nda chat_ids att skicka dokumentet till. Om den inte finns \u00e4r f\u00f6rsta till\u00e5tna chat_id standard.",
+                    "name": "M\u00e5l"
+                },
+                "timeout": {
+                    "description": "Timeout f\u00f6r skicka klisterm\u00e4rke. Kan hj\u00e4lpa vid timeout-fel (d\u00e5lig internetanslutning, etc).",
+                    "name": "Timeout f\u00f6r l\u00e4sning"
+                },
+                "url": {
+                    "description": "Fj\u00e4rrs\u00f6kv\u00e4g till en GIF- eller H.264/MPEG-4 AVC-video utan ljud.",
+                    "name": "URL"
+                },
+                "username": {
+                    "description": "Anv\u00e4ndarnamn f\u00f6r en URL som kr\u00e4ver HTTP-autentisering.",
+                    "name": "Anv\u00e4ndarnamn"
+                },
+                "verify_ssl": {
+                    "description": "Aktivera eller inaktivera SSL-certifikatverifiering. Ange falskt om du laddar ner filen fr\u00e5n en URL och inte vill validera SSL-certifikatet f\u00f6r servern.",
+                    "name": "Verifiera SSL"
+                }
+            },
+            "name": "Skicka animation"
+        },
+        "send_document": {
+            "description": "Skickar ett dokument",
+            "fields": {
+                "authentication": {
+                    "description": "Definiera vilken autentiseringsmetod som ska anv\u00e4ndas. St\u00e4ll in p\u00e5 `digest` f\u00f6r att anv\u00e4nda HTTP digest-autentisering, eller `bearer_token` f\u00f6r OAuth 2.0 bearer token-autentisering. Standardinst\u00e4llningen \u00e4r `basic`.",
+                    "name": "Autentiseringsmetod"
+                },
+                "caption": {
+                    "description": "Rubrik p\u00e5 dokumentet.",
+                    "name": "Bildtext"
+                },
+                "disable_notification": {
+                    "description": "Skickar meddelandet tyst. iOS-anv\u00e4ndare och webbanv\u00e4ndare kommer inte att f\u00e5 n\u00e5got meddelande, Android-anv\u00e4ndare kommer att f\u00e5 ett meddelande utan ljud.",
+                    "name": "Inaktivera avisering"
+                },
+                "file": {
+                    "description": "Lokal s\u00f6kv\u00e4g till ett dokument.",
+                    "name": "Fil"
+                },
+                "inline_keyboard": {
+                    "description": "Kommaseparerad lista \u00f6ver rader med kommandon f\u00f6r att skapa ett anpassat inline-tangentbord med knappar och tillh\u00f6rande callback-data.",
+                    "name": "Inline-tangentbord"
+                },
+                "keyboard": {
+                    "description": "Kommaseparerad lista \u00f6ver rader med kommandon f\u00f6r att skapa ett anpassat tangentbord.",
+                    "name": "Tangentbord"
+                },
+                "message_tag": {
+                    "description": "Tagg f\u00f6r skickat meddelande.",
+                    "name": "Meddelandetagg"
+                },
+                "message_thread_id": {
+                    "description": "Unik identifierare f\u00f6r forumets m\u00e5lmeddelandetr\u00e5d (\u00e4mne); Endast f\u00f6r forumets supergrupper.",
+                    "name": "Meddelandetr\u00e5ds-ID"
+                },
+                "parse_mode": {
+                    "description": "Parser f\u00f6r meddelandetexten.",
+                    "name": "Parse-l\u00e4ge"
+                },
+                "password": {
+                    "description": "L\u00f6senord (eller b\u00e4rartoken) f\u00f6r en URL som kr\u00e4ver HTTP-autentisering.",
+                    "name": "L\u00f6senord"
+                },
+                "reply_to_message_id": {
+                    "description": "Markera meddelandet som ett svar p\u00e5 ett tidigare meddelande.",
+                    "name": "Svara p\u00e5 meddelande-ID"
+                },
+                "target": {
+                    "description": "En matris med f\u00f6rhandsgodk\u00e4nda chat_ids att skicka dokumentet till. Om den inte finns \u00e4r f\u00f6rsta till\u00e5tna chat_id standard.",
+                    "name": "M\u00e5l"
+                },
+                "timeout": {
+                    "name": "Timeout f\u00f6r l\u00e4sning"
+                },
+                "url": {
+                    "description": "Fj\u00e4rrs\u00f6kv\u00e4g till ett dokument.",
+                    "name": "URL"
+                },
+                "username": {
+                    "description": "Anv\u00e4ndarnamn f\u00f6r en URL som kr\u00e4ver HTTP-autentisering.",
+                    "name": "Anv\u00e4ndarnamn"
+                },
+                "verify_ssl": {
+                    "description": "Aktivera eller inaktivera SSL-certifikatverifiering. Ange falskt om du laddar ner filen fr\u00e5n en URL och inte vill validera SSL-certifikatet f\u00f6r servern.",
+                    "name": "Verifiera SSL"
+                }
+            },
+            "name": "Skicka dokument"
+        },
+        "send_location": {
+            "description": "Skickar en plats.",
+            "fields": {
+                "disable_notification": {
+                    "description": "Skickar meddelandet tyst. iOS-anv\u00e4ndare och webbanv\u00e4ndare kommer inte att f\u00e5 n\u00e5got meddelande, Android-anv\u00e4ndare kommer att f\u00e5 ett meddelande utan ljud.",
+                    "name": "Inaktivera avisering"
+                },
+                "inline_keyboard": {
+                    "description": "Kommaseparerad lista \u00f6ver rader med kommandon f\u00f6r att skapa ett anpassat inline-tangentbord med knappar och tillh\u00f6rande callback-data.",
+                    "name": "Inline-tangentbord"
+                },
+                "keyboard": {
+                    "description": "Kommaseparerad lista \u00f6ver rader med kommandon f\u00f6r att skapa ett anpassat tangentbord.",
+                    "name": "Tangentbord"
+                },
+                "latitude": {
+                    "description": "Latitud att skicka.",
+                    "name": "Latitud"
+                },
+                "longitude": {
+                    "description": "Longitud att skicka.",
+                    "name": "Longitud"
+                },
+                "message_tag": {
+                    "description": "Tagg f\u00f6r skickat meddelande.",
+                    "name": "Meddelandetagg"
+                },
+                "message_thread_id": {
+                    "description": "Unik identifierare f\u00f6r forumets m\u00e5lmeddelandetr\u00e5d (\u00e4mne); Endast f\u00f6r forumets supergrupper.",
+                    "name": "Meddelandetr\u00e5ds-ID"
+                },
+                "reply_to_message_id": {
+                    "description": "Markera meddelandet som ett svar p\u00e5 ett tidigare meddelande.",
+                    "name": "Svara p\u00e5 meddelande-ID"
+                },
+                "target": {
+                    "description": "En matris med f\u00f6rhandsgodk\u00e4nda chat_ids att skicka platsen till. Om den inte finns \u00e4r f\u00f6rsta till\u00e5tna chat_id standard.",
+                    "name": "M\u00e5l"
+                },
+                "timeout": {
+                    "description": "Timeout f\u00f6r skicka bilder. Kan hj\u00e4lpa vid timeout-fel (d\u00e5lig internetanslutning, etc).",
+                    "name": "Timeout f\u00f6r l\u00e4sning"
+                }
+            },
+            "name": "Skicka plats"
+        },
+        "send_message": {
+            "description": "Skickar ett meddelande.",
+            "fields": {
+                "disable_notification": {
+                    "description": "Skickar meddelandet tyst. iOS-anv\u00e4ndare och webbanv\u00e4ndare kommer inte att f\u00e5 n\u00e5got meddelande, Android-anv\u00e4ndare kommer att f\u00e5 ett meddelande utan ljud.",
+                    "name": "Inaktivera avisering"
+                },
+                "disable_web_page_preview": {
+                    "description": "Inaktiverar f\u00f6rhandsgranskning av l\u00e4nkar i meddelandet.",
+                    "name": "Inaktivera f\u00f6rhandsgranskning av webbsidor"
+                },
+                "inline_keyboard": {
+                    "description": "Kommaseparerad lista \u00f6ver rader med kommandon f\u00f6r att skapa ett anpassat inline-tangentbord med knappar och tillh\u00f6rande callback-data.",
+                    "name": "Inline-tangentbord"
+                },
+                "keyboard": {
+                    "description": "Kommaseparerad lista med rader av kommandon f\u00f6r att skapa ett anpassat tangentbord. Tom lista rensar ett tidigare inst\u00e4llt tangentbord.",
+                    "name": "Tangentbord"
+                },
+                "message": {
+                    "description": "Meddelandets huvudtext.",
+                    "name": "Meddelande"
+                },
+                "message_tag": {
+                    "description": "Tagg f\u00f6r skickat meddelande.",
+                    "name": "Meddelandetagg"
+                },
+                "message_thread_id": {
+                    "description": "Unik identifierare f\u00f6r forumets m\u00e5lmeddelandetr\u00e5d (\u00e4mne); Endast f\u00f6r forumets supergrupper.",
+                    "name": "Meddelandetr\u00e5ds-ID"
+                },
+                "parse_mode": {
+                    "description": "Parser f\u00f6r meddelandetexten.",
+                    "name": "Parse-l\u00e4ge"
+                },
+                "reply_to_message_id": {
+                    "description": "Markera meddelandet som ett svar p\u00e5 ett tidigare meddelande.",
+                    "name": "Svara p\u00e5 meddelande-ID"
+                },
+                "target": {
+                    "description": "En matris med f\u00f6rhandsgodk\u00e4nda chat_ids att skicka meddelandet till. Om den inte finns \u00e4r f\u00f6rsta till\u00e5tna chat_id standard.",
+                    "name": "M\u00e5l"
+                },
+                "timeout": {
+                    "name": "Timeout f\u00f6r l\u00e4sning"
+                },
+                "title": {
+                    "description": "Valfri titel f\u00f6r ditt meddelande. Kommer att komponeras som '%title\n%message\".",
+                    "name": "Rubrik"
+                }
+            },
+            "name": "Skicka meddelande"
+        },
+        "send_photo": {
+            "description": "Skickar ett foto.",
+            "fields": {
+                "authentication": {
+                    "description": "Definiera vilken autentiseringsmetod som ska anv\u00e4ndas. St\u00e4ll in p\u00e5 `digest` f\u00f6r att anv\u00e4nda HTTP digest-autentisering, eller `bearer_token` f\u00f6r OAuth 2.0 bearer token-autentisering. Standardinst\u00e4llningen \u00e4r `basic`.",
+                    "name": "Autentiseringsmetod"
+                },
+                "caption": {
+                    "description": "Bildens titel.",
+                    "name": "Bildtext"
+                },
+                "disable_notification": {
+                    "description": "Skickar meddelandet tyst. iOS-anv\u00e4ndare och webbanv\u00e4ndare kommer inte att f\u00e5 n\u00e5got meddelande, Android-anv\u00e4ndare kommer att f\u00e5 ett meddelande utan ljud.",
+                    "name": "Inaktivera avisering"
+                },
+                "file": {
+                    "description": "Lokal s\u00f6kv\u00e4g till en bild.",
+                    "name": "Fil"
+                },
+                "inline_keyboard": {
+                    "description": "Kommaseparerad lista \u00f6ver rader med kommandon f\u00f6r att skapa ett anpassat inline-tangentbord med knappar och tillh\u00f6rande callback-data.",
+                    "name": "Inline-tangentbord"
+                },
+                "keyboard": {
+                    "description": "Kommaseparerad lista \u00f6ver rader med kommandon f\u00f6r att skapa ett anpassat tangentbord.",
+                    "name": "Tangentbord"
+                },
+                "message_tag": {
+                    "description": "Tagg f\u00f6r skickat meddelande.",
+                    "name": "Meddelandetagg"
+                },
+                "message_thread_id": {
+                    "description": "Unik identifierare f\u00f6r forumets m\u00e5lmeddelandetr\u00e5d (\u00e4mne); Endast f\u00f6r forumets supergrupper.",
+                    "name": "Meddelandetr\u00e5ds-ID"
+                },
+                "parse_mode": {
+                    "description": "Parser f\u00f6r meddelandetexten.",
+                    "name": "Parse-l\u00e4ge"
+                },
+                "password": {
+                    "description": "L\u00f6senord (eller b\u00e4rartoken) f\u00f6r en URL som kr\u00e4ver HTTP-autentisering.",
+                    "name": "L\u00f6senord"
+                },
+                "reply_to_message_id": {
+                    "description": "Markera meddelandet som ett svar p\u00e5 ett tidigare meddelande.",
+                    "name": "Svara p\u00e5 meddelande-ID"
+                },
+                "target": {
+                    "description": "En matris med f\u00f6rhandsgodk\u00e4nda chat_ids att skicka dokumentet till. Om den inte finns \u00e4r f\u00f6rsta till\u00e5tna chat_id standard.",
+                    "name": "M\u00e5l"
+                },
+                "timeout": {
+                    "name": "Timeout f\u00f6r l\u00e4sning"
+                },
+                "url": {
+                    "description": "Fj\u00e4rrs\u00f6kv\u00e4g till en bild.",
+                    "name": "URL"
+                },
+                "username": {
+                    "description": "Anv\u00e4ndarnamn f\u00f6r en URL som kr\u00e4ver HTTP-autentisering.",
+                    "name": "Anv\u00e4ndarnamn"
+                },
+                "verify_ssl": {
+                    "description": "Aktivera eller inaktivera SSL-certifikatverifiering. Ange falskt om du laddar ner filen fr\u00e5n en URL och inte vill validera SSL-certifikatet f\u00f6r servern.",
+                    "name": "Verifiera SSL"
+                }
+            },
+            "name": "Skicka bild"
+        },
+        "send_poll": {
+            "description": "Skickar en omr\u00f6stning.",
+            "fields": {
+                "allows_multiple_answers": {
+                    "description": "Om omr\u00f6stningen till\u00e5ter flera svar, \u00e4r standardv\u00e4rdet Falskt.",
+                    "name": "Till\u00e5t flera svar"
+                },
+                "disable_notification": {
+                    "description": "Skickar meddelandet tyst. iOS-anv\u00e4ndare och webbanv\u00e4ndare kommer inte att f\u00e5 n\u00e5got meddelande, Android-anv\u00e4ndare kommer att f\u00e5 ett meddelande utan ljud.",
+                    "name": "Inaktivera avisering"
+                },
+                "is_anonymous": {
+                    "description": "Om omr\u00f6stningen beh\u00f6ver vara anonym, \u00e4r standardv\u00e4rdet True.",
+                    "name": "\u00c4r anonym"
+                },
+                "message_tag": {
+                    "description": "Tagg f\u00f6r skickat meddelande.",
+                    "name": "Meddelandetagg"
+                },
+                "message_thread_id": {
+                    "description": "Unik identifierare f\u00f6r forumets m\u00e5lmeddelandetr\u00e5d (\u00e4mne); Endast f\u00f6r forumets supergrupper.",
+                    "name": "Meddelandetr\u00e5ds-ID"
+                },
+                "open_period": {
+                    "description": "Tid i sekunder som omr\u00f6stningen kommer att vara aktiv efter att den skapats, 5-600.",
+                    "name": "\u00d6ppen period"
+                },
+                "options": {
+                    "description": "Lista \u00f6ver svarsalternativ, 2-10 str\u00e4ngar 1-100 tecken vardera.",
+                    "name": "Alternativ"
+                },
+                "question": {
+                    "description": "Enk\u00e4tfr\u00e5ga, 1-300 tecken.",
+                    "name": "Fr\u00e5ga"
+                },
+                "reply_to_message_id": {
+                    "description": "Markera meddelandet som ett svar p\u00e5 ett tidigare meddelande.",
+                    "name": "Svara p\u00e5 meddelande-ID"
+                },
+                "target": {
+                    "description": "En matris med f\u00f6rhandsgodk\u00e4nda chat_ids att skicka platsen till. Om den inte finns \u00e4r f\u00f6rsta till\u00e5tna chat_id standard.",
+                    "name": "M\u00e5l"
+                },
+                "timeout": {
+                    "name": "Timeout f\u00f6r l\u00e4sning"
+                }
+            },
+            "name": "Skicka omr\u00f6stning"
+        },
+        "send_sticker": {
+            "description": "Skickar ett klisterm\u00e4rke",
+            "fields": {
+                "authentication": {
+                    "description": "Definiera vilken autentiseringsmetod som ska anv\u00e4ndas. St\u00e4ll in p\u00e5 `digest` f\u00f6r att anv\u00e4nda HTTP digest-autentisering, eller `bearer_token` f\u00f6r OAuth 2.0 bearer token-autentisering. Standardinst\u00e4llningen \u00e4r `basic`.",
+                    "name": "Autentiseringsmetod"
+                },
+                "disable_notification": {
+                    "description": "Skickar meddelandet tyst. iOS-anv\u00e4ndare och webbanv\u00e4ndare kommer inte att f\u00e5 n\u00e5got meddelande, Android-anv\u00e4ndare kommer att f\u00e5 ett meddelande utan ljud.",
+                    "name": "Inaktivera avisering"
+                },
+                "file": {
+                    "description": "Lokal s\u00f6kv\u00e4g till en statisk .webp eller animerad .tgs-dekal.",
+                    "name": "Fil"
+                },
+                "inline_keyboard": {
+                    "description": "Kommaseparerad lista \u00f6ver rader med kommandon f\u00f6r att skapa ett anpassat inline-tangentbord med knappar och tillh\u00f6rande callback-data.",
+                    "name": "Inline-tangentbord"
+                },
+                "keyboard": {
+                    "description": "Kommaseparerad lista \u00f6ver rader med kommandon f\u00f6r att skapa ett anpassat tangentbord.",
+                    "name": "Tangentbord"
+                },
+                "message_tag": {
+                    "description": "Tagg f\u00f6r skickat meddelande.",
+                    "name": "Meddelandetagg"
+                },
+                "message_thread_id": {
+                    "description": "Unik identifierare f\u00f6r forumets m\u00e5lmeddelandetr\u00e5d (\u00e4mne); Endast f\u00f6r forumets supergrupper.",
+                    "name": "Meddelandetr\u00e5ds-ID"
+                },
+                "password": {
+                    "description": "L\u00f6senord (eller b\u00e4rartoken) f\u00f6r en URL som kr\u00e4ver HTTP-autentisering.",
+                    "name": "L\u00f6senord"
+                },
+                "reply_to_message_id": {
+                    "description": "Markera meddelandet som ett svar p\u00e5 ett tidigare meddelande.",
+                    "name": "Svara p\u00e5 meddelande-ID"
+                },
+                "sticker_id": {
+                    "description": "ID f\u00f6r ett klisterm\u00e4rke som finns p\u00e5 telegramservrar.",
+                    "name": "Dekal-ID"
+                },
+                "target": {
+                    "description": "En matris med f\u00f6rhandsgodk\u00e4nda chat_ids att skicka dokumentet till. Om den inte finns \u00e4r f\u00f6rsta till\u00e5tna chat_id standard.",
+                    "name": "M\u00e5l"
+                },
+                "timeout": {
+                    "name": "Timeout f\u00f6r l\u00e4sning"
+                },
+                "url": {
+                    "description": "Fj\u00e4rrs\u00f6kv\u00e4g till en statisk .webp eller animerad .tgs-dekal.",
+                    "name": "URL"
+                },
+                "username": {
+                    "description": "Anv\u00e4ndarnamn f\u00f6r en URL som kr\u00e4ver HTTP-autentisering.",
+                    "name": "Anv\u00e4ndarnamn"
+                },
+                "verify_ssl": {
+                    "description": "Aktivera eller inaktivera SSL-certifikatverifiering. Ange falskt om du laddar ner filen fr\u00e5n en URL och inte vill validera SSL-certifikatet f\u00f6r servern.",
+                    "name": "Verifiera SSL"
+                }
+            },
+            "name": "Skicka klisterm\u00e4rke"
+        },
+        "send_video": {
+            "description": "Skickar en video.",
+            "fields": {
+                "authentication": {
+                    "description": "Definiera vilken autentiseringsmetod som ska anv\u00e4ndas. St\u00e4ll in p\u00e5 `digest` f\u00f6r att anv\u00e4nda HTTP digest-autentisering, eller `bearer_token` f\u00f6r OAuth 2.0 bearer token-autentisering. Standardinst\u00e4llningen \u00e4r `basic`.",
+                    "name": "Autentiseringsmetod"
+                },
+                "caption": {
+                    "description": "Titel p\u00e5 videon.",
+                    "name": "Bildtext"
+                },
+                "disable_notification": {
+                    "description": "Skickar meddelandet tyst. iOS-anv\u00e4ndare och webbanv\u00e4ndare kommer inte att f\u00e5 n\u00e5got meddelande, Android-anv\u00e4ndare kommer att f\u00e5 ett meddelande utan ljud.",
+                    "name": "Inaktivera avisering"
+                },
+                "file": {
+                    "description": "Lokal s\u00f6kv\u00e4g till en video.",
+                    "name": "Fil"
+                },
+                "inline_keyboard": {
+                    "description": "Kommaseparerad lista \u00f6ver rader med kommandon f\u00f6r att skapa ett anpassat inline-tangentbord med knappar och tillh\u00f6rande callback-data.",
+                    "name": "Inline-tangentbord"
+                },
+                "keyboard": {
+                    "description": "Kommaseparerad lista \u00f6ver rader med kommandon f\u00f6r att skapa ett anpassat tangentbord.",
+                    "name": "Tangentbord"
+                },
+                "message_tag": {
+                    "description": "Tagg f\u00f6r skickat meddelande.",
+                    "name": "Meddelandetagg"
+                },
+                "message_thread_id": {
+                    "description": "Unik identifierare f\u00f6r forumets m\u00e5lmeddelandetr\u00e5d (\u00e4mne); Endast f\u00f6r forumets supergrupper.",
+                    "name": "Meddelandetr\u00e5ds-ID"
+                },
+                "parse_mode": {
+                    "description": "Parser f\u00f6r meddelandetexten.",
+                    "name": "Parse-l\u00e4ge"
+                },
+                "password": {
+                    "description": "L\u00f6senord (eller b\u00e4rartoken) f\u00f6r en URL som kr\u00e4ver HTTP-autentisering.",
+                    "name": "L\u00f6senord"
+                },
+                "reply_to_message_id": {
+                    "description": "Markera meddelandet som ett svar p\u00e5 ett tidigare meddelande.",
+                    "name": "Svara p\u00e5 meddelande-ID"
+                },
+                "target": {
+                    "description": "En matris med f\u00f6rhandsgodk\u00e4nda chat_ids att skicka dokumentet till. Om den inte finns \u00e4r f\u00f6rsta till\u00e5tna chat_id standard.",
+                    "name": "M\u00e5l"
+                },
+                "timeout": {
+                    "name": "Timeout f\u00f6r l\u00e4sning"
+                },
+                "url": {
+                    "description": "Fj\u00e4rrs\u00f6kv\u00e4g till en video.",
+                    "name": "URL"
+                },
+                "username": {
+                    "description": "Anv\u00e4ndarnamn f\u00f6r en URL som kr\u00e4ver HTTP-autentisering.",
+                    "name": "Anv\u00e4ndarnamn"
+                },
+                "verify_ssl": {
+                    "description": "Aktivera eller inaktivera SSL-certifikatverifiering. Ange falskt om du laddar ner filen fr\u00e5n en URL och inte vill validera SSL-certifikatet f\u00f6r servern.",
+                    "name": "Verifiera SSL"
+                }
+            },
+            "name": "Skicka video"
+        },
+        "send_voice": {
+            "description": "Skickar ett r\u00f6stmeddelande",
+            "fields": {
+                "authentication": {
+                    "description": "Definiera vilken autentiseringsmetod som ska anv\u00e4ndas. St\u00e4ll in p\u00e5 `digest` f\u00f6r att anv\u00e4nda HTTP digest-autentisering, eller `bearer_token` f\u00f6r OAuth 2.0 bearer token-autentisering. Standardinst\u00e4llningen \u00e4r `basic`.",
+                    "name": "Autentiseringsmetod"
+                },
+                "caption": {
+                    "description": "Rubrik p\u00e5 r\u00f6stmeddelande",
+                    "name": "Bildtext"
+                },
+                "disable_notification": {
+                    "description": "Skickar meddelandet tyst. iOS-anv\u00e4ndare och webbanv\u00e4ndare kommer inte att f\u00e5 n\u00e5got meddelande, Android-anv\u00e4ndare kommer att f\u00e5 ett meddelande utan ljud.",
+                    "name": "Inaktivera avisering"
+                },
+                "file": {
+                    "description": "Lokal s\u00f6kv\u00e4g till ett r\u00f6stmeddelande.",
+                    "name": "Fil"
+                },
+                "inline_keyboard": {
+                    "description": "Kommaseparerad lista \u00f6ver rader med kommandon f\u00f6r att skapa ett anpassat inline-tangentbord med knappar och tillh\u00f6rande callback-data.",
+                    "name": "Inline-tangentbord"
+                },
+                "keyboard": {
+                    "description": "Kommaseparerad lista \u00f6ver rader med kommandon f\u00f6r att skapa ett anpassat tangentbord.",
+                    "name": "Tangentbord"
+                },
+                "message_tag": {
+                    "description": "Tagg f\u00f6r skickat meddelande.",
+                    "name": "Meddelandetagg"
+                },
+                "message_thread_id": {
+                    "description": "Unik identifierare f\u00f6r forumets m\u00e5lmeddelandetr\u00e5d (\u00e4mne); Endast f\u00f6r forumets supergrupper.",
+                    "name": "Meddelandetr\u00e5ds-ID"
+                },
+                "password": {
+                    "description": "L\u00f6senord (eller b\u00e4rartoken) f\u00f6r en URL som kr\u00e4ver HTTP-autentisering.",
+                    "name": "L\u00f6senord"
+                },
+                "reply_to_message_id": {
+                    "description": "Markera meddelandet som ett svar p\u00e5 ett tidigare meddelande.",
+                    "name": "Svara p\u00e5 meddelande-ID"
+                },
+                "target": {
+                    "description": "En matris med f\u00f6rhandsgodk\u00e4nda chat_ids att skicka dokumentet till. Om den inte finns \u00e4r f\u00f6rsta till\u00e5tna chat_id standard.",
+                    "name": "M\u00e5l"
+                },
+                "timeout": {
+                    "name": "Timeout f\u00f6r l\u00e4sning"
+                },
+                "url": {
+                    "description": "Fj\u00e4rrs\u00f6kv\u00e4g till ett r\u00f6stmeddelande.",
+                    "name": "URL"
+                },
+                "username": {
+                    "description": "Anv\u00e4ndarnamn f\u00f6r en URL som kr\u00e4ver HTTP-autentisering.",
+                    "name": "Anv\u00e4ndarnamn"
+                },
+                "verify_ssl": {
+                    "description": "Aktivera eller inaktivera SSL-certifikatverifiering. Ange falskt om du laddar ner filen fr\u00e5n en URL och inte vill validera SSL-certifikatet f\u00f6r servern.",
+                    "name": "Verifiera SSL"
+                }
+            },
+            "name": "Skicka r\u00f6st"
+        }
+    }
+}

@@ -1,0 +1,778 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Seade on juba h\u00e4\u00e4lestatud",
+            "reauth_successful": "Taastuvastamine \u00f5nnestus",
+            "reconfigure_successful": "\u00dcmberseadistamine \u00f5nnestus"
+        },
+        "error": {
+            "api_error": "Ilmnes API t\u00f5rge",
+            "cannot_connect": "\u00dchenduse loomine nurjus, kontrolli kaamera IP-aadressi",
+            "invalid_auth": "Tuvastamine nurjus",
+            "not_admin": "Kasutaja peab olema administraator, kasutajal ''{username}'' on volituste tase ''{userlevel}''.",
+            "password_incompatible": "Salas\u00f5na sisaldab \u00fchildumatuid erim\u00e4rke, lubatud on ainult need t\u00e4hem\u00e4rgid: a-z, A-Z, 0-9 v\u00f5i {special_chars}",
+            "unknown": "Ootamatu t\u00f5rge",
+            "webhook_exception": "Home Assistanti URL ei ole saadaval, mine valikusse Seaded > S\u00fcsteem > V\u00f5rk >Home Assistanti URL ja paranda URL-d, vt {more_info}"
+        },
+        "flow_title": "{hostname} ({ip_address})",
+        "step": {
+            "reauth_confirm": {
+                "description": "Reolinki sidumine peab \u00fchenduse andmed uuesti autentima.",
+                "title": "{name} autentimine aegus"
+            },
+            "user": {
+                "data": {
+                    "host": "Host",
+                    "password": "Salas\u00f5na",
+                    "port": "Port",
+                    "use_https": "Luba HTTPS",
+                    "username": "Kasutajanimi"
+                },
+                "data_description": {
+                    "host": "Reolink-seadme hostinimi v\u00f5i IP-aadress. N\u00e4iteks: \"192.168.1.25\".",
+                    "password": "Salas\u00f5na Reolinki seadmesse sisselogimiseks. Mitte Reolinki pilvekonto.",
+                    "port": "Port Reolinki seadmega \u00fchendamiseks. HTTP puhul tavaliselt: '80', HTTPS-i puhul tavaliselt '443'.",
+                    "use_https": "Kasuta REOLINK-seadmega HTTPS-\u00fchendust (SSL-\u00fchendust).",
+                    "username": "Kasutajanimi Reolinki seadmesse sisselogimiseks. Mitte Reolinki pilvekonto."
+                },
+                "description": "Probleemide ilmnemisel vaata [t\u00f5rkeotsingu samme]( {troubleshooting_link} ). {error}"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "animal": {
+                "name": "Loom",
+                "state": {
+                    "off": "Puudub",
+                    "on": "Tuvastatud"
+                }
+            },
+            "animal_lens_0": {
+                "name": "Loomade tuvastamine 0",
+                "state": {
+                    "off": "Puudub",
+                    "on": "Tuvastatud"
+                }
+            },
+            "animal_lens_1": {
+                "name": "Loomade tuvastamine 1",
+                "state": {
+                    "off": "Puudub",
+                    "on": "Tuvastatud"
+                }
+            },
+            "face": {
+                "name": "N\u00e4otuvastus",
+                "state": {
+                    "off": "Puudub",
+                    "on": "Tuvastatud"
+                }
+            },
+            "face_lens_0": {
+                "name": "N\u00e4otuvastus objektiiv 0",
+                "state": {
+                    "off": "Puudub",
+                    "on": "Tuvastatud"
+                }
+            },
+            "face_lens_1": {
+                "name": "N\u00e4otuvastus objektiiv 1",
+                "state": {
+                    "off": "Puudub",
+                    "on": "Tuvastatud"
+                }
+            },
+            "motion_lens_0": {
+                "name": "Liikumine objektiiv 0",
+                "state": {
+                    "off": "Puudub",
+                    "on": "Tuvastatud"
+                }
+            },
+            "motion_lens_1": {
+                "name": "Liikumine objektiiv 1",
+                "state": {
+                    "off": "Puudub",
+                    "on": "Tuvastatud"
+                }
+            },
+            "package": {
+                "name": "Pakett",
+                "state": {
+                    "off": "Puudub",
+                    "on": "Tuvastatud"
+                }
+            },
+            "package_lens_0": {
+                "name": "Paketi 0 objektiiv",
+                "state": {
+                    "off": "Puudub",
+                    "on": "Tuvastatud"
+                }
+            },
+            "package_lens_1": {
+                "name": "Paketi 1 objektiiv",
+                "state": {
+                    "off": "Puudub",
+                    "on": "Tuvastatud"
+                }
+            },
+            "person": {
+                "name": "Isik",
+                "state": {
+                    "off": "Puudub",
+                    "on": "Tuvastatud"
+                }
+            },
+            "person_lens_0": {
+                "name": "Isik objektiiv 0",
+                "state": {
+                    "off": "Puudub",
+                    "on": "Tuvastatud"
+                }
+            },
+            "person_lens_1": {
+                "name": "Isik objektiiv 1",
+                "state": {
+                    "off": "Puudub",
+                    "on": "Tuvastatud"
+                }
+            },
+            "pet": {
+                "name": "Lemmikloomad",
+                "state": {
+                    "off": "Puudub",
+                    "on": "Tuvastatud"
+                }
+            },
+            "pet_lens_0": {
+                "name": "Lemmikloom objektiiv 0",
+                "state": {
+                    "off": "Puudub",
+                    "on": "Tuvastatud"
+                }
+            },
+            "pet_lens_1": {
+                "name": "Lemmikloom objektiiv 1",
+                "state": {
+                    "off": "Puudub",
+                    "on": "Tuvastatud"
+                }
+            },
+            "sleep": {
+                "name": "Unere\u017eiimi olek",
+                "state": {
+                    "off": "\u00c4rkvel",
+                    "on": "Unere\u017eiimil"
+                }
+            },
+            "vehicle": {
+                "name": "S\u00f5iduk",
+                "state": {
+                    "off": "Puudub",
+                    "on": "Tuvastatud"
+                }
+            },
+            "vehicle_lens_0": {
+                "name": "S\u00f5iduk objektiiv 0",
+                "state": {
+                    "off": "Puudub",
+                    "on": "Tuvastatud"
+                }
+            },
+            "vehicle_lens_1": {
+                "name": "S\u00f5iduk objektiiv 1",
+                "state": {
+                    "off": "Puudub",
+                    "on": "Tuvastatud"
+                }
+            },
+            "visitor": {
+                "name": "K\u00fclastaja"
+            },
+            "visitor_lens_0": {
+                "name": "K\u00fclastaja objektiiv 0"
+            },
+            "visitor_lens_1": {
+                "name": "K\u00fclastaja objektiiv 1"
+            }
+        },
+        "button": {
+            "guard_go_to": {
+                "name": "Valve liigutamine"
+            },
+            "guard_set": {
+                "name": "Sea valve praegusesse asendisse"
+            },
+            "ptz_calibrate": {
+                "name": "PTZ kalibreerimine"
+            },
+            "ptz_down": {
+                "name": "PTZ alla"
+            },
+            "ptz_left": {
+                "name": "PTZ vasakule"
+            },
+            "ptz_right": {
+                "name": "PTZ paremale"
+            },
+            "ptz_stop": {
+                "name": "PTZ seiskamine"
+            },
+            "ptz_up": {
+                "name": "PTZ \u00fcles"
+            },
+            "ptz_zoom_in": {
+                "name": "PTZ suumimine sisse"
+            },
+            "ptz_zoom_out": {
+                "name": "PTZ suumimine v\u00e4lja"
+            }
+        },
+        "camera": {
+            "autotrack_snapshots_main": {
+                "name": "Selge objektiiviga j\u00e4lgimise hetkt\u00f5mmised"
+            },
+            "autotrack_snapshots_sub": {
+                "name": "Sujuva objektiiviga j\u00e4lgimise hetkt\u00f5mmised"
+            },
+            "autotrack_sub": {
+                "name": "Sujuva objektiiviga j\u00e4lgimine"
+            },
+            "ext": {
+                "name": "Tasakaalustatud"
+            },
+            "ext_lens_0": {
+                "name": "Tasakaalustatud objektiiv 0"
+            },
+            "ext_lens_1": {
+                "name": "Tasakaalustatud objektiiv 1"
+            },
+            "main": {
+                "name": "Selge"
+            },
+            "main_lens_0": {
+                "name": "Selge objektiiv 0"
+            },
+            "main_lens_1": {
+                "name": "Selge objektiiv 1"
+            },
+            "snapshots_main": {
+                "name": "Hetkt\u00f5mmised selge objektiiviga"
+            },
+            "snapshots_main_lens_0": {
+                "name": "Hetkt\u00f5mmised selge objektiiviga 0"
+            },
+            "snapshots_main_lens_1": {
+                "name": "Hetkt\u00f5mmised selge objektiiviga 1"
+            },
+            "snapshots_sub": {
+                "name": "Sujuva objektiivi hetkt\u00f5mmised"
+            },
+            "snapshots_sub_lens_0": {
+                "name": "Sujuva objektiivi 0 hetkt\u00f5mmised"
+            },
+            "snapshots_sub_lens_1": {
+                "name": "Sujuva objektiivi 1 hetkt\u00f5mmised"
+            },
+            "sub": {
+                "name": "Sujuv"
+            },
+            "sub_lens_0": {
+                "name": "Sujuv objektiiv 0"
+            },
+            "sub_lens_1": {
+                "name": "Sujuv objektiiv 1"
+            }
+        },
+        "light": {
+            "floodlight": {
+                "name": "Pro\u017eektor"
+            },
+            "ir_lights": {
+                "name": "Infrapuna valgus \u00f6\u00f6re\u017eiimis"
+            },
+            "status_led": {
+                "name": "Oleku LED"
+            }
+        },
+        "number": {
+            "ai_animal_delay": {
+                "name": "AI loomade tuvastamise viivitus"
+            },
+            "ai_animal_sensititvity": {
+                "name": "AI loomade tuvastamise tundlikkus"
+            },
+            "ai_animal_sensitivity": {
+                "name": "AI loomade tuvastamise tundlikkus"
+            },
+            "ai_face_delay": {
+                "name": "AI n\u00e4o tuvastamise viivitus"
+            },
+            "ai_face_sensititvity": {
+                "name": "AI n\u00e4o tuvastamise tundlikkus"
+            },
+            "ai_face_sensitivity": {
+                "name": "AI n\u00e4o tuvastamise tundlikkus"
+            },
+            "ai_package_delay": {
+                "name": "AI paketi viivitus"
+            },
+            "ai_package_sensititvity": {
+                "name": "AI paketi tundlikkus"
+            },
+            "ai_package_sensitivity": {
+                "name": "AI paketi tundlikkus"
+            },
+            "ai_person_delay": {
+                "name": "AI isiku tuvastamise viivitus"
+            },
+            "ai_person_sensititvity": {
+                "name": "AI isiku tuvastamise tundlikkus"
+            },
+            "ai_person_sensitivity": {
+                "name": "AI isiku tuvastamise tundlikkus"
+            },
+            "ai_pet_delay": {
+                "name": "AI lemmikloomade tuvastamise viivitus"
+            },
+            "ai_pet_sensititvity": {
+                "name": "AI lemmikloomade tuvastamise tundlikkus"
+            },
+            "ai_pet_sensitivity": {
+                "name": "AI lemmikloomade tuvastamise tundlikkus"
+            },
+            "ai_vehicle_delay": {
+                "name": "AI s\u00f5iduki tuvastamise viivitus"
+            },
+            "ai_vehicle_sensititvity": {
+                "name": "AI s\u00f5iduki tuvastamise tundlikkus"
+            },
+            "ai_vehicle_sensitivity": {
+                "name": "AI s\u00f5iduki tuvastamise tundlikkus"
+            },
+            "alarm_volume": {
+                "name": "H\u00e4ire helitugevus"
+            },
+            "auto_quick_reply_time": {
+                "name": "Automaatne kiire vastamise aeg"
+            },
+            "auto_track_disappear_time": {
+                "name": "Automaatse j\u00e4lgimise l\u00f5pu viivitus"
+            },
+            "auto_track_limit_left": {
+                "name": "Automaatj\u00e4lgimise piirang vasakule"
+            },
+            "auto_track_limit_right": {
+                "name": "Automaatj\u00e4lgimise piirang paremale"
+            },
+            "auto_track_stop_time": {
+                "name": "Automaatse j\u00e4lgimise peatumisaeg"
+            },
+            "day_night_switch_threshold": {
+                "name": "P\u00e4eva-\u00f6\u00f6 l\u00fclitusl\u00e4vi"
+            },
+            "floodlight_brightness": {
+                "name": "Valgusti heledus sissel\u00fclitamisel"
+            },
+            "focus": {
+                "name": "Fookus"
+            },
+            "guard_return_time": {
+                "name": "Valvesse naasmise aeg"
+            },
+            "image_brightness": {
+                "name": "Pildi heledus"
+            },
+            "image_contrast": {
+                "name": "Pildi kontrastsus"
+            },
+            "image_hue": {
+                "name": "Pildi v\u00e4rvustoon"
+            },
+            "image_saturation": {
+                "name": "Pildi v\u00e4rvik\u00fcllastus"
+            },
+            "image_sharpness": {
+                "name": "Pildi teravus"
+            },
+            "message_volume": {
+                "name": "Teavituse helitugevus"
+            },
+            "motion_sensitivity": {
+                "name": "Liikumistuvastuse tundlikkus"
+            },
+            "pir_sensitivity": {
+                "name": "PIR tundlikkus"
+            },
+            "volume": {
+                "name": "Helitugevus"
+            },
+            "zoom": {
+                "name": "Suumi"
+            }
+        },
+        "select": {
+            "auto_quick_reply_message": {
+                "name": "Automaatne kiirvastuse s\u00f5num",
+                "state": {
+                    "off": "V\u00e4ljas"
+                }
+            },
+            "auto_track_method": {
+                "name": "Automaatse j\u00e4lgimise meetod",
+                "state": {
+                    "digital": "Digitaalne",
+                    "digitalfirst": "Esmalt digitaalne",
+                    "pantiltfirst": "Esmalt keera/kalluta"
+                }
+            },
+            "day_night_mode": {
+                "name": "P\u00e4eva-\u00f6\u00f6 re\u017eiim",
+                "state": {
+                    "auto": "Automaatne",
+                    "blackwhite": "Mustvalge",
+                    "color": "V\u00e4rviline"
+                }
+            },
+            "doorbell_led": {
+                "name": "Uksekella LED",
+                "state": {
+                    "alwayson": "Alati sisse l\u00fclitatud",
+                    "alwaysonatnight": "Automaatne ja alati \u00f6\u00f6sel sisse l\u00fclitatud",
+                    "auto": "Automaatne",
+                    "stayoff": "J\u00e4\u00e4 v\u00e4ljal\u00fclitatuks"
+                }
+            },
+            "floodlight_mode": {
+                "name": "Pro\u017eektori re\u017eiim",
+                "state": {
+                    "adaptive": "Kohanduv",
+                    "auto": "Automaatne",
+                    "autoadaptive": "Automaatselt kohanduv",
+                    "off": "V\u00e4ljas",
+                    "onatnight": "\u00d6\u00f6sel sees",
+                    "schedule": "Ajakava"
+                }
+            },
+            "hdr": {
+                "name": "K\u00f5rglahutus",
+                "state": {
+                    "auto": "Automaatne",
+                    "off": "V\u00e4ljas",
+                    "on": "Sees"
+                }
+            },
+            "hub_alarm_ringtone": {
+                "name": "Keskuse alarmi helisignaal",
+                "state": {
+                    "alarm": "Alarm",
+                    "attraction": "Attraction",
+                    "citybird": "City bird",
+                    "goodday": "Good day",
+                    "hophop": "Hop hop",
+                    "loop": "Loop",
+                    "moonlight": "Moonlight",
+                    "operetta": "Operetta",
+                    "originaltune": "Original tune",
+                    "pianokey": "Piano key",
+                    "waybackhome": "Way back home"
+                }
+            },
+            "hub_visitor_ringtone": {
+                "name": "Keskuse k\u00fclastaja helin",
+                "state": {
+                    "alarm": "Alarm",
+                    "attraction": "Attraction",
+                    "citybird": "City bird",
+                    "goodday": "Good day",
+                    "hophop": "Hop hop",
+                    "loop": "Loop",
+                    "moonlight": "Moonlight",
+                    "operetta": "Operetta",
+                    "originaltune": "Original tune",
+                    "pianokey": "Piano key",
+                    "waybackhome": "Way back home"
+                }
+            },
+            "motion_tone": {
+                "name": "Liikumise helisignaal",
+                "state": {
+                    "attraction": "Attraction",
+                    "citybird": "City bird",
+                    "goodday": "Good day",
+                    "hophop": "Hop hop",
+                    "loop": "Loop",
+                    "moonlight": "Moonlight",
+                    "off": "V\u00e4ljas",
+                    "operetta": "Operetta",
+                    "originaltune": "Original tune",
+                    "pianokey": "Piano key",
+                    "waybackhome": "Way back home"
+                }
+            },
+            "package_tone": {
+                "name": "Paketi helin",
+                "state": {
+                    "attraction": "Attraction",
+                    "citybird": "City bird",
+                    "goodday": "Good day",
+                    "hophop": "Hop hop",
+                    "loop": "Loop",
+                    "moonlight": "Moonlight",
+                    "off": "V\u00e4ljas",
+                    "operetta": "Operetta",
+                    "originaltune": "Original tune",
+                    "pianokey": "Piano key",
+                    "waybackhome": "Way back home"
+                }
+            },
+            "people_tone": {
+                "name": "Isiku helisignaal",
+                "state": {
+                    "attraction": "Attraction",
+                    "citybird": "City bird",
+                    "goodday": "Good day",
+                    "hophop": "Hop hop",
+                    "loop": "Loop",
+                    "moonlight": "Moonlight",
+                    "off": "V\u00e4ljas",
+                    "operetta": "Operetta",
+                    "originaltune": "Original tune",
+                    "pianokey": "Piano key",
+                    "waybackhome": "Way back home"
+                }
+            },
+            "play_quick_reply_message": {
+                "name": "Esita kiirvastuss\u00f5num"
+            },
+            "ptz_preset": {
+                "name": "PTZ eelseadistus"
+            },
+            "status_led": {
+                "name": "Oleku LED",
+                "state": {
+                    "alwayson": "Alati sees",
+                    "alwaysonatnight": "Automaatne ja alati \u00f6\u00f6sel sisse l\u00fclitatud",
+                    "auto": "Automaatne",
+                    "stayoff": "J\u00e4\u00e4 v\u00e4ljal\u00fclitatuks"
+                }
+            },
+            "visitor_tone": {
+                "name": "K\u00fclastaja helin",
+                "state": {
+                    "attraction": "Attraction",
+                    "citybird": "City bird",
+                    "goodday": "Good day",
+                    "hophop": "Hop hop",
+                    "loop": "Loop",
+                    "moonlight": "Moonlight",
+                    "off": "V\u00e4ljas",
+                    "operetta": "Operetta",
+                    "originaltune": "Original tune",
+                    "pianokey": "Piano key",
+                    "waybackhome": "Way back home"
+                }
+            }
+        },
+        "sensor": {
+            "battery_percent": {
+                "name": "Laetuse protsent"
+            },
+            "battery_state": {
+                "name": "Aku olek",
+                "state": {
+                    "chargecomplete": "Laadimine on l\u00f5petatud",
+                    "charging": "Laadimine",
+                    "discharging": "T\u00fchjenemine"
+                }
+            },
+            "battery_temperature": {
+                "name": "Aku temperatuur"
+            },
+            "cpu_usage": {
+                "name": "CPU h\u00f5ivatus"
+            },
+            "event_connection": {
+                "name": "S\u00fcndmuse \u00fchendus",
+                "state": {
+                    "fast_poll": "Kiire k\u00fcsitlus",
+                    "onvif_long_poll": "ONVIF pikk k\u00fcsitlus",
+                    "onvif_push": "ONVIF-i t\u00f5uge"
+                }
+            },
+            "hdd_storage": {
+                "name": "HDD {hdd_index} salvestusruum"
+            },
+            "ptz_pan_position": {
+                "name": "PTZ panoraamimise asend"
+            },
+            "sd_storage": {
+                "name": "SD {hdd_index} salvestusruum"
+            },
+            "wifi_signal": {
+                "name": "Wi-Fi signaal"
+            }
+        },
+        "siren": {
+            "siren": {
+                "name": "Sireen"
+            }
+        },
+        "switch": {
+            "auto_focus": {
+                "name": "Autofookus"
+            },
+            "auto_tracking": {
+                "name": "Automaatne j\u00e4lgimine"
+            },
+            "buzzer": {
+                "name": "Sumisti s\u00fcndmuse puhul"
+            },
+            "doorbell_button_sound": {
+                "name": "Uksekella helin"
+            },
+            "email": {
+                "name": "E-kiri s\u00fcndmuse kohta"
+            },
+            "ftp_upload": {
+                "name": "FTP \u00fcleslaadimine"
+            },
+            "gaurd_return": {
+                "name": "Valvesse naasmine"
+            },
+            "guard_return": {
+                "name": "Valvesse naasmine"
+            },
+            "hdr": {
+                "name": "K\u00f5rglahutus"
+            },
+            "hub_ringtone_on_event": {
+                "name": "Keskuse helisignaal s\u00fcndmuse korral"
+            },
+            "ir_lights": {
+                "name": "Infrapuna valgus \u00f6\u00f6re\u017eiimis"
+            },
+            "led": {
+                "name": "LED"
+            },
+            "manual_record": {
+                "name": "K\u00e4sitsi salvestamine"
+            },
+            "pir_enabled": {
+                "name": "PIR lubatud"
+            },
+            "pir_reduce_alarm": {
+                "name": "PIR v\u00e4hendab valeh\u00e4ireid"
+            },
+            "ptz_patrol": {
+                "name": "PTZ-ga j\u00e4lgimine"
+            },
+            "push_notifications": {
+                "name": "T\u00f5uketeavitused"
+            },
+            "record": {
+                "name": "Salvesta"
+            },
+            "record_audio": {
+                "name": "Salvesta heli"
+            },
+            "siren_on_event": {
+                "name": "Sireen s\u00fcndmuse puhul"
+            }
+        }
+    },
+    "exceptions": {
+        "service_entry_ex": {
+            "message": "Reolink {service_name} viga: konfiguratsioonikirjet ei leitud v\u00f5i ei laaditud"
+        },
+        "service_not_chime": {
+            "message": "Reolink play_chime viga: {device_name} ei ole helisignaal"
+        }
+    },
+    "issues": {
+        "enable_port": {
+            "description": "{ports}port(ide) automaatne lubamine urjus seadmes {name}. Kasuta [Reolink klienti]({info_link}), et see k\u00e4sitsi sisse l\u00fclitada.",
+            "title": "Reolinki port pole lubatud"
+        },
+        "firmware_update": {
+            "description": "\" {name} \" mudeliga \" {model} \" ja riistvaraversiooniga \" {hw_version} \" kasutab vana p\u00fcsivara versiooni \" {current_firmware} \", samas kui Reolinki sidumise n\u00f5uetekohaseks toimimiseks on vaja v\u00e4hemalt p\u00fcsivara versiooni \" {required_firmware} \". Uusima p\u00fcsivara saab alla laadida [Reolinki allalaadimiskeskusest]( {download_link} ).",
+            "title": "Vajalik on Reolinki p\u00fcsivara v\u00e4rskendus"
+        },
+        "hdr_switch_deprecated": {
+            "description": "Reolinki HDR-l\u00fcliti olem on aegunud ja eemaldatakse versioonis HA 2025.2.0. See on asendatud HDR-i valikuga, mis pakub valikuid \"sees\", \"v\u00e4ljas\" ja \"automaatne\". Selle probleemi k\u00f5rvaldamiseks kohanda vastavalt automatiseerimist ja keela HDR-i l\u00fcliti olem.",
+            "title": "Reolink HDR-l\u00fcliti on aegunud"
+        },
+        "https_webhook": {
+            "description": "Reolini tooted ei saa liikumiss\u00fcndmusi HTTPS-aadressile (SSL) edastada. Konfigureeri (kohalik) HTTP-aadress jaotises [v\u00f5rguseaded]( {network_link} ) jaotises \u201eHome Assistant URL\u201d. Praegune (kohalik) aadress on: \u201e {base_url} \u201d, kehtiv aadress v\u00f5ib olla n\u00e4iteks \u201ehttp://192.168.1.10:8123\u201d, kus \u201e192.168.1.10\u201d on koduabilise seadme IP.",
+            "title": "Reolini veebihaagi URL kasutab HTTPS-i (SSL)"
+        },
+        "hub_switch_deprecated": {
+            "description": "Reolink Home Hubi \u00fcleliigsed l\u00fclitid 'Salvesta', 'E-post s\u00fcndmusel', 'FTP \u00fcleslaadimine', 'T\u00f5ukem\u00e4rguanded' ja S\u00fcndmusel sumisemine on t\u00fchistatud, kuna uus p\u00fcsivara neid enam ei toeta. Kasuta selle asemel sama nimega l\u00fcliteid iga Home Hubiga \u00fchendatud kaameraseadme all. Selle probleemi eemaldamiseks kohanda vastavalt automatiseerimist ja keela mainitud l\u00fclitus\u00fcksused.",
+            "title": "Reolink Home Hubi l\u00fclitid kaotavad kehtivuse"
+        },
+        "ssl": {
+            "description": "Globaalne SSL-sertifikaat on konfigureeritud failis [configuration.yaml all http]( {ssl_link} ), samas kui kohalik HTTP-aadress ` {base_url} ` on konfigureeritud jaotises [v\u00f5rguseaded]( {network_link} ) jaotises \"Home Assistant URL\". Seet\u00f5ttu ei saa Reolinki seade \u00fchendust Home Assistantiga, et oma liikumis-/AI-s\u00fcndmusi edasi l\u00fckata. Veenduge, et kohalik HTTP-aadress ei oleks SSL-sertifikaadiga kaetud, kasutades n\u00e4iteks globaalselt j\u00f5ustatud SSL-sertifikaadi asemel [NGINX-i lisandmoodulit]( {nginx_link} ).",
+            "title": "Reolink ei \u00fchildu globaalse SSL-sertifikaadiga"
+        },
+        "webhook_url": {
+            "description": "Ei saanud algset ONVIF-staatust {name}. T\u00f5en\u00e4oliselt ei j\u00f5ua Reolink kaamera praeguse (kohaliku) Home Assistant URL-i `{base_url}`, seadista [v\u00f5rgu seadetes]({network_link}) jaotises \"Home Assistant URL\" (kohalik) HTTP-aadress, mis osutab Home Assistantile. N\u00e4iteks `http://192.168.1.10:8123`, kus `192.168.1.10` on Home Assistant'i seadme IP-aadress. Veendu ka, et Reolink kaamera j\u00f5uab sellele URL-ile. Kasutades kiiret liikumise/AI seisundi k\u00fcsitlust kuni esimese ONVIF push'i saamiseni.",
+            "title": "Reolinki webhook URL ei ole k\u00e4ttesaadav"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "protocol": "Protokoll"
+                },
+                "data_description": {
+                    "protocol": "Kaamera olemite jaoks kasutatav voogesitusprotokoll. RTSP toetab 4K vooge (h265 kodeering), samas kui RTMP ja FLV mitte. FLV on kaamera suhtes k\u00f5ige v\u00e4hem n\u00f5udlik."
+                }
+            }
+        }
+    },
+    "selector": {
+        "ringtone": {
+            "options": {
+                "attraction": "Attraction",
+                "citybird": "City bird",
+                "goodday": "Good day",
+                "hophop": "Hop hop",
+                "loop": "Loop",
+                "moonlight": "Moonlight",
+                "operetta": "Operetta",
+                "originaltune": "Original tune",
+                "pianokey": "Piano key",
+                "waybackhome": "Way back home"
+            }
+        }
+    },
+    "services": {
+        "play_chime": {
+            "description": "Esitage helin seadmes.",
+            "fields": {
+                "device_id": {
+                    "description": "Seade mis esitab helina",
+                    "name": "Helisev seade"
+                },
+                "ringtone": {
+                    "description": "Esitatav helin",
+                    "name": "Helin"
+                }
+            },
+            "name": "Esita helisignaal"
+        },
+        "ptz_move": {
+            "description": "Liiguta kaamerat etteantud kiirusega.",
+            "fields": {
+                "speed": {
+                    "description": "PTZ liikumise kiirus.",
+                    "name": "Kiirus"
+                }
+            },
+            "name": "PTZ liikumine"
+        }
+    }
+}

@@ -1,0 +1,175 @@
+{
+    "config": {
+        "error": {
+            "cannot_connect": "Gagal terhubung",
+            "unknown": "Kesalahan tak terduga"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "host": "Host"
+                },
+                "data_description": {
+                    "host": "Nama host atau alamat IP perangkat Renson Endura delta Anda."
+                }
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "air_quality_control": {
+                "name": "Kontrol kualitas udara"
+            },
+            "breeze": {
+                "name": "Angin sepoi-sepoi"
+            },
+            "breeze_conditions_met": {
+                "name": "Kondisi angin sepoi-sepoi terpenuhi"
+            },
+            "co2_control": {
+                "name": "Kontrol CO2"
+            },
+            "frost_protection_active": {
+                "name": "Perlindungan beku aktif"
+            },
+            "humidity_control": {
+                "name": "Kontrol kelembapan"
+            },
+            "preheater": {
+                "name": "Pemanas awal"
+            }
+        },
+        "sensor": {
+            "air_quality": {
+                "name": "Kualitas udara"
+            },
+            "air_quality_category": {
+                "name": "Kategori kualitas udara"
+            },
+            "breeze_level": {
+                "state": {
+                    "off": "Mati"
+                }
+            },
+            "bypass_level": {
+                "name": "Tingkat pintasan"
+            },
+            "co2_hysteresis": {
+                "name": "Histeresis CO2"
+            },
+            "co2_quality_category": {
+                "name": "Kategori kualitas CO2"
+            },
+            "co2_threshold": {
+                "name": "Ambang CO2"
+            },
+            "day_pollution_level": {
+                "name": "Tingkat polusi siang"
+            },
+            "extract_air_temperature": {
+                "name": "Ekstrak suhu udara"
+            },
+            "filter_change": {
+                "name": "Penggantian filter"
+            },
+            "manual_level": {
+                "name": "Tingkat manual",
+                "state": {
+                    "off": "Mati"
+                }
+            },
+            "night_pollution_level": {
+                "name": "Tingkat polusi malam"
+            },
+            "outdoor_air_temperature": {
+                "name": "Suhu udara luar"
+            },
+            "start_day_time": {
+                "name": "Mulai waktu siang"
+            },
+            "start_night_time": {
+                "name": "Mulai waktu malam"
+            },
+            "ventilation_level": {
+                "state": {
+                    "off": "Mati"
+                }
+            }
+        }
+    },
+    "selector": {
+        "level_setting": {
+            "options": {
+                "off": "Mati"
+            }
+        }
+    },
+    "services": {
+        "set_breeze": {
+            "description": "Mengatur fungsi angin sepoi-sepoi dari sistem ventilasi",
+            "fields": {
+                "activate": {
+                    "description": "Mengaktifkan atau menonaktifkan fitur breeze",
+                    "name": "Aktifkan"
+                },
+                "breeze_level": {
+                    "description": "Tingkat ventilasi saat fungsi angin sepoi-sepoi diaktifkan",
+                    "name": "Level"
+                },
+                "temperature": {
+                    "description": "Suhu ketika fungsi angin sepoi-sepoi harus diaktifkan",
+                    "name": "Suhu"
+                }
+            },
+            "name": "Atur angin sepoi-sepoi"
+        },
+        "set_pollution_settings": {
+            "description": "Atur semua pengaturan polusi pada sistem ventilasi",
+            "fields": {
+                "airquality_control": {
+                    "description": "Mengaktifkan atau menonaktifkan kontrol kualitas udara",
+                    "name": "Aktifkan kontrol kualitas udara"
+                },
+                "co2_control": {
+                    "description": "Mengaktifkan atau menonaktifkan kontrol CO2",
+                    "name": "Aktifkan kontrol CO2"
+                },
+                "co2_hysteresis": {
+                    "description": "Menetapkan tingkat histeresis ambang batas polusi CO2 dalam ppm",
+                    "name": "Histeresis CO2"
+                },
+                "co2_threshold": {
+                    "description": "Menetapkan tingkat ambang batas polusi CO2 dalam ppm",
+                    "name": "Ambang CO2"
+                },
+                "day_pollution_level": {
+                    "description": "Tingkat ventilasi saat polusi terdeteksi di siang hari",
+                    "name": "Tingkat polusi siang hari"
+                },
+                "humidity_control": {
+                    "description": "Mengaktifkan atau menonaktifkan kontrol kelembapan",
+                    "name": "Aktifkan kontrol kelembapan"
+                },
+                "night_pollution_level": {
+                    "description": "Tingkat ventilasi saat polusi terdeteksi di malam hari",
+                    "name": "Tingkat polusi malam hari"
+                }
+            },
+            "name": "Tetapkan pengaturan polusi"
+        },
+        "set_timer_level": {
+            "description": "Atur timer ventilasi",
+            "fields": {
+                "minutes": {
+                    "description": "Waktu timer (0 akan menonaktifkan timer)",
+                    "name": "Waktu"
+                },
+                "timer_level": {
+                    "description": "Pengaturan level",
+                    "name": "Level"
+                }
+            },
+            "name": "Setel timer"
+        }
+    }
+}

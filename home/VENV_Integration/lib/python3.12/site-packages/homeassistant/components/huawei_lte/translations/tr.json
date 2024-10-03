@@ -1,0 +1,402 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Cihaz zaten yap\u0131land\u0131r\u0131lm\u0131\u015f",
+            "already_in_progress": "Yap\u0131land\u0131rma ak\u0131\u015f\u0131 zaten devam ediyor",
+            "reauth_successful": "Yeniden kimlik do\u011frulama ba\u015far\u0131l\u0131 oldu",
+            "unsupported_device": "Desteklenmeyen cihaz"
+        },
+        "error": {
+            "connection_timeout": "Ba\u011flant\u0131 zamana\u015f\u0131m\u0131",
+            "incorrect_password": "Yanl\u0131\u015f parola",
+            "incorrect_username": "Yanl\u0131\u015f kullan\u0131c\u0131 ad\u0131",
+            "invalid_auth": "Ge\u00e7ersiz kimlik do\u011frulama",
+            "invalid_url": "Ge\u00e7ersiz URL",
+            "login_attempts_exceeded": "Maksimum oturum a\u00e7ma denemesi a\u015f\u0131ld\u0131, l\u00fctfen daha sonra tekrar deneyin",
+            "response_error": "Cihazdan bilinmeyen hata",
+            "ssl_error_try_plain": "HTTPS hatas\u0131, l\u00fctfen d\u00fcz bir HTTP URL'si deneyin",
+            "ssl_error_try_unverified": "HTTPS hatas\u0131. L\u00fctfen sertifika do\u011frulamay\u0131 veya d\u00fcz bir HTTP URL'sini devre d\u0131\u015f\u0131 b\u0131rakmay\u0131 deneyin",
+            "unknown": "Beklenmeyen hata"
+        },
+        "flow_title": "{name}",
+        "step": {
+            "reauth_confirm": {
+                "data": {
+                    "password": "\u015eifre",
+                    "username": "Kullan\u0131c\u0131 Ad\u0131"
+                },
+                "description": "Cihaz eri\u015fim kimlik bilgilerini girin.",
+                "title": "{name} i\u00e7in kimlik do\u011frulaman\u0131n s\u00fcresi doldu"
+            },
+            "user": {
+                "data": {
+                    "password": "\u015eifre",
+                    "url": "URL",
+                    "username": "Kullan\u0131c\u0131 Ad\u0131",
+                    "verify_ssl": "SSL sertifikas\u0131n\u0131 do\u011frulay\u0131n"
+                },
+                "description": "Cihaz eri\u015fim ayr\u0131nt\u0131lar\u0131n\u0131 girin.",
+                "title": "Huawei LTE'yi yap\u0131land\u0131r\u0131n"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "24ghz_wifi_status": {
+                "name": "2,4 GHz Wi-Fi durumu"
+            },
+            "5ghz_wifi_status": {
+                "name": "5 GHz Wi-Fi durumu"
+            },
+            "mobile_connection": {
+                "name": "Mobil ba\u011flant\u0131"
+            },
+            "sms_storage_full": {
+                "name": "SMS depolama alan\u0131 dolu"
+            },
+            "wifi_status": {
+                "name": "Wi-Fi durumu"
+            }
+        },
+        "select": {
+            "preferred_network_mode": {
+                "name": "Tercih edilen a\u011f modu",
+                "state": {
+                    "00": "4G/3G/2G otomatik",
+                    "01": "Yaln\u0131zca 2G",
+                    "02": "Yaln\u0131zca 3G",
+                    "0201": "3G/2G otomatik",
+                    "03": "Yaln\u0131zca 4G",
+                    "0301": "4G/2G otomatik",
+                    "0302": "4G/3G otomatik"
+                }
+            }
+        },
+        "sensor": {
+            "arfcn": {
+                "name": "ARFCN"
+            },
+            "band": {
+                "name": "Bant"
+            },
+            "base_station_identity_code": {
+                "name": "Baz istasyonu kimlik kodu"
+            },
+            "cell_id": {
+                "name": "H\u00fccre Kimli\u011fi"
+            },
+            "cqi0": {
+                "name": "CQI 0"
+            },
+            "cqi1": {
+                "name": "CQI 1"
+            },
+            "current_connection_download": {
+                "name": "Mevcut ba\u011flant\u0131 indirme"
+            },
+            "current_connection_duration": {
+                "name": "Mevcut ba\u011flant\u0131 s\u00fcresi"
+            },
+            "current_connection_upload": {
+                "name": "Ge\u00e7erli ba\u011flant\u0131 y\u00fcklemesi"
+            },
+            "current_day_transfer": {
+                "name": "G\u00fcncel transfer"
+            },
+            "current_download_rate": {
+                "name": "Mevcut indirme h\u0131z\u0131"
+            },
+            "current_month_download": {
+                "name": "Bu ayki indirme"
+            },
+            "current_month_upload": {
+                "name": "Bu ayki y\u00fckleme"
+            },
+            "current_upload_rate": {
+                "name": "Mevcut y\u00fckleme h\u0131z\u0131"
+            },
+            "downlink_bandwidth": {
+                "name": "A\u015fa\u011f\u0131 ba\u011flant\u0131 bant geni\u015fli\u011fi"
+            },
+            "downlink_frequency": {
+                "name": "A\u015fa\u011f\u0131 ba\u011flant\u0131 frekans\u0131"
+            },
+            "downlink_mcs": {
+                "name": "Downlink MCS'si"
+            },
+            "earfcn": {
+                "name": "EARFCN"
+            },
+            "ecio": {
+                "name": "EC/IO"
+            },
+            "enodeb_id": {
+                "name": "eNodeB kimli\u011fi"
+            },
+            "lac": {
+                "name": "LAC"
+            },
+            "lte_downlink_frequency": {
+                "name": "LTE a\u015fa\u011f\u0131 ba\u011flant\u0131 frekans\u0131"
+            },
+            "lte_uplink_frequency": {
+                "name": "LTE yukar\u0131 ba\u011flant\u0131 frekans\u0131"
+            },
+            "nrbler": {
+                "name": "5G blok hata oran\u0131"
+            },
+            "nrcqi0": {
+                "name": "5G CQI0"
+            },
+            "nrcqi1": {
+                "name": "5G CQI1"
+            },
+            "nrdlbandwidth": {
+                "name": "5G a\u015fa\u011f\u0131 ba\u011flant\u0131 bant geni\u015fli\u011fi"
+            },
+            "nrdlmcs": {
+                "name": "5G a\u015fa\u011f\u0131 ba\u011flant\u0131 MCS"
+            },
+            "nrearfcn": {
+                "name": "5G EARFCN"
+            },
+            "nrrank": {
+                "name": "5G s\u0131ralamas\u0131"
+            },
+            "nrrsrp": {
+                "name": "5G RSRP"
+            },
+            "nrrsrq": {
+                "name": "5G RSRQ"
+            },
+            "nrsinr": {
+                "name": "5G SINR'\u0131"
+            },
+            "nrtxpower": {
+                "name": "5G iletim g\u00fcc\u00fc"
+            },
+            "nrulbandwidth": {
+                "name": "5G yukar\u0131 ba\u011flant\u0131 bant geni\u015fli\u011fi"
+            },
+            "nrulmcs": {
+                "name": "5G yukar\u0131 ba\u011flant\u0131 MCS"
+            },
+            "operator_code": {
+                "name": "Operat\u00f6r kodu"
+            },
+            "operator_name": {
+                "name": "Operat\u00f6r ad\u0131"
+            },
+            "operator_search_mode": {
+                "name": "Operat\u00f6r arama modu",
+                "state": {
+                    "0": "Otomatik",
+                    "1": "Manuel"
+                }
+            },
+            "pci": {
+                "name": "PCI"
+            },
+            "plmn": {
+                "name": "PLMN"
+            },
+            "preferred_mode": {
+                "name": "Tercih edilen mod"
+            },
+            "preferred_network_mode": {
+                "name": "Tercih edilen a\u011f modu",
+                "state": {
+                    "00": "4G/3G/2G otomatik",
+                    "01": "Yaln\u0131zca 2G",
+                    "02": "Yaln\u0131zca 3G",
+                    "0201": "3G/2G otomatik",
+                    "03": "Yaln\u0131zca 4G",
+                    "0301": "4G/2G otomatik",
+                    "0302": "4G/3G otomatik"
+                }
+            },
+            "primary_dns_server": {
+                "name": "Birincil DNS Sunucusu"
+            },
+            "primary_ipv6_dns_server": {
+                "name": "Birincil IPv6 DNS sunucusu"
+            },
+            "rac": {
+                "name": "RAC"
+            },
+            "rrc_status": {
+                "name": "RRC durumu"
+            },
+            "rscp": {
+                "name": "RSCP"
+            },
+            "rsrp": {
+                "name": "RSRP"
+            },
+            "rsrq": {
+                "name": "RSRQ"
+            },
+            "rssi": {
+                "name": "RSSI"
+            },
+            "secondary_dns_server": {
+                "name": "\u0130kincil DNS sunucusu"
+            },
+            "secondary_ipv6_dns_server": {
+                "name": "\u0130kincil IPv6 DNS sunucusu"
+            },
+            "sinr": {
+                "name": "SINR"
+            },
+            "sms_capacity_device": {
+                "name": "SMS kapasitesi (cihaz)"
+            },
+            "sms_capacity_sim": {
+                "name": "SMS kapasitesi (SIM)"
+            },
+            "sms_deleted_device": {
+                "name": "Silinmi\u015f SMS'ler (cihaz)"
+            },
+            "sms_drafts_device": {
+                "name": "SMS taslaklar\u0131 (cihaz)"
+            },
+            "sms_drafts_sim": {
+                "name": "SMS taslaklar\u0131 (SIM)"
+            },
+            "sms_inbox_device": {
+                "name": "SMS gelen kutusu (cihaz)"
+            },
+            "sms_inbox_sim": {
+                "name": "SMS gelen kutusu (SIM)"
+            },
+            "sms_messages_sim": {
+                "name": "SMS mesajlar\u0131 (SIM)"
+            },
+            "sms_outbox_device": {
+                "name": "SMS giden kutusu (cihaz)"
+            },
+            "sms_outbox_sim": {
+                "name": "SMS giden kutusu (SIM)"
+            },
+            "sms_unread": {
+                "name": "SMS okunmam\u0131\u015f"
+            },
+            "sms_unread_device": {
+                "name": "Okunmam\u0131\u015f SMS (cihaz)"
+            },
+            "sms_unread_sim": {
+                "name": "Okunmam\u0131\u015f SMS (SIM)"
+            },
+            "tac": {
+                "name": "TAC"
+            },
+            "tdd": {
+                "name": "TDD"
+            },
+            "total_connected_duration": {
+                "name": "Toplam ba\u011fl\u0131 kalma s\u00fcresi"
+            },
+            "total_download": {
+                "name": "Toplam indirme"
+            },
+            "total_upload": {
+                "name": "Toplam y\u00fckleme"
+            },
+            "transmission_mode": {
+                "name": "\u0130letim modu"
+            },
+            "transmit_power": {
+                "name": "\u0130letim g\u00fcc\u00fc"
+            },
+            "uplink_bandwidth": {
+                "name": "Y\u00fckleme bant geni\u015fli\u011fi"
+            },
+            "uplink_frequency": {
+                "name": "Yukar\u0131 ba\u011flant\u0131 frekans\u0131"
+            },
+            "uplink_mcs": {
+                "name": "Yukar\u0131 ba\u011flant\u0131 MCS'si"
+            },
+            "uptime": {
+                "name": "\u00c7al\u0131\u015fma S\u00fcresi"
+            },
+            "wan_ip_address": {
+                "name": "WAN IP adresi"
+            },
+            "wan_ipv6_address": {
+                "name": "WAN IPv6 adresi"
+            },
+            "wifi_clients_connected": {
+                "name": "Wi-Fi istemcileri ba\u011fland\u0131"
+            }
+        },
+        "switch": {
+            "mobile_data": {
+                "name": "Mobil veri"
+            },
+            "wifi_guest_network": {
+                "name": "Wi-Fi misafir a\u011f\u0131"
+            }
+        }
+    },
+    "issues": {
+        "service_changed_to_button": {
+            "description": "{service} hizmeti kullan\u0131mdan kald\u0131r\u0131ld\u0131; bunun yerine ilgili {button} d\u00fc\u011fmesini kullan\u0131n.",
+            "title": "Hizmet bir d\u00fc\u011fmeye d\u00f6n\u00fc\u015ft\u00fc"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "name": "Bildirim hizmeti ad\u0131 (de\u011fi\u015fiklik yeniden ba\u015flatmay\u0131 gerektirir)",
+                    "recipient": "SMS bildirimi al\u0131c\u0131lar\u0131",
+                    "track_wired_clients": "Kablolu a\u011f istemcilerini izleyin",
+                    "unauthenticated_mode": "Kimli\u011fi do\u011frulanmam\u0131\u015f mod (de\u011fi\u015fiklik yeniden y\u00fckleme gerektirir)"
+                }
+            }
+        }
+    },
+    "services": {
+        "clear_traffic_statistics": {
+            "description": "Trafik istatistiklerini temizler.",
+            "fields": {
+                "url": {
+                    "description": "Temizlenecek y\u00f6nlendiricinin URL'si; yaln\u0131zca bir tane yap\u0131land\u0131r\u0131ld\u0131\u011f\u0131nda iste\u011fe ba\u011fl\u0131d\u0131r.",
+                    "name": "URL"
+                }
+            },
+            "name": "Trafik istatistiklerini temizleyin"
+        },
+        "reboot": {
+            "description": "Y\u00f6nlendiriciyi yeniden ba\u015flat\u0131r.",
+            "fields": {
+                "url": {
+                    "description": "Yeniden ba\u015flat\u0131lacak y\u00f6nlendiricinin URL'si; yaln\u0131zca bir tane yap\u0131land\u0131r\u0131ld\u0131\u011f\u0131nda iste\u011fe ba\u011fl\u0131d\u0131r.",
+                    "name": "URL"
+                }
+            },
+            "name": "Yeniden Ba\u015flat"
+        },
+        "resume_integration": {
+            "description": "Ask\u0131ya al\u0131nan entegrasyona devam eder.",
+            "fields": {
+                "url": {
+                    "description": "Entegrasyonun s\u00fcrd\u00fcr\u00fclece\u011fi y\u00f6nlendiricinin URL'si; yaln\u0131zca biri yap\u0131land\u0131r\u0131ld\u0131\u011f\u0131nda iste\u011fe ba\u011fl\u0131d\u0131r.",
+                    "name": "URL"
+                }
+            },
+            "name": "Entegrasyonu s\u00fcrd\u00fcr"
+        },
+        "suspend_integration": {
+            "description": "Entegrasyonu ask\u0131ya al\u0131r. Ask\u0131ya alma, entegrasyonu y\u00f6nlendiriciden \u00e7\u0131k\u0131\u015f yapar ve eri\u015fimi durdurur. \u00d6rne\u011fin, web taray\u0131c\u0131s\u0131 gibi ba\u015fka bir kaynaktan y\u00f6nlendirici web aray\u00fcz\u00fcne eri\u015fim ge\u00e7ici olarak gerekliyse yararl\u0131d\u0131r. Devam etmek i\u00e7in resume_integration eylemini \u00e7a\u011f\u0131r\u0131n.",
+            "fields": {
+                "url": {
+                    "description": "Entegrasyonun ask\u0131ya al\u0131naca\u011f\u0131 y\u00f6nlendiricinin URL'si; yaln\u0131zca bir tane yap\u0131land\u0131r\u0131ld\u0131\u011f\u0131nda iste\u011fe ba\u011fl\u0131d\u0131r.",
+                    "name": "URL"
+                }
+            },
+            "name": "Entegrasyonu ask\u0131ya al\u0131n"
+        }
+    }
+}

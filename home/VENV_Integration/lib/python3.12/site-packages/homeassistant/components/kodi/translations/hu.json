@@ -1,0 +1,98 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Az eszk\u00f6z m\u00e1r konfigur\u00e1lva van",
+            "cannot_connect": "Sikertelen csatlakoz\u00e1s",
+            "invalid_auth": "\u00c9rv\u00e9nytelen hiteles\u00edt\u00e9s",
+            "no_uuid": "A Kodi p\u00e9ld\u00e1nynak nincs egyedi azonos\u00edt\u00f3ja. Ennek oka val\u00f3sz\u00edn\u0171leg egy r\u00e9gi Kodi verzi\u00f3 (17.x vagy alacsonyabb). Be\u00e1ll\u00edthatja manu\u00e1lisan az integr\u00e1ci\u00f3t, vagy friss\u00edthet egy \u00fajabb Kodi verzi\u00f3ra.",
+            "unknown": "V\u00e1ratlan hiba"
+        },
+        "error": {
+            "cannot_connect": "Sikertelen csatlakoz\u00e1s",
+            "invalid_auth": "\u00c9rv\u00e9nytelen hiteles\u00edt\u00e9s",
+            "unknown": "V\u00e1ratlan hiba"
+        },
+        "flow_title": "{name}",
+        "step": {
+            "credentials": {
+                "data": {
+                    "password": "Jelsz\u00f3",
+                    "username": "Felhaszn\u00e1l\u00f3n\u00e9v"
+                },
+                "description": "Adja meg a Kodi felhaszn\u00e1l\u00f3nevet \u00e9s jelsz\u00f3t. Ezek megtal\u00e1lhat\u00f3k a Rendszer/Be\u00e1ll\u00edt\u00e1sok/H\u00e1l\u00f3zat/Szolg\u00e1ltat\u00e1sok r\u00e9szben."
+            },
+            "discovery_confirm": {
+                "description": "Szeretn\u00e9 hozz\u00e1adni a Kodi (`{name}`) programot a Home Assistanthoz?",
+                "title": "Kodi felfedezve"
+            },
+            "user": {
+                "data": {
+                    "host": "Hoszt",
+                    "port": "Port",
+                    "ssl": "SSL tan\u00fas\u00edtv\u00e1nyt haszn\u00e1l"
+                },
+                "data_description": {
+                    "host": "A Kodi-kiszolg\u00e1l\u00f3t \u00fczemeltet\u0151 rendszer g\u00e9pneve vagy IP-c\u00edme."
+                },
+                "description": "Kodi csatlakoz\u00e1si inform\u00e1ci\u00f3k. A Rendszer / Be\u00e1ll\u00edt\u00e1sok / H\u00e1l\u00f3zat / Szolg\u00e1ltat\u00e1sok men\u00fcben enged\u00e9lyezze a \"Kodi vez\u00e9rl\u00e9s\u00e9nek enged\u00e9lyez\u00e9se HTTP-n kereszt\u00fcl\" lehet\u0151s\u00e9get."
+            },
+            "ws_port": {
+                "data": {
+                    "ws_port": "Port"
+                },
+                "description": "A WebSocket port (n\u00e9ha TCP-portnak h\u00edvj\u00e1k a Kodi-ban). A WebSocketen kereszt\u00fcli kapcsol\u00f3d\u00e1shoz enged\u00e9lyeznie kell a \"Programok enged\u00e9lyez\u00e9se ... a Kodi vez\u00e9rl\u00e9s\u00e9t\" lehet\u0151s\u00e9get a Rendszer / Be\u00e1ll\u00edt\u00e1sok / H\u00e1l\u00f3zat / Szolg\u00e1ltat\u00e1sok men\u00fcben. Ha a WebSocket nincs enged\u00e9lyezve, t\u00e1vol\u00edtsa el a portot \u00e9s hagyja \u00fcresen."
+            }
+        }
+    },
+    "device_automation": {
+        "trigger_type": {
+            "turn_off": "{entity_name} ki lett kapcsolva",
+            "turn_on": "{entity_name} be lett kapcsolva"
+        }
+    },
+    "entity": {
+        "media_player": {
+            "media_player": {
+                "state_attributes": {
+                    "dynamic_range": {
+                        "name": "Dinamikus tartom\u00e1ny"
+                    }
+                }
+            }
+        }
+    },
+    "services": {
+        "add_to_playlist": {
+            "description": "Zen\u00e9t ad hozz\u00e1 az alap\u00e9rtelmezett lej\u00e1tsz\u00e1si list\u00e1hoz (pl. playlistid=0).",
+            "fields": {
+                "artist_name": {
+                    "description": "Opcion\u00e1lis el\u0151ad\u00f3n\u00e9v a m\u00e9dia sz\u0171r\u00e9s\u00e9hez.",
+                    "name": "El\u0151ad\u00f3 neve"
+                },
+                "media_id": {
+                    "description": "A hozz\u00e1adand\u00f3 m\u00e9dia bejegyz\u00e9s egyedi azonos\u00edt\u00f3ja (`songid` vagy albumid`). Ha nincs meghat\u00e1rozva, a m\u00e9dia neve \u00e9s az el\u0151ad\u00f3 neve sz\u00fcks\u00e9ges a Kodi zenei k\u00f6nyvt\u00e1rban t\u00f6rt\u00e9n\u0151 keres\u00e9shez.",
+                    "name": "M\u00e9dia azonos\u00edt\u00f3"
+                },
+                "media_name": {
+                    "description": "V\u00e1laszthat\u00f3 m\u00e9dian\u00e9v a m\u00e9dia sz\u0171r\u00e9s\u00e9hez. Lehet 'ALL', ha a m\u00e9dia t\u00edpusa 'album' \u00e9s az el\u0151ad\u00f3 neve meg van adva, hogy hozz\u00e1adjunk minden dalt egy el\u0151ad\u00f3t\u00f3l.",
+                    "name": "M\u00e9dia neve"
+                },
+                "media_type": {
+                    "description": "M\u00e9dia t\u00edpus azonos\u00edt\u00f3. Az \u00e9rt\u00e9knek DAL vagy ALBUM kell lennie.",
+                    "name": "M\u00e9dia t\u00edpus"
+                }
+            },
+            "name": "Hozz\u00e1ad\u00e1s a lej\u00e1tsz\u00e1si list\u00e1hoz"
+        },
+        "call_method": {
+            "description": "Egy Kodi JSONRPC API m\u00f3dszert h\u00edv meg opcion\u00e1lis param\u00e9terekkel. A Kodi API h\u00edv\u00e1s eredm\u00e9nyei \u00e1tir\u00e1ny\u00edt\u00e1sra ker\u00fclnek egy Home Assistant esem\u00e9nybe: `kodi_call_method_result`.",
+            "fields": {
+                "method": {
+                    "description": "A h\u00edvand\u00f3 Kodi JSONRPC API met\u00f3dus neve.",
+                    "name": "Met\u00f3dus"
+                }
+            },
+            "name": "Met\u00f3dus megh\u00edv\u00e1sa"
+        }
+    }
+}

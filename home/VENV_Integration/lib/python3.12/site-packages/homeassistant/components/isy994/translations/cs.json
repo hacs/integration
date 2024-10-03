@@ -1,0 +1,192 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Za\u0159\u00edzen\u00ed je ji\u017e nastaveno"
+        },
+        "error": {
+            "cannot_connect": "Nepoda\u0159ilo se p\u0159ipojit",
+            "invalid_auth": "Neplatn\u00e9 ov\u011b\u0159en\u00ed",
+            "invalid_host": "Z\u00e1znam hostitele nebyl v \u00fapln\u00e9m form\u00e1tu URL, nap\u0159. http://192.168.10.100:80",
+            "reauth_successful": "Op\u011btovn\u00e9 ov\u011b\u0159en\u00ed bylo \u00fasp\u011b\u0161n\u00e9",
+            "unknown": "Neo\u010dek\u00e1van\u00e1 chyba"
+        },
+        "flow_title": "{name} ({host})",
+        "step": {
+            "reauth_confirm": {
+                "data": {
+                    "password": "Heslo",
+                    "username": "U\u017eivatelsk\u00e9 jm\u00e9no"
+                },
+                "description": "P\u0159ihla\u0161ovac\u00ed \u00fadaje pro {host} ji\u017e nejsou platn\u00e9.",
+                "title": "Znovu ov\u011b\u0159it ISY"
+            },
+            "user": {
+                "data": {
+                    "host": "URL",
+                    "password": "Heslo",
+                    "tls": "Verze TLS ovlada\u010de ISY.",
+                    "username": "U\u017eivatelsk\u00e9 jm\u00e9no"
+                },
+                "description": "Polo\u017eka hostitele mus\u00ed b\u00fdt v \u00fapln\u00e9m form\u00e1tu URL, nap\u0159 http://192.168.10.100:80.",
+                "title": "P\u0159ipojit k ISY"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_service": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Aktualizujte v\u0161echny automatizace nebo skripty, kter\u00e9 pou\u017e\u00edvaj\u00ed tuto slu\u017ebu, aby m\u00edsto toho pou\u017e\u00edvaly slu\u017ebu \"{alternate_service}\" s ID c\u00edlov\u00e9 entity \"{alternate_target}\".",
+                        "title": "Slu\u017eba {deprecated_service} bude odebr\u00e1na"
+                    },
+                    "deprecated_yaml": {
+                        "description": "Odeb\u00edr\u00e1 se nastaven\u00ed Universal Devices ISY/IoX pomoc\u00ed YAML.\n\nVa\u0161e st\u00e1vaj\u00edc\u00ed nastaven\u00ed YAML byla importov\u00e1na do u\u017eivatelsk\u00e9ho rozhran\u00ed automaticky.\n\nOdeberte nastaven\u00ed YAML \"isy994\" ze souboru configuration.yaml a restartujte Home Assistanta, abyste tento probl\u00e9m vy\u0159e\u0161ili.",
+                        "title": "Nastaven\u00ed ISY/IoX YAML se odeb\u00edr\u00e1"
+                    }
+                }
+            },
+            "title": "Slu\u017eba {deprecated_service} bude odebr\u00e1na"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "ignore_string": "Ignorovat \u0159et\u011bzec",
+                    "restore_light_state": "Obnovit jas sv\u011btla",
+                    "sensor_string": "\u0158et\u011bzec senzoru uzlu",
+                    "variable_sensor_string": "\u0158et\u011bzec prom\u011bnn\u00e9 senzoru"
+                },
+                "description": "Nastavte volby pro integraci ISY:\n\u2022 \u0158et\u011bzec pro senzory uzl\u016f: S ka\u017ed\u00fdm za\u0159\u00edzen\u00edm nebo slo\u017ekou, jeji\u017e n\u00e1zev obsahuje tento \u0159et\u011bzec, bude zach\u00e1zeno jako se senzorem nebo bin\u00e1rn\u00edm senzorem.\n\u2022 Ignorovat \u0159et\u011bzec: Ka\u017ed\u00e9 za\u0159\u00edzen\u00ed, jeho\u017e jm\u00e9no obsahuje tento \u0159et\u011bzec, bude ignorov\u00e1no.\n\u2022 \u0158et\u011bzec prom\u011bnn\u00e9 senzoru: Jak\u00e1koli prom\u011bnn\u00e1, kter\u00e1 obsahuje \"\u0158et\u011bzec prom\u011bnn\u00e9 senzoru\", bude p\u0159id\u00e1na jako senzor.\n\u2022 Obnovit jas sv\u011btla: Pokud je povoleno, obnov\u00ed se p\u0159edchoz\u00ed jas p\u0159i zapnut\u00ed sv\u011btla nam\u00edsto vestav\u011bn\u00e9ho On-Level za\u0159\u00edzen\u00ed.",
+                "title": "Volby ISY"
+            }
+        }
+    },
+    "services": {
+        "delete_zwave_lock_user_code": {
+            "description": "Sma\u017ee u\u017eivatelsk\u00fd k\u00f3d z\u00e1mku Z-Wave prost\u0159ednictv\u00edm ISY.",
+            "fields": {
+                "user_num": {
+                    "description": "\u010c\u00edslo slotu u\u017eivatele na z\u00e1mku.",
+                    "name": "\u010c\u00edslo u\u017eivatele"
+                }
+            },
+            "name": "Smazat u\u017eivatelsk\u00fd k\u00f3d z\u00e1mku Z-Wave"
+        },
+        "get_zwave_parameter": {
+            "description": "Vy\u017e\u00e1d\u00e1 si parametr za\u0159\u00edzen\u00ed Z-Wave p\u0159es ISY. Hodnota parametru bude vr\u00e1cena jako atribut stavu entity nav\u00edc s n\u00e1zvem \"ZW_#\", kde \"#\" je \u010d\u00edslo parametru.",
+            "fields": {
+                "parameter": {
+                    "description": "\u010c\u00edslo parametru, kter\u00e9 se m\u00e1 na\u010d\u00edst ze za\u0159\u00edzen\u00ed.",
+                    "name": "Parametr"
+                }
+            },
+            "name": "Z\u00edskat parametr Z-Wave"
+        },
+        "rename_node": {
+            "description": "P\u0159ejmenuje uzel nebo skupinu (sc\u00e9nu) na ISY. Pozn\u00e1mka: T\u00edm se automaticky nezm\u011bn\u00ed n\u00e1zev entity Home Assistanta nebo ID entity, aby odpov\u00eddaly. N\u00e1zev entity a ID budou aktualizov\u00e1ny po op\u011btovn\u00e9m na\u010dten\u00ed integrac\u00ed nebo restartov\u00e1n\u00edm Home Assistanta a JEN V P\u0158\u00cdPAD\u011a, \u017dE jste si je\u0161t\u011b neupravili n\u00e1zev v Home Assistantovi.",
+            "fields": {
+                "name": {
+                    "description": "Nov\u00fd n\u00e1zev pro pou\u017eit\u00ed v r\u00e1mci ISY.",
+                    "name": "Nov\u00fd n\u00e1zev"
+                }
+            },
+            "name": "P\u0159ejmenovat uzel na ISY"
+        },
+        "send_node_command": {
+            "description": "Ode\u0161le p\u0159\u00edkaz do za\u0159\u00edzen\u00ed ISY pomoc\u00ed ID entity Home Assistanta. Platn\u00e9 p\u0159\u00edkazy jsou: beep, brighten, dim, disable, enable, fade_down, fade_stop, fade_up, fast_off, fast_on a query.",
+            "fields": {
+                "command": {
+                    "description": "P\u0159\u00edkaz, kter\u00fd m\u00e1 b\u00fdt odesl\u00e1n do za\u0159\u00edzen\u00ed.",
+                    "name": "P\u0159\u00edkaz"
+                }
+            },
+            "name": "Odeslat p\u0159\u00edkaz uzlu"
+        },
+        "send_program_command": {
+            "description": "Ode\u0161le p\u0159\u00edkaz k ovl\u00e1d\u00e1n\u00ed programu nebo slo\u017eky ISY. Platn\u00e9 p\u0159\u00edkazy jsou run, run_then, run_else, stop, enable, disable, enable_run_at_startup a disable_run_at_startup.",
+            "fields": {
+                "address": {
+                    "description": "Adresa programu, kter\u00fd se m\u00e1 ovl\u00e1dat (pou\u017eijte adresu nebo n\u00e1zev).",
+                    "name": "Adresa"
+                },
+                "command": {
+                    "description": "P\u0159\u00edkaz programu ISY, kter\u00fd m\u00e1 b\u00fdt odesl\u00e1n.",
+                    "name": "P\u0159\u00edkaz"
+                },
+                "isy": {
+                    "description": "Pokud m\u00e1te p\u0159ipojeno v\u00edce ne\u017e jeden ISY, zadejte n\u00e1zev ISY pro dotaz (jak je zobrazeno v registru za\u0159\u00edzen\u00ed nebo jako prvn\u00ed uzel v ISY Admin Console). Pokud m\u00e1te stejn\u00fd n\u00e1zev programu nebo adresu na v\u00edce ISY, vynech\u00e1te-li toto, spust\u00ed se p\u0159\u00edkaz na v\u0161ech.",
+                    "name": "ISY"
+                },
+                "name": {
+                    "description": "N\u00e1zev programu, kter\u00fd chcete ovl\u00e1dat (pou\u017eijte adresu nebo n\u00e1zev).",
+                    "name": "N\u00e1zev"
+                }
+            },
+            "name": "Odeslat p\u0159\u00edkaz programu"
+        },
+        "send_raw_node_command": {
+            "description": "Nastavte volby pro integraci ISY:\n\u2022 \u0158et\u011bzec pro senzory uzl\u016f: S ka\u017ed\u00fdm za\u0159\u00edzen\u00edm nebo slo\u017ekou, jeji\u017e n\u00e1zev obsahuje tento \u0159et\u011bzec, bude zach\u00e1zeno jako se senzorem nebo bin\u00e1rn\u00edm senzorem.\n\u2022 Ignorovat \u0159et\u011bzec: Ka\u017ed\u00e9 za\u0159\u00edzen\u00ed, jeho\u017e jm\u00e9no obsahuje tento \u0159et\u011bzec, bude ignorov\u00e1no.\n\u2022 \u0158et\u011bzec prom\u011bnn\u00e9 senzoru: Jak\u00e1koli prom\u011bnn\u00e1, kter\u00e1 obsahuje \"\u0158et\u011bzec prom\u011bnn\u00e9 senzoru\", bude p\u0159id\u00e1na jako senzor.\n\u2022 Obnovit jas sv\u011btla: Pokud je povoleno, obnov\u00ed se p\u0159edchoz\u00ed jas p\u0159i zapnut\u00ed sv\u011btla nam\u00edsto vestav\u011bn\u00e9ho On-Level za\u0159\u00edzen\u00ed.",
+            "fields": {
+                "command": {
+                    "description": "P\u0159\u00edkaz ISY REST, kter\u00fd m\u00e1 b\u00fdt odesl\u00e1n do za\u0159\u00edzen\u00ed.",
+                    "name": "P\u0159\u00edkaz"
+                },
+                "parameters": {
+                    "description": "Slovn\u00edk parametr\u016f, kter\u00e9 se maj\u00ed odeslat v \u0159et\u011bzci dotazu (nap\u0159. pro ovl\u00e1d\u00e1n\u00ed barevn\u00fdch \u017e\u00e1rovek).",
+                    "name": "Parametry"
+                },
+                "unit_of_measurement": {
+                    "description": "Jednotka m\u011b\u0159en\u00ed ISY (UOM), kter\u00e1 se m\u00e1 v p\u0159\u00edpad\u011b pot\u0159eby odeslat s p\u0159\u00edkazem.",
+                    "name": "Jednotka m\u011b\u0159en\u00ed"
+                },
+                "value": {
+                    "description": "Celo\u010d\u00edseln\u00e1 hodnota, kter\u00e1 m\u00e1 b\u00fdt odesl\u00e1na s p\u0159\u00edkazem.",
+                    "name": "Hodnota"
+                }
+            },
+            "name": "Odeslat raw p\u0159\u00edkaz uzlu"
+        },
+        "set_zwave_lock_user_code": {
+            "description": "Nastav\u00ed u\u017eivatelsk\u00fd k\u00f3d Z-Wave Lock p\u0159es ISY.",
+            "fields": {
+                "code": {
+                    "description": "K\u00f3d, kter\u00fd m\u00e1 u\u017eivatel nastavit.",
+                    "name": "K\u00f3d"
+                },
+                "user_num": {
+                    "description": "\u010c\u00edslo slotu u\u017eivatele na z\u00e1mku.",
+                    "name": "\u010c\u00edslo u\u017eivatele"
+                }
+            },
+            "name": "Nastavit u\u017eivatelsk\u00fd k\u00f3d z\u00e1mku Z-Wave"
+        },
+        "set_zwave_parameter": {
+            "description": "Aktualizuje parametr za\u0159\u00edzen\u00ed Z-Wave prost\u0159ednictv\u00edm ISY. Hodnota parametru bude tak\u00e9 vr\u00e1cena jako atribut stavu entity nav\u00edc s n\u00e1zvem \"ZW_#\", kde \"#\" je \u010d\u00edslo parametru.",
+            "fields": {
+                "parameter": {
+                    "description": "\u010c\u00edslo parametru, kter\u00e9 se m\u00e1 nastavit na koncov\u00e9m za\u0159\u00edzen\u00ed.",
+                    "name": "Parametr"
+                },
+                "size": {
+                    "description": "Velikost parametru, bu\u010f 1, 2 nebo 4 bajty.",
+                    "name": "Velikost"
+                },
+                "value": {
+                    "description": "Hodnota, kter\u00e1 m\u00e1 b\u00fdt nastavena pro parametr. M\u016f\u017ee to b\u00fdt cel\u00e9 \u010d\u00edslo nebo bajtov\u00fd \u0159et\u011bzec (nap\u0159. \"0xFFFF\").",
+                    "name": "Hodnota"
+                }
+            },
+            "name": "Nastavit parametr Z-Wave"
+        }
+    },
+    "system_health": {
+        "info": {
+            "device_connected": "ISY p\u0159ipojeno",
+            "host_reachable": "Hostitel je dosa\u017eiteln\u00fd",
+            "last_heartbeat": "Posledn\u00ed heartbeat",
+            "websocket_status": "Stav z\u00e1suvky ud\u00e1losti"
+        }
+    }
+}

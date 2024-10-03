@@ -1,0 +1,88 @@
+{
+    "device_automation": {
+        "action_type": {
+            "lock": "\u05e0\u05e2\u05d9\u05dc\u05ea {entity_name}",
+            "open": "\u05e4\u05ea\u05d9\u05d7\u05ea {entity_name}",
+            "unlock": "\u05e0\u05e2\u05d9\u05dc\u05ea {entity_name}"
+        },
+        "condition_type": {
+            "is_locked": "{entity_name} \u05e0\u05e2\u05d5\u05dc",
+            "is_open": "{entity_name} \u05e4\u05ea\u05d5\u05d7",
+            "is_unlocked": "{entity_name} \u05d0\u05d9\u05e0\u05d5 \u05e0\u05e2\u05d5\u05dc"
+        },
+        "extra_fields": {
+            "for": "\u05de\u05e9\u05da \u05d6\u05de\u05df"
+        },
+        "trigger_type": {
+            "locked": "{entity_name} \u05e0\u05e2\u05d5\u05dc",
+            "open": "{entity_name} \u05e0\u05e4\u05ea\u05d7",
+            "unlocked": "{entity_name} \u05dc\u05d0 \u05e0\u05e2\u05d5\u05dc"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "\u05de\u05e0\u05e2\u05d5\u05dc",
+            "state": {
+                "jammed": "\u05ea\u05e7\u05d5\u05e2",
+                "locked": "\u05e0\u05e2\u05d5\u05dc",
+                "locking": "\u05e0\u05e2\u05d9\u05dc\u05d4",
+                "open": "\u05e4\u05ea\u05d5\u05d7",
+                "opening": "\u05d1\u05e4\u05ea\u05d9\u05d7\u05d4",
+                "unlocked": "\u05e4\u05ea\u05d5\u05d7",
+                "unlocking": "\u05d1\u05d9\u05d8\u05d5\u05dc \u05e0\u05e2\u05d9\u05dc\u05d4"
+            },
+            "state_attributes": {
+                "changed_by": {
+                    "name": "\u05d4\u05e9\u05ea\u05e0\u05d4 \u05e2\u05dc \u05d9\u05d3\u05d9"
+                },
+                "code_format": {
+                    "name": "\u05ea\u05d1\u05e0\u05d9\u05ea \u05e7\u05d5\u05d3"
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "add_default_code": {
+            "message": "\u05d4\u05e7\u05d5\u05d3 \u05e2\u05d1\u05d5\u05e8 {entity_id} \u05d0\u05d9\u05e0\u05d5 \u05ea\u05d5\u05d0\u05dd \u05dc\u05ea\u05d1\u05e0\u05d9\u05ea {code_format}."
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "\u05e4\u05dc\u05d8\u05e4\u05d5\u05e8\u05de\u05ea {platform} \u05dc\u05e9\u05d9\u05dc\u05d5\u05d1 {domain} \u05d0\u05d9\u05e0\u05d4 \u05ea\u05d5\u05de\u05db\u05ea \u05d1\u05d4\u05d2\u05d3\u05e8\u05ea \u05e4\u05dc\u05d8\u05e4\u05d5\u05e8\u05de\u05d4. \n\n \u05e0\u05d0 \u05dc\u05d4\u05e1\u05d9\u05e8 \u05d0\u05d5\u05ea\u05d5 \u05de\u05d4\u05ea\u05e6\u05d5\u05e8\u05d4 \u05e9\u05dc\u05da \u05d5\u05dc\u05d4\u05e4\u05e2\u05d9\u05dc \u05de\u05d7\u05d3\u05e9 \u05d0\u05ea Home Assistant \u05d1\u05db\u05d3\u05d9 \u05dc\u05e4\u05ea\u05d5\u05e8 \u05d1\u05e2\u05d9\u05d4 \u05d6\u05d5.",
+            "title": "\u05ea\u05de\u05d9\u05db\u05d4 \u05d1\u05e4\u05dc\u05d8\u05e4\u05d5\u05e8\u05de\u05d4 \u05d0\u05d9\u05e0\u05d4 \u05e0\u05ea\u05de\u05db\u05ea"
+        }
+    },
+    "services": {
+        "lock": {
+            "description": "\u05e0\u05e2\u05d9\u05dc\u05ea \u05d4\u05de\u05e0\u05e2\u05d5\u05dc.",
+            "fields": {
+                "code": {
+                    "description": "\u05e7\u05d5\u05d3 \u05d4\u05de\u05e9\u05de\u05e9 \u05dc\u05e0\u05e2\u05d9\u05dc\u05ea \u05d4\u05de\u05e0\u05e2\u05d5\u05dc.",
+                    "name": "\u05e7\u05d5\u05d3"
+                }
+            },
+            "name": "\u05de\u05e0\u05e2\u05d5\u05dc"
+        },
+        "open": {
+            "description": "\u05e4\u05d5\u05ea\u05d7 \u05e0\u05e2\u05d9\u05dc\u05d4.",
+            "fields": {
+                "code": {
+                    "description": "\u05d4\u05e7\u05d5\u05d3 \u05d4\u05de\u05e9\u05de\u05e9 \u05dc\u05e4\u05ea\u05d9\u05d7\u05ea \u05d4\u05de\u05e0\u05e2\u05d5\u05dc.",
+                    "name": "\u05e7\u05d5\u05d3"
+                }
+            },
+            "name": "\u05e4\u05ea\u05d5\u05d7"
+        },
+        "unlock": {
+            "description": "\u05e4\u05d5\u05ea\u05d7 \u05e0\u05e2\u05d9\u05dc\u05d4.",
+            "fields": {
+                "code": {
+                    "description": "\u05d4\u05e7\u05d5\u05d3 \u05d4\u05de\u05e9\u05de\u05e9 \u05dc\u05e4\u05ea\u05d9\u05d7\u05ea \u05e0\u05e2\u05d9\u05dc\u05ea \u05d4\u05de\u05e0\u05e2\u05d5\u05dc.",
+                    "name": "\u05e7\u05d5\u05d3"
+                }
+            },
+            "name": "\u05d1\u05d9\u05d8\u05d5\u05dc \u05e0\u05e2\u05d9\u05dc\u05d4"
+        }
+    },
+    "title": "\u05de\u05e0\u05e2\u05d5\u05dc"
+}

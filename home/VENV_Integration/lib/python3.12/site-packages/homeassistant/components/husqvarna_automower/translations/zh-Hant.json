@@ -1,0 +1,335 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "\u5e33\u865f\u5df2\u7d93\u8a2d\u5b9a\u5b8c\u6210",
+            "already_in_progress": "\u8a2d\u5b9a\u5df2\u7d93\u9032\u884c\u4e2d",
+            "authorize_url_timeout": "\u7522\u751f\u8a8d\u8b49 URL \u6642\u903e\u6642\u3002",
+            "missing_amc_scope": "`Authentication API` \u8207`Automower Connect API` \u4e26\u672a\u65bc Husqvarna Developer Portal \u4e2d\u8207\u61c9\u7528\u7a0b\u5f0f\u9023\u7dda\u3002",
+            "missing_configuration": "\u5143\u4ef6\u5c1a\u672a\u8a2d\u7f6e\uff0c\u8acb\u53c3\u95b1\u6587\u4ef6\u8aaa\u660e\u3002",
+            "missing_credentials": "\u6574\u5408\u9700\u8981\u61c9\u7528\u6191\u8b49\u3002",
+            "no_url_available": "\u6c92\u6709\u53ef\u7528\u7684\u7db2\u5740\u3002\u95dc\u65bc\u6b64\u932f\u8aa4\u66f4\u8a73\u7d30\u8a0a\u606f\uff0c[\u9ede\u9078\u5354\u52a9\u7ae0\u7bc0]({docs_url})",
+            "oauth_error": "\u6536\u5230\u7121\u6548\u7684\u6b0a\u6756\u8cc7\u6599\u3002",
+            "oauth_failed": "\u53d6\u5f97\u5b58\u53d6\u6b0a\u6756\u6642\u51fa\u73fe\u932f\u8aa4\u3002",
+            "oauth_timeout": "\u89e3\u6790 OAuth \u6b0a\u6756\u903e\u6642\u3002",
+            "oauth_unauthorized": "\u53d6\u5f97\u5b58\u53d6\u6b0a\u6756\u6642 OAuth \u6388\u6b0a\u932f\u8aa4\u3002",
+            "reauth_successful": "\u91cd\u65b0\u8a8d\u8b49\u6210\u529f",
+            "user_rejected_authorize": "\u5e33\u865f\u9023\u7d50\u906d\u62d2\uff1a{error}",
+            "wrong_account": "\u50c5\u80fd\u4f7f\u7528\u76f8\u540c\u7684 Husqvarna \u5e33\u865f\u91cd\u65b0\u8a8d\u8b49\u6b64\u689d\u76ee\u3002"
+        },
+        "create_entry": {
+            "default": "\u5df2\u6210\u529f\u8a8d\u8b49"
+        },
+        "step": {
+            "missing_scope": {
+                "description": "\u70ba\u4e86\u7372\u5f97\u6574\u5408\u7684\u6700\u4f73\u9ad4\u9a57\uff0c\u61c9\u9023\u63a5 `Authentication API` \u8207`Automower Connect API`\u3002\u8acb\u78ba\u8a8d\u90fd\u5df2\u9023\u7dda\u81f3 [Husqvarna Developer Portal]({application_url}) \u5e33\u865f\u3002",
+                "title": "\u5e33\u865f\u7f3a\u5c11\u90e8\u5206 API \u9023\u7dda"
+            },
+            "pick_implementation": {
+                "title": "\u9078\u64c7\u9a57\u8b49\u6a21\u5f0f"
+            },
+            "reauth_confirm": {
+                "description": "Husqvarna Automower \u6574\u5408\u9700\u8981\u91cd\u65b0\u8a8d\u8b49\u60a8\u7684\u5e33\u865f",
+                "title": "{name} \u8a8d\u8b49\u5df2\u904e\u671f"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "leaving_dock": {
+                "name": "\u96e2\u958b\u5145\u96fb\u5ea7"
+            },
+            "returning_to_dock": {
+                "name": "\u8fd4\u56de\u5145\u96fb"
+            }
+        },
+        "button": {
+            "confirm_error": {
+                "name": "\u78ba\u8a8d\u932f\u8aa4"
+            },
+            "sync_clock": {
+                "name": "\u540c\u6b65\u6642\u9418"
+            }
+        },
+        "number": {
+            "cutting_height": {
+                "name": "\u5272\u8349\u9ad8\u5ea6"
+            },
+            "my_lawn_cutting_height": {
+                "name": "\u8349\u576a\u5272\u8349\u9ad8\u5ea6"
+            },
+            "my_lawn_cutting_height_work_area": {
+                "name": "\u8349\u576a\u5272\u8349\u9ad8\u5ea6"
+            },
+            "work_area_cutting_height": {
+                "name": "{work_area} \u5272\u8349\u9ad8\u5ea6"
+            },
+            "work_area_cutting_height_work_area": {
+                "name": "{work_area} \u5272\u8349\u9ad8\u5ea6"
+            }
+        },
+        "select": {
+            "headlight_mode": {
+                "name": "\u982d\u71c8\u6a21\u5f0f",
+                "state": {
+                    "always_off": "\u7e3d\u662f\u95dc\u9589",
+                    "always_on": "\u7e3d\u662f\u958b\u555f",
+                    "evening_and_night": "\u508d\u665a\u8207\u591c\u665a",
+                    "evening_only": "\u50c5\u65bc\u508d\u665a"
+                }
+            }
+        },
+        "sensor": {
+            "cutting_blade_usage_time": {
+                "name": "\u5272\u8349\u5200\u7247\u4f7f\u7528\u6642\u9593"
+            },
+            "error": {
+                "name": "\u932f\u8aa4",
+                "state": {
+                    "alarm_mower_in_motion": "\u8b66\u5831\uff01\u5272\u8349\u6a5f\u904b\u4f5c\u4e2d",
+                    "alarm_mower_lifted": "\u8b66\u5831\uff01\u5272\u8349\u6a5f\u9a30\u7a7a",
+                    "alarm_mower_stopped": "\u8b66\u5831\uff01\u5272\u8349\u6a5f\u5df2\u505c\u6b62",
+                    "alarm_mower_switched_off": "\u8b66\u5831\uff01\u5272\u8349\u6a5f\u5df2\u95dc\u9589",
+                    "alarm_mower_tilted": "\u8b66\u5831\uff01\u5272\u8349\u6a5f\u50be\u5012",
+                    "alarm_outside_geofence": "\u8b66\u5831\uff01\u8d85\u904e\u5730\u7406\u570d\u7c6c",
+                    "angular_sensor_problem": "\u89d2\u5ea6\u611f\u6e2c\u5668\u554f\u984c",
+                    "battery_problem": "\u96fb\u6c60\u554f\u984c",
+                    "battery_restriction_due_to_ambient_temperature": "\u74b0\u5883\u6eab\u5ea6\u5c0e\u81f4\u96fb\u6c60\u9650\u5236",
+                    "can_error": "CAN \u932f\u8aa4",
+                    "charging_current_too_high": "\u5145\u96fb\u96fb\u6d41\u904e\u9ad8",
+                    "charging_station_blocked": "\u5145\u96fb\u57fa\u5730\u53f0\u53d7\u963b",
+                    "charging_system_problem": "\u5145\u96fb\u7cfb\u7d71\u554f\u984c",
+                    "collision_sensor_defect": "\u78b0\u649e\u611f\u6e2c\u5668\u554f\u984c",
+                    "collision_sensor_error": "\u78b0\u649e\u611f\u6e2c\u5668\u932f\u8aa4",
+                    "collision_sensor_problem_front": "\u524d\u78b0\u649e\u611f\u6e2c\u5668\u554f\u984c",
+                    "collision_sensor_problem_rear": "\u5f8c\u78b0\u649e\u611f\u6e2c\u5668\u554f\u984c",
+                    "com_board_not_available": "\u901a\u8a0a\u677f\u7121\u6cd5\u4f7f\u7528",
+                    "communication_circuit_board_sw_must_be_updated": "\u901a\u8a0a\u96fb\u8def\u677f\u8edf\u9ad4\u5fc5\u9808\u66f4\u65b0",
+                    "complex_working_area": "\u8907\u96dc\u5de5\u4f5c\u5340\u57df",
+                    "connection_changed": "\u9023\u7dda\u5df2\u8b8a\u66f4",
+                    "connection_not_changed": "\u9023\u7dda\u672a\u8b8a\u66f4",
+                    "connectivity_problem": "\u9023\u7dda\u554f\u984c",
+                    "connectivity_settings_restored": "\u9023\u7dda\u8a2d\u5b9a\u5df2\u56de\u5fa9",
+                    "cutting_drive_motor_1_defect": "\u5272\u8349\u9a45\u52d5\u99ac\u9054 1 \u932f\u8aa4",
+                    "cutting_drive_motor_2_defect": "\u5272\u8349\u9a45\u52d5\u99ac\u9054 2 \u932f\u8aa4",
+                    "cutting_drive_motor_3_defect": "\u5272\u8349\u9a45\u52d5\u99ac\u9054 3 \u932f\u8aa4",
+                    "cutting_height_blocked": "\u5272\u8349\u9ad8\u5ea6\u53d7\u963b",
+                    "cutting_height_problem": "\u5272\u8349\u9ad8\u5ea6\u554f\u984c",
+                    "cutting_height_problem_curr": "\u5272\u8349\u9ad8\u5ea6\u554f\u984c\uff0ccurr",
+                    "cutting_height_problem_dir": "\u5272\u8349\u9ad8\u5ea6\u554f\u984c\uff0c\u65b9\u5411",
+                    "cutting_height_problem_drive": "\u5272\u8349\u9ad8\u5ea6\u554f\u984c\uff0c\u9a45\u52d5",
+                    "cutting_motor_problem": "\u5272\u8349\u99ac\u9054\u554f\u984c",
+                    "cutting_stopped_slope_too_steep": "\u5272\u8349\u505c\u6b62 - \u5761\u5ea6\u592a\u9661",
+                    "cutting_system_blocked": "\u5272\u8349\u7cfb\u7d71\u53d7\u963b",
+                    "cutting_system_imbalance_warning": "\u5272\u8349\u7cfb\u7d71\u4e0d\u5e73\u8861",
+                    "cutting_system_major_imbalance": "\u5272\u8349\u7cfb\u7d71\u4e3b\u8981\u4e0d\u5e73\u8861",
+                    "destination_not_reachable": "\u7121\u6cd5\u5230\u9054\u76ee\u7684\u5730",
+                    "difficult_finding_home": "\u627e\u4e0d\u5230\u57fa\u5730\u53f0",
+                    "docking_sensor_defect": "\u57fa\u5730\u53f0\u611f\u6e2c\u5668\u932f\u8aa4",
+                    "electronic_problem": "\u96fb\u5b50\u554f\u984c",
+                    "empty_battery": "\u96fb\u6c60\u6c92\u96fb",
+                    "folding_cutting_deck_sensor_defect": "\u6298\u758a\u5272\u8349\u7247\u611f\u6e2c\u5668\u932f\u8aa4",
+                    "folding_sensor_activated": "\u6298\u758a\u611f\u6e2c\u5668\u5df2\u555f\u7528",
+                    "geofence_problem": "\u5730\u7406\u570d\u6b04\u554f\u984c",
+                    "gps_navigation_problem": "GPS \u5c0e\u822a\u554f\u984c",
+                    "guide_1_not_found": "\u627e\u4e0d\u5230\u5c0e\u5f15 1",
+                    "guide_2_not_found": "\u627e\u4e0d\u5230\u5c0e\u5f15 2",
+                    "guide_3_not_found": "\u627e\u4e0d\u5230\u5c0e\u5f15 3",
+                    "guide_calibration_accomplished": "\u5c0e\u5f15\u6821\u6b63\u5b8c\u6210",
+                    "guide_calibration_failed": "\u5c0e\u5f15\u6821\u6b63\u5931\u6557",
+                    "high_charging_power_loss": "\u5145\u96fb\u529f\u7387\u640d\u8017\u5927",
+                    "high_internal_power_loss": "\u5167\u90e8\u529f\u7387\u640d\u8017\u9ad8",
+                    "high_internal_temperature": "\u5167\u90e8\u6eab\u5ea6\u904e\u9ad8",
+                    "internal_voltage_error": "\u5167\u90e8\u96fb\u58d3\u932f\u8aa4",
+                    "invalid_battery_combination_invalid_combination_of_different_battery_types": "\u7121\u6548\u7684\u96fb\u6c60\u7d44\u5408 - \u4e0d\u540c\u985e\u578b\u96fb\u6c60\u7684\u7121\u6548\u7d44\u5408\u3002",
+                    "invalid_sub_device_combination": "\u7121\u6548\u7684\u5b50\u88dd\u7f6e\u7d44\u5408",
+                    "invalid_system_configuration": "\u7cfb\u7d71\u8a2d\u5b9a\u7121\u6548",
+                    "left_brush_motor_overloaded": "\u5de6\u5237\u99ac\u9054\u904e\u8f09",
+                    "lift_sensor_defect": "\u9a30\u7a7a\u611f\u6e2c\u5668\u932f\u8aa4",
+                    "lifted": "\u9a30\u7a7a",
+                    "limited_cutting_height_range": "\u6709\u9650\u5272\u8349\u9ad8\u5ea6\u7bc4\u570d",
+                    "loop_sensor_defect": "\u8ff4\u8def\u611f\u6e2c\u5668\u932f\u8aa4",
+                    "loop_sensor_problem_front": "\u524d\u8ff4\u8def\u611f\u6e2c\u5668\u554f\u984c",
+                    "loop_sensor_problem_left": "\u5de6\u8ff4\u8def\u611f\u6e2c\u5668\u554f\u984c",
+                    "loop_sensor_problem_rear": "\u5f8c\u8ff4\u8def\u611f\u6e2c\u5668\u554f\u984c",
+                    "loop_sensor_problem_right": "\u53f3\u8ff4\u8def\u611f\u6e2c\u5668\u554f\u984c",
+                    "low_battery": "\u4f4e\u96fb\u91cf",
+                    "memory_circuit_problem": "\u8a18\u61b6\u9ad4\u96fb\u8def\u554f\u984c",
+                    "mower_lifted": "\u5272\u8349\u6a5f\u9a30\u7a7a",
+                    "mower_tilted": "\u5272\u8349\u6a5f\u50be\u5012",
+                    "no_accurate_position_from_satellites": "\u885b\u661f\u7121\u6cd5\u6e96\u78ba\u5b9a\u4f4d",
+                    "no_confirmed_position": "\u6c92\u6709\u78ba\u8a8d\u4f4d\u7f6e",
+                    "no_drive": "\u7121\u9a45\u52d5\u5668",
+                    "no_error": "\u6c92\u6709\u932f\u8aa4",
+                    "no_loop_signal": "\u7121\u5faa\u74b0\u8a0a\u865f",
+                    "no_power_in_charging_station": "\u5145\u96fb\u57fa\u5730\u53f0\u672a\u4f9b\u96fb",
+                    "no_response_from_charger": "\u5145\u96fb\u57fa\u5730\u53f0\u7121\u53cd\u61c9",
+                    "outside_working_area": "\u8d85\u51fa\u5de5\u4f5c\u5340\u57df",
+                    "poor_signal_quality": "\u8a0a\u865f\u54c1\u8cea\u5dee",
+                    "reference_station_communication_problem": "\u53c3\u8003\u57fa\u5730\u53f0\u901a\u8a0a\u554f\u984c",
+                    "right_brush_motor_overloaded": "\u53f3\u5237\u99ac\u9054\u904e\u8f09",
+                    "safety_function_faulty": "\u5b89\u5168\u529f\u80fd\u6545\u969c",
+                    "settings_restored": "\u8a2d\u5b9a\u5df2\u56de\u5fa9",
+                    "sim_card_locked": "SIM \u5361\u5df2\u9396\u5b9a",
+                    "sim_card_not_found": "\u627e\u4e0d\u5230 SIM \u5361",
+                    "sim_card_requires_pin": "SIM \u5361\u9700\u8981\u8f38\u5165 PIN \u78bc",
+                    "slipped_mower_has_slipped_situation_not_solved_with_moving_pattern": "\u6253\u6ed1 - \u5272\u8349\u6a5f\u6253\u6ed1\u3001\u79fb\u52d5\u6a21\u5f0f\u7121\u6cd5\u89e3\u6c7a\u554f\u984c",
+                    "slope_too_steep": "\u5761\u5ea6\u592a\u9661",
+                    "sms_could_not_be_sent": "\u7c21\u8a0a\u7121\u6cd5\u50b3\u9001",
+                    "stop_button_problem": "\u505c\u6b62\u6309\u9215\u554f\u984c",
+                    "stuck_in_charging_station": "\u65bc\u5145\u96fb\u57fa\u5730\u53f0\u5361\u4f4f",
+                    "switch_cord_problem": "\u958b\u95dc\u7dda\u554f\u984c",
+                    "temporary_battery_problem": "\u96fb\u6c60\u66ab\u6642\u51fa\u73fe\u554f\u984c",
+                    "tilt_sensor_problem": "\u50be\u659c\u611f\u6e2c\u5668\u554f\u984c",
+                    "too_high_discharge_current": "\u653e\u96fb\u96fb\u6d41\u904e\u9ad8",
+                    "too_high_internal_current": "\u5167\u90e8\u96fb\u6d41\u904e\u9ad8",
+                    "trapped": "\u5361\u4f4f",
+                    "ultrasonic_problem": "\u8d85\u97f3\u6ce2\u554f\u984c",
+                    "ultrasonic_sensor_1_defect": "\u8d85\u97f3\u6ce2\u611f\u6e2c\u5668 1 \u932f\u8aa4",
+                    "ultrasonic_sensor_2_defect": "\u8d85\u97f3\u6ce2\u611f\u6e2c\u5668 2 \u932f\u8aa4",
+                    "ultrasonic_sensor_3_defect": "\u8d85\u97f3\u6ce2\u611f\u6e2c\u5668 3 \u932f\u8aa4",
+                    "ultrasonic_sensor_4_defect": "\u8d85\u97f3\u6ce2\u611f\u6e2c\u5668 4 \u932f\u8aa4",
+                    "unexpected_cutting_height_adj": "\u672a\u9810\u671f\u5272\u8349\u9ad8\u5ea6\u8abf\u6574",
+                    "unexpected_error": "\u672a\u9810\u671f\u932f\u8aa4",
+                    "upside_down": "\u7ffb\u8986",
+                    "weak_gps_signal": "GPS \u8a0a\u865f\u5f31",
+                    "wheel_drive_problem_left": "\u5de6\u8f2a\u9a45\u52d5\u554f\u984c",
+                    "wheel_drive_problem_rear_left": "\u5de6\u5f8c\u8f2a\u9a45\u52d5\u554f\u984c",
+                    "wheel_drive_problem_rear_right": "\u53f3\u5f8c\u8f2a\u9a45\u52d5\u554f\u984c",
+                    "wheel_drive_problem_right": "\u53f3\u8f2a\u9a45\u52d5\u554f\u984c",
+                    "wheel_motor_blocked_left": "\u5de6\u8f2a\u99ac\u9054\u53d7\u963b",
+                    "wheel_motor_blocked_rear_left": "\u5de6\u5f8c\u8f2a\u99ac\u9054\u53d7\u963b",
+                    "wheel_motor_blocked_rear_right": "\u53f3\u5f8c\u8f2a\u99ac\u9054\u88ab\u53d7\u963b",
+                    "wheel_motor_blocked_right": "\u53f3\u8f2a\u99ac\u9054\u53d7\u963b",
+                    "wheel_motor_overloaded_left": "\u5de6\u8f2a\u99ac\u9054\u904e\u8f09",
+                    "wheel_motor_overloaded_rear_left": "\u5de6\u5f8c\u8f2a\u99ac\u9054\u904e\u8f09",
+                    "wheel_motor_overloaded_rear_right": "\u53f3\u5f8c\u8f2a\u99ac\u9054\u904e\u8f09",
+                    "wheel_motor_overloaded_right": "\u53f3\u8f2a\u99ac\u9054\u904e\u8f09",
+                    "work_area_not_valid": "\u5de5\u4f5c\u5340\u57df\u7121\u6548",
+                    "wrong_loop_signal": "\u5faa\u74b0\u8a0a\u865f\u932f\u8aa4",
+                    "wrong_pin_code": "PIN \u78bc\u932f\u8aa4",
+                    "zone_generator_problem": "\u5340\u57df\u7522\u751f\u554f\u984c"
+                }
+            },
+            "mode": {
+                "name": "\u6a21\u5f0f",
+                "state": {
+                    "demo": "\u5c55\u793a",
+                    "home": "\u5728\u5bb6",
+                    "main_area": "\u4e3b\u8981\u5340\u57df",
+                    "secondary_area": "\u6b21\u8981\u5340\u57df"
+                }
+            },
+            "next_start_timestamp": {
+                "name": "\u4e0b\u6b21\u958b\u59cb"
+            },
+            "number_of_charging_cycles": {
+                "name": "\u5145\u96fb\u5faa\u74b0\u6b21\u6578"
+            },
+            "number_of_collisions": {
+                "name": "\u78b0\u649e\u6b21\u6578"
+            },
+            "restricted_reason": {
+                "name": "\u9650\u5236\u539f\u56e0",
+                "state": {
+                    "all_work_areas_completed": "\u6240\u6709\u5de5\u4f5c\u5340\u57df\u5747\u5df2\u5b8c\u6210",
+                    "daily_limit": "\u6bcf\u65e5\u9650\u5236",
+                    "external": "\u5916\u90e8",
+                    "fota": "\u97cc\u9ad4\u66f4\u65b0\u4e2d",
+                    "frost": "\u51b0\u971c",
+                    "none": "\u7121\u9650\u5236",
+                    "not_applicable": "\u4e0d\u9069\u7528",
+                    "park_override": "\u505c\u8eca\u8986\u84cb",
+                    "sensor": "\u5929\u6c23\u8a08\u6642\u5668",
+                    "week_schedule": "\u9031\u6392\u7a0b"
+                }
+            },
+            "total_charging_time": {
+                "name": "\u7e3d\u5145\u96fb\u6642\u9593"
+            },
+            "total_cutting_time": {
+                "name": "\u7e3d\u5272\u8349\u6642\u9593"
+            },
+            "total_drive_distance": {
+                "name": "\u7e3d\u884c\u99db\u8ddd\u96e2"
+            },
+            "total_running_time": {
+                "name": "\u7e3d\u57f7\u884c\u6642\u9593"
+            },
+            "total_searching_time": {
+                "name": "\u7e3d\u641c\u5c0b\u6642\u9593"
+            },
+            "work_area": {
+                "name": "\u5de5\u4f5c\u5340\u57df",
+                "state": {
+                    "my_lawn": "\u6211\u7684\u8349\u576a",
+                    "no_work_area_active": "\u6c92\u6709\u555f\u7528\u7684\u5de5\u4f5c\u5340\u57df"
+                },
+                "state_attributes": {
+                    "work_area_id_assignment": {
+                        "name": "\u5de5\u4f5c\u5340 ID \u6307\u6d3e"
+                    }
+                }
+            }
+        },
+        "switch": {
+            "enable_schedule": {
+                "name": "\u958b\u555f\u6392\u7a0b"
+            },
+            "my_lawn_work_area": {
+                "name": "\u6211\u7684\u8349\u576a"
+            },
+            "stay_out_zones": {
+                "name": "\u8ff4\u907f {stay_out_zone}"
+            }
+        }
+    },
+    "exceptions": {
+        "command_send_failed": {
+            "message": "\u7121\u6cd5\u50b3\u9001\u547d\u4ee4\uff1a{exception}"
+        },
+        "work_area_not_existing": {
+            "message": "\u6240\u9078\u7684\u5de5\u4f5c\u5340\u4e0d\u5b58\u5728\u3002"
+        },
+        "work_areas_not_supported": {
+            "message": "\u6b64\u5272\u8349\u6a5f\u4e0d\u652f\u63f4\u5de5\u4f5c\u5340\u3002"
+        }
+    },
+    "selector": {
+        "override_modes": {
+            "options": {
+                "mow": "\u5272\u8349",
+                "park": "\u505c\u8eca"
+            }
+        }
+    },
+    "services": {
+        "override_schedule": {
+            "description": "\u8986\u84cb\u6392\u7a0b\u4ee5\u9032\u884c\u5272\u8349\u6216\u505c\u8eca\u4e00\u6bb5\u6642\u9593\u3002",
+            "fields": {
+                "duration": {
+                    "description": "\u6700\u5c0f\u503c\uff1a1 \u5206\u9418\u3001\u6700\u5927\u503c\uff1a42 \u5929\uff0c\u5c07\u5ffd\u7565\u79d2\u6578\u3002",
+                    "name": "\u6301\u7e8c\u6642\u9593"
+                },
+                "override_mode": {
+                    "description": "\u61c9\u4ee5\u54ea\u7a2e\u52d5\u4f5c\u4ee5\u8986\u84cb\u6392\u7a0b\u3002",
+                    "name": "\u8986\u84cb\u6a21\u5f0f"
+                }
+            },
+            "name": "\u8986\u84cb\u6392\u7a0b"
+        },
+        "override_schedule_work_area": {
+            "description": "\u8986\u84cb\u5272\u8349\u6a5f\u6392\u7a0b\u4ee5\u9032\u884c\u6240\u9078\u5de5\u4f5c\u5340\u6301\u7e8c\u6642\u9593\u5272\u8349\u3002",
+            "fields": {
+                "duration": {
+                    "description": "\u6700\u5c0f\u503c\uff1a1 \u5206\u9418\u3001\u6700\u5927\u503c\uff1a42 \u5929\uff0c\u5c07\u5ffd\u7565\u79d2\u6578\u3002",
+                    "name": "\u6301\u7e8c\u6642\u9593"
+                },
+                "work_area_id": {
+                    "description": "\u5272\u8349\u6a5f\u6240\u8981\u9032\u884c\u7684\u5de5\u4f5c\u5340",
+                    "name": "\u5de5\u4f5c\u5340 ID"
+                }
+            },
+            "name": "\u8986\u84cb\u6392\u7a0b\u5de5\u4f5c\u5340"
+        }
+    }
+}

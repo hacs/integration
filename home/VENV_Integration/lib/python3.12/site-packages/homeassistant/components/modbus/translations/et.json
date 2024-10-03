@@ -1,0 +1,114 @@
+{
+    "issues": {
+        "deprecated_close_comm_config": {
+            "description": "Probleemi lahendamiseks eemalda v\u00f5ti `{config_key}` oma failist `configuration.yaml` kandest {integration} ja k\u00e4ivita Home Assistant uuesti. K\u00f5ikidest vigadest teatatakse, kuna `lazy_error_count` on aktsepteeritud kuid seda ignoreeritakse.",
+            "title": "Konfiguratsiooniv\u00f5tit ` {config_key} ` eemaldatakse"
+        },
+        "deprecated_restart": {
+            "description": "Kasuta yamli uuesti laadimist kasutajaliidese arendaja t\u00f6\u00f6riistade kaudu, mitte teenuse \u201emodbus.restart\u201d kaudu.",
+            "title": "modbus.restart eemaldatakse"
+        },
+        "deprecated_retries": {
+            "description": "Selle probleemi lahendamiseks eemalda v\u00f5ti {config_key} faili configuration.yaml kirjest {integration} ja taask\u00e4ivita Home Assistant. \n\n Maksimaalne korduskatsete arv on n\u00fc\u00fcd fikseeritud 3-le.",
+            "title": "Konfiguratsiooniv\u00f5ti {config_key} eemaldatakse"
+        },
+        "deprecated_retry_on_empty": {
+            "description": "Selle probleemi lahendamiseks eemalda v\u00f5ti {config_key} faili configuration.yaml kirjest {integration} ja taask\u00e4ivita Home Assistant. \n\n Retry on empty rakendatakse automaatselt, muude veak\u00e4sitluse parameetrite kohta vaata [dokumentatsiooni]( {url} ).",
+            "title": "Konfiguratsiooniv\u00f5ti ` {config_key} ` eemaldatakse"
+        },
+        "duplicate_entity_entry": {
+            "description": "Aadressi saab seostada ainult \u00fche olemiga. Probleemi lahendamiseks paranda kirjet failis configuration.yaml ja taask\u00e4ivita Home Assistant.",
+            "title": "Modbusi {sub_1} aadress {sub_2} on duplikaat, teist kirjet ei laaditud."
+        },
+        "duplicate_entity_name": {
+            "description": "Olemi nimi peab olema kordumatu. Selle probleemi lahendamiseks paranda kirjet failis configuration.yaml ja taask\u00e4ivita Home Assistant.",
+            "title": "Modbus {sub_1} on duplikaat, teist kirjet ei laaditud."
+        },
+        "duplicate_modbus_entry": {
+            "description": "Probleemi lahendamiseks uuenda {sub_2} ja/v\u00f5i {sub_1} configuration.yaml-faili kirjes ja taask\u00e4ivita Home Assistant.",
+            "title": "Modbusi {sub_2} host/port {sub_1} on duplikaat, teist kirjet ei laaditud."
+        },
+        "missing_modbus_name": {
+            "description": "Selle probleemi lahendamiseks lisa failis configuration.yaml v\u00f5ti ` {sub_1} ` kirjele {integration} hostiga ` {sub_2} ja taask\u00e4ivita Home Assistant \n\n . ` {sub_1} : {sub_3} ` on lisatud.",
+            "title": "Modbusi kirjel host {sub_2} puudub nimi"
+        },
+        "no_entities": {
+            "description": "Selle probleemi lahendamiseks lisa failis configuration.yaml Modbusi {sub_1} v\u00e4hemalt \u00fcks olem ja taask\u00e4ivita Home Assistant.",
+            "title": "Modbus {sub_1} ei sisalda \u00fcksusi, kirjet pole laaditud."
+        },
+        "removed_lazy_error_count": {
+            "description": "Selle probleemi lahendamiseks eemalda v\u00f5ti {config_key} faili configuration.yaml kirjest {integration} ja taask\u00e4ivita Home Assistant. K\u00f5igist t\u00f5rgetest teatatakse, kuna lazy_error_count aktsepteeritakse kuid seda ignoreeritakse",
+            "title": "Konfiguratsiooniv\u00f5ti {config_key} eemaldatakse"
+        }
+    },
+    "services": {
+        "reload": {
+            "description": "Laeb uuesti k\u00f5ik modbusi olemid.",
+            "name": "Taaslae"
+        },
+        "restart": {
+            "description": "Taask\u00e4ivitab modbusi jaoturi.",
+            "fields": {
+                "hub": {
+                    "description": "Modbusi jaoturi nimi.",
+                    "name": "Jaotur"
+                }
+            },
+            "name": "Taask\u00e4ivita"
+        },
+        "stop": {
+            "description": "Peatab modbusi jaoturi.",
+            "fields": {
+                "hub": {
+                    "description": "Modbusi jaoturi nimi.",
+                    "name": "Jaotur"
+                }
+            },
+            "name": "Peata"
+        },
+        "write_coil": {
+            "description": "Kirjutab modbusi m\u00e4hisele.",
+            "fields": {
+                "address": {
+                    "description": "Registri aadress, kuhu kirjutada.",
+                    "name": "Aadress"
+                },
+                "hub": {
+                    "description": "Modbusi jaoturi nimi.",
+                    "name": "Jaotur"
+                },
+                "slave": {
+                    "description": "Modbusi \u00fcksuse/alamseadme aadress.",
+                    "name": "Alamseade"
+                },
+                "state": {
+                    "description": "Kirjutatav olek.",
+                    "name": "Olek"
+                }
+            },
+            "name": "Kirjuta m\u00e4his"
+        },
+        "write_register": {
+            "description": "Kirjutab modbus holding registrisse.",
+            "fields": {
+                "address": {
+                    "description": "Hoideregistri aadress kuhu kirjutada.",
+                    "name": "Aadress"
+                },
+                "hub": {
+                    "description": "Modbusi jaoturi nimi.",
+                    "name": "Jaotur"
+                },
+                "slave": {
+                    "description": "Modbusi \u00fcksuse/alamseadme aadress.",
+                    "name": "Alamseade"
+                },
+                "value": {
+                    "description": "Kirjutatav v\u00e4\u00e4rtus (\u00fcksik v\u00e4\u00e4rtus v\u00f5i massiiv).",
+                    "name": "V\u00e4\u00e4rtus"
+                }
+            },
+            "name": "Kirjuta register"
+        }
+    }
+}

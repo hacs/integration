@@ -1,0 +1,625 @@
+{
+    "config": {
+        "abort": {
+            "addon_get_discovery_info_failed": "Z-Wave JS eklenti ke\u015fif bilgileri al\u0131namad\u0131.",
+            "addon_info_failed": "Z-Wave JS eklenti bilgileri al\u0131namad\u0131.",
+            "addon_install_failed": "Z-Wave JS eklentisi y\u00fcklenemedi.",
+            "addon_set_config_failed": "Z-Wave JS yap\u0131land\u0131rmas\u0131 ayarlanamad\u0131.",
+            "addon_start_failed": "Z-Wave JS eklentisi ba\u015flat\u0131lamad\u0131.",
+            "already_configured": "Cihaz zaten yap\u0131land\u0131r\u0131lm\u0131\u015f",
+            "already_in_progress": "Yap\u0131land\u0131rma ak\u0131\u015f\u0131 zaten devam ediyor",
+            "cannot_connect": "Ba\u011flanma hatas\u0131",
+            "discovery_requires_supervisor": "Tarama, s\u00fcperviz\u00f6r\u00fc gerektirir.",
+            "not_zwave_device": "Bulunan cihaz bir Z-Wave cihaz\u0131 de\u011fil.",
+            "not_zwave_js_addon": "Ke\u015ffedilen eklenti, resmi Z-Wave JS eklentisi de\u011fildir."
+        },
+        "error": {
+            "addon_start_failed": "Z-Wave JS eklentisi ba\u015flat\u0131lamad\u0131. Yap\u0131land\u0131rmay\u0131 kontrol edin.",
+            "cannot_connect": "Ba\u011flanma hatas\u0131",
+            "invalid_ws_url": "Ge\u00e7ersiz websocket URL'si",
+            "unknown": "Beklenmeyen hata"
+        },
+        "flow_title": "{name}",
+        "progress": {
+            "install_addon": "L\u00fctfen Z-Wave JS eklenti kurulumu bitene kadar bekleyin. Bu birka\u00e7 dakika s\u00fcrebilir.",
+            "start_addon": "Z-Wave JS eklenti ba\u015flatma i\u015flemi tamamlanana kadar l\u00fctfen bekleyin. Bu birka\u00e7 saniye s\u00fcrebilir."
+        },
+        "step": {
+            "configure_addon": {
+                "data": {
+                    "s0_legacy_key": "S0 Anahtar\u0131 (Eski)",
+                    "s2_access_control_key": "S2 Eri\u015fim Kontrol Anahtar\u0131",
+                    "s2_authenticated_key": "S2 Kimli\u011fi Do\u011frulanm\u0131\u015f Anahtar",
+                    "s2_unauthenticated_key": "S2 Kimli\u011fi Do\u011frulanmam\u0131\u015f Anahtar",
+                    "usb_path": "USB Ayg\u0131t Yolu"
+                },
+                "description": "Bu alanlar bo\u015f b\u0131rak\u0131l\u0131rsa eklenti g\u00fcvenlik anahtarlar\u0131 \u00fcretecektir.",
+                "title": "Z-Wave JS eklenti yap\u0131land\u0131rmas\u0131na girin"
+            },
+            "hassio_confirm": {
+                "title": "Z-Wave JS eklentisiyle Z-Wave JS entegrasyonunu ayarlay\u0131n"
+            },
+            "install_addon": {
+                "title": "Z-Wave JS eklenti kurulumu ba\u015flad\u0131"
+            },
+            "manual": {
+                "data": {
+                    "url": "URL"
+                }
+            },
+            "on_supervisor": {
+                "data": {
+                    "use_addon": "Z-Wave JS Supervisor eklentisini kullan\u0131n"
+                },
+                "description": "Z-Wave JS Supervisor eklentisini kullanmak istiyor musunuz?",
+                "title": "Ba\u011flant\u0131 y\u00f6ntemini se\u00e7in"
+            },
+            "start_addon": {
+                "title": "Z-Wave JS eklentisi ba\u015fl\u0131yor."
+            },
+            "usb_confirm": {
+                "description": "{name} i\u00e7in Z-Wave JS eklentisini kurmak istiyor musunuz?"
+            },
+            "zeroconf_confirm": {
+                "description": "{url} adresinde bulunan {home_id} ev kimli\u011fine sahip Z-Wave JS Sunucusunu Home Assistant'a eklemek istiyor musunuz?",
+                "title": "Ke\u015ffedilen Z-Wave JS Sunucusu"
+            }
+        }
+    },
+    "device_automation": {
+        "action_type": {
+            "clear_lock_usercode": "{entity_name} \u00fczerindeki kullan\u0131c\u0131 kodunu temizle",
+            "ping": "ping",
+            "refresh_value": "{entity_name} i\u00e7in de\u011ferleri yenileme",
+            "reset_meter": "{subtype} \u00fczerindeki saya\u00e7lar\u0131 s\u0131f\u0131rla",
+            "set_config_parameter": "{subtype} yap\u0131land\u0131rma parametresinin de\u011ferini ayarlama",
+            "set_lock_usercode": "{entity_name} \u00fczerinde kullan\u0131c\u0131 kodu ayarlama",
+            "set_value": "Z-Wave De\u011ferini Ayarla"
+        },
+        "condition_type": {
+            "config_parameter": "Yap\u0131land\u0131rma parametresi {subtype} de\u011feri",
+            "node_status": "D\u00fc\u011f\u00fcm durumu",
+            "value": "Z-Wave De\u011ferinin mevcut ayar\u0131"
+        },
+        "extra_fields": {
+            "code_slot": "Kod yuvas\u0131",
+            "command_class": "Komut s\u0131n\u0131f\u0131",
+            "data_type": "Veri tipi",
+            "endpoint": "Biti\u015f noktas\u0131",
+            "event": "Olay",
+            "event_label": "Etkinlik etiketi",
+            "event_type": "Olay t\u00fcr\u00fc",
+            "for": "S\u00fcre",
+            "from": "Kaynak",
+            "label": "Etiket",
+            "property": "\u00d6zellik",
+            "property_key": "\u00d6zellik anahtar\u0131",
+            "refresh_all_values": "T\u00fcm de\u011ferleri yenileyin",
+            "status": "Durum",
+            "to": "i\u00e7in",
+            "type.": "Tip",
+            "usercode": "Kullan\u0131c\u0131 kodu",
+            "value": "De\u011fer",
+            "wait_for_result": "Sonu\u00e7 i\u00e7in bekleyin"
+        },
+        "trigger_type": {
+            "event.notification.entry_control": "Giri\u015f Kontrol\u00fc bildirimi g\u00f6nderdi",
+            "event.notification.notification": "Bildirim g\u00f6nderdi",
+            "event.value_notification.basic": "{subtype} \u00fczerinde temel CC etkinli\u011fi",
+            "event.value_notification.central_scene": "{subtype} \u00fczerinde Merkezi Sahne eylemi",
+            "event.value_notification.scene_activation": "{subtype} \u00fczerinde Sahne Aktivasyonu",
+            "state.node_status": "D\u00fc\u011f\u00fcm durumu de\u011fi\u015fti",
+            "zwave_js.value_updated.config_parameter": "{subtype} yap\u0131land\u0131rma parametresinde de\u011fer de\u011fi\u015fikli\u011fi",
+            "zwave_js.value_updated.value": "Z-Wave JS De\u011ferinde de\u011fer de\u011fi\u015fikli\u011fi"
+        }
+    },
+    "entity": {
+        "button": {
+            "ping": {
+                "name": "Ping"
+            }
+        },
+        "sensor": {
+            "average_background_rssi": {
+                "name": "Ortalama arka plan RSSI (kanal {channel} )"
+            },
+            "can": {
+                "name": "\u00c7arp\u0131\u015fmalar"
+            },
+            "commands_dropped": {
+                "name": "Komutlar kald\u0131r\u0131ld\u0131 ( {direction} )"
+            },
+            "controller_status": {
+                "name": "Durum",
+                "state": {
+                    "jammed": "S\u0131k\u0131\u015fm\u0131\u015f",
+                    "ready": "Haz\u0131r",
+                    "unresponsive": "Yan\u0131t vermiyor"
+                }
+            },
+            "current_background_rssi": {
+                "name": "Ge\u00e7erli arka plan RSSI'si (kanal {channel} )"
+            },
+            "last_seen": {
+                "name": "Son g\u00f6r\u00fclme"
+            },
+            "messages_dropped": {
+                "name": "B\u0131rak\u0131lan mesajlar ({direction})"
+            },
+            "nak": {
+                "name": "Mesajlar kabul edilmedi"
+            },
+            "node_status": {
+                "name": "D\u00fc\u011f\u00fcm durumu",
+                "state": {
+                    "alive": "Canl\u0131",
+                    "asleep": "Uykuda",
+                    "awake": "Uyan\u0131k",
+                    "dead": "\u00d6l\u00fc",
+                    "unknown": "Bilinmeyen"
+                }
+            },
+            "rssi": {
+                "name": "RSSI"
+            },
+            "rtt": {
+                "name": "Gidi\u015f-d\u00f6n\u00fc\u015f s\u00fcresi"
+            },
+            "successful_commands": {
+                "name": "Ba\u015far\u0131l\u0131 komutlar ( {direction} )"
+            },
+            "successful_messages": {
+                "name": "Ba\u015far\u0131l\u0131 mesajlar ( {direction} )"
+            },
+            "timeout_ack": {
+                "name": "Eksik ACK'lar"
+            },
+            "timeout_callback": {
+                "name": "Zaman a\u015f\u0131m\u0131na u\u011fram\u0131\u015f geri aramalar"
+            },
+            "timeout_response": {
+                "name": "Zaman a\u015f\u0131m\u0131na u\u011fram\u0131\u015f yan\u0131tlar"
+            }
+        }
+    },
+    "issues": {
+        "device_config_file_changed": {
+            "fix_flow": {
+                "abort": {
+                    "cannot_connect": "{device_name} cihaz\u0131na ba\u011flan\u0131lam\u0131yor. L\u00fctfen Z-Wave a\u011f\u0131n\u0131z\u0131n \u00e7al\u0131\u015f\u0131r durumda oldu\u011funu ve Ev Asistan\u0131na ba\u011fl\u0131 oldu\u011funu do\u011frulad\u0131ktan sonra tekrar deneyin.",
+                    "issue_ignored": "{device_name} i\u00e7in cihaz yap\u0131land\u0131rma dosyas\u0131 g\u00fcncellemesi yok say\u0131ld\u0131."
+                },
+                "step": {
+                    "confirm": {
+                        "description": "{device_name} i\u00e7in cihaz yap\u0131land\u0131rma dosyas\u0131 de\u011fi\u015fti. \n\n Z-Wave JS, cihazla r\u00f6portaj yaparak bir\u00e7ok cihaz meta verisini ke\u015ffeder. Ancak baz\u0131 bilgilerin bir yap\u0131land\u0131rma dosyas\u0131ndan y\u00fcklenmesi gerekir. Bu bilgilerin bir k\u0131sm\u0131 yaln\u0131zca bir kez, cihaz g\u00f6r\u00fc\u015fmesi s\u0131ras\u0131nda de\u011ferlendirilir. \n\n Bir cihaz yap\u0131land\u0131rma dosyas\u0131 g\u00fcncellendi\u011finde, bu bilgiler eski olabilir ve de\u011fi\u015fiklikleri almak i\u00e7in cihazla yeniden g\u00f6r\u00fc\u015fme yap\u0131lmas\u0131 gerekir. \n\n Bu gerekli bir i\u015flem de\u011fildir ve yeniden g\u00f6r\u00fc\u015fme s\u00fcrecinde cihaz\u0131n i\u015flevselli\u011fi etkilenecektir, ancak i\u015flem tamamland\u0131ktan sonra cihaz\u0131n\u0131zda iyile\u015ftirmeler g\u00f6rebilirsiniz. \n\n Devam etmek istiyorsan\u0131z a\u015fa\u011f\u0131daki G\u00d6NDER'e t\u0131klay\u0131n. Tekrar g\u00f6r\u00fc\u015fme arka planda ger\u00e7ekle\u015fecektir.",
+                        "title": "Cihaz yap\u0131land\u0131rma dosyas\u0131 de\u011fi\u015ftirildi: {device_name}"
+                    },
+                    "init": {
+                        "description": "{device_name} i\u00e7in cihaz yap\u0131land\u0131rma dosyas\u0131 de\u011fi\u015fti. \n\n Z-Wave JS, cihazla r\u00f6portaj yaparak bir\u00e7ok cihaz meta verisini ke\u015ffeder. Ancak baz\u0131 bilgilerin bir yap\u0131land\u0131rma dosyas\u0131ndan y\u00fcklenmesi gerekir. Bu bilgilerin bir k\u0131sm\u0131 yaln\u0131zca bir kez, cihaz g\u00f6r\u00fc\u015fmesi s\u0131ras\u0131nda de\u011ferlendirilir. \n\n Bir cihaz yap\u0131land\u0131rma dosyas\u0131 g\u00fcncellendi\u011finde, bu bilgiler eski olabilir ve de\u011fi\u015fiklikleri almak i\u00e7in cihazla yeniden g\u00f6r\u00fc\u015fme yap\u0131lmas\u0131 gerekir. \n\n Bu gerekli bir i\u015flem de\u011fildir ve yeniden g\u00f6r\u00fc\u015fme s\u00fcrecinde cihaz\u0131n i\u015flevselli\u011fi etkilenecektir, ancak i\u015flem tamamland\u0131ktan sonra cihaz\u0131n\u0131zda iyile\u015ftirmeler g\u00f6rebilirsiniz. \n\n Tekrar g\u00f6r\u00fc\u015fmeye devam etmeye karar verirseniz, bu arka planda ger\u00e7ekle\u015ftirilecektir.",
+                        "menu_options": {
+                            "confirm": "Yeniden g\u00f6r\u00fc\u015fme cihaz\u0131",
+                            "ignore": "Cihaz yap\u0131land\u0131rma g\u00fcncellemesini yoksay"
+                        },
+                        "title": "Cihaz yap\u0131land\u0131rma dosyas\u0131 de\u011fi\u015ftirildi: {device_name}"
+                    }
+                }
+            },
+            "title": "Cihaz yap\u0131land\u0131rma dosyas\u0131 de\u011fi\u015ftirildi: {device_name}"
+        },
+        "dry_fan_presets_deprecation": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Varl\u0131\u011f\u0131n\u0131zda Kuru veya Fan \u00f6n ayar modlar\u0131n\u0131 kullan\u0131yorsunuz `{entity_id}`.\n\nKuru ve Fanl\u0131 \u00f6n ayar modlar\u0131 kullan\u0131mdan kald\u0131r\u0131lm\u0131\u015ft\u0131r ve kald\u0131r\u0131lacakt\u0131r. L\u00fctfen otomasyonlar\u0131n\u0131z\u0131 bunun yerine ilgili Kuru ve Fanl\u0131 **HVAC modlar\u0131n\u0131** kullanacak \u015fekilde g\u00fcncelleyin.\n\nBu sorunu manuel olarak d\u00fczelttikten sonra a\u015fa\u011f\u0131daki G\u00d6NDER'e t\u0131klay\u0131n.",
+                        "title": "Kuru ve Fan \u00f6n ayar modlar\u0131 kald\u0131r\u0131lacak: {entity_id}"
+                    }
+                }
+            },
+            "title": "Kuru ve Fan \u00f6n ayar modlar\u0131 kald\u0131r\u0131lacak: {entity_id}"
+        },
+        "invalid_server_version": {
+            "description": "\u015eu anda \u00e7al\u0131\u015ft\u0131rd\u0131\u011f\u0131n\u0131z Z-Wave JS Server s\u00fcr\u00fcm\u00fc, Home Assistant'\u0131n bu s\u00fcr\u00fcm\u00fc i\u00e7in \u00e7ok eski. Bu sorunu gidermek i\u00e7in l\u00fctfen Z-Wave JS Sunucusunu en son s\u00fcr\u00fcme g\u00fcncelleyin.",
+            "title": "Z-Wave JS Sunucusunun daha yeni s\u00fcr\u00fcm\u00fc gerekli"
+        }
+    },
+    "options": {
+        "abort": {
+            "addon_get_discovery_info_failed": "Z-Wave JS eklenti ke\u015fif bilgileri al\u0131namad\u0131.",
+            "addon_info_failed": "Z-Wave JS eklenti bilgileri al\u0131namad\u0131.",
+            "addon_install_failed": "Z-Wave JS eklentisi y\u00fcklenemedi.",
+            "addon_set_config_failed": "Z-Wave JS yap\u0131land\u0131rmas\u0131 ayarlanamad\u0131.",
+            "addon_start_failed": "Z-Wave JS eklentisi ba\u015flat\u0131lamad\u0131.",
+            "already_configured": "Cihaz zaten yap\u0131land\u0131r\u0131lm\u0131\u015f",
+            "cannot_connect": "Ba\u011flanma hatas\u0131",
+            "different_device": "Ba\u011fl\u0131 USB ayg\u0131t\u0131, bu yap\u0131land\u0131rma giri\u015fi i\u00e7in daha \u00f6nce yap\u0131land\u0131r\u0131lanla ayn\u0131 de\u011fil. L\u00fctfen bunun yerine yeni cihaz i\u00e7in yeni bir yap\u0131land\u0131rma giri\u015fi olu\u015fturun."
+        },
+        "error": {
+            "cannot_connect": "Ba\u011flanma hatas\u0131",
+            "invalid_ws_url": "Ge\u00e7ersiz websocket URL'si",
+            "unknown": "Beklenmeyen hata"
+        },
+        "progress": {
+            "install_addon": "L\u00fctfen Z-Wave JS eklenti kurulumu bitene kadar bekleyin. Bu birka\u00e7 dakika s\u00fcrebilir.",
+            "start_addon": "Z-Wave JS eklenti ba\u015flatma i\u015flemi tamamlanana kadar l\u00fctfen bekleyin. Bu birka\u00e7 saniye s\u00fcrebilir."
+        },
+        "step": {
+            "configure_addon": {
+                "data": {
+                    "emulate_hardware": "Donan\u0131m\u0131 Taklit Et",
+                    "log_level": "G\u00fcnl\u00fck d\u00fczeyi",
+                    "s0_legacy_key": "S0 Anahtar\u0131 (Eski)",
+                    "s2_access_control_key": "S2 Eri\u015fim Kontrol Anahtar\u0131",
+                    "s2_authenticated_key": "S2 Kimli\u011fi Do\u011frulanm\u0131\u015f Anahtar",
+                    "s2_unauthenticated_key": "S2 Kimli\u011fi Do\u011frulanmam\u0131\u015f Anahtar",
+                    "usb_path": "USB ayg\u0131t\u0131 yolu"
+                },
+                "description": "Bu alanlar bo\u015f b\u0131rak\u0131l\u0131rsa eklenti g\u00fcvenlik anahtarlar\u0131 \u00fcretecektir.",
+                "title": "Z-Wave JS eklenti yap\u0131land\u0131rmas\u0131na girin"
+            },
+            "install_addon": {
+                "title": "Z-Wave JS eklenti kurulumu ba\u015flad\u0131"
+            },
+            "manual": {
+                "data": {
+                    "url": "URL"
+                }
+            },
+            "on_supervisor": {
+                "data": {
+                    "use_addon": "Z-Wave JS Supervisor eklentisini kullan\u0131n"
+                },
+                "description": "Z-Wave JS Supervisor eklentisini kullanmak istiyor musunuz?",
+                "title": "Ba\u011flant\u0131 y\u00f6ntemini se\u00e7in"
+            },
+            "start_addon": {
+                "title": "Z-Wave JS eklentisi ba\u015fl\u0131yor."
+            }
+        }
+    },
+    "services": {
+        "bulk_set_partial_config_parameters": {
+            "description": "K\u0131smi parametrelerin toplu olarak ayarlanmas\u0131na izin verir. Birden fazla k\u0131smi parametrenin ayn\u0131 anda ayarlanmas\u0131 gerekti\u011finde kullan\u0131\u015fl\u0131d\u0131r.",
+            "fields": {
+                "area_id": {
+                    "description": "Bu hizmet i\u00e7in hedeflenecek alan(lar). Bir alan belirtilirse, o alandaki t\u00fcm zwave_js cihazlar\u0131 ve varl\u0131klar\u0131 bu hizmet i\u00e7in hedeflenecektir.",
+                    "name": "Alan Kimlik(leri)"
+                },
+                "device_id": {
+                    "description": "Bu hizmet i\u00e7in hedeflenecek cihaz(lar).",
+                    "name": "Cihaz Kimlik(leri)"
+                },
+                "endpoint": {
+                    "description": "Yap\u0131land\u0131rma parametresinin biti\u015f noktas\u0131.",
+                    "name": "Biti\u015f noktas\u0131"
+                },
+                "entity_id": {
+                    "description": "Bu hizmet i\u00e7in hedeflenecek varl\u0131k kimli\u011fi(leri).",
+                    "name": "Varl\u0131k Kimli\u011fi(leri)"
+                },
+                "parameter": {
+                    "description": "Yap\u0131land\u0131rmak istedi\u011finiz yap\u0131land\u0131rma parametresinin ad\u0131 (veya kimli\u011fi).",
+                    "name": "Parametre"
+                },
+                "value": {
+                    "description": "Bu yap\u0131land\u0131rma parametresi i\u00e7in ayarlanacak yeni de\u011fer(ler). Toplu de\u011fi\u015fikli\u011fi temsil eden bir ham tamsay\u0131 de\u011feri veya anahtar\u0131n bit maskesi (onalt\u0131l\u0131k veya tamsay\u0131 bi\u00e7iminde) oldu\u011fu ve de\u011ferin o k\u0131smi parametre i\u00e7in ayarlamak istedi\u011finiz yeni de\u011fer oldu\u011fu bir e\u015fleme olabilir.",
+                    "name": "De\u011fer"
+                }
+            },
+            "name": "K\u0131smi yap\u0131land\u0131rma parametrelerini toplu olarak ayarlay\u0131n (geli\u015fmi\u015f)."
+        },
+        "clear_lock_usercode": {
+            "description": "Bir kilitten bir kullan\u0131c\u0131 kodunu siler.",
+            "fields": {
+                "code_slot": {
+                    "description": "Kodu temizlemek i\u00e7in kod yuvas\u0131.",
+                    "name": "Kod yuvas\u0131"
+                }
+            },
+            "name": "Kilit kullan\u0131c\u0131 kodunu temizle"
+        },
+        "invoke_cc_api": {
+            "description": "Bir d\u00fc\u011f\u00fcmdeki Komut S\u0131n\u0131f\u0131 API'sini \u00e7a\u011f\u0131r\u0131r. Baz\u0131 Komut S\u0131n\u0131flar\u0131 `set_value` eylemi arac\u0131l\u0131\u011f\u0131yla tam olarak kontrol edilemez ve Komut S\u0131n\u0131f\u0131 API'sine do\u011frudan \u00e7a\u011fr\u0131lar gerektirir.",
+            "fields": {
+                "area_id": {
+                    "description": "Bu hizmet i\u00e7in hedeflenecek alan(lar). Bir alan belirtilirse, o alandaki t\u00fcm zwave_js cihazlar\u0131 ve varl\u0131klar\u0131 bu hizmet i\u00e7in hedeflenecektir.",
+                    "name": "Alan Kimlikleri"
+                },
+                "command_class": {
+                    "description": "Komut vermek istedi\u011finiz komut s\u0131n\u0131f\u0131n\u0131n kimli\u011fi.",
+                    "name": "Komut s\u0131n\u0131f\u0131"
+                },
+                "device_id": {
+                    "description": "Bu hizmet i\u00e7in hedeflenecek cihaz(lar).",
+                    "name": "Cihaz Kimlikleri"
+                },
+                "endpoint": {
+                    "description": "API'nin \u00e7a\u011fr\u0131laca\u011f\u0131 u\u00e7 nokta. Bir u\u00e7 nokta belirtilirse, bu u\u00e7 nokta, hedef alanlarla, cihazlarla ve/veya varl\u0131klarla ili\u015fkili t\u00fcm d\u00fc\u011f\u00fcmler i\u00e7in hedeflenecektir. Bir u\u00e7 nokta belirtilmezse, hedef alanlar ve cihazlarla ili\u015fkili d\u00fc\u011f\u00fcmler i\u00e7in k\u00f6k u\u00e7 nokta (0) hedeflenir ve her varl\u0131\u011f\u0131n birincil de\u011feri i\u00e7in u\u00e7 nokta hedeflenir.",
+                    "name": "Biti\u015f noktas\u0131"
+                },
+                "entity_id": {
+                    "description": "Bu hizmet i\u00e7in hedeflenecek varl\u0131k kimlikleri.",
+                    "name": "Varl\u0131k Kimlikleri"
+                },
+                "method_name": {
+                    "description": "\u00c7a\u011fr\u0131lacak API y\u00f6nteminin ad\u0131. Mevcut y\u00f6ntemler i\u00e7in Z-Wave JS Command Class API belgelerine (https://zwave-js.github.io/node-zwave-js/#/api/CCs/index) bak\u0131n.",
+                    "name": "Y\u00f6ntem ad\u0131"
+                },
+                "parameters": {
+                    "description": "API y\u00f6ntemine iletilecek parametrelerin listesi. Parametreler i\u00e7in Z-Wave JS Komut S\u0131n\u0131f\u0131 API belgelerine (https://zwave-js.github.io/node-zwave-js/#/api/CCs/index) bak\u0131n.",
+                    "name": "Parametreler"
+                }
+            },
+            "name": "Bir d\u00fc\u011f\u00fcmde Komut S\u0131n\u0131f\u0131 API'si \u00e7a\u011f\u0131r\u0131n (geli\u015fmi\u015f)"
+        },
+        "multicast_set_value": {
+            "description": "\u00c7oklu yay\u0131n kullanarak Z-Wave JS'nin tan\u0131d\u0131\u011f\u0131 herhangi bir de\u011feri de\u011fi\u015ftirir, b\u00f6ylece t\u00fcm cihazlar mesaj\u0131 ayn\u0131 anda al\u0131r. Bu eylemin asgari do\u011frulamas\u0131 vard\u0131r, bu nedenle yaln\u0131zca ne yapt\u0131\u011f\u0131n\u0131z\u0131 biliyorsan\u0131z bu eylemi kullan\u0131n.",
+            "fields": {
+                "area_id": {
+                    "description": "Bu hizmet i\u00e7in hedeflenecek alan(lar). Bir alan belirtilirse, o alandaki t\u00fcm zwave_js cihazlar\u0131 ve varl\u0131klar\u0131 bu hizmet i\u00e7in hedeflenecektir.",
+                    "name": "Alan Kimlik(leri)"
+                },
+                "broadcast": {
+                    "description": "Komutun a\u011fdaki t\u00fcm cihazlara yay\u0131nlanmas\u0131 gerekip gerekmedi\u011fi.",
+                    "name": "Yay\u0131n?"
+                },
+                "command_class": {
+                    "description": "De\u011fer i\u00e7in komut s\u0131n\u0131f\u0131n\u0131n kimli\u011fi.",
+                    "name": "Komut s\u0131n\u0131f\u0131"
+                },
+                "device_id": {
+                    "description": "Bu hizmet i\u00e7in hedeflenecek cihaz(lar).",
+                    "name": "Cihaz Kimlik(leri)"
+                },
+                "endpoint": {
+                    "description": "De\u011fer i\u00e7in biti\u015f noktas\u0131.",
+                    "name": "Biti\u015f noktas\u0131"
+                },
+                "entity_id": {
+                    "description": "Bu hizmet i\u00e7in hedeflenecek varl\u0131k kimli\u011fi(leri).",
+                    "name": "Varl\u0131k Kimli\u011fi(leri)"
+                },
+                "options": {
+                    "description": "De\u011fer se\u00e7enekleri haritas\u0131n\u0131 ayarlay\u0131n. Hangi se\u00e7eneklerin ayarlanabilece\u011fi hakk\u0131nda daha fazla bilgi i\u00e7in Z-Wave JS belgelerine bak\u0131n.",
+                    "name": "Se\u00e7enekler"
+                },
+                "property": {
+                    "description": "De\u011fer i\u00e7in \u00f6zelli\u011fin kimli\u011fi.",
+                    "name": "M\u00fclkiyet"
+                },
+                "property_key": {
+                    "description": "De\u011fer i\u00e7in \u00f6zellik anahtar\u0131n\u0131n kimli\u011fi.",
+                    "name": "\u00d6zellik anahtar\u0131"
+                },
+                "value": {
+                    "description": "Ayarlanacak yeni de\u011fer.",
+                    "name": "De\u011fer"
+                }
+            },
+            "name": "\u00c7ok noktaya yay\u0131n (geli\u015fmi\u015f) arac\u0131l\u0131\u011f\u0131yla birden fazla cihazda bir de\u011fer belirleyin"
+        },
+        "ping": {
+            "description": "Z-Wave JS'yi bir d\u00fc\u011f\u00fcme ula\u015fmaya zorlar. Bu, \u00f6rne\u011fin ba\u015far\u0131s\u0131z/\u00f6l\u00fc bir d\u00fc\u011f\u00fcm\u00fc canland\u0131rmak veya d\u00fc\u011f\u00fcm\u00fc uykuda olarak i\u015faretlemek gibi, ger\u00e7e\u011fi tam olarak yans\u0131tmad\u0131\u011f\u0131n\u0131 d\u00fc\u015f\u00fcnd\u00fc\u011f\u00fcn\u00fczde, Z-Wave JS'deki d\u00fc\u011f\u00fcm\u00fcn durumunu g\u00fcncellemek i\u00e7in kullan\u0131labilir.",
+            "fields": {
+                "area_id": {
+                    "description": "Bu hizmet i\u00e7in hedeflenecek alan(lar). Bir alan belirtilirse, o alandaki t\u00fcm zwave_js cihazlar\u0131 ve varl\u0131klar\u0131 bu hizmet i\u00e7in hedeflenecektir.",
+                    "name": "Alan Kimlik(leri)"
+                },
+                "device_id": {
+                    "description": "Bu hizmet i\u00e7in hedeflenecek cihaz(lar).",
+                    "name": "Cihaz Kimlik(leri)"
+                },
+                "entity_id": {
+                    "description": "Bu hizmet i\u00e7in hedeflenecek varl\u0131k kimli\u011fi(leri).",
+                    "name": "Varl\u0131k Kimli\u011fi(leri)"
+                }
+            },
+            "name": "Bir d\u00fc\u011f\u00fcme ping atmak"
+        },
+        "refresh_notifications": {
+            "description": "Bildirim t\u00fcr\u00fcne ve iste\u011fe ba\u011fl\u0131 olarak bildirim olay\u0131na g\u00f6re bir d\u00fc\u011f\u00fcmdeki bildirimleri yeniler.",
+            "fields": {
+                "area_id": {
+                    "description": "Bu hizmet i\u00e7in hedeflenecek alan(lar). Bir alan belirtilirse, o alandaki t\u00fcm zwave_js cihazlar\u0131 ve varl\u0131klar\u0131 bu hizmet i\u00e7in hedeflenecektir.",
+                    "name": "Alan Kimlik(leri)"
+                },
+                "device_id": {
+                    "description": "Bu hizmet i\u00e7in hedeflenecek cihaz(lar).",
+                    "name": "Cihaz Kimlik(leri)"
+                },
+                "entity_id": {
+                    "description": "Bu hizmet i\u00e7in hedeflenecek varl\u0131k kimli\u011fi(leri).",
+                    "name": "Varl\u0131k Kimli\u011fi(leri)"
+                },
+                "notification_event": {
+                    "description": "Z-Wave spesifikasyonlar\u0131nda tan\u0131mland\u0131\u011f\u0131 \u015fekliyle Bildirim Olay\u0131 numaras\u0131.",
+                    "name": "Bildirim Etkinli\u011fi"
+                },
+                "notification_type": {
+                    "description": "Z-Wave spesifikasyonlar\u0131nda tan\u0131mland\u0131\u011f\u0131 \u015fekliyle Bildirim T\u00fcr\u00fc numaras\u0131.",
+                    "name": "Bildirim T\u00fcr\u00fc"
+                }
+            },
+            "name": "Bir d\u00fc\u011f\u00fcmdeki bildirimleri yenileme (geli\u015fmi\u015f)"
+        },
+        "refresh_value": {
+            "description": "Force, bir Z-Wave varl\u0131\u011f\u0131n\u0131n de\u011ferlerini g\u00fcnceller.",
+            "fields": {
+                "entity_id": {
+                    "description": "Yenilenecek varl\u0131klar.",
+                    "name": "Varl\u0131klar"
+                },
+                "refresh_all_values": {
+                    "description": "T\u00fcm de\u011ferlerin (do\u011fru) veya yaln\u0131zca birincil de\u011ferin (yanl\u0131\u015f) yenilenip yenilenmeyece\u011fi.",
+                    "name": "T\u00fcm de\u011ferler yenilensin mi?"
+                }
+            },
+            "name": "De\u011ferleri yenileyin"
+        },
+        "reset_meter": {
+            "description": "Bir d\u00fc\u011f\u00fcmdeki saya\u00e7lar\u0131 s\u0131f\u0131rlar.",
+            "fields": {
+                "area_id": {
+                    "description": "Bu hizmet i\u00e7in hedeflenecek alan(lar). Bir alan belirtilirse, o alandaki t\u00fcm zwave_js cihazlar\u0131 ve varl\u0131klar\u0131 bu hizmet i\u00e7in hedeflenecektir.",
+                    "name": "Alan Kimlik(leri)"
+                },
+                "device_id": {
+                    "description": "Bu hizmet i\u00e7in hedeflenecek cihaz(lar).",
+                    "name": "Cihaz Kimlik(leri)"
+                },
+                "entity_id": {
+                    "description": "Bu hizmet i\u00e7in hedeflenecek varl\u0131k kimli\u011fi(leri).",
+                    "name": "Varl\u0131k Kimli\u011fi(leri)"
+                },
+                "meter_type": {
+                    "description": "S\u0131f\u0131rlanacak saya\u00e7 t\u00fcr\u00fc. T\u00fcm saya\u00e7lar, s\u0131f\u0131rlamak i\u00e7in bir saya\u00e7 t\u00fcr\u00fc se\u00e7me \u00f6zelli\u011fini desteklemez.",
+                    "name": "Saya\u00e7 tipi"
+                },
+                "value": {
+                    "description": "Saya\u00e7lar\u0131n s\u0131f\u0131rlanmas\u0131 gereken de\u011fer. T\u00fcm saya\u00e7lar, belirli bir de\u011fere s\u0131f\u0131rlanma \u00f6zelli\u011fini desteklemez.",
+                    "name": "Hedef de\u011fer"
+                }
+            },
+            "name": "Bir d\u00fc\u011f\u00fcmdeki saya\u00e7lar\u0131 s\u0131f\u0131rla"
+        },
+        "set_config_parameter": {
+            "description": "Z-Wave cihazlar\u0131n\u0131z\u0131n yap\u0131land\u0131rma parametrelerini de\u011fi\u015ftirir.",
+            "fields": {
+                "area_id": {
+                    "description": "Bu hizmet i\u00e7in hedeflenecek alan(lar). Bir alan belirtilirse, o alandaki t\u00fcm zwave_js cihazlar\u0131 ve varl\u0131klar\u0131 bu hizmet i\u00e7in hedeflenecektir.",
+                    "name": "Alan Kimlik(leri)"
+                },
+                "bitmask": {
+                    "description": "Belirli bir bit maskesini hedefleyin (daha fazla bilgi i\u00e7in belgelere bak\u0131n). value_size veya value_format ile birle\u015ftirilemez.",
+                    "name": "Bitmask"
+                },
+                "device_id": {
+                    "description": "Bu hizmet i\u00e7in hedeflenecek cihaz(lar).",
+                    "name": "Cihaz Kimlik(leri)"
+                },
+                "endpoint": {
+                    "description": "Yap\u0131land\u0131rma parametresinin biti\u015f noktas\u0131.",
+                    "name": "Biti\u015f noktas\u0131"
+                },
+                "entity_id": {
+                    "description": "Bu hizmet i\u00e7in hedeflenecek varl\u0131k kimli\u011fi(leri).",
+                    "name": "Varl\u0131k Kimli\u011fi(leri)"
+                },
+                "parameter": {
+                    "description": "Yap\u0131land\u0131rmak istedi\u011finiz yap\u0131land\u0131rma parametresinin ad\u0131 (veya kimli\u011fi).",
+                    "name": "Parametre"
+                },
+                "value": {
+                    "description": "Bu yap\u0131land\u0131rma parametresi i\u00e7in ayarlanacak yeni de\u011fer.",
+                    "name": "De\u011fer"
+                },
+                "value_format": {
+                    "description": "De\u011ferin bi\u00e7imi, i\u015faretli tamsay\u0131 i\u00e7in 0, i\u015faretsiz tamsay\u0131 i\u00e7in 1, numaraland\u0131r\u0131lm\u0131\u015f i\u00e7in 2, bit alan\u0131 i\u00e7in 3. Cihaz\u0131n\u0131z\u0131n yap\u0131land\u0131rma dosyas\u0131nda bir yap\u0131land\u0131rma parametresi tan\u0131mlanmad\u0131\u011f\u0131nda value_size ile birlikte kullan\u0131l\u0131r. bitmask ile birle\u015ftirilemez.",
+                    "name": "De\u011fer bi\u00e7imi"
+                },
+                "value_size": {
+                    "description": "De\u011ferin boyutu 1, 2 veya 4't\u00fcr. Cihaz\u0131n\u0131z\u0131n yap\u0131land\u0131rma dosyas\u0131nda bir yap\u0131land\u0131rma parametresi tan\u0131mlanmad\u0131\u011f\u0131nda value_format ile birlikte kullan\u0131l\u0131r. Bit maskesiyle birle\u015ftirilemez.",
+                    "name": "De\u011fer boyutu"
+                }
+            },
+            "name": "Cihaz yap\u0131land\u0131rma parametresini ayarla"
+        },
+        "set_lock_configuration": {
+            "description": "Bir kilidin yap\u0131land\u0131rmas\u0131n\u0131 ayarlar.",
+            "fields": {
+                "auto_relock_time": {
+                    "description": "Kilit g\u00fcvenli duruma d\u00f6nene kadar ge\u00e7en saniye cinsinden s\u00fcre. Yaln\u0131zca i\u015flem t\u00fcr\u00fc \"sabit\" oldu\u011funda uygulan\u0131r.",
+                    "name": "Otomatik yeniden kilitleme s\u00fcresi"
+                },
+                "block_to_block": {
+                    "description": "Bloktan blo\u011fa i\u015flevini etkinle\u015ftirin.",
+                    "name": "Engellemek i\u00e7in engelleme"
+                },
+                "hold_and_release_time": {
+                    "description": "Mandal\u0131n geri \u00e7ekilmi\u015f kald\u0131\u011f\u0131 saniye cinsinden s\u00fcre.",
+                    "name": "Tutma ve b\u0131rakma s\u00fcresi"
+                },
+                "inside_handles_can_open_door_configuration": {
+                    "description": "Hangi i\u00e7 kap\u0131 kollar\u0131n\u0131n kap\u0131y\u0131 a\u00e7abilece\u011fini g\u00f6steren d\u00f6rt boole listesi.",
+                    "name": "\u0130\u00e7 kollar kap\u0131 konfig\u00fcrasyonunu a\u00e7abilir"
+                },
+                "lock_timeout": {
+                    "description": "Kilit modunun zaman a\u015f\u0131m\u0131na u\u011framas\u0131na saniyeler kald\u0131. Yaln\u0131zca i\u015flem t\u00fcr\u00fc 'zamanlanm\u0131\u015f' ise kullan\u0131lmal\u0131d\u0131r.",
+                    "name": "Kilit zaman a\u015f\u0131m\u0131"
+                },
+                "operation_type": {
+                    "description": "Kilidin \u00e7al\u0131\u015fma t\u00fcr\u00fc.",
+                    "name": "Operasyon t\u00fcr\u00fc"
+                },
+                "outside_handles_can_open_door_configuration": {
+                    "description": "Hangi d\u0131\u015f kap\u0131 kollar\u0131n\u0131n kap\u0131y\u0131 a\u00e7abilece\u011fini g\u00f6steren d\u00f6rt boole listesi.",
+                    "name": "D\u0131\u015f kollar kap\u0131 konfig\u00fcrasyonunu a\u00e7abilir"
+                },
+                "twist_assist": {
+                    "description": "Twist Assist'i etkinle\u015ftirin.",
+                    "name": "Twist assist"
+                }
+            },
+            "name": "Kilit yap\u0131land\u0131rmas\u0131n\u0131 ayarla"
+        },
+        "set_lock_usercode": {
+            "description": "Bir kilide bir kullan\u0131c\u0131 kodu ayarlar.",
+            "fields": {
+                "code_slot": {
+                    "description": "Kodu ayarlamak i\u00e7in kod yuvas\u0131.",
+                    "name": "Kod yuvas\u0131"
+                },
+                "usercode": {
+                    "description": "Ayarlanacak kilit kodu.",
+                    "name": "Kod"
+                }
+            },
+            "name": "Kilit kullan\u0131c\u0131 kodunu ayarla"
+        },
+        "set_value": {
+            "description": "Z-Wave JS'nin bir Z-Wave ayg\u0131t\u0131nda tan\u0131d\u0131\u011f\u0131 herhangi bir de\u011feri de\u011fi\u015ftirir. Bu eylemin asgari do\u011frulamas\u0131 vard\u0131r, bu nedenle yaln\u0131zca ne yapt\u0131\u011f\u0131n\u0131z\u0131 biliyorsan\u0131z bu eylemi kullan\u0131n.",
+            "fields": {
+                "area_id": {
+                    "description": "Bu hizmet i\u00e7in hedeflenecek alan(lar). Bir alan belirtilirse, o alandaki t\u00fcm zwave_js cihazlar\u0131 ve varl\u0131klar\u0131 bu hizmet i\u00e7in hedeflenecektir.",
+                    "name": "Alan Kimlik(leri)"
+                },
+                "command_class": {
+                    "description": "De\u011fer i\u00e7in komut s\u0131n\u0131f\u0131n\u0131n kimli\u011fi.",
+                    "name": "Komut s\u0131n\u0131f\u0131"
+                },
+                "device_id": {
+                    "description": "Bu hizmet i\u00e7in hedeflenecek cihaz(lar).",
+                    "name": "Cihaz Kimlik(leri)"
+                },
+                "endpoint": {
+                    "description": "De\u011fer i\u00e7in biti\u015f noktas\u0131.",
+                    "name": "Biti\u015f noktas\u0131"
+                },
+                "entity_id": {
+                    "description": "Bu hizmet i\u00e7in hedeflenecek varl\u0131k kimli\u011fi(leri).",
+                    "name": "Varl\u0131k Kimli\u011fi(leri)"
+                },
+                "options": {
+                    "description": "De\u011fer se\u00e7enekleri haritas\u0131n\u0131 ayarlay\u0131n. Hangi se\u00e7eneklerin ayarlanabilece\u011fi hakk\u0131nda daha fazla bilgi i\u00e7in Z-Wave JS belgelerine bak\u0131n.",
+                    "name": "Se\u00e7enekler"
+                },
+                "property": {
+                    "description": "De\u011fer i\u00e7in \u00f6zelli\u011fin kimli\u011fi.",
+                    "name": "M\u00fclkiyet"
+                },
+                "property_key": {
+                    "description": "De\u011fer i\u00e7in \u00f6zellik anahtar\u0131n\u0131n kimli\u011fi.",
+                    "name": "\u00d6zellik anahtar\u0131"
+                },
+                "value": {
+                    "description": "Ayarlanacak yeni de\u011fer.",
+                    "name": "De\u011fer"
+                },
+                "wait_for_result": {
+                    "description": "D\u00fc\u011f\u00fcmden bir yan\u0131t beklenip beklenmeyece\u011fi. Y\u00fcke dahil edilmezse, entegrasyon bekleyip beklemeyece\u011fine karar verecektir. `true` olarak ayarlan\u0131rsa, uykuda olan bir pil ayg\u0131t\u0131nda bir de\u011fer ayarlan\u0131yorsa eylemin biraz zaman alabilece\u011fini unutmay\u0131n.",
+                    "name": "Sonu\u00e7 i\u00e7in beklemek?"
+                }
+            },
+            "name": "Bir de\u011fer belirleyin (geli\u015fmi\u015f)"
+        }
+    }
+}

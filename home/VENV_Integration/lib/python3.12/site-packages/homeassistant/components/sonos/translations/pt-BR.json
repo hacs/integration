@@ -1,0 +1,172 @@
+{
+    "config": {
+        "abort": {
+            "no_devices_found": "Nenhum dispositivo encontrado na rede",
+            "not_sonos_device": "O dispositivo descoberto n\u00e3o \u00e9 um dispositivo Sonos",
+            "single_instance_allowed": "J\u00e1 configurado. Apenas uma configura\u00e7\u00e3o \u00e9 poss\u00edvel."
+        },
+        "step": {
+            "confirm": {
+                "description": "Deseja configurar o Sonos?"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "microphone": {
+                "name": "Microfone"
+            }
+        },
+        "number": {
+            "audio_delay": {
+                "name": "Atraso de \u00e1udio"
+            },
+            "balance": {
+                "name": "Equil\u00edbrio"
+            },
+            "bass": {
+                "name": "Baixo"
+            },
+            "music_surround_level": {
+                "name": "N\u00edvel surround de m\u00fasica"
+            },
+            "sub_gain": {
+                "name": "Sub ganho"
+            },
+            "surround_level": {
+                "name": "N\u00edvel surround"
+            },
+            "treble": {
+                "name": "Agudos"
+            }
+        },
+        "sensor": {
+            "audio_input_format": {
+                "name": "Formato de entrada de \u00e1udio"
+            }
+        },
+        "switch": {
+            "buttons_enabled": {
+                "name": "Controles de toque"
+            },
+            "cross_fade": {
+                "name": "Travess\u00e3o"
+            },
+            "dialog_level": {
+                "name": "Aprimoramento de fala"
+            },
+            "loudness": {
+                "name": "Sonoridade"
+            },
+            "night_mode": {
+                "name": "Som noturno"
+            },
+            "status_light": {
+                "name": "Luz de status"
+            },
+            "sub_enabled": {
+                "name": "Subwoofer ativado"
+            },
+            "surround_enabled": {
+                "name": "Surround ativado"
+            },
+            "surround_mode": {
+                "name": "Volume total da m\u00fasica surround"
+            }
+        }
+    },
+    "issues": {
+        "subscriptions_failed": {
+            "description": "Voltando ao polling, a funcionalidade pode ser limitada. \n\n O dispositivo Sonos em {device_ip} n\u00e3o pode alcan\u00e7ar o Home Assistant em {listener_address} . \n\n Consulte nossa [documenta\u00e7\u00e3o]( {sub_fail_url} ) para obter mais informa\u00e7\u00f5es sobre como resolver esse problema.",
+            "title": "Erro de rede: falha nas assinaturas"
+        }
+    },
+    "services": {
+        "clear_sleep_timer": {
+            "description": "Limpa um temporizador Sonos.",
+            "name": "Limpar temporizador"
+        },
+        "play_queue": {
+            "description": "Comece a jogar a fila a partir do primeiro item.",
+            "fields": {
+                "queue_position": {
+                    "description": "Posi\u00e7\u00e3o da m\u00fasica na fila para come\u00e7ar a tocar.",
+                    "name": "Posi\u00e7\u00e3o na fila"
+                }
+            },
+            "name": "Fila de reprodu\u00e7\u00e3o"
+        },
+        "remove_from_queue": {
+            "fields": {
+                "queue_position": {
+                    "description": "Posi\u00e7\u00e3o na fila a ser removida.",
+                    "name": "Posi\u00e7\u00e3o na fila"
+                }
+            },
+            "name": "Remover da fila"
+        },
+        "restore": {
+            "description": "Restaura um instant\u00e2neo do reprodutor de m\u00eddia.",
+            "fields": {
+                "entity_id": {
+                    "description": "Nome da entidade que ser\u00e1 restaurada.",
+                    "name": "Entidade"
+                },
+                "with_group": {
+                    "description": "Verdadeiro ou falso. Restaure tamb\u00e9m o layout do grupo.",
+                    "name": "Com grupo"
+                }
+            },
+            "name": "Restaurar"
+        },
+        "set_sleep_timer": {
+            "description": "Define um temporizador do Sonos.",
+            "fields": {
+                "sleep_time": {
+                    "description": "N\u00famero de segundos para definir o temporizador.",
+                    "name": "Hora de dormir"
+                }
+            },
+            "name": "Definir temporizador"
+        },
+        "snapshot": {
+            "description": "Tira uma snapshot do reprodutor de m\u00eddia.",
+            "fields": {
+                "entity_id": {
+                    "description": "Nome da entidade que ser\u00e1 o snapshot.",
+                    "name": "Entidade"
+                },
+                "with_group": {
+                    "description": "Verdadeiro ou falso. Snapshot tamb\u00e9m o layout do grupo.",
+                    "name": "Com grupo"
+                }
+            },
+            "name": "Snapshot"
+        },
+        "update_alarm": {
+            "description": "Atualiza um alarme com novas configura\u00e7\u00f5es de hora e volume.",
+            "fields": {
+                "alarm_id": {
+                    "description": "ID do alarme a ser atualizado.",
+                    "name": "ID do alarme"
+                },
+                "enabled": {
+                    "description": "Ativar ou desativar o alarme.",
+                    "name": "Alarme ativado"
+                },
+                "include_linked_zones": {
+                    "description": "Ativar ou desativar a inclus\u00e3o de salas agrupadas.",
+                    "name": "Incluir zonas vinculadas"
+                },
+                "time": {
+                    "description": "Defina um hor\u00e1rio para o alarme.",
+                    "name": "Hora"
+                },
+                "volume": {
+                    "description": "Defina o n\u00edvel de volume do alarme.",
+                    "name": "Volume"
+                }
+            }
+        }
+    }
+}

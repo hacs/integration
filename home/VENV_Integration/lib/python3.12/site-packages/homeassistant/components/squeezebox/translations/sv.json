@@ -1,0 +1,89 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Enheten \u00e4r redan konfigurerad",
+            "no_server_found": "Ingen LMS-server hittades"
+        },
+        "error": {
+            "cannot_connect": "Det gick inte att ansluta.",
+            "invalid_auth": "Ogiltig autentisering",
+            "no_server_found": "Kunde inte hitta servern automatiskt.",
+            "unknown": "Ov\u00e4ntat fel"
+        },
+        "flow_title": "{host}",
+        "step": {
+            "edit": {
+                "data": {
+                    "host": "V\u00e4rd",
+                    "https": "Anslut via https (kr\u00e4ver omv\u00e4nd proxy)",
+                    "password": "L\u00f6senord",
+                    "port": "Port",
+                    "username": "Anv\u00e4ndarnamn"
+                },
+                "title": "Redigera anslutningsinformation"
+            },
+            "user": {
+                "data": {
+                    "host": "V\u00e4rd"
+                },
+                "data_description": {
+                    "host": "V\u00e4rdnamnet eller IP-adressen f\u00f6r din Lyrion Media Server."
+                }
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "needsrestart": {
+                "name": "Beh\u00f6ver startas om"
+            },
+            "rescan": {
+                "name": "Genoms\u00f6k biblioteket igen"
+            }
+        }
+    },
+    "services": {
+        "call_method": {
+            "description": "Anropar ett anpassat Squeezebox JSONRPC API.",
+            "fields": {
+                "command": {
+                    "description": "Kommando att skicka till Lyrion Media Server (p0 i CLI-dokumentationen).",
+                    "name": "Kommando"
+                },
+                "parameters": {
+                    "description": "Matris med ytterligare parametrar att skicka till Lyrion Media Server (p1, ..., pN i CLI-dokumentationen).\n .",
+                    "name": "Parametrar"
+                }
+            },
+            "name": "Anropsmetod"
+        },
+        "call_query": {
+            "description": "Anropar ett anpassat Squeezebox JSONRPC API. Resultatet lagras i attributet \"query_result\" f\u00f6r Squeezebox-entiteten.\n.",
+            "fields": {
+                "command": {
+                    "description": "Kommando att skicka till Lyrion Media Server (p0 i CLI-dokumentationen).",
+                    "name": "Kommando"
+                },
+                "parameters": {
+                    "description": "Matris med ytterligare parametrar att skicka till Lyrion Media Server (p1, ..., pN i CLI-dokumentationen).\n .",
+                    "name": "Parametrar"
+                }
+            },
+            "name": "Anropsfr\u00e5ga"
+        },
+        "sync": {
+            "description": "L\u00e4gger till en annan spelare i den h\u00e4r spelarens synk-grupp. Om den andra spelaren redan \u00e4r med i en synk-grupp kommer den att l\u00e4mna den.\n.",
+            "fields": {
+                "other_player": {
+                    "description": "Namn p\u00e5 den andra Squeezebox-spelaren som ska l\u00e4nkas.",
+                    "name": "Annan spelare"
+                }
+            },
+            "name": "Synkronisera"
+        },
+        "unsync": {
+            "description": "Tar bort den h\u00e4r spelaren fr\u00e5n dess synk-grupp.",
+            "name": "Avsynkronisera"
+        }
+    }
+}

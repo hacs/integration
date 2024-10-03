@@ -1,0 +1,178 @@
+{
+    "config_panel": {
+        "zha_options": {
+            "always_prefer_xy_color_mode": "Always prefer XY colour mode",
+            "enhanced_light_transition": "Enable enhanced light colour/temperature transition from an off-state"
+        }
+    },
+    "services": {
+        "clear_lock_user_code": {
+            "description": "Clears a user code from a lock.",
+            "fields": {
+                "code_slot": {
+                    "description": "Code slot to clear code from.",
+                    "name": "Code slot"
+                }
+            },
+            "name": "Clear lock user"
+        },
+        "disable_lock_user_code": {
+            "description": "Disables a user code on a lock.",
+            "fields": {
+                "code_slot": {
+                    "description": "Code slot to disable.",
+                    "name": "Code slot"
+                }
+            },
+            "name": "Disable lock user"
+        },
+        "enable_lock_user_code": {
+            "description": "Enables a user code on a lock.",
+            "fields": {
+                "code_slot": {
+                    "description": "Code slot to enable.",
+                    "name": "Code slot"
+                }
+            },
+            "name": "Enable lock user"
+        },
+        "issue_zigbee_cluster_command": {
+            "description": "Issues a command on the specified cluster on the specified entity.",
+            "fields": {
+                "args": {
+                    "description": "Arguments to pass to the command.",
+                    "name": "Args"
+                },
+                "command": {
+                    "description": "ID of the command to execute.",
+                    "name": "Command"
+                },
+                "command_type": {
+                    "description": "Type of the command to execute.",
+                    "name": "Command Type"
+                },
+                "ieee": {
+                    "name": "IEEE"
+                },
+                "params": {
+                    "description": "Parameters to pass to the command.",
+                    "name": "Params"
+                }
+            },
+            "name": "Issue Zigbee cluster command"
+        },
+        "issue_zigbee_group_command": {
+            "description": "Issue command on the specified cluster on the specified group.",
+            "fields": {
+                "args": {
+                    "description": "Arguments to pass to the command.",
+                    "name": "Args"
+                },
+                "cluster_id": {
+                    "description": "ZCL cluster to send command to."
+                },
+                "cluster_type": {
+                    "name": "Cluster type"
+                },
+                "command": {
+                    "description": "ID of the command to execute.",
+                    "name": "Command"
+                },
+                "group": {
+                    "description": "Hexadecimal address of the group.",
+                    "name": "Group"
+                }
+            },
+            "name": "Issue Zigbee group command"
+        },
+        "permit": {
+            "description": "Allows nodes to join the Zigbee network.",
+            "fields": {
+                "duration": {
+                    "description": "Time to permit joins.",
+                    "name": "Duration"
+                },
+                "ieee": {
+                    "description": "IEEE address of the node permitting new joins.",
+                    "name": "IEEE"
+                },
+                "install_code": {
+                    "description": "Install code of the joining device (must be used with the source_ieee).",
+                    "name": "Install code"
+                },
+                "qr_code": {
+                    "description": "Value of the QR install code (different between vendors).",
+                    "name": "QR code"
+                },
+                "source_ieee": {
+                    "description": "IEEE address of the joining device (must be used with the install code).",
+                    "name": "Source IEEE"
+                }
+            },
+            "name": "Permit"
+        },
+        "reconfigure_device": {
+            "description": "Reconfigures a ZHA device (heal device). Use this if you are having issues with the device. If the device in question is a battery-powered device, ensure it is awake and accepting commands when you use this service.",
+            "fields": {
+                "ieee": {
+                    "description": "IEEE address of the device to reconfigure.",
+                    "name": "IEEE"
+                }
+            },
+            "name": "Reconfigure device"
+        },
+        "remove": {
+            "description": "Removes a node from the Zigbee network.",
+            "fields": {
+                "ieee": {
+                    "description": "IEEE address of the node to remove.",
+                    "name": "IEEE"
+                }
+            },
+            "name": "Remove"
+        },
+        "set_lock_user_code": {
+            "description": "Sets a user code on a lock."
+        },
+        "warning_device_squawk": {
+            "fields": {
+                "strobe": {
+                    "description": "The strobe field is used as a Boolean, and determines if the visual indication is also required in addition to the audible squawk, as shown in Table 8-25 of the ZCL spec - Strobe Bit.",
+                    "name": "Strobe"
+                }
+            },
+            "name": "Warning device squawk"
+        },
+        "warning_device_warn": {
+            "fields": {
+                "duration": {
+                    "description": "Requested duration of warning, in seconds (16 bit). If both Strobe and Warning Mode are \"0\" this field is ignored.",
+                    "name": "Duration"
+                },
+                "duty_cycle": {
+                    "description": "Indicates the length of the flash cycle. This allows you to vary the flash duration for different alarm types (e.g., fire, police, burglar). The valid range is 0-100 in increments of 10. All other values must be rounded to the nearest valid value. Strobe calculates a duty cycle over a duration of one second. The ON state must precede the OFF state. For example, if the Strobe Duty Cycle field specifies \u201c40,\u201d, then the strobe flashes ON for 4/10ths of a second and then turns OFF for 6/10ths of a second.",
+                    "name": "Duty cycle"
+                },
+                "ieee": {
+                    "name": "IEEE"
+                },
+                "intensity": {
+                    "description": "Indicates the intensity of the strobe as shown in Table 8-23 of the ZCL spec. This attribute is designed to vary the output of the strobe (i.e., brightness) and not its frequency, which is detailed in section 8.4.2.3.1.6 of the ZCL spec.",
+                    "name": "Intensity"
+                },
+                "level": {
+                    "description": "The Siren Level field is used as a 2-bit enumeration, and indicates the intensity of audible squawk sound as shown in Table 8-22 of the ZCL spec.",
+                    "name": "Level"
+                },
+                "mode": {
+                    "description": "The Warning Mode field is used as a 4-bit enumeration, can have one of the values 0-6 defined below in table 8-20 of the ZCL spec. The exact behaviour of the warning device in each mode is according to the relevant security standards."
+                },
+                "strobe": {
+                    "description": "The Strobe field is used as a 2-bit enumeration, and determines if the visual indication is required in addition to the audible siren, as indicated in Table 8-21 of the ZCL spec. \"0\" means no strobe, \"1\" means strobe. If the strobe field is \u201c1\u201d and the Warning Mode is \u201c0\u201d (\u201cStop\u201d), then only the strobe is activated.",
+                    "name": "Strobe"
+                }
+            },
+            "name": "Warning device starts alert"
+        }
+    }
+}

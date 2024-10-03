@@ -1,0 +1,94 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Za\u0159\u00edzen\u00ed je ji\u017e nastaveno"
+        },
+        "error": {
+            "cannot_connect": "Nepoda\u0159ilo se p\u0159ipojit",
+            "timeout_connect": "Vypr\u0161el \u010dasov\u00fd limit pro nav\u00e1z\u00e1n\u00ed spojen\u00ed"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "host": "Hostitel",
+                    "password": "Heslo"
+                },
+                "data_description": {
+                    "host": "N\u00e1zev hostitele nebo IP adresa va\u0161eho za\u0159\u00edzen\u00ed Rain Bird."
+                },
+                "description": "Zadejte informace o modulu LNK Wi-Fi pro za\u0159\u00edzen\u00ed Rain Bird.",
+                "title": "Nastavit Rain Bird"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "rainsensor": {
+                "name": "Senzor de\u0161t\u011b"
+            }
+        },
+        "number": {
+            "rain_delay": {
+                "name": "Zpo\u017ed\u011bn\u00ed de\u0161t\u011b"
+            }
+        },
+        "sensor": {
+            "raindelay": {
+                "name": "Zpo\u017ed\u011bn\u00ed de\u0161t\u011b"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_raindelay": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Slu\u017eba Rain Bird Delay \"rainbird.set_rain_delay\" se odeb\u00edr\u00e1 a nahrazuje entitou \"\u010c\u00edslo\" pro spr\u00e1vu zpo\u017ed\u011bn\u00ed de\u0161t\u011b. V\u0161echny existuj\u00edc\u00ed automatizace nebo skripty bude t\u0159eba aktualizovat, aby m\u00edsto pou\u017e\u00edvaly \"number.set_value\" s c\u00edlem \"{alternate_target}\".",
+                        "title": "Slu\u017eba Zpo\u017ed\u011bn\u00ed de\u0161t\u011b Rain Bird se odeb\u00edr\u00e1"
+                    }
+                }
+            },
+            "title": "Slu\u017eba Zpo\u017ed\u011bn\u00ed de\u0161t\u011b Rain Bird se odeb\u00edr\u00e1"
+        },
+        "deprecated_yaml": {
+            "description": "Nastaven\u00ed Rain Bird v configuration.yaml se v Home Assistant 2023.4 odeb\u00edr\u00e1.\n\nVa\u0161e nastaven\u00ed bylo importov\u00e1no do u\u017eivatelsk\u00e9ho rozhran\u00ed automaticky, ale v\u00fdchoz\u00ed doby zavla\u017eov\u00e1n\u00ed pro jednotliv\u00e9 z\u00f3ny ji\u017e nejsou podporov\u00e1ny. Odeberte nastaven\u00ed Rain Bird YAML ze souboru configuration.yaml a restartujte Home Assistanta, abyste tento probl\u00e9m vy\u0159e\u0161ili.",
+            "title": "Nastaven\u00ed Rain Bird YAML se odeb\u00edr\u00e1"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "duration": "V\u00fdchoz\u00ed doba zavla\u017eov\u00e1n\u00ed v minut\u00e1ch"
+                },
+                "title": "Nastavit Rain Bird"
+            }
+        }
+    },
+    "services": {
+        "set_rain_delay": {
+            "description": "Nastav\u00ed, jak dlouho bude automatick\u00e9 zavla\u017eov\u00e1n\u00ed vypnut\u00e9.",
+            "fields": {
+                "config_entry_id": {
+                    "description": "Nastaven\u00ed bude upraveno na ur\u010den\u00e9m ovlada\u010di.",
+                    "name": "Polo\u017eka nastaven\u00ed ovlada\u010de Rain Bird"
+                },
+                "duration": {
+                    "description": "Doba, za kterou se tento syst\u00e9m vypne.",
+                    "name": "Doba trv\u00e1n\u00ed"
+                }
+            },
+            "name": "Nastavit zpo\u017ed\u011bn\u00ed de\u0161t\u011b"
+        },
+        "start_irrigation": {
+            "description": "Spust\u00ed zavla\u017eov\u00e1n\u00ed.",
+            "fields": {
+                "duration": {
+                    "description": "Doba, po kterou bude tento post\u0159ikova\u010d zapnut\u00fd.",
+                    "name": "Doba trv\u00e1n\u00ed"
+                }
+            },
+            "name": "Spustit zavla\u017eov\u00e1n\u00ed"
+        }
+    }
+}

@@ -1,0 +1,206 @@
+{
+    "config": {
+        "abort": {
+            "address_already_configured": "Ya est\u00e1 configurado un Elk-M1 con esta direcci\u00f3n",
+            "already_configured": "Ya est\u00e1 configurado un Elk-M1 con este prefijo",
+            "already_in_progress": "El flujo de configuraci\u00f3n ya est\u00e1 en curso",
+            "cannot_connect": "No se pudo conectar",
+            "invalid_auth": "Autenticaci\u00f3n no v\u00e1lida",
+            "unknown": "Error inesperado"
+        },
+        "error": {
+            "cannot_connect": "No se pudo conectar",
+            "invalid_auth": "Autenticaci\u00f3n no v\u00e1lida",
+            "unknown": "Error inesperado"
+        },
+        "flow_title": "{mac_address} ({host})",
+        "step": {
+            "discovered_connection": {
+                "data": {
+                    "password": "Contrase\u00f1a",
+                    "protocol": "Protocolo",
+                    "temperature_unit": "La unidad de temperatura que utiliza ElkM1.",
+                    "username": "Nombre de usuario"
+                },
+                "description": "Conectar con el sistema descubierto: {mac_address} ({host})",
+                "title": "Conectar con Control Elk-M1"
+            },
+            "manual_connection": {
+                "data": {
+                    "address": "La direcci\u00f3n IP o dominio o puerto serie si se conecta a trav\u00e9s de serie.",
+                    "password": "Contrase\u00f1a",
+                    "prefix": "Un prefijo \u00fanico (d\u00e9jalo en blanco si solo tienes un ElkM1).",
+                    "protocol": "Protocolo",
+                    "temperature_unit": "La unidad de temperatura que utiliza ElkM1.",
+                    "username": "Nombre de usuario"
+                },
+                "description": "La cadena de direcci\u00f3n debe tener el formato 'direcci\u00f3n[:puerto]' para 'seguro' y 'no seguro'. Ejemplo: '192.168.1.1'. El puerto es opcional y el valor predeterminado es 2101 para 'no seguro' y 2601 para 'seguro'. Para el protocolo serial, la direcci\u00f3n debe tener el formato 'tty[:baudios]'. Ejemplo: '/dev/ttyS1'. Los baudios son opcionales y el valor predeterminado es 115200.",
+                "title": "Conectar con Control Elk-M1"
+            },
+            "user": {
+                "data": {
+                    "device": "Dispositivo"
+                },
+                "description": "Elige un sistema descubierto o 'Entrada manual' si no se han descubierto dispositivos.",
+                "title": "Conectar con Control Elk-M1"
+            }
+        }
+    },
+    "issues": {
+        "migrate_aux_heat": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Se ha migrado la acci\u00f3n `set_aux_heat` de Elk-M1. Hay una nueva entidad de interruptor de calefacci\u00f3n de emergencia disponible para cada termostato.\n\nActualiza todas las automatizaciones para usar la nueva entidad de interruptor de calefacci\u00f3n de emergencia. Cuando hayas terminado, selecciona **Enviar** para solucionar este problema.",
+                        "title": "Migraci\u00f3n de la acci\u00f3n set_aux_heat de Elk-M1"
+                    }
+                }
+            },
+            "title": "Migraci\u00f3n de la acci\u00f3n set_aux_heat de Elk-M1"
+        }
+    },
+    "services": {
+        "alarm_arm_home_instant": {
+            "description": "Arma el ElkM1 en modo instant\u00e1neo en casa.",
+            "fields": {
+                "code": {
+                    "description": "Un c\u00f3digo para armar el panel de control de alarma.",
+                    "name": "C\u00f3digo"
+                }
+            },
+            "name": "Armar alarma en modo instant\u00e1neo en casa"
+        },
+        "alarm_arm_night_instant": {
+            "description": "Arma el ElkM1 en modo instant\u00e1neo nocturno.",
+            "fields": {
+                "code": {
+                    "description": "Un c\u00f3digo para armar el panel de control de alarma.",
+                    "name": "C\u00f3digo"
+                }
+            },
+            "name": "Armar alarma en modo instant\u00e1neo nocturno"
+        },
+        "alarm_arm_vacation": {
+            "description": "Arma el ElkM1 en modo vacaciones.",
+            "fields": {
+                "code": {
+                    "description": "Un c\u00f3digo para armar el panel de control de alarma.",
+                    "name": "C\u00f3digo"
+                }
+            },
+            "name": "Armar alarma en modo vacaciones"
+        },
+        "alarm_bypass": {
+            "description": "Establece el bypass en todas las zonas del \u00e1rea.",
+            "fields": {
+                "code": {
+                    "description": "Un c\u00f3digo para autorizar el bypass del panel de control de alarma.",
+                    "name": "C\u00f3digo"
+                }
+            },
+            "name": "Bypass de alarma"
+        },
+        "alarm_clear_bypass": {
+            "description": "Elimina la omisi\u00f3n en todas las zonas del \u00e1rea.",
+            "fields": {
+                "code": {
+                    "description": "Un c\u00f3digo para autorizar el borrado de bypass del panel de control de alarma.",
+                    "name": "C\u00f3digo"
+                }
+            },
+            "name": "Borrar bypass de alarma"
+        },
+        "alarm_display_message": {
+            "description": "Muestra un mensaje en todos los teclados ElkM1 de un \u00e1rea.",
+            "fields": {
+                "beep": {
+                    "description": "0=sin pitido, 1=pitido.",
+                    "name": "Pitido"
+                },
+                "clear": {
+                    "description": "0=borrar mensaje, 1=borrar mensaje con tecla *, 2=Mostrar hasta el tiempo de espera.",
+                    "name": "Borrar"
+                },
+                "line1": {
+                    "description": "Hasta 16 caracteres de texto (truncado si es demasiado largo).",
+                    "name": "L\u00ednea 1"
+                },
+                "line2": {
+                    "description": "Hasta 16 caracteres de texto (truncado si es demasiado largo).",
+                    "name": "L\u00ednea 2"
+                },
+                "timeout": {
+                    "description": "Tiempo para mostrar el mensaje, 0 = para siempre, m\u00e1x. 65535.",
+                    "name": "Tiempo de espera"
+                }
+            },
+            "name": "Mensaje de pantalla de alarma"
+        },
+        "sensor_counter_refresh": {
+            "description": "Actualiza el valor de un contador del panel.",
+            "name": "Actualizar contador del sensor"
+        },
+        "sensor_counter_set": {
+            "description": "Establece el valor de un contador en el panel.",
+            "fields": {
+                "value": {
+                    "description": "Valor al que se fija el contador.",
+                    "name": "Valor"
+                }
+            },
+            "name": "Establecer contador del sensor"
+        },
+        "sensor_zone_bypass": {
+            "description": "Anula una zona.",
+            "fields": {
+                "code": {
+                    "description": "Un c\u00f3digo para autorizar la anulaci\u00f3n de la zona.",
+                    "name": "C\u00f3digo"
+                }
+            },
+            "name": "Anulaci\u00f3n de zona de sensores"
+        },
+        "sensor_zone_trigger": {
+            "description": "Dispara una zona.",
+            "name": "Disparador del sensor de zona"
+        },
+        "set_time": {
+            "description": "Establece la hora del panel.",
+            "fields": {
+                "prefix": {
+                    "description": "Prefijo para el panel.",
+                    "name": "Prefijo"
+                }
+            },
+            "name": "Establecer hora"
+        },
+        "speak_phrase": {
+            "description": "Pronuncia una frase. Consulta la lista de frases en la documentaci\u00f3n del Protocolo ASCII ElkM1.",
+            "fields": {
+                "number": {
+                    "description": "N\u00famero de frase para hablar.",
+                    "name": "N\u00famero de frase"
+                },
+                "prefix": {
+                    "description": "Prefijo para identificar el panel cuando se configuran varios paneles.",
+                    "name": "Prefijo"
+                }
+            },
+            "name": "Hablar frase"
+        },
+        "speak_word": {
+            "description": "Pronuncia una palabra. Consulta la lista de palabras en la documentaci\u00f3n del Protocolo ASCII ElkM1.",
+            "fields": {
+                "number": {
+                    "description": "N\u00famero de palabra para hablar.",
+                    "name": "N\u00famero de palabra"
+                },
+                "prefix": {
+                    "description": "Prefijo para identificar el panel cuando se configuran varios paneles.",
+                    "name": "Prefijo"
+                }
+            },
+            "name": "Hablar palabra"
+        }
+    }
+}

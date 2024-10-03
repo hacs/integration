@@ -1,0 +1,103 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Palvelu on jo m\u00e4\u00e4ritetty",
+            "cannot_connect": "Yhteyden muodostaminen ep\u00e4onnistui",
+            "invalid_auth": "Virheellinen todennus"
+        },
+        "error": {
+            "cannot_connect": "Yhteyden muodostaminen ep\u00e4onnistui",
+            "invalid_auth": "Virheellinen todennus"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "password": "Salasana",
+                    "username": "K\u00e4ytt\u00e4j\u00e4tunnus"
+                }
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "delivered": {
+                "name": "Toimitettu"
+            },
+            "expired": {
+                "name": "Vanhentunut"
+            },
+            "in_transit": {
+                "name": "Matkalla"
+            },
+            "not_found": {
+                "name": "Ei l\u00f6ydy"
+            },
+            "package": {
+                "name": "Paketti {name}"
+            },
+            "ready_to_be_picked_up": {
+                "name": "Valmis noudettavaksi"
+            },
+            "returned": {
+                "name": "Palautettu"
+            },
+            "undelivered": {
+                "name": "Toimittamatta"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_yaml_import_issue_cannot_connect": {
+            "description": "17Trackin konfigurointi YAML:n avulla poistetaan, mutta YAML-konfiguraation tuonnissa tapahtui yhteysvirhe.\n\nAsioita, joita voit kokeilla:\nVarmista, ett\u00e4 kotiavustajasi p\u00e4\u00e4see verkkoon.\n\nK\u00e4ynnist\u00e4 sitten Home Assistant uudelleen ja yrit\u00e4 tuoda t\u00e4m\u00e4 integrointi uudelleen.\n\nVaihtoehtoisesti voit poistaa 17Track-konfiguraation kokonaan YAML-konfiguraatiostasi, k\u00e4ynnist\u00e4\u00e4 Home Assistantin uudelleen ja lis\u00e4t\u00e4 17Track-integraation manuaalisesti.",
+            "title": "17Trackin YAML-konfiguraation tuonti ei pysty muodostamaan yhteytt\u00e4 palvelimeen"
+        },
+        "deprecated_yaml_import_issue_invalid_auth": {
+            "description": "17Trackin konfigurointi YAML:n avulla poistetaan, mutta olemassa olevan konfiguraation tuonnin yhteydess\u00e4 annettiin virheellisi\u00e4 tunnistetietoja.\nAsennusta ei jatketa.\n\nTarkista, ett\u00e4 17Trackin tunnistetiedot ovat oikein, ja k\u00e4ynnist\u00e4 Home Assistant uudelleen yritt\u00e4\u00e4ksesi tuontia uudelleen.\n\nVaihtoehtoisesti voit poistaa 17Track-konfiguraation kokonaan YAML-konfiguraatiostasi, k\u00e4ynnist\u00e4\u00e4 Home Assistantin uudelleen ja lis\u00e4t\u00e4 17Track-integraation manuaalisesti.",
+            "title": "17Trackin YAML-konfiguraation tuontipyynt\u00f6 ep\u00e4onnistui virheellisen todennuksen vuoksi."
+        },
+        "deprecated_yaml_import_issue_invalid_credentials": {
+            "description": "17Trackin konfigurointi YAML:n avulla poistetaan, mutta olemassa olevan konfiguraation tuonnin yhteydess\u00e4 annettiin virheellisi\u00e4 tunnistetietoja.\nAsennusta ei jatketa.\n\nTarkista, ett\u00e4 17Trackin tunnistetiedot ovat oikein, ja k\u00e4ynnist\u00e4 Home Assistant uudelleen yritt\u00e4\u00e4ksesi tuontia uudelleen.\n\nVaihtoehtoisesti voit poistaa 17Track-konfiguraation kokonaan YAML-konfiguraatiostasi, k\u00e4ynnist\u00e4\u00e4 Home Assistantin uudelleen ja lis\u00e4t\u00e4 17Track-integraation manuaalisesti.",
+            "title": "17Trackin YAML-konfiguraation tuontipyynt\u00f6 ep\u00e4onnistui virheellisten valtuustietojen vuoksi."
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "show_archived": "Pit\u00e4isik\u00f6 arkistoituja paketteja varten luoda antureita",
+                    "show_delivered": "Pit\u00e4isik\u00f6 toimitetuille paketeille luoda anturit"
+                },
+                "description": "M\u00e4\u00e4rit\u00e4 yleiset asetukset"
+            }
+        }
+    },
+    "selector": {
+        "package_state": {
+            "options": {
+                "delivered": "Toimitettu",
+                "expired": "Vanhentunut",
+                "in_transit": "Matkalla",
+                "not_found": "Ei l\u00f6ydy",
+                "ready_to_be_picked_up": "Valmis noudettavaksi",
+                "returned": "Palautettu",
+                "undelivered": "Toimittamatta"
+            }
+        }
+    },
+    "services": {
+        "get_packages": {
+            "description": "Hanki paketteja 17Trackilta",
+            "fields": {
+                "config_entry_id": {
+                    "description": "Paketit haetaan valitun palvelun osalta.",
+                    "name": "17Track-palvelu"
+                },
+                "package_state": {
+                    "description": "Palauttaa vain paketit, joilla on m\u00e4\u00e4ritetyt tilat. Palauttaa kaikki paketit, jos niit\u00e4 ei ole m\u00e4\u00e4ritetty.",
+                    "name": "Pakkauksen tilat"
+                }
+            },
+            "name": "Hanki paketteja"
+        }
+    }
+}

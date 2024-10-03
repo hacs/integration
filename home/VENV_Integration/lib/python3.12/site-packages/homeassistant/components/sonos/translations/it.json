@@ -1,0 +1,174 @@
+{
+    "config": {
+        "abort": {
+            "no_devices_found": "Nessun dispositivo trovato sulla rete",
+            "not_sonos_device": "Il dispositivo rilevato non \u00e8 un dispositivo Sonos",
+            "single_instance_allowed": "Gi\u00e0 configurato. \u00c8 possibile una sola configurazione."
+        },
+        "step": {
+            "confirm": {
+                "description": "Vuoi configurare Sonos?"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "microphone": {
+                "name": "Microfono"
+            }
+        },
+        "number": {
+            "audio_delay": {
+                "name": "Ritardo audio"
+            },
+            "balance": {
+                "name": "Bilanciamento"
+            },
+            "bass": {
+                "name": "Bassi"
+            },
+            "music_surround_level": {
+                "name": "Livello surround musicale"
+            },
+            "sub_gain": {
+                "name": "Guadagno del Sub"
+            },
+            "surround_level": {
+                "name": "Livello surround"
+            },
+            "treble": {
+                "name": "Acuti"
+            }
+        },
+        "sensor": {
+            "audio_input_format": {
+                "name": "Formato di ingresso audio"
+            }
+        },
+        "switch": {
+            "buttons_enabled": {
+                "name": "Controlli a sfioramento"
+            },
+            "cross_fade": {
+                "name": "Dissolvenza incrociata"
+            },
+            "dialog_level": {
+                "name": "Miglioramento del parlato"
+            },
+            "loudness": {
+                "name": "Loudness"
+            },
+            "night_mode": {
+                "name": "Suono notturno"
+            },
+            "status_light": {
+                "name": "Spia di stato"
+            },
+            "sub_enabled": {
+                "name": "Subwoofer abilitato"
+            },
+            "surround_enabled": {
+                "name": "Surround abilitato"
+            },
+            "surround_mode": {
+                "name": "Musica surround a tutto volume"
+            }
+        }
+    },
+    "issues": {
+        "subscriptions_failed": {
+            "description": "Se si ricorre al polling, la funzionalit\u00e0 potrebbe essere limitata.\n\nIl dispositivo Sonos al {device_ip} non pu\u00f2 raggiungere Home assistant al {listener_address}.\n\nPer ulteriori informazioni su come risolvere questo problema, consultare la nostra [documentazione]({sub_fail_url}).",
+            "title": "Errore di rete: sottoscrizioni non riuscite"
+        }
+    },
+    "services": {
+        "clear_sleep_timer": {
+            "description": "Cancella un timer Sonos.",
+            "name": "Cancella timer"
+        },
+        "play_queue": {
+            "description": "Inizia a riprodurre la coda dal primo elemento.",
+            "fields": {
+                "queue_position": {
+                    "description": "Posizione del brano nella coda da cui iniziare la riproduzione.",
+                    "name": "Posizione in coda"
+                }
+            },
+            "name": "Coda di riproduzione"
+        },
+        "remove_from_queue": {
+            "description": "Rimuove un elemento dalla coda.",
+            "fields": {
+                "queue_position": {
+                    "description": "Posizione in coda da rimuovere.",
+                    "name": "Posizione in coda"
+                }
+            },
+            "name": "Rimuovi dalla coda"
+        },
+        "restore": {
+            "description": "Ripristina un'istantanea del lettore multimediale.",
+            "fields": {
+                "entity_id": {
+                    "description": "Nome dell'entit\u00e0 che verr\u00e0 ripristinata.",
+                    "name": "Entit\u00e0"
+                },
+                "with_group": {
+                    "description": "Vero o falso. Ripristina anche il layout del gruppo.",
+                    "name": "Con gruppo"
+                }
+            },
+            "name": "Ripristino"
+        },
+        "set_sleep_timer": {
+            "description": "Imposta un timer Sonos.",
+            "fields": {
+                "sleep_time": {
+                    "description": "Numero di secondi per impostare il timer.",
+                    "name": "Tempo di sonno"
+                }
+            },
+            "name": "Imposta il timer"
+        },
+        "snapshot": {
+            "description": "Esegue un'istantanea del lettore multimediale.",
+            "fields": {
+                "entity_id": {
+                    "description": "Nome dell'entit\u00e0 che verr\u00e0 fotografata.",
+                    "name": "Entit\u00e0"
+                },
+                "with_group": {
+                    "description": "Vero o falso. Eseguire anche un'istantanea del layout del gruppo.",
+                    "name": "Con gruppo"
+                }
+            },
+            "name": "Istantanea"
+        },
+        "update_alarm": {
+            "description": "Aggiorna un allarme con nuove impostazioni di ora e volume.",
+            "fields": {
+                "alarm_id": {
+                    "description": "ID per l'allarme da aggiornare.",
+                    "name": "ID allarme"
+                },
+                "enabled": {
+                    "description": "Abilitare o disabilitare l'allarme.",
+                    "name": "Allarme abilitato"
+                },
+                "include_linked_zones": {
+                    "description": "Abilita o disabilita l'inclusione di stanze raggruppate.",
+                    "name": "Includi zone collegate"
+                },
+                "time": {
+                    "description": "Stabilisci l'ora per l'allarme.",
+                    "name": "Tempo"
+                },
+                "volume": {
+                    "description": "Imposta il livello del volume dell'allarme.",
+                    "name": "Volume"
+                }
+            },
+            "name": "Aggiorna allarme"
+        }
+    }
+}

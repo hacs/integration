@@ -1,0 +1,95 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Laite on jo m\u00e4\u00e4ritetty",
+            "already_in_progress": "M\u00e4\u00e4ritysprosessi on jo k\u00e4ynniss\u00e4",
+            "not_xiaomi_aqara": "Ei Xiaomi Aqara Gateway, l\u00f6ydetty laite ei vastaa tunnettuja yhdysk\u00e4yt\u00e4vi\u00e4."
+        },
+        "error": {
+            "discovery_error": "Xiaomi Aqara Gateway -yhdysk\u00e4yt\u00e4v\u00e4\u00e4 ei onnistuttu l\u00f6yt\u00e4m\u00e4\u00e4n, yrit\u00e4 k\u00e4ytt\u00e4\u00e4 k\u00e4ytt\u00f6liittym\u00e4n\u00e4 Home Assistantia k\u00e4ytt\u00e4v\u00e4n laitteen IP-osoitetta.",
+            "invalid_host": "Virheellinen is\u00e4nt\u00e4nimi tai IP-osoite, katso https://www.home-assistant.io/integrations/xiaomi_aqara/#connection-problem.",
+            "invalid_interface": "Virheellinen verkkoliit\u00e4nt\u00e4",
+            "invalid_key": "Virheellinen yhdysk\u00e4yt\u00e4v\u00e4n avain",
+            "invalid_mac": "Virheellinen Mac-osoite"
+        },
+        "flow_title": "{name}",
+        "step": {
+            "select": {
+                "data": {
+                    "select_ip": "IP-osoite"
+                },
+                "description": "Valitse Xiaomi Aqara Gateway, jonka haluat yhdist\u00e4\u00e4."
+            },
+            "settings": {
+                "data": {
+                    "key": "Yhdysk\u00e4yt\u00e4v\u00e4n avain",
+                    "name": "Yhdysk\u00e4yt\u00e4v\u00e4n nimi"
+                },
+                "description": "Avain (salasana) voidaan hakea t\u00e4m\u00e4n ohjeen avulla: https://www.domoticz.com/wiki/Xiaomi_Gateway_(Aqara)#Adding_the_Xiaomi_Gateway_to_Domoticz. Jos avainta ei anneta, vain sensorit ovat k\u00e4ytett\u00e4viss\u00e4.",
+                "title": "Valinnaiset asetukset"
+            },
+            "user": {
+                "data": {
+                    "host": "IP-osoite (valinnainen)",
+                    "interface": "K\u00e4ytett\u00e4v\u00e4 verkkoliit\u00e4nt\u00e4",
+                    "mac": "Mac-osoite (valinnainen)"
+                },
+                "description": "Jos IP- ja MAC-osoitteet j\u00e4tet\u00e4\u00e4n tyhjiksi, k\u00e4ytet\u00e4\u00e4n automaattista l\u00f6yt\u00e4mist\u00e4."
+            }
+        }
+    },
+    "services": {
+        "add_device": {
+            "description": "Ottaa k\u00e4ytt\u00f6\u00f6n Xiaomi Aqara Gatewayn liittymisluvan 30 sekunniksi. Uusi laite voidaan lis\u00e4t\u00e4 sen j\u00e4lkeen painamalla kerran pariliitospainiketta.",
+            "fields": {
+                "gw_mac": {
+                    "description": "Xiaomi Aqara Gatewayn MAC-osoite.",
+                    "name": "Yhdysk\u00e4yt\u00e4v\u00e4n MAC"
+                }
+            },
+            "name": "Lis\u00e4\u00e4 laite"
+        },
+        "play_ringtone": {
+            "description": "Toistaa tietyn soitto\u00e4\u00e4nen. Yhdysk\u00e4yt\u00e4v\u00e4n laiteohjelmiston version on oltava v\u00e4hint\u00e4\u00e4n 1.4.1_145.",
+            "fields": {
+                "gw_mac": {
+                    "description": "Xiaomi Aqara Gatewayn MAC-osoite.",
+                    "name": "Yhdysk\u00e4yt\u00e4v\u00e4n MAC"
+                },
+                "ringtone_id": {
+                    "description": "Yksi sallituista soitto\u00e4\u00e4nen tunnuksista.",
+                    "name": "Soitto\u00e4\u00e4nen tunnus"
+                },
+                "ringtone_vol": {
+                    "description": "\u00c4\u00e4nenvoimakkuus prosentteina.",
+                    "name": "Soitto\u00e4\u00e4nen voimakkuus"
+                }
+            },
+            "name": "Toista soitto\u00e4\u00e4ni"
+        },
+        "remove_device": {
+            "description": "Poistaa tietyn laitteen. Poistaminen on tarpeen, jos laite liitet\u00e4\u00e4n toiseen yhdysk\u00e4yt\u00e4v\u00e4\u00e4n.",
+            "fields": {
+                "device_id": {
+                    "description": "Poistettavan laitteen laitteisto-osoite.",
+                    "name": "Laitetunnus"
+                },
+                "gw_mac": {
+                    "description": "Xiaomi Aqara Gatewayn MAC-osoite.",
+                    "name": "Yhdysk\u00e4yt\u00e4v\u00e4n MAC"
+                }
+            },
+            "name": "Poista laite"
+        },
+        "stop_ringtone": {
+            "description": "Pys\u00e4ytt\u00e4\u00e4 soitto\u00e4\u00e4nen soittamisen v\u00e4litt\u00f6m\u00e4sti.",
+            "fields": {
+                "gw_mac": {
+                    "description": "Xiaomi Aqara Gatewayn MAC-osoite.",
+                    "name": "Yhdysk\u00e4yt\u00e4v\u00e4n MAC"
+                }
+            },
+            "name": "Lopeta soitto\u00e4\u00e4ni"
+        }
+    }
+}

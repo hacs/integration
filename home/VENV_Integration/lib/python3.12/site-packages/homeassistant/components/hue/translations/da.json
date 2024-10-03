@@ -1,0 +1,184 @@
+{
+    "config": {
+        "abort": {
+            "all_configured": "Alle Philips Hue-broer er allerede konfigureret",
+            "already_configured": "Enheden er allerede konfigureret",
+            "already_in_progress": "Konfigurationsflow er allerede i gang",
+            "cannot_connect": "Forbindelse mislykkedes",
+            "discover_timeout": "Ingen Philips Hue-bro fundet",
+            "invalid_host": "Ugyldigt v\u00e6rtsnavn eller IP-adresse",
+            "no_bridges": "Ingen Philips Hue-broer fundet",
+            "not_hue_bridge": "Ikke en Hue-bro",
+            "unknown": "Uventet fejl"
+        },
+        "error": {
+            "linking": "Uventet fejl",
+            "register_failed": "Det lykkedes ikke at registrere. Pr\u00f8v igen"
+        },
+        "step": {
+            "init": {
+                "data": {
+                    "host": "V\u00e6rt"
+                },
+                "data_description": {
+                    "host": "V\u00e6rtsnavnet eller IP-adressen p\u00e5 din Hue-bro."
+                },
+                "title": "V\u00e6lg Hue-bro"
+            },
+            "link": {
+                "description": "Tryk p\u00e5 knappen p\u00e5 broen for at registrere Philips Hue med Home Assistant. \n\n ![Placering af knap p\u00e5 bro](/static/images/config_philips_hue.jpg)",
+                "title": "Forbind Hub"
+            },
+            "manual": {
+                "data": {
+                    "host": "V\u00e6rt"
+                },
+                "data_description": {
+                    "host": "V\u00e6rtsnavnet eller IP-adressen p\u00e5 din Hue-bro."
+                },
+                "title": "Konfigurer en Hue Bridge manuelt"
+            }
+        }
+    },
+    "device_automation": {
+        "trigger_subtype": {
+            "1": "F\u00f8rste knap",
+            "2": "Anden knap",
+            "3": "Tredje knap",
+            "4": "Fjerde knap",
+            "button_1": "F\u00f8rste knap",
+            "button_2": "Anden knap",
+            "button_3": "Tredje knap",
+            "button_4": "Fjerde knap",
+            "clock_wise": "Rotation med uret",
+            "counter_clock_wise": "Rotation mod uret",
+            "dim_down": "D\u00e6mp ned",
+            "dim_up": "D\u00e6mp op",
+            "double_buttons_1_3": "F\u00f8rste og tredje knap",
+            "double_buttons_2_4": "Anden og fjerde knap",
+            "turn_off": "Sluk",
+            "turn_on": "T\u00e6nd"
+        },
+        "trigger_type": {
+            "double_short_release": "Begge \"{subtype}\" sluppet",
+            "initial_press": "\"{subtype}\" trykket initielt",
+            "long_release": "\"{subtype}\"-knappen sluppet efter langt tryk",
+            "remote_button_long_release": "\"{subtype}\"-knappen sluppet efter langt tryk",
+            "remote_button_short_press": "\"{subtype}\"-knappen trykket p\u00e5",
+            "remote_button_short_release": "\"{subtype}\"-knappen sluppet",
+            "remote_double_button_long_press": "Begge \"{subtype}\" sluppet efter et langt tryk",
+            "remote_double_button_short_press": "Begge \"{subtype}\" sluppet",
+            "repeat": "\"{subtype}\" holdt nede",
+            "short_release": "\"{subtype}\" sluppet efter kort tryk",
+            "start": "\"{subtype}\" trykket initielt"
+        }
+    },
+    "entity": {
+        "event": {
+            "button": {
+                "state_attributes": {
+                    "event_type": {
+                        "state": {
+                            "double_short_release": "Dobbelt tryk",
+                            "initial_press": "Indledende tryk",
+                            "long_press": "Langt tryk",
+                            "long_release": "Lang frigivelse",
+                            "repeat": "Gentag",
+                            "short_release": "Kort tryk"
+                        }
+                    }
+                }
+            },
+            "rotary": {
+                "name": "Roterende",
+                "state_attributes": {
+                    "event_type": {
+                        "state": {
+                            "clock_wise": "Med uret",
+                            "counter_clock_wise": "Mod uret"
+                        }
+                    }
+                }
+            }
+        },
+        "sensor": {
+            "zigbee_connectivity": {
+                "name": "Zigbee-forbindelse",
+                "state": {
+                    "connected": "Forbundet",
+                    "connectivity_issue": "Forbindelsesproblem",
+                    "disconnected": "Afbrudt",
+                    "unidirectional_incoming": "Envejs indg\u00e5ende"
+                }
+            }
+        },
+        "switch": {
+            "automation": {
+                "state": {
+                    "off": "Deaktiveret",
+                    "on": "Aktiveret"
+                }
+            },
+            "light_sensor_enabled": {
+                "name": "Lyssensor aktiveret"
+            },
+            "motion_sensor_enabled": {
+                "name": "Bev\u00e6gelsessensor aktiveret"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "allow_hue_groups": "Tillad Hue-grupper",
+                    "allow_hue_scenes": "Tillad Hue-scener",
+                    "allow_unreachable": "Tillad p\u00e6rer, der ikke kan kontaktes, at rapportere deres tilstand korrekt",
+                    "ignore_availability": "Ignorer forbindelsesstatus for de givne enheder"
+                }
+            }
+        }
+    },
+    "services": {
+        "activate_scene": {
+            "description": "Aktiverer en Hue-scene med mere kontrol over indstillingerne.",
+            "fields": {
+                "brightness": {
+                    "description": "Indstil lysstyrken for scenen.",
+                    "name": "Lysstyrke"
+                },
+                "dynamic": {
+                    "description": "Aktiv\u00e9r dynamisk tilstand for scenen.",
+                    "name": "Dynamisk"
+                },
+                "speed": {
+                    "description": "Hastighed p\u00e5 dynamisk palet til denne scene.",
+                    "name": "Hastighed"
+                },
+                "transition": {
+                    "description": "Overgangsvarighed det tager at bringe enheder til den tilstand, der er defineret i scenen.",
+                    "name": "Overgang"
+                }
+            },
+            "name": "Aktiv\u00e9r Hue-scene"
+        },
+        "hue_activate_scene": {
+            "description": "Aktiverer en hue-scene, der er gemt i hue-hubben.",
+            "fields": {
+                "dynamic": {
+                    "description": "Aktiver dynamisk tilstand for scenen (kun V2-broer og underst\u00f8ttede scener).",
+                    "name": "Dynamisk"
+                },
+                "group_name": {
+                    "description": "Navn p\u00e5 hue-gruppe/rum fra hue-appen.",
+                    "name": "Gruppe"
+                },
+                "scene_name": {
+                    "description": "Navn p\u00e5 hue-scene fra hue-appen.",
+                    "name": "Scene"
+                }
+            },
+            "name": "Aktiv\u00e9r scene"
+        }
+    }
+}

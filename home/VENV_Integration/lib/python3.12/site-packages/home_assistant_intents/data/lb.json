@@ -1,0 +1,553 @@
+{
+  "language": "lb",
+  "intents": {
+    "HassTurnOff": {
+      "data": [
+        {
+          "sentences": [
+            "schalt <name> aus",
+            "schalt <name> <area> aus",
+            "stopp <name>",
+            "<maach> <area> <name> <zou>",
+            "<maach> <name> <area> <zou>"
+          ]
+        },
+        {
+          "sentences": [
+            "<maach> <area> (<window> | <garage>) <zou>",
+            "<maach> (<window> | <garage>) <area> <zou>"
+          ],
+          "response": "cover_area"
+        },
+        {
+          "sentences": [
+            "<maach> [(all | alleguer)] <light> <area> aus",
+            "<maach> [(all | alleguer)] <area> <light> aus"
+          ],
+          "slots": {
+            "domain": "light",
+            "name": "all"
+          },
+          "response": "lights_area"
+        },
+        {
+          "sentences": [
+            "<maach> <all_window> <zou>"
+          ],
+          "response": "cover_device_class",
+          "slots": {
+            "domain": "cover",
+            "device_class": [
+              "window",
+              "blind",
+              "curtain",
+              "shutter"
+            ]
+          }
+        }
+      ]
+    },
+    "HassGetWeather": {
+      "data": [
+        {
+          "sentences": [
+            "Wéi ass [d'](Wieder|Meteo|Météo)"
+          ]
+        },
+        {
+          "sentences": [
+            "Wéi ass [d'](Wieder|Meteo|Météo) (zu|an|um|fir) <name>",
+            "Wéi (ee|eng) (Wieder|Meteo|Météo) ass (zu|an|um) <name>",
+            "Wéi ass <name> (Wieder|Meteo|Météo)"
+          ],
+          "requires_context": {
+            "domain": "weather"
+          }
+        }
+      ]
+    },
+    "HassGetCurrentTime": {
+      "data": [
+        {
+          "sentences": [
+            "Wéi vill Auer ass et [elo]",
+            "Wéi spéit ass et [elo]"
+          ]
+        }
+      ]
+    },
+    "HassTurnOn": {
+      "data": [
+        {
+          "sentences": [
+            "<maach> [(all | alleguer)] <light> <area> un",
+            "<maach> [(all | alleguer)] <area> <light> un"
+          ],
+          "slots": {
+            "domain": "light",
+            "name": "all"
+          },
+          "response": "lights_area"
+        },
+        {
+          "sentences": [
+            "schalt <name> un",
+            "schalt <name> <area> un",
+            "aktivéier <name>",
+            "<maach> <area> <name> <op>",
+            "<maach> <name> <area> <op>"
+          ]
+        },
+        {
+          "sentences": [
+            "<maach> <area> (<window> | <garage>) <op>",
+            "<maach> (<window> | <garage>) <area> <op>"
+          ],
+          "response": "cover_area"
+        },
+        {
+          "sentences": [
+            "<maach> <all_window> <op>"
+          ],
+          "response": "cover_device_class",
+          "slots": {
+            "domain": "cover",
+            "device_class": [
+              "window",
+              "blind",
+              "curtain",
+              "shutter"
+            ]
+          }
+        }
+      ]
+    },
+    "HassGetCurrentDate": {
+      "data": [
+        {
+          "sentences": [
+            "Wéien Dag ass haut",
+            "De wéivillte[n] si mer [haut]"
+          ]
+        }
+      ]
+    },
+    "HassLightSet": {
+      "data": [
+        {
+          "sentences": [
+            "<maach> <name> Hellegkeet op <brightness>",
+            "<maach> [d']Hellegkeet (vu | vun | vum) [(der | dem)] <name> op <brightness>",
+            "<maach> <name> op <brightness> [Hellegkeet]"
+          ],
+          "response": "brightness",
+          "requires_context": {
+            "domain": "light"
+          }
+        },
+        {
+          "sentences": [
+            "<maach> <name> op <brightness>"
+          ],
+          "requires_context": {
+            "domain": "light"
+          },
+          "response": "brightness"
+        },
+        {
+          "sentences": [
+            "<maach> [d']Hellegkeet [(vu | vum)] <area> op <brightness>",
+            "<maach> <area> Hellegkeet op <brightness>",
+            "<maach> <area> op <brightness> Hellegkeet",
+            "<maach> <area> op <brightness>"
+          ],
+          "slots": {
+            "name": "all"
+          },
+          "response": "brightness_area"
+        },
+        {
+          "sentences": [
+            "<maach> <area> op <brightness>"
+          ],
+          "requires_context": {
+            "domain": "light"
+          },
+          "slots": {
+            "name": "all"
+          },
+          "response": "brightness_area"
+        },
+        {
+          "sentences": [
+            "<maach> <name> [Faarf] [op] {color}",
+            "<maach> [[d']Faarf] (vu | vun | vum) [(der | dem)] <name> [op] {color}"
+          ],
+          "requires_context": {
+            "domain": "light"
+          },
+          "response": "color"
+        },
+        {
+          "sentences": [
+            "<maach> [[d']Faarf] (vu | vun | vum) [(der | dem)] (<area> | [all] <light> <area> | [all] <area> <light>) [op] {color}",
+            "<maach> <area> [Faarf] [op] {color}",
+            "<maach> [all | alleguer | alleguerten] <light> <area> [Faarf] [op] {color}",
+            "<maach> [all | alleguer | alleguerten] <area> <light> [Faarf] [op] {color}"
+          ],
+          "slots": {
+            "name": "all"
+          },
+          "response": "color_area"
+        }
+      ]
+    },
+    "HassClimateGetTemperature": {
+      "data": [
+        {
+          "sentences": [
+            "Wat ass <temp> <area>",
+            "Wi (waarm | kal | kill) ass et <area>",
+            "Wi (waarm | kal | kill) ass et",
+            "Ass et (waarm | kal | kill) <area>",
+            "Wat ass <temp>"
+          ]
+        }
+      ]
+    },
+    "HassGetState": {
+      "data": [
+        {
+          "sentences": [
+            "Wat [ass] [de Status vun] <name> [<area>]"
+          ],
+          "response": "one"
+        },
+        {
+          "sentences": [
+            "Ass [de Status vun] <name> {on_off_states:state} [<area>]"
+          ],
+          "response": "one_yesno",
+          "excludes_context": {
+            "domain": [
+              "cover"
+            ]
+          }
+        },
+        {
+          "sentences": [
+            "(ass|sinn) (iergendeng|iergendeen) {on_off_domains:domain} {on_off_states:state} [<area>]"
+          ],
+          "response": "any"
+        },
+        {
+          "sentences": [
+            "Sinn all [d'] {on_off_domains:domain} {on_off_states:state} [<area>]"
+          ],
+          "response": "all"
+        },
+        {
+          "sentences": [
+            "Wéi eng {on_off_domains:domain} (ass|sinn) {on_off_states:state} [<area>]"
+          ],
+          "response": "which"
+        },
+        {
+          "sentences": [
+            "Wéi vill {on_off_domains:domain} (ass|sinn) {on_off_states:state} [<area>]"
+          ],
+          "response": "how_many"
+        },
+        {
+          "sentences": [
+            "ass [di] <name> {cover_states:state} [<area>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "cover"
+          },
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "(ass|sinn) (iergendeng|iergendeen) {cover_classes:device_class} {cover_states:state} [<area>]"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "Sinn all [d']{cover_classes:device_class} {cover_states:state} [<area>]"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "(wéieen|wéieng) {cover_classes:device_class} (ass|sinn) {cover_states:state} [<area>]"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "wéi vill {cover_classes:device_class} sinn {cover_states:state} [<area>]"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "cover"
+          }
+        }
+      ]
+    }
+  },
+  "responses": {
+    "errors": {
+      "no_intent": "Et deet mer Leed, ech hunn dat net verstanen",
+      "no_area": "Et gëtt kee Beräich mam Numm {{ area }}",
+      "no_domain_in_area": "{{ area }} huet keen {{ domain }}",
+      "no_device_class_in_area": " {{ area }} huet keen {{ device_class }}",
+      "no_entity": "Et gëtt kee Gerät oder Eenheet mam Numm {{ entity }}",
+      "handle_error": "Et ass en onerwaarte Feeler opgetratt"
+    },
+    "intents": {
+      "HassGetState": {
+        "one": "{{ slots.name | capitalize }} ass {{ state.state_with_unit }}\n",
+        "one_yesno": "{% if query.matched %}\n  Jo\n{% else %}\n  Nee, ass {{ state.state_with_unit }}\n{% endif %}\n",
+        "any": "{% if query.matched %}\n  {% set match = query.matched | map(attribute=\"name\") | sort | list %}\n  {% if match | length > 4 %}\n    Jo, {{ match[:3] | join(\", \") }} an {{ (match | length - 3) }} méi\n  {%- else -%}\n    Jo,\n    {% for name in match -%}\n      {% if not loop.first and not loop.last %}, {% elif loop.last and not loop.first %} an {% endif -%}\n      {{ name }}\n    {%- endfor -%}\n  {% endif %}\n{% else %}\n  Nee\n{% endif %}\n",
+        "all": "{% if not query.unmatched: %}\n  Jo\n{% else %}\n  {% set no_match = query.unmatched | map(attribute=\"name\") | sort | list %}\n  {% if no_match | length > 4 %}\n    Nee, {{ no_match[:3] | join(\", \") }} an {{ (no_match | length - 3) }} méi si net\n  {%- else -%}\n    Nee,\n    {% for name in no_match -%}\n      {% if not loop.first and not loop.last %}, {% elif loop.last and not loop.first %} an {% endif -%}\n      {{ name }}\n    {%- endfor %} net\n  {% endif %}\n{% endif %}\n",
+        "which": "{% if not query.matched %}\n  Kee vu\n{% else: %}\n  {% set match = query.matched | map(attribute=\"name\") | sort | list %}\n  {% if match | length > 4 %}\n    {{ match[:3] | join(\", \") }} an {{ (match | length - 3) }} méi\n  {% else %}\n    {%- for name in match -%}\n      {% if not loop.first and not loop.last %}, {% elif loop.last and not loop.first %} an {% endif -%}\n      {{ name }}\n    {%- endfor -%}\n  {% endif %}\n{% endif %}\n",
+        "how_many": "{{ query.matched | length }}\n"
+      },
+      "HassTurnOff": {
+        "default": "{{ slots.name }} ass aus",
+        "lights_area": "D'Luuten am {{ slots.area }} sinn aus",
+        "fans_area": "D'Ventilatioun am {{ slots.area }} ass aus",
+        "cover": "{{ slots.name }} ass erof",
+        "cover_area": "{{ slots.area }} ass erof",
+        "cover_device_class": "{{ slots.device_class }} ass erof"
+      },
+      "HassTurnOn": {
+        "default": "{{ slots.name }} ass un",
+        "lights_area": "D'Luuten am {{ slots.area }} sinn un",
+        "fans_area": "D'Ventilatioun am {{ slots.area }} ass un",
+        "cover": "{{ slots.name }} ass erop",
+        "cover_area": "{{ slots.area }} ass erop",
+        "cover_device_class": "{{ slots.device_class }} ass erop"
+      },
+      "HassGetCurrentTime": {
+        "default": "{% set hour_str = '{0:02d}'.format(slots.time.hour) %} {% set minute_str = '{0:02d}'.format(slots.time.minute) %} Et ass {{ hour_str }}:{{ minute_str }}\n"
+      },
+      "HassGetCurrentDate": {
+        "default": "{% set months = {\n   1: 'Januar',\n   2: 'Februar',\n   3: 'März',\n   4: 'Abrëll',\n   5: 'Mee',\n   6: 'Juni',\n   7: 'Juli',\n   8: 'August',\n   9: 'September',\n   10: 'Oktober',\n   11: 'November',\n   12: 'Dezember',\n} %} {% set weekday = [\n  'Méindeg',\n  'Dënschdeg',\n  'Mëttwoch',\n  'Donneschdeg',\n  'Freideg',\n  'Samsdeg',\n  'Sonndeg'\n] %} Haut ass {{ weekday[slots.date.weekday()] }}, den {{ slots.date.day }}. {{ months[slots.date.month] }} {{ slots.date.year }}\n"
+      },
+      "HassGetWeather": {
+        "default": "{% set weather_condition = {\n  'clear': 'a kloer',\n  'clear-night': 'a kloer Nuecht',\n  'cloudy': 'a Wolleken',\n  'exceptional': 'an aussergewéinlech',\n  'fog': 'mat Niwwel',\n  'hail': 'mat Knëppelsteng',\n  'lightning': 'mat Wiederen',\n  'lightning-rainy': 'mat Wiederen a Reen',\n  'partlycloudy': 'and partly cloudy',\n  'pouring': 'and pouring rain',\n  'rainy': 'a Reen',\n  'snowy': 'a Schnéi',\n  'snowy-rainy': 'mat Schnéi a Reen',\n  'sunny': 'a sonneg',\n  'windy': 'a lëfteg',\n  'windy-variant': 'mat Wand a Wolleken'\n} %} {{ state.attributes.get('temperature') }} {{ state.attributes.get('temperature_unit') }} {{ weather_condition.get((state.state | string).lower(), \"\") }}\n"
+      },
+      "HassLightSet": {
+        "brightness": "{{ slots.name }} Hellegkeet ass elo {{ slots.brightness }}",
+        "brightness_area": "D'Hellegkeet am {{ slots.area }} ass elo {{ slots.brightness }}",
+        "color": "{{ slots.name }} Faarf ass elo {{ slots.color }}",
+        "color_area": "D'Faarf am {{ slots.area }} ass elo {{ slots.color }}"
+      },
+      "HassClimateGetTemperature": {
+        "default": "{{ state.state }} Grad"
+      }
+    }
+  },
+  "lists": {
+    "color": {
+      "values": [
+        {
+          "in": "wäiss",
+          "out": "white"
+        },
+        {
+          "in": "schwaarz",
+          "out": "black"
+        },
+        {
+          "in": "rout",
+          "out": "red"
+        },
+        {
+          "in": "orange",
+          "out": "orange"
+        },
+        {
+          "in": "giel",
+          "out": "yellow"
+        },
+        {
+          "in": "gréng",
+          "out": "green"
+        },
+        {
+          "in": "blo",
+          "out": "blue"
+        },
+        {
+          "in": "violett",
+          "out": "purple"
+        },
+        {
+          "in": "mof",
+          "out": "purple"
+        },
+        {
+          "in": "brong",
+          "out": "brown"
+        }
+      ]
+    },
+    "temperature": {
+      "range": {
+        "type": "temperature",
+        "from": 0,
+        "to": 100
+      }
+    },
+    "temperature_unit": {
+      "values": [
+        {
+          "in": "(c|celsius)",
+          "out": "Celsius"
+        },
+        {
+          "in": "(f|fahrenheit)",
+          "out": "Fahrenheit"
+        }
+      ]
+    },
+    "brightness": {
+      "range": {
+        "type": "percentage",
+        "from": 0,
+        "to": 100
+      }
+    },
+    "on_off_states": {
+      "values": [
+        {
+          "in": "un",
+          "out": "on"
+        },
+        {
+          "in": "aus",
+          "out": "off"
+        }
+      ]
+    },
+    "on_off_domains": {
+      "values": [
+        {
+          "in": "<light>",
+          "out": "light"
+        },
+        {
+          "in": "<ventilator>",
+          "out": "fan"
+        },
+        {
+          "in": "<switch>",
+          "out": "switch"
+        }
+      ]
+    },
+    "cover_states": {
+      "values": [
+        {
+          "in": "(op | erop)",
+          "out": "open"
+        },
+        {
+          "in": "(zou | erof)",
+          "out": "closed"
+        },
+        {
+          "in": "(geet | ginn | fiert | fueren (op|erop))",
+          "out": "opening"
+        },
+        {
+          "in": "(geet | ginn | fiert | fueren (zou|erof))",
+          "out": "closing"
+        }
+      ]
+    },
+    "cover_classes": {
+      "values": [
+        {
+          "in": "<awning>",
+          "out": "awning"
+        },
+        {
+          "in": "<blind>",
+          "out": "blind"
+        },
+        {
+          "in": "<curtain>",
+          "out": "curtain"
+        },
+        {
+          "in": "<door>",
+          "out": "door"
+        },
+        {
+          "in": "<garage>",
+          "out": "garage"
+        },
+        {
+          "in": "<gate>",
+          "out": "gate"
+        },
+        {
+          "in": "<shade>",
+          "out": "shade"
+        },
+        {
+          "in": "<shutter>",
+          "out": "shutter"
+        },
+        {
+          "in": "<window>",
+          "out": "window"
+        }
+      ]
+    }
+  },
+  "expansion_rules": {
+    "name": "([den | de | d']){name}",
+    "area": "[([an (der | dem)] | de | am | d')]{area}",
+    "window": "([d']Fënster[en] | [d']Rollued[en] | [d']Jalousi[(e|ë|en)] | [d']Kuppel[en])",
+    "awning": "([d']Kuppel[en] | [d']Daachkuppel[en])",
+    "blind": "[d']Rollued[en]",
+    "curtain": "[(de|d')] Rideau[(e|en)]",
+    "door": "[d']Dier[(en|e)]",
+    "garage": "([d']Garage | [d']Garagëpaart)",
+    "gate": "[d']Paart[en]",
+    "shade": "[d']Markis[(e|en)]",
+    "shutter": "[d']Jalousi[(e|ë|en)]",
+    "all_window": "(all[eguer] [d']Fënsteren | all[eguer] [d']Rollueden | all[eguer] [d']Jalousien | all[eguer] [d']Kuppelen)",
+    "ventilator": "([de |d']Ventilator[(ë|en)] | [d']Belëftung[(e|en)])",
+    "temp": "[d']Temperatur",
+    "maach": "(maach | fuer | schalt | setz | änner | knips)",
+    "zou": "(zou | erof)",
+    "op": "(op | erop)",
+    "temperature": "{temperature} [Grad] [{temperature_unit}]",
+    "brightness": "{brightness}[%| Prozent]",
+    "light": "([d']Luut[en] | [d']Luucht[en] | [d']Beliichtung)",
+    "switch": "([d']Schalteren | [d']Steckdous[en] | [de] Schalter)"
+  },
+  "skip_words": [
+    "wannechgelift",
+    "merci"
+  ]
+}

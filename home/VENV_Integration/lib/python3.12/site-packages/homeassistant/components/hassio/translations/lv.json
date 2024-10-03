@@ -1,0 +1,90 @@
+{
+    "entity": {
+        "binary_sensor": {
+            "state": {
+                "name": "Darbojas"
+            }
+        },
+        "sensor": {
+            "agent_version": {
+                "name": "OS a\u0123enta versija"
+            },
+            "apparmor_version": {
+                "name": "Apparmor versija"
+            },
+            "cpu_percent": {
+                "name": "Procesora izmantojums procentos"
+            },
+            "disk_free": {
+                "name": "Br\u012bvs uz diska"
+            },
+            "disk_total": {
+                "name": "Diska kop\u0113jais apjoms"
+            },
+            "disk_used": {
+                "name": "Izmantots uz diska"
+            },
+            "memory_percent": {
+                "name": "Atmi\u0146as izmantojums procentos"
+            },
+            "version": {
+                "name": "Versija"
+            },
+            "version_latest": {
+                "name": "Jaun\u0101k\u0101 versija"
+            }
+        }
+    },
+    "issues": {
+        "issue_mount_mount_failed": {
+            "fix_flow": {
+                "step": {
+                    "fix_menu": {
+                        "description": "Nevar\u0113ja izveidot savienojumu ar `{reference}`. Lai ieg\u016btu s\u012bk\u0101ku inform\u0101ciju, p\u0101rbaudiet resursdatora \u017eurn\u0101lus, vai nav k\u013c\u016bdu.\n\nM\u0113\u0123iniet izveidot savienojumu v\u0113lreiz. Ja nepiecie\u0161ams atjaunin\u0101t `{reference}`, dodieties uz [storage]({storage_url}).",
+                        "menu_options": {
+                            "mount_execute_reload": "P\u0101rl\u0101d\u0113t",
+                            "mount_execute_remove": "No\u0146emt"
+                        }
+                    }
+                }
+            },
+            "title": "T\u012bkla glab\u0101\u0161anas ier\u012bce nedarbojas"
+        },
+        "issue_system_docker_config": {
+            "fix_flow": {
+                "abort": {
+                    "apply_suggestion_fail": "Viena vai vair\u0101kas restart\u0113\u0161anas neizdev\u0101s. Lai ieg\u016btu s\u012bk\u0101ku inform\u0101ciju, skatiet Supervisor \u017eurn\u0101lus."
+                },
+                "step": {
+                    "system_execute_rebuild": {
+                        "description": "Ir main\u012bta papildin\u0101jumu un Home Assistant noklus\u0113juma konfigur\u0101cija. Lai atjaunin\u0101tu konfigur\u0101ciju ar jaunajiem noklus\u0113juma iestat\u012bjumiem, ir nepiecie\u0161ams restart\u0113t:\n\n- {components}"
+                    }
+                }
+            },
+            "title": "Nepiecie\u0161ama restart\u0113\u0161ana"
+        },
+        "issue_system_multiple_data_disks": {
+            "fix_flow": {
+                "abort": {
+                    "apply_suggestion_fail": "Neizdev\u0101s p\u0101rd\u0113v\u0113t failu sist\u0113mu. Lai ieg\u016btu pla\u0161\u0101ku inform\u0101ciju, skatiet Supervisor \u017eurn\u0101lus."
+                },
+                "step": {
+                    "system_rename_data_disk": {
+                        "description": "`{reference}` ir failu sist\u0113ma ar nosaukumu hassos-data un nav akt\u012bvais datu disks. Tas var izrais\u012bt to, ka Home Assistant sist\u0113ma restart\u0113\u0161anas laik\u0101 izv\u0113las nepareizu datu disku.\n\nLai to nov\u0113rstu, izmantojiet labo\u0161anas opciju, lai p\u0101rd\u0113v\u0113tu failu sist\u0113mu. Varat ar\u012b p\u0101rvietot datu disku uz \u0161o disku (p\u0101rrakstot t\u0101 saturu) vai iz\u0146emt \u0161o disku no sist\u0113mas."
+                    }
+                }
+            },
+            "title": "Noteikti vair\u0101ki datu diski"
+        },
+        "issue_system_reboot_required": {
+            "fix_flow": {
+                "step": {
+                    "system_execute_reboot": {
+                        "description": "Tika main\u012bti iestat\u012bjumi, lai tie st\u0101tos sp\u0113k\u0101, nepiecie\u0161ama sist\u0113mas restart\u0113\u0161ana.\n\n\u0160is labojums izrais\u012bs sist\u0113mas p\u0101rstart\u0113\u0161anu, kuras rezult\u0101t\u0101 Home Assistant un visi papildin\u0101jumi uz \u012bsu br\u012bdi b\u016bs nepieejami."
+                    }
+                }
+            },
+            "title": "Nepiecie\u0161ama restart\u0113\u0161ana"
+        }
+    }
+}

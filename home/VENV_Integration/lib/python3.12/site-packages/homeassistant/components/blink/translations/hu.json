@@ -1,0 +1,191 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Az eszk\u00f6z m\u00e1r konfigur\u00e1lva van"
+        },
+        "error": {
+            "cannot_connect": "Sikertelen csatlakoz\u00e1s",
+            "invalid_access_token": "\u00c9rv\u00e9nytelen hozz\u00e1f\u00e9r\u00e9si token",
+            "invalid_auth": "\u00c9rv\u00e9nytelen hiteles\u00edt\u00e9s",
+            "unknown": "V\u00e1ratlan hiba"
+        },
+        "step": {
+            "2fa": {
+                "data": {
+                    "2fa": "K\u00e9tfaktoros k\u00f3d"
+                },
+                "description": "Adja meg az e-mail-ben, vagy SMS-ben kapott PIN-t",
+                "title": "K\u00e9tfaktoros hiteles\u00edt\u00e9s"
+            },
+            "user": {
+                "data": {
+                    "password": "Jelsz\u00f3",
+                    "username": "Felhaszn\u00e1l\u00f3n\u00e9v"
+                },
+                "title": "Bejelentkez\u00e9s Blink fi\u00f3kkal"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "camera_armed": {
+                "name": "Kamera \u00e9les\u00edtve"
+            }
+        },
+        "sensor": {
+            "wifi_rssi": {
+                "name": "Wi-Fi RSSI"
+            },
+            "wifi_strength": {
+                "name": "Wi-Fi jel er\u0151ss\u00e9ge"
+            }
+        },
+        "switch": {
+            "camera_motion": {
+                "name": "Kamera mozg\u00e1s\u00e9rz\u00e9kel\u00e9s"
+            }
+        }
+    },
+    "exceptions": {
+        "cant_write": {
+            "message": "Nem tud \u00edrni a f\u00e1jlba"
+        },
+        "device_not_found": {
+            "message": "A(z) '{target}' eszk\u00f6z nem tal\u00e1lhat\u00f3 az eszk\u00f6znyilv\u00e1ntart\u00e1sban"
+        },
+        "failed_arm": {
+            "message": "A Blink nem tudta \u00e9les\u00edteni a kamer\u00e1t."
+        },
+        "failed_arm_motion": {
+            "message": "A Blink nem \u00e9les\u00edtette a kamera mozg\u00e1s\u00e9rz\u00e9kel\u00e9s\u00e9t."
+        },
+        "failed_clip": {
+            "message": "A Blink nem tudott klipet r\u00f6gz\u00edteni."
+        },
+        "failed_disarm": {
+            "message": "A Blinknek nem tudta hat\u00e1stalan\u00edtani a kamer\u00e1t."
+        },
+        "failed_disarm_motion": {
+            "message": "A Blinknek nem tudta hat\u00e1stalan\u00edtani a kamera mozg\u00e1s\u00e9rz\u00e9kel\u00e9s\u00e9t."
+        },
+        "failed_snap": {
+            "message": "A Blink nem tudott k\u00e9pet k\u00e9sz\u00edteni."
+        },
+        "integration_not_found": {
+            "message": "A(z) \"{target}\" integr\u00e1ci\u00f3 nem tal\u00e1lhat\u00f3 a be\u00e1ll\u00edt\u00e1sjegyz\u00e9kben."
+        },
+        "invalid_device": {
+            "message": "A(z) '{target}' eszk\u00f6z nem {domain} eszk\u00f6z"
+        },
+        "no_path": {
+            "message": "Nem lehet \u00edrni a(z) {target} k\u00f6nyvt\u00e1rba, nincs hozz\u00e1f\u00e9r\u00e9s az el\u00e9r\u00e9si \u00fathoz!"
+        },
+        "not_loaded": {
+            "message": "{target} nincs bet\u00f6ltve."
+        }
+    },
+    "issues": {
+        "service_deprecation": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "A Blink friss\u00edt\u00e9si szolg\u00e1ltat\u00e1s elavult \u00e9s el lesz t\u00e1vol\u00edtva.\nK\u00e9rj\u00fck, friss\u00edtse az automatiz\u00e1l\u00e1sokat \u00e9s a szkripteket a `Home Assistant Core Integration: Entit\u00e1s friss\u00edt\u00e9se` szolg\u00e1ltat\u00e1s haszn\u00e1lat\u00e1hoz.",
+                        "title": "A Blink friss\u00edt\u00e9si szolg\u00e1ltat\u00e1s elt\u00e1vol\u00edt\u00e1sa folyamatban van"
+                    }
+                }
+            },
+            "title": "A Blink friss\u00edt\u00e9si szolg\u00e1ltat\u00e1s elt\u00e1vol\u00edt\u00e1sa folyamatban van"
+        }
+    },
+    "options": {
+        "step": {
+            "simple_options": {
+                "data": {
+                    "scan_interval": "Szkennel\u00e9si intervallum (m\u00e1sodperc)"
+                },
+                "description": "Blink integr\u00e1ci\u00f3 konfigur\u00e1l\u00e1sa",
+                "title": "Villog\u00e1si lehet\u0151s\u00e9gek"
+            }
+        }
+    },
+    "services": {
+        "blink_update": {
+            "description": "K\u00e9nyszer\u00edti a friss\u00edt\u00e9st.",
+            "fields": {
+                "device_id": {
+                    "description": "A Blink eszk\u00f6z azonos\u00edt\u00f3ja.",
+                    "name": "Eszk\u00f6z azonos\u00edt\u00f3"
+                }
+            },
+            "name": "Friss\u00edt\u00e9s"
+        },
+        "record": {
+            "description": "K\u00e9ri a kamer\u00e1t klip r\u00f6gz\u00edt\u00e9s\u00e9re.",
+            "name": "R\u0151gz\u00edt\u00e9s"
+        },
+        "save_recent_clips": {
+            "description": "Az \u00f6sszes legut\u00f3bbi videoklip ment\u00e9se helyi k\u00f6nyvt\u00e1rba \"%Y%m%d_%H%M%S_[kamera neve].mp4\" f\u00e1jlmint\u00e1val.",
+            "fields": {
+                "device_id": {
+                    "description": "A Blink eszk\u00f6z azonos\u00edt\u00f3ja.",
+                    "name": "Eszk\u00f6z azonos\u00edt\u00f3"
+                },
+                "file_path": {
+                    "description": "\u00cdrhat\u00f3 \u00fatvonal k\u00f6nyvt\u00e1rneve (a k\u00f6nyvt\u00e1rat fel kell venni az allowlist_external_dirs-be a konfigur\u00e1ci\u00f3ban).",
+                    "name": "Kimeneti k\u00f6nyvt\u00e1r"
+                },
+                "name": {
+                    "description": "A kamera neve, amelyb\u0151l a legfrissebb klippeket szeretn\u00e9nk megszerezni.",
+                    "name": "Elnevez\u00e9s"
+                }
+            },
+            "name": "Utols\u00f3 klip ment\u00e9se"
+        },
+        "save_video": {
+            "description": "Mentse el az utolj\u00e1ra r\u00f6gz\u00edtett videoklipet helyi f\u00e1jlba.",
+            "fields": {
+                "device_id": {
+                    "description": "A Blink eszk\u00f6z azonos\u00edt\u00f3ja.",
+                    "name": "Eszk\u00f6z azonos\u00edt\u00f3"
+                },
+                "filename": {
+                    "description": "F\u00e1jln\u00e9v az \u00edrhat\u00f3 el\u00e9r\u00e9si \u00fathoz (el\u0151fordulhat, hogy a k\u00f6nyvt\u00e1rnak szerepelnie kell a konfigur\u00e1ci\u00f3ban az allowlist_external_dirs r\u00e9szben.).",
+                    "name": "F\u00e1jln\u00e9v"
+                },
+                "name": {
+                    "description": "A kamera a neve, amelyr\u0151l vide\u00f3t szeretne r\u00f6gz\u00edteni.",
+                    "name": "Elnevez\u00e9s"
+                }
+            },
+            "name": "Vide\u00f3 ment\u00e9se"
+        },
+        "send_pin": {
+            "description": "\u00daj PIN-t k\u00fcld a Blinknek a k\u00e9tfaktoros hiteles\u00edt\u00e9shez.",
+            "fields": {
+                "config_entry_id": {
+                    "description": "A Blink integr\u00e1ci\u00f3s azonos\u00edt\u00f3ja.",
+                    "name": "Integr\u00e1ci\u00f3s azonos\u00edt\u00f3"
+                },
+                "device_id": {
+                    "description": "A Blink eszk\u00f6z azonos\u00edt\u00f3ja.",
+                    "name": "Eszk\u00f6z azonos\u00edt\u00f3"
+                },
+                "pin": {
+                    "description": "PIN-t kapott a blinkt\u0151l. Hagyja \u00fcresen, ha csak ellen\u0151rz\u0151 e-mailt kapott.",
+                    "name": "PIN"
+                }
+            },
+            "name": "PIN k\u00fcld\u00e9se"
+        },
+        "trigger_camera": {
+            "description": "K\u00e9ri a kamer\u00e1t, hogy k\u00e9sz\u00edtsen \u00faj k\u00e9pet.",
+            "fields": {
+                "device_id": {
+                    "description": "A Blink eszk\u00f6z azonos\u00edt\u00f3ja.",
+                    "name": "Eszk\u00f6z azonos\u00edt\u00f3"
+                }
+            },
+            "name": "Kamerak\u00e9p k\u00e9sz\u00edt\u00e9se"
+        }
+    }
+}

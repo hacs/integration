@@ -1,0 +1,80 @@
+{
+    "device_automation": {
+        "condition_type": {
+            "is_home": "{entity_name} \u0435 \u0443 \u0434\u043e\u043c\u0430",
+            "is_not_home": "{entity_name} \u043d\u0435 \u0435 \u0443 \u0434\u043e\u043c\u0430"
+        },
+        "extra_fields": {
+            "zone": "\u0417\u043e\u043d\u0430"
+        },
+        "trigger_type": {
+            "enters": "{entity_name} \u0432\u043b\u0438\u0437\u0430 \u0432 \u0437\u043e\u043d\u0430",
+            "leaves": "{entity_name} \u043d\u0430\u043f\u0443\u0441\u043a\u0430 \u0437\u043e\u043d\u0430"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "\u041f\u0440\u043e\u0441\u043b\u0435\u0434\u044f\u0432\u0430\u043d\u0435 \u043d\u0430 \u0443\u0441\u0442\u0440\u043e\u0439\u0441\u0442\u0432\u0430",
+            "state": {
+                "home": "\u0412\u043a\u044a\u0449\u0438",
+                "not_home": "\u041e\u0442\u0441\u044a\u0441\u0442\u0432\u0430"
+            },
+            "state_attributes": {
+                "battery": {
+                    "name": "\u0411\u0430\u0442\u0435\u0440\u0438\u044f"
+                },
+                "gps_accuracy": {
+                    "name": "\u0422\u043e\u0447\u043d\u043e\u0441\u0442 \u043d\u0430 GPS"
+                },
+                "latitude": {
+                    "name": "\u0413\u0435\u043e\u0433\u0440\u0430\u0444\u0441\u043a\u0430 \u0448\u0438\u0440\u0438\u043d\u0430"
+                },
+                "longitude": {
+                    "name": "\u0413\u0435\u043e\u0433\u0440\u0430\u0444\u0441\u043a\u0430 \u0434\u044a\u043b\u0436\u0438\u043d\u0430"
+                },
+                "source_type": {
+                    "name": "\u0418\u0437\u0442\u043e\u0447\u043d\u0438\u043a",
+                    "state": {
+                        "bluetooth": "Bluetooth",
+                        "bluetooth_le": "Bluetooth LE",
+                        "gps": "GPS",
+                        "router": "\u0420\u0443\u0442\u0435\u0440"
+                    }
+                }
+            }
+        }
+    },
+    "services": {
+        "see": {
+            "fields": {
+                "battery": {
+                    "description": "\u041d\u0438\u0432\u043e \u043d\u0430 \u0431\u0430\u0442\u0435\u0440\u0438\u044f\u0442\u0430 \u043d\u0430 \u0443\u0441\u0442\u0440\u043e\u0439\u0441\u0442\u0432\u043e\u0442\u043e.",
+                    "name": "\u041d\u0438\u0432\u043e \u043d\u0430 \u0431\u0430\u0442\u0435\u0440\u0438\u044f\u0442\u0430"
+                },
+                "dev_id": {
+                    "description": "ID \u043d\u0430 \u0443\u0441\u0442\u0440\u043e\u0439\u0441\u0442\u0432\u043e\u0442\u043e (\u043d\u0430\u043c\u0435\u0440\u0435\u0442\u0435 ID \u0432 `known_devices.yaml`).",
+                    "name": "ID \u043d\u0430 \u0443\u0441\u0442\u0440\u043e\u0439\u0441\u0442\u0432\u043e\u0442\u043e"
+                },
+                "gps": {
+                    "description": "GPS \u043a\u043e\u043e\u0440\u0434\u0438\u043d\u0430\u0442\u0438, \u043a\u044a\u0434\u0435\u0442\u043e \u0441\u0435 \u043d\u0430\u043c\u0438\u0440\u0430 \u0443\u0441\u0442\u0440\u043e\u0439\u0441\u0442\u0432\u043e\u0442\u043e, \u043f\u043e\u0441\u043e\u0447\u0435\u043d\u0438 \u043f\u043e \u0433\u0435\u043e\u0433\u0440\u0430\u0444\u0441\u043a\u0430 \u0448\u0438\u0440\u0438\u043d\u0430 \u0438 \u0434\u044a\u043b\u0436\u0438\u043d\u0430 (\u043d\u0430\u043f\u0440\u0438\u043c\u0435\u0440: [51.513845, -0.100539]).",
+                    "name": "GPS \u043a\u043e\u043e\u0440\u0434\u0438\u043d\u0430\u0442\u0438"
+                },
+                "gps_accuracy": {
+                    "description": "\u0422\u043e\u0447\u043d\u043e\u0441\u0442 \u043d\u0430 GPS \u043a\u043e\u043e\u0440\u0434\u0438\u043d\u0430\u0442\u0438\u0442\u0435.",
+                    "name": "GPS \u0442\u043e\u0447\u043d\u043e\u0441\u0442"
+                },
+                "host_name": {
+                    "description": "\u0418\u043c\u0435 \u043d\u0430 \u0445\u043e\u0441\u0442 \u043d\u0430 \u0443\u0441\u0442\u0440\u043e\u0439\u0441\u0442\u0432\u043e\u0442\u043e.",
+                    "name": "\u0418\u043c\u0435 \u043d\u0430 \u0445\u043e\u0441\u0442"
+                },
+                "location_name": {
+                    "name": "\u041c\u0435\u0441\u0442\u043e\u043f\u043e\u043b\u043e\u0436\u0435\u043d\u0438\u0435"
+                },
+                "mac": {
+                    "description": "MAC \u0430\u0434\u0440\u0435\u0441 \u043d\u0430 \u0443\u0441\u0442\u0440\u043e\u0439\u0441\u0442\u0432\u043e\u0442\u043e.",
+                    "name": "MAC \u0430\u0434\u0440\u0435\u0441"
+                }
+            }
+        }
+    }
+}

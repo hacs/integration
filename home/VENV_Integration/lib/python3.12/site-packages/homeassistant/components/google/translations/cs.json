@@ -1,0 +1,134 @@
+{
+    "application_credentials": {
+        "description": "Podle [pokyn\u016f]({more_info_url}) pro [obrazovka souhlasu s protokolem OAuth]({oauth_consent_url}) ud\u011blte Home Asistentovi p\u0159\u00edstup k va\u0161emu Kalend\u00e1\u0159i Google. Mus\u00edte tak\u00e9 vytvo\u0159it p\u0159ihla\u0161ovac\u00ed \u00fadaje aplikace propojen\u00e9 s va\u0161\u00edm kalend\u00e1\u0159em:\n1. P\u0159ejd\u011bte na [Credentials]({oauth_creds_url}) a klepn\u011bte na **Create Credentials**.\n2. Z rozev\u00edrac\u00edho seznamu vyberte **OAuth client ID**.\n3. Jako Application Type vyberte **TV and Limited Input devices**."
+    },
+    "config": {
+        "abort": {
+            "already_configured": "\u00da\u010det je ji\u017e nastaven",
+            "already_in_progress": "Nastaven\u00ed ji\u017e prob\u00edh\u00e1",
+            "api_disabled": "Mus\u00edte povolit Google Calendar API v Google Cloud Console",
+            "cannot_connect": "Nepoda\u0159ilo se p\u0159ipojit",
+            "code_expired": "Platnost ov\u011b\u0159ovac\u00edho k\u00f3du vypr\u0161ela nebo je nastaven\u00ed pov\u011b\u0159en\u00ed neplatn\u00e9, zkuste to znovu.",
+            "invalid_access_token": "Neplatn\u00fd p\u0159\u00edstupov\u00fd token",
+            "missing_configuration": "Komponenta nen\u00ed nastavena. Postupujte podle dokumentace.",
+            "oauth_error": "P\u0159ijata neplatn\u00e1 data tokenu.",
+            "oauth_failed": "Chyba p\u0159i z\u00edsk\u00e1v\u00e1n\u00ed p\u0159\u00edstupov\u00e9ho tokenu.",
+            "oauth_timeout": "P\u0159i \u0159e\u0161en\u00ed tokenu OAuth vypr\u0161el \u010dasov\u00fd limit.",
+            "oauth_unauthorized": "Chyba autorizace OAuth p\u0159i z\u00edsk\u00e1v\u00e1n\u00ed p\u0159\u00edstupov\u00e9ho tokenu.",
+            "reauth_successful": "Op\u011btovn\u00e9 ov\u011b\u0159en\u00ed bylo \u00fasp\u011b\u0161n\u00e9",
+            "timeout_connect": "Vypr\u0161el \u010dasov\u00fd limit pro nav\u00e1z\u00e1n\u00ed spojen\u00ed"
+        },
+        "create_entry": {
+            "default": "\u00dasp\u011b\u0161n\u011b ov\u011b\u0159eno"
+        },
+        "progress": {
+            "exchange": "Chcete-li propojit sv\u016fj \u00fa\u010det Google, nav\u0161tivte [{url}]({url}) a zadejte k\u00f3d: \n\n{user_code}"
+        },
+        "step": {
+            "auth": {
+                "title": "Propojit \u00fa\u010det Google"
+            },
+            "pick_implementation": {
+                "title": "Vybrat metodu ov\u011b\u0159en\u00ed"
+            },
+            "reauth_confirm": {
+                "description": "Integrace Kalend\u00e1\u0159e Google pot\u0159ebuje znovu ov\u011b\u0159it v\u00e1\u0161 \u00fa\u010det",
+                "title": "Platnost ov\u011b\u0159en\u00ed pro {name} vypr\u0161ela"
+            }
+        }
+    },
+    "entity": {
+        "calendar": {
+            "working_location": {
+                "name": "Pracovn\u00ed m\u00edsto"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "calendar_access": "P\u0159\u00edstup Home Assistanta ke Kalend\u00e1\u0159i Google"
+                }
+            }
+        }
+    },
+    "services": {
+        "add_event": {
+            "description": "P\u0159id\u00e1 novou ud\u00e1lost kalend\u00e1\u0159e.",
+            "fields": {
+                "calendar_id": {
+                    "description": "ID po\u017eadovan\u00e9ho kalend\u00e1\u0159e.",
+                    "name": "ID kalend\u00e1\u0159e"
+                },
+                "description": {
+                    "description": "Popis ud\u00e1losti. Voliteln\u00fd.",
+                    "name": "Popis"
+                },
+                "end_date": {
+                    "description": "Datum, kdy by m\u011bla celodenn\u00ed akce skon\u010dit.",
+                    "name": "Datum ukon\u010den\u00ed"
+                },
+                "end_date_time": {
+                    "description": "Datum a \u010das, kdy m\u00e1 ud\u00e1lost skon\u010dit.",
+                    "name": "\u010cas ukon\u010den\u00ed"
+                },
+                "in": {
+                    "description": "Dny nebo t\u00fddny, ve kter\u00fdch chcete ud\u00e1lost vytvo\u0159it.",
+                    "name": "V"
+                },
+                "start_date": {
+                    "description": "Datum, kdy m\u00e1 celodenn\u00ed akce za\u010d\u00edt.",
+                    "name": "Datum zah\u00e1jen\u00ed"
+                },
+                "start_date_time": {
+                    "description": "Datum a \u010das, kdy m\u00e1 ud\u00e1lost za\u010d\u00edt.",
+                    "name": "\u010cas zah\u00e1jen\u00ed"
+                },
+                "summary": {
+                    "description": "Slou\u017e\u00ed jako n\u00e1zev ud\u00e1losti.",
+                    "name": "Souhrn"
+                }
+            },
+            "name": "P\u0159idat ud\u00e1lost"
+        },
+        "create_event": {
+            "description": "P\u0159id\u00e1 novou ud\u00e1lost kalend\u00e1\u0159e.",
+            "fields": {
+                "description": {
+                    "description": "Popis ud\u00e1losti. Voliteln\u00fd.",
+                    "name": "Popis"
+                },
+                "end_date": {
+                    "description": "Datum, kdy by m\u011bla celodenn\u00ed akce skon\u010dit.",
+                    "name": "Datum ukon\u010den\u00ed"
+                },
+                "end_date_time": {
+                    "description": "Datum a \u010das, kdy m\u00e1 ud\u00e1lost skon\u010dit.",
+                    "name": "\u010cas ukon\u010den\u00ed"
+                },
+                "in": {
+                    "description": "Dny nebo t\u00fddny, ve kter\u00fdch chcete ud\u00e1lost vytvo\u0159it.",
+                    "name": "V"
+                },
+                "location": {
+                    "description": "M\u00edsto kon\u00e1n\u00ed. Voliteln\u00e9.",
+                    "name": "Poloha"
+                },
+                "start_date": {
+                    "description": "Datum, kdy m\u00e1 celodenn\u00ed akce za\u010d\u00edt.",
+                    "name": "Datum zah\u00e1jen\u00ed"
+                },
+                "start_date_time": {
+                    "description": "Datum a \u010das, kdy m\u00e1 ud\u00e1lost za\u010d\u00edt.",
+                    "name": "\u010cas zah\u00e1jen\u00ed"
+                },
+                "summary": {
+                    "description": "Slou\u017e\u00ed jako n\u00e1zev ud\u00e1losti.",
+                    "name": "Souhrn"
+                }
+            },
+            "name": "Vytvo\u0159\u00ed ud\u00e1lost"
+        }
+    }
+}

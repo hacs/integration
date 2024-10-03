@@ -1,0 +1,268 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "\u012erenginys jau sukonfig\u016bruotas"
+        },
+        "error": {
+            "invalid_auth": "Neteisingas autentifikavimas"
+        },
+        "flow_title": "{ip}",
+        "step": {
+            "user": {
+                "data": {
+                    "ip_address": "Pagrindinio kompiuterio pavadinimas arba IP adresas",
+                    "password": "Slapta\u017eodis",
+                    "port": "Prievadas"
+                },
+                "title": "U\u017epildykite savo informacij\u0105"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "flow_sensor": {
+                "name": "Srauto jutiklis"
+            },
+            "freeze": {
+                "name": "U\u017e\u0161aldymo apribojimai"
+            },
+            "hourly": {
+                "name": "Valandos apribojimai"
+            },
+            "month": {
+                "name": "M\u0117nesio apribojimai"
+            },
+            "raindelay": {
+                "name": "Lietaus v\u0117lavimo apribojimai"
+            },
+            "rainsensor": {
+                "name": "Lietaus jutiklio apribojimai"
+            },
+            "weekday": {
+                "name": "Savait\u0117s dien\u0173 apribojimai"
+            }
+        },
+        "select": {
+            "freeze_protection_temperature": {
+                "name": "Apsaugos nuo u\u017e\u0161alimo temperat\u016bra"
+            }
+        },
+        "sensor": {
+            "flow_sensor_clicks_cubic_meter": {
+                "name": "Srauto jutiklio paspaudimai kubiniame metre"
+            },
+            "flow_sensor_consumed_liters": {
+                "name": "Srauto jutiklis sunaudojo litrais"
+            },
+            "flow_sensor_leak_clicks": {
+                "name": "Srauto jutiklio nuot\u0117kio spragtel\u0117jimai"
+            },
+            "flow_sensor_leak_volume": {
+                "name": "Srauto jutiklio nuot\u0117kio t\u016bris"
+            },
+            "flow_sensor_start_index": {
+                "name": "Srauto jutiklio prad\u017eios indeksas"
+            },
+            "flow_sensor_watering_clicks": {
+                "name": "Srauto jutiklio paspaudimai"
+            },
+            "last_leak_detected": {
+                "name": "Paskutin\u012f kart\u0105 aptiktas nuot\u0117kis"
+            },
+            "rain_sensor_rain_start": {
+                "name": "Lietaus jutiklio lietaus prad\u017eia"
+            }
+        },
+        "switch": {
+            "freeze_protect_enabled": {
+                "name": "Apsauga nuo u\u017e\u0161alimo"
+            },
+            "hot_days_extra_watering": {
+                "name": "Papildomas vanduo kar\u0161tomis dienomis"
+            }
+        },
+        "update": {
+            "firmware": {
+                "name": "Programin\u0117 \u012franga"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "allow_inactive_zones_to_run": "Leisti i\u0161jungtas zonas paleisti rankiniu b\u016bdu",
+                    "use_app_run_times": "Naudokite zonos veikimo laik\u0105 i\u0161 RainMachine programos",
+                    "zone_run_time": "Numatytasis zonos veikimo laikas (sekund\u0117mis)"
+                },
+                "title": "Konfig\u016bruoti RainMachine"
+            }
+        }
+    },
+    "services": {
+        "pause_watering": {
+            "description": "Sustabdo vis\u0105 laistymo veikl\u0105 kelioms sekund\u0117ms.",
+            "fields": {
+                "device_id": {
+                    "description": "Valdiklis, kurio laistymo veikla turi b\u016bti pristabdyta.",
+                    "name": "Valdiklis"
+                },
+                "seconds": {
+                    "description": "Laistymo sustabdymo laikas (sekund\u0117mis).",
+                    "name": "Trukm\u0117"
+                }
+            },
+            "name": "Pristabdykite vis\u0105 laistym\u0105"
+        },
+        "push_flow_meter_data": {
+            "description": "Perkelkite srauto matuoklio duomenis \u012f RainMachine \u012frengin\u012f.",
+            "fields": {
+                "device_id": {
+                    "description": "Valdiklis, \u012f kur\u012f siun\u010diami srauto matuoklio duomenys.",
+                    "name": "Valdiklis"
+                },
+                "unit_of_measurement": {
+                    "description": "Srauto matuoklio vienetai, kuriuos reikia si\u0173sti.",
+                    "name": "Matavimo vienetas"
+                },
+                "value": {
+                    "description": "Srauto matuoklio vert\u0117, kuri\u0105 reikia si\u0173sti.",
+                    "name": "Vert\u0117"
+                }
+            },
+            "name": "Stumti srauto matuoklio duomenys"
+        },
+        "push_weather_data": {
+            "description": "Perkelkite or\u0173 duomenis i\u0161 \u201eHome Assistant\u201c \u012f \u201eRainMachine\u201c \u012frengin\u012f.\n Vietin\u0117 \u201eWeather Push\u201c paslauga tur\u0117t\u0173 b\u016bti \u012fjungta i\u0161 \u201eSettings > \u201eWeather\u201c > \u201eRainMachine\u201c skirtuke K\u016br\u0117jas, kad b\u016bt\u0173 atsi\u017evelgta \u012f siun\u010diamas reik\u0161mes. Vienetai turi b\u016bti siun\u010diami metriniais; integracija neatlieka joki\u0173 konversij\u0173.\n I\u0161sami\u0105 informacij\u0105 apie RainMachine API rasite \u010dia: https://rainmachine.docs.apiary.io/#reference/weather-services/parserdata/post.",
+            "fields": {
+                "condition": {
+                    "description": "Dabartin\u0117s oro s\u0105lygos kodas (WNUM).",
+                    "name": "Oro s\u0105lyg\u0173 kodas"
+                },
+                "device_id": {
+                    "description": "Valdiklis, skirtas oro duomenims perduoti.",
+                    "name": "Valdiklis"
+                },
+                "dewpoint": {
+                    "description": "Rasos ta\u0161kas (\u00b0C).",
+                    "name": "Rasos ta\u0161kas"
+                },
+                "et": {
+                    "description": "Evapotranspiracija (mm).",
+                    "name": "Evapotranspiracija"
+                },
+                "maxrh": {
+                    "description": "Maksimali santykin\u0117 dr\u0117gm\u0117 (%RH).",
+                    "name": "Maksimali santykin\u0117 dr\u0117gm\u0117"
+                },
+                "maxtemp": {
+                    "description": "Maksimali temperat\u016bra (\u00b0C).",
+                    "name": "Maksimali temperat\u016bra"
+                },
+                "minrh": {
+                    "description": "Minimalus santykinis oro dr\u0117gnumas (%RH).",
+                    "name": "Minimalus santykinis oro dr\u0117gnumas"
+                },
+                "mintemp": {
+                    "description": "Minimali temperat\u016bra (\u00b0C).",
+                    "name": "Minimali temperat\u016bra"
+                },
+                "pressure": {
+                    "description": "Barametrinis sl\u0117gis (kPa).",
+                    "name": "Barametrinis sl\u0117gis"
+                },
+                "qpf": {
+                    "description": "Kiekybin\u0117 krituli\u0173 prognoz\u0117 (mm) arba QPF. Pastaba: QPF vert\u0117s tur\u0117t\u0173 b\u016bti siun\u010diamos ne kaip kaupiamos vert\u0117s, o i\u0161matuotos / prognozuojamos kiekvienos valandos ar dienos vert\u0117s. RainMachine Mixer susumuoja visas dabartin\u0117s dienos QPF reik\u0161mes, kad gaut\u0173 bendr\u0105 dienos QPF.",
+                    "name": "Kiekybin\u0117 krituli\u0173 prognoz\u0117"
+                },
+                "rain": {
+                    "description": "I\u0161matuotas krituli\u0173 kiekis (mm). Pastaba: RAIN vert\u0117s tur\u0117t\u0173 b\u016bti siun\u010diamos ne kaip kaupiamos vert\u0117s, o i\u0161matuotos / prognozuojamos kiekvienos valandos ar dienos vert\u0117s. RainMachine Mixer susumuoja visas dabartin\u0117s dienos RAIN reik\u0161mes, kad gaut\u0173 bendr\u0105 dienos RAIN skai\u010di\u0173.",
+                    "name": "I\u0161matuotas krituli\u0173 kiekis"
+                },
+                "solarrad": {
+                    "description": "Saul\u0117s spinduliuot\u0117 (MJ/m\u00b2/h).",
+                    "name": "Saul\u0117s radiacija"
+                },
+                "temperature": {
+                    "description": "Esama temperat\u016bra (\u00b0C).",
+                    "name": "Temperat\u016bra"
+                },
+                "timestamp": {
+                    "description": "UNIX laiko \u017eyma or\u0173 duomenims. Jei praleista, naudojamas RainMachine \u012frenginio vietinis laikas skambu\u010dio metu.",
+                    "name": "Laiko \u017eyma"
+                },
+                "wind": {
+                    "description": "V\u0117jo greitis (m/s).",
+                    "name": "V\u0117jo greitis"
+                }
+            },
+            "name": "Push or\u0173 duomenys"
+        },
+        "restrict_watering": {
+            "description": "Tam tikr\u0105 laikotarp\u012f apriboja bet koki\u0105 laistymo veikl\u0105.",
+            "fields": {
+                "device_id": {
+                    "description": "Valdytojas, kurio laistymo veikla tur\u0117t\u0173 b\u016bti ribojama.",
+                    "name": "Valdiklis"
+                },
+                "duration": {
+                    "description": "Laikotarpis, per kur\u012f reikia apriboti laistymo veikl\u0105.",
+                    "name": "Trukm\u0117"
+                }
+            },
+            "name": "Apriboti vis\u0105 laistym\u0105"
+        },
+        "start_program": {
+            "description": "Paleid\u017eia program\u0105.",
+            "name": "Prad\u0117ti program\u0105"
+        },
+        "start_zone": {
+            "description": "Pradeda zon\u0105.",
+            "fields": {
+                "zone_run_time": {
+                    "description": "Laikas (sekund\u0117mis), per kur\u012f reikia paleisti zon\u0105.",
+                    "name": "Veikimo laikas"
+                }
+            },
+            "name": "Starto zona"
+        },
+        "stop_all": {
+            "description": "Sustabdo vis\u0105 laistymo veikl\u0105.",
+            "fields": {
+                "device_id": {
+                    "description": "Valdiklis, kurio laistymo veikla tur\u0117t\u0173 b\u016bti sustabdyta.",
+                    "name": "Valdiklis"
+                }
+            },
+            "name": "Sustabdykite vis\u0105 laistym\u0105"
+        },
+        "stop_program": {
+            "description": "Sustabdo program\u0105.",
+            "name": "Sustabdyti program\u0105"
+        },
+        "stop_zone": {
+            "description": "Sustabdo zon\u0105.",
+            "name": "Stop zona"
+        },
+        "unpause_watering": {
+            "description": "At\u0161aukia visus pristabdytus laistymo veiksmus.",
+            "fields": {
+                "device_id": {
+                    "description": "Valdiklis, kurio laistymo veikla tur\u0117t\u0173 b\u016bti at\u0161aukta.",
+                    "name": "Valdiklis"
+                }
+            },
+            "name": "Nutraukite vis\u0105 laistym\u0105"
+        },
+        "unrestrict_watering": {
+            "description": "Neribokite visos laistymo veiklos.",
+            "fields": {
+                "device_id": {
+                    "description": "Valdytojas, kurio laistymo veikla tur\u0117t\u0173 b\u016bti neribojama.",
+                    "name": "Valdiklis"
+                }
+            },
+            "name": "Neribokite viso laistymo"
+        }
+    }
+}

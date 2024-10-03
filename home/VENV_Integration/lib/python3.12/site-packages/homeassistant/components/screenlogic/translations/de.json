@@ -1,0 +1,92 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Ger\u00e4t ist bereits konfiguriert"
+        },
+        "error": {
+            "cannot_connect": "Verbindung fehlgeschlagen"
+        },
+        "flow_title": "{name}",
+        "step": {
+            "gateway_entry": {
+                "data": {
+                    "ip_address": "IP-Adresse",
+                    "port": "Port"
+                },
+                "description": "Gib deine ScreenLogic Gateway-Informationen ein.",
+                "title": "ScreenLogic"
+            },
+            "gateway_select": {
+                "data": {
+                    "selected_gateway": "Gateway"
+                },
+                "description": "Die folgenden ScreenLogic-Gateways wurden erkannt. Bitte w\u00e4hle eines aus, um es zu konfigurieren oder w\u00e4hle ein ScreenLogic-Gateway zum manuellen Konfigurieren.",
+                "title": "ScreenLogic"
+            }
+        }
+    },
+    "issues": {
+        "service_target_deprecation": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Die Verwendung eines Bereichs, Ger\u00e4ts oder einer Entit\u00e4t als Ziel f\u00fcr ScreenLogic-Aktionen wird nicht mehr unterst\u00fctzt. Verwende stattdessen `config_entry` mit der Eintrags-ID der gew\u00fcnschten ScreenLogic-Integration. \n\n Bitte aktualisiere deine Automatisierungen und Skripte und w\u00e4hle **Senden**, um dieses Problem zu beheben.",
+                        "title": "Veraltetes Ziel f\u00fcr ScreenLogic-Aktionen"
+                    }
+                }
+            },
+            "title": "Veraltete Verwendung des Ziels f\u00fcr ScreenLogic-Aktionen"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "scan_interval": "Sekunden zwischen den Scans"
+                },
+                "description": "Einstellungen f\u00fcr {gateway_name} angeben",
+                "title": "ScreenLogic"
+            }
+        }
+    },
+    "services": {
+        "set_color_mode": {
+            "description": "Legt den Farbmodus f\u00fcr alle farbf\u00e4higen Lichtquellen fest, die an dieses ScreenLogic-Gateway angeschlossen sind.",
+            "fields": {
+                "color_mode": {
+                    "description": "Der einzustellende ScreenLogic-Farbmodus.",
+                    "name": "Farbmodus"
+                },
+                "config_entry": {
+                    "description": "Der Konfigurationseintrag, der f\u00fcr diese Aktion verwendet werden soll.",
+                    "name": "Konfigurationseintrag"
+                }
+            },
+            "name": "Farbmodus einstellen"
+        },
+        "start_super_chlorination": {
+            "description": "Beginnt mit der Superchlorierung und l\u00e4uft f\u00fcr den angegebenen Zeitraum oder 24 Stunden, wenn keine angegeben ist.",
+            "fields": {
+                "config_entry": {
+                    "description": "Der Konfigurationseintrag, der f\u00fcr diese Aktion verwendet werden soll.",
+                    "name": "Konfigurationseintrag"
+                },
+                "runtime": {
+                    "description": "Anzahl der Stunden, die die Superchlorierung laufen soll.",
+                    "name": "Laufzeit"
+                }
+            },
+            "name": "Superchlorierung starten"
+        },
+        "stop_super_chlorination": {
+            "description": "Stoppt die Superchlorierung.",
+            "fields": {
+                "config_entry": {
+                    "description": "Der Konfigurationseintrag, der f\u00fcr diese Aktion verwendet werden soll.",
+                    "name": "Konfigurationseintrag"
+                }
+            },
+            "name": "Superchlorierung stoppen"
+        }
+    }
+}

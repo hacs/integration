@@ -1,0 +1,196 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Perangkat sudah dikonfigurasi",
+            "another_device": "Konfigurasi ulang tidak berhasil, alamat IP/nama host perangkat Shelly lain digunakan.",
+            "reauth_successful": "Autentikasi ulang berhasil",
+            "reauth_unsuccessful": "Autentikasi ulang tidak berhasil, hapus integrasi dan siapkan kembali.",
+            "reconfigure_successful": "Konfigurasi ulang berhasil",
+            "unsupported_firmware": "Perangkat menggunakan versi firmware yang tidak didukung."
+        },
+        "error": {
+            "cannot_connect": "Gagal terhubung",
+            "custom_port_not_supported": "Perangkat Gen1 tidak mendukung port khusus.",
+            "firmware_not_fully_provisioned": "Perangkat belum sepenuhnya disediakan. Hubungi dukungan Shelly.",
+            "invalid_auth": "Autentikasi tidak valid",
+            "unknown": "Kesalahan tak terduga"
+        },
+        "flow_title": "{name}",
+        "step": {
+            "confirm_discovery": {
+                "description": "Ingin menyiapkan {model} di {host}?\n\nPerangkat bertenaga baterai yang dilindungi kata sandi harus dibangunkan sebelum melanjutkan penyiapan.\nPerangkat bertenaga baterai yang tidak dilindungi kata sandi akan ditambahkan ketika perangkat bangun. Anda dapat membangunkan perangkat secara manual menggunakan tombol di atasnya sekarang juga atau menunggu pembaruan data berikutnya dari perangkat."
+            },
+            "credentials": {
+                "data": {
+                    "password": "Kata Sandi",
+                    "username": "Nama Pengguna"
+                }
+            },
+            "reauth_confirm": {
+                "data": {
+                    "password": "Kata Sandi",
+                    "username": "Nama Pengguna"
+                }
+            },
+            "reconfigure_confirm": {
+                "data": {
+                    "host": "Host",
+                    "port": "Port"
+                },
+                "data_description": {
+                    "host": "Nama host atau alamat IP perangkat Shelly yang akan disambungkan.",
+                    "port": "Port TCP perangkat Shelly yang akan dihubungkan (Gen2+)."
+                },
+                "description": "Perbarui konfigurasi untuk {device_name}.\n\nSebelum melakukan pengaturan, perangkat bertenaga baterai harus dibangunkan, sekarang Anda dapat membangunkan perangkat dengan menggunakan tombol di perangkat tersebut."
+            },
+            "user": {
+                "data": {
+                    "host": "Host",
+                    "port": "Port"
+                },
+                "data_description": {
+                    "host": "Nama host atau alamat IP perangkat Shelly yang akan disambungkan.",
+                    "port": "Port TCP perangkat Shelly yang akan dihubungkan (Gen2+)."
+                },
+                "description": "Sebelum menyiapkan, perangkat bertenaga baterai harus dibangunkan. Anda dapat membangunkan perangkat menggunakan tombol di atasnya sekarang."
+            }
+        }
+    },
+    "device_automation": {
+        "trigger_subtype": {
+            "button": "Tombol",
+            "button1": "Tombol pertama",
+            "button2": "Tombol kedua",
+            "button3": "Tombol ketiga",
+            "button4": "Tombol keempat"
+        },
+        "trigger_type": {
+            "btn_down": "Tombol \"{subtype}\" ditekan",
+            "btn_up": "Tombol \"{subtype}\" dilepas",
+            "double": "{subtype} diklik dua kali",
+            "double_push": "Push ganda {subtype}",
+            "long": "{subtype} diklik lama",
+            "long_push": "Push lama {subtype}",
+            "long_single": "{subtype} diklik lama kemudian diklik sekali",
+            "single": "{subtype} diklik sekali",
+            "single_long": "{subtype} diklik sekali kemudian diklik lama",
+            "single_push": "Push tunggal {subtype}",
+            "triple": "{subtype} diklik tiga kali",
+            "triple_push": "Push tiga kali {subtype}"
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "gas": {
+                "state_attributes": {
+                    "detected": {
+                        "state": {
+                            "heavy": "Berat",
+                            "mild": "Ringan",
+                            "none": "Tidak ada",
+                            "test": "Pengujian",
+                            "unknown": "Tidak dikenal"
+                        }
+                    }
+                }
+            }
+        },
+        "event": {
+            "input": {
+                "state_attributes": {
+                    "event_type": {
+                        "state": {
+                            "btn_down": "Tombol ke bawah",
+                            "btn_up": "Tombol ke atas",
+                            "double": "Push ganda",
+                            "double_push": "Push ganda",
+                            "long": "Push panjang",
+                            "long_push": "Push panjang",
+                            "long_single": "Push panjang dan kemudian push pendek",
+                            "single": "Push tunggal",
+                            "single_long": "Push pendek dan kemudian push panjang",
+                            "single_push": "Push tunggal",
+                            "triple": "Push tiga kali",
+                            "triple_push": "Push tiga kali"
+                        }
+                    }
+                }
+            }
+        },
+        "sensor": {
+            "operation": {
+                "state": {
+                    "fault": "Kesalahan",
+                    "normal": "Normal",
+                    "unknown": "Tidak dikenal",
+                    "warmup": "Pemanasan"
+                },
+                "state_attributes": {
+                    "self_test": {
+                        "state": {
+                            "completed": "Selesai",
+                            "not_completed": "Tidak selesai",
+                            "pending": "Tertunda",
+                            "running": "Berjalan"
+                        }
+                    }
+                }
+            },
+            "valve_status": {
+                "state": {
+                    "checking": "Memeriksa",
+                    "closed": "Tertutup",
+                    "closing": "Menutup",
+                    "failure": "Gagal",
+                    "opened": "Terbuka",
+                    "opening": "Membuka",
+                    "unknown": "Tidak dikenal"
+                }
+            }
+        }
+    },
+    "issues": {
+        "deprecated_valve_switch": {
+            "description": "Entitas sakelar untuk Katup Gas Shelly sudah tidak digunakan lagi. Entitas katup {entity} tersedia dan harus digunakan di masa mendatang. Untuk entitas katup baru ini, Anda perlu menggunakan layanan {service}.",
+            "title": "Entitas sakelar untuk Katup Gas Shelly sudah tidak digunakan lagi"
+        },
+        "deprecated_valve_switch_entity": {
+            "description": "Entitas Katup Gas Shelly `{entity}` Anda sedang digunakan di `{info}`. Entitas katup kini tersedia dan harus digunakan di masa mendatang.\n\nSesuaikan `{info}` untuk memperbaiki masalah ini.",
+            "title": "Entitas sakelar yang sudah tidak digunakan untuk Katup Gas Shelly terdeteksi di {info}"
+        },
+        "device_not_calibrated": {
+            "description": "Perangkat Shelly {device_name} dengan alamat IP {ip_address} memerlukan kalibrasi. Untuk mengkalibrasi perangkat, perangkat harus di-boot ulang setelah pemasangan yang benar pada katup. Anda dapat mem-boot ulang perangkat di panel webnya, buka 'Settings' > 'Device Reboot'.",
+            "title": "Perangkat Shelly {device_name} tidak dikalibrasi"
+        },
+        "push_update_failure": {
+            "description": "Home Assistant tidak menerima pembaruan push dari perangkat Shelly {device_name} dengan alamat IP {ip_address}. Periksa konfigurasi CoIoT di panel web perangkat dan konfigurasi jaringan Anda.",
+            "title": "Kegagalan pembaruan push perangkat Shelly {device_name}"
+        },
+        "unsupported_firmware": {
+            "description": "Perangkat Shelly Anda {device_name} dengan alamat IP {ip_address} menjalankan firmware yang tidak didukung. Harap perbarui firmware.\n\nJika perangkat tidak menawarkan pembaruan, periksa konektivitas internet (gateway, DNS, waktu) dan mulai ulang perangkat.",
+            "title": "Firmware tidak didukung untuk perangkat {device_name}"
+        }
+    },
+    "options": {
+        "abort": {
+            "ble_unsupported": "Dukungan Bluetooth memerlukan versi firmware {ble_min_version} atau yang lebih baru."
+        },
+        "step": {
+            "init": {
+                "data": {
+                    "ble_scanner_mode": "Mode pemindai Bluetooth"
+                },
+                "description": "Mode pemindaian Bluetooth bisa berupa mode aktif atau pasif. Pada mode aktif, Shelly akan meminta data dari perangkat di dekatnya; pada mode pasif, Shelly akan menerima data yang tidak diminta dari perangkat di dekatnya."
+            }
+        }
+    },
+    "selector": {
+        "ble_scanner_mode": {
+            "options": {
+                "active": "Aktif",
+                "disabled": "Nonaktif",
+                "passive": "Pasif"
+            }
+        }
+    }
+}

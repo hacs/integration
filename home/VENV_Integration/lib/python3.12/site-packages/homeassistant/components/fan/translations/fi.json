@@ -1,0 +1,159 @@
+{
+    "device_automation": {
+        "action_type": {
+            "toggle": "Vaihda {entity_name}",
+            "turn_off": "Sammuta {entity_name}",
+            "turn_on": "Kytke p\u00e4\u00e4lle {entity_name}"
+        },
+        "condition_type": {
+            "is_off": "{entity_name} on pois p\u00e4\u00e4lt\u00e4",
+            "is_on": "{entity_name} on p\u00e4\u00e4ll\u00e4"
+        },
+        "trigger_type": {
+            "changed_states": "{entity_name} laitettiin p\u00e4\u00e4lle tai pois",
+            "turned_off": "{entity_name} sammui",
+            "turned_on": "{entity_name} laitettiin p\u00e4\u00e4lle"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Tuuletin",
+            "state": {
+                "off": "Pois",
+                "on": "P\u00e4\u00e4ll\u00e4"
+            },
+            "state_attributes": {
+                "direction": {
+                    "name": "Suunta",
+                    "state": {
+                        "forward": "Eteenp\u00e4in",
+                        "reverse": "K\u00e4\u00e4nteinen"
+                    }
+                },
+                "oscillating": {
+                    "name": "Vaihtuva",
+                    "state": {
+                        "false": "Ei",
+                        "true": "Kyll\u00e4"
+                    }
+                },
+                "percentage": {
+                    "name": "Nopeus"
+                },
+                "percentage_step": {
+                    "name": "Nopeusaskel"
+                },
+                "preset_mode": {
+                    "name": "Esiasetettu tila"
+                },
+                "preset_modes": {
+                    "name": "Saatavilla olevat esiasetetut tilat"
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "not_valid_preset_mode": {
+            "message": "Esiasetustila {preset_mode} ei ole kelvollinen, kelvolliset esiasetustilat ovat: {preset_modes}."
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "{platform}-integraation {domain}-alusta ei tue alustan asetuksia.\n\nPoista se asetuksista ja k\u00e4ynnist\u00e4 Home Assistant uudelleen ongelman korjaamiseksi.",
+            "title": "Alustan tukea ei tueta"
+        }
+    },
+    "selector": {
+        "direction": {
+            "options": {
+                "forward": "Eteenp\u00e4in",
+                "reverse": "Taaksep\u00e4in"
+            }
+        }
+    },
+    "services": {
+        "decrease_speed": {
+            "description": "Laskee tuulettimen nopeutta.",
+            "fields": {
+                "percentage_step": {
+                    "description": "V\u00e4hent\u00e4\u00e4 nopeutta prosenttiaskeleella.",
+                    "name": "V\u00e4hennys"
+                }
+            },
+            "name": "V\u00e4henn\u00e4 nopeutta"
+        },
+        "increase_speed": {
+            "description": "Nostaa tuulettimen nopeutta.",
+            "fields": {
+                "percentage_step": {
+                    "description": "Nostaa nopeutta prosenttiaskeleella.",
+                    "name": "Lis\u00e4ys"
+                }
+            },
+            "name": "Lis\u00e4\u00e4 nopeutta"
+        },
+        "oscillate": {
+            "description": "Ohjaa tuulettimen suuntaa.",
+            "fields": {
+                "oscillating": {
+                    "description": "Suunnanvaihto p\u00e4\u00e4lle/pois.",
+                    "name": "Vaihtuva"
+                }
+            },
+            "name": "Suunnanvaihto"
+        },
+        "set_direction": {
+            "description": "Asettaa tuulettimen py\u00f6rimissuunnan.",
+            "fields": {
+                "direction": {
+                    "description": "Py\u00f6rimissuunta.",
+                    "name": "Suunta"
+                }
+            },
+            "name": "Aseta suunta"
+        },
+        "set_percentage": {
+            "description": "Asettaa tuulettimen nopeuden.",
+            "fields": {
+                "percentage": {
+                    "description": "Tuulettimen nopeus.",
+                    "name": "Prosenttiosuus"
+                }
+            },
+            "name": "Aseta nopeus"
+        },
+        "set_preset_mode": {
+            "description": "Asettaa esiasetetun tilan.",
+            "fields": {
+                "preset_mode": {
+                    "description": "Esiasetettu tila.",
+                    "name": "Esiasetettu tila"
+                }
+            },
+            "name": "Aseta esiasetustila"
+        },
+        "toggle": {
+            "description": "Kytkee tuulettimen p\u00e4\u00e4lle/pois.",
+            "name": "Vaihda"
+        },
+        "turn_off": {
+            "description": "Sammuttaa tuulettimen.",
+            "name": "Sammuta"
+        },
+        "turn_on": {
+            "description": "Kytkee tuulettimen p\u00e4\u00e4lle.",
+            "fields": {
+                "percentage": {
+                    "description": "Tuulettimen nopeus.",
+                    "name": "Prosenttiosuus"
+                },
+                "preset_mode": {
+                    "description": "Esiasetettu tila.",
+                    "name": "Esiasetettu tila"
+                }
+            },
+            "name": "Laita p\u00e4\u00e4lle"
+        }
+    },
+    "title": "Tuuletin"
+}

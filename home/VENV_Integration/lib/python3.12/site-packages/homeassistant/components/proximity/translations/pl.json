@@ -1,0 +1,87 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Urz\u0105dzenie jest ju\u017c skonfigurowane",
+            "success": "Zmiany zapisane"
+        },
+        "flow_title": "Proximity",
+        "step": {
+            "user": {
+                "data": {
+                    "ignored_zones": "Ignorowane strefy",
+                    "tolerance": "Tolerancja odleg\u0142o\u015bci",
+                    "tracked_entities": "Urz\u0105dzenia lub Osoby do \u015bledzenia",
+                    "zone": "Strefa do \u015bledzenia odleg\u0142o\u015bci"
+                }
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "dir_of_travel": {
+                "name": "{tracked_entity} Kierunek podr\u00f3\u017cy",
+                "state": {
+                    "arrived": "na miejscu",
+                    "away_from": "oddalanie",
+                    "stationary": "brak ruchu",
+                    "towards": "zbli\u017canie"
+                }
+            },
+            "dist_to_zone": {
+                "name": "{tracked_entity} Odleg\u0142o\u015b\u0107"
+            },
+            "nearest": {
+                "name": "Najbli\u017csze urz\u0105dzenie"
+            },
+            "nearest_dir_of_travel": {
+                "name": "Najbli\u017cszy kierunek podr\u00f3\u017cy",
+                "state": {
+                    "arrived": "na miejscu",
+                    "away_from": "oddalanie",
+                    "stationary": "brak ruchu",
+                    "towards": "zbli\u017canie"
+                }
+            },
+            "nearest_dist_to_zone": {
+                "name": "Najbli\u017csza odleg\u0142o\u015b\u0107"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_proximity_entity": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Encja proximity `{entity}` jest przestarza\u0142a i zostanie usuni\u0119ta w `2024.8`. Jednak\u017ce jest u\u017cywany w nast\u0119puj\u0105cych konfiguracjach:\n- {used_in} \n\nDostosuj wszelkie automatyzacje lub skrypty korzystaj\u0105ce z tej przestarza\u0142ej encji proximity.\nDla ka\u017cdej \u015bledzonej osoby lub urz\u0105dzenia tworzony jest jeden sensor odleg\u0142o\u015bci i kierunku podr\u00f3\u017cy do/z monitorowanej strefy. Dodatkowo dla ka\u017cdej konfiguracji Proximity tworzony jest jeden sensor, kt\u00f3ry wskazuje najbli\u017csze urz\u0105dzenie lub osob\u0119 w monitorowanej strefie. Dzi\u0119ki temu mo\u017cesz u\u017cy\u0107 integracji Min/Max, aby okre\u015bli\u0107 najbli\u017csz\u0105 i najdalsz\u0105 odleg\u0142o\u015b\u0107.",
+                        "title": "Encja proximity jest przestarza\u0142a"
+                    }
+                }
+            },
+            "title": "Encja proximity jest przestarza\u0142a"
+        },
+        "tracked_entity_removed": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Encja `{entity_id}` zosta\u0142a usuni\u0119ta z HA, ale jest u\u017cywana w Proximity {name}. Usu\u0144 `{entity_id}` z listy \u015bledzonych encji. Powi\u0105zane sensory Proximity zosta\u0142y ustawione jako niedost\u0119pne i mo\u017cna je usun\u0105\u0107.",
+                        "title": "\u015aledzona encja zosta\u0142a usuni\u0119ta"
+                    }
+                }
+            },
+            "title": "\u015aledzona encja zosta\u0142a usuni\u0119ta"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "ignored_zones": "Ignorowane strefy",
+                    "tolerance": "Tolerancja odleg\u0142o\u015bci",
+                    "tracked_entities": "Urz\u0105dzenia lub Osoby do \u015bledzenia",
+                    "zone": "Strefa do \u015bledzenia odleg\u0142o\u015bci"
+                }
+            }
+        }
+    },
+    "title": "Proximity"
+}

@@ -1,0 +1,84 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "Taimer",
+            "state": {
+                "active": "Aktiivne",
+                "idle": "Ootel",
+                "paused": "Peatatud"
+            },
+            "state_attributes": {
+                "duration": {
+                    "name": "Kestus"
+                },
+                "editable": {
+                    "name": "Hallatakse kasutajaliideses",
+                    "state": {
+                        "false": "Ei",
+                        "true": "Jah"
+                    }
+                },
+                "finishes_at": {
+                    "name": "L\u00f5ppeb"
+                },
+                "remaining": {
+                    "name": "J\u00e4\u00e4nud"
+                },
+                "restore": {
+                    "name": "Taasta"
+                }
+            }
+        }
+    },
+    "issues": {
+        "deprecated_duration_in_start": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Taimeriteenuse taimer.start valikuline kestuse parameeter eemaldatakse ja selle kasutamine on tuvastatud. Kestuse muutmiseks loo uus taimer. \n\n Eemalda oma automatiseerimises ja skriptides parameetri \"kestus\" kasutamine teenuses \"timer.start\" ning vali probleemi sulgemiseks **esita**.",
+                        "title": "Taimeri k\u00e4ivitamise teenuse kestuse parameeter eemaldatakse"
+                    }
+                }
+            },
+            "title": "Taimeri k\u00e4ivitamise teenuse kestuse parameeter eemaldatakse"
+        }
+    },
+    "services": {
+        "cancel": {
+            "description": "T\u00fchistab taimeri.",
+            "name": "Loobu"
+        },
+        "change": {
+            "description": "Muudab taimerit.",
+            "fields": {
+                "duration": {
+                    "description": "Kestus jooksvale taimerile liitmiseks v\u00f5i lahutamiseks.",
+                    "name": "Kestus"
+                }
+            },
+            "name": "Muuda"
+        },
+        "finish": {
+            "description": "Peatab taimeri.",
+            "name": "L\u00f5peta"
+        },
+        "pause": {
+            "description": "Peatab ajutiselt taimeri.",
+            "name": "Paus"
+        },
+        "reload": {
+            "description": "Taaslaeb taimerid YAML-konfiguratsioonist.",
+            "name": "Taaslae"
+        },
+        "start": {
+            "description": "K\u00e4ivitab taimeri.",
+            "fields": {
+                "duration": {
+                    "description": "Kestus, mida taimer vajab l\u00f5petamiseks. [valikuline].",
+                    "name": "Kestus"
+                }
+            },
+            "name": "K\u00e4ivita"
+        }
+    }
+}

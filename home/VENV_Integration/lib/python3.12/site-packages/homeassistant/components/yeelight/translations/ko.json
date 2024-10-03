@@ -1,0 +1,192 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "\uae30\uae30\uac00 \uc774\ubbf8 \uad6c\uc131\ub418\uc5c8\uc2b5\ub2c8\ub2e4",
+            "no_devices_found": "\ub124\ud2b8\uc6cc\ud06c\uc5d0\uc11c \uae30\uae30\ub97c \ucc3e\uc744 \uc218 \uc5c6\uc2b5\ub2c8\ub2e4"
+        },
+        "error": {
+            "cannot_connect": "\uc5f0\uacb0\ud558\uc9c0 \ubabb\ud588\uc2b5\ub2c8\ub2e4"
+        },
+        "flow_title": "{model} {id} ({host})",
+        "step": {
+            "discovery_confirm": {
+                "description": "{model} ({host})\uc744(\ub97c) \uc124\uc815\ud558\uc2dc\uaca0\uc2b5\ub2c8\uae4c?"
+            },
+            "pick_device": {
+                "data": {
+                    "device": "\uae30\uae30"
+                }
+            },
+            "user": {
+                "data": {
+                    "host": "\ud638\uc2a4\ud2b8"
+                },
+                "data_description": {
+                    "host": "Yeelight Wi-Fi \uc804\uad6c\uc758 \ud638\uc2a4\ud2b8 \uc774\ub984 \ub610\ub294 IP \uc8fc\uc18c"
+                },
+                "description": "\ud638\uc2a4\ud2b8\ub97c \ube44\uc6cc \ub450\uba74 \uae30\uae30\ub97c \ucc3e\ub294 \ub370 \uac80\uc0c9\uc774 \uc0ac\uc6a9\ub429\ub2c8\ub2e4"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "nightlight": {
+                "name": "\uc57c\uac04 \uc870\uba85"
+            }
+        },
+        "light": {
+            "ambilight": {
+                "name": "\uc5e0\ube44\ub77c\uc774\ud2b8"
+            },
+            "nightlight": {
+                "name": "\uc57c\uac04 \uc870\uba85"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "model": "\ubaa8\ub378",
+                    "nightlight_switch": "\uc57c\uac04 \uc870\uba85 \uc804\ud658 \uc0ac\uc6a9\ud558\uae30",
+                    "save_on_change": "\ubcc0\uacbd \uc2dc \uc0c1\ud0dc\ub97c \uc800\uc7a5\ud558\uae30",
+                    "transition": "\uc804\ud658 \uc2dc\uac04(ms)",
+                    "use_music_mode": "\uc74c\uc545 \ubaa8\ub4dc \ud65c\uc131\ud654\ud558\uae30"
+                }
+            }
+        }
+    },
+    "selector": {
+        "action": {
+            "options": {
+                "off": "\uaebc\uc9d0",
+                "recover": "\ubcf5\uad6c",
+                "stay": "\uba38\ubb34\ub974\uae30"
+            }
+        },
+        "mode": {
+            "options": {
+                "color_flow": "\uc0c9\uc0c1 \ud750\ub984",
+                "hsv": "HSV",
+                "last": "\ub9c8\uc9c0\ub9c9",
+                "moonlight": "\ub2ec\ube5b",
+                "normal": "\ubcf4\ud1b5",
+                "rgb": "RGB"
+            }
+        }
+    },
+    "services": {
+        "set_auto_delay_off_scene": {
+            "description": "\uc870\uba85\uc744 \uc9c0\uc815\ub41c \ubc1d\uae30\ub85c \ucf1c\uace0 \ud0c0\uc774\uba38\ub97c \uc124\uc815\ud558\uc5ec \uc8fc\uc5b4\uc9c4 \uc2dc\uac04(\ubd84)\uc774 \uc9c0\ub098\uba74 \ub2e4\uc2dc \uaebc\uc9d1\ub2c8\ub2e4. \uc870\uba85\uc774 \uaebc\uc838 \uc788\uc73c\uba74 \uceec\ub7ec \uc7a5\uba74\uc744 \uc124\uc815\ud558\uace0 \uc870\uba85\uc774 \uaebc\uc838 \uc788\uc73c\uba74 \ucf1c\uc9d1\ub2c8\ub2e4.",
+            "fields": {
+                "brightness": {
+                    "description": "\uc124\uc815\ud560 \ubc1d\uae30 \uac12",
+                    "name": "\ubc1d\uae30"
+                },
+                "minutes": {
+                    "description": "\uc870\uba85\uc774 \uc790\ub3d9\uc73c\ub85c \uaebc\uc9c0\uae30 \uc804\uae4c\uc9c0 \ub300\uae30\ud558\ub294 \uc2dc\uac04\uc785\ub2c8\ub2e4.",
+                    "name": "\ubd84"
+                }
+            },
+            "name": "\uc790\ub3d9 \uc9c0\uc5f0 \uc624\ud504 \uc7a5\uba74 \uc124\uc815"
+        },
+        "set_color_flow_scene": {
+            "description": "\uc0c9\uc0c1 \ud750\ub984\uc744 \uc2dc\uc791\ud569\ub2c8\ub2e4. \ud45c\uc2dc\ub4f1\uc774 \uaebc\uc838 \uc788\uc73c\uba74 \ucf1c\uc9d1\ub2c8\ub2e4.",
+            "fields": {
+                "action": {
+                    "description": "\ud750\ub984\uc774 \uba48\ucd98 \ud6c4 \ucde8\ud574\uc57c \ud560 \uc870\uce58",
+                    "name": "\ub3d9\uc791"
+                },
+                "count": {
+                    "description": "\uc774 \ud750\ub984\uc744 \uc2e4\ud589\ud560 \ud69f\uc218 (\uc601\uc6d0\ud788 \uc2e4\ud589\ud558\ub824\uba74 0)",
+                    "name": "\ud69f\uc218"
+                },
+                "transitions": {
+                    "description": "\uc6d0\ud558\ub294 \ud6a8\uacfc\ub97c \uc704\ud55c \uc804\ud658 \ubc30\uc5f4. \uc608 https://yeelight.readthedocs.io/en/stable/flow.html",
+                    "name": "\uc804\ud658"
+                }
+            },
+            "name": "\uc0c9\uc0c1 \ud750\ub984 \uc7a5\uba74 \uc124\uc815"
+        },
+        "set_color_scene": {
+            "description": "\uc870\uba85\uc744 \uc9c0\uc815\ub41c RGB \uc0c9\uc0c1 \ubc0f \ubc1d\uae30\ub85c \ubcc0\uacbd\ud569\ub2c8\ub2e4. \ud45c\uc2dc\ub4f1\uc774 \uaebc\uc838 \uc788\uc73c\uba74 \ucf1c\uc9d1\ub2c8\ub2e4.",
+            "fields": {
+                "brightness": {
+                    "description": "\uc124\uc815\ud560 \ubc1d\uae30 \uac12",
+                    "name": "\ubc1d\uae30"
+                },
+                "rgb_color": {
+                    "description": "RGB \ud615\uc2dd\uc758 \uc870\uba85 \uc0c9\uc0c1",
+                    "name": "RGB \uc0c9\uc0c1"
+                }
+            },
+            "name": "\uc0c9\uc0c1 \uc7a5\uba74 \uc124\uc815"
+        },
+        "set_color_temp_scene": {
+            "description": "\uc870\uba85\uc744 \uc9c0\uc815\ub41c \uc0c9\uc628\ub3c4\ub85c \ubcc0\uacbd\ud569\ub2c8\ub2e4. \ud45c\uc2dc\ub4f1\uc774 \uaebc\uc838 \uc788\uc73c\uba74 \ucf1c\uc9d1\ub2c8\ub2e4.",
+            "fields": {
+                "brightness": {
+                    "description": "\uc124\uc815\ud560 \ubc1d\uae30 \uac12",
+                    "name": "\ubc1d\uae30"
+                },
+                "kelvin": {
+                    "description": "\ube5b\uc758 \uc0c9\uc628\ub3c4 (\ucf08\ube48)",
+                    "name": "\ucf08\ube48"
+                }
+            },
+            "name": "\uc0c9\uc628\ub3c4 \uc7a5\uba74 \uc124\uc815"
+        },
+        "set_hsv_scene": {
+            "description": "\uc870\uba85\uc744 \uc9c0\uc815\ub41c HSV \uc0c9\uc0c1 \ubc0f \ubc1d\uae30\ub85c \ubcc0\uacbd\ud569\ub2c8\ub2e4. \ud45c\uc2dc\ub4f1\uc774 \uaebc\uc838 \uc788\uc73c\uba74 \ucf1c\uc9d1\ub2c8\ub2e4.",
+            "fields": {
+                "brightness": {
+                    "description": "\uc124\uc815\ud560 \ubc1d\uae30 \uac12",
+                    "name": "\ubc1d\uae30"
+                },
+                "hs_color": {
+                    "description": "\uc0c9\uc870/\ucc44\ub3c4 \ud615\uc2dd\uc758 \uc870\uba85 \uc0c9\uc0c1. \uc0c9\uc870\ub294 0-359, \ucc44\ub3c4\ub294 0-100",
+                    "name": "\uc0c9\uc870/\ucc44\ub3c4 \uc0c9\uc0c1"
+                }
+            },
+            "name": "HSV \uc7a5\uba74 \uc124\uc815"
+        },
+        "set_mode": {
+            "description": "\uc791\ub3d9 \ubaa8\ub4dc\ub97c \uc124\uc815\ud569\ub2c8\ub2e4.",
+            "fields": {
+                "mode": {
+                    "description": "\uc791\ub3d9 \ubaa8\ub4dc",
+                    "name": "\ubaa8\ub4dc"
+                }
+            },
+            "name": "\ubaa8\ub4dc \uc124\uc815"
+        },
+        "set_music_mode": {
+            "description": "music_mode\ub97c \ud65c\uc131\ud654\ud558\uac70\ub098 \ube44\ud65c\uc131\ud654\ud569\ub2c8\ub2e4.",
+            "fields": {
+                "music_mode": {
+                    "description": "true \ub610\ub294 false\ub97c \uc0ac\uc6a9\ud558\uc5ec music_mode\ub97c \ud65c\uc131\ud654/\ube44\ud65c\uc131\ud654\ud569\ub2c8\ub2e4.",
+                    "name": "\uc74c\uc545 \ubaa8\ub4dc"
+                }
+            },
+            "name": "\uc74c\uc545 \ubaa8\ub4dc \uc124\uc815"
+        },
+        "start_flow": {
+            "description": "https://yeelight.readthedocs.io/en/stable/yeelight.html#flow-objects \uc5d0\uc11c \uc804\ud658\uc744 \uc0ac\uc6a9\ud558\uc5ec \uc0ac\uc6a9\uc790 \uc9c0\uc815 \ud750\ub984\uc744 \uc2dc\uc791\ud569\ub2c8\ub2e4.",
+            "fields": {
+                "action": {
+                    "description": "\ud750\ub984\uc774 \uba48\ucd98 \ud6c4 \ucde8\ud574\uc57c \ud560 \uc870\uce58",
+                    "name": "\ub3d9\uc791"
+                },
+                "count": {
+                    "description": "\uc774 \ud750\ub984\uc744 \uc2e4\ud589\ud560 \ud69f\uc218 (\uc601\uc6d0\ud788 \uc2e4\ud589\ud558\ub824\uba74 0)",
+                    "name": "\ud69f\uc218"
+                },
+                "transitions": {
+                    "description": "\uc6d0\ud558\ub294 \ud6a8\uacfc\ub97c \uc704\ud55c \uc804\ud658 \ubc30\uc5f4. \uc608 https://yeelight.readthedocs.io/en/stable/flow.html",
+                    "name": "\uc804\ud658"
+                }
+            },
+            "name": "\ud750\ub984 \uc2dc\uc791"
+        }
+    }
+}

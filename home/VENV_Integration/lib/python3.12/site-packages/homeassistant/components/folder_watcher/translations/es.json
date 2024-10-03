@@ -1,0 +1,75 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "El servicio ya est\u00e1 configurado"
+        },
+        "error": {
+            "not_allowed_dir": "La ruta configurada no est\u00e1 en la lista de permitidos",
+            "not_dir": "La ruta configurada no es un directorio",
+            "not_readable_dir": "La ruta configurada no es legible"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "folder": "Ruta a la carpeta vigilada",
+                    "patterns": "Patr\u00f3n(es) a monitorizar"
+                },
+                "data_description": {
+                    "folder": "La ruta debe ser desde la ra\u00edz, como por ejemplo `/config`",
+                    "patterns": "Ejemplo: `*.yaml` para ver solo archivos yaml"
+                }
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "folder_watcher": {
+                "state_attributes": {
+                    "dest_file": {
+                        "name": "Archivo de destino"
+                    },
+                    "dest_folder": {
+                        "name": "Carpeta de destino"
+                    },
+                    "dest_path": {
+                        "name": "Ruta de destino"
+                    },
+                    "event_type": {
+                        "name": "Tipo de evento"
+                    },
+                    "file": {
+                        "name": "Archivo"
+                    },
+                    "folder": {
+                        "name": "Carpeta"
+                    },
+                    "path": {
+                        "name": "Ruta"
+                    }
+                }
+            }
+        }
+    },
+    "issues": {
+        "import_failed_not_allowed_path": {
+            "description": "Se va a eliminar la configuraci\u00f3n de Folder Watcher mediante YAML, pero tu configuraci\u00f3n no se pudo importar porque la carpeta {path} no est\u00e1 en la lista de permitidos configurados. \n\nPor favor, a\u00f1\u00e1dela a `{config_variable}` en config.yaml y reinicia Home Assistant para importarla y solucionar este problema.",
+            "title": "No se pudo importar la configuraci\u00f3n YAML de Folder Watcher"
+        },
+        "setup_not_allowed_path": {
+            "description": "La ruta {path} no es accesible o no se permite acceder a ella. \n\nPor favor, comprueba que la ruta sea accesible y a\u00f1\u00e1dela a `{config_variable}` en config.yaml y reinicia Home Assistant para solucionar este problema.",
+            "title": "No se pudo iniciar la configuraci\u00f3n de Folder Watcher para {path}"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "patterns": "Patr\u00f3n(es) a monitorizar"
+                },
+                "data_description": {
+                    "patterns": "Ejemplo: `*.yaml` para ver solo archivos yaml"
+                }
+            }
+        }
+    }
+}

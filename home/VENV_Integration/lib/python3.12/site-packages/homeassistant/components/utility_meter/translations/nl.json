@@ -1,0 +1,72 @@
+{
+    "config": {
+        "step": {
+            "user": {
+                "data": {
+                    "cycle": "Meter reset cyclus",
+                    "delta_values": "Deltawaarden",
+                    "name": "Naam",
+                    "net_consumption": "Netto verbruik",
+                    "offset": "Meter reset offset",
+                    "periodically_resetting": "Periodiek resettende",
+                    "source": "Invoer sensor",
+                    "tariffs": "Ondersteunde tarieven"
+                },
+                "data_description": {
+                    "delta_values": "Schakel in als de bronwaarden deltawaarden zijn sinds de laatste meting in plaats van absolute waarden.",
+                    "net_consumption": "Schakel in als de bron een nettometer is, wat betekent dat deze zowel kan toenemen als afnemen.",
+                    "offset": "Compenseer de dag van een maandelijkse meterreset.",
+                    "periodically_resetting": "Inschakelen als de bron periodiek op 0 mag worden gezet, bijvoorbeeld bij het opstarten van het meetapparaat. Indien uitgeschakeld, worden nieuwe meetwaarden direct opgenomen nadat er geen gegevens beschikbaar zijn.",
+                    "tariffs": "Een lijst met ondersteunde tarieven, laat leeg als er maar \u00e9\u00e9n tarief nodig is."
+                },
+                "description": "Cre\u00eber een sensor die het verbruik van verschillende nutsvoorzieningen (bv. energie, gas, water, verwarming) over een geconfigureerde tijdsperiode bijhoudt, meestal maandelijks. De sensor voor de meter voor nutsvoorzieningen ondersteunt optioneel het opsplitsen van het verbruik in tarieven, in dat geval wordt een sensor voor elk tarief aangemaakt, evenals een selectie-entiteit om het huidige tarief te kiezen.",
+                "title": "Nutsmeter toevoegen"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "periodically_resetting": "Periodiek resettende",
+                    "source": "Invoer sensor"
+                },
+                "data_description": {
+                    "periodically_resetting": "Inschakelen als de bron periodiek op 0 mag worden gezet, bijvoorbeeld bij het opstarten van het meetapparaat. Indien uitgeschakeld, worden nieuwe meetwaarden direct opgenomen nadat er geen gegevens beschikbaar zijn."
+                }
+            }
+        }
+    },
+    "selector": {
+        "cycle": {
+            "options": {
+                "bimonthly": "Elke twee maanden",
+                "daily": "Dagelijks",
+                "hourly": "Per uur",
+                "monthly": "Maandelijks",
+                "none": "Geen cyclus",
+                "quarter-hourly": "Elke 15 minuten",
+                "quarterly": "Per kwartaal",
+                "weekly": "Wekelijks",
+                "yearly": "Jaarlijks"
+            }
+        }
+    },
+    "services": {
+        "calibrate": {
+            "description": "Kalibreert een energiemeter sensor.",
+            "fields": {
+                "value": {
+                    "description": "Waarde waarop de meter ingesteld moet worden.",
+                    "name": "Waarde"
+                }
+            },
+            "name": "Kalibreren"
+        },
+        "reset": {
+            "description": "Reset alle counters van een energiemeter.",
+            "name": "Resetten"
+        }
+    },
+    "title": "Nutsmeter"
+}

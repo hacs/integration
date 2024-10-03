@@ -1,0 +1,107 @@
+{
+    "device_automation": {
+        "action_type": {
+            "turn_off": "{entity_name} kikapcsol\u00e1sa",
+            "turn_on": "{entity_name} bekapcsol\u00e1sa"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "V\u00edzmeleg\u00edt\u0151",
+            "state": {
+                "eco": "Takar\u00e9kos",
+                "electric": "Elektromoss\u00e1g",
+                "gas": "G\u00e1z",
+                "heat_pump": "H\u0151szivatty\u00fa",
+                "high_demand": "Magas ig\u00e9nybev\u00e9tel",
+                "off": "Ki",
+                "performance": "Teljes\u00edtm\u00e9ny"
+            },
+            "state_attributes": {
+                "away_mode": {
+                    "name": "T\u00e1voli m\u00f3d",
+                    "state": {
+                        "off": "Ki",
+                        "on": "Be"
+                    }
+                },
+                "current_operation": {
+                    "name": "Jelenlegi m\u0171k\u00f6d\u00e9s"
+                },
+                "current_temperature": {
+                    "name": "Aktu\u00e1lis h\u0151m\u00e9rs\u00e9klet"
+                },
+                "max_temp": {
+                    "name": "Maxim\u00e1lis c\u00e9lh\u0151m\u00e9rs\u00e9klet"
+                },
+                "min_temp": {
+                    "name": "Minim\u00e1lis c\u00e9lh\u0151m\u00e9rs\u00e9klet"
+                },
+                "target_temp_high": {
+                    "name": "Fels\u0151 c\u00e9lh\u0151m\u00e9rs\u00e9klet"
+                },
+                "target_temp_low": {
+                    "name": "Als\u00f3 c\u00e9lh\u0151m\u00e9rs\u00e9klet"
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "not_valid_operation_mode": {
+            "message": "A {operation_mode} \u00fczemm\u00f3d nem \u00e9rv\u00e9nyes a {entity_id} eszk\u00f6z\u00f6n. Az \u00e9rv\u00e9nyes \u00fczemm\u00f3dok a k\u00f6vetkez\u0151k: {operation_list}."
+        },
+        "operation_list_not_defined": {
+            "message": "A {operation_mode} \u00fczemm\u00f3d nem \u00e9rv\u00e9nyes a {entity_id} eszk\u00f6z\u00f6n. A m\u0171veleti lista nincs meghat\u00e1rozva."
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "{domain} integr\u00e1ci\u00f3 nem t\u00e1mogatja {platform} platform be\u00e1ll\u00edt\u00e1s\u00e1t.\n\nK\u00e9rem, t\u00e1vol\u00edtsa el a konfigur\u00e1ci\u00f3b\u00f3l \u00e9s ind\u00edtsa \u00fajra a Home Assistantot a probl\u00e9ma megold\u00e1s\u00e1hoz.",
+            "title": "A platform nem t\u00e1mogatott"
+        }
+    },
+    "services": {
+        "set_away_mode": {
+            "description": "A t\u00e1voli \u00fczemm\u00f3dot be/kikapcsolja.",
+            "fields": {
+                "away_mode": {
+                    "description": "A t\u00e1voli \u00fczemm\u00f3d \u00faj \u00e9rt\u00e9ke.",
+                    "name": "T\u00e1voli m\u00f3d"
+                }
+            },
+            "name": "T\u00e1voli m\u00f3d be\u00e1ll\u00edt\u00e1sa"
+        },
+        "set_operation_mode": {
+            "description": "Be\u00e1ll\u00edtja a m\u0171k\u00f6d\u00e9si \u00fczem\u00f3dot.",
+            "fields": {
+                "operation_mode": {
+                    "description": "A m\u0171k\u00f6d\u00e9si m\u00f3d \u00faj \u00e9rt\u00e9ke. A lehets\u00e9ges m\u00f3dok list\u00e1j\u00e1hoz forduljon az integr\u00e1ci\u00f3s dokument\u00e1ci\u00f3hoz.",
+                    "name": "M\u0171k\u00f6d\u00e9si m\u00f3d"
+                }
+            },
+            "name": "M\u0171k\u00f6d\u00e9si m\u00f3d be\u00e1ll\u00edt\u00e1sa"
+        },
+        "set_temperature": {
+            "description": "Be\u00e1ll\u00edtja a c\u00e9lh\u0151m\u00e9rs\u00e9kletet.",
+            "fields": {
+                "operation_mode": {
+                    "description": "A m\u0171k\u00f6d\u00e9si m\u00f3d \u00faj \u00e9rt\u00e9ke. A lehets\u00e9ges m\u00f3dok list\u00e1j\u00e1hoz forduljon az integr\u00e1ci\u00f3s dokument\u00e1ci\u00f3hoz.",
+                    "name": "M\u0171k\u00f6d\u00e9si m\u00f3d"
+                },
+                "temperature": {
+                    "description": "\u00daj c\u00e9lh\u0151m\u00e9rs\u00e9klet a v\u00edzmeleg\u00edt\u0151 sz\u00e1m\u00e1ra.",
+                    "name": "H\u0151m\u00e9rs\u00e9klet"
+                }
+            },
+            "name": "H\u0151m\u00e9rs\u00e9klet be\u00e1ll\u00edt\u00e1sa"
+        },
+        "turn_off": {
+            "description": "Kikapcsolja a v\u00edzmeleg\u00edt\u0151t.",
+            "name": "Kikapcsol\u00e1s"
+        },
+        "turn_on": {
+            "description": "Bekapcsolja a v\u00edzmeleg\u00edt\u0151t.",
+            "name": "Bekapcsol\u00e1s"
+        }
+    }
+}

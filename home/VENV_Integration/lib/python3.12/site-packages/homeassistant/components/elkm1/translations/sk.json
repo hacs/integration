@@ -1,0 +1,206 @@
+{
+    "config": {
+        "abort": {
+            "address_already_configured": "ElkM1 s touto adresou je u\u017e nastaven\u00fd",
+            "already_configured": "ElkM1 s t\u00fdmto prefixom je u\u017e nastaven\u00fd",
+            "already_in_progress": "Konfigur\u00e1cia u\u017e prebieha",
+            "cannot_connect": "Nepodarilo sa pripoji\u0165",
+            "invalid_auth": "Neplatn\u00e9 overenie",
+            "unknown": "Neo\u010dak\u00e1van\u00e1 chyba"
+        },
+        "error": {
+            "cannot_connect": "Nepodarilo sa pripoji\u0165",
+            "invalid_auth": "Neplatn\u00e9 overenie",
+            "unknown": "Neo\u010dak\u00e1van\u00e1 chyba"
+        },
+        "flow_title": "{mac_address} ({host})",
+        "step": {
+            "discovered_connection": {
+                "data": {
+                    "password": "Heslo",
+                    "protocol": "Protokol",
+                    "temperature_unit": "Jednotka teploty pou\u017e\u00edva ElkM1.",
+                    "username": "Pou\u017e\u00edvate\u013esk\u00e9 meno"
+                },
+                "description": "Pripojte sa k objaven\u00e9mu syst\u00e9mu: {mac_address} ({host})",
+                "title": "Pripojte k Elk-M1 Control"
+            },
+            "manual_connection": {
+                "data": {
+                    "address": "IP adresa alebo dom\u00e9na alebo s\u00e9riov\u00fd port, ak sa prip\u00e1jate cez s\u00e9riov\u00fd port.",
+                    "password": "Heslo",
+                    "prefix": "Jedine\u010dn\u00e1 predpona (ak m\u00e1te iba jeden ElkM1, nechajte pr\u00e1zdne).",
+                    "protocol": "Protokol",
+                    "temperature_unit": "Jednotka teploty pou\u017e\u00edva ElkM1.",
+                    "username": "Pou\u017e\u00edvate\u013esk\u00e9 meno"
+                },
+                "description": "Re\u0165azec adresy mus\u00ed by\u0165 v tvare 'adresa[:port]' pre 'zabezpe\u010den\u00e9' a 'nezabezpe\u010den\u00e9'. Pr\u00edklad: '192.168.1.1'. Port je volite\u013en\u00fd a \u0161tandardne je nastaven\u00fd na 2101 pre 'nezabezpe\u010den\u00fd' a 2601 pre 'zabezpe\u010den\u00fd'. Pre s\u00e9riov\u00fd protokol mus\u00ed by\u0165 adresa v tvare 'tty[:baud]'. Pr\u00edklad: '/dev/ttyS1'. Prenosov\u00e1 r\u00fdchlos\u0165 je volite\u013en\u00e1 a predvolen\u00e1 je 115200.",
+                "title": "Pripojte k Elk-M1 Control"
+            },
+            "user": {
+                "data": {
+                    "device": "Zariadenie"
+                },
+                "description": "Vyberte objaven\u00fd syst\u00e9m alebo 'Manu\u00e1lne zadanie', ak neboli objaven\u00e9 \u017eiadne zariadenia.",
+                "title": "Pripojte k Elk-M1 Control"
+            }
+        }
+    },
+    "issues": {
+        "migrate_aux_heat": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Akcia `set_aux_heat` pre Elk-M1 bola presunut\u00e1. Pre ka\u017ed\u00fd termostat je k dispoz\u00edcii nov\u00e1 entita n\u00fadzov\u00e9ho sp\u00edna\u010da tepla.\n\nAktualizujte v\u0161etky automatiz\u00e1cie tak, aby pou\u017e\u00edvali nov\u00fa entitu n\u00fadzov\u00e9ho sp\u00edna\u010da tepla. Po dokon\u010den\u00ed vyberte mo\u017enos\u0165 **Odosla\u0165**, aby ste tento probl\u00e9m odstr\u00e1nili.",
+                        "title": "Migr\u00e1cia akcie Elk-M1 set_aux_heat"
+                    }
+                }
+            },
+            "title": "Migr\u00e1cia akcie Elk-M1 set_aux_heat"
+        }
+    },
+    "services": {
+        "alarm_arm_home_instant": {
+            "description": "Zapnutie ElkM1 v dom\u00e1com okam\u017eitom re\u017eime.",
+            "fields": {
+                "code": {
+                    "description": "K\u00f3d na zapnutie zabezpe\u010dovacej \u00fastredne alarmu.",
+                    "name": "K\u00f3d"
+                }
+            },
+            "name": "Alarm je doma okam\u017eite"
+        },
+        "alarm_arm_night_instant": {
+            "description": "Zabezpe\u010dte ElkM1 v no\u010dnom okam\u017eitom re\u017eime.",
+            "fields": {
+                "code": {
+                    "description": "K\u00f3d na zapnutie zabezpe\u010dovacej \u00fastredne alarmu.",
+                    "name": "K\u00f3d"
+                }
+            },
+            "name": "Okam\u017eit\u00fd no\u010dn\u00fd alarm"
+        },
+        "alarm_arm_vacation": {
+            "description": "Zapnite ElkM1 v re\u017eime dovolenky.",
+            "fields": {
+                "code": {
+                    "description": "K\u00f3d na zapnutie zabezpe\u010dovacej \u00fastredne alarmu.",
+                    "name": "K\u00f3d"
+                }
+            },
+            "name": "Alarm zabezpe\u010denia dovolenky"
+        },
+        "alarm_bypass": {
+            "description": "Obch\u00e1dza v\u0161etky z\u00f3ny pre dan\u00fa oblas\u0165.",
+            "fields": {
+                "code": {
+                    "description": "K\u00f3d na povolenie ob\u00eddenia \u00fastredne alarmu.",
+                    "name": "K\u00f3d"
+                }
+            },
+            "name": "Alarm bypass"
+        },
+        "alarm_clear_bypass": {
+            "description": "Odstr\u00e1ni bypass v\u0161etk\u00fdch z\u00f3n pre dan\u00fa oblas\u0165.",
+            "fields": {
+                "code": {
+                    "description": "K\u00f3d na autoriz\u00e1ciu vymazania bypassu zabezpe\u010dovacej \u00fastredne.",
+                    "name": "K\u00f3d"
+                }
+            },
+            "name": "Alarm vymaza\u0165 bypass"
+        },
+        "alarm_display_message": {
+            "description": "Zobraz\u00ed spr\u00e1vu na v\u0161etk\u00fdch kl\u00e1vesniciach ElkM1 pre dan\u00fa oblas\u0165.",
+            "fields": {
+                "beep": {
+                    "description": "0=bez p\u00edpania, 1=p\u00edpanie.",
+                    "name": "P\u00edpnutie"
+                },
+                "clear": {
+                    "description": "0=vymaza\u0165 spr\u00e1vu, 1=vymaza\u0165 spr\u00e1vu pomocou tla\u010didla *, 2=zobrazenie do uplynutia \u010dasov\u00e9ho limitu.",
+                    "name": "Vymaza\u0165"
+                },
+                "line1": {
+                    "description": "Maxim\u00e1lne 16 znakov textu (ak je pr\u00edli\u0161 dlh\u00fd, skr\u00e1ti sa).",
+                    "name": "Riadok 1"
+                },
+                "line2": {
+                    "description": "Maxim\u00e1lne 16 znakov textu (ak je pr\u00edli\u0161 dlh\u00fd, skr\u00e1ti sa).",
+                    "name": "Riadok 2"
+                },
+                "timeout": {
+                    "description": "\u010cas na zobrazenie spr\u00e1vy, 0 = nav\u017edy, max. 65535.",
+                    "name": "\u010casov\u00fd limit"
+                }
+            },
+            "name": "Spr\u00e1va na displeji alarmu"
+        },
+        "sensor_counter_refresh": {
+            "description": "Obnov\u00ed hodnotu po\u010d\u00edtadla z panela.",
+            "name": "Obnovenie po\u010d\u00edtadla sn\u00edma\u010da"
+        },
+        "sensor_counter_set": {
+            "description": "Nastav\u00ed hodnotu po\u010d\u00edtadla na paneli.",
+            "fields": {
+                "value": {
+                    "description": "Hodnota, na ktor\u00fa sa nastav\u00ed po\u010d\u00edtadlo.",
+                    "name": "Hodnota"
+                }
+            },
+            "name": "S\u00faprava po\u010d\u00edtadla sn\u00edma\u010dov"
+        },
+        "sensor_zone_bypass": {
+            "description": "Premost\u00ed z\u00f3nu.",
+            "fields": {
+                "code": {
+                    "description": "K\u00f3d na povolenie premostenia z\u00f3ny.",
+                    "name": "K\u00f3d"
+                }
+            },
+            "name": "Premostenie z\u00f3ny sn\u00edma\u010da"
+        },
+        "sensor_zone_trigger": {
+            "description": "Sp\u00fa\u0161\u0165acia z\u00f3na.",
+            "name": "Sp\u00fa\u0161\u0165a\u010d z\u00f3ny sn\u00edma\u010da"
+        },
+        "set_time": {
+            "description": "Nastav\u00ed \u010das pre panel.",
+            "fields": {
+                "prefix": {
+                    "description": "Predpona panelu.",
+                    "name": "Predpona"
+                }
+            },
+            "name": "Nastavi\u0165 \u010das"
+        },
+        "speak_phrase": {
+            "description": "Hovor\u00ed fr\u00e1zu. Pozrite si zoznam fr\u00e1z v dokument\u00e1cii protokolu ElkM1 ASCII.",
+            "fields": {
+                "number": {
+                    "description": "\u010c\u00edslo fr\u00e1zy na hovorenie.",
+                    "name": "\u010c\u00edslo fr\u00e1zy"
+                },
+                "prefix": {
+                    "description": "Predpona na identifik\u00e1ciu panela pri konfigur\u00e1cii viacer\u00fdch panelov.",
+                    "name": "Predpona"
+                }
+            },
+            "name": "Poveda\u0165 fr\u00e1zu"
+        },
+        "speak_word": {
+            "description": "Hovor\u00ed slovo. Pozrite si zoznam slov v dokument\u00e1cii k protokolu ElkM1 ASCII.",
+            "fields": {
+                "number": {
+                    "description": "\u010c\u00edslo slova, ktor\u00e9 chcete vyslovi\u0165.",
+                    "name": "\u010c\u00edslo slova"
+                },
+                "prefix": {
+                    "description": "Predpona na identifik\u00e1ciu panela pri konfigur\u00e1cii viacer\u00fdch panelov.",
+                    "name": "Predpona"
+                }
+            },
+            "name": "Hovori\u0165 slovo"
+        }
+    }
+}

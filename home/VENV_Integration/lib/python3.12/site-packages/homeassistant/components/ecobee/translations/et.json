@@ -1,0 +1,198 @@
+{
+    "config": {
+        "abort": {
+            "single_instance_allowed": "Juba seadistatud. V\u00f5imalik on ainult \u00fcks seadistamine."
+        },
+        "error": {
+            "pin_request_failed": "Viga ecobee'lt PIN-koodi taotlemisel. Palun veendu, et API v\u00f5ti on \u00f5ige.",
+            "token_request_failed": "Viga ecobee-lt m\u00e4rgendite taotlemisel. Palun proovi uuesti."
+        },
+        "step": {
+            "authorize": {
+                "description": "kinnita see rakendus aadressil https://www.ecobee.com/consumerportal/index.html PIN koodiga:\n\n {pin}\n\n Seej\u00e4rel vajuta **Esita**.",
+                "title": "Rakenduse tuvastamine saidil ecobee.com"
+            },
+            "user": {
+                "data": {
+                    "api_key": "API v\u00f5ti"
+                },
+                "description": "Sisesta saidilt ecobee.com saadud API v\u00f5ti.",
+                "title": "ecobee API v\u00f5ti"
+            }
+        }
+    },
+    "entity": {
+        "climate": {
+            "ecobee": {
+                "state_attributes": {
+                    "preset_mode": {
+                        "state": {
+                            "away_indefinitely": "Eemal m\u00e4\u00e4ramata ajaks"
+                        }
+                    }
+                }
+            }
+        },
+        "number": {
+            "ventilator_min_type_away": {
+                "name": "Ventilaatori min aeg eemal"
+            },
+            "ventilator_min_type_home": {
+                "name": "Ventilaator min aeg kodus"
+            }
+        },
+        "switch": {
+            "aux_heat_only": {
+                "name": "Ainult lisak\u00fcte"
+            }
+        }
+    },
+    "issues": {
+        "migrate_aux_heat": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Teenus Ecobee `set_aux_heat` on \u00fcle viidud. Iga soojuspumpa toetava termostaadi jaoks on saadaval uus l\u00fcliti \"aux_heat_only\". \n\n V\u00e4rskenda k\u00f5iki automatiseeringuid, et kasutada uut l\u00fcliti olemit \"aux_heat_only\". Kui see on tehtud, lahenda see probleem ja taask\u00e4ivita Home Assistant.",
+                        "title": "Keela p\u00e4randteenus Ecobee set_aux_heat"
+                    }
+                }
+            },
+            "title": "Ecobee set_aux_heat teenuse migreerimine"
+        },
+        "migrate_notify": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Ecobee `notify` teenus on \u00fcle viidud. Uus `notify` \u00fcksus iga termostaadi kohta on n\u00fc\u00fcd saadaval.\n\nUuenda k\u00f5ik automaatikaid, et kasutada uut `notify.send_message`, mida need uued \u00fcksused n\u00e4itavad. Kui see on tehtud, paranda see probleem ja k\u00e4ivita Home Assistant uuesti.",
+                        "title": "Keela p\u00e4rand Ecobee teavitusteenus"
+                    }
+                }
+            },
+            "title": "Ecobee teavitusteenuse migratsioon"
+        }
+    },
+    "services": {
+        "create_vacation": {
+            "description": "Loob valitud termostaadil puhkuse. M\u00e4rkus: algus- ja l\u00f5ppkuup\u00e4ev ning kellaaeg tuleb k\u00f5ik koos m\u00e4\u00e4rata, et need parameetrid saaksid m\u00f5ju avaldada. Kui algus-/l\u00f5ppkuup\u00e4ev ja kellaaeg pole m\u00e4\u00e4ratud, algab puhkus kohe ja kestab 14 p\u00e4eva (kui pole varem kustutatud).",
+            "fields": {
+                "cool_temp": {
+                    "description": "Jahutustemperatuur puhkuse ajal.",
+                    "name": "Jahutuse temperatuur"
+                },
+                "end_date": {
+                    "description": "Puhkuse l\u00f5ppemise kuup\u00e4ev on vormingus AAAA-KK-PP (valikuline, 14 p\u00e4eva p\u00e4rast, kui seda pole esitatud koos end_time).",
+                    "name": "L\u00f5pu kuup\u00e4ev"
+                },
+                "end_time": {
+                    "description": "Puhkuse l\u00f5ppemise aeg termostaadi kohaliku aja j\u00e4rgi 24-tunnises formaadis \"HH:MM:SS\".",
+                    "name": "L\u00f5puaeg"
+                },
+                "entity_id": {
+                    "description": "Ecobee termostaat millel puhkusere\u017eiimi luua.",
+                    "name": "Olem"
+                },
+                "fan_min_on_time": {
+                    "description": "Minimaalne minutite arv ventilaatori k\u00e4itamiseks igas tunnis (0\u201360) puhkuse ajal.",
+                    "name": "Ventilaatori minimaalne t\u00f6\u00f6aeg"
+                },
+                "fan_mode": {
+                    "description": "Termostaadi ventilaatorire\u017eiim puhkuse ajal.",
+                    "name": "Ventilaatori re\u017eiim"
+                },
+                "heat_temp": {
+                    "description": "K\u00fcttetemperatuur puhkuse ajal.",
+                    "name": "K\u00fcttetemperatuur"
+                },
+                "start_date": {
+                    "description": "Puhkuse alguskuup\u00e4ev vormingus AAAA-KK-PP (valikuline, kohe, kui seda ei pakuta koos start_time).",
+                    "name": "Alguse kuup\u00e4ev"
+                },
+                "start_time": {
+                    "description": "Puhkuse algusaeg termostaadi kohaliku aja 24-tunnises vormingus \"HH:MM:SS\".",
+                    "name": "Algusaeg"
+                },
+                "vacation_name": {
+                    "description": "Loodava puhkusere\u017eiimi nimi; peab olema termostaadis unikaalne.",
+                    "name": "Puhkusere\u017eiimi nimi"
+                }
+            },
+            "name": "Loo puhkusere\u017eiim"
+        },
+        "delete_vacation": {
+            "description": "Kustutab valitud termostaadi puhkusere\u017eiimi.",
+            "fields": {
+                "entity_id": {
+                    "description": "Ecobee termostaat millelt puhkusere\u017eiim kustutada.",
+                    "name": "Olem"
+                },
+                "vacation_name": {
+                    "description": "Kustutatava puhkusere\u017eiimi nimi.",
+                    "name": "Puhkusere\u017eiimi nimi"
+                }
+            },
+            "name": "Kustuta puhkusere\u017eiim"
+        },
+        "resume_program": {
+            "description": "J\u00e4tkab programmeeritud ajakava.",
+            "fields": {
+                "entity_id": {
+                    "description": "Muudetavate olemite nimed.",
+                    "name": "Olem"
+                },
+                "resume_all": {
+                    "description": "J\u00e4tka k\u00f5iki tegevusi ja naase kavandatud programmi juurde.",
+                    "name": "J\u00e4tkake k\u00f5ike"
+                }
+            },
+            "name": "J\u00e4tka programmi"
+        },
+        "set_dst_mode": {
+            "description": "Lubab/keelab automaatse suveaja.",
+            "fields": {
+                "dst_enabled": {
+                    "description": "Luba automaatne suveaeg.",
+                    "name": "Suveaeg on lubatud"
+                }
+            },
+            "name": "M\u00e4\u00e4ra suveaja re\u017eiim"
+        },
+        "set_fan_min_on_time": {
+            "description": "M\u00e4\u00e4rab ventilaatori minimaalse t\u00f6\u00f6aja.",
+            "fields": {
+                "entity_id": {
+                    "description": "Muudetavate olemite nimed.",
+                    "name": "Olem"
+                },
+                "fan_min_on_time": {
+                    "description": "Ventilaatori minimaalse t\u00f6\u00f6aja uus v\u00e4\u00e4rtus.",
+                    "name": "Ventilaatori minimaalne t\u00f6\u00f6aeg"
+                }
+            },
+            "name": "M\u00e4\u00e4ra ventilaatori minimaalne t\u00f6\u00f6aeg"
+        },
+        "set_mic_mode": {
+            "description": "Lubab/keelab Alexa mikrofoni (ainult Ecobee 4 jaoks).",
+            "fields": {
+                "mic_enabled": {
+                    "description": "Luba Alexa mikrofon.",
+                    "name": "Mikrofon on lubatud"
+                }
+            },
+            "name": "M\u00e4\u00e4ra mikrofoni re\u017eiim"
+        },
+        "set_occupancy_modes": {
+            "description": "Lubab/keelab nutika kodus/eemal ja j\u00e4lgi mind re\u017eiimid.",
+            "fields": {
+                "auto_away": {
+                    "description": "Lubage nutikas kodus/eemal re\u017eiim.",
+                    "name": "Automaatne eemalolek"
+                },
+                "follow_me": {
+                    "description": "Luba J\u00e4lgimisre\u017eiim",
+                    "name": "J\u00e4lgi mind"
+                }
+            },
+            "name": "M\u00e4\u00e4ra h\u00f5ivatuse re\u017eiimid"
+        }
+    }
+}

@@ -1,0 +1,91 @@
+{
+    "issues": {
+        "deprecated_close_comm_config": {
+            "description": "Ta bort nyckeln `{config_key}` fr\u00e5n posten {integration} i filen `configuration.yaml` och starta om Home Assistant f\u00f6r att \u00e5tg\u00e4rda problemet. Alla fel kommer att rapporteras, eftersom `lazy_error_count` accepteras men ignoreras.",
+            "title": "`{config_key}` konfigurationsposten kommer att tas bort"
+        },
+        "deprecated_restart": {
+            "description": "Anv\u00e4nd ladda om yaml via utvecklarverktygen i anv\u00e4ndargr\u00e4nssnittet i st\u00e4llet f\u00f6r via tj\u00e4nsten `modbus.restart`."
+        },
+        "deprecated_retry_on_empty": {
+            "description": "Ta bort nyckeln `{config_key}` fr\u00e5n {integration} i filen configuration.yaml och starta om Home Assistant f\u00f6r att \u00e5tg\u00e4rda problemet.\n\nOmstart med tomt v\u00e4rde till\u00e4mpas automatiskt, se [dokumentationen]({url}) f\u00f6r andra felbeskrivningar.",
+            "title": "`{config_key}` konfigurationsposten kommer att tas bort"
+        },
+        "duplicate_entity_entry": {
+            "description": "En adress kan bara associeras med en enhet, Korrigera posten i din configuration.yaml-fil och starta om Home Assistant f\u00f6r att \u00e5tg\u00e4rda problemet."
+        },
+        "removed_lazy_error_count": {
+            "description": "Ta bort nyckeln \"{config_key}\" fr\u00e5n posten {integration} i filen configuration.yaml och starta om Home Assistant f\u00f6r att \u00e5tg\u00e4rda problemet. Alla fel kommer att rapporteras, eftersom lazy_error_count accepteras men ignoreras"
+        }
+    },
+    "services": {
+        "reload": {
+            "description": "Laddar om alla modbus-entiteter.",
+            "name": "Ladda om"
+        },
+        "restart": {
+            "description": "Startar om modbus-hubben (om den k\u00f6r stoppas den f\u00f6rst).",
+            "fields": {
+                "hub": {
+                    "description": "Namn p\u00e5 Modbus-hubb.",
+                    "name": "Hubb"
+                }
+            },
+            "name": "Starta om"
+        },
+        "stop": {
+            "description": "Stoppar modbus-hubben.",
+            "fields": {
+                "hub": {
+                    "description": "Namn p\u00e5 Modbus-hubb.",
+                    "name": "Hubb"
+                }
+            },
+            "name": "Stoppa"
+        },
+        "write_coil": {
+            "description": "Skriver till en modbus-spole.",
+            "fields": {
+                "address": {
+                    "description": "Adress f\u00f6r det register som ska skrivas till.",
+                    "name": "Adress"
+                },
+                "hub": {
+                    "description": "Namn p\u00e5 Modbus-hubb.",
+                    "name": "Hubb"
+                },
+                "slave": {
+                    "description": "Adress till modbus-enheten/slaven.",
+                    "name": "Slav"
+                },
+                "state": {
+                    "description": "Tillst\u00e5nd att skriva.",
+                    "name": "Tillst\u00e5nd"
+                }
+            },
+            "name": "Skriv spole"
+        },
+        "write_register": {
+            "description": "Skriver till ett modbus-h\u00e5llregister.",
+            "fields": {
+                "address": {
+                    "description": "Adress till h\u00e5llsregistret att skriva till.",
+                    "name": "Adress"
+                },
+                "hub": {
+                    "description": "Namn p\u00e5 Modbus-hubb.",
+                    "name": "Hubb"
+                },
+                "slave": {
+                    "description": "Adress till modbus-enheten/slaven.",
+                    "name": "Slav"
+                },
+                "value": {
+                    "description": "V\u00e4rde (enskilt v\u00e4rde eller matris) att skriva.",
+                    "name": "V\u00e4rde"
+                }
+            },
+            "name": "Skriv register"
+        }
+    }
+}

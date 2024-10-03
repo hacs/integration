@@ -1,0 +1,126 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "\u30b5\u30fc\u30d3\u30b9\u306f\u3059\u3067\u306b\u8a2d\u5b9a\u3055\u308c\u3066\u3044\u307e\u3059"
+        },
+        "error": {
+            "cannot_connect": "\u63a5\u7d9a\u306b\u5931\u6557\u3057\u307e\u3057\u305f",
+            "invalid_access_token": "\u7121\u52b9\u306a\u30a2\u30af\u30bb\u30b9\u30c8\u30fc\u30af\u30f3",
+            "timeout": "\u63a5\u7d9a\u78ba\u7acb\u6642\u306b\u30bf\u30a4\u30e0\u30a2\u30a6\u30c8"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "access_token": "\u30a2\u30af\u30bb\u30b9\u30c8\u30fc\u30af\u30f3"
+                },
+                "description": "{url}\u304b\u3089\u30a2\u30af\u30bb\u30b9 \u30c8\u30fc\u30af\u30f3\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044"
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "accumulated_consumption": {
+                "name": "\u7d2f\u7a4d\u6d88\u8cbb\u91cf"
+            },
+            "accumulated_consumption_last_hour": {
+                "name": "\u7d2f\u7a4d\u6d88\u8cbb\u96fb\u6d41\u6642\u9593"
+            },
+            "accumulated_cost": {
+                "name": "\u7d2f\u7a4d\u8cbb\u7528"
+            },
+            "accumulated_production": {
+                "name": "\u7d2f\u7a4d\u751f\u7523\u91cf"
+            },
+            "accumulated_production_last_hour": {
+                "name": "\u7d2f\u7a4d\u751f\u7523\u96fb\u6d41\u6642\u9593"
+            },
+            "accumulated_reward": {
+                "name": "\u7d2f\u8a08\u5831\u916c"
+            },
+            "average_power": {
+                "name": "\u5e73\u5747\u96fb\u529b"
+            },
+            "current_l1": {
+                "name": "\u96fb\u6d41L1"
+            },
+            "current_l2": {
+                "name": "\u96fb\u6d41L2"
+            },
+            "current_l3": {
+                "name": "\u96fb\u6d41L3"
+            },
+            "electricity_price": {
+                "name": "\u96fb\u6c17\u6599\u91d1"
+            },
+            "estimated_hour_consumption": {
+                "name": "\u63a8\u5b9a\u6d88\u8cbb\u96fb\u6d41\u6642\u9593"
+            },
+            "last_meter_consumption": {
+                "name": "\u524d\u56de\u306e\u30e1\u30fc\u30bf\u30fc\u6d88\u8cbb\u91cf"
+            },
+            "last_meter_production": {
+                "name": "\u524d\u56de\u306e\u30e1\u30fc\u30bf\u30fc\u751f\u7523\u91cf"
+            },
+            "max_power": {
+                "name": "\u6700\u5927\u96fb\u529b"
+            },
+            "min_power": {
+                "name": "\u6700\u5c0f\u96fb\u529b"
+            },
+            "month_cons": {
+                "name": "\u6708\u9593\u7d14\u6d88\u8cbb\u91cf"
+            },
+            "month_cost": {
+                "name": "\u6708\u984d\u8cbb\u7528"
+            },
+            "peak_hour": {
+                "name": "\u6708\u9593\u30d4\u30fc\u30af\u6642\u306e\u6d88\u8cbb\u91cf"
+            },
+            "peak_hour_time": {
+                "name": "\u6700\u5927\u6d88\u8cbb\u6642\u9593\u306e\u6642\u9593"
+            },
+            "power": {
+                "name": "\u96fb\u529b"
+            },
+            "power_factor": {
+                "name": "\u529b\u7387"
+            },
+            "power_production": {
+                "name": "\u767a\u96fb"
+            },
+            "signal_strength": {
+                "name": "\u4fe1\u53f7\u5f37\u5ea6"
+            },
+            "voltage_phase1": {
+                "name": "\u96fb\u5727\u30d5\u30a7\u30fc\u30ba1"
+            },
+            "voltage_phase2": {
+                "name": "\u96fb\u5727\u30d5\u30a7\u30fc\u30ba2"
+            },
+            "voltage_phase3": {
+                "name": "\u96fb\u5727\u30d5\u30a7\u30fc\u30ba3"
+            }
+        }
+    },
+    "exceptions": {
+        "send_message_timeout": {
+            "message": "Tibber \u306b\u3088\u308b\u30e1\u30c3\u30bb\u30fc\u30b8\u9001\u4fe1\u306e\u30bf\u30a4\u30e0\u30a2\u30a6\u30c8"
+        }
+    },
+    "services": {
+        "get_prices": {
+            "description": "Tibber\u304b\u3089\u6642\u9593\u3054\u3068\u306e\u30a8\u30cd\u30eb\u30ae\u30fc\u4fa1\u683c\u3092\u53d6\u5f97\u3059\u308b",
+            "fields": {
+                "end": {
+                    "description": "\u4fa1\u683c\u3092\u53d6\u5f97\u3059\u308b\u65e5\u4ed8\u3068\u6642\u523b\u3092\u6307\u5b9a\u3057\u307e\u3059\u3002\u7701\u7565\u3057\u305f\u5834\u5408\u306f\u3001\u4eca\u65e5\u306e\u6700\u5f8c\u306e 1 \u6642\u9593\u304c\u30c7\u30d5\u30a9\u30eb\u30c8\u306b\u306a\u308a\u307e\u3059\u3002",
+                    "name": "\u7d42\u4e86"
+                },
+                "start": {
+                    "description": "\u4fa1\u683c\u3092\u53d6\u5f97\u3059\u308b\u65e5\u4ed8\u3068\u6642\u523b\u3092\u6307\u5b9a\u3057\u307e\u3059\u3002\u7701\u7565\u3057\u305f\u5834\u5408\u306e\u30c7\u30d5\u30a9\u30eb\u30c8\u306f\u4eca\u65e5\u3067\u3059\u3002",
+                    "name": "\u958b\u59cb"
+                }
+            },
+            "name": "\u30a8\u30cd\u30eb\u30ae\u30fc\u4fa1\u683c\u3092\u53d6\u5f97\u3059\u308b"
+        }
+    }
+}

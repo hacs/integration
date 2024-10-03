@@ -1,0 +1,950 @@
+{
+    "config": {
+        "abort": {
+            "single_instance_allowed": "Ja configurat. Nom\u00e9s \u00e9s possible una sola configuraci\u00f3."
+        },
+        "error": {
+            "cannot_connect": "Ha fallat la connexi\u00f3",
+            "invalid_api_key": "Clau API inv\u00e0lida",
+            "requests_exceeded": "S'ha superat el nombre m\u00e0xim de sol\u00b7licituds permeses a l'API d'AccuWeather. Has d'esperar-te o canviar la clau API."
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "api_key": "Clau API",
+                    "latitude": "Latitud",
+                    "longitude": "Longitud",
+                    "name": "Nom"
+                }
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "air_quality": {
+                "state": {
+                    "good": "Bo",
+                    "hazardous": "Perillosa",
+                    "high": "Alt",
+                    "low": "Baix",
+                    "moderate": "Moderada",
+                    "unhealthy": "No saludable"
+                }
+            },
+            "air_quality_0d": {
+                "name": "Qualitat de l'aire, avui",
+                "state": {
+                    "good": "Bona",
+                    "hazardous": "Perillosa",
+                    "high": "Alt",
+                    "low": "Baix",
+                    "moderate": "Moderat",
+                    "unhealthy": "No saludable"
+                }
+            },
+            "air_quality_1d": {
+                "name": "Qualitat de l'aire, dia 1",
+                "state": {
+                    "good": "Bona",
+                    "hazardous": "Perillosa",
+                    "high": "Alt",
+                    "low": "Baix",
+                    "moderate": "Moderat",
+                    "unhealthy": "No saludable"
+                }
+            },
+            "air_quality_2d": {
+                "name": "Qualitat de l'aire, dia 2",
+                "state": {
+                    "good": "Bona",
+                    "hazardous": "Perillosa",
+                    "high": "Alt",
+                    "low": "Baix",
+                    "moderate": "Moderat",
+                    "unhealthy": "No saludable"
+                }
+            },
+            "air_quality_3d": {
+                "name": "Qualitat de l'aire, dia 3",
+                "state": {
+                    "good": "Bona",
+                    "hazardous": "Perillosa",
+                    "high": "Alt",
+                    "low": "Baix",
+                    "moderate": "Moderat",
+                    "unhealthy": "No saludable"
+                }
+            },
+            "air_quality_4d": {
+                "name": "Qualitat de l'aire, dia 4",
+                "state": {
+                    "good": "Bona",
+                    "hazardous": "Perillosa",
+                    "high": "Alt",
+                    "low": "Baix",
+                    "moderate": "Moderat",
+                    "unhealthy": "No saludable"
+                }
+            },
+            "apparent_temperature": {
+                "name": "Temperatura aparent"
+            },
+            "cloud_ceiling": {
+                "name": "Sostre de n\u00favols"
+            },
+            "cloud_cover": {
+                "name": "Nuvolositat"
+            },
+            "cloud_cover_day": {
+                "name": "Nuvolositat, dia {forecast_day}"
+            },
+            "cloud_cover_day_0d": {
+                "name": "Nuvolositat, avui"
+            },
+            "cloud_cover_day_1d": {
+                "name": "Nuvolositat, dia 1"
+            },
+            "cloud_cover_day_2d": {
+                "name": "Nuvolositat, dia 2"
+            },
+            "cloud_cover_day_3d": {
+                "name": "Nuvolositat, dia 3"
+            },
+            "cloud_cover_day_4d": {
+                "name": "Nuvolositat, dia 4"
+            },
+            "cloud_cover_night": {
+                "name": "Nuvolositat, nit {forecast_day}"
+            },
+            "cloud_cover_night_0d": {
+                "name": "Nuvolositat, aquesta nit"
+            },
+            "cloud_cover_night_1d": {
+                "name": "Nuvolositat, nit 1"
+            },
+            "cloud_cover_night_2d": {
+                "name": "Nuvolositat, nit 2"
+            },
+            "cloud_cover_night_3d": {
+                "name": "Nuvolositat, nit 3"
+            },
+            "cloud_cover_night_4d": {
+                "name": "Nuvolositat, nit 4"
+            },
+            "condition_day": {
+                "name": "Condici\u00f3, dia {forecast_day}"
+            },
+            "condition_day_0d": {
+                "name": "Condici\u00f3, avui"
+            },
+            "condition_day_1d": {
+                "name": "Condici\u00f3, dia 1"
+            },
+            "condition_day_2d": {
+                "name": "Condici\u00f3, dia 2"
+            },
+            "condition_day_3d": {
+                "name": "Condici\u00f3, dia 3"
+            },
+            "condition_day_4d": {
+                "name": "Condici\u00f3, dia 4"
+            },
+            "condition_night": {
+                "name": "Condici\u00f3, nit {forecast_day}"
+            },
+            "condition_night_0d": {
+                "name": "Condici\u00f3, aquesta nit"
+            },
+            "condition_night_1d": {
+                "name": "Condici\u00f3, nit 1"
+            },
+            "condition_night_2d": {
+                "name": "Condici\u00f3, nit 2"
+            },
+            "condition_night_3d": {
+                "name": "Condici\u00f3, nit 3"
+            },
+            "condition_night_4d": {
+                "name": "Condici\u00f3, nit 4"
+            },
+            "dew_point": {
+                "name": "Punt de rosada"
+            },
+            "grass_pollen": {
+                "name": "Pol\u00b7len (de gespa), dia {forecast_day}",
+                "state_attributes": {
+                    "level": {
+                        "name": "Nivell",
+                        "state": {
+                            "good": "Bo",
+                            "hazardous": "Perillosa",
+                            "high": "Alt",
+                            "low": "Baix",
+                            "moderate": "Moderada",
+                            "unhealthy": "No saludable"
+                        }
+                    }
+                }
+            },
+            "grass_pollen_0d": {
+                "name": "Pol\u00b7len (de gespa), avui",
+                "state_attributes": {
+                    "level": {
+                        "name": "Nivell",
+                        "state": {
+                            "good": "Bona",
+                            "hazardous": "Perillosa",
+                            "high": "Alt",
+                            "low": "Baix",
+                            "moderate": "Moderat",
+                            "unhealthy": "No saludable"
+                        }
+                    }
+                }
+            },
+            "grass_pollen_1d": {
+                "name": "Pol\u00b7len (de gespa), dia 1",
+                "state_attributes": {
+                    "level": {
+                        "name": "Nivell",
+                        "state": {
+                            "good": "Bona",
+                            "hazardous": "Perillosa",
+                            "high": "Alt",
+                            "low": "Baix",
+                            "moderate": "Moderat",
+                            "unhealthy": "No saludable"
+                        }
+                    }
+                }
+            },
+            "grass_pollen_2d": {
+                "name": "Pol\u00b7len (de gespa), dia 2",
+                "state_attributes": {
+                    "level": {
+                        "name": "Nivell",
+                        "state": {
+                            "good": "Bona",
+                            "hazardous": "Perillosa",
+                            "high": "Alt",
+                            "low": "Baix",
+                            "moderate": "Moderat",
+                            "unhealthy": "No saludable"
+                        }
+                    }
+                }
+            },
+            "grass_pollen_3d": {
+                "name": "Pol\u00b7len (de gespa), dia 3",
+                "state_attributes": {
+                    "level": {
+                        "name": "Nivell",
+                        "state": {
+                            "good": "Bona",
+                            "hazardous": "Perillosa",
+                            "high": "Alt",
+                            "low": "Baix",
+                            "moderate": "Moderat",
+                            "unhealthy": "No saludable"
+                        }
+                    }
+                }
+            },
+            "grass_pollen_4d": {
+                "name": "Pol\u00b7len (de gespa), dia 4",
+                "state_attributes": {
+                    "level": {
+                        "name": "Nivell",
+                        "state": {
+                            "good": "Bona",
+                            "hazardous": "Perillosa",
+                            "high": "Alt",
+                            "low": "Baix",
+                            "moderate": "Moderat",
+                            "unhealthy": "No saludable"
+                        }
+                    }
+                }
+            },
+            "hours_of_sun": {
+                "name": "Hores de sol, dia {forecast_day}"
+            },
+            "hours_of_sun_0d": {
+                "name": "Hores de sol, avui"
+            },
+            "hours_of_sun_1d": {
+                "name": "Hores de sol, dia 1"
+            },
+            "hours_of_sun_2d": {
+                "name": "Hores de sol, dia 2"
+            },
+            "hours_of_sun_3d": {
+                "name": "Hores de sol, dia 3"
+            },
+            "hours_of_sun_4d": {
+                "name": "Hores de sol, dia 4"
+            },
+            "mold_pollen": {
+                "name": "Espores (fongs), dia {forecast_day}",
+                "state_attributes": {
+                    "level": {
+                        "name": "Nivell",
+                        "state": {
+                            "good": "Bo",
+                            "hazardous": "Perillosa",
+                            "high": "Alt",
+                            "low": "Baix",
+                            "moderate": "Moderada",
+                            "unhealthy": "No saludable"
+                        }
+                    }
+                }
+            },
+            "mold_pollen_0d": {
+                "name": "Espores (fongs), avui",
+                "state_attributes": {
+                    "level": {
+                        "name": "Nivell",
+                        "state": {
+                            "good": "Bona",
+                            "hazardous": "Perillosa",
+                            "high": "Alt",
+                            "low": "Baix",
+                            "moderate": "Moderat",
+                            "unhealthy": "No saludable"
+                        }
+                    }
+                }
+            },
+            "mold_pollen_1d": {
+                "name": "Espores (fongs), dia 1",
+                "state_attributes": {
+                    "level": {
+                        "name": "Nivell",
+                        "state": {
+                            "good": "Bona",
+                            "hazardous": "Perillosa",
+                            "high": "Alt",
+                            "low": "Baix",
+                            "moderate": "Moderat",
+                            "unhealthy": "No saludable"
+                        }
+                    }
+                }
+            },
+            "mold_pollen_2d": {
+                "name": "Espores (fongs), dia 2",
+                "state_attributes": {
+                    "level": {
+                        "name": "Nivell",
+                        "state": {
+                            "good": "Bona",
+                            "hazardous": "Perillosa",
+                            "high": "Alt",
+                            "low": "Baix",
+                            "moderate": "Moderat",
+                            "unhealthy": "No saludable"
+                        }
+                    }
+                }
+            },
+            "mold_pollen_3d": {
+                "name": "Espores (fongs), dia 3",
+                "state_attributes": {
+                    "level": {
+                        "name": "Nivell",
+                        "state": {
+                            "good": "Bona",
+                            "hazardous": "Perillosa",
+                            "high": "Alt",
+                            "low": "Baix",
+                            "moderate": "Moderat",
+                            "unhealthy": "No saludable"
+                        }
+                    }
+                }
+            },
+            "mold_pollen_4d": {
+                "name": "Espores (fongs), dia 4",
+                "state_attributes": {
+                    "level": {
+                        "name": "Nivell",
+                        "state": {
+                            "good": "Bona",
+                            "hazardous": "Perillosa",
+                            "high": "Alt",
+                            "low": "Baix",
+                            "moderate": "Moderat",
+                            "unhealthy": "No saludable"
+                        }
+                    }
+                }
+            },
+            "precipitation": {
+                "name": "Precipitaci\u00f3"
+            },
+            "pressure_tendency": {
+                "name": "Tend\u00e8ncia de pressi\u00f3",
+                "state": {
+                    "falling": "Disminuint",
+                    "rising": "Augmentant",
+                    "steady": "Estable"
+                }
+            },
+            "ragweed_pollen": {
+                "name": "Pol\u00b7len d'ambr\u00f2sia, dia {forecast_day}",
+                "state_attributes": {
+                    "level": {
+                        "name": "Nivell",
+                        "state": {
+                            "good": "Bo",
+                            "hazardous": "Perillosa",
+                            "high": "Alt",
+                            "low": "Baix",
+                            "moderate": "Moderada",
+                            "unhealthy": "No saludable"
+                        }
+                    }
+                }
+            },
+            "ragweed_pollen_0d": {
+                "name": "Pol\u00b7len d'ambr\u00f2sia, avui",
+                "state_attributes": {
+                    "level": {
+                        "name": "Nivell",
+                        "state": {
+                            "good": "Bona",
+                            "hazardous": "Perillosa",
+                            "high": "Alt",
+                            "low": "Baix",
+                            "moderate": "Moderat",
+                            "unhealthy": "No saludable"
+                        }
+                    }
+                }
+            },
+            "ragweed_pollen_1d": {
+                "name": "Pol\u00b7len d'ambr\u00f2sia, dia 1",
+                "state_attributes": {
+                    "level": {
+                        "name": "Nivell",
+                        "state": {
+                            "good": "Bona",
+                            "hazardous": "Perillosa",
+                            "high": "Alt",
+                            "low": "Baix",
+                            "moderate": "Moderat",
+                            "unhealthy": "No saludable"
+                        }
+                    }
+                }
+            },
+            "ragweed_pollen_2d": {
+                "name": "Pol\u00b7len d'ambr\u00f2sia, dia 2",
+                "state_attributes": {
+                    "level": {
+                        "name": "Nivell",
+                        "state": {
+                            "good": "Bona",
+                            "hazardous": "Perillosa",
+                            "high": "Alt",
+                            "low": "Baix",
+                            "moderate": "Moderat",
+                            "unhealthy": "No saludable"
+                        }
+                    }
+                }
+            },
+            "ragweed_pollen_3d": {
+                "name": "Pol\u00b7len d'ambr\u00f2sia, dia 3",
+                "state_attributes": {
+                    "level": {
+                        "name": "Nivell",
+                        "state": {
+                            "good": "Bona",
+                            "hazardous": "Perillosa",
+                            "high": "Alt",
+                            "low": "Baix",
+                            "moderate": "Moderat",
+                            "unhealthy": "No saludable"
+                        }
+                    }
+                }
+            },
+            "ragweed_pollen_4d": {
+                "name": "Pol\u00b7len d'ambr\u00f2sia, dia 4",
+                "state_attributes": {
+                    "level": {
+                        "name": "Nivell",
+                        "state": {
+                            "good": "Bona",
+                            "hazardous": "Perillosa",
+                            "high": "Alt",
+                            "low": "Baix",
+                            "moderate": "Moderat",
+                            "unhealthy": "No saludable"
+                        }
+                    }
+                }
+            },
+            "realfeel_temperature": {
+                "name": "Temperatura RealFeel"
+            },
+            "realfeel_temperature_max": {
+                "name": "Temperatura RealFeel m\u00e0xima, dia {forecast_day}"
+            },
+            "realfeel_temperature_max_0d": {
+                "name": "Temperatura RealFeel m\u00e0xima, avui"
+            },
+            "realfeel_temperature_max_1d": {
+                "name": "Temperatura RealFeel m\u00e0xima, dia 1"
+            },
+            "realfeel_temperature_max_2d": {
+                "name": "Temperatura RealFeel m\u00e0xima, dia 2"
+            },
+            "realfeel_temperature_max_3d": {
+                "name": "Temperatura RealFeel m\u00e0xima, dia 3"
+            },
+            "realfeel_temperature_max_4d": {
+                "name": "Temperatura RealFeel m\u00e0xima, dia 4"
+            },
+            "realfeel_temperature_min": {
+                "name": "Temperatura RealFeel m\u00ednima, dia {forecast_day}"
+            },
+            "realfeel_temperature_min_0d": {
+                "name": "Temperatura RealFeel m\u00ednima, avui"
+            },
+            "realfeel_temperature_min_1d": {
+                "name": "Temperatura RealFeel m\u00ednima, dia 1"
+            },
+            "realfeel_temperature_min_2d": {
+                "name": "Temperatura RealFeel m\u00ednima, dia 2"
+            },
+            "realfeel_temperature_min_3d": {
+                "name": "Temperatura RealFeel m\u00ednima, dia 3"
+            },
+            "realfeel_temperature_min_4d": {
+                "name": "Temperatura RealFeel m\u00ednima, dia 4"
+            },
+            "realfeel_temperature_shade": {
+                "name": "Temperatura RealFeel a l'ombra"
+            },
+            "realfeel_temperature_shade_max": {
+                "name": "Temperatura RealFeel a l'ombra m\u00e0xima, dia {forecast_day}"
+            },
+            "realfeel_temperature_shade_max_0d": {
+                "name": "Temperatura RealFeel a l'ombra m\u00e0xima, avui"
+            },
+            "realfeel_temperature_shade_max_1d": {
+                "name": "Temperatura RealFeel a l'ombra m\u00e0xima, dia 1"
+            },
+            "realfeel_temperature_shade_max_2d": {
+                "name": "Temperatura RealFeel a l'ombra m\u00e0xima, dia 2"
+            },
+            "realfeel_temperature_shade_max_3d": {
+                "name": "Temperatura RealFeel a l'ombra m\u00e0xima, dia 3"
+            },
+            "realfeel_temperature_shade_max_4d": {
+                "name": "Temperatura RealFeel a l'ombra m\u00e0xima, dia 4"
+            },
+            "realfeel_temperature_shade_min": {
+                "name": "Temperatura RealFeel a l'ombra m\u00ednima, dia {forecast_day}"
+            },
+            "realfeel_temperature_shade_min_0d": {
+                "name": "Temperatura RealFeel a l'ombra m\u00ednima, avui"
+            },
+            "realfeel_temperature_shade_min_1d": {
+                "name": "Temperatura RealFeel a l'ombra m\u00ednima, dia 1"
+            },
+            "realfeel_temperature_shade_min_2d": {
+                "name": "Temperatura RealFeel a l'ombra m\u00ednima, dia 2"
+            },
+            "realfeel_temperature_shade_min_3d": {
+                "name": "Temperatura RealFeel a l'ombra m\u00ednima, dia 3"
+            },
+            "realfeel_temperature_shade_min_4d": {
+                "name": "Temperatura RealFeel a l'ombra m\u00ednima, dia 4"
+            },
+            "solar_irradiance_day": {
+                "name": "Irradi\u00e0ncia solar, dia {forecast_day}"
+            },
+            "solar_irradiance_day_0d": {
+                "name": "Irradi\u00e0ncia solar, avui"
+            },
+            "solar_irradiance_day_1d": {
+                "name": "Irradi\u00e0ncia solar, dia 1"
+            },
+            "solar_irradiance_day_2d": {
+                "name": "Irradi\u00e0ncia solar, dia 2"
+            },
+            "solar_irradiance_day_3d": {
+                "name": "Irradi\u00e0ncia solar, dia 3"
+            },
+            "solar_irradiance_day_4d": {
+                "name": "Irradi\u00e0ncia solar, dia 4"
+            },
+            "solar_irradiance_night": {
+                "name": "Irradi\u00e0ncia solar, nit {forecast_day}"
+            },
+            "solar_irradiance_night_0d": {
+                "name": "Irradi\u00e0ncia solar, aquesta nit"
+            },
+            "solar_irradiance_night_1d": {
+                "name": "Irradi\u00e0ncia solar, nit 1"
+            },
+            "solar_irradiance_night_2d": {
+                "name": "Irradi\u00e0ncia solar, nit 2"
+            },
+            "solar_irradiance_night_3d": {
+                "name": "Irradi\u00e0ncia solar, nit 3"
+            },
+            "solar_irradiance_night_4d": {
+                "name": "Irradi\u00e0ncia solar, nit 4"
+            },
+            "thunderstorm_probability_day": {
+                "name": "Probabilitat de tempesta, dia {forecast_day}"
+            },
+            "thunderstorm_probability_day_0d": {
+                "name": "Probabilitat de tempesta, avui"
+            },
+            "thunderstorm_probability_day_1d": {
+                "name": "Probabilitat de tempesta, dia 1"
+            },
+            "thunderstorm_probability_day_2d": {
+                "name": "Probabilitat de tempesta, dia 2"
+            },
+            "thunderstorm_probability_day_3d": {
+                "name": "Probabilitat de tempesta, dia 3"
+            },
+            "thunderstorm_probability_day_4d": {
+                "name": "Probabilitat de tempesta, dia 4"
+            },
+            "thunderstorm_probability_night": {
+                "name": "Probabilitat de tempesta, nit {forecast_day}"
+            },
+            "thunderstorm_probability_night_0d": {
+                "name": "Probabilitat de tempesta, aquesta nit"
+            },
+            "thunderstorm_probability_night_1d": {
+                "name": "Probabilitat de tempesta, nit 1"
+            },
+            "thunderstorm_probability_night_2d": {
+                "name": "Probabilitat de tempesta, nit 2"
+            },
+            "thunderstorm_probability_night_3d": {
+                "name": "Probabilitat de tempesta, nit 3"
+            },
+            "thunderstorm_probability_night_4d": {
+                "name": "Probabilitat de tempesta, nit 4"
+            },
+            "tree_pollen": {
+                "name": "Pol\u00b7len (d'arbres), dia {forecast_day}",
+                "state_attributes": {
+                    "level": {
+                        "name": "Nivell",
+                        "state": {
+                            "good": "Bo",
+                            "hazardous": "Perillosa",
+                            "high": "Alt",
+                            "low": "Baix",
+                            "moderate": "Moderada",
+                            "unhealthy": "No saludable"
+                        }
+                    }
+                }
+            },
+            "tree_pollen_0d": {
+                "name": "Pol\u00b7len (d'arbres), avui",
+                "state_attributes": {
+                    "level": {
+                        "name": "Nivell",
+                        "state": {
+                            "good": "Bona",
+                            "hazardous": "Perillosa",
+                            "high": "Alt",
+                            "low": "Baix",
+                            "moderate": "Moderat",
+                            "unhealthy": "No saludable"
+                        }
+                    }
+                }
+            },
+            "tree_pollen_1d": {
+                "name": "Pol\u00b7len (d'arbres), dia 1",
+                "state_attributes": {
+                    "level": {
+                        "name": "Nivell",
+                        "state": {
+                            "good": "Bona",
+                            "hazardous": "Perillosa",
+                            "high": "Alt",
+                            "low": "Baix",
+                            "moderate": "Moderat",
+                            "unhealthy": "No saludable"
+                        }
+                    }
+                }
+            },
+            "tree_pollen_2d": {
+                "name": "Pol\u00b7len (d'arbres), dia 2",
+                "state_attributes": {
+                    "level": {
+                        "name": "Nivell",
+                        "state": {
+                            "good": "Bona",
+                            "hazardous": "Perillosa",
+                            "high": "Alt",
+                            "low": "Baix",
+                            "moderate": "Moderat",
+                            "unhealthy": "No saludable"
+                        }
+                    }
+                }
+            },
+            "tree_pollen_3d": {
+                "name": "Pol\u00b7len (d'arbres), dia 3",
+                "state_attributes": {
+                    "level": {
+                        "name": "Nivell",
+                        "state": {
+                            "good": "Bona",
+                            "hazardous": "Perillosa",
+                            "high": "Alt",
+                            "low": "Baix",
+                            "moderate": "Moderat",
+                            "unhealthy": "No saludable"
+                        }
+                    }
+                }
+            },
+            "tree_pollen_4d": {
+                "name": "Pol\u00b7len (d'arbres), dia 4",
+                "state_attributes": {
+                    "level": {
+                        "name": "Nivell",
+                        "state": {
+                            "good": "Bona",
+                            "hazardous": "Perillosa",
+                            "high": "Alt",
+                            "low": "Baix",
+                            "moderate": "Moderat",
+                            "unhealthy": "No saludable"
+                        }
+                    }
+                }
+            },
+            "uv_index": {
+                "name": "\u00cdndex UV",
+                "state_attributes": {
+                    "level": {
+                        "name": "Nivell",
+                        "state": {
+                            "good": "Bo",
+                            "hazardous": "Perillosa",
+                            "high": "Alt",
+                            "low": "Baix",
+                            "moderate": "Moderada",
+                            "unhealthy": "No saludable"
+                        }
+                    }
+                }
+            },
+            "uv_index_0d": {
+                "name": "\u00cdndex UV, avui",
+                "state_attributes": {
+                    "level": {
+                        "name": "Nivell",
+                        "state": {
+                            "good": "Bona",
+                            "hazardous": "Perillosa",
+                            "high": "Alt",
+                            "low": "Baix",
+                            "moderate": "Moderat",
+                            "unhealthy": "No saludable"
+                        }
+                    }
+                }
+            },
+            "uv_index_1d": {
+                "name": "\u00cdndex UV, dia 1",
+                "state_attributes": {
+                    "level": {
+                        "name": "Nivell",
+                        "state": {
+                            "good": "Bona",
+                            "hazardous": "Perillosa",
+                            "high": "Alt",
+                            "low": "Baix",
+                            "moderate": "Moderat",
+                            "unhealthy": "No saludable"
+                        }
+                    }
+                }
+            },
+            "uv_index_2d": {
+                "name": "\u00cdndex UV, dia 2",
+                "state_attributes": {
+                    "level": {
+                        "name": "Nivell",
+                        "state": {
+                            "good": "Bona",
+                            "hazardous": "Perillosa",
+                            "high": "Alt",
+                            "low": "Baix",
+                            "moderate": "Moderat",
+                            "unhealthy": "No saludable"
+                        }
+                    }
+                }
+            },
+            "uv_index_3d": {
+                "name": "\u00cdndex UV, dia 3",
+                "state_attributes": {
+                    "level": {
+                        "name": "Nivell",
+                        "state": {
+                            "good": "Bona",
+                            "hazardous": "Perillosa",
+                            "high": "Alt",
+                            "low": "Baix",
+                            "moderate": "Moderat",
+                            "unhealthy": "No saludable"
+                        }
+                    }
+                }
+            },
+            "uv_index_4d": {
+                "name": "\u00cdndex UV, dia 4",
+                "state_attributes": {
+                    "level": {
+                        "name": "Nivell",
+                        "state": {
+                            "good": "Bona",
+                            "hazardous": "Perillosa",
+                            "high": "Alt",
+                            "low": "Baix",
+                            "moderate": "Moderat",
+                            "unhealthy": "No saludable"
+                        }
+                    }
+                }
+            },
+            "uv_index_forecast": {
+                "name": "\u00cdndex UV, dia {forecast_day}",
+                "state_attributes": {
+                    "level": {
+                        "name": "Nivell",
+                        "state": {
+                            "good": "Bo",
+                            "hazardous": "Perillosa",
+                            "high": "Alt",
+                            "low": "Baix",
+                            "moderate": "Moderada",
+                            "unhealthy": "No saludable"
+                        }
+                    }
+                }
+            },
+            "wet_bulb_temperature": {
+                "name": "Temperatura de bulb humit"
+            },
+            "wind_chill_temperature": {
+                "name": "Temperatura de sensaci\u00f3 amb vent"
+            },
+            "wind_gust_speed": {
+                "name": "Velocitat de les r\u00e0fegues de vent"
+            },
+            "wind_gust_speed_day": {
+                "name": "Velocitat de r\u00e0fegues de vent, dia {forecast_day}"
+            },
+            "wind_gust_speed_day_0d": {
+                "name": "Velocitat de r\u00e0fegues de vent, avui"
+            },
+            "wind_gust_speed_day_1d": {
+                "name": "Velocitat de r\u00e0fegues de vent, dia 1"
+            },
+            "wind_gust_speed_day_2d": {
+                "name": "Velocitat de r\u00e0fegues de vent, dia 2"
+            },
+            "wind_gust_speed_day_3d": {
+                "name": "Velocitat de r\u00e0fegues de vent, dia 3"
+            },
+            "wind_gust_speed_day_4d": {
+                "name": "Velocitat de r\u00e0fegues de vent, dia 4"
+            },
+            "wind_gust_speed_night": {
+                "name": "Velocitat de r\u00e0fegues de vent, nit {forecast_day}"
+            },
+            "wind_gust_speed_night_0d": {
+                "name": "Velocitat de r\u00e0fegues de vent, aquesta nit"
+            },
+            "wind_gust_speed_night_1d": {
+                "name": "Velocitat de r\u00e0fegues de vent, nit 1"
+            },
+            "wind_gust_speed_night_2d": {
+                "name": "Velocitat de r\u00e0fegues de vent, nit 2"
+            },
+            "wind_gust_speed_night_3d": {
+                "name": "Velocitat de r\u00e0fegues de vent, nit 3"
+            },
+            "wind_gust_speed_night_4d": {
+                "name": "Velocitat de r\u00e0fegues de vent, nit 4"
+            },
+            "wind_speed": {
+                "name": "Velocitat del vent"
+            },
+            "wind_speed_day": {
+                "name": "Velocitat del vent, dia {forecast_day}"
+            },
+            "wind_speed_day_0d": {
+                "name": "Velocitat del vent, avui"
+            },
+            "wind_speed_day_1d": {
+                "name": "Velocitat del vent, dia 1"
+            },
+            "wind_speed_day_2d": {
+                "name": "Velocitat del vent, dia 2"
+            },
+            "wind_speed_day_3d": {
+                "name": "Velocitat del vent, dia 3"
+            },
+            "wind_speed_day_4d": {
+                "name": "Velocitat del vent, dia 4"
+            },
+            "wind_speed_night": {
+                "name": "Velocitat del vent, nit {forecast_day}"
+            },
+            "wind_speed_night_0d": {
+                "name": "Velocitat del vent, aquesta nit"
+            },
+            "wind_speed_night_1d": {
+                "name": "Velocitat del vent, nit 1"
+            },
+            "wind_speed_night_2d": {
+                "name": "Velocitat del vent, nit 2"
+            },
+            "wind_speed_night_3d": {
+                "name": "Velocitat del vent, nit 3"
+            },
+            "wind_speed_night_4d": {
+                "name": "Velocitat del vent, nit 4"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "forecast": "Previsi\u00f3 meteorol\u00f2gica"
+                },
+                "description": "Per culpa de les limitacions de la versi\u00f3 gratu\u00efta de l'API d'AccuWeather, quan activis la previsi\u00f3 meteorol\u00f2gica, les actualitzacions de dades es faran cada 80 minuts en comptes de cada 40."
+            }
+        }
+    },
+    "system_health": {
+        "info": {
+            "can_reach_server": "Servidor d'Accuweather accessible",
+            "remaining_requests": "Sol\u00b7licituds permeses restants"
+        }
+    }
+}

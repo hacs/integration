@@ -1,0 +1,86 @@
+{
+  "language": "ka",
+  "intents": {
+    "HassTurnOff": {
+      "data": [
+        {
+          "sentences": [
+            "(<გამორთე> | <ჩააქრე>) <არეა> ყველა <განათება>",
+            "<ჩააქრე> [ყველაფერი] <არეა>",
+            "<ჩააქრე> <არეა> ყველაფერი"
+          ],
+          "slots": {
+            "domain": "light",
+            "area": "kitchen"
+          }
+        }
+      ]
+    },
+    "HassTurnOn": {
+      "data": [
+        {
+          "sentences": [
+            "(<ჩართე> | <აანთე>) <არეა> ყველა <განათება>",
+            "<აანთე> [ყველაფერი] <არეა>",
+            "<აანთე> <არეა> ყველაფერი"
+          ],
+          "slots": {
+            "domain": "light",
+            "area": "kitchen"
+          }
+        }
+      ]
+    }
+  },
+  "responses": {
+    "errors": {
+      "no_intent": "უკაცრავად, ვერ გავიგე",
+      "no_area": "არეა სახელით {{ area }}, არ არსებობს",
+      "no_domain_in_area": "არეა {{ area }} არ შეიცავს {{ domain }} დომენს",
+      "no_device_class_in_area": "არეა {{ area }} არ არის {{ device_class }} მოწყობილობის კლასის",
+      "no_entity": "მოწყობილობა ან ერთეული სახელიად {{ entity }}, არ არსებობს",
+      "handle_error": "გაუთვალისწინებელი შეცდომა მოხდა თქვენი მოთხოვნის დამუშავებისას"
+    },
+    "intents": {
+      "HassGetState": {},
+      "HassTurnOff": {
+        "default": "გამოვრთე {{ slots.name }}",
+        "lights_area": "ჩავაქრე განათება {{ slots.area }}ში",
+        "fans_area": "გამოვრთე ვენტილაცია {{ slots.area }}ში",
+        "cover": "დავხურე {{ slots.name }}",
+        "cover_area": "დავხურე {{ slots.area }}"
+      },
+      "HassTurnOn": {
+        "default": "ჩავრთე {{ slots.name }}",
+        "lights_area": "ავანთე განათება {{ slots.area }}ში",
+        "fans_area": "ჩავრთე ვენტილაცია {{ slots.area }}ში",
+        "cover": "გავაღე {{ slots.name }}",
+        "cover_area": "გავაღე {{ slots.area }}"
+      },
+      "HassLightSet": {
+        "brightness": "{{ slots.name }}ს განათების დონე დავაყენე {{ slots.brightness }}ზე",
+        "brightness_area": "განათების დონე {{ slots.area }}ში დავაყენე {{ slots.brightness }}ზე",
+        "color": "{{ slots.name }}ის ფერი დავაყენე {{ slots.color }}ზე",
+        "color_area": "{{ slots.area }}ს ფერი დავაყენე {{ slots.color }}ზე"
+      },
+      "HassClimateGetTemperature": {
+        "default": "{{ state.state }} გრადუსია"
+      }
+    }
+  },
+  "lists": {},
+  "expansion_rules": {
+    "არეა": "{area}[ში|ს|სი|ის]",
+    "ჩართე": "(ჩართე | გაუშვი)",
+    "გამორთე": "(გამორთე | გააჩერე)",
+    "აანთე": "(აანთე | გაანათე)",
+    "ჩააქრე": "(ჩააქრე | დააბნელე)",
+    "განათება": "(განათება | ნათურა | შუქი)"
+  },
+  "skip_words": [
+    "გეთაყვა",
+    "თუ შეიძლება",
+    "გთხოვ[თ]",
+    "შეგიძლია[თ]"
+  ]
+}

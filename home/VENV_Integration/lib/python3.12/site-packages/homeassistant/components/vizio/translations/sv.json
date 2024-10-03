@@ -1,0 +1,77 @@
+{
+    "config": {
+        "abort": {
+            "already_configured_device": "Enheten \u00e4r redan konfigurerad",
+            "cannot_connect": "Det gick inte att ansluta.",
+            "updated_entry": "Den h\u00e4r posten har redan konfigurerats, men namnet och/eller alternativen som definierats i konfigurationen matchar inte den tidigare importerade konfigurationen och d\u00e4rf\u00f6r har konfigureringsposten uppdaterats i enlighet med detta."
+        },
+        "error": {
+            "cannot_connect": "Det gick inte att ansluta.",
+            "complete_pairing_failed": "Det gick inte att slutf\u00f6ra ihopkopplingen. Se till att PIN-koden du angav \u00e4r korrekt och att TV:n fortfarande \u00e4r str\u00f6msatt och ansluten till n\u00e4tverket innan du skickar in igen.",
+            "existing_config_entry_found": "En befintlig VIZIO SmartCast konfigurationspost med samma serienummer har redan konfigurerats. Du m\u00e5ste ta bort den befintliga posten f\u00f6r att kunna konfigurera denna."
+        },
+        "step": {
+            "pair_tv": {
+                "data": {
+                    "pin": "PIN-kod"
+                },
+                "description": "Din TV borde visa en kod. Skriv koden i formul\u00e4ret och forts\u00e4tt sedan till n\u00e4sta steg f\u00f6r att slutf\u00f6ra parningen.",
+                "title": "Slutf\u00f6r parningsprocessen"
+            },
+            "pairing_complete": {
+                "description": "Din VIZIO SmartCast-enhet \u00e4r nu ansluten till Home Assistant.",
+                "title": "Parkopplingen slutf\u00f6rd"
+            },
+            "pairing_complete_import": {
+                "description": "Din VIZIO SmartCast-enhet \u00e4r nu ansluten till Home Assistant.\n\nDitt \u00e5tkomsttoken \u00e4r '**{access_token}**'.",
+                "title": "Parkopplingen slutf\u00f6rd"
+            },
+            "user": {
+                "data": {
+                    "access_token": "\u00c5tkomstnyckel",
+                    "device_class": "Enhetstyp",
+                    "host": "V\u00e4rd",
+                    "name": "Namn"
+                },
+                "data_description": {
+                    "host": "V\u00e4rdnamn eller IP-adress f\u00f6r din VIZIO SmartCast-enhet."
+                },
+                "description": "En \u00e5tkomsttoken beh\u00f6vs endast f\u00f6r TV-apparater. Om du konfigurerar en TV och \u00e4nnu inte har en \u00e5tkomsttoken kan du l\u00e4mna f\u00e4ltet blankt f\u00f6r att p\u00e5b\u00f6rja en parkopplingsprocess.",
+                "title": "VIZIO SmartCast-enhet"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "apps_to_include_or_exclude": "Appar som ska inkluderas eller exkluderas",
+                    "include_or_exclude": "Inkludera eller exkludera appar?",
+                    "volume_step": "Storlek p\u00e5 volymsteg"
+                },
+                "description": "Om du har en Smart TV kan du valfritt filtrera din k\u00e4lllista genom att v\u00e4lja vilka appar som ska inkluderas eller uteslutas i din k\u00e4lllista.",
+                "title": "Uppdatera Vizo SmartCast-alternativ"
+            }
+        }
+    },
+    "services": {
+        "update_setting": {
+            "description": "Uppdaterar v\u00e4rdet f\u00f6r en inst\u00e4llning p\u00e5 en Vizio media player-enhet.",
+            "fields": {
+                "new_value": {
+                    "description": "Inst\u00e4llningens nya v\u00e4rde.",
+                    "name": "Nytt v\u00e4rde"
+                },
+                "setting_name": {
+                    "description": "Namnet p\u00e5 den inst\u00e4llning som ska \u00e4ndras. Tillg\u00e4ngliga inst\u00e4llningar f\u00f6r en viss setting_type listas i egenskapen '[setting_type]_settings'.",
+                    "name": "Inst\u00e4llningens namn"
+                },
+                "setting_type": {
+                    "description": "Typ av inst\u00e4llning som ska \u00e4ndras. Tillg\u00e4ngliga typer listas i egenskapen \"setting_types\".",
+                    "name": "Typ av inst\u00e4llning"
+                }
+            },
+            "name": "Uppdatera inst\u00e4llning"
+        }
+    }
+}

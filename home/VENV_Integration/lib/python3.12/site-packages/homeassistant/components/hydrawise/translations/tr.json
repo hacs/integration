@@ -1,0 +1,94 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Hizmet zaten yap\u0131land\u0131r\u0131lm\u0131\u015f",
+            "reauth_successful": "Yeniden kimlik do\u011frulama ba\u015far\u0131l\u0131 oldu"
+        },
+        "error": {
+            "cannot_connect": "Ba\u011flanma hatas\u0131",
+            "timeout_connect": "Ba\u011flant\u0131 kurulurken zaman a\u015f\u0131m\u0131",
+            "unknown": "Beklenmeyen hata"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "api_key": "API Anahtar\u0131",
+                    "password": "\u015eifre",
+                    "username": "Kullan\u0131c\u0131 Ad\u0131"
+                },
+                "description": "L\u00fctfen Hydrawise bulut hesab\u0131n\u0131z\u0131n kullan\u0131c\u0131 ad\u0131n\u0131 ve \u015fifresini girin:",
+                "title": "Hydrawise Giri\u015f"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "rain_sensor": {
+                "name": "Ya\u011fmur sens\u00f6r\u00fc"
+            },
+            "watering": {
+                "name": "Sulama"
+            }
+        },
+        "sensor": {
+            "daily_active_water_time": {
+                "name": "G\u00fcnl\u00fck aktif sulama s\u00fcresi"
+            },
+            "daily_active_water_use": {
+                "name": "G\u00fcnl\u00fck aktif su kullan\u0131m\u0131"
+            },
+            "daily_inactive_water_use": {
+                "name": "G\u00fcnl\u00fck inaktif su kullan\u0131m\u0131"
+            },
+            "daily_total_water_use": {
+                "name": "G\u00fcnl\u00fck toplam su kullan\u0131m\u0131"
+            },
+            "next_cycle": {
+                "name": "Sonraki d\u00f6ng\u00fc"
+            },
+            "watering_time": {
+                "name": "Kalan sulama s\u00fcresi"
+            }
+        },
+        "switch": {
+            "auto_watering": {
+                "name": "Otomatik sulama"
+            },
+            "manual_watering": {
+                "name": "Manuel sulama"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_yaml_import_issue": {
+            "description": "Hydrawise'\u0131 YAML kullanarak yap\u0131land\u0131rma kald\u0131r\u0131l\u0131yor ancak YAML yap\u0131land\u0131rman\u0131z i\u00e7e aktar\u0131l\u0131rken bir {error_type} hatas\u0131 olu\u015ftu. \n\n Hydrawise ile ba\u011flant\u0131n\u0131n \u00e7al\u0131\u015ft\u0131\u011f\u0131ndan emin olun ve tekrar denemek i\u00e7in Home Assistant'\u0131 yeniden ba\u015flat\u0131n veya Hydrawise YAML yap\u0131land\u0131rmas\u0131n\u0131 yap\u0131land\u0131rma.yaml dosyan\u0131zdan kald\u0131r\u0131n ve [entegrasyonu ayarlamaya]( {url} ) manuel olarak devam edin.",
+            "title": "Hydrawise YAML konfig\u00fcrasyonunun i\u00e7e aktar\u0131m\u0131 ba\u015far\u0131s\u0131z oldu"
+        }
+    },
+    "services": {
+        "resume": {
+            "description": "Bir sulama b\u00f6lgesinin otomatik sulama program\u0131n\u0131 s\u00fcrd\u00fcr\u00fcr.",
+            "name": "Otomatik sulamaya devam et"
+        },
+        "start_watering": {
+            "description": "Se\u00e7ilen sulama b\u00f6lgesinde sulama d\u00f6ng\u00fcs\u00fcn\u00fc ba\u015flat\u0131r.",
+            "fields": {
+                "duration": {
+                    "description": "Sulama d\u00f6ng\u00fcs\u00fcn\u00fc \u00e7al\u0131\u015ft\u0131rmak i\u00e7in gereken s\u00fcre. Belirtilmezse (veya s\u0131f\u0131rlan\u0131rsa), Hydrawise mobil veya web uygulamas\u0131nda sulama b\u00f6lgesi i\u00e7in ayarlanan varsay\u0131lan sulama s\u00fcresi kullan\u0131lacakt\u0131r.",
+                    "name": "S\u00fcre"
+                }
+            },
+            "name": "Sulamaya ba\u015fla"
+        },
+        "suspend": {
+            "description": "Belirli bir tarih ve saate kadar sulama b\u00f6lgesinin otomatik sulama program\u0131n\u0131 ask\u0131ya al\u0131r.",
+            "fields": {
+                "until": {
+                    "description": "Otomatik sulama program\u0131n\u0131n yeniden ba\u015flat\u0131laca\u011f\u0131 tarih ve saat.",
+                    "name": "Kadar"
+                }
+            },
+            "name": "Otomatik sulamay\u0131 ask\u0131ya al"
+        }
+    }
+}

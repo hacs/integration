@@ -1,0 +1,119 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "A szolg\u00e1ltat\u00e1s m\u00e1r konfigur\u00e1lva van"
+        },
+        "step": {
+            "user": {
+                "description": "V\u00e1lassza a **Mehet** lehet\u0151s\u00e9get az alap\u00e9rtelmezett be\u00e1ll\u00edt\u00e1shoz. A l\u00e9trehozott konfigur\u00e1ci\u00f3s bejegyz\u00e9sn\u00e9l v\u00e1lassza a konfigur\u00e1l\u00e1s lehet\u0151s\u00e9get, hogy \u00e9rz\u00e9kel\u0151ket adjon hozz\u00e1 a kiv\u00e1lasztott folyamatokhoz"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "process": {
+                "name": "Folyamat {process}"
+            }
+        },
+        "sensor": {
+            "disk_free": {
+                "name": "Szabad lemezter\u00fclet {mount_point}"
+            },
+            "disk_use": {
+                "name": "Lemezhaszn\u00e1lat {mount_point}"
+            },
+            "disk_use_percent": {
+                "name": "Lemezkihaszn\u00e1lts\u00e1g sz\u00e1zal\u00e9kban {mount_point}"
+            },
+            "ipv4_address": {
+                "name": "IPv4-c\u00edm {ip_address}"
+            },
+            "ipv6_address": {
+                "name": "IPv6-c\u00edm {ip_address}"
+            },
+            "last_boot": {
+                "name": "Utols\u00f3 rendszerind\u00edt\u00e1s"
+            },
+            "load_15m": {
+                "name": "Terhel\u00e9s (15 perc)"
+            },
+            "load_1m": {
+                "name": "Terhel\u00e9s (1 perc)"
+            },
+            "load_5m": {
+                "name": "Terhel\u00e9s (5 perc)"
+            },
+            "memory_free": {
+                "name": "Szabad mem\u00f3ria"
+            },
+            "memory_use": {
+                "name": "Mem\u00f3riafelhaszn\u00e1l\u00e1s"
+            },
+            "memory_use_percent": {
+                "name": "Mem\u00f3riahaszn\u00e1lat"
+            },
+            "network_in": {
+                "name": "Bej\u00f6v\u0151 h\u00e1l\u00f3zati forgalom {interface}"
+            },
+            "network_out": {
+                "name": "Kimen\u0151 h\u00e1l\u00f3zati forgalom {interface}"
+            },
+            "packets_in": {
+                "name": "Bej\u00f6v\u0151 csomagok {interface}"
+            },
+            "packets_out": {
+                "name": "Kimen\u0151 csomagok {interface}"
+            },
+            "process": {
+                "name": "Folyamat {process}"
+            },
+            "processor_temperature": {
+                "name": "Processzor h\u0151m\u00e9rs\u00e9klet"
+            },
+            "processor_use": {
+                "name": "Processzor haszn\u00e1lat"
+            },
+            "swap_free": {
+                "name": "Szabad swap ter\u00fclet"
+            },
+            "swap_use": {
+                "name": "Swap felhaszn\u00e1l\u00e1s"
+            },
+            "swap_use_percent": {
+                "name": "Swap haszn\u00e1lat"
+            },
+            "throughput_network_in": {
+                "name": "Bej\u00f6v\u0151 h\u00e1l\u00f3zati \u00e1tviteli sebess\u00e9g {interface}"
+            },
+            "throughput_network_out": {
+                "name": "Kimen\u0151 h\u00e1l\u00f3zati \u00e1tviteli sebess\u00e9g {interface}"
+            }
+        }
+    },
+    "issues": {
+        "process_sensor": {
+            "fix_flow": {
+                "step": {
+                    "migrate_process_sensor": {
+                        "description": "A ` {processes} ` folyamat\u00e9rz\u00e9kel\u0151ket bin\u00e1ris \u00e9rz\u00e9kel\u0151k\u00e9nt hoztuk l\u00e9tre, \u00e9s az \u00e9rz\u00e9kel\u0151ket 2024.9.0-ban elt\u00e1vol\u00edtjuk. \n\n K\u00e9rj\u00fck, friss\u00edtse az \u00f6sszes automatiz\u00e1l\u00e1st, szkriptet, ir\u00e1ny\u00edt\u00f3pultot vagy egy\u00e9b, ezekt\u0151l az \u00e9rz\u00e9kel\u0151kt\u0151l f\u00fcgg\u0151 dolgokat, hogy helyette az \u00fajonnan l\u00e9trehozott bin\u00e1ris \u00e9rz\u00e9kel\u0151ket haszn\u00e1lja, majd nyomja meg a **K\u00fcld\u00e9s** gombot a probl\u00e9ma megold\u00e1s\u00e1hoz.",
+                        "title": "A folyamat\u00e9rz\u00e9kel\u0151k bin\u00e1ris \u00e9rz\u00e9kel\u0151k\u00e9nt lettek be\u00e1ll\u00edtva"
+                    }
+                }
+            },
+            "title": "A folyamat\u00e9rz\u00e9kel\u0151k elavultak \u00e9s elt\u00e1vol\u00edt\u00e1sra ker\u00fclnek."
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "process": "\u00c9rz\u00e9kel\u0151k\u00e9nt hozz\u00e1adand\u00f3 folyamatok"
+                },
+                "data_description": {
+                    "process": "V\u00e1lasszon ki egy fut\u00f3 folyamatot a list\u00e1b\u00f3l vagy adjon hozz\u00e1 egy\u00e9ni \u00e9rt\u00e9ket. T\u00f6bb kijel\u00f6l\u00e9s/egy\u00e9ni \u00e9rt\u00e9k is t\u00e1mogatott"
+                },
+                "description": "Figyel\u00e9si \u00e9rz\u00e9kel\u0151 konfigur\u00e1l\u00e1sa fut\u00f3 folyamathoz"
+            }
+        }
+    }
+}

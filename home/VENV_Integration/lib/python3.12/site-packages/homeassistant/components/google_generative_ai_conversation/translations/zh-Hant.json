@@ -1,0 +1,74 @@
+{
+    "config": {
+        "abort": {
+            "reauth_successful": "\u91cd\u65b0\u8a8d\u8b49\u6210\u529f"
+        },
+        "error": {
+            "cannot_connect": "\u9023\u7dda\u5931\u6557",
+            "invalid_auth": "\u8eab\u4efd\u9a57\u8b49\u7121\u6548",
+            "unknown": "\u672a\u9810\u671f\u932f\u8aa4"
+        },
+        "step": {
+            "api": {
+                "data": {
+                    "api_key": "API \u91d1\u9470"
+                },
+                "description": "\u7531[\u6b64\u8655]({api_key_url})\u53d6\u5f97 API \u91d1\u9470\u3002"
+            },
+            "reauth_confirm": {
+                "description": "\u76ee\u524d\u7684 API \u91d1\u9470\uff1a{api_key} \u5df2\u7d93\u5931\u6548\u3002\u8acb\u8f38\u5165\u4e00\u7d44\u65b0\u7684 API \u91d1\u9470\u3002",
+                "title": "{name} \u8a8d\u8b49\u5df2\u904e\u671f"
+            },
+            "user": {
+                "data": {
+                    "api_key": "API \u91d1\u9470",
+                    "llm_hass_api": "\u63a7\u5236 Home Assistant"
+                }
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "chat_model": "\u578b\u865f",
+                    "dangerous_block_threshold": "\u4fc3\u9032\u3001\u4fbf\u5229\u6216\u9f13\u52f5\u6709\u5bb3\u884c\u70ba",
+                    "harassment_block_threshold": "\u91dd\u5c0d\u8eab\u4efd\u53ca/\u6216\u53d7\u4fdd\u8b77\u5c6c\u6027\u7684\u8ca0\u9762\u6216\u6709\u5bb3\u8a55\u8ad6",
+                    "hate_block_threshold": "\u7c97\u9b6f\u3001\u4e0d\u5c0a\u91cd\u6216\u893b\u7006\u7684\u5167\u5bb9",
+                    "llm_hass_api": "\u63a7\u5236 Home Assistant",
+                    "max_tokens": "\u56de\u61c9\u8fd4\u56de\u6700\u9ad8\u5bc6\u9470\u6578",
+                    "model": "\u578b\u865f",
+                    "prompt": "\u6307\u793a",
+                    "recommended": "\u5efa\u8b70\u6a21\u578b\u8a2d\u5b9a",
+                    "sexual_block_threshold": "\u5305\u542b\u6027\u884c\u70ba\u6216\u5176\u4ed6\u6deb\u7a62\u5167\u5bb9",
+                    "temperature": "\u6eab\u5ea6",
+                    "tone_prompt": "\u63d0\u793a\u97f3",
+                    "top_k": "Top K",
+                    "top_p": "Top P"
+                },
+                "data_description": {
+                    "prompt": "\u6307\u793a LLM \u5982\u4f55\u56de\u61c9\u3002\u53ef\u4ee5\u662f\u4e00\u500b\u6a21\u677f\u3002",
+                    "tone_prompt": "\u95dc\u65bc LLM \u751f\u6210\u6587\u5b57\u6a23\u5f0f\u7684\u8aaa\u660e\u3002\u53ef\u4ee5\u662f\u4e00\u500b\u6a21\u677f\u3002"
+                }
+            }
+        }
+    },
+    "services": {
+        "generate_content": {
+            "description": "\u5f9e\u5305\u542b\u6587\u5b57\u8207\u9078\u9805\u5f71\u50cf\u7684\u63d0\u793a\u7522\u751f\u5167\u5bb9",
+            "fields": {
+                "image_filename": {
+                    "description": "\u5f71\u50cf",
+                    "example": "/config/www/image.jpg",
+                    "name": "\u5f71\u50cf\u6a94\u540d"
+                },
+                "prompt": {
+                    "description": "\u63d0\u793a",
+                    "example": "\u63cf\u8ff0\u5728\u5716\u7247\u4e2d\u770b\u5230\u7684\u5167\u5bb9",
+                    "name": "\u63d0\u793a"
+                }
+            },
+            "name": "\u7522\u751f\u5167\u5bb9"
+        }
+    }
+}

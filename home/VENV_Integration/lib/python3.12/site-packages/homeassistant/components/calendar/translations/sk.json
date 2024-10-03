@@ -1,0 +1,132 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "Kalend\u00e1r",
+            "state": {
+                "off": "Neakt\u00edvny",
+                "on": "Akt\u00edvny"
+            },
+            "state_attributes": {
+                "all_day": {
+                    "name": "Cel\u00fd de\u0148",
+                    "state": {
+                        "false": "Nie",
+                        "true": "\u00c1no"
+                    }
+                },
+                "description": {
+                    "name": "Popis"
+                },
+                "end_time": {
+                    "name": "\u010cas ukon\u010denia"
+                },
+                "location": {
+                    "name": "Umiestnenie"
+                },
+                "message": {
+                    "name": "Spr\u00e1va"
+                },
+                "messages": {
+                    "name": "Spr\u00e1va"
+                },
+                "start_time": {
+                    "name": "Doba spustenia"
+                }
+            }
+        }
+    },
+    "issues": {
+        "deprecated_service_calendar_list_events": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Namiesto toho pou\u017eite `calendar.get_events`, ktor\u00fd podporuje viacero ent\u00edt.\n\nNahra\u010fte t\u00fato akciu, upravte svoje automatiz\u00e1cie a skripty a vyberte **Odosla\u0165**, aby ste uzavreli tento probl\u00e9m.",
+                        "title": "Zistilo sa pou\u017eitie zastaranej akcie calendar.list_events"
+                    }
+                }
+            },
+            "title": "Zistilo sa pou\u017eitie zastaranej akcie calendar.list_events"
+        },
+        "platform_integration_no_support": {
+            "description": "Platforma {platform} pre integr\u00e1ciu {domain} nepodporuje nastavenie platformy. \n\n Odstr\u00e1\u0148te ho z konfigur\u00e1cie a re\u0161tartujte Home Assistant, aby ste tento probl\u00e9m vyrie\u0161ili.",
+            "title": "Podpora platformy nie je podporovan\u00e1"
+        }
+    },
+    "services": {
+        "create_event": {
+            "description": "Prid\u00e1 nov\u00fa udalos\u0165 kalend\u00e1ra.",
+            "fields": {
+                "description": {
+                    "description": "\u00daplnej\u0161\u00ed opis udalosti, ako je opis uveden\u00fd v zhrnut\u00ed.",
+                    "name": "Popis"
+                },
+                "end_date": {
+                    "description": "D\u00e1tum ukon\u010denia celodenn\u00e9ho podujatia (v\u00fdlu\u010dne).",
+                    "name": "D\u00e1tum konca"
+                },
+                "end_date_time": {
+                    "description": "D\u00e1tum a \u010das ukon\u010denia udalosti.",
+                    "name": "\u010cas ukon\u010denia"
+                },
+                "in": {
+                    "description": "Dni alebo t\u00fd\u017edne, v ktor\u00fdch chcete vytvori\u0165 udalos\u0165.",
+                    "name": "V"
+                },
+                "location": {
+                    "description": "Miesto konania podujatia.",
+                    "name": "Umiestnenie"
+                },
+                "start_date": {
+                    "description": "D\u00e1tum za\u010diatku celodenn\u00e9ho podujatia.",
+                    "name": "D\u00e1tum za\u010diatku"
+                },
+                "start_date_time": {
+                    "description": "D\u00e1tum a \u010das za\u010diatku udalosti.",
+                    "name": "Doba spustenia"
+                },
+                "summary": {
+                    "description": "Definuje kr\u00e1tke zhrnutie alebo predmet udalosti.",
+                    "name": "Zhrnutie"
+                }
+            },
+            "name": "Vytvori\u0165 udalos\u0165"
+        },
+        "get_events": {
+            "description": "Z\u00edskajte udalosti v kalend\u00e1ri v \u010dasovom rozsahu.",
+            "fields": {
+                "duration": {
+                    "description": "Vr\u00e1ti akt\u00edvne udalosti od d\u00e1tumu_za\u010diatku do zadan\u00e9ho trvania.",
+                    "name": "Trvanie"
+                },
+                "end_date_time": {
+                    "description": "Vr\u00e1ti akt\u00edvne udalosti pred t\u00fdmto \u010dasom (exkluz\u00edvne). Nemo\u017eno pou\u017ei\u0165 s 'trvanie'.",
+                    "name": "\u010cas ukon\u010denia"
+                },
+                "start_date_time": {
+                    "description": "Vr\u00e1ti akt\u00edvne udalosti po tomto \u010dase (exkluz\u00edvne). Ak nie je nastaven\u00e1, predvolen\u00e1 hodnota je teraz.",
+                    "name": "Doba spustenia"
+                }
+            },
+            "name": "Z\u00edska\u0165 udalosti"
+        },
+        "list_events": {
+            "description": "Zobraz\u00ed zoznam udalost\u00ed v kalend\u00e1ri v r\u00e1mci \u010dasov\u00e9ho rozsahu.",
+            "fields": {
+                "duration": {
+                    "description": "Vr\u00e1ti akt\u00edvne udalosti od d\u00e1tumu_za\u010diatku do zadan\u00e9ho trvania.",
+                    "name": "Trvanie"
+                },
+                "end_date_time": {
+                    "description": "Vr\u00e1ti akt\u00edvne udalosti pred t\u00fdmto \u010dasom (exkluz\u00edvne). Nemo\u017eno pou\u017ei\u0165 s 'trvanie'.",
+                    "name": "\u010cas ukon\u010denia"
+                },
+                "start_date_time": {
+                    "description": "Vr\u00e1ti akt\u00edvne udalosti po tomto \u010dase (exkluz\u00edvne). Ak nie je nastaven\u00e1, predvolen\u00e1 hodnota je teraz.",
+                    "name": "Doba spustenia"
+                }
+            },
+            "name": "Zoznam udalost\u00ed"
+        }
+    },
+    "title": "Kalend\u00e1r"
+}

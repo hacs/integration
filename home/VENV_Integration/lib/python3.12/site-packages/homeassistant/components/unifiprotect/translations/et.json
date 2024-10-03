@@ -1,0 +1,256 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Seade on juba h\u00e4\u00e4lestatud",
+            "discovery_started": "Tuvastamine algas"
+        },
+        "error": {
+            "cannot_connect": "\u00dchendamine nurjus",
+            "cloud_user": "Ubiquiti Cloudi kasutajaid ei toetata. Kasuta ainult kohalikku kasutajat.",
+            "invalid_auth": "Tuvastamine nurjus",
+            "protect_version": "Minimaalne n\u00f5utav versioon on v1.20.0. Uuenda UniFi Protecti ja proovi seej\u00e4rel uuesti."
+        },
+        "flow_title": "{name} ( {ip_address} )",
+        "step": {
+            "discovery_confirm": {
+                "data": {
+                    "password": "Salas\u00f5na",
+                    "username": "Kasutajanimi"
+                },
+                "description": "Kas soovite seadistada kasutaja {name} ( {ip_address} )? Sisselogimiseks on teil vaja UniFi OS-i konsoolis loodud kohalikku kasutajat. Ubiquiti pilve kasutajad ei t\u00f6\u00f6ta. Lisateabe saamiseks: {local_user_documentation_url}",
+                "title": "Avastati UniFi Protect"
+            },
+            "reauth_confirm": {
+                "data": {
+                    "host": "UniFi Protect serveri IP aadress/host",
+                    "password": "Salas\u00f5na",
+                    "port": "Port",
+                    "username": "Kasutajanimi"
+                },
+                "title": "UniFi Protect taastuvastamine"
+            },
+            "user": {
+                "data": {
+                    "host": "Host",
+                    "password": "Salas\u00f5na",
+                    "port": "Port",
+                    "username": "Kasutajanimi",
+                    "verify_ssl": "Kontrolli SSL sertifikaati"
+                },
+                "data_description": {
+                    "host": "UniFi Protect seadme hostinimi v\u00f5i IP-aadress."
+                },
+                "description": "Sisselogimiseks on vaja UniFi OS-i konsoolis loodud kohalikku kasutajat. Ubiquiti pilve kasutajad ei t\u00f6\u00f6ta. Lisateabe saamiseks: {local_user_documentation_url}",
+                "title": "UniFi Protect seadistamine"
+            }
+        }
+    },
+    "entity": {
+        "event": {
+            "doorbell": {
+                "state_attributes": {
+                    "event_type": {
+                        "state": {
+                            "ring": "Helisemine"
+                        }
+                    }
+                }
+            }
+        },
+        "sensor": {
+            "license_plate": {
+                "state": {
+                    "none": "Puudub"
+                }
+            }
+        }
+    },
+    "issues": {
+        "cloud_user": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Alates 22. juulist 2024 n\u00f5uab Ubiquiti, et k\u00f5ik pilvekasutajad registreeruksid mitmetasandilise autentimisega (MFA), mis ei \u00fchildu Home Assistantiga.\n\nParem oleks v\u00f5imalikult kiiresti \u00fcle minna [kohaliku kasutaja] ({learn_more}) kasutamisele, et sidumine toimiks.\n\nSelle paranduse kinnitamine k\u00e4ivitab uuesti tuvastusvoo, et sisestada vajalikud tuvastusvolitused.",
+                        "title": "Ubiquiti pilve kasutajaid ei toetata"
+                    }
+                }
+            },
+            "title": "Ubiquiti pilve kasutajaid ei toetata"
+        },
+        "deprecate_hdr_switch": {
+            "description": "UniFi Protect v3 lisas HDR-i jaoks uue oleku (automaatne). Selle tulemusena on HDR-re\u017eiimi l\u00fcliti asendatud HDR-re\u017eiimi valikuga ja see on aegunud. \n\n Allpool on tuvastatud automatiseeringud v\u00f5i skriptid, mis kasutavad \u00fchte v\u00f5i mitut aegunud olemit.\n {items}\n \u00dclaltoodud loend v\u00f5ib olla mittet\u00e4ielik ja see ei sisalda armatuurlaudade sees olevaid mallikasutusi. V\u00e4rskenda vastavalt k\u00f5iki malle, automaatikaid v\u00f5i skripte.",
+            "title": "HDR-re\u017eiimi l\u00fcliti on aegunud"
+        },
+        "deprecate_package_sensor": {
+            "description": "Paketi s\u00fcndmuseandur ei ole kunagi k\u00e4ivitunud, sest UniFi Protectis teatatakse s\u00fcndmustest. Selle tulemusena on andur aegunud ja see eemaldatakse.\n\nAllpool on esitatud tuvastatud automaatika v\u00f5i skriptid, mis kasutavad \u00fchte v\u00f5i mitut amortiseerunud \u00fcksust:\n{items}\n\u00dclaltoodud loetelu v\u00f5ib olla mittet\u00e4ielik ja see ei sisalda \u00fchtegi malli kasutamist armatuurlaudade sees. Palun ajakohasta vastavalt k\u00f5ik mallid, automaatikad v\u00f5i skriptid.",
+            "title": "Paketis\u00fcndmuse andur on aegunud"
+        },
+        "deprecate_smart_sensor": {
+            "description": "Nutikate tuvastuste jaoks m\u00f5eldud \u00fchtne andur \"Tuvastatud objekt\" on n\u00fc\u00fcd kasutuselt k\u00f5rvaldatud. See on asendatud individuaalsete nutika tuvastamise binaarsete anduritega iga nutika tuvastust\u00fc\u00fcbi jaoks.\n\nAllpool on tuvastatud automatiseerimised v\u00f5i skriptid, mis kasutavad \u00fchte v\u00f5i mitut aegunud olemit:\n{items}\n\u00dclaltoodud loend v\u00f5ib olla puudulik ja see ei sisalda armatuurlaudade sees olevaid mallikasutusi. Palun v\u00e4rskenda vastavalt k\u00f5iki malle, automaatikaid v\u00f5i skripte.",
+            "title": "Nutika tuvastamise andur on aegunud"
+        },
+        "deprecated_service_set_doorbell_message": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Teenus `unifiprotect.set_doorbell_message` on kaotanud oma kehtivuse, asendades selle uue, igale uksekella seadmele lisatud uksekella teksti olemiga. See eemaldatakse versioonis v2023.3.0. Palun ajakohasta, et kasutada teenust [`text.set_value` ({link}).",
+                        "title": "set_doorbell_message on aegunud"
+                    }
+                }
+            },
+            "title": "set_doorbell_message on aegunud"
+        },
+        "ea_channel_warning": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Kas oled kindel, et soovid k\u00e4itada UniFi Protecti toetamata versioone? See v\u00f5ib p\u00f5hjustada Home Assistanti sidumise katkemise.",
+                        "title": "UniFi Protect Early Access on lubatud"
+                    },
+                    "start": {
+                        "description": "Kas kasutad UniFi Protecti varajase juurdep\u00e4\u00e4su versiooni (v {version} ) v\u00f5i oled valinud v\u00e4ljalaskekanali mis ei ole ametlik v\u00e4ljalaskekanal. \n\n Kuna neid varajase juurdep\u00e4\u00e4su v\u00e4ljaandeid ei pruugita veel testida, v\u00f5ib selle kasutamine p\u00f5hjustada UniFi Protecti integratsiooni ootamatu k\u00e4itumise. [Loe lisateavet varajase juurdep\u00e4\u00e4su ja koduabi kohta]( {learn_more} ). \n\n Sellest s\u00f5numist loobumiseks vajua Esita.",
+                        "title": "UniFi Protect Early Access on lubatud"
+                    }
+                }
+            },
+            "title": "UniFi Protect Early Access on lubatud"
+        },
+        "ea_setup_failed": {
+            "description": "Kasutad UniFi Protecti v {version} , mis on varajase juurdep\u00e4\u00e4su versioon. Integratsiooni laadimisel ilmnes parandamatu viga. Integreerimise kasutamise j\u00e4tkamiseks taasta UniFi Protecti stabiilse versiooni varukoopia. \n\n Viga: {error}",
+            "title": "Varajase juurdep\u00e4\u00e4su versiooni h\u00e4\u00e4lestamise t\u00f5rge"
+        },
+        "ea_warning": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Kas oled kindel, et soovid k\u00e4itada UniFi Protecti toetamata versioone? See v\u00f5ib p\u00f5hjustada Home Assistanti sidumise katkemise.",
+                        "title": "v {version} on varajase juurdep\u00e4\u00e4su versioon"
+                    },
+                    "start": {
+                        "description": "Kasutad UniFi Protecti v {version} mis on varajase juurdep\u00e4\u00e4su versioon. [Home Assistant ei toeta varajase juurdep\u00e4\u00e4su versioone](https://www.home-assistant.io/integrations/unifiprotect#about-unifi-early-access) ja soovitatav on naasta stabiilsele versioonile niipea kui v\u00f5imalik. \n\n Selle vormi esitades oled kas [UniFi Protecti madalamale versioonile \u00fcle l\u00e4inud](https://www.home-assistant.io/integrations/unifiprotect#downgrading-unifi-protect) v\u00f5i n\u00f5ustud kasutama UniFi Protecti toetamata versiooni.",
+                        "title": "v {version} on varajase juurdep\u00e4\u00e4su versioon"
+                    }
+                }
+            },
+            "title": "v{version} on UniFi Protecti varajase juurdep\u00e4\u00e4su versioon"
+        },
+        "rtsp_disabled_readonly": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Kas oled kindel, et soovid j\u00e4tta RTSPS-i {camera} jaoks keelatuks?",
+                        "title": "RTSPS on kaameras {camera} keelatud"
+                    },
+                    "start": {
+                        "description": "RTSPS on kaameras {camera} keelatud. RTSPS on vajalik, et saaksid oma kaamerast Home Assistantis otse voogesitada. Kui RTSPS-i ei lubata, v\u00f5ib see UniFi Protect NVR-ile t\u00e4iendava koormuse tekitada, kuna k\u00f5ik reaalajas videom\u00e4ngijad t\u00f5mbavad vaikimisi kiiresti kaamerast pilte. \n\n[luba kaameras RTSPS]( {learn_more} ) ja tule seej\u00e4rel tagasi ja kinnita see parandus.",
+                        "title": "RTSPS on kaameras {camera} keelatud"
+                    }
+                }
+            },
+            "title": "RTSPS on kaameras {camera} keelatud"
+        },
+        "rtsp_disabled_writable": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Kas oled kindel, et soovid j\u00e4tta RTSPS-i {camera} jaoks keelatuks?",
+                        "title": "RTSPS on kaameras {camera} keelatud"
+                    },
+                    "start": {
+                        "description": "RTSPS on kaameras {camera} keelatud. RTSPS on vajalik kaamera otse\u00fclekandeks Home Assistantis. Kui RTSPS-i ei lubata, v\u00f5ib see UniFi Protect NVR-ile t\u00e4iendava koormuse tekitada, kuna k\u00f5ik reaalajas videom\u00e4ngijad t\u00f5mbavad vaikimisi kiiresti kaamerast pilte. \n\n Saad oma valitud kaamerakvaliteediga kanalil k\u00e4sitsi [lubada RTSPS-i]( {learn_more} ), vastasel juhul saab Home Assistant teie jaoks automaatselt k\u00f5rgeima kvaliteediga kanali lubada. Kinnita see parandus, kui oled RTSPS-i kanali lubanud v\u00f5i kui soovid, et Home Assistant lubaks automaatselt k\u00f5rgeima kvaliteedi.",
+                        "title": "RTSPS on kaameras {camera} keelatud"
+                    }
+                }
+            },
+            "title": "RTSPS on kaameras {camera} keelatud"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "all_updates": "Reaalajas m\u00f5\u00f5dikud (HOIATUS: suurendab oluliselt CPU kasutust)",
+                    "allow_ea": "Protecti varajase juurdep\u00e4\u00e4su versioonide lubamine (HOIATUS: m\u00e4rgib sidumise mitte toetatuks)",
+                    "allow_ea_channel": "Protecti varajase juurdep\u00e4\u00e4su versioonide lubamine (HOIATUS: m\u00e4rgib sidumise mitte toetatuks)",
+                    "disable_rtsp": "Keela RTSP voog",
+                    "max_media": "Meediumibrauserisse laaditavate s\u00fcndmuste maksimaalne arv (suurendab RAM-i kasutamist)",
+                    "override_connection_host": "\u00dchenduse hosti alistamine"
+                },
+                "description": "Reaalajas m\u00f5\u00f5dikute valik tuleks lubada ainult siis kui oled diagnostikaandurid sisse l\u00fclitanud ja soovid, et neid uuendatakse reaalajas. Kui see ei ole lubatud, uuendatakse neid ainult \u00fcks kord 15 minuti tagant.",
+                "title": "UniFi Protecti suvandid"
+            }
+        }
+    },
+    "services": {
+        "add_doorbell_text": {
+            "description": "Lisab uksekelladele uue kohandatud s\u00f5numi.",
+            "fields": {
+                "device_id": {
+                    "description": "Mis tahes seade UniFi Protecti instantsist, mida soovid muuta. Juhul kui on mitu Protect Instances'i.",
+                    "name": "UniFi Protect NVR"
+                },
+                "message": {
+                    "description": "Uue kohandatud s\u00f5numi lisamine uksekelladele. Peab olema v\u00e4hem kui 30 t\u00e4hem\u00e4rki.",
+                    "name": "Kohandatud s\u00f5num"
+                }
+            },
+            "name": "Lisa kohandatud uksekella tekst"
+        },
+        "remove_doorbell_text": {
+            "description": "Eemaldab olemasoleva teate uksekellade jaoks.",
+            "fields": {
+                "device_id": {
+                    "description": "Mis tahes seade UniFi Protecti instantsist, mida soovid muuta. Juhul kui on mitu Protect Instances'i.",
+                    "name": "UniFi Protect NVR"
+                },
+                "message": {
+                    "description": "Olemasoleva kohandatud s\u00f5numi eemaldamine uksekellade jaoks.",
+                    "name": "Kohandatud s\u00f5num"
+                }
+            },
+            "name": "Eemalda kohandatud uksekella tekst"
+        },
+        "remove_privacy_zone": {
+            "description": "Kasuta privaatsusala eemaldamiseks kaamerast.",
+            "fields": {
+                "device_id": {
+                    "description": "Kaamera millest soovid privaatsusala eemaldada.",
+                    "name": "Kaamera"
+                },
+                "name": {
+                    "description": "Eemaldatava ala nimi.",
+                    "name": "Privaatsusala nimi"
+                }
+            },
+            "name": "Eemalda kaamera privaatsusala"
+        },
+        "set_chime_paired_doorbells": {
+            "description": "Kasuta seotud uksekella(de) seadistamiseks aruka helisignaaliga.",
+            "fields": {
+                "device_id": {
+                    "description": "Kellahelid, millega uksekellad \u00fchendada.",
+                    "name": "Helisignaal"
+                },
+                "doorbells": {
+                    "description": "Uksekellad, mis on seotud helisignaaliga.",
+                    "name": "Uksekellad"
+                }
+            },
+            "name": "M\u00e4\u00e4ra helisignaaliga seotud uksekellad"
+        },
+        "set_default_doorbell_text": {
+            "description": "M\u00e4\u00e4rab vaikimisi uksekella s\u00f5numi. See on s\u00f5num, mis valitakse automaatselt, kui s\u00f5num \"aegub\".",
+            "fields": {
+                "device_id": {
+                    "description": "Mis tahes seade UniFi Protecti instantsist, mida soovid muuta. Juhul kui on mitu Protect Instances'i.",
+                    "name": "UniFi Protect NVR"
+                },
+                "message": {
+                    "description": "Uksekella vaikimisi s\u00f5num. Peab olema alla 30 t\u00e4hem\u00e4rgi.",
+                    "name": "Vaikes\u00f5num"
+                }
+            },
+            "name": "M\u00e4\u00e4ra uksekella vaikes\u00f5num"
+        }
+    }
+}

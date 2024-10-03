@@ -1,0 +1,83 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "Temporitzador",
+            "state": {
+                "active": "Actiu",
+                "idle": "Inactiu",
+                "paused": "Pausat/ada"
+            },
+            "state_attributes": {
+                "duration": {
+                    "name": "Durada"
+                },
+                "editable": {
+                    "name": "Gestionat mitjan\u00e7ant la Interf\u00edcie d'Usuari (IU)",
+                    "state": {
+                        "false": "No",
+                        "true": "S\u00ed"
+                    }
+                },
+                "finishes_at": {
+                    "name": "S'acaba a les"
+                },
+                "remaining": {
+                    "name": "Restant"
+                },
+                "restore": {
+                    "name": "Restaura"
+                }
+            }
+        }
+    },
+    "issues": {
+        "deprecated_duration_in_start": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "El par\u00e0metre opcional de durada del servei `timer.start` s'eliminar\u00e0 de Home Assistant i sembla que l'est\u00e0s utilitzant. Per canviar la durada, crea un nou temporitzador.\n\nElimina l'\u00fas d'aquest par\u00e0metre `duration` del servei `timer.start` de les teves automatitzacions i 'scripts' i selecciona **envia** per descartar aquesta alerta.",
+                        "title": "S'est\u00e0 eliminant el par\u00e0metre de durada del servei d'inici de temporitzador"
+                    }
+                }
+            },
+            "title": "S'est\u00e0 eliminant el par\u00e0metre de durada del servei d'inici de temporitzador"
+        }
+    },
+    "services": {
+        "cancel": {
+            "description": "Cancel\u00b7la un temporitzador.",
+            "name": "Cancel\u00b7la"
+        },
+        "change": {
+            "description": "Canvia un temporitzador.",
+            "fields": {
+                "duration": {
+                    "description": "Durada a afegir o restar al temporitzador en execuci\u00f3.",
+                    "name": "Durada"
+                }
+            },
+            "name": "Canvia"
+        },
+        "finish": {
+            "description": "Finalitza un temporitzador.",
+            "name": "Finalitza"
+        },
+        "pause": {
+            "description": "Pausa un temporitzador.",
+            "name": "Pausa"
+        },
+        "reload": {
+            "description": "Recarrega els temporitzadors des de la configuraci\u00f3 YAML.",
+            "name": "Torna a carregar"
+        },
+        "start": {
+            "description": "Inicia un temporitzador.",
+            "fields": {
+                "duration": {
+                    "name": "Durada"
+                }
+            },
+            "name": "Inicia"
+        }
+    }
+}

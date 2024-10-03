@@ -1,0 +1,98 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Cihaz zaten yap\u0131land\u0131r\u0131lm\u0131\u015f",
+            "already_in_progress": "Yap\u0131land\u0131rma ak\u0131\u015f\u0131 zaten devam ediyor",
+            "error_pairing": "LG webOS TV'ye ba\u011fl\u0131 ancak e\u015flenmemi\u015f",
+            "reauth_successful": "Yeniden kimlik do\u011frulama ba\u015far\u0131l\u0131 oldu",
+            "reauth_unsuccessful": "Yeniden do\u011frulama ba\u015far\u0131s\u0131z oldu, l\u00fctfen TV'nizi a\u00e7\u0131n ve tekrar deneyin."
+        },
+        "flow_title": "LG webOS Ak\u0131ll\u0131 TV",
+        "step": {
+            "pairing": {
+                "title": "webOS TV E\u015fle\u015ftirme"
+            },
+            "reauth_confirm": {
+                "description": "G\u00f6nder'e t\u0131klay\u0131n ve TV'nizdeki e\u015fle\u015ftirme iste\u011fini kabul edin. \n\n ![Resim](/static/images/config_webos.png)",
+                "title": "webOS TV E\u015fle\u015ftirme"
+            },
+            "user": {
+                "data": {
+                    "host": "Sunucu",
+                    "name": "Ad"
+                },
+                "data_description": {
+                    "host": "webOS TV'nizin ana bilgisayar ad\u0131 veya IP adresi."
+                },
+                "title": "webOS TV'ye ba\u011flan\u0131n"
+            }
+        }
+    },
+    "device_automation": {
+        "trigger_type": {
+            "webostv.turn_on": "Cihaz\u0131n a\u00e7\u0131lmas\u0131 isteniyor"
+        }
+    },
+    "options": {
+        "error": {
+            "cannot_retrieve": "Kaynak listesi al\u0131namad\u0131. Cihaz\u0131n a\u00e7\u0131k oldu\u011fundan emin olun"
+        },
+        "step": {
+            "init": {
+                "data": {
+                    "sources": "Kaynak listesi"
+                },
+                "description": "Etkin kaynaklar\u0131 se\u00e7in",
+                "title": "WebOS Smart TV se\u00e7enekleri"
+            }
+        }
+    },
+    "services": {
+        "button": {
+            "description": "Bir d\u00fc\u011fmeye basma komutu g\u00f6nderir.",
+            "fields": {
+                "button": {
+                    "description": "Bas\u0131lacak d\u00fc\u011fmenin ad\u0131.  Bilinen olas\u0131 de\u011ferler SOL, SA\u011e, A\u015eA\u011eI, YUKARI, HOME, MENU, BACK, ENTER, DASH, INFO, ASTERISK, CC, EXIT, MUTE, KIRMIZI, YE\u015e\u0130L, MAV\u0130, SARI, VOLUMEUP, VOLUMEDOWN, CHANNELUP, CHANNELDOWN, PLAY, PAUSE, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9.",
+                    "name": "D\u00fc\u011fme"
+                },
+                "entity_id": {
+                    "description": "API y\u00f6nteminin \u00e7al\u0131\u015ft\u0131r\u0131laca\u011f\u0131 webostv varl\u0131klar\u0131n\u0131n ad(lar)\u0131.",
+                    "name": "Varl\u0131k"
+                }
+            },
+            "name": "D\u00fc\u011fme"
+        },
+        "command": {
+            "description": "Bir komut g\u00f6nderir.",
+            "fields": {
+                "command": {
+                    "description": "Komutun biti\u015f noktas\u0131.",
+                    "name": "Komut"
+                },
+                "entity_id": {
+                    "description": "API y\u00f6nteminin \u00e7al\u0131\u015ft\u0131r\u0131laca\u011f\u0131 webostv varl\u0131klar\u0131n\u0131n ad(lar)\u0131.",
+                    "name": "Varl\u0131k"
+                },
+                "payload": {
+                    "description": "U\u00e7 noktaya anahtar de\u011fer \u00e7ift(ler)i bi\u00e7iminde sa\u011flanacak iste\u011fe ba\u011fl\u0131 bir y\u00fck.",
+                    "name": "Y\u00fck"
+                }
+            },
+            "name": "Komut"
+        },
+        "select_sound_output": {
+            "description": "Ses \u00e7\u0131k\u0131\u015f\u0131n\u0131 de\u011fi\u015ftirmek i\u00e7in TV'ye komut g\u00f6nderir.",
+            "fields": {
+                "entity_id": {
+                    "description": "Ses \u00e7\u0131k\u0131\u015f\u0131 de\u011fi\u015ftirilecek webostv varl\u0131klar\u0131n\u0131n ad(lar)\u0131.",
+                    "name": "Varl\u0131k"
+                },
+                "sound_output": {
+                    "description": "Ge\u00e7i\u015f yap\u0131lacak ses \u00e7\u0131k\u0131\u015f\u0131n\u0131n ad\u0131.",
+                    "name": "Ses \u00e7\u0131k\u0131\u015f\u0131"
+                }
+            },
+            "name": "Ses \u00e7\u0131k\u0131\u015f\u0131n\u0131 se\u00e7in"
+        }
+    }
+}

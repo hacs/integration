@@ -1,0 +1,111 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Za\u0159\u00edzen\u00ed je ji\u017e nastaveno"
+        },
+        "error": {
+            "cannot_connect": "Nepoda\u0159ilo se p\u0159ipojit",
+            "invalid_upb_file": "Chyb\u011bj\u00edc\u00ed nebo neplatn\u00fd exportn\u00ed soubor UPB UPSstart, zkontrolujte n\u00e1zev a cestu k souboru.",
+            "unknown": "Neo\u010dek\u00e1van\u00e1 chyba"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "address": "Adresa (viz popis v\u00fd\u0161e)",
+                    "file_path": "Cesta a n\u00e1zev exportn\u00edho souboru UPSstart UPB.",
+                    "protocol": "Protokol"
+                },
+                "description": "P\u0159ipojte modul rozhran\u00ed Universal Powerline Bus Powerline (UPB PIM). \u0158et\u011bzec adresy mus\u00ed b\u00fdt ve tvaru \"adresa[:port]\" pro \"tcp\". Port je voliteln\u00fd a v\u00fdchoz\u00ed je 2101. P\u0159\u00edklad: \"192.168.1.42\". U s\u00e9riov\u00e9ho protokolu mus\u00ed b\u00fdt adresa ve tvaru \"tty[:p\u0159enosov\u00e1 rychlost]\". P\u0159enosov\u00e1 rychlost je voliteln\u00e1 a v\u00fdchoz\u00ed je 4800. P\u0159\u00edklad: \"/dev/ttyS1\".",
+                "title": "P\u0159ipojit k UPB PIM"
+            }
+        }
+    },
+    "services": {
+        "light_blink": {
+            "description": "Blik\u00e1 sv\u011btlem.",
+            "fields": {
+                "rate": {
+                    "description": "Doba, po kterou propojen\u00ed blik\u00e1.",
+                    "name": "Rychlost"
+                }
+            },
+            "name": "Blikat sv\u011btlem"
+        },
+        "light_fade_start": {
+            "description": "M\u011bn\u00ed \u00farove\u0148 jasu nahoru nebo dol\u016f od aktu\u00e1ln\u00ed hodnoty jasu.",
+            "fields": {
+                "brightness": {
+                    "description": "\u010c\u00edslo ud\u00e1vaj\u00edc\u00ed jas, kde 0 zhasne sv\u011btlo, 1 je minim\u00e1ln\u00ed jas a 255 je maxim\u00e1ln\u00ed jas.",
+                    "name": "Jas"
+                },
+                "brightness_pct": {
+                    "description": "\u010c\u00edslo ud\u00e1vaj\u00edc\u00ed procento pln\u00e9ho jasu, kde 0 zhasne sv\u011btlo, 1 je minim\u00e1ln\u00ed jas a 100 je maxim\u00e1ln\u00ed jas.",
+                    "name": "Jas v %"
+                },
+                "rate": {
+                    "description": "Rychlost p\u0159echodu sv\u011btla na nov\u00fd jas.",
+                    "name": "Rychlost"
+                }
+            },
+            "name": "Spustit jemnou zm\u011bnu jasu"
+        },
+        "light_fade_stop": {
+            "description": "Zastav\u00ed jemnou zm\u011bnu jasu.",
+            "name": "Zastavit jemnou zm\u011bnu jasu"
+        },
+        "link_blink": {
+            "description": "Blik\u00e1 sv\u011btlem.",
+            "fields": {
+                "blink_rate": {
+                    "description": "Doba, po kterou propojen\u00ed blik\u00e1.",
+                    "name": "Rychlost blik\u00e1n\u00ed"
+                }
+            },
+            "name": "Blikat propojen\u00edm"
+        },
+        "link_deactivate": {
+            "description": "Deaktivuje sc\u00e9nu UPB.",
+            "name": "Deaktivovat propojen\u00ed"
+        },
+        "link_fade_start": {
+            "description": "M\u011bn\u00ed \u00farove\u0148 jasu propojen\u00ed nahoru nebo dol\u016f od aktu\u00e1ln\u00ed hodnoty jasu.",
+            "fields": {
+                "brightness": {
+                    "description": "\u010c\u00edslo ud\u00e1vaj\u00edc\u00ed jas, kde 0 vypne sc\u00e9nu, 1 je minim\u00e1ln\u00ed jas a 255 je maxim\u00e1ln\u00ed jas.",
+                    "name": "Jas"
+                },
+                "brightness_pct": {
+                    "description": "\u010c\u00edslo ud\u00e1vaj\u00edc\u00ed procento pln\u00e9ho jasu, kde 0 vypne sc\u00e9nu, 1 je minim\u00e1ln\u00ed jas a 100 je maxim\u00e1ln\u00ed jas.",
+                    "name": "Jas v %"
+                },
+                "rate": {
+                    "description": "Doba, za kterou sc\u00e9na p\u0159ejde na nov\u00fd jas.",
+                    "name": "Rychlost"
+                }
+            },
+            "name": "Spustit jemnou zm\u011bnu jasu propojen\u00ed"
+        },
+        "link_fade_stop": {
+            "description": "Zastav\u00ed jemnou zm\u011bnu jasu propojen\u00ed.",
+            "name": "Zastavit jemnou zm\u011bnu jasu propojen\u00ed"
+        },
+        "link_goto": {
+            "description": "Nastav\u00ed sc\u00e9nu na jas.",
+            "fields": {
+                "brightness": {
+                    "description": "\u010c\u00edslo ud\u00e1vaj\u00edc\u00ed jas, kde 0 vypne sc\u00e9nu, 1 je minim\u00e1ln\u00ed jas a 255 je maxim\u00e1ln\u00ed jas.",
+                    "name": "Jas"
+                },
+                "brightness_pct": {
+                    "description": "\u010c\u00edslo ud\u00e1vaj\u00edc\u00ed procento pln\u00e9ho jasu, kde 0 vypne sc\u00e9nu, 1 je minim\u00e1ln\u00ed jas a 100 je maxim\u00e1ln\u00ed jas.",
+                    "name": "Jas v %"
+                },
+                "rate": {
+                    "description": "Doba, za kterou sc\u00e9na p\u0159ejde na nov\u00fd jas.",
+                    "name": "Rychlost"
+                }
+            },
+            "name": "P\u0159ej\u00edt na propojen\u00ed"
+        }
+    }
+}

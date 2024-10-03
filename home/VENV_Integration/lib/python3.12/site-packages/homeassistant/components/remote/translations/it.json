@@ -1,0 +1,120 @@
+{
+    "device_automation": {
+        "action_type": {
+            "toggle": "Attiva/disattiva {entity_name}",
+            "turn_off": "Disattiva {entity_name}",
+            "turn_on": "Attiva {entity_name}"
+        },
+        "condition_type": {
+            "is_off": "{entity_name} \u00e8 disattivato",
+            "is_on": "{entity_name} \u00e8 attivo"
+        },
+        "trigger_type": {
+            "changed_states": "{entity_name} attivato o disattivato",
+            "turned_off": "{entity_name} disattivato",
+            "turned_on": "{entity_name} attivato"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Telecomando",
+            "state": {
+                "off": "Spento/a",
+                "on": "Acceso/a"
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "La piattaforma {platform} per l'integrazione {domain} non supporta l'impostazione della piattaforma. \n\nRimuovilo dalla configurazione e riavvia Home Assistant per risolvere questo problema.",
+            "title": "Supporto della piattaforma non supportato"
+        }
+    },
+    "services": {
+        "delete_command": {
+            "description": "Elimina un comando o un elenco di comandi dal database.",
+            "fields": {
+                "command": {
+                    "description": "Il singolo comando o l'elenco dei comandi da eliminare.",
+                    "name": "Comando"
+                },
+                "device": {
+                    "description": "Dispositivo da cui verranno eliminati i comandi.",
+                    "name": "Dispositivo"
+                }
+            },
+            "name": "Elimina comando"
+        },
+        "learn_command": {
+            "description": "Apprende un comando o un elenco di comandi da un dispositivo.",
+            "fields": {
+                "alternative": {
+                    "description": "Se il codice deve essere memorizzato come alternativa. Questo \u00e8 utile per i codici discreti. I codici discreti vengono utilizzati per gli interruttori che eseguono una sola funzione. Ad esempio, un codice per accendere solo un dispositivo. Se \u00e8 gi\u00e0 attiva, l'invio del codice non cambier\u00e0 lo stato.",
+                    "name": "Alternativa"
+                },
+                "command": {
+                    "description": "Un singolo comando o un elenco di comandi da apprendere.",
+                    "name": "Comando"
+                },
+                "command_type": {
+                    "description": "Il tipo di comando da apprendere.",
+                    "name": "Tipo di comando"
+                },
+                "device": {
+                    "description": "ID dispositivo da cui imparare il comando.",
+                    "name": "Dispositivo"
+                },
+                "timeout": {
+                    "description": "Timeout per l'apprendimento del comando.",
+                    "name": "Tempo scaduto"
+                }
+            },
+            "name": "Impara il comando"
+        },
+        "send_command": {
+            "description": "Invia un comando o un elenco di comandi a un dispositivo.",
+            "fields": {
+                "command": {
+                    "description": "Un singolo comando o un elenco di comandi da inviare.",
+                    "name": "Comando"
+                },
+                "delay_secs": {
+                    "description": "Il tempo che si desidera attendere tra i comandi ripetuti.",
+                    "name": "Ritardo in secondi"
+                },
+                "device": {
+                    "description": "ID dispositivo a cui inviare il comando.",
+                    "name": "Dispositivo"
+                },
+                "hold_secs": {
+                    "description": "Il tempo che si vuole far trascorrere prima dell'invio del rilascio.",
+                    "name": "Attesa secondi"
+                },
+                "num_repeats": {
+                    "description": "Numero di volte in cui si desidera ripetere i comandi.",
+                    "name": "Ripetizioni"
+                }
+            },
+            "name": "Invia comando"
+        },
+        "toggle": {
+            "description": "Attiva/disattiva un dispositivo.",
+            "name": "Commuta"
+        },
+        "turn_off": {
+            "description": "Spegne il dispositivo.",
+            "name": "Spegni"
+        },
+        "turn_on": {
+            "description": "Invia il comando di accensione.",
+            "fields": {
+                "activity": {
+                    "description": "ID attivit\u00e0 o nome dell'attivit\u00e0 da avviare.",
+                    "name": "Attivit\u00e0"
+                }
+            },
+            "name": "Accendi"
+        }
+    },
+    "title": "Telecomando"
+}

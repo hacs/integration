@@ -1,0 +1,409 @@
+{
+    "config": {
+        "abort": {
+            "addon_get_discovery_info_failed": "Falhou em obter informa\u00e7\u00f5es de descoberta do add-on Z-Wave JS.",
+            "addon_info_failed": "Falha ao obter informa\u00e7\u00f5es do add-on Z-Wave JS.",
+            "addon_install_failed": "Falha ao instalar o add-on Z-Wave JS.",
+            "addon_set_config_failed": "Falha ao definir a configura\u00e7\u00e3o do Z-Wave JS.",
+            "addon_start_failed": "Falha ao iniciar o add-on Z-Wave JS.",
+            "already_configured": "Dispositivo j\u00e1 est\u00e1 configurado",
+            "already_in_progress": "O fluxo de configura\u00e7\u00e3o j\u00e1 est\u00e1 em andamento",
+            "cannot_connect": "Falha ao conectar",
+            "discovery_requires_supervisor": "A descoberta requer o supervisor.",
+            "not_zwave_device": "O dispositivo descoberto n\u00e3o \u00e9 um dispositivo Z-Wave.",
+            "not_zwave_js_addon": "O add-on descoberto n\u00e3o \u00e9 o add-on oficial do Z-Wave JS."
+        },
+        "error": {
+            "addon_start_failed": "Falha ao iniciar o add-on Z-Wave JS. Verifique a configura\u00e7\u00e3o.",
+            "cannot_connect": "Falha ao conectar",
+            "invalid_ws_url": "URL de websocket inv\u00e1lido",
+            "unknown": "Erro inesperado"
+        },
+        "flow_title": "{name}",
+        "progress": {
+            "install_addon": "Aguarde enquanto a instala\u00e7\u00e3o do add-on Z-Wave JS termina. Isso pode levar v\u00e1rios minutos.",
+            "start_addon": "Aguarde enquanto a inicializa\u00e7\u00e3o do add-on Z-Wave JS \u00e9 conclu\u00edda. Isso pode levar alguns segundos."
+        },
+        "step": {
+            "configure_addon": {
+                "data": {
+                    "s0_legacy_key": "Chave S0 (Legado)",
+                    "s2_access_control_key": "Chave de controle de acesso S2",
+                    "s2_authenticated_key": "Chave autenticada S2",
+                    "s2_unauthenticated_key": "Chave n\u00e3o autenticada S2",
+                    "usb_path": "Caminho do Dispositivo USB"
+                },
+                "description": "O add-on gerar\u00e1 chaves de seguran\u00e7a se esses campos forem deixados em vazios.",
+                "title": "Digite a configura\u00e7\u00e3o do add-on Z-Wave JS"
+            },
+            "hassio_confirm": {
+                "title": "Configure a integra\u00e7\u00e3o Z-Wave JS com o add-on Z-Wave JS"
+            },
+            "install_addon": {
+                "title": "A instala\u00e7\u00e3o do add-on Z-Wave JS foi iniciada"
+            },
+            "manual": {
+                "data": {
+                    "url": "URL"
+                }
+            },
+            "on_supervisor": {
+                "data": {
+                    "use_addon": "Use o add-on Z-Wave JS Supervisor"
+                },
+                "description": "Deseja usar o add-on Z-Wave JS Supervisor?",
+                "title": "Selecione o m\u00e9todo de conex\u00e3o"
+            },
+            "start_addon": {
+                "title": "O add-on Z-Wave JS est\u00e1 iniciando."
+            },
+            "usb_confirm": {
+                "description": "Deseja configurar o {name} com o add-on Z-Wave JS?"
+            },
+            "zeroconf_confirm": {
+                "description": "Deseja adicionar o servidor Z-Wave JS com o ID inicial {home_id} encontrado em {url} ao Home Assistant?",
+                "title": "Servidor Z-Wave JS descoberto"
+            }
+        }
+    },
+    "device_automation": {
+        "action_type": {
+            "clear_lock_usercode": "Limpar o c\u00f3digo de usu\u00e1rio em {entity_name}",
+            "ping": "Ping dispositivo",
+            "refresh_value": "Atualize os valores para {entity_name}",
+            "reset_meter": "Redefinir medidores em {subtype}",
+            "set_config_parameter": "Definir valor do par\u00e2metro de configura\u00e7\u00e3o {subtype}",
+            "set_lock_usercode": "Defina um c\u00f3digo de usu\u00e1rio em {entity_name}",
+            "set_value": "Definir valor de um valor de onda Z"
+        },
+        "condition_type": {
+            "config_parameter": "Valor do par\u00e2metro de configura\u00e7\u00e3o {subtype}",
+            "node_status": "Status do n\u00f3",
+            "value": "Valor atual de um Z-Wave"
+        },
+        "trigger_type": {
+            "event.notification.entry_control": "Enviou uma notifica\u00e7\u00e3o de controle de entrada",
+            "event.notification.notification": "Enviou uma notifica\u00e7\u00e3o",
+            "event.value_notification.basic": "Evento CC b\u00e1sico em {subtype}",
+            "event.value_notification.central_scene": "A\u00e7\u00e3o da cena central em {subtype}",
+            "event.value_notification.scene_activation": "Ativa\u00e7\u00e3o de cena em {subtype}",
+            "state.node_status": "Status do n\u00f3 alterado",
+            "zwave_js.value_updated.config_parameter": "Altera\u00e7\u00e3o de valor no par\u00e2metro de configura\u00e7\u00e3o {subtype}",
+            "zwave_js.value_updated.value": "Altera\u00e7\u00e3o de valor em um valor Z-Wave JS"
+        }
+    },
+    "issues": {
+        "device_config_file_changed": {
+            "fix_flow": {
+                "abort": {
+                    "cannot_connect": "N\u00e3o \u00e9 poss\u00edvel conectar-se a {device_name}. Tente novamente mais tarde depois de confirmar que sua rede Z-Wave est\u00e1 ativa e conectada ao Home Assistant."
+                },
+                "step": {
+                    "confirm": {
+                        "description": "O arquivo de configura\u00e7\u00e3o do dispositivo para {device_name} foi alterado.\n\nO Z-Wave JS descobre muitos metadados do dispositivo entrevistando o dispositivo. No entanto, algumas das informa\u00e7\u00f5es precisam ser carregadas de um arquivo de configura\u00e7\u00e3o. Algumas dessas informa\u00e7\u00f5es s\u00e3o avaliadas apenas uma vez, durante a entrevista com o dispositivo.\n\nQuando um arquivo de configura\u00e7\u00e3o do dispositivo \u00e9 atualizado, essas informa\u00e7\u00f5es podem estar desatualizadas e o dispositivo deve ser entrevistado novamente para captar as altera\u00e7\u00f5es.\n\n Essa n\u00e3o \u00e9 uma opera\u00e7\u00e3o obrigat\u00f3ria e a funcionalidade do dispositivo ser\u00e1 afetada durante o processo de reentrevista, mas voc\u00ea poder\u00e1 ver melhorias no seu dispositivo depois de conclu\u00edda.\n\nSe voc\u00ea quiser prosseguir, clique em enviar abaixo. A nova entrevista ocorrer\u00e1 em segundo plano.",
+                        "title": "Arquivo de configura\u00e7\u00e3o do dispositivo alterado: {device_name}"
+                    }
+                }
+            },
+            "title": "Arquivo de configura\u00e7\u00e3o do dispositivo alterado: {device_name}"
+        },
+        "dry_fan_presets_deprecation": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Voc\u00ea est\u00e1 usando os modos predefinidos Seco ou Ventilador em sua entidade `{entity_id}`.\n\nOs modos predefinidos Dry e Fan est\u00e3o obsoletos e ser\u00e3o removidos. Atualize suas automa\u00e7\u00f5es para usar os modos **HVAC** Dry e Fan correspondentes.\n\nClique em enviar abaixo quando voc\u00ea tiver corrigido esse problema manualmente.",
+                        "title": "Os modos predefinidos Seco e Ventilador ser\u00e3o removidos: {entity_id}"
+                    }
+                }
+            },
+            "title": "Os modos predefinidos Seco e Ventilador ser\u00e3o removidos: {entity_id}"
+        },
+        "invalid_server_version": {
+            "description": "A vers\u00e3o do Z-Wave JS Server que voc\u00ea est\u00e1 executando atualmente \u00e9 muito antiga para esta vers\u00e3o do Home Assistant. Atualize o Z-Wave JS Server para a vers\u00e3o mais recente para corrigir esse problema.",
+            "title": "\u00c9 necess\u00e1ria uma vers\u00e3o mais recente do Z-Wave JS Server"
+        }
+    },
+    "options": {
+        "abort": {
+            "addon_get_discovery_info_failed": "Falhou em obter informa\u00e7\u00f5es de descoberta do add-on Z-Wave JS.",
+            "addon_info_failed": "Falha ao obter informa\u00e7\u00f5es do add-on Z-Wave JS.",
+            "addon_install_failed": "Falha ao instalar o add-on Z-Wave JS.",
+            "addon_set_config_failed": "Falha ao definir a configura\u00e7\u00e3o do Z-Wave JS.",
+            "addon_start_failed": "Falha ao iniciar o add-on Z-Wave JS.",
+            "already_configured": "Dispositivo j\u00e1 est\u00e1 configurado",
+            "cannot_connect": "Falha ao conectar",
+            "different_device": "O dispositivo USB conectado n\u00e3o \u00e9 o mesmo configurado anteriormente para esta entrada de configura\u00e7\u00e3o. Em vez disso, crie uma nova entrada de configura\u00e7\u00e3o para o novo dispositivo."
+        },
+        "error": {
+            "cannot_connect": "Falha ao conectar",
+            "invalid_ws_url": "URL de websocket inv\u00e1lido",
+            "unknown": "Erro inesperado"
+        },
+        "progress": {
+            "install_addon": "Aguarde enquanto a instala\u00e7\u00e3o do add-on Z-Wave JS termina. Isso pode levar v\u00e1rios minutos.",
+            "start_addon": "Aguarde enquanto a inicializa\u00e7\u00e3o do add-on Z-Wave JS \u00e9 conclu\u00edda. Isso pode levar alguns segundos."
+        },
+        "step": {
+            "configure_addon": {
+                "data": {
+                    "emulate_hardware": "Emular hardware",
+                    "log_level": "N\u00edvel de registro",
+                    "s0_legacy_key": "Chave S0 (Legado)",
+                    "s2_access_control_key": "Chave de controle de acesso S2",
+                    "s2_authenticated_key": "Chave autenticada S2",
+                    "s2_unauthenticated_key": "Chave n\u00e3o autenticada S2",
+                    "usb_path": "Caminho do Dispositivo USB"
+                },
+                "description": "O add-on gerar\u00e1 chaves de seguran\u00e7a se esses campos forem deixados em vazios.",
+                "title": "Digite a configura\u00e7\u00e3o do add-on Z-Wave JS"
+            },
+            "install_addon": {
+                "title": "A instala\u00e7\u00e3o do add-on Z-Wave JS foi iniciada"
+            },
+            "manual": {
+                "data": {
+                    "url": "URL"
+                }
+            },
+            "on_supervisor": {
+                "data": {
+                    "use_addon": "Use o add-on Z-Wave JS Supervisor"
+                },
+                "description": "Deseja usar o add-on Z-Wave JS Supervisor?",
+                "title": "Selecione o m\u00e9todo de conex\u00e3o"
+            },
+            "start_addon": {
+                "title": "O add-on Z-Wave JS est\u00e1 iniciando."
+            }
+        }
+    },
+    "services": {
+        "bulk_set_partial_config_parameters": {
+            "description": "Permite a configura\u00e7\u00e3o de par\u00e2metros parciais em massa. \u00datil quando v\u00e1rios par\u00e2metros parciais devem ser definidos ao mesmo tempo.",
+            "fields": {
+                "device_id": {
+                    "name": "Dispositivo ID(s)"
+                },
+                "endpoint": {
+                    "description": "O endpoint do par\u00e2metro de configura\u00e7\u00e3o.",
+                    "name": "Endpoint"
+                },
+                "parameter": {
+                    "description": "O nome (ou ID) do par\u00e2metro de configura\u00e7\u00e3o que voc\u00ea deseja configurar.",
+                    "name": "Par\u00e2metro"
+                },
+                "value": {
+                    "description": "O(s) novo(s) valor(es) a serem definidos para este par\u00e2metro de configura\u00e7\u00e3o. Pode ser um valor inteiro bruto para representar a altera\u00e7\u00e3o em massa ou um mapeamento em que a chave \u00e9 a m\u00e1scara de bits (seja na forma hexadecimal ou inteira) e o valor \u00e9 o novo valor que voc\u00ea deseja definir para esse par\u00e2metro parcial.",
+                    "name": "Valor"
+                }
+            },
+            "name": "Par\u00e2metros de configura\u00e7\u00e3o parciais definidos em massa (avan\u00e7ado)."
+        },
+        "clear_lock_usercode": {
+            "description": "Limpa um c\u00f3digo de usu\u00e1rio de uma fechadura.",
+            "fields": {
+                "code_slot": {
+                    "description": "Slot de c\u00f3digo para limpar o c\u00f3digo.",
+                    "name": "Slot de c\u00f3digo"
+                }
+            },
+            "name": "Limpar c\u00f3digo de usu\u00e1rio de bloqueio"
+        },
+        "invoke_cc_api": {
+            "fields": {
+                "area_id": {
+                    "name": "ID(s) da \u00e1rea"
+                },
+                "command_class": {
+                    "description": "O ID da classe de comando para a qual voc\u00ea deseja emitir um comando.",
+                    "name": "Classe de comando"
+                },
+                "device_id": {
+                    "description": "O(s) dispositivo(s) alvo(s) para esse servi\u00e7o",
+                    "name": "ID(s) do dispositivo"
+                },
+                "endpoint": {
+                    "description": "O endpoint para chamar a API. Se um endpoint for especificado, esse endpoint ser\u00e1 direcionado para todos os n\u00f3s associados \u00e0s \u00e1reas, dispositivos e/ou entidades de destino. Se um endpoint n\u00e3o for especificado, o endpoint raiz (0) ser\u00e1 direcionado para n\u00f3s associados a \u00e1reas e dispositivos de destino, e o endpoint para o valor prim\u00e1rio de cada entidade ser\u00e1 direcionado.",
+                    "name": "Endpoint"
+                },
+                "entity_id": {
+                    "description": "Entidade(s) ID(s) alvo(s) desse servi\u00e7o",
+                    "name": "ID(s) da entidade"
+                },
+                "method_name": {
+                    "description": "O nome do m\u00e9todo de API a ser chamado. Consulte a documenta\u00e7\u00e3o da API Z-Wave JS Command Class (https://zwave-js.github.io/node-zwave-js/#/api/CCs/index) para obter os m\u00e9todos dispon\u00edveis.",
+                    "name": "Nome do m\u00e9todo"
+                },
+                "parameters": {
+                    "description": "Uma lista de par\u00e2metros a serem passados para o m\u00e9todo API. Consulte a documenta\u00e7\u00e3o da API Z-Wave JS Command Class (https://zwave-js.github.io/node-zwave-js/#/api/CCs/index) para obter os par\u00e2metros.",
+                    "name": "Par\u00e2metros"
+                }
+            },
+            "name": "Chamar uma API de classe de comando em um n\u00f3 (avan\u00e7ado)"
+        },
+        "multicast_set_value": {
+            "fields": {
+                "broadcast": {
+                    "description": "Se o comando deve ser transmitido para todos os dispositivos na rede.",
+                    "name": "Transmiss\u00e3o?"
+                },
+                "command_class": {
+                    "description": "O ID da classe de comando para o valor.",
+                    "name": "Classe de comando"
+                },
+                "device_id": {
+                    "name": "Dispositivo ID(s)"
+                },
+                "endpoint": {
+                    "description": "O endpoint para o valor.",
+                    "name": "Endpoint"
+                },
+                "options": {
+                    "description": "Definir mapa de op\u00e7\u00f5es de valor. Consulte a documenta\u00e7\u00e3o do Z-Wave JS para obter mais informa\u00e7\u00f5es sobre quais op\u00e7\u00f5es podem ser definidas.",
+                    "name": "Op\u00e7\u00f5es"
+                },
+                "property": {
+                    "description": "O ID da propriedade para o valor.",
+                    "name": "Propriedade"
+                },
+                "property_key": {
+                    "description": "O ID da chave de propriedade para o valor.",
+                    "name": "Chave de propriedade"
+                },
+                "value": {
+                    "description": "O novo valor a ser definido.",
+                    "name": "Valor"
+                }
+            },
+            "name": "Defina um valor em v\u00e1rios dispositivos via multicast (avan\u00e7ado)"
+        },
+        "ping": {
+            "description": "For\u00e7a o Z-Wave JS a tentar alcan\u00e7ar um n\u00f3. Isso pode ser usado para atualizar o status do n\u00f3 no Z-Wave JS quando voc\u00ea acha que n\u00e3o reflete a realidade com precis\u00e3o, por exemplo, reviver um n\u00f3 com falha/morto ou marcar o n\u00f3 como adormecido.",
+            "fields": {
+                "device_id": {
+                    "name": "Dispositivo ID(s)"
+                }
+            },
+            "name": "Fazer ping em um n\u00f3"
+        },
+        "refresh_notifications": {
+            "fields": {
+                "device_id": {
+                    "name": "Dispositivo ID(s)"
+                }
+            }
+        },
+        "refresh_value": {
+            "description": "For\u00e7a a atualiza\u00e7\u00e3o dos valores de uma entidade Z-Wave.",
+            "fields": {
+                "entity_id": {
+                    "description": "Entidades para atualizar.",
+                    "name": "Entidades"
+                },
+                "refresh_all_values": {
+                    "description": "Se deve atualizar todos os valores (verdadeiro) ou apenas o valor prim\u00e1rio (falso).",
+                    "name": "Atualizar todos os valores?"
+                }
+            },
+            "name": "Atualizar valores"
+        },
+        "reset_meter": {
+            "description": "Redefine os medidores em um n\u00f3.",
+            "fields": {
+                "device_id": {
+                    "name": "Dispositivo ID(s)"
+                },
+                "meter_type": {
+                    "description": "O tipo de medidor a ser redefinido. Nem todos os medidores suportam a capacidade de escolher um tipo de medidor para redefinir.",
+                    "name": "Tipo de medidor"
+                },
+                "value": {
+                    "description": "O valor para o qual os medidores devem ser redefinidos. Nem todos os medidores suportam a capacidade de serem redefinidos para um valor espec\u00edfico.",
+                    "name": "Valor alvo"
+                }
+            },
+            "name": "Redefinir medidores em um n\u00f3"
+        },
+        "set_config_parameter": {
+            "description": "Altera os par\u00e2metros de configura\u00e7\u00e3o de seus dispositivos Z-Wave.",
+            "fields": {
+                "bitmask": {
+                    "name": "Bitmask"
+                },
+                "device_id": {
+                    "name": "Dispositivo ID(s)"
+                },
+                "endpoint": {
+                    "description": "O endpoint do par\u00e2metro de configura\u00e7\u00e3o.",
+                    "name": "Endpoint"
+                },
+                "parameter": {
+                    "description": "O nome (ou ID) do par\u00e2metro de configura\u00e7\u00e3o que voc\u00ea deseja configurar.",
+                    "name": "Par\u00e2metro"
+                },
+                "value": {
+                    "description": "O novo valor a ser definido para este par\u00e2metro de configura\u00e7\u00e3o.",
+                    "name": "Valor"
+                }
+            },
+            "name": "Definir par\u00e2metro de configura\u00e7\u00e3o do dispositivo"
+        },
+        "set_lock_usercode": {
+            "description": "Define um c\u00f3digo de usu\u00e1rio em uma fechadura.",
+            "fields": {
+                "code_slot": {
+                    "description": "Slot de c\u00f3digo para definir o c\u00f3digo.",
+                    "name": "Slot de c\u00f3digo"
+                },
+                "usercode": {
+                    "description": "C\u00f3digo de bloqueio a ser definido.",
+                    "name": "C\u00f3digo"
+                }
+            },
+            "name": "Definir c\u00f3digo de usu\u00e1rio de bloqueio"
+        },
+        "set_value": {
+            "fields": {
+                "area_id": {
+                    "name": "ID(s) da \u00e1rea"
+                },
+                "command_class": {
+                    "description": "O ID da classe de comando para o valor.",
+                    "name": "Classe de comando"
+                },
+                "device_id": {
+                    "description": "O(s) dispositivo(s) alvo(s) para esse servi\u00e7o",
+                    "name": "ID(s) do dispositivo"
+                },
+                "endpoint": {
+                    "description": "O endpoint para o valor.",
+                    "name": "Endpoint"
+                },
+                "entity_id": {
+                    "description": "Entidade(s) ID(s) alvo(s) desse servi\u00e7o",
+                    "name": "ID(s) da entidade"
+                },
+                "options": {
+                    "description": "Definir mapa de op\u00e7\u00f5es de valor. Consulte a documenta\u00e7\u00e3o do Z-Wave JS para obter mais informa\u00e7\u00f5es sobre quais op\u00e7\u00f5es podem ser definidas.",
+                    "name": "Op\u00e7\u00f5es"
+                },
+                "property": {
+                    "description": "O ID da propriedade para o valor.",
+                    "name": "Propriedade"
+                },
+                "property_key": {
+                    "description": "O ID da chave de propriedade para o valor.",
+                    "name": "Chave de propriedade"
+                },
+                "value": {
+                    "description": "O novo valor a ser definido.",
+                    "name": "Valor"
+                },
+                "wait_for_result": {
+                    "name": "Esperar pelo resultado?"
+                }
+            },
+            "name": "Definir um valor (avan\u00e7ado)"
+        }
+    }
+}

@@ -1,0 +1,192 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Ger\u00e4t ist bereits konfiguriert"
+        },
+        "error": {
+            "cannot_connect": "Verbindung fehlgeschlagen",
+            "invalid_auth": "Ung\u00fcltige Authentifizierung",
+            "invalid_host": "Der Host Eintrag hatte nicht das vollst\u00e4ndige URL-Format, z. B. http://192.168.10.100:80",
+            "reauth_successful": "Die erneute Authentifizierung war erfolgreich",
+            "unknown": "Unerwarteter Fehler"
+        },
+        "flow_title": "{name} ({host})",
+        "step": {
+            "reauth_confirm": {
+                "data": {
+                    "password": "Passwort",
+                    "username": "Benutzername"
+                },
+                "description": "Die Anmeldedaten f\u00fcr {host} sind nicht mehr g\u00fcltig.",
+                "title": "Reauthentifizierung deines ISY"
+            },
+            "user": {
+                "data": {
+                    "host": "URL",
+                    "password": "Passwort",
+                    "tls": "Die TLS-Version des ISY-Controllers.",
+                    "username": "Benutzername"
+                },
+                "description": "Der Host Eintrag muss im vollst\u00e4ndigen URL-Format vorliegen, z. B. http://192.168.10.100:80",
+                "title": "Verbindung zu deinem ISY"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_service": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Aktualisiere alle Automatisierungen oder Skripte, die diesen Dienst verwenden, um stattdessen den Dienst `{alternate_service}` mit einer Zielentit\u00e4ts-ID von `{alternate_target}` zu verwenden.",
+                        "title": "Der Dienst {deprecated_service} wird entfernt"
+                    },
+                    "deprecated_yaml": {
+                        "description": "Die Konfiguration von Universal Devices ISY/IoX mittels YAML wird entfernt.\n\nDeine bestehende YAML-Konfiguration wurde automatisch in das UI importiert.\n\nEntferne die YAML-Konfiguration `isy994` aus deiner configuration.yaml-Datei und starte Home Assistant neu, um dieses Problem zu beheben.",
+                        "title": "Die ISY/IoX YAML-Konfiguration wird entfernt"
+                    }
+                }
+            },
+            "title": "Der Dienst {deprecated_service} wird entfernt"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "ignore_string": "Zeichenfolge ignorieren",
+                    "restore_light_state": "Lichthelligkeit wiederherstellen",
+                    "sensor_string": "Knoten Sensor String",
+                    "variable_sensor_string": "Variabler Sensor String"
+                },
+                "description": "Stelle die Optionen f\u00fcr die ISY-Integration ein: \n - Node Sensor String: Jedes Ger\u00e4t oder jeder Ordner, der \u201eNode Sensor String\u201c im Namen enth\u00e4lt, wird als Sensor oder bin\u00e4rer Sensor behandelt. \n - String ignorieren: Jedes Ger\u00e4t mit \u201eIgnore String\u201c im Namen wird ignoriert. \n - Variable Sensor Zeichenfolge: Jede Variable, die \u201eVariable Sensor String\u201c im Namen enth\u00e4lt, wird als Sensor hinzugef\u00fcgt. \n - Lichthelligkeit wiederherstellen: Wenn diese Option aktiviert ist, wird beim Einschalten eines Lichts die vorherige Helligkeit wiederhergestellt und nicht der integrierte Ein-Pegel des Ger\u00e4ts.",
+                "title": "ISY-Optionen"
+            }
+        }
+    },
+    "services": {
+        "delete_zwave_lock_user_code": {
+            "description": "L\u00f6schen eines Z-Wave-Schloss-Benutzercodes \u00fcber den ISY.",
+            "fields": {
+                "user_num": {
+                    "description": "Die Benutzerslotnummer auf dem Schloss.",
+                    "name": "Benutzernummer"
+                }
+            },
+            "name": "Z-Wave-Schloss-Benutzercode l\u00f6schen"
+        },
+        "get_zwave_parameter": {
+            "description": "Fordert einen Z-Wave-Ger\u00e4teparameter \u00fcber das ISY an. Der Parameterwert wird als Entity-Extra-State-Attribut mit dem Namen \u201eZW_#\u201c zur\u00fcckgegeben, wobei \u201e#\u201c die Parameternummer ist.",
+            "fields": {
+                "parameter": {
+                    "description": "Die vom Ger\u00e4t abzurufende Parameternummer.",
+                    "name": "Parameter"
+                }
+            },
+            "name": "Z-Wave-Parameter abrufen"
+        },
+        "rename_node": {
+            "description": "Benennt einen Knoten oder eine Gruppe (Szene) auf dem ISY um. Hinweis: Dadurch wird der Home Assistant-Entit\u00e4tsname oder die Entit\u00e4ts-ID nicht automatisch entsprechend ge\u00e4ndert. Der Entit\u00e4tsname und die ID werden erst nach dem Neuladen der Integration oder dem Neustart von Home Assistant aktualisiert, und NUR, WENN du den Namen nicht bereits in Home Assistant angepasst hast.",
+            "fields": {
+                "name": {
+                    "description": "Der neue Name, der innerhalb des ISY verwendet werden soll.",
+                    "name": "Neuer Name"
+                }
+            },
+            "name": "Knoten auf ISY umbenennen"
+        },
+        "send_node_command": {
+            "description": "Sendet einen Befehl an ein ISY-Ger\u00e4t unter Verwendung seiner Home Assistant-Entit\u00e4ts-ID. G\u00fcltige Befehle sind: Beep, Brighten, Dim, Disable, Enable, Fade_Down, Fade_Stop, Fade_Up, Fast_Off, Fast_On und Query.",
+            "fields": {
+                "command": {
+                    "description": "Der Befehl, der an das Ger\u00e4t gesendet werden soll.",
+                    "name": "Befehl"
+                }
+            },
+            "name": "Knotenbefehl senden"
+        },
+        "send_program_command": {
+            "description": "Sendet einen Befehl zur Steuerung eines ISY-Programms oder -Ordners. G\u00fcltige Befehle sind \u201erun\u201c, \u201erun_then\u201c, \u201erun_else\u201c, \u201estop\u201c, \u201eenable\u201c, \u201edisable\u201c, \u201eenable_run_at_startup\u201c und \u201edisable_run_at_startup\u201c.",
+            "fields": {
+                "address": {
+                    "description": "Die Adresse des zu steuernden Programms (entweder Adresse oder Name verwenden).",
+                    "name": "Adresse"
+                },
+                "command": {
+                    "description": "Der zu sendende ISY-Programmbefehl.",
+                    "name": "Befehl"
+                },
+                "isy": {
+                    "description": "Wenn mehr als ein ISY verbunden ist, gib den Namen des abzufragenden ISY an (wie in der Ger\u00e4teregistrierung oder als oberster Knoten in der ISY-Administratorkonsole angezeigt). Wenn du auf mehreren ISYs denselben Programmnamen oder dieselbe Adresse hast, wird der Befehl auf allen ISYs ausgef\u00fchrt, wenn du dies wegl\u00e4sst.",
+                    "name": "ISY"
+                },
+                "name": {
+                    "description": "Der Name des zu steuernden Programms (entweder Adresse oder Name verwenden).",
+                    "name": "Name"
+                }
+            },
+            "name": "Programmbefehl senden"
+        },
+        "send_raw_node_command": {
+            "description": "Stelle die Optionen f\u00fcr die ISY-Integration ein: \n - Node Sensor String: Jedes Ger\u00e4t oder jeder Ordner, der \u201eNode Sensor String\u201c im Namen enth\u00e4lt, wird als Sensor oder bin\u00e4rer Sensor behandelt. \n - String ignorieren: Jedes Ger\u00e4t mit \u201eIgnore String\u201c im Namen wird ignoriert. \n - Variable Sensor Zeichenfolge: Jede Variable, die \u201eVariable Sensor String\u201c im Namen enth\u00e4lt, wird als Sensor hinzugef\u00fcgt. \n - Lichthelligkeit wiederherstellen: Wenn diese Option aktiviert ist, wird beim Einschalten eines Lichts die vorherige Helligkeit wiederhergestellt und nicht der integrierte Ein-Pegel des Ger\u00e4ts.",
+            "fields": {
+                "command": {
+                    "description": "Der ISY REST-Befehl, der an das Ger\u00e4t gesendet werden soll.",
+                    "name": "Befehl"
+                },
+                "parameters": {
+                    "description": "Ein Diktat von Parametern, die in der Abfragezeichenfolge gesendet werden sollen (z. B. zur Steuerung farbiger Gl\u00fchbirnen).",
+                    "name": "Parameter"
+                },
+                "unit_of_measurement": {
+                    "description": "Die ISY-Ma\u00dfeinheit (UOM), die bei Bedarf mit dem Befehl gesendet werden soll.",
+                    "name": "Ma\u00dfeinheit"
+                },
+                "value": {
+                    "description": "Der ganzzahlige Wert, der mit dem Befehl gesendet werden soll.",
+                    "name": "Wert"
+                }
+            },
+            "name": "Raw-Node-Befehl senden"
+        },
+        "set_zwave_lock_user_code": {
+            "description": "Legt einen Z-Wave Lock-Benutzercode \u00fcber ISY fest.",
+            "fields": {
+                "code": {
+                    "description": "Der f\u00fcr den Benutzer festzulegende Code.",
+                    "name": "Code"
+                },
+                "user_num": {
+                    "description": "Die Benutzerslotnummer auf dem Schloss.",
+                    "name": "Benutzernummer"
+                }
+            },
+            "name": "Z-Wave-Schloss-Benutzercode einstellen"
+        },
+        "set_zwave_parameter": {
+            "description": "Aktualisiert einen Z-Wave-Ger\u00e4teparameter \u00fcber ISY. Der Parameterwert wird auch als Entity-Extra-State-Attribut mit dem Namen \u201eZW_#\u201c zur\u00fcckgegeben, wobei \u201e#\u201c die Parameternummer ist.",
+            "fields": {
+                "parameter": {
+                    "description": "Die Parameternummer, die auf dem Endger\u00e4t eingestellt werden soll.",
+                    "name": "Parameter"
+                },
+                "size": {
+                    "description": "Die Gr\u00f6\u00dfe des Parameters, entweder 1, 2 oder 4 Byte.",
+                    "name": "Gr\u00f6\u00dfe"
+                },
+                "value": {
+                    "description": "Der f\u00fcr den Parameter festzulegende Wert. Kann eine Ganzzahl oder eine Bytefolge sein (z. B. \u201e0xFFFF\u201c).",
+                    "name": "Wert"
+                }
+            },
+            "name": "Z-Wave-Parameter einstellen"
+        }
+    },
+    "system_health": {
+        "info": {
+            "device_connected": "ISY verbunden",
+            "host_reachable": "Deutsch",
+            "last_heartbeat": "Letzte Heartbeat-Zeit",
+            "websocket_status": "Ereignis-Socket Status"
+        }
+    }
+}

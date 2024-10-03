@@ -1,0 +1,51 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "Siren",
+            "state": {
+                "off": "Kapal\u0131",
+                "on": "A\u00e7\u0131k"
+            },
+            "state_attributes": {
+                "available_tones": {
+                    "name": "Mevcut tonlar"
+                }
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "{domain} entegrasyonu i\u00e7in {platform} platformu, platform kurulumunu desteklemiyor. \n\n L\u00fctfen yap\u0131land\u0131rman\u0131zdan kald\u0131r\u0131n ve bu sorunu \u00e7\u00f6zmek i\u00e7in Home Assistant'\u0131 yeniden ba\u015flat\u0131n.",
+            "title": "Platform deste\u011fi desteklenmiyor"
+        }
+    },
+    "services": {
+        "toggle": {
+            "description": "Sireni a\u00e7ar/kapat\u0131r.",
+            "name": "De\u011fi\u015ftir"
+        },
+        "turn_off": {
+            "description": "Sireni kapat\u0131r.",
+            "name": "Kapat"
+        },
+        "turn_on": {
+            "description": "Sireni a\u00e7ar.",
+            "fields": {
+                "duration": {
+                    "description": "Sesin \u00e7al\u0131nd\u0131\u011f\u0131 saniye say\u0131s\u0131. Entegrasyon taraf\u0131ndan desteklenmelidir.",
+                    "name": "S\u00fcre"
+                },
+                "tone": {
+                    "description": "Yay\u0131lacak ton. `available_tones` \u00f6zelli\u011fi bir harita oldu\u011funda, anahtar veya de\u011fer kullan\u0131labilir. Entegrasyon taraf\u0131ndan desteklenmelidir.",
+                    "name": "Ton"
+                },
+                "volume_level": {
+                    "description": "Ses seviyesi. 0 duyulamaz, 1 maksimum ses seviyesidir. Entegrasyon taraf\u0131ndan desteklenmelidir.",
+                    "name": "Ses"
+                }
+            },
+            "name": "A\u00e7"
+        }
+    },
+    "title": "Siren"
+}

@@ -1,0 +1,196 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Urz\u0105dzenie jest ju\u017c skonfigurowane",
+            "another_device": "Ponowna konfiguracja nie powiod\u0142a si\u0119, u\u017cyto adresu IP/nazwy hosta innego urz\u0105dzenia Shelly.",
+            "ipv6_not_supported": "IPv6 nie jest obs\u0142ugiwany.",
+            "reauth_successful": "Ponowne uwierzytelnienie powiod\u0142o si\u0119",
+            "reauth_unsuccessful": "B\u0142\u0105d ponownego uwierzytelnienia, usu\u0144 integracj\u0119 i skonfiguruj j\u0105 ponownie",
+            "reconfigure_successful": "Ponowna konfiguracja powiod\u0142a si\u0119",
+            "unsupported_firmware": "Urz\u0105dzenie u\u017cywa nieobs\u0142ugiwanej wersji firmware"
+        },
+        "error": {
+            "cannot_connect": "Nie mo\u017cna nawi\u0105za\u0107 po\u0142\u0105czenia",
+            "custom_port_not_supported": "Urz\u0105dzenie Gen1 nie obs\u0142uguje niestandardowego portu.",
+            "firmware_not_fully_provisioned": "Urz\u0105dzenie nie jest w pe\u0142ni udost\u0119pnione. Skontaktuj si\u0119 z pomoc\u0105 techniczn\u0105 Shelly.",
+            "invalid_auth": "Niepoprawne uwierzytelnienie",
+            "unknown": "Nieoczekiwany b\u0142\u0105d"
+        },
+        "flow_title": "{name}",
+        "step": {
+            "confirm_discovery": {
+                "description": "Czy chcesz skonfigurowa\u0107 {model} ({host})?\n\nUrz\u0105dzenia zasilane bateryjnie, z ustawionym has\u0142em, nale\u017cy wybudzi\u0107 przed konfiguracj\u0105.\nUrz\u0105dzenia zasilane bateryjnie, bez ustawionego has\u0142a, zostan\u0105 dodane, gdy si\u0119 wybudz\u0105. Mo\u017cesz r\u0119cznie wybudzi\u0107 urz\u0105dzenie przyciskiem na obudowie lub poczeka\u0107 na aktualizacj\u0119 danych z urz\u0105dzenia."
+            },
+            "credentials": {
+                "data": {
+                    "password": "Has\u0142o",
+                    "username": "Nazwa u\u017cytkownika"
+                }
+            },
+            "reauth_confirm": {
+                "data": {
+                    "password": "Has\u0142o",
+                    "username": "Nazwa u\u017cytkownika"
+                }
+            },
+            "reconfigure_confirm": {
+                "data": {
+                    "host": "Host",
+                    "port": "Port"
+                },
+                "data_description": {
+                    "host": "Nazwa hosta lub adres IP urz\u0105dzenia Shelly, z kt\u00f3rym chcesz si\u0119 po\u0142\u0105czy\u0107.",
+                    "port": "Port TCP urz\u0105dzenia Shelly (Gen2+), z kt\u00f3rym ma zosta\u0107 nawi\u0105zane po\u0142\u0105czenie."
+                },
+                "description": "Zaktualizuj konfiguracj\u0119 dla {device_name}. \n\nPrzed skonfigurowaniem urz\u0105dzenia zasilane bateryjnie nale\u017cy wybudzi\u0107, naciskaj\u0105c przycisk na obudowie."
+            },
+            "user": {
+                "data": {
+                    "host": "Host",
+                    "port": "Port"
+                },
+                "data_description": {
+                    "host": "Nazwa hosta lub adres IP urz\u0105dzenia Shelly, z kt\u00f3rym chcesz si\u0119 po\u0142\u0105czy\u0107.",
+                    "port": "Port TCP urz\u0105dzenia Shelly (Gen2+), z kt\u00f3rym ma zosta\u0107 nawi\u0105zane po\u0142\u0105czenie."
+                },
+                "description": "Przed skonfigurowaniem urz\u0105dzenia zasilane bateryjnie nale\u017cy wybudzi\u0107, naciskaj\u0105c przycisk na obudowie."
+            }
+        }
+    },
+    "device_automation": {
+        "trigger_subtype": {
+            "button": "przycisk",
+            "button1": "pierwszy przycisk",
+            "button2": "drugi przycisk",
+            "button3": "trzeci przycisk",
+            "button4": "czwarty przycisk"
+        },
+        "trigger_type": {
+            "btn_down": "{subtype} zostanie wci\u015bni\u0119ty",
+            "btn_up": "{subtype} zostanie puszczony",
+            "double": "{subtype} zostanie dwukrotnie naci\u015bni\u0119ty",
+            "double_push": "{subtype} zostanie dwukrotnie naci\u015bni\u0119ty",
+            "long": "{subtype} zostanie d\u0142ugo naci\u015bni\u0119ty",
+            "long_push": "{subtype} zostanie d\u0142ugo naci\u015bni\u0119ty",
+            "long_single": "{subtype} zostanie d\u0142ugo naci\u015bni\u0119ty, a nast\u0119pnie pojedynczo naci\u015bni\u0119ty",
+            "single": "{subtype} zostanie pojedynczo naci\u015bni\u0119ty",
+            "single_long": "{subtype} pojedynczo naci\u015bni\u0119ty, a nast\u0119pnie d\u0142ugo naci\u015bni\u0119ty",
+            "single_push": "{subtype} zostanie pojedynczo naci\u015bni\u0119ty",
+            "triple": "{subtype} zostanie trzykrotnie naci\u015bni\u0119ty",
+            "triple_push": "{subtype} zostanie trzykrotnie naci\u015bni\u0119ty"
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "gas": {
+                "state_attributes": {
+                    "detected": {
+                        "state": {
+                            "heavy": "du\u017cy wyciek",
+                            "mild": "ma\u0142y wyciek",
+                            "none": "brak wycieku",
+                            "test": "test",
+                            "unknown": "nieznany"
+                        }
+                    }
+                }
+            }
+        },
+        "event": {
+            "input": {
+                "state_attributes": {
+                    "event_type": {
+                        "state": {
+                            "btn_down": "przycisk wci\u015bni\u0119ty",
+                            "btn_up": "przycisk puszczony",
+                            "double": "Podw\u00f3jne naci\u015bni\u0119cie",
+                            "double_push": "Podw\u00f3jne naci\u015bni\u0119cie",
+                            "long": "D\u0142ugie naci\u015bni\u0119cie",
+                            "long_push": "D\u0142ugie naci\u015bni\u0119cie",
+                            "long_single": "D\u0142ugie i kr\u00f3tkie naci\u015bni\u0119cie",
+                            "single": "Pojedyncze naci\u015bni\u0119cie",
+                            "single_long": "Kr\u00f3tkie i d\u0142ugie naci\u015bni\u0119cie",
+                            "single_push": "Pojedyncze naci\u015bni\u0119cie",
+                            "triple": "Potr\u00f3jne naci\u015bni\u0119cie",
+                            "triple_push": "Potr\u00f3jne naci\u015bni\u0119cie"
+                        }
+                    }
+                }
+            }
+        },
+        "sensor": {
+            "operation": {
+                "state": {
+                    "fault": "b\u0142\u0105d",
+                    "unknown": "nieznany",
+                    "warmup": "rozgrzewanie"
+                },
+                "state_attributes": {
+                    "self_test": {
+                        "state": {
+                            "completed": "zako\u0144czony",
+                            "not_completed": "niewykonany",
+                            "pending": "zaplanowano",
+                            "running": "w toku"
+                        }
+                    }
+                }
+            },
+            "valve_status": {
+                "state": {
+                    "checking": "sprawdzanie",
+                    "closed": "zamkni\u0119to",
+                    "closing": "zamykanie",
+                    "failure": "awaria",
+                    "opened": "otwarty",
+                    "opening": "otwieranie",
+                    "unknown": "nieznany"
+                }
+            }
+        }
+    },
+    "issues": {
+        "deprecated_valve_switch": {
+            "description": "Encja platformy prze\u0142\u0105cznik dla Shelly Gas Valve jest przestarza\u0142a. Encja platformy zaw\u00f3r {entity} jest dost\u0119pna i powinna by\u0107 u\u017cywana w przysz\u0142o\u015bci. W przypadku tej nowej encji zaworu musisz skorzysta\u0107 z us\u0142ugi {service}.",
+            "title": "Encja platformy prze\u0142\u0105cznik dla Shelly Gas Valve jest przestarza\u0142a"
+        },
+        "deprecated_valve_switch_entity": {
+            "description": "Twoja encja Shelly Gas Valve `{entity}` jest u\u017cywana w `{info}`. Encja platformy zaw\u00f3r jest dost\u0119pna i powinna by\u0107 u\u017cywana w przysz\u0142o\u015bci. \n\n Dostosuj `{info}`, aby rozwi\u0105za\u0107 ten problem.",
+            "title": "Wykryto przestarza\u0142\u0105 encj\u0119 prze\u0142\u0105cznika dla Shelly Gas Valve w {info}"
+        },
+        "device_not_calibrated": {
+            "description": "Urz\u0105dzenie Shelly {device_name} o adresie IP {ip_address} wymaga kalibracji. Aby skalibrowa\u0107 urz\u0105dzenie, nale\u017cy je ponownie uruchomi\u0107 po prawid\u0142owym zamontowaniu na zaworze. Mo\u017cesz ponownie uruchomi\u0107 urz\u0105dzenie w jego panelu web, przejd\u017a do 'Settings' > 'Device Reboot'.",
+            "title": "Urz\u0105dzenie Shelly {device_name} nie jest skalibrowane"
+        },
+        "push_update_failure": {
+            "description": "Home Assistant nie otrzymuje aktualizacji push z urz\u0105dzenia Shelly {device_name} o adresie IP {ip_address}. Sprawd\u017a konfiguracj\u0119 CoIoT w panelu web urz\u0105dzenia oraz konfiguracj\u0119 swojej sieci.",
+            "title": "B\u0142\u0105d aktualizacji push urz\u0105dzenia Shelly {device_name}"
+        },
+        "unsupported_firmware": {
+            "description": "Twoje urz\u0105dzenie Shelly {device_name} o adresie IP {ip_address} u\u017cywa nieobs\u0142ugiwanego oprogramowania sprz\u0119towego. Nale\u017cy zaktualizowa\u0107 oprogramowanie sprz\u0119towe.\n\nJe\u015bli urz\u0105dzenie nie zg\u0142asza mo\u017cliwo\u015bci aktualizacji, nale\u017cy sprawdzi\u0107 po\u0142\u0105czenie z internetem (brama, serwer DNS, czas) i uruchomi\u0107 ponownie urz\u0105dzenie.",
+            "title": "Nieobs\u0142ugiwane oprogramowanie sprz\u0119towe urz\u0105dzenia {device_name}"
+        }
+    },
+    "options": {
+        "abort": {
+            "ble_unsupported": "Obs\u0142uga Bluetooth wymaga oprogramowania w wersji {ble_min_version} lub nowszej."
+        },
+        "step": {
+            "init": {
+                "data": {
+                    "ble_scanner_mode": "Tryb skanera Bluetooth"
+                },
+                "description": "Skanowanie Bluetooth mo\u017ce by\u0107 aktywne lub pasywne. W trybie aktywnym Shelly \u017c\u0105da danych z pobliskich urz\u0105dze\u0144, w pasywnym Shelly otrzymuje dane samoczynnie rozg\u0142aszane przez pobliskie urz\u0105dzenia."
+            }
+        }
+    },
+    "selector": {
+        "ble_scanner_mode": {
+            "options": {
+                "active": "aktywno\u015b\u0107",
+                "disabled": "wy\u0142\u0105czono",
+                "passive": "pasywny"
+            }
+        }
+    }
+}

@@ -1,0 +1,166 @@
+{
+    "config": {
+        "abort": {
+            "single_instance_allowed": "Gi\u00e0 configurato. \u00c8 possibile una sola configurazione."
+        },
+        "error": {
+            "pin_request_failed": "Errore durante la richiesta del PIN da ecobee; verificare che la chiave API sia corretta.",
+            "token_request_failed": "Errore durante la richiesta di token da ecobee; per favore riprova."
+        },
+        "step": {
+            "authorize": {
+                "title": "Autorizza l'app su ecobee.com"
+            },
+            "user": {
+                "data": {
+                    "api_key": "Chiave API"
+                },
+                "description": "Inserisci la chiave API ottenuta da ecobee.com.",
+                "title": "chiave API ecobee"
+            }
+        }
+    },
+    "entity": {
+        "climate": {
+            "ecobee": {
+                "state_attributes": {
+                    "preset_mode": {
+                        "state": {
+                            "away_indefinitely": "Fuori casa a tempo indeterminato"
+                        }
+                    }
+                }
+            }
+        },
+        "number": {
+            "ventilator_min_type_away": {
+                "name": "Tempo minimo di assenza del ventilatore"
+            },
+            "ventilator_min_type_home": {
+                "name": "Tempo minimo del ventilatore a casa"
+            }
+        }
+    },
+    "services": {
+        "create_vacation": {
+            "description": "Crea una vacanza sul termostato selezionato. Nota: la data e l'ora di inizio/fine devono essere specificate insieme perch\u00e9 questi parametri abbiano effetto. Se la data e l'ora di inizio/fine non sono specificate, la vacanza inizier\u00e0 immediatamente e durer\u00e0 14 giorni (a meno che non venga cancellata prima).",
+            "fields": {
+                "cool_temp": {
+                    "description": "Temperatura di raffreddamento durante le vacanze.",
+                    "name": "Temperatura fredda"
+                },
+                "end_date": {
+                    "name": "Data di fine"
+                },
+                "end_time": {
+                    "description": "Ora di fine vacanza, nell'ora locale del termostato, nel formato 24 ore \"HH:MM:SS\".",
+                    "name": "Ora di fine"
+                },
+                "entity_id": {
+                    "description": "Termostato Ecobee su cui creare la vacanza.",
+                    "name": "Entit\u00e0"
+                },
+                "fan_min_on_time": {
+                    "description": "Numero minimo di minuti di funzionamento del ventilatore ogni ora (da 0 a 60) durante la vacanza.",
+                    "name": "Tempo minimo di accensione del ventilatore"
+                },
+                "fan_mode": {
+                    "description": "Modalit\u00e0 ventola del termostato durante le vacanze.",
+                    "name": "Modalit\u00e0 ventilatore"
+                },
+                "heat_temp": {
+                    "description": "Temperatura di riscaldamento durante le vacanze.",
+                    "name": "Temperatura di calore"
+                },
+                "start_date": {
+                    "name": "Data d'inizio"
+                },
+                "start_time": {
+                    "description": "Ora di inizio della vacanza, nell'ora locale del termostato, nel formato 24 ore \"HH:MM:SS\".",
+                    "name": "Ora di inizio"
+                },
+                "vacation_name": {
+                    "description": "Nome della vacanza da creare; deve essere univoco sul termostato.",
+                    "name": "Nome della vacanza"
+                }
+            },
+            "name": "Crea una vacanza"
+        },
+        "delete_vacation": {
+            "description": "Elimina una vacanza sul termostato selezionato.",
+            "fields": {
+                "entity_id": {
+                    "description": "Termostato Ecobee su cui cancellare la vacanza.",
+                    "name": "Entit\u00e0"
+                },
+                "vacation_name": {
+                    "description": "Nome della vacanza da eliminare.",
+                    "name": "Nome della vacanza"
+                }
+            },
+            "name": "Elimina vacanza"
+        },
+        "resume_program": {
+            "description": "Riprende la pianificazione programmata.",
+            "fields": {
+                "entity_id": {
+                    "description": "Nome/i delle entit\u00e0 da modificare.",
+                    "name": "Entit\u00e0"
+                },
+                "resume_all": {
+                    "description": "Riavvia tutti gli eventi e ritorna al programma previsto.",
+                    "name": "Riprendi tutto"
+                }
+            },
+            "name": "Riprendi il programma"
+        },
+        "set_dst_mode": {
+            "description": "Abilita/disabilita l'ora legale automatica.",
+            "fields": {
+                "dst_enabled": {
+                    "description": "Attiva l'ora legale automatica.",
+                    "name": "Ora legale abilitata"
+                }
+            },
+            "name": "Imposta la modalit\u00e0 dell'ora legale"
+        },
+        "set_fan_min_on_time": {
+            "description": "Imposta il tempo minimo di accensione della ventola.",
+            "fields": {
+                "entity_id": {
+                    "description": "Nome/i delle entit\u00e0 da modificare.",
+                    "name": "Entit\u00e0"
+                },
+                "fan_min_on_time": {
+                    "description": "Nuovo valore del ventilatore min in tempo.",
+                    "name": "Tempo minimo di accensione del ventilatore"
+                }
+            },
+            "name": "Impostare il minimo della ventola in tempo"
+        },
+        "set_mic_mode": {
+            "description": "Abilita/disabilita il microfono Alexa (solo per Ecobee 4).",
+            "fields": {
+                "mic_enabled": {
+                    "description": "Abilita il microfono Alexa.",
+                    "name": "Microfono abilitato"
+                }
+            },
+            "name": "Imposta la modalit\u00e0 microfono"
+        },
+        "set_occupancy_modes": {
+            "description": "Abilita/disabilita le modalit\u00e0 intelligenti \"In casa\"/\"Fuori casa\" e \"Seguimi\".",
+            "fields": {
+                "auto_away": {
+                    "description": "Abilita la modalit\u00e0 intelligente \"In casa\"/\"Fuori casa\".",
+                    "name": "Auto fuori casa"
+                },
+                "follow_me": {
+                    "description": "Attiva la modalit\u00e0 Seguimi.",
+                    "name": "Seguimi"
+                }
+            },
+            "name": "Imposta le modalit\u00e0 di occupazione"
+        }
+    }
+}

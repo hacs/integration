@@ -1,0 +1,220 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Teenus on juba seadistatud",
+            "reauth_successful": "Taastuvastamine \u00f5nnestus",
+            "reconfigure_successful": "\u00dcmberseadistamine \u00f5nnestus",
+            "wrong_account": "Pead kasutama sama kontot mida kasutasid integratsiooni konfigureerimiseks."
+        },
+        "error": {
+            "cannot_connect": "\u00dchendamine nurjus",
+            "invalid_auth": "Tuvastamine nurjus",
+            "mealie_version": "Minimaalne n\u00f5utav versioon on v1.0.0. Uuenda Mealie versiooni ja proovi seej\u00e4rel uuesti.",
+            "unknown": "Ootamatu t\u00f5rge"
+        },
+        "step": {
+            "reauth_confirm": {
+                "data": {
+                    "api_token": "API v\u00f5ti"
+                },
+                "description": "Taastuvasta Mealie."
+            },
+            "reconfigure_confirm": {
+                "data": {
+                    "api_token": "API v\u00f5ti",
+                    "host": "URL",
+                    "verify_ssl": "Kontrolli SSL sertifikaati"
+                },
+                "description": "Seadista Mealie uuesti"
+            },
+            "user": {
+                "data": {
+                    "api_token": "API v\u00f5ti",
+                    "host": "URL",
+                    "verify_ssl": "Kontrolli SSL sertifikaati"
+                },
+                "data_description": {
+                    "host": "Mealie eksemplari URL."
+                }
+            }
+        }
+    },
+    "entity": {
+        "calendar": {
+            "breakfast": {
+                "name": "Hommikus\u00f6\u00f6k"
+            },
+            "dinner": {
+                "name": "\u00d5htus\u00f6\u00f6k"
+            },
+            "lunch": {
+                "name": "L\u00f5unas\u00f6\u00f6k"
+            },
+            "side": {
+                "name": "Oode"
+            }
+        },
+        "sensor": {
+            "categories": {
+                "name": "Kategooriad"
+            },
+            "recipes": {
+                "name": "Retseptid"
+            },
+            "tags": {
+                "name": "M\u00e4rgised"
+            },
+            "tools": {
+                "name": "T\u00f6\u00f6riistad"
+            },
+            "users": {
+                "name": "Kasutajad"
+            }
+        }
+    },
+    "exceptions": {
+        "add_item_error": {
+            "message": "\u00dcksuse {shopping_list_name} lisamisel ilmnes t\u00f5rge."
+        },
+        "connection_error": {
+            "message": "Viga Mealie eksemplariga \u00fchenduse loomisel."
+        },
+        "could_not_import_recipe": {
+            "message": "Mealie ei suutnud retsepti URL-ilt importida."
+        },
+        "delete_item_error": {
+            "message": "\u00dcksuse {shopping_list_name} kustutamisel ilmnes t\u00f5rge."
+        },
+        "end_date_before_start_date": {
+            "message": "L\u00f5pu kuup\u00e4ev peab olema hilisem kui alguskuup\u00e4ev."
+        },
+        "integration_not_found": {
+            "message": "Sidumist \"{target}\" ei leitud registrist"
+        },
+        "item_not_found_error": {
+            "message": "\u00dcksust {shopping_list_item} ei leitud."
+        },
+        "not_loaded": {
+            "message": "{target} pole laaditud."
+        },
+        "recipe_not_found": {
+            "message": "Retsepti ID v\u00f5i kirjeldusega ` {recipe_id} ` ei leitud."
+        },
+        "update_item_error": {
+            "message": "\u00dcksuse v\u00e4rskendamisel nimekirjas {shopping_list_name}ilmnes t\u00f5rge."
+        },
+        "version_error": {
+            "message": "Kasutad Mealie {mealie_version} . Minimaalne n\u00f5utav versioon on {min_version} . Uuenda Mealie versiooni ja proovi seej\u00e4rel uuesti."
+        }
+    },
+    "selector": {
+        "mealplan_entry_type": {
+            "options": {
+                "breakfast": "Hommikus\u00f6\u00f6k",
+                "dinner": "\u00d5htus\u00f6\u00f6k",
+                "lunch": "L\u00f5unas\u00f6\u00f6k",
+                "side": "Oode"
+            }
+        }
+    },
+    "services": {
+        "get_mealplan": {
+            "description": "Hangi Mealiest toitumiskava",
+            "fields": {
+                "config_entry_id": {
+                    "description": "Vali Mealie eksemplar, et saada toitumiskava",
+                    "name": "Mealie eksemplar"
+                },
+                "end_date": {
+                    "description": "Hangitavate andmete l\u00f5pu kuup\u00e4ev (vaikimisi: t\u00e4na).",
+                    "name": "L\u00f5pu kuup\u00e4ev"
+                },
+                "start_date": {
+                    "description": "Hangitavate andmete alguskuup\u00e4ev (vaikimisi: t\u00e4na).",
+                    "name": "Alguse kuup\u00e4ev"
+                }
+            },
+            "name": "Hangi toitumiskava"
+        },
+        "get_recipe": {
+            "description": "Hangi retsept Mealie'st",
+            "fields": {
+                "config_entry_id": {
+                    "description": "Vali Mealie eksemplar, et saada toitumiskava",
+                    "name": "Mealie eksemplar"
+                },
+                "recipe_id": {
+                    "description": "Hangitava retsepti ID v\u00f5i kirjeldus",
+                    "name": "Retsepti ID v\u00f5i kirjeldus"
+                }
+            },
+            "name": "Hangi retsept"
+        },
+        "import_recipe": {
+            "description": "Impordi retsept URL-ist",
+            "fields": {
+                "config_entry_id": {
+                    "description": "Vali Mealie eksemplar, et saada toitumiskava",
+                    "name": "Mealie eksemplar"
+                },
+                "include_tags": {
+                    "description": "Lisa retseptile veebisaidilt p\u00e4rit sildid.",
+                    "name": "Kaasa sildid"
+                },
+                "url": {
+                    "description": "Imporditava retsepti URL-aadress.",
+                    "name": "Retsepti URL aadress"
+                }
+            },
+            "name": "Impordi retsept"
+        },
+        "set_mealplan": {
+            "description": "M\u00e4\u00e4ra s\u00f6\u00f6gikava konkreetseks kuup\u00e4evaks",
+            "fields": {
+                "config_entry_id": {
+                    "description": "Vali Mealie eksemplar, et saada toitumiskava",
+                    "name": "Mealie eksemplar"
+                },
+                "date": {
+                    "description": "Kuup\u00e4ev mille jaoks s\u00f6\u00f6gikava koostatakse.",
+                    "name": "Kuup\u00e4ev"
+                },
+                "entry_type": {
+                    "description": "Roa t\u00fc\u00fcp, millele retsepti m\u00e4\u00e4rata.",
+                    "name": "Sissekande t\u00fc\u00fcp"
+                },
+                "note_text": {
+                    "description": "S\u00f6\u00f6gim\u00e4rkme tekst kui planeerid ilma retseptita.",
+                    "name": "M\u00e4rkme tekst"
+                },
+                "note_title": {
+                    "description": "S\u00f6\u00f6gim\u00e4rkme pealkiri kui planeerid ilma retseptita.",
+                    "name": "S\u00f6\u00f6gim\u00e4rkme pealkiri"
+                },
+                "recipe_id": {
+                    "description": "Hangitava retsepti ID v\u00f5i kirjeldus",
+                    "name": "Retsepti ID v\u00f5i kirjeldus"
+                }
+            },
+            "name": "Pane paika s\u00f6\u00f6giplaan"
+        },
+        "set_random_mealplan": {
+            "description": "M\u00e4\u00e4ra konkreetseks kuup\u00e4evaks juhuslik s\u00f6\u00f6gikava",
+            "fields": {
+                "config_entry_id": {
+                    "description": "Vali Mealie eksemplar, et saada toitumiskava",
+                    "name": "Mealie eksemplar"
+                },
+                "date": {
+                    "description": "Kuup\u00e4ev mille jaoks s\u00f6\u00f6gikava koostatakse.",
+                    "name": "Kuup\u00e4ev"
+                },
+                "entry_type": {
+                    "description": "Juhusliku roa t\u00fc\u00fcp.",
+                    "name": "Sissekande t\u00fc\u00fcp"
+                }
+            },
+            "name": "M\u00e4\u00e4ra juhuslik s\u00f6\u00f6gikava"
+        }
+    }
+}

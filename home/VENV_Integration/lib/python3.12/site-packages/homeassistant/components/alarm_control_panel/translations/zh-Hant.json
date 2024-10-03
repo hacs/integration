@@ -1,0 +1,148 @@
+{
+    "device_automation": {
+        "action_type": {
+            "arm_away": "\u8a2d\u5b9a{entity_name}\u5916\u51fa\u6a21\u5f0f",
+            "arm_home": "\u8a2d\u5b9a{entity_name}\u8fd4\u5bb6\u6a21\u5f0f",
+            "arm_night": "\u8a2d\u5b9a{entity_name}\u591c\u9593\u6a21\u5f0f",
+            "arm_vacation": "\u8a2d\u5b9a{entity_name}\u5ea6\u5047\u6a21\u5f0f",
+            "disarm": "\u89e3\u9664{entity_name}",
+            "trigger": "\u89f8\u767c{entity_name}"
+        },
+        "condition_type": {
+            "is_armed_away": "{entity_name}\u8a2d\u5b9a\u5916\u51fa",
+            "is_armed_home": "{entity_name}\u8a2d\u5b9a\u5728\u5bb6",
+            "is_armed_night": "{entity_name}\u8a2d\u5b9a\u591c\u9593",
+            "is_armed_vacation": "{entity_name}\u8a2d\u5b9a\u5ea6\u5047",
+            "is_disarmed": "{entity_name}\u5df2\u89e3\u9664",
+            "is_triggered": "{entity_name}\u5df2\u89f8\u767c"
+        },
+        "extra_fields": {
+            "code": "\u5bc6\u78bc",
+            "for": "\u6301\u7e8c\u6642\u9593"
+        },
+        "trigger_type": {
+            "armed_away": "{entity_name}\u8a2d\u5b9a\u5916\u51fa",
+            "armed_home": "{entity_name}\u8a2d\u5b9a\u5728\u5bb6",
+            "armed_night": "{entity_name}\u8a2d\u5b9a\u591c\u9593",
+            "armed_vacation": "{entity_name}\u8a2d\u5b9a\u5ea6\u5047",
+            "disarmed": "{entity_name}\u5df2\u89e3\u9664",
+            "triggered": "{entity_name}\u5df2\u89f8\u767c"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "\u8b66\u6212\u63a7\u5236\u9762\u677f",
+            "state": {
+                "armed": "\u5df2\u8b66\u6212",
+                "armed_away": "\u96e2\u5bb6\u8b66\u6212",
+                "armed_custom_bypass": "\u81ea\u8a02\u5ffd\u7565\u8b66\u6212",
+                "armed_home": "\u5728\u5bb6\u8b66\u6212",
+                "armed_night": "\u591c\u9593\u8b66\u6212",
+                "armed_vacation": "\u5ea6\u5047\u8b66\u6212",
+                "arming": "\u8b66\u6212\u4e2d",
+                "disarmed": "\u8b66\u6212\u89e3\u9664",
+                "disarming": "\u89e3\u9664\u4e2d",
+                "pending": "\u7b49\u5f85\u4e2d",
+                "triggered": "\u5df2\u89f8\u767c"
+            },
+            "state_attributes": {
+                "changed_by": {
+                    "name": "\u8b8a\u66f4\u8005"
+                },
+                "code_arm_required": {
+                    "name": "\u4f48\u9632\u4ee3\u78bc",
+                    "state": {
+                        "false": "\u975e\u5fc5\u8981",
+                        "true": "\u5fc5\u8981"
+                    }
+                },
+                "code_format": {
+                    "name": "\u4ee3\u78bc\u683c\u5f0f",
+                    "state": {
+                        "number": "\u6578\u5b57",
+                        "text": "\u6587\u5b57"
+                    }
+                }
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "{domain} \u6574\u5408\u7684 {platform} \u5e73\u53f0\u4e0d\u652f\u63f4\u5e73\u53f0\u8a2d\u5b9a\u3002\n\n\u8acb\u5c07\u5176\u7531\u8a2d\u5b9a\u4e2d\u79fb\u9664\uff0c\u4e26\u91cd\u65b0\u555f\u52d5 Home Assistant \u4ee5\u4fee\u6b63\u6b64\u554f\u984c\u3002",
+            "title": "\u4e0d\u652f\u63f4\u5e73\u53f0\u652f\u63f4"
+        }
+    },
+    "services": {
+        "alarm_arm_away": {
+            "description": "\u5c07\u8b66\u5831\u8a2d\u5b9a\u70ba\uff1a\u8b66\u6212\u3001\u6c92\u4eba\u5728\u5bb6\uff08_armed, no one home_\uff09\u3002",
+            "fields": {
+                "code": {
+                    "description": "\u4f48\u9632\u8b66\u6212\u7684\u4ee3\u78bc\u3002",
+                    "name": "\u4ee3\u78bc"
+                }
+            },
+            "name": "\u96e2\u5bb6\u8b66\u6212"
+        },
+        "alarm_arm_custom_bypass": {
+            "description": "\u555f\u52d5\u8b66\u5831\u3001\u540c\u6642\u5141\u8a31\u5ffd\u7565\u81ea\u8a02\u5340\u57df\u3002",
+            "fields": {
+                "code": {
+                    "description": "\u4f48\u9632\u8b66\u6212\u7684\u4ee3\u78bc\u3002",
+                    "name": "\u4ee3\u78bc"
+                }
+            },
+            "name": "\u81ea\u8a02\u5ffd\u7565\u8b66\u6212"
+        },
+        "alarm_arm_home": {
+            "description": "\u5c07\u8b66\u5831\u8a2d\u5b9a\u70ba\uff1a\u8b66\u6212\u3001\u4f46\u6709\u4eba\u5728\u5bb6\uff08_armed, but someone is home_\uff09\u3002",
+            "fields": {
+                "code": {
+                    "description": "\u4f48\u9632\u8b66\u6212\u7684\u4ee3\u78bc\u3002",
+                    "name": "\u4ee3\u78bc"
+                }
+            },
+            "name": "\u5728\u5bb6\u8b66\u6212"
+        },
+        "alarm_arm_night": {
+            "description": "\u5c07\u8b66\u5831\u8a2d\u5b9a\u70ba\uff1a\u591c\u9593\u8b66\u6212\uff08_armed for the night_\uff09\u3002",
+            "fields": {
+                "code": {
+                    "description": "\u4f48\u9632\u8b66\u6212\u7684\u4ee3\u78bc\u3002",
+                    "name": "\u4ee3\u78bc"
+                }
+            },
+            "name": "\u591c\u9593\u8b66\u6212"
+        },
+        "alarm_arm_vacation": {
+            "description": "\u5c07\u8b66\u5831\u8a2d\u5b9a\u70ba\uff1a\u5ea6\u5047\u8b66\u6212\uff08_armed for vacation_\uff09\u3002",
+            "fields": {
+                "code": {
+                    "description": "\u4f48\u9632\u8b66\u6212\u7684\u4ee3\u78bc\u3002",
+                    "name": "\u4ee3\u78bc"
+                }
+            },
+            "name": "\u5ea6\u5047\u8b66\u6212"
+        },
+        "alarm_disarm": {
+            "description": "\u89e3\u9664\u8b66\u5831\u3002",
+            "fields": {
+                "code": {
+                    "description": "\u89e3\u9664\u8b66\u5831\u7684\u4ee3\u78bc\u3002",
+                    "name": "\u4ee3\u78bc"
+                }
+            },
+            "name": "\u89e3\u9664\u8b66\u5831"
+        },
+        "alarm_trigger": {
+            "description": "\u555f\u7528\u5916\u90e8\u8b66\u5831\u89f8\u767c\u5668",
+            "fields": {
+                "code": {
+                    "description": "\u4f48\u9632\u8b66\u6212\u7684\u4ee3\u78bc\u3002",
+                    "name": "\u4ee3\u78bc"
+                }
+            },
+            "name": "\u89f8\u767c\u5668"
+        }
+    },
+    "title": "\u8b66\u6212\u63a7\u5236\u9762\u677f"
+}

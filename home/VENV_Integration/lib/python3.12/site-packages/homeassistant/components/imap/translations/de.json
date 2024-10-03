@@ -1,0 +1,171 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Ger\u00e4t ist bereits konfiguriert",
+            "reauth_successful": "Die erneute Authentifizierung war erfolgreich"
+        },
+        "error": {
+            "cannot_connect": "Verbindung fehlgeschlagen",
+            "invalid_auth": "Ung\u00fcltige Authentifizierung",
+            "invalid_charset": "Der angegebene Zeichensatz wird nicht unterst\u00fctzt",
+            "invalid_folder": "Der ausgew\u00e4hlte Ordner ist ung\u00fcltig",
+            "invalid_search": "Die ausgew\u00e4hlte Suche ist ung\u00fcltig",
+            "ssl_error": "Ein SSL-Fehler ist aufgetreten. \u00c4ndere die SSL-Chiffre und versuche es erneut"
+        },
+        "step": {
+            "reauth_confirm": {
+                "data": {
+                    "password": "Passwort"
+                },
+                "description": "Das Passwort f\u00fcr {username} ist ung\u00fcltig.",
+                "title": "Die Authentifizierung ist abgelaufen f\u00fcr {name}"
+            },
+            "user": {
+                "data": {
+                    "charset": "Zeichensatz",
+                    "folder": "Ordner",
+                    "password": "Passwort",
+                    "port": "Port",
+                    "search": "IMAP-Suche",
+                    "server": "Server",
+                    "ssl_cipher_list": "SSL-Verschl\u00fcsselungsliste (Erweitert)",
+                    "username": "Benutzername",
+                    "verify_ssl": "SSL-Zertifikat \u00fcberpr\u00fcfen"
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "copy_failed": {
+            "message": "Das Kopieren der Nachricht ist mit \u201e{error}\u201c fehlgeschlagen."
+        },
+        "delete_failed": {
+            "message": "Das Markieren der Nachricht zum L\u00f6schen ist mit \u201e{error}\u201c fehlgeschlagen."
+        },
+        "expunge_failed": {
+            "message": "Das L\u00f6schen der Nachricht ist mit \u201e{error}\u201c fehlgeschlagen."
+        },
+        "fetch_failed": {
+            "message": "Das Abrufen des Nachrichtentextes ist mit \u201e{error}\u201c fehlgeschlagen."
+        },
+        "imap_server_fail": {
+            "message": "Die Verbindung zum IMAP-Server ist fehlgeschlagen: {error}."
+        },
+        "invalid_auth": {
+            "message": "Ung\u00fcltige Authentifizierung"
+        },
+        "invalid_entry": {
+            "message": "Es wurde kein g\u00fcltiger IMAP-Eintrag gefunden."
+        },
+        "invalid_folder": {
+            "message": "Der ausgew\u00e4hlte Ordner ist ung\u00fcltig"
+        },
+        "seen_failed": {
+            "message": "Das Markieren der Nachricht als gesehen ist mit \u201e{error}\u201c fehlgeschlagen."
+        }
+    },
+    "options": {
+        "error": {
+            "already_configured": "Ein Eintrag mit diesen Ordner- und Suchoptionen existiert bereits",
+            "cannot_connect": "Verbindung fehlgeschlagen",
+            "invalid_auth": "Ung\u00fcltige Authentifizierung",
+            "invalid_charset": "Der angegebene Zeichensatz wird nicht unterst\u00fctzt",
+            "invalid_folder": "Der ausgew\u00e4hlte Ordner ist ung\u00fcltig",
+            "invalid_search": "Die ausgew\u00e4hlte Suche ist ung\u00fcltig",
+            "invalid_template": "Ung\u00fcltige Vorlage"
+        },
+        "step": {
+            "init": {
+                "data": {
+                    "custom_event_data_template": "Vorlage zum Erstellen eigener Ereignisdaten",
+                    "enable_push": "Aktiviere Push-IMAP, wenn der Server dies unterst\u00fctzt. Deaktiviere diese Option, wenn Push-IMAP-Updates unzuverl\u00e4ssig sind.",
+                    "event_message_data": "In den `imap_content`-Ereignisdaten aufzunehmende Nachrichtendaten:",
+                    "folder": "Ordner",
+                    "max_message_size": "Maximale Nachrichtengr\u00f6\u00dfe (2048 < Gr\u00f6\u00dfe < 30000)",
+                    "search": "IMAP-Suche"
+                }
+            }
+        }
+    },
+    "selector": {
+        "event_message_data": {
+            "options": {
+                "headers": "Kopfzeilen der Nachricht",
+                "text": "Haupttext"
+            }
+        },
+        "ssl_cipher_list": {
+            "options": {
+                "intermediate": "Intermedi\u00e4re Chiffren",
+                "modern": "Moderne Chiffren",
+                "python_default": "Standardeinstellungen"
+            }
+        }
+    },
+    "services": {
+        "delete": {
+            "description": "Eine E-Mail l\u00f6schen.",
+            "fields": {
+                "entry": {
+                    "description": "Der IMAP-Konfigurationseintrag.",
+                    "name": "Eintrag"
+                },
+                "uid": {
+                    "description": "Die E-Mail-Kennung (UID).",
+                    "name": "UID"
+                }
+            },
+            "name": "Nachricht l\u00f6schen"
+        },
+        "fetch": {
+            "description": "Hole die E-Mail-Nachricht vom Server.",
+            "fields": {
+                "entry": {
+                    "description": "Der IMAP-Konfigurationseintrag.",
+                    "name": "Eintrag"
+                },
+                "uid": {
+                    "description": "Die E-Mail-Kennung (UID).",
+                    "name": "UID"
+                }
+            },
+            "name": "Nachricht abrufen"
+        },
+        "move": {
+            "description": "Verschiebe eine E-Mail in einen Zielordner.",
+            "fields": {
+                "entry": {
+                    "description": "Der IMAP-Konfigurationseintrag.",
+                    "name": "Eintrag"
+                },
+                "seen": {
+                    "description": "E-Mail als gesehen markieren.",
+                    "name": "Gesehen"
+                },
+                "target_folder": {
+                    "description": "Der Zielordner, in den die E-Mail verschoben werden soll.",
+                    "name": "Zielordner"
+                },
+                "uid": {
+                    "description": "Die E-Mail-Kennung (UID).",
+                    "name": "UID"
+                }
+            },
+            "name": "Nachricht verschieben"
+        },
+        "seen": {
+            "description": "Eine E-Mail als gesehen markieren.",
+            "fields": {
+                "entry": {
+                    "description": "Der IMAP-Konfigurationseintrag.",
+                    "name": "Eintrag"
+                },
+                "uid": {
+                    "description": "Die E-Mail-Kennung (UID).",
+                    "name": "UID"
+                }
+            },
+            "name": "Nachricht als gesehen markieren"
+        }
+    }
+}

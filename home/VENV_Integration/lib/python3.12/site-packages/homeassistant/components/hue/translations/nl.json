@@ -1,0 +1,172 @@
+{
+    "config": {
+        "abort": {
+            "all_configured": "Alle Philips Hue bridges zijn al geconfigureerd",
+            "already_configured": "Apparaat is al geconfigureerd",
+            "already_in_progress": "De configuratie is momenteel al bezig",
+            "cannot_connect": "Kan geen verbinding maken",
+            "discover_timeout": "Hue bridges kunnen niet worden gevonden",
+            "invalid_host": "Ongeldige hostnaam of IP-adres",
+            "no_bridges": "Geen Philips Hue bridges ontdekt",
+            "not_hue_bridge": "Dit is geen Hue bridge",
+            "unknown": "Onverwachte fout"
+        },
+        "error": {
+            "linking": "Onverwachte fout",
+            "register_failed": "Registratie is mislukt, probeer het opnieuw"
+        },
+        "step": {
+            "init": {
+                "data": {
+                    "host": "Host"
+                },
+                "data_description": {
+                    "host": "De hostnaam of IP-adres van je Hue bridge."
+                },
+                "title": "Kies Hue bridge"
+            },
+            "link": {
+                "description": "Druk op de knop van de bridge om Philips Hue te registreren met Home Assistant.  \n\n![Locatie van de knop op bridge](/static/images/config_philips_hue.jpg)",
+                "title": "Link Hub"
+            },
+            "manual": {
+                "data": {
+                    "host": "Host"
+                },
+                "title": "Handmatig een Hue bridge configureren"
+            }
+        }
+    },
+    "device_automation": {
+        "trigger_subtype": {
+            "1": "Eerste knop",
+            "2": "Tweede knop",
+            "3": "Derde knop",
+            "4": "Vierde knop",
+            "button_1": "Eerste knop",
+            "button_2": "Tweede knop",
+            "button_3": "Derde knop",
+            "button_4": "Vierde knop",
+            "clock_wise": "Rotatie met de klok mee",
+            "counter_clock_wise": "Rotatie tegen de klok in",
+            "dim_down": "Dim omlaag",
+            "dim_up": "Dim omhoog",
+            "double_buttons_1_3": "Eerste en derde knop",
+            "double_buttons_2_4": "Tweede en vierde knop",
+            "turn_off": "Uitzetten",
+            "turn_on": "Aanzetten"
+        },
+        "trigger_type": {
+            "double_short_release": "Beide \"{subtype}\" losgelaten",
+            "long_release": "\"{subtype}\" knop losgelaten na lang drukken",
+            "remote_double_button_long_press": "Beide \"{subtype}\" losgelaten na lang indrukken",
+            "remote_double_button_short_press": "Beide \"{subtype}\" losgelaten",
+            "start": "Knop \" {subtype} \" aanvankelijk ingedrukt"
+        }
+    },
+    "entity": {
+        "event": {
+            "button": {
+                "state_attributes": {
+                    "event_type": {
+                        "state": {
+                            "double_short_release": "Twee keer ingedrukt",
+                            "initial_press": "Eerste druk",
+                            "long_press": "Kort ingedrukt",
+                            "long_release": "Lang ingedrukt",
+                            "repeat": "herhaal",
+                            "short_release": "Kort ingedrukt"
+                        }
+                    }
+                }
+            },
+            "rotary": {
+                "state_attributes": {
+                    "event_type": {
+                        "state": {
+                            "clock_wise": "rechtsom",
+                            "counter_clock_wise": "linksom"
+                        }
+                    }
+                }
+            }
+        },
+        "sensor": {
+            "zigbee_connectivity": {
+                "name": "Zigbee connectiviteit",
+                "state": {
+                    "connected": "Verbonden",
+                    "disconnected": "Verbroken"
+                }
+            }
+        },
+        "switch": {
+            "automation": {
+                "state": {
+                    "off": "Uitgeschakeld",
+                    "on": "Ingeschakeld"
+                }
+            },
+            "light_sensor_enabled": {
+                "name": "Lichtsensor ingeschakeld"
+            },
+            "motion_sensor_enabled": {
+                "name": "Bewegingssensor ingeschakeld"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "allow_hue_groups": "Sta Hue-groepen toe",
+                    "allow_hue_scenes": "Sta Hue sc\u00e8nes toe",
+                    "allow_unreachable": "Onbereikbare lampen toestaan hun status te melden",
+                    "ignore_availability": "Verbindingsstatus negeren voor de opgegeven apparaten"
+                }
+            }
+        }
+    },
+    "services": {
+        "activate_scene": {
+            "description": "Activeert Hue sc\u00e8ne met meer controle opties.",
+            "fields": {
+                "brightness": {
+                    "description": "Stel helderheid in voor sc\u00e8ne.",
+                    "name": "Helderheid"
+                },
+                "dynamic": {
+                    "description": "Schakel dynamische mode voor deze sc\u00e8ne in.",
+                    "name": "Dynamisch"
+                },
+                "speed": {
+                    "description": "Snelheid van dynamisch pallet voor deze sc\u00e8ne.",
+                    "name": "Snelheid"
+                },
+                "transition": {
+                    "description": "Overgangsduur die nodig is om apparaten in de status te brengen die in de sc\u00e8ne is gedefinieerd.",
+                    "name": "Overgang"
+                }
+            },
+            "name": "Activeer Hue sc\u00e8ne"
+        },
+        "hue_activate_scene": {
+            "description": "Activeert een Hue sc\u00e8ne opgeslagen in de Hue hub.",
+            "fields": {
+                "dynamic": {
+                    "description": "Schakel dynamische mode van de sc\u00e8ne in (V2 bridge en alleen voor ondersteunde sc\u00e8nes).",
+                    "name": "Dynamisch"
+                },
+                "group_name": {
+                    "description": "Naam van de Hue groep/ruimte van de Hue app.",
+                    "name": "Groep"
+                },
+                "scene_name": {
+                    "description": "Naam van de Hue sc\u00e8ne van de Hue app.",
+                    "name": "Sc\u00e8ne"
+                }
+            },
+            "name": "Activeer sc\u00e8ne"
+        }
+    }
+}

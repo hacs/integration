@@ -1,0 +1,778 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Ger\u00e4t ist bereits konfiguriert",
+            "reauth_successful": "Die erneute Authentifizierung war erfolgreich",
+            "reconfigure_successful": "Die Neukonfiguration war erfolgreich"
+        },
+        "error": {
+            "api_error": "API-Fehler aufgetreten",
+            "cannot_connect": "Verbindung fehlgeschlagen, \u00fcberpr\u00fcfe die IP-Adresse der Kamera",
+            "invalid_auth": "Ung\u00fcltige Authentifizierung",
+            "not_admin": "Der Benutzer muss ein Administrator sein, der Benutzer \u201e{username}\u201c hat die Autorisierungsstufe \u201e{userlevel}\u201c",
+            "password_incompatible": "Das Passwort enth\u00e4lt inkompatible Sonderzeichen. Nur diese Zeichen sind zul\u00e4ssig: a\u2013z, A\u2013Z, 0\u20139 oder {special_chars}",
+            "unknown": "Unerwarteter Fehler",
+            "webhook_exception": "Die Home Assistant-URL ist nicht verf\u00fcgbar. Gehe zu Einstellungen \u2192 System \u2192 Netzwerk \u2192 Home Assistant-URL und korrigiere die URLs, siehe {more_info}"
+        },
+        "flow_title": "{hostname} ({ip_address})",
+        "step": {
+            "reauth_confirm": {
+                "description": "Die Reolink-Integration muss deine Verbindungsdaten neu authentifizieren",
+                "title": "Die Authentifizierung ist abgelaufen f\u00fcr {name}"
+            },
+            "user": {
+                "data": {
+                    "host": "Host",
+                    "password": "Passwort",
+                    "port": "Port",
+                    "use_https": "HTTPS aktivieren",
+                    "username": "Benutzername"
+                },
+                "data_description": {
+                    "host": "Der Hostname oder die IP-Adresse deines Reolink-Ger\u00e4ts. Beispiel: \u201e192.168.1.25\u201c.",
+                    "password": "Passwort zum Anmelden am Reolink-Ger\u00e4t selbst. Nicht das Reolink-Cloud-Konto.",
+                    "port": "Der Port zur Verbindung mit dem Reolink-Ger\u00e4t. F\u00fcr HTTP normalerweise: \u201e80\u201c, f\u00fcr HTTPS normalerweise \u201e443\u201c.",
+                    "use_https": "Verwende eine HTTPS (SSL)-Verbindung zum Reolink-Ger\u00e4t.",
+                    "username": "Benutzername zum Anmelden am Reolink-Ger\u00e4t selbst. Nicht das Reolink-Cloud-Konto."
+                },
+                "description": "Sieh dir die [Schritte zur Fehlerbehebung]({troubleshooting_link}) an, wenn du auf Probleme st\u00f6\u00dft. {error}"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "animal": {
+                "name": "Tier",
+                "state": {
+                    "off": "Normal",
+                    "on": "Erkannt"
+                }
+            },
+            "animal_lens_0": {
+                "name": "Tier-Objektiv 0",
+                "state": {
+                    "off": "Normal",
+                    "on": "Erkannt"
+                }
+            },
+            "animal_lens_1": {
+                "name": "Tier-Objektiv 1",
+                "state": {
+                    "off": "Normal",
+                    "on": "Erkannt"
+                }
+            },
+            "face": {
+                "name": "Gesicht",
+                "state": {
+                    "off": "Normal",
+                    "on": "Erkannt"
+                }
+            },
+            "face_lens_0": {
+                "name": "Gesichts-Objektiv 0",
+                "state": {
+                    "off": "Normal",
+                    "on": "Erkannt"
+                }
+            },
+            "face_lens_1": {
+                "name": "Gesichts-Objektiv 1",
+                "state": {
+                    "off": "Normal",
+                    "on": "Erkannt"
+                }
+            },
+            "motion_lens_0": {
+                "name": "Bewegungs-Objektiv 0",
+                "state": {
+                    "off": "Normal",
+                    "on": "Erkannt"
+                }
+            },
+            "motion_lens_1": {
+                "name": "Bewegungs-Objektiv 1",
+                "state": {
+                    "off": "Normal",
+                    "on": "Erkannt"
+                }
+            },
+            "package": {
+                "name": "Paket",
+                "state": {
+                    "off": "Normal",
+                    "on": "Erkannt"
+                }
+            },
+            "package_lens_0": {
+                "name": "Paketlinse 0",
+                "state": {
+                    "off": "Normal",
+                    "on": "Erkannt"
+                }
+            },
+            "package_lens_1": {
+                "name": "Paketlinse 1",
+                "state": {
+                    "off": "Normal",
+                    "on": "Erkannt"
+                }
+            },
+            "person": {
+                "name": "Person",
+                "state": {
+                    "off": "Normal",
+                    "on": "Erkannt"
+                }
+            },
+            "person_lens_0": {
+                "name": "Personen-Objektiv 0",
+                "state": {
+                    "off": "Normal",
+                    "on": "Erkannt"
+                }
+            },
+            "person_lens_1": {
+                "name": "Personen-Objektiv 1",
+                "state": {
+                    "off": "Normal",
+                    "on": "Erkannt"
+                }
+            },
+            "pet": {
+                "name": "Haustier",
+                "state": {
+                    "off": "Normal",
+                    "on": "Erkannt"
+                }
+            },
+            "pet_lens_0": {
+                "name": "Haustier-Objektiv 0",
+                "state": {
+                    "off": "Normal",
+                    "on": "Erkannt"
+                }
+            },
+            "pet_lens_1": {
+                "name": "Haustier-Objektiv 1",
+                "state": {
+                    "off": "Normal",
+                    "on": "Erkannt"
+                }
+            },
+            "sleep": {
+                "name": "Schlafstatus",
+                "state": {
+                    "off": "Wach",
+                    "on": "Schlafend"
+                }
+            },
+            "vehicle": {
+                "name": "Fahrzeug",
+                "state": {
+                    "off": "Normal",
+                    "on": "Erkannt"
+                }
+            },
+            "vehicle_lens_0": {
+                "name": "Fahrzeug-Objektiv 0",
+                "state": {
+                    "off": "Normal",
+                    "on": "Erkannt"
+                }
+            },
+            "vehicle_lens_1": {
+                "name": "Fahrzeug-Objektiv 1",
+                "state": {
+                    "off": "Normal",
+                    "on": "Erkannt"
+                }
+            },
+            "visitor": {
+                "name": "Besucher"
+            },
+            "visitor_lens_0": {
+                "name": "Besucher-Objektiv 0"
+            },
+            "visitor_lens_1": {
+                "name": "Besucher-Objektiv 1"
+            }
+        },
+        "button": {
+            "guard_go_to": {
+                "name": "Guard gehe zu"
+            },
+            "guard_set": {
+                "name": "Setze aktuelle Position des Guards"
+            },
+            "ptz_calibrate": {
+                "name": "PTZ kalibrieren"
+            },
+            "ptz_down": {
+                "name": "PTZ runter"
+            },
+            "ptz_left": {
+                "name": "PTZ links"
+            },
+            "ptz_right": {
+                "name": "PTZ rechts"
+            },
+            "ptz_stop": {
+                "name": "PTZ-Stopp"
+            },
+            "ptz_up": {
+                "name": "PTZ hoch"
+            },
+            "ptz_zoom_in": {
+                "name": "PTZ-Zoom vergr\u00f6\u00dfern"
+            },
+            "ptz_zoom_out": {
+                "name": "PTZ-Zoom verkleinern"
+            }
+        },
+        "camera": {
+            "autotrack_snapshots_main": {
+                "name": "Autotrack-Schnappsch\u00fcsse klar"
+            },
+            "autotrack_snapshots_sub": {
+                "name": "Autotrack-Schnappsch\u00fcsse flie\u00dfend"
+            },
+            "autotrack_sub": {
+                "name": "Autotrack flie\u00dfend"
+            },
+            "ext": {
+                "name": "Ausgewogen"
+            },
+            "ext_lens_0": {
+                "name": "Ausgewogenes-Objektiv 0"
+            },
+            "ext_lens_1": {
+                "name": "Ausgewogenes-Objektiv 1"
+            },
+            "main": {
+                "name": "Klar"
+            },
+            "main_lens_0": {
+                "name": "Klares-Objektiv 0"
+            },
+            "main_lens_1": {
+                "name": "Klares-Objektiv 1"
+            },
+            "snapshots_main": {
+                "name": "Schnappsch\u00fcsse klar"
+            },
+            "snapshots_main_lens_0": {
+                "name": "Schnappsch\u00fcsse Klares-Objektiv 0"
+            },
+            "snapshots_main_lens_1": {
+                "name": "Schnappsch\u00fcsse Klares-Objektiv 1"
+            },
+            "snapshots_sub": {
+                "name": "Schnappsch\u00fcsse flie\u00dfend"
+            },
+            "snapshots_sub_lens_0": {
+                "name": "Schnappsch\u00fcsse Flie\u00dfendes-Objektiv 0"
+            },
+            "snapshots_sub_lens_1": {
+                "name": "Schnappsch\u00fcsse Flie\u00dfendes-Objektiv 1"
+            },
+            "sub": {
+                "name": "Flie\u00dfend"
+            },
+            "sub_lens_0": {
+                "name": "Flie\u00dfendes-Objektiv 0"
+            },
+            "sub_lens_1": {
+                "name": "Flie\u00dfendes-Objektiv 1"
+            }
+        },
+        "light": {
+            "floodlight": {
+                "name": "Scheinwerfer"
+            },
+            "ir_lights": {
+                "name": "Infrarotlicht im Nachtmodus"
+            },
+            "status_led": {
+                "name": "Status-LED"
+            }
+        },
+        "number": {
+            "ai_animal_delay": {
+                "name": "KI-Tierverz\u00f6gerung"
+            },
+            "ai_animal_sensititvity": {
+                "name": "KI-Tierempfindlichkeit"
+            },
+            "ai_animal_sensitivity": {
+                "name": "KI-Tierempfindlichkeit"
+            },
+            "ai_face_delay": {
+                "name": "KI-Gesichts-Verz\u00f6gerung"
+            },
+            "ai_face_sensititvity": {
+                "name": "KI-Gesichts-Empfindlichkeit"
+            },
+            "ai_face_sensitivity": {
+                "name": "KI-Gesichts-Empfindlichkeit"
+            },
+            "ai_package_delay": {
+                "name": "Verz\u00f6gerung des KI-Pakets"
+            },
+            "ai_package_sensititvity": {
+                "name": "KI-Pakets-Empfindlichkeit"
+            },
+            "ai_package_sensitivity": {
+                "name": "KI-Pakets-Empfindlichkeit"
+            },
+            "ai_person_delay": {
+                "name": "KI-Personen-Verz\u00f6gerung"
+            },
+            "ai_person_sensititvity": {
+                "name": "KI-Personen-Empfindlichkeit"
+            },
+            "ai_person_sensitivity": {
+                "name": "KI-Personen-Empfindlichkeit"
+            },
+            "ai_pet_delay": {
+                "name": "KI-Haustier-Verz\u00f6gerung"
+            },
+            "ai_pet_sensititvity": {
+                "name": "KI-Haustier-Empfindlichkeit"
+            },
+            "ai_pet_sensitivity": {
+                "name": "KI-Haustier-Empfindlichkeit"
+            },
+            "ai_vehicle_delay": {
+                "name": "KI-Fahrzeug-Verz\u00f6gerung"
+            },
+            "ai_vehicle_sensititvity": {
+                "name": "KI-Fahrzeug-Empfindlichkeit"
+            },
+            "ai_vehicle_sensitivity": {
+                "name": "KI-Fahrzeug-Empfindlichkeit"
+            },
+            "alarm_volume": {
+                "name": "Alarmlautst\u00e4rke"
+            },
+            "auto_quick_reply_time": {
+                "name": "Automatische Schnellantwortzeit"
+            },
+            "auto_track_disappear_time": {
+                "name": "Auto-Track-Verschwindenszeit"
+            },
+            "auto_track_limit_left": {
+                "name": "Auto-Track-Limit links"
+            },
+            "auto_track_limit_right": {
+                "name": "Auto-Track-Limit rechts"
+            },
+            "auto_track_stop_time": {
+                "name": "Auto-Track-Stoppzeit"
+            },
+            "day_night_switch_threshold": {
+                "name": "Schwelle f\u00fcr Tag-Nacht-Umschaltung"
+            },
+            "floodlight_brightness": {
+                "name": "Scheinwerfer-Helligkeit beim einschalten"
+            },
+            "focus": {
+                "name": "Fokus"
+            },
+            "guard_return_time": {
+                "name": "R\u00fcckkehrzeit des Guards"
+            },
+            "image_brightness": {
+                "name": "Bildhelligkeit"
+            },
+            "image_contrast": {
+                "name": "Bildkontrast"
+            },
+            "image_hue": {
+                "name": "Bildfarbton"
+            },
+            "image_saturation": {
+                "name": "Bilds\u00e4ttigung"
+            },
+            "image_sharpness": {
+                "name": "Bildsch\u00e4rfe"
+            },
+            "message_volume": {
+                "name": "Nachrichtenlautst\u00e4rke"
+            },
+            "motion_sensitivity": {
+                "name": "Bewegungsempfindlichkeit"
+            },
+            "pir_sensitivity": {
+                "name": "PIR-Empfindlichkeit"
+            },
+            "volume": {
+                "name": "Lautst\u00e4rke"
+            },
+            "zoom": {
+                "name": "Zoom"
+            }
+        },
+        "select": {
+            "auto_quick_reply_message": {
+                "name": "Automatische Schnellantwortnachricht",
+                "state": {
+                    "off": "Aus"
+                }
+            },
+            "auto_track_method": {
+                "name": "Auto-Track-Methode",
+                "state": {
+                    "digital": "Digital",
+                    "digitalfirst": "Zuerst digital",
+                    "pantiltfirst": "Zuerst schwenken/neigen"
+                }
+            },
+            "day_night_mode": {
+                "name": "Tag-Nacht-Modus",
+                "state": {
+                    "auto": "Auto",
+                    "blackwhite": "Schwarz-Weiss",
+                    "color": "Farbe"
+                }
+            },
+            "doorbell_led": {
+                "name": "T\u00fcrklingel-LED",
+                "state": {
+                    "alwayson": "Immer eingeschaltet",
+                    "alwaysonatnight": "Auto & nachts immer an",
+                    "auto": "Auto",
+                    "stayoff": "Aus bleiben"
+                }
+            },
+            "floodlight_mode": {
+                "name": "Scheinwerfermodus",
+                "state": {
+                    "adaptive": "Adaptiv",
+                    "auto": "Auto",
+                    "autoadaptive": "Automatisch adaptiv",
+                    "off": "Aus",
+                    "onatnight": "Nachts eingeschaltet",
+                    "schedule": "Zeitplan"
+                }
+            },
+            "hdr": {
+                "name": "HDR",
+                "state": {
+                    "auto": "Auto",
+                    "off": "Aus",
+                    "on": "An"
+                }
+            },
+            "hub_alarm_ringtone": {
+                "name": "Hub-Alarm-Klingelton",
+                "state": {
+                    "alarm": "Alarm",
+                    "attraction": "Attraktion",
+                    "citybird": "Stadtvogel",
+                    "goodday": "Guter Tag",
+                    "hophop": "Hopp, hopp",
+                    "loop": "Schleife",
+                    "moonlight": "Mondlicht",
+                    "operetta": "Operette",
+                    "originaltune": "Originalmelodie",
+                    "pianokey": "Klaviertaste",
+                    "waybackhome": "Weg zur\u00fcck nach Hause"
+                }
+            },
+            "hub_visitor_ringtone": {
+                "name": "Hub-Besucher-Klingelton",
+                "state": {
+                    "alarm": "Alarm",
+                    "attraction": "Attraktion",
+                    "citybird": "Stadtvogel",
+                    "goodday": "Guter Tag",
+                    "hophop": "Hopp, hopp",
+                    "loop": "Schleife",
+                    "moonlight": "Mondlicht",
+                    "operetta": "Operette",
+                    "originaltune": "Originalmelodie",
+                    "pianokey": "Klaviertaste",
+                    "waybackhome": "Weg zur\u00fcck nach Hause"
+                }
+            },
+            "motion_tone": {
+                "name": "Bewegungsklingelton",
+                "state": {
+                    "attraction": "Attraktion",
+                    "citybird": "Stadtvogel",
+                    "goodday": "Guter Tag",
+                    "hophop": "Hopp, hopp",
+                    "loop": "Schleife",
+                    "moonlight": "Mondlicht",
+                    "off": "Aus",
+                    "operetta": "Operette",
+                    "originaltune": "Originalmelodie",
+                    "pianokey": "Klaviertaste",
+                    "waybackhome": "Weg zur\u00fcck nach Hause"
+                }
+            },
+            "package_tone": {
+                "name": "Paket Klingelton",
+                "state": {
+                    "attraction": "Attraktion",
+                    "citybird": "Stadtvogel",
+                    "goodday": "Guter Tag",
+                    "hophop": "Hopp, hopp",
+                    "loop": "Schleife",
+                    "moonlight": "Mondlicht",
+                    "off": "Aus",
+                    "operetta": "Operette",
+                    "originaltune": "Originalmelodie",
+                    "pianokey": "Klaviertaste",
+                    "waybackhome": "Weg zur\u00fcck nach Hause"
+                }
+            },
+            "people_tone": {
+                "name": "Personen-Klingelton",
+                "state": {
+                    "attraction": "Attraktion",
+                    "citybird": "Stadtvogel",
+                    "goodday": "Guter Tag",
+                    "hophop": "Hopp, hopp",
+                    "loop": "Schleife",
+                    "moonlight": "Mondlicht",
+                    "off": "Aus",
+                    "operetta": "Operette",
+                    "originaltune": "Originalmelodie",
+                    "pianokey": "Klaviertaste",
+                    "waybackhome": "Weg zur\u00fcck nach Hause"
+                }
+            },
+            "play_quick_reply_message": {
+                "name": "Schnellantwortnachricht abspielen"
+            },
+            "ptz_preset": {
+                "name": "PTZ-Voreinstellung"
+            },
+            "status_led": {
+                "name": "Status-LED",
+                "state": {
+                    "alwayson": "Immer eingeschaltet",
+                    "alwaysonatnight": "Auto & nachts immer an",
+                    "auto": "Auto",
+                    "stayoff": "Aus bleiben"
+                }
+            },
+            "visitor_tone": {
+                "name": "Besucherklingelton",
+                "state": {
+                    "attraction": "Attraktion",
+                    "citybird": "Stadtvogel",
+                    "goodday": "Guter Tag",
+                    "hophop": "Hopp, hopp",
+                    "loop": "Schleife",
+                    "moonlight": "Mondlicht",
+                    "off": "Aus",
+                    "operetta": "Operette",
+                    "originaltune": "Originalmelodie",
+                    "pianokey": "Klaviertaste",
+                    "waybackhome": "Weg zur\u00fcck nach Hause"
+                }
+            }
+        },
+        "sensor": {
+            "battery_percent": {
+                "name": "Batterieprozentsatz"
+            },
+            "battery_state": {
+                "name": "Batteriestatus",
+                "state": {
+                    "chargecomplete": "Ladevorgang vollendet",
+                    "charging": "L\u00e4dt",
+                    "discharging": "Entl\u00e4dt"
+                }
+            },
+            "battery_temperature": {
+                "name": "Batterietemperatur"
+            },
+            "cpu_usage": {
+                "name": "CPU-Auslastung"
+            },
+            "event_connection": {
+                "name": "Ereignisverbindung",
+                "state": {
+                    "fast_poll": "Schnelle Umfrage",
+                    "onvif_long_poll": "ONVIF Long Poll",
+                    "onvif_push": "ONVIF-Push"
+                }
+            },
+            "hdd_storage": {
+                "name": "HDD-{hdd_index}-Speicher"
+            },
+            "ptz_pan_position": {
+                "name": "PTZ-Schwenkposition"
+            },
+            "sd_storage": {
+                "name": "SD-{hdd_index}-Speicher"
+            },
+            "wifi_signal": {
+                "name": "WLAN-Signal"
+            }
+        },
+        "siren": {
+            "siren": {
+                "name": "Sirene"
+            }
+        },
+        "switch": {
+            "auto_focus": {
+                "name": "Autofokus"
+            },
+            "auto_tracking": {
+                "name": "Automatisches Tracking"
+            },
+            "buzzer": {
+                "name": "Buzzer bei Ereignis"
+            },
+            "doorbell_button_sound": {
+                "name": "Klingelknopfton"
+            },
+            "email": {
+                "name": "E-Mail bei Ereignis"
+            },
+            "ftp_upload": {
+                "name": "FTP-Upload"
+            },
+            "gaurd_return": {
+                "name": "R\u00fcckkehr des Guards"
+            },
+            "guard_return": {
+                "name": "R\u00fcckkehr des Guards"
+            },
+            "hdr": {
+                "name": "HDR"
+            },
+            "hub_ringtone_on_event": {
+                "name": "Hub-Klingelton bei Ereignis"
+            },
+            "ir_lights": {
+                "name": "Infrarotlicht im Nachtmodus"
+            },
+            "led": {
+                "name": "LED"
+            },
+            "manual_record": {
+                "name": "Manuelle Aufzeichnung"
+            },
+            "pir_enabled": {
+                "name": "PIR aktiviert"
+            },
+            "pir_reduce_alarm": {
+                "name": "PIR Fehlalarme reduzieren"
+            },
+            "ptz_patrol": {
+                "name": "PTZ-Patrouille"
+            },
+            "push_notifications": {
+                "name": "Push-Benachrichtigungen"
+            },
+            "record": {
+                "name": "Aufzeichnen"
+            },
+            "record_audio": {
+                "name": "Audio aufnehmen"
+            },
+            "siren_on_event": {
+                "name": "Sirene bei Ereignis"
+            }
+        }
+    },
+    "exceptions": {
+        "service_entry_ex": {
+            "message": "Reolink {service_name}-Fehler: Konfigurationseintrag nicht gefunden oder nicht geladen"
+        },
+        "service_not_chime": {
+            "message": "Reolink play_chime Fehler: {device_name} ist kein Gong"
+        }
+    },
+    "issues": {
+        "enable_port": {
+            "description": "Fehler beim automatischen Aktivieren von {ports} Port(s) auf {name}. Verwende den [Reolink-Client]({info_link}), um ihn manuell auf AN zu setzen",
+            "title": "Reolink-Port nicht aktiviert"
+        },
+        "firmware_update": {
+            "description": "Auf \u201e{name}\u201c mit Modell \u201e{model}\u201c und Hardware-Version \u201e{hw_version}\u201c l\u00e4uft eine alte Firmware-Version \u201e{current_firmware}\u201c, w\u00e4hrend mindestens die Firmware-Version \u201e{required_firmware}\u201c f\u00fcr den ordnungsgem\u00e4\u00dfen Betrieb der Reolink-Integration erforderlich ist. Die neueste Firmware kann im [Reolink Download Center]({download_link}) heruntergeladen werden.",
+            "title": "Reolink-Firmware-Update erforderlich"
+        },
+        "hdr_switch_deprecated": {
+            "description": "Die Reolink HDR-Switch-Entit\u00e4t ist veraltet und wird in HA 2025.2.0 entfernt. Es wurde durch eine HDR-Auswahleinheit ersetzt, die die Optionen `Ein`, `Aus` und `Auto` bietet. Um dieses Problem zu beheben, passe bitte die Automatisierungen entsprechend an und deaktiviere die HDR-Switch-Entit\u00e4t.",
+            "title": "Reolink HDR-Schalter veraltet"
+        },
+        "https_webhook": {
+            "description": "Reolink-Produkte k\u00f6nnen keine Bewegungsereignisse an eine HTTPS-Adresse (SSL) \u00fcbertragen, bitte konfiguriere eine (lokale) HTTP-Adresse unter \u201eHome Assistant URL\u201c in den [Netzwerkeinstellungen]({network_link}). Die aktuelle (lokale) Adresse lautet: `{base_url}`, eine g\u00fcltige Adresse k\u00f6nnte z. B. `http://192.168.1.10:8123` sein, wobei `192.168.1.10` die IP des Home Assistant-Ger\u00e4ts ist",
+            "title": "Reolink-Webhook-URL verwendet HTTPS (SSL)"
+        },
+        "hub_switch_deprecated": {
+            "description": "Die redundanten Schalter \u201eAufzeichnen\u201c, \u201eE-Mail bei Ereignis\u201c, \u201eFTP-Upload\u201c, \u201ePush-Benachrichtigungen\u201c und \u201eSummer bei Ereignis\u201c auf dem Reolink Home Hub sind veraltet, da die neue Firmware diese nicht mehr unterst\u00fctzt. Verwende stattdessen die gleichnamigen Schalter unter jedem der mit dem Home Hub verbundenen Kamerager\u00e4te. Um dieses Problem zu beheben, passe die Automatisierungen entsprechend an und deaktiviere die genannten Schalterentit\u00e4ten.",
+            "title": "Reolink Home Hub-Schalter veraltet"
+        },
+        "ssl": {
+            "description": "Ein globales SSL-Zertifikat ist in der [configuration.yaml unter http]({ssl_link}) konfiguriert, w\u00e4hrend eine lokale HTTP-Adresse `{base_url}` unter \u201eHome Assistant URL\u201c in den [Netzwerkeinstellungen]({network_link}) konfiguriert ist. Daher kann das Reolink-Ger\u00e4t Home Assistant nicht erreichen, um seine Bewegungs-/KI-Ereignisse zu \u00fcbertragen. Bitte stelle sicher, dass die lokale HTTP-Adresse nicht durch das SSL-Zertifikat abgedeckt ist, indem du z. B. [Nginx Add-on]({nginx_link}) anstelle eines global erzwungenen SSL-Zertifikats verwendest.",
+            "title": "Reolink inkompatibel mit globalem SSL-Zertifikat"
+        },
+        "webhook_url": {
+            "description": "Der anf\u00e4ngliche ONVIF-Status wurde nicht von {name} empfangen. H\u00f6chstwahrscheinlich kann die Reolink Kamera die aktuelle (lokale) Home Assistant URL `{base_url}` nicht erreichen, bitte konfiguriere eine (lokale) HTTP-Adresse unter \u201eHome Assistant URL\u201c in den [Netzwerkeinstellungen]({network_link}), die auf Home Assistant verweist. Beispiel: `http://192.168.1.10:8123`, wobei `192.168.1.10` die IP-Adresse des Home Assistant-Ger\u00e4ts ist. Stelle au\u00dferdem sicher, dass die Reolink-Kamera diese URL erreichen kann. Verwenden von Zeitraffer-/KI-Zustandsabfragen, bis der erste ONVIF-Push empfangen wird.",
+            "title": "Reolink-Webhook-URL nicht erreichbar"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "protocol": "Protokoll"
+                },
+                "data_description": {
+                    "protocol": "Streaming-Protokoll, das f\u00fcr die Kameraentit\u00e4ten verwendet werden soll. RTSP unterst\u00fctzt 4K-Streams (h265-Kodierung), RTMP und FLV hingegen nicht. FLV stellt die geringsten Anforderungen an die Kamera."
+                }
+            }
+        }
+    },
+    "selector": {
+        "ringtone": {
+            "options": {
+                "attraction": "Attraktion",
+                "citybird": "Stadtvogel",
+                "goodday": "Guter Tag",
+                "hophop": "Hopp, hopp",
+                "loop": "Schleife",
+                "moonlight": "Mondlicht",
+                "operetta": "Operette",
+                "originaltune": "Originalmelodie",
+                "pianokey": "Klaviertaste",
+                "waybackhome": "Weg zur\u00fcck nach Hause"
+            }
+        }
+    },
+    "services": {
+        "play_chime": {
+            "description": "Wiedergabe eines Klingeltons auf einem Gong.",
+            "fields": {
+                "device_id": {
+                    "description": "Der Gong, auf der der Klingelton abgespielt werden soll.",
+                    "name": "Ziel-Gong"
+                },
+                "ringtone": {
+                    "description": "Abzuspielender Klingelton.",
+                    "name": "Klingelton"
+                }
+            },
+            "name": "Gong abspielen"
+        },
+        "ptz_move": {
+            "description": "Bewege die Kamera mit einer bestimmten Geschwindigkeit.",
+            "fields": {
+                "speed": {
+                    "description": "PTZ-Bewegungsgeschwindigkeit.",
+                    "name": "Geschwindigkeit"
+                }
+            },
+            "name": "PTZ-Bewegung"
+        }
+    }
+}

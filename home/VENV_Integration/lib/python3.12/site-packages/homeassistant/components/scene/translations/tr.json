@@ -1,0 +1,63 @@
+{
+    "exceptions": {
+        "entity_not_dynamically_created": {
+            "message": "{entity_id} sahnesi `scene.create` eylemiyle olu\u015fturulmad\u0131."
+        },
+        "entity_not_scene": {
+            "message": "{entity_id} ge\u00e7erli bir sahne varl\u0131k_id'si de\u011fil."
+        }
+    },
+    "services": {
+        "apply": {
+            "description": "Yap\u0131land\u0131rma ile bir sahneyi etkinle\u015ftirir.",
+            "fields": {
+                "entities": {
+                    "description": "Varl\u0131klar\u0131n ve hedef durumlar\u0131n\u0131n listesi.",
+                    "name": "Varl\u0131klar\u0131n durumu"
+                },
+                "transition": {
+                    "description": "Cihazlar\u0131n sahnede tan\u0131mlanan durumlara ge\u00e7mesi i\u00e7in ge\u00e7en s\u00fcre.",
+                    "name": "Ge\u00e7i\u015f"
+                }
+            },
+            "name": "Uygula"
+        },
+        "create": {
+            "description": "Yeni bir sahne olu\u015fturur.",
+            "fields": {
+                "entities": {
+                    "description": "Varl\u0131klar\u0131n ve hedef durumlar\u0131n\u0131n listesi. Varl\u0131klar\u0131n\u0131z \u015fu anda zaten hedef durumdaysa, bunun yerine `snapshot_entities` kullan\u0131n.",
+                    "name": "Varl\u0131klar\u0131n durumu"
+                },
+                "scene_id": {
+                    "description": "Yeni sahnenin varl\u0131k kimli\u011fi.",
+                    "name": "Sahne varl\u0131\u011f\u0131 kimli\u011fi"
+                },
+                "snapshot_entities": {
+                    "description": "Anl\u0131k g\u00f6r\u00fcnt\u00fcye dahil edilecek varl\u0131klar\u0131n listesi. Bir anl\u0131k g\u00f6r\u00fcnt\u00fc alarak, bu varl\u0131klar\u0131n mevcut durumunu kaydedersiniz. Bu sahne i\u00e7in t\u00fcm varl\u0131klar\u0131n\u0131z\u0131n mevcut durumunu kullanmak istemiyorsan\u0131z, `snapshot_entities` ile `entities` \u00f6\u011felerini birle\u015ftirebilirsiniz.",
+                    "name": "Anl\u0131k g\u00f6r\u00fcnt\u00fc varl\u0131klar\u0131"
+                }
+            },
+            "name": "Olu\u015ftur"
+        },
+        "delete": {
+            "description": "Dinamik olarak olu\u015fturulmu\u015f bir sahneyi siler.",
+            "name": "Sil"
+        },
+        "reload": {
+            "description": "Sahneleri YAML yap\u0131land\u0131rmas\u0131ndan yeniden y\u00fckler.",
+            "name": "Tekrar y\u00fckle"
+        },
+        "turn_on": {
+            "description": "Bir sahneyi etkinle\u015ftirir.",
+            "fields": {
+                "transition": {
+                    "description": "Cihazlar\u0131n sahnede tan\u0131mlanan durumlara ge\u00e7mesi i\u00e7in ge\u00e7en s\u00fcre.",
+                    "name": "Ge\u00e7i\u015f"
+                }
+            },
+            "name": "Etkinle\u015ftir"
+        }
+    },
+    "title": "Senaryo"
+}

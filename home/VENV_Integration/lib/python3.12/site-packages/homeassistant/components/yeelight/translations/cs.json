@@ -1,0 +1,192 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Za\u0159\u00edzen\u00ed je ji\u017e nastaveno",
+            "no_devices_found": "V s\u00edti nebyla nalezena \u017e\u00e1dn\u00e1 za\u0159\u00edzen\u00ed"
+        },
+        "error": {
+            "cannot_connect": "Nepoda\u0159ilo se p\u0159ipojit"
+        },
+        "flow_title": "{model} {id} ({host})",
+        "step": {
+            "discovery_confirm": {
+                "description": "Chcete nastavit {model} ({host})?"
+            },
+            "pick_device": {
+                "data": {
+                    "device": "Za\u0159\u00edzen\u00ed"
+                }
+            },
+            "user": {
+                "data": {
+                    "host": "Hostitel"
+                },
+                "data_description": {
+                    "host": "N\u00e1zev hostitele nebo IP adresa va\u0161\u00ed \u017e\u00e1rovky Yeelight Wi-Fi."
+                },
+                "description": "Pokud z\u016fstane hostitel pr\u00e1zdn\u00fd, k nalezen\u00ed za\u0159\u00edzen\u00ed se pou\u017eije zji\u0161\u0165ov\u00e1n\u00ed."
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "nightlight": {
+                "name": "No\u010dn\u00ed osv\u011btlen\u00ed"
+            }
+        },
+        "light": {
+            "ambilight": {
+                "name": "Ambilight"
+            },
+            "nightlight": {
+                "name": "No\u010dn\u00ed osv\u011btlen\u00ed"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "model": "Model",
+                    "nightlight_switch": "Pou\u017e\u00edt sp\u00edna\u010d no\u010dn\u00edho osv\u011btlen\u00ed",
+                    "save_on_change": "Ulo\u017eit stav p\u0159i zm\u011bn\u011b",
+                    "transition": "\u010cas p\u0159echodu (v ms)",
+                    "use_music_mode": "Povolit hudebn\u00ed re\u017eim"
+                }
+            }
+        }
+    },
+    "selector": {
+        "action": {
+            "options": {
+                "off": "Vypnuto",
+                "recover": "Obnovit",
+                "stay": "Z\u016fstat"
+            }
+        },
+        "mode": {
+            "options": {
+                "color_flow": "Barevn\u00fd tok",
+                "hsv": "HSV",
+                "last": "Posledn\u00ed",
+                "moonlight": "M\u011bs\u00ed\u010dn\u00ed svit",
+                "normal": "Norm\u00e1ln\u00ed",
+                "rgb": "RGB"
+            }
+        }
+    },
+    "services": {
+        "set_auto_delay_off_scene": {
+            "description": "Zapne sv\u011btlo na zadan\u00fd jas a nastav\u00ed \u010dasova\u010d, kter\u00fd jej po uplynut\u00ed dan\u00e9ho po\u010dtu minut op\u011bt vypne. Pokud je sv\u011btlo vypnut\u00e9, nastav\u00ed barevnou sc\u00e9nu nebo se zapne.",
+            "fields": {
+                "brightness": {
+                    "description": "Hodnota jasu, kter\u00e1 se m\u00e1 nastavit.",
+                    "name": "Jas"
+                },
+                "minutes": {
+                    "description": "Doba, kterou je t\u0159eba po\u010dkat p\u0159ed automatick\u00fdm vypnut\u00edm sv\u011btla.",
+                    "name": "Minuty"
+                }
+            },
+            "name": "Nastavit automatick\u00e9 zpo\u017ed\u011bn\u00ed sc\u00e9ny"
+        },
+        "set_color_flow_scene": {
+            "description": "Spust\u00ed barevn\u00fd tok. Pokud sv\u011btlo nesv\u00edt\u00ed, rozsv\u00edt\u00ed se.",
+            "fields": {
+                "action": {
+                    "description": "Akce, kter\u00e1 se m\u00e1 prov\u00e9st po zastaven\u00ed toku.",
+                    "name": "Akce"
+                },
+                "count": {
+                    "description": "Po\u010det spu\u0161t\u011bn\u00ed tohoto toku (0 pro nekone\u010dn\u00fd b\u011bh).",
+                    "name": "Po\u010det"
+                },
+                "transitions": {
+                    "description": "Pole p\u0159echod\u016f pro po\u017eadovan\u00fd efekt. P\u0159\u00edklady: https://yeelight.readthedocs.io/en/stable/flow.html.",
+                    "name": "P\u0159echody"
+                }
+            },
+            "name": "Nastavit sc\u00e9nu barevn\u00e9ho toku"
+        },
+        "set_color_scene": {
+            "description": "Zm\u011bn\u00ed sv\u011btlo na zadanou RGB barvu a jas. Pokud sv\u011btlo nesv\u00edt\u00ed, rozsv\u00edt\u00ed se.",
+            "fields": {
+                "brightness": {
+                    "description": "Hodnota jasu, kter\u00e1 se m\u00e1 nastavit.",
+                    "name": "Jas"
+                },
+                "rgb_color": {
+                    "description": "Barva sv\u011btla ve form\u00e1tu RGB.",
+                    "name": "RGB barva"
+                }
+            },
+            "name": "Nastavit barevnou sc\u00e9nu"
+        },
+        "set_color_temp_scene": {
+            "description": "Zm\u011bn\u00ed sv\u011btlo na zadanou teplotu barvy. Pokud sv\u011btlo nesv\u00edt\u00ed, rozsv\u00edt\u00ed se.",
+            "fields": {
+                "brightness": {
+                    "description": "Hodnota jasu, kter\u00e1 se m\u00e1 nastavit.",
+                    "name": "Jas"
+                },
+                "kelvin": {
+                    "description": "Teplota barvy sv\u011btla v Kelvinech.",
+                    "name": "Kelviny"
+                }
+            },
+            "name": "Nastavit sc\u00e9nu s teplotou barvy"
+        },
+        "set_hsv_scene": {
+            "description": "Zm\u011bn\u00ed sv\u011btlo na specifikovanou barvu HSV a jas. Pokud sv\u011btlo nesv\u00edt\u00ed, rozsv\u00edt\u00ed se.",
+            "fields": {
+                "brightness": {
+                    "description": "Hodnota jasu, kter\u00e1 se m\u00e1 nastavit.",
+                    "name": "Jas"
+                },
+                "hs_color": {
+                    "description": "Barva sv\u011btla ve form\u00e1tu odst\u00edn/sytost. Odst\u00edn je 0-359 a sytost je 0-100.",
+                    "name": "Barva odst\u00edn/sytost"
+                }
+            },
+            "name": "Nastavit sc\u00e9nu HSV"
+        },
+        "set_mode": {
+            "description": "Nastav\u00ed provozn\u00ed re\u017eim.",
+            "fields": {
+                "mode": {
+                    "description": "Provozn\u00ed re\u017eim",
+                    "name": "Re\u017eim"
+                }
+            },
+            "name": "Nastavit re\u017eim"
+        },
+        "set_music_mode": {
+            "description": "Povol\u00ed nebo zak\u00e1\u017ee re\u017eim music_mode.",
+            "fields": {
+                "music_mode": {
+                    "description": "Pou\u017eijte true nebo false pro povolen\u00ed/zak\u00e1z\u00e1n\u00ed music_mode.",
+                    "name": "Re\u017eim hudby"
+                }
+            },
+            "name": "Nastavit re\u017eim hudby"
+        },
+        "start_flow": {
+            "description": "Spust\u00ed vlastn\u00ed tok pomoc\u00ed p\u0159echod\u016f z https://yeelight.readthedocs.io/en/stable/yeelight.html#flow-objects.",
+            "fields": {
+                "action": {
+                    "description": "Akce, kter\u00e1 se m\u00e1 prov\u00e9st po zastaven\u00ed toku.",
+                    "name": "Akce"
+                },
+                "count": {
+                    "description": "Po\u010det spu\u0161t\u011bn\u00ed tohoto toku (0 pro nekone\u010dn\u00fd b\u011bh).",
+                    "name": "Po\u010det"
+                },
+                "transitions": {
+                    "description": "Pole p\u0159echod\u016f pro po\u017eadovan\u00fd efekt. P\u0159\u00edklady: https://yeelight.readthedocs.io/en/stable/flow.html.",
+                    "name": "P\u0159echody"
+                }
+            },
+            "name": "Spustit tok"
+        }
+    }
+}

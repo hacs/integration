@@ -1,0 +1,104 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "Kamera",
+            "state": {
+                "idle": "Siaga",
+                "recording": "Merekam",
+                "streaming": "Streaming"
+            },
+            "state_attributes": {
+                "access_token": {
+                    "name": "Token akses"
+                },
+                "brand": {
+                    "name": "Merek"
+                },
+                "frontend_stream_type": {
+                    "name": "Jenis stream",
+                    "state": {
+                        "hls": "HLS",
+                        "webrtc": "WebRTC"
+                    }
+                },
+                "model_name": {
+                    "name": "Model"
+                },
+                "motion_detection": {
+                    "name": "Deteksi gerakan",
+                    "state": {
+                        "false": "Nonaktif",
+                        "true": "Diaktifkan"
+                    }
+                }
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "Platform {platform} untuk integrasi {domain} tidak mendukung penyiapan platform. \n\nHarap hapus dari konfigurasi Anda dan mulai ulang Home Assistant untuk memperbaiki masalah ini.",
+            "title": "Dukungan platform tidak didukung"
+        }
+    },
+    "services": {
+        "disable_motion_detection": {
+            "description": "Menonaktifkan deteksi gerakan.",
+            "name": "Nonaktifkan deteksi gerakan"
+        },
+        "enable_motion_detection": {
+            "description": "Mengaktifkan deteksi gerakan.",
+            "name": "Aktifkan deteksi gerakan"
+        },
+        "play_stream": {
+            "description": "Memutar stream kamera pada pemutar media yang didukung.",
+            "fields": {
+                "format": {
+                    "description": "Format streaming yang didukung oleh pemutar media.",
+                    "name": "Format"
+                },
+                "media_player": {
+                    "description": "Pemutar media untuk streaming.",
+                    "name": "Pemutar media"
+                }
+            },
+            "name": "Putar streaming"
+        },
+        "record": {
+            "description": "Membuat rekaman feed kamera langsung.",
+            "fields": {
+                "duration": {
+                    "description": "Durasi rekaman yang direncanakan. Durasi sebenarnya mungkin berbeda.",
+                    "name": "Durasi"
+                },
+                "filename": {
+                    "description": "Templat nama file. Variabel yang tersedia adalah `entity_id`. Harus berupa MP4.",
+                    "name": "Nama file"
+                },
+                "lookback": {
+                    "description": "Periode lihat balik yang direncanakan untuk disertakan dalam rekaman (selain durasinya). Hanya tersedia jika saat ini ada aliran HLS yang aktif. Lamanya periode lihat balik yang sebenarnya mungkin berbeda.",
+                    "name": "Lihat balik"
+                }
+            },
+            "name": "Merekam"
+        },
+        "snapshot": {
+            "description": "Mengambil snapshot dari kamera.",
+            "fields": {
+                "filename": {
+                    "description": "Templat nama file. Variabel yang tersedia adalah `entity_id`.",
+                    "name": "Nama file"
+                }
+            },
+            "name": "Ambil snapshot"
+        },
+        "turn_off": {
+            "description": "Mematikan kamera.",
+            "name": "Matikan"
+        },
+        "turn_on": {
+            "description": "Menyalakan kamera.",
+            "name": "Nyalakan"
+        }
+    },
+    "title": "Kamera"
+}

@@ -1,0 +1,193 @@
+{
+    "config": {
+        "abort": {
+            "address_already_configured": "Az ElkM1 ezzel a c\u00edmmel m\u00e1r konfigur\u00e1lva van",
+            "already_configured": "Az ezzel az el\u0151taggal rendelkez\u0151 ElkM1 m\u00e1r konfigur\u00e1lva van",
+            "already_in_progress": "A konfigur\u00e1l\u00e1s m\u00e1r folyamatban van",
+            "cannot_connect": "Sikertelen csatlakoz\u00e1s",
+            "invalid_auth": "\u00c9rv\u00e9nytelen hiteles\u00edt\u00e9s",
+            "unknown": "V\u00e1ratlan hiba"
+        },
+        "error": {
+            "cannot_connect": "Sikertelen csatlakoz\u00e1s",
+            "invalid_auth": "\u00c9rv\u00e9nytelen hiteles\u00edt\u00e9s",
+            "unknown": "V\u00e1ratlan hiba"
+        },
+        "flow_title": "{mac_address} ({host})",
+        "step": {
+            "discovered_connection": {
+                "data": {
+                    "password": "Jelsz\u00f3",
+                    "protocol": "Protokoll",
+                    "temperature_unit": "Az ElkM1 \u00e1ltal haszn\u00e1lt h\u0151m\u00e9rs\u00e9kleti egys\u00e9g.",
+                    "username": "Felhaszn\u00e1l\u00f3n\u00e9v"
+                },
+                "description": "Csatlakoz\u00e1s a felfedezett rendszerhez: {mac_address} ({host})",
+                "title": "Csatlakoz\u00e1s az Elk-M1 vez\u00e9rl\u0151h\u00f6z"
+            },
+            "manual_connection": {
+                "data": {
+                    "address": "Az IP-c\u00edm vagy tartom\u00e1ny vagy soros port, ha soros kapcsolaton kereszt\u00fcl csatlakozik.",
+                    "password": "Jelsz\u00f3",
+                    "prefix": "Egyedi el\u0151tag (hagyja \u00fcresen, ha csak egy ElkM1 van).",
+                    "protocol": "Protokoll",
+                    "temperature_unit": "Az ElkM1 \u00e1ltal haszn\u00e1lt h\u0151m\u00e9rs\u00e9kleti egys\u00e9g.",
+                    "username": "Felhaszn\u00e1l\u00f3n\u00e9v"
+                },
+                "description": "A c\u00edmsornak a \"biztons\u00e1gos\" \u00e9s a \"nem biztons\u00e1gos\" eset\u00e9ben is \"address[:port]\" form\u00e1j\u00fanak kell lennie. P\u00e9lda: '192.168.1.1'. A port megad\u00e1sa opcion\u00e1lis \u00e9s alap\u00e9rtelmez\u00e9s szerint 2101 a \"nem biztons\u00e1gos\", 2601 a \"biztons\u00e1gos\" eset\u00e9ben. A soros protokoll eset\u00e9ben a c\u00edmnek a 'tty[:baud]' form\u00e1j\u00fanak kell lennie. P\u00e9lda: '/dev/ttyS1'. A baud nem k\u00f6telez\u0151 \u00e9s alap\u00e9rtelmez\u00e9s szerint 115200.",
+                "title": "Csatlakoz\u00e1s az Elk-M1 vez\u00e9rl\u0151h\u00f6z"
+            },
+            "user": {
+                "data": {
+                    "device": "Eszk\u00f6z"
+                },
+                "description": "V\u00e1lasszon egy felfedezett rendszert vagy a \u201eK\u00e9zi bevitel\u201d lehet\u0151s\u00e9get, ha nem \u00e9szlelt eszk\u00f6zt.",
+                "title": "Csatlakoz\u00e1s az Elk-M1 vez\u00e9rl\u0151h\u00f6z"
+            }
+        }
+    },
+    "services": {
+        "alarm_arm_home_instant": {
+            "description": "\u00c9les\u00edtse az ElkM1 rendszert azonnali otthoni m\u00f3dban.",
+            "fields": {
+                "code": {
+                    "description": "Egy k\u00f3d a riaszt\u00f3 vez\u00e9rl\u0151panel \u00e9les\u00edt\u00e9s\u00e9hez.",
+                    "name": "K\u00f3d"
+                }
+            },
+            "name": "Otthoni m\u00f3dban azonnali \u00e9les\u00edt\u00e9s"
+        },
+        "alarm_arm_night_instant": {
+            "description": "\u00c9les\u00edti az ElkM1-et azonnali \u00e9jszakai m\u00f3dban.",
+            "fields": {
+                "code": {
+                    "description": "Egy k\u00f3d a riaszt\u00f3 vez\u00e9rl\u0151panel \u00e9les\u00edt\u00e9s\u00e9hez.",
+                    "name": "K\u00f3d"
+                }
+            },
+            "name": "\u00c9jszakai m\u00f3dban azonnali \u00e9les\u00edt\u00e9s"
+        },
+        "alarm_arm_vacation": {
+            "description": "\u00c9les\u00edti az ElkM1-et vak\u00e1ci\u00f3 m\u00f3dban.",
+            "fields": {
+                "code": {
+                    "description": "Egy k\u00f3d a riaszt\u00f3 vez\u00e9rl\u0151panel \u00e9les\u00edt\u00e9s\u00e9hez.",
+                    "name": "K\u00f3d"
+                }
+            },
+            "name": "Vak\u00e1ci\u00f3 m\u00f3dban azonnali \u00e9les\u00edt\u00e9s"
+        },
+        "alarm_bypass": {
+            "description": "Kihagyja a ter\u00fclet \u00f6sszes z\u00f3n\u00e1j\u00e1t.",
+            "fields": {
+                "code": {
+                    "description": "K\u00f3d a riaszt\u00f3 vez\u00e9rl\u0151panel kihagy\u00e1s\u00e1nak enged\u00e9lyez\u00e9s\u00e9hez.",
+                    "name": "K\u00f3d"
+                }
+            },
+            "name": "Riaszt\u00f3 kihagy\u00e1s m\u00f3d"
+        },
+        "alarm_clear_bypass": {
+            "description": "Kihagy\u00e1s elt\u00e1vol\u00edt\u00e1sa minden z\u00f3n\u00e1ban a ter\u00fcleten.",
+            "fields": {
+                "code": {
+                    "description": "K\u00f3d a riaszt\u00f3 vez\u00e9rl\u0151panel kihagy\u00e1s t\u00f6rl\u00e9s\u00e9nek az enged\u00e9lyez\u00e9s\u00e9hez.",
+                    "name": "K\u00f3d"
+                }
+            },
+            "name": "Riaszt\u00f3 kihagy\u00e1s m\u00f3d t\u00f6rl\u00e9se"
+        },
+        "alarm_display_message": {
+            "description": "Megjelen\u00edt egy \u00fczenetet egy ter\u00fclet \u00f6sszes ElkM1 billenty\u0171zet\u00e9n.",
+            "fields": {
+                "beep": {
+                    "description": "0 = nincs hangjelz\u00e9s, 1 = hangjelz\u00e9s.",
+                    "name": "Hangjelz\u00e9s"
+                },
+                "clear": {
+                    "description": "0=\u00fczenet t\u00f6rl\u00e9se, 1=\u00fczenet t\u00f6rl\u00e9se * gombbal, 2=Megjelen\u00edt\u00e9s id\u0151t\u00fall\u00e9p\u00e9sig.",
+                    "name": "T\u00f6rl\u00e9s"
+                },
+                "line1": {
+                    "description": "Ak\u00e1r 16 karakter sz\u00f6veg (lev\u00e1gva, ha t\u00fal hossz\u00fa).",
+                    "name": "1. sor"
+                },
+                "line2": {
+                    "description": "Ak\u00e1r 16 karakter sz\u00f6veg (lev\u00e1gva, ha t\u00fal hossz\u00fa).",
+                    "name": "2. sor"
+                },
+                "timeout": {
+                    "description": "\u00dczenet megjelen\u00edt\u00e9si ideje, 0=\u00f6r\u00f6kk\u00e9, max 65535.",
+                    "name": "Id\u0151t\u00fall\u00e9p\u00e9s"
+                }
+            },
+            "name": "Riaszt\u00e1s kijelz\u0151 \u00fczenete"
+        },
+        "sensor_counter_refresh": {
+            "description": "Friss\u00edti egy sz\u00e1ml\u00e1l\u00f3 \u00e9rt\u00e9k\u00e9t a panelr\u0151l.",
+            "name": "\u00c9rz\u00e9kel\u0151 sz\u00e1ml\u00e1l\u00f3 friss\u00edt\u00e9se"
+        },
+        "sensor_counter_set": {
+            "description": "A panel egy sz\u00e1ml\u00e1l\u00f3j\u00e1nak \u00e9rt\u00e9k\u00e9t \u00e1ll\u00edtja be.",
+            "fields": {
+                "value": {
+                    "description": "A sz\u00e1ml\u00e1l\u00f3 be\u00e1ll\u00edt\u00e1s\u00e1hoz haszn\u00e1land\u00f3 \u00e9rt\u00e9k.",
+                    "name": "\u00c9rt\u00e9k"
+                }
+            },
+            "name": "Szenzor sz\u00e1ml\u00e1l\u00f3 be\u00e1ll\u00edt\u00e1sa"
+        },
+        "sensor_zone_bypass": {
+            "description": "Kihagyja a z\u00f3n\u00e1t.",
+            "fields": {
+                "code": {
+                    "description": "Egy k\u00f3d, amely enged\u00e9lyezi a z\u00f3na kihagy\u00e1s\u00e1t.",
+                    "name": "K\u00f3d"
+                }
+            },
+            "name": "\u00c9rz\u00e9kel\u0151 z\u00f3na kihagy\u00e1s"
+        },
+        "sensor_zone_trigger": {
+            "description": "Aktiv\u00e1lja a z\u00f3n\u00e1t.",
+            "name": "\u00c9rz\u00e9kel\u0151 z\u00f3na aktiv\u00e1l\u00e1s"
+        },
+        "set_time": {
+            "description": "Be\u00e1ll\u00edtja az id\u0151t a panel sz\u00e1m\u00e1ra.",
+            "fields": {
+                "prefix": {
+                    "description": "A panel el\u0151tagja.",
+                    "name": "El\u0151tag"
+                }
+            },
+            "name": "Id\u0151 be\u00e1ll\u00edt\u00e1sa"
+        },
+        "speak_phrase": {
+            "description": "Kimond egy mondatot. L\u00e1sd a mondatok list\u00e1j\u00e1t az ElkM1 ASCII protokoll dokument\u00e1ci\u00f3j\u00e1ban.",
+            "fields": {
+                "number": {
+                    "description": "Mondatsz\u00e1m a besz\u00e9dhez.",
+                    "name": "Mondat sz\u00e1ma"
+                },
+                "prefix": {
+                    "description": "El\u0151tag a panel azonos\u00edt\u00e1s\u00e1ra, ha t\u00f6bb panel van konfigur\u00e1lva.",
+                    "name": "El\u0151tag"
+                }
+            },
+            "name": "Mondat kimond\u00e1s"
+        },
+        "speak_word": {
+            "description": "Kimond egy sz\u00f3t. L\u00e1sd a szavak list\u00e1j\u00e1t az ElkM1 ASCII protokoll dokument\u00e1ci\u00f3ban.",
+            "fields": {
+                "number": {
+                    "description": "Sz\u00f3sz\u00e1m a besz\u00e9dhez.",
+                    "name": "Sz\u00f3 sz\u00e1ma"
+                },
+                "prefix": {
+                    "description": "El\u0151tag a panel azonos\u00edt\u00e1s\u00e1ra, ha t\u00f6bb panel van konfigur\u00e1lva.",
+                    "name": "El\u0151tag"
+                }
+            },
+            "name": "Sz\u00f3 kimond\u00e1s"
+        }
+    }
+}

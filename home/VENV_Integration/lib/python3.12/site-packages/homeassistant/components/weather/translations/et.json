@@ -1,0 +1,141 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "Ilm",
+            "state": {
+                "clear-night": "Selge \u00f6\u00f6",
+                "cloudy": "Pilves",
+                "exceptional": "Ohtlikud olud",
+                "fog": "Udu",
+                "hail": "Rahe",
+                "lightning": "\u00c4ikeseline",
+                "lightning-rainy": "\u00c4ikeseline, vihmane",
+                "partlycloudy": "Osaliselt pilves",
+                "pouring": "Kallab",
+                "rainy": "Vihmane",
+                "snowy": "Lumine",
+                "snowy-rainy": "L\u00f6rtsine",
+                "sunny": "P\u00e4ikeseline",
+                "windy": "Tuuline",
+                "windy-variant": "Tuuline, pilvine"
+            },
+            "state_attributes": {
+                "apparent_temperature": {
+                    "name": "Tunduv temperatuur"
+                },
+                "cloud_coverage": {
+                    "name": "Pilvisus"
+                },
+                "dew_point": {
+                    "name": "Kastepunkti temperatuur"
+                },
+                "forecast": {
+                    "name": "Ennustus"
+                },
+                "humidity": {
+                    "name": "Niiskus"
+                },
+                "ozone": {
+                    "name": "Osoon"
+                },
+                "precipitation_unit": {
+                    "name": "Sademete \u00fchik"
+                },
+                "pressure": {
+                    "name": "\u00d5hur\u00f5hk"
+                },
+                "pressure_unit": {
+                    "name": "\u00d5hur\u00f5hu \u00fchik"
+                },
+                "temperature": {
+                    "name": "Temperatuur"
+                },
+                "temperature_unit": {
+                    "name": "Temperatuuri \u00fchik"
+                },
+                "uv_index": {
+                    "name": "UV-indeks"
+                },
+                "visibility": {
+                    "name": "N\u00e4htavus"
+                },
+                "visibility_unit": {
+                    "name": "N\u00e4htavuse \u00fchik"
+                },
+                "wind_bearing": {
+                    "name": "Tuule suund"
+                },
+                "wind_gust_speed": {
+                    "name": "Tuulepuhangu kiirus"
+                },
+                "wind_speed": {
+                    "name": "Tuule kiirus"
+                },
+                "wind_speed_unit": {
+                    "name": "Tuule kiiruse m\u00f5\u00f5t\u00fchik"
+                }
+            }
+        }
+    },
+    "issues": {
+        "deprecated_service_weather_get_forecast": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Kasuta selle asemel teenust \"weather.get_forecasts\" mis toetab mitut olemit. \n\n Asenda see teenus ja kohanda oma automatiseerimisi ja skripte ning vali selle probleemi sulgemiseks **Esita**.",
+                        "title": "Tuvastati aegunud teenuse weather.get_forecast kasutamine"
+                    }
+                }
+            },
+            "title": "Tuvastati aegunud teenuse weather.get_forecast kasutamine"
+        },
+        "deprecated_weather_forecast": {
+            "description": "Sidumine {platform} kasutab aegunud prognoosiatribuuti. \n\nEsita {report_issue} .",
+            "title": "Sidumine {platform} kasutab aegunud prognoosi"
+        },
+        "deprecated_weather_forecast_no_url": {
+            "description": "Kohandatud sidumine `{platform}` rakendab omadust `forecast` v\u00f5i m\u00e4\u00e4rab `self._attr_forecast` alamklassis WeatherEntity.\n\nPalun teata sellest {platform} sidumise autorile.\n\nKui `{platform}` uuendatud versioon on saadaval, installi see ja k\u00e4ivita Home Assistant uuesti, et see probleem lahendada.",
+            "title": "Kohandatud sidumine {platform} kasutab aegunud ilmaennustust"
+        },
+        "deprecated_weather_forecast_url": {
+            "description": "Kohandatud sidumine `{platform}` rakendab omadust `forecast` v\u00f5i m\u00e4\u00e4rab `self._attr_forecast` alamklassis WeatherEntity.\n\nPalun loo veateade aadressil {issue_tracker}.\n\nKui `{platform}` uuendatud versioon on saadaval, installi see ja k\u00e4ivita Home Assistant uuesti, et see probleem lahendada.",
+            "title": "Kohandatud sidumine {platform} kasutab aegunud ilmaennustust"
+        },
+        "platform_integration_no_support": {
+            "description": "{domain} integreerimise platvorm {platform} ei toeta platvormi seadistamist. \n\n Selle probleemi lahendamiseks eemalda see oma konfiguratsioonist ja taask\u00e4ivita Home Assistant.",
+            "title": "Platvormi tuge ei toetata"
+        }
+    },
+    "selector": {
+        "forecast_type": {
+            "options": {
+                "daily": "Igap\u00e4evane",
+                "hourly": "Tunnip\u00f5hine",
+                "twice_daily": "Kaks korda p\u00e4evas"
+            }
+        }
+    },
+    "services": {
+        "get_forecast": {
+            "description": "Hangi ilmateade.",
+            "fields": {
+                "type": {
+                    "description": "Ilmateate t\u00fc\u00fcp: igap\u00e4evane, tunnip\u00f5hine v\u00f5i kaks korda p\u00e4evas.",
+                    "name": "Ilmateate t\u00fc\u00fcp"
+                }
+            },
+            "name": "Hangi ilmateade"
+        },
+        "get_forecasts": {
+            "description": "Hangi ilmaennustused.",
+            "fields": {
+                "type": {
+                    "description": "Ilmateate t\u00fc\u00fcp: igap\u00e4evane, tunnip\u00f5hine v\u00f5i kaks korda p\u00e4evas.",
+                    "name": "Ilmateate t\u00fc\u00fcp"
+                }
+            },
+            "name": "Hangi ilmateade"
+        }
+    },
+    "title": "Ilm"
+}

@@ -1,0 +1,161 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Il dispositivo \u00e8 gi\u00e0 configurato",
+            "already_in_progress": "Il flusso di configurazione \u00e8 gi\u00e0 in corso",
+            "no_devices_found": "Nessun dispositivo trovato sulla rete"
+        },
+        "error": {
+            "cannot_connect": "Impossibile connettersi"
+        },
+        "flow_title": "{model} {id} ({ipaddr})",
+        "step": {
+            "discovery_confirm": {
+                "description": "Vuoi configurare {model} {id} ({ipaddr})?"
+            },
+            "user": {
+                "data": {
+                    "host": "Host"
+                },
+                "description": "Se lasci vuoto l'host, il rilevamento sar\u00e0 utilizzato per trovare i dispositivi."
+            }
+        }
+    },
+    "entity": {
+        "button": {
+            "unpair_remotes": {
+                "name": "Annulla l'abbinamento dei telecomandi"
+            }
+        },
+        "number": {
+            "effect_speed": {
+                "name": "Velocit\u00e0 dell'effetto"
+            },
+            "music_pixels_per_segment": {
+                "name": "Pixel musicali per segmento"
+            },
+            "music_segments": {
+                "name": "Segmenti musicali"
+            },
+            "pixels_per_segment": {
+                "name": "Pixel per segmento"
+            },
+            "segments": {
+                "name": "Segmenti"
+            }
+        },
+        "select": {
+            "ic_type": {
+                "name": "tipo IC"
+            },
+            "operating_mode": {
+                "name": "Modalit\u00e0 operativa"
+            },
+            "power_restored": {
+                "name": "Alimentazione ripristinata"
+            },
+            "remote_config": {
+                "name": "Configurazione telecomando"
+            },
+            "white_channel": {
+                "name": "Canale bianco"
+            },
+            "wiring": {
+                "name": "Cablaggio"
+            }
+        },
+        "sensor": {
+            "paired_remotes": {
+                "name": "Telecomandi accoppiati"
+            }
+        },
+        "switch": {
+            "music": {
+                "name": "Musica"
+            },
+            "remote_access": {
+                "name": "Accesso remoto"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "custom_effect_colors": "Effetto personalizzato: Lista da 1 a 16 colori [R,G,B]. Esempio: [255,0,255],[60,128,0]",
+                    "custom_effect_speed_pct": "Effetto personalizzato: Velocit\u00e0 in percentuale per l'effetto che cambia colore.",
+                    "custom_effect_transition": "Effetto personalizzato: tipo di transizione tra i colori.",
+                    "mode": "La modalit\u00e0 di luminosit\u00e0 scelta."
+                }
+            }
+        }
+    },
+    "services": {
+        "set_custom_effect": {
+            "description": "Imposta un effetto luce personalizzato.",
+            "fields": {
+                "colors": {
+                    "description": "Elenco dei colori per l'effetto personalizzato (RGB) (max 16 colori).",
+                    "name": "Colori"
+                },
+                "speed_pct": {
+                    "description": "Velocit\u00e0 dell'effetto per l'effetto personalizzato (0-100).",
+                    "name": "Velocit\u00e0"
+                },
+                "transition": {
+                    "description": "Effetto transizione.",
+                    "name": "Transizione"
+                }
+            },
+            "name": "Imposta effetto personalizzato"
+        },
+        "set_music_mode": {
+            "description": "Configura la modalit\u00e0 musicale su Controller RGB con MIC (0x08), dispositivi indirizzabili v2 (0xA2) e indirizzabili v3 (0xA3) dotati di microfono incorporato.",
+            "fields": {
+                "background_color": {
+                    "description": "Il colore RGB di sfondo (solo modelli indirizzabili).",
+                    "name": "Colore di sfondo"
+                },
+                "brightness": {
+                    "description": "Luminosit\u00e0 della luce (0-100).",
+                    "name": "Luminosit\u00e0"
+                },
+                "effect": {
+                    "description": "Effetto (1-16 sui modelli indirizzabili, 0-3 su RGB con modelli MIC).",
+                    "name": "Effetto"
+                },
+                "foreground_color": {
+                    "description": "Il colore RGB in primo piano.",
+                    "name": "Colore di primo piano"
+                },
+                "light_screen": {
+                    "description": "Modalit\u00e0 schermo luminoso per pixel bidimensionali (solo modelli indirizzabili).",
+                    "name": "Schermo luminoso"
+                },
+                "sensitivity": {
+                    "description": "Sensibilit\u00e0 del microfono (0-100).",
+                    "name": "Sensibilit\u00e0"
+                }
+            },
+            "name": "Imposta la modalit\u00e0 musicale"
+        },
+        "set_zones": {
+            "description": "Imposta le zone di strip per i controller Addressable v3 (0xA3).",
+            "fields": {
+                "colors": {
+                    "description": "Elenco dei colori per ogni zona (RGB). La lunghezza di ciascuna zona \u00e8 il numero di pixel per segmento diviso per il numero di colori. (Massimo 2048 colori).",
+                    "name": "Colori"
+                },
+                "effect": {
+                    "description": "Effetto.",
+                    "name": "Effetto"
+                },
+                "speed_pct": {
+                    "description": "Velocit\u00e0 dell'effetto per l'effetto personalizzato (0-100).",
+                    "name": "Velocit\u00e0"
+                }
+            },
+            "name": "Imposta zone"
+        }
+    }
+}

@@ -1,0 +1,258 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Cihaz zaten yap\u0131land\u0131r\u0131lm\u0131\u015f",
+            "already_in_progress": "Yap\u0131land\u0131rma ak\u0131\u015f\u0131 zaten devam ediyor",
+            "no_devices_found": "A\u011fda cihaz bulunamad\u0131"
+        },
+        "error": {
+            "cannot_connect": "Ba\u011flanma hatas\u0131"
+        },
+        "flow_title": "{label} ( {group} )",
+        "step": {
+            "discovery_confirm": {
+                "description": "{label} ( {group} ) kurmak istiyor musunuz?"
+            },
+            "pick_device": {
+                "data": {
+                    "device": "Cihaz"
+                }
+            },
+            "user": {
+                "data": {
+                    "host": "Sunucu"
+                },
+                "data_description": {
+                    "host": "LIFX cihaz\u0131n\u0131z\u0131n ana bilgisayar ad\u0131 veya IP adresi."
+                },
+                "description": "Ana bilgisayar\u0131 bo\u015f b\u0131rak\u0131rsan\u0131z, cihazlar\u0131 bulmak i\u00e7in ke\u015fif kullan\u0131lacakt\u0131r."
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "clean_cycle": {
+                "name": "Temiz d\u00f6ng\u00fc"
+            }
+        },
+        "select": {
+            "infrared_brightness": {
+                "name": "K\u0131z\u0131l\u00f6tesi parlakl\u0131k"
+            },
+            "theme": {
+                "name": "Tema"
+            }
+        },
+        "sensor": {
+            "rssi": {
+                "name": "RSSI"
+            }
+        }
+    },
+    "services": {
+        "effect_colorloop": {
+            "description": "D\u00f6ng\u00fc renkleri ile bir efekt \u00e7al\u0131\u015ft\u0131r\u0131r.",
+            "fields": {
+                "brightness": {
+                    "description": "Renk d\u00f6ng\u00fcs\u00fcn\u00fcn parlakl\u0131\u011f\u0131n\u0131 g\u00f6steren say\u0131, burada 1 minimum parlakl\u0131k ve 255 \u0131\u015f\u0131k taraf\u0131ndan desteklenen maksimum parlakl\u0131kt\u0131r.",
+                    "name": "Parlakl\u0131k de\u011feri"
+                },
+                "brightness_pct": {
+                    "description": "1'in minimum parlakl\u0131k ve 100'\u00fcn \u0131\u015f\u0131\u011f\u0131n destekledi\u011fi maksimum parlakl\u0131k oldu\u011fu renk d\u00f6ng\u00fcs\u00fcn\u00fcn parlakl\u0131\u011f\u0131n\u0131 g\u00f6steren y\u00fczde.",
+                    "name": "Parlakl\u0131k"
+                },
+                "change": {
+                    "description": "Renk \u00e7ark\u0131nda derece cinsinden d\u00f6nem ba\u015f\u0131na ton hareketi.",
+                    "name": "De\u011fi\u015ftir"
+                },
+                "period": {
+                    "description": "Renk de\u011fi\u015fimleri aras\u0131ndaki s\u00fcre.",
+                    "name": "D\u00f6nem"
+                },
+                "power_on": {
+                    "description": "Etki s\u0131ras\u0131nda kapal\u0131 \u0131\u015f\u0131klar ge\u00e7ici olarak a\u00e7\u0131l\u0131r.",
+                    "name": "G\u00fc\u00e7 a\u00e7\u0131k"
+                },
+                "saturation_max": {
+                    "description": "D\u00f6ng\u00fcdeki renklerin maksimum doygunlu\u011funu g\u00f6steren y\u00fczde.",
+                    "name": "Maksimum doygunluk"
+                },
+                "saturation_min": {
+                    "description": "D\u00f6ng\u00fcdeki renklerin minimum doygunlu\u011funu g\u00f6steren y\u00fczde.",
+                    "name": "Minimum doygunluk"
+                },
+                "spread": {
+                    "description": "Renk \u00e7ark\u0131 \u00fczerinde derece cinsinden, kat\u0131l\u0131mc\u0131 \u0131\u015f\u0131klar aras\u0131ndaki maksimum renk tonu fark\u0131.",
+                    "name": "Yay\u0131lma"
+                }
+            },
+            "name": "Renk d\u00f6ng\u00fcs\u00fc efekti"
+        },
+        "effect_flame": {
+            "description": "LIFX Tiles veya Candle \u00fczerinde ayg\u0131t yaz\u0131l\u0131m\u0131 tabanl\u0131 Alev efektini ba\u015flat\u0131r.",
+            "fields": {
+                "power_on": {
+                    "description": "Efekt ba\u015flamadan \u00f6nce kapal\u0131 \u0131\u015f\u0131klar a\u00e7\u0131lacakt\u0131r.",
+                    "name": "G\u00fc\u00e7 a\u00e7\u0131k"
+                },
+                "speed": {
+                    "description": "Alevler ne kadar h\u0131zl\u0131 hareket edecek.",
+                    "name": "H\u0131z"
+                }
+            },
+            "name": "Alev efekti"
+        },
+        "effect_morph": {
+            "description": "Candle \u00fczerindeki LIFX Tiles \u00fczerinde ayg\u0131t yaz\u0131l\u0131m\u0131 tabanl\u0131 Morph efektini ba\u015flat\u0131r.",
+            "fields": {
+                "palette": {
+                    "description": "Bu efekt i\u00e7in kullan\u0131lacak renk tonu (0-360), doygunluk (0-100), parlakl\u0131k (0-100) ve kelvin (1500-900) de\u011ferleri olarak en az 2, en fazla 16 renk listesi. Tema niteli\u011fini ge\u00e7ersiz k\u0131lar.",
+                    "name": "Palet"
+                },
+                "power_on": {
+                    "description": "Efekt ba\u015flamadan \u00f6nce kapal\u0131 \u0131\u015f\u0131klar a\u00e7\u0131lacakt\u0131r.",
+                    "name": "G\u00fc\u00e7 a\u00e7\u0131k"
+                },
+                "speed": {
+                    "description": "Renklerin ne kadar h\u0131zl\u0131 hareket edece\u011fi.",
+                    "name": "H\u0131z"
+                },
+                "theme": {
+                    "description": "Efekt i\u00e7in kullan\u0131lacak \u00f6nceden tan\u0131mlanm\u0131\u015f renk temas\u0131. Palet \u00f6zniteli\u011fi taraf\u0131ndan ge\u00e7ersiz k\u0131l\u0131nd\u0131.",
+                    "name": "Tema"
+                }
+            },
+            "name": "D\u00f6n\u00fc\u015f\u00fcm efekti"
+        },
+        "effect_move": {
+            "description": "Bir LIFX Z, Lightstrip veya Beam \u00fczerinde ayg\u0131t yaz\u0131l\u0131m\u0131 tabanl\u0131 Move efektini ba\u015flat\u0131r.",
+            "fields": {
+                "direction": {
+                    "description": "Efektin cihaz boyunca hareket edece\u011fi y\u00f6n.",
+                    "name": "Y\u00f6n"
+                },
+                "power_on": {
+                    "description": "Efekt ba\u015flamadan \u00f6nce kapal\u0131 \u0131\u015f\u0131klar a\u00e7\u0131lacakt\u0131r.",
+                    "name": "G\u00fc\u00e7 a\u00e7\u0131k"
+                },
+                "speed": {
+                    "description": "Efektin \u0131\u015f\u0131\u011f\u0131n uzunlu\u011fu boyunca hareket etmesi i\u00e7in saniye cinsinden ne kadar s\u00fcre ge\u00e7mesi gerekti\u011fi.",
+                    "name": "H\u0131z"
+                },
+                "theme": {
+                    "description": "(\u0130ste\u011fe ba\u011fl\u0131) efekte ba\u015flamadan \u00f6nce \u00f6nceden tan\u0131mlanm\u0131\u015f temalardan birini cihaza ayarlay\u0131n.",
+                    "name": "Tema"
+                }
+            },
+            "name": "Hareket efekti"
+        },
+        "effect_pulse": {
+            "description": "Bir renge ve geriye de\u011fi\u015ftirerek bir fla\u015f efekti \u00e7al\u0131\u015ft\u0131r\u0131r.",
+            "fields": {
+                "brightness": {
+                    "description": "Ge\u00e7ici rengin parlakl\u0131\u011f\u0131n\u0131 g\u00f6steren say\u0131; burada 1, minimum parlakl\u0131k ve 255, \u0131\u015f\u0131\u011f\u0131n destekledi\u011fi maksimum parlakl\u0131kt\u0131r.",
+                    "name": "Parlakl\u0131k de\u011feri"
+                },
+                "brightness_pct": {
+                    "description": "Ge\u00e7ici rengin parlakl\u0131\u011f\u0131n\u0131 g\u00f6steren y\u00fczde; burada 1, minimum parlakl\u0131k ve 100, \u0131\u015f\u0131\u011f\u0131n destekledi\u011fi maksimum parlakl\u0131kt\u0131r.",
+                    "name": "Parlakl\u0131k"
+                },
+                "color_name": {
+                    "description": "\u0130nsan taraf\u0131ndan okunabilen bir renk ad\u0131.",
+                    "name": "Renk ad\u0131"
+                },
+                "cycles": {
+                    "description": "Efektin \u00e7al\u0131\u015ft\u0131r\u0131lmas\u0131 gereken say\u0131.",
+                    "name": "D\u00f6ng\u00fcler"
+                },
+                "mode": {
+                    "description": "Renklerin nas\u0131l de\u011fi\u015fece\u011fine karar verir.",
+                    "name": "Mod"
+                },
+                "period": {
+                    "description": "Efekt s\u00fcresi.",
+                    "name": "D\u00f6nem"
+                },
+                "power_on": {
+                    "description": "Etki s\u0131ras\u0131nda kapal\u0131 \u0131\u015f\u0131klar ge\u00e7ici olarak a\u00e7\u0131l\u0131r.",
+                    "name": "G\u00fc\u00e7 a\u00e7\u0131k"
+                },
+                "rgb_color": {
+                    "description": "RGB bi\u00e7imindeki ge\u00e7ici renk.",
+                    "name": "RGB rengi"
+                }
+            },
+            "name": "Darbe efekti"
+        },
+        "effect_sky": {
+            "description": "LIFX Tavan'da yaz\u0131l\u0131m tabanl\u0131 G\u00f6ky\u00fcz\u00fc efektini ba\u015flat\u0131r.",
+            "fields": {
+                "cloud_saturation_max": {
+                    "description": "Maksimum bulut doygunlu\u011fu.",
+                    "name": "Bulut Doygunlu\u011fu maksimum"
+                },
+                "cloud_saturation_min": {
+                    "description": "Minimum bulut doygunlu\u011fu.",
+                    "name": "Bulut doygunlu\u011fu Minimum"
+                },
+                "palette": {
+                    "description": "Bu efekt i\u00e7in kullan\u0131lacak renk tonu (0-360), doygunluk (0-100), parlakl\u0131k (0-100) ve kelvin (1500-9000) de\u011ferleri olarak 1 ila 6 renkten olu\u015fan liste.",
+                    "name": "Palet"
+                },
+                "power_on": {
+                    "description": "Efekt ba\u015flamadan \u00f6nce kapal\u0131 \u0131\u015f\u0131klar a\u00e7\u0131lacakt\u0131r.",
+                    "name": "G\u00fc\u00e7 a\u00e7\u0131k"
+                },
+                "sky_type": {
+                    "description": "Efektle canland\u0131r\u0131lacak g\u00f6ky\u00fcz\u00fcn\u00fcn tarz\u0131.",
+                    "name": "G\u00f6ky\u00fcz\u00fc tipi"
+                },
+                "speed": {
+                    "description": "G\u00fcndo\u011fumu ve G\u00fcnbat\u0131m\u0131 g\u00f6ky\u00fcz\u00fc t\u00fcrlerinin tamamlanmas\u0131 ne kadar s\u00fcrecek. Bulut g\u00f6ky\u00fcz\u00fc t\u00fcr\u00fc i\u00e7in, bulutlar\u0131n cihaz \u00fczerindeki h\u0131z\u0131d\u0131r.",
+                    "name": "H\u0131z"
+                }
+            },
+            "name": "G\u00f6ky\u00fcz\u00fc etkisi"
+        },
+        "effect_stop": {
+            "description": "\u00c7al\u0131\u015fan bir efekti durdurur.",
+            "name": "Efekti durdur"
+        },
+        "set_hev_cycle_state": {
+            "description": "LIFX Clean ampul\u00fcndeki HEV LED'lerini kontrol eder.",
+            "fields": {
+                "duration": {
+                    "description": "HEV LED'lerinin ne kadar s\u00fcre a\u00e7\u0131k kalaca\u011f\u0131. Belirtilmemi\u015fse yap\u0131land\u0131r\u0131lm\u0131\u015f varsay\u0131lan s\u00fcreyi kullan\u0131r.",
+                    "name": "S\u00fcre"
+                },
+                "power": {
+                    "description": "Bir Temizleme d\u00f6ng\u00fcs\u00fcn\u00fc ba\u015flat\u0131n veya durdurun.",
+                    "name": "Etkinle\u015ftir"
+                }
+            },
+            "name": "HEV d\u00f6ng\u00fc durumunu ayarla"
+        },
+        "set_state": {
+            "description": "Bir renk/parlakl\u0131k ayarlar ve muhtemelen \u0131\u015f\u0131\u011f\u0131 a\u00e7ar/kapat\u0131r.",
+            "fields": {
+                "infrared": {
+                    "description": "I\u015f\u0131k parlakl\u0131\u011f\u0131 d\u00fc\u015f\u00fck oldu\u011funda otomatik k\u0131z\u0131l\u00f6tesi seviye.",
+                    "name": "K\u0131z\u0131l\u00f6tesi"
+                },
+                "power": {
+                    "description": "I\u015f\u0131\u011f\u0131 a\u00e7\u0131n veya kapat\u0131n. G\u00fcc\u00fc oldu\u011fu gibi tutmak i\u00e7in d\u0131\u015far\u0131da b\u0131rak\u0131n.",
+                    "name": "G\u00fc\u00e7"
+                },
+                "transition": {
+                    "description": "Son duruma ula\u015fmak i\u00e7in gereken s\u00fcre.",
+                    "name": "Ge\u00e7i\u015f"
+                },
+                "zones": {
+                    "description": "Etkilenecek b\u00f6lge numaralar\u0131n\u0131n listesi (LIFX Z ba\u015f\u0131na 8, 0'dan ba\u015flar).",
+                    "name": "B\u00f6lgeler"
+                }
+            },
+            "name": "Durumu Ayarla"
+        }
+    }
+}

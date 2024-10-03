@@ -1,0 +1,87 @@
+{
+    "application_credentials": {
+        "description": "Postupujte podle [pokyn\u016f]({more_info_url}) pro [obrazovku souhlasu s OAuth]({oauth_consent_url}) a umo\u017en\u011bte Home Assistantovi p\u0159\u00edstup k Fotk\u00e1m Google. Mus\u00edte tak\u00e9 vytvo\u0159it pov\u011b\u0159en\u00ed aplikace spojen\u00e9 s va\u0161\u00edm \u00fa\u010dtem:\n1. P\u0159ejd\u011bte na str\u00e1nku [Pov\u011b\u0159en\u00ed]({oauth_creds_url}) a klepn\u011bte na tla\u010d\u00edtko **Vytvo\u0159it pov\u011b\u0159en\u00ed**.\n2. V rozev\u00edrac\u00edm seznamu vyberte **OAuth client ID**.\n3. Jako typ aplikace vyberte **Webov\u00e1 aplikace**."
+    },
+    "config": {
+        "abort": {
+            "access_not_configured": "Nelze z\u00edskat p\u0159\u00edstup ke Google API:\n\n{message}",
+            "already_configured": "\u00da\u010det je ji\u017e nastaven",
+            "already_in_progress": "Nastaven\u00ed ji\u017e prob\u00edh\u00e1",
+            "authorize_url_timeout": "\u010casov\u00fd limit ov\u011b\u0159ovac\u00ed URL vypr\u0161el.",
+            "missing_configuration": "Komponenta nen\u00ed nastavena. Postupujte podle dokumentace.",
+            "no_url_available": "Nen\u00ed k dispozici \u017e\u00e1dn\u00e1 URL. Informace o t\u00e9to chyb\u011b naleznete [v sekci n\u00e1pov\u011bdy]({docs_url})",
+            "oauth_error": "P\u0159ijata neplatn\u00e1 data tokenu.",
+            "oauth_failed": "Chyba p\u0159i z\u00edsk\u00e1v\u00e1n\u00ed p\u0159\u00edstupov\u00e9ho tokenu.",
+            "oauth_timeout": "P\u0159i \u0159e\u0161en\u00ed tokenu OAuth vypr\u0161el \u010dasov\u00fd limit.",
+            "oauth_unauthorized": "Chyba autorizace OAuth p\u0159i z\u00edsk\u00e1v\u00e1n\u00ed p\u0159\u00edstupov\u00e9ho tokenu.",
+            "unknown": "Neo\u010dek\u00e1van\u00e1 chyba",
+            "user_rejected_authorize": "Propojen\u00ed \u00fa\u010dtu zam\u00edtnuto: {error}",
+            "wrong_account": "\u0160patn\u00fd \u00fa\u010det: Ov\u011b\u0159te se pomoc\u00ed spr\u00e1vn\u00e9ho \u00fa\u010dtu."
+        },
+        "create_entry": {
+            "default": "\u00dasp\u011b\u0161n\u011b ov\u011b\u0159eno"
+        },
+        "step": {
+            "pick_implementation": {
+                "title": "Vybrat metodu ov\u011b\u0159en\u00ed"
+            }
+        }
+    },
+    "exceptions": {
+        "albums_failed": {
+            "message": "Nelze na\u010d\u00edst alba z rozhran\u00ed Google Photos API"
+        },
+        "api_error": {
+            "message": "API Fotek Google odpov\u011bd\u011blo chybou: {message}"
+        },
+        "create_album_error": {
+            "message": "Nepoda\u0159ilo se vytvo\u0159it album: {message}"
+        },
+        "file_too_large": {
+            "message": "\"{filename}\" je p\u0159\u00edli\u0161 velk\u00fd ({size} > {limit})"
+        },
+        "filename_does_not_exist": {
+            "message": "\"{filename}\" neexistuje"
+        },
+        "filename_is_not_image": {
+            "message": "\"{filename}\" nen\u00ed obr\u00e1zek"
+        },
+        "integration_not_found": {
+            "message": "Integrace \"{target}\" nebyla nalezena v registru."
+        },
+        "missing_upload_permission": {
+            "message": "Home Assistnt nez\u00edskal opr\u00e1vn\u011bn\u00ed k nahr\u00e1v\u00e1n\u00ed do Fotek Google"
+        },
+        "no_access_to_path": {
+            "message": "Nelze \u010d\u00edst {filename}, \u017e\u00e1dn\u00fd p\u0159\u00edstup k cest\u011b; v souboru \"configuration.yaml\" m\u016f\u017ee b\u00fdt nutn\u00e9 upravit soubor \"allowlist_external_dirs\""
+        },
+        "not_loaded": {
+            "message": "{target} nen\u00ed na\u010dten."
+        },
+        "upload_error": {
+            "message": "Nepoda\u0159ilo se nahr\u00e1t obsah: {message}"
+        }
+    },
+    "services": {
+        "upload": {
+            "description": "Nahr\u00e1t obr\u00e1zky nebo videa do Fotek Google.",
+            "fields": {
+                "album": {
+                    "description": "N\u00e1zev alba, kter\u00e9 je c\u00edlem pro nahran\u00fd obsah.",
+                    "example": "Rodinn\u00e9 fotky",
+                    "name": "Album"
+                },
+                "config_entry_id": {
+                    "description": "ID integrace Fotek Google.",
+                    "name": "ID integrace"
+                },
+                "filename": {
+                    "description": "Cesta k obr\u00e1zku nebo videu, kter\u00e9 chcete nahr\u00e1t.",
+                    "example": "/config/www/image.jpg",
+                    "name": "N\u00e1zev souboru"
+                }
+            },
+            "name": "Nahr\u00e1t m\u00e9dia"
+        }
+    }
+}

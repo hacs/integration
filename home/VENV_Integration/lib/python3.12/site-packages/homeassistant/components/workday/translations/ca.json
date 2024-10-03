@@ -1,0 +1,227 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Dia laborable ja s'ha configurat amb la configuraci\u00f3 escollida",
+            "incorrect_province": "Importaci\u00f3 yaml de subdivisi\u00f3 de pa\u00eds incorrecta"
+        },
+        "error": {
+            "add_holiday_error": "Format de data incorrecte (AAAA-MM-DD)",
+            "add_holiday_range_error": "Format de data incorrecte en l'interval (AAAA-MM-DD, AAAA-MM-DD)",
+            "already_configured": "El servei ja est\u00e0 configurat",
+            "remove_holiday_error": "Format de data incorrecte (AAAA-MM-DD) o nom de vacances/festiu no trobat",
+            "remove_holiday_range_error": "Format de data incorrecte en l'interval (AAAA-MM-DD, AAAA-MM-DD)"
+        },
+        "step": {
+            "options": {
+                "data": {
+                    "add_holidays": "Afegeix vacances/festius",
+                    "category": "Categoria addicional de vacances",
+                    "days_offset": "Despla\u00e7ament (\u00f2fset)",
+                    "excludes": "Exclusions",
+                    "province": "Subdivisi\u00f3 de pa\u00eds",
+                    "remove_holidays": "Elimina vacances/festius",
+                    "workdays": "Dies laborables"
+                },
+                "description": "Estableix les opcions addicionals de dia laborable de {name} pel pa\u00eds {country}"
+            },
+            "user": {
+                "data": {
+                    "country": "Pa\u00eds",
+                    "name": "Nom"
+                }
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "workday": {
+                "state_attributes": {
+                    "days_offset": {
+                        "name": "Despla\u00e7ament (\u00f2fset)"
+                    },
+                    "excludes": {
+                        "name": "Exclusions"
+                    },
+                    "workdays": {
+                        "name": "Dies laborables"
+                    }
+                }
+            }
+        }
+    },
+    "issues": {
+        "bad_country": {
+            "fix_flow": {
+                "step": {
+                    "country": {
+                        "data": {
+                            "country": "Pa\u00eds"
+                        },
+                        "description": "Selecciona un pa\u00eds per utilitzar-lo al sensor 'Dia laborable'.",
+                        "title": "Selecciona el pa\u00eds de {title}"
+                    },
+                    "province": {
+                        "data": {
+                            "province": "Subdivisi\u00f3 de pa\u00eds"
+                        },
+                        "data_description": {
+                            "province": "Estat, territori, prov\u00edncia, regi\u00f3 de pa\u00eds"
+                        },
+                        "description": "Selecciona una prov\u00edncia del pa\u00eds {country} per utilitzar-la al sensor 'Dia laborable'.",
+                        "title": "Selecciona la prov\u00edncia de {title}"
+                    }
+                }
+            },
+            "title": "El pa\u00eds configurat de {title} no existeix"
+        },
+        "bad_date_holiday": {
+            "fix_flow": {
+                "error": {
+                    "remove_holiday_error": "Format de data incorrecte (AAAA-MM-DD) o nom de vacances/festiu no trobat"
+                },
+                "step": {
+                    "fix_remove_holiday": {
+                        "data": {
+                            "remove_holidays": "Elimina vacances/festius"
+                        },
+                        "data_description": {
+                            "remove_holidays": "Elimina vacances/festius amb el format AAAA-MM-DD o amb una part del nom"
+                        }
+                    }
+                }
+            }
+        },
+        "bad_named_holiday": {
+            "fix_flow": {
+                "error": {
+                    "remove_holiday_error": "Format de data incorrecte (AAAA-MM-DD) o nom de vacances/festiu no trobat"
+                },
+                "step": {
+                    "fix_remove_holiday": {
+                        "data": {
+                            "remove_holidays": "Elimina vacances/festius"
+                        },
+                        "data_description": {
+                            "remove_holidays": "Elimina vacances/festius amb el format AAAA-MM-DD o amb una part del nom"
+                        }
+                    },
+                    "named_holiday": {
+                        "data": {
+                            "remove_holidays": "Elimina vacances/festius"
+                        },
+                        "data_description": {
+                            "remove_holidays": "Elimina vacances/festius amb el format AAAA-MM-DD o amb una part del nom"
+                        }
+                    }
+                }
+            }
+        },
+        "bad_province": {
+            "fix_flow": {
+                "step": {
+                    "province": {
+                        "data": {
+                            "province": "Subdivisi\u00f3 de pa\u00eds"
+                        },
+                        "data_description": {
+                            "province": "Estat, territori, prov\u00edncia, regi\u00f3 de pa\u00eds"
+                        },
+                        "description": "Selecciona una prov\u00edncia del pa\u00eds {country} per utilitzar-la al sensor 'Dia laborable'.",
+                        "title": "Selecciona la prov\u00edncia de {title}"
+                    }
+                }
+            },
+            "title": "La prov\u00edncia configurada del pa\u00eds {country} de {title} no existeix"
+        },
+        "deprecated_yaml": {
+            "description": "La configuraci\u00f3 de 'Dia laborable' mitjan\u00e7ant YAML s'eliminar\u00e0 de Home Assistant.\n\nLa configuraci\u00f3 YAML existent s'ha importat autom\u00e0ticament a la interf\u00edcie d'usuari.\n\nElimina la configuraci\u00f3 YAML de 'Dia laborable' del fitxer configuration.yaml i reinicia Home Assistant per solucionar aquest problema.",
+            "title": "La configuraci\u00f3 YAML de 'Dia laborable' est\u00e0 sent eliminada"
+        }
+    },
+    "options": {
+        "error": {
+            "add_holiday_error": "Format de data incorrecte (AAAA-MM-DD)",
+            "add_holiday_range_error": "Format de data incorrecte en l'interval (AAAA-MM-DD, AAAA-MM-DD)",
+            "already_configured": "Ja existeix un servei amb aquesta configuraci\u00f3",
+            "remove_holiday_error": "Format de data incorrecte (AAAA-MM-DD) o nom de vacances/festiu no trobat",
+            "remove_holiday_range_error": "Format de data incorrecte en l'interval (AAAA-MM-DD, AAAA-MM-DD)"
+        },
+        "step": {
+            "init": {
+                "data": {
+                    "add_holidays": "Afegeix vacances/festius",
+                    "category": "Categoria addicional de vacances",
+                    "days_offset": "Despla\u00e7ament (\u00f2fset)",
+                    "excludes": "Exclusions",
+                    "province": "Subdivisi\u00f3 de pa\u00eds",
+                    "remove_holidays": "Elimina vacances/festius",
+                    "workdays": "Dies laborables"
+                },
+                "data_description": {
+                    "add_holidays": "Afegeix vacances/festius personalitzats en format AAAA-MM-DD",
+                    "days_offset": "Dies de despla\u00e7ament (\u00f2fset)",
+                    "excludes": "Llista de dies laborables a excloure",
+                    "province": "Estat, territori, prov\u00edncia, regi\u00f3 de pa\u00eds",
+                    "remove_holidays": "Elimina vacances/festius amb el format AAAA-MM-DD o amb una part del nom",
+                    "workdays": "Llista de dies laborables"
+                },
+                "description": "Canvia les opcions addicionals de {name} configurades pel pa\u00eds {country}"
+            }
+        }
+    },
+    "selector": {
+        "category": {
+            "options": {
+                "armed_forces": "Forces armades",
+                "bank": "Banc",
+                "chinese": "Xin\u00e8s",
+                "christian": "Cristi\u00e0",
+                "government": "Govern",
+                "half_day": "Mig dia",
+                "hebrew": "Hebreu",
+                "hindu": "Hind\u00fa",
+                "islamic": "Isl\u00e0mic",
+                "optional": "Opcional",
+                "public": "P\u00fablic",
+                "school": "Escolar",
+                "unofficial": "No oficial",
+                "workday": "Dia laborable"
+            }
+        },
+        "country": {
+            "options": {
+                "none": "Sense pa\u00eds"
+            }
+        },
+        "days": {
+            "options": {
+                "fri": "Divendres",
+                "holiday": "Vacances",
+                "mon": "Dilluns",
+                "sat": "Dissabte",
+                "sun": "Diumenge",
+                "thu": "Dijous",
+                "tue": "Dimarts",
+                "wed": "Dimecres"
+            }
+        },
+        "province": {
+            "options": {
+                "none": "Sense subdivisi\u00f3"
+            }
+        }
+    },
+    "services": {
+        "check_date": {
+            "description": "Comprova si la data \u00e9s laborable.",
+            "fields": {
+                "check_date": {
+                    "description": "Data a comprovar si \u00e9s un dia laborable.",
+                    "name": "Data"
+                }
+            },
+            "name": "Data a comprovar"
+        }
+    },
+    "title": "Dia laborable"
+}

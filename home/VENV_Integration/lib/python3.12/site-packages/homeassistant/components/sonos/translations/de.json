@@ -1,0 +1,198 @@
+{
+    "config": {
+        "abort": {
+            "no_devices_found": "Keine Ger\u00e4te im Netzwerk gefunden",
+            "not_sonos_device": "Erkanntes Ger\u00e4t ist kein Sonos-Ger\u00e4t",
+            "single_instance_allowed": "Bereits konfiguriert. Nur eine einzige Konfiguration m\u00f6glich."
+        },
+        "step": {
+            "confirm": {
+                "description": "M\u00f6chtest du Sonos einrichten?"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "microphone": {
+                "name": "Mikrofon"
+            }
+        },
+        "number": {
+            "audio_delay": {
+                "name": "Audio-Verz\u00f6gerung"
+            },
+            "balance": {
+                "name": "Balance"
+            },
+            "bass": {
+                "name": "Bass"
+            },
+            "music_surround_level": {
+                "name": "Surround-Pegel"
+            },
+            "sub_crossover": {
+                "name": "Sub-Crossover-Frequenz"
+            },
+            "sub_gain": {
+                "name": "Subwoofer-Verst\u00e4rkung"
+            },
+            "surround_level": {
+                "name": "Surround-Pegel"
+            },
+            "treble": {
+                "name": "H\u00f6hen"
+            }
+        },
+        "sensor": {
+            "audio_input_format": {
+                "name": "Audio-Eingangsformat"
+            }
+        },
+        "switch": {
+            "buttons_enabled": {
+                "name": "Ber\u00fchrungssteuerung"
+            },
+            "cross_fade": {
+                "name": "\u00dcberblenden"
+            },
+            "dialog_level": {
+                "name": "Sprachverbesserung"
+            },
+            "loudness": {
+                "name": "Loudness"
+            },
+            "night_mode": {
+                "name": "Nachtton"
+            },
+            "status_light": {
+                "name": "Statusleuchte"
+            },
+            "sub_enabled": {
+                "name": "Subwoofer aktiviert"
+            },
+            "surround_enabled": {
+                "name": "Surround aktiviert"
+            },
+            "surround_mode": {
+                "name": "Surround-Musik in voller Lautst\u00e4rke"
+            }
+        }
+    },
+    "exceptions": {
+        "announce_media_error": {
+            "message": "Ank\u00fcndigungsclip {media_id} fehlgeschlagen {response}"
+        },
+        "invalid_content_type": {
+            "message": "Sonos unterst\u00fctzt den Medieninhaltstyp nicht: {media_type}"
+        },
+        "invalid_favorite": {
+            "message": "Sonos-Favorit konnte nicht gefunden werden: {name}"
+        },
+        "invalid_media": {
+            "message": "Medium konnte in der Bibliothek nicht gefunden werden: {media_id}"
+        },
+        "invalid_sonos_playlist": {
+            "message": "Sonos-Wiedergabeliste konnte nicht gefunden werden: {name}"
+        }
+    },
+    "issues": {
+        "subscriptions_failed": {
+            "description": "Wenn du auf Polling zur\u00fcckgreifst, kann die Funktionalit\u00e4t eingeschr\u00e4nkt sein. \n\nDas Sonos-Ger\u00e4t unter {device_ip} kann Home Assistant unter {listener_address} nicht erreichen. \n\nWeitere Informationen zur L\u00f6sung dieses Problems findest du in unserer [Dokumentation]({sub_fail_url}).",
+            "title": "Netzwerkfehler: Abonnements fehlgeschlagen"
+        }
+    },
+    "services": {
+        "clear_sleep_timer": {
+            "description": "L\u00f6scht einen Sonos-Timer.",
+            "name": "Timer l\u00f6schen"
+        },
+        "get_queue": {
+            "description": "Gibt den Inhalt der Warteschlange zur\u00fcck.",
+            "name": "Warteschlange abrufen"
+        },
+        "play_queue": {
+            "description": "Beginne mit der Wiedergabe der Warteschlange beim ersten Element.",
+            "fields": {
+                "queue_position": {
+                    "description": "Position des Liedes in der Warteschlange, an der die Wiedergabe beginnen soll.",
+                    "name": "Position in der Warteschlange"
+                }
+            },
+            "name": "Warteschlange abspielen"
+        },
+        "remove_from_queue": {
+            "description": "Entfernt ein Element aus der Warteschlange.",
+            "fields": {
+                "queue_position": {
+                    "description": "Position in der Warteschlange, die entfernt werden soll.",
+                    "name": "Position in der Warteschlange"
+                }
+            },
+            "name": "Aus der Warteschlange entfernen"
+        },
+        "restore": {
+            "description": "Stellt einen Snapshot des Media Players wieder her.",
+            "fields": {
+                "entity_id": {
+                    "description": "Name der Entit\u00e4t, die wiederhergestellt wird.",
+                    "name": "Entit\u00e4t"
+                },
+                "with_group": {
+                    "description": "Wahr oder Falsch. Stelle auch das Gruppenlayout wieder her.",
+                    "name": "Mit Gruppe"
+                }
+            },
+            "name": "Wiederherstellen"
+        },
+        "set_sleep_timer": {
+            "description": "Stellt einen Sonos-Timer ein.",
+            "fields": {
+                "sleep_time": {
+                    "description": "Anzahl der Sekunden f\u00fcr die Einstellung des Timers.",
+                    "name": "Schlafenszeit"
+                }
+            },
+            "name": "Timer einstellen"
+        },
+        "snapshot": {
+            "description": "Erstellt einen Snapshot des Media Players.",
+            "fields": {
+                "entity_id": {
+                    "description": "Name der Entit\u00e4t, von der ein Snapshot erstellt wird.",
+                    "name": "Entit\u00e4t"
+                },
+                "with_group": {
+                    "description": "Wahr oder Falsch. Auch einen Snapshot des Gruppenlayouts erstellen.",
+                    "name": "Mit Gruppe"
+                }
+            },
+            "name": "Snapshot"
+        },
+        "update_alarm": {
+            "description": "Aktualisiert einen Alarm mit neuen Zeit- und Lautst\u00e4rkeeinstellungen.",
+            "fields": {
+                "alarm_id": {
+                    "description": "ID f\u00fcr den Alarm, der aktualisiert werden soll.",
+                    "name": "Alarm-ID"
+                },
+                "enabled": {
+                    "description": "Aktiviere oder deaktiviere den Alarm.",
+                    "name": "Alarm aktiviert"
+                },
+                "include_linked_zones": {
+                    "description": "Aktiviere oder deaktiviere die Einbeziehung gruppierter R\u00e4ume.",
+                    "name": "Verkn\u00fcpfte Zonen einbeziehen"
+                },
+                "time": {
+                    "description": "Zeit f\u00fcr den Wecker einstellen.",
+                    "name": "Zeit"
+                },
+                "volume": {
+                    "description": "Weckerlautst\u00e4rke einstellen.",
+                    "name": "Lautst\u00e4rke"
+                }
+            },
+            "name": "Wecker aktualisieren"
+        }
+    }
+}

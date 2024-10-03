@@ -1,0 +1,245 @@
+{
+    "device_automation": {
+        "action_type": {
+            "set_hvac_mode": "Canvia el mode HVAC de {entity_name}",
+            "set_preset_mode": "Canvia la preconfiguraci\u00f3 de {entity_name}"
+        },
+        "condition_type": {
+            "is_hvac_mode": "{entity_name} est\u00e0 configurat/ada en un mode HVAC espec\u00edfic",
+            "is_preset_mode": "{entity_name} est\u00e0 configurat/ada en un mode preconfigurat espec\u00edfic"
+        },
+        "extra_fields": {
+            "above": "Per sobre",
+            "below": "Per sota",
+            "for": "Durada",
+            "hvac_mode": "Mode HVAC",
+            "preset_mode": "Mode preconfiguraci\u00f3",
+            "to": "A"
+        },
+        "trigger_type": {
+            "current_humidity_changed": "Ha canviat la humitat mesurada per {entity_name}",
+            "current_temperature_changed": "Ha canviat la temperatura mesurada per {entity_name}",
+            "hvac_mode_changed": "El mode HVAC de {entity_name} ha canviat"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Term\u00f2stat",
+            "state": {
+                "auto": "Autom\u00e0tic",
+                "cool": "Refreda",
+                "dry": "Asseca",
+                "fan_only": "Nom\u00e9s ventilador",
+                "heat": "Escalfa",
+                "heat_cool": "Escalfa/Refreda",
+                "off": "OFF"
+            },
+            "state_attributes": {
+                "aux_heat": {
+                    "name": "Escalfador auxiliar"
+                },
+                "current_humidity": {
+                    "name": "Humitat actual"
+                },
+                "current_temperature": {
+                    "name": "Temperatura actual"
+                },
+                "fan_mode": {
+                    "name": "Mode ventilador",
+                    "state": {
+                        "auto": "Autom\u00e0tic",
+                        "diffuse": "Dif\u00fas",
+                        "focus": "Concentrat",
+                        "high": "Alt",
+                        "low": "Baix",
+                        "medium": "Mitj\u00e0",
+                        "middle": "Mig",
+                        "off": "OFF",
+                        "on": "ON",
+                        "top": "Superior"
+                    }
+                },
+                "fan_modes": {
+                    "name": "Modes del ventilador"
+                },
+                "humidity": {
+                    "name": "Humitat objectiu"
+                },
+                "hvac_action": {
+                    "name": "Acci\u00f3 actual",
+                    "state": {
+                        "cooling": "Refredant",
+                        "defrosting": "Descongelant",
+                        "drying": "Assecant",
+                        "fan": "Ventilaci\u00f3",
+                        "heating": "Escalfant",
+                        "idle": "Inactiu",
+                        "off": "OFF",
+                        "preheating": "Preescalfant"
+                    }
+                },
+                "hvac_modes": {
+                    "name": "Modes HVAC"
+                },
+                "max_humidity": {
+                    "name": "Humitat objectiu m\u00e0xima"
+                },
+                "max_temp": {
+                    "name": "Temperatura objectiu m\u00e0xima"
+                },
+                "min_humidity": {
+                    "name": "Humitat objectiu m\u00ednima"
+                },
+                "min_temp": {
+                    "name": "Temperatura objectiu m\u00ednima"
+                },
+                "preset_mode": {
+                    "name": "Preconfiguraci\u00f3",
+                    "state": {
+                        "activity": "Activitat",
+                        "away": "A fora",
+                        "boost": "Incrementat",
+                        "comfort": "Confort",
+                        "eco": "Econ\u00f2mic",
+                        "home": "A casa",
+                        "none": "Cap",
+                        "sleep": "Dormir"
+                    }
+                },
+                "preset_modes": {
+                    "name": "Preconfiguracions"
+                },
+                "swing_mode": {
+                    "name": "Mode d'oscil\u00b7laci\u00f3",
+                    "state": {
+                        "both": "Ambd\u00f3s",
+                        "horizontal": "Horitzontal",
+                        "off": "OFF",
+                        "on": "ON",
+                        "vertical": "Vertical"
+                    }
+                },
+                "swing_modes": {
+                    "name": "Modes d'oscil\u00b7laci\u00f3"
+                },
+                "target_temp_high": {
+                    "name": "Temperatura objectiu superior"
+                },
+                "target_temp_low": {
+                    "name": "Temperatura objectiu inferior"
+                },
+                "target_temp_step": {
+                    "name": "Pas de la temperatura objectiu"
+                },
+                "temperature": {
+                    "name": "Temperatura objectiu"
+                }
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "La plataforma {platform} de la integraci\u00f3 {domain} no \u00e9s compatible amb la configuraci\u00f3 de la plataforma.\n\nElimina-la de la teva configuraci\u00f3 i reinicia Home Assistant per solucionar aquest problema.",
+            "title": "Suport de la plataforma no compatible"
+        }
+    },
+    "selector": {
+        "hvac_mode": {
+            "options": {
+                "auto": "Autom\u00e0tic",
+                "cool": "Refredar",
+                "dry": "Assecar",
+                "fan_only": "Nom\u00e9s el ventilador",
+                "heat": "Escalfar",
+                "heat_cool": "Escalfar/refredar",
+                "off": "Apagat"
+            }
+        }
+    },
+    "services": {
+        "set_aux_heat": {
+            "description": "Activa o desactiva l'escalfador auxiliar.",
+            "fields": {
+                "aux_heat": {
+                    "description": "Nou valor per a l'escalfador auxiliar.",
+                    "name": "Escalfador auxiliar"
+                }
+            },
+            "name": "Activa/desactiva l'escalfador auxiliar"
+        },
+        "set_fan_mode": {
+            "description": "Estableix el mode de funcionament del ventilador.",
+            "fields": {
+                "fan_mode": {
+                    "description": "Mode de funcionament del ventilador.",
+                    "name": "Mode del ventilador"
+                }
+            },
+            "name": "Estableix el mode del ventilador"
+        },
+        "set_humidity": {
+            "description": "Configura la humitat objectiu.",
+            "fields": {
+                "humidity": {
+                    "description": "Humitat objectiu.",
+                    "name": "Humitat"
+                }
+            },
+            "name": "Configura humitat objectiu"
+        },
+        "set_hvac_mode": {
+            "description": "Configura el mode de funcionament HVAC.",
+            "fields": {
+                "hvac_mode": {
+                    "description": "Mode de funcionament HVAC.",
+                    "name": "Mode HVAC"
+                }
+            },
+            "name": "Configura mode HVAC"
+        },
+        "set_preset_mode": {
+            "description": "Estableix el mode preconfiguraci\u00f3.",
+            "fields": {
+                "preset_mode": {
+                    "description": "Mode preconfiguraci\u00f3.",
+                    "name": "Mode preconfiguraci\u00f3"
+                }
+            },
+            "name": "Estableix mode preconfiguraci\u00f3"
+        },
+        "set_temperature": {
+            "description": "Configura la temperatura objectiu (desitjada).",
+            "fields": {
+                "hvac_mode": {
+                    "description": "Mode de funcionament HVAC.",
+                    "name": "Mode HVAC"
+                },
+                "target_temp_high": {
+                    "description": "Temperatura alta objectiu.",
+                    "name": "Temperatura alta objectiu"
+                },
+                "target_temp_low": {
+                    "description": "Temperatura baixa objectiu.",
+                    "name": "Temperatura baixa objectiu"
+                },
+                "temperature": {
+                    "description": "Temperatura objectiu.",
+                    "name": "Temperatura"
+                }
+            },
+            "name": "Configura temperatura objectiu"
+        },
+        "toggle": {
+            "name": "Commuta"
+        },
+        "turn_off": {
+            "description": "Desactiva dispositiu de climatitzaci\u00f3.",
+            "name": "Apaga"
+        },
+        "turn_on": {
+            "description": "Activa dispositiu de climatitzaci\u00f3.",
+            "name": "Enc\u00e9n"
+        }
+    },
+    "title": "Climatitzaci\u00f3"
+}

@@ -1,0 +1,62 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "El dispositivo ya est\u00e1 configurado",
+            "cannot_connect": "No se pudo conectar"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "host": "Host",
+                    "port": "Puerto"
+                },
+                "description": "Direcci\u00f3n de la puerta de enlace para conectar con la red DYNET",
+                "title": "Configurar conexi\u00f3n Dynalite"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_yaml": {
+            "description": "Se va a eliminar la configuraci\u00f3n de Dynalite mediante YAML. \n\nTu configuraci\u00f3n YAML existente se ha importado a la IU autom\u00e1ticamente. \n\nElimina la configuraci\u00f3n YAML de Dynalite de tu archivo configuration.yaml y reinicia Home Assistant para solucionar este problema.",
+            "title": "Se va a eliminar la configuraci\u00f3n YAML de Dynalite"
+        }
+    },
+    "services": {
+        "request_area_preset": {
+            "description": "Solicita a Dynalite que informe el preajuste de un \u00e1rea.",
+            "fields": {
+                "area": {
+                    "description": "\u00c1rea para solicitar el preajuste informado.",
+                    "name": "\u00c1rea"
+                },
+                "channel": {
+                    "description": "Canal para solicitar el preajuste desde el que se informar\u00e1.",
+                    "name": "Canal"
+                },
+                "host": {
+                    "description": "IP de la puerta de enlace del host para enviar o todas las puertas de enlace configuradas si no se especifica.",
+                    "name": "Host"
+                }
+            },
+            "name": "Solicitar preajuste de zona"
+        },
+        "request_channel_level": {
+            "description": "Solicita a Dynalite que informe del nivel de un canal espec\u00edfico.",
+            "fields": {
+                "area": {
+                    "description": "\u00c1rea para el canal solicitado.",
+                    "name": "\u00c1rea"
+                },
+                "channel": {
+                    "description": "Canal para el que se solicita el nivel.",
+                    "name": "Canal"
+                },
+                "host": {
+                    "description": "IP de la puerta de enlace del host para enviar o todas las puertas de enlace configuradas si no se especifica.",
+                    "name": "Host"
+                }
+            },
+            "name": "Solicitar nivel de canal"
+        }
+    }
+}

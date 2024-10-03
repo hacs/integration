@@ -1,0 +1,115 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "\u012erenginys jau sukonfig\u016bruotas"
+        },
+        "error": {
+            "cannot_connect": "Nepavyko prisijungti",
+            "invalid_auth": "Neteisingas autentifikavimas",
+            "unknown": "Netik\u0117ta klaida"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "api_key": "API raktas"
+                },
+                "title": "Prisijunkite prie savo Rachio \u012frenginio"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "rain": {
+                "name": "Lietus"
+            }
+        },
+        "calendar": {
+            "calendar": {
+                "name": "Rachio bazin\u0117 stotis {base}"
+            }
+        },
+        "switch": {
+            "rain_delay": {
+                "name": "Lietaus v\u0117lavimas"
+            },
+            "standby": {
+                "name": "Bud\u0117jimo re\u017eimas"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "manual_run_mins": "Veikimo trukm\u0117 minut\u0117mis, kai suaktyvinamas zonos jungiklis"
+                }
+            }
+        }
+    },
+    "services": {
+        "pause_watering": {
+            "description": "Pristabdykite visas \u0161iuo metu veikian\u010dias zonas arba tvarkara\u0161\u010dius.",
+            "fields": {
+                "devices": {
+                    "description": "Pristabdom\u0173 valdikli\u0173 pavadinimai. Numatyta, kad visi paskyros valdytojai, jei nepateikti.",
+                    "name": "Prietaisai"
+                },
+                "duration": {
+                    "description": "Laikas pristabdyti vykdomus tvarkara\u0161\u010dius.",
+                    "name": "Trukm\u0117"
+                }
+            },
+            "name": "Pristabdykite laistym\u0105"
+        },
+        "resume_watering": {
+            "description": "T\u0119skite bet kokius pristabdytus zonos paleidimus ar tvarkara\u0161\u010dius.",
+            "fields": {
+                "devices": {
+                    "description": "Valdikli\u0173, kuriuos reikia atnaujinti, pavadinimai. Numatyta, kad visi paskyros valdytojai, jei nepateikti.",
+                    "name": "Prietaisai"
+                }
+            },
+            "name": "T\u0119sti laistym\u0105"
+        },
+        "set_zone_moisture_percent": {
+            "description": "Nustatomas zonos arba zon\u0173 s\u0105ra\u0161o dr\u0117gm\u0117s procentas.",
+            "fields": {
+                "percent": {
+                    "description": "Nustatykite pageidaujam\u0105 zonos dr\u0117gm\u0117s procent\u0105.",
+                    "name": "Procentai"
+                }
+            },
+            "name": "Nustatyti zonos dr\u0117gm\u0117s procent\u0105"
+        },
+        "start_multiple_zone_schedule": {
+            "description": "Sukuria tinkint\u0105 zon\u0173 ir vykdymo laiko tvarkara\u0161t\u012f. Atminkite, kad visos zonos turi b\u016bti tame pa\u010diame valdiklyje, kad b\u016bt\u0173 i\u0161vengta problem\u0173.",
+            "fields": {
+                "duration": {
+                    "description": "Minu\u010di\u0173 skai\u010dius paleisti zon\u0105 (-as). Jei nurodyta tik 1 trukm\u0117, tas laikas bus naudojamas visoms zonoms. Jei bus pateiktas trukm\u0117s s\u0105ra\u0161as, jos bus taikomos atitinkamoms auk\u0161\u010diau i\u0161vardytoms zonoms.",
+                    "name": "Trukm\u0117"
+                }
+            },
+            "name": "Prad\u0117kite kelias zonas"
+        },
+        "start_watering": {
+            "description": "Paleiskite vien\u0105 zon\u0105, grafik\u0105 arba bet kok\u012f i\u0161mani\u0173j\u0173 \u017earn\u0173 laikma\u010di\u0173 skai\u010di\u0173.",
+            "fields": {
+                "duration": {
+                    "description": "B\u0117gimo minu\u010di\u0173 skai\u010dius. Purk\u0161tuv\u0173 zonoms maksimali trukm\u0117 yra 3 valandos arba 24 valandos i\u0161mani\u0173j\u0173 \u017earn\u0173 laikma\u010di\u0173 atveju. Tvarkara\u0161\u010diams palikite tu\u0161\u010di\u0105.",
+                    "name": "Trukm\u0117"
+                }
+            },
+            "name": "Prad\u0117kite laistyti"
+        },
+        "stop_watering": {
+            "description": "Sustabdykite visas \u0161iuo metu veikian\u010dias zonas ar tvarkara\u0161\u010dius.",
+            "fields": {
+                "devices": {
+                    "description": "Sustabdom\u0173 valdikli\u0173 pavadinimas. Numatyta, kad visi paskyros valdytojai, jei nepateikti.",
+                    "name": "Prietaisai"
+                }
+            },
+            "name": "Nustokite laistyti"
+        }
+    }
+}

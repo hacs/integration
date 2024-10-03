@@ -1,0 +1,350 @@
+{
+    "config": {
+        "abort": {
+            "addon_install_failed": "Nem siker\u00fclt telep\u00edteni a(z) {addon} kieg\u00e9sz\u00edt\u0151t.",
+            "addon_start_failed": "Nem siker\u00fclt elind\u00edtani a(z) {addon} kieg\u00e9sz\u00edt\u0151t.",
+            "already_configured": "A szolg\u00e1ltat\u00e1s m\u00e1r konfigur\u00e1lva van",
+            "reauth_successful": "Az \u00fajrahiteles\u00edt\u00e9s sikeres volt.",
+            "single_instance_allowed": "M\u00e1r konfigur\u00e1lva van. Csak egy konfigur\u00e1ci\u00f3 lehets\u00e9ges."
+        },
+        "error": {
+            "bad_birth": "\u00c9rv\u00e9nytelen sz\u00fclet\u00e9si \"birth\" topik",
+            "bad_certificate": "A CA-tan\u00fas\u00edtv\u00e1ny \u00e9rv\u00e9nytelen",
+            "bad_client_cert": "\u00c9rv\u00e9nytelen \u00fcgyf\u00e9ltan\u00fas\u00edtv\u00e1ny. Gy\u0151z\u0151dj\u00f6n meg r\u00f3la, hogy PEM k\u00f3dolt f\u00e1jl van megadva",
+            "bad_client_cert_key": "Az \u00fcgyf\u00e9ltan\u00fas\u00edtv\u00e1ny \u00e9s a priv\u00e1t kulcs nem \u00e9rv\u00e9nyes p\u00e1r",
+            "bad_client_key": "\u00c9rv\u00e9nytelen priv\u00e1t kulcs, gy\u0151z\u0151dj\u00f6n meg r\u00f3la, hogy PEM k\u00f3dol\u00e1s\u00fa f\u00e1jlt k\u00fcld\u00f6tt jelsz\u00f3 n\u00e9lk\u00fcl",
+            "bad_discovery_prefix": "\u00c9rv\u00e9nytelen felfedez\u00e9si el\u0151tag",
+            "bad_will": "\u00c9rv\u00e9nytelen b\u00facs\u00fa \"will\" topik",
+            "bad_ws_headers": "\u00c9rv\u00e9nyes HTTP-fejl\u00e9cek megad\u00e1sa JSON-objektumk\u00e9nt",
+            "cannot_connect": "Sikertelen csatlakoz\u00e1s",
+            "invalid_auth": "\u00c9rv\u00e9nytelen hiteles\u00edt\u00e9s",
+            "invalid_inclusion": "Az \u00fcgyf\u00e9ltan\u00fas\u00edtv\u00e1nyt \u00e9s a mag\u00e1nkulcsot egy\u00fctt kell konfigur\u00e1lni"
+        },
+        "step": {
+            "broker": {
+                "data": {
+                    "advanced_options": "Speci\u00e1lis be\u00e1ll\u00edt\u00e1sok",
+                    "broker": "Br\u00f3ker",
+                    "certificate": "Egy\u00e9ni CA-tan\u00fas\u00edtv\u00e1nyf\u00e1jl felt\u00f6lt\u00e9se",
+                    "client_cert": "\u00dcgyf\u00e9ltan\u00fas\u00edtv\u00e1ny f\u00e1jl felt\u00f6lt\u00e9se",
+                    "client_id": "\u00dcgyf\u00e9l azonos\u00edt\u00f3 (hagyja \u00fcresen a v\u00e9letlenszer\u0171en gener\u00e1lt azonos\u00edt\u00f3hoz)",
+                    "client_key": "Priv\u00e1t kulcsf\u00e1jl felt\u00f6lt\u00e9se",
+                    "keepalive": "A keep alive \u00fczenetek k\u00fcld\u00e9se k\u00f6z\u00f6tti id\u0151",
+                    "password": "Jelsz\u00f3",
+                    "port": "Port",
+                    "protocol": "MQTT protokoll",
+                    "set_ca_cert": "Br\u00f3kertan\u00fas\u00edtv\u00e1ny \u00e9rv\u00e9nyes\u00edt\u00e9s",
+                    "set_client_cert": "\u00dcgyf\u00e9ltan\u00fas\u00edtv\u00e1ny haszn\u00e1lata",
+                    "tls_insecure": "A br\u00f3kertan\u00fas\u00edtv\u00e1ny \u00e9rv\u00e9nyes\u00edt\u00e9s\u00e9nek figyelmen k\u00edv\u00fcl hagy\u00e1sa",
+                    "transport": "MQTT adat\u00e1tvitel",
+                    "username": "Felhaszn\u00e1l\u00f3n\u00e9v",
+                    "ws_headers": "WebSocket fejl\u00e9cek JSON form\u00e1tumban",
+                    "ws_path": "WebSocket el\u00e9r\u00e9si \u00fat"
+                },
+                "data_description": {
+                    "advanced_options": "Aktiv\u00e1lja, majd v\u00e1lassza a **Tov\u00e1bb** lehet\u0151s\u00e9get az el\u0151rehaladott be\u00e1ll\u00edt\u00e1sok megad\u00e1s\u00e1hoz.",
+                    "broker": "Az MQTT broker hosztneve vagy IP-c\u00edme.",
+                    "certificate": "Az MQTT broker tan\u00fas\u00edtv\u00e1ny\u00e1nak \u00e9rv\u00e9nyes\u00edt\u00e9s\u00e9hez haszn\u00e1lt egy\u00e9ni CA tan\u00fas\u00edtv\u00e1ny f\u00e1jl.",
+                    "client_cert": "Az MQTT brokerrel val\u00f3 hiteles\u00edt\u00e9shez haszn\u00e1lt \u00fcgyf\u00e9l tan\u00fas\u00edtv\u00e1ny.",
+                    "client_id": "Az egyedi azonos\u00edt\u00f3, amely az MQTT \u00fcgyf\u00e9lk\u00e9nt m\u0171k\u00f6d\u0151 Home Assistant MQTT API-t azonos\u00edtja. Aj\u00e1nlott ezt a be\u00e1ll\u00edt\u00e1st \u00fcresen hagyni.",
+                    "client_key": "Az \u00fcgyf\u00e9l tan\u00fas\u00edtv\u00e1nyhoz tartoz\u00f3 priv\u00e1t kulcs f\u00e1jl.",
+                    "password": "Az MQTT brokerhez t\u00f6rt\u00e9n\u0151 bejelentkez\u00e9s jelszava.",
+                    "port": "Az MQTT broker \u00e1ltal haszn\u00e1lt port. P\u00e9ld\u00e1ul 1883.",
+                    "protocol": "Az MQTT protokoll verzi\u00f3ja, amelyen a broker m\u0171k\u00f6dik. P\u00e9ld\u00e1ul 3.1.1.",
+                    "set_ca_cert": "V\u00e1lassza az **Automatikus** lehet\u0151s\u00e9get az automatikus CA-\u00e9rv\u00e9nyes\u00edt\u00e9shez, vagy a **Egyedi** opci\u00f3t, majd v\u00e1lassza a **Tov\u00e1bb** lehet\u0151s\u00e9get egy egyedi CA tan\u00fas\u00edtv\u00e1ny be\u00e1ll\u00edt\u00e1s\u00e1hoz, hogy lehet\u0151v\u00e9 tegye az MQTT broker tan\u00fas\u00edtv\u00e1ny\u00e1nak \u00e9rv\u00e9nyes\u00edt\u00e9s\u00e9t.",
+                    "set_client_cert": "Aktiv\u00e1lja, majd v\u00e1lassza a **Tov\u00e1bb** lehet\u0151s\u00e9get, hogy be\u00e1ll\u00edtson egy kliens tan\u00fas\u00edtv\u00e1nyt \u00e9s priv\u00e1t kulcsot az MQTT brokerhez val\u00f3 hiteles\u00edt\u00e9shez.",
+                    "tls_insecure": "Az MQTT broker tan\u00fas\u00edtv\u00e1ny\u00e1nak \u00e9rv\u00e9nyes\u00edt\u00e9s\u00e9nek figyelmen k\u00edv\u00fcl hagy\u00e1s\u00e1nak lehet\u0151s\u00e9ge.",
+                    "transport": "Az MQTT brokerhez t\u00f6rt\u00e9n\u0151 kapcsol\u00f3d\u00e1sn\u00e1l haszn\u00e1land\u00f3 k\u00f6zleked\u00e9si m\u00f3d.",
+                    "username": "Az MQTT brokerhez t\u00f6rt\u00e9n\u0151 bejelentkez\u00e9shez haszn\u00e1lt felhaszn\u00e1l\u00f3n\u00e9v.",
+                    "ws_headers": "Az MQTT brokerhez WebSocket-alap\u00fa kapcsol\u00f3d\u00e1s sor\u00e1n \u00e1tadand\u00f3 WebSocket fejl\u00e9cek.",
+                    "ws_path": "Az MQTT brokerhez t\u00f6rt\u00e9n\u0151 kapcsol\u00f3d\u00e1sn\u00e1l haszn\u00e1land\u00f3 WebSocket \u00fatvonal."
+                },
+                "description": "K\u00e9rem, adja meg az MQTT br\u00f3ker kapcsol\u00f3d\u00e1si adatait."
+            },
+            "hassio_confirm": {
+                "data": {
+                    "discovery": "Felfedez\u00e9s enged\u00e9lyez\u00e9se"
+                },
+                "data_description": {
+                    "discovery": "Az MQTT automatikus felfedez\u00e9s\u00e9nek bekapcsol\u00e1si lehet\u0151s\u00e9ge."
+                },
+                "description": "Szeretn\u00e9 be\u00e1ll\u00edtani a Home Assistantot, hogy csatlakozzon a b\u0151v\u00edtm\u00e9ny {addon} \u00e1ltal biztos\u00edtott MQTT br\u00f3kerhez?",
+                "title": "MQTT Br\u00f3ker a Home Assistant b\u0151v\u00edtm\u00e9nye"
+            },
+            "install_addon": {
+                "title": "Kieg\u00e9sz\u00edt\u0151 telep\u00edt\u00e9se"
+            },
+            "reauth_confirm": {
+                "data": {
+                    "password": "Jelsz\u00f3",
+                    "username": "Felhaszn\u00e1l\u00f3n\u00e9v"
+                },
+                "data_description": {
+                    "password": "Az MQTT brokerhez t\u00f6rt\u00e9n\u0151 bejelentkez\u00e9s jelszava.",
+                    "username": "Az MQTT brokerhez t\u00f6rt\u00e9n\u0151 bejelentkez\u00e9shez haszn\u00e1lt felhaszn\u00e1l\u00f3n\u00e9v."
+                },
+                "description": "Az MQTT br\u00f3ker hiteles\u00edt\u00e9si hib\u00e1t jelentett. K\u00e9rj\u00fck, er\u0151s\u00edtse meg a br\u00f3ker helyes felhaszn\u00e1l\u00f3nev\u00e9t \u00e9s jelszav\u00e1t.",
+                "title": "\u00dajb\u00f3li hiteles\u00edt\u00e9s sz\u00fcks\u00e9ges az MQTT br\u00f3kern\u00e9l"
+            },
+            "start_addon": {
+                "title": "Kieg\u00e9sz\u00edt\u0151 ind\u00edt\u00e1sa"
+            },
+            "user": {
+                "description": "K\u00e9rem v\u00e1lassza ki hogyan szeretne az MQTT br\u00f3kerhez csatlakozni:",
+                "menu_options": {
+                    "addon": "Haszn\u00e1lja a hivatalos {addon} kieg\u00e9sz\u00edt\u0151t.",
+                    "broker": "K\u00e9rem manu\u00e1lisan adja meg az MQTT br\u00f3ker kapcsolat be\u00e1ll\u00edt\u00e1sait"
+                }
+            }
+        }
+    },
+    "device_automation": {
+        "trigger_subtype": {
+            "button_1": "Els\u0151 gomb",
+            "button_2": "M\u00e1sodik gomb",
+            "button_3": "Harmadik gomb",
+            "button_4": "Negyedik gomb",
+            "button_5": "\u00d6t\u00f6dik gomb",
+            "button_6": "Hatodik gomb",
+            "turn_off": "Kikapcsol\u00e1s",
+            "turn_on": "Bekapcsol\u00e1s"
+        },
+        "trigger_type": {
+            "button_double_press": "\"{subtype}\" dupla kattint\u00e1s",
+            "button_long_press": "\"{subtype}\" folyamatosan nyomva tartva",
+            "button_long_release": "\"{subtype}\" nyomva tart\u00e1s ut\u00e1n felengedve",
+            "button_quadruple_press": "\"{subtype}\" n\u00e9gyszeres kattint\u00e1s",
+            "button_quintuple_press": "\"{subtype}\" \u00f6tsz\u00f6r\u00f6s kattint\u00e1s",
+            "button_short_press": "\"{subtype}\" lenyomva",
+            "button_short_release": "\"{subtype}\" felengedve",
+            "button_triple_press": "\"{subtype}\" tripla kattint\u00e1s"
+        }
+    },
+    "exceptions": {
+        "command_template_error": {
+            "message": "A(z) `{entity_id}` entit\u00e1s `{command_template}` sablonj\u00e1nak elemz\u00e9se sikertelen volt, a k\u00f6vetkez\u0151 hib\u00e1val: {error}."
+        },
+        "invalid_platform_config": {
+            "message": "A k\u00e9zzel konfigur\u00e1lt MQTT bejegyz\u00e9s: `{domain}` YAML konfigur\u00e1ci\u00f3 \u00fajrat\u00f6lt\u00e9se sikertelen. Tov\u00e1bbi r\u00e9szletek\u00e9rt l\u00e1sd a napl\u00f3kat."
+        },
+        "invalid_publish_topic": {
+            "message": "A k\u00f6zz\u00e9t\u00e9tel nem siker\u00fclt: a `{topic_template}` t\u00e9maminta \u00e9rv\u00e9nytelen `{topic}` t\u00e9m\u00e1t gener\u00e1lt a renderel\u00e9s ut\u00e1n ({error})"
+        },
+        "mqtt_not_setup_cannot_publish": {
+            "message": "Nem lehet k\u00f6zz\u00e9tenni a(z) \"{topic}\" t\u00e9m\u00e1ban. Gy\u0151z\u0151dj\u00f6n meg arr\u00f3l, hogy az MQTT megfelel\u0151en van be\u00e1ll\u00edtva."
+        },
+        "mqtt_not_setup_cannot_subscribe": {
+            "message": "Nem lehet feliratkozni a(z) \"{topic}\" t\u00e9m\u00e1ra. Gy\u0151z\u0151dj\u00f6n meg arr\u00f3l, hogy az MQTT megfelel\u0151en van be\u00e1ll\u00edtva."
+        }
+    },
+    "issues": {
+        "deprecated_climate_aux_property": {
+            "description": "A(z) `{entity_id}` entit\u00e1sban enged\u00e9lyezve van a kieg\u00e9sz\u00edt\u0151 f\u0171t\u00e9s t\u00e1mogat\u00e1sa, amely az MQTT kl\u00edmaberendez\u00e9sekn\u00e9l elavult. K\u00e9rj\u00fck, m\u00f3dos\u00edtsa a konfigur\u00e1ci\u00f3t \u00e9s t\u00e1vol\u00edtsa el az elhaszn\u00e1l\u00f3dott konfigur\u00e1ci\u00f3s be\u00e1ll\u00edt\u00e1sokat a konfigur\u00e1ci\u00f3b\u00f3l, ut\u00e1na ind\u00edtsa \u00fajra a Home Assistantot a probl\u00e9ma megold\u00e1s\u00e1hoz.",
+            "title": "Kieg\u00e9sz\u00edt\u0151 h\u0151t\u00e1mogat\u00e1ssal rendelkez\u0151 MQTT entit\u00e1sok tal\u00e1lhat\u00f3k"
+        },
+        "deprecated_color_handling": {
+            "description": "Egy MQTT f\u00e9nybe\u00e1ll\u00edt\u00e1s (`json` s\u00e9m\u00e1val) a `configuration.yaml`-ban elavult sz\u00ednkezel\u00e9si jelz\u0151ket haszn\u00e1l.\n\nTal\u00e1lt konfigur\u00e1ci\u00f3:\n```yaml\n{config}\n```\nElavult jelz\u0151k: **{deprecated_flags}**.\n\nHaszn\u00e1lja helyette a `supported_color_modes` opci\u00f3t \u00e9s [t\u00f6ltse \u00fajra](/developer-tools/yaml) a k\u00e9zzel konfigur\u00e1lt MQTT elemeket vagy ind\u00edtsa \u00fajra a Home Assistantot, hogy megoldja ezt a probl\u00e9m\u00e1t.",
+            "title": "Az MQTT f\u00e9nyekhez haszn\u00e1lt elavult sz\u00ednkezel\u00e9s"
+        },
+        "deprecated_color_mode_flag": {
+            "description": "Egy MQTT f\u00e9nybe\u00e1ll\u00edt\u00e1s (`json` s\u00e9m\u00e1val)  a `configuration.yaml` f\u00e1jlban, amely egy elavult `color_mode` opci\u00f3t haszn\u00e1l.\n\nA tal\u00e1lt konfigur\u00e1ci\u00f3:\n```yaml\n{config}\n```\n\nT\u00e1vol\u00edtsa el az opci\u00f3t a konfigur\u00e1ci\u00f3b\u00f3l \u00e9s [t\u00f6ltse \u00fajra](/developer-tools/yaml) a manu\u00e1lisan konfigur\u00e1lt MQTT elemeket vagy ind\u00edtsa \u00fajra a Home Assistantot, hogy megoldja ezt a probl\u00e9m\u00e1t.",
+            "title": "MQTT f\u00e9nyekhez haszn\u00e1lt elavult color_mode opci\u00f3 jelz\u00e9s"
+        },
+        "deprecated_yaml": {
+            "description": "A manu\u00e1lisan konfigur\u00e1lt MQTT {platform} a `{platform}` platformkulcs alatt tal\u00e1lhat\u00f3. \n\n A probl\u00e9ma megold\u00e1s\u00e1hoz helyezze \u00e1t a konfigur\u00e1ci\u00f3t az \"mqtt\" integr\u00e1ci\u00f3s kulcsra \u00e9s ind\u00edtsa \u00fajra a Home Assistant alkalmaz\u00e1st. Tov\u00e1bbi inform\u00e1ci\u00f3\u00e9rt tekintse meg a [dokument\u00e1ci\u00f3t]({more_info_url}).",
+            "title": "A manu\u00e1lisan konfigur\u00e1lt MQTT {platform} figyelmet ig\u00e9nyel"
+        },
+        "deprecated_yaml_broker_settings": {
+            "description": "A k\u00f6vetkez\u0151 be\u00e1ll\u00edt\u00e1sok a `configuration.yaml'-ben tal\u00e1lhat\u00f3ak, \u00e1tker\u00fcltek az MQTT config bejegyz\u00e9sbe \u00e9s mostant\u00f3l fel\u00fcl\u00edrj\u00e1k a `configuration.yaml'-ben tal\u00e1lhat\u00f3 be\u00e1ll\u00edt\u00e1sokat:\n`{deprecated_settings}`\n\nK\u00e9rem, t\u00e1vol\u00edtsa el ezeket a be\u00e1ll\u00edt\u00e1sokat a `configuration.yaml` f\u00e1jlb\u00f3l \u00e9s ind\u00edtsa \u00fajra a Home Assistantot a probl\u00e9ma megold\u00e1s\u00e1hoz. Tov\u00e1bbi inform\u00e1ci\u00f3 a [document\u00e1ci\u00f3ban]({more_info_url}).",
+            "title": "Elavult MQTT-be\u00e1ll\u00edt\u00e1sok tal\u00e1lhat\u00f3k a \"configuration.yaml\" f\u00e1jlban"
+        },
+        "deprecation_mqtt_legacy_vacuum_discovery": {
+            "description": "Az MQTT porsz\u00edv\u00f3 entit\u00e1sok, amelyek a r\u00e9gi s\u00e9m\u00e1t haszn\u00e1lj\u00e1k, elavultak, k\u00e9rj\u00fck, \u00e1ll\u00edtsa be az eszk\u00f6zeit a helyes s\u00e9ma haszn\u00e1lat\u00e1ra \u00e9s ind\u00edtsa \u00fajra a Home Assistant programot, hogy megoldja ezt a probl\u00e9m\u00e1t.",
+            "title": "MQTT porsz\u00edv\u00f3 entit\u00e1sok hozz\u00e1adva az MQTT felfedez\u00e9sen kereszt\u00fcl, r\u00e9gi s\u00e9m\u00e1val"
+        },
+        "deprecation_mqtt_legacy_vacuum_yaml": {
+            "description": "Az MQTT porsz\u00edv\u00f3 entit\u00e1sok, amelyek a r\u00e9gi s\u00e9m\u00e1t haszn\u00e1lj\u00e1k, elavultak, k\u00e9rj\u00fck, \u00e1ll\u00edtsa be a configuration.yaml f\u00e1jlt \u00e9s ind\u00edtsa \u00fajra a Home Assistant programot, hogy megoldja ezt a probl\u00e9m\u00e1t.",
+            "title": "MQTT porsz\u00edv\u00f3 entit\u00e1sokat tal\u00e1ltunk az \u00d6n configuration.yaml f\u00e1jlj\u00e1ban, amelyek r\u00e9gi s\u00e9m\u00e1t haszn\u00e1lnak"
+        },
+        "deprecation_mqtt_schema_vacuum_yaml": {
+            "description": "Az MQTT porz\u00edv\u00f3 entit\u00e1sok `s\u00e9ma` be\u00e1ll\u00edt\u00e1sa elavult, ez\u00e9rt el kell t\u00e1vol\u00edtani. A probl\u00e9ma megold\u00e1s\u00e1hoz \u00e1ll\u00edtsa be a configuration.yaml f\u00e1jlt \u00e9s ind\u00edtsa \u00fajra a Home Assistant alkalmaz\u00e1st.",
+            "title": "A configuration.yaml f\u00e1jlban tal\u00e1lhat\u00f3 MQTT porsz\u00edv\u00f3 entit\u00e1sok elavult `schema` konfigur\u00e1ci\u00f3s be\u00e1ll\u00edt\u00e1sokat tartalmaznak"
+        },
+        "entity_name_is_device_name_discovery": {
+            "description": "N\u00e9h\u00e1ny MQTT entit\u00e1s rendelkezik olyan entit\u00e1s n\u00e9vvel, amely megegyezik a k\u00e9sz\u00fcl\u00e9k nev\u00e9vel. Ez nem v\u00e1rt. Az entit\u00e1s neve null-ra van \u00e1ll\u00edtva, mint egy ideiglenes megold\u00e1s a duplik\u00e1lt n\u00e9v elker\u00fcl\u00e9se \u00e9rdek\u00e9ben. K\u00e9rj\u00fck, t\u00e1j\u00e9koztassa a szoftveralkalmaz\u00e1s karbantart\u00f3j\u00e1t, amely az \u00e9rintett entit\u00e1sokat szolg\u00e1ltatja, hogy jav\u00edtsa ki ezt a probl\u00e9m\u00e1t.\n\nAz \u00e9rintett entit\u00e1sok list\u00e1ja:\n\n{config}",
+            "title": "Felfedezett MQTT entit\u00e1sok, melyeknek a neve megegyezik a k\u00e9sz\u00fcl\u00e9k nev\u00e9vel"
+        },
+        "entity_name_is_device_name_yaml": {
+            "description": "N\u00e9h\u00e1ny MQTT entit\u00e1s rendelkezik olyan entit\u00e1s n\u00e9vvel, amely megegyezik a k\u00e9sz\u00fcl\u00e9k nev\u00e9vel. Ez nem v\u00e1rt. Az entit\u00e1s neve null-ra van \u00e1ll\u00edtva, mint egy ideiglenes megold\u00e1s a duplik\u00e1lt n\u00e9v elker\u00fcl\u00e9se \u00e9rdek\u00e9ben. K\u00e9rj\u00fck, friss\u00edtse a konfigur\u00e1ci\u00f3t \u00e9s ind\u00edtsa \u00fajra a Home Assistantet a probl\u00e9ma kijav\u00edt\u00e1s\u00e1hoz.\n\nAz \u00e9rintett entit\u00e1sok list\u00e1ja:\n\n{config}",
+            "title": "K\u00e9zzel konfigur\u00e1lt MQTT entit\u00e1sok, melyeknek a neve megegyezik a k\u00e9sz\u00fcl\u00e9k nev\u00e9vel"
+        },
+        "entity_name_startswith_device_name_discovery": {
+            "description": "N\u00e9h\u00e1ny MQTT entit\u00e1s rendelkezik olyan entit\u00e1s n\u00e9vvel, amely a k\u00e9sz\u00fcl\u00e9k nev\u00e9vel kezd\u0151dik. Ez nem v\u00e1rt. A duplik\u00e1lt n\u00e9v elker\u00fcl\u00e9se \u00e9rdek\u00e9ben a k\u00e9sz\u00fcl\u00e9k nev\u00e9nek el\u0151tagj\u00e1t elt\u00e1vol\u00edtjuk az entit\u00e1s nev\u00e9b\u0151l, mint egy ideiglenes megold\u00e1s. K\u00e9rj\u00fck, t\u00e1j\u00e9koztassa a szoftveralkalmaz\u00e1s karbantart\u00f3j\u00e1t, amely az \u00e9rintett entit\u00e1sokat szolg\u00e1ltatja, hogy jav\u00edtsa ki ezt a probl\u00e9m\u00e1t.\n\nAz \u00e9rintett entit\u00e1sok list\u00e1ja:\n\n{config}",
+            "title": "Felfedezett entit\u00e1sok, amelyek neve a k\u00e9sz\u00fcl\u00e9k nev\u00e9vel kezd\u0151dik"
+        },
+        "entity_name_startswith_device_name_yaml": {
+            "description": "N\u00e9h\u00e1ny MQTT entit\u00e1s rendelkezik egy entit\u00e1s n\u00e9vvel, amely a k\u00e9sz\u00fcl\u00e9k nev\u00e9vel kezd\u0151dik. Ez nem v\u00e1rt. A duplik\u00e1lt n\u00e9v elker\u00fcl\u00e9se \u00e9rdek\u00e9ben a k\u00e9sz\u00fcl\u00e9k nev\u00e9nek el\u0151tagj\u00e1t elt\u00e1vol\u00edtjuk az entit\u00e1s nev\u00e9b\u0151l, mint egy ideiglenes megold\u00e1s. K\u00e9rj\u00fck, friss\u00edtse a konfigur\u00e1ci\u00f3t \u00e9s ind\u00edtsa \u00fajra a Home Assistantet a probl\u00e9ma kijav\u00edt\u00e1s\u00e1hoz.\n\nAz \u00e9rintett entit\u00e1sok list\u00e1ja:\n\n{config}",
+            "title": "K\u00e9zzel konfigur\u00e1lt MQTT entit\u00e1sok egy n\u00e9vvel, amely a k\u00e9sz\u00fcl\u00e9kn\u00e9vvel kezd\u0151dik."
+        },
+        "invalid_entity_category": {
+            "description": "A Home Assistant \u00e9szlelt egy manu\u00e1lisan konfigur\u00e1lt MQTT `{domain}` entit\u00e1st, amelynek `entity_category` \u00e9rt\u00e9ke `config`-ra van \u00e1ll\u00edtva. \nKonfigur\u00e1ci\u00f3s f\u00e1jl: **{config_file}**\nK\u00f6zel a sorhoz: **{line}**\n\nKonfigur\u00e1ci\u00f3 \u00e9rv\u00e9nytelen be\u00e1ll\u00edt\u00e1ssal:\n\n```yaml\n{config}\n```\n\nHa be van \u00e1ll\u00edtva, gy\u0151z\u0151dj\u00f6n meg r\u00f3la, hogy az `entity_category` \u00e9rt\u00e9ke a `{domain}` eset\u00e9ben `diagnostic` vagy `None`. Friss\u00edtse a YAML konfigur\u00e1ci\u00f3t \u00e9s ind\u00edtsa \u00fajra a Home Assistantot, hogy megoldja ezt a probl\u00e9m\u00e1t.",
+            "title": "Egy \u00e9rv\u00e9nytelen entit\u00e1skateg\u00f3ri\u00e1val rendelkez\u0151 MQTT {domain} tal\u00e1lhat\u00f3"
+        },
+        "invalid_platform_config": {
+            "description": "A Home Assistant \u00e9rv\u00e9nytelen konfigur\u00e1ci\u00f3t \u00e9szlelt egy k\u00e9zzel konfigur\u00e1lt elemhez.\n\nPlatformtartom\u00e1ny: **{domain}**\nKonfigur\u00e1ci\u00f3s f\u00e1jl: **{config_file}**\nK\u00f6zeli sor: **{line}**\nA konfigur\u00e1ci\u00f3 megtal\u00e1lhat\u00f3:\n```yaml\n{config}\n```\nHiba: **{error}**.\n\nGy\u0151z\u0151dj\u00f6n meg r\u00f3la, hogy a konfigur\u00e1ci\u00f3 \u00e9rv\u00e9nyes, \u00e9s [reload](/developer-tools/yaml) a k\u00e9zzel konfigur\u00e1lt MQTT elemek vagy ind\u00edtsa \u00fajra a Home Assistant-ot a probl\u00e9ma megold\u00e1s\u00e1hoz.",
+            "title": "\u00c9rv\u00e9nytelen konfigur\u00e1ci\u00f3 tal\u00e1lhat\u00f3 az mqtt {domain} elemhez"
+        },
+        "payload_template_deprecation": {
+            "description": "Az MQTT `payload_template` opci\u00f3 elavult \u00e9s a `{topic}` t\u00e9m\u00e1hoz tartoz\u00f3 payload template `{payload_template}` haszn\u00e1latakor ker\u00fcl alkalmaz\u00e1sra. Helyette haszn\u00e1lja a `payload` opci\u00f3t. Az automatiz\u00e1l\u00e1sokban a sablonok nat\u00edvan t\u00e1mogatottak. Friss\u00edtse az automatiz\u00e1l\u00e1st vagy a szkriptet \u00fagy, hogy a `payload` opci\u00f3t haszn\u00e1lja, majd ind\u00edtsa \u00fajra a Home Assistantot a probl\u00e9ma megold\u00e1sa \u00e9rdek\u00e9ben.",
+            "title": "Az MQTT k\u00f6zz\u00e9t\u00e9teli m\u0171veleth\u00edv\u00e1sban haszn\u00e1lt elavult opci\u00f3"
+        },
+        "topic_template_deprecation": {
+            "description": "Az MQTT `topic_template` opci\u00f3 elavult \u00e9s a `{topic}` t\u00e9m\u00e1hoz tartoz\u00f3 t\u00e9masablon `{topic_template}` haszn\u00e1latakor ker\u00fcl alkalmaz\u00e1sra. Helyette haszn\u00e1lja a `topic` opci\u00f3t. Az automatiz\u00e1l\u00e1sokban a sablonok nat\u00edvan t\u00e1mogatottak. Friss\u00edtse az automatiz\u00e1l\u00e1st vagy a szkriptet \u00fagy, hogy a `topic` opci\u00f3t haszn\u00e1lja, majd ind\u00edtsa \u00fajra a Home Assistantot a probl\u00e9ma megold\u00e1sa \u00e9rdek\u00e9ben.",
+            "title": "Az MQTT k\u00f6zz\u00e9t\u00e9teli m\u0171veleth\u00edv\u00e1sban haszn\u00e1lt elavult opci\u00f3"
+        }
+    },
+    "options": {
+        "error": {
+            "bad_birth": "\u00c9rv\u00e9nytelen sz\u00fclet\u00e9si \"birth\" topik",
+            "bad_certificate": "A CA-tan\u00fas\u00edtv\u00e1ny \u00e9rv\u00e9nytelen",
+            "bad_client_cert": "\u00c9rv\u00e9nytelen \u00fcgyf\u00e9ltan\u00fas\u00edtv\u00e1ny. Gy\u0151z\u0151dj\u00f6n meg r\u00f3la, hogy PEM k\u00f3dolt f\u00e1jl van megadva",
+            "bad_client_cert_key": "Az \u00fcgyf\u00e9ltan\u00fas\u00edtv\u00e1ny \u00e9s a priv\u00e1t kulcs nem \u00e9rv\u00e9nyes p\u00e1r",
+            "bad_client_key": "\u00c9rv\u00e9nytelen priv\u00e1t kulcs, gy\u0151z\u0151dj\u00f6n meg r\u00f3la, hogy PEM k\u00f3dol\u00e1s\u00fa f\u00e1jlt k\u00fcld\u00f6tt jelsz\u00f3 n\u00e9lk\u00fcl",
+            "bad_discovery_prefix": "\u00c9rv\u00e9nytelen felfedez\u00e9si el\u0151tag",
+            "bad_will": "\u00c9rv\u00e9nytelen b\u00facs\u00fa \"will\" topik",
+            "bad_ws_headers": "\u00c9rv\u00e9nyes HTTP-fejl\u00e9cek megad\u00e1sa JSON-objektumk\u00e9nt",
+            "cannot_connect": "Sikertelen csatlakoz\u00e1s",
+            "invalid_inclusion": "Az \u00fcgyf\u00e9ltan\u00fas\u00edtv\u00e1nyt \u00e9s a mag\u00e1nkulcsot egy\u00fctt kell konfigur\u00e1lni"
+        },
+        "step": {
+            "broker": {
+                "data": {
+                    "advanced_options": "Speci\u00e1lis be\u00e1ll\u00edt\u00e1sok",
+                    "broker": "Br\u00f3ker",
+                    "certificate": "Egy\u00e9ni CA-tan\u00fas\u00edtv\u00e1nyf\u00e1jl felt\u00f6lt\u00e9se",
+                    "client_cert": "\u00dcgyf\u00e9ltan\u00fas\u00edtv\u00e1ny f\u00e1jl felt\u00f6lt\u00e9se",
+                    "client_id": "\u00dcgyf\u00e9l azonos\u00edt\u00f3 (hagyja \u00fcresen a v\u00e9letlenszer\u0171en gener\u00e1lt azonos\u00edt\u00f3hoz)",
+                    "client_key": "Priv\u00e1t kulcsf\u00e1jl felt\u00f6lt\u00e9se",
+                    "keepalive": "A keep alive \u00fczenetek k\u00fcld\u00e9se k\u00f6z\u00f6tti id\u0151",
+                    "password": "Jelsz\u00f3",
+                    "port": "Port",
+                    "protocol": "MQTT protokoll",
+                    "set_ca_cert": "Br\u00f3kertan\u00fas\u00edtv\u00e1ny \u00e9rv\u00e9nyes\u00edt\u00e9s",
+                    "set_client_cert": "\u00dcgyf\u00e9ltan\u00fas\u00edtv\u00e1ny haszn\u00e1lata",
+                    "tls_insecure": "A br\u00f3kertan\u00fas\u00edtv\u00e1ny \u00e9rv\u00e9nyes\u00edt\u00e9s\u00e9nek figyelmen k\u00edv\u00fcl hagy\u00e1sa",
+                    "transport": "MQTT adat\u00e1tvitel",
+                    "username": "Felhaszn\u00e1l\u00f3n\u00e9v",
+                    "ws_headers": "WebSocket fejl\u00e9cek JSON form\u00e1tumban",
+                    "ws_path": "WebSocket el\u00e9r\u00e9si \u00fat"
+                },
+                "data_description": {
+                    "advanced_options": "Aktiv\u00e1lja, majd v\u00e1lassza a **Tov\u00e1bb** lehet\u0151s\u00e9get az el\u0151rehaladott be\u00e1ll\u00edt\u00e1sok megad\u00e1s\u00e1hoz.",
+                    "broker": "Az MQTT broker hosztneve vagy IP-c\u00edme.",
+                    "certificate": "Az MQTT broker tan\u00fas\u00edtv\u00e1ny\u00e1nak \u00e9rv\u00e9nyes\u00edt\u00e9s\u00e9hez haszn\u00e1lt egy\u00e9ni CA tan\u00fas\u00edtv\u00e1ny f\u00e1jl.",
+                    "client_cert": "Az MQTT brokerrel val\u00f3 hiteles\u00edt\u00e9shez haszn\u00e1lt \u00fcgyf\u00e9l tan\u00fas\u00edtv\u00e1ny.",
+                    "client_id": "Az egyedi azonos\u00edt\u00f3, amely az MQTT \u00fcgyf\u00e9lk\u00e9nt m\u0171k\u00f6d\u0151 Home Assistant MQTT API-t azonos\u00edtja. Aj\u00e1nlott ezt a be\u00e1ll\u00edt\u00e1st \u00fcresen hagyni.",
+                    "client_key": "Az \u00fcgyf\u00e9l tan\u00fas\u00edtv\u00e1nyhoz tartoz\u00f3 priv\u00e1t kulcs f\u00e1jl.",
+                    "password": "Az MQTT brokerhez t\u00f6rt\u00e9n\u0151 bejelentkez\u00e9s jelszava.",
+                    "port": "Az MQTT broker \u00e1ltal haszn\u00e1lt port. P\u00e9ld\u00e1ul 1883.",
+                    "protocol": "Az MQTT protokoll verzi\u00f3ja, amelyen a broker m\u0171k\u00f6dik. P\u00e9ld\u00e1ul 3.1.1.",
+                    "set_ca_cert": "V\u00e1lassza az **Automatikus** lehet\u0151s\u00e9get az automatikus CA-\u00e9rv\u00e9nyes\u00edt\u00e9shez, vagy a **Egyedi** opci\u00f3t, majd v\u00e1lassza a **Tov\u00e1bb** lehet\u0151s\u00e9get egy egyedi CA tan\u00fas\u00edtv\u00e1ny be\u00e1ll\u00edt\u00e1s\u00e1hoz, hogy lehet\u0151v\u00e9 tegye az MQTT broker tan\u00fas\u00edtv\u00e1ny\u00e1nak \u00e9rv\u00e9nyes\u00edt\u00e9s\u00e9t.",
+                    "set_client_cert": "Aktiv\u00e1lja, majd v\u00e1lassza a **Tov\u00e1bb** lehet\u0151s\u00e9get, hogy be\u00e1ll\u00edtson egy kliens tan\u00fas\u00edtv\u00e1nyt \u00e9s priv\u00e1t kulcsot az MQTT brokerhez val\u00f3 hiteles\u00edt\u00e9shez.",
+                    "tls_insecure": "Az MQTT broker tan\u00fas\u00edtv\u00e1ny\u00e1nak \u00e9rv\u00e9nyes\u00edt\u00e9s\u00e9nek figyelmen k\u00edv\u00fcl hagy\u00e1s\u00e1nak lehet\u0151s\u00e9ge.",
+                    "transport": "Az MQTT brokerhez t\u00f6rt\u00e9n\u0151 kapcsol\u00f3d\u00e1sn\u00e1l haszn\u00e1land\u00f3 k\u00f6zleked\u00e9si m\u00f3d.",
+                    "username": "Az MQTT brokerhez t\u00f6rt\u00e9n\u0151 bejelentkez\u00e9shez haszn\u00e1lt felhaszn\u00e1l\u00f3n\u00e9v.",
+                    "ws_headers": "Az MQTT brokerhez WebSocket-alap\u00fa kapcsol\u00f3d\u00e1s sor\u00e1n \u00e1tadand\u00f3 WebSocket fejl\u00e9cek.",
+                    "ws_path": "Az MQTT brokerhez t\u00f6rt\u00e9n\u0151 kapcsol\u00f3d\u00e1sn\u00e1l haszn\u00e1land\u00f3 WebSocket \u00fatvonal."
+                },
+                "description": "K\u00e9rem, adja meg az MQTT br\u00f3ker kapcsol\u00f3d\u00e1si adatait.",
+                "title": "Br\u00f3ker opci\u00f3k"
+            },
+            "options": {
+                "data": {
+                    "birth_enable": "Sz\u00fclet\u00e9si \"Birth\" \u00fczenet enged\u00e9lyez\u00e9se",
+                    "birth_payload": "Sz\u00fclet\u00e9si \"Birth\" \u00fczenet tartalma",
+                    "birth_qos": "Sz\u00fclet\u00e9si \"Birth\" \u00fczenet QoS",
+                    "birth_retain": "Sz\u00fclet\u00e9si \"Birth\" \u00fczenet tart\u00e1sa",
+                    "birth_topic": "Sz\u00fclet\u00e9si \"Birth\" \u00fczenet t\u00e9m\u00e1ja",
+                    "discovery": "Felfedez\u00e9s enged\u00e9lyez\u00e9se",
+                    "discovery_prefix": "Felfedez\u00e9s el\u0151tag",
+                    "will_enable": "B\u00facs\u00fa \"Will\" \u00fczenet enged\u00e9lyez\u00e9se",
+                    "will_payload": "B\u00facs\u00fa \"Will\" \u00fczenet tartalma",
+                    "will_qos": "B\u00facs\u00fa \"Will\" \u00fczenet QoS",
+                    "will_retain": "B\u00facs\u00fa \"Will\" \u00fczenet tart\u00e1sa",
+                    "will_topic": "B\u00facs\u00fa \"Will\" \u00fczenet t\u00e9m\u00e1ja"
+                },
+                "data_description": {
+                    "birth_enable": "Ha be van \u00e1ll\u00edtva, a Home Assistant online \u00fczenetet tesz k\u00f6zz\u00e9 az MQTT broker sz\u00e1m\u00e1ra, amikor az MQTT k\u00e9szen \u00e1ll.",
+                    "birth_payload": "Az \u00e9letjel \u00fczenet, amely akkor ker\u00fcl k\u00f6zz\u00e9t\u00e9telre, amikor az MQTT k\u00e9szen \u00e1ll \u00e9s csatlakozik.",
+                    "birth_qos": "Az \u00e9letjel \u00fczenet szolg\u00e1ltat\u00e1si min\u0151s\u00e9ge, amely akkor ker\u00fcl k\u00f6zz\u00e9t\u00e9telre, amikor az MQTT k\u00e9szen \u00e1ll \u00e9s csatlakozik.",
+                    "birth_retain": "Amennyiben be van \u00e1ll\u00edtva, a Home Assistant meg\u0151rzi az MQTT brokernek k\u00f6zz\u00e9tett \u00e9letjel \u00fczenetet.",
+                    "birth_topic": "Az MQTT t\u00e9mak\u00f6r, ahol a Home Assistant \u00e9letjel \u00fczenetet fog k\u00f6zz\u00e9tenni.",
+                    "discovery": "Az MQTT automatikus felfedez\u00e9s\u00e9nek bekapcsol\u00e1si lehet\u0151s\u00e9ge.",
+                    "discovery_prefix": "Az MQTT integr\u00e1ci\u00f3 \u00e1ltal feliratkozott konfigur\u00e1ci\u00f3s t\u00e9mak\u00f6r\u00f6k el\u0151tagja.",
+                    "will_enable": "Ha be van \u00e1ll\u00edtva, a Home Assistant k\u00e9ri a brokert\u0151l a b\u00facs\u00fa \"Will\" \u00fczenet k\u00f6zz\u00e9t\u00e9tel\u00e9t, amikor az MQTT le\u00e1ll vagy megszakad a kapcsolat a brokerrel.",
+                    "will_payload": "Az \u00fczenet, amit az MQTT broker akkor tesz k\u00f6zz\u00e9, amikor megszakad a kapcsolat.",
+                    "will_qos": "A b\u00facs\u00fa \"Will\" \u00fczenet szolg\u00e1ltat\u00e1si min\u0151s\u00e9ge, amit az MQTT broker k\u00f6zz\u00e9tesz.",
+                    "will_retain": "Amennyiben be van \u00e1ll\u00edtva, az MQTT broker meg\u0151rzi a b\u00facs\u00fa \"Will\" \u00fczenetet.",
+                    "will_topic": "Az MQTT broker azon MQTT t\u00e9mak\u00f6re, amelyre a b\u00facs\u00fa \"Will\" \u00fczenetet fogja k\u00f6zz\u00e9tenni."
+                },
+                "description": "Discovery - Ha a felfedez\u00e9s enged\u00e9lyezve van (aj\u00e1nlott), akkor Home Assistant automatikusan felfedezi azokat az eszk\u00f6z\u00f6ket \u00e9s entit\u00e1sokat, amelyek k\u00f6zz\u00e9teszik konfigur\u00e1ci\u00f3jukat az MQTT br\u00f3keren. Ha a felfedez\u00e9s le van tiltva, minden konfigur\u00e1ci\u00f3t manu\u00e1lisan kell elv\u00e9gezni.\nSz\u00fclet\u00e9si \"Birth\" \u00fczenet - A sz\u00fclet\u00e9si \u00fczenet minden alkalommal el lesz k\u00fcldve, amikor Home Assistant (\u00fajra) csatlakozik az MQTT br\u00f3kerhez.\nB\u00facs\u00fa \"Will\" \u00fczenet - Az akarat\u00fczenet minden alkalommal el lesz k\u00fcldve, amikor Home Assistant elvesz\u00edti a kapcsolatot a k\u00f6zvet\u00edt\u0151vel, mind tiszta esetben (pl. Home Assistant le\u00e1ll\u00edt\u00e1sa), mind rendelenes helyzetben (pl. Home Assistant lefagy vagy megszakad a h\u00e1l\u00f3zati kapcsolata).",
+                "title": "MQTT opci\u00f3k"
+            }
+        }
+    },
+    "selector": {
+        "set_ca_cert": {
+            "options": {
+                "auto": "Automatikus",
+                "custom": "Egy\u00e9ni",
+                "off": "Ki"
+            }
+        }
+    },
+    "services": {
+        "dump": {
+            "description": "Egy adott topikra \u00e9rkez\u0151 \u00f6sszes \u00fczenetet be\u00edrja a konfigur\u00e1ci\u00f3s mapp\u00e1ban tal\u00e1lhat\u00f3 `mqtt_dump.txt` f\u00e1jlba.",
+            "fields": {
+                "duration": {
+                    "description": "Mennyi ideig kell figyeln\u00fcnk az \u00fczenetekre m\u00e1sodpercekben.",
+                    "name": "Id\u0151tartam"
+                },
+                "topic": {
+                    "description": "A figyelend\u0151 topik.",
+                    "name": "Topik"
+                }
+            },
+            "name": "Export\u00e1l\u00e1s"
+        },
+        "publish": {
+            "description": "K\u00f6zz\u00e9tesz egy \u00fczenetet egy MQTT t\u00e9m\u00e1ban.",
+            "fields": {
+                "payload": {
+                    "description": "A publik\u00e1land\u00f3 adattartalom (Payload).",
+                    "name": "Adattartalom"
+                },
+                "payload_template": {
+                    "description": "Az addattartalom (Payload) \u00e9rt\u00e9ket el\u0151\u00e1ll\u00edt\u00f3 sablon. Ha konkr\u00e9t adat van megadva, a sablon figyelmen k\u00edv\u00fcl marad.",
+                    "name": "Adattartalom sablon"
+                },
+                "qos": {
+                    "description": "A haszn\u00e1land\u00f3 szolg\u00e1ltat\u00e1s min\u0151s\u00e9ge. 0: Legfeljebb egyszer. 1: Legal\u00e1bb egyszer. 2: Pontosan egyszer.",
+                    "name": "QoS"
+                },
+                "retain": {
+                    "description": "Ha az \u00fczenetnek be kell \u00e1ll\u00edtani a retain jelz\u0151t. Ha be van \u00e1ll\u00edtva, a br\u00f3ker a legut\u00f3bbi \u00fczenetet t\u00e1rolja a t\u00e9m\u00e1ban.",
+                    "name": "Tart\u00e1s (retain)"
+                },
+                "topic": {
+                    "description": "Mely topikba menjen a publik\u00e1l\u00e1s.",
+                    "name": "Topik"
+                }
+            },
+            "name": "Publik\u00e1l\u00e1s"
+        },
+        "reload": {
+            "description": "\u00dajrat\u00f6lti az MQTT entit\u00e1sokat a YAML-konfigur\u00e1ci\u00f3b\u00f3l.",
+            "name": "\u00dajrat\u00f6lt\u00e9s"
+        }
+    }
+}

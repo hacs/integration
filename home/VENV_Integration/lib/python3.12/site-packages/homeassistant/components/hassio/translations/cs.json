@@ -1,0 +1,416 @@
+{
+    "entity": {
+        "binary_sensor": {
+            "state": {
+                "name": "B\u011b\u017e\u00ed"
+            }
+        },
+        "sensor": {
+            "agent_version": {
+                "name": "Verze agenta OS"
+            },
+            "apparmor_version": {
+                "name": "Verze Apparmor"
+            },
+            "cpu_percent": {
+                "name": "Procento CPU"
+            },
+            "disk_free": {
+                "name": "Voln\u00e9 m\u00edsto na disku"
+            },
+            "disk_total": {
+                "name": "Na disku celkem"
+            },
+            "disk_used": {
+                "name": "Vyu\u017eit\u00ed disku"
+            },
+            "memory_percent": {
+                "name": "Procento pam\u011bti"
+            },
+            "version": {
+                "name": "Verze"
+            },
+            "version_latest": {
+                "name": "Nejnov\u011bj\u0161\u00ed verze"
+            }
+        }
+    },
+    "issues": {
+        "issue_addon_detached_addon_missing": {
+            "description": "\u00dalo\u017ei\u0161t\u011b pro dopln\u011bk {addon} chyb\u00ed. To znamen\u00e1, \u017ee nebude dost\u00e1vat aktualizace a z\u00e1lohy nemus\u00ed b\u00fdt obnoveny spr\u00e1vn\u011b, proto\u017ee supervizor nemus\u00ed b\u00fdt schopen vytvo\u0159it/st\u00e1hnout po\u017eadovan\u00e9 prost\u0159edky.\n\nPokyny k instalaci naleznete v [dokumentaci dopl\u0148ku]({addon_url}) a p\u0159idejte \u00falo\u017ei\u0161t\u011b do obchodu.",
+            "title": "Chyb\u011bj\u00edc\u00ed \u00falo\u017ei\u0161t\u011b pro nainstalovan\u00fd dopln\u011bk"
+        },
+        "issue_addon_detached_addon_removed": {
+            "fix_flow": {
+                "abort": {
+                    "apply_suggestion_fail": "Dopln\u011bk se nepoda\u0159ilo odinstalovat. Dal\u0161\u00ed podrobnosti naleznete v protokolech supervizora."
+                },
+                "step": {
+                    "addon_execute_remove": {
+                        "description": "Dopln\u011bk {addon} byl odebr\u00e1n z \u00falo\u017ei\u0161t\u011b, ze kter\u00e9ho byl nainstalov\u00e1n. To znamen\u00e1, \u017ee nebude dost\u00e1vat aktualizace a z\u00e1lohy nemus\u00ed b\u00fdt obnoveny spr\u00e1vn\u011b, proto\u017ee supervizor nemus\u00ed b\u00fdt schopen vytvo\u0159it/st\u00e1hnout po\u017eadovan\u00e9 prost\u0159edky.\n\nKlepnut\u00edm na Odeslat odinstalujete tento zastaral\u00fd dopln\u011bk. P\u0159\u00edpadn\u011b se m\u016f\u017eete pod\u00edvat do [n\u00e1pov\u011bdy Home Assistanta]({help_url}) nebo do [komunitn\u00edho f\u00f3rua]({community_url}), kde naleznete alternativy k migraci."
+                    }
+                }
+            },
+            "title": "Nainstalovan\u00fd dopln\u011bk byl odstran\u011bn z \u00falo\u017ei\u0161t\u011b"
+        },
+        "issue_mount_mount_failed": {
+            "fix_flow": {
+                "abort": {
+                    "apply_suggestion_fail": "Opravu se nepoda\u0159ilo pou\u017e\u00edt. Podrobn\u011bj\u0161\u00ed informace naleznete v logu Supervizora."
+                },
+                "step": {
+                    "fix_menu": {
+                        "description": "Nelze se p\u0159ipojit k \"{reference}\". Dal\u0161\u00ed podrobnosti naleznete v protokolech hostitele, zda neobsahuj\u00ed chyby ze slu\u017eby p\u0159ipojen\u00ed. \n\nPomoc\u00ed reload se pokuste znovu p\u0159ipojit. Pokud pot\u0159ebujete aktualizovat \"{reference}\", p\u0159ejd\u011bte na [\u00falo\u017ei\u0161t\u011b]({storage_url}).",
+                        "menu_options": {
+                            "mount_execute_reload": "Znovu na\u010d\u00edst",
+                            "mount_execute_remove": "Odebrat"
+                        }
+                    }
+                }
+            },
+            "title": "S\u00ed\u0165ov\u00e9 \u00falo\u017ei\u0161t\u011b selhalo"
+        },
+        "issue_system_docker_config": {
+            "fix_flow": {
+                "abort": {
+                    "apply_suggestion_fail": "Jeden nebo v\u00edce restart\u016f se nezda\u0159il. Podrobn\u011bj\u0161\u00ed informace naleznete v logu Supervizora."
+                },
+                "step": {
+                    "system_execute_rebuild": {
+                        "description": "V\u00fdchoz\u00ed nastaven\u00ed dopl\u0148k\u016f a Home Assistanta se zm\u011bnila. Pro aktualizaci nastaven\u00ed s nov\u00fdmi v\u00fdchoz\u00edmi hodnotami je nutn\u00e9 restartov\u00e1n\u00ed:\n\n- {components}"
+                    }
+                }
+            },
+            "title": "Je vy\u017eadov\u00e1n restart"
+        },
+        "issue_system_multiple_data_disks": {
+            "fix_flow": {
+                "abort": {
+                    "apply_suggestion_fail": "Souborov\u00fd syst\u00e9m nelze p\u0159ejmenovat. Dal\u0161\u00ed podrobnosti naleznete v logu Supervizora."
+                },
+                "step": {
+                    "fix_menu": {
+                        "description": "U \"{reference}\" jsme detekovali dal\u0161\u00ed aktivn\u00ed datov\u00fd disk (obsahuj\u00edc\u00ed souborov\u00fd syst\u00e9m \"hassos-data\" z jin\u00e9 instalace Home Assistanta).\n\nMus\u00edte se rozhodnout, co s t\u00edm. V opa\u010dn\u00e9m p\u0159\u00edpad\u011b m\u016f\u017ee Home Assistant p\u0159i restartu syst\u00e9mu vybrat nespr\u00e1vn\u00fd datov\u00fd disk.\n\nPokud tento datov\u00fd disk nechcete pou\u017e\u00edvat, odpojte jej od syst\u00e9mu. Pokud jej nech\u00e1te zapojen\u00fd, vyberte jednu z n\u00e1sleduj\u00edc\u00edch voleb:",
+                        "menu_options": {
+                            "system_adopt_data_disk": "Pou\u017e\u00edt detekovan\u00fd datov\u00fd disk nam\u00edsto aktu\u00e1ln\u00edho syst\u00e9mu",
+                            "system_rename_data_disk": "Ozna\u010dit jako neaktivn\u00ed datov\u00fd disk (p\u0159ejmenovat syst\u00e9m soubor\u016f)"
+                        }
+                    },
+                    "system_adopt_data_disk": {
+                        "description": "Klepn\u011bte na tla\u010d\u00edtko Odeslat, aby se \"{reference}\" stal aktivn\u00edm datov\u00fdm diskem. Jako jedin\u00fd.\n\nJi\u017e nebudete m\u00edt p\u0159\u00edstup k aktu\u00e1ln\u00edm dat\u016fm Home Assistanta (bude ozna\u010deno jako neaktivn\u00ed datov\u00fd disk). Po restartu bude v\u00e1\u0161 syst\u00e9m ve stavu dat Home Assistanta na \"{reference}\"."
+                    },
+                    "system_rename_data_disk": {
+                        "description": "\"{reference}\" je souborov\u00fd syst\u00e9m s n\u00e1zvem hassos-data a nen\u00ed aktivn\u00edm datov\u00fdm diskem. To m\u016f\u017ee zp\u016fsobit, \u017ee Home Assistant p\u0159i restartu syst\u00e9mu vybere nespr\u00e1vn\u00fd datov\u00fd disk. \n\nChcete-li tomu zabr\u00e1nit, pou\u017eijte volbu opravy k p\u0159ejmenov\u00e1n\u00ed souborov\u00e9ho syst\u00e9mu. Alternativn\u011b m\u016f\u017eete p\u0159esunout datov\u00fd disk na jednotku (p\u0159epsat jeho obsah) nebo jednotku odebrat ze syst\u00e9mu."
+                    }
+                }
+            },
+            "title": "Bylo zji\u0161t\u011bno v\u00edce datov\u00fdch disk\u016f"
+        },
+        "issue_system_reboot_required": {
+            "fix_flow": {
+                "abort": {
+                    "apply_suggestion_fail": "Syst\u00e9m nelze restartovat. Dal\u0161\u00ed podrobnosti naleznete v logu Supervizora."
+                },
+                "step": {
+                    "system_execute_reboot": {
+                        "description": "Byla zm\u011bn\u011bna nastaven\u00ed, kter\u00e1 vy\u017eaduj\u00ed restart syst\u00e9mu, aby se projevily. \n\nTato oprava zah\u00e1j\u00ed restart syst\u00e9mu, kter\u00fd zp\u016fsob\u00ed, \u017ee Home Assistant a v\u0161echny dopl\u0148ky budou na kr\u00e1tkou dobu nedostupn\u00e9."
+                    }
+                }
+            },
+            "title": "Je vy\u017eadov\u00e1n restart"
+        },
+        "unhealthy": {
+            "description": "Syst\u00e9m je aktu\u00e1ln\u011b v nepo\u0159\u00e1dku z d\u016fvodu {reason}. Pomoc\u00ed odkazu se dozv\u00edte v\u00edce a jak to opravit.",
+            "title": "Syst\u00e9m je v nepo\u0159\u00e1dku - {reason}"
+        },
+        "unhealthy_docker": {
+            "description": "Syst\u00e9m nyn\u00ed nen\u00ed v po\u0159\u00e1dku, proto\u017ee Docker je nastaven nespr\u00e1vn\u011b. Pomoc\u00ed odkazu se dozv\u00edte v\u00edce a jak to opravit.",
+            "title": "Syst\u00e9m nen\u00ed v po\u0159\u00e1dku - Docker je \u0161patn\u011b nastaven"
+        },
+        "unhealthy_privileged": {
+            "description": "Syst\u00e9m je aktu\u00e1ln\u011b v nepo\u0159\u00e1dku, proto\u017ee nem\u00e1 privilegovan\u00fd p\u0159\u00edstup k runtime Dockeru. Pomoc\u00ed odkazu se dozv\u00edte v\u00edce a jak to opravit.",
+            "title": "Syst\u00e9m je v nepo\u0159\u00e1dku - nen\u00ed privilegovan\u00fd p\u0159\u00edstup"
+        },
+        "unhealthy_setup": {
+            "description": "Syst\u00e9m je aktu\u00e1ln\u011b v nepo\u0159\u00e1dku, proto\u017ee se nepoda\u0159ilo dokon\u010dit nastaven\u00ed. Existuje n\u011bkolik d\u016fvod\u016f, pro\u010d k tomu m\u016f\u017ee doj\u00edt. Pomoc\u00ed odkazu se dozv\u00edte v\u00edce a jak to opravit.",
+            "title": "Syst\u00e9m je v nepo\u0159\u00e1dku \u2013 instalace se nezda\u0159ila"
+        },
+        "unhealthy_supervisor": {
+            "description": "Syst\u00e9m je aktu\u00e1ln\u011b v nepo\u0159\u00e1dku, proto\u017ee pokus o aktualizaci Supervizora na nejnov\u011bj\u0161\u00ed verzi selhal. Pomoc\u00ed odkazu se dozv\u00edte v\u00edce a jak to opravit.",
+            "title": "Syst\u00e9m je v nepo\u0159\u00e1dku - aktualizace Supervizora se nezda\u0159ila"
+        },
+        "unhealthy_untrusted": {
+            "description": "Syst\u00e9m je aktu\u00e1ln\u011b v napo\u0159\u00e1dku, proto\u017ee zjistil, \u017ee se pou\u017e\u00edv\u00e1 ned\u016fv\u011bryhodn\u00fd k\u00f3d nebo obr\u00e1zky. Pomoc\u00ed odkazu se dozv\u00edte v\u00edce a jak to opravit.",
+            "title": "Syst\u00e9m je v nepo\u0159\u00e1dku - ned\u016fv\u011bryhodn\u00fd k\u00f3d"
+        },
+        "unsupported": {
+            "description": "Syst\u00e9m nen\u00ed podporov\u00e1n z d\u016fvodu {reason}. Pomoc\u00ed odkazu se dozv\u00edte v\u00edce a jak to opravit.",
+            "title": "Nepodporovan\u00fd syst\u00e9m - {reason}"
+        },
+        "unsupported_apparmor": {
+            "description": "Syst\u00e9m nen\u00ed podporov\u00e1n, proto\u017ee AppArmor nefunguje spr\u00e1vn\u011b a dopl\u0148ky b\u011b\u017e\u00ed nechr\u00e1n\u011bn\u00fdm a nezabezpe\u010den\u00fdm zp\u016fsobem. Pomoc\u00ed odkazu se dozv\u00edte v\u00edce a jak to opravit.",
+            "title": "Nepodporovan\u00fd syst\u00e9m - probl\u00e9my s AppArmor"
+        },
+        "unsupported_cgroup_version": {
+            "description": "Syst\u00e9m nen\u00ed podporov\u00e1n, proto\u017ee se pou\u017e\u00edv\u00e1 nespr\u00e1vn\u00e1 verze Docker CGroup. Pomoc\u00ed odkazu se dozv\u00edte spr\u00e1vnou verzi a jak to opravit.",
+            "title": "Nepodporovan\u00fd syst\u00e9m - verze CGroup"
+        },
+        "unsupported_connectivity_check": {
+            "description": "Syst\u00e9m nen\u00ed podporov\u00e1n, proto\u017ee Home Assistant nem\u016f\u017ee ur\u010dit, kdy je dostupn\u00e9 p\u0159ipojen\u00ed k internetu. Pomoc\u00ed odkazu se dozv\u00edte v\u00edce a jak to opravit.",
+            "title": "Nepodporovan\u00fd syst\u00e9m - kontrola p\u0159ipojen\u00ed zak\u00e1z\u00e1na"
+        },
+        "unsupported_content_trust": {
+            "description": "Syst\u00e9m nen\u00ed podporov\u00e1n, proto\u017ee Home Assistant nem\u016f\u017ee ov\u011b\u0159it, zda je spou\u0161t\u011bn\u00fd obsah d\u016fv\u011bryhodn\u00fd a nebyl \u00fato\u010dn\u00edky upraven. Pomoc\u00ed odkazu se dozv\u00edte v\u00edce a jak to opravit.",
+            "title": "Nepodporovan\u00fd syst\u00e9m - kontrola d\u016fv\u011bryhodnosti obsahu zak\u00e1z\u00e1na"
+        },
+        "unsupported_dbus": {
+            "description": "Syst\u00e9m nen\u00ed podporov\u00e1n, proto\u017ee D-Bus nefunguje spr\u00e1vn\u011b. Mnoho v\u011bc\u00ed bez toho sel\u017ee, proto\u017ee Supervizor nem\u016f\u017ee komunikovat s hostitelem. Pomoc\u00ed odkazu se dozv\u00edte v\u00edce a jak to opravit.",
+            "title": "Nepodporovan\u00fd syst\u00e9m - probl\u00e9my s D-Bus"
+        },
+        "unsupported_dns_server": {
+            "description": "Syst\u00e9m nen\u00ed podporov\u00e1n, proto\u017ee poskytnut\u00fd server DNS nefunguje spr\u00e1vn\u011b a z\u00e1lo\u017en\u00ed mo\u017enost DNS byla zak\u00e1z\u00e1na. Pomoc\u00ed odkazu se dozv\u00edte v\u00edce a jak to opravit.",
+            "title": "Nepodporovan\u00fd syst\u00e9m - probl\u00e9my se serverem DNS"
+        },
+        "unsupported_docker_configuration": {
+            "description": "Syst\u00e9m nen\u00ed podporov\u00e1n, proto\u017ee d\u00e9mon Docker b\u011b\u017e\u00ed neo\u010dek\u00e1van\u00fdm zp\u016fsobem. Pomoc\u00ed odkazu se dozv\u00edte v\u00edce a jak to opravit.",
+            "title": "Nepodporovan\u00fd syst\u00e9m - Docker je \u0161patn\u011b nastaven"
+        },
+        "unsupported_docker_version": {
+            "description": "Syst\u00e9m nen\u00ed podporov\u00e1n, proto\u017ee se pou\u017e\u00edv\u00e1 nespr\u00e1vn\u00e1 verze Dockeru. Pomoc\u00ed odkazu se dozv\u00edte spr\u00e1vnou verzi a jak to opravit.",
+            "title": "Nepodporovan\u00fd syst\u00e9m - verze Dockeru"
+        },
+        "unsupported_job_conditions": {
+            "description": "Syst\u00e9m nen\u00ed podporov\u00e1n, proto\u017ee byla deaktivov\u00e1na jedna nebo v\u00edce pracovn\u00edch podm\u00ednek, kter\u00e9 chr\u00e1n\u00ed p\u0159ed neo\u010dek\u00e1van\u00fdmi selh\u00e1n\u00edmi a rozbit\u00edm. Pomoc\u00ed odkazu se dozv\u00edte v\u00edce a jak to opravit.",
+            "title": "Nepodporovan\u00fd syst\u00e9m - vypnut\u00e9 ochrany"
+        },
+        "unsupported_lxc": {
+            "description": "Syst\u00e9m nen\u00ed podporov\u00e1n, proto\u017ee je spu\u0161t\u011bn na virtu\u00e1ln\u00edm po\u010d\u00edta\u010di LXC. Pomoc\u00ed odkazu se dozv\u00edte v\u00edce a jak to opravit.",
+            "title": "Nepodporovan\u00fd syst\u00e9m - detekov\u00e1no LXC"
+        },
+        "unsupported_network_manager": {
+            "description": "Syst\u00e9m nen\u00ed podporov\u00e1n, proto\u017ee chyb\u00ed Network Manager, je neaktivn\u00ed nebo je \u0161patn\u011b nastaven. Pomoc\u00ed odkazu se dozv\u00edte v\u00edce a jak to opravit.",
+            "title": "Nepodporovan\u00fd syst\u00e9m - probl\u00e9my s Network Managerem"
+        },
+        "unsupported_os": {
+            "description": "Syst\u00e9m nen\u00ed podporov\u00e1n, proto\u017ee pou\u017e\u00edvan\u00fd opera\u010dn\u00ed syst\u00e9m nen\u00ed testov\u00e1n ani udr\u017eov\u00e1n pro pou\u017eit\u00ed se Supervizorem. Pou\u017eijte odkaz, kter\u00e9 opera\u010dn\u00ed syst\u00e9my jsou podporov\u00e1ny a jak to opravit.",
+            "title": "Nepodporovan\u00fd syst\u00e9m - opera\u010dn\u00ed syst\u00e9m"
+        },
+        "unsupported_os_agent": {
+            "description": "Syst\u00e9m nen\u00ed podporov\u00e1n, proto\u017ee OS-Agent chyb\u00ed, je neaktivn\u00ed nebo je \u0161patn\u011b nastaven. Pomoc\u00ed odkazu se dozv\u00edte v\u00edce a jak to opravit.",
+            "title": "Nepodporovan\u00fd syst\u00e9m - probl\u00e9my s OS-Agentem"
+        },
+        "unsupported_restart_policy": {
+            "description": "Syst\u00e9m nen\u00ed podporov\u00e1n, proto\u017ee kontejner Docker m\u00e1 nastavenou z\u00e1sadu restartov\u00e1n\u00ed, kter\u00e1 by mohla zp\u016fsobit probl\u00e9my p\u0159i spu\u0161t\u011bn\u00ed. Pomoc\u00ed odkazu se dozv\u00edte v\u00edce a jak to opravit.",
+            "title": "Nepodporovan\u00fd syst\u00e9m - \u00a8z\u00e1sady restartu kontejneru"
+        },
+        "unsupported_software": {
+            "description": "Syst\u00e9m nen\u00ed podporov\u00e1n, proto\u017ee byl zji\u0161t\u011bn dal\u0161\u00ed software mimo ekosyst\u00e9m Home Assistanta. Pomoc\u00ed odkazu se dozv\u00edte v\u00edce a jak to opravit.",
+            "title": "Nepodporovan\u00fd syst\u00e9m - nepodporovan\u00fd software"
+        },
+        "unsupported_source_mods": {
+            "description": "Syst\u00e9m nen\u00ed podporov\u00e1n, proto\u017ee byl zm\u011bn\u011bn zdrojov\u00fd k\u00f3d Supervizora. Pomoc\u00ed odkazu se dozv\u00edte v\u00edce a jak to opravit.",
+            "title": "Nepodporovan\u00fd syst\u00e9m - \u00fapravy zdroje Supervizora"
+        },
+        "unsupported_supervisor_version": {
+            "description": "Syst\u00e9m nen\u00ed podporov\u00e1n, proto\u017ee se pou\u017e\u00edv\u00e1 zastaral\u00e1 verze Supervizora a automatick\u00e1 aktualizace byla zak\u00e1z\u00e1na. Pomoc\u00ed odkazu se dozv\u00edte v\u00edce a jak to opravit.",
+            "title": "Nepodporovan\u00fd syst\u00e9m - verze Supervizora"
+        },
+        "unsupported_systemd": {
+            "description": "Syst\u00e9m nen\u00ed podporov\u00e1n, proto\u017ee chyb\u00ed Systemd, je neaktivn\u00ed nebo je \u0161patn\u011b nastaven. Pomoc\u00ed odkazu se dozv\u00edte v\u00edce a jak to opravit.",
+            "title": "Nepodporovan\u00fd syst\u00e9m - probl\u00e9my se Systemd"
+        },
+        "unsupported_systemd_journal": {
+            "description": "Syst\u00e9m nen\u00ed podporov\u00e1n, proto\u017ee chyb\u00ed Systemd Journal a/nebo slu\u017eba br\u00e1ny, je neaktivn\u00ed nebo je \u0161patn\u011b nastavena. Pomoc\u00ed odkazu se dozv\u00edte v\u00edce a jak to opravit.",
+            "title": "Nepodporovan\u00fd syst\u00e9m - probl\u00e9my se Systemd Journal"
+        },
+        "unsupported_systemd_resolved": {
+            "description": "Syst\u00e9m nen\u00ed podporov\u00e1n, proto\u017ee Systemd Resolved chyb\u00ed, je neaktivn\u00ed nebo je \u0161patn\u011b nastaven. Pomoc\u00ed odkazu se dozv\u00edte v\u00edce a jak to opravit.",
+            "title": "Nepodporovan\u00fd syst\u00e9m - probl\u00e9my se Systemd Resolved"
+        },
+        "unsupported_virtualization_image": {
+            "description": "Syst\u00e9m nen\u00ed podporov\u00e1n, proto\u017ee pou\u017e\u00edvan\u00fd obraz opera\u010dn\u00edho syst\u00e9mu Home Assistanta nen\u00ed ur\u010den pro pou\u017eit\u00ed ve virtualizovan\u00e9m prost\u0159ed\u00ed. Pomoc\u00ed odkazu se dozv\u00edte v\u00edce a jak to opravit.",
+            "title": "Nepodporovan\u00fd syst\u00e9m - nespr\u00e1vn\u00fd obraz OS pro virtualizaci"
+        }
+    },
+    "services": {
+        "addon_restart": {
+            "description": "Restartuje dopln\u011bk.",
+            "fields": {
+                "addon": {
+                    "description": "Slug dopl\u0148ku.",
+                    "name": "Dopln\u011bk"
+                }
+            },
+            "name": "Restartovat dopln\u011bk"
+        },
+        "addon_start": {
+            "description": "Spust\u00ed dopln\u011bk.",
+            "fields": {
+                "addon": {
+                    "description": "Slug dopl\u0148ku.",
+                    "name": "Dopln\u011bk"
+                }
+            },
+            "name": "Spustit dopln\u011bk"
+        },
+        "addon_stdin": {
+            "description": "Zap\u00ed\u0161e data do stdin dopl\u0148ku.",
+            "fields": {
+                "addon": {
+                    "description": "Slug dopl\u0148ku.",
+                    "name": "Dopln\u011bk"
+                }
+            },
+            "name": "Zap\u00ed\u0161e data do stdin dopl\u0148ku."
+        },
+        "addon_stop": {
+            "description": "Zastav\u00ed dopln\u011bk.",
+            "fields": {
+                "addon": {
+                    "description": "Slug dopl\u0148ku.",
+                    "name": "Dopln\u011bk"
+                }
+            },
+            "name": "Zastav\u00ed dopln\u011bk."
+        },
+        "addon_update": {
+            "description": "Aktualizuje dopln\u011bk. Tato akce by m\u011bla b\u00fdt pou\u017e\u00edv\u00e1na s opatrnost\u00ed, proto\u017ee aktualizace dopl\u0148k\u016f mohou obsahovat z\u00e1sadn\u00ed zm\u011bny. D\u016frazn\u011b doporu\u010dujeme, abyste si p\u0159ed aktualizac\u00ed dopl\u0148ku prohl\u00e9dli pozn\u00e1mky k vyd\u00e1n\u00ed/protokoly zm\u011bn.",
+            "fields": {
+                "addon": {
+                    "description": "Slug dopl\u0148ku.",
+                    "name": "Dopln\u011bk"
+                }
+            },
+            "name": "Aktualizovat dopln\u011bk"
+        },
+        "backup_full": {
+            "description": "Vytvo\u0159\u00ed plnou z\u00e1lohu.",
+            "fields": {
+                "compressed": {
+                    "description": "Zkomprimuje z\u00e1lo\u017en\u00ed soubory.",
+                    "name": "Zkomprimov\u00e1no"
+                },
+                "homeassistant_exclude_database": {
+                    "description": "Vylou\u010d\u00ed soubor datab\u00e1ze Home Assistanta ze z\u00e1lohy",
+                    "name": "Vylou\u010dit datab\u00e1zi Home Assistanta"
+                },
+                "location": {
+                    "description": "N\u00e1zev z\u00e1lo\u017en\u00edho s\u00ed\u0165ov\u00e9ho \u00falo\u017ei\u0161t\u011b pro hostov\u00e1n\u00ed z\u00e1loh.",
+                    "name": "Poloha"
+                },
+                "name": {
+                    "description": "Voliteln\u00e9 (v\u00fdchoz\u00ed = aktu\u00e1ln\u00ed datum a \u010das).",
+                    "name": "N\u00e1zev"
+                },
+                "password": {
+                    "description": "Heslo pro ochranu z\u00e1lohy.",
+                    "name": "Heslo"
+                }
+            },
+            "name": "Vytvo\u0159it \u00faplnou z\u00e1lohu"
+        },
+        "backup_partial": {
+            "description": "Vytvo\u0159\u00ed \u010d\u00e1ste\u010dnou z\u00e1lohu.",
+            "fields": {
+                "addons": {
+                    "description": "Seznam dopl\u0148k\u016f, kter\u00e9 maj\u00ed b\u00fdt zahrnuty do z\u00e1lohy. Pou\u017eije n\u00e1zev slug dopl\u0148ku.",
+                    "name": "Dopl\u0148ky"
+                },
+                "compressed": {
+                    "description": "Zkomprimuje z\u00e1lo\u017en\u00ed soubory.",
+                    "name": "Zkomprimov\u00e1no"
+                },
+                "folders": {
+                    "description": "Seznam adres\u00e1\u0159\u016f, kter\u00e9 maj\u00ed b\u00fdt zahrnuty do z\u00e1lohy.",
+                    "name": "Slo\u017eky"
+                },
+                "homeassistant": {
+                    "description": "Zahrne nastaven\u00ed Home Assistanta do z\u00e1lohy.",
+                    "name": "Nastaven\u00ed Home Assistanta"
+                },
+                "homeassistant_exclude_database": {
+                    "description": "Vylou\u010d\u00ed soubor datab\u00e1ze Home Assistanta ze z\u00e1lohy",
+                    "name": "Vylou\u010dit datab\u00e1zi Home Assistanta"
+                },
+                "location": {
+                    "description": "N\u00e1zev z\u00e1lo\u017en\u00edho s\u00ed\u0165ov\u00e9ho \u00falo\u017ei\u0161t\u011b pro hostov\u00e1n\u00ed z\u00e1loh.",
+                    "name": "Poloha"
+                },
+                "name": {
+                    "description": "Voliteln\u00e9 (v\u00fdchoz\u00ed = aktu\u00e1ln\u00ed datum a \u010das).",
+                    "name": "N\u00e1zev"
+                },
+                "password": {
+                    "description": "Heslo pro ochranu z\u00e1lohy.",
+                    "name": "Heslo"
+                }
+            },
+            "name": "Vytvo\u0159it \u010d\u00e1ste\u010dnou z\u00e1lohu"
+        },
+        "host_reboot": {
+            "description": "Restartuje hostitelsk\u00fd syst\u00e9m.",
+            "name": "Restartovat hostitelsk\u00fd syst\u00e9m"
+        },
+        "host_shutdown": {
+            "description": "Vypne hostitelsk\u00fd syst\u00e9m.",
+            "name": "Vypnout hostitelsk\u00fd syst\u00e9m"
+        },
+        "restore_full": {
+            "description": "Obnov\u00ed z pln\u00e9 z\u00e1lohy.",
+            "fields": {
+                "password": {
+                    "description": "Voliteln\u00e9 heslo.",
+                    "name": "Heslo"
+                },
+                "slug": {
+                    "description": "Slug z\u00e1lohy, ze kter\u00e9 se m\u00e1 obnovit.",
+                    "name": "Slug"
+                }
+            },
+            "name": "Obnovit z pln\u00e9 z\u00e1lohy"
+        },
+        "restore_partial": {
+            "description": "Obnov\u00ed z \u010d\u00e1ste\u010dn\u00e9 z\u00e1lohy.",
+            "fields": {
+                "addons": {
+                    "description": "Seznam dopl\u0148k\u016f, kter\u00e9 maj\u00ed b\u00fdt zahrnuty do z\u00e1lohy. Pou\u017eije n\u00e1zev slug dopl\u0148ku.",
+                    "name": "Dopl\u0148ky"
+                },
+                "folders": {
+                    "description": "Seznam adres\u00e1\u0159\u016f, kter\u00e9 maj\u00ed b\u00fdt zahrnuty do z\u00e1lohy.",
+                    "name": "Slo\u017eky"
+                },
+                "homeassistant": {
+                    "description": "Obnov\u00ed Home Assistanta.",
+                    "name": "Nastaven\u00ed Home Assistanta"
+                },
+                "password": {
+                    "description": "Voliteln\u00e9 heslo.",
+                    "name": "Heslo"
+                },
+                "slug": {
+                    "description": "Slug z\u00e1lohy, ze kter\u00e9 se m\u00e1 obnovit.",
+                    "name": "Slug"
+                }
+            },
+            "name": "Obnovit z \u010d\u00e1ste\u010dn\u00e9 z\u00e1lohy"
+        }
+    },
+    "system_health": {
+        "info": {
+            "agent_version": "Verze agenta",
+            "board": "Deska",
+            "disk_total": "Kapacita disku",
+            "disk_used": "Obsazeno na disku",
+            "docker_version": "Verze Dockeru",
+            "healthy": "V po\u0159\u00e1dku",
+            "host_os": "Opera\u010dn\u00ed syst\u00e9m hostitele",
+            "installed_addons": "Nainstalovan\u00e9 dopl\u0148ky",
+            "supervisor_api": "API Supervizora",
+            "supervisor_version": "Verze Supervizora",
+            "supported": "Podporov\u00e1no",
+            "update_channel": "Kan\u00e1l aktualizac\u00ed",
+            "version_api": "Verze API"
+        }
+    }
+}

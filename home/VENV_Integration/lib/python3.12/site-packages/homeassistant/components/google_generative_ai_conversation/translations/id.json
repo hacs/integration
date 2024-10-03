@@ -1,0 +1,74 @@
+{
+    "config": {
+        "abort": {
+            "reauth_successful": "Autentikasi ulang berhasil"
+        },
+        "error": {
+            "cannot_connect": "Gagal terhubung",
+            "invalid_auth": "Autentikasi tidak valid",
+            "unknown": "Kesalahan tak terduga"
+        },
+        "step": {
+            "api": {
+                "data": {
+                    "api_key": "Kunci API"
+                },
+                "description": "Dapatkan kunci API Anda [di sini]({api_key_url})."
+            },
+            "reauth_confirm": {
+                "description": "Kunci API Anda saat ini: {api_key} sudah tidak berlaku. Masukkan kunci API baru yang valid.",
+                "title": "Autentikasi ulang integrasi untuk {name}"
+            },
+            "user": {
+                "data": {
+                    "api_key": "Kunci API",
+                    "llm_hass_api": "Kendalikan Home Assistant"
+                }
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "chat_model": "Model",
+                    "dangerous_block_threshold": "Mempromosikan, memfasilitasi, atau mendorong tindakan berbahaya",
+                    "harassment_block_threshold": "Komentar negatif atau berbahaya yang menargetkan identitas dan/atau atribut yang dilindungi",
+                    "hate_block_threshold": "Konten yang kasar, tidak sopan, atau tidak senonoh",
+                    "llm_hass_api": "Kendalikan Home Assistant",
+                    "max_tokens": "Jumlah token maksimum untuk dikembalikan sebagai respons",
+                    "model": "Model",
+                    "prompt": "Petunjuk",
+                    "recommended": "Pengaturan model yang disarankan",
+                    "sexual_block_threshold": "Mengandung rujukan ke tindakan seksual atau konten cabul lainnya",
+                    "temperature": "Suhu",
+                    "tone_prompt": "Nada",
+                    "top_k": "K Teratas",
+                    "top_p": "P Teratas"
+                },
+                "data_description": {
+                    "prompt": "Menginstruksikan cara LLM harus merespons. Ini dapat berupa sebuah templat.",
+                    "tone_prompt": "Petunjuk untuk LLM tentang gaya teks yang dihasilkan. Ini dapat berupa sebuah templat."
+                }
+            }
+        }
+    },
+    "services": {
+        "generate_content": {
+            "description": "Menghasilkan konten dari perintah yang terdiri dari teks dan gambar secara opsional",
+            "fields": {
+                "image_filename": {
+                    "description": "Gambar",
+                    "example": "/config/www/image.jpg",
+                    "name": "Nama file gambar"
+                },
+                "prompt": {
+                    "description": "Perintah",
+                    "example": "Jelaskan apa yang Anda lihat dalam gambar ini",
+                    "name": "Perintah"
+                }
+            },
+            "name": "Hasilkan konten"
+        }
+    }
+}

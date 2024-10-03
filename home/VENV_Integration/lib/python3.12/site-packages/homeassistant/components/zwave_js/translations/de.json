@@ -1,0 +1,625 @@
+{
+    "config": {
+        "abort": {
+            "addon_get_discovery_info_failed": "Z-Wave-JS-Add-on-Discovery-Informationen konnten nicht abgerufen werden.",
+            "addon_info_failed": "Fehler beim Abrufen von Z-Wave JS Add-on Informationen.",
+            "addon_install_failed": "Installation des Z-Wave JS Add-ons fehlgeschlagen.",
+            "addon_set_config_failed": "Setzen der Z-Wave JS Konfiguration fehlgeschlagen",
+            "addon_start_failed": "Starten des Z-Wave JS Add-ons fehlgeschlagen.",
+            "already_configured": "Ger\u00e4t ist bereits konfiguriert",
+            "already_in_progress": "Der Konfigurationsablauf wird bereits ausgef\u00fchrt",
+            "cannot_connect": "Verbindung fehlgeschlagen",
+            "discovery_requires_supervisor": "Discovery erfordert den Supervisor.",
+            "not_zwave_device": "Das erkannte Ger\u00e4t ist kein Z-Wave-Ger\u00e4t.",
+            "not_zwave_js_addon": "Das entdeckte Add-on ist nicht das offizielle Z-Wave JS-Add-on."
+        },
+        "error": {
+            "addon_start_failed": "Fehler beim Starten des Z-Wave JS Add-ons. \u00dcberpr\u00fcfe die Konfiguration.",
+            "cannot_connect": "Verbindung fehlgeschlagen",
+            "invalid_ws_url": "Ung\u00fcltige Websocket-URL",
+            "unknown": "Unerwarteter Fehler"
+        },
+        "flow_title": "{name}",
+        "progress": {
+            "install_addon": "Bitte warte, w\u00e4hrend die Installation des Z-Wave JS Add-ons abgeschlossen wird. Dies kann einige Minuten dauern.",
+            "start_addon": "Bitte warte, w\u00e4hrend der Start des Z-Wave JS Add-ons abgeschlossen wird. Dies kann einige Sekunden dauern."
+        },
+        "step": {
+            "configure_addon": {
+                "data": {
+                    "s0_legacy_key": "S0 Schl\u00fcssel (Legacy)",
+                    "s2_access_control_key": "S2 Zugangskontrollschl\u00fcssel",
+                    "s2_authenticated_key": "S2 Authentifizierter Schl\u00fcssel",
+                    "s2_unauthenticated_key": "S2 Nicht authentifizierter Schl\u00fcssel",
+                    "usb_path": "USB-Ger\u00e4te-Pfad"
+                },
+                "description": "Das Add-on generiert Sicherheitsschl\u00fcssel, wenn diese Felder leer gelassen werden.",
+                "title": "Gib die Konfiguration des Z-Wave JS Add-ons ein"
+            },
+            "hassio_confirm": {
+                "title": "Einrichten der Z-Wave JS Integration mit dem Z-Wave JS Add-on"
+            },
+            "install_addon": {
+                "title": "Die Installation des Z-Wave-JS-Add-ons hat begonnen"
+            },
+            "manual": {
+                "data": {
+                    "url": "URL"
+                }
+            },
+            "on_supervisor": {
+                "data": {
+                    "use_addon": "Verwende das Z-Wave JS Supervisor Add-on"
+                },
+                "description": "M\u00f6chtest du das Z-Wave JS Supervisor Add-on verwenden?",
+                "title": "Verbindungstyp ausw\u00e4hlen"
+            },
+            "start_addon": {
+                "title": "Z-Wave JS Add-on wird gestartet."
+            },
+            "usb_confirm": {
+                "description": "M\u00f6chtest du {name} mit dem Z-Wave JS Add-on einrichten?"
+            },
+            "zeroconf_confirm": {
+                "description": "M\u00f6chtest du den Z-Wave JS-Server mit der Home-ID {home_id}, gefunden unter {url}, zu Home Assistant hinzuf\u00fcgen?",
+                "title": "Z-Wave JS-Server entdeckt"
+            }
+        }
+    },
+    "device_automation": {
+        "action_type": {
+            "clear_lock_usercode": "Nutzercode f\u00fcr {entity_name} l\u00f6schen",
+            "ping": "Ger\u00e4t anpingen",
+            "refresh_value": "Aktualisieren der Wert(e) f\u00fcr {entity_name}",
+            "reset_meter": "Z\u00e4hler von {subtype} zur\u00fccksetzen",
+            "set_config_parameter": "Wert des Konfigurationsparameters {subtype} festlegen",
+            "set_lock_usercode": "Einen Nutzercode f\u00fcr {entity_name} festlegen",
+            "set_value": "Wert eines Z-Wave-Werts einstellen"
+        },
+        "condition_type": {
+            "config_parameter": "Wert des Konfigurationsparameters {subtype}",
+            "node_status": "Status des Knotens",
+            "value": "Aktueller Wert eines Z-Wave-Wertes"
+        },
+        "extra_fields": {
+            "code_slot": "Code-Slot",
+            "command_class": "Befehlsklasse",
+            "data_type": "Datentyp",
+            "endpoint": "Endpunkt",
+            "event": "Ereignis",
+            "event_label": "Ereignisbezeichnung",
+            "event_type": "Ereignistyp",
+            "for": "Dauer",
+            "from": "Von",
+            "label": "Label",
+            "property": "Eigentum",
+            "property_key": "Eigenschaftsschl\u00fcssel",
+            "refresh_all_values": "Alle Werte aktualisieren",
+            "status": "Status",
+            "to": "Auf",
+            "type.": "Typ",
+            "usercode": "Benutzercode",
+            "value": "Wert",
+            "wait_for_result": "Warten auf das Ergebnis"
+        },
+        "trigger_type": {
+            "event.notification.entry_control": "Benachrichtigung zur Zugangskontrolle gesendet",
+            "event.notification.notification": "Benachrichtigung gesendet",
+            "event.value_notification.basic": "Grundlegendes CC-Ereignis auf {subtype}",
+            "event.value_notification.central_scene": "Zentrale Szeneaktion auf {subtype}",
+            "event.value_notification.scene_activation": "Szeneaktivierung auf {subtype}",
+            "state.node_status": "Knotenstatus ge\u00e4ndert",
+            "zwave_js.value_updated.config_parameter": "Wert\u00e4nderung des Konfigurationsparameters {subtype}",
+            "zwave_js.value_updated.value": "Wert\u00e4nderung bei einem Z-Wave JS Wert"
+        }
+    },
+    "entity": {
+        "button": {
+            "ping": {
+                "name": "Ping"
+            }
+        },
+        "sensor": {
+            "average_background_rssi": {
+                "name": "Durchschnittlicher Hintergrund-RSSI (Kanal {channel})"
+            },
+            "can": {
+                "name": "Kollisionen"
+            },
+            "commands_dropped": {
+                "name": "Verworfene Befehle ({direction})"
+            },
+            "controller_status": {
+                "name": "Status",
+                "state": {
+                    "jammed": "Verklemmt",
+                    "ready": "Bereit",
+                    "unresponsive": "Nicht ansprechbar"
+                }
+            },
+            "current_background_rssi": {
+                "name": "Aktueller Hintergrund-RSSI (Kanal {channel})"
+            },
+            "last_seen": {
+                "name": "Zuletzt gesehen"
+            },
+            "messages_dropped": {
+                "name": "Verworfene Nachrichten ({direction})"
+            },
+            "nak": {
+                "name": "Nachrichten nicht akzeptiert"
+            },
+            "node_status": {
+                "name": "Status des Knotens",
+                "state": {
+                    "alive": "Lebendig",
+                    "asleep": "Schlafend",
+                    "awake": "Wach",
+                    "dead": "Tot",
+                    "unknown": "Unbekannt"
+                }
+            },
+            "rssi": {
+                "name": "RSSI"
+            },
+            "rtt": {
+                "name": "Zeit f\u00fcr eine Rundreise"
+            },
+            "successful_commands": {
+                "name": "Erfolgreiche Befehle ({direction})"
+            },
+            "successful_messages": {
+                "name": "Erfolgreiche Meldungen ({direction})"
+            },
+            "timeout_ack": {
+                "name": "Fehlende ACKs"
+            },
+            "timeout_callback": {
+                "name": "Zeit\u00fcberschreitung bei R\u00fcckrufen"
+            },
+            "timeout_response": {
+                "name": "Zeit\u00fcberschreitung bei den Antworten"
+            }
+        }
+    },
+    "issues": {
+        "device_config_file_changed": {
+            "fix_flow": {
+                "abort": {
+                    "cannot_connect": "Es kann keine Verbindung zu {device_name} hergestellt werden. Bitte versuche es sp\u00e4ter erneut, nachdem du dich vergewissert hast, dass dein Z-Wave-Netzwerk aktiv und mit Home Assistant verbunden ist.",
+                    "issue_ignored": "Aktualisierung der Ger\u00e4tekonfigurationsdatei f\u00fcr {device_name} ignoriert."
+                },
+                "step": {
+                    "confirm": {
+                        "description": "Die Ger\u00e4tekonfigurationsdatei f\u00fcr {device_name} wurde ge\u00e4ndert. \n\nZ-Wave JS entdeckt viele Ger\u00e4temetadaten, indem es das Ger\u00e4t befragt. Allerdings m\u00fcssen einige Informationen aus einer Konfigurationsdatei geladen werden. Einige dieser Informationen werden nur einmal beim Ger\u00e4teinterview ausgewertet. \n\nWenn eine Ger\u00e4tekonfigurationsdatei aktualisiert wird, sind diese Informationen m\u00f6glicherweise veraltet und das Ger\u00e4t muss erneut \u00fcberpr\u00fcft werden, um die \u00c4nderungen zu \u00fcbernehmen. \n\nDies ist kein erforderlicher Vorgang und die Ger\u00e4tefunktionalit\u00e4t wird w\u00e4hrend des erneuten Interviewprozesses beeintr\u00e4chtigt, Du wirst jedoch m\u00f6glicherweise Verbesserungen f\u00fcr dein Ger\u00e4t feststellen, sobald der Vorgang abgeschlossen ist. \n\nWenn du fortfahren m\u00f6chtest, klicke unten auf SENDEN. Das erneute Interview findet im Hintergrund statt.",
+                        "title": "Ger\u00e4tekonfigurationsdatei ge\u00e4ndert: {device_name}"
+                    },
+                    "init": {
+                        "description": "Die Ger\u00e4tekonfigurationsdatei f\u00fcr {device_name} wurde ge\u00e4ndert. \n\nZ-Wave JS entdeckt viele Ger\u00e4temetadaten, indem es das Ger\u00e4t befragt. Allerdings m\u00fcssen einige Informationen aus einer Konfigurationsdatei geladen werden. Einige dieser Informationen werden nur einmal beim Ger\u00e4teinterview ausgewertet. \n\nWenn eine Ger\u00e4tekonfigurationsdatei aktualisiert wird, sind diese Informationen m\u00f6glicherweise veraltet und das Ger\u00e4t muss erneut \u00fcberpr\u00fcft werden, um die \u00c4nderungen zu \u00fcbernehmen. \n\nDies ist kein erforderlicher Vorgang und die Ger\u00e4tefunktionalit\u00e4t wird w\u00e4hrend des erneuten Interviewvorgangs beeintr\u00e4chtigt, Du wirst jedoch m\u00f6glicherweise Verbesserungen f\u00fcr dein Ger\u00e4t feststellen, sobald der Vorgang abgeschlossen ist. \n\nWenn du dich entscheidest, mit dem erneuten Interview fortzufahren, findet es im Hintergrund statt.",
+                        "menu_options": {
+                            "confirm": "Ger\u00e4t erneut abfragen",
+                            "ignore": "Aktualisierung der Ger\u00e4tekonfiguration ignorieren"
+                        },
+                        "title": "Ger\u00e4tekonfigurationsdatei ge\u00e4ndert: {device_name}"
+                    }
+                }
+            },
+            "title": "Ger\u00e4tekonfigurationsdatei ge\u00e4ndert: {device_name}"
+        },
+        "dry_fan_presets_deprecation": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Du verwendest in deiner Entit\u00e4t ` {entity_id} ` die voreingestellten Modi Trocknen oder L\u00fcften. \n\nDie voreingestellten Modi Trocknen und L\u00fcften sind veraltet und werden entfernt. Bitte aktualisiere deine Automatisierungen, um stattdessen die entsprechenden **HLK-Modi** Trocken und Ventilator zu verwenden. \n\nKlicke unten auf SENDEN, sobald du dieses Problem manuell behoben hast.",
+                        "title": "Die voreingestellten Modi \u201eTrocknen\u201c und \u201eL\u00fcften\u201c werden entfernt: {entity_id}"
+                    }
+                }
+            },
+            "title": "Die voreingestellten Modi \u201eTrocknen\u201c und \u201eL\u00fcften\u201c werden entfernt: {entity_id}"
+        },
+        "invalid_server_version": {
+            "description": "Die Version des Z-Wave JS Servers, die du derzeit verwendest, ist zu alt f\u00fcr diese Version des Home Assistant. Bitte aktualisiere den Z-Wave JS Server auf die neueste Version, um dieses Problem zu beheben.",
+            "title": "Neuere Version von Z-Wave JS Server erforderlich"
+        }
+    },
+    "options": {
+        "abort": {
+            "addon_get_discovery_info_failed": "Z-Wave-JS-Add-on-Discovery-Informationen konnten nicht abgerufen werden.",
+            "addon_info_failed": "Fehler beim Abrufen von Z-Wave JS Add-on Informationen.",
+            "addon_install_failed": "Installation des Z-Wave JS Add-ons fehlgeschlagen.",
+            "addon_set_config_failed": "Setzen der Z-Wave JS Konfiguration fehlgeschlagen",
+            "addon_start_failed": "Starten des Z-Wave JS Add-ons fehlgeschlagen.",
+            "already_configured": "Ger\u00e4t ist bereits konfiguriert",
+            "cannot_connect": "Verbindung fehlgeschlagen",
+            "different_device": "Das angeschlossene USB-Ger\u00e4t ist nicht dasselbe, das zuvor f\u00fcr diesen Konfigurationseintrag konfiguriert wurde. Bitte erstelle stattdessen einen neuen Konfigurationseintrag f\u00fcr das neue Ger\u00e4t."
+        },
+        "error": {
+            "cannot_connect": "Verbindung fehlgeschlagen",
+            "invalid_ws_url": "Ung\u00fcltige Websocket-URL",
+            "unknown": "Unerwarteter Fehler"
+        },
+        "progress": {
+            "install_addon": "Bitte warte, w\u00e4hrend die Installation des Z-Wave JS Add-ons abgeschlossen wird. Dies kann einige Minuten dauern.",
+            "start_addon": "Bitte warte, w\u00e4hrend der Start des Z-Wave JS Add-ons abgeschlossen wird. Dies kann einige Sekunden dauern."
+        },
+        "step": {
+            "configure_addon": {
+                "data": {
+                    "emulate_hardware": "Hardware emulieren",
+                    "log_level": "Protokollstufe",
+                    "s0_legacy_key": "S0 Schl\u00fcssel (Legacy)",
+                    "s2_access_control_key": "S2 Zugangskontrollschl\u00fcssel",
+                    "s2_authenticated_key": "S2 Authentifizierter Schl\u00fcssel",
+                    "s2_unauthenticated_key": "S2 Nicht authentifizierter Schl\u00fcssel",
+                    "usb_path": "USB-Ger\u00e4te-Pfad"
+                },
+                "description": "Das Add-on generiert Sicherheitsschl\u00fcssel, wenn diese Felder leer gelassen werden.",
+                "title": "Gib die Konfiguration des Z-Wave JS Add-ons ein"
+            },
+            "install_addon": {
+                "title": "Die Installation des Z-Wave-JS-Add-ons hat begonnen"
+            },
+            "manual": {
+                "data": {
+                    "url": "URL"
+                }
+            },
+            "on_supervisor": {
+                "data": {
+                    "use_addon": "Verwende das Z-Wave JS Supervisor Add-on"
+                },
+                "description": "M\u00f6chtest du das Z-Wave JS Supervisor Add-on verwenden?",
+                "title": "Verbindungstyp ausw\u00e4hlen"
+            },
+            "start_addon": {
+                "title": "Z-Wave JS Add-on wird gestartet."
+            }
+        }
+    },
+    "services": {
+        "bulk_set_partial_config_parameters": {
+            "description": "Erm\u00f6glicht die Masseneinstellung von Teilparametern. N\u00fctzlich, wenn mehrere Teilparameter gleichzeitig eingestellt werden m\u00fcssen.",
+            "fields": {
+                "area_id": {
+                    "description": "Die Zielbereiche f\u00fcr diesen Dienst. Wenn ein Bereich angegeben ist, werden alle zwave_js-Ger\u00e4te und -Entit\u00e4ten in diesem Bereich f\u00fcr diesen Dienst als Zielbereich ausgew\u00e4hlt.",
+                    "name": "Bereichs-ID(s)"
+                },
+                "device_id": {
+                    "description": "Die Zielger\u00e4te f\u00fcr diesen Dienst.",
+                    "name": "Ger\u00e4te-ID(s)"
+                },
+                "endpoint": {
+                    "description": "Der Endpunkt des Konfigurationsparameters.",
+                    "name": "Endpunkt"
+                },
+                "entity_id": {
+                    "description": "Die Entit\u00e4ts-ID(s), auf die dieser Dienst abzielen soll.",
+                    "name": "Entit\u00e4ts-ID(s)"
+                },
+                "parameter": {
+                    "description": "Der Name (oder die ID) des Konfigurationsparameters, den du konfigurieren m\u00f6chtest.",
+                    "name": "Parameter"
+                },
+                "value": {
+                    "description": "Die neuen Werte, die f\u00fcr diesen Konfigurationsparameter festgelegt werden sollen. Kann entweder ein ganzzahliger Rohwert zur Darstellung der Massen\u00e4nderung oder eine Zuordnung sein, bei der der Schl\u00fcssel die Bitmaske (entweder in Hex- oder Ganzzahlform) und der Wert der neue Wert ist, den du f\u00fcr diesen Teilparameter festlegen m\u00f6chtest.",
+                    "name": "Wert"
+                }
+            },
+            "name": "Teilkonfigurationsparameter massenhaft festlegen (erweitert)."
+        },
+        "clear_lock_usercode": {
+            "description": "L\u00f6scht einen Benutzercode aus einem Schloss.",
+            "fields": {
+                "code_slot": {
+                    "description": "Code-Slot zum L\u00f6schen des Codes.",
+                    "name": "Code-Slot"
+                }
+            },
+            "name": "Benutzercode des Schlosses l\u00f6schen"
+        },
+        "invoke_cc_api": {
+            "description": "Ruft eine Befehlsklassen-API f\u00fcr einen Knoten auf. Einige Befehlsklassen k\u00f6nnen nicht vollst\u00e4ndig \u00fcber die Aktion `set_value` gesteuert werden und erfordern direkte Aufrufe der Befehlsklassen-API.",
+            "fields": {
+                "area_id": {
+                    "description": "Die Zielbereiche f\u00fcr diesen Dienst. Wenn ein Bereich angegeben ist, werden alle zwave_js-Ger\u00e4te und -Entit\u00e4ten in diesem Bereich f\u00fcr diesen Dienst als Zielbereich ausgew\u00e4hlt.",
+                    "name": "Bereichs-ID(s)"
+                },
+                "command_class": {
+                    "description": "Die ID der Befehlsklasse, an die du einen Befehl erteilen m\u00f6chtest.",
+                    "name": "Befehlsklasse"
+                },
+                "device_id": {
+                    "description": "Die Zielger\u00e4te f\u00fcr diesen Dienst.",
+                    "name": "Ger\u00e4te-ID(s)"
+                },
+                "endpoint": {
+                    "description": "Der Endpunkt, auf dem die API aufgerufen werden soll. Wenn ein Endpunkt angegeben ist, wird dieser Endpunkt f\u00fcr alle Knoten ausgew\u00e4hlt, die den Zielbereichen, Ger\u00e4ten und/oder Entit\u00e4ten zugeordnet sind. Wenn kein Endpunkt angegeben ist, wird der Stammendpunkt (0) als Ziel f\u00fcr Knoten verwendet, die Zielbereichen und -ger\u00e4ten zugeordnet sind, und der Endpunkt f\u00fcr den Prim\u00e4rwert jeder Entit\u00e4t wird als Ziel ausgew\u00e4hlt.",
+                    "name": "Endpunkt"
+                },
+                "entity_id": {
+                    "description": "Die Entit\u00e4ts-ID(s), auf die dieser Dienst abzielen soll.",
+                    "name": "Entit\u00e4ts-ID(s)"
+                },
+                "method_name": {
+                    "description": "Der Name der aufzurufenden API-Methode. Informationen zu verf\u00fcgbaren Methoden findest du in der Z-Wave JS Command Class API-Dokumentation (https://zwave-js.github.io/node-zwave-js/#/api/CCs/index).",
+                    "name": "Methodenname"
+                },
+                "parameters": {
+                    "description": "Eine Liste von Parametern, die an die API-Methode \u00fcbergeben werden sollen. Informationen zu Parametern findest du in der Z-Wave JS Command Class API-Dokumentation (https://zwave-js.github.io/node-zwave-js/#/api/CCs/index).",
+                    "name": "Parameter"
+                }
+            },
+            "name": "Aufrufen einer Befehlsklassen-API auf einem Knoten (erweitert)"
+        },
+        "multicast_set_value": {
+            "description": "\u00c4ndert jeden Wert, den Z-Wave JS auf mehreren Z-Wave-Ger\u00e4ten per Multicast erkennt, sodass alle Ger\u00e4te die Nachricht gleichzeitig empfangen. Diese Aktion hat nur minimale Validierung, verwende sie also nur, wenn du wei\u00dft, was du tust.",
+            "fields": {
+                "area_id": {
+                    "description": "Die Zielbereiche f\u00fcr diesen Dienst. Wenn ein Bereich angegeben ist, werden alle zwave_js-Ger\u00e4te und -Entit\u00e4ten in diesem Bereich f\u00fcr diesen Dienst als Zielbereich ausgew\u00e4hlt.",
+                    "name": "Bereichs-ID(s)"
+                },
+                "broadcast": {
+                    "description": "Ob der Befehl an alle Ger\u00e4te im Netzwerk gesendet werden soll.",
+                    "name": "\u00dcbertragen?"
+                },
+                "command_class": {
+                    "description": "Die ID der Befehlsklasse f\u00fcr den Wert.",
+                    "name": "Befehlsklasse"
+                },
+                "device_id": {
+                    "description": "Die Zielger\u00e4te f\u00fcr diesen Dienst.",
+                    "name": "Ger\u00e4te-ID(s)"
+                },
+                "endpoint": {
+                    "description": "Der Endpunkt f\u00fcr den Wert.",
+                    "name": "Endpunkt"
+                },
+                "entity_id": {
+                    "description": "Die Entit\u00e4ts-ID(s), auf die dieser Dienst abzielen soll.",
+                    "name": "Entit\u00e4ts-ID(s)"
+                },
+                "options": {
+                    "description": "Karte mit Wertoptionen festlegen. Weitere Informationen zu den einstellbaren Optionen findest du in der Z-Wave JS-Dokumentation.",
+                    "name": "Optionen"
+                },
+                "property": {
+                    "description": "Die ID der Eigenschaft f\u00fcr den Wert.",
+                    "name": "Eigentum"
+                },
+                "property_key": {
+                    "description": "Die ID des Eigenschaftsschl\u00fcssels f\u00fcr den Wert.",
+                    "name": "Eigenschaftsschl\u00fcssel"
+                },
+                "value": {
+                    "description": "Der neu zu setzende Wert.",
+                    "name": "Wert"
+                }
+            },
+            "name": "Einen Wert auf mehreren Ger\u00e4ten \u00fcber Multicast einstellen (erweitert)"
+        },
+        "ping": {
+            "description": "Zwingt Z-Wave JS dazu, zu versuchen, einen Knoten zu erreichen. Dies kann verwendet werden, um den Status des Knotens in Z-Wave JS zu aktualisieren, wenn du der Meinung bist, dass er die Realit\u00e4t nicht genau widerspiegelt, z. B. um einen ausgefallenen/toten Knoten wiederzubeleben oder den Knoten als schlafend zu markieren.",
+            "fields": {
+                "area_id": {
+                    "description": "Die Zielbereiche f\u00fcr diesen Dienst. Wenn ein Bereich angegeben ist, werden alle zwave_js-Ger\u00e4te und -Entit\u00e4ten in diesem Bereich f\u00fcr diesen Dienst als Zielbereich ausgew\u00e4hlt.",
+                    "name": "Bereichs-ID(s)"
+                },
+                "device_id": {
+                    "description": "Die Zielger\u00e4te f\u00fcr diesen Dienst.",
+                    "name": "Ger\u00e4te-ID(s)"
+                },
+                "entity_id": {
+                    "description": "Die Entit\u00e4ts-ID(s), auf die dieser Dienst abzielen soll.",
+                    "name": "Entit\u00e4ts-ID(s)"
+                }
+            },
+            "name": "Einen Knoten anpingen"
+        },
+        "refresh_notifications": {
+            "description": "Aktualisiert Benachrichtigungen auf einem Knoten basierend auf dem Benachrichtigungstyp und optional dem Benachrichtigungsereignis.",
+            "fields": {
+                "area_id": {
+                    "description": "Die Zielbereiche f\u00fcr diesen Dienst. Wenn ein Bereich angegeben ist, werden alle zwave_js-Ger\u00e4te und -Entit\u00e4ten in diesem Bereich f\u00fcr diesen Dienst als Zielbereich ausgew\u00e4hlt.",
+                    "name": "Bereichs-ID(s)"
+                },
+                "device_id": {
+                    "description": "Die Zielger\u00e4te f\u00fcr diesen Dienst.",
+                    "name": "Ger\u00e4te-ID(s)"
+                },
+                "entity_id": {
+                    "description": "Die Entit\u00e4ts-ID(s), auf die dieser Dienst abzielen soll.",
+                    "name": "Entit\u00e4ts-ID(s)"
+                },
+                "notification_event": {
+                    "description": "Die Nummer des Benachrichtigungsereignisses, wie in den Z-Wave-Spezifikationen definiert.",
+                    "name": "Benachrichtigungsereignis"
+                },
+                "notification_type": {
+                    "description": "Die Nummer des Benachrichtigungstyps, wie in den Z-Wave-Spezifikationen definiert.",
+                    "name": "Benachrichtigungstyp"
+                }
+            },
+            "name": "Benachrichtigungen auf einem Knoten aktualisieren (erweitert)"
+        },
+        "refresh_value": {
+            "description": "Erzwingt die Aktualisierung der Werte einer Z-Wave-Entit\u00e4t.",
+            "fields": {
+                "entity_id": {
+                    "description": "Zu aktualisierende Entit\u00e4ten.",
+                    "name": "Entit\u00e4ten"
+                },
+                "refresh_all_values": {
+                    "description": "Ob alle Werte (true) oder nur der Prim\u00e4rwert (false) aktualisiert werden sollen.",
+                    "name": "Alle Werte aktualisieren?"
+                }
+            },
+            "name": "Werte aktualisieren"
+        },
+        "reset_meter": {
+            "description": "Setzt die Z\u00e4hler auf einem Knoten zur\u00fcck.",
+            "fields": {
+                "area_id": {
+                    "description": "Die Zielbereiche f\u00fcr diesen Dienst. Wenn ein Bereich angegeben ist, werden alle zwave_js-Ger\u00e4te und -Entit\u00e4ten in diesem Bereich f\u00fcr diesen Dienst als Zielbereich ausgew\u00e4hlt.",
+                    "name": "Bereichs-ID(s)"
+                },
+                "device_id": {
+                    "description": "Die Zielger\u00e4te f\u00fcr diesen Dienst.",
+                    "name": "Ger\u00e4te-ID(s)"
+                },
+                "entity_id": {
+                    "description": "Die Entit\u00e4ts-ID(s), auf die dieser Dienst abzielen soll.",
+                    "name": "Entit\u00e4ts-ID(s)"
+                },
+                "meter_type": {
+                    "description": "Der Typ des Z\u00e4hlers, der zur\u00fcckgesetzt werden soll. Nicht alle Messger\u00e4te unterst\u00fctzen die M\u00f6glichkeit, einen Messger\u00e4tetyp zum Zur\u00fccksetzen auszuw\u00e4hlen.",
+                    "name": "Z\u00e4hlertyp"
+                },
+                "value": {
+                    "description": "Der Wert, auf den die Z\u00e4hler zur\u00fcckgesetzt werden sollen. Nicht alle Messger\u00e4te unterst\u00fctzen die M\u00f6glichkeit, auf einen bestimmten Wert zur\u00fcckgesetzt zu werden.",
+                    "name": "Zielwert"
+                }
+            },
+            "name": "Z\u00e4hler auf einem Knoten zur\u00fccksetzen"
+        },
+        "set_config_parameter": {
+            "description": "\u00c4ndert die Konfigurationsparameter deiner Z-Wave-Ger\u00e4te.",
+            "fields": {
+                "area_id": {
+                    "description": "Die Zielbereiche f\u00fcr diesen Dienst. Wenn ein Bereich angegeben ist, werden alle zwave_js-Ger\u00e4te und -Entit\u00e4ten in diesem Bereich f\u00fcr diesen Dienst als Zielbereich ausgew\u00e4hlt.",
+                    "name": "Bereichs-ID(s)"
+                },
+                "bitmask": {
+                    "description": "Auf eine bestimmte Bitmaske abzielen (weitere Informationen findest du in der Dokumentation). Kann nicht mit value_size oder value_format kombiniert werden.",
+                    "name": "Bitmaske"
+                },
+                "device_id": {
+                    "description": "Die Zielger\u00e4te f\u00fcr diesen Dienst.",
+                    "name": "Ger\u00e4te-ID(s)"
+                },
+                "endpoint": {
+                    "description": "Der Endpunkt des Konfigurationsparameters.",
+                    "name": "Endpunkt"
+                },
+                "entity_id": {
+                    "description": "Die Entit\u00e4ts-ID(s), auf die dieser Dienst abzielen soll.",
+                    "name": "Entit\u00e4ts-ID(s)"
+                },
+                "parameter": {
+                    "description": "Der Name (oder die ID) des Konfigurationsparameters, den du konfigurieren m\u00f6chtest.",
+                    "name": "Parameter"
+                },
+                "value": {
+                    "description": "Der neue Wert, der f\u00fcr diesen Konfigurationsparameter festgelegt werden soll.",
+                    "name": "Wert"
+                },
+                "value_format": {
+                    "description": "Format des Werts: 0 f\u00fcr Ganzzahl mit Vorzeichen, 1 f\u00fcr Ganzzahl ohne Vorzeichen, 2 f\u00fcr Aufz\u00e4hlung, 3 f\u00fcr Bitfeld. Wird in Kombination mit value_size verwendet, wenn ein Konfigurationsparameter nicht in der Konfigurationsdatei deines Ger\u00e4ts definiert ist. Nicht mit Bitmaske kombinierbar.",
+                    "name": "Wertformat"
+                },
+                "value_size": {
+                    "description": "Gr\u00f6\u00dfe des Werts, entweder 1, 2 oder 4. Wird in Kombination mit value_format verwendet, wenn ein Konfigurationsparameter nicht in der Konfigurationsdatei deines Ger\u00e4ts definiert ist. Nicht mit Bitmaske kombinierbar.",
+                    "name": "Wertgr\u00f6\u00dfe"
+                }
+            },
+            "name": "Ger\u00e4tekonfigurationsparameter festlegen"
+        },
+        "set_lock_configuration": {
+            "description": "Legt die Konfiguration f\u00fcr ein Schloss fest.",
+            "fields": {
+                "auto_relock_time": {
+                    "description": "Dauer in Sekunden, bis das Schloss wieder in den sicheren Zustand zur\u00fcckkehrt. Wird nur erzwungen, wenn der Operationstyp `Konstant` ist.",
+                    "name": "Automatische Wiederverriegelungszeit"
+                },
+                "block_to_block": {
+                    "description": "Aktivieren der Block-to-Block-Funktionalit\u00e4t.",
+                    "name": "Block-to-Block"
+                },
+                "hold_and_release_time": {
+                    "description": "Dauer in Sekunden, die der Riegel eingezogen bleibt.",
+                    "name": "Halte- und Loslasszeit"
+                },
+                "inside_handles_can_open_door_configuration": {
+                    "description": "Eine Liste mit vier booleschen Werten, die angeben, welche Innengriffe die T\u00fcr \u00f6ffnen k\u00f6nnen.",
+                    "name": "Innengriffe k\u00f6nnen die T\u00fcr \u00f6ffnen Konfiguration"
+                },
+                "lock_timeout": {
+                    "description": "Sekunden, bis der Sperrmodus abl\u00e4uft. Sollte nur verwendet werden, wenn der Operationstyp `zeitgesteuert` ist.",
+                    "name": "Schloss Timeout"
+                },
+                "operation_type": {
+                    "description": "Die Betriebsart des Schlosses.",
+                    "name": "Betriebsart"
+                },
+                "outside_handles_can_open_door_configuration": {
+                    "description": "Eine Liste mit vier booleschen Werten, die angeben, welche Au\u00dfengriffe die T\u00fcr \u00f6ffnen k\u00f6nnen.",
+                    "name": "Au\u00dfengriffe k\u00f6nnen die T\u00fcr \u00f6ffnen Konfiguration"
+                },
+                "twist_assist": {
+                    "description": "Twist-Assist aktivieren.",
+                    "name": "Twist-Assist"
+                }
+            },
+            "name": "Schlosskonfiguration festlegen"
+        },
+        "set_lock_usercode": {
+            "description": "Legt einen Benutzercode f\u00fcr ein Schloss fest.",
+            "fields": {
+                "code_slot": {
+                    "description": "Code-Slot zum Einstellen des Codes.",
+                    "name": "Code-Slot"
+                },
+                "usercode": {
+                    "description": "Sperrcode zum Festlegen.",
+                    "name": "Code"
+                }
+            },
+            "name": "Lege den Benutzercode f\u00fcr das Schloss fest"
+        },
+        "set_value": {
+            "description": "\u00c4ndert jeden Wert, den Z-Wave JS auf einem Z-Wave-Ger\u00e4t erkennt. Diese Aktion hat nur minimale Validierung. Verwende sie daher nur, wenn du wei\u00dft, was du tust.",
+            "fields": {
+                "area_id": {
+                    "description": "Die Zielbereiche f\u00fcr diesen Dienst. Wenn ein Bereich angegeben ist, werden alle zwave_js-Ger\u00e4te und -Entit\u00e4ten in diesem Bereich f\u00fcr diesen Dienst als Zielbereich ausgew\u00e4hlt.",
+                    "name": "Bereichs-ID(s)"
+                },
+                "command_class": {
+                    "description": "Die ID der Befehlsklasse f\u00fcr den Wert.",
+                    "name": "Befehlsklasse"
+                },
+                "device_id": {
+                    "description": "Die Zielger\u00e4te f\u00fcr diesen Dienst.",
+                    "name": "Ger\u00e4te-ID(s)"
+                },
+                "endpoint": {
+                    "description": "Der Endpunkt f\u00fcr den Wert.",
+                    "name": "Endpunkt"
+                },
+                "entity_id": {
+                    "description": "Die Entit\u00e4ts-ID(s), auf die dieser Dienst abzielen soll.",
+                    "name": "Entit\u00e4ts-ID(s)"
+                },
+                "options": {
+                    "description": "Karte mit Wertoptionen festlegen. Weitere Informationen zu den einstellbaren Optionen findest du in der Z-Wave JS-Dokumentation.",
+                    "name": "Optionen"
+                },
+                "property": {
+                    "description": "Die ID der Eigenschaft f\u00fcr den Wert.",
+                    "name": "Eigentum"
+                },
+                "property_key": {
+                    "description": "Die ID des Eigenschaftsschl\u00fcssels f\u00fcr den Wert.",
+                    "name": "Eigenschaftsschl\u00fcssel"
+                },
+                "value": {
+                    "description": "Der neu zu setzende Wert.",
+                    "name": "Wert"
+                },
+                "wait_for_result": {
+                    "description": "Ob auf eine Antwort vom Knoten gewartet werden soll oder nicht. Wenn nicht in der Nutzlast enthalten, entscheidet die Integration, ob gewartet werden soll oder nicht. Wenn auf `true` gesetzt, beachte, dass die Aktion eine Weile dauern kann, wenn ein Wert f\u00fcr ein Ger\u00e4t mit schlafender Batterie gesetzt wird.",
+                    "name": "Auf Ergebnis warten?"
+                }
+            },
+            "name": "Wert festlegen (erweitert)"
+        }
+    }
+}

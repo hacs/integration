@@ -1,0 +1,1825 @@
+{
+  "language": "bg",
+  "intents": {
+    "HassTurnOff": {
+      "data": [
+        {
+          "sentences": [
+            "<turn_off> <name>"
+          ]
+        },
+        {
+          "sentences": [
+            "<turn_off> <name>"
+          ],
+          "requires_context": {
+            "domain": "light"
+          },
+          "response": "light"
+        },
+        {
+          "sentences": [
+            "<close> <name> <area>",
+            "<close> <area> <name>"
+          ],
+          "response": "cover_area"
+        },
+        {
+          "sentences": [
+            "<turn_off> [<all>] <lights> <area>",
+            "<turn_off> [<all>] <area> <lights>"
+          ],
+          "slots": {
+            "domain": "light"
+          },
+          "response": "lights_area"
+        },
+        {
+          "sentences": [
+            "<close> <name>"
+          ],
+          "requires_context": {
+            "domain": "cover"
+          },
+          "response": "cover"
+        },
+        {
+          "sentences": [
+            "<close> [вратата] [на] гаража",
+            "<close> гаражната врата"
+          ],
+          "response": "cover_device_class",
+          "slots": {
+            "device_class": "garage",
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "<close> [<all>] <covers> <area>",
+            "<close>  <area> [<all>] <covers>"
+          ],
+          "response": "cover_area",
+          "slots": {
+            "device_class": [
+              "blind",
+              "curtain",
+              "shutter"
+            ],
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "<turn_off> [<all>] <fans> <area>",
+            "<turn_off> [<all>] <area> <fans>"
+          ],
+          "slots": {
+            "domain": "fan",
+            "name": "all"
+          },
+          "response": "fans_area"
+        }
+      ]
+    },
+    "HassCancelTimer": {
+      "data": [
+        {
+          "sentences": [
+            "(изключи| спри)[ моя| моят] таймер[а|ът] [ми]",
+            "(изключи| спри)[ моя| моят] <timer_start> таймер",
+            "(изключи| спри)[ моя| моят] таймер[а| ът] [ми] (за|от) <timer_start>",
+            "(изключи| спри)[ моя| моят] {area} таймер",
+            "(изключи| спри)[ моя| моят] таймер[а| ът] [ми] [в|във] <area>",
+            "(изключи| спри)[ моя| моят] {timer_name:name} таймер[а|ът] [ми]",
+            "(изключи| спри)[ моя| моят] таймер[а| ът] [ми] (с име|на име|за) {timer_name:name}"
+          ]
+        }
+      ]
+    },
+    "HassTimerStatus": {
+      "data": [
+        {
+          "sentences": [
+            "какъв е статус(а|ът) на [ моя| моят| моите] таймер[а|и|ите] [ми]",
+            "колко [време] остава (от|на) [ моя| моят| моите] таймер[а|и|ите] [ми]",
+            "какъв е статус(а|ът) на [ моя| моят] таймер[а| ът] [ми] (за| от) <timer_start>",
+            "колко [време] остава (от|на) [ моя| моят] таймер[а| ът] [ми] (за| от) <timer_start>",
+            "какъв е статус(а|ът) на [ моя| моят| моите] таймер[а|и|ите] [ми] (в|във) <area>",
+            "колко [време] остава от [ моя| моят| моите] таймер[а|и|ите] [ми] (в|във) <area>",
+            "какъв е статус(а|ът) на [ моя| моят] {timer_name:name} таймер[а|ът] [ми]",
+            "колко [време] остава от [ моя| моят] {timer_name:name} таймер[а|ът] [ми]",
+            "какъв е статус(а|ът) на [ моя| моят| моите] таймер[а|и|ите] [ми] [с име|на име|за] {timer_name:name}",
+            "колко [време] остава от [ моя| моят] таймер[а|ът] [ми] [с име|на име|за] {timer_name:name} "
+          ]
+        }
+      ]
+    },
+    "HassGetWeather": {
+      "data": [
+        {
+          "sentences": [
+            "<what_is>[ е] времето [ навън]",
+            "как[ е] времето [ навън]"
+          ]
+        },
+        {
+          "sentences": [
+            "<what_is>[ е] времето (за|в) <name>",
+            "как[ е] времето (за|в) <name>"
+          ],
+          "requires_context": {
+            "domain": "weather"
+          }
+        }
+      ]
+    },
+    "HassTurnOn": {
+      "data": [
+        {
+          "sentences": [
+            "<turn_on> [<all>] <lights> <area>",
+            "<turn_on> [<all>] <area> <lights>"
+          ],
+          "slots": {
+            "domain": "light"
+          },
+          "response": "lights_area"
+        },
+        {
+          "sentences": [
+            "<turn_on> [<all>] <fans> <area>",
+            "<turn_on> [<all>] <area> <fans>"
+          ],
+          "slots": {
+            "domain": "fan",
+            "name": "all"
+          },
+          "response": "fans_area"
+        },
+        {
+          "sentences": [
+            "<turn_on> <name>"
+          ]
+        },
+        {
+          "sentences": [
+            "<turn_on> <name>"
+          ],
+          "requires_context": {
+            "domain": "light"
+          },
+          "response": "light"
+        },
+        {
+          "sentences": [
+            "<open> <name>  <area>",
+            "<open> <area> <name>"
+          ],
+          "response": "cover_area"
+        },
+        {
+          "sentences": [
+            "<open> <name>"
+          ],
+          "requires_context": {
+            "domain": "cover"
+          },
+          "response": "cover"
+        },
+        {
+          "sentences": [
+            "<open> [вратата] [на] гаража",
+            "<open> гаражната врата"
+          ],
+          "response": "cover_device_class",
+          "slots": {
+            "device_class": "garage",
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "<open> [<all>] <covers> <area>",
+            "<open> <area> [<all>] <covers>"
+          ],
+          "response": "cover_area",
+          "slots": {
+            "device_class": [
+              "blind",
+              "curtain",
+              "shutter"
+            ],
+            "domain": "cover"
+          }
+        }
+      ]
+    },
+    "HassNevermind": {
+      "data": [
+        {
+          "sentences": [
+            "забрави",
+            "откажи",
+            "няма нищо",
+            "остави"
+          ]
+        }
+      ]
+    },
+    "HassIncreaseTimer": {
+      "data": [
+        {
+          "sentences": [
+            "(сложи| добави| прибави) <timer_duration> към[ моя| моят] таймер[а|ът] [ми]",
+            "(сложи| добави| прибави) <timer_duration> към[ моя| моят] таймер[а|ът] [ми] (за|от) <timer_start>",
+            "(сложи| добави| прибави) <timer_duration> към[ моя| моят] таймер[а|ът] [ми] (в|във) <area>",
+            "(сложи| добави| прибави) <timer_duration> към[ моя| моят] {timer_name:name} таймер[а] [ми]",
+            "(сложи| добави| прибави) <timer_duration> към[ моя| моят] таймер[а|ът] [ми] (с име|на име|за) {timer_name:name}",
+            "(сложи| добави| прибави) <timer_duration> към[ моя| моят] таймер[а|ът] [ми] (за|от) <timer_start>",
+            "(сложи| добави| прибави) към[ моя| моят] таймер[а|ът] [ми] <timer_duration>",
+            "(сложи| добави| прибави) към[ моя| моят] таймер[а|ът] [ми] (за|от) <timer_start> <timer_duration>",
+            "(сложи| добави| прибави) към[ моя| моят] таймер[а|ът] [ми] (в|във) <area> <timer_duration>"
+          ]
+        },
+        {
+          "sentences": [
+            "увеличи[ моя| моят] таймер[а|ът] [ми] с <timer_duration>",
+            "увеличи[ моя| моят] таймер[а|ът] [ми] (за|от) <timer_start> (с|със) <timer_duration>",
+            "увеличи[ моя| моят] таймер[а|ът] [ми] (в|във) <area> (с|със) <timer_duration>",
+            "увеличи[ моя| моят] {timer_name:name} таймер[а| ът] [ми] (с|със) <timer_duration>",
+            "увеличи[ моя| моят] таймер[а|ът] [ми] (с име|на име|за) {timer_name:name} (с|със) <timer_duration>"
+          ]
+        }
+      ]
+    },
+    "HassLightSet": {
+      "data": [
+        {
+          "sentences": [
+            "<set> <lights_brightness> [на] <name> [на|до] <brightness>",
+            "<set> <name> <lights_brightness> [на|до] <brightness>"
+          ],
+          "response": "brightness",
+          "requires_context": {
+            "domain": "light"
+          }
+        },
+        {
+          "sentences": [
+            "<set> [на|до] <brightness> <area>",
+            "<set> <lights_brightness> [на|в] <area> [на|до] <brightness>",
+            "<set> <area> [на] <lights_brightness> [на|до] <brightness>",
+            "<set> [<lights>] <area> [на|до] <lights_brightness> <brightness>"
+          ],
+          "slots": {
+            "name": "all"
+          },
+          "response": "brightness_area"
+        },
+        {
+          "sentences": [
+            "<set> [цвет(а|ът)|цвят] [на|в] <name> [на|в] {color}",
+            "<set> [на|в] {color} [цвета|цвят] [на|в] <name>",
+            "<set> <name> [на|в] {color} [цвят]",
+            "<set> <name> [на|в] [цвет(а|ът)|цвят] {color} "
+          ],
+          "response": "color",
+          "requires_context": {
+            "domain": "light"
+          }
+        },
+        {
+          "sentences": [
+            "<set> [цвет(а|ът)|цвят] (<area>|[<all>] <lights> <area>|[<all>] <area> <lights>) [в|на] {color} [цвят]",
+            "<set> (<area>|[<all>] <lights> <area>|[<all>] <area> <lights>) [в|на] [цвет(а|ът)|цвят] {color} [цвят]",
+            "<set> {color} [цвет(а|ът)|цвят] <area>"
+          ],
+          "slots": {
+            "name": "all"
+          },
+          "response": "color_area"
+        },
+        {
+          "sentences": [
+            "<set> <name> [до|на] <lights_brightness> [до|на] <max>",
+            "<set> <lights_brightness> [на] <name> [до|на] <max>",
+            "<set> <lights_brightness> [до|на] <max> [до|на] <name>",
+            "<set> <name> [на] <max> <lights_brightness>",
+            "<set> <max> <lights_brightness> [на] <name>"
+          ],
+          "slots": {
+            "brightness": 100
+          },
+          "response": "brightness",
+          "requires_context": {
+            "domain": "light"
+          }
+        },
+        {
+          "sentences": [
+            "<set> <name> [на|до] <lights_brightness> <min>",
+            "<set> <lights_brightness> [на] <name> [на|до] <min>",
+            "<set> <lights_brightness> [на|до] <min> [на|до] <name> ",
+            "<set> <name> [на] <min> <lights_brightness>",
+            "<set> <min> <lights_brightness> [на|до] <name>"
+          ],
+          "slots": {
+            "brightness": 1
+          },
+          "response": "brightness",
+          "requires_context": {
+            "domain": "light"
+          }
+        },
+        {
+          "sentences": [
+            "<set> <lights_brightness> <area> [на|до] <max>",
+            "<set> <area> <lights_brightness> [на|до] <max>",
+            "<set> <area> [на|до] <max> <lights_brightness>"
+          ],
+          "slots": {
+            "name": "all",
+            "brightness": 100
+          },
+          "response": "brightness_area"
+        },
+        {
+          "sentences": [
+            "<set> <lights_brightness> <area> [на|до] <min>",
+            "<set> <area> <lights_brightness> [на|до] <min>",
+            "<set> <area> [на|до] <min> <lights_brightness>"
+          ],
+          "slots": {
+            "name": "all",
+            "brightness": 1
+          },
+          "response": "brightness_area"
+        }
+      ]
+    },
+    "HassPauseTimer": {
+      "data": [
+        {
+          "sentences": [
+            "(паузирай |сложи на пауза)[ моя| моят] таймер[а| ът] [ми]",
+            "(паузирай |сложи на пауза)[ моя| моят] таймер[а| ът] [ми] от <timer_start>",
+            "(паузирай |сложи на пауза)[ моя| моят] {area} таймер",
+            "(паузирай |сложи на пауза)[ моя| моят] таймер[а| ът] [ми] (в| във) <area>",
+            "(паузирай |сложи на пауза)[ моя| моят] {timer_name:name} таймер[а| ът] [ми]",
+            "(паузирай |сложи на пауза)[ моя| моят] таймер[а| ът] [ми] (с име|на име|за) {timer_name:name}"
+          ]
+        }
+      ]
+    },
+    "HassDecreaseTimer": {
+      "data": [
+        {
+          "sentences": [
+            "(махни| премахни| извади) <timer_duration> от [ моя| моят] таймер[а| ът] [ми]",
+            "(махни| премахни| извади) <timer_duration> от [ моя| моят] таймер[а| ът] [ми] (за| от) <timer_start>",
+            "(махни| премахни| извади) <timer_duration> от [ моя| моят] таймер[а| ът] [ми] (в| във) <area>",
+            "(махни| премахни| извади) <timer_duration> от [ моя| моят] таймер[а| ът] [ми] (с име|на име|за) {timer_name:name}",
+            "(махни| премахни| извади) <timer_duration> от [ моя| моят] {timer_name:name} таймер[а| ът] [ми]",
+            "(махни| премахни| извади) от [ моя| моят] таймер[а|ът] [ми] <timer_duration>",
+            "(махни| премахни| извади) от [ моя| моят] таймер[а|ът] [ми] (за|от) <timer_start> <timer_duration>",
+            "(махни| премахни| извади) от [ моя| моят] таймер[а|ът] [ми] (в|във) <area> <timer_duration>"
+          ]
+        },
+        {
+          "sentences": [
+            "намали[ моя| моят] таймер[а| ът] [ми] с <timer_duration>",
+            "намали[ моя| моят] таймер[а| ът] [ми] (за| от) <timer_start> (с| със) <timer_duration>",
+            "намали[ моя| моят] таймер[а| ът] [ми] (в| във) <area> (с| със) <timer_duration>",
+            "намали[ моя| моят] {timer_name:name} таймер[а| ът] [ми] (с| със) <timer_duration>",
+            "намали[ моя| моят] таймер[а| ът] [ми] (с име|на име|за) {timer_name:name} (с| със) <timer_duration>"
+          ]
+        }
+      ]
+    },
+    "HassUnpauseTimer": {
+      "data": [
+        {
+          "sentences": [
+            "продължи[ моя| моят] таймер[а|ът] [ми]",
+            "продължи[ моя| моят] таймер[а|ът] [ми] (за|от) <timer_start>",
+            "продължи[ моя| моят] {area} таймер",
+            "продължи[ моя| моят] таймер[а|ът] [ми] (в|във) <area>",
+            "продължи[ моя| моят] {timer_name:name} таймер[а|ът] [ми]",
+            "продължи[ моя| моят] таймер[а|ът] [ми] (с име|на име|за) {timer_name:name}"
+          ]
+        }
+      ]
+    },
+    "HassStartTimer": {
+      "data": [
+        {
+          "sentences": [
+            "[пусни|включи|стартирай|настрой|задай|създай] таймер (за|от) <timer_duration>",
+            "[пусни|включи|стартирай|настрой|задай|създай] <timer_duration> таймер",
+            "[пусни|включи|стартирай|настрой|задай|създай] таймер [с име|на име] {timer_name:name} (за|от) <timer_duration>",
+            "[пусни|включи|стартирай|настрой|задай|създай] таймер (за|от) <timer_duration> (с име|на име) {timer_name:name}",
+            "<timer_duration> таймер (с име|на име|за) {timer_name:name}"
+          ]
+        },
+        {
+          "sentences": [
+            "{timer_command:conversation_command} след <timer_duration>",
+            "след <timer_duration> {timer_command:conversation_command}"
+          ],
+          "response": "command"
+        }
+      ]
+    },
+    "HassClimateGetTemperature": {
+      "data": [
+        {
+          "sentences": [
+            "<what_is> <temp> [е] [<area>]",
+            "<what_is> (топло|горещо|студено|хладно) [е] [<area>]",
+            "(топло|горещо|студено|хладно) ли [е] [<area>]",
+            "<area> <temp>",
+            "<temp> <area>"
+          ]
+        }
+      ]
+    },
+    "HassGetState": {
+      "data": [
+        {
+          "sentences": [
+            "как(ъв|ва|во|ви) (е|са) [състоянието на] <name> [<area>]"
+          ],
+          "response": "one"
+        },
+        {
+          "sentences": [
+            "{on_off_states:state} ли е [състоянието на] <name> [<area>]"
+          ],
+          "response": "one_yesno",
+          "excludes_context": {
+            "domain": [
+              "cover"
+            ]
+          }
+        },
+        {
+          "sentences": [
+            "има ли {on_off_domains:domain} {on_off_states:state} [<area>]",
+            "има ли {on_off_states:state} {on_off_domains:domain} [<area>]"
+          ],
+          "response": "any"
+        },
+        {
+          "sentences": [
+            "{on_off_states:state} ли са всички[те] {on_off_domains:domain} [<area>]",
+            "всички {on_off_domains:domain} ли са {on_off_states:state} [<area>]"
+          ],
+          "response": "all"
+        },
+        {
+          "sentences": [
+            "(ко(и|я|е|й)|как(ъв|ва|во|ви)) {on_off_domains:domain} (е|са) {on_off_states:state} [<area>]"
+          ],
+          "response": "which"
+        },
+        {
+          "sentences": [
+            "колко {on_off_domains:domain} са {on_off_states:state} [<area>]"
+          ],
+          "response": "how_many"
+        },
+        {
+          "sentences": [
+            "{cover_states:state} ли е <name> [<area>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "cover"
+          },
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "Има ли [няко(й|и|я|е)|някак(ъв|ва|во|ви)] {cover_states:state} {cover_classes:device_class} [<area>]",
+            "Има ли [няко(й|и|я|е)|някак(ъв|ва|во|ви)] {cover_classes:device_class} [ко(йто|ито|ято|ето) са|e] {cover_states:state} [<area>]"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "Всички[те] {cover_classes:device_class} ли са {cover_states:state} [<area>]"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "(кои|кой|коя|кое) {cover_classes:device_class} (е|са) {cover_states:state} [<area>]"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "Колко {cover_classes:device_class} [са|се] {cover_states:state} [<area>]",
+            "Колко са {cover_states:state} {cover_classes:device_class} [<area>]"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "[батери(ята|ите) [на]] <name> {bs_battery_states:state} ли (е|са) [<area>]",
+            "[на] <name> [батери(я|и|ята|ите)] {bs_battery_states:state} ли (е|са) [<area>]",
+            "{bs_battery_states:state} ли (е|са) [батери(я|ята|и|ите)] [на] <name> [<area>]",
+            "{bs_battery_states:state} ли (е|са) [на] <name> [батери(я|ята|и|ите)] [<area>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "battery"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "battery"
+          }
+        },
+        {
+          "sentences": [
+            "Има ли [някоя|някои] (батери(я|и) [която е|които са] {bs_battery_states:state}|{bs_battery_states:state} батери(я|и)) [<area>]"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "battery"
+          }
+        },
+        {
+          "sentences": [
+            "Всички батерии ли са {bs_battery_states:state} [<area>]"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "battery"
+          }
+        },
+        {
+          "sentences": [
+            "(кои|коя) (батери(я|и) (е|са) {bs_battery_states:state}|(е|са) {bs_battery_states:state} батери(я|и)) [<area>]"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "battery"
+          }
+        },
+        {
+          "sentences": [
+            "колко (батерии са {bs_battery_states:state}|са {bs_battery_states:state} батерии) [<area>]"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "battery"
+          }
+        },
+        {
+          "sentences": [
+            "({bs_battery_charging_states:state} ли се <name> [батери(я|и)]|батери(ята|ите) [на] <name> {bs_battery_charging_states:state} ли се) [<area>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "battery_charging"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "battery_charging"
+          }
+        },
+        {
+          "sentences": [
+            "{bs_battery_charging_states:state} ли (е|са|се) няко(я|и) батери(я|и) [<area>]",
+            "няко(и|я) батери(я|и) {bs_battery_charging_states:state} ли (е|са|се) [<area>]",
+            "има ли [няко(я|и)] батери(я|и) ко(я|и)то (е|са|се) {bs_battery_charging_states:state} [<area>]"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "battery_charging"
+          }
+        },
+        {
+          "sentences": [
+            "(всички[те] батерии ли (се|са) {bs_battery_charging_states:state}|{bs_battery_charging_states:state} ли (се|са) всички[те] батерии) [<area>]"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "battery_charging"
+          }
+        },
+        {
+          "sentences": [
+            "(кои|коя) батери(я|и) (е|са|се) {bs_battery_charging_states:state} [<area>]"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "battery_charging"
+          }
+        },
+        {
+          "sentences": [
+            "колко батерии (се|са) {bs_battery_charging_states:state} [<area>]"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "battery_charging"
+          }
+        },
+        {
+          "sentences": [
+            "{bs_carbon_monoxide_states:state} ли [е|са|се] <name> [<area>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "carbon_monoxide"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "carbon_monoxide"
+          }
+        },
+        {
+          "sentences": [
+            "[някъде] {bs_carbon_monoxide_states:state} ли [е|са|се] [няко(и|й)] [сензори[те]] [за] въглероден оксид [някъде] [<area>]"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "carbon_monoxide"
+          }
+        },
+        {
+          "sentences": [
+            "има ли [някакъв] въглероден оксид [който е] [засечен|отчетен|открит] [някакъв] <area>",
+            "(засечен|отчетен|открит|засича|отчита|открива) ли (е|се) [някакъв] въглероден оксид <area>"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "carbon_monoxide",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "всички (сензори|датчици|устройства) за въглероден оксид ли [са] {bs_carbon_monoxide_states:state} [<area>]",
+            "всички (сензори|датчици|устройства) ли [са] {bs_carbon_monoxide_states:state} въглероден оксид [<area>]"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "carbon_monoxide"
+          }
+        },
+        {
+          "sentences": [
+            "ко(й|и) (сензор[и]|устройств(o|a)|датчи(к|ци)) за въглероден оксид [е|са] {bs_carbon_monoxide_states:state} [<area>]"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "carbon_monoxide"
+          }
+        },
+        {
+          "sentences": [
+            "колко (сензор(а|и)|датчи(ка|ци)|устройства) за въглероден оксид [е|са] {bs_carbon_monoxide_states:state} [<area>]",
+            "колко (сензор(а|и)|датчи(ка|ци)|устройства) [е|са] {bs_carbon_monoxide_states:state} въглероден оксид [<area>]"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "carbon_monoxide"
+          }
+        },
+        {
+          "sentences": [
+            "{bs_cold_states:state} ли (е|са) <name> [<area>]",
+            "(отчита|показва|засича) ли {bs_cold_states:state} <name> [<area>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "cold"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "cold"
+          }
+        },
+        {
+          "sentences": [
+            "има ли [няк(ои|ой|акво|акви|акъв) ](сензор[и]|устройств(o|a)|датчи(к|ци)|нещ(о|а)) [ко(йто|ито|ято|ето) ((е|са)|(отчита[т]|показва[т]|засича[т]))] студ[ен|ена|ено|ени] [<area>]",
+            "има ли [няк(ои|ой|акво|акви|акъв)] студен[а|о|и] (сензор[и]|устройств(o|a)|датчи(к|ци)|нещ(о|а)) [<area>]"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "cold",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "(ко(й|и|е)|как(во|и)) (сензор[и]|устройств(o|a)|датчи(к|ци)|нещ(о|а)) ((е|са)|(отчита[т]|показва[т]|засича[т])) студ[ен|ена|ено|ени] [<area>]"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "cold",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "колко [на брой ](сензор(и|а)|устройствa|датчи(к|ци|ка)|неща) (са|отчитат) студ[ено|ени] [<area>]",
+            "колко [на брой ]са студените (сензори|устройствa|датчи(ци|ка)|неща) [<area>]"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "cold",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "<name> {bs_connectivity_states:state} ли (е|са) [<area>]",
+            "{bs_connectivity_states:state} ли (е|са) <name> [<area>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "connectivity"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "connectivity"
+          }
+        },
+        {
+          "sentences": [
+            "{bs_connectivity_states:state} ли (е|са) няко(е|и) (устройств(о|а)|нещ(о|а)) [<area>]",
+            "има ли {bs_connectivity_states:state} (устройства|неща) [<area>]",
+            "има ли [няко(е|и)] (устройств(о|а)|нещ(о|а)) [(което|които) (е|са)] {bs_connectivity_states:state} [<area>]"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "connectivity"
+          }
+        },
+        {
+          "sentences": [
+            "всички[те] устройства ли са {bs_connectivity_states:state} [<area>]"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "connectivity"
+          }
+        },
+        {
+          "sentences": [
+            "(ко(и|е)|какви) устройств(а|о) (са|е) {bs_connectivity_states:state} [<area>]"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "connectivity"
+          }
+        },
+        {
+          "sentences": [
+            "колко устройства са {bs_connectivity_states:state} [<area>]"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "connectivity"
+          }
+        },
+        {
+          "sentences": [
+            "<name> {bs_door_states:state} ли (е|са) [<area>]",
+            "{bs_door_states:state} ли (е|са) <name> [<area>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "door"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "door"
+          }
+        },
+        {
+          "sentences": [
+            "<name> {bs_garage_door_states:state} ли (е|са) [<area>]",
+            "{bs_garage_door_states:state} ли (е|са) <name> [<area>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "garage_door"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "garage_door"
+          }
+        },
+        {
+          "sentences": [
+            "<name> {bs_gas_states:state} ли [(е|са|се)] [<area>]",
+            "{bs_gas_states:state} ли [(е|са|се)] <name> [<area>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "gas"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "gas"
+          }
+        },
+        {
+          "sentences": [
+            "{bs_gas_states:state} ли [е|са|се] няко(й|и|е) ((газ сензор[и]|устройств(о|a)|датчи(к|ци))|(сензор[и]|устройств(о|a)|датчи(к|ци) за газ)) [<area>]",
+            "няко(й|и|е) ((газ сензор[и]|устройств(о|a)|датчи(к|ци))|(сензор[и]|устройств(о|a)|датчи(к|ци) за газ)) {bs_gas_states:state} ли [е|са|се] [<area>]",
+            "има ли {bs_gas_states:state} [няко(й|и|е)] ((газ сензор[и]|устройств(о|a)|датчи(к|ци))|(сензор[и]|устройств(о|a)|датчи(к|ци) за газ)) [<area>]",
+            "има ли [няко(й|и|е)] ((газ сензор[и]|устройств(о|a)|датчи(к|ци))|(сензор[и]|устройств(о|a)|датчи(к|ци) за газ)) [ко(йто|ито|ето) (е|са)] {bs_gas_states:state} [<area>]"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "gas"
+          }
+        },
+        {
+          "sentences": [
+            "има ли [някак(ъв|ва)] газ <area>",
+            "има ли [някак(ъв|ва)] (отчетен[а]|засечен[а]|отчетен[а]) газ <area>",
+            "(отчита|отчетен[а]|засича|засечен[а]) ли (е|са|се) [някак(ъв|ва)] газ <area>"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "gas",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "всички[те] ((газ (сензори|устройствa|датчици))|((сензори|устройствa|датчици) за газ)) ли [са|се] {bs_gas_states:state} [<area>]"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "gas"
+          }
+        },
+        {
+          "sentences": [
+            "(кой|кои) ((газ (сензор[и]|устройств(о|a)|датчи(к|ци)))|((сензор[и]|устройств(о|a)|датчи(к|ци)) за газ)) (е|са|се) {bs_gas_states:state} [<area>]"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "gas"
+          }
+        },
+        {
+          "sentences": [
+            "колко ((газ (сензор(и|а)|устройствa|датчи(ка|ци)))|((сензор(и|а)|устройствa|датчи(ка|ци)) за газ)) (е|са|се) {bs_gas_states:state} [<area>]"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "gas"
+          }
+        },
+        {
+          "sentences": [
+            "<name> {bs_heat_states:state} ли (е|са) [<area>]",
+            "{bs_heat_states:state} ли (е|са) <name> [<area>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "heat"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "heat"
+          }
+        },
+        {
+          "sentences": [
+            "има ли [някак(ъв|во|ви|ва)] (нещ(о|а)|сензор[и]|устройств(о|a)|датчи(к|ци)) [ко(йто|ято|ето|ито) (е|са)] горещ[о|а|и] [<area>]",
+            "има ли [някак(ъв|во|ви|ва)] горещ[о|а|и] (нещ(о|а)|сензор[и]|устройств(о|a)|датчи(к|ци)) [<area>]"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "heat",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "(ко(и|й|е)|как(ъв|во|ви)) (нещ(о|а)|сензор[и]|устройств(о|a)|датчи(к|ци)) (е|са) горещ[а|о|и] [<area>]",
+            "(ко(и|й|е)|как(ъв|во|ви)) (е|са) горещ[о|ото|и|ите] (нещ(о|а)|сензор[и]|устройств(о|a)|датчи(к|ци))  [<area>]"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "heat",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "колко [на брой] (неща|сензор(и|а)|устройствa|датчи(ка|ци)) са горещи [<area>]",
+            "колко са горещите (неща|сензор(и|а)|устройствa|датчи(ка|ци)) [на брой] [<area>]"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "heat",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "<name> {bs_light_states:state} ли (е|са) [<area>]",
+            "{bs_light_states:state} ли (е|са) <name> [<area>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "light"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "light"
+          }
+        },
+        {
+          "sentences": [
+            "{bs_light_states:state} ли (са|е) [някакв(а|и)] (светлин(а|и)|осветеност|осветяване) [<area>]",
+            "[някакв(а|и|о)] (светлин(а|и)|осветеност|осветяване) {bs_light_states:state} ли (са|е) [<area>]",
+            "има ли [някакв(а|и|о)] (светлин(а|и)|осветеност|осветяване) {bs_light_states:state} [<area>]",
+            "има ли [някакв(а|и|о)] {bs_light_states:state} (светлин(а|и)|осветеност|осветяване) [<area>]"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "light"
+          }
+        },
+        {
+          "sentences": [
+            "всички[те] (светлини|осветления|лампи) ли са {bs_light_states:state} [<area>]",
+            "{bs_light_states:state} ли са всички[те] (светлини|осветления|лампи) [<area>]"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "light"
+          }
+        },
+        {
+          "sentences": [
+            "(ко(и|я|е)|какв(а|и|о)) (светлин(а|и)|осветеност|освет(яване|ление)|ламп(а|и)) (е|са) {bs_light_states:state} [<area>]"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "light"
+          }
+        },
+        {
+          "sentences": [
+            "колко [на брой] (светлини|осветления|лампи) са {bs_light_states:state} [<area>]",
+            "колко [на брой] са {bs_light_states:state} (светлини|осветления|лампи) [<area>]",
+            "колко са [на брой] (светлините|осветленията|лампите) които са {bs_light_states:state} [<area>]"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "light"
+          }
+        },
+        {
+          "sentences": [
+            "<name> {bs_lock_states:state} ли (е|са) [<area>]",
+            "{bs_lock_states:state} ли (е|са) <name> [<area>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "lock"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "lock"
+          }
+        },
+        {
+          "sentences": [
+            "<name> {bs_moisture_states:state} ли (е|са) [<area>]",
+            "{bs_moisture_states:state} ли (е|са) <name> [<area>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "moisture"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "moisture"
+          }
+        },
+        {
+          "sentences": [
+            "{bs_moisture_states:state} ли (е|са) [няко(й|и|е)] (нещ(о|а)|сензор[и]|устройств(о|a)|датчи(к|ци))[ за влага] [<area>]",
+            "няко(й|и|е) (нещ(о|а)|сензор[и]|устройств(о|a)|датчи(к|ци))[ за влага] {bs_moisture_states:state} ли (е|са) [<area>]",
+            "има ли [няко(й|и|е) ](нещ(о|а)|сензор[и]|устройств(о|a)|датчи(к|ци))[ за влага] [ко(и|й|е)то [(е|са)]] {bs_moisture_states:state} [<area>]"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "moisture"
+          }
+        },
+        {
+          "sentences": [
+            "има ли [някак(ъв|ви|во)] (теч[ове]|наводнени(е|я)) [засечен[и|о]|регистриран[и|о]|отчетен[и|о]] [<area>]",
+            "има ли [някак(ъв|ви|во)] [засечен[и|о]|регистриран[и|о]|отчетен[и|о]] (теч[ове]|наводнени(е|я)) [<area>]",
+            "(засечен[и|о]|регистриран[и|о]|отчетен[и|о]) ли (е|са) [някак(ъв|ви|во)] (теч[ове]|наводнени(е|я)) [<area>]"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "moisture",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "всички[те] (сензори|устройствa|датчици) за (влага|течове|вода) ли [са] {bs_moisture_states:state} [<area>]",
+            "{bs_moisture_states:state} ли [са] всички[те] (сензори|устройствa|датчици) за (влага|течове|вода) [<area>]"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "moisture"
+          }
+        },
+        {
+          "sentences": [
+            "ко(й|и|е) [е|са] (сензор[и|а|ът|ите]|датчи(к|ка|кът|ци|те)|устройств(о|а|ата|ото)) за (влага|течове|вода) [ко(йто|ито|ето)] [е|са] {bs_moisture_states:state} [<area>]",
+            "ко(й|и|е) [е|са] {bs_moisture_states:state} (сензор[и]|датчи(к|ци)|устройств(о|a)) за (влага|течове|вода) [<area>]"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "moisture"
+          }
+        },
+        {
+          "sentences": [
+            "колко [е|са] (сензор(и|а|ите)|датчи(ка|ци|те)|устройствa[та]) за (влага|течове|вода) [които] [е|са] {bs_moisture_states:state} [<area>]",
+            "колко [е|са] {bs_moisture_states:state} (сензор(и|а)|датчи(ка|ци)|устройствa) за (влага|течове|вода) [<area>]"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "moisture"
+          }
+        }
+      ]
+    },
+    "HassListAddItem": {
+      "data": [
+        {
+          "sentences": [
+            "добави <item> (в|към) <my_list>",
+            "сложи <item> (в|към) <my_list>",
+            "прибави <item> (в|към) <my_list>",
+            "запиши <item> (в|към) <my_list>"
+          ],
+          "response": "item_added",
+          "requires_context": {
+            "domain": "todo"
+          },
+          "expansion_rules": {
+            "my_list": "[ моя| моите] [ списък| списъка| списъка ми] [с|със|за] {name} [ми]",
+            "item": "{shopping_list_item:item}"
+          }
+        }
+      ]
+    }
+  },
+  "responses": {
+    "errors": {
+      "no_intent": "Съжалявам, не можах да разбера това",
+      "no_area": "Няма област с име {{ area }}",
+      "no_domain_in_area": "В областта {{ area }} няма {{ domain }}",
+      "no_device_class_in_area": "В областта {{ area }} няма {{ device_class }}",
+      "no_entity": "Няма устройство или обект с име {{ entity }}",
+      "handle_error": "Възникна неочаквана грешка при изпълнение на командата"
+    },
+    "intents": {
+      "HassGetState": {
+        "one": "{{ slots.name | capitalize }} е {{ state.state_with_unit }}\n",
+        "one_yesno": "{% if query.matched %}\n  Да\n{% else %}\n  Не, {{ state.state_with_unit }}\n{% endif %}\n",
+        "any": "{% if query.matched %}\n  {% set match = query.matched | map(attribute=\"name\") | sort | list %}\n  {% if match | length > 4 %}\n    Да, {{ match[:3] | join(\", \") }} и още {{ (match | length - 3) }} други\n  {%- else -%}\n    Да,\n    {% for name in match -%}\n      {% if not loop.first and not loop.last %}, {% elif loop.last and not loop.first %} и {% endif -%}\n      {{ name }}\n    {%- endfor -%}\n  {% endif %}\n{% else %}\n  Не\n{% endif %}\n",
+        "all": "{% if not query.unmatched: %}\n  Да\n{% else %}\n  {% set no_match = query.unmatched | map(attribute=\"name\") | sort | list %}\n  {% if no_match | length > 4 %}\n    Не, {{ no_match[:3] | join(\", \") }} и още {{ (no_match | length - 3) }} не са\n  {%- else -%}\n    Не,\n    {% for name in no_match -%}\n      {% if not loop.first and not loop.last %}, {% elif loop.last and not loop.first %} и {% endif -%}\n      {{ name }}\n    {%- endfor %} не е\n  {% endif %}\n{% endif %}\n",
+        "which": "{% if not query.matched %}\n  Никои\n{% else: %}\n  {% set match = query.matched | map(attribute=\"name\") | sort | list %}\n  {% if match | length > 4 %}\n    {{ match[:3] | join(\", \") }} и още {{ (match | length - 3) }} други\n  {% else %}\n    {%- for name in match -%}\n      {% if not loop.first and not loop.last %}, {% elif loop.last and not loop.first %} и {% endif -%}\n      {{ name }}\n    {%- endfor -%}\n  {% endif %}\n{% endif %}\n",
+        "how_many": "{{ query.matched | length }}\n"
+      },
+      "HassTurnOff": {
+        "default": "Изключих {{ slots.name }}",
+        "lights_area": "Изгасих лампите в {{ slots.area }}",
+        "light": "Изгасих {{ slots.name }}",
+        "fans_area": "Изключих вентилаторите в {{ slots.area }}",
+        "cover": "Затворих {{ slots.name }}",
+        "cover_area": "Затворих {{ slots.area }}",
+        "cover_device_class": "Затворих {{ slots.device_class }}"
+      },
+      "HassStartTimer": {
+        "default": "Стартирах таймер",
+        "command": "Приех командата"
+      },
+      "HassTurnOn": {
+        "default": "Включих {{ slots.name }}",
+        "lights_area": "Светнах лампите в {{ slots.area }}",
+        "light": "Светнах {{ slots.name }}",
+        "fans_area": "Включих вентилатора в {{ slots.area }}",
+        "cover": "Отворих {{ slots.name }}",
+        "cover_area": "Отворих {{ slots.area }}",
+        "cover_device_class": "Отворих {{ slots.device_class }}"
+      },
+      "HassPauseTimer": {
+        "default": "Паузирах таймера"
+      },
+      "HassTimerStatus": {
+        "default": "{% set num_timers = slots.timers | length %}\n{% set active_timers = slots.timers | selectattr('is_active') | list %}\n{% set num_active_timers = active_timers | length %}\n{% set paused_timers = slots.timers | rejectattr('is_active') | list %}\n{% set num_paused_timers = paused_timers | length %}\n{% set next_timer = None %}\n\n{% if num_timers == 0: %}\n  Няма таймери.\n{% elif num_active_timers == 0: %}\n  {% if num_paused_timers == 1: %}\n    {% set next_timer = paused_timers[0] %}\n    Таймерът е паузиран.\n  {% else: %}\n    {{ num_paused_timers }} таймера са паузирани.\n  {% endif %}\n{% else: %}\n  {% if num_active_timers == 1: %}\n    {% set next_timer = active_timers[0] %}\n  {% else: %}\n    {% set sorted_timers = active_timers | sort(attribute='total_seconds_left') %}\n    {% set next_timer = sorted_timers[0] %}\n    {{ num_active_timers }} работещи таймера.\n  {% endif %}\n\n  {% if num_paused_timers == 1: %}\n    1 паузиран таймер.\n  {% elif num_paused_timers > 0: %}\n    {{ num_paused_timers }} паузирани таймера.\n  {% endif %}\n{% endif %}\n\n{% if next_timer: %}\n  Остават\n  {% if (next_timer.rounded_hours_left == 1) and (next_timer.rounded_minutes_left > 0): %}\n    1 час и {{ next_timer.rounded_minutes_left }} минути\n  {% elif (next_timer.rounded_hours_left == 1): %}\n    1 час\n  {% elif (next_timer.rounded_hours_left > 1) and (next_timer.rounded_minutes_left > 0): %}\n    {{ next_timer.rounded_hours_left }} часа и {{ next_timer.rounded_minutes_left }} минути\n  {% elif (next_timer.rounded_hours_left > 1): %}\n    {{ next_timer.rounded_hours_left }} часа\n  {% elif (next_timer.rounded_minutes_left == 1) and (next_timer.rounded_seconds_left > 0): %}\n    1 минута и {{ next_timer.rounded_seconds_left }} секунди\n  {% elif (next_timer.rounded_minutes_left == 1): %}\n    1 минута\n  {% elif (next_timer.rounded_minutes_left > 1) and (next_timer.rounded_seconds_left > 0): %}\n    {{ next_timer.rounded_minutes_left }} минути и {{ next_timer.rounded_seconds_left }} секунди\n  {% elif (next_timer.rounded_minutes_left > 1): %}\n    {{ next_timer.rounded_minutes_left }} минути\n  {% elif (next_timer.rounded_seconds_left == 1): %}\n    1 секунда\n  {% elif (next_timer.rounded_seconds_left > 1): %}\n    {{ next_timer.rounded_seconds_left }} секунди\n  {% endif %}\n\n  {% if num_timers > 1: %}\n    от таймера за\n    {% if (next_timer.start_hours > 0) and (next_timer.start_minutes > 0): %}\n    {% if (next_timer.start_hours == 1) %}\n      1 час\n    {% else: %}\n      {{ next_timer.start_hours }} часа\n    {% endif %}\n    {% if (next_timer.start_minutes == 1) %}\n      и 1 минута\n    {% else: %}\n      и {{ next_timer.start_minutes }} минути\n    {% endif %}\n    {% elif (next_timer.start_hours > 0): %}\n    {% if (next_timer.start_hours == 1) %}\n      1 час\n    {% else: %}\n      {{ next_timer.start_hours }} часа\n    {% endif %}\n    {% elif (next_timer.start_minutes > 0) and (next_timer.start_seconds > 0): %}\n    {% if (next_timer.start_minutes == 1) %}\n      1 минута\n    {% else: %}\n      {{ next_timer.start_minutes }} минути\n    {% endif %}\n    {% if (next_timer.start_seconds == 1) %}\n      и 1 секунда\n    {% else: %}\n      и {{ next_timer.start_seconds }} секунди\n    {% endif %}\n\n    {% elif (next_timer.start_minutes > 0): %}\n    {% if (next_timer.start_minutes == 1) %}\n      1 минута\n    {% else: %}\n      {{ next_timer.start_minutes }} минути\n    {% endif %}\n    {% elif (next_timer.start_seconds > 0): %}\n    {% if (next_timer.start_seconds == 1) %}\n      1 секунда\n    {% else: %}\n      {{ next_timer.start_seconds }} секунди\n    {% endif %}\n    {% endif %}\n\n    {% if next_timer.name: %}\n    с име {{ next_timer.name }}.\n    {% elif next_timer.area: %}\n    в {{ next_timer.area }}.\n    {% endif %}\n  {% else: %}\n  .\n  {% endif %}\n{% endif %}\n"
+      },
+      "HassListAddItem": {
+        "item_added": "Добавих {{ slots.item }}"
+      },
+      "HassUnpauseTimer": {
+        "default": "Продължих таймера"
+      },
+      "HassGetWeather": {
+        "default": "{% set weather_condition = {\n  'clear': 'и ясно',\n  'clear-night': 'и ясно',\n  'cloudy': 'и облачно',\n  'exceptional': 'and exceptional',\n  'fog': 'с мъгла',\n  'hail': 'с градушка',\n  'lightning': 'с грамотевици',\n  'lightning-rainy': 'с грамотевици и дъжд',\n  'partlycloudy': 'и с частична облачност',\n  'pouring': 'и обилни дъждове',\n  'rainy': 'и дъждовно',\n  'snowy': 'и снеговалеж',\n  'snowy-rainy': 'със сняг и дъжд',\n  'sunny': 'и слънчево',\n  'windy': 'и ветровито',\n  'windy-variant': 'with wind and clouds'\n} %} {{ state.attributes.get('temperature') }} {{ state.attributes.get('temperature_unit') }} {{ weather_condition.get((state.state | string).lower(), \"\") }}\n"
+      },
+      "HassLightSet": {
+        "brightness": "Яркостта на {{ slots.name }} е настроена на {{ slots.brightness }}",
+        "brightness_area": "Яркостта в {{ slots.area }} е настроена на {{ slots.brightness }}",
+        "color": "Цветът на {{ slots.name }} е настроен на {{ slots.color }}",
+        "color_area": "Цветът в {{ slots.area }} е настроен на {{ slots.color }}"
+      },
+      "HassCancelTimer": {
+        "default": "Спрях таймера"
+      },
+      "HassClimateGetTemperature": {
+        "default": "{{ state.state }} градуса"
+      },
+      "HassDecreaseTimer": {
+        "default": "Обнових таймера"
+      },
+      "HassIncreaseTimer": {
+        "default": "Обнових таймера"
+      }
+    }
+  },
+  "lists": {
+    "color": {
+      "values": [
+        {
+          "in": "бял[о|а|ото|ата]|бел(и|ия|ият|ите)",
+          "out": "white"
+        },
+        {
+          "in": "черен|черн(о|на|ото|ата|и|ият|ите)",
+          "out": "black"
+        },
+        {
+          "in": "червен[о|а|ото|ата|и|ия|ият]",
+          "out": "red"
+        },
+        {
+          "in": "оранжев[о|а|ото|ата|и|ия|ият]",
+          "out": "orange"
+        },
+        {
+          "in": "жълт[о|а|ото|и|ия|ият|ата]",
+          "out": "yellow"
+        },
+        {
+          "in": "зелен[о|а|ото|ата|и|ия|ият]",
+          "out": "green"
+        },
+        {
+          "in": "син[ьо|я|ьото|ята|ият|и|ите]",
+          "out": "blue"
+        },
+        {
+          "in": "лилав[о|а|ото|ата|и|ия|ият|ите]",
+          "out": "purple"
+        },
+        {
+          "in": "кафяв[о|а|ото|ата|и|ия|ият|ите]",
+          "out": "brown"
+        }
+      ]
+    },
+    "brightness": {
+      "range": {
+        "type": "percentage",
+        "from": 0,
+        "to": 100
+      }
+    },
+    "temperature": {
+      "range": {
+        "type": "temperature",
+        "from": 0,
+        "to": 100
+      }
+    },
+    "temperature_unit": {
+      "values": [
+        {
+          "in": "c|[по|в] целзий",
+          "out": "celsius"
+        },
+        {
+          "in": "f|[по|във] фаренхайт",
+          "out": "fahrenheit"
+        }
+      ]
+    },
+    "on_off_states": {
+      "values": [
+        {
+          "in": "включен[а|о|и|ият|ите|ото|ата]",
+          "out": "on"
+        },
+        {
+          "in": "изключен[а|о|и|ият|ите|ото|ата]",
+          "out": "off"
+        }
+      ]
+    },
+    "on_off_domains": {
+      "values": [
+        {
+          "in": "светлин(а|и|ата|ите)|ламп(а|и|ата|ите)|крушк(а|и|ата|ите)|осветлен(ия|ие|ието|ията)",
+          "out": "light"
+        },
+        {
+          "in": "вентилатор[и|а|ът|ите]",
+          "out": "fan"
+        },
+        {
+          "in": "ключ[ове|овете]",
+          "out": "switch"
+        }
+      ]
+    },
+    "cover_states": {
+      "values": [
+        {
+          "in": "отворен[а|и|о|ите]|вдигнат[а|о|и|ите]|открит[а|о|и|ите]",
+          "out": "open"
+        },
+        {
+          "in": "затворен[а|и|о|ите]|смъкнат[а|о|и|ите]|спуснат[а|о|и|ите]|закрит[а|о|и|ите]|свален[а|о|и|ите]",
+          "out": "closed"
+        },
+        {
+          "in": "отваря[т]|вдига[т]|открива[т]",
+          "out": "opening"
+        },
+        {
+          "in": "затваря[т]|смъква[т]|спуска[т]|закрива[т]|сваля[т]",
+          "out": "closing"
+        }
+      ]
+    },
+    "cover_classes": {
+      "values": [
+        {
+          "in": "тент(a|и|ата|ите)",
+          "out": "awning"
+        },
+        {
+          "in": "щор(а|и|ата|ите)",
+          "out": "blind"
+        },
+        {
+          "in": "перде[та|то|тата]|завес(а|и|ата|ите)",
+          "out": "curtain"
+        },
+        {
+          "in": "врат(а|и|та|ите)",
+          "out": "door"
+        },
+        {
+          "in": "гараж[а|и|ът|ите]|(гараж(на|ната|ни|ните) врат(а|и))",
+          "out": "garage"
+        },
+        {
+          "in": "порт(а|и|ата|ите)",
+          "out": "gate"
+        },
+        {
+          "in": "сенни(к|ци|ка|кът|ците)",
+          "out": "shade"
+        },
+        {
+          "in": "кепенци[те]|капа(к|ка|кът|ци|ците)",
+          "out": "shutter"
+        },
+        {
+          "in": "прозор(ец|ци|еца|ците|ецът)",
+          "out": "window"
+        }
+      ]
+    },
+    "lock_states": {
+      "values": [
+        {
+          "in": "заключен[а|о|и|ия|ят|ата|ото|ите]",
+          "out": "locked"
+        },
+        {
+          "in": "отключен[а|о|и|ия|ят|ата|ото|ите]",
+          "out": "unlocked"
+        }
+      ]
+    },
+    "bs_battery_states": {
+      "values": [
+        {
+          "in": "(нис(ък|ка|ко|ки|кия|кият|ката|кото|ките)|слаб[а|о|и|ия|ият|ата|ите|ото]|разреден[а|о|и|ия|ият|ата|ите]|изтощен[а|о|и|ия|ият|ата|ите]|праз(ен|на|но|ни|ния|ният|ната|ното|ните)|изчерпан[а|о|и|ия|ият|ата|ите])",
+          "out": "on"
+        },
+        {
+          "in": "(нормал(ен|на|но|ни|ния|ният|ната|ното|ните)|зареден[а|о|и|ия|ият|ата|ите|ото]|пъл(ен|на|но|ни|ния|ният|ната|ното|ните))",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_battery_charging_states": {
+      "values": [
+        {
+          "in": "(зарежда[т]|се зарежда[т]|зареждане)",
+          "out": "on"
+        },
+        {
+          "in": "не [се] зарежда[т]",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_carbon_monoxide_states": {
+      "values": [
+        {
+          "in": "(засечен[а|о|и|ия|ият|ата|ите]|засича[т]|задействан[а|о|и|ия|ият|ата|ите]|включен[а|о|и|ия|ият|ата|ите]|отчетен[а|о|и|ия|ият|ата|ите]|отчита[т])",
+          "out": "on"
+        },
+        {
+          "in": "(не (е|са) засечен[а|о|и]||не засича[т]|чист[а|о|и|ия|ият|ата|ите]|незадействан[а|о|и|ия|ият|ата|ите]|изключен[а|о|и|ия|ият|ата|ите]|не [е] отчетен[а|о|и|ия|ият|ата|ите]|не отчита[т])",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_cold_states": {
+      "values": [
+        {
+          "in": "студ[ена|ено|ени|ения|еният|ената|ените]",
+          "out": "on"
+        },
+        {
+          "in": "нормал(ен|на|но|ни|ния|ният|ната|ното|ните)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_connectivity_states": {
+      "values": [
+        {
+          "in": "(свързан[а|о|и|ия|ият|ата|ите]|закачен[а|о|и|ия|ият|ата|ите])",
+          "out": "on"
+        },
+        {
+          "in": "(не свързан[а|о|и|ия|ият|ата|ите]|разкачен[а|о|и|ия|ият|ата|ите]|прекъснат[а|о|и|ия|ият|ата|ите])",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_door_states": {
+      "values": [
+        {
+          "in": "отворен[а|о|и|ия|ият|ата|ите]",
+          "out": "on"
+        },
+        {
+          "in": "затворен[а|о|и|ия|ият|ата|ите]",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_garage_door_states": {
+      "values": [
+        {
+          "in": "отворен[а|о|и|ия|ият|ата|ите]",
+          "out": "on"
+        },
+        {
+          "in": "затворен[а|о|и|ия|ият|ата|ите]",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_gas_states": {
+      "values": [
+        {
+          "in": "(засича[ се]|засечен[а|о|и|ия|ият|ата|ите]|задействан[а|о|и|ия|ият|ата|ите]|включен[а|о|и|ия|ият|ата|ите]|има|отчита[т][ се])",
+          "out": "on"
+        },
+        {
+          "in": "(не[ се] засича|чист[а|о|и|ия|ият|ата|ите]|незадействан[а|о|и|ия|ият|ата|ите]|изключен[а|о|и|ия|ият|ата|ите]|няма|не [се ]отчита[т])",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_heat_states": {
+      "values": [
+        {
+          "in": "горещ[а|о|и|ия|ият|ата|ите]",
+          "out": "on"
+        },
+        {
+          "in": "нормал(ен|на|но|ни|ния|ният|ната|ното|ните)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_light_states": {
+      "values": [
+        {
+          "in": "(засечен[а|о|и|ия|ият|ата|ите]|задействан[а|о|и|ия|ият|ата|ите]|светъл|светл(а|о|и|ия|ият|ата|ото|ите)|отчита[т][ се]|отчетен[а|о|и|ия|ият|ата|ото|ите])",
+          "out": "on"
+        },
+        {
+          "in": "((няма|без) светлина|неосветен[а|о|и|ия|ият|ата|ите]|тъм(ен|на|но|ни|ния|ният|ната|ното|ните)|мрач(ен|на|но|ни|ния|ният|ната|ното|ните)|чист[а|о|и|ия|ият|ата|ите]|незадействан[а|о|и|ия|ият|ата|ите]|не [се ]отчита[т])",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_lock_states": {
+      "values": [
+        {
+          "in": "заключен[а|о|и|ия|ят|ата|ото|ите]",
+          "out": "off"
+        },
+        {
+          "in": "отключен[а|о|и|ия|ят|ата|ото|ите]",
+          "out": "on"
+        }
+      ]
+    },
+    "bs_moisture_states": {
+      "values": [
+        {
+          "in": "засечен[а|о|и|ия|ият|ата|ите]|задействан[а|о|и|ия|ият|ата|ите]|мок(ър|ра|ро|ри|рия|рият|рата|рото|рите)|влаж(ен|на|но|ни|ния|ният|ната|ното|ните)|отчита[т][ се]|отчетен[а|о|и|ия|ият|ата|ото|ите]",
+          "out": "on"
+        },
+        {
+          "in": "сух[а|о|и|ия|ият|ата|ите]|не [се ]отчита[т]",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_motion_states": {
+      "values": [
+        {
+          "in": "(засечен[а|о|и|ия|ият|ата|ите]|задействан[а|о|и|ия|ият|ата|ите]|включен[а|о|и|ия|ият|ата|ите])",
+          "out": "on"
+        },
+        {
+          "in": "(чист[а|о|и|ия|ият|ата|ите]|незадействан[а|о|и|ия|ият|ата|ите]|изключен[а|о|и|ия|ият|ата|ите])",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_occupancy_states": {
+      "values": [
+        {
+          "in": "(засечен[а|о|и|ия|ият|ата|ите]|задействан[а|о|и|ия|ият|ата|ите]|включен[а|о|и|ия|ият|ата|ите]|присъств(а|ат))",
+          "out": "on"
+        },
+        {
+          "in": "(чист[а|о|и|ия|ият|ата|ите]|незадействан[а|о|и|ия|ият|ата|ите]|изключен[а|о|и|ия|ият|ата|ите]|не присъств(а|ат))",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_opening_states": {
+      "values": [
+        {
+          "in": "отворен[а|о|и|ия|ият|ата|ите]",
+          "out": "on"
+        },
+        {
+          "in": "затворен[а|о|и|ия|ият|ата|ите]",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_plug_states": {
+      "values": [
+        {
+          "in": "(включен[а|о|и|ия|ият|ата|ите]|свързан[а|о|и|ия|ият|ата|ите]|вкаран[а|о|и|ия|ият|ата|ите]|закачен[а|о|и|ия|ият|ата|ите])",
+          "out": "on"
+        },
+        {
+          "in": "(изключен[а|о|и|ия|ият|ата|ите]|разкачен[а|о|и|ия|ият|ата|ите]|не (е|са) включен[а|о|и|ия|ият|ата|ите]|изкаран[а|о|и|ия|ият|ата|ите]|издърпан[а|о|и|ия|ият|ата|ите])",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_power_states": {
+      "values": [
+        {
+          "in": "(включен[а|о|и|ия|ият|ата|ите]|захранен[а|о|и|ия|ият|ата|ите]|захране [е] засечено)",
+          "out": "on"
+        },
+        {
+          "in": "(не [е|са] захранен[а|о|и|ия|ият|ата|ите]|изключен[а|о|и|ия|ият|ата|ите]|няма[т] захранване)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_presence_states": {
+      "values": [
+        {
+          "in": "(вкъщи|у дома)",
+          "out": "on"
+        },
+        {
+          "in": "(отсъсва[т]|[го|ги|я] няма|липсва[т]|не [е|са] вкъщи|не [е|са] у дома)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_problem_states": {
+      "values": [
+        {
+          "in": "(засечен[а|о|и|ия|ият|ата|ите]|задействан[а|о|и|ия|ият|ата|ите])",
+          "out": "on"
+        },
+        {
+          "in": "(наред|добре|ок|окей|без проблем[и])",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_running_states": {
+      "values": [
+        {
+          "in": "(работи|работещ[а|о|и|ия|ият|ата|ите]|задействан[а|о|и|ия|ият|ата|ите]|действа)",
+          "out": "on"
+        },
+        {
+          "in": "(не работи|не работещ[а|о|и|ия|ият|ата|ите]|не задействан[а|о|и|ия|ият|ата|ите]|не действа)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_safety_states": {
+      "values": [
+        {
+          "in": "(не сигур(ен|на|о|ни|ния|ният|ната|ното|ните)|не защитен[а|о|и|ия|ият|ата|ите]|опас(ен|на|но|ни|ния|ният|ната|ното|ните))",
+          "out": "on"
+        },
+        {
+          "in": "(сигур(ен|на|о|ни|ния|ният|ната|ното|ните)|защитен[а|о|и|ия|ият|ата|ите]|безопас(ен|на|но|ни|ния|ният|ната|ното|ните))",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_smoke_states": {
+      "values": [
+        {
+          "in": "(засечен[а|о|и|ия|ият|ата|ите]|задействан[а|о|и|ия|ият|ата|ите]|включен[а|о|и|ия|ият|ата|ите])",
+          "out": "on"
+        },
+        {
+          "in": "(чист[а|о|и|ия|ият|ата|ите]|незадействан[а|о|и|ия|ият|ата|ите]|изключен[а|о|и|ия|ият|ата|ите])",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_sound_states": {
+      "values": [
+        {
+          "in": "(засечен[а|о|и|ия|ият|ата|ите]|задействан[а|о|и|ия|ият|ата|ите]|включен[а|о|и|ия|ият|ата|ите])",
+          "out": "on"
+        },
+        {
+          "in": "(чист[а|о|и|ия|ият|ата|ите]|незадействан[а|о|и|ия|ият|ата|ите]|изключен[а|о|и|ия|ият|ата|ите])",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_tamper_states": {
+      "values": [
+        {
+          "in": "(засечен[а|о|и|ия|ият|ата|ите]|задействан[а|о|и|ия|ият|ата|ите]|включен[а|о|и|ия|ият|ата|ите])",
+          "out": "on"
+        },
+        {
+          "in": "(чист[а|о|и|ия|ият|ата|ите]|незадействан[а|о|и|ия|ият|ата|ите]|изключен[а|о|и|ия|ият|ата|ите])",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_update_states": {
+      "values": [
+        {
+          "in": "(налична актуализация|има актуализация|налично [e] обновление|има обновление)",
+          "out": "on"
+        },
+        {
+          "in": "актуал(ен|на|о|ни|ния|ният|ната|ното|ните)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_vibration_states": {
+      "values": [
+        {
+          "in": "(засечен[а|о|и|ия|ият|ата|ите]|задействан[а|о|и|ия|ият|ата|ите]|включен[а|о|и|ия|ият|ата|ите]|вибрира[т])",
+          "out": "on"
+        },
+        {
+          "in": "(чист[а|о|и|ия|ият|ата|ите]|незадействан[а|о|и|ия|ият|ата|ите]|изключен[а|о|и|ия|ият|ата|ите]|не вибрира[т])",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_window_states": {
+      "values": [
+        {
+          "in": "отворен[а|о|и|ия|ият|ата|ите]",
+          "out": "on"
+        },
+        {
+          "in": "затворен[а|о|и|ия|ият|ата|ите]",
+          "out": "off"
+        }
+      ]
+    },
+    "shopping_list_item": {
+      "wildcard": true
+    },
+    "timer_seconds": {
+      "range": {
+        "from": 1,
+        "to": 100
+      }
+    },
+    "timer_minutes": {
+      "range": {
+        "from": 1,
+        "to": 100
+      }
+    },
+    "timer_hours": {
+      "range": {
+        "from": 1,
+        "to": 100
+      }
+    },
+    "timer_half": {
+      "values": [
+        {
+          "in": "половин",
+          "out": 30
+        },
+        {
+          "in": "половина",
+          "out": 30
+        }
+      ]
+    },
+    "timer_words_seconds": {
+      "values": [
+        {
+          "in": "една",
+          "out": 1
+        }
+      ]
+    },
+    "timer_words_minutes": {
+      "values": [
+        {
+          "in": "една",
+          "out": 1
+        }
+      ]
+    },
+    "timer_words_hours": {
+      "values": [
+        {
+          "in": "един",
+          "out": 1
+        },
+        {
+          "in": "два",
+          "out": 2
+        }
+      ]
+    },
+    "timer_name": {
+      "wildcard": true
+    },
+    "timer_command": {
+      "wildcard": true
+    }
+  },
+  "expansion_rules": {
+    "name": "{name}",
+    "area": "[в|на|във] {area}",
+    "brightness": "{brightness}[%| процент[а]]",
+    "what_is": "какво [е]|каква [е]|какви [са]|какъв [е]|колко [е]|колко [са]",
+    "all": "всички[те]|всяк(о|а)|всеки",
+    "lights": "ламп(а|ата|и|ите)|осветление[то]|крушк(а|ата|и|ите)|светлин(а|и|ата|ите)",
+    "lights_brightness": "[на] [яркост[та]] [на] [светене[то]] [на] [светлина[та]] [осветеност[та]]",
+    "covers": "щор(а|и|ата|ите)|завес(a|и|ата|ите)|перде[то|та|тата]|кепенци[те]|капа(к|ка|кът|ци|ците)",
+    "fans": "вентилатор[а|ът|и|ите]",
+    "max": "max|максимална[та]|макс|край|най[-]висока[та]",
+    "min": "минимална|минимум|най[-]ниска",
+    "temp": "температур(а|ата|ите)|градус[а|и|те|ът]|термостат[а|ът|ите]",
+    "temperature": "{temperature}[°| градуса] [{temperature_unit}]",
+    "turn_on": "пусни|включи|светни|запали",
+    "turn_off": "спри|изключи|изгаси|угаси|загаси",
+    "set": "направи|сложи|постави|смени|промени|настрой|задай|нагласи|тури|навий",
+    "close": "затвори|смъкни|спусни|закрий|свали",
+    "open": "отвори|вдигни|открий",
+    "timer_set": "(стартирай|настрой|създай)",
+    "timer_cancel": "(изключи|спри)",
+    "timer_duration_seconds": "({timer_seconds:seconds}|{timer_words_seconds:seconds}) секунд(а|и|ен)",
+    "timer_duration_minutes": "(({timer_minutes:minutes}|{timer_words_minutes:minutes}) минут(а|и|ен)[ [и] ({timer_seconds:seconds}|{timer_words_seconds:seconds}) секунд(а|и)])|(({timer_minutes:minutes}|{timer_words_minutes:minutes}) минут(а|и) и {timer_half:seconds})|({timer_half:seconds} минута)",
+    "timer_duration_hours": "(({timer_hours:hours}|{timer_words_hours:hours}) час[а|ов][ [и] ({timer_minutes:minutes}|{timer_words_minutes:minutes}) минут(а|и)][ [и] ({timer_seconds:seconds}|{timer_words_seconds:seconds}) секунд(а|и)])|(({timer_hours:hours}||{timer_words_hours:hours}) час[а] и {timer_half:minutes})|({timer_half:minutes} час[а])",
+    "timer_duration": "<timer_duration_seconds>|<timer_duration_minutes>|<timer_duration_hours>",
+    "timer_start_seconds": "{timer_seconds:start_seconds} секунд(а|и)",
+    "timer_start_minutes": "{timer_minutes:start_minutes} минут(а|и)[ [и ]{timer_seconds:start_seconds} секунд(а|и)]",
+    "timer_start_hours": "{timer_hours:start_hours} час[а][ [и ]{timer_minutes:start_minutes} минут(а|и)][ [и ]{timer_seconds:start_seconds} секунд(а|и)]",
+    "timer_start": "<timer_start_seconds>|<timer_start_minutes>|<timer_start_hours>"
+  },
+  "skip_words": [
+    "извинявай",
+    "можеш ли",
+    "може ли",
+    "кажи ми",
+    "моля"
+  ]
+}

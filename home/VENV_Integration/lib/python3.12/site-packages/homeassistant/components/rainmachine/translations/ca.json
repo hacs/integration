@@ -1,0 +1,243 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "El dispositiu ja est\u00e0 configurat"
+        },
+        "error": {
+            "invalid_auth": "Autenticaci\u00f3 inv\u00e0lida"
+        },
+        "flow_title": "{ip}",
+        "step": {
+            "user": {
+                "data": {
+                    "ip_address": "Nom de l'amfitri\u00f3 o adre\u00e7a IP",
+                    "password": "Contrasenya",
+                    "port": "Port"
+                },
+                "title": "Introdueix la teva informaci\u00f3"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "flow_sensor": {
+                "name": "Sensor de cabal"
+            },
+            "freeze": {
+                "name": "Restriccions de gelades"
+            },
+            "hourly": {
+                "name": "Restriccions per hores"
+            },
+            "month": {
+                "name": "Restriccions mensuals"
+            },
+            "raindelay": {
+                "name": "Restriccions de retard de pluja"
+            },
+            "rainsensor": {
+                "name": "Restriccions de sensor de pluja"
+            },
+            "weekday": {
+                "name": "Restriccions setmanals"
+            }
+        },
+        "select": {
+            "freeze_protection_temperature": {
+                "name": "Temperatura de protecci\u00f3 contra gelades"
+            }
+        },
+        "sensor": {
+            "flow_sensor_clicks_cubic_meter": {
+                "name": "Clics per metre c\u00fabic del sensor de cabal"
+            },
+            "flow_sensor_consumed_liters": {
+                "name": "Litres consumits del sensor de cabal"
+            },
+            "flow_sensor_leak_clicks": {
+                "name": "Clics de fuites del sensor de cabal"
+            },
+            "flow_sensor_leak_volume": {
+                "name": "Volum de fuites del sensor de cabal"
+            },
+            "flow_sensor_start_index": {
+                "name": "\u00cdndex d'inici del sensor de cabal"
+            },
+            "flow_sensor_watering_clicks": {
+                "name": "Clics del sensor de cabal"
+            },
+            "last_leak_detected": {
+                "name": "\u00daltima fuita detectada"
+            },
+            "rain_sensor_rain_start": {
+                "name": "Inici de pluja del sensor de pluja"
+            }
+        },
+        "switch": {
+            "freeze_protect_enabled": {
+                "name": "Protecci\u00f3 contra gelades"
+            },
+            "hot_days_extra_watering": {
+                "name": "Aigua extra en dies calorosos"
+            }
+        },
+        "update": {
+            "firmware": {
+                "name": "Microprogramari"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "allow_inactive_zones_to_run": "Permet que les zones desactivades s'executin manualment",
+                    "zone_run_time": "Temps d'execuci\u00f3 predeterminat de la zona (en segons)"
+                },
+                "title": "Configuraci\u00f3 de RainMachine"
+            }
+        }
+    },
+    "services": {
+        "pause_watering": {
+            "fields": {
+                "device_id": {
+                    "name": "Controlador"
+                },
+                "seconds": {
+                    "description": "Temps (en segons) d'aturada del reg.",
+                    "name": "Durada"
+                }
+            }
+        },
+        "push_flow_meter_data": {
+            "fields": {
+                "device_id": {
+                    "description": "Controlador al qual enviar les dades del cabal\u00edmetre.",
+                    "name": "Controlador"
+                },
+                "unit_of_measurement": {
+                    "description": "Unitats del cabal\u00edmetre a enviar.",
+                    "name": "Unitat de mesura"
+                },
+                "value": {
+                    "name": "Valor"
+                }
+            }
+        },
+        "push_weather_data": {
+            "fields": {
+                "device_id": {
+                    "name": "Controlador"
+                },
+                "dewpoint": {
+                    "description": "Punt de rosada (\u00b0C).",
+                    "name": "Punt de rosada"
+                },
+                "et": {
+                    "description": "Evapotranspiraci\u00f3 (mm).",
+                    "name": "Evapotranspiraci\u00f3"
+                },
+                "maxrh": {
+                    "description": "Humitat relativa m\u00e0xima (%HR).",
+                    "name": "Humitat relativa m\u00e0xima"
+                },
+                "maxtemp": {
+                    "description": "Temperatura m\u00e0xima (\u00b0C).",
+                    "name": "Temp. m\u00e0x."
+                },
+                "minrh": {
+                    "description": "Humitat relativa m\u00ednima (%HR).",
+                    "name": "Humitat relativa m\u00ednima"
+                },
+                "mintemp": {
+                    "description": "Temperatura m\u00ednima (\u00b0C).",
+                    "name": "Temp. m\u00edn."
+                },
+                "pressure": {
+                    "description": "Pressi\u00f3 baram\u00e8trica (kPa).",
+                    "name": "Pressi\u00f3 baram\u00e8trica"
+                },
+                "solarrad": {
+                    "description": "Radiaci\u00f3 solar (MJ/m\u00b2/h).",
+                    "name": "Radiaci\u00f3 solar"
+                },
+                "temperature": {
+                    "description": "Temperatura actual (\u00b0C).",
+                    "name": "Temperatura"
+                },
+                "timestamp": {
+                    "description": "Marca de temps en format UNIX de les dades meteorol\u00f2giques. Si s'omet, s'utilitza l'hora local del dispositiu RainMachine en el moment de la crida.",
+                    "name": "Marca de temps"
+                },
+                "wind": {
+                    "description": "Velocitat del vent (m/s).",
+                    "name": "Velocitat del vent"
+                }
+            }
+        },
+        "restrict_watering": {
+            "fields": {
+                "device_id": {
+                    "name": "Controlador"
+                },
+                "duration": {
+                    "name": "Durada"
+                }
+            },
+            "name": "Restringeix tot el reg"
+        },
+        "start_program": {
+            "description": "Inicia un programa.",
+            "name": "Inicia programa"
+        },
+        "start_zone": {
+            "description": "Inicia una zona.",
+            "fields": {
+                "zone_run_time": {
+                    "description": "Temps (en segons) en execuci\u00f3 de la zona.",
+                    "name": "Temps en execuci\u00f3"
+                }
+            },
+            "name": "Zona d'inici"
+        },
+        "stop_all": {
+            "description": "Atura totes les activitats de reg.",
+            "fields": {
+                "device_id": {
+                    "description": "Controlador al qual aturar les activitats de reg.",
+                    "name": "Controlador"
+                }
+            },
+            "name": "Atura tot el reg"
+        },
+        "stop_program": {
+            "description": "Atura un programa.",
+            "name": "Atura programa"
+        },
+        "stop_zone": {
+            "description": "Atura una zona.",
+            "name": "Atura zona"
+        },
+        "unpause_watering": {
+            "description": "Repr\u00e8n totes les activitats de reg aturades.",
+            "fields": {
+                "device_id": {
+                    "description": "Controlador al qual reprendre les activitats de reg.",
+                    "name": "Controlador"
+                }
+            },
+            "name": "Repr\u00e8n tot el reg"
+        },
+        "unrestrict_watering": {
+            "description": "Deixa de restringir totes les activitats de reg",
+            "fields": {
+                "device_id": {
+                    "description": "Controlador al qual deixar de restringir les activitats de reg.",
+                    "name": "Controlador"
+                }
+            },
+            "name": "Deixa de restringir tot el reg"
+        }
+    }
+}

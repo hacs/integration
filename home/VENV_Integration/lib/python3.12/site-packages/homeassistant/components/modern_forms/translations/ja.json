@@ -1,0 +1,93 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "\u30c7\u30d0\u30a4\u30b9\u306f\u3059\u3067\u306b\u8a2d\u5b9a\u3055\u308c\u3066\u3044\u307e\u3059",
+            "cannot_connect": "\u63a5\u7d9a\u306b\u5931\u6557\u3057\u307e\u3057\u305f"
+        },
+        "error": {
+            "cannot_connect": "\u63a5\u7d9a\u306b\u5931\u6557\u3057\u307e\u3057\u305f"
+        },
+        "flow_title": "{name}",
+        "step": {
+            "user": {
+                "data": {
+                    "host": "\u30db\u30b9\u30c8"
+                },
+                "data_description": {
+                    "host": "Modern Forms \u30d5\u30a1\u30f3\u306e\u30db\u30b9\u30c8\u540d\u307e\u305f\u306f IP \u30a2\u30c9\u30ec\u30b9\u3002"
+                },
+                "description": "Modern Forms fan\u3092\u30bb\u30c3\u30c8\u30a2\u30c3\u30d7\u3057\u3066\u3001Home Assistant\u3068\u9023\u643a\u3059\u308b\u3088\u3046\u306b\u3057\u307e\u3059\u3002"
+            },
+            "zeroconf_confirm": {
+                "description": "Home Assistant\u306b `{name}` \u3068\u3044\u3046\u540d\u524d\u306eModern Forms fan\u3092\u8ffd\u52a0\u3057\u307e\u3059\u304b\uff1f",
+                "title": "Modern Forms fan device\u3092\u767a\u898b"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "fan_sleep_timer_active": {
+                "name": "\u30d5\u30a1\u30f3\u306e\u30b9\u30ea\u30fc\u30d7\u30bf\u30a4\u30de\u30fc\u304c\u4f5c\u52d5\u4e2d"
+            },
+            "light_sleep_timer_active": {
+                "name": "\u30e9\u30a4\u30c8\u306e\u30b9\u30ea\u30fc\u30d7\u30bf\u30a4\u30de\u30fc\u304c\u4f5c\u52d5\u4e2d"
+            }
+        },
+        "fan": {
+            "fan": {
+                "name": "\u30d5\u30a1\u30f3"
+            }
+        },
+        "light": {
+            "light": {
+                "name": "\u7167\u660e"
+            }
+        },
+        "sensor": {
+            "fan_timer_remaining_time": {
+                "name": "\u30d5\u30a1\u30f3\u306e\u30b9\u30ea\u30fc\u30d7\u6642\u9593"
+            },
+            "light_timer_remaining_time": {
+                "name": "\u30e9\u30a4\u30c8\u306e\u30b9\u30ea\u30fc\u30d7\u6642\u9593"
+            }
+        },
+        "switch": {
+            "adaptive_learning": {
+                "name": "\u9069\u5fdc\u5b66\u7fd2"
+            },
+            "away_mode": {
+                "name": "\u5916\u51fa\u30e2\u30fc\u30c9"
+            }
+        }
+    },
+    "services": {
+        "clear_fan_sleep_timer": {
+            "description": "Modern Forms \u30d5\u30a1\u30f3\u306e\u30b9\u30ea\u30fc\u30d7 \u30bf\u30a4\u30de\u30fc\u3092\u30af\u30ea\u30a2\u3057\u307e\u3059\u3002",
+            "name": "\u30d5\u30a1\u30f3\u30b9\u30ea\u30fc\u30d7\u30bf\u30a4\u30de\u30fc\u3092\u30af\u30ea\u30a2"
+        },
+        "clear_light_sleep_timer": {
+            "description": "Modern Forms \u30e9\u30a4\u30c8\u306e\u30b9\u30ea\u30fc\u30d7 \u30bf\u30a4\u30de\u30fc\u3092\u30af\u30ea\u30a2\u3057\u307e\u3059\u3002",
+            "name": "\u30af\u30ea\u30a2\u30e9\u30a4\u30c8\u30b9\u30ea\u30fc\u30d7\u30bf\u30a4\u30de\u30fc"
+        },
+        "set_fan_sleep_timer": {
+            "description": "Modern Forms \u30d5\u30a1\u30f3\u306b\u30b9\u30ea\u30fc\u30d7 \u30bf\u30a4\u30de\u30fc\u3092\u8a2d\u5b9a\u3057\u307e\u3059\u3002",
+            "fields": {
+                "sleep_time": {
+                    "description": "\u30bf\u30a4\u30de\u30fc\u3092\u8a2d\u5b9a\u3059\u308b\u5206\u6570\u3002",
+                    "name": "\u7761\u7720\u6642\u9593"
+                }
+            },
+            "name": "\u30d5\u30a1\u30f3\u306e\u30b9\u30ea\u30fc\u30d7\u30bf\u30a4\u30de\u30fc\u3092\u8a2d\u5b9a\u3059\u308b"
+        },
+        "set_light_sleep_timer": {
+            "description": "Modern Forms \u30e9\u30a4\u30c8\u306b\u30b9\u30ea\u30fc\u30d7 \u30bf\u30a4\u30de\u30fc\u3092\u8a2d\u5b9a\u3057\u307e\u3059\u3002",
+            "fields": {
+                "sleep_time": {
+                    "description": "\u30bf\u30a4\u30de\u30fc\u3092\u8a2d\u5b9a\u3059\u308b\u5206\u6570\u3002",
+                    "name": "\u7761\u7720\u6642\u9593"
+                }
+            },
+            "name": "\u30e9\u30a4\u30c8\u30b9\u30ea\u30fc\u30d7\u30bf\u30a4\u30de\u30fc\u306e\u8a2d\u5b9a"
+        }
+    }
+}

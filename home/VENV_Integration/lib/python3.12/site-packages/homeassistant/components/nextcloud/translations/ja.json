@@ -1,0 +1,320 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "\u30c7\u30d0\u30a4\u30b9\u306f\u3059\u3067\u306b\u8a2d\u5b9a\u3055\u308c\u3066\u3044\u307e\u3059",
+            "connection_error_during_import": "yaml\u8a2d\u5b9a\u306e\u30a4\u30f3\u30dd\u30fc\u30c8\u4e2d\u306b\u63a5\u7d9a\u30a8\u30e9\u30fc\u304c\u767a\u751f\u3057\u307e\u3057\u305f",
+            "reauth_successful": "\u518d\u8a8d\u8a3c\u306b\u6210\u529f\u3057\u307e\u3057\u305f"
+        },
+        "error": {
+            "connection_error": "\u63a5\u7d9a\u306b\u5931\u6557\u3057\u307e\u3057\u305f",
+            "invalid_auth": "\u7121\u52b9\u306a\u8a8d\u8a3c"
+        },
+        "flow_title": "Nextcloud",
+        "step": {
+            "reauth_confirm": {
+                "data": {
+                    "password": "\u30d1\u30b9\u30ef\u30fc\u30c9",
+                    "username": "\u30e6\u30fc\u30b6\u30fc\u540d"
+                },
+                "description": "{url}\u306e\u30ed\u30b0\u30a4\u30f3\u60c5\u5831\u3092\u66f4\u65b0\u3057\u307e\u3059\u3002"
+            },
+            "user": {
+                "data": {
+                    "password": "\u30d1\u30b9\u30ef\u30fc\u30c9",
+                    "url": "URL",
+                    "username": "\u30e6\u30fc\u30b6\u30fc\u540d",
+                    "verify_ssl": "SSL\u8a3c\u660e\u66f8\u3092\u78ba\u8a8d\u3059\u308b"
+                },
+                "description": "Nextcloud \u306e\u60c5\u5831\u3092\u5165\u529b\u3057\u307e\u3059\u3002"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "nextcloud_jit_enabled": {
+                "name": "JIT \u304c\u6709\u52b9\u3067\u3059"
+            },
+            "nextcloud_jit_on": {
+                "name": "JIT \u30a2\u30af\u30c6\u30a3\u30d6"
+            },
+            "nextcloud_system_debug": {
+                "name": "\u30c7\u30d0\u30c3\u30b0\u6709\u52b9"
+            },
+            "nextcloud_system_enable_avatars": {
+                "name": "\u30a2\u30d0\u30bf\u30fc\u304c\u6709\u52b9"
+            },
+            "nextcloud_system_enable_previews": {
+                "name": "\u30d7\u30ec\u30d3\u30e5\u30fc\u304c\u6709\u52b9"
+            },
+            "nextcloud_system_filelocking_enabled": {
+                "name": "\u30d5\u30a1\u30a4\u30eb\u30ed\u30c3\u30af\u6709\u52b9"
+            }
+        },
+        "sensor": {
+            "nextcloud_activeusers_last1hour": {
+                "name": "\u76f4\u8fd11\u6642\u9593\u306e\u30a2\u30af\u30c6\u30a3\u30d6\u30e6\u30fc\u30b6\u30fc\u6570"
+            },
+            "nextcloud_activeusers_last24hours": {
+                "name": "\u524d\u65e5\u306e\u30a2\u30af\u30c6\u30a3\u30d6 \u30e6\u30fc\u30b6\u30fc\u306e\u6570"
+            },
+            "nextcloud_activeusers_last5minutes": {
+                "name": "\u76f4\u8fd15\u5206\u9593\u306e\u30a2\u30af\u30c6\u30a3\u30d6\u30e6\u30fc\u30b6\u30fc\u6570"
+            },
+            "nextcloud_cache_expunges": {
+                "name": "\u30ad\u30e3\u30c3\u30b7\u30e5\u306e\u6d88\u53bb"
+            },
+            "nextcloud_cache_mem_size": {
+                "name": "\u30ad\u30e3\u30c3\u30b7\u30e5\u30e1\u30e2\u30ea\u30b5\u30a4\u30ba"
+            },
+            "nextcloud_cache_memory_type": {
+                "name": "\u30ad\u30e3\u30c3\u30b7\u30e5\u30e1\u30e2\u30ea"
+            },
+            "nextcloud_cache_num_entries": {
+                "name": "\u30a8\u30f3\u30c8\u30ea\u306e\u30ad\u30e3\u30c3\u30b7\u30e5\u6570"
+            },
+            "nextcloud_cache_num_hits": {
+                "name": "\u30ad\u30e3\u30c3\u30b7\u30e5\u30d2\u30c3\u30c8\u6570"
+            },
+            "nextcloud_cache_num_inserts": {
+                "name": "\u30ad\u30e3\u30c3\u30b7\u30e5\u633f\u5165\u6570"
+            },
+            "nextcloud_cache_num_misses": {
+                "name": "\u30ad\u30e3\u30c3\u30b7\u30e5\u30df\u30b9\u6570"
+            },
+            "nextcloud_cache_num_slots": {
+                "name": "\u30ad\u30e3\u30c3\u30b7\u30e5\u30b9\u30ed\u30c3\u30c8\u6570"
+            },
+            "nextcloud_cache_start_time": {
+                "name": "\u30ad\u30e3\u30c3\u30b7\u30e5\u958b\u59cb\u6642\u9593"
+            },
+            "nextcloud_cache_ttl": {
+                "name": "\u30ad\u30e3\u30c3\u30b7\u30e5 TTL"
+            },
+            "nextcloud_database_size": {
+                "name": "\u30c7\u30fc\u30bf\u30d9\u30fc\u30b9\u30b5\u30a4\u30ba"
+            },
+            "nextcloud_database_type": {
+                "name": "\u30c7\u30fc\u30bf\u30d9\u30fc\u30b9\u306e\u7a2e\u985e"
+            },
+            "nextcloud_database_version": {
+                "name": "\u30c7\u30fc\u30bf\u30d9\u30fc\u30b9\u30d0\u30fc\u30b8\u30e7\u30f3"
+            },
+            "nextcloud_interned_strings_usage_buffer_size": {
+                "name": "\u5185\u90e8\u30d0\u30c3\u30d5\u30a1\u30b5\u30a4\u30ba"
+            },
+            "nextcloud_interned_strings_usage_free_memory": {
+                "name": "\u5185\u90e8\u7a7a\u304d\u30e1\u30e2\u30ea\u30fc"
+            },
+            "nextcloud_interned_strings_usage_number_of_strings": {
+                "name": "\u6587\u5b57\u5217\u306e\u5185\u90e8\u6570"
+            },
+            "nextcloud_interned_strings_usage_used_memory": {
+                "name": "\u5185\u90e8\u4f7f\u7528\u30e1\u30e2\u30ea"
+            },
+            "nextcloud_jit_buffer_free": {
+                "name": "JIT\u30d0\u30c3\u30d5\u30a1\u30d5\u30ea\u30fc"
+            },
+            "nextcloud_jit_buffer_size": {
+                "name": "JIT\u30d0\u30c3\u30d5\u30a1\u30b5\u30a4\u30ba"
+            },
+            "nextcloud_jit_kind": {
+                "name": "JIT\u306e\u7a2e\u985e"
+            },
+            "nextcloud_jit_opt_flags": {
+                "name": "JIT \u6700\u9069\u5316\u30d5\u30e9\u30b0"
+            },
+            "nextcloud_jit_opt_level": {
+                "name": "JIT \u6700\u9069\u5316\u30ec\u30d9\u30eb"
+            },
+            "nextcloud_opcache_statistics_blacklist_miss_ratio": {
+                "name": "Opcache \u30d6\u30e9\u30c3\u30af\u30ea\u30b9\u30c8\u30df\u30b9\u7387"
+            },
+            "nextcloud_opcache_statistics_blacklist_misses": {
+                "name": "Opcache \u30d6\u30e9\u30c3\u30af\u30ea\u30b9\u30c8\u306e\u30df\u30b9"
+            },
+            "nextcloud_opcache_statistics_hash_restarts": {
+                "name": "Opcache \u30cf\u30c3\u30b7\u30e5\u306e\u518d\u8d77\u52d5"
+            },
+            "nextcloud_opcache_statistics_hits": {
+                "name": "Opcache \u306e\u30d2\u30c3\u30c8"
+            },
+            "nextcloud_opcache_statistics_last_restart_time": {
+                "name": "Opcache \u306e\u6700\u7d42\u518d\u8d77\u52d5\u6642\u523b"
+            },
+            "nextcloud_opcache_statistics_manual_restarts": {
+                "name": "Opcache \u306e\u624b\u52d5\u518d\u8d77\u52d5"
+            },
+            "nextcloud_opcache_statistics_max_cached_keys": {
+                "name": "Opcache \u306e\u6700\u5927\u30ad\u30e3\u30c3\u30b7\u30e5 \u30ad\u30fc"
+            },
+            "nextcloud_opcache_statistics_misses": {
+                "name": "Opcache \u306e\u30df\u30b9"
+            },
+            "nextcloud_opcache_statistics_num_cached_keys": {
+                "name": "Opcache \u30ad\u30e3\u30c3\u30b7\u30e5\u3055\u308c\u305f\u30ad\u30fc"
+            },
+            "nextcloud_opcache_statistics_num_cached_scripts": {
+                "name": "Opcache \u30ad\u30e3\u30c3\u30b7\u30e5\u3055\u308c\u305f\u30b9\u30af\u30ea\u30d7\u30c8"
+            },
+            "nextcloud_opcache_statistics_oom_restarts": {
+                "name": "Opcache \u306e\u30e1\u30e2\u30ea\u4e0d\u8db3\u518d\u8d77\u52d5"
+            },
+            "nextcloud_opcache_statistics_opcache_hit_rate": {
+                "name": "Opcache \u30d2\u30c3\u30c8\u7387"
+            },
+            "nextcloud_opcache_statistics_start_time": {
+                "name": "Opcache \u306e\u958b\u59cb\u6642\u9593"
+            },
+            "nextcloud_server_php_max_execution_time": {
+                "name": "PHP\u306e\u6700\u5927\u5b9f\u884c\u6642\u9593"
+            },
+            "nextcloud_server_php_memory_limit": {
+                "name": "PHP\u306e\u30e1\u30e2\u30ea\u5236\u9650"
+            },
+            "nextcloud_server_php_opcache_memory_usage_current_wasted_percentage": {
+                "name": "Opcache \u306e\u73fe\u5728\u306e\u7121\u99c4\u306a\u5272\u5408"
+            },
+            "nextcloud_server_php_opcache_memory_usage_free_memory": {
+                "name": "Opcache \u306e\u7a7a\u304d\u30e1\u30e2\u30ea"
+            },
+            "nextcloud_server_php_opcache_memory_usage_used_memory": {
+                "name": "Opcache \u304c\u4f7f\u7528\u3057\u305f\u30e1\u30e2\u30ea"
+            },
+            "nextcloud_server_php_opcache_memory_usage_wasted_memory": {
+                "name": "Opcache \u306f\u30e1\u30e2\u30ea\u3092\u7121\u99c4\u306b\u3057\u307e\u3057\u305f"
+            },
+            "nextcloud_server_php_upload_max_filesize": {
+                "name": "PHP\u30a2\u30c3\u30d7\u30ed\u30fc\u30c9\u306e\u6700\u5927\u30d5\u30a1\u30a4\u30eb\u30b5\u30a4\u30ba"
+            },
+            "nextcloud_server_php_version": {
+                "name": "PHP\u30d0\u30fc\u30b8\u30e7\u30f3"
+            },
+            "nextcloud_server_webserver": {
+                "name": "\u30a6\u30a7\u30d6\u30b5\u30fc\u30d0\u30fc"
+            },
+            "nextcloud_shares_num_fed_shares_received": {
+                "name": "\u53d7\u4fe1\u6e08\u307f\u5171\u6709\u306e\u91cf"
+            },
+            "nextcloud_shares_num_fed_shares_sent": {
+                "name": "\u9001\u4fe1\u6e08\u307f\u5171\u6709\u306e\u91cf"
+            },
+            "nextcloud_shares_num_shares": {
+                "name": "\u5171\u6709\u306e\u91cf"
+            },
+            "nextcloud_shares_num_shares_groups": {
+                "name": "\u30b0\u30eb\u30fc\u30d7\u5171\u6709\u306e\u6570"
+            },
+            "nextcloud_shares_num_shares_link": {
+                "name": "\u30ea\u30f3\u30af\u30b7\u30a7\u30a2\u306e\u91cf"
+            },
+            "nextcloud_shares_num_shares_link_no_password": {
+                "name": "\u30d1\u30b9\u30ef\u30fc\u30c9\u306a\u3057\u306e\u30ea\u30f3\u30af\u5171\u6709\u306e\u91cf"
+            },
+            "nextcloud_shares_num_shares_mail": {
+                "name": "\u30e1\u30fc\u30eb\u30b7\u30a7\u30a2\u306e\u91cf"
+            },
+            "nextcloud_shares_num_shares_room": {
+                "name": "\u30eb\u30fc\u30e0\u30b7\u30a7\u30a2\u6570"
+            },
+            "nextcloud_shares_num_shares_user": {
+                "name": "\u30e6\u30fc\u30b6\u30fc\u30b7\u30a7\u30a2\u6570"
+            },
+            "nextcloud_shares_permissions_3_1": {
+                "name": "\u6a29\u9650 3.1"
+            },
+            "nextcloud_sma_avail_mem": {
+                "name": "SMA \u306e\u4f7f\u7528\u53ef\u80fd\u306a\u30e1\u30e2\u30ea"
+            },
+            "nextcloud_sma_num_seg": {
+                "name": "SMA\u306e\u30bb\u30b0\u30e1\u30f3\u30c8\u6570"
+            },
+            "nextcloud_sma_seg_size": {
+                "name": "SMA \u30bb\u30b0\u30e1\u30f3\u30c8 \u30b5\u30a4\u30ba"
+            },
+            "nextcloud_storage_num_files": {
+                "name": "\u30d5\u30a1\u30a4\u30eb\u306e\u91cf"
+            },
+            "nextcloud_storage_num_storages": {
+                "name": "\u30b9\u30c8\u30ec\u30fc\u30b8\u306e\u91cf"
+            },
+            "nextcloud_storage_num_storages_home": {
+                "name": "\u81ea\u5b85\u306e\u30b9\u30c8\u30ec\u30fc\u30b8\u306e\u91cf"
+            },
+            "nextcloud_storage_num_storages_local": {
+                "name": "\u30ed\u30fc\u30ab\u30eb\u30b9\u30c8\u30ec\u30fc\u30b8\u306e\u91cf"
+            },
+            "nextcloud_storage_num_storages_other": {
+                "name": "\u305d\u306e\u4ed6\u306e\u30b9\u30c8\u30ec\u30fc\u30b8\u306e\u91cf"
+            },
+            "nextcloud_storage_num_users": {
+                "name": "\u30e6\u30fc\u30b6\u30fc\u6570"
+            },
+            "nextcloud_system_apps_app_updates_calendar": {
+                "name": "\u30ab\u30ec\u30f3\u30c0\u30fc\u306e\u66f4\u65b0"
+            },
+            "nextcloud_system_apps_app_updates_contacts": {
+                "name": "\u9023\u7d61\u5148\u306e\u66f4\u65b0"
+            },
+            "nextcloud_system_apps_app_updates_tasks": {
+                "name": "\u30bf\u30b9\u30af\u306e\u66f4\u65b0"
+            },
+            "nextcloud_system_apps_app_updates_twofactor_totp": {
+                "name": "\u591a\u8981\u7d20\u8a8d\u8a3c\u306e\u66f4\u65b0"
+            },
+            "nextcloud_system_apps_num_installed": {
+                "name": "\u30a4\u30f3\u30b9\u30c8\u30fc\u30eb\u3055\u308c\u3066\u3044\u308b\u30a2\u30d7\u30ea"
+            },
+            "nextcloud_system_apps_num_updates_available": {
+                "name": "\u5229\u7528\u53ef\u80fd\u306a\u30a2\u30c3\u30d7\u30c7\u30fc\u30c8"
+            },
+            "nextcloud_system_cpuload": {
+                "name": "CPU\u8ca0\u8377"
+            },
+            "nextcloud_system_cpuload_1": {
+                "name": "CPU\u8ca0\u8377 \u76f4\u8fd11\u5206\u9593"
+            },
+            "nextcloud_system_cpuload_15": {
+                "name": "CPU\u8ca0\u8377 \u76f4\u8fd115\u5206\u9593"
+            },
+            "nextcloud_system_cpuload_5": {
+                "name": "CPU\u8ca0\u8377 \u76f4\u8fd15\u5206\u9593"
+            },
+            "nextcloud_system_freespace": {
+                "name": "\u7a7a\u304d\u9818\u57df"
+            },
+            "nextcloud_system_mem_free": {
+                "name": "\u7a7a\u304d\u30e1\u30e2\u30ea"
+            },
+            "nextcloud_system_mem_total": {
+                "name": "\u7dcf\u30e1\u30e2\u30ea\u91cf"
+            },
+            "nextcloud_system_memcache_distributed": {
+                "name": "\u5206\u6563\u578b\u30b7\u30b9\u30c6\u30e0\u30e1\u30e2\u30ad\u30e3\u30c3\u30b7\u30e5"
+            },
+            "nextcloud_system_memcache_local": {
+                "name": "\u30b7\u30b9\u30c6\u30e0\u30e1\u30e2\u30ea\u30ad\u30e3\u30c3\u30b7\u30e5\u30ed\u30fc\u30ab\u30eb"
+            },
+            "nextcloud_system_memcache_locking": {
+                "name": "\u30b7\u30b9\u30c6\u30e0\u30e1\u30e2\u30ea\u30ad\u30e3\u30c3\u30b7\u30e5\u306e\u30ed\u30c3\u30af"
+            },
+            "nextcloud_system_swap_free": {
+                "name": "\u7a7a\u304d\u30b9\u30ef\u30c3\u30d7\u30e1\u30e2\u30ea"
+            },
+            "nextcloud_system_swap_total": {
+                "name": "\u5408\u8a08\u30b9\u30ef\u30c3\u30d7 \u30e1\u30e2\u30ea"
+            },
+            "nextcloud_system_theme": {
+                "name": "\u30b7\u30b9\u30c6\u30e0\u30c6\u30fc\u30de"
+            },
+            "nextcloud_system_version": {
+                "name": "\u30b7\u30b9\u30c6\u30e0\u30d0\u30fc\u30b8\u30e7\u30f3"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_yaml": {
+            "description": "YAML \u3092\u4f7f\u7528\u3057\u305f Nextcloud \u306e\u69cb\u6210\u306f\u975e\u63a8\u5968\u306b\u306a\u308a\u307e\u3057\u305f\u3002 \n\n\u65e2\u5b58\u306e YAML \u69cb\u6210\u304c UI \u306b\u81ea\u52d5\u7684\u306b\u30a4\u30f3\u30dd\u30fc\u30c8\u3055\u308c\u307e\u3057\u305f\u3002 \n\n\u3053\u306e\u554f\u984c\u3092\u89e3\u6c7a\u3059\u308b\u306b\u306f\u3001configuration.yaml \u30d5\u30a1\u30a4\u30eb\u304b\u3089\u300cnextcloud\u300dYAML \u69cb\u6210\u3092\u524a\u9664\u3057\u3001Home Assistant \u3092\u518d\u8d77\u52d5\u3057\u307e\u3059\u3002",
+            "title": "Nextcloud YAML \u69cb\u6210\u306f\u975e\u63a8\u5968\u306b\u306a\u308a\u307e\u3057\u305f"
+        }
+    }
+}

@@ -1,0 +1,266 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Enheten \u00e4r redan konfigurerad"
+        },
+        "error": {
+            "invalid_auth": "Ogiltig autentisering"
+        },
+        "flow_title": "{ip}",
+        "step": {
+            "user": {
+                "data": {
+                    "ip_address": "V\u00e4rdnamn eller IP-adress",
+                    "password": "L\u00f6senord",
+                    "port": "Port"
+                },
+                "title": "Fyll i dina uppgifter"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "flow_sensor": {
+                "name": "Fl\u00f6dessensor"
+            },
+            "freeze": {
+                "name": "Restriktion frysning"
+            },
+            "hourly": {
+                "name": "Restriktion timmar"
+            },
+            "month": {
+                "name": "Restriktion m\u00e5nader"
+            },
+            "raindelay": {
+                "name": "Restriktion regn f\u00f6rdr\u00f6jning"
+            },
+            "rainsensor": {
+                "name": "Restriktion regnsensor"
+            },
+            "weekday": {
+                "name": "Restriktion veckodag"
+            }
+        },
+        "select": {
+            "freeze_protection_temperature": {
+                "name": "Temperatur f\u00f6r frysskydd"
+            }
+        },
+        "sensor": {
+            "flow_sensor_clicks_cubic_meter": {
+                "name": "Fl\u00f6dessensor klick per kubikmeter"
+            },
+            "flow_sensor_consumed_liters": {
+                "name": "Fl\u00f6dessensor f\u00f6rbrukade liter"
+            },
+            "flow_sensor_leak_clicks": {
+                "name": "Fl\u00f6dessensor l\u00e4ckage klick"
+            },
+            "flow_sensor_leak_volume": {
+                "name": "Fl\u00f6dessensor l\u00e4ckagevolym"
+            },
+            "flow_sensor_start_index": {
+                "name": "Fl\u00f6dessensor startindex"
+            },
+            "flow_sensor_watering_clicks": {
+                "name": "Fl\u00f6dessensor klick"
+            },
+            "last_leak_detected": {
+                "name": "Senaste l\u00e4ckan uppt\u00e4ckt"
+            },
+            "rain_sensor_rain_start": {
+                "name": "Regnsensor regn start"
+            }
+        },
+        "switch": {
+            "freeze_protect_enabled": {
+                "name": "Frysskydd"
+            },
+            "hot_days_extra_watering": {
+                "name": "Extra vatten under varma dagar"
+            }
+        },
+        "update": {
+            "firmware": {
+                "name": "Firmware"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "zone_run_time": "Standardzonens k\u00f6rtid (i sekunder)"
+                },
+                "title": "Konfigurera RainMachine"
+            }
+        }
+    },
+    "services": {
+        "pause_watering": {
+            "description": "Pausar alla bevattningsaktiviteter under ett antal sekunder.",
+            "fields": {
+                "device_id": {
+                    "description": "Den styrenhet vars bevattningsaktiviteter kommer att pausas.",
+                    "name": "Styrenhet"
+                },
+                "seconds": {
+                    "description": "Hur l\u00e5ng tid (i sekunder) som bevattningen ska pausas.",
+                    "name": "Varaktighet"
+                }
+            },
+            "name": "Pausa all bevattning"
+        },
+        "push_flow_meter_data": {
+            "description": "Skicka fl\u00f6desm\u00e4tardata till RainMachine-enheten.",
+            "fields": {
+                "device_id": {
+                    "description": "Den styrenhet som fl\u00f6desm\u00e4tardata ska skickas till.",
+                    "name": "Styrenhet"
+                },
+                "unit_of_measurement": {
+                    "description": "Styrenhetens m\u00e5ttenhet som ska skickas.",
+                    "name": "M\u00e5ttenhet"
+                },
+                "value": {
+                    "description": "Fl\u00f6desm\u00e4tarens v\u00e4rde som ska skickas.",
+                    "name": "V\u00e4rde"
+                }
+            },
+            "name": "Skicka fl\u00f6desm\u00e4tardata"
+        },
+        "push_weather_data": {
+            "description": "Skicka v\u00e4derdata fr\u00e5n Home Assistant till RainMachine-enheten.\nPush-tj\u00e4nsten f\u00f6r lokalt v\u00e4der b\u00f6r vara aktiverad fr\u00e5n Inst\u00e4llningar > V\u00e4der > fliken Utvecklare f\u00f6r att RainMachine ska ta h\u00e4nsyn till de v\u00e4rden som skickas. Enheter m\u00e5ste skickas i metriska m\u00e5tt; inga omvandlingar utf\u00f6rs av integrationen.\nSe detaljer om RainMachine API h\u00e4r: https://rainmachine.docs.apiary.io/#reference/weather-services/parserdata/post.",
+            "fields": {
+                "condition": {
+                    "description": "Kod f\u00f6r aktuellt v\u00e4derf\u00f6rh\u00e5llande (WNUM).",
+                    "name": "Kod f\u00f6r v\u00e4derf\u00f6rh\u00e5llande"
+                },
+                "device_id": {
+                    "description": "Den styrenhet som v\u00e4derdatan ska skickas till.",
+                    "name": "Styrenhet"
+                },
+                "dewpoint": {
+                    "description": "Daggpunkt (\u00b0C).",
+                    "name": "Daggpunkt"
+                },
+                "et": {
+                    "description": "Evapotranspiration (mm).",
+                    "name": "Evapotranspiration"
+                },
+                "maxrh": {
+                    "description": "Max relativ luftfuktighet (%RH).",
+                    "name": "Max relativ luftfuktighet"
+                },
+                "maxtemp": {
+                    "description": "Maximal temperatur (\u00b0C).",
+                    "name": "Max temp"
+                },
+                "minrh": {
+                    "description": "Minsta relativa luftfuktighet (%RH).",
+                    "name": "Minsta relativa luftfuktighet"
+                },
+                "mintemp": {
+                    "description": "Minsta temperatur (\u00b0C).",
+                    "name": "Minsta temp"
+                },
+                "pressure": {
+                    "description": "Barametriskt tryck (kPa).",
+                    "name": "Barametriskt tryck"
+                },
+                "qpf": {
+                    "description": "Kvantitativ nederb\u00f6rdsprognos (mm), eller QPF. Observera: QPF ska inte skickas som kumulativa v\u00e4rden utan som uppm\u00e4tta/prognostiserade v\u00e4rden f\u00f6r varje timme eller dag. RainMachine Mixer kommer att summera alla QPF v\u00e4rden under den aktuella dagen f\u00f6r att f\u00e5 dagens totala QPF.",
+                    "name": "Kvantitativ nederb\u00f6rdsprognos"
+                },
+                "rain": {
+                    "description": "Uppm\u00e4tt regnm\u00e4ngd (mm). Observera: RAIN-v\u00e4rden ska inte skickas som kumulativa v\u00e4rden utan som uppm\u00e4tta/prognostiserade v\u00e4rden f\u00f6r varje timme eller dag. RainMachine Mixer kommer att summera alla RAIN-v\u00e4rden under den aktuella dagen f\u00f6r att f\u00e5 dagens totala RAIN.",
+                    "name": "Uppm\u00e4tt nederb\u00f6rd"
+                },
+                "solarrad": {
+                    "description": "Solinstr\u00e5lning (MJ/m\u00b2/h).",
+                    "name": "Solstr\u00e5lning"
+                },
+                "temperature": {
+                    "description": "Aktuell temperatur (\u00b0C).",
+                    "name": "Temperatur"
+                },
+                "timestamp": {
+                    "description": "UNIX-tidsst\u00e4mpel f\u00f6r v\u00e4derdata. Om den utel\u00e4mnas anv\u00e4nds RainMachine-enhetens lokala tid vid tidpunkten f\u00f6r anropet.",
+                    "name": "Tidsst\u00e4mpel"
+                },
+                "wind": {
+                    "description": "Vindhastighet (m/s).",
+                    "name": "Vindhastighet"
+                }
+            },
+            "name": "Skicka v\u00e4derdata"
+        },
+        "restrict_watering": {
+            "description": "Hindrar alla bevattningsaktiviteter fr\u00e5n att starta under en viss tidsperiod.",
+            "fields": {
+                "device_id": {
+                    "description": "Den styrenhet vars bevattningsaktiviteter kommer att begr\u00e4nsas.",
+                    "name": "Styrenhet"
+                },
+                "duration": {
+                    "description": "Tidsperioden f\u00f6r att begr\u00e4nsa bevattningsaktiviteter fr\u00e5n att starta.",
+                    "name": "Varaktighet"
+                }
+            },
+            "name": "Hindra all bevattning"
+        },
+        "start_program": {
+            "description": "Startar ett program.",
+            "name": "Starta program"
+        },
+        "start_zone": {
+            "description": "Startar en zon.",
+            "fields": {
+                "zone_run_time": {
+                    "description": "Den tid (i sekunder) som zonen ska k\u00f6ras.",
+                    "name": "K\u00f6rtid"
+                }
+            },
+            "name": "Starta zon"
+        },
+        "stop_all": {
+            "description": "Stoppar alla bevattningsaktiviteter.",
+            "fields": {
+                "device_id": {
+                    "description": "Den styrenhet vars bevattningsaktiviteter kommer att stoppas.",
+                    "name": "Styrenhet"
+                }
+            },
+            "name": "Stoppa all bevattning"
+        },
+        "stop_program": {
+            "description": "Stoppar ett program.",
+            "name": "Stoppa program"
+        },
+        "stop_zone": {
+            "description": "Stoppar en zon.",
+            "name": "Stoppa zon"
+        },
+        "unpause_watering": {
+            "description": "\u00c5terupptar alla pausade bevattningsaktiviteter.",
+            "fields": {
+                "device_id": {
+                    "description": "Den styrenhet vars bevattningsaktiviteter kommer att \u00e5terupptas.",
+                    "name": "Styrenhet"
+                }
+            },
+            "name": "\u00c5teruppta all bevattning"
+        },
+        "unrestrict_watering": {
+            "description": "Tar bort restriktioner f\u00f6r alla bevattningsaktiviteter",
+            "fields": {
+                "device_id": {
+                    "description": "Den styrenhet vars bevattningsaktiviteter ska vara obegr\u00e4nsade.",
+                    "name": "Styrenhet"
+                }
+            },
+            "name": "Ta bort restriktioner f\u00f6r bevattning"
+        }
+    }
+}

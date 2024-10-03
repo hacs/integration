@@ -1,0 +1,63 @@
+{
+    "exceptions": {
+        "entity_not_dynamically_created": {
+            "message": "Sc\u00e9na {entity_id} nie je vytvoren\u00e1 pomocou akcie `scene.create`."
+        },
+        "entity_not_scene": {
+            "message": "{entity_id} nie je platn\u00e9 entity_id sc\u00e9ny."
+        }
+    },
+    "services": {
+        "apply": {
+            "description": "Aktivuje sc\u00e9nu s konfigur\u00e1ciou.",
+            "fields": {
+                "entities": {
+                    "description": "Zoznam ent\u00edt a ich cie\u013eov\u00fd stav.",
+                    "name": "Stav ent\u00edt"
+                },
+                "transition": {
+                    "description": "\u010cas potrebn\u00fd na prechod zariaden\u00ed do stavov definovan\u00fdch v sc\u00e9ne.",
+                    "name": "Prechod"
+                }
+            },
+            "name": "Pou\u017ei\u0165"
+        },
+        "create": {
+            "description": "Vytvor\u00ed nov\u00fa sc\u00e9nu.",
+            "fields": {
+                "entities": {
+                    "description": "Zoznam ent\u00edt a ich cie\u013eov\u00fd stav. Ak sa va\u0161e entity u\u017e nach\u00e1dzaj\u00fa v cie\u013eovom stave, pou\u017eite namiesto toho polo\u017eku `snapshot_entities`.",
+                    "name": "Stav ent\u00edt"
+                },
+                "scene_id": {
+                    "description": "ID entity novej sc\u00e9ny.",
+                    "name": "ID entity sc\u00e9ny"
+                },
+                "snapshot_entities": {
+                    "description": "Zoznam subjektov, ktor\u00e9 sa maj\u00fa zahrn\u00fa\u0165 do sn\u00edmky. Zhotoven\u00edm sn\u00edmky zaznamen\u00e1te aktu\u00e1lny stav t\u00fdchto ent\u00edt. Ak nechcete pre t\u00fato sc\u00e9nu pou\u017ei\u0165 aktu\u00e1lny stav v\u0161etk\u00fdch ent\u00edt, m\u00f4\u017eete kombinova\u0165 `snapshot_entities` s `entities`.",
+                    "name": "Entity sn\u00edmok"
+                }
+            },
+            "name": "Vytvori\u0165"
+        },
+        "delete": {
+            "description": "Odstr\u00e1ni dynamicky vytvoren\u00fa sc\u00e9nu.",
+            "name": "Vymaza\u0165"
+        },
+        "reload": {
+            "description": "Znovu na\u010d\u00edta sc\u00e9ny z konfigur\u00e1cie YAML.",
+            "name": "Znovu na\u010d\u00edta\u0165"
+        },
+        "turn_on": {
+            "description": "Aktivuje sc\u00e9nu.",
+            "fields": {
+                "transition": {
+                    "description": "\u010cas potrebn\u00fd na prechod zariaden\u00ed do stavov definovan\u00fdch v sc\u00e9ne.",
+                    "name": "Prechod"
+                }
+            },
+            "name": "Aktivova\u0165"
+        }
+    },
+    "title": "Sc\u00e9na"
+}

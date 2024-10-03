@@ -1,0 +1,80 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "Automazione",
+            "state": {
+                "off": "Spento/a",
+                "on": "Acceso/a"
+            },
+            "state_attributes": {
+                "current": {
+                    "name": "Automazioni in esecuzione"
+                },
+                "id": {
+                    "name": "ID"
+                },
+                "last_triggered": {
+                    "name": "Ultima attivazione"
+                },
+                "max": {
+                    "name": "Max automazioni in esecuzione"
+                },
+                "mode": {
+                    "name": "Modalit\u00e0 di esecuzione",
+                    "state": {
+                        "parallel": "In parallelo",
+                        "queued": "In coda",
+                        "restart": "Riavvio",
+                        "single": "Singola"
+                    }
+                }
+            }
+        }
+    },
+    "issues": {
+        "service_not_found": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "title": "{name} utilizza un servizio sconosciuto"
+                    }
+                }
+            }
+        }
+    },
+    "services": {
+        "reload": {
+            "description": "Ricarica la configurazione dell'automazione.",
+            "name": "Ricarica"
+        },
+        "toggle": {
+            "description": "Attiva/disattiva (abilita/disabilita) un'automazione.",
+            "name": "Commuta"
+        },
+        "trigger": {
+            "description": "Attiva le azioni di un'automazione.",
+            "fields": {
+                "skip_condition": {
+                    "description": "Definisce se le condizioni verranno saltate o meno.",
+                    "name": "Salta le condizioni"
+                }
+            },
+            "name": "Attiva"
+        },
+        "turn_off": {
+            "description": "Disabilita l'automazione",
+            "fields": {
+                "stop_actions": {
+                    "description": "Ferma le azioni attualmente in esecuzione",
+                    "name": "Ferma le azioni"
+                }
+            },
+            "name": "Spegni"
+        },
+        "turn_on": {
+            "description": "Attiva una automazione",
+            "name": "Accendi"
+        }
+    },
+    "title": "Automazione"
+}

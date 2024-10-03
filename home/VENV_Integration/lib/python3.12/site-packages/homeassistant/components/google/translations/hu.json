@@ -1,0 +1,127 @@
+{
+    "application_credentials": {
+        "description": "K\u00f6vesse az [\u00fatmutat\u00f3t]({more_info_url}) az [OAuth hozz\u00e1j\u00e1rul\u00e1si k\u00e9perny\u0151]({oauth_consent_url}) be\u00e1ll\u00edt\u00e1s\u00e1hoz, hogy hozz\u00e1f\u00e9r\u00e9st biztos\u00edtson a Home Assistant sz\u00e1m\u00e1ra a Google Napt\u00e1r\u00e1hoz. Ezenk\u00edv\u00fcl l\u00e9tre kell hoznia a Napt\u00e1r\u00e1hoz kapcsol\u00f3d\u00f3 Alkalmaz\u00e1shiteles\u00edt\u0151 adatokat:\n1. L\u00e1togasson el a [Hiteles\u00edt\u0151 adatok]({oauth_creds_url}) oldalra \u00e9s v\u00e1lassza a **Create Credentials** lehet\u0151s\u00e9get.\n2. A leg\u00f6rd\u00fcl\u0151 list\u00e1b\u00f3l v\u00e1lassza az **OAuth client ID** lehet\u0151s\u00e9get.\n3. Alkalmaz\u00e1st\u00edpusk\u00e9nt v\u00e1lassza a **TV and Limited Input devices** opci\u00f3t."
+    },
+    "config": {
+        "abort": {
+            "already_configured": "A fi\u00f3k m\u00e1r konfigur\u00e1lva van",
+            "already_in_progress": "A konfigur\u00e1l\u00e1s m\u00e1r folyamatban van",
+            "api_disabled": "Enged\u00e9lyeznie kell a Google Napt\u00e1r API-t a Google Cloud Console-ban.",
+            "cannot_connect": "Sikertelen csatlakoz\u00e1s",
+            "code_expired": "A hiteles\u00edt\u00e9si k\u00f3d lej\u00e1rt vagy a hiteles\u00edt\u0151 adatok be\u00e1ll\u00edt\u00e1sa \u00e9rv\u00e9nytelen, k\u00e9rem, pr\u00f3b\u00e1lja meg \u00fajra.",
+            "invalid_access_token": "\u00c9rv\u00e9nytelen hozz\u00e1f\u00e9r\u00e9si token",
+            "missing_configuration": "A komponens nincs konfigur\u00e1lva. K\u00e9rem, k\u00f6vesse a dokument\u00e1ci\u00f3t.",
+            "oauth_error": "\u00c9rv\u00e9nytelen token adatok \u00e9rkeztek.",
+            "oauth_failed": "Hiba a hozz\u00e1f\u00e9r\u00e9si token megszerz\u00e9se k\u00f6zben.",
+            "oauth_timeout": "Id\u0151t\u00fall\u00e9p\u00e9s az OAuth-token felold\u00e1sakor.",
+            "oauth_unauthorized": "OAuth enged\u00e9lyez\u00e9si hiba a hozz\u00e1f\u00e9r\u00e9si token megszerz\u00e9se sor\u00e1n.",
+            "reauth_successful": "Az \u00fajrahiteles\u00edt\u00e9s sikeres volt.",
+            "timeout_connect": "Id\u0151t\u00fall\u00e9p\u00e9s a kapcsolat l\u00e9trehoz\u00e1sa sor\u00e1n"
+        },
+        "create_entry": {
+            "default": "Sikeres hiteles\u00edt\u00e9s"
+        },
+        "progress": {
+            "exchange": "Google-fi\u00f3kja \u00f6sszekapcsol\u00e1s\u00e1hoz keresse fel a [{url}]({url}) c\u00edmet \u00e9s \u00edrja be a k\u00f3dot: \n\n{user_code}"
+        },
+        "step": {
+            "auth": {
+                "title": "\u00d6sszekapcsol\u00e1s Google-al"
+            },
+            "pick_implementation": {
+                "title": "V\u00e1lasszon egy hiteles\u00edt\u00e9si m\u00f3dszert"
+            },
+            "reauth_confirm": {
+                "description": "A Google Napt\u00e1r integr\u00e1ci\u00f3nak \u00fajra kell hiteles\u00edtenie fi\u00f3kj\u00e1t",
+                "title": "A(z) {name} hiteles\u00edt\u00e9se lej\u00e1rt"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "calendar_access": "Home Assistant hozz\u00e1f\u00e9r\u00e9s a Google Napt\u00e1rhoz"
+                }
+            }
+        }
+    },
+    "services": {
+        "add_event": {
+            "description": "\u00daj napt\u00e1ri esem\u00e9ny hozz\u00e1ad\u00e1sa.",
+            "fields": {
+                "calendar_id": {
+                    "description": "A k\u00edv\u00e1nt napt\u00e1r azonos\u00edt\u00f3ja.",
+                    "name": "Napt\u00e1razonos\u00edt\u00f3"
+                },
+                "description": {
+                    "description": "Az esem\u00e9ny le\u00edr\u00e1sa. Opcion\u00e1lis.",
+                    "name": "Le\u00edr\u00e1s"
+                },
+                "end_date": {
+                    "description": "Az eg\u00e9sz napos esem\u00e9ny befejez\u00e9s\u00e9nek d\u00e1tuma.",
+                    "name": "Befejez\u00e9s d\u00e1tuma"
+                },
+                "end_date_time": {
+                    "description": "Az esem\u00e9ny befejez\u00e9s\u00e9nek d\u00e1tuma \u00e9s ideje.",
+                    "name": "Befejez\u00e9s ideje"
+                },
+                "in": {
+                    "description": "Az esem\u00e9nyt h\u00e1ny nap vagy h\u00e9t m\u00falva szeretn\u00e9 l\u00e9trehozni.",
+                    "name": "K\u00e9sleltet"
+                },
+                "start_date": {
+                    "description": "Az eg\u00e9sz napos esem\u00e9ny kezd\u00e9s\u00e9nek d\u00e1tuma.",
+                    "name": "Kezd\u00e9s d\u00e1tuma"
+                },
+                "start_date_time": {
+                    "description": "Az esem\u00e9ny kezd\u00e9s\u00e9nek d\u00e1tuma \u00e9s ideje.",
+                    "name": "Kezd\u00e9s ideje"
+                },
+                "summary": {
+                    "description": "Az esem\u00e9ny c\u00edmek\u00e9nt m\u0171k\u00f6dik.",
+                    "name": "\u00d6sszefoglal\u00f3"
+                }
+            },
+            "name": "Esem\u00e9ny hozz\u00e1ad\u00e1sa"
+        },
+        "create_event": {
+            "description": "\u00daj napt\u00e1ri esem\u00e9ny hozz\u00e1ad\u00e1sa.",
+            "fields": {
+                "description": {
+                    "description": "Az esem\u00e9ny le\u00edr\u00e1sa. Opcion\u00e1lis.",
+                    "name": "Le\u00edr\u00e1s"
+                },
+                "end_date": {
+                    "description": "Az eg\u00e9sz napos esem\u00e9ny befejez\u00e9s\u00e9nek d\u00e1tuma.",
+                    "name": "Befejez\u00e9s d\u00e1tuma"
+                },
+                "end_date_time": {
+                    "description": "Az esem\u00e9ny befejez\u00e9s\u00e9nek d\u00e1tuma \u00e9s ideje.",
+                    "name": "Befejez\u00e9s ideje"
+                },
+                "in": {
+                    "description": "Az esem\u00e9nyt h\u00e1ny nap vagy h\u00e9t m\u00falva szeretn\u00e9 l\u00e9trehozni.",
+                    "name": "K\u00e9sleltet"
+                },
+                "location": {
+                    "description": "Az esem\u00e9ny helysz\u00edne. Opcion\u00e1lis.",
+                    "name": "Elhelyezked\u00e9s"
+                },
+                "start_date": {
+                    "description": "Az eg\u00e9sz napos esem\u00e9ny kezd\u00e9s\u00e9nek d\u00e1tuma.",
+                    "name": "Kezd\u00e9s d\u00e1tuma"
+                },
+                "start_date_time": {
+                    "description": "Az esem\u00e9ny kezd\u00e9s\u00e9nek d\u00e1tuma \u00e9s ideje.",
+                    "name": "Kezd\u00e9si ideje"
+                },
+                "summary": {
+                    "description": "Az esem\u00e9ny c\u00edmek\u00e9nt m\u0171k\u00f6dik.",
+                    "name": "\u00d6sszefoglal\u00f3"
+                }
+            },
+            "name": "Esem\u00e9ny l\u00e9trehoz\u00e1s"
+        }
+    }
+}

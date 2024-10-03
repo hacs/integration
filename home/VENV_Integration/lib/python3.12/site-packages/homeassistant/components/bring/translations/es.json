@@ -1,0 +1,126 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "El servicio ya est\u00e1 configurado",
+            "reauth_successful": "La autenticaci\u00f3n se volvi\u00f3 a realizar correctamente"
+        },
+        "error": {
+            "cannot_connect": "No se pudo conectar",
+            "invalid_auth": "Autenticaci\u00f3n no v\u00e1lida",
+            "unknown": "Error inesperado"
+        },
+        "step": {
+            "reauth_confirm": {
+                "data": {
+                    "email": "Correo electr\u00f3nico",
+                    "password": "Contrase\u00f1a"
+                },
+                "description": "La integraci\u00f3n Bring! necesita volver a autenticar tu cuenta",
+                "title": "Autenticaci\u00f3n caducada para {name}"
+            },
+            "user": {
+                "data": {
+                    "email": "Correo electr\u00f3nico",
+                    "password": "Contrase\u00f1a"
+                }
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "convenient": {
+                "name": "Cuando cabe"
+            },
+            "discounted": {
+                "name": "S\u00f3lo en oferta"
+            },
+            "list_language": {
+                "name": "Regi\u00f3n e idioma",
+                "state": {
+                    "de-at": "Austria",
+                    "de-ch": "Suiza (Alem\u00e1n)",
+                    "de-de": "Alemania",
+                    "en-au": "Australia",
+                    "en-ca": "Canad\u00e1",
+                    "en-gb": "Reino de Gran Breta\u00f1a",
+                    "en-us": "Estados Unidos de Am\u00e9rica",
+                    "es-es": "Espa\u00f1a",
+                    "fr-ch": "Suiza (Franc\u00e9s)",
+                    "fr-fr": "Francia",
+                    "hu-hu": "Hungr\u00eda",
+                    "it-ch": "Suiza (Italiano)",
+                    "it-it": "Italia",
+                    "nb-no": "Noruega",
+                    "nl-nl": "Pa\u00edses Bajos",
+                    "pl-pl": "Polonia",
+                    "pt-br": "Portugal",
+                    "ru-ru": "Rusia",
+                    "sv-se": "Suecia",
+                    "tr-tr": "Turqu\u00eda"
+                }
+            },
+            "urgent": {
+                "name": "Urgente"
+            }
+        }
+    },
+    "exceptions": {
+        "notify_missing_argument_item": {
+            "message": "No se pudo realizar la acci\u00f3n {service}. 'URGENT_MESSAGE' requiere un valor @ data['item']. Se obtuvo ninguno"
+        },
+        "notify_request_failed": {
+            "message": "No se pudo enviar la notificaci\u00f3n push para bring debido a un error de conexi\u00f3n, int\u00e9ntalo nuevamente m\u00e1s tarde"
+        },
+        "setup_authentication_exception": {
+            "message": "Error de autenticaci\u00f3n para {email}, comprueba tu correo electr\u00f3nico y contrase\u00f1a"
+        },
+        "setup_parse_exception": {
+            "message": "No se pudo analizar la respuesta del servidor, int\u00e9ntalo de nuevo"
+        },
+        "setup_request_exception": {
+            "message": "No se pudo conectar con el servidor, int\u00e9ntalo de nuevo"
+        },
+        "todo_delete_item_failed": {
+            "message": "No se pudieron eliminar {count} art\u00edculos de la lista Bring!"
+        },
+        "todo_rename_item_failed": {
+            "message": "No se pudo cambiar el nombre del art\u00edculo {name} a la lista Bring!"
+        },
+        "todo_save_item_failed": {
+            "message": "No se pudo guardar el art\u00edculo {name} en la lista Bring!"
+        },
+        "todo_update_item_failed": {
+            "message": "No se pudo actualizar el art\u00edculo {name} a la lista Bring!"
+        }
+    },
+    "selector": {
+        "notification_type_selector": {
+            "options": {
+                "changed_list": "Lista actualizada - Echa un vistazo a los art\u00edculos",
+                "going_shopping": "\u00a1Me voy de compras! - \u00daltima oportunidad para realizar cambios.",
+                "shopping_done": "Compra realizada: la nevera est\u00e1 bien surtida.",
+                "urgent_message": "Mensaje urgente - Por favor, compra `nombre de articulo` con urgencia"
+            }
+        }
+    },
+    "services": {
+        "send_message": {
+            "description": "Env\u00eda una notificaci\u00f3n push m\u00f3vil a l@s miembr@s de una lista Bring! compartida.",
+            "fields": {
+                "entity_id": {
+                    "description": "Lista Bring! cuyos miembr@s (excepto remitente) ser\u00e1n notificados.",
+                    "name": "Lista"
+                },
+                "item": {
+                    "description": "Nombre del art\u00edculo que se incluir\u00e1 en un mensaje urgente, por ejemplo, `Mensaje urgente - Por favor, compra cilantro con urgencia`",
+                    "name": "Art\u00edculo (Obligatorio si se selecciona el tipo de mensaje \"Mensaje urgente\")"
+                },
+                "message": {
+                    "description": "Tipo de notificaci\u00f3n push para enviar a l@s miembr@s de la lista.",
+                    "name": "Tipo de notificaci\u00f3n"
+                }
+            },
+            "name": "Enviar una notificaci\u00f3n"
+        }
+    }
+}

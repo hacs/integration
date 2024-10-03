@@ -1,0 +1,763 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Urz\u0105dzenie jest ju\u017c skonfigurowane",
+            "reauth_successful": "Ponowne uwierzytelnienie powiod\u0142o si\u0119",
+            "reconfigure_successful": "Ponowna konfiguracja powiod\u0142a si\u0119"
+        },
+        "error": {
+            "api_error": "Wyst\u0105pi\u0142 b\u0142\u0105d API",
+            "cannot_connect": "Nie mo\u017cna nawi\u0105za\u0107 po\u0142\u0105czenia, sprawd\u017a adres IP kamery.",
+            "invalid_auth": "Niepoprawne uwierzytelnienie",
+            "not_admin": "U\u017cytkownik musi by\u0107 administratorem, u\u017cytkownik \u201e{username}\u201d ma poziom autoryzacji \u201e{userlevel}\u201d",
+            "password_incompatible": "Has\u0142o zawiera niekompatybilny znak specjalny, dozwolone s\u0105 tylko te znaki: a-z, A-Z, 0-9 lub {special_chars}",
+            "unknown": "Nieoczekiwany b\u0142\u0105d",
+            "webhook_exception": "Adres URL Home Assistant nie jest dost\u0119pny, przejd\u017a do Ustawienia > System > Sie\u0107 > Adres URL Home Assistanta i popraw adresy URL, zob {more_info}"
+        },
+        "flow_title": "{hostname} ({ip_address})",
+        "step": {
+            "reauth_confirm": {
+                "description": "Integracja Reolink wymaga ponownego uwierzytelnienia szczeg\u00f3\u0142\u00f3w po\u0142\u0105czenia",
+                "title": "Autoryzacja wygas\u0142a dla {name}"
+            },
+            "user": {
+                "data": {
+                    "host": "Host",
+                    "password": "Has\u0142o",
+                    "port": "Port",
+                    "use_https": "W\u0142\u0105cz HTTPS",
+                    "username": "Nazwa u\u017cytkownika"
+                },
+                "data_description": {
+                    "host": "Nazwa hosta lub adres IP urz\u0105dzenia Reolink. Na przyk\u0142ad: \"192.168.1.25\".",
+                    "password": "Has\u0142o logowania do urz\u0105dzenia Reolink. Nie do konto w chmurze Reolink.",
+                    "port": "Port do po\u0142\u0105czenia z urz\u0105dzeniem Reolink. Dla HTTP zwykle: \"80\", dla HTTPS zwykle \"443\".",
+                    "use_https": "U\u017cyj po\u0142\u0105czenia HTTPS (SSL) z urz\u0105dzeniem Reolink.",
+                    "username": "Nazwa u\u017cytkownika urz\u0105dzenia Reolink. Nie konta w chmurze Reolink."
+                },
+                "description": "Zobacz [kroki rozwi\u0105zywania problem\u00f3w]({troubleshooting_link}), je\u015bli napotkasz problemy. {error}"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "animal": {
+                "name": "Zwierz\u0119",
+                "state": {
+                    "off": "brak",
+                    "on": "wykryto"
+                }
+            },
+            "animal_lens_0": {
+                "name": "Zwierz\u0119 obiektyw 0",
+                "state": {
+                    "off": "brak",
+                    "on": "wykryto"
+                }
+            },
+            "animal_lens_1": {
+                "name": "Zwierz\u0119 obiektyw 1",
+                "state": {
+                    "off": "brak",
+                    "on": "wykryto"
+                }
+            },
+            "face": {
+                "name": "Twarz",
+                "state": {
+                    "off": "brak",
+                    "on": "wykryto"
+                }
+            },
+            "face_lens_0": {
+                "name": "Twarz obiektyw 0",
+                "state": {
+                    "off": "brak",
+                    "on": "wykryto"
+                }
+            },
+            "face_lens_1": {
+                "name": "Twarz obiektyw 1",
+                "state": {
+                    "off": "brak",
+                    "on": "wykryto"
+                }
+            },
+            "motion_lens_0": {
+                "name": "Ruch obiektyw 0",
+                "state": {
+                    "off": "brak",
+                    "on": "wykryto"
+                }
+            },
+            "motion_lens_1": {
+                "name": "Ruch obiektyw 1",
+                "state": {
+                    "off": "brak",
+                    "on": "wykryto"
+                }
+            },
+            "package": {
+                "name": "Paczka",
+                "state": {
+                    "off": "brak",
+                    "on": "wykryto"
+                }
+            },
+            "package_lens_0": {
+                "name": "Paczka obiektyw 0",
+                "state": {
+                    "off": "brak",
+                    "on": "wykryto"
+                }
+            },
+            "package_lens_1": {
+                "name": "Paczka obiektyw 1",
+                "state": {
+                    "off": "brak",
+                    "on": "wykryto"
+                }
+            },
+            "person": {
+                "name": "Osoba",
+                "state": {
+                    "off": "brak",
+                    "on": "wykryto"
+                }
+            },
+            "person_lens_0": {
+                "name": "Osoba obiektyw 0",
+                "state": {
+                    "off": "brak",
+                    "on": "wykryto"
+                }
+            },
+            "person_lens_1": {
+                "name": "Osoba obiektyw 1",
+                "state": {
+                    "off": "brak",
+                    "on": "wykryto"
+                }
+            },
+            "pet": {
+                "name": "Zwierz\u0119 domowe",
+                "state": {
+                    "off": "brak",
+                    "on": "wykryto"
+                }
+            },
+            "pet_lens_0": {
+                "name": "Zwierz\u0119 domowe obiektyw 0",
+                "state": {
+                    "off": "brak",
+                    "on": "wykryto"
+                }
+            },
+            "pet_lens_1": {
+                "name": "Zwierz\u0119 domowe obiektyw 1",
+                "state": {
+                    "off": "brak",
+                    "on": "wykryto"
+                }
+            },
+            "sleep": {
+                "name": "Stan u\u015bpienia",
+                "state": {
+                    "off": "wybudzono",
+                    "on": "u\u015bpienie"
+                }
+            },
+            "vehicle": {
+                "name": "Pojazd",
+                "state": {
+                    "off": "brak",
+                    "on": "wykryto"
+                }
+            },
+            "vehicle_lens_0": {
+                "name": "Pojazd obiektyw 0",
+                "state": {
+                    "off": "brak",
+                    "on": "wykryto"
+                }
+            },
+            "vehicle_lens_1": {
+                "name": "Pojazd obiektyw 1",
+                "state": {
+                    "off": "brak",
+                    "on": "wykryto"
+                }
+            },
+            "visitor": {
+                "name": "Go\u015b\u0107"
+            },
+            "visitor_lens_0": {
+                "name": "Go\u015b\u0107 migawka 0"
+            },
+            "visitor_lens_1": {
+                "name": "Go\u015b\u0107 migawka 1"
+            }
+        },
+        "button": {
+            "guard_go_to": {
+                "name": "Id\u017a do punktu monitorowania"
+            },
+            "guard_set": {
+                "name": "Ustaw aktualn\u0105 pozycj\u0119 punktu monitorowania"
+            },
+            "ptz_calibrate": {
+                "name": "Kalibracja PTZ"
+            },
+            "ptz_down": {
+                "name": "PTZ w d\u00f3\u0142"
+            },
+            "ptz_left": {
+                "name": "PTZ w lewo"
+            },
+            "ptz_right": {
+                "name": "PTZ w prawo"
+            },
+            "ptz_stop": {
+                "name": "Zatrzymanie PTZ"
+            },
+            "ptz_up": {
+                "name": "PTZ w g\u00f3r\u0119"
+            },
+            "ptz_zoom_in": {
+                "name": "Powi\u0119kszenie PTZ"
+            },
+            "ptz_zoom_out": {
+                "name": "Oddalenie PTZ"
+            }
+        },
+        "camera": {
+            "autotrack_snapshots_main": {
+                "name": "Wyczy\u015b\u0107 migawki z automatycznego \u015bledzenia"
+            },
+            "autotrack_snapshots_sub": {
+                "name": "Migawki z p\u0142ynnego automatycznego \u015bledzenia"
+            },
+            "autotrack_sub": {
+                "name": "P\u0142ynne automatyczne \u015bledzenie"
+            },
+            "ext": {
+                "name": "Zr\u00f3wnowa\u017cony"
+            },
+            "ext_lens_0": {
+                "name": "Zr\u00f3wnowa\u017cony obiektyw 0"
+            },
+            "ext_lens_1": {
+                "name": "Zr\u00f3wnowa\u017cony obiektyw 1"
+            },
+            "main": {
+                "name": "Brak"
+            },
+            "snapshots_main": {
+                "name": "Wyczy\u015b\u0107 migawki"
+            },
+            "snapshots_main_lens_0": {
+                "name": "Wyczy\u015b\u0107 migawki obiektyw 0"
+            },
+            "snapshots_main_lens_1": {
+                "name": "Wyczy\u015b\u0107 migawki obiektyw 1"
+            },
+            "snapshots_sub": {
+                "name": "P\u0142ynne migawki"
+            },
+            "snapshots_sub_lens_0": {
+                "name": "P\u0142ynne migawki obiektyw 0"
+            },
+            "snapshots_sub_lens_1": {
+                "name": "P\u0142ynne migawki obiektyw 1"
+            },
+            "sub": {
+                "name": "P\u0142ynny"
+            },
+            "sub_lens_0": {
+                "name": "P\u0142ynny obiektyw 0"
+            },
+            "sub_lens_1": {
+                "name": "P\u0142ynny obiektyw 1"
+            }
+        },
+        "light": {
+            "floodlight": {
+                "name": "Reflektor"
+            },
+            "ir_lights": {
+                "name": "\u015awiat\u0142a podczerwone w trybie nocnym"
+            },
+            "status_led": {
+                "name": "Dioda LED stanu"
+            }
+        },
+        "number": {
+            "ai_animal_delay": {
+                "name": "Op\u00f3\u017anienie wykrywania zwierz\u0105t przez AI"
+            },
+            "ai_animal_sensititvity": {
+                "name": "Czu\u0142o\u015b\u0107 wykrywania zwierz\u0105t przez AI"
+            },
+            "ai_animal_sensitivity": {
+                "name": "Czu\u0142o\u015b\u0107 wykrywania zwierz\u0105t przez AI"
+            },
+            "ai_face_delay": {
+                "name": "Op\u00f3\u017anienie wykrywania twarzy przez AI"
+            },
+            "ai_face_sensititvity": {
+                "name": "Czu\u0142o\u015b\u0107 wykrywania twarzy przez AI"
+            },
+            "ai_face_sensitivity": {
+                "name": "Czu\u0142o\u015b\u0107 wykrywania twarzy przez AI"
+            },
+            "ai_package_delay": {
+                "name": "Op\u00f3\u017anienie wykrywania paczek przez AI"
+            },
+            "ai_package_sensititvity": {
+                "name": "Czu\u0142o\u015b\u0107 wykrywania paczek przez AI"
+            },
+            "ai_package_sensitivity": {
+                "name": "Czu\u0142o\u015b\u0107 wykrywania paczek przez AI"
+            },
+            "ai_person_delay": {
+                "name": "Op\u00f3\u017anienie wykrywania zwierz\u0105t domowych przez AI"
+            },
+            "ai_person_sensititvity": {
+                "name": "Czu\u0142o\u015b\u0107 wykrywania os\u00f3b przez AI"
+            },
+            "ai_person_sensitivity": {
+                "name": "Czu\u0142o\u015b\u0107 wykrywania os\u00f3b przez AI"
+            },
+            "ai_pet_delay": {
+                "name": "Op\u00f3\u017anienie wykrywania zwierz\u0105t domowych przez AI"
+            },
+            "ai_pet_sensititvity": {
+                "name": "Czu\u0142o\u015b\u0107 wykrywania zwierz\u0105t domowych przez AI"
+            },
+            "ai_pet_sensitivity": {
+                "name": "Czu\u0142o\u015b\u0107 wykrywania zwierz\u0105t domowych przez AI"
+            },
+            "ai_vehicle_delay": {
+                "name": "Op\u00f3\u017anienie wykrywania pojazd\u00f3w przez AI"
+            },
+            "ai_vehicle_sensititvity": {
+                "name": "Czu\u0142o\u015b\u0107 wykrywania pojazd\u00f3w przez AI"
+            },
+            "ai_vehicle_sensitivity": {
+                "name": "Czu\u0142o\u015b\u0107 wykrywania pojazd\u00f3w przez AI"
+            },
+            "alarm_volume": {
+                "name": "G\u0142o\u015bno\u015b\u0107 alarmu"
+            },
+            "auto_quick_reply_time": {
+                "name": "Czas do wys\u0142ania szybkiej odpowiedzi"
+            },
+            "auto_track_disappear_time": {
+                "name": "Czas do zatrzymania \u015bledzenia, gdy obiekt znika"
+            },
+            "auto_track_limit_left": {
+                "name": "Lewa granica automatycznego \u015bledzenia"
+            },
+            "auto_track_limit_right": {
+                "name": "Prawa granica automatycznego \u015bledzenia"
+            },
+            "auto_track_stop_time": {
+                "name": "Czas do zatrzymania automatycznego \u015bledzenia"
+            },
+            "day_night_switch_threshold": {
+                "name": "Pr\u00f3g prze\u0142\u0105cznika Dzie\u0144-Noc"
+            },
+            "floodlight_brightness": {
+                "name": "Jasno\u015b\u0107 w\u0142\u0105czenia reflektora"
+            },
+            "focus": {
+                "name": "Ostro\u015b\u0107"
+            },
+            "guard_return_time": {
+                "name": "Czas powrotu do punktu monitorowania"
+            },
+            "image_brightness": {
+                "name": "Jasno\u015b\u0107 obrazu"
+            },
+            "image_contrast": {
+                "name": "Kontrast obrazu"
+            },
+            "image_hue": {
+                "name": "Odcie\u0144 obrazu"
+            },
+            "image_saturation": {
+                "name": "Nasycenie obrazu"
+            },
+            "image_sharpness": {
+                "name": "Ostro\u015b\u0107 obrazu"
+            },
+            "message_volume": {
+                "name": "G\u0142o\u015bno\u015b\u0107 wiadomo\u015bci"
+            },
+            "motion_sensitivity": {
+                "name": "Czu\u0142o\u015b\u0107 na ruch"
+            },
+            "pir_sensitivity": {
+                "name": "Czu\u0142o\u015b\u0107 czujnika ruchu"
+            },
+            "volume": {
+                "name": "G\u0142o\u015bno\u015b\u0107"
+            },
+            "zoom": {
+                "name": "Powi\u0119kszenie"
+            }
+        },
+        "select": {
+            "auto_quick_reply_message": {
+                "name": "Automatyczna szybka odpowied\u017a",
+                "state": {
+                    "off": "wy\u0142\u0105czono"
+                }
+            },
+            "auto_track_method": {
+                "name": "Metoda automatycznego \u015bledzenia",
+                "state": {
+                    "digital": "Cyfrowe",
+                    "digitalfirst": "Najpierw cyfrowe",
+                    "pantiltfirst": "Najpierw pochylenie/przesuni\u0119cie"
+                }
+            },
+            "day_night_mode": {
+                "name": "Dzie\u0144 i Noc",
+                "state": {
+                    "auto": "Automatyczny",
+                    "blackwhite": "Czarno-bia\u0142y",
+                    "color": "Kolor"
+                }
+            },
+            "doorbell_led": {
+                "name": "Dioda LED stanu",
+                "state": {
+                    "alwayson": "Zawsze w\u0142\u0105czona",
+                    "alwaysonatnight": "Automatycznie i zawsze w\u0142\u0105czona w nocy",
+                    "auto": "Automatycznie",
+                    "stayoff": "Wy\u0142\u0105czona"
+                }
+            },
+            "floodlight_mode": {
+                "name": "Reflektor",
+                "state": {
+                    "adaptive": "Adaptacyjny",
+                    "auto": "Automatyczny",
+                    "autoadaptive": "Automatyczna adaptacja",
+                    "off": "wy\u0142\u0105czono",
+                    "onatnight": "W\u0142\u0105czone w nocy",
+                    "schedule": "Harmonogram"
+                }
+            },
+            "hdr": {
+                "name": "HDR",
+                "state": {
+                    "auto": "Automatyczny",
+                    "off": "wy\u0142\u0105czono",
+                    "on": "w\u0142\u0105czono"
+                }
+            },
+            "hub_alarm_ringtone": {
+                "state": {
+                    "alarm": "Alarm",
+                    "attraction": "Atrakcja",
+                    "citybird": "Miejski ptak",
+                    "goodday": "Dobry dzie\u0144",
+                    "hophop": "Hop hop",
+                    "loop": "P\u0119tla",
+                    "moonlight": "\u015awiat\u0142o ksi\u0119\u017cyca",
+                    "operetta": "Operetka",
+                    "originaltune": "Oryginalna melodia",
+                    "pianokey": "Klawisz fortepianu",
+                    "waybackhome": "Droga do domu"
+                }
+            },
+            "hub_visitor_ringtone": {
+                "state": {
+                    "alarm": "Alarm",
+                    "attraction": "Atrakcja",
+                    "citybird": "Miejski ptak",
+                    "goodday": "Dobry dzie\u0144",
+                    "hophop": "Hop hop",
+                    "loop": "P\u0119tla",
+                    "moonlight": "\u015awiat\u0142o ksi\u0119\u017cyca",
+                    "operetta": "Operetka",
+                    "originaltune": "Oryginalna melodia",
+                    "pianokey": "Klawisz fortepianu",
+                    "waybackhome": "Droga do domu"
+                }
+            },
+            "motion_tone": {
+                "name": "Dzwonek ruchu",
+                "state": {
+                    "attraction": "Atrakcja",
+                    "citybird": "Miejski ptak",
+                    "goodday": "Dobry dzie\u0144",
+                    "hophop": "Hop hop",
+                    "loop": "P\u0119tla",
+                    "moonlight": "\u015awiat\u0142o ksi\u0119\u017cyca",
+                    "off": "wy\u0142\u0105czono",
+                    "operetta": "Operetka",
+                    "originaltune": "Oryginalna melodia",
+                    "pianokey": "Klawisz fortepianu",
+                    "waybackhome": "Droga do domu"
+                }
+            },
+            "package_tone": {
+                "state": {
+                    "attraction": "Atrakcja",
+                    "citybird": "Miejski ptak",
+                    "goodday": "Dobry dzie\u0144",
+                    "hophop": "Hop hop",
+                    "loop": "P\u0119tla",
+                    "moonlight": "\u015awiat\u0142o ksi\u0119\u017cyca",
+                    "off": "wy\u0142\u0105czono",
+                    "operetta": "Operetka",
+                    "originaltune": "Oryginalna melodia",
+                    "pianokey": "Klawisz fortepianu",
+                    "waybackhome": "Droga do domu"
+                }
+            },
+            "people_tone": {
+                "name": "Dzwonek dla osoby",
+                "state": {
+                    "attraction": "Atrakcja",
+                    "citybird": "Miejski ptak",
+                    "goodday": "Dobry dzie\u0144",
+                    "hophop": "Hop hop",
+                    "loop": "P\u0119tla",
+                    "moonlight": "\u015awiat\u0142o ksi\u0119\u017cyca",
+                    "off": "wy\u0142\u0105czono",
+                    "operetta": "Operetka",
+                    "originaltune": "Oryginalna melodia",
+                    "pianokey": "Klawisz fortepianu",
+                    "waybackhome": "Droga do domu"
+                }
+            },
+            "play_quick_reply_message": {
+                "name": "Odtw\u00f3rz szybk\u0105 odpowied\u017a"
+            },
+            "ptz_preset": {
+                "name": "Wst\u0119pnie ustawiony punkt"
+            },
+            "status_led": {
+                "name": "Dioda LED stanu",
+                "state": {
+                    "alwayson": "Zawsze w\u0142\u0105czona",
+                    "alwaysonatnight": "Automatycznie i zawsze w\u0142\u0105czona w nocy",
+                    "auto": "Automatycznie",
+                    "stayoff": "Wy\u0142\u0105czona"
+                }
+            },
+            "visitor_tone": {
+                "name": "Dzwonek go\u015bcia",
+                "state": {
+                    "attraction": "Atrakcja",
+                    "citybird": "Miejski ptak",
+                    "goodday": "Dobry dzie\u0144",
+                    "hophop": "Hop hop",
+                    "loop": "P\u0119tla",
+                    "moonlight": "\u015awiat\u0142o ksi\u0119\u017cyca",
+                    "off": "wy\u0142\u0105czono",
+                    "operetta": "Operetka",
+                    "originaltune": "Oryginalna melodia",
+                    "pianokey": "Klawisz fortepianu",
+                    "waybackhome": "Droga do domu"
+                }
+            }
+        },
+        "sensor": {
+            "battery_percent": {
+                "name": "Procentowy poziom na\u0142adowania baterii"
+            },
+            "battery_state": {
+                "name": "Stan baterii",
+                "state": {
+                    "chargecomplete": "\u0141adowanie zako\u0144czone",
+                    "charging": "\u0141adowanie",
+                    "discharging": "Roz\u0142adowywanie"
+                }
+            },
+            "battery_temperature": {
+                "name": "Temperatura baterii"
+            },
+            "cpu_usage": {
+                "name": "U\u017cycie procesora"
+            },
+            "event_connection": {
+                "name": "Po\u0142\u0105czenie zdarze\u0144",
+                "state": {
+                    "fast_poll": "Szybkie odpytywanie",
+                    "onvif_long_poll": "D\u0142ugie odpytywanie ONVIF",
+                    "onvif_push": "Powiadomienia push ONVIF"
+                }
+            },
+            "hdd_storage": {
+                "name": "Pojemno\u015b\u0107 dysku HDD {hdd_index}"
+            },
+            "ptz_pan_position": {
+                "name": "Pozycja obrotu PTZ"
+            },
+            "sd_storage": {
+                "name": "Pojemno\u015b\u0107 karty SD {hdd_index}"
+            },
+            "wifi_signal": {
+                "name": "Sygna\u0142 Wi-Fi"
+            }
+        },
+        "siren": {
+            "siren": {
+                "name": "Syrena"
+            }
+        },
+        "switch": {
+            "auto_focus": {
+                "name": "Automatyczne ustawianie ostro\u015bci"
+            },
+            "auto_tracking": {
+                "name": "Automatyczne \u015bledzenie"
+            },
+            "buzzer": {
+                "name": "D\u017awi\u0119k przy wydarzeniu"
+            },
+            "doorbell_button_sound": {
+                "name": "D\u017awi\u0119k przycisku dzwonka"
+            },
+            "email": {
+                "name": "Alerty e-mail"
+            },
+            "ftp_upload": {
+                "name": "Przesy\u0142anie przez FTP"
+            },
+            "gaurd_return": {
+                "name": "Powr\u00f3t do punktu monitorowania"
+            },
+            "guard_return": {
+                "name": "Wr\u00f3\u0107 do punktu monitorowania"
+            },
+            "hdr": {
+                "name": "HDR"
+            },
+            "hub_ringtone_on_event": {
+                "name": "Dzwonek koncentratora podczas wydarzenia"
+            },
+            "ir_lights": {
+                "name": "\u015awiat\u0142a podczerwone w trybie nocnym"
+            },
+            "led": {
+                "name": "LED"
+            },
+            "manual_record": {
+                "name": "Zapis r\u0119czny"
+            },
+            "pir_enabled": {
+                "name": "Czujnik ruchu w\u0142\u0105czony"
+            },
+            "pir_reduce_alarm": {
+                "name": "Radukcja fa\u0142szywych alarm\u00f3w czujnika ruchu"
+            },
+            "ptz_patrol": {
+                "name": "Patrol PTZ"
+            },
+            "push_notifications": {
+                "name": "Powiadomienia Push"
+            },
+            "record": {
+                "name": "Nagrywanie"
+            },
+            "record_audio": {
+                "name": "Nagrywanie d\u017awi\u0119ku"
+            },
+            "siren_on_event": {
+                "name": "D\u017awi\u0119k alarmu"
+            }
+        }
+    },
+    "exceptions": {
+        "service_entry_ex": {
+            "message": "B\u0142\u0105d Reolink {service_name}: nie znaleziono wpisu konfiguracyjnego lub nie zosta\u0142 on za\u0142adowany"
+        },
+        "service_not_chime": {
+            "message": "B\u0142\u0105d dzwonka Reolink: {device_name} nie jest dzwonkiem"
+        }
+    },
+    "issues": {
+        "enable_port": {
+            "description": "Nie uda\u0142o si\u0119 automatycznie w\u0142\u0105czy\u0107 port\u00f3w {ports} na {name}. U\u017cyj [klienta Reolink]({info_link}), aby w\u0142\u0105czy\u0107 je r\u0119cznie.",
+            "title": "Port Reolink nie jest w\u0142\u0105czony"
+        },
+        "firmware_update": {
+            "description": "\u201e{name}\u201d, model \u201e{model}\u201d i wersj\u0105 sprz\u0119tow\u0105 \u201e{hw_version}\u201d ma star\u0105 wersj\u0119 oprogramowania \u201e{current_firmware}\u201d, podczas gdy do prawid\u0142owego dzia\u0142ania integracji Reolink wymagana jest co najmniej wersja oprogramowania \u201e{required_firmware}\u201d. Najnowsze oprogramowanie sprz\u0119towe mo\u017cna pobra\u0107 z [Centrum pobierania Reolink]({download_link}).",
+            "title": "Wymagana jest aktualizacja oprogramowania Reolink"
+        },
+        "hdr_switch_deprecated": {
+            "description": "Encja prze\u0142\u0105cznika HDR Reolink jest przestarza\u0142a i zostanie usuni\u0119ta w HA 2025.2.0. Zosta\u0142a zast\u0105piona przez encj\u0119 wyboru HDR oferuj\u0105c\u0105 opcje `on`, `off` i `auto`. Aby usun\u0105\u0107 ten problem, dostosuj odpowiednio automatyzacje i wy\u0142\u0105cz encj\u0119 prze\u0142\u0105cznika HDR.",
+            "title": "Prze\u0142\u0105cznik Reolink HDR jest przestarza\u0142y"
+        },
+        "https_webhook": {
+            "description": "Produkty Reolink nie mog\u0105 przekazywa\u0107 zdarze\u0144 ruchu na adres HTTPS (SSL). Skonfiguruj (lokalny) adres HTTP w \u201eAdres URL Home Assistanta\u201d w [ustawieniach sieci]({network_link}). Bie\u017c\u0105cy (lokalny) adres to: `{base_url}', prawid\u0142owym adresem mo\u017ce by\u0107 na przyk\u0142ad 'http://192.168.1.10:8123', gdzie '192.168.1.10' to adres IP urz\u0105dzenia Home Assistant.",
+            "title": "Adres URL webhooka u\u017cywa protoko\u0142u HTTPS (SSL)"
+        },
+        "ssl": {
+            "title": "Reolink niekompatybilny z globalnym certyfikatem SSL"
+        },
+        "webhook_url": {
+            "title": "Adres URL webhooka Reolink jest nieosi\u0105galny"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "protocol": "Protok\u00f3\u0142"
+                },
+                "data_description": {
+                    "protocol": "Protok\u00f3\u0142 strumieniowania do u\u017cycia dla jednostek kamery. RTSP obs\u0142uguje strumienie 4K (kodowanie h265), podczas gdy RTMP i FLV nie. FLV jest najmniej wymagaj\u0105cy dla kamery."
+                }
+            }
+        }
+    },
+    "selector": {
+        "ringtone": {
+            "options": {
+                "attraction": "Atrakcja",
+                "citybird": "Miejski ptak",
+                "goodday": "Dobry dzie\u0144",
+                "hophop": "Hop hop",
+                "loop": "P\u0119tla",
+                "moonlight": "\u015awiat\u0142o ksi\u0119\u017cyca",
+                "operetta": "Operetka",
+                "originaltune": "Oryginalna melodia",
+                "pianokey": "Klawisz fortepianu",
+                "waybackhome": "Droga do domu"
+            }
+        }
+    },
+    "services": {
+        "play_chime": {
+            "description": "Odtw\u00f3rz d\u017awi\u0119k na dzwonku.",
+            "fields": {
+                "device_id": {
+                    "description": "Dzwonek, na kt\u00f3rym ma by\u0107 odtwarzany d\u017awi\u0119k.",
+                    "name": "Docelowy dzwonek"
+                },
+                "ringtone": {
+                    "description": "D\u017awi\u0119k dzwonka do odtworzenia.",
+                    "name": "D\u017awi\u0119k dzwonek"
+                }
+            },
+            "name": "Odtw\u00f3rz dzwonek"
+        },
+        "ptz_move": {
+            "description": "Przesuwanie kamery z okre\u015blon\u0105 pr\u0119dko\u015bci\u0105.",
+            "fields": {
+                "speed": {
+                    "description": "Pr\u0119dko\u015b\u0107 ruchu PTZ.",
+                    "name": "Pr\u0119dko\u015b\u0107"
+                }
+            },
+            "name": "Sterowanie PTZ"
+        }
+    }
+}

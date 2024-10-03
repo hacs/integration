@@ -1,0 +1,136 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Paskyra jau sukonfig\u016bruota",
+            "reauth_successful": "Pakartotinis autentifikavimas buvo s\u0117kmingas",
+            "unknown_entry": "Nepavyko rasti esamo \u012fra\u0161o."
+        },
+        "error": {
+            "invalid_code": "Nepavyko prisijungti prie \u201eHive\u201c. J\u016bs\u0173 dviej\u0173 veiksni\u0173 autentifikavimo kodas buvo neteisingas.",
+            "invalid_password": "Nepavyko prisijungti prie \u201eHive\u201c. Neteisingas slapta\u017eodis, bandykite dar kart\u0105.",
+            "invalid_username": "Nepavyko prisijungti prie \u201eHive\u201c. J\u016bs\u0173 el. pa\u0161to adresas neatpa\u017e\u012fstamas.",
+            "no_internet_available": "Norint prisijungti prie \u201eHive\u201c, reikalingas interneto ry\u0161ys.",
+            "unknown": "Netik\u0117ta klaida"
+        },
+        "step": {
+            "2fa": {
+                "data": {
+                    "2fa": "Dviej\u0173 faktori\u0173 kodas"
+                },
+                "description": "\u012eveskite savo Hive autentifikavimo kod\u0105. \n\n Nor\u0117dami papra\u0161yti kito kodo, \u012fveskite kod\u0105 0000.",
+                "title": "\"Hive\" Dviej\u0173 veiksni\u0173 autenti\u0161kumo nustatymas."
+            },
+            "configuration": {
+                "data": {
+                    "device_name": "\u012erenginio pavadinimas"
+                },
+                "title": "Hive konfig\u016bracija"
+            },
+            "reauth": {
+                "data": {
+                    "password": "Slapta\u017eodis",
+                    "username": "Prisijungimos vardas"
+                },
+                "description": "I\u0161 naujo \u012fveskite savo \u201eHive\u201c prisijungimo informacij\u0105.",
+                "title": "Prisijungimas prie Hive"
+            },
+            "user": {
+                "data": {
+                    "password": "Slapta\u017eodis",
+                    "scan_interval": "Nuskaitymo intervalas (sekund\u0117mis)",
+                    "username": "Prisijungimos vardas"
+                },
+                "description": "\u012eveskite savo \u201eHive\u201c prisijungimo informacij\u0105.",
+                "title": "Prisijungimas prie Hive"
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "heating": {
+                "state": {
+                    "manual": "Rankinis",
+                    "off": "I\u0161jungta",
+                    "on": "\u012ejungta",
+                    "schedule": "Tvarkara\u0161tis"
+                }
+            },
+            "hot_water": {
+                "state": {
+                    "off": "I\u0161jungta",
+                    "on": "\u012ejungta",
+                    "schedule": "Tvarkara\u0161tis"
+                }
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "user": {
+                "data": {
+                    "scan_interval": "Nuskaitymo intervalas (sekund\u0117mis)"
+                },
+                "description": "Atnaujinkite nuskaitymo interval\u0105, kad da\u017eniau apklaustum\u0117te duomenis.",
+                "title": "Hive parinktys"
+            }
+        }
+    },
+    "services": {
+        "boost_heating": {
+            "description": "Jei norite, kad jis b\u016bt\u0173 nebenaudojamas, naudokite boost_heating_on.",
+            "fields": {
+                "temperature": {
+                    "description": "Nustatykite tikslin\u0119 temperat\u016br\u0105 padidinimo laikotarpiui.",
+                    "name": "Temperat\u016bra"
+                },
+                "time_period": {
+                    "description": "Nustatykite padidinimo laikotarp\u012f.",
+                    "name": "Laiko tarpas"
+                }
+            },
+            "name": "Padidinti \u0161ildym\u0105 (bus nebenaudojama)"
+        },
+        "boost_heating_off": {
+            "description": "I\u0161jungia padidinimo re\u017eim\u0105.",
+            "fields": {
+                "entity_id": {
+                    "description": "Pasirinkite entity_id, kad i\u0161jungtum\u0117te patobulinim\u0105.",
+                    "name": "Subjekto ID"
+                }
+            },
+            "name": "Padidintas \u0161ildymas i\u0161jungtas"
+        },
+        "boost_heating_on": {
+            "description": "Nustatykite tikslin\u0119 temperat\u016br\u0105 padidinimo laikotarpiui.",
+            "fields": {
+                "temperature": {
+                    "description": "Nustatykite tikslin\u0119 temperat\u016br\u0105 padidinimo laikotarpiui.",
+                    "name": "Temperat\u016bra"
+                },
+                "time_period": {
+                    "description": "Nustatykite padidinimo laikotarp\u012f.",
+                    "name": "Periodas"
+                }
+            },
+            "name": "\u012ejungtas padidintas \u0161ildymas"
+        },
+        "boost_hot_water": {
+            "description": "\u012ejungiamas arba i\u0161jungiamas padidinimo re\u017eimas, apibr\u0117\u017eiant padidinimo laikotarp\u012f.",
+            "fields": {
+                "entity_id": {
+                    "description": "Nor\u0117dami padidinti, pasirinkite entity_id.",
+                    "name": "Subjekto ID"
+                },
+                "on_off": {
+                    "description": "\u012ejunkite arba i\u0161junkite padidinimo funkcij\u0105.",
+                    "name": "Re\u017eimas"
+                },
+                "time_period": {
+                    "description": "Nustatykite padidinimo laikotarp\u012f.",
+                    "name": "Laiko tarpas"
+                }
+            },
+            "name": "Padidinkite kar\u0161t\u0105 vanden\u012f"
+        }
+    }
+}

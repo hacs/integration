@@ -1,0 +1,335 @@
+{
+    "config": {
+        "abort": {
+            "reconfigure_successful": "Pakartotinis konfig\u016bravimas buvo s\u0117kmingas"
+        },
+        "error": {
+            "already_configured": "PCHK ry\u0161ys naudojant t\u0105 pat\u012f IP adres\u0105 / prievad\u0105 jau sukonfig\u016bruotas.",
+            "authentication_error": "Autentifikavimas nepavyko. Neteisingas vartotojo vardas arba slapta\u017eodis.",
+            "connection_refused": "Nepavyko prisijungti prie PCHK. Patikrinkite IP ir prievad\u0105.",
+            "license_error": "Pasiektas maksimalus jung\u010di\u0173 skai\u010dius. Reikalingas papildomas licencijos raktas."
+        },
+        "step": {
+            "reconfigure": {
+                "data": {
+                    "acknowledge": "Pra\u0161yti patvirtinimo i\u0161 moduli\u0173",
+                    "dim_mode": "Pritemdymo re\u017eimas",
+                    "ip_address": "IP adresas",
+                    "password": "Slapta\u017eodis",
+                    "port": "Prievadas",
+                    "sk_num_tries": "Segment\u0173 jungties nuskaitymo bandymai",
+                    "username": "Prisijungimos vardas"
+                },
+                "data_description": {
+                    "acknowledge": "Bandykite si\u0173sti komand\u0105 dar kart\u0105, jei negaunate atsakymo (padidina magistral\u0117s sraut\u0105).",
+                    "dim_mode": "\u017dingsni\u0173, naudojam\u0173 i\u0161\u0117jimams pritemdyti, skai\u010dius."
+                },
+                "description": "I\u0161 naujo sukonfig\u016bruokite ry\u0161\u012f su LCN priegloba.",
+                "title": "I\u0161 naujo sukonfig\u016bruokite LCN pagrindin\u012f kompiuter\u012f"
+            },
+            "user": {
+                "data": {
+                    "acknowledge": "Pra\u0161yti patvirtinimo i\u0161 moduli\u0173",
+                    "dim_mode": "Pritemdymo re\u017eimas",
+                    "host": "Vardas",
+                    "ip_address": "IP adresas",
+                    "password": "Slapta\u017eodis",
+                    "port": "Prievadas",
+                    "sk_num_tries": "Segment\u0173 jungties nuskaitymo bandymai",
+                    "username": "Prisijungimos vardas"
+                },
+                "data_description": {
+                    "acknowledge": "Bandykite si\u0173sti komand\u0105 dar kart\u0105, jei negaunate atsakymo (padidina magistral\u0117s sraut\u0105).",
+                    "dim_mode": "\u017dingsni\u0173, naudojam\u0173 i\u0161\u0117jimams pritemdyti, skai\u010dius."
+                },
+                "description": "Nustatykite nauj\u0105 ry\u0161\u012f su LCN priegloba.",
+                "title": "LCN priiman\u010diosios s\u0105rankos nustatymas"
+            }
+        }
+    },
+    "device_automation": {
+        "extra_fields": {
+            "action": "Veiksmas",
+            "code": "Kodas",
+            "key": "Raktas",
+            "level": "Lygis"
+        },
+        "trigger_type": {
+            "codelock": "Gautas kodinio u\u017erakto kodas",
+            "fingerprint": "Gautas pir\u0161to atspaudo kodas",
+            "send_keys": "Si\u0173sti gautus raktus",
+            "transmitter": "Gautas si\u0173stuvo kodas",
+            "transponder": "Gautas atsakiklio kodas"
+        }
+    },
+    "issues": {
+        "authentication_error": {
+            "description": "LCN konfig\u016bravimas naudojant YAML pa\u0161alinamas, bet importuojant YAML konfig\u016bracij\u0105 \u012fvyko klaida. \u012esitikinkite, kad vartotojo vardas ir slapta\u017eodis yra teisingi. Apsvarstykite galimyb\u0119 pa\u0161alinti LCN YAML konfig\u016bracij\u0105 i\u0161 failo configuration.yaml ir toliau rankiniu b\u016bdu [nustatykite integracij\u0105] ( {url} ).",
+            "title": "Autentifikavimas nepavyko."
+        },
+        "connection_refused": {
+            "description": "LCN konfig\u016bravimas naudojant YAML pa\u0161alinamas, bet importuojant YAML konfig\u016bracij\u0105 \u012fvyko klaida. \u012esitikinkite, kad ry\u0161ys (IP ir prievadas) prie LCN magistral\u0117s jungties yra tinkamas. Apsvarstykite galimyb\u0119 pa\u0161alinti LCN YAML konfig\u016bracij\u0105 i\u0161 failo configuration.yaml ir toliau rankiniu b\u016bdu [nustatykite integracij\u0105] ( {url} ).",
+            "title": "Nepavyko prisijungti prie PCHK."
+        },
+        "license_error": {
+            "description": "LCN konfig\u016bravimas naudojant YAML pa\u0161alinamas, bet importuojant YAML konfig\u016bracij\u0105 \u012fvyko klaida. \u012esitikinkite, kad u\u017eregistruota pakankamai PCHK licencij\u0173, ir i\u0161 naujo paleiskite \u201eHome Assistant\u201c. Apsvarstykite galimyb\u0119 pa\u0161alinti LCN YAML konfig\u016bracij\u0105 i\u0161 failo configuration.yaml ir toliau rankiniu b\u016bdu [nustatykite integracij\u0105] ( {url} ).",
+            "title": "Pasiektas maksimalus jung\u010di\u0173 skai\u010dius."
+        }
+    },
+    "services": {
+        "dyn_text": {
+            "description": "Siun\u010dia dinamin\u012f tekst\u0105 \u012f LCN-GTxD ekranus.",
+            "fields": {
+                "address": {
+                    "description": "Modulio adresas.",
+                    "name": "Adresas"
+                },
+                "row": {
+                    "description": "Teksto eilut\u0117.",
+                    "name": "Eilut\u0117"
+                },
+                "text": {
+                    "description": "Tekstas, kur\u012f reikia si\u0173sti (iki 60 simboli\u0173, u\u017ekoduot\u0173 kaip UTF-8).",
+                    "name": "Tekstas"
+                }
+            },
+            "name": "Dinaminis tekstas"
+        },
+        "led": {
+            "description": "Nustato LED b\u016bsen\u0105.",
+            "fields": {
+                "address": {
+                    "description": "Modulio adresas.",
+                    "name": "Adresas"
+                },
+                "led": {
+                    "description": "Led.",
+                    "name": "LED"
+                },
+                "state": {
+                    "description": "Led b\u016bsena.",
+                    "name": "B\u016bsena"
+                }
+            },
+            "name": "LED"
+        },
+        "lock_keys": {
+            "description": "U\u017erakina raktus.",
+            "fields": {
+                "address": {
+                    "description": "Modulio adresas.",
+                    "name": "Adresas"
+                },
+                "state": {
+                    "description": "Klavi\u0161\u0173 u\u017erakto b\u016bsenos kaip eilut\u0117 (1 = \u012fjungta, 2 = i\u0161jungta, T = perjungti, - = nekei\u010diama).",
+                    "name": "B\u016bsena"
+                },
+                "table": {
+                    "description": "Stalas su raktais u\u017erakinti (intervalas turi b\u016bti A).",
+                    "name": "Lentel\u0117"
+                },
+                "time": {
+                    "description": "U\u017erakinimo intervalas.",
+                    "name": "Laikas"
+                },
+                "time_unit": {
+                    "description": "U\u017erakinimo intervalo laiko vienetas.",
+                    "name": "Laiko vienetas"
+                }
+            },
+            "name": "U\u017erakto raktai"
+        },
+        "lock_regulator": {
+            "description": "U\u017erakina reguliatoriaus nustatyt\u0105 ta\u0161k\u0105.",
+            "fields": {
+                "address": {
+                    "description": "Modulio adresas.",
+                    "name": "Adresas"
+                },
+                "setpoint": {
+                    "description": "Nustatytos vert\u0117s pavadinimas.",
+                    "name": "Nustatytasis ta\u0161kas"
+                },
+                "state": {
+                    "description": "Nauja kontrolin\u0117s vert\u0117s b\u016bsena.",
+                    "name": "B\u016bsena"
+                }
+            },
+            "name": "U\u017erakto reguliatorius"
+        },
+        "output_abs": {
+            "description": "Nustato absoliut\u0173 i\u0161vesties prievado ry\u0161kum\u0105 procentais.",
+            "fields": {
+                "address": {
+                    "description": "Modulio adresas.",
+                    "name": "Adresas"
+                },
+                "brightness": {
+                    "description": "Absoliutus ry\u0161kumas.",
+                    "name": "Ry\u0161kumas"
+                },
+                "output": {
+                    "description": "I\u0161vesties prievadas.",
+                    "name": "I\u0161vestis"
+                },
+                "transition": {
+                    "description": "Per\u0117jimo laikas.",
+                    "name": "Per\u0117jimas"
+                }
+            },
+            "name": "I\u0161vesties absoliutus ry\u0161kumas"
+        },
+        "output_rel": {
+            "description": "Nustato santykin\u012f i\u0161vesties prievado ry\u0161kum\u0105 procentais.",
+            "fields": {
+                "address": {
+                    "description": "Modulio adresas.",
+                    "name": "Adresas"
+                },
+                "brightness": {
+                    "description": "Santykinis ry\u0161kumas.",
+                    "name": "Ry\u0161kumas"
+                },
+                "output": {
+                    "description": "I\u0161vesties prievadas.",
+                    "name": "I\u0161vestis"
+                }
+            },
+            "name": "I\u0161vesties santykinis ry\u0161kumas"
+        },
+        "output_toggle": {
+            "description": "Perjungia i\u0161vesties prievad\u0105.",
+            "fields": {
+                "address": {
+                    "description": "Modulio adresas.",
+                    "name": "Adresas"
+                },
+                "output": {
+                    "description": "I\u0161vesties prievadas.",
+                    "name": "I\u0161vestis"
+                },
+                "transition": {
+                    "description": "Per\u0117jimo laikas.",
+                    "name": "Per\u0117jimas"
+                }
+            },
+            "name": "Perjungti i\u0161vest\u012f"
+        },
+        "pck": {
+            "description": "Siun\u010dia savavali\u0161k\u0105 PCK komand\u0105.",
+            "fields": {
+                "address": {
+                    "description": "Modulio adresas.",
+                    "name": "Adresas"
+                },
+                "pck": {
+                    "description": "PCK komanda (be adreso antra\u0161t\u0117s).",
+                    "name": "PCK"
+                }
+            },
+            "name": "PCK"
+        },
+        "relays": {
+            "description": "Nustato reli\u0173 b\u016bsen\u0105.",
+            "fields": {
+                "address": {
+                    "description": "Modulio adresas.",
+                    "name": "Adresas"
+                },
+                "state": {
+                    "description": "Perduoda b\u016bsenas kaip eilut\u0119 (1 = \u012fjungta, 2 = i\u0161jungta, t = perjungti, - = nekei\u010diama).",
+                    "name": "B\u016bsena"
+                }
+            },
+            "name": "Rel\u0117s"
+        },
+        "send_keys": {
+            "description": "Siun\u010dia raktus (kuris vykdo susietas komandas).",
+            "fields": {
+                "address": {
+                    "description": "Modulio adresas.",
+                    "name": "Adresas"
+                },
+                "keys": {
+                    "description": "Raktai si\u0173sti.",
+                    "name": "Raktai"
+                },
+                "state": {
+                    "description": "Rakto b\u016bsena siun\u010diant (turi b\u016bti paspaustas, kad b\u016bt\u0173 atid\u0117tas).",
+                    "name": "B\u016bsena"
+                },
+                "time": {
+                    "description": "Si\u0173sti v\u0117lavim\u0105.",
+                    "name": "Laikas"
+                },
+                "time_unit": {
+                    "description": "Siuntimo v\u0117lavimo laiko vienetas.",
+                    "name": "Laiko vienetas"
+                }
+            },
+            "name": "Si\u0173sti raktus"
+        },
+        "var_abs": {
+            "description": "Nustato absoliu\u010di\u0105 kintamojo arba nustatytos vert\u0117s vert\u0119.",
+            "fields": {
+                "address": {
+                    "description": "Modulio adresas.",
+                    "name": "Adresas"
+                },
+                "unit_of_measurement": {
+                    "description": "Vert\u0117s vienetas.",
+                    "name": "Matavimo vienetas"
+                },
+                "value": {
+                    "description": "Reik\u0161m\u0117, kuri\u0105 reikia nustatyti.",
+                    "name": "Vert\u0117"
+                },
+                "variable": {
+                    "description": "Kintamojo arba nustatytos vert\u0117s pavadinimas.",
+                    "name": "Kintamasis"
+                }
+            },
+            "name": "Nustatyti absoliut\u0173j\u012f kintam\u0105j\u012f"
+        },
+        "var_rel": {
+            "description": "Kintamojo, nustatytos vert\u0117s arba slenks\u010dio poslinkio reik\u0161m\u0117.",
+            "fields": {
+                "address": {
+                    "description": "Modulio adresas.",
+                    "name": "Adresas"
+                },
+                "unit_of_measurement": {
+                    "description": "Vert\u0117s vienetas.",
+                    "name": "Matavimo vienetas"
+                },
+                "value": {
+                    "description": "Shift reik\u0161m\u0117.",
+                    "name": "Vert\u0117"
+                },
+                "value_reference": {
+                    "description": "Kontrolin\u0117s vert\u0117s ir slenks\u010dio vert\u0117.",
+                    "name": "Etalonin\u0117 vert\u0117"
+                },
+                "variable": {
+                    "description": "Kintamojo arba nustatytos vert\u0117s pavadinimas.",
+                    "name": "Kintamasis"
+                }
+            },
+            "name": "Shift kintamasis"
+        },
+        "var_reset": {
+            "description": "I\u0161 naujo nustato kintamojo arba nustatytos vert\u0117s vert\u0119.",
+            "fields": {
+                "address": {
+                    "description": "Modulio adresas.",
+                    "name": "Adresas"
+                },
+                "variable": {
+                    "description": "Kintamojo arba nustatytos vert\u0117s pavadinimas.",
+                    "name": "Kintamasis"
+                }
+            },
+            "name": "I\u0161 naujo nustatyti kintam\u0105j\u012f"
+        }
+    }
+}

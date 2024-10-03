@@ -1,0 +1,94 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Enheten \u00e4r redan konfigurerad"
+        },
+        "error": {
+            "cannot_connect": "Det gick inte att ansluta.",
+            "timeout_connect": "Timeout vid uppr\u00e4ttande av anslutning"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "host": "V\u00e4rd",
+                    "password": "L\u00f6senord"
+                },
+                "data_description": {
+                    "host": "V\u00e4rdnamnet eller IP-adressen f\u00f6r din Rain Bird-enhet."
+                },
+                "description": "Ange information om LNK WiFi-modulen f\u00f6r din Rain Bird-enhet.",
+                "title": "Konfigurera Rain Bird"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "rainsensor": {
+                "name": "Regnsensor"
+            }
+        },
+        "number": {
+            "rain_delay": {
+                "name": "Regn f\u00f6rdr\u00f6jning"
+            }
+        },
+        "sensor": {
+            "raindelay": {
+                "name": "Regn f\u00f6rdr\u00f6jning"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_raindelay": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Rain Bird-tj\u00e4nsten `rainbird.set_rain_delay` tas bort och ers\u00e4tts av en nummerenhet f\u00f6r att hantera regnf\u00f6rdr\u00f6jningen. Alla befintliga automatiseringar eller skript m\u00e5ste uppdateras f\u00f6r att anv\u00e4nda `number.set_value` med m\u00e5let ` {alternate_target} ` ist\u00e4llet.",
+                        "title": "Rain Bird Rain Delay Service tas bort"
+                    }
+                }
+            },
+            "title": "Rain Bird Rain Delay Service tas bort"
+        },
+        "deprecated_yaml": {
+            "description": "Att konfigurera Rain Bird i configuration.yaml kommer tas bort i Home Assistant 2023.4.\n\nDin konfiguration har blivit importerad till UI automatiskt., men standardtider f\u00f6r bevattning per zon st\u00f6ds inte l\u00e4ngre.\nTa bort Rain Birds YAML-konfiguration fr\u00e5n din configuration-yaml och starta om Home Assistant f\u00f6r att fixa detta problem.",
+            "title": "Rain Birds Yaml-konfiguration kommer tas bort"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "duration": "Standard bevattningstid i minuter"
+                },
+                "title": "Konfigurera Rain Bird"
+            }
+        }
+    },
+    "services": {
+        "set_rain_delay": {
+            "description": "Anger hur l\u00e4nge automatisk bevattning ska vara avst\u00e4ngd.",
+            "fields": {
+                "config_entry_id": {
+                    "description": "Inst\u00e4llningen kommer att justeras p\u00e5 den angivna styrenheten.",
+                    "name": "Rainbird styrenhet konfigurationspost"
+                },
+                "duration": {
+                    "description": "Hur l\u00e4nge detta system ska vara avst\u00e4ngt",
+                    "name": "Varaktighet"
+                }
+            },
+            "name": "St\u00e4ll in regn f\u00f6rdr\u00f6jning"
+        },
+        "start_irrigation": {
+            "description": "Startar bevattningen.",
+            "fields": {
+                "duration": {
+                    "description": "Hur l\u00e4nge denna sprinkler ska vara p\u00e5slagen",
+                    "name": "Varaktighet"
+                }
+            },
+            "name": "Starta bevattning"
+        }
+    }
+}

@@ -1,0 +1,625 @@
+{
+    "config": {
+        "abort": {
+            "addon_get_discovery_info_failed": "\u53d6\u5f97 Z-Wave JS \u9644\u52a0\u5143\u4ef6\u641c\u7d22\u8cc7\u8a0a\u5931\u6557\u3002",
+            "addon_info_failed": "\u53d6\u5f97 Z-Wave JS \u9644\u52a0\u5143\u4ef6\u8cc7\u8a0a\u5931\u6557\u3002",
+            "addon_install_failed": "Z-Wave JS \u9644\u52a0\u5143\u4ef6\u5b89\u88dd\u5931\u6557\u3002",
+            "addon_set_config_failed": "Z-Wave JS \u9644\u52a0\u5143\u4ef6\u8a2d\u5b9a\u5931\u6557\u3002",
+            "addon_start_failed": "Z-Wave JS \u9644\u52a0\u5143\u4ef6\u555f\u59cb\u5931\u6557\u3002",
+            "already_configured": "\u88dd\u7f6e\u5df2\u7d93\u8a2d\u5b9a\u5b8c\u6210",
+            "already_in_progress": "\u8a2d\u5b9a\u5df2\u7d93\u9032\u884c\u4e2d",
+            "cannot_connect": "\u9023\u7dda\u5931\u6557",
+            "discovery_requires_supervisor": "\u641c\u7d22\u529f\u80fd\u9700\u8981 Supervisor \u6b0a\u9650\u3002",
+            "not_zwave_device": "\u6240\u767c\u73fe\u7684\u88dd\u7f6e\u4e26\u975e Z-Wave \u88dd\u7f6e",
+            "not_zwave_js_addon": "\u767c\u73fe\u4e4b\u9644\u52a0\u5143\u4ef6\u4e26\u975e\u5b98\u65b9 Z-Wave JS \u9644\u52a0\u5143\u4ef6\u3002"
+        },
+        "error": {
+            "addon_start_failed": "Z-Wave JS \u9644\u52a0\u5143\u4ef6\u555f\u52d5\u5931\u6557\uff0c\u8acb\u6aa2\u67e5\u8a2d\u5b9a\u3002",
+            "cannot_connect": "\u9023\u7dda\u5931\u6557",
+            "invalid_ws_url": "Websocket URL \u7121\u6548",
+            "unknown": "\u672a\u9810\u671f\u932f\u8aa4"
+        },
+        "flow_title": "{name}",
+        "progress": {
+            "install_addon": "\u8acb\u7a0d\u7b49 Z-Wave JS \u9644\u52a0\u5143\u4ef6\u5b89\u88dd\u5b8c\u6210\uff0c\u53ef\u80fd\u6703\u9700\u8981\u5e7e\u5206\u9418\u3002",
+            "start_addon": "\u8acb\u7a0d\u7b49 Z-Wave JS \u9644\u52a0\u5143\u4ef6\u555f\u59cb\u5b8c\u6210\uff0c\u53ef\u80fd\u6703\u9700\u8981\u5e7e\u5206\u9418\u3002"
+        },
+        "step": {
+            "configure_addon": {
+                "data": {
+                    "s0_legacy_key": "S0 \u91d1\u9470\uff08\u820a\u7248\uff09",
+                    "s2_access_control_key": "S2 \u5b58\u53d6\u63a7\u5236\u91d1\u9470",
+                    "s2_authenticated_key": "S2 \u9a57\u8b49\u91d1\u9470",
+                    "s2_unauthenticated_key": "S2 \u672a\u9a57\u8b49\u91d1\u9470",
+                    "usb_path": "USB \u88dd\u7f6e\u8def\u5f91"
+                },
+                "description": "\u5047\u5982\u6b04\u4f4d\u4fdd\u6301\u7a7a\u767d\u3001\u9644\u52a0\u5143\u4ef6\u5c07\u6703\u7522\u751f\u4e00\u7d44\u5b89\u5168\u91d1\u9470\u3002",
+                "title": "\u8f38\u5165 Z-Wave JS \u9644\u52a0\u5143\u4ef6\u8a2d\u5b9a"
+            },
+            "hassio_confirm": {
+                "title": "\u4ee5 Z-Wave JS \u9644\u52a0\u5143\u4ef6\u8a2d\u5b9a Z-Wave JS \u6574\u5408"
+            },
+            "install_addon": {
+                "title": "Z-Wave JS \u9644\u52a0\u5143\u4ef6\u5b89\u88dd\u5df2\u555f\u52d5"
+            },
+            "manual": {
+                "data": {
+                    "url": "\u7db2\u5740"
+                }
+            },
+            "on_supervisor": {
+                "data": {
+                    "use_addon": "\u4f7f\u7528 Z-Wave JS Supervisor \u9644\u52a0\u5143\u4ef6"
+                },
+                "description": "\u662f\u5426\u8981\u4f7f\u7528 Z-Wave JS Supervisor \u9644\u52a0\u5143\u4ef6\uff1f",
+                "title": "\u9078\u64c7\u9023\u7dda\u985e\u5225"
+            },
+            "start_addon": {
+                "title": "Z-Wave JS \u9644\u52a0\u5143\u4ef6\u555f\u59cb\u4e2d\u3002"
+            },
+            "usb_confirm": {
+                "description": "\u662f\u5426\u8981\u8a2d\u5b9a\u540d\u70ba  {name}  \u7684 Z-Wave JS \u9644\u52a0\u5143\u4ef6\uff1f"
+            },
+            "zeroconf_confirm": {
+                "description": "\u662f\u5426\u8981\u65b0\u589e\u65bc {url} \u6240\u627e\u5230\u4e4b ID \u70ba {home_id} \u4e4b Z-Wave JS \u4f3a\u670d\u5668\u81f3 Home Assistant\uff1f",
+                "title": "\u6240\u767c\u73fe\u7684 Z-Wave JS \u4f3a\u670d\u5668"
+            }
+        }
+    },
+    "device_automation": {
+        "action_type": {
+            "clear_lock_usercode": "\u6e05\u9664 {entity_name}  usercode",
+            "ping": "Ping \u88dd\u7f6e",
+            "refresh_value": "\u66f4\u65b0 {entity_name} \u6578\u503c",
+            "reset_meter": "\u91cd\u7f6e {subtype} \u8a08\u91cf",
+            "set_config_parameter": "\u8a2d\u5b9a {subtype} \u8a2d\u5b9a\u8b8a\u6578",
+            "set_lock_usercode": "\u8a2d\u5b9a {entity_name} usercode",
+            "set_value": "\u8a2d\u5b9a Z-Wave \u6578\u503c"
+        },
+        "condition_type": {
+            "config_parameter": "\u8a2d\u5b9a\u53c3\u6578 {subtype} \u6578\u503c",
+            "node_status": "\u7bc0\u9ede\u72c0\u614b",
+            "value": "Z-Wave \u76ee\u524d\u503c"
+        },
+        "extra_fields": {
+            "code_slot": "\u4ee3\u78bc\u5132\u4f4d",
+            "command_class": "\u547d\u4ee4\u985e\u5225",
+            "data_type": "\u8cc7\u6599\u985e\u5225",
+            "endpoint": "\u7aef\u9ede",
+            "event": "\u4e8b\u4ef6",
+            "event_label": "\u4e8b\u4ef6\u6a19\u7c64",
+            "event_type": "\u4e8b\u4ef6\u985e\u5225",
+            "for": "\u6301\u7e8c\u6642\u9593",
+            "from": "\u5f9e...\u72c0\u614b",
+            "label": "\u6a19\u7c64",
+            "property": "\u5c6c\u6027",
+            "property_key": "\u5c6c\u6027\u9375",
+            "refresh_all_values": "\u66f4\u65b0\u6240\u6709\u6578\u503c",
+            "status": "\u72c0\u614b",
+            "to": "\u81f3...\u72c0\u614b",
+            "type.": "\u985e\u5225",
+            "usercode": "\u4f7f\u7528\u8005\u4ee3\u78bc",
+            "value": "\u6578\u503c",
+            "wait_for_result": "\u7b49\u5f85\u7d50\u679c"
+        },
+        "trigger_type": {
+            "event.notification.entry_control": "\u50b3\u9001\u689d\u76ee\u63a7\u5236\u901a\u77e5",
+            "event.notification.notification": "\u50b3\u9001\u901a\u77e5",
+            "event.value_notification.basic": "{subtype}\u4e0a\u57fa\u672c CC \u4e8b\u4ef6",
+            "event.value_notification.central_scene": "{subtype}\u4e0a\u6838\u5fc3\u5834\u666f\u52d5\u4f5c",
+            "event.value_notification.scene_activation": "{subtype}\u4e0a\u5834\u666f\u5df2\u555f\u52d5",
+            "state.node_status": "\u7bc0\u9ede\u72c0\u614b\u5df2\u6539\u8b8a",
+            "zwave_js.value_updated.config_parameter": "\u8a2d\u5b9a\u53c3\u6578 {subtype} \u6578\u503c\u8b8a\u66f4",
+            "zwave_js.value_updated.value": "Z-Wave JS \u503c\u4e0a\u7684\u6578\u503c\u8b8a\u66f4"
+        }
+    },
+    "entity": {
+        "button": {
+            "ping": {
+                "name": "Ping"
+            }
+        },
+        "sensor": {
+            "average_background_rssi": {
+                "name": "\u5e73\u5747\u80cc\u666f RSSI (\u983b\u9053 {channel})"
+            },
+            "can": {
+                "name": "\u78b0\u649e"
+            },
+            "commands_dropped": {
+                "name": "\u547d\u4ee4\u907a\u843d ({direction})"
+            },
+            "controller_status": {
+                "name": "\u72c0\u614b",
+                "state": {
+                    "jammed": "\u963b\u585e",
+                    "ready": "\u5c31\u7dd2",
+                    "unresponsive": "\u7121\u53cd\u61c9"
+                }
+            },
+            "current_background_rssi": {
+                "name": "\u76ee\u524d\u80cc\u666f RSSI (\u983b\u9053 {channel})"
+            },
+            "last_seen": {
+                "name": "\u4e0a\u6b21\u51fa\u73fe"
+            },
+            "messages_dropped": {
+                "name": "\u8a0a\u606f\u907a\u843d ({direction})"
+            },
+            "nak": {
+                "name": "\u4e0d\u63a5\u53d7\u8a0a\u606f"
+            },
+            "node_status": {
+                "name": "\u7bc0\u9ede\u72c0\u614b",
+                "state": {
+                    "alive": "\u7dda\u4e0a",
+                    "asleep": "\u7761\u7720",
+                    "awake": "\u559a\u9192",
+                    "dead": "\u5931\u53bb\u9023\u7dda",
+                    "unknown": "\u672a\u77e5"
+                }
+            },
+            "rssi": {
+                "name": "RSSI"
+            },
+            "rtt": {
+                "name": "\u5f80\u8fd4\u6642\u9593"
+            },
+            "successful_commands": {
+                "name": "\u6210\u529f\u547d\u4ee4 ({direction})"
+            },
+            "successful_messages": {
+                "name": "\u6210\u529f\u8a0a\u606f ({direction})"
+            },
+            "timeout_ack": {
+                "name": "\u907a\u5931 ACKs"
+            },
+            "timeout_callback": {
+                "name": "\u56de\u547c\u55bb\u6642"
+            },
+            "timeout_response": {
+                "name": "\u56de\u61c9\u903e\u6642"
+            }
+        }
+    },
+    "issues": {
+        "device_config_file_changed": {
+            "fix_flow": {
+                "abort": {
+                    "cannot_connect": "\u7121\u6cd5\u9023\u7dda\u81f3 {device_name}\u3002\u8acb\u78ba\u8a8d Z-Wave \u7db2\u8def\u5df2\u555f\u52d5\u3001\u4e26\u5df2\u9023\u7dda\u5230 Home Assistant \u5f8c\u518d\u8a66\u4e00\u6b21\u3002",
+                    "issue_ignored": "\u88dd\u7f6e{device_name}\u8a2d\u5b9a\u6a94\u6848\u66f4\u65b0\u5df2\u5ffd\u7565\u3002"
+                },
+                "step": {
+                    "confirm": {
+                        "description": "{device_name} \u7684\u88dd\u7f6e\u8a2d\u5b9a\u6a94\u6848\u5df2\u7d93\u8b8a\u66f4\u3002\n\nZ-Wave JS \u900f\u904e\u8a2a\u554f\u88dd\u7f6e\u4ee5\u767c\u73fe\u5927\u90e8\u5206\u7684\u88dd\u7f6e\u5143\u6578\u64da\u3002\u7136\u800c\u3001\u6709\u4e9b\u8cc7\u8a0a\u5fc5\u9808\u7531\u8a2d\u5b9a\u6a94\u6848\u4e2d\u53d6\u5f97\u3002\u67d0\u4e9b\u8cc7\u8a0a\u50c5\u80fd\u65bc\u88dd\u7f6e\u8a2a\u554f\u6642\u8a55\u4f30\u4e00\u6b21\u3002\n\n\u7576\u88dd\u7f6e\u8a2d\u5b9a\u6a94\u6848\u66f4\u65b0\u5f8c\u3001\u6b64\u8cc7\u8a0a\u53ef\u80fd\u5931\u6548\uff0c\u88dd\u7f6e\u5fc5\u9808\u91cd\u65b0\u9032\u884c\u8a2a\u554f\u6b64\u7372\u53d6\u8b8a\u66f4\u3002\n\n\u9019\u4e26\u975e\u5fc5\u8981\u6027\u64cd\u4f5c\uff0c\u65bc\u91cd\u8a2a\u554f\u7684\u904e\u7a0b\u4e2d\u3001\u88dd\u7f6e\u7684\u529f\u80fd\u5c07\u6703\u53d7\u5230\u5f71\u97ff\u3002\u4f46\u662f\u65bc\u5b8c\u6210\u5f8c\u3001\u53ef\u80fd\u6703\u770b\u5230\u88dd\u7f6e\u7372\u5f97\u6539\u5584\u3002\n\n\u5047\u5982\u60a8\u60f3\u7e7c\u7e8c\u3001\u8acb\u9ede\u9078\u4e0b\u65b9\u7684\u50b3\u9001\u3002\u5c07\u6703\u65bc\u80cc\u666f\u57f7\u884c\u9032\u884c\u91cd\u65b0\u8a2a\u554f\u3002",
+                        "title": "\u88dd\u7f6e\u8a2d\u5b9a\u6a94\u6848\u8b8a\u66f4\uff1a{device_name}"
+                    },
+                    "init": {
+                        "description": "{device_name} \u7684\u88dd\u7f6e\u8a2d\u5b9a\u6a94\u6848\u5df2\u7d93\u8b8a\u66f4\u3002\n\nZ-Wave JS \u900f\u904e\u8a2a\u554f\u88dd\u7f6e\u4ee5\u767c\u73fe\u5927\u90e8\u5206\u7684\u88dd\u7f6e\u5143\u6578\u64da\u3002\u7136\u800c\u3001\u6709\u4e9b\u8cc7\u8a0a\u5fc5\u9808\u7531\u8a2d\u5b9a\u6a94\u6848\u4e2d\u53d6\u5f97\u3002\u67d0\u4e9b\u8cc7\u8a0a\u50c5\u80fd\u65bc\u88dd\u7f6e\u8a2a\u554f\u6642\u8a55\u4f30\u4e00\u6b21\u3002\n\n\u7576\u88dd\u7f6e\u8a2d\u5b9a\u6a94\u6848\u66f4\u65b0\u5f8c\u3001\u6b64\u8cc7\u8a0a\u53ef\u80fd\u5931\u6548\uff0c\u88dd\u7f6e\u5fc5\u9808\u91cd\u65b0\u9032\u884c\u8a2a\u554f\u6b64\u7372\u53d6\u8b8a\u66f4\u3002\n\n\u9019\u4e26\u975e\u5fc5\u8981\u6027\u64cd\u4f5c\uff0c\u65bc\u91cd\u8a2a\u554f\u7684\u904e\u7a0b\u4e2d\u3001\u88dd\u7f6e\u7684\u529f\u80fd\u5c07\u6703\u53d7\u5230\u5f71\u97ff\u3002\u4f46\u662f\u65bc\u5b8c\u6210\u5f8c\u3001\u53ef\u80fd\u6703\u770b\u5230\u88dd\u7f6e\u7372\u5f97\u6539\u5584\u3002\n\n\u5047\u5982\u60a8\u6c7a\u5b9a\u9032\u884c\uff0c\u5c07\u6703\u65bc\u80cc\u666f\u57f7\u884c\u91cd\u65b0\u8a2a\u554f\u3002",
+                        "menu_options": {
+                            "confirm": "\u91cd\u65b0\u63a2\u8a2a\u88dd\u7f6e",
+                            "ignore": "\u5ffd\u7565\u88dd\u7f6e\u8a2d\u5b9a\u66f4\u65b0"
+                        },
+                        "title": "\u88dd\u7f6e\u8a2d\u5b9a\u6a94\u6848\u5df2\u8b8a\u66f4\uff1a{device_name}"
+                    }
+                }
+            },
+            "title": "\u88dd\u7f6e\u8a2d\u5b9a\u6a94\u6848\u8b8a\u66f4\uff1a{device_name}"
+        },
+        "dry_fan_presets_deprecation": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "\u6b63\u5728\u5be6\u9ad4 `{entity_id}` \u4e2d\u4f7f\u7528\u4e7e\u71e5\u6216\u98a8\u6247\u9810\u7f6e\u6a21\u5f0f\u3002\n\n\u4e7e\u71e5\u548c\u98a8\u6247\u9810\u7f6e\u6a21\u5f0f\u5df2\u4e0d\u518d\u4f7f\u7528\uff0c\u4e26\u5373\u5c07\u79fb\u9664\u3002\u8acb\u66f4\u65b0\u81ea\u52d5\u5316\u4ee5\u4f7f\u7528\u5c0d\u61c9\u7684\u4e7e\u71e5\u548c\u98a8\u6247 **HVAC\u6a21\u5f0f** \u4ee3\u66ff\u3002\n\n\u4e00\u65e6\u624b\u52d5\u4fee\u5fa9\u6b64\u554f\u984c\u5b8c\u6210\u5f8c\uff0c\u8acb\u9ede\u64ca\u4e0b\u65b9\u50b3\u9001\u3002",
+                        "title": "\u5c07\u79fb\u9664\u4e7e\u71e5\u548c\u98a8\u6247\u9810\u7f6e\u6a21\u5f0f\uff1a{entity_id}"
+                    }
+                }
+            },
+            "title": "\u5c07\u79fb\u9664\u4e7e\u71e5\u548c\u98a8\u6247\u9810\u7f6e\u6a21\u5f0f\uff1a{entity_id}"
+        },
+        "invalid_server_version": {
+            "description": "\u76ee\u524d Home Assistant \u6240\u57f7\u884c\u7684 Z-Wave JS \u4f3a\u670d\u5668\u7248\u672c\u904e\u820a\u3001\u8acb\u66f4\u65b0\u81f3\u6700\u65b0\u7248\u672c Z-Wave JS \u4f3a\u670d\u5668\u4ee5\u4fee\u6b63\u6b64\u554f\u984c\u3002",
+            "title": "\u9700\u8981\u5b89\u88dd\u65b0\u7248\u672c Z-Wave JS \u4f3a\u670d\u5668"
+        }
+    },
+    "options": {
+        "abort": {
+            "addon_get_discovery_info_failed": "\u53d6\u5f97 Z-Wave JS \u9644\u52a0\u5143\u4ef6\u641c\u7d22\u8cc7\u8a0a\u5931\u6557\u3002",
+            "addon_info_failed": "\u53d6\u5f97 Z-Wave JS \u9644\u52a0\u5143\u4ef6\u8cc7\u8a0a\u5931\u6557\u3002",
+            "addon_install_failed": "Z-Wave JS \u9644\u52a0\u5143\u4ef6\u5b89\u88dd\u5931\u6557\u3002",
+            "addon_set_config_failed": "Z-Wave JS \u9644\u52a0\u5143\u4ef6\u8a2d\u5b9a\u5931\u6557\u3002",
+            "addon_start_failed": "Z-Wave JS \u9644\u52a0\u5143\u4ef6\u555f\u59cb\u5931\u6557\u3002",
+            "already_configured": "\u88dd\u7f6e\u5df2\u7d93\u8a2d\u5b9a\u5b8c\u6210",
+            "cannot_connect": "\u9023\u7dda\u5931\u6557",
+            "different_device": "\u6240\u9023\u63a5\u7684 USB \u88dd\u7f6e\u8207\u4e4b\u524d\u7684\u8a2d\u5b9a\u88dd\u7f6e\u4e0d\u540c\uff0c\u8acb\u91dd\u5c0d\u65b0\u88dd\u7f6e\u65b0\u589e\u8a2d\u5b9a\u3002"
+        },
+        "error": {
+            "cannot_connect": "\u9023\u7dda\u5931\u6557",
+            "invalid_ws_url": "Websocket URL \u7121\u6548",
+            "unknown": "\u672a\u9810\u671f\u932f\u8aa4"
+        },
+        "progress": {
+            "install_addon": "\u8acb\u7a0d\u7b49 Z-Wave JS \u9644\u52a0\u5143\u4ef6\u5b89\u88dd\u5b8c\u6210\uff0c\u53ef\u80fd\u6703\u9700\u8981\u5e7e\u5206\u9418\u3002",
+            "start_addon": "\u8acb\u7a0d\u7b49 Z-Wave JS \u9644\u52a0\u5143\u4ef6\u555f\u59cb\u5b8c\u6210\uff0c\u53ef\u80fd\u6703\u9700\u8981\u5e7e\u5206\u9418\u3002"
+        },
+        "step": {
+            "configure_addon": {
+                "data": {
+                    "emulate_hardware": "\u6a21\u64ec\u786c\u9ad4",
+                    "log_level": "\u65e5\u8a8c\u8a18\u9304\u7b49\u7d1a",
+                    "s0_legacy_key": "S0 \u91d1\u9470\uff08\u820a\u7248\uff09",
+                    "s2_access_control_key": "S2 \u5b58\u53d6\u63a7\u5236\u91d1\u9470",
+                    "s2_authenticated_key": "S2 \u9a57\u8b49\u91d1\u9470",
+                    "s2_unauthenticated_key": "S2 \u672a\u9a57\u8b49\u91d1\u9470",
+                    "usb_path": "USB \u88dd\u7f6e\u8def\u5f91"
+                },
+                "description": "\u5047\u5982\u6b04\u4f4d\u4fdd\u6301\u7a7a\u767d\u3001\u9644\u52a0\u5143\u4ef6\u5c07\u6703\u7522\u751f\u4e00\u7d44\u5b89\u5168\u91d1\u9470\u3002",
+                "title": "\u8f38\u5165 Z-Wave JS \u9644\u52a0\u5143\u4ef6\u8a2d\u5b9a"
+            },
+            "install_addon": {
+                "title": "Z-Wave JS \u9644\u52a0\u5143\u4ef6\u5b89\u88dd\u5df2\u555f\u52d5"
+            },
+            "manual": {
+                "data": {
+                    "url": "\u7db2\u5740"
+                }
+            },
+            "on_supervisor": {
+                "data": {
+                    "use_addon": "\u4f7f\u7528 Z-Wave JS Supervisor \u9644\u52a0\u5143\u4ef6"
+                },
+                "description": "\u662f\u5426\u8981\u4f7f\u7528 Z-Wave JS Supervisor \u9644\u52a0\u5143\u4ef6\uff1f",
+                "title": "\u9078\u64c7\u9023\u7dda\u985e\u5225"
+            },
+            "start_addon": {
+                "title": "Z-Wave JS \u9644\u52a0\u5143\u4ef6\u555f\u59cb\u4e2d\u3002"
+            }
+        }
+    },
+    "services": {
+        "bulk_set_partial_config_parameters": {
+            "description": "\u5141\u8a31\u6279\u91cf\u8a2d\u5b9a\u90e8\u5206\u53c3\u6578\u3002\u7576\u9700\u8981\u540c\u4e8b\u8a2d\u5b9a\u591a\u500b\u90e8\u5206\u53c3\u6578\u6642\u975e\u5e38\u6709\u7528\u3002",
+            "fields": {
+                "area_id": {
+                    "description": "\u670d\u52d9\u76ee\u6a19\u5206\u5340 ID\u3002\u5047\u5982\u6307\u5b9a\u5206\u5340\u3001\u8a72\u5206\u5340\u5167\u6240\u6709 zwave_js \u88dd\u7f6e\u8207\u5be6\u9ad4\u90fd\u5c07\u6210\u70ba\u6b64\u670d\u52d9\u7684\u76ee\u6a19\u3002",
+                    "name": "\u5206\u5340 ID"
+                },
+                "device_id": {
+                    "description": "\u670d\u52d9\u76ee\u6a19\u88dd\u7f6e ID\u3002",
+                    "name": "\u88dd\u7f6e ID"
+                },
+                "endpoint": {
+                    "description": "\u8a2d\u5b9a\u53c3\u6578\u7aef\u9ede\u3002",
+                    "name": "\u7aef\u9ede"
+                },
+                "entity_id": {
+                    "description": "\u670d\u52d9\u76ee\u6a19\u5be6\u9ad4 ID\u3002",
+                    "name": "\u5be6\u9ad4 ID"
+                },
+                "parameter": {
+                    "description": "\u60f3\u8981\u8a2d\u5b9a\u7684\u8a2d\u5b9a\u53c3\u6578\u540d\u7a31\uff08\u6216 ID\uff09\u3002",
+                    "name": "\u53c3\u6578"
+                },
+                "value": {
+                    "description": "\u6b64\u8a2d\u5b9a\u53c3\u6578\u8a2d\u5b9a\u65b0\u6578\u503c\u3002\u53ef\u4ee5\u70ba\u4ee3\u8868\u6279\u91cf\u8b8a\u66f4\u7684\u539f\u59cb\u6574\u6578\u6578\u503c\u3001\u6216\u6620\u5c04\u5176\u9375\u70ba\u4f4d\u5143\u906e\u7f69\uff08\u5341\u516d\u9032\u4f4d\u6216\u6574\u6578\u683c\u5f0f\uff09\uff0c\u4e14\u6578\u503c\u70ba\u60f3\u8981\u70ba\u8a72\u90e8\u5206\u53c3\u6578\u8a2d\u5b9a\u7684\u65b0\u6578\u503c\u3002",
+                    "name": "\u6578\u503c"
+                }
+            },
+            "name": "\u6279\u91cf\u8a2d\u5b9a\u90e8\u5206\u8a2d\u5b9a\u53c3\u6578\uff08\u9032\u968e\uff09\u3002"
+        },
+        "clear_lock_usercode": {
+            "description": "\u7531\u9396\u5b9a\u4e2d\u6e05\u9664\u4f7f\u7528\u8005\u4ee3\u78bc\u3002",
+            "fields": {
+                "code_slot": {
+                    "description": "\u8981\u6e05\u9664\u4ee3\u78bc\u7684\u5132\u4f4d\u3002",
+                    "name": "\u4ee3\u78bc\u5132\u4f4d"
+                }
+            },
+            "name": "\u6e05\u9664\u9396\u5b9a\u4f7f\u7528\u8005\u4ee3\u78bc"
+        },
+        "invoke_cc_api": {
+            "description": "\u5728\u7bc0\u9ede\u4e0a\u547c\u53eb\u547d\u4ee4\u985e\u5225 API\u3002\u67d0\u4e9b\u547d\u4ee4\u985e\u5225\u7121\u6cd5\u900f\u904e `set_value` \u52d5\u4f5c\u5b8c\u5168\u63a7\u5236\uff0c\u4e26\u9700\u8981\u76f4\u63a5\u547c\u53eb\u547d\u4ee4\u985e\u5225 API\u3002",
+            "fields": {
+                "area_id": {
+                    "description": "\u670d\u52d9\u76ee\u6a19\u5206\u5340 ID\u3002\u5047\u5982\u6307\u5b9a\u5206\u5340\u3001\u8a72\u5206\u5340\u5167\u6240\u6709 zwave_js \u88dd\u7f6e\u8207\u5be6\u9ad4\u90fd\u5c07\u6210\u70ba\u6b64\u670d\u52d9\u7684\u76ee\u6a19\u3002",
+                    "name": "\u5206\u5340 ID"
+                },
+                "command_class": {
+                    "description": "\u6240\u8981\u767c\u51fa\u547d\u4ee4\u7684\u547d\u4ee4\u985e\u5225 ID\u3002",
+                    "name": "\u547d\u4ee4\u985e\u5225"
+                },
+                "device_id": {
+                    "description": "\u670d\u52d9\u76ee\u6a19\u88dd\u7f6e ID\u3002",
+                    "name": "\u88dd\u7f6e ID"
+                },
+                "endpoint": {
+                    "description": "\u6240\u8981\u547c\u53eb API \u7684\u7aef\u9ede\u3002\u5047\u5982\u6307\u5b9a\u7aef\u9ede\u3001\u8a72\u7aef\u9ede\u5c07\u91dd\u5c0d\u8207\u76ee\u6a19\u5340\u57df\u3001\u88dd\u7f6e\u53ca/\u6216\u5be6\u9ad4\u76f8\u95dc\u7684\u6240\u6709\u7bc0\u9ede\u3002\u5047\u5982\u672a\u6307\u5b9a\u7aef\u9ede\u3001\u5247\u6839\u7aef\u9ede\uff080\uff09\u5c07\u91dd\u5c0d\u8207\u76ee\u6a19\u5340\u57df\u53ca\u88dd\u7f6e\u76f8\u95dc\u7684\u7bc0\u9ede\u3001\u4e26\u91dd\u5c0d\u6bcf\u500b\u5be6\u9ad4\u7684\u4e3b\u8981\u6578\u503c\u7aef\u9ede\u3002",
+                    "name": "\u7aef\u9ede"
+                },
+                "entity_id": {
+                    "description": "\u670d\u52d9\u76ee\u6a19\u5be6\u9ad4 ID\u3002",
+                    "name": "\u5be6\u9ad4 ID"
+                },
+                "method_name": {
+                    "description": "\u547c\u53eb API \u65b9\u5f0f\u7684\u540d\u7a31\u3002\u8acb\u53c3\u8003 Z-Wave JS \u547d\u4ee4\u985e\u5225 API \u76f8\u95dc\u6587\u4ef6 (https://zwave-js.github.io/node-zwave-js/#/api/CCs/index) \u4ee5\u53d6\u5f97\u53ef\u7528\u7684\u65b9\u5f0f\u8cc7\u6599\u3002",
+                    "name": "\u6a21\u5f0f\u540d\u7a31"
+                },
+                "parameters": {
+                    "description": "\u50b3\u905e\u81f3 API \u65b9\u5f0f\u7684\u53c3\u6578\u5217\u8868\u3002\u8acb\u53c3\u8003 Z-Wave JS \u547d\u4ee4\u985e\u5225 API \u76f8\u95dc\u6587\u4ef6 (https://zwave-js.github.io/node-zwave-js/#/api/CCs/index) \u4ee5\u53d6\u5f97\u53c3\u6578\u8cc7\u6599\u3002",
+                    "name": "\u53c3\u6578"
+                }
+            },
+            "name": "\u5728\u7bc0\u9ede\u4e0a\u547c\u53eb\u547d\u4ee4\u985e\u5225API\uff08\u9032\u968e\uff09"
+        },
+        "multicast_set_value": {
+            "description": "\u4f7f\u7528 multicast \u8b8a\u66f4 Z-Wave JS \u5728\u591a\u500b Z-Wave \u88dd\u7f6e\u4e0a\u8b58\u5225\u7684\u4efb\u4f55\u6578\u503c\uff0c\u6240\u4ee5\u88dd\u7f6e\u53ef\u4ee5\u540c\u6642\u63a5\u53d7\u8a0a\u606f\u3002\u6b64\u52d5\u4f5c\u7684\u9a57\u8b49\u6700\u5c11\u3001\u5efa\u8b70\u53ea\u6709\u5728\u60a8\u77e5\u9053\u81ea\u5df1\u5728\u505a\u4ec0\u9ebc\u7684\u60c5\u6cc1\u4e0b\u624d\u4f7f\u7528\u6b64\u52d5\u4f5c\u3002",
+            "fields": {
+                "area_id": {
+                    "description": "\u670d\u52d9\u76ee\u6a19\u5206\u5340 ID\u3002\u5047\u5982\u6307\u5b9a\u5206\u5340\u3001\u8a72\u5206\u5340\u5167\u6240\u6709 zwave_js \u88dd\u7f6e\u8207\u5be6\u9ad4\u90fd\u5c07\u6210\u70ba\u6b64\u670d\u52d9\u7684\u76ee\u6a19\u3002",
+                    "name": "\u5206\u5340 ID"
+                },
+                "broadcast": {
+                    "description": "\u547d\u4ee4\u662f\u5426\u61c9\u5ee3\u64ad\u5230\u7db2\u8def\u4e0a\u7684\u6240\u6709\u88dd\u7f6e\u3002",
+                    "name": "\u5ee3\u64ad\uff1f"
+                },
+                "command_class": {
+                    "description": "\u8a72\u6578\u503c\u547d\u4ee4\u985e\u5225 ID\u3002",
+                    "name": "\u547d\u4ee4\u985e\u5225"
+                },
+                "device_id": {
+                    "description": "\u670d\u52d9\u76ee\u6a19\u88dd\u7f6e ID\u3002",
+                    "name": "\u88dd\u7f6e ID"
+                },
+                "endpoint": {
+                    "description": "\u6578\u503c\u7aef\u9ede\u3002",
+                    "name": "\u7aef\u9ede"
+                },
+                "entity_id": {
+                    "description": "\u670d\u52d9\u76ee\u6a19\u5be6\u9ad4 ID\u3002",
+                    "name": "\u5be6\u9ad4 ID"
+                },
+                "options": {
+                    "description": "\u8a2d\u5b9a\u6578\u503c\u9078\u9805\u5730\u5716\u3002\u8acb\u53c3\u95b1 Z-Wave JS \u6587\u4ef6\u4ee5\u7372\u5f97\u95dc\u65bc\u9078\u9805\u8a2d\u5b9a\u7684\u66f4\u8a73\u7d30\u8cc7\u8a0a\u3002",
+                    "name": "\u9078\u9805"
+                },
+                "property": {
+                    "description": "\u8a72\u6578\u503c\u5c6c\u6027 ID\u3002",
+                    "name": "\u5c6c\u6027"
+                },
+                "property_key": {
+                    "description": "\u503c\u7684\u5c6c\u6027\u9375\u7684 ID\u3002",
+                    "name": "\u5c6c\u6027\u9375"
+                },
+                "value": {
+                    "description": "\u8a2d\u5b9a\u65b0\u6578\u503c",
+                    "name": "\u6578\u503c"
+                }
+            },
+            "name": "\u900f\u904e multicast \u8a2d\u5b9a\u591a\u500b\u88dd\u7f6e\u6578\u503c\uff08\u9032\u968e\uff09"
+        },
+        "ping": {
+            "description": "\u5f37\u5236 Z-Wave JS \u5617\u8a66\u9023\u63a5\u81f3\u7bc0\u9ede\u3002\u6b64\u52d5\u4f5c\u53ef\u7528\u65bc\u7576\u4f60\u89ba\u5f97 Z-Wave JS \u4e2d\u7684\u7bc0\u9ede\u4e26\u672a\u7cbe\u78ba\u53cd\u6620\u5be6\u969b\u72c0\u614b\u6642\u3001\u9032\u884c\u72c0\u614b\u66f4\u65b0\u3002\u4f8b\u5982\uff1a\u6062\u5fa9\u5931\u6548/\u5931\u53bb\u53cd\u61c9\u7684\u7bc0\u9ede\u6216\u5c07\u7bc0\u9ede\u6a19\u793a\u70ba\u7761\u7720\u3002",
+            "fields": {
+                "area_id": {
+                    "description": "\u670d\u52d9\u76ee\u6a19\u5206\u5340 ID\u3002\u5047\u5982\u6307\u5b9a\u5206\u5340\u3001\u8a72\u5206\u5340\u5167\u6240\u6709 zwave_js \u88dd\u7f6e\u8207\u5be6\u9ad4\u90fd\u5c07\u6210\u70ba\u6b64\u670d\u52d9\u7684\u76ee\u6a19\u3002",
+                    "name": "\u5206\u5340 ID"
+                },
+                "device_id": {
+                    "description": "\u670d\u52d9\u76ee\u6a19\u88dd\u7f6e ID\u3002",
+                    "name": "\u88dd\u7f6e ID"
+                },
+                "entity_id": {
+                    "description": "\u670d\u52d9\u76ee\u6a19\u5be6\u9ad4 ID\u3002",
+                    "name": "\u5be6\u9ad4 ID"
+                }
+            },
+            "name": "Ping \u7bc0\u9ede"
+        },
+        "refresh_notifications": {
+            "description": "\u6839\u64da\u901a\u77e5\u985e\u578b\u53ca\u9078\u9805\u901a\u77e5\u4e8b\u4ef6\u66f4\u65b0\u7bc0\u9ede\u901a\u77e5\u3002",
+            "fields": {
+                "area_id": {
+                    "description": "\u670d\u52d9\u76ee\u6a19\u5206\u5340 ID\u3002\u5047\u5982\u6307\u5b9a\u5206\u5340\u3001\u8a72\u5206\u5340\u5167\u6240\u6709 zwave_js \u88dd\u7f6e\u8207\u5be6\u9ad4\u90fd\u5c07\u6210\u70ba\u6b64\u670d\u52d9\u7684\u76ee\u6a19\u3002",
+                    "name": "\u5206\u5340 ID"
+                },
+                "device_id": {
+                    "description": "\u670d\u52d9\u76ee\u6a19\u88dd\u7f6e ID\u3002",
+                    "name": "\u88dd\u7f6e ID"
+                },
+                "entity_id": {
+                    "description": "\u670d\u52d9\u76ee\u6a19\u5be6\u9ad4 ID\u3002",
+                    "name": "\u5be6\u9ad4 ID"
+                },
+                "notification_event": {
+                    "description": "\u5982 Z-Wave \u898f\u7bc4\u4e2d\u6240\u5b9a\u7fa9\u7684\u901a\u77e5\u4e8b\u4ef6\u7de8\u865f\u3002",
+                    "name": "\u901a\u77e5\u4e8b\u4ef6"
+                },
+                "notification_type": {
+                    "description": "\u5982 Z-Wave \u898f\u7bc4\u4e2d\u6240\u5b9a\u7fa9\u7684\u901a\u77e5\u985e\u578b\u7de8\u865f\u3002",
+                    "name": "\u901a\u77e5\u985e\u578b"
+                }
+            },
+            "name": "\u66f4\u65b0\u7bc0\u9ede\u4e0a\u7684\u901a\u77e5\uff08\u9032\u968e\uff09"
+        },
+        "refresh_value": {
+            "description": "\u5f37\u5236\u66f4\u65b0 Z-Wave \u5be6\u9ad4\u6578\u503c\u3002",
+            "fields": {
+                "entity_id": {
+                    "description": "\u8981\u66f4\u65b0\u7684\u5be6\u9ad4\u3002",
+                    "name": "\u5be6\u9ad4"
+                },
+                "refresh_all_values": {
+                    "description": "\u662f\u5426\u66f4\u65b0\u6240\u6709\u6578\u503c\uff08true\uff09\u6216\u50c5\u66f4\u65b0\u4e3b\u8981\u6578\u503c\uff08false\uff09\u3002",
+                    "name": "\u66f4\u65b0\u6240\u6709\u6578\u503c\uff1f"
+                }
+            },
+            "name": "\u66f4\u65b0\u6578\u503c"
+        },
+        "reset_meter": {
+            "description": "\u91cd\u7f6e\u7bc0\u9ede\u8a08\u91cf",
+            "fields": {
+                "area_id": {
+                    "description": "\u670d\u52d9\u76ee\u6a19\u5206\u5340 ID\u3002\u5047\u5982\u6307\u5b9a\u5206\u5340\u3001\u8a72\u5206\u5340\u5167\u6240\u6709 zwave_js \u88dd\u7f6e\u8207\u5be6\u9ad4\u90fd\u5c07\u6210\u70ba\u6b64\u670d\u52d9\u7684\u76ee\u6a19\u3002",
+                    "name": "\u5206\u5340 ID"
+                },
+                "device_id": {
+                    "description": "\u670d\u52d9\u76ee\u6a19\u88dd\u7f6e ID\u3002",
+                    "name": "\u88dd\u7f6e ID"
+                },
+                "entity_id": {
+                    "description": "\u670d\u52d9\u76ee\u6a19\u5be6\u9ad4 ID\u3002",
+                    "name": "\u5be6\u9ad4 ID"
+                },
+                "meter_type": {
+                    "description": "\u91cd\u7f6e\u7684\u8a08\u91cf\u985e\u578b\u3002\u4e26\u975e\u6240\u6709\u7684\u8a08\u91cf\u90fd\u652f\u63f4\u53ef\u9078\u64c7\u91cd\u7f6e\u7684\u8a08\u91cf\u985e\u578b\u3002",
+                    "name": "\u5100\u8868\u985e\u5225"
+                },
+                "value": {
+                    "description": "\u91cd\u7f6e\u7684\u8a08\u91cf\u6578\u503c\u3002\u4e26\u975e\u6240\u6709\u7684\u8a08\u91cf\u90fd\u652f\u63f4\u53ef\u9078\u64c7\u91cd\u7f6e\u7684\u6307\u5b9a\u6578\u503c\u3002",
+                    "name": "\u76ee\u6a19\u6578\u503c"
+                }
+            },
+            "name": "\u91cd\u7f6e\u7bc0\u9ede\u8a08\u91cf"
+        },
+        "set_config_parameter": {
+            "description": "\u66f4\u6539 Z-Wave \u88dd\u7f6e\u8a2d\u5b9a\u53c3\u6578\u3002",
+            "fields": {
+                "area_id": {
+                    "description": "\u670d\u52d9\u76ee\u6a19\u5206\u5340 ID\u3002\u5047\u5982\u6307\u5b9a\u5206\u5340\u3001\u8a72\u5206\u5340\u5167\u6240\u6709 zwave_js \u88dd\u7f6e\u8207\u5be6\u9ad4\u90fd\u5c07\u6210\u70ba\u6b64\u670d\u52d9\u7684\u76ee\u6a19\u3002",
+                    "name": "\u5206\u5340 ID"
+                },
+                "bitmask": {
+                    "description": "\u91dd\u5c0d\u7279\u5b9a\u7684\u4f4d\u5143\u906e\u7f69\u9032\u884c\u5b9a\u4f4d\uff08\u8acb\u53c3\u95b1\u8aaa\u660e\u6587\u4ef6\u4ee5\u7372\u5f97\u66f4\u8a73\u7d30\u8cc7\u8a0a\uff09\u3002\u4e0d\u80fd\u8207 value_size \u6216 value_format \u5408\u4f75\u4f7f\u7528\u3002",
+                    "name": "\u4f4d\u5143\u906e\u7f69"
+                },
+                "device_id": {
+                    "description": "\u670d\u52d9\u76ee\u6a19\u88dd\u7f6e ID\u3002",
+                    "name": "\u88dd\u7f6e ID"
+                },
+                "endpoint": {
+                    "description": "\u8a2d\u5b9a\u53c3\u6578\u7aef\u9ede\u3002",
+                    "name": "\u7aef\u9ede"
+                },
+                "entity_id": {
+                    "description": "\u670d\u52d9\u76ee\u6a19\u5be6\u9ad4 ID\u3002",
+                    "name": "\u5be6\u9ad4 ID"
+                },
+                "parameter": {
+                    "description": "\u60f3\u8981\u8a2d\u5b9a\u7684\u8a2d\u5b9a\u53c3\u6578\u540d\u7a31\uff08\u6216 ID\uff09\u3002",
+                    "name": "\u53c3\u6578"
+                },
+                "value": {
+                    "description": "\u8a2d\u5b9a\u6b64\u8a2d\u5b9a\u53c3\u6578\u7684\u65b0\u6578\u503c\u3002",
+                    "name": "\u6578\u503c"
+                },
+                "value_format": {
+                    "description": "\u6578\u503c\u7684\u683c\u5f0f\u30010 \u8868\u793a\u7b26\u865f\u6578\u6574\u6578\u30011 \u8868\u793a\u7121\u7b26\u865f\u6578\u6574\u6578\uff0c2 \u8868\u793a\u5217\u8209\uff0c3 \u8868\u793a\u4f4d\u5143\u6b04\u3002\u7576\u8a2d\u5b9a\u53c3\u6578\u672a\u5728\u88dd\u7f6e\u8a2d\u5b9a\u6a94\u6848\u4e2d\u5b9a\u7fa9\u6642\u3001\u914d\u5408 value_size \u4e00\u8d77\u4f7f\u7528\u3002\u4e0d\u80fd\u8207\u4f4d\u5143\u906e\u7f69\u6df7\u5408\u4f7f\u7528\u3002",
+                    "name": "\u6578\u503c\u683c\u5f0f"
+                },
+                "value_size": {
+                    "description": "\u6578\u503c\u7684\u5927\u5c0f\u3001\u53ef\u4ee5\u70ba 1\u30012 \u6216 4\u3002\u7576\u8a2d\u5b9a\u53c3\u6578\u672a\u5728\u88dd\u7f6e\u8a2d\u5b9a\u6a94\u6848\u4e2d\u5b9a\u7fa9\u6642\u3001\u914d\u5408 value_format \u4e00\u8d77\u4f7f\u7528\u3002\u4e0d\u80fd\u8207\u4f4d\u5143\u906e\u7f69\u6df7\u5408\u4f7f\u7528\u3002",
+                    "name": "\u6578\u503c\u5927\u5c0f"
+                }
+            },
+            "name": "\u8a2d\u5b9a\u88dd\u7f6e\u8a2d\u5b9a\u53c3\u6578"
+        },
+        "set_lock_configuration": {
+            "description": "\u8a2d\u5b9a\u9580\u9396\u8a2d\u5b9a\u3002",
+            "fields": {
+                "auto_relock_time": {
+                    "description": "\u9580\u9396\u56de\u5230\u5b89\u5168\u72c0\u614b\u7684\u79d2\u6578\u6301\u7e8c\u6642\u9593\u3002\u50c5\u6709\u5728\u64cd\u4f5c\u985e\u578b\u70ba`constant` \u6642\u624d\u5f37\u5236\u57f7\u884c\u3002",
+                    "name": "\u81ea\u52d5\u4e0a\u9396\u6642\u9593"
+                },
+                "block_to_block": {
+                    "description": "\u958b\u555f Block-to-block \u529f\u80fd\u3002",
+                    "name": "Block to block"
+                },
+                "hold_and_release_time": {
+                    "description": "\u9580\u9582\u4fdd\u6301\u6536\u56de\u7684\u79d2\u6578\u3002",
+                    "name": "\u505c\u7559\u8207\u91cb\u653e\u6642\u9593"
+                },
+                "inside_handles_can_open_door_configuration": {
+                    "description": "\u7531\u56db\u500b\u5e03\u6797\u503c\u6240\u7d44\u6210\u7684\u5217\u8868\u3001\u7528\u65bc\u6307\u793a\u54ea\u500b\u5167\u9580\u628a\u53ef\u4ee5\u958b\u9580\u3002",
+                    "name": "\u5167\u628a\u624b\u53ef\u958b\u9580\u8a2d\u5b9a"
+                },
+                "lock_timeout": {
+                    "description": "\u9580\u9396\u6a21\u5f0f\u903e\u6642\u79d2\u6578\u3002\u50c5\u5728\u64cd\u4f5c\u985e\u578b\u70ba`timed`\u6642\u624d\u80fd\u4f7f\u7528\u3002",
+                    "name": "\u9580\u9396\u903e\u6642"
+                },
+                "operation_type": {
+                    "description": "\u9580\u9396\u64cd\u4f5c\u985e\u578b\u3002",
+                    "name": "\u64cd\u4f5c\u985e\u578b"
+                },
+                "outside_handles_can_open_door_configuration": {
+                    "description": "\u7531\u56db\u500b\u5e03\u6797\u503c\u6240\u7d44\u6210\u7684\u5217\u8868\u3001\u7528\u65bc\u6307\u793a\u54ea\u500b\u5916\u9580\u628a\u53ef\u4ee5\u958b\u9580\u3002",
+                    "name": "\u5916\u628a\u624b\u53ef\u958b\u9580\u8a2d\u5b9a"
+                },
+                "twist_assist": {
+                    "description": "\u555f\u7528 Twist Assist\u3002",
+                    "name": "Twist assist"
+                }
+            },
+            "name": "\u8a2d\u5b9a\u9580\u9396\u8a2d\u5b9a"
+        },
+        "set_lock_usercode": {
+            "description": "\u7531\u9396\u5b9a\u4e2d\u8a2d\u5b9a\u4f7f\u7528\u8005\u4ee3\u78bc\u3002",
+            "fields": {
+                "code_slot": {
+                    "description": "\u8981\u8a2d\u5b9a\u4ee3\u78bc\u7684\u5132\u4f4d\u3002",
+                    "name": "\u4ee3\u78bc\u5132\u4f4d"
+                },
+                "usercode": {
+                    "description": "\u8981\u8a2d\u5b9a\u7684\u9396\u5b9a\u3002",
+                    "name": "\u4ee3\u78bc"
+                }
+            },
+            "name": "\u8a2d\u5b9a\u9396\u5b9a\u4f7f\u7528\u8005\u4ee3\u78bc"
+        },
+        "set_value": {
+            "description": "\u8b8a\u66f4 Z-Wave JS \u5728 Z-Wave \u88dd\u7f6e\u4e0a\u8b58\u5225\u7684\u4efb\u4f55\u6578\u503c\u3002\u6b64\u52d5\u4f5c\u7684\u9a57\u8b49\u6700\u5c11\u3001\u5efa\u8b70\u53ea\u6709\u5728\u60a8\u77e5\u9053\u81ea\u5df1\u5728\u505a\u4ec0\u9ebc\u7684\u60c5\u6cc1\u4e0b\u624d\u4f7f\u7528\u6b64\u52d5\u4f5c\u3002",
+            "fields": {
+                "area_id": {
+                    "description": "\u670d\u52d9\u76ee\u6a19\u5206\u5340 ID\u3002\u5047\u5982\u6307\u5b9a\u5206\u5340\u3001\u8a72\u5206\u5340\u5167\u6240\u6709 zwave_js \u88dd\u7f6e\u8207\u5be6\u9ad4\u90fd\u5c07\u6210\u70ba\u6b64\u670d\u52d9\u7684\u76ee\u6a19\u3002",
+                    "name": "\u5206\u5340 ID"
+                },
+                "command_class": {
+                    "description": "\u8a72\u6578\u503c\u547d\u4ee4\u985e\u5225 ID\u3002",
+                    "name": "\u547d\u4ee4\u985e\u5225"
+                },
+                "device_id": {
+                    "description": "\u670d\u52d9\u76ee\u6a19\u88dd\u7f6e ID\u3002",
+                    "name": "\u88dd\u7f6e ID"
+                },
+                "endpoint": {
+                    "description": "\u6578\u503c\u7aef\u9ede\u3002",
+                    "name": "\u7aef\u9ede"
+                },
+                "entity_id": {
+                    "description": "\u670d\u52d9\u76ee\u6a19\u5be6\u9ad4 ID\u3002",
+                    "name": "\u5be6\u9ad4 ID"
+                },
+                "options": {
+                    "description": "\u8a2d\u5b9a\u6578\u503c\u9078\u9805\u5730\u5716\u3002\u8acb\u53c3\u95b1 Z-Wave JS \u6587\u4ef6\u4ee5\u7372\u5f97\u95dc\u65bc\u9078\u9805\u8a2d\u5b9a\u7684\u66f4\u8a73\u7d30\u8cc7\u8a0a\u3002",
+                    "name": "\u9078\u9805"
+                },
+                "property": {
+                    "description": "\u8a72\u6578\u503c\u5c6c\u6027 ID\u3002",
+                    "name": "\u5c6c\u6027"
+                },
+                "property_key": {
+                    "description": "\u503c\u7684\u5c6c\u6027\u9375\u7684 ID\u3002",
+                    "name": "\u5c6c\u6027\u9375"
+                },
+                "value": {
+                    "description": "\u8a2d\u5b9a\u65b0\u6578\u503c",
+                    "name": "\u6578\u503c"
+                },
+                "wait_for_result": {
+                    "description": "\u662f\u5426\u7b49\u5f85\u7bc0\u9ede\u7684\u97ff\u61c9\u3002\u5982\u679c\u672a\u5305\u542b\u5728\u6709\u6548\u8ca0\u8f09\u4e2d\uff0c\u96c6\u6210\u5c07\u6c7a\u5b9a\u662f\u5426\u7b49\u5f85\u3002\u5982\u679c\u8a2d\u7f6e\u70ba\u201ctrue\u201d\uff0c\u8acb\u6ce8\u610f\uff0c\u5982\u679c\u5728\u7761\u7720\u96fb\u6c60\u8a2d\u5099\u4e0a\u8a2d\u7f6e\u503c\uff0c\u5247\u52d9\u8abf\u53ef\u80fd\u9700\u8981\u4e00\u6bb5\u6642\u9593\u3002",
+                    "name": "\u7b49\u5f85\u7d50\u679c\uff1f"
+                }
+            },
+            "name": "\u8a2d\u5b9a\u503c (\u9032\u968e)"
+        }
+    }
+}

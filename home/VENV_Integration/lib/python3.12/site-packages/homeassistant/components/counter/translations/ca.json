@@ -1,0 +1,66 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "Comptador num\u00e8ric",
+            "state_attributes": {
+                "editable": {
+                    "name": "Gestionat mitjan\u00e7ant la Interf\u00edcie d'Usuari (IU)",
+                    "state": {
+                        "false": "No",
+                        "true": "S\u00ed"
+                    }
+                },
+                "initial": {
+                    "name": "Valor inicial"
+                },
+                "maximum": {
+                    "name": "M\u00e0xim"
+                },
+                "minimum": {
+                    "name": "M\u00ednim"
+                },
+                "step": {
+                    "name": "Pas"
+                }
+            }
+        }
+    },
+    "issues": {
+        "deprecated_configure_service": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "El servei de configuraci\u00f3 dels comptadors `counter.configure` s'eliminar\u00e0 de Home Assistant i sembla que l'est\u00e0s utilitzant. Si vols canviar el valor d'un comptador, utilitza el nou servei `counter.set_value`. \n\nElimina aquest servei de les teves automatitzacions i 'scripts' i selecciona **Envia** per resoldre aquest problema.",
+                        "title": "El servei de configuraci\u00f3 de comptador est\u00e0 sent eliminat"
+                    }
+                }
+            },
+            "title": "El servei de configuraci\u00f3 de comptador est\u00e0 sent eliminat"
+        }
+    },
+    "services": {
+        "decrement": {
+            "description": "Disminueix un comptador num\u00e8ric.",
+            "name": "Disminueix"
+        },
+        "increment": {
+            "description": "Incrementa un comptador num\u00e8ric.",
+            "name": "Incrementa"
+        },
+        "reset": {
+            "description": "Reinicialitza un comptador num\u00e8ric.",
+            "name": "Reinicialitzar"
+        },
+        "set_value": {
+            "description": "Estableix el valor del comptador num\u00e8ric.",
+            "fields": {
+                "value": {
+                    "description": "El nou valor num\u00e8ric el qual s'ha d'establir a l'entitat.",
+                    "name": "Valor"
+                }
+            },
+            "name": "Establir"
+        }
+    },
+    "title": "Comptador num\u00e8ric"
+}

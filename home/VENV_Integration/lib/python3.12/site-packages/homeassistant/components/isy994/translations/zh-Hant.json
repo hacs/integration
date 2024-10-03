@@ -1,0 +1,192 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "\u88dd\u7f6e\u5df2\u7d93\u8a2d\u5b9a\u5b8c\u6210"
+        },
+        "error": {
+            "cannot_connect": "\u9023\u7dda\u5931\u6557",
+            "invalid_auth": "\u8eab\u4efd\u9a57\u8b49\u7121\u6548",
+            "invalid_host": "\u4e3b\u6a5f\u7aef\u4e26\u672a\u4ee5\u5b8c\u6574\u7db2\u5740\u683c\u5f0f\u8f38\u5165\uff0c\u4f8b\u5982\uff1ahttp://192.168.10.100:80",
+            "reauth_successful": "\u91cd\u65b0\u8a8d\u8b49\u6210\u529f",
+            "unknown": "\u672a\u9810\u671f\u932f\u8aa4"
+        },
+        "flow_title": "{name} ({host})",
+        "step": {
+            "reauth_confirm": {
+                "data": {
+                    "password": "\u5bc6\u78bc",
+                    "username": "\u4f7f\u7528\u8005\u540d\u7a31"
+                },
+                "description": "{host} \u6191\u8b49\u4e0d\u518d\u6709\u6548\u3002",
+                "title": "\u91cd\u65b0\u8a8d\u8b49 ISY \u5e33\u865f"
+            },
+            "user": {
+                "data": {
+                    "host": "\u7db2\u5740",
+                    "password": "\u5bc6\u78bc",
+                    "tls": "ISY \u63a7\u5236\u5668 TLS \u7248\u672c",
+                    "username": "\u4f7f\u7528\u8005\u540d\u7a31"
+                },
+                "description": "\u4e3b\u6a5f\u7aef\u5fc5\u9808\u4ee5\u5b8c\u6574\u7db2\u5740\u683c\u5f0f\u8f38\u5165\uff0c\u4f8b\u5982\uff1ahttp://192.168.10.100:80",
+                "title": "\u9023\u7dda\u81f3 ISY"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_service": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "\u4f7f\u7528\u6b64\u670d\u52d9\u4ee5\u66f4\u65b0\u4efb\u4f55\u81ea\u52d5\u5316\u6216\u8173\u672c\u3001\u4ee5\u53d6\u4ee3\u4f7f\u7528\u76ee\u6a19\u5be6\u9ad4 ID \u70ba `{alternate_target}` \u4e4b `{alternate_service}` \u670d\u52d9\u3002",
+                        "title": "{deprecated_service} \u670d\u52d9\u5c07\u79fb\u9664"
+                    },
+                    "deprecated_yaml": {
+                        "description": "\u4f7f\u7528 YAML \u8a2d\u5b9a\u7684\u901a\u7528\u88dd\u7f6e ISY/IoX \u5373\u5c07\u9032\u884c\u79fb\u9664\u3002\n\n\u65e2\u6709\u7684 YAML \u8a2d\u5b9a\u5c07\u81ea\u52d5\u532f\u5165\u81f3 UI \u5167\u3002\n\n\u8acb\u65bc configuration.yaml \u6a94\u6848\u4e2d\u79fb\u9664 `isy994` YAML \u8a2d\u5b9a\u4e26\u91cd\u65b0\u555f\u52d5 Home Assistant \u4ee5\u4fee\u6b63\u6b64\u554f\u984c\u3002",
+                        "title": "ISY/IoX YAML \u8a2d\u5b9a\u5373\u5c07\u79fb\u9664"
+                    }
+                }
+            },
+            "title": "{deprecated_service} \u670d\u52d9\u5c07\u79fb\u9664"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "ignore_string": "\u5ffd\u7565\u5b57\u4e32",
+                    "restore_light_state": "\u56de\u5fa9\u4eae\u5ea6",
+                    "sensor_string": "\u7bc0\u9ede\u611f\u6e2c\u5668\u5b57\u4e32",
+                    "variable_sensor_string": "\u53ef\u8b8a\u611f\u6e2c\u5668\u5b57\u4e32"
+                },
+                "description": "ISY \u6574\u5408\u8a2d\u5b9a\u9078\u9805\uff1a \n \u2022 \u7bc0\u9ede\u611f\u6e2c\u5668\u5b57\u4e32\uff08Node Sensor String\uff09\uff1a\u4efb\u4f55\u540d\u7a31\u6216\u8cc7\u6599\u593e\u5305\u542b\u300cNode Sensor String\u300d\u7684\u88dd\u7f6e\u90fd\u6703\u88ab\u8996\u70ba\u611f\u6e2c\u5668\u6216\u4e8c\u9032\u4f4d\u611f\u6e2c\u5668\u3002\n \u2022 \u5ffd\u7565\u5b57\u4e32\uff08Ignore String\uff09\uff1a\u4efb\u4f55\u540d\u7a31\u5305\u542b\u300cIgnore String\u300d\u7684\u88dd\u7f6e\u90fd\u6703\u88ab\u5ffd\u7565\u3002\n \u2022 \u53ef\u8b8a\u611f\u6e2c\u5668\u5b57\u4e32\uff08Variable Sensor String\uff09\uff1a\u4efb\u4f55\u5305\u542b\u300cVariable Sensor String\u300d\u7684\u8b8a\u6578\u90fd\u5c07\u65b0\u589e\u70ba\u611f\u6e2c\u5668\u3002 \n \u2022 \u56de\u5fa9\u4eae\u5ea6\uff08Restore Light Brightness\uff09\uff1a\u958b\u555f\u5f8c\u3001\u7576\u71c8\u5149\u958b\u555f\u6642\u6703\u56de\u5fa9\u5148\u524d\u7684\u4eae\u5ea6\uff0c\u800c\u4e0d\u662f\u4f7f\u7528\u88dd\u7f6e\u9810\u8a2d\u4eae\u5ea6\u3002",
+                "title": "ISY \u9078\u9805"
+            }
+        }
+    },
+    "services": {
+        "delete_zwave_lock_user_code": {
+            "description": "\u900f\u904e ISY \u522a\u9664 Z-Wave \u9580\u9396\u4f7f\u7528\u8005\u4ee3\u78bc\u3002",
+            "fields": {
+                "user_num": {
+                    "description": "\u9580\u9396\u4e0a\u4f7f\u7528\u8005\u4f4d\u7f6e\u865f\u78bc\u3002",
+                    "name": "\u4f7f\u7528\u8005\u865f\u78bc"
+                }
+            },
+            "name": "\u522a\u9664 Z-Wave \u9580\u9396\u4f7f\u7528\u8005\u4ee3\u78bc"
+        },
+        "get_zwave_parameter": {
+            "description": "\u900f\u904e ISY \u8acb\u6c42 Z-Wave \u88dd\u7f6e\u53c3\u6578\u3002\u53c3\u6578\u503c\u5c07\u4f5c\u70ba\u5be6\u9ad4\u984d\u5916\u72c0\u614b\u5c6c\u6027\u8fd4\u56de\uff0c\u540d\u7a31\u70ba \"ZW_#\"\u3001\u5176\u4e2d \"#\" \u662f\u53c3\u6578\u865f\u78bc\u3002",
+            "fields": {
+                "parameter": {
+                    "description": "\u5f9e\u88dd\u7f6e\u4e2d\u7372\u53d6\u7684\u53c3\u6578\u6578\u91cf\u3002",
+                    "name": "\u53c3\u6578"
+                }
+            },
+            "name": "\u53d6\u5f97 Z-Wave \u53c3\u6578"
+        },
+        "rename_node": {
+            "description": "\u5728 ISY \u4e0a\u91cd\u547d\u540d\u7bc0\u9ede\u6216\u7fa4\u7d44\uff08\u5834\u666f\uff09\u3002\u6ce8\u610f\uff1a\u5c07\u4e0d\u6703\u81ea\u52d5\u5c0d\u61c9\u8b8a\u66f4 Home Assistant \u4e0a\u7684\u5be6\u9ad4\u540d\u7a31\u6216\u5be6\u9ad4 ID\u3002\u53ea\u6709\u5728\u91cd\u65b0\u8f09\u5165\u6574\u5408\u6216\u91cd\u65b0\u555f\u52d5 Home Assistant \u5f8c\uff0c\u4e26\u4e14\u300c\u53ea\u6709\u300d\u5728\u60a8\u5c1a\u672a\u5728 Home Assistant \u4e2d\u81ea\u8a02\u540d\u7a31\u7684\u60c5\u6cc1\u4e0b\uff0c\u5be6\u9ad4\u540d\u7a31\u548c ID \u624d\u6703\u66f4\u65b0\u3002",
+            "fields": {
+                "name": {
+                    "description": "ISY \u4e2d\u4f7f\u7528\u7684\u65b0\u540d\u7a31\u3002",
+                    "name": "\u65b0\u540d\u7a31"
+                }
+            },
+            "name": "\u91cd\u65b0\u547d\u540d ISY \u4e0a\u7684\u7bc0\u9ede"
+        },
+        "send_node_command": {
+            "description": "\u4f7f\u7528 Home Assistant \u5be6\u9ad4 ID \u5411 ISY \u88dd\u7f6e\u50b3\u9001\u547d\u4ee4\u3002\u6709\u6548\u7684\u547d\u4ee4\u5305\u62ec\uff1abeep\u3001brighten\u3001dim\u3001disable\u3001enable\u3001fade_down\u3001fade_stop\u3001fade_up\u3001fast_off\u3001fast_on\u548cquery\u3002",
+            "fields": {
+                "command": {
+                    "description": "\u50b3\u9001\u81f3\u88dd\u7f6e\u7684\u547d\u4ee4\u3002",
+                    "name": "\u547d\u4ee4"
+                }
+            },
+            "name": "\u50b3\u9001\u7bc0\u9ede\u547d\u4ee4"
+        },
+        "send_program_command": {
+            "description": "\u50b3\u9001\u547d\u4ee4\u4ee5\u63a7\u5236 ISY \u7a0b\u5f0f\u6216\u8cc7\u6599\u593e\u3002\u6709\u6548\u7684\u547d\u4ee4\u6709 run\u3001run_then\u3001run_else\u3001stop\u3001enable\u3001disable\u3001enable_run_at_startup \u548c disable_run_at_startup\u3002",
+            "fields": {
+                "address": {
+                    "description": "\u7528\u65bc\u63a7\u5236\u7a0b\u5f0f\u4f4d\u5740\uff08\u4f7f\u7528\u5730\u5740\u6216\u540d\u7a31\uff09\u3002",
+                    "name": "\u4f4d\u5740"
+                },
+                "command": {
+                    "description": "\u50b3\u9001\u7684 ISY \u7a0b\u5f0f\u547d\u4ee4\u3002",
+                    "name": "\u547d\u4ee4"
+                },
+                "isy": {
+                    "description": "\u5982\u679c\u9023\u7dda\u64c1\u6709\u8d85\u904e\u4e00\u500b\u4e0a ISY\u3001\u8acb\u63d0\u4f9b\u8981\u67e5\u8a62\u7684 ISY \u540d\u7a31\uff08\u5982\u5728\u88dd\u7f6e\u8a3b\u518a\u8655\u6240\u793a\uff0c\u6216\u8005\u4f5c\u70ba ISY \u7ba1\u7406\u63a7\u5236\u53f0\u4e2d\u7684\u6700\u4e0a\u5c64\u7bc0\u9ede\uff09\u3002\u5982\u679c\u5728\u591a\u500b ISY \u4e0a\u4f7f\u7528\u76f8\u540c\u7684\u7a0b\u5f0f\u540d\u7a31\u6216\u5730\u5740\uff0c\u7701\u7565\u6b64\u9999\u6728\u5c07\u5728\u6240\u6709\u7684 ISY \u4e0a\u57f7\u884c\u8a72\u547d\u4ee4\u3002",
+                    "name": "ISY"
+                },
+                "name": {
+                    "description": "\u7528\u65bc\u63a7\u5236\u7a0b\u5f0f\u540d\u7a31\uff08\u4f7f\u7528\u5730\u5740\u6216\u540d\u7a31\uff09\u3002",
+                    "name": "\u540d\u7a31"
+                }
+            },
+            "name": "\u50b3\u9001\u7a0b\u5f0f\u547d\u4ee4"
+        },
+        "send_raw_node_command": {
+            "description": "ISY \u6574\u5408\u8a2d\u5b9a\u9078\u9805\uff1a \n \u2022 \u7bc0\u9ede\u611f\u6e2c\u5668\u5b57\u4e32\uff08Node Sensor String\uff09\uff1a\u4efb\u4f55\u540d\u7a31\u6216\u8cc7\u6599\u593e\u5305\u542b\u300cNode Sensor String\u300d\u7684\u88dd\u7f6e\u90fd\u6703\u88ab\u8996\u70ba\u611f\u6e2c\u5668\u6216\u4e8c\u9032\u4f4d\u611f\u6e2c\u5668\u3002\n \u2022 \u5ffd\u7565\u5b57\u4e32\uff08Ignore String\uff09\uff1a\u4efb\u4f55\u540d\u7a31\u5305\u542b\u300cIgnore String\u300d\u7684\u88dd\u7f6e\u90fd\u6703\u88ab\u5ffd\u7565\u3002\n \u2022 \u53ef\u8b8a\u611f\u6e2c\u5668\u5b57\u4e32\uff08Variable Sensor String\uff09\uff1a\u4efb\u4f55\u5305\u542b\u300cVariable Sensor String\u300d\u7684\u8b8a\u6578\u90fd\u5c07\u65b0\u589e\u70ba\u611f\u6e2c\u5668\u3002 \n \u2022 \u56de\u5fa9\u4eae\u5ea6\uff08Restore Light Brightness\uff09\uff1a\u958b\u555f\u5f8c\u3001\u7576\u71c8\u5149\u958b\u555f\u6642\u6703\u56de\u5fa9\u5148\u524d\u7684\u4eae\u5ea6\uff0c\u800c\u4e0d\u662f\u4f7f\u7528\u88dd\u7f6e\u9810\u8a2d\u4eae\u5ea6\u3002",
+            "fields": {
+                "command": {
+                    "description": "\u50b3\u9001\u81f3\u88dd\u7f6e\u7684 ISY REST \u547d\u4ee4\u3002",
+                    "name": "\u547d\u4ee4"
+                },
+                "parameters": {
+                    "description": "\u5728\u67e5\u8a62\u5b57\u4e32\u4e2d\u50b3\u9001\u7684\u53c3\u6578\u5b57\u5178\uff08\u4f8b\u5982\uff0c\u7528\u65bc\u63a7\u5236\u5f69\u8272\u71c8\u6ce1\uff09\u3002",
+                    "name": "\u53c3\u6578"
+                },
+                "unit_of_measurement": {
+                    "description": "\u5982\u679c\u9700\u8981\uff0c\u8207\u547d\u4ee4\u4e00\u8d77\u50b3\u9001\u7684 ISY \u55ae\u4f4d\uff08UOM\uff09\u3002",
+                    "name": "\u6e2c\u91cf\u55ae\u4f4d"
+                },
+                "value": {
+                    "description": "\u8207\u547d\u4ee4\u4e00\u8d77\u50b3\u9001\u7684\u6574\u6578\u503c\u3002",
+                    "name": "\u6578\u503c"
+                }
+            },
+            "name": "\u50b3\u9001\u539f\u59cb\u7bc0\u9ede\u547d\u4ee4"
+        },
+        "set_zwave_lock_user_code": {
+            "description": "\u900f\u904e ISY \u8a2d\u5b9a Z-Wave \u9580\u9396\u4f7f\u7528\u8005\u4ee3\u78bc\u3002",
+            "fields": {
+                "code": {
+                    "description": "\u8a2d\u5b9a\u7d66\u4f7f\u7528\u8005\u7684\u4ee3\u78bc\u3002",
+                    "name": "\u4ee3\u78bc"
+                },
+                "user_num": {
+                    "description": "\u9580\u9396\u4e0a\u4f7f\u7528\u8005\u4f4d\u7f6e\u865f\u78bc\u3002",
+                    "name": "\u4f7f\u7528\u8005\u865f\u78bc"
+                }
+            },
+            "name": "\u8a2d\u5b9a Z-Wave \u9580\u9396\u4f7f\u7528\u8005\u4ee3\u78bc"
+        },
+        "set_zwave_parameter": {
+            "description": "\u900f\u904e ISY \u66f4\u65b0 Z-Wave \u88dd\u7f6e\u53c3\u6578\u3002\u53c3\u6578\u503c\u4e5f\u5c07\u4f5c\u70ba\u5be6\u9ad4\u984d\u5916\u72c0\u614b\u5c6c\u6027\u8fd4\u56de\uff0c\u540d\u7a31\u70ba \"ZW_#\"\u3001\u5176\u4e2d \"#\" \u662f\u53c3\u6578\u865f\u78bc\u3002",
+            "fields": {
+                "parameter": {
+                    "description": "\u8981\u5728\u7d42\u7aef\u8a2d\u5099\u4e0a\u8a2d\u5b9a\u7684\u53c3\u6578\u6578\u91cf\u3002",
+                    "name": "\u53c3\u6578"
+                },
+                "size": {
+                    "description": "\u53c3\u6578\u7684\u5927\u5c0f\uff0c\u53ef\u4ee5\u662f 1\u30012 \u6216 4 \u500b\u4f4d\u5143\u7d44\u3002",
+                    "name": "\u5927\u5c0f"
+                },
+                "value": {
+                    "description": "\u8a2d\u5b9a\u53c3\u6578\u503c\u3002\u53ef\u4ee5\u53ef\u662f\u6574\u6578\u6216\u4f4d\u5143\u7d44\u5b57\u4e32\uff08\u4f8b\u5982\u201c0xFFFF\u201d\uff09\u3002",
+                    "name": "\u6578\u503c"
+                }
+            },
+            "name": "\u8a2d\u5b9a Z-Wave \u53c3\u6578"
+        }
+    },
+    "system_health": {
+        "info": {
+            "device_connected": "ISY \u5df2\u9023\u7dda",
+            "host_reachable": "\u4e3b\u6a5f\u53ef\u9023",
+            "last_heartbeat": "\u4e0a\u6b21 Heartbeat \u6642\u9593",
+            "websocket_status": "\u4e8b\u4ef6 Socket \u72c0\u614b"
+        }
+    }
+}

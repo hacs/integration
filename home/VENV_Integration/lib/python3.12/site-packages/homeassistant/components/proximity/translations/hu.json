@@ -1,0 +1,87 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Az eszk\u00f6z m\u00e1r konfigur\u00e1lva van",
+            "success": "V\u00e1ltoz\u00e1sok mentve"
+        },
+        "flow_title": "K\u00f6zels\u00e9g",
+        "step": {
+            "user": {
+                "data": {
+                    "ignored_zones": "Figyelmen k\u00edv\u00fcl hagyand\u00f3 z\u00f3n\u00e1k",
+                    "tolerance": "T\u0171r\u00e9si t\u00e1vols\u00e1g",
+                    "tracked_entities": "K\u00f6vetend\u0151 eszk\u00f6z\u00f6k vagy szem\u00e9lyek",
+                    "zone": "Z\u00f3na a t\u00e1vols\u00e1g nyomon k\u00f6vet\u00e9s\u00e9hez"
+                }
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "dir_of_travel": {
+                "name": "{tracked_entity} Halad\u00e1si ir\u00e1nya",
+                "state": {
+                    "arrived": "Meg\u00e9rkezett",
+                    "away_from": "T\u00e1volodik",
+                    "stationary": "\u00c1ll\u00f3, mozdulatlan",
+                    "towards": "K\u00f6zeledik"
+                }
+            },
+            "dist_to_zone": {
+                "name": "{tracked_entity} T\u00e1vols\u00e1ga"
+            },
+            "nearest": {
+                "name": "Legk\u00f6zelebbi eszk\u00f6z"
+            },
+            "nearest_dir_of_travel": {
+                "name": "Legk\u00f6zelebbi halad\u00e1si ir\u00e1ny",
+                "state": {
+                    "arrived": "Meg\u00e9rkezett",
+                    "away_from": "T\u00e1vol ett\u0151l",
+                    "stationary": "Mozdulatlan",
+                    "towards": "Fel\u00e9"
+                }
+            },
+            "nearest_dist_to_zone": {
+                "name": "Legk\u00f6zelebbi t\u00e1vols\u00e1g"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_proximity_entity": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "A(z) `{entity}` k\u00f6zels\u00e9gi entit\u00e1s elavult, \u00e9s a `2024.8` verzi\u00f3ban elt\u00e1vol\u00edt\u00e1sra ker\u00fcl. Azonban a k\u00f6vetkez\u0151 konfigur\u00e1ci\u00f3kban haszn\u00e1latos:\n- {used_in}\n\nM\u00f3dos\u00edtsa azokat az automatiz\u00e1l\u00e1sokat vagy szkripteket, amelyek ezt az elavult k\u00f6zels\u00e9gi entit\u00e1st haszn\u00e1lj\u00e1k.\nMinden nyomon k\u00f6vetett szem\u00e9lyhez vagy eszk\u00f6zh\u00f6z egy \u00e9rz\u00e9kel\u0151 j\u00f6n l\u00e9tre a fel\u00fcgyelt z\u00f3n\u00e1ba val\u00f3 be- \u00e9s kijut\u00e1si t\u00e1vols\u00e1ghoz \u00e9s halad\u00e1si ir\u00e1nyhoz. Ezenk\u00edv\u00fcl minden k\u00f6zels\u00e9gi konfigur\u00e1ci\u00f3hoz l\u00e9trej\u00f6n egy \u00e9rz\u00e9kel\u0151, amely megmutatja a figyelt z\u00f3n\u00e1hoz legk\u00f6zelebbi eszk\u00f6zt vagy szem\u00e9lyt. Ezzel a Min/Max integr\u00e1ci\u00f3val meghat\u00e1rozhatja a legk\u00f6zelebbi \u00e9s legt\u00e1volabbi t\u00e1vols\u00e1got.",
+                        "title": "A k\u00f6zels\u00e9gi entit\u00e1s elavult"
+                    }
+                }
+            },
+            "title": "A k\u00f6zels\u00e9gi entit\u00e1s elavult"
+        },
+        "tracked_entity_removed": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Az `{entity_id}` entit\u00e1s elt\u00e1vol\u00edt\u00e1sra ker\u00fclt a Home Assistantb\u00f3l, de haszn\u00e1latban van a k\u00f6zels\u00e9g \u00e9rz\u00e9kel\u0151ben `{name}`. K\u00e9rj\u00fck, t\u00e1vol\u00edtsa el az `{entity_id}` entit\u00e1st a k\u00f6vetett entit\u00e1sok list\u00e1j\u00e1r\u00f3l. A kapcsol\u00f3d\u00f3 k\u00f6zels\u00e9g \u00e9rz\u00e9kel\u0151 entit\u00e1sok el\u00e9rhetetlenn\u00e9 v\u00e1ltak \u00e9s elt\u00e1vol\u00edthat\u00f3k.",
+                        "title": "A k\u00f6vetett entit\u00e1s elt\u00e1vol\u00edtva"
+                    }
+                }
+            },
+            "title": "A k\u00f6vetett entit\u00e1s elt\u00e1vol\u00edtva"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "ignored_zones": "Figyelmen k\u00edv\u00fcl hagyand\u00f3 z\u00f3n\u00e1k",
+                    "tolerance": "T\u0171r\u00e9si t\u00e1vols\u00e1g",
+                    "tracked_entities": "K\u00f6vetend\u0151 eszk\u00f6z\u00f6k vagy szem\u00e9lyek",
+                    "zone": "Z\u00f3na a t\u00e1vols\u00e1g nyomon k\u00f6vet\u00e9s\u00e9hez"
+                }
+            }
+        }
+    },
+    "title": "K\u00f6zels\u00e9g"
+}

@@ -1,0 +1,96 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Integr\u00e1cia MELCloud je pre tento e-mail u\u017e nakonfigurovan\u00e1. Pr\u00edstupov\u00fd token bol obnoven\u00fd.",
+            "reauth_successful": "Op\u00e4tovn\u00e9 overenie bolo \u00faspe\u0161n\u00e9",
+            "reconfigure_successful": "Rekonfigur\u00e1cia bola \u00faspe\u0161n\u00e1"
+        },
+        "error": {
+            "cannot_connect": "Nepodarilo sa pripoji\u0165",
+            "invalid_auth": "Neplatn\u00e9 overenie",
+            "unknown": "Neo\u010dak\u00e1van\u00e1 chyba"
+        },
+        "step": {
+            "reauth_confirm": {
+                "data": {
+                    "password": "Heslo",
+                    "username": "Email"
+                },
+                "description": "Integr\u00e1cia slu\u017eby Melcloud potrebuje op\u00e4tovne overi\u0165 \u00fadaje o pripojen\u00ed",
+                "title": "Vypr\u0161ala platnos\u0165 overenia pre {name}"
+            },
+            "reconfigure_confirm": {
+                "data": {
+                    "password": "Heslo"
+                },
+                "data_description": {
+                    "password": "Zadajte (nov\u00e9) heslo pre slu\u017ebu MelCloud."
+                },
+                "description": "Znovu nakonfigurujte polo\u017eku, aby ste z\u00edskali nov\u00fd token pre svoje konto: `{username}`.",
+                "title": "Zmena konfigur\u00e1cie slu\u017eby MelCloud"
+            },
+            "user": {
+                "data": {
+                    "password": "Heslo",
+                    "username": "Email"
+                },
+                "description": "Pripojte sa pomocou svojho \u00fa\u010dtu MELCloud.",
+                "title": "Pripojte sa k MELCloud"
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "daily_energy": {
+                "name": "Denn\u00e1 spotreba energie"
+            },
+            "flow_temperature": {
+                "name": "Teplota prietoku"
+            },
+            "outside_temperature": {
+                "name": "Vonkaj\u0161ia teplota"
+            },
+            "return_temperature": {
+                "name": "Teplota pr\u00edvodu spiato\u010dky"
+            },
+            "room_temperature": {
+                "name": "Izbov\u00e1 teplota"
+            },
+            "tank_temperature": {
+                "name": "Teplota n\u00e1dr\u017ee"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_yaml_import_issue_cannot_connect": {
+            "description": "Konfigur\u00e1cia MELCloud pomocou YAML sa odstra\u0148uje, ale pri importovan\u00ed va\u0161ej konfigur\u00e1cie YAML do\u0161lo k chybe pripojenia.\n\nUistite sa, \u017ee pripojenie k slu\u017ebe MELCloud funguje, a re\u0161tartujte aplik\u00e1ciu Home Assistant, aby ste to sk\u00fasili znova, alebo odstr\u00e1\u0148te konfigur\u00e1ciu MELCloud YAML zo s\u00faboru configuration.yaml a pokra\u010dujte v [nastaven\u00ed integr\u00e1cie](/config/integrations/dashboard/add?domain=melcoud) ru\u010dne.",
+            "title": "Import konfigur\u00e1cie MELCloud YAML zlyhal"
+        },
+        "deprecated_yaml_import_issue_invalid_auth": {
+            "description": "Konfigur\u00e1cia slu\u017eby MELCloud pomocou jazyka YAML sa odstra\u0148uje, ale pri importovan\u00ed konfigur\u00e1cie YAML do\u0161lo k chybe pri overovan\u00ed.\n\nOpravte konfigur\u00e1ciu YAML a re\u0161tartujte Home Assistant, aby ste to sk\u00fasili znova, alebo odstr\u00e1\u0148te konfigur\u00e1ciu MELCloud YAML zo s\u00faboru configuration.yaml a pokra\u010dujte v [nastaven\u00ed integr\u00e1cie](/config/integrations/dashboard/add?domain=melcoud) ru\u010dne.",
+            "title": "Import konfigur\u00e1cie MELCloud YAML zlyhal"
+        }
+    },
+    "services": {
+        "set_vane_horizontal": {
+            "description": "Nastav\u00ed horizont\u00e1lnu polohu lopatiek.",
+            "fields": {
+                "position": {
+                    "description": "Horizont\u00e1lna poloha lopatiek. Mo\u017en\u00e9 mo\u017enosti n\u00e1jdete v stavovom atrib\u00fate vane_horizontal_positions.",
+                    "name": "Poz\u00edcia"
+                }
+            },
+            "name": "Nastavenie horizont\u00e1lnej lopatky"
+        },
+        "set_vane_vertical": {
+            "description": "Nastav\u00ed vertik\u00e1lnu polohu lopatiek.",
+            "fields": {
+                "position": {
+                    "description": "Vertik\u00e1lna poloha lopatiek. Mo\u017en\u00e9 mo\u017enosti n\u00e1jdete v stavovom atrib\u00fate vane_vertical_positions.",
+                    "name": "Poz\u00edcia"
+                }
+            },
+            "name": "Nastavenie vertik\u00e1lnej lopatky"
+        }
+    }
+}

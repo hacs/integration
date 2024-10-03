@@ -1,0 +1,159 @@
+{
+    "device_automation": {
+        "action_type": {
+            "toggle": "\u05d4\u05d7\u05dc\u05e4\u05ea {entity_name}",
+            "turn_off": "\u05db\u05d9\u05d1\u05d5\u05d9 {entity_name}",
+            "turn_on": "\u05d4\u05e4\u05e2\u05dc\u05ea {entity_name}"
+        },
+        "condition_type": {
+            "is_off": "{entity_name} \u05db\u05d1\u05d5\u05d9",
+            "is_on": "{entity_name} \u05de\u05d5\u05e4\u05e2\u05dc"
+        },
+        "trigger_type": {
+            "changed_states": "{entity_name} \u05d4\u05d5\u05e4\u05e2\u05dc \u05d0\u05d5 \u05db\u05d5\u05d1\u05d4",
+            "turned_off": "{entity_name} \u05db\u05d5\u05d1\u05d4",
+            "turned_on": "{entity_name} \u05d4\u05d5\u05e4\u05e2\u05dc"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "\u05de\u05d0\u05d5\u05d5\u05e8\u05e8",
+            "state": {
+                "off": "\u05db\u05d1\u05d5\u05d9",
+                "on": "\u05de\u05d5\u05e4\u05e2\u05dc"
+            },
+            "state_attributes": {
+                "direction": {
+                    "name": "\u05db\u05d9\u05d5\u05d5\u05df",
+                    "state": {
+                        "forward": "\u05e7\u05d3\u05d9\u05de\u05d4",
+                        "reverse": "\u05d4\u05e4\u05d5\u05da"
+                    }
+                },
+                "oscillating": {
+                    "name": "\u05e0\u05d3\u05e0\u05d5\u05d3",
+                    "state": {
+                        "false": "\u05dc\u05d0",
+                        "true": "\u05db\u05df"
+                    }
+                },
+                "percentage": {
+                    "name": "\u05de\u05d4\u05d9\u05e8\u05d5\u05ea"
+                },
+                "percentage_step": {
+                    "name": "\u05e9\u05dc\u05d1 \u05de\u05d4\u05d9\u05e8\u05d5\u05ea"
+                },
+                "preset_mode": {
+                    "name": "\u05de\u05e6\u05d1 \u05de\u05d5\u05d2\u05d3\u05e8 \u05de\u05e8\u05d0\u05e9"
+                },
+                "preset_modes": {
+                    "name": "\u05de\u05e6\u05d1\u05d9\u05dd \u05de\u05d5\u05d2\u05d3\u05e8\u05d9\u05dd \u05de\u05e8\u05d0\u05e9 \u05d6\u05de\u05d9\u05e0\u05d9\u05dd"
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "not_valid_preset_mode": {
+            "message": "\u05de\u05e6\u05d1 \u05de\u05d5\u05d2\u05d3\u05e8 \u05de\u05e8\u05d0\u05e9 {preset_mode} \u05d0\u05d9\u05e0\u05d5 \u05d7\u05d5\u05e7\u05d9, \u05de\u05e6\u05d1\u05d9 \u05e7\u05d1\u05d9\u05e2\u05d5\u05ea \u05de\u05d5\u05d2\u05d3\u05e8\u05d5\u05ea \u05de\u05e8\u05d0\u05e9 \u05d7\u05d5\u05e7\u05d9\u05d9\u05dd \u05d4\u05dd: {preset_modes}."
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "\u05e4\u05dc\u05d8\u05e4\u05d5\u05e8\u05de\u05ea {platform} \u05dc\u05e9\u05d9\u05dc\u05d5\u05d1 {domain} \u05d0\u05d9\u05e0\u05d4 \u05ea\u05d5\u05de\u05db\u05ea \u05d1\u05d4\u05d2\u05d3\u05e8\u05ea \u05e4\u05dc\u05d8\u05e4\u05d5\u05e8\u05de\u05d4. \n\n \u05e0\u05d0 \u05dc\u05d4\u05e1\u05d9\u05e8 \u05d0\u05d5\u05ea\u05d5 \u05de\u05d4\u05ea\u05e6\u05d5\u05e8\u05d4 \u05e9\u05dc\u05da \u05d5\u05dc\u05d4\u05e4\u05e2\u05d9\u05dc \u05de\u05d7\u05d3\u05e9 \u05d0\u05ea Home Assistant \u05d1\u05db\u05d3\u05d9 \u05dc\u05e4\u05ea\u05d5\u05e8 \u05d1\u05e2\u05d9\u05d4 \u05d6\u05d5.",
+            "title": "\u05ea\u05de\u05d9\u05db\u05d4 \u05d1\u05e4\u05dc\u05d8\u05e4\u05d5\u05e8\u05de\u05d4 \u05d0\u05d9\u05e0\u05d4 \u05e0\u05ea\u05de\u05db\u05ea"
+        }
+    },
+    "selector": {
+        "direction": {
+            "options": {
+                "forward": "\u05e7\u05d3\u05d9\u05de\u05d4",
+                "reverse": "\u05d4\u05e4\u05d5\u05da"
+            }
+        }
+    },
+    "services": {
+        "decrease_speed": {
+            "description": "\u05de\u05d5\u05e8\u05d9\u05d3 \u05d0\u05ea \u05de\u05d4\u05d9\u05e8\u05d5\u05ea \u05d4\u05de\u05d0\u05d5\u05d5\u05e8\u05e8.",
+            "fields": {
+                "percentage_step": {
+                    "description": "\u05de\u05d5\u05e8\u05d9\u05d3 \u05d0\u05ea \u05d4\u05de\u05d4\u05d9\u05e8\u05d5\u05ea \u05d1\u05d0\u05d7\u05d5\u05d6\u05d9\u05dd.",
+                    "name": "\u05d4\u05d5\u05e8\u05d3\u05d4"
+                }
+            },
+            "name": "\u05d4\u05d5\u05e8\u05d3\u05ea \u05de\u05d4\u05d9\u05e8\u05d5\u05ea"
+        },
+        "increase_speed": {
+            "description": "\u05de\u05d2\u05d1\u05d9\u05e8 \u05d0\u05ea \u05de\u05d4\u05d9\u05e8\u05d5\u05ea \u05d4\u05de\u05d0\u05d5\u05d5\u05e8\u05e8.",
+            "fields": {
+                "percentage_step": {
+                    "description": "\u05de\u05d2\u05d1\u05d9\u05e8 \u05d0\u05ea \u05d4\u05de\u05d4\u05d9\u05e8\u05d5\u05ea \u05d1\u05d0\u05d7\u05d5\u05d6\u05d9\u05dd.",
+                    "name": "\u05d4\u05d2\u05d1\u05e8\u05d4"
+                }
+            },
+            "name": "\u05d4\u05d2\u05d1\u05e8\u05ea \u05d4\u05de\u05d4\u05d9\u05e8\u05d5\u05ea"
+        },
+        "oscillate": {
+            "description": "\u05e9\u05d5\u05dc\u05d8 \u05d1\u05ea\u05e0\u05d5\u05d3\u05d4 \u05e9\u05dc \u05d4\u05de\u05d0\u05d5\u05d5\u05e8\u05e8.",
+            "fields": {
+                "oscillating": {
+                    "description": "\u05d4\u05e4\u05e2\u05dc\u05d4/\u05db\u05d9\u05d1\u05d5\u05d9 \u05e9\u05dc \u05ea\u05e0\u05d5\u05d3\u05d4.",
+                    "name": "\u05de\u05ea\u05e0\u05d3\u05e0\u05d3"
+                }
+            },
+            "name": "\u05e0\u05d3\u05e0\u05d5\u05d3"
+        },
+        "set_direction": {
+            "description": "\u05e7\u05d5\u05d1\u05e2 \u05d0\u05ea \u05db\u05d9\u05d5\u05d5\u05df \u05e1\u05d9\u05d1\u05d5\u05d1 \u05d4\u05de\u05d0\u05d5\u05d5\u05e8\u05e8.",
+            "fields": {
+                "direction": {
+                    "description": "\u05db\u05d9\u05d5\u05d5\u05df \u05d4\u05e1\u05d9\u05d1\u05d5\u05d1.",
+                    "name": "\u05db\u05d9\u05d5\u05d5\u05df"
+                }
+            },
+            "name": "\u05d4\u05d2\u05d3\u05e8\u05ea \u05db\u05d9\u05d5\u05d5\u05df"
+        },
+        "set_percentage": {
+            "description": "\u05d4\u05d2\u05d3\u05e8\u05ea \u05de\u05d4\u05d9\u05e8\u05d5\u05ea \u05d4\u05de\u05d0\u05d5\u05d5\u05e8\u05e8.",
+            "fields": {
+                "percentage": {
+                    "description": "\u05de\u05d4\u05d9\u05e8\u05d5\u05ea \u05d4\u05de\u05d0\u05d5\u05d5\u05e8\u05e8.",
+                    "name": "\u05d0\u05d7\u05d5\u05d6\u05d9\u05dd"
+                }
+            },
+            "name": "\u05e7\u05d1\u05d9\u05e2\u05ea \u05de\u05d4\u05d9\u05e8\u05d5\u05ea"
+        },
+        "set_preset_mode": {
+            "description": "\u05d4\u05d2\u05d3\u05e8\u05ea \u05de\u05e6\u05d1 \u05de\u05d5\u05d2\u05d3\u05e8 \u05de\u05e8\u05d0\u05e9.",
+            "fields": {
+                "preset_mode": {
+                    "description": "\u05de\u05e6\u05d1 \u05de\u05d5\u05d2\u05d3\u05e8 \u05de\u05e8\u05d0\u05e9.",
+                    "name": "\u05de\u05e6\u05d1 \u05de\u05d5\u05d2\u05d3\u05e8 \u05de\u05e8\u05d0\u05e9"
+                }
+            },
+            "name": "\u05d4\u05d2\u05d3\u05e8\u05ea \u05de\u05e6\u05d1 \u05de\u05d5\u05d2\u05d3\u05e8 \u05de\u05e8\u05d0\u05e9"
+        },
+        "toggle": {
+            "description": "\u05d4\u05e4\u05e2\u05dc\u05d4/\u05db\u05d9\u05d1\u05d5\u05d9 \u05e9\u05dc \u05d4\u05de\u05d0\u05d5\u05d5\u05e8\u05e8.",
+            "name": "\u05de\u05d7\u05dc\u05d9\u05e3"
+        },
+        "turn_off": {
+            "description": "\u05db\u05d9\u05d1\u05d5\u05d9 \u05d4\u05de\u05d0\u05d5\u05d5\u05e8\u05e8.",
+            "name": "\u05db\u05d9\u05d1\u05d5\u05d9"
+        },
+        "turn_on": {
+            "description": "\u05d4\u05e4\u05e2\u05dc\u05ea \u05d4\u05de\u05d0\u05d5\u05d5\u05e8\u05e8.",
+            "fields": {
+                "percentage": {
+                    "description": "\u05de\u05d4\u05d9\u05e8\u05d5\u05ea \u05d4\u05de\u05d0\u05d5\u05d5\u05e8\u05e8.",
+                    "name": "\u05d0\u05d7\u05d5\u05d6\u05d9\u05dd"
+                },
+                "preset_mode": {
+                    "description": "\u05de\u05e6\u05d1 \u05de\u05d5\u05d2\u05d3\u05e8 \u05de\u05e8\u05d0\u05e9.",
+                    "name": "\u05de\u05e6\u05d1 \u05de\u05d5\u05d2\u05d3\u05e8 \u05de\u05e8\u05d0\u05e9"
+                }
+            },
+            "name": "\u05d4\u05e4\u05e2\u05dc\u05d4"
+        }
+    },
+    "title": "\u05de\u05d0\u05d5\u05d5\u05e8\u05e8"
+}

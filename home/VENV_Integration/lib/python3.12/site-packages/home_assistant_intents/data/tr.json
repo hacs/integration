@@ -1,0 +1,251 @@
+{
+  "language": "tr",
+  "intents": {
+    "HassTurnOff": {
+      "data": [
+        {
+          "sentences": [
+            "<name> (kapa | kapat | söndür )"
+          ]
+        },
+        {
+          "sentences": [
+            "<name> (kapa | kapat | indir ) "
+          ],
+          "response": "cover"
+        },
+        {
+          "sentences": [
+            "<area> <name> (kapa | kapat | indir )"
+          ],
+          "response": "cover_area"
+        },
+        {
+          "sentences": [
+            "garaj kapısını (kapa | kapat | indir )"
+          ],
+          "response": "cover_device_class",
+          "slots": {
+            "device_class": "garage",
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "<area> (perde|jaluzi|kepeng|panjur)<cogulluk><ismin_halleri> (kapa | kapat | indir | çek)"
+          ],
+          "response": "cover_area",
+          "slots": {
+            "device_class": [
+              "blind",
+              "curtain",
+              "shutter"
+            ],
+            "domain": "cover"
+          }
+        }
+      ]
+    },
+    "HassTurnOn": {
+      "data": [
+        {
+          "sentences": [
+            "<name> ( aç | yak | çalıştır)"
+          ]
+        },
+        {
+          "sentences": [
+            "<name> (aç | yükselt) "
+          ],
+          "response": "cover"
+        },
+        {
+          "sentences": [
+            "<area> <name> (aç | yükselt)"
+          ],
+          "response": "cover_area"
+        },
+        {
+          "sentences": [
+            "garaj kapısını (aç | yükselt)"
+          ],
+          "response": "cover_device_class",
+          "slots": {
+            "device_class": "garage",
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "<area> (perde|jaluzi|kepeng|panjur)<cogulluk><ismin_halleri> (aç | yükselt)"
+          ],
+          "response": "cover_area",
+          "slots": {
+            "device_class": [
+              "blind",
+              "curtain",
+              "shutter"
+            ],
+            "domain": "cover"
+          }
+        }
+      ]
+    },
+    "HassClimateGetTemperature": {
+      "data": [
+        {
+          "sentences": [
+            "Sıcaklık kaç derece",
+            "Sıcaklık ne kadar",
+            "<area> kaç derece",
+            "<area> (sıcak | soğuk) (mu | mı)",
+            "<area> sıcaklığı (kaç derece | ne kadar | nedir)",
+            "<area> sıcaklık (ne kadar | kaç derece)"
+          ]
+        }
+      ]
+    }
+  },
+  "responses": {
+    "errors": {
+      "no_intent": "Üzgünüm, bunu anlayamadım.",
+      "no_area": "{{ area }}  adında alan yok.",
+      "no_domain_in_area": "{{ area }}  bir {{ domain }} içermiyor.",
+      "no_device_class_in_area": "{{ area }}  bir {{ device_class }} içermiyor.",
+      "no_entity": "{{ entity }} adında bir cihaz yok.",
+      "handle_error": "İstenilen amaç işlenirken bir hata oluştu."
+    },
+    "intents": {
+      "HassGetState": {},
+      "HassTurnOff": {
+        "default": "Turned off {{ slots.name }}",
+        "lights_area": "Turned off lights in {{ slots.area }}",
+        "fans_area": "Turned off fans in {{ slots.area }}",
+        "cover": "Closed {{ slots.name }}",
+        "cover_area": "Closed {{ slots.area }}",
+        "cover_device_class": "Closed {{ slots.device_class }}"
+      },
+      "HassTurnOn": {
+        "default": "{{ slots.name }} açıldı",
+        "lights_area": "{{ slots.area }} alanındaki ışıklar açıldı",
+        "fans_area": "{{ slots.area }} alanındaki fanlar açıldı",
+        "cover": "{{ slots.name }} açıldı",
+        "cover_area": "{{ slots.area }} açıldı",
+        "cover_device_class": "{{ slots.device_class }} açıldı"
+      },
+      "HassLightSet": {
+        "brightness": "{{ slots.name }} alanındaki ışıklar {{ slots.brightness }} olarak ayarlandı",
+        "brightness_area": "{{ slots.area }} alanındaki ışık {{ slots.brightness }} olarak ayarlandı",
+        "color": "{{ slots.name }} alanındaki renk {{ slots.color }} olarak ayarlandı",
+        "color_area": "{{ slots.area }} alanındaki renk {{ slots.color }} olarak ayarlandı"
+      },
+      "HassClimateGetTemperature": {
+        "default": "{{ state.state }} derece"
+      }
+    }
+  },
+  "lists": {
+    "color": {
+      "values": [
+        {
+          "in": "beyaz",
+          "out": "white"
+        },
+        {
+          "in": "siyah",
+          "out": "black"
+        },
+        {
+          "in": "kırmızı",
+          "out": "red"
+        },
+        {
+          "in": "turuncu",
+          "out": "orange"
+        },
+        {
+          "in": "sarı",
+          "out": "yellow"
+        },
+        {
+          "in": "yeşil",
+          "out": "green"
+        },
+        {
+          "in": "mavi",
+          "out": "blue"
+        },
+        {
+          "in": "mor",
+          "out": "purple"
+        },
+        {
+          "in": "kahverengi",
+          "out": "brown"
+        },
+        {
+          "in": "gri",
+          "out": "grey"
+        },
+        {
+          "in": "pembe",
+          "out": "pink"
+        },
+        {
+          "in": "turkuaz",
+          "out": "turquoise"
+        },
+        {
+          "in": "bordo",
+          "out": "maroon"
+        },
+        {
+          "in": "bej",
+          "out": "beige"
+        },
+        {
+          "in": "lacivert",
+          "out": "navy"
+        }
+      ]
+    },
+    "brightness": {
+      "range": {
+        "type": "percentage",
+        "from": 0,
+        "to": 100
+      }
+    },
+    "temperature": {
+      "range": {
+        "type": "temperature",
+        "from": 0,
+        "to": 100
+      }
+    },
+    "temperature_unit": {
+      "values": [
+        "celsius",
+        {
+          "in": "c | santigrat",
+          "out": "celsius"
+        },
+        "fahrenheit",
+        {
+          "in": "f | fahrenhayt",
+          "out": "fahrenheit"
+        }
+      ]
+    }
+  },
+  "expansion_rules": {
+    "ismin_halleri": "[([(n|ın|in|un|ün|y|t|d|nd|nt)]ı|[(n|ın|in|un|ün|y|t|d|nd|nt)]i|[(n|ın|in|un|ün|y|t|d|nd|nt)]ü|[(n|ın|in|un|ün|y|t|d|nd|nt)]u|[(n|ın|in|un|ün|y|t|d|nd|nt)]e|[(n|ın|in|un|ün|y|t|d|nd|nt)]a)][n][ki]",
+    "cogulluk": "[(ler|leri|lar|ları)]",
+    "area": "{area}<ismin_halleri>",
+    "name": "{name}<cogulluk><ismin_halleri>",
+    "temperature": "{temperature} [{temperature_unit}]"
+  },
+  "skip_words": [
+    "Lütfen"
+  ]
+}

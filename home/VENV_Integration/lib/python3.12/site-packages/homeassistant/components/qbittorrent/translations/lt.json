@@ -1,0 +1,112 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "\u012erenginys jau sukonfig\u016bruotas"
+        },
+        "error": {
+            "cannot_connect": "Nepavyko prisijungti",
+            "invalid_auth": "Neteisingas autentifikavimas"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "password": "Slapta\u017eodis",
+                    "url": "URL",
+                    "username": "Prisijungimos vardas",
+                    "verify_ssl": "Patikrinkite SSL sertifikat\u0105"
+                }
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "active_torrents": {
+                "name": "Aktyv\u016bs torrentai"
+            },
+            "all_torrents": {
+                "name": "Visi torrentai"
+            },
+            "current_status": {
+                "name": "B\u016bsena",
+                "state": {
+                    "downloading": "Atsisiun\u010diama",
+                    "idle": "Laukiama",
+                    "seeding": "S\u0117jama",
+                    "up_down": "Auk\u0161tyn/\u017demyn"
+                }
+            },
+            "download_speed": {
+                "name": "Atsisiuntimo greitis"
+            },
+            "inactive_torrents": {
+                "name": "Neaktyv\u016bs torrentai"
+            },
+            "paused_torrents": {
+                "name": "Pristabdyti torrentai"
+            },
+            "transmission_status": {
+                "name": "B\u016bsena",
+                "state": {
+                    "downloading": "Atsisiun\u010diama",
+                    "idle": "Laukiama",
+                    "seeding": "S\u0117jama",
+                    "up_down": "Auk\u0161tyn \u017eemyn"
+                }
+            },
+            "upload_speed": {
+                "name": "\u012ek\u0117limo greitis"
+            }
+        },
+        "switch": {
+            "alternative_speed": {
+                "name": "Alternatyvus greitis"
+            }
+        }
+    },
+    "exceptions": {
+        "cannot_connect": {
+            "message": "Nepavyksta prisijungti prie QBittorrent, patikrinkite konfig\u016bracij\u0105."
+        },
+        "invalid_device": {
+            "message": "Nerastas joks \u012frenginys, kurio ID {device_id}"
+        },
+        "invalid_entry_id": {
+            "message": "\u012era\u0161as su ID {device_id} nerastas"
+        },
+        "login_error": {
+            "message": "\u012evyko prisijungimo klaida. Patikrinkite savo vartotojo vard\u0105 ir slapta\u017eod\u012f."
+        }
+    },
+    "issues": {
+        "deprecated_yaml": {
+            "description": "\u201eqBittorrent\u201c konfig\u016bravimas naudojant YAML pa\u0161alinamas. \n\n J\u016bs\u0173 esama YAML konfig\u016bracija buvo automati\u0161kai importuota \u012f vartotojo s\u0105saj\u0105. \n\n Pa\u0161alinkite qBittorrent YAML konfig\u016bracij\u0105 i\u0161 savo configuration.yaml failo ir i\u0161 naujo paleiskite Home Assistant, kad i\u0161spr\u0119stum\u0117te \u0161i\u0105 problem\u0105.",
+            "title": "qBittorrent YAML konfig\u016bracija pa\u0161alinama"
+        }
+    },
+    "services": {
+        "get_all_torrents": {
+            "description": "Gauna dabartini\u0173 torrent\u0173 s\u0105ra\u0161\u0105 i\u0161 vis\u0173 \u201eqBittorrent\u201c atvej\u0173",
+            "fields": {
+                "torrent_filter": {
+                    "description": "Kokius torrentus norite gr\u0105\u017einti, pvz., Visi arba Aktyv\u016bs.",
+                    "name": "Torrent filtras"
+                }
+            },
+            "name": "Gaukite visus torrentus"
+        },
+        "get_torrents": {
+            "description": "Gauna dabartini\u0173 torrent\u0173 s\u0105ra\u0161\u0105",
+            "fields": {
+                "device_id": {
+                    "description": "I\u0161 kokios tarnybos pasiimti s\u0105ra\u0161\u0105",
+                    "name": "\u012erenginys"
+                },
+                "torrent_filter": {
+                    "description": "Kokius torrentus norite gr\u0105\u017einti, pvz., Visi arba Aktyv\u016bs.",
+                    "name": "Torrent filtras"
+                }
+            },
+            "name": "Gauti torrentus"
+        }
+    }
+}

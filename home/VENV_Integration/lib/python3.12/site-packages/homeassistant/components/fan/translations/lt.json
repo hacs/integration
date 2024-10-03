@@ -1,0 +1,159 @@
+{
+    "device_automation": {
+        "action_type": {
+            "toggle": "Perjungti {entity_name}",
+            "turn_off": "I\u0161jungti {entity_name}",
+            "turn_on": "\u012ejungti {entity_name}"
+        },
+        "condition_type": {
+            "is_off": "{entity_name} i\u0161jungtas",
+            "is_on": "{entity_name} yra \u012fjungtas"
+        },
+        "trigger_type": {
+            "changed_states": "{entity_name} \u012fjungtas arba i\u0161jungtas",
+            "turned_off": "{entity_name} i\u0161jungtas",
+            "turned_on": "{entity_name} \u012fjungtas"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Ventiliatorius",
+            "state": {
+                "off": "I\u0161jungta",
+                "on": "\u012ejungta"
+            },
+            "state_attributes": {
+                "direction": {
+                    "name": "Kryptis",
+                    "state": {
+                        "forward": "Persi\u0173sti",
+                        "reverse": "Atvirk\u0161\u010diai"
+                    }
+                },
+                "oscillating": {
+                    "name": "Svyruojantis",
+                    "state": {
+                        "false": "Ne",
+                        "true": "Taip"
+                    }
+                },
+                "percentage": {
+                    "name": "Greitis"
+                },
+                "percentage_step": {
+                    "name": "Greitis \u017eingsnis"
+                },
+                "preset_mode": {
+                    "name": "I\u0161 anksto nustatytas re\u017eimas"
+                },
+                "preset_modes": {
+                    "name": "Galimi i\u0161 anksto nustatyti re\u017eimai"
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "not_valid_preset_mode": {
+            "message": "I\u0161 anksto nustatytas re\u017eimas {preset_mode} negalioja, galiojantys i\u0161 anksto nustatyti re\u017eimai yra: {preset_modes} ."
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "{platform} platforma, skirta {domain} integravimui, nepalaiko platformos s\u0105rankos. \n\n Pa\u0161alinkite j\u012f i\u0161 konfig\u016bracijos ir i\u0161 naujo paleiskite \u201eHome Assistant\u201c, kad i\u0161spr\u0119stum\u0117te \u0161i\u0105 problem\u0105.",
+            "title": "Platformos palaikymas nepalaikomas"
+        }
+    },
+    "selector": {
+        "direction": {
+            "options": {
+                "forward": "Persi\u0173sti",
+                "reverse": "Atvirk\u0161tinis"
+            }
+        }
+    },
+    "services": {
+        "decrease_speed": {
+            "description": "Suma\u017eina ventiliatoriaus greit\u012f.",
+            "fields": {
+                "percentage_step": {
+                    "description": "Suma\u017eina greit\u012f procentiniu \u017eingsniu.",
+                    "name": "Suma\u017e\u0117jimas"
+                }
+            },
+            "name": "Suma\u017einti greit\u012f"
+        },
+        "increase_speed": {
+            "description": "Padidina ventiliatoriaus greit\u012f.",
+            "fields": {
+                "percentage_step": {
+                    "description": "Padidina greit\u012f procentiniu \u017eingsniu.",
+                    "name": "Prieaugis"
+                }
+            },
+            "name": "Padidinti greit\u012f"
+        },
+        "oscillate": {
+            "description": "Valdo ventiliatoriaus svyravimus.",
+            "fields": {
+                "oscillating": {
+                    "description": "\u012ejungti / i\u0161jungti svyravim\u0105.",
+                    "name": "Svyruojantis"
+                }
+            },
+            "name": "Svyruoti"
+        },
+        "set_direction": {
+            "description": "Nustato ventiliatoriaus sukimosi krypt\u012f.",
+            "fields": {
+                "direction": {
+                    "description": "Sukimosi kryptis.",
+                    "name": "Kryptis"
+                }
+            },
+            "name": "Nustatyti krypt\u012f"
+        },
+        "set_percentage": {
+            "description": "Nustato ventiliatoriaus greit\u012f.",
+            "fields": {
+                "percentage": {
+                    "description": "Ventiliatoriaus greitis.",
+                    "name": "Procentas"
+                }
+            },
+            "name": "Nustatykite greit\u012f"
+        },
+        "set_preset_mode": {
+            "description": "Nustato i\u0161 anksto nustatyt\u0105 re\u017eim\u0105.",
+            "fields": {
+                "preset_mode": {
+                    "description": "I\u0161 anksto nustatytas re\u017eimas.",
+                    "name": "I\u0161 anksto nustatytas re\u017eimas"
+                }
+            },
+            "name": "Nustatykite i\u0161 anksto nustatyt\u0105 re\u017eim\u0105"
+        },
+        "toggle": {
+            "description": "\u012ejungia/i\u0161jungia ventiliatori\u0173.",
+            "name": "Perjungti"
+        },
+        "turn_off": {
+            "description": "I\u0161jungia ventiliatori\u0173.",
+            "name": "I\u0161jungti"
+        },
+        "turn_on": {
+            "description": "\u012ejungia ventiliatori\u0173.",
+            "fields": {
+                "percentage": {
+                    "description": "Ventiliatoriaus greitis.",
+                    "name": "Procentas"
+                },
+                "preset_mode": {
+                    "description": "I\u0161 anksto nustatytas re\u017eimas.",
+                    "name": "I\u0161 anksto nustatytas re\u017eimas"
+                }
+            },
+            "name": "\u012ejungti"
+        }
+    },
+    "title": "Ventiliatorius"
+}

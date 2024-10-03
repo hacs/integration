@@ -1,0 +1,243 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "El dispositiu ja est\u00e0 configurat",
+            "already_in_progress": "El flux de configuraci\u00f3 ja est\u00e0 en curs",
+            "no_devices_found": "No s'han trobat dispositius a la xarxa"
+        },
+        "error": {
+            "cannot_connect": "Ha fallat la connexi\u00f3"
+        },
+        "flow_title": "{label} ({group})",
+        "step": {
+            "discovery_confirm": {
+                "description": "Vols configurar {label} ({group})?"
+            },
+            "pick_device": {
+                "data": {
+                    "device": "Dispositiu"
+                }
+            },
+            "user": {
+                "data": {
+                    "host": "Amfitri\u00f3"
+                },
+                "description": "Si deixes l'amfitri\u00f3 buit, s'utilitzar\u00e0 el descobriment per cercar dispositius."
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "clean_cycle": {
+                "name": "Cicle de neteja"
+            }
+        },
+        "select": {
+            "infrared_brightness": {
+                "name": "Lluminositat infraroja"
+            },
+            "theme": {
+                "name": "Tema"
+            }
+        },
+        "sensor": {
+            "rssi": {
+                "name": "RSSI"
+            }
+        }
+    },
+    "services": {
+        "effect_colorloop": {
+            "description": "Executa un efecte amb colors en bucle.",
+            "fields": {
+                "brightness": {
+                    "description": "Percentatge que indica la lluminositat del bucle de color, on 1 \u00e9s la lluminositat m\u00ednima i 255 \u00e9s la lluminositat m\u00e0xima admesa pel llum.",
+                    "name": "Valor de lluminositat"
+                },
+                "brightness_pct": {
+                    "description": "Percentatge que indica la lluminositat del bucle de color, on 1 \u00e9s la lluminositat m\u00ednima i 100 \u00e9s la lluminositat m\u00e0xima admesa pel llum.",
+                    "name": "Lluminositat"
+                },
+                "change": {
+                    "description": "Moviment de la tonalitat per per\u00edode, en graus dins una roda de colors.",
+                    "name": "Canvia"
+                },
+                "period": {
+                    "description": "Durada entre canvis de color.",
+                    "name": "Per\u00edode"
+                },
+                "power_on": {
+                    "description": "Els llums apagats s'encendran temporalment durant l'efecte.",
+                    "name": "Activa"
+                },
+                "saturation_max": {
+                    "description": "Percentatge que indica la m\u00e0xima saturaci\u00f3 dels colors del bucle.",
+                    "name": "Saturaci\u00f3 m\u00e0xima"
+                },
+                "saturation_min": {
+                    "description": "Percentatge que indica la saturaci\u00f3 m\u00ednima dels colors del bucle.",
+                    "name": "Saturaci\u00f3 m\u00ednima"
+                },
+                "spread": {
+                    "description": "M\u00e0xima difer\u00e8ncia de tonalitat entre llums participants, en graus d'una roda de colors.",
+                    "name": "Propagaci\u00f3"
+                }
+            },
+            "name": "Efecte de bucle de color"
+        },
+        "effect_flame": {
+            "description": "Inicia l'efecte flama ('Flame') basat en microprogramari a LIFX Tiles o Candle.",
+            "fields": {
+                "power_on": {
+                    "description": "Els llums apagats s'encendran abans d'iniciar l'efecte.",
+                    "name": "Activa"
+                },
+                "speed": {
+                    "description": "Com de r\u00e0pid es mouran les flames.",
+                    "name": "Velocitat"
+                }
+            },
+            "name": "Efecte de flama"
+        },
+        "effect_morph": {
+            "description": "Inicia l'efecte morfosi ('morph') basat en microprogramari a LIFX Tiles o Candle.",
+            "fields": {
+                "palette": {
+                    "description": "Llista d'almenys 2 i com a m\u00e0xim de 16 colors en format to (0-360), saturaci\u00f3 (0-100), lluminositat (0-100) i valors en kelvin (1500-900) a utilitzar per a l'efecte. Substitueix l'atribut de tema.",
+                    "name": "Paleta"
+                },
+                "power_on": {
+                    "description": "Els llums apagats s'encendran abans d'iniciar l'efecte.",
+                    "name": "Activa"
+                },
+                "speed": {
+                    "description": "Velocitat a les que es mouran els colors.",
+                    "name": "Velocitat"
+                },
+                "theme": {
+                    "description": "Tema de color predefinit per a l'efecte. Se substitueix per l'atribut de la paleta.",
+                    "name": "Tema"
+                }
+            },
+            "name": "Efecte morfosi ('morph')"
+        },
+        "effect_move": {
+            "description": "Inicia l'efecte moviment ('move') basat en microprogramari a LIFX Z, Lightstrip o Beam.",
+            "fields": {
+                "direction": {
+                    "description": "Direcci\u00f3 del moviment de l'efecte pel dispositiu.",
+                    "name": "Direcci\u00f3"
+                },
+                "power_on": {
+                    "description": "Els llums apagats s'encendran abans d'iniciar l'efecte.",
+                    "name": "Activa"
+                },
+                "speed": {
+                    "description": "Temps en segons que triga l'efecte a moure's al llarg del llum.",
+                    "name": "Velocitat"
+                },
+                "theme": {
+                    "description": "(Opcional) configura un dels temes predefinits al dispositiu abans d'iniciar l'efecte.",
+                    "name": "Tema"
+                }
+            },
+            "name": "Efecte de moviment"
+        },
+        "effect_pulse": {
+            "description": "Executa un efecte de flaix canviant a un color i a l'anterior.",
+            "fields": {
+                "brightness": {
+                    "description": "Percentatge que indica la lluminositat del color temporal, on 1 \u00e9s la lluminositat m\u00ednima i 255 \u00e9s la lluminositat m\u00e0xima admesa pel llum.",
+                    "name": "Valor de lluminositat"
+                },
+                "brightness_pct": {
+                    "description": "Percentatge que indica la lluminositat del color temporal, on 1 \u00e9s la lluminositat m\u00ednima i 100 \u00e9s la lluminositat m\u00e0xima admesa pel llum.",
+                    "name": "Lluminositat"
+                },
+                "color_name": {
+                    "description": "Nom de color llegible.",
+                    "name": "Nom del color"
+                },
+                "cycles": {
+                    "description": "Nombre de vegades a executar l'efecte.",
+                    "name": "Cicles"
+                },
+                "mode": {
+                    "description": "Tria com es canvien els colors.",
+                    "name": "Mode"
+                },
+                "period": {
+                    "description": "Durada de l'efecte.",
+                    "name": "Per\u00edode"
+                },
+                "power_on": {
+                    "description": "Els llums apagats s'encendran temporalment durant l'efecte.",
+                    "name": "Activa"
+                },
+                "rgb_color": {
+                    "description": "Color temporal en format RGB.",
+                    "name": "Color RGB"
+                }
+            },
+            "name": "Efecte de pulsaci\u00f3"
+        },
+        "effect_sky": {
+            "fields": {
+                "palette": {
+                    "name": "Paleta"
+                },
+                "power_on": {
+                    "description": "Els llums apagats s'encendran abans d'iniciar l'efecte.",
+                    "name": "Activa"
+                },
+                "sky_type": {
+                    "name": "Tipus de cel"
+                },
+                "speed": {
+                    "name": "Velocitat"
+                }
+            },
+            "name": "Efecte de cel"
+        },
+        "effect_stop": {
+            "description": "Atura un efecte en execuci\u00f3.",
+            "name": "Atura efecte"
+        },
+        "set_hev_cycle_state": {
+            "description": "Controla els LED HEV d'una bombeta LIFX Clean.",
+            "fields": {
+                "duration": {
+                    "description": "Temps que romandran encesos els LED HEV. Si no s'especifica, s'utilitzar\u00e0 la durada predeterminada configurada.",
+                    "name": "Durada"
+                },
+                "power": {
+                    "description": "Inicia o atura un cicle de neteja.",
+                    "name": "Activa"
+                }
+            },
+            "name": "Configura l'estat del cicle HEV"
+        },
+        "set_state": {
+            "description": "Configura un color/lluminositat, pot encendre/apagar el llum.",
+            "fields": {
+                "infrared": {
+                    "description": "Nivell d'infrarojos autom\u00e0tic quan la lluminositat del llum \u00e9s baixa.",
+                    "name": "Infraroig"
+                },
+                "power": {
+                    "description": "Enc\u00e9n o apaga el llum. Deixa-ho per mantenir la pot\u00e8ncia tal com est\u00e0.",
+                    "name": "Pot\u00e8ncia"
+                },
+                "transition": {
+                    "description": "Durada que triga a arribar a l'\u00faltim estat.",
+                    "name": "Transici\u00f3"
+                },
+                "zones": {
+                    "description": "Llista de n\u00fameros de zona a controlar (8 per cada LIFX Z, comen\u00e7a a 0).",
+                    "name": "Zones"
+                }
+            },
+            "name": "Estableix estat"
+        }
+    }
+}

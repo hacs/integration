@@ -1,0 +1,249 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Pracovn\u00ed den ji\u017e byl nastaven s vybran\u00fdm nastaven\u00edm",
+            "incorrect_province": "Nespr\u00e1vn\u00e9 d\u011blen\u00ed z importu yaml"
+        },
+        "error": {
+            "add_holiday_error": "Nespr\u00e1vn\u00fd form\u00e1t datumu (RRRR-MM-DD)",
+            "add_holiday_range_error": "Nespr\u00e1vn\u00fd form\u00e1t \u010dasov\u00e9ho obdob\u00ed (RRRR-MM-DD,RRRR-MM-DD)",
+            "already_configured": "Slu\u017eba je ji\u017e nastavena",
+            "remove_holiday_error": "Nespr\u00e1vn\u00fd form\u00e1t datumu (RRRR-MM-DD) nebo n\u00e1zev sv\u00e1tku",
+            "remove_holiday_range_error": "Nespr\u00e1vn\u00fd form\u00e1t \u010dasov\u00e9ho obdob\u00ed (RRRR-MM-DD,RRRR-MM-DD)"
+        },
+        "step": {
+            "options": {
+                "data": {
+                    "add_holidays": "P\u0159idat sv\u00e1tky",
+                    "category": "Dal\u0161\u00ed kategorie jako dovolen\u00e1",
+                    "days_offset": "Posun",
+                    "excludes": "Vylu\u010duje",
+                    "language": "Jazyk pro pojmenovan\u00e9 sv\u00e1tky",
+                    "province": "\u010clen\u011bn\u00ed zem\u011b",
+                    "remove_holidays": "Odebrat sv\u00e1tky",
+                    "workdays": "Pracovn\u00ed dny"
+                },
+                "data_description": {
+                    "add_holidays": "P\u0159id\u00e1 vlastn\u00ed sv\u00e1tky jako RRRR-MM-DD nebo jako rozsah pomoc\u00ed \u010d\u00e1rky (`,`) jako odd\u011blova\u010de",
+                    "category": "Vyberte dal\u0161\u00ed kategorie, kter\u00e9 chcete zahrnout jako sv\u00e1tky.",
+                    "days_offset": "Posun dn\u016f od aktu\u00e1ln\u00edho dne",
+                    "excludes": "Seznam pracovn\u00edch dn\u016f, kter\u00e9 se maj\u00ed vylou\u010dit; v\u0161imn\u011bte si kl\u00ed\u010dov\u00e9ho slova \"holiday\" a p\u0159e\u010dt\u011bte si dokumentaci, jak ho spr\u00e1vn\u011b pou\u017e\u00edt.",
+                    "language": "Jazyk, kter\u00fd se m\u00e1 pou\u017e\u00edt p\u0159i konfiguraci pojmenovan\u00fdch vylou\u010den\u00ed sv\u00e1tk\u016f.",
+                    "province": "St\u00e1t, teritorium, provincie, oblast nebo zem\u011b.",
+                    "remove_holidays": "Odebere sv\u00e1tky jako RRRR-MM-DD nebo jako rozsah pomoc\u00ed \u010d\u00e1rky (`,`) jako odd\u011blova\u010de",
+                    "workdays": "Seznam pracovn\u00edch dn\u016f."
+                },
+                "description": "Nastav\u00ed dal\u0161\u00ed volby pro {name} nastaven\u00e9 pro zemi {country}"
+            },
+            "user": {
+                "data": {
+                    "country": "Zem\u011b",
+                    "name": "N\u00e1zev"
+                }
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "workday": {
+                "state_attributes": {
+                    "days_offset": {
+                        "name": "Posun"
+                    },
+                    "excludes": {
+                        "name": "Vylu\u010duje"
+                    },
+                    "workdays": {
+                        "name": "Pracovn\u00ed dny"
+                    }
+                }
+            }
+        }
+    },
+    "issues": {
+        "bad_country": {
+            "fix_flow": {
+                "step": {
+                    "country": {
+                        "data": {
+                            "country": "Zem\u011b"
+                        },
+                        "description": "Vyberte zemi, kterou chcete pou\u017e\u00edt pro senzor Workday.",
+                        "title": "Vybrat zemi pro {title}"
+                    },
+                    "province": {
+                        "data": {
+                            "province": "\u010clen\u011bn\u00ed zem\u011b"
+                        },
+                        "data_description": {
+                            "province": "St\u00e1t, teritorium, provincie, oblast nebo zem\u011b"
+                        },
+                        "description": "Vyberte provincii v zemi {country} , kterou chcete pou\u017e\u00edt pro senzor Workday.",
+                        "title": "Vybrat provincii pro {title}"
+                    }
+                }
+            },
+            "title": "Nastaven\u00e1 zem\u011b pro {title} neexistuje"
+        },
+        "bad_date_holiday": {
+            "fix_flow": {
+                "error": {
+                    "remove_holiday_error": "Nespr\u00e1vn\u00fd form\u00e1t datumu (RRRR-MM-DD) nebo n\u00e1zev sv\u00e1tku"
+                },
+                "step": {
+                    "fix_remove_holiday": {
+                        "data": {
+                            "remove_holidays": "Odebrat sv\u00e1tky"
+                        },
+                        "data_description": {
+                            "remove_holidays": "Odebere sv\u00e1tky jako RRRR-MM-DD nebo jako rozsah pomoc\u00ed \u010d\u00e1rky (`,`) jako odd\u011blova\u010de"
+                        },
+                        "description": "Odebere datum dovolen\u00e9 \"{remove_holidays}\", proto\u017ee jej nelze nal\u00e9zt v zemi {country}.",
+                        "title": "Nastaven\u00e9 datum dovolen\u00e9 {remove_holidays} pro {title} neexistuje"
+                    }
+                }
+            },
+            "title": "Nastaven\u00e9 datum dovolen\u00e9 {remove_holidays} pro {title} neexistuje"
+        },
+        "bad_named_holiday": {
+            "fix_flow": {
+                "error": {
+                    "remove_holiday_error": "Nespr\u00e1vn\u00fd form\u00e1t datumu (RRRR-MM-DD) nebo n\u00e1zev sv\u00e1tku"
+                },
+                "step": {
+                    "fix_remove_holiday": {
+                        "data": {
+                            "remove_holidays": "Odebrat sv\u00e1tky"
+                        },
+                        "data_description": {
+                            "remove_holidays": "Odebere sv\u00e1tky jako RRRR-MM-DD nebo jako rozsah pomoc\u00ed \u010d\u00e1rky (`,`) jako odd\u011blova\u010de"
+                        },
+                        "description": "Odebere sv\u00e1tek s n\u00e1zvem \"{remove_holidays}\", proto\u017ee jej nelze nal\u00e9zt v zemi {country}.",
+                        "title": "Nastaven\u00fd sv\u00e1tek s n\u00e1zvem {remove_holidays} pro {title} neexistuje"
+                    },
+                    "named_holiday": {
+                        "data": {
+                            "remove_holidays": "Odebrat sv\u00e1tky"
+                        },
+                        "data_description": {
+                            "remove_holidays": "Odebere sv\u00e1tky jako RRRR-MM-DD nebo jako rozsah pomoc\u00ed \u010d\u00e1rky (`,`) jako odd\u011blova\u010de"
+                        },
+                        "description": "Odebere sv\u00e1tek s n\u00e1zvem \"{remove_holidays}\", proto\u017ee jej nelze nal\u00e9zt v zemi {country}.",
+                        "title": "Nastaven\u00fd sv\u00e1tek s n\u00e1zvem {remove_holidays} pro {title} neexistuje"
+                    }
+                }
+            },
+            "title": "Nastaven\u00fd sv\u00e1tek s n\u00e1zvem {remove_holidays} pro {title} neexistuje"
+        },
+        "bad_province": {
+            "fix_flow": {
+                "step": {
+                    "province": {
+                        "data": {
+                            "province": "\u010clen\u011bn\u00ed zem\u011b"
+                        },
+                        "data_description": {
+                            "province": "St\u00e1t, teritorium, provincie, oblast nebo zem\u011b"
+                        },
+                        "description": "Vyberte provincii v zemi {country} , kterou chcete pou\u017e\u00edt pro senzor Workday.",
+                        "title": "Vybrat provincii pro {title}"
+                    }
+                }
+            },
+            "title": "Nastaven\u00e1 provincie v zemi {country} pro {title} neexistuje"
+        },
+        "deprecated_yaml": {
+            "description": "Nastaven\u00ed Workday pomoc\u00ed YAML se odeb\u00edr\u00e1.\n\nVa\u0161e st\u00e1vaj\u00edc\u00ed nastaven\u00ed YAML bylo importov\u00e1no do u\u017eivatelsk\u00e9ho rozhran\u00ed automaticky.\n\nOdeberte nastaven\u00ed Workday YAML ze souboru configuration.yaml a restartujte Home Assistanta, abyste tento probl\u00e9m vy\u0159e\u0161ili.",
+            "title": "Nastaven\u00ed Workday YAML se odeb\u00edr\u00e1"
+        }
+    },
+    "options": {
+        "error": {
+            "add_holiday_error": "Nespr\u00e1vn\u00fd form\u00e1t datumu (RRRR-MM-DD)",
+            "add_holiday_range_error": "Nespr\u00e1vn\u00fd form\u00e1t \u010dasov\u00e9ho obdob\u00ed (RRRR-MM-DD,RRRR-MM-DD)",
+            "already_configured": "Slu\u017eba s t\u00edmto nastaven\u00edm ji\u017e existuje",
+            "remove_holiday_error": "Nespr\u00e1vn\u00fd form\u00e1t datumu (RRRR-MM-DD) nebo n\u00e1zev sv\u00e1tku",
+            "remove_holiday_range_error": "Nespr\u00e1vn\u00fd form\u00e1t \u010dasov\u00e9ho obdob\u00ed (RRRR-MM-DD,RRRR-MM-DD)"
+        },
+        "step": {
+            "init": {
+                "data": {
+                    "add_holidays": "P\u0159idat sv\u00e1tky",
+                    "category": "Dal\u0161\u00ed kategorie jako dovolen\u00e1",
+                    "days_offset": "Posun",
+                    "excludes": "Vylu\u010duje",
+                    "language": "Jazyk pro pojmenovan\u00e9 sv\u00e1tky",
+                    "province": "\u010clen\u011bn\u00ed zem\u011b",
+                    "remove_holidays": "Odebrat sv\u00e1tky",
+                    "workdays": "Pracovn\u00ed dny"
+                },
+                "data_description": {
+                    "add_holidays": "P\u0159id\u00e1 vlastn\u00ed sv\u00e1tky jako RRRR-MM-DD nebo jako rozsah pomoc\u00ed \u010d\u00e1rky (`,`) jako odd\u011blova\u010de",
+                    "category": "Vyberte dal\u0161\u00ed kategorie, kter\u00e9 chcete zahrnout jako sv\u00e1tky.",
+                    "days_offset": "Posun dn\u016f od aktu\u00e1ln\u00edho dne",
+                    "excludes": "Seznam pracovn\u00edch dn\u016f, kter\u00e9 se maj\u00ed vylou\u010dit; v\u0161imn\u011bte si kl\u00ed\u010dov\u00e9ho slova \"holiday\" a p\u0159e\u010dt\u011bte si dokumentaci, jak ho spr\u00e1vn\u011b pou\u017e\u00edt.",
+                    "language": "Jazyk, kter\u00fd se m\u00e1 pou\u017e\u00edt p\u0159i konfiguraci pojmenovan\u00fdch vylou\u010den\u00ed sv\u00e1tk\u016f.",
+                    "province": "St\u00e1t, teritorium, provincie, oblast nebo zem\u011b.",
+                    "remove_holidays": "Odebere sv\u00e1tky jako RRRR-MM-DD nebo jako rozsah pomoc\u00ed \u010d\u00e1rky (`,`) jako odd\u011blova\u010de",
+                    "workdays": "Seznam pracovn\u00edch dn\u016f."
+                },
+                "description": "Zm\u011bn\u00ed dal\u0161\u00ed volby pro {name} nastaven\u00e9 pro zemi {country}"
+            }
+        }
+    },
+    "selector": {
+        "category": {
+            "options": {
+                "armed_forces": "Ozbrojen\u00e9 s\u00edly",
+                "bank": "Banka",
+                "chinese": "\u010c\u00ednsk\u00fd",
+                "christian": "K\u0159es\u0165ansk\u00fd",
+                "government": "Vl\u00e1da",
+                "half_day": "P\u016fl dne",
+                "hebrew": "Hebrejsk\u00fd",
+                "hindu": "Hinduistick\u00fd",
+                "islamic": "Isl\u00e1msk\u00fd",
+                "optional": "Voliteln\u00e9",
+                "public": "Ve\u0159ejn\u00fd",
+                "school": "\u0160kola",
+                "unofficial": "Neofici\u00e1ln\u00ed",
+                "workday": "Pracovn\u00ed den"
+            }
+        },
+        "country": {
+            "options": {
+                "none": "\u017d\u00e1dn\u00e1 zem\u011b"
+            }
+        },
+        "days": {
+            "options": {
+                "fri": "P\u00e1tek",
+                "holiday": "Sv\u00e1tky",
+                "mon": "Pond\u011bl\u00ed",
+                "sat": "Sobota",
+                "sun": "Ned\u011ble",
+                "thu": "\u010ctvrtek",
+                "tue": "\u00dater\u00fd",
+                "wed": "St\u0159eda"
+            }
+        },
+        "province": {
+            "options": {
+                "none": "\u017d\u00e1dn\u00e9 \u010dlen\u011bn\u00ed"
+            }
+        }
+    },
+    "services": {
+        "check_date": {
+            "description": "Zkontrolujte, zda je datum pracovn\u00ed den.",
+            "fields": {
+                "check_date": {
+                    "description": "Datum ke kontrole, zda je pracovn\u00ed den.",
+                    "name": "Datum"
+                }
+            },
+            "name": "Zkontrolovat datum"
+        }
+    },
+    "title": "Pracovn\u00ed den"
+}

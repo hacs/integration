@@ -1,0 +1,116 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Seade on juba h\u00e4\u00e4lestatud"
+        },
+        "error": {
+            "cannot_connect": "\u00dchendamine nurjus",
+            "invalid_auth": "Tuvastamine nurjus",
+            "unknown": "Tundmatu viga"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "api_key": "API v\u00f5ti"
+                },
+                "description": "Vaja on API-v\u00f5tit aadressilt https://app.rach.io/. Mine men\u00fc\u00fcsse Seaded ja seej\u00e4rel kl\u00f5psa nuppu \"Hangi API KEY\".",
+                "title": "\u00dchendu oma Rachio seadmega"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "rain": {
+                "name": "Vihmutus"
+            }
+        },
+        "calendar": {
+            "calendar": {
+                "name": "Rachio baasjaam {base}"
+            }
+        },
+        "switch": {
+            "rain_delay": {
+                "name": "Vihmutuse viivitus"
+            },
+            "standby": {
+                "name": "Ootel"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "manual_run_mins": "Tsoonil\u00fcliti aktiveerimisel t\u00f6\u00f6tamise kestus minutites"
+                }
+            }
+        }
+    },
+    "services": {
+        "pause_watering": {
+            "description": "Peata k\u00f5ik praegu t\u00f6\u00f6tavad tsoonid v\u00f5i ajakavad.",
+            "fields": {
+                "devices": {
+                    "description": "Peatatavate kontrollerite nimed. Vaikimisi k\u00f5igile konto kontrolleritele kui seda pole esitatud.",
+                    "name": "Seadmed"
+                },
+                "duration": {
+                    "description": "Jooksvate ajakavade peatamise aeg.",
+                    "name": "Kestus"
+                }
+            },
+            "name": "Peata kastmine"
+        },
+        "resume_watering": {
+            "description": "J\u00e4tkake peatatud tsooni kastmist v\u00f5i ajakava.",
+            "fields": {
+                "devices": {
+                    "description": "Kastmist j\u00e4tkavate kontrollerite nimed. Vaikimisi k\u00f5ik konto kontrollerid kui nime pole esitatud.",
+                    "name": "Seadmed"
+                }
+            },
+            "name": "J\u00e4tka kastmist"
+        },
+        "set_zone_moisture_percent": {
+            "description": "M\u00e4\u00e4rab tsooni v\u00f5i tsoonide loendi niiskuseprotsendi.",
+            "fields": {
+                "percent": {
+                    "description": "M\u00e4\u00e4ra tsooni soovitud niiskusprotsent.",
+                    "name": "Protsent"
+                }
+            },
+            "name": "M\u00e4\u00e4ra tsooni niiskusprotsent"
+        },
+        "start_multiple_zone_schedule": {
+            "description": "Loob kohandatud tsoonide ja k\u00e4itusaegade ajakava. Pane t\u00e4hele, et probleemide v\u00e4ltimiseks peaksid k\u00f5ik tsoonid asuma samal kontrolleril.",
+            "fields": {
+                "duration": {
+                    "description": "Tsooni(de) k\u00e4ivitamise minutite arv. Kui on antud ainult 1 kestus, kasutatakse seda aega k\u00f5igi tsoonide jaoks. Kui antakse kestuste loetelu, kohaldatakse kestusi eespool loetletud vastavate tsoonide suhtes.",
+                    "name": "Kestus"
+                }
+            },
+            "name": "Mitme tsooni k\u00e4ivitamine"
+        },
+        "start_watering": {
+            "description": "K\u00e4ivita \u00fcks tsoon, ajakava v\u00f5i suvaline arv nutikaid voolikutaimereid.",
+            "fields": {
+                "duration": {
+                    "description": "Kastmise minutite arv. Sprinklertsoonide puhul on maksimaalne kestus 3 tundi v\u00f5i 24 tundi nutikate voolikutaimerite puhul. Ajakavade jaoks j\u00e4ta t\u00fchjaks.",
+                    "name": "Kestus"
+                }
+            },
+            "name": "Alusta kastmist"
+        },
+        "stop_watering": {
+            "description": "Peata k\u00f5ik praegu t\u00f6\u00f6tavad tsoonid v\u00f5i ajakavad.",
+            "fields": {
+                "devices": {
+                    "description": "Peatatavate kontrollerite nimed. Vaikimisi k\u00f5ik konto kontrollerid kui seda pole esitatud.",
+                    "name": "Seadmed"
+                }
+            },
+            "name": "L\u00f5petakastmine"
+        }
+    }
+}

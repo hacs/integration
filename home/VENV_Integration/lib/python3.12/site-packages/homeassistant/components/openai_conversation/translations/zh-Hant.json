@@ -1,0 +1,75 @@
+{
+    "config": {
+        "error": {
+            "cannot_connect": "\u9023\u7dda\u5931\u6557",
+            "invalid_auth": "\u8eab\u4efd\u9a57\u8b49\u7121\u6548",
+            "unknown": "\u672a\u9810\u671f\u932f\u8aa4"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "api_key": "API \u91d1\u9470"
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "invalid_config_entry": {
+            "message": "\u6240\u63d0\u4f9b\u7684\u8a2d\u5b9a\u689d\u76ee\u7121\u6548\u3002\u53d6\u5f97 {config_entry}"
+        }
+    },
+    "issues": {
+        "image_size_deprecated_format": {
+            "description": "OpenAI \u73fe\u5728\u65bc\u4f7f\u7528 `openai_conversation.generate_image` \u6642\u4f7f\u7528 Dall-E 3 \u4ee5\u751f\u6210\u5716\u50cf\u3001\u4e26\u652f\u6301\u4e0d\u540c\u7684\u5927\u5c0f\u3002\u6709\u6548\u503c\u70ba \"1024x1024\"\u3001\"1024x1792\" \u53ca \"1792x1024\"\u3002\u820a\u6578\u503c \"256\"\u3001\"512\" \u53ca \"1024\" \u76ee\u524d\u88ab\u8996\u70ba \"1024x1024\"\u3002\n\u8acb\u4f7f\u7528\u65b0\u53c3\u6578\u4ee5\u66f4\u65b0\u8173\u672c\u6216\u81ea\u52d5\u5316\u3002",
+            "title": "\u5df2\u4e0d\u518d\u4f7f\u7528\u7684\u5716\u50cf\u751f\u6210\u52d5\u4f5c\u7684\u5927\u5c0f\u683c\u5f0f"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "chat_model": "\u578b\u865f",
+                    "llm_hass_api": "\u63a7\u5236 Home Assistant",
+                    "max_tokens": "\u56de\u61c9\u8fd4\u56de\u6700\u9ad8\u5bc6\u9470\u6578",
+                    "model": "\u5b8c\u6210\u6a21\u5f0f",
+                    "prompt": "\u6307\u793a",
+                    "recommended": "\u5efa\u8b70\u6a21\u578b\u8a2d\u5b9a",
+                    "temperature": "\u6eab\u5ea6",
+                    "top_p": "Top P"
+                },
+                "data_description": {
+                    "prompt": "\u6307\u793a LLM \u5982\u4f55\u56de\u61c9\u3002\u53ef\u4ee5\u662f\u4e00\u500b\u6a21\u677f\u3002"
+                }
+            }
+        }
+    },
+    "services": {
+        "generate_image": {
+            "description": "\u5c07\u63d0\u793a\u6587\u5b57\u8f49\u63db\u70ba\u5f71\u50cf",
+            "fields": {
+                "config_entry": {
+                    "description": "\u7528\u65bc\u6b64\u52d5\u4f5c\u7684\u8a2d\u5b9a\u689d\u76ee",
+                    "name": "\u8a2d\u5b9a\u689d\u76ee"
+                },
+                "prompt": {
+                    "description": "\u6240\u8981\u8f49\u4e58\u5f71\u50cf\u7684\u6587\u5b57",
+                    "example": "\u4e00\u5f35\u72d7\u7684\u7167\u7247",
+                    "name": "\u63d0\u793a"
+                },
+                "quality": {
+                    "description": "\u6240\u8981\u7522\u751f\u7684\u5f71\u50cf\u54c1\u8cea",
+                    "name": "\u54c1\u8cea"
+                },
+                "size": {
+                    "description": "\u6240\u8981\u7522\u751f\u7684\u5f71\u50cf\u5927\u5c0f",
+                    "name": "\u5927\u5c0f"
+                },
+                "style": {
+                    "description": "\u7522\u751f\u7684\u5f71\u50cf\u98a8\u683c",
+                    "name": "\u98a8\u683c"
+                }
+            },
+            "name": "\u7522\u751f\u5f71\u50cf"
+        }
+    }
+}

@@ -1,0 +1,88 @@
+{
+    "issues": {
+        "deprecated_close_comm_config": {
+            "description": "Verwijder a.u.b. de configuratiesleutel `{config_key}` van je {integration} in je your configuration.yaml bestand en herstart Home Assistant om dit probleem te verhelpen. Alle fouten worden gerapporteerd, maar `lazy_error_count` wordt geaccepteerd maar wordt genegeerd.",
+            "title": "`{config_key}` configuratiesleutel wordt verwijderd"
+        },
+        "deprecated_retries": {
+            "description": "Verwijder alsjeblieft de `{config_key}` van de {integration} configuratiesleutel in je `configuration.yaml` bestand en herstart Home Assistant om dit probleem op te lossen.\n\nHet maximum aantal pogingen is nu gefixeed naar 3."
+        },
+        "deprecated_retry_on_empty": {
+            "description": "Verwijder a.u.b. de configuratiesleutel `{config_key}` van je {integration} in je your configuration.yaml bestand en herstart Home Assistant om dit probleem te verhelpen. Opnieuw proberen by een lege waarde wordt automatisch toegepast, zie [de documentatie]({url}) voor andere foutafhandelingsparameters.",
+            "title": "`{config_key}` configuratiesleutel wordt verwijderd"
+        },
+        "removed_lazy_error_count": {
+            "description": "Verwijder alsjeblieft de `{config_key}` van de {integration} configuratiesleutel in je `configuration.yaml` bestand en herstart Home Assistant om dit probleem op te lossen, omdat `lazy_error_count` nog wel is geaccepteerd maar geen effect meer heeft."
+        }
+    },
+    "services": {
+        "reload": {
+            "description": "Herlaadt alle modbus entiteiten.",
+            "name": "Herladen"
+        },
+        "restart": {
+            "description": "Herstart de modbus hub (als stop wordt uitgevoerd en dan start).",
+            "fields": {
+                "hub": {
+                    "description": "Modbus hubnaam.",
+                    "name": "Hub"
+                }
+            },
+            "name": "Herstarten"
+        },
+        "stop": {
+            "description": "Stopt de modbus hub.",
+            "fields": {
+                "hub": {
+                    "description": "Modbus hubnaam.",
+                    "name": "Hub"
+                }
+            },
+            "name": "Stoppen"
+        },
+        "write_coil": {
+            "description": "Schrijft naar een modbus coil.",
+            "fields": {
+                "address": {
+                    "description": "Adres van het register om naar te schrijven.",
+                    "name": "Adres"
+                },
+                "hub": {
+                    "description": "Modbus hubnaam.",
+                    "name": "Hub"
+                },
+                "slave": {
+                    "description": "Adres van de modbus unit/slave.",
+                    "name": "Slave"
+                },
+                "state": {
+                    "description": "Status om te schrijven.",
+                    "name": "Status"
+                }
+            },
+            "name": "Schrijf coil"
+        },
+        "write_register": {
+            "description": "Schrijft naar een modbus holding register.",
+            "fields": {
+                "address": {
+                    "description": "Adres van het holding register om naar te schrijven.",
+                    "name": "Adres"
+                },
+                "hub": {
+                    "description": "Modbus hubnaam.",
+                    "name": "Hub"
+                },
+                "slave": {
+                    "description": "Adres van de modbus unit/slave.",
+                    "name": "Slave"
+                },
+                "value": {
+                    "description": "Waarde (enkele waarde of array) om te schrijven.",
+                    "name": "Waarde"
+                }
+            },
+            "name": "Schrijfregister"
+        }
+    }
+}

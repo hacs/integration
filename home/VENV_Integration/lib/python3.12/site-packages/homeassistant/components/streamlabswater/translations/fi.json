@@ -1,0 +1,62 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Laite on jo m\u00e4\u00e4ritetty"
+        },
+        "error": {
+            "cannot_connect": "Yhteyden muodostaminen ep\u00e4onnistui",
+            "unknown": "Odottamaton virhe"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "api_key": "API-avain"
+                }
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "away_mode": {
+                "name": "Poissa-tila"
+            }
+        },
+        "sensor": {
+            "daily_usage": {
+                "name": "P\u00e4ivitt\u00e4inen k\u00e4ytt\u00f6"
+            },
+            "monthly_usage": {
+                "name": "Kuukausittainen k\u00e4ytt\u00f6"
+            },
+            "yearly_usage": {
+                "name": "Vuosittainen k\u00e4ytt\u00f6"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_yaml_import_issue_cannot_connect": {
+            "description": "Streamlabs-veden m\u00e4\u00e4ritt\u00e4minen YAML:n avulla poistetaan, mutta YAML-konfiguraatiota tuotaessa tapahtui yhteysvirhe.\n\nVarmista, ett\u00e4 yhteys Streamlabs toimii, ja k\u00e4ynnist\u00e4 Home Assistant uudelleen yritt\u00e4\u00e4ksesi uudelleen tai poista Streamlabsin vesi-YAML-konfiguraatio configuration.yaml-tiedostosta ja jatka [m\u00e4\u00e4rit\u00e4 integraatio]({url}) manuaalisesti.",
+            "title": "Streamlabsin veden YAML-konfiguraation tuonti ep\u00e4onnistui"
+        },
+        "deprecated_yaml_import_issue_unknown": {
+            "description": "Streamlabs-veden m\u00e4\u00e4ritt\u00e4minen YAML:n avulla poistetaan, mutta YAML-konfiguraation tuomisessa tapahtui tuntematon virhe.\n\nVarmista, ett\u00e4 tuotu konfiguraatio on oikein, poista Streamlabsin veden YAML-m\u00e4\u00e4ritys configuration.yaml-tiedostosta ja jatka [m\u00e4\u00e4rityksen m\u00e4\u00e4ritys]({url}) manuaalisesti.",
+            "title": "Streamlabsin veden YAML-konfiguraation tuonti ep\u00e4onnistui"
+        }
+    },
+    "services": {
+        "set_away_mode": {
+            "description": "Asettaa Streamlabs Water Monitorin koti/poissa-tilan.",
+            "fields": {
+                "away_mode": {
+                    "description": "Kotona tai Poissa.",
+                    "name": "Poissa-tila"
+                },
+                "location_id": {
+                    "description": "Streamlabs Water Monitorin sijaintitunnus.",
+                    "name": "Sijainnin tunnus"
+                }
+            },
+            "name": "Aseta Poissa-tila"
+        }
+    }
+}

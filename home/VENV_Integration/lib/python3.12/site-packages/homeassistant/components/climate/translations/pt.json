@@ -1,0 +1,253 @@
+{
+    "device_automation": {
+        "action_type": {
+            "set_hvac_mode": "Alterar o modo HVAC de {entity_name}",
+            "set_preset_mode": "Alterar pr\u00e9-defini\u00e7\u00e3o de {entity_name}"
+        },
+        "condition_type": {
+            "is_hvac_mode": "{entity_name} est\u00e1 definido num determinado modo HVAC",
+            "is_preset_mode": "{entity_name} est\u00e1 num determinado modo pr\u00e9-definido"
+        },
+        "trigger_type": {
+            "current_humidity_changed": "A humidade medida por {entity_name} alterou-se",
+            "current_temperature_changed": "A temperatura medida por {entity_name} alterou-se",
+            "hvac_mode_changed": "Modo HVAC de {entity_name} alterado"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Term\u00f3stato",
+            "state": {
+                "auto": "Autom\u00e1tico",
+                "cool": "Arrefecimento",
+                "dry": "Desumidifica\u00e7\u00e3o",
+                "fan_only": "Ventila\u00e7\u00e3o",
+                "heat": "Aquecimento",
+                "heat_cool": "Aquecimento/arrefecimento",
+                "off": "Desligado"
+            },
+            "state_attributes": {
+                "aux_heat": {
+                    "name": "Aquecimento auxiliar"
+                },
+                "current_humidity": {
+                    "name": "Humidade Atual"
+                },
+                "current_temperature": {
+                    "name": "Temperatura Atual"
+                },
+                "fan_mode": {
+                    "name": "Modo do ventilador",
+                    "state": {
+                        "auto": "Autom\u00e1tico",
+                        "diffuse": "Difuso",
+                        "focus": "Concentrado",
+                        "high": "Alto",
+                        "low": "Baixo",
+                        "medium": "M\u00e9dio",
+                        "middle": "Meio",
+                        "off": "Desligado",
+                        "on": "Ligado",
+                        "top": "Total"
+                    }
+                },
+                "fan_modes": {
+                    "name": "Modos do ventilador"
+                },
+                "humidity": {
+                    "name": "Humidade pretendida"
+                },
+                "hvac_action": {
+                    "name": "Modo atual",
+                    "state": {
+                        "cooling": "Arrefecimento",
+                        "drying": "Desumidifica\u00e7\u00e3o",
+                        "fan": "Ventila\u00e7\u00e3o",
+                        "heating": "Aquecimento",
+                        "idle": "Em espera",
+                        "off": "Desligado",
+                        "preheating": "Pr\u00e9-Aquecimento"
+                    }
+                },
+                "hvac_modes": {
+                    "name": "Modos HVAC"
+                },
+                "max_humidity": {
+                    "name": "Humidade m\u00e1xima pretendida"
+                },
+                "max_temp": {
+                    "name": "Temperatura m\u00e1xima pretendida"
+                },
+                "min_humidity": {
+                    "name": "Humidade m\u00ednima pretendida"
+                },
+                "min_temp": {
+                    "name": "Temperatura m\u00ednima pretendida"
+                },
+                "preset_mode": {
+                    "name": "Pr\u00e9-definido",
+                    "state": {
+                        "activity": "Atividade",
+                        "away": "Ausente",
+                        "boost": "Turbo",
+                        "comfort": "Conforto",
+                        "eco": "Eco",
+                        "home": "Casa",
+                        "none": "Nenhum",
+                        "sleep": "Baixo consumo"
+                    }
+                },
+                "preset_modes": {
+                    "name": "Pr\u00e9-defini\u00e7\u00f5es"
+                },
+                "swing_mode": {
+                    "name": "Modo de oscila\u00e7\u00e3o",
+                    "state": {
+                        "both": "Ambos",
+                        "horizontal": "Horizontal",
+                        "off": "Desligado",
+                        "on": "Ligado",
+                        "vertical": "Vertical"
+                    }
+                },
+                "swing_modes": {
+                    "name": "Modos de oscila\u00e7\u00e3o"
+                },
+                "target_temp_high": {
+                    "name": "Temperatura m\u00e1xima pretendida"
+                },
+                "target_temp_low": {
+                    "name": "Temperatura m\u00ednima pretendida"
+                },
+                "target_temp_step": {
+                    "name": "Incremento"
+                },
+                "temperature": {
+                    "name": "Temperatura"
+                }
+            }
+        }
+    },
+    "issues": {
+        "deprecated_climate_aux_no_url": {
+            "title": "A integra\u00e7\u00e3o personalizada {platform} est\u00e1 a usar um aquecedor auxiliar obsoleto."
+        },
+        "deprecated_climate_aux_url_custom": {
+            "title": "A integra\u00e7\u00e3o personalizada {platform} est\u00e1 a usar um aquecedor auxiliar obsoleto."
+        },
+        "platform_integration_no_support": {
+            "description": "A plataforma {platform} para a integra\u00e7\u00e3o {domain} n\u00e3o suporta a configura\u00e7\u00e3o da plataforma.\n\nRemova-a da sua configura\u00e7\u00e3o e reinicie o Home Assistant para corrigir este problema.",
+            "title": "Suporte de plataforma n\u00e3o suportado"
+        }
+    },
+    "selector": {
+        "hvac_mode": {
+            "options": {
+                "auto": "Auto",
+                "cool": "Arrefecimento",
+                "dry": "Desumidificar",
+                "fan_only": "Ventilar",
+                "heat": "Aquecimento",
+                "heat_cool": "Aquecimento/arrefecimento",
+                "off": "Desligado"
+            }
+        }
+    },
+    "services": {
+        "set_aux_heat": {
+            "description": "Liga/desliga o aquecimento auxiliar.",
+            "fields": {
+                "aux_heat": {
+                    "description": "Novo valor para o aquecedor auxiliar.",
+                    "name": "Aquecimento auxiliar"
+                }
+            },
+            "name": "Ligar/desligar aquecedor auxiliar"
+        },
+        "set_fan_mode": {
+            "description": "Define o modo de opera\u00e7\u00e3o do ventilador.",
+            "fields": {
+                "fan_mode": {
+                    "description": "Modo de opera\u00e7\u00e3o do ventilador.",
+                    "name": "Modo do ventilador"
+                }
+            },
+            "name": "Definir modo do ventilador"
+        },
+        "set_humidity": {
+            "description": "Define a humidade pretendida.",
+            "fields": {
+                "humidity": {
+                    "description": "Humidade pretendida.",
+                    "name": "Humidade"
+                }
+            },
+            "name": "Definir humidade pretendida"
+        },
+        "set_hvac_mode": {
+            "description": "Define o modo de opera\u00e7\u00e3o do sistema HVAC.",
+            "fields": {
+                "hvac_mode": {
+                    "description": "Modo de opera\u00e7\u00e3o do sistema HVAC.",
+                    "name": "Modo do HVAC"
+                }
+            },
+            "name": "Definir modo do HVAC"
+        },
+        "set_preset_mode": {
+            "description": "Define o modo de opera\u00e7\u00e3o pr\u00e9-definido.",
+            "fields": {
+                "preset_mode": {
+                    "description": "Modo pr\u00e9-definido.",
+                    "name": "Modo pr\u00e9-definido"
+                }
+            },
+            "name": "Definir modo pr\u00e9-definido"
+        },
+        "set_swing_mode": {
+            "description": "Define o modo de opera\u00e7\u00e3o da fun\u00e7\u00e3o de oscila\u00e7\u00e3o.",
+            "fields": {
+                "swing_mode": {
+                    "description": "Modo de opera\u00e7\u00e3o da fun\u00e7\u00e3o de oscila\u00e7\u00e3o.",
+                    "name": "Modo de oscila\u00e7\u00e3o"
+                }
+            },
+            "name": "Definir o modo de oscila\u00e7\u00e3o"
+        },
+        "set_temperature": {
+            "description": "Define a temperatura pretendida.",
+            "fields": {
+                "hvac_mode": {
+                    "description": "Modo de opera\u00e7\u00e3o do sistema HVAC.",
+                    "name": "Modo HVAC"
+                },
+                "target_temp_high": {
+                    "description": "Temperatura m\u00e1xima pretendida.",
+                    "name": "Temperatura M\u00e1x. pretendida"
+                },
+                "target_temp_low": {
+                    "description": "Temperatura m\u00ednima pretendida.",
+                    "name": "Temperatura M\u00edn. pretendida"
+                },
+                "temperature": {
+                    "description": "Temperatura pretendida.",
+                    "name": "Temperatura"
+                }
+            },
+            "name": "Definir temperatura pretendida"
+        },
+        "toggle": {
+            "description": "Alterna o dispositivo de climatiza\u00e7\u00e3o, de ligado para desligado ou de desligado para ligado.",
+            "name": "Alternar"
+        },
+        "turn_off": {
+            "description": "Desliga a climatiza\u00e7\u00e3o.",
+            "name": "Desligar"
+        },
+        "turn_on": {
+            "description": "Liga a climatiza\u00e7\u00e3o.",
+            "name": "Ligar"
+        }
+    },
+    "title": "Climatiza\u00e7\u00e3o"
+}

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE ldml SYSTEM "../../common/dtd/ldml.dtd">
+<!--
+Copyright © 1991-2013 Unicode, Inc.
+CLDR data files are interpreted according to the LDML specification (http://unicode.org/reports/tr35/)
+For terms of use, see http://www.unicode.org/copyright.html
+-->
+<ldml>
+    <identity>
+        <version number="$Revision$"/>
+        <language type="vi"/>
+    </identity>
+    <rbnf>
+        <rulesetGrouping type="SpelloutRules">
+            <ruleset type="spellout-numbering-year">
+                <rbnfrule value="x.x">=0.0=;</rbnfrule>
+                <rbnfrule value="0">=%spellout-numbering=;</rbnfrule>
+            </ruleset>
+            <ruleset type="spellout-numbering">
+                <rbnfrule value="0">=%spellout-cardinal=;</rbnfrule>
+            </ruleset>
+            <ruleset type="teen" access="private">
+                <rbnfrule value="0">=%spellout-cardinal=;</rbnfrule>
+                <rbnfrule value="5">lăm;</rbnfrule>
+                <rbnfrule value="6">=%spellout-cardinal=;</rbnfrule>
+            </ruleset>
+            <ruleset type="x-ty" access="private">
+                <rbnfrule value="0">=%spellout-cardinal=;</rbnfrule>
+                <rbnfrule value="1">mốt;</rbnfrule>
+                <rbnfrule value="2">=%%teen=;</rbnfrule>
+                <rbnfrule value="4">tư;</rbnfrule>
+                <rbnfrule value="5">=%%teen=;</rbnfrule>
+            </ruleset>
+            <ruleset type="after-hundred" access="private">
+                <rbnfrule value="0">lẻ =%spellout-cardinal=;</rbnfrule>
+                <rbnfrule value="10">=%spellout-cardinal=;</rbnfrule>
+            </ruleset>
+            <ruleset type="after-thousand-or-more" access="private">
+                <rbnfrule value="0">không trăm =%%after-hundred=;</rbnfrule>
+                <rbnfrule value="100">=%spellout-cardinal=;</rbnfrule>
+            </ruleset>
+            <ruleset type="spellout-cardinal">
+                <rbnfrule value="-x">âm →→;</rbnfrule>
+                <rbnfrule value="x.x">←← phẩy →→;</rbnfrule>
+                <rbnfrule value="0">không;</rbnfrule>
+                <rbnfrule value="1">một;</rbnfrule>
+                <rbnfrule value="2">hai;</rbnfrule>
+                <rbnfrule value="3">ba;</rbnfrule>
+                <rbnfrule value="4">bốn;</rbnfrule>
+                <rbnfrule value="5">năm;</rbnfrule>
+                <rbnfrule value="6">sáu;</rbnfrule>
+                <rbnfrule value="7">bảy;</rbnfrule>
+                <rbnfrule value="8">tám;</rbnfrule>
+                <rbnfrule value="9">chín;</rbnfrule>
+                <rbnfrule value="10">mười[ →%%teen→];</rbnfrule>
+                <rbnfrule value="20">←← mươi[ →%%x-ty→];</rbnfrule>
+                <rbnfrule value="100">←← trăm[ →%%after-hundred→];</rbnfrule>
+                <rbnfrule value="1000">←← nghìn[ →%%after-thousand-or-more→];</rbnfrule>
+                <rbnfrule value="1000000">←← triệu[ →%%after-hundred→];</rbnfrule>
+                <rbnfrule value="1000000000">←← tỷ[ →%%after-hundred→];</rbnfrule>
+                <rbnfrule value="1000000000000000000">=#,##0=;</rbnfrule>
+            </ruleset>
+            <ruleset type="spellout-ordinal">
+                <rbnfrule value="x.x">=#,##0.#=;</rbnfrule>
+                <rbnfrule value="0">thứ =%spellout-cardinal=;</rbnfrule>
+                <rbnfrule value="1">thứ nhất;</rbnfrule>
+                <rbnfrule value="2">thứ nhì;</rbnfrule>
+                <rbnfrule value="3">thứ =%spellout-cardinal=;</rbnfrule>
+                <rbnfrule value="4">thứ tư;</rbnfrule>
+                <rbnfrule value="5">thứ =%spellout-cardinal=;</rbnfrule>
+            </ruleset>
+        </rulesetGrouping>
+        <rulesetGrouping type="OrdinalRules">
+            <ruleset type="digits-ordinal">
+                <rbnfrule value="-x">−→→;</rbnfrule>
+                <rbnfrule value="0">thứ =#,##0=;</rbnfrule>
+            </ruleset>
+        </rulesetGrouping>
+    </rbnf>
+</ldml>

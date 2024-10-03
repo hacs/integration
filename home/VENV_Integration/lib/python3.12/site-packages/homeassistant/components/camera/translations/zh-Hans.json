@@ -1,0 +1,104 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "\u6444\u50cf\u5934",
+            "state": {
+                "idle": "\u7a7a\u95f2",
+                "recording": "\u5f55\u5236\u4e2d",
+                "streaming": "\u76d1\u63a7\u4e2d"
+            },
+            "state_attributes": {
+                "access_token": {
+                    "name": "\u8bbf\u95ee\u4ee4\u724c"
+                },
+                "brand": {
+                    "name": "\u54c1\u724c"
+                },
+                "frontend_stream_type": {
+                    "name": "\u6d41\u7c7b\u578b",
+                    "state": {
+                        "hls": "HLS",
+                        "webrtc": "WebRTC"
+                    }
+                },
+                "model_name": {
+                    "name": "\u578b\u53f7"
+                },
+                "motion_detection": {
+                    "name": "\u8fd0\u52a8\u4fa6\u6d4b",
+                    "state": {
+                        "false": "\u5df2\u7981\u7528",
+                        "true": "\u5df2\u542f\u7528"
+                    }
+                }
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "\u201c{domain}\u201d\u96c6\u6210\u7684\u201c{platform}\u201d\u5e73\u53f0\u4e0d\u652f\u6301\u5e73\u53f0\u8bbe\u7f6e\u3002\n\n\u8bf7\u5c06\u5176\u4ece\u914d\u7f6e\u6587\u4ef6\u4e2d\u79fb\u9664\uff0c\u7136\u540e\u91cd\u65b0\u542f\u52a8 Home Assistant \u89e3\u51b3\u6b64\u95ee\u9898\u3002",
+            "title": "\u6ca1\u6709\u5e73\u53f0\u652f\u6301"
+        }
+    },
+    "services": {
+        "disable_motion_detection": {
+            "description": "\u7981\u7528\u8fd0\u52a8\u4fa6\u6d4b\u3002",
+            "name": "\u7981\u7528\u8fd0\u52a8\u4fa6\u6d4b"
+        },
+        "enable_motion_detection": {
+            "description": "\u542f\u7528\u8fd0\u52a8\u4fa6\u6d4b\u3002",
+            "name": "\u542f\u7528\u8fd0\u52a8\u4fa6\u6d4b"
+        },
+        "play_stream": {
+            "description": "\u5728\u652f\u6301\u7684\u5a92\u4f53\u64ad\u653e\u5668\u4e0a\u64ad\u653e\u6444\u50cf\u5934\u6d41\u3002",
+            "fields": {
+                "format": {
+                    "description": "\u5a92\u4f53\u64ad\u653e\u5668\u652f\u6301\u7684\u6d41\u683c\u5f0f\u3002",
+                    "name": "\u683c\u5f0f"
+                },
+                "media_player": {
+                    "description": "\u8981\u6d41\u5f0f\u4f20\u8f93\u7684\u5a92\u4f53\u64ad\u653e\u5668\u3002",
+                    "name": "\u5a92\u4f53\u64ad\u653e\u5668"
+                }
+            },
+            "name": "\u64ad\u653e\u6d41"
+        },
+        "record": {
+            "description": "\u521b\u5efa\u5b9e\u65f6\u6444\u50cf\u5934\u7684\u5f55\u5236\u3002",
+            "fields": {
+                "duration": {
+                    "description": "\u5f55\u5236\u7684\u8ba1\u5212\u65f6\u957f\u3002\u5b9e\u9645\u65f6\u957f\u53ef\u80fd\u6709\u6240\u4e0d\u540c\u3002",
+                    "name": "\u65f6\u957f"
+                },
+                "filename": {
+                    "description": "\u6587\u4ef6\u540d\u6a21\u677f\u3002\u53ef\u7528\u53d8\u91cf\u662f entity_id\u3002\u5fc5\u987b\u662f mp4\u3002",
+                    "name": "\u6587\u4ef6\u540d"
+                },
+                "lookback": {
+                    "description": "\u8981\u5305\u542b\u5728\u5f55\u5236\u4e2d\u7684\u8ba1\u5212\u56de\u987e\u671f\uff08\u9664\u65f6\u957f\u5916\uff09\u3002\u4ec5\u5f53\u524d\u6709\u6d3b\u52a8 HLS \u6d41\u65f6\u624d\u53ef\u7528\u3002\u56de\u987e\u671f\u7684\u5b9e\u9645\u957f\u5ea6\u53ef\u80fd\u4f1a\u6709\u6240\u4e0d\u540c\u3002",
+                    "name": "\u56de\u987e"
+                }
+            },
+            "name": "\u5f55\u5236"
+        },
+        "snapshot": {
+            "description": "\u4ece\u6444\u50cf\u5934\u62cd\u6444\u5feb\u7167\u3002",
+            "fields": {
+                "filename": {
+                    "description": "\u6587\u4ef6\u540d\u6a21\u677f\u3002\u53ef\u7528\u53d8\u91cf\u662f entity_id\u3002",
+                    "name": "\u6587\u4ef6\u540d"
+                }
+            },
+            "name": "\u62cd\u6444\u5feb\u7167"
+        },
+        "turn_off": {
+            "description": "\u5173\u95ed\u6444\u50cf\u5934\u3002",
+            "name": "\u5173\u95ed"
+        },
+        "turn_on": {
+            "description": "\u6253\u5f00\u6444\u50cf\u5934\u3002",
+            "name": "\u6253\u5f00"
+        }
+    },
+    "title": "\u6444\u50cf\u5934"
+}

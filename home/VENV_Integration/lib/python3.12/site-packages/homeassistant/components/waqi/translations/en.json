@@ -1,0 +1,96 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Device is already configured"
+        },
+        "error": {
+            "cannot_connect": "Failed to connect",
+            "invalid_auth": "Invalid authentication",
+            "unknown": "Unexpected error"
+        },
+        "step": {
+            "map": {
+                "data": {
+                    "location": "Location"
+                },
+                "description": "Select a location to get the closest measuring station."
+            },
+            "station_number": {
+                "data": {
+                    "station_number": "Measuring station number"
+                }
+            },
+            "user": {
+                "data": {
+                    "api_key": "API key",
+                    "location": "Location",
+                    "method": "How do you want to select a measuring station?"
+                },
+                "description": "Select a location to get the closest measuring station."
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "carbon_monoxide": {
+                "name": "Carbon monoxide"
+            },
+            "dominant_pollutant": {
+                "name": "Dominant pollutant",
+                "state": {
+                    "co": "Carbon monoxide",
+                    "neph": "Nephelometry",
+                    "no2": "Nitrogen dioxide",
+                    "o3": "Ozone",
+                    "pm10": "PM10",
+                    "pm25": "PM2.5",
+                    "so2": "Sulphur dioxide"
+                }
+            },
+            "neph": {
+                "name": "Visbility using nephelometry"
+            },
+            "nitrogen_dioxide": {
+                "name": "Nitrogen dioxide"
+            },
+            "ozone": {
+                "name": "Ozone"
+            },
+            "pm10": {
+                "name": "PM10"
+            },
+            "pm25": {
+                "name": "PM2.5"
+            },
+            "sulphur_dioxide": {
+                "name": "Sulphur dioxide"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_yaml_import_issue_already_configured": {
+            "description": "Configuring World Air Quality Index using YAML is being removed but the measuring station was already imported when trying to import the YAML configuration.\n\nEnsure the imported configuration is correct and remove the World Air Quality Index YAML configuration from your configuration.yaml file and continue to [set up the integration]({url}) manually.",
+            "title": "The WAQI YAML configuration import failed"
+        },
+        "deprecated_yaml_import_issue_cannot_connect": {
+            "description": "Configuring World Air Quality Index using YAML is being removed but there was an connection error importing your YAML configuration.\n\nEnsure connection to WAQI works and restart Home Assistant to try again or remove the World Air Quality Index YAML configuration from your configuration.yaml file and continue to [set up the integration]({url}) manually.",
+            "title": "The WAQI YAML configuration import failed"
+        },
+        "deprecated_yaml_import_issue_invalid_auth": {
+            "description": "Configuring World Air Quality Index using YAML is being removed but there was an authentication error importing your YAML configuration.\n\nCorrect the YAML configuration and restart Home Assistant to try again or remove the World Air Quality Index YAML configuration from your configuration.yaml file and continue to [set up the integration]({url}) manually.",
+            "title": "The World Air Quality Index YAML configuration import failed"
+        },
+        "deprecated_yaml_import_issue_none_found": {
+            "description": "Configuring World Air Quality Index using YAML is being removed but there weren't any stations imported because they couldn't be found.\n\nEnsure the imported configuration is correct and remove the World Air Quality Index YAML configuration from your configuration.yaml file and continue to [set up the integration]({url}) manually.",
+            "title": "The WAQI YAML configuration import failed"
+        }
+    },
+    "selector": {
+        "method": {
+            "options": {
+                "map": "Select nearest from point on the map",
+                "station_number": "Enter a station number"
+            }
+        }
+    }
+}

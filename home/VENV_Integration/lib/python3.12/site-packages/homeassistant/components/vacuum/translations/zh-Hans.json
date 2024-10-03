@@ -1,0 +1,115 @@
+{
+    "device_automation": {
+        "action_type": {
+            "clean": "\u8ba9\u201d{entity_name}\u201c\u6e05\u626b",
+            "dock": "\u8ba9\u201d{entity_name}\u201c\u8fd4\u56de\u57fa\u5ea7"
+        },
+        "condition_type": {
+            "is_cleaning": "{entity_name} \u6b63\u5728\u6e05\u626b",
+            "is_docked": "{entity_name} \u5df2\u505c\u9760"
+        },
+        "extra_fields": {
+            "for": "\u65f6\u957f"
+        },
+        "trigger_type": {
+            "cleaning": "{entity_name} \u5f00\u59cb\u6e05\u626b",
+            "docked": "{entity_name} \u5df2\u505c\u9760"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "\u626b\u5730\u673a",
+            "state": {
+                "cleaning": "\u6b63\u5728\u6e05\u626b",
+                "docked": "\u5df2\u505c\u9760",
+                "error": "\u9519\u8bef",
+                "idle": "\u7a7a\u95f2",
+                "off": "\u5173\u95ed",
+                "on": "\u5f00\u542f",
+                "paused": "\u5df2\u6682\u505c",
+                "returning": "\u6b63\u5728\u8fd4\u56de\u57fa\u5ea7"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_vacuum_base_class": {
+            "description": "\u81ea\u5b9a\u4e49\u96c6\u6210\u201d{platform}\u201c\u6b63\u6269\u5c55\u5df2\u5f03\u7528\u7684\u57fa\u7c7b VacuumEntity \u4e3a StateVacuumEntity \u3002\n\n\u8bf7\u5c06\u5176\u62a5\u544a\u7ed9\u201d{platform}\u201c\u81ea\u5b9a\u4e49\u96c6\u6210\u7684\u5f00\u53d1\u8005\u3002\n\n\u4e00\u65e6\u6709\u201d{platform}\u201c\u7684\u66f4\u65b0\u7248\u672c\u53ef\u7528\uff0c\u8bf7\u5b89\u88c5\u5b83\u5e76\u91cd\u65b0\u542f\u52a8 Home Assistant \u89e3\u51b3\u6b64\u95ee\u9898\u3002",
+            "title": "\u201c{platform}\u201d\u81ea\u5b9a\u4e49\u96c6\u6210\u6b63\u5728\u4f7f\u7528\u5df2\u5f03\u7528\u7684\u626b\u5730\u673a\u529f\u80fd"
+        },
+        "deprecated_vacuum_base_class_url": {
+            "description": "\u81ea\u5b9a\u4e49\u96c6\u6210\u201d{platform}\u201c\u6b63\u6269\u5c55\u5df2\u5f03\u7528\u57fa\u7c7b VacuumEntity \u4e3a StateVacuumEntity \u3002\n\n\u8bf7\u5728\u201d{issue_tracker}\u201c\u521b\u5efa\u9519\u8bef\u62a5\u544a\u3002\n\n\u4e00\u65e6\u6709\u201d{platform}\u201c\u7684\u66f4\u65b0\u7248\u672c\u53ef\u7528\uff0c\u8bf7\u5b89\u88c5\u5b83\u5e76\u91cd\u65b0\u542f\u52a8 Home Assistant \u89e3\u51b3\u6b64\u95ee\u9898\u3002",
+            "title": "\u201c{platform}\u201d\u81ea\u5b9a\u4e49\u96c6\u6210\u6b63\u5728\u4f7f\u7528\u5df2\u5f03\u7528\u7684\u626b\u5730\u673a\u529f\u80fd"
+        },
+        "platform_integration_no_support": {
+            "description": "\u201c{domain}\u201d\u96c6\u6210\u7684\u201c{platform}\u201d\u5e73\u53f0\u4e0d\u652f\u6301\u5e73\u53f0\u8bbe\u7f6e\u3002\n\n\u8bf7\u5c06\u5176\u4ece\u914d\u7f6e\u6587\u4ef6\u4e2d\u79fb\u9664\uff0c\u7136\u540e\u91cd\u65b0\u542f\u52a8 Home Assistant \u89e3\u51b3\u6b64\u95ee\u9898\u3002",
+            "title": "\u6ca1\u6709\u5e73\u53f0\u652f\u6301"
+        }
+    },
+    "services": {
+        "clean_spot": {
+            "description": "\u544a\u8bc9\u626b\u5730\u673a\u8fdb\u884c\u5b9a\u70b9\u6e05\u6d01\u3002",
+            "name": "\u6e05\u626b\u70b9"
+        },
+        "locate": {
+            "description": "\u5b9a\u4f4d\u626b\u5730\u673a\u5668\u4eba\u3002",
+            "name": "\u5b9a\u4f4d"
+        },
+        "pause": {
+            "description": "\u6682\u505c\u6e05\u626b\u4efb\u52a1\u3002",
+            "name": "\u6682\u505c"
+        },
+        "return_to_base": {
+            "description": "\u544a\u8bc9\u626b\u5730\u673a\u8fd4\u56de\u5176\u57fa\u5ea7\u3002",
+            "name": "\u8fd4\u56de\u5230\u57fa\u5ea7"
+        },
+        "send_command": {
+            "description": "\u53d1\u9001\u547d\u4ee4\u7ed9\u626b\u5730\u673a\u3002",
+            "fields": {
+                "command": {
+                    "description": "\u8981\u6267\u884c\u7684\u547d\u4ee4\u3002\u8fd9\u4e9b\u547d\u4ee4\u5728\u6bcf\u4e2a\u96c6\u6210\u6709\u7279\u5b9a\u7684\u542b\u4e49\u3002",
+                    "name": "\u547d\u4ee4"
+                },
+                "params": {
+                    "description": "\u547d\u4ee4\u7684\u53c2\u6570\u3002\u8fd9\u4e9b\u53c2\u6570\u5728\u4e0d\u540c\u96c6\u6210\u6709\u7279\u5b9a\u7684\u542b\u4e49\u3002",
+                    "name": "\u53c2\u6570"
+                }
+            },
+            "name": "\u53d1\u9001\u547d\u4ee4"
+        },
+        "set_fan_speed": {
+            "description": "\u8bbe\u7f6e\u626b\u5730\u673a\u7684\u98ce\u6247\u901f\u5ea6\u3002",
+            "fields": {
+                "fan_speed": {
+                    "description": "\u98ce\u6247\u901f\u5ea6\u3002\u5177\u4f53\u503c\u5728\u4e0d\u540c\u96c6\u6210\u6709\u4e0d\u540c\u542b\u4e49\u3002\u6709\u4e9b\u96c6\u6210\u7528\u7b49\u7ea7\u9636\u68af\u8868\u793a\u901f\u5ea6\uff0c\u4f8b\u5982\u201c\u4e2d\u201d\u3002\u6709\u4e9b\u4f7f\u7528 0 \u5230 100 \u4e4b\u95f4\u7684\u767e\u5206\u6bd4\u3002",
+                    "name": "\u98ce\u6247\u901f\u5ea6"
+                }
+            },
+            "name": "\u8bbe\u7f6e\u98ce\u6247\u901f\u5ea6"
+        },
+        "start": {
+            "description": "\u542f\u52a8\u6216\u6062\u590d\u6e05\u626b\u4efb\u52a1\u3002",
+            "name": "\u5f00\u59cb"
+        },
+        "start_pause": {
+            "description": "\u542f\u52a8\u3001\u6682\u505c\u6216\u6062\u590d\u6e05\u626b\u4efb\u52a1\u3002",
+            "name": "\u542f\u52a8/\u6682\u505c"
+        },
+        "stop": {
+            "description": "\u505c\u6b62\u5f53\u524d\u6e05\u626b\u4efb\u52a1\u3002",
+            "name": "\u505c\u6b62"
+        },
+        "toggle": {
+            "description": "\u5207\u6362\u626b\u5730\u673a\u7684\u6253\u5f00/\u5173\u95ed\u72b6\u6001\u3002",
+            "name": "\u5207\u6362"
+        },
+        "turn_off": {
+            "description": "\u505c\u6b62\u5f53\u524d\u7684\u6e05\u626b\u4efb\u52a1\u5e76\u8fd4\u56de\u5230\u57fa\u5ea7\u3002",
+            "name": "\u5173\u95ed"
+        },
+        "turn_on": {
+            "description": "\u542f\u52a8\u65b0\u7684\u6e05\u626b\u4efb\u52a1\u3002",
+            "name": "\u6253\u5f00"
+        }
+    },
+    "title": "\u626b\u5730\u673a"
+}

@@ -1,0 +1,117 @@
+{
+    "config": {
+        "error": {
+            "cannot_connect": "Sikertelen csatlakoz\u00e1s",
+            "invalid_auth": "\u00c9rv\u00e9nytelen hiteles\u00edt\u00e9s"
+        },
+        "step": {
+            "reauth_confirm": {
+                "data": {
+                    "password": "Jelsz\u00f3"
+                },
+                "description": "A Honeywell integr\u00e1ci\u00f3nak \u00fajra kell hiteles\u00edtenie a fi\u00f3kj\u00e1t",
+                "title": "A(z) {name} hiteles\u00edt\u00e9se lej\u00e1rt"
+            },
+            "user": {
+                "data": {
+                    "password": "Jelsz\u00f3",
+                    "username": "Felhaszn\u00e1l\u00f3n\u00e9v"
+                },
+                "description": "K\u00e9rem, adja meg a mytotalconnectcomfort.com webhelyre val\u00f3 bejelentkez\u00e9shez haszn\u00e1lt hiteles\u00edt\u0151 adatokat."
+            }
+        }
+    },
+    "entity": {
+        "climate": {
+            "honeywell": {
+                "state_attributes": {
+                    "preset_mode": {
+                        "state": {
+                            "away": "T\u00e1vol",
+                            "hold": "R\u00f6gz\u00edt",
+                            "none": "Nincs"
+                        }
+                    }
+                }
+            }
+        },
+        "sensor": {
+            "outdoor_humidity": {
+                "name": "K\u00fclt\u00e9ri p\u00e1ratartalom"
+            },
+            "outdoor_temperature": {
+                "name": "K\u00fclt\u00e9ri h\u0151m\u00e9rs\u00e9klet"
+            }
+        },
+        "switch": {
+            "emergency_heat": {
+                "name": "V\u00e9szf\u0171t\u00e9s"
+            }
+        }
+    },
+    "exceptions": {
+        "away_mode_failed": {
+            "message": "Honeywell t\u00e1voll\u00e9ti m\u00f3d be\u00e1ll\u00edt\u00e1sa sikertelen"
+        },
+        "disable_aux_failed": {
+            "message": "Honeywell nem tudta kikapcsolni a seg\u00e9df\u0171t\u00e9s m\u00f3dot"
+        },
+        "fan_mode_failed": {
+            "message": "Honeywell nem tudta be\u00e1ll\u00edtani a ventil\u00e1tor \u00fczemm\u00f3dot"
+        },
+        "set_aux_failed": {
+            "message": "Honeywell nem tudta be\u00e1ll\u00edtani a rendszer \u00fczemm\u00f3dot seg\u00e9df\u0171t\u00e9sre"
+        },
+        "set_hold_failed": {
+            "message": "Honeywell nem tudta be\u00e1ll\u00edtani az \u00e1lland\u00f3 tart\u00e1st"
+        },
+        "set_mode_failed": {
+            "message": "Honeywell \u00e9rv\u00e9nytelen rendszer \u00fczemm\u00f3d \u00e9rt\u00e9ket adott vissza: {mode}"
+        },
+        "stop_hold_failed": {
+            "message": "Honeywell nem tudta le\u00e1ll\u00edtani a tart\u00e1si m\u00f3dot"
+        },
+        "switch_failed_off": {
+            "message": "A Honeywell kikapcsolhatja a v\u00e9szf\u0171t\u00e9si m\u00f3dot."
+        },
+        "switch_failed_on": {
+            "message": "A Honeywell nem tudta a rendszer \u00fczemm\u00f3dj\u00e1t v\u00e9szf\u0171t\u00e9si \u00fczemm\u00f3dra \u00e1ll\u00edtani."
+        },
+        "sys_mode_failed": {
+            "message": "Honeywell nem tudta be\u00e1ll\u00edtani a rendszer \u00fczemm\u00f3dot"
+        },
+        "temp_failed": {
+            "message": "Honeywell h\u0151m\u00e9rs\u00e9kletbe\u00e1ll\u00edt\u00e1s sikertelen"
+        },
+        "temp_failed_range": {
+            "message": "Honeywell h\u0151m\u00e9rs\u00e9kletbe\u00e1ll\u00edt\u00e1s sikertelen: a h\u0151m\u00e9rs\u00e9klet a megengedett tartom\u00e1nyon k\u00edv\u00fcl van. M\u00f3d: {mode}, F\u0171t\u00e9si h\u0151m\u00e9rs\u00e9klet: {heat}, H\u0171t\u00e9si h\u0151m\u00e9rs\u00e9klet: {cool}"
+        },
+        "temp_failed_value": {
+            "message": "Honeywell h\u0151m\u00e9rs\u00e9kletbe\u00e1ll\u00edt\u00e1s sikertelen: \u00e9rv\u00e9nytelen h\u0151m\u00e9rs\u00e9klet {temperature}"
+        }
+    },
+    "issues": {
+        "service_deprecation": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Haszn\u00e1lja a `switch.{name}_emergency_heat` opci\u00f3t a m\u00f3d megv\u00e1ltoztat\u00e1s\u00e1hoz.\n\nK\u00e9rj\u00fck, \u00e1ll\u00edtsa be az automatiz\u00e1l\u00e1sokat \u00e9s scripteket, majd v\u00e1lassza a **mehet** gombot a probl\u00e9ma megold\u00e1s\u00e1hoz.",
+                        "title": "A Honeywell seg\u00e9df\u0171t\u00e9s elt\u00e1vol\u00edt\u00e1sra ker\u00fcl"
+                    }
+                }
+            },
+            "title": "A Honeywell seg\u00e9df\u0171t\u00e9s elt\u00e1vol\u00edt\u00e1sra ker\u00fcl"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "away_cool_temperature": "H\u0171t\u00e9si h\u0151m\u00e9r\u00e9s\u00e9klet t\u00e1voll\u00e9ti m\u00f3dban",
+                    "away_heat_temperature": "F\u0171t\u00e9si h\u0151m\u00e9r\u00e9s\u00e9klet t\u00e1voll\u00e9ti m\u00f3dban"
+                },
+                "description": "Tov\u00e1bbi Honeywell konfigur\u00e1ci\u00f3s lehet\u0151s\u00e9gek. A h\u0151m\u00e9rs\u00e9kletek Fahrenheitben vannak be\u00e1ll\u00edtva."
+            }
+        }
+    }
+}

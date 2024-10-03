@@ -1,0 +1,103 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Az eszk\u00f6z m\u00e1r konfigur\u00e1lva van",
+            "already_in_progress": "A konfigur\u00e1l\u00e1s m\u00e1r folyamatban van",
+            "error_pairing": "Csatlakozva az LG webOS TV-hez, de a p\u00e1ros\u00edt\u00e1s nem siker\u00fclt",
+            "reauth_successful": "Az \u00fajrahiteles\u00edt\u00e9s sikeres volt.",
+            "reauth_unsuccessful": "Az \u00fajrahiteles\u00edt\u00e9s sikertelen volt, kapcsolja be ism\u00e9t a t\u00e9v\u00e9t \u00e9s pr\u00f3b\u00e1lja \u00fajra."
+        },
+        "error": {
+            "cannot_connect": "A csatlakoz\u00e1s nem siker\u00fclt, k\u00e9rj\u00fck, kapcsolja be a TV-t vagy ellen\u0151rizze az IP-c\u00edmet."
+        },
+        "flow_title": "LG webOS Smart TV",
+        "step": {
+            "pairing": {
+                "description": "V\u00e1lassza a **Mehet** lehet\u0151s\u00e9get \u00e9s fogadja el a p\u00e1ros\u00edt\u00e1si k\u00e9relmet a TV-n.\n\n![K\u00e9p](/static/images/config_webos.png)",
+                "title": "webOS TV p\u00e1ros\u00edt\u00e1s"
+            },
+            "reauth_confirm": {
+                "description": "V\u00e1lassza a **Mehet** lehet\u0151s\u00e9get \u00e9s fogadja el a p\u00e1ros\u00edt\u00e1si k\u00e9relmet a TV-n.\n\n![K\u00e9p](/static/images/config_webos.png)",
+                "title": "webOS TV p\u00e1ros\u00edt\u00e1s"
+            },
+            "user": {
+                "data": {
+                    "host": "Hoszt",
+                    "name": "Elnevez\u00e9s"
+                },
+                "data_description": {
+                    "host": "A webOS TV g\u00e9pneve vagy IP-c\u00edme."
+                },
+                "description": "Kapcsolja be a TV-t, t\u00f6ltse ki a k\u00f6vetkez\u0151 mez\u0151ket \u00e9s v\u00e1lassza a **Mehet** lehet\u0151s\u00e9get.",
+                "title": "Csatlakoz\u00e1s a webOS TV-hez"
+            }
+        }
+    },
+    "device_automation": {
+        "trigger_type": {
+            "webostv.turn_on": "Az eszk\u00f6znek be kell lennie kapcsolva"
+        }
+    },
+    "options": {
+        "error": {
+            "cannot_retrieve": "Nem siker\u00fclt lek\u00e9rni a forr\u00e1sok list\u00e1j\u00e1t. Gy\u0151z\u0151dj\u00f6n meg r\u00f3la, hogy a k\u00e9sz\u00fcl\u00e9k be van kapcsolva"
+        },
+        "step": {
+            "init": {
+                "data": {
+                    "sources": "Forr\u00e1sok list\u00e1ja"
+                },
+                "description": "Enged\u00e9lyezett forr\u00e1sok kiv\u00e1laszt\u00e1sa",
+                "title": "WebOS Smart TV be\u00e1ll\u00edt\u00e1sai"
+            }
+        }
+    },
+    "services": {
+        "button": {
+            "description": "Gombnyom\u00e1s parancs k\u00fcld\u00e9se.",
+            "fields": {
+                "button": {
+                    "description": "A megnyomand\u00f3 gomb neve. Az ismert lehets\u00e9ges \u00e9rt\u00e9kek: LEFT, RIGHT, DOWN, UP, HOME, MENU, BACK, ENTER, DASH, INFO, ASTERISK, CC, EXIT, MUTE, RED, GREEN, BLUE, YELLOW, VOLUMEUP, VOLUMEDOWN, CHANNELUP, CHANNELDOWN, PLAY, PAUSE, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9.",
+                    "name": "Gomb"
+                },
+                "entity_id": {
+                    "description": "A webostv entit\u00e1sok neve, ahol az API m\u00f3dszert futtatni kell.",
+                    "name": "Entit\u00e1s"
+                }
+            },
+            "name": "Gomb"
+        },
+        "command": {
+            "description": "Parancsot k\u00fcld.",
+            "fields": {
+                "command": {
+                    "description": "A parancs v\u00e9gpontja.",
+                    "name": "Parancs"
+                },
+                "entity_id": {
+                    "description": "A webostv entit\u00e1sok neve, ahol az API m\u00f3dszert futtatni kell.",
+                    "name": "Entit\u00e1s"
+                },
+                "payload": {
+                    "description": "Egy opcion\u00e1lis adattartalom (Payload), amit a v\u00e9gpontnak adhatunk \u00e1t kulcs-\u00e9rt\u00e9k p\u00e1rok form\u00e1j\u00e1ban.",
+                    "name": "Adattartalom"
+                }
+            },
+            "name": "Parancs"
+        },
+        "select_sound_output": {
+            "description": "Parancsot k\u00fcld a TV-nek a hangkimenet megv\u00e1ltoztat\u00e1s\u00e1hoz.",
+            "fields": {
+                "entity_id": {
+                    "description": "A webostv entit\u00e1sok neve, amelyeken a hangkimenetet meg kell v\u00e1ltoztatni.",
+                    "name": "Entit\u00e1s"
+                },
+                "sound_output": {
+                    "description": "A v\u00e1ltand\u00f3 hangkimenet neve.",
+                    "name": "Hangkimenet"
+                }
+            },
+            "name": "Hangkimenet kiv\u00e1laszt\u00e1sa"
+        }
+    }
+}

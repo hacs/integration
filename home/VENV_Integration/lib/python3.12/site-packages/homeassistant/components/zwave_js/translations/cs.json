@@ -1,0 +1,625 @@
+{
+    "config": {
+        "abort": {
+            "addon_get_discovery_info_failed": "Nepoda\u0159ilo se z\u00edskat informace o zji\u0161\u0165ov\u00e1n\u00ed dopl\u0148ku Z-Wave JS.",
+            "addon_info_failed": "Nepoda\u0159ilo se z\u00edskat informace o dopl\u0148ku Z-Wave JS.",
+            "addon_install_failed": "Nepoda\u0159ilo se nainstalovat dopln\u011bk Z-Wave JS.",
+            "addon_set_config_failed": "Nepoda\u0159ilo se nastavit Z-Wave JS.",
+            "addon_start_failed": "Nepoda\u0159ilo se spustit dopln\u011bk Z-Wave JS.",
+            "already_configured": "Za\u0159\u00edzen\u00ed je ji\u017e nastaveno",
+            "already_in_progress": "Nastaven\u00ed ji\u017e prob\u00edh\u00e1",
+            "cannot_connect": "Nepoda\u0159ilo se p\u0159ipojit",
+            "discovery_requires_supervisor": "Zji\u0161\u0165ov\u00e1n\u00ed vy\u017eaduje Supervizora.",
+            "not_zwave_device": "Zji\u0161t\u011bn\u00e9 za\u0159\u00edzen\u00ed nen\u00ed za\u0159\u00edzen\u00ed Z-Wave.",
+            "not_zwave_js_addon": "Zji\u0161t\u011bn\u00fd dopln\u011bk nen\u00ed ofici\u00e1ln\u00edm dopl\u0148kem Z-Wave JS."
+        },
+        "error": {
+            "addon_start_failed": "Nepoda\u0159ilo se spustit dopln\u011bk Z-Wave JS. Zkontrolujte nastaven\u00ed.",
+            "cannot_connect": "Nepoda\u0159ilo se p\u0159ipojit",
+            "invalid_ws_url": "Neplatn\u00e1 URL webov\u00e9ho soketu",
+            "unknown": "Neo\u010dek\u00e1van\u00e1 chyba"
+        },
+        "flow_title": "{name}",
+        "progress": {
+            "install_addon": "Po\u010dkejte na dokon\u010den\u00ed instalace dopl\u0148ku Z-Wave JS. To m\u016f\u017ee trvat n\u011bkolik minut.",
+            "start_addon": "Po\u010dkejte, ne\u017e se dokon\u010d\u00ed spu\u0161t\u011bn\u00ed dopl\u0148ku Z-Wave JS. To m\u016f\u017ee trvat n\u011bkolik sekund."
+        },
+        "step": {
+            "configure_addon": {
+                "data": {
+                    "s0_legacy_key": "Kl\u00ed\u010d S0 (star\u0161\u00ed)",
+                    "s2_access_control_key": "P\u0159\u00edstupov\u00fd kl\u00ed\u010d S2",
+                    "s2_authenticated_key": "Ov\u011b\u0159en\u00fd kl\u00ed\u010d S2",
+                    "s2_unauthenticated_key": "Neov\u011b\u0159en\u00fd kl\u00ed\u010d S2",
+                    "usb_path": "Cesta k USB za\u0159\u00edzen\u00ed"
+                },
+                "description": "Pokud tato pole z\u016fstanou pr\u00e1zdn\u00e1, dopln\u011bk vygeneruje bezpe\u010dnostn\u00ed kl\u00ed\u010de.",
+                "title": "Zadat nastaven\u00ed dopl\u0148ku Z-Wave JS"
+            },
+            "hassio_confirm": {
+                "title": "Nastavit integraci Z-Wave JS pomoc\u00ed dopl\u0148ku Z-Wave JS"
+            },
+            "install_addon": {
+                "title": "Instalace dopl\u0148ku Z-Wave JS byla zah\u00e1jena"
+            },
+            "manual": {
+                "data": {
+                    "url": "URL"
+                }
+            },
+            "on_supervisor": {
+                "data": {
+                    "use_addon": "Pou\u017e\u00edt dopln\u011bk Z-Wave JS Supervisor"
+                },
+                "description": "Chcete pou\u017e\u00edvat dopln\u011bk Z-Wave JS Supervisor?",
+                "title": "Vybrat zp\u016fsob p\u0159ipojen\u00ed"
+            },
+            "start_addon": {
+                "title": "Spou\u0161t\u00ed se dopln\u011bk Z-Wave JS."
+            },
+            "usb_confirm": {
+                "description": "Chcete nastavit {name} pomoc\u00ed dopl\u0148ku Z-Wave JS?"
+            },
+            "zeroconf_confirm": {
+                "description": "Chcete p\u0159idat Z-Wave JS Server s ID domova {home_id} nalezen\u00fd na {url} do Home Assistanta?",
+                "title": "Zji\u0161t\u011bn\u00fd server Z-Wave JS"
+            }
+        }
+    },
+    "device_automation": {
+        "action_type": {
+            "clear_lock_usercode": "Vymazat u\u017eivatelsk\u00fd k\u00f3d na {entity_name}",
+            "ping": "Ping za\u0159\u00edzen\u00ed",
+            "refresh_value": "Obnovit hodnoty pro {entity_name}",
+            "reset_meter": "Resetovat m\u011b\u0159i\u010de na {subtype}",
+            "set_config_parameter": "Nastavit hodnotu konfigura\u010dn\u00edho parametru {subtype}",
+            "set_lock_usercode": "Nastavit u\u017eivatelsk\u00fd k\u00f3d na {entity_name}",
+            "set_value": "Nastavit hodnotu Z-Wave Value"
+        },
+        "condition_type": {
+            "config_parameter": "Hodnota konfigura\u010dn\u00edho parametru {subtype}",
+            "node_status": "Stav uzlu",
+            "value": "Aktu\u00e1ln\u00ed hodnota Z-Wave Value"
+        },
+        "extra_fields": {
+            "code_slot": "Slot k\u00f3du",
+            "command_class": "T\u0159\u00edda p\u0159\u00edkazu",
+            "data_type": "Datov\u00fd typ",
+            "endpoint": "Koncov\u00fd bod",
+            "event": "Ud\u00e1lost",
+            "event_label": "\u0160t\u00edtek ud\u00e1losti",
+            "event_type": "Typ ud\u00e1losti",
+            "for": "Doba trv\u00e1n\u00ed",
+            "from": "Od",
+            "label": "\u0160t\u00edtek",
+            "property": "Vlastnost",
+            "property_key": "Kl\u00ed\u010d vlastnosti",
+            "refresh_all_values": "Obnovit v\u0161echny hodnoty",
+            "status": "Stav",
+            "to": "Do",
+            "type.": "Typ",
+            "usercode": "U\u017eivatelsk\u00fd k\u00f3d",
+            "value": "Hodnota",
+            "wait_for_result": "\u010cekat na v\u00fdsledek"
+        },
+        "trigger_type": {
+            "event.notification.entry_control": "Odesl\u00e1no ozn\u00e1men\u00ed o \u0159\u00edzen\u00ed vstupu",
+            "event.notification.notification": "Odesl\u00e1no ozn\u00e1men\u00ed",
+            "event.value_notification.basic": "Z\u00e1kladn\u00ed ud\u00e1lost CC na {subtype}",
+            "event.value_notification.central_scene": "Akce centr\u00e1ln\u00ed sc\u00e9ny na {subtype}",
+            "event.value_notification.scene_activation": "Aktivace sc\u00e9ny na {subtype}",
+            "state.node_status": "Stav uzlu zm\u011bn\u011bn",
+            "zwave_js.value_updated.config_parameter": "Zm\u011bna hodnoty konfigura\u010dn\u00edho parametru {subtype}",
+            "zwave_js.value_updated.value": "Zm\u011bna hodnoty na Z-Wave JS Value"
+        }
+    },
+    "entity": {
+        "button": {
+            "ping": {
+                "name": "Ping"
+            }
+        },
+        "sensor": {
+            "average_background_rssi": {
+                "name": "Pr\u016fm\u011brn\u00e9 RSSI na pozad\u00ed (kan\u00e1l {channel})"
+            },
+            "can": {
+                "name": "Kolize"
+            },
+            "commands_dropped": {
+                "name": "Zahozen\u00e9 p\u0159\u00edkazy ({direction})"
+            },
+            "controller_status": {
+                "name": "Stav",
+                "state": {
+                    "jammed": "Zaseknuto",
+                    "ready": "P\u0159ipraveno",
+                    "unresponsive": "Nereaguje"
+                }
+            },
+            "current_background_rssi": {
+                "name": "Aktu\u00e1ln\u00ed RSSI na pozad\u00ed (kan\u00e1l {channel})"
+            },
+            "last_seen": {
+                "name": "Naposledy vid\u011bno"
+            },
+            "messages_dropped": {
+                "name": "Zahozen\u00e9 zpr\u00e1vy ({direction})"
+            },
+            "nak": {
+                "name": "Zpr\u00e1vy nebyly p\u0159ijaty"
+            },
+            "node_status": {
+                "name": "Stav uzlu",
+                "state": {
+                    "alive": "Na\u017eivu",
+                    "asleep": "Sp\u00edc\u00ed",
+                    "awake": "Vzh\u016fru",
+                    "dead": "Mrtv\u00fd",
+                    "unknown": "Nezn\u00e1m\u00fd"
+                }
+            },
+            "rssi": {
+                "name": "RSSI"
+            },
+            "rtt": {
+                "name": "Doba zp\u00e1te\u010dn\u00ed cesty"
+            },
+            "successful_commands": {
+                "name": "\u00dasp\u011b\u0161n\u00e9 p\u0159\u00edkazy ({direction})"
+            },
+            "successful_messages": {
+                "name": "\u00dasp\u011b\u0161n\u00e9 zpr\u00e1vy ({direction})"
+            },
+            "timeout_ack": {
+                "name": "Chyb\u011bj\u00edc\u00ed ACK"
+            },
+            "timeout_callback": {
+                "name": "Zp\u011btn\u00e1 vol\u00e1n\u00ed s vypr\u0161en\u00fdm \u010dasov\u00fdm limitem"
+            },
+            "timeout_response": {
+                "name": "Odpov\u011bdi s vypr\u0161en\u00fdm \u010dasov\u00fdm limitem"
+            }
+        }
+    },
+    "issues": {
+        "device_config_file_changed": {
+            "fix_flow": {
+                "abort": {
+                    "cannot_connect": "Nelze se p\u0159ipojit k {device_name} . Zkuste to znovu pozd\u011bji po potvrzen\u00ed, \u017ee va\u0161e s\u00ed\u0165 Z-Wave je aktivn\u00ed a p\u0159ipojen\u00e1 k Home Assistantovi.",
+                    "issue_ignored": "Aktualizace konfigura\u010dn\u00edho souboru za\u0159\u00edzen\u00ed pro {device_name} byla ignorov\u00e1na."
+                },
+                "step": {
+                    "confirm": {
+                        "description": "Konfigura\u010dn\u00ed soubor za\u0159\u00edzen\u00ed pro {device_name} se zm\u011bnil.\n\nZ-Wave JS zji\u0161\u0165uje spoustu metadat za\u0159\u00edzen\u00ed dotazov\u00e1n\u00edm za\u0159\u00edzen\u00ed. N\u011bkter\u00e9 informace je v\u0161ak nutn\u00e9 na\u010d\u00edst z konfigura\u010dn\u00edho souboru. N\u011bkter\u00e9 z t\u011bchto informac\u00ed jsou vyhodnoceny jen jednou, b\u011bhem rozhovoru se za\u0159\u00edzen\u00edm.\n\nP\u0159i aktualizaci konfigura\u010dn\u00edho souboru za\u0159\u00edzen\u00ed mohou b\u00fdt tyto informace zastaral\u00e9 a za\u0159\u00edzen\u00ed mus\u00ed b\u00fdt znovu dot\u00e1z\u00e1no, aby se zm\u011bny projevily.\n\nToto nen\u00ed povinn\u00e1 operace a b\u011bhem procesu op\u011btovn\u00e9ho dotazov\u00e1n\u00ed bude ovlivn\u011bna funk\u010dnost za\u0159\u00edzen\u00ed, ale po jeho dokon\u010den\u00ed m\u016f\u017eete zaznamenat vylep\u0161en\u00ed va\u0161eho za\u0159\u00edzen\u00ed.\n\nPokud chcete pokra\u010dovat, klepn\u011bte n\u00ed\u017ee na tla\u010d\u00edtko Odeslat. Na pozad\u00ed prob\u011bhne op\u011btovn\u00e9 dot\u00e1z\u00e1n\u00ed.",
+                        "title": "Zm\u011bn\u011bn konfigura\u010dn\u00ed soubor za\u0159\u00edzen\u00ed: {device_name}"
+                    },
+                    "init": {
+                        "description": "Konfigura\u010dn\u00ed soubor za\u0159\u00edzen\u00ed pro {device_name} se zm\u011bnil.\n\nZ-Wave JS zji\u0161\u0165uje spoustu metadat za\u0159\u00edzen\u00ed dotazov\u00e1n\u00edm za\u0159\u00edzen\u00ed. N\u011bkter\u00e9 informace je v\u0161ak nutn\u00e9 na\u010d\u00edst z konfigura\u010dn\u00edho souboru. N\u011bkter\u00e9 z t\u011bchto informac\u00ed jsou vyhodnoceny pouze jednou, b\u011bhem rozhovoru se za\u0159\u00edzen\u00edm.\n\nP\u0159i aktualizaci konfigura\u010dn\u00edho souboru za\u0159\u00edzen\u00ed mohou b\u00fdt tyto informace zastaral\u00e9 a za\u0159\u00edzen\u00ed mus\u00ed b\u00fdt znovu dot\u00e1z\u00e1no, aby se zm\u011bny projevily.\n\nToto nen\u00ed povinn\u00e1 operace a funkce za\u0159\u00edzen\u00ed bude ovlivn\u011bna b\u011bhem procesu op\u011btovn\u00e9ho pohovoru, ale po jeho dokon\u010den\u00ed m\u016f\u017eete zaznamenat vylep\u0161en\u00ed va\u0161eho za\u0159\u00edzen\u00ed.\n\nPokud se rozhodnete p\u0159istoupit k op\u011btovn\u00e9mu dot\u00e1z\u00e1n\u00ed, bude prob\u00edhat na pozad\u00ed.",
+                        "menu_options": {
+                            "confirm": "Znovu se dot\u00e1zat za\u0159\u00edzen\u00ed",
+                            "ignore": "Ignorovat aktualizaci konfigurace za\u0159\u00edzen\u00ed"
+                        },
+                        "title": "Zm\u011bn\u011bn konfigura\u010dn\u00ed soubor za\u0159\u00edzen\u00ed: {device_name}"
+                    }
+                }
+            },
+            "title": "Zm\u011bn\u011bn konfigura\u010dn\u00ed soubor za\u0159\u00edzen\u00ed: {device_name}"
+        },
+        "dry_fan_presets_deprecation": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Ve va\u0161\u00ed entit\u011b \"{entity_id}\" pou\u017e\u00edv\u00e1te p\u0159ednastaven\u00e9 re\u017eimy Dry nebo Fan.\n\nP\u0159ednastaven\u00e9 re\u017eimy su\u0161en\u00ed a ventil\u00e1toru jsou zastaral\u00e9 a budou odebr\u00e1ny. Aktualizujte automatizace, aby m\u00edsto toho pou\u017e\u00edvaly odpov\u00eddaj\u00edc\u00ed re\u017eimy su\u0161en\u00ed a ventil\u00e1toru **HVAC**.\n\nJakmile tento probl\u00e9m ru\u010dn\u011b oprav\u00edte, klepn\u011bte n\u00ed\u017ee na tla\u010d\u00edtko Odeslat.",
+                        "title": "P\u0159ednastaven\u00e9 re\u017eimy Dry a Fan budou odebr\u00e1ny: {entity_id}"
+                    }
+                }
+            },
+            "title": "P\u0159ednastaven\u00e9 re\u017eimy Dry a Fan budou odebr\u00e1ny: {entity_id}"
+        },
+        "invalid_server_version": {
+            "description": "Verze Z-Wave JS Server, kterou aktu\u00e1ln\u011b pou\u017e\u00edv\u00e1te, je pro tuto verzi Home Assistanta p\u0159\u00edli\u0161 star\u00e1. Chcete-li tento probl\u00e9m vy\u0159e\u0161it, aktualizujte Z-Wave JS Server na nejnov\u011bj\u0161\u00ed verzi.",
+            "title": "Je pot\u0159eba nov\u011bj\u0161\u00ed verze Z-Wave JS Server"
+        }
+    },
+    "options": {
+        "abort": {
+            "addon_get_discovery_info_failed": "Nepoda\u0159ilo se z\u00edskat informace o zji\u0161\u0165ov\u00e1n\u00ed dopl\u0148ku Z-Wave JS.",
+            "addon_info_failed": "Nepoda\u0159ilo se z\u00edskat informace o dopl\u0148ku Z-Wave JS.",
+            "addon_install_failed": "Nepoda\u0159ilo se nainstalovat dopln\u011bk Z-Wave JS.",
+            "addon_set_config_failed": "Nepoda\u0159ilo se nastavit Z-Wave JS.",
+            "addon_start_failed": "Nepoda\u0159ilo se spustit dopln\u011bk Z-Wave JS.",
+            "already_configured": "Za\u0159\u00edzen\u00ed je ji\u017e nastaveno",
+            "cannot_connect": "Nepoda\u0159ilo se p\u0159ipojit",
+            "different_device": "P\u0159ipojen\u00e9 za\u0159\u00edzen\u00ed USB nen\u00ed stejn\u00e9 jako d\u0159\u00edve nastaven\u00e9 pro tuto polo\u017eku nastaven\u00ed. M\u00edsto toho vytvo\u0159te nov\u00fd konfigura\u010dn\u00ed z\u00e1znam pro nov\u00e9 za\u0159\u00edzen\u00ed."
+        },
+        "error": {
+            "cannot_connect": "Nepoda\u0159ilo se p\u0159ipojit",
+            "invalid_ws_url": "Neplatn\u00e1 URL webov\u00e9ho soketu",
+            "unknown": "Neo\u010dek\u00e1van\u00e1 chyba"
+        },
+        "progress": {
+            "install_addon": "Po\u010dkejte na dokon\u010den\u00ed instalace dopl\u0148ku Z-Wave JS. To m\u016f\u017ee trvat n\u011bkolik minut.",
+            "start_addon": "Po\u010dkejte, ne\u017e se dokon\u010d\u00ed spu\u0161t\u011bn\u00ed dopl\u0148ku Z-Wave JS. To m\u016f\u017ee trvat n\u011bkolik sekund."
+        },
+        "step": {
+            "configure_addon": {
+                "data": {
+                    "emulate_hardware": "Emulovat hardware",
+                    "log_level": "\u00darove\u0148 logu",
+                    "s0_legacy_key": "Kl\u00ed\u010d S0 (star\u0161\u00ed)",
+                    "s2_access_control_key": "P\u0159\u00edstupov\u00fd kl\u00ed\u010d S2",
+                    "s2_authenticated_key": "Ov\u011b\u0159en\u00fd kl\u00ed\u010d S2",
+                    "s2_unauthenticated_key": "Neov\u011b\u0159en\u00fd kl\u00ed\u010d S2",
+                    "usb_path": "Cesta k USB za\u0159\u00edzen\u00ed"
+                },
+                "description": "Pokud tato pole z\u016fstanou pr\u00e1zdn\u00e1, dopln\u011bk vygeneruje bezpe\u010dnostn\u00ed kl\u00ed\u010de.",
+                "title": "Zadat nastaven\u00ed dopl\u0148ku Z-Wave JS"
+            },
+            "install_addon": {
+                "title": "Instalace dopl\u0148ku Z-Wave JS byla zah\u00e1jena"
+            },
+            "manual": {
+                "data": {
+                    "url": "URL"
+                }
+            },
+            "on_supervisor": {
+                "data": {
+                    "use_addon": "Pou\u017e\u00edt dopln\u011bk Z-Wave JS Supervisor"
+                },
+                "description": "Chcete pou\u017e\u00edvat dopln\u011bk Z-Wave JS Supervisor?",
+                "title": "Vybrat zp\u016fsob p\u0159ipojen\u00ed"
+            },
+            "start_addon": {
+                "title": "Spou\u0161t\u00ed se dopln\u011bk Z-Wave JS."
+            }
+        }
+    },
+    "services": {
+        "bulk_set_partial_config_parameters": {
+            "description": "Umo\u017e\u0148uje hromadn\u00e9 nastaven\u00ed d\u00edl\u010d\u00edch parametr\u016f. U\u017eite\u010dn\u00e9, kdy\u017e je t\u0159eba nastavit v\u00edce d\u00edl\u010d\u00edch parametr\u016f sou\u010dasn\u011b.",
+            "fields": {
+                "area_id": {
+                    "description": "Oblasti, na kter\u00e9 se m\u00e1 tato slu\u017eba zam\u011b\u0159it. Pokud je oblast zad\u00e1na, budou pro tuto slu\u017ebu zam\u011b\u0159ena v\u0161echna za\u0159\u00edzen\u00ed a entity zwave_js v t\u00e9to oblasti.",
+                    "name": "ID oblasti"
+                },
+                "device_id": {
+                    "description": "Za\u0159\u00edzen\u00ed, na kter\u00e1 se m\u00e1 tato slu\u017eba c\u00edlit.",
+                    "name": "ID za\u0159\u00edzen\u00ed"
+                },
+                "endpoint": {
+                    "description": "Koncov\u00fd bod konfigura\u010dn\u00edho parametru.",
+                    "name": "Koncov\u00fd bod"
+                },
+                "entity_id": {
+                    "description": "ID entit, na kter\u00e9 se m\u00e1 tato slu\u017eba c\u00edlit.",
+                    "name": "ID entit"
+                },
+                "parameter": {
+                    "description": "N\u00e1zev (nebo ID) konfigura\u010dn\u00edho parametru, kter\u00fd chcete nastavit.",
+                    "name": "Parametr"
+                },
+                "value": {
+                    "description": "Nov\u00e9 hodnoty, kter\u00e9 se maj\u00ed nastavit pro tento konfigura\u010dn\u00ed parametr. M\u016f\u017ee to b\u00fdt bu\u010f nezpracovan\u00e1 celo\u010d\u00edseln\u00e1 hodnota reprezentuj\u00edc\u00ed hromadnou zm\u011bnu, nebo mapov\u00e1n\u00ed, kde kl\u00ed\u010dem je bitov\u00e1 maska (bu\u010f v hexadecim\u00e1ln\u00edm nebo celo\u010d\u00edseln\u00e9m tvaru) a \"Hodnota\" je nov\u00e1 hodnota, kterou chcete nastavit pro tento d\u00edl\u010d\u00ed parametr.",
+                    "name": "Hodnota"
+                }
+            },
+            "name": "Hromadn\u011b nastavit d\u00edl\u010d\u00ed konfigura\u010dn\u00ed parametry (pokro\u010dil\u00e9)"
+        },
+        "clear_lock_usercode": {
+            "description": "Vyma\u017ee u\u017eivatelsk\u00fd k\u00f3d ze z\u00e1mku.",
+            "fields": {
+                "code_slot": {
+                    "description": "Slot k\u00f3du pro vymaz\u00e1n\u00ed k\u00f3du.",
+                    "name": "Slot k\u00f3du"
+                }
+            },
+            "name": "Vymazat u\u017eivatelsk\u00fd k\u00f3d z\u00e1mku"
+        },
+        "invoke_cc_api": {
+            "description": "Vol\u00e1 rozhran\u00ed API t\u0159\u00eddy p\u0159\u00edkaz\u016f na uzlu. N\u011bkter\u00e9 t\u0159\u00eddy p\u0159\u00edkaz\u016f nelze pln\u011b ovl\u00e1dat prost\u0159ednictv\u00edm akce \"set_value\" a vy\u017eaduj\u00ed p\u0159\u00edm\u00e1 vol\u00e1n\u00ed rozhran\u00ed API t\u0159\u00eddy p\u0159\u00edkaz\u016f.",
+            "fields": {
+                "area_id": {
+                    "description": "Oblasti, na kter\u00e9 se m\u00e1 tato slu\u017eba zam\u011b\u0159it. Pokud je oblast zad\u00e1na, budou pro tuto slu\u017ebu zam\u011b\u0159ena v\u0161echna za\u0159\u00edzen\u00ed a entity zwave_js v t\u00e9to oblasti.",
+                    "name": "ID oblasti"
+                },
+                "command_class": {
+                    "description": "ID t\u0159\u00eddy p\u0159\u00edkazu, kter\u00e9 chcete zadat p\u0159\u00edkaz.",
+                    "name": "T\u0159\u00edda p\u0159\u00edkazu"
+                },
+                "device_id": {
+                    "description": "Za\u0159\u00edzen\u00ed, na kter\u00e1 se m\u00e1 tato slu\u017eba c\u00edlit.",
+                    "name": "ID za\u0159\u00edzen\u00ed"
+                },
+                "endpoint": {
+                    "description": "Koncov\u00fd bod pro vol\u00e1n\u00ed rozhran\u00ed API. Pokud je zad\u00e1n koncov\u00fd bod, bude tento koncov\u00fd bod c\u00edlen pro v\u0161echny uzly spojen\u00e9 s c\u00edlov\u00fdmi oblastmi, za\u0159\u00edzen\u00edmi a/nebo entitami. Pokud koncov\u00fd bod nen\u00ed zad\u00e1n, bude c\u00edlov\u00fd ko\u0159enov\u00fd koncov\u00fd bod (0) zam\u011b\u0159en na uzly spojen\u00e9 s c\u00edlov\u00fdmi oblastmi a za\u0159\u00edzen\u00edmi a c\u00edlov\u00fd bude koncov\u00fd bod pro prim\u00e1rn\u00ed hodnotu ka\u017ed\u00e9 entity.",
+                    "name": "Koncov\u00fd bod"
+                },
+                "entity_id": {
+                    "description": "ID entit, na kter\u00e9 se m\u00e1 tato slu\u017eba c\u00edlit.",
+                    "name": "ID entit"
+                },
+                "method_name": {
+                    "description": "N\u00e1zev metody API, kter\u00e1 se m\u00e1 volat. Dostupn\u00e9 metody najdete v dokumentaci Z-Wave JS Command Class API (https://zwave-js.github.io/node-zwave-js/#/api/CCs/index).",
+                    "name": "N\u00e1zev metody"
+                },
+                "parameters": {
+                    "description": "Seznam parametr\u016f, kter\u00e9 se maj\u00ed p\u0159edat metod\u011b API. Parametry najdete v dokumentaci Z-Wave JS Command Class API (https://zwave-js.github.io/node-zwave-js/#/api/CCs/index).",
+                    "name": "Parametry"
+                }
+            },
+            "name": "Vyvolat rozhran\u00ed Command Class API na uzlu (pokro\u010dil\u00e9)"
+        },
+        "multicast_set_value": {
+            "description": "Zm\u011bn\u00ed libovolnou hodnotu, kterou Z-Wave JS rozpozn\u00e1 na v\u00edce za\u0159\u00edzen\u00edch Z-Wave vyu\u017e\u00edvaj\u00edc\u00edch multicast, tak\u017ee v\u0161echna za\u0159\u00edzen\u00ed obdr\u017e\u00ed zpr\u00e1vu sou\u010dasn\u011b. Tato akce m\u00e1 minim\u00e1ln\u00ed ov\u011b\u0159en\u00ed, tak\u017ee tuto slu\u017ebu pou\u017e\u00edvejte jen v p\u0159\u00edpad\u011b, \u017ee v\u00edte, co d\u011bl\u00e1te.",
+            "fields": {
+                "area_id": {
+                    "description": "Oblasti, na kter\u00e9 se m\u00e1 tato slu\u017eba zam\u011b\u0159it. Pokud je oblast zad\u00e1na, budou pro tuto slu\u017ebu zam\u011b\u0159ena v\u0161echna za\u0159\u00edzen\u00ed a entity zwave_js v t\u00e9to oblasti.",
+                    "name": "ID oblasti"
+                },
+                "broadcast": {
+                    "description": "Zda se m\u00e1 p\u0159\u00edkaz vys\u00edlat v\u0161em za\u0159\u00edzen\u00edm v s\u00edti.",
+                    "name": "Vys\u00edlat?"
+                },
+                "command_class": {
+                    "description": "ID t\u0159\u00eddy p\u0159\u00edkazu pro hodnotu.",
+                    "name": "T\u0159\u00edda p\u0159\u00edkazu"
+                },
+                "device_id": {
+                    "description": "Za\u0159\u00edzen\u00ed, na kter\u00e1 se m\u00e1 tato slu\u017eba c\u00edlit.",
+                    "name": "ID za\u0159\u00edzen\u00ed"
+                },
+                "endpoint": {
+                    "description": "Koncov\u00fd bod pro hodnotu.",
+                    "name": "Koncov\u00fd bod"
+                },
+                "entity_id": {
+                    "description": "ID entit, na kter\u00e9 se m\u00e1 tato slu\u017eba c\u00edlit.",
+                    "name": "ID entit"
+                },
+                "options": {
+                    "description": "Nastav\u00ed mapu voleb hodnot. Dal\u0161\u00ed informace o tom, jak\u00e9 volby lze nastavit, najdete v dokumentaci Z-Wave JS.",
+                    "name": "Volby"
+                },
+                "property": {
+                    "description": "ID vlastnosti pro hodnotu.",
+                    "name": "Vlastnost"
+                },
+                "property_key": {
+                    "description": "ID kl\u00ed\u010de vlastnosti pro hodnotu.",
+                    "name": "Kl\u00ed\u010d vlastnosti"
+                },
+                "value": {
+                    "description": "Nov\u00e1 hodnota k nastaven\u00ed.",
+                    "name": "Hodnota"
+                }
+            },
+            "name": "Nastavit hodnotu na v\u00edce za\u0159\u00edzen\u00edch prost\u0159ednictv\u00edm multicastu (pokro\u010dil\u00e9)"
+        },
+        "ping": {
+            "description": "Vynut\u00ed Z-Wave JS pokusit se dos\u00e1hnout uzlu. To lze pou\u017e\u00edt k aktualizaci stavu uzlu v Z-Wave JS, kdy\u017e si mysl\u00edte, \u017ee p\u0159esn\u011b neodr\u00e1\u017e\u00ed realitu, nap\u0159. o\u017eiven\u00ed ne\u00fasp\u011b\u0161n\u00e9ho/mrtv\u00e9ho uzlu nebo ozna\u010den\u00ed uzlu jako sp\u00edc\u00edho.",
+            "fields": {
+                "area_id": {
+                    "description": "Oblasti, na kter\u00e9 se m\u00e1 tato slu\u017eba zam\u011b\u0159it. Pokud je oblast zad\u00e1na, budou pro tuto slu\u017ebu zam\u011b\u0159ena v\u0161echna za\u0159\u00edzen\u00ed a entity zwave_js v t\u00e9to oblasti.",
+                    "name": "ID oblasti"
+                },
+                "device_id": {
+                    "description": "Za\u0159\u00edzen\u00ed, na kter\u00e1 se m\u00e1 tato slu\u017eba c\u00edlit.",
+                    "name": "ID za\u0159\u00edzen\u00ed"
+                },
+                "entity_id": {
+                    "description": "ID entit, na kter\u00e9 se m\u00e1 tato slu\u017eba c\u00edlit.",
+                    "name": "ID entit"
+                }
+            },
+            "name": "Ping uzlu"
+        },
+        "refresh_notifications": {
+            "description": "Obnov\u00ed ozn\u00e1men\u00ed na uzlu na z\u00e1klad\u011b typu ozn\u00e1men\u00ed a voliteln\u011b ud\u00e1losti ozn\u00e1men\u00ed.",
+            "fields": {
+                "area_id": {
+                    "description": "Oblasti, na kter\u00e9 se m\u00e1 tato slu\u017eba zam\u011b\u0159it. Pokud je oblast zad\u00e1na, budou pro tuto slu\u017ebu zam\u011b\u0159ena v\u0161echna za\u0159\u00edzen\u00ed a entity zwave_js v t\u00e9to oblasti.",
+                    "name": "ID oblasti"
+                },
+                "device_id": {
+                    "description": "Za\u0159\u00edzen\u00ed, na kter\u00e1 se m\u00e1 tato slu\u017eba c\u00edlit.",
+                    "name": "ID za\u0159\u00edzen\u00ed"
+                },
+                "entity_id": {
+                    "description": "ID entit, na kter\u00e9 se m\u00e1 tato slu\u017eba c\u00edlit.",
+                    "name": "ID entit"
+                },
+                "notification_event": {
+                    "description": "\u010c\u00edslo ud\u00e1losti ozn\u00e1men\u00ed, jak je definov\u00e1no ve specifikac\u00edch Z-Wave.",
+                    "name": "Ud\u00e1lost ozn\u00e1men\u00ed"
+                },
+                "notification_type": {
+                    "description": "\u010c\u00edslo typu ozn\u00e1men\u00ed, jak je definov\u00e1no ve specifikac\u00edch Z-Wave.",
+                    "name": "Typ ozn\u00e1men\u00ed"
+                }
+            },
+            "name": "Obnovit ozn\u00e1men\u00ed na uzlu (pokro\u010dil\u00e9)"
+        },
+        "refresh_value": {
+            "description": "Vynut\u00ed aktualizaci hodnot entity Z-Wave.",
+            "fields": {
+                "entity_id": {
+                    "description": "Entity k obnoven\u00ed.",
+                    "name": "Entity"
+                },
+                "refresh_all_values": {
+                    "description": "Zda obnovit v\u0161echny hodnoty (true) nebo jen prim\u00e1rn\u00ed hodnotu (false).",
+                    "name": "Obnovit v\u0161echny hodnoty?"
+                }
+            },
+            "name": "Obnovit hodnoty"
+        },
+        "reset_meter": {
+            "description": "Resetuje m\u011b\u0159i\u010de na uzlu.",
+            "fields": {
+                "area_id": {
+                    "description": "Oblasti, na kter\u00e9 se m\u00e1 tato slu\u017eba zam\u011b\u0159it. Pokud je oblast zad\u00e1na, budou pro tuto slu\u017ebu zam\u011b\u0159ena v\u0161echna za\u0159\u00edzen\u00ed a entity zwave_js v t\u00e9to oblasti.",
+                    "name": "ID oblasti"
+                },
+                "device_id": {
+                    "description": "Za\u0159\u00edzen\u00ed, na kter\u00e1 se m\u00e1 tato slu\u017eba c\u00edlit.",
+                    "name": "ID za\u0159\u00edzen\u00ed"
+                },
+                "entity_id": {
+                    "description": "ID entit, na kter\u00e9 se m\u00e1 tato slu\u017eba c\u00edlit.",
+                    "name": "ID entit"
+                },
+                "meter_type": {
+                    "description": "Typ m\u011b\u0159i\u010de, kter\u00fd se m\u00e1 resetovat. Ne v\u0161echny m\u011b\u0159i\u010de podporuj\u00ed mo\u017enost vybrat typ m\u011b\u0159i\u010de k resetov\u00e1n\u00ed.",
+                    "name": "Typ m\u011b\u0159i\u010de"
+                },
+                "value": {
+                    "description": "Hodnota, na kterou by m\u011bly b\u00fdt m\u011b\u0159i\u010de resetov\u00e1ny. Ne v\u0161echny m\u011b\u0159i\u010de podporuj\u00ed mo\u017enost resetov\u00e1n\u00ed na ur\u010ditou hodnotu.",
+                    "name": "C\u00edlov\u00e1 hodnota"
+                }
+            },
+            "name": "Resetovat m\u011b\u0159i\u010de na uzlu"
+        },
+        "set_config_parameter": {
+            "description": "Zm\u011bn\u00ed konfigura\u010dn\u00ed parametry va\u0161ich za\u0159\u00edzen\u00ed Z-Wave.",
+            "fields": {
+                "area_id": {
+                    "description": "Oblasti, na kter\u00e9 se m\u00e1 tato slu\u017eba zam\u011b\u0159it. Pokud je oblast zad\u00e1na, budou pro tuto slu\u017ebu zam\u011b\u0159ena v\u0161echna za\u0159\u00edzen\u00ed a entity zwave_js v t\u00e9to oblasti.",
+                    "name": "ID oblasti"
+                },
+                "bitmask": {
+                    "description": "Zac\u00edl\u00ed na konkr\u00e9tn\u00ed bitovou masku (dal\u0161\u00ed informace naleznete v dokumentaci). Nelze kombinovat s value_size nebo value_format.",
+                    "name": "Bitov\u00e1 maska"
+                },
+                "device_id": {
+                    "description": "Za\u0159\u00edzen\u00ed, na kter\u00e1 se m\u00e1 tato slu\u017eba c\u00edlit.",
+                    "name": "ID za\u0159\u00edzen\u00ed"
+                },
+                "endpoint": {
+                    "description": "Koncov\u00fd bod konfigura\u010dn\u00edho parametru.",
+                    "name": "Koncov\u00fd bod"
+                },
+                "entity_id": {
+                    "description": "ID entit, na kter\u00e9 se m\u00e1 tato slu\u017eba c\u00edlit.",
+                    "name": "ID entit"
+                },
+                "parameter": {
+                    "description": "N\u00e1zev (nebo ID) konfigura\u010dn\u00edho parametru, kter\u00fd chcete nastavit.",
+                    "name": "Parametr"
+                },
+                "value": {
+                    "description": "Nov\u00e1 hodnota, kter\u00e1 se m\u00e1 nastavit pro tento konfigura\u010dn\u00ed parametr.",
+                    "name": "Hodnota"
+                },
+                "value_format": {
+                    "description": "Form\u00e1t hodnoty; 0 pro cel\u00e9 \u010d\u00edslo se znam\u00e9nkem, 1 pro cel\u00e9 \u010d\u00edslo bez znam\u00e9nka, 2 pro v\u00fd\u010det, 3 pro bitov\u00e9 pole. Pou\u017e\u00edv\u00e1 se v kombinaci s value_size, kdy\u017e konfigura\u010dn\u00ed parametr nen\u00ed definov\u00e1n v konfigura\u010dn\u00edm souboru va\u0161eho za\u0159\u00edzen\u00ed. Nelze kombinovat s bitmask.",
+                    "name": "Form\u00e1t hodnoty"
+                },
+                "value_size": {
+                    "description": "Velikost hodnoty; bu\u010f 1, 2 nebo 4. Pou\u017e\u00edv\u00e1 se v kombinaci s value_format, kdy\u017e konfigura\u010dn\u00ed parametr nen\u00ed definov\u00e1n v konfigura\u010dn\u00edm souboru va\u0161eho za\u0159\u00edzen\u00ed. Nelze kombinovat s bitmask.",
+                    "name": "Velikost hodnoty"
+                }
+            },
+            "name": "Nastavit parametr nastaven\u00ed za\u0159\u00edzen\u00ed"
+        },
+        "set_lock_configuration": {
+            "description": "Nastav\u00ed z\u00e1mek.",
+            "fields": {
+                "auto_relock_time": {
+                    "description": "Doba trv\u00e1n\u00ed v sekund\u00e1ch, dokud se z\u00e1mek nevr\u00e1t\u00ed do zabezpe\u010den\u00e9ho stavu. Vynuceno jen v p\u0159\u00edpad\u011b, \u017ee typ operace je \"constant\".",
+                    "name": "\u010cas automatick\u00e9ho op\u011btovn\u00e9ho uzam\u010den\u00ed"
+                },
+                "block_to_block": {
+                    "description": "Povol\u00ed funkci Block-to-block.",
+                    "name": "Block-to-block"
+                },
+                "hold_and_release_time": {
+                    "description": "Doba trv\u00e1n\u00ed v sekund\u00e1ch, kdy z\u00e1padka z\u016fstane zasunut\u00e1.",
+                    "name": "Doba p\u0159idr\u017een\u00ed a uvoln\u011bn\u00ed"
+                },
+                "inside_handles_can_open_door_configuration": {
+                    "description": "Seznam \u010dty\u0159 logick\u00fdch hodnot, kter\u00e9 ozna\u010duj\u00ed, kter\u00e9 vnit\u0159n\u00ed kliky mohou otev\u0159\u00edt dve\u0159e.",
+                    "name": "Nastaven\u00ed pro otev\u0159en\u00ed dve\u0159\u00ed vnit\u0159n\u00edmi klikami"
+                },
+                "lock_timeout": {
+                    "description": "Sekundy do vypr\u0161en\u00ed \u010dasov\u00e9ho limitu re\u017eimu uzam\u010den\u00ed. M\u011blo by b\u00fdt pou\u017eito jen v p\u0159\u00edpad\u011b, \u017ee typ operace je \"timed\".",
+                    "name": "\u010casov\u00fd limit z\u00e1mku"
+                },
+                "operation_type": {
+                    "description": "Typ provozu z\u00e1mku.",
+                    "name": "Typ provozu"
+                },
+                "outside_handles_can_open_door_configuration": {
+                    "description": "Seznam \u010dty\u0159 logick\u00fdch hodnot, kter\u00e9 ozna\u010duj\u00ed, kter\u00e9 vn\u011bj\u0161\u00ed kliky mohou otev\u0159\u00edt dve\u0159e.",
+                    "name": "Nastaven\u00ed pro otev\u0159en\u00ed dve\u0159\u00ed vn\u011bj\u0161\u00edmi klikami"
+                },
+                "twist_assist": {
+                    "description": "Povol\u00ed Twist Assist.",
+                    "name": "Twist Assist"
+                }
+            },
+            "name": "Nastavit z\u00e1mek"
+        },
+        "set_lock_usercode": {
+            "description": "Nastav\u00ed u\u017eivatelsk\u00fd k\u00f3d na z\u00e1mku.",
+            "fields": {
+                "code_slot": {
+                    "description": "Slot k\u00f3du pro nastaven\u00ed k\u00f3du.",
+                    "name": "Slot k\u00f3du"
+                },
+                "usercode": {
+                    "description": "K\u00f3d z\u00e1mku k nastaven\u00ed.",
+                    "name": "K\u00f3d"
+                }
+            },
+            "name": "Nastavit u\u017eivatelsk\u00fd k\u00f3d z\u00e1mku"
+        },
+        "set_value": {
+            "description": "Zm\u011bn\u00ed jakoukoli hodnotu, kterou Z-Wave JS rozpozn\u00e1 na za\u0159\u00edzen\u00ed Z-Wave. Tato akce m\u00e1 minim\u00e1ln\u00ed ov\u011b\u0159en\u00ed, tak\u017ee tuto slu\u017ebu pou\u017e\u00edvejte jen v p\u0159\u00edpad\u011b, \u017ee v\u00edte, co d\u011bl\u00e1te.",
+            "fields": {
+                "area_id": {
+                    "description": "Oblasti, na kter\u00e9 se m\u00e1 tato slu\u017eba zam\u011b\u0159it. Pokud je oblast zad\u00e1na, budou pro tuto slu\u017ebu zam\u011b\u0159ena v\u0161echna za\u0159\u00edzen\u00ed a entity zwave_js v t\u00e9to oblasti.",
+                    "name": "ID oblasti"
+                },
+                "command_class": {
+                    "description": "ID t\u0159\u00eddy p\u0159\u00edkazu pro hodnotu.",
+                    "name": "T\u0159\u00edda p\u0159\u00edkazu"
+                },
+                "device_id": {
+                    "description": "Za\u0159\u00edzen\u00ed, na kter\u00e1 se m\u00e1 tato slu\u017eba c\u00edlit.",
+                    "name": "ID za\u0159\u00edzen\u00ed"
+                },
+                "endpoint": {
+                    "description": "Koncov\u00fd bod pro hodnotu.",
+                    "name": "Koncov\u00fd bod"
+                },
+                "entity_id": {
+                    "description": "ID entit, na kter\u00e9 se m\u00e1 tato slu\u017eba c\u00edlit.",
+                    "name": "ID entit"
+                },
+                "options": {
+                    "description": "Nastav\u00ed mapu voleb hodnot. Dal\u0161\u00ed informace o tom, jak\u00e9 volby lze nastavit, najdete v dokumentaci Z-Wave JS.",
+                    "name": "Volby"
+                },
+                "property": {
+                    "description": "ID vlastnosti pro hodnotu.",
+                    "name": "Vlastnost"
+                },
+                "property_key": {
+                    "description": "ID kl\u00ed\u010de vlastnosti pro hodnotu.",
+                    "name": "Kl\u00ed\u010d vlastnosti"
+                },
+                "value": {
+                    "description": "Nov\u00e1 hodnota k nastaven\u00ed.",
+                    "name": "Hodnota"
+                },
+                "wait_for_result": {
+                    "description": "Zda \u010dekat nebo ne\u010dekat na odpov\u011b\u010f z uzlu. Pokud nen\u00ed zahrnuto v datov\u00e9 \u010d\u00e1sti, integrace rozhodne, zda bude \u010dekat nebo ne. Pokud je nastaveno na \"true\", uv\u011bdomte si, \u017ee akce m\u016f\u017ee chv\u00edli trvat, pokud nastavujete hodnotu na za\u0159\u00edzen\u00ed se sp\u00edc\u00ed bateri\u00ed.",
+                    "name": "\u010cekat na v\u00fdsledek?"
+                }
+            },
+            "name": "Nastavit hodnotu (pokro\u010dil\u00e9)"
+        }
+    }
+}

@@ -1,0 +1,440 @@
+{
+    "config": {
+        "abort": {
+            "reauth_successful": "Yeniden kimlik do\u011frulama ba\u015far\u0131l\u0131 oldu",
+            "single_instance_allowed": "Zaten yap\u0131land\u0131r\u0131lm\u0131\u015f. Yaln\u0131zca tek bir konfig\u00fcrasyon m\u00fcmk\u00fcnd\u00fcr.",
+            "unknown": "Beklenmeyen hata"
+        },
+        "error": {
+            "invalid_auth": "Ge\u00e7ersiz kimlik do\u011frulama"
+        },
+        "flow_title": "{name} ({host})",
+        "step": {
+            "reauth_confirm": {
+                "data": {
+                    "client_id": "API Anahtar\u0131",
+                    "password": "\u015eifre"
+                },
+                "description": "L\u00fctfen kimlik bilgilerini do\u011frulay\u0131n."
+            },
+            "user": {
+                "data": {
+                    "client_id": "API Anahtar\u0131",
+                    "heating_type": "Is\u0131tma tipi",
+                    "password": "\u015eifre",
+                    "username": "E-posta"
+                },
+                "description": "ViCare entegrasyonunu ayarlay\u0131n. API anahtar\u0131 olu\u015fturmak i\u00e7in https://app.developer.viessmann.com adresine gidin."
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "burner": {
+                "name": "Br\u00fcl\u00f6r"
+            },
+            "circulation_pump": {
+                "name": "Sirk\u00fclasyon pompas\u0131"
+            },
+            "compressor": {
+                "name": "Kompres\u00f6r"
+            },
+            "domestic_hot_water_charging": {
+                "name": "DHW \u015farj\u0131"
+            },
+            "domestic_hot_water_circulation_pump": {
+                "name": "DHW sirk\u00fclasyon pompas\u0131"
+            },
+            "domestic_hot_water_pump": {
+                "name": "DHW pompas\u0131"
+            },
+            "frost_protection": {
+                "name": "Donmaya kar\u015f\u0131 koruma"
+            },
+            "solar_pump": {
+                "name": "G\u00fcne\u015f pompas\u0131"
+            }
+        },
+        "button": {
+            "activate_onetimecharge": {
+                "name": "Tek seferlik \u015farj\u0131 etkinle\u015ftir"
+            }
+        },
+        "climate": {
+            "heating": {
+                "name": "Is\u0131t\u0131l\u0131yor"
+            }
+        },
+        "fan": {
+            "ventilation": {
+                "name": "Havaland\u0131rma",
+                "state_attributes": {
+                    "preset_mode": {
+                        "state": {
+                            "permanent": "kal\u0131c\u0131",
+                            "sensor_driven": "sens\u00f6r",
+                            "sensor_override": "sens\u00f6r ge\u00e7ersiz k\u0131lma ile zamanlama",
+                            "ventilation": "program"
+                        }
+                    }
+                }
+            }
+        },
+        "number": {
+            "comfort_heating_temperature": {
+                "name": "Konfor s\u0131cakl\u0131\u011f\u0131"
+            },
+            "comfort_temperature": {
+                "name": "Konfor s\u0131cakl\u0131\u011f\u0131"
+            },
+            "dhw_hysteresis_switch_off": {
+                "name": "DHW histerezis anahtar\u0131 kapal\u0131"
+            },
+            "dhw_hysteresis_switch_on": {
+                "name": "DHW histerezis anahtar\u0131 a\u00e7\u0131k"
+            },
+            "dhw_secondary_temperature": {
+                "name": "DHW ikincil s\u0131cakl\u0131\u011f\u0131"
+            },
+            "dhw_temperature": {
+                "name": "DHW s\u0131cakl\u0131\u011f\u0131"
+            },
+            "eco_temperature": {
+                "name": "Eko s\u0131cakl\u0131k"
+            },
+            "heating_curve_shift": {
+                "name": "Is\u0131tma e\u011frisi kaymas\u0131"
+            },
+            "heating_curve_slope": {
+                "name": "Is\u0131tma e\u011frisi e\u011fimi"
+            },
+            "normal_heating_temperature": {
+                "name": "Normal s\u0131cakl\u0131k"
+            },
+            "normal_temperature": {
+                "name": "Normal s\u0131cakl\u0131k"
+            },
+            "reduced_heating_temperature": {
+                "name": "Azalt\u0131lm\u0131\u015f s\u0131cakl\u0131k"
+            },
+            "reduced_temperature": {
+                "name": "Azalt\u0131lm\u0131\u015f s\u0131cakl\u0131k"
+            }
+        },
+        "sensor": {
+            "boiler_supply_temperature": {
+                "name": "Kazan besleme s\u0131cakl\u0131\u011f\u0131"
+            },
+            "boiler_temperature": {
+                "name": "Kazan s\u0131cakl\u0131\u011f\u0131"
+            },
+            "buffer_main_temperature": {
+                "name": "Tampon ana s\u0131cakl\u0131\u011f\u0131"
+            },
+            "buffer_top_temperature": {
+                "name": "Tampon \u00fcst s\u0131cakl\u0131\u011f\u0131"
+            },
+            "burner_hours": {
+                "name": "Br\u00fcl\u00f6r s\u00fcreleri"
+            },
+            "burner_modulation": {
+                "name": "Br\u00fcl\u00f6r mod\u00fclasyonu"
+            },
+            "burner_starts": {
+                "name": "Br\u00fcl\u00f6r ba\u015flat"
+            },
+            "collector_temperature": {
+                "name": "G\u00fcne\u015f kolekt\u00f6r\u00fc s\u0131cakl\u0131\u011f\u0131"
+            },
+            "compressor_hours": {
+                "name": "Kompres\u00f6r saatleri"
+            },
+            "compressor_hours_loadclass1": {
+                "name": "Kompres\u00f6r \u00e7al\u0131\u015fma saatleri y\u00fck s\u0131n\u0131f\u0131 1"
+            },
+            "compressor_hours_loadclass2": {
+                "name": "Kompres\u00f6r \u00e7al\u0131\u015fma saatleri y\u00fck s\u0131n\u0131f\u0131 2"
+            },
+            "compressor_hours_loadclass3": {
+                "name": "Kompres\u00f6r \u00e7al\u0131\u015fma saatleri y\u00fck s\u0131n\u0131f\u0131 3"
+            },
+            "compressor_hours_loadclass4": {
+                "name": "Kompres\u00f6r \u00e7al\u0131\u015fma saatleri y\u00fck s\u0131n\u0131f\u0131 4"
+            },
+            "compressor_hours_loadclass5": {
+                "name": "Kompres\u00f6r \u00e7al\u0131\u015fma saatleri y\u00fck s\u0131n\u0131f\u0131 5"
+            },
+            "compressor_phase": {
+                "name": "Kompres\u00f6r faz\u0131"
+            },
+            "compressor_starts": {
+                "name": "Kompres\u00f6r ba\u015flat"
+            },
+            "energy_dhw_summary_consumption_heating_currentday": {
+                "name": "Bug\u00fcnk\u00fc DHW enerji t\u00fcketimi"
+            },
+            "energy_dhw_summary_consumption_heating_currentmonth": {
+                "name": "Bu ay DHW enerji t\u00fcketimi"
+            },
+            "energy_dhw_summary_consumption_heating_currentyear": {
+                "name": "Bu y\u0131l DHW enerji t\u00fcketimi"
+            },
+            "energy_summary_consumption_heating_currentday": {
+                "name": "Bug\u00fcnk\u00fc \u0131s\u0131tma enerjisi t\u00fcketimi"
+            },
+            "energy_summary_consumption_heating_currentmonth": {
+                "name": "Bu ayki \u0131s\u0131tma enerjisi t\u00fcketimi"
+            },
+            "energy_summary_consumption_heating_currentyear": {
+                "name": "Bu y\u0131lki \u0131s\u0131tma enerjisi t\u00fcketimi"
+            },
+            "energy_summary_consumption_heating_lastsevendays": {
+                "name": "Son yedi g\u00fcnl\u00fck \u0131s\u0131tma enerjisi t\u00fcketimi"
+            },
+            "energy_summary_dhw_consumption_heating_lastsevendays": {
+                "name": "DHW enerji t\u00fcketimi son yedi g\u00fcn"
+            },
+            "ess_discharge_this_month": {
+                "name": "Bu ayki ak\u00fc de\u015farj\u0131"
+            },
+            "ess_discharge_this_week": {
+                "name": "Bu haftaki ak\u00fc de\u015farj\u0131"
+            },
+            "ess_discharge_this_year": {
+                "name": "Bu y\u0131lki ak\u00fc de\u015farj\u0131"
+            },
+            "ess_discharge_today": {
+                "name": "Bug\u00fcnk\u00fc ak\u00fc de\u015farj\u0131"
+            },
+            "ess_discharge_total": {
+                "name": "Pil de\u015farj\u0131 toplam\u0131"
+            },
+            "ess_power_current": {
+                "name": "Pil g\u00fcc\u00fc"
+            },
+            "ess_state": {
+                "name": "Pil durumu",
+                "state": {
+                    "charge": "\u015earj Oluyor",
+                    "discharge": "Bo\u015falt\u0131l\u0131yor",
+                    "standby": "Bekleme modu"
+                }
+            },
+            "gas_consumption_fuelcell_this_month": {
+                "name": "Bu ay yak\u0131t h\u00fccresi gaz t\u00fcketimi"
+            },
+            "gas_consumption_fuelcell_this_week": {
+                "name": "Bu hafta yak\u0131t h\u00fccresi gaz t\u00fcketimi"
+            },
+            "gas_consumption_fuelcell_this_year": {
+                "name": "Bu y\u0131l yak\u0131t h\u00fccresi gaz t\u00fcketimi"
+            },
+            "gas_consumption_fuelcell_today": {
+                "name": "G\u00fcn\u00fcm\u00fczde yak\u0131t h\u00fccresi gaz t\u00fcketimi"
+            },
+            "gas_consumption_heating_this_month": {
+                "name": "Bu ayki \u0131s\u0131tma gaz\u0131 t\u00fcketimi"
+            },
+            "gas_consumption_heating_this_week": {
+                "name": "Bu haftaki \u0131s\u0131tma gaz\u0131 t\u00fcketimi"
+            },
+            "gas_consumption_heating_this_year": {
+                "name": "Bu y\u0131lki \u0131s\u0131tma gaz\u0131 t\u00fcketimi"
+            },
+            "gas_consumption_heating_today": {
+                "name": "Bug\u00fcnk\u00fc \u0131s\u0131tma gaz\u0131 t\u00fcketimi"
+            },
+            "gas_consumption_total_this_month": {
+                "name": "Bu ayki gaz t\u00fcketimi"
+            },
+            "gas_consumption_total_this_week": {
+                "name": "Bu haftaki gaz t\u00fcketimi"
+            },
+            "gas_consumption_total_this_year": {
+                "name": "Bu y\u0131l gaz t\u00fcketimi"
+            },
+            "gas_consumption_total_today": {
+                "name": "Bug\u00fcnk\u00fc gaz t\u00fcketimi"
+            },
+            "gas_summary_consumption_heating_currentday": {
+                "name": "Bug\u00fcnk\u00fc \u0131s\u0131tma gaz\u0131 t\u00fcketimi"
+            },
+            "gas_summary_consumption_heating_currentmonth": {
+                "name": "Bu ayki \u0131s\u0131tma gaz\u0131 t\u00fcketimi"
+            },
+            "gas_summary_consumption_heating_currentyear": {
+                "name": "Bu y\u0131lki \u0131s\u0131tma gaz\u0131 t\u00fcketimi"
+            },
+            "gas_summary_consumption_heating_lastsevendays": {
+                "name": "Son yedi g\u00fcnl\u00fck \u0131s\u0131tma gaz\u0131 t\u00fcketimi"
+            },
+            "hotwater_gas_consumption_heating_this_month": {
+                "name": "Bu ayki s\u0131cak su gaz\u0131 t\u00fcketimi"
+            },
+            "hotwater_gas_consumption_heating_this_week": {
+                "name": "Bu haftaki s\u0131cak su gaz\u0131 t\u00fcketimi"
+            },
+            "hotwater_gas_consumption_heating_this_year": {
+                "name": "Bu y\u0131lki s\u0131cak su gaz\u0131 t\u00fcketimi"
+            },
+            "hotwater_gas_consumption_today": {
+                "name": "Bug\u00fcnk\u00fc s\u0131cak su gaz\u0131 t\u00fcketimi"
+            },
+            "hotwater_gas_summary_consumption_heating_currentday": {
+                "name": "Bug\u00fcnk\u00fc DHW gaz t\u00fcketimi"
+            },
+            "hotwater_gas_summary_consumption_heating_currentmonth": {
+                "name": "Bu ayki DHW gaz t\u00fcketimi"
+            },
+            "hotwater_gas_summary_consumption_heating_currentyear": {
+                "name": "Bu y\u0131l DHW gaz t\u00fcketimi"
+            },
+            "hotwater_gas_summary_consumption_heating_lastsevendays": {
+                "name": "Son yedi g\u00fcnl\u00fck kullan\u0131m suyu gaz\u0131 t\u00fcketimi"
+            },
+            "hotwater_max_temperature": {
+                "name": "DHW maksimum s\u0131cakl\u0131\u011f\u0131"
+            },
+            "hotwater_min_temperature": {
+                "name": "DHW minimum s\u0131cakl\u0131\u011f\u0131"
+            },
+            "hotwater_out_temperature": {
+                "name": "DHW \u00e7\u0131k\u0131\u015f s\u0131cakl\u0131\u011f\u0131"
+            },
+            "outside_temperature": {
+                "name": "D\u0131\u015f s\u0131cakl\u0131k"
+            },
+            "pcc_current_power_exchange": {
+                "name": "\u015eebeke g\u00fc\u00e7 de\u011fi\u015fimi"
+            },
+            "pcc_energy_consumption": {
+                "name": "\u015eebekeden enerji ithalat\u0131"
+            },
+            "pcc_energy_feed_in": {
+                "name": "\u015eebekeye enerji ihracat\u0131"
+            },
+            "pcc_transfer_power_exchange": {
+                "name": "\u015eebeke ile g\u00fc\u00e7 de\u011fi\u015fimi"
+            },
+            "photovoltaic_energy_production_this_month": {
+                "name": "Bu ay g\u00fcne\u015f enerjisi \u00fcretimi"
+            },
+            "photovoltaic_energy_production_this_week": {
+                "name": "Bu hafta g\u00fcne\u015f enerjisi \u00fcretimi"
+            },
+            "photovoltaic_energy_production_this_year": {
+                "name": "Bu y\u0131l g\u00fcne\u015f enerjisi \u00fcretimi"
+            },
+            "photovoltaic_energy_production_today": {
+                "name": "\u015eimdiki g\u00fcne\u015f enerjisi \u00fcretimi"
+            },
+            "photovoltaic_energy_production_total": {
+                "name": "G\u00fcne\u015f enerjisi \u00fcretimi toplam\u0131"
+            },
+            "photovoltaic_power_production_current": {
+                "name": "G\u00fcne\u015f enerjisi"
+            },
+            "photovoltaic_status": {
+                "name": "G\u00fcne\u015f durumu",
+                "state": {
+                    "production": "\u00dcretim",
+                    "ready": "Bekleme modu"
+                }
+            },
+            "power_consumption_this_month": {
+                "name": "Bu ayki enerji t\u00fcketimi"
+            },
+            "power_consumption_this_week": {
+                "name": "Bu haftaki g\u00fc\u00e7 t\u00fcketimi"
+            },
+            "power_consumption_this_year": {
+                "name": "Bu y\u0131lki enerji t\u00fcketimi"
+            },
+            "power_consumption_today": {
+                "name": "Bug\u00fcnk\u00fc enerji t\u00fcketimi"
+            },
+            "power_production_current": {
+                "name": "G\u00fc\u00e7 \u00fcretim ak\u0131m\u0131"
+            },
+            "power_production_this_month": {
+                "name": "Bu ay enerji \u00fcretimi"
+            },
+            "power_production_this_week": {
+                "name": "Bu hafta enerji \u00fcretimi"
+            },
+            "power_production_this_year": {
+                "name": "Bu y\u0131l enerji \u00fcretimi"
+            },
+            "power_production_today": {
+                "name": "Bug\u00fcnk\u00fc enerji \u00fcretimi"
+            },
+            "primary_circuit_return_temperature": {
+                "name": "Birincil devre d\u00f6n\u00fc\u015f s\u0131cakl\u0131\u011f\u0131"
+            },
+            "primary_circuit_supply_temperature": {
+                "name": "Birincil devre besleme s\u0131cakl\u0131\u011f\u0131"
+            },
+            "return_temperature": {
+                "name": "D\u00f6n\u00fc\u015f s\u0131cakl\u0131\u011f\u0131"
+            },
+            "secondary_circuit_return_temperature": {
+                "name": "\u0130kincil devre d\u00f6n\u00fc\u015f s\u0131cakl\u0131\u011f\u0131"
+            },
+            "secondary_circuit_supply_temperature": {
+                "name": "\u0130kincil devre besleme s\u0131cakl\u0131\u011f\u0131"
+            },
+            "solar_power_production_this_month": {
+                "name": "Bu ay g\u00fcne\u015f enerjisi \u00fcretimi"
+            },
+            "solar_power_production_this_week": {
+                "name": "Bu hafta g\u00fcne\u015f enerjisi \u00fcretimi"
+            },
+            "solar_power_production_this_year": {
+                "name": "Bu y\u0131l g\u00fcne\u015f enerjisi \u00fcretimi"
+            },
+            "solar_power_production_today": {
+                "name": "G\u00fcn\u00fcm\u00fczde g\u00fcne\u015f enerjisi \u00fcretimi"
+            },
+            "solar_storage_temperature": {
+                "name": "G\u00fcne\u015f depolama s\u0131cakl\u0131\u011f\u0131"
+            },
+            "supply_temperature": {
+                "name": "Besleme s\u0131cakl\u0131\u011f\u0131"
+            },
+            "volumetric_flow": {
+                "name": "Hacimsel ak\u0131\u015f"
+            }
+        },
+        "water_heater": {
+            "domestic_hot_water": {
+                "name": "Merkezi s\u0131cak su"
+            },
+            "water": {
+                "name": "Su"
+            }
+        }
+    },
+    "exceptions": {
+        "program_not_activated": {
+            "message": "ViCare program\u0131 {program} etkinle\u015ftirilemiyor"
+        },
+        "program_not_deactivated": {
+            "message": "ViCare program\u0131 {program} devre d\u0131\u015f\u0131 b\u0131rak\u0131lam\u0131yor"
+        },
+        "program_unknown": {
+            "message": "{preset} \u00f6n ayar\u0131 ge\u00e7erli bir ViCare program\u0131na \u00e7evrilemiyor"
+        }
+    },
+    "services": {
+        "set_vicare_mode": {
+            "description": "Bir ViCare modu ayarlay\u0131n.",
+            "fields": {
+                "vicare_mode": {
+                    "description": "ViCare modu.",
+                    "name": "ViCare modu"
+                }
+            },
+            "name": "ViCare modunu ayarla"
+        }
+    }
+}

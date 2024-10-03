@@ -1,0 +1,41 @@
+{
+    "config": {
+        "error": {
+            "address": "Adresse distance sp\u00e9cifi\u00e9e invalide. L'adresse doit \u00eatre une adresse IP ou un nom d'h\u00f4te r\u00e9soluble.",
+            "address_in_use": "Le port d'\u00e9coute s\u00e9lectionn\u00e9 est d\u00e9j\u00e0 utilis\u00e9 sur ce syst\u00e8me.",
+            "model": "Le mod\u00e8le s\u00e9lectionn\u00e9 ne semble pas prendre en charge MODBUS40",
+            "unknown": "Erreur inattendue",
+            "url": "L'URL sp\u00e9cifi\u00e9e n'est pas bien form\u00e9e ou prise en charge"
+        },
+        "step": {
+            "modbus": {
+                "data": {
+                    "modbus_unit": "Identifiant d\u2019unit\u00e9 Modbus",
+                    "modbus_url": "URL Modbus",
+                    "model": "Mod\u00e8le de la pompe \u00e0 chaleur"
+                },
+                "data_description": {
+                    "modbus_unit": "Identification de l'unit\u00e9 pour votre pompe \u00e0 chaleur. Peut g\u00e9n\u00e9ralement \u00eatre laiss\u00e9 \u00e0 0.",
+                    "modbus_url": "URL Modbus qui d\u00e9crit la connexion \u00e0 votre pompe \u00e0 chaleur ou \u00e0 votre unit\u00e9 MODBUS40. Il doit \u00eatre sous la forme\u00a0:\n - `tcp://[H\u00f4te]:[Port]` pour la connexion Modbus TCP\n - `serial://[Appareil local]` pour une connexion Modbus RTU locale\n - `rfc2217://[H\u00f4te]:[PORT]` pour une connexion Modbus RTU distante bas\u00e9e sur telnet."
+                }
+            },
+            "nibegw": {
+                "data": {
+                    "ip_address": "Adresse distante",
+                    "listening_port": "Port d\u2019\u00e9coute local",
+                    "model": "Mod\u00e8le de la pompe \u00e0 chaleur",
+                    "remote_read_port": "Port de lecture distant",
+                    "remote_write_port": "Port d\u2019\u00e9criture distant"
+                },
+                "description": "Avant d'essayer de configurer l'int\u00e9gration, v\u00e9rifiez que :\n - L'unit\u00e9 NibeGW est connect\u00e9e \u00e0 une pompe \u00e0 chaleur.\n - L'accessoire MODBUS40 a \u00e9t\u00e9 activ\u00e9 dans la configuration de la pompe \u00e0 chaleur.\n - La pompe ne s'est pas mise en \u00e9tat d'alarme \u00e0 cause de l'absence de l'accessoire MODBUS40."
+            },
+            "user": {
+                "description": "Choisissez la m\u00e9thode de connexion \u00e0 votre pompe. En g\u00e9n\u00e9ral, les pompes de la s\u00e9rie F n\u00e9cessitent un accessoire personnalis\u00e9 NibeGW, tandis qu'une pompe de la s\u00e9rie S int\u00e8gre la prise en charge Modbus.",
+                "menu_options": {
+                    "modbus": "Modbus",
+                    "nibegw": "NibeGW"
+                }
+            }
+        }
+    }
+}

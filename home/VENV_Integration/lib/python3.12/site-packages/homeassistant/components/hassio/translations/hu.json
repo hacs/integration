@@ -1,0 +1,416 @@
+{
+    "entity": {
+        "binary_sensor": {
+            "state": {
+                "name": "Fut"
+            }
+        },
+        "sensor": {
+            "agent_version": {
+                "name": "OS Agent verzi\u00f3"
+            },
+            "apparmor_version": {
+                "name": "Apparmor verzi\u00f3"
+            },
+            "cpu_percent": {
+                "name": "CPU sz\u00e1zal\u00e9k"
+            },
+            "disk_free": {
+                "name": "Szabad t\u00e1rhely"
+            },
+            "disk_total": {
+                "name": "\u00d6ssz t\u00e1rhely"
+            },
+            "disk_used": {
+                "name": "Foglalt t\u00e1rhely"
+            },
+            "memory_percent": {
+                "name": "Mem\u00f3ria sz\u00e1zal\u00e9k"
+            },
+            "version": {
+                "name": "Verzi\u00f3"
+            },
+            "version_latest": {
+                "name": "Leg\u00fajabb verzi\u00f3"
+            }
+        }
+    },
+    "issues": {
+        "issue_addon_detached_addon_missing": {
+            "description": "A(z) {addon} kieg\u00e9sz\u00edt\u0151 t\u00e1rol\u00f3ja hi\u00e1nyzik. Ez azt jelenti, hogy nem kap friss\u00edt\u00e9seket \u00e9s el\u0151fordulhat, hogy a biztons\u00e1gi ment\u00e9sek nem lesznek helyesen vissza\u00e1ll\u00edtva, mivel a Supervisor nem tudja fel\u00e9p\u00edteni/let\u00f6lteni a sz\u00fcks\u00e9ges er\u0151forr\u00e1sokat.\n\nK\u00e9rj\u00fck, ellen\u0151rizze a [b\u0151v\u00edtm\u00e9ny dokument\u00e1ci\u00f3j\u00e1t]({addon_url}) a telep\u00edt\u00e9si utas\u00edt\u00e1sok\u00e9rt \u00e9s adja hozz\u00e1 a t\u00e1rol\u00f3t a t\u00e1rol\u00f3hoz.",
+            "title": "Hi\u00e1nyz\u00f3 t\u00e1rol\u00f3 egy telep\u00edtett b\u0151v\u00edtm\u00e9nyhez"
+        },
+        "issue_addon_detached_addon_removed": {
+            "fix_flow": {
+                "abort": {
+                    "apply_suggestion_fail": "Nem siker\u00fclt elt\u00e1vol\u00edtani a kieg\u00e9sz\u00edt\u0151t. Tov\u00e1bbi r\u00e9szletek\u00e9rt ellen\u0151rizze a Supervisor napl\u00f3it."
+                },
+                "step": {
+                    "addon_execute_remove": {
+                        "description": "A(z) {addon} kieg\u00e9sz\u00edt\u0151 elt\u00e1vol\u00edt\u00e1sra ker\u00fclt abb\u00f3l a t\u00e1rol\u00f3b\u00f3l, ahonnan telep\u00edtve lett. Ez azt jelenti, hogy nem fog friss\u00edt\u00e9seket kapni \u00e9s a biztons\u00e1gi ment\u00e9sek helyre\u00e1ll\u00edt\u00e1sa nem biztos, hogy megfelel\u0151en m\u0171k\u00f6dik, mivel a fel\u00fcgyel\u0151 nem tudja l\u00e9trehozni/let\u00f6lteni a sz\u00fcks\u00e9ges er\u0151forr\u00e1sokat.\n\nA **Mehet** kiv\u00e1laszt\u00e1s\u00e1val elt\u00e1vol\u00edtja ezt a elavult kieg\u00e9sz\u00edt\u0151t. Alternat\u00edvak\u00e9nt ellen\u0151rizheti a [Home Assistant seg\u00edts\u00e9gny\u00fajt\u00e1st]({help_url}) \u00e9s a [k\u00f6z\u00f6ss\u00e9gi f\u00f3rumot]({community_url}) az \u00e1t\u00e1ll\u00e1s lehet\u0151s\u00e9gei\u00e9rt."
+                    }
+                }
+            },
+            "title": "A telep\u00edtett b\u0151v\u00edtm\u00e9ny elt\u00e1vol\u00edt\u00e1sra ker\u00fclt a t\u00e1rol\u00f3b\u00f3l"
+        },
+        "issue_mount_mount_failed": {
+            "fix_flow": {
+                "abort": {
+                    "apply_suggestion_fail": "Nem siker\u00fclt alkalmazni a jav\u00edt\u00e1st. Tov\u00e1bbi r\u00e9szletek\u00e9rt tekintse meg a Supervisor napl\u00f3kat."
+                },
+                "step": {
+                    "fix_menu": {
+                        "description": "Nem siker\u00fclt csatlakozni a k\u00f6vetkez\u0151h\u00f6z: `{reference}`. Tov\u00e1bbi r\u00e9szletek\u00e9rt ellen\u0151rizze a g\u00e9p napl\u00f3it a csatlakoztat\u00e1si szolg\u00e1ltat\u00e1s hib\u00e1i\u00e9rt. \n\nAz \u00fajrat\u00f6lt\u00e9s seg\u00edts\u00e9g\u00e9vel pr\u00f3b\u00e1ljon meg \u00fajra csatlakozni. Ha friss\u00edtenie kell a `{reference}` f\u00e1jlt, l\u00e9pjen a [t\u00e1rhely]({storage_url}) oldalra.",
+                        "menu_options": {
+                            "mount_execute_reload": "\u00dajrat\u00f6lt\u00e9s",
+                            "mount_execute_remove": "Elt\u00e1vol\u00edt\u00e1s"
+                        }
+                    }
+                }
+            },
+            "title": "A h\u00e1l\u00f3zati t\u00e1rol\u00f3eszk\u00f6z meghib\u00e1sodott"
+        },
+        "issue_system_docker_config": {
+            "fix_flow": {
+                "abort": {
+                    "apply_suggestion_fail": "Egy vagy t\u00f6bb \u00fajraind\u00edt\u00e1s nem siker\u00fclt. Tov\u00e1bbi r\u00e9szletek\u00e9rt tekintse meg a Supervisor napl\u00f3kat."
+                },
+                "step": {
+                    "system_execute_rebuild": {
+                        "description": "A b\u0151v\u00edtm\u00e9nyek \u00e9s a Home Assistant alap\u00e9rtelmezett konfigur\u00e1ci\u00f3ja megv\u00e1ltozott. A konfigur\u00e1ci\u00f3nak az \u00faj alap\u00e9rtelmezett \u00e9rt\u00e9kekkel val\u00f3 friss\u00edt\u00e9s\u00e9hez a k\u00f6vetkez\u0151k miatt \u00fajraind\u00edt\u00e1sra van sz\u00fcks\u00e9g:\n\n- {components}"
+                    }
+                }
+            },
+            "title": "\u00dajraind\u00edt\u00e1s sz\u00fcks\u00e9ges"
+        },
+        "issue_system_multiple_data_disks": {
+            "fix_flow": {
+                "abort": {
+                    "apply_suggestion_fail": "Nem siker\u00fclt \u00e1tnevezni a f\u00e1jlrendszert. Tov\u00e1bbi r\u00e9szletek\u00e9rt n\u00e9zze meg a supervisor napl\u00f3j\u00e1t."
+                },
+                "step": {
+                    "fix_menu": {
+                        "description": "A(z) `{reference}` helyen egy m\u00e1sik akt\u00edv adatt\u00e1rat \u00e9szlelt\u00fcnk (amely egy m\u00e1sik Home Assistant telep\u00edt\u00e9s `hassos-data` f\u00e1jlrendszer\u00e9t tartalmazza).\n\nD\u00f6ntenie kell, mit szeretne tenni vele. Ellenkez\u0151 esetben a Home Assistant a rendszer \u00fajraind\u00edt\u00e1sakor a helytelen adatt\u00e1rat v\u00e1laszthatja ki.\n\nHa nem k\u00edv\u00e1nja haszn\u00e1lni ezt az adatt\u00e1rat, h\u00fazza ki a rendszerb\u0151l. Ha bent hagyja, v\u00e1lasszon a k\u00f6vetkez\u0151 lehet\u0151s\u00e9gek k\u00f6z\u00fcl:",
+                        "menu_options": {
+                            "system_adopt_data_disk": "Az \u00e9szlelt adatt\u00e1rol\u00f3 lemez haszn\u00e1lata az aktu\u00e1lis rendszer helyett",
+                            "system_rename_data_disk": "Megjel\u00f6l\u00e9s inakt\u00edv adatlemezk\u00e9nt (f\u00e1jlrendszer \u00e1tnevez\u00e9se)"
+                        }
+                    },
+                    "system_adopt_data_disk": {
+                        "description": "V\u00e1lassza a **Mehet** lehet\u0151s\u00e9get, hogy a `{reference}` akt\u00edv adatlemezk\u00e9nt ker\u00fclj\u00f6n be\u00e1ll\u00edt\u00e1sra. Az egyetlen \u00e9s kiz\u00e1r\u00f3lagos adatlemez.\n\nT\u00f6bb\u00e9 nem lesz hozz\u00e1f\u00e9r\u00e9se a jelenlegi Home Assistant adatokhoz (ez inakt\u00edv adatlemezk\u00e9nt lesz megjel\u00f6lve). A rendszer \u00fajraind\u00edt\u00e1sa ut\u00e1n az \u00d6n rendszere a `{reference}` adatainak \u00e1llapot\u00e1ban lesz."
+                    },
+                    "system_rename_data_disk": {
+                        "description": "A `{reference}` egy 'hassos-data' nev\u0171 f\u00e1jlrendszer \u00e9s nem az akt\u00edv adatlemez. Emiatt a Home Assistant rossz adatlemezt v\u00e1laszthat a rendszer \u00fajraind\u00edt\u00e1sakor. \n\nEnnek elker\u00fcl\u00e9se \u00e9rdek\u00e9ben haszn\u00e1lja a jav\u00edt\u00e1s opci\u00f3t a f\u00e1jlrendszer \u00e1tnevez\u00e9s\u00e9hez. Alternat\u00edv megold\u00e1sk\u00e9nt \u00e1thelyezheti az adatlemezt a meghajt\u00f3ra (fel\u00fcl\u00edrva a tartalm\u00e1t), vagy elt\u00e1vol\u00edthatja a meghajt\u00f3t a rendszerb\u0151l."
+                    }
+                }
+            },
+            "title": "T\u00f6bb adatlemez \u00e9szlelve"
+        },
+        "issue_system_reboot_required": {
+            "fix_flow": {
+                "abort": {
+                    "apply_suggestion_fail": "Nem siker\u00fclt \u00fajraind\u00edtani a rendszert. Tov\u00e1bbi r\u00e9szletek\u00e9rt tekintse meg a supervisor napl\u00f3kat."
+                },
+                "step": {
+                    "system_execute_reboot": {
+                        "description": "Olyan be\u00e1ll\u00edt\u00e1sok v\u00e1ltoztak meg, amelyek \u00e9rv\u00e9nybe l\u00e9p\u00e9s\u00e9hez a rendszer \u00fajraind\u00edt\u00e1sa sz\u00fcks\u00e9ges.\n\nEz a jav\u00edt\u00e1s a rendszer \u00fajraind\u00edt\u00e1s\u00e1t fogja kezdem\u00e9nyezni, amely egy r\u00f6vid id\u0151re el\u00e9rhetetlenn\u00e9 teszi a Home Assistantot \u00e9s az \u00f6sszes b\u0151v\u00edtm\u00e9nyt."
+                    }
+                }
+            },
+            "title": "\u00dajraind\u00edt\u00e1s sz\u00fcks\u00e9ges"
+        },
+        "unhealthy": {
+            "description": "A rendszer \u00e1llapota jelenleg {reason} miatt nem megfelel\u0151. A linkre kattintva t\u00f6bbet \u00e9s a probl\u00e9ma megold\u00e1s\u00e1t is megtudhatja.",
+            "title": "Rendellenes \u00e1llapot \u2013 {reason}"
+        },
+        "unhealthy_docker": {
+            "description": "A rendszer \u00e1llapota nem megfelel\u0151, mert a Docker helytelen\u00fcl van konfigur\u00e1lva. A linkre kattintva t\u00f6bbet \u00e9s a probl\u00e9ma megold\u00e1s\u00e1t is megtudhatja.",
+            "title": "Rendellenes \u00e1llapot \u2013 A Docker rosszul lett konfigur\u00e1lva"
+        },
+        "unhealthy_privileged": {
+            "description": "A rendszer \u00e1llapota jelenleg nem megfelel\u0151, mert nem rendelkezik emelt szint\u0171 hozz\u00e1f\u00e9r\u00e9ssel a Docker-futtat\u00f3k\u00f6rnyezethez. A link seg\u00edts\u00e9g\u00e9vel tov\u00e1bbi inform\u00e1ci\u00f3t \u00e9s a probl\u00e9ma megold\u00e1s\u00e1nak m\u00f3dj\u00e1t ismerheti meg.",
+            "title": "Rendellenes \u00e1llapot - Nem privilegiz\u00e1lt"
+        },
+        "unhealthy_setup": {
+            "description": "A rendszer \u00e1llapota jelenleg nem megfelel\u0151, mert a telep\u00edt\u00e9s nem fejez\u0151d\u00f6tt be. Ennek sz\u00e1mos oka lehet. A link seg\u00edts\u00e9g\u00e9vel tov\u00e1bbi inform\u00e1ci\u00f3t \u00e9s a probl\u00e9ma megold\u00e1s\u00e1nak m\u00f3dj\u00e1t ismerheti meg.",
+            "title": "Rendellenes \u00e1llapot - A telep\u00edt\u00e9s sikertelen"
+        },
+        "unhealthy_supervisor": {
+            "description": "A rendszer jelenleg rendellenes \u00e1llapotban van, mert a Supervisor leg\u00fajabb verzi\u00f3ra t\u00f6rt\u00e9n\u0151 friss\u00edt\u00e9s\u00e9nek k\u00eds\u00e9rlete sikertelen volt. A link seg\u00edts\u00e9g\u00e9vel tov\u00e1bbi inform\u00e1ci\u00f3t \u00e9s a probl\u00e9ma megold\u00e1s\u00e1nak m\u00f3dj\u00e1t ismerheti meg.",
+            "title": "Rendellenes \u00e1llapot \u2013 A Supervisor friss\u00edt\u00e9se nem siker\u00fclt"
+        },
+        "unhealthy_untrusted": {
+            "description": "A rendszer \u00e1llapota jelenleg nem megfelel\u0151, mert nem megb\u00edzhat\u00f3 k\u00f3dot \u00e9s/vagy image-et \u00e9szlelt. A link seg\u00edts\u00e9g\u00e9vel tov\u00e1bbi inform\u00e1ci\u00f3t \u00e9s a probl\u00e9ma megold\u00e1s\u00e1nak m\u00f3dj\u00e1t ismerheti meg.",
+            "title": "Rendellenes \u00e1llapot - Nem megb\u00edzhat\u00f3 k\u00f3d"
+        },
+        "unsupported": {
+            "description": "A rendszer nem t\u00e1mogatott a k\u00f6vetkez\u0151 miatt: {reason}. A link seg\u00edts\u00e9g\u00e9vel tov\u00e1bbi inform\u00e1ci\u00f3t \u00e9s a probl\u00e9ma megold\u00e1s\u00e1nak m\u00f3dj\u00e1t ismerheti meg.",
+            "title": "Nem t\u00e1mogatott rendszer \u2013 {reason}"
+        },
+        "unsupported_apparmor": {
+            "description": "A rendszer nem t\u00e1mogatott, mert az AppArmor hib\u00e1san m\u0171k\u00f6dik \u00e9s a b\u0151v\u00edtm\u00e9nyek v\u00e9dtelen\u00fcl, nem biztons\u00e1gos m\u00f3don futnak. A link seg\u00edts\u00e9g\u00e9vel t\u00f6bbet tudhat meg \u00e9s megtudhatja, hogyan jav\u00edthatja ezt a hib\u00e1t.",
+            "title": "Nem t\u00e1mogatott rendszer \u2013 AppArmor-probl\u00e9m\u00e1k"
+        },
+        "unsupported_cgroup_version": {
+            "description": "A rendszer nem t\u00e1mogatott, mert a Docker CGroup nem megfelel\u0151 verzi\u00f3ja van haszn\u00e1latban. A link seg\u00edts\u00e9g\u00e9vel megtudhatja a helyes verzi\u00f3t \u00e9s a jav\u00edt\u00e1s m\u00f3dj\u00e1t.",
+            "title": "Nem t\u00e1mogatott rendszer - CGroup verzi\u00f3"
+        },
+        "unsupported_connectivity_check": {
+            "description": "A rendszer nem t\u00e1mogatott, mert a Home Assistant nem tudja meg\u00e1llap\u00edtani, hogy van-e el\u00e9rhet\u0151 internetkapcsolat. A link seg\u00edts\u00e9g\u00e9vel t\u00f6bbet megtudhat \u00e9s megtudhatja, hogyan jav\u00edthatja ezt a hib\u00e1t.",
+            "title": "Nem t\u00e1mogatott rendszer - Csatlakoz\u00e1si ellen\u0151rz\u00e9s letiltva"
+        },
+        "unsupported_content_trust": {
+            "description": "A rendszer nem t\u00e1mogatott, mivel a Home Assistant nem tudja ellen\u0151rizni, hogy a futtatott tartalom megb\u00edzhat\u00f3-e \u00e9s nem t\u00e1mad\u00f3k \u00e1ltal m\u00f3dos\u00edtott. A link seg\u00edts\u00e9g\u00e9vel tov\u00e1bbi inform\u00e1ci\u00f3t \u00e9s a probl\u00e9ma megold\u00e1s\u00e1nak m\u00f3dj\u00e1t ismerheti meg.",
+            "title": "Nem t\u00e1mogatott rendszer - Tartalom-megb\u00edzhat\u00f3s\u00e1gi ellen\u0151rz\u00e9s letiltva"
+        },
+        "unsupported_dbus": {
+            "description": "A rendszer nem t\u00e1mogatott, mert a D-Bus hib\u00e1san m\u0171k\u00f6dik. E n\u00e9lk\u00fcl sok minden meghib\u00e1sodik, mivel a Supervisor nem tud kommunik\u00e1lni a rendszerrel. A link seg\u00edts\u00e9g\u00e9vel tov\u00e1bbi inform\u00e1ci\u00f3t \u00e9s a probl\u00e9ma megold\u00e1s\u00e1nak m\u00f3dj\u00e1t ismerheti meg.",
+            "title": "Nem t\u00e1mogatott rendszer - D-Bus probl\u00e9m\u00e1k"
+        },
+        "unsupported_dns_server": {
+            "description": "A rendszer nem t\u00e1mogatott, mert a megadott DNS-kiszolg\u00e1l\u00f3 nem m\u0171k\u00f6dik megfelel\u0151en \u00e9s a tartal\u00e9k DNS opci\u00f3t letiltott\u00e1k. A link seg\u00edts\u00e9g\u00e9vel tov\u00e1bbi inform\u00e1ci\u00f3t \u00e9s a probl\u00e9ma megold\u00e1s\u00e1nak m\u00f3dj\u00e1t ismerheti meg.",
+            "title": "Nem t\u00e1mogatott rendszer - DNS-kiszolg\u00e1l\u00f3 probl\u00e9m\u00e1k"
+        },
+        "unsupported_docker_configuration": {
+            "description": "A rendszer nem t\u00e1mogatott, mert a Docker d\u00e9mon nem az elv\u00e1rt m\u00f3don fut. A link seg\u00edts\u00e9g\u00e9vel tov\u00e1bbi inform\u00e1ci\u00f3t \u00e9s a probl\u00e9ma megold\u00e1s\u00e1nak m\u00f3dj\u00e1t ismerheti meg.",
+            "title": "Nem t\u00e1mogatott rendszer \u2013 A Docker helytelen\u00fcl van konfigur\u00e1lva"
+        },
+        "unsupported_docker_version": {
+            "description": "A rendszer nem t\u00e1mogatott, mert a Docker nem megfelel\u0151 verzi\u00f3ja van haszn\u00e1latban. A link seg\u00edts\u00e9g\u00e9vel megtudhatja a helyes verzi\u00f3t \u00e9s a jav\u00edt\u00e1s m\u00f3dj\u00e1t.",
+            "title": "Nem t\u00e1mogatott rendszer - Docker verzi\u00f3"
+        },
+        "unsupported_job_conditions": {
+            "description": "A rendszer nem t\u00e1mogatott, mert egy vagy t\u00f6bb feladatfelt\u00e9tel le van tiltva, amelyek v\u00e9delmet ny\u00fajtanak a v\u00e1ratlan hib\u00e1kt\u00f3l. A link seg\u00edts\u00e9g\u00e9vel tov\u00e1bbi inform\u00e1ci\u00f3t \u00e9s a probl\u00e9ma megold\u00e1s\u00e1nak m\u00f3dj\u00e1t ismerheti meg.",
+            "title": "Nem t\u00e1mogatott rendszer - V\u00e9delmek letiltva"
+        },
+        "unsupported_lxc": {
+            "description": "A rendszer nem t\u00e1mogatott, mert LXC virtu\u00e1lis g\u00e9pben fut. A link seg\u00edts\u00e9g\u00e9vel tov\u00e1bbi inform\u00e1ci\u00f3t \u00e9s a probl\u00e9ma megold\u00e1s\u00e1nak m\u00f3dj\u00e1t ismerheti meg.",
+            "title": "Nem t\u00e1mogatott rendszer - LXC \u00e9szlelve"
+        },
+        "unsupported_network_manager": {
+            "description": "A rendszer nem t\u00e1mogatott, mert a H\u00e1l\u00f3zatkezel\u0151 hi\u00e1nyzik, inakt\u00edv vagy rosszul van konfigur\u00e1lva. A link seg\u00edts\u00e9g\u00e9vel tov\u00e1bbi inform\u00e1ci\u00f3t \u00e9s a probl\u00e9ma megold\u00e1s\u00e1nak m\u00f3dj\u00e1t ismerheti meg.",
+            "title": "Nem t\u00e1mogatott rendszer - Network Manager probl\u00e9m\u00e1k"
+        },
+        "unsupported_os": {
+            "description": "A rendszer nem t\u00e1mogatott, mert a haszn\u00e1lt oper\u00e1ci\u00f3s rendszert nem tesztelt\u00e9k vagy nem tartj\u00e1k karban a Supervisorral val\u00f3 haszn\u00e1latra. Haszn\u00e1lja a linket, hogy mely oper\u00e1ci\u00f3s rendszerek t\u00e1mogatottak \u00e9s hogyan lehet ezt kijav\u00edtani.",
+            "title": "Nem t\u00e1mogatott rendszer - Oper\u00e1ci\u00f3s rendszer"
+        },
+        "unsupported_os_agent": {
+            "description": "A rendszer nem t\u00e1mogatott, mert az OS-\u00dcgyn\u00f6k (agent) hi\u00e1nyzik, inakt\u00edv vagy rosszul van konfigur\u00e1lva. A link seg\u00edts\u00e9g\u00e9vel tov\u00e1bbi inform\u00e1ci\u00f3t \u00e9s a probl\u00e9ma megold\u00e1s\u00e1nak m\u00f3dj\u00e1t ismerheti meg.",
+            "title": "Nem t\u00e1mogatott rendszer - OS-\u00dcgyn\u00f6k probl\u00e9m\u00e1k"
+        },
+        "unsupported_restart_policy": {
+            "description": "A rendszer nem t\u00e1mogatott, mivel a Docker kont\u00e9nerben olyan \u00fajraind\u00edt\u00e1si h\u00e1zirend van be\u00e1ll\u00edtva, amely ind\u00edt\u00e1skor probl\u00e9m\u00e1kat okozhat. A link seg\u00edts\u00e9g\u00e9vel tov\u00e1bbi inform\u00e1ci\u00f3t \u00e9s a probl\u00e9ma megold\u00e1s\u00e1nak m\u00f3dj\u00e1t ismerheti meg.",
+            "title": "Nem t\u00e1mogatott rendszer - Kont\u00e9ner \u00fajraind\u00edt\u00e1si szab\u00e1lyzat"
+        },
+        "unsupported_software": {
+            "description": "A rendszer nem t\u00e1mogatott, mert a rendszer a Home Assistant \u00f6kosziszt\u00e9m\u00e1n k\u00edv\u00fcli tov\u00e1bbi szoftvereket \u00e9szlelt. A link seg\u00edts\u00e9g\u00e9vel tov\u00e1bbi inform\u00e1ci\u00f3t \u00e9s a probl\u00e9ma megold\u00e1s\u00e1nak m\u00f3dj\u00e1t ismerheti meg.",
+            "title": "Nem t\u00e1mogatott rendszer - Nem t\u00e1mogatott szoftver"
+        },
+        "unsupported_source_mods": {
+            "description": "A rendszer nem t\u00e1mogatott, mert a Supervisor forr\u00e1sk\u00f3dj\u00e1t m\u00f3dos\u00edtott\u00e1k. A link seg\u00edts\u00e9g\u00e9vel tov\u00e1bbi inform\u00e1ci\u00f3t \u00e9s a probl\u00e9ma megold\u00e1s\u00e1nak m\u00f3dj\u00e1t ismerheti meg.",
+            "title": "Nem t\u00e1mogatott rendszer - Supervisor forr\u00e1sm\u00f3dos\u00edt\u00e1sok"
+        },
+        "unsupported_supervisor_version": {
+            "description": "A rendszer nem t\u00e1mogatott, mert a Supervisor egy elavult verzi\u00f3ja van haszn\u00e1latban \u00e9s az automatikus friss\u00edt\u00e9s le van tiltva. A link seg\u00edts\u00e9g\u00e9vel tov\u00e1bbi inform\u00e1ci\u00f3t \u00e9s a probl\u00e9ma megold\u00e1s\u00e1nak m\u00f3dj\u00e1t ismerheti meg.",
+            "title": "Nem t\u00e1mogatott rendszer - Supervisor verzi\u00f3"
+        },
+        "unsupported_systemd": {
+            "description": "A rendszer nem t\u00e1mogatott, mert a Systemd hi\u00e1nyzik, inakt\u00edv vagy rosszul van konfigur\u00e1lva. A link seg\u00edts\u00e9g\u00e9vel tov\u00e1bbi inform\u00e1ci\u00f3t \u00e9s a probl\u00e9ma megold\u00e1s\u00e1nak m\u00f3dj\u00e1t ismerheti meg.",
+            "title": "Nem t\u00e1mogatott rendszer - Systemd probl\u00e9m\u00e1k"
+        },
+        "unsupported_systemd_journal": {
+            "description": "A rendszer nem t\u00e1mogatott, mert a Systemd Journal \u00e9s/vagy az \u00e1tj\u00e1r\u00f3 szolg\u00e1ltat\u00e1s hi\u00e1nyzik, inakt\u00edv vagy rosszul van konfigur\u00e1lva. A link seg\u00edts\u00e9g\u00e9vel tov\u00e1bbi inform\u00e1ci\u00f3t \u00e9s a probl\u00e9ma megold\u00e1s\u00e1nak m\u00f3dj\u00e1t ismerheti meg.",
+            "title": "Nem t\u00e1mogatott rendszer - Systemd Journal probl\u00e9m\u00e1k"
+        },
+        "unsupported_systemd_resolved": {
+            "description": "A rendszer nem t\u00e1mogatott, mert a Systemd Resolved hi\u00e1nyzik, inakt\u00edv vagy rosszul van konfigur\u00e1lva. A link seg\u00edts\u00e9g\u00e9vel tov\u00e1bbi inform\u00e1ci\u00f3t \u00e9s a probl\u00e9ma megold\u00e1s\u00e1nak m\u00f3dj\u00e1t ismerheti meg.",
+            "title": "Nem t\u00e1mogatott rendszer \u2013 Systemd Resolved probl\u00e9m\u00e1k"
+        },
+        "unsupported_virtualization_image": {
+            "description": "A rendszer nem t\u00e1mogatott, mert a haszn\u00e1lt Home Assistant OS k\u00e9p nem virtu\u00e1lis k\u00f6rnyezetben val\u00f3 haszn\u00e1lathoz k\u00e9sz\u00fclt. Haszn\u00e1lja a linket a tov\u00e1bbi inform\u00e1ci\u00f3k\u00e9rt \u00e9s a probl\u00e9ma megold\u00e1s\u00e1\u00e9rt.",
+            "title": "Nem t\u00e1mogatott rendszer - Helytelen OS k\u00e9p a virtualiz\u00e1ci\u00f3hoz"
+        }
+    },
+    "services": {
+        "addon_restart": {
+            "description": "\u00dajraind\u00edt egy b\u0151v\u00edtm\u00e9nyt.",
+            "fields": {
+                "addon": {
+                    "description": "A b\u0151v\u00edtm\u00e9ny azonos\u00edt\u00f3ja (slug).",
+                    "name": "B\u0151v\u00edtm\u00e9ny"
+                }
+            },
+            "name": "B\u0151v\u00edtm\u00e9ny \u00fajraind\u00edt\u00e1sa"
+        },
+        "addon_start": {
+            "description": "Elind\u00edt egy b\u0151v\u00edtm\u00e9nyt.",
+            "fields": {
+                "addon": {
+                    "description": "A b\u0151v\u00edtm\u00e9ny azonos\u00edt\u00f3ja (slug).",
+                    "name": "B\u0151v\u00edtm\u00e9ny"
+                }
+            },
+            "name": "B\u0151v\u00edtm\u00e9ny elind\u00edt\u00e1sa"
+        },
+        "addon_stdin": {
+            "description": "Adatot \u00edr a b\u0151v\u00edtm\u00e9ny alap\u00e9rtelmezett bemenet\u00e9re.",
+            "fields": {
+                "addon": {
+                    "description": "A b\u0151v\u00edtm\u00e9ny azonos\u00edt\u00f3ja (slug).",
+                    "name": "B\u0151v\u00edtm\u00e9ny"
+                }
+            },
+            "name": "B\u0151v\u00edtm\u00e9ny alap\u00e9rtelmezett bemenet\u00e9re adat \u00edr\u00e1sa"
+        },
+        "addon_stop": {
+            "description": "Le\u00e1ll\u00edtja a b\u0151v\u00edtm\u00e9nyt.",
+            "fields": {
+                "addon": {
+                    "description": "A b\u0151v\u00edtm\u00e9ny azonos\u00edt\u00f3ja (slug).",
+                    "name": "B\u0151v\u00edtm\u00e9ny"
+                }
+            },
+            "name": "B\u0151v\u00edtm\u00e9ny le\u00e1ll\u00edt\u00e1sa"
+        },
+        "addon_update": {
+            "description": "Egy b\u0151v\u00edtm\u00e9ny friss\u00edt\u00e9se. Ezt a m\u0171veletet \u00f3vatosan kell haszn\u00e1lni, mivel a kieg\u00e9sz\u00edt\u0151k friss\u00edt\u00e9se tartalmazhat olyan v\u00e1ltoztat\u00e1sokat, amelyek megszak\u00edthatj\u00e1k a m\u0171k\u00f6d\u00e9st. Er\u0151sen aj\u00e1nlott a kiad\u00e1si megjegyz\u00e9sek/v\u00e1ltoz\u00e1snapl\u00f3k \u00e1ttekint\u00e9se a friss\u00edt\u00e9s el\u0151tt.",
+            "fields": {
+                "addon": {
+                    "description": "A b\u0151v\u00edtm\u00e9ny azonos\u00edt\u00f3ja (slug).",
+                    "name": "B\u0151v\u00edtm\u00e9ny"
+                }
+            },
+            "name": "B\u0151v\u00edtm\u00e9ny friss\u00edt\u00e9se"
+        },
+        "backup_full": {
+            "description": "Teljes biztons\u00e1gi ment\u00e9st k\u00e9sz\u00edt.",
+            "fields": {
+                "compressed": {
+                    "description": "T\u00f6m\u00f6r\u00edti a biztons\u00e1gi ment\u00e9s f\u00e1jljait.",
+                    "name": "T\u00f6m\u00f6r\u00edtett"
+                },
+                "homeassistant_exclude_database": {
+                    "description": "A Home Assistant adatb\u00e1zisf\u00e1jl kiz\u00e1r\u00e1sa a biztons\u00e1gi ment\u00e9sb\u0151l",
+                    "name": "Home Assistant adatb\u00e1zis kiz\u00e1r\u00e1sa"
+                },
+                "location": {
+                    "description": "A biztons\u00e1gi ment\u00e9seknek helyet biztos\u00edt\u00f3 t\u00e1rol\u00f3 neve.",
+                    "name": "Elhelyezked\u00e9s"
+                },
+                "name": {
+                    "description": "Nem k\u00f6telez\u0151 (alap\u00e9rtelmezett = aktu\u00e1lis d\u00e1tum \u00e9s id\u0151).",
+                    "name": "Elnevez\u00e9s"
+                },
+                "password": {
+                    "description": "Jelsz\u00f3, amellyel a biztons\u00e1gi ment\u00e9st v\u00e9deni k\u00edv\u00e1nja.",
+                    "name": "Jelsz\u00f3"
+                }
+            },
+            "name": "Teljes biztons\u00e1gi ment\u00e9s k\u00e9sz\u00edt\u00e9se."
+        },
+        "backup_partial": {
+            "description": "R\u00e9szleges biztons\u00e1gi ment\u00e9st k\u00e9sz\u00edt.",
+            "fields": {
+                "addons": {
+                    "description": "A biztons\u00e1gi m\u00e1solatba felvenni k\u00edv\u00e1nt b\u0151v\u00edtm\u00e9nyek list\u00e1ja. Haszn\u00e1lja a b\u0151v\u00edtm\u00e9ny nev\u00e9nek azonos\u00edt\u00f3j\u00e1t (slug).",
+                    "name": "B\u0151v\u00edtm\u00e9nyek"
+                },
+                "compressed": {
+                    "description": "T\u00f6m\u00f6r\u00edti a biztons\u00e1gi ment\u00e9s f\u00e1jljait.",
+                    "name": "T\u00f6m\u00f6r\u00edtett"
+                },
+                "folders": {
+                    "description": "A biztons\u00e1gi ment\u00e9sbe bevonand\u00f3 mapp\u00e1k list\u00e1ja.",
+                    "name": "Mapp\u00e1k"
+                },
+                "homeassistant": {
+                    "description": "A Home Assistant be\u00e1ll\u00edt\u00e1sait is tartalmazza a biztons\u00e1gi ment\u00e9sben.",
+                    "name": "Home Assistant be\u00e1ll\u00edt\u00e1sok"
+                },
+                "homeassistant_exclude_database": {
+                    "description": "A Home Assistant adatb\u00e1zisf\u00e1jl kiz\u00e1r\u00e1sa a biztons\u00e1gi ment\u00e9sb\u0151l",
+                    "name": "Home Assistant adatb\u00e1zis kiz\u00e1r\u00e1sa"
+                },
+                "location": {
+                    "description": "A biztons\u00e1gi ment\u00e9seknek helyet biztos\u00edt\u00f3 t\u00e1rol\u00f3 neve.",
+                    "name": "Elhelyezked\u00e9s"
+                },
+                "name": {
+                    "description": "Nem k\u00f6telez\u0151 (alap\u00e9rtelmezett = aktu\u00e1lis d\u00e1tum \u00e9s id\u0151).",
+                    "name": "Elnevez\u00e9s"
+                },
+                "password": {
+                    "description": "Jelsz\u00f3, amellyel a biztons\u00e1gi ment\u00e9st v\u00e9deni k\u00edv\u00e1nja.",
+                    "name": "Jelsz\u00f3"
+                }
+            },
+            "name": "R\u00e9szleges biztons\u00e1gi ment\u00e9s k\u00e9sz\u00edt\u00e9se."
+        },
+        "host_reboot": {
+            "description": "\u00dajraind\u00edtja a gazdarendszert.",
+            "name": "G\u00e9p \u00fajraind\u00edt\u00e1sa"
+        },
+        "host_shutdown": {
+            "description": "Kikapcsolja a gazdarendszert.",
+            "name": "G\u00e9p kikapcsol\u00e1sa"
+        },
+        "restore_full": {
+            "description": "Vissza\u00e1ll\u00edt\u00e1s teljes biztons\u00e1gi ment\u00e9sb\u0151l.",
+            "fields": {
+                "password": {
+                    "description": "Nem k\u00f6telez\u0151 jelsz\u00f3.",
+                    "name": "Jelsz\u00f3"
+                },
+                "slug": {
+                    "description": "Biztons\u00e1gi m\u00e1solat azonos\u00edt\u00f3ja (slug) a vissza\u00e1ll\u00edt\u00e1shoz.",
+                    "name": "Azonos\u00edt\u00f3"
+                }
+            },
+            "name": "Teljes biztons\u00e1gi ment\u00e9sb\u0151l vissza\u00e1ll\u00edt\u00e1s"
+        },
+        "restore_partial": {
+            "description": "Vissza\u00e1ll\u00edt\u00e1s r\u00e9szleges biztons\u00e1gi ment\u00e9sb\u0151l.",
+            "fields": {
+                "addons": {
+                    "description": "A biztons\u00e1gi m\u00e1solatba felvenni k\u00edv\u00e1nt b\u0151v\u00edtm\u00e9nyek list\u00e1ja. Haszn\u00e1lja a b\u0151v\u00edtm\u00e9ny nev\u00e9nek azonos\u00edt\u00f3j\u00e1t (slug).",
+                    "name": "B\u0151v\u00edtm\u00e9nyek"
+                },
+                "folders": {
+                    "description": "A biztons\u00e1gi ment\u00e9sbe bevonand\u00f3 mapp\u00e1k list\u00e1ja.",
+                    "name": "Mapp\u00e1k"
+                },
+                "homeassistant": {
+                    "description": "Helyre\u00e1ll\u00edtja a Home Assistantot.",
+                    "name": "Home Assistant be\u00e1ll\u00edt\u00e1sok"
+                },
+                "password": {
+                    "description": "Nem k\u00f6telez\u0151 jelsz\u00f3.",
+                    "name": "Jelsz\u00f3"
+                },
+                "slug": {
+                    "description": "Biztons\u00e1gi m\u00e1solat azonos\u00edt\u00f3ja (slug) a vissza\u00e1ll\u00edt\u00e1shoz.",
+                    "name": "Azonos\u00edt\u00f3"
+                }
+            },
+            "name": "R\u00e9szleges biztons\u00e1gi ment\u00e9sb\u0151l vissza\u00e1ll\u00edt\u00e1s"
+        }
+    },
+    "system_health": {
+        "info": {
+            "agent_version": "\u00dcgyn\u00f6k verzi\u00f3",
+            "board": "Alaplap",
+            "disk_total": "\u00d6sszes hely",
+            "disk_used": "Felhaszn\u00e1lt hely",
+            "docker_version": "Docker verzi\u00f3",
+            "healthy": "Eg\u00e9szs\u00e9ges",
+            "host_os": "Oper\u00e1ci\u00f3s rendszer",
+            "installed_addons": "Telep\u00edtett b\u0151v\u00edtm\u00e9nyek",
+            "supervisor_api": "Supervisor API",
+            "supervisor_version": "Supervisor verzi\u00f3",
+            "supported": "T\u00e1mogatott",
+            "update_channel": "Friss\u00edt\u00e9si csatorna",
+            "version_api": "API verzi\u00f3"
+        }
+    }
+}

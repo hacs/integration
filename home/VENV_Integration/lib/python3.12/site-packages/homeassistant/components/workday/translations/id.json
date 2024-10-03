@@ -1,0 +1,225 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Hari kerja telah disiapkan dengan konfigurasi yang dipilih",
+            "incorrect_province": "Subdivisi salah dari proses impor yaml"
+        },
+        "error": {
+            "add_holiday_error": "Format tanggal salah (YYYY-MM-DD)",
+            "add_holiday_range_error": "Format pada rentang tanggal salah (YYYY-MM-DD,YYYY-MM-DD)",
+            "already_configured": "Layanan sudah dikonfigurasi",
+            "remove_holiday_error": "Format tanggal salah (YYYY-MM-DD) atau nama hari libur tidak ditemukan",
+            "remove_holiday_range_error": "Format pada rentang tanggal salah (YYYY-MM-DD,YYYY-MM-DD)"
+        },
+        "step": {
+            "options": {
+                "data": {
+                    "add_holidays": "Tambahkan hari libur",
+                    "days_offset": "Offset",
+                    "excludes": "Pengecualian",
+                    "language": "Bahasa untuk hari libur bernama",
+                    "province": "Subdivisi negara",
+                    "remove_holidays": "Hapus Hari Libur",
+                    "workdays": "Hari kerja"
+                },
+                "data_description": {
+                    "add_holidays": "Tambahkan hari libur khusus sebagai YYYY-MM-DD atau sebagai rentang menggunakan `,` sebagai pemisah",
+                    "days_offset": "Ofset hari daru hari ini",
+                    "excludes": "Daftar hari kerja yang akan dikecualikan, perhatikan bahwa kata kunci `holiday` dan baca dokumentasi untuk menggunakannya dengan benar",
+                    "province": "Negara bagian, wilayah, provinsi, wilayah negara",
+                    "remove_holidays": "Hapus hari libur sebagai YYYY-MM-DD, sebagai rentang menggunakan `,` sebagai pemisah, atau dengan menggunakan sebagian nama",
+                    "workdays": "Daftar hari kerja"
+                },
+                "description": "Setel opsi tambahan untuk {name} yang dikonfigurasi untuk negara {country}"
+            },
+            "user": {
+                "data": {
+                    "country": "Negara",
+                    "name": "Nama"
+                }
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "workday": {
+                "state_attributes": {
+                    "days_offset": {
+                        "name": "Offset"
+                    },
+                    "excludes": {
+                        "name": "Pengecualian"
+                    },
+                    "workdays": {
+                        "name": "Hari kerja"
+                    }
+                }
+            }
+        }
+    },
+    "issues": {
+        "bad_country": {
+            "fix_flow": {
+                "step": {
+                    "country": {
+                        "data": {
+                            "country": "Negara"
+                        },
+                        "description": "Pilih negara yang akan digunakan untuk sensor Hari Kerja Anda.",
+                        "title": "Pilih negara untuk {title}"
+                    },
+                    "province": {
+                        "data": {
+                            "province": "Subdivisi negara"
+                        },
+                        "data_description": {
+                            "province": "Negara Bagian, Wilayah, Provinsi, Wilayah Negara"
+                        },
+                        "description": "Pilih provinsi di negara {country} yang akan digunakan untuk sensor Hari Kerja Anda.",
+                        "title": "Pilih provinsi untuk {title}"
+                    }
+                }
+            },
+            "title": "Negara yang dikonfigurasi untuk {title} tidak ada"
+        },
+        "bad_date_holiday": {
+            "fix_flow": {
+                "error": {
+                    "remove_holiday_error": "Format tanggal salah (YYYY-MM-DD) atau nama hari libur tidak ditemukan"
+                },
+                "step": {
+                    "fix_remove_holiday": {
+                        "data": {
+                            "remove_holidays": "Hapus Hari Libur"
+                        },
+                        "data_description": {
+                            "remove_holidays": "Hapus hari libur sebagai YYYY-MM-DD, sebagai rentang menggunakan `,` sebagai pemisah, atau dengan menggunakan sebagian nama"
+                        },
+                        "description": "Hapus tanggal libur `{remove_holidays}` karena tidak dapat ditemukan di negara {country}.",
+                        "title": "Tanggal hari libur yang dikonfigurasi {remove_holidays} untuk {title} tidak ada"
+                    }
+                }
+            },
+            "title": "Tanggal hari libur yang dikonfigurasi {remove_holidays} untuk {title} tidak ada"
+        },
+        "bad_named_holiday": {
+            "fix_flow": {
+                "error": {
+                    "remove_holiday_error": "Format tanggal salah (YYYY-MM-DD) atau nama hari libur tidak ditemukan"
+                },
+                "step": {
+                    "fix_remove_holiday": {
+                        "data": {
+                            "remove_holidays": "Hapus Hari Libur"
+                        },
+                        "data_description": {
+                            "remove_holidays": "Hapus hari libur sebagai YYYY-MM-DD, sebagai rentang menggunakan `,` sebagai pemisah, atau dengan menggunakan sebagian nama"
+                        },
+                        "description": "Hapus hari libur bernama `{remove_holidays}` karena tidak dapat ditemukan di negara {country}.",
+                        "title": "Hari libur bernama {remove_holidays} yang dikonfigurasi untuk {title} tidak ada"
+                    },
+                    "named_holiday": {
+                        "data": {
+                            "remove_holidays": "Hapus Hari Libur"
+                        },
+                        "data_description": {
+                            "remove_holidays": "Hapus hari libur sebagai YYYY-MM-DD, sebagai rentang menggunakan `,` sebagai pemisah, atau dengan menggunakan sebagian nama"
+                        },
+                        "title": "Hari libur bernama {remove_holidays} yang dikonfigurasi untuk {title} tidak ada"
+                    }
+                }
+            },
+            "title": "Hari libur bernama {remove_holidays} yang dikonfigurasi untuk {title} tidak ada"
+        },
+        "bad_province": {
+            "fix_flow": {
+                "step": {
+                    "province": {
+                        "data": {
+                            "province": "Subdivisi negara"
+                        },
+                        "data_description": {
+                            "province": "Negara Bagian, Wilayah, Provinsi, Wilayah Negara"
+                        },
+                        "description": "Pilih provinsi di negara {country} yang akan digunakan untuk sensor Hari Kerja Anda.",
+                        "title": "Pilih provinsi untuk {title}"
+                    }
+                }
+            },
+            "title": "Provinsi yang dikonfigurasi di negara {country} untuk {title} tidak ada"
+        },
+        "deprecated_yaml": {
+            "description": "Proses konfigurasi Integrasi Workday lewat YAML dalam proses penghapusan.\n\nKonfigurasi YAML yang ada telah diimpor ke antarmuka secara otomatis.\n\nHapus konfigurasi YAML Integrasi Workday dari file configuration.yaml dan mulai ulang Home Assistant untuk memperbaiki masalah ini.",
+            "title": "Konfigurasi YAML Integrasi Workday dalam proses penghapusan"
+        }
+    },
+    "options": {
+        "error": {
+            "add_holiday_error": "Format tanggal salah (YYYY-MM-DD)",
+            "add_holiday_range_error": "Format pada rentang tanggal salah (YYYY-MM-DD,YYYY-MM-DD)",
+            "already_configured": "Layanan dengan konfigurasi ini sudah ada",
+            "remove_holiday_error": "Format tanggal salah (YYYY-MM-DD) atau nama hari libur tidak ditemukan",
+            "remove_holiday_range_error": "Format pada rentang tanggal salah (YYYY-MM-DD,YYYY-MM-DD)"
+        },
+        "step": {
+            "init": {
+                "data": {
+                    "add_holidays": "Tambahkan hari libur",
+                    "days_offset": "Offset",
+                    "excludes": "Pengecualian",
+                    "language": "Bahasa untuk hari libur bernama",
+                    "province": "Subdivisi negara",
+                    "remove_holidays": "Hapus Hari Libur",
+                    "workdays": "Hari kerja"
+                },
+                "data_description": {
+                    "add_holidays": "Tambahkan hari libur khusus sebagai YYYY-MM-DD atau sebagai rentang menggunakan `,` sebagai pemisah",
+                    "days_offset": "Ofset hari daru hari ini",
+                    "excludes": "Daftar hari kerja yang akan dikecualikan, perhatikan bahwa kata kunci `holiday` dan baca dokumentasi untuk menggunakannya dengan benar",
+                    "language": "Pilih bahasa yang ingin dikonfigurasikan dengan nama hari libur",
+                    "province": "Negara bagian, wilayah, provinsi, wilayah negara",
+                    "remove_holidays": "Hapus hari libur sebagai YYYY-MM-DD, sebagai rentang menggunakan `,` sebagai pemisah, atau dengan menggunakan sebagian nama",
+                    "workdays": "Daftar hari kerja"
+                },
+                "description": "Ubah opsi tambahan untuk {name} yang dikonfigurasi untuk negara {country}"
+            }
+        }
+    },
+    "selector": {
+        "country": {
+            "options": {
+                "none": "Tidak ada negara"
+            }
+        },
+        "days": {
+            "options": {
+                "fri": "Jumat",
+                "holiday": "Hari Libur",
+                "mon": "Senin",
+                "sat": "Sabtu",
+                "sun": "Minggu",
+                "thu": "Kamis",
+                "tue": "Selasa",
+                "wed": "Rabu"
+            }
+        },
+        "province": {
+            "options": {
+                "none": "Tidak ada subdivisi"
+            }
+        }
+    },
+    "services": {
+        "check_date": {
+            "description": "Periksa tanggal apakah merupakan hari kerja",
+            "fields": {
+                "check_date": {
+                    "description": "Tanggal yang akan diperiksa apakah merupakan hari kerja",
+                    "name": "Tanggal"
+                }
+            },
+            "name": "Periksa tanggal"
+        }
+    },
+    "title": "Workday"
+}

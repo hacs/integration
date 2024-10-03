@@ -1,0 +1,59 @@
+{
+    "config": {
+        "step": {
+            "user": {
+                "data": {
+                    "always_available": "Sensor sempre dispon\u00edvel",
+                    "cycle": "Ciclo de reposi\u00e7\u00e3o do contador",
+                    "delta_values": "Valores delta",
+                    "net_consumption": "Consumo absoluto",
+                    "offset": "Desvio de reposi\u00e7\u00e3o do contador",
+                    "periodically_resetting": "Reposi\u00e7\u00e3o peri\u00f3dica",
+                    "source": "Sensor de entrada",
+                    "tariffs": "Tarifas suportadas"
+                },
+                "data_description": {
+                    "always_available": "Se estiver ativado, o sensor mostrar\u00e1 sempre o \u00faltimo valor conhecido, mesmo que a entidade de origem n\u00e3o esteja dispon\u00edvel ou seja desconhecida.",
+                    "delta_values": "Ativar se os valores de origem forem valores delta desde a \u00faltima leitura em vez de valores absolutos.",
+                    "net_consumption": "Ativar se a fonte for um contador absoluto, o que significa que pode tanto aumentar como diminuir.",
+                    "offset": "Compensa\u00e7\u00e3o da reposi\u00e7\u00e3o mensal do contador, em dias.",
+                    "periodically_resetting": "Ativar se a fonte puder ser periodicamente reposta a 0, por exemplo, no arranque do dispositivo de medi\u00e7\u00e3o. Se desativada, as novas leituras s\u00e3o registadas diretamente ap\u00f3s a indisponibilidade de dados.",
+                    "tariffs": "Uma lista de tarifas suportadas; deixar em branco se apenas for necess\u00e1ria uma \u00fanica tarifa."
+                },
+                "description": "Criar um sensor que monitorize o consumo de v\u00e1rios servi\u00e7os p\u00fablicos (por exemplo, energia, g\u00e1s, \u00e1gua, aquecimento) durante um per\u00edodo configurado, tipicamente mensal. O contador de servi\u00e7os p\u00fablicos (utility_meter) suporta opcionalmente a divis\u00e3o do consumo por tarifas; nesse caso \u00e9 criado um sensor para cada tarifa, bem como uma entidade selecionada para escolher a tarifa atual.",
+                "title": "Adicionar Contador de Servi\u00e7os P\u00fablicos"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "always_available": "Sensor sempre dispon\u00edvel",
+                    "periodically_resetting": "Reposi\u00e7\u00e3o peri\u00f3dica",
+                    "source": "Sensor de entrada"
+                },
+                "data_description": {
+                    "always_available": "Se estiver ativado, o sensor mostrar\u00e1 sempre o \u00faltimo valor conhecido, mesmo que a entidade de origem n\u00e3o esteja dispon\u00edvel ou seja desconhecida.",
+                    "periodically_resetting": "Ativar se a fonte puder ser periodicamente reposta a 0, por exemplo, no arranque do dispositivo de medi\u00e7\u00e3o. Se desativada, as novas leituras s\u00e3o registadas diretamente ap\u00f3s a indisponibilidade de dados."
+                }
+            }
+        }
+    },
+    "selector": {
+        "cycle": {
+            "options": {
+                "bimonthly": "De dois em dois meses",
+                "daily": "Diariamente",
+                "hourly": "De hora em hora",
+                "monthly": "Mensal ",
+                "none": "Sem ciclo",
+                "quarter-hourly": "A cada 15 minutos",
+                "quarterly": "Trimestral",
+                "weekly": "Semanal",
+                "yearly": "Anual"
+            }
+        }
+    },
+    "title": "Contador de Servi\u00e7os P\u00fablicos"
+}

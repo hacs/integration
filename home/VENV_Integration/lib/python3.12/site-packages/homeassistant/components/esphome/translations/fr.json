@@ -1,0 +1,127 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "L'appareil est d\u00e9j\u00e0 configur\u00e9",
+            "already_in_progress": "La configuration est d\u00e9j\u00e0 en cours",
+            "mdns_missing_mac": "Adresse MAC manquante dans les propri\u00e9t\u00e9s mDNS.",
+            "mqtt_missing_api": "Port API manquant dans les propri\u00e9t\u00e9s MQTT.",
+            "mqtt_missing_ip": "Adresse IP manquante dans les propri\u00e9t\u00e9s MQTT.",
+            "mqtt_missing_mac": "Adresse MAC manquante dans les propri\u00e9t\u00e9s MQTT.",
+            "reauth_successful": "La r\u00e9-authentification a r\u00e9ussi",
+            "service_received": "Action re\u00e7ue"
+        },
+        "error": {
+            "connection_error": "Impossible de se connecter \u00e0 ESP. Assurez-vous que votre fichier YAML contient une ligne 'api:'.",
+            "invalid_auth": "Authentification non valide",
+            "invalid_psk": "La cl\u00e9 de chiffrement de transport n\u2019est pas valide. Assurez-vous qu\u2019elle correspond \u00e0 ce que vous avez dans votre configuration",
+            "resolve_error": "Impossible de r\u00e9soudre l'adresse de l'ESP. Si cette erreur persiste, essayez de d\u00e9finir une adresse IP statique"
+        },
+        "flow_title": "{name}",
+        "step": {
+            "authenticate": {
+                "data": {
+                    "password": "Mot de passe"
+                },
+                "description": "Veuillez saisir le mot de passe que vous avez d\u00e9fini dans votre configuration pour {name}."
+            },
+            "discovery_confirm": {
+                "description": "Voulez-vous ajouter le n\u0153ud ESPHome `{name}` \u00e0 Home Assistant\u00a0?",
+                "title": "N\u0153ud ESPHome d\u00e9couvert"
+            },
+            "encryption_key": {
+                "data": {
+                    "noise_psk": "Cl\u00e9 de chiffrement"
+                },
+                "description": "Entrez la cl\u00e9 de chiffrement pour {name}. Vous pouvez le trouver dans le tableau de bord ESPHome ou dans la configuration de votre appareil."
+            },
+            "reauth_confirm": {
+                "data": {
+                    "noise_psk": "Cl\u00e9 de chiffrement"
+                },
+                "description": "L'appareil ESPHome {name} a activ\u00e9 le chiffrement du transport ou modifi\u00e9 la cl\u00e9 de chiffrement. Veuillez entrer la cl\u00e9 mise \u00e0 jour. Vous pouvez le trouver dans le tableau de bord ESPHome ou dans la configuration de votre appareil."
+            },
+            "user": {
+                "data": {
+                    "host": "H\u00f4te",
+                    "port": "Port"
+                },
+                "description": "Veuillez saisir les param\u00e8tres de connexion de votre n\u0153ud [ESPHome]({esphome_url})."
+            }
+        }
+    },
+    "entity": {
+        "assist_satellite": {
+            "assist_satellite": {
+                "name": "Satellite Assist"
+            }
+        },
+        "binary_sensor": {
+            "assist_in_progress": {
+                "name": "Assist en cours"
+            },
+            "call_active": {
+                "name": "Appel actif"
+            }
+        },
+        "climate": {
+            "climate": {
+                "state_attributes": {
+                    "fan_mode": {
+                        "state": {
+                            "quiet": "Silencieux"
+                        }
+                    }
+                }
+            }
+        },
+        "select": {
+            "pipeline": {
+                "name": "Pipeline d'Assist",
+                "state": {
+                    "preferred": "Pr\u00e9f\u00e9r\u00e9"
+                }
+            },
+            "vad_sensitivity": {
+                "name": "D\u00e9tection de fin de la parole",
+                "state": {
+                    "aggressive": "Agressif",
+                    "default": "Par d\u00e9faut",
+                    "relaxed": "D\u00e9tendu"
+                }
+            }
+        }
+    },
+    "issues": {
+        "api_password_deprecated": {
+            "description": "Le mot de passe de l'API pour ESPHome est d\u00e9pr\u00e9ci\u00e9 et l'utilisation d'une cl\u00e9 de chiffrement de l'API est recommand\u00e9e \u00e0 la place.\n\nSupprimez le mot de passe de l'API et ajoutez une cl\u00e9 de chiffrement \u00e0 votre appareil ESPHome pour r\u00e9soudre ce probl\u00e8me.",
+            "title": "Mot de passe l'API obsol\u00e8te sur {name}"
+        },
+        "assist_in_progress_deprecated": {
+            "fix_flow": {
+                "step": {
+                    "confirm_disable_entity": {
+                        "description": "Le capteur binaire {integration_name} Assist en cours (`{entity_id}`) est obsol\u00e8te. \n\nSi vous utilisez ce capteur dans vos tableaux de bord, scripts ou automatisations, vous devez d\u00e9sormais utiliser la nouvelle entit\u00e9 `{assist_satellite_domain}`. \n\nUne fois la migration effectu\u00e9e ou si vous ne l'utilisez pas, vous pouvez cliquer sur VALIDER pour le d\u00e9sactiver et r\u00e9soudre ce probl\u00e8me."
+                    }
+                }
+            },
+            "title": "Les capteurs binaires {integration_name} Assist en cours sont obsol\u00e8tes"
+        },
+        "ble_firmware_outdated": {
+            "description": "Pour am\u00e9liorer la fiabilit\u00e9 et les performances Bluetooth, nous vous recommandons vivement de mettre \u00e0 jour {name} avec ESPHome {version} ou une version ult\u00e9rieure. Lors de la mise \u00e0 jour de l'appareil \u00e0 partir d'ESPHome avant 2022.12.0, il est recommand\u00e9 d'utiliser un c\u00e2ble s\u00e9rie au lieu d'une mise \u00e0 jour en direct pour profiter du nouveau sch\u00e9ma de partition.",
+            "title": "Mettez \u00e0 jour {name} avec ESPHome {version} ou une version ult\u00e9rieure"
+        },
+        "service_calls_not_allowed": {
+            "description": "L'appareil ESPHome a tent\u00e9 d'effectuer une action Home Assistant, mais cette fonctionnalit\u00e9 n'est pas activ\u00e9e.\n\nSi vous faites confiance \u00e0 cet appareil et souhaitez l'autoriser \u00e0 effectuer l'action Home Assistant, vous pouvez activer cette fonctionnalit\u00e9 dans les options.",
+            "title": "{name} n'est pas autoris\u00e9 \u00e0 effectuer des actions Home Assistant"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "allow_service_calls": "Autorisez l'appareil \u00e0 effectuer des actions Home Assistant."
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,102 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Paslauga jau sukonfig\u016bruota",
+            "bad_config": "U\u017eklausa nepavyko d\u0117l netinkamos konfig\u016bracijos: patikrinkite [stationboard] ( {stationboard_url} ), ar n\u0117ra galiojan\u010di\u0173 sto\u010di\u0173.",
+            "cannot_connect": "Negalima prisijungti prie serverio",
+            "unknown": "Python-opendata-transport suk\u0117l\u0117 ne\u017einom\u0105 klaid\u0105"
+        },
+        "error": {
+            "bad_config": "U\u017eklausa nepavyko d\u0117l netinkamos konfig\u016bracijos: patikrinkite [stationboard] ( {stationboard_url} ), ar j\u016bs\u0173 sto\u010di\u0173 pavadinimai galioja",
+            "cannot_connect": "Negalima prisijungti prie serverio",
+            "too_many_via_stations": "Per daug tarpini\u0173 sto\u010di\u0173, vienam ry\u0161iui leid\u017eiama tik iki 5 sto\u010di\u0173.",
+            "unknown": "Python-opendata-transport suk\u0117l\u0117 ne\u017einom\u0105 klaid\u0105"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "from": "Prad\u0117ti stot\u012f",
+                    "to": "Pabaigos stotis",
+                    "via": "Iki 5 per sto\u010di\u0173 s\u0105ra\u0161as"
+                },
+                "description": "Nurodykite ry\u0161io prad\u017eios ir pabaigos stotis,\n ir pasirinktinai iki 5 per sto\u010di\u0173. \n\n Patikrinkite [stationboard]( {stationboard_url} ), ar n\u0117ra galiojan\u010di\u0173 sto\u010di\u0173.",
+                "title": "\u0160veicarijos vie\u0161asis transportas"
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "delay": {
+                "name": "U\u017edelsimas"
+            },
+            "departure": {
+                "name": "I\u0161vykimas"
+            },
+            "departure0": {
+                "name": "I\u0161vykimas"
+            },
+            "departure1": {
+                "name": "I\u0161vykimas +1"
+            },
+            "departure2": {
+                "name": "I\u0161vykimas +2"
+            },
+            "duration": {
+                "name": "Trukm\u0117"
+            },
+            "platform": {
+                "name": "Platforma"
+            },
+            "transfers": {
+                "name": "Pervedimai"
+            }
+        }
+    },
+    "exceptions": {
+        "cannot_connect": {
+            "message": "Nepavyksta prisijungti prie serverio.\n{error}"
+        },
+        "config_entry_not_found": {
+            "message": "\u0160veicarijos vie\u0161ojo transporto integravimo pavyzdys \u201e{target}\u201c nerastas."
+        },
+        "invalid_data": {
+            "message": "\u012evesties {config_title} su neteisingais duomenimis s\u0105ranka nepavyko, patikrinkite [stationboard] ( {stationboard_url} ), ar j\u016bs\u0173 sto\u010di\u0173 pavadinimai galioja.\n {error}"
+        },
+        "not_loaded": {
+            "message": "{target} ne\u012fkeltas."
+        },
+        "request_timeout": {
+            "message": "Baig\u0117si skirtasis laikas prisijungiant prie \u012fra\u0161o {config_title} .\n {error}"
+        }
+    },
+    "issues": {
+        "deprecated_yaml_import_issue_bad_config": {
+            "description": "\u0160veicarijos vie\u0161ojo transporto konfig\u016bravimas naudojant YAML pa\u0161alinamas, ta\u010diau \u012f YAML konfig\u016bracij\u0105 buvo importuota netinkama konfig\u016bracija. \n\n Patikrinkite [stationboard]( {stationboard_url} ), ar n\u0117ra galiojan\u010di\u0173 sto\u010di\u0173.",
+            "title": "\u0160veicarijos vie\u0161ojo transporto YAML konfig\u016bracijos importavimo u\u017eklausa nepavyko d\u0117l netinkamos konfig\u016bracijos"
+        },
+        "deprecated_yaml_import_issue_cannot_connect": {
+            "description": "\u0160veicarijos vie\u0161ojo transporto konfig\u016bravimas naudojant YAML pa\u0161alinamas, ta\u010diau importuojant YAML konfig\u016bracij\u0105 \u012fvyko ry\u0161io klaida. \n\n \u012esitikinkite, kad j\u016bs\u0173 nam\u0173 pad\u0117j\u0117jas gali pasiekti [opendata server\u012f] ( {opendata_url} ). Jei serveris neveikia, bandykite dar kart\u0105 v\u0117liau.",
+            "title": "\u0160veicarijos vie\u0161ojo transporto YAML konfig\u016bracijos importas negali prisijungti prie serverio"
+        },
+        "deprecated_yaml_import_issue_unknown": {
+            "description": "\u0160veicarijos vie\u0161ojo transporto konfig\u016bravimas naudojant YAML pa\u0161alinamas, ta\u010diau importuojant YAML konfig\u016bracij\u0105 \u012fvyko ne\u017einoma klaida. \n\n Patikrinkite savo konfig\u016bracij\u0105 arba per\u017ei\u016br\u0117kite integravimo dokumentacij\u0105.",
+            "title": "\u0160veicarijos vie\u0161ojo transporto YAML konfig\u016bracijos importavimas nepavyko d\u0117l ne\u017einomos klaidos, kuri\u0105 suk\u0117l\u0117 python-opendata-transport"
+        }
+    },
+    "services": {
+        "fetch_connections": {
+            "description": "Gaukite jung\u010di\u0173 s\u0105ra\u0161\u0105 i\u0161 \u0160veicarijos vie\u0161ojo transporto.",
+            "fields": {
+                "config_entry_id": {
+                    "description": "\u0160veicarijos vie\u0161ojo transporto pavyzdys susisiekimui gauti.",
+                    "name": "Pavyzdys"
+                },
+                "limit": {
+                    "description": "Ry\u0161i\u0173, kuriuos reikia gauti, skai\u010dius [1\u201315]",
+                    "name": "Riba"
+                }
+            },
+            "name": "Gauti ry\u0161ius"
+        }
+    }
+}

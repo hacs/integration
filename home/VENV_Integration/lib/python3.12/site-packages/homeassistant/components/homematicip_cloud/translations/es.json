@@ -1,0 +1,158 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "El dispositivo ya est\u00e1 configurado",
+            "connection_aborted": "No se pudo conectar",
+            "unknown": "Error inesperado"
+        },
+        "error": {
+            "invalid_sgtin_or_pin": "C\u00f3digo SGTIN o PIN no v\u00e1lido, por favor, int\u00e9ntalo de nuevo.",
+            "press_the_button": "Por favor, pulsa el bot\u00f3n azul",
+            "register_failed": "No se pudo registrar, por favor, int\u00e9ntalo de nuevo.",
+            "timeout_button": "Tiempo de espera agotado mientras se esperaba presionar el bot\u00f3n azul, por favor, int\u00e9ntalo de nuevo."
+        },
+        "step": {
+            "init": {
+                "data": {
+                    "hapid": "ID de punto de acceso (SGTIN)",
+                    "name": "Nombre (opcional, usado como prefijo de nombre para todos los dispositivos)",
+                    "pin": "C\u00f3digo PIN"
+                },
+                "title": "Elegir punto de acceso HomematicIP"
+            },
+            "link": {
+                "description": "Pulsa el bot\u00f3n azul del punto de acceso y el bot\u00f3n **Enviar** para registrar HomematicIP con Home Assistant.\n\n![Ubicaci\u00f3n del bot\u00f3n en el puente](/static/images/config_flows/config_homematicip_cloud.png)",
+                "title": "Vincular punto de acceso"
+            }
+        }
+    },
+    "exceptions": {
+        "access_point_not_found": {
+            "message": "No se encontr\u00f3 ning\u00fan punto de acceso coincidente con el ID de punto de acceso {id}"
+        }
+    },
+    "services": {
+        "activate_eco_mode_with_duration": {
+            "description": "Activa el modo eco durante un periodo",
+            "fields": {
+                "accesspoint_id": {
+                    "description": "El ID de Homematic IP Access Point.",
+                    "name": "ID de Accesspoint"
+                },
+                "duration": {
+                    "description": "La duraci\u00f3n del modo eco en minutos.",
+                    "name": "Duraci\u00f3n"
+                }
+            },
+            "name": "Activar modo eco con duraci\u00f3n"
+        },
+        "activate_eco_mode_with_period": {
+            "description": "Activa el modo eco durante un periodo",
+            "fields": {
+                "accesspoint_id": {
+                    "description": "El ID de Homematic IP Access Point.",
+                    "name": "ID de Accesspoint"
+                },
+                "endtime": {
+                    "description": "La hora a la que el modo eco debe desactivarse autom\u00e1ticamente.",
+                    "name": "Hora de finalizaci\u00f3n"
+                }
+            },
+            "name": "Activar el modo eco durante un periodo"
+        },
+        "activate_vacation": {
+            "description": "Activa el modo vacaciones hasta la hora indicada.",
+            "fields": {
+                "accesspoint_id": {
+                    "description": "El ID de Homematic IP Access Point.",
+                    "name": "ID de Accesspoint"
+                },
+                "endtime": {
+                    "description": "El momento en que el modo de vacaciones debe desactivarse autom\u00e1ticamente.",
+                    "name": "Hora de finalizaci\u00f3n"
+                },
+                "temperature": {
+                    "description": "La temperatura establecida durante el modo de vacaciones.",
+                    "name": "Temperatura"
+                }
+            },
+            "name": "Activar vacaciones"
+        },
+        "deactivate_eco_mode": {
+            "description": "Desactiva el modo eco inmediatamente.",
+            "fields": {
+                "accesspoint_id": {
+                    "description": "El ID de Homematic IP Access Point.",
+                    "name": "ID de Accesspoint"
+                }
+            },
+            "name": "Desactivar modo eco"
+        },
+        "deactivate_vacation": {
+            "description": "Desactiva el modo vacaciones inmediatamente.",
+            "fields": {
+                "accesspoint_id": {
+                    "description": "El ID de Homematic IP Access Point.",
+                    "name": "ID de Accesspoint"
+                }
+            },
+            "name": "Desactivar vacaciones"
+        },
+        "dump_hap_config": {
+            "description": "Vuelca la configuraci\u00f3n de los puntos de acceso IP de Homematic.",
+            "fields": {
+                "anonymize": {
+                    "description": "\u00bfDebe anonimizarse la configuraci\u00f3n?",
+                    "name": "Anonimizar"
+                },
+                "config_output_file_prefix": {
+                    "description": "Nombre del archivo de configuraci\u00f3n. Siempre se adjuntar\u00e1 el SGTIN del AP.",
+                    "name": "Configurar prefijo del archivo de salida"
+                },
+                "config_output_path": {
+                    "description": "(El valor predeterminado es 'El directorio de configuraci\u00f3n de tu Home Assistant') Ruta donde almacenar la configuraci\u00f3n.",
+                    "name": "Configurar ruta de salida"
+                }
+            },
+            "name": "Volcar configuraci\u00f3n hap"
+        },
+        "reset_energy_counter": {
+            "description": "Restablece el contador de energ\u00eda de una entidad de medici\u00f3n.",
+            "fields": {
+                "entity_id": {
+                    "description": "El ID de la entidad de medici\u00f3n. Usa la palabra clave 'todos' para restablecer todos los contadores de energ\u00eda.",
+                    "name": "Entidad"
+                }
+            },
+            "name": "Reiniciar contador de energ\u00eda"
+        },
+        "set_active_climate_profile": {
+            "description": "Establece el \u00edndice de perfil de clima activo.",
+            "fields": {
+                "climate_profile_index": {
+                    "description": "El \u00edndice del perfil de clima.",
+                    "name": "\u00cdndice de perfil de clima"
+                },
+                "entity_id": {
+                    "description": "El ID de la entidad de clima. Utiliza la palabra clave 'all' para cambiar el perfil de todas las entidades.",
+                    "name": "Entidad"
+                }
+            },
+            "name": "Establecer perfil de clima activo"
+        },
+        "set_home_cooling_mode": {
+            "description": "Establece el modo de calefacci\u00f3n/refrigeraci\u00f3n para toda la casa",
+            "fields": {
+                "accesspoint_id": {
+                    "description": "El ID de Homematic IP Access Point.",
+                    "name": "ID de Accesspoint"
+                },
+                "cooling": {
+                    "description": "Habilitar para modo refrigeraci\u00f3n, deshabilitar para modo calefacci\u00f3n",
+                    "name": "Enfriando"
+                }
+            },
+            "name": "Establecer el modo de refrigeraci\u00f3n del hogar"
+        }
+    }
+}

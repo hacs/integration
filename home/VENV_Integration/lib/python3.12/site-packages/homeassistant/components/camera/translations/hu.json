@@ -1,0 +1,104 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "Kamera",
+            "state": {
+                "idle": "T\u00e9tlen",
+                "recording": "Felv\u00e9tel",
+                "streaming": "Streamel\u00e9s"
+            },
+            "state_attributes": {
+                "access_token": {
+                    "name": "Hozz\u00e1f\u00e9r\u00e9si token"
+                },
+                "brand": {
+                    "name": "Gy\u00e1rt\u00f3"
+                },
+                "frontend_stream_type": {
+                    "name": "Stream t\u00edpusa",
+                    "state": {
+                        "hls": "HLS",
+                        "webrtc": "WebRTC"
+                    }
+                },
+                "model_name": {
+                    "name": "Modell"
+                },
+                "motion_detection": {
+                    "name": "Mozg\u00e1s\u00e9rz\u00e9kel\u00e9s",
+                    "state": {
+                        "false": "Letiltva",
+                        "true": "Enged\u00e9lyezve"
+                    }
+                }
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "{domain} integr\u00e1ci\u00f3 nem t\u00e1mogatja {platform} platform be\u00e1ll\u00edt\u00e1s\u00e1t.\n\nK\u00e9rem, t\u00e1vol\u00edtsa el a konfigur\u00e1ci\u00f3b\u00f3l \u00e9s ind\u00edtsa \u00fajra a Home Assistantot a probl\u00e9ma megold\u00e1s\u00e1hoz.",
+            "title": "A platform nem t\u00e1mogatott"
+        }
+    },
+    "services": {
+        "disable_motion_detection": {
+            "description": "Letiltja a mozg\u00e1s\u00e9rz\u00e9kel\u00e9st.",
+            "name": "Mozg\u00e1s\u00e9rz\u00e9kel\u00e9s letilt\u00e1s"
+        },
+        "enable_motion_detection": {
+            "description": "Enged\u00e9lyezi a mozg\u00e1s\u00e9rz\u00e9kel\u00e9st.",
+            "name": "Mozg\u00e1s\u00e9rz\u00e9kel\u00e9s enged\u00e9lyez\u00e9s"
+        },
+        "play_stream": {
+            "description": "Lej\u00e1tssza a kamera adatfolyam\u00e1t egy t\u00e1mogatott m\u00e9dialej\u00e1tsz\u00f3n.",
+            "fields": {
+                "format": {
+                    "description": "A m\u00e9dialej\u00e1tsz\u00f3 \u00e1ltal t\u00e1mogatott adatfolyam-form\u00e1tum.",
+                    "name": "Form\u00e1tum"
+                },
+                "media_player": {
+                    "description": "M\u00e9dialej\u00e1tsz\u00f3k, amelyekre streamelhet.",
+                    "name": "M\u00e9dialej\u00e1tsz\u00f3"
+                }
+            },
+            "name": "Stream lej\u00e1tsz\u00e1sa"
+        },
+        "record": {
+            "description": "L\u00e9trehoz egy felv\u00e9telt egy \u00e9l\u0151 kameraad\u00e1sb\u00f3l.",
+            "fields": {
+                "duration": {
+                    "description": "A felv\u00e9tel tervezett id\u0151tartama. A t\u00e9nyleges id\u0151tartam elt\u00e9rhet.",
+                    "name": "Id\u0151tartam"
+                },
+                "filename": {
+                    "description": "F\u00e1jln\u00e9v sablon. A rendelkez\u00e9sre \u00e1ll\u00f3 v\u00e1ltoz\u00f3 az entit\u00e1s azonos\u00edt\u00f3. Mp4 form\u00e1tum\u00fanak kell lennie.",
+                    "name": "F\u00e1jln\u00e9v"
+                },
+                "lookback": {
+                    "description": "A felv\u00e9telhez tervezett visszatekint\u00e9si id\u0151szak (a felv\u00e9tel id\u0151tartam\u00e1nak kieg\u00e9sz\u00edt\u00e9sek\u00e9nt). Csak akkor \u00e9rhet\u0151 el, ha jelenleg akt\u00edv HLS stream van. A visszatekint\u00e9si id\u0151szak t\u00e9nyleges hossza v\u00e1ltozhat.",
+                    "name": "Visszatekint\u00e9s"
+                }
+            },
+            "name": "R\u00f6gz\u00edt"
+        },
+        "snapshot": {
+            "description": "Pillanatk\u00e9pet k\u00e9sz\u00edt egy kamer\u00e1b\u00f3l.",
+            "fields": {
+                "filename": {
+                    "description": "F\u00e1jln\u00e9v sablon. A rendelkez\u00e9sre \u00e1ll\u00f3 v\u00e1ltoz\u00f3 az `entity_id`.",
+                    "name": "F\u00e1jln\u00e9v"
+                }
+            },
+            "name": "Pillanatk\u00e9p k\u00e9sz\u00edt\u00e9se"
+        },
+        "turn_off": {
+            "description": "Kikapcsolja a kamer\u00e1t.",
+            "name": "Kikapcsol\u00e1s"
+        },
+        "turn_on": {
+            "description": "Bekapcsolja a kamer\u00e1t.",
+            "name": "Bekapcsol\u00e1s"
+        }
+    },
+    "title": "Kamera"
+}

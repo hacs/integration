@@ -1,0 +1,117 @@
+{
+    "config": {
+        "error": {
+            "cannot_connect": "Verbindung fehlgeschlagen",
+            "invalid_auth": "Ung\u00fcltige Authentifizierung"
+        },
+        "step": {
+            "reauth_confirm": {
+                "data": {
+                    "password": "Passwort"
+                },
+                "description": "Die Honeywell-Integration muss dein Konto erneut authentifizieren",
+                "title": "Die Authentifizierung ist abgelaufen f\u00fcr {name}"
+            },
+            "user": {
+                "data": {
+                    "password": "Passwort",
+                    "username": "Benutzername"
+                },
+                "description": "Bitte gib die Anmeldedaten ein, mit denen du dich bei mytotalconnectcomfort.com anmeldest."
+            }
+        }
+    },
+    "entity": {
+        "climate": {
+            "honeywell": {
+                "state_attributes": {
+                    "preset_mode": {
+                        "state": {
+                            "away": "Abwesend",
+                            "hold": "Halten",
+                            "none": "Keine"
+                        }
+                    }
+                }
+            }
+        },
+        "sensor": {
+            "outdoor_humidity": {
+                "name": "Luftfeuchtigkeit im Freien"
+            },
+            "outdoor_temperature": {
+                "name": "Au\u00dfentemperatur"
+            }
+        },
+        "switch": {
+            "emergency_heat": {
+                "name": "Notheizung"
+            }
+        }
+    },
+    "exceptions": {
+        "away_mode_failed": {
+            "message": "Honeywell-Abwesenheitsmodus fehlgeschlagen"
+        },
+        "disable_aux_failed": {
+            "message": "Honeywell konnte die Zusatzheizung nicht ausschalten"
+        },
+        "fan_mode_failed": {
+            "message": "Honeywell konnte den L\u00fcftermodus nicht einstellen"
+        },
+        "set_aux_failed": {
+            "message": "Honeywell konnte den Systemmodus nicht auf Zusatzheizung einstellen"
+        },
+        "set_hold_failed": {
+            "message": "Honeywell konnte keine dauerhafte Sperre einrichten"
+        },
+        "set_mode_failed": {
+            "message": "Ung\u00fcltiger Systemmodus von Honeywell hat {mode} zur\u00fcckgegeben"
+        },
+        "stop_hold_failed": {
+            "message": "Honeywell konnte den Haltemodus nicht beenden"
+        },
+        "switch_failed_off": {
+            "message": "Honeywell k\u00f6nnte den Notheizmodus abschalten."
+        },
+        "switch_failed_on": {
+            "message": "Honeywell konnte den Systemmodus nicht auf Notheizmodus einstellen."
+        },
+        "sys_mode_failed": {
+            "message": "Honeywell konnte den Systemmodus nicht einstellen"
+        },
+        "temp_failed": {
+            "message": "Honeywell-Temperatureinstellung fehlgeschlagen"
+        },
+        "temp_failed_range": {
+            "message": "Honeywell-Temperatureinstellung fehlgeschlagen: Temperatur au\u00dferhalb des zul\u00e4ssigen Bereichs. Modus: {mode}, Heiztemperatur: {heat}, K\u00fchltemperatur: {cool}"
+        },
+        "temp_failed_value": {
+            "message": "Honeywell-Temperatureinstellung fehlgeschlagen: ung\u00fcltige Temperatur {temperature}"
+        }
+    },
+    "issues": {
+        "service_deprecation": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Verwende stattdessen `switch.{name}_emergency_heat`, um den Modus zu \u00e4ndern. \n\nBitte passe deine Automatisierungen und Skripte an und w\u00e4hle **Senden**, um dieses Problem zu beheben.",
+                        "title": "Honeywell Zusatzheizung wird entfernt"
+                    }
+                }
+            },
+            "title": "Honeywell Zusatzheizung wird entfernt"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "away_cool_temperature": "Abwesend K\u00fchlungstemperatur",
+                    "away_heat_temperature": "Abwesend Heiztemperatur"
+                },
+                "description": "Zus\u00e4tzliche Honeywell-Konfigurationsoptionen. Die Temperaturen werden in Fahrenheit eingestellt."
+            }
+        }
+    }
+}

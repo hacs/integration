@@ -1,0 +1,144 @@
+{
+    "device_automation": {
+        "action_type": {
+            "arm_away": "Virit\u00e4 {entity_name} poissa",
+            "arm_home": "Virit\u00e4 {entity_name} kotona",
+            "arm_night": "Virit\u00e4 {entity_name} y\u00f6",
+            "arm_vacation": "Aktivoi {entity_name} lomatila",
+            "disarm": "Pura viritys {entity_name}",
+            "trigger": "Laukaise {entity_name}"
+        },
+        "condition_type": {
+            "is_armed_away": "{entity_name} on viritetty poissa",
+            "is_armed_home": "{entity_name} on viritetty kotona",
+            "is_armed_night": "{entity_name} on viritetty y\u00f6",
+            "is_armed_vacation": "{entity_name} on viritetty (loma)",
+            "is_disarmed": "{entity_name} on viritetty pois",
+            "is_triggered": "{entity_name} on laukaistu"
+        },
+        "trigger_type": {
+            "armed_away": "{entity_name} viritetty (poissa)",
+            "armed_home": "{entity_name} viritetty (kotona)",
+            "armed_night": "{entity_name} viritetty (y\u00f6)",
+            "armed_vacation": "{entity_name} viritetty (loma)",
+            "disarmed": "{entity_name} viritys pois",
+            "triggered": "{entity_name} laukaistu"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "H\u00e4lytysasetukset",
+            "state": {
+                "armed": "Viritetty",
+                "armed_away": "Viritetty (poissa)",
+                "armed_custom_bypass": "Virityksen ohittaminen",
+                "armed_home": "Viritetty (kotona)",
+                "armed_night": "Viritetty (y\u00f6)",
+                "armed_vacation": "Viritetty (loma)",
+                "arming": "Virittyy",
+                "disarmed": "Viritys pois",
+                "disarming": "Virityksen poisto",
+                "pending": "Odottaa",
+                "triggered": "Lauennut"
+            },
+            "state_attributes": {
+                "changed_by": {
+                    "name": "Muuttanut"
+                },
+                "code_arm_required": {
+                    "name": "Viritt\u00e4misen koodi",
+                    "state": {
+                        "false": "Ei vaadittu",
+                        "true": "Vaadittu"
+                    }
+                },
+                "code_format": {
+                    "name": "Koodin muoto",
+                    "state": {
+                        "number": "Numero",
+                        "text": "Teksti"
+                    }
+                }
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "{platform}-integraation {domain}-alusta ei tue alustan asetuksia.\n\nPoista se asetuksista ja k\u00e4ynnist\u00e4 Home Assistant uudelleen ongelman korjaamiseksi.",
+            "title": "Alustan tukea ei tueta"
+        }
+    },
+    "services": {
+        "alarm_arm_away": {
+            "description": "Asettaa h\u00e4lyttimeksi: _viritetty, ei ket\u00e4\u00e4n kotona_.",
+            "fields": {
+                "code": {
+                    "description": "Koodi h\u00e4lytyksen viritt\u00e4miseksi.",
+                    "name": "Koodi"
+                }
+            },
+            "name": "Virit\u00e4 (poissa)"
+        },
+        "alarm_arm_custom_bypass": {
+            "description": "Viritt\u00e4\u00e4 h\u00e4lyttimen samalla kun sallitaan mukautetun alueen ohittaminen.",
+            "fields": {
+                "code": {
+                    "description": "Koodi h\u00e4lytyksen viritt\u00e4miseksi.",
+                    "name": "Koodi"
+                }
+            },
+            "name": "Virit\u00e4 mukautetulla ohituksella"
+        },
+        "alarm_arm_home": {
+            "description": "Asettaa h\u00e4lyttimeksi: _viritetty, mutta joku on kotona_.",
+            "fields": {
+                "code": {
+                    "description": "Koodi h\u00e4lytyksen viritt\u00e4miseksi.",
+                    "name": "Koodi"
+                }
+            },
+            "name": "Virit\u00e4 (kotona)"
+        },
+        "alarm_arm_night": {
+            "description": "Asettaa h\u00e4lytyksen: _armed for the night_.",
+            "fields": {
+                "code": {
+                    "description": "Koodi h\u00e4lytyksen viritt\u00e4miseksi.",
+                    "name": "Koodi"
+                }
+            },
+            "name": "Virit\u00e4 y\u00f6ksi"
+        },
+        "alarm_arm_vacation": {
+            "description": "Asettaa h\u00e4lytyksen: _armed for vacation_.",
+            "fields": {
+                "code": {
+                    "description": "Koodi h\u00e4lytyksen viritt\u00e4miseksi.",
+                    "name": "Koodi"
+                }
+            },
+            "name": "Virit\u00e4 lomaksi"
+        },
+        "alarm_disarm": {
+            "description": "Poistaa h\u00e4lytyksen k\u00e4yt\u00f6st\u00e4.",
+            "fields": {
+                "code": {
+                    "description": "Koodi h\u00e4lytyksen poistamiseksi k\u00e4yt\u00f6st\u00e4.",
+                    "name": "Koodi"
+                }
+            },
+            "name": "Pura viritys"
+        },
+        "alarm_trigger": {
+            "description": "Ottaa k\u00e4ytt\u00f6\u00f6n ulkoisen h\u00e4lytyksen laukaisun.",
+            "fields": {
+                "code": {
+                    "description": "Koodi h\u00e4lytyksen viritt\u00e4miseksi.",
+                    "name": "Koodi"
+                }
+            },
+            "name": "Laukaisin"
+        }
+    },
+    "title": "H\u00e4lytysasetukset"
+}

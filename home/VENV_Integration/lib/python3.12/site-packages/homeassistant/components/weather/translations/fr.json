@@ -1,0 +1,139 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "M\u00e9t\u00e9o",
+            "state": {
+                "clear-night": "Nuit d\u00e9gag\u00e9e",
+                "cloudy": "Nuageux",
+                "exceptional": "Exceptionnel",
+                "fog": "Brouillard",
+                "hail": "Gr\u00eale",
+                "lightning": "Orage",
+                "lightning-rainy": "Orage / Pluie",
+                "partlycloudy": "\u00c9claircies",
+                "pouring": "Averses",
+                "rainy": "Pluvieux",
+                "snowy": "Neigeux",
+                "snowy-rainy": "Neigeux, pluvieux",
+                "sunny": "Ensoleill\u00e9",
+                "windy": "Venteux",
+                "windy-variant": "Venteux, nuageux"
+            },
+            "state_attributes": {
+                "apparent_temperature": {
+                    "name": "Temp\u00e9rature apparente"
+                },
+                "cloud_coverage": {
+                    "name": "Couverture nuageuse"
+                },
+                "dew_point": {
+                    "name": "Temp\u00e9rature du point de ros\u00e9e"
+                },
+                "forecast": {
+                    "name": "Pr\u00e9vision"
+                },
+                "humidity": {
+                    "name": "Humidit\u00e9"
+                },
+                "ozone": {
+                    "name": "Ozone"
+                },
+                "precipitation_unit": {
+                    "name": "Unit\u00e9 de pr\u00e9cipitation"
+                },
+                "pressure": {
+                    "name": "Pression"
+                },
+                "pressure_unit": {
+                    "name": "Unit\u00e9 de pression"
+                },
+                "temperature": {
+                    "name": "Temp\u00e9rature"
+                },
+                "temperature_unit": {
+                    "name": "Unit\u00e9 de temp\u00e9rature"
+                },
+                "uv_index": {
+                    "name": "Indice UV"
+                },
+                "visibility": {
+                    "name": "Visibilit\u00e9"
+                },
+                "visibility_unit": {
+                    "name": "Unit\u00e9 de visibilit\u00e9"
+                },
+                "wind_bearing": {
+                    "name": "Direction du vent"
+                },
+                "wind_gust_speed": {
+                    "name": "Vitesse des rafales"
+                },
+                "wind_speed": {
+                    "name": "Vitesse du vent"
+                },
+                "wind_speed_unit": {
+                    "name": "Unit\u00e9 de vitesse du vent"
+                }
+            }
+        }
+    },
+    "issues": {
+        "deprecated_service_weather_get_forecast": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "title": "Utilisation d\u00e9tect\u00e9e du service obsol\u00e8te `weather.get_forecast`"
+                    }
+                }
+            }
+        },
+        "deprecated_weather_forecast": {
+            "description": "L'int\u00e9gration `{platform}` utilise l'attribut forecast, qui est obsol\u00e8te.\n\nVeuillez {report_issue}.",
+            "title": "L'int\u00e9gration {platform} utilise des pr\u00e9visions obsol\u00e8tes"
+        },
+        "deprecated_weather_forecast_no_url": {
+            "description": "L'int\u00e9gration personnalis\u00e9e `{platform}` impl\u00e9mente la propri\u00e9t\u00e9 `forecast` ou d\u00e9finit `self._attr_forecast` dans une sous-classe de WeatherEntity.\n\nVeuillez le signaler \u00e0 l'auteur de l'int\u00e9gration {platform}.\n\nUne fois qu'une version mise \u00e0 jour de `{platform}` est disponible, installez-la et red\u00e9marrez Home Assistant pour r\u00e9soudre ce probl\u00e8me.",
+            "title": "L'int\u00e9gration personnalis\u00e9e {platform} utilise des pr\u00e9visions m\u00e9t\u00e9orologiques obsol\u00e8tes."
+        },
+        "deprecated_weather_forecast_url": {
+            "description": "L'int\u00e9gration personnalis\u00e9e `{platform}` impl\u00e9mente la propri\u00e9t\u00e9 `forecast` ou d\u00e9finit `self._attr_forecast` dans une sous-classe de WeatherEntity.\n\nVeuillez cr\u00e9er un rapport de bug sur {issue_tracker}.\n\nUne fois qu'une version mise \u00e0 jour de `{platform}` est disponible, installez-la et red\u00e9marrez Home Assistant pour r\u00e9soudre ce probl\u00e8me.",
+            "title": "L'int\u00e9gration personnalis\u00e9e {platform} utilise des pr\u00e9visions m\u00e9t\u00e9orologiques obsol\u00e8tes."
+        },
+        "platform_integration_no_support": {
+            "description": "La plateforme {platform} pour l'int\u00e9gration {domain} ne prend pas en charge la configuration de la plateforme.\n\nVeuillez la supprimer de votre configuration et red\u00e9marrer Home Assistant pour r\u00e9soudre ce probl\u00e8me.",
+            "title": "Prise en charge de la plateforme non prise en charge"
+        }
+    },
+    "selector": {
+        "forecast_type": {
+            "options": {
+                "daily": "Quotidienne",
+                "hourly": "Horaire",
+                "twice_daily": "Deux fois par jour"
+            }
+        }
+    },
+    "services": {
+        "get_forecast": {
+            "description": "Obtenez les pr\u00e9visions m\u00e9t\u00e9orologiques.",
+            "fields": {
+                "type": {
+                    "description": "Type de pr\u00e9vision\u00a0: quotidienne, horaire ou biquotidienne.",
+                    "name": "Type de pr\u00e9vision"
+                }
+            },
+            "name": "Obtenir des pr\u00e9visions"
+        },
+        "get_forecasts": {
+            "description": "Renvoie les pr\u00e9visions m\u00e9t\u00e9orologiques.",
+            "fields": {
+                "type": {
+                    "description": "Type de pr\u00e9vision\u00a0: quotidienne, horaire ou biquotidienne.",
+                    "name": "Type de pr\u00e9vision"
+                }
+            },
+            "name": "Obtenir les pr\u00e9visions"
+        }
+    },
+    "title": "M\u00e9t\u00e9o"
+}

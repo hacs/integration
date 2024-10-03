@@ -1,0 +1,76 @@
+{
+    "config": {
+        "step": {
+            "user": {
+                "data": {
+                    "always_available": "Senzor je v\u017edy k dispozici",
+                    "cycle": "Cyklus vynulov\u00e1n\u00ed m\u011b\u0159i\u010de",
+                    "delta_values": "Rozd\u00edlov\u00e9 hodnoty",
+                    "name": "N\u00e1zev",
+                    "net_consumption": "\u010cist\u00e1 spot\u0159eba",
+                    "offset": "Posun vynulov\u00e1n\u00ed m\u011b\u0159i\u010de",
+                    "periodically_resetting": "Pravideln\u011b resetovat",
+                    "source": "Vstupn\u00ed senzor",
+                    "tariffs": "Podporovan\u00e9 tarify"
+                },
+                "data_description": {
+                    "always_available": "Pokud je aktivov\u00e1no, senzor bude v\u017edy zobrazovat posledn\u00ed zn\u00e1mou hodnotu, i kdy\u017e zdrojov\u00e1 entita je nedostupn\u00e1 nebo nezn\u00e1m\u00e1.",
+                    "delta_values": "Povolte, pokud jsou zdrojov\u00e9 hodnoty rozd\u00edlov\u00e9 hodnoty od posledn\u00edho ode\u010dtu nam\u00edsto absolutn\u00edch hodnot.",
+                    "net_consumption": "Povolte, pokud je zdroj \u010dist\u00fdm m\u011b\u0159i\u010dem, co\u017e znamen\u00e1, \u017ee se m\u016f\u017ee zvy\u0161ovat i sni\u017eovat.",
+                    "offset": "Posunut\u00ed dne m\u011bs\u00ed\u010dn\u00edho vynulov\u00e1n\u00ed m\u011b\u0159i\u010de.",
+                    "periodically_resetting": "Povolte, pokud se zdroj m\u016f\u017ee pravideln\u011b resetovat na 0, nap\u0159\u00edklad p\u0159i startu m\u011b\u0159ic\u00edho za\u0159\u00edzen\u00ed. Je-li zak\u00e1z\u00e1no, zaznamen\u00e1vaj\u00ed se nov\u00e9 hodnoty p\u0159\u00edmo po nedostupnosti dat.",
+                    "tariffs": "Seznam podporovan\u00fdch tarif\u016f; pokud je pot\u0159eba jen jeden tarif, nechte pr\u00e1zdn\u00e9."
+                },
+                "description": "Vytvo\u0159\u00ed senzor, kter\u00fd sleduje spot\u0159ebu r\u016fzn\u00fdch zdroj\u016f (nap\u0159. energie, plynu, vody, vyt\u00e1p\u011bn\u00ed) za nastaven\u00e9 \u010dasov\u00e9 obdob\u00ed, obvykle m\u011bs\u00ed\u010dn\u011b. Senzor m\u011b\u0159i\u010de spot\u0159eby voliteln\u011b podporuje rozd\u011blen\u00ed spot\u0159eby podle tarif\u016f; v takov\u00e9m p\u0159\u00edpad\u011b se vytvo\u0159\u00ed jeden senzor pro ka\u017ed\u00fd tarif a tak\u00e9 v\u00fdb\u011brov\u00e1 entita pro v\u00fdb\u011br aktu\u00e1ln\u00edho tarifu.",
+                "title": "P\u0159idat m\u011b\u0159i\u010d spot\u0159eby"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "always_available": "Senzor je v\u017edy k dispozici",
+                    "periodically_resetting": "Pravideln\u011b resetovat",
+                    "source": "Vstupn\u00ed senzor"
+                },
+                "data_description": {
+                    "always_available": "Pokud je aktivov\u00e1no, senzor bude v\u017edy zobrazovat posledn\u00ed zn\u00e1mou hodnotu, i kdy\u017e zdrojov\u00e1 entita je nedostupn\u00e1 nebo nezn\u00e1m\u00e1.",
+                    "periodically_resetting": "Povolte, pokud se zdroj m\u016f\u017ee pravideln\u011b resetovat na 0, nap\u0159\u00edklad p\u0159i startu m\u011b\u0159ic\u00edho za\u0159\u00edzen\u00ed. Je-li zak\u00e1z\u00e1no, zaznamen\u00e1vaj\u00ed se nov\u00e9 hodnoty p\u0159\u00edmo po nedostupnosti dat."
+                }
+            }
+        }
+    },
+    "selector": {
+        "cycle": {
+            "options": {
+                "bimonthly": "Ka\u017ed\u00e9 dva m\u011bs\u00edce",
+                "daily": "Ka\u017ed\u00fd den",
+                "hourly": "Ka\u017edou hodinu",
+                "monthly": "Ka\u017ed\u00fd m\u011bs\u00edc",
+                "none": "\u017d\u00e1dn\u00fd cyklus",
+                "quarter-hourly": "Ka\u017ed\u00fdch 15 minut",
+                "quarterly": "Ka\u017ed\u00e9 \u010dtvrtlet\u00ed",
+                "weekly": "Ka\u017ed\u00fd t\u00fdden",
+                "yearly": "Ka\u017ed\u00fd rok"
+            }
+        }
+    },
+    "services": {
+        "calibrate": {
+            "description": "Kalibruje senzor m\u011b\u0159i\u010de spot\u0159eby.",
+            "fields": {
+                "value": {
+                    "description": "Hodnota, na kterou se nastav\u00ed m\u011b\u0159i\u010d.",
+                    "name": "Hodnota"
+                }
+            },
+            "name": "Kalibrovat"
+        },
+        "reset": {
+            "description": "Vynuluje v\u0161echna po\u010ditadla m\u011b\u0159i\u010de.",
+            "name": "Resetovat"
+        }
+    },
+    "title": "M\u011b\u0159i\u010d spot\u0159eby"
+}

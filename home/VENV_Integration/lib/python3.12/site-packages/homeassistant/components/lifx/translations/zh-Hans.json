@@ -1,0 +1,258 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "\u8bbe\u5907\u5df2\u914d\u7f6e",
+            "already_in_progress": "\u914d\u7f6e\u6d41\u7a0b\u5df2\u5728\u8fdb\u884c\u4e2d",
+            "no_devices_found": "\u7f51\u7edc\u4e0a\u672a\u627e\u5230\u4efb\u4f55\u8bbe\u5907"
+        },
+        "error": {
+            "cannot_connect": "\u8fde\u63a5\u5931\u8d25"
+        },
+        "flow_title": "{label} ({group})",
+        "step": {
+            "discovery_confirm": {
+                "description": "\u60a8\u8981\u8bbe\u7f6e {label} ({group}) \u5417 \uff1f"
+            },
+            "pick_device": {
+                "data": {
+                    "device": "\u8bbe\u5907"
+                }
+            },
+            "user": {
+                "data": {
+                    "host": "\u4e3b\u673a"
+                },
+                "data_description": {
+                    "host": "\u60a8\u7684 LIFX \u8bbe\u5907\u7684\u4e3b\u673a\u540d\u6216 IP \u5730\u5740\u3002"
+                },
+                "description": "\u5982\u679c\u4e3b\u673a\u7559\u7a7a\uff0c\u5c06\u4f7f\u7528\u81ea\u52a8\u53d1\u73b0\u67e5\u627e\u8bbe\u5907\u3002"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "clean_cycle": {
+                "name": "\u6e05\u6d01\u5468\u671f"
+            }
+        },
+        "select": {
+            "infrared_brightness": {
+                "name": "\u7ea2\u5916\u4eae\u5ea6"
+            },
+            "theme": {
+                "name": "\u4e3b\u9898"
+            }
+        },
+        "sensor": {
+            "rssi": {
+                "name": "RSSI"
+            }
+        }
+    },
+    "services": {
+        "effect_colorloop": {
+            "description": "\u8fd0\u884c\u8272\u5f69\u5faa\u73af\u6548\u679c\u3002",
+            "fields": {
+                "brightness": {
+                    "description": "\u8868\u793a\u8272\u5f69\u5faa\u73af\u4eae\u5ea6\u7684\u6570\u5b57\uff0c\u5176\u4e2d 1 \u662f\u706f\u5149\u652f\u6301\u7684\u6700\u5c0f\u4eae\u5ea6\uff0c255 \u662f\u706f\u5149\u652f\u6301\u7684\u6700\u5927\u4eae\u5ea6\u3002",
+                    "name": "\u4eae\u5ea6\u503c"
+                },
+                "brightness_pct": {
+                    "description": "\u8868\u793a\u8272\u5f69\u5faa\u73af\u4eae\u5ea6\u7684\u767e\u5206\u6bd4\uff0c\u5176\u4e2d 1 \u662f\u706f\u5149\u652f\u6301\u7684\u6700\u5c0f\u4eae\u5ea6\uff0c100 \u662f\u706f\u5149\u652f\u6301\u7684\u6700\u5927\u4eae\u5ea6\u3002",
+                    "name": "\u4eae\u5ea6"
+                },
+                "change": {
+                    "description": "\u6bcf\u4e2a\u5468\u671f\u7684\u8272\u76f8\u79fb\u52a8\uff08\u4ee5\u8272\u8f6e\u4e0a\u7684\u5ea6\u6570\u4e3a\u5355\u4f4d\uff09\u3002",
+                    "name": "\u66f4\u6539"
+                },
+                "period": {
+                    "description": "\u989c\u8272\u53d8\u5316\u4e4b\u95f4\u7684\u65f6\u957f\u3002",
+                    "name": "\u5468\u671f\u65f6\u95f4"
+                },
+                "power_on": {
+                    "description": "\u5728\u6548\u679c\u671f\u95f4\uff0c\u5173\u95ed\u7535\u6e90\u7684\u706f\u4f1a\u6682\u65f6\u6253\u5f00\u3002",
+                    "name": "\u6253\u5f00"
+                },
+                "saturation_max": {
+                    "description": "\u8868\u793a\u5faa\u73af\u4e2d\u989c\u8272\u7684\u6700\u5927\u9971\u548c\u5ea6\u7684\u767e\u5206\u6bd4\u3002",
+                    "name": "\u6700\u5927\u9971\u548c\u5ea6"
+                },
+                "saturation_min": {
+                    "description": "\u8868\u793a\u5faa\u73af\u4e2d\u989c\u8272\u7684\u6700\u5c0f\u9971\u548c\u5ea6\u7684\u767e\u5206\u6bd4\u3002",
+                    "name": "\u6700\u4f4e\u9971\u548c\u5ea6"
+                },
+                "spread": {
+                    "description": "\u53c2\u4e0e\u706f\u5149\u4e4b\u95f4\u7684\u6700\u5927\u8272\u76f8\u5dee\u5f02\uff08\u4ee5\u8272\u8f6e\u4e0a\u7684\u5ea6\u6570\u4e3a\u5355\u4f4d\uff09\u3002",
+                    "name": "\u4f20\u64ad"
+                }
+            },
+            "name": "\u8272\u5f69\u5faa\u73af\u6548\u679c"
+        },
+        "effect_flame": {
+            "description": "\u5728 LIFX Tiles \u6216 Candle \u4e0a\u542f\u52a8\u57fa\u4e8e\u56fa\u4ef6\u7684\u706b\u7130\u6548\u679c\u3002",
+            "fields": {
+                "power_on": {
+                    "description": "\u5728\u542f\u52a8\u6548\u679c\u4e4b\u524d\uff0c\u5173\u95ed\u7684\u706f\u5c06\u4f1a\u6253\u5f00\u3002",
+                    "name": "\u6253\u5f00"
+                },
+                "speed": {
+                    "description": "\u706b\u7130\u79fb\u52a8\u7684\u901f\u5ea6\u6709\u591a\u5feb\u3002",
+                    "name": "\u901f\u5ea6"
+                }
+            },
+            "name": "\u706b\u7130\u6548\u679c"
+        },
+        "effect_morph": {
+            "description": "\u5728 Candle \u4e0a\u7684 LIFX Tiles \u4e0a\u542f\u52a8\u57fa\u4e8e\u56fa\u4ef6\u7684\u53d8\u5f62\u6548\u679c\u3002",
+            "fields": {
+                "palette": {
+                    "description": "\u7528\u4e8e\u6b64\u6548\u679c\u7684\u81f3\u5c11 2 \u79cd\u3001\u6700\u591a 16 \u79cd\u989c\u8272\u7684\u5217\u8868\uff0c\u989c\u8272\u683c\u5f0f\u4e3a\u8272\u76f8 (0-360)\u3001\u9971\u548c\u5ea6 (0-100)\u3001\u4eae\u5ea6 (0-100) \u548c\u5f00\u5c14\u6587 (1500-900) \u503c\u3002\u8986\u76d6\u4e3b\u9898\u5c5e\u6027\u3002",
+                    "name": "\u8c03\u8272\u677f"
+                },
+                "power_on": {
+                    "description": "\u5728\u542f\u52a8\u6548\u679c\u4e4b\u524d\uff0c\u5173\u95ed\u7684\u706f\u5c06\u4f1a\u6253\u5f00\u3002",
+                    "name": "\u6253\u5f00"
+                },
+                "speed": {
+                    "description": "\u989c\u8272\u79fb\u52a8\u7684\u901f\u5ea6\u6709\u591a\u5feb\u3002",
+                    "name": "\u901f\u5ea6"
+                },
+                "theme": {
+                    "description": "\u7528\u4e8e\u6548\u679c\u7684\u9884\u5b9a\u4e49\u989c\u8272\u4e3b\u9898\u3002\u53ef\u4ee5\u88ab\u8c03\u8272\u677f\u5c5e\u6027\u8986\u76d6\u3002",
+                    "name": "\u4e3b\u9898"
+                }
+            },
+            "name": "\u53d8\u5f62\u6548\u679c"
+        },
+        "effect_move": {
+            "description": "\u5728 LIFX Z\u3001Lightstrip \u6216 Beam \u4e0a\u542f\u52a8\u57fa\u4e8e\u56fa\u4ef6\u7684\u79fb\u52a8\u6548\u679c\u3002",
+            "fields": {
+                "direction": {
+                    "description": "\u6548\u679c\u5728\u8bbe\u5907\u4e0a\u79fb\u52a8\u7684\u65b9\u5411\u3002",
+                    "name": "\u65b9\u5411"
+                },
+                "power_on": {
+                    "description": "\u5728\u542f\u52a8\u6548\u679c\u4e4b\u524d\uff0c\u5173\u95ed\u7684\u706f\u5c06\u4f1a\u6253\u5f00\u3002",
+                    "name": "\u6253\u5f00"
+                },
+                "speed": {
+                    "description": "\u6548\u679c\u5728\u706f\u5149\u957f\u5ea6\u4e0a\u79fb\u52a8\u9700\u8981\u591a\u957f\u65f6\u95f4\uff08\u4ee5\u79d2\u4e3a\u5355\u4f4d\uff09\u3002",
+                    "name": "\u901f\u5ea6"
+                },
+                "theme": {
+                    "description": "\uff08\u53ef\u9009\uff09\u5728\u542f\u52a8\u6548\u679c\u4e4b\u524d\u5c06\u9884\u5b9a\u4e49\u4e3b\u9898\u4e4b\u4e00\u8bbe\u7f6e\u5230\u8bbe\u5907\u4e0a\u3002",
+                    "name": "\u4e3b\u9898"
+                }
+            },
+            "name": "\u79fb\u52a8\u6548\u679c"
+        },
+        "effect_pulse": {
+            "description": "\u8fd0\u884c\u95ea\u5149\u6548\u679c\uff0c\u901a\u8fc7\u6765\u56de\u53d8\u8272\u5b9e\u73b0\u3002",
+            "fields": {
+                "brightness": {
+                    "description": "\u8868\u793a\u4e34\u65f6\u989c\u8272\u4eae\u5ea6\u7684\u6570\u5b57\uff0c\u5176\u4e2d 1 \u662f\u6700\u5c0f\u4eae\u5ea6\uff0c255 \u662f\u706f\u5149\u652f\u6301\u7684\u6700\u5927\u4eae\u5ea6\u3002",
+                    "name": "\u4eae\u5ea6\u503c"
+                },
+                "brightness_pct": {
+                    "description": "\u8868\u793a\u4e34\u65f6\u989c\u8272\u4eae\u5ea6\u7684\u767e\u5206\u6bd4\uff0c\u5176\u4e2d 1 \u662f\u706f\u5149\u652f\u6301\u7684\u6700\u5c0f\u4eae\u5ea6\uff0c100 \u662f\u706f\u5149\u652f\u6301\u7684\u6700\u5927\u4eae\u5ea6\u3002",
+                    "name": "\u4eae\u5ea6"
+                },
+                "color_name": {
+                    "description": "\u53ef\u9605\u8bfb\u989c\u8272\u540d\u79f0\u3002",
+                    "name": "\u989c\u8272\u540d\u79f0"
+                },
+                "cycles": {
+                    "description": "\u6548\u679c\u5e94\u8fd0\u884c\u7684\u6b21\u6570\u3002",
+                    "name": "\u5468\u671f\u6570"
+                },
+                "mode": {
+                    "description": "\u51b3\u5b9a\u989c\u8272\u5982\u4f55\u6539\u53d8\u3002",
+                    "name": "\u6a21\u5f0f"
+                },
+                "period": {
+                    "description": "\u6548\u679c\u7684\u6301\u7eed\u65f6\u95f4\u3002",
+                    "name": "\u5468\u671f\u65f6\u95f4"
+                },
+                "power_on": {
+                    "description": "\u5728\u6548\u679c\u671f\u95f4\uff0c\u5173\u95ed\u7535\u6e90\u7684\u706f\u4f1a\u6682\u65f6\u6253\u5f00\u3002",
+                    "name": "\u6253\u5f00"
+                },
+                "rgb_color": {
+                    "description": "RGB \u683c\u5f0f\u7684\u4e34\u65f6\u989c\u8272\u3002",
+                    "name": "RGB \u989c\u8272"
+                }
+            },
+            "name": "\u8109\u51b2\u6548\u679c"
+        },
+        "effect_sky": {
+            "description": "\u542f\u52a8 LIFX \u5929\u82b1\u677f\u4e0a\u57fa\u4e8e\u56fa\u4ef6\u7684\u5929\u7a7a\u6548\u679c\u3002",
+            "fields": {
+                "cloud_saturation_max": {
+                    "description": "\u6700\u5927\u4e91\u9971\u548c\u5ea6\u3002",
+                    "name": "\u4e91\u9971\u548c\u5ea6\u6700\u5927\u503c"
+                },
+                "cloud_saturation_min": {
+                    "description": "\u6700\u5c0f\u4e91\u9971\u548c\u5ea6\u3002",
+                    "name": "\u4e91\u9971\u548c\u5ea6\u6700\u5c0f\u503c"
+                },
+                "palette": {
+                    "description": "\u7528\u4e8e\u6b64\u6548\u679c\u7684 1 \u81f3 6 \u79cd\u989c\u8272\u5217\u8868\uff0c\u5206\u522b\u4e3a\u8272\u8c03 (0-360) \u3001\u9971\u548c\u5ea6 (0-100) \u3001\u4eae\u5ea6 (0-100) \u548c\u5f00\u5c14\u6587 (1500-9000) \u503c\u3002",
+                    "name": "\u8c03\u8272\u677f"
+                },
+                "power_on": {
+                    "description": "\u5728\u542f\u52a8\u6548\u679c\u4e4b\u524d\uff0c\u5173\u95ed\u7684\u706f\u5c06\u4f1a\u6253\u5f00\u3002",
+                    "name": "\u5f00\u673a"
+                },
+                "sky_type": {
+                    "description": "\u5929\u7a7a\u52a8\u753b\u6548\u679c\u7684\u98ce\u683c\u3002",
+                    "name": "\u5929\u7a7a\u7c7b\u578b"
+                },
+                "speed": {
+                    "description": "\u201c\u65e5\u51fa\u201d\u548c\u201c\u65e5\u843d\u201d\u5929\u7a7a\u7c7b\u578b\u9700\u8981\u591a\u957f\u65f6\u95f4\u624d\u80fd\u5b8c\u6210\u3002\u5bf9\u4e8e\u201c\u4e91\u201d\u5929\u7a7a\u7c7b\u578b\uff0c\u5b83\u662f\u4e91\u7a7f\u8fc7\u8bbe\u5907\u7684\u901f\u5ea6\u3002",
+                    "name": "\u901f\u5ea6"
+                }
+            },
+            "name": "\u5929\u7a7a\u6548\u679c"
+        },
+        "effect_stop": {
+            "description": "\u505c\u6b62\u6b63\u5728\u8fd0\u884c\u7684\u6548\u679c\u3002",
+            "name": "\u505c\u6b62\u6548\u679c"
+        },
+        "set_hev_cycle_state": {
+            "description": "\u63a7\u5236 LIFX Clean \u706f\u6ce1\u4e0a\u7684 HEV LED\u3002",
+            "fields": {
+                "duration": {
+                    "description": "HEV LED \u4f1a\u4fdd\u6301\u70b9\u4eae\u591a\u957f\u65f6\u95f4\u3002\u5982\u679c\u672a\u6307\u5b9a\uff0c\u5219\u4f7f\u7528\u914d\u7f6e\u7684\u9ed8\u8ba4\u65f6\u957f\u3002",
+                    "name": "\u65f6\u957f"
+                },
+                "power": {
+                    "description": "\u542f\u52a8\u6216\u505c\u6b62\u6e05\u7406\u5faa\u73af\u3002",
+                    "name": "\u542f\u7528"
+                }
+            },
+            "name": "\u8bbe\u7f6e HEV \u5faa\u73af\u72b6\u6001"
+        },
+        "set_state": {
+            "description": "\u8bbe\u7f6e\u989c\u8272/\u4eae\u5ea6\u5e76\u4f9d\u6b64\u6253\u5f00/\u5173\u95ed\u706f\u3002",
+            "fields": {
+                "infrared": {
+                    "description": "\u5149\u7ebf\u4eae\u5ea6\u8f83\u4f4e\u65f6\u81ea\u52a8\u8c03\u8282\u7ea2\u5916\u7ebf\u6c34\u5e73\u3002",
+                    "name": "\u7ea2\u5916\u7ebf"
+                },
+                "power": {
+                    "description": "\u6253\u5f00\u6216\u5173\u95ed\u706f\u3002\u7559\u7a7a\u4ee5\u4fdd\u6301\u73b0\u72b6\u3002",
+                    "name": "\u7535\u6e90"
+                },
+                "transition": {
+                    "description": "\u8fbe\u5230\u6700\u7ec8\u72b6\u6001\u6240\u9700\u7684\u65f6\u957f\u3002",
+                    "name": "\u8f6c\u6362"
+                },
+                "zones": {
+                    "description": "\u53d7\u5f71\u54cd\u7684\u533a\u57df\u7f16\u53f7\u5217\u8868\uff08\u6bcf\u4e2a LIFX Z \u8ba1 8 \u4e2a\u533a\u57df\uff0c\u7f16\u53f7\u4ece 0 \u5f00\u59cb\uff09\u3002",
+                    "name": "\u533a\u57df"
+                }
+            },
+            "name": "\u8bbe\u7f6e\u72b6\u6001"
+        }
+    }
+}

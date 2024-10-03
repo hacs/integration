@@ -1,0 +1,686 @@
+{
+    "issues": {
+        "proxy_params_auth_deprecation": {
+            "description": "Sidumises {telegram_bot} konfigureeritud puhverserveri autentimise \u00fcksikasjad tuleks selle asemel teisaldada kausta {proxy_url} . Selle probleemi lahendamiseks v\u00e4rskenda konfiguratsiooni ja taask\u00e4ivita Home Assistant. \n\n Konfiguratsiooniv\u00f5ti {proxy_params} eemaldatakse tulevases versioonis.",
+            "title": "{telegram_bot} : puhverserveri autentimine tuleks teisaldada URL-ile"
+        },
+        "proxy_params_deprecation": {
+            "description": "{proxy_params} konfiguratsiooniv\u00f5ti {telegram_bot} sidumise jaoks eemaldatakse tulevases versioonis.\n\nAutentimist saab n\u00fc\u00fcd pakkuda l\u00e4bi {proxy_url} v\u00f5tme.\n\nAlusraamatukogu on muutunud {httpx}, mis ei \u00fchildu varasemate parameetritega. Kui seda funktsionaalsust on endiselt vaja teiste v\u00f5imaluste jaoks, j\u00e4ta kommentaar lingile learn more.\n\nUuenda konfiguratsiooni, et eemaldada {proxy_params} v\u00f5ti ja taask\u00e4ivita Home Assistant, et see probleem lahendada.",
+            "title": "{telegram_bot} : puhverserveri parameetrite valik eemaldatakse"
+        }
+    },
+    "services": {
+        "answer_callback_query": {
+            "description": "Vastab tagasihelistamisp\u00e4ringule, mis p\u00e4rineb v\u00f5rguklaviatuuri nupul kl\u00f5psamisest. Vastus kuvatakse kasutajale m\u00e4rguandina vestlusekraani \u00fclaosas v\u00f5i hoiatusena.",
+            "fields": {
+                "callback_query_id": {
+                    "description": "Tagasihelistamise vastuse kordumatu ID.",
+                    "name": "Tagasihelistamise p\u00e4ringu ID"
+                },
+                "message": {
+                    "description": "Teatise vormindamata tekstis\u00f5num.",
+                    "name": "S\u00f5num"
+                },
+                "show_alert": {
+                    "description": "Kuva alaline teatis.",
+                    "name": "N\u00e4ita hoiatust"
+                },
+                "timeout": {
+                    "description": "Vastuse saatmise ajal\u00f5pp.",
+                    "name": "Lugemise ajal\u00f5pp"
+                }
+            },
+            "name": "Vasta tagasihelistamisp\u00e4ringule"
+        },
+        "delete_message": {
+            "description": "Kustutab varem saadetud s\u00f5numi.",
+            "fields": {
+                "chat_id": {
+                    "description": "Chat_id kust s\u00f5num kustutada.",
+                    "name": "Vestluse ID"
+                },
+                "message_id": {
+                    "description": "Kustutatava s\u00f5numi ID.",
+                    "name": "S\u00f5numi ID"
+                }
+            },
+            "name": "Kustuta s\u00f5num"
+        },
+        "edit_caption": {
+            "description": "Muudab varem saadetud s\u00f5numi pealkirja.",
+            "fields": {
+                "caption": {
+                    "description": "Teatise s\u00f5numi sisu.",
+                    "name": "Pealkiri"
+                },
+                "chat_id": {
+                    "description": "Chat_id mille pealkirja muuta.",
+                    "name": "Vestluse ID"
+                },
+                "inline_keyboard": {
+                    "description": "Komadega eraldatud k\u00e4skude ridade nimekiri, et teha kohandatud inline-klaviatuur koos nuppudega ja nendega seotud tagasikutsumisandmetega.",
+                    "name": "Tekstisisene klaviatuur"
+                },
+                "message_id": {
+                    "description": "Redigeeritava s\u00f5numi ID.",
+                    "name": "S\u00f5numi ID"
+                }
+            },
+            "name": "Muuda pealkirja"
+        },
+        "edit_message": {
+            "description": "Muudab varem saadetud s\u00f5numit.",
+            "fields": {
+                "chat_id": {
+                    "description": "Chat_id mille s\u00f5numit redigeerida.",
+                    "name": "Vestluse ID"
+                },
+                "disable_web_page_preview": {
+                    "description": "Keelab s\u00f5numis olevate linkide eelvaated.",
+                    "name": "Keela veebilehe eelvaade"
+                },
+                "inline_keyboard": {
+                    "description": "Komadega eraldatud k\u00e4skude ridade nimekiri, et teha kohandatud inline-klaviatuur koos nuppudega ja nendega seotud tagasikutsumisandmetega.",
+                    "name": "Tekstisisene klaviatuur"
+                },
+                "message": {
+                    "description": "Teatise s\u00f5numi sisu.",
+                    "name": "S\u00f5num"
+                },
+                "message_id": {
+                    "description": "Redigeeritava s\u00f5numi ID.",
+                    "name": "S\u00f5numi ID"
+                },
+                "parse_mode": {
+                    "description": "S\u00f5numi teksti s\u00f5eluja.",
+                    "name": "S\u00f5elumisre\u017eiim"
+                },
+                "title": {
+                    "description": "Teatise valikuline pealkiri. Koostatakse kui '%pealkiri\n %'s\u00f5num'.",
+                    "name": "Pealkiri"
+                }
+            },
+            "name": "S\u00f5numi muutmine"
+        },
+        "edit_replymarkup": {
+            "description": "Muuda eelnevalt saadetud s\u00f5numi sisestatud klaviatuuri.",
+            "fields": {
+                "chat_id": {
+                    "description": "Chat_id kus redigeerida reply_markup.",
+                    "name": "Vestluse ID"
+                },
+                "inline_keyboard": {
+                    "description": "Komadega eraldatud k\u00e4skude ridade nimekiri, et teha kohandatud inline-klaviatuur koos nuppudega ja nendega seotud tagasikutsumisandmetega.",
+                    "name": "Tekstisisene klaviatuur"
+                },
+                "message_id": {
+                    "description": "Redigeeritava s\u00f5numi ID.",
+                    "name": "S\u00f5numi ID"
+                }
+            },
+            "name": "Redigeeri vastuse m\u00e4rgistust"
+        },
+        "send_animation": {
+            "description": "Saadab animatsiooni.",
+            "fields": {
+                "authentication": {
+                    "description": "M\u00e4\u00e4ra millist tuvastamismeetodit kasutada. M\u00e4\u00e4ra `digest`, et kasutada HTTP digesti autentimist, v\u00f5i `bearer_token` OAuth 2.0 kandjatunnuse autentimiseks. Vaikimisi on vaikimisi `basic`.",
+                    "name": "Tuvastusmeetod"
+                },
+                "caption": {
+                    "description": "Animatsiooni pealkiri.",
+                    "name": "Pealkiri"
+                },
+                "disable_notification": {
+                    "description": "Saadab teate vaikselt. iOS-i ja veebikasutajad ei saa teadet, Androidi kasutajad saavad teate ilma helita.",
+                    "name": "Keela teavitus"
+                },
+                "file": {
+                    "description": "Kohalik tee GIF- v\u00f5i H.264/MPEG-4 AVC-videoni ilma helita.",
+                    "name": "Fail"
+                },
+                "inline_keyboard": {
+                    "description": "Komadega eraldatud k\u00e4skude ridade nimekiri, et teha kohandatud inline-klaviatuur koos nuppudega ja nendega seotud tagasikutsumisandmetega.",
+                    "name": "Tekstisisene klaviatuur"
+                },
+                "keyboard": {
+                    "description": "Komadega eraldatud k\u00e4suridade loend kohandatud klaviatuuri loomiseks.",
+                    "name": "Klaviatuur"
+                },
+                "message_tag": {
+                    "description": "Saadetud s\u00f5numi silt.",
+                    "name": "S\u00f5numi silt"
+                },
+                "message_thread_id": {
+                    "description": "Foorumi sihts\u00f5numi l\u00f5ime (teema) kordumatu identifikaator; ainult foorumi supergruppidele.",
+                    "name": "S\u00f5numi l\u00f5ime ID"
+                },
+                "parse_mode": {
+                    "description": "S\u00f5numi teksti s\u00f5eluja.",
+                    "name": "S\u00f5elumisre\u017eiim"
+                },
+                "password": {
+                    "description": "Salas\u00f5na (v\u00f5i esitaja luba) URL-i jaoks, mis n\u00f5uab HTTP-autentimist.",
+                    "name": "Salas\u00f5na"
+                },
+                "reply_to_message_id": {
+                    "description": "M\u00e4rgi s\u00f5num vastusena eelmisele s\u00f5numile.",
+                    "name": "Vasta s\u00f5numile ID"
+                },
+                "target": {
+                    "description": "Eelautoriseeritud chat_ids'ide massiiv, millele dokument saadetakse. Kui seda ei ole, on vaikimisi esimene lubatud chat_id.",
+                    "name": "Saaja"
+                },
+                "timeout": {
+                    "description": "Kleebise saatmise ajal\u00f5pp.",
+                    "name": "Lugemise ajal\u00f5pp"
+                },
+                "url": {
+                    "description": "Kaugtee GIF- v\u00f5i H.264/MPEG-4 AVC-videoni ilma helita.",
+                    "name": "URL"
+                },
+                "username": {
+                    "description": "HTTP-autentimist n\u00f5udva URL-i kasutajanimi.",
+                    "name": "Kasutajanimi"
+                },
+                "verify_ssl": {
+                    "description": "SSL-sertifikaadi kontrollimise lubamine v\u00f5i keelamine. Sea v\u00e4\u00e4rtuseks false, kui laadid faili alla URL-ilt ja ei soovi serveri SSL-sertifikaati kinnitada.",
+                    "name": "SSL-i kinnitamine"
+                }
+            },
+            "name": "Saada animatsioon"
+        },
+        "send_document": {
+            "description": "Saadab dokumendi.",
+            "fields": {
+                "authentication": {
+                    "description": "M\u00e4\u00e4ra millist tuvastamismeetodit kasutada. M\u00e4\u00e4ra `digest`, et kasutada HTTP digesti autentimist, v\u00f5i `bearer_token` OAuth 2.0 kandjatunnuse autentimiseks. Vaikimisi on vaikimisi `basic`.",
+                    "name": "Tuvastusmeetod"
+                },
+                "caption": {
+                    "description": "Dokumendi pealkiri.",
+                    "name": "Pealkiri"
+                },
+                "disable_notification": {
+                    "description": "Saadab teate vaikselt. iOS-i ja veebikasutajad ei saa teadet, Androidi kasutajad saavad teate ilma helita.",
+                    "name": "Keela teavitus"
+                },
+                "file": {
+                    "description": "Kohalik tee dokumendini.",
+                    "name": "Fail"
+                },
+                "inline_keyboard": {
+                    "description": "Komadega eraldatud k\u00e4skude ridade nimekiri, et teha kohandatud inline-klaviatuur koos nuppudega ja nendega seotud tagasikutsumisandmetega.",
+                    "name": "Tekstisisene klaviatuur"
+                },
+                "keyboard": {
+                    "description": "Komadega eraldatud k\u00e4suridade loend kohandatud klaviatuuri loomiseks.",
+                    "name": "Klaviatuur"
+                },
+                "message_tag": {
+                    "description": "Saadetud s\u00f5numi silt.",
+                    "name": "S\u00f5numi silt"
+                },
+                "message_thread_id": {
+                    "description": "Foorumi sihts\u00f5numi l\u00f5ime (teema) kordumatu identifikaator; ainult foorumi supergruppidele.",
+                    "name": "S\u00f5numi l\u00f5ime ID"
+                },
+                "parse_mode": {
+                    "description": "S\u00f5numi teksti s\u00f5eluja.",
+                    "name": "S\u00f5elumisre\u017eiim"
+                },
+                "password": {
+                    "description": "Salas\u00f5na (v\u00f5i esitaja luba) URL-i jaoks, mis n\u00f5uab HTTP-autentimist.",
+                    "name": "Salas\u00f5na"
+                },
+                "reply_to_message_id": {
+                    "description": "M\u00e4rgi s\u00f5num vastusena eelmisele s\u00f5numile.",
+                    "name": "Vasta s\u00f5numile ID"
+                },
+                "target": {
+                    "description": "Eelautoriseeritud chat_ids'ide massiiv, millele dokument saadetakse. Kui seda ei ole, on vaikimisi esimene lubatud chat_id.",
+                    "name": "Saaja"
+                },
+                "timeout": {
+                    "description": "Dokumendi saatmise ajal\u00f5pp.",
+                    "name": "Lugemise ajal\u00f5pp"
+                },
+                "url": {
+                    "description": "Kaugtee dokumendini.",
+                    "name": "URL"
+                },
+                "username": {
+                    "description": "HTTP-autentimist n\u00f5udva URL-i kasutajanimi.",
+                    "name": "Kasutajanimi"
+                },
+                "verify_ssl": {
+                    "description": "SSL-sertifikaadi kontrollimise lubamine v\u00f5i keelamine. Sea v\u00e4\u00e4rtuseks false, kui laadid faili alla URL-ilt ja ei soovi serveri SSL-sertifikaati kinnitada.",
+                    "name": "SSL-i kinnitamine"
+                }
+            },
+            "name": "Saada dokument"
+        },
+        "send_location": {
+            "description": "Saadab asukoha.",
+            "fields": {
+                "disable_notification": {
+                    "description": "Saadab teate vaikselt. iOS-i ja veebikasutajad ei saa teadet, Androidi kasutajad saavad teate ilma helita.",
+                    "name": "Keela teavitus"
+                },
+                "inline_keyboard": {
+                    "description": "Komadega eraldatud k\u00e4skude ridade nimekiri, et teha kohandatud inline-klaviatuur koos nuppudega ja nendega seotud tagasikutsumisandmetega.",
+                    "name": "Tekstisisene klaviatuur"
+                },
+                "keyboard": {
+                    "description": "Komadega eraldatud k\u00e4suridade loend kohandatud klaviatuuri loomiseks.",
+                    "name": "Klaviatuur"
+                },
+                "latitude": {
+                    "description": "Saadetav laiuskraad.",
+                    "name": "Laiuskraad"
+                },
+                "longitude": {
+                    "description": "Saadetav pikkuskraad.",
+                    "name": "Pikkuskraad"
+                },
+                "message_tag": {
+                    "description": "Saadetud s\u00f5numi silt.",
+                    "name": "S\u00f5numi silt"
+                },
+                "message_thread_id": {
+                    "description": "Foorumi sihts\u00f5numi l\u00f5ime (teema) kordumatu identifikaator; ainult foorumi supergruppidele.",
+                    "name": "S\u00f5numi l\u00f5ime ID"
+                },
+                "reply_to_message_id": {
+                    "description": "M\u00e4rgi s\u00f5num vastusena eelmisele s\u00f5numile.",
+                    "name": "Vasta s\u00f5numile ID"
+                },
+                "target": {
+                    "description": "Eelvolitatud chat_id-ide massiiv, kuhu asukoht saata. Kui seda pole, on vaikeseadeks esimene lubatud chat_id.",
+                    "name": "Saaja"
+                },
+                "timeout": {
+                    "description": "Foto saatmise ajal\u00f5pp.",
+                    "name": "Lugemise ajal\u00f5pp"
+                }
+            },
+            "name": "Edasta asukoht"
+        },
+        "send_message": {
+            "description": "Saadab teavituse.",
+            "fields": {
+                "disable_notification": {
+                    "description": "Saadab teate vaikselt. iOS-i ja veebikasutajad ei saa teadet, Androidi kasutajad saavad teate ilma helita.",
+                    "name": "Keela teavitus"
+                },
+                "disable_web_page_preview": {
+                    "description": "Keelab s\u00f5numis olevate linkide eelvaated.",
+                    "name": "Keela veebilehe eelvaade"
+                },
+                "inline_keyboard": {
+                    "description": "Komadega eraldatud k\u00e4skude ridade nimekiri, et teha kohandatud inline-klaviatuur koos nuppudega ja nendega seotud tagasikutsumisandmetega.",
+                    "name": "Tekstisisene klaviatuur"
+                },
+                "keyboard": {
+                    "description": "Komadega eraldatud k\u00e4skude loend kohandatud klaviatuuri loomiseks. T\u00fchi loend t\u00fchjendab eelnevalt seadistatud klaviatuuri.",
+                    "name": "Klaviatuur"
+                },
+                "message": {
+                    "description": "Teatise s\u00f5numi sisu.",
+                    "name": "S\u00f5num"
+                },
+                "message_tag": {
+                    "description": "Saadetud s\u00f5numi silt.",
+                    "name": "S\u00f5numi silt"
+                },
+                "message_thread_id": {
+                    "description": "Foorumi sihts\u00f5numi l\u00f5ime (teema) kordumatu identifikaator; ainult foorumi supergruppidele.",
+                    "name": "S\u00f5numi l\u00f5ime ID"
+                },
+                "parse_mode": {
+                    "description": "S\u00f5numi teksti s\u00f5eluja.",
+                    "name": "S\u00f5elumisre\u017eiim"
+                },
+                "reply_to_message_id": {
+                    "description": "M\u00e4rgi s\u00f5num vastusena eelmisele s\u00f5numile.",
+                    "name": "Vasta s\u00f5numile ID"
+                },
+                "target": {
+                    "description": "Eelautoriseeritud chat_ID-de massiivi, millele teade saadetakse. Kui seda ei ole, on vaikimisi esimene lubatud chat_id.",
+                    "name": "Saaja"
+                },
+                "timeout": {
+                    "description": "S\u00f5numi saatmise ajal\u00f5pp.",
+                    "name": "Lugemise ajal\u00f5pp"
+                },
+                "title": {
+                    "description": "Teatise valikuline pealkiri. Koostatakse kui '%pealkiri\n %'s\u00f5num'.",
+                    "name": "Pealkiri"
+                }
+            },
+            "name": "Saada s\u00f5num"
+        },
+        "send_photo": {
+            "description": "Saadab foto.",
+            "fields": {
+                "authentication": {
+                    "description": "M\u00e4\u00e4ra millist tuvastamismeetodit kasutada. M\u00e4\u00e4ra `digest`, et kasutada HTTP digesti autentimist, v\u00f5i `bearer_token` OAuth 2.0 kandjatunnuse autentimiseks. Vaikimisi on vaikimisi `basic`.",
+                    "name": "Tuvastusmeetod"
+                },
+                "caption": {
+                    "description": "Pildi pealkiri.",
+                    "name": "Pealkiri"
+                },
+                "disable_notification": {
+                    "description": "Saadab teate vaikselt. iOS-i ja veebikasutajad ei saa teadet, Androidi kasutajad saavad teate ilma helita.",
+                    "name": "Keela teavitus"
+                },
+                "file": {
+                    "description": "Kohalik tee pildi juurde.",
+                    "name": "Fail"
+                },
+                "inline_keyboard": {
+                    "description": "Komadega eraldatud k\u00e4skude ridade nimekiri, et teha kohandatud inline-klaviatuur koos nuppudega ja nendega seotud tagasikutsumisandmetega.",
+                    "name": "Tekstisisene klaviatuur"
+                },
+                "keyboard": {
+                    "description": "Komadega eraldatud k\u00e4suridade loend kohandatud klaviatuuri loomiseks.",
+                    "name": "Klaviatuur"
+                },
+                "message_tag": {
+                    "description": "Saadetud s\u00f5numi silt.",
+                    "name": "S\u00f5numi silt"
+                },
+                "message_thread_id": {
+                    "description": "Foorumi sihts\u00f5numi l\u00f5ime (teema) kordumatu identifikaator; ainult foorumi supergruppidele.",
+                    "name": "S\u00f5numi l\u00f5ime ID"
+                },
+                "parse_mode": {
+                    "description": "S\u00f5numi teksti s\u00f5eluja.",
+                    "name": "S\u00f5elumisre\u017eiim"
+                },
+                "password": {
+                    "description": "Salas\u00f5na (v\u00f5i esitaja luba) URL-i jaoks, mis n\u00f5uab HTTP-autentimist.",
+                    "name": "Salas\u00f5na"
+                },
+                "reply_to_message_id": {
+                    "description": "M\u00e4rgi s\u00f5num vastusena eelmisele s\u00f5numile.",
+                    "name": "Vasta s\u00f5numile ID"
+                },
+                "target": {
+                    "description": "Eelautoriseeritud chat_ids'ide massiiv, millele dokument saadetakse. Kui seda ei ole, on vaikimisi esimene lubatud chat_id.",
+                    "name": "Saaja"
+                },
+                "timeout": {
+                    "description": "Foto saatmise ajal\u00f5pp.",
+                    "name": "Lugemise ajal\u00f5pp"
+                },
+                "url": {
+                    "description": "Kaugtee pildini.",
+                    "name": "URL"
+                },
+                "username": {
+                    "description": "HTTP-autentimist n\u00f5udva URL-i kasutajanimi.",
+                    "name": "Kasutajanimi"
+                },
+                "verify_ssl": {
+                    "description": "SSL-sertifikaadi kontrollimise lubamine v\u00f5i keelamine. Sea v\u00e4\u00e4rtuseks false, kui laadid faili alla URL-ilt ja ei soovi serveri SSL-sertifikaati kinnitada.",
+                    "name": "SSL-i kinnitamine"
+                }
+            },
+            "name": "Saada foto"
+        },
+        "send_poll": {
+            "description": "Saadab k\u00fcsitluse.",
+            "fields": {
+                "allows_multiple_answers": {
+                    "description": "Kui k\u00fcsitlus lubab mitu vastust, on vaikimisi False.",
+                    "name": "Luba mitu vastust"
+                },
+                "disable_notification": {
+                    "description": "Saadab teate vaikselt. iOS-i ja veebikasutajad ei saa teadet, Androidi kasutajad saavad teate ilma helita.",
+                    "name": "Keela teavitus"
+                },
+                "is_anonymous": {
+                    "description": "Kui k\u00fcsitlus peab olema anon\u00fc\u00fcmne, on vaikimisi True.",
+                    "name": "On anon\u00fc\u00fcmne"
+                },
+                "message_tag": {
+                    "description": "Saadetud s\u00f5numi silt.",
+                    "name": "S\u00f5numi silt"
+                },
+                "message_thread_id": {
+                    "description": "Foorumi sihts\u00f5numi l\u00f5ime (teema) kordumatu identifikaator; ainult foorumi supergruppidele.",
+                    "name": "S\u00f5numi l\u00f5ime ID"
+                },
+                "open_period": {
+                    "description": "Aeg sekundites, mille jooksul k\u00fcsitlus on p\u00e4rast loomist aktiivne, 5-600.",
+                    "name": "Saadaval oleku aeg"
+                },
+                "options": {
+                    "description": "Vastusevariantide loetelu, 2-10 rida 1-100 t\u00e4hem\u00e4rki iga\u00fchele.",
+                    "name": "Valikud"
+                },
+                "question": {
+                    "description": "K\u00fcsitluse k\u00fcsimus, 1-300 t\u00e4hem\u00e4rki.",
+                    "name": "K\u00fcsimus"
+                },
+                "reply_to_message_id": {
+                    "description": "M\u00e4rgi s\u00f5num vastusena eelmisele s\u00f5numile.",
+                    "name": "Vasta s\u00f5numile ID"
+                },
+                "target": {
+                    "description": "Eelvolitatud chat_id-ide massiiv, kuhu asukoht saata. Kui seda pole, on vaikeseadeks esimene lubatud chat_id.",
+                    "name": "Saaja"
+                },
+                "timeout": {
+                    "description": "K\u00fcsitluse saatmise ajal\u00f5pp.",
+                    "name": "Lugemise ajal\u00f5pp"
+                }
+            },
+            "name": "Saada k\u00fcsitlus"
+        },
+        "send_sticker": {
+            "description": "Saadab kleebise.",
+            "fields": {
+                "authentication": {
+                    "description": "M\u00e4\u00e4ra millist tuvastamismeetodit kasutada. M\u00e4\u00e4ra `digest`, et kasutada HTTP digesti autentimist, v\u00f5i `bearer_token` OAuth 2.0 kandjatunnuse autentimiseks. Vaikimisi on vaikimisi `basic`.",
+                    "name": "Tuvastusmeetod"
+                },
+                "disable_notification": {
+                    "description": "Saadab teate vaikselt. iOS-i ja veebikasutajad ei saa teadet, Androidi kasutajad saavad teate ilma helita.",
+                    "name": "Keela teavitus"
+                },
+                "file": {
+                    "description": "Kohalik tee staatilise .webp- v\u00f5i animeeritud .tgs-kleebiseni.",
+                    "name": "Fail"
+                },
+                "inline_keyboard": {
+                    "description": "Komadega eraldatud k\u00e4skude ridade nimekiri, et teha kohandatud inline-klaviatuur koos nuppudega ja nendega seotud tagasikutsumisandmetega.",
+                    "name": "Tekstisisene klaviatuur"
+                },
+                "keyboard": {
+                    "description": "Komadega eraldatud k\u00e4suridade loend kohandatud klaviatuuri loomiseks.",
+                    "name": "Klaviatuur"
+                },
+                "message_tag": {
+                    "description": "Saadetud s\u00f5numi silt.",
+                    "name": "S\u00f5numi silt"
+                },
+                "message_thread_id": {
+                    "description": "Foorumi sihts\u00f5numi l\u00f5ime (teema) kordumatu identifikaator; ainult foorumi supergruppidele.",
+                    "name": "S\u00f5numi l\u00f5ime ID"
+                },
+                "password": {
+                    "description": "Salas\u00f5na (v\u00f5i esitaja luba) URL-i jaoks, mis n\u00f5uab HTTP-autentimist.",
+                    "name": "Salas\u00f5na"
+                },
+                "reply_to_message_id": {
+                    "description": "M\u00e4rgi s\u00f5num vastusena eelmisele s\u00f5numile.",
+                    "name": "Vasta s\u00f5numile ID"
+                },
+                "sticker_id": {
+                    "description": "Telegrammiserverites oleva kleebise ID.",
+                    "name": "Kleebise ID"
+                },
+                "target": {
+                    "description": "Eelautoriseeritud chat_ids'ide massiiv, millele dokument saadetakse. Kui seda ei ole, on vaikimisi esimene lubatud chat_id.",
+                    "name": "Saaja"
+                },
+                "timeout": {
+                    "description": "Kleebise saatmise ajal\u00f5pp.",
+                    "name": "Lugemise ajal\u00f5pp"
+                },
+                "url": {
+                    "description": "Kaugtee staatilise .webp- v\u00f5i animeeritud .tgs-kleebiseni.",
+                    "name": "URL"
+                },
+                "username": {
+                    "description": "HTTP-autentimist n\u00f5udva URL-i kasutajanimi.",
+                    "name": "Kasutajanimi"
+                },
+                "verify_ssl": {
+                    "description": "SSL-sertifikaadi kontrollimise lubamine v\u00f5i keelamine. Sea v\u00e4\u00e4rtuseks false, kui laadid faili alla URL-ilt ja ei soovi serveri SSL-sertifikaati kinnitada.",
+                    "name": "SSL-i kinnitamine"
+                }
+            },
+            "name": "Saada kleepm\u00e4rge"
+        },
+        "send_video": {
+            "description": "Saadab video.",
+            "fields": {
+                "authentication": {
+                    "description": "M\u00e4\u00e4ra millist tuvastamismeetodit kasutada. M\u00e4\u00e4ra `digest`, et kasutada HTTP digesti autentimist, v\u00f5i `bearer_token` OAuth 2.0 kandjatunnuse autentimiseks. Vaikimisi on vaikimisi `basic`.",
+                    "name": "Tuvastusmeetod"
+                },
+                "caption": {
+                    "description": "Video pealkiri.",
+                    "name": "Pealkiri"
+                },
+                "disable_notification": {
+                    "description": "Saadab teate vaikselt. iOS-i ja veebikasutajad ei saa teadet, Androidi kasutajad saavad teate ilma helita.",
+                    "name": "Keela teavitus"
+                },
+                "file": {
+                    "description": "Kohalik rada video juurde.",
+                    "name": "Fail"
+                },
+                "inline_keyboard": {
+                    "description": "Komadega eraldatud k\u00e4skude ridade nimekiri, et teha kohandatud inline-klaviatuur koos nuppudega ja nendega seotud tagasikutsumisandmetega.",
+                    "name": "Tekstisisene klaviatuur"
+                },
+                "keyboard": {
+                    "description": "Komadega eraldatud k\u00e4suridade loend kohandatud klaviatuuri loomiseks.",
+                    "name": "Klaviatuur"
+                },
+                "message_tag": {
+                    "description": "Saadetud s\u00f5numi silt.",
+                    "name": "S\u00f5numi silt"
+                },
+                "message_thread_id": {
+                    "description": "Foorumi sihts\u00f5numi l\u00f5ime (teema) kordumatu identifikaator; ainult foorumi supergruppidele.",
+                    "name": "S\u00f5numi l\u00f5ime ID"
+                },
+                "parse_mode": {
+                    "description": "S\u00f5numi teksti s\u00f5eluja.",
+                    "name": "S\u00f5elumisre\u017eiim"
+                },
+                "password": {
+                    "description": "Salas\u00f5na (v\u00f5i esitaja luba) URL-i jaoks, mis n\u00f5uab HTTP-autentimist.",
+                    "name": "Salas\u00f5na"
+                },
+                "reply_to_message_id": {
+                    "description": "M\u00e4rgi s\u00f5num vastusena eelmisele s\u00f5numile.",
+                    "name": "Vasta s\u00f5numile ID"
+                },
+                "target": {
+                    "description": "Eelautoriseeritud chat_ids'ide massiiv, millele dokument saadetakse. Kui seda ei ole, on vaikimisi esimene lubatud chat_id.",
+                    "name": "Saaja"
+                },
+                "timeout": {
+                    "description": "Video saatmise ajal\u00f5pp.",
+                    "name": "Lugemise ajal\u00f5pp"
+                },
+                "url": {
+                    "description": "Kaugtee videoni.",
+                    "name": "URL"
+                },
+                "username": {
+                    "description": "HTTP-autentimist n\u00f5udva URL-i kasutajanimi.",
+                    "name": "Kasutajanimi"
+                },
+                "verify_ssl": {
+                    "description": "SSL-sertifikaadi kontrollimise lubamine v\u00f5i keelamine. Sea v\u00e4\u00e4rtuseks false, kui laadid faili alla URL-ilt ja ei soovi serveri SSL-sertifikaati kinnitada.",
+                    "name": "SSL-i kinnitamine"
+                }
+            },
+            "name": "Saada video"
+        },
+        "send_voice": {
+            "description": "Saadab h\u00e4\u00e4ls\u00f5numi.",
+            "fields": {
+                "authentication": {
+                    "description": "M\u00e4\u00e4ra millist tuvastamismeetodit kasutada. M\u00e4\u00e4ra `digest`, et kasutada HTTP digesti autentimist, v\u00f5i `bearer_token` OAuth 2.0 kandjatunnuse autentimiseks. Vaikimisi on vaikimisi `basic`.",
+                    "name": "Tuvastusmeetod"
+                },
+                "caption": {
+                    "description": "H\u00e4\u00e4ls\u00f5numi pealkiri.",
+                    "name": "Pealkiri"
+                },
+                "disable_notification": {
+                    "description": "Saadab teate vaikselt. iOS-i ja veebikasutajad ei saa teadet, Androidi kasutajad saavad teate ilma helita.",
+                    "name": "Keela teavitus"
+                },
+                "file": {
+                    "description": "H\u00e4\u00e4ls\u00f5numi kohalik tee.",
+                    "name": "Fail"
+                },
+                "inline_keyboard": {
+                    "description": "Komadega eraldatud k\u00e4skude ridade nimekiri, et teha kohandatud inline-klaviatuur koos nuppudega ja nendega seotud tagasikutsumisandmetega.",
+                    "name": "Tekstisisene klaviatuur"
+                },
+                "keyboard": {
+                    "description": "Komadega eraldatud k\u00e4suridade loend kohandatud klaviatuuri loomiseks.",
+                    "name": "Klaviatuur"
+                },
+                "message_tag": {
+                    "description": "Saadetud s\u00f5numi silt.",
+                    "name": "S\u00f5numi silt"
+                },
+                "message_thread_id": {
+                    "description": "Foorumi sihts\u00f5numi l\u00f5ime (teema) kordumatu identifikaator; ainult foorumi supergruppidele.",
+                    "name": "S\u00f5numi l\u00f5ime ID"
+                },
+                "password": {
+                    "description": "Salas\u00f5na (v\u00f5i esitaja luba) URL-i jaoks, mis n\u00f5uab HTTP-autentimist.",
+                    "name": "Salas\u00f5na"
+                },
+                "reply_to_message_id": {
+                    "description": "M\u00e4rgi s\u00f5num vastusena eelmisele s\u00f5numile.",
+                    "name": "Vasta s\u00f5numile ID"
+                },
+                "target": {
+                    "description": "Eelautoriseeritud chat_ids'ide massiiv, millele dokument saadetakse. Kui seda ei ole, on vaikimisi esimene lubatud chat_id.",
+                    "name": "Eesm\u00e4rk"
+                },
+                "timeout": {
+                    "description": "H\u00e4\u00e4lteavituse saatmise ajal\u00f5pp.",
+                    "name": "Lugemise ajal\u00f5pp"
+                },
+                "url": {
+                    "description": "Kaugtee h\u00e4\u00e4ls\u00f5numini.",
+                    "name": "URL"
+                },
+                "username": {
+                    "description": "HTTP-autentimist n\u00f5udva URL-i kasutajanimi.",
+                    "name": "Kasutajanimi"
+                },
+                "verify_ssl": {
+                    "description": "SSL-sertifikaadi kontrollimise lubamine v\u00f5i keelamine. Sea v\u00e4\u00e4rtuseks false, kui laadid faili alla URL-ilt ja ei soovi serveri SSL-sertifikaati kinnitada.",
+                    "name": "SSL-i kinnitamine"
+                }
+            },
+            "name": "Saada h\u00e4\u00e4ls\u00f5num"
+        }
+    }
+}

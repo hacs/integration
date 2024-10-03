@@ -1,0 +1,256 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Cihaz zaten yap\u0131land\u0131r\u0131lm\u0131\u015f",
+            "discovery_started": "Ke\u015fif ba\u015flad\u0131"
+        },
+        "error": {
+            "cannot_connect": "Ba\u011flanma hatas\u0131",
+            "cloud_user": "Ubiquiti Cloud kullan\u0131c\u0131lar\u0131 Desteklenmez. L\u00fctfen yaln\u0131zca Yerel bir kullan\u0131c\u0131 kullan\u0131n.",
+            "invalid_auth": "Ge\u00e7ersiz kimlik do\u011frulama",
+            "protect_version": "Minimum gerekli s\u00fcr\u00fcm v1.20.0'd\u0131r. L\u00fctfen UniFi Protect'i y\u00fckseltin ve ard\u0131ndan yeniden deneyin."
+        },
+        "flow_title": "{name} ({ip_address})",
+        "step": {
+            "discovery_confirm": {
+                "data": {
+                    "password": "\u015eifre",
+                    "username": "Kullan\u0131c\u0131 Ad\u0131"
+                },
+                "description": "{name} ( {ip_address} ) kurmak istiyor musunuz? Oturum a\u00e7mak i\u00e7in UniFi OS Konsolunuzda olu\u015fturulmu\u015f yerel bir kullan\u0131c\u0131ya ihtiyac\u0131n\u0131z olacak. Ubiquiti Bulut Kullan\u0131c\u0131lar\u0131 \u00e7al\u0131\u015fmayacakt\u0131r. Daha fazla bilgi i\u00e7in: {local_user_documentation_url}",
+                "title": "UniFi Protect Ke\u015ffedildi"
+            },
+            "reauth_confirm": {
+                "data": {
+                    "host": "UniFi KorumaSunucusunun IP/Ana Bilgisayar\u0131",
+                    "password": "\u015eifre",
+                    "port": "Port",
+                    "username": "Kullan\u0131c\u0131 Ad\u0131"
+                },
+                "title": "UniFi Yeniden Koruma"
+            },
+            "user": {
+                "data": {
+                    "host": "Sunucu",
+                    "password": "\u015eifre",
+                    "port": "Port",
+                    "username": "Kullan\u0131c\u0131 Ad\u0131",
+                    "verify_ssl": "SSL sertifikas\u0131n\u0131 do\u011frulay\u0131n"
+                },
+                "data_description": {
+                    "host": "UniFi Koruma cihaz\u0131n\u0131z\u0131n ana bilgisayar ad\u0131 veya IP adresi."
+                },
+                "description": "Oturum a\u00e7mak i\u00e7in UniFi OS Konsolunuzda olu\u015fturulmu\u015f yerel bir kullan\u0131c\u0131ya ihtiyac\u0131n\u0131z olacak. Ubiquiti Bulut Kullan\u0131c\u0131lar\u0131 \u00e7al\u0131\u015fmayacakt\u0131r. Daha fazla bilgi i\u00e7in: {local_user_documentation_url}",
+                "title": "UniFi Koruma Kurulumu"
+            }
+        }
+    },
+    "entity": {
+        "event": {
+            "doorbell": {
+                "state_attributes": {
+                    "event_type": {
+                        "state": {
+                            "ring": "Ring"
+                        }
+                    }
+                }
+            }
+        },
+        "sensor": {
+            "license_plate": {
+                "state": {
+                    "none": "Temiz"
+                }
+            }
+        }
+    },
+    "issues": {
+        "cloud_user": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "22 Temmuz 2024'ten itibaren Ubiquiti, t\u00fcm bulut kullan\u0131c\u0131lar\u0131n\u0131n Home Assistant ile uyumlu olmayan \u00e7ok fakt\u00f6rl\u00fc kimlik do\u011frulamaya (MFA) kaydolmas\u0131n\u0131 zorunlu k\u0131lacak. \n\n Entegrasyonun \u00e7al\u0131\u015fmaya devam etmesi i\u00e7in m\u00fcmk\u00fcn olan en k\u0131sa s\u00fcrede [yerel kullan\u0131c\u0131]( {learn_more} ) kullanmaya ge\u00e7mek en iyisi olacakt\u0131r. \n\n Bu onar\u0131m\u0131n onaylanmas\u0131, gerekli kimlik do\u011frulama bilgilerinin girilmesi i\u00e7in yeniden kimlik do\u011frulama ak\u0131\u015f\u0131n\u0131 tetikleyecektir.",
+                        "title": "Ubiquiti Bulut Kullan\u0131c\u0131lar\u0131 Desteklenmiyor"
+                    }
+                }
+            },
+            "title": "Ubiquiti Bulut Kullan\u0131c\u0131lar\u0131 Desteklenmiyor"
+        },
+        "deprecate_hdr_switch": {
+            "description": "UniFi Protect v3, HDR (otomatik) i\u00e7in yeni bir durum ekledi. Sonu\u00e7 olarak HDR Mod Anahtar\u0131, HDR Mod Se\u00e7imi ile de\u011fi\u015ftirildi ve kullan\u0131mdan kald\u0131r\u0131ld\u0131. \n\n Kullan\u0131mdan kald\u0131r\u0131lan bir veya daha fazla varl\u0131\u011f\u0131 kullanan tespit edilen otomasyonlar veya komut dosyalar\u0131 a\u015fa\u011f\u0131da verilmi\u015ftir:\n {items}\n Yukar\u0131daki liste eksik olabilir ve kontrol panellerindeki \u015fablon kullan\u0131m\u0131n\u0131 i\u00e7ermemektedir. L\u00fctfen t\u00fcm \u015fablonlar\u0131, otomasyonlar\u0131 veya komut dosyalar\u0131n\u0131 uygun \u015fekilde g\u00fcncelleyin.",
+            "title": "HDR Modu Anahtar\u0131 Kullan\u0131mdan Kald\u0131r\u0131ld\u0131"
+        },
+        "deprecate_package_sensor": {
+            "description": "Paket olay sens\u00f6r\u00fc, olaylar\u0131n UniFi Protect'te raporlanma \u015fekli nedeniyle hi\u00e7bir zaman tetiklenmedi. Sonu\u00e7 olarak sens\u00f6r kullan\u0131mdan kald\u0131r\u0131ld\u0131 ve kald\u0131r\u0131lacak. \n\n Kullan\u0131mdan kald\u0131r\u0131lan bir veya daha fazla varl\u0131\u011f\u0131 kullanan tespit edilen otomasyonlar veya komut dosyalar\u0131 a\u015fa\u011f\u0131da verilmi\u015ftir:\n {items}\n Yukar\u0131daki liste eksik olabilir ve kontrol panellerindeki \u015fablon kullan\u0131m\u0131n\u0131 i\u00e7ermemektedir. L\u00fctfen t\u00fcm \u015fablonlar\u0131, otomasyonlar\u0131 veya komut dosyalar\u0131n\u0131 uygun \u015fekilde g\u00fcncelleyin.",
+            "title": "Paket Olay Sens\u00f6r\u00fc Kullan\u0131mdan Kald\u0131r\u0131ld\u0131"
+        },
+        "deprecate_smart_sensor": {
+            "description": "Ak\u0131ll\u0131 alg\u0131lamalar i\u00e7in birle\u015fik \"Alg\u0131lanan Nesne\" sens\u00f6r\u00fc art\u0131k kullan\u0131mdan kald\u0131r\u0131lm\u0131\u015ft\u0131r. Her ak\u0131ll\u0131 alg\u0131lama t\u00fcr\u00fc i\u00e7in ayr\u0131 ak\u0131ll\u0131 alg\u0131lama ikili sens\u00f6rleri ile de\u011fi\u015ftirilmi\u015ftir. \n\n Kullan\u0131mdan kald\u0131r\u0131lan varl\u0131klardan birini veya daha fazlas\u0131n\u0131 kullanan alg\u0131lanan otomasyonlar veya komut dosyalar\u0131 a\u015fa\u011f\u0131dad\u0131r:\n {items}\n Yukar\u0131daki liste eksik olabilir ve panolar\u0131n i\u00e7inde herhangi bir \u015fablon kullan\u0131m\u0131 i\u00e7ermez. L\u00fctfen t\u00fcm \u015fablonlar\u0131, otomasyonlar\u0131 veya komut dosyalar\u0131n\u0131 uygun \u015fekilde g\u00fcncelleyin.",
+            "title": "Ak\u0131ll\u0131 Alg\u0131lama Sens\u00f6r\u00fc Kullan\u0131mdan Kald\u0131r\u0131ld\u0131"
+        },
+        "deprecated_service_set_doorbell_message": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "\"unifiprotect.set_doorbell_message\" hizmeti, her Kap\u0131 Zili cihaz\u0131na eklenen yeni Kap\u0131 Zili Metni varl\u0131\u011f\u0131 lehine kullan\u0131mdan kald\u0131r\u0131lm\u0131\u015ft\u0131r. v2023.3.0'da kald\u0131r\u0131lacakt\u0131r. L\u00fctfen [`text.set_value` hizmetini]( {link} ) kullanmak i\u00e7in g\u00fcncelleyin.",
+                        "title": "set_doorbell_message Kullan\u0131mdan Kald\u0131r\u0131ld\u0131"
+                    }
+                }
+            },
+            "title": "set_doorbell_message Kullan\u0131mdan Kald\u0131r\u0131ld\u0131"
+        },
+        "ea_channel_warning": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "UniFi Koruman\u0131n desteklenmeyen s\u00fcr\u00fcmlerini \u00e7al\u0131\u015ft\u0131rmak istedi\u011finizden emin misiniz? Bu, Ev Asistan\u0131 entegrasyonunuzun bozulmas\u0131na neden olabilir.",
+                        "title": "UniFi Koruma Erken Eri\u015fim etkin"
+                    },
+                    "start": {
+                        "description": "Ya UniFi Protect'in Erken Eri\u015fim s\u00fcr\u00fcm\u00fcn\u00fc (v {version} ) \u00e7al\u0131\u015ft\u0131r\u0131yorsunuz ya da Resmi Yay\u0131n Kanal\u0131 olmayan bir yay\u0131n kanal\u0131n\u0131 se\u00e7mi\u015fsiniz. \n\n Bu Erken Eri\u015fim s\u00fcr\u00fcmleri hen\u00fcz test edilmemi\u015f olabilece\u011finden bunlar\u0131n kullan\u0131lmas\u0131 UniFi Koruma entegrasyonunun beklenmedik \u015fekilde davranmas\u0131na neden olabilir. [Erken Eri\u015fim ve Ev Asistan\u0131 hakk\u0131nda daha fazlas\u0131n\u0131 okuyun]( {learn_more} ). \n\n Bu mesaj\u0131 kapatmak i\u00e7in G\u00f6nder.",
+                        "title": "UniFi Koruma Erken Eri\u015fim etkin"
+                    }
+                }
+            },
+            "title": "UniFi Koruma Erken Eri\u015fim etkin"
+        },
+        "ea_setup_failed": {
+            "description": "Erken Eri\u015fim s\u00fcr\u00fcm\u00fc olan UniFi Protect'in v {version} s\u00fcr\u00fcm\u00fcn\u00fc kullan\u0131yorsunuz. Entegrasyon y\u00fcklenmeye \u00e7al\u0131\u015f\u0131l\u0131rken kurtar\u0131lamayan bir hata olu\u015ftu. Entegrasyonu kullanmaya devam etmek i\u00e7in l\u00fctfen UniFi Koruman\u0131n kararl\u0131 s\u00fcr\u00fcm\u00fcn\u00fcn yede\u011fini geri y\u00fckleyin. \n\n Hata: {error}",
+            "title": "Erken Eri\u015fim s\u00fcr\u00fcm\u00fcn\u00fc kullan\u0131rken kurulum hatas\u0131"
+        },
+        "ea_warning": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "UniFi Protect'in desteklenmeyen s\u00fcr\u00fcmlerini \u00e7al\u0131\u015ft\u0131rmak istedi\u011finizden emin misiniz? Bu, Ev Asistan\u0131 entegrasyonunuzun bozulmas\u0131na neden olabilir.",
+                        "title": "v {version} , bir Erken Eri\u015fim s\u00fcr\u00fcm\u00fcd\u00fcr"
+                    },
+                    "start": {
+                        "description": "Erken Eri\u015fim s\u00fcr\u00fcm\u00fc olan UniFi Protect'in v {version} s\u00fcr\u00fcm\u00fcn\u00fc kullan\u0131yorsunuz. [Erken Eri\u015fim s\u00fcr\u00fcmleri Home Assistant taraf\u0131ndan desteklenmez](https://www.home-assistant.io/integrations/unifiprotect#about-unifi-early-access) ve en k\u0131sa s\u00fcrede kararl\u0131 bir s\u00fcr\u00fcme geri d\u00f6nmeniz \u00f6nerilir. m\u00fcmk\u00fcn. \n\n Bu formu g\u00f6ndererek, [UniFi Protect'in s\u00fcr\u00fcm\u00fcn\u00fc d\u00fc\u015f\u00fcrd\u00fcn\u00fcz](https://www.home-assistant.io/integrations/unifiprotect#downgrading-unifi-protect) veya UniFi Protect'in desteklenmeyen bir s\u00fcr\u00fcm\u00fcn\u00fc \u00e7al\u0131\u015ft\u0131rmay\u0131 kabul etmi\u015f olursunuz.",
+                        "title": "v {version} , bir Erken Eri\u015fim s\u00fcr\u00fcm\u00fcd\u00fcr"
+                    }
+                }
+            },
+            "title": "UniFi Protect v {version} , Erken Eri\u015fim s\u00fcr\u00fcm\u00fcd\u00fcr"
+        },
+        "rtsp_disabled_readonly": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "{camera} i\u00e7in RTSPS'yi devre d\u0131\u015f\u0131 b\u0131rakmak istedi\u011finizden emin misiniz?",
+                        "title": "{camera} kamerada RTSPS devre d\u0131\u015f\u0131 b\u0131rak\u0131ld\u0131"
+                    },
+                    "start": {
+                        "description": "{camera} kameras\u0131nda RTSPS devre d\u0131\u015f\u0131 b\u0131rak\u0131ld\u0131. Kameran\u0131z\u0131 Home Assistant'ta canl\u0131 yay\u0131nlayabilmek i\u00e7in RTSPS gereklidir. RTSPS'yi etkinle\u015ftirmezseniz, herhangi bir canl\u0131 video oynat\u0131c\u0131 varsay\u0131lan olarak kameradan anl\u0131k g\u00f6r\u00fcnt\u00fcleri h\u0131zla \u00e7ekece\u011finden, UniFi Koruma NVR'niz \u00fczerinde ek bir y\u00fck olu\u015fturabilir. \n\n L\u00fctfen kamerada [RTSPS'yi etkinle\u015ftirin]( {learn_more} ) ve ard\u0131ndan geri gelip bu onar\u0131m\u0131 onaylay\u0131n.",
+                        "title": "{camera} kamerada RTSPS devre d\u0131\u015f\u0131 b\u0131rak\u0131ld\u0131"
+                    }
+                }
+            },
+            "title": "{camera} kamerada RTSPS devre d\u0131\u015f\u0131 b\u0131rak\u0131ld\u0131"
+        },
+        "rtsp_disabled_writable": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "{camera} i\u00e7in RTSPS'yi devre d\u0131\u015f\u0131 b\u0131rakmak istedi\u011finizden emin misiniz?",
+                        "title": "{camera} kamerada RTSPS devre d\u0131\u015f\u0131 b\u0131rak\u0131ld\u0131"
+                    },
+                    "start": {
+                        "description": "{camera} kameras\u0131nda RTSPS devre d\u0131\u015f\u0131 b\u0131rak\u0131ld\u0131. Kameran\u0131z\u0131 Ev Asistan\u0131'nda canl\u0131 yay\u0131nlamak i\u00e7in RTSPS gereklidir. RTSPS'yi etkinle\u015ftirmezseniz, herhangi bir canl\u0131 video oynat\u0131c\u0131 varsay\u0131lan olarak kameradan anl\u0131k g\u00f6r\u00fcnt\u00fcleri h\u0131zl\u0131 bir \u015fekilde \u00e7ekmeyi ayarlayaca\u011f\u0131ndan, bu durum UniFi Koruma NVR'nizde ek bir y\u00fck olu\u015fturabilir. \n\n Se\u00e7ti\u011finiz kamera kalitesi kanal\u0131nda manuel olarak [RTSPS'yi etkinle\u015ftirebilirsiniz]( {learn_more} ) veya Ev Asistan\u0131 sizin i\u00e7in en y\u00fcksek kalitedeki kanal\u0131 otomatik olarak etkinle\u015ftirebilir. RTSPS kanal\u0131n\u0131 etkinle\u015ftirdikten sonra veya Ev Asistan\u0131n\u0131n en y\u00fcksek kaliteyi otomatik olarak etkinle\u015ftirmesini istiyorsan\u0131z bu onar\u0131m\u0131 onaylay\u0131n.",
+                        "title": "{camera} kamerada RTSPS devre d\u0131\u015f\u0131 b\u0131rak\u0131ld\u0131"
+                    }
+                }
+            },
+            "title": "{camera} kamerada RTSPS devre d\u0131\u015f\u0131 b\u0131rak\u0131ld\u0131"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "all_updates": "Ger\u00e7ek zamanl\u0131 \u00f6l\u00e7\u00fcmler (UYARI: CPU kullan\u0131m\u0131n\u0131 b\u00fcy\u00fck \u00f6l\u00e7\u00fcde art\u0131r\u0131r)",
+                    "allow_ea": "Protect'in Erken Eri\u015fim s\u00fcr\u00fcmlerine izin ver (UYARI: Entegrasyonunuzu desteklenmiyor olarak i\u015faretler)",
+                    "allow_ea_channel": "Koruman\u0131n Erken Eri\u015fim s\u00fcr\u00fcmlerine izin ver (UYARI: Entegrasyonunuz desteklenmiyor olarak i\u015faretlenir)",
+                    "disable_rtsp": "RTSP ak\u0131\u015f\u0131n\u0131 devre d\u0131\u015f\u0131 b\u0131rak\u0131n",
+                    "max_media": "Medya Taray\u0131c\u0131 i\u00e7in y\u00fcklenecek maksimum olay say\u0131s\u0131 (RAM kullan\u0131m\u0131n\u0131 art\u0131r\u0131r)",
+                    "override_connection_host": "Ba\u011flant\u0131 Ana Bilgisayar\u0131n\u0131 Ge\u00e7ersiz K\u0131l"
+                },
+                "description": "Ger\u00e7ek zamanl\u0131 \u00f6l\u00e7\u00fcmler se\u00e7ene\u011fi, yaln\u0131zca tan\u0131lama sens\u00f6rlerini etkinle\u015ftirdiyseniz ve bunlar\u0131n ger\u00e7ek zamanl\u0131 olarak g\u00fcncellenmesini istiyorsan\u0131z etkinle\u015ftirilmelidir. Etkinle\u015ftirilmezlerse, yaln\u0131zca her 15 dakikada bir g\u00fcncellenirler.",
+                "title": "UniFi Koruma Se\u00e7enekleri"
+            }
+        }
+    },
+    "services": {
+        "add_doorbell_text": {
+            "description": "Kap\u0131 zilleri i\u00e7in yeni bir \u00f6zel mesaj ekler.",
+            "fields": {
+                "device_id": {
+                    "description": "De\u011fi\u015ftirmek istedi\u011finiz UniFi Protect \u00f6rne\u011finden herhangi bir cihaz. Birden fazla Koruma \u00d6rne\u011finiz olmas\u0131 durumunda.",
+                    "name": "UniFi Protect NVR"
+                },
+                "message": {
+                    "description": "Kap\u0131 zilleri i\u00e7in eklenecek yeni \u00f6zel mesaj. 30 karakterden az olmal\u0131d\u0131r.",
+                    "name": "\u00d6zel mesaj"
+                }
+            },
+            "name": "\u00d6zel kap\u0131 zili metni ekleyin"
+        },
+        "remove_doorbell_text": {
+            "description": "Kap\u0131 zilleri i\u00e7in mevcut bir mesaj\u0131 kald\u0131r\u0131r.",
+            "fields": {
+                "device_id": {
+                    "description": "De\u011fi\u015ftirmek istedi\u011finiz UniFi Protect \u00f6rne\u011finden herhangi bir cihaz. Birden fazla Koruma \u00d6rne\u011finiz olmas\u0131 durumunda.",
+                    "name": "UniFi Protect NVR"
+                },
+                "message": {
+                    "description": "Kap\u0131 zilleri i\u00e7in kald\u0131r\u0131lacak mevcut \u00f6zel mesaj.",
+                    "name": "\u00d6zel mesaj"
+                }
+            },
+            "name": "\u00d6zel kap\u0131 zili metnini kald\u0131r"
+        },
+        "remove_privacy_zone": {
+            "description": "Bir kameran\u0131n gizlilik b\u00f6lgesini kald\u0131rmak i\u00e7in kullan\u0131n.",
+            "fields": {
+                "device_id": {
+                    "description": "Gizlilik b\u00f6lgesini kald\u0131rmak istedi\u011finiz kamera.",
+                    "name": "Kamera"
+                },
+                "name": {
+                    "description": "Kald\u0131r\u0131lacak b\u00f6lgenin ad\u0131.",
+                    "name": "Gizlilik B\u00f6lgesi Ad\u0131"
+                }
+            },
+            "name": "Kamera gizlilik b\u00f6lgesini kald\u0131r"
+        },
+        "set_chime_paired_doorbells": {
+            "description": "E\u015fle\u015ftirilmi\u015f kap\u0131 zilini/zillerini ak\u0131ll\u0131 bir zil ile ayarlamak i\u00e7in kullan\u0131n.",
+            "fields": {
+                "device_id": {
+                    "description": "Kap\u0131 zillerine ba\u011flanacak \u00e7an sesleri.",
+                    "name": "Zil sesi"
+                },
+                "doorbells": {
+                    "description": "Zil ile ba\u011flant\u0131 kurmak i\u00e7in kap\u0131 zilleri.",
+                    "name": "Kap\u0131 zilleri"
+                }
+            },
+            "name": "E\u015fle\u015ftirilmi\u015f kap\u0131 zillerini ayarlay\u0131n"
+        },
+        "set_default_doorbell_text": {
+            "description": "Varsay\u0131lan kap\u0131 zili mesaj\u0131n\u0131 ayarlar. Bu, bir mesaj\u0131n \"s\u00fcresi doldu\u011funda\" otomatik olarak se\u00e7ilen mesaj olacakt\u0131r.",
+            "fields": {
+                "device_id": {
+                    "description": "De\u011fi\u015ftirmek istedi\u011finiz UniFi Protect \u00f6rne\u011finden herhangi bir cihaz. Birden fazla Koruma \u00d6rne\u011finiz olmas\u0131 durumunda.",
+                    "name": "UniFi Protect NVR"
+                },
+                "message": {
+                    "description": "Kap\u0131 ziliniz i\u00e7in varsay\u0131lan mesaj. 30 karakterden az olmal\u0131d\u0131r.",
+                    "name": "Varsay\u0131lan mesaj"
+                }
+            },
+            "name": "Varsay\u0131lan kap\u0131 zili metnini ayarla"
+        }
+    }
+}

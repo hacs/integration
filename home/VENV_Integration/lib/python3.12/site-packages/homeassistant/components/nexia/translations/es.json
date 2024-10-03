@@ -1,0 +1,113 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "El dispositivo ya est\u00e1 configurado"
+        },
+        "error": {
+            "cannot_connect": "No se pudo conectar",
+            "invalid_auth": "Autenticaci\u00f3n no v\u00e1lida",
+            "unknown": "Error inesperado"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "brand": "Marca",
+                    "password": "Contrase\u00f1a",
+                    "username": "Nombre de usuario"
+                }
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "blower_active": {
+                "name": "Soplador activo"
+            },
+            "emergency_heat_active": {
+                "name": "Calefacci\u00f3n de emergencia activa"
+            }
+        },
+        "number": {
+            "fan_speed": {
+                "name": "Velocidad del ventilador"
+            }
+        },
+        "sensor": {
+            "air_cleaner_mode": {
+                "name": "Modo purificador de aire"
+            },
+            "current_compressor_speed": {
+                "name": "Velocidad actual del compresor"
+            },
+            "outdoor_temperature": {
+                "name": "Temperatura exterior"
+            },
+            "requested_compressor_speed": {
+                "name": "Velocidad del compresor solicitada"
+            },
+            "system_status": {
+                "name": "Estado del sistema"
+            },
+            "zone_setpoint_status": {
+                "name": "Estado de la consigna de zona"
+            },
+            "zone_status": {
+                "name": "Estado de la zona"
+            }
+        },
+        "switch": {
+            "hold": {
+                "name": "Modo de espera"
+            }
+        }
+    },
+    "issues": {
+        "migrate_aux_heat": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Se ha migrado la acci\u00f3n `set_aux_heat` de Nexia. Hay una nueva entidad de conmutaci\u00f3n `aux_heat_only` disponible para cada termostato.\n\nActualiza todas las automatizaciones para utilizar la nueva entidad de conmutaci\u00f3n de calefacci\u00f3n de emergencia. Cuando hayas terminado, selecciona **Enviar** para solucionar este problema.",
+                        "title": "Migraci\u00f3n de la acci\u00f3n set_aux_heat de Nexia"
+                    }
+                }
+            },
+            "title": "Migraci\u00f3n de la acci\u00f3n set_aux_heat de Nexia"
+        }
+    },
+    "services": {
+        "set_aircleaner_mode": {
+            "description": "El modo de purificador de aire.",
+            "fields": {
+                "aircleaner_mode": {
+                    "description": "El modo de purificador de aire a ajustar.",
+                    "name": "Modo purificador de aire"
+                }
+            },
+            "name": "Ajustar el modo del filtro de aire"
+        },
+        "set_humidify_setpoint": {
+            "description": "El punto de consigna de humidificaci\u00f3n.",
+            "fields": {
+                "humidity": {
+                    "description": "La consigna de humidificaci\u00f3n.",
+                    "name": "Humedecer"
+                }
+            },
+            "name": "Ajustar el punto de consigna de humidificaci\u00f3n"
+        },
+        "set_hvac_run_mode": {
+            "description": "El modo de funcionamiento de la climatizaci\u00f3n.",
+            "fields": {
+                "hvac_mode": {
+                    "description": "El modo de climatizaci\u00f3n a utilizar para el horario o mantener. Si no se especifica, se utilizar\u00e1 el modo actual.",
+                    "name": "Modo del sistema de climatizaci\u00f3n"
+                },
+                "run_mode": {
+                    "description": "Ejecutar la programaci\u00f3n o mantenerla. Si no se especifica, se utilizar\u00e1 el modo de ejecuci\u00f3n actual.",
+                    "name": "Modo de funcionamiento"
+                }
+            },
+            "name": "Configurar el modo de funcionamiento de la climatizaci\u00f3n"
+        }
+    }
+}

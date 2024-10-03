@@ -1,0 +1,63 @@
+{
+    "exceptions": {
+        "entity_not_dynamically_created": {
+            "message": "La sc\u00e8ne {entity_id} n'a pas \u00e9t\u00e9 cr\u00e9\u00e9e avec l'action `scene.create`."
+        },
+        "entity_not_scene": {
+            "message": "{entity_id} n\u2019est pas un entity_id de sc\u00e8ne valide."
+        }
+    },
+    "services": {
+        "apply": {
+            "description": "Active une sc\u00e8ne avec configuration.",
+            "fields": {
+                "entities": {
+                    "description": "Liste des entit\u00e9s et leur \u00e9tat cible.",
+                    "name": "\u00c9tat des entit\u00e9s"
+                },
+                "transition": {
+                    "description": "Temps n\u00e9cessaire aux appareils pour passer aux \u00e9tats d\u00e9finis dans la sc\u00e8ne.",
+                    "name": "Transition"
+                }
+            },
+            "name": "Appliquer"
+        },
+        "create": {
+            "description": "Cr\u00e9e une nouvelle sc\u00e8ne.",
+            "fields": {
+                "entities": {
+                    "description": "Liste des entit\u00e9s et leur \u00e9tat cible. Si vos entit\u00e9s sont d\u00e9j\u00e0 dans l'\u00e9tat cible en ce moment, utilisez `snapshot_entities` \u00e0 la place.",
+                    "name": "\u00c9tat des entit\u00e9s"
+                },
+                "scene_id": {
+                    "description": "ID d'entit\u00e9 de la nouvelle sc\u00e8ne.",
+                    "name": "ID d'entit\u00e9 de sc\u00e8ne"
+                },
+                "snapshot_entities": {
+                    "description": "Liste des entit\u00e9s \u00e0 inclure dans l'instantan\u00e9. En prenant un instantan\u00e9, vous enregistrez l'\u00e9tat actuel de ces entit\u00e9s. Si vous ne souhaitez pas utiliser l'\u00e9tat actuel de toutes vos entit\u00e9s pour cette sc\u00e8ne, vous pouvez combiner les `snapshot_entities` avec `entities`.",
+                    "name": "Entit\u00e9s d'instantan\u00e9"
+                }
+            },
+            "name": "Cr\u00e9er"
+        },
+        "delete": {
+            "description": "Supprime une sc\u00e8ne cr\u00e9\u00e9e dynamiquement.",
+            "name": "Supprimer"
+        },
+        "reload": {
+            "description": "Recharge les sc\u00e8nes \u00e0 partir de la configuration YAML.",
+            "name": "Recharger"
+        },
+        "turn_on": {
+            "description": "Active une sc\u00e8ne.",
+            "fields": {
+                "transition": {
+                    "description": "Temps n\u00e9cessaire aux appareils pour passer aux \u00e9tats d\u00e9finis dans la sc\u00e8ne.",
+                    "name": "Transition"
+                }
+            },
+            "name": "Activer"
+        }
+    },
+    "title": "Sc\u00e8ne"
+}

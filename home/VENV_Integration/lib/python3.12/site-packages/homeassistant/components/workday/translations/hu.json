@@ -1,0 +1,249 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "A Workday (munkanapok) m\u00e1r be lett \u00e1ll\u00edtva a kiv\u00e1lasztott konfigur\u00e1ci\u00f3val",
+            "incorrect_province": "Helytelen aloszt\u00e1s a yaml importb\u00f3l"
+        },
+        "error": {
+            "add_holiday_error": "Helytelen d\u00e1tumform\u00e1tum (\u00c9\u00c9\u00c9\u00c9-HH-NN)",
+            "add_holiday_range_error": "Helytelen form\u00e1tum a d\u00e1tumtartom\u00e1nyban (\u00c9\u00c9\u00c9\u00c9-HH-NN,\u00c9\u00c9\u00c9\u00c9-HH-NN)",
+            "already_configured": "A szolg\u00e1ltat\u00e1s m\u00e1r konfigur\u00e1lva van",
+            "remove_holiday_error": "Helytelen d\u00e1tumform\u00e1tum (\u00c9\u00c9\u00c9\u00c9-HH-NN) vagy szabadnap neve nem tal\u00e1lhat\u00f3",
+            "remove_holiday_range_error": "Helytelen form\u00e1tum a d\u00e1tumtartom\u00e1nyban (\u00c9\u00c9\u00c9\u00c9-HH-NN,\u00c9\u00c9\u00c9\u00c9-HH-NN)"
+        },
+        "step": {
+            "options": {
+                "data": {
+                    "add_holidays": "Szabadnapok hozz\u00e1ad\u00e1sa",
+                    "category": "Tov\u00e1bbi kateg\u00f3ria \u00fcnnepnapk\u00e9nt",
+                    "days_offset": "Eltol\u00e1s",
+                    "excludes": "Kiz\u00e1r\u00e1s",
+                    "language": "A megnevezett \u00fcnnepek nyelve",
+                    "province": "Orsz\u00e1gr\u00e9sz",
+                    "remove_holidays": "Szabadnapok elt\u00e1vol\u00edt\u00e1sa",
+                    "workdays": "Munkanapok"
+                },
+                "data_description": {
+                    "add_holidays": "Adjon hozz\u00e1 egy\u00e9ni szabadnapokat \u00c9\u00c9\u00c9\u00c9-HH-NN form\u00e1tumban vagy tartom\u00e1nyk\u00e9nt, a `,` elv\u00e1laszt\u00f3 haszn\u00e1lat\u00e1val",
+                    "category": "V\u00e1lasszon tov\u00e1bbi kateg\u00f3ri\u00e1kat, amelyeket \u00fcnnepnapk\u00e9nt k\u00edv\u00e1n belefoglalni",
+                    "days_offset": "Napok eltol\u00e1sa az aktu\u00e1lis napt\u00f3l",
+                    "excludes": "A kiz\u00e1rand\u00f3 munkanapok list\u00e1ja, vegye figyelembe az \"szabadnap\" kulcssz\u00f3t \u00e9s olvassa el a helyes haszn\u00e1latr\u00f3l sz\u00f3l\u00f3 dokument\u00e1ci\u00f3t",
+                    "language": "Az elnevezett \u00fcnnepi kiz\u00e1r\u00e1sok konfigur\u00e1l\u00e1sakor haszn\u00e1lt nyelv",
+                    "province": "\u00c1llam, Ter\u00fclet, Tartom\u00e1ny, Orsz\u00e1g r\u00e9gi\u00f3ja",
+                    "remove_holidays": "T\u00e1vol\u00edtsa el a szabadnapokat \u00c9\u00c9\u00c9\u00c9-HH-NN form\u00e1tumban, `,` elv\u00e1laszt\u00f3val vagy a n\u00e9v r\u00e9szleges haszn\u00e1lat\u00e1val",
+                    "workdays": "Munkanapok list\u00e1ja"
+                },
+                "description": "\u00c1ll\u00edtsa be a tov\u00e1bbi opci\u00f3kat {name} sz\u00e1m\u00e1ra, amely {country} orsz\u00e1gban van konfigur\u00e1lva"
+            },
+            "user": {
+                "data": {
+                    "country": "Orsz\u00e1g",
+                    "name": "Elnevez\u00e9s"
+                }
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "workday": {
+                "state_attributes": {
+                    "days_offset": {
+                        "name": "Eltol\u00e1s"
+                    },
+                    "excludes": {
+                        "name": "Kiz\u00e1r\u00e1s"
+                    },
+                    "workdays": {
+                        "name": "Munkanapok"
+                    }
+                }
+            }
+        }
+    },
+    "issues": {
+        "bad_country": {
+            "fix_flow": {
+                "step": {
+                    "country": {
+                        "data": {
+                            "country": "Orsz\u00e1g"
+                        },
+                        "description": "V\u00e1lassza ki a Workday-\u00e9rz\u00e9kel\u0151h\u00f6z haszn\u00e1lni k\u00edv\u00e1nt orsz\u00e1got.",
+                        "title": "V\u00e1lasszon orsz\u00e1got a k\u00f6vetkez\u0151h\u00f6z: {title}"
+                    },
+                    "province": {
+                        "data": {
+                            "province": "Orsz\u00e1gr\u00e9sz"
+                        },
+                        "data_description": {
+                            "province": "\u00c1llam, ter\u00fclet, tartom\u00e1ny, orsz\u00e1g r\u00e9gi\u00f3ja"
+                        },
+                        "description": "V\u00e1lassza ki a(z) {country} orsz\u00e1g egyik tartom\u00e1ny\u00e1t a Workday-\u00e9rz\u00e9kel\u0151h\u00f6z val\u00f3 haszn\u00e1lathoz.",
+                        "title": "Tartom\u00e1ny kiv\u00e1laszt\u00e1sa a k\u00f6vetkez\u0151h\u00f6z: {title}"
+                    }
+                }
+            },
+            "title": "A {title} sz\u00e1m\u00e1ra konfigur\u00e1lt orsz\u00e1g nem l\u00e9tezik"
+        },
+        "bad_date_holiday": {
+            "fix_flow": {
+                "error": {
+                    "remove_holiday_error": "Helytelen d\u00e1tumform\u00e1tum (\u00c9\u00c9\u00c9\u00c9-HH-NN) vagy szabadnap neve nem tal\u00e1lhat\u00f3"
+                },
+                "step": {
+                    "fix_remove_holiday": {
+                        "data": {
+                            "remove_holidays": "Szabadnapok elt\u00e1vol\u00edt\u00e1sa"
+                        },
+                        "data_description": {
+                            "remove_holidays": "T\u00e1vol\u00edtsa el a szabadnapokat \u00c9\u00c9\u00c9\u00c9-HH-NN form\u00e1tumban, `,` elv\u00e1laszt\u00f3val vagy a n\u00e9v r\u00e9szleges haszn\u00e1lat\u00e1val"
+                        },
+                        "description": "T\u00e1vol\u00edtsa el a `{remove_holidays}` \u00fcnnepnapot, mert nem tal\u00e1lhat\u00f3 meg a {country} orsz\u00e1gban.",
+                        "title": "A(z) {remove_holidays} {title} sz\u00e1m\u00e1ra be\u00e1ll\u00edtott \u00fcnnepd\u00e1tum nem l\u00e9tezik"
+                    }
+                }
+            },
+            "title": "A(z) {remove_holidays} {title} sz\u00e1m\u00e1ra be\u00e1ll\u00edtott \u00fcnnepd\u00e1tum nem l\u00e9tezik"
+        },
+        "bad_named_holiday": {
+            "fix_flow": {
+                "error": {
+                    "remove_holiday_error": "Helytelen d\u00e1tumform\u00e1tum (\u00c9\u00c9\u00c9\u00c9-HH-NN) vagy szabadnap neve nem tal\u00e1lhat\u00f3"
+                },
+                "step": {
+                    "fix_remove_holiday": {
+                        "data": {
+                            "remove_holidays": "Szabadnapok elt\u00e1vol\u00edt\u00e1sa"
+                        },
+                        "data_description": {
+                            "remove_holidays": "T\u00e1vol\u00edtsa el a szabadnapokat \u00c9\u00c9\u00c9\u00c9-HH-NN form\u00e1tumban, `,` elv\u00e1laszt\u00f3val vagy a n\u00e9v r\u00e9szleges haszn\u00e1lat\u00e1val"
+                        },
+                        "description": "T\u00e1vol\u00edtsa el a(z) `{remove_holidays}` nev\u0171 \u00fcnnepnapot, mivel az nem tal\u00e1lhat\u00f3 a(z) {country} orsz\u00e1gban.",
+                        "title": "A(z) {title} sz\u00e1m\u00e1ra konfigur\u00e1lt {remove_holidays} \u00fcnnep nem l\u00e9tezik"
+                    },
+                    "named_holiday": {
+                        "data": {
+                            "remove_holidays": "Szabadnapok elt\u00e1vol\u00edt\u00e1sa"
+                        },
+                        "data_description": {
+                            "remove_holidays": "T\u00e1vol\u00edtsa el a szabadnapokat \u00c9\u00c9\u00c9\u00c9-HH-NN form\u00e1tumban, `,` elv\u00e1laszt\u00f3val vagy a n\u00e9v r\u00e9szleges haszn\u00e1lat\u00e1val"
+                        },
+                        "description": "T\u00e1vol\u00edtsa el a(z) `{remove_holidays}` nev\u0171 \u00fcnnepnapot, mivel az nem tal\u00e1lhat\u00f3 a(z) {country} orsz\u00e1gban.",
+                        "title": "A(z) {title} sz\u00e1m\u00e1ra konfigur\u00e1lt {remove_holidays} \u00fcnnep nem l\u00e9tezik"
+                    }
+                }
+            },
+            "title": "A(z) {title} sz\u00e1m\u00e1ra konfigur\u00e1lt {remove_holidays} \u00fcnnep nem l\u00e9tezik"
+        },
+        "bad_province": {
+            "fix_flow": {
+                "step": {
+                    "province": {
+                        "data": {
+                            "province": "Orsz\u00e1gr\u00e9sz"
+                        },
+                        "data_description": {
+                            "province": "\u00c1llam, ter\u00fclet, tartom\u00e1ny, orsz\u00e1g r\u00e9gi\u00f3ja"
+                        },
+                        "description": "V\u00e1lassza ki a(z) {country} orsz\u00e1g egyik tartom\u00e1ny\u00e1t a Workday-\u00e9rz\u00e9kel\u0151h\u00f6z val\u00f3 haszn\u00e1lathoz.",
+                        "title": "Tartom\u00e1ny kiv\u00e1laszt\u00e1sa a k\u00f6vetkez\u0151h\u00f6z: {title}"
+                    }
+                }
+            },
+            "title": "Nem l\u00e9tezik konfigur\u00e1lt tartom\u00e1ny {country} orsz\u00e1gban a k\u00f6vetkez\u0151h\u00f6z {title}"
+        },
+        "deprecated_yaml": {
+            "description": "A Workday YAML haszn\u00e1lat\u00e1val t\u00f6rt\u00e9n\u0151 konfigur\u00e1l\u00e1sa elt\u00e1vol\u00edt\u00e1sra ker\u00fcl.\n\nA megl\u00e9v\u0151 YAML konfigur\u00e1ci\u00f3 automatikusan import\u00e1l\u00e1sra ker\u00fclt a felhaszn\u00e1l\u00f3i fel\u00fcletre.\n\nA hiba kijav\u00edt\u00e1s\u00e1hoz t\u00e1vol\u00edtsa el a Workday YAML konfigur\u00e1ci\u00f3t a configuration.yaml f\u00e1jlb\u00f3l \u00e9s ind\u00edtsa \u00fajra a Home Assistantot.",
+            "title": "A Workday YAML konfigur\u00e1ci\u00f3 elt\u00e1vol\u00edt\u00e1sra ker\u00fcl"
+        }
+    },
+    "options": {
+        "error": {
+            "add_holiday_error": "Helytelen d\u00e1tumform\u00e1tum (\u00c9\u00c9\u00c9\u00c9-HH-NN)",
+            "add_holiday_range_error": "Helytelen form\u00e1tum a d\u00e1tumtartom\u00e1nyban (\u00c9\u00c9\u00c9\u00c9-HH-NN,\u00c9\u00c9\u00c9\u00c9-HH-NN)",
+            "already_configured": "Ezzel a konfigur\u00e1ci\u00f3val rendelkez\u0151 szolg\u00e1ltat\u00e1s m\u00e1r l\u00e9tezik",
+            "remove_holiday_error": "Helytelen d\u00e1tumform\u00e1tum (\u00c9\u00c9\u00c9\u00c9-HH-NN) vagy szabadnap neve nem tal\u00e1lhat\u00f3",
+            "remove_holiday_range_error": "Helytelen form\u00e1tum a d\u00e1tumtartom\u00e1nyban (\u00c9\u00c9\u00c9\u00c9-HH-NN,\u00c9\u00c9\u00c9\u00c9-HH-NN)"
+        },
+        "step": {
+            "init": {
+                "data": {
+                    "add_holidays": "Szabadnapok hozz\u00e1ad\u00e1sa",
+                    "category": "Tov\u00e1bbi kateg\u00f3ria \u00fcnnepnapk\u00e9nt",
+                    "days_offset": "Eltol\u00e1s",
+                    "excludes": "Kiz\u00e1r\u00e1s",
+                    "language": "A megnevezett \u00fcnnepek nyelve",
+                    "province": "Orsz\u00e1gr\u00e9sz",
+                    "remove_holidays": "Szabadnapok elt\u00e1vol\u00edt\u00e1sa",
+                    "workdays": "Munkanapok"
+                },
+                "data_description": {
+                    "add_holidays": "Adjon hozz\u00e1 egy\u00e9ni szabadnapokat \u00c9\u00c9\u00c9\u00c9-HH-NN form\u00e1tumban vagy tartom\u00e1nyk\u00e9nt, a `,` elv\u00e1laszt\u00f3 haszn\u00e1lat\u00e1val",
+                    "category": "V\u00e1lasszon tov\u00e1bbi kateg\u00f3ri\u00e1kat, amelyeket \u00fcnnepnapk\u00e9nt k\u00edv\u00e1n belefoglalni",
+                    "days_offset": "Napok eltol\u00e1sa az aktu\u00e1lis napt\u00f3l",
+                    "excludes": "A kiz\u00e1rand\u00f3 munkanapok list\u00e1ja, vegye figyelembe az \"szabadnap\" kulcssz\u00f3t \u00e9s olvassa el a helyes haszn\u00e1latr\u00f3l sz\u00f3l\u00f3 dokument\u00e1ci\u00f3t",
+                    "language": "Az elnevezett \u00fcnnepi kiz\u00e1r\u00e1sok konfigur\u00e1l\u00e1sakor haszn\u00e1lt nyelv",
+                    "province": "\u00c1llam, Ter\u00fclet, Tartom\u00e1ny, Orsz\u00e1g r\u00e9gi\u00f3ja",
+                    "remove_holidays": "T\u00e1vol\u00edtsa el a szabadnapokat \u00c9\u00c9\u00c9\u00c9-HH-NN form\u00e1tumban, `,` elv\u00e1laszt\u00f3val vagy a n\u00e9v r\u00e9szleges haszn\u00e1lat\u00e1val",
+                    "workdays": "Munkanapok list\u00e1ja"
+                },
+                "description": "{country} orsz\u00e1ghoz konfigur\u00e1lt {name} tov\u00e1bbi be\u00e1ll\u00edt\u00e1sainak m\u00f3dos\u00edt\u00e1sa"
+            }
+        }
+    },
+    "selector": {
+        "category": {
+            "options": {
+                "armed_forces": "Fegyveres er\u0151k",
+                "bank": "Bank",
+                "chinese": "K\u00ednai",
+                "christian": "Kereszt\u00e9ny",
+                "government": "Korm\u00e1nyzati",
+                "half_day": "F\u00e9l nap",
+                "hebrew": "H\u00e9ber",
+                "hindu": "Hindu",
+                "islamic": "Iszl\u00e1m",
+                "optional": "Opcion\u00e1lis",
+                "public": "Nyilv\u00e1nos",
+                "school": "Iskola",
+                "unofficial": "Nem hivatalos",
+                "workday": "Munkanap"
+            }
+        },
+        "country": {
+            "options": {
+                "none": "Nincs orsz\u00e1g"
+            }
+        },
+        "days": {
+            "options": {
+                "fri": "P\u00e9ntek",
+                "holiday": "Szabadnapok",
+                "mon": "H\u00e9tf\u0151",
+                "sat": "Szombat",
+                "sun": "Vas\u00e1rnap",
+                "thu": "Cs\u00fct\u00f6rt\u00f6k",
+                "tue": "Kedd",
+                "wed": "Szerda"
+            }
+        },
+        "province": {
+            "options": {
+                "none": "Nincs feloszt\u00e1s"
+            }
+        }
+    },
+    "services": {
+        "check_date": {
+            "description": "Ellen\u0151rizze, hogy a d\u00e1tum munkanap-e.",
+            "fields": {
+                "check_date": {
+                    "description": "Munkanap-e az adott d\u00e1tum.",
+                    "name": "D\u00e1tum"
+                }
+            },
+            "name": "D\u00e1tum ellen\u0151rz\u00e9se"
+        }
+    },
+    "title": "Munkanap"
+}

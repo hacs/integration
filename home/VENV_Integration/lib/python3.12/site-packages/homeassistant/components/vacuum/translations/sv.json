@@ -1,0 +1,115 @@
+{
+    "device_automation": {
+        "action_type": {
+            "clean": "L\u00e5t {entity_name} st\u00e4da",
+            "dock": "L\u00e5t {entity_name} \u00e5terg\u00e5 till dockan"
+        },
+        "condition_type": {
+            "is_cleaning": "{entity_name} st\u00e4dar",
+            "is_docked": "{entity_name} \u00e4r dockad"
+        },
+        "extra_fields": {
+            "for": "Varaktighet"
+        },
+        "trigger_type": {
+            "cleaning": "{entity_name} b\u00f6rjade st\u00e4da",
+            "docked": "{entity_name} dockad"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Dammsugare",
+            "state": {
+                "cleaning": "St\u00e4dar",
+                "docked": "Dockad",
+                "error": "Fel",
+                "idle": "Inaktiv",
+                "off": "Av",
+                "on": "P\u00e5",
+                "paused": "Pausad",
+                "returning": "\u00c5terg\u00e5r till docka"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_vacuum_base_class": {
+            "description": "Den anpassade integrationen `{platform}` ut\u00f6kar den f\u00f6r\u00e5ldrade basklassen `VacuumEntity` ist\u00e4llet f\u00f6r `StateVacuumEntity`.\n\nRapportera detta till f\u00f6rfattaren av den anpassade integrationen `{platform}`.\n\nN\u00e4r en uppdaterad version av `{platform}` \u00e4r tillg\u00e4nglig, installera den och starta om Home Assistant f\u00f6r att \u00e5tg\u00e4rda problemet.",
+            "title": "Den anpassade integrationen {platform}  anv\u00e4nder en utg\u00e5ngen vacuum-funktion"
+        },
+        "deprecated_vacuum_base_class_url": {
+            "description": "Den anpassade integrationen `{platform}` ut\u00f6kar den f\u00f6r\u00e5ldrade basklassen `VacuumEntity` ist\u00e4llet f\u00f6r `StateVacuumEntity`.\n\nSkapa en felrapport p\u00e5 {issue_tracker}.\n\nN\u00e4r en uppdaterad version av `{platform}` \u00e4r tillg\u00e4nglig, installera den och starta om Home Assistant f\u00f6r att \u00e5tg\u00e4rda problemet.",
+            "title": "Den anpassade integrationen {platform}  anv\u00e4nder en utg\u00e5ngen vacuum-funktion"
+        },
+        "platform_integration_no_support": {
+            "description": "{platform}-plattformen f\u00f6r integrationen {domain} st\u00f6ds inte.\n\nTa bort den fr\u00e5n din konfiguration och starta om Home Assistant f\u00f6r att \u00e5tg\u00e4rda detta problem.",
+            "title": "Plattformen st\u00f6ds inte"
+        }
+    },
+    "services": {
+        "clean_spot": {
+            "description": "S\u00e4g till dammsugaren att g\u00f6ra en punktreng\u00f6ring.",
+            "name": "St\u00e4da punkt"
+        },
+        "locate": {
+            "description": "Hittar dammsugar-roboten",
+            "name": "Hitta"
+        },
+        "pause": {
+            "description": "Pausar p\u00e5g\u00e5ende uppgift",
+            "name": "Pausa"
+        },
+        "return_to_base": {
+            "description": "S\u00e4ger till dammsugarroboten att \u00e5terv\u00e4nda till sin laddningsstation.",
+            "name": "\u00c5terv\u00e4nd till laddningsstationen"
+        },
+        "send_command": {
+            "description": "S\u00e4nder ett kommando till dammsugarroboten",
+            "fields": {
+                "command": {
+                    "description": "Kommando att k\u00f6ra. Kommandon \u00e4r specifika f\u00f6r integrationen.",
+                    "name": "Kommando"
+                },
+                "params": {
+                    "description": "Parametrar f\u00f6r kommandot. Parametrar \u00e4r specifika f\u00f6r integrationen.",
+                    "name": "Parametrar"
+                }
+            },
+            "name": "S\u00e4nd kommando"
+        },
+        "set_fan_speed": {
+            "description": "S\u00e4tter fl\u00e4kthastigheten f\u00f6r dammsugarroboten.",
+            "fields": {
+                "fan_speed": {
+                    "description": "Fl\u00e4kthastighet. V\u00e4rdet \u00e4r beroende av integrationen. N\u00e5gra integrationer har steg, som 'medium'. N\u00e5gra anv\u00e4nder procent, mellan 0 till 100.",
+                    "name": "Fl\u00e4kthastighet"
+                }
+            },
+            "name": "S\u00e4tt fl\u00e4kthastighet"
+        },
+        "start": {
+            "description": "Startar eller forts\u00e4tter en st\u00e4daktivitet.",
+            "name": "Starta"
+        },
+        "start_pause": {
+            "description": "Startar, pausar eller forts\u00e4tter en st\u00e4daktivitet.",
+            "name": "Starta/pausa"
+        },
+        "stop": {
+            "description": "Avslutar p\u00e5g\u00e5ende st\u00e4daktivitet.",
+            "name": "Stoppa"
+        },
+        "toggle": {
+            "description": "Sl\u00e5r p\u00e5/st\u00e4nger av dammsugaren.",
+            "name": "V\u00e4xla"
+        },
+        "turn_off": {
+            "description": "Avslutar p\u00e5g\u00e5ende st\u00e4daktivitet och \u00e5terv\u00e4nder till laddstationen.",
+            "name": "St\u00e4ng av"
+        },
+        "turn_on": {
+            "description": "Startar en ny st\u00e4daktivitet.",
+            "name": "Starta"
+        }
+    },
+    "title": "Dammsugare"
+}

@@ -1,0 +1,77 @@
+{
+    "config": {
+        "abort": {
+            "already_configured_device": "Cihaz zaten yap\u0131land\u0131r\u0131lm\u0131\u015f",
+            "cannot_connect": "Ba\u011flanma hatas\u0131",
+            "updated_entry": "Bu giri\u015f zaten ayarlanm\u0131\u015f ancak yap\u0131land\u0131rmada tan\u0131mlanan ad, uygulamalar ve/veya se\u00e7enekler daha \u00f6nce i\u00e7e aktar\u0131lan yap\u0131land\u0131rmayla e\u015fle\u015fmiyor, bu nedenle yap\u0131land\u0131rma giri\u015fi buna g\u00f6re g\u00fcncellendi."
+        },
+        "error": {
+            "cannot_connect": "Ba\u011flanma hatas\u0131",
+            "complete_pairing_failed": "E\u015fle\u015ftirme tamamlanamad\u0131. Yeniden g\u00f6ndermeden \u00f6nce, verdi\u011finiz PIN'in do\u011fru oldu\u011fundan ve TV'ye g\u00fc\u00e7 verildi\u011finden ve a\u011fa ba\u011fl\u0131 oldu\u011fundan emin olun.",
+            "existing_config_entry_found": "Ayn\u0131 seri numaras\u0131na sahip mevcut bir VIZIO SmartCast Cihaz\u0131 yap\u0131land\u0131rma giri\u015fi zaten yap\u0131land\u0131r\u0131lm\u0131\u015f. Bunu yap\u0131land\u0131rmak i\u00e7in mevcut giri\u015fi silmelisiniz."
+        },
+        "step": {
+            "pair_tv": {
+                "data": {
+                    "pin": "PIN kodu"
+                },
+                "description": "TV'niz bir kod g\u00f6steriyor olmal\u0131d\u0131r. Bu kodu forma girin ve ard\u0131ndan e\u015fle\u015ftirmeyi tamamlamak i\u00e7in bir sonraki ad\u0131ma ge\u00e7in.",
+                "title": "E\u015fle\u015ftirme \u0130\u015flemini Tamamlay\u0131n"
+            },
+            "pairing_complete": {
+                "description": "VIZIO SmartCast Cihaz\u0131n\u0131z art\u0131k Home Assistant'a ba\u011fl\u0131d\u0131r.",
+                "title": "E\u015fle\u015ftirme Tamamland\u0131"
+            },
+            "pairing_complete_import": {
+                "description": "VIZIO SmartCast Cihaz\u0131n\u0131z art\u0131k Home Assistant'a ba\u011fl\u0131d\u0131r. \n\n Eri\u015fim jetonunuz '** {access_token} **'.",
+                "title": "E\u015fle\u015ftirme Tamamland\u0131"
+            },
+            "user": {
+                "data": {
+                    "access_token": "Eri\u015fim anahtar\u0131",
+                    "device_class": "Cihaz tipi",
+                    "host": "Sunucu",
+                    "name": "Ad"
+                },
+                "data_description": {
+                    "host": "VIZIO SmartCast cihaz\u0131n\u0131z\u0131n ana bilgisayar ad\u0131 veya IP adresi."
+                },
+                "description": "Bir eri\u015fim belirteci yaln\u0131zca TV'ler i\u00e7in gereklidir. Bir TV yap\u0131land\u0131r\u0131yorsan\u0131z ve hen\u00fcz bir eri\u015fim belirteciniz yoksa e\u015fle\u015ftirme s\u00fcrecinden ge\u00e7mek i\u00e7in bo\u015f b\u0131rak\u0131n.",
+                "title": "VIZIO SmartCast Cihaz\u0131"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "apps_to_include_or_exclude": "Dahil veya Hari\u00e7 Tutulacak Uygulamalar",
+                    "include_or_exclude": "Uygulamalar Dahil mi yoksa, Hari\u00e7 tutulsun mu?",
+                    "volume_step": "Birim Ad\u0131m Boyutu"
+                },
+                "description": "Smart TV'niz varsa, kaynak listenize hangi uygulamalar\u0131n dahil edilece\u011fini veya hari\u00e7 tutulaca\u011f\u0131n\u0131 se\u00e7erek iste\u011fe ba\u011fl\u0131 olarak kaynak listenizi filtreleyebilirsiniz.",
+                "title": "VIZIO SmartCast Cihaz Se\u00e7eneklerini G\u00fcncelleyin"
+            }
+        }
+    },
+    "services": {
+        "update_setting": {
+            "description": "Vizio media player ayg\u0131t\u0131ndaki bir ayar\u0131n de\u011ferini g\u00fcnceller.",
+            "fields": {
+                "new_value": {
+                    "description": "Ayar i\u00e7in yeni de\u011fer.",
+                    "name": "Yeni de\u011fer"
+                },
+                "setting_name": {
+                    "description": "De\u011fi\u015ftirilecek ayar\u0131n ad\u0131. Belirli bir setting_type i\u00e7in mevcut ayarlar '[setting_type]_settings' \u00f6zelli\u011finde listelenir.",
+                    "name": "Ayar ad\u0131"
+                },
+                "setting_type": {
+                    "description": "De\u011fi\u015ftirilecek ayar\u0131n t\u00fcr\u00fc. Mevcut t\u00fcrler 'setting_types' \u00f6zelli\u011finde listelenir.",
+                    "name": "Ayar tipi"
+                }
+            },
+            "name": "Ayar\u0131 g\u00fcncelle"
+        }
+    }
+}

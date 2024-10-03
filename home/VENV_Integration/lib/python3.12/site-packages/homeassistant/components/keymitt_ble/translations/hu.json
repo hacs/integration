@@ -1,0 +1,58 @@
+{
+    "config": {
+        "abort": {
+            "already_configured_device": "Az eszk\u00f6z m\u00e1r konfigur\u00e1lva van",
+            "cannot_connect": "Sikertelen csatlakoz\u00e1s",
+            "no_devices_found": "Nem tal\u00e1lhat\u00f3 eszk\u00f6z a h\u00e1l\u00f3zaton",
+            "unknown": "V\u00e1ratlan hiba"
+        },
+        "error": {
+            "linking": "Nem siker\u00fclt p\u00e1ros\u00edtani, k\u00e9rem, pr\u00f3b\u00e1lja \u00fajra. A MicroBot p\u00e1ros\u00edt\u00e1si m\u00f3dban van?"
+        },
+        "flow_title": "{name}",
+        "step": {
+            "init": {
+                "data": {
+                    "address": "Eszk\u00f6z c\u00edme",
+                    "name": "Elnevez\u00e9s"
+                },
+                "title": "MicroBot eszk\u00f6z be\u00e1ll\u00edt\u00e1sa"
+            },
+            "link": {
+                "description": "Nyomja meg a MicroBoton a Push gombot, amikor a LED r\u00f3zsasz\u00edn vagy z\u00f6ld sz\u00ednnel vil\u00e1g\u00edt, hogy az regisztr\u00e1l\u00f3djon a Home Assistant rendszerbe.",
+                "title": "P\u00e1ros\u00edt\u00e1s"
+            }
+        }
+    },
+    "entity": {
+        "switch": {
+            "push": {
+                "name": "Push"
+            }
+        }
+    },
+    "services": {
+        "calibrate": {
+            "description": "Kalibr\u00e1l\u00e1s - \u00c1ll\u00edtsa be a m\u00e9lys\u00e9get, nyomja le \u00e9s tartsa lenyomva a duration \u00e9s operation mode gombokat. Figyelem - ez Push parancsot k\u00fcld a k\u00e9sz\u00fcl\u00e9knek.",
+            "fields": {
+                "depth": {
+                    "description": "M\u00e9lys\u00e9g sz\u00e1zal\u00e9kban.",
+                    "name": "M\u00e9lys\u00e9g"
+                },
+                "duration": {
+                    "description": "Id\u0151tartam m\u00e1sodpercekben.",
+                    "name": "Id\u0151tartam"
+                },
+                "entity_id": {
+                    "description": "Kalibr\u00e1land\u00f3 entit\u00e1s neve.",
+                    "name": "Entit\u00e1s"
+                },
+                "mode": {
+                    "description": "Normal | invert | toggle. (magyarul: norm\u00e1l | inverz | v\u00e1lt\u00f3)",
+                    "name": "M\u00f3d"
+                }
+            },
+            "name": "Kalibr\u00e1l"
+        }
+    }
+}

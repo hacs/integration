@@ -1,0 +1,98 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Enheten \u00e4r redan konfigurerad",
+            "already_in_progress": "Konfigurationsfl\u00f6det p\u00e5g\u00e5r redan",
+            "error_pairing": "Ansluten till LG webOS TV men inte ihopkopplad",
+            "reauth_successful": "\u00c5terautentisering lyckades",
+            "reauth_unsuccessful": "\u00c5terautentiseringen lyckades inte, v\u00e4nligen starta din TV och f\u00f6rs\u00f6k igen."
+        },
+        "flow_title": "LG webOS Smart TV",
+        "step": {
+            "pairing": {
+                "title": "Koppling av webOS TV"
+            },
+            "reauth_confirm": {
+                "description": "Klicka p\u00e5 skicka och acceptera parningsf\u00f6rfr\u00e5gan p\u00e5 din TV. \n\n ![Image](/static/images/config_webos.png)",
+                "title": "Koppling av webOS TV"
+            },
+            "user": {
+                "data": {
+                    "host": "V\u00e4rd",
+                    "name": "Namn"
+                },
+                "data_description": {
+                    "host": "V\u00e4rdnamn eller IP-adress f\u00f6r din webOS TV."
+                },
+                "title": "Anslut till webOS TV"
+            }
+        }
+    },
+    "device_automation": {
+        "trigger_type": {
+            "webostv.turn_on": "Enheten uppmanas att sl\u00e5s p\u00e5"
+        }
+    },
+    "options": {
+        "error": {
+            "cannot_retrieve": "Det gick inte att h\u00e4mta k\u00e4lllistan. Se till att enheten \u00e4r p\u00e5slagen"
+        },
+        "step": {
+            "init": {
+                "data": {
+                    "sources": "K\u00e4lllista"
+                },
+                "description": "V\u00e4lj aktiverade k\u00e4llor",
+                "title": "Alternativ f\u00f6r webOS Smart TV"
+            }
+        }
+    },
+    "services": {
+        "button": {
+            "description": "Skickar ett knapptryckningskommando.",
+            "fields": {
+                "button": {
+                    "description": "Namn p\u00e5 knappen som ska tryckas.  K\u00e4nda m\u00f6jliga v\u00e4rden \u00e4r V\u00c4NSTER, H\u00d6GER, NED, UPP, HEM, MENY, TILLBAKA, ENTER, DASH, INFO, ASTERISK, CC, EXIT, MUTE, R\u00d6D, GR\u00d6N, BL\u00c5, GUL, VOLYMUPP, VOLYMNER, KANALUPP, KANALNER, SPELA, PAUS, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9.",
+                    "name": "Knapp"
+                },
+                "entity_id": {
+                    "description": "Namn p\u00e5 de webostv-enheter d\u00e4r API-metoden ska k\u00f6ras.",
+                    "name": "Entitet"
+                }
+            },
+            "name": "Knapp"
+        },
+        "command": {
+            "description": "Skickar ett kommando.",
+            "fields": {
+                "command": {
+                    "description": "Slutpunkt f\u00f6r kommandot.",
+                    "name": "Kommando"
+                },
+                "entity_id": {
+                    "description": "Namn p\u00e5 de webostv-enheter d\u00e4r API-metoden ska k\u00f6ras.",
+                    "name": "Entitet"
+                },
+                "payload": {
+                    "description": "En valfri nyttolast att skicka till slutpunkten i form av nyckel/v\u00e4rde-par.",
+                    "name": "Nyttolast"
+                }
+            },
+            "name": "Kommando"
+        },
+        "select_sound_output": {
+            "description": "Skickar kommandot till TV:n f\u00f6r att \u00e4ndra ljudutg\u00e5ngen.",
+            "fields": {
+                "entity_id": {
+                    "description": "Namn p\u00e5 de webostv-enheter f\u00f6r vilka ljudutg\u00e5ngen ska \u00e4ndras.",
+                    "name": "Entitet"
+                },
+                "sound_output": {
+                    "description": "Namn p\u00e5 den ljudutg\u00e5ng som du vill v\u00e4xla till.",
+                    "name": "Ljudutg\u00e5ng"
+                }
+            },
+            "name": "V\u00e4lj ljudutg\u00e5ng"
+        }
+    }
+}

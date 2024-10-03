@@ -1,0 +1,87 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Enheten \u00e4r redan konfigurerad",
+            "cannot_connect": "Det gick inte att ansluta.",
+            "invalid_auth": "Ogiltig autentisering",
+            "no_uuid": "Kodi-instansen har inte ett unikt ID. Detta beror troligen p\u00e5 en gammal Kodi-version (17.x eller l\u00e4gre). Du kan konfigurera integrationen manuellt eller uppgradera till en nyare Kodi-version.",
+            "unknown": "Ov\u00e4ntat fel"
+        },
+        "error": {
+            "cannot_connect": "Det gick inte att ansluta.",
+            "invalid_auth": "Ogiltig autentisering",
+            "unknown": "Ov\u00e4ntat fel"
+        },
+        "flow_title": "{name}",
+        "step": {
+            "credentials": {
+                "data": {
+                    "password": "L\u00f6senord",
+                    "username": "Anv\u00e4ndarnamn"
+                },
+                "description": "V\u00e4nligen ange ditt Kodi-anv\u00e4ndarnamn och l\u00f6senord. Dessa finns i System/Inst\u00e4llningar/N\u00e4tverk/Tj\u00e4nster."
+            },
+            "discovery_confirm": {
+                "description": "Vill du l\u00e4gga till Kodi (` {name} `) till Home Assistant?",
+                "title": "Uppt\u00e4ckte Kodi"
+            },
+            "user": {
+                "data": {
+                    "host": "V\u00e4rd",
+                    "port": "Port",
+                    "ssl": "Anv\u00e4nder ett SSL certifikat"
+                },
+                "data_description": {
+                    "host": "V\u00e4rdnamnet eller IP-adressen f\u00f6r det system som \u00e4r v\u00e4rd f\u00f6r Kodi-servern."
+                },
+                "description": "Kodi anslutningsinformation. Se till att aktivera \"Till\u00e5t kontroll av Kodi via HTTP\" i System/Inst\u00e4llningar/N\u00e4tverk/Tj\u00e4nster."
+            },
+            "ws_port": {
+                "data": {
+                    "ws_port": "Port"
+                },
+                "description": "WebSocket-porten (kallas ibland TCP-port i Kodi). F\u00f6r att ansluta \u00f6ver WebSocket m\u00e5ste du aktivera \"Till\u00e5t program ... att styra Kodi\" i System/Inst\u00e4llningar/N\u00e4tverk/Tj\u00e4nster. Om WebSocket inte \u00e4r aktiverat, ta bort porten och l\u00e4mna tom."
+            }
+        }
+    },
+    "device_automation": {
+        "trigger_type": {
+            "turn_off": "{entity_name} st\u00e4ngdes av",
+            "turn_on": "{entity_name} slogs p\u00e5"
+        }
+    },
+    "services": {
+        "add_to_playlist": {
+            "description": "L\u00e4gger till musik till standardspellistan (dvs. playlistid=0).",
+            "fields": {
+                "artist_name": {
+                    "description": "Valfritt artistnamn f\u00f6r filtrering av media.",
+                    "name": "Artistnamn"
+                },
+                "media_id": {
+                    "description": "Unikt ID f\u00f6r medieposten som ska l\u00e4ggas till (\"songid\" eller \"albumid\"). Om de inte definieras beh\u00f6vs \"media_name\" och \"artist_name\" f\u00f6r att s\u00f6ka i Kodi-musikbiblioteket.",
+                    "name": "Media-ID"
+                },
+                "media_name": {
+                    "description": "Valfritt medianamn f\u00f6r filtrering av media. Kan vara \"ALL\" n\u00e4r \"media_type\" \u00e4r \"ALBUM\" och \"artist_name\" \u00e4r angivet, f\u00f6r att l\u00e4gga till alla l\u00e5tar fr\u00e5n en artist.",
+                    "name": "Medianamn"
+                },
+                "media_type": {
+                    "description": "Identifierare f\u00f6r mediatyp. M\u00e5ste vara antingen SONG eller ALBUM.",
+                    "name": "Mediatyp"
+                }
+            },
+            "name": "L\u00e4gg till i spellista"
+        },
+        "call_method": {
+            "description": "Anropar en Kodi JSONRPC API-metod med valfria parametrar. Resultatet av anropet omdirigeras till en Home Assistant-h\u00e4ndelse: \"kodi_call_method_result\".",
+            "fields": {
+                "method": {
+                    "description": "Namn p\u00e5 den Kodi JSONRPC API-metod som ska anropas.",
+                    "name": "Metod"
+                }
+            },
+            "name": "Anropsmetod"
+        }
+    }
+}

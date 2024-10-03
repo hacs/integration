@@ -1,0 +1,323 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Palvelu on jo m\u00e4\u00e4ritetty",
+            "reauth_successful": "Uudelleentodennus onnistui",
+            "single_instance_allowed": "Jo m\u00e4\u00e4ritetty. Vain yksi konfiguraatio mahdollinen."
+        },
+        "error": {
+            "bad_birth": "Virheellinen syntym\u00e4aihe",
+            "bad_certificate": "CA-varmenne on virheellinen",
+            "bad_client_cert": "Asiakasvarmenne on virheellinen, varmista, ett\u00e4 toimitetaan PEM-koodattu tiedosto.",
+            "bad_client_cert_key": "Asiakasvarmenne ja yksityinen avain eiv\u00e4t ole kelvollinen pari",
+            "bad_client_key": "Virheellinen yksityinen avain, varmista, ett\u00e4 PEM-koodattu tiedosto on sy\u00f6tetty ilman salasanaa.",
+            "bad_discovery_prefix": "Virheellinen l\u00f6yd\u00f6n etuliite",
+            "bad_will": "Virheellinen will aihe",
+            "bad_ws_headers": "Toimita kelvolliset HTTP-otsikot JSON-objektina.",
+            "cannot_connect": "Yhteyden muodostaminen ep\u00e4onnistui",
+            "invalid_auth": "Virheellinen todennus",
+            "invalid_inclusion": "Asiakasvarmenne ja yksityinen avain on m\u00e4\u00e4ritett\u00e4v\u00e4 yhdess\u00e4"
+        },
+        "step": {
+            "broker": {
+                "data": {
+                    "advanced_options": "Lis\u00e4asetukset",
+                    "broker": "V\u00e4litt\u00e4j\u00e4",
+                    "certificate": "Lataa mukautettu CA-sertifikaattitiedosto",
+                    "client_cert": "Lataa asiakasvarmenteen tiedosto",
+                    "client_id": "Asiakastunnus (j\u00e4t\u00e4 tyhj\u00e4ksi, jos haluat satunnaisesti luodun tunnuksen).",
+                    "client_key": "Lataa yksityinen avaintiedosto",
+                    "keepalive": "Time keep alive -viestien l\u00e4hett\u00e4misen v\u00e4lill\u00e4",
+                    "password": "Salasana",
+                    "port": "Portti",
+                    "protocol": "MQTT-protokolla",
+                    "set_ca_cert": "V\u00e4litt\u00e4j\u00e4n varmenteen validointi",
+                    "set_client_cert": "K\u00e4yt\u00e4 asiakassertifikaattia",
+                    "tls_insecure": "Ohita v\u00e4litt\u00e4j\u00e4n varmenteen vahvistus",
+                    "transport": "MQTT kuljetus",
+                    "username": "K\u00e4ytt\u00e4j\u00e4tunnus",
+                    "ws_headers": "WebSocket-otsikot JSON-muodossa",
+                    "ws_path": "WebSocket-polku"
+                },
+                "data_description": {
+                    "broker": "MQTT-v\u00e4litt\u00e4j\u00e4n is\u00e4nt\u00e4nimi tai IP-osoite.",
+                    "certificate": "Mukautettu CA-sertifikaattitiedosto MQTT-v\u00e4litt\u00e4jien varmenteen vahvistamiseksi.",
+                    "client_cert": "Asiakasvarmenne, jolla todennetaan MQTT-v\u00e4litt\u00e4j\u00e4\u00e4si vastaan.",
+                    "client_id": "Yksil\u00f6llinen tunnus, jolla Home Assistant MQTT API tunnistetaan MQTT-asiakkaaksi. On suositeltavaa j\u00e4tt\u00e4\u00e4 t\u00e4m\u00e4 vaihtoehto tyhj\u00e4ksi.",
+                    "client_key": "Yksityinen avaintiedosto, joka kuuluu asiakasvarmenteeseen.",
+                    "password": "Salasana, jolla kirjaudut sis\u00e4\u00e4n MQTT-v\u00e4litt\u00e4j\u00e4\u00e4n.",
+                    "port": "Portti, jota MQTT-v\u00e4litt\u00e4j\u00e4si kuuntelee. Esimerkiksi 1883.",
+                    "protocol": "MQTT-protokolla, jolla v\u00e4litt\u00e4j\u00e4si toimii. Esimerkiksi 3.1.1.",
+                    "tls_insecure": "Vaihtoehto j\u00e4tt\u00e4\u00e4 huomiotta MQTT-v\u00e4litt\u00e4j\u00e4n varmenteen validointi.",
+                    "transport": "MQTT-v\u00e4litt\u00e4j\u00e4\u00e4n muodostettavaan yhteyteen k\u00e4ytett\u00e4v\u00e4 siirtotapa.",
+                    "username": "K\u00e4ytt\u00e4j\u00e4tunnus, jolla kirjaudutaan MQTT-v\u00e4litt\u00e4j\u00e4\u00e4n.",
+                    "ws_headers": "WebSocket-otsikot kulkevat WebSocket-pohjaisen yhteyden kautta MQTT-v\u00e4litt\u00e4j\u00e4\u00e4n.",
+                    "ws_path": "WebSocket-polku, jota k\u00e4ytet\u00e4\u00e4n yhteyden muodostamiseen MQTT-v\u00e4litt\u00e4j\u00e4\u00e4n."
+                },
+                "description": "Sy\u00f6t\u00e4 MQTT-v\u00e4litt\u00e4j\u00e4n yhteystiedot."
+            },
+            "hassio_confirm": {
+                "data": {
+                    "discovery": "Ota etsint\u00e4 k\u00e4ytt\u00f6\u00f6n"
+                },
+                "data_description": {
+                    "discovery": "Mahdollisuus ottaa MQTT automaattinen etsint\u00e4 k\u00e4ytt\u00f6\u00f6n."
+                },
+                "description": "Haluatko m\u00e4\u00e4ritt\u00e4\u00e4 Home Assistant -ohjelman muodostamaan yhteyden lis\u00e4osan {addon} tarjoamaan MQTT-v\u00e4litt\u00e4j\u00e4\u00e4n?",
+                "title": "MQTT-v\u00e4litt\u00e4j\u00e4 Home Assistant -lis\u00e4osan kautta"
+            },
+            "reauth_confirm": {
+                "data": {
+                    "password": "Salasana",
+                    "username": "K\u00e4ytt\u00e4j\u00e4tunnus"
+                },
+                "data_description": {
+                    "password": "Salasana, jolla kirjaudut sis\u00e4\u00e4n MQTT-v\u00e4litt\u00e4j\u00e4\u00e4n.",
+                    "username": "K\u00e4ytt\u00e4j\u00e4tunnus, jolla kirjaudutaan MQTT-v\u00e4litt\u00e4j\u00e4\u00e4n."
+                },
+                "title": "MQTT-v\u00e4litt\u00e4j\u00e4lt\u00e4 vaaditaan uudelleen tunnistautuminen."
+            }
+        }
+    },
+    "device_automation": {
+        "trigger_subtype": {
+            "button_1": "Ensimm\u00e4inen painike",
+            "button_2": "Toinen painike",
+            "button_3": "Kolmas painike",
+            "button_4": "Nelj\u00e4s painike",
+            "button_5": "Viides painike",
+            "button_6": "Kuudes painike",
+            "turn_off": "Sammuta",
+            "turn_on": "Laita p\u00e4\u00e4lle"
+        },
+        "trigger_type": {
+            "button_double_press": "\"{subtype}\" kaksoisnapsautettu",
+            "button_long_press": "\" {subtype} \" jatkuvasti painettuna",
+            "button_long_release": "\"{subtype}\" vapautettu pitk\u00e4n painalluksen j\u00e4lkeen",
+            "button_quadruple_press": "\"{subtype}\" nelinkertaisesti napsautettu",
+            "button_quintuple_press": "\"{subtype}\" viisinkertaisesti napsautettu",
+            "button_short_press": "\"{subtype}\" painettu",
+            "button_short_release": "\"{subtype}\" vapautettu",
+            "button_triple_press": "\"{subtype}\" kolmoisnapsautettu"
+        }
+    },
+    "exceptions": {
+        "command_template_error": {
+            "message": "Mallin \"{command_template}\" j\u00e4sent\u00e4minen kokonaisuudelle \"{entity_id}\" ep\u00e4onnistui virheell\u00e4: {error}."
+        },
+        "invalid_platform_config": {
+            "message": "YAML-konfiguraation uudelleenlataaminen manuaalisesti m\u00e4\u00e4ritetylle MQTT `{domain}` -kohteelle ep\u00e4onnistui. Katso lis\u00e4tietoja lokitiedoista."
+        },
+        "invalid_publish_topic": {
+            "message": "Julkaiseminen ei onnistu: aiheen malli `{topic_template}` tuotti virheellisen aiheen `{topic}` render\u00f6innin j\u00e4lkeen ({error})."
+        },
+        "mqtt_not_setup_cannot_publish": {
+            "message": "Aiheeseen \"{topic}\" ei voi julkaista, varmista, ett\u00e4 MQTT on m\u00e4\u00e4ritetty oikein."
+        },
+        "mqtt_not_setup_cannot_subscribe": {
+            "message": "Aiheen \"{topic}\" tilaaminen ei onnistu, varmista, ett\u00e4 MQTT on m\u00e4\u00e4ritetty oikein."
+        }
+    },
+    "issues": {
+        "deprecated_climate_aux_property": {
+            "description": "Kohde `{entity_id}` on ottanut k\u00e4ytt\u00f6\u00f6n lis\u00e4l\u00e4mm\u00f6n tuen, joka on poistettu k\u00e4yt\u00f6st\u00e4 MQTT-ilmastolaitteissa. S\u00e4\u00e4d\u00e4 konfiguraatiota ja poista vanhentuneet konfiguraatioasetukset konfiguraatiostasi ja k\u00e4ynnist\u00e4 Home Assistant uudelleen ongelman korjaamiseksi.",
+            "title": "MQTT-yksik\u00f6t, joilla on lis\u00e4l\u00e4mm\u00f6n tuki, l\u00f6ytyiv\u00e4t"
+        },
+        "deprecated_color_handling": {
+            "description": "Configuration.yaml-tiedostosta `configuration.yaml` l\u00f6ytyv\u00e4 MQTT light -konfiguraatio (jossa on `json`-skeema) k\u00e4ytt\u00e4\u00e4 vanhentuneita v\u00e4rink\u00e4sittelylippuja.\n\nKonfiguraatio l\u00f6ydetty:\n```yaml\n{config}\n```\nK\u00e4yt\u00f6st\u00e4 poistetut liput: **{deprecated_flags}**.\n\nK\u00e4yt\u00e4 sen sijaan `supported_color_modes`-vaihtoehtoa ja [lataa](/developer-tools/yaml) manuaalisesti m\u00e4\u00e4ritetyt MQTT-kohteet tai k\u00e4ynnist\u00e4 Home Assistant uudelleen t\u00e4m\u00e4n ongelman korjaamiseksi.",
+            "title": "MQTT-valossa k\u00e4ytetty vanhentunut v\u00e4rien k\u00e4sittelytoiminto"
+        },
+        "deprecated_color_mode_flag": {
+            "description": "Configuration.yaml-tiedostosta `configuration.yaml` l\u00f6ytyv\u00e4 MQTT light -konfiguraatio (jossa on `json`-skeema) k\u00e4ytt\u00e4\u00e4 vanhentunutta `color_mode`-lippua.\n\nKonfiguraatio l\u00f6ydetty:\n```yaml\n{config}\n```\n\nPoista se konfiguraatiosta ja [lataa](/developer-tools/yaml) manuaalisesti uudelleen m\u00e4\u00e4ritetyt MQTT-kohteet tai k\u00e4ynnist\u00e4 Home Assistant uudelleen ongelman korjaamiseksi.",
+            "title": "Poistunut color_mode -vaihtoehto, jota k\u00e4ytet\u00e4\u00e4n MQTT-valossa"
+        },
+        "deprecated_yaml": {
+            "description": "Manuaalisesti m\u00e4\u00e4ritetty MQTT {platform} (s) l\u00f6ytyi alustaavaimesta ` {platform} `. \n\n Korjaa t\u00e4m\u00e4 ongelma siirt\u00e4m\u00e4ll\u00e4 m\u00e4\u00e4ritys integrointiavaimeen \"mqtt\" ja k\u00e4ynnist\u00e4m\u00e4ll\u00e4 Home Assistant uudelleen. Katso lis\u00e4tietoja [dokumentaatiosta]( {more_info_url} ).",
+            "title": "Manuaalisesti m\u00e4\u00e4ritetyt MQTT {platform} tarvitsevat huomiota"
+        },
+        "deprecated_yaml_broker_settings": {
+            "description": "Seuraavat asetukset, jotka l\u00f6ytyv\u00e4t tiedostosta `configuration.yaml`, siirrettiin MQTT-konfiguraatiomerkint\u00e4\u00e4n, ja ne ohittavat nyt tiedoston `configuration.yaml` asetukset:\n`{deprecated_settings}``\n\nPoista n\u00e4m\u00e4 asetukset tiedostosta `configuration.yaml` ja k\u00e4ynnist\u00e4 Home Assistant uudelleen ongelman korjaamiseksi. Katso lis\u00e4tietoja [documentation]({more_info_url}).",
+            "title": "Vanhentuneet MQTT-asetukset l\u00f6ytyv\u00e4t tiedostosta `configuration.yaml`."
+        },
+        "deprecation_mqtt_legacy_vacuum_discovery": {
+            "description": "Vanhaa skeemaa k\u00e4ytt\u00e4v\u00e4t MQTT-imurientiteetit ovat vanhentuneita, s\u00e4\u00e4d\u00e4 laitteesi k\u00e4ytt\u00e4m\u00e4\u00e4n oikeaa skeemaa ja k\u00e4ynnist\u00e4 Home Assistant uudelleen ongelman korjaamiseksi.",
+            "title": "MQTT-imurientiteetit, joissa on vanhaa skeemaa ja jotka on lis\u00e4tty MQTT-tiedonhaun kautta."
+        },
+        "deprecation_mqtt_legacy_vacuum_yaml": {
+            "description": "MQTT-imurientiteetit, jotka k\u00e4ytt\u00e4v\u00e4t vanhaa skeemaa, ovat vanhentuneita, muuta configuration.yaml-tiedostoa ja k\u00e4ynnist\u00e4 Home Assistant uudelleen ongelman korjaamiseksi.",
+            "title": "MQTT-imurientiteetit, joiden legacy-skeema l\u00f6ytyy configuration.yaml-tiedostosta"
+        },
+        "deprecation_mqtt_schema_vacuum_yaml": {
+            "description": "MQTT-imurientiteettien `schema`-asetus on vanhentunut ja se tulisi poistaa. S\u00e4\u00e4d\u00e4 configuration.yaml-tiedostoa ja k\u00e4ynnist\u00e4 Home Assistant uudelleen ongelman korjaamiseksi.",
+            "title": "MQTT-imurientiteetit, joiden vanhentuneet `schema`-konfiguraatioasetukset l\u00f6ytyv\u00e4t configuration.yaml-tiedostosta."
+        },
+        "entity_name_is_device_name_discovery": {
+            "description": "Joidenkin MQTT -kohteiden nimi on sama kuin laitteen nimi. T\u00e4t\u00e4 ei odoteta. Entiteetin nimeksi asetetaan `null` kiertotoimenpiteen\u00e4, jotta v\u00e4ltyt\u00e4\u00e4n p\u00e4\u00e4llekk\u00e4isilt\u00e4 nimilt\u00e4. Ilmoita ongelmasta laitteen ohjelmistovastaavalle, jotta t\u00e4m\u00e4 ongelma korjataan.\n\nLuettelo kohteista, joita t\u00e4m\u00e4 koskee:\n\n{config}",
+            "title": "L\u00f6ydetyt MQTT-kohteet, joiden nimi on sama kuin laitteen nimi."
+        },
+        "entity_name_is_device_name_yaml": {
+            "description": "Joidenkin MQTT-kohteiden nimet ovat samat kuin laitteen nimi. T\u00e4t\u00e4 ei odoteta. Kohteen nimeksi asetetaan 'null' kiertotoimenpiteen\u00e4, jotta v\u00e4ltet\u00e4\u00e4n kaksoiskappaleet. P\u00e4ivit\u00e4 konfiguraatio ja k\u00e4ynnist\u00e4 Home Assistant uudelleen ongelman korjaamiseksi. \n\nLuettelo ongelman alaisista kohteista:\n\n{config}",
+            "title": "Manuaalisesti m\u00e4\u00e4ritetyt MQTT-kohteet, joiden nimi on sama kuin laitteen nimi."
+        },
+        "entity_name_startswith_device_name_discovery": {
+            "description": "Joidenkin MQTT-kohteiden nimet alkavat laitteen nimell\u00e4. T\u00e4t\u00e4 ei odoteta. Kaksoiskappaleiden v\u00e4ltt\u00e4miseksi laitteen nimen etuliite on poistettu kohteen nimest\u00e4 kiertotoimenpiteen\u00e4. Ilmoita ongelmasta laitteen ohjelmistovastaavalle ongelman korjaamiseksi.\n\nLuettelo ongelman alaisista kohteista:\n\n{config}",
+            "title": "L\u00f6ydetyt kojteet, joiden nimi alkaa laitteen nimell\u00e4."
+        },
+        "entity_name_startswith_device_name_yaml": {
+            "description": "Joidenkin MQTT-kohteiden nimet alkavat laitteen nimell\u00e4. T\u00e4t\u00e4 ei odoteta. Kaksoiskappaleiden v\u00e4ltt\u00e4miseksi laitteen nimen etuliite on poistettu kohteen nimest\u00e4 kiertotoimenpiteen\u00e4. P\u00e4ivit\u00e4 konfiguraatio ja k\u00e4ynnist\u00e4 Home Assistant uudelleen ongelman korjaamiseksi. \n\nLuettelo ongelman alaisista kohteista:\n\n{config}",
+            "title": "Manuaalisesti konfiguroidut MQTT-entiteetit, joiden nimi alkaa laitteen nimell\u00e4"
+        },
+        "invalid_entity_category": {
+            "description": "Home Assistant havaitsi manuaalisesti konfiguroidun MQTT `{domain}`-kohteen, jonka `entity_category` on asetettu `config`. \nKonfiguraatiotiedosto: **{config_file}**\nL\u00e4hell\u00e4 rivi\u00e4: **{line}**\n\nM\u00e4\u00e4ritys, jossa on virheellinen asetus:\n\n```yaml\n{config}\n```\n\nKun se on asetettu, varmista, ett\u00e4 `{domain}`:n `entity_category` on asetettu arvoon `diagnostic` tai `None`. P\u00e4ivit\u00e4 YAML-konfiguraatio ja k\u00e4ynnist\u00e4 Home Assistant uudelleen ongelman korjaamiseksi.",
+            "title": "L\u00f6ydetty MQTT {domain}, jonka entiteettiluokka on virheellinen."
+        },
+        "invalid_platform_config": {
+            "description": "Home Assistant havaitsi virheellisen konfiguraation manuaalisesti m\u00e4\u00e4ritetylle kohteelle.\n\nAlustan toimialue: **{domain}**\nKonfiguraatiotiedosto: **{config_file}**\nL\u00e4hell\u00e4 rivi\u00e4: **{line}**\nKonfiguraatio l\u00f6ydetty:\n```yaml\n{config}\n```\nVirhe: **{error}**.\n\nVarmista, ett\u00e4 konfiguraatio on voimassa ja [uudelleenlataa](/developer-tools/yaml) manuaalisesti m\u00e4\u00e4ritetyt MQTT-kohteet tai k\u00e4ynnist\u00e4 Home Assistant uudelleen ongelman korjaamiseksi.",
+            "title": "Virheellinen konfiguraatio l\u00f6ydetty kohteelle mqtt {domain}"
+        }
+    },
+    "options": {
+        "error": {
+            "bad_birth": "Virheellinen syntym\u00e4aihe",
+            "bad_certificate": "CA-varmenne on virheellinen",
+            "bad_client_cert": "Asiakasvarmenne on virheellinen, varmista, ett\u00e4 toimitetaan PEM-koodattu tiedosto.",
+            "bad_client_cert_key": "Asiakasvarmenne ja yksityinen avain eiv\u00e4t ole kelvollinen pari",
+            "bad_client_key": "Virheellinen yksityinen avain, varmista, ett\u00e4 PEM-koodattu tiedosto on sy\u00f6tetty ilman salasanaa.",
+            "bad_discovery_prefix": "Virheellinen l\u00f6yd\u00f6n etuliite",
+            "bad_will": "Virheellinen will aihe",
+            "bad_ws_headers": "Toimita kelvolliset HTTP-otsikot JSON-objektina.",
+            "cannot_connect": "Yhteyden muodostaminen ep\u00e4onnistui",
+            "invalid_inclusion": "Asiakasvarmenne ja yksityinen avain on m\u00e4\u00e4ritett\u00e4v\u00e4 yhdess\u00e4"
+        },
+        "step": {
+            "broker": {
+                "data": {
+                    "advanced_options": "Lis\u00e4asetukset",
+                    "broker": "V\u00e4litt\u00e4j\u00e4",
+                    "certificate": "Lataa mukautettu CA-sertifikaattitiedosto",
+                    "client_cert": "Lataa asiakasvarmenteen tiedosto",
+                    "client_id": "Asiakastunnus (j\u00e4t\u00e4 tyhj\u00e4ksi, jos haluat satunnaisesti luodun tunnuksen).",
+                    "client_key": "Lataa yksityinen avaintiedosto",
+                    "keepalive": "Time keep alive -viestien l\u00e4hett\u00e4misen v\u00e4lill\u00e4",
+                    "password": "Salasana",
+                    "port": "Portti",
+                    "protocol": "MQTT-protokolla",
+                    "set_ca_cert": "V\u00e4litt\u00e4j\u00e4n varmenteen validointi",
+                    "set_client_cert": "K\u00e4yt\u00e4 asiakassertifikaattia",
+                    "tls_insecure": "Ohita v\u00e4litt\u00e4j\u00e4n varmenteen vahvistus",
+                    "transport": "MQTT kuljetus",
+                    "username": "K\u00e4ytt\u00e4j\u00e4tunnus",
+                    "ws_headers": "WebSocket-otsikot JSON-muodossa",
+                    "ws_path": "WebSocket-polku"
+                },
+                "data_description": {
+                    "advanced_options": "Ota k\u00e4ytt\u00f6\u00f6n ja napsauta \"seuraava\" asettaaksesi lis\u00e4asetukset.",
+                    "broker": "MQTT-v\u00e4litt\u00e4j\u00e4n is\u00e4nt\u00e4nimi tai IP-osoite.",
+                    "certificate": "Mukautettu CA-sertifikaattitiedosto MQTT-v\u00e4litt\u00e4jien varmenteen vahvistamiseksi.",
+                    "client_cert": "Asiakasvarmenne, jolla todennetaan MQTT-v\u00e4litt\u00e4j\u00e4\u00e4si vastaan.",
+                    "client_id": "Yksil\u00f6llinen tunnus, jolla Home Assistant MQTT API tunnistetaan MQTT-asiakkaaksi. On suositeltavaa j\u00e4tt\u00e4\u00e4 t\u00e4m\u00e4 vaihtoehto tyhj\u00e4ksi.",
+                    "client_key": "Yksityinen avaintiedosto, joka kuuluu asiakasvarmenteeseen.",
+                    "password": "Salasana, jolla kirjaudut sis\u00e4\u00e4n MQTT-v\u00e4litt\u00e4j\u00e4\u00e4n.",
+                    "port": "Portti, jota MQTT-v\u00e4litt\u00e4j\u00e4si kuuntelee. Esimerkiksi 1883.",
+                    "protocol": "MQTT-protokolla, jolla v\u00e4litt\u00e4j\u00e4si toimii. Esimerkiksi 3.1.1.",
+                    "set_ca_cert": "Valitse `Auto` automaattista CA-varmennusta varten tai `Custom` ja napsauta `next` asettaaksesi mukautetun CA-varmenteen, jotta MQTT-v\u00e4litt\u00e4jien varmenne voidaan vahvistaa.",
+                    "set_client_cert": "Ota k\u00e4ytt\u00f6\u00f6n ja napsauta `seuraava` asettaaksesi asiakkaan varmenteen ja yksityisen avaimen MQTT-v\u00e4litt\u00e4j\u00e4n todennusta varten.",
+                    "tls_insecure": "Vaihtoehto j\u00e4tt\u00e4\u00e4 huomiotta MQTT-v\u00e4litt\u00e4j\u00e4n varmenteen validointi.",
+                    "transport": "MQTT-v\u00e4litt\u00e4j\u00e4\u00e4n muodostettavaan yhteyteen k\u00e4ytett\u00e4v\u00e4 siirtotapa.",
+                    "username": "K\u00e4ytt\u00e4j\u00e4tunnus, jolla kirjaudutaan MQTT-v\u00e4litt\u00e4j\u00e4\u00e4n.",
+                    "ws_headers": "WebSocket-otsikot kulkevat WebSocket-pohjaisen yhteyden kautta MQTT-v\u00e4litt\u00e4j\u00e4\u00e4n.",
+                    "ws_path": "WebSocket-polku, jota k\u00e4ytet\u00e4\u00e4n yhteyden muodostamiseen MQTT-v\u00e4litt\u00e4j\u00e4\u00e4n."
+                },
+                "description": "Sy\u00f6t\u00e4 MQTT-v\u00e4litt\u00e4j\u00e4n yhteystiedot.",
+                "title": "Broker -asetukset"
+            },
+            "options": {
+                "data": {
+                    "birth_enable": "Ota syntym\u00e4viesti k\u00e4ytt\u00f6\u00f6n",
+                    "birth_payload": "Syntym\u00e4viestin hy\u00f6tykuorma",
+                    "birth_qos": "Syntym\u00e4viesti QoS",
+                    "birth_retain": "Syntym\u00e4viestin s\u00e4ilytt\u00e4minen",
+                    "birth_topic": "Syntym\u00e4viestin aihe",
+                    "discovery": "Ota etsint\u00e4 k\u00e4ytt\u00f6\u00f6n",
+                    "discovery_prefix": "L\u00f6yt\u00e4misen etuliite",
+                    "will_enable": "Ota testamenttiviesti k\u00e4ytt\u00f6\u00f6n",
+                    "will_payload": "Testamenttiviestin hy\u00f6tykuorma",
+                    "will_qos": "Testamenttiviesti QoS",
+                    "will_retain": "Testamenttiviestin s\u00e4ilytt\u00e4minen",
+                    "will_topic": "Testamenttiviestin aihe"
+                },
+                "data_description": {
+                    "birth_enable": "Kun t\u00e4m\u00e4 asetus on asetettu, Home Assistant julkaisee online-viestin MQTT-v\u00e4litt\u00e4j\u00e4lle, kun MQTT on valmis.",
+                    "birth_payload": "Syntym\u00e4viesti, joka julkaistaan, kun MQTT on valmis ja yhteydess\u00e4.",
+                    "birth_qos": "Syntym\u00e4viestin palvelun laatu, joka julkaistaan, kun MQTT on valmis ja yhdistetty",
+                    "birth_retain": "Kun asetus on asetettu, Home Assistant s\u00e4ilytt\u00e4\u00e4 MQTT-v\u00e4litt\u00e4j\u00e4llesi julkaistun \"syntym\u00e4viestin\".",
+                    "birth_topic": "MQTT-aihe, jossa Home Assistant julkaisee \"syntym\u00e4viestin\".",
+                    "discovery": "Mahdollisuus ottaa MQTT automaattinen etsint\u00e4 k\u00e4ytt\u00f6\u00f6n.",
+                    "discovery_prefix": "MQTT-integraation tilaamien konfiguraatioaiheiden etuliite.",
+                    "will_enable": "Kun t\u00e4m\u00e4 asetus on asetettu, Home Assistant pyyt\u00e4\u00e4 v\u00e4litt\u00e4j\u00e4\u00e4si julkaisemaan `will`-viestin, kun MQTT pys\u00e4ytet\u00e4\u00e4n tai kun yhteys v\u00e4litt\u00e4j\u00e4\u00e4n katkeaa.",
+                    "will_payload": "Viesti, jonka MQTT-v\u00e4litt\u00e4j\u00e4si julkaisee, kun MQTT-integraatio lopetetaan tai kun yhteys katkeaa.",
+                    "will_qos": "MQTT-v\u00e4litt\u00e4j\u00e4n julkaiseman `will`-viestin palvelun laatu.",
+                    "will_retain": "Kun se on asetettu, MQTT-v\u00e4litt\u00e4j\u00e4si s\u00e4ilytt\u00e4\u00e4 `will`-viestin.",
+                    "will_topic": "MQTT-aihe, johon MQTT-v\u00e4litt\u00e4j\u00e4si julkaisee `will`-viestin."
+                },
+                "description": "Haku - Jos haku on k\u00e4yt\u00f6ss\u00e4 (suositellaan), Home Assistant l\u00f6yt\u00e4\u00e4 automaattisesti laitteet ja entiteetit, jotka julkaisevat m\u00e4\u00e4rityksens\u00e4 MQTT-v\u00e4litt\u00e4j\u00e4ll\u00e4. Jos l\u00f6yt\u00e4minen on poistettu k\u00e4yt\u00f6st\u00e4, kaikki konfigurointi on teht\u00e4v\u00e4 manuaalisesti.\nL\u00f6yt\u00e4misen etuliite - Automaattista l\u00f6yt\u00e4mist\u00e4 varten m\u00e4\u00e4ritetyn konfiguraatioaiheen on alettava etuliitteell\u00e4.\nSyntym\u00e4viesti - Syntym\u00e4viesti l\u00e4hetet\u00e4\u00e4n aina, kun Home Assistant (uudelleen) muodostaa yhteyden MQTT-v\u00e4litt\u00e4j\u00e4\u00e4n.\nTestamenttiviesti - Testamenttiviesti l\u00e4hetet\u00e4\u00e4n joka kerta, kun Home Assistant katkaisee yhteyden v\u00e4litt\u00e4j\u00e4\u00e4n, sek\u00e4 puhtaan (esim. Home Assistant sammuu) ja ep\u00e4puhtaan (esim. Home Assistant kaatuu tai menett\u00e4\u00e4 verkkoyhteyden) yhteyden katkaisun yhteydess\u00e4.",
+                "title": "MQTT -asetukset"
+            }
+        }
+    },
+    "selector": {
+        "set_ca_cert": {
+            "options": {
+                "auto": "Automaattinen",
+                "custom": "Mukautettu",
+                "off": "Pois"
+            }
+        }
+    },
+    "services": {
+        "dump": {
+            "description": "Kirjoittaa kaikki tietyn aiheen viestit konfiguraatiokansiossa olevaan tiedostoon `mqtt_dump.txt`.",
+            "fields": {
+                "duration": {
+                    "description": "Kuinka kauan viestej\u00e4 pit\u00e4isi kuunnella sekunteina.",
+                    "name": "Kesto"
+                },
+                "topic": {
+                    "description": "Kuunneltava aihe.",
+                    "name": "Aihe"
+                }
+            },
+            "name": "Vie"
+        },
+        "publish": {
+            "description": "Julkaisee viestin MQTT-aiheeseen.",
+            "fields": {
+                "payload": {
+                    "description": "Julkaistava hy\u00f6tykuorma.",
+                    "name": "Hy\u00f6tykuorma"
+                },
+                "payload_template": {
+                    "description": "Malli, joka hahmonnetaan tietosis\u00e4ll\u00f6n arvona. Jos tietosis\u00e4lt\u00f6 toimitetaan, malli ohitetaan.",
+                    "name": "Hy\u00f6tykuorman malli"
+                },
+                "qos": {
+                    "description": "K\u00e4ytett\u00e4v\u00e4n palvelun laatu. 0: Enint\u00e4\u00e4n kerran. 1: V\u00e4hint\u00e4\u00e4n kerran. 2: T\u00e4sm\u00e4lleen kerran.",
+                    "name": "QoS"
+                },
+                "retain": {
+                    "description": "Jos viestiss\u00e4 pit\u00e4isi olla s\u00e4ilytyslippu. Jos asetettu, v\u00e4litt\u00e4j\u00e4 tallentaa viimeisimm\u00e4n viestin aiheesta.",
+                    "name": "S\u00e4ilyt\u00e4"
+                },
+                "topic": {
+                    "description": "Aihe, johon julkaistaan.",
+                    "name": "Aihe"
+                }
+            },
+            "name": "Julkaise"
+        },
+        "reload": {
+            "description": "Uudelleenlataa MQTT-kohteet YAML-konfiguraatiosta.",
+            "name": "Uudelleenlataa"
+        }
+    }
+}

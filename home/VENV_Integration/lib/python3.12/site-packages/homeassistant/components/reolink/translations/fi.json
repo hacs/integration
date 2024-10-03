@@ -1,0 +1,485 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Laite on jo m\u00e4\u00e4ritetty",
+            "reauth_successful": "Uudelleentodennus onnistui"
+        },
+        "error": {
+            "api_error": "Tapahtui API-virhe",
+            "cannot_connect": "Yhteyden muodostaminen ep\u00e4onnistui, tarkista kameran IP-osoite.",
+            "invalid_auth": "Virheellinen todennus",
+            "unknown": "Odottamaton virhe",
+            "webhook_exception": "Home Assistantin URL-osoite ei ole k\u00e4ytett\u00e4viss\u00e4, siirry kohtaan Asetukset > J\u00e4rjestelm\u00e4 > Verkko > Home Assistantin URL-osoite ja korjaa URL-osoitteet, katso {more_info}"
+        },
+        "flow_title": "{hostname} ({ip_address})",
+        "step": {
+            "reauth_confirm": {
+                "description": "Reolink-integraation on todennettava yhteystietosi uudelleen.",
+                "title": "Todennus vanhentui kohteella {name}"
+            },
+            "user": {
+                "data": {
+                    "host": "Palvelin",
+                    "password": "Salasana",
+                    "port": "Portti",
+                    "use_https": "Ota HTTPS k\u00e4ytt\u00f6\u00f6n",
+                    "username": "K\u00e4ytt\u00e4j\u00e4tunnus"
+                },
+                "data_description": {
+                    "host": "Reolink -laitteen is\u00e4nt\u00e4nimi tai IP-osoite. Esimerkiksi: '192.168.1.25'.",
+                    "password": "Salasana, jolla kirjaudutaan sis\u00e4\u00e4n itse Reolink-laitteeseen. Ei Reolink-pilvitilille.",
+                    "port": "Portti Reolink-laitteeseen yhdist\u00e4mist\u00e4 varten. HTTP:lle normaalisti: '80', HTTPS:lle normaalisti '443'.",
+                    "use_https": "K\u00e4yt\u00e4 HTTPS (SSL) -yhteytt\u00e4 Reolink-laitteeseen.",
+                    "username": "K\u00e4ytt\u00e4j\u00e4tunnus, jolla kirjaudutaan sis\u00e4\u00e4n itse Reolink-laitteeseen. Ei Reolink-pilvitilille."
+                },
+                "description": "Katso [Vianm\u00e4\u00e4ritysvaiheet]({troubleshooting_link}), jos kohtaat ongelmia. {error}"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "animal": {
+                "name": "El\u00e4in"
+            },
+            "animal_lens_0": {
+                "name": "El\u00e4inlinssi 0"
+            },
+            "animal_lens_1": {
+                "name": "El\u00e4inlinssi 1"
+            },
+            "face": {
+                "name": "Kasvot"
+            },
+            "face_lens_0": {
+                "name": "Kasvojen linssi 0"
+            },
+            "face_lens_1": {
+                "name": "Kasvojen linssi 1"
+            },
+            "motion_lens_0": {
+                "name": "Liikelinssi 0"
+            },
+            "motion_lens_1": {
+                "name": "Liikelinssi 1"
+            },
+            "package": {
+                "name": "Paketti"
+            },
+            "package_lens_0": {
+                "name": "Pakkauksen linssi 0"
+            },
+            "package_lens_1": {
+                "name": "Pakkauksen linssi 1"
+            },
+            "person": {
+                "name": "Henkil\u00f6"
+            },
+            "person_lens_0": {
+                "name": "Henkil\u00f6linssi 0"
+            },
+            "person_lens_1": {
+                "name": "Henkil\u00f6linssi 1"
+            },
+            "pet": {
+                "name": "Lemmikki"
+            },
+            "pet_lens_0": {
+                "name": "Lemmikin linssi 0"
+            },
+            "pet_lens_1": {
+                "name": "Lemmikin linssi 1"
+            },
+            "vehicle": {
+                "name": "Ajoneuvo"
+            },
+            "vehicle_lens_0": {
+                "name": "Ajoneuvon linssi 0"
+            },
+            "vehicle_lens_1": {
+                "name": "Ajoneuvon linssi 1"
+            },
+            "visitor": {
+                "name": "Vierailija"
+            },
+            "visitor_lens_0": {
+                "name": "Vierailijalinssi 0"
+            },
+            "visitor_lens_1": {
+                "name": "Vierailijalinssi 1"
+            }
+        },
+        "button": {
+            "guard_go_to": {
+                "name": "Vartija mene kohtaan"
+            },
+            "guard_set": {
+                "name": "Suoja asetettu nykyinen sijaintim"
+            },
+            "ptz_calibrate": {
+                "name": "PTZ kalibroi"
+            },
+            "ptz_down": {
+                "name": "PTZ alas"
+            },
+            "ptz_left": {
+                "name": "PTZ vasemmalle"
+            },
+            "ptz_right": {
+                "name": "PTZ oikealle"
+            },
+            "ptz_stop": {
+                "name": "PTZ pys\u00e4ytys"
+            },
+            "ptz_up": {
+                "name": "PTZ yl\u00f6s"
+            },
+            "ptz_zoom_in": {
+                "name": "PTZ zoomaus sis\u00e4\u00e4n"
+            },
+            "ptz_zoom_out": {
+                "name": "PTZ zoomaus ulos"
+            }
+        },
+        "camera": {
+            "autotrack_snapshots_main": {
+                "name": "Autotrack tilannekuvat tyhj\u00e4t"
+            },
+            "autotrack_snapshots_sub": {
+                "name": "Autotrack tilannekuvat sujuvasti"
+            },
+            "autotrack_sub": {
+                "name": "Autotrack sujuvasti"
+            },
+            "ext": {
+                "name": "Tasapainotettu"
+            },
+            "ext_lens_0": {
+                "name": "Tasapainotettu linssi 0"
+            },
+            "ext_lens_1": {
+                "name": "Tasapainotettu linssi 1"
+            },
+            "main": {
+                "name": "Kirkas"
+            },
+            "main_lens_0": {
+                "name": "Kirkas linssi 0"
+            },
+            "main_lens_1": {
+                "name": "Kirkas linssi 1"
+            },
+            "snapshots_main": {
+                "name": "Tilannekuvat selke\u00e4"
+            },
+            "snapshots_main_lens_0": {
+                "name": "Tilannekuvat kirkas linssi 0"
+            },
+            "snapshots_main_lens_1": {
+                "name": "Tilannekuvat kirkas linssi 1"
+            },
+            "snapshots_sub": {
+                "name": "Tilannekuvat sujuva"
+            },
+            "snapshots_sub_lens_0": {
+                "name": "Tilannekuvia sujuva linssi 0"
+            },
+            "snapshots_sub_lens_1": {
+                "name": "Tilannekuvia sujuva linssi 1"
+            },
+            "sub": {
+                "name": "Sujuva"
+            },
+            "sub_lens_0": {
+                "name": "Sujuva linssi 0"
+            },
+            "sub_lens_1": {
+                "name": "Sujuva linssi 1"
+            }
+        },
+        "light": {
+            "floodlight": {
+                "name": "Valonheitin"
+            },
+            "ir_lights": {
+                "name": "Infrapunavalot y\u00f6tilassa"
+            },
+            "status_led": {
+                "name": "Tilan merkkivalo"
+            }
+        },
+        "number": {
+            "ai_animal_delay": {
+                "name": "AI-el\u00e4imen viive"
+            },
+            "ai_animal_sensititvity": {
+                "name": "AI el\u00e4inten herkkyys"
+            },
+            "ai_animal_sensitivity": {
+                "name": "AI el\u00e4inten herkkyys"
+            },
+            "ai_face_delay": {
+                "name": "AI kasvojen viive"
+            },
+            "ai_face_sensititvity": {
+                "name": "AI kasvojen herkkyys"
+            },
+            "ai_face_sensitivity": {
+                "name": "AI kasvojen herkkyys"
+            },
+            "ai_package_delay": {
+                "name": "AI-paketin viive"
+            },
+            "ai_package_sensititvity": {
+                "name": "AI-paketin herkkyys"
+            },
+            "ai_package_sensitivity": {
+                "name": "AI-paketin herkkyys"
+            },
+            "ai_person_delay": {
+                "name": "AI henkil\u00f6n viive"
+            },
+            "ai_person_sensititvity": {
+                "name": "AI henkil\u00f6n herkkyys"
+            },
+            "ai_person_sensitivity": {
+                "name": "AI henkil\u00f6n herkkyys"
+            },
+            "ai_pet_delay": {
+                "name": "AI lemmikin viive"
+            },
+            "ai_pet_sensititvity": {
+                "name": "AI lemmikkiel\u00e4inten herkkyys"
+            },
+            "ai_pet_sensitivity": {
+                "name": "AI lemmikkiel\u00e4inten herkkyys"
+            },
+            "ai_vehicle_delay": {
+                "name": "AI ajoneuvon viive"
+            },
+            "ai_vehicle_sensititvity": {
+                "name": "AI ajoneuvon herkkyys"
+            },
+            "ai_vehicle_sensitivity": {
+                "name": "AI ajoneuvon herkkyys"
+            },
+            "auto_quick_reply_time": {
+                "name": "Automaattinen nopea vastausaika"
+            },
+            "auto_track_disappear_time": {
+                "name": "Automaattisen j\u00e4ljen katoamisaika"
+            },
+            "auto_track_limit_left": {
+                "name": "Automaattinen radan raja vasemmalle"
+            },
+            "auto_track_limit_right": {
+                "name": "Automaattisen radan raja oikealle"
+            },
+            "auto_track_stop_time": {
+                "name": "Automaattisen radan pys\u00e4ytysaika"
+            },
+            "day_night_switch_threshold": {
+                "name": "P\u00e4iv\u00e4 y\u00f6 -kytkimen kynnysarvo"
+            },
+            "floodlight_brightness": {
+                "name": "Valonheittimen p\u00e4\u00e4ll\u00e4olon kirkkaus"
+            },
+            "focus": {
+                "name": "Keskity"
+            },
+            "guard_return_time": {
+                "name": "Vartijan paluuaika"
+            },
+            "image_brightness": {
+                "name": "Kuvan kirkkaus"
+            },
+            "image_contrast": {
+                "name": "Kuvan kontrasti"
+            },
+            "image_hue": {
+                "name": "Kuvan s\u00e4vy"
+            },
+            "image_saturation": {
+                "name": "Kuvan kyll\u00e4isyys"
+            },
+            "image_sharpness": {
+                "name": "Kuvan ter\u00e4vyys"
+            },
+            "motion_sensitivity": {
+                "name": "Liikkeen herkkyys"
+            },
+            "volume": {
+                "name": "\u00c4\u00e4nenvoimakkuus"
+            },
+            "zoom": {
+                "name": "Zoomaus"
+            }
+        },
+        "select": {
+            "auto_quick_reply_message": {
+                "name": "Automaattinen nopea vastausviesti",
+                "state": {
+                    "off": "Pois"
+                }
+            },
+            "auto_track_method": {
+                "name": "Automaattinen seurantamenetelm\u00e4",
+                "state": {
+                    "digital": "Digitaalinen",
+                    "digitalfirst": "Digitaalinen ensin",
+                    "pantiltfirst": "Panoroi/kallista ensin"
+                }
+            },
+            "day_night_mode": {
+                "name": "P\u00e4iv\u00e4 y\u00f6-tila",
+                "state": {
+                    "auto": "Automaattinen",
+                    "blackwhite": "Mustavalkoinen",
+                    "color": "V\u00e4ri"
+                }
+            },
+            "floodlight_mode": {
+                "name": "Valonheitin-tila",
+                "state": {
+                    "adaptive": "Adaptiivinen",
+                    "auto": "Auto",
+                    "autoadaptive": "Automaattisesti mukautuva",
+                    "off": "Pois",
+                    "onatnight": "Y\u00f6ll\u00e4 p\u00e4\u00e4ll\u00e4",
+                    "schedule": "Aikataulu"
+                }
+            },
+            "play_quick_reply_message": {
+                "name": "Toista nopea vastausviesti"
+            },
+            "ptz_preset": {
+                "name": "PTZ esiasetus"
+            },
+            "status_led": {
+                "name": "Tilan merkkivalo",
+                "state": {
+                    "alwayson": "Aina p\u00e4\u00e4ll\u00e4",
+                    "alwaysonatnight": "Automaattinen ja aina p\u00e4\u00e4ll\u00e4 y\u00f6ll\u00e4",
+                    "auto": "Automaattinen",
+                    "stayoff": "Pysy poissa"
+                }
+            }
+        },
+        "sensor": {
+            "event_connection": {
+                "name": "Tapahtumayhteys",
+                "state": {
+                    "fast_poll": "Nopea kysely",
+                    "onvif_long_poll": "ONVIF pitk\u00e4 kysely",
+                    "onvif_push": "ONVIF-ty\u00f6nt\u00f6"
+                }
+            },
+            "hdd_storage": {
+                "name": "Kiintolevy {hdd_index} varastointi"
+            },
+            "ptz_pan_position": {
+                "name": "PTZ:n panorointiasento"
+            },
+            "sd_storage": {
+                "name": "SD-tallennus {hdd_index} "
+            },
+            "wifi_signal": {
+                "name": "Wi-Fi-signaali"
+            }
+        },
+        "siren": {
+            "siren": {
+                "name": "Sireeni"
+            }
+        },
+        "switch": {
+            "auto_focus": {
+                "name": "Automaattinen tarkennus"
+            },
+            "auto_tracking": {
+                "name": "Automaattinen seuranta"
+            },
+            "buzzer": {
+                "name": "Summeri tapahtumassa"
+            },
+            "doorbell_button_sound": {
+                "name": "Ovikellon painikkeen \u00e4\u00e4ni"
+            },
+            "email": {
+                "name": "S\u00e4hk\u00f6posti tapahtumasta"
+            },
+            "ftp_upload": {
+                "name": "FTP-l\u00e4hetys"
+            },
+            "gaurd_return": {
+                "name": "Vartijan palautus"
+            },
+            "guard_return": {
+                "name": "Vartijan palautus"
+            },
+            "ir_lights": {
+                "name": "Infrapunavalot y\u00f6tilassa"
+            },
+            "ptz_patrol": {
+                "name": "PTZ-partiointi"
+            },
+            "push_notifications": {
+                "name": "Notifikaatiot"
+            },
+            "record": {
+                "name": "Tallenna"
+            },
+            "record_audio": {
+                "name": "\u00c4\u00e4nit\u00e4 \u00e4\u00e4nt\u00e4"
+            },
+            "siren_on_event": {
+                "name": "Sireeni tapahtumassa"
+            }
+        }
+    },
+    "issues": {
+        "enable_port": {
+            "description": "{ports} portin automaattinen k\u00e4ytt\u00f6\u00f6notto ep\u00e4onnistui verkkotunnuksessa {name} . K\u00e4yt\u00e4 [Reolink client] ( {info_link} ) asettaaksesi sen manuaalisesti P\u00c4\u00c4LLE",
+            "title": "Reolink-portti ei ole k\u00e4yt\u00f6ss\u00e4"
+        },
+        "firmware_update": {
+            "description": "\"{name}\", jonka malli on \"{model}\" ja laitteistoversio \"{hw_version}\", k\u00e4ytt\u00e4\u00e4 vanhaa laiteohjelmistoversiota \"{current_firmware}\", kun taas Reolink-integraation asianmukainen toiminta edellytt\u00e4\u00e4 v\u00e4hint\u00e4\u00e4n laiteohjelmistoversiota \"{required_firmware}\". Uusimman laiteohjelmiston voi ladata [Reolink-latauskeskuksesta]({download_link}).",
+            "title": "Reolink-laiteohjelmiston p\u00e4ivitys vaaditaan"
+        },
+        "https_webhook": {
+            "description": "Reolink-tuotteet eiv\u00e4t voi l\u00e4hett\u00e4\u00e4 liiketapahtumia HTTPS-osoitteeseen (SSL), m\u00e4\u00e4rit\u00e4 (paikallinen) HTTP-osoite kohdassa \"Home Assistant URL\" [verkkoasetuksissa]({network_link}). Nykyinen (paikallinen) osoite on: `{base_url}`, kelvollinen osoite voisi olla esimerkiksi `http://192.168.1.10:8123`, jossa `192.168.1.10` on Home Assistant -laitteen IP-osoite.",
+            "title": "Reolinkin webhookin URL-osoite k\u00e4ytt\u00e4\u00e4 HTTPS:\u00e4\u00e4 (SSL)"
+        },
+        "ssl": {
+            "description": "Maailmanlaajuinen SSL-sertifikaatti on m\u00e4\u00e4ritetty [configuration.yaml:ss\u00e4 kohdassa http]({ssl_link}), kun taas paikallinen HTTP-osoite `{base_url}` on m\u00e4\u00e4ritetty kohdassa \"Home Assistant URL\" kohdassa [verkkoasetukset]({network_link}). T\u00e4m\u00e4n vuoksi Reolink-laite ei voi tavoittaa Home Assistantia l\u00e4hett\u00e4\u00e4kseen liike/AI-tapahtumia. Varmista, ett\u00e4 paikallinen HTTP-osoite ei ole SSL-varmenteen peitossa, esimerkiksi k\u00e4ytt\u00e4m\u00e4ll\u00e4 [NGINX-lis\u00e4osaa]({nginx_link}) globaalisti pakotetun SSL-varmenteen sijaan.",
+            "title": "Reolink ei ole yhteensopiva maailmanlaajuisen SSL-varmenteen kanssa"
+        },
+        "webhook_url": {
+            "description": "Ei saanut ONVIF -tilaa {name}:lt\u00e4. Todenn\u00e4k\u00f6isesti Reolink-kamera ei tavoita nykyist\u00e4 (paikallista) Home Assistantin URL-osoitetta `{base_url}`, m\u00e4\u00e4rit\u00e4 [verkkoasetukset] ({network_link}) kohdassa \"Home Assistant URL\" (Home Assistant URL) (paikallinen) HTTP-osoite, joka osoittaa Home Assistantiin. Esimerkiksi `http://192.168.1.10:8123`, jossa `192.168.1.10` on Home Assistant -laitteen IP-osoite. Varmista my\u00f6s, ett\u00e4 Reolink-kamera voi tavoittaa kyseisen URL-osoitteen. Aktivoitu nopea liike/AI -tilan kysely, kunnes ensimm\u00e4inen ONVIF-viesti vastaanotetaan.",
+            "title": "Reolink webhookin URL-osoitteeseen ei saada yhteytt\u00e4"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "protocol": "Protokolla"
+                },
+                "data_description": {
+                    "protocol": "Suoratoistoprotokolla, jota k\u00e4ytet\u00e4\u00e4n kamerakokonaisuuksissa. RTSP tukee 4K-streameja (h265-koodausta), kun taas RTMP ja FLV eiv\u00e4t. FLV on v\u00e4hiten vaativa kameralle."
+                }
+            }
+        }
+    },
+    "services": {
+        "ptz_move": {
+            "description": "Liikuta kameraa tietyll\u00e4 nopeudella.",
+            "fields": {
+                "speed": {
+                    "description": "PTZ-liikenopeus.",
+                    "name": "Nopeus"
+                }
+            },
+            "name": "PTZ-liike"
+        }
+    }
+}

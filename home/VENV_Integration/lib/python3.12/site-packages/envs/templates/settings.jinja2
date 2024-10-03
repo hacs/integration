@@ -1,0 +1,5 @@
+from envs import env
+
+{% for obj in attr_list %}
+{{ obj.name }} = {% if not obj.convert %}{% if obj.var_type == 'string' %}"{% endif %}{{ obj.default_val }}{% if obj.var_type == 'string' %}"{% endif %}{% else %}env('{{ obj.name }}',{% if obj.var_type == 'string' %}"{% endif %}{{ obj.default_val }}{% if obj.var_type == 'string' %}"{% endif %},var_type='{{ obj.var_type }}'){% endif %}
+{% endfor %}

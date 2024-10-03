@@ -1,0 +1,129 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "La cuenta ya est\u00e1 configurada"
+        },
+        "error": {
+            "missing_keep_last_sample": "La configuraci\u00f3n del sensor debe proporcionar 'max_age' si 'keep_last_sample' es True",
+            "missing_max_age_or_sampling_size": "La configuraci\u00f3n del sensor debe proporcionar 'max_age' y/o 'sampling_size'"
+        },
+        "step": {
+            "options": {
+                "data": {
+                    "keep_last_sample": "Mantener la \u00faltima muestra",
+                    "max_age": "Edad m\u00e1xima",
+                    "percentile": "Percentil",
+                    "precision": "Precisi\u00f3n",
+                    "sampling_size": "Tama\u00f1o de la muestra"
+                },
+                "data_description": {
+                    "keep_last_sample": "Define si el valor muestreado m\u00e1s reciente debe conservarse independientemente de la configuraci\u00f3n de \"antig\u00fcedad m\u00e1xima\".",
+                    "max_age": "Antig\u00fcedad m\u00e1xima de las mediciones del sensor de origen almacenadas.",
+                    "percentile": "S\u00f3lo es relevante en combinaci\u00f3n con la caracter\u00edstica 'percentil'. Debe ser un valor entre 1 y 99.",
+                    "precision": "Define el n\u00famero de decimales del valor calculado del sensor.",
+                    "sampling_size": "N\u00famero m\u00e1ximo de mediciones del sensor fuente almacenadas."
+                },
+                "description": "Lee la documentaci\u00f3n para obtener m\u00e1s detalles sobre c\u00f3mo configurar el sensor de estad\u00edsticas usando estas opciones."
+            },
+            "state_characteristic": {
+                "data": {
+                    "state_characteristic": "State_characteristic"
+                },
+                "data_description": {
+                    "state_characteristic": "La caracter\u00edstica que se debe utilizar como estado del sensor de estad\u00edsticas."
+                },
+                "description": "Lee la documentaci\u00f3n para obtener m\u00e1s detalles sobre las opciones disponibles y c\u00f3mo usarlas."
+            },
+            "user": {
+                "data": {
+                    "entity_id": "Entidad",
+                    "name": "Nombre"
+                },
+                "data_description": {
+                    "entity_id": "Entidad de la que obtener las estad\u00edsticas.",
+                    "name": "Nombre de la entidad creada."
+                },
+                "description": "A\u00f1adir un sensor de estad\u00edsticas"
+            }
+        }
+    },
+    "issues": {
+        "deprecation_warning_characteristic": {
+            "description": "El par\u00e1metro de configuraci\u00f3n `state_characteristic` de la integraci\u00f3n de estad\u00edsticas pasar\u00e1 a ser obligatorio.\n\nPor favor, a\u00f1ade `state_characteristic: {characteristic}` a la configuraci\u00f3n del sensor `{entity}` para mantener el comportamiento actual.\n\nLee la documentaci\u00f3n de la integraci\u00f3n de estad\u00edsticas para obtener m\u00e1s detalles: https://www.home-assistant.io/integrations/statistics/",
+            "title": "'state_characteristic' obligatorio asumido para una entidad de estad\u00edsticas"
+        },
+        "deprecation_warning_size": {
+            "description": "El par\u00e1metro de configuraci\u00f3n `sampling_size` de la integraci\u00f3n de estad\u00edsticas ten\u00eda por defecto el valor 20 hasta ahora, algo que cambiar\u00e1.\n\nPor favor, comprueba la configuraci\u00f3n del sensor `{entity}` y a\u00f1ade l\u00edmites adecuados, por ejemplo, `sampling_size: 20` para mantener el comportamiento actual. La configuraci\u00f3n de la integraci\u00f3n de estad\u00edsticas ser\u00e1 m\u00e1s flexible con la versi\u00f3n 2022.12.0 y aceptar\u00e1 `sampling_size` o `max_age`, o ambas configuraciones. La solicitud anterior prepara tu configuraci\u00f3n para este cambio que, de lo contrario, ser\u00eda importante.\n\nLee la documentaci\u00f3n de la integraci\u00f3n de estad\u00edsticas para obtener m\u00e1s detalles: https://www.home-assistant.io/integrations/statistics/",
+            "title": "'sampling_size' impl\u00edcito asumido para una entidad de estad\u00edsticas"
+        }
+    },
+    "options": {
+        "abort": {
+            "already_configured": "La cuenta ya est\u00e1 configurada"
+        },
+        "error": {
+            "missing_keep_last_sample": "La configuraci\u00f3n del sensor debe proporcionar 'max_age' si 'keep_last_sample' es True",
+            "missing_max_age_or_sampling_size": "La configuraci\u00f3n del sensor debe proporcionar 'max_age' y/o 'sampling_size'"
+        },
+        "step": {
+            "init": {
+                "data": {
+                    "keep_last_sample": "Mantener la \u00faltima muestra",
+                    "max_age": "Edad m\u00e1xima",
+                    "percentile": "Percentil",
+                    "precision": "Precisi\u00f3n",
+                    "sampling_size": "Tama\u00f1o de la muestra"
+                },
+                "data_description": {
+                    "keep_last_sample": "Define si el valor muestreado m\u00e1s reciente debe conservarse independientemente de la configuraci\u00f3n de \"antig\u00fcedad m\u00e1xima\".",
+                    "max_age": "Antig\u00fcedad m\u00e1xima de las mediciones del sensor de origen almacenadas.",
+                    "percentile": "S\u00f3lo es relevante en combinaci\u00f3n con la caracter\u00edstica 'percentil'. Debe ser un valor entre 1 y 99.",
+                    "precision": "Define el n\u00famero de decimales del valor calculado del sensor.",
+                    "sampling_size": "N\u00famero m\u00e1ximo de mediciones del sensor fuente almacenadas."
+                },
+                "description": "Lee la documentaci\u00f3n para obtener m\u00e1s detalles sobre c\u00f3mo configurar el sensor de estad\u00edsticas usando estas opciones."
+            }
+        }
+    },
+    "selector": {
+        "state_characteristic": {
+            "options": {
+                "average_linear": "Media lineal",
+                "average_step": "Paso promedio",
+                "average_timeless": "Media atemporal",
+                "change": "Cambio",
+                "change_sample": "Cambio medio por muestra",
+                "change_second": "Cambio medio por segundo",
+                "count": "Cuenta",
+                "count_off": "Cuenta apagados",
+                "count_on": "Cuenta encendidos",
+                "datetime_newest": "Fecha y hora m\u00e1s reciente",
+                "datetime_oldest": "Fecha y hora m\u00e1s antigua",
+                "datetime_value_max": "Valor m\u00e1ximo de fecha y hora",
+                "datetime_value_min": "Valor m\u00ednimo de fecha y hora",
+                "distance_95_percent_of_values": "Distancia del 95% de los valores",
+                "distance_99_percent_of_values": "Distancia del 99% de los valores",
+                "distance_absolute": "Distancia absoluta",
+                "mean": "Media",
+                "mean_circular": "Media circular",
+                "median": "Mediana",
+                "noisiness": "Ruido",
+                "percentile": "Percentil",
+                "standard_deviation": "Desviaci\u00f3n est\u00e1ndar",
+                "sum": "Suma",
+                "sum_differences": "Suma de diferencias",
+                "sum_differences_nonnegative": "Suma de diferencias no negativas",
+                "total": "Total",
+                "value_max": "Valor m\u00e1ximo",
+                "value_min": "Valor m\u00ednimo",
+                "variance": "Varianza"
+            }
+        }
+    },
+    "services": {
+        "reload": {
+            "description": "Recarga los sensores de estad\u00edsticas desde la configuraci\u00f3n YAML.",
+            "name": "Recargar"
+        }
+    }
+}

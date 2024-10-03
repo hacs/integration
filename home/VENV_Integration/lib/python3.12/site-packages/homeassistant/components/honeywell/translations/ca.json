@@ -1,0 +1,107 @@
+{
+    "config": {
+        "error": {
+            "cannot_connect": "Ha fallat la connexi\u00f3",
+            "invalid_auth": "Autenticaci\u00f3 inv\u00e0lida"
+        },
+        "step": {
+            "reauth_confirm": {
+                "data": {
+                    "password": "Contrasenya"
+                },
+                "description": "La integraci\u00f3 Honeywell ha de tornar a autenticar-se amb el teu compte",
+                "title": "L'autenticaci\u00f3 de {name} ha caducat"
+            },
+            "user": {
+                "data": {
+                    "password": "Contrasenya",
+                    "username": "Nom d'usuari"
+                },
+                "description": "Introdueix les credencials utilitzades per iniciar sessi\u00f3 a mytotalconnectcomfort.com."
+            }
+        }
+    },
+    "entity": {
+        "climate": {
+            "honeywell": {
+                "state_attributes": {
+                    "preset_mode": {
+                        "state": {
+                            "away": "A fora",
+                            "none": "Cap"
+                        }
+                    }
+                }
+            }
+        },
+        "sensor": {
+            "outdoor_humidity": {
+                "name": "Humitat exterior"
+            },
+            "outdoor_temperature": {
+                "name": "Temperatura exterior"
+            }
+        },
+        "switch": {
+            "emergency_heat": {
+                "name": "Escalfador d'emerg\u00e8ncia"
+            }
+        }
+    },
+    "exceptions": {
+        "away_mode_failed": {
+            "message": "Honeywell ha fallat en configurar el mode a fora"
+        },
+        "disable_aux_failed": {
+            "message": "Honeywell no ha pogut desactivar el mode d'escalfador auxiliar"
+        },
+        "fan_mode_failed": {
+            "message": "Honeywell no ha pogut configurar el mode ventilador"
+        },
+        "set_aux_failed": {
+            "message": "Honeywell no ha pogut configurar el mode del sistema a escalfador auxiliar"
+        },
+        "set_hold_failed": {
+            "message": "Honeywell no ha pogut configurar la retenci\u00f3 permanent"
+        },
+        "set_mode_failed": {
+            "message": "Honeywell ha retornat un mode de sistema inv\u00e0lid: {mode}"
+        },
+        "stop_hold_failed": {
+            "message": "Honeywell no ha pogut aturar el mode de retenci\u00f3"
+        },
+        "switch_failed_off": {
+            "message": "Honeywell no ha pogut desactivar el mode d'escalfador d'emerg\u00e8ncia."
+        },
+        "switch_failed_on": {
+            "message": "Honeywell no ha pogut establir el mode del sistema al mode d'escalfador d'emerg\u00e8ncia."
+        },
+        "sys_mode_failed": {
+            "message": "Honeywell no ha pogut configurar el mode del sistema"
+        }
+    },
+    "issues": {
+        "service_deprecation": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Utilitza`switch.{name}_emergency_heat` per canviar de mode. \n\nAjusta les teves automatitzacions i scripts i selecciona **envia** per resoldre aquest problema.",
+                        "title": "S'est\u00e0 eliminant l'escalador auxiliar de Honeywell"
+                    }
+                }
+            },
+            "title": "S'est\u00e0 eliminant l'escalador auxiliar de Honeywell"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "away_cool_temperature": "Temperatura freda, mode fora",
+                    "away_heat_temperature": "Temperatura calenta, mode fora"
+                },
+                "description": "Opcions addicionals de configuraci\u00f3 de Honeywell. Les temperatures es configuren en Fahrenheit."
+            }
+        }
+    }
+}

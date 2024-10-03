@@ -1,0 +1,37 @@
+{
+    "entity": {
+        "binary_sensor": {
+            "assist_in_progress": {
+                "name": "Assist en progreso"
+            }
+        },
+        "select": {
+            "pipeline": {
+                "name": "Asistente",
+                "state": {
+                    "preferred": "Preferido"
+                }
+            },
+            "vad_sensitivity": {
+                "name": "Detecci\u00f3n de fin de habla",
+                "state": {
+                    "aggressive": "Agresivo",
+                    "default": "Predeterminado",
+                    "relaxed": "Relajado"
+                }
+            }
+        }
+    },
+    "issues": {
+        "assist_in_progress_deprecated": {
+            "fix_flow": {
+                "step": {
+                    "confirm_disable_entity": {
+                        "description": "El sensor binario en proceso {integration_name} ` {entity_id} ` est\u00e1 obsoleto.\n\nMigra tu configuraci\u00f3n para utilizar la entidad `{assist_satellite_domain}` correspondiente y luego haz clic en ENVIAR para deshabilitar el sensor binario en proceso y solucionar este problema."
+                    }
+                }
+            },
+            "title": "Los sensores binarios {integration_name} en progreso est\u00e1n discontinuados"
+        }
+    }
+}

@@ -1,0 +1,84 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "Meddelande"
+        }
+    },
+    "issues": {
+        "migrate_notify": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "title": "Migrera \u00e4ldre aviseringstj\u00e4nst {integration_title} f\u00f6r dom\u00e4nen `{domain}`"
+                    }
+                }
+            }
+        },
+        "migrate_notify_service": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Tj\u00e4nsten {integration_title} `notify.{service_name}` \u00e4r migrerad, men det verkar som om den gamla `notify`-tj\u00e4nsten fortfarande anv\u00e4nds.\n\nEn ny `notify`-enhet finns nu tillg\u00e4nglig f\u00f6r att ers\u00e4tta varje \u00e4ldre `notify`-tj\u00e4nst.\n\nUppdatera alla automatiseringar eller skript s\u00e5 att de anv\u00e4nder den nya tj\u00e4nsten `notify.send_message` som exponeras med denna nya entitet. N\u00e4r detta \u00e4r gjort v\u00e4ljer du Skicka och startar om Home Assistant.",
+                        "title": "Migrera \u00e4ldre aviseringstj\u00e4nst {integration_title} f\u00f6r dom\u00e4nen ` {domain} `"
+                    }
+                }
+            }
+        }
+    },
+    "services": {
+        "notify": {
+            "description": "Skickar ett meddelande till valda m\u00e5l.",
+            "fields": {
+                "data": {
+                    "description": "Vissa integrationer ger ut\u00f6kad funktionalitet. F\u00f6r information om hur du anv\u00e4nder _data_, se integrationens dokumentation.",
+                    "name": "Data"
+                },
+                "message": {
+                    "description": "Meddelandets text.",
+                    "name": "Meddelande"
+                },
+                "target": {
+                    "description": "I vissa integrationer kan du ange vilka m\u00e5l som ska f\u00e5 meddelandet. Mer information finns i integrationens dokumentation.",
+                    "name": "M\u00e5l"
+                },
+                "title": {
+                    "description": "Rubrik f\u00f6r ditt meddelande",
+                    "name": "Rubrik"
+                }
+            },
+            "name": "Skicka ett meddelande"
+        },
+        "persistent_notification": {
+            "fields": {
+                "data": {
+                    "description": "Vissa integrationer ger ut\u00f6kad funktionalitet. F\u00f6r information om hur du anv\u00e4nder _data_, se integrationens dokumentation.",
+                    "name": "Data"
+                },
+                "message": {
+                    "description": "Meddelandets text.",
+                    "name": "Meddelande"
+                },
+                "title": {
+                    "description": "Rubrik f\u00f6r ditt meddelande",
+                    "name": "Rubrik"
+                }
+            },
+            "name": "Skicka ett best\u00e4ndigt meddelande"
+        },
+        "send_message": {
+            "description": "Skickar ett aviseringsmeddelande.",
+            "fields": {
+                "message": {
+                    "description": "Ditt aviseringsmeddelande.",
+                    "name": "Meddelande"
+                },
+                "title": {
+                    "description": "Rubrik f\u00f6r ditt aviseringsmeddelande.",
+                    "name": "Rubrik"
+                }
+            },
+            "name": "Skicka ett aviseringsmeddelande"
+        }
+    },
+    "title": "Meddelande"
+}

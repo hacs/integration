@@ -1,0 +1,116 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Il dispositivo \u00e8 gi\u00e0 configurato"
+        },
+        "step": {
+            "user": {
+                "description": "Vuoi avviare la configurazione?"
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "average_price": {
+                "name": "Media - oggi"
+            },
+            "current_hour_price": {
+                "name": "Ora corrente"
+            },
+            "highest_price_time": {
+                "name": "Momento del prezzo pi\u00f9 alto - oggi"
+            },
+            "hours_priced_equal_or_higher": {
+                "name": "Ore con prezzo uguale o superiore a quello attuale - oggi"
+            },
+            "hours_priced_equal_or_lower": {
+                "name": "Ore con prezzo uguale o inferiore a quello attuale - oggi"
+            },
+            "lowest_price_time": {
+                "name": "Momento del prezzo pi\u00f9 basso - oggi"
+            },
+            "max_price": {
+                "name": "Prezzo pi\u00f9 alto - oggi"
+            },
+            "min_price": {
+                "name": "Prezzo pi\u00f9 basso - oggi"
+            },
+            "next_hour_price": {
+                "name": "Ora successiva"
+            },
+            "percentage_of_max": {
+                "name": "Percentuale attuale del prezzo pi\u00f9 alto - oggi"
+            }
+        }
+    },
+    "exceptions": {
+        "invalid_config_entry": {
+            "message": "Configurazione fornita non valida. Ricevuta {config_entry}"
+        },
+        "unloaded_config_entry": {
+            "message": "Configurazione fornita non valida. {config_entry} non \u00e8 stata caricata."
+        }
+    },
+    "services": {
+        "get_energy_prices": {
+            "fields": {
+                "config_entry": {
+                    "description": "La configurazione da utilizzare per questo servizio.",
+                    "name": "Voce di configurazione"
+                },
+                "incl_vat": {
+                    "description": "Includi l'IVA nei prezzi.",
+                    "name": "IVA inclusa"
+                },
+                "start": {
+                    "description": "Specifica la data e l'ora a partire dalle quali recuperare i prezzi. Il valore predefinito \u00e8 oggi se omesso.",
+                    "name": "Inizio"
+                }
+            },
+            "name": "Ottieni i prezzi dell'energia"
+        },
+        "get_gas_prices": {
+            "description": "Richiedi i prezzi del gas a EnergyZero.",
+            "fields": {
+                "config_entry": {
+                    "name": "Voce di configurazione"
+                },
+                "end": {
+                    "description": "Specifica la data e l'ora fino alle quali recuperare i prezzi. Il valore predefinito \u00e8 oggi se omesso.",
+                    "name": "Fine"
+                },
+                "incl_vat": {
+                    "description": "Includi l'IVA nei prezzi.",
+                    "name": "IVA inclusa"
+                },
+                "start": {
+                    "description": "Specifica la data e l'ora a partire dalle quali recuperare i prezzi. Il valore predefinito \u00e8 oggi se omesso.",
+                    "name": "Inizio"
+                }
+            },
+            "name": "Ottieni i prezzi del gas"
+        },
+        "get_prices": {
+            "description": "Richiedi i prezzi dell'energia o del gas a EnergyZero.",
+            "fields": {
+                "end": {
+                    "description": "Fino a quale momento ottenere i prezzi. Se omesso, il valore predefinito \u00e8 oggi.",
+                    "name": "Fine"
+                },
+                "incl_vat": {
+                    "description": "Includere l'IVA nei prezzi. Il valore predefinito \u00e8 true se omesso.",
+                    "name": "IVA inclusa"
+                },
+                "start": {
+                    "description": "Da quale momento ottenere i prezzi. Il valore predefinito \u00e8 quello attuale se omesso.",
+                    "name": "Avvia"
+                },
+                "type": {
+                    "description": "Tipo di prezzi da ottenere, energia o gas.",
+                    "name": "Tipo"
+                }
+            },
+            "name": "Ottieni i prezzi"
+        }
+    }
+}

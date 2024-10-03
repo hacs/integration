@@ -1,0 +1,56 @@
+{
+    "config": {
+        "abort": {
+            "cloud_not_connected": "Nicht mit der Home Assistant Cloud verbunden.",
+            "single_instance_allowed": "Bereits konfiguriert. Nur eine einzige Konfiguration m\u00f6glich.",
+            "webhook_not_internet_accessible": "Deine Home Assistant-Instanz muss \u00fcber das Internet erreichbar sein, um Webhook-Nachrichten empfangen zu k\u00f6nnen."
+        },
+        "create_entry": {
+            "default": "Um Ereignisse an Home Assistant zu senden, musst du die Aktion \u201eEine Webanforderung erstellen\u201c aus dem [IFTTT Webhook Applet]({applet_url}) ausw\u00e4hlen.\n\nF\u00fclle folgende Informationen aus: \n- URL: `{webhook_url}` \n- Methode: POST\n- Inhaltstyp: application/json\n\nIn der [Dokumentation] ({docs_url}) findest du Informationen zur Konfiguration der Automation eingehender Daten."
+        },
+        "step": {
+            "user": {
+                "description": "Bist du sicher, dass du IFTTT einrichten m\u00f6chtest?",
+                "title": "Einrichten des IFTTT Webhook Applets"
+            }
+        }
+    },
+    "services": {
+        "push_alarm_state": {
+            "description": "Aktualisiert den Alarmstatus auf den angegebenen Wert.",
+            "fields": {
+                "entity_id": {
+                    "description": "Name der Alarmzentrale, deren Status aktualisiert werden muss.",
+                    "name": "Entit\u00e4ts-ID"
+                },
+                "state": {
+                    "description": "Der Zustand, auf den die Alarmzentrale eingestellt werden muss.",
+                    "name": "Zustand"
+                }
+            },
+            "name": "Push-Alarmstatus"
+        },
+        "trigger": {
+            "description": "L\u00f6st den konfigurierten IFTTT-Webhook aus.",
+            "fields": {
+                "event": {
+                    "description": "Der Name des zu sendenden Ereignisses.",
+                    "name": "Ereignis"
+                },
+                "value1": {
+                    "description": "Generisches Feld zum Senden von Daten \u00fcber das Ereignis.",
+                    "name": "Wert 1"
+                },
+                "value2": {
+                    "description": "Generisches Feld zum Senden von Daten \u00fcber das Ereignis.",
+                    "name": "Wert 2"
+                },
+                "value3": {
+                    "description": "Generisches Feld zum Senden von Daten \u00fcber das Ereignis.",
+                    "name": "Wert 3"
+                }
+            },
+            "name": "Ausl\u00f6sen"
+        }
+    }
+}

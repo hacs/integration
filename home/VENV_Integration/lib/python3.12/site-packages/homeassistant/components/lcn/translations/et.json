@@ -1,0 +1,352 @@
+{
+    "config": {
+        "abort": {
+            "reconfigure_successful": "\u00dcmberseadistamine \u00f5nnestus"
+        },
+        "error": {
+            "already_configured": "Sama IP-aadressi/porti kasutav PCHK-\u00fchendus on juba seadistatud.",
+            "authentication_error": "Tuvastamine nurjus. Sobimatu kasutajanimi v\u00f5i parool.",
+            "connection_refused": "PCHK-ga ei saa \u00fchendust luua. Kontrolli IP-d ja porti.",
+            "license_error": "Maksimaalne \u00fchenduste arv on saavutatud. Vajalik on t\u00e4iendav litsentsiv\u00f5ti."
+        },
+        "step": {
+            "reconfigure": {
+                "data": {
+                    "acknowledge": "Moodulitelt kinnituse taotlemine",
+                    "dim_mode": "H\u00e4mardamisre\u017eiim",
+                    "ip_address": "IP-aadress",
+                    "password": "Salas\u00f5na",
+                    "port": "Port",
+                    "sk_num_tries": "Segmendi sidumiskatsed",
+                    "username": "Kasutajanimi"
+                },
+                "data_description": {
+                    "acknowledge": "K\u00e4skude uuesti saatmine kui vastust ei ole saadud (suurendab siini liiklust).",
+                    "dim_mode": "H\u00e4mardamiseks kasutatud sammude arv."
+                },
+                "description": "LCN-hostiga \u00fchenduse uuesti seadistamine.",
+                "title": "LCN-i hosti uuesti seadistamine"
+            },
+            "reconfigure_confirm": {
+                "data": {
+                    "acknowledge": "Moodulitelt kinnituse taotlemine",
+                    "dim_mode": "H\u00e4mardamisre\u017eiim",
+                    "ip_address": "IP-aadress",
+                    "password": "Salas\u00f5na",
+                    "port": "Port",
+                    "sk_num_tries": "Segmendi sidumiskatsed",
+                    "username": "Kasutajanimi"
+                },
+                "data_description": {
+                    "acknowledge": "K\u00e4skude uuesti saatmine kui vastust ei ole saadud (suurendab siini liiklust).",
+                    "dim_mode": "H\u00e4mardamiseks kasutatud sammude arv."
+                },
+                "description": "LCN-hostiga \u00fchenduse uuesti seadistamine.",
+                "title": "LCN-i hosti uuesti seadistamine"
+            },
+            "user": {
+                "data": {
+                    "acknowledge": "Moodulitelt kinnituse taotlemine",
+                    "dim_mode": "H\u00e4mardamisre\u017eiim",
+                    "host": "Nimi",
+                    "ip_address": "IP-aadress",
+                    "password": "Salas\u00f5na",
+                    "port": "Port",
+                    "sk_num_tries": "Segmendi sidumiskatsed",
+                    "username": "Kasutajanimi"
+                },
+                "data_description": {
+                    "acknowledge": "K\u00e4skude uuesti saatmine kui vastust ei ole saadud (suurendab siini liiklust).",
+                    "dim_mode": "H\u00e4mardamiseks kasutatud sammude arv."
+                },
+                "description": "Seadista uus \u00fchendus LCN-i hostiga.",
+                "title": "LCN-hosti seadistamine"
+            }
+        }
+    },
+    "device_automation": {
+        "extra_fields": {
+            "action": "Tegevus",
+            "code": "Kood",
+            "key": "V\u00f5ti",
+            "level": "Tase"
+        },
+        "trigger_type": {
+            "codelock": "Koodluku kood vastu v\u00f5etud",
+            "fingerprint": "Vastu v\u00f5etud s\u00f5rmej\u00e4ljekood",
+            "send_keys": "Vastuv\u00f5etud v\u00f5tmed",
+            "transmitter": "Saatja kood vastu v\u00f5etud",
+            "transponder": "Saadud transponderi kood"
+        }
+    },
+    "issues": {
+        "authentication_error": {
+            "description": "LCN-i konfigureerimine YAML-i abil eemaldatakse, kuid YAML-i konfiguratsiooni importimisel ilmnes viga. Veendu, et kasutajatunnus ja salas\u00f5na oleks \u00f5ige. Kaalu LCN-i YAML-i konfiguratsiooni eemaldamist failist configuration.yaml ja j\u00e4tka [integratsiooni seadistamisega]( {url} ) k\u00e4sitsi.",
+            "title": "Tuvastamine nurjus."
+        },
+        "connection_refused": {
+            "description": "LCN-i konfigureerimine YAML-i abil eemaldatakse, kuid YAML-i konfiguratsiooni importimisel ilmnes viga. Veendu, et \u00fchendus (IP ja port) LCN-siini siduriga oleks \u00f5ige. Kaalu LCN-i YAML-i konfiguratsiooni eemaldamist failist configuration.yaml ja j\u00e4tka [integratsiooni seadistamisega]( {url} ) k\u00e4sitsi.",
+            "title": "PCHK-ga ei ole v\u00f5imalik \u00fchendust luua."
+        },
+        "license_error": {
+            "description": "LCN-i konfigureerimine YAML-i abil eemaldatakse, kuid YAML-i konfiguratsiooni importimisel ilmnes viga. Veendu, et oleks registreeritud piisavalt PCHK litsentse, ja taask\u00e4ivita Home Assistant. Kaalu LCN-i YAML-i konfiguratsiooni eemaldamist failist configuration.yaml ja j\u00e4tka [integratsiooni seadistamisega]( {url} ) k\u00e4sitsi.",
+            "title": "Saavutati maksimaalne \u00fchenduste arv."
+        }
+    },
+    "services": {
+        "dyn_text": {
+            "description": "Saadab d\u00fcnaamilise teksti LCN-GTxD kuvaritele.",
+            "fields": {
+                "address": {
+                    "description": "Mooduli aadress.",
+                    "name": "Aadress"
+                },
+                "row": {
+                    "description": "Tekstirida.",
+                    "name": "Rida"
+                },
+                "text": {
+                    "description": "Saadetav tekst (kuni 60 t\u00e4hem\u00e4rki UTF-8 kodeeringus).",
+                    "name": "Tekst"
+                }
+            },
+            "name": "D\u00fcnaamiline tekst"
+        },
+        "led": {
+            "description": "M\u00e4\u00e4rab LED-oleku.",
+            "fields": {
+                "address": {
+                    "description": "Mooduli aadress.",
+                    "name": "Aadress"
+                },
+                "led": {
+                    "description": "LED.",
+                    "name": "LED"
+                },
+                "state": {
+                    "description": "LED'i olek.",
+                    "name": "Olek"
+                }
+            },
+            "name": "LED"
+        },
+        "lock_keys": {
+            "description": "Lukustab v\u00f5tmed.",
+            "fields": {
+                "address": {
+                    "description": "Mooduli aadress.",
+                    "name": "Aadress"
+                },
+                "state": {
+                    "description": "Olekud stringina (1 = sees, 2 = v\u00e4ljas, T = l\u00fclita, - = ei muutu).",
+                    "name": "Olek"
+                },
+                "table": {
+                    "description": "Tabel lukustavate v\u00f5tmetega (peab olema A intervalli jaoks).",
+                    "name": "Tabel"
+                },
+                "time": {
+                    "description": "Lukustusintervall.",
+                    "name": "Aeg"
+                },
+                "time_unit": {
+                    "description": "Lukustusintervalli aja\u00fchik.",
+                    "name": "Aja\u00fchik"
+                }
+            },
+            "name": "Lukusta v\u00f5tmed"
+        },
+        "lock_regulator": {
+            "description": "Lukustab regulaatori seadepunkti.",
+            "fields": {
+                "address": {
+                    "description": "Mooduli aadress.",
+                    "name": "Aadress"
+                },
+                "setpoint": {
+                    "description": "Soovitud v\u00e4\u00e4rtuse nimi.",
+                    "name": "Soovitud v\u00e4\u00e4rtus"
+                },
+                "state": {
+                    "description": "Uus soovitud olek.",
+                    "name": "Olek"
+                }
+            },
+            "name": "Lukusta regulaator"
+        },
+        "output_abs": {
+            "description": "M\u00e4\u00e4rab v\u00e4ljundpordi absoluutse heleduse protsentides.",
+            "fields": {
+                "address": {
+                    "description": "Mooduli aadress.",
+                    "name": "Aadress"
+                },
+                "brightness": {
+                    "description": "Absoluutne heledus.",
+                    "name": "Heledus"
+                },
+                "output": {
+                    "description": "V\u00e4ljundport.",
+                    "name": "V\u00e4ljund"
+                },
+                "transition": {
+                    "description": "\u00dcleminekuaeg.",
+                    "name": "\u00dcleminek"
+                }
+            },
+            "name": "V\u00e4ljundi absoluutne heledus"
+        },
+        "output_rel": {
+            "description": "M\u00e4\u00e4rab v\u00e4ljundpordi suhtelise heleduse protsentides.",
+            "fields": {
+                "address": {
+                    "description": "Mooduli aadress.",
+                    "name": "Aadress"
+                },
+                "brightness": {
+                    "description": "Suhteline heledus.",
+                    "name": "Heledus"
+                },
+                "output": {
+                    "description": "V\u00e4ljundport.",
+                    "name": "V\u00e4ljund"
+                }
+            },
+            "name": "V\u00e4ljundi suhteline heledus"
+        },
+        "output_toggle": {
+            "description": "Muudab v\u00e4ljundpordi olekut.",
+            "fields": {
+                "address": {
+                    "description": "Mooduli aadress.",
+                    "name": "Aadress"
+                },
+                "output": {
+                    "description": "V\u00e4ljundport.",
+                    "name": "V\u00e4ljund"
+                },
+                "transition": {
+                    "description": "\u00dcleminekuaeg.",
+                    "name": "\u00dcleminek"
+                }
+            },
+            "name": "Muuda v\u00e4ljundi olekut"
+        },
+        "pck": {
+            "description": "Saadab suvalise PCK k\u00e4su.",
+            "fields": {
+                "address": {
+                    "description": "Mooduli aadress.",
+                    "name": "Aadress"
+                },
+                "pck": {
+                    "description": "PCK k\u00e4sk (ilma aadressi p\u00e4iseta).",
+                    "name": "PCK"
+                }
+            },
+            "name": "PCK"
+        },
+        "relays": {
+            "description": "M\u00e4\u00e4rab releede oleku.",
+            "fields": {
+                "address": {
+                    "description": "Mooduli aadress.",
+                    "name": "Aadress"
+                },
+                "state": {
+                    "description": "Relee olekud on stringina (1=on, 2=off, t=toggle, -=no change).",
+                    "name": "Olek"
+                }
+            },
+            "name": "Releed"
+        },
+        "send_keys": {
+            "description": "Saadab v\u00f5tmed (mis t\u00e4idab seotud k\u00e4ske).",
+            "fields": {
+                "address": {
+                    "description": "Mooduli aadress.",
+                    "name": "Aadress"
+                },
+                "keys": {
+                    "description": "Saadetavad v\u00f5tmed.",
+                    "name": "V\u00f5tmed"
+                },
+                "state": {
+                    "description": "V\u00f5tme olek saatmisel (tuleb tabada edasil\u00fckkamiseks).",
+                    "name": "Olek"
+                },
+                "time": {
+                    "description": "Saada viivitus.",
+                    "name": "Aeg"
+                },
+                "time_unit": {
+                    "description": "Saatmisviivituse aja\u00fchik.",
+                    "name": "Aja\u00fchik"
+                }
+            },
+            "name": "V\u00f5tmete saatmine"
+        },
+        "var_abs": {
+            "description": "M\u00e4\u00e4rab muutuja v\u00f5i seadepunkti absoluutv\u00e4\u00e4rtuse.",
+            "fields": {
+                "address": {
+                    "description": "Mooduli aadress.",
+                    "name": "Aadress"
+                },
+                "unit_of_measurement": {
+                    "description": "V\u00e4\u00e4rtuse \u00fchik.",
+                    "name": "M\u00f5\u00f5t\u00fchik"
+                },
+                "value": {
+                    "description": "M\u00e4\u00e4ratav v\u00e4\u00e4rtus.",
+                    "name": "V\u00e4\u00e4rtus"
+                },
+                "variable": {
+                    "description": "Muutuja v\u00f5i seadepunkti nimi.",
+                    "name": "Muutuja"
+                }
+            },
+            "name": "M\u00e4\u00e4ra muutuja absoluutne v\u00e4\u00e4rtus"
+        },
+        "var_rel": {
+            "description": "Muutuja, seadepunkti v\u00f5i l\u00e4vendi v\u00e4\u00e4rtuse nihutamine.",
+            "fields": {
+                "address": {
+                    "description": "Mooduli aadress.",
+                    "name": "Aadress"
+                },
+                "unit_of_measurement": {
+                    "description": "V\u00e4\u00e4rtuse \u00fchik.",
+                    "name": "M\u00f5\u00f5t\u00fchik"
+                },
+                "value": {
+                    "description": "Nihuta v\u00e4\u00e4rtust.",
+                    "name": "V\u00e4\u00e4rtus"
+                },
+                "value_reference": {
+                    "description": "Seadepunkti ja l\u00e4ve kontrollv\u00e4\u00e4rtus.",
+                    "name": "V\u00f5rdlusv\u00e4\u00e4rtus"
+                },
+                "variable": {
+                    "description": "Muutuja v\u00f5i seadepunkti nimi.",
+                    "name": "Muutuja"
+                }
+            },
+            "name": "Nihke muutuja"
+        },
+        "var_reset": {
+            "description": "L\u00e4htestab muutuja v\u00f5i seadev\u00e4\u00e4rtuse.",
+            "fields": {
+                "address": {
+                    "description": "Mooduli aadress.",
+                    "name": "Aadress"
+                },
+                "variable": {
+                    "description": "Muutuja v\u00f5i seadepunkti nimi.",
+                    "name": "Muutuja"
+                }
+            },
+            "name": "L\u00e4htesta muutuja"
+        }
+    }
+}

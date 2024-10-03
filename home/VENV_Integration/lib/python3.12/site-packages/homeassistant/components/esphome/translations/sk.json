@@ -1,0 +1,127 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Zariadenie u\u017e je nakonfigurovan\u00e9",
+            "already_in_progress": "Konfigur\u00e1cia u\u017e prebieha",
+            "mdns_missing_mac": "Ch\u00fdba MAC adresa vo vlastnostiach MDNS.",
+            "mqtt_missing_api": "Ch\u00fdbaj\u00faci port API vo vlastnostiach MQTT.",
+            "mqtt_missing_ip": "Ch\u00fdbaj\u00faca IP adresa vo vlastnostiach MQTT.",
+            "mqtt_missing_mac": "Ch\u00fdbaj\u00faca adresa MAC vo vlastnostiach MQTT.",
+            "reauth_successful": "Op\u00e4tovn\u00e9 overenie bolo \u00faspe\u0161n\u00e9",
+            "service_received": "Akcia prijat\u00e1"
+        },
+        "error": {
+            "connection_error": "Ned\u00e1 sa pripoji\u0165 k ESP. Uistite sa, \u017ee v\u00e1\u0161 s\u00fabor YAML obsahuje riadok 'api:'.",
+            "invalid_auth": "Neplatn\u00e9 overenie",
+            "invalid_psk": "Transportn\u00fd \u0161ifrovac\u00ed k\u013e\u00fa\u010d je neplatn\u00fd. Pros\u00edm, uistite sa, \u017ee sa zhoduje s t\u00fdm, \u010do m\u00e1te vo svojej konfigur\u00e1cii",
+            "resolve_error": "Ned\u00e1 sa zisti\u0165 adresa ESP. Ak t\u00e1to chyba pretrv\u00e1va, nastavte statick\u00fa IP adresu"
+        },
+        "flow_title": "{name}",
+        "step": {
+            "authenticate": {
+                "data": {
+                    "password": "Heslo"
+                },
+                "description": "Pros\u00edm, zadajte heslo, ktor\u00e9 ste nastavili v konfigur\u00e1cii pre {name}."
+            },
+            "discovery_confirm": {
+                "description": "Chcete prida\u0165 uzol ESPHome `{name}` do Home Assistant?",
+                "title": "Objaven\u00fd uzol ESPHome"
+            },
+            "encryption_key": {
+                "data": {
+                    "noise_psk": "\u0160ifrovac\u00ed k\u013e\u00fa\u010d"
+                },
+                "description": "Zadajte \u0161ifrovac\u00ed k\u013e\u00fa\u010d pre {name}. N\u00e1jdete ho v ESPHome Dashboard alebo v konfigur\u00e1cii v\u00e1\u0161ho zariadenia."
+            },
+            "reauth_confirm": {
+                "data": {
+                    "noise_psk": "\u0160ifrovac\u00ed k\u013e\u00fa\u010d"
+                },
+                "description": "Zariadenie ESPHome {name} povolilo prenosov\u00e9 \u0161ifrovanie alebo zmenilo \u0161ifrovac\u00ed k\u013e\u00fa\u010d. Zadajte aktualizovan\u00fd k\u013e\u00fa\u010d. N\u00e1jdete ho v ESPHome Dashboard alebo v konfigur\u00e1cii v\u00e1\u0161ho zariadenia."
+            },
+            "user": {
+                "data": {
+                    "host": "Hostite\u013e",
+                    "port": "Port"
+                },
+                "description": "Zadajte nastavenia pripojenia v\u00e1\u0161ho uzla [ESPHome]({esphome_url})."
+            }
+        }
+    },
+    "entity": {
+        "assist_satellite": {
+            "assist_satellite": {
+                "name": "Asisten\u010dn\u00fd satelit"
+            }
+        },
+        "binary_sensor": {
+            "assist_in_progress": {
+                "name": "Asistencia prebieha"
+            },
+            "call_active": {
+                "name": "Hovor akt\u00edvne"
+            }
+        },
+        "climate": {
+            "climate": {
+                "state_attributes": {
+                    "fan_mode": {
+                        "state": {
+                            "quiet": "Tich\u00fd"
+                        }
+                    }
+                }
+            }
+        },
+        "select": {
+            "pipeline": {
+                "name": "Asistant",
+                "state": {
+                    "preferred": "Preferovan\u00e9"
+                }
+            },
+            "vad_sensitivity": {
+                "name": "Ukon\u010den\u00e1 detekcia hovorenia",
+                "state": {
+                    "aggressive": "Agres\u00edvne",
+                    "default": "Predvolen\u00fd",
+                    "relaxed": "Uvo\u013enen\u00e9"
+                }
+            }
+        }
+    },
+    "issues": {
+        "api_password_deprecated": {
+            "description": "Heslo API pre ESPHome je zastaran\u00e9 a namiesto neho sa odpor\u00fa\u010da pou\u017ei\u0165 \u0161ifrovac\u00ed k\u013e\u00fa\u010d API. \n\n Ak chcete vyrie\u0161i\u0165 tento probl\u00e9m, odstr\u00e1\u0148te heslo rozhrania API a pridajte \u0161ifrovac\u00ed k\u013e\u00fa\u010d do zariadenia ESPHome.",
+            "title": "Heslo rozhrania API zastaran\u00e9 na {name}"
+        },
+        "assist_in_progress_deprecated": {
+            "fix_flow": {
+                "step": {
+                    "confirm_disable_entity": {
+                        "description": "Bin\u00e1rny senzor {integration_name} in progress `{entity_id}` je zastaran\u00fd.\n\nPremigrujte svoju konfigur\u00e1ciu na pou\u017e\u00edvanie zodpovedaj\u00facej entity `{assist_satellite_domain}` a potom kliknite na tla\u010didlo SUBMIT, aby ste deaktivovali bin\u00e1rny senzor prebiehaj\u00faceho procesu a odstr\u00e1nili tento probl\u00e9m."
+                    }
+                }
+            },
+            "title": "{integration_name} asistova\u0165 v priebehu bin\u00e1rne senzory s\u00fa zastaran\u00e9"
+        },
+        "ble_firmware_outdated": {
+            "description": "Ak chcete zlep\u0161i\u0165 spo\u013eahlivos\u0165 a v\u00fdkon Bluetooth, d\u00f4razne odpor\u00fa\u010dame aktualizova\u0165 {name} na ESPHome {version} alebo nov\u0161\u00ed. Pri aktualiz\u00e1cii zariadenia z ESPHome pred verziou 2022.12.0 sa odpor\u00fa\u010da pou\u017ei\u0165 namiesto bezdr\u00f4tovej aktualiz\u00e1cie s\u00e9riov\u00fd k\u00e1bel, aby ste mohli vyu\u017ei\u0165 nov\u00fa rozdelenie oddielov.",
+            "title": "Aktualizujte {name} pomocou ESPHome {version} alebo nov\u0161ieho"
+        },
+        "service_calls_not_allowed": {
+            "description": "Zariadenie ESPHome sa pok\u00fasilo vykona\u0165 akciu Home Assistant, ale t\u00e1to funkcia nie je povolen\u00e1.\n\nAk tomuto zariadeniu d\u00f4verujete a chcete mu povoli\u0165 vykon\u00e1vanie akcie Home Assistant, m\u00f4\u017eete t\u00fato funkciu povoli\u0165 v toku mo\u017enost\u00ed.",
+            "title": "{name} nie je povolen\u00e9 vykon\u00e1va\u0165 \u010dinnosti Home Assistant"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "allow_service_calls": "Povo\u013ete zariadeniu vykon\u00e1va\u0165 \u010dinnosti asistenta dom\u00e1cnosti."
+                }
+            }
+        }
+    }
+}

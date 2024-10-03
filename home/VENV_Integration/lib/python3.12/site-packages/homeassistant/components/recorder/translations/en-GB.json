@@ -1,0 +1,47 @@
+{
+    "services": {
+        "disable": {
+            "description": "Stops the recording of events and state changes.",
+            "name": "Disable"
+        },
+        "enable": {
+            "description": "Starts the recording of events and state changes.",
+            "name": "Enable"
+        },
+        "purge": {
+            "description": "Starts purge task - to clean up old data from your database.",
+            "fields": {
+                "apply_filter": {
+                    "name": "Apply filter"
+                },
+                "keep_days": {
+                    "description": "Number of days to keep the data in the database. Starting today, counting backward. A value of `7` means that everything older than a week will be purged.",
+                    "name": "Days to keep"
+                },
+                "repack": {
+                    "description": "Attempt to save disk space by rewriting the entire database file.",
+                    "name": "Repack"
+                }
+            },
+            "name": "Purge"
+        },
+        "purge_entities": {
+            "description": "Starts a purge task to remove the data related to specific entities from your database.",
+            "fields": {
+                "domains": {
+                    "description": "List of domains for which the data needs to be removed from the recorder database.",
+                    "name": "Domains to remove"
+                },
+                "entity_globs": {
+                    "description": "List of glob patterns used to select the entities for which the data is to be removed from the recorder database.",
+                    "name": "Entity globs to remove"
+                },
+                "keep_days": {
+                    "description": "Number of days to keep the data for rows matching the filter. Starting today, counting backward. A value of `7` means that everything older than a week will be purged. The default of 0 days will remove all matching rows immediately.",
+                    "name": "Days to keep"
+                }
+            },
+            "name": "Purge entities"
+        }
+    }
+}

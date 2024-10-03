@@ -1,0 +1,198 @@
+{
+    "config": {
+        "abort": {
+            "single_instance_allowed": "\u5df2\u7ecf\u914d\u7f6e\u8fc7\u4e86\uff0c\u4e14\u53ea\u80fd\u914d\u7f6e\u4e00\u6b21\u3002"
+        },
+        "error": {
+            "pin_request_failed": "\u5411 ecobee \u8bf7\u6c42 PIN \u7801\u65f6\u51fa\u9519\uff1b\u8bf7\u9a8c\u8bc1 API \u5bc6\u94a5\u662f\u5426\u6b63\u786e\u3002",
+            "token_request_failed": "\u5411 ecobee \u8bf7\u6c42\u4ee4\u724c\u65f6\u51fa\u9519\uff1b\u8bf7\u518d\u8bd5\u4e00\u6b21\u3002"
+        },
+        "step": {
+            "authorize": {
+                "description": "\u8bf7\u4f7f\u7528 PIN \u7801\u5728 https://www.ecobee.com/consumerportal/index.html \u4e0a\u6388\u6743\u6b64\u5e94\u7528\uff1a\n\n {pin}\n\n\u7136\u540e\u9009\u62e9\u201c\u63d0\u4ea4\u201d\u3002",
+                "title": "\u5728 ecobee.com \u4e0a\u6388\u6743\u5e94\u7528\u7a0b\u5e8f"
+            },
+            "user": {
+                "data": {
+                    "api_key": "API \u5bc6\u94a5"
+                },
+                "description": "\u8bf7\u8f93\u5165\u4ece ecobee.com \u83b7\u53d6\u7684 API \u5bc6\u94a5\u3002",
+                "title": "ecobee API \u5bc6\u94a5"
+            }
+        }
+    },
+    "entity": {
+        "climate": {
+            "ecobee": {
+                "state_attributes": {
+                    "preset_mode": {
+                        "state": {
+                            "away_indefinitely": "\u65e0\u671f\u9650\u79bb\u5bb6"
+                        }
+                    }
+                }
+            }
+        },
+        "number": {
+            "ventilator_min_type_away": {
+                "name": "\u547c\u5438\u673a\u6700\u77ed\u79bb\u5f00\u65f6\u95f4"
+            },
+            "ventilator_min_type_home": {
+                "name": "\u547c\u5438\u673a\u6700\u77ed\u56de\u5bb6\u65f6\u95f4"
+            }
+        },
+        "switch": {
+            "aux_heat_only": {
+                "name": "\u4ec5\u8f85\u52a9\u52a0\u70ed"
+            }
+        }
+    },
+    "issues": {
+        "migrate_aux_heat": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Ecobee \u7684 set_aux_heat \u52a8\u4f5c\u5df2\u8fc1\u79fb\u3002\u6bcf\u4e2a\u652f\u6301\u70ed\u6cf5\u7684\u6052\u6e29\u5668\u90fd\u6709\u4e00\u4e2a\u65b0\u7684 aux_heat_only \u5f00\u5173\u5b9e\u4f53\u3002\n\n\u66f4\u65b0\u6240\u6709\u81ea\u52a8\u5316\u6362\u7528\u65b0\u7684 aux_heat_only \u5f00\u5173\u5b9e\u4f53\u3002\u5b8c\u6210\u6b64\u64cd\u4f5c\u540e\uff0c\u8bf7\u4fee\u590d\u6b64\u95ee\u9898\u5e76\u91cd\u65b0\u542f\u52a8 Home Assistant \u3002",
+                        "title": "\u7981\u7528\u65e7\u7248 Ecobee set_aux_heat \u52a8\u4f5c"
+                    }
+                }
+            },
+            "title": "Ecobee set_aux_heat \u52a8\u4f5c\u7684\u8fc1\u79fb"
+        },
+        "migrate_notify": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Ecobee \u901a\u77e5\u670d\u52a1\u5df2\u8fc1\u79fb\u3002\u6bcf\u4e2a\u6052\u6e29\u5668\u7684\u201d\u901a\u77e5\u201c\u5b9e\u4f53\u73b0\u5df2\u53ef\u7528\u3002 \n\n\u66f4\u65b0\u6240\u6709\u81ea\u52a8\u5316\u529f\u80fd\u4ee5\u4f7f\u7528\u8fd9\u4e9b\u65b0\u5b9e\u4f53\u516c\u5f00\u7684 notify.send_message \u3002\u5b8c\u6210\u540e\uff0c\u4fee\u590d\u6b64\u95ee\u9898\u5e76\u91cd\u65b0\u542f\u52a8 Home Assistant \u3002",
+                        "title": "\u7981\u7528\u65e7\u7248 Ecobee \u901a\u77e5\u670d\u52a1"
+                    }
+                }
+            },
+            "title": "Ecobee \u901a\u77e5\u670d\u52a1\u7684\u8fc1\u79fb"
+        }
+    },
+    "services": {
+        "create_vacation": {
+            "description": "\u5728\u9009\u5b9a\u7684\u6052\u6e29\u5668\u4e0a\u521b\u5efa\u5047\u671f\u3002\u6ce8\u610f\uff1a\u5f00\u59cb/\u7ed3\u675f\u65e5\u671f\u548c\u65f6\u95f4\u5fc5\u987b\u540c\u65f6\u6307\u5b9a\uff0c\u8fd9\u4e9b\u53c2\u6570\u624d\u80fd\u751f\u6548\u3002\u5982\u679c\u672a\u6307\u5b9a\u5f00\u59cb/\u7ed3\u675f\u65e5\u671f\u548c\u65f6\u95f4\uff0c\u5047\u671f\u5c06\u7acb\u5373\u5f00\u59cb\u5e76\u6301\u7eed 14 \u5929\uff08\u9664\u975e\u63d0\u524d\u5220\u9664\uff09\u3002",
+            "fields": {
+                "cool_temp": {
+                    "description": "\u5047\u671f\u5185\u5236\u51b7\u6e29\u5ea6\u3002",
+                    "name": "\u51c9\u723d\u6e29\u5ea6"
+                },
+                "end_date": {
+                    "description": "\u5047\u671f\u7ed3\u675f\u65e5\u671f\uff0c\u683c\u5f0f\u4e3a YYYY-MM-DD\uff08\u53ef\u9009\uff0c\u5982\u679c\u672a\u4e0e end_time \u4e00\u8d77\u63d0\u4f9b\uff0c\u5219\u4e3a\u4ece\u73b0\u5728\u8d77 14 \u5929\uff09\u3002",
+                    "name": "\u7ed3\u675f\u65e5\u671f"
+                },
+                "end_time": {
+                    "description": "\u5047\u671f\u7ed3\u675f\u65f6\u95f4\uff0c\u91c7\u7528\u6052\u6e29\u5668\u7684\u5f53\u5730\u65f6\u95f4\uff0c24 \u5c0f\u65f6\u683c\u5f0f\u201cHH:MM:SS\u201d\u3002",
+                    "name": "\u65f6\u95f4\u7ed3\u675f"
+                },
+                "entity_id": {
+                    "description": "\u8981\u521b\u5efa\u5047\u671f\u7684 Ecobee \u6052\u6e29\u5668\u3002",
+                    "name": "\u5b9e\u4f53"
+                },
+                "fan_min_on_time": {
+                    "description": "\u5047\u671f\u671f\u95f4\u6bcf\u5c0f\u65f6\u8fd0\u884c\u98ce\u6247\u7684\u6700\u5c11\u5206\u949f\u6570\uff080 \u81f3 60\uff09\u3002",
+                    "name": "\u98ce\u6247\u6700\u77ed\u5f00\u542f\u65f6\u95f4"
+                },
+                "fan_mode": {
+                    "description": "\u5047\u671f\u671f\u95f4\u6052\u6e29\u5668\u7684\u98ce\u6247\u6a21\u5f0f\u3002",
+                    "name": "\u98ce\u6247\u6a21\u5f0f"
+                },
+                "heat_temp": {
+                    "description": "\u5ea6\u5047\u671f\u95f4\u4f9b\u6696\u6e29\u5ea6\u3002",
+                    "name": "\u52a0\u70ed\u6e29\u5ea6"
+                },
+                "start_date": {
+                    "description": "\u5047\u671f\u5f00\u59cb\u65e5\u671f\uff0c\u683c\u5f0f\u4e3a YYYY-MM-DD\uff08\u53ef\u9009\uff0c\u5982\u679c\u672a\u4e0e start_time \u4e00\u8d77\u63d0\u4f9b\uff0c\u5219\u7acb\u5373\u5f00\u59cb\uff09\u3002",
+                    "name": "\u5f00\u59cb\u65e5\u671f"
+                },
+                "start_time": {
+                    "description": "\u5047\u671f\u5f00\u59cb\u7684\u65f6\u95f4\uff0c\u91c7\u7528\u6052\u6e29\u5668\u7684\u5f53\u5730\u65f6\u95f4\uff0c\u91c7\u7528 24 \u5c0f\u65f6\u683c\u5f0f\u201cHH:MM:SS\u201d\u3002",
+                    "name": "\u5f00\u59cb\u65f6\u95f4"
+                },
+                "vacation_name": {
+                    "description": "\u8981\u521b\u5efa\u7684\u5047\u671f\u540d\u79f0\uff1b\u5728\u6052\u6e29\u5668\u4e0a\u5fc5\u987b\u662f\u552f\u4e00\u7684\u3002",
+                    "name": "\u5047\u671f\u540d\u79f0"
+                }
+            },
+            "name": "\u521b\u9020\u5047\u671f"
+        },
+        "delete_vacation": {
+            "description": "\u5220\u9664\u6240\u9009\u6052\u6e29\u5668\u4e0a\u7684\u5047\u671f\u3002",
+            "fields": {
+                "entity_id": {
+                    "description": "\u8981\u5220\u9664\u5047\u671f\u7684 Ecobee \u6052\u6e29\u5668\u3002",
+                    "name": "\u5b9e\u4f53"
+                },
+                "vacation_name": {
+                    "description": "\u8981\u5220\u9664\u7684\u5047\u671f\u540d\u79f0\u3002",
+                    "name": "\u5047\u671f\u540d\u79f0"
+                }
+            },
+            "name": "\u5220\u9664\u5047\u671f"
+        },
+        "resume_program": {
+            "description": "\u6062\u590d\u9884\u5b9a\u7684\u8ba1\u5212\u8868\u3002",
+            "fields": {
+                "entity_id": {
+                    "description": "\u8981\u66f4\u6539\u7684\u5b9e\u4f53\u540d\u79f0\u3002",
+                    "name": "\u5b9e\u4f53"
+                },
+                "resume_all": {
+                    "description": "\u6062\u590d\u6240\u6709\u4e8b\u4ef6\u5e76\u8fd4\u56de\u5230\u5df2\u8ba1\u5212\u7a0b\u5e8f\u3002",
+                    "name": "\u6062\u590d\u5168\u90e8"
+                }
+            },
+            "name": "\u6062\u590d\u7a0b\u5e8f"
+        },
+        "set_dst_mode": {
+            "description": "\u542f\u7528/\u7981\u7528\u81ea\u52a8\u590f\u4ee4\u65f6\u3002",
+            "fields": {
+                "dst_enabled": {
+                    "description": "\u542f\u7528\u81ea\u52a8\u590f\u4ee4\u65f6\u3002",
+                    "name": "\u542f\u7528\u590f\u4ee4\u65f6"
+                }
+            },
+            "name": "\u8bbe\u7f6e\u590f\u4ee4\u65f6\u6a21\u5f0f"
+        },
+        "set_fan_min_on_time": {
+            "description": "\u6309\u65f6\u8bbe\u7f6e\u6700\u5c0f\u98ce\u6247\u3002",
+            "fields": {
+                "entity_id": {
+                    "description": "\u8981\u66f4\u6539\u7684\u5b9e\u4f53\u540d\u79f0\u3002",
+                    "name": "\u5b9e\u4f53"
+                },
+                "fan_min_on_time": {
+                    "description": "\u98ce\u6247\u5206\u949f\u51c6\u65f6\u503c\u7684\u65b0\u503c\u3002",
+                    "name": "\u98ce\u6247\u6700\u77ed\u5f00\u542f\u65f6\u95f4"
+                }
+            },
+            "name": "\u8bbe\u7f6e\u98ce\u6247\u6700\u77ed\u65f6\u95f4"
+        },
+        "set_mic_mode": {
+            "description": "\u542f\u7528/\u7981\u7528 Alexa \u9ea6\u514b\u98ce\uff08\u4ec5\u9002\u7528\u4e8e Ecobee 4\uff09\u3002",
+            "fields": {
+                "mic_enabled": {
+                    "description": "\u542f\u7528 Alexa \u9ea6\u514b\u98ce\u3002",
+                    "name": "\u9ea6\u514b\u98ce\u5df2\u542f\u7528"
+                }
+            },
+            "name": "\u8bbe\u7f6e\u9ea6\u514b\u98ce\u6a21\u5f0f"
+        },
+        "set_occupancy_modes": {
+            "description": "\u542f\u7528/\u7981\u7528\u667a\u80fd\u5bb6\u5c45/\u79bb\u5f00\u548c\u8ddf\u968f\u6211\u6a21\u5f0f\u3002",
+            "fields": {
+                "auto_away": {
+                    "description": "\u542f\u7528\u667a\u80fd\u5bb6\u5c45/\u79bb\u5f00\u6a21\u5f0f\u3002",
+                    "name": "\u81ea\u52a8\u79bb\u5f00"
+                },
+                "follow_me": {
+                    "description": "\u542f\u7528\u201c\u8ddf\u968f\u6211\u201d\u6a21\u5f0f\u3002",
+                    "name": "\u8ddf\u6211\u6765"
+                }
+            },
+            "name": "\u8bbe\u7f6e\u4eba\u5728\u6a21\u5f0f"
+        }
+    }
+}

@@ -1,0 +1,433 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Cihaz zaten yap\u0131land\u0131r\u0131lm\u0131\u015f",
+            "no_ups_found": "NUT sunucusunda kullan\u0131labilir UPS cihaz\u0131 yok.",
+            "reauth_successful": "Yeniden kimlik do\u011frulama ba\u015far\u0131l\u0131 oldu"
+        },
+        "error": {
+            "cannot_connect": "Ba\u011flant\u0131 hatas\u0131: {error}",
+            "invalid_auth": "Ge\u00e7ersiz kimlik do\u011frulama",
+            "unknown": "Beklenmeyen hata"
+        },
+        "step": {
+            "reauth_confirm": {
+                "data": {
+                    "password": "\u015eifre",
+                    "username": "Kullan\u0131c\u0131 Ad\u0131"
+                },
+                "description": "{host} : {port} adresindeki NUT sunucusunun kimli\u011fini yeniden do\u011frulay\u0131n"
+            },
+            "ups": {
+                "data": {
+                    "alias": "Takma ad"
+                },
+                "title": "\u0130zlenecek UPS'i Se\u00e7in"
+            },
+            "user": {
+                "data": {
+                    "host": "Sunucu",
+                    "password": "\u015eifre",
+                    "port": "Port",
+                    "username": "Kullan\u0131c\u0131 Ad\u0131"
+                },
+                "data_description": {
+                    "host": "NUT sunucunuzun ana bilgisayar ad\u0131 veya IP adresi."
+                },
+                "description": "NUT sunucusuna ba\u011flan\u0131n",
+                "title": "NUT sunucusuna ba\u011flan\u0131n"
+            }
+        }
+    },
+    "device_automation": {
+        "action_type": {
+            "beeper_disable": "UPS bipleyicisini/zilini devre d\u0131\u015f\u0131 b\u0131rak\u0131n",
+            "beeper_enable": "UPS bipleyicisini/zilini etkinle\u015ftirin",
+            "beeper_mute": "UPS bipleyicisini/zilini ge\u00e7ici olarak sessize al\u0131n",
+            "beeper_toggle": "UPS bipleyicisini/zilini de\u011fi\u015ftir",
+            "bypass_start": "UPS'i baypas moduna ge\u00e7irin",
+            "bypass_stop": "UPS'i bypass modundan \u00e7\u0131kar\u0131n",
+            "calibrate_start": "\u00c7al\u0131\u015fma zaman\u0131 kalibrasyonunu ba\u015flat",
+            "calibrate_stop": "\u00c7al\u0131\u015fma zaman\u0131 kalibrasyonunu durdur",
+            "load_off": "Y\u00fck\u00fc hemen kapat\u0131n",
+            "load_on": "Y\u00fck\u00fc hemen a\u00e7\u0131n",
+            "reset_input_minmax": "Minimum ve maksimum giri\u015f voltaj\u0131 durumunu s\u0131f\u0131rlay\u0131n",
+            "reset_watchdog": "Watchdog zamanlay\u0131c\u0131s\u0131n\u0131 s\u0131f\u0131rla (y\u00fck\u00fcn zorla yeniden ba\u015flat\u0131lmas\u0131)",
+            "shutdown_reboot": "UPS'i yeniden ba\u015flat\u0131rken y\u00fck\u00fc k\u0131sa s\u00fcreli\u011fine kapat\u0131n",
+            "shutdown_reboot_graceful": "Bir gecikmeden sonra, UPS'i yeniden ba\u015flat\u0131rken y\u00fck\u00fc k\u0131sa s\u00fcreli\u011fine kapat\u0131n",
+            "shutdown_return": "Muhtemelen bir gecikmeden sonra y\u00fck\u00fc kapat\u0131n ve g\u00fc\u00e7 geri geldi\u011finde geri d\u00f6n\u00fcn",
+            "shutdown_stayoff": "Muhtemelen bir gecikmeden sonra y\u00fck\u00fc kapat\u0131n ve g\u00fc\u00e7 geri gelse bile kapal\u0131 kal\u0131n",
+            "shutdown_stop": "S\u00fcrmekte olan bir kapatmay\u0131 durdurun",
+            "test_battery_start": "Pil testi ba\u015flat\u0131n",
+            "test_battery_start_deep": "Derin bir pil testi ba\u015flat\u0131n",
+            "test_battery_start_quick": "H\u0131zl\u0131 bir pil testi ba\u015flat\u0131n",
+            "test_battery_stop": "Pil testini durdurun",
+            "test_failure_start": "Sim\u00fcle edilmi\u015f bir elektrik kesintisi ba\u015flat\u0131n",
+            "test_failure_stop": "Elektrik kesintisi sim\u00fclasyonunu durdurun",
+            "test_panel_start": "UPS panelini test etmeye ba\u015flay\u0131n",
+            "test_panel_stop": "UPS paneli testini durdurun",
+            "test_system_start": "Bir sistem testi ba\u015flat\u0131n"
+        }
+    },
+    "entity": {
+        "sensor": {
+            "ambient_humidity": {
+                "name": "Ortam nemi"
+            },
+            "ambient_temperature": {
+                "name": "Ortam s\u0131cakl\u0131\u011f\u0131"
+            },
+            "battery_alarm_threshold": {
+                "name": "Batarya alarm e\u015fi\u011fi"
+            },
+            "battery_capacity": {
+                "name": "Pil kapasitesi"
+            },
+            "battery_charge": {
+                "name": "Pil \u015farj\u0131"
+            },
+            "battery_charge_low": {
+                "name": "D\u00fc\u015f\u00fck pil ayar noktas\u0131"
+            },
+            "battery_charge_restart": {
+                "name": "\u00c7al\u0131\u015ft\u0131rmak i\u00e7in minimum ak\u00fc"
+            },
+            "battery_charge_warning": {
+                "name": "Uyar\u0131 pil ayar noktas\u0131"
+            },
+            "battery_charger_status": {
+                "name": "\u015earj durumu"
+            },
+            "battery_current": {
+                "name": "Ak\u00fc ak\u0131m\u0131"
+            },
+            "battery_current_total": {
+                "name": "Toplam ak\u00fc ak\u0131m\u0131"
+            },
+            "battery_date": {
+                "name": "Pil tarihi"
+            },
+            "battery_mfr_date": {
+                "name": "Ak\u00fc \u00fcretim tarihi"
+            },
+            "battery_packs": {
+                "name": "Pil say\u0131s\u0131"
+            },
+            "battery_packs_bad": {
+                "name": "Bozuk ak\u00fc say\u0131s\u0131"
+            },
+            "battery_runtime": {
+                "name": "Pil \u00e7al\u0131\u015fma s\u00fcresi"
+            },
+            "battery_runtime_low": {
+                "name": "D\u00fc\u015f\u00fck pil \u00e7al\u0131\u015fma s\u00fcresi"
+            },
+            "battery_runtime_restart": {
+                "name": "Ba\u015flamak i\u00e7in minimum ak\u00fc \u00e7al\u0131\u015fma s\u00fcresi"
+            },
+            "battery_temperature": {
+                "name": "Ak\u00fc s\u0131cakl\u0131\u011f\u0131"
+            },
+            "battery_type": {
+                "name": "Ak\u00fc kimyas\u0131"
+            },
+            "battery_voltage": {
+                "name": "Ak\u00fc voltaj\u0131"
+            },
+            "battery_voltage_high": {
+                "name": "Y\u00fcksek ak\u00fc voltaj\u0131"
+            },
+            "battery_voltage_low": {
+                "name": "D\u00fc\u015f\u00fck ak\u00fc voltaj\u0131"
+            },
+            "battery_voltage_nominal": {
+                "name": "Nominal ak\u00fc voltaj\u0131"
+            },
+            "input_bypass_current": {
+                "name": "Giri\u015f bypass ak\u0131m\u0131"
+            },
+            "input_bypass_frequency": {
+                "name": "Giri\u015f baypas frekans\u0131"
+            },
+            "input_bypass_l1_current": {
+                "name": "Giri\u015f bypass L1 ak\u0131m\u0131"
+            },
+            "input_bypass_l1_n_voltage": {
+                "name": "Giri\u015f bypass L1-N voltaj\u0131"
+            },
+            "input_bypass_l1_realpower": {
+                "name": "Ak\u0131m giri\u015fi bypass L1 ger\u00e7ek g\u00fcc\u00fc"
+            },
+            "input_bypass_l2_current": {
+                "name": "Giri\u015f bypass L2 ak\u0131m\u0131"
+            },
+            "input_bypass_l2_n_voltage": {
+                "name": "Giri\u015f bypass L2-N voltaj\u0131"
+            },
+            "input_bypass_l2_realpower": {
+                "name": "Ak\u0131m giri\u015fi bypass L2 ger\u00e7ek g\u00fcc\u00fc"
+            },
+            "input_bypass_l3_current": {
+                "name": "Giri\u015f bypass L3 ak\u0131m\u0131"
+            },
+            "input_bypass_l3_n_voltage": {
+                "name": "Giri\u015f bypass L3-N voltaj\u0131"
+            },
+            "input_bypass_l3_realpower": {
+                "name": "Ak\u0131m giri\u015fi bypass L3 ger\u00e7ek g\u00fcc\u00fc"
+            },
+            "input_bypass_phases": {
+                "name": "Giri\u015f baypas fazlar\u0131"
+            },
+            "input_bypass_realpower": {
+                "name": "Ak\u0131m giri\u015fi bypass ger\u00e7ek g\u00fcc\u00fc"
+            },
+            "input_bypass_voltage": {
+                "name": "Giri\u015f bypass voltaj\u0131"
+            },
+            "input_current": {
+                "name": "Giri\u015f ak\u0131m\u0131"
+            },
+            "input_frequency": {
+                "name": "Giri\u015f frekans\u0131"
+            },
+            "input_frequency_nominal": {
+                "name": "Giri\u015f nominal frekans\u0131"
+            },
+            "input_frequency_status": {
+                "name": "Giri\u015f frekans\u0131 durumu"
+            },
+            "input_l1_current": {
+                "name": "Giri\u015f L1 ak\u0131m\u0131"
+            },
+            "input_l1_frequency": {
+                "name": "Giri\u015f L1 hat frekans\u0131"
+            },
+            "input_l1_n_voltage": {
+                "name": "Giri\u015f L1 voltaj\u0131"
+            },
+            "input_l1_realpower": {
+                "name": "Ak\u0131m giri\u015fi L1 ger\u00e7ek g\u00fcc\u00fc"
+            },
+            "input_l2_current": {
+                "name": "Giri\u015f L2 ak\u0131m\u0131"
+            },
+            "input_l2_frequency": {
+                "name": "Giri\u015f L2 hat frekans\u0131"
+            },
+            "input_l2_n_voltage": {
+                "name": "Giri\u015f L2 voltaj\u0131"
+            },
+            "input_l2_realpower": {
+                "name": "Ak\u0131m giri\u015fi L2 ger\u00e7ek g\u00fcc\u00fc"
+            },
+            "input_l3_current": {
+                "name": "Giri\u015f L3 ak\u0131m\u0131"
+            },
+            "input_l3_frequency": {
+                "name": "Giri\u015f L3 hat frekans\u0131"
+            },
+            "input_l3_n_voltage": {
+                "name": "Giri\u015f L3 voltaj\u0131"
+            },
+            "input_l3_realpower": {
+                "name": "Ak\u0131m giri\u015fi L3 ger\u00e7ek g\u00fcc\u00fc"
+            },
+            "input_phases": {
+                "name": "Giri\u015f fazlar\u0131"
+            },
+            "input_realpower": {
+                "name": "Ak\u0131m giri\u015fi ger\u00e7ek g\u00fcc\u00fc"
+            },
+            "input_sensitivity": {
+                "name": "Giri\u015f g\u00fcc\u00fc hassasiyeti"
+            },
+            "input_transfer_high": {
+                "name": "Y\u00fcksek gerilim transferi"
+            },
+            "input_transfer_low": {
+                "name": "Al\u00e7ak gerilim transferi"
+            },
+            "input_transfer_reason": {
+                "name": "Gerilim transfer nedeni"
+            },
+            "input_voltage": {
+                "name": "Giri\u015f voltaj\u0131"
+            },
+            "input_voltage_nominal": {
+                "name": "Nominal giri\u015f voltaj\u0131"
+            },
+            "output_current": {
+                "name": "\u00c7\u0131k\u0131\u015f ak\u0131m\u0131"
+            },
+            "output_current_nominal": {
+                "name": "Nominal \u00e7\u0131k\u0131\u015f ak\u0131m\u0131"
+            },
+            "output_frequency": {
+                "name": "\u00c7\u0131k\u0131\u015f frekans\u0131"
+            },
+            "output_frequency_nominal": {
+                "name": "Nominal \u00e7\u0131k\u0131\u015f frekans\u0131"
+            },
+            "output_l1_current": {
+                "name": "\u00c7\u0131k\u0131\u015f L1 ak\u0131m\u0131"
+            },
+            "output_l1_n_voltage": {
+                "name": "\u00c7\u0131k\u0131\u015f L1-N voltaj\u0131"
+            },
+            "output_l1_power_percent": {
+                "name": "\u00c7\u0131k\u0131\u015f L1 g\u00fc\u00e7 kullan\u0131m\u0131"
+            },
+            "output_l1_realpower": {
+                "name": "Ak\u0131m \u00e7\u0131k\u0131\u015f\u0131 L1 ger\u00e7ek g\u00fcc\u00fc"
+            },
+            "output_l2_current": {
+                "name": "\u00c7\u0131k\u0131\u015f L2 ak\u0131m\u0131"
+            },
+            "output_l2_n_voltage": {
+                "name": "\u00c7\u0131k\u0131\u015f L2-N voltaj\u0131"
+            },
+            "output_l2_power_percent": {
+                "name": "\u00c7\u0131k\u0131\u015f L2 g\u00fc\u00e7 kullan\u0131m\u0131"
+            },
+            "output_l2_realpower": {
+                "name": "Ak\u0131m \u00e7\u0131k\u0131\u015f\u0131 L2 ger\u00e7ek g\u00fcc\u00fc"
+            },
+            "output_l3_current": {
+                "name": "\u00c7\u0131k\u0131\u015f L3 ak\u0131m\u0131"
+            },
+            "output_l3_n_voltage": {
+                "name": "\u00c7\u0131k\u0131\u015f L3-N voltaj\u0131"
+            },
+            "output_l3_power_percent": {
+                "name": "\u00c7\u0131k\u0131\u015f L3 g\u00fc\u00e7 kullan\u0131m\u0131"
+            },
+            "output_l3_realpower": {
+                "name": "Ak\u0131m \u00e7\u0131k\u0131\u015f\u0131 L3 ger\u00e7ek g\u00fcc\u00fc"
+            },
+            "output_phases": {
+                "name": "\u00c7\u0131k\u0131\u015f fazlar\u0131"
+            },
+            "output_power": {
+                "name": "\u00c7\u0131k\u0131\u015f g\u00f6r\u00fcn\u00fcr g\u00fcc\u00fc"
+            },
+            "output_power_nominal": {
+                "name": "Nominal \u00e7\u0131k\u0131\u015f g\u00fcc\u00fc"
+            },
+            "output_realpower": {
+                "name": "Mevcut \u00e7\u0131k\u0131\u015f ger\u00e7ek g\u00fcc\u00fc"
+            },
+            "output_realpower_nominal": {
+                "name": "Nominal \u00e7\u0131k\u0131\u015f ger\u00e7ek g\u00fcc\u00fc"
+            },
+            "output_voltage": {
+                "name": "\u00c7\u0131k\u0131\u015f voltaj\u0131"
+            },
+            "output_voltage_nominal": {
+                "name": "Nominal \u00e7\u0131k\u0131\u015f voltaj\u0131"
+            },
+            "ups_alarm": {
+                "name": "Alarmlar"
+            },
+            "ups_beeper_status": {
+                "name": "Bip sesi durumu"
+            },
+            "ups_contacts": {
+                "name": "Harici ki\u015filer"
+            },
+            "ups_delay_reboot": {
+                "name": "UPS yeniden ba\u015flatma gecikmesi"
+            },
+            "ups_delay_shutdown": {
+                "name": "UPS kapatma gecikmesi"
+            },
+            "ups_delay_start": {
+                "name": "Y\u00fck yeniden ba\u015flatma gecikmesi"
+            },
+            "ups_display_language": {
+                "name": "Dil"
+            },
+            "ups_efficiency": {
+                "name": "Verimlilik"
+            },
+            "ups_id": {
+                "name": "Sistem tan\u0131mlay\u0131c\u0131s\u0131"
+            },
+            "ups_load": {
+                "name": "Y\u00fck"
+            },
+            "ups_load_high": {
+                "name": "A\u015f\u0131r\u0131 y\u00fck ayar\u0131"
+            },
+            "ups_power": {
+                "name": "Mevcut g\u00f6r\u00fcnen g\u00fc\u00e7"
+            },
+            "ups_power_nominal": {
+                "name": "Nominal g\u00fc\u00e7"
+            },
+            "ups_realpower": {
+                "name": "Mevcut ger\u00e7ek g\u00fc\u00e7"
+            },
+            "ups_realpower_nominal": {
+                "name": "Nominal ger\u00e7ek g\u00fc\u00e7"
+            },
+            "ups_shutdown": {
+                "name": "Kapatma \u00f6zelli\u011fi"
+            },
+            "ups_start_auto": {
+                "name": "AC'de ba\u015fla"
+            },
+            "ups_start_battery": {
+                "name": "Pille ba\u015fla"
+            },
+            "ups_start_reboot": {
+                "name": "Pille yeniden ba\u015flat"
+            },
+            "ups_status": {
+                "name": "Durum verileri"
+            },
+            "ups_status_display": {
+                "name": "Durum"
+            },
+            "ups_temperature": {
+                "name": "UPS s\u0131cakl\u0131\u011f\u0131"
+            },
+            "ups_test_date": {
+                "name": "Otomatik test tarihi"
+            },
+            "ups_test_interval": {
+                "name": "Otomatik test aral\u0131\u011f\u0131"
+            },
+            "ups_test_result": {
+                "name": "Otomatik test sonucu"
+            },
+            "ups_timer_reboot": {
+                "name": "Yeniden ba\u015flatma zamanlay\u0131c\u0131s\u0131n\u0131 y\u00fckle"
+            },
+            "ups_timer_shutdown": {
+                "name": "Kapatma zamanlay\u0131c\u0131s\u0131n\u0131 y\u00fckle"
+            },
+            "ups_timer_start": {
+                "name": "Ba\u015flatma zamanlay\u0131c\u0131s\u0131n\u0131 y\u00fckle"
+            },
+            "ups_type": {
+                "name": "UPS tipi"
+            },
+            "ups_watchdog_status": {
+                "name": "Watchdog durumu"
+            },
+            "watts": {
+                "name": "Watt"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "scan_interval": "Tarama Aral\u0131\u011f\u0131 (saniye)"
+                }
+            }
+        }
+    }
+}

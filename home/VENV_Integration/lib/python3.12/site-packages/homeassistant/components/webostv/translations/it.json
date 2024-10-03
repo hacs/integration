@@ -1,0 +1,95 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Il dispositivo \u00e8 gi\u00e0 configurato",
+            "already_in_progress": "Il flusso di configurazione \u00e8 gi\u00e0 in corso",
+            "error_pairing": "Collegato a TV webOS LG, ma non accoppiato",
+            "reauth_successful": "La riautenticazione ha avuto successo",
+            "reauth_unsuccessful": "La riautenticazione non \u00e8 andata a buon fine, accendi la TV e riprova."
+        },
+        "flow_title": "Smart TV webOS LG",
+        "step": {
+            "pairing": {
+                "title": "Associazione webOS TV"
+            },
+            "reauth_confirm": {
+                "description": "Fai clic su Invia e accetta la richiesta di associazione sulla TV. \n\n ![Immagine](/static/images/config_webos.png)",
+                "title": "Associazione webOS TV"
+            },
+            "user": {
+                "data": {
+                    "host": "Host",
+                    "name": "Nome"
+                },
+                "title": "Collegati a TV webOS"
+            }
+        }
+    },
+    "device_automation": {
+        "trigger_type": {
+            "webostv.turn_on": "Richiesta l'accensione del dispositivo"
+        }
+    },
+    "options": {
+        "error": {
+            "cannot_retrieve": "Impossibile recuperare l'elenco delle sorgenti. Assicurati che il dispositivo sia acceso"
+        },
+        "step": {
+            "init": {
+                "data": {
+                    "sources": "Elenco delle sorgenti"
+                },
+                "description": "Seleziona le sorgenti abilitate",
+                "title": "Opzioni per Smart TV webOS"
+            }
+        }
+    },
+    "services": {
+        "button": {
+            "description": "Invia un comando di pressione del pulsante.",
+            "fields": {
+                "button": {
+                    "description": "Nome del pulsante da premere. I valori possibili noti sono LEFT, RIGHT, DOWN, UP, HOME, MENU, BACK, ENTER, DASH, INFO, ASTERISK, CC, EXIT, MUTE, RED, GREEN, BLUE, YELLOW, VOLUMEUP, VOLUMEDOWN, CHANNELUP, CHANNELDOWN, PLAY, PAUSE, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9.",
+                    "name": "Pulsante"
+                },
+                "entity_id": {
+                    "description": "Nome/i delle entit\u00e0 webostv dove eseguire il metodo API.",
+                    "name": "Entit\u00e0"
+                }
+            },
+            "name": "Pulsante"
+        },
+        "command": {
+            "description": "Invia un comando.",
+            "fields": {
+                "command": {
+                    "description": "Punto finale del comando.",
+                    "name": "Comando"
+                },
+                "entity_id": {
+                    "description": "Nome/i delle entit\u00e0 webostv dove eseguire il metodo API.",
+                    "name": "Entit\u00e0"
+                },
+                "payload": {
+                    "description": "Un payload facoltativo da fornire all'endpoint nel formato di coppie chiave-valore.",
+                    "name": "Payload"
+                }
+            },
+            "name": "Comando"
+        },
+        "select_sound_output": {
+            "description": "Invia al televisore il comando per cambiare l'uscita audio.",
+            "fields": {
+                "entity_id": {
+                    "description": "Nome(i) delle entit\u00e0 webostv su cui modificare l'uscita audio.",
+                    "name": "Entit\u00e0"
+                },
+                "sound_output": {
+                    "description": "Nome dell'uscita audio a cui passare.",
+                    "name": "Uscita audio"
+                }
+            },
+            "name": "Seleziona l'uscita audio"
+        }
+    }
+}

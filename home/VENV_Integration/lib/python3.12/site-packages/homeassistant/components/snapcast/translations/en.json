@@ -1,0 +1,68 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Device is already configured"
+        },
+        "error": {
+            "cannot_connect": "Failed to connect",
+            "invalid_host": "Invalid hostname or IP address"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "host": "Host",
+                    "port": "Port"
+                },
+                "data_description": {
+                    "host": "The hostname or IP address of your Snapcast server."
+                },
+                "description": "Please enter your server connection details",
+                "title": "Connect"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_yaml": {
+            "description": "Configuring Snapcast using YAML is being removed.\n\nYour existing YAML configuration has been imported into the UI automatically.\n\nRemove the Snapcast YAML configuration from your configuration.yaml file and restart Home Assistant to fix this issue.",
+            "title": "The Snapcast YAML configuration is being removed"
+        }
+    },
+    "services": {
+        "join": {
+            "description": "Groups players together.",
+            "fields": {
+                "entity_id": {
+                    "description": "The players to join to the \"master\".",
+                    "name": "Entity"
+                },
+                "master": {
+                    "description": "Entity ID of the player to synchronize to.",
+                    "name": "Master"
+                }
+            },
+            "name": "Join"
+        },
+        "restore": {
+            "description": "Restores a snapshot of the media player.",
+            "name": "Restore"
+        },
+        "set_latency": {
+            "description": "Sets client set_latency.",
+            "fields": {
+                "latency": {
+                    "description": "Latency in master.",
+                    "name": "Latency"
+                }
+            },
+            "name": "Set latency"
+        },
+        "snapshot": {
+            "description": "Takes a snapshot of the media player.",
+            "name": "Snapshot"
+        },
+        "unjoin": {
+            "description": "Unjoins the player from a group.",
+            "name": "Unjoin"
+        }
+    }
+}

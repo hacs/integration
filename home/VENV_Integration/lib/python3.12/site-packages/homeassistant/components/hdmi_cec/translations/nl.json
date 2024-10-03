@@ -1,0 +1,70 @@
+{
+    "services": {
+        "power_on": {
+            "description": "Inschakelen van alle apparaten die dit ondersteunen.",
+            "name": "Inschakelen"
+        },
+        "select_device": {
+            "description": "Selecteer een HDMI-apparaat.",
+            "fields": {
+                "device": {
+                    "description": "Adres van het apparaat om te kiezen. Kan en entity_id, fysiek adres of alias van een configuratie zijn,",
+                    "name": "Apparaat"
+                }
+            },
+            "name": "Kies apparaat"
+        },
+        "send_command": {
+            "description": "Stuurt CEC commando naar een HDMI CEC geschikte adapter",
+            "fields": {
+                "att": {
+                    "description": "Optionele parameters.",
+                    "name": "Att"
+                },
+                "cmd": {
+                    "description": "Het commando zelf. Kan een decimaal nummer zijn of een tekenreeks met hexadeximale notatie: : 0x10\".",
+                    "name": "Commando"
+                },
+                "dst": {
+                    "description": "Bestemming voor het commando. Kan een decimaal nummer zijn of een tekenreeks met hexadeximale notatie: \"0x10\".",
+                    "name": "Bestemming"
+                },
+                "raw": {
+                    "description": "Ruw CEC commando in het formaat \"00:00:00:00\" waarbij de eerste twee cijfers de bron en bestemming, het tweede byte het commando en de overige bytes voor de commandoparameters zijn. Als het ruwe commando is gespecificeerd, worden andere parameters genegeerd.",
+                    "name": "Ruwe waarde"
+                },
+                "src": {
+                    "description": "Bron van commando. Kan een decimaal nummer of een tekst zijn met de hexadeximale notation: \"0x10\".",
+                    "name": "Bron"
+                }
+            },
+            "name": "Stuur commando"
+        },
+        "standby": {
+            "description": "Zet alle apparaten in stand-by, als dit wordt ondersteund.",
+            "name": "Stand-by"
+        },
+        "update": {
+            "description": "Werkt de apparaatstatus bij van het netwerk.",
+            "name": "Bijwerken"
+        },
+        "volume": {
+            "description": "Verhoogt of verlaagt het volume van een systeem.",
+            "fields": {
+                "down": {
+                    "description": "Verlaagt volume x niveaus.",
+                    "name": "Omlaag"
+                },
+                "mute": {
+                    "description": "Dempt audiosysteem.",
+                    "name": "Dempen"
+                },
+                "up": {
+                    "description": "Verhoogt volume x niveaus",
+                    "name": "Omhoog"
+                }
+            },
+            "name": "Volume"
+        }
+    }
+}

@@ -1,0 +1,173 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "L'appareil est d\u00e9j\u00e0 configur\u00e9",
+            "cannot_connect": "\u00c9chec de connexion",
+            "cct_unsupported": "Cet appareil WLED utilise des canaux CCT, qui ne sont pas pris en charge par cette int\u00e9gration"
+        },
+        "error": {
+            "cannot_connect": "\u00c9chec de connexion"
+        },
+        "flow_title": "{name}",
+        "step": {
+            "user": {
+                "data": {
+                    "host": "H\u00f4te"
+                },
+                "data_description": {
+                    "host": "Nom d'h\u00f4te ou adresse IP de votre appareil WLED."
+                },
+                "description": "Configurez votre WLED pour l'int\u00e9grer \u00e0 Home Assistant."
+            },
+            "zeroconf_confirm": {
+                "description": "Voulez-vous ajouter le dispositif WLED nomm\u00e9 `{name}` \u00e0 Home Assistant\u00a0?",
+                "title": "Appareil WLED d\u00e9couvert"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "firmware": {
+                "name": "Micrologiciel"
+            }
+        },
+        "light": {
+            "main": {
+                "name": "Principal"
+            },
+            "segment": {
+                "name": "Segment {segment}"
+            }
+        },
+        "number": {
+            "intensity": {
+                "name": "Intensit\u00e9"
+            },
+            "segment_intensity": {
+                "name": "Intensit\u00e9 du segment {segment}"
+            },
+            "segment_speed": {
+                "name": "Vitesse du segment {segment}"
+            },
+            "speed": {
+                "name": "Vitesse"
+            }
+        },
+        "select": {
+            "color_palette": {
+                "name": "Palette de couleurs"
+            },
+            "live_override": {
+                "name": "Remplacement en direct",
+                "state": {
+                    "2": "Jusqu'au red\u00e9marrage de l'appareil"
+                }
+            },
+            "playlist": {
+                "name": "Liste de lecture"
+            },
+            "preset": {
+                "name": "Pr\u00e9r\u00e9glage"
+            },
+            "segment_color_palette": {
+                "name": "Palette de couleurs du segment {segment}"
+            }
+        },
+        "sensor": {
+            "estimated_current": {
+                "name": "Courant estim\u00e9"
+            },
+            "free_heap": {
+                "name": "M\u00e9moire libre"
+            },
+            "info_leds_count": {
+                "name": "Nombre de LED"
+            },
+            "info_leds_max_power": {
+                "name": "Courant maximal"
+            },
+            "ip": {
+                "name": "IP"
+            },
+            "uptime": {
+                "name": "Temps de fonctionnement"
+            },
+            "wifi_bssid": {
+                "name": "BSSID Wi-Fi"
+            },
+            "wifi_channel": {
+                "name": "Canal Wi-Fi"
+            },
+            "wifi_rssi": {
+                "name": "RSSI Wi-Fi"
+            },
+            "wifi_signal": {
+                "name": "Signal Wi-Fi"
+            }
+        },
+        "switch": {
+            "nightlight": {
+                "name": "Veilleuse"
+            },
+            "reverse": {
+                "name": "Inverser"
+            },
+            "segment_reverse": {
+                "name": "Segment {segment} invers\u00e9"
+            },
+            "sync_receive": {
+                "name": "Synchroniser la r\u00e9ception"
+            },
+            "sync_send": {
+                "name": "Synchroniser l'envoi"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "keep_master_light": "Conserve la lumi\u00e8re principale, m\u00eame avec 1 segment LED."
+                }
+            }
+        }
+    },
+    "services": {
+        "effect": {
+            "description": "Contr\u00f4le les param\u00e8tres d\u2019effet de WLED.",
+            "fields": {
+                "effect": {
+                    "description": "Nom ou ID de l'effet lumineux WLED.",
+                    "name": "Effet"
+                },
+                "intensity": {
+                    "description": "Intensit\u00e9 de l'effet. Nombre compris entre 0 et 255.",
+                    "name": "Intensit\u00e9 de l'effet"
+                },
+                "palette": {
+                    "description": "Nom ou ID de la palette de lumi\u00e8re WLED.",
+                    "name": "Palette de couleurs"
+                },
+                "reverse": {
+                    "description": "Inverser l\u2019effet. Soit vrai pour inverser, soit faux sinon.",
+                    "name": "Inverser l'effet"
+                },
+                "speed": {
+                    "description": "Vitesse de l'effet.",
+                    "name": "Vitesse de l'effet"
+                }
+            },
+            "name": "D\u00e9finir un effet"
+        },
+        "preset": {
+            "description": "D\u00e9finit un pr\u00e9r\u00e9glage pour l\u2019appareil WLED.",
+            "fields": {
+                "preset": {
+                    "description": "ID du pr\u00e9r\u00e9glage WLED.",
+                    "name": "ID du pr\u00e9r\u00e9glage"
+                }
+            },
+            "name": "D\u00e9finir un pr\u00e9r\u00e9glage (obsol\u00e8te)"
+        }
+    }
+}

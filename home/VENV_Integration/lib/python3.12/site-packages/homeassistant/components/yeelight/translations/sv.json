@@ -1,0 +1,189 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Enheten \u00e4r redan konfigurerad",
+            "no_devices_found": "Inga enheter hittades i n\u00e4tverket"
+        },
+        "error": {
+            "cannot_connect": "Det gick inte att ansluta."
+        },
+        "flow_title": "{model} {id} ({host})",
+        "step": {
+            "discovery_confirm": {
+                "description": "Vill du st\u00e4lla in {model} ( {host} )?"
+            },
+            "pick_device": {
+                "data": {
+                    "device": "Enhet"
+                }
+            },
+            "user": {
+                "data": {
+                    "host": "V\u00e4rd"
+                },
+                "description": "Om du l\u00e4mnar v\u00e4rden tomt anv\u00e4nds discovery f\u00f6r att hitta enheter."
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "nightlight": {
+                "name": "Nattbelysning"
+            }
+        },
+        "light": {
+            "ambilight": {
+                "name": "Ambilight"
+            },
+            "nightlight": {
+                "name": "Nattbelysning"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "model": "Modell",
+                    "nightlight_switch": "Anv\u00e4nd nattljusbrytare",
+                    "save_on_change": "Spara status vid \u00e4ndring",
+                    "transition": "\u00d6verg\u00e5ngstid (ms)",
+                    "use_music_mode": "Aktivera musikl\u00e4ge"
+                }
+            }
+        }
+    },
+    "selector": {
+        "action": {
+            "options": {
+                "off": "Av",
+                "recover": "\u00c5terst\u00e4ll",
+                "stay": "Stanna"
+            }
+        },
+        "mode": {
+            "options": {
+                "color_flow": "F\u00e4rgfl\u00f6de",
+                "hsv": "HSV",
+                "last": "Senaste",
+                "moonlight": "M\u00e5nsken",
+                "normal": "Normal",
+                "rgb": "RGB"
+            }
+        }
+    },
+    "services": {
+        "set_auto_delay_off_scene": {
+            "description": "T\u00e4nder ljuset med angiven ljusstyrka och st\u00e4ller in en timer s\u00e5 att det sl\u00e4cks igen efter det angivna antalet minuter. Om ljuset \u00e4r sl\u00e4ckt, st\u00e4ll in en f\u00e4rgscen, om ljuset \u00e4r sl\u00e4ckt kommer det att t\u00e4ndas.",
+            "fields": {
+                "brightness": {
+                    "description": "Den ljusstyrkan som ska st\u00e4llas in.",
+                    "name": "Ljusstyrka"
+                },
+                "minutes": {
+                    "description": "Tiden att v\u00e4nta innan lampan automatiskt sl\u00e4cks.",
+                    "name": "Minuter"
+                }
+            },
+            "name": "St\u00e4ll in automatisk f\u00f6rdr\u00f6jning av scen"
+        },
+        "set_color_flow_scene": {
+            "description": "Startar ett f\u00e4rgfl\u00f6de. Om lampan \u00e4r sl\u00e4ckt kommer den att t\u00e4ndas.",
+            "fields": {
+                "action": {
+                    "description": "\u00c5tg\u00e4rden att vidta efter att fl\u00f6det upph\u00f6r.",
+                    "name": "Handling"
+                },
+                "count": {
+                    "description": "Antal g\u00e5nger som fl\u00f6det ska k\u00f6ras (0 f\u00f6r att k\u00f6ras f\u00f6r evigt).",
+                    "name": "R\u00e4kna"
+                },
+                "transitions": {
+                    "description": "Upps\u00e4ttning av \u00f6verg\u00e5ngar, f\u00f6r \u00f6nskad effekt. Exempel https://yeelight.readthedocs.io/en/stable/flow.html.",
+                    "name": "\u00d6verg\u00e5ngar"
+                }
+            },
+            "name": "St\u00e4ll in f\u00e4rgfl\u00f6desscen"
+        },
+        "set_color_scene": {
+            "description": "\u00c4ndrar ljuset till angiven RGB-f\u00e4rg och ljusstyrka. Om lampan \u00e4r sl\u00e4ckt kommer den att t\u00e4ndas.",
+            "fields": {
+                "brightness": {
+                    "description": "Den ljusstyrkan som ska st\u00e4llas in.",
+                    "name": "Ljusstyrka"
+                },
+                "rgb_color": {
+                    "description": "F\u00e4rg f\u00f6r ljuset i RGB-format.",
+                    "name": "RGB-f\u00e4rg"
+                }
+            },
+            "name": "St\u00e4ll in f\u00e4rgscen"
+        },
+        "set_color_temp_scene": {
+            "description": "\u00c4ndrar ljuset till den angivna f\u00e4rgtemperaturen. Om ljuset \u00e4r sl\u00e4ckt kommer det att t\u00e4ndas.",
+            "fields": {
+                "brightness": {
+                    "description": "Den ljusstyrkan som ska st\u00e4llas in.",
+                    "name": "Ljusstyrka"
+                },
+                "kelvin": {
+                    "description": "F\u00e4rgtemperatur f\u00f6r ljuset i Kelvin.",
+                    "name": "Kelvin"
+                }
+            },
+            "name": "St\u00e4ll in f\u00e4rgtemperatur f\u00f6r scen"
+        },
+        "set_hsv_scene": {
+            "description": "\u00c4ndrar ljuset till angiven HSV-f\u00e4rg och ljusstyrka. Om ljuset \u00e4r sl\u00e4ckt kommer det att t\u00e4ndas.",
+            "fields": {
+                "brightness": {
+                    "description": "Den ljusstyrkan som ska st\u00e4llas in.",
+                    "name": "Ljusstyrka"
+                },
+                "hs_color": {
+                    "description": "F\u00e4rg f\u00f6r ljuset i hue/sat-format. Nyansen \u00e4r 0-359 och Sat \u00e4r 0-100.",
+                    "name": "Nyans/sat f\u00e4rg"
+                }
+            },
+            "name": "St\u00e4ll in HSV-scen"
+        },
+        "set_mode": {
+            "description": "St\u00e4ller in ett driftl\u00e4ge.",
+            "fields": {
+                "mode": {
+                    "description": "Driftl\u00e4ge",
+                    "name": "L\u00e4ge"
+                }
+            },
+            "name": "St\u00e4ll in l\u00e4ge"
+        },
+        "set_music_mode": {
+            "description": "Aktiverar eller inaktiverar music_mode.",
+            "fields": {
+                "music_mode": {
+                    "description": "Anv\u00e4nd true eller false f\u00f6r att aktivera/inaktivera music_mode.",
+                    "name": "Musikl\u00e4ge"
+                }
+            },
+            "name": "Ange musikl\u00e4ge"
+        },
+        "start_flow": {
+            "description": "Starta ett anpassat fl\u00f6de med \u00f6verg\u00e5ngar fr\u00e5n https://yeelight.readthedocs.io/en/stable/yeelight.html#flow-objects.",
+            "fields": {
+                "action": {
+                    "description": "\u00c5tg\u00e4rden att vidta efter att fl\u00f6det upph\u00f6r.",
+                    "name": "\u00c5tg\u00e4rd"
+                },
+                "count": {
+                    "description": "Antal g\u00e5nger som fl\u00f6det ska k\u00f6ras (0 f\u00f6r att k\u00f6ras f\u00f6r evigt).",
+                    "name": "Antal"
+                },
+                "transitions": {
+                    "description": "Upps\u00e4ttning av \u00f6verg\u00e5ngar, f\u00f6r \u00f6nskad effekt. Exempel https://yeelight.readthedocs.io/en/stable/flow.html.",
+                    "name": "\u00d6verg\u00e5ngar"
+                }
+            },
+            "name": "Starta fl\u00f6de"
+        }
+    }
+}

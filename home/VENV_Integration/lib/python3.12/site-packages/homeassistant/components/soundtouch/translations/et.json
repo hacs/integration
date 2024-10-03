@@ -1,0 +1,84 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Seade on juba h\u00e4\u00e4lestatud"
+        },
+        "error": {
+            "cannot_connect": "\u00dchendamine nurjus"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "host": "Host"
+                },
+                "data_description": {
+                    "host": "Bose SoundTouchi seadme hostinimi v\u00f5i IP-aadress."
+                }
+            },
+            "zeroconf_confirm": {
+                "description": "Oled lisamas SoundTouchi seadet nimega `{name}` Home Assistantisse.",
+                "title": "Kinnita Bose SoundTouchi seadme lisamine"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_yaml": {
+            "description": "Bose SoundTouchi seadistamine YAML-i abil eemaldatakse.\n\nOlemasolev YAML-i konfiguratsioon imporditakse kasutajaliidesesse automaatselt.\n\nEemaldage bose SoundTouch YAML-i konfiguratsioon failist configuration.yaml ja taask\u00e4ivitage selle probleemi lahendamiseks Home Assistant.",
+            "title": "Bose SoundTouchi YAML-konfiguratsioon eemaldatakse"
+        }
+    },
+    "services": {
+        "add_zone_slave": {
+            "description": "Lisab alamseadme SoundTouchi mitut ruumi h\u00f5lmavale tsoonile.",
+            "fields": {
+                "master": {
+                    "description": "Mitmetoalist tsooni koordineeriva p\u00f5hi\u00fcksuse nimi. Platvormist s\u00f5ltuv.",
+                    "name": "P\u00f5hiseade"
+                },
+                "slaves": {
+                    "description": "Olemasolevasse tsooni lisatavate alamseadmete nimed.",
+                    "name": "Alamseadmed"
+                }
+            },
+            "name": "Lisa alamtsoon"
+        },
+        "create_zone": {
+            "description": "Loob SoundTouchi mitme ruumi tsooni.",
+            "fields": {
+                "master": {
+                    "description": "P\u00f5hiolemi nimi mis koordineerib mitmetoalist tsooni. Oleneb platvormist.",
+                    "name": "P\u00f5hiseade"
+                },
+                "slaves": {
+                    "description": "Uude tsooni lisatavate alam\u00fcksuste nimed.",
+                    "name": "Alamseadmed"
+                }
+            },
+            "name": "Loo tsoon"
+        },
+        "play_everywhere": {
+            "description": "Esitab k\u00f5igis Bose SoundTouchi seadmetes.",
+            "fields": {
+                "master": {
+                    "description": "R\u00fchmitamist koordineeriva juht\u00fcksuse nimi. Platvormist s\u00f5ltuv. See on otsetee k\u00f5igi seadmetega mitmetoalise tsooni loomiseks.",
+                    "name": "P\u00f5hiseade"
+                }
+            },
+            "name": "M\u00e4ngi k\u00f5ikjal"
+        },
+        "remove_zone_slave": {
+            "description": "Eemaldab alamseadme SoundTouchi mitme ruumi tsoonist.",
+            "fields": {
+                "master": {
+                    "description": "Mitmetoalist tsooni koordineeriva p\u00f5hi\u00fcksuse nimi. Platvormist s\u00f5ltuv.",
+                    "name": "P\u00f5hiseade"
+                },
+                "slaves": {
+                    "description": "Olemasolevast tsoonist eemaldatavate alam\u00fcksuste nimed.",
+                    "name": "Alamseadmed"
+                }
+            },
+            "name": "Eemalda tsooni alam\u00fcksus"
+        }
+    }
+}

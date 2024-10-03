@@ -1,0 +1,159 @@
+{
+    "device_automation": {
+        "action_type": {
+            "toggle": "P\u0159epnout {entity_name}",
+            "turn_off": "Vypnout {entity_name}",
+            "turn_on": "Zapnout {entity_name}"
+        },
+        "condition_type": {
+            "is_off": "{entity_name} je vypnuto",
+            "is_on": "{entity_name} je zapnuto"
+        },
+        "trigger_type": {
+            "changed_states": "{entity_name} bylo zapnuto nebo vypnuto",
+            "turned_off": "{entity_name} bylo vypnuto",
+            "turned_on": "{entity_name} bylo zapnuto"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Ventil\u00e1tor",
+            "state": {
+                "off": "Vypnuto",
+                "on": "Zapnuto"
+            },
+            "state_attributes": {
+                "direction": {
+                    "name": "Sm\u011br",
+                    "state": {
+                        "forward": "Vp\u0159ed",
+                        "reverse": "Vzad"
+                    }
+                },
+                "oscillating": {
+                    "name": "Oscilace",
+                    "state": {
+                        "false": "Ne",
+                        "true": "Ano"
+                    }
+                },
+                "percentage": {
+                    "name": "Rychlost"
+                },
+                "percentage_step": {
+                    "name": "Krok rychlosti"
+                },
+                "preset_mode": {
+                    "name": "P\u0159ednastaven\u00fd re\u017eim"
+                },
+                "preset_modes": {
+                    "name": "Dostupn\u00e9 p\u0159ednastaven\u00e9 re\u017eimy"
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "not_valid_preset_mode": {
+            "message": "Re\u017eim p\u0159edvolby {preset_mode} nen\u00ed platn\u00fd, platn\u00e9 re\u017eimy p\u0159edvoleb jsou: {preset_modes}."
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "Platforma {platform} pro integraci {domain} nepodporuje nastaven\u00ed platformy.\n\nOdeberte ji z nastaven\u00ed a restartujte Home Assistanta, abyste tento probl\u00e9m vy\u0159e\u0161ili.",
+            "title": "Podpora platformy nen\u00ed podporov\u00e1na"
+        }
+    },
+    "selector": {
+        "direction": {
+            "options": {
+                "forward": "Vp\u0159ed",
+                "reverse": "Vzad"
+            }
+        }
+    },
+    "services": {
+        "decrease_speed": {
+            "description": "Sn\u00ed\u017e\u00ed rychlost ventil\u00e1toru.",
+            "fields": {
+                "percentage_step": {
+                    "description": "Sn\u00ed\u017e\u00ed rychlost o procentu\u00e1ln\u00ed krok.",
+                    "name": "Sn\u00ed\u017eit"
+                }
+            },
+            "name": "Sn\u00ed\u017eit rychlost"
+        },
+        "increase_speed": {
+            "description": "Zv\u00fd\u0161\u00ed rychlost ventil\u00e1toru.",
+            "fields": {
+                "percentage_step": {
+                    "description": "Zv\u00fd\u0161\u00ed rychlost o procentu\u00e1ln\u00ed krok.",
+                    "name": "Zv\u00fd\u0161it"
+                }
+            },
+            "name": "Zv\u00fd\u0161it rychlost"
+        },
+        "oscillate": {
+            "description": "\u0158\u00edd\u00ed oscilaci ventil\u00e1toru.",
+            "fields": {
+                "oscillating": {
+                    "description": "Zapne/Vypne oscilaci.",
+                    "name": "Oscilace"
+                }
+            },
+            "name": "Oscilovat"
+        },
+        "set_direction": {
+            "description": "Nastav\u00ed sm\u011br ot\u00e1\u010den\u00ed ventil\u00e1toru.",
+            "fields": {
+                "direction": {
+                    "description": "Sm\u011br ot\u00e1\u010den\u00ed.",
+                    "name": "Sm\u011br"
+                }
+            },
+            "name": "Nastavit sm\u011br"
+        },
+        "set_percentage": {
+            "description": "Nastav\u00ed rychlost ventil\u00e1toru.",
+            "fields": {
+                "percentage": {
+                    "description": "Rychlost ventil\u00e1toru.",
+                    "name": "Procento"
+                }
+            },
+            "name": "Nastavit rychlost"
+        },
+        "set_preset_mode": {
+            "description": "Nastav\u00ed re\u017eim p\u0159edvolby.",
+            "fields": {
+                "preset_mode": {
+                    "description": "Re\u017eim p\u0159edvolby.",
+                    "name": "Re\u017eim p\u0159edvolby"
+                }
+            },
+            "name": "Nastavit re\u017eim p\u0159edvolby"
+        },
+        "toggle": {
+            "description": "Zap\u00edn\u00e1/Vyp\u00edn\u00e1 ventil\u00e1tor.",
+            "name": "P\u0159epnout"
+        },
+        "turn_off": {
+            "description": "Vypne ventil\u00e1tor.",
+            "name": "Vypnout"
+        },
+        "turn_on": {
+            "description": "Zapne ventil\u00e1tor.",
+            "fields": {
+                "percentage": {
+                    "description": "Rychlost ventil\u00e1toru.",
+                    "name": "Procento"
+                },
+                "preset_mode": {
+                    "description": "Re\u017eim p\u0159edvolby.",
+                    "name": "Re\u017eim p\u0159edvolby"
+                }
+            },
+            "name": "Zapnout"
+        }
+    },
+    "title": "Ventil\u00e1tor"
+}

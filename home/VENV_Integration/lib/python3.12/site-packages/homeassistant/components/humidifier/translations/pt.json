@@ -1,0 +1,118 @@
+{
+    "device_automation": {
+        "action_type": {
+            "set_humidity": "Definir humidade pretendida em {entity_name}",
+            "set_mode": "Alterar modo de {entity_name}",
+            "toggle": "Alternar  {entity_name}",
+            "turn_off": "Desligar {entity_name}",
+            "turn_on": "Ligar {entity_name}"
+        },
+        "condition_type": {
+            "is_mode": "{entity_name} est\u00e1 num modo pr\u00e9-definido.",
+            "is_off": "{entity_name} est\u00e1 desligado",
+            "is_on": "{entity_name} est\u00e1 ligado"
+        },
+        "trigger_type": {
+            "changed_states": "{entity_name} foi ligado ou desligado",
+            "target_humidity_changed": "Altera\u00e7\u00e3o de humidade pretendida em {entity_name}",
+            "turned_off": "{entity_name} foi desligado",
+            "turned_on": "{entity_name} foi ligado"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Humidificador",
+            "state": {
+                "off": "Desligado",
+                "on": "Ligado"
+            },
+            "state_attributes": {
+                "action": {
+                    "name": "A\u00e7\u00e3o",
+                    "state": {
+                        "drying": "Desumidifica\u00e7\u00e3o",
+                        "humidifying": "Humidifica\u00e7\u00e3o",
+                        "idle": "Em espera",
+                        "off": "Desligado"
+                    }
+                },
+                "available_modes": {
+                    "name": "Modos dispon\u00edveis"
+                },
+                "current_humidity": {
+                    "name": "Humidade atual"
+                },
+                "humidity": {
+                    "name": "Humidade pretendida"
+                },
+                "max_humidity": {
+                    "name": "Humidade M\u00e1x. pretendida"
+                },
+                "min_humidity": {
+                    "name": "Humidade M\u00edn. pretendida"
+                },
+                "mode": {
+                    "name": "Modo",
+                    "state": {
+                        "auto": "Auto",
+                        "away": "Ausente",
+                        "baby": "Beb\u00e9",
+                        "boost": "Turbo",
+                        "comfort": "Conforto",
+                        "eco": "Eco",
+                        "home": "Casa",
+                        "normal": "Normal",
+                        "sleep": "Baixo consumo"
+                    }
+                }
+            }
+        },
+        "dehumidifier": {
+            "name": "Desumidificador"
+        },
+        "humidifier": {
+            "name": "Humidificador"
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "A plataforma {platform} para a integra\u00e7\u00e3o {domain} n\u00e3o suporta a configura\u00e7\u00e3o da plataforma.\n\nRemova-a da sua configura\u00e7\u00e3o e reinicie o Home Assistant para corrigir este problema.",
+            "title": "Suporte de plataforma n\u00e3o suportado"
+        }
+    },
+    "services": {
+        "set_humidity": {
+            "description": "Define a humidade pretendida.",
+            "fields": {
+                "humidity": {
+                    "description": "Humidade pretendida.",
+                    "name": "Humidade"
+                }
+            },
+            "name": "Definir humidade"
+        },
+        "set_mode": {
+            "description": "Define o modo de funcionamento do humidificador.",
+            "fields": {
+                "mode": {
+                    "description": "Modo de opera\u00e7\u00e3o. Por exemplo, _normal_, _eco_, ou _away_. Para uma lista completa de valores poss\u00edveis, consulte a documenta\u00e7\u00e3o da integra\u00e7\u00e3o.",
+                    "name": "Modo"
+                }
+            },
+            "name": "Definir modo"
+        },
+        "toggle": {
+            "description": "Alterna on/off o estado do humidificador.",
+            "name": "Alternar"
+        },
+        "turn_off": {
+            "description": "Desliga o humidificador.",
+            "name": "Desligar"
+        },
+        "turn_on": {
+            "description": "Liga o humidificador.",
+            "name": "Ligar"
+        }
+    },
+    "title": "Humidificador"
+}

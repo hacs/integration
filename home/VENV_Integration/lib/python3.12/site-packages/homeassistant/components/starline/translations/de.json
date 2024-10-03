@@ -1,0 +1,162 @@
+{
+    "config": {
+        "error": {
+            "error_auth_app": "Falsche Anwendungs-ID oder Secret",
+            "error_auth_mfa": "Ung\u00fcltiger Code",
+            "error_auth_user": "Falscher Benutzername oder falsches Passwort"
+        },
+        "step": {
+            "auth_app": {
+                "data": {
+                    "app_id": "App-ID",
+                    "app_secret": "Geheimnis"
+                },
+                "description": "Anwendungs-ID und Geheimcode aus dem [StarLine Entwicklerkonto](https://my.starline.ru/developer)",
+                "title": "Anmeldeinformationen der Anwendung"
+            },
+            "auth_captcha": {
+                "data": {
+                    "captcha_code": "Code aus dem Bild"
+                },
+                "description": "{captcha_img}",
+                "title": "Captcha"
+            },
+            "auth_mfa": {
+                "data": {
+                    "mfa_code": "SMS Code"
+                },
+                "description": "Gib den an das Telefon gesendeten Code ein {phone_number}",
+                "title": "Zwei-Faktor-Authentifizierung"
+            },
+            "auth_user": {
+                "data": {
+                    "password": "Passwort",
+                    "username": "Benutzername"
+                },
+                "description": "StarLine Konto E-Mail und Passwort",
+                "title": "Anmeldeinformationen"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "alarm": {
+                "name": "Alarm"
+            },
+            "doors": {
+                "name": "T\u00fcren"
+            },
+            "hand_brake": {
+                "name": "Handbremse"
+            },
+            "handsfree": {
+                "name": "Freih\u00e4ndig"
+            },
+            "hood": {
+                "name": "Haube"
+            },
+            "moving_ban": {
+                "name": "Wegfahrsperre"
+            },
+            "neutral": {
+                "name": "Programmierbar Neutral"
+            },
+            "trunk": {
+                "name": "Kofferraum"
+            }
+        },
+        "button": {
+            "horn": {
+                "name": "Hupe"
+            }
+        },
+        "device_tracker": {
+            "location": {
+                "name": "Standort"
+            }
+        },
+        "lock": {
+            "security": {
+                "name": "Sicherheit"
+            }
+        },
+        "sensor": {
+            "balance": {
+                "name": "Balance"
+            },
+            "battery": {
+                "name": "Batterie"
+            },
+            "engine_temperature": {
+                "name": "Motortemperatur"
+            },
+            "errors": {
+                "name": "OBD-Fehler"
+            },
+            "fuel": {
+                "name": "Kraftstoffmenge"
+            },
+            "gps_count": {
+                "name": "GPS-Satelliten"
+            },
+            "gsm_signal": {
+                "name": "GSM-Signal"
+            },
+            "interior_temperature": {
+                "name": "Innentemperatur"
+            },
+            "mileage": {
+                "name": "Kilometerstand"
+            }
+        },
+        "switch": {
+            "additional_channel": {
+                "name": "Zus\u00e4tzlicher Kanal"
+            },
+            "engine": {
+                "name": "Motor"
+            },
+            "horn": {
+                "name": "Horn"
+            },
+            "service_mode": {
+                "name": "Service-Modus"
+            },
+            "webasto": {
+                "name": "Webasto"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_horn_switch": {
+            "description": "Die Verwendung des Hupenschalters ist jetzt veraltet und wird in einer zuk\u00fcnftigen Version von Home Assistant entfernt. \n\nBitte passe alle Automatisierungen oder Skripte, die die Hupenschalter-Entit\u00e4t verwenden, an, um stattdessen die Hupentasten-Entit\u00e4t zu verwenden.",
+            "title": "Die Schaltereinheit \u201eStarline Hupe\u201c wird entfernt"
+        }
+    },
+    "services": {
+        "set_scan_interval": {
+            "description": "Legt die Aktualisierungsh\u00e4ufigkeit fest.",
+            "fields": {
+                "scan_interval": {
+                    "description": "Aktualisierungsh\u00e4ufigkeit.",
+                    "name": "Scan Intervall"
+                }
+            },
+            "name": "Scan-Intervall festlegen"
+        },
+        "set_scan_obd_interval": {
+            "description": "Legt die H\u00e4ufigkeit der Aktualisierung der OBD-Informationen fest.",
+            "fields": {
+                "scan_interval": {
+                    "description": "Aktualisierungsh\u00e4ufigkeit.",
+                    "name": "Scan Intervall"
+                }
+            },
+            "name": "OBD-Scan-Intervall einstellen"
+        },
+        "update_state": {
+            "description": "Ruft den letzten Status der Ger\u00e4te vom StarLine-Server ab.",
+            "name": "Status aktualisieren"
+        }
+    }
+}

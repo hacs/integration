@@ -1,0 +1,616 @@
+{
+  "language": "is",
+  "intents": {
+    "HassTurnOff": {
+      "data": [
+        {
+          "sentences": [
+            "(<turn-off>|<deactivate>) [á|í] <name><the> [(á|í) <area><the>]"
+          ],
+          "excludes_context": {
+            "domain": [
+              "binary_sensor",
+              "cover",
+              "lock",
+              "scene",
+              "script",
+              "sensor"
+            ]
+          }
+        },
+        {
+          "sentences": [
+            "<turn-off> <light> í <area>",
+            "<turn-off> <all> [<light>] í <area>",
+            "<turn-off> <area><light>"
+          ],
+          "slots": {
+            "domain": "light"
+          },
+          "response": "lights_area"
+        },
+        {
+          "sentences": [
+            "<turn-off> <name><the><light> [í <area><the>]"
+          ],
+          "slots": {
+            "domain": "light"
+          },
+          "response": "lights_name"
+        },
+        {
+          "sentences": [
+            "<close> <name>[<the>] [(í|á) <area>[<the>]]"
+          ],
+          "requires_context": {
+            "domain": "cover"
+          },
+          "response": "cover"
+        },
+        {
+          "sentences": [
+            "<close-curtains> (í|á) <area>[<the>]"
+          ],
+          "slots": {
+            "domain": "cover",
+            "device_class": "curtain"
+          },
+          "response": "cover_area"
+        },
+        {
+          "sentences": [
+            "<close> bílskúr[num]",
+            "<close> (hurðinni|dyrunum) á bílskúrnum"
+          ],
+          "slots": {
+            "domain": "cover",
+            "device_class": "garage"
+          },
+          "response": "cover_device_class"
+        },
+        {
+          "sentences": [
+            "<close> {cover_classes:device_class} (í|á) <area>[<the>]",
+            "<close> <area>{cover_classes:device_class}"
+          ],
+          "slots": {
+            "domain": "cover"
+          },
+          "response": "cover_device_class"
+        }
+      ]
+    },
+    "HassTurnOn": {
+      "data": [
+        {
+          "sentences": [
+            "<turn-on> <light> í <area><the>",
+            "<turn-on> <all> [<light>] í <area><the>",
+            "<turn-on> <area><the>[ ]<light>"
+          ],
+          "slots": {
+            "domain": "light"
+          },
+          "response": "lights_area"
+        },
+        {
+          "sentences": [
+            "<turn-on> <name><the><light> [í <area><the>]"
+          ],
+          "slots": {
+            "domain": "light"
+          },
+          "response": "lights_name"
+        },
+        {
+          "sentences": [
+            "[<set>|<turn-on>|<activate>] <name><the> [<script>] [á|í gang]"
+          ],
+          "requires_context": {
+            "domain": "script"
+          },
+          "slots": {
+            "domain": "script"
+          },
+          "response": "script"
+        },
+        {
+          "sentences": [
+            "[<set>|<turn-on>|<activate>] [á] <name> [sena|senu|senan|senuna|senunni|stilling[u]] [á|í gang|virk]"
+          ],
+          "requires_context": {
+            "domain": "scene"
+          },
+          "slots": {
+            "domain": "scene"
+          },
+          "response": "scene"
+        },
+        {
+          "sentences": [
+            "(<turn-on>|<activate>) [á|í] <name><the> [(á|í) <area><the>]",
+            "[(settu|sett þú|setja)] <name><the> [(á|í) <area><the>] í gang"
+          ],
+          "excludes_context": {
+            "domain": [
+              "binary_sensor",
+              "cover",
+              "lock",
+              "scene",
+              "script",
+              "sensor"
+            ]
+          }
+        },
+        {
+          "sentences": [
+            "<open> <name> [(í|á) <area>[<the>]]"
+          ],
+          "requires_context": {
+            "domain": "cover"
+          },
+          "response": "cover"
+        },
+        {
+          "sentences": [
+            "<open-curtains> (í|á) <area>[<the>]"
+          ],
+          "slots": {
+            "domain": "cover",
+            "device_class": "curtain"
+          },
+          "response": "cover_area"
+        },
+        {
+          "sentences": [
+            "<open> bílskúr[inn]",
+            "<open> (hurðina|dyrnar) á bílskúrnum"
+          ],
+          "slots": {
+            "domain": "cover",
+            "device_class": "garage"
+          },
+          "response": "cover_device_class"
+        },
+        {
+          "sentences": [
+            "<open> {cover_classes:device_class} (í|á) <area>[<the>]",
+            "<open> <area>{cover_classes:device_class}"
+          ],
+          "slots": {
+            "domain": "cover"
+          },
+          "response": "cover_device_class"
+        }
+      ]
+    },
+    "HassLightSet": {
+      "data": [
+        {
+          "sentences": [
+            "[<set>] <bright> (á|í) <name><the> í <brightness>",
+            "[<set>] [á|í] <brightness> (á|í) <name><the>",
+            "[<set>] <name><the> [(á|í)] <brightness>"
+          ],
+          "response": "brightness",
+          "requires_context": {
+            "domain": "light"
+          }
+        },
+        {
+          "sentences": [
+            "[<set>] <bright> (á|í) <area>[<the>] (á|í) <brightness>",
+            "[<set>] [á|í] <brightness> (á|í) <area><the>",
+            "[<set>] <area>[<the>] (á|í) <brightness>",
+            "[<set>] <area>[<the>] [<bright>] <brightness>",
+            "[<set>] <area>[<the>] <brightness> <bright>"
+          ],
+          "slots": {
+            "name": "all"
+          },
+          "response": "brightness_area"
+        },
+        {
+          "sentences": [
+            "[<set>] <bright> [(á|í)] <name>[<the>] [(á|í)] {brightness_level:brightness} [stillingu]",
+            "[<set>] <bright> [(á|í)] <name>[<the>] eins {brightness_level:brightness} og hægt er",
+            "[<set>] <name>[<the>] [(á|í)] {brightness_level:brightness} (<bright>|stillingu)",
+            "[<set>] <name>[<the>] {brightness_level:brightness} <bright>"
+          ],
+          "requires_context": {
+            "domain": "light"
+          },
+          "response": "brightness"
+        },
+        {
+          "sentences": [
+            "[<set>] <bright> [(á|í)] <area>[<the>] [(á|í)] {brightness_level:brightness} [stillingu]",
+            "[<set>] <bright> [(á|í)] <area>[<the>] eins {brightness_level:brightness} og hægt er",
+            "[<set>] <area>[<the>] [(á|í)] {brightness_level:brightness} (<bright>|stillingu)",
+            "[<set>] <area>[<the>]<bright> (á|í) {brightness_level:brightness}"
+          ],
+          "slots": {
+            "name": "all"
+          },
+          "response": "brightness_area"
+        },
+        {
+          "sentences": [
+            "[<set>] [lit[inn|num|ur]|ljós[ið|inu]] [(á|í)] <name>[<the>] [í] {color}",
+            "[<set>] [lit[inn|num|ur]|ljós[ið|inu]] [(á|í)] {color} [(á|í)] <name>[<the>]",
+            "[<set>] <name>[<the>] [í] {color} [á litinn]"
+          ],
+          "requires_context": {
+            "domain": "light"
+          },
+          "response": "color"
+        },
+        {
+          "sentences": [
+            "[<set>] [lit[inn|num|ur]|ljós[ið|inu]] [[á] <all> [ljós[unum]]] (í|á) <area>[<the>] [í] {color}",
+            "[<set>] [lit[inn|num|ur]|ljós[ið|inu]] [(á|í)] <area>[<the>] [í] {color}",
+            "[<set>] [lit[inn|num|ur]|ljós[ið|inu]] [(á|í)] {color} [(á|í)] <area>[<the>]",
+            "[<set>] <area>[<the>] [í] {color} [á litinn]",
+            "<area>[<the>] [lit[inn|num|ur]] {color}"
+          ],
+          "slots": {
+            "name": "all"
+          },
+          "response": "color_area"
+        }
+      ]
+    },
+    "HassClimateGetTemperature": {
+      "data": [
+        {
+          "sentences": [
+            "(hvað|hver|hvernig|hversu) (er <temp>|<temp> er) [núna] [hérna] [inni]",
+            "(hvað|hver|hvernig|hversu) (er <temp>|<temp> er) [núna] [hérna] [inni] [(á|í) <area><the>] [núna] [hérna] [inni]",
+            "(hver|hvað) er <area><the><temp> [hérna] [inni] [núna]"
+          ]
+        }
+      ]
+    },
+    "HassGetState": {
+      "data": [
+        {
+          "sentences": [
+            "(hvað|hver|hvernig) er <name><the> [(á|í) <area><the>] [núna]"
+          ],
+          "response": "one",
+          "excludes_context": {
+            "domain": [
+              "scene",
+              "script"
+            ]
+          }
+        },
+        {
+          "sentences": [
+            "er {on_off_states:state} (í|á) <name><the> [(á|í) <area><the>]"
+          ],
+          "response": "one_yesno",
+          "excludes_context": {
+            "domain": [
+              "cover"
+            ]
+          }
+        },
+        {
+          "sentences": [
+            "(er|eru|sé|séu) {on_off_states:state} [á] <any> {on_off_domains:domain} [(á|í) <area><the>]",
+            "(er|eru|sé|séu) <any> {on_off_domains:domain} (á|í) <area><the> [á|í] {on_off_states:state}",
+            "(er|eru|sé|séu) <any> {on_off_domains:domain} {on_off_states:state} (á|í) <area><the>"
+          ],
+          "response": "any"
+        },
+        {
+          "sentences": [
+            "(er|eru|sé|séu) {on_off_states:state} [á] <all> {on_off_domains:domain} [(á|í) <area><the>]",
+            "(er|eru|sé|séu) <all> {on_off_domains:domain} [á|í] {on_off_states:state} [(á|í) <area><the>]",
+            "(er|eru|sé|séu) <all> {on_off_domains:domain} (á|í) <area><the> [á|í] {on_off_states:state}"
+          ],
+          "response": "all"
+        },
+        {
+          "sentences": [
+            "[á] hvaða {on_off_domains:domain} (er|eru) {on_off_states:state} [á|í] [(á|í) <area><the>]"
+          ],
+          "response": "which"
+        },
+        {
+          "sentences": [
+            "hversu (margir|margar|mörg|marga|margar|mörg|mörgum|mörgum|mörgum|margra|margra|margra) {on_off_domains:domain}<the> (er|eru) {on_off_states:state} [(á|í) <area><the>]",
+            "hvað (er|eru) (margir|margar|mörg|marga|margar|mörg|mörgum|mörgum|mörgum|margra|margra|margra) {on_off_domains:domain}<the> [er|eru] {on_off_states:state} [(á|í) <area><the>]",
+            "hvað (er|eru) {on_off_states:state} (á|í) (margir|margar|mörg|marga|margar|mörg|mörgum|mörgum|mörgum|margra|margra|margra) {on_off_domains:domain}<the> [(á|í) <area><the>]"
+          ],
+          "response": "how_many"
+        },
+        {
+          "sentences": [
+            "er <name> [(í|á) <area>] {cover_states:state}"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "cover"
+          },
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "(er einhver|eru einhverjar) {cover_classes:device_class} {cover_states:state} [(í|á) <area>[<the>]]",
+            "(er einhver|eru einhverjar) {cover_classes:device_class} (í|á) <area> {cover_states:state}"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "eru allar {cover_classes:device_class} {cover_states:state} [(í|á) <area>]",
+            "eru allar {cover_classes:device_class} (í|á) <area> {cover_states:state}"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "hvaða {cover_classes:device_class} (er|eru) {cover_states:state} [(í|á) <area>]",
+            "hvaða {cover_classes:device_class} (í|á) <area> (er|eru) {cover_states:state}"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "hversu margar {cover_classes:device_class} eru {cover_states:state} [(í|á) <area>]",
+            "hversu margar {cover_classes:device_class} (í|á) <area> eru {cover_states:state}"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "cover"
+          }
+        }
+      ]
+    }
+  },
+  "responses": {
+    "errors": {
+      "no_intent": "Fyrirgefðu en ég náði þessu ekki",
+      "no_area": "Ekkert svæði {{ area }} fannst",
+      "no_domain_in_area": "Í {{ area }} er ekkert {{ domain }}",
+      "no_device_class_in_area": "{{ area }} er ekki með tækja tegund {{ device_class }}",
+      "no_entity": "Ekkert tæki eða engin eining með nafni {{ entity }} fannst",
+      "handle_error": "Við meðhöndlun ásetningsins kom óvænt villa upp"
+    },
+    "intents": {
+      "HassGetState": {
+        "one": "{{ slots.name | capitalize }} er {{ state.state_with_unit }}\n",
+        "one_yesno": "{% if query.matched %}\n  Já\n{% else %}\n  Nei\n{% endif %}\n",
+        "any": "{% if query.matched %}\n  {% set match = query.matched | map(attribute=\"name\") | sort | list %}\n  {% if match | length > 4 %}\n    Já, {{ match[:3] | join(\", \") }} og {{ (match | length - 3) }} í viðbót\n  {%- else -%}\n    Já,\n    {% for name in match -%}\n      {% if not loop.first and not loop.last %}, {% elif loop.last and not loop.first %} og {% endif -%}\n      {{ name }}\n    {%- endfor -%}\n  {% endif %}\n{% else %}\n  Nei\n{% endif %}\n",
+        "all": "{% if not query.unmatched: %}\n  Já\n{% else %}\n  {% set no_match = query.unmatched | map(attribute=\"name\") | sort | list %}\n  {% if no_match | length > 4 %}\n    Nei, {{ no_match[:3] | join(\", \") }} og {{ (no_match | length - 3) }} í viðbót eru það ekki\n  {%- else -%}\n    Nei,\n    {% for name in no_match -%}\n      {% if not loop.first and not loop.last %}, {% elif loop.last and not loop.first %} og {% endif -%}\n      {{ name }}\n    {%- endfor %} {% if no_match | length > 1 %}eru{% else %}er{% endif %} það ekki\n  {% endif %}\n{% endif %}\n",
+        "which": "{% if not query.matched %}\n  Engin\n{% else: %}\n  {% set match = query.matched | map(attribute=\"name\") | sort | list %}\n  {% if match | length > 4 %}\n    {{ match[:3] | join(\", \") }} og {{ (match | length - 3) }} í viðbót\n  {% else %}\n    {%- for name in match -%}\n      {% if not loop.first and not loop.last %}, {% elif loop.last and not loop.first %} og {% endif -%}\n      {{ name }}\n    {%- endfor -%}\n  {% endif %}\n{% endif %}\n",
+        "how_many": "{{ query.matched | length }}\n"
+      },
+      "HassTurnOff": {
+        "default": "Slökkti",
+        "lights_name": "Slökkti á {{ slots.name }}",
+        "lights_area": "Slökkti á ljósum í {{ slots.area }}",
+        "fans_area": "Slökkti á viftum í {{ slots.area }}",
+        "cover": "Lokaði",
+        "cover_area": "Lokaði",
+        "cover_device_class": "Lokaði"
+      },
+      "HassTurnOn": {
+        "default": "Kveikti",
+        "lights_name": "Kveikti á {{ slots.name }}",
+        "lights_area": "Kveikti á ljósum í {{ slots.area }}",
+        "fans_area": "Kveikti á viftum í {{ slots.area }}",
+        "cover": "Opnaði",
+        "cover_area": "Opnaði",
+        "cover_device_class": "Opnaði",
+        "scene": "Sena virkjuð",
+        "script": "Keyri forrit"
+      },
+      "HassLightSet": {
+        "brightness": "Birtustig sett",
+        "brightness_area": "Birtustig sett",
+        "color": "Lit breytt",
+        "color_area": "Lit breytt"
+      },
+      "HassClimateGetTemperature": {
+        "default": "Hitinn er {{ state_attr(state.entity_id, 'current_temperature') }}"
+      }
+    }
+  },
+  "lists": {
+    "color": {
+      "values": [
+        {
+          "in": "hvít(t|ur|an|a|um|ri|u|s|rar)",
+          "out": "white"
+        },
+        {
+          "in": "(svart|svartur|svört|svartan)",
+          "out": "black"
+        },
+        {
+          "in": "(rauður|rautt|rauð|rauðan)",
+          "out": "red"
+        },
+        {
+          "in": "(appelsínugulur|appelsínugult|applesínugul[an])",
+          "out": "orange"
+        },
+        {
+          "in": "(gulur|gul[an]|gult)",
+          "out": "yellow"
+        },
+        {
+          "in": "(grænn|grænt|græn[an])",
+          "out": "green"
+        },
+        {
+          "in": "(blár|blá[an]|blátt)",
+          "out": "blue"
+        },
+        {
+          "in": "(fjólublátt|fjólublár|jólublá[an])",
+          "out": "purple"
+        },
+        {
+          "in": "(brúnn|brún[an]|brúnt)",
+          "out": "brown"
+        },
+        {
+          "in": "(bleikur|bleikt|bleik[an])",
+          "out": "pink"
+        }
+      ]
+    },
+    "brightness": {
+      "range": {
+        "type": "percentage",
+        "from": 0,
+        "to": 100
+      }
+    },
+    "brightness_level": {
+      "values": [
+        {
+          "in": "(hæst(u|a)|mest(u|a)|hámark[s]|mikla)",
+          "out": 100
+        },
+        {
+          "in": "(lægst(u|a)|minnst(u|a)|lágmargk[s]|litla)",
+          "out": 1
+        }
+      ]
+    },
+    "temperature": {
+      "range": {
+        "type": "temperature",
+        "from": 0,
+        "to": 100
+      }
+    },
+    "temperature_unit": {
+      "values": [
+        {
+          "in": "c|selsíus|celcius|celcíus",
+          "out": "celsius"
+        }
+      ]
+    },
+    "on_off_states": {
+      "values": [
+        {
+          "in": "kveikt[ir|ar]|á|í gangi",
+          "out": "on"
+        },
+        {
+          "in": "slökkt",
+          "out": "off"
+        }
+      ]
+    },
+    "on_off_domains": {
+      "values": [
+        {
+          "in": "<light>",
+          "out": "light"
+        },
+        {
+          "in": "vifta|viftur",
+          "out": "fan"
+        },
+        {
+          "in": "rofi|rofa|rofar|rofum",
+          "out": "switch"
+        }
+      ]
+    },
+    "cover_states": {
+      "values": [
+        {
+          "in": "opin|opnar",
+          "out": "open"
+        },
+        {
+          "in": "lokuð|lokaðar",
+          "out": "closed"
+        },
+        {
+          "in": "að opnast",
+          "out": "opening"
+        },
+        {
+          "in": "að lokast",
+          "out": "closing"
+        }
+      ]
+    },
+    "cover_classes": {
+      "values": [
+        {
+          "in": "gardín[a|u|an|una|unni|ur|um|urnar|unum]",
+          "out": "curtain"
+        },
+        {
+          "in": "glugg[i|a|inn|an|anum|ar|um|arnir|ana|unum]",
+          "out": "window"
+        },
+        {
+          "in": "(dyr[um|nar|unum]|hurð[in|ina|inni|ir|um|irnar|unum])",
+          "out": "door"
+        },
+        {
+          "in": "bílskúrshurð[in|ina|inni|ir|um|irnar|unum]",
+          "out": "garage"
+        },
+        {
+          "in": "hlið[i|ið|inu|in|unum]",
+          "out": "gate"
+        }
+      ]
+    }
+  },
+  "expansion_rules": {
+    "turn-on": "(kveikja|kveiktu[ á]|kveikt þú á|kveikt á|kveikja [á])",
+    "turn-off": "(slökkva|slökktu[ á]|slökkt þú á|slökkt á|slökkva [á])",
+    "light": "(ljósinu|ljósunum|ljósin|ljós[um]|lampi[nn]|lampa[nn|num]|lampar[nir]|lampa[na]|lömpum|lömpunum|ljósi[ð])",
+    "area": "{area}[(inu|nu|ið|ð|inni|nni|nu|num)]",
+    "name": "{name}[(inu|nu|ið|ð|inni|nni|nu|num)]",
+    "all": "(allur|öll|allt|allan|alla|allt|öllum|allri|öllu|alls|allrar|alls|allir|allar|öll|alla|allar|öll|öllum|öllum|öllum|allra|allra|allra)",
+    "any": "[einhver|einhver|eitthvert|eitthvað|einhvern|einhverja|eitthvert|eitthvað|einhverjum|einhverri|einhverju|einhvers|einhverrar|einhvers|einhverjir|einhverjar|einhver|einhverja|einhverjar|einhver|einhverjum|einhverjum|einhverjum|einhverra|einhverra|einhverra]",
+    "set": "(gera|setja|stilla|skipta|breyta|hækka|lækka|minnka|gerðu|settu|stilltu|skiptu|breyttu|hækkaðu|lækkaðu|minnkaðu|gerð þú|hækkað þú|lækkað þú|minnkað þú|láttu|sett þú|skipt þú|stillt þú|látt þú| breytt þú)",
+    "activate": "(virkja[ðu]|virkjað þú|keyra|keyrðu|keyrð þú)",
+    "deactivate": "(slökkva|slökktu|slökkt þú)",
+    "open": "opna[(ðu|ð þú)]|<open-curtains>",
+    "open-curtains": "drag(ðu|a|ð þú) (frá|upp)",
+    "close": "loka[(ðu|ð þú)]|<close-curtains>",
+    "close-curtains": "drag(ðu|a|ð þú) (fyrir|niður)",
+    "brightness": "{brightness}[ ][%|prósent][ (birtu|bjarma)[stillingu|stig]]",
+    "bright": "(birt[a|u|an|una|unni]|bjarm[an[n]|inn|anum|i|a|ans])[stillingu]",
+    "script": "(skrifta[n]|skriftu[na|nni]|forrit[ið|i|inu])",
+    "temp": "(ofninn|ofnana|ofninum|ofnarnir|ofnunum|hitinn|hitann|hitanum|hitastigið|hitastiginu|heitt|kalt|kuldinn)",
+    "temperature": "{temperature}[ ][°|gráður][ ][{temperature_unit}]",
+    "the": "[a|u|s|ð|n|an|una|unni|ur|um|urnar|unum|nni|nn|num|nn|nu|na|ar|inu]"
+  },
+  "skip_words": [
+    "geturðu",
+    "getur þú",
+    "viltu",
+    "vilt þú",
+    "veist þú",
+    "segðu mér",
+    "sagt mér"
+  ]
+}

@@ -1,0 +1,90 @@
+{
+    "device_automation": {
+        "condition_type": {
+            "is_home": "{entity_name} ist zu Hause",
+            "is_not_home": "{entity_name} ist nicht zu Hause"
+        },
+        "extra_fields": {
+            "zone": "Zone"
+        },
+        "trigger_type": {
+            "enters": "{entity_name} betritt einen Bereich",
+            "leaves": "{entity_name} verl\u00e4sst einen Bereich"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Ger\u00e4te-Tracker",
+            "state": {
+                "home": "Zu Hause",
+                "not_home": "Abwesend"
+            },
+            "state_attributes": {
+                "battery": {
+                    "name": "Batterie"
+                },
+                "gps_accuracy": {
+                    "name": "GPS-Genauigkeit"
+                },
+                "latitude": {
+                    "name": "Breitengrad"
+                },
+                "longitude": {
+                    "name": "L\u00e4ngengrad"
+                },
+                "source_type": {
+                    "name": "Quelle",
+                    "state": {
+                        "bluetooth": "Bluetooth",
+                        "bluetooth_le": "Bluetooth LE",
+                        "gps": "GPS",
+                        "router": "Router"
+                    }
+                }
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "Die {platform}-Plattform f\u00fcr die {domain}-Integration unterst\u00fctzt die Plattform-Einrichtung nicht. \n\nBitte entferne es aus deiner Konfiguration und starte Home Assistant neu, um dieses Problem zu beheben.",
+            "title": "Plattform-Unterst\u00fctzung nicht unterst\u00fctzt"
+        }
+    },
+    "services": {
+        "see": {
+            "description": "Zeichnet ein gesehenes verfolgtes Ger\u00e4t auf.",
+            "fields": {
+                "battery": {
+                    "description": "Batteriestand des Ger\u00e4ts.",
+                    "name": "Batteriestand"
+                },
+                "dev_id": {
+                    "description": "ID des Ger\u00e4ts (finde die ID in `known_devices.yaml`).",
+                    "name": "Ger\u00e4te-ID"
+                },
+                "gps": {
+                    "description": "GPS-Koordinaten des Standorts des Ger\u00e4ts, angegeben durch Breiten- und L\u00e4ngengrad (zum Beispiel: [51.513845, -0.100539]).",
+                    "name": "GPS-Koordinaten"
+                },
+                "gps_accuracy": {
+                    "description": "Genauigkeit der GPS-Koordinaten.",
+                    "name": "GPS-Genauigkeit"
+                },
+                "host_name": {
+                    "description": "Hostname des Ger\u00e4ts.",
+                    "name": "Hostname"
+                },
+                "location_name": {
+                    "description": "Name des Standorts, an dem sich das Ger\u00e4t befindet. Die Optionen sind: `home`, `not_home` oder der Name der Zone.",
+                    "name": "Standort"
+                },
+                "mac": {
+                    "description": "MAC-Adresse des Ger\u00e4ts.",
+                    "name": "MAC-Adresse"
+                }
+            },
+            "name": "Sehen"
+        }
+    },
+    "title": "Ger\u00e4te-Tracker"
+}

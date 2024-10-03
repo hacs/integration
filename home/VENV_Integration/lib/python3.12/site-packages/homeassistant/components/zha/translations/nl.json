@@ -1,0 +1,922 @@
+{
+    "config": {
+        "abort": {
+            "not_zha_device": "Dit apparaat is niet een zha-apparaat.",
+            "single_instance_allowed": "Al geconfigureerd. Slechts \u00e9\u00e9n configuratie mogelijk.",
+            "usb_probe_failed": "Kon het USB apparaat niet onderzoeken",
+            "wrong_firmware_installed": "Je apparaat draait de verkeerde  firmware en kan niet worden gebruikt met ZHA totdat de juiste firmware is ge\u00efnstalleerd. [Een reparatie is aangemaakt]({repair_url}) met meer informatie en instructies hoe dit op te lossen."
+        },
+        "error": {
+            "cannot_connect": "Kan geen verbinding maken",
+            "invalid_backup_json": "Ongeldige back-up-JSON"
+        },
+        "flow_title": "{name}",
+        "step": {
+            "choose_automatic_backup": {
+                "data": {
+                    "choose_automatic_backup": "Kies een automatische back-up"
+                },
+                "description": "Herstel je netwerkinstellingen van een automatische back-up",
+                "title": "Automatische back-up herstellen"
+            },
+            "choose_formation_strategy": {
+                "description": "Kies de netwerkinstellingen voor je toegangspunt.",
+                "menu_options": {
+                    "choose_automatic_backup": "Een automatische back-up herstellen",
+                    "form_initial_network": "Een netwerk cre\u00ebren",
+                    "reuse_settings": "Behoud de netwerkinstellingen van het toegangspunt",
+                    "upload_manual_backup": "Upload een handmatige back-up"
+                },
+                "title": "Netwerkformatie"
+            },
+            "choose_serial_port": {
+                "data": {
+                    "path": "Serieel apparaat pad"
+                },
+                "description": "Selecteer de seri\u00eble poort voor je Zigbee-toegangspunt",
+                "title": "Selecteer een seri\u00eble poort"
+            },
+            "manual_pick_radio_type": {
+                "data": {
+                    "radio_type": "Toegangspunt type"
+                },
+                "description": "Selecteer je Zigbee toegangspunt type",
+                "title": "Toegangspunt type"
+            },
+            "manual_port_config": {
+                "data": {
+                    "path": "Serieel apparaat pad"
+                },
+                "description": "Geef de instellingen voor de seri\u00eble poort",
+                "title": "Seri\u00eblepoortinstellingen"
+            },
+            "maybe_confirm_ezsp_restore": {
+                "data": {
+                    "overwrite_coordinator_ieee": "Definitieve vervanging van IEEE toegangspunt adres"
+                },
+                "title": "Overschrijven IEEE adres van het toegangspunt"
+            },
+            "upload_manual_backup": {
+                "data": {
+                    "uploaded_backup_file": "Een bestand uploaden"
+                },
+                "description": "Herstel je netwerkinstellingen van ge-upload backup-JSON-bestand. Je kunt deze dpwnloaden van een andere ZHA installatie via **Netwerkinstellingen**, of gebruik een Zigbee2MQTT `coordinator_backup.json` bestand.",
+                "title": "Upload een handmatige back-up"
+            },
+            "verify_radio": {
+                "description": "De radio die je gebruikt ({name}) wordt niet aan te raden en ondersteuning ervoor kan in de toekomst worden verwijderd. Zie de documentatie van de Zigbee Home Automation-integratie voor [een lijst met aanbevolen adapters]({docs_recommended_adapters_url}).",
+                "title": "Radio wordt niet aanbevolen"
+            }
+        }
+    },
+    "config_panel": {
+        "zha_alarm_options": {
+            "alarm_arm_requires_code": "Code vereist voor inschakelacties",
+            "alarm_failed_tries": "Het aantal opeenvolgende foute codes om het alarm te activeren",
+            "alarm_master_code": "Mastercode voor het alarmbedieningspaneel",
+            "title": "Alarmbedieningspaneelopties"
+        },
+        "zha_options": {
+            "always_prefer_xy_color_mode": "Altijd XY kleurmodus prefereren",
+            "consider_unavailable_battery": "Beschouw apparaten met batterijvoeding als onbeschikbaar na (seconden)",
+            "consider_unavailable_mains": "Beschouw apparaten op netvoeding als onbeschikbaar na (seconden)",
+            "default_light_transition": "Standaard lichtovergangstijd (seconden)",
+            "enable_identify_on_join": "Schakel het identificatie-effect in wanneer apparaten in het netwerk komen",
+            "enhanced_light_transition": "Verbeterde lichtkleur-/temperatuurovergang vanuit een uit-stand mogelijk maken",
+            "group_members_assume_state": "Groepsleden nemen de status van de groep aan",
+            "light_transitioning_flag": "Inschakelen geavanceerde helderheid schuifregelaar gedurende de lichtovergang",
+            "title": "Globale opties"
+        }
+    },
+    "device_automation": {
+        "action_type": {
+            "issue_all_led_effect": "Effect toepassen voor alle LED's",
+            "issue_individual_led_effect": "Effect toepassen voor individuele LED",
+            "squawk": "Schreeuw",
+            "warn": "Waarschuwen"
+        },
+        "trigger_subtype": {
+            "both_buttons": "Beide knoppen",
+            "button": "Drukknop",
+            "button_1": "Eerste knop",
+            "button_2": "Tweede knop",
+            "button_3": "Derde knop",
+            "button_4": "Vierde knop",
+            "button_5": "Vijfde knop",
+            "button_6": "Zesde knop",
+            "close": "Sluiten",
+            "dim_down": "Dim omlaag",
+            "dim_up": "Dim omhoog",
+            "face_1": "Met gezicht 1 geactiveerd",
+            "face_2": "Met gezicht 2 geactiveerd",
+            "face_3": "Met gezicht 3 geactiveerd",
+            "face_4": "Met gezicht 4 geactiveerd",
+            "face_5": "Met gezicht 5 geactiveerd",
+            "face_any": "Met elk/opgegeven gezicht(en) geactiveerd",
+            "left": "Links",
+            "open": "Open",
+            "right": "Rechts",
+            "turn_off": "Uitzetten",
+            "turn_on": "Aanzetten"
+        },
+        "trigger_type": {
+            "device_dropped": "Apparaat gevallen",
+            "device_flipped": "Apparaat omgedraaid \"{subtype}\"",
+            "device_knocked": "Apparaat klopte \"{subtype}\"",
+            "device_offline": "Apparaat offline",
+            "device_rotated": "Apparaat gedraaid \" {subtype} \"",
+            "device_shaken": "Apparaat geschud",
+            "device_slid": "Apparaat geschoven \"{subtype}\"\".",
+            "device_tilted": "Apparaat gekanteld",
+            "remote_button_short_press": "\"{subtype}\" knop ingedrukt"
+        }
+    },
+    "entity": {
+        "alarm_control_panel": {
+            "alarm_control_panel": {
+                "name": "Alarmbedieningspaneel"
+            }
+        },
+        "binary_sensor": {
+            "accelerometer": {
+                "name": "Acceleratiemeter"
+            },
+            "binary_input": {
+                "name": "Binaire invoer"
+            },
+            "calibrated": {
+                "name": "Gekalibreerd"
+            },
+            "consumer_connected": {
+                "name": "Gebruiker verbonden"
+            },
+            "external_sensor": {
+                "name": "Externe sensor"
+            },
+            "frost_lock": {
+                "name": "Vorstslot"
+            },
+            "ias_zone": {
+                "name": "IAS zone"
+            },
+            "linkage_alarm_state": {
+                "name": "Verbindingsalarm status"
+            },
+            "replace_filter": {
+                "name": "Vervang filter"
+            },
+            "valve_alarm": {
+                "name": "Klep alarm"
+            }
+        },
+        "button": {
+            "feed": {
+                "name": "Voeren"
+            },
+            "reset_frost_lock": {
+                "name": "Vorstvergrendeling reset"
+            },
+            "reset_no_presence_status": {
+                "name": "Aanwezigheidsstatus reset"
+            },
+            "self_test": {
+                "name": "Zelftest"
+            }
+        },
+        "climate": {
+            "thermostat": {
+                "name": "Thermostaat"
+            }
+        },
+        "cover": {
+            "cover": {
+                "name": "Raambekleding"
+            },
+            "keen_vent": {
+                "name": "Keen ventilatie"
+            },
+            "shade": {
+                "name": "Rolgordijn"
+            }
+        },
+        "fan": {
+            "fan": {
+                "name": "Ventilator"
+            },
+            "fan_group": {
+                "name": "Ventilatorgroep"
+            }
+        },
+        "light": {
+            "light": {
+                "name": "Licht"
+            },
+            "light_group": {
+                "name": "Lichtgroep"
+            }
+        },
+        "lock": {
+            "door_lock": {
+                "name": "Deurslot"
+            }
+        },
+        "number": {
+            "auto_off_timer": {
+                "name": "Automatische uitschakeltimer"
+            },
+            "away_preset_temperature": {
+                "name": "Niet-thuis vooringestelde temperatuur"
+            },
+            "button_delay": {
+                "name": "Knopvertraging"
+            },
+            "default_move_rate": {
+                "name": "Standaard bewegingssnelheid"
+            },
+            "detection_interval": {
+                "name": "Detectieinterval"
+            },
+            "dimming_speed_down_local": {
+                "name": "Snelheid van omlaag dimmen lokaal"
+            },
+            "dimming_speed_down_remote": {
+                "name": "Snelheid van omlaag dimmen op afstand"
+            },
+            "dimming_speed_up_local": {
+                "name": "Snelheid van omhoog dimmen lokaal"
+            },
+            "dimming_speed_up_remote": {
+                "name": "Snelheid van omhoog dimmen op afstand"
+            },
+            "double_tap_down_level": {
+                "name": "Dubbeltik omlaag niveau"
+            },
+            "double_tap_up_level": {
+                "name": "Dubbeltik omhoog niveau"
+            },
+            "filter_life_time": {
+                "name": "Levensduur filter"
+            },
+            "led_color_when_off": {
+                "name": "Standaard kleur bij alle LED's uitgeschakeld"
+            },
+            "led_color_when_on": {
+                "name": "Standaard kleur bij alle LED's ingeschakeld"
+            },
+            "led_intensity_when_off": {
+                "name": "Standaard intensiteit bij alle LED's uitgeschakeld"
+            },
+            "led_intensity_when_on": {
+                "name": "Standaard intensiteit bij alle LED's ingeschakeld"
+            },
+            "load_level_indicator_timeout": {
+                "name": "Belastingsniveau indicator time-out"
+            },
+            "maximum_level": {
+                "name": "Maximale belasting dimniveau"
+            },
+            "minimum_level": {
+                "name": "Minimale belasting dimniveau"
+            },
+            "number": {
+                "name": "Nummer"
+            },
+            "off_transition_time": {
+                "name": "Uitschakel transitietijd"
+            },
+            "on_level": {
+                "name": "Inschakelniveau"
+            },
+            "on_off_transition_time": {
+                "name": "Aan/uit transitietijd"
+            },
+            "on_transition_time": {
+                "name": "Inschakel transitietijd"
+            },
+            "portion_weight": {
+                "name": "Deelgewicht"
+            },
+            "ramp_rate_off_to_on_local": {
+                "name": "Drempelratio lokaal voor inschakelen"
+            },
+            "ramp_rate_off_to_on_remote": {
+                "name": "Drempelratio op afstand voor inschakelen"
+            },
+            "ramp_rate_on_to_off_local": {
+                "name": "Drempelratio lokaal voor uitschakelen"
+            },
+            "ramp_rate_on_to_off_remote": {
+                "name": "Drempelratio op afstand voor uitschakelen"
+            },
+            "serving_size": {
+                "name": "Grootte van afgifte"
+            },
+            "start_up_color_temperature": {
+                "name": "Kleurtemperatuur bij opstarten"
+            },
+            "start_up_current_level": {
+                "name": "Huidig niveau bij opstarten"
+            },
+            "timer_duration": {
+                "name": "Timerduur"
+            },
+            "transmit_power": {
+                "name": "Uitzendvermogen"
+            }
+        },
+        "select": {
+            "approach_distance": {
+                "name": "Naderingsafstand"
+            },
+            "backlight_mode": {
+                "name": "Achtergrondverlichtingsmodus"
+            },
+            "default_siren_level": {
+                "name": "Standaard sireneniveau"
+            },
+            "default_siren_tone": {
+                "name": "Standaard sirenetoon"
+            },
+            "default_strobe": {
+                "name": "Standaard stroboscoop"
+            },
+            "default_strobe_level": {
+                "name": "Standaard stroboscoopniveau"
+            },
+            "feeding_mode": {
+                "name": "Mode"
+            },
+            "increased_non_neutral_output": {
+                "name": "Niet neutrale uitgang"
+            },
+            "led_scaling_mode": {
+                "name": "LED schaalmodus"
+            },
+            "monitoring_mode": {
+                "name": "Monitoring modus"
+            },
+            "motion_sensitivity": {
+                "name": "Bewegingsgevoeligheid"
+            },
+            "output_mode": {
+                "name": "Uitvoermodus"
+            },
+            "power_on_state": {
+                "name": "Status bij inschakelen"
+            },
+            "preset": {
+                "name": "Voorinstelling"
+            },
+            "start_up_on_off": {
+                "name": "Opstartgedrag"
+            },
+            "switch_type": {
+                "name": "Type schakelaar"
+            },
+            "window_covering_mode": {
+                "name": "Gordijn mode"
+            }
+        },
+        "sensor": {
+            "ac_frequency": {
+                "name": "Netfrequentie"
+            },
+            "adaptation_run_status": {
+                "state": {
+                    "nothing": "Idle"
+                },
+                "state_attributes": {
+                    "in_progress": {
+                        "name": "In uitvoering"
+                    }
+                }
+            },
+            "analog_input": {
+                "name": "Analoge ingang"
+            },
+            "device_run_time": {
+                "name": "Gebruiksduur apparaat"
+            },
+            "device_temperature": {
+                "name": "Temperatuur apparaat"
+            },
+            "filter_run_time": {
+                "name": "Gebruiksduur filter"
+            },
+            "formaldehyde": {
+                "name": "Concentratie formaldehyde"
+            },
+            "hvac_action": {
+                "name": "Actie air-conditioner"
+            },
+            "instantaneous_demand": {
+                "name": "Onmiddellijke vraag"
+            },
+            "last_feeding_size": {
+                "name": "Laatste voedingsafgifte"
+            },
+            "last_feeding_source": {
+                "name": "Laatste voedingsbron"
+            },
+            "leaf_wetness": {
+                "name": "Vochtigheid bladeren"
+            },
+            "lqi": {
+                "name": "LQI"
+            },
+            "portions_dispensed_today": {
+                "name": "Delen afgegeven vandaag"
+            },
+            "rssi": {
+                "name": "RSSI"
+            },
+            "smoke_density": {
+                "name": "Rookdichtheid"
+            },
+            "software_error": {
+                "state": {
+                    "something": "Fout"
+                },
+                "state_attributes": {
+                    "low_battery": {
+                        "name": "Lage batterij"
+                    }
+                }
+            },
+            "soil_moisture": {
+                "name": "Vochtigheid aarde"
+            },
+            "summation_delivered": {
+                "name": "Opsomming afgeleverd"
+            },
+            "tier1_summation_delivered": {
+                "name": "Tier 1 opsomming afgeleverd"
+            },
+            "tier2_summation_delivered": {
+                "name": "Tier 2 opsomming afgeleverd"
+            },
+            "tier3_summation_delivered": {
+                "name": "Tier 3 opsomming afgeleverd"
+            },
+            "tier4_summation_delivered": {
+                "name": "Tier 4 opsomming afgeleverd"
+            },
+            "tier5_summation_delivered": {
+                "name": "Tier 5 opsomming afgeleverd"
+            },
+            "tier6_summation_delivered": {
+                "name": "Tier 6 opsomming afgeleverd"
+            },
+            "timer_time_left": {
+                "name": "Resterende tijd"
+            },
+            "weight_dispensed_today": {
+                "name": "Afgegeven gewicht vandaag"
+            }
+        },
+        "switch": {
+            "aux_switch_scenes": {
+                "name": "Externe schakelsc\u00e8nes"
+            },
+            "binding_off_to_on_sync_level": {
+                "name": "Afkoppelen op synchronisatieniveau"
+            },
+            "buzzer_manual_alarm": {
+                "name": "Zoemer handmatig alarm"
+            },
+            "buzzer_manual_mute": {
+                "name": "Zoemer handmatig dempen"
+            },
+            "child_lock": {
+                "name": "Kinderslot"
+            },
+            "disable_clear_notifications_double_tap": {
+                "name": "Uitschakelen configuratie dubbeltik om notificaties te wissen"
+            },
+            "disable_led": {
+                "name": "LED uitschakelen"
+            },
+            "double_tap_down_enabled": {
+                "name": "Dubbeltik omlaag ingeschakeld"
+            },
+            "double_tap_up_enabled": {
+                "name": "Dubbeltik omhoog ingeschakeld"
+            },
+            "firmware_progress_led": {
+                "name": "Firmware voortgangs-LED"
+            },
+            "heartbeat_indicator": {
+                "name": "Heartbeat indicator"
+            },
+            "invert_switch": {
+                "name": "Omkeren schakelaar"
+            },
+            "led_indicator": {
+                "name": "LED indicator"
+            },
+            "linkage_alarm": {
+                "name": "Verbindingsalarm"
+            },
+            "local_protection": {
+                "name": "Lokale bescherming"
+            },
+            "one_led_mode": {
+                "name": "Enkele LED modus"
+            },
+            "power_outage_memory": {
+                "name": "Stroomuitval geheugen"
+            },
+            "relay_click_in_on_off_mode": {
+                "name": "Uitschakelen relaisklik in aan/uit modus"
+            },
+            "smart_bulb_mode": {
+                "name": "Slimme lampmodus"
+            },
+            "switch": {
+                "name": "Schakelaar"
+            },
+            "trigger_indicator": {
+                "name": "LED triggerindicator"
+            },
+            "use_load_balancing": {
+                "name": "Gebruik load balancing"
+            },
+            "valve_detection": {
+                "name": "Klepdetectie"
+            },
+            "window_detection": {
+                "name": "Raamdetectie"
+            },
+            "window_detection_function": {
+                "name": "Raamdetectie omkeren"
+            }
+        }
+    },
+    "issues": {
+        "inconsistent_network_settings": {
+            "fix_flow": {
+                "step": {
+                    "init": {
+                        "description": "Je Zigbee radio netwerkinstellingen zijn niet consistent met de meest recente netwerk back-up. Dit is doorgaans het geval als een andere Zigbee integratie (zoals Zigbee2MQTT of deCONZ) deze heeft overschreven.\n\n{diff}\n\nAls dit onbewust is gebeurd, zet dan de instellingen terug van de meest recente backup: Je apparaten zullen anders niet werken.",
+                        "menu_options": {
+                            "restore_old_settings": "Backup terugzetten (aanbevolen)",
+                            "use_new_settings": "Behoud de nieuwe instellingen"
+                        },
+                        "title": "Zigbee netwerkinstellingen zijn gewijzigd"
+                    }
+                }
+            },
+            "title": "Zigbee netwerkinstellingen zijn gewijzigd"
+        },
+        "wrong_silabs_firmware_installed_nabucasa": {
+            "description": "Je Zigbee radio was eerder gebruikt met multiprotocol (Zigbee en Thread) en heeft nog steeds de multiprotocol firmware ge\u00efnstalleerd: ({firmware_type}). \n Optie 1: Om je radio exclusief voor ZHA te kunnen configureren moet je de Zigbee firmware installeren:\n - Open de documentatie door de link on \"Ontdek meer\" te selecteren.\n - Volg de instructies beschreven in Stap 2 (en alleen Stap) om 'de Silicon Labs radio Zigbee firmwarete Flashen'.\n Optie 2: Om je radio in multiprotocol mode te configureren, volg je deze stappen: \n - Ga naar Instellingen > Systeem > Hardware, en selecteer het apparaat en selecteer Configureer. \n - Selecteer `Configureer IEEE 802.15.4 radio met multiprotocol ondersteuning` optie. \n - Selecteer de checkbox en selecteer Toepassen. \n - Eenmaal ge\u00efnstalleerd, kun je de nieuw ontdekte ZHA integratie instellen.",
+            "title": "Zigbee radio met multiprotocol firmware gedetecteerd"
+        },
+        "wrong_silabs_firmware_installed_other": {
+            "description": "Je Zigbee radio was eerder gebruikt met multiprotocol (Zigbee en Thread) en heeft nog steeds de multiprotocol firmware ge\u00efnstalleerd: ({firmware_type}). Om je radio exclusief te gebruiken met ZHA, moet je de Zigbee firmware installeren. Volg de installatie-instructies van je Zigbee radio leverancier over hoe dit te doen.",
+            "title": "Zigbee radio met multiprotocol firmware gedetecteerd"
+        }
+    },
+    "options": {
+        "abort": {
+            "not_zha_device": "Dit apparaat is niet een zha-apparaat.",
+            "single_instance_allowed": "Al geconfigureerd. Slechts \u00e9\u00e9n configuratie mogelijk.",
+            "usb_probe_failed": "Kon het USB apparaat niet onderzoeken",
+            "wrong_firmware_installed": "Je apparaat draait de verkeerde  firmware en kan niet worden gebruikt met ZHA totdat de juiste firmware is ge\u00efnstalleerd. [Een reparatie is aangemaakt]({repair_url}) met meer informatie en instructies hoe dit op te lossen."
+        },
+        "error": {
+            "cannot_connect": "Kan geen verbinding maken",
+            "invalid_backup_json": "Ongeldige back-up-JSON"
+        },
+        "flow_title": "{name}",
+        "step": {
+            "choose_automatic_backup": {
+                "data": {
+                    "choose_automatic_backup": "Kies een automatische back-up"
+                },
+                "description": "Herstel je netwerkinstellingen van een automatische back-up",
+                "title": "Automatische back-up herstellen"
+            },
+            "choose_formation_strategy": {
+                "description": "Kies de netwerkinstellingen voor je toegangspunt.",
+                "menu_options": {
+                    "choose_automatic_backup": "Een automatische back-up herstellen",
+                    "form_initial_network": "Een netwerk cre\u00ebren",
+                    "form_new_network": "Wis netwerkinstellingen en vorm een nieuw netwerk",
+                    "reuse_settings": "Behoud de netwerkinstellingen van het toegangspunt",
+                    "upload_manual_backup": "Upload een handmatige back-up"
+                },
+                "title": "Netwerkformatie"
+            },
+            "choose_serial_port": {
+                "data": {
+                    "path": "Serieel apparaat pad"
+                },
+                "description": "Selecteer de seri\u00eble poort voor je Zigbee-toegangspunt",
+                "title": "Selecteer een seri\u00eble poort"
+            },
+            "init": {
+                "description": "ZHA wordt gestopt. Wil je doorgaan?",
+                "title": "ZHA opnieuw configureren"
+            },
+            "instruct_unplug": {
+                "title": "Loskoppellen van je oude toegangspunt"
+            },
+            "intent_migrate": {
+                "title": "Migreren naar een nieuw toegangspunt"
+            },
+            "manual_pick_radio_type": {
+                "data": {
+                    "radio_type": "Toegangspunt type"
+                },
+                "description": "Selecteer je Zigbee toegangspunt type"
+            },
+            "manual_port_config": {
+                "data": {
+                    "baudrate": "poortsnelheid",
+                    "flow_control": "data flow controle",
+                    "path": "Serieel apparaat pad"
+                },
+                "description": "Geef de instellingen voor de seri\u00eble poort",
+                "title": "Seri\u00eblepoortinstellingen"
+            },
+            "maybe_confirm_ezsp_restore": {
+                "data": {
+                    "overwrite_coordinator_ieee": "Definitieve vervanging van IEEE toegangspunt adres"
+                },
+                "description": "Je back-up heeft een ander IEEE adres dan je toegangspunt. Om je netwerk goed te laten functioneren, moet je ook het IEEE adres van je toegangspunt wijzigen.\n\nDit is een definitieve operatie.",
+                "title": "Overschrijven IEEE adres van het toegangspunt"
+            },
+            "prompt_migrate_or_reconfigure": {
+                "description": "Wil je migreren naar een nieuw toegangspunt of het bestaande toegangspunt herconfigureren?",
+                "menu_options": {
+                    "intent_migrate": "Migreren naar een nieuw toegangspunt",
+                    "intent_reconfigure": "Herconfigureren van het bestaande toegangspunt"
+                },
+                "title": "Migreren of herconfigureren"
+            },
+            "upload_manual_backup": {
+                "data": {
+                    "uploaded_backup_file": "Een bestand uploaden"
+                },
+                "description": "Herstel je netwerkinstellingen van ge-upload backup-JSON-bestand. Je kunt deze dpwnloaden van een andere ZHA installatie via **Netwerkinstellingen**, of gebruik een Zigbee2MQTT `coordinator_backup.json` bestand.",
+                "title": "Upload een handmatige back-up"
+            },
+            "verify_radio": {
+                "description": "De radio die je gebruikt ({name}) wordt niet aan te raden en ondersteuning ervoor kan in de toekomst worden verwijderd. Zie de documentatie van de Zigbee Home Automation-integratie voor [een lijst met aanbevolen adapters]({docs_recommended_adapters_url}).",
+                "title": "Radio wordt niet aanbevolen"
+            }
+        }
+    },
+    "services": {
+        "clear_lock_user_code": {
+            "description": "Verwijdert een gebruikerscode van een slot.",
+            "fields": {
+                "code_slot": {
+                    "description": "Codeslot om code van te wissen.",
+                    "name": "Codeslot"
+                }
+            },
+            "name": "Wis een gebruikerscode van het slot"
+        },
+        "disable_lock_user_code": {
+            "description": "Schakelt een gebruikerscode op een slot uit.",
+            "fields": {
+                "code_slot": {
+                    "description": "Code slot om uit te schakelen.",
+                    "name": "Codeslot"
+                }
+            },
+            "name": "Uitschakelen gebruiker op slot."
+        },
+        "enable_lock_user_code": {
+            "description": "Inschakelen van gebruikerscode op een slot.",
+            "fields": {
+                "code_slot": {
+                    "description": "Codeslot om in te schakelen.",
+                    "name": "Codeslot"
+                }
+            },
+            "name": "Inschakelen slot gebruiker"
+        },
+        "issue_zigbee_cluster_command": {
+            "description": "Voert een commando uit op een specifiek cluster op een specifieke entiteit.",
+            "fields": {
+                "args": {
+                    "description": "Argumenten om door te geven aan het commando.",
+                    "name": "Argumenten"
+                },
+                "cluster_id": {
+                    "description": "ZCL-cluster om attributen voor op te halen.",
+                    "name": "Cluster-ID"
+                },
+                "cluster_type": {
+                    "description": "Type van het cluster.",
+                    "name": "Type cluster"
+                },
+                "command": {
+                    "description": "ID van de uit te voeren opdracht.",
+                    "name": "Opdracht"
+                },
+                "command_type": {
+                    "description": "Type van de opdracht die moet worden uitgevoerd.",
+                    "name": "Type opdracht"
+                },
+                "endpoint_id": {
+                    "description": "Eindpunt-ID voor het cluster.",
+                    "name": "Eindpunt-ID"
+                },
+                "ieee": {
+                    "description": "IEEE-adres voor het apparaat.",
+                    "name": "IEEE"
+                },
+                "manufacturer": {
+                    "description": "Fabrikantcode.",
+                    "name": "Fabrikant"
+                },
+                "params": {
+                    "description": "Parameters om door te geven aan de opdracht.",
+                    "name": "Parameters"
+                }
+            },
+            "name": "Geef Zigbee cluster opdracht"
+        },
+        "issue_zigbee_group_command": {
+            "description": "Geef een opdracht op de gespecificeerde cluster in de gespecificeerde groep.",
+            "fields": {
+                "args": {
+                    "description": "Argumenten om door te geven aan het commando.",
+                    "name": "Args"
+                },
+                "cluster_id": {
+                    "description": "ZCL-cluster om de opdracht naar te sturen.",
+                    "name": "Cluster-ID"
+                },
+                "cluster_type": {
+                    "description": "Type van het cluster.",
+                    "name": "Type cluster"
+                },
+                "command": {
+                    "description": "ID van de uit te voeren opdracht.",
+                    "name": "Opdracht"
+                },
+                "group": {
+                    "description": "Hexadecimaal adres van de groep.",
+                    "name": "Groep"
+                },
+                "manufacturer": {
+                    "description": "Fabrikantcode.",
+                    "name": "Fabrikant"
+                }
+            },
+            "name": "Geef Zigbee groepsopdracht"
+        },
+        "permit": {
+            "description": "Staat nodes toe om zich aan te sluiten bij het Zigbee-netwerk.",
+            "fields": {
+                "duration": {
+                    "description": "Tijd om deelnames toe te staan.",
+                    "name": "Duur"
+                },
+                "ieee": {
+                    "description": "IEEE-adres van de node die nieuwe verbindingen toestaat.",
+                    "name": "IEEE"
+                },
+                "install_code": {
+                    "description": "Installeer de code van het verbindingsapparaat (moet worden gebruikt met bron IEEE).",
+                    "name": "Installeer code"
+                },
+                "qr_code": {
+                    "description": "Waarde van de QR-installatiecode (verschilt tussen leveranciers).",
+                    "name": "QR-code"
+                },
+                "source_ieee": {
+                    "description": "IEEE-adres van het aansluitende apparaat (moet worden gebruikt met de installatiecode).",
+                    "name": "Bron IEEE"
+                }
+            },
+            "name": "Toestaan"
+        },
+        "reconfigure_device": {
+            "description": "Configureert een ZHA-apparaat opnieuw (herstel apparaat). Gebruik dit als je problemen hebt met het apparaat. Als het apparaat in kwestie een op batterijen werkend apparaat is, zorg er dan voor dat het wakker is en opdrachten accepteert wanneer je deze service gebruikt.",
+            "fields": {
+                "ieee": {
+                    "description": "IEEE-adres van het apparaat dat opnieuw moet worden geconfigureerd.",
+                    "name": "IEEE"
+                }
+            },
+            "name": "Apparaat opnieuw configureren"
+        },
+        "remove": {
+            "description": "Verwijdert een node uit het Zigbee-netwerk.",
+            "fields": {
+                "ieee": {
+                    "description": "IEEE-adres van de node om te verwijderen.",
+                    "name": "IEEE"
+                }
+            },
+            "name": "Verwijderen"
+        },
+        "set_lock_user_code": {
+            "description": "Stelt een gebruikerscode in op een slot.",
+            "fields": {
+                "code_slot": {
+                    "description": "Codeslot om de code in te stellen.",
+                    "name": "Codeslot"
+                },
+                "user_code": {
+                    "description": "In te stellen code.",
+                    "name": "Code"
+                }
+            },
+            "name": "Gebruikerscode slot instellen"
+        },
+        "set_zigbee_cluster_attribute": {
+            "description": "Stelt een attribuutwaarde in voor de gespecificeerde cluster op de gespecificeerde entiteit.",
+            "fields": {
+                "attribute": {
+                    "description": "ID van het in te stellen attribuut.",
+                    "name": "Attribuut"
+                },
+                "cluster_id": {
+                    "description": "ZCL-cluster om attributen voor op te halen.",
+                    "name": "Cluster-ID"
+                },
+                "cluster_type": {
+                    "description": "Type van het cluster.",
+                    "name": "Type cluster"
+                },
+                "endpoint_id": {
+                    "description": "Eindpunt-ID voor het cluster.",
+                    "name": "Eindpunt-ID"
+                },
+                "ieee": {
+                    "description": "IEEE-adres voor het apparaat.",
+                    "name": "IEEE"
+                },
+                "manufacturer": {
+                    "name": "Fabrikant"
+                },
+                "value": {
+                    "description": "Waarde om naar het attribuut te schrijven.",
+                    "name": "Waarde"
+                }
+            },
+            "name": "Zigbee clusterattribuut instellen"
+        },
+        "warning_device_squawk": {
+            "fields": {
+                "ieee": {
+                    "description": "IEEE-adres voor het apparaat.",
+                    "name": "IEEE"
+                },
+                "level": {
+                    "description": "Het squawk-niveauveld wordt gebruikt als een 2-bits enumeratie en bepaalt de intensiteit van het hoorbare squawk-geluid zoals weergegeven in Tabel 8-26 van de ZCL-specificatie - Squawk-niveauveldwaarden.",
+                    "name": "Niveau"
+                },
+                "mode": {
+                    "description": "Het Squawk modus-veld wordt gebruikt als een 4-bits enumeratie en kan een van de waarden hebben die worden getoond in Tabel 8-24 van de ZCL-specificatie - Squawk modus-veld. De exacte werking van elke modus (hoe de WD \"squawks\") is specifiek voor de implementatie.",
+                    "name": "Modus"
+                },
+                "strobe": {
+                    "description": "Het stobeveld wordt gebruikt als een boolean en bepaalt of de visuele indicatie ook nodig is naast de hoorbare squawk, zoals weergegeven in Tabel 8-25 van de ZCL-specificatie - Strobe Bit.",
+                    "name": "Strobe"
+                }
+            },
+            "name": "Waarschuwingsapparaat squawk"
+        },
+        "warning_device_warn": {
+            "fields": {
+                "duration": {
+                    "description": "Gevraagde duur van waarschuwing, in seconden (16 bit). Als zowel Strobe als Warning Mode \"0\" zijn, moet dit veld worden genegeerd.",
+                    "name": "Duur"
+                },
+                "duty_cycle": {
+                    "description": "Geeft de lengte van de flitscyclus aan. Dit stelt je in staat om de flitsduur te vari\u00ebren voor verschillende alarmtypen (bijv. brand, politie, inbraak). Het geldige bereik is 0-100 in stappen van 10. Alle andere waarden moeten worden afgerond naar de dichtstbijzijnde geldige waarde. Strobe berekent een duty cycle over een duur van \u00e9\u00e9n seconde. De AAN status moet de UIT status voorafgaan. Bijvoorbeeld, als het veld Strobe Duty Cycle \"40\" aangeeft, dan flitst de strobe AAN voor 4/10e van een seconde en dan gaat het UIT voor 6/10e van een seconde.",
+                    "name": "Inschakelduur"
+                },
+                "ieee": {
+                    "description": "IEEE-adres voor het apparaat.",
+                    "name": "IEEE"
+                },
+                "intensity": {
+                    "description": "Geeft de intensiteit van de strobe aan zoals weergegeven in Tabel 8-23 van de ZCL-specificatie. Dit attribuut is ontworpen om de output van de stobe (d.w.z. helderheid) te vari\u00ebren en niet de frequentie, die wordt beschreven in sectie 8.4.2.3.1.6 van de ZCL-specificatie.",
+                    "name": "Intensiteit"
+                },
+                "level": {
+                    "description": "Het Sirenaniveau-veld wordt gebruikt als een 2-bit opsomming en geeft de intensiteit aan van het hoorbare squawk-geluid zoals weergegeven in Tabel 8-22 van de ZCL spec.",
+                    "name": "Niveau"
+                },
+                "mode": {
+                    "description": "Het veld Waarschuwingsmodus wordt gebruikt als een 4-bits enumeratie, kan een van de waarden 0-6 hebben zoals hieronder gedefinieerd in tabel 8-20 van de ZCL-specificatie. Het exacte gedrag van het waarschuwingsapparaat is in elke modus volgens de relevante beveiligingsnormen.",
+                    "name": "Modus"
+                },
+                "strobe": {
+                    "description": "Het Strobe-veld wordt gebruikt als een 2-bits enumeratie en bepaalt of de visuele indicatie vereist is ook naast de hoorbare sirene, zoals aangegeven in Tabel 8-21 van de ZCL-specificatie. \"0\" betekent geen stroboscoop, \"1\" betekent stroboscoop. Als het stroboscoopveld \"1\" is en de waarschuwingsmodus is \"0\" (\"Stop\"), dan wordt alleen de stroboscoop geactiveerd.",
+                    "name": "Strobe"
+                }
+            },
+            "name": "Waarschuwingsapparaat start alarm"
+        }
+    }
+}

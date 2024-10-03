@@ -1,0 +1,99 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "L'appareil est d\u00e9j\u00e0 configur\u00e9",
+            "connection_aborted": "\u00c9chec de connexion",
+            "unknown": "Erreur inattendue"
+        },
+        "error": {
+            "invalid_sgtin_or_pin": "Code SGTIN ou PIN invalide, veuillez r\u00e9essayer.",
+            "press_the_button": "Veuillez appuyer sur le bouton bleu.",
+            "register_failed": "\u00c9chec de l'enregistrement, veuillez r\u00e9essayer.",
+            "timeout_button": "D\u00e9lai d'appui sur le bouton bleu d\u00e9pass\u00e9, veuillez r\u00e9essayer."
+        },
+        "step": {
+            "init": {
+                "data": {
+                    "hapid": "ID du point d'acc\u00e8s (SGTIN)",
+                    "name": "Nom (facultatif, utilis\u00e9 comme pr\u00e9fixe de nom pour tous les appareils)",
+                    "pin": "Code PIN"
+                },
+                "title": "Choisissez le point d'acc\u00e8s HomematicIP"
+            },
+            "link": {
+                "title": "Lier le point d'acc\u00e8s"
+            }
+        }
+    },
+    "services": {
+        "activate_eco_mode_with_duration": {
+            "description": "Active le mode \u00e9co avec la dur\u00e9e",
+            "fields": {
+                "accesspoint_id": {
+                    "description": "L'ID du point d'acc\u00e8s IP Homematic",
+                    "name": "ID du point d'acc\u00e8s"
+                },
+                "duration": {
+                    "description": "Dur\u00e9e du mode \u00e9co en minutes.",
+                    "name": "Dur\u00e9e"
+                }
+            },
+            "name": "Activer le mode \u00e9co avec la dur\u00e9e"
+        },
+        "activate_eco_mode_with_period": {
+            "description": "Active le mode \u00e9co avec la dur\u00e9e",
+            "fields": {
+                "endtime": {
+                    "description": "Heure \u00e0 laquelle le mode \u00e9co doit \u00eatre automatiquement d\u00e9sactiv\u00e9.",
+                    "name": "Heure de fin"
+                }
+            }
+        },
+        "activate_vacation": {
+            "description": "Active le mode vacances jusqu'\u00e0 l'heure donn\u00e9e.",
+            "fields": {
+                "endtime": {
+                    "description": "Heure \u00e0 laquelle le mode vacances doit \u00eatre automatiquement d\u00e9sactiv\u00e9."
+                },
+                "temperature": {
+                    "name": "Temp\u00e9rature"
+                }
+            }
+        },
+        "dump_hap_config": {
+            "fields": {
+                "anonymize": {
+                    "description": "La configuration doit-elle \u00eatre anonymis\u00e9e ?"
+                },
+                "config_output_path": {
+                    "description": "(La valeur par d\u00e9faut est \"Your home-assistant config directory\") Chemin o\u00f9 stocker la configuration.",
+                    "name": "Configurer le chemin de sortie"
+                }
+            }
+        },
+        "reset_energy_counter": {
+            "description": "Remet \u00e0 z\u00e9ro le compteur d'\u00e9nergie d'une entity de mesure.",
+            "fields": {
+                "entity_id": {
+                    "description": "L'ID de l'entity de mesure. Utilisez le mot-cl\u00e9 'all' pour remettre \u00e0 z\u00e9ro tous les compteurs d'\u00e9nergie.",
+                    "name": "Entit\u00e9"
+                }
+            },
+            "name": "Remise \u00e0 z\u00e9ro du compteur d'\u00e9nergie"
+        },
+        "set_active_climate_profile": {
+            "description": "D\u00e9finit l'indice du profil climatique actif.",
+            "fields": {
+                "climate_profile_index": {
+                    "description": "L'indice du profil climatique.",
+                    "name": "Index des profils climatiques"
+                },
+                "entity_id": {
+                    "description": "L'ID de l'entit\u00e9 climatique. Utilisez le mot-cl\u00e9 'all' pour changer de profil pour toutes les entit\u00e9s.",
+                    "name": "Entit\u00e9"
+                }
+            },
+            "name": "D\u00e9finir le profil climatique actif"
+        }
+    }
+}

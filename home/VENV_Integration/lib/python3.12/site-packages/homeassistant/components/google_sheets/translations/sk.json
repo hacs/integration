@@ -1,0 +1,58 @@
+{
+    "application_credentials": {
+        "description": "Postupujte pod\u013ea [pokynov]({more_info_url}) pre [obrazovku s\u00fahlasu OAuth]({oauth_consent_url}), aby ste poskytli asistentovi Home Assistant pr\u00edstup k va\u0161im h\u00e1rkom Google. Mus\u00edte tie\u017e vytvori\u0165 aplika\u010dn\u00e9 poverenia prepojen\u00e9 s va\u0161\u00edm \u00fa\u010dtom:\n1. Prejdite na str\u00e1nku [Credentials]({oauth_creds_url}) a vyberte mo\u017enos\u0165 **Create Credentials** (Vytvori\u0165 poverenia**).\n2. Z rozba\u013eovacieho zoznamu vyberte polo\u017eku **OAuth client ID**.\n3. Pre typ aplik\u00e1cie vyberte **Webov\u00e1 aplik\u00e1cia**."
+    },
+    "config": {
+        "abort": {
+            "already_configured": "\u00da\u010det je u\u017e nakonfigurovan\u00fd",
+            "already_in_progress": "Konfigur\u00e1cia u\u017e prebieha",
+            "cannot_connect": "Nepodarilo sa pripoji\u0165",
+            "create_spreadsheet_failure": "Chyba pri vytv\u00e1ran\u00ed tabu\u013eky, podrobnosti n\u00e1jdete v protokole ch\u00fdb",
+            "invalid_access_token": "Neplatn\u00fd pr\u00edstupov\u00fd token",
+            "missing_configuration": "Komponent nie je nakonfigurovan\u00fd. Postupujte pod\u013ea dokument\u00e1cie.",
+            "oauth_error": "Prijat\u00e9 neplatn\u00e9 \u00fadaje tokenu.",
+            "oauth_failed": "Chyba pri z\u00edskavan\u00ed pr\u00edstupov\u00e9ho tokenu.",
+            "oauth_timeout": "\u010casov\u00fd limit na vyrie\u0161enie tokenu OAuth.",
+            "oauth_unauthorized": "Chyba autoriz\u00e1cie OAuth pri z\u00edskavan\u00ed pr\u00edstupov\u00e9ho tokenu.",
+            "open_spreadsheet_failure": "Chyba pri otv\u00e1ran\u00ed tabu\u013eky, podrobnosti n\u00e1jdete v protokole ch\u00fdb",
+            "reauth_successful": "Op\u00e4tovn\u00e9 overenie bolo \u00faspe\u0161n\u00e9",
+            "timeout_connect": "\u010casov\u00fd limit na nadviazanie spojenia",
+            "unknown": "Neo\u010dak\u00e1van\u00e1 chyba"
+        },
+        "create_entry": {
+            "default": "\u00daspe\u0161ne overen\u00e9 a tabu\u013eka vytvoren\u00e1 na adrese: {url}"
+        },
+        "step": {
+            "auth": {
+                "title": "Prepoji\u0165 \u00fa\u010det Google"
+            },
+            "pick_implementation": {
+                "title": "Vyberte met\u00f3du overenia"
+            },
+            "reauth_confirm": {
+                "description": "Integr\u00e1cia Tabuliek Google vy\u017eaduje op\u00e4tovn\u00e9 overenie v\u00e1\u0161ho \u00fa\u010dtu",
+                "title": "Vypr\u0161ala platnos\u0165 overenia pre {name}"
+            }
+        }
+    },
+    "services": {
+        "append_sheet": {
+            "description": "Pripoj\u00ed \u00fadaje do pracovn\u00e9ho h\u00e1rka v h\u00e1rkoch Google.",
+            "fields": {
+                "config_entry": {
+                    "description": "H\u00e1rok, do ktor\u00e9ho sa maj\u00fa prida\u0165 \u00fadaje.",
+                    "name": "List"
+                },
+                "data": {
+                    "description": "\u00dadaje, ktor\u00e9 sa maj\u00fa pripoji\u0165 k pracovn\u00e9mu h\u00e1rku. T\u00fdm sa hodnoty umiestnia do nov\u00fdch riadkov pod zodpovedaj\u00faci st\u013apec (k\u013e\u00fa\u010d). Ka\u017ed\u00fd nov\u00fd k\u013e\u00fa\u010d sa umiestni na vrch nov\u00e9ho st\u013apca.",
+                    "name": "\u00dadaje"
+                },
+                "worksheet": {
+                    "description": "N\u00e1zov pracovn\u00e9ho listu. Predvolen\u00e9 nastavenie je prv\u00e9 v dokumente.",
+                    "name": "Pracovn\u00fd list"
+                }
+            },
+            "name": "Pripoji\u0165 k h\u00e1rku"
+        }
+    }
+}

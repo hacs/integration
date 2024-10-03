@@ -1,0 +1,146 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Enheten \u00e4r redan konfigurerad",
+            "connection_aborted": "Det gick inte att ansluta.",
+            "unknown": "Ov\u00e4ntat fel"
+        },
+        "error": {
+            "invalid_sgtin_or_pin": "Ogiltig PIN-kod, f\u00f6rs\u00f6k igen.",
+            "press_the_button": "V\u00e4nligen tryck p\u00e5 den bl\u00e5 knappen.",
+            "register_failed": "Misslyckades med att registrera, f\u00f6rs\u00f6k igen.",
+            "timeout_button": "Bl\u00e5 knapptryckning timeout, f\u00f6rs\u00f6k igen."
+        },
+        "step": {
+            "init": {
+                "data": {
+                    "hapid": "Accesspunkt-ID (SGTIN)",
+                    "name": "Namn (frivilligt, anv\u00e4nds som namnprefix f\u00f6r alla enheter)",
+                    "pin": "PIN-kod"
+                },
+                "title": "V\u00e4lj HomematicIP Accesspunkt"
+            },
+            "link": {
+                "title": "L\u00e4nka Accesspunkt"
+            }
+        }
+    },
+    "services": {
+        "activate_eco_mode_with_duration": {
+            "description": "Aktiverar ekol\u00e4get under en given tidsperiod.",
+            "fields": {
+                "accesspoint_id": {
+                    "description": "ID f\u00f6r Homematics IP-accesspunkt.",
+                    "name": "Accesspunkts-ID"
+                },
+                "duration": {
+                    "description": "Varaktigheten f\u00f6r ekol\u00e4get i minuter.",
+                    "name": "Varaktighet"
+                }
+            },
+            "name": "Aktiverar ekol\u00e4ge under tidsperiod."
+        },
+        "activate_eco_mode_with_period": {
+            "description": "Aktiverar ekol\u00e4get under en given tidsperiod.",
+            "fields": {
+                "accesspoint_id": {
+                    "description": "ID f\u00f6r Homematics IP-accesspunkt.",
+                    "name": "Accesspunkts-ID"
+                },
+                "endtime": {
+                    "description": "Tiden d\u00e5 ekol\u00e4get automatiskt ska inaktiveras.",
+                    "name": "Sluttid"
+                }
+            },
+            "name": "Aktiverar ekol\u00e4get under en given tidsperiod."
+        },
+        "activate_vacation": {
+            "description": "Aktiverar semesterl\u00e4get under en given tidsperiod.",
+            "fields": {
+                "accesspoint_id": {
+                    "description": "ID f\u00f6r Homematics IP-accesspunkt.",
+                    "name": "Accesspunkts-ID"
+                },
+                "endtime": {
+                    "description": "Tiden d\u00e5 semesterl\u00e4get automatiskt ska inaktiveras.",
+                    "name": "Sluttid"
+                },
+                "temperature": {
+                    "description": "Inst\u00e4lld temperatur under semesterl\u00e4get.",
+                    "name": "Temperatur"
+                }
+            },
+            "name": "Aktivera semesterl\u00e4ge"
+        },
+        "deactivate_eco_mode": {
+            "description": "Inaktiverar ekol\u00e4get omedelbart.",
+            "fields": {
+                "accesspoint_id": {
+                    "description": "ID f\u00f6r Homematics IP-accesspunkt.",
+                    "name": "Accesspunkts-ID"
+                }
+            },
+            "name": "Inaktivera ekol\u00e4ge"
+        },
+        "deactivate_vacation": {
+            "description": "Inaktiverar semesterl\u00e4get omedelbart.",
+            "fields": {
+                "accesspoint_id": {
+                    "description": "ID f\u00f6r Homematics IP-accesspunkt.",
+                    "name": "Accesspunkts-ID"
+                }
+            },
+            "name": "Inaktivera semesterl\u00e4ge"
+        },
+        "dump_hap_config": {
+            "description": "Ladda ner konfigurationen av Homematics IP-accesspunkt(er).",
+            "fields": {
+                "anonymize": {
+                    "description": "Ska konfigurationen anonymiseras?",
+                    "name": "Anonymisera"
+                },
+                "config_output_file_prefix": {
+                    "description": "Namn p\u00e5 konfigurationsfilen. AP:ns SGTIN kommer alltid att l\u00e4ggas till i slutet.",
+                    "name": "Konfigurationsfilens prefix"
+                },
+                "config_output_path": {
+                    "description": "S\u00f6kv\u00e4g d\u00e4r konfigurationen ska sparas. Standardv\u00e4rde \u00e4r config-katalogen f\u00f6r din Home Assistant-server.",
+                    "name": "Konfigurationsfilens s\u00f6kv\u00e4g"
+                }
+            },
+            "name": "Ladda ner HAP-konfiguration"
+        },
+        "reset_energy_counter": {
+            "description": "\u00c5terst\u00e4ller elr\u00e4knaren f\u00f6r en m\u00e4tenhet.",
+            "fields": {
+                "entity_id": {
+                    "description": "M\u00e4tentitetens ID. Anv\u00e4nd \"all\" f\u00f6r att \u00e5terst\u00e4lla alla energir\u00e4knare.",
+                    "name": "Entitet"
+                }
+            },
+            "name": "\u00c5terst\u00e4ll elr\u00e4knare"
+        },
+        "set_active_climate_profile": {
+            "description": "St\u00e4ller in index f\u00f6r aktiv klimatprofil.",
+            "fields": {
+                "climate_profile_index": {
+                    "description": "Index f\u00f6r klimatprofilen.",
+                    "name": "Index f\u00f6r klimatprofil"
+                },
+                "entity_id": {
+                    "description": "Klimatentitetens ID. Anv\u00e4nd nyckelordet \"all\" f\u00f6r att byta profil f\u00f6r alla entiteter.",
+                    "name": "Entitet"
+                }
+            },
+            "name": "St\u00e4ll in aktiv klimatprofil"
+        },
+        "set_home_cooling_mode": {
+            "fields": {
+                "accesspoint_id": {
+                    "description": "ID f\u00f6r Homematics IP-accesspunkt.",
+                    "name": "Accesspunkts-ID"
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,58 @@
+{
+    "config": {
+        "abort": {
+            "already_configured_device": "El dispositivo ya est\u00e1 configurado",
+            "cannot_connect": "No se pudo conectar",
+            "no_devices_found": "No se encontraron dispositivos en la red",
+            "unknown": "Error inesperado"
+        },
+        "error": {
+            "linking": "No se pudo emparejar, por favor, int\u00e9ntalo de nuevo. \u00bfEst\u00e1 el MicroBot en modo de emparejamiento?"
+        },
+        "flow_title": "{name}",
+        "step": {
+            "init": {
+                "data": {
+                    "address": "Direcci\u00f3n del dispositivo",
+                    "name": "Nombre"
+                },
+                "title": "Configurar el dispositivo MicroBot"
+            },
+            "link": {
+                "description": "Pulsa el bot\u00f3n en el MicroBot Push cuando el LED est\u00e9 fijo en rosa o verde para registrarlo con Home Assistant.",
+                "title": "Emparejamiento"
+            }
+        }
+    },
+    "entity": {
+        "switch": {
+            "push": {
+                "name": "Pulsar"
+            }
+        }
+    },
+    "services": {
+        "calibrate": {
+            "description": "Calibraci\u00f3n: establece la profundidad, la duraci\u00f3n de mantener presionado y el modo de operaci\u00f3n. Advertencia: esto enviar\u00e1 un comando de inserci\u00f3n al dispositivo.",
+            "fields": {
+                "depth": {
+                    "description": "Profundidad en porcentaje.",
+                    "name": "Profundidad"
+                },
+                "duration": {
+                    "description": "Duraci\u00f3n en segundos.",
+                    "name": "Duraci\u00f3n"
+                },
+                "entity_id": {
+                    "description": "Nombre de la entidad a calibrar.",
+                    "name": "Entidad"
+                },
+                "mode": {
+                    "description": "Normal | Invertir | Alternar.",
+                    "name": "Modo"
+                }
+            },
+            "name": "Calibrar"
+        }
+    }
+}

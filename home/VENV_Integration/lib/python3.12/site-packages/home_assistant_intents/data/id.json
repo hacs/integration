@@ -1,0 +1,190 @@
+{
+  "language": "id",
+  "intents": {
+    "HassTurnOff": {
+      "data": [
+        {
+          "sentences": [
+            "<mati_imperatif> <nama>"
+          ]
+        },
+        {
+          "sentences": [
+            "<mati_imperatif> [semua] lampu [di] <area>",
+            "<mati_imperatif> [semua] lampu <area>"
+          ],
+          "slots": {
+            "domain": "light"
+          }
+        }
+      ]
+    },
+    "HassTurnOn": {
+      "data": [
+        {
+          "sentences": [
+            "<nyala_imperatif> [semua] lampu [di] <area>",
+            "<nyala_imperatif> [semua] lampu <area>"
+          ],
+          "slots": {
+            "domain": "light"
+          }
+        },
+        {
+          "sentences": [
+            "<nyala_imperatif> <nama>"
+          ]
+        }
+      ]
+    },
+    "HassLightSet": {
+      "data": [
+        {
+          "sentences": [
+            "<set_imperatif> kecerahan <nama> [(jadi | menjadi)] <kecerahan>",
+            "<set_imperatif> <nama> [(jadi | menjadi)] <kecerahan>"
+          ],
+          "response": "brightness"
+        },
+        {
+          "sentences": [
+            "<set_imperatif> kecerahan <area> [(jadi | menjadi)] <kecerahan>",
+            "<set_imperatif> <area> [(jadi | menjadi)] <kecerahan>"
+          ],
+          "slots": {
+            "name": "all"
+          },
+          "response": "brightness_area"
+        },
+        {
+          "sentences": [
+            "<set_imperatif> warna <nama> [(jadi | menjadi)] {color}",
+            "<set_imperatif> <nama> [(jadi | menjadi)] {color}"
+          ],
+          "response": "color"
+        }
+      ]
+    }
+  },
+  "responses": {
+    "errors": {
+      "no_intent": "Maaf, Saya tidak mengerti",
+      "no_area": "Tidak ada area bernama {{ area }}",
+      "no_domain_in_area": "{{ area }} tidak mengandung {{ domain }}",
+      "no_device_class_in_area": "{{ area }} tidak mengandung {{ device_class }}",
+      "no_entity": "Tidak ada perangkat atau entitas bernama {{ entity }}",
+      "handle_error": "Terjadi kesalahan tak terduga saat menangani intent"
+    },
+    "intents": {
+      "HassGetState": {},
+      "HassTurnOff": {
+        "default": "Turned off {{ slots.name }}",
+        "lights_area": "Turned off lights in {{ slots.area }}",
+        "fans_area": "Turned off fans in {{ slots.area }}",
+        "cover": "Closed {{ slots.name }}",
+        "cover_area": "Closed {{ slots.area }}"
+      },
+      "HassTurnOn": {
+        "default": "Turned on {{ slots.name }}",
+        "lights_area": "Turned on lights in {{ slots.area }}",
+        "fans_area": "Turned on fans in {{ slots.area }}",
+        "cover": "Opened {{ slots.name }}",
+        "cover_area": "Opened {{ slots.area }}"
+      },
+      "HassLightSet": {
+        "brightness": "{{ slots.name }} brightness set to {{ slots.brightness }}",
+        "brightness_area": "Brightness in {{ slots.area }} set to {{ slots.brightness }}",
+        "color": "{{ slots.name }} color set to {{ slots.color }}",
+        "color_area": "Color in {{ slots.area }} set to {{ slots.color }}"
+      },
+      "HassClimateGetTemperature": {
+        "default": "{{ state.state }} degrees"
+      }
+    }
+  },
+  "lists": {
+    "color": {
+      "values": [
+        {
+          "in": "putih",
+          "out": "white"
+        },
+        {
+          "in": "hitam",
+          "out": "black"
+        },
+        {
+          "in": "merah",
+          "out": "red"
+        },
+        {
+          "in": "oranye",
+          "out": "orange"
+        },
+        {
+          "in": "jingga",
+          "out": "orange"
+        },
+        {
+          "in": "kuning",
+          "out": "yellow"
+        },
+        {
+          "in": "hijau",
+          "out": "green"
+        },
+        {
+          "in": "biru",
+          "out": "blue"
+        },
+        {
+          "in": "ungu",
+          "out": "purple"
+        },
+        {
+          "in": "coklat",
+          "out": "brown"
+        }
+      ]
+    },
+    "brightness": {
+      "range": {
+        "type": "percentage",
+        "from": 0,
+        "to": 100
+      }
+    },
+    "temperature": {
+      "range": {
+        "type": "temperature",
+        "from": 0,
+        "to": 100
+      }
+    },
+    "temperature_unit": {
+      "values": [
+        "celsius",
+        {
+          "in": "c",
+          "out": "celsius"
+        }
+      ]
+    }
+  },
+  "expansion_rules": {
+    "nama": "{name}",
+    "area": "{area}",
+    "apakah": "(apa | apakah | apa itu)",
+    "berapa": "(berapa | berapakah)",
+    "nyala_imperatif": "(nyalakan | nyalain | hidupkan | hidupin)",
+    "mati_imperatif": "(matikan | matiin)",
+    "buka_imperatif": "(buka | bukain)",
+    "tutup_imperatif": "(tutup | tutupin)",
+    "set_imperatif": "(atur | setel | setelin | set | jadikan | jadiin)",
+    "kecerahan": "{brightness}[%| persen]",
+    "suhu": "{temperature} [derajat] [{temperature_unit}]"
+  },
+  "skip_words": [
+    "tolong"
+  ]
+}

@@ -1,0 +1,440 @@
+{
+    "config": {
+        "abort": {
+            "reauth_successful": "\u518d\u8a8d\u8a3c\u306b\u6210\u529f\u3057\u307e\u3057\u305f",
+            "single_instance_allowed": "\u3059\u3067\u306b\u8a2d\u5b9a\u3055\u308c\u3066\u3044\u307e\u3059\u3002\u8a2d\u5b9a\u3067\u304d\u308b\u306e\u306f1\u3064\u3060\u3051\u3067\u3059\u3002",
+            "unknown": "\u4e88\u671f\u3057\u306a\u3044\u30a8\u30e9\u30fc"
+        },
+        "error": {
+            "invalid_auth": "\u7121\u52b9\u306a\u8a8d\u8a3c"
+        },
+        "flow_title": "{name} ({host})",
+        "step": {
+            "reauth_confirm": {
+                "data": {
+                    "client_id": "\u30af\u30e9\u30a4\u30a2\u30f3\u30c8ID",
+                    "password": "\u30d1\u30b9\u30ef\u30fc\u30c9"
+                },
+                "description": "\u8cc7\u683c\u60c5\u5831\u3092\u78ba\u8a8d\u3057\u3066\u304f\u3060\u3055\u3044\u3002"
+            },
+            "user": {
+                "data": {
+                    "client_id": "\u30af\u30e9\u30a4\u30a2\u30f3\u30c8ID",
+                    "heating_type": "\u6696\u623f(\u52a0\u71b1)\u30bf\u30a4\u30d7",
+                    "password": "\u30d1\u30b9\u30ef\u30fc\u30c9",
+                    "username": "E\u30e1\u30fc\u30eb"
+                },
+                "description": "ViCare \u7d71\u5408\u3092\u30bb\u30c3\u30c8\u30a2\u30c3\u30d7\u3057\u307e\u3059\u3002\u30af\u30e9\u30a4\u30a2\u30f3\u30c8 ID \u3092\u751f\u6210\u3059\u308b\u306b\u306f\u3001https://app.developer.viessmann.com \u306b\u30a2\u30af\u30bb\u30b9\u3057\u3066\u304f\u3060\u3055\u3044\u3002"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "burner": {
+                "name": "\u30d0\u30fc\u30ca\u30fc"
+            },
+            "circulation_pump": {
+                "name": "\u5faa\u74b0\u30dd\u30f3\u30d7"
+            },
+            "compressor": {
+                "name": "\u30b3\u30f3\u30d7\u30ec\u30c3\u30b5\u30fc"
+            },
+            "domestic_hot_water_charging": {
+                "name": "DHW\u30c1\u30e3\u30fc\u30b8"
+            },
+            "domestic_hot_water_circulation_pump": {
+                "name": "DHW\u5faa\u74b0\u30dd\u30f3\u30d7"
+            },
+            "domestic_hot_water_pump": {
+                "name": "DHW\u30dd\u30f3\u30d7"
+            },
+            "frost_protection": {
+                "name": "\u971c\u9632\u6b62"
+            },
+            "solar_pump": {
+                "name": "\u30bd\u30fc\u30e9\u30fc\u30dd\u30f3\u30d7"
+            }
+        },
+        "button": {
+            "activate_onetimecharge": {
+                "name": "\u30ef\u30f3\u30bf\u30a4\u30e0\u30c1\u30e3\u30fc\u30b8\u3092\u6709\u52b9\u306b\u3059\u308b"
+            }
+        },
+        "climate": {
+            "heating": {
+                "name": "\u6696\u623f"
+            }
+        },
+        "fan": {
+            "ventilation": {
+                "name": "\u63db\u6c17",
+                "state_attributes": {
+                    "preset_mode": {
+                        "state": {
+                            "permanent": "\u6c38\u7d9a",
+                            "sensor_driven": "\u30bb\u30f3\u30b5\u30fc",
+                            "sensor_override": "\u30bb\u30f3\u30b5\u30fc\u30aa\u30fc\u30d0\u30fc\u30e9\u30a4\u30c9\u306b\u3088\u308b\u30b9\u30b1\u30b8\u30e5\u30fc\u30eb",
+                            "ventilation": "\u30b9\u30b1\u30b8\u30e5\u30fc\u30eb"
+                        }
+                    }
+                }
+            }
+        },
+        "number": {
+            "comfort_heating_temperature": {
+                "name": "\u5feb\u9069\u6e29\u5ea6"
+            },
+            "comfort_temperature": {
+                "name": "\u5feb\u9069\u6e29\u5ea6"
+            },
+            "dhw_hysteresis_switch_off": {
+                "name": "DHW\u30d2\u30b9\u30c6\u30ea\u30b7\u30b9\u30b9\u30a4\u30c3\u30c1\u30aa\u30d5"
+            },
+            "dhw_hysteresis_switch_on": {
+                "name": "DHW\u30d2\u30b9\u30c6\u30ea\u30b7\u30b9\u30b9\u30a4\u30c3\u30c1\u30aa\u30f3"
+            },
+            "dhw_secondary_temperature": {
+                "name": "DHW\u4e8c\u6b21\u6e29\u5ea6"
+            },
+            "dhw_temperature": {
+                "name": "DHW\u6e29\u5ea6"
+            },
+            "eco_temperature": {
+                "name": "\u30a8\u30b3\u6e29\u5ea6"
+            },
+            "heating_curve_shift": {
+                "name": "\u52a0\u71b1\u66f2\u7dda\u306e\u30b7\u30d5\u30c8"
+            },
+            "heating_curve_slope": {
+                "name": "\u52a0\u71b1\u66f2\u7dda\u306e\u50be\u304d"
+            },
+            "normal_heating_temperature": {
+                "name": "\u5e38\u6e29"
+            },
+            "normal_temperature": {
+                "name": "\u5e38\u6e29"
+            },
+            "reduced_heating_temperature": {
+                "name": "\u6e29\u5ea6\u306e\u4f4e\u4e0b"
+            },
+            "reduced_temperature": {
+                "name": "\u6e29\u5ea6\u306e\u4f4e\u4e0b"
+            }
+        },
+        "sensor": {
+            "boiler_supply_temperature": {
+                "name": "\u30dc\u30a4\u30e9\u30fc\u4f9b\u7d66\u6e29\u5ea6"
+            },
+            "boiler_temperature": {
+                "name": "\u30dc\u30a4\u30e9\u30fc\u6e29\u5ea6"
+            },
+            "buffer_main_temperature": {
+                "name": "\u30d0\u30c3\u30d5\u30a1\u30e1\u30a4\u30f3\u6e29\u5ea6"
+            },
+            "buffer_top_temperature": {
+                "name": "\u30d0\u30c3\u30d5\u30a1\u30c8\u30c3\u30d7\u6e29\u5ea6"
+            },
+            "burner_hours": {
+                "name": "\u30d0\u30fc\u30ca\u30fc\u6642\u9593"
+            },
+            "burner_modulation": {
+                "name": "\u30d0\u30fc\u30ca\u30fc\u5909\u8abf"
+            },
+            "burner_starts": {
+                "name": "\u30d0\u30fc\u30ca\u30fc\u59cb\u52d5"
+            },
+            "collector_temperature": {
+                "name": "\u30bd\u30fc\u30e9\u30fc\u30b3\u30ec\u30af\u30bf\u30fc\u306e\u6e29\u5ea6"
+            },
+            "compressor_hours": {
+                "name": "\u30b3\u30f3\u30d7\u30ec\u30c3\u30b5\u30fc\u6642\u9593"
+            },
+            "compressor_hours_loadclass1": {
+                "name": "\u30b3\u30f3\u30d7\u30ec\u30c3\u30b5\u30fc\u6642\u9593\u8ca0\u8377\u30af\u30e9\u30b9 1"
+            },
+            "compressor_hours_loadclass2": {
+                "name": "\u30b3\u30f3\u30d7\u30ec\u30c3\u30b5\u30fc\u6642\u9593\u8ca0\u8377\u30af\u30e9\u30b9 2"
+            },
+            "compressor_hours_loadclass3": {
+                "name": "\u30b3\u30f3\u30d7\u30ec\u30c3\u30b5\u30fc\u6642\u9593\u8ca0\u8377\u30af\u30e9\u30b9 3"
+            },
+            "compressor_hours_loadclass4": {
+                "name": "\u30b3\u30f3\u30d7\u30ec\u30c3\u30b5\u30fc\u6642\u9593\u8ca0\u8377\u30af\u30e9\u30b9 4"
+            },
+            "compressor_hours_loadclass5": {
+                "name": "\u30b3\u30f3\u30d7\u30ec\u30c3\u30b5\u30fc\u6642\u9593\u8ca0\u8377\u30af\u30e9\u30b9 5"
+            },
+            "compressor_phase": {
+                "name": "\u30b3\u30f3\u30d7\u30ec\u30c3\u30b5\u30fc\u30d5\u30a7\u30fc\u30ba"
+            },
+            "compressor_starts": {
+                "name": "\u30b3\u30f3\u30d7\u30ec\u30c3\u30b5\u30fc\u59cb\u52d5"
+            },
+            "energy_dhw_summary_consumption_heating_currentday": {
+                "name": "\u4eca\u65e5\u306e DHW \u306e\u30a8\u30cd\u30eb\u30ae\u30fc\u6d88\u8cbb\u91cf"
+            },
+            "energy_dhw_summary_consumption_heating_currentmonth": {
+                "name": "\u4eca\u6708\u306e DHW \u30a8\u30cd\u30eb\u30ae\u30fc\u6d88\u8cbb\u91cf"
+            },
+            "energy_dhw_summary_consumption_heating_currentyear": {
+                "name": "\u4eca\u5e74\u306e DHW \u30a8\u30cd\u30eb\u30ae\u30fc\u6d88\u8cbb\u91cf"
+            },
+            "energy_summary_consumption_heating_currentday": {
+                "name": "\u4eca\u65e5\u306e\u6696\u623f\u30a8\u30cd\u30eb\u30ae\u30fc\u6d88\u8cbb\u91cf"
+            },
+            "energy_summary_consumption_heating_currentmonth": {
+                "name": "\u4eca\u6708\u306e\u6696\u623f\u30a8\u30cd\u30eb\u30ae\u30fc\u6d88\u8cbb\u91cf"
+            },
+            "energy_summary_consumption_heating_currentyear": {
+                "name": "\u4eca\u5e74\u306e\u6696\u623f\u30a8\u30cd\u30eb\u30ae\u30fc\u6d88\u8cbb\u91cf"
+            },
+            "energy_summary_consumption_heating_lastsevendays": {
+                "name": "\u904e\u53bb 7 \u65e5\u9593\u306e\u6696\u623f\u30a8\u30cd\u30eb\u30ae\u30fc\u6d88\u8cbb\u91cf"
+            },
+            "energy_summary_dhw_consumption_heating_lastsevendays": {
+                "name": "\u904e\u53bb 7 \u65e5\u9593\u306e DHW \u30a8\u30cd\u30eb\u30ae\u30fc\u6d88\u8cbb\u91cf"
+            },
+            "ess_discharge_this_month": {
+                "name": "\u4eca\u6708\u306e\u30d0\u30c3\u30c6\u30ea\u30fc\u653e\u96fb"
+            },
+            "ess_discharge_this_week": {
+                "name": "\u4eca\u9031\u306e\u30d0\u30c3\u30c6\u30ea\u30fc\u653e\u96fb"
+            },
+            "ess_discharge_this_year": {
+                "name": "\u4eca\u5e74\u306e\u30d0\u30c3\u30c6\u30ea\u30fc\u653e\u96fb"
+            },
+            "ess_discharge_today": {
+                "name": "\u4eca\u65e5\u306e\u30d0\u30c3\u30c6\u30ea\u30fc\u653e\u96fb"
+            },
+            "ess_discharge_total": {
+                "name": "\u30d0\u30c3\u30c6\u30ea\u30fc\u653e\u96fb\u5408\u8a08"
+            },
+            "ess_power_current": {
+                "name": "\u30d0\u30c3\u30c6\u30ea\u30fc\u96fb\u529b"
+            },
+            "ess_state": {
+                "name": "\u30d0\u30c3\u30c6\u30ea\u30fc\u306e\u72b6\u614b",
+                "state": {
+                    "charge": "\u5145\u96fb\u4e2d",
+                    "discharge": "\u653e\u96fb\u4e2d",
+                    "standby": "\u30b9\u30bf\u30f3\u30d0\u30a4"
+                }
+            },
+            "gas_consumption_fuelcell_this_month": {
+                "name": "\u4eca\u6708\u306e\u71c3\u6599\u96fb\u6c60\u30ac\u30b9\u6d88\u8cbb\u91cf"
+            },
+            "gas_consumption_fuelcell_this_week": {
+                "name": "\u4eca\u9031\u306e\u71c3\u6599\u96fb\u6c60\u30ac\u30b9\u6d88\u8cbb\u91cf"
+            },
+            "gas_consumption_fuelcell_this_year": {
+                "name": "\u4eca\u5e74\u306e\u71c3\u6599\u96fb\u6c60\u30ac\u30b9\u6d88\u8cbb\u91cf"
+            },
+            "gas_consumption_fuelcell_today": {
+                "name": "\u4eca\u65e5\u306e\u71c3\u6599\u96fb\u6c60\u30ac\u30b9\u6d88\u8cbb\u91cf"
+            },
+            "gas_consumption_heating_this_month": {
+                "name": "\u4eca\u6708\u306e\u6696\u623f\u30ac\u30b9\u6d88\u8cbb\u91cf"
+            },
+            "gas_consumption_heating_this_week": {
+                "name": "\u4eca\u9031\u306e\u6696\u623f\u30ac\u30b9\u6d88\u8cbb\u91cf"
+            },
+            "gas_consumption_heating_this_year": {
+                "name": "\u4eca\u5e74\u306e\u6696\u623f\u30ac\u30b9\u6d88\u8cbb\u91cf"
+            },
+            "gas_consumption_heating_today": {
+                "name": "\u4eca\u65e5\u306e\u6696\u623f\u30ac\u30b9\u6d88\u8cbb\u91cf"
+            },
+            "gas_consumption_total_this_month": {
+                "name": "\u4eca\u6708\u306e\u30ac\u30b9\u6d88\u8cbb\u91cf"
+            },
+            "gas_consumption_total_this_week": {
+                "name": "\u4eca\u9031\u306e\u30ac\u30b9\u6d88\u8cbb\u91cf"
+            },
+            "gas_consumption_total_this_year": {
+                "name": "\u4eca\u5e74\u306e\u30ac\u30b9\u6d88\u8cbb\u91cf"
+            },
+            "gas_consumption_total_today": {
+                "name": "\u4eca\u65e5\u306e\u30ac\u30b9\u6d88\u8cbb\u91cf"
+            },
+            "gas_summary_consumption_heating_currentday": {
+                "name": "\u4eca\u65e5\u306e\u6696\u623f\u30ac\u30b9\u6d88\u8cbb\u91cf"
+            },
+            "gas_summary_consumption_heating_currentmonth": {
+                "name": "\u4eca\u6708\u306e\u6696\u623f\u30ac\u30b9\u6d88\u8cbb\u91cf"
+            },
+            "gas_summary_consumption_heating_currentyear": {
+                "name": "\u4eca\u5e74\u306e\u6696\u623f\u30ac\u30b9\u6d88\u8cbb\u91cf"
+            },
+            "gas_summary_consumption_heating_lastsevendays": {
+                "name": "\u904e\u53bb 7 \u65e5\u9593\u306e\u6696\u623f\u30ac\u30b9\u6d88\u8cbb\u91cf"
+            },
+            "hotwater_gas_consumption_heating_this_month": {
+                "name": "\u4eca\u6708\u306eDHW\u30ac\u30b9\u6d88\u8cbb\u91cf"
+            },
+            "hotwater_gas_consumption_heating_this_week": {
+                "name": "\u4eca\u9031\u306eDHW\u30ac\u30b9\u6d88\u8cbb\u91cf"
+            },
+            "hotwater_gas_consumption_heating_this_year": {
+                "name": "\u4eca\u5e74\u306eDHW\u30ac\u30b9\u6d88\u8cbb\u91cf"
+            },
+            "hotwater_gas_consumption_today": {
+                "name": "\u4eca\u65e5\u306eDHW\u30ac\u30b9\u6d88\u8cbb\u91cf"
+            },
+            "hotwater_gas_summary_consumption_heating_currentday": {
+                "name": "\u4eca\u65e5\u306eDHW\u30ac\u30b9\u6d88\u8cbb\u91cf"
+            },
+            "hotwater_gas_summary_consumption_heating_currentmonth": {
+                "name": "\u4eca\u6708\u306eDHW\u30ac\u30b9\u4f7f\u7528\u91cf"
+            },
+            "hotwater_gas_summary_consumption_heating_currentyear": {
+                "name": "\u4eca\u5e74\u306eDHW\u30ac\u30b9\u6d88\u8cbb\u91cf"
+            },
+            "hotwater_gas_summary_consumption_heating_lastsevendays": {
+                "name": "\u6700\u8fd17\u65e5\u9593\u306eDHW\u30ac\u30b9\u4f7f\u7528\u91cf"
+            },
+            "hotwater_max_temperature": {
+                "name": "DHW \u6700\u9ad8\u6e29\u5ea6"
+            },
+            "hotwater_min_temperature": {
+                "name": "DHW\u6700\u4f4e\u6e29\u5ea6"
+            },
+            "hotwater_out_temperature": {
+                "name": "DHW\u51fa\u529b\u6e29\u5ea6"
+            },
+            "outside_temperature": {
+                "name": "\u5916\u6c17\u6e29"
+            },
+            "pcc_current_power_exchange": {
+                "name": "\u30b0\u30ea\u30c3\u30c9\u96fb\u529b\u4ea4\u63db"
+            },
+            "pcc_energy_consumption": {
+                "name": "\u30b0\u30ea\u30c3\u30c9\u304b\u3089\u96fb\u529b\u8cfc\u5165"
+            },
+            "pcc_energy_feed_in": {
+                "name": "\u30b0\u30ea\u30c3\u30c9\u3078\u306e\u96fb\u529b\u58f2\u96fb"
+            },
+            "pcc_transfer_power_exchange": {
+                "name": "\u30b0\u30ea\u30c3\u30c9\u3068\u306e\u96fb\u529b\u4ea4\u63db"
+            },
+            "photovoltaic_energy_production_this_month": {
+                "name": "\u4eca\u6708\u306e\u30bd\u30fc\u30e9\u30fc\u30a8\u30cd\u30eb\u30ae\u30fc\u751f\u7523"
+            },
+            "photovoltaic_energy_production_this_week": {
+                "name": "\u4eca\u9031\u306e\u30bd\u30fc\u30e9\u30fc\u30a8\u30cd\u30eb\u30ae\u30fc\u751f\u7523"
+            },
+            "photovoltaic_energy_production_this_year": {
+                "name": "\u4eca\u5e74\u306e\u30bd\u30fc\u30e9\u30fc\u30a8\u30cd\u30eb\u30ae\u30fc\u751f\u7523"
+            },
+            "photovoltaic_energy_production_today": {
+                "name": "\u4eca\u65e5\u306e\u592a\u967d\u30a8\u30cd\u30eb\u30ae\u30fc\u751f\u7523\u91cf"
+            },
+            "photovoltaic_energy_production_total": {
+                "name": "\u7d2f\u8a08\u306e\u30bd\u30fc\u30e9\u30fc\u30a8\u30cd\u30eb\u30ae\u30fc\u751f\u7523"
+            },
+            "photovoltaic_power_production_current": {
+                "name": "\u30bd\u30fc\u30e9\u30fc\u96fb\u529b"
+            },
+            "photovoltaic_status": {
+                "name": "\u30bd\u30fc\u30e9\u30fc\u306e\u72b6\u614b",
+                "state": {
+                    "production": "\u751f\u7523",
+                    "ready": "\u30b9\u30bf\u30f3\u30d0\u30a4"
+                }
+            },
+            "power_consumption_this_month": {
+                "name": "\u4eca\u6708\u306e\u30a8\u30cd\u30eb\u30ae\u30fc\u6d88\u8cbb\u91cf"
+            },
+            "power_consumption_this_week": {
+                "name": "\u4eca\u9031\u306e\u6d88\u8cbb\u96fb\u529b\u91cf"
+            },
+            "power_consumption_this_year": {
+                "name": "\u4eca\u5e74\u306e\u30a8\u30cd\u30eb\u30ae\u30fc\u6d88\u8cbb\u91cf"
+            },
+            "power_consumption_today": {
+                "name": "\u4eca\u65e5\u306e\u30a8\u30cd\u30eb\u30ae\u30fc\u6d88\u8cbb\u91cf"
+            },
+            "power_production_current": {
+                "name": "\u767a\u96fb\u96fb\u6d41"
+            },
+            "power_production_this_month": {
+                "name": "\u4eca\u6708\u306e\u30a8\u30cd\u30eb\u30ae\u30fc\u751f\u7523\u91cf"
+            },
+            "power_production_this_week": {
+                "name": "\u4eca\u9031\u306e\u30a8\u30cd\u30eb\u30ae\u30fc\u751f\u7523\u91cf"
+            },
+            "power_production_this_year": {
+                "name": "\u4eca\u5e74\u306e\u30a8\u30cd\u30eb\u30ae\u30fc\u751f\u7523\u91cf"
+            },
+            "power_production_today": {
+                "name": "\u4eca\u65e5\u306e\u30a8\u30cd\u30eb\u30ae\u30fc\u751f\u7523\u91cf"
+            },
+            "primary_circuit_return_temperature": {
+                "name": "\u4e00\u6b21\u56de\u8def\u623b\u308a\u6e29\u5ea6"
+            },
+            "primary_circuit_supply_temperature": {
+                "name": "\u4e00\u6b21\u56de\u8def\u4f9b\u7d66\u6e29\u5ea6"
+            },
+            "return_temperature": {
+                "name": "\u623b\u308a\u6e29\u5ea6"
+            },
+            "secondary_circuit_return_temperature": {
+                "name": "\u4e8c\u6b21\u56de\u8def\u623b\u308a\u6e29\u5ea6"
+            },
+            "secondary_circuit_supply_temperature": {
+                "name": "\u4e8c\u6b21\u56de\u8def\u4f9b\u7d66\u6e29\u5ea6"
+            },
+            "solar_power_production_this_month": {
+                "name": "\u4eca\u6708\u306e\u592a\u967d\u30a8\u30cd\u30eb\u30ae\u30fc\u751f\u7523\u91cf"
+            },
+            "solar_power_production_this_week": {
+                "name": "\u4eca\u9031\u306e\u592a\u967d\u30a8\u30cd\u30eb\u30ae\u30fc\u751f\u7523\u91cf"
+            },
+            "solar_power_production_this_year": {
+                "name": "\u4eca\u5e74\u306e\u592a\u967d\u30a8\u30cd\u30eb\u30ae\u30fc\u751f\u7523\u91cf"
+            },
+            "solar_power_production_today": {
+                "name": "\u4eca\u65e5\u306e\u592a\u967d\u30a8\u30cd\u30eb\u30ae\u30fc\u751f\u7523\u91cf"
+            },
+            "solar_storage_temperature": {
+                "name": "\u592a\u967d\u8caf\u8535\u6e29\u5ea6"
+            },
+            "supply_temperature": {
+                "name": "\u4f9b\u7d66\u6e29\u5ea6"
+            },
+            "volumetric_flow": {
+                "name": "\u4f53\u7a4d\u6d41\u91cf"
+            }
+        },
+        "water_heater": {
+            "domestic_hot_water": {
+                "name": "\u5bb6\u5ead\u7528\u6e29\u6c34"
+            },
+            "water": {
+                "name": "\u6c34"
+            }
+        }
+    },
+    "exceptions": {
+        "program_not_activated": {
+            "message": "ViCare \u30d7\u30ed\u30b0\u30e9\u30e0{program}\u3092\u30a2\u30af\u30c6\u30a3\u30d6\u5316\u3067\u304d\u307e\u305b\u3093"
+        },
+        "program_not_deactivated": {
+            "message": "ViCare \u30d7\u30ed\u30b0\u30e9\u30e0{program}\u3092\u975e\u30a2\u30af\u30c6\u30a3\u30d6\u5316\u3067\u304d\u307e\u305b\u3093"
+        },
+        "program_unknown": {
+            "message": "\u30d7\u30ea\u30bb\u30c3\u30c8{preset}\u6709\u52b9\u306a ViCare \u30d7\u30ed\u30b0\u30e9\u30e0\u306b\u5909\u63db\u3067\u304d\u307e\u305b\u3093"
+        }
+    },
+    "services": {
+        "set_vicare_mode": {
+            "description": "ViCare \u30e2\u30fc\u30c9\u3092\u8a2d\u5b9a\u3057\u307e\u3059\u3002",
+            "fields": {
+                "vicare_mode": {
+                    "description": "ViCare \u30e2\u30fc\u30c9\u3002",
+                    "name": "ViCare\u30e2\u30fc\u30c9"
+                }
+            },
+            "name": "ViCare \u30e2\u30fc\u30c9\u3092\u8a2d\u5b9a\u3059\u308b"
+        }
+    }
+}

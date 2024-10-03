@@ -1,0 +1,136 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "\uae30\uae30\uac00 \uc774\ubbf8 \uad6c\uc131\ub418\uc5c8\uc2b5\ub2c8\ub2e4"
+        },
+        "error": {
+            "cannot_connect": "\uc5f0\uacb0\ud558\uc9c0 \ubabb\ud588\uc2b5\ub2c8\ub2e4",
+            "invalid_auth": "\uc778\uc99d\uc774 \uc798\ubabb\ub418\uc5c8\uc2b5\ub2c8\ub2e4",
+            "no_homes": "\uc774 Tado \uacc4\uc815\uc5d0 \uc5f0\uacb0\ub41c \uc9d1\uc774 \uc5c6\uc2b5\ub2c8\ub2e4.",
+            "unknown": "\uc608\uc0c1\uce58 \ubabb\ud55c \uc624\ub958\uac00 \ubc1c\uc0dd\ud588\uc2b5\ub2c8\ub2e4"
+        },
+        "step": {
+            "reconfigure_confirm": {
+                "data": {
+                    "password": "\uc554\ud638"
+                },
+                "data_description": {
+                    "password": "Tado \uc758 (\uc2e0\uaddc) \uc554\ud638\ub97c \uc785\ub825\ud558\uc138\uc694"
+                },
+                "title": "Tado \uc7ac\uad6c\uc131"
+            },
+            "user": {
+                "data": {
+                    "password": "\uc554\ud638",
+                    "username": "\uc0ac\uc6a9\uc790 \uc774\ub984"
+                },
+                "title": "Tado \uacc4\uc815\uc5d0 \uc5f0\uacb0\ud558\uae30"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "connection_state": {
+                "name": "\uc5f0\uacb0 \uc0c1\ud0dc"
+            },
+            "early_start": {
+                "name": "\uc870\uae30 \uc2dc\uc791"
+            },
+            "overlay": {
+                "name": "\uc624\ubc84\ub808\uc774"
+            }
+        },
+        "climate": {
+            "tado": {
+                "state_attributes": {
+                    "preset_mode": {
+                        "state": {
+                            "auto": "\uc790\ub3d9"
+                        }
+                    }
+                }
+            }
+        },
+        "sensor": {
+            "ac": {
+                "name": "AC"
+            },
+            "automatic_geofencing": {
+                "name": "\uc790\ub3d9 \uc9c0\uc624\ud39c\uc2f1"
+            },
+            "geofencing_mode": {
+                "name": "\uc9c0\uc624\ud39c\uc2f1 \ubaa8\ub4dc"
+            },
+            "heating": {
+                "name": "\ub09c\ubc29 \uc911"
+            },
+            "outdoor_temperature": {
+                "name": "\uc2e4\uc678 \uc628\ub3c4"
+            },
+            "solar_percentage": {
+                "name": "\ud0dc\uc591\uc5f4 \ube44\uc728"
+            },
+            "tado_mode": {
+                "name": "Tado \ubaa8\ub4dc"
+            },
+            "weather_condition": {
+                "name": "\uae30\uc0c1 \uc870\uac74"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "fallback": "\ub300\uccb4 \ubaa8\ub4dc\ub97c \uc120\ud0dd\ud569\ub2c8\ub2e4."
+                },
+                "description": "\ub300\uccb4 \ubaa8\ub4dc\uc5d0\uc11c\ub294 \uc218\ub3d9 \uc601\uc5ed \uc624\ubc84\ub808\uc774\uc5d0\uc11c Smart Schedule\ub85c \ub300\uccb4\ud560 \uc2dc\uae30\ub97c \uc120\ud0dd\ud560 \uc218 \uc788\uc2b5\ub2c8\ub2e4. (NEXT_TIME_BLOCK:= \ub2e4\uc74c \uc2a4\ub9c8\ud2b8 \uc77c\uc815 \ubcc0\uacbd \uc2dc \ubcc0\uacbd; MANUAL:= \ucde8\uc18c\ud560 \ub54c\uae4c\uc9c0 \ubcc0\uacbd\ud558\uc9c0 \ub9c8\uc2ed\uc2dc\uc624. TADO_DEFAULT : = Tado \uc571\uc758 \uc124\uc815\uc5d0 \ub530\ub77c \ubcc0\uacbd).",
+                "title": "Tado \uc635\uc158 \uc870\uc815\ud558\uae30"
+            }
+        }
+    },
+    "services": {
+        "set_climate_temperature_offset": {
+            "description": "\uacf5\uc870 \uad6c\uc131\uc694\uc18c\uc758 \uc628\ub3c4 \uc624\ud504\uc14b\uc744 \uc124\uc815\ud569\ub2c8\ub2e4.",
+            "fields": {
+                "offset": {
+                    "description": "\uc6d0\ud558\ub294 \uc624\ud504\uc14b (\uc7a5\uce58\uc5d0 \ub530\ub77c \ub2e4\ub984)",
+                    "name": "\uc624\ud504\uc14b"
+                }
+            },
+            "name": "\uacf5\uc870 \uc628\ub3c4 \uc624\ud504\uc14b \uc124\uc815"
+        },
+        "set_climate_timer": {
+            "description": "\uc124\uc815\ub41c \uc2dc\uac04 \ub3d9\uc548 \uacf5\uc870 \uad6c\uc131\uc694\uc18c\ub97c \ucf2d\ub2c8\ub2e4.",
+            "fields": {
+                "requested_overlay": {
+                    "description": "\uc774 \uae30\uac04 \ub610\ub294 \uae30\uac04\uc744 \uc120\ud0dd\ud569\ub2c8\ub2e4. \uc624\ubc84\ub808\uc774\ub97c \uc120\ud0dd\ud560 \uc218 \uc788\uc2b5\ub2c8\ub2e4. MANUAL:=\uc0ac\uc6a9\uc790\uac00 \uc81c\uac70\ud560 \ub54c\uae4c\uc9c0 \uc624\ubc84\ub808\uc774; NEXT_TIME_BLOCK:=\ub2e4\uc74c \ud0c0\uc784\ube14\ub85d\uae4c\uc9c0 \uc624\ubc84\ub808\uc774; TADO_DEFAULT:=tado \uc571 \uc124\uc815\uc744 \uae30\ubc18\uc73c\ub85c \uc624\ubc84\ub808\uc774\ud569\ub2c8\ub2e4.",
+                    "name": "\uc624\ubc84\ub808\uc774"
+                },
+                "temperature": {
+                    "description": "\uacf5\uc870 \uad6c\uc131\uc694\uc18c\ub97c \uc124\uc815\ud560 \uc628\ub3c4",
+                    "name": "\uc628\ub3c4"
+                },
+                "time_period": {
+                    "description": "\uc774\uac83\uc744 \uc120\ud0dd\ud558\uac70\ub098 \uc624\ubc84\ub808\uc774\ub97c \uc120\ud0dd\ud558\uc2ed\uc2dc\uc624. \uad6c\uccb4\uc801\uc73c\ub85c \ubcc0\uacbd\ud558\ub824\ub294 \uacbd\uc6b0 \ubcc0\uacbd \uae30\uac04\uc744 \uc124\uc815\ud569\ub2c8\ub2e4. \ub610\ub294 \uc624\ubc84\ub808\uc774\ub97c \uc0ac\uc6a9\ud558\uc2ed\uc2dc\uc624.",
+                    "name": "\uae30\uac04"
+                }
+            },
+            "name": "\uacf5\uc870 \ud0c0\uc774\uba38 \uc124\uc815"
+        },
+        "set_water_heater_timer": {
+            "description": "\uc124\uc815\ub41c \uc2dc\uac04 \ub3d9\uc548 \uc628\uc218\uae30\ub97c \ucf2d\ub2c8\ub2e4.",
+            "fields": {
+                "temperature": {
+                    "description": "\ud788\ud130\ub97c \uc124\uc815\ud560 \uc628\ub3c4",
+                    "name": "\uc628\ub3c4"
+                },
+                "time_period": {
+                    "description": "\ubd80\uc2a4\ud2b8 \uae30\uac04\uc744 \uc124\uc815\ud569\ub2c8\ub2e4.",
+                    "name": "\uae30\uac04"
+                }
+            },
+            "name": "\uc628\uc218\uae30 \ud0c0\uc774\uba38 \uc124\uc815"
+        }
+    }
+}

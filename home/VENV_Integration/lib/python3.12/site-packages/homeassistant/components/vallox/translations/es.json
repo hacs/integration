@@ -1,0 +1,171 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "El servicio ya est\u00e1 configurado",
+            "cannot_connect": "No se pudo conectar",
+            "invalid_host": "Nombre de host o direcci\u00f3n IP no v\u00e1lidos",
+            "reconfigure_successful": "Se volvi\u00f3 a configurar correctamente",
+            "unknown": "Error inesperado"
+        },
+        "error": {
+            "cannot_connect": "No se pudo conectar",
+            "invalid_host": "Nombre de host o direcci\u00f3n IP no v\u00e1lidos",
+            "unknown": "Error inesperado"
+        },
+        "step": {
+            "reconfigure": {
+                "data": {
+                    "host": "Host"
+                },
+                "data_description": {
+                    "host": "Nombre de host o direcci\u00f3n IP de tu dispositivo Vallox."
+                }
+            },
+            "reconfigure_confirm": {
+                "data": {
+                    "host": "Host"
+                },
+                "data_description": {
+                    "host": "Nombre de host o direcci\u00f3n IP de tu dispositivo Vallox."
+                }
+            },
+            "user": {
+                "data": {
+                    "host": "Host"
+                },
+                "data_description": {
+                    "host": "Nombre de host o direcci\u00f3n IP de tu dispositivo Vallox."
+                }
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "post_heater": {
+                "name": "Post calentador"
+            }
+        },
+        "date": {
+            "filter_change_date": {
+                "name": "Fecha de cambio del filtro"
+            }
+        },
+        "number": {
+            "supply_air_target_away": {
+                "name": "Temperatura del aire de suministro (Ausente)"
+            },
+            "supply_air_target_boost": {
+                "name": "Temperatura del aire de suministro (Boost)"
+            },
+            "supply_air_target_home": {
+                "name": "Temperatura del aire de suministro (En casa)"
+            }
+        },
+        "sensor": {
+            "cell_state": {
+                "name": "Estado de la c\u00e9lula"
+            },
+            "current_profile": {
+                "name": "Perfil actual"
+            },
+            "efficiency": {
+                "name": "Eficiencia"
+            },
+            "exhaust_air": {
+                "name": "Aire de escape"
+            },
+            "extract_air": {
+                "name": "Extraer aire"
+            },
+            "extract_fan_speed": {
+                "name": "Velocidad del ventilador de extracci\u00f3n"
+            },
+            "fan_speed": {
+                "name": "Velocidad del ventilador"
+            },
+            "optional_air": {
+                "name": "Aire opcional"
+            },
+            "outdoor_air": {
+                "name": "Aire exterior"
+            },
+            "profile_duration": {
+                "name": "Duraci\u00f3n del perfil"
+            },
+            "remaining_time_for_filter": {
+                "name": "Tiempo restante para el filtro"
+            },
+            "supply_air": {
+                "name": "Suministro de aire"
+            },
+            "supply_cell_air": {
+                "name": "Suministro de aire de celda"
+            },
+            "supply_fan_speed": {
+                "name": "Velocidad del ventilador de suministro"
+            }
+        },
+        "switch": {
+            "bypass_locked": {
+                "name": "Bypass bloqueado"
+            }
+        }
+    },
+    "selector": {
+        "profile": {
+            "options": {
+                "away": "Ausente",
+                "boost": "Impulso",
+                "extra": "Extra",
+                "fireplace": "Chimenea",
+                "home": "En casa"
+            }
+        }
+    },
+    "services": {
+        "set_profile": {
+            "description": "Activar un perfil y establecer opcionalmente la duraci\u00f3n.",
+            "fields": {
+                "duration": {
+                    "description": "Duraci\u00f3n de la activaci\u00f3n. Si se omite el dispositivo, se utiliza la duraci\u00f3n almacenada. La duraci\u00f3n de 65535 activa el perfil sin tiempo de espera. La duraci\u00f3n solo se aplica a los perfiles Boost, Chimenea y Extra.",
+                    "name": "Duraci\u00f3n"
+                },
+                "profile": {
+                    "description": "Perfil a activar",
+                    "name": "Perfil"
+                }
+            },
+            "name": "Activar perfil por duraci\u00f3n"
+        },
+        "set_profile_fan_speed_away": {
+            "description": "Establece la velocidad del ventilador del perfil Away.",
+            "fields": {
+                "fan_speed": {
+                    "description": "Velocidad del ventilador.",
+                    "name": "Velocidad del ventilador"
+                }
+            },
+            "name": "Establecer la velocidad del ventilador de perfil cuando ausente"
+        },
+        "set_profile_fan_speed_boost": {
+            "description": "Establece la velocidad del ventilador del perfil Boost.",
+            "fields": {
+                "fan_speed": {
+                    "description": "Velocidad del ventilador.",
+                    "name": "Velocidad del ventilador"
+                }
+            },
+            "name": "Establecer el perfil de aumento de velocidad del ventilador"
+        },
+        "set_profile_fan_speed_home": {
+            "description": "Establece la velocidad del ventilador del perfil Home.",
+            "fields": {
+                "fan_speed": {
+                    "description": "Velocidad del ventilador.",
+                    "name": "Velocidad del ventilador"
+                }
+            },
+            "name": "Establecer perfil de velocidad del ventilador en casa"
+        }
+    }
+}

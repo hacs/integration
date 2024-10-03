@@ -1,0 +1,290 @@
+{
+    "device_automation": {
+        "action_type": {
+            "set_hvac_mode": "Kliimaseadme {entity_name} re\u017eiimi muutmine",
+            "set_preset_mode": "Olemi {entity_name} eelseadistuse muutmine"
+        },
+        "condition_type": {
+            "is_hvac_mode": "{entity_name} on seatud kindlale kliimaseadme re\u017eiimile",
+            "is_preset_mode": "{entity_name} on seatud kindlale eelseadistatud re\u017eiimile"
+        },
+        "extra_fields": {
+            "above": "\u00dcle",
+            "below": "Alla",
+            "for": "Kestus",
+            "hvac_mode": "Kliimaseadme re\u017eiim",
+            "preset_mode": "Eelseadistatud re\u017eiim",
+            "to": "V\u00e4\u00e4rtuseni"
+        },
+        "trigger_type": {
+            "current_humidity_changed": "{entity_name} m\u00f5\u00f5detud niiskus muutus",
+            "current_temperature_changed": "{entity_name} m\u00f5\u00f5detud temperatuur muutus",
+            "hvac_mode_changed": "{entity_name} kliimasedame re\u017eiim on muudetud"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Termostaat",
+            "state": {
+                "auto": "Auto",
+                "cool": "Jahuta",
+                "dry": "Kuivata",
+                "fan_only": "Ventileeri",
+                "heat": "K\u00fcta",
+                "heat_cool": "K\u00fcte",
+                "off": "V\u00e4ljas"
+            },
+            "state_attributes": {
+                "aux_heat": {
+                    "name": "Lisak\u00fcte"
+                },
+                "current_humidity": {
+                    "name": "Praegune niiskus"
+                },
+                "current_temperature": {
+                    "name": "Praegune temperatuur"
+                },
+                "fan_mode": {
+                    "name": "Ventilaatori re\u017eiim",
+                    "state": {
+                        "auto": "Auto",
+                        "diffuse": "Hajuta",
+                        "focus": "Suuna",
+                        "high": "K\u00f5rge",
+                        "low": "Madal",
+                        "medium": "Keskmine",
+                        "middle": "Kiire",
+                        "off": "V\u00e4ljas",
+                        "on": "Sees",
+                        "top": "Suurim"
+                    }
+                },
+                "fan_modes": {
+                    "name": "Ventilaatori re\u017eiimid"
+                },
+                "humidity": {
+                    "name": "Soovitud niiskusem\u00e4\u00e4r"
+                },
+                "hvac_action": {
+                    "name": "Praegune tegevus",
+                    "state": {
+                        "cooling": "Jahutus",
+                        "defrosting": "Sulatamine",
+                        "drying": "Kuivatus",
+                        "fan": "Vent",
+                        "heating": "K\u00fcte",
+                        "idle": "Ootel",
+                        "off": "V\u00e4ljas",
+                        "preheating": "Eelsoojendus"
+                    }
+                },
+                "hvac_modes": {
+                    "name": "HVAC re\u017eiimid"
+                },
+                "max_humidity": {
+                    "name": "Max sihtniiskus"
+                },
+                "max_temp": {
+                    "name": "Max sihttemperatuur"
+                },
+                "min_humidity": {
+                    "name": "Min sihtniiskus"
+                },
+                "min_temp": {
+                    "name": "Min sihttemperatuur"
+                },
+                "preset_mode": {
+                    "name": "Eelseade",
+                    "state": {
+                        "activity": "Tegevus",
+                        "away": "Eemal",
+                        "boost": "Turbo",
+                        "comfort": "Mugav",
+                        "eco": "\u00d6ko",
+                        "home": "Kodus",
+                        "none": "Puudub",
+                        "sleep": "Uneaeg"
+                    }
+                },
+                "preset_modes": {
+                    "name": "Eelseaded"
+                },
+                "swing_mode": {
+                    "name": "\u00d5\u00f5tsumise re\u017eiim",
+                    "state": {
+                        "both": "M\u00f5lemad",
+                        "horizontal": "Horisontaalne",
+                        "off": "V\u00e4ljas",
+                        "on": "Sees",
+                        "vertical": "Vertikaalne"
+                    }
+                },
+                "swing_modes": {
+                    "name": "\u00d5\u00f5tsumise re\u017eiimid"
+                },
+                "target_temp_high": {
+                    "name": "K\u00f5rgeim sihttemperatuur"
+                },
+                "target_temp_low": {
+                    "name": "Madalaim sihttemperatuur"
+                },
+                "target_temp_step": {
+                    "name": "Sihttemperatuuri samm"
+                },
+                "temperature": {
+                    "name": "Soovitud temperatuur"
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "humidity_out_of_range": {
+            "message": "Soovitav niiskus {humidity} ei p\u00e4de. Lubatud vahemik on {min_humidity} kuni {max_humidity}."
+        },
+        "low_temp_higher_than_high_temp": {
+            "message": "Madal sihttemperatuur ei saa olla k\u00f5rgem kui k\u00f5rge sihttemperatuur."
+        },
+        "missing_target_temperature_entity_feature": {
+            "message": "M\u00e4\u00e4ratud temperatuuri toimingut kasutati koos sihttemperatuuri parameetriga kuid olem seda ei toeta."
+        },
+        "missing_target_temperature_range_entity_feature": {
+            "message": "M\u00e4\u00e4ratud temperatuuri toimingut kasutati sihttemperatuuri madala/k\u00f5rge parameetriga kuid olem seda ei toeta."
+        },
+        "not_valid_fan_mode": {
+            "message": "Ventilaatorire\u017eiim {mode} ei sobi. Kehtivad ventilaatorire\u017eiimid on: {modes}."
+        },
+        "not_valid_preset_mode": {
+            "message": "Eelseadistatud re\u017eiim {mode} ei sobi. Kehtivad eelseadistatud re\u017eiimid on: {modes} ."
+        },
+        "not_valid_swing_mode": {
+            "message": "Kiigere\u017eiim {mode} ei sobi. Kehtivad kiigere\u017eiimid on: {modes}."
+        },
+        "temp_out_of_range": {
+            "message": "Esitatud temperatuur {check_temp} ei kehti. Aktsepteeritud vahemik on {min_temp} kuni {max_temp}."
+        }
+    },
+    "issues": {
+        "deprecated_climate_aux_no_url": {
+            "description": "Kohandatud integratsioon \"{platform}\" rakendab omadust \"is_aux_heat\" v\u00f5i kasutab kliimaseadme ClimateEntity alamklassi lisak\u00fctte meetodeid.\n\nPalun teata sellest {platform} integratsiooni autorile.\n\nKui `{platform}` uuendatud versioon on saadaval, installi see ja k\u00e4ivita Home Assistant uuesti, et see probleem lahendada.",
+            "title": "Kohandatud integratsioon {platform} kasutab aegunud kliima lisak\u00fctteseadet"
+        },
+        "deprecated_climate_aux_url_custom": {
+            "description": "Kohandatud integratsioon \"{platform}\" rakendab omadust \"is_aux_heat\" v\u00f5i kasutab kliimaseadme ClimateEntity alamklassi lisak\u00fctte meetodeid.\n\nLoo veateade aadressil {issue_tracker}.\n\nKui `{platform}` uuendatud versioon on saadaval, installi see ja k\u00e4ivita Home Assistant uuesti, et see probleem lahendada.",
+            "title": "Kohandatud integratsioon {platform} kasutab aegunud kliima lisak\u00fctteseadet"
+        },
+        "platform_integration_no_support": {
+            "description": "{domain} integreerimise platvorm {platform} ei toeta platvormi seadistamist. \n\n Selle probleemi lahendamiseks eemalda see oma konfiguratsioonist ja taask\u00e4ivita Home Assistant.",
+            "title": "Platvormi tuge ei toetata"
+        }
+    },
+    "selector": {
+        "hvac_mode": {
+            "options": {
+                "auto": "Automaatne",
+                "cool": "Jahuta",
+                "dry": "Kuivata",
+                "fan_only": "Ventileeri",
+                "heat": "K\u00fcta",
+                "heat_cool": "K\u00fcta/jahuta",
+                "off": "V\u00e4ljas"
+            }
+        }
+    },
+    "services": {
+        "set_aux_heat": {
+            "description": "L\u00fclitab lisasoojendi sisse/v\u00e4lja.",
+            "fields": {
+                "aux_heat": {
+                    "description": "Uus lisasoojendi v\u00e4\u00e4rtus.",
+                    "name": "Lisasoojendi"
+                }
+            },
+            "name": "L\u00fclita lisasoojendi sisse/v\u00e4lja"
+        },
+        "set_fan_mode": {
+            "description": "M\u00e4\u00e4rab ventilaatori t\u00f6\u00f6re\u017eiimi.",
+            "fields": {
+                "fan_mode": {
+                    "description": "Ventilaatori t\u00f6\u00f6re\u017eiim.",
+                    "name": "Ventilaatori re\u017eiim"
+                }
+            },
+            "name": "M\u00e4\u00e4ra ventilaatori re\u017eiim"
+        },
+        "set_humidity": {
+            "description": "M\u00e4\u00e4rab soovitud niiskuse",
+            "fields": {
+                "humidity": {
+                    "description": "Soovitud niiskusem\u00e4\u00e4r.",
+                    "name": "Niiskus"
+                }
+            },
+            "name": "M\u00e4\u00e4ra soovitud \u00f5huniiskus"
+        },
+        "set_hvac_mode": {
+            "description": "M\u00e4\u00e4rab kliimaseadme t\u00f6\u00f6re\u017eiimi.",
+            "fields": {
+                "hvac_mode": {
+                    "description": "Kliimaseadme t\u00f6\u00f6re\u017eiim.",
+                    "name": "Kliimaseadme re\u017eiim"
+                }
+            },
+            "name": "M\u00e4\u00e4ra kliimaseadme re\u017eiim"
+        },
+        "set_preset_mode": {
+            "description": "M\u00e4\u00e4rab eelseadistatud re\u017eiimi.",
+            "fields": {
+                "preset_mode": {
+                    "description": "Eelseadistatud re\u017eiim.",
+                    "name": "Eelseadistatud re\u017eiim"
+                }
+            },
+            "name": "M\u00e4\u00e4ra eelseadistatud re\u017eiim"
+        },
+        "set_swing_mode": {
+            "description": "M\u00e4\u00e4rab \u00f5\u00f5tsumise re\u017eiimi.",
+            "fields": {
+                "swing_mode": {
+                    "description": "\u00d5\u00f5tsumisre\u017eiim.",
+                    "name": "\u00d5\u00f5tsumise re\u017eiim"
+                }
+            },
+            "name": "M\u00e4\u00e4ra \u00f5\u00f5tsumisre\u017eiim"
+        },
+        "set_temperature": {
+            "description": "M\u00e4\u00e4rab soovitud temperatuuri",
+            "fields": {
+                "hvac_mode": {
+                    "description": "Kliimaseadme t\u00f6\u00f6re\u017eiim.",
+                    "name": "Kliimaseadme re\u017eiim"
+                },
+                "target_temp_high": {
+                    "description": "K\u00f5rge sihttemperatuur.",
+                    "name": "K\u00f5rgem soovitud temperatuur"
+                },
+                "target_temp_low": {
+                    "description": "Madal sihttemperatuur.",
+                    "name": "Madalam soovitud temperatuur"
+                },
+                "temperature": {
+                    "description": "Soovitud temperatuur.",
+                    "name": "Temperatuur"
+                }
+            },
+            "name": "M\u00e4\u00e4ra soovitud temperatuur"
+        },
+        "toggle": {
+            "description": "Muudab kliimaseadme l\u00fclituse olekut.",
+            "name": "Muuda olekut"
+        },
+        "turn_off": {
+            "description": "L\u00fclitab kliimaseadme v\u00e4lja.",
+            "name": "L\u00fclita v\u00e4lja"
+        },
+        "turn_on": {
+            "description": "L\u00fclitab kliimaseadme sisse.",
+            "name": "L\u00fclita sisse"
+        }
+    },
+    "title": "Kliimaseade"
+}

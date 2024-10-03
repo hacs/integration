@@ -1,0 +1,84 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Ger\u00e4t ist bereits konfiguriert"
+        },
+        "error": {
+            "cannot_connect": "Verbindung fehlgeschlagen"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "host": "Host"
+                },
+                "data_description": {
+                    "host": "Der Hostname oder die IP-Adresse deines Bose SoundTouch-Ger\u00e4ts."
+                }
+            },
+            "zeroconf_confirm": {
+                "description": "Du bist im Begriff, das SoundTouch Ger\u00e4t mit dem Namen `{name}` zu Home Assistant hinzuzuf\u00fcgen.",
+                "title": "Best\u00e4tige das Hinzuf\u00fcgen des Bose SoundTouch Ger\u00e4ts"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_yaml": {
+            "description": "Die Konfiguration von Bose SoundTouch mit YAML wird entfernt. \n\nDeine vorhandene YAML-Konfiguration wurde automatisch in die Benutzeroberfl\u00e4che importiert. \n\nEntferne die Bose SoundTouch YAML-Konfiguration aus deiner configuration.yaml-Datei und starte Home Assistant neu, um dieses Problem zu beheben.",
+            "title": "Die Bose SoundTouch YAML-Konfiguration wird entfernt"
+        }
+    },
+    "services": {
+        "add_zone_slave": {
+            "description": "F\u00fcgt einen Slave zu einer SoundTouch Multiroom-Zone hinzu.",
+            "fields": {
+                "master": {
+                    "description": "Name der Master-Entit\u00e4t, die die Multiroom-Zone koordiniert. Plattformabh\u00e4ngig.",
+                    "name": "Master"
+                },
+                "slaves": {
+                    "description": "Name der Slave-Entit\u00e4ten, die der vorhandenen Zone hinzugef\u00fcgt werden sollen.",
+                    "name": "Slaves"
+                }
+            },
+            "name": "Zonen-Slave hinzuf\u00fcgen"
+        },
+        "create_zone": {
+            "description": "Erstellt eine SoundTouch-Multiroom-Zone.",
+            "fields": {
+                "master": {
+                    "description": "Name der Master-Entit\u00e4t, die die Multiroom-Zone koordiniert. Plattformabh\u00e4ngig.",
+                    "name": "Master"
+                },
+                "slaves": {
+                    "description": "Name der Slave-Entit\u00e4ten, die der neuen Zone hinzugef\u00fcgt werden sollen.",
+                    "name": "Slaves"
+                }
+            },
+            "name": "Zone erstellen"
+        },
+        "play_everywhere": {
+            "description": "Spielt auf allen Bose SoundTouch-Ger\u00e4ten ab.",
+            "fields": {
+                "master": {
+                    "description": "Name der Master-Entit\u00e4t, die die Gruppierung koordiniert. Plattformabh\u00e4ngig. Es handelt sich um eine Verkn\u00fcpfung zum Erstellen einer Multiroom-Zone mit allen Ger\u00e4ten.",
+                    "name": "Master"
+                }
+            },
+            "name": "\u00dcberall abspielen"
+        },
+        "remove_zone_slave": {
+            "description": "Entfernt einen Slave aus der SoundTouch Multiroom-Zone.",
+            "fields": {
+                "master": {
+                    "description": "Name der Master-Entit\u00e4t, die die Multiroom-Zone koordiniert. Plattformabh\u00e4ngig.",
+                    "name": "Master"
+                },
+                "slaves": {
+                    "description": "Name der Slave-Entit\u00e4ten, die aus der vorhandenen Zone entfernt werden sollen.",
+                    "name": "Slaves"
+                }
+            },
+            "name": "Zonen-Slave entfernen"
+        }
+    }
+}

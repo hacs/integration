@@ -1,0 +1,121 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Ger\u00e4t ist bereits konfiguriert"
+        },
+        "step": {
+            "user": {
+                "description": "M\u00f6chtest du mit der Einrichtung beginnen?"
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "average_price": {
+                "name": "Durchschnittlich \u2013 heute"
+            },
+            "current_hour_price": {
+                "name": "Aktuelle Stunde"
+            },
+            "highest_price_time": {
+                "name": "Zeit des h\u00f6chsten Preises \u2013 heute"
+            },
+            "hours_priced_equal_or_higher": {
+                "name": "Stundenpreise gleich oder h\u00f6her als aktuell \u2013 heute"
+            },
+            "hours_priced_equal_or_lower": {
+                "name": "Stundenpreise gleich oder niedriger als aktuell \u2013 heute"
+            },
+            "lowest_price_time": {
+                "name": "Zeitpunkt des niedrigsten Preises \u2013 heute"
+            },
+            "max_price": {
+                "name": "H\u00f6chster Preis \u2013 heute"
+            },
+            "min_price": {
+                "name": "Niedrigster Preis \u2013 heute"
+            },
+            "next_hour_price": {
+                "name": "N\u00e4chste Stunde"
+            },
+            "percentage_of_max": {
+                "name": "Aktueller Prozentsatz des h\u00f6chsten Preises \u2013 heute"
+            }
+        }
+    },
+    "exceptions": {
+        "invalid_config_entry": {
+            "message": "Ung\u00fcltiger Konfigurationseintrag angegeben. {config_entry} erhalten."
+        },
+        "invalid_date": {
+            "message": "Ung\u00fcltiges Datum angegeben. {date} erhalten"
+        },
+        "unloaded_config_entry": {
+            "message": "Ung\u00fcltiger Konfigurationseintrag angegeben. {config_entry} wird nicht geladen."
+        }
+    },
+    "services": {
+        "get_energy_return_prices": {
+            "description": "Fordere die R\u00fcckenergiepreise bei easyEnergy an.",
+            "fields": {
+                "config_entry": {
+                    "description": "Der Konfigurationseintrag, der f\u00fcr diesen Dienst verwendet werden soll.",
+                    "name": "Konfigurationseintrag"
+                },
+                "end": {
+                    "description": "Gibt das Datum und die Uhrzeit an, bis zu der die Preise abgerufen werden sollen. Wenn weggelassen, wird standardm\u00e4\u00dfig der heutige Tag verwendet.",
+                    "name": "Ende"
+                },
+                "start": {
+                    "description": "Gibt das Datum und die Uhrzeit an, ab dem Preise abgerufen werden sollen. Wenn weggelassen, wird standardm\u00e4\u00dfig der heutige Tag verwendet.",
+                    "name": "Start"
+                }
+            },
+            "name": "Preise f\u00fcr Energier\u00fcckgabe erhalten"
+        },
+        "get_energy_usage_prices": {
+            "description": "Verbrauchsenergiepreise bei easyEnergy anfragen.",
+            "fields": {
+                "config_entry": {
+                    "description": "Der Konfigurationseintrag, der f\u00fcr diesen Dienst verwendet werden soll.",
+                    "name": "Konfigurationseintrag"
+                },
+                "end": {
+                    "description": "Gibt das Datum und die Uhrzeit an, bis zu der die Preise abgerufen werden sollen. Wenn weggelassen, wird standardm\u00e4\u00dfig der heutige Tag verwendet.",
+                    "name": "Ende"
+                },
+                "incl_vat": {
+                    "description": "Die Mehrwertsteuer ist in den Preisen enthalten oder nicht enthalten, die Standardeinstellung ist wahr.",
+                    "name": "Inkl. MwSt."
+                },
+                "start": {
+                    "description": "Gibt das Datum und die Uhrzeit an, ab dem Preise abgerufen werden sollen. Wenn weggelassen, wird standardm\u00e4\u00dfig der heutige Tag verwendet.",
+                    "name": "Start"
+                }
+            },
+            "name": "Preise f\u00fcr die Energienutzung abrufen"
+        },
+        "get_gas_prices": {
+            "description": "Gaspreise bei easyEnergy erfragen.",
+            "fields": {
+                "config_entry": {
+                    "description": "Der Konfigurationseintrag, der f\u00fcr diesen Dienst verwendet werden soll.",
+                    "name": "Konfigurationseintrag"
+                },
+                "end": {
+                    "description": "Gibt das Datum und die Uhrzeit an, bis zu der die Preise abgerufen werden sollen. Wenn weggelassen, wird standardm\u00e4\u00dfig der heutige Tag verwendet.",
+                    "name": "Ende"
+                },
+                "incl_vat": {
+                    "description": "Die Mehrwertsteuer ist in den Preisen enthalten oder nicht enthalten, die Standardeinstellung ist wahr.",
+                    "name": "Inkl. MwSt."
+                },
+                "start": {
+                    "description": "Gibt das Datum und die Uhrzeit an, ab dem Preise abgerufen werden sollen. Wenn weggelassen, wird standardm\u00e4\u00dfig der heutige Tag verwendet.",
+                    "name": "Start"
+                }
+            },
+            "name": "Gaspreise abfragen"
+        }
+    }
+}

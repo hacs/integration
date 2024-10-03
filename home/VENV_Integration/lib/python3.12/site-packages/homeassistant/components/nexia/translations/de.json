@@ -1,0 +1,113 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Ger\u00e4t ist bereits konfiguriert"
+        },
+        "error": {
+            "cannot_connect": "Verbindung fehlgeschlagen",
+            "invalid_auth": "Ung\u00fcltige Authentifizierung",
+            "unknown": "Unerwarteter Fehler"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "brand": "Marke",
+                    "password": "Passwort",
+                    "username": "Benutzername"
+                }
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "blower_active": {
+                "name": "Gebl\u00e4se aktiv"
+            },
+            "emergency_heat_active": {
+                "name": "Notheizung aktiv"
+            }
+        },
+        "number": {
+            "fan_speed": {
+                "name": "L\u00fcftergeschwindigkeit"
+            }
+        },
+        "sensor": {
+            "air_cleaner_mode": {
+                "name": "Luftreinigermodus"
+            },
+            "current_compressor_speed": {
+                "name": "Aktuelle Kompressorgeschwindigkeit"
+            },
+            "outdoor_temperature": {
+                "name": "Au\u00dfentemperatur"
+            },
+            "requested_compressor_speed": {
+                "name": "Angeforderte Kompressorgeschwindigkeit"
+            },
+            "system_status": {
+                "name": "Systemstatus"
+            },
+            "zone_setpoint_status": {
+                "name": "Status des Zonensollwerts"
+            },
+            "zone_status": {
+                "name": "Zonenstatus"
+            }
+        },
+        "switch": {
+            "hold": {
+                "name": "Halten"
+            }
+        }
+    },
+    "issues": {
+        "migrate_aux_heat": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Die Nexia-Aktion `set_aux_heat` wurde migriert. F\u00fcr jeden Thermostat ist eine neue Schalterentit\u00e4t `aux_heat_only` verf\u00fcgbar. Aktualisiere alle Automatisierungen, um die neue Schalterentit\u00e4t f\u00fcr Notw\u00e4rme zu verwenden. Wenn dies erledigt ist, dr\u00fccke auf **Senden**, um dieses Problem zu beheben.",
+                        "title": "Migration der Nexia Aktion \u201eset_aux_heat\u201c"
+                    }
+                }
+            },
+            "title": "Migration der Nexia Aktion \u201eset_aux_heat\u201c"
+        }
+    },
+    "services": {
+        "set_aircleaner_mode": {
+            "description": "Der Luftreinigermodus.",
+            "fields": {
+                "aircleaner_mode": {
+                    "description": "Der einzustellende Luftreinigermodus.",
+                    "name": "Luftreinigermodus"
+                }
+            },
+            "name": "Luftreinigermodus einstellen"
+        },
+        "set_humidify_setpoint": {
+            "description": "Der Befeuchtungs-Sollwert.",
+            "fields": {
+                "humidity": {
+                    "description": "Der Befeuchtungs-Sollwert.",
+                    "name": "Befeuchten"
+                }
+            },
+            "name": "Befeuchtungs-Sollwert einstellen"
+        },
+        "set_hvac_run_mode": {
+            "description": "Der HLK-Betriebsmodus.",
+            "fields": {
+                "hvac_mode": {
+                    "description": "Der HLK-Modus, der f\u00fcr den Zeitplan oder die Pause verwendet werden soll. Wenn nicht angegeben, wird der aktuelle HLK-Modus verwendet.",
+                    "name": "HLK-Modus"
+                },
+                "run_mode": {
+                    "description": "F\u00fchre den Zeitplan aus oder halte ihn an. Wenn nicht angegeben, wird der aktuelle Ausf\u00fchrungsmodus verwendet.",
+                    "name": "Ausf\u00fchrungsmodus"
+                }
+            },
+            "name": "Einstellen des Betriebsmodus f\u00fcr die Klimaanlage"
+        }
+    }
+}

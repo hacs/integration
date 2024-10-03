@@ -1,0 +1,256 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Az eszk\u00f6z m\u00e1r konfigur\u00e1lva van",
+            "discovery_started": "A felder\u00edt\u00e9s elkezd\u0151d\u00f6tt"
+        },
+        "error": {
+            "cannot_connect": "Sikertelen csatlakoz\u00e1s",
+            "cloud_user": "A Ubiquiti Cloud felhaszn\u00e1l\u00f3k nem t\u00e1mogatottak. K\u00e9rj\u00fck, csak helyi felhaszn\u00e1l\u00f3t haszn\u00e1ljon.",
+            "invalid_auth": "\u00c9rv\u00e9nytelen hiteles\u00edt\u00e9s",
+            "protect_version": "A minim\u00e1lisan sz\u00fcks\u00e9ges verzi\u00f3 a v1.20.0. Friss\u00edtse az UniFi Protect-et, majd pr\u00f3b\u00e1lkozzon \u00fajra."
+        },
+        "flow_title": "{name} ({ip_address})",
+        "step": {
+            "discovery_confirm": {
+                "data": {
+                    "password": "Jelsz\u00f3",
+                    "username": "Felhaszn\u00e1l\u00f3n\u00e9v"
+                },
+                "description": "Szeretn\u00e9 be\u00e1ll\u00edtani a(z) {name} ({ip_address}) eszk\u00f6zt? A bejelentkez\u00e9shez sz\u00fcks\u00e9ge lesz egy, az UniFi OS Console-ban l\u00e9trehozott helyi felhaszn\u00e1l\u00f3ra. Az Ubiquiti Cloud felhaszn\u00e1l\u00f3k nem fognak m\u0171k\u00f6dni. Tov\u00e1bbi inform\u00e1ci\u00f3: {local_user_documentation_url}",
+                "title": "UniFi Protect felfedezve"
+            },
+            "reauth_confirm": {
+                "data": {
+                    "host": "UniFi Protect szerver IP-c\u00edme/Hosztja",
+                    "password": "Jelsz\u00f3",
+                    "port": "Port",
+                    "username": "Felhaszn\u00e1l\u00f3n\u00e9v"
+                },
+                "title": "UniFi Protect \u00fajrahiteles\u00edt\u00e9s"
+            },
+            "user": {
+                "data": {
+                    "host": "Hoszt",
+                    "password": "Jelsz\u00f3",
+                    "port": "Port",
+                    "username": "Felhaszn\u00e1l\u00f3n\u00e9v",
+                    "verify_ssl": "SSL-tan\u00fas\u00edtv\u00e1ny ellen\u0151rz\u00e9se"
+                },
+                "data_description": {
+                    "host": "UniFi Protect eszk\u00f6z\u00e9nek g\u00e9pneve vagy IP-c\u00edme."
+                },
+                "description": "A bejelentkez\u00e9shez egy helyi felhaszn\u00e1l\u00f3ra lesz sz\u00fcks\u00e9g, amelyet az UniFi OS Console-ban hoztak l\u00e9tre. Az Ubiquiti Cloud Users nem fog m\u0171k\u00f6dni. Tov\u00e1bbi inform\u00e1ci\u00f3: {local_user_documentation_url}",
+                "title": "UniFi Protect be\u00e1ll\u00edt\u00e1sa"
+            }
+        }
+    },
+    "entity": {
+        "event": {
+            "doorbell": {
+                "state_attributes": {
+                    "event_type": {
+                        "state": {
+                            "ring": "Cseng\u00e9s"
+                        }
+                    }
+                }
+            }
+        },
+        "sensor": {
+            "license_plate": {
+                "state": {
+                    "none": "Nincs"
+                }
+            }
+        }
+    },
+    "issues": {
+        "cloud_user": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "2024. j\u00falius 22-t\u0151l kezd\u0151d\u0151en a Ubiquiti minden felh\u0151felhaszn\u00e1l\u00f3t\u00f3l megk\u00f6veteli a t\u00f6bbfaktoros hiteles\u00edt\u00e9st (MFA), amely nem kompatibilis a Home Assistanttal.\n\nA legjobb lenne min\u00e9l hamarabb \u00e1tt\u00e9rni a [helyi felhaszn\u00e1l\u00f3]({learn_more}) haszn\u00e1lat\u00e1ra, hogy az integr\u00e1ci\u00f3 tov\u00e1bbra is m\u0171k\u00f6dj\u00f6n.\n\nA jav\u00edt\u00e1s meger\u0151s\u00edt\u00e9se egy \u00fajb\u00f3li hiteles\u00edt\u00e9si folyamatot ind\u00edt el a sz\u00fcks\u00e9ges hiteles\u00edt\u00e9si hiteles\u00edt\u0151 adatok megad\u00e1s\u00e1hoz.",
+                        "title": "A Ubiquiti Cloud-felhaszn\u00e1l\u00f3k nem t\u00e1mogatottak"
+                    }
+                }
+            },
+            "title": "A Ubiquiti Cloud-felhaszn\u00e1l\u00f3k nem t\u00e1mogatottak"
+        },
+        "deprecate_hdr_switch": {
+            "description": "Az UniFi Protect v3 hozz\u00e1adott egy \u00faj \u00e1llapotot az HDR-hez (automatikus). Ennek eredm\u00e9nyek\u00e9nt az HDR m\u00f3d kapcsol\u00f3 helyettes\u00edtve lett egy HDR m\u00f3d v\u00e1laszt\u00f3val \u00e9s ez\u00e1ltal elavultt\u00e1 v\u00e1lt.\n\nAz al\u00e1bbiakban l\u00e1that\u00f3k azok az automatiz\u00e1l\u00e1sok vagy scriptek, amelyek egy vagy t\u00f6bb elavult entit\u00e1st haszn\u00e1lnak:\n{items}\nA fenti lista lehet, hogy nem teljes \u00e9s nem tartalmazza az ir\u00e1ny\u00edt\u00f3pultokon bel\u00fcli sablonhaszn\u00e1latokat. K\u00e9rj\u00fck, friss\u00edtse a sablonokat, automatiz\u00e1l\u00e1sokat vagy scripteket ennek megfelel\u0151en.",
+            "title": "A HDR m\u00f3d kapcsol\u00f3ja elavult"
+        },
+        "deprecate_package_sensor": {
+            "description": "A csomagesem\u00e9ny szenzora soha nem aktiv\u00e1l\u00f3dott az UniFi Protectben jelentett esem\u00e9nyek m\u00f3dja miatt. Ennek eredm\u00e9nyek\u00e9nt a szenzor elavultt\u00e1 v\u00e1lt \u00e9s el lesz t\u00e1vol\u00edtva.\n\nAz al\u00e1bbiakban l\u00e1that\u00f3k azok az automatiz\u00e1l\u00e1sok vagy scriptek, amelyek egy vagy t\u00f6bb elavult entit\u00e1st haszn\u00e1lnak:\n{items}\nA fenti lista lehet, hogy nem teljes \u00e9s nem tartalmazza az ir\u00e1ny\u00edt\u00f3pultokon bel\u00fcli sablonhaszn\u00e1latokat. K\u00e9rj\u00fck, friss\u00edtse a sablonokat, automatiz\u00e1l\u00e1sokat vagy scripteket ennek megfelel\u0151en.",
+            "title": "A csomagesem\u00e9ny-\u00e9rz\u00e9kel\u0151 elavult"
+        },
+        "deprecate_smart_sensor": {
+            "description": "Az intelligens \u00e9szlel\u00e9sek egys\u00e9ges \"Detected Object\" \u00e9rz\u00e9kel\u0151je elavult. Hely\u00e9t az egyes intelligens \u00e9szlel\u00e9si t\u00edpusokhoz tartoz\u00f3 egyedi intelligens \u00e9szlel\u00e9si bin\u00e1ris \u00e9rz\u00e9kel\u0151k vett\u00e9k \u00e1t.\n\nAz al\u00e1bbiakban az \u00e9szlelt automatiz\u00e1ci\u00f3k vagy szkriptek tal\u00e1lhat\u00f3k, amelyek egy vagy t\u00f6bb elavult entit\u00e1st haszn\u00e1lnak:\n{items}\nA fenti lista hi\u00e1nyos lehet \u00e9s nem tartalmazza a kezel\u0151fel\u00fcleten bel\u00fcli sablonokat. K\u00e9rem, ennek megfelel\u0151en friss\u00edtse a sablonokat, automatizmusokat vagy szkripteket.",
+            "title": "Az intelligens \u00e9rz\u00e9kel\u00e9si \u00e9rz\u00e9kel\u0151 elavult"
+        },
+        "deprecated_service_set_doorbell_message": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Az `unifiprotect.set_doorbell_message` szolg\u00e1ltat\u00e1s elavultt\u00e1 v\u00e1lt a minden egyes Doorbell eszk\u00f6zh\u00f6z hozz\u00e1adott \u00faj Doorbell sz\u00f6veges entit\u00e1s jav\u00e1ra. A v2023.3.0 verzi\u00f3ban elt\u00e1vol\u00edt\u00e1sra ker\u00fcl. K\u00e9rem, friss\u00edtse a [`text.set_value` szolg\u00e1ltat\u00e1s]({link}) haszn\u00e1lat\u00e1ra.",
+                        "title": "set_doorbell_message elavult"
+                    }
+                }
+            },
+            "title": "set_doorbell_message elavult"
+        },
+        "ea_channel_warning": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Biztos, hogy az UniFi Protect nem t\u00e1mogatott verzi\u00f3it szeretn\u00e9 futtatni? Ez a Home Assistant integr\u00e1ci\u00f3j\u00e1nak meghib\u00e1sod\u00e1s\u00e1t okozhatja.",
+                        "title": "UniFi Protect Early Access enged\u00e9lyezve"
+                    },
+                    "start": {
+                        "description": "Vagy az UniFi Protect korai hozz\u00e1f\u00e9r\u00e9s\u0171 verzi\u00f3j\u00e1t futtatja (v{version}), vagy olyan kiad\u00e1si csatorn\u00e1ra jelentkezett be, amely nem az hivatalos kiad\u00e1si csatorna.\n\nMivel ezek a korai hozz\u00e1f\u00e9r\u00e9s\u0171 kiad\u00e1sok m\u00e9g nincsenek teljesen tesztelve, haszn\u00e1latuk a UniFi Protect integr\u00e1ci\u00f3 v\u00e1ratlan viselked\u00e9s\u00e9t okozhatja. [Tov\u00e1bbi inform\u00e1ci\u00f3 a korai hozz\u00e1f\u00e9r\u00e9sr\u0151l \u00e9s a Home Assistantr\u00f3l]({learn_more}).\n\nKattintson a Mehet gombra az \u00fczenet elutas\u00edt\u00e1s\u00e1hoz.",
+                        "title": "UniFi Protect Early Access enged\u00e9lyezve"
+                    }
+                }
+            },
+            "title": "UniFi Protect Early Access enged\u00e9lyezve"
+        },
+        "ea_setup_failed": {
+            "description": "\u00d6n az UniFi Protect v{version} verzi\u00f3j\u00e1t haszn\u00e1lja, amely egy korai hozz\u00e1f\u00e9r\u00e9s\u0171 verzi\u00f3. Az integr\u00e1ci\u00f3 bet\u00f6lt\u00e9se sor\u00e1n helyrehozhatatlan hiba l\u00e9pett fel. K\u00e9rj\u00fck, az integr\u00e1ci\u00f3 tov\u00e1bbi haszn\u00e1lat\u00e1hoz \u00e1ll\u00edtsa vissza az UniFi Protect stabil kiad\u00e1s\u00e1nak biztons\u00e1gi ment\u00e9s\u00e9t.\n\nHiba: {error}",
+            "title": "Be\u00e1ll\u00edt\u00e1si hiba a korai hozz\u00e1f\u00e9r\u00e9s\u0171 verzi\u00f3 haszn\u00e1lat\u00e1val"
+        },
+        "ea_warning": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Biztos, hogy az UniFi Protect nem t\u00e1mogatott verzi\u00f3it szeretn\u00e9 futtatni? Ez a Home Assistant integr\u00e1ci\u00f3j\u00e1nak meghib\u00e1sod\u00e1s\u00e1t okozhatja.",
+                        "title": "{version}. verzi\u00f3 egy korai hozz\u00e1f\u00e9r\u00e9s\u0171 verzi\u00f3"
+                    },
+                    "start": {
+                        "description": "Az UniFi Protect {version}. verzi\u00f3j\u00e1t haszn\u00e1lja, amely korai hozz\u00e1f\u00e9r\u00e9s\u0171 verzi\u00f3. [A Home Assistant nem t\u00e1mogatja a korai hozz\u00e1f\u00e9r\u00e9s\u0171 verzi\u00f3kat] (https://www.home-assistant.io/integrations/unifiprotect#about-unifi-early-access), ez\u00e9rt javasoljuk, hogy amint lehets\u00e9ges, t\u00e9rjen vissza a stabil kiad\u00e1shoz.\n\nEzzel az \u0171rlap bek\u00fcld\u00e9s\u00e9vel \u00d6n vagy [visszamin\u0151s\u00edtette az UniFi Protect-ot] (https://www.home-assistant.io/integrations/unifiprotect#downgrading-unifi-protect), vagy hozz\u00e1j\u00e1rul ahhoz, hogy nem t\u00e1mogatott verzi\u00f3t futtasson az UniFi Protect-b\u00f3l.",
+                        "title": "{version}. verzi\u00f3 egy korai hozz\u00e1f\u00e9r\u00e9s\u0171 verzi\u00f3"
+                    }
+                }
+            },
+            "title": "{version} UniFi Protect korai hozz\u00e1f\u00e9r\u00e9si verzi\u00f3"
+        },
+        "rtsp_disabled_readonly": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Biztosan letiltja az RTSPS-t a(z) {camera} sz\u00e1m\u00e1ra?",
+                        "title": "Az RTSPS le van tiltva a(z) {camera} kamer\u00e1n"
+                    },
+                    "start": {
+                        "description": "Az RTSPS funkci\u00f3 ki van kapcsolva a(z) {camera} kamer\u00e1n. Az RTSPS enged\u00e9lyez\u00e9se sz\u00fcks\u00e9ges ahhoz, hogy \u00e9l\u0151ben k\u00f6zvet\u00edthesse kamer\u00e1j\u00e1t a Home Assistantban. Ha nem kapcsolja be az RTSPS-t, ez tov\u00e1bbi terhel\u00e9st jelenthet az \u00d6n UniFi Protect NVR-j\u00e9re, mivel minden \u00e9l\u0151 vide\u00f3lej\u00e1tsz\u00f3 alap\u00e9rtelmez\u00e9s szerint gyorsan k\u00e9sz\u00edt pillanatk\u00e9peket a kamer\u00e1r\u00f3l.\n\nK\u00e9rj\u00fck, [kapcsolja be az RTSPS-t]({learn_more}) a kamer\u00e1n, majd t\u00e9rjen vissza \u00e9s er\u0151s\u00edtse meg ezt a jav\u00edt\u00e1st.",
+                        "title": "Az RTSPS le van tiltva a(z) {camera} kamer\u00e1n"
+                    }
+                }
+            },
+            "title": "Az RTSPS le van tiltva a(z) {camera} kamer\u00e1n"
+        },
+        "rtsp_disabled_writable": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Biztosan letiltja az RTSPS-t a(z) {camera} sz\u00e1m\u00e1ra?",
+                        "title": "Az RTSPS le van tiltva a(z) {camera} kamer\u00e1n"
+                    },
+                    "start": {
+                        "description": "Az RTSPS funkci\u00f3 ki van kapcsolva a(z) {camera} kamer\u00e1n. Az RTSPS sz\u00fcks\u00e9ges ahhoz, hogy \u00e9l\u0151ben k\u00f6zvet\u00edthesse kamer\u00e1j\u00e1t a Home Assistantban. Ha nem kapcsolja be az RTSPS-t, ez tov\u00e1bbi terhel\u00e9st jelenthet az \u00d6n UniFi Protect NVR-j\u00e9re, mivel minden \u00e9l\u0151 vide\u00f3lej\u00e1tsz\u00f3 alap\u00e9rtelmez\u00e9s szerint gyorsan k\u00e9sz\u00edt pillanatk\u00e9peket a kamer\u00e1r\u00f3l.\n\nManu\u00e1lisan is [bekapcsolhatja az RTSPS-t]({learn_more}) a v\u00e1lasztott kamera min\u0151s\u00e9gi csatorn\u00e1j\u00e1n vagy a Home Assistant automatikusan bekapcsolhatja az \u00d6n sz\u00e1m\u00e1ra a legmagasabb min\u0151s\u00e9gi csatorn\u00e1t. Er\u0151s\u00edtse meg ezt a jav\u00edt\u00e1st, miut\u00e1n bekapcsolta az RTSPS csatorn\u00e1t vagy ha azt szeretn\u00e9, hogy a Home Assistant automatikusan bekapcsolja a legmagasabb min\u0151s\u00e9get.",
+                        "title": "Az RTSPS le van tiltva a(z) {camera} kamer\u00e1n"
+                    }
+                }
+            },
+            "title": "Az RTSPS le van tiltva a(z) {camera} kamer\u00e1n"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "all_updates": "Val\u00f3s idej\u0171 m\u00e9r\u0151sz\u00e1mok (FIGYELEM: nagym\u00e9rt\u00e9kben n\u00f6veli a CPU terhel\u00e9st)",
+                    "allow_ea": "A Protect korai hozz\u00e1f\u00e9r\u00e9s\u0171 verzi\u00f3inak enged\u00e9lyez\u00e9se (FIGYELMEZTET\u00c9S: Az integr\u00e1ci\u00f3t nem t\u00e1mogatottk\u00e9nt jel\u00f6li meg)",
+                    "allow_ea_channel": "Enged\u00e9lyezi az Early Access verzi\u00f3k haszn\u00e1lat\u00e1t a Protect sz\u00e1m\u00e1ra (FIGYELEM: Ezzel az integr\u00e1ci\u00f3 nem t\u00e1mogatott st\u00e1tuszba ker\u00fcl)",
+                    "disable_rtsp": "Az RTSP adatfolyam letilt\u00e1sa",
+                    "max_media": "A m\u00e9diab\u00f6ng\u00e9sz\u0151be bet\u00f6ltend\u0151 esem\u00e9nyek maxim\u00e1lis sz\u00e1ma (n\u00f6veli a RAM-haszn\u00e1latot)",
+                    "override_connection_host": "Kapcsolat c\u00edm\u00e9nek fel\u00fclb\u00edr\u00e1l\u00e1sa"
+                },
+                "description": "A val\u00f3s idej\u0171 metrik\u00e1k be\u00e1ll\u00edt\u00e1st csak akkor szabad enged\u00e9lyezni, ha enged\u00e9lyezte a diagnosztikai \u00e9rz\u00e9kel\u0151ket \u00e9s val\u00f3s id\u0151ben szeretn\u00e9 friss\u00edteni \u0151ket. Ha nincs enged\u00e9lyezve, csak 15 percenk\u00e9nt friss\u00fclnek.",
+                "title": "UniFi Protect be\u00e1ll\u00edt\u00e1sok"
+            }
+        }
+    },
+    "services": {
+        "add_doorbell_text": {
+            "description": "\u00daj egy\u00e9ni \u00fczenetet ad hozz\u00e1 a cseng\u0151kh\u00f6z.",
+            "fields": {
+                "device_id": {
+                    "description": "B\u00e1rmely eszk\u00f6z a UniFi Protect p\u00e9ld\u00e1nyb\u00f3l, amit meg szeretne v\u00e1ltoztatni. Abban az esetben, ha t\u00f6bb Protect p\u00e9ld\u00e1nya van.",
+                    "name": "UniFi Protect NVR"
+                },
+                "message": {
+                    "description": "\u00daj egy\u00e9ni \u00fczenet hozz\u00e1ad\u00e1sa a cseng\u0151kh\u00f6z. Legfeljebb 30 karakter lehet.",
+                    "name": "Egy\u00e9ni \u00fczenet"
+                }
+            },
+            "name": "Egy\u00e9ni ajt\u00f3cseng\u0151 sz\u00f6veg hozz\u00e1ad\u00e1sa"
+        },
+        "remove_doorbell_text": {
+            "description": "Elt\u00e1vol\u00edt egy megl\u00e9v\u0151 \u00fczenetet az ajt\u00f3cseng\u0151kh\u00f6z.",
+            "fields": {
+                "device_id": {
+                    "description": "B\u00e1rmely eszk\u00f6z a UniFi Protect p\u00e9ld\u00e1nyb\u00f3l, amit meg szeretne v\u00e1ltoztatni. Abban az esetben, ha t\u00f6bb Protect p\u00e9ld\u00e1nya van.",
+                    "name": "UniFi Protect NVR"
+                },
+                "message": {
+                    "description": "Megl\u00e9v\u0151 egy\u00e9ni \u00fczenet elt\u00e1vol\u00edt\u00e1sa az ajt\u00f3cseng\u0151kh\u00f6z.",
+                    "name": "Egy\u00e9ni \u00fczenet"
+                }
+            },
+            "name": "Egy\u00e9ni ajt\u00f3cseng\u0151 sz\u00f6veg elt\u00e1vol\u00edt\u00e1sa"
+        },
+        "remove_privacy_zone": {
+            "description": "Haszn\u00e1lja egy kamera adatv\u00e9delmi z\u00f3n\u00e1j\u00e1nak elt\u00e1vol\u00edt\u00e1s\u00e1hoz.",
+            "fields": {
+                "device_id": {
+                    "description": "A kamera, amelyr\u0151l el k\u00edv\u00e1nja t\u00e1vol\u00edtani az adatv\u00e9delmi z\u00f3n\u00e1t.",
+                    "name": "Kamera"
+                },
+                "name": {
+                    "description": "Az elt\u00e1vol\u00edtand\u00f3 z\u00f3na neve.",
+                    "name": "Adatv\u00e9delmi z\u00f3na neve"
+                }
+            },
+            "name": "T\u00e1vol\u00edtsa el a kamera adatv\u00e9delmi z\u00f3n\u00e1j\u00e1t"
+        },
+        "set_chime_paired_doorbells": {
+            "description": "Haszn\u00e1lja a p\u00e1ros\u00edtott ajt\u00f3cseng\u0151(k) intelligens cseng\u0151vel t\u00f6rt\u00e9n\u0151 be\u00e1ll\u00edt\u00e1s\u00e1hoz.",
+            "fields": {
+                "device_id": {
+                    "description": "A cseng\u0151ket a ajt\u00f3cseng\u0151kh\u00f6z kell csatlakoztatni.",
+                    "name": "Cseng\u0151"
+                },
+                "doorbells": {
+                    "description": "Az ajt\u00f3cseng\u0151k \u00f6sszekapcsol\u00e1sa a cseng\u0151vel.",
+                    "name": "Ajto\u0301csengo\u030bk"
+                }
+            },
+            "name": "Cseng\u0151 be\u00e1ll\u00edt\u00e1sa p\u00e1ros\u00edtott ajt\u00f3cseng\u0151kkel"
+        },
+        "set_default_doorbell_text": {
+            "description": "Be\u00e1ll\u00edtja az alap\u00e9rtelmezett ajt\u00f3cseng\u0151 \u00fczenetet. Ez lesz az az \u00fczenet, amely automatikusan kiv\u00e1laszt\u00e1sra ker\u00fcl, amikor egy \u00fczenet 'lej\u00e1r'.",
+            "fields": {
+                "device_id": {
+                    "description": "B\u00e1rmely eszk\u00f6z a UniFi Protect p\u00e9ld\u00e1nyb\u00f3l, amit meg szeretne v\u00e1ltoztatni. Abban az esetben, ha t\u00f6bb Protect p\u00e9ld\u00e1nya van.",
+                    "name": "UniFi Protect NVR"
+                },
+                "message": {
+                    "description": "Az ajt\u00f3cseng\u0151d alap\u00e9rtelmezett \u00fczenete. Legfeljebb 30 karakter hossz\u00fa lehet.",
+                    "name": "Alap\u00e9rtelmezett \u00fczenet"
+                }
+            },
+            "name": "\u00c1ll\u00edtsa be az alap\u00e9rtelmezett ajt\u00f3cseng\u0151 sz\u00f6veg\u00e9t"
+        }
+    }
+}

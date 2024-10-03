@@ -1,0 +1,161 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Ger\u00e4t ist bereits konfiguriert",
+            "already_in_progress": "Der Konfigurationsablauf wird bereits ausgef\u00fchrt",
+            "no_devices_found": "Keine Ger\u00e4te im Netzwerk gefunden"
+        },
+        "error": {
+            "cannot_connect": "Verbindung fehlgeschlagen"
+        },
+        "flow_title": "{model} {id} ({ipaddr})",
+        "step": {
+            "discovery_confirm": {
+                "description": "M\u00f6chtest du {model} {id} ({ipaddr}) einrichten?"
+            },
+            "user": {
+                "data": {
+                    "host": "Host"
+                },
+                "description": "Wenn du den Host leer l\u00e4sst, wird die Erkennung verwendet, um Ger\u00e4te zu finden."
+            }
+        }
+    },
+    "entity": {
+        "button": {
+            "unpair_remotes": {
+                "name": "Fernbedienungen entkoppeln"
+            }
+        },
+        "number": {
+            "effect_speed": {
+                "name": "Effektgeschwindigkeit"
+            },
+            "music_pixels_per_segment": {
+                "name": "Musikpixel pro Segment"
+            },
+            "music_segments": {
+                "name": "Musiksegmente"
+            },
+            "pixels_per_segment": {
+                "name": "Pixel pro Segment"
+            },
+            "segments": {
+                "name": "Segmente"
+            }
+        },
+        "select": {
+            "ic_type": {
+                "name": "IC-Typ"
+            },
+            "operating_mode": {
+                "name": "Betriebsart"
+            },
+            "power_restored": {
+                "name": "Strom wiederhergestellt"
+            },
+            "remote_config": {
+                "name": "Remote-Konfiguration"
+            },
+            "white_channel": {
+                "name": "Wei\u00dfer Kanal"
+            },
+            "wiring": {
+                "name": "Verdrahtung"
+            }
+        },
+        "sensor": {
+            "paired_remotes": {
+                "name": "Gekoppelte Fernbedienungen"
+            }
+        },
+        "switch": {
+            "music": {
+                "name": "Musik"
+            },
+            "remote_access": {
+                "name": "Remotezugriff"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "custom_effect_colors": "Benutzerdefinierter Effekt: Liste mit 1 bis 16 [R,G,B]-Farben. Beispiel: [255,0,255],[60,128,0]",
+                    "custom_effect_speed_pct": "Benutzerdefinierter Effekt: Geschwindigkeit in Prozent f\u00fcr die Effekte, die die Farben wechseln.",
+                    "custom_effect_transition": "Benutzerdefinierter Effekt: Art des \u00dcbergangs zwischen den Farben.",
+                    "mode": "Der gew\u00e4hlte Helligkeitsmodus."
+                }
+            }
+        }
+    },
+    "services": {
+        "set_custom_effect": {
+            "description": "Legt einen benutzerdefinierten Lichteffekt fest.",
+            "fields": {
+                "colors": {
+                    "description": "Liste der Farben f\u00fcr den benutzerdefinierten Effekt (RGB) (maximal 16 Farben).",
+                    "name": "Farben"
+                },
+                "speed_pct": {
+                    "description": "Effektgeschwindigkeit f\u00fcr den benutzerdefinierten Effekt (0-100).",
+                    "name": "Geschwindigkeit"
+                },
+                "transition": {
+                    "description": "Effekt\u00fcbergang.",
+                    "name": "\u00dcbergang"
+                }
+            },
+            "name": "Benutzerdefinierten Effekt einstellen"
+        },
+        "set_music_mode": {
+            "description": "Konfiguriert den Musikmodus auf Controller RGB mit MIC (0x08), Addressable v2 (0xA2) und Addressable v3 (0xA3) Ger\u00e4ten, die ein eingebautes Mikrofon haben.",
+            "fields": {
+                "background_color": {
+                    "description": "Die RGB-Hintergrundfarbe (nur bei adressierbaren Modellen).",
+                    "name": "Hintergrundfarbe"
+                },
+                "brightness": {
+                    "description": "Lichthelligkeit (0-100).",
+                    "name": "Helligkeit"
+                },
+                "effect": {
+                    "description": "Effekt (1\u201316 bei adressierbaren Modellen, 0\u20133 bei RGB mit MIC-Modellen).",
+                    "name": "Effekt"
+                },
+                "foreground_color": {
+                    "description": "Die RGB-Farbe des Vordergrunds.",
+                    "name": "Vordergrundfarbe"
+                },
+                "light_screen": {
+                    "description": "Lichtbildmodus f\u00fcr 2-dimensionale Pixel (nur adressierbare Modelle).",
+                    "name": "Leuchtschirm"
+                },
+                "sensitivity": {
+                    "description": "Mikrofonempfindlichkeit (0-100).",
+                    "name": "Empfindlichkeit"
+                }
+            },
+            "name": "Musikmodus einstellen"
+        },
+        "set_zones": {
+            "description": "Legt Streifenbereiche f\u00fcr adressierbare v3-Controller fest (0xA3).",
+            "fields": {
+                "colors": {
+                    "description": "Liste der Farben f\u00fcr jede Zone (RGB). Die L\u00e4nge jeder Zone ist die Anzahl der Pixel pro Segment geteilt durch die Anzahl der Farben. (Maximal 2048 Farben).",
+                    "name": "Farben"
+                },
+                "effect": {
+                    "description": "Effekt.",
+                    "name": "Effekt"
+                },
+                "speed_pct": {
+                    "description": "Effektgeschwindigkeit f\u00fcr den benutzerdefinierten Effekt (0-100).",
+                    "name": "Geschwindigkeit"
+                }
+            },
+            "name": "Zonen festlegen"
+        }
+    }
+}

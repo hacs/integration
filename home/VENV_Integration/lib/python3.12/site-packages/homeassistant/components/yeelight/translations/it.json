@@ -1,0 +1,189 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Il dispositivo \u00e8 gi\u00e0 configurato",
+            "no_devices_found": "Nessun dispositivo trovato sulla rete"
+        },
+        "error": {
+            "cannot_connect": "Impossibile connettersi"
+        },
+        "flow_title": "{model} {id} ({host})",
+        "step": {
+            "discovery_confirm": {
+                "description": "Vuoi configurare {model} ({host})?"
+            },
+            "pick_device": {
+                "data": {
+                    "device": "Dispositivo"
+                }
+            },
+            "user": {
+                "data": {
+                    "host": "Host"
+                },
+                "description": "Se lasci l'host vuoto, il rilevamento sar\u00e0 utilizzato per trovare i dispositivi."
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "nightlight": {
+                "name": "Luce notturna"
+            }
+        },
+        "light": {
+            "ambilight": {
+                "name": "Luce ambientale"
+            },
+            "nightlight": {
+                "name": "Luce notturna"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "model": "Modello",
+                    "nightlight_switch": "Usa l'interruttore luce notturna",
+                    "save_on_change": "Salva stato su modifica",
+                    "transition": "Tempo di transizione (ms)",
+                    "use_music_mode": "Abilita la modalit\u00e0 musica"
+                }
+            }
+        }
+    },
+    "selector": {
+        "action": {
+            "options": {
+                "off": "Spento/a",
+                "recover": "Recupera",
+                "stay": "Rimani"
+            }
+        },
+        "mode": {
+            "options": {
+                "color_flow": "Flusso di colore",
+                "hsv": "HSV",
+                "last": "Ultima",
+                "moonlight": "Chiaro di luna",
+                "normal": "Normale",
+                "rgb": "RGB"
+            }
+        }
+    },
+    "services": {
+        "set_auto_delay_off_scene": {
+            "description": "Accende la luce alla luminosit\u00e0 specificata e imposta un timer per spegnerla dopo il numero di minuti indicato. Se la luce \u00e8 spenta, imposta una scena di colore; se la luce \u00e8 spenta, viene accesa.",
+            "fields": {
+                "brightness": {
+                    "description": "Il valore di luminosit\u00e0 da impostare.",
+                    "name": "Luminosit\u00e0"
+                },
+                "minutes": {
+                    "description": "Il tempo di attesa prima dello spegnimento automatico della luce.",
+                    "name": "Minuti"
+                }
+            },
+            "name": "Imposta il ritardo automatico di spegnimento della scena"
+        },
+        "set_color_flow_scene": {
+            "description": "Avvia un flusso di colore. Se la luce \u00e8 spenta, sar\u00e0 accesa.",
+            "fields": {
+                "action": {
+                    "description": "L'azione da intraprendere dopo l'arresto del flusso.",
+                    "name": "Azione"
+                },
+                "count": {
+                    "description": "Il numero di volte per eseguire questo flusso (0 per l'esecuzione per sempre).",
+                    "name": "Conteggio"
+                },
+                "transitions": {
+                    "description": "Array di transizioni, per ottenere l'effetto desiderato. Esempi https://yeelight.readthedocs.io/en/stable/flow.html.",
+                    "name": "Transizioni"
+                }
+            },
+            "name": "Imposta il flusso di colore della scena "
+        },
+        "set_color_scene": {
+            "description": "Cambia la luce nel colore RGB e nella luminosit\u00e0 specificati. Se la luce \u00e8 spenta, sar\u00e0 accesa.",
+            "fields": {
+                "brightness": {
+                    "description": "Il valore di luminosit\u00e0 da impostare.",
+                    "name": "Luminosit\u00e0"
+                },
+                "rgb_color": {
+                    "description": "Colore per la luce in formato RGB.",
+                    "name": "Colore RGB"
+                }
+            },
+            "name": "Imposta il colore della scena"
+        },
+        "set_color_temp_scene": {
+            "description": "Cambia la luce alla temperatura del colore specificata. Se la luce \u00e8 spenta, sar\u00e0 accesa.",
+            "fields": {
+                "brightness": {
+                    "description": "Il valore di luminosit\u00e0 da impostare.",
+                    "name": "Luminosit\u00e0"
+                },
+                "kelvin": {
+                    "description": "Temperatura di colore per la luce in Kelvin.",
+                    "name": "Kelvin"
+                }
+            },
+            "name": "Imposta la temperatura del colore della scena"
+        },
+        "set_hsv_scene": {
+            "description": "Cambia la luce nel colore e nella luminosit\u00e0 HSV specificati. Se la luce \u00e8 spenta, sar\u00e0 accesa.",
+            "fields": {
+                "brightness": {
+                    "description": "Il valore di luminosit\u00e0 da impostare.",
+                    "name": "Luminosit\u00e0"
+                },
+                "hs_color": {
+                    "description": "Colore per la luce in formato hue/sat. Hue \u00e8 0-359 e Sat \u00e8 0-100.",
+                    "name": "Tonalit\u00e0/saturazione del colore"
+                }
+            },
+            "name": "Imposta la scena HSV"
+        },
+        "set_mode": {
+            "description": "Imposta una modalit\u00e0 di funzionamento.",
+            "fields": {
+                "mode": {
+                    "description": "Modalit\u00e0 di funzionamento.",
+                    "name": "Modalit\u00e0"
+                }
+            },
+            "name": "Imposta modalit\u00e0"
+        },
+        "set_music_mode": {
+            "description": "Abilita o disabilita music_mode.",
+            "fields": {
+                "music_mode": {
+                    "description": "Usa true o false per abilitare/disabilitare music_mode.",
+                    "name": "Modalit\u00e0 musica"
+                }
+            },
+            "name": "Imposta la modalit\u00e0 musica"
+        },
+        "start_flow": {
+            "description": "Avvia un flusso personalizzato, utilizzando le transizioni da https://yeelight.readthedocs.io/en/stable/yeelight.html#flow-objects.",
+            "fields": {
+                "action": {
+                    "description": "L'azione da intraprendere dopo l'arresto del flusso.",
+                    "name": "Azione"
+                },
+                "count": {
+                    "description": "Il numero di volte per eseguire questo flusso (0 per l'esecuzione per sempre).",
+                    "name": "Conta"
+                },
+                "transitions": {
+                    "description": "Array di transizioni, per ottenere l'effetto desiderato. Esempi https://yeelight.readthedocs.io/en/stable/flow.html.",
+                    "name": "Transizioni"
+                }
+            },
+            "name": "Avvia il flusso"
+        }
+    }
+}

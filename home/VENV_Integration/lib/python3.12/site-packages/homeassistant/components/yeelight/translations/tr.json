@@ -1,0 +1,192 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Cihaz zaten yap\u0131land\u0131r\u0131lm\u0131\u015f",
+            "no_devices_found": "A\u011fda cihaz bulunamad\u0131"
+        },
+        "error": {
+            "cannot_connect": "Ba\u011flanma hatas\u0131"
+        },
+        "flow_title": "{model} {id} ({host})",
+        "step": {
+            "discovery_confirm": {
+                "description": "{model} ( {host} ) kurmak istiyor musunuz?"
+            },
+            "pick_device": {
+                "data": {
+                    "device": "Cihaz"
+                }
+            },
+            "user": {
+                "data": {
+                    "host": "Ana Bilgisayar"
+                },
+                "data_description": {
+                    "host": "Yeelight Wi-Fi ampul\u00fcn\u00fcz\u00fcn ana bilgisayar ad\u0131 veya IP adresi."
+                },
+                "description": "Ana bilgisayar\u0131 bo\u015f b\u0131rak\u0131rsan\u0131z, cihazlar\u0131 bulmak i\u00e7in ke\u015fif kullan\u0131lacakt\u0131r."
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "nightlight": {
+                "name": "Gece lambas\u0131"
+            }
+        },
+        "light": {
+            "ambilight": {
+                "name": "Ambilight"
+            },
+            "nightlight": {
+                "name": "Gece lambas\u0131"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "model": "Model",
+                    "nightlight_switch": "Gece I\u015f\u0131\u011f\u0131 Anahtar\u0131n\u0131 Kullan",
+                    "save_on_change": "De\u011fi\u015fiklikte Durumu Kaydet",
+                    "transition": "Ge\u00e7i\u015f S\u00fcresi (ms)",
+                    "use_music_mode": "M\u00fczik Modunu Etkinle\u015ftir"
+                }
+            }
+        }
+    },
+    "selector": {
+        "action": {
+            "options": {
+                "off": "Kapal\u0131",
+                "recover": "\u0130yile\u015fmek",
+                "stay": "Kal"
+            }
+        },
+        "mode": {
+            "options": {
+                "color_flow": "Renk Ak\u0131\u015f\u0131",
+                "hsv": "HSV",
+                "last": "En son",
+                "moonlight": "Ay I\u015f\u0131\u011f\u0131",
+                "normal": "Normal",
+                "rgb": "RGB"
+            }
+        }
+    },
+    "services": {
+        "set_auto_delay_off_scene": {
+            "description": "I\u015f\u0131\u011f\u0131 belirtilen parlakl\u0131\u011fa getirir ve verilen dakika say\u0131s\u0131ndan sonra tekrar kapatmak i\u00e7in bir zamanlay\u0131c\u0131 ayarlar. I\u015f\u0131k kapal\u0131ysa, bir renk sahnesi ayarlay\u0131n, \u0131\u015f\u0131k kapal\u0131ysa a\u00e7\u0131lacakt\u0131r.",
+            "fields": {
+                "brightness": {
+                    "description": "Ayarlanacak parlakl\u0131k de\u011feri.",
+                    "name": "Parlakl\u0131k"
+                },
+                "minutes": {
+                    "description": "I\u015f\u0131\u011f\u0131 otomatik olarak kapatmadan \u00f6nce beklenecek s\u00fcre.",
+                    "name": "Dakika"
+                }
+            },
+            "name": "Otomatik gecikme kapatma sahnesini ayarlama"
+        },
+        "set_color_flow_scene": {
+            "description": "Bir renk ak\u0131\u015f\u0131 ba\u015flat\u0131r. I\u015f\u0131k kapal\u0131ysa a\u00e7\u0131lacakt\u0131r.",
+            "fields": {
+                "action": {
+                    "description": "Ak\u0131\u015f durduktan sonra ger\u00e7ekle\u015ftirilecek eylem.",
+                    "name": "Eylem"
+                },
+                "count": {
+                    "description": "Bu ak\u0131\u015f\u0131n ka\u00e7 kez \u00e7al\u0131\u015ft\u0131r\u0131laca\u011f\u0131 (sonsuza kadar \u00e7al\u0131\u015ft\u0131rmak i\u00e7in 0).",
+                    "name": "Say\u0131s\u0131"
+                },
+                "transitions": {
+                    "description": "\u0130stenen efekt i\u00e7in ge\u00e7i\u015fler dizisi. \u00d6rnekler https://yeelight.readthedocs.io/en/stable/flow.html.",
+                    "name": "Ge\u00e7i\u015fler"
+                }
+            },
+            "name": "Renk ak\u0131\u015f\u0131 sahnesini ayarla"
+        },
+        "set_color_scene": {
+            "description": "I\u015f\u0131\u011f\u0131 belirtilen RGB rengine ve parlakl\u0131\u011f\u0131na de\u011fi\u015ftirir. I\u015f\u0131k kapal\u0131ysa a\u00e7\u0131lacakt\u0131r.",
+            "fields": {
+                "brightness": {
+                    "description": "Ayarlanacak parlakl\u0131k de\u011feri.",
+                    "name": "Parlakl\u0131k"
+                },
+                "rgb_color": {
+                    "description": "RGB format\u0131nda \u0131\u015f\u0131k i\u00e7in renk.",
+                    "name": "RGB rengi"
+                }
+            },
+            "name": "Renk sahnesini ayarla"
+        },
+        "set_color_temp_scene": {
+            "description": "I\u015f\u0131\u011f\u0131 belirtilen renk s\u0131cakl\u0131\u011f\u0131na de\u011fi\u015ftirir. I\u015f\u0131k kapal\u0131ysa a\u00e7\u0131lacakt\u0131r.",
+            "fields": {
+                "brightness": {
+                    "description": "Ayarlanacak parlakl\u0131k de\u011feri.",
+                    "name": "Parlakl\u0131k"
+                },
+                "kelvin": {
+                    "description": "Kelvin cinsinden \u0131\u015f\u0131k i\u00e7in renk s\u0131cakl\u0131\u011f\u0131.",
+                    "name": "Kelvin"
+                }
+            },
+            "name": "Renk s\u0131cakl\u0131\u011f\u0131 sahnesini ayarla"
+        },
+        "set_hsv_scene": {
+            "description": "I\u015f\u0131\u011f\u0131 belirtilen HSV rengine ve parlakl\u0131\u011f\u0131na de\u011fi\u015ftirir. I\u015f\u0131k kapal\u0131ysa, a\u00e7\u0131lacakt\u0131r.",
+            "fields": {
+                "brightness": {
+                    "description": "Ayarlanacak parlakl\u0131k de\u011feri.",
+                    "name": "Parlakl\u0131k"
+                },
+                "hs_color": {
+                    "description": "Ton/doymu\u015f format\u0131nda \u0131\u015f\u0131k i\u00e7in renk. Hue 0-359 ve Sat 0-100'd\u00fcr.",
+                    "name": "Ton/doymu\u015f renk"
+                }
+            },
+            "name": "HSV sahnesini ayarla"
+        },
+        "set_mode": {
+            "description": "Bir \u00e7al\u0131\u015fma modu ayarlar.",
+            "fields": {
+                "mode": {
+                    "description": "\u00c7al\u0131\u015fma modu.",
+                    "name": "Mod"
+                }
+            },
+            "name": "Ayar modu"
+        },
+        "set_music_mode": {
+            "description": "music_mode'u etkinle\u015ftirir veya devre d\u0131\u015f\u0131 b\u0131rak\u0131r.",
+            "fields": {
+                "music_mode": {
+                    "description": "music_mode'u etkinle\u015ftirmek/devre d\u0131\u015f\u0131 b\u0131rakmak i\u00e7in true veya false kullan\u0131n.",
+                    "name": "M\u00fczik modu"
+                }
+            },
+            "name": "M\u00fczik modunu ayarla"
+        },
+        "start_flow": {
+            "description": "https://yeelight.readthedocs.io/en/stable/yeelight.html#flow-objects adresinden ge\u00e7i\u015fleri kullanarak \u00f6zel bir ak\u0131\u015f ba\u015flat\u0131n.",
+            "fields": {
+                "action": {
+                    "description": "Ak\u0131\u015f durduktan sonra ger\u00e7ekle\u015ftirilecek eylem.",
+                    "name": "Eylem"
+                },
+                "count": {
+                    "description": "Bu ak\u0131\u015f\u0131n ka\u00e7 kez \u00e7al\u0131\u015ft\u0131r\u0131laca\u011f\u0131 (sonsuza kadar \u00e7al\u0131\u015ft\u0131rmak i\u00e7in 0).",
+                    "name": "Say\u0131s\u0131"
+                },
+                "transitions": {
+                    "description": "\u0130stenen efekt i\u00e7in ge\u00e7i\u015fler dizisi. \u00d6rnekler https://yeelight.readthedocs.io/en/stable/flow.html.",
+                    "name": "Ge\u00e7i\u015fler"
+                }
+            },
+            "name": "Ak\u0131\u015f\u0131 ba\u015flat"
+        }
+    }
+}

@@ -1,0 +1,138 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Az eszk\u00f6z m\u00e1r konfigur\u00e1lva van",
+            "cannot_connect": "Sikertelen csatlakoz\u00e1s"
+        },
+        "error": {
+            "cannot_connect": "Sikertelen csatlakoz\u00e1s",
+            "unknown": "V\u00e1ratlan hiba"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "host": "Hoszt",
+                    "password": "Jelsz\u00f3"
+                }
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "mobile_connected": {
+                "name": "Mobil csatlakoztatva"
+            },
+            "roaming": {
+                "name": "Roaming"
+            },
+            "wire_connected": {
+                "name": "Vezet\u00e9k csatlakoztatva"
+            }
+        },
+        "sensor": {
+            "band": {
+                "name": "Jelenlegi s\u00e1v"
+            },
+            "cell_id": {
+                "name": "Cellaazonos\u00edt\u00f3"
+            },
+            "connection_text": {
+                "name": "Kapcsolat sz\u00f6vege"
+            },
+            "connection_type": {
+                "name": "Kapcsolat t\u00edpusa"
+            },
+            "radio_quality": {
+                "name": "Jelmin\u0151s\u00e9g"
+            },
+            "register_network_display": {
+                "name": "Regisztr\u00e1lt h\u00e1l\u00f3zat kijelz\u00e9se"
+            },
+            "rx_level": {
+                "name": "Rx szint"
+            },
+            "service_type": {
+                "name": "Szolg\u00e1ltat\u00e1s t\u00edpusa"
+            },
+            "sms": {
+                "name": "SMS"
+            },
+            "sms_total": {
+                "name": "SMS \u00f6sszesen"
+            },
+            "tx_level": {
+                "name": "Tx szint"
+            },
+            "upstream": {
+                "name": "Felt\u00f6lt\u00e9s"
+            },
+            "usage": {
+                "name": "Haszn\u00e1lat"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_notify": {
+            "description": "A Netgear LTE \u00e9rtes\u00edt\u00e9si szolg\u00e1ltat\u00e1s kor\u00e1bban YAML-konfigur\u00e1ci\u00f3n kereszt\u00fcl lett be\u00e1ll\u00edtva.\n\nEz l\u00e9trehozott egy szolg\u00e1ltat\u00e1st egy megadott c\u00edmzett sz\u00e1m\u00e1ra an\u00e9lk\u00fcl, hogy meg kellett volna adnia a telefonsz\u00e1mot.\n\nK\u00e9rj\u00fck, m\u00f3dos\u00edtsa a \"{name}\" szolg\u00e1ltat\u00e1s haszn\u00e1lat\u00e1hoz sz\u00fcks\u00e9ges automatiz\u00e1l\u00e1sokat vagy szkripteket \u00e9s adja meg a c\u00edmzett megad\u00e1s\u00e1hoz sz\u00fcks\u00e9ges c\u00e9lt.",
+            "title": "A Netgear LTE \u00e9rtes\u00edt\u00e9si szolg\u00e1ltat\u00e1s megv\u00e1ltozik"
+        },
+        "import_failure": {
+            "description": "A Netgear LTE \u00e9rtes\u00edt\u00e9si szolg\u00e1ltat\u00e1s kor\u00e1bban YAML-konfigur\u00e1ci\u00f3n kereszt\u00fcl lett be\u00e1ll\u00edtva.\n\nHiba t\u00f6rt\u00e9nt, amikor megpr\u00f3b\u00e1lt kommunik\u00e1lni az eszk\u00f6zzel, mik\u00f6zben megpr\u00f3b\u00e1lta import\u00e1lni a konfigur\u00e1ci\u00f3t a felhaszn\u00e1l\u00f3i fel\u00fcletre.\n\nT\u00e1vol\u00edtsa el a Netgear LTE \u00e9rtes\u00edt\u00e9si szakaszt a YAML-konfigur\u00e1ci\u00f3b\u00f3l \u00e9s \u00e1ll\u00edtsa be a felhaszn\u00e1l\u00f3i fel\u00fcleten.",
+            "title": "A Netgear LTE integr\u00e1ci\u00f3 import\u00e1l\u00e1sa sikertelen"
+        }
+    },
+    "services": {
+        "connect_lte": {
+            "description": "Utas\u00edtja a modemet az LTE kapcsolat l\u00e9trehoz\u00e1s\u00e1ra.",
+            "fields": {
+                "host": {
+                    "description": "A modem, amelynek csatlakoznia kell.",
+                    "name": "Hoszt"
+                }
+            },
+            "name": "LTE kapcsol\u00f3d\u00e1s"
+        },
+        "delete_sms": {
+            "description": "\u00dczenetek t\u00f6rl\u00e9se a modem bej\u00f6v\u0151 \u00fczenetei k\u00f6z\u00fcl.",
+            "fields": {
+                "host": {
+                    "description": "A modem, amelynek \u00fczenet\u00e9t t\u00f6r\u00f6lni kell.",
+                    "name": "Hoszt"
+                },
+                "sms_id": {
+                    "description": "Eg\u00e9sz sz\u00e1m vagy eg\u00e9sz sz\u00e1mok list\u00e1ja a t\u00f6rlend\u0151 \u00fczenetek postafi\u00f3k-azonos\u00edt\u00f3ival.",
+                    "name": "SMS azonos\u00edt\u00f3"
+                }
+            },
+            "name": "SMS t\u00f6rl\u00e9se"
+        },
+        "disconnect_lte": {
+            "description": "Utas\u00edtja a modemet az LTE kapcsolat megszak\u00edt\u00e1s\u00e1ra.",
+            "fields": {
+                "host": {
+                    "description": "A modem, amelynek z\u00e1rnia kell a kapcsolatot.",
+                    "name": "Hoszt"
+                }
+            },
+            "name": "LTE kapcsolat bont\u00e1sa"
+        },
+        "set_option": {
+            "description": "Be\u00e1ll\u00edt\u00e1sok m\u00f3dos\u00edt\u00e1sa a modemben.",
+            "fields": {
+                "autoconnect": {
+                    "description": "Automatikus csatlakoz\u00e1si m\u00f3d.",
+                    "name": "Automatikus csatlakoz\u00e1s"
+                },
+                "failover": {
+                    "description": "Hibat\u0171r\u00e9si m\u00f3d.",
+                    "name": "Hibat\u0171r\u00e9s"
+                },
+                "host": {
+                    "description": "A modem, amelyen be\u00e1ll\u00edt\u00e1sokat kell v\u00e9gezni.",
+                    "name": "Hoszt"
+                }
+            },
+            "name": "Opci\u00f3 be\u00e1ll\u00edt\u00e1sa"
+        }
+    }
+}

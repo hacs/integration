@@ -1,0 +1,87 @@
+{
+    "device_automation": {
+        "condition_type": {
+            "is_home": "{entity_name} on kotona",
+            "is_not_home": "{entity_name} ei ole kotona"
+        },
+        "trigger_type": {
+            "enters": "{entity_name} saapuu alueelle",
+            "leaves": "{entity_name} poistuu alueelta"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Laiteseuranta",
+            "state": {
+                "home": "Kotona",
+                "not_home": "Poissa"
+            },
+            "state_attributes": {
+                "battery": {
+                    "name": "Akku"
+                },
+                "gps_accuracy": {
+                    "name": "GPS-tarkkuus"
+                },
+                "latitude": {
+                    "name": "Leveysaste"
+                },
+                "longitude": {
+                    "name": "Pituusaste"
+                },
+                "source_type": {
+                    "name": "L\u00e4hde",
+                    "state": {
+                        "bluetooth": "Bluetooth",
+                        "bluetooth_le": "Bluetooth LE",
+                        "gps": "GPS",
+                        "router": "Reititin"
+                    }
+                }
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "{platform}-integraation {domain}-alusta ei tue alustan asetuksia.\n\nPoista se asetuksista ja k\u00e4ynnist\u00e4 Home Assistant uudelleen ongelman korjaamiseksi.",
+            "title": "Alustan tukea ei tueta"
+        }
+    },
+    "services": {
+        "see": {
+            "description": "Tallentaa n\u00e4hdyn seuratun laitteen.",
+            "fields": {
+                "battery": {
+                    "description": "Laitteen akun varaustaso.",
+                    "name": "Akun varaustaso"
+                },
+                "dev_id": {
+                    "description": "Laitteen tunnus (etsi tunnus known_devices.yaml-tiedostosta).",
+                    "name": "Laitetunnus"
+                },
+                "gps": {
+                    "description": "Laitteen sijainnin GPS-koordinaatit, jotka ilmoitetaan leveys- ja pituusasteina (esimerkiksi [51.513845, -0.100539]).",
+                    "name": "GPS-koordinaatit"
+                },
+                "gps_accuracy": {
+                    "description": "GPS-koordinaattien tarkkuus.",
+                    "name": "GPS-tarkkuus"
+                },
+                "host_name": {
+                    "description": "Laitteen is\u00e4nt\u00e4nimi.",
+                    "name": "Is\u00e4nt\u00e4nimi"
+                },
+                "location_name": {
+                    "description": "Sen sijainnin nimi, jossa laite sijaitsee. Vaihtoehdot ovat: Vaihtoehdot: `home`, `not_home` tai vy\u00f6hykkeen nimi.",
+                    "name": "Sijainti"
+                },
+                "mac": {
+                    "description": "Laitteen MAC-osoite.",
+                    "name": "MAC-osoite"
+                }
+            },
+            "name": "Katso"
+        }
+    },
+    "title": "Laiteseuranta"
+}

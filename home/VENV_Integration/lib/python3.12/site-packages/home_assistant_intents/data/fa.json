@@ -1,0 +1,134 @@
+{
+  "language": "fa",
+  "intents": {
+    "HassTurnOff": {
+      "data": [
+        {
+          "sentences": [
+            "{name} (را | رو) خاموش کن"
+          ]
+        }
+      ]
+    },
+    "HassTurnOn": {
+      "data": [
+        {
+          "sentences": [
+            "{name} (را | رو) روشن کن"
+          ]
+        }
+      ]
+    }
+  },
+  "responses": {
+    "errors": {
+      "no_intent": "ببخشید نتونستم بفهمم",
+      "no_area": "وجود ندارد {{ area }} هیچ منطقه ای به نام",
+      "no_domain_in_area": "نیست {{ domain }} دارای {{ area }}",
+      "no_device_class_in_area": "نیست {{ device_class }} دارای {{ area }}",
+      "no_entity": "وجود ندارد {{ entity }} هیچ دستگاه یا موجودی به نام",
+      "handle_error": "هنگام اجرای هدف یک خطای غیر منتظره بوجود آمد "
+    },
+    "intents": {
+      "HassGetState": {},
+      "HassTurnOff": {
+        "default": "Turned off {{ slots.name }}",
+        "lights_area": "Turned off lights in {{ slots.area }}",
+        "fans_area": "Turned off fans in {{ slots.area }}",
+        "cover": "Closed {{ slots.name }}",
+        "cover_area": "Closed {{ slots.area }}"
+      },
+      "HassTurnOn": {
+        "default": "Turned on {{ slots.name }}",
+        "lights_area": "Turned on lights in {{ slots.area }}",
+        "fans_area": "Turned on fans in {{ slots.area }}",
+        "cover": "Opened {{ slots.name }}",
+        "cover_area": "Opened {{ slots.area }}"
+      },
+      "HassLightSet": {
+        "brightness": "{{ slots.name }} brightness set to {{ slots.brightness }}",
+        "brightness_area": "Brightness in {{ slots.area }} set to {{ slots.brightness }}",
+        "color": "{{ slots.name }} color set to {{ slots.color }}",
+        "color_area": "Color in {{ slots.area }} set to {{ slots.color }}"
+      },
+      "HassClimateGetTemperature": {
+        "default": "{{ state.state }} degrees"
+      }
+    }
+  },
+  "lists": {
+    "color": {
+      "values": [
+        {
+          "in": "سفید",
+          "out": "white"
+        },
+        {
+          "in": "(سیاه|مشکی)",
+          "out": "black"
+        },
+        {
+          "in": "قرمز",
+          "out": "red"
+        },
+        {
+          "in": "نارنجی",
+          "out": "orange"
+        },
+        {
+          "in": "زرد",
+          "out": "yellow"
+        },
+        {
+          "in": "سبز",
+          "out": "green"
+        },
+        {
+          "in": "آبی",
+          "out": "blue"
+        },
+        {
+          "in": "بنفش",
+          "out": "purple"
+        },
+        {
+          "in": "صورتی",
+          "out": "pink"
+        },
+        {
+          "in": "قهوه ای",
+          "out": "brown"
+        },
+        {
+          "in": "(طوسی|خاکستری)",
+          "out": "gray"
+        }
+      ]
+    },
+    "brightness": {
+      "range": {
+        "type": "percentage",
+        "from": 0,
+        "to": 100
+      }
+    },
+    "temperature": {
+      "range": {
+        "type": "temperature",
+        "from": 0,
+        "to": 100
+      }
+    },
+    "temperature_unit": {
+      "values": [
+        "celsius",
+        {
+          "in": "c",
+          "out": "celsius"
+        }
+      ]
+    }
+  },
+  "expansion_rules": {},
+  "skip_words": []
+}

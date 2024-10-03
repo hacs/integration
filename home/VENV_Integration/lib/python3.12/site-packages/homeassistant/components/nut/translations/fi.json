@@ -1,0 +1,427 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Laite on jo m\u00e4\u00e4ritetty",
+            "no_ups_found": "NUT-palvelimessa ei ole UPS-laitteita.",
+            "reauth_successful": "Uudelleentodennus onnistui"
+        },
+        "error": {
+            "cannot_connect": "Yhteysvirhe: {error}",
+            "invalid_auth": "Virheellinen todennus",
+            "unknown": "Odottamaton virhe"
+        },
+        "step": {
+            "reauth_confirm": {
+                "data": {
+                    "password": "Salasana",
+                    "username": "K\u00e4ytt\u00e4j\u00e4tunnus"
+                },
+                "description": "Todenna NUT-palvelin uudelleen osoitteessa {host}:{port}"
+            },
+            "ups": {
+                "data": {
+                    "alias": "Alias"
+                },
+                "title": "Valitse valvottava UPS"
+            },
+            "user": {
+                "data": {
+                    "host": "Palvelin",
+                    "password": "Salasana",
+                    "port": "Portti",
+                    "username": "K\u00e4ytt\u00e4j\u00e4tunnus"
+                },
+                "data_description": {
+                    "host": "NUT -palvelimen is\u00e4nt\u00e4nimi tai IP-osoite."
+                },
+                "description": "Yhdist\u00e4 NUT-palvelimeen",
+                "title": "Yhdist\u00e4 NUT-palvelimeen"
+            }
+        }
+    },
+    "device_automation": {
+        "action_type": {
+            "beeper_disable": "Poista UPS:in \u00e4\u00e4nimerkki/summeri k\u00e4yt\u00f6st\u00e4",
+            "beeper_enable": "Ota k\u00e4ytt\u00f6\u00f6n UPS:n \u00e4\u00e4nimerkki/summeri",
+            "beeper_mute": "UPS:n \u00e4\u00e4nimerkin/summerin v\u00e4liaikainen mykist\u00e4minen",
+            "beeper_toggle": "UPS:n \u00e4\u00e4nimerkin/summerin aktivoiminen",
+            "bypass_start": "Laita UPS ohitustilaan",
+            "bypass_stop": "Ota UPS pois ohitustilasta",
+            "calibrate_start": "K\u00e4ynnist\u00e4 ajoaikainen kalibrointi",
+            "calibrate_stop": "Pys\u00e4yt\u00e4 ajoaikakalibrointi",
+            "load_off": "Sammuta kuorma v\u00e4litt\u00f6m\u00e4sti",
+            "load_on": "Kytke kuorma p\u00e4\u00e4lle v\u00e4litt\u00f6m\u00e4sti",
+            "reset_input_minmax": "Nollaa tuloj\u00e4nnitteen minimi- ja maksimitila",
+            "reset_watchdog": "Nollaa vahtikoiran ajastin (pakotettu uudelleenk\u00e4ynnistys)",
+            "shutdown_reboot": "Sammuta kuorma v\u00e4liaikaisesti, kun UPS:in uudellenk\u00e4ynnistys on k\u00e4ynniss\u00e4.",
+            "shutdown_reboot_graceful": "Viiveen j\u00e4lkeen sammuta kuorma v\u00e4liaikaisesti, kun UPS:in uudellenk\u00e4ynnistys on k\u00e4ynniss\u00e4.",
+            "shutdown_return": "Kytke kuorma pois p\u00e4\u00e4lt\u00e4 mahdollisesti viiveen j\u00e4lkeen ja  k\u00e4ynnist\u00e4, kun j\u00e4nnite palautuu.",
+            "shutdown_stayoff": "Kytke kuorma pois p\u00e4\u00e4lt\u00e4 mahdollisesti viiveen j\u00e4lkeen ja pid\u00e4 pois p\u00e4\u00e4lt\u00e4, vaikka j\u00e4nnite palaisi takaisin.",
+            "shutdown_stop": "Pys\u00e4yt\u00e4 k\u00e4ynniss\u00e4 oleva sammutus",
+            "test_battery_start": "Aloita akkutesti",
+            "test_battery_start_deep": "Aloita akun syv\u00e4testi",
+            "test_battery_start_quick": "Aloita akun pikatesti",
+            "test_battery_stop": "Lopeta akkutesti",
+            "test_failure_start": "K\u00e4ynnist\u00e4 simuloitu s\u00e4hk\u00f6katkos",
+            "test_failure_stop": "Lopeta s\u00e4hk\u00f6katkon simulointi",
+            "test_panel_start": "Aloita UPS-paneelin testaus",
+            "test_panel_stop": "Lopeta UPS-paneelin testi",
+            "test_system_start": "Aloita j\u00e4rjestelm\u00e4testi"
+        }
+    },
+    "entity": {
+        "sensor": {
+            "ambient_humidity": {
+                "name": "Ymp\u00e4rist\u00f6n kosteus"
+            },
+            "ambient_temperature": {
+                "name": "Ymp\u00e4rist\u00f6n l\u00e4mp\u00f6tila"
+            },
+            "battery_alarm_threshold": {
+                "name": "Akkuh\u00e4lytyksen kynnysarvo"
+            },
+            "battery_capacity": {
+                "name": "Akun kapasiteetti"
+            },
+            "battery_charge": {
+                "name": "Akun lataus"
+            },
+            "battery_charge_low": {
+                "name": "Alhainen akun asetusarvo"
+            },
+            "battery_charge_restart": {
+                "name": "V\u00e4himm\u00e4isakku k\u00e4ynnistyst\u00e4 varten"
+            },
+            "battery_charge_warning": {
+                "name": "Varoitusakun asetusarvo"
+            },
+            "battery_charger_status": {
+                "name": "Lataustila"
+            },
+            "battery_current": {
+                "name": "Akun virta"
+            },
+            "battery_current_total": {
+                "name": "Akun kokonaisvirta"
+            },
+            "battery_date": {
+                "name": "Akun p\u00e4iv\u00e4m\u00e4\u00e4r\u00e4"
+            },
+            "battery_mfr_date": {
+                "name": "Akun valmistusp\u00e4iv\u00e4m\u00e4\u00e4r\u00e4"
+            },
+            "battery_packs": {
+                "name": "Paristojen lukum\u00e4\u00e4r\u00e4"
+            },
+            "battery_packs_bad": {
+                "name": "Huonojen paristojen m\u00e4\u00e4r\u00e4"
+            },
+            "battery_runtime": {
+                "name": "Akun k\u00e4ytt\u00f6aika"
+            },
+            "battery_runtime_low": {
+                "name": "Alhainen akun k\u00e4ytt\u00f6aika"
+            },
+            "battery_runtime_restart": {
+                "name": "Akun v\u00e4himm\u00e4isk\u00e4ytt\u00f6aika k\u00e4ynnistyst\u00e4 varten"
+            },
+            "battery_temperature": {
+                "name": "Akun l\u00e4mp\u00f6tila"
+            },
+            "battery_type": {
+                "name": "Akun kemia"
+            },
+            "battery_voltage": {
+                "name": "Akun j\u00e4nnite"
+            },
+            "battery_voltage_high": {
+                "name": "Korkea akun j\u00e4nnite"
+            },
+            "battery_voltage_low": {
+                "name": "Alhainen akun j\u00e4nnite"
+            },
+            "battery_voltage_nominal": {
+                "name": "Akun nimellisj\u00e4nnite"
+            },
+            "input_bypass_current": {
+                "name": "Tulon ohitusvirta"
+            },
+            "input_bypass_frequency": {
+                "name": "Tulon ohitustaajuus"
+            },
+            "input_bypass_l1_current": {
+                "name": "Tulon ohitusvirta L1"
+            },
+            "input_bypass_l1_n_voltage": {
+                "name": "Tulon ohituksen L1-N j\u00e4nnite"
+            },
+            "input_bypass_l1_realpower": {
+                "name": "Nykyisen tulon ohitus L1 todellinen teho"
+            },
+            "input_bypass_l2_current": {
+                "name": "Tulon ohitusvirta L2"
+            },
+            "input_bypass_l2_n_voltage": {
+                "name": "Tulon ohituksen L2-N j\u00e4nnite"
+            },
+            "input_bypass_l2_realpower": {
+                "name": "Nykyisen tulon ohitus L2 todellinen teho"
+            },
+            "input_bypass_l3_current": {
+                "name": "Tulon ohitusvirta L3"
+            },
+            "input_bypass_l3_n_voltage": {
+                "name": "Tulon ohituksen L3-N j\u00e4nnite"
+            },
+            "input_bypass_l3_realpower": {
+                "name": "Nykyisen tulon ohitus L3 todellinen teho"
+            },
+            "input_bypass_phases": {
+                "name": "Tulon ohitusvaiheet"
+            },
+            "input_bypass_realpower": {
+                "name": "Virtatulon ohitusk\u00e4yt\u00f6n todellinen teho"
+            },
+            "input_bypass_voltage": {
+                "name": "Tulon ohitusj\u00e4nnite"
+            },
+            "input_current": {
+                "name": "Tulovirta"
+            },
+            "input_frequency_status": {
+                "name": "Tulotaajuuden tila"
+            },
+            "input_l1_current": {
+                "name": "Tulo L1 virta"
+            },
+            "input_l1_frequency": {
+                "name": "Tulolinjan L1 taajuus"
+            },
+            "input_l1_n_voltage": {
+                "name": "Tulo L1 j\u00e4nnite"
+            },
+            "input_l1_realpower": {
+                "name": "Nykyisen tulon L1 todellinen teho"
+            },
+            "input_l2_current": {
+                "name": "Tulo L2 virta"
+            },
+            "input_l2_frequency": {
+                "name": "Tulolinjan L2 taajuus"
+            },
+            "input_l2_n_voltage": {
+                "name": "Tulo L2 j\u00e4nnite"
+            },
+            "input_l2_realpower": {
+                "name": "Nykyisen tulon L2 todellinen teho"
+            },
+            "input_l3_current": {
+                "name": "Tulo L3 virta"
+            },
+            "input_l3_frequency": {
+                "name": "Tulon L3 linjataajuus"
+            },
+            "input_l3_n_voltage": {
+                "name": "Tulo L3 j\u00e4nnite"
+            },
+            "input_l3_realpower": {
+                "name": "Nykyinen tulo L3 todellinen teho"
+            },
+            "input_phases": {
+                "name": "Tulovaiheet"
+            },
+            "input_realpower": {
+                "name": "Nykyinen sy\u00f6tetty todellinen teho"
+            },
+            "input_sensitivity": {
+                "name": "Tulotehon herkkyys"
+            },
+            "input_transfer_high": {
+                "name": "Suurj\u00e4nnitteen siirto"
+            },
+            "input_transfer_low": {
+                "name": "Pienj\u00e4nnitteen siirto"
+            },
+            "input_transfer_reason": {
+                "name": "J\u00e4nnitteensiirron syy"
+            },
+            "input_voltage": {
+                "name": "Tuloj\u00e4nnite"
+            },
+            "input_voltage_nominal": {
+                "name": "Nimellinen tuloj\u00e4nnite"
+            },
+            "output_current": {
+                "name": "L\u00e4ht\u00f6virta"
+            },
+            "output_current_nominal": {
+                "name": "Nimellinen l\u00e4ht\u00f6virta"
+            },
+            "output_frequency": {
+                "name": "L\u00e4ht\u00f6taajuus"
+            },
+            "output_frequency_nominal": {
+                "name": "Nimellinen l\u00e4ht\u00f6taajuus"
+            },
+            "output_l1_current": {
+                "name": "L\u00e4ht\u00f6 L1 virta"
+            },
+            "output_l1_n_voltage": {
+                "name": "L\u00e4ht\u00f6 L1-N-j\u00e4nnite"
+            },
+            "output_l1_power_percent": {
+                "name": "L\u00e4ht\u00f6 L1 tehon k\u00e4ytt\u00f6"
+            },
+            "output_l1_realpower": {
+                "name": "Virtal\u00e4ht\u00f6 L1 todellinen teho"
+            },
+            "output_l2_current": {
+                "name": "L\u00e4ht\u00f6 L2 virtam"
+            },
+            "output_l2_n_voltage": {
+                "name": "L\u00e4ht\u00f6 L2-N j\u00e4nnite"
+            },
+            "output_l2_power_percent": {
+                "name": "L\u00e4ht\u00f6 L2 tehon k\u00e4ytt\u00f6"
+            },
+            "output_l2_realpower": {
+                "name": "Virtal\u00e4ht\u00f6 L2 todellinen teho"
+            },
+            "output_l3_current": {
+                "name": "L\u00e4ht\u00f6 L3 virta"
+            },
+            "output_l3_n_voltage": {
+                "name": "L\u00e4ht\u00f6 L3-N j\u00e4nnite"
+            },
+            "output_l3_power_percent": {
+                "name": "L\u00e4ht\u00f6 L3 tehon k\u00e4ytt\u00f6"
+            },
+            "output_l3_realpower": {
+                "name": "Virtal\u00e4ht\u00f6 L3 todellinen teho"
+            },
+            "output_phases": {
+                "name": "L\u00e4ht\u00f6vaiheet"
+            },
+            "output_power": {
+                "name": "L\u00e4ht\u00f6 n\u00e4enn\u00e4isteho"
+            },
+            "output_power_nominal": {
+                "name": "Nimellinen l\u00e4ht\u00f6teho"
+            },
+            "output_realpower": {
+                "name": "Nykyinen l\u00e4ht\u00f6teho todellinen teho"
+            },
+            "output_realpower_nominal": {
+                "name": "Reaalinen nimellisteho"
+            },
+            "output_voltage": {
+                "name": "L\u00e4ht\u00f6j\u00e4nnite"
+            },
+            "output_voltage_nominal": {
+                "name": "Nimellinen l\u00e4ht\u00f6j\u00e4nnite"
+            },
+            "ups_alarm": {
+                "name": "H\u00e4lytykset"
+            },
+            "ups_beeper_status": {
+                "name": "\u00c4\u00e4nimerkin tila"
+            },
+            "ups_contacts": {
+                "name": "Ulkoiset yhteydet"
+            },
+            "ups_delay_reboot": {
+                "name": "UPS:n uudelleenk\u00e4ynnistysviive"
+            },
+            "ups_delay_shutdown": {
+                "name": "UPS:n sammutusviive"
+            },
+            "ups_delay_start": {
+                "name": "Kuorman uudelleenk\u00e4ynnistysviive"
+            },
+            "ups_display_language": {
+                "name": "Kieli"
+            },
+            "ups_efficiency": {
+                "name": "Tehokkuus"
+            },
+            "ups_id": {
+                "name": "J\u00e4rjestelm\u00e4n tunniste"
+            },
+            "ups_load": {
+                "name": "Kuorma"
+            },
+            "ups_load_high": {
+                "name": "Ylikuormitusasetus"
+            },
+            "ups_power": {
+                "name": "Nykyinen n\u00e4enn\u00e4isteho"
+            },
+            "ups_power_nominal": {
+                "name": "Nimellisteho"
+            },
+            "ups_realpower": {
+                "name": "Nykyinen todellinen teho"
+            },
+            "ups_realpower_nominal": {
+                "name": "Nimellinen reaaliteho"
+            },
+            "ups_shutdown": {
+                "name": "Sammutuskyky"
+            },
+            "ups_start_auto": {
+                "name": "K\u00e4ynnist\u00e4 verkkovirrasta"
+            },
+            "ups_start_battery": {
+                "name": "K\u00e4ynnist\u00e4 akulla"
+            },
+            "ups_start_reboot": {
+                "name": "Uudelleenk\u00e4ynnistys akulla"
+            },
+            "ups_status": {
+                "name": "Tilatiedot"
+            },
+            "ups_status_display": {
+                "name": "Tila"
+            },
+            "ups_temperature": {
+                "name": "UPS:n l\u00e4mp\u00f6tila"
+            },
+            "ups_test_date": {
+                "name": "Itsetestauksen p\u00e4iv\u00e4m\u00e4\u00e4r\u00e4"
+            },
+            "ups_test_interval": {
+                "name": "Itsetestausv\u00e4li"
+            },
+            "ups_test_result": {
+                "name": "Itsetestauksen tulos"
+            },
+            "ups_timer_reboot": {
+                "name": "Kuorman uudelleenk\u00e4ynnistysajastin"
+            },
+            "ups_timer_shutdown": {
+                "name": "Kuorman sammutusajastin"
+            },
+            "ups_timer_start": {
+                "name": "Kuorman k\u00e4ynnistysajastin"
+            },
+            "ups_type": {
+                "name": "UPS-tyyppi"
+            },
+            "ups_watchdog_status": {
+                "name": "Watchdogin tila"
+            },
+            "watts": {
+                "name": "Wattia"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "scan_interval": "Skannausv\u00e4li (sekunneissa)"
+                }
+            }
+        }
+    }
+}

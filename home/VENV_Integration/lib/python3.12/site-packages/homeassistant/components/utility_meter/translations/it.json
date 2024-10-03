@@ -1,0 +1,72 @@
+{
+    "config": {
+        "step": {
+            "user": {
+                "data": {
+                    "cycle": "Ciclo di ripristino del contatore",
+                    "delta_values": "Valori delta",
+                    "name": "Nome",
+                    "net_consumption": "Consumo netto",
+                    "offset": "Offset azzeramento contatore",
+                    "periodically_resetting": "Ripristino periodico",
+                    "source": "Sensore di ingresso",
+                    "tariffs": "Tariffe supportate"
+                },
+                "data_description": {
+                    "delta_values": "Abilita se i valori di origine sono valori delta dall'ultima lettura anzich\u00e9 valori assoluti.",
+                    "net_consumption": "Abilita se la sorgente \u00e8 un contatore netto, il che significa che pu\u00f2 sia aumentare che diminuire.",
+                    "offset": "Offset del giorno di un ripristino mensile del contatore.",
+                    "periodically_resetting": "Abilitare se la sorgente pu\u00f2 periodicamente reimpostarsi su 0, ad esempio all'avvio del dispositivo di misurazione. Se disabilitato, le nuove letture vengono registrate direttamente dopo l'indisponibilit\u00e0 dei dati.",
+                    "tariffs": "Un elenco di tariffe supportate, lascia vuoto se \u00e8 necessaria una sola tariffa."
+                },
+                "description": "Crea un sensore che tenga traccia del consumo di varie utenze (ad es. energia, gas, acqua, riscaldamento) in un periodo di tempo configurato, generalmente mensile. Il sensore del contatore di utenze supporta opzionalmente la suddivisione del consumo per tariffe, in tal caso viene creato un sensore per ciascuna tariffa e un'entit\u00e0 selezionata per scegliere la tariffa corrente.",
+                "title": "Aggiungi misuratore di utilit\u00e0"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "periodically_resetting": "Ripristino periodico",
+                    "source": "Sensore di ingresso"
+                },
+                "data_description": {
+                    "periodically_resetting": "Abilitare se la sorgente pu\u00f2 periodicamente reimpostarsi su 0, ad esempio all'avvio del dispositivo di misurazione. Se disabilitato, le nuove letture vengono registrate direttamente dopo l'indisponibilit\u00e0 dei dati."
+                }
+            }
+        }
+    },
+    "selector": {
+        "cycle": {
+            "options": {
+                "bimonthly": "Ogni due mesi",
+                "daily": "Quotidiano",
+                "hourly": "Orario",
+                "monthly": "Mensile",
+                "none": "Nessun ciclo",
+                "quarter-hourly": "Ogni 15 minuti",
+                "quarterly": "Trimestrale",
+                "weekly": "Settimanale",
+                "yearly": "Annuale"
+            }
+        }
+    },
+    "services": {
+        "calibrate": {
+            "description": "Calibra un sensore del contatore di utenze.",
+            "fields": {
+                "value": {
+                    "description": "Valore a cui impostare il contatore.",
+                    "name": "Valore"
+                }
+            },
+            "name": "Calibra"
+        },
+        "reset": {
+            "description": "Azzera tutti i contatori di un contatore di utenze.",
+            "name": "Ripristina"
+        }
+    },
+    "title": "Misuratore di utilit\u00e0"
+}

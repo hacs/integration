@@ -1,0 +1,161 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "El dispositivo ya est\u00e1 configurado",
+            "already_in_progress": "El flujo de configuraci\u00f3n ya est\u00e1 en curso",
+            "no_devices_found": "No se encontraron dispositivos en la red"
+        },
+        "error": {
+            "cannot_connect": "No se pudo conectar"
+        },
+        "flow_title": "{model} {id} ({ipaddr})",
+        "step": {
+            "discovery_confirm": {
+                "description": "\u00bfQuieres configurar {model} {id} ({ipaddr})?"
+            },
+            "user": {
+                "data": {
+                    "host": "Host"
+                },
+                "description": "Si dejas el host vac\u00edo, se usar\u00e1 el descubrimiento para encontrar dispositivos."
+            }
+        }
+    },
+    "entity": {
+        "button": {
+            "unpair_remotes": {
+                "name": "Desemparejar controles remotos"
+            }
+        },
+        "number": {
+            "effect_speed": {
+                "name": "Velocidad del efecto"
+            },
+            "music_pixels_per_segment": {
+                "name": "P\u00edxeles de m\u00fasica por segmento"
+            },
+            "music_segments": {
+                "name": "Segmentos de m\u00fasica"
+            },
+            "pixels_per_segment": {
+                "name": "P\u00edxeles por segmento"
+            },
+            "segments": {
+                "name": "Segmentos"
+            }
+        },
+        "select": {
+            "ic_type": {
+                "name": "Tipo IC"
+            },
+            "operating_mode": {
+                "name": "Modo de funcionamiento"
+            },
+            "power_restored": {
+                "name": "Energ\u00eda restaurada"
+            },
+            "remote_config": {
+                "name": "Configuraci\u00f3n del control remoto"
+            },
+            "white_channel": {
+                "name": "Canal blanco"
+            },
+            "wiring": {
+                "name": "Cableado"
+            }
+        },
+        "sensor": {
+            "paired_remotes": {
+                "name": "Controles remotos emparejados"
+            }
+        },
+        "switch": {
+            "music": {
+                "name": "M\u00fasica"
+            },
+            "remote_access": {
+                "name": "Acceso remoto"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "custom_effect_colors": "Efecto personalizado: Lista de 1 a 16 colores [R,G,B]. Ejemplo: [255,0,255],[60,128,0]",
+                    "custom_effect_speed_pct": "Efecto personalizado: Velocidad en porcentaje para los efectos que cambian de color.",
+                    "custom_effect_transition": "Efecto personalizado: Tipo de transici\u00f3n entre los colores.",
+                    "mode": "El modo de brillo elegido."
+                }
+            }
+        }
+    },
+    "services": {
+        "set_custom_effect": {
+            "description": "Establece un efecto de luz personalizado.",
+            "fields": {
+                "colors": {
+                    "description": "Lista de colores para el efecto personalizado (RGB). (M\u00e1x. 16 Colores).",
+                    "name": "Colores"
+                },
+                "speed_pct": {
+                    "description": "Velocidad del efecto personalizado (0-100).",
+                    "name": "Velocidad"
+                },
+                "transition": {
+                    "description": "Efecto de transici\u00f3n.",
+                    "name": "Transici\u00f3n"
+                }
+            },
+            "name": "Establecer efecto personalizado"
+        },
+        "set_music_mode": {
+            "description": "Configura el modo de m\u00fasica en Controller RGB con dispositivos MIC (0x08), Addressable v2 (0xA2) y Addressable v3 (0xA3) que tienen un micr\u00f3fono incorporado.",
+            "fields": {
+                "background_color": {
+                    "description": "El color RGB de fondo (solo modelos direccionables).",
+                    "name": "Color de fondo"
+                },
+                "brightness": {
+                    "description": "Brillo de la luz (0-100).",
+                    "name": "Brillo"
+                },
+                "effect": {
+                    "description": "Efecto (1-16 en modelos direccionables, 0-3 en modelos RGB con MIC).",
+                    "name": "Efecto"
+                },
+                "foreground_color": {
+                    "description": "El color RGB de primer plano.",
+                    "name": "Color de primer plano"
+                },
+                "light_screen": {
+                    "description": "Modo de luz pantalla para p\u00edxeles bidimensionales (solo modelos direccionables).",
+                    "name": "Luz de pantalla"
+                },
+                "sensitivity": {
+                    "description": "Sensibilidad del micr\u00f3fono (0-100).",
+                    "name": "Sensibilidad"
+                }
+            },
+            "name": "Establecer el modo de m\u00fasica"
+        },
+        "set_zones": {
+            "description": "Establece franjas de zonas para controladores Addressable v3 (0xA3).",
+            "fields": {
+                "colors": {
+                    "description": "Lista de colores para cada zona (RGB). La longitud de cada zona es el n\u00famero de p\u00edxeles por segmento dividido por el n\u00famero de colores. (M\u00e1x. 2048 Colores).",
+                    "name": "Colores"
+                },
+                "effect": {
+                    "description": "Efecto.",
+                    "name": "Efecto"
+                },
+                "speed_pct": {
+                    "description": "Velocidad del efecto personalizado (0-100).",
+                    "name": "Velocidad"
+                }
+            },
+            "name": "Establecer zonas"
+        }
+    }
+}

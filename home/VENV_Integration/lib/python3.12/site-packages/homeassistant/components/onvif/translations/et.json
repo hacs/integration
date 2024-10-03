@@ -1,0 +1,128 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Seade on juba h\u00e4\u00e4lestatud",
+            "already_in_progress": "Seadistamine on juba k\u00e4imas",
+            "no_devices_found": "V\u00f5rgust ei leitud \u00fchtegi seadet",
+            "no_h264": "H264 vooge pole saadaval. Kontrollie oma seadme profiili seadeid.",
+            "no_mac": "ONVIF-seadme unikaalset ID-d ei \u00f5nnestunud konfigureerida.",
+            "onvif_error": "T\u00f5rge ONVIF-seadme seadistamisel.  Lisateabe saamiseks kontrolli logisid.",
+            "reauth_successful": "Taastuvastamine \u00f5nnestus"
+        },
+        "error": {
+            "auth_failed": "Tuvastamine urjus: {error}",
+            "cannot_connect": "\u00dchendamine nurjus",
+            "no_onvif_service": "ONVIF-teenust ei leitud. Kontrolli kas pordi number on \u00f5ige.",
+            "onvif_error": "Viga ONVIF kaamera seadistamisel: {error}. Lisateabe saamiseks vaata logisid."
+        },
+        "step": {
+            "configure": {
+                "data": {
+                    "host": "Host",
+                    "name": "Nimi",
+                    "password": "Salas\u00f5na",
+                    "port": "Port",
+                    "username": "Kasutajanimi"
+                },
+                "data_description": {
+                    "host": "ONVIF-seadme hostinimi v\u00f5i IP-aadress."
+                },
+                "title": "Seadista ONVIF-seade"
+            },
+            "configure_profile": {
+                "data": {
+                    "include": "Loo kaamera olem"
+                },
+                "description": "Kas loon {profile} jaoks kaamera olem eraldusv\u00f5imega {resolution}?",
+                "title": "Profiilide seadistamine"
+            },
+            "device": {
+                "data": {
+                    "host": "Vali avastatud ONVIF seade"
+                },
+                "title": "Vali ONVIF-seade"
+            },
+            "reauth_confirm": {
+                "data": {
+                    "password": "Salas\u00f5na",
+                    "username": "Kasutajanimi"
+                },
+                "description": "M\u00f5ned seadmed keelduvad autentimisest kui aeg on s\u00fcnkroonist v\u00e4ljas rohkem kui 5 sekundit. Kui autentimine ei \u00f5nnestu, veendu, et seadme kellaaeg on \u00f5ige, ja proovi uuesti.",
+                "title": "Taastuvasta ONVIF kaamera"
+            },
+            "user": {
+                "data": {
+                    "auto": "Otsi automaatselt"
+                },
+                "description": "Kl\u00f5psates nuppu **Esita**, otsime  v\u00f5rgust ONVIF-seadmeid, mis toetavad Profile S'i.\n\n M\u00f5ned tootjad on ONVIF-i vaikimisi keelanud. Veendu, et ONVIF on kaamera seadistustes lubatud.",
+                "title": "ONVIF-seadme seadistamine"
+            }
+        }
+    },
+    "entity": {
+        "switch": {
+            "autofocus": {
+                "name": "Autofookus"
+            },
+            "ir_lamp": {
+                "name": "IR-lamp"
+            },
+            "wiper": {
+                "name": "Klaasipuhasti"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "onvif_devices": {
+                "data": {
+                    "enable_webhooks": "Luba veebihaagid",
+                    "extra_arguments": "T\u00e4iendavad FFMPEG argumendid",
+                    "rtsp_transport": "RTSP edastusviis",
+                    "use_wallclock_as_timestamps": "Seinakella kasutamine ajatemplitena"
+                },
+                "title": "ONVIF-seadme suvandid"
+            }
+        }
+    },
+    "services": {
+        "ptz": {
+            "description": "Kui ONVIF-kaamera toetab PTZ-d, saab kaamerat panoraamida, kallutada v\u00f5i suumida.",
+            "fields": {
+                "continuous_duration": {
+                    "description": "M\u00e4\u00e4ra ContinuousMove viivitus sekundites enne liikumise peatamist.",
+                    "name": "Pidev kestus"
+                },
+                "distance": {
+                    "description": "Ulatuse koefitsient. M\u00e4\u00e4rab, kui palju PTZ-d tuleb \u00fches p\u00e4ringus t\u00e4ita.",
+                    "name": "Kaugus"
+                },
+                "move_mode": {
+                    "description": "PTZ liikumise j\u00e4lgimise re\u017eiim.",
+                    "name": "Liikumise j\u00e4lgimise re\u017eiim"
+                },
+                "pan": {
+                    "description": "Keeramise suund.",
+                    "name": "Keera"
+                },
+                "preset": {
+                    "description": "PTZ eelseadistatud profiili tunnus. M\u00e4\u00e4rab eelseadistatud profiili m\u00e4rgi, mis k\u00e4ivitatakse funktsiooniga GotoPreset.",
+                    "name": "Eelseade"
+                },
+                "speed": {
+                    "description": "Kiirustegur. M\u00e4\u00e4rab kui kiiresti PTZ-d t\u00e4idetakse.",
+                    "name": "Kiirus"
+                },
+                "tilt": {
+                    "description": "Kallutamise suund.",
+                    "name": "Kallutamine"
+                },
+                "zoom": {
+                    "description": "Suumi.",
+                    "name": "Suumi"
+                }
+            },
+            "name": "PTZ"
+        }
+    }
+}

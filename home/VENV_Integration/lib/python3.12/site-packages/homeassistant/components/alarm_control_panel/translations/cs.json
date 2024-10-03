@@ -1,0 +1,148 @@
+{
+    "device_automation": {
+        "action_type": {
+            "arm_away": "Zabezpe\u010dit {entity_name} v re\u017eimu Pry\u010d",
+            "arm_home": "Zabezpe\u010dit {entity_name} v re\u017eimu Doma",
+            "arm_night": "Zabezpe\u010dit {entity_name} v re\u017eimu Noc",
+            "arm_vacation": "Zabezpe\u010dit {entity_name} v re\u017eimu Dovolen\u00e1",
+            "disarm": "Odbezpe\u010dit {entity_name}",
+            "trigger": "Spustit {entity_name}"
+        },
+        "condition_type": {
+            "is_armed_away": "{entity_name}: je v re\u017eimu Zabezpe\u010deno a pry\u010d",
+            "is_armed_home": "{entity_name}: je v re\u017eimu Zabezpe\u010deno na doma",
+            "is_armed_night": "{entity_name}: je v re\u017eimu Zabezpe\u010deno na noc",
+            "is_armed_vacation": "{entity_name}: je v re\u017eimu Zabezpe\u010deno a na dovolen\u00e9",
+            "is_disarmed": "{entity_name}: nen\u00ed zabezpe\u010deno",
+            "is_triggered": "{entity_name}: je spu\u0161t\u011bno"
+        },
+        "extra_fields": {
+            "code": "K\u00f3d",
+            "for": "Doba trv\u00e1n\u00ed"
+        },
+        "trigger_type": {
+            "armed_away": "{entity_name} v re\u017eimu Zabezpe\u010deno a pry\u010d",
+            "armed_home": "{entity_name} v re\u017eimu Zabezpe\u010deno a doma",
+            "armed_night": "{entity_name} v re\u017eimu Zabezpe\u010deno na noc",
+            "armed_vacation": "{entity_name} v re\u017eimu Zabezpe\u010deno a na dovolen\u00e9",
+            "disarmed": "{entity_name} nen\u00ed zabezpe\u010deno",
+            "triggered": "{entity_name} spu\u0161t\u011bno"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Ovl\u00e1dac\u00ed panel alarmu",
+            "state": {
+                "armed": "Zabezpe\u010deno",
+                "armed_away": "Zabezpe\u010deno a pry\u010d",
+                "armed_custom_bypass": "Zabezpe\u010deno vlastn\u00edm obejit\u00edm",
+                "armed_home": "Zabezpe\u010deno na doma",
+                "armed_night": "Zabezpe\u010deno na noc",
+                "armed_vacation": "Zabezpe\u010deno a na dovolen\u00e9",
+                "arming": "Zabezpe\u010dov\u00e1n\u00ed",
+                "disarmed": "Nezabezpe\u010deno",
+                "disarming": "Ru\u0161en\u00ed zabezpe\u010den\u00ed",
+                "pending": "\u010cekaj\u00edc\u00ed",
+                "triggered": "Spu\u0161t\u011bno"
+            },
+            "state_attributes": {
+                "changed_by": {
+                    "name": "Zm\u011bn\u011bno"
+                },
+                "code_arm_required": {
+                    "name": "K\u00f3d pro zabezpe\u010den\u00ed",
+                    "state": {
+                        "false": "Nepovinn\u00e9",
+                        "true": "Povinn\u00e9"
+                    }
+                },
+                "code_format": {
+                    "name": "Form\u00e1t k\u00f3du",
+                    "state": {
+                        "number": "\u010c\u00edslice",
+                        "text": "Text"
+                    }
+                }
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "Platforma {platform} pro integraci {domain} nepodporuje nastaven\u00ed platformy.\n\nOdeberte ji z nastaven\u00ed a restartujte Home Assistanta, abyste tento probl\u00e9m vy\u0159e\u0161ili.",
+            "title": "Podpora platformy nen\u00ed podporov\u00e1na"
+        }
+    },
+    "services": {
+        "alarm_arm_away": {
+            "description": "Nastav\u00ed alarm do re\u017eimu \"Zabezpe\u010dit a pry\u010d\".",
+            "fields": {
+                "code": {
+                    "description": "K\u00f3d k nastaven\u00ed alarmu.",
+                    "name": "K\u00f3d"
+                }
+            },
+            "name": "Zabezpe\u010dit a pry\u010d"
+        },
+        "alarm_arm_custom_bypass": {
+            "description": "Zapne alarm a z\u00e1rove\u0148 umo\u017en\u00ed obejit\u00ed vlastn\u00ed oblasti.\nNastav\u00ed alarm do re\u017eimu \"Zabezpe\u010dit a na dovolen\u00e9\".",
+            "fields": {
+                "code": {
+                    "description": "K\u00f3d k nastaven\u00ed alarmu.",
+                    "name": "K\u00f3d"
+                }
+            },
+            "name": "Zabezpe\u010dit s vlastn\u00edm obejit\u00edm"
+        },
+        "alarm_arm_home": {
+            "description": "Nastav\u00ed alarm do re\u017eimu \"Zabezpe\u010dit a doma\".",
+            "fields": {
+                "code": {
+                    "description": "K\u00f3d k nastaven\u00ed alarmu.",
+                    "name": "K\u00f3d"
+                }
+            },
+            "name": "Zabezpe\u010dit a doma"
+        },
+        "alarm_arm_night": {
+            "description": "Nastav\u00ed alarm do re\u017eimu \"Zabezpe\u010dit na noc\".",
+            "fields": {
+                "code": {
+                    "description": "K\u00f3d k nastaven\u00ed alarmu.",
+                    "name": "K\u00f3d"
+                }
+            },
+            "name": "Zabezpe\u010dit na noc"
+        },
+        "alarm_arm_vacation": {
+            "description": "Nastav\u00ed alarm do re\u017eimu \"Zabezpe\u010dit a na dovolen\u00e9\".",
+            "fields": {
+                "code": {
+                    "description": "K\u00f3d k nastaven\u00ed alarmu.",
+                    "name": "K\u00f3d"
+                }
+            },
+            "name": "Zabezpe\u010dit a na dovolen\u00e9"
+        },
+        "alarm_disarm": {
+            "description": "Vypne alarm.",
+            "fields": {
+                "code": {
+                    "description": "K\u00f3d pro vypnut\u00ed alarmu.",
+                    "name": "K\u00f3d"
+                }
+            },
+            "name": "Odbezpe\u010dit"
+        },
+        "alarm_trigger": {
+            "description": "Povol\u00ed extern\u00ed spu\u0161t\u011bn\u00ed alarmu.",
+            "fields": {
+                "code": {
+                    "description": "K\u00f3d k nastaven\u00ed alarmu.",
+                    "name": "K\u00f3d"
+                }
+            },
+            "name": "Spou\u0161t\u011b\u010d"
+        }
+    },
+    "title": "Ovl\u00e1dac\u00ed panel alarmu"
+}

@@ -1,0 +1,105 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Konto har redan konfigurerats"
+        },
+        "error": {
+            "cannot_connect": "Det gick inte att ansluta.",
+            "invalid_auth": "Ogiltig autentisering",
+            "invalid_credentials": "Ogiltig autentisering",
+            "unknown": "Ov\u00e4ntat fel"
+        },
+        "step": {
+            "advanced": {
+                "data": {
+                    "url": "URL",
+                    "verify_ssl": "Verifiera SSL-certifikat"
+                }
+            },
+            "login": {
+                "data": {
+                    "password": "L\u00f6senord"
+                }
+            },
+            "user": {
+                "data": {
+                    "api_key": "API-nyckel",
+                    "api_user": "Habiticas API-anv\u00e4ndar-ID",
+                    "name": "\u00c5sidos\u00e4ttande av Habiticas anv\u00e4ndarnamn. Kommer att anv\u00e4ndas f\u00f6r \u00e5tg\u00e4rder",
+                    "url": "URL"
+                }
+            }
+        }
+    },
+    "entity": {
+        "button": {
+            "buy_health_potion": {
+                "name": "K\u00f6p en h\u00e4lsodryck"
+            },
+            "revive": {
+                "name": "\u00c5teruppliva fr\u00e5n d\u00f6den"
+            },
+            "run_cron": {
+                "name": "B\u00f6rja min dag"
+            }
+        },
+        "sensor": {
+            "habits": {
+                "name": "Vanor"
+            },
+            "rewards": {
+                "name": "Bel\u00f6ningar"
+            },
+            "todos": {
+                "name": "Att g\u00f6ra"
+            }
+        },
+        "todo": {
+            "todos": {
+                "name": "Att g\u00f6ra"
+            }
+        }
+    },
+    "exceptions": {
+        "create_todos_item_failed": {
+            "message": "Det gick inte att skapa en ny uppgift `{name}` f\u00f6r Habitica, f\u00f6rs\u00f6k igen"
+        },
+        "delete_completed_todos_failed": {
+            "message": "Det g\u00e5r inte att ta bort slutf\u00f6rda att-g\u00f6ra-objekt fr\u00e5n Habitica att-g\u00f6ra-listan, f\u00f6rs\u00f6k igen"
+        },
+        "delete_todos_failed": {
+            "message": "Det gick inte att ta bort objekt fr\u00e5n Habiticas att-g\u00f6ra-lista, f\u00f6rs\u00f6k igen"
+        },
+        "service_call_exception": {
+            "message": "Det g\u00e5r inte att ansluta till Habitica, f\u00f6rs\u00f6k igen senare"
+        },
+        "service_call_unallowed": {
+            "message": "Det g\u00e5r inte att utf\u00f6ra \u00e5tg\u00e4rden eftersom de n\u00f6dv\u00e4ndiga villkoren inte \u00e4r uppfyllda"
+        }
+    },
+    "issues": {
+        "deprecated_task_entity": {
+            "description": "Habitica-enheten `{entity}` \u00e4r f\u00f6r\u00e5ldrad och kommer att tas bort i `2024.12`.\nUppdatera dina automatiseringar och skript f\u00f6r att ers\u00e4tta sensor-entiteten med den nyligen tillagda todo-entiteten.\nN\u00e4r du \u00e4r klar med migreringen kan du inaktivera `{entity}`."
+        }
+    },
+    "services": {
+        "api_call": {
+            "description": "Anropar Habitica API.",
+            "fields": {
+                "args": {
+                    "description": "Ytterligare JSON- eller URL-parameterargument. Se API-dokumentation f\u00f6r mer information. Exemplet anv\u00e4nder samma API-slutpunkt.",
+                    "name": "Argument"
+                },
+                "name": {
+                    "description": "Habiticas anv\u00e4ndarnamn att anropa.",
+                    "name": "Namn"
+                },
+                "path": {
+                    "description": "Objekt fr\u00e5n API:ets URL i form av en array med metod bifogad i slutet. Konsultera https://habitica.com/apidoc/. Exemplet anv\u00e4nder https://habitica.com/apidoc/#api-Task-CreateUserTasks.",
+                    "name": "S\u00f6kv\u00e4g"
+                }
+            },
+            "name": "API-namn"
+        }
+    }
+}

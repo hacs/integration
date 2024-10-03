@@ -1,0 +1,136 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "El servicio ya est\u00e1 configurado",
+            "cannot_connect": "No se pudo conectar",
+            "invalid_auth": "Autenticaci\u00f3n no v\u00e1lida"
+        },
+        "error": {
+            "cannot_connect": "No se pudo conectar",
+            "invalid_auth": "Autenticaci\u00f3n no v\u00e1lida"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "password": "Contrase\u00f1a",
+                    "username": "Nombre de usuario"
+                }
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "delivered": {
+                "name": "Entregado"
+            },
+            "expired": {
+                "name": "Caducado"
+            },
+            "in_transit": {
+                "name": "En tr\u00e1nsito"
+            },
+            "not_found": {
+                "name": "No encontrado"
+            },
+            "package": {
+                "name": "Paquete {name}"
+            },
+            "ready_to_be_picked_up": {
+                "name": "Listo para ser recogido"
+            },
+            "returned": {
+                "name": "Devuelto"
+            },
+            "undelivered": {
+                "name": "No entregado"
+            }
+        }
+    },
+    "exceptions": {
+        "invalid_config_entry": {
+            "message": "Se proporcion\u00f3 una entrada de configuraci\u00f3n no v\u00e1lida. Se obtuvo {config_entry_id}"
+        },
+        "unloaded_config_entry": {
+            "message": "Se proporcion\u00f3 una entrada de configuraci\u00f3n no v\u00e1lida. {config_entry_id} no est\u00e1 cargado."
+        }
+    },
+    "issues": {
+        "deprecate_sensor": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Los sensores de paquete de 17Track est\u00e1n obsoletos y se eliminar\u00e1n.\nPor favor, actualiza tus automatizaciones y scripts para obtener datos utilizando la acci\u00f3n `seventeentrack.get_packages`.",
+                        "title": "Los sensores de paquete de 17Track est\u00e1n en desuso"
+                    }
+                }
+            },
+            "title": "Los sensores de paquete de 17Track est\u00e1n en desuso"
+        },
+        "deprecated_yaml_import_issue_cannot_connect": {
+            "description": "Se va a eliminar la configuraci\u00f3n de 17Track mediante YAML, pero hubo un error de conexi\u00f3n al importar tu configuraci\u00f3n YAML. \n\nCosas que puedes probar:\nAseg\u00farate de que tu Home Assistant pueda acceder a la web. \n\nLuego reinicia Home Assistant para intentar importar esta integraci\u00f3n nuevamente. \n\nAlternativamente, puedes eliminar por completo la configuraci\u00f3n de 17Track de tu configuraci\u00f3n YAML, reiniciar Home Assistant y a\u00f1adir la integraci\u00f3n de 17Track manualmente.",
+            "title": "La importaci\u00f3n de la configuraci\u00f3n YAML de 17Track no pudo conectar con el servidor"
+        },
+        "deprecated_yaml_import_issue_invalid_auth": {
+            "description": "Se va a eliminar la configuraci\u00f3n de 17Track mediante YAML, pero se proporcionaron credenciales no v\u00e1lidas al importar tu configuraci\u00f3n existente.\nLa instalaci\u00f3n no continuar\u00e1. \n\nVerifica que tus credenciales de 17Track sean correctas y reinicia Home Assistant para intentar la importaci\u00f3n nuevamente. \n\nAlternativamente, puedes eliminar por completo la configuraci\u00f3n de 17Track de tu configuraci\u00f3n YAML, reiniciar Home Assistant y a\u00f1adir la integraci\u00f3n de 17Track manualmente.",
+            "title": "La solicitud de importaci\u00f3n de configuraci\u00f3n YAML de 17Track fall\u00f3 debido a una autenticaci\u00f3n no v\u00e1lida"
+        },
+        "deprecated_yaml_import_issue_invalid_credentials": {
+            "description": "Se va a eliminar la configuraci\u00f3n de 17Track mediante YAML, pero se proporcionaron credenciales no v\u00e1lidas al importar tu configuraci\u00f3n existente.\nLa instalaci\u00f3n no continuar\u00e1. \n\nVerifica que tus credenciales de 17Track sean correctas y reinicia Home Assistant para intentar la importaci\u00f3n nuevamente. \n\nAlternativamente, puedes eliminar por completo la configuraci\u00f3n de 17Track de tu configuraci\u00f3n YAML, reiniciar Home Assistant y a\u00f1adir la integraci\u00f3n de 17Track manualmente.",
+            "title": "La solicitud de importaci\u00f3n de configuraci\u00f3n YAML de 17Track fall\u00f3 debido a credenciales no v\u00e1lidas"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "show_archived": "Si se deben crear sensores para paquetes archivados",
+                    "show_delivered": "Si se deben crear sensores para los paquetes entregados"
+                },
+                "description": "Configurar ajustes generales"
+            }
+        }
+    },
+    "selector": {
+        "package_state": {
+            "options": {
+                "delivered": "Entregado",
+                "expired": "Caducado",
+                "in_transit": "En tr\u00e1nsito",
+                "not_found": "No encontrado",
+                "ready_to_be_picked_up": "Listo para ser recogido",
+                "returned": "Devuelto",
+                "undelivered": "No entregado"
+            }
+        }
+    },
+    "services": {
+        "archive_package": {
+            "description": "Archivar un paquete",
+            "fields": {
+                "config_entry_id": {
+                    "description": "El paquete se archivar\u00e1 para el servicio seleccionado.",
+                    "name": "Servicio 17Track"
+                },
+                "package_tracking_number": {
+                    "description": "El paquete se archivar\u00e1 para el n\u00famero de seguimiento especificado.",
+                    "name": "N\u00famero de seguimiento del paquete"
+                }
+            },
+            "name": "Archivar paquete"
+        },
+        "get_packages": {
+            "description": "Obtener paquetes de 17Track",
+            "fields": {
+                "config_entry_id": {
+                    "description": "Los paquetes se recuperar\u00e1n para el servicio seleccionado.",
+                    "name": "Servicio 17Track"
+                },
+                "package_state": {
+                    "description": "Solo devuelva paquetes con los estados especificados. Devuelve todos los paquetes si no se especifica.",
+                    "name": "Estados del paquete"
+                }
+            },
+            "name": "Obtener paquetes"
+        }
+    }
+}

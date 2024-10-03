@@ -1,0 +1,865 @@
+{
+    "config": {
+        "abort": {
+            "reauth_successful": "\u00c5terautentisering lyckades"
+        },
+        "error": {
+            "invalid_auth": "Ogiltig autentisering",
+            "login_error": "Inloggningsfel ({code}): {msg}",
+            "reauth_successful": "\u00c5terautentisering lyckades"
+        },
+        "step": {
+            "reauth_user_code": {
+                "data": {
+                    "user_code": "Anv\u00e4ndarkod"
+                },
+                "description": "Tuya-integrationen anv\u00e4nder nu en f\u00f6rb\u00e4ttrad inloggningsmetod. F\u00f6r att \u00e5terautentisera dig med ditt Smart Life- eller Tuya Smart-konto m\u00e5ste du ange din anv\u00e4ndarkod.\n\nDu hittar den h\u00e4r koden i Smart Life-appen eller Tuya Smart-appen under **Inst\u00e4llningar** > **Konto och s\u00e4kerhet** och anger koden som visas i f\u00e4ltet **Anv\u00e4ndarkod**. Anv\u00e4ndarkoden \u00e4r skiftl\u00e4gesk\u00e4nslig, s\u00e5 var noga med att ange den exakt som den visas i appen."
+            },
+            "user": {
+                "data": {
+                    "access_id": "Tuya IoT Access ID",
+                    "access_secret": "Tuya IoT Access Secret",
+                    "country_code": "Land",
+                    "password": "L\u00f6senord",
+                    "user_code": "Anv\u00e4ndarkod",
+                    "username": "Anv\u00e4ndarnamn"
+                },
+                "description": "Ange din Smart Life- eller Tuya Smart-anv\u00e4ndarkod.\n\nDu hittar den h\u00e4r koden i Smart Life-appen eller Tuya Smart-appen under **Inst\u00e4llningar** > **Konto och s\u00e4kerhet** och anger koden som visas i f\u00e4ltet **Anv\u00e4ndarkod**. Anv\u00e4ndarkoden \u00e4r skiftl\u00e4gesk\u00e4nslig, s\u00e5 var noga med att ange den exakt som den visas i appen."
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "carbon_dioxide": {
+                "name": "Koldioxid"
+            },
+            "carbon_monoxide": {
+                "name": "Kolmonoxid"
+            },
+            "drop": {
+                "name": "Drop"
+            },
+            "feeding": {
+                "name": "Matar"
+            },
+            "formaldehyde": {
+                "name": "Formaldehyd"
+            },
+            "methane": {
+                "name": "Metan"
+            },
+            "pm25": {
+                "name": "PM2.5"
+            },
+            "pressure": {
+                "name": "Tryck"
+            },
+            "tilt": {
+                "name": "Tilt"
+            },
+            "voc": {
+                "name": "VOC"
+            }
+        },
+        "button": {
+            "reset_duster_cloth": {
+                "name": "\u00c5terst\u00e4ll dammduk"
+            },
+            "reset_edge_brush": {
+                "name": "\u00c5terst\u00e4ll kantborste"
+            },
+            "reset_filter": {
+                "name": "\u00c5terst\u00e4ll filter"
+            },
+            "reset_map": {
+                "name": "\u00c5terst\u00e4ll karta"
+            },
+            "reset_roll_brush": {
+                "name": "\u00c5terst\u00e4ll rullborste"
+            },
+            "snooze": {
+                "name": "Snooze"
+            }
+        },
+        "cover": {
+            "blind": {
+                "name": "Persienn"
+            },
+            "curtain": {
+                "name": "Gardin"
+            },
+            "curtain_2": {
+                "name": "Gardin 2"
+            },
+            "curtain_3": {
+                "name": "Gardin 3"
+            },
+            "door": {
+                "name": "D\u00f6rr"
+            },
+            "door_2": {
+                "name": "D\u00f6rr 2"
+            },
+            "door_3": {
+                "name": "D\u00f6rr 3"
+            }
+        },
+        "light": {
+            "backlight": {
+                "name": "Bakgrundsbelysning"
+            },
+            "light": {
+                "name": "Lampa"
+            },
+            "light_2": {
+                "name": "Lampa 2"
+            },
+            "light_3": {
+                "name": "Lampa 3"
+            },
+            "night_light": {
+                "name": "Nattlampa"
+            }
+        },
+        "number": {
+            "cloud_recipe": {
+                "name": "Moln recept"
+            },
+            "cook_temperature": {
+                "name": "Tillagningstemperatur"
+            },
+            "cook_time": {
+                "name": "Tillagningstid"
+            },
+            "down_delay": {
+                "name": "F\u00f6rdr\u00f6jning av nedg\u00e5ng"
+            },
+            "far_detection": {
+                "name": "Fj\u00e4rrdetektering"
+            },
+            "feed": {
+                "name": "Mata"
+            },
+            "heat_preservation_time": {
+                "name": "Tid f\u00f6r bevarande av v\u00e4rme"
+            },
+            "maximum_brightness": {
+                "name": "Maximal ljusstyrka"
+            },
+            "maximum_brightness_2": {
+                "name": "Maximal ljusstyrka 2"
+            },
+            "maximum_brightness_3": {
+                "name": "Maximal ljusstyrka 3"
+            },
+            "minimum_brightness": {
+                "name": "Minsta ljusstyrka"
+            },
+            "minimum_brightness_2": {
+                "name": "Minsta ljusstyrka 2"
+            },
+            "minimum_brightness_3": {
+                "name": "Minsta ljusstyrka 3"
+            },
+            "move_down": {
+                "name": "Flytta ned\u00e5t"
+            },
+            "move_up": {
+                "name": "Flytta upp\u00e5t"
+            },
+            "near_detection": {
+                "name": "N\u00e4rdetektering"
+            },
+            "powder": {
+                "name": "Pulver"
+            },
+            "sensitivity": {
+                "name": "K\u00e4nslighet"
+            },
+            "temperature": {
+                "name": "Temperatur"
+            },
+            "temperature_after_boiling": {
+                "name": "Temperatur efter kokning"
+            },
+            "time": {
+                "name": "Tid"
+            },
+            "voice_times": {
+                "name": "R\u00f6sttider"
+            },
+            "volume": {
+                "name": "Volym"
+            },
+            "water_level": {
+                "name": "Vattenniv\u00e5"
+            }
+        },
+        "select": {
+            "basic_anti_flicker": {
+                "name": "Anti-flimmer",
+                "state": {
+                    "0": "Inaktiverad",
+                    "1": "50 Hz",
+                    "2": "60 Hz"
+                }
+            },
+            "basic_nightvision": {
+                "name": "M\u00f6rkerseende",
+                "state": {
+                    "0": "Automatisk",
+                    "1": "Av",
+                    "2": "P\u00e5"
+                }
+            },
+            "brightness": {
+                "name": "Ljusstyrka"
+            },
+            "concentration": {
+                "name": "Koncentration"
+            },
+            "countdown": {
+                "name": "Nedr\u00e4kning",
+                "state": {
+                    "1h": "1 timme",
+                    "2h": "2 timmar",
+                    "3h": "3 timmar",
+                    "4h": "4 timmar",
+                    "5h": "5 timmar",
+                    "6h": "6 timmar",
+                    "cancel": "Avbryt"
+                }
+            },
+            "cups": {
+                "name": "Koppar"
+            },
+            "curtain_mode": {
+                "name": "L\u00e4ge",
+                "state": {
+                    "morning": "Morgon",
+                    "night": "Natt"
+                }
+            },
+            "curtain_motor_mode": {
+                "name": "Motorl\u00e4ge",
+                "state": {
+                    "back": "Tillbaka",
+                    "forward": "Fram\u00e5t"
+                }
+            },
+            "decibel_sensitivity": {
+                "name": "K\u00e4nslighet f\u00f6r ljuddetektering",
+                "state": {
+                    "0": "L\u00e5g k\u00e4nslighet",
+                    "1": "H\u00f6g k\u00e4nslighet"
+                }
+            },
+            "fan_angle": {
+                "state": {
+                    "30": "30\u00b0",
+                    "60": "60\u00b0",
+                    "90": "90\u00b0"
+                }
+            },
+            "fingerbot_mode": {
+                "name": "L\u00e4ge",
+                "state": {
+                    "click": "Tryck",
+                    "switch": "Brytare"
+                }
+            },
+            "horizontal_fan_angle": {
+                "name": "Vinkel f\u00f6r horisontell sv\u00e4ngklaff",
+                "state": {
+                    "30": "30\u00b0",
+                    "60": "60\u00b0",
+                    "90": "90\u00b0"
+                }
+            },
+            "humidifier_level": {
+                "name": "Spray-niv\u00e5",
+                "state": {
+                    "level_1": "Niv\u00e5 1",
+                    "level_10": "Niv\u00e5 10",
+                    "level_2": "Niv\u00e5 2",
+                    "level_3": "Niv\u00e5 3",
+                    "level_4": "Niv\u00e5 4",
+                    "level_5": "Niv\u00e5 5",
+                    "level_6": "Niv\u00e5 6",
+                    "level_7": "Niv\u00e5 7",
+                    "level_8": "Niv\u00e5 8",
+                    "level_9": "Niv\u00e5 9"
+                }
+            },
+            "humidifier_moodlighting": {
+                "name": "St\u00e4mningsljus",
+                "state": {
+                    "1": "St\u00e4mning 1",
+                    "2": "St\u00e4mning 2",
+                    "3": "St\u00e4mning 3",
+                    "4": "St\u00e4mning 4",
+                    "5": "St\u00e4mning 5"
+                }
+            },
+            "humidifier_spray_mode": {
+                "name": "Spray-l\u00e4ge",
+                "state": {
+                    "auto": "Auto",
+                    "health": "H\u00e4lsa",
+                    "humidity": "Luftfuktighet",
+                    "sleep": "Vilol\u00e4ge",
+                    "work": "Arbetsl\u00e4ge"
+                }
+            },
+            "ipc_work_mode": {
+                "name": "IPC-l\u00e4ge",
+                "state": {
+                    "0": "L\u00e5g str\u00f6ml\u00e4ge",
+                    "1": "L\u00f6pande arbetsl\u00e4ge"
+                }
+            },
+            "led_type": {
+                "name": "Typ av ljusk\u00e4lla",
+                "state": {
+                    "halogen": "Halogen",
+                    "incandescent": "Gl\u00f6dlampa",
+                    "led": "LED"
+                }
+            },
+            "led_type_2": {
+                "name": "Typ av ljusk\u00e4lla 2",
+                "state": {
+                    "halogen": "Halogen",
+                    "incandescent": "Gl\u00f6dlampa",
+                    "led": "LED"
+                }
+            },
+            "led_type_3": {
+                "name": "Typ av ljusk\u00e4lla 3",
+                "state": {
+                    "halogen": "Halogen",
+                    "incandescent": "Gl\u00f6dlampa",
+                    "led": "LED"
+                }
+            },
+            "light_mode": {
+                "name": "L\u00e4ge f\u00f6r indikeringsljus",
+                "state": {
+                    "none": "Av",
+                    "relay": "Indikera p\u00e5/av-l\u00e4ge"
+                }
+            },
+            "material": {
+                "name": "Material"
+            },
+            "mode": {
+                "name": "L\u00e4ge"
+            },
+            "motion_sensitivity": {
+                "name": "K\u00e4nslighet f\u00f6r r\u00f6relsedetektering",
+                "state": {
+                    "0": "L\u00e5g k\u00e4nslighet",
+                    "1": "Medel k\u00e4nslighet",
+                    "2": "H\u00f6g k\u00e4nslighet"
+                }
+            },
+            "record_mode": {
+                "name": "Inspelningsl\u00e4ge",
+                "state": {
+                    "1": "Inspelning av h\u00e4ndelser ",
+                    "2": "L\u00f6pande inspelning "
+                }
+            },
+            "relay_status": {
+                "name": "Uppstartsbeteende",
+                "state": {
+                    "last": "Kom ih\u00e5g senaste tillst\u00e5ndet",
+                    "memory": "Kom ih\u00e5g senaste tillst\u00e5ndet",
+                    "off": "Av",
+                    "on": "P\u00e5",
+                    "power_off": "Av",
+                    "power_on": "P\u00e5"
+                }
+            },
+            "target_humidity": {
+                "name": "M\u00e5lfuktighet"
+            },
+            "temperature_level": {
+                "name": "Temperaturniv\u00e5"
+            },
+            "vacuum_cistern": {
+                "name": "Justering av vattentank",
+                "state": {
+                    "closed": "St\u00e4ngd",
+                    "high": "H\u00f6g",
+                    "low": "L\u00e5g",
+                    "middle": "Mellan"
+                }
+            },
+            "vacuum_collection": {
+                "name": "Dammuppsamlingsl\u00e4ge",
+                "state": {
+                    "large": "Stor",
+                    "middle": "Mellan",
+                    "small": "Liten"
+                }
+            },
+            "vacuum_mode": {
+                "name": "L\u00e4ge",
+                "state": {
+                    "bow": "B\u00e5ge",
+                    "chargego": "\u00c5terv\u00e4nd till laddningsstation",
+                    "left_bow": "B\u00e5ge v\u00e4nster",
+                    "left_spiral": "Spiral v\u00e4nster",
+                    "mop": "Moppa",
+                    "part": "Del",
+                    "partial_bow": "B\u00e5ge delvis",
+                    "pick_zone": "V\u00e4lj zon",
+                    "point": "Punkt",
+                    "pose": "Pose",
+                    "random": "Slumpvis",
+                    "right_bow": "B\u00e5ge h\u00f6ger",
+                    "right_spiral": "Spiral h\u00f6ger",
+                    "single": "Enkel",
+                    "smart": "Smart",
+                    "spiral": "Spiral",
+                    "standby": "Vilol\u00e4ge",
+                    "wall_follow": "F\u00f6lj v\u00e4gg",
+                    "zone": "Zon"
+                }
+            },
+            "vertical_fan_angle": {
+                "name": "Vinkel f\u00f6r vertikal sv\u00e4ngklaff",
+                "state": {
+                    "30": "30\u00b0",
+                    "60": "60\u00b0",
+                    "90": "90\u00b0"
+                }
+            },
+            "volume": {
+                "name": "Volym"
+            }
+        },
+        "sensor": {
+            "air_quality": {
+                "name": "Luftkvalitet",
+                "state": {
+                    "good": "Bra",
+                    "great": "Mycket bra",
+                    "mild": "Mild",
+                    "severe": "Sv\u00e5r"
+                }
+            },
+            "battery": {
+                "name": "Batteri"
+            },
+            "battery_state": {
+                "name": "Batteristatus"
+            },
+            "carbon_dioxide": {
+                "name": "Koldioxid"
+            },
+            "carbon_monoxide": {
+                "name": "Kolmonoxid"
+            },
+            "cleaning_area": {
+                "name": "Reng\u00f6ringsomr\u00e5de"
+            },
+            "cleaning_time": {
+                "name": "St\u00e4dad tid"
+            },
+            "concentration_carbon_dioxide": {
+                "name": "Koncentration av Koldioxid"
+            },
+            "current": {
+                "name": "Str\u00f6m"
+            },
+            "current_temperature": {
+                "name": "Aktuell temperatur"
+            },
+            "duster_cloth_life": {
+                "name": "Dammduk livsl\u00e4ngd"
+            },
+            "filter_life": {
+                "name": "Filtrets livsl\u00e4ngd"
+            },
+            "filter_utilization": {
+                "name": "Filter anv\u00e4ndning"
+            },
+            "formaldehyde": {
+                "name": "Formaldehyd"
+            },
+            "gas": {
+                "name": "Gas"
+            },
+            "humidity": {
+                "name": "Luftfuktighet"
+            },
+            "illuminance": {
+                "name": "Ljusstyrka"
+            },
+            "last_amount": {
+                "name": "Senaste m\u00e4ngd"
+            },
+            "last_operation_duration": {
+                "name": "Varaktighet f\u00f6r senaste drift"
+            },
+            "luminosity": {
+                "name": "Ljusstyrka"
+            },
+            "methane": {
+                "name": "Metan"
+            },
+            "phase_a_current": {
+                "name": "Fas A str\u00f6m"
+            },
+            "phase_a_power": {
+                "name": "Fas A effekt"
+            },
+            "phase_a_voltage": {
+                "name": "Fas A sp\u00e4nning"
+            },
+            "phase_b_current": {
+                "name": "Fas B str\u00f6m"
+            },
+            "phase_b_power": {
+                "name": "Fas B effekt"
+            },
+            "phase_b_voltage": {
+                "name": "Fas B sp\u00e4nning"
+            },
+            "phase_c_current": {
+                "name": "Fas C str\u00f6m"
+            },
+            "phase_c_power": {
+                "name": "Fas C effekt"
+            },
+            "phase_c_voltage": {
+                "name": "Fas C sp\u00e4nning"
+            },
+            "pm1": {
+                "name": "PM1"
+            },
+            "pm10": {
+                "name": "PM10"
+            },
+            "pm25": {
+                "name": "PM2.5"
+            },
+            "power": {
+                "name": "Effekt"
+            },
+            "remaining_time": {
+                "name": "\u00c5terst\u00e5ende tid"
+            },
+            "rolling_brush_life": {
+                "name": "Rullborstens livsl\u00e4ngd"
+            },
+            "side_brush_life": {
+                "name": "Sidoborstens livsl\u00e4ngd"
+            },
+            "smoke_amount": {
+                "name": "R\u00f6km\u00e4ngd"
+            },
+            "sous_vide_status": {
+                "name": "Status",
+                "state": {
+                    "boiling_temp": "Koktemperatur",
+                    "cooling": "Kyler",
+                    "heating": "V\u00e4rmer",
+                    "heating_temp": "Uppv\u00e4rmningstemperatur",
+                    "reserve_1": "Reserv 1",
+                    "reserve_2": "Reserv 2",
+                    "reserve_3": "Reserv 3",
+                    "standby": "Vilol\u00e4ge",
+                    "warm": "Varmh\u00e5llning"
+                }
+            },
+            "status": {
+                "name": "Status",
+                "state": {
+                    "boiling_temp": "Koktemperatur",
+                    "cooling": "Kyler",
+                    "heating": "V\u00e4rmer",
+                    "heating_temp": "Uppv\u00e4rmningstemperatur",
+                    "reserve_1": "Reserv 1",
+                    "reserve_2": "Reserv 2",
+                    "reserve_3": "Reserv 3",
+                    "standby": "Vilol\u00e4ge",
+                    "warm": "Varmh\u00e5llning"
+                }
+            },
+            "temperature": {
+                "name": "Temperatur"
+            },
+            "total_absorption_particles": {
+                "name": "Total absorption av partiklar"
+            },
+            "total_cleaning_area": {
+                "name": "Totalt st\u00e4dad area"
+            },
+            "total_cleaning_time": {
+                "name": "Total st\u00e4dtid"
+            },
+            "total_cleaning_times": {
+                "name": "Totalt antal st\u00e4dningar"
+            },
+            "total_energy": {
+                "name": "Total energi"
+            },
+            "total_operating_time": {
+                "name": "Total drifttid"
+            },
+            "total_production": {
+                "name": "Total produktion"
+            },
+            "total_volatile_organic_compound": {
+                "name": "Total m\u00e4ngd flyktiga organiska f\u00f6reningar (VOC)"
+            },
+            "voc": {
+                "name": "VOC"
+            },
+            "voltage": {
+                "name": "Sp\u00e4nning"
+            },
+            "water_level": {
+                "name": "Vattenniv\u00e5"
+            }
+        },
+        "switch": {
+            "alarm_1": {
+                "name": "Larm 1"
+            },
+            "alarm_2": {
+                "name": "Larm 2"
+            },
+            "alarm_3": {
+                "name": "Larm 3"
+            },
+            "alarm_4": {
+                "name": "Larm 4"
+            },
+            "anion": {
+                "name": "Anion"
+            },
+            "battery_lock": {
+                "name": "Batteril\u00e5s"
+            },
+            "child_lock": {
+                "name": "Barnl\u00e5s"
+            },
+            "cry_detection": {
+                "name": "Detektering av gr\u00e5t"
+            },
+            "disinfection": {
+                "name": "Desinfektion"
+            },
+            "do_not_disturb": {
+                "name": "St\u00f6r ej"
+            },
+            "energy_saving": {
+                "name": "Energibesparing"
+            },
+            "filter_cartridge_reset": {
+                "name": "\u00c5terst\u00e4llning av filterpatron"
+            },
+            "filter_reset": {
+                "name": "\u00c5terst\u00e4llning av filter"
+            },
+            "flip": {
+                "name": "V\u00e4nd"
+            },
+            "heat_preservation": {
+                "name": "Varmh\u00e5llning"
+            },
+            "humidification": {
+                "name": "Befuktning"
+            },
+            "ionizer": {
+                "name": "Ionizer"
+            },
+            "motion_alarm": {
+                "name": "R\u00f6relselarm"
+            },
+            "motion_recording": {
+                "name": "R\u00f6relseinspelning"
+            },
+            "motion_tracking": {
+                "name": "R\u00f6relsesp\u00e5rning"
+            },
+            "mute": {
+                "name": "Tysta"
+            },
+            "mute_voice": {
+                "name": "Tysta r\u00f6sten"
+            },
+            "natural_wind": {
+                "name": "Naturlig vind"
+            },
+            "open_window_detection": {
+                "name": "Detektering av \u00f6ppna f\u00f6nster"
+            },
+            "oxygen_bar": {
+                "name": "Syre"
+            },
+            "plug": {
+                "name": "Kontakt"
+            },
+            "power": {
+                "name": "Str\u00f6m"
+            },
+            "privacy_mode": {
+                "name": "Sekretessl\u00e4ge"
+            },
+            "pump": {
+                "name": "Pump"
+            },
+            "radio": {
+                "name": "Radio"
+            },
+            "reset_of_water_usage_days": {
+                "name": "\u00c5terst\u00e4llning av vattenanv\u00e4ndningsdagar"
+            },
+            "reverse": {
+                "name": "Omv\u00e4nd"
+            },
+            "sleep": {
+                "name": "S\u00f6mn"
+            },
+            "sleep_aid": {
+                "name": "S\u00f6mnhj\u00e4lp"
+            },
+            "slow_feed": {
+                "name": "L\u00e5ngsam matning"
+            },
+            "socket": {
+                "name": "Uttag"
+            },
+            "socket_1": {
+                "name": "Uttag 1"
+            },
+            "socket_2": {
+                "name": "Uttag 2"
+            },
+            "socket_3": {
+                "name": "Uttag 3"
+            },
+            "socket_4": {
+                "name": "Uttag 4"
+            },
+            "socket_5": {
+                "name": "Uttag 5"
+            },
+            "socket_6": {
+                "name": "Uttag 6"
+            },
+            "sound": {
+                "name": "Ljud"
+            },
+            "sound_detection": {
+                "name": "Ljuddetektering"
+            },
+            "spray": {
+                "name": "Spray"
+            },
+            "start": {
+                "name": "Starta"
+            },
+            "sterilization": {
+                "name": "Sterilisering"
+            },
+            "switch": {
+                "name": "Brytare"
+            },
+            "switch_1": {
+                "name": "Brytare 1"
+            },
+            "switch_2": {
+                "name": "Brytare 2"
+            },
+            "switch_3": {
+                "name": "Brytare 3"
+            },
+            "switch_4": {
+                "name": "Brytare 4"
+            },
+            "switch_5": {
+                "name": "Brytare 5"
+            },
+            "switch_6": {
+                "name": "Brytare 6"
+            },
+            "switch_7": {
+                "name": "Brytare 7"
+            },
+            "switch_8": {
+                "name": "Brytare 8"
+            },
+            "time_watermark": {
+                "name": "Tid vattenst\u00e4mpel"
+            },
+            "usb_1": {
+                "name": "USB 1"
+            },
+            "usb_2": {
+                "name": "USB 2"
+            },
+            "usb_3": {
+                "name": "USB 3"
+            },
+            "usb_4": {
+                "name": "USB 4"
+            },
+            "usb_5": {
+                "name": "USB 5"
+            },
+            "usb_6": {
+                "name": "USB 6"
+            },
+            "uv_sterilization": {
+                "name": "UV-sterilisering"
+            },
+            "video_recording": {
+                "name": "Videoinspelning"
+            },
+            "voice": {
+                "name": "R\u00f6st"
+            },
+            "water": {
+                "name": "Vatten"
+            },
+            "water_pump_reset": {
+                "name": "\u00c5terst\u00e4llning av vattenpump"
+            },
+            "wide_dynamic_range": {
+                "name": "Brett dynamiskt omf\u00e5ng (WDR)"
+            }
+        }
+    },
+    "issues": {
+        "service_deprecation_turn_off": {
+            "description": "Tuyas st\u00f6d f\u00f6r tj\u00e4nsten vacuum.turn_off \u00e4r f\u00f6r\u00e5ldrad och kommer att tas bort i Home Assistant 2024.2; V\u00e4nligen justera alla automatiseringar eller skript som anv\u00e4nder tj\u00e4nsten f\u00f6r att ist\u00e4llet anropa vacuum.stop och v\u00e4lj skicka nedan f\u00f6r att markera detta problem som l\u00f6st.",
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Tuyas st\u00f6d f\u00f6r tj\u00e4nsten vacuum.turn_off \u00e4r f\u00f6r\u00e5ldrad och kommer att tas bort i Home Assistant 2024.2; V\u00e4nligen justera alla automatiseringar eller skript som anv\u00e4nder tj\u00e4nsten f\u00f6r att ist\u00e4llet anropa vacuum.stop och v\u00e4lj skicka nedan f\u00f6r att markera detta problem som l\u00f6st.",
+                        "title": "Tuyas st\u00f6d f\u00f6r vacuum.turn_off kommer tas bort"
+                    }
+                }
+            },
+            "title": "Tuyas st\u00f6d f\u00f6r vacuum.turn_off kommer tas bort"
+        },
+        "service_deprecation_turn_on": {
+            "description": "Tuyas st\u00f6d f\u00f6r tj\u00e4nsten vacuum.turn_on \u00e4r f\u00f6r\u00e5ldrad och kommer att tas bort i Home Assistant 2024.2; V\u00e4nligen justera alla automatiseringar eller skript som anv\u00e4nder tj\u00e4nsten f\u00f6r att ist\u00e4llet anropa vacuum.start och v\u00e4lj skicka nedan f\u00f6r att markera detta problem som l\u00f6st.",
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Tuyas st\u00f6d f\u00f6r tj\u00e4nsten vacuum.turn_on \u00e4r f\u00f6r\u00e5ldrad och kommer att tas bort i Home Assistant 2024.2; V\u00e4nligen justera alla automatiseringar eller skript som anv\u00e4nder tj\u00e4nsten f\u00f6r att ist\u00e4llet anropa vacuum.start och v\u00e4lj skicka nedan f\u00f6r att markera detta problem som l\u00f6st.",
+                        "title": "Tuyas st\u00f6d f\u00f6r vacuum.turn_on kommer tas bort"
+                    }
+                }
+            },
+            "title": "Tuyas st\u00f6d f\u00f6r vacuum.turn_on kommer tas bort"
+        }
+    }
+}

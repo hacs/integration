@@ -1,0 +1,115 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "V\u00e6r",
+            "state": {
+                "clear-night": "Klart, natt",
+                "cloudy": "Skyet",
+                "exceptional": "Eksepsjonell",
+                "fog": "T\u00e5ke",
+                "hail": "Hagl",
+                "lightning": "Lyn",
+                "lightning-rainy": "Lyn, regn",
+                "partlycloudy": "Delvis skyet",
+                "pouring": "Kraftig regn",
+                "rainy": "Regn",
+                "snowy": "Sn\u00f8",
+                "snowy-rainy": "Sludd",
+                "sunny": "Sol",
+                "windy": "Vindfullt",
+                "windy-variant": "Vind, skyet"
+            },
+            "state_attributes": {
+                "forecast": {
+                    "name": "Prognose"
+                },
+                "humidity": {
+                    "name": "Luftfuktighet"
+                },
+                "ozone": {
+                    "name": "Ozon"
+                },
+                "precipitation_unit": {
+                    "name": "Nedb\u00f8rsenhet"
+                },
+                "pressure": {
+                    "name": "Trykk"
+                },
+                "pressure_unit": {
+                    "name": "Trykkenhet"
+                },
+                "temperature": {
+                    "name": "Temperatur"
+                },
+                "temperature_unit": {
+                    "name": "Temperaturenhet"
+                },
+                "visibility": {
+                    "name": "Synlighet"
+                },
+                "visibility_unit": {
+                    "name": "Synlighet enhet"
+                },
+                "wind_bearing": {
+                    "name": "Vindendring"
+                },
+                "wind_gust_speed": {
+                    "name": "Vindkasthastighet"
+                },
+                "wind_speed": {
+                    "name": "Vindstyrke"
+                },
+                "wind_speed_unit": {
+                    "name": "Enhet for vindhastighet"
+                }
+            }
+        }
+    },
+    "issues": {
+        "deprecated_service_weather_get_forecast": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "title": "Oppdaget bruk av avviklet tjeneste 'weather.get_forecast'"
+                    }
+                }
+            }
+        },
+        "platform_integration_no_support": {
+            "description": "Plattformen {platform} for integrasjonen {domain} st\u00f8tter ikke plattform-oppsett.\n\nVennligst fjern den fra konfigurasjon din og omstart Home Assistant for \u00e5 fikse dette problemet.",
+            "title": "Plattform ikke st\u00f8ttet"
+        }
+    },
+    "selector": {
+        "forecast_type": {
+            "options": {
+                "daily": "Daglig",
+                "hourly": "TImebasert",
+                "twice_daily": "To ganger daglig"
+            }
+        }
+    },
+    "services": {
+        "get_forecast": {
+            "description": "Hent v\u00e6rvarsel.",
+            "fields": {
+                "type": {
+                    "description": "V\u00e6rvarselstype: daglig, timebasert eller to ganger daglig.",
+                    "name": "V\u00e6rvarselstype"
+                }
+            },
+            "name": "Hent v\u00e6rvarsel"
+        },
+        "get_forecasts": {
+            "description": "Hent v\u00e6rvarsler.",
+            "fields": {
+                "type": {
+                    "description": "V\u00e6rvarselstype: daglig, timebasert eller to ganger daglig.",
+                    "name": "V\u00e6rvarselstype"
+                }
+            },
+            "name": "Hent v\u00e6rvarsler"
+        }
+    },
+    "title": "V\u00e6r"
+}

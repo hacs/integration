@@ -1,0 +1,78 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "Quentador de auga",
+            "state": {
+                "eco": "Eco",
+                "electric": "El\u00e9ctrico",
+                "gas": "Gas",
+                "heat_pump": "Bomba de calor",
+                "high_demand": "Alta Demanda",
+                "performance": "Rendemento"
+            },
+            "state_attributes": {
+                "away_mode": {
+                    "name": "Modo ausente"
+                },
+                "current_operation": {
+                    "name": "Operaci\u00f3n en curso"
+                },
+                "current_temperature": {
+                    "name": "Temperatura actual"
+                },
+                "max_temp": {
+                    "name": "Temperatura m\u00e1xima obxectivo"
+                },
+                "min_temp": {
+                    "name": "Temperatura m\u00ednima obxectivo"
+                },
+                "target_temp_high": {
+                    "name": "Temperatura obxectivo superior"
+                },
+                "target_temp_low": {
+                    "name": "Temperatura obxectivo m\u00e1is baixa"
+                }
+            }
+        }
+    },
+    "services": {
+        "set_away_mode": {
+            "description": "Activa/desactiva o modo ausente",
+            "fields": {
+                "away_mode": {
+                    "description": "Novo valor do modo ausente.",
+                    "name": "Modo ausente"
+                }
+            },
+            "name": "Establecer modo ausente"
+        },
+        "set_operation_mode": {
+            "fields": {
+                "operation_mode": {
+                    "name": "Modo de operaci\u00f3n"
+                }
+            },
+            "name": "Establecer modo de funcionamento"
+        },
+        "set_temperature": {
+            "description": "Establece a temperatura obxectivo.",
+            "fields": {
+                "operation_mode": {
+                    "description": "Novo valor do modo de operaci\u00f3n. Para unha lista de modos posibles, consulte a documentaci\u00f3n de integraci\u00f3n.",
+                    "name": "Modo de operaci\u00f3n"
+                },
+                "temperature": {
+                    "description": "Nova temperatura obxectivo para o quecedor de auga.",
+                    "name": "Temperatura"
+                }
+            },
+            "name": "Establecer temperatura"
+        },
+        "turn_off": {
+            "description": "Apaga o quentador de auga."
+        },
+        "turn_on": {
+            "description": "Activa o quentador de auga."
+        }
+    }
+}

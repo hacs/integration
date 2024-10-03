@@ -1,0 +1,112 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "El dispositivo ya est\u00e1 configurado"
+        },
+        "error": {
+            "cannot_connect": "No se pudo conectar",
+            "invalid_auth": "Autenticaci\u00f3n no v\u00e1lida"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "password": "Contrase\u00f1a",
+                    "url": "URL",
+                    "username": "Nombre de usuario",
+                    "verify_ssl": "Verificar el certificado SSL"
+                }
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "active_torrents": {
+                "name": "Torrents activos"
+            },
+            "all_torrents": {
+                "name": "Todos los torrents"
+            },
+            "current_status": {
+                "name": "Estado",
+                "state": {
+                    "downloading": "Descargando",
+                    "idle": "Inactivo",
+                    "seeding": "Compartiendo",
+                    "up_down": "Subida/Bajada"
+                }
+            },
+            "download_speed": {
+                "name": "Velocidad de descarga"
+            },
+            "inactive_torrents": {
+                "name": "Torrents inactivos"
+            },
+            "paused_torrents": {
+                "name": "Torrents en pausa"
+            },
+            "transmission_status": {
+                "name": "Estado",
+                "state": {
+                    "downloading": "Descargando",
+                    "idle": "Inactivo",
+                    "seeding": "Compartiendo",
+                    "up_down": "Subida/Bajada"
+                }
+            },
+            "upload_speed": {
+                "name": "Velocidad de subida"
+            }
+        },
+        "switch": {
+            "alternative_speed": {
+                "name": "Velocidad alternativa"
+            }
+        }
+    },
+    "exceptions": {
+        "cannot_connect": {
+            "message": "No se pudo conectar con QBittorrent, por favor, comprueba tu configuraci\u00f3n."
+        },
+        "invalid_device": {
+            "message": "No se encontr\u00f3 ning\u00fan dispositivo con ID {device_id}"
+        },
+        "invalid_entry_id": {
+            "message": "No se encontr\u00f3 ninguna entrada con ID {device_id}"
+        },
+        "login_error": {
+            "message": "Se produjo un error de inicio de sesi\u00f3n. Por favor, comprueba tu nombre de usuario y contrase\u00f1a."
+        }
+    },
+    "issues": {
+        "deprecated_yaml": {
+            "description": "Se va a eliminar la configuraci\u00f3n de qBittorrent mediante YAML. \n\nTu configuraci\u00f3n YAML existente se ha importado a la IU autom\u00e1ticamente. \n\nElimina la configuraci\u00f3n YAML de qBittorrent de tu archivo configuration.yaml y reinicia Home Assistant para solucionar este problema.",
+            "title": "Se va a eliminar la configuraci\u00f3n YAML de qBittorrent"
+        }
+    },
+    "services": {
+        "get_all_torrents": {
+            "description": "Obtiene una lista de los torrents actuales de todas las instancias de qBittorrent",
+            "fields": {
+                "torrent_filter": {
+                    "description": "Qu\u00e9 tipo de torrents quieres devolver, como Todos o Activos.",
+                    "name": "Filtro de torrents"
+                }
+            },
+            "name": "Obtener todos los torrents"
+        },
+        "get_torrents": {
+            "description": "Obtiene una lista de los torrents actuales",
+            "fields": {
+                "device_id": {
+                    "description": "De qu\u00e9 servicio obtener la lista",
+                    "name": "Dispositivo"
+                },
+                "torrent_filter": {
+                    "description": "Qu\u00e9 tipo de torrents quieres devolver, como Todos o Activos.",
+                    "name": "Filtro de torrents"
+                }
+            },
+            "name": "Obtener torrents"
+        }
+    }
+}

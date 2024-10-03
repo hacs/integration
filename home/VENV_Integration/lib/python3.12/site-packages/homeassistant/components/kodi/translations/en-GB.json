@@ -1,0 +1,36 @@
+{
+    "services": {
+        "add_to_playlist": {
+            "description": "Adds music to the default playlist (i.e. playlistid=0).",
+            "fields": {
+                "artist_name": {
+                    "description": "Optional artist name for filtering media.",
+                    "name": "Artist name"
+                },
+                "media_id": {
+                    "description": "Unique Id of the media entry to add (`songid` or albumid`). If not defined, `media_name` and `artist_name` are needed to search the Kodi music library.",
+                    "name": "Media ID"
+                },
+                "media_name": {
+                    "description": "Optional media name for filtering media. Can be 'ALL' when `media_type` is 'ALBUM' and `artist_name` is specified, to add all songs from one artist.",
+                    "name": "Media name"
+                },
+                "media_type": {
+                    "description": "Media type identifier. It must be one of SONG or ALBUM.",
+                    "name": "Media type"
+                }
+            },
+            "name": "Add to playlist"
+        },
+        "call_method": {
+            "description": "Calls a Kodi JSONRPC API method with optional parameters. Results of the Kodi API call will be redirected in a Home Assistant event: `kodi_call_method_result`.",
+            "fields": {
+                "method": {
+                    "description": "Name of the Kodi JSONRPC API method to be called.",
+                    "name": "Method"
+                }
+            },
+            "name": "Call method"
+        }
+    }
+}

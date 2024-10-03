@@ -1,0 +1,433 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "\u30c7\u30d0\u30a4\u30b9\u306f\u3059\u3067\u306b\u8a2d\u5b9a\u3055\u308c\u3066\u3044\u307e\u3059",
+            "no_ups_found": "NUT \u30b5\u30fc\u30d0\u30fc\u306b\u306f\u4f7f\u7528\u53ef\u80fd\u306a UPS \u30c7\u30d0\u30a4\u30b9\u304c\u3042\u308a\u307e\u305b\u3093\u3002",
+            "reauth_successful": "\u518d\u8a8d\u8a3c\u306b\u6210\u529f\u3057\u307e\u3057\u305f"
+        },
+        "error": {
+            "cannot_connect": "\u63a5\u7d9a\u30a8\u30e9\u30fc: {error}",
+            "invalid_auth": "\u7121\u52b9\u306a\u8a8d\u8a3c",
+            "unknown": "\u4e88\u671f\u3057\u306a\u3044\u30a8\u30e9\u30fc"
+        },
+        "step": {
+            "reauth_confirm": {
+                "data": {
+                    "password": "\u30d1\u30b9\u30ef\u30fc\u30c9",
+                    "username": "\u30e6\u30fc\u30b6\u30fc\u540d"
+                },
+                "description": "{host} : {port}\u3067 NUT \u30b5\u30fc\u30d0\u30fc\u3092\u518d\u8a8d\u8a3c\u3057\u307e\u3059"
+            },
+            "ups": {
+                "data": {
+                    "alias": "\u30a8\u30a4\u30ea\u30a2\u30b9"
+                },
+                "title": "\u76e3\u8996\u3059\u308bUPS\u3092\u9078\u629e"
+            },
+            "user": {
+                "data": {
+                    "host": "\u30db\u30b9\u30c8",
+                    "password": "\u30d1\u30b9\u30ef\u30fc\u30c9",
+                    "port": "\u30dd\u30fc\u30c8",
+                    "username": "\u30e6\u30fc\u30b6\u30fc\u540d"
+                },
+                "data_description": {
+                    "host": "NUT \u30b5\u30fc\u30d0\u30fc\u306e\u30db\u30b9\u30c8\u540d\u307e\u305f\u306f IP \u30a2\u30c9\u30ec\u30b9\u3002"
+                },
+                "description": "NUT server\u306b\u63a5\u7d9a",
+                "title": "NUT server\u306b\u63a5\u7d9a"
+            }
+        }
+    },
+    "device_automation": {
+        "action_type": {
+            "beeper_disable": "UPS \u306e\u30d6\u30b6\u30fc/\u30d6\u30b6\u30fc\u3092\u7121\u52b9\u306b\u3059\u308b",
+            "beeper_enable": "UPS \u306e\u30d3\u30fc\u30d7\u97f3/\u30d6\u30b6\u30fc\u3092\u6709\u52b9\u306b\u3059\u308b",
+            "beeper_mute": "UPS \u306e\u30d6\u30b6\u30fc/\u30d6\u30b6\u30fc\u3092\u4e00\u6642\u7684\u306b\u30df\u30e5\u30fc\u30c8\u3057\u307e\u3059",
+            "beeper_toggle": "UPS \u306e\u30d6\u30b6\u30fc/\u30d6\u30b6\u30fc\u306e\u5207\u308a\u66ff\u3048",
+            "bypass_start": "UPS\u3092\u30d0\u30a4\u30d1\u30b9\u30e2\u30fc\u30c9\u306b\u3057\u307e\u3059",
+            "bypass_stop": "UPS \u3092\u30d0\u30a4\u30d1\u30b9\u30e2\u30fc\u30c9\u304b\u3089\u5916\u3059",
+            "calibrate_start": "\u30e9\u30f3\u30bf\u30a4\u30e0\u30ad\u30e3\u30ea\u30d6\u30ec\u30fc\u30b7\u30e7\u30f3\u3092\u958b\u59cb\u3059\u308b",
+            "calibrate_stop": "\u30e9\u30f3\u30bf\u30a4\u30e0\u30ad\u30e3\u30ea\u30d6\u30ec\u30fc\u30b7\u30e7\u30f3\u3092\u505c\u6b62\u3059\u308b",
+            "load_off": "\u3059\u3050\u306b\u8ca0\u8377\u3092\u30aa\u30d5\u306b\u3057\u3066\u304f\u3060\u3055\u3044",
+            "load_on": "\u3059\u3050\u306b\u30ed\u30fc\u30c9\u30aa\u30f3\u3057\u3066\u304f\u3060\u3055\u3044",
+            "reset_input_minmax": "\u6700\u5c0f\u304a\u3088\u3073\u6700\u5927\u5165\u529b\u96fb\u5727\u30b9\u30c6\u30fc\u30bf\u30b9\u3092\u30ea\u30bb\u30c3\u30c8",
+            "reset_watchdog": "\u30a6\u30a9\u30c3\u30c1\u30c9\u30c3\u30b0 \u30bf\u30a4\u30de\u30fc\u306e\u30ea\u30bb\u30c3\u30c8 (\u8ca0\u8377\u306e\u5f37\u5236\u518d\u8d77\u52d5)",
+            "shutdown_reboot": "UPS\u306e\u518d\u8d77\u52d5\u4e2d\u306b\u8ca0\u8377\u3092\u77ed\u6642\u9593\u30b7\u30e3\u30c3\u30c8\u30c0\u30a6\u30f3\u3057\u307e\u3059",
+            "shutdown_reboot_graceful": "\u9045\u5ef6\u5f8c\u3001UPS\u306e\u518d\u8d77\u52d5\u4e2d\u306b\u8ca0\u8377\u3092\u4e00\u6642\u7684\u306b\u30b7\u30e3\u30c3\u30c8\u30c0\u30a6\u30f3\u3057\u307e\u3059",
+            "shutdown_return": "\u304a\u305d\u3089\u304f\u9045\u5ef6\u5f8c\u306b\u8ca0\u8377\u3092\u30aa\u30d5\u306b\u3057\u3001\u96fb\u529b\u304c\u623b\u3063\u305f\u3089\u5fa9\u5e30\u3057\u307e\u3059",
+            "shutdown_stayoff": "\u304a\u305d\u3089\u304f\u9045\u5ef6\u5f8c\u306b\u8ca0\u8377\u3092\u30aa\u30d5\u306b\u3057\u3001\u96fb\u529b\u304c\u623b\u3063\u3066\u3082\u30aa\u30d5\u306e\u307e\u307e\u306b\u3059\u308b",
+            "shutdown_stop": "\u9032\u884c\u4e2d\u306e\u30b7\u30e3\u30c3\u30c8\u30c0\u30a6\u30f3\u3092\u505c\u6b62\u3059\u308b",
+            "test_battery_start": "\u30d0\u30c3\u30c6\u30ea\u30fc\u30c6\u30b9\u30c8\u3092\u958b\u59cb\u3059\u308b",
+            "test_battery_start_deep": "\u30c7\u30a3\u30fc\u30d7\u30fb\u30d0\u30c3\u30c6\u30ea\u30fc\u30fb\u30c6\u30b9\u30c8\u306e\u958b\u59cb",
+            "test_battery_start_quick": "\u7c21\u5358\u306a\u30d0\u30c3\u30c6\u30ea\u30fc\u30c6\u30b9\u30c8\u3092\u958b\u59cb\u3059\u308b",
+            "test_battery_stop": "\u30d0\u30c3\u30c6\u30ea\u30fc\u30c6\u30b9\u30c8\u3092\u505c\u6b62\u3059\u308b",
+            "test_failure_start": "\u505c\u96fb\u306e\u30b7\u30df\u30e5\u30ec\u30fc\u30b7\u30e7\u30f3\u3092\u958b\u59cb\u3059\u308b",
+            "test_failure_stop": "\u505c\u96fb\u306e\u30b7\u30df\u30e5\u30ec\u30fc\u30b7\u30e7\u30f3\u3092\u505c\u6b62\u3059\u308b",
+            "test_panel_start": "UPS\u30d1\u30cd\u30eb\u306e\u30c6\u30b9\u30c8\u958b\u59cb",
+            "test_panel_stop": "UPS\u30d1\u30cd\u30eb\u30c6\u30b9\u30c8\u306e\u505c\u6b62",
+            "test_system_start": "\u30b7\u30b9\u30c6\u30e0\u30c6\u30b9\u30c8\u306e\u958b\u59cb"
+        }
+    },
+    "entity": {
+        "sensor": {
+            "ambient_humidity": {
+                "name": "\u5468\u56f2\u6e7f\u5ea6"
+            },
+            "ambient_temperature": {
+                "name": "\u5468\u56f2\u6e29\u5ea6"
+            },
+            "battery_alarm_threshold": {
+                "name": "\u30d0\u30c3\u30c6\u30ea\u30fc\u30a2\u30e9\u30fc\u30e0\u3057\u304d\u3044\u5024"
+            },
+            "battery_capacity": {
+                "name": "\u30d0\u30c3\u30c6\u30ea\u30fc\u5bb9\u91cf"
+            },
+            "battery_charge": {
+                "name": "\u30d0\u30c3\u30c6\u30ea\u30fc\u5145\u96fb"
+            },
+            "battery_charge_low": {
+                "name": "\u30ed\u30fc\u30d0\u30c3\u30c6\u30ea\u30fc\u8a2d\u5b9a\u5024"
+            },
+            "battery_charge_restart": {
+                "name": "\u8d77\u52d5\u3059\u308b\u6700\u5c0f\u30d0\u30c3\u30c6\u30ea\u30fc"
+            },
+            "battery_charge_warning": {
+                "name": "\u8b66\u544a\u30d0\u30c3\u30c6\u30ea\u30fc\u8a2d\u5b9a\u5024"
+            },
+            "battery_charger_status": {
+                "name": "\u5145\u96fb\u72b6\u614b"
+            },
+            "battery_current": {
+                "name": "\u30d0\u30c3\u30c6\u30ea\u30fc\u96fb\u6d41"
+            },
+            "battery_current_total": {
+                "name": "\u5408\u8a08\u30d0\u30c3\u30c6\u30ea\u30fc\u96fb\u6d41"
+            },
+            "battery_date": {
+                "name": "\u30d0\u30c3\u30c6\u30ea\u30fc\u65e5\u4ed8"
+            },
+            "battery_mfr_date": {
+                "name": "\u30d0\u30c3\u30c6\u30ea\u30fc\u88fd\u9020\u65e5"
+            },
+            "battery_packs": {
+                "name": "\u30d0\u30c3\u30c6\u30ea\u30fc\u6570"
+            },
+            "battery_packs_bad": {
+                "name": "\u4e0d\u826f\u30d0\u30c3\u30c6\u30ea\u30fc\u6570"
+            },
+            "battery_runtime": {
+                "name": "\u30d0\u30c3\u30c6\u30ea\u30fc\u99c6\u52d5\u6642\u9593"
+            },
+            "battery_runtime_low": {
+                "name": "\u30d0\u30c3\u30c6\u30ea\u99c6\u52d5\u6642\u9593\u306e\u4f4e\u4e0b"
+            },
+            "battery_runtime_restart": {
+                "name": "\u958b\u59cb\u307e\u3067\u306e\u6700\u5c0f\u30d0\u30c3\u30c6\u30ea\u30fc\u7a3c\u50cd\u6642\u9593"
+            },
+            "battery_temperature": {
+                "name": "\u30d0\u30c3\u30c6\u30ea\u30fc\u6e29\u5ea6"
+            },
+            "battery_type": {
+                "name": "\u30d0\u30c3\u30c6\u30ea\u30fc\u306e\u5316\u5b66\u6210\u5206"
+            },
+            "battery_voltage": {
+                "name": "\u30d0\u30c3\u30c6\u30ea\u30fc\u96fb\u5727"
+            },
+            "battery_voltage_high": {
+                "name": "\u30d0\u30c3\u30c6\u30ea\u30fc\u96fb\u5727\u304c\u9ad8\u3044"
+            },
+            "battery_voltage_low": {
+                "name": "\u30d0\u30c3\u30c6\u30ea\u30fc\u96fb\u5727\u4f4e\u3044"
+            },
+            "battery_voltage_nominal": {
+                "name": "\u516c\u79f0\u30d0\u30c3\u30c6\u30ea\u30fc\u96fb\u5727"
+            },
+            "input_bypass_current": {
+                "name": "\u5165\u529b\u30d0\u30a4\u30d1\u30b9\u96fb\u6d41"
+            },
+            "input_bypass_frequency": {
+                "name": "\u5165\u529b\u30d0\u30a4\u30d1\u30b9\u5468\u6ce2\u6570"
+            },
+            "input_bypass_l1_current": {
+                "name": "\u5165\u529b\u30d0\u30a4\u30d1\u30b9 L1 \u96fb\u6d41"
+            },
+            "input_bypass_l1_n_voltage": {
+                "name": "\u5165\u529b\u30d0\u30a4\u30d1\u30b9 L1-N\u96fb\u5727"
+            },
+            "input_bypass_l1_realpower": {
+                "name": "\u96fb\u6d41\u5165\u529b\u30d0\u30a4\u30d1\u30b9 L1 \u6709\u52b9\u96fb\u529b"
+            },
+            "input_bypass_l2_current": {
+                "name": "\u5165\u529b\u30d0\u30a4\u30d1\u30b9 L2 \u96fb\u6d41"
+            },
+            "input_bypass_l2_n_voltage": {
+                "name": "\u5165\u529b\u30d0\u30a4\u30d1\u30b9 L2-N\u96fb\u5727"
+            },
+            "input_bypass_l2_realpower": {
+                "name": "\u96fb\u6d41\u5165\u529b\u30d0\u30a4\u30d1\u30b9 L2 \u6709\u52b9\u96fb\u529b"
+            },
+            "input_bypass_l3_current": {
+                "name": "\u5165\u529b\u30d0\u30a4\u30d1\u30b9 L3 \u96fb\u6d41"
+            },
+            "input_bypass_l3_n_voltage": {
+                "name": "\u5165\u529b\u30d0\u30a4\u30d1\u30b9 L3-N\u96fb\u5727"
+            },
+            "input_bypass_l3_realpower": {
+                "name": "\u96fb\u6d41\u5165\u529b\u30d0\u30a4\u30d1\u30b9 L3 \u6709\u52b9\u96fb\u529b"
+            },
+            "input_bypass_phases": {
+                "name": "\u5165\u529b\u30d0\u30a4\u30d1\u30b9\u4f4d\u76f8"
+            },
+            "input_bypass_realpower": {
+                "name": "\u96fb\u6d41\u5165\u529b\u30d0\u30a4\u30d1\u30b9\u6709\u52b9\u96fb\u529b"
+            },
+            "input_bypass_voltage": {
+                "name": "\u5165\u529b\u30d0\u30a4\u30d1\u30b9\u96fb\u5727"
+            },
+            "input_current": {
+                "name": "\u5165\u529b\u96fb\u6d41"
+            },
+            "input_frequency": {
+                "name": "\u5165\u529b\u5468\u6ce2\u6570"
+            },
+            "input_frequency_nominal": {
+                "name": "\u5165\u529b\u516c\u79f0\u5468\u6ce2\u6570"
+            },
+            "input_frequency_status": {
+                "name": "\u5165\u529b\u5468\u6ce2\u6570\u306e\u72b6\u614b"
+            },
+            "input_l1_current": {
+                "name": "\u5165\u529b L1 \u96fb\u6d41"
+            },
+            "input_l1_frequency": {
+                "name": "\u5165\u529b L1 \u30e9\u30a4\u30f3\u5468\u6ce2\u6570"
+            },
+            "input_l1_n_voltage": {
+                "name": "\u5165\u529b L1 \u96fb\u5727"
+            },
+            "input_l1_realpower": {
+                "name": "\u96fb\u6d41\u5165\u529b L1 \u6709\u52b9\u96fb\u529b"
+            },
+            "input_l2_current": {
+                "name": "\u5165\u529b L2 \u96fb\u6d41"
+            },
+            "input_l2_frequency": {
+                "name": "\u5165\u529b L2 \u30e9\u30a4\u30f3\u5468\u6ce2\u6570"
+            },
+            "input_l2_n_voltage": {
+                "name": "\u5165\u529b L2 \u96fb\u5727"
+            },
+            "input_l2_realpower": {
+                "name": "\u96fb\u6d41\u5165\u529b L2 \u6709\u52b9\u96fb\u529b"
+            },
+            "input_l3_current": {
+                "name": "\u5165\u529b L3 \u96fb\u6d41"
+            },
+            "input_l3_frequency": {
+                "name": "\u5165\u529b L3 \u30e9\u30a4\u30f3\u5468\u6ce2\u6570"
+            },
+            "input_l3_n_voltage": {
+                "name": "\u5165\u529b L3 \u96fb\u5727"
+            },
+            "input_l3_realpower": {
+                "name": "\u96fb\u6d41\u5165\u529b L3 \u6709\u52b9\u96fb\u529b"
+            },
+            "input_phases": {
+                "name": "\u5165\u529b\u30d5\u30a7\u30fc\u30ba"
+            },
+            "input_realpower": {
+                "name": "\u73fe\u5728\u306e\u5165\u529b\u5b9f\u96fb\u529b"
+            },
+            "input_sensitivity": {
+                "name": "\u5165\u529b\u96fb\u529b\u611f\u5ea6"
+            },
+            "input_transfer_high": {
+                "name": "\u9ad8\u96fb\u5727\u8ee2\u9001"
+            },
+            "input_transfer_low": {
+                "name": "\u4f4e\u96fb\u5727\u8ee2\u9001"
+            },
+            "input_transfer_reason": {
+                "name": "\u96fb\u5727\u8ee2\u9001\u7406\u7531"
+            },
+            "input_voltage": {
+                "name": "\u5165\u529b\u96fb\u5727"
+            },
+            "input_voltage_nominal": {
+                "name": "\u516c\u79f0\u5165\u529b\u96fb\u5727"
+            },
+            "output_current": {
+                "name": "\u51fa\u529b\u96fb\u6d41"
+            },
+            "output_current_nominal": {
+                "name": "\u516c\u79f0\u51fa\u529b\u96fb\u6d41"
+            },
+            "output_frequency": {
+                "name": "\u51fa\u529b\u5468\u6ce2\u6570"
+            },
+            "output_frequency_nominal": {
+                "name": "\u516c\u79f0\u51fa\u529b\u5468\u6ce2\u6570"
+            },
+            "output_l1_current": {
+                "name": "\u51fa\u529b L1 \u96fb\u6d41"
+            },
+            "output_l1_n_voltage": {
+                "name": "\u51fa\u529b L1-N\u96fb\u5727"
+            },
+            "output_l1_power_percent": {
+                "name": "\u51fa\u529b L1 \u96fb\u529b\u4f7f\u7528\u91cf"
+            },
+            "output_l1_realpower": {
+                "name": "\u96fb\u6d41\u51fa\u529b L1 \u6709\u52b9\u96fb\u529b"
+            },
+            "output_l2_current": {
+                "name": "\u51fa\u529b L2 \u96fb\u6d41"
+            },
+            "output_l2_n_voltage": {
+                "name": "\u51fa\u529b L2-N\u96fb\u5727"
+            },
+            "output_l2_power_percent": {
+                "name": "\u51fa\u529b L2 \u96fb\u529b\u4f7f\u7528\u91cf"
+            },
+            "output_l2_realpower": {
+                "name": "\u96fb\u6d41\u51fa\u529b L2 \u6709\u52b9\u96fb\u529b"
+            },
+            "output_l3_current": {
+                "name": "\u51fa\u529b L3 \u96fb\u6d41"
+            },
+            "output_l3_n_voltage": {
+                "name": "\u51fa\u529b L3-N\u96fb\u5727"
+            },
+            "output_l3_power_percent": {
+                "name": "\u51fa\u529b L3 \u96fb\u529b\u4f7f\u7528\u91cf"
+            },
+            "output_l3_realpower": {
+                "name": "\u96fb\u6d41\u51fa\u529b L3 \u6709\u52b9\u96fb\u529b"
+            },
+            "output_phases": {
+                "name": "\u51fa\u529b\u30d5\u30a7\u30fc\u30ba"
+            },
+            "output_power": {
+                "name": "\u51fa\u529b\u76ae\u76f8\u96fb\u529b"
+            },
+            "output_power_nominal": {
+                "name": "\u516c\u79f0\u51fa\u529b\u96fb\u529b"
+            },
+            "output_realpower": {
+                "name": "\u96fb\u6d41\u51fa\u529b\u5b9f\u96fb\u529b"
+            },
+            "output_realpower_nominal": {
+                "name": "\u516c\u79f0\u51fa\u529b\u5b9f\u96fb\u529b"
+            },
+            "output_voltage": {
+                "name": "\u51fa\u529b\u96fb\u5727"
+            },
+            "output_voltage_nominal": {
+                "name": "\u516c\u79f0\u51fa\u529b\u96fb\u5727"
+            },
+            "ups_alarm": {
+                "name": "\u30a2\u30e9\u30fc\u30e0"
+            },
+            "ups_beeper_status": {
+                "name": "\u30d6\u30b6\u30fc\u306e\u72b6\u614b"
+            },
+            "ups_contacts": {
+                "name": "\u5916\u90e8\u9023\u7d61\u5148"
+            },
+            "ups_delay_reboot": {
+                "name": "UPS\u306e\u518d\u8d77\u52d5\u9045\u5ef6"
+            },
+            "ups_delay_shutdown": {
+                "name": "UPS\u30b7\u30e3\u30c3\u30c8\u30c0\u30a6\u30f3\u9045\u5ef6"
+            },
+            "ups_delay_start": {
+                "name": "\u30ed\u30fc\u30c9\u518d\u958b\u9045\u5ef6"
+            },
+            "ups_display_language": {
+                "name": "\u8a00\u8a9e"
+            },
+            "ups_efficiency": {
+                "name": "\u52b9\u7387"
+            },
+            "ups_id": {
+                "name": "\u30b7\u30b9\u30c6\u30e0\u8b58\u5225\u5b50"
+            },
+            "ups_load": {
+                "name": "\u8ca0\u8377"
+            },
+            "ups_load_high": {
+                "name": "\u30aa\u30fc\u30d0\u30fc\u30ed\u30fc\u30c9\u8a2d\u5b9a"
+            },
+            "ups_power": {
+                "name": "\u73fe\u5728\u306e\u76ae\u76f8\u96fb\u529b"
+            },
+            "ups_power_nominal": {
+                "name": "\u516c\u79f0\u96fb\u529b"
+            },
+            "ups_realpower": {
+                "name": "\u73fe\u5728\u306e\u5b9f\u96fb\u529b"
+            },
+            "ups_realpower_nominal": {
+                "name": "\u516c\u79f0\u5b9f\u96fb\u529b"
+            },
+            "ups_shutdown": {
+                "name": "\u30b7\u30e3\u30c3\u30c8\u30c0\u30a6\u30f3\u6027\u80fd"
+            },
+            "ups_start_auto": {
+                "name": "AC \u3067\u958b\u59cb"
+            },
+            "ups_start_battery": {
+                "name": "\u30d0\u30c3\u30c6\u30ea\u30fc\u3067\u8d77\u52d5"
+            },
+            "ups_start_reboot": {
+                "name": "\u30d0\u30c3\u30c6\u30ea\u30fc\u3067\u518d\u8d77\u52d5"
+            },
+            "ups_status": {
+                "name": "\u30b9\u30c6\u30fc\u30bf\u30b9\u30c7\u30fc\u30bf"
+            },
+            "ups_status_display": {
+                "name": "\u72b6\u614b"
+            },
+            "ups_temperature": {
+                "name": "UPS\u306e\u6e29\u5ea6"
+            },
+            "ups_test_date": {
+                "name": "\u30bb\u30eb\u30d5\u30c6\u30b9\u30c8\u65e5"
+            },
+            "ups_test_interval": {
+                "name": "\u30bb\u30eb\u30d5\u30c6\u30b9\u30c8\u9593\u9694"
+            },
+            "ups_test_result": {
+                "name": "\u30bb\u30eb\u30d5\u30c6\u30b9\u30c8\u7d50\u679c"
+            },
+            "ups_timer_reboot": {
+                "name": "\u30ed\u30fc\u30c9\u518d\u8d77\u52d5\u30bf\u30a4\u30de\u30fc"
+            },
+            "ups_timer_shutdown": {
+                "name": "\u30ed\u30fc\u30c9\u30b7\u30e3\u30c3\u30c8\u30c0\u30a6\u30f3\u30bf\u30a4\u30de\u30fc"
+            },
+            "ups_timer_start": {
+                "name": "\u30ed\u30fc\u30c9\u958b\u59cb\u30bf\u30a4\u30de\u30fc"
+            },
+            "ups_type": {
+                "name": "UPS\u306e\u7a2e\u985e"
+            },
+            "ups_watchdog_status": {
+                "name": "\u30a6\u30a9\u30c3\u30c1\u30c9\u30c3\u30b0\u30b9\u30c6\u30fc\u30bf\u30b9"
+            },
+            "watts": {
+                "name": "\u30ef\u30c3\u30c8"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "scan_interval": "\u30b9\u30ad\u30e3\u30f3\u30a4\u30f3\u30bf\u30fc\u30d0\u30eb(\u79d2)"
+                }
+            }
+        }
+    }
+}

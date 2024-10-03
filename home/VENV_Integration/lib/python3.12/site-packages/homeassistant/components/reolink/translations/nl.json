@@ -1,0 +1,563 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Apparaat is al geconfigureerd",
+            "reauth_successful": "Herauthenticatie geslaagd",
+            "reconfigure_successful": "Herconfiguratie was succesvol"
+        },
+        "error": {
+            "api_error": "API-fout opgetreden",
+            "cannot_connect": "Verbinding mislukt, controleer het IP-adres van de camera",
+            "invalid_auth": "Ongeldige authenticatie",
+            "not_admin": "Gebruiker moet administrator rechten hebben, gebruiker \"{username}\" heeft autorisatieniveau \"{userlevel}\"",
+            "unknown": "Onverwachte fout",
+            "webhook_exception": "Home Assistant URL is niet beschikbaar, ga naar Instellingen >Systeem >Netwerk > Home Assistant URL en corrigeer de URL's, zie {more_info}"
+        },
+        "flow_title": "{hostname} ({ip_address})",
+        "step": {
+            "reauth_confirm": {
+                "description": "De Reolink integratie moet de verbindingsgegevens herauthenticeren",
+                "title": "Authenticatie is verlopen voor {name}"
+            },
+            "user": {
+                "data": {
+                    "host": "Host",
+                    "password": "Wachtwoord",
+                    "port": "Poort",
+                    "use_https": "HTTPS inschakelen",
+                    "username": "Gebruikersnaam"
+                },
+                "data_description": {
+                    "host": "De hostnaam of het IP adres van jou Reolink apparaat. Bijvoorbeeld: '192.168.1.25'.",
+                    "password": "Wachtwoord om in the loggen op het Reolink apparaat zelf. Niet het Reolink cloudaccount."
+                },
+                "description": "Zie de [probleem oplossingen]({troubleshooting_link}) als je problemen ondervindt. {error}"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "animal": {
+                "name": "Dier",
+                "state": {
+                    "off": "Niet gedetecteerd",
+                    "on": "Gedetecteerd"
+                }
+            },
+            "animal_lens_0": {
+                "name": "Dier lens 0",
+                "state": {
+                    "off": "Niet gedetecteerd",
+                    "on": "Gedetecteerd"
+                }
+            },
+            "animal_lens_1": {
+                "name": "Dier lens 1",
+                "state": {
+                    "off": "Niet gedetecteerd",
+                    "on": "Gedetecteerd"
+                }
+            },
+            "face": {
+                "name": "Gezicht",
+                "state": {
+                    "off": "Niet gedetecteerd",
+                    "on": "Gedetecteerd"
+                }
+            },
+            "face_lens_0": {
+                "name": "Gezicht lens 0",
+                "state": {
+                    "off": "Niet gedetecteerd",
+                    "on": "Gedetecteerd"
+                }
+            },
+            "face_lens_1": {
+                "name": "Gezicht lens 1",
+                "state": {
+                    "off": "Niet gedetecteerd",
+                    "on": "Gedetecteerd"
+                }
+            },
+            "motion_lens_0": {
+                "name": "Beweging lens 0",
+                "state": {
+                    "off": "Niet gedetecteerd",
+                    "on": "Gedetecteerd"
+                }
+            },
+            "motion_lens_1": {
+                "name": "Beweging lens 1",
+                "state": {
+                    "off": "Niet gedetecteerd",
+                    "on": "Gedetecteerd"
+                }
+            },
+            "package": {
+                "state": {
+                    "off": "Niet gedetecteerd",
+                    "on": "Gedetecteerd"
+                }
+            },
+            "package_lens_0": {
+                "state": {
+                    "off": "Niet gedetecteerd",
+                    "on": "Gedetecteerd"
+                }
+            },
+            "package_lens_1": {
+                "state": {
+                    "off": "Niet gedetecteerd",
+                    "on": "Gedetecteerd"
+                }
+            },
+            "person": {
+                "name": "Persoon",
+                "state": {
+                    "off": "Niet gedetecteerd",
+                    "on": "Gedetecteerd"
+                }
+            },
+            "person_lens_0": {
+                "name": "Persoon lens 0",
+                "state": {
+                    "off": "Niet gedetecteerd",
+                    "on": "Gedetecteerd"
+                }
+            },
+            "person_lens_1": {
+                "name": "Persoon lens 1",
+                "state": {
+                    "off": "Niet gedetecteerd",
+                    "on": "Gedetecteerd"
+                }
+            },
+            "pet": {
+                "name": "Huisdier",
+                "state": {
+                    "off": "Niet gedetecteerd",
+                    "on": "Gedetecteerd"
+                }
+            },
+            "pet_lens_0": {
+                "name": "Huisdier lens 0",
+                "state": {
+                    "off": "Niet gedetecteerd",
+                    "on": "Gedetecteerd"
+                }
+            },
+            "pet_lens_1": {
+                "name": "Huisdier lens 1",
+                "state": {
+                    "off": "Niet gedetecteerd",
+                    "on": "Gedetecteerd"
+                }
+            },
+            "sleep": {
+                "state": {
+                    "off": "Wakker",
+                    "on": "Slapen"
+                }
+            },
+            "vehicle": {
+                "name": "Voertuig",
+                "state": {
+                    "off": "Niet gedetecteerd",
+                    "on": "Gedetecteerd"
+                }
+            },
+            "vehicle_lens_0": {
+                "name": "Voertuig lens 0",
+                "state": {
+                    "off": "Niet gedetecteerd",
+                    "on": "Gedetecteerd"
+                }
+            },
+            "vehicle_lens_1": {
+                "name": "Voertuig lens 1",
+                "state": {
+                    "off": "Niet gedetecteerd",
+                    "on": "Gedetecteerd"
+                }
+            },
+            "visitor": {
+                "name": "Bezoeker"
+            },
+            "visitor_lens_0": {
+                "name": "Bezoeker lens 0"
+            },
+            "visitor_lens_1": {
+                "name": "Bezoeker lens 1"
+            }
+        },
+        "button": {
+            "guard_go_to": {
+                "name": "Bewaak punt ga naar"
+            },
+            "guard_set": {
+                "name": "Bewaak punt zet huidige positie"
+            },
+            "ptz_calibrate": {
+                "name": "PTZ kalibreren"
+            },
+            "ptz_down": {
+                "name": "PTZ omlaag"
+            },
+            "ptz_left": {
+                "name": "PTZ links"
+            },
+            "ptz_right": {
+                "name": "PTZ rechts"
+            },
+            "ptz_stop": {
+                "name": "PTZ stop"
+            },
+            "ptz_up": {
+                "name": "PTZ omhoog"
+            },
+            "ptz_zoom_in": {
+                "name": "PTZ inzoomen"
+            },
+            "ptz_zoom_out": {
+                "name": "PTZ uitzoomen"
+            }
+        },
+        "camera": {
+            "autotrack_snapshots_main": {
+                "name": "Autovolg foto's duidelijk"
+            },
+            "autotrack_snapshots_sub": {
+                "name": "Autovolg foto's vloeiend"
+            },
+            "autotrack_sub": {
+                "name": "Autovolg vloeiend"
+            },
+            "ext": {
+                "name": "Gebalanceerd"
+            },
+            "ext_lens_0": {
+                "name": "Gebalanceerd lens 0"
+            },
+            "ext_lens_1": {
+                "name": "Gebalanceerd lens 1"
+            },
+            "main": {
+                "name": "Duidelijk"
+            },
+            "main_lens_0": {
+                "name": "Duidelijk lens 0"
+            },
+            "main_lens_1": {
+                "name": "Duidelijk lens 1"
+            },
+            "snapshots_main": {
+                "name": "Foto's duidelijk"
+            },
+            "snapshots_main_lens_0": {
+                "name": "Foto's duidelijk lens 0"
+            },
+            "snapshots_main_lens_1": {
+                "name": "Foto's duidelijk lens 1"
+            },
+            "snapshots_sub": {
+                "name": "Foto's vloeiend"
+            },
+            "snapshots_sub_lens_0": {
+                "name": "Foto's vloeiend lens 0"
+            },
+            "snapshots_sub_lens_1": {
+                "name": "Foto's vloeiend lens 1"
+            },
+            "sub": {
+                "name": "Vloeiend"
+            },
+            "sub_lens_0": {
+                "name": "Vloeiend lens 0"
+            },
+            "sub_lens_1": {
+                "name": "Vloeiend lens 1"
+            }
+        },
+        "light": {
+            "floodlight": {
+                "name": "Schijnwerper"
+            },
+            "ir_lights": {
+                "name": "Infraroodverlichting in nachtmodus"
+            },
+            "status_led": {
+                "name": "Status LED"
+            }
+        },
+        "number": {
+            "ai_animal_delay": {
+                "name": "AI dier vertraging"
+            },
+            "ai_animal_sensititvity": {
+                "name": "AI dier gevoeligheid"
+            },
+            "ai_face_delay": {
+                "name": "AI gezicht vertraging"
+            },
+            "ai_face_sensititvity": {
+                "name": "AI gezicht gevoeligheid"
+            },
+            "ai_person_delay": {
+                "name": "AI persoon vertraging"
+            },
+            "ai_person_sensititvity": {
+                "name": "AI persoon gevoeligheid"
+            },
+            "ai_pet_delay": {
+                "name": "AI huisdier vertraging"
+            },
+            "ai_pet_sensititvity": {
+                "name": "AI huisdier gevoeligheid"
+            },
+            "ai_vehicle_delay": {
+                "name": "AI voertuig vertraging"
+            },
+            "ai_vehicle_sensititvity": {
+                "name": "AI voertuig gevoeligheid"
+            },
+            "auto_quick_reply_time": {
+                "name": "Automatisch antwoordtijd"
+            },
+            "auto_track_disappear_time": {
+                "name": "Automatisch volgen verdwijn tijd"
+            },
+            "auto_track_limit_left": {
+                "name": "Automatisch volgen linker limiet"
+            },
+            "auto_track_limit_right": {
+                "name": "Automatisch volgen rechter limiet"
+            },
+            "auto_track_stop_time": {
+                "name": "Automatisch volgen stoptijd"
+            },
+            "floodlight_brightness": {
+                "name": "Schijnwerper helderheid bij aanzetten"
+            },
+            "focus": {
+                "name": "Focus"
+            },
+            "guard_return_time": {
+                "name": "Bewaak punt terugkeertijd"
+            },
+            "motion_sensitivity": {
+                "name": "Beweging gevoeligheid"
+            },
+            "volume": {
+                "name": "Volume"
+            },
+            "zoom": {
+                "name": "Zoom"
+            }
+        },
+        "select": {
+            "auto_quick_reply_message": {
+                "name": "Automatisch antwoordbericht",
+                "state": {
+                    "off": "Uit"
+                }
+            },
+            "auto_track_method": {
+                "name": "Automatische volgmethode",
+                "state": {
+                    "digital": "Digitaal",
+                    "digitalfirst": "Digitaal eerst",
+                    "pantiltfirst": "Draaien/kantelen eerst"
+                }
+            },
+            "day_night_mode": {
+                "name": "Dag nacht modus",
+                "state": {
+                    "auto": "Automatisch",
+                    "color": "Kleur"
+                }
+            },
+            "doorbell_led": {
+                "name": "Deurbel LED"
+            },
+            "floodlight_mode": {
+                "name": "Schijnwerper modus",
+                "state": {
+                    "adaptive": "Adaptief",
+                    "auto": "Automatisch",
+                    "autoadaptive": "Automatisch en adaptief",
+                    "off": "Uit",
+                    "onatnight": "'s Nachts ingeschakeld",
+                    "schedule": "Schema"
+                }
+            },
+            "hdr": {
+                "state": {
+                    "off": "Uit",
+                    "on": "Aan"
+                }
+            },
+            "hub_alarm_ringtone": {
+                "state": {
+                    "alarm": "Alarm",
+                    "moonlight": "Maanlicht",
+                    "operetta": "Operette"
+                }
+            },
+            "hub_visitor_ringtone": {
+                "state": {
+                    "alarm": "Alarm",
+                    "moonlight": "Maanlicht",
+                    "operetta": "Operette"
+                }
+            },
+            "motion_tone": {
+                "state": {
+                    "moonlight": "Maanlicht",
+                    "off": "Uit",
+                    "operetta": "Operette"
+                }
+            },
+            "package_tone": {
+                "state": {
+                    "moonlight": "Maanlicht",
+                    "off": "Uit",
+                    "operetta": "Operette"
+                }
+            },
+            "people_tone": {
+                "state": {
+                    "moonlight": "Maanlicht",
+                    "off": "Uit",
+                    "operetta": "Operette"
+                }
+            },
+            "ptz_preset": {
+                "name": "PTZ favorieten"
+            },
+            "status_led": {
+                "name": "Status LED",
+                "state": {
+                    "alwaysonatnight": "Automatisch & 's nachts altijd ingeschakeld",
+                    "auto": "Automatisch",
+                    "stayoff": "Blijf uitgeschakeld"
+                }
+            },
+            "visitor_tone": {
+                "state": {
+                    "moonlight": "Maanlicht",
+                    "off": "Uit",
+                    "operetta": "Operette"
+                }
+            }
+        },
+        "sensor": {
+            "battery_percent": {
+                "name": "Accupercentage"
+            },
+            "battery_state": {
+                "name": "Batterijstatus",
+                "state": {
+                    "chargecomplete": "Opladen voltooid",
+                    "charging": "Opladen",
+                    "discharging": "Ontladen"
+                }
+            },
+            "battery_temperature": {
+                "name": "Batterijtemperatuur"
+            },
+            "cpu_usage": {
+                "name": "CPU gebruik"
+            },
+            "ptz_pan_position": {
+                "name": "PTZ draai positie"
+            },
+            "wifi_signal": {
+                "name": "Wi-Fi signaal"
+            }
+        },
+        "siren": {
+            "siren": {
+                "name": "Sirene"
+            }
+        },
+        "switch": {
+            "auto_focus": {
+                "name": "Automatisch focussen"
+            },
+            "auto_tracking": {
+                "name": "Automatisch volgen"
+            },
+            "buzzer": {
+                "name": "Zoemer bij gebeurtenis"
+            },
+            "doorbell_button_sound": {
+                "name": "Deurbel knop geluid"
+            },
+            "email": {
+                "name": "e-mail bij gebeurtenis"
+            },
+            "ftp_upload": {
+                "name": "FTP uploaden"
+            },
+            "gaurd_return": {
+                "name": "Bewaak punt terugkeren"
+            },
+            "ir_lights": {
+                "name": "Infraroodverlichting in nachtmodus"
+            },
+            "led": {
+                "name": "LED"
+            },
+            "push_notifications": {
+                "name": "Pushmeldingen"
+            },
+            "record": {
+                "name": "Opnemen"
+            },
+            "record_audio": {
+                "name": "Geluid opnemen"
+            },
+            "siren_on_event": {
+                "name": "Sirene bij gebeurtenis"
+            }
+        }
+    },
+    "issues": {
+        "enable_port": {
+            "title": "Reolink poort niet open"
+        },
+        "firmware_update": {
+            "description": "\"{name}\" met model \"{model}\" en hardwareversie \"{hw_version}\" draait een oude firmwareversie \"{current_firmware}\", terwijl minimaal firmwareversie \"{required_firmware}\" vereist is voor de juiste werking van de Reolink-integratie. De nieuwste firmware kan worden gedownload van het [Reolink downloadcentrum]({download_link}).",
+            "title": "Reolink firmware-update vereist"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "protocol": "Protocol"
+                }
+            }
+        }
+    },
+    "selector": {
+        "ringtone": {
+            "options": {
+                "moonlight": "Maanlicht",
+                "operetta": "Operette"
+            }
+        }
+    },
+    "services": {
+        "ptz_move": {
+            "description": "Beweeg de camera met een specifieke snelheid.",
+            "fields": {
+                "speed": {
+                    "description": "PTZ bewegingssnelheid.",
+                    "name": "Snelheid"
+                }
+            },
+            "name": "PTZ beweging"
+        }
+    }
+}

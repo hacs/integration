@@ -1,0 +1,73 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Enheten \u00e4r redan konfigurerad",
+            "success": "\u00c4ndringar sparade"
+        },
+        "flow_title": "N\u00e4rhet",
+        "step": {
+            "user": {
+                "data": {
+                    "ignored_zones": "Zoner som ska ignoreras",
+                    "tolerance": "Toleransavst\u00e5nd",
+                    "tracked_entities": "Enheter eller personer att sp\u00e5ra"
+                }
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "dir_of_travel": {
+                "name": "{tracked_entity} F\u00e4rdriktning",
+                "state": {
+                    "arrived": "Anl\u00e4nde",
+                    "away_from": "Bort fr\u00e5n",
+                    "stationary": "Stilla",
+                    "towards": "P\u00e5 v\u00e4g mot"
+                }
+            },
+            "dist_to_zone": {
+                "name": "{tracked_entity} Avst\u00e5nd"
+            },
+            "nearest": {
+                "name": "N\u00e4rmaste enhet"
+            },
+            "nearest_dir_of_travel": {
+                "name": "N\u00e4rmaste f\u00e4rdriktning",
+                "state": {
+                    "arrived": "Anl\u00e4nde",
+                    "away_from": "Bort fr\u00e5n",
+                    "stationary": "Stilla",
+                    "towards": "P\u00e5 v\u00e4g mot"
+                }
+            },
+            "nearest_dist_to_zone": {
+                "name": "N\u00e4rmaste avst\u00e5nd"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_proximity_entity": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Proximitysenheten `{entity}` \u00e4r f\u00f6r\u00e5ldrad och kommer att tas bort i `2024.8`. Den anv\u00e4nds dock inom f\u00f6ljande konfigurationer:\n- {used_in}\n\nJustera alla automatiseringar eller skript som anv\u00e4nder denna f\u00f6r\u00e5ldrade Proximity-entitet.\nF\u00f6r varje person eller enhet som sp\u00e5ras skapas en sensor f\u00f6r avst\u00e5ndet och f\u00e4rdriktningen till/fr\u00e5n den \u00f6vervakade zonen. Dessutom skapas f\u00f6r varje Proximity-konfiguration en sensor som visar den n\u00e4rmaste enheten eller personen till den \u00f6vervakade zonen. Med denna kan du anv\u00e4nda Min/Max-integrationen f\u00f6r att best\u00e4mma det n\u00e4rmaste och det l\u00e4ngsta avst\u00e5ndet.",
+                        "title": "Proximityenheten \u00e4r utfasad"
+                    }
+                }
+            },
+            "title": "Proximityenheten \u00e4r utfasad"
+        },
+        "tracked_entity_removed": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "title": "Den sp\u00e5rade entiteten har tagits bort"
+                    }
+                }
+            },
+            "title": "Den sp\u00e5rade entiteten har tagits bort"
+        }
+    },
+    "title": "N\u00e4rhet"
+}

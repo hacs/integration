@@ -1,0 +1,125 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Az eszk\u00f6z m\u00e1r konfigur\u00e1lva van"
+        },
+        "step": {
+            "user": {
+                "description": "El szeretn\u00e9 kezdeni a be\u00e1ll\u00edt\u00e1st?"
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "average_price": {
+                "name": "\u00c1tlag - ma"
+            },
+            "current_hour_price": {
+                "name": "Aktu\u00e1lis \u00f3r\u00e1ban"
+            },
+            "highest_price_time": {
+                "name": "A legmagasabb \u00e1r pillanata \u2013 ma"
+            },
+            "hours_priced_equal_or_higher": {
+                "name": "A jelenlegivel megegyez\u0151 vagy magasabb \u00e1ras \u00f3r\u00e1k \u2013 ma"
+            },
+            "hours_priced_equal_or_lower": {
+                "name": "A jelenlegivel megegyez\u0151 vagy alacsonyabb \u00e1ras \u00f3r\u00e1k \u2013 ma"
+            },
+            "lowest_price_time": {
+                "name": "A legalacsonyabb \u00e1r pillanata - ma"
+            },
+            "max_price": {
+                "name": "Legmagasabb \u00e1r - ma"
+            },
+            "min_price": {
+                "name": "Legalacsonyabb \u00e1r - ma"
+            },
+            "next_hour_price": {
+                "name": "K\u00f6vetkez\u0151 \u00f3ra"
+            },
+            "percentage_of_max": {
+                "name": "A legmagasabb \u00e1r jelenlegi sz\u00e1zal\u00e9ka \u2013 ma"
+            }
+        }
+    },
+    "exceptions": {
+        "invalid_config_entry": {
+            "message": "\u00c9rv\u00e9nytelen konfigur\u00e1ci\u00f3s bejegyz\u00e9st adott meg. \u00c9rt\u00e9k: {config_entry}"
+        },
+        "invalid_date": {
+            "message": "A megadott d\u00e1tum ({date}) \u00e9rv\u00e9nytelen."
+        },
+        "unloaded_config_entry": {
+            "message": "\u00c9rv\u00e9nytelen konfigur\u00e1ci\u00f3s bejegyz\u00e9st adott meg. A {config_entry} nincs bet\u00f6ltve."
+        }
+    },
+    "services": {
+        "get_energy_prices": {
+            "description": "K\u00e9rjen energia\u00e1rakat az EnergyZero-t\u00f3l.",
+            "fields": {
+                "config_entry": {
+                    "description": "A konfigur\u00e1ci\u00f3s bejegyz\u00e9s, amelyet ehhez a m\u0171velethez haszn\u00e1lni kell.",
+                    "name": "Konfigur\u00e1ci\u00f3s bejegyz\u00e9s"
+                },
+                "end": {
+                    "description": "Meghat\u00e1rozza azt a d\u00e1tumot \u00e9s id\u0151pontot, ameddig a g\u00e1z\u00e1rakat le kell k\u00e9rni. Alap\u00e9rtelmez\u00e9s szerint a mai napra \u00e1ll, ha nem ker\u00fcl megad\u00e1sra.",
+                    "name": "V\u00e9ge"
+                },
+                "incl_vat": {
+                    "description": "Az \u00e1rak tartalmazz\u00e1k az \u00c1FA-t.",
+                    "name": "\u00c1f\u00e1val egy\u00fctt"
+                },
+                "start": {
+                    "description": "Meghat\u00e1rozza azt a d\u00e1tumot \u00e9s id\u0151pontot, amelyt\u0151l kezd\u0151d\u0151en a g\u00e1z\u00e1rakat le kell k\u00e9rni. Alap\u00e9rtelmez\u00e9s szerint a mai napra \u00e1ll, ha nem ker\u00fcl megad\u00e1sra.",
+                    "name": "Kezdet"
+                }
+            },
+            "name": "Energia\u00e1rak lek\u00e9r\u00e9se"
+        },
+        "get_gas_prices": {
+            "description": "K\u00e9rjen g\u00e1z\u00e1rakat az EnergyZero-t\u00f3l.",
+            "fields": {
+                "config_entry": {
+                    "description": "A konfigur\u00e1ci\u00f3s bejegyz\u00e9s, amelyet ehhez a m\u0171velethez haszn\u00e1lni kell.",
+                    "name": "Konfigur\u00e1ci\u00f3s bejegyz\u00e9s"
+                },
+                "end": {
+                    "description": "Meghat\u00e1rozza azt a d\u00e1tumot \u00e9s id\u0151pontot, ameddig a g\u00e1z\u00e1rakat le kell k\u00e9rni. Alap\u00e9rtelmez\u00e9s szerint a mai napra \u00e1ll, ha nem ker\u00fcl megad\u00e1sra.",
+                    "name": "V\u00e9ge"
+                },
+                "incl_vat": {
+                    "description": "Az \u00e1rak tartalmazz\u00e1k az \u00c1FA-t.",
+                    "name": "\u00c1f\u00e1val egy\u00fctt"
+                },
+                "start": {
+                    "description": "Meghat\u00e1rozza azt a d\u00e1tumot \u00e9s id\u0151pontot, amelyt\u0151l kezd\u0151d\u0151en a g\u00e1z\u00e1rakat le kell k\u00e9rni. Alap\u00e9rtelmez\u00e9s szerint a mai napra \u00e1ll, ha nem ker\u00fcl megad\u00e1sra.",
+                    "name": "Kezdet"
+                }
+            },
+            "name": "G\u00e1z\u00e1rak lek\u00e9r\u00e9se"
+        },
+        "get_prices": {
+            "description": "K\u00e9rjen energia- vagy g\u00e1z\u00e1rakat az EnergyZero-t\u00f3l.",
+            "fields": {
+                "end": {
+                    "description": "Meddig kapja meg az \u00e1rakat. Alap\u00e9rtelmez\u00e9s szerint a mai nap, ha kimarad.",
+                    "name": "V\u00e9g"
+                },
+                "incl_vat": {
+                    "description": "Az \u00e1rak tartalmazz\u00e1k az \u00e1f\u00e1t. Az alap\u00e9rtelmezett \u00e9rt\u00e9k true (igaz), ha nincs megadva.",
+                    "name": "\u00c1f\u00e1val egy\u00fctt"
+                },
+                "start": {
+                    "description": "Melyik pillanatt\u00f3l kezdve kapja meg az \u00e1rakat. Az alap\u00e9rtelmezett \u00e9rt\u00e9k ma, ha nincs megadva.",
+                    "name": "Kezdet"
+                },
+                "type": {
+                    "description": "Beszerezend\u0151 \u00e1rak t\u00edpusa, energia vagy g\u00e1z.",
+                    "name": "T\u00edpus"
+                }
+            },
+            "name": "\u00c1rak lek\u00e9r\u00e9se"
+        }
+    }
+}

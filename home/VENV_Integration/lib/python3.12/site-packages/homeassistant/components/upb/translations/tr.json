@@ -1,0 +1,111 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Cihaz zaten yap\u0131land\u0131r\u0131lm\u0131\u015f"
+        },
+        "error": {
+            "cannot_connect": "Ba\u011flanma hatas\u0131",
+            "invalid_upb_file": "Eksik veya ge\u00e7ersiz UPB UPS d\u0131\u015fa aktarma dosyas\u0131n\u0131 ba\u015flat\u0131n, dosyan\u0131n ad\u0131n\u0131 ve yolunu kontrol edin.",
+            "unknown": "Beklenmeyen hata"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "address": "Adres (yukar\u0131daki a\u00e7\u0131klamaya bak\u0131n)",
+                    "file_path": "UPSStart UPB d\u0131\u015fa aktarma dosyas\u0131n\u0131n yolu ve ad\u0131.",
+                    "protocol": "Protokol"
+                },
+                "description": "Bir Evrensel Elektrik Hatt\u0131 Veriyolu Elektrik Hatt\u0131 Aray\u00fcz Mod\u00fcl\u00fc (UPB PIM) ba\u011flay\u0131n. Adres dizesi 'tcp' i\u00e7in 'adres[:port]' bi\u00e7iminde olmal\u0131d\u0131r. Ba\u011flant\u0131 noktas\u0131 iste\u011fe ba\u011fl\u0131d\u0131r ve varsay\u0131lan olarak 2101'dir. \u00d6rnek: '192.168.1.42'. Seri protokol i\u00e7in adres 'tty[:baud]' bi\u00e7iminde olmal\u0131d\u0131r. Baud iste\u011fe ba\u011fl\u0131d\u0131r ve varsay\u0131lan olarak 4800'd\u00fcr. \u00d6rnek: '/dev/ttyS1'.",
+                "title": "UPB PIM'e ba\u011flan\u0131n"
+            }
+        }
+    },
+    "services": {
+        "light_blink": {
+            "description": "Bir \u0131\u015f\u0131k yan\u0131p s\u00f6ner.",
+            "fields": {
+                "rate": {
+                    "description": "Ba\u011flant\u0131n\u0131n yan\u0131p s\u00f6nme s\u00fcresi.",
+                    "name": "Oran"
+                }
+            },
+            "name": "Blink ba\u011flant\u0131s\u0131"
+        },
+        "light_fade_start": {
+            "description": "Bir \u0131\u015f\u0131\u011f\u0131 mevcut parlakl\u0131ktan yukar\u0131 veya a\u015fa\u011f\u0131 do\u011fru soldurmaya ba\u015flar.",
+            "fields": {
+                "brightness": {
+                    "description": "Parlakl\u0131\u011f\u0131 g\u00f6steren say\u0131, burada 0 \u0131\u015f\u0131\u011f\u0131 kapat\u0131r, 1 minimum parlakl\u0131k ve 255 maksimum parlakl\u0131kt\u0131r.",
+                    "name": "Parlakl\u0131k"
+                },
+                "brightness_pct": {
+                    "description": "Tam parlakl\u0131\u011f\u0131n y\u00fczdesini g\u00f6steren say\u0131, burada 0 \u0131\u015f\u0131\u011f\u0131 kapat\u0131r, 1 minimum parlakl\u0131k ve 100 maksimum parlakl\u0131kt\u0131r.",
+                    "name": "Parlakl\u0131k y\u00fczdesi"
+                },
+                "rate": {
+                    "description": "I\u015f\u0131\u011f\u0131n yeni parlakl\u0131\u011fa ge\u00e7i\u015f oran\u0131.",
+                    "name": "Oran"
+                }
+            },
+            "name": "I\u015f\u0131k solmas\u0131n\u0131 ba\u015flat"
+        },
+        "light_fade_stop": {
+            "description": "I\u015f\u0131k solmas\u0131n\u0131 durdurur.",
+            "name": "I\u015f\u0131k solmas\u0131n\u0131 durdur"
+        },
+        "link_blink": {
+            "description": "Blink ba\u011flant\u0131s\u0131.",
+            "fields": {
+                "blink_rate": {
+                    "description": "Ba\u011flant\u0131n\u0131n yan\u0131p s\u00f6nme s\u00fcresi.",
+                    "name": "Blink h\u0131z\u0131"
+                }
+            },
+            "name": "Blink ba\u011flant\u0131s\u0131"
+        },
+        "link_deactivate": {
+            "description": "Bir UPB sahnesini devre d\u0131\u015f\u0131 b\u0131rak\u0131r.",
+            "name": "Ba\u011flant\u0131y\u0131 devre d\u0131\u015f\u0131 b\u0131rak"
+        },
+        "link_fade_start": {
+            "description": "Bir ba\u011flant\u0131y\u0131 mevcut parlakl\u0131ktan yukar\u0131 veya a\u015fa\u011f\u0131 do\u011fru soldurmaya ba\u015flar.",
+            "fields": {
+                "brightness": {
+                    "description": "Parlakl\u0131\u011f\u0131 g\u00f6steren say\u0131; burada 0 sahneyi kapat\u0131r, 1 minimum parlakl\u0131k ve 255 maksimum parlakl\u0131kt\u0131r.",
+                    "name": "Parlakl\u0131k"
+                },
+                "brightness_pct": {
+                    "description": "Tam parlakl\u0131\u011f\u0131n y\u00fczdesini g\u00f6steren say\u0131; burada 0 sahneyi kapat\u0131r, 1 minimum parlakl\u0131k ve 100 maksimum parlakl\u0131kt\u0131r.",
+                    "name": "Parlakl\u0131k y\u00fczdesi"
+                },
+                "rate": {
+                    "description": "Sahnenin yeni parlakl\u0131\u011fa ge\u00e7mesi i\u00e7in gereken s\u00fcre.",
+                    "name": "Oran"
+                }
+            },
+            "name": "Ba\u011flant\u0131 solmas\u0131n\u0131 ba\u015flat"
+        },
+        "link_fade_stop": {
+            "description": "Bir ba\u011flant\u0131 solmas\u0131n\u0131 durdurur.",
+            "name": "Ba\u011flant\u0131 solmas\u0131n\u0131 durdur"
+        },
+        "link_goto": {
+            "description": "Sahneyi parlakl\u0131\u011fa ayarlay\u0131n.",
+            "fields": {
+                "brightness": {
+                    "description": "Parlakl\u0131\u011f\u0131 g\u00f6steren say\u0131; burada 0 sahneyi kapat\u0131r, 1 minimum parlakl\u0131k ve 255 maksimum parlakl\u0131kt\u0131r.",
+                    "name": "Parlakl\u0131k"
+                },
+                "brightness_pct": {
+                    "description": "Tam parlakl\u0131\u011f\u0131n y\u00fczdesini g\u00f6steren say\u0131; burada 0 sahneyi kapat\u0131r, 1 minimum parlakl\u0131k ve 100 maksimum parlakl\u0131kt\u0131r.",
+                    "name": "Parlakl\u0131k y\u00fczdesi"
+                },
+                "rate": {
+                    "description": "Sahnenin yeni parlakl\u0131\u011fa ge\u00e7mesi i\u00e7in gereken s\u00fcre.",
+                    "name": "Oran"
+                }
+            },
+            "name": "Ba\u011flant\u0131ya git"
+        }
+    }
+}

@@ -1,0 +1,56 @@
+{
+    "config": {
+        "abort": {
+            "cloud_not_connected": "Niet verbonden met Home Assistant Cloud.",
+            "single_instance_allowed": "Al geconfigureerd. Slechts \u00e9\u00e9n configuratie mogelijk.",
+            "webhook_not_internet_accessible": "Je Home Assistant-instantie moet toegankelijk zijn vanaf internet om webhook-berichten te ontvangen."
+        },
+        "create_entry": {
+            "default": "Om evenementen naar de Home Assistant te verzenden, moet u de actie \"Een webverzoek doen\" gebruiken vanuit de [IFTTT Webhook-applet]({applet_url}). \n\n Vul de volgende info in: \n\n - URL: `{webhook_url}` \n - Method: POST \n - Content Type: application/json \n\nZie [the documentation]({docs_url}) voor informatie over het configureren van automatiseringen om inkomende gegevens te verwerken."
+        },
+        "step": {
+            "user": {
+                "description": "Weet je zeker dat u IFTTT wilt instellen?",
+                "title": "Stel de IFTTT Webhook-applet in"
+            }
+        }
+    },
+    "services": {
+        "push_alarm_state": {
+            "description": "Werkt de alarmstatus bij naar de aangegeven waarde.",
+            "fields": {
+                "entity_id": {
+                    "description": "De naam van het alarmbedieningspaneel waarvan de staat bijgewerkt moet worden.",
+                    "name": "Entiteits-ID"
+                },
+                "state": {
+                    "description": "De staat waarnaar het alarmbedieningspaneel moet worden ingesteld.",
+                    "name": "Status"
+                }
+            },
+            "name": "Publiceert een alarmstatus"
+        },
+        "trigger": {
+            "description": "Triggert een geconfigureerde IFTTT Webhook.",
+            "fields": {
+                "event": {
+                    "description": "De naam van het `event` om te sturen.",
+                    "name": "Event"
+                },
+                "value1": {
+                    "description": "Algemeen veld om data mee te sturen via het event.",
+                    "name": "Waarde 1"
+                },
+                "value2": {
+                    "description": "Algemeen veld om data mee te sturen via het event.",
+                    "name": "Waarde 2"
+                },
+                "value3": {
+                    "description": "Algemeen veld om data mee te sturen via het event.",
+                    "name": "Waarde 3"
+                }
+            },
+            "name": "Trigger"
+        }
+    }
+}

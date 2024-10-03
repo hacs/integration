@@ -1,0 +1,954 @@
+{
+    "config": {
+        "abort": {
+            "single_instance_allowed": "Ya est\u00e1 configurado. Solo es posible una \u00fanica configuraci\u00f3n."
+        },
+        "create_entry": {
+            "default": "Algunos sensores no est\u00e1n habilitados de forma predeterminada. Puedes habilitarlos en el registro de la entidad despu\u00e9s de la configuraci\u00f3n de la integraci\u00f3n."
+        },
+        "error": {
+            "cannot_connect": "No se pudo conectar",
+            "invalid_api_key": "Clave API no v\u00e1lida",
+            "requests_exceeded": "Se ha excedido el n\u00famero permitido de solicitudes a la API de Accuweather. Tienes que esperar o cambiar la Clave API."
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "api_key": "Clave API",
+                    "latitude": "Latitud",
+                    "longitude": "Longitud",
+                    "name": "Nombre"
+                }
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "air_quality": {
+                "name": "Calidad del aire d\u00eda {forecast_day}",
+                "state": {
+                    "good": "Bueno",
+                    "hazardous": "Peligroso",
+                    "high": "Alto",
+                    "low": "Bajo",
+                    "moderate": "Moderado",
+                    "unhealthy": "Poco saludable"
+                }
+            },
+            "air_quality_0d": {
+                "name": "Calidad del aire hoy",
+                "state": {
+                    "good": "Bueno",
+                    "hazardous": "Peligroso",
+                    "high": "Alto",
+                    "low": "Bajo",
+                    "moderate": "Moderado",
+                    "unhealthy": "Poco saludable"
+                }
+            },
+            "air_quality_1d": {
+                "name": "Calidad del aire d\u00eda 1",
+                "state": {
+                    "good": "Bueno",
+                    "hazardous": "Peligroso",
+                    "high": "Alto",
+                    "low": "Bajo",
+                    "moderate": "Moderado",
+                    "unhealthy": "Poco saludable"
+                }
+            },
+            "air_quality_2d": {
+                "name": "Calidad del aire d\u00eda 2",
+                "state": {
+                    "good": "Bueno",
+                    "hazardous": "Peligroso",
+                    "high": "Alto",
+                    "low": "Bajo",
+                    "moderate": "Moderado",
+                    "unhealthy": "Poco saludable"
+                }
+            },
+            "air_quality_3d": {
+                "name": "Calidad del aire d\u00eda 3",
+                "state": {
+                    "good": "Bueno",
+                    "hazardous": "Peligroso",
+                    "high": "Alto",
+                    "low": "Bajo",
+                    "moderate": "Moderado",
+                    "unhealthy": "Poco saludable"
+                }
+            },
+            "air_quality_4d": {
+                "name": "Calidad del aire d\u00eda 4",
+                "state": {
+                    "good": "Bueno",
+                    "hazardous": "Peligroso",
+                    "high": "Alto",
+                    "low": "Bajo",
+                    "moderate": "Moderado",
+                    "unhealthy": "Poco saludable"
+                }
+            },
+            "apparent_temperature": {
+                "name": "Temperatura aparente"
+            },
+            "cloud_ceiling": {
+                "name": "Techo de nubes"
+            },
+            "cloud_cover": {
+                "name": "Nubosidad"
+            },
+            "cloud_cover_day": {
+                "name": "Nubosidad d\u00eda {forecast_day}"
+            },
+            "cloud_cover_day_0d": {
+                "name": "Nubosidad hoy"
+            },
+            "cloud_cover_day_1d": {
+                "name": "Nubosidad d\u00eda 1"
+            },
+            "cloud_cover_day_2d": {
+                "name": "Nubosidad d\u00eda 2"
+            },
+            "cloud_cover_day_3d": {
+                "name": "Nubosidad d\u00eda 3"
+            },
+            "cloud_cover_day_4d": {
+                "name": "Nubosidad d\u00eda 4"
+            },
+            "cloud_cover_night": {
+                "name": "Nubosidad noche {forecast_day}"
+            },
+            "cloud_cover_night_0d": {
+                "name": "Nubosidad esta noche"
+            },
+            "cloud_cover_night_1d": {
+                "name": "Nubosidad noche 1"
+            },
+            "cloud_cover_night_2d": {
+                "name": "Nubosidad noche 2"
+            },
+            "cloud_cover_night_3d": {
+                "name": "Nubosidad noche 3"
+            },
+            "cloud_cover_night_4d": {
+                "name": "Nubosidad noche 4"
+            },
+            "condition_day": {
+                "name": "Condici\u00f3n d\u00eda {forecast_day}"
+            },
+            "condition_day_0d": {
+                "name": "Condici\u00f3n hoy"
+            },
+            "condition_day_1d": {
+                "name": "Condici\u00f3n d\u00eda 1"
+            },
+            "condition_day_2d": {
+                "name": "Condici\u00f3n d\u00eda 2"
+            },
+            "condition_day_3d": {
+                "name": "Condici\u00f3n d\u00eda 3"
+            },
+            "condition_day_4d": {
+                "name": "Condici\u00f3n d\u00eda 4"
+            },
+            "condition_night": {
+                "name": "Condici\u00f3n noche {forecast_day}"
+            },
+            "condition_night_0d": {
+                "name": "Condici\u00f3n esta noche"
+            },
+            "condition_night_1d": {
+                "name": "Condici\u00f3n noche 1"
+            },
+            "condition_night_2d": {
+                "name": "Condici\u00f3n noche 2"
+            },
+            "condition_night_3d": {
+                "name": "Condici\u00f3n noche 3"
+            },
+            "condition_night_4d": {
+                "name": "Condici\u00f3n noche 4"
+            },
+            "dew_point": {
+                "name": "Punto de roc\u00edo"
+            },
+            "grass_pollen": {
+                "name": "Polen de gram\u00edneas d\u00eda {forecast_day}",
+                "state_attributes": {
+                    "level": {
+                        "name": "Nivel",
+                        "state": {
+                            "good": "Bueno",
+                            "hazardous": "Peligroso",
+                            "high": "Alto",
+                            "low": "Bajo",
+                            "moderate": "Moderado",
+                            "unhealthy": "Poco saludable"
+                        }
+                    }
+                }
+            },
+            "grass_pollen_0d": {
+                "name": "Polen de gram\u00edneas hoy",
+                "state_attributes": {
+                    "level": {
+                        "name": "Nivel",
+                        "state": {
+                            "good": "Bueno",
+                            "hazardous": "Peligroso",
+                            "high": "Alto",
+                            "low": "Bajo",
+                            "moderate": "Moderado",
+                            "unhealthy": "Poco saludable"
+                        }
+                    }
+                }
+            },
+            "grass_pollen_1d": {
+                "name": "Polen de gram\u00edneas d\u00eda 1",
+                "state_attributes": {
+                    "level": {
+                        "name": "Nivel",
+                        "state": {
+                            "good": "Bueno",
+                            "hazardous": "Peligroso",
+                            "high": "Alto",
+                            "low": "Bajo",
+                            "moderate": "Moderado",
+                            "unhealthy": "Poco saludable"
+                        }
+                    }
+                }
+            },
+            "grass_pollen_2d": {
+                "name": "Polen de gram\u00edneas d\u00eda 2",
+                "state_attributes": {
+                    "level": {
+                        "name": "Nivel",
+                        "state": {
+                            "good": "Bueno",
+                            "hazardous": "Peligroso",
+                            "high": "Alto",
+                            "low": "Bajo",
+                            "moderate": "Moderado",
+                            "unhealthy": "Poco saludable"
+                        }
+                    }
+                }
+            },
+            "grass_pollen_3d": {
+                "name": "Polen de gram\u00edneas d\u00eda 3",
+                "state_attributes": {
+                    "level": {
+                        "name": "Nivel",
+                        "state": {
+                            "good": "Bueno",
+                            "hazardous": "Peligroso",
+                            "high": "Alto",
+                            "low": "Bajo",
+                            "moderate": "Moderado",
+                            "unhealthy": "Poco saludable"
+                        }
+                    }
+                }
+            },
+            "grass_pollen_4d": {
+                "name": "Polen de gram\u00edneas d\u00eda 4",
+                "state_attributes": {
+                    "level": {
+                        "name": "Nivel",
+                        "state": {
+                            "good": "Bueno",
+                            "hazardous": "Peligroso",
+                            "high": "Alto",
+                            "low": "Bajo",
+                            "moderate": "Moderado",
+                            "unhealthy": "Poco saludable"
+                        }
+                    }
+                }
+            },
+            "hours_of_sun": {
+                "name": "Horas de sol d\u00eda {forecast_day}"
+            },
+            "hours_of_sun_0d": {
+                "name": "Horas de sol hoy"
+            },
+            "hours_of_sun_1d": {
+                "name": "Horas de sol d\u00eda 1"
+            },
+            "hours_of_sun_2d": {
+                "name": "Horas de sol d\u00eda 2"
+            },
+            "hours_of_sun_3d": {
+                "name": "Horas de sol d\u00eda 3"
+            },
+            "hours_of_sun_4d": {
+                "name": "Horas de sol d\u00eda 4"
+            },
+            "mold_pollen": {
+                "name": "Polen de moho d\u00eda {forecast_day}",
+                "state_attributes": {
+                    "level": {
+                        "name": "Nivel",
+                        "state": {
+                            "good": "Bueno",
+                            "hazardous": "Peligroso",
+                            "high": "Alto",
+                            "low": "Bajo",
+                            "moderate": "Moderado",
+                            "unhealthy": "Poco saludable"
+                        }
+                    }
+                }
+            },
+            "mold_pollen_0d": {
+                "name": "Polen de moho hoy",
+                "state_attributes": {
+                    "level": {
+                        "name": "Nivel",
+                        "state": {
+                            "good": "Bueno",
+                            "hazardous": "Peligroso",
+                            "high": "Alto",
+                            "low": "Bajo",
+                            "moderate": "Moderado",
+                            "unhealthy": "Poco saludable"
+                        }
+                    }
+                }
+            },
+            "mold_pollen_1d": {
+                "name": "Polen de moho d\u00eda 1",
+                "state_attributes": {
+                    "level": {
+                        "name": "Nivel",
+                        "state": {
+                            "good": "Bueno",
+                            "hazardous": "Peligroso",
+                            "high": "Alto",
+                            "low": "Bajo",
+                            "moderate": "Moderado",
+                            "unhealthy": "Poco saludable"
+                        }
+                    }
+                }
+            },
+            "mold_pollen_2d": {
+                "name": "Polen de moho d\u00eda 2",
+                "state_attributes": {
+                    "level": {
+                        "name": "Nivel",
+                        "state": {
+                            "good": "Bueno",
+                            "hazardous": "Peligroso",
+                            "high": "Alto",
+                            "low": "Bajo",
+                            "moderate": "Moderado",
+                            "unhealthy": "Poco saludable"
+                        }
+                    }
+                }
+            },
+            "mold_pollen_3d": {
+                "name": "Polen de moho d\u00eda 3",
+                "state_attributes": {
+                    "level": {
+                        "name": "Nivel",
+                        "state": {
+                            "good": "Bueno",
+                            "hazardous": "Peligroso",
+                            "high": "Alto",
+                            "low": "Bajo",
+                            "moderate": "Moderado",
+                            "unhealthy": "Poco saludable"
+                        }
+                    }
+                }
+            },
+            "mold_pollen_4d": {
+                "name": "Polen de moho d\u00eda 4",
+                "state_attributes": {
+                    "level": {
+                        "name": "Nivel",
+                        "state": {
+                            "good": "Bueno",
+                            "hazardous": "Peligroso",
+                            "high": "Alto",
+                            "low": "Bajo",
+                            "moderate": "Moderado",
+                            "unhealthy": "Poco saludable"
+                        }
+                    }
+                }
+            },
+            "precipitation": {
+                "name": "Precipitaci\u00f3n"
+            },
+            "pressure_tendency": {
+                "name": "Tendencia de presi\u00f3n",
+                "state": {
+                    "falling": "Descendente",
+                    "rising": "Creciente",
+                    "steady": "Estable"
+                }
+            },
+            "ragweed_pollen": {
+                "name": "Polen de ambros\u00eda d\u00eda {forecast_day}",
+                "state_attributes": {
+                    "level": {
+                        "name": "Nivel",
+                        "state": {
+                            "good": "Bueno",
+                            "hazardous": "Peligroso",
+                            "high": "Alto",
+                            "low": "Bajo",
+                            "moderate": "Moderado",
+                            "unhealthy": "Poco saludable"
+                        }
+                    }
+                }
+            },
+            "ragweed_pollen_0d": {
+                "name": "Polen de ambros\u00eda hoy",
+                "state_attributes": {
+                    "level": {
+                        "name": "Nivel",
+                        "state": {
+                            "good": "Bueno",
+                            "hazardous": "Peligroso",
+                            "high": "Alto",
+                            "low": "Bajo",
+                            "moderate": "Moderado",
+                            "unhealthy": "Poco saludable"
+                        }
+                    }
+                }
+            },
+            "ragweed_pollen_1d": {
+                "name": "Polen de ambros\u00eda d\u00eda 1",
+                "state_attributes": {
+                    "level": {
+                        "name": "Nivel",
+                        "state": {
+                            "good": "Bueno",
+                            "hazardous": "Peligroso",
+                            "high": "Alto",
+                            "low": "Bajo",
+                            "moderate": "Moderado",
+                            "unhealthy": "Poco saludable"
+                        }
+                    }
+                }
+            },
+            "ragweed_pollen_2d": {
+                "name": "Polen de ambros\u00eda d\u00eda 2",
+                "state_attributes": {
+                    "level": {
+                        "name": "Nivel",
+                        "state": {
+                            "good": "Bueno",
+                            "hazardous": "Peligroso",
+                            "high": "Alto",
+                            "low": "Bajo",
+                            "moderate": "Moderado",
+                            "unhealthy": "Poco saludable"
+                        }
+                    }
+                }
+            },
+            "ragweed_pollen_3d": {
+                "name": "Polen de ambros\u00eda d\u00eda 3",
+                "state_attributes": {
+                    "level": {
+                        "name": "Nivel",
+                        "state": {
+                            "good": "Bueno",
+                            "hazardous": "Peligroso",
+                            "high": "Alto",
+                            "low": "Bajo",
+                            "moderate": "Moderado",
+                            "unhealthy": "Poco saludable"
+                        }
+                    }
+                }
+            },
+            "ragweed_pollen_4d": {
+                "name": "Polen de ambros\u00eda d\u00eda 4",
+                "state_attributes": {
+                    "level": {
+                        "name": "Nivel",
+                        "state": {
+                            "good": "Bueno",
+                            "hazardous": "Peligroso",
+                            "high": "Alto",
+                            "low": "Bajo",
+                            "moderate": "Moderado",
+                            "unhealthy": "Poco saludable"
+                        }
+                    }
+                }
+            },
+            "realfeel_temperature": {
+                "name": "Sensaci\u00f3n real de temperatura"
+            },
+            "realfeel_temperature_max": {
+                "name": "M\u00e1xima sensaci\u00f3n real de temperatura d\u00eda {forecast_day}"
+            },
+            "realfeel_temperature_max_0d": {
+                "name": "M\u00e1xima sensaci\u00f3n real de temperatura hoy"
+            },
+            "realfeel_temperature_max_1d": {
+                "name": "M\u00e1xima sensaci\u00f3n real de temperatura d\u00eda 1"
+            },
+            "realfeel_temperature_max_2d": {
+                "name": "M\u00e1xima sensaci\u00f3n real de temperatura d\u00eda 2"
+            },
+            "realfeel_temperature_max_3d": {
+                "name": "M\u00e1xima sensaci\u00f3n real de temperatura d\u00eda 3"
+            },
+            "realfeel_temperature_max_4d": {
+                "name": "M\u00e1xima sensaci\u00f3n real de temperatura d\u00eda 4"
+            },
+            "realfeel_temperature_min": {
+                "name": "M\u00ednima sensaci\u00f3n real de temperatura d\u00eda {forecast_day}"
+            },
+            "realfeel_temperature_min_0d": {
+                "name": "M\u00ednima sensaci\u00f3n real de temperatura hoy"
+            },
+            "realfeel_temperature_min_1d": {
+                "name": "M\u00ednima sensaci\u00f3n real de temperatura d\u00eda 1"
+            },
+            "realfeel_temperature_min_2d": {
+                "name": "M\u00ednima sensaci\u00f3n real de temperatura d\u00eda 2"
+            },
+            "realfeel_temperature_min_3d": {
+                "name": "M\u00ednima sensaci\u00f3n real de temperatura d\u00eda 3"
+            },
+            "realfeel_temperature_min_4d": {
+                "name": "M\u00ednima sensaci\u00f3n real de temperatura d\u00eda 4"
+            },
+            "realfeel_temperature_shade": {
+                "name": "Sensaci\u00f3n real de temperatura en la sombra"
+            },
+            "realfeel_temperature_shade_max": {
+                "name": "M\u00e1xima sensaci\u00f3n real de temperatura en la sombra d\u00eda {forecast_day}"
+            },
+            "realfeel_temperature_shade_max_0d": {
+                "name": "M\u00e1xima sensaci\u00f3n real de temperatura en la sombra hoy"
+            },
+            "realfeel_temperature_shade_max_1d": {
+                "name": "M\u00e1xima sensaci\u00f3n real de temperatura en la sombra d\u00eda 1"
+            },
+            "realfeel_temperature_shade_max_2d": {
+                "name": "M\u00e1xima sensaci\u00f3n real de temperatura en la sombra d\u00eda 2"
+            },
+            "realfeel_temperature_shade_max_3d": {
+                "name": "M\u00e1xima sensaci\u00f3n real de temperatura en la sombra d\u00eda 3"
+            },
+            "realfeel_temperature_shade_max_4d": {
+                "name": "M\u00e1xima sensaci\u00f3n real de temperatura en la sombra d\u00eda 4"
+            },
+            "realfeel_temperature_shade_min": {
+                "name": "M\u00ednima sensaci\u00f3n real de temperatura en la sombra d\u00eda {forecast_day}"
+            },
+            "realfeel_temperature_shade_min_0d": {
+                "name": "M\u00ednima sensaci\u00f3n real de temperatura en la sombra hoy"
+            },
+            "realfeel_temperature_shade_min_1d": {
+                "name": "M\u00ednima sensaci\u00f3n real de temperatura en la sombra d\u00eda 1"
+            },
+            "realfeel_temperature_shade_min_2d": {
+                "name": "M\u00ednima sensaci\u00f3n real de temperatura en la sombra d\u00eda 2"
+            },
+            "realfeel_temperature_shade_min_3d": {
+                "name": "M\u00ednima sensaci\u00f3n real de temperatura en la sombra d\u00eda 3"
+            },
+            "realfeel_temperature_shade_min_4d": {
+                "name": "M\u00ednima sensaci\u00f3n real de temperatura en la sombra d\u00eda 4"
+            },
+            "solar_irradiance_day": {
+                "name": "Irradiaci\u00f3n solar d\u00eda {forecast_day}"
+            },
+            "solar_irradiance_day_0d": {
+                "name": "Irradiaci\u00f3n solar hoy"
+            },
+            "solar_irradiance_day_1d": {
+                "name": "Irradiaci\u00f3n solar d\u00eda 1"
+            },
+            "solar_irradiance_day_2d": {
+                "name": "Irradiaci\u00f3n solar d\u00eda 2"
+            },
+            "solar_irradiance_day_3d": {
+                "name": "Irradiaci\u00f3n solar d\u00eda 3"
+            },
+            "solar_irradiance_day_4d": {
+                "name": "Irradiaci\u00f3n solar d\u00eda 4"
+            },
+            "solar_irradiance_night": {
+                "name": "Irradiaci\u00f3n solar noche {forecast_day}"
+            },
+            "solar_irradiance_night_0d": {
+                "name": "Irradiaci\u00f3n solar esta noche"
+            },
+            "solar_irradiance_night_1d": {
+                "name": "Irradiaci\u00f3n solar noche 1"
+            },
+            "solar_irradiance_night_2d": {
+                "name": "Irradiaci\u00f3n solar noche 2"
+            },
+            "solar_irradiance_night_3d": {
+                "name": "Irradiaci\u00f3n solar noche 3"
+            },
+            "solar_irradiance_night_4d": {
+                "name": "Irradiaci\u00f3n solar noche 4"
+            },
+            "thunderstorm_probability_day": {
+                "name": "Probabilidad de tormenta d\u00eda {forecast_day}"
+            },
+            "thunderstorm_probability_day_0d": {
+                "name": "Probabilidad de tormenta hoy"
+            },
+            "thunderstorm_probability_day_1d": {
+                "name": "Probabilidad de tormenta d\u00eda 1"
+            },
+            "thunderstorm_probability_day_2d": {
+                "name": "Probabilidad de tormenta d\u00eda 2"
+            },
+            "thunderstorm_probability_day_3d": {
+                "name": "Probabilidad de tormenta d\u00eda 3"
+            },
+            "thunderstorm_probability_day_4d": {
+                "name": "Probabilidad de tormenta d\u00eda 4"
+            },
+            "thunderstorm_probability_night": {
+                "name": "Probabilidad de tormenta noche {forecast_day}"
+            },
+            "thunderstorm_probability_night_0d": {
+                "name": "Probabilidad de tormenta esta noche"
+            },
+            "thunderstorm_probability_night_1d": {
+                "name": "Probabilidad de tormenta noche 1"
+            },
+            "thunderstorm_probability_night_2d": {
+                "name": "Probabilidad de tormenta noche 2"
+            },
+            "thunderstorm_probability_night_3d": {
+                "name": "Probabilidad de tormenta noche 3"
+            },
+            "thunderstorm_probability_night_4d": {
+                "name": "Probabilidad de tormenta noche 4"
+            },
+            "tree_pollen": {
+                "name": "Polen de los \u00e1rboles d\u00eda {forecast_day}",
+                "state_attributes": {
+                    "level": {
+                        "name": "Nivel",
+                        "state": {
+                            "good": "Bueno",
+                            "hazardous": "Peligroso",
+                            "high": "Alto",
+                            "low": "Bajo",
+                            "moderate": "Moderado",
+                            "unhealthy": "Poco saludable"
+                        }
+                    }
+                }
+            },
+            "tree_pollen_0d": {
+                "name": "Polen de \u00e1rboles hoy",
+                "state_attributes": {
+                    "level": {
+                        "name": "Nivel",
+                        "state": {
+                            "good": "Bueno",
+                            "hazardous": "Peligroso",
+                            "high": "Alto",
+                            "low": "Bajo",
+                            "moderate": "Moderado",
+                            "unhealthy": "Poco saludable"
+                        }
+                    }
+                }
+            },
+            "tree_pollen_1d": {
+                "name": "Polen de \u00e1rboles d\u00eda 1",
+                "state_attributes": {
+                    "level": {
+                        "name": "Nivel",
+                        "state": {
+                            "good": "Bueno",
+                            "hazardous": "Peligroso",
+                            "high": "Alto",
+                            "low": "Bajo",
+                            "moderate": "Moderado",
+                            "unhealthy": "Poco saludable"
+                        }
+                    }
+                }
+            },
+            "tree_pollen_2d": {
+                "name": "Polen de \u00e1rboles d\u00eda 2",
+                "state_attributes": {
+                    "level": {
+                        "name": "Nivel",
+                        "state": {
+                            "good": "Bueno",
+                            "hazardous": "Peligroso",
+                            "high": "Alto",
+                            "low": "Bajo",
+                            "moderate": "Moderado",
+                            "unhealthy": "Poco saludable"
+                        }
+                    }
+                }
+            },
+            "tree_pollen_3d": {
+                "name": "Polen de \u00e1rboles d\u00eda 3",
+                "state_attributes": {
+                    "level": {
+                        "name": "Nivel",
+                        "state": {
+                            "good": "Bueno",
+                            "hazardous": "Peligroso",
+                            "high": "Alto",
+                            "low": "Bajo",
+                            "moderate": "Moderado",
+                            "unhealthy": "Poco saludable"
+                        }
+                    }
+                }
+            },
+            "tree_pollen_4d": {
+                "name": "Polen de \u00e1rboles d\u00eda 4",
+                "state_attributes": {
+                    "level": {
+                        "name": "Nivel",
+                        "state": {
+                            "good": "Bueno",
+                            "hazardous": "Peligroso",
+                            "high": "Alto",
+                            "low": "Bajo",
+                            "moderate": "Moderado",
+                            "unhealthy": "Poco saludable"
+                        }
+                    }
+                }
+            },
+            "uv_index": {
+                "name": "\u00cdndice UV",
+                "state_attributes": {
+                    "level": {
+                        "name": "Nivel",
+                        "state": {
+                            "good": "Bueno",
+                            "hazardous": "Peligroso",
+                            "high": "Alto",
+                            "low": "Bajo",
+                            "moderate": "Moderado",
+                            "unhealthy": "Poco saludable"
+                        }
+                    }
+                }
+            },
+            "uv_index_0d": {
+                "name": "\u00cdndice UV hoy",
+                "state_attributes": {
+                    "level": {
+                        "name": "Nivel",
+                        "state": {
+                            "good": "Bueno",
+                            "hazardous": "Peligroso",
+                            "high": "Alto",
+                            "low": "Bajo",
+                            "moderate": "Moderado",
+                            "unhealthy": "Poco saludable"
+                        }
+                    }
+                }
+            },
+            "uv_index_1d": {
+                "name": "\u00cdndice UV d\u00eda 1",
+                "state_attributes": {
+                    "level": {
+                        "name": "Nivel",
+                        "state": {
+                            "good": "Bueno",
+                            "hazardous": "Peligroso",
+                            "high": "Alto",
+                            "low": "Bajo",
+                            "moderate": "Moderado",
+                            "unhealthy": "Poco saludable"
+                        }
+                    }
+                }
+            },
+            "uv_index_2d": {
+                "name": "\u00cdndice UV d\u00eda 2",
+                "state_attributes": {
+                    "level": {
+                        "name": "Nivel",
+                        "state": {
+                            "good": "Bueno",
+                            "hazardous": "Peligroso",
+                            "high": "Alto",
+                            "low": "Bajo",
+                            "moderate": "Moderado",
+                            "unhealthy": "Poco saludable"
+                        }
+                    }
+                }
+            },
+            "uv_index_3d": {
+                "name": "\u00cdndice UV d\u00eda 3",
+                "state_attributes": {
+                    "level": {
+                        "name": "Nivel",
+                        "state": {
+                            "good": "Bueno",
+                            "hazardous": "Peligroso",
+                            "high": "Alto",
+                            "low": "Bajo",
+                            "moderate": "Moderado",
+                            "unhealthy": "Poco saludable"
+                        }
+                    }
+                }
+            },
+            "uv_index_4d": {
+                "name": "\u00cdndice UV d\u00eda 4",
+                "state_attributes": {
+                    "level": {
+                        "name": "Nivel",
+                        "state": {
+                            "good": "Bueno",
+                            "hazardous": "Peligroso",
+                            "high": "Alto",
+                            "low": "Bajo",
+                            "moderate": "Moderado",
+                            "unhealthy": "Poco saludable"
+                        }
+                    }
+                }
+            },
+            "uv_index_forecast": {
+                "name": "\u00cdndice UV d\u00eda {forecast_day}",
+                "state_attributes": {
+                    "level": {
+                        "name": "Nivel",
+                        "state": {
+                            "good": "Bueno",
+                            "hazardous": "Peligroso",
+                            "high": "Alto",
+                            "low": "Bajo",
+                            "moderate": "Moderado",
+                            "unhealthy": "Poco saludable"
+                        }
+                    }
+                }
+            },
+            "wet_bulb_temperature": {
+                "name": "Temperatura del bulbo h\u00famedo"
+            },
+            "wind_chill_temperature": {
+                "name": "Temperatura de sensaci\u00f3n t\u00e9rmica"
+            },
+            "wind_gust_speed": {
+                "name": "Velocidad de r\u00e1fagas de viento"
+            },
+            "wind_gust_speed_day": {
+                "name": "Velocidad de las r\u00e1fagas de viento d\u00eda {forecast_day}"
+            },
+            "wind_gust_speed_day_0d": {
+                "name": "Velocidad de r\u00e1faga de viento hoy"
+            },
+            "wind_gust_speed_day_1d": {
+                "name": "Velocidad de r\u00e1faga de viento d\u00eda 1"
+            },
+            "wind_gust_speed_day_2d": {
+                "name": "Velocidad de r\u00e1faga de viento d\u00eda 2"
+            },
+            "wind_gust_speed_day_3d": {
+                "name": "Velocidad de r\u00e1faga de viento d\u00eda 3"
+            },
+            "wind_gust_speed_day_4d": {
+                "name": "Velocidad de r\u00e1faga de viento d\u00eda 4"
+            },
+            "wind_gust_speed_night": {
+                "name": "Velocidad de las r\u00e1fagas de viento noche {forecast_day}"
+            },
+            "wind_gust_speed_night_0d": {
+                "name": "Velocidad de r\u00e1faga de viento esta noche"
+            },
+            "wind_gust_speed_night_1d": {
+                "name": "Velocidad de r\u00e1faga de viento noche 1"
+            },
+            "wind_gust_speed_night_2d": {
+                "name": "Velocidad de r\u00e1faga de viento noche 2"
+            },
+            "wind_gust_speed_night_3d": {
+                "name": "Velocidad de r\u00e1faga de viento noche 3"
+            },
+            "wind_gust_speed_night_4d": {
+                "name": "Velocidad de r\u00e1faga de viento noche 4"
+            },
+            "wind_speed": {
+                "name": "Velocidad del viento"
+            },
+            "wind_speed_day": {
+                "name": "Velocidad del viento d\u00eda {forecast_day}"
+            },
+            "wind_speed_day_0d": {
+                "name": "Velocidad del viento hoy"
+            },
+            "wind_speed_day_1d": {
+                "name": "Velocidad del viento d\u00eda 1"
+            },
+            "wind_speed_day_2d": {
+                "name": "Velocidad del viento d\u00eda 2"
+            },
+            "wind_speed_day_3d": {
+                "name": "Velocidad del viento d\u00eda 3"
+            },
+            "wind_speed_day_4d": {
+                "name": "Velocidad del viento d\u00eda 4"
+            },
+            "wind_speed_night": {
+                "name": "Velocidad del viento noche {forecast_day}"
+            },
+            "wind_speed_night_0d": {
+                "name": "Velocidad del viento esta noche"
+            },
+            "wind_speed_night_1d": {
+                "name": "Velocidad del viento noche 1"
+            },
+            "wind_speed_night_2d": {
+                "name": "Velocidad del viento noche 2"
+            },
+            "wind_speed_night_3d": {
+                "name": "Velocidad del viento noche 3"
+            },
+            "wind_speed_night_4d": {
+                "name": "Velocidad del viento noche 4"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "forecast": "Previsi\u00f3n meteorol\u00f3gica"
+                },
+                "description": "Debido a las limitaciones de la versi\u00f3n gratuita de la clave API de AccuWeather, cuando habilitas la previsi\u00f3n meteorol\u00f3gica, las actualizaciones de datos se realizar\u00e1n cada 80 minutos en lugar de cada 40 minutos."
+            }
+        }
+    },
+    "system_health": {
+        "info": {
+            "can_reach_server": "Se puede llegar al servidor AccuWeather",
+            "remaining_requests": "Solicitudes permitidas restantes"
+        }
+    }
+}

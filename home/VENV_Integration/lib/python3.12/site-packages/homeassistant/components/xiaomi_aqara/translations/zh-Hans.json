@@ -1,0 +1,95 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "\u8bbe\u5907\u5df2\u914d\u7f6e",
+            "already_in_progress": "\u914d\u7f6e\u6d41\u7a0b\u5df2\u5728\u8fdb\u884c\u4e2d",
+            "not_xiaomi_aqara": "\u8fd9\u4e0d\u662f\u5c0f\u7c73 Aqara \u7f51\u5173\u3002\u53d1\u73b0\u7684\u8bbe\u5907\u4e0e\u5df2\u77e5\u7f51\u5173\u4e0d\u5339\u914d"
+        },
+        "error": {
+            "discovery_error": "\u672a\u53d1\u73b0\u5c0f\u7c73 Aqara \u7f51\u5173\u3002\u8bf7\u5c1d\u8bd5\u4f7f\u7528\u8fd0\u884c Home Assistant \u7684\u8bbe\u5907 IP \u4f5c\u4e3a\u63a5\u53e3",
+            "invalid_host": "\u4e3b\u673a\u540d\u6216 IP \u5730\u5740\u65e0\u6548\uff0c\u8bf7\u53c2\u9605 https://www.home-assistant.io/integrations/xiaomi_aqara/#connection-problem",
+            "invalid_interface": "\u7f51\u7edc\u63a5\u53e3\u65e0\u6548",
+            "invalid_key": "\u7f51\u5173\u5bc6\u94a5\u65e0\u6548",
+            "invalid_mac": "Mac \u5730\u5740\u65e0\u6548"
+        },
+        "flow_title": "{name}",
+        "step": {
+            "select": {
+                "data": {
+                    "select_ip": "IP \u5730\u5740"
+                },
+                "description": "\u9009\u62e9\u60a8\u60f3\u8fde\u63a5\u7684\u5c0f\u7c73 Aqara \u7f51\u5173"
+            },
+            "settings": {
+                "data": {
+                    "key": "\u60a8\u7f51\u5173\u7684\u5bc6\u94a5",
+                    "name": "\u7f51\u5173\u540d\u79f0"
+                },
+                "description": "\u53ef\u53c2\u8003\u4ee5\u4e0b\u6559\u7a0b\u83b7\u53d6\u5bc6\u94a5\uff08\u5bc6\u7801\uff09: https://www.domoticz.com/wiki/Xiaomi_Gateway_(Aqara)#Adding_the_Xiaomi_Gateway_to_Domoticz \u3002\u5982\u679c\u672a\u63d0\u4f9b\u5bc6\u94a5\uff0c\u5219\u53ea\u80fd\u8bbf\u95ee\u4f20\u611f\u5668",
+                "title": "\u53ef\u9009\u8bbe\u7f6e"
+            },
+            "user": {
+                "data": {
+                    "host": "IP \u5730\u5740\uff08\u53ef\u9009\uff09",
+                    "interface": "\u8981\u4f7f\u7528\u7684\u7f51\u7edc\u63a5\u53e3",
+                    "mac": "MAC \u5730\u5740 (\u53ef\u9009)"
+                },
+                "description": "\u5982\u679c IP \u548c MAC \u5730\u5740\u7559\u7a7a\uff0c\u5219\u4f7f\u7528\u81ea\u52a8\u53d1\u73b0"
+            }
+        }
+    },
+    "services": {
+        "add_device": {
+            "description": "\u5f00\u542f\u5c0f\u7c73 Aqara \u7f51\u5173\u7684\u52a0\u5165\u6743\u9650\uff0c\u6301\u7eed 30 \u79d2\u3002\u4e4b\u540e\u53ef\u4ee5\u901a\u8fc7\u6309\u4e00\u6b21\u914d\u5bf9\u6309\u94ae\u6765\u6dfb\u52a0\u65b0\u8bbe\u5907\u3002",
+            "fields": {
+                "gw_mac": {
+                    "description": "\u5c0f\u7c73 Aqara \u7f51\u5173\u7684 MAC \u5730\u5740\u3002",
+                    "name": "\u7f51\u5173 MAC"
+                }
+            },
+            "name": "\u6dfb\u52a0\u8bbe\u5907"
+        },
+        "play_ringtone": {
+            "description": "\u64ad\u653e\u7279\u5b9a\u94c3\u58f0\u3002\u7f51\u5173\u56fa\u4ef6\u7248\u672c\u81f3\u5c11\u4e3a 1.4.1_145\u3002",
+            "fields": {
+                "gw_mac": {
+                    "description": "\u5c0f\u7c73 Aqara \u7f51\u5173\u7684 MAC \u5730\u5740\u3002",
+                    "name": "\u7f51\u5173 MAC"
+                },
+                "ringtone_id": {
+                    "description": "\u5141\u8bb8\u7684\u94c3\u58f0 ID \u4e4b\u4e00\u3002",
+                    "name": "\u94c3\u58f0 ID"
+                },
+                "ringtone_vol": {
+                    "description": "\u97f3\u91cf\u767e\u5206\u6bd4\u3002",
+                    "name": "\u94c3\u58f0\u97f3\u91cf"
+                }
+            },
+            "name": "\u64ad\u653e\u94c3\u58f0"
+        },
+        "remove_device": {
+            "description": "\u5220\u9664\u6307\u5b9a\u8bbe\u5907\u3002\u5982\u679c\u8bbe\u5907\u8981\u4e0e\u53e6\u4e00\u4e2a\u7f51\u5173\u914d\u5bf9\uff0c\u5219\u9700\u8981\u5220\u9664\u3002",
+            "fields": {
+                "device_id": {
+                    "description": "\u8981\u5220\u9664\u7684\u8bbe\u5907\u7684\u786c\u4ef6\u5730\u5740\u3002",
+                    "name": "\u8bbe\u5907\u6807\u8bc6\u7b26"
+                },
+                "gw_mac": {
+                    "description": "\u5c0f\u7c73 Aqara \u7f51\u5173\u7684 MAC \u5730\u5740\u3002",
+                    "name": "\u7f51\u5173 MAC"
+                }
+            },
+            "name": "\u5220\u9664\u8bbe\u5907"
+        },
+        "stop_ringtone": {
+            "description": "\u7acb\u5373\u505c\u6b62\u64ad\u653e\u94c3\u58f0\u3002",
+            "fields": {
+                "gw_mac": {
+                    "description": "\u5c0f\u7c73 Aqara \u7f51\u5173\u7684 MAC \u5730\u5740\u3002",
+                    "name": "\u7f51\u5173 MAC"
+                }
+            },
+            "name": "\u505c\u6b62\u94c3\u58f0"
+        }
+    }
+}

@@ -1,0 +1,954 @@
+{
+    "config": {
+        "abort": {
+            "single_instance_allowed": "Juba seadistatud. V\u00f5imalik on ainult \u00fcks seadistamine."
+        },
+        "create_entry": {
+            "default": "M\u00f5ned andurid ei ole vaikimisi lubatud. Saad neid lubada \u00fcksuse registris p\u00e4rast sidumise seadistamist."
+        },
+        "error": {
+            "cannot_connect": "\u00dchendamine nurjus",
+            "invalid_api_key": "API v\u00f5ti on vale",
+            "requests_exceeded": "Accuweatheri API-le esitatud p\u00e4ringute piirarv on \u00fcletatud. Peate ootama (v\u00f5i muutma API v\u00f5tit)."
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "api_key": "API v\u00f5ti",
+                    "latitude": "Laiuskraad",
+                    "longitude": "Pikkuskraad",
+                    "name": "Sidumise nimi"
+                }
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "air_quality": {
+                "name": "\u00d5hukvaliteet p\u00e4ev {forecast_day}",
+                "state": {
+                    "good": "Hea",
+                    "hazardous": "Ohtlik",
+                    "high": "K\u00f5rge",
+                    "low": "Madal",
+                    "moderate": "M\u00f5\u00f5dukas",
+                    "unhealthy": "Ebatervislik"
+                }
+            },
+            "air_quality_0d": {
+                "name": "\u00d5hu kvaliteet t\u00e4na",
+                "state": {
+                    "good": "Hea",
+                    "hazardous": "Ohtlik",
+                    "high": "K\u00f5rge",
+                    "low": "Madal",
+                    "moderate": "M\u00f5\u00f5dukas",
+                    "unhealthy": "Ebatervislik"
+                }
+            },
+            "air_quality_1d": {
+                "name": "\u00d5hu kvaliteet 1. p\u00e4ev",
+                "state": {
+                    "good": "Hea",
+                    "hazardous": "Ohtlik",
+                    "high": "K\u00f5rge",
+                    "low": "Madal",
+                    "moderate": "M\u00f5\u00f5dukas",
+                    "unhealthy": "Ebatervislik"
+                }
+            },
+            "air_quality_2d": {
+                "name": "\u00d5hu kvaliteet 2. p\u00e4ev",
+                "state": {
+                    "good": "Hea",
+                    "hazardous": "Ohtlik",
+                    "high": "K\u00f5rge",
+                    "low": "Madal",
+                    "moderate": "M\u00f5\u00f5dukas",
+                    "unhealthy": "Ebatervislik"
+                }
+            },
+            "air_quality_3d": {
+                "name": "\u00d5hu kvaliteet 3. p\u00e4ev",
+                "state": {
+                    "good": "Hea",
+                    "hazardous": "Ohtlik",
+                    "high": "K\u00f5rge",
+                    "low": "Madal",
+                    "moderate": "M\u00f5\u00f5dukas",
+                    "unhealthy": "Ebatervislik"
+                }
+            },
+            "air_quality_4d": {
+                "name": "\u00d5hu kvaliteet 4. p\u00e4ev",
+                "state": {
+                    "good": "Hea",
+                    "hazardous": "Ohtlik",
+                    "high": "K\u00f5rge",
+                    "low": "Madal",
+                    "moderate": "M\u00f5\u00f5dukas",
+                    "unhealthy": "Ebatervislik"
+                }
+            },
+            "apparent_temperature": {
+                "name": "Tunduv temperatuur"
+            },
+            "cloud_ceiling": {
+                "name": "Pilvede k\u00f5rgus"
+            },
+            "cloud_cover": {
+                "name": "Pilvisus"
+            },
+            "cloud_cover_day": {
+                "name": "Pilvisus p\u00e4ev {forecast_day}"
+            },
+            "cloud_cover_day_0d": {
+                "name": "Pilvisus t\u00e4na"
+            },
+            "cloud_cover_day_1d": {
+                "name": "Pilvisus p\u00e4ev 1"
+            },
+            "cloud_cover_day_2d": {
+                "name": "Pilvisus p\u00e4ev 2"
+            },
+            "cloud_cover_day_3d": {
+                "name": "Pilvisus p\u00e4ev 3"
+            },
+            "cloud_cover_day_4d": {
+                "name": "Pilvisus p\u00e4ev 4"
+            },
+            "cloud_cover_night": {
+                "name": "Pilvisus \u00f6\u00f6 {forecast_day}"
+            },
+            "cloud_cover_night_0d": {
+                "name": "Pilvkate t\u00e4na \u00f6\u00f6sel"
+            },
+            "cloud_cover_night_1d": {
+                "name": "Pilvkate \u00f6\u00f6sel 1"
+            },
+            "cloud_cover_night_2d": {
+                "name": "Pilvkate \u00f6\u00f6sel 2"
+            },
+            "cloud_cover_night_3d": {
+                "name": "Pilvkate \u00f6\u00f6sel 3"
+            },
+            "cloud_cover_night_4d": {
+                "name": "Pilvkate \u00f6\u00f6sel 4"
+            },
+            "condition_day": {
+                "name": "Ilmaolud p\u00e4ev {forecast_day}"
+            },
+            "condition_day_0d": {
+                "name": "Ilmaolud t\u00e4na p\u00e4eval"
+            },
+            "condition_day_1d": {
+                "name": "Ilmaolud p\u00e4ev 1"
+            },
+            "condition_day_2d": {
+                "name": "Ilmaolud p\u00e4ev 2"
+            },
+            "condition_day_3d": {
+                "name": "Ilmaolud p\u00e4ev 3"
+            },
+            "condition_day_4d": {
+                "name": "Ilmaolud p\u00e4ev 4"
+            },
+            "condition_night": {
+                "name": "Ilmaolud \u00f6\u00f6 {forecast_day}"
+            },
+            "condition_night_0d": {
+                "name": "Ilmaolud t\u00e4na \u00f6\u00f6sel"
+            },
+            "condition_night_1d": {
+                "name": "Ilmaolud \u00f6\u00f6 4"
+            },
+            "condition_night_2d": {
+                "name": "Ilmaolud \u00f6\u00f6 2"
+            },
+            "condition_night_3d": {
+                "name": "Ilmaolud \u00f6\u00f6 3"
+            },
+            "condition_night_4d": {
+                "name": "Ilmaolud \u00f6\u00f6 4"
+            },
+            "dew_point": {
+                "name": "Kastepunkt"
+            },
+            "grass_pollen": {
+                "name": "Muru \u00f5ietolm p\u00e4ev {forecast_day}",
+                "state_attributes": {
+                    "level": {
+                        "name": "Tase",
+                        "state": {
+                            "good": "Hea",
+                            "hazardous": "Ohtlik",
+                            "high": "K\u00f5rge",
+                            "low": "Madal",
+                            "moderate": "M\u00f5\u00f5dukas",
+                            "unhealthy": "Ebatervislik"
+                        }
+                    }
+                }
+            },
+            "grass_pollen_0d": {
+                "name": "Muru \u00f5ietolm t\u00e4na",
+                "state_attributes": {
+                    "level": {
+                        "name": "Tase",
+                        "state": {
+                            "good": "Hea",
+                            "hazardous": "Ohtlik",
+                            "high": "K\u00f5rge",
+                            "low": "Madal",
+                            "moderate": "M\u00f5\u00f5dukas",
+                            "unhealthy": "Ebatervislik"
+                        }
+                    }
+                }
+            },
+            "grass_pollen_1d": {
+                "name": "Muru \u00f5ietolm p\u00e4ev 1",
+                "state_attributes": {
+                    "level": {
+                        "name": "Tase",
+                        "state": {
+                            "good": "Hea",
+                            "hazardous": "Ohtlik",
+                            "high": "K\u00f5rge",
+                            "low": "Madal",
+                            "moderate": "M\u00f5\u00f5dukas",
+                            "unhealthy": "Ebatervislik"
+                        }
+                    }
+                }
+            },
+            "grass_pollen_2d": {
+                "name": "Muru \u00f5ietolm p\u00e4ev 2",
+                "state_attributes": {
+                    "level": {
+                        "name": "Tase",
+                        "state": {
+                            "good": "Hea",
+                            "hazardous": "Ohtlik",
+                            "high": "K\u00f5rge",
+                            "low": "Madal",
+                            "moderate": "M\u00f5\u00f5dukas",
+                            "unhealthy": "Ebatervislik"
+                        }
+                    }
+                }
+            },
+            "grass_pollen_3d": {
+                "name": "Muru \u00f5ietolm p\u00e4ev 3",
+                "state_attributes": {
+                    "level": {
+                        "name": "Tase",
+                        "state": {
+                            "good": "Hea",
+                            "hazardous": "Ohtlik",
+                            "high": "K\u00f5rge",
+                            "low": "Madal",
+                            "moderate": "M\u00f5\u00f5dukas",
+                            "unhealthy": "Ebatervislik"
+                        }
+                    }
+                }
+            },
+            "grass_pollen_4d": {
+                "name": "Muru \u00f5ietolm p\u00e4ev 4",
+                "state_attributes": {
+                    "level": {
+                        "name": "Tase",
+                        "state": {
+                            "good": "Hea",
+                            "hazardous": "Ohtlik",
+                            "high": "K\u00f5rge",
+                            "low": "Madal",
+                            "moderate": "M\u00f5\u00f5dukas",
+                            "unhealthy": "Ebatervislik"
+                        }
+                    }
+                }
+            },
+            "hours_of_sun": {
+                "name": "P\u00e4ikesepaiste p\u00e4ev {forecast_day}"
+            },
+            "hours_of_sun_0d": {
+                "name": "P\u00e4iksepaistelisi tunde t\u00e4na"
+            },
+            "hours_of_sun_1d": {
+                "name": "P\u00e4ikesepaiste p\u00e4ev 1"
+            },
+            "hours_of_sun_2d": {
+                "name": "P\u00e4ikesepaiste p\u00e4ev 2"
+            },
+            "hours_of_sun_3d": {
+                "name": "P\u00e4ikesepaiste p\u00e4ev 3"
+            },
+            "hours_of_sun_4d": {
+                "name": "P\u00e4ikesepaiste p\u00e4ev 4"
+            },
+            "mold_pollen": {
+                "name": "Hallitusseente osakesed p\u00e4ev {forecast_day}",
+                "state_attributes": {
+                    "level": {
+                        "name": "Tase",
+                        "state": {
+                            "good": "Hea",
+                            "hazardous": "Ohtlik",
+                            "high": "K\u00f5rge",
+                            "low": "Madal",
+                            "moderate": "M\u00f5\u00f5dukas",
+                            "unhealthy": "Ebatervislik"
+                        }
+                    }
+                }
+            },
+            "mold_pollen_0d": {
+                "name": "Hallitusseente osakesed t\u00e4na",
+                "state_attributes": {
+                    "level": {
+                        "name": "Tase",
+                        "state": {
+                            "good": "Hea",
+                            "hazardous": "Ohtlik",
+                            "high": "K\u00f5rge",
+                            "low": "Madal",
+                            "moderate": "M\u00f5\u00f5dukas",
+                            "unhealthy": "Ebatervislik"
+                        }
+                    }
+                }
+            },
+            "mold_pollen_1d": {
+                "name": "Hallitusseente osakesed p\u00e4ev 1",
+                "state_attributes": {
+                    "level": {
+                        "name": "Tase",
+                        "state": {
+                            "good": "Hea",
+                            "hazardous": "Ohtlik",
+                            "high": "K\u00f5rge",
+                            "low": "Madal",
+                            "moderate": "M\u00f5\u00f5dukas",
+                            "unhealthy": "Ebatervislik"
+                        }
+                    }
+                }
+            },
+            "mold_pollen_2d": {
+                "name": "Hallitusseente osakesed p\u00e4ev 2",
+                "state_attributes": {
+                    "level": {
+                        "name": "Tase",
+                        "state": {
+                            "good": "Hea",
+                            "hazardous": "Ohtlik",
+                            "high": "K\u00f5rge",
+                            "low": "Madal",
+                            "moderate": "M\u00f5\u00f5dukas",
+                            "unhealthy": "Ebatervislik"
+                        }
+                    }
+                }
+            },
+            "mold_pollen_3d": {
+                "name": "Hallitusseente osakesed p\u00e4ev 3",
+                "state_attributes": {
+                    "level": {
+                        "name": "Tase",
+                        "state": {
+                            "good": "Hea",
+                            "hazardous": "Ohtlik",
+                            "high": "K\u00f5rge",
+                            "low": "Madal",
+                            "moderate": "M\u00f5\u00f5dukas",
+                            "unhealthy": "Ebatervislik"
+                        }
+                    }
+                }
+            },
+            "mold_pollen_4d": {
+                "name": "Hallitusseente osakesed p\u00e4ev 4",
+                "state_attributes": {
+                    "level": {
+                        "name": "Tase",
+                        "state": {
+                            "good": "Hea",
+                            "hazardous": "Ohtlik",
+                            "high": "K\u00f5rge",
+                            "low": "Madal",
+                            "moderate": "M\u00f5\u00f5dukas",
+                            "unhealthy": "Ebatervislik"
+                        }
+                    }
+                }
+            },
+            "precipitation": {
+                "name": "Sademed"
+            },
+            "pressure_tendency": {
+                "name": "R\u00f5hu tendents",
+                "state": {
+                    "falling": "Langev",
+                    "rising": "T\u00f5usev",
+                    "steady": "\u00dchtlane"
+                }
+            },
+            "ragweed_pollen": {
+                "name": "Ambroosia \u00f5ietolm p\u00e4ev {forecast_day}",
+                "state_attributes": {
+                    "level": {
+                        "name": "Tase",
+                        "state": {
+                            "good": "Hea",
+                            "hazardous": "Ohtlik",
+                            "high": "K\u00f5rge",
+                            "low": "Madal",
+                            "moderate": "M\u00f5\u00f5dukas",
+                            "unhealthy": "Ebatervislik"
+                        }
+                    }
+                }
+            },
+            "ragweed_pollen_0d": {
+                "name": "Ambroosia \u00f5ietolm t\u00e4na",
+                "state_attributes": {
+                    "level": {
+                        "name": "Tase",
+                        "state": {
+                            "good": "Hea",
+                            "hazardous": "Ohtlik",
+                            "high": "K\u00f5rge",
+                            "low": "Madal",
+                            "moderate": "M\u00f5\u00f5dukas",
+                            "unhealthy": "Ebatervislik"
+                        }
+                    }
+                }
+            },
+            "ragweed_pollen_1d": {
+                "name": "Ambroosia \u00f5ietolm p\u00e4ev 1",
+                "state_attributes": {
+                    "level": {
+                        "name": "Tase",
+                        "state": {
+                            "good": "Hea",
+                            "hazardous": "Ohtlik",
+                            "high": "K\u00f5rge",
+                            "low": "Madal",
+                            "moderate": "M\u00f5\u00f5dukas",
+                            "unhealthy": "Ebatervislik"
+                        }
+                    }
+                }
+            },
+            "ragweed_pollen_2d": {
+                "name": "Ambroosia \u00f5ietolm p\u00e4ev 2",
+                "state_attributes": {
+                    "level": {
+                        "name": "Tase",
+                        "state": {
+                            "good": "Hea",
+                            "hazardous": "Ohtlik",
+                            "high": "K\u00f5rge",
+                            "low": "Madal",
+                            "moderate": "M\u00f5\u00f5dukas",
+                            "unhealthy": "Ebatervislik"
+                        }
+                    }
+                }
+            },
+            "ragweed_pollen_3d": {
+                "name": "Ambroosia \u00f5ietolm p\u00e4ev 3",
+                "state_attributes": {
+                    "level": {
+                        "name": "Tase",
+                        "state": {
+                            "good": "Hea",
+                            "hazardous": "Ohtlik",
+                            "high": "K\u00f5rge",
+                            "low": "Madal",
+                            "moderate": "M\u00f5\u00f5dukas",
+                            "unhealthy": "Ebatervislik"
+                        }
+                    }
+                }
+            },
+            "ragweed_pollen_4d": {
+                "name": "Ambroosia \u00f5ietolm p\u00e4ev 4",
+                "state_attributes": {
+                    "level": {
+                        "name": "Tase",
+                        "state": {
+                            "good": "Hea",
+                            "hazardous": "Ohtlik",
+                            "high": "K\u00f5rge",
+                            "low": "Madal",
+                            "moderate": "M\u00f5\u00f5dukas",
+                            "unhealthy": "Ebatervislik"
+                        }
+                    }
+                }
+            },
+            "realfeel_temperature": {
+                "name": "Tajutav temperatuur"
+            },
+            "realfeel_temperature_max": {
+                "name": "Tajutava temperatuuri max {forecast_day}"
+            },
+            "realfeel_temperature_max_0d": {
+                "name": "Tajutava temperatuuri max t\u00e4na"
+            },
+            "realfeel_temperature_max_1d": {
+                "name": "Tajutava temperatuuri max 1. p\u00e4ev"
+            },
+            "realfeel_temperature_max_2d": {
+                "name": "Tajutava temperatuuri max 2. p\u00e4ev"
+            },
+            "realfeel_temperature_max_3d": {
+                "name": "Tajutava temperatuuri max 3. p\u00e4ev"
+            },
+            "realfeel_temperature_max_4d": {
+                "name": "Tajutava temperatuuri max 4. p\u00e4ev"
+            },
+            "realfeel_temperature_min": {
+                "name": "Tajutava temperatuuri min {forecast_day}"
+            },
+            "realfeel_temperature_min_0d": {
+                "name": "Tajutava temperatuuri min t\u00e4na"
+            },
+            "realfeel_temperature_min_1d": {
+                "name": "Tajutava temperatuuri min 1. p\u00e4ev"
+            },
+            "realfeel_temperature_min_2d": {
+                "name": "Tajutava temperatuuri min 2. p\u00e4ev"
+            },
+            "realfeel_temperature_min_3d": {
+                "name": "Tajutava temperatuuri min 3. p\u00e4ev"
+            },
+            "realfeel_temperature_min_4d": {
+                "name": "Tajutava temperatuuri min 4. p\u00e4ev"
+            },
+            "realfeel_temperature_shade": {
+                "name": "Tajutav temperatuur varjus"
+            },
+            "realfeel_temperature_shade_max": {
+                "name": "Tajutav temperatuur varjus max p\u00e4ev {forecast_day}"
+            },
+            "realfeel_temperature_shade_max_0d": {
+                "name": "Tajutava temperatuuri max varjus t\u00e4na"
+            },
+            "realfeel_temperature_shade_max_1d": {
+                "name": "Tajutava temperatuuri max varjus 1. p\u00e4ev"
+            },
+            "realfeel_temperature_shade_max_2d": {
+                "name": "Tajutava temperatuuri max varjus 2. p\u00e4ev"
+            },
+            "realfeel_temperature_shade_max_3d": {
+                "name": "Tajutava temperatuuri max varjus 3. p\u00e4ev"
+            },
+            "realfeel_temperature_shade_max_4d": {
+                "name": "Tajutava temperatuuri max varjus 4. p\u00e4ev"
+            },
+            "realfeel_temperature_shade_min": {
+                "name": "Tajutav temperatuur varjus min p\u00e4ev {forecast_day}"
+            },
+            "realfeel_temperature_shade_min_0d": {
+                "name": "Tajutava temperatuuri min varjus t\u00e4na"
+            },
+            "realfeel_temperature_shade_min_1d": {
+                "name": "Tajutava temperatuuri min varjus 1. p\u00e4ev"
+            },
+            "realfeel_temperature_shade_min_2d": {
+                "name": "Tajutava temperatuuri min vatjus 2. p\u00e4ev"
+            },
+            "realfeel_temperature_shade_min_3d": {
+                "name": "Tajutava temperatuuri min varjus 3. p\u00e4ev"
+            },
+            "realfeel_temperature_shade_min_4d": {
+                "name": "Tajutava temperatuuri min varjus 4. p\u00e4ev"
+            },
+            "solar_irradiance_day": {
+                "name": "P\u00e4ikesekiirgus p\u00e4ev {forecast_day}"
+            },
+            "solar_irradiance_day_0d": {
+                "name": "P\u00e4ikesekiirgus t\u00e4na"
+            },
+            "solar_irradiance_day_1d": {
+                "name": "P\u00e4ikesekiirgus 1. p\u00e4ev"
+            },
+            "solar_irradiance_day_2d": {
+                "name": "P\u00e4ikesekiirgus 2. p\u00e4ev"
+            },
+            "solar_irradiance_day_3d": {
+                "name": "P\u00e4ikesekiirgus 3. p\u00e4ev"
+            },
+            "solar_irradiance_day_4d": {
+                "name": "P\u00e4ikesekiirgus 4. p\u00e4ev"
+            },
+            "solar_irradiance_night": {
+                "name": "P\u00e4ikesekiirgus \u00f6\u00f6sel {forecast_day}"
+            },
+            "solar_irradiance_night_0d": {
+                "name": "P\u00e4ikesekiirgus t\u00e4na \u00f5htul"
+            },
+            "solar_irradiance_night_1d": {
+                "name": "P\u00e4ikesekiirgus \u00f6\u00f6sel 1"
+            },
+            "solar_irradiance_night_2d": {
+                "name": "P\u00e4ikesekiirgus \u00f6\u00f6sel 2"
+            },
+            "solar_irradiance_night_3d": {
+                "name": "P\u00e4ikesekiirgus \u00f6\u00f6sel 3"
+            },
+            "solar_irradiance_night_4d": {
+                "name": "P\u00e4ikesekiirgus \u00f6\u00f6sel 4"
+            },
+            "thunderstorm_probability_day": {
+                "name": "\u00c4ikese t\u00f5en\u00e4osuse p\u00e4ev {forecast_day}"
+            },
+            "thunderstorm_probability_day_0d": {
+                "name": "\u00c4ikesetormi t\u00f5en\u00e4osus t\u00e4na"
+            },
+            "thunderstorm_probability_day_1d": {
+                "name": "\u00c4ikese t\u00f5en\u00e4osus 1. p\u00e4ev"
+            },
+            "thunderstorm_probability_day_2d": {
+                "name": "\u00c4ikese t\u00f5en\u00e4osus 2. p\u00e4ev"
+            },
+            "thunderstorm_probability_day_3d": {
+                "name": "\u00c4ikese t\u00f5en\u00e4osus 3. p\u00e4ev"
+            },
+            "thunderstorm_probability_day_4d": {
+                "name": "\u00c4ikese t\u00f5en\u00e4osus 4. p\u00e4ev"
+            },
+            "thunderstorm_probability_night": {
+                "name": "\u00c4ikese t\u00f5en\u00e4osuse \u00f6\u00f6 {forecast_day}"
+            },
+            "thunderstorm_probability_night_0d": {
+                "name": "\u00c4ikese t\u00f5en\u00e4osus t\u00e4na \u00f6\u00f6sel"
+            },
+            "thunderstorm_probability_night_1d": {
+                "name": "\u00c4ikese t\u00f5en\u00e4osus \u00f6\u00f6 1"
+            },
+            "thunderstorm_probability_night_2d": {
+                "name": "\u00c4ikese t\u00f5en\u00e4osus \u00f6\u00f6 2"
+            },
+            "thunderstorm_probability_night_3d": {
+                "name": "\u00c4ikese t\u00f5en\u00e4osus \u00f6\u00f6 3"
+            },
+            "thunderstorm_probability_night_4d": {
+                "name": "\u00c4ikese t\u00f5en\u00e4osus \u00f6\u00f6 4"
+            },
+            "tree_pollen": {
+                "name": "Puude \u00f5ietolm p\u00e4ev {forecast_day}",
+                "state_attributes": {
+                    "level": {
+                        "name": "Tase",
+                        "state": {
+                            "good": "Hea",
+                            "hazardous": "Ohtlik",
+                            "high": "K\u00f5rge",
+                            "low": "Madal",
+                            "moderate": "M\u00f5\u00f5dukas",
+                            "unhealthy": "Ebatervislik"
+                        }
+                    }
+                }
+            },
+            "tree_pollen_0d": {
+                "name": "Puude \u00f5ietolm t\u00e4na",
+                "state_attributes": {
+                    "level": {
+                        "name": "Tase",
+                        "state": {
+                            "good": "Hea",
+                            "hazardous": "Ohtlik",
+                            "high": "K\u00f5rge",
+                            "low": "Madal",
+                            "moderate": "M\u00f5\u00f5dukas",
+                            "unhealthy": "Ebatervislik"
+                        }
+                    }
+                }
+            },
+            "tree_pollen_1d": {
+                "name": "Puude \u00f5ietolm p\u00e4ev 1",
+                "state_attributes": {
+                    "level": {
+                        "name": "Tase",
+                        "state": {
+                            "good": "Hea",
+                            "hazardous": "Ohtlik",
+                            "high": "K\u00f5rge",
+                            "low": "Madal",
+                            "moderate": "M\u00f5\u00f5dukas",
+                            "unhealthy": "Ebatervislik"
+                        }
+                    }
+                }
+            },
+            "tree_pollen_2d": {
+                "name": "Puude \u00f5ietolm p\u00e4ev 2",
+                "state_attributes": {
+                    "level": {
+                        "name": "Tase",
+                        "state": {
+                            "good": "Hea",
+                            "hazardous": "Ohtlik",
+                            "high": "K\u00f5rge",
+                            "low": "Madal",
+                            "moderate": "M\u00f5\u00f5dukas",
+                            "unhealthy": "Ebatervislik"
+                        }
+                    }
+                }
+            },
+            "tree_pollen_3d": {
+                "name": "Puude \u00f5ietolm p\u00e4ev 3",
+                "state_attributes": {
+                    "level": {
+                        "name": "Tase",
+                        "state": {
+                            "good": "Hea",
+                            "hazardous": "Ohtlik",
+                            "high": "K\u00f5rge",
+                            "low": "Madal",
+                            "moderate": "M\u00f5\u00f5dukas",
+                            "unhealthy": "Ebatervislik"
+                        }
+                    }
+                }
+            },
+            "tree_pollen_4d": {
+                "name": "Puude \u00f5ietolm p\u00e4ev 4",
+                "state_attributes": {
+                    "level": {
+                        "name": "Tase",
+                        "state": {
+                            "good": "Hea",
+                            "hazardous": "Ohtlik",
+                            "high": "K\u00f5rge",
+                            "low": "Madal",
+                            "moderate": "M\u00f5\u00f5dukas",
+                            "unhealthy": "Ebatervislik"
+                        }
+                    }
+                }
+            },
+            "uv_index": {
+                "name": "UV-indeks",
+                "state_attributes": {
+                    "level": {
+                        "name": "Tase",
+                        "state": {
+                            "good": "Hea",
+                            "hazardous": "Ohtlik",
+                            "high": "K\u00f5rge",
+                            "low": "Madal",
+                            "moderate": "M\u00f5\u00f5dukas",
+                            "unhealthy": "Ebatervislik"
+                        }
+                    }
+                }
+            },
+            "uv_index_0d": {
+                "name": "UV indeks t\u00e4na",
+                "state_attributes": {
+                    "level": {
+                        "name": "Tase",
+                        "state": {
+                            "good": "Hea",
+                            "hazardous": "Ohtlik",
+                            "high": "K\u00f5rge",
+                            "low": "Madal",
+                            "moderate": "M\u00f5\u00f5dukas",
+                            "unhealthy": "Ebatervislik"
+                        }
+                    }
+                }
+            },
+            "uv_index_1d": {
+                "name": "UV-indeks 1. p\u00e4ev",
+                "state_attributes": {
+                    "level": {
+                        "name": "Tase",
+                        "state": {
+                            "good": "Hea",
+                            "hazardous": "Ohtlik",
+                            "high": "K\u00f5rge",
+                            "low": "Madal",
+                            "moderate": "M\u00f5\u00f5dukas",
+                            "unhealthy": "Ebatervislik"
+                        }
+                    }
+                }
+            },
+            "uv_index_2d": {
+                "name": "UV indeks p\u00e4ev 2",
+                "state_attributes": {
+                    "level": {
+                        "name": "Tase",
+                        "state": {
+                            "good": "Hea",
+                            "hazardous": "Ohtlik",
+                            "high": "K\u00f5rge",
+                            "low": "Madal",
+                            "moderate": "M\u00f5\u00f5dukas",
+                            "unhealthy": "Ebatervislik"
+                        }
+                    }
+                }
+            },
+            "uv_index_3d": {
+                "name": "UV-indeksi p\u00e4ev 3",
+                "state_attributes": {
+                    "level": {
+                        "name": "Tase",
+                        "state": {
+                            "good": "Hea",
+                            "hazardous": "Ohtlik",
+                            "high": "K\u00f5rge",
+                            "low": "Madal",
+                            "moderate": "M\u00f5\u00f5dukas",
+                            "unhealthy": "Ebatervislik"
+                        }
+                    }
+                }
+            },
+            "uv_index_4d": {
+                "name": "UV indeks p\u00e4ev 4",
+                "state_attributes": {
+                    "level": {
+                        "name": "Tase",
+                        "state": {
+                            "good": "Hea",
+                            "hazardous": "Ohtlik",
+                            "high": "K\u00f5rge",
+                            "low": "Madal",
+                            "moderate": "M\u00f5\u00f5dukas",
+                            "unhealthy": "Ebatervislik"
+                        }
+                    }
+                }
+            },
+            "uv_index_forecast": {
+                "name": "UV indeks p\u00e4ev {forecast_day}",
+                "state_attributes": {
+                    "level": {
+                        "name": "Tase",
+                        "state": {
+                            "good": "Hea",
+                            "hazardous": "Ohtlik",
+                            "high": "K\u00f5rge",
+                            "low": "Madal",
+                            "moderate": "M\u00f5\u00f5dukas",
+                            "unhealthy": "Ebatervislik"
+                        }
+                    }
+                }
+            },
+            "wet_bulb_temperature": {
+                "name": "M\u00e4rja termomeetri temperatuur"
+            },
+            "wind_chill_temperature": {
+                "name": "Tuulek\u00fclma temperatuur"
+            },
+            "wind_gust_speed": {
+                "name": "Tuulepuhangu kiirus"
+            },
+            "wind_gust_speed_day": {
+                "name": "Tuulepuhangu kiirus p\u00e4eval {forecast_day}"
+            },
+            "wind_gust_speed_day_0d": {
+                "name": "Tuule puhangu kiirus t\u00e4na"
+            },
+            "wind_gust_speed_day_1d": {
+                "name": "Tuule puhangu kiirus 1. p\u00e4ev"
+            },
+            "wind_gust_speed_day_2d": {
+                "name": "Tuule puhangu kiirus 2. p\u00e4ev"
+            },
+            "wind_gust_speed_day_3d": {
+                "name": "Tuule puhangu kiirus 3. p\u00e4ev"
+            },
+            "wind_gust_speed_day_4d": {
+                "name": "Tuule puhangu kiirus 4. p\u00e4ev"
+            },
+            "wind_gust_speed_night": {
+                "name": "Tuulepuhangu kiirus \u00f6\u00f6sel {forecast_day}"
+            },
+            "wind_gust_speed_night_0d": {
+                "name": "Tuule puhangu kiirus t\u00e4na \u00f6\u00f6sel"
+            },
+            "wind_gust_speed_night_1d": {
+                "name": "Tuule puhangu kiirus 1. \u00f6\u00f6"
+            },
+            "wind_gust_speed_night_2d": {
+                "name": "Tuule puhangu kiirus 2. \u00f6\u00f6"
+            },
+            "wind_gust_speed_night_3d": {
+                "name": "Tuule puhangu kiirus 3. \u00f6\u00f6"
+            },
+            "wind_gust_speed_night_4d": {
+                "name": "Tuule puhangu kiirus 4. \u00f6\u00f6"
+            },
+            "wind_speed": {
+                "name": "Tuule kiirus"
+            },
+            "wind_speed_day": {
+                "name": "Tuule kiirus p\u00e4eval {forecast_day}"
+            },
+            "wind_speed_day_0d": {
+                "name": "Tuule kiirus t\u00e4na"
+            },
+            "wind_speed_day_1d": {
+                "name": "Tuule kiirus 1. p\u00e4ev"
+            },
+            "wind_speed_day_2d": {
+                "name": "Tuule kiirus 2. p\u00e4ev"
+            },
+            "wind_speed_day_3d": {
+                "name": "Tuule kiirus 3. p\u00e4ev"
+            },
+            "wind_speed_day_4d": {
+                "name": "Tuule kiirus 4. p\u00e4ev"
+            },
+            "wind_speed_night": {
+                "name": "Tuule kiirus \u00f6\u00f6sel {forecast_day}"
+            },
+            "wind_speed_night_0d": {
+                "name": "Tuule kiirus t\u00e4na \u00f6\u00f6sel"
+            },
+            "wind_speed_night_1d": {
+                "name": "Tuule kiirus 1. \u00f6\u00f6"
+            },
+            "wind_speed_night_2d": {
+                "name": "Tuule kiirus 2. \u00f6\u00f6"
+            },
+            "wind_speed_night_3d": {
+                "name": "Tuule kiirus 3. \u00f6\u00f6"
+            },
+            "wind_speed_night_4d": {
+                "name": "Tuule kiirus 4. \u00f6\u00f6"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "forecast": "Ilmateade"
+                },
+                "description": "AccuWeather API tasuta versioonis toimub ilmaennustuse lubamisel andmete v\u00e4rskendamine iga 80 minuti  j\u00e4rel (muidu 40 minutit)."
+            }
+        }
+    },
+    "system_health": {
+        "info": {
+            "can_reach_server": "\u00dchendus Accuweatheri serveriga",
+            "remaining_requests": "Lubatud taotlusi on j\u00e4\u00e4nud"
+        }
+    }
+}

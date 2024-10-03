@@ -1,0 +1,85 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "MELCloud -integraatio on jo m\u00e4\u00e4ritetty t\u00e4t\u00e4 s\u00e4hk\u00f6postia varten. K\u00e4ytt\u00f6oikeustoken on p\u00e4ivitetty.",
+            "reauth_successful": "Uudelleentodennus onnistui"
+        },
+        "error": {
+            "cannot_connect": "Yhteyden muodostaminen ep\u00e4onnistui",
+            "invalid_auth": "Virheellinen todennus",
+            "unknown": "Odottamaton virhe"
+        },
+        "step": {
+            "reauth_confirm": {
+                "data": {
+                    "password": "Salasana",
+                    "username": "S\u00e4hk\u00f6posti"
+                },
+                "description": "Melcloud -integraation on todennettava yhteystietosi uudelleen.",
+                "title": "Todennus vanhentui kohteella {name}"
+            },
+            "user": {
+                "data": {
+                    "password": "Salasana",
+                    "username": "S\u00e4hk\u00f6posti"
+                },
+                "description": "Muodosta yhteys k\u00e4ytt\u00e4m\u00e4ll\u00e4 MELCloud -tili\u00e4si.",
+                "title": "Yhdist\u00e4 MELCloudiin"
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "daily_energy": {
+                "name": "P\u00e4ivitt\u00e4in kulutettu energia"
+            },
+            "flow_temperature": {
+                "name": "Virtausl\u00e4mp\u00f6tila"
+            },
+            "outside_temperature": {
+                "name": "Ulkol\u00e4mp\u00f6tila"
+            },
+            "return_temperature": {
+                "name": "Virtauksen paluul\u00e4mp\u00f6tila"
+            },
+            "room_temperature": {
+                "name": "Huonel\u00e4mp\u00f6tila"
+            },
+            "tank_temperature": {
+                "name": "S\u00e4ili\u00f6n l\u00e4mp\u00f6tila"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_yaml_import_issue_cannot_connect": {
+            "description": "MELCloudin m\u00e4\u00e4ritt\u00e4minen YAML:n avulla poistetaan, mutta YAML-konfiguraation tuonnissa tapahtui yhteysvirhe.\n\nVarmista, ett\u00e4 yhteys MELCloudiin toimii, ja k\u00e4ynnist\u00e4 Home Assistant uudelleen yritt\u00e4\u00e4ksesi uudelleen tai poista MELCloudin YAML-konfiguraatio configuration.yaml-tiedostosta ja jatka [integraation asettamista](/config/integrations/dashboard/add?domain=melcoud) manuaalisesti.",
+            "title": "MELCloud YAML -m\u00e4\u00e4rityksen tuonti ep\u00e4onnistui"
+        },
+        "deprecated_yaml_import_issue_invalid_auth": {
+            "description": "MELCloudin konfigurointi YAML:n avulla poistetaan, mutta YAML-konfiguraation tuonnissa tapahtui todennusvirhe.\n\nKorjaa YAML-konfiguraatio ja k\u00e4ynnist\u00e4 Home Assistant uudelleen yritt\u00e4\u00e4ksesi uudelleen tai poista MELCloudin YAML-konfiguraatio configuration.yaml-tiedostostasi ja jatka [integraation asettamista](/config/integrations/dashboard/add?domain=melcoud) manuaalisesti.",
+            "title": "MELCloud YAML -m\u00e4\u00e4rityksen tuonti ep\u00e4onnistui"
+        }
+    },
+    "services": {
+        "set_vane_horizontal": {
+            "description": "Asettaa vaakasuoran siiven asennon.",
+            "fields": {
+                "position": {
+                    "description": "Siipien vaakasuora asento. Mahdolliset vaihtoehdot l\u00f6ytyv\u00e4t tilam\u00e4\u00e4ritteest\u00e4 vane_horizontal_positions.",
+                    "name": "Asento"
+                }
+            },
+            "name": "Aseta siipi vaakasuoraan"
+        },
+        "set_vane_vertical": {
+            "description": "Asettaa siipien pystysuoran asennon.",
+            "fields": {
+                "position": {
+                    "description": "Pystysuora siiven asento. Mahdolliset vaihtoehdot l\u00f6ytyv\u00e4t tilam\u00e4\u00e4ritteest\u00e4 vane_vertical_positions.",
+                    "name": "Asento"
+                }
+            },
+            "name": "Aseta siipi pystysuoraan"
+        }
+    }
+}

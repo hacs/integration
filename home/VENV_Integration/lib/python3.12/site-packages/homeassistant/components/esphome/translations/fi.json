@@ -1,0 +1,95 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Laite on jo m\u00e4\u00e4ritetty",
+            "already_in_progress": "M\u00e4\u00e4ritysprosessi on jo k\u00e4ynniss\u00e4",
+            "mdns_missing_mac": "Puuttuva MAC-osoite MDNS-ominaisuuksissa.",
+            "reauth_successful": "Uudelleentodennus onnistui"
+        },
+        "error": {
+            "connection_error": "ESP:hen ei saada yhteytt\u00e4. Varmista, ett\u00e4 YAML-tiedostossasi on 'api:'-rivi.",
+            "invalid_auth": "Virheellinen todennus",
+            "invalid_psk": "Siirron salausavain on virheellinen. Varmista, ett\u00e4 se vastaa konfiguraatiossasi olevia tietoja",
+            "resolve_error": "ESP:n osoitetta ei saada selville. Jos t\u00e4m\u00e4 virhe jatkuu, aseta staattinen IP-osoite."
+        },
+        "flow_title": "{name}",
+        "step": {
+            "authenticate": {
+                "data": {
+                    "password": "Salasana"
+                },
+                "description": "Anna salasana, jonka m\u00e4\u00e4ritit m\u00e4\u00e4rityksess\u00e4si kohteelle {name} ."
+            },
+            "discovery_confirm": {
+                "description": "Haluatko lis\u00e4t\u00e4 ESPHome -solmun `{name}` Home Assistantiin?",
+                "title": "ESPHome l\u00f6ydetty"
+            },
+            "encryption_key": {
+                "data": {
+                    "noise_psk": "Salausavain"
+                },
+                "description": "Anna salausavain kohteelle {name} . L\u00f6yd\u00e4t sen ESPHome Dashboardista tai laitteesi asetuksista."
+            },
+            "reauth_confirm": {
+                "data": {
+                    "noise_psk": "Salausavain"
+                },
+                "description": "ESPHome-laite {name} otti k\u00e4ytt\u00f6\u00f6n liikenteen salauksen tai muutti salausavainta. Anna p\u00e4ivitetty avain. L\u00f6yd\u00e4t sen ESPHome Dashboardista tai laitteen konfiguraatiosta."
+            },
+            "user": {
+                "data": {
+                    "host": "Palvelin",
+                    "port": "Portti"
+                },
+                "description": "Sy\u00f6t\u00e4 [ESPHome]({esphome_url})-solmun yhteysasetukset."
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "assist_in_progress": {
+                "name": "Avustus k\u00e4ynniss\u00e4"
+            },
+            "call_active": {
+                "name": "Soita aktiivinen"
+            }
+        },
+        "climate": {
+            "climate": {
+                "state_attributes": {
+                    "fan_mode": {
+                        "state": {
+                            "quiet": "Hiljainen"
+                        }
+                    }
+                }
+            }
+        },
+        "select": {
+            "pipeline": {
+                "name": "Assist putkisto",
+                "state": {
+                    "preferred": "Suosikki"
+                }
+            },
+            "vad_sensitivity": {
+                "name": "Puheen tunnistus valmis",
+                "state": {
+                    "aggressive": "Aggressiivinen",
+                    "default": "Oletus",
+                    "relaxed": "Rento"
+                }
+            }
+        }
+    },
+    "issues": {
+        "api_password_deprecated": {
+            "description": "ESPHomen API-salasana on vanhentunut, ja sen sijaan suositellaan API-salausavaimen k\u00e4ytt\u00f6\u00e4. \n\n Poista API-salasana ja lis\u00e4\u00e4 salausavain ESPHome-laitteeseesi ratkaistaksesi t\u00e4m\u00e4n ongelman.",
+            "title": "API-salasana poistettu k\u00e4yt\u00f6st\u00e4 {name}"
+        },
+        "ble_firmware_outdated": {
+            "description": "Parantaaksesi Bluetoothin luotettavuutta ja suorituskyky\u00e4 suosittelemme, ett\u00e4 p\u00e4ivit\u00e4t {name} ESPHome {version}:lla tai uudemmalla versiolla. Kun laite p\u00e4ivitet\u00e4\u00e4n ESPHomesta aiemmin kuin 2022.12.0, on suositeltavaa k\u00e4ytt\u00e4\u00e4 sarjaporttia verkkop\u00e4ivityksen sijaan, jotta voidaan hy\u00f6dynt\u00e4\u00e4 uutta osiointij\u00e4rjestelm\u00e4\u00e4.",
+            "title": "P\u00e4ivit\u00e4 {name} ESPHomella {version} tai uudemmalla"
+        }
+    }
+}

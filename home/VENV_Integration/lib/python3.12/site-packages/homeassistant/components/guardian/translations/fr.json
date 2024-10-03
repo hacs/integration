@@ -1,0 +1,94 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "L'appareil est d\u00e9j\u00e0 configur\u00e9",
+            "already_in_progress": "La configuration est d\u00e9j\u00e0 en cours",
+            "cannot_connect": "\u00c9chec de connexion"
+        },
+        "step": {
+            "discovery_confirm": {
+                "description": "Voulez-vous configurer cet appareil Guardian\u00a0?"
+            },
+            "user": {
+                "data": {
+                    "ip_address": "Adresse IP",
+                    "port": "Port"
+                },
+                "description": "Configurez un appareil Elexa Guardian local."
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "uptime": {
+                "name": "Temps de fonctionnement"
+            }
+        },
+        "valve": {
+            "valve_controller": {
+                "name": "Contr\u00f4leur de vanne"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_service": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Modifiez tout script ou automatisation utilisant ce service afin qu'ils utilisent \u00e0 la place le service `{alternate_service}` avec pour ID d'entit\u00e9 cible `{alternate_target}`.",
+                        "title": "Le service {deprecated_service} sera bient\u00f4t supprim\u00e9"
+                    }
+                }
+            },
+            "title": "Le service {deprecated_service} sera bient\u00f4t supprim\u00e9"
+        }
+    },
+    "services": {
+        "pair_sensor": {
+            "description": "Ajoute un nouveau capteur appari\u00e9 au contr\u00f4leur de vanne.",
+            "fields": {
+                "device_id": {
+                    "description": "Le contr\u00f4leur de vanne auquel ajouter le capteur.",
+                    "name": "Contr\u00f4leur de vanne"
+                },
+                "uid": {
+                    "description": "l'UUID tu capteur appari\u00e9.",
+                    "name": "UID"
+                }
+            },
+            "name": "Appairer le capteur"
+        },
+        "unpair_sensor": {
+            "fields": {
+                "device_id": {
+                    "description": "Le contr\u00f4leur de valve dont il faut retirer le capteur.",
+                    "name": "Contr\u00f4leur de vanne"
+                },
+                "uid": {
+                    "description": "l'UUID tu capteur appari\u00e9.",
+                    "name": "UID"
+                }
+            },
+            "name": "D\u00e9sappairage du capteur"
+        },
+        "upgrade_firmware": {
+            "description": "Mettre \u00e0 jour le micrologiciel",
+            "fields": {
+                "device_id": {
+                    "name": "Contr\u00f4leur de vanne"
+                },
+                "filename": {
+                    "description": "Nom du fichier du firmware.",
+                    "name": "Nom de fichier"
+                },
+                "port": {
+                    "name": "Port"
+                },
+                "url": {
+                    "name": "URL"
+                }
+            },
+            "name": "Mise \u00e0 jour du firmware"
+        }
+    }
+}

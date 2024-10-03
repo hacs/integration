@@ -1,0 +1,75 @@
+{
+    "issues": {
+        "backup_failed_out_of_resources": {
+            "description": "La copia de seguridad de la base de datos indicada a las {start_time} fall\u00f3 debido a una falta de recursos. No se puede confiar en la copia de seguridad y se debe reiniciar. Esto puede suceder si la base de datos es demasiado grande o si el sistema tiene una carga pesada. Considera actualizar el hardware del sistema o reducir el tama\u00f1o de la base de datos disminuyendo la cantidad de d\u00edas del historial que se deben conservar o creando un filtro.",
+            "title": "La copia de seguridad de la base de datos fall\u00f3 por falta de recursos."
+        },
+        "maria_db_range_index_regression": {
+            "description": "Las versiones anteriores de MariaDB sufren una regresi\u00f3n de rendimiento significativa al recuperar datos del historial o purgar la base de datos. Actualiza a la versi\u00f3n de MariaDB {min_version} o posterior y reinicia Home Assistant. Si est\u00e1s utilizando el complemento principal de MariaDB, aseg\u00farate de actualizarlo a la \u00faltima versi\u00f3n.",
+            "title": "Actualizar MariaDB a {min_version} o posterior resuelve un problema de rendimiento importante"
+        },
+        "sqlite_too_old": {
+            "description": "El soporte para la versi\u00f3n {server_version} de SQLite est\u00e1 finalizando; la versi\u00f3n m\u00ednima admitida es {min_version}. Por favor, actualiza el software de tu base de datos.",
+            "title": "Actualiza SQLite a {min_version} o posterior para continuar usando la grabadora"
+        }
+    },
+    "services": {
+        "disable": {
+            "description": "Detiene la grabaci\u00f3n de eventos y cambios de estado.",
+            "name": "Deshabilitar"
+        },
+        "enable": {
+            "description": "Inicia la grabaci\u00f3n de eventos y cambios de estado.",
+            "name": "Habilitar"
+        },
+        "purge": {
+            "description": "Inicia la tarea de purga: para limpiar datos antiguos de tu base de datos.",
+            "fields": {
+                "apply_filter": {
+                    "description": "Aplica los filtros `entity_id` y `event_type` adem\u00e1s de la purga basada en el tiempo.",
+                    "name": "Aplicar filtro"
+                },
+                "keep_days": {
+                    "description": "N\u00famero de d\u00edas para mantener los datos en la base de datos. A partir de hoy, contando hacia atr\u00e1s. Un valor de `7` significa que todo lo que tenga m\u00e1s de una semana se eliminar\u00e1.",
+                    "name": "D\u00edas para mantener"
+                },
+                "repack": {
+                    "description": "Intente ahorrar espacio en disco reescribiendo todo el archivo de la base de datos.",
+                    "name": "Volver a empaquetar"
+                }
+            },
+            "name": "Purgar"
+        },
+        "purge_entities": {
+            "description": "Inicia una tarea de purga para eliminar los datos relacionados con entidades espec\u00edficas de tu base de datos.",
+            "fields": {
+                "domains": {
+                    "description": "Lista de dominios para los que los datos deben eliminarse de la base de datos del grabador.",
+                    "name": "Dominios a eliminar"
+                },
+                "entity_globs": {
+                    "description": "Lista de patrones glob utilizados para seleccionar las entidades cuyos datos se eliminar\u00e1n de la base de datos del registrador.",
+                    "name": "Patrones globs de entidad para eliminar"
+                },
+                "entity_id": {
+                    "description": "Lista de entidades cuyos datos se eliminar\u00e1n de la base de datos del registrador.",
+                    "name": "Entidades a eliminar"
+                },
+                "keep_days": {
+                    "description": "N\u00famero de d\u00edas para conservar los datos de las filas que coinciden con el filtro. A partir de hoy, contando hacia atr\u00e1s. Un valor de `7` significa que todo lo que tenga m\u00e1s de una semana se eliminar\u00e1. El valor predeterminado de 0 d\u00edas eliminar\u00e1 todas las filas coincidentes de inmediato.",
+                    "name": "D\u00edas para mantener"
+                }
+            },
+            "name": "Purgar entidades"
+        }
+    },
+    "system_health": {
+        "info": {
+            "current_recorder_run": "Hora de inicio de ejecuci\u00f3n actual",
+            "database_engine": "Motor de la base de datos",
+            "database_version": "Versi\u00f3n de la base de datos",
+            "estimated_db_size": "Tama\u00f1o estimado de la base de datos (MiB)",
+            "oldest_recorder_run": "Hora de inicio de ejecuci\u00f3n m\u00e1s antigua"
+        }
+    }
+}

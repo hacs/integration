@@ -1,0 +1,191 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "\u012erenginys jau sukonfig\u016bruotas"
+        },
+        "error": {
+            "cannot_connect": "Nepavyko prisijungti",
+            "invalid_access_token": "Neteisingas prieigos raktas",
+            "invalid_auth": "Neteisingas autentifikavimas",
+            "unknown": "Netik\u0117ta klaida"
+        },
+        "step": {
+            "2fa": {
+                "data": {
+                    "2fa": "Dviej\u0173 faktori\u0173 kodas"
+                },
+                "description": "\u012eveskite PIN kod\u0105, i\u0161si\u0173st\u0105 el. pa\u0161tu arba SMS",
+                "title": "Dviej\u0173 veiksni\u0173 autentifikavimas"
+            },
+            "user": {
+                "data": {
+                    "password": "Slapta\u017eodis",
+                    "username": "Prisijungimos vardas"
+                },
+                "title": "Prisijunkite naudodami \u201eBlink\u201c paskyr\u0105"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "camera_armed": {
+                "name": "Fotoaparatas \u012fjungtas"
+            }
+        },
+        "sensor": {
+            "wifi_rssi": {
+                "name": "Wi-Fi RSSI"
+            },
+            "wifi_strength": {
+                "name": "Wi-Fi signalo stiprumas"
+            }
+        },
+        "switch": {
+            "camera_motion": {
+                "name": "Kameros judesio aptikimas"
+            }
+        }
+    },
+    "exceptions": {
+        "cant_write": {
+            "message": "Nepavyksta \u012fra\u0161yti \u012f fail\u0105."
+        },
+        "device_not_found": {
+            "message": "\u012erenginys '{target}' nerastas \u012frengini\u0173 registre"
+        },
+        "failed_arm": {
+            "message": "Blink nepavyko \u012fjungti fotoaparato."
+        },
+        "failed_arm_motion": {
+            "message": "Blink nepavyko \u012fjungti fotoaparato judesio aptikimo."
+        },
+        "failed_clip": {
+            "message": "Blink nepavyko \u012fra\u0161yti klipo."
+        },
+        "failed_disarm": {
+            "message": "Blink nepavyko i\u0161jungti kameros."
+        },
+        "failed_disarm_motion": {
+            "message": "Blink nepavyko i\u0161jungti kameros judesio aptikimo."
+        },
+        "failed_snap": {
+            "message": "Blink nepavyko nufotografuoti."
+        },
+        "integration_not_found": {
+            "message": "Integracija \u201e {target} \u201c nerasta registre."
+        },
+        "invalid_device": {
+            "message": "\u012erenginys '{target}' n\u0117ra {domain} \u012frenginys"
+        },
+        "no_path": {
+            "message": "Nepavyksta ra\u0161yti \u012f katalog\u0105 {target} , n\u0117ra prieigos prie kelio!"
+        },
+        "not_loaded": {
+            "message": "{target} ne\u012fkeltas."
+        }
+    },
+    "issues": {
+        "service_deprecation": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Blink atnaujinimo paslauga nebenaudojama ir bus pa\u0161alinta.\n Atnaujinkite savo automatizavim\u0105 ir scenarijus, kad gal\u0117tum\u0117te naudoti \u201eHome Assistant Core Integration: Update entity\u201c.",
+                        "title": "Blink atnaujinimo paslauga pa\u0161alinama"
+                    }
+                }
+            },
+            "title": "Blink atnaujinimo paslauga pa\u0161alinama"
+        }
+    },
+    "options": {
+        "step": {
+            "simple_options": {
+                "data": {
+                    "scan_interval": "Nuskaitymo intervalas (sekund\u0117mis)"
+                },
+                "description": "Konfig\u016bruokite Blink integravim\u0105",
+                "title": "Mirks\u0117jimo parinktys"
+            }
+        }
+    },
+    "services": {
+        "blink_update": {
+            "description": "Priver\u010dia atsinaujinti.",
+            "fields": {
+                "device_id": {
+                    "description": "Blink \u012frenginio ID.",
+                    "name": "\u012erenginio ID"
+                }
+            },
+            "name": "Atnaujinimas"
+        },
+        "record": {
+            "description": "Pra\u0161o kameros \u012fra\u0161yti klip\u0105.",
+            "name": "\u012era\u0161as"
+        },
+        "save_recent_clips": {
+            "description": "I\u0161saugo visus naujausius vaizdo \u012fra\u0161us vietiniame kataloge su failo \u0161ablonu \"%Y%m%d_%H%M%S_[kameros pavadinimas].mp4\"",
+            "fields": {
+                "device_id": {
+                    "description": "Blink \u012frenginio ID.",
+                    "name": "\u012erenginio ID"
+                },
+                "file_path": {
+                    "description": "Ra\u0161omo kelio katalogo pavadinimas (konfig\u016bracijos faile gali reik\u0117ti \u012ftraukti katalog\u0105 \u012f allowlist_external_dirs).",
+                    "name": "I\u0161vesties katalogas"
+                },
+                "name": {
+                    "description": "Kameros, i\u0161 kurios norite paimti naujausius klipus, pavadinimas.",
+                    "name": "Vardas"
+                }
+            },
+            "name": "I\u0161saugoti naujausius klipus"
+        },
+        "save_video": {
+            "description": "I\u0161saugo paskutin\u012f \u012fra\u0161yt\u0105 vaizdo klip\u0105 vietiniame faile.",
+            "fields": {
+                "device_id": {
+                    "description": "Blink \u012frenginio ID.",
+                    "name": "\u012erenginio ID"
+                },
+                "filename": {
+                    "description": "Failo pavadinimas \u012f \u012fra\u0161om\u0105j\u012f keli\u0105 (konfig\u016bracijos faile gali reik\u0117ti \u012ftraukti katalog\u0105 \u012f allowlist_external_dirs).",
+                    "name": "Failo pavadinimas"
+                },
+                "name": {
+                    "description": "Kameros, i\u0161 kurios norite paimti vaizdo \u012fra\u0161\u0105, pavadinimas.",
+                    "name": "Vardas"
+                }
+            },
+            "name": "I\u0161saugoti vaizdo \u012fra\u0161\u0105"
+        },
+        "send_pin": {
+            "description": "Siun\u010dia nauj\u0105 PIN kod\u0105, kad mirks\u0117t\u0173 2FA.",
+            "fields": {
+                "config_entry_id": {
+                    "description": "Blink integracijos ID.",
+                    "name": "Integracijos ID"
+                },
+                "device_id": {
+                    "description": "Blink \u012frenginio ID.",
+                    "name": "\u012erenginio ID"
+                },
+                "pin": {
+                    "description": "PIN gautas i\u0161 mirks\u0117jimo. Palikite tu\u0161\u010di\u0105, jei gavote tik patvirtinimo el. lai\u0161k\u0105.",
+                    "name": "Pin"
+                }
+            },
+            "name": "Si\u0173sti PIN kod\u0105"
+        },
+        "trigger_camera": {
+            "description": "Pra\u0161o fotoaparato padaryti nauj\u0105 vaizd\u0105.",
+            "fields": {
+                "device_id": {
+                    "description": "Blink \u012frenginio ID.",
+                    "name": "\u012erenginio ID"
+                }
+            },
+            "name": "Paleidimo kamera"
+        }
+    }
+}

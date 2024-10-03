@@ -1,0 +1,178 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Seade on juba h\u00e4\u00e4lestatud",
+            "reconfigure_successful": "\u00dcmberseadistamine \u00f5nnestus"
+        },
+        "error": {
+            "cannot_connect": "\u00dchendamine nurjus",
+            "invalid_auth": "Tuvastamine nurjus",
+            "no_homes": "Selle Tado kontoga pole \u00fchtegi kodu seotud.",
+            "unknown": "Ootamatu t\u00f5rge"
+        },
+        "step": {
+            "reconfigure_confirm": {
+                "data": {
+                    "password": "Salas\u00f5na"
+                },
+                "data_description": {
+                    "password": "Sisesta Tado (uus) parool."
+                },
+                "description": "Seadista oma konto kirje uuesti: ` {username} `.",
+                "title": "Seadista oma Tado uuesti"
+            },
+            "user": {
+                "data": {
+                    "password": "Salas\u00f5na",
+                    "username": "Kasutajanimi"
+                },
+                "title": "Tado kontoga \u00fchenduse loomine"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "connection_state": {
+                "name": "\u00dchenduse olek"
+            },
+            "early_start": {
+                "name": "Varajane algus"
+            },
+            "overlay": {
+                "name": "\u00dclekate"
+            }
+        },
+        "climate": {
+            "tado": {
+                "state_attributes": {
+                    "preset_mode": {
+                        "state": {
+                            "auto": "Automaatne"
+                        }
+                    }
+                }
+            }
+        },
+        "sensor": {
+            "ac": {
+                "name": "Vahelduvvool"
+            },
+            "automatic_geofencing": {
+                "name": "Automaatne geotarastus"
+            },
+            "geofencing_mode": {
+                "name": "Geopiirde re\u017eiim"
+            },
+            "heating": {
+                "name": "K\u00fcte"
+            },
+            "outdoor_temperature": {
+                "name": "V\u00e4listemperatuur"
+            },
+            "solar_percentage": {
+                "name": "P\u00e4ikese protsent"
+            },
+            "tado_mode": {
+                "name": "Tado re\u017eiim"
+            },
+            "weather_condition": {
+                "name": "Ilmastikuolud"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_yaml_import_device_tracker": {
+            "description": "Tado Device Trackeri seadistamine YAML-i abil eemaldatakse.\n Eemalda YAML-i seadme j\u00e4lgija konfiguratsioon ja taask\u00e4ivita Home Assistant.",
+            "title": "Tado YAML-i seadme j\u00e4lgija konfiguratsioon on imporditud"
+        },
+        "failed_to_import": {
+            "description": "Tado seadme j\u00e4lgija konfiguratsiooni importimine nurjus. Tado konfigureerimiseks kasuta kasutajaliidest. \u00c4ra unusta kustutada YAML-i konfiguratsiooni.",
+            "title": "Importimine nurjus"
+        },
+        "import_aborted": {
+            "description": "Tado Device Trackeri konfigureerimine YAML-i abil eemaldatakse.\n Import katkestati, kuna olemasolev konfiguratsioonikirje kattus YAML-i imporditavate andmetega. Eemalda YAML-i seadme j\u00e4lgija konfiguratsioon ja taask\u00e4ivita Home Assistant. Kasuta Tado konfigureerimiseks kasutajaliidest.",
+            "title": "Importimine on katkestatud"
+        },
+        "import_failed": {
+            "description": "Tado Device Trackeri konfiguratsiooni importimine nurjus. Tado konfigureerimiseks kasuta kasutajaliidest. \u00c4ra unusta kustutada YAML-i konfiguratsiooni.",
+            "title": "Importimine nurjus"
+        },
+        "import_failed_invalid_auth": {
+            "description": "Tado Device Trackeri konfiguratsiooni importimine nurjus sobimatute mandaatide t\u00f5ttu. Palun paranda YAML-i konfiguratsioon ja taask\u00e4ivita Home Assistant. Teise v\u00f5imalusena saad Tado konfigureerimiseks kasutada kasutajaliidest. \u00c4ra unusta kustutada YAML-i konfiguratsiooni kui importimine on edukas.",
+            "title": "Importimine nurjus, sobimatud load"
+        },
+        "water_heater_fallback": {
+            "description": "Veesoojendite olemite t\u00e4iendava toe t\u00f5ttu v\u00f5ivad need \u00fcksused kasutada teistsugust \u00fclekatet. Konfigureeri integreerimis\u00fcksuse ja tado rakenduse veesoojendi tsooni \u00fclekatte valikud. Muul juhul konfigureeri integreerimis\u00fcksus ja Tado rakenduse veesoojendi tsooni \u00fclekatte valikud (jaotises Seaded - > Ruumid ja seadmed - > Kuum vesi).",
+            "title": "Tado veesoojendi olemid toetavad n\u00fc\u00fcd varuvalikuid"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "fallback": "Vali varure\u017eiim."
+                },
+                "description": "Varure\u017eiim v\u00f5imaldab valida millal naasta nutikale ajakavale k\u00e4sitsi tsooni \u00fclekattega. (NEXT_TIME_BLOCK:= Muuda j\u00e4rgmisel nutika ajakava muudatusel; MANUAL:= \u00c4ra muuda enne kui oled t\u00fchistanud; TADO_DEFAULT:= Muuda, l\u00e4htudes Tado rakenduse seadistustest).",
+                "title": "Kohanda Tado suvandeid."
+            }
+        }
+    },
+    "services": {
+        "add_meter_reading": {
+            "description": "Lisa Tado Energy IQ-le arvesti n\u00e4idud.",
+            "fields": {
+                "config_entry": {
+                    "description": "Seadekanne arvesti n\u00e4itude lisamiseks.",
+                    "name": "Seadekanne"
+                },
+                "reading": {
+                    "description": "N\u00e4it m\u00b3 v\u00f5i kWh ilma k\u00fcmnendkohtadeta.",
+                    "name": "N\u00e4it"
+                }
+            },
+            "name": "Lisa arvesti n\u00e4idud"
+        },
+        "set_climate_temperature_offset": {
+            "description": "M\u00e4\u00e4rab kliimseadmete temperatuurinihke.",
+            "fields": {
+                "offset": {
+                    "description": "Soovitud nihe (olenevalt seadmest).",
+                    "name": "Nihe"
+                }
+            },
+            "name": "Kliimaseadme temperatuuri nihke m\u00e4\u00e4ramine"
+        },
+        "set_climate_timer": {
+            "description": "L\u00fclitab kliima\u00fcksused m\u00e4\u00e4ratud ajaks sisse.",
+            "fields": {
+                "requested_overlay": {
+                    "description": "Vali see v\u00f5i Ajavahemik. V\u00f5imaldab valida k\u00fclekatte. MANUAL:=\u00dclekate kuni kasutaja eemaldab; NEXT_TIME_BLOCK:=\u00dclekate kuni j\u00e4rgmise ajaplokini; TADO_DEFAULT:=\u00dclekate p\u00f5hineb tado rakenduse seadistusel.",
+                    "name": "\u00dclekate"
+                },
+                "temperature": {
+                    "description": "Kliimaseadme sihttemperatuur.",
+                    "name": "Temperatuur"
+                },
+                "time_period": {
+                    "description": "Vali see v\u00f5i \u00fclekate. M\u00e4\u00e4ra muudatuse ajavahemik kui soovid olla konkreetne. Teise v\u00f5imalusena kasuta \u00fclekatet.",
+                    "name": "Ajavahemik"
+                }
+            },
+            "name": "Seadista kliimaseadme taimer"
+        },
+        "set_water_heater_timer": {
+            "description": "L\u00fclitab veesoojendi m\u00e4\u00e4ratud ajaks sisse.",
+            "fields": {
+                "temperature": {
+                    "description": "Veesoojendi sihttemperatuur.",
+                    "name": "Temperatuur"
+                },
+                "time_period": {
+                    "description": "M\u00e4\u00e4ra kiirkuumutuse ajavahemik.",
+                    "name": "Ajavahemik"
+                }
+            },
+            "name": "M\u00e4\u00e4ra veesoojendi taimer"
+        }
+    }
+}

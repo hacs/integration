@@ -1,0 +1,75 @@
+{
+    "issues": {
+        "backup_failed_out_of_resources": {
+            "description": "La sauvegarde de la base de donn\u00e9es indiqu\u00e9e \u00e0 {start_time} a \u00e9chou\u00e9 en raison d'un manque de ressources. La sauvegarde n'est pas fiable et doit \u00eatre red\u00e9marr\u00e9e. Cela peut se produire si la base de donn\u00e9es est trop volumineuse ou si le syst\u00e8me est soumis \u00e0 une forte charge. Envisagez de mettre \u00e0 niveau le mat\u00e9riel du syst\u00e8me ou de r\u00e9duire la taille de la base de donn\u00e9es en diminuant le nombre de jours d'historique \u00e0 conserver ou en cr\u00e9ant un filtre.",
+            "title": "La sauvegarde de la base de donn\u00e9es a \u00e9chou\u00e9 en raison d'un manque de ressources"
+        },
+        "maria_db_range_index_regression": {
+            "description": "Les anciennes versions de MariaDB souffrent d'une r\u00e9gression significative des performances lors de la r\u00e9cup\u00e9ration des donn\u00e9es de l'historique ou de la purge de la base de donn\u00e9es. Mettez \u00e0 jour vers la version MariaDB {min_version} ou plus r\u00e9cente et red\u00e9marrez Home Assistant. Si vous utilisez le module compl\u00e9mentaire MariaDB, veillez \u00e0 le mettre \u00e0 jour avec la derni\u00e8re version.",
+            "title": "La mise \u00e0 jour de MariaDB vers {min_version} ou une version plus r\u00e9cente r\u00e9sout un probl\u00e8me de performance important."
+        },
+        "sqlite_too_old": {
+            "description": "La prise en charge de la version {server_version} de SQLite prend fin\u00a0; la version minimale prise en charge est {min_version}. Veuillez mettre \u00e0 niveau votre logiciel de base de donn\u00e9es.",
+            "title": "Mettez \u00e0 jour SQLite vers {min_version} ou une version ult\u00e9rieure pour continuer \u00e0 utiliser l'enregistreur"
+        }
+    },
+    "services": {
+        "disable": {
+            "description": "Arr\u00eate l'enregistrement des \u00e9v\u00e9nements et des changements d'\u00e9tat.",
+            "name": "D\u00e9sactiver"
+        },
+        "enable": {
+            "description": "D\u00e9marre l'enregistrement des \u00e9v\u00e9nements et des changements d'\u00e9tat.",
+            "name": "Activer"
+        },
+        "purge": {
+            "description": "D\u00e9marre la t\u00e2che de purge - pour nettoyer les anciennes donn\u00e9es de votre base de donn\u00e9es.",
+            "fields": {
+                "apply_filter": {
+                    "description": "Appliquer les filtres `entity_id` et `event_type` en plus de la purge bas\u00e9e sur le temps.",
+                    "name": "Appliquer le filtre"
+                },
+                "keep_days": {
+                    "description": "Nombre de jours de conservation des donn\u00e9es dans la base de donn\u00e9es. \u00c0 partir d'aujourd'hui, en comptant \u00e0 rebours. Une valeur de `7` signifie que tout ce qui date de plus d'une semaine sera purg\u00e9.",
+                    "name": "Jours \u00e0 conserver"
+                },
+                "repack": {
+                    "description": "Tenter d'\u00e9conomiser de l'espace disque en r\u00e9\u00e9crivant l'int\u00e9gralit\u00e9 du fichier de base de donn\u00e9es.",
+                    "name": "Reconditionner"
+                }
+            },
+            "name": "Purger"
+        },
+        "purge_entities": {
+            "description": "D\u00e9marre une t\u00e2che de purge pour supprimer les donn\u00e9es relatives \u00e0 des entit\u00e9s sp\u00e9cifiques de votre base de donn\u00e9es.",
+            "fields": {
+                "domains": {
+                    "description": "Liste des domaines pour lesquels les donn\u00e9es doivent \u00eatre supprim\u00e9es de la base de donn\u00e9es de l'enregistreur.",
+                    "name": "Domaines \u00e0 supprimer"
+                },
+                "entity_globs": {
+                    "description": "Liste des mod\u00e8les globaux utilis\u00e9s pour s\u00e9lectionner les entit\u00e9s pour lesquelles les donn\u00e9es doivent \u00eatre supprim\u00e9es de la base de donn\u00e9es de l'enregistreur.",
+                    "name": "Entit\u00e9s globales \u00e0 supprimer"
+                },
+                "entity_id": {
+                    "description": "Liste des entit\u00e9s pour lesquelles les donn\u00e9es doivent \u00eatre supprim\u00e9es de la base de donn\u00e9es de l'enregistreur.",
+                    "name": "Entit\u00e9s \u00e0 supprimer"
+                },
+                "keep_days": {
+                    "description": "Nombre de jours de conservation des donn\u00e9es pour les lignes correspondant au filtre. \u00c0 partir d'aujourd'hui, en comptant \u00e0 rebours. Une valeur de `7` signifie que tout ce qui date de plus d'une semaine sera purg\u00e9. La valeur par d\u00e9faut de 0 jours supprimera imm\u00e9diatement toutes les lignes correspondantes.",
+                    "name": "Jours \u00e0 conserver"
+                }
+            },
+            "name": "Purger les entit\u00e9s"
+        }
+    },
+    "system_health": {
+        "info": {
+            "current_recorder_run": "Heure de d\u00e9marrage de l'ex\u00e9cution actuelle",
+            "database_engine": "Moteur de la base de donn\u00e9es",
+            "database_version": "Version de la base de donn\u00e9es",
+            "estimated_db_size": "Taille estim\u00e9e de la base de donn\u00e9es (en Mio)",
+            "oldest_recorder_run": "Heure de d\u00e9marrage de l'ex\u00e9cution la plus ancienne"
+        }
+    }
+}

@@ -1,0 +1,66 @@
+{
+  "language": "bn",
+  "intents": {
+    "HassTurnOff": {
+      "data": [
+        {
+          "sentences": [
+            "বন্ধ করুন <name>",
+            "<name> বন্ধ করুন"
+          ]
+        }
+      ]
+    },
+    "HassTurnOn": {
+      "data": [
+        {
+          "sentences": [
+            "চালু করুন <name>",
+            " <name> চালু করুন"
+          ]
+        }
+      ]
+    }
+  },
+  "responses": {
+    "errors": {
+      "no_intent": "“দুঃখিত আমি বুঝতে পারিনি”",
+      "no_area": "“{{ area }} এর ক্ষেত্র আগে উঠানো হয়নি ”",
+      "no_domain_in_area": "“{{ area }} এরমধ্যে  {{ domain }} নেই”",
+      "no_device_class_in_area": "“{{ area }} এরমধ্যে  {{ device_class }} নেই",
+      "no_entity": "“এই নামে কোন মেশিন বা  {{ entity }} নামে  কিছু নেই”",
+      "handle_error": "“কাজটি শেষ করার আগে অপ্রত্যাশিত একটি ভুলসংঘটিত হয়েছে”"
+    },
+    "intents": {
+      "HassGetState": {},
+      "HassTurnOff": {
+        "default": "Turned off {{ slots.name }}",
+        "lights_area": "Turned off lights in {{ slots.area }}",
+        "fans_area": "Turned off fans in {{ slots.area }}",
+        "cover": "Closed {{ slots.name }}",
+        "cover_area": "Closed {{ slots.area }}"
+      },
+      "HassTurnOn": {
+        "default": "Turned on {{ slots.name }}",
+        "lights_area": "Turned on lights in {{ slots.area }}",
+        "fans_area": "Turned on fans in {{ slots.area }}",
+        "cover": "Opened {{ slots.name }}",
+        "cover_area": "Opened {{ slots.area }}"
+      },
+      "HassLightSet": {
+        "brightness": "{{ slots.name }} brightness set to {{ slots.brightness }}",
+        "brightness_area": "Brightness in {{ slots.area }} set to {{ slots.brightness }}",
+        "color": "{{ slots.name }} color set to {{ slots.color }}",
+        "color_area": "Color in {{ slots.area }} set to {{ slots.color }}"
+      },
+      "HassClimateGetTemperature": {
+        "default": "{{ state.state }} degrees"
+      }
+    }
+  },
+  "lists": {},
+  "expansion_rules": {
+    "name": "{name}"
+  },
+  "skip_words": []
+}

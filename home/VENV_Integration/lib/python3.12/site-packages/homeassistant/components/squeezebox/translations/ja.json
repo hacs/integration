@@ -1,0 +1,115 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "\u30c7\u30d0\u30a4\u30b9\u306f\u3059\u3067\u306b\u8a2d\u5b9a\u3055\u308c\u3066\u3044\u307e\u3059",
+            "no_server_found": "LMS\u30b5\u30fc\u30d0\u30fc\u304c\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3002"
+        },
+        "error": {
+            "cannot_connect": "\u63a5\u7d9a\u306b\u5931\u6557\u3057\u307e\u3057\u305f",
+            "invalid_auth": "\u7121\u52b9\u306a\u8a8d\u8a3c",
+            "no_server_found": "\u30b5\u30fc\u30d0\u30fc\u3092\u81ea\u52d5\u7684\u306b\u691c\u51fa\u3067\u304d\u307e\u305b\u3093\u3067\u3057\u305f\u3002",
+            "unknown": "\u4e88\u671f\u3057\u306a\u3044\u30a8\u30e9\u30fc"
+        },
+        "flow_title": "{host}",
+        "step": {
+            "edit": {
+                "data": {
+                    "host": "\u30db\u30b9\u30c8",
+                    "https": "https \u7d4c\u7531\u3067\u63a5\u7d9a\u3059\u308b (\u30ea\u30d0\u30fc\u30b9\u30d7\u30ed\u30ad\u30b7\u304c\u5fc5\u8981)",
+                    "password": "\u30d1\u30b9\u30ef\u30fc\u30c9",
+                    "port": "\u30dd\u30fc\u30c8",
+                    "username": "\u30e6\u30fc\u30b6\u30fc\u540d"
+                },
+                "title": "\u63a5\u7d9a\u60c5\u5831\u306e\u7de8\u96c6"
+            },
+            "user": {
+                "data": {
+                    "host": "\u30db\u30b9\u30c8"
+                },
+                "data_description": {
+                    "host": "Lyrion Music Server \u306e\u30db\u30b9\u30c8\u540d\u307e\u305f\u306f IP \u30a2\u30c9\u30ec\u30b9\u3002"
+                }
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "needsrestart": {
+                "name": "\u518d\u8d77\u52d5\u304c\u5fc5\u8981"
+            },
+            "rescan": {
+                "name": "\u30e9\u30a4\u30d6\u30e9\u30ea\u540d"
+            }
+        },
+        "sensor": {
+            "info_total_albums": {
+                "name": "\u7dcf\u30a2\u30eb\u30d0\u30e0\u6570"
+            },
+            "info_total_artists": {
+                "name": "\u5168\u30a2\u30fc\u30c6\u30a3\u30b9\u30c8"
+            },
+            "info_total_duration": {
+                "name": "\u5408\u8a08\u6240\u8981\u6642\u9593"
+            },
+            "info_total_genres": {
+                "name": "\u5168\u30b8\u30e3\u30f3\u30eb"
+            },
+            "info_total_songs": {
+                "name": "\u7dcf\u66f2\u6570"
+            },
+            "lastscan": {
+                "name": "\u6700\u7d42\u30b9\u30ad\u30e3\u30f3"
+            },
+            "other_player_count": {
+                "name": "\u30d7\u30ec\u30fc\u30e4\u30fc\u30ab\u30a6\u30f3\u30c8\u30aa\u30d5\u30b5\u30fc\u30d3\u30b9"
+            },
+            "player_count": {
+                "name": "\u30d7\u30ec\u30a4\u30e4\u30fc\u6570"
+            }
+        }
+    },
+    "services": {
+        "call_method": {
+            "description": "\u30ab\u30b9\u30bf\u30e0 Squeezebox JSONRPC API \u3092\u547c\u3073\u51fa\u3057\u307e\u3059\u3002",
+            "fields": {
+                "command": {
+                    "description": "Lyrion Music Server \u306b\u6e21\u3059\u30b3\u30de\u30f3\u30c9 (CLI \u30c9\u30ad\u30e5\u30e1\u30f3\u30c8\u306e p0)\u3002",
+                    "name": "\u30b3\u30de\u30f3\u30c9"
+                },
+                "parameters": {
+                    "description": "Lyrion Music Server \u306b\u6e21\u3059\u8ffd\u52a0\u30d1\u30e9\u30e1\u30fc\u30bf\u306e\u914d\u5217 (CLI \u30c9\u30ad\u30e5\u30e1\u30f3\u30c8\u306e p1\u3001...\u3001pN)\u3002",
+                    "name": "\u30d1\u30e9\u30e1\u30fc\u30bf\u30fc"
+                }
+            },
+            "name": "\u547c\u3073\u51fa\u3057\u30e1\u30bd\u30c3\u30c9"
+        },
+        "call_query": {
+            "description": "\u30ab\u30b9\u30bf\u30e0 Squeezebox JSONRPC API \u3092\u547c\u3073\u51fa\u3057\u307e\u3059\u3002\u7d50\u679c\u306f Squeezebox \u30a8\u30f3\u30c6\u30a3\u30c6\u30a3\u306e 'query_result' \u5c5e\u6027\u306b\u4fdd\u5b58\u3055\u308c\u307e\u3059\u3002\n \u3002",
+            "fields": {
+                "command": {
+                    "description": "Lyrion Music Server \u306b\u6e21\u3059\u30b3\u30de\u30f3\u30c9 (CLI \u30c9\u30ad\u30e5\u30e1\u30f3\u30c8\u306e p0)\u3002",
+                    "name": "\u30b3\u30de\u30f3\u30c9"
+                },
+                "parameters": {
+                    "description": "Lyrion Music Server \u306b\u6e21\u3059\u8ffd\u52a0\u30d1\u30e9\u30e1\u30fc\u30bf\u306e\u914d\u5217 (CLI \u30c9\u30ad\u30e5\u30e1\u30f3\u30c8\u306e p1\u3001...\u3001pN)\u3002",
+                    "name": "\u30d1\u30e9\u30e1\u30fc\u30bf\u30fc"
+                }
+            },
+            "name": "\u547c\u3073\u51fa\u3057\u30af\u30a8\u30ea"
+        },
+        "sync": {
+            "description": "\u3053\u306e\u30d7\u30ec\u30fc\u30e4\u30fc\u306e\u540c\u671f\u30b0\u30eb\u30fc\u30d7\u306b\u5225\u306e\u30d7\u30ec\u30fc\u30e4\u30fc\u3092\u8ffd\u52a0\u3057\u307e\u3059\u3002\u4ed6\u306e\u30d7\u30ec\u30a4\u30e4\u30fc\u304c\u3059\u3067\u306b\u540c\u671f\u30b0\u30eb\u30fc\u30d7\u306b\u6240\u5c5e\u3057\u3066\u3044\u308b\u5834\u5408\u306f\u3001\u540c\u671f\u30b0\u30eb\u30fc\u30d7\u304b\u3089\u8131\u9000\u3057\u307e\u3059\u3002\n \u3002",
+            "fields": {
+                "other_player": {
+                    "description": "\u30ea\u30f3\u30af\u3059\u308b\u4ed6\u306e Squeezebox \u30d7\u30ec\u30fc\u30e4\u30fc\u306e\u540d\u524d\u3002",
+                    "name": "\u4ed6\u306e\u30d7\u30ec\u30a4\u30e4\u30fc"
+                }
+            },
+            "name": "\u540c\u671f"
+        },
+        "unsync": {
+            "description": "\u3053\u306e\u30d7\u30ec\u30fc\u30e4\u30fc\u3092\u540c\u671f\u30b0\u30eb\u30fc\u30d7\u304b\u3089\u524a\u9664\u3057\u307e\u3059\u3002",
+            "name": "\u540c\u671f\u3092\u89e3\u9664"
+        }
+    }
+}

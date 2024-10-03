@@ -1,0 +1,592 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Cihaz zaten yap\u0131land\u0131r\u0131lm\u0131\u015f",
+            "already_in_progress": "Yap\u0131land\u0131rma ak\u0131\u015f\u0131 zaten devam ediyor",
+            "incomplete_info": "Cihaz\u0131 kurmak i\u00e7in eksik bilgi, sa\u011flanan ana bilgisayar veya belirte\u00e7 yok.",
+            "not_xiaomi_miio": "Cihaz (hen\u00fcz) Xiaomi Miio taraf\u0131ndan desteklenmiyor.",
+            "reauth_successful": "Yeniden kimlik do\u011frulama ba\u015far\u0131l\u0131 oldu",
+            "unknown": "Beklenmeyen hata"
+        },
+        "error": {
+            "cannot_connect": "Ba\u011flanma hatas\u0131",
+            "cloud_credentials_incomplete": "Bulut kimlik bilgileri eksik, l\u00fctfen kullan\u0131c\u0131 ad\u0131n\u0131, \u015fifreyi ve \u00fclkeyi girin",
+            "cloud_login_error": "Xiaomi Miio Cloud'da oturum a\u00e7\u0131lamad\u0131, kimlik bilgilerini kontrol edin.",
+            "cloud_no_devices": "Bu Xiaomi Miio bulut hesab\u0131nda cihaz bulunamad\u0131.",
+            "unknown_device": "Cihaz modeli bilinmiyor, konfig\u00fcrasyon ak\u0131\u015f\u0131 kullan\u0131larak cihaz kurulam\u0131yor.",
+            "wrong_token": "Sa\u011flama toplam\u0131 hatas\u0131, yanl\u0131\u015f anahtar"
+        },
+        "flow_title": "{name}",
+        "step": {
+            "cloud": {
+                "data": {
+                    "cloud_country": "Bulut sunucusu \u00fclkesi",
+                    "cloud_password": "Bulut \u015fifresi",
+                    "cloud_username": "Bulut kullan\u0131c\u0131 ad\u0131",
+                    "manual": "Manuel olarak yap\u0131land\u0131r\u0131n (\u00f6nerilmez)"
+                },
+                "description": "Xiaomi Miio bulutunda oturum a\u00e7\u0131n, bulut sunucusunun kullanmas\u0131 i\u00e7in https://www.openhab.org/addons/bindings/miio/#country-servers adresine bak\u0131n."
+            },
+            "connect": {
+                "data": {
+                    "model": "Cihaz modeli"
+                }
+            },
+            "manual": {
+                "data": {
+                    "host": "IP Adresi",
+                    "token": "API Anahtar\u0131"
+                },
+                "description": "32 karakterlik API belirtecine ihtiyac\u0131n\u0131z olacak, talimatlar i\u00e7in bkz. L\u00fctfen bu API belirtecinin, Xiaomi Aqara entegrasyonu taraf\u0131ndan kullan\u0131lan anahtardan farkl\u0131 oldu\u011funu unutmay\u0131n."
+            },
+            "reauth_confirm": {
+                "description": "Anahtarlar\u0131 g\u00fcncellemek veya eksik bulut kimlik bilgilerini eklemek i\u00e7in Xiaomi Miio entegrasyonunun hesab\u0131n\u0131z\u0131 yeniden do\u011frulamas\u0131 gerekir.",
+                "title": "{name} i\u00e7in kimlik do\u011frulaman\u0131n s\u00fcresi doldu"
+            },
+            "select": {
+                "data": {
+                    "select_device": "Miio cihaz\u0131"
+                },
+                "description": "Kurulum i\u00e7in Xiaomi Miio cihaz\u0131n\u0131 se\u00e7in."
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "is_water_box_attached": {
+                "name": "Paspas tak\u0131l\u0131"
+            },
+            "is_water_box_carriage_attached": {
+                "name": "Paspas tak\u0131l\u0131"
+            },
+            "is_water_shortage": {
+                "name": "Su s\u0131k\u0131nt\u0131s\u0131"
+            },
+            "no_water": {
+                "name": "Su deposu bo\u015f"
+            },
+            "powersupply_attached": {
+                "name": "G\u00fc\u00e7 kayna\u011f\u0131"
+            },
+            "ptc_status": {
+                "name": "Yard\u0131mc\u0131 \u0131s\u0131tma durumu"
+            },
+            "water_tank_detached": {
+                "name": "Su deposu"
+            }
+        },
+        "button": {
+            "reset_dust_filter": {
+                "name": "Toz filtresini s\u0131f\u0131rla"
+            },
+            "reset_upper_filter": {
+                "name": "\u00dcst filtreyi s\u0131f\u0131rla"
+            },
+            "reset_vacuum_filter": {
+                "name": "Filtreyi s\u0131f\u0131rla"
+            },
+            "reset_vacuum_main_brush": {
+                "name": "Ana f\u0131r\u00e7ay\u0131 s\u0131f\u0131rla"
+            },
+            "reset_vacuum_sensor_dirty": {
+                "name": "Kirli sens\u00f6r\u00fc s\u0131f\u0131rla"
+            },
+            "reset_vacuum_side_brush": {
+                "name": "Yan f\u0131r\u00e7ay\u0131 s\u0131f\u0131rla"
+            }
+        },
+        "fan": {
+            "generic_fan": {
+                "state_attributes": {
+                    "preset_mode": {
+                        "state": {
+                            "nature": "Do\u011fa",
+                            "normal": "Normal"
+                        }
+                    }
+                }
+            }
+        },
+        "number": {
+            "angle": {
+                "name": "Sal\u0131n\u0131m a\u00e7\u0131s\u0131"
+            },
+            "delay_off_countdown": {
+                "name": "Geri say\u0131m\u0131 ertele"
+            },
+            "fan_level": {
+                "name": "Fan seviyesi"
+            },
+            "favorite_level": {
+                "name": "Favori seviye"
+            },
+            "favorite_rpm": {
+                "name": "Favori motor h\u0131z\u0131"
+            },
+            "led_brightness": {
+                "name": "LED parlakl\u0131\u011f\u0131"
+            },
+            "led_brightness_level": {
+                "name": "LED parlakl\u0131\u011f\u0131"
+            },
+            "motor_speed": {
+                "name": "Motor h\u0131z\u0131"
+            },
+            "volume": {
+                "name": "Seviye"
+            }
+        },
+        "select": {
+            "airpurifier_mode": {
+                "state": {
+                    "auto": "Otomatik",
+                    "favorite": "Favori",
+                    "silent": "Sessiz"
+                }
+            },
+            "display_orientation": {
+                "state": {
+                    "forward": "\u0130leri",
+                    "left": "Sol",
+                    "right": "Sa\u011f"
+                }
+            },
+            "led_brightness": {
+                "state": {
+                    "bright": "Ayd\u0131nl\u0131k",
+                    "dim": "Dim",
+                    "off": "Kapal\u0131"
+                }
+            },
+            "ptc_level": {
+                "state": {
+                    "high": "Y\u00fcksek",
+                    "low": "D\u00fc\u015f\u00fck",
+                    "medium": "Orta"
+                }
+            }
+        },
+        "sensor": {
+            "actual_speed": {
+                "name": "Ger\u00e7ek h\u0131z"
+            },
+            "air_quality": {
+                "name": "Hava kalitesi"
+            },
+            "air_quality_index": {
+                "name": "Hava kalitesi endeksi"
+            },
+            "area": {
+                "name": "Son temizlenen alan"
+            },
+            "clean_area": {
+                "name": "Mevcut temizlenen alan"
+            },
+            "clean_time": {
+                "name": "Mevcut temizlik s\u00fcresi"
+            },
+            "control_speed": {
+                "name": "Kontrol h\u0131z\u0131"
+            },
+            "count": {
+                "name": "Toplam temizlik sayac\u0131"
+            },
+            "dnd_end": {
+                "name": "DnD sonu"
+            },
+            "dnd_start": {
+                "name": "DnD ba\u015flang\u0131c\u0131"
+            },
+            "duration": {
+                "name": "Son temizlik s\u00fcresi"
+            },
+            "dust_collection_count": {
+                "name": "Toplam toz toplama say\u0131s\u0131"
+            },
+            "dust_filter_life_remaining": {
+                "name": "Toz filtresinin kalan \u00f6mr\u00fc"
+            },
+            "dust_filter_life_remaining_days": {
+                "name": "Toz filtresinin kullan\u0131m \u00f6mr\u00fc kalan g\u00fcn say\u0131s\u0131"
+            },
+            "favorite_speed": {
+                "name": "Favori h\u0131z"
+            },
+            "filter_hours_used": {
+                "name": "Filtre kullan\u0131m\u0131"
+            },
+            "filter_left": {
+                "name": "Sol filtre"
+            },
+            "filter_left_time": {
+                "name": "Filtre kullan\u0131m \u00f6mr\u00fc"
+            },
+            "filter_life_remaining": {
+                "name": "Filtrenin kalan \u00f6mr\u00fc"
+            },
+            "illuminance": {
+                "name": "Ayd\u0131nl\u0131k"
+            },
+            "last_clean_end": {
+                "name": "Son temiz son"
+            },
+            "last_clean_start": {
+                "name": "Son temiz ba\u015flang\u0131\u00e7"
+            },
+            "load_power": {
+                "name": "Y\u00fck g\u00fcc\u00fc"
+            },
+            "main_brush_left": {
+                "name": "Ana f\u0131r\u00e7a sol"
+            },
+            "motor2_speed": {
+                "name": "\u0130kinci motor h\u0131z\u0131"
+            },
+            "motor_speed": {
+                "name": "Motor h\u0131z\u0131"
+            },
+            "purify_volume": {
+                "name": "Hacmi safla\u015ft\u0131r"
+            },
+            "sensor_dirty_left": {
+                "name": "Sol sens\u00f6r kirli"
+            },
+            "side_brush_left": {
+                "name": "Yan f\u0131r\u00e7a sol"
+            },
+            "total_area": {
+                "name": "Toplam temizlenen alan"
+            },
+            "total_duration": {
+                "name": "Toplam s\u00fcre"
+            },
+            "tvoc": {
+                "name": "TVOC"
+            },
+            "upper_filter_life_remaining": {
+                "name": "\u00dcst filtrenin kalan \u00f6mr\u00fc"
+            },
+            "upper_filter_life_remaining_days": {
+                "name": "\u00dcst filtre kullan\u0131m \u00f6mr\u00fc kalan g\u00fcn say\u0131s\u0131"
+            },
+            "use_time": {
+                "name": "Kullan\u0131m s\u00fcresi"
+            },
+            "water_level": {
+                "name": "Su seviyesi"
+            }
+        },
+        "switch": {
+            "anion": {
+                "name": "\u0130yonla\u015ft\u0131r\u0131c\u0131"
+            },
+            "auto_detect": {
+                "name": "Otomatik alg\u0131lama"
+            },
+            "buzzer": {
+                "name": "Zil"
+            },
+            "child_lock": {
+                "name": "\u00c7o\u00e7uk kilidi"
+            },
+            "clean_mode": {
+                "name": "Temiz mod"
+            },
+            "display": {
+                "name": "Ekran"
+            },
+            "dry": {
+                "name": "Kuru mod"
+            },
+            "ionizer": {
+                "name": "\u0130yonla\u015ft\u0131r\u0131c\u0131"
+            },
+            "learn_mode": {
+                "name": "\u00d6\u011frenme modu"
+            },
+            "led": {
+                "name": "LED"
+            },
+            "ptc": {
+                "name": "Yard\u0131mc\u0131 \u0131s\u0131"
+            }
+        }
+    },
+    "options": {
+        "error": {
+            "cloud_credentials_incomplete": "Bulut kimlik bilgileri eksik, l\u00fctfen kullan\u0131c\u0131 ad\u0131n\u0131, \u015fifreyi ve \u00fclkeyi girin"
+        },
+        "step": {
+            "init": {
+                "data": {
+                    "cloud_subdevices": "Ba\u011fl\u0131 alt cihazlar almak i\u00e7in bulutu kullan\u0131n"
+                }
+            }
+        }
+    },
+    "services": {
+        "fan_reset_filter": {
+            "description": "Filtre \u00f6mr\u00fcn\u00fc ve kullan\u0131m\u0131n\u0131 s\u0131f\u0131rlar.",
+            "fields": {
+                "entity_id": {
+                    "description": "Xiaomi miio varl\u0131\u011f\u0131n\u0131n ad\u0131.",
+                    "name": "Varl\u0131k kimli\u011fi"
+                }
+            },
+            "name": "Fan s\u0131f\u0131rlama filtresi"
+        },
+        "fan_set_extra_features": {
+            "description": "Ekstra \u00f6zelliklerin reklam\u0131n\u0131 yapan bir depolama kayd\u0131n\u0131 manip\u00fcle eder. Mi Home uygulamas\u0131 de\u011feri de\u011ferlendirir. Uygulamada 1 de\u011ferinde \"turbo modu\" ad\u0131 verilen bir \u00f6zelli\u011fin kilidi a\u00e7\u0131l\u0131r.",
+            "fields": {
+                "entity_id": {
+                    "description": "Xiaomi miio varl\u0131\u011f\u0131n\u0131n ad\u0131.",
+                    "name": "Varl\u0131k kimli\u011fi"
+                },
+                "features": {
+                    "description": "Tamsay\u0131, bilinen de\u011ferler 0 (varsay\u0131lan) ve 1'dir (turbo modu).",
+                    "name": "\u00d6zellikler"
+                }
+            },
+            "name": "Fan seti ekstra \u00f6zellikleri"
+        },
+        "light_eyecare_mode_off": {
+            "description": "G\u00f6z yorgunlu\u011fu hat\u0131rlat\u0131c\u0131s\u0131n\u0131/bildirimini devre d\u0131\u015f\u0131 b\u0131rak\u0131r (SADECE EYECARE SMART LAMP 2).",
+            "fields": {
+                "entity_id": {
+                    "description": "\u00dczerinde i\u015flem yap\u0131lacak varl\u0131\u011f\u0131n ad\u0131.",
+                    "name": "Varl\u0131k kimli\u011fi"
+                }
+            },
+            "name": "Hafif g\u00f6z bak\u0131m\u0131 modu kapal\u0131"
+        },
+        "light_eyecare_mode_on": {
+            "description": "G\u00f6z yorgunlu\u011fu hat\u0131rlat\u0131c\u0131s\u0131n\u0131/bildirimini etkinle\u015ftirir (SADECE EYECARE SMART LAMP 2).",
+            "fields": {
+                "entity_id": {
+                    "description": "\u00dczerinde i\u015flem yap\u0131lacak varl\u0131\u011f\u0131n ad\u0131.",
+                    "name": "Varl\u0131k kimli\u011fi"
+                }
+            },
+            "name": "Hafif g\u00f6z bak\u0131m\u0131 modu a\u00e7\u0131k"
+        },
+        "light_night_light_mode_off": {
+            "description": "G\u00f6z bak\u0131m\u0131 modu fan_set_dry_off'u a\u00e7ar (SADECE EYECARE SMART LAMP 2).",
+            "fields": {
+                "entity_id": {
+                    "description": "\u00dczerinde i\u015flem yap\u0131lacak varl\u0131\u011f\u0131n ad\u0131.",
+                    "name": "Varl\u0131k kimli\u011fi"
+                }
+            },
+            "name": "Gece lambas\u0131 modu kapal\u0131"
+        },
+        "light_night_light_mode_on": {
+            "description": "G\u00f6z bak\u0131m\u0131 modunu a\u00e7ar (SADECE EYECARE SMART LAMP 2).",
+            "fields": {
+                "entity_id": {
+                    "description": "\u00dczerinde i\u015flem yap\u0131lacak varl\u0131\u011f\u0131n ad\u0131.",
+                    "name": "Varl\u0131k kimli\u011fi"
+                }
+            },
+            "name": "Gece lambas\u0131 modu a\u00e7\u0131k"
+        },
+        "light_reminder_off": {
+            "description": "G\u00f6z yorgunlu\u011fu hat\u0131rlat\u0131c\u0131s\u0131n\u0131/bildirimini devre d\u0131\u015f\u0131 b\u0131rak\u0131r (SADECE EYECARE SMART LAMP 2).",
+            "fields": {
+                "entity_id": {
+                    "description": "\u00dczerinde i\u015flem yap\u0131lacak varl\u0131\u011f\u0131n ad\u0131.",
+                    "name": "Varl\u0131k kimli\u011fi"
+                }
+            },
+            "name": "I\u015f\u0131k hat\u0131rlatma kapal\u0131"
+        },
+        "light_reminder_on": {
+            "description": "G\u00f6z yorgunlu\u011fu hat\u0131rlat\u0131c\u0131s\u0131n\u0131/bildirimini etkinle\u015ftirir (SADECE EYECARE SMART LAMP 2).",
+            "fields": {
+                "entity_id": {
+                    "description": "\u00dczerinde i\u015flem yap\u0131lacak varl\u0131\u011f\u0131n ad\u0131.",
+                    "name": "Varl\u0131k kimli\u011fi"
+                }
+            },
+            "name": "I\u015f\u0131k hat\u0131rlatma a\u00e7\u0131k"
+        },
+        "light_set_delayed_turn_off": {
+            "description": "Gecikmeli kapatma.",
+            "fields": {
+                "entity_id": {
+                    "description": "I\u015f\u0131k varl\u0131\u011f\u0131n\u0131n ad\u0131.",
+                    "name": "Varl\u0131k kimli\u011fi"
+                },
+                "time_period": {
+                    "description": "Gecikmeli kapatma i\u00e7in zaman aral\u0131\u011f\u0131.",
+                    "name": "Zaman aral\u0131\u011f\u0131"
+                }
+            },
+            "name": "I\u015f\u0131k ayarl\u0131 gecikmeli kapanma"
+        },
+        "light_set_scene": {
+            "description": "Sabit bir sahne ayarlar.",
+            "fields": {
+                "entity_id": {
+                    "description": "I\u015f\u0131k varl\u0131\u011f\u0131n\u0131n ad\u0131.",
+                    "name": "Varl\u0131k kimli\u011fi"
+                },
+                "scene": {
+                    "description": "Sabitlenen sahnenin numaras\u0131.",
+                    "name": "Sahne"
+                }
+            },
+            "name": "I\u015f\u0131k seti sahnesi"
+        },
+        "remote_learn_command": {
+            "fields": {
+                "slot": {
+                    "description": "IR komutunu kaydetmek i\u00e7in kullan\u0131lan yuvay\u0131 tan\u0131mlay\u0131n.",
+                    "name": "Yuva"
+                },
+                "timeout": {
+                    "description": "Komutun daha \u00f6nce \u00f6\u011frenilmesi gereken zaman a\u015f\u0131m\u0131n\u0131 tan\u0131mlay\u0131n.",
+                    "name": "Zaman a\u015f\u0131m\u0131"
+                }
+            },
+            "name": "Uzaktan \u00f6\u011frenme komutu"
+        },
+        "remote_set_led_off": {
+            "description": "Mavi LED'i kapat\u0131r.",
+            "name": "Uzaktan ayar LED'i kapal\u0131"
+        },
+        "remote_set_led_on": {
+            "description": "Mavi LED'i a\u00e7ar.",
+            "name": "Uzaktan ayar LED'i a\u00e7\u0131k"
+        },
+        "switch_set_power_mode": {
+            "description": "G\u00fc\u00e7 modunu ayarlar.",
+            "fields": {
+                "entity_id": {
+                    "description": "Xiaomi miio varl\u0131\u011f\u0131n\u0131n ad\u0131.",
+                    "name": "Varl\u0131k kimli\u011fi"
+                },
+                "mode": {
+                    "description": "G\u00fc\u00e7 modu.",
+                    "name": "Mod"
+                }
+            },
+            "name": "Anahtar ayarl\u0131 g\u00fc\u00e7 modu"
+        },
+        "switch_set_power_price": {
+            "description": "G\u00fc\u00e7 fiyat\u0131n\u0131 ayarlar.",
+            "fields": {
+                "entity_id": {
+                    "description": "Xiaomi miio varl\u0131\u011f\u0131n\u0131n ad\u0131.",
+                    "name": "Varl\u0131k kimli\u011fi"
+                },
+                "mode": {
+                    "description": "G\u00fc\u00e7 fiyat\u0131.",
+                    "name": "Mod"
+                }
+            },
+            "name": "Anahtar g\u00fc\u00e7 fiyat\u0131n\u0131 ayarlay\u0131n"
+        },
+        "switch_set_wifi_led_off": {
+            "description": "Wi-Fi ledini kapat\u0131n.",
+            "fields": {
+                "entity_id": {
+                    "description": "Xiaomi miio varl\u0131\u011f\u0131n\u0131n ad\u0131.",
+                    "name": "Varl\u0131k kimli\u011fi"
+                }
+            },
+            "name": "Wi-Fi LED'ini kapatma d\u00fc\u011fmesi"
+        },
+        "switch_set_wifi_led_on": {
+            "description": "Wifi ledini a\u00e7ar.",
+            "fields": {
+                "entity_id": {
+                    "description": "Xiaomi miio varl\u0131\u011f\u0131n\u0131n ad\u0131.",
+                    "name": "Varl\u0131k kimli\u011fi"
+                }
+            },
+            "name": "Wi-Fi LED'ini a\u00e7\u0131k duruma getirin"
+        },
+        "vacuum_clean_segment": {
+            "description": "Belirtilen segment(ler)in temizlenmesini ba\u015flat\u0131r.",
+            "fields": {
+                "segments": {
+                    "description": "Segmentler.",
+                    "name": "Segmentler"
+                }
+            },
+            "name": "Robot s\u00fcp\u00fcrge segmenti"
+        },
+        "vacuum_clean_zone": {
+            "description": "Se\u00e7ilen alanlarda belirtilen tekrar say\u0131s\u0131 kadar temizleme i\u015flemini ba\u015flat\u0131r.",
+            "fields": {
+                "repeats": {
+                    "description": "Her b\u00f6lge i\u00e7in temizlik tekrar\u0131 say\u0131s\u0131.",
+                    "name": "Tekrarlar"
+                },
+                "zone": {
+                    "description": "B\u00f6lgeler dizisi. Her b\u00f6lge 4 tamsay\u0131 de\u011ferinden olu\u015fan bir dizidir.",
+                    "name": "B\u00f6lge"
+                }
+            },
+            "name": "Robot s\u00fcp\u00fcrge temizleme b\u00f6lgesi"
+        },
+        "vacuum_goto": {
+            "description": "Belirtilen koordinatlara gidin.",
+            "fields": {
+                "x_coord": {
+                    "description": "X koordinat\u0131.",
+                    "name": "X koordinat\u0131"
+                },
+                "y_coord": {
+                    "description": "Y-koordinat\u0131.",
+                    "name": "Y koordinat\u0131"
+                }
+            },
+            "name": "Robot s\u00fcp\u00fcrge \u015furaya git"
+        },
+        "vacuum_remote_control_move": {
+            "description": "Robot s\u00fcp\u00fcrgeyi uzaktan kontrol eder, \u00f6nce `remote_control_start` ile uzaktan kontrol moduna ayarlad\u0131\u011f\u0131n\u0131zdan emin olun.",
+            "fields": {
+                "duration": {
+                    "description": "Hareketin s\u00fcresi.",
+                    "name": "S\u00fcre"
+                },
+                "rotation": {
+                    "description": "D\u00f6n\u00fc\u015f, -179 derece ile 179 derece aras\u0131nda.",
+                    "name": "D\u00f6nd\u00fcrme"
+                },
+                "velocity": {
+                    "description": "H\u0131z.",
+                    "name": "H\u0131z"
+                }
+            },
+            "name": "Robot s\u00fcp\u00fcrge uzaktan kumanda hareketi"
+        },
+        "vacuum_remote_control_move_step": {
+            "description": "Uzaktan kumanda elektrikli s\u00fcp\u00fcrgeyi kontrol eder, sadece bir hareket yapar ve sonra durur.",
+            "fields": {
+                "duration": {
+                    "description": "Hareketin s\u00fcresi.",
+                    "name": "S\u00fcre"
+                },
+                "rotation": {
+                    "description": "D\u00f6nd\u00fcrme.",
+                    "name": "D\u00f6nd\u00fcrme"
+                },
+                "velocity": {
+                    "description": "H\u0131z.",
+                    "name": "H\u0131z"
+                }
+            },
+            "name": "Robot s\u00fcp\u00fcrgenin uzaktan kumanda hareket ad\u0131m\u0131"
+        },
+        "vacuum_remote_control_start": {
+            "description": "Robot s\u00fcp\u00fcrgenin uzaktan kumandas\u0131n\u0131 ba\u015flat\u0131r. Daha sonra `remote_control_move` ile hareket ettirebilirsiniz, i\u015finiz bitti\u011finde `remote_control_stop` \u00e7a\u011f\u0131r\u0131n.",
+            "name": "Robot s\u00fcp\u00fcrgeyi uzaktan kumandal\u0131 \u00e7al\u0131\u015ft\u0131rma"
+        },
+        "vacuum_remote_control_stop": {
+            "description": "Robot s\u00fcp\u00fcrgenin uzaktan kumanda modunu durdurur.",
+            "name": "Vakum uzaktan kumanda durdurma"
+        }
+    }
+}

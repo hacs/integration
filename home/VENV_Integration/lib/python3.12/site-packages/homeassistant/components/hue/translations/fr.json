@@ -1,0 +1,181 @@
+{
+    "config": {
+        "abort": {
+            "all_configured": "Tous les ponts Philips Hue sont d\u00e9j\u00e0 configur\u00e9s",
+            "already_configured": "L'appareil est d\u00e9j\u00e0 configur\u00e9",
+            "already_in_progress": "La configuration est d\u00e9j\u00e0 en cours",
+            "cannot_connect": "\u00c9chec de connexion",
+            "discover_timeout": "D\u00e9tection de ponts Philips Hue impossible",
+            "invalid_host": "Nom d'h\u00f4te ou adresse IP non valide",
+            "no_bridges": "Aucun pont Philips Hue n'a \u00e9t\u00e9 d\u00e9couvert",
+            "not_hue_bridge": "Pas de pont Hue",
+            "unknown": "Erreur inattendue"
+        },
+        "error": {
+            "linking": "Erreur inattendue",
+            "register_failed": "\u00c9chec d'enregistrement. Veuillez r\u00e9essayer."
+        },
+        "step": {
+            "init": {
+                "data": {
+                    "host": "H\u00f4te"
+                },
+                "data_description": {
+                    "host": "Le nom d'h\u00f4te ou l'adresse IP de votre pont Hue."
+                },
+                "title": "Choisissez le pont Philips Hue"
+            },
+            "link": {
+                "description": "Appuyez sur le bouton du pont pour lier Philips Hue avec Home Assistant. \n\n ![Emplacement du bouton sur le pont](/static/images/config_philips_hue.jpg)",
+                "title": "Hub de liaison"
+            },
+            "manual": {
+                "data": {
+                    "host": "H\u00f4te"
+                },
+                "title": "Configurer manuellement un pont Hue"
+            }
+        }
+    },
+    "device_automation": {
+        "trigger_subtype": {
+            "1": "Premier bouton",
+            "2": "Deuxi\u00e8me bouton",
+            "3": "Troisi\u00e8me bouton",
+            "4": "Quatri\u00e8me bouton",
+            "button_1": "Premier bouton",
+            "button_2": "Deuxi\u00e8me bouton",
+            "button_3": "Troisi\u00e8me bouton",
+            "button_4": "Quatri\u00e8me bouton",
+            "clock_wise": "Rotation horaire",
+            "counter_clock_wise": "Rotation anti-horaire",
+            "dim_down": "Assombrir",
+            "dim_up": "\u00c9claircir",
+            "double_buttons_1_3": "Premier et troisi\u00e8me boutons",
+            "double_buttons_2_4": "Deuxi\u00e8me et quatri\u00e8me boutons",
+            "turn_off": "\u00c9teindre",
+            "turn_on": "Allumer"
+        },
+        "trigger_type": {
+            "double_short_release": "Les deux \" {subtype} \" ont \u00e9t\u00e9 rel\u00e2ch\u00e9s",
+            "initial_press": "D\u00e9but de l'appui sur \u00ab\u00a0{subtype}\u00a0\u00bb",
+            "long_release": "\u00ab\u00a0{subtype}\u00a0\u00bb rel\u00e2ch\u00e9 apr\u00e8s un appui long",
+            "remote_button_long_release": "\u00ab\u00a0{subtype}\u00a0\u00bb rel\u00e2ch\u00e9 apr\u00e8s un appui long",
+            "remote_button_short_press": "\u00ab\u00a0{subtype}\u00a0\u00bb appuy\u00e9",
+            "remote_button_short_release": "\u00ab\u00a0{subtype}\u00a0\u00bb rel\u00e2ch\u00e9",
+            "remote_double_button_long_press": "Les deux \"{subtype}\" ont \u00e9t\u00e9 rel\u00e2ch\u00e9s apr\u00e8s un appui long",
+            "remote_double_button_short_press": "Les deux \" {subtype} \" ont \u00e9t\u00e9 rel\u00e2ch\u00e9s",
+            "repeat": "\u00ab\u00a0{subtype}\u00a0\u00bb est maintenu appuy\u00e9",
+            "short_release": "\u00ab\u00a0{subtype}\u00a0\u00bb est rel\u00e2ch\u00e9 apr\u00e8s un appui court",
+            "start": "D\u00e9but de l'appui sur \u00ab\u00a0{subtype}\u00a0\u00bb"
+        }
+    },
+    "entity": {
+        "event": {
+            "button": {
+                "name": "Bouton {button_id}",
+                "state_attributes": {
+                    "event_type": {
+                        "state": {
+                            "double_short_release": "Double appui",
+                            "initial_press": "Appui initial",
+                            "long_press": "Appui long",
+                            "long_release": "Rel\u00e2chement long",
+                            "repeat": "R\u00e9p\u00e9ter",
+                            "short_release": "Appui court"
+                        }
+                    }
+                }
+            },
+            "rotary": {
+                "name": "Rotatif",
+                "state_attributes": {
+                    "event_type": {
+                        "state": {
+                            "clock_wise": "Sens horaire",
+                            "counter_clock_wise": "Sens antihoraire"
+                        }
+                    }
+                }
+            }
+        },
+        "sensor": {
+            "zigbee_connectivity": {
+                "name": "Connectivit\u00e9 Zigbee",
+                "state": {
+                    "connected": "Connect\u00e9",
+                    "connectivity_issue": "Probl\u00e8me de connectivit\u00e9",
+                    "disconnected": "D\u00e9connect\u00e9"
+                }
+            }
+        },
+        "switch": {
+            "automation": {
+                "state": {
+                    "off": "D\u00e9sactiv\u00e9",
+                    "on": "Activ\u00e9"
+                }
+            },
+            "light_sensor_enabled": {
+                "name": "Capteur de luminosit\u00e9 activ\u00e9"
+            },
+            "motion_sensor_enabled": {
+                "name": "Capteur de mouvement activ\u00e9"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "allow_hue_groups": "Autoriser les groupes Hue",
+                    "allow_hue_scenes": "Autoriser les sc\u00e8nes Hue",
+                    "allow_unreachable": "Autoriser les ampoules inaccessibles \u00e0 signaler correctement leur \u00e9tat",
+                    "ignore_availability": "Ignorer l'\u00e9tat de la connectivit\u00e9 pour les appareils donn\u00e9s"
+                }
+            }
+        }
+    },
+    "services": {
+        "activate_scene": {
+            "description": "Active une sc\u00e8ne Hue avec plus de contr\u00f4le sur les options.",
+            "fields": {
+                "brightness": {
+                    "description": "R\u00e9glez la luminosit\u00e9 de la sc\u00e8ne.",
+                    "name": "Luminosit\u00e9"
+                },
+                "dynamic": {
+                    "description": "Activer le mode dynamique de la sc\u00e8ne.",
+                    "name": "Dynamique"
+                },
+                "speed": {
+                    "description": "Vitesse de la palette dynamique pour cette sc\u00e8ne.",
+                    "name": "Vitesse"
+                },
+                "transition": {
+                    "description": "Dur\u00e9e de transition n\u00e9cessaire pour amener les appareils \u00e0 l'\u00e9tat d\u00e9fini dans la sc\u00e8ne.",
+                    "name": "Transition"
+                }
+            },
+            "name": "Activer la sc\u00e8ne Hue"
+        },
+        "hue_activate_scene": {
+            "description": "Active une sc\u00e8ne hue stock\u00e9e dans le pont hue.",
+            "fields": {
+                "dynamic": {
+                    "description": "Activer le mode dynamique de la sc\u00e8ne (ponts V2 et sc\u00e8nes prises en charge uniquement).",
+                    "name": "Dynamique"
+                },
+                "group_name": {
+                    "description": "Nom du groupe/de la pi\u00e8ce hue depuis l'application hue.",
+                    "name": "Groupe"
+                },
+                "scene_name": {
+                    "description": "Nom de la sc\u00e8ne hue de l'application hue.",
+                    "name": "Sc\u00e8ne"
+                }
+            },
+            "name": "Activer la sc\u00e8ne"
+        }
+    }
+}

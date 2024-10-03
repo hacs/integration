@@ -1,0 +1,135 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Konto har redan konfigurerats",
+            "reauth_successful": "\u00c5terautentisering lyckades",
+            "unknown_entry": "Det gick inte att hitta befintlig post."
+        },
+        "error": {
+            "invalid_code": "Det gick inte att logga in p\u00e5 Hive. Din tv\u00e5faktorsautentiseringskod var felaktig.",
+            "invalid_password": "Det gick inte att logga in p\u00e5 Hive. Felaktigt l\u00f6senord. Var sn\u00e4ll och f\u00f6rs\u00f6k igen.",
+            "invalid_username": "Det gick inte att logga in p\u00e5 Hive. Din e-postadress k\u00e4nns inte igen.",
+            "no_internet_available": "En internetanslutning kr\u00e4vs f\u00f6r att ansluta till Hive.",
+            "unknown": "Ov\u00e4ntat fel"
+        },
+        "step": {
+            "2fa": {
+                "data": {
+                    "2fa": "Tv\u00e5faktorskod"
+                },
+                "description": "Ange din Hive-autentiseringskod. \n\n Ange kod 0000 f\u00f6r att beg\u00e4ra en annan kod.",
+                "title": "Hive tv\u00e5faktorsautentisering."
+            },
+            "configuration": {
+                "data": {
+                    "device_name": "Enhetsnamn"
+                },
+                "title": "Hive-konfiguration."
+            },
+            "reauth": {
+                "data": {
+                    "password": "L\u00f6senord",
+                    "username": "Anv\u00e4ndarnamn"
+                },
+                "description": "Ange din Hive-inloggningsinformation igen.",
+                "title": "Hive-inloggning"
+            },
+            "user": {
+                "data": {
+                    "password": "L\u00f6senord",
+                    "scan_interval": "Skanningsintervall (sekunder)",
+                    "username": "Anv\u00e4ndarnamn"
+                },
+                "description": "Ange din Hive-inloggningsinformation.",
+                "title": "Hive-inloggning"
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "heating": {
+                "state": {
+                    "off": "Av",
+                    "on": "P\u00e5",
+                    "schedule": "Schema"
+                }
+            },
+            "hot_water": {
+                "state": {
+                    "off": "Av",
+                    "on": "P\u00e5",
+                    "schedule": "Schema"
+                }
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "user": {
+                "data": {
+                    "scan_interval": "Skanningsintervall (sekunder)"
+                },
+                "description": "Uppdatera skanningsintervallet f\u00f6r att polla efter data oftare.",
+                "title": "Alternativ f\u00f6r Hive"
+            }
+        }
+    },
+    "services": {
+        "boost_heating": {
+            "description": "F\u00f6r\u00e5ldrad, anv\u00e4nd ist\u00e4llet boost_heating_on.",
+            "fields": {
+                "temperature": {
+                    "description": "St\u00e4ll in m\u00e5ltemperatur f\u00f6r boost-l\u00e4ge.",
+                    "name": "Temperatur"
+                },
+                "time_period": {
+                    "description": "St\u00e4ll in varaktighet f\u00f6r boost-l\u00e4ge.",
+                    "name": "Tidsperiod"
+                }
+            },
+            "name": "Boost-l\u00e4ge (f\u00f6r\u00e5ldrad)"
+        },
+        "boost_heating_off": {
+            "description": "St\u00e4nger av boost-l\u00e4ge",
+            "fields": {
+                "entity_id": {
+                    "description": "V\u00e4lj entity_id att st\u00e4nga av boost-l\u00e4ge f\u00f6r.",
+                    "name": "Entitets-ID"
+                }
+            },
+            "name": "Boost-l\u00e4ge av"
+        },
+        "boost_heating_on": {
+            "description": "Startar boost-l\u00e4get och definierar varaktighet och den \u00f6nskade m\u00e5ltemperaturen f\u00f6r boost-l\u00e4get.",
+            "fields": {
+                "temperature": {
+                    "description": "St\u00e4ll in m\u00e5ltemperatur f\u00f6r boost-l\u00e4ge.",
+                    "name": "Temperatur"
+                },
+                "time_period": {
+                    "description": "St\u00e4ll in varaktighet f\u00f6r boost-l\u00e4ge.",
+                    "name": "Tidsperiod"
+                }
+            },
+            "name": "Boost-l\u00e4ge p\u00e5"
+        },
+        "boost_hot_water": {
+            "description": "St\u00e4ller in boost-l\u00e4get ON eller OFF och definierar varaktighet f\u00f6r boost.",
+            "fields": {
+                "entity_id": {
+                    "description": "V\u00e4lj entity_id att starta boost-l\u00e4ge f\u00f6r.",
+                    "name": "Entitets-ID"
+                },
+                "on_off": {
+                    "description": "Sl\u00e5 p\u00e5 eller av boost-l\u00e4ge.",
+                    "name": "L\u00e4ge"
+                },
+                "time_period": {
+                    "description": "St\u00e4ll in varaktighet f\u00f6r boost-l\u00e4ge.",
+                    "name": "Tidsperiod"
+                }
+            },
+            "name": "Boost-l\u00e4ge f\u00f6r varmvatten"
+        }
+    }
+}

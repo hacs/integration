@@ -1,0 +1,84 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "El dispositivo ya est\u00e1 configurado"
+        },
+        "error": {
+            "cannot_connect": "No se pudo conectar"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "host": "Host"
+                },
+                "data_description": {
+                    "host": "El nombre de host o la direcci\u00f3n IP de tu dispositivo Bose SoundTouch."
+                }
+            },
+            "zeroconf_confirm": {
+                "description": "Est\u00e1s a punto de a\u00f1adir el dispositivo SoundTouch llamado `{name}` a Home Assistant.",
+                "title": "Confirma la adici\u00f3n del dispositivo Bose SoundTouch"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_yaml": {
+            "description": "Se va a eliminar la configuraci\u00f3n de Bose SoundTouch mediante YAML. \n\nTu configuraci\u00f3n YAML existente se ha importado a la IU autom\u00e1ticamente. \n\nElimina la configuraci\u00f3n YAML de Bose SoundTouch de tu archivo configuration.yaml y reinicia Home Assistant para solucionar este problema.",
+            "title": "Se va a eliminar la configuraci\u00f3n YAML de Bose SoundTouch"
+        }
+    },
+    "services": {
+        "add_zone_slave": {
+            "description": "A\u00f1ade un esclavo a una zona multisala SoundTouch.",
+            "fields": {
+                "master": {
+                    "description": "Nombre de la entidad maestra que coordina la zona multisala. Dependiente de la plataforma.",
+                    "name": "Maestro"
+                },
+                "slaves": {
+                    "description": "Nombre de las entidades esclavas que se a\u00f1adir\u00e1n a la zona existente.",
+                    "name": "Esclavos"
+                }
+            },
+            "name": "A\u00f1adir zona esclava"
+        },
+        "create_zone": {
+            "description": "Crea una zona multisala SoundTouch.",
+            "fields": {
+                "master": {
+                    "description": "Nombre de la entidad maestra que coordinar\u00e1 la zona multisala. Dependiente de la plataforma.",
+                    "name": "Maestro"
+                },
+                "slaves": {
+                    "description": "Nombre de las entidades esclavas que se a\u00f1adir\u00e1n a la nueva zona.",
+                    "name": "Esclavos"
+                }
+            },
+            "name": "Crear zona"
+        },
+        "play_everywhere": {
+            "description": "Se reproduce en todos los dispositivos Bose SoundTouch.",
+            "fields": {
+                "master": {
+                    "description": "Nombre de la entidad maestra que coordinar\u00e1 la agrupaci\u00f3n. Dependiente de la plataforma. Es un atajo para crear una zona multisala con todos los dispositivos.",
+                    "name": "Maestro"
+                }
+            },
+            "name": "Reproducir en todas partes"
+        },
+        "remove_zone_slave": {
+            "description": "Elimina un esclavo de la zona multisala SoundTouch.",
+            "fields": {
+                "master": {
+                    "description": "Nombre de la entidad maestra que coordina la zona multisala. Dependiente de la plataforma.",
+                    "name": "Maestro"
+                },
+                "slaves": {
+                    "description": "Nombre de las entidades esclavas a eliminar de la zona existente.",
+                    "name": "Esclavos"
+                }
+            },
+            "name": "Eliminar esclavo de zona"
+        }
+    }
+}

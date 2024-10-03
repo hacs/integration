@@ -1,0 +1,84 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "Timer",
+            "state": {
+                "active": "Aktiv",
+                "idle": "Inaktiv",
+                "paused": "Pausad"
+            },
+            "state_attributes": {
+                "duration": {
+                    "name": "Varaktighet"
+                },
+                "editable": {
+                    "name": "Hanteras via anv\u00e4ndargr\u00e4nssnittet",
+                    "state": {
+                        "false": "Nej",
+                        "true": "Ja"
+                    }
+                },
+                "finishes_at": {
+                    "name": "Avslutas vid"
+                },
+                "remaining": {
+                    "name": "\u00c5terst\u00e5ende"
+                },
+                "restore": {
+                    "name": "\u00c5terst\u00e4ll"
+                }
+            }
+        }
+    },
+    "issues": {
+        "deprecated_duration_in_start": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Timertj\u00e4nstens valfria varaktighetsparameter `timer.start` tas bort och anv\u00e4ndning av den har uppt\u00e4ckts. F\u00f6r att \u00e4ndra varaktigheten, skapa en ny timer.\n\nTa bort anv\u00e4ndningen av parametern `duration` i tj\u00e4nsten `timer.start` i dina automatiseringar och skript och v\u00e4lj **spara** f\u00f6r att st\u00e4nga detta problem.",
+                        "title": "Parametern f\u00f6r timerstartstj\u00e4nstens varaktighet tas bort"
+                    }
+                }
+            },
+            "title": "Parametern f\u00f6r timerstartstj\u00e4nstens varaktighet tas bort"
+        }
+    },
+    "services": {
+        "cancel": {
+            "description": "Avbryter en timer.",
+            "name": "Avbryt"
+        },
+        "change": {
+            "description": "\u00c4ndrar en timer.",
+            "fields": {
+                "duration": {
+                    "description": "Varaktighet f\u00f6r att l\u00e4gga till eller dra ifr\u00e5n till den l\u00f6pande timern.",
+                    "name": "Varaktighet"
+                }
+            },
+            "name": "\u00c4ndra"
+        },
+        "finish": {
+            "description": "Avslutar en timer.",
+            "name": "Avsluta"
+        },
+        "pause": {
+            "description": "Pausar en timer.",
+            "name": "Pausa"
+        },
+        "reload": {
+            "description": "Laddar om timers fr\u00e5n YAML-konfigurationen.",
+            "name": "Ladda om"
+        },
+        "start": {
+            "description": "Startar en timer.",
+            "fields": {
+                "duration": {
+                    "description": "Den tid som timern beh\u00f6ver f\u00f6r att avsluta. [valfritt].",
+                    "name": "Varaktighet"
+                }
+            },
+            "name": "Starta"
+        }
+    }
+}

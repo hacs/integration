@@ -1,0 +1,192 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Seade on juba h\u00e4\u00e4lestatud",
+            "no_devices_found": "V\u00f5rgust ei leitud seadmeid"
+        },
+        "error": {
+            "cannot_connect": "\u00dchendamine nurjus"
+        },
+        "flow_title": "{model} {id} ({host})",
+        "step": {
+            "discovery_confirm": {
+                "description": "Kas seadistada {model} ({host})?"
+            },
+            "pick_device": {
+                "data": {
+                    "device": "Seade"
+                }
+            },
+            "user": {
+                "data": {
+                    "host": ""
+                },
+                "data_description": {
+                    "host": "Yeelight Wi-Fi pirni hostinimi v\u00f5i IP-aadress."
+                },
+                "description": "Kui j\u00e4tad hosti t\u00fchjaks kasutatakse seadmete leidmiseks avastamist."
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "nightlight": {
+                "name": "\u00d6\u00f6valgus"
+            }
+        },
+        "light": {
+            "ambilight": {
+                "name": "Ambilight"
+            },
+            "nightlight": {
+                "name": "\u00d6\u00f6valgus"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "model": "Mudel",
+                    "nightlight_switch": "Kasuta Nightlight Switchi",
+                    "save_on_change": "Salvesta olek peale muutmist",
+                    "transition": "\u00dclemineku aeg (ms)",
+                    "use_music_mode": "Luba muusikare\u017eiim"
+                }
+            }
+        }
+    },
+    "selector": {
+        "action": {
+            "options": {
+                "off": "V\u00e4ljas",
+                "recover": "Taasta",
+                "stay": "J\u00e4\u00e4"
+            }
+        },
+        "mode": {
+            "options": {
+                "color_flow": "V\u00e4rvide voog",
+                "hsv": "HSV",
+                "last": "Viimane",
+                "moonlight": "Kuuvalgus",
+                "normal": "Tavaline",
+                "rgb": "RGB"
+            }
+        }
+    },
+    "services": {
+        "set_auto_delay_off_scene": {
+            "description": "L\u00fclitab valguse sisse m\u00e4\u00e4ratud heledusega ja seab taimeri, et see l\u00fclituks tagasi antud arvu minutite m\u00f6\u00f6dudes. Kui valgus on v\u00e4lja l\u00fclitatud, m\u00e4\u00e4rab v\u00e4rvistseeni, kui valgus on v\u00e4lja l\u00fclitatud, l\u00fclitab selle sisse.",
+            "fields": {
+                "brightness": {
+                    "description": "M\u00e4\u00e4ratav heleduse v\u00e4\u00e4rtus.",
+                    "name": "Heledus"
+                },
+                "minutes": {
+                    "description": "Ooteaeg enne valguse automaatset v\u00e4ljal\u00fclitamist.",
+                    "name": "Minutit"
+                }
+            },
+            "name": "Seadista automaatne viivitus stseeni v\u00e4ljal\u00fclitamiseks"
+        },
+        "set_color_flow_scene": {
+            "description": "K\u00e4ivitab v\u00e4rvivoo. Kui tuli on kustunud, l\u00fclitub see sisse.",
+            "fields": {
+                "action": {
+                    "description": "Tegevus p\u00e4rast voo peatumist.",
+                    "name": "Tegevus"
+                },
+                "count": {
+                    "description": "Selle voo k\u00e4itamise kordade arv (0, et k\u00e4itada igavesti).",
+                    "name": "Kordusi"
+                },
+                "transitions": {
+                    "description": "\u00dcleminekute massiiv soovitud efekti saavutamiseks. N\u00e4ited https://yeelight.readthedocs.io/en/stable/flow.html.",
+                    "name": "\u00dcleminekud"
+                }
+            },
+            "name": "M\u00e4\u00e4ra v\u00e4rvivoo stseen"
+        },
+        "set_color_scene": {
+            "description": "Muudab valguse m\u00e4\u00e4ratud RGB v\u00e4rvi ja heleduse j\u00e4rgi. Kui tuli on kustunud, l\u00fclitub see sisse.",
+            "fields": {
+                "brightness": {
+                    "description": "M\u00e4\u00e4ratav heleduse v\u00e4\u00e4rtus.",
+                    "name": "Heledus"
+                },
+                "rgb_color": {
+                    "description": "Valguse v\u00e4rvus RGB-vormingus.",
+                    "name": "RGB v\u00e4rv"
+                }
+            },
+            "name": "M\u00e4\u00e4ra v\u00e4rvistseen"
+        },
+        "set_color_temp_scene": {
+            "description": "Muudab valguse m\u00e4\u00e4ratud v\u00e4rvitemperatuurile. Kui tuli on kustunud, l\u00fclitub see sisse.",
+            "fields": {
+                "brightness": {
+                    "description": "M\u00e4\u00e4ratav heleduse v\u00e4\u00e4rtus.",
+                    "name": "Heledus"
+                },
+                "kelvin": {
+                    "description": "Valguse v\u00e4rvitemperatuur Kelvinites.",
+                    "name": "Kelvin"
+                }
+            },
+            "name": "V\u00e4rvitemperatuuri stseeni m\u00e4\u00e4ramine"
+        },
+        "set_hsv_scene": {
+            "description": "Muudab valguse m\u00e4\u00e4ratud HSV v\u00e4rvi ja heleduse. Kui tuli on v\u00e4lja l\u00fclitatud, l\u00fclitatakse see sisse.",
+            "fields": {
+                "brightness": {
+                    "description": "M\u00e4\u00e4ratav heleduse v\u00e4\u00e4rtus.",
+                    "name": "Heledus"
+                },
+                "hs_color": {
+                    "description": "Valgustuse v\u00e4rvus toon/k\u00fcllastus vormingus. Toon on 0-359 ja k\u00fcllastus on 0-100.",
+                    "name": "Tooni/k\u00fcllastuse v\u00e4rv"
+                }
+            },
+            "name": "M\u00e4\u00e4ra HSV stseen"
+        },
+        "set_mode": {
+            "description": "M\u00e4\u00e4rab t\u00f6\u00f6re\u017eiimi.",
+            "fields": {
+                "mode": {
+                    "description": "T\u00f6\u00f6re\u017eiim.",
+                    "name": "Re\u017eiim"
+                }
+            },
+            "name": "M\u00e4\u00e4ra re\u017eiim"
+        },
+        "set_music_mode": {
+            "description": "Lubab v\u00f5i keelab re\u017eiimi music_mode.",
+            "fields": {
+                "music_mode": {
+                    "description": "Funktsiooni music_mode lubamiseks/keelamiseks kasuta v\u00e4\u00e4rtust t\u00f5ene v\u00f5i v\u00e4\u00e4r.",
+                    "name": "Muusikare\u017eiim"
+                }
+            },
+            "name": "M\u00e4\u00e4ra muusikare\u017eiim"
+        },
+        "start_flow": {
+            "description": "K\u00e4ivita kohandatud voog, kasutades \u00fcleminekuid saidilt https://yeelight.readthedocs.io/en/stable/yeelight.html#flow-objects.",
+            "fields": {
+                "action": {
+                    "description": "Tegevus p\u00e4rast voo peatumist.",
+                    "name": "Tegevus"
+                },
+                "count": {
+                    "description": "Selle voo k\u00e4itamise kordade arv (0, et k\u00e4itada igavesti).",
+                    "name": "Kordusi"
+                },
+                "transitions": {
+                    "description": "\u00dcleminekute massiiv soovitud efekti saavutamiseks. N\u00e4ited https://yeelight.readthedocs.io/en/stable/flow.html.",
+                    "name": "\u00dcleminekud"
+                }
+            },
+            "name": "Alusta voogu"
+        }
+    }
+}

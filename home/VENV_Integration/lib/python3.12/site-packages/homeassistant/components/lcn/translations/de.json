@@ -1,0 +1,352 @@
+{
+    "config": {
+        "abort": {
+            "reconfigure_successful": "Die Neukonfiguration war erfolgreich"
+        },
+        "error": {
+            "already_configured": "Eine PCHK-Verbindung mit derselben IP-Adresse/demselben Port ist bereits konfiguriert.",
+            "authentication_error": "Authentifizierung fehlgeschlagen. Falscher Benutzername oder falsches Passwort.",
+            "connection_refused": "Verbindung zu PCHK nicht m\u00f6glich. IP und Port pr\u00fcfen.",
+            "license_error": "Die maximale Anzahl an Verbindungen wurde erreicht. Ein zus\u00e4tzlicher Lizenzschl\u00fcssel ist erforderlich."
+        },
+        "step": {
+            "reconfigure": {
+                "data": {
+                    "acknowledge": "Best\u00e4tigung von Modulen anfordern",
+                    "dim_mode": "Dimm Modus",
+                    "ip_address": "IP-Adresse",
+                    "password": "Passwort",
+                    "port": "Port",
+                    "sk_num_tries": "Segmentkoppler-Scanversuche",
+                    "username": "Benutzername"
+                },
+                "data_description": {
+                    "acknowledge": "Wenn keine Antwort eingeht, versuche erneut, Befehle zu senden (erh\u00f6ht den Busverkehr).",
+                    "dim_mode": "Die Anzahl der Schritte zum Dimmen der Ausg\u00e4nge."
+                },
+                "description": "Verbindung zum LCN-Host neu konfigurieren.",
+                "title": "LCN-Host neu konfigurieren"
+            },
+            "reconfigure_confirm": {
+                "data": {
+                    "acknowledge": "Best\u00e4tigung von Modulen anfordern",
+                    "dim_mode": "Dimm Modus",
+                    "ip_address": "IP-Adresse",
+                    "password": "Passwort",
+                    "port": "Port",
+                    "sk_num_tries": "Segmentkoppler-Scanversuche",
+                    "username": "Benutzername"
+                },
+                "data_description": {
+                    "acknowledge": "Wenn keine Antwort eingeht, versuche erneut, Befehle zu senden (erh\u00f6ht den Busverkehr).",
+                    "dim_mode": "Die Anzahl der Schritte zum Dimmen der Ausg\u00e4nge."
+                },
+                "description": "Verbindung zum LCN-Host neu konfigurieren.",
+                "title": "LCN-Host neu konfigurieren"
+            },
+            "user": {
+                "data": {
+                    "acknowledge": "Best\u00e4tigung von Modulen anfordern",
+                    "dim_mode": "Dimm Modus",
+                    "host": "Name",
+                    "ip_address": "IP-Adresse",
+                    "password": "Passwort",
+                    "port": "Port",
+                    "sk_num_tries": "Segmentkoppler-Scanversuche",
+                    "username": "Benutzername"
+                },
+                "data_description": {
+                    "acknowledge": "Wenn keine Antwort eingeht, versuche erneut, Befehle zu senden (erh\u00f6ht den Busverkehr).",
+                    "dim_mode": "Die Anzahl der Schritte zum Dimmen der Ausg\u00e4nge."
+                },
+                "description": "Richte eine neue Verbindung zum LCN-Host ein.",
+                "title": "LCN-Host einrichten"
+            }
+        }
+    },
+    "device_automation": {
+        "extra_fields": {
+            "action": "Aktion",
+            "code": "Code",
+            "key": "Taste",
+            "level": "Level"
+        },
+        "trigger_type": {
+            "codelock": "Codeschloss Code erhalten",
+            "fingerprint": "Fingerabdruckcode empfangen",
+            "send_keys": "Sende Tasten empfangen",
+            "transmitter": "Sendercode empfangen",
+            "transponder": "Transpondercode empfangen"
+        }
+    },
+    "issues": {
+        "authentication_error": {
+            "description": "Die Konfiguration von LCN mit YAML wird entfernt, aber beim Importieren deiner YAML-Konfiguration ist ein Fehler aufgetreten.\n\nStelle sicher, dass Benutzername und Passwort korrekt sind.\n\nErw\u00e4ge, die LCN-YAML-Konfiguration aus deiner \u201econfiguration.yaml\u201c-Datei zu entfernen und fahre mit der [manuellen Einrichtung der Integration]({url}) fort.",
+            "title": "Authentifizierung fehlgeschlagen."
+        },
+        "connection_refused": {
+            "description": "Die Konfiguration von LCN mit YAML wird entfernt, aber beim Importieren deiner YAML-Konfiguration ist ein Fehler aufgetreten.\n\nStelle sicher, dass die Verbindung (IP und Port) zum LCN-Buskoppler korrekt ist.\n\nErw\u00e4ge, die LCN-YAML-Konfiguration aus deiner \u201econfiguration.yaml\u201c-Datei zu entfernen und fahre mit der [manuellen Einrichtung der Integration]({url}) fort.",
+            "title": "Verbindung zu PCHK nicht m\u00f6glich."
+        },
+        "license_error": {
+            "description": "Die Konfiguration von LCN mit YAML wird entfernt, aber beim Importieren deiner YAML-Konfiguration ist ein Fehler aufgetreten.\n\nStelle sicher, dass gen\u00fcgend PCHK-Lizenzen registriert sind, und starte Home Assistant neu.\n\nErw\u00e4ge, die LCN-YAML-Konfiguration aus deiner \u201econfiguration.yaml\u201c-Datei zu entfernen und fahre mit der [manuellen Einrichtung der Integration]({url}) fort.",
+            "title": "Die maximale Anzahl an Verbindungen wurde erreicht."
+        }
+    },
+    "services": {
+        "dyn_text": {
+            "description": "Sendet dynamischen Text an LCN-GTxD-Displays.",
+            "fields": {
+                "address": {
+                    "description": "Adresse des Moduls.",
+                    "name": "Adresse"
+                },
+                "row": {
+                    "description": "Textzeile.",
+                    "name": "Zeile"
+                },
+                "text": {
+                    "description": "Zu sendender Text (bis zu 60 Zeichen, kodiert als UTF-8).",
+                    "name": "Text"
+                }
+            },
+            "name": "Dynamischer Text"
+        },
+        "led": {
+            "description": "Legt den LED-Status fest.",
+            "fields": {
+                "address": {
+                    "description": "Adresse des Moduls.",
+                    "name": "Adresse"
+                },
+                "led": {
+                    "description": "LED.",
+                    "name": "LED"
+                },
+                "state": {
+                    "description": "LED-Zustand.",
+                    "name": "Zustand"
+                }
+            },
+            "name": "LED"
+        },
+        "lock_keys": {
+            "description": "Sperrt Tasten.",
+            "fields": {
+                "address": {
+                    "description": "Adresse des Moduls.",
+                    "name": "Adresse"
+                },
+                "state": {
+                    "description": "Tastensperrzust\u00e4nde als String (1=ein, 2=aus, T=umschalten, -=keine \u00c4nderung).",
+                    "name": "Zustand"
+                },
+                "table": {
+                    "description": "Tabelle mit Tasten zum Sperren (muss A f\u00fcr Intervall sein).",
+                    "name": "Tabelle"
+                },
+                "time": {
+                    "description": "Sperrintervall.",
+                    "name": "Zeit"
+                },
+                "time_unit": {
+                    "description": "Zeiteinheit des Sperrintervalls.",
+                    "name": "Zeiteinheit"
+                }
+            },
+            "name": "Tasten sperren"
+        },
+        "lock_regulator": {
+            "description": "Sperrt einen Reglersollwert.",
+            "fields": {
+                "address": {
+                    "description": "Adresse des Moduls.",
+                    "name": "Adresse"
+                },
+                "setpoint": {
+                    "description": "Sollwertname.",
+                    "name": "Sollwert"
+                },
+                "state": {
+                    "description": "Neuer Sollzustand.",
+                    "name": "Zustand"
+                }
+            },
+            "name": "Regler sperren"
+        },
+        "output_abs": {
+            "description": "Legt die absolute Helligkeit des Ausgangsports in Prozent fest.",
+            "fields": {
+                "address": {
+                    "description": "Adresse des Moduls.",
+                    "name": "Adresse"
+                },
+                "brightness": {
+                    "description": "Absolute Helligkeit.",
+                    "name": "Helligkeit"
+                },
+                "output": {
+                    "description": "Ausgangs-Port.",
+                    "name": "Ausgabe"
+                },
+                "transition": {
+                    "description": "\u00dcbergangszeit.",
+                    "name": "\u00dcbergang"
+                }
+            },
+            "name": "Ausgabe der absoluten Helligkeit"
+        },
+        "output_rel": {
+            "description": "Legt die relative Helligkeit des Ausgangsports in Prozent fest.",
+            "fields": {
+                "address": {
+                    "description": "Adresse des Moduls.",
+                    "name": "Adresse"
+                },
+                "brightness": {
+                    "description": "Relative Helligkeit.",
+                    "name": "Helligkeit"
+                },
+                "output": {
+                    "description": "Ausgangs-Port.",
+                    "name": "Ausgabe"
+                }
+            },
+            "name": "Relative Helligkeit ausgeben"
+        },
+        "output_toggle": {
+            "description": "Schaltet den Ausgabeport um.",
+            "fields": {
+                "address": {
+                    "description": "Adresse des Moduls.",
+                    "name": "Adresse"
+                },
+                "output": {
+                    "description": "Ausgangs-Port.",
+                    "name": "Ausgabe"
+                },
+                "transition": {
+                    "description": "\u00dcbergangszeit.",
+                    "name": "\u00dcbergang"
+                }
+            },
+            "name": "Ausgabe umschalten"
+        },
+        "pck": {
+            "description": "Sendet einen beliebigen PCK-Befehl.",
+            "fields": {
+                "address": {
+                    "description": "Adresse des Moduls.",
+                    "name": "Adresse"
+                },
+                "pck": {
+                    "description": "PCK-Befehl (ohne Adresskopf).",
+                    "name": "PCK"
+                }
+            },
+            "name": "PCK"
+        },
+        "relays": {
+            "description": "Legt den Relaisstatus fest.",
+            "fields": {
+                "address": {
+                    "description": "Adresse des Moduls.",
+                    "name": "Adresse"
+                },
+                "state": {
+                    "description": "Relaiszust\u00e4nde als String (1=ein, 2=aus, t=umschalten, -=keine \u00c4nderung).",
+                    "name": "Zustand"
+                }
+            },
+            "name": "Relais"
+        },
+        "send_keys": {
+            "description": "Sendet Tasten (die programmierte Befehle ausf\u00fchren).",
+            "fields": {
+                "address": {
+                    "description": "Adresse des Moduls.",
+                    "name": "Adresse"
+                },
+                "keys": {
+                    "description": "Zu sendende Tasten.",
+                    "name": "Tasten"
+                },
+                "state": {
+                    "description": "Tastenstatus beim Senden (muss zum Zur\u00fcckstellen angeklickt werden).",
+                    "name": "Zustand"
+                },
+                "time": {
+                    "description": "Sendeverz\u00f6gerung.",
+                    "name": "Zeit"
+                },
+                "time_unit": {
+                    "description": "Zeiteinheit der Sendeverz\u00f6gerung.",
+                    "name": "Zeiteinheit"
+                }
+            },
+            "name": "Tasten senden"
+        },
+        "var_abs": {
+            "description": "Legt den absoluten Wert einer Variablen oder eines Sollwerts fest.",
+            "fields": {
+                "address": {
+                    "description": "Adresse des Moduls.",
+                    "name": "Adresse"
+                },
+                "unit_of_measurement": {
+                    "description": "Werteinheit.",
+                    "name": "Ma\u00dfeinheit"
+                },
+                "value": {
+                    "description": "Einzustellender Wert.",
+                    "name": "Wert"
+                },
+                "variable": {
+                    "description": "Variablen- oder Sollwertname.",
+                    "name": "Variable"
+                }
+            },
+            "name": "Absolute Variable setzen"
+        },
+        "var_rel": {
+            "description": "Verschiebungswert einer Variablen, eines Sollwerts oder einer Schwelle.",
+            "fields": {
+                "address": {
+                    "description": "Adresse des Moduls.",
+                    "name": "Adresse"
+                },
+                "unit_of_measurement": {
+                    "description": "Werteinheit.",
+                    "name": "Ma\u00dfeinheit"
+                },
+                "value": {
+                    "description": "Wert verschieben.",
+                    "name": "Wert"
+                },
+                "value_reference": {
+                    "description": "Referenzwert f\u00fcr Sollwert und Schwelle.",
+                    "name": "Referenzwert"
+                },
+                "variable": {
+                    "description": "Variablen- oder Sollwertname.",
+                    "name": "Variable"
+                }
+            },
+            "name": "Variable verschieben"
+        },
+        "var_reset": {
+            "description": "Setzt den Wert einer Variablen oder eines Sollwerts zur\u00fcck.",
+            "fields": {
+                "address": {
+                    "description": "Adresse des Moduls.",
+                    "name": "Adresse"
+                },
+                "variable": {
+                    "description": "Variablen- oder Sollwertname.",
+                    "name": "Variable"
+                }
+            },
+            "name": "Variable zur\u00fccksetzen"
+        }
+    }
+}

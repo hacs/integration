@@ -1,0 +1,116 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Enheten \u00e4r redan konfigurerad"
+        },
+        "error": {
+            "cannot_connect": "Det gick inte att ansluta.",
+            "invalid_access_token": "Ogiltig \u00e5tkomstnyckel",
+            "invalid_auth": "Ogiltig autentisering",
+            "unknown": "Ov\u00e4ntat fel"
+        },
+        "step": {
+            "2fa": {
+                "data": {
+                    "2fa": "Tv\u00e5faktorkod"
+                },
+                "description": "Ange PIN-koden som skickades till din e-post eller SMS",
+                "title": "Tv\u00e5faktorautentisering"
+            },
+            "user": {
+                "data": {
+                    "password": "L\u00f6senord",
+                    "username": "Anv\u00e4ndarnamn"
+                },
+                "title": "Logga in med Blink-konto"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "camera_armed": {
+                "name": "Kamera Larmad"
+            }
+        },
+        "sensor": {
+            "wifi_rssi": {
+                "name": "Wifi RSSI"
+            }
+        },
+        "switch": {
+            "camera_motion": {
+                "name": "Kamerans r\u00f6relsedetektering"
+            }
+        }
+    },
+    "exceptions": {
+        "device_not_found": {
+            "message": "Enheten '{target}' hittades inte i enhetsregistret"
+        },
+        "invalid_device": {
+            "message": "Enheten '{target}' \u00e4r inte en {domain} enhet"
+        },
+        "no_path": {
+            "message": "Kan inte skriva till katalogen {target}, ingen \u00e5tkomst till s\u00f6kv\u00e4gen!"
+        }
+    },
+    "options": {
+        "step": {
+            "simple_options": {
+                "data": {
+                    "scan_interval": "Skanningsintervall (sekunder)"
+                },
+                "description": "Konfigurera Blink integrationen",
+                "title": "Blink alternativ"
+            }
+        }
+    },
+    "services": {
+        "blink_update": {
+            "description": "Tvingar fram en uppdatering.",
+            "name": "Uppdatera"
+        },
+        "save_recent_clips": {
+            "description": "Sparar alla senaste videoklipp lokalt med filnamnet \"%Y%m%d_%H%M%S_[camera name].mp4\".",
+            "fields": {
+                "file_path": {
+                    "description": "Katalognamn f\u00f6r skrivbar s\u00f6kv\u00e4g (katalogen kan beh\u00f6va inkluderas i allowlist_external_dirs i konfigurationen).",
+                    "name": "Katalog f\u00f6r sparade filer"
+                },
+                "name": {
+                    "description": "Namn p\u00e5 kameran att h\u00e4mta senaste klipp fr\u00e5n.",
+                    "name": "Namn"
+                }
+            },
+            "name": "Spara senaste klipp"
+        },
+        "save_video": {
+            "description": "Sparar senast inspelade videoklipp till lokal fil.",
+            "fields": {
+                "filename": {
+                    "description": "Filnamn till skrivbar s\u00f6kv\u00e4g (katalogen kan beh\u00f6va inkluderas i allowlist_external_dirs i konfigurationen).",
+                    "name": "Filnamn"
+                },
+                "name": {
+                    "description": "Namn p\u00e5 kameran att h\u00e4mta video fr\u00e5n.",
+                    "name": "Namn"
+                }
+            },
+            "name": "Spara video"
+        },
+        "send_pin": {
+            "description": "Skickar en ny PIN-kod till Blink f\u00f6r 2FA.",
+            "fields": {
+                "pin": {
+                    "description": "PIN-kod mottagen fr\u00e5n Blink. L\u00e4mna tomt om du bara fick ett verifieringsmeddelande.",
+                    "name": "PIN-kod"
+                }
+            },
+            "name": "Skicka PIN-kod"
+        },
+        "trigger_camera": {
+            "description": "Beg\u00e4r att kameran tar en ny bild.",
+            "name": "Trigga kamera"
+        }
+    }
+}

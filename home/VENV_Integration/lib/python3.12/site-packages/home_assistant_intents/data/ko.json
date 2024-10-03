@@ -1,0 +1,2285 @@
+{
+  "language": "ko",
+  "intents": {
+    "HassTurnOff": {
+      "data": [
+        {
+          "sentences": [
+            "<name> (닫아|닫아줘)"
+          ],
+          "excludes_context": {
+            "domain": [
+              "binary_sensor",
+              "light",
+              "lock",
+              "scene",
+              "script",
+              "sensor",
+              "fan"
+            ]
+          }
+        },
+        {
+          "sentences": [
+            "<area>[에|의] [모든] <light> <turn> 꺼[줘|줄래]",
+            "<area> [모든] <light> <turn> 꺼[줘|줄래]",
+            "[모든] <area> <light> [<turn>] 꺼[줘|줄래]",
+            "<area>에 있는 [모든] <light> [<turn>] 꺼[줘|줄래]",
+            "<area>에 있는 [모든] <light> 종료",
+            "[모든] <area> <light> 종료"
+          ],
+          "slots": {
+            "domain": "light"
+          },
+          "response": "lights_area"
+        },
+        {
+          "sentences": [
+            "[<area>] <name> <close>"
+          ],
+          "requires_context": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "차고문 <close>"
+          ],
+          "slots": {
+            "domain": "cover",
+            "device_class": "garage"
+          }
+        },
+        {
+          "sentences": [
+            "<area>에 {cover_classes:device_class} <close>",
+            "<area> {cover_classes:device_class} <close>"
+          ],
+          "slots": {
+            "domain": "cover"
+          },
+          "response": "cover_device_class"
+        },
+        {
+          "sentences": [
+            "<area>에 [모든] 팬 <turn> 꺼[줘|줄래]",
+            "<area> 팬 <turn> 꺼[줘|줄래]",
+            "[모든] <area> 팬 [<turn>] 꺼[줘|줄래]",
+            "<area>에 [모든] 팬 [<turn>] 꺼[줘|줄래]",
+            "<area>에 [모든] 팬 종료",
+            "[모든] <area> 팬 종료",
+            "<area> [모든] 팬 꺼[줘|줄래]"
+          ],
+          "slots": {
+            "domain": "fan",
+            "name": "all"
+          },
+          "response": "fans_area"
+        },
+        {
+          "sentences": [
+            "[<area>] <name> 잠금 해제"
+          ],
+          "requires_context": {
+            "domain": "lock"
+          },
+          "response": "lock"
+        },
+        {
+          "sentences": [
+            "<area>[의] [모든] [잠금장치|자물쇠|문] 잠금 해제",
+            "[모든] <area> [잠금장치|자물쇠|문] 잠금 해제"
+          ],
+          "slots": {
+            "domain": "lock",
+            "name": "all"
+          },
+          "response": "lock"
+        }
+      ]
+    },
+    "HassTurnOn": {
+      "data": [
+        {
+          "sentences": [
+            "<area>[에|의] [모든] <light> <turn> 켜[줘|줄래]",
+            "<area> [모든] <light> <turn> 켜[줘|줄래]",
+            "[모든] <area> <light> [<turn>] 켜[줘|줄래]",
+            "<area>에 있는 [모든] <light> [<turn>] 켜[줘|줄래]",
+            "<area>에 있는 [모든] <light> 작동",
+            "[모든] <area> <light> 작동"
+          ],
+          "slots": {
+            "domain": "light"
+          },
+          "response": "lights_area"
+        },
+        {
+          "sentences": [
+            "<area>에 [모든] 팬 <turn> 켜[줘|줄래]",
+            "<area> 팬 <turn> 켜[줘|줄래]",
+            "[모든] <area> 팬 [<turn>] 켜[줘|줄래]",
+            "<area>에 [모든] 팬 [<turn>] 켜[줘|줄래]",
+            "<area>에 [모든] 팬 작동",
+            "[모든] <area> 팬 작동",
+            "<area> [모든] 팬 켜[줘|줄래]"
+          ],
+          "slots": {
+            "domain": "fan",
+            "name": "all"
+          },
+          "response": "fans_area"
+        },
+        {
+          "sentences": [
+            "<name> [스크립트] [실행|시작|<turn>] [켜|작동|켜줘|켜줄래]"
+          ],
+          "requires_context": {
+            "domain": "script"
+          },
+          "slots": {
+            "domain": "script"
+          },
+          "response": "script"
+        },
+        {
+          "sentences": [
+            "<name> [장면|모드] [활성화|<turn>] [켜|작동|켜줘|켜줄래]"
+          ],
+          "requires_context": {
+            "domain": "scene"
+          },
+          "slots": {
+            "domain": "scene"
+          },
+          "response": "scene"
+        },
+        {
+          "sentences": [
+            "[<area>] <name> 잠가"
+          ],
+          "requires_context": {
+            "domain": "lock"
+          },
+          "response": "lock"
+        },
+        {
+          "sentences": [
+            "<area>[의] [모든] [잠금장치|자물쇠|문] 잠가",
+            "[모든] <area> [잠금장치|자물쇠|문] 잠가"
+          ],
+          "slots": {
+            "domain": "lock",
+            "name": "all"
+          },
+          "response": "lock"
+        },
+        {
+          "sentences": [
+            "<name> (열어|열어줘)"
+          ],
+          "excludes_context": {
+            "domain": [
+              "binary_sensor",
+              "light",
+              "lock",
+              "scene",
+              "script",
+              "sensor",
+              "fan"
+            ]
+          }
+        },
+        {
+          "sentences": [
+            "[<area>] <name> <open>"
+          ],
+          "requires_context": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "차고문 <open>"
+          ],
+          "slots": {
+            "domain": "cover",
+            "device_class": "garage"
+          }
+        },
+        {
+          "sentences": [
+            "<area>에 {cover_classes:device_class} <open>",
+            "<area> {cover_classes:device_class} <open>"
+          ],
+          "slots": {
+            "domain": "cover"
+          },
+          "response": "cover_device_class"
+        }
+      ]
+    },
+    "HassShoppingListAddItem": {
+      "data": [
+        {
+          "sentences": [
+            "<my_list>에 <item> (추가해|추가해줘)",
+            "<my_list>에 <item> (담아|담아줘)"
+          ],
+          "response": "item_added",
+          "expansion_rules": {
+            "my_list": "[ 내][ 쇼핑] 리스트",
+            "item": "{shopping_list_item:item}"
+          }
+        }
+      ]
+    },
+    "HassLightSet": {
+      "data": [
+        {
+          "sentences": [
+            "<name> 밝기 <brightness>[로] [<numeric_value_set>]",
+            "<name>의 밝기 <brightness>[로] [<numeric_value_set>]",
+            "<name> <brightness> 밝기[로] [<numeric_value_set>]"
+          ],
+          "response": "brightness",
+          "requires_context": {
+            "domain": "light"
+          }
+        },
+        {
+          "sentences": [
+            "<name> <brightness>[로] <numeric_value_set>"
+          ],
+          "requires_context": {
+            "domain": "light"
+          },
+          "response": "brightness"
+        },
+        {
+          "sentences": [
+            "<area> 밝기를 <brightness>로 [<numeric_value_set>]",
+            "<area>의 밝기를 <brightness>로 [<numeric_value_set>]",
+            "<area>을 <brightness> 밝기로 [<numeric_value_set>]",
+            "<area> <brightness>로 [<numeric_value_set>]"
+          ],
+          "slots": {
+            "name": "all"
+          },
+          "response": "brightness"
+        },
+        {
+          "sentences": [
+            "<area> <brightness>로 <numeric_value_set>"
+          ],
+          "slots": {
+            "name": "all"
+          },
+          "response": "brightness"
+        },
+        {
+          "sentences": [
+            "<name> 밝기 {brightness_level:brightness}[로] [<numeric_value_set>]",
+            "<name>의 밝기 {brightness_level:brightness}[로] [<numeric_value_set>]",
+            "<name> {brightness_level:brightness} 밝기[로] [<numeric_value_set>]",
+            "<name> {brightness_level:brightness}"
+          ],
+          "requires_context": {
+            "domain": "light"
+          },
+          "response": "brightness"
+        },
+        {
+          "sentences": [
+            "<area> 밝기를 [the] {brightness_level:brightness}[로] [<numeric_value_set>]",
+            "<area>의 밝기를 [the] {brightness_level:brightness}[로] [<numeric_value_set>]",
+            "<area> {brightness_level:brightness} 밝기[로] [<numeric_value_set>]",
+            "<area> 밝기 {brightness_level:brightness}[로] [<numeric_value_set>]",
+            "<area> {brightness_level:brightness}"
+          ],
+          "slots": {
+            "name": "all"
+          },
+          "response": "brightness"
+        },
+        {
+          "sentences": [
+            "<name> [색상] {color}[로|으로] [<set>]",
+            "<name>의 [색상] {color}[로|으로] [<set>]"
+          ],
+          "requires_context": {
+            "domain": "light"
+          },
+          "response": "color"
+        },
+        {
+          "sentences": [
+            "(<area> | <area> 모든 조명 | 모든 <area> 조명)의 [색상] {color}[로|으로] [<set>]",
+            "(<area> | <area> 모든 조명 | 모든 <area> 조명) [색상]  {color}[로|으로] [<set>]"
+          ],
+          "slots": {
+            "name": "all"
+          },
+          "response": "color"
+        }
+      ]
+    },
+    "HassClimateGetTemperature": {
+      "data": [
+        {
+          "sentences": [
+            "[<area>] <temp> 몇 도야",
+            "[<area>] <temp> 얼마야",
+            "[<area>] <temp> 몇이야",
+            "[<area>] <temp> (알아|알려줘|말해줘)",
+            "[<area>] 얼마나 (더워 | 추워 | 따뜻해| 시원해)",
+            "[<area>] (더워 | 추워 | 따뜻해| 시원해)",
+            "<area> <temp> <what_is>"
+          ]
+        }
+      ]
+    },
+    "HassGetState": {
+      "data": [
+        {
+          "sentences": [
+            "[<area>] <name> {lock_states:state}있어"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "lock"
+          },
+          "slots": {
+            "domain": "lock"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>] {lock_states:state}있는 문이 있어"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "lock"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>] 모든 문 {lock_states:state}있어"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "lock"
+          }
+        },
+        {
+          "sentences": [
+            "(어떤|어디) [<area>] 문이 {lock_states:state}있어"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "lock"
+          }
+        },
+        {
+          "sentences": [
+            "(얼마나 많은) [<area>] 문이 {lock_states:state}있어"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "lock"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>] <name> [상태] (<what_is>|어때|말해줘|알려줘|알아)",
+            "[<area>] <name> 상태[는] [<what_is>]",
+            "[<area>] <name>[는|은] (<what_is>|어때|말해줘|알려줘|알아)"
+          ],
+          "response": "one",
+          "excludes_context": {
+            "domain": [
+              "scene",
+              "script"
+            ]
+          }
+        },
+        {
+          "sentences": [
+            "[<area>] <name> [상태가] {on_off_states:state}있어"
+          ],
+          "response": "one_yesno",
+          "excludes_context": {
+            "domain": [
+              "cover"
+            ]
+          }
+        },
+        {
+          "sentences": [
+            "[<area>에] {on_off_domains:domain}(가|이) {on_off_states:state}있어",
+            "[<area>에] {on_off_domains:domain}(가|이) {on_off_states:state}있는지 (알아|알려줘|말해줘)"
+          ],
+          "response": "any"
+        },
+        {
+          "sentences": [
+            "[<area>에] 모든 {on_off_domains:domain}(가|이) {on_off_states:state}있어"
+          ],
+          "response": "all"
+        },
+        {
+          "sentences": [
+            "[<area>에] (어떤|무슨) {on_off_domains:domain}(가|이) {on_off_states:state}있는지 (알아|알려줘|말해줘)"
+          ],
+          "response": "which"
+        },
+        {
+          "sentences": [
+            "[<area>에] 얼마나 많은 {on_off_domains:domain}(가|이) {on_off_states:state}있는지 (알아|알려줘|말해줘)"
+          ],
+          "response": "how_many"
+        },
+        {
+          "sentences": [
+            "[<area>] <name> {cover_states:state}있어"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "cover"
+          },
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>에] {cover_classes:device_class}(이|가) {cover_states:state}있어"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>에] 모든 {cover_classes:device_class}(이|가) {cover_states:state}있어"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>에] (어떤|어디) {cover_classes:device_class}(이|가) {cover_states:state}있어"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>에] 얼마나 많은 {cover_classes:device_class}(이|가) {cover_states:state}있어"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>] <name> {bs_battery_states:state}이야"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "battery"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "battery"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>에] {bs_battery_states:state}인게 있어"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "battery"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>에] 모든 기기[가] {bs_battery_states:state}이야"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "battery"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>에] 어떤 기기[가] {bs_battery_states:state}이야"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "battery"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>에] 얼마나 많은 기기[가] {bs_battery_states:state}이야"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "battery"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>] <name> [배터리] {bs_battery_charging_states:state}이야"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "battery_charging"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "battery_charging"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>에] 배터리[가] {bs_battery_charging_states:state}인게 있어"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "battery_charging"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>에] 모든 배터리[가] {bs_battery_charging_states:state}이야"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "battery_charging"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>에] 어떤 배터리[가] {bs_battery_charging_states:state}이야"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "battery_charging"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>에] 얼마나 많은 배터리[가] {bs_battery_charging_states:state}이야"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "battery_charging"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>] <name> {bs_carbon_monoxide_states:state}됐어"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "carbon_monoxide"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "carbon_monoxide"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>에] 일산화탄소 센서[가] {bs_carbon_monoxide_states:state}된게 있어"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "carbon_monoxide"
+          }
+        },
+        {
+          "sentences": [
+            "<area>에 일산화탄소 센서[가] 감지됐어"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "carbon_monoxide",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>에] 모든 일산화탄소 센서[가] {bs_carbon_monoxide_states:state}됐어"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "carbon_monoxide"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>에] (어떤|어디) 일산화탄소 센서[가] {bs_carbon_monoxide_states:state}됐어"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "carbon_monoxide"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>에] 얼마나 많은 일산화탄소 센서[가] {bs_carbon_monoxide_states:state}됐어"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "carbon_monoxide"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>] <name> {bs_cold_states:state}워"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "cold"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "cold"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>에] {bs_cold_states:state}운게 있어"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "cold",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>에] (어떤게|무엇이|뭐가) {bs_cold_states:state}워"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "cold",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>에] {bs_cold_states:state}운게 얼마나 있어"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "cold",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>] <name> {bs_connectivity_states:state}됐어"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "connectivity"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "connectivity"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>에] {bs_connectivity_states:state}된 (기기|장치)가 있어"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "connectivity"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>에] 모든 (기기|장치)가 {bs_connectivity_states:state}됐어"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "connectivity"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>에] 어떤 (기기|장치)가 {bs_connectivity_states:state}됐어"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "connectivity"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>에] 얼마나 많은 (기기|장치)가 {bs_connectivity_states:state}됐어"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "connectivity"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>] <name> {bs_door_states:state}있어"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "door"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "door"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>] <name> {bs_garage_door_states:state}있어"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "garage_door"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "garage_door"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>] <name> {bs_gas_states:state}됐어"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "gas"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "gas"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>에] 가스 센서[가] {bs_gas_states:state}된게 있어"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "gas"
+          }
+        },
+        {
+          "sentences": [
+            "<area>에 가스[가] 감지됐어"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "gas",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>에] 모든 가스 센서[가] {bs_gas_states:state}됐어"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "gas"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>에] (어떤|어디) 가스 센서[가] {bs_gas_states:state}됐어"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "gas"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>에] 얼마나 많은 가스 센서[가] {bs_gas_states:state}됐어"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "gas"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>] <name> {bs_heat_states:state}워"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "heat"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "heat"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>에] {bs_heat_states:state}운게 있어"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "heat",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>에] (어떤게|무엇이|뭐가) {bs_heat_states:state}워"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "heat",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>에] {bs_heat_states:state}운게 얼마나 있어"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "heat",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>] <name>[이] {bs_light_states:state}져있어"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "light"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "light"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>에] 표시등[이] {bs_light_states:state}져있는게 있어"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "light"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>에] 모든 표시등[이] {bs_light_states:state}져있어"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "light"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>에] 어떤 표시등[이] {bs_light_states:state}져있어"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "light"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>에] 얼마나 많은 표시등[이] {bs_light_states:state}져있어"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "light"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>] <name> {bs_lock_states:state}있어"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "lock"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "lock"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>] <name> {bs_moisture_states:state}됐어"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "moisture"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "moisture"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>에] (누수|누수 감지) 센서[가] {bs_moisture_states:state}된게 있어"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "moisture"
+          }
+        },
+        {
+          "sentences": [
+            "<area> 누수됐어"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "moisture",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>에] 모든 (누수|누수 감지) 센서[가] {bs_moisture_states:state}됐어"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "moisture"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>에] (어떤|어디) (누수|누수 감지) 센서[가] {bs_moisture_states:state}됐어"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "moisture"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>에] 얼마나 많은 (누수|누수 감지) 센서[가] {bs_moisture_states:state}됐어"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "moisture"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>] <name> {bs_motion_states:state}됐어"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "motion"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "motion"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>에] (모션|움직임) 센서[가] {bs_motion_states:state}된게 있어"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "motion"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>에] (모션|움직임) 감지됐어"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "motion",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>에] 모든 (모션|움직임) 센서[가] {bs_motion_states:state}됐어"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "motion"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>에] (어떤|어디) (모션|움직임) 센서[가] {bs_motion_states:state}됐어"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "motion"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>에] 얼마나 많은 (모션|움직임) 센서[가] {bs_motion_states:state}됐어"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "motion"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>] <name> {bs_occupancy_states:state}됐어"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "occupancy"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "occupancy"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>에] (존재 감지|재실) 센서[가] {bs_occupancy_states:state}된게 있어"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "occupancy"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>에] (존재 감지|재실) 감지됐어"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "occupancy",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>에] 모든 (존재 감지|재실) 센서[가] {bs_occupancy_states:state}됐어"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "occupancy"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>에] (어떤|어디) (존재 감지|재실) 센서[가] {bs_occupancy_states:state}됐어"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "occupancy"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>에] 얼마나 많은 (존재 감지|재실) 센서[가] {bs_occupancy_states:state}됐어"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "occupancy"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>] <name> {bs_opening_states:state}있어"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "opening"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "opening"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>에] 문이 {bs_opening_states:state}있는게 있어"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "opening"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>에] 모든 문이 {bs_opening_states:state}있어"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "opening"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>에] (어떤|어디) 문이 {bs_opening_states:state}있어"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "opening"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>에] 얼마나 많은 문이 {bs_opening_states:state}있어"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "opening"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>] <name> {bs_plug_states:state}있어"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "plug"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "plug"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>에] {bs_plug_states:state}있는 (기기|장치)가 있어"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "plug"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>에] 모든 (기기|장치)가 {bs_plug_states:state}있어"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "plug"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>에] 어떤 (기기|장치)가 {bs_plug_states:state}있어"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "plug"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>에] 얼마나 많은 (기기|장치)가 {bs_plug_states:state}있어"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "plug"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>] <name> {bs_power_states:state}있어"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "power"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "power"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>에] {bs_power_states:state}있는 (기기|장치)가 있어"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "power"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>에] 모든 (기기|장치)가 {bs_power_states:state}있어"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "power"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>에] 어떤 (기기|장치)가 {bs_power_states:state}있어"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "power"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>에] 얼마나 많은 (기기|장치)가 {bs_power_states:state}있어"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "power"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>] <name> {bs_presence_states:state}이야"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "presence"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "presence"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>에] {bs_presence_states:state}인 (기기|장치)가 있어"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "presence"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>에] 모든 (기기|장치)가 {bs_presence_states:state}이야"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "presence"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>에] 어떤 (기기|장치)가 {bs_presence_states:state}이야"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "presence"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>에] 얼마나 많은 (기기|장치)가 {bs_presence_states:state}이야"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "presence"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>] <name>에 문제가 있어"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "problem"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "problem",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>] <name> {bs_running_states:state}이야"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "running"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "running"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>에] {bs_running_states:state} (기기|장치)가 있어"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "running"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>에] 모든 (기기|장치)가 {bs_running_states:state}야"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "running"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>에] 어떤 (기기|장치)가 {bs_running_states:state}야"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "running"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>에] 얼마나 많은 (기기|장치)가 {bs_running_states:state}야"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "running"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>] <name> {bs_safety_states:state}해"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "safety"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "safety"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>] <name> {bs_smoke_states:state}됐어"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "smoke"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "smoke"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>에] (연기 감지|연기) 센서[가] {bs_smoke_states:state}된게 있어"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "smoke"
+          }
+        },
+        {
+          "sentences": [
+            "<area>에 연기 (있어|감지됐어)"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "smoke",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>에] 모든 (연기 감지|연기) 센서[가] {bs_smoke_states:state}됐어"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "smoke"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>에] 어떤 (연기 감지|연기) 센서[가] {bs_smoke_states:state}됐어"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "smoke"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>에] 얼마나 많은 (연기 감지|연기) 센서[가] {bs_smoke_states:state}됐어"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "smoke"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>] <name> {bs_sound_states:state}됐어"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "sound"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "sound"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>에] (소리|소음|사운드|소리 감지) 센서[가] {bs_sound_states:state}된게 있어"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "sound"
+          }
+        },
+        {
+          "sentences": [
+            "<area>에 (소리|소음|사운드|소리 감지) (들려|나|감지됐어)"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "sound",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>에] 모든 (소리|소음|사운드|소리 감지) 센서[가] {bs_sound_states:state}됐어"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "sound"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>에] (어떤|어디) (소리|소음|사운드|소리 감지) 센서[가] {bs_sound_states:state}됐어"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "sound"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>에] 얼마나 많은 (소리|소음|사운드|소리 감지) 센서[가] {bs_sound_states:state}됐어"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "sound"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>] <name> {bs_tamper_states:state}됐어"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "tamper"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "tamper"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>] <name> {bs_update_states:state}야"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "update"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "update"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>에] {bs_update_states:state}한 기기가 있어"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "update",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>에] 어떤 기기가 {bs_update_states:state}해"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "update",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>에] 얼마나 많은 기기가 {bs_update_states:state}해"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "update",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>] <name> {bs_vibration_states:state}됐어"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "vibration"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "vibration"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>에] {bs_vibration_states:state}된게 있어"
+          ],
+          "response": "any",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "vibration"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "vibration",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "[<area>] <name> {bs_window_states:state}있어"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "window"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "window"
+          }
+        }
+      ]
+    }
+  },
+  "responses": {
+    "errors": {
+      "no_intent": "죄송합니다, 이해하지 못했습니다",
+      "no_area": "{{ area }}이라는 영역을 찾을 수 없습니다",
+      "no_domain_in_area": "{{ area }}에서 {{ domain }}을 찾을 수 없습니다",
+      "no_device_class_in_area": "{{ area }}에서 {{ device_class }}을 찾을 수 없습니다",
+      "no_entity": "{{ entity }}이라는 구성요소나 기기를 찾을 수 없습니다",
+      "handle_error": "의도를 처리하는 동안 예기치 않은 오류가 발생했습니다"
+    },
+    "intents": {
+      "HassGetState": {
+        "one": "{{ slots.name }}의 상태는 {{ state.state_with_unit }}입니다",
+        "one_yesno": "{% if query.matched %}\n  네\n{% else %}\n  아니요, {{ slots.name }}의 상태는 {{ state.state }}입니다\n{% endif %}\n",
+        "any": "{% if query.matched %}\n  {% set match = query.matched | map(attribute=\"name\") | sort | list %}\n  {% if match | length > 4 %}\n    네, {{ match[:3] | join(\", \") }} 그리고 {{ (match | length - 3) }}개의 기기가 그렇습니다\n  {%- else -%}\n    {% if match | length == 1 %}\n      네, {{ match|first }} 기기가 그렇습니다\n    {% else %}\n      네,\n      {% for name in match -%}\n        {% if not loop.first and not loop.last %}, {% elif loop.last and not loop.first %} 그리고 {% endif -%}\n        {{ name }}\n      {%- endfor -%}\n      기기가 그렇습니다\n    {% endif %}\n  {% endif %}\n{% else %}\n  아니요\n{% endif %}\n",
+        "all": "{% if not query.unmatched: %}\n  네\n{% else %}\n  {% set no_match = query.unmatched | map(attribute=\"name\") | sort | list %}\n  {% if no_match | length > 4 %}\n    아니요, {{ no_match[:3] | join(\", \") }} 그리고 {{ (no_match | length - 3) }}개의 기기는 그렇지 않습니다\n  {% else %}\n    {% if no_match | length == 1 %}\n      아니요, {{ no_match|first }} 기기는 그렇지 않습니다\n    {%- else -%}\n      아니요,\n      {% for name in no_match -%}\n        {% if not loop.first and not loop.last %}, {% elif loop.last and not loop.first %} 그리고 {% endif -%}\n        {{ name }}\n      {%- endfor %}\n      기기가 그렇습니다\n    {% endif %}\n  {% endif %}\n{% endif %}\n",
+        "which": "{% if not query.matched %}\n  어떤 기기도 그렇지 않습니다\n{% else: %}\n  {% set match = query.matched | map(attribute=\"name\") | sort | list %}\n  {% if match | length > 4 %}\n    {{ match[:3] | join(\", \") }} 그리고 {{ (match | length - 3) }}개의 기기가 그렇습니다\n  {% else %}\n    {%- for name in match -%}\n      {% if not loop.first and not loop.last %}, {% elif loop.last and not loop.first %} 그리고 {% endif -%}\n      {{ name }}\n    {%- endfor %}\n    기기가 그렇습니다\n  {% endif %}\n{% endif %}\n",
+        "how_many": "{{ query.matched | length }}개의 기기가 그렇습니다\n"
+      },
+      "HassTurnOff": {
+        "default": "{{ slots.name|default('') }} 닫았습니다",
+        "lights_area": "{{ slots.area }} 조명을 껐습니다",
+        "fans_area": "{{ slots.area }} 팬을 껐습니다",
+        "cover_device_class": "{{ slots.device_class }} 닫았습니다",
+        "lock": "잠금 해제되었습니다"
+      },
+      "HassShoppingListAddItem": {
+        "item_added": "{{ slots.item }} 추가되었습니다"
+      },
+      "HassTurnOn": {
+        "default": "{{ slots.name|default('') }} 열었습니다",
+        "lights_area": "{{ slots.area }} 조명을 켰습니다",
+        "fans_area": "{{ slots.area }} 팬을 켰습니다",
+        "cover_device_class": "{{ slots.device_class }} 열었습니다",
+        "scene": "활성화했습니다",
+        "script": "시작했습니다",
+        "lock": "잠갔습니다"
+      },
+      "HassLightSet": {
+        "brightness": "밝기가 설정되었습니다",
+        "color": "색상이 설정되었습니다"
+      },
+      "HassClimateGetTemperature": {
+        "default": "{{ state_attr(state.entity_id, 'current_temperature') }}입니다"
+      }
+    }
+  },
+  "lists": {
+    "color": {
+      "values": [
+        {
+          "in": "(흰색|하얀색|백색|화이트)",
+          "out": "white"
+        },
+        {
+          "in": "(검은색|검정|검정색|블랙)",
+          "out": "black"
+        },
+        {
+          "in": "(빨강|빨간색|빨강색|붉은색|레드)",
+          "out": "red"
+        },
+        {
+          "in": "(오렌지색|주황색|주황|오렌지)",
+          "out": "orange"
+        },
+        {
+          "in": "(노란색|노랑|노란|노랑색|옐로우)",
+          "out": "yellow"
+        },
+        {
+          "in": "(녹색|초록|초록색|그린)",
+          "out": "green"
+        },
+        {
+          "in": "(파랑|파란색|파랑색|푸른색|청색|블루)",
+          "out": "blue"
+        },
+        {
+          "in": "(보라색|보라|퍼플)",
+          "out": "purple"
+        },
+        {
+          "in": "(갈색|밤색|고동색|브라운)",
+          "out": "brown"
+        },
+        {
+          "in": "(분홍색|분홍|핑크)",
+          "out": "pink"
+        },
+        {
+          "in": "(하늘색|청록색|청록)",
+          "out": "turquoise"
+        }
+      ]
+    },
+    "brightness": {
+      "range": {
+        "type": "percentage",
+        "from": 0,
+        "to": 100
+      }
+    },
+    "temperature": {
+      "range": {
+        "type": "temperature",
+        "from": 0,
+        "to": 100
+      }
+    },
+    "temperature_unit": {
+      "values": [
+        "celsius",
+        {
+          "in": "(섭씨|°C|℃|도)",
+          "out": "celsius"
+        },
+        "fahrenheit",
+        {
+          "in": "(화씨|°F|℉)",
+          "out": "fahrenheit"
+        }
+      ]
+    },
+    "brightness_level": {
+      "values": [
+        {
+          "in": "(최대|가장 밝게|최대치|제일 밝게)",
+          "out": 100
+        },
+        {
+          "in": "(최소|가장 어둡게|최소치|제일 어둡게)",
+          "out": 1
+        }
+      ]
+    },
+    "on_off_states": {
+      "values": [
+        {
+          "in": "(켜짐|켬|켜져있다|켜져)",
+          "out": "on"
+        },
+        {
+          "in": "(꺼짐|끔|꺼져있다|꺼져)",
+          "out": "off"
+        }
+      ]
+    },
+    "on_off_domains": {
+      "values": [
+        {
+          "in": "(조명|전등|등|불)",
+          "out": "light"
+        },
+        {
+          "in": "(선풍기|팬|환기구|환풍기|실링팬)",
+          "out": "fan"
+        },
+        {
+          "in": "스위치",
+          "out": "switch"
+        }
+      ]
+    },
+    "cover_states": {
+      "values": [
+        {
+          "in": "(열림|걷음|열려|걷혀|열어|걷어)",
+          "out": "open"
+        },
+        {
+          "in": "(닫힘|침|닫혀|닫아|쳐)",
+          "out": "closed"
+        },
+        {
+          "in": "(여는 중|걷는 중)",
+          "out": "opening"
+        },
+        {
+          "in": "(닫는 중|치는 중)",
+          "out": "closing"
+        }
+      ]
+    },
+    "cover_classes": {
+      "values": [
+        {
+          "in": "(차양막|어닝|천막|차양|가리개)",
+          "out": "awning"
+        },
+        {
+          "in": "블라인드",
+          "out": "blind"
+        },
+        {
+          "in": "(커튼|커텐)",
+          "out": "curtain"
+        },
+        {
+          "in": "(문|방문)",
+          "out": "door"
+        },
+        {
+          "in": "(차고|차고문)",
+          "out": "garage"
+        },
+        {
+          "in": "(게이트|대문|현관문|현관)",
+          "out": "gate"
+        },
+        {
+          "in": "(셰이드|쉐이드|버티컬)",
+          "out": "shade"
+        },
+        {
+          "in": "(루버|루버창)",
+          "out": "shutter"
+        },
+        {
+          "in": "(창문|유리창|창)",
+          "out": "window"
+        }
+      ]
+    },
+    "lock_states": {
+      "values": [
+        {
+          "in": "(잠금|잠김|잠금 설정|잠금 설정되어|잠겨)",
+          "out": "locked"
+        },
+        {
+          "in": "(잠금 해제|잠금 해제되어)",
+          "out": "unlocked"
+        }
+      ]
+    },
+    "bs_battery_states": {
+      "values": [
+        {
+          "in": "(배터리 부족)",
+          "out": "on"
+        },
+        {
+          "in": "(배터리 보통)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_battery_charging_states": {
+      "values": [
+        {
+          "in": "충전 중",
+          "out": "on"
+        },
+        {
+          "in": "충전 중 아님",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_carbon_monoxide_states": {
+      "values": [
+        {
+          "in": "(감지됨|감지|켜짐)",
+          "out": "on"
+        },
+        {
+          "in": "(감지 해제됨|없음|감지해제)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_cold_states": {
+      "values": [
+        {
+          "in": "(차가움|차가)",
+          "out": "on"
+        },
+        {
+          "in": "(보통|정상)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_connectivity_states": {
+      "values": [
+        {
+          "in": "(연결됨|연결)",
+          "out": "on"
+        },
+        {
+          "in": "(연결 해제됨|연결해제|연결되지 않음)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_door_states": {
+      "values": [
+        {
+          "in": "(열림|열려)",
+          "out": "on"
+        },
+        {
+          "in": "(닫힘|닫혀)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_garage_door_states": {
+      "values": [
+        {
+          "in": "(열림|열려)",
+          "out": "on"
+        },
+        {
+          "in": "(닫힘|닫혀)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_gas_states": {
+      "values": [
+        {
+          "in": "(감지됨|감지|켜짐)",
+          "out": "on"
+        },
+        {
+          "in": "(감지 해제됨|없음|감지해제)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_heat_states": {
+      "values": [
+        {
+          "in": "(뜨거움|뜨거)",
+          "out": "on"
+        },
+        {
+          "in": "(보통|정상)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_light_states": {
+      "values": [
+        {
+          "in": "(켜짐|켜)",
+          "out": "on"
+        },
+        {
+          "in": "(꺼짐|꺼)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_lock_states": {
+      "values": [
+        {
+          "in": "(잠금 해제|잠금 해제되어)",
+          "out": "on"
+        },
+        {
+          "in": "(잠금|잠김|잠금 설정|잠금 설정되어|잠겨)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_moisture_states": {
+      "values": [
+        {
+          "in": "(습함|축축|습|누수|감지됨|감지|켜짐)",
+          "out": "on"
+        },
+        {
+          "in": "(건조|감지 해제됨|없음|감지해제)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_motion_states": {
+      "values": [
+        {
+          "in": "(감지됨|감지|켜짐)",
+          "out": "on"
+        },
+        {
+          "in": "(감지 해제됨|없음|감지해제)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_occupancy_states": {
+      "values": [
+        {
+          "in": "(감지됨|감지|켜짐)",
+          "out": "on"
+        },
+        {
+          "in": "(감지 해제됨|없음|감지해제)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_opening_states": {
+      "values": [
+        {
+          "in": "(열림|열려)",
+          "out": "on"
+        },
+        {
+          "in": "(닫힘|닫혀)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_plug_states": {
+      "values": [
+        {
+          "in": "(플러그 꼽힘|플러그 꼽혀|플러그 연결)",
+          "out": "on"
+        },
+        {
+          "in": "(플러그 뽑힘|플러그 뽑혀|플러그 연결해제)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_power_states": {
+      "values": [
+        {
+          "in": "(켜짐|켜져)",
+          "out": "on"
+        },
+        {
+          "in": "(꺼짐|꺼져)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_presence_states": {
+      "values": [
+        {
+          "in": "재실",
+          "out": "on"
+        },
+        {
+          "in": "외출",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_problem_states": {
+      "values": [
+        {
+          "in": "비정상",
+          "out": "on"
+        },
+        {
+          "in": "정상",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_running_states": {
+      "values": [
+        {
+          "in": "(작동 중|작동 중이|작동 중인)",
+          "out": "on"
+        },
+        {
+          "in": "(작동 중 아님|작동 중 아니|작동 중 아닌)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_safety_states": {
+      "values": [
+        {
+          "in": "위험",
+          "out": "on"
+        },
+        {
+          "in": "안전",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_smoke_states": {
+      "values": [
+        {
+          "in": "(감지됨|감지|켜짐)",
+          "out": "on"
+        },
+        {
+          "in": "(감지 해제됨|없음|감지해제)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_sound_states": {
+      "values": [
+        {
+          "in": "(감지됨|감지|켜짐)",
+          "out": "on"
+        },
+        {
+          "in": "(감지 해제됨|없음|감지해제)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_tamper_states": {
+      "values": [
+        {
+          "in": "(감지됨|감지|켜짐|탬퍼 감지)",
+          "out": "on"
+        },
+        {
+          "in": "(감지 해제됨|없음|탬퍼 감지해제)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_update_states": {
+      "values": [
+        {
+          "in": "(업데이트 가능|업데이트 있)",
+          "out": "on"
+        },
+        {
+          "in": "(최신 업데이트|업데이트 없)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_vibration_states": {
+      "values": [
+        {
+          "in": "(감지됨|감지|켜짐|진동 감지)",
+          "out": "on"
+        },
+        {
+          "in": "(감지 해제됨|없음|감지해제|진동 감지해제)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_window_states": {
+      "values": [
+        {
+          "in": "(열림|열려)",
+          "out": "on"
+        },
+        {
+          "in": "(닫힘|닫혀)",
+          "out": "closed"
+        }
+      ]
+    },
+    "shopping_list_item": {
+      "wildcard": true
+    }
+  },
+  "expansion_rules": {
+    "name": "{name}",
+    "area": "{area}",
+    "what_is": "(무엇인가요|뭐야)",
+    "brightness": "{brightness}[ ][%|퍼센트|프로]",
+    "light": "(조명|전등|등|불)",
+    "turn": "(전원|스위치)",
+    "temp": "온도",
+    "temperature": "{temperature}[ ][°|도][ ][{temperature_unit}]",
+    "open": "(열기|열어|열어줘|올리기|올려|올려줘|걷기|걷어|걷어줘)",
+    "close": "(닫기|닫아|닫아줘|내리기|내려|내려줘|쳐|쳐줘)",
+    "set": "(설정|맞춰|변경)",
+    "numeric_value_set": "(설정|변경|올려|증가|내려|감소)"
+  },
+  "skip_words": [
+    "해주세요",
+    "주세요",
+    "해줘"
+  ]
+}

@@ -1,0 +1,114 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Apparaat is al geconfigureerd",
+            "already_in_progress": "De configuratie is momenteel al bezig",
+            "cannot_connect": "Kan geen verbinding maken"
+        },
+        "step": {
+            "discovery_confirm": {
+                "description": "Wil je dit Guardian apparaat instellen?"
+            },
+            "user": {
+                "data": {
+                    "ip_address": "IP-adres",
+                    "port": "Poort"
+                },
+                "description": "Configureer een lokaal Elexa Guardian-apparaat."
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "leak": {
+                "name": "Lekdetectie"
+            },
+            "moved": {
+                "name": "Recent verplaatst"
+            }
+        },
+        "button": {
+            "reset_diagnostics": {
+                "name": "Reset klep diagnostiek"
+            }
+        },
+        "sensor": {
+            "uptime": {
+                "name": "Bedrijfstijd"
+            }
+        },
+        "switch": {
+            "onboard_access_point": {
+                "name": "Onboard toegangspunt"
+            },
+            "valve_controller": {
+                "name": "Klepregelaar"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_service": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Update alle automatiseringen of scripts die deze service gebruiken om in plaats daarvan de `{alternate_service}` service te gebruiken met een doelentiteit ID van `{alternate_target}`.",
+                        "title": "De {deprecated_service}-service wordt verwijderd"
+                    }
+                }
+            },
+            "title": "De {deprecated_service}-service wordt verwijderd"
+        }
+    },
+    "services": {
+        "pair_sensor": {
+            "description": "Goeg nieuwe gekoppelde sensor toe aan de klepcontoller.",
+            "fields": {
+                "device_id": {
+                    "description": "De klepcontroller om de sensor aan toe te voegen.",
+                    "name": "Klepregelaar"
+                },
+                "uid": {
+                    "description": "De UID van de gekoppelde sensor.",
+                    "name": "UID"
+                }
+            },
+            "name": "Sensor koppelen."
+        },
+        "unpair_sensor": {
+            "description": "Verwijdert een gekoppelde sensor van de klepcontoller.",
+            "fields": {
+                "device_id": {
+                    "description": "De klepcontroller waarvan de sensor moet worden verwijderd.",
+                    "name": "Klepregelaar"
+                },
+                "uid": {
+                    "description": "De UID van de gekoppelde sensor.",
+                    "name": "UID"
+                }
+            },
+            "name": "Loskoppelen sensor"
+        },
+        "upgrade_firmware": {
+            "description": "Werkt de apparaatfirmware bij.",
+            "fields": {
+                "device_id": {
+                    "description": "De klepcontroller waarvan de firmware moet worden bijgewerkt.",
+                    "name": "Klepregelaar"
+                },
+                "filename": {
+                    "description": "De firmware bestandsnaam.",
+                    "name": "Bestandsnaam"
+                },
+                "port": {
+                    "description": "De poort waarop het firmwarebestand wordt aangeboden.",
+                    "name": "Poort"
+                },
+                "url": {
+                    "description": "De URL van de server die de firmware host.",
+                    "name": "URL"
+                }
+            },
+            "name": "Firmware bijwerken"
+        }
+    }
+}

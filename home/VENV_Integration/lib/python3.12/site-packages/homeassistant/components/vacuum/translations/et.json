@@ -1,0 +1,115 @@
+{
+    "device_automation": {
+        "action_type": {
+            "clean": "{entity_name} puhastamise lubamine",
+            "dock": "Laske {entity_name} dokki naasta"
+        },
+        "condition_type": {
+            "is_cleaning": "{entity_name} puhastab",
+            "is_docked": "{entity_name} on emajaamas"
+        },
+        "extra_fields": {
+            "for": "Kestus"
+        },
+        "trigger_type": {
+            "cleaning": "{entity_name} alustas puhastamist",
+            "docked": "{entity_name} on emajaamas"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Tolmuimeja",
+            "state": {
+                "cleaning": "Puhastamine",
+                "docked": "Dokitud",
+                "error": "Viga",
+                "idle": "Ootel",
+                "off": "V\u00e4ljas",
+                "on": "Sees",
+                "paused": "Peatatud",
+                "returning": "P\u00f6\u00f6rdun tagasi laadimisjaama"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_vacuum_base_class": {
+            "description": "Kohandatud sidumine ` {platform} ` laiendab `StateVacuumEntity` asemel aegunud baasklassi `VacuumEntity`. \n\n Teata sellest kohandatud sidumise ` {platform} ` autorile. \n\n Kui platvormi ` {platform} ` v\u00e4rskendatud versioon on saadaval, installi see ja taask\u00e4ivita selle probleemi lahendamiseks Home Assistant.",
+            "title": "Kohandatud sidumine {platform} kasutab aegunud tolmuimeja funktsiooni"
+        },
+        "deprecated_vacuum_base_class_url": {
+            "description": "Kohandatud sidumine ` {platform} ` laiendab `StateVacuumEntity` asemel aegunud baasklassi `VacuumEntity`. \n\n Loo veaaruanne aadressil {issue_tracker} . \n\n Kui platvormi ` {platform} ` v\u00e4rskendatud versioon on saadaval, installi see ja taask\u00e4ivita selle probleemi lahendamiseks Home Assistant.",
+            "title": "Kohandatud sidumine {platform} kasutab aegunud tolmuimeja funktsiooni"
+        },
+        "platform_integration_no_support": {
+            "description": "{domain} integreerimise platvorm {platform} ei toeta platvormi seadistamist. \n\n Selle probleemi lahendamiseks eemalda see oma konfiguratsioonist ja taask\u00e4ivita Home Assistant.",
+            "title": "Platvormi tuge ei toetata"
+        }
+    },
+    "services": {
+        "clean_spot": {
+            "description": "K\u00e4sib tolmuimejal teha kohapealne puhastus.",
+            "name": "Puhasta koht"
+        },
+        "locate": {
+            "description": "Leiab tolmuimeja roboti.",
+            "name": "Leia"
+        },
+        "pause": {
+            "description": "Peatab puhastustoimingu.",
+            "name": "Paus"
+        },
+        "return_to_base": {
+            "description": "K\u00e4sib tolmuimejal dokki naasta.",
+            "name": "Tagasi kaadimisjaama"
+        },
+        "send_command": {
+            "description": "Saadab tolmuimejale k\u00e4su.",
+            "fields": {
+                "command": {
+                    "description": "K\u00e4sk t\u00e4itmiseks. K\u00e4sud on sidumisep\u00f5hised.",
+                    "name": "K\u00e4sk"
+                },
+                "params": {
+                    "description": "K\u00e4su parameetrid. Parameetrid on integratsioonispetsiifilised.",
+                    "name": "Parameetrid"
+                }
+            },
+            "name": "Saada k\u00e4sk"
+        },
+        "set_fan_speed": {
+            "description": "M\u00e4\u00e4rab tolmuimeja ventilaatori kiiruse.",
+            "fields": {
+                "fan_speed": {
+                    "description": "Ventilaatori kiirus. V\u00e4\u00e4rtus s\u00f5ltub sidumisest. M\u00f5nel sidumisel on kiiruse astmed, n\u00e4iteks \"medium\". M\u00f5ned kasutavad protsendim\u00e4\u00e4rasid vahemikus 0 ja 100.",
+                    "name": "Ventilaatori kiirus"
+                }
+            },
+            "name": "M\u00e4\u00e4ra ventilaatori kiirus"
+        },
+        "start": {
+            "description": "Alustab v\u00f5i j\u00e4tkab puhastust\u00f6\u00f6d.",
+            "name": "K\u00e4ivita"
+        },
+        "start_pause": {
+            "description": "K\u00e4ivitab, peatab v\u00f5i j\u00e4tkab puhastust\u00f6\u00f6d.",
+            "name": "K\u00e4ivita/Peata"
+        },
+        "stop": {
+            "description": "Peatab praeguse puhastust\u00f6\u00f6.",
+            "name": "Peata"
+        },
+        "toggle": {
+            "description": "L\u00fclitab tolmuimeja sisse/v\u00e4lja.",
+            "name": "Muuda olekut"
+        },
+        "turn_off": {
+            "description": "Peatab praeguse puhastust\u00f6\u00f6 ja naaseb dokki.",
+            "name": "L\u00fclita v\u00e4lja"
+        },
+        "turn_on": {
+            "description": "Alustab uut puhastust\u00f6\u00f6d.",
+            "name": "L\u00fclita sisse"
+        }
+    },
+    "title": "Tolmuimeja"
+}

@@ -1,0 +1,87 @@
+{
+    "application_credentials": {
+        "description": "Postupujte pod\u013ea [pokynov]({more_info_url}) pre [obrazovku s\u00fahlasu OAuth]({oauth_consent_url}), aby ste poskytli asistentovi Home Assistant pr\u00edstup k va\u0161im fotografi\u00e1m Google. Mus\u00edte tie\u017e vytvori\u0165 aplika\u010dn\u00e9 poverenia prepojen\u00e9 s va\u0161\u00edm \u00fa\u010dtom:\n1. Prejdite na str\u00e1nku [Credentials]({oauth_creds_url}) a vyberte mo\u017enos\u0165 **Create Credentials** (Vytvori\u0165 poverenia**).\n2. Z rozba\u013eovacieho zoznamu vyberte polo\u017eku **OAuth client ID**.\n3. Pre typ aplik\u00e1cie vyberte **Webov\u00e1 aplik\u00e1cia**."
+    },
+    "config": {
+        "abort": {
+            "access_not_configured": "Ned\u00e1 sa z\u00edska\u0165 pr\u00edstup k Google API: \n\n{message}",
+            "already_configured": "\u00da\u010det je u\u017e nakonfigurovan\u00fd",
+            "already_in_progress": "Konfigur\u00e1cia u\u017e prebieha",
+            "authorize_url_timeout": "\u010casov\u00fd limit generovania autorizovanej adresy URL.",
+            "missing_configuration": "Komponent nie je nakonfigurovan\u00fd. Postupujte pod\u013ea dokument\u00e1cie.",
+            "no_url_available": "Nie je k dispoz\u00edcii \u017eiadna adresa URL. Inform\u00e1cie o tejto chybe n\u00e1jdete [pozrite si sekciu pomocn\u00edka]({docs_url})",
+            "oauth_error": "Prijat\u00e9 neplatn\u00e9 \u00fadaje tokenu.",
+            "oauth_failed": "Chyba pri z\u00edskavan\u00ed pr\u00edstupov\u00e9ho tokenu.",
+            "oauth_timeout": "\u010casov\u00fd limit na vyrie\u0161enie tokenu OAuth.",
+            "oauth_unauthorized": "Chyba autoriz\u00e1cie OAuth pri z\u00edskavan\u00ed pr\u00edstupov\u00e9ho tokenu.",
+            "unknown": "Neo\u010dak\u00e1van\u00e1 chyba",
+            "user_rejected_authorize": "Prepojenie \u00fa\u010dtu bolo odmietnut\u00e9: {error}",
+            "wrong_account": "Nespr\u00e1vny \u00fa\u010det: Overte toto\u017enos\u0165 pomocou spr\u00e1vneho \u00fa\u010dtu."
+        },
+        "create_entry": {
+            "default": "\u00daspe\u0161ne overen\u00e9"
+        },
+        "step": {
+            "pick_implementation": {
+                "title": "Vyberte met\u00f3du overenia"
+            }
+        }
+    },
+    "exceptions": {
+        "albums_failed": {
+            "message": "Nie je mo\u017en\u00e9 na\u010d\u00edta\u0165 albumy z rozhrania Google Photos API"
+        },
+        "api_error": {
+            "message": "Rozhranie Google Foto API odpovedalo chybou: {message}"
+        },
+        "create_album_error": {
+            "message": "Nepodarilo sa vytvori\u0165 album: {message}"
+        },
+        "file_too_large": {
+            "message": "`{filename}` je pr\u00edli\u0161 ve\u013ek\u00fd ({size} &gt; {limit})"
+        },
+        "filename_does_not_exist": {
+            "message": "`{filename}` neexistuje"
+        },
+        "filename_is_not_image": {
+            "message": "`{filename}` nie je obr\u00e1zok"
+        },
+        "integration_not_found": {
+            "message": "Integr\u00e1cia \"{target}\" nen\u00e1jden\u00e1 v registri."
+        },
+        "missing_upload_permission": {
+            "message": "Home Assistnt nebolo udelen\u00e9 povolenie na nahr\u00e1vanie do slu\u017eby Google Foto"
+        },
+        "no_access_to_path": {
+            "message": "Nemo\u017eno \u010d\u00edta\u0165 {filename}, nie je pr\u00edstup k ceste; `allowlist_external_dirs` mo\u017eno bude potrebn\u00e9 upravi\u0165 v `configuration.yaml`"
+        },
+        "not_loaded": {
+            "message": "{target} nie je na\u010d\u00edtan\u00fd."
+        },
+        "upload_error": {
+            "message": "Nepodarilo sa nahra\u0165 obsah: {message}"
+        }
+    },
+    "services": {
+        "upload": {
+            "description": "Nahr\u00e1vanie obr\u00e1zkov alebo vide\u00ed do slu\u017eby Fotografie Google.",
+            "fields": {
+                "album": {
+                    "description": "N\u00e1zov albumu, ktor\u00fd je cie\u013eom pre nahran\u00fd obsah.",
+                    "example": "Rodinn\u00e9 fotografie",
+                    "name": "Album"
+                },
+                "config_entry_id": {
+                    "description": "Integr\u00e1cia slu\u017eby Fotky Google id.",
+                    "name": "ID integr\u00e1cie"
+                },
+                "filename": {
+                    "description": "Cesta k obr\u00e1zku alebo videu, ktor\u00e9 chcete nahra\u0165.",
+                    "example": "/config/www/image.jpg",
+                    "name": "N\u00e1zov s\u00faboru"
+                }
+            },
+            "name": "Nahr\u00e1vanie m\u00e9di\u00ed"
+        }
+    }
+}

@@ -1,0 +1,339 @@
+{
+    "device_automation": {
+        "condition_type": {
+            "is_buffering": "{entity_name} is aan het bufferen",
+            "is_idle": "{entity_name} is niet actief",
+            "is_off": "{entity_name} is uitgeschakeld",
+            "is_on": "{entity_name} is ingeschakeld",
+            "is_paused": "{entity_name} is gepauzeerd",
+            "is_playing": "{entity_name} wordt afgespeeld"
+        },
+        "trigger_type": {
+            "buffering": "{entity_name} start met bufferen",
+            "changed_states": "{entity_name} aan- of uitgezet",
+            "idle": "{entity_name} wordt inactief",
+            "paused": "{entity_name} is gepauzeerd",
+            "playing": "{entity_name} begint te spelen",
+            "turned_off": "{entity_name} uitgezet",
+            "turned_on": "{entity_name} aangezet"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Mediaspeler",
+            "state": {
+                "buffering": "Bufferen",
+                "idle": "Inactief",
+                "off": "Uit",
+                "on": "Aan",
+                "paused": "Gepauzeerd",
+                "playing": "Speelt",
+                "standby": "Stand-by"
+            },
+            "state_attributes": {
+                "app_id": {
+                    "name": "App-ID"
+                },
+                "app_name": {
+                    "name": "App"
+                },
+                "entity_picture_local": {
+                    "name": "Lokaal toegankelijke entiteitsafbeelding"
+                },
+                "groups_members": {
+                    "name": "Groepsleden"
+                },
+                "is_volume_muted": {
+                    "name": "Gedempt",
+                    "state": {
+                        "false": "Nee",
+                        "true": "Ja"
+                    }
+                },
+                "media_album_artist": {
+                    "name": "Albumartiest"
+                },
+                "media_album_name": {
+                    "name": "Album"
+                },
+                "media_artist": {
+                    "name": "Artiest"
+                },
+                "media_channel": {
+                    "name": "Kanaal"
+                },
+                "media_content_type": {
+                    "name": "Type inhoud",
+                    "state": {
+                        "album": "Album",
+                        "app": "App",
+                        "artist": "Artiest",
+                        "channel": "Kanaal",
+                        "channels": "Kanalen",
+                        "composer": "Componist",
+                        "contributing_artist": "Bijdragende artiest",
+                        "episode": "Aflevering",
+                        "game": "Game",
+                        "genre": "Genre",
+                        "image": "Afbeelding",
+                        "movie": "Film",
+                        "music": "Muziek",
+                        "playlist": "Playlist",
+                        "podcast": "Podcast",
+                        "season": "Seizoen",
+                        "track": "Nummer",
+                        "tvshow": "TV-programma",
+                        "url": "URL",
+                        "video": "Video"
+                    }
+                },
+                "media_duration": {
+                    "name": "Duur"
+                },
+                "media_episode": {
+                    "name": "Aflevering"
+                },
+                "media_playlist": {
+                    "name": "Playlist"
+                },
+                "media_position": {
+                    "name": "Positie"
+                },
+                "media_position_updated_at": {
+                    "name": "Positie bijgewerkt"
+                },
+                "media_season": {
+                    "name": "Seizoen"
+                },
+                "media_series_title": {
+                    "name": "Series"
+                },
+                "media_title": {
+                    "name": "Titel"
+                },
+                "media_track": {
+                    "name": "Nummer"
+                },
+                "repeat": {
+                    "name": "Herhalen",
+                    "state": {
+                        "all": "Alle",
+                        "off": "Uit",
+                        "one": "Een"
+                    }
+                },
+                "shuffle": {
+                    "name": "Shuffle",
+                    "state": {
+                        "false": "Uit",
+                        "true": "Aan"
+                    }
+                },
+                "sound_mode": {
+                    "name": "Geluidsmodus"
+                },
+                "sound_mode_list": {
+                    "name": "Beschikbare geluidsmodi"
+                },
+                "source": {
+                    "name": "Bron"
+                },
+                "source_list": {
+                    "name": "Beschikbare bronnen"
+                },
+                "volume_level": {
+                    "name": "Volume"
+                }
+            }
+        },
+        "receiver": {
+            "name": "Ontvanger"
+        },
+        "speaker": {
+            "name": "Speaker"
+        },
+        "tv": {
+            "name": "TV"
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "Platform {platform} van de {domain} integratie heeft geen platformondersteuning.\n\nVerwijder dit uit je configuratie en herstart Home Assistant om dit issue op te lossen.",
+            "title": "Platformondersteuning is niet ondersteund"
+        }
+    },
+    "selector": {
+        "enqueue": {
+            "options": {
+                "add": "Toevoegen aan wachtrij",
+                "next": "Volgende afspelen",
+                "play": "Afspelen",
+                "replace": "Nu afspelen en wachtrij wissen"
+            }
+        },
+        "repeat": {
+            "options": {
+                "all": "Herhaal alles",
+                "off": "Uit",
+                "one": "Herhaal \u00e9\u00e9n"
+            }
+        }
+    },
+    "services": {
+        "clear_playlist": {
+            "description": "Wist de afspeellijst.",
+            "name": "Afspeellijst wissen"
+        },
+        "join": {
+            "description": "Groepeert mediaspelers voor gesynchroniseerd afspelen. Werkt alleen op ondersteunde multiroom audiosystemen.",
+            "fields": {
+                "group_members": {
+                    "description": "De spelers worden gesynchroniseerd met afspelen gespecificeerd in `target`.",
+                    "name": "Groepsleden"
+                }
+            },
+            "name": "Samenvoegen"
+        },
+        "media_next_track": {
+            "description": "Selecteert de volgende track.",
+            "name": "Volgende"
+        },
+        "media_pause": {
+            "description": "Pauzeert.",
+            "name": "Pauzeren"
+        },
+        "media_play": {
+            "description": "Start afspelen.",
+            "name": "Afspelen"
+        },
+        "media_play_pause": {
+            "description": "Schakelt afspelen/pauzeren.",
+            "name": "Afspelen/pauzeren"
+        },
+        "media_previous_track": {
+            "description": "Selecteert de vorige track.",
+            "name": "Vorige"
+        },
+        "media_seek": {
+            "description": "Staat je toe om naar een ander deel van de media te gaan die wordt afgespeeld.",
+            "fields": {
+                "seek_position": {
+                    "description": "Doelpositie in media die wordt afgespeeld. Het formaat is platformafhankelijk.",
+                    "name": "Positie"
+                }
+            },
+            "name": "Zoeken"
+        },
+        "media_stop": {
+            "description": "Stop afspelen.",
+            "name": "Stoppen"
+        },
+        "play_media": {
+            "description": "Start het afspelen van gespecificeerde media.",
+            "fields": {
+                "announce": {
+                    "description": "Of de media moet worden afgespeeld als een aankondiging.",
+                    "name": "Aankondigen"
+                },
+                "enqueue": {
+                    "description": "Of content nu moet worden afgespeeld of in de wachtrij geplaatst.",
+                    "name": "Wachtrij"
+                },
+                "media_content_id": {
+                    "description": "Het ID van de content om af te spelen. Platformafhankelijk.",
+                    "name": "Content ID"
+                },
+                "media_content_type": {
+                    "description": "Het type van de content om af te spelen. Zoals `image`, `music`, `tv show`, `video`, `episode`, `channel` of `playlist`.",
+                    "name": "Type content"
+                }
+            },
+            "name": "Media afspelen"
+        },
+        "repeat_set": {
+            "description": "Afspeelmodus die de media een een lus afspeelt.",
+            "fields": {
+                "repeat": {
+                    "description": "Herhaalmodus om in te stellen.",
+                    "name": "Herhaalmodus"
+                }
+            },
+            "name": "Herhaal"
+        },
+        "select_sound_mode": {
+            "description": "Selecteert een specifieke geluidsmodus.",
+            "fields": {
+                "sound_mode": {
+                    "description": "Naam van de geluidsmodus om naar over te schakelen.",
+                    "name": "Geluidsmodus"
+                }
+            },
+            "name": "Selecteer de geluidsmodus"
+        },
+        "select_source": {
+            "description": "Stuurt de mediaspeler het commando om de invoerbron te wijzigen.",
+            "fields": {
+                "source": {
+                    "description": "Naam van de bron om naar over te schakelen. Platformafhankelijk.",
+                    "name": "Bron"
+                }
+            },
+            "name": "Selecteer bron"
+        },
+        "shuffle_set": {
+            "description": "Afspeelmodus die de media in willekeurige volgorde selecteert.",
+            "fields": {
+                "shuffle": {
+                    "description": "Of de shufflemodus wel of niet is ingeschakeld.",
+                    "name": "Shuffle"
+                }
+            },
+            "name": "Shuffle"
+        },
+        "toggle": {
+            "description": "Schakelt een mediaspeler in/uit.",
+            "name": "Omschakelen"
+        },
+        "turn_off": {
+            "description": "Schakelt de mediaspeler uit.",
+            "name": "Uitzetten"
+        },
+        "turn_on": {
+            "description": "Schakelt de mediaspeler in.",
+            "name": "Aanzetten"
+        },
+        "unjoin": {
+            "description": "Verwijdert de speler uit een groep. Werkt alleen op platformen die spelersgroepen ondersteunen.",
+            "name": "Ontkoppel"
+        },
+        "volume_down": {
+            "description": "Zet het volume lager.",
+            "name": "Zet het volume lager"
+        },
+        "volume_mute": {
+            "description": "Dempt het geluid van de mediaspeler aan of uit.",
+            "fields": {
+                "is_volume_muted": {
+                    "description": "Definieert of het wel of niet gedempt is.",
+                    "name": "Gedempt"
+                }
+            },
+            "name": "Volume dempen/dempen opheffen"
+        },
+        "volume_set": {
+            "description": "Stelt het volume in.",
+            "fields": {
+                "volume_level": {
+                    "description": "Het volume. 0 is onhoorbaar, 1 is het maximale volume.",
+                    "name": "Niveau"
+                }
+            },
+            "name": "Volume instellen"
+        },
+        "volume_up": {
+            "description": "Zet het volume hoger.",
+            "name": "Zet het volume hoger"
+        }
+    },
+    "title": "Mediaspeler"
+}

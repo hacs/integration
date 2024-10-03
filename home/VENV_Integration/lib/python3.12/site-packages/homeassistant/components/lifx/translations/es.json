@@ -1,0 +1,258 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "El dispositivo ya est\u00e1 configurado",
+            "already_in_progress": "El flujo de configuraci\u00f3n ya est\u00e1 en curso",
+            "no_devices_found": "No se encontraron dispositivos en la red"
+        },
+        "error": {
+            "cannot_connect": "No se pudo conectar"
+        },
+        "flow_title": "{label} ({group})",
+        "step": {
+            "discovery_confirm": {
+                "description": "\u00bfQuieres configurar {label} ({group})?"
+            },
+            "pick_device": {
+                "data": {
+                    "device": "Dispositivo"
+                }
+            },
+            "user": {
+                "data": {
+                    "host": "Host"
+                },
+                "data_description": {
+                    "host": "El nombre de host o la direcci\u00f3n IP de tu dispositivo LIFX."
+                },
+                "description": "Si dejas el host vac\u00edo, se usar\u00e1 el descubrimiento para encontrar dispositivos."
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "clean_cycle": {
+                "name": "Ciclo de limpieza"
+            }
+        },
+        "select": {
+            "infrared_brightness": {
+                "name": "Brillo infrarrojo"
+            },
+            "theme": {
+                "name": "Tema"
+            }
+        },
+        "sensor": {
+            "rssi": {
+                "name": "RSSI"
+            }
+        }
+    },
+    "services": {
+        "effect_colorloop": {
+            "description": "Ejecuta un efecto con colores en bucle.",
+            "fields": {
+                "brightness": {
+                    "description": "N\u00famero que indica el brillo del bucle de color, donde 1 es el brillo m\u00ednimo y 255 es el brillo m\u00e1ximo que admite la luz.",
+                    "name": "Valor de brillo"
+                },
+                "brightness_pct": {
+                    "description": "Porcentaje que indica el brillo del bucle de color, donde 1 es el brillo m\u00ednimo y 100 es el brillo m\u00e1ximo que admite la luz.",
+                    "name": "Brillo"
+                },
+                "change": {
+                    "description": "Movimiento de matiz por per\u00edodo, en grados en una rueda de colores.",
+                    "name": "Cambiar"
+                },
+                "period": {
+                    "description": "Duraci\u00f3n entre cambios de color.",
+                    "name": "Periodo"
+                },
+                "power_on": {
+                    "description": "Las luces apagadas se encienden temporalmente durante el efecto.",
+                    "name": "Encender"
+                },
+                "saturation_max": {
+                    "description": "Porcentaje que indica la saturaci\u00f3n m\u00e1xima de los colores en el bucle.",
+                    "name": "Saturaci\u00f3n m\u00e1xima"
+                },
+                "saturation_min": {
+                    "description": "Porcentaje que indica la saturaci\u00f3n m\u00ednima de los colores en el bucle.",
+                    "name": "Saturaci\u00f3n m\u00ednima"
+                },
+                "spread": {
+                    "description": "Diferencia m\u00e1xima de tono entre las luces participantes, en grados en una rueda de colores.",
+                    "name": "Propagar"
+                }
+            },
+            "name": "Efecto de bucle de color"
+        },
+        "effect_flame": {
+            "description": "Inicia el efecto Flame basado en firmware en LIFX Tiles o Candle.",
+            "fields": {
+                "power_on": {
+                    "description": "Las luces apagadas se encender\u00e1n antes de iniciar el efecto.",
+                    "name": "Encender"
+                },
+                "speed": {
+                    "description": "C\u00f3mo de r\u00e1pido se mover\u00e1n las llamas.",
+                    "name": "Velocidad"
+                }
+            },
+            "name": "Efecto llama"
+        },
+        "effect_morph": {
+            "description": "Inicia el efecto Morph basado en firmware en LIFX Tiles on Candle.",
+            "fields": {
+                "palette": {
+                    "description": "Lista de al menos 2 y como m\u00e1ximo 16 colores como valores de tono (0-360), saturaci\u00f3n (0-100), brillo (0-100) y kelvin (1500-900) para usar para este efecto. Anula el atributo del tema.",
+                    "name": "Paleta"
+                },
+                "power_on": {
+                    "description": "Las luces apagadas se encender\u00e1n antes de iniciar el efecto.",
+                    "name": "Encender"
+                },
+                "speed": {
+                    "description": "A qu\u00e9 velocidad se mover\u00e1n los colores.",
+                    "name": "Velocidad"
+                },
+                "theme": {
+                    "description": "Tema de color predefinido para usar para el efecto. Anulado por el atributo de la paleta.",
+                    "name": "Tema"
+                }
+            },
+            "name": "Efecto de transformaci\u00f3n"
+        },
+        "effect_move": {
+            "description": "Inicia el efecto Move basado en firmware en un LIFX Z, Lightstrip o Beam.",
+            "fields": {
+                "direction": {
+                    "description": "Direcci\u00f3n en la que se mover\u00e1 el efecto a trav\u00e9s del dispositivo.",
+                    "name": "Direcci\u00f3n"
+                },
+                "power_on": {
+                    "description": "Las luces apagadas se encender\u00e1n antes de iniciar el efecto.",
+                    "name": "Encender"
+                },
+                "speed": {
+                    "description": "Tiempo en segundos que tarda el efecto en desplazarse a lo largo de la longitud de la luz.",
+                    "name": "Velocidad"
+                },
+                "theme": {
+                    "description": "(Opcional) configura uno de los temas predefinidos en el dispositivo antes de iniciar el efecto.",
+                    "name": "Tema"
+                }
+            },
+            "name": "Efecto de movimiento"
+        },
+        "effect_pulse": {
+            "description": "Ejecuta un efecto de flash cambiando a un color y viceversa.",
+            "fields": {
+                "brightness": {
+                    "description": "N\u00famero que indica el brillo del color temporal, donde 1 es el brillo m\u00ednimo y 255 es el brillo m\u00e1ximo que admite la luz.",
+                    "name": "Valor de brillo"
+                },
+                "brightness_pct": {
+                    "description": "Porcentaje que indica el brillo del color temporal, donde 1 es el brillo m\u00ednimo y 100 es el brillo m\u00e1ximo que soporta la luz.",
+                    "name": "Brillo"
+                },
+                "color_name": {
+                    "description": "Un nombre de color legible por humanos.",
+                    "name": "Nombre del color"
+                },
+                "cycles": {
+                    "description": "N\u00famero de veces que debe ejecutarse el efecto.",
+                    "name": "Ciclos"
+                },
+                "mode": {
+                    "description": "Decide c\u00f3mo se cambian los colores.",
+                    "name": "Modo"
+                },
+                "period": {
+                    "description": "Duraci\u00f3n del efecto.",
+                    "name": "Periodo"
+                },
+                "power_on": {
+                    "description": "Las luces apagadas se encienden temporalmente durante el efecto.",
+                    "name": "Encender"
+                },
+                "rgb_color": {
+                    "description": "El color temporal en formato RGB.",
+                    "name": "Color RGB"
+                }
+            },
+            "name": "Efecto de pulso"
+        },
+        "effect_sky": {
+            "description": "Inicia el efecto Sky basado en firmware en LIFX Ceiling.",
+            "fields": {
+                "cloud_saturation_max": {
+                    "description": "M\u00e1ximo de saturaci\u00f3n de nubes.",
+                    "name": "Saturaci\u00f3n de nubes m\u00e1xima"
+                },
+                "cloud_saturation_min": {
+                    "description": "M\u00ednimo de saturaci\u00f3n de nubes.",
+                    "name": "Saturaci\u00f3n de nubes m\u00ednima"
+                },
+                "palette": {
+                    "description": "Lista de 1 a 6 colores como valores de tono (0-360), saturaci\u00f3n (0-100), brillo (0-100) y kelvin (1500-9000) que se utilizar\u00e1n para este efecto.",
+                    "name": "Paleta"
+                },
+                "power_on": {
+                    "description": "Las luces apagadas se encender\u00e1n antes de iniciar el efecto.",
+                    "name": "Encender"
+                },
+                "sky_type": {
+                    "description": "El estilo de cielo que ser\u00e1 animado por el efecto.",
+                    "name": "Tipo de cielo"
+                },
+                "speed": {
+                    "description": "Cu\u00e1nto tardar\u00e1n en completarse los tipos de cielo de salida y puesta del sol. Para el tipo de cielo de nubes, es la velocidad de las nubes a trav\u00e9s del dispositivo.",
+                    "name": "Velocidad"
+                }
+            },
+            "name": "Efecto cielo"
+        },
+        "effect_stop": {
+            "description": "Detiene un efecto en ejecuci\u00f3n.",
+            "name": "Detener efecto"
+        },
+        "set_hev_cycle_state": {
+            "description": "Controla los LED HEV en una bombilla LIFX Clean.",
+            "fields": {
+                "duration": {
+                    "description": "Cu\u00e1nto tiempo permanecer\u00e1n encendidos los LED HEV. Utiliza la duraci\u00f3n predeterminada configurada si no se especifica.",
+                    "name": "Duraci\u00f3n"
+                },
+                "power": {
+                    "description": "Inicia o detiene un ciclo de limpieza.",
+                    "name": "Habilitar"
+                }
+            },
+            "name": "Establecer el estado del ciclo HEV"
+        },
+        "set_state": {
+            "description": "Establece un color/brillo y posiblemente enciende/apaga la luz.",
+            "fields": {
+                "infrared": {
+                    "description": "Nivel de infrarrojos autom\u00e1tico cuando el brillo de la luz es bajo.",
+                    "name": "Infrarrojos"
+                },
+                "power": {
+                    "description": "Enciende o apaga la luz. Dejar fuera para mantener la potencia tal cual.",
+                    "name": "Potencia"
+                },
+                "transition": {
+                    "description": "Duraci\u00f3n necesaria para llegar al estado final.",
+                    "name": "Transici\u00f3n"
+                },
+                "zones": {
+                    "description": "Lista de n\u00fameros de zona a afectar (8 por LIFX Z, comienza en 0).",
+                    "name": "Zonas"
+                }
+            },
+            "name": "Establecer estado"
+        }
+    }
+}

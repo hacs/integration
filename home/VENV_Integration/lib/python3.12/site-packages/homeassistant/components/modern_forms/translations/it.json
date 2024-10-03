@@ -1,0 +1,90 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Il dispositivo \u00e8 gi\u00e0 configurato",
+            "cannot_connect": "Impossibile connettersi"
+        },
+        "error": {
+            "cannot_connect": "Impossibile connettersi"
+        },
+        "flow_title": "{name}",
+        "step": {
+            "user": {
+                "data": {
+                    "host": "Host"
+                },
+                "description": "Configura il tuo ventilatore Modern Forms per integrarlo con Home Assistant."
+            },
+            "zeroconf_confirm": {
+                "description": "Vuoi aggiungere il ventilatore di Modern Forms chiamato `{name}` a Home Assistant?",
+                "title": "Rilevato il dispositivo ventilatore di Modern Forms"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "fan_sleep_timer_active": {
+                "name": "Timer del ventilatore notturno attivo"
+            },
+            "light_sleep_timer_active": {
+                "name": "Timer della luce notturna attivo"
+            }
+        },
+        "fan": {
+            "fan": {
+                "name": "Ventilatore"
+            }
+        },
+        "light": {
+            "light": {
+                "name": "Luce"
+            }
+        },
+        "sensor": {
+            "fan_timer_remaining_time": {
+                "name": "Orario ventilatore notturno"
+            },
+            "light_timer_remaining_time": {
+                "name": "Orario luce notturna"
+            }
+        },
+        "switch": {
+            "adaptive_learning": {
+                "name": "Apprendimento adattivo"
+            },
+            "away_mode": {
+                "name": "Modalit\u00e0 fuori casa"
+            }
+        }
+    },
+    "services": {
+        "clear_fan_sleep_timer": {
+            "description": "Cancella il timer di spegnimento su un ventilatore Modern Forms.",
+            "name": "Cancella il timer di spegnimento della ventola"
+        },
+        "clear_light_sleep_timer": {
+            "description": "Cancella il timer di spegnimento su una lampada Modern Forms.",
+            "name": "Cencella timer di spegnimento luce "
+        },
+        "set_fan_sleep_timer": {
+            "description": "Imposta un timer di spegnimento su un ventilatore Modern Forms.",
+            "fields": {
+                "sleep_time": {
+                    "description": "Numero di minuti per impostare il timer.",
+                    "name": "Ora di dormire"
+                }
+            },
+            "name": "Imposta il timer di spegnimento della ventola"
+        },
+        "set_light_sleep_timer": {
+            "description": "Imposta un timer di spegnimento su una luce Modern Forms.",
+            "fields": {
+                "sleep_time": {
+                    "description": "Numero di minuti per impostare il timer.",
+                    "name": "Ora di dormire"
+                }
+            },
+            "name": "Imposta il timer della luce notturna"
+        }
+    }
+}

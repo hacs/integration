@@ -1,0 +1,84 @@
+{
+    "application_credentials": {
+        "description": "Folge den [Anweisungen]({more_info_url}) f\u00fcr den [OAuth-Zustimmungsbildschirm]({oauth_consent_url}), um Home Assistant Zugriff auf dein Google Mail zu gew\u00e4hren. Du musst auch mit deinem Konto verkn\u00fcpfte Anwendungs-Anmeldeinformationen erstellen:\n1. Gehe zu [Anmeldeinformationen]({oauth_creds_url}) und klicke auf **Anmeldeinformationen erstellen**.\n2. W\u00e4hle aus der Dropdown-Liste **OAuth-Client-ID** aus.\n3. W\u00e4hle **Webanwendung** als Anwendungstyp aus."
+    },
+    "config": {
+        "abort": {
+            "already_configured": "Konto wurde bereits konfiguriert",
+            "already_in_progress": "Der Konfigurationsablauf wird bereits ausgef\u00fchrt",
+            "cannot_connect": "Verbindung fehlgeschlagen",
+            "invalid_access_token": "Ung\u00fcltiger Zugriffs-Token",
+            "missing_configuration": "Die Komponente ist nicht konfiguriert. Bitte der Dokumentation folgen.",
+            "oauth_error": "Ung\u00fcltige Token-Daten empfangen.",
+            "oauth_failed": "Fehler beim Abrufen des Zugriffstokens.",
+            "oauth_timeout": "Zeit\u00fcberschreitung beim Aufl\u00f6sen des OAuth-Tokens.",
+            "oauth_unauthorized": "OAuth-Autorisierungsfehler beim Abrufen des Zugriffstokens.",
+            "reauth_successful": "Die erneute Authentifizierung war erfolgreich",
+            "timeout_connect": "Zeit\u00fcberschreitung beim Verbindungsaufbau",
+            "unknown": "Unerwarteter Fehler",
+            "wrong_account": "Falsches Konto: Bitte authentifiziere dich mit {email}."
+        },
+        "create_entry": {
+            "default": "Erfolgreich authentifiziert"
+        },
+        "step": {
+            "auth": {
+                "title": "Google-Konto verkn\u00fcpfen"
+            },
+            "pick_implementation": {
+                "title": "W\u00e4hle die Authentifizierungsmethode"
+            },
+            "reauth_confirm": {
+                "description": "Die Google Mail-Integration muss dein Konto erneut authentifizieren",
+                "title": "Die Authentifizierung ist abgelaufen f\u00fcr {name}"
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "vacation_end_date": {
+                "name": "Enddatum des Urlaubs"
+            }
+        }
+    },
+    "services": {
+        "set_vacation": {
+            "description": "Legt Urlaubsantworteinstellungen f\u00fcr Google Mail fest.",
+            "fields": {
+                "enabled": {
+                    "description": "Deaktiviere diese Option, um Urlaubsantworten zu beenden.",
+                    "name": "Aktiviert"
+                },
+                "end": {
+                    "description": "Letzter Urlaubstag.",
+                    "name": "Ende"
+                },
+                "message": {
+                    "description": "Textk\u00f6rper der E-Mail.",
+                    "name": "Nachricht"
+                },
+                "plain_text": {
+                    "description": "W\u00e4hle, ob du die Nachricht im Nur-Text- oder HTML-Format senden m\u00f6chtest.",
+                    "name": "Klartext"
+                },
+                "restrict_contacts": {
+                    "description": "Beschr\u00e4nke die automatische Antwort auf Kontakte.",
+                    "name": "Auf Kontakte beschr\u00e4nken"
+                },
+                "restrict_domain": {
+                    "description": "Beschr\u00e4nke die automatische Antwort auf die Domain. Dies betrifft nur GSuite-Konten.",
+                    "name": "Auf Dom\u00e4ne beschr\u00e4nken"
+                },
+                "start": {
+                    "description": "Erster Urlaubstag.",
+                    "name": "Start"
+                },
+                "title": {
+                    "description": "Der Betreff der E-Mail.",
+                    "name": "Titel"
+                }
+            },
+            "name": "Urlaub einstellen"
+        }
+    }
+}

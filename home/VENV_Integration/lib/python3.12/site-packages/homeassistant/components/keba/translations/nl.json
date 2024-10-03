@@ -1,0 +1,60 @@
+{
+    "services": {
+        "authorize": {
+            "description": "Autoriseert een laadproces met de voorgedefinieerde RFID tag van het configuratiebestand.",
+            "name": "Autoriseer"
+        },
+        "deauthorize": {
+            "description": "Trekt de autorisatie in van de lopende laadprocessen met de voorgedefinieerde RFID tag van het configuratiebestand.",
+            "name": "Autorisatie intrekken"
+        },
+        "disable": {
+            "description": "Stopt een laadproces als het laadstation is geautoriseerd.",
+            "name": "Uitschakelen"
+        },
+        "enable": {
+            "description": "Start een laadproces als het laadstation is geautoriseerd.",
+            "name": "Inschakelen"
+        },
+        "request_data": {
+            "description": "Vraag nieuwe data van het laadstation",
+            "name": "Data opvragen"
+        },
+        "set_current": {
+            "description": "Stelt de maximale stroom voor laadprocessen in.",
+            "fields": {
+                "current": {
+                    "description": "De maximale stroom die wordt gebruikt voor het laadproces. De waarde hangt af van de DIP-schakelaar instellingen en de gebruikte kabel van het laadstation.",
+                    "name": "Stroom"
+                }
+            },
+            "name": "Stroom instellen"
+        },
+        "set_energy": {
+            "description": "De hoeveelheid energie waarna het laadproces stopt.",
+            "fields": {
+                "energy": {
+                    "description": "De hoeveelheid energie waarna te stoppen met laden. Dit op 0 instellen schakelt de limiet uit.",
+                    "name": "Energie"
+                }
+            }
+        },
+        "set_failsafe": {
+            "description": "Stelt de failsafe mode in van het laadstation. Als alle parameters zijn ingesteld op 0 dan zal de failsafe mode worden uitgeschakeld.",
+            "fields": {
+                "failsafe_fallback": {
+                    "description": "Failsafe fallback zorgt er voor dat de huidige waarde wordt gezet after een timeout.",
+                    "name": "Failsafe fallback"
+                },
+                "failsafe_persist": {
+                    "description": "Als `failsave_persist 0 is blijft de failsafe optie alleen van toepassing totdat het laadstation opnieuw is opgestart. Als failsafe_persist 1 is, dan zal de optie een herstart overleven.",
+                    "name": "Failsafe mode blijft aanhouden"
+                },
+                "failsafe_timeout": {
+                    "description": "Timeout nadat de failsafe mode is getriggerd, indien `set_current` niet was uitgevoerd deze keer.",
+                    "name": "Failsafe-timeout"
+                }
+            }
+        }
+    }
+}

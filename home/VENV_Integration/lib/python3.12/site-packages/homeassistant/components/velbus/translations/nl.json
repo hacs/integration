@@ -1,0 +1,74 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Apparaat is al geconfigureerd"
+        },
+        "error": {
+            "already_configured": "Apparaat is al geconfigureerd",
+            "cannot_connect": "Kan geen verbinding maken"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "name": "De naam voor deze velbus-verbinding",
+                    "port": "Verbindingsreeks"
+                },
+                "title": "Definieer de velbus-verbindingstype"
+            }
+        }
+    },
+    "services": {
+        "clear_cache": {
+            "description": "Maakt de Velbus-cache leeg en start een nieuwe scan.",
+            "fields": {
+                "address": {
+                    "description": "Het module adres in decimaal formaat, en indien opgegeven wordt alleen deze module leeggemmaakt. Als niets is opgegeven dan wordt de gehele cache directory (alle modules) leeggemaakt.\n.",
+                    "name": "Adres"
+                },
+                "interface": {
+                    "description": "De Velbus interface waar het commando naar toe wordt gestuurd. Dit zal de zelfde waarde worden als gebruikt tijdens de configuratie.",
+                    "name": "Interface"
+                }
+            },
+            "name": "Cache leegmaken"
+        },
+        "scan": {
+            "description": "Scant de Velbus modules. Dit is nodig als je `unknown module` waarschuwingen in de logs ziet of wanneer je nieuwe modules toevoegd.",
+            "fields": {
+                "interface": {
+                    "description": "De Velbus interface waar het commando naar toe wordt gestuurd. Dit zal de zelfde waarde worden als gebruikt tijdens de configuratie.",
+                    "name": "Interface"
+                }
+            },
+            "name": "Scannen"
+        },
+        "set_memo_text": {
+            "description": "Stelt de memo tekst in om weer te geven op modules zoals VMBGPO, VMBGPOD. Verzeker je er van dat de pagina('s) van de module is geconfigureerd om memo tekst te kunnen weergeven.",
+            "fields": {
+                "address": {
+                    "description": "Het module adres in decimaal formaat. Decimaal adressen worden getoond voorafgaand aan de getoonde modules op de integratiepagina.\n.",
+                    "name": "Adres"
+                },
+                "interface": {
+                    "description": "De Velbus interface waar het commando naar toe wordt gestuurd. Dit zal de zelfde waarde worden als gebruikt tijdens de configuratie.",
+                    "name": "Interface"
+                },
+                "memo_text": {
+                    "description": "De daadwerkelijke tekst om te tonen. De tekstlengte is gelimiteerd tot 64 tekens.",
+                    "name": "Memo tekst"
+                }
+            },
+            "name": "Stel memo tekst in."
+        },
+        "sync_clock": {
+            "description": "Syncroniseert de Velbus modules klok met de Home Assistant klok. Dit is het zelfde als de `sync clok` van VelbusLink.",
+            "fields": {
+                "interface": {
+                    "description": "De Velbus interface waar het commando naar toe wordt gestuurd. Dit zal de zelfde waarde worden als gebruikt tijdens de configuratie.",
+                    "name": "Interface"
+                }
+            },
+            "name": "Klok synchroniseren"
+        }
+    }
+}

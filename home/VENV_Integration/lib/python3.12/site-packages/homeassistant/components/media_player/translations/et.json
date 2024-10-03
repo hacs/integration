@@ -1,0 +1,345 @@
+{
+    "device_automation": {
+        "condition_type": {
+            "is_buffering": "{entity_name} puhverdab",
+            "is_idle": "{entity_name} on j\u00f5udeolekus",
+            "is_off": "{entity_name} on v\u00e4lja l\u00fclitatud",
+            "is_on": "{entity_name} on sisse l\u00fclitatud",
+            "is_paused": "{entity_name} on peatatud",
+            "is_playing": "{entity_name} m\u00e4ngib"
+        },
+        "extra_fields": {
+            "for": "Kestus"
+        },
+        "trigger_type": {
+            "buffering": "{entity_name} alustab puhverdamist",
+            "changed_states": "{entity_name} l\u00fclitus sisse v\u00f5i v\u00e4lja",
+            "idle": "{entity_name} muutub j\u00f5udeolekusse",
+            "paused": "{entity_name} on pausil",
+            "playing": "{entity_name} alustab taasesitamist",
+            "turned_off": "{entity_name} l\u00fclitus v\u00e4lja",
+            "turned_on": "{entity_name} l\u00fclitus sisse"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Meediam\u00e4ngija",
+            "state": {
+                "buffering": "Puhverdamine",
+                "idle": "Ootel",
+                "off": "V\u00e4ljas",
+                "on": "Sees",
+                "paused": "Peatatud",
+                "playing": "M\u00e4ngib",
+                "standby": "Unere\u017eiimil"
+            },
+            "state_attributes": {
+                "app_id": {
+                    "name": "Rakenduse ID"
+                },
+                "app_name": {
+                    "name": "Rakendus"
+                },
+                "entity_picture_local": {
+                    "name": "Kohalikult juurdep\u00e4\u00e4setav olemi pilt"
+                },
+                "groups_members": {
+                    "name": "R\u00fchma liikmed"
+                },
+                "is_volume_muted": {
+                    "name": "Vaigistatud",
+                    "state": {
+                        "false": "Ei",
+                        "true": "Jah"
+                    }
+                },
+                "media_album_artist": {
+                    "name": "Albumi esitaja"
+                },
+                "media_album_name": {
+                    "name": "Album"
+                },
+                "media_artist": {
+                    "name": "Esitaja"
+                },
+                "media_channel": {
+                    "name": "Kanal"
+                },
+                "media_content_id": {
+                    "name": "Sisu ID"
+                },
+                "media_content_type": {
+                    "name": "Sisu t\u00fc\u00fcp",
+                    "state": {
+                        "album": "Album",
+                        "app": "Rakendus",
+                        "artist": "Esitaja",
+                        "channel": "Kanal",
+                        "channels": "Kanalid",
+                        "composer": "Helilooja",
+                        "contributing_artist": "Kaasesitaja",
+                        "episode": "Osa",
+                        "game": "M\u00e4ng",
+                        "genre": "\u017danr",
+                        "image": "Pilt",
+                        "movie": "Film",
+                        "music": "Muusika",
+                        "playlist": "Esitusloend",
+                        "podcast": "Taskuh\u00e4\u00e4ling",
+                        "season": "Hooaeg",
+                        "track": "Lugu",
+                        "tvshow": "Telesaade",
+                        "url": "URL",
+                        "video": "Video"
+                    }
+                },
+                "media_duration": {
+                    "name": "Kestus"
+                },
+                "media_episode": {
+                    "name": "Osa"
+                },
+                "media_playlist": {
+                    "name": "Esitusloend"
+                },
+                "media_position": {
+                    "name": "Positsioon"
+                },
+                "media_position_updated_at": {
+                    "name": "Positsioon v\u00e4rskendatud"
+                },
+                "media_season": {
+                    "name": "Hooaeg"
+                },
+                "media_series_title": {
+                    "name": "Seeria"
+                },
+                "media_title": {
+                    "name": "Nimetus"
+                },
+                "media_track": {
+                    "name": "Lugu"
+                },
+                "repeat": {
+                    "name": "Korda",
+                    "state": {
+                        "all": "K\u00f5ik lood",
+                        "off": "V\u00e4ljas",
+                        "one": "\u00dcks kord"
+                    }
+                },
+                "shuffle": {
+                    "name": "Juhuesitus",
+                    "state": {
+                        "false": "V\u00e4ljas",
+                        "true": "Sees"
+                    }
+                },
+                "sound_mode": {
+                    "name": "Heli re\u017eiim"
+                },
+                "sound_mode_list": {
+                    "name": "Saadaolevad helire\u017eiimid"
+                },
+                "source": {
+                    "name": "Allikas"
+                },
+                "source_list": {
+                    "name": "Saadaolevad allikad"
+                },
+                "volume_level": {
+                    "name": "Helitugevus"
+                }
+            }
+        },
+        "receiver": {
+            "name": "Vastuv\u00f5tja"
+        },
+        "speaker": {
+            "name": "K\u00f5lar"
+        },
+        "tv": {
+            "name": "TV"
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "{domain} integreerimise platvorm {platform} ei toeta platvormi seadistamist. \n\n Selle probleemi lahendamiseks eemalda see oma konfiguratsioonist ja taask\u00e4ivita Home Assistant.",
+            "title": "Platvormi tuge ei toetata"
+        }
+    },
+    "selector": {
+        "enqueue": {
+            "options": {
+                "add": "Lisa j\u00e4rjekorda",
+                "next": "Esita j\u00e4rgmine",
+                "play": "Esita",
+                "replace": "Esita kohe ja t\u00fchjenda j\u00e4rjekord"
+            }
+        },
+        "repeat": {
+            "options": {
+                "all": "Korda k\u00f5iki",
+                "off": "V\u00e4ljas",
+                "one": "Korda \u00fchte"
+            }
+        }
+    },
+    "services": {
+        "clear_playlist": {
+            "description": "T\u00fchjendab esitusloendi.",
+            "name": "T\u00fchjenda esitusloend"
+        },
+        "join": {
+            "description": "R\u00fchmitab meediam\u00e4ngijad s\u00fcnkroonseks taasesituseks. T\u00f6\u00f6tab ainult toetatud multiroomi audios\u00fcsteemides.",
+            "fields": {
+                "group_members": {
+                    "description": "M\u00e4ngijad, mis s\u00fcnkroonitakse taasesitusega, mis on m\u00e4\u00e4ratud jaotises \"sihtm\u00e4rk\".",
+                    "name": "R\u00fchma liikmed"
+                }
+            },
+            "name": "Liitu"
+        },
+        "media_next_track": {
+            "description": "Valib j\u00e4rgmise pala.",
+            "name": "J\u00e4rgmine"
+        },
+        "media_pause": {
+            "description": "Paneb pausile.",
+            "name": "Paus"
+        },
+        "media_play": {
+            "description": "Alustab esitamist.",
+            "name": "Esita"
+        },
+        "media_play_pause": {
+            "description": "L\u00fclitab esitamise/pausi vahel.",
+            "name": "M\u00e4ngimine/paus"
+        },
+        "media_previous_track": {
+            "description": "Valib eelmise pala.",
+            "name": "Eelmine"
+        },
+        "media_seek": {
+            "description": "V\u00f5imaldab minna hetkel m\u00e4ngitava meedia teise ossa.",
+            "fields": {
+                "seek_position": {
+                    "description": "Sihtpositsioon praegu esitatavas meedias. Vorming s\u00f5ltub platvormist.",
+                    "name": "Positsioon"
+                }
+            },
+            "name": "Otsi"
+        },
+        "media_stop": {
+            "description": "L\u00f5petab m\u00e4ngimise.",
+            "name": "Peata"
+        },
+        "play_media": {
+            "description": "Alustab m\u00e4\u00e4ratud meedia esitamist.",
+            "fields": {
+                "announce": {
+                    "description": "Kui meediat peaks teavitusena m\u00e4ngima.",
+                    "name": "Teavita"
+                },
+                "enqueue": {
+                    "description": "Kas sisu tuleks praegu esitada v\u00f5i j\u00e4rjekorda lisada.",
+                    "name": "Pane j\u00e4rjekorda"
+                },
+                "media_content_id": {
+                    "description": "Esitatava sisu ID. Platvormist s\u00f5ltuv.",
+                    "name": "Sisu ID"
+                },
+                "media_content_type": {
+                    "description": "Esitatava sisu t\u00fc\u00fcp. N\u00e4iteks pilt, muusika, telesaade, video, episood, kanal v\u00f5i esitusloend.",
+                    "name": "Sisu t\u00fc\u00fcp"
+                }
+            },
+            "name": "Esita sisu"
+        },
+        "repeat_set": {
+            "description": "Taasesitusre\u017eiim, mis esitab meediumit silmuses.",
+            "fields": {
+                "repeat": {
+                    "description": "Kordusre\u017eiimi seadistamine.",
+                    "name": "Kordusre\u017eiim"
+                }
+            },
+            "name": "Korda"
+        },
+        "select_sound_mode": {
+            "description": "Valib kindla helire\u017eiimi.",
+            "fields": {
+                "sound_mode": {
+                    "description": "Helire\u017eiimi nimi, millele l\u00fclitada.",
+                    "name": "Helire\u017eiim"
+                }
+            },
+            "name": "Vali helire\u017eiim"
+        },
+        "select_source": {
+            "description": "Saadab meediumipleierile k\u00e4su sisendallika muutmiseks.",
+            "fields": {
+                "source": {
+                    "description": "Allika nimi, millele l\u00fclitada. Platvormist s\u00f5ltuv.",
+                    "name": "Allikas"
+                }
+            },
+            "name": "Vali allikas"
+        },
+        "shuffle_set": {
+            "description": "Taasesitusre\u017eiim, mis valib meediat juhuslikus j\u00e4rjekorras.",
+            "fields": {
+                "shuffle": {
+                    "description": "Kas juhuesitusre\u017eiim on lubatud v\u00f5i mitte.",
+                    "name": "Juhuesitus"
+                }
+            },
+            "name": "Juhuesitus"
+        },
+        "toggle": {
+            "description": "L\u00fclitab meediam\u00e4ngija sisse/v\u00e4lja.",
+            "name": "Muuda olekut"
+        },
+        "turn_off": {
+            "description": "L\u00fclitab meediam\u00e4ngija toite v\u00e4lja.",
+            "name": "L\u00fclita v\u00e4lja"
+        },
+        "turn_on": {
+            "description": "L\u00fclitab meediam\u00e4ngija toite sisse.",
+            "name": "L\u00fclita sisse"
+        },
+        "unjoin": {
+            "description": "Eemaldab m\u00e4ngija r\u00fchmast. T\u00f6\u00f6tab ainult platvormidel, mis toetavad m\u00e4ngijagruppe.",
+            "name": "Lahku"
+        },
+        "volume_down": {
+            "description": "V\u00e4hendab helitugevust.",
+            "name": "V\u00e4henda helitugevust"
+        },
+        "volume_mute": {
+            "description": "Vaigistab v\u00f5i t\u00fchistab meediam\u00e4ngija vaigistamise.",
+            "fields": {
+                "is_volume_muted": {
+                    "description": "M\u00e4\u00e4rab, kas see on vaigistatud v\u00f5i mitte.",
+                    "name": "Vaigistatud"
+                }
+            },
+            "name": "Heli vaigistamine/vaigistuse t\u00fchistamine"
+        },
+        "volume_set": {
+            "description": "M\u00e4\u00e4rab helitugevuse taseme.",
+            "fields": {
+                "volume_level": {
+                    "description": "Helitugevus. 0 on kuuldamatu, 1 on maksimaalne helitugevus.",
+                    "name": "Tase"
+                }
+            },
+            "name": "M\u00e4\u00e4ra helitugevus"
+        },
+        "volume_up": {
+            "description": "Suurendab helitugevust.",
+            "name": "Suurenda helitugevust"
+        }
+    },
+    "title": "Meediam\u00e4ngija"
+}

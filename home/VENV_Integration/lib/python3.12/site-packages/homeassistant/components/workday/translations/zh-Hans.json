@@ -1,0 +1,249 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "\u5de5\u4f5c\u65e5\u5df2\u7ecf\u4f7f\u7528\u9009\u5b9a\u7684\u914d\u7f6e\u8fdb\u884c\u4e86\u8bbe\u7f6e",
+            "incorrect_province": "YAML \u5bfc\u5165\u7684\u5730\u533a\u4e0d\u6b63\u786e"
+        },
+        "error": {
+            "add_holiday_error": "\u65e5\u671f\u683c\u5f0f\u4e0d\u6b63\u786e (YYYY-MM-DD)",
+            "add_holiday_range_error": "\u65e5\u671f\u8303\u56f4\u683c\u5f0f\u4e0d\u6b63\u786e (YYYY-MM-DD,YYYY-MM-DD)",
+            "already_configured": "\u670d\u52a1\u5df2\u914d\u7f6e",
+            "remove_holiday_error": "\u65e5\u671f\u683c\u5f0f\u4e0d\u6b63\u786e (YYYY-MM-DD) \u6216\u672a\u627e\u5230\u8282\u5047\u65e5\u540d\u79f0",
+            "remove_holiday_range_error": "\u65e5\u671f\u8303\u56f4\u683c\u5f0f\u4e0d\u6b63\u786e (YYYY-MM-DD,YYYY-MM-DD)"
+        },
+        "step": {
+            "options": {
+                "data": {
+                    "add_holidays": "\u6dfb\u52a0\u8282\u5047\u65e5",
+                    "category": "\u4f5c\u4e3a\u5047\u671f\u7684\u989d\u5916\u7c7b\u522b",
+                    "days_offset": "\u504f\u79fb",
+                    "excludes": "\u6392\u9664",
+                    "language": "\u547d\u540d\u8282\u5047\u65e5\u7684\u8bed\u8a00",
+                    "province": "\u56fd\u5bb6\u884c\u653f\u533a",
+                    "remove_holidays": "\u79fb\u9664\u8282\u5047\u65e5",
+                    "workdays": "\u5de5\u4f5c\u65e5"
+                },
+                "data_description": {
+                    "add_holidays": "\u6dfb\u52a0\u81ea\u5b9a\u4e49\u8282\u5047\u65e5\uff0c\u683c\u5f0f\u4e3a YYYY-MM-DD\uff0c\u8303\u56f4\u4f7f\u7528 `,` \u4f5c\u4e3a\u5206\u9694\u7b26",
+                    "category": "\u9009\u62e9\u5305\u542b\u4e3a\u5047\u671f\u7684\u989d\u5916\u7c7b\u522b",
+                    "days_offset": "\u4e0e\u5f53\u524d\u65e5\u671f\u504f\u79fb\u7684\u5929\u6570",
+                    "excludes": "\u8981\u6392\u9664\u7684\u5de5\u4f5c\u65e5\u5217\u8868\uff0c\u8bf7\u6ce8\u610f\u5173\u952e\u5b57\u201choliday\u201d\uff0c\u5e76\u9605\u8bfb\u6709\u5173\u5982\u4f55\u6b63\u786e\u4f7f\u7528\u5b83\u7684\u6587\u6863",
+                    "language": "\u914d\u7f6e\u547d\u540d\u8282\u5047\u65e5\u6392\u9664\u9879\u65f6\u8981\u4f7f\u7528\u7684\u8bed\u8a00",
+                    "province": "\u56fd\u5bb6/\u5730\u533a\u3001\u5dde\u3001\u7701\u4efd\u3001\u5730\u533a",
+                    "remove_holidays": "\u79fb\u9664\u683c\u5f0f\u4e3a YYYY-MM-DD \u7684\u8282\u5047\u65e5\uff0c\u8303\u56f4\u4ee5 `,` \u4f5c\u4e3a\u5206\u9694\u7b26\u6216\u8005\u4f7f\u7528\u90e8\u5206\u540d\u79f0",
+                    "workdays": "\u5de5\u4f5c\u65e5\u5217\u8868"
+                },
+                "description": "\u4e3a\u9488\u5bf9\u56fd\u5bb6/\u5730\u533a{country}\u914d\u7f6e\u7684{name}\u8bbe\u7f6e\u5176\u4ed6\u9009\u9879"
+            },
+            "user": {
+                "data": {
+                    "country": "\u56fd\u5bb6",
+                    "name": "\u540d\u79f0"
+                }
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "workday": {
+                "state_attributes": {
+                    "days_offset": {
+                        "name": "\u504f\u79fb"
+                    },
+                    "excludes": {
+                        "name": "\u6392\u9664"
+                    },
+                    "workdays": {
+                        "name": "\u5de5\u4f5c\u65e5"
+                    }
+                }
+            }
+        }
+    },
+    "issues": {
+        "bad_country": {
+            "fix_flow": {
+                "step": {
+                    "country": {
+                        "data": {
+                            "country": "\u56fd\u5bb6"
+                        },
+                        "description": "\u9009\u62e9\u60a8\u7684 Workday \u4f20\u611f\u5668\u8981\u4f7f\u7528\u7684\u56fd\u5bb6/\u5730\u533a\u3002",
+                        "title": "\u9009\u62e9\u201c{title}\u201d\u7684\u56fd\u5bb6/\u5730\u533a"
+                    },
+                    "province": {
+                        "data": {
+                            "province": "\u56fd\u5bb6\u884c\u653f\u533a"
+                        },
+                        "data_description": {
+                            "province": "\u56fd\u5bb6/\u5730\u533a\u3001\u5dde\u3001\u7701\u4efd\u3001\u5730\u533a"
+                        },
+                        "description": "\u4e3a\u60a8\u7684 Workday \u4f20\u611f\u5668\u9009\u62e9{country}\u4e2d\u7684\u67d0\u4e2a\u7701\u4efd\u3002",
+                        "title": "\u9009\u62e9\u201c{title}\u201d\u7684\u7701\u4efd"
+                    }
+                }
+            },
+            "title": "\u201c{title}\u201d\u7684\u914d\u7f6e\u56fd\u5bb6/\u5730\u533a\u4e0d\u5b58\u5728"
+        },
+        "bad_date_holiday": {
+            "fix_flow": {
+                "error": {
+                    "remove_holiday_error": "\u65e5\u671f\u683c\u5f0f\u4e0d\u6b63\u786e (YYYY-MM-DD) \u6216\u672a\u627e\u5230\u8282\u5047\u65e5\u540d\u79f0"
+                },
+                "step": {
+                    "fix_remove_holiday": {
+                        "data": {
+                            "remove_holidays": "\u79fb\u9664\u8282\u5047\u65e5"
+                        },
+                        "data_description": {
+                            "remove_holidays": "\u79fb\u9664\u683c\u5f0f\u4e3a YYYY-MM-DD \u7684\u8282\u5047\u65e5\uff0c\u8303\u56f4\u4ee5 `,` \u4f5c\u4e3a\u5206\u9694\u7b26\u6216\u8005\u4f7f\u7528\u90e8\u5206\u540d\u79f0"
+                        },
+                        "description": "\u79fb\u9664\u8282\u5047\u65e5\u201c{remove_holidays}\u201d\uff0c\u56e0\u4e3a\u5728{country}\u4e2d\u627e\u4e0d\u5230\u5b83\u3002",
+                        "title": "\u914d\u7f6e\u4e3a\u201c{title}\u201d\u7684\u8282\u5047\u65e5 {remove_holidays} \u4e0d\u5b58\u5728"
+                    }
+                }
+            },
+            "title": "\u914d\u7f6e\u4e3a\u201c{title}\u201d\u7684\u8282\u5047\u65e5 {remove_holidays} \u4e0d\u5b58\u5728"
+        },
+        "bad_named_holiday": {
+            "fix_flow": {
+                "error": {
+                    "remove_holiday_error": "\u65e5\u671f\u683c\u5f0f\u4e0d\u6b63\u786e (YYYY-MM-DD) \u6216\u672a\u627e\u5230\u8282\u5047\u65e5\u540d\u79f0"
+                },
+                "step": {
+                    "fix_remove_holiday": {
+                        "data": {
+                            "remove_holidays": "\u79fb\u9664\u8282\u5047\u65e5"
+                        },
+                        "data_description": {
+                            "remove_holidays": "\u79fb\u9664\u683c\u5f0f\u4e3a YYYY-MM-DD \u7684\u8282\u5047\u65e5\uff0c\u8303\u56f4\u4ee5 `,` \u4f5c\u4e3a\u5206\u9694\u7b26\u6216\u8005\u4f7f\u7528\u90e8\u5206\u540d\u79f0"
+                        },
+                        "description": "\u79fb\u9664\u547d\u540d\u8282\u5047\u65e5\u201c{remove_holidays}\u201d\uff0c\u56e0\u4e3a\u5728{country}\u4e2d\u627e\u4e0d\u5230\u5b83\u3002",
+                        "title": "\u914d\u7f6e\u4e3a\u201c{title}\u201d\u7684\u547d\u540d\u8282\u5047\u65e5 {remove_holidays} \u4e0d\u5b58\u5728"
+                    },
+                    "named_holiday": {
+                        "data": {
+                            "remove_holidays": "\u79fb\u9664\u8282\u5047\u65e5"
+                        },
+                        "data_description": {
+                            "remove_holidays": "\u79fb\u9664\u683c\u5f0f\u4e3a YYYY-MM-DD \u7684\u8282\u5047\u65e5\uff0c\u8303\u56f4\u4ee5 `,` \u4f5c\u4e3a\u5206\u9694\u7b26\u6216\u8005\u4f7f\u7528\u90e8\u5206\u540d\u79f0"
+                        },
+                        "description": "\u79fb\u9664\u540d\u4e3a\u201c{remove_holidays}\u201d\u7684\u8282\u5047\u65e5\uff0c\u56e0\u4e3a\u5728{country}\u4e2d\u627e\u4e0d\u5230\u5b83\u3002",
+                        "title": "\u914d\u7f6e\u4e3a\u201c{title}\u201d\u7684\u547d\u540d\u8282\u5047\u65e5 {remove_holidays} \u4e0d\u5b58\u5728"
+                    }
+                }
+            },
+            "title": "\u914d\u7f6e\u4e3a\u201c{title}\u201d\u7684\u547d\u540d\u8282\u5047\u65e5 {remove_holidays} \u4e0d\u5b58\u5728"
+        },
+        "bad_province": {
+            "fix_flow": {
+                "step": {
+                    "province": {
+                        "data": {
+                            "province": "\u56fd\u5bb6\u884c\u653f\u533a"
+                        },
+                        "data_description": {
+                            "province": "\u56fd\u5bb6/\u5730\u533a\u3001\u5dde\u3001\u7701\u4efd\u3001\u5730\u533a"
+                        },
+                        "description": "\u4e3a\u60a8\u7684 Workday \u4f20\u611f\u5668\u9009\u62e9{country}\u4e2d\u7684\u67d0\u4e2a\u7701\u4efd\u3002",
+                        "title": "\u9009\u62e9\u201c{title}\u201d\u7684\u7701\u4efd"
+                    }
+                }
+            },
+            "title": "\u56fd\u5bb6/\u5730\u533a\u201c{country}\u201d\u4e2d\u4e3a\u201c{title}\u201d\u914d\u7f6e\u7684\u7701\u4efd\u4e0d\u5b58\u5728"
+        },
+        "deprecated_yaml": {
+            "description": "\u4f7f\u7528 YAML \u914d\u7f6e\u5de5\u4f5c\u65e5\u6b63\u88ab\u79fb\u9664\u3002\n\n\u60a8\u73b0\u6709\u7684 YAML \u914d\u7f6e\u5df2\u81ea\u52a8\u5bfc\u5165\u5230\u7528\u6237\u754c\u9762\u4e2d\u3002\n\n\u4ece configuration.yaml \u6587\u4ef6\u4e2d\u79fb\u9664\u5de5\u4f5c\u65e5 YAML \u914d\u7f6e\u5e76\u91cd\u65b0\u542f\u52a8 Home Assistant \u89e3\u51b3\u6b64\u95ee\u9898\u3002",
+            "title": "\u5de5\u4f5c\u65e5 YAML \u914d\u7f6e\u5373\u5c06\u88ab\u79fb\u9664"
+        }
+    },
+    "options": {
+        "error": {
+            "add_holiday_error": "\u65e5\u671f\u683c\u5f0f\u4e0d\u6b63\u786e (YYYY-MM-DD)",
+            "add_holiday_range_error": "\u65e5\u671f\u8303\u56f4\u683c\u5f0f\u4e0d\u6b63\u786e (YYYY-MM-DD,YYYY-MM-DD)",
+            "already_configured": "\u5177\u6709\u6b64\u914d\u7f6e\u7684\u670d\u52a1\u5df2\u5b58\u5728",
+            "remove_holiday_error": "\u65e5\u671f\u683c\u5f0f\u4e0d\u6b63\u786e (YYYY-MM-DD) \u6216\u672a\u627e\u5230\u8282\u5047\u65e5\u540d\u79f0",
+            "remove_holiday_range_error": "\u65e5\u671f\u8303\u56f4\u683c\u5f0f\u4e0d\u6b63\u786e (YYYY-MM-DD,YYYY-MM-DD)"
+        },
+        "step": {
+            "init": {
+                "data": {
+                    "add_holidays": "\u6dfb\u52a0\u8282\u5047\u65e5",
+                    "category": "\u4f5c\u4e3a\u5047\u671f\u7684\u989d\u5916\u7c7b\u522b",
+                    "days_offset": "\u504f\u79fb",
+                    "excludes": "\u6392\u9664",
+                    "language": "\u547d\u540d\u8282\u5047\u65e5\u7684\u8bed\u8a00",
+                    "province": "\u56fd\u5bb6\u884c\u653f\u533a",
+                    "remove_holidays": "\u79fb\u9664\u8282\u5047\u65e5",
+                    "workdays": "\u5de5\u4f5c\u65e5"
+                },
+                "data_description": {
+                    "add_holidays": "\u6dfb\u52a0\u81ea\u5b9a\u4e49\u8282\u5047\u65e5\uff0c\u683c\u5f0f\u4e3a YYYY-MM-DD\uff0c\u8303\u56f4\u4f7f\u7528 `,` \u4f5c\u4e3a\u5206\u9694\u7b26",
+                    "category": "\u9009\u62e9\u5305\u542b\u4e3a\u5047\u671f\u7684\u989d\u5916\u7c7b\u522b",
+                    "days_offset": "\u4e0e\u5f53\u524d\u65e5\u671f\u504f\u79fb\u7684\u5929\u6570",
+                    "excludes": "\u8981\u6392\u9664\u7684\u5de5\u4f5c\u65e5\u5217\u8868\uff0c\u8bf7\u6ce8\u610f\u5173\u952e\u5b57\u201choliday\u201d\uff0c\u5e76\u9605\u8bfb\u6709\u5173\u5982\u4f55\u6b63\u786e\u4f7f\u7528\u5b83\u7684\u6587\u6863",
+                    "language": "\u914d\u7f6e\u547d\u540d\u8282\u5047\u65e5\u6392\u9664\u9879\u65f6\u8981\u4f7f\u7528\u7684\u8bed\u8a00",
+                    "province": "\u56fd\u5bb6/\u5730\u533a\u3001\u5dde\u3001\u7701\u4efd\u3001\u5730\u533a",
+                    "remove_holidays": "\u79fb\u9664\u683c\u5f0f\u4e3a YYYY-MM-DD \u7684\u8282\u5047\u65e5\uff0c\u8303\u56f4\u4ee5 `,` \u4f5c\u4e3a\u5206\u9694\u7b26\u6216\u8005\u4f7f\u7528\u90e8\u5206\u540d\u79f0",
+                    "workdays": "\u5de5\u4f5c\u65e5\u5217\u8868"
+                },
+                "description": "\u66f4\u6539 {name} \u7684\u9644\u52a0\u9009\u9879\uff08\u4e3a\u56fd\u5bb6/\u5730\u533a {country} \u914d\u7f6e\uff09"
+            }
+        }
+    },
+    "selector": {
+        "category": {
+            "options": {
+                "armed_forces": "\u519b\u961f",
+                "bank": "\u94f6\u884c",
+                "chinese": "\u4e2d\u56fd",
+                "christian": "\u57fa\u7763\u6559",
+                "government": "\u653f\u5e9c",
+                "half_day": "\u534a\u65e5",
+                "hebrew": "\u5e0c\u4f2f\u6765",
+                "hindu": "\u5370\u5ea6\u6559",
+                "islamic": "\u4f0a\u65af\u5170\u6559",
+                "optional": "\u53ef\u9009",
+                "public": "\u516c\u5171",
+                "school": "\u5b66\u6821",
+                "unofficial": "\u975e\u5b98\u65b9",
+                "workday": "\u5de5\u4f5c\u65e5"
+            }
+        },
+        "country": {
+            "options": {
+                "none": "\u65e0\u56fd\u5bb6/\u5730\u533a"
+            }
+        },
+        "days": {
+            "options": {
+                "fri": "\u5468\u4e94",
+                "holiday": "\u8282\u5047\u65e5",
+                "mon": "\u5468\u4e00",
+                "sat": "\u5468\u516d",
+                "sun": "\u5468\u65e5",
+                "thu": "\u5468\u56db",
+                "tue": "\u5468\u4e8c",
+                "wed": "\u5468\u4e09"
+            }
+        },
+        "province": {
+            "options": {
+                "none": "\u65e0\u5206\u533a"
+            }
+        }
+    },
+    "services": {
+        "check_date": {
+            "description": "\u68c0\u67e5\u65e5\u671f\u662f\u5426\u662f\u5de5\u4f5c\u65e5\u3002",
+            "fields": {
+                "check_date": {
+                    "description": "\u68c0\u67e5\u662f\u5426\u4e3a\u5de5\u4f5c\u65e5\u7684\u65e5\u671f\u3002",
+                    "name": "\u65e5\u671f"
+                }
+            },
+            "name": "\u68c0\u67e5\u65e5\u671f"
+        }
+    },
+    "title": "\u5de5\u4f5c\u65e5"
+}

@@ -1,0 +1,3762 @@
+{
+  "language": "ro",
+  "intents": {
+    "HassGetState": {
+      "data": [
+        {
+          "sentences": [
+            "(<name>[ <din_zona>];<este> {on_off_states_singular:state})"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "light"
+          }
+        },
+        {
+          "sentences": [
+            "<exista> [<vreun> ]<lumina> {on_off_states_singular:state}[ <din_zona>]",
+            "(sunt|exist(ă|a)) <luminile> {on_off_states_plural:state}[ <din_zona>]"
+          ],
+          "response": "any",
+          "requires_context": {
+            "domain": "light"
+          }
+        },
+        {
+          "sentences": [
+            "(sunt;toate <luminile>) {on_off_states_plural:state}[ <din_zona>]"
+          ],
+          "response": "all",
+          "requires_context": {
+            "domain": "light"
+          }
+        },
+        {
+          "sentences": [
+            "<care> <lumina> <este> {on_off_states_singular:state}[ <din_zona>]",
+            "<care> <luminile> sunt {on_off_states_plural:state}[ <din_zona>]"
+          ],
+          "response": "which",
+          "requires_context": {
+            "domain": "light"
+          }
+        },
+        {
+          "sentences": [
+            "<cate> <luminile> sunt {on_off_states_plural:state}[ <din_zona>]"
+          ],
+          "response": "how_many",
+          "requires_context": {
+            "domain": "light"
+          }
+        },
+        {
+          "sentences": [
+            "unde <este> <name>",
+            "unde-i <name>"
+          ],
+          "response": "where",
+          "requires_context": {
+            "domain": "person"
+          },
+          "slots": {
+            "domain": "person"
+          }
+        },
+        {
+          "sentences": [
+            "(<name>;<este> acas(ă|a))"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "person"
+          },
+          "slots": {
+            "domain": "person",
+            "state": "home"
+          }
+        },
+        {
+          "sentences": [
+            "(<name>;<este> [<la>] {zone:state})"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "person"
+          },
+          "slots": {
+            "domain": "person"
+          }
+        },
+        {
+          "sentences": [
+            "<este> cineva acas(ă|a)"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "person",
+            "state": "home"
+          }
+        },
+        {
+          "sentences": [
+            "<este> cineva [<la>] {zone:state}"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "person"
+          }
+        },
+        {
+          "sentences": [
+            "<este> (acas(ă|a);toat(ă|a) lumea)",
+            "toat(ă|a) lumea <este> acas(ă|a)",
+            "sunt[em] (acas(ă|a);(to(ț|t)i|cu to(ț|t)ii))"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "person",
+            "state": "home"
+          }
+        },
+        {
+          "sentences": [
+            "<este> ([<la>] {zone:state};toat(ă|a) lumea)",
+            "toat(ă|a) lumea <este> [<la>] {zone:state}",
+            "sunt[em] ([<la>] {zone:state};(to(ț|t)i|cu to(ț|t)ii))"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "person"
+          }
+        },
+        {
+          "sentences": [
+            "cine <este> acas(ă|a)"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "person",
+            "state": "home"
+          }
+        },
+        {
+          "sentences": [
+            "cine <este> [<la>] {zone:state}"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "person"
+          }
+        },
+        {
+          "sentences": [
+            "<cate> (persoane|oameni) sunt acas(ă|a)"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "person",
+            "state": "home"
+          }
+        },
+        {
+          "sentences": [
+            "<cate> (persoane|oameni) sunt [<la>] {zone:state}"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "person"
+          }
+        },
+        {
+          "sentences": [
+            "(<name>[ <din_zona>];<este> {lock_states_singular:state})"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "lock"
+          },
+          "slots": {
+            "domain": "lock"
+          }
+        },
+        {
+          "sentences": [
+            "<exista> [<vreun> ]<usa> {lock_states_singular:state}[ <din_zona>]",
+            "(sunt|exist(ă|a)) <usile> {lock_states_plural:state}[ <din_zona>]"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "lock"
+          }
+        },
+        {
+          "sentences": [
+            "(sunt;toate <usile>) {lock_states_plural:state}[ <din_zona>]"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "lock"
+          }
+        },
+        {
+          "sentences": [
+            "<care> <usa> <este> {lock_states_singular:state}[ <din_zona>]",
+            "<care> <usile> sunt {lock_states_plural:state}[ <din_zona>]"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "lock"
+          }
+        },
+        {
+          "sentences": [
+            "<cate> <usile> sunt {lock_states_plural:state}[ <din_zona>]"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "lock"
+          }
+        },
+        {
+          "sentences": [
+            "<cat> <este> <name>[ <din_zona>]",
+            "(ce stare are|(î|i)n ce stare <este>) <name>[ <din_zona>]"
+          ],
+          "response": "one",
+          "excludes_context": {
+            "domain": [
+              "scene",
+              "script"
+            ]
+          }
+        },
+        {
+          "sentences": [
+            "(<name>[ <din_zona>];<este> {on_off_states_singular:state})"
+          ],
+          "response": "one_yesno",
+          "excludes_context": {
+            "domain": [
+              "cover",
+              "binary_sensor"
+            ]
+          }
+        },
+        {
+          "sentences": [
+            "<exista> [<vreun> ]{on_off_domains_singular:domain} {on_off_states_singular:state}[ <din_zona>]",
+            "(sunt|exist(ă|a)) {on_off_domains_plural:domain} {on_off_states_plural:state}[ <din_zona>]"
+          ],
+          "response": "any"
+        },
+        {
+          "sentences": [
+            "sunt (toate {on_off_domains_plural:domain};{on_off_states_plural:state})[ <din_zona>]",
+            "toate {on_off_domains_plural:domain} sunt {on_off_states_plural:state}[ <din_zona>]"
+          ],
+          "response": "all"
+        },
+        {
+          "sentences": [
+            "<care> {on_off_domains_singular:domain} <este> {on_off_states_singular:state}[ <din_zona>]",
+            "<care> {on_off_domains_plural:domain} sunt {on_off_states_plural:state}[ <din_zona>]"
+          ],
+          "response": "which"
+        },
+        {
+          "sentences": [
+            "<cate> {on_off_domains_plural:domain} sunt {on_off_states_plural:state}[ <din_zona>]"
+          ],
+          "response": "how_many"
+        },
+        {
+          "sentences": [
+            "(<name>[ <din_zona>];<este> {cover_states_singular:state})"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "<exista> [<vreun> ]{cover_classes_singular:device_class} {cover_states_singular:state}[ <din_zona>]",
+            "(sunt|exist(ă|a)) {cover_classes_plural:device_class} {cover_states_plural:state}[ <din_zona>]"
+          ],
+          "response": "any",
+          "requires_context": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "(sunt;toate {cover_classes_plural:device_class}) {cover_states_plural:state}[ <din_zona>]"
+          ],
+          "response": "all",
+          "requires_context": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "<care> {cover_classes_singular:device_class} <este> {cover_states_singular:state}[ <din_zona>]",
+            "<care> {cover_classes_plural:device_class} sunt {cover_states_plural:state}[ <din_zona>]"
+          ],
+          "response": "which",
+          "requires_context": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "<cate> {cover_classes_plural:device_class} sunt {cover_states_plural:state}[ <din_zona>]"
+          ],
+          "response": "how_many",
+          "requires_context": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "<name_class_dinZona_este_state>"
+          ],
+          "expansion_rules": {
+            "class_singular": "bateri(e|a)",
+            "class_plural": "baterii[le]",
+            "state_singular": "{bs_battery_states_singular:state}",
+            "state_plural": "{bs_battery_states_plural:state}"
+          },
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "battery"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "battery"
+          }
+        },
+        {
+          "sentences": [
+            "<exista_class_state_in_zona>"
+          ],
+          "expansion_rules": {
+            "class_singular": "bateri(e|a)",
+            "class_plural": "baterii[le]",
+            "state_singular": "{bs_battery_states_singular:state}",
+            "state_plural": "{bs_battery_states_plural:state}"
+          },
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "battery"
+          }
+        },
+        {
+          "sentences": [
+            "<toate_class_sunt_state_in_zona>"
+          ],
+          "expansion_rules": {
+            "class_plural": "baterii[le]",
+            "state_plural": "{bs_battery_states_plural:state}"
+          },
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "battery"
+          }
+        },
+        {
+          "sentences": [
+            "<care_class_este_state_in_zona>"
+          ],
+          "expansion_rules": {
+            "class_singular": "bateri(e|a)",
+            "class_plural": "baterii[le]",
+            "state_singular": "{bs_battery_states_singular:state}",
+            "state_plural": "{bs_battery_states_plural:state}"
+          },
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "battery"
+          }
+        },
+        {
+          "sentences": [
+            "<cate_class_sunt_state_in_zona>"
+          ],
+          "expansion_rules": {
+            "class_plural": "baterii[le]",
+            "state_plural": "{bs_battery_states_plural:state}"
+          },
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "battery"
+          }
+        },
+        {
+          "sentences": [
+            "<name_class_dinZona_este_state>",
+            "<name_class_dinZona_verbState>"
+          ],
+          "expansion_rules": {
+            "class_singular": "bateri(e|a)",
+            "class_plural": "baterii[le]",
+            "class": "bateri(e|a|i[le])",
+            "state": "{bs_battery_charging_states:state}",
+            "verb_state": "{bs_battery_charging_states_passive:state}"
+          },
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "battery_charging"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "battery_charging"
+          }
+        },
+        {
+          "sentences": [
+            "<exista_class_state_in_zona>",
+            "<exista_class_care_verbState_in_zona>"
+          ],
+          "expansion_rules": {
+            "class_singular": "bateri(e|a)",
+            "class_plural": "baterii[le]",
+            "state": "{bs_battery_charging_states:state}",
+            "verb_state": "{bs_battery_charging_states_passive:state}"
+          },
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "battery_charging"
+          }
+        },
+        {
+          "sentences": [
+            "<toate_class_sunt_state_in_zona>",
+            "<toate_class_verbState_in_zona>"
+          ],
+          "expansion_rules": {
+            "class_plural": "baterii[le]",
+            "state": "{bs_battery_charging_states:state}",
+            "verb_state": "{bs_battery_charging_states_passive:state}"
+          },
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "battery_charging"
+          }
+        },
+        {
+          "sentences": [
+            "<care_class_este_state_in_zona>",
+            "<care_class_verbState_in_zona>"
+          ],
+          "expansion_rules": {
+            "class_singular": "bateri(e|a)",
+            "class_plural": "baterii[le]",
+            "state": "{bs_battery_charging_states:state}",
+            "verb_state": "{bs_battery_charging_states_passive:state}"
+          },
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "battery_charging"
+          }
+        },
+        {
+          "sentences": [
+            "<cate_class_sunt_state_in_zona>",
+            "<cate_class_verbState_in_zona>"
+          ],
+          "expansion_rules": {
+            "class_plural": "baterii[le]",
+            "state": "{bs_battery_charging_states:state}",
+            "verb_state": "{bs_battery_charging_states_passive:state}"
+          },
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "battery_charging"
+          }
+        },
+        {
+          "sentences": [
+            "<name_detecteaza_object_in_zona>",
+            "<name_detecteaza_object_in_zona_passive>"
+          ],
+          "expansion_rules": {
+            "object": "monoxid[ul] de carbon"
+          },
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "carbon_monoxide"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "carbon_monoxide"
+          }
+        },
+        {
+          "sentences": [
+            "<exista_object_detectat_in_zona_passive>"
+          ],
+          "expansion_rules": {
+            "object": "monoxid[ul] de carbon"
+          },
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "carbon_monoxide"
+          }
+        },
+        {
+          "sentences": [
+            "<care_detecteaza_object_in_zona>"
+          ],
+          "expansion_rules": {
+            "object": "monoxid[ul] de carbon"
+          },
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "carbon_monoxide"
+          }
+        },
+        {
+          "sentences": [
+            "<cate_detecteaza_object_in_zona>"
+          ],
+          "expansion_rules": {
+            "object": "monoxid[ul] de carbon"
+          },
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "carbon_monoxide"
+          }
+        },
+        {
+          "sentences": [
+            "<name_dinZona_este_state>",
+            "(<exista> {bs_cold_states:state};[<din> ]<name>)[ <din_zona>]"
+          ],
+          "expansion_rules": {
+            "state_singular": "{bs_cold_states_singular:state}",
+            "state_plural": "{bs_cold_states_plural:state}"
+          },
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "cold"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "cold"
+          }
+        },
+        {
+          "sentences": [
+            "(s-a[u] r(ă|a)cit|a[u] (î|i)nghe(ț|t)at) <name>[ <din_zona>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "cold"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "cold",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "<exista_class_state_in_zona>",
+            "<exista_object_detectat_in_zona_passive>"
+          ],
+          "expansion_rules": {
+            "class_singular": "<dispozitiv>",
+            "class_plural": "<dispozitive>",
+            "object": "<frig>",
+            "state_singular": "{bs_cold_states_singular:state}",
+            "state_plural": "{bs_cold_states_plural:state}",
+            "state": "({bs_cold_states_singular:state}|{bs_cold_states_plural:state})"
+          },
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "cold"
+          }
+        },
+        {
+          "sentences": [
+            "<toate_class_sunt_state_in_zona>"
+          ],
+          "expansion_rules": {
+            "class_singular": "<dispozitiv>",
+            "class_plural": "<dispozitive>",
+            "object": "<frig>",
+            "state_singular": "{bs_cold_states_singular:state}",
+            "state_plural": "{bs_cold_states_plural:state}",
+            "state": "({bs_cold_states_singular:state}|{bs_cold_states_plural:state})"
+          },
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "cold"
+          }
+        },
+        {
+          "sentences": [
+            "<care_class_este_state_in_zona>",
+            "<care_detecteaza_object_in_zona>"
+          ],
+          "expansion_rules": {
+            "class_singular": "<dispozitiv>",
+            "class_plural": "<dispozitive>",
+            "object": "<frig>",
+            "state_singular": "{bs_cold_states_singular:state}",
+            "state_plural": "{bs_cold_states_plural:state}",
+            "state": "({bs_cold_states_singular:state}|{bs_cold_states_plural:state})"
+          },
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "cold"
+          }
+        },
+        {
+          "sentences": [
+            "<cate_class_sunt_state_in_zona>",
+            "<cate_detecteaza_object_in_zona>"
+          ],
+          "expansion_rules": {
+            "class_singular": "<dispozitiv>",
+            "class_plural": "<dispozitive>",
+            "object": "<frig>",
+            "state_singular": "{bs_cold_states_singular:state}",
+            "state_plural": "{bs_cold_states_plural:state}",
+            "state": "({bs_cold_states_singular:state}|{bs_cold_states_plural:state})"
+          },
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "cold"
+          }
+        },
+        {
+          "sentences": [
+            "<name_dinZona_este_state>"
+          ],
+          "expansion_rules": {
+            "state_singular": "{bs_connectivity_states_singular:state}",
+            "state_plural": "{bs_connectivity_states_plural:state}"
+          },
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "connectivity"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "connectivity"
+          }
+        },
+        {
+          "sentences": [
+            "(are conexiune; <name>[ <din_zona>])"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "connectivity"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "connectivity",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "<exista_class_state_in_zona>"
+          ],
+          "expansion_rules": {
+            "class_singular": "<dispozitiv>",
+            "class_plural": "<dispozitive>",
+            "state_singular": "{bs_connectivity_states_singular:state}",
+            "state_plural": "{bs_connectivity_states_plural:state}"
+          },
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "connectivity"
+          }
+        },
+        {
+          "sentences": [
+            "<toate_class_sunt_state_in_zona>"
+          ],
+          "expansion_rules": {
+            "class_singular": "<dispozitiv>",
+            "class_plural": "<dispozitive>",
+            "state_singular": "{bs_connectivity_states_singular:state}",
+            "state_plural": "{bs_connectivity_states_plural:state}"
+          },
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "connectivity"
+          }
+        },
+        {
+          "sentences": [
+            "<care_class_este_state_in_zona>"
+          ],
+          "expansion_rules": {
+            "class_singular": "<dispozitiv>",
+            "class_plural": "<dispozitive>",
+            "state_singular": "{bs_connectivity_states_singular:state}",
+            "state_plural": "{bs_connectivity_states_plural:state}"
+          },
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "connectivity"
+          }
+        },
+        {
+          "sentences": [
+            "<cate_class_sunt_state_in_zona>"
+          ],
+          "expansion_rules": {
+            "class_singular": "<dispozitiv>",
+            "class_plural": "<dispozitive>",
+            "state_singular": "{bs_connectivity_states_singular:state}",
+            "state_plural": "{bs_connectivity_states_plural:state}"
+          },
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "connectivity"
+          }
+        },
+        {
+          "sentences": [
+            "<name_class_dinZona_este_state>",
+            "<name_class_dinZona_verbState>"
+          ],
+          "expansion_rules": {
+            "class_singular": "<usa>",
+            "class_plural": "<usile>",
+            "class": "(<class_singular>|<class_plural>)",
+            "state_singular": "{bs_door_states_singular:state}",
+            "state_plural": "{bs_door_states_plural:state}",
+            "verb_state": "({bs_door_states_passive:state}|{bs_door_states_active:state})"
+          },
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "door"
+          },
+          "slots": {
+            "domain": "binary_sensor"
+          }
+        },
+        {
+          "sentences": [
+            "<exista_class_state_in_zona>",
+            "<exista_class_care_verbState_in_zona>"
+          ],
+          "expansion_rules": {
+            "class_singular": "<usa>",
+            "class_plural": "<usile>",
+            "state_singular": "{bs_door_states_singular:state}",
+            "state_plural": "{bs_door_states_plural:state}",
+            "verb_state": "({bs_door_states_passive:state}|{bs_door_states_active:state})"
+          },
+          "response": "any",
+          "excludes_context": {
+            "device_class": [
+              "garage_door"
+            ]
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "door"
+          }
+        },
+        {
+          "sentences": [
+            "<toate_class_sunt_state_in_zona>",
+            "<toate_class_verbState_in_zona>"
+          ],
+          "expansion_rules": {
+            "class_singular": "<usa>",
+            "class_plural": "<usile>",
+            "state_singular": "{bs_door_states_singular:state}",
+            "state_plural": "{bs_door_states_plural:state}",
+            "verb_state": "({bs_door_states_passive:state}|{bs_door_states_active:state})"
+          },
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "door"
+          }
+        },
+        {
+          "sentences": [
+            "<care_class_este_state_in_zona>",
+            "<care_class_verbState_in_zona>"
+          ],
+          "expansion_rules": {
+            "class_singular": "<usa>",
+            "class_plural": "<usile>",
+            "state_singular": "{bs_door_states_singular:state}",
+            "state_plural": "{bs_door_states_plural:state}",
+            "verb_state": "({bs_door_states_passive:state}|{bs_door_states_active:state})"
+          },
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "door"
+          }
+        },
+        {
+          "sentences": [
+            "<cate_class_sunt_state_in_zona>",
+            "<cate_class_verbState_in_zona>"
+          ],
+          "expansion_rules": {
+            "class_singular": "<usa>",
+            "class_plural": "<usile>",
+            "state_singular": "{bs_door_states_singular:state}",
+            "state_plural": "{bs_door_states_plural:state}",
+            "verb_state": "({bs_door_states_passive:state}|{bs_door_states_active:state})"
+          },
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "door"
+          }
+        },
+        {
+          "sentences": [
+            "<name_detecteaza_object_in_zona>",
+            "<name_detecteaza_object_in_zona_passive>"
+          ],
+          "expansion_rules": {
+            "object_singular": "gaz",
+            "object_plural": "gaze",
+            "object": "gaz[e]"
+          },
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "gas"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "gas"
+          }
+        },
+        {
+          "sentences": [
+            "<exista_object_detectat_in_zona_passive>"
+          ],
+          "expansion_rules": {
+            "object_singular": "gaz",
+            "object_plural": "gaze",
+            "object": "gaz[e]"
+          },
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "gas"
+          }
+        },
+        {
+          "sentences": [
+            "<care_detecteaza_object_in_zona>"
+          ],
+          "expansion_rules": {
+            "object_singular": "gaz",
+            "object_plural": "gaze",
+            "object": "gaz[e]"
+          },
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "gas"
+          }
+        },
+        {
+          "sentences": [
+            "<cate_detecteaza_object_in_zona>"
+          ],
+          "expansion_rules": {
+            "object_singular": "gaz",
+            "object_plural": "gaze",
+            "object": "gaz[e]"
+          },
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "gas"
+          }
+        },
+        {
+          "sentences": [
+            "<name_dinZona_este_state>",
+            "(<exista> {bs_heat_states:state};[<din> ]<name>)[ <din_zona>]"
+          ],
+          "expansion_rules": {
+            "state_singular": "{bs_heat_states_singular:state}",
+            "state_plural": "{bs_heat_states_plural:state}"
+          },
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "heat"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "heat"
+          }
+        },
+        {
+          "sentences": [
+            "s-a[u] ((î|i)nc(ă|a)lzit|(î|i)ncins) <name>[ <din_zona>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "heat"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "heat",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "<exista_class_state_in_zona>",
+            "<exista_object_detectat_in_zona_passive>"
+          ],
+          "expansion_rules": {
+            "class_singular": "<dispozitiv>",
+            "class_plural": "<dispozitive>",
+            "object": "<cald>",
+            "state_singular": "{bs_heat_states_singular:state}",
+            "state_plural": "{bs_heat_states_plural:state}",
+            "state": "({bs_heat_states_singular:state}|{bs_heat_states_plural:state})"
+          },
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "heat"
+          }
+        },
+        {
+          "sentences": [
+            "<toate_class_sunt_state_in_zona>"
+          ],
+          "expansion_rules": {
+            "class_singular": "<dispozitiv>",
+            "class_plural": "<dispozitive>",
+            "object": "<cald>",
+            "state_singular": "{bs_heat_states_singular:state}",
+            "state_plural": "{bs_heat_states_plural:state}",
+            "state": "({bs_heat_states_singular:state}|{bs_heat_states_plural:state})"
+          },
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "heat"
+          }
+        },
+        {
+          "sentences": [
+            "<care_class_este_state_in_zona>",
+            "<care_detecteaza_object_in_zona>"
+          ],
+          "expansion_rules": {
+            "class_singular": "<dispozitiv>",
+            "class_plural": "<dispozitive>",
+            "object": "<cald>",
+            "state_singular": "{bs_heat_states_singular:state}",
+            "state_plural": "{bs_heat_states_plural:state}",
+            "state": "({bs_heat_states_singular:state}|{bs_heat_states_plural:state})"
+          },
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "heat"
+          }
+        },
+        {
+          "sentences": [
+            "<cate_class_sunt_state_in_zona>",
+            "<cate_detecteaza_object_in_zona>"
+          ],
+          "expansion_rules": {
+            "class_singular": "<dispozitiv>",
+            "class_plural": "<dispozitive>",
+            "object": "<cald>",
+            "state_singular": "{bs_heat_states_singular:state}",
+            "state_plural": "{bs_heat_states_plural:state}",
+            "state": "({bs_heat_states_singular:state}|{bs_heat_states_plural:state})"
+          },
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "heat"
+          }
+        },
+        {
+          "sentences": [
+            "<name_detecteaza_object_in_zona>",
+            "<name_detecteaza_object_in_zona_passive>"
+          ],
+          "expansion_rules": {
+            "object": "lumin(ă|a)"
+          },
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "light"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "light"
+          }
+        },
+        {
+          "sentences": [
+            "<exista_object_detectat_in_zona_passive>"
+          ],
+          "expansion_rules": {
+            "object_singular": "lumin(ă|a)",
+            "object_plural": "lumini",
+            "object": "lumin(ă|a|i)"
+          },
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "light"
+          }
+        },
+        {
+          "sentences": [
+            "<care_detecteaza_object_in_zona>"
+          ],
+          "expansion_rules": {
+            "object_singular": "lumin(ă|a)",
+            "object_plural": "lumini",
+            "object": "lumin(ă|a|i)"
+          },
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "light"
+          }
+        },
+        {
+          "sentences": [
+            "<cate_detecteaza_object_in_zona>"
+          ],
+          "expansion_rules": {
+            "object_singular": "lumin(ă|a)",
+            "object_plural": "lumini",
+            "object": "lumin(ă|a|i)"
+          },
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "light"
+          }
+        },
+        {
+          "sentences": [
+            "<name_class_dinZona_este_state>",
+            "<name_class_dinZona_verbState>"
+          ],
+          "expansion_rules": {
+            "class_singular": "(<incuietoarea>|<usa>|<poarta>)",
+            "class_plural": "(<incuietorile>|<usile>|<portile>)",
+            "class": "<class_singular>|<class_plural>",
+            "state_singular": "{bs_lock_states_singular:state}",
+            "state_plural": "{bs_lock_states_plural:state}",
+            "verb_state": "({bs_lock_states_passive:state}|{bs_lock_states_active:state})"
+          },
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "lock"
+          },
+          "slots": {
+            "domain": "binary_sensor"
+          }
+        },
+        {
+          "sentences": [
+            "<este> {bs_moisture_states_singular:state} <name>[ <din_zona>]",
+            "<name>[ <din_zona>] <este> {bs_moisture_states_singular:state}"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "moisture"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "moisture"
+          }
+        },
+        {
+          "sentences": [
+            "<exista_class_state_in_zona>",
+            "<exista_class_care_verbState_in_zona>",
+            "<exista_object_detectat_in_zona_passive>"
+          ],
+          "expansion_rules": {
+            "class_singular": "<dispozitiv>",
+            "class_plural": "<dispozitive>",
+            "class": "(<class_singular>|<class_plural>)",
+            "object": "(umezeal(ă|a)|inunda(ț|t)i(e|a))",
+            "state_singular": "{bs_moisture_states_singular:state}",
+            "state_plural": "{bs_moisture_states_plural:state}",
+            "state": "({bs_moisture_states_singular:state}|{bs_moisture_states_plural:state})",
+            "verb_state": "{bs_moisture_states_passive:state}"
+          },
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "moisture"
+          }
+        },
+        {
+          "sentences": [
+            "<toate_class_sunt_state_in_zona>",
+            "<toate_class_verbState_in_zona>"
+          ],
+          "expansion_rules": {
+            "class_singular": "<dispozitiv>",
+            "class_plural": "<dispozitive>",
+            "class": "(<class_singular>|<class_plural>)",
+            "object": "(umezeal(ă|a)|inunda(ț|t)i(e|a))",
+            "state_singular": "{bs_moisture_states_singular:state}",
+            "state_plural": "{bs_moisture_states_plural:state}",
+            "state": "({bs_moisture_states_singular:state}|{bs_moisture_states_plural:state})",
+            "verb_state": "{bs_moisture_states_passive:state}"
+          },
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "moisture"
+          }
+        },
+        {
+          "sentences": [
+            "<care_class_este_state_in_zona>",
+            "<care_class_verbState_in_zona>",
+            "<care_detecteaza_object_in_zona>"
+          ],
+          "expansion_rules": {
+            "class_singular": "<dispozitiv>",
+            "class_plural": "<dispozitive>",
+            "class": "(<class_singular>|<class_plural>)",
+            "object": "(umezeal(ă|a)|inunda(ț|t)i(e|a))",
+            "state_singular": "{bs_moisture_states_singular:state}",
+            "state_plural": "{bs_moisture_states_plural:state}",
+            "state": "({bs_moisture_states_singular:state}|{bs_moisture_states_plural:state})",
+            "verb_state": "{bs_moisture_states_passive:state}"
+          },
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "moisture"
+          }
+        },
+        {
+          "sentences": [
+            "<cate_class_sunt_state_in_zona>",
+            "<cate_class_verbState_in_zona>",
+            "<cate_detecteaza_object_in_zona>"
+          ],
+          "expansion_rules": {
+            "class_singular": "<dispozitiv>",
+            "class_plural": "<dispozitive>",
+            "class": "(<class_singular>|<class_plural>)",
+            "object": "(umezeal(ă|a)|inunda(ț|t)i(e|a))",
+            "state_singular": "{bs_moisture_states_singular:state}",
+            "state_plural": "{bs_moisture_states_plural:state}",
+            "state": "({bs_moisture_states_singular:state}|{bs_moisture_states_plural:state})",
+            "verb_state": "{bs_moisture_states_passive:state}"
+          },
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "moisture"
+          }
+        },
+        {
+          "sentences": [
+            "<name_detecteaza_object_in_zona>",
+            "<name_detecteaza_object_in_zona_passive>"
+          ],
+          "expansion_rules": {
+            "object_singular": "mi(ș|s)care",
+            "object_plural": "mi(ș|s)c(ă|a)ri",
+            "object": "mi(ș|s)c(are|(ă|a)ri)"
+          },
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "motion"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "motion"
+          }
+        },
+        {
+          "sentences": [
+            "<exista_object_detectat_in_zona_passive>"
+          ],
+          "expansion_rules": {
+            "object_singular": "mi(ș|s)care",
+            "object_plural": "mi(ș|s)c(ă|a)ri",
+            "object": "mi(ș|s)c(are|(ă|a)ri)"
+          },
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "motion"
+          }
+        },
+        {
+          "sentences": [
+            "<care_detecteaza_object_in_zona>"
+          ],
+          "expansion_rules": {
+            "object_singular": "mi(ș|s)care",
+            "object_plural": "mi(ș|s)c(ă|a)ri",
+            "object": "mi(ș|s)c(are|(ă|a)ri)"
+          },
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "motion"
+          }
+        },
+        {
+          "sentences": [
+            "<cate_detecteaza_object_in_zona>"
+          ],
+          "expansion_rules": {
+            "object_singular": "mi(ș|s)care",
+            "object_plural": "mi(ș|s)c(ă|a)ri",
+            "object": "mi(ș|s)c(are|(ă|a)ri)"
+          },
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "motion"
+          }
+        },
+        {
+          "sentences": [
+            "<name_detecteaza_object_in_zona>",
+            "<name_detecteaza_object_in_zona_passive>"
+          ],
+          "expansion_rules": {
+            "object": "ocupare"
+          },
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "occupancy"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "occupancy"
+          }
+        },
+        {
+          "sentences": [
+            "<exista_object_detectat_in_zona_passive>"
+          ],
+          "expansion_rules": {
+            "object": "ocupare"
+          },
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "occupancy"
+          }
+        },
+        {
+          "sentences": [
+            "<care_detecteaza_object_in_zona>"
+          ],
+          "expansion_rules": {
+            "object": "ocupare"
+          },
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "occupancy"
+          }
+        },
+        {
+          "sentences": [
+            "<cate_detecteaza_object_in_zona>"
+          ],
+          "expansion_rules": {
+            "object": "ocupare"
+          },
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "occupancy"
+          }
+        },
+        {
+          "sentences": [
+            "<name_dinZona_este_state>",
+            "<name_dinZona_verbState>"
+          ],
+          "expansion_rules": {
+            "state_singular": "{bs_door_states_singular:state}",
+            "state_plural": "{bs_door_states_plural:state}",
+            "verb_state": "({bs_door_states_passive:state}|{bs_door_states_active:state})"
+          },
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "opening"
+          },
+          "slots": {
+            "domain": "binary_sensor"
+          }
+        },
+        {
+          "sentences": [
+            "<name_class_dinZona_este_state>"
+          ],
+          "expansion_rules": {
+            "class_singular": "(priz(ă|a)|(ș|s)techer[ul]|cablu[l])",
+            "class_plural": "(prize[le]|(ș|s)techere[le]|cabluri[le])",
+            "state_singular": "{bs_plug_states_singular:state}",
+            "state_plural": "{bs_plug_states_plural:state}"
+          },
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "plug"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "plug"
+          }
+        },
+        {
+          "sentences": [
+            "<exista_class_state_in_zona>"
+          ],
+          "expansion_rules": {
+            "class_singular": "(priz(ă|a)|(ș|s)techer[ul]|cablu[l])",
+            "class_plural": "(prize[le]|(ș|s)techere[le]|cabluri[le])",
+            "class": "(<class_singular>|<class_plural>)",
+            "state_singular": "{bs_plug_states_singular:state}",
+            "state_plural": "{bs_plug_states_plural:state}",
+            "state": "({bs_plug_states_singular:state}|{bs_plug_states_plural:state})"
+          },
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "plug"
+          }
+        },
+        {
+          "sentences": [
+            "<toate_class_sunt_state_in_zona>"
+          ],
+          "expansion_rules": {
+            "class_singular": "(priz(ă|a)|(ș|s)techer[ul]|cablu[l])",
+            "class_plural": "(prize[le]|(ș|s)techere[le]|cabluri[le])",
+            "class": "(<class_singular>|<class_plural>)",
+            "state_singular": "{bs_plug_states_singular:state}",
+            "state_plural": "{bs_plug_states_plural:state}",
+            "state": "({bs_plug_states_singular:state}|{bs_plug_states_plural:state})"
+          },
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "plug"
+          }
+        },
+        {
+          "sentences": [
+            "<care_class_este_state_in_zona>"
+          ],
+          "expansion_rules": {
+            "class_singular": "(priz(ă|a)|(ș|s)techer[ul]|cablu[l])",
+            "class_plural": "(prize[le]|(ș|s)techere[le]|cabluri[le])",
+            "class": "(<class_singular>|<class_plural>)",
+            "state_singular": "{bs_plug_states_singular:state}",
+            "state_plural": "{bs_plug_states_plural:state}",
+            "state": "({bs_plug_states_singular:state}|{bs_plug_states_plural:state})"
+          },
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "plug"
+          }
+        },
+        {
+          "sentences": [
+            "<cate_class_sunt_state_in_zona>"
+          ],
+          "expansion_rules": {
+            "class_singular": "(priz(ă|a)|(ș|s)techer[ul]|cablu[l])",
+            "class_plural": "(prize[le]|(ș|s)techere[le]|cabluri[le])",
+            "class": "(<class_singular>|<class_plural>)",
+            "state_singular": "{bs_plug_states_singular:state}",
+            "state_plural": "{bs_plug_states_plural:state}",
+            "state": "({bs_plug_states_singular:state}|{bs_plug_states_plural:state})"
+          },
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "plug"
+          }
+        },
+        {
+          "sentences": [
+            "<name_dinZona_este_state>"
+          ],
+          "expansion_rules": {
+            "state_singular": "{bs_power_states_singular:state}",
+            "state_plural": "{bs_power_states_plural:state}"
+          },
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "power"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "power"
+          }
+        },
+        {
+          "sentences": [
+            "<exista_class_state_in_zona>"
+          ],
+          "expansion_rules": {
+            "class_singular": "(aparat|dispozitiv|obiect)[ul]",
+            "class_plural": "(aparat|dispozitiv|obiect)[ele]",
+            "class": "(aparat|dispozitiv|obiect)([ul]|e[le])",
+            "state_singular": "{bs_power_states_singular:state}",
+            "state_plural": "{bs_power_states_plural:state}",
+            "state": "({bs_power_states_singular:state}|{bs_power_states_plural:state})"
+          },
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "power"
+          }
+        },
+        {
+          "sentences": [
+            "<toate_class_sunt_state_in_zona>"
+          ],
+          "expansion_rules": {
+            "class_singular": "(aparat|dispozitiv|obiect)[ul]",
+            "class_plural": "(aparat|dispozitiv|obiect)[ele]",
+            "class": "(aparat|dispozitiv|obiect)([ul]|e[le])",
+            "state_singular": "{bs_power_states_singular:state}",
+            "state_plural": "{bs_power_states_plural:state}",
+            "state": "({bs_power_states_singular:state}|{bs_power_states_plural:state})"
+          },
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "power"
+          }
+        },
+        {
+          "sentences": [
+            "<care_class_este_state_in_zona>"
+          ],
+          "expansion_rules": {
+            "class_singular": "(aparat|dispozitiv|obiect)[ul]",
+            "class_plural": "(aparat|dispozitiv|obiect)[ele]",
+            "class": "(aparat|dispozitiv|obiect)([ul]|e[le])",
+            "state_singular": "{bs_power_states_singular:state}",
+            "state_plural": "{bs_power_states_plural:state}",
+            "state": "({bs_power_states_singular:state}|{bs_power_states_plural:state})"
+          },
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "power"
+          }
+        },
+        {
+          "sentences": [
+            "<cate_class_sunt_state_in_zona>"
+          ],
+          "expansion_rules": {
+            "class_singular": "(aparat|dispozitiv|obiect)[ul]",
+            "class_plural": "(aparat|dispozitiv|obiect)e[le]",
+            "class": "(aparat|dispozitiv|obiect)([ul]|e[le])",
+            "state_singular": "{bs_power_states_singular:state}",
+            "state_plural": "{bs_power_states_plural:state}",
+            "state": "({bs_power_states_singular:state}|{bs_power_states_plural:state})"
+          },
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "power"
+          }
+        },
+        {
+          "sentences": [
+            "<name_dinZona_este_state>"
+          ],
+          "expansion_rules": {
+            "state": "{bs_presence_states:state}"
+          },
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "presence"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "presence"
+          }
+        },
+        {
+          "sentences": [
+            "(sunt probleme|<exista> [[vre]o ]problem(ă|a)) [<detectat> ]([<in> leg(ă|a)tur(ă|a) ]cu|la) <name>[ <din_zona>]",
+            "are (probleme|vreo problema) <name>[ <din_zona>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "problem"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "problem",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "<exista_object_detectat_in_zona_passive>"
+          ],
+          "expansion_rules": {
+            "object_singular": "problem(ă|a)",
+            "object_plural": "probleme[le]",
+            "object": "problem(ă|a|e[le])"
+          },
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "problem"
+          }
+        },
+        {
+          "sentences": [
+            "<care_detecteaza_object_in_zona>"
+          ],
+          "expansion_rules": {
+            "object_singular": "problem(ă|a)",
+            "object_plural": "probleme[le]",
+            "object": "problem(ă|a|e[le])"
+          },
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "problem"
+          }
+        },
+        {
+          "sentences": [
+            "<cate_detecteaza_object_in_zona>"
+          ],
+          "expansion_rules": {
+            "object_singular": "problem(ă|a)",
+            "object_plural": "probleme[le]",
+            "object": "problem(ă|a|e[le])"
+          },
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "problem"
+          }
+        },
+        {
+          "sentences": [
+            "<name_dinZona_este_state>",
+            "<name_dinZona_verbState>"
+          ],
+          "expansion_rules": {
+            "state_singular": "{bs_running_states_singular:state}",
+            "state_plural": "{bs_running_states_plural:state}",
+            "verb_state": "{bs_running_states_active:state}"
+          },
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "running"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "running"
+          }
+        },
+        {
+          "sentences": [
+            "<exista_class_state_in_zona>",
+            "<exista_class_care_verbState_in_zona>"
+          ],
+          "expansion_rules": {
+            "class_singular": "((dispozitiv|aparat|proces)[ul]|lucru[l])",
+            "class_plural": "(dispozitive|aparate|procese|lucruri)[le]",
+            "object": "((dispozitiv|aparat|proces)([ul]|e[le])|lucru([l]|ri[le]))",
+            "state_singular": "{bs_running_states_singular:state}",
+            "state_plural": "{bs_running_states_plural:state}",
+            "state": "({bs_running_states_singular:state}|{bs_running_states_plural:state})",
+            "verb_state": "{bs_running_states_active:state}"
+          },
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "running"
+          }
+        },
+        {
+          "sentences": [
+            "<toate_class_sunt_state_in_zona>",
+            "<toate_class_verbState_in_zona>"
+          ],
+          "expansion_rules": {
+            "class_singular": "((dispozitiv|aparat|proces|script)[ul]|automatizare[a]|lucru[l])",
+            "class_plural": "(dispozitive|aparate|procese|scripturi|automatiz(ă|a)ri|lucruri)[le]",
+            "object": "((dispozitiv|aparat|proces)([ul]|e[le])|script([ul]|uri[le])|automatiz(are[a]|(ă|a)ri[le])|lucru([l]|ri[le]))",
+            "state_singular": "{bs_running_states_singular:state}",
+            "state_plural": "{bs_running_states_plural:state}",
+            "state": "({bs_running_states_singular:state}|{bs_running_states_plural:state})",
+            "verb_state": "{bs_running_states_active:state}"
+          },
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "running"
+          }
+        },
+        {
+          "sentences": [
+            "<care_class_este_state_in_zona>",
+            "<care_class_verbState_in_zona>"
+          ],
+          "expansion_rules": {
+            "class_singular": "((dispozitiv|aparat|proces|script)[ul]|automatizare[a]|lucru[l])",
+            "class_plural": "(dispozitive|aparate|procese|scripturi|automatiz(ă|a)ri|lucruri)[le]",
+            "object": "((dispozitiv|aparat|proces)([ul]|e[le])|script([ul]|uri[le])|automatiz(are[a]|(ă|a)ri[le])|lucru([l]|ri[le]))",
+            "state_singular": "{bs_running_states_singular:state}",
+            "state_plural": "{bs_running_states_plural:state}",
+            "state": "({bs_running_states_singular:state}|{bs_running_states_plural:state})",
+            "verb_state": "{bs_running_states_active:state}"
+          },
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "running"
+          }
+        },
+        {
+          "sentences": [
+            "<cate_class_sunt_state_in_zona>",
+            "<cate_class_verbState_in_zona>"
+          ],
+          "expansion_rules": {
+            "class_singular": "((dispozitiv|aparat|proces|script)[ul]|automatizare[a]|lucru[l])",
+            "class_plural": "(dispozitive|aparate|procese|scripturi|automatiz(ă|a)ri|lucruri)[le]",
+            "object": "((dispozitiv|aparat|proces)([ul]|e[le])|script([ul]|uri[le])|automatiz(are[a]|(ă|a)ri[le])|lucru([l]|ri[le]))",
+            "state_singular": "{bs_running_states_singular:state}",
+            "state_plural": "{bs_running_states_plural:state}",
+            "state": "({bs_running_states_singular:state}|{bs_running_states_plural:state})",
+            "verb_state": "{bs_running_states_active:state}"
+          },
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "running"
+          }
+        },
+        {
+          "sentences": [
+            "<name_dinZona_este_state>"
+          ],
+          "expansion_rules": {
+            "state": "{bs_safety_states:state}"
+          },
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "safety"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "safety"
+          }
+        },
+        {
+          "sentences": [
+            "<name_detecteaza_object_in_zona>",
+            "<name_detecteaza_object_in_zona_passive>"
+          ],
+          "expansion_rules": {
+            "object": "fum[ul]"
+          },
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "smoke"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "smoke"
+          }
+        },
+        {
+          "sentences": [
+            "<este> [<detectat> ][vreun pic de ]fum[ul] <in> <area>"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "smoke",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "<name_detecteaza_object_in_zona>",
+            "<name_detecteaza_object_in_zona_passive>"
+          ],
+          "expansion_rules": {
+            "object_singular": "(zgomot|sunet)[ul]",
+            "object_plural": "(zgomot|sunet)e[le]",
+            "object": "(zgomot|sunet)[(ul|e)]"
+          },
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "sound"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "sound"
+          }
+        },
+        {
+          "sentences": [
+            "(<name>[ <din_zona>];(<este>|a fost) {bs_tamper_states:state})"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "tamper"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "tamper"
+          }
+        },
+        {
+          "sentences": [
+            "<exista> [<vreun> ]update [disponibil ](pentru|la) <name>[ <din_zona>]",
+            "sunt update[[-]uri] [disponibile ](pentru|la) <name>[ <din_zona>]",
+            "<name>[ <din_zona>] are ([<vreun> ]update[ disponibil]|update[-]uri[ disponibile])"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "update"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "update",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "<este> (actualizat|la zi) <name>[ <din_zona>]",
+            "<name>[ <din_zona>] este (actualizat|la zi)"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "update"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "update",
+            "state": "off"
+          }
+        },
+        {
+          "sentences": [
+            "<name_detecteaza_object_in_zona>",
+            "<name_detecteaza_object_in_zona_passive>",
+            "<name_dinZona_verbState>"
+          ],
+          "expansion_rules": {
+            "object_singular": "vibra(ț|t)i(e|a)",
+            "object_plural": "vibra(ț|t)ii[le]",
+            "object": "vibra(ț|t)i(e|a|i[le])",
+            "verb_state": "{bs_vibration_states_active:state}"
+          },
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "vibration"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "vibration"
+          }
+        },
+        {
+          "sentences": [
+            "<name_class_dinZona_este_state>",
+            "<name_class_dinZona_verbState>"
+          ],
+          "expansion_rules": {
+            "class_singular": "<fereastra>",
+            "class_plural": "<ferestrele>",
+            "class": "(<fereastra>|<ferestrele>)",
+            "state_singular": "{bs_door_states_singular:state}",
+            "state_plural": "{bs_door_states_plural:state}",
+            "verb_state": "({bs_door_states_passive:state}|{bs_door_states_active:state})"
+          },
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": [
+              "door",
+              "garage_door",
+              "opening",
+              "window"
+            ]
+          },
+          "slots": {
+            "domain": "binary_sensor"
+          }
+        }
+      ]
+    },
+    "HassTurnOff": {
+      "data": [
+        {
+          "sentences": [
+            "<opreste> <name>[ <din_zona>]"
+          ],
+          "excludes_context": {
+            "domain": [
+              "light",
+              "cover",
+              "scene",
+              "script",
+              "sensor",
+              "vacuum",
+              "valve"
+            ]
+          }
+        },
+        {
+          "sentences": [
+            "<opreste> [<lumina> ]<name>[ <din_zona>]"
+          ],
+          "slots": {
+            "domain": "light"
+          },
+          "requires_context": {
+            "domain": "light"
+          },
+          "response": "light"
+        },
+        {
+          "sentences": [
+            "<opreste> ((<lumina>|[toate ]<luminile>);[<din> ]<area>)"
+          ],
+          "slots": {
+            "domain": "light"
+          },
+          "response": "lights_area"
+        },
+        {
+          "sentences": [
+            "<opreste> (<lumina>|[toate ]<luminile>)[ [de ]aici]"
+          ],
+          "slots": {
+            "domain": "light"
+          },
+          "requires_context": {
+            "area": {
+              "slot": true
+            }
+          },
+          "response": "lights_area"
+        },
+        {
+          "sentences": [
+            "<opreste> ((<lumina>|[toate ]<luminile>);[<din> ]<floor>)"
+          ],
+          "response": "lights_floor",
+          "slots": {
+            "domain": "light"
+          }
+        },
+        {
+          "sentences": [
+            "<inchide> <name>[ <din_zona>]"
+          ],
+          "requires_context": {
+            "domain": "cover"
+          },
+          "response": "cover"
+        },
+        {
+          "sentences": [
+            "<inchide> ({cover_classes_singular:device_class}|[toate ]{cover_classes_plural:device_class}) [<din> ]<area>"
+          ],
+          "slots": {
+            "domain": "cover"
+          },
+          "response": "covers_area"
+        },
+        {
+          "sentences": [
+            "<inchide> ({cover_classes_singular:device_class}|[toate ]{cover_classes_plural:device_class})[ [de ]aici]"
+          ],
+          "slots": {
+            "domain": "cover"
+          },
+          "response": "covers_area",
+          "requires_context": {
+            "area": {
+              "slot": true
+            }
+          }
+        },
+        {
+          "sentences": [
+            "<opreste> ((<ventilatorul>|[toate ]<ventilatoarele>);<din_zona>)"
+          ],
+          "slots": {
+            "domain": "fan"
+          },
+          "response": "fans_area"
+        },
+        {
+          "sentences": [
+            "<opreste> (<ventilatorul>|[toate ]<ventilatoarele>)[ [de ]aici]"
+          ],
+          "slots": {
+            "domain": "fan"
+          },
+          "requires_context": {
+            "area": {
+              "slot": true
+            }
+          },
+          "response": "fans_area"
+        },
+        {
+          "sentences": [
+            "<inchide> <name>"
+          ],
+          "requires_context": {
+            "domain": "valve"
+          },
+          "slots": {
+            "domain": "valve"
+          },
+          "response": "valve"
+        }
+      ]
+    },
+    "HassCancelTimer": {
+      "data": [
+        {
+          "sentences": [
+            "<opreste_timer> <temporizatorul>",
+            "<opreste_timer> <temporizatorul> [<de> ]<timer_start>",
+            "<opreste_timer> <temporizatorul> <din_zona>",
+            "<opreste_timer> <temporizatorul> [(<numit>|pentru) ]{timer_name:name}"
+          ]
+        }
+      ]
+    },
+    "HassTimerStatus": {
+      "data": [
+        {
+          "sentences": [
+            "status[ul] <temporizatorul>[ ([<de> ]<timer_start>|<din_zona>|[(<numit>|pentru) ]{timer_name:name})]",
+            "[<care> <este> ]status[ul] <temporizatorului>[ ([<de> ]<timer_start>|<din_zona>|[(<numit>|pentru) ]{timer_name:name})]",
+            "<cat_quant>[ timp] (a [mai ]r(ă|a)mas <din>|mai <este> <din>|mai are) <temporizatorul>[ ([<de> ]<timer_start>|<din_zona>|[(<numit>|pentru) ]{timer_name:name})]"
+          ]
+        }
+      ]
+    },
+    "HassGetWeather": {
+      "data": [
+        {
+          "sentences": [
+            "cum <este> vremea[ afar(ă|a)]",
+            "c(â|a)te grade sunt afar(ă|a)",
+            "<cat_quant> (de (frig|cald);<este>) afar(ă|a)"
+          ]
+        },
+        {
+          "sentences": [
+            "cum <este> (vremea|afar(ă|a))[ [<din> ]<name>]",
+            "c(â|a)te grade sunt[ afar(ă|a)][ [<din> ]<name>]",
+            "<cat_quant> (de (frig|cald);<este>)[ (afar(ă|a)|[<din> ]<name>)]"
+          ],
+          "requires_context": {
+            "domain": "weather"
+          }
+        }
+      ]
+    },
+    "HassGetCurrentTime": {
+      "data": [
+        {
+          "sentences": [
+            "c(â|a)t (<este>|arat(ă|a)) (ceasul|ora)[ acum]",
+            "ce or(ă|a) <este>[ acum]"
+          ]
+        }
+      ]
+    },
+    "HassTurnOn": {
+      "data": [
+        {
+          "sentences": [
+            "<porneste> [<lumina> ]<name>[ <din_zona>]"
+          ],
+          "slots": {
+            "domain": "light"
+          },
+          "requires_context": {
+            "domain": "light"
+          },
+          "response": "light"
+        },
+        {
+          "sentences": [
+            "<porneste> ((<lumina>|[toate ]<luminile>);[<din> ]<area>)"
+          ],
+          "slots": {
+            "domain": "light"
+          },
+          "response": "lights_area"
+        },
+        {
+          "sentences": [
+            "<porneste> (<lumina>|[toate ]<luminile>)[ [de ]aici]"
+          ],
+          "slots": {
+            "domain": "light"
+          },
+          "requires_context": {
+            "area": {
+              "slot": true
+            }
+          },
+          "response": "lights_area"
+        },
+        {
+          "sentences": [
+            "<porneste> ((<lumina>|[toate ]<luminile>);[<din> ]<floor>)"
+          ],
+          "response": "lights_floor",
+          "slots": {
+            "domain": "light"
+          }
+        },
+        {
+          "sentences": [
+            "<porneste> ((<ventilatorul>|[toate ]<ventilatoarele>);<din_zona>)"
+          ],
+          "slots": {
+            "domain": "fan"
+          },
+          "response": "fans_area"
+        },
+        {
+          "sentences": [
+            "<porneste> (<ventilatorul>|[toate ]<ventilatoarele>)[ [de ]aici]"
+          ],
+          "slots": {
+            "domain": "fan"
+          },
+          "requires_context": {
+            "area": {
+              "slot": true
+            }
+          },
+          "response": "fans_area"
+        },
+        {
+          "sentences": [
+            "<ruleaza> [script[[-]ul] ]<name>"
+          ],
+          "requires_context": {
+            "domain": "script"
+          },
+          "slots": {
+            "domain": "script"
+          },
+          "response": "script"
+        },
+        {
+          "sentences": [
+            "<porneste> [scena ]<name>"
+          ],
+          "requires_context": {
+            "domain": "scene"
+          },
+          "slots": {
+            "domain": "scene"
+          },
+          "response": "scene"
+        },
+        {
+          "sentences": [
+            "<deschide> <name>"
+          ],
+          "requires_context": {
+            "domain": "valve"
+          },
+          "slots": {
+            "domain": "valve"
+          },
+          "response": "valve"
+        },
+        {
+          "sentences": [
+            "<porneste> <name>[ <din_zona>]"
+          ],
+          "excludes_context": {
+            "domain": [
+              "light",
+              "cover",
+              "scene",
+              "script",
+              "sensor",
+              "vacuum",
+              "valve"
+            ]
+          }
+        },
+        {
+          "sentences": [
+            "<deschide> <name>[ <din_zona>]"
+          ],
+          "requires_context": {
+            "domain": "cover"
+          },
+          "response": "cover"
+        },
+        {
+          "sentences": [
+            "<deschide> ({cover_classes_singular:device_class}|[toate ]{cover_classes_plural:device_class}) [<din> ]<area>"
+          ],
+          "slots": {
+            "domain": "cover"
+          },
+          "response": "covers_area"
+        },
+        {
+          "sentences": [
+            "<deschide> ({cover_classes_singular:device_class}|[toate ]{cover_classes_plural:device_class})[ [de ]aici]"
+          ],
+          "slots": {
+            "domain": "cover"
+          },
+          "response": "covers_area",
+          "requires_context": {
+            "area": {
+              "slot": true
+            }
+          }
+        }
+      ]
+    },
+    "HassMediaUnpause": {
+      "data": [
+        {
+          "sentences": [
+            "(re<porneste>|reia)[ redarea] [<din> ]<name>"
+          ],
+          "requires_context": {
+            "domain": "media_player"
+          }
+        },
+        {
+          "sentences": [
+            "(re<porneste>|reia)[ redarea]"
+          ],
+          "requires_context": {
+            "area": {
+              "slot": true
+            }
+          }
+        },
+        {
+          "sentences": [
+            "(re<porneste>|reia)[ redarea] <din_zona>"
+          ]
+        }
+      ]
+    },
+    "HassShoppingListAddItem": {
+      "data": [
+        {
+          "sentences": [
+            "adaug(ă|a) <item> (la|pe|<in>) <my_list>",
+            "pune <item> (pe|<in>) <my_list>"
+          ],
+          "response": "item_added",
+          "expansion_rules": {
+            "my_list": "lista[ mea] de cump(ă|a)r(ă|a)turi",
+            "item": "{shopping_list_item:item}"
+          }
+        }
+      ]
+    },
+    "HassNevermind": {
+      "data": [
+        {
+          "sentences": [
+            "las(ă|a)",
+            "(î|i)nceteaz(ă|a)",
+            "uit(ă|a)[ ce am (zis|spus)]",
+            "nu[ mai] conteaz(ă|a)"
+          ]
+        }
+      ]
+    },
+    "HassSetPosition": {
+      "data": [
+        {
+          "sentences": [
+            "[<seteaza> ]<pozitia> [<din> ]<name> [<pana_la> ][valoarea[ de] ]<position>",
+            "[<seteaza> ]<name> [<pana_la> ]<pozitia>[ de] <position>",
+            "[<seteaza> ][<in>|<pana_la> ]<position> <pozitia> [<din> ]<name>",
+            "(<deschide>|<inchide>) <name> [<pana_la> ][(valoarea|<pozitia>)[ de] ]<position>"
+          ],
+          "requires_context": {
+            "domain": "valve"
+          },
+          "slots": {
+            "domain": "valve"
+          }
+        },
+        {
+          "sentences": [
+            "[<seteaza> ]<pozitia> [<din> ]<name> [<pana_la> ][valoarea[ de] ]<position>",
+            "[<seteaza> ]<name> [<pana_la> ]<pozitia>[ de] <position>",
+            "[<seteaza> ][<in>|<pana_la> ]<position> <pozitia> [<din> ]<name>",
+            "(<deschide>|<inchide>) <name> [<pana_la> ][(valoarea|<pozitia>)[ de] ]<position>"
+          ],
+          "requires_context": {
+            "domain": "cover"
+          },
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "[<seteaza> ]({cover_classes_singular:device_class}|[toate ]{cover_classes_plural:device_class}) ([<din> ]<area>;[<pana_la> ](<pozitia>|valoare[a])[ de] <position>)",
+            "[<seteaza> ]<pozitia> <din> ({cover_classes_singular:device_class}|[toate ]{cover_classes_plural:device_class}) ([<din> ]<area>;[<pana_la> ][(<pozitia>|valoare[a]) ][de ]<position>)",
+            "(<deschide>|<inchide>) ([<pana_la> ][(<pozitia>|valoare[a])[ de] ]<position>;({cover_classes_singular:device_class}|[toate ]{cover_classes_plural:device_class}) [<din> ]<area>)"
+          ],
+          "slots": {
+            "domain": "cover"
+          }
+        }
+      ]
+    },
+    "HassGetCurrentDate": {
+      "data": [
+        {
+          "sentences": [
+            "ce (zi|dat(ă|a)) <este>[ (azi|ast(ă|a)zi)]",
+            "(î|i)n c(â|a)t suntem (azi|ast(ă|a)zi)",
+            "(î|i)n (c(â|a)t|ce (zi|dat(ă|a))) suntem[ (azi|ast(ă|a)zi)]",
+            "care <este> (data|ziua) de (azi|ast(ă|a)zi)"
+          ]
+        }
+      ]
+    },
+    "HassIncreaseTimer": {
+      "data": [
+        {
+          "sentences": [
+            "<adauga_amount_la_complement>"
+          ],
+          "expansion_rules": {
+            "amount": "<timer_duration>",
+            "object": "<temporizatorul>[ ([<de> ]<timer_start>|<din_zona>|[(<numit>|pentru) ]{timer_name:name})]"
+          }
+        },
+        {
+          "sentences": [
+            "[mai ](a(ș|s)teapt(ă|a)|stai) [(î|i)nc(ă|a) ]<timer_duration>[ ([dup(ă|a) ]<temporizatorul> ([<de> ]<timer_start>|<din_zona>|[(<numit>|pentru) ]{timer_name:name})|[(dup(ă|a)|pentru) ]{timer_name:name})]"
+          ]
+        }
+      ]
+    },
+    "HassLightSet": {
+      "data": [
+        {
+          "sentences": [
+            "[<seteaza> ]<luminozitatea> [<din>] <name> [la] [valoarea [de]] <brightness>",
+            "[<seteaza> ]<name> [la ]<luminozitatea>[ de] <brightness>",
+            "[<seteaza> ][<in> |la ]<brightness> <luminozitatea> [<din> ]<name>"
+          ],
+          "response": "brightness"
+        },
+        {
+          "sentences": [
+            "[<seteaza> ]<name> [la ][valoarea[ de] ]<brightness_percent>"
+          ],
+          "requires_context": {
+            "domain": "light"
+          },
+          "response": "brightness"
+        },
+        {
+          "sentences": [
+            "[<seteaza> ]<luminozitatea> [<din> ]<area> [la ][valoarea[ de] ]<brightness>",
+            "[<seteaza> ][<din> ]<area> [la ]<luminozitatea>[ de] <brightness>",
+            "[<seteaza> ][<in> | la]<brightness> <luminozitatea> [<din> ]<area>"
+          ],
+          "response": "brightness"
+        },
+        {
+          "sentences": [
+            "[<seteaza> ]<luminozitatea>[ [de ]aici] [la ][valoarea[ de] ]<brightness>",
+            "[<seteaza> ][<in> | la ]<brightness> <luminozitatea>[ [de ]aici]"
+          ],
+          "response": "brightness",
+          "requires_context": {
+            "area": {
+              "slot": true
+            }
+          }
+        },
+        {
+          "sentences": [
+            "[<seteaza> ]<luminozitatea> [<din> ]<name> [la ][valoarea[ de] ]{brightness_min_max:brightness}",
+            "[<seteaza> ]<name> [la ]<luminozitatea> [de ]{brightness_min_max:brightness}",
+            "[<seteaza> ][<in> | la ]{brightness_min_max:brightness} <luminozitatea> [<din> ]<name>"
+          ],
+          "response": "brightness_min_max"
+        },
+        {
+          "sentences": [
+            "[<seteaza> ]<name> [la ]{brightness_min_max:brightness}"
+          ],
+          "requires_context": {
+            "domain": "light"
+          },
+          "response": "brightness_min_max"
+        },
+        {
+          "sentences": [
+            "[<seteaza> ]<luminozitatea> [<din> ]<area> [la ][valoarea[ de] ]{brightness_min_max:brightness}",
+            "[<seteaza> ][<din> ]<area> [la ]<luminozitatea> [de ]{brightness_min_max:brightness}",
+            "[<seteaza> ][<in> | la ]{brightness_min_max:brightness} <luminozitatea> [<din> ]<area>"
+          ],
+          "response": "brightness_min_max"
+        },
+        {
+          "sentences": [
+            "[<seteaza> ]<luminozitatea>[ [de ]aici] [la ][valoarea[ de] ]{brightness_min_max:brightness}",
+            "[<seteaza> ][<in> | la ]{brightness_min_max:brightness} <luminozitatea>[ [de ]aici]"
+          ],
+          "response": "brightness_min_max",
+          "requires_context": {
+            "area": {
+              "slot": true
+            }
+          }
+        },
+        {
+          "sentences": [
+            "[<seteaza> ][<culoarea> ][<din> ]<name> [<in> | la ][<culoarea> ]{color}",
+            "[<seteaza> ]<culoarea> [<in> | la ]{color} [<din> ]<name>",
+            "[<seteaza> ][<in> | la ]{color} [<culoarea> ][<din> ]<name>"
+          ],
+          "requires_context": {
+            "domain": "light"
+          },
+          "response": "color"
+        },
+        {
+          "sentences": [
+            "[<seteaza> ][<culoarea> ][<din> ]<area> [<in> | la ][<culoarea> ]{color}",
+            "[<seteaza> ]<culoarea> [<in> | la ]{color} [<din> ]<area>",
+            "[<seteaza> ][<in> | la ]{color} [<culoarea> ][<din> ]<area>"
+          ],
+          "response": "color"
+        },
+        {
+          "sentences": [
+            "[<seteaza> ]<culoarea>[ [de ]aici] [<in> | la ][<culoarea> ]{color}",
+            "[<seteaza> ]aici [<in> | la ][<culoarea> ]{color}",
+            "[<seteaza> ][<in> | la ]{color} [<culoarea> ][de ]aici"
+          ],
+          "response": "color",
+          "requires_context": {
+            "area": {
+              "slot": true
+            }
+          }
+        }
+      ]
+    },
+    "HassMediaNext": {
+      "data": [
+        {
+          "sentences": [
+            "[red(a|ă) ](<urmatorul>;(pies(a|ă)|melodi(e|a)|[video]clip[ul])) <din> <name>"
+          ],
+          "requires_context": {
+            "domain": "media_player"
+          }
+        },
+        {
+          "sentences": [
+            "[red(a|ă) ](<urmatorul>;(pies(a|ă)|melodi(e|a)|[video]clip[ul]))"
+          ],
+          "requires_context": {
+            "area": {
+              "slot": true
+            }
+          }
+        },
+        {
+          "sentences": [
+            "[red(a|ă) ](<urmatorul>;(pies(a|ă)|melodi(e|a)|[video]clip[ul])) <din_zona>"
+          ]
+        }
+      ]
+    },
+    "HassPauseTimer": {
+      "data": [
+        {
+          "sentences": [
+            "<suspenda_timer>"
+          ],
+          "expansion_rules": {
+            "object": "<temporizatorul>[ ([<de> ]<timer_start>|<din_zona>|[(<numit>|pentru) ]{timer_name:name})]"
+          }
+        }
+      ]
+    },
+    "HassDecreaseTimer": {
+      "data": [
+        {
+          "sentences": [
+            "<scade_amount_din_complement>"
+          ],
+          "expansion_rules": {
+            "amount": "<timer_duration>",
+            "object": "<temporizatorul>[ ([<de> ]<timer_start>|<din_zona>|[(<numit>|pentru) ]{timer_name:name})]"
+          }
+        },
+        {
+          "sentences": [
+            "{timer_name:name} trebuie[ s(ă|a) (fie[ gata]|(î|i)nceap(ă|a)|se termine)] (mai (repede|devreme);[cu ]<timer_duration>)"
+          ]
+        }
+      ]
+    },
+    "HassMediaPause": {
+      "data": [
+        {
+          "sentences": [
+            "([pune ]pauz(a|ă)|<opreste> (<temporar>[ redarea]|redarea)) [<din> ]<name>"
+          ],
+          "requires_context": {
+            "domain": "media_player"
+          }
+        },
+        {
+          "sentences": [
+            "([pune ]pauz(a|ă)|<opreste> (<temporar>[ redarea]|redarea))"
+          ],
+          "requires_context": {
+            "area": {
+              "slot": true
+            }
+          }
+        },
+        {
+          "sentences": [
+            "([pune ]pauz(a|ă)|<opreste> (<temporar>[ redarea]|redarea)) <din_zona>"
+          ]
+        }
+      ]
+    },
+    "HassUnpauseTimer": {
+      "data": [
+        {
+          "sentences": [
+            "<reia_timer> <temporizatorul>",
+            "<reia_timer> <temporizatorul> [<de> ]<timer_start>",
+            "<reia_timer> <temporizatorul> <din_zona>",
+            "<reia_timer> <temporizatorul> [(<numit>|pentru) ]{timer_name:name}"
+          ]
+        }
+      ]
+    },
+    "HassStartTimer": {
+      "data": [
+        {
+          "sentences": [
+            "[<porneste_timer> ]<temporizatorul> [<de> ]<timer_duration>",
+            "[<porneste_timer> ]<temporizatorul> ([<de> ]<timer_duration>;(<numit>|pentru) {timer_name:name})"
+          ]
+        },
+        {
+          "sentences": [
+            "({timer_command:conversation_command};((î|i)n|peste) <timer_duration>)"
+          ],
+          "response": "command"
+        }
+      ]
+    },
+    "HassClimateGetTemperature": {
+      "data": [
+        {
+          "sentences": [
+            "<ce_class_indica_name_in_zona>"
+          ],
+          "expansion_rules": {
+            "class_singular": "<temperatura>"
+          }
+        },
+        {
+          "sentences": [
+            "ce <temperatura> <este> <in> <area>",
+            "(care|<cat>) <este> <temperatura> <din_zona>",
+            "<cate> grade sunt <in> <area>",
+            "<cat_quant> (de <cald_frig>;<este>) <in> <area>",
+            "<este> <cald_frig> <in> <area>"
+          ]
+        },
+        {
+          "sentences": [
+            "ce <temperatura> <este>",
+            "(care|<cat>) <este> <temperatura>",
+            "<cate> grade sunt",
+            "<cat_quant> (de <cald_frig>;<este>)"
+          ],
+          "requires_context": {
+            "area": null
+          }
+        }
+      ]
+    },
+    "HassVacuumReturnToBase": {
+      "data": [
+        {
+          "sentences": [
+            "(trimite|(î|i)ntoarce) <name>[ ((i|î)napoi[ acas(a|ă)]|[(î|i)napoi ]la doc)]"
+          ],
+          "requires_context": {
+            "domain": "vacuum"
+          }
+        }
+      ]
+    },
+    "HassVacuumStart": {
+      "data": [
+        {
+          "sentences": [
+            "<porneste> <name>"
+          ],
+          "requires_context": {
+            "domain": "vacuum"
+          }
+        }
+      ]
+    },
+    "HassListAddItem": {
+      "data": [
+        {
+          "sentences": [
+            "adaug(ă|a) <item> (la|pe|<in>) <my_list>",
+            "pune <item> (pe|<in>) <my_list>"
+          ],
+          "response": "item_added",
+          "requires_context": {
+            "domain": "todo"
+          },
+          "expansion_rules": {
+            "my_list": "[lista[ mea] ]{name}",
+            "item": "{shopping_list_item:item}"
+          }
+        }
+      ]
+    },
+    "HassSetVolume": {
+      "data": [
+        {
+          "sentences": [
+            "[<seteaza> ]<volumul> [<din>] <name> [<pana_la> ][valoarea[ de] ]<volume>",
+            "[<seteaza> ]<name> [<pana_la> ]<volumul> [de ]<volume>",
+            "[<seteaza> ][<in> | <pana_la> ]<volume> <volumul> [<din> ]<name>"
+          ],
+          "requires_context": {
+            "domain": "media_player"
+          }
+        },
+        {
+          "sentences": [
+            "[<seteaza> ]<volumul> [<pana_la> ][valoarea[ de] ]<volume>",
+            "[<seteaza> ][<pana_la> ]<volumul> [de ]<volume>",
+            "[<seteaza> ][<in> | <pana_la> ]<volume> <volumul>"
+          ],
+          "requires_context": {
+            "area": {
+              "slot": true
+            }
+          }
+        },
+        {
+          "sentences": [
+            "[<seteaza> ]<volumul> [<pana_la> ][valoarea[ de] ]<volume> <din_zona>",
+            "[<seteaza> ][<pana_la> ]<volumul> [de ]<volume> <din_zona>",
+            "[<seteaza> ][<in> | <pana_la> ]<volume> <volumul> <din_zona>"
+          ]
+        }
+      ]
+    }
+  },
+  "responses": {
+    "errors": {
+      "no_intent": "Îmi pare rău, nu am înțeles cererea. Poți, te rog, să repeți?",
+      "handle_error": "Îmi pare rău, a intervenit o eroare în timpul procesării cererii",
+      "entity_wrong_state": "Îmi pare rău, niciun dispozitiv nu este {{ state | lower }}",
+      "feature_not_supported": "Îmi pare rău, niciun dispozitiv nu permite operațiunea",
+      "no_area": "Îmi pare rău, nu cunosc niciun spațiu numit {{ area }}",
+      "no_floor": "Îmi pare rău, nu cunosc niciun nivel numit {{ floor }}",
+      "no_domain": "Îmi pare rău, nu știu să existe {{ domain }}",
+      "no_domain_in_area": "Îmi pare rău, nu știu să existe {{ domain }} în spațiul {{ area }}",
+      "no_domain_in_floor": "Îmi pare rău, nu știu să existe {{ domain }} la nivelul {{ floor }}",
+      "no_device_class": "Îmi pare rău, nu știu să existe {{ device_class }}",
+      "no_device_class_in_area": "Îmi pare rău, nu știu să existe {{ device_class }} în spațiul {{ area }}",
+      "no_device_class_in_floor": "Îmi pare rău, nu știu să existe {{ device_class }} la nivelul {{ floor }}",
+      "no_entity": "Îmi pare rău, nu cunosc nicio entitate numită {{ entity }}",
+      "no_entity_in_area": "Îmi pare rău, nu cunosc nicio entitate numită {{ entity }} în spațiul {{ area }}",
+      "no_entity_in_floor": "Îmi pare rău, nu cunosc nicio entitate numită {{ entity }} la nivelul {{ floor }}",
+      "no_entity_exposed": "Îmi pare rău, mai întâi trebuie sa expui {{ entity }}",
+      "no_entity_in_area_exposed": "Îmi pare rău, mai întâi trebuie să expui {{ entity }} din spațiul {{ area }}",
+      "no_entity_in_floor_exposed": "Îmi pare rău, mai întâi trebuie să expui {{ entity }} de la nivelul {{ floor }}",
+      "no_domain_exposed": "Îmi pare rău, nu există dispozitive expuse de tip {{ domain }}",
+      "no_domain_in_area_exposed": "Îmi pare rău, nu există dispozitive expuse de tip {{ domain }} în spațiul {{ area }}",
+      "no_domain_in_floor_exposed": "Îmi pare rău, nu există dispozitive expuse de tip {{ domain }} la nivelul {{ floor }}",
+      "no_device_class_exposed": "Îmi pare rău, nu există dispozitive expuse de tip {{ device_class }}",
+      "no_device_class_in_area_exposed": "Îmi pare rău, nu există dispozitive expuse de tip {{ device_class }} în spațiul {{ area }}",
+      "no_device_class_in_floor_exposed": "Îmi pare rău, nu există dispozitive expuse de tip {{ device_class }} la nivelul {{ floor }}",
+      "duplicate_entities": "Îmi pare rău, există mai multe entități numite {{ entity }}",
+      "duplicate_entities_in_area": "Îmi pare rău, există mai multe entități numite {{ entity }} în spațiul {{ area }}",
+      "duplicate_entities_in_floor": "Îmi pare rău, există mai multe entități numite {{ entity }} la nivelul {{ floor }}",
+      "timer_not_found": "Îmi pare rău, nu am găsit acel temporizator",
+      "multiple_timers_matched": "Îmi pare rău, nu pot opera doar cu mai multe temporizatoare deodată",
+      "no_timer_support": "Îmi pare rău, acest dispozitiv nu admite temporizatoare"
+    },
+    "intents": {
+      "HassGetState": {
+        "default": "{{ state.state_with_unit }}",
+        "one": "{{ slots.name | capitalize }} este {{ state.state_with_unit }}",
+        "one_yesno": "{% if query.matched: %}\nDa\n{% else: %}\nNu, ci {{ state.state_with_unit }}\n{% endif %}\n",
+        "any": "{% if query.matched %}\n  {% set match = query.matched | map(attribute=\"name\") | sort | list %}\n  {% if match | length > 4 %}\n    Da, {{ match[:3] | join(\", \") }} și încă {{ (match | length - 3) }}\n  {%- else -%}\n    Da,\n    {% for name in match -%}\n      {% if not loop.first and not loop.last %}, {% elif loop.last and not loop.first %} și {% endif -%}\n      {{ name }}\n    {%- endfor -%}\n  {% endif %}\n{% else %}\n  Nu\n{% endif %}\n",
+        "all": "{% if not query.unmatched: %}\n  Da\n{% else %}\n  {% set no_match = query.unmatched | map(attribute=\"name\") | sort | list %}\n  {% if no_match | length > 4 %}\n    Nu, {{ no_match[:3] | join(\", \") }} și încă {{ (no_match | length - 3) }} nu sunt {{ slots.state }}\n  {%- else -%}\n    Nu,\n    {% for name in no_match -%}\n      {% if not loop.first and not loop.last %}, {% elif loop.last and not loop.first %} și {% endif -%}\n      {{ name }}\n    {%- endfor %} nu{{ '' if (query.unmatched|length) == 1 else ' sunt' }}\n  {% endif %}\n{% endif %}\n",
+        "which": "{% if not query.matched %}\n  Nu există niciun astfel de element\n{% else: %}\n  {% set match = query.matched | map(attribute=\"name\") | sort | list %}\n  {% if match | length > 4 %}\n    {{ match[:3] | join(\", \") }} și încă {{ (match | length - 3) }}\n  {% else %}\n    {%- for name in match -%}\n      {% if not loop.first and not loop.last %}, {% elif loop.last and not loop.first %} și {% endif -%}\n      {{ name }}\n    {%- endfor -%}\n  {% endif %}\n{% endif %}\n",
+        "how_many": "{{ query.matched | length }}\n",
+        "where": "{% if state.state == \"not_home\" %}\n  {{ slots.name | capitalize }} nu este acasă\n{% elif state.state == \"home\" %}\n  {{ slots.name | capitalize }} este acasă\n{% else %}\n  {{ slots.name | capitalize }} este la {{ state.state }}\n{% endif %}\n"
+      },
+      "HassTurnOff": {
+        "default": "Am oprit {{ slots.name }}",
+        "light": "Am stins lumina",
+        "lights_area": "Am stins luminile",
+        "lights_floor": "Am stins luminile",
+        "fans_area": "Am oprit ventilatoarele",
+        "cover": "Am închis",
+        "covers_area": "Am închis {{ slots.device_class }}",
+        "valve": "Am închis"
+      },
+      "HassStartTimer": {
+        "default": "Am pornit temporizatorul",
+        "command": "Mă voi ocupa"
+      },
+      "HassShoppingListAddItem": {
+        "item_added": "Am adăugat {{ slots.item }}"
+      },
+      "HassTurnOn": {
+        "default": "Am pornit {{ slots.name }}",
+        "light": "Am aprins lumina",
+        "lights_area": "Am aprins luminile",
+        "lights_floor": "Am aprins luminile",
+        "fans_area": "Am pornit ventilatoarele",
+        "cover": "Am deschis",
+        "covers_area": "Am deschis {{ slots.device_class }}",
+        "scene": "Am activat",
+        "script": "Am pornit",
+        "valve": "Am deschis"
+      },
+      "HassMediaPause": {
+        "default": "Am pus pauză"
+      },
+      "HassGetCurrentTime": {
+        "default": "{{ slots.time.hour }} {% if slots.time.minute == 0: %} fix {% else: %} și {{ slots.time.minute }} {{ 'minut' if slots.time.minute == 1 else 'minute' if slots.time.minute < 20 else 'de minute' }} {% endif %}\n"
+      },
+      "HassPauseTimer": {
+        "default": "Am pus pe pauză temporizatorul"
+      },
+      "HassTimerStatus": {
+        "default": "{% set num_timers = slots.timers | length %}\n{% set active_timers = slots.timers | selectattr('is_active') | list %}\n{% set num_active_timers = active_timers | length %}\n{% set paused_timers = slots.timers | rejectattr('is_active') | list %}\n{% set num_paused_timers = paused_timers | length %}\n{% set next_timer = None %}\n\n{% if num_timers == 0: %}\n  Nu există temporizatoare.\n{% elif num_active_timers == 0: %}\n  {# No active timers #}\n  {% if num_paused_timers == 1: %}\n    {% set next_timer = paused_timers[0] %}\n    Temporizatorul este în pauză.\n  {% else: %}\n    {{ num_paused_timers }} temporizatoare oprit temporar.\n  {% endif %}\n{% else: %}\n  {# At least one active timer #}\n  {% if num_active_timers == 1: %}\n    {% set next_timer = active_timers[0] %}\n  {% else: %}\n    {# Get active timer that will finish soonest #}\n    {% set sorted_timers = active_timers | sort(attribute='total_seconds_left') %}\n    {% set next_timer = sorted_timers[0] %}\n    {{ num_active_timers }} temporizatoare pornite.\n  {% endif %}\n\n  {% if num_paused_timers == 1: %}\n    Un temporizator oprit temporar.\n  {% elif num_paused_timers > 0: %}\n    {{ num_paused_timers }} temporizatoare oprite temporar.\n  {% endif %}\n{% endif %}\n\n{% if next_timer: %}\n  Mai durează\n\n  {# At least one active timer #}\n  {% if (next_timer.rounded_hours_left == 1) and (next_timer.rounded_minutes_left > 0): %}\n    O oră și {{ next_timer.rounded_minutes_left }} {{ 'de ' if next_timer.rounded_minutes_left > 0 and next_timer.rounded_minutes_left % 100 | abs >= 20 }}minute\n  {% elif (next_timer.rounded_hours_left == 1): %}\n    O oră\n  {% elif (next_timer.rounded_hours_left > 1) and (next_timer.rounded_minutes_left > 0): %}\n    {{ next_timer.rounded_hours_left }} ore și {{ next_timer.rounded_minutes_left }} {{ 'de ' if next_timer.rounded_minutes_left > 0 and next_timer.rounded_minutes_left % 100 | abs >= 20 }}minute\n  {% elif (next_timer.rounded_hours_left > 1): %}\n    {{ next_timer.rounded_hours_left }} ore\n  {% elif (next_timer.rounded_minutes_left == 1) and (next_timer.rounded_seconds_left > 0): %}\n    Un minut și {{ next_timer.rounded_seconds_left }} {{ 'de ' if next_timer.rounded_seconds_left > 0 and next_timer.rounded_seconds_left % 100 | abs >= 20 }}secunde\n  {% elif (next_timer.rounded_minutes_left == 1): %}\n    Un minut\n  {% elif (next_timer.rounded_minutes_left > 1) and (next_timer.rounded_seconds_left > 0): %}\n    {{ next_timer.rounded_minutes_left }} {{ 'de ' if next_timer.rounded_minutes_left > 0 and next_timer.rounded_minutes_left % 100 | abs >= 20 }}minute și {{ next_timer.rounded_seconds_left }} {{ 'de ' if next_timer.rounded_seconds_left > 0 and next_timer.rounded_seconds_left % 100 | abs >= 20 }}secunde\n  {% elif (next_timer.rounded_minutes_left > 1): %}\n    {{ next_timer.rounded_minutes_left }} {{ 'de ' if next_timer.rounded_minutes_left > 0 and next_timer.rounded_minutes_left % 100 | abs >= 20 }}minute\n  {% elif (next_timer.rounded_seconds_left == 1): %}\n    O secundă\n  {% elif (next_timer.rounded_seconds_left > 1): %}\n    {{ next_timer.rounded_seconds_left }} {{ 'de ' if next_timer.rounded_seconds_left > 0 and next_timer.rounded_seconds_left % 100 | abs >= 20 }}secunde\n  {% endif %}\n\n  {% if num_timers > 1: %}\n    {# Give some extra information to disambiguate #}\n    până la finele temporizatorului de\n\n    {% if (next_timer.start_hours > 0) and (next_timer.start_minutes > 0): %}\n      {{ next_timer.start_hours }} ore și {{ next_timer.start_minutes }} {{ 'de ' if next_timer.start_minutes > 0 and next_timer.start_minutes % 100 | abs >= 20 }}minute\n    {% elif (next_timer.start_hours > 0): %}\n      {{ next_timer.start_hours }} ore\n    {% elif (next_timer.start_minutes > 0) and (next_timer.start_seconds > 0): %}\n      {{ next_timer.start_minutes }} {{ 'de ' if next_timer.start_minutes > 0 and next_timer.start_minutes % 100 | abs >= 20 }}minute și {{ next_timer.start_seconds }} {{ 'de ' if next_timer.start_seconds > 0 and next_timer.start_seconds % 100 | abs >= 20 }}secunde\n    {% elif (next_timer.start_minutes > 0): %}\n      {{ next_timer.start_minutes }}  {{ 'de ' if next_timer.start_minutes > 0 and next_timer.start_minutes % 100 | abs >= 20 }}minute\n    {% elif (next_timer.start_seconds > 0): %}\n      {{ next_timer.start_seconds }} {{ 'de ' if next_timer.start_seconds > 0 and next_timer.start_seconds % 100 | abs >= 20 }}secunde\n    {% endif %}\n\n    {% if next_timer.name: %}\n      {{ next_timer.name }}\n    {% elif next_timer.area: %}\n      din {{ next_timer.area }}\n    {% endif %}\n  {% endif %}\n{% endif %}\n"
+      },
+      "HassListAddItem": {
+        "item_added": "Am adăugat {{ slots.item }}"
+      },
+      "HassGetCurrentDate": {
+        "default": "{% set months = {\n   1: 'ianuarie',\n   2: 'februarie',\n   3: 'martie',\n   4: 'aprilie',\n   5: 'mai',\n   6: 'iunie',\n   7: 'iulie',\n   8: 'august',\n   9: 'septembrie',\n   10: 'octombrie',\n   11: 'noiembrie',\n   12: 'decembrie',\n} %} {{ slots.date.day if slots.date.day > 1 else 'întâi' }} {{ months[slots.date.month] }}, {{ slots.date.year }}\n"
+      },
+      "HassUnpauseTimer": {
+        "default": "Am repornit temporizatorul"
+      },
+      "HassGetWeather": {
+        "default": "{% set weather_condition = {\n  'clear': 'cu cer senin',\n  'clear-night': 'cu cer senin',\n  'cloudy': 'și înnorat',\n  'exceptional': 'și exceptional',\n  'fog': 'cu ceață',\n  'hail': 'cu grindină',\n  'lightning': 'cu descărcări electrice',\n  'lightning-rainy': 'cu ploaie însoțită de descărcări electrice',\n  'partlycloudy': 'și parțial noros',\n  'pouring': 'cu averse de ploaie',\n  'rainy': 'cu ploaie',\n  'snowy': 'cu ninsoare',\n  'snowy-rainy': 'cu lapoviță',\n  'sunny': 'și însorit',\n  'windy': 'cu intensificări ale vântului',\n  'windy-variant': 'înnorat, cu intensificări ale vântului'\n} %} {% set temperature = state.attributes.get('temperature') %} {% set temperature_ro = (temperature|string).replace(\".\", \",\") %} {% set temperature_num = temperature | float %} {% if temperature_num | abs == 1 %} {{ temperature_ro }} grad {% elif temperature_num == 0 or temperature_num % 1 != 0 or temperature_num % 100 | abs < 20 %} {{ temperature_ro }} grade {% else %} {{ temperature_ro }} de grade {% endif %} {{ weather_condition.get((state.state | string).lower(), \"\") }}\n"
+      },
+      "HassLightSet": {
+        "brightness": "Luminozitatea a fost modificată",
+        "brightness_min_max": "Luminozitatea a fost modificată la {{ '100%' if 'max' in slots.brightness else '1%' if 'min' in slots.brightness else '50%' }}",
+        "color": "Culoarea a fost modificată"
+      },
+      "HassVacuumStart": {
+        "default": "A pornit"
+      },
+      "HassMediaUnpause": {
+        "default": "Am repornit redarea"
+      },
+      "HassSetPosition": {
+        "default": "Am setat poziția"
+      },
+      "HassMediaNext": {
+        "default": "Redau următoarea piesă"
+      },
+      "HassCancelTimer": {
+        "default": "Am anulat temporizatorul"
+      },
+      "HassClimateGetTemperature": {
+        "default": "{% set temperature = state_attr(state.entity_id, 'current_temperature') %}\n{% set temperature_ro = (temperature|string).replace(\".\", \",\") %}\n{% set temperature_num = temperature | float %}\n{% if temperature_num | abs == 1 %}\n{{ temperature_ro }} grad\n{% elif temperature_num == 0 or temperature_num % 1 != 0 or temperature_num % 100 | abs < 20 %}\n{{ temperature_ro }} grade\n{% else %}\n{{ temperature_ro }} de grade\n{% endif %}\n"
+      },
+      "HassSetVolume": {
+        "default": "Am setat volumul"
+      },
+      "HassDecreaseTimer": {
+        "default": "Am actualizat temporizatorul"
+      },
+      "HassIncreaseTimer": {
+        "default": "Am actualizat temporizatorul"
+      },
+      "HassVacuumReturnToBase": {
+        "default": "Se întoarce"
+      }
+    }
+  },
+  "lists": {
+    "color": {
+      "values": [
+        {
+          "in": "alb",
+          "out": "white"
+        },
+        {
+          "in": "negru",
+          "out": "black"
+        },
+        {
+          "in": "ro(ș|s)u",
+          "out": "red"
+        },
+        {
+          "in": "(portocaliu|oranj)",
+          "out": "orange"
+        },
+        {
+          "in": "galben",
+          "out": "yellow"
+        },
+        {
+          "in": "verde",
+          "out": "green"
+        },
+        {
+          "in": "(albastru|bleu)",
+          "out": "blue"
+        },
+        {
+          "in": "(lila|violet|purpuriu|mov)",
+          "out": "purple"
+        },
+        {
+          "in": "maro",
+          "out": "brown"
+        }
+      ]
+    },
+    "brightness": {
+      "range": {
+        "type": "percentage",
+        "from": 0,
+        "to": 100
+      }
+    },
+    "brightness_min_max": {
+      "values": [
+        {
+          "in": "<maximum>",
+          "out": 100
+        },
+        {
+          "in": "<jumatate>",
+          "out": 50
+        },
+        {
+          "in": "<minimum>",
+          "out": 1
+        }
+      ]
+    },
+    "temperature": {
+      "range": {
+        "type": "temperature",
+        "from": -100,
+        "to": 100
+      }
+    },
+    "temperature_unit": {
+      "values": [
+        "celsius",
+        {
+          "in": "c",
+          "out": "celsius"
+        },
+        "fahrenheit",
+        {
+          "in": "f",
+          "out": "fahrenheit"
+        }
+      ]
+    },
+    "on_off_states_singular": {
+      "values": [
+        {
+          "in": "<pornit>",
+          "out": "on"
+        },
+        {
+          "in": "<oprit>",
+          "out": "off"
+        }
+      ]
+    },
+    "on_off_states_plural": {
+      "values": [
+        {
+          "in": "<pornite>",
+          "out": "on"
+        },
+        {
+          "in": "<oprite>",
+          "out": "off"
+        }
+      ]
+    },
+    "on_off_domains_singular": {
+      "values": [
+        {
+          "in": "<lumina>",
+          "out": "light"
+        },
+        {
+          "in": "<ventilatorul>",
+          "out": "fan"
+        },
+        {
+          "in": "<intrerupatorul>",
+          "out": "switch"
+        }
+      ]
+    },
+    "on_off_domains_plural": {
+      "values": [
+        {
+          "in": "<luminile>",
+          "out": "light"
+        },
+        {
+          "in": "<ventilatoarele>",
+          "out": "fan"
+        },
+        {
+          "in": "<intrerupatoarele>",
+          "out": "switch"
+        }
+      ]
+    },
+    "cover_states_singular": {
+      "values": [
+        {
+          "in": "<deschis>",
+          "out": "open"
+        },
+        {
+          "in": "<inchis>",
+          "out": "closed"
+        },
+        {
+          "in": "(î|i)n curs de (deschidere|ridicare)",
+          "out": "opening"
+        },
+        {
+          "in": "(î|i)n curs de (inchidere|coborâre)",
+          "out": "closing"
+        }
+      ]
+    },
+    "cover_states_plural": {
+      "values": [
+        {
+          "in": "<deschise>",
+          "out": "open"
+        },
+        {
+          "in": "<inchise>",
+          "out": "closed"
+        },
+        {
+          "in": "(î|i)n curs de (deschidere|ridicare)",
+          "out": "opening"
+        },
+        {
+          "in": "(î|i)n curs de (inchidere|coborâre)",
+          "out": "closing"
+        }
+      ]
+    },
+    "cover_classes_singular": {
+      "values": [
+        {
+          "in": "copertin(ă|a)",
+          "out": "awning"
+        },
+        {
+          "in": "jaluzea[ua]",
+          "out": "blind"
+        },
+        {
+          "in": "perdea[ua]",
+          "out": "curtain"
+        },
+        {
+          "in": "<usa>",
+          "out": "door"
+        },
+        {
+          "in": "u(ș|s)a (de la garaj|garajului)",
+          "out": "garage"
+        },
+        {
+          "in": "<poarta>",
+          "out": "gate"
+        },
+        {
+          "in": "draperi(e|a)",
+          "out": "shade"
+        },
+        {
+          "in": "(rulou[l]|oblon[ul])",
+          "out": "shutter"
+        },
+        {
+          "in": "<fereastra>",
+          "out": "window"
+        }
+      ]
+    },
+    "cover_classes_plural": {
+      "values": [
+        {
+          "in": "copertine[le]",
+          "out": "awning"
+        },
+        {
+          "in": "jaluzele[le]",
+          "out": "blind"
+        },
+        {
+          "in": "perdele[le]",
+          "out": "curtain"
+        },
+        {
+          "in": "<usile>",
+          "out": "door"
+        },
+        {
+          "in": "u(ș|s)ile (de la garaj|garajului)",
+          "out": "garage"
+        },
+        {
+          "in": "<portile>",
+          "out": "gate"
+        },
+        {
+          "in": "draperii[le]",
+          "out": "shade"
+        },
+        {
+          "in": "(rulouri[le]|obloane[le])",
+          "out": "shutter"
+        },
+        {
+          "in": "<ferestrele>",
+          "out": "window"
+        }
+      ]
+    },
+    "lock_states_singular": {
+      "values": [
+        {
+          "in": "<incuiat>",
+          "out": "locked"
+        },
+        {
+          "in": "<descuiat>",
+          "out": "unlocked"
+        }
+      ]
+    },
+    "lock_states_plural": {
+      "values": [
+        {
+          "in": "<incuiate>",
+          "out": "locked"
+        },
+        {
+          "in": "<descuiate>",
+          "out": "unlocked"
+        }
+      ]
+    },
+    "bs_detection_states_singular": {
+      "values": [
+        {
+          "in": "<detectat>",
+          "out": "on"
+        },
+        {
+          "in": "<nedetectat>",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_detection_states_plural": {
+      "values": [
+        {
+          "in": "<detectate>",
+          "out": "on"
+        },
+        {
+          "in": "<nedetectate>",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_detection_states_active": {
+      "values": [
+        {
+          "in": "(detecteaz(ă|a)|simt[e]|indic(ă|a))",
+          "out": "on"
+        },
+        {
+          "in": "a[u] (detectat|sim(ț|t)it|indicat)",
+          "out": "on"
+        },
+        {
+          "in": "nu (detecteaz(ă|a)|simt[e]|indic(ă|a))",
+          "out": "off"
+        },
+        {
+          "in": "nu a[u] (detectat|sim(ț|t)it|indicat)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_battery_states_singular": {
+      "values": [
+        {
+          "in": "descarcat(ă|a)",
+          "out": "on"
+        },
+        {
+          "in": "(normal(ă|a)|(î|i)nc(ă|a)rcat(ă|a))",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_battery_states_plural": {
+      "values": [
+        {
+          "in": "descarcate",
+          "out": "on"
+        },
+        {
+          "in": "(normale|(î|i)nc(ă|a)rcate)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_battery_charging_states": {
+      "values": [
+        {
+          "in": "(î|i)n curs de (î|i)nc(ă|a)rcare",
+          "out": "on"
+        },
+        {
+          "in": "la (î|i)nc(ă|a)rca(re|t)",
+          "out": "on"
+        },
+        {
+          "in": "(î|i)n curs de desc(ă|a)rcare",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_battery_charging_states_passive": {
+      "values": [
+        {
+          "in": "se (î|i)ncarc(ă|a)",
+          "out": "on"
+        },
+        {
+          "in": "se descarc(ă|a)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_cold_states": {
+      "values": [
+        {
+          "in": "<frig>",
+          "out": "on"
+        },
+        {
+          "in": "normal",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_cold_states_singular": {
+      "values": [
+        {
+          "in": "(rece|(î|i)nghe(ț|t)at[(ă|a)])",
+          "out": "on"
+        },
+        {
+          "in": "normal[(ă|a)]",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_cold_states_plural": {
+      "values": [
+        {
+          "in": "(reci|(î|i)nghe(ț|t)a((ț|t)i|te))",
+          "out": "on"
+        },
+        {
+          "in": "normal(i|e)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_connectivity_states_singular": {
+      "values": [
+        {
+          "in": "conectat[(ă|a)]",
+          "out": "on"
+        },
+        {
+          "in": "deconectat[(ă|a)]",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_connectivity_states_plural": {
+      "values": [
+        {
+          "in": "conecta((ț|t)i|te)",
+          "out": "on"
+        },
+        {
+          "in": "deconecta((ț|t)i|te)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_door_states_singular": {
+      "values": [
+        {
+          "in": "<deschis>",
+          "out": "on"
+        },
+        {
+          "in": "<inchis>",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_door_states_plural": {
+      "values": [
+        {
+          "in": "<deschise>",
+          "out": "on"
+        },
+        {
+          "in": "<inchise>",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_door_states_passive": {
+      "values": [
+        {
+          "in": "s-a[u] deschis",
+          "out": "on"
+        },
+        {
+          "in": "a[u] fost deschis[(ă|a|e)]",
+          "out": "on"
+        },
+        {
+          "in": "s-a[u] (î|i)nchis",
+          "out": "off"
+        },
+        {
+          "in": "a[u] fost (î|i)nchis[(ă|a|e)]",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_door_states_active": {
+      "values": [
+        {
+          "in": "am deschis",
+          "out": "on"
+        },
+        {
+          "in": "a deschis cineva",
+          "out": "on"
+        },
+        {
+          "in": "am (î|i)nchis",
+          "out": "off"
+        },
+        {
+          "in": "a (î|i)nchis cineva",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_heat_states": {
+      "values": [
+        {
+          "in": "<cald>",
+          "out": "on"
+        },
+        {
+          "in": "normal",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_heat_states_singular": {
+      "values": [
+        {
+          "in": "(cald[(ă|a)]|fierbinte|(î|i)ncins)",
+          "out": "on"
+        },
+        {
+          "in": "normal[(ă|a)]",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_heat_states_plural": {
+      "values": [
+        {
+          "in": "(cal(zi|de)|fierbin(ț|t)i|(î|i)ncin((ș|s)i|se))",
+          "out": "on"
+        },
+        {
+          "in": "normal(i|e)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_lock_states_singular": {
+      "values": [
+        {
+          "in": "<descuiat>",
+          "out": "on"
+        },
+        {
+          "in": "<incuiat>",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_lock_states_plural": {
+      "values": [
+        {
+          "in": "<descuiate>",
+          "out": "on"
+        },
+        {
+          "in": "<incuiate>",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_lock_states_passive": {
+      "values": [
+        {
+          "in": "s-a[u] descuiat",
+          "out": "on"
+        },
+        {
+          "in": "s-a[u] (î|i)ncuiat",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_lock_states_active": {
+      "values": [
+        {
+          "in": "am descuiat",
+          "out": "on"
+        },
+        {
+          "in": "a descuiat cineva",
+          "out": "on"
+        },
+        {
+          "in": "am (î|i)ncuiat",
+          "out": "off"
+        },
+        {
+          "in": "a (î|i)ncuiat cineva",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_moisture_states_singular": {
+      "values": [
+        {
+          "in": "u[me]d[(ă|a)]",
+          "out": "on"
+        },
+        {
+          "in": "inundat(ă|a)",
+          "out": "on"
+        },
+        {
+          "in": "uscat[(ă|a)]",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_moisture_states_plural": {
+      "values": [
+        {
+          "in": "u[me](zi|de)",
+          "out": "on"
+        },
+        {
+          "in": "inunda((ț|t)i|te)",
+          "out": "on"
+        },
+        {
+          "in": "usca((ț|t)i|te)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_moisture_states_passive": {
+      "values": [
+        {
+          "in": "s-a[u] (udat|umezit)",
+          "out": "on"
+        },
+        {
+          "in": "s-a[u] inundat",
+          "out": "on"
+        },
+        {
+          "in": "s-a[u] uscat",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_plug_states_singular": {
+      "values": [
+        {
+          "in": "(conectat[(ă|a)][ la priz(ă|a)]|[(b(ă|a)gat[(ă|a)]|introdus[(ă|a)]) ]<in> priz(ă|a))",
+          "out": "on"
+        },
+        {
+          "in": "(deconectat[(ă|a)][ de la priz(ă|a)]|(scos|scoas(ă|a)) din priz(ă|a))",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_plug_states_plural": {
+      "values": [
+        {
+          "in": "(conecta((ț|t)i|te)[ la priz(ă|a)]|[(b(ă|a)ga((ț|t)i|te)|introdu((ș|s)i|se)) ]<in> priz(ă|a))",
+          "out": "on"
+        },
+        {
+          "in": "(deconecta((ț|t)i|te)[ de la priz(ă|a)]|(sco(ș|s)i|scoase) din priz(ă|a))",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_power_states_singular": {
+      "values": [
+        {
+          "in": "(alimentat[(ă|a)]|sub tensiune|[(b(ă|a)gat[(ă|a)]|introdus[(ă|a)]) ]<in> priz(ă|a))",
+          "out": "on"
+        },
+        {
+          "in": "(nealimentat[(ă|a)]|(scos|scoas(ă|a)) din priz(ă|a))",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_power_states_plural": {
+      "values": [
+        {
+          "in": "(alimenta((ț|t)i|te)|sub tensiune|[(b(ă|a)ga((ț|t)i|te)|introdu((ș|s)i|se)) ]<in> priz(ă|a))",
+          "out": "on"
+        },
+        {
+          "in": "(nealimentat((ț|t)i|te)|(sco(ș|s)i|scoase) din priz(ă|a))",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_presence_states": {
+      "values": [
+        {
+          "in": "(acas(ă|a)|prezent[(ă|a)])",
+          "out": "on"
+        },
+        {
+          "in": "(plecat[(ă|a)]|absent[(ă|a)])",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_running_states_singular": {
+      "values": [
+        {
+          "in": "(pornit[(ă|a)]|(î|i)n [curs de ](rulare|desf(ă|a)(ș|s)urare))",
+          "out": "on"
+        },
+        {
+          "in": "((î|i)n repaus|oprit[(ă|a)])",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_running_states_plural": {
+      "values": [
+        {
+          "in": "(porni((ț|t)i|te)|(î|i)n [curs de ](rulare|desf(ă|a)(ș|s)urare))",
+          "out": "on"
+        },
+        {
+          "in": "((î|i)n repaus|opri((ț|t)i|te))",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_running_states_active": {
+      "values": [
+        {
+          "in": "ruleaz(ă|a)",
+          "out": "on"
+        },
+        {
+          "in": "s-a[u] oprit",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_safety_states": {
+      "values": [
+        {
+          "in": "nesigur",
+          "out": "on"
+        },
+        {
+          "in": "sigur",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_tamper_states": {
+      "values": [
+        {
+          "in": "vandalizat",
+          "out": "on"
+        },
+        {
+          "in": "(normal|nevandalizat)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_vibration_states_active": {
+      "values": [
+        {
+          "in": "vibreaz(ă|a)",
+          "out": "on"
+        },
+        {
+          "in": "nu vibreaz(ă|a)",
+          "out": "off"
+        }
+      ]
+    },
+    "shopping_list_item": {
+      "wildcard": true
+    },
+    "zone": {
+      "wildcard": true
+    },
+    "position": {
+      "range": {
+        "type": "percentage",
+        "from": 0,
+        "to": 100
+      }
+    },
+    "volume": {
+      "range": {
+        "type": "percentage",
+        "from": 0,
+        "to": 100
+      }
+    },
+    "timer_seconds": {
+      "range": {
+        "from": 1,
+        "to": 100
+      }
+    },
+    "timer_minutes": {
+      "range": {
+        "from": 1,
+        "to": 100
+      }
+    },
+    "timer_hours": {
+      "range": {
+        "from": 1,
+        "to": 100
+      }
+    },
+    "timer_name": {
+      "wildcard": true
+    },
+    "timer_command": {
+      "wildcard": true
+    }
+  },
+  "expansion_rules": {
+    "area": "[(zona|regiunea|spa(ț|t)iul) ]{area}",
+    "floor": "[(etajul|nivelul) ]{floor}",
+    "brightness": "{brightness}<la_suta>",
+    "brightness_percent": "{brightness}<la_suta>",
+    "temperature": "{temperature}[ ][[de ]grad[e]][[ ]{temperature_unit}]",
+    "position": "{position}<la_suta>",
+    "volume": "{volume:volume_level}<la_suta>",
+    "name": "({name})",
+    "class_singular": "<class>",
+    "class_plural": "<class>",
+    "state": "{on_off_states_singular:state}",
+    "state_singular": "<state>",
+    "state_plural": "<state>",
+    "object_singular": "<object>",
+    "object_plural": "<object>",
+    "verb_state": "<este> <state_singular>",
+    "maximum": "(maxim[(ă|a|um)][ posibil[(ă|a)]])",
+    "jumatate": "(jum(ă|a)tate|jumate)",
+    "minimum": "(minim[(ă|a|um)][ posibil[(ă|a)]])",
+    "toti": "(toate|to(ț|t)i)",
+    "la_suta": "[ ][(%|la sut(ă|a)|[de ]procent[e])]",
+    "temporar": "(temporar|pu(ț|t)in|un pic|pentru moment|deocamdat(ă|a))",
+    "ore": "([de ]ore|or(ă|a))",
+    "minute": "([de ]minute|minut)",
+    "secunde": "([de ]secunde|secund(ă|a))",
+    "timer_duration_seconds": "{timer_seconds:seconds} <secunde>",
+    "timer_duration_minutes": "{timer_minutes:minutes} <minute>[ [(ș|s)i ]{timer_seconds:seconds} <secunde>]",
+    "timer_duration_hours": "{timer_hours:hours} <ore>[ [(ș|s)i ]{timer_minutes:minutes} <minute>][ [(ș|s)i ]{timer_seconds:seconds} <secunde>]",
+    "timer_duration": "<timer_duration_seconds>|<timer_duration_minutes>|<timer_duration_hours>",
+    "timer_start_seconds": "{timer_seconds:start_seconds} <secunde>",
+    "timer_start_minutes": "{timer_minutes:start_minutes} <minute>[ [(ș|s)i ]{timer_seconds:start_seconds} <secunde>]",
+    "timer_start_hours": "{timer_hours:start_hours} <ore>[ [(ș|s)i ]{timer_minutes:start_minutes} <minute>][ [(ș|s)i ]{timer_seconds:start_seconds} <secunde>]",
+    "timer_start": "<timer_start_seconds>|<timer_start_minutes>|<timer_start_hours>",
+    "este": "e[ste]",
+    "exista": "(<este>|exist(ă|a))",
+    "exista_vreun": "<exista> <vreun>",
+    "porneste": "(start|porne(ș|s)te|deschide|aprinde|activeaz(ă|a))",
+    "opreste": "(stop|opre(ș|s)te|(î|i)nchide|stinge|dezactiveaz(ă|a))",
+    "porneste_timer": "(start|porne(ș|s)te|activeaz(ă|a))",
+    "opreste_timer": "(stop|opre(ș|s)te|dezactiveaz(ă|a)|anuleaz(ă|a))",
+    "reia_timer": "(re<porneste_timer>|reia)",
+    "seteaza": "(seteaz(ă|a)|pune|a[d]justeaz(ă|a)|schimb(ă|a)|modific(ă|a))",
+    "deschide": "(deschide|ridic(ă|a))",
+    "inchide": "((î|i)nchide|coboar(ă|a))",
+    "ruleaza": "(ruleaz(ă|a)|start|porne(ș|s)te|activeaz(ă|a))",
+    "cate": "(c(â|a)te|c(â|a)(ț|t)i)",
+    "cat_quant": "(c(â|a)t)",
+    "cat": "(<cat_quant>|cum)",
+    "care": "(care|ce)",
+    "in": "((î|i)n)",
+    "din": "(din|(î|i)n|pentru|[de ]la|[de ]pe|de)",
+    "la": "(la|(î|i)n)",
+    "pana_la": "([p(â|a)n(ă|a) ]la)",
+    "de": "([(î|i)n valoare ]de|pentru)",
+    "pornit": "(pornit[(ă|a)]|deschis[(ă|a)]|aprins[(ă|a)]|activat[(ă|a)])",
+    "pornite": "(porni((ț|t)i|te)|deschi((ș|s)i|se)|aprin((ș|s)i|se)|activa((ț|t)i|te))",
+    "oprit": "(oprit[(ă|a)]|(î|i)nchis[(ă|a)]|stins[(ă|a)]|dezactivat[(ă|a)])",
+    "oprite": "(opri((ț|t)i|te)|(î|i)nchi((ș|s)i|se)|stin((ș|s)i|se)|dezactiva((ț|t)i|te))",
+    "deschis": "(deschis[(ă|a)]|ridicat[(ă|a)])",
+    "deschise": "(deschi((ș|s)i|se)|ridica((ț|t)i|te))",
+    "inchis": "((î|i)nchis[(ă|a)]|coboar(â|a)t[(ă|a)])",
+    "inchise": "((î|i)nchi((ș|s)i|se)|coboar(â|a)((ț|t)i|te))",
+    "detectat": "(detectat[(ă|a)]|prezent[(ă|a)]|observabil[(ă|a)])",
+    "detectate": "(detecta((ț|t)i|te)|prezen((ț|t)i|te)|observabil(i|e))",
+    "nedetectat": "(nedetectat[(ă|a)]|absent[(ă|a)]|neobservabil[(ă|a)]|liber[(ă|a)])",
+    "nedetectate": "(nedetecta((ț|t)i|te)|absen((ț|t)i|te)|neobservabil(i|e)|liber(i|e))",
+    "descuiat": "descuiat[(ă|a)]",
+    "descuiate": "descuia((ț|t)i|te)",
+    "incuiat": "(î|i)ncuiat[(ă|a)]",
+    "incuiate": "(î|i)ncuia((ț|t)i|te)",
+    "cald": "(cald|c(ă|a)ldur(ă|a)|fierbinte|(î|i)ncins)",
+    "frig": "(frig|rece|r(ă|a)coare)",
+    "cald_frig": "(<cald>|<frig>)",
+    "lumina": "(lumin(ă|a)|bec[ul])",
+    "luminile": "(lumini[le]|becuri[le])",
+    "ventilatorul": "(ventilator[ul]|aerisire[a])",
+    "ventilatoarele": "(ventilatoare[le]|aerisiri[le])",
+    "intrerupatorul": "((î|i)ntrerup(ă|a)tor[ul]|comutator[ul])",
+    "intrerupatoarele": "((î|i)ntrerup(ă|a)toare[le]|comutatoare[le])",
+    "temporizatorul": "(un temporizator|temporizator[ul]|o temporizare|temporizare[a]|un cronometru|cronometru[l])",
+    "temporizatorului": "(temporizatorului|temporiz(ă|a)rii|cronometrului)",
+    "luminozitatea": "(luminozitate[a])",
+    "culoarea": "(culoare[a])",
+    "temperatura": "(temperatur(ă|a))",
+    "pozitia": "(pozi(t|ț)i(e|a))",
+    "volumul": "(volum[ul])",
+    "dispozitiv": "(dispozitiv[ul]|senzor[ul]|entitate[a]|obiect[ul])",
+    "dispozitive": "(dispozitive[le]|senzori[i]|entit(ăț|at)i[le]|obiecte[le])",
+    "fereastra": "(fereastr(ă|a)|geam[ul])",
+    "ferestrele": "(ferestre[le]|geamuri[le])",
+    "usa": "u(ș|s)(ă|a)",
+    "usile": "u(ș|s)i[le]",
+    "poarta": "poart(ă|a)",
+    "portile": "por(ț|t)i[le]",
+    "incuietoarea": "((î|i)ncuietoare[a]|lac(ă|a)t[ul]|yal(ă|a)|broasc(ă|a))",
+    "incuietorile": "((î|i)ncuietori[le]|lac(ă|a)te[le]|yale[le]|broa(ș|s)te[le])",
+    "vreun": "(vre(o|un))",
+    "din_zona": "<din> <area>",
+    "urmatorul": "(urm(a|ă)to(are[a]|r[ul]))",
+    "precedentul": "(precedent(a|ă|[ul]))",
+    "numit": "(numit[(ă|a)]|cu numele|pe nume|intitulat[(ă|a)])",
+    "suspenda_timer": "((opre(ș|s)te|dezactiveaz(ă|a)) <temporar> <object>|suspend(ă|a) <object>|pune [<temporar> ][pe ]pauz(ă|a) [la ]<object>)",
+    "adauga_amount_la_complement": "(adaug(ă|a) (<amount>;<la> <object>)|(cre(ș|s)te|m(ă|a)re(ș|s)te) (cu <amount>;<object>))",
+    "scade_amount_din_complement": "(scade (<amount>;<din> <object>)|(mic(ș|s)oreaz(ă|a)|redu) (cu <amount>;<object>))",
+    "name_dinZona_verbState": "(<name>[ <din_zona>]; <verb_state>)",
+    "name_dinZona_este_state": "(<name>[ <din_zona>]; (<este> <state_singular>|sunt <state_plural>))",
+    "name_class_dinZona_verbState": "([<class>[ <din>] ]<name>[ <din_zona>]; <verb_state>)",
+    "name_class_dinZona_este_state_singular": "([<class_singular>[ <din>] ]<name>[ <din_zona>]; <este> <state_singular>)",
+    "name_class_dinZona_este_state_plural": "([<class_plural>[ <din>] ]<name>[ <din_zona>]; sunt <state_plural>)",
+    "name_class_dinZona_este_state": "(<name_class_dinZona_este_state_singular>|<name_class_dinZona_este_state_plural>)",
+    "name_detecteaza_object_in_zona": "(({bs_detection_states_active:state}; <name>[ <din_zona>]) <object>|((<name>; {bs_detection_states_active:state}) <object>|{bs_detection_states_active:state} <object> <name>)[ <din_zona>])",
+    "name_detecteaza_object_in_zona_passive": "(<este> {bs_detection_states_singular:state} <object_singular>|sunt {bs_detection_states_plural:state} <object_plural>) [(<in>|de[ c(ă|a)tre]) ]<name>[ <din_zona>]",
+    "exista_class_state_in_zona": "(<exista> ([<vreun> ]<class_singular>;<state_singular>;[<din_zona>])|(sunt|exist(ă|a)) (<class_plural>;<state_plural>;[<din_zona>]))",
+    "exista_class_care_verbState_in_zona": "(<exista> ([<vreun> ]<class_singular>;[care ]<verb_state>;[<din_zona>])|(sunt|exist(ă|a)) (<class_plural>;[care ]<verb_state>;[<din_zona>]))",
+    "exista_object_detectat_in_zona_passive": "(<exista> ({bs_detection_states_singular:state};[<vreun> ]<object_singular>)|sunt ({bs_detection_states_plural:state}; <object_plural>))[ <din_zona>]",
+    "toate_class_sunt_state_in_zona": "(sunt ([<toti> ]<class_plural>;<state_plural>;[<din_zona>])|[<toti> ]<class_plural> (sunt <state_plural>;[<din_zona>]))",
+    "toate_class_verbState_in_zona": "([<toti> ]<class_plural>;<verb_state>;[<din_zona>])",
+    "care_class_este_state_in_zona": "(<care> (<class_singular> <este> <state_singular>|<class_plural> sunt <state_plural>)[ <din_zona>]|<care> (<class_singular> <din_zona> <este> <state_singular>|<class_plural> <din_zona> sunt <state_plural>))",
+    "care_class_verbState_in_zona": "<care> (<class_singular>|<class_plural>) (<verb_state>;[<din_zona>])",
+    "care_detecteaza_object_in_zona": "(cine|<care> (<dispozitiv>|<dispozitive>)) ({bs_detection_states_active:state} <object>;[<din_zona>])",
+    "cate_class_sunt_state_in_zona": "<cate> <class_plural> ((sunt;<state_plural>);[<din_zona>])",
+    "cate_class_verbState_in_zona": "<cate> <class_plural> (<verb_state>;[<din_zona>])",
+    "cate_detecteaza_object_in_zona": "<cate> <dispozitive> ({bs_detection_states_active:state} <object>;[<din_zona>])",
+    "ce_class_indica_name_in_zona": "((ce|c(â|a)t[(ă|a)]) <class_singular> (indic(ă|a)|m(ă|a)soar(ă|a)|arat(ă|a)|are) <name>[ <din_zona>]|(<care>|<cat>) <este> <class_singular> ((indicat[(ă|a)]|ar(ă|a)tat[(ă|a)]|m(ă|a)surat[(ă|a)]) de[ c(ă|a)tre]|(a[l][ lui]|lui)) <name>[ <din_zona>])"
+  },
+  "skip_words": [
+    "mulțumesc",
+    "multumesc",
+    "te rog",
+    "te rog frumos",
+    "merci",
+    "mersi"
+  ]
+}

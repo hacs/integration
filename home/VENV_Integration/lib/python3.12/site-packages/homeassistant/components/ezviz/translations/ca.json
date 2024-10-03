@@ -1,0 +1,267 @@
+{
+    "config": {
+        "abort": {
+            "already_configured_account": "El compte ja est\u00e0 configurat",
+            "ezviz_cloud_account_missing": "Falta el compte d'Ezviz Cloud. Torna'l a configurar",
+            "reauth_successful": "Re-autenticaci\u00f3 realitzada correctament",
+            "unknown": "Error inesperat"
+        },
+        "error": {
+            "cannot_connect": "Ha fallat la connexi\u00f3",
+            "invalid_auth": "Autenticaci\u00f3 inv\u00e0lida",
+            "invalid_host": "Nom de l'amfitri\u00f3 o adre\u00e7a IP inv\u00e0lids",
+            "mfa_required": "2FA habilitat al compte, desactiva'l i torna-ho a provar"
+        },
+        "flow_title": "{serial}",
+        "step": {
+            "confirm": {
+                "data": {
+                    "password": "Contrasenya",
+                    "username": "Nom d'usuari"
+                },
+                "description": "Introdueix les credencials RTSP de la c\u00e0mera Ezviz {serial} amb IP {ip_address}",
+                "title": "S'ha descobert una c\u00e0mera Ezviz"
+            },
+            "reauth_confirm": {
+                "data": {
+                    "password": "Contrasenya",
+                    "username": "Nom d'usuari"
+                },
+                "description": "Introdueix les credencials per tornar a autenticar al compte d'Ezviz Cloud",
+                "title": "L'autenticaci\u00f3 de {name} ha caducat"
+            },
+            "user": {
+                "data": {
+                    "password": "Contrasenya",
+                    "url": "URL",
+                    "username": "Nom d'usuari"
+                },
+                "title": "Connexi\u00f3 amb Ezviz Cloud"
+            },
+            "user_custom_url": {
+                "data": {
+                    "password": "Contrasenya",
+                    "url": "URL",
+                    "username": "Nom d'usuari"
+                },
+                "description": "Especifica manualment l'URL de teva regi\u00f3",
+                "title": "Connexi\u00f3 a l'URL d'Ezviz personalitzat"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "alarm_schedules_enabled": {
+                "name": "Programaci\u00f3 d'alarmes activada"
+            },
+            "encrypted": {
+                "name": "Xifrat"
+            }
+        },
+        "button": {
+            "ptz_down": {
+                "name": "PTZ avall"
+            },
+            "ptz_left": {
+                "name": "PTZ esquerra"
+            },
+            "ptz_right": {
+                "name": "PTZ dreta"
+            },
+            "ptz_up": {
+                "name": "PTZ amunt"
+            }
+        },
+        "image": {
+            "last_motion_image": {
+                "name": "\u00daltima imatge de moviment"
+            }
+        },
+        "light": {
+            "light": {
+                "name": "Llum"
+            }
+        },
+        "number": {
+            "detection_sensibility": {
+                "name": "Sensibilitat de detecci\u00f3"
+            }
+        },
+        "select": {
+            "alarm_sound_mode": {
+                "name": "So d'alerta",
+                "state": {
+                    "intensive": "Intensiu",
+                    "silent": "Silenci\u00f3s",
+                    "soft": "Suau"
+                }
+            }
+        },
+        "sensor": {
+            "alarm_sound_mod": {
+                "name": "Volum de l'alarma"
+            },
+            "last_alarm_pic": {
+                "name": "URL de la imatge de l'\u00faltima alarma"
+            },
+            "last_alarm_time": {
+                "name": "Hora de l'\u00faltima alarma"
+            },
+            "last_alarm_type_code": {
+                "name": "Codi de tipus de l'\u00faltima alarma"
+            },
+            "last_alarm_type_name": {
+                "name": "Nom del tipus de l'\u00faltima alarma"
+            },
+            "local_ip": {
+                "name": "IP local"
+            },
+            "pir_status": {
+                "name": "Estat del PIR"
+            },
+            "supported_channels": {
+                "name": "Canals compatibles"
+            },
+            "wan_ip": {
+                "name": "IP WAN"
+            }
+        },
+        "siren": {
+            "siren": {
+                "name": "Sirena"
+            }
+        },
+        "switch": {
+            "all_day_video_recording": {
+                "name": "Gravaci\u00f3 de v\u00eddeo durant tot el dia"
+            },
+            "audio": {
+                "name": "\u00c0udio"
+            },
+            "flicker_light_on_movement": {
+                "name": "Parpelleja la llum quan hi hagi moviment"
+            },
+            "follow_movement": {
+                "name": "Segueix el moviment"
+            },
+            "infrared_light": {
+                "name": "Llum infraroja"
+            },
+            "motion_tracking": {
+                "name": "Seguiment de moviment"
+            },
+            "pir_motion_activated_light": {
+                "name": "Llum activat per moviment PIR"
+            },
+            "privacy": {
+                "name": "Privacitat"
+            },
+            "status_light": {
+                "name": "Llum d'estat"
+            },
+            "tamper_alarm": {
+                "name": "Alarma de manipulaci\u00f3"
+            }
+        },
+        "update": {
+            "firmware": {
+                "name": "Microprogramari"
+            }
+        }
+    },
+    "issues": {
+        "service_deprecation_alarm_sound_level": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "El servei de volum d'alarma d'Ezviz est\u00e0 obsolet i s'eliminar\u00e0 de Home Assistant.\nPer fer configurar el volum de l'alarma, pots utilitzar el servei `select.select_option`amb una entitat de so d'alerta.\n\nElimina aquest servei de les teves automatitzacions i/o scripts i selecciona **Envia** per resoldre aquest problema."
+                    }
+                }
+            }
+        },
+        "service_depreciation_detection_sensibility": {
+            "description": "El servei de sensibilitat d'Ezviz Detection est\u00e0 obsolet i s'eliminar\u00e0 de Home Assistant a partir de la versi\u00f3 2023.12; modifica les automatitzacions o scripts que utilitzin el servei i, a continuaci\u00f3, selecciona Envia per marcar aquest problema com a resolt.",
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "El servei de sensibilitat Ezviz Detection est\u00e0 obsolet i s'eliminar\u00e0 a Home Assistant a la versi\u00f3 2023.12.\nPer configurar la sensibilitat, pots utilitzar el servei `number.set_value` amb l'entitat de sensibilitat de detecci\u00f3. \n\nElimina aquest servei de les teves automatitzacions i/o scripts i selecciona **Envia** per resoldre aquest problema.",
+                        "title": "El servei de sensibilitat d'Ezviz Detection s'est\u00e0 eliminant"
+                    }
+                }
+            },
+            "title": "El servei de sensibilitat d'Ezviz Detection s'est\u00e0 eliminant"
+        },
+        "service_depreciation_sound_alarm": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "El servei d'alarma Ezviz Sound est\u00e0 obsolet i s'eliminar\u00e0 de Home Assistant.\nPer fer sonar l'alarma, pots utilitzar el servei `siren.toggle` amb l'entitat de sirena.\n\nElimina l'\u00fas d'aquest servei de les teves automatitzacions i/o scripts i selecciona **Envia** per resoldre aquest problema.",
+                        "title": "El servei d'alarma Ezviz Sound s'est\u00e0 eliminant"
+                    }
+                }
+            },
+            "title": "El servei d'alarma Ezviz Sound s'est\u00e0 eliminant"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "ffmpeg_arguments": "Par\u00e0metres passats a ffmpeg per a les c\u00e0meres",
+                    "timeout": "Temps d'espera de la sol\u00b7licitud (segons)"
+                }
+            }
+        }
+    },
+    "services": {
+        "alarm_sound": {
+            "description": "Configura el volum del so d'alerta de moviment.",
+            "fields": {
+                "level": {
+                    "name": "Volum"
+                }
+            },
+            "name": "Configura el volum del so d'alerta."
+        },
+        "ptz": {
+            "fields": {
+                "direction": {
+                    "name": "Direcci\u00f3"
+                },
+                "speed": {
+                    "description": "Velocitat del moviment (d'1 a 9).",
+                    "name": "Velocitat"
+                }
+            },
+            "name": "PTZ"
+        },
+        "set_alarm_detection_sensibility": {
+            "description": "Configura el nivell de sensibilitat de detecci\u00f3.",
+            "fields": {
+                "level": {
+                    "description": "Nivell de sensibilitat 1 a 6 per al tipus 0 (c\u00e0mera normal) o, 1 a 100 per al tipus 3 (c\u00e0mera amb sensor PIR).",
+                    "name": "Nivell de sensibilitat"
+                },
+                "type_value": {
+                    "description": "Tipus de detecci\u00f3. Opcions: 0 - C\u00e0mera, 3 - Sensor PIR de la c\u00e0mera.",
+                    "name": "Tipus de detecci\u00f3"
+                }
+            },
+            "name": "Sensibilitat de detecci\u00f3"
+        },
+        "sound_alarm": {
+            "description": "Fa sonar l'alarma de la c\u00e0mera.",
+            "fields": {
+                "enable": {
+                    "description": "Introdueix 1 o 2 (1=desactivar, 2=activar).",
+                    "name": "So de l'alarma"
+                }
+            },
+            "name": "Fes sonar l'alarma"
+        },
+        "wake_device": {
+            "description": "Es pot utilitzar per despertar la c\u00e0mera/dispositiu en hibernaci\u00f3.",
+            "name": "Desperta c\u00e0mera"
+        }
+    }
+}

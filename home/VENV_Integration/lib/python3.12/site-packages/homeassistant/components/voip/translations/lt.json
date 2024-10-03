@@ -1,0 +1,80 @@
+{
+    "config": {
+        "abort": {
+            "single_instance_allowed": "Jau sukonfig\u016bruota. Galima tik viena konfig\u016bracija."
+        },
+        "error": {
+            "invalid_ip_address": "Netinkamas IPv4 adresas."
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "ip_address": "IP adresas"
+                },
+                "description": "Gaukite balso skambu\u010dius per IP, kad gal\u0117tum\u0117te bendrauti su \u201eAssist\u201c."
+            }
+        }
+    },
+    "entity": {
+        "assist_satellite": {
+            "assist_satellite": {
+                "state": {
+                    "listening_command": "Balso komanda",
+                    "listening_wake_word": "Pa\u017eadinimo \u017eodis",
+                    "processing": "Apdorojimas",
+                    "responding": "Atsiliepiant"
+                }
+            }
+        },
+        "binary_sensor": {
+            "call_active": {
+                "name": "Skambutis Aktyvus"
+            },
+            "call_in_progress": {
+                "name": "Vykdomas skambutis"
+            }
+        },
+        "select": {
+            "pipeline": {
+                "name": "Assist vamzdynas",
+                "state": {
+                    "preferred": "Pageidautina"
+                }
+            },
+            "vad_sensitivity": {
+                "name": "Baigtas kalb\u0117jimo aptikimas",
+                "state": {
+                    "aggressive": "Agresyvus",
+                    "default": "Numatytas",
+                    "relaxed": "Atsipalaidav\u0119s"
+                }
+            }
+        },
+        "switch": {
+            "allow_call": {
+                "name": "Leisti skambu\u010dius"
+            }
+        }
+    },
+    "issues": {
+        "assist_in_progress_deprecated": {
+            "fix_flow": {
+                "step": {
+                    "confirm_disable_entity": {
+                        "description": "Vykdomas dvejetainis jutiklis {integration_name} {entity_id} yra nebenaudojamas. Perkelkite savo konfig\u016bracij\u0105, kad gal\u0117tum\u0117te naudoti atitinkam\u0105 objekt\u0105 \u201e {assist_satellite_domain} \u201c, tada spustel\u0117kite PATEIKTI, kad i\u0161jungtum\u0117te vykdom\u0105 dvejetain\u012f jutikl\u012f ir i\u0161spr\u0119stum\u0117te \u0161i\u0105 problem\u0105."
+                    }
+                }
+            },
+            "title": "{integration_name} pagalbos eigoje dvejetainiai jutikliai nebenaudojami"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "sip_port": "SIP prievadas"
+                }
+            }
+        }
+    }
+}

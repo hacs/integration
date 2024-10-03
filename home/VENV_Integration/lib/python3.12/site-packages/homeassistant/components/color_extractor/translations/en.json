@@ -1,0 +1,34 @@
+{
+    "config": {
+        "abort": {
+            "single_instance_allowed": "Already configured. Only a single configuration possible."
+        },
+        "step": {
+            "user": {
+                "description": "Do you want to start setup?"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_yaml": {
+            "description": "Configuring {integration_title} using YAML is being removed.\n\nYour configuration is already imported.\n\nRemove the `{domain}` configuration from your configuration.yaml file and restart Home Assistant to fix this issue.",
+            "title": "The {integration_title} YAML configuration is being removed"
+        }
+    },
+    "services": {
+        "turn_on": {
+            "description": "Sets the light RGB to the predominant color found in the image provided by URL or file path.",
+            "fields": {
+                "color_extract_path": {
+                    "description": "The full system path to the image we want to extract RGB values from. Must be allowed in allowlist_external_dirs.",
+                    "name": "Path"
+                },
+                "color_extract_url": {
+                    "description": "The URL of the image we want to extract RGB values from. Must be allowed in allowlist_external_urls.",
+                    "name": "URL"
+                }
+            },
+            "name": "Turn on"
+        }
+    }
+}

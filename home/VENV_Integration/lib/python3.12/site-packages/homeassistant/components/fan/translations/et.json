@@ -1,0 +1,159 @@
+{
+    "device_automation": {
+        "action_type": {
+            "toggle": "Muuda {entity_name} olekut",
+            "turn_off": "L\u00fclita {entity_name} v\u00e4lja",
+            "turn_on": "L\u00fclita {entity_name} sisse"
+        },
+        "condition_type": {
+            "is_off": "{entity_name} on v\u00e4lja l\u00fclitatud",
+            "is_on": "{entity_name} on sisse l\u00fclitatud"
+        },
+        "trigger_type": {
+            "changed_states": "{entity_name} l\u00fclitus sisse v\u00f5i v\u00e4lja",
+            "turned_off": "{entity_name} l\u00fclitus v\u00e4lja",
+            "turned_on": "{entity_name} l\u00fclitus sisse"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Ventilaator",
+            "state": {
+                "off": "V\u00e4ljas",
+                "on": "Sees"
+            },
+            "state_attributes": {
+                "direction": {
+                    "name": "Suund",
+                    "state": {
+                        "forward": "Edaspidi",
+                        "reverse": "Tagurpidi"
+                    }
+                },
+                "oscillating": {
+                    "name": "V\u00f5nkuv",
+                    "state": {
+                        "false": "Ei",
+                        "true": "Jah"
+                    }
+                },
+                "percentage": {
+                    "name": "Kiirus"
+                },
+                "percentage_step": {
+                    "name": "Kiiruse samm"
+                },
+                "preset_mode": {
+                    "name": "Eelseadistatud re\u017eiim"
+                },
+                "preset_modes": {
+                    "name": "Saadaolevad eelseadistatud re\u017eiimid"
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "not_valid_preset_mode": {
+            "message": "Eelseadistusre\u017eiim {preset_mode} ei ole kehtiv, kehtivad eelseadistusre\u017eiimid on: {preset_modes}."
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "{domain} integreerimise platvorm {platform} ei toeta platvormi seadistamist. \n\n Selle probleemi lahendamiseks eemalda see oma konfiguratsioonist ja taask\u00e4ivita Home Assistant.",
+            "title": "Platvormi tuge ei toetata"
+        }
+    },
+    "selector": {
+        "direction": {
+            "options": {
+                "forward": "Edaspidi",
+                "reverse": "Vastupidi"
+            }
+        }
+    },
+    "services": {
+        "decrease_speed": {
+            "description": "V\u00e4hendab ventilaatori kiirust.",
+            "fields": {
+                "percentage_step": {
+                    "description": "V\u00e4hendab kiirust protsendisammu v\u00f5rra.",
+                    "name": "V\u00e4henda"
+                }
+            },
+            "name": "V\u00e4henda kiirust"
+        },
+        "increase_speed": {
+            "description": "Suurendab ventilaatori kiirust.",
+            "fields": {
+                "percentage_step": {
+                    "description": "Suurendab kiirust protsendisammu v\u00f5rra.",
+                    "name": "Suurenda"
+                }
+            },
+            "name": "Suurenda kiirust"
+        },
+        "oscillate": {
+            "description": "Reguleerib ventilaatori v\u00f5nkumist.",
+            "fields": {
+                "oscillating": {
+                    "description": "L\u00fclita v\u00f5nkumine sisse/v\u00e4lja.",
+                    "name": "V\u00f5nkuv"
+                }
+            },
+            "name": "V\u00f5nkumine"
+        },
+        "set_direction": {
+            "description": "M\u00e4\u00e4rab ventilaatori p\u00f6\u00f6rlemissuuna.",
+            "fields": {
+                "direction": {
+                    "description": "P\u00f6\u00f6rlemise suund.",
+                    "name": "Suund"
+                }
+            },
+            "name": "M\u00e4\u00e4ra suund"
+        },
+        "set_percentage": {
+            "description": "M\u00e4\u00e4rab ventilaatori kiiruse.",
+            "fields": {
+                "percentage": {
+                    "description": "Ventilaatori kiirus.",
+                    "name": "Protsent"
+                }
+            },
+            "name": "M\u00e4\u00e4ra kiirus"
+        },
+        "set_preset_mode": {
+            "description": "M\u00e4\u00e4rab eelseadistatud re\u017eiimi.",
+            "fields": {
+                "preset_mode": {
+                    "description": "Eelseadistatud re\u017eiim.",
+                    "name": "Eelseadistatud re\u017eiim"
+                }
+            },
+            "name": "Eelseadistatud re\u017eiimi seadistamine"
+        },
+        "toggle": {
+            "description": "L\u00fclitab ventilaatori sisse/v\u00e4lja.",
+            "name": "Muuda olekut"
+        },
+        "turn_off": {
+            "description": "L\u00fclitab ventilaatori v\u00e4lja.",
+            "name": "L\u00fclita v\u00e4lja"
+        },
+        "turn_on": {
+            "description": "L\u00fclitab ventilaatori sisse.",
+            "fields": {
+                "percentage": {
+                    "description": "Ventilaatori kiirus.",
+                    "name": "Protsent"
+                },
+                "preset_mode": {
+                    "description": "Eelseadistatud re\u017eiim.",
+                    "name": "Eelseadistatud re\u017eiim"
+                }
+            },
+            "name": "L\u00fclita sisse"
+        }
+    },
+    "title": "Ventilaator"
+}

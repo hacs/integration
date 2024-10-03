@@ -1,0 +1,88 @@
+{
+    "device_automation": {
+        "action_type": {
+            "lock": "Bloquear {entity_name}",
+            "open": "Abrir {entity_name}",
+            "unlock": "Desbloquear {entity_name}"
+        },
+        "condition_type": {
+            "is_locked": "{entity_name} est\u00e1 bloqueada",
+            "is_open": "{entity_name} est\u00e1 abierta",
+            "is_unlocked": "{entity_name} est\u00e1 desbloqueada"
+        },
+        "extra_fields": {
+            "for": "Duraci\u00f3n"
+        },
+        "trigger_type": {
+            "locked": "{entity_name} bloqueada",
+            "open": "{entity_name} abierta",
+            "unlocked": "{entity_name} desbloqueada"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Cerradura",
+            "state": {
+                "jammed": "Atascado",
+                "locked": "Bloqueado",
+                "locking": "Bloqueando",
+                "open": "Abierto",
+                "opening": "Abriendo",
+                "unlocked": "Desbloqueado",
+                "unlocking": "Desbloqueando"
+            },
+            "state_attributes": {
+                "changed_by": {
+                    "name": "Cambiado por"
+                },
+                "code_format": {
+                    "name": "Formato de c\u00f3digo"
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "add_default_code": {
+            "message": "El c\u00f3digo de {entity_id} no coincide con el patr\u00f3n {code_format}."
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "La plataforma {platform} para la integraci\u00f3n {domain} no es compatible con la configuraci\u00f3n de la plataforma. \n\nElim\u00ednala de tu configuraci\u00f3n y reinicia Home Assistant para solucionar este problema.",
+            "title": "Soporte de plataforma no compatible"
+        }
+    },
+    "services": {
+        "lock": {
+            "description": "Bloquea una cerradura.",
+            "fields": {
+                "code": {
+                    "description": "C\u00f3digo utilizado para bloquear la cerradura.",
+                    "name": "C\u00f3digo"
+                }
+            },
+            "name": "Bloquear"
+        },
+        "open": {
+            "description": "Abre una cerradura.",
+            "fields": {
+                "code": {
+                    "description": "C\u00f3digo utilizado para abrir la cerradura.",
+                    "name": "C\u00f3digo"
+                }
+            },
+            "name": "Abrir"
+        },
+        "unlock": {
+            "description": "Desbloquea una cerradura.",
+            "fields": {
+                "code": {
+                    "description": "C\u00f3digo utilizado para desbloquear la cerradura.",
+                    "name": "C\u00f3digo"
+                }
+            },
+            "name": "Desbloqueada"
+        }
+    },
+    "title": "Cerradura"
+}

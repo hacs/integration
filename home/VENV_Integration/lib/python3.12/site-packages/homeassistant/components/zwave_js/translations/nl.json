@@ -1,0 +1,473 @@
+{
+    "config": {
+        "abort": {
+            "addon_get_discovery_info_failed": "Ophalen van discovery informatie voor Z-Wave JS-add-on is mislukt.",
+            "addon_info_failed": "Ophalen van Z-Wave JS add-on-info is mislukt.",
+            "addon_install_failed": "Kan de Z-Wave JS add-on niet installeren.",
+            "addon_set_config_failed": "Instellen van de Z-Wave JS configuratie is mislukt.",
+            "addon_start_failed": "Kan de Z-Wave JS add-on niet starten.",
+            "already_configured": "Apparaat is al geconfigureerd",
+            "already_in_progress": "De configuratie is momenteel al bezig",
+            "cannot_connect": "Kan geen verbinding maken",
+            "discovery_requires_supervisor": "Discovery vereist de Supervisor.",
+            "not_zwave_device": "Het ontdekte apparaat is niet een Z-Wave apparaat.",
+            "not_zwave_js_addon": "De ontdekte add-on is niet de offici\u00eble Z-Wave JS add-on."
+        },
+        "error": {
+            "addon_start_failed": "Het is niet gelukt om de Z-Wave JS add-on te starten. Controleer de configuratie.",
+            "cannot_connect": "Kan geen verbinding maken",
+            "invalid_ws_url": "Ongeldige websocket URL",
+            "unknown": "Onverwachte fout"
+        },
+        "flow_title": "{name}",
+        "progress": {
+            "install_addon": "Een ogenblik geduld terwijl de installatie van de Z-Wave JS add-on is voltooid. Dit kan enkele minuten duren.",
+            "start_addon": "Wacht alstublieft terwijl de Z-Wave JS add-on start voltooid is. Dit kan enkele seconden duren."
+        },
+        "step": {
+            "configure_addon": {
+                "data": {
+                    "s0_legacy_key": "S0 Sleutel (Legacy)",
+                    "s2_access_control_key": "S2 Toegangscontrolesleutel",
+                    "s2_authenticated_key": "S2 geverifieerde sleutel",
+                    "s2_unauthenticated_key": "S2 niet-geverifieerde sleutel",
+                    "usb_path": "USB-apparaatpad"
+                },
+                "description": "De add-on genereert beveiligingssleutels als deze velden leeg worden gelaten.",
+                "title": "Voer de Z-Wave JS add-on configuratie in"
+            },
+            "hassio_confirm": {
+                "title": "Z-Wave JS integratie instellen met de Z-Wave JS add-on"
+            },
+            "install_addon": {
+                "title": "De Z-Wave JS add-on installatie is gestart"
+            },
+            "manual": {
+                "data": {
+                    "url": "URL"
+                }
+            },
+            "on_supervisor": {
+                "data": {
+                    "use_addon": "Gebruik de Z-Wave JS Supervisor add-on"
+                },
+                "description": "Wilt u de Z-Wave JS Supervisor add-on gebruiken?",
+                "title": "Selecteer verbindingsmethode"
+            },
+            "start_addon": {
+                "title": "De add-on Z-Wave JS wordt gestart."
+            },
+            "usb_confirm": {
+                "description": "Wilt u {name} instellen met de Z-Wave JS add-on?"
+            },
+            "zeroconf_confirm": {
+                "description": "Wilt u de Z-Wave JS Server met home ID {home_id} gevonden op {url} toevoegen aan Home Assistant?",
+                "title": "Gevonden Z-Wave JS Server"
+            }
+        }
+    },
+    "device_automation": {
+        "action_type": {
+            "clear_lock_usercode": "Wis gebruikerscode van {entity_name}",
+            "ping": "Ping apparaat",
+            "refresh_value": "Ververs de waarde(s) voor {entity_name}",
+            "reset_meter": "Reset meters op {subtype}",
+            "set_config_parameter": "Stel waarde in voor configuratieparameter {subtype}",
+            "set_lock_usercode": "Stel gebruikerscode in voor {entity_name}",
+            "set_value": "Waarde van een Z-Wave waarde instellen"
+        },
+        "condition_type": {
+            "config_parameter": "Config parameter {subtype} waarde",
+            "node_status": "Apparaatstatus",
+            "value": "Huidige waarde van een Z-Wave-waarde"
+        },
+        "trigger_type": {
+            "event.notification.entry_control": "Stuur een Entry Control melding",
+            "event.notification.notification": "Stuur een notificatie",
+            "event.value_notification.basic": "Basis CC-evenement op {subtype}",
+            "event.value_notification.central_scene": "Centrale Sc\u00e8ne actie op {subtype}",
+            "event.value_notification.scene_activation": "Sc\u00e8ne-activering op {subtype}",
+            "state.node_status": "Apparaatstatus gewijzigd",
+            "zwave_js.value_updated.config_parameter": "Waardeverandering op configuratieparameter {subtype}",
+            "zwave_js.value_updated.value": "Waardeverandering op een Z-Wave JS-waarde"
+        }
+    },
+    "entity": {
+        "sensor": {
+            "average_background_rssi": {
+                "name": "Gemiddelde achtergrond RSSI (kanaal {channel})"
+            },
+            "can": {
+                "name": "Botsingen"
+            },
+            "current_background_rssi": {
+                "name": "Huidige achtergrond RSSI (kanaal {channel})"
+            },
+            "rssi": {
+                "name": "RSSI"
+            },
+            "timeout_ack": {
+                "name": "Ontbrekende ACK's"
+            }
+        }
+    },
+    "issues": {
+        "device_config_file_changed": {
+            "fix_flow": {
+                "abort": {
+                    "cannot_connect": "Kan niet verbinden met {device_name}. Probeer het later opnieuw, na bevestigd te hebben dat je Z-Wave netwerk in de lucht is en verbonden met Home Assistant."
+                },
+                "step": {
+                    "confirm": {
+                        "description": "Het apparaatconfiguratiebestand van {device_name} is veranderd.\n\nZ-Wave JS ontdekt veel metadata van het apparaat door het te interviewen. Hoewel sommige informatie vanuit een configuratiebestand geladen moet worden. Sommige informatie wordt maar eenmaal ge\u00ebvalueerd gedurende het interviewen van het apparaat.\n\nWanneer een apparaatconfiguratiebestand is bijgewerkt kan deze informatie verouderd zijn en moet het apparaat opnieuwe worden ge\u00efnterviewd om de wijzigingen op te pakken.\n\nDit is geen verplichte handeling en het apparaat zal worden be\u00efnvloed tijdens het interview proces, maar je kunt mogelijk verbeteringen zien als dit compleet is.\n\nAls je door wilt gaan klik dan op TOEPASSEN hieronder. Het herinterviewproces wordt in de achtergrond uitgevoerd.",
+                        "title": "Z-Wave apparaatconfiguratiebestand gewijzigd: {device_name}"
+                    },
+                    "init": {
+                        "menu_options": {
+                            "ignore": "Negeer apparaatconfiguratie-update"
+                        }
+                    }
+                }
+            },
+            "title": "Z-Wave apparaatconfiguratiebestand gewijzigd: {device_name}"
+        },
+        "dry_fan_presets_deprecation": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Je gebruikt `Dry` en `Fan` preset modes voor jouw entiteit {entity_id}.\n\n`Dry` en `Fan` preset modes zijn verouderd worden verwijderd. Werk alsjeblieft je automatiseringen bij om in plaats daarvan de corresponderende `Dry` en `Fan` **HVAC modes** te gebruiken.",
+                        "title": "`Dry` en `Fan` preset modes worden verwijderd: {entity_id}"
+                    }
+                }
+            },
+            "title": "`Dry` en `Fan` preset modes worden verwijderd: {entity_id}"
+        },
+        "invalid_server_version": {
+            "description": "De versie van Z-Wave JS Server die wordt uitgevoerd is te oud voor deze versie van Home Assistant. Werk de Z-Wave JS Server bij naar de laatste versie om probleem te verhelpen.",
+            "title": "Nieuwere versie van Z-Wave JS-server vereist"
+        }
+    },
+    "options": {
+        "abort": {
+            "addon_get_discovery_info_failed": "Ophalen van discovery informatie voor Z-Wave JS-add-on is mislukt.",
+            "addon_info_failed": "Ophalen van Z-Wave JS add-on-info is mislukt.",
+            "addon_install_failed": "Kan de Z-Wave JS add-on niet installeren.",
+            "addon_set_config_failed": "Instellen van de Z-Wave JS configuratie is mislukt.",
+            "addon_start_failed": "Kan de Z-Wave JS add-on niet starten.",
+            "already_configured": "Apparaat is al geconfigureerd",
+            "cannot_connect": "Kan geen verbinding maken",
+            "different_device": "Het aangesloten USB-apparaat is niet hetzelfde als eerder geconfigureerd voor dit config-entry. Maak in plaats daarvan een nieuw config-entry voor het nieuwe apparaat."
+        },
+        "error": {
+            "cannot_connect": "Kan geen verbinding maken",
+            "invalid_ws_url": "Ongeldige websocket URL",
+            "unknown": "Onverwachte fout"
+        },
+        "progress": {
+            "install_addon": "Een ogenblik geduld terwijl de installatie van de Z-Wave JS add-on is voltooid. Dit kan enkele minuten duren.",
+            "start_addon": "Wacht alstublieft terwijl de Z-Wave JS add-on start voltooid is. Dit kan enkele seconden duren."
+        },
+        "step": {
+            "configure_addon": {
+                "data": {
+                    "emulate_hardware": "Emulate Hardware",
+                    "log_level": "Log level",
+                    "s0_legacy_key": "S0 Sleutel (Legacy)",
+                    "s2_access_control_key": "S2 Toegangscontrolesleutel",
+                    "s2_authenticated_key": "S2 geverifieerde sleutel",
+                    "s2_unauthenticated_key": "S2 niet-geverifieerde sleutel",
+                    "usb_path": "USB-apparaatpad"
+                },
+                "description": "De add-on genereert beveiligingssleutels als deze velden leeg worden gelaten.",
+                "title": "Voer de Z-Wave JS add-on configuratie in"
+            },
+            "install_addon": {
+                "title": "De Z-Wave JS add-on installatie is gestart"
+            },
+            "manual": {
+                "data": {
+                    "url": "URL"
+                }
+            },
+            "on_supervisor": {
+                "data": {
+                    "use_addon": "Gebruik de Z-Wave JS Supervisor add-on"
+                },
+                "description": "Wilt u de Z-Wave JS Supervisor add-on gebruiken?",
+                "title": "Selecteer verbindingsmethode"
+            },
+            "start_addon": {
+                "title": "De add-on Z-Wave JS wordt gestart."
+            }
+        }
+    },
+    "services": {
+        "bulk_set_partial_config_parameters": {
+            "description": "Maakt bulkinstelling voor gedeeltelijke parameters mogelijk. Geschikt wanneer gedeeltelijke parameters tegelijkertijd ingesteld moeten worden.",
+            "fields": {
+                "area_id": {
+                    "name": "Ruimte ID(s)"
+                },
+                "device_id": {
+                    "name": "Apparaat ID(s)"
+                },
+                "endpoint": {
+                    "description": "Het endpoint voor de configuratieparameter.",
+                    "name": "Endpoint"
+                },
+                "entity_id": {
+                    "name": "Entiteit ID(s)"
+                },
+                "parameter": {
+                    "description": "De naam (of ID) van de configuratieparameter die je in wilt stellen.",
+                    "name": "Parameter"
+                },
+                "value": {
+                    "description": "De nieuwe waarde(n) om in te stellen voor deze configuratieparameter. Dit kan een ruwe integer waarde zijn om een bulkwijziging te representeren of een mapping waarbij de sleutel het bitmasker (hex- of integerformaat) is de waarde en de nieuwe waarde is voor de gedeeltelijke parameter.",
+                    "name": "Waarde"
+                }
+            },
+            "name": "Bulkinstelling van gedeeltelijke configuratieparameters (geavanceerd)."
+        },
+        "clear_lock_usercode": {
+            "description": "Wist de gebruikerscode van een slot.",
+            "fields": {
+                "code_slot": {
+                    "description": "Codeslot om de code uit te wissen.",
+                    "name": "Codeslot"
+                }
+            },
+            "name": "Wis de gebruikerscode van het slot"
+        },
+        "invoke_cc_api": {
+            "fields": {
+                "area_id": {
+                    "name": "Ruimte ID(s)"
+                },
+                "command_class": {
+                    "description": "Het ID van de Command Class waar je het commando op toe wilt passen.",
+                    "name": "Command class"
+                },
+                "device_id": {
+                    "name": "Apparaat ID(s)"
+                },
+                "endpoint": {
+                    "description": "Het eindpunt om de API op aan te roepen. Als een eindpunt is gespecificeerd, zal dat eindpunt worden getarget voor alle nodes die geassocieerd zijn met de doelruimtes, apparaten en/of entiteiten. Als er geen eindpunt is gespecificeerd, zal het root-eindpunt (0) worden getarget voor nodes die geassocieerd zijn met doelruimtes en apparaten, en het eindpunt voor de primaire waarde van elke entiteit zal worden getarget.",
+                    "name": "Endpoint"
+                },
+                "entity_id": {
+                    "name": "Entiteit ID(s)"
+                },
+                "method_name": {
+                    "description": "De naam van de API methode om aan te roepen. Zie de Z-Wave JS Command Class API documentatie (https://zwave-js.github.io/node-zwave-js/#/api/CCs/index) voor beschikbare methoden.",
+                    "name": "Methode naam"
+                },
+                "parameters": {
+                    "description": "Een lijst van parameters parameters door te geven naar de API methode. Zie de Z-Wave JS Command Class API documentatie (https://zwave-js.github.io/node-zwave-js/#/api/CCs/index) voor de parameters.",
+                    "name": "Parameters"
+                }
+            },
+            "name": "Roep een Command Class API aan op een knooppunt (geavanceerd)"
+        },
+        "multicast_set_value": {
+            "fields": {
+                "area_id": {
+                    "name": "Ruimte ID(s)"
+                },
+                "broadcast": {
+                    "description": "Bepaalt of een commando gebroadcast moet worden naar alle apparaten op het netwerk.",
+                    "name": "Broadcast?"
+                },
+                "command_class": {
+                    "description": "Het ID van de commando klasse voor de waarde",
+                    "name": "Command class"
+                },
+                "device_id": {
+                    "name": "Apparaat ID(s)"
+                },
+                "endpoint": {
+                    "description": "Het endpoint voor de waarde",
+                    "name": "Endpoint"
+                },
+                "entity_id": {
+                    "name": "Entiteit ID(s)"
+                },
+                "options": {
+                    "description": "Instellen `value options map`. Raadpleeg de Z-Wave JS documentatie voor meer informatie over welke opties kunnen worden ingesteld.",
+                    "name": "Opties"
+                },
+                "property": {
+                    "description": "Het ID van de eigenschap voor de waarde",
+                    "name": "Eigenschap"
+                },
+                "property_key": {
+                    "description": "Het ID van de eigenschap sleutel",
+                    "name": "Eigenschap sleutel"
+                },
+                "value": {
+                    "description": "Nieuwe waarde om in te stellen.",
+                    "name": "Waarde"
+                }
+            },
+            "name": "Stel een waarde in op meerdere apparaten via multicast (geavanceerd)"
+        },
+        "ping": {
+            "description": "Forceert Z-Wave om te proberen een node te bereiken. Dit kan worden gebruikt om de status van een node bij te werken in Z-Wave JS wanneer je denkt dat deze niet nauwkeurig de werkelijkheid weergeeft, bijvoorbeeld het opwekken van een gefaalde/dode node of het markeren van de node als slapend.",
+            "fields": {
+                "area_id": {
+                    "name": "Ruimte ID(s)"
+                },
+                "device_id": {
+                    "name": "Apparaat ID(s)"
+                },
+                "entity_id": {
+                    "name": "Entiteit ID(s)"
+                }
+            },
+            "name": "Een node pingen."
+        },
+        "refresh_notifications": {
+            "fields": {
+                "area_id": {
+                    "name": "Ruimte ID(s)"
+                },
+                "device_id": {
+                    "name": "Apparaat ID(s)"
+                },
+                "entity_id": {
+                    "name": "Entiteit ID(s)"
+                }
+            }
+        },
+        "refresh_value": {
+            "description": "Forceer een update van de waarden van een Z-Wave entiteit.",
+            "fields": {
+                "entity_id": {
+                    "description": "Entiteiten om te verversen.",
+                    "name": "Entiteiten"
+                },
+                "refresh_all_values": {
+                    "description": "Alle waarde verversen (true) of alleen de primaire waarde (false).",
+                    "name": "Alle waarden verversen?"
+                }
+            },
+            "name": "Waarden verversen"
+        },
+        "reset_meter": {
+            "description": "Reset de meters op een node.",
+            "fields": {
+                "area_id": {
+                    "name": "Ruimte ID(s)"
+                },
+                "device_id": {
+                    "name": "Apparaat ID(s)"
+                },
+                "entity_id": {
+                    "name": "Entiteit ID(s)"
+                },
+                "meter_type": {
+                    "description": "Het type van de meter om te resetten. Niet alle meters ondersteunen de mogelijkheid om naar een specifieke waarde te resetten.",
+                    "name": "Type meter"
+                },
+                "value": {
+                    "description": "De waarde waarnaar de meters naar moeten worden gereset. Niet alle meters ondersteunen de mogelijkheid om naar een specifieke waarde te resetten.",
+                    "name": "Doelwaarde"
+                }
+            },
+            "name": "Reset de meters op de node"
+        },
+        "set_config_parameter": {
+            "description": "Wijzigt de configuratieparameters van je Z-Wave apparaten.",
+            "fields": {
+                "area_id": {
+                    "name": "Ruimte ID(s)"
+                },
+                "bitmask": {
+                    "name": "Bitmasker"
+                },
+                "device_id": {
+                    "name": "Apparaat ID(s)"
+                },
+                "endpoint": {
+                    "description": "Het endpoint voor de configuratieparameter.",
+                    "name": "Endpoint"
+                },
+                "entity_id": {
+                    "name": "Entiteit ID(s)"
+                },
+                "parameter": {
+                    "description": "De naam (of ID) van de configuratieparameter die je in wilt stellen.",
+                    "name": "Parameter"
+                },
+                "value": {
+                    "description": "De nieuwe waarde om in te stellen voor deze configuratieparameter.",
+                    "name": "Waarde"
+                },
+                "value_format": {
+                    "description": "Formaat van `value`. Is 0 voor `signed integer`, 1 for `unsigned integer`, 2 for `enumerated` of 3 for `bitfield`. Wordt gebruikt in combinatie met `value_size` wanneer een configuratieparameter niet is gedefinieerd in het configuratiebestand van je apparaat.Kan niet worden gecombineerd met `bitmask`.",
+                    "name": "Formaat van `value`"
+                },
+                "value_size": {
+                    "description": "Grootte van `value` (waarde). Dit is 1, 2 of 4 en wordt gebruikt in combinatie met `value_format` wanneer een configuratieparameter niet is gedefinieerd in het configuratiebestand van je apparaat. Kan niet worden gecombineerd met `bitmask`.",
+                    "name": "Grootte van `value`"
+                }
+            },
+            "name": "Stel apparaat configuratieparameter in"
+        },
+        "set_lock_usercode": {
+            "description": "Stelt een gebruikerscode in op een slot.",
+            "fields": {
+                "code_slot": {
+                    "description": "Codeslot om de code in te stellen",
+                    "name": "Codeslot"
+                },
+                "usercode": {
+                    "description": "Vergrendelingscode ingesteld",
+                    "name": "Code"
+                }
+            },
+            "name": "Gebruikers vergrendelingscode instellen"
+        },
+        "set_value": {
+            "fields": {
+                "area_id": {
+                    "name": "Ruimte ID(s)"
+                },
+                "command_class": {
+                    "description": "Het ID van de commando klasse voor de waarde",
+                    "name": "Command class"
+                },
+                "device_id": {
+                    "name": "Apparaat ID(s)"
+                },
+                "endpoint": {
+                    "description": "Het endpoint voor de waarde",
+                    "name": "Endpoint"
+                },
+                "entity_id": {
+                    "name": "Entiteit ID(s)"
+                },
+                "options": {
+                    "description": "Instellen `value options map`. Raadpleeg de Z-Wave JS documentatie voor meer informatie over welke opties kunnen worden ingesteld.",
+                    "name": "Opties"
+                },
+                "property": {
+                    "description": "Het ID van de eigenschap voor de waarde",
+                    "name": "Eigenschap"
+                },
+                "property_key": {
+                    "description": "Het ID van de eigenschap sleutel",
+                    "name": "Eigenschap sleutel"
+                },
+                "value": {
+                    "description": "Nieuwe waarde om in te stellen.",
+                    "name": "Waarde"
+                },
+                "wait_for_result": {
+                    "name": "Wachten op resultaat?"
+                }
+            },
+            "name": "Stel een waarde in (geavanceerd)"
+        }
+    }
+}

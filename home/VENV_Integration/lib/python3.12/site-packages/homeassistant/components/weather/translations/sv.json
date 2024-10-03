@@ -1,0 +1,139 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "V\u00e4der",
+            "state": {
+                "clear-night": "Klart, natt",
+                "cloudy": "Molnigt",
+                "exceptional": "Exceptionellt",
+                "fog": "Dimma",
+                "hail": "Hagel",
+                "lightning": "\u00c5ska/Blixtar",
+                "lightning-rainy": "\u00c5ska, regnigt",
+                "partlycloudy": "V\u00e4xlande molnighet",
+                "pouring": "\u00d6sregn",
+                "rainy": "Regn",
+                "snowy": "Sn\u00f6",
+                "snowy-rainy": "Sn\u00f6igt, regnigt",
+                "sunny": "Soligt",
+                "windy": "Bl\u00e5sigt",
+                "windy-variant": "Bl\u00e5sigt, molnigt"
+            },
+            "state_attributes": {
+                "apparent_temperature": {
+                    "name": "Upplevd temperatur"
+                },
+                "cloud_coverage": {
+                    "name": "Molnt\u00e4ckning"
+                },
+                "dew_point": {
+                    "name": "Daggpunktstemperatur"
+                },
+                "forecast": {
+                    "name": "Prognos"
+                },
+                "humidity": {
+                    "name": "Luftfuktighet"
+                },
+                "ozone": {
+                    "name": "Ozon"
+                },
+                "precipitation_unit": {
+                    "name": "Nederb\u00f6rdsenhet"
+                },
+                "pressure": {
+                    "name": "Tryck"
+                },
+                "pressure_unit": {
+                    "name": "Tryckenhet"
+                },
+                "temperature": {
+                    "name": "Temperatur"
+                },
+                "temperature_unit": {
+                    "name": "Temperaturenhet"
+                },
+                "uv_index": {
+                    "name": "UV-index"
+                },
+                "visibility": {
+                    "name": "Sikt"
+                },
+                "visibility_unit": {
+                    "name": "Siktenhet"
+                },
+                "wind_bearing": {
+                    "name": "Vindb\u00e4ring"
+                },
+                "wind_gust_speed": {
+                    "name": "Hastighet i vindbyar"
+                },
+                "wind_speed": {
+                    "name": "Vindhastighet"
+                },
+                "wind_speed_unit": {
+                    "name": "Vindhastighetsenhet"
+                }
+            }
+        }
+    },
+    "issues": {
+        "deprecated_service_weather_get_forecast": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "title": "Uppt\u00e4ckt anv\u00e4ndning av f\u00f6r\u00e5ldrad tj\u00e4nst `weather.get_forecast`"
+                    }
+                }
+            }
+        },
+        "deprecated_weather_forecast": {
+            "description": "Integrationen `{platform}` anv\u00e4nder det f\u00f6r\u00e5ldrade prognosattributet.\n\nV\u00e4nligen {report_issue}.",
+            "title": "Integreringen {platform} anv\u00e4nder inaktuell prognos"
+        },
+        "deprecated_weather_forecast_no_url": {
+            "description": "Den anpassade integrationen `{platform}` implementerar egenskapen `forecast` eller st\u00e4ller in `self._attr_forecast` i en underklass av WeatherEntity.\n\nRapportera detta till f\u00f6rfattaren av integrationen {platform}.\n\nN\u00e4r en uppdaterad version av `{platform}` \u00e4r tillg\u00e4nglig, installera den och starta om Home Assistant f\u00f6r att \u00e5tg\u00e4rda problemet.",
+            "title": "Den anpassade integreringen {platform} anv\u00e4nder inaktuell v\u00e4derprognos"
+        },
+        "deprecated_weather_forecast_url": {
+            "description": "Den anpassade integrationen `{platform}` implementerar egenskapen `forecast` eller st\u00e4ller in `self._attr_forecast` i en underklass av WeatherEntity.\n\nV\u00e4nligen skapa en felrapport p\u00e5 {issue_tracker}.\n\nN\u00e4r en uppdaterad version av `{platform}` \u00e4r tillg\u00e4nglig, installera den och starta om Home Assistant f\u00f6r att \u00e5tg\u00e4rda problemet.",
+            "title": "Den anpassade integreringen {platform} anv\u00e4nder inaktuell v\u00e4derprognos"
+        },
+        "platform_integration_no_support": {
+            "description": "{platform}-plattformen f\u00f6r integrationen {domain} st\u00f6ds inte.\n\nTa bort den fr\u00e5n din konfiguration och starta om Home Assistant f\u00f6r att \u00e5tg\u00e4rda detta problem.",
+            "title": "Plattformen st\u00f6ds inte"
+        }
+    },
+    "selector": {
+        "forecast_type": {
+            "options": {
+                "daily": "Daglig",
+                "hourly": "Varje timme",
+                "twice_daily": "Tv\u00e5 g\u00e5nger dagligen"
+            }
+        }
+    },
+    "services": {
+        "get_forecast": {
+            "description": "F\u00e5 v\u00e4derprognos.",
+            "fields": {
+                "type": {
+                    "description": "Typ av prognos: dagligen, varje timme eller tv\u00e5 g\u00e5nger dagligen.",
+                    "name": "Typ av prognos"
+                }
+            },
+            "name": "F\u00e5 prognos"
+        },
+        "get_forecasts": {
+            "description": "H\u00e4mta v\u00e4derprognoser.",
+            "fields": {
+                "type": {
+                    "description": "Typ av prognos: dagligen, varje timme eller tv\u00e5 g\u00e5nger dagligen.",
+                    "name": "Typ av prognos"
+                }
+            },
+            "name": "H\u00e4mta v\u00e4derprognoser"
+        }
+    },
+    "title": "V\u00e4der"
+}

@@ -1,0 +1,248 @@
+{
+    "device_automation": {
+        "action_type": {
+            "set_hvac_mode": "Wijzig de HVAC-modus op {entity_name}",
+            "set_preset_mode": "Wijzig voorinstelling op {entity_name}"
+        },
+        "condition_type": {
+            "is_hvac_mode": "{entity_name} is ingesteld op een specifieke HVAC-modus",
+            "is_preset_mode": "{entity_name} is ingesteld op een specifieke vooraf ingestelde modus"
+        },
+        "extra_fields": {
+            "hvac_mode": "HVAC-mode"
+        },
+        "trigger_type": {
+            "current_humidity_changed": "{entity_name} gemeten vochtigheid veranderd",
+            "current_temperature_changed": "{entity_name} gemeten temperatuur veranderd",
+            "hvac_mode_changed": "{entity_name} HVAC-modus gewijzigd"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Thermostaat",
+            "state": {
+                "auto": "Automatisch",
+                "cool": "Koelen",
+                "dry": "Droog",
+                "fan_only": "Alleen ventilator",
+                "heat": "Verwarmen",
+                "heat_cool": "Verwarmen/koelen",
+                "off": "Uit"
+            },
+            "state_attributes": {
+                "aux_heat": {
+                    "name": "Bijverwarming"
+                },
+                "current_humidity": {
+                    "name": "Huidige luchtvochtigheid"
+                },
+                "current_temperature": {
+                    "name": "Huidige temperatuur"
+                },
+                "fan_mode": {
+                    "name": "Ventilatormodus",
+                    "state": {
+                        "auto": "Automatisch",
+                        "diffuse": "Diffuus",
+                        "focus": "Concentratie",
+                        "high": "Hoog",
+                        "low": "Laag",
+                        "medium": "Gemiddeld",
+                        "middle": "Midden",
+                        "off": "Uit",
+                        "on": "Aan",
+                        "top": "Boven"
+                    }
+                },
+                "fan_modes": {
+                    "name": "Ventilator modi"
+                },
+                "humidity": {
+                    "name": "Luchtvochtigheid instelling"
+                },
+                "hvac_action": {
+                    "name": "Huidige actie",
+                    "state": {
+                        "cooling": "Koelen",
+                        "drying": "Drogen",
+                        "fan": "Ventilator",
+                        "heating": "Verwarmen",
+                        "idle": "Inactief",
+                        "off": "Uit",
+                        "preheating": "Voorverwarmen"
+                    }
+                },
+                "hvac_modes": {
+                    "name": "HVAC modes"
+                },
+                "max_humidity": {
+                    "name": "Maximale doelluchtvochtigheid"
+                },
+                "max_temp": {
+                    "name": "Maximale temperatuur"
+                },
+                "min_humidity": {
+                    "name": "Minimale doelluchtvochtigheid"
+                },
+                "min_temp": {
+                    "name": "Minimale doeltemperatuur"
+                },
+                "preset_mode": {
+                    "name": "Voorinstelling",
+                    "state": {
+                        "activity": "Activiteit",
+                        "away": "Afwezig",
+                        "boost": "Boost",
+                        "comfort": "Comfort",
+                        "eco": "Eco",
+                        "home": "Thuis",
+                        "none": "Geen",
+                        "sleep": "Slapen"
+                    }
+                },
+                "preset_modes": {
+                    "name": "Voorinstellingen"
+                },
+                "swing_mode": {
+                    "name": "Swingmode",
+                    "state": {
+                        "both": "Beide",
+                        "horizontal": "Horizontaal",
+                        "off": "Uit",
+                        "on": "Aan",
+                        "vertical": "Verticaal"
+                    }
+                },
+                "swing_modes": {
+                    "name": "Swingmodes"
+                },
+                "target_temp_high": {
+                    "name": "Doeltemperatuur bovengrens"
+                },
+                "target_temp_low": {
+                    "name": "Doeltemperatuur ondergrens"
+                },
+                "target_temp_step": {
+                    "name": "Doeltemperatuurstap"
+                },
+                "temperature": {
+                    "name": "Gewenste temperatuur"
+                }
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "Platform {platform} van de {domain} integratie heeft geen platformondersteuning.\n\nVerwijder dit uit je configuratie en herstart Home Assistant om dit issue op te lossen.",
+            "title": "Platformondersteuning is niet ondersteund"
+        }
+    },
+    "selector": {
+        "hvac_mode": {
+            "options": {
+                "auto": "Auto",
+                "cool": "Koelen",
+                "dry": "Drogen",
+                "fan_only": "Alleen ventilator",
+                "heat": "Verwarmen",
+                "heat_cool": "Verwarmen/koelen",
+                "off": "Uit"
+            }
+        }
+    },
+    "services": {
+        "set_aux_heat": {
+            "description": "Zet de hulpverwarming aan/uit.",
+            "fields": {
+                "aux_heat": {
+                    "description": "Nieuwe waarde van de hulpverwarming.",
+                    "name": "Hulpverwarming"
+                }
+            },
+            "name": "Hulpverwarming aan-/uitzetten"
+        },
+        "set_fan_mode": {
+            "description": "Ventilator bedrijfsmode instellen.",
+            "fields": {
+                "fan_mode": {
+                    "description": "Ventilator bedrijfsmode.",
+                    "name": "Ventilatormode"
+                }
+            },
+            "name": "Ventilatormode instellen"
+        },
+        "set_humidity": {
+            "description": "Stelt doelluchtvochtigheid in.",
+            "fields": {
+                "humidity": {
+                    "description": "Doel luchtvochtigheid",
+                    "name": "Luchtvochtigheid"
+                }
+            },
+            "name": "Stel doelluchtvochtigheid in"
+        },
+        "set_hvac_mode": {
+            "description": "Stelt de HVAC-bedrijfsmode in.",
+            "fields": {
+                "hvac_mode": {
+                    "description": "HVAC-bedrijfsmode.",
+                    "name": "HVAC-mode"
+                }
+            },
+            "name": "HVAC-mode instellen"
+        },
+        "set_preset_mode": {
+            "description": "Stelt de vooraf ingestelde mode in.",
+            "fields": {
+                "preset_mode": {
+                    "description": "Vooraf ingestelde mode.",
+                    "name": "Vooraf ingestelde mode"
+                }
+            },
+            "name": "Stel de vooraf ingestelde mode in"
+        },
+        "set_swing_mode": {
+            "fields": {
+                "swing_mode": {
+                    "description": "Zwenkmodus.",
+                    "name": "Swing-modus"
+                }
+            },
+            "name": "Stel de swing-modus in"
+        },
+        "set_temperature": {
+            "description": "Stelt doeltemperatuur in.",
+            "fields": {
+                "hvac_mode": {
+                    "description": "HVAC-bedrijfsmodus.",
+                    "name": "HVAC-modus"
+                },
+                "target_temp_high": {
+                    "description": "Hoge doeltemperatuur.",
+                    "name": "Doeltemperatuur hoog"
+                },
+                "target_temp_low": {
+                    "description": "Lage doeltemperatuur.",
+                    "name": "Doeltemperatuur laag"
+                },
+                "temperature": {
+                    "description": "Doeltemperatuur.",
+                    "name": "Temperatuur"
+                }
+            },
+            "name": "Stel de doeltemperatuur in"
+        },
+        "toggle": {
+            "name": "Omschakelen"
+        },
+        "turn_off": {
+            "description": "Zet klimaatapparaat uit.",
+            "name": "Uitzetten"
+        },
+        "turn_on": {
+            "description": "Zet klimaatapparaat aan.",
+            "name": "Aanzetten"
+        }
+    },
+    "title": "Klimaat"
+}

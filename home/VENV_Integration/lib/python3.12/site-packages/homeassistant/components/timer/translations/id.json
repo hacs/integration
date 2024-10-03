@@ -1,0 +1,84 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "Timer",
+            "state": {
+                "active": "Aktif",
+                "idle": "Siaga",
+                "paused": "Jeda"
+            },
+            "state_attributes": {
+                "duration": {
+                    "name": "Durasi"
+                },
+                "editable": {
+                    "name": "Dikelola lewat antarmuka",
+                    "state": {
+                        "false": "Tidak",
+                        "true": "Ya"
+                    }
+                },
+                "finishes_at": {
+                    "name": "Selesai pada"
+                },
+                "remaining": {
+                    "name": "Sisa"
+                },
+                "restore": {
+                    "name": "Pulihkan"
+                }
+            }
+        }
+    },
+    "issues": {
+        "deprecated_duration_in_start": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Parameter durasi opsional layanan timer `timer.start` telah dihapus dan penggunaannya telah terdeteksi. Untuk mengubah durasi, buatlah timer baru.\n\nHarap hapus penggunaan parameter `duration` dalam layanan `timer.start` dalam otomasi dan skrip Anda dan pilih **kirim** untuk menutup masalah ini.",
+                        "title": "Parameter durasi layanan mulai pengatur waktu sedang dalam proses penghapusan"
+                    }
+                }
+            },
+            "title": "Parameter durasi layanan mulai pengatur waktu sedang dalam proses penghapusan"
+        }
+    },
+    "services": {
+        "cancel": {
+            "description": "Membatalkan timer.",
+            "name": "Batalkan"
+        },
+        "change": {
+            "description": "Mengubah timer.",
+            "fields": {
+                "duration": {
+                    "description": "Durasi untuk ditambahkan atau dikurangi dari timer yang berjalan.",
+                    "name": "Durasi"
+                }
+            },
+            "name": "Ubah"
+        },
+        "finish": {
+            "description": "Menyelesaikan timer.",
+            "name": "Selesai"
+        },
+        "pause": {
+            "description": "Jeda timer",
+            "name": "Jeda"
+        },
+        "reload": {
+            "description": "Muat ulang timer dari konfigurasi YAML.",
+            "name": "Muat Ulang"
+        },
+        "start": {
+            "description": "Mulai timer",
+            "fields": {
+                "duration": {
+                    "description": "Durasi yang dibutuhkan timer hingga selesai (opsional).",
+                    "name": "Durasi"
+                }
+            },
+            "name": "Mulai"
+        }
+    }
+}

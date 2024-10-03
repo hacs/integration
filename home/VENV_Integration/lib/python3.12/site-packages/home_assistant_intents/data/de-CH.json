@@ -1,0 +1,1002 @@
+{
+  "language": "de-CH",
+  "intents": {
+    "HassTurnOff": {
+      "data": [
+        {
+          "sentences": [
+            "<steu> <name> <ab_us>"
+          ],
+          "excludes_context": {
+            "domain": [
+              "light",
+              "fan",
+              "cover"
+            ]
+          }
+        },
+        {
+          "sentences": [
+            "<steu> <Geräte> <area> <ab_us>"
+          ],
+          "excludes_context": {
+            "domain": [
+              "light",
+              "fan",
+              "cover"
+            ]
+          },
+          "response": "default_area"
+        },
+        {
+          "sentences": [
+            "(Zünd|Mach|Lösch|Schalt|Schaut) [(<Liecht> |(d'[ ]|d |de |dr |der |die |ds |s ))]<name> <ab_us>"
+          ],
+          "slots": {
+            "domain": "light"
+          },
+          "requires_context": {
+            "domain": "light"
+          },
+          "response": "light"
+        },
+        {
+          "sentences": [
+            "(Zünd|Mach|Schalt|Schaut) (<Liecht>|<Liechter>) <ab_us> <area>",
+            "(Zünd|Mach|Schalt|Schaut) (<Liecht>|<Liechter>) <area> <ab_us>",
+            "(Zünd|Mach|Schalt|Schaut) <area> (<Liecht>|<Liechter>) [<ab_us>]",
+            "Lösch <area> (<Liecht>|<Liechter>) [<ab_us>]",
+            "Lösch (<Liecht>|<Liechter>) <area> [<ab_us>]",
+            "Lösch (<Liecht>|<Liechter>) [<ab_us>] <area>"
+          ],
+          "slots": {
+            "domain": "light"
+          },
+          "response": "lights_area"
+        },
+        {
+          "sentences": [
+            "<mach> <name> (zue|abe)"
+          ],
+          "slots": {
+            "domain": "cover"
+          },
+          "response": "cover"
+        },
+        {
+          "sentences": [
+            "<mach> <cover> <area> (zue|abe)"
+          ],
+          "slots": {
+            "domain": "cover"
+          },
+          "response": "cover_area"
+        },
+        {
+          "sentences": [
+            "<steu> <name> <ab_us>"
+          ],
+          "slots": {
+            "domain": "fan"
+          },
+          "response": "fan",
+          "requires_context": {
+            "domain": "fan"
+          }
+        },
+        {
+          "sentences": [
+            "<steu> (d'|d|alli|aui) Ventilatore <area> <ab_us>"
+          ],
+          "slots": {
+            "domain": "fan"
+          },
+          "response": "fans_area"
+        }
+      ]
+    },
+    "HassGetState": {
+      "data": [
+        {
+          "sentences": [
+            "wo isch <name>"
+          ],
+          "response": "where",
+          "requires_context": {
+            "domain": "person"
+          },
+          "slots": {
+            "domain": "person"
+          }
+        },
+        {
+          "sentences": [
+            "isch [d|dr|ds] <name> [i|y|im|ir|i dr|i der] {zone:state}"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "person"
+          },
+          "slots": {
+            "domain": "person"
+          }
+        },
+        {
+          "sentences": [
+            "isch öpper [i|y|im|ir|i dr|i der] {zone:state}"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "person"
+          }
+        },
+        {
+          "sentences": [
+            "(sy|si) (aui|alli) [i|y|im|ir|i dr|i der] {zone:state}"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "person"
+          }
+        },
+        {
+          "sentences": [
+            "wär isch [i|y|im|ir|i dr|i der] {zone:state}"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "person"
+          }
+        },
+        {
+          "sentences": [
+            "(wie viu (persone|mösche|lüt)|wie mängi person) (isch|sy) [i|y|im|ir|i dr|i der] {zone:state}"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "person"
+          }
+        },
+        {
+          "sentences": [
+            "Isch <name> {lock_states:state} [<area>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "lock"
+          },
+          "slots": {
+            "domain": "lock"
+          }
+        },
+        {
+          "sentences": [
+            "Isch (e|es|ei) (Tür[e]|Tor|Schloss) {lock_states:state} [<area>]",
+            "Isch [<area>] (e|es|ei) (Tür[e]|Tor|Schloss) {lock_states:state}"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "lock"
+          }
+        },
+        {
+          "sentences": [
+            "Sy aui (Türe|Tor|Schlösser) {lock_states:state} [<area>]",
+            "Sy aui (Türe|Tor|Schlösser) [<area>] {lock_states:state}",
+            "Sy [<area>] aui (Türe|Tor|Schlösser) {lock_states:state}"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "lock"
+          }
+        },
+        {
+          "sentences": [
+            "(Weles|Weli) (Tür[e]|Tor|Schloss|Schlösser) (isch|sy|si) {lock_states:state} [<area>]",
+            "(Weles|weli) (Tür[e]|Tor|Schloss|Schlösser) [<area>] (isch|sy|si) {lock_states:state}"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "lock"
+          }
+        },
+        {
+          "sentences": [
+            "Wie mäng[s|i] (Tür[e]|Tor|Schloss|Schlösser) (isch|sy|si) {lock_states:state} [<area>]",
+            "Wie mäng[s|i] (Tür[e]|Tor|Schloss|Schlösser) [<area>] (isch|sy|si) {lock_states:state}"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "lock"
+          }
+        },
+        {
+          "sentences": [
+            "Was isch der Status vo[(m|r)] <name> [<area>]"
+          ],
+          "response": "one",
+          "excludes_context": {
+            "domain": [
+              "cover"
+            ]
+          }
+        },
+        {
+          "sentences": [
+            "Isch [der Status] <name> {on_off_states:state} [<area>]"
+          ],
+          "response": "one_yesno",
+          "excludes_context": {
+            "domain": [
+              "cover",
+              "lock"
+            ]
+          }
+        },
+        {
+          "sentences": [
+            "Isch (e|ei) {on_off_domains:domain} {on_off_states:state} [<area>]",
+            "Isch <area> (e|ei) {on_off_domains:domain} {on_off_states:state}"
+          ],
+          "response": "any",
+          "excludes_context": {
+            "domain": [
+              "cover",
+              "lock"
+            ]
+          }
+        },
+        {
+          "sentences": [
+            "Sy [d'[' ']|d |aui |alli ]{on_off_domains:domain} {on_off_states:state} [<area>]",
+            "Sy [d'[' ']|d |aui |alli ]{on_off_domains:domain} [<area>] {on_off_states:state}",
+            "Sy <area> [d'[' ']|d |aui |alli ]{on_off_domains:domain} {on_off_states:state}"
+          ],
+          "response": "all",
+          "excludes_context": {
+            "domain": [
+              "cover",
+              "lock"
+            ]
+          }
+        },
+        {
+          "sentences": [
+            "(Wele|Weli) {on_off_domains:domain} (isch|sy|si) {on_off_states:state} [<area>]",
+            "(Wele|Weli) {on_off_domains:domain} <area> (isch|sy|si) {on_off_states:state}"
+          ],
+          "response": "which",
+          "excludes_context": {
+            "domain": [
+              "cover",
+              "lock"
+            ]
+          }
+        },
+        {
+          "sentences": [
+            "Wie mäng[s|e|i] {on_off_domains:domain} (isch|sy|si) {on_off_states:state} [<area>]",
+            "Wie mäng[s|e|i] {on_off_domains:domain} <area> (isch|sy|si) {on_off_states:state}"
+          ],
+          "response": "how_many",
+          "excludes_context": {
+            "domain": [
+              "cover",
+              "lock"
+            ]
+          }
+        },
+        {
+          "sentences": [
+            "Was isch der Status vo[(m|r)] <name> [<area>]"
+          ],
+          "response": "one",
+          "slots": {
+            "domain": "cover"
+          },
+          "requires_context": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "Isch [der Status] <name> {cover_states:state} [<area>]"
+          ],
+          "response": "one_yesno",
+          "slots": {
+            "domain": "cover"
+          },
+          "requires_context": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "Isch (e|ei|es) {cover_classes:device_class} {cover_states:state} [<area>]",
+            "Isch (e|ei|es) {cover_classes:device_class} <area> {cover_states:state} ",
+            "Isch <area> (e|ei|es) {cover_classes:device_class} {cover_states:state}"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "Sy [(d'[' ']|d |alli |aui )]{cover_classes:device_class} {cover_states:state} [<area>]",
+            "Sy [(d'[' ']|d |alli |aui )]{cover_classes:device_class} <area> {cover_states:state}",
+            "Sy <area> [(d'[' ']|d |alli |aui )]{cover_classes:device_class} {cover_states:state}"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "(Wele|weli) {cover_classes:device_class} (isch|sy|si) {cover_states:state} [<area>]",
+            "(Wele|weli) {cover_classes:device_class} <area> (isch|sy|si) {cover_states:state}"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "Wie mäng[s|e|i] {cover_classes:device_class} (isch|sy|si) {cover_states:state} [<area>]",
+            "Wie mäng[s|e|i] {cover_classes:device_class} <area> (isch|sy|si) {cover_states:state}"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "cover"
+          }
+        }
+      ]
+    },
+    "HassGetWeather": {
+      "data": [
+        {
+          "sentences": [
+            "(Wie isch ds|Was isch für) W(e|ä)tter",
+            "Weles W(e|ä)tter isch"
+          ]
+        },
+        {
+          "sentences": [
+            "(Wie isch ds|Was isch für) W(e|ä)tter[ (ds|z|für|i|in) <name>]",
+            "Weles W(e|ä)tter isch[ (ds|z|für|i|in) <name>]"
+          ],
+          "requires_context": {
+            "domain": "weather"
+          }
+        }
+      ]
+    },
+    "HassTurnOn": {
+      "data": [
+        {
+          "sentences": [
+            "(Zünd|Mach|Schalt|Schaut) [(<Liecht> |(d'[ ]|d |de |dr |der |die |ds |s ))]<name> [<a_y>]"
+          ],
+          "slots": {
+            "domain": "light"
+          },
+          "requires_context": {
+            "domain": "light"
+          },
+          "response": "light"
+        },
+        {
+          "sentences": [
+            "(Zünd|Mach) (<Liecht>|<Liechter>) a <area>",
+            "(Zünd|Mach) (<Liecht>|<Liechter>) <area> [a]",
+            "(Zünd|Mach) <area> (<Liecht>|<Liechter>) a",
+            "(Schalt|Schaut) (<Liecht>|<Liechter>) <a_y> <area>",
+            "(Schalt|Schaut) (<Liecht>|<Liechter>) <area> <a_y>"
+          ],
+          "slots": {
+            "domain": "light"
+          },
+          "response": "lights_area"
+        },
+        {
+          "sentences": [
+            "<steu> <name> <a_y>"
+          ],
+          "slots": {
+            "domain": "fan"
+          },
+          "requires_context": {
+            "domain": "fan"
+          },
+          "response": "fan"
+        },
+        {
+          "sentences": [
+            "<steu> (d'|d|alli|aui) Ventilatore <area> <a_y>"
+          ],
+          "slots": {
+            "domain": "fan"
+          },
+          "response": "fans_area"
+        },
+        {
+          "sentences": [
+            "<steu> <name> <a_y>"
+          ],
+          "excludes_context": {
+            "domain": [
+              "light",
+              "fan",
+              "cover",
+              "scene",
+              "script"
+            ]
+          }
+        },
+        {
+          "sentences": [
+            "<steu> <Geräte> <area> <a_y>"
+          ],
+          "excludes_context": {
+            "domain": [
+              "light",
+              "fan",
+              "cover",
+              "scene",
+              "script"
+            ]
+          },
+          "response": "default_area"
+        },
+        {
+          "sentences": [
+            "(Aktivier|Schalt|Schaut|Schteu|Stell|Mach) <name> [Szene] [<a_y>]",
+            "(Aktivier|Schalt|Schaut|Schteu|Stell|Mach) (d'[ ]|d |die )Szene <name> [<a_y>]"
+          ],
+          "requires_context": {
+            "domain": "scene"
+          },
+          "slots": {
+            "domain": "scene"
+          },
+          "response": "scene"
+        },
+        {
+          "sentences": [
+            "(Aktivier|Start|Schtart) <name> [Script]",
+            "(Aktivier|Start|Schtart) [(ds Script|dr Code)] <name>",
+            "(Füehr|Füer) [(ds Script|dr Code)] <name> (us|uus)"
+          ],
+          "requires_context": {
+            "domain": "script"
+          },
+          "slots": {
+            "domain": "script"
+          },
+          "response": "script"
+        },
+        {
+          "sentences": [
+            "<mach> <name> (uf|uuf)"
+          ],
+          "slots": {
+            "domain": "cover"
+          },
+          "response": "cover"
+        },
+        {
+          "sentences": [
+            "<mach> <cover> <area> (uf|uuf)"
+          ],
+          "slots": {
+            "domain": "cover"
+          },
+          "response": "cover_area"
+        }
+      ]
+    },
+    "HassMediaUnpause": {
+      "data": [
+        {
+          "sentences": [
+            "(spiu|(fahr|mach) bi[m]) <name> w(i|y)ter"
+          ],
+          "requires_context": {
+            "domain": "media_player"
+          }
+        }
+      ]
+    },
+    "HassShoppingListAddItem": {
+      "data": [
+        {
+          "sentences": [
+            "Setz <item> uf <my_list>"
+          ],
+          "response": "item_added",
+          "expansion_rules": {
+            "my_list": "[mini |d |d' |d'][(I|Ii|Y|Yy)choufs](Lys[ch]te|lys[ch]te|Lis[ch]te|Liis[ch]te)",
+            "item": "{list_item:item}"
+          }
+        }
+      ]
+    },
+    "HassNevermind": {
+      "data": [
+        {
+          "sentences": [
+            "Vergis[s] es",
+            "Isch guet",
+            "Fertig",
+            "[es] het sech erledig[e]t"
+          ]
+        }
+      ]
+    },
+    "HassSetPosition": {
+      "data": [
+        {
+          "sentences": [
+            "<steu> <name> uf <position>",
+            "<mach> <name> uf <position> (uf|zue)"
+          ],
+          "requires_context": {
+            "domain": [
+              "cover",
+              "valve"
+            ]
+          }
+        }
+      ]
+    },
+    "HassLightSet": {
+      "data": [
+        {
+          "sentences": [
+            "(setz|steu|schteu|dimm|dim) [(d'|d' |d |die )(Helligkeit|Hälligkeit|Häuigkeit)][( vo| vor| vo der| vo dr| vodr)] <name> uf <brightness> [(ii|y)]"
+          ],
+          "requires_context": {
+            "domain": "light"
+          },
+          "response": "brightness"
+        },
+        {
+          "sentences": [
+            "(setz|steu|schteu|dimm|dim) [(d'|d' |d |die )(Helligkeit|Hälligkeit|Häuigkeit)][( vo | vor | vo der | vo dr | vodr )](<Liecht>|<Liechter>) <area> uf <brightness> [(ii|y)]"
+          ],
+          "response": "brightness_area"
+        },
+        {
+          "sentences": [
+            "(setz|steu|schteu|wächsle|wächslä) [(d' |d'|d )Farb (vo|vor|vo der|vo dr|vodr)] <name> (uf|nach) {color}"
+          ],
+          "requires_context": {
+            "domain": "light"
+          },
+          "response": "color"
+        },
+        {
+          "sentences": [
+            "(setz|steu|schteu|wächsle|wächslä) [(d' |d'|d )Farb (vo|vor|vo de )][(<Liecht>|<Liechter>)] <area> (uf|nach) {color}"
+          ],
+          "response": "color_area"
+        }
+      ]
+    },
+    "HassMediaNext": {
+      "data": [
+        {
+          "sentences": [
+            "Nächs[ch]ts (stück|lied) (vo|für|uf [em]) <name>"
+          ],
+          "requires_context": {
+            "domain": "media_player"
+          }
+        }
+      ]
+    },
+    "HassMediaPause": {
+      "data": [
+        {
+          "sentences": [
+            "(p(a|o)usier|stop[p]) <name>"
+          ],
+          "requires_context": {
+            "domain": "media_player"
+          }
+        }
+      ]
+    },
+    "HassClimateGetTemperature": {
+      "data": [
+        {
+          "sentences": [
+            "Weli Temperatur (het|zeigt) <name>"
+          ]
+        },
+        {
+          "sentences": [
+            "Wie (warm|chaut|chalt) (isch es|isch's|ischs|isch) <area>",
+            "Weli Temperatur (isch es|isch's|isch|het|het ds|het's) <area>",
+            "Wie (hoch|höch) isch d Temperatur <area>"
+          ],
+          "response": "temp_area"
+        }
+      ]
+    },
+    "HassVacuumReturnToBase": {
+      "data": [
+        {
+          "sentences": [
+            "<name> gang [[zrügg ]zur Basis[station]]",
+            "schick <name> [[zrügg ]zur Basis[station]]"
+          ],
+          "requires_context": {
+            "domain": "vacuum"
+          }
+        }
+      ]
+    },
+    "HassVacuumStart": {
+      "data": [
+        {
+          "sentences": [
+            "start <name>"
+          ],
+          "requires_context": {
+            "domain": "vacuum"
+          }
+        }
+      ]
+    },
+    "HassListAddItem": {
+      "data": [
+        {
+          "sentences": [
+            "Setz <item> uf <my_list>"
+          ],
+          "response": "item_added",
+          "requires_context": {
+            "domain": "todo"
+          },
+          "expansion_rules": {
+            "my_list": "[mini |d |d' |d']({name}[(-| )](Lys[ch]te|lys[ch]te|Lis[ch]te|Liis[ch]te)|[(Lys[ch]te|lys[ch]te|Lis[ch]te|Liis[ch]te) ]{name})",
+            "item": "{list_item:item}"
+          }
+        }
+      ]
+    },
+    "HassSetVolume": {
+      "data": [
+        {
+          "sentences": [
+            "Setz ((d|d'|d )Luts[ch]terchi|(ds|z) Volume) (vo|vom) <name> uf <volume>"
+          ],
+          "requires_context": {
+            "domain": "media_player"
+          }
+        }
+      ]
+    }
+  },
+  "responses": {
+    "errors": {
+      "no_intent": "Tschuldigung, das han i nid verstande",
+      "handle_error": "Es isch en unerwartete Fähler ufträte bi der Verarbeitig vom Befäu.",
+      "no_area": "I kenne ke Bereich {{ area }}",
+      "no_domain": "I kenne ke Grätkategorie (domain) {{ domain }}",
+      "no_domain_in_area": "I kenne kes Grät vor Kategorie {{ domain }} im Bereich {{area}}",
+      "no_device_class": "I kenne ke Grätklass (device_class) {{ device_class }}",
+      "no_device_class_in_area": "I kenne kes Grät vor Klass {{ device_class }} im Bereich {{ area }}",
+      "no_entity": "I kenne ds Grät {{ entity }} nid",
+      "no_entity_in_area": "I kenne kes Grät mit em Name {{ entity }} im Bereich {{ area }}",
+      "no_entity_exposed": "I ha ke Zuegriff uf {{ entity }}, ds Grät isch äuä nid freiggäh",
+      "no_entity_in_area_exposed": "I ha ke Zuegriff uf {{ entity }} im Bereich {{ area }}, ds Grät isch äuä nid freiggäh",
+      "no_domain_exposed": "I ha ke Zuegriff uf {{ domain }}, es isch äuä kes Grät vo dere Kategorie (domain) freiggäh",
+      "no_domain_in_area_exposed": "I ha ke Zuegriff uf {{ domain }} im Bereich {{ area }}, es isch äuä kes Grät vo dere Kategorie (domain) im Bereich freiggäh",
+      "no_device_class_exposed": "I ha ke Zuegriff uf {{ device_class }}, es isch äuä kes Grät vo dere Klass (device_class) freiggäh",
+      "no_device_class_in_area_exposed": "I ha ke Zuegriff uf {{ device_class }} im Bereich {{ area }}, es isch äuä kes Grät vo dere Klass (device_class) im Bereich freiggäh",
+      "duplicate_entities": "Es git mehreri Grät mit em Name {{ entity }}",
+      "duplicate_entities_in_area": "Es git im Bereich {{ area }} mehreri Grät mit em Name  {{ entity }}"
+    },
+    "intents": {
+      "HassGetState": {
+        "one": "{{ slots.name  | capitalize }} isch {{ state.state_with_unit }}\n",
+        "one_yesno": "{% if query.matched %}\nJa, d {{ slots.name  | capitalize }} isch {{ state.state_with_unit }}\n{% else %}\nNei, {{ slots.name  | capitalize }} isch {{ state.state_with_unit }}\n{% endif %}\n",
+        "any": "{% if query.matched %}\n  {% set match = query.matched | map(attribute=\"name\") | sort | list %}\n  {% if match | length > 4 %}\n    Ja, {{ match[:3] | join(\", \") }} und {{ (match | length - 3) }} angeri\n  {%- else -%}\n    Ja,\n    {% for name in match -%}\n      {% if not loop.first and not loop.last %}, {% elif loop.last and not loop.first %} und {% endif -%}\n      {{ name  | capitalize }}\n    {%- endfor -%}\n  {% endif %}\n{% else %}\n  Nei\n{% endif %}\n",
+        "all": "{% if not query.unmatched %}\n  Ja\n{% else %}\n  {% set no_match = query.unmatched | map(attribute=\"name\") | sort | list %}\n  {% if no_match | length > 4 %}\n    Nei, {{ no_match[:3] | join(\", \") }} u {{ (no_match | length - 3) }} angeri nid\n  {%- else -%}\n    Nei,\n    {% for name in no_match -%}\n      {% if not loop.first and not loop.last %}, {% elif loop.last and not loop.first %} u {% endif -%}\n      {{ name  | capitalize }}\n    {%- endfor %} nid\n  {% endif %}\n{% endif %}\n",
+        "which": "{% if not query.matched %}\n  Keis\n{% else %}\n  {% set match = query.matched | map(attribute=\"name\") | sort | list %}\n  {% if match | length > 4 %}\n    {{ match[:3] | join(\", \") }} u {{ (match | length - 3) }} angeri\n  {% else %}\n    {%- for name in match -%}\n      {% if not loop.first and not loop.last %}, {% elif loop.last and not loop.first %} u {% endif -%}\n      {{ name  | capitalize }}\n    {%- endfor -%}\n  {% endif %}\n{% endif %}\n",
+        "how_many": "{{ query.matched | length }}\n",
+        "where": "{% if state == \"not_home\" %}\n  {{ slots.name | capitalize }} isch usswärts\n{% else %}\n  {{ slots.name | capitalize }} isch {{ state.state }}\n{% endif %}\n"
+      },
+      "HassTurnOff": {
+        "default": "Ha {{slots.name | capitalize }} abgsteut.",
+        "default_area": "Ha d {{slots.area | capitalize }}-Grät abgsteut.",
+        "light": "Ha ds Liecht {{slots.name | capitalize }} uusgschaute.",
+        "lights_area": "Ha d {{slots.area | capitalize }}-Lampe uusgschaute.",
+        "fan": "Ha der Ventilator {{slots.name | capitalize }} uusgschaute.",
+        "fans_area": "Ha d {{slots.area | capitalize }}-Ventilatore abgsteut.",
+        "cover": "Ha {{slots.name | capitalize }} zuetaa.",
+        "cover_area": "Ha aues in {{slots.area | capitalize }} zuetaa."
+      },
+      "HassShoppingListAddItem": {
+        "item_added": "Ha {{ slots.item }} uf d Yychoufslyschte gsetzt"
+      },
+      "HassTurnOn": {
+        "default": "Ha {{slots.name | capitalize }} yygschaute.",
+        "default_area": "Ha d {{slots.area | capitalize }}-Grät yygschaute.",
+        "light": "Ha ds Liecht {{slots.name | capitalize }} yygschaute.",
+        "lights_area": "Ha d {{slots.area | capitalize }}-Lampe yygschaute.",
+        "fan": "Ha der Ventilator {{slots.name | capitalize }} yygschaute.",
+        "fans_area": "Ha d {{slots.area | capitalize }}-Ventilatore yygschaute.",
+        "cover": "Ha {{slots.name | capitalize }} uftaa.",
+        "cover_area": "Ha aues im {{slots.area | capitalize }} uftaa.",
+        "script": "Ha ds Script {{slots.name | capitalize }} gstartet.",
+        "scene": "Ha d Szene {{slots.name | capitalize }} aktiviert."
+      },
+      "HassMediaPause": {
+        "default": "Ha {{ slots.name | capitalize }} pousiert"
+      },
+      "HassListAddItem": {
+        "item_added": "Ha {{ slots.item }} uf d Lyschte {{ slots.name | capitalize }} gsetzt"
+      },
+      "HassGetWeather": {
+        "default": "{% set weather_condition = {\n  'clear': 'u klar',\n  'clear-night': 'u e klari Nacht',\n  'cloudy': 'u bewöukt',\n  'exceptional': 'u ussergewöhnlech',\n  'fog': 'mit Näbu',\n  'hail': 'mit Hageu',\n  'lightning': 'mit Gewitter',\n  'lightning-rainy': 'mit Gewitter u Räge',\n  'partlycloudy': 'u teilweyys bewöukt',\n  'pouring': 'und strömende Räge',\n  'rainy': 'und rägnerisch',\n  'snowy': 'u verschneit',\n  'snowy-rainy': 'mit Schnee u Räge',\n  'sunny': 'u sunnig',\n  'windy': 'u windig',\n  'windy-variant': 'mit Wind u Wouke'\n} %} Es isch {{ state.attributes.get('temperature') }} {{ state.attributes.get('temperature_unit') }} {{ weather_condition.get((state.state | string).lower(), \"\") }}\n"
+      },
+      "HassLightSet": {
+        "brightness": "D Häuigkeit vo {{slots.name | capitalize }} isch uf {{slots.brightness}} gsetzt.",
+        "brightness_area": "D Häuigkeit vo de Lampe im Zimmer {{slots.area | capitalize }} isch uf {{slots.brightness}} gsetzt.",
+        "color": "D Farb vo {{slots.name | capitalize }} isch uf {{slots.color}} gänderet.",
+        "color_area": "D Farb vo de Lampe im Zimmer {{slots.area | capitalize }} isch uf {{slots.color}} gänderet."
+      },
+      "HassVacuumStart": {
+        "default": "Ha dr Schtoubsuger gschtartet"
+      },
+      "HassMediaUnpause": {
+        "default": "{{slots.name | capitalize }} schpiut wyter"
+      },
+      "HassSetPosition": {
+        "default": "Ha d Position gsetzt"
+      },
+      "HassMediaNext": {
+        "default": "Schpile ds nächschte Stück"
+      },
+      "HassClimateGetTemperature": {
+        "default": "D Temparatur vo {{slots.name | capitalize }} isch {{ state.state }} Grad.",
+        "temp_area": "In {{slots.area | capitalize }} isch es {{ state.state }} Grad."
+      },
+      "HassSetVolume": {
+        "default": "Ha d Lutschterchi yygschteut"
+      },
+      "HassVacuumReturnToBase": {
+        "default": "Ha der Schtoubsuger zrügg zur Basis gschickt"
+      }
+    }
+  },
+  "lists": {
+    "color": {
+      "values": [
+        {
+          "in": "wyss",
+          "out": "white"
+        },
+        {
+          "in": "schwarz",
+          "out": "black"
+        },
+        {
+          "in": "rot",
+          "out": "red"
+        },
+        {
+          "in": "(orange|orangsch)",
+          "out": "orange"
+        },
+        {
+          "in": "(gelb|gäub|gälb)",
+          "out": "yellow"
+        },
+        {
+          "in": "grüen",
+          "out": "green"
+        },
+        {
+          "in": "blau",
+          "out": "blue"
+        },
+        {
+          "in": "violett",
+          "out": "purple"
+        },
+        {
+          "in": "(brun|bruun)",
+          "out": "brown"
+        }
+      ]
+    },
+    "brightness": {
+      "range": {
+        "type": "percentage",
+        "from": 0,
+        "to": 100
+      }
+    },
+    "temperature": {
+      "range": {
+        "type": "temperature",
+        "from": 0,
+        "to": 100
+      }
+    },
+    "temperature_unit": {
+      "values": [
+        {
+          "in": "(c|celsius)",
+          "out": "Celsius"
+        },
+        {
+          "in": "(f|fahrenheit)",
+          "out": "Fahrenheit"
+        }
+      ]
+    },
+    "on_off_states": {
+      "values": [
+        {
+          "in": "(a|aa|an|anne)",
+          "out": "on"
+        },
+        {
+          "in": "(ab|us|uus)",
+          "out": "off"
+        }
+      ]
+    },
+    "on_off_domains": {
+      "values": [
+        {
+          "in": "Lamp(e|ä)",
+          "out": "light"
+        },
+        {
+          "in": "Liecht[er]",
+          "out": "light"
+        },
+        {
+          "in": "Venti[lator[e]]",
+          "out": "fan"
+        },
+        {
+          "in": "Scha(u|l)ter",
+          "out": "switch"
+        },
+        {
+          "in": "Skript",
+          "out": "script"
+        },
+        {
+          "in": "Szene",
+          "out": "szene"
+        }
+      ]
+    },
+    "cover_states": {
+      "values": [
+        {
+          "in": "(uf|offe)",
+          "out": "open"
+        },
+        {
+          "in": "zue",
+          "out": "closed"
+        },
+        {
+          "in": "am uftue",
+          "out": "opening"
+        },
+        {
+          "in": "am zuetue",
+          "out": "closing"
+        }
+      ]
+    },
+    "cover_classes": {
+      "values": [
+        {
+          "in": "Sunnes[ch]tore",
+          "out": "awning"
+        },
+        {
+          "in": "S[ch]tore",
+          "out": "blind"
+        },
+        {
+          "in": "Vorh(a|ä)ng",
+          "out": "curtain"
+        },
+        {
+          "in": "Tü[ü]r[e]",
+          "out": "door"
+        },
+        {
+          "in": "Gara(g|sch)[e]tor",
+          "out": "garage"
+        },
+        {
+          "in": "Tor",
+          "out": "gate"
+        },
+        {
+          "in": "shade[s]",
+          "out": "shade"
+        },
+        {
+          "in": "Fäns[ch]terlade",
+          "out": "shutter"
+        },
+        {
+          "in": "Fäns[ch]ter",
+          "out": "window"
+        }
+      ]
+    },
+    "lock_states": {
+      "values": [
+        {
+          "in": "[(ab|zue[ ])](gschlosse|bschlosse)",
+          "out": "locked"
+        },
+        {
+          "in": "((uf|un|nid )(gschlosse|bschlosse)|offe)",
+          "out": "unlocked"
+        }
+      ]
+    },
+    "list_item": {
+      "wildcard": true
+    },
+    "zone": {
+      "wildcard": true
+    },
+    "position": {
+      "range": {
+        "type": "percentage",
+        "from": 0,
+        "to": 100
+      }
+    },
+    "volume": {
+      "range": {
+        "type": "percentage",
+        "from": 0,
+        "to": 100
+      }
+    }
+  },
+  "expansion_rules": {
+    "name": "[(d'[ ]|d |de |dr |der |die |ds |s )]{name}",
+    "area": "[(idr|i dr|im|ir|ide|idä|i dä|i de|i dr|i der)] {area}",
+    "a_y": "(a|aa|y|yy|ii|ih)",
+    "ab_us": "(ab|us|uus|uis)",
+    "cover": "[(d'[' ']|d |alli |aui )]([Sunne]s[ch]tore|Vorhang|Vorhäng|Tür[e]|Tor|Abdeckig[e]|Fänschter[l(a|ä)de])",
+    "what_is": "(was isch|wasch)",
+    "brightness": "{brightness}[(%| %| Proz(e|ä)nt)]",
+    "position": "{position}[[ ]%| %| Proz(e|ä)nt]",
+    "temp": "{temperature} [Grad] [{temperature_unit}]",
+    "steu": "(Scha(l|u)t|S[ch]te(ll|u)|Mach)",
+    "mach": "(mach|tue|la[s])",
+    "Liechter": "([(d'[ ]|d |alli |aui )]Liechter|[(d'[ ]|d |alli |aui )]Lampä|[(d'[ ]|d |alli |aui )]Lampe|[(d'[ ]|d |alli |aui )]Lampäne)",
+    "Liecht": "([(ds|s)] Liecht|[(d |d'[ ])]Lampe|[(d |d'[ ])]Lampä)",
+    "Geräte": "([(d'[ ]|d |alli |aui )](Grät|Entitäte|Entitätä))",
+    "volume": "{volume:volume_level}[[ ]%| %| Proz(e|ä)nt]"
+  },
+  "skip_words": [
+    "bitte",
+    "chönntisch",
+    "chasch",
+    "würdsch",
+    "würdisch"
+  ]
+}

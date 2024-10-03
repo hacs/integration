@@ -1,0 +1,41 @@
+{
+    "issues": {
+        "deprecated_legacy_api_password": {
+            "description": "Vanha API-salasanojen todennuspalveluntarjoaja on vanhentunut ja se poistetaan. Poista se YAML-konfiguraatiostasi ja k\u00e4yt\u00e4 sen sijaan oletusarvoista Home Assistant -todennuspalvelua.",
+            "title": "Vanhan API:n salasana on vanhentunut."
+        }
+    },
+    "mfa_setup": {
+        "notify": {
+            "abort": {
+                "no_available_service": "Ilmoituspalveluita ei ole saatavilla."
+            },
+            "error": {
+                "invalid_code": "Virheellinen koodi. Yrit\u00e4 uudelleen."
+            },
+            "step": {
+                "init": {
+                    "description": "Valitse jokin ilmoituspalveluista:",
+                    "title": "M\u00e4\u00e4rit\u00e4 kertak\u00e4ytt\u00f6salasana, jonka notify-komponentti toimittaa"
+                },
+                "setup": {
+                    "description": "Kertak\u00e4ytt\u00f6salasana on l\u00e4hetetty **notify.{notify_service}** kautta. Sy\u00f6t\u00e4 se alla olevaan kentt\u00e4\u00e4n:",
+                    "title": "Varmista asetukset"
+                }
+            },
+            "title": "Ilmoita kertaluonteinen salasana"
+        },
+        "totp": {
+            "error": {
+                "invalid_code": "Virheellinen koodi, yrit\u00e4 uudelleen. Jos saat t\u00e4m\u00e4n virheen jatkuvasti, varmista, ett\u00e4 Home Assistant -j\u00e4rjestelm\u00e4si kello on ajassa."
+            },
+            "step": {
+                "init": {
+                    "description": "Jos haluat aktivoida kaksitekij\u00e4todennuksen k\u00e4ytt\u00e4m\u00e4ll\u00e4 aikapohjaisia kertak\u00e4ytt\u00f6salasanoja, skannaa QR-koodi todennussovelluksellasi. Jos sinulla ei ole sellaista, suosittelemme joko [Google Authenticator](https://support.google.com/accounts/answer/1066447) tai [Authy](https://authy.com/).\n\n{qr_code}\n\nKun olet skannannut koodin, sy\u00f6t\u00e4 sovelluksen kuusinumeroinen koodi vahvistaaksesi asetukset. Jos sinulla on ongelmia QR-koodin skannaamisessa, tee manuaalinen asennus koodilla **`{code}`**.",
+                    "title": "M\u00e4\u00e4rit\u00e4 kaksivaiheinen todennus TOTP:n avulla"
+                }
+            },
+            "title": "TOTP"
+        }
+    }
+}

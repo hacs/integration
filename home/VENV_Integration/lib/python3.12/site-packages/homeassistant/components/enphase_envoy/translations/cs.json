@@ -1,0 +1,366 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Za\u0159\u00edzen\u00ed je ji\u017e nastaveno",
+            "reauth_successful": "Op\u011btovn\u00e9 ov\u011b\u0159en\u00ed bylo \u00fasp\u011b\u0161n\u00e9"
+        },
+        "error": {
+            "cannot_connect": "Nelze se p\u0159ipojit: {reason}",
+            "invalid_auth": "Neplatn\u00e9 ov\u011b\u0159en\u00ed: {reason}",
+            "unexpected_envoy": "Neo\u010dek\u00e1van\u00fd vyslanec: {reason}",
+            "unknown": "Neo\u010dek\u00e1van\u00e1 chyba"
+        },
+        "flow_title": "{serial} ({host})",
+        "step": {
+            "reconfigure": {
+                "data": {
+                    "host": "Hostitel",
+                    "password": "Heslo",
+                    "username": "U\u017eivatelsk\u00e9 jm\u00e9no"
+                },
+                "data_description": {
+                    "host": "N\u00e1zev hostitele nebo IP adresa va\u0161\u00ed br\u00e1ny Enphase Envoy."
+                },
+                "description": "U firmwaru verze 7.0 a nov\u011bj\u0161\u00ed zadejte p\u0159ihla\u0161ovac\u00ed \u00fadaje cloudu Enphase, u star\u0161\u00edch model\u016f zadejte u\u017eivatelsk\u00e9 jm\u00e9no \"installer\" bez hesla."
+            },
+            "reconfigure_confirm": {
+                "data": {
+                    "host": "Hostitel",
+                    "password": "Heslo",
+                    "username": "U\u017eivatelsk\u00e9 jm\u00e9no"
+                },
+                "data_description": {
+                    "host": "N\u00e1zev hostitele nebo IP adresa va\u0161\u00ed br\u00e1ny Enphase Envoy."
+                },
+                "description": "U firmwaru verze 7.0 a nov\u011bj\u0161\u00ed zadejte p\u0159ihla\u0161ovac\u00ed \u00fadaje cloudu Enphase, u star\u0161\u00edch model\u016f zadejte u\u017eivatelsk\u00e9 jm\u00e9no \"installer\" bez hesla."
+            },
+            "user": {
+                "data": {
+                    "host": "Hostitel",
+                    "password": "Heslo",
+                    "username": "U\u017eivatelsk\u00e9 jm\u00e9no"
+                },
+                "data_description": {
+                    "host": "N\u00e1zev hostitele nebo IP adresa va\u0161\u00ed br\u00e1ny Enphase Envoy."
+                },
+                "description": "U firmwaru verze 7.0 a nov\u011bj\u0161\u00ed zadejte p\u0159ihla\u0161ovac\u00ed \u00fadaje cloudu Enphase, u star\u0161\u00edch model\u016f zadejte u\u017eivatelsk\u00e9 jm\u00e9no \"installer\" bez hesla."
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "communicating": {
+                "name": "Komunikov\u00e1n\u00ed"
+            },
+            "dc_switch": {
+                "name": "DC sp\u00edna\u010d"
+            },
+            "grid_status": {
+                "name": "Stav s\u00edt\u011b"
+            },
+            "operating": {
+                "name": "V provozu"
+            },
+            "relay": {
+                "name": "Stav rel\u00e9"
+            }
+        },
+        "number": {
+            "cutoff_battery_level": {
+                "name": "\u00darove\u0148 pro vypnut\u00ed baterie"
+            },
+            "reserve_soc": {
+                "name": "Rezervn\u00ed \u00farove\u0148 baterie"
+            },
+            "restore_battery_level": {
+                "name": "\u00darove\u0148 pro obnoven\u00ed baterie"
+            }
+        },
+        "select": {
+            "relay_generator_action": {
+                "name": "Akce gener\u00e1toru",
+                "state": {
+                    "none": "\u017d\u00e1dn\u00e1",
+                    "not_powered": "Bez nap\u00e1jen\u00ed",
+                    "powered": "Nap\u00e1jeno",
+                    "schedule": "N\u00e1sledovat pl\u00e1n"
+                }
+            },
+            "relay_grid_action": {
+                "name": "Akce s\u00edt\u011b",
+                "state": {
+                    "none": "\u017d\u00e1dn\u00e1",
+                    "not_powered": "Bez nap\u00e1jen\u00ed",
+                    "powered": "Nap\u00e1jeno",
+                    "schedule": "N\u00e1sledovat pl\u00e1n"
+                }
+            },
+            "relay_microgrid_action": {
+                "name": "Akce mikros\u00edt\u011b",
+                "state": {
+                    "none": "\u017d\u00e1dn\u00e1",
+                    "not_powered": "Bez nap\u00e1jen\u00ed",
+                    "powered": "Nap\u00e1jeno",
+                    "schedule": "N\u00e1sledovat pl\u00e1n"
+                }
+            },
+            "relay_mode": {
+                "name": "Re\u017eim",
+                "state": {
+                    "battery": "\u00darove\u0148 baterie",
+                    "standard": "Standardn\u00ed"
+                }
+            },
+            "storage_mode": {
+                "name": "Re\u017eim \u00falo\u017ei\u0161t\u011b",
+                "state": {
+                    "backup": "\u00dapln\u00e1 z\u00e1loha",
+                    "savings": "Re\u017eim \u00faspory",
+                    "self_consumption": "Vlastn\u00ed spot\u0159eba"
+                }
+            }
+        },
+        "sensor": {
+            "available_energy": {
+                "name": "Dostupn\u00e1 energie baterie"
+            },
+            "balanced_net_consumption": {
+                "name": "vyv\u00e1\u017een\u00e1 \u010dist\u00e1 spot\u0159eba energie"
+            },
+            "balanced_net_consumption_phase": {
+                "name": "vyv\u00e1\u017een\u00e1 \u010dist\u00e1 spot\u0159eba energie {phase_name}"
+            },
+            "battery_discharge": {
+                "name": "Aktu\u00e1ln\u00ed vybit\u00ed baterie"
+            },
+            "battery_discharge_phase": {
+                "name": "Aktu\u00e1ln\u00ed vybit\u00ed baterie {phase_name}"
+            },
+            "configured_reserve_soc": {
+                "name": "Nastaven\u00e1 rezervn\u00ed \u00farove\u0148 baterie"
+            },
+            "current_power_consumption": {
+                "name": "Aktu\u00e1ln\u00ed spot\u0159eba energie"
+            },
+            "current_power_consumption_phase": {
+                "name": "Aktu\u00e1ln\u00ed spot\u0159eba energie {phase_name}"
+            },
+            "current_power_production": {
+                "name": "Aktu\u00e1ln\u00ed v\u00fdroba energie"
+            },
+            "current_power_production_phase": {
+                "name": "Aktu\u00e1ln\u00ed v\u00fdroba energie {phase_name}"
+            },
+            "daily_consumption": {
+                "name": "Dne\u0161n\u00ed spot\u0159eba energie"
+            },
+            "daily_consumption_phase": {
+                "name": "Dne\u0161n\u00ed spot\u0159eba energie {phase_name}"
+            },
+            "daily_production": {
+                "name": "Dne\u0161n\u00ed v\u00fdroba energie"
+            },
+            "daily_production_phase": {
+                "name": "Dne\u0161n\u00ed v\u00fdroba energie {phase_name}"
+            },
+            "last_reported": {
+                "name": "Naposledy hl\u00e1\u0161eno"
+            },
+            "lifetime_balanced_net_consumption": {
+                "name": "Vyv\u00e1\u017een\u00e1 \u010dist\u00e1 spot\u0159eba energie po celou dobu \u017eivotnosti"
+            },
+            "lifetime_balanced_net_consumption_phase": {
+                "name": "Vyv\u00e1\u017een\u00e1 \u010dist\u00e1 spot\u0159eba energie po celou dobu \u017eivotnosti {phase_name}"
+            },
+            "lifetime_battery_charged": {
+                "name": "Nabit\u00e1 energie baterie po celou dobu \u017eivotnosti"
+            },
+            "lifetime_battery_charged_phase": {
+                "name": "Nabit\u00e1 energie baterie po celou dobu \u017eivotnosti {phase_name}"
+            },
+            "lifetime_battery_discharged": {
+                "name": "Vybit\u00e1 energie baterie po celou dobu \u017eivotnosti"
+            },
+            "lifetime_battery_discharged_phase": {
+                "name": "Vybit\u00e1 energie baterie po celou dobu \u017eivotnosti {phase_name}"
+            },
+            "lifetime_consumption": {
+                "name": "Spot\u0159eba energie za celou dobu \u017eivotnosti"
+            },
+            "lifetime_consumption_phase": {
+                "name": "Celo\u017eivotn\u00ed spot\u0159eba energie {phase_name}"
+            },
+            "lifetime_net_consumption": {
+                "name": "\u010cist\u00e1 spot\u0159eba energie za celou dobu \u017eivotnosti"
+            },
+            "lifetime_net_consumption_phase": {
+                "name": "\u010cist\u00e1 spot\u0159eba energie za celou dobu \u017eivotnosti {phase_name}"
+            },
+            "lifetime_net_production": {
+                "name": "\u010cist\u00e1 v\u00fdroba energie za celou dobu \u017eivotnosti"
+            },
+            "lifetime_net_production_phase": {
+                "name": "\u010cist\u00e1 v\u00fdroba energie za celou dobu \u017eivotnosti {phase_name}"
+            },
+            "lifetime_production": {
+                "name": "V\u00fdroba energie za celou dobu \u017eivotnosti"
+            },
+            "lifetime_production_phase": {
+                "name": "Celo\u017eivotn\u00ed v\u00fdroba energie {phase_name}"
+            },
+            "max_capacity": {
+                "name": "Kapacita baterie"
+            },
+            "net_consumption": {
+                "name": "Aktu\u00e1ln\u00ed \u010dist\u00e1 spot\u0159eba energie"
+            },
+            "net_consumption_phase": {
+                "name": "Aktu\u00e1ln\u00ed \u010dist\u00e1 spot\u0159eba energie {phase_name}"
+            },
+            "net_ct_current": {
+                "name": "\u010cist\u00e1 spot\u0159eba proudu CT"
+            },
+            "net_ct_current_phase": {
+                "name": "\u010cist\u00e1 spot\u0159eba proudu CT {phase_name}"
+            },
+            "net_ct_frequency": {
+                "name": "\u010cist\u00e1 spot\u0159eba frekvence CT"
+            },
+            "net_ct_frequency_phase": {
+                "name": "\u010cist\u00e1 spot\u0159eba frekvence CT {phase_name}"
+            },
+            "net_ct_metering_status": {
+                "name": "\u010cist\u00e1 spot\u0159eba stavu m\u011b\u0159en\u00ed CT"
+            },
+            "net_ct_metering_status_phase": {
+                "name": "\u010cist\u00e1 spot\u0159eba stavu m\u011b\u0159en\u00ed CT {phase_name}"
+            },
+            "net_ct_powerfactor": {
+                "name": "\u00da\u010din\u00edk \u010dist\u00e9 spot\u0159eby CT"
+            },
+            "net_ct_powerfactor_phase": {
+                "name": "\u00da\u010din\u00edk \u010dist\u00e9 spot\u0159eby CT {phase_name}"
+            },
+            "net_ct_status_flags": {
+                "name": "\u010cist\u00e1 spot\u0159eba aktivn\u00edho stavu m\u011b\u0159en\u00ed CT"
+            },
+            "net_ct_status_flags_phase": {
+                "name": "\u010cist\u00e1 spot\u0159eba aktivn\u00edho stavu m\u011b\u0159en\u00ed CT {phase_name}"
+            },
+            "net_ct_voltage": {
+                "name": "\u010cist\u00e1 spot\u0159eba nap\u011bt\u00ed CT"
+            },
+            "net_ct_voltage_phase": {
+                "name": "\u010cist\u00e1 spot\u0159eba nap\u011bt\u00ed CT {phase_name}"
+            },
+            "production_ct_current": {
+                "name": "Produkce proudu CT"
+            },
+            "production_ct_current_phase": {
+                "name": "Produkce proudu CT {phase_name}"
+            },
+            "production_ct_frequency": {
+                "name": "Frekven\u010dn\u00ed produkce CT"
+            },
+            "production_ct_frequency_phase": {
+                "name": "Frekven\u010dn\u00ed produkce CT {phase_name}"
+            },
+            "production_ct_metering_status": {
+                "name": "Stav m\u011b\u0159en\u00ed v\u00fdroby CT"
+            },
+            "production_ct_metering_status_phase": {
+                "name": "Stav m\u011b\u0159en\u00ed v\u00fdroby CT {phase_name}"
+            },
+            "production_ct_powerfactor": {
+                "name": "Produkce \u00fa\u010din\u00edku CT"
+            },
+            "production_ct_powerfactor_phase": {
+                "name": "Produkce \u00fa\u010din\u00edku CT {phase_name}"
+            },
+            "production_ct_status_flags": {
+                "name": "Aktivn\u00ed v\u00fdroba stavu m\u011b\u0159en\u00ed CT"
+            },
+            "production_ct_status_flags_phase": {
+                "name": "Aktivn\u00ed v\u00fdroba stavu m\u011b\u0159en\u00ed CT {phase_name}"
+            },
+            "production_ct_voltage": {
+                "name": "Produkce nap\u011bt\u00ed CT"
+            },
+            "production_ct_voltage_phase": {
+                "name": "Produkce nap\u011bt\u00ed CT {phase_name}"
+            },
+            "reserve_energy": {
+                "name": "Energie rezervn\u00ed baterie"
+            },
+            "reserve_soc": {
+                "name": "\u00darove\u0148 rezervn\u00ed baterie"
+            },
+            "seven_days_consumption": {
+                "name": "Spot\u0159eba energie za posledn\u00edch sedm dn\u00ed"
+            },
+            "seven_days_consumption_phase": {
+                "name": "Spot\u0159eba energie za posledn\u00edch sedm dn\u00ed {phase_name}"
+            },
+            "seven_days_production": {
+                "name": "V\u00fdroba energie za posledn\u00edch sedm dn\u00ed"
+            },
+            "seven_days_production_phase": {
+                "name": "V\u00fdroba energie za posledn\u00edch sedm dn\u00ed {phase_name}"
+            },
+            "storage_ct_current": {
+                "name": "\u00dalo\u017en\u00fd proud CT"
+            },
+            "storage_ct_current_phase": {
+                "name": "\u00dalo\u017en\u00fd proud CT {phase_name}"
+            },
+            "storage_ct_frequency": {
+                "name": "Frekven\u010dn\u00ed \u00falo\u017ei\u0161t\u011b CT"
+            },
+            "storage_ct_frequency_phase": {
+                "name": "Frekven\u010dn\u00ed \u00falo\u017ei\u0161t\u011b CT {phase_name}"
+            },
+            "storage_ct_metering_status": {
+                "name": "Ukl\u00e1d\u00e1n\u00ed stavu m\u011b\u0159en\u00ed CT"
+            },
+            "storage_ct_metering_status_phase": {
+                "name": "\u00dalo\u017ei\u0161t\u011b stavu m\u011b\u0159en\u00ed CT {phase_name}"
+            },
+            "storage_ct_powerfactor": {
+                "name": "\u00dalo\u017ei\u0161t\u011b \u00fa\u010din\u00edku CT"
+            },
+            "storage_ct_powerfactor_phase": {
+                "name": "\u00dalo\u017ei\u0161t\u011b \u00fa\u010din\u00edku CT {phase_name}"
+            },
+            "storage_ct_status_flags": {
+                "name": "P\u0159\u00edznaky stavu m\u011b\u0159idla aktivn\u00edho skladov\u00e1n\u00ed CT"
+            },
+            "storage_ct_status_flags_phase": {
+                "name": "P\u0159\u00edznaky stavu m\u011b\u0159idla aktivn\u00edho skladov\u00e1n\u00ed CT {phase_name}"
+            },
+            "storage_ct_voltage": {
+                "name": "Ukl\u00e1d\u00e1n\u00ed nap\u011bt\u00ed CT"
+            },
+            "storage_ct_voltage_phase": {
+                "name": "Ukl\u00e1d\u00e1n\u00ed nap\u011bt\u00ed CT {phase_name}"
+            }
+        },
+        "switch": {
+            "charge_from_grid": {
+                "name": "Nab\u00edt ze s\u00edt\u011b"
+            },
+            "grid_enabled": {
+                "name": "M\u0159\u00ed\u017eka povolena"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "diagnostics_include_fixtures": "Zahrne data testovac\u00edho p\u0159\u00edpravku do diagnostick\u00e9 zpr\u00e1vy. Pou\u017eijte na vy\u017e\u00e1d\u00e1n\u00ed k poskytnut\u00ed testovac\u00edch dat pro odstra\u0148ov\u00e1n\u00ed probl\u00e9m\u016f nebo v\u00fdvojov\u00e9 aktivity. Pokud je tato volba povolena, stahov\u00e1n\u00ed diagnostick\u00e9 zpr\u00e1vy m\u016f\u017ee trvat d\u00e9le. Kdy\u017e je sestava vytvo\u0159ena, nejl\u00e9pe tuto mo\u017enost znovu deaktivujte."
+                },
+                "title": "Volby Envoy {serial} {host}"
+            }
+        }
+    }
+}

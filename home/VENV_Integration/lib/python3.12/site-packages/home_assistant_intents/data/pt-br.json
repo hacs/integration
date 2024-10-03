@@ -1,0 +1,831 @@
+{
+  "language": "pt-br",
+  "intents": {
+    "HassTurnOff": {
+      "data": [
+        {
+          "sentences": [
+            "<desligar> [a[s]|o[s]] [luz[es]|interruptor[es]|ventilador] [do|da] <nome>"
+          ],
+          "excludes_context": {
+            "domain": [
+              "binary_sensor",
+              "cover",
+              "lock",
+              "scene",
+              "script",
+              "sensor"
+            ]
+          }
+        },
+        {
+          "sentences": [
+            "<desligar> [tod[a|o]s] [(o[s]| a[s])] (luz[es]| lâmpada[s]) <na_zona>"
+          ],
+          "slots": {
+            "domain": "light"
+          },
+          "response": "lights_area"
+        },
+        {
+          "sentences": [
+            "<desligar> [tod[a|o]s] [(o[s]| a[s])] (luz[es]| lâmpada[s]) [da casa]"
+          ],
+          "slots": {
+            "domain": "light",
+            "area": "all",
+            "name": "all"
+          },
+          "response": "light_all"
+        },
+        {
+          "sentences": [
+            "<desligar> [tod[a|o]s] [(o[s]| a[s])] (luz[es]| lâmpada[s]) <piso>"
+          ],
+          "response": "lights_floor",
+          "slots": {
+            "domain": "light"
+          }
+        },
+        {
+          "sentences": [
+            "<fecha> [(o | a)] [(porta | portão) da] garagem"
+          ],
+          "response": "cover",
+          "slots": {
+            "device_class": "garage",
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "<fecha> [as | os] [(cortinas | cortinados | estores | persianas)] <na_zona>"
+          ],
+          "response": "cover",
+          "slots": {
+            "device_class": [
+              "blind",
+              "curtain",
+              "shutter"
+            ],
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "<desligar> [todos] [(o[s])] (ventilador[es]) <na_zona>"
+          ],
+          "slots": {
+            "domain": "fan",
+            "name": "all"
+          },
+          "response": "fans_area"
+        },
+        {
+          "sentences": [
+            "<fecha> {name}"
+          ],
+          "requires_context": {
+            "domain": "valve"
+          },
+          "slots": {
+            "domain": "valve"
+          },
+          "response": "valve"
+        }
+      ]
+    },
+    "HassGetWeather": {
+      "data": [
+        {
+          "sentences": [
+            "como (está|ta) o tempo"
+          ]
+        },
+        {
+          "sentences": [
+            "como está o tempo (em|no) <nome>"
+          ],
+          "requires_context": {
+            "domain": "weather"
+          }
+        }
+      ]
+    },
+    "HassGetCurrentTime": {
+      "data": [
+        {
+          "sentences": [
+            "que horas são [agora]"
+          ]
+        }
+      ]
+    },
+    "HassTurnOn": {
+      "data": [
+        {
+          "sentences": [
+            "<ligar> [tod[a|o]s] [(o[s]| a[s])] (luz[es]| lâmpada[s]) <na_zona>"
+          ],
+          "slots": {
+            "domain": "light"
+          },
+          "response": "lights_area"
+        },
+        {
+          "sentences": [
+            "<ligar> [tod[a|o]s] [(o[s]| a[s])] (luz[es]| lâmpada[s]) [da casa]"
+          ],
+          "slots": {
+            "domain": "light",
+            "area": "all",
+            "name": "all"
+          },
+          "response": "light_all"
+        },
+        {
+          "sentences": [
+            "<ligar> [tod[a|o]s] [(o[s]| a[s])] (luz[es]| lâmpada[s]) <piso>"
+          ],
+          "slots": {
+            "domain": "light"
+          },
+          "response": "lights_floor"
+        },
+        {
+          "sentences": [
+            "<ligar> todos os ventiladores <na_zona>"
+          ],
+          "slots": {
+            "domain": "fan",
+            "name": "all"
+          },
+          "response": "fans_area"
+        },
+        {
+          "sentences": [
+            "<abre> {name}"
+          ],
+          "requires_context": {
+            "domain": "valve"
+          },
+          "slots": {
+            "domain": "valve"
+          },
+          "response": "valve"
+        },
+        {
+          "sentences": [
+            "<ligar> [a[s]|o[s]] [luz[es]|interruptor[es]] [do|da] {name}"
+          ],
+          "excludes_context": {
+            "domain": [
+              "binary_sensor",
+              "cover",
+              "lock",
+              "scene",
+              "script",
+              "sensor",
+              "valve"
+            ]
+          }
+        },
+        {
+          "sentences": [
+            "<abre>  [(o|a)] [(porta|portão) da] garagem"
+          ],
+          "response": "cover",
+          "slots": {
+            "device_class": "garage",
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "<abre>  [as|os] [(cortinas | cortinados | estores | persianas)] <na_zona>"
+          ],
+          "response": "cover",
+          "slots": {
+            "device_class": [
+              "blind",
+              "curtain",
+              "shutter"
+            ],
+            "domain": "cover"
+          }
+        }
+      ]
+    },
+    "HassMediaUnpause": {
+      "data": [
+        {
+          "sentences": [
+            "(toca[r]|roda[r]) {name}"
+          ],
+          "requires_context": {
+            "domain": "media_player"
+          }
+        },
+        {
+          "sentences": [
+            "(toca[r]|roda[r]|continua[r])"
+          ],
+          "requires_context": {
+            "area": {
+              "slot": true
+            }
+          }
+        },
+        {
+          "sentences": [
+            "(toca[r]|roda[r]|continua[r]) [(música|tv|programa|video)] <na_zona>"
+          ]
+        }
+      ]
+    },
+    "HassShoppingListAddItem": {
+      "data": [
+        {
+          "sentences": [
+            "<adicionar> <item> (à|na) <lista>",
+            "<colocar> <item> na <lista>"
+          ],
+          "response": "item_added",
+          "expansion_rules": {
+            "lista": "[minha ]lista[ de compras]",
+            "item": "{shopping_list_item:item}"
+          }
+        }
+      ]
+    },
+    "HassNevermind": {
+      "data": [
+        {
+          "sentences": [
+            "esquece",
+            "deixa [(para|pra)] lá",
+            "cancela[r]",
+            "nada"
+          ]
+        }
+      ]
+    },
+    "HassGetCurrentDate": {
+      "data": [
+        {
+          "sentences": [
+            "que (dia|data) é hoje",
+            "data de hoje"
+          ]
+        }
+      ]
+    },
+    "HassSetPosition": {
+      "data": [
+        {
+          "sentences": [
+            "(<colocar> | <muda>) {name} (para|pra) [posição] <position>"
+          ],
+          "requires_context": {
+            "domain": [
+              "cover",
+              "valve"
+            ]
+          }
+        }
+      ]
+    },
+    "HassLightSet": {
+      "data": [
+        {
+          "sentences": [
+            "<muda> o brilho (do | da) <nome> (a | (para|pra) | em) <brilho>",
+            "<muda> <nome> (a | (para|pra) | em) <brilho>",
+            "<muda> o brilho (do | da) <nome> <na_zona> (a|(para|pra)| em) <brilho>",
+            "<muda> <nome> <na_zona> (a | (para|pra) | em) <brilho>"
+          ],
+          "response": "brightness"
+        },
+        {
+          "sentences": [
+            "<muda> o brilho <na_zona> (a | (para|pra) | em) <brilho>",
+            "<muda> <zona> (a | (para|pra) | em) <brilho>",
+            "<muda> [todas] as luzes (a | (para|pra) | em) <brilho>",
+            "<muda> [todas] as luzes <na_zona> (a | (para|pra) | em) <brilho>",
+            "<muda> [o brilho (de todas as | das) | as] luzes (a | para | pra | em) <brilho>",
+            "<muda> [o brilho (de todas as | das) | as] luzes <na_zona> (a | para | pra | em) <brilho>"
+          ],
+          "slots": {
+            "name": "all"
+          },
+          "response": "brightness"
+        },
+        {
+          "sentences": [
+            "<muda> [a cor [(do | da)]] <nome> (a | para | pra | em) {color}",
+            "<muda> <nome> {color}",
+            "<muda> [a cor [(do | da)]] <nome> <na_zona> (a | para | pra | em) {color}",
+            "(põe | ponha | muda | altera) <nome> <na_zona> {color}"
+          ],
+          "response": "color"
+        },
+        {
+          "sentences": [
+            "<muda> a cor <na_zona> (a | para | pra | em) {color}",
+            "<muda> <zona> [a | para | pra | em] {color}",
+            "<muda> [a cor (de todas as | das) | as] luzes (a | para | pra | em) {color}",
+            "<muda> [a cor (de todas as | das) | as] luzes <na_zona> (a | para | pra | em) {color}"
+          ],
+          "slots": {
+            "name": "all"
+          },
+          "response": "color"
+        }
+      ]
+    },
+    "HassMediaNext": {
+      "data": [
+        {
+          "sentences": [
+            "(próxim[a|o]|avançar|avance) [(faixa|música|video)] [(na|no)] {name}"
+          ],
+          "requires_context": {
+            "domain": "media_player"
+          }
+        },
+        {
+          "sentences": [
+            "(próxim[a|o]|avançar|avance) [(faixa|música|video)]"
+          ],
+          "requires_context": {
+            "area": {
+              "slot": true
+            }
+          }
+        },
+        {
+          "sentences": [
+            "(próxim[a|o]|avançar|avance [(a|o)]) [(faixa|música|video)] <na_zona>"
+          ]
+        }
+      ]
+    },
+    "HassMediaPause": {
+      "data": [
+        {
+          "sentences": [
+            "(pausa[r]|para[r]) {name}"
+          ],
+          "requires_context": {
+            "domain": "media_player"
+          }
+        },
+        {
+          "sentences": [
+            "(pausa[r]|para[r])"
+          ],
+          "requires_context": {
+            "area": {
+              "slot": true
+            }
+          }
+        },
+        {
+          "sentences": [
+            "(pausa[r]|para[r]) (música|tv|programa|video) <na_zona>"
+          ]
+        }
+      ]
+    },
+    "HassClimateGetTemperature": {
+      "data": [
+        {
+          "sentences": [
+            "<qual> [a] temperatura [(do|da) {name}]",
+            "<qual> a temperatura <na_zona>",
+            "a que temperatura está <zona>"
+          ]
+        }
+      ]
+    },
+    "HassVacuumReturnToBase": {
+      "data": [
+        {
+          "sentences": [
+            "(retornar|voltar) {name} [(para|pra) base]"
+          ],
+          "requires_context": {
+            "domain": "vacuum"
+          }
+        }
+      ]
+    },
+    "HassVacuumStart": {
+      "data": [
+        {
+          "sentences": [
+            "(iniciar|ligar) {name}"
+          ],
+          "requires_context": {
+            "domain": "vacuum"
+          }
+        }
+      ]
+    },
+    "HassListAddItem": {
+      "data": [
+        {
+          "sentences": [
+            "<adicionar> <item> à <lista>",
+            "<colocar> <item> na <lista>"
+          ],
+          "response": "item_added",
+          "requires_context": {
+            "domain": "todo"
+          },
+          "expansion_rules": {
+            "lista": "[minha ]lista [de ]{name}",
+            "item": "{shopping_list_item:item}"
+          }
+        }
+      ]
+    },
+    "HassSetVolume": {
+      "data": [
+        {
+          "sentences": [
+            "<muda> [volume] [da|do] {name} (para|pra) <volume>"
+          ],
+          "requires_context": {
+            "domain": "media_player"
+          }
+        },
+        {
+          "sentences": [
+            "<muda> [volume] [da|do] (para|pra) <volume>",
+            "<muda> [volume] <na_zona> (para|pra) <volume>"
+          ]
+        }
+      ]
+    }
+  },
+  "responses": {
+    "errors": {
+      "no_intent": "Desculpe, não consegui entender seu pedido",
+      "no_area": "Não existe nenhuma área chamada {{ area }}",
+      "no_domain_in_area": "{{ area }} não contem {{ domain }}",
+      "no_device_class_in_area": "{{ area }} não contém {{ device_class }}",
+      "no_entity": "Não existe nenhum dispositivo ou entidade com o nome {{ entity }}",
+      "no_domain": "Desculpe, eu não conheço nenhum {{ domain }}",
+      "no_device_class": "Desculpe, eu não conheço nenhuma {{ device_class }}",
+      "no_entity_in_area": "Desculpe, eu não conheço nenhum dispositivo chamado {{ entity }} na área {{ area }}",
+      "no_entity_exposed": "Desculpe, {{ entity }} não está exposto",
+      "no_entity_in_area_exposed": "Desculpe, {{ entity }} na área {{ area }} não está exposto",
+      "no_domain_exposed": "Desculpe, nenhum {{ domain }} está exposto",
+      "no_domain_in_area_exposed": "Desculpe, nenhum {{ domain }} na área {{ area }} está exposto",
+      "no_device_class_exposed": "Desculpe, nenhuma {{ device_class }} está exposta",
+      "no_device_class_in_area_exposed": "Desculpe, nenhuma {{ device_class }} na área {{ area }} está exposta",
+      "no_floor": "Desculpe, não existe nenhum piso chamado {{ floor }}",
+      "no_domain_in_floor": "Desculpe, não existe nenhum(a) {{ domain }} no piso {{ floor }}.",
+      "no_device_class_in_floor": "Desculpe, não existe nenhum(a) {{ device_class }} no piso {{ floor }}.",
+      "no_entity_in_floor": "Desculpe, não existe nenhum dispositivo chamado {{ entity }} no piso {{ floor }}.",
+      "no_entity_in_floor_exposed": "Desculpe, {{ entity }} no piso {{ floor }} não está exposto.",
+      "no_domain_in_floor_exposed": "Desculpe, nenhum(a) {{ domain }} no piso {{ floor }} está exposto.",
+      "no_device_class_in_floor_exposed": "Desculpe, nenhum(a) {{ device_class }} no piso {{ floor }} está exposto.",
+      "duplicate_entities_in_floor": "Desculpe, existem vários dispositivos chamados {{ entity }} no piso {{ floor }}.",
+      "duplicate_entities": "Desculpe, há vários dispositivos chamados {{ entity }}",
+      "duplicate_entities_in_area": "Desculpe, há vários dispositivos chamados {{ entity }} na área {{ area }}",
+      "handle_error": "Um erro inesperado ocorreu ao processar o pedido"
+    },
+    "intents": {
+      "HassGetState": {},
+      "HassTurnOff": {
+        "default": "{{ slots.name }} desligado",
+        "lights_area": "Luzes apagadas",
+        "fans_area": "Ventiladores desligados",
+        "cover": "Fechado",
+        "light_all": "Todas luzes apagadas",
+        "fan_all": "Todos ventiladores desligados",
+        "cover_device_class": "Fechado {{ slots.device_class }}",
+        "lock": "Destrancado",
+        "valve": "Fechada",
+        "lights_floor": "Luzes apagadas"
+      },
+      "HassShoppingListAddItem": {
+        "item_added": "Adicionei {{ slots.item }}"
+      },
+      "HassTurnOn": {
+        "default": "{{ slots.name }} ligado",
+        "lights_area": "Acendendo luzes",
+        "light_all": "Acendendo todas luzes",
+        "fans_area": "Ligando ventiladores",
+        "fans_all": "Ligando todos ventiladores",
+        "cover": "Aberto",
+        "cover_device_class": "{{ slots.device_class }} aberto",
+        "scene": "Ativando cena {{slots.name}}",
+        "script": "Iniciado {{slots.name}}",
+        "lock": "Trancado",
+        "valve": "Aberta",
+        "lights_floor": "Acendendo luzes"
+      },
+      "HassMediaPause": {
+        "default": "Pausado"
+      },
+      "HassGetCurrentTime": {
+        "default": "{% set minute_str = '{0:02d}'.format(slots.time.minute) %}\n{% if slots.time.hour < 6 %}\n    {{ slots.time.hour }}:{{ minute_str }} da madrugada\n{% elif slots.time.hour < 12 %}\n    {{ slots.time.hour }}:{{ minute_str }} da manhã\n{% elif slots.time.hour < 18 %}\n    {{ slots.time.hour }}:{{ minute_str }} da tarde\n{% else %}\n    {{ slots.time.hour }}:{{ minute_str }} da noite\n{% endif %}\n"
+      },
+      "HassListAddItem": {
+        "item_added": "Adicionei {{ slots.item }}"
+      },
+      "HassGetCurrentDate": {
+        "default": "{% set months = {\n   1: 'janeiro',\n   2: 'fevereiro',\n   3: 'março',\n   4: 'abril',\n   5: 'maio',\n   6: 'junho',\n   7: 'julho',\n   8: 'agosto',\n   9: 'setembro',\n   10: 'outubro',\n   11: 'novembro',\n   12: 'dezembro',\n} %} {% set weekday = [ 'segunda-feira', 'terça-feira', 'quarta-feira', 'quinta-feira', 'sexta-feira', 'sábado', 'domingo' ] %} {{ weekday[slots.date.weekday()] }}, {{slots.date.day}} de {{ months[slots.date.month] }} de {{ slots.date.year }}\n"
+      },
+      "HassGetWeather": {
+        "default": "{% set weather_condition = {\n  'clear': 'Céu limpo',\n  'clear-night': 'Céu limpo',\n  'cloudy': 'Céu nublado',\n  'exceptional': 'Condições excepcionalmente adversas',\n  'fog': 'Nevoeiro',\n  'hail': 'Granizo',\n  'lightning': 'Trovoada',\n  'lightning-rainy': 'Chuva e trovoada',\n  'partlycloudy': 'Céu parcialmente nublado',\n  'pouring': 'Chuva forte',\n  'rainy': 'Chuva',\n  'snowy': 'Neve',\n  'snowy-rainy': 'Chuva e neve',\n  'sunny': 'Sol',\n  'windy': 'Vento',\n  'windy-variant': 'Vento e céu nublado'\n} %}\n {{ weather_condition.get((state.state | string).lower(), \"\") }}, com temperatura de {{ state.attributes.get('temperature') }} {{ state.attributes.get('temperature_unit') }}\n"
+      },
+      "HassLightSet": {
+        "brightness_area": "O brilho de {{ slots.area }} foi definido em {{ slots.brightness }}",
+        "color_area": "A cor de {{ slots.area }} foi definido em {{ slots.color }}",
+        "brightness": "Brilho definido",
+        "color": "Cor definida"
+      },
+      "HassVacuumStart": {
+        "default": "Iniciando limpeza"
+      },
+      "HassMediaUnpause": {
+        "default": "Tocando"
+      },
+      "HassSetPosition": {
+        "default": "Posição alterada"
+      },
+      "HassMediaNext": {
+        "default": "Avançando"
+      },
+      "HassClimateGetTemperature": {
+        "default": "{% set temperature = state_attr(state.entity_id, 'current_temperature') %} {% if (temperature | float) >= -1 and (temperature | float) <= 1  %} {{ temperature }} grau {% else: %} {{ temperature }} graus {% endif %}\n"
+      },
+      "HassSetVolume": {
+        "default": "Volume alterado"
+      },
+      "HassVacuumReturnToBase": {
+        "default": "Retornando"
+      }
+    }
+  },
+  "lists": {
+    "color": {
+      "values": [
+        {
+          "in": "branco",
+          "out": "white"
+        },
+        {
+          "in": "branca",
+          "out": "white"
+        },
+        {
+          "in": "preto",
+          "out": "black"
+        },
+        {
+          "in": "preta",
+          "out": "black"
+        },
+        {
+          "in": "vermelho",
+          "out": "red"
+        },
+        {
+          "in": "vermelha",
+          "out": "red"
+        },
+        {
+          "in": "laranja",
+          "out": "orange"
+        },
+        {
+          "in": "amarelo",
+          "out": "yellow"
+        },
+        {
+          "in": "amarela",
+          "out": "yellow"
+        },
+        {
+          "in": "verde",
+          "out": "green"
+        },
+        {
+          "in": "azul",
+          "out": "blue"
+        },
+        {
+          "in": "roxo",
+          "out": "purple"
+        },
+        {
+          "in": "roxa",
+          "out": "purple"
+        },
+        {
+          "in": "castanho",
+          "out": "brown"
+        },
+        {
+          "in": "castanha",
+          "out": "brown"
+        },
+        {
+          "in": "marrom",
+          "out": "brown"
+        }
+      ]
+    },
+    "brightness": {
+      "range": {
+        "type": "percentage",
+        "from": 0,
+        "to": 100
+      }
+    },
+    "temperature": {
+      "range": {
+        "type": "temperature",
+        "from": 0,
+        "to": 100
+      }
+    },
+    "temperature_unit": {
+      "values": [
+        {
+          "in": "(celsius|c|centígrados)",
+          "out": "celsius"
+        },
+        "fahrenheit",
+        {
+          "in": "f",
+          "out": "fahrenheit"
+        }
+      ]
+    },
+    "brightness_level": {
+      "values": [
+        {
+          "in": "(máxim(o|a) | forte | alt(o|a))",
+          "out": 100
+        },
+        {
+          "in": "(mínim(o|a) | frac(o|a) | baix(o|a))",
+          "out": 1
+        }
+      ]
+    },
+    "on_off_states": {
+      "values": [
+        {
+          "in": "(ligado[s]|ligada[s]|acesa[s]|aceso[s])",
+          "out": "on"
+        },
+        {
+          "in": "(desligado[s]|desligada[s]|apagada[s])",
+          "out": "off"
+        }
+      ]
+    },
+    "on_off_domains": {
+      "values": [
+        {
+          "in": "luz[es]",
+          "out": "light"
+        },
+        {
+          "in": "ventilador[es]",
+          "out": "fan"
+        },
+        {
+          "in": "interruptor[es]",
+          "out": "switch"
+        }
+      ]
+    },
+    "cover_states": {
+      "values": [
+        {
+          "in": "(aberto[s]|aberta[s])",
+          "out": "open"
+        },
+        {
+          "in": "(fechado[s]|fechada[s])",
+          "out": "closed"
+        },
+        {
+          "in": "abrindo",
+          "out": "opening"
+        },
+        {
+          "in": "fechando",
+          "out": "closing"
+        }
+      ]
+    },
+    "cover_classes": {
+      "values": [
+        {
+          "in": "toldo[s]",
+          "out": "awning"
+        },
+        {
+          "in": "persiana[s]",
+          "out": "blind"
+        },
+        {
+          "in": "cortina[s]",
+          "out": "curtain"
+        },
+        {
+          "in": "porta[s]",
+          "out": "door"
+        },
+        {
+          "in": "(porta[s]|portão|portões) da garagem",
+          "out": "garage"
+        },
+        {
+          "in": "(portão|portões|porteira[s])",
+          "out": "gate"
+        },
+        {
+          "in": "shade[s]",
+          "out": "shade"
+        },
+        {
+          "in": "shutter[s]",
+          "out": "shutter"
+        },
+        {
+          "in": "janela[s]",
+          "out": "window"
+        }
+      ]
+    },
+    "lock_states": {
+      "values": [
+        {
+          "in": "trancada",
+          "out": "locked"
+        },
+        {
+          "in": "destrancada",
+          "out": "unlocked"
+        }
+      ]
+    },
+    "shopping_list_item": {
+      "wildcard": true
+    },
+    "position": {
+      "range": {
+        "type": "percentage",
+        "from": 0,
+        "to": 100
+      }
+    },
+    "volume": {
+      "range": {
+        "type": "percentage",
+        "from": 0,
+        "to": 100
+      }
+    }
+  },
+  "expansion_rules": {
+    "abre": "(abra|abre|abrir)",
+    "adicionar": "(adicione|adiciona[r])",
+    "algum": "(algum|alguma|alguns|algumas)",
+    "brilho": "{brightness}[%| porcento]",
+    "colocar": "(coloque|coloca[r]|pôr|põe)",
+    "desligar": "(desliga|desligue|apaga|apague|desligar|apagar|desativa[r]|desative)",
+    "esta": "(está|estão|existe|existem)",
+    "fecha": "(fecha|feche|fechar)",
+    "juntar": "(junte|junta[r])",
+    "ligar": "(liga[r]|ligue|acende[r]|acenda|ativa[r]|ative)",
+    "muda": "(põe|ponha|muda|mude|altera|coloca|deixa|pôr|mudar|alterar|colocar|deixar|definir|defina|setar|ajusta[r]|ajuste)",
+    "na_zona": "([no|na]|[da|do]) {area}",
+    "nome": "[(o[s]|a[s])] {name}",
+    "por": "(pôr|põe|ponha|definir|defina|setar|ajusta[r]|ajuste)",
+    "qual": "(que|qual|qual é|quais)",
+    "temperatura": "{temperature}[°| graus] [{temperature_unit}]",
+    "zona": "[(o|os|a|as)] {area}",
+    "position": "{position}[[ ]%| por cento]",
+    "volume": "{volume:volume_level}[[ ]%| por cento]",
+    "piso": "[do] [(piso|andar)] [de] {floor}"
+  },
+  "skip_words": [
+    "porfavor",
+    "por favor",
+    "por obsequio",
+    "por obséquio",
+    "por gentileza",
+    "pode"
+  ]
+}

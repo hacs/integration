@@ -1,0 +1,138 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Zariadenie u\u017e je nakonfigurovan\u00e9",
+            "cannot_connect": "Nepodarilo sa pripoji\u0165"
+        },
+        "error": {
+            "cannot_connect": "Nepodarilo sa pripoji\u0165",
+            "unknown": "Neo\u010dak\u00e1van\u00e1 chyba"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "host": "Hostite\u013e",
+                    "password": "Heslo"
+                }
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "mobile_connected": {
+                "name": "Mobiln\u00e9 pripojenie"
+            },
+            "roaming": {
+                "name": "Roaming"
+            },
+            "wire_connected": {
+                "name": "K\u00e1blov\u00e9 pripojenie"
+            }
+        },
+        "sensor": {
+            "band": {
+                "name": "Aktu\u00e1lne p\u00e1smo"
+            },
+            "cell_id": {
+                "name": "ID bunky"
+            },
+            "connection_text": {
+                "name": "Text pripojenia"
+            },
+            "connection_type": {
+                "name": "Typ pripojenia"
+            },
+            "radio_quality": {
+                "name": "Kvalita r\u00e1dia"
+            },
+            "register_network_display": {
+                "name": "Registr\u00e1cia sie\u0165ov\u00e9ho displeja"
+            },
+            "rx_level": {
+                "name": "\u00darove\u0148 Rx"
+            },
+            "service_type": {
+                "name": "Typ slu\u017eby"
+            },
+            "sms": {
+                "name": "SMS"
+            },
+            "sms_total": {
+                "name": "SMS celkom"
+            },
+            "tx_level": {
+                "name": "\u00darove\u0148 Tx"
+            },
+            "upstream": {
+                "name": "Odosielanie"
+            },
+            "usage": {
+                "name": "Pou\u017eitie"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_notify": {
+            "description": "Notifika\u010dn\u00e1 slu\u017eba Netgear LTE bola predt\u00fdm nastaven\u00e1 prostredn\u00edctvom konfigur\u00e1cie YAML. \n\nT\u00fdm sa vytvorila slu\u017eba pre ur\u010den\u00e9ho pr\u00edjemcu bez toho, aby bolo potrebn\u00e9 uvies\u0165 telef\u00f3nne \u010d\u00edslo. \n\nUpravte, pros\u00edm, v\u0161etky automatiz\u00e1cie alebo skripty, ktor\u00e9 budete potrebova\u0165 na pou\u017e\u00edvanie slu\u017eby `{name}` a zahr\u0148te cie\u013e na ur\u010denie pr\u00edjemcu.",
+            "title": "Slu\u017eba Netgear LTE notify sa men\u00ed"
+        },
+        "import_failure": {
+            "description": "Slu\u017eba Netgear LTE notify bola predt\u00fdm nastaven\u00e1 pomocou konfigur\u00e1cie YAML.\n\nPri pokuse o import konfigur\u00e1cie do pou\u017e\u00edvate\u013esk\u00e9ho rozhrania do\u0161lo k chybe pri pokuse o komunik\u00e1ciu so zariaden\u00edm.\n\nOdstr\u00e1\u0148te \u010das\u0165 Netgear LTE notify z konfigur\u00e1cie YAML a nastavte ju namiesto toho v pou\u017e\u00edvate\u013eskom rozhran\u00ed.",
+            "title": "Integr\u00e1cia Netgear LTE sa nepodarila importova\u0165"
+        }
+    },
+    "services": {
+        "connect_lte": {
+            "description": "Po\u017eiada modem o vytvorenie pripojenia LTE.",
+            "fields": {
+                "host": {
+                    "description": "Modem, ktor\u00fd sa m\u00e1 pripoji\u0165.",
+                    "name": "Hostite\u013e"
+                }
+            },
+            "name": "Pripojenie LTE"
+        },
+        "delete_sms": {
+            "description": "Odstr\u00e1ni spr\u00e1vy z modemovej schr\u00e1nky.",
+            "fields": {
+                "host": {
+                    "description": "Modem, z ktor\u00e9ho sa m\u00e1 spr\u00e1va vymaza\u0165.",
+                    "name": "Hostite\u013e"
+                },
+                "sms_id": {
+                    "description": "Cel\u00e9 \u010d\u00edslo alebo zoznam cel\u00fdch \u010d\u00edsel s ID doru\u010den\u00fdch spr\u00e1v, ktor\u00e9 sa maj\u00fa odstr\u00e1ni\u0165.",
+                    "name": "SMS ID"
+                }
+            },
+            "name": "Vymaza\u0165 SMS"
+        },
+        "disconnect_lte": {
+            "description": "Po\u017eiada modem, aby ukon\u010dil pripojenie LTE.",
+            "fields": {
+                "host": {
+                    "description": "Modem, ktor\u00fd sa m\u00e1 odpoji\u0165.",
+                    "name": "Hostite\u013e"
+                }
+            },
+            "name": "Odpojenie LTE"
+        },
+        "set_option": {
+            "description": "Nastav\u00ed mo\u017enosti modemu.",
+            "fields": {
+                "autoconnect": {
+                    "description": "Re\u017eim automatick\u00e9ho pripojenia.",
+                    "name": "Automatick\u00e9 pripojenie"
+                },
+                "failover": {
+                    "description": "Z\u00e1lo\u017en\u00fd re\u017eim.",
+                    "name": "Prepojenie pri poruche"
+                },
+                "host": {
+                    "description": "Modem na nastavenie mo\u017enost\u00ed.",
+                    "name": "Hostite\u013e"
+                }
+            },
+            "name": "Nastavi\u0165 mo\u017enos\u0165"
+        }
+    }
+}

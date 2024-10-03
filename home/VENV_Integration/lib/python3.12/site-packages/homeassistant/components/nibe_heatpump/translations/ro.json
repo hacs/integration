@@ -1,0 +1,48 @@
+{
+    "config": {
+        "error": {
+            "address": "Adres\u0103 nevalid\u0103 specificat\u0103. Adresa trebuie s\u0103 fie o adres\u0103 IP sau un hostname rezolvabil.",
+            "address_in_use": "Portul de ascultare selectat este deja utilizat pe acest sistem.",
+            "model": "Modelul selectat nu pare s\u0103 accepte MODBUS40",
+            "read": "Eroare la cererea de citire de la pomp\u0103. Verific\u0103 \"Portul de citire de la distan\u021b\u0103\" sau \"Adresa de la distan\u021b\u0103\".",
+            "unknown": "Eroare nea\u0219teptat\u0103",
+            "url": "URL-ul specificat nu este bine formatat \u0219i nici acceptat",
+            "write": "Eroare la cererea de scriere c\u0103tre pomp\u0103. Verific\u0103 \"Portul de scriere de la distan\u021b\u0103\" sau \"Adresa de la distan\u021b\u0103\"."
+        },
+        "step": {
+            "modbus": {
+                "data": {
+                    "modbus_unit": "Identificator unitate Modbus",
+                    "modbus_url": "URL-ul Modbus",
+                    "model": "Model de pomp\u0103 de c\u0103ldur\u0103"
+                },
+                "data_description": {
+                    "modbus_unit": "Identificarea unit\u0103\u021bii pentru pompa de c\u0103ldur\u0103. De obicei, poate fi l\u0103sat la 0.",
+                    "modbus_url": "URL Modbus care descrie conexiunea la pompa de c\u0103ldur\u0103 sau la unitatea MODBUS40. Ar trebui s\u0103 aib\u0103 formatul:\n - 'tcp://[HOST]:[PORT]' pentru conexiunea Modbus TCP\n - \"serial://[DISPOZITIV LOCAL]\" pentru o conexiune local\u0103 Modbus RTU\n - 'rfc2217://[HOST]:[PORT]' pentru o conexiune Modbus RTU bazat\u0103 pe telnet la distan\u021b\u0103."
+                }
+            },
+            "nibegw": {
+                "data": {
+                    "ip_address": "Adres\u0103 la distan\u021b\u0103",
+                    "listening_port": "Port local de ascultare",
+                    "remote_read_port": "Port de citire de la distan\u021b\u0103",
+                    "remote_write_port": "Port de scriere de la distan\u021b\u0103"
+                },
+                "data_description": {
+                    "ip_address": "Adresa unit\u0103\u021bii NibeGW. Dispozitivul trebuia s\u0103 fi fost configurat cu o adres\u0103 static\u0103.",
+                    "listening_port": "Portul local de pe acest sistem, pe care este configurat\u0103 s\u0103 trimit\u0103 date unitatea NibeGW.",
+                    "remote_read_port": "Portul pe care unitatea NibeGW ascult\u0103 solicit\u0103rile de citire.",
+                    "remote_write_port": "Portul pe care unitatea NibeGW ascult\u0103 solicit\u0103rile de scriere."
+                },
+                "description": "\u00cenainte de a \u00eencerca s\u0103 configurezi integrarea, verific\u0103 dac\u0103:\n - Unitatea NibeGW este conectat\u0103 la o pomp\u0103 de c\u0103ldur\u0103.\n - Accesoriul MODBUS40 a fost activat \u00een configura\u021bia pompei de c\u0103ldur\u0103.\n - Pompa nu a intrat \u00eentr-o stare de alarm\u0103 cu privire la lipsa accesoriului MODBUS40."
+            },
+            "user": {
+                "description": "Alege metoda de conectare la pomp\u0103. \u00cen general, pompele din seria F necesit\u0103 un accesoriu personalizat NibeGW, \u00een timp ce o pomp\u0103 din seria S are suport Modbus \u00eencorporat.",
+                "menu_options": {
+                    "modbus": "Modbus",
+                    "nibegw": "NibeGW"
+                }
+            }
+        }
+    }
+}

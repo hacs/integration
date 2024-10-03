@@ -1,0 +1,86 @@
+{
+    "device_automation": {
+        "trigger_type": {
+            "changed_states": "{entity_name} p\u00e4ivityksen saatavuus muuttui",
+            "turned_off": "{entity_name} tuli ajantasaiseksi",
+            "turned_on": "{entity_name} on saanut p\u00e4ivityksen"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "P\u00e4ivit\u00e4",
+            "state": {
+                "off": "Ajantasalla",
+                "on": "P\u00e4ivitys saatavilla"
+            },
+            "state_attributes": {
+                "auto_update": {
+                    "name": "Automaattinen p\u00e4ivitys",
+                    "state": {
+                        "false": "Ei",
+                        "true": "Kyll\u00e4"
+                    }
+                },
+                "in_progress": {
+                    "name": "K\u00e4ynniss\u00e4",
+                    "state": {
+                        "false": "Ei",
+                        "true": "Kyll\u00e4"
+                    }
+                },
+                "installed_version": {
+                    "name": "Asennettu versio"
+                },
+                "latest_version": {
+                    "name": "Viimeisin versio"
+                },
+                "release_summary": {
+                    "name": "Julkaisun yhteenveto"
+                },
+                "release_url": {
+                    "name": "Julkaisun URL-osoite"
+                },
+                "skipped_version": {
+                    "name": "Ohitettu versio"
+                },
+                "title": {
+                    "name": "Otsikko"
+                }
+            }
+        },
+        "firmware": {
+            "name": "Laiteohjelmisto"
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "{platform}-integraation {domain}-alusta ei tue alustan asetuksia.\n\nPoista se asetuksista ja k\u00e4ynnist\u00e4 Home Assistant uudelleen ongelman korjaamiseksi.",
+            "title": "Alustan tukea ei tueta"
+        }
+    },
+    "services": {
+        "clear_skipped": {
+            "description": "Poistaa ohitetun version merkinn\u00e4n p\u00e4ivityksest\u00e4.",
+            "name": "Tyhjenn\u00e4 ohitettu p\u00e4ivitys"
+        },
+        "install": {
+            "description": "Asentaa p\u00e4ivityksen t\u00e4lle laitteelle tai palvelulle.",
+            "fields": {
+                "backup": {
+                    "description": "Jos integrointi tukee t\u00e4t\u00e4, t\u00e4m\u00e4 luo varmuuskopion ennen p\u00e4ivityksen aloittamista.",
+                    "name": "Varmuuskopioi"
+                },
+                "version": {
+                    "description": "Asennettava versio. Jos se j\u00e4tet\u00e4\u00e4n pois, asennetaan uusin versio.",
+                    "name": "Versio"
+                }
+            },
+            "name": "Asenna p\u00e4ivitys"
+        },
+        "skip": {
+            "description": "Merkitsee t\u00e4ll\u00e4 hetkell\u00e4 saatavilla olevan p\u00e4ivityksen ohitetuksi.",
+            "name": "Ohita p\u00e4ivitys"
+        }
+    },
+    "title": "P\u00e4ivit\u00e4"
+}

@@ -1,0 +1,909 @@
+{
+    "config": {
+        "abort": {
+            "single_instance_allowed": "D\u00e9j\u00e0 configur\u00e9. Une seule configuration possible."
+        },
+        "create_entry": {
+            "default": "Certains capteurs ne sont pas activ\u00e9s par d\u00e9faut. Vous pouvez les activer dans le registre d'entit\u00e9s apr\u00e8s la configuration de l'int\u00e9gration."
+        },
+        "error": {
+            "cannot_connect": "\u00c9chec de connexion",
+            "invalid_api_key": "Cl\u00e9 d'API non valide",
+            "requests_exceeded": "Le nombre autoris\u00e9 de requ\u00eates adress\u00e9es \u00e0 l'API AccuWeather a \u00e9t\u00e9 d\u00e9pass\u00e9. Vous devez attendre ou modifier la cl\u00e9 API."
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "api_key": "Cl\u00e9 d'API",
+                    "latitude": "Latitude",
+                    "longitude": "Longitude",
+                    "name": "Nom"
+                }
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "air_quality": {
+                "state": {
+                    "good": "Bon",
+                    "hazardous": "Dangereux",
+                    "high": "\u00c9lev\u00e9",
+                    "low": "Faible",
+                    "moderate": "Mod\u00e9r\u00e9",
+                    "unhealthy": "Malsain"
+                }
+            },
+            "air_quality_0d": {
+                "name": "Qualit\u00e9 de l'air aujourd'hui",
+                "state": {
+                    "good": "Bon",
+                    "hazardous": "Dangereux",
+                    "high": "\u00c9lev\u00e9e",
+                    "low": "Faible",
+                    "moderate": "Mod\u00e9r\u00e9",
+                    "unhealthy": "Nocif"
+                }
+            },
+            "air_quality_1d": {
+                "name": "Qualit\u00e9 de l'air jour 1",
+                "state": {
+                    "good": "Bon",
+                    "hazardous": "Dangereux",
+                    "high": "\u00c9lev\u00e9e",
+                    "low": "Faible",
+                    "moderate": "Mod\u00e9r\u00e9",
+                    "unhealthy": "Nocif"
+                }
+            },
+            "air_quality_2d": {
+                "name": "Qualit\u00e9 de l'air jour 2",
+                "state": {
+                    "good": "Bon",
+                    "hazardous": "Dangereux",
+                    "high": "\u00c9lev\u00e9e",
+                    "low": "Faible",
+                    "moderate": "Mod\u00e9r\u00e9",
+                    "unhealthy": "Nocif"
+                }
+            },
+            "air_quality_3d": {
+                "name": "Qualit\u00e9 de l'air jour 3",
+                "state": {
+                    "good": "Bon",
+                    "hazardous": "Dangereux",
+                    "high": "\u00c9lev\u00e9e",
+                    "low": "Faible",
+                    "moderate": "Mod\u00e9r\u00e9",
+                    "unhealthy": "Nocif"
+                }
+            },
+            "air_quality_4d": {
+                "name": "Qualit\u00e9 de l'air jour 4",
+                "state": {
+                    "good": "Bon",
+                    "hazardous": "Dangereux",
+                    "high": "\u00c9lev\u00e9e",
+                    "low": "Faible",
+                    "moderate": "Mod\u00e9r\u00e9",
+                    "unhealthy": "Nocif"
+                }
+            },
+            "apparent_temperature": {
+                "name": "Temp\u00e9rature apparente"
+            },
+            "cloud_ceiling": {
+                "name": "Plafond nuageux"
+            },
+            "cloud_cover": {
+                "name": "Couverture nuageuse"
+            },
+            "cloud_cover_day_0d": {
+                "name": "Couverture nuageuse aujourd'hui"
+            },
+            "cloud_cover_day_1d": {
+                "name": "Couverture nuageuse jour 1"
+            },
+            "cloud_cover_day_2d": {
+                "name": "Couverture nuageuse jour 2"
+            },
+            "cloud_cover_day_3d": {
+                "name": "Couverture nuageuse jour 3"
+            },
+            "cloud_cover_day_4d": {
+                "name": "Couverture nuageuse jour 4"
+            },
+            "cloud_cover_night_0d": {
+                "name": "Couverture nuageuse ce soir"
+            },
+            "cloud_cover_night_1d": {
+                "name": "Couverture nuageuse nuit 1"
+            },
+            "cloud_cover_night_2d": {
+                "name": "Couverture nuageuse nuit 2"
+            },
+            "cloud_cover_night_3d": {
+                "name": "Couverture nuageuse nuit 3"
+            },
+            "cloud_cover_night_4d": {
+                "name": "Couverture nuageuse nuit 4"
+            },
+            "condition_day_0d": {
+                "name": "Condition aujourd\u2019hui"
+            },
+            "condition_day_1d": {
+                "name": "Condition jour 1"
+            },
+            "condition_day_2d": {
+                "name": "Condition jour 2"
+            },
+            "condition_day_3d": {
+                "name": "Condition jour 3"
+            },
+            "condition_day_4d": {
+                "name": "Condition jour 4"
+            },
+            "condition_night_0d": {
+                "name": "Condition ce soir"
+            },
+            "condition_night_1d": {
+                "name": "Condition nuit 1"
+            },
+            "condition_night_2d": {
+                "name": "Condition nuit 2"
+            },
+            "condition_night_3d": {
+                "name": "Condition nuit 3"
+            },
+            "condition_night_4d": {
+                "name": "Condition nuit 4"
+            },
+            "dew_point": {
+                "name": "Point de ros\u00e9e"
+            },
+            "grass_pollen": {
+                "state_attributes": {
+                    "level": {
+                        "name": "Niveau",
+                        "state": {
+                            "good": "Bon",
+                            "hazardous": "Dangereux",
+                            "high": "\u00c9lev\u00e9",
+                            "low": "Faible",
+                            "moderate": "Mod\u00e9r\u00e9",
+                            "unhealthy": "Malsain"
+                        }
+                    }
+                }
+            },
+            "grass_pollen_0d": {
+                "name": "Pollen de gramin\u00e9es aujourd'hui",
+                "state_attributes": {
+                    "level": {
+                        "name": "Niveau",
+                        "state": {
+                            "good": "Bon",
+                            "hazardous": "Dangereux",
+                            "high": "\u00c9lev\u00e9e",
+                            "low": "Faible",
+                            "moderate": "Mod\u00e9r\u00e9",
+                            "unhealthy": "Nocif"
+                        }
+                    }
+                }
+            },
+            "grass_pollen_1d": {
+                "name": "Pollen de gramin\u00e9es jour 1",
+                "state_attributes": {
+                    "level": {
+                        "name": "Niveau",
+                        "state": {
+                            "good": "Bon",
+                            "hazardous": "Dangereux",
+                            "high": "\u00c9lev\u00e9e",
+                            "low": "Faible",
+                            "moderate": "Mod\u00e9r\u00e9",
+                            "unhealthy": "Nocif"
+                        }
+                    }
+                }
+            },
+            "grass_pollen_2d": {
+                "name": "Pollen de gramin\u00e9es jour 2",
+                "state_attributes": {
+                    "level": {
+                        "name": "Niveau",
+                        "state": {
+                            "good": "Bon",
+                            "hazardous": "Dangereux",
+                            "high": "\u00c9lev\u00e9e",
+                            "low": "Faible",
+                            "moderate": "Mod\u00e9r\u00e9",
+                            "unhealthy": "Nocif"
+                        }
+                    }
+                }
+            },
+            "grass_pollen_3d": {
+                "name": "Pollen de gramin\u00e9es jour 3",
+                "state_attributes": {
+                    "level": {
+                        "name": "Niveau",
+                        "state": {
+                            "good": "Bon",
+                            "hazardous": "Dangereux",
+                            "high": "\u00c9lev\u00e9e",
+                            "low": "Faible",
+                            "moderate": "Mod\u00e9r\u00e9",
+                            "unhealthy": "Nocif"
+                        }
+                    }
+                }
+            },
+            "grass_pollen_4d": {
+                "name": "Pollen de gramin\u00e9es jour 4",
+                "state_attributes": {
+                    "level": {
+                        "name": "Niveau",
+                        "state": {
+                            "good": "Bon",
+                            "hazardous": "Dangereux",
+                            "high": "\u00c9lev\u00e9e",
+                            "low": "Faible",
+                            "moderate": "Mod\u00e9r\u00e9",
+                            "unhealthy": "Nocif"
+                        }
+                    }
+                }
+            },
+            "hours_of_sun_0d": {
+                "name": "Heures de soleil aujourd'hui"
+            },
+            "hours_of_sun_1d": {
+                "name": "Heures de soleil jour 1"
+            },
+            "hours_of_sun_2d": {
+                "name": "Heures du soleil jour 2"
+            },
+            "hours_of_sun_3d": {
+                "name": "Heures du soleil jour 3"
+            },
+            "hours_of_sun_4d": {
+                "name": "Heures de soleil jour 4"
+            },
+            "mold_pollen": {
+                "state_attributes": {
+                    "level": {
+                        "name": "Niveau",
+                        "state": {
+                            "good": "Bon",
+                            "hazardous": "Dangereux",
+                            "high": "\u00c9lev\u00e9",
+                            "low": "Faible",
+                            "moderate": "Mod\u00e9r\u00e9",
+                            "unhealthy": "Malsain"
+                        }
+                    }
+                }
+            },
+            "mold_pollen_0d": {
+                "name": "Pollen de moisissure aujourd'hui",
+                "state_attributes": {
+                    "level": {
+                        "name": "Niveau",
+                        "state": {
+                            "good": "Bon",
+                            "hazardous": "Dangereux",
+                            "high": "\u00c9lev\u00e9e",
+                            "low": "Faible",
+                            "moderate": "Mod\u00e9r\u00e9",
+                            "unhealthy": "Nocif"
+                        }
+                    }
+                }
+            },
+            "mold_pollen_1d": {
+                "name": "Pollen de moisissure jour 1",
+                "state_attributes": {
+                    "level": {
+                        "name": "Niveau",
+                        "state": {
+                            "good": "Bon",
+                            "hazardous": "Dangereux",
+                            "high": "\u00c9lev\u00e9e",
+                            "low": "Faible",
+                            "moderate": "Mod\u00e9r\u00e9",
+                            "unhealthy": "Nocif"
+                        }
+                    }
+                }
+            },
+            "mold_pollen_2d": {
+                "name": "Pollen de moisissure jour 2",
+                "state_attributes": {
+                    "level": {
+                        "name": "Niveau",
+                        "state": {
+                            "good": "Bon",
+                            "hazardous": "Dangereux",
+                            "high": "\u00c9lev\u00e9e",
+                            "low": "Faible",
+                            "moderate": "Mod\u00e9r\u00e9",
+                            "unhealthy": "Nocif"
+                        }
+                    }
+                }
+            },
+            "mold_pollen_3d": {
+                "name": "Pollen de moisissure jour 3",
+                "state_attributes": {
+                    "level": {
+                        "name": "Niveau",
+                        "state": {
+                            "good": "Bon",
+                            "hazardous": "Dangereux",
+                            "high": "\u00c9lev\u00e9e",
+                            "low": "Faible",
+                            "moderate": "Mod\u00e9r\u00e9",
+                            "unhealthy": "Nocif"
+                        }
+                    }
+                }
+            },
+            "mold_pollen_4d": {
+                "name": "Pollen de moisissure jour 4",
+                "state_attributes": {
+                    "level": {
+                        "name": "Niveau",
+                        "state": {
+                            "good": "Bon",
+                            "hazardous": "Dangereux",
+                            "high": "\u00c9lev\u00e9e",
+                            "low": "Faible",
+                            "moderate": "Mod\u00e9r\u00e9",
+                            "unhealthy": "Nocif"
+                        }
+                    }
+                }
+            },
+            "precipitation": {
+                "name": "Pr\u00e9cipitation"
+            },
+            "pressure_tendency": {
+                "name": "Tendance de la pression",
+                "state": {
+                    "falling": "En baisse",
+                    "rising": "En hausse",
+                    "steady": "Stable"
+                }
+            },
+            "ragweed_pollen": {
+                "state_attributes": {
+                    "level": {
+                        "name": "Niveau",
+                        "state": {
+                            "good": "Bon",
+                            "hazardous": "Dangereux",
+                            "high": "\u00c9lev\u00e9",
+                            "low": "Faible",
+                            "moderate": "Mod\u00e9r\u00e9",
+                            "unhealthy": "Malsain"
+                        }
+                    }
+                }
+            },
+            "ragweed_pollen_0d": {
+                "name": "Pollen d'ambroisie aujourd'hui",
+                "state_attributes": {
+                    "level": {
+                        "name": "Niveau",
+                        "state": {
+                            "good": "Bon",
+                            "hazardous": "Dangereux",
+                            "high": "\u00c9lev\u00e9e",
+                            "low": "Faible",
+                            "moderate": "Mod\u00e9r\u00e9",
+                            "unhealthy": "Nocif"
+                        }
+                    }
+                }
+            },
+            "ragweed_pollen_1d": {
+                "name": "Pollen d'ambroisie jour 1",
+                "state_attributes": {
+                    "level": {
+                        "name": "Niveau",
+                        "state": {
+                            "good": "Bon",
+                            "hazardous": "Dangereux",
+                            "high": "\u00c9lev\u00e9e",
+                            "low": "Faible",
+                            "moderate": "Mod\u00e9r\u00e9",
+                            "unhealthy": "Nocif"
+                        }
+                    }
+                }
+            },
+            "ragweed_pollen_2d": {
+                "name": "Pollen d'ambroisie jour 2",
+                "state_attributes": {
+                    "level": {
+                        "name": "Niveau",
+                        "state": {
+                            "good": "Bon",
+                            "hazardous": "Dangereux",
+                            "high": "\u00c9lev\u00e9e",
+                            "low": "Faible",
+                            "moderate": "Mod\u00e9r\u00e9",
+                            "unhealthy": "Nocif"
+                        }
+                    }
+                }
+            },
+            "ragweed_pollen_3d": {
+                "name": "Pollen d'ambroisie jour 3",
+                "state_attributes": {
+                    "level": {
+                        "name": "Niveau",
+                        "state": {
+                            "good": "Bon",
+                            "hazardous": "Dangereux",
+                            "high": "\u00c9lev\u00e9e",
+                            "low": "Faible",
+                            "moderate": "Mod\u00e9r\u00e9",
+                            "unhealthy": "Nocif"
+                        }
+                    }
+                }
+            },
+            "ragweed_pollen_4d": {
+                "name": "Pollen d'ambroisie jour 4",
+                "state_attributes": {
+                    "level": {
+                        "name": "Niveau",
+                        "state": {
+                            "good": "Bon",
+                            "hazardous": "Dangereux",
+                            "high": "\u00c9lev\u00e9e",
+                            "low": "Faible",
+                            "moderate": "Mod\u00e9r\u00e9",
+                            "unhealthy": "Nocif"
+                        }
+                    }
+                }
+            },
+            "realfeel_temperature": {
+                "name": "Temp\u00e9rature ressentie"
+            },
+            "realfeel_temperature_max_0d": {
+                "name": "Temp\u00e9rature ressentie maximum aujourd'hui"
+            },
+            "realfeel_temperature_max_1d": {
+                "name": "Temp\u00e9rature ressentie maximum jour 1"
+            },
+            "realfeel_temperature_max_2d": {
+                "name": "Temp\u00e9rature ressentie maximum jour 2"
+            },
+            "realfeel_temperature_max_3d": {
+                "name": "Temp\u00e9rature ressentie maximum jour 3"
+            },
+            "realfeel_temperature_max_4d": {
+                "name": "Temp\u00e9rature ressentie maximum jour 4"
+            },
+            "realfeel_temperature_min_0d": {
+                "name": "Temp\u00e9rature ressentie minimum"
+            },
+            "realfeel_temperature_min_1d": {
+                "name": "Temp\u00e9rature ressentie minimum jour 1"
+            },
+            "realfeel_temperature_min_2d": {
+                "name": "Temp\u00e9rature ressentie minimum jour 2"
+            },
+            "realfeel_temperature_min_3d": {
+                "name": "Temp\u00e9rature ressentie minimum jour 3"
+            },
+            "realfeel_temperature_min_4d": {
+                "name": "Temp\u00e9rature ressentie minimum jour 4"
+            },
+            "realfeel_temperature_shade": {
+                "name": "Temp\u00e9rature ressentie \u00e0 l'ombre"
+            },
+            "realfeel_temperature_shade_max_0d": {
+                "name": "Temp\u00e9rature ressentie \u00e0 l'ombre maximum aujourd'hui"
+            },
+            "realfeel_temperature_shade_max_1d": {
+                "name": "Temp\u00e9rature ressentie \u00e0 l'ombre maximum jour 1"
+            },
+            "realfeel_temperature_shade_max_2d": {
+                "name": "Temp\u00e9rature ressentie \u00e0 l'ombre maximum jour 2"
+            },
+            "realfeel_temperature_shade_max_3d": {
+                "name": "Temp\u00e9rature ressentie \u00e0 l'ombre maximum jour 3"
+            },
+            "realfeel_temperature_shade_max_4d": {
+                "name": "Temp\u00e9rature ressentie \u00e0 l'ombre maximum jour 4"
+            },
+            "realfeel_temperature_shade_min_0d": {
+                "name": "Temp\u00e9rature ressentie \u00e0 l'ombre minimum aujourd'hui"
+            },
+            "realfeel_temperature_shade_min_1d": {
+                "name": "Temp\u00e9rature ressentie \u00e0 l'ombre minimum jour 1"
+            },
+            "realfeel_temperature_shade_min_2d": {
+                "name": "Temp\u00e9rature ressentie \u00e0 l'ombre minimum jour 2"
+            },
+            "realfeel_temperature_shade_min_3d": {
+                "name": "Temp\u00e9rature ressentie \u00e0 l'ombre minimum jour 3"
+            },
+            "realfeel_temperature_shade_min_4d": {
+                "name": "Temp\u00e9rature ressentie \u00e0 l'ombre minimum jour 4"
+            },
+            "solar_irradiance_day_0d": {
+                "name": "Irradiance solaire aujourd'hui"
+            },
+            "solar_irradiance_day_1d": {
+                "name": "Irradiation solaire jour 1"
+            },
+            "solar_irradiance_day_2d": {
+                "name": "Irradiation solaire jour 2"
+            },
+            "solar_irradiance_day_3d": {
+                "name": "Irradiation solaire jour 3"
+            },
+            "solar_irradiance_day_4d": {
+                "name": "Irradiation solaire jour 4"
+            },
+            "solar_irradiance_night_0d": {
+                "name": "Irradiance solaire ce soir"
+            },
+            "solar_irradiance_night_1d": {
+                "name": "Irradiation solaire nuit 1"
+            },
+            "solar_irradiance_night_2d": {
+                "name": "Irradiation solaire nuit 2"
+            },
+            "solar_irradiance_night_3d": {
+                "name": "Irradiation solaire nuit 3"
+            },
+            "solar_irradiance_night_4d": {
+                "name": "Irradiance solaire nuit 4"
+            },
+            "thunderstorm_probability_day_0d": {
+                "name": "Probabilit\u00e9 d'orage aujourd'hui"
+            },
+            "thunderstorm_probability_day_1d": {
+                "name": "Probabilit\u00e9 d'orage jour 1"
+            },
+            "thunderstorm_probability_day_2d": {
+                "name": "Probabilit\u00e9 d'orage jour 2"
+            },
+            "thunderstorm_probability_day_3d": {
+                "name": "Probabilit\u00e9 d'orage jour 3"
+            },
+            "thunderstorm_probability_day_4d": {
+                "name": "Probabilit\u00e9 d'orage jour 4"
+            },
+            "thunderstorm_probability_night_0d": {
+                "name": "Probabilit\u00e9 d'orage ce soir"
+            },
+            "thunderstorm_probability_night_1d": {
+                "name": "Probabilit\u00e9 d'orage nuit 1"
+            },
+            "thunderstorm_probability_night_2d": {
+                "name": "Probabilit\u00e9 d'orage nuit 2"
+            },
+            "thunderstorm_probability_night_3d": {
+                "name": "Probabilit\u00e9 d'orage nuit 3"
+            },
+            "thunderstorm_probability_night_4d": {
+                "name": "Probabilit\u00e9 d'orage nuit 4"
+            },
+            "tree_pollen": {
+                "state_attributes": {
+                    "level": {
+                        "name": "Niveau",
+                        "state": {
+                            "good": "Bon",
+                            "hazardous": "Dangereux",
+                            "high": "\u00c9lev\u00e9",
+                            "low": "Faible",
+                            "moderate": "Mod\u00e9r\u00e9",
+                            "unhealthy": "Malsain"
+                        }
+                    }
+                }
+            },
+            "tree_pollen_0d": {
+                "name": "Pollen d'arbre aujourd'hui",
+                "state_attributes": {
+                    "level": {
+                        "name": "Niveau",
+                        "state": {
+                            "good": "Bon",
+                            "hazardous": "Dangereux",
+                            "high": "\u00c9lev\u00e9e",
+                            "low": "Faible",
+                            "moderate": "Mod\u00e9r\u00e9",
+                            "unhealthy": "Nocif"
+                        }
+                    }
+                }
+            },
+            "tree_pollen_1d": {
+                "name": "Pollen d'arbre jour 1",
+                "state_attributes": {
+                    "level": {
+                        "name": "Niveau",
+                        "state": {
+                            "good": "Bon",
+                            "hazardous": "Dangereux",
+                            "high": "\u00c9lev\u00e9e",
+                            "low": "Faible",
+                            "moderate": "Mod\u00e9r\u00e9",
+                            "unhealthy": "Nocif"
+                        }
+                    }
+                }
+            },
+            "tree_pollen_2d": {
+                "name": "Pollen d'arbre jour 2",
+                "state_attributes": {
+                    "level": {
+                        "name": "Niveau",
+                        "state": {
+                            "good": "Bon",
+                            "hazardous": "Dangereux",
+                            "high": "\u00c9lev\u00e9e",
+                            "low": "Faible",
+                            "moderate": "Mod\u00e9r\u00e9",
+                            "unhealthy": "Nocif"
+                        }
+                    }
+                }
+            },
+            "tree_pollen_3d": {
+                "name": "Pollen d'arbre jour 3",
+                "state_attributes": {
+                    "level": {
+                        "name": "Niveau",
+                        "state": {
+                            "good": "Bon",
+                            "hazardous": "Dangereux",
+                            "high": "\u00c9lev\u00e9e",
+                            "low": "Faible",
+                            "moderate": "Mod\u00e9r\u00e9",
+                            "unhealthy": "Nocif"
+                        }
+                    }
+                }
+            },
+            "tree_pollen_4d": {
+                "name": "Pollen d'arbre jour 4",
+                "state_attributes": {
+                    "level": {
+                        "name": "Niveau",
+                        "state": {
+                            "good": "Bon",
+                            "hazardous": "Dangereux",
+                            "high": "\u00c9lev\u00e9e",
+                            "low": "Faible",
+                            "moderate": "Mod\u00e9r\u00e9",
+                            "unhealthy": "Nocif"
+                        }
+                    }
+                }
+            },
+            "uv_index": {
+                "name": "Indice UV",
+                "state_attributes": {
+                    "level": {
+                        "name": "Niveau",
+                        "state": {
+                            "good": "Bon",
+                            "hazardous": "Dangereux",
+                            "high": "\u00c9lev\u00e9",
+                            "low": "Faible",
+                            "moderate": "Mod\u00e9r\u00e9",
+                            "unhealthy": "Malsain"
+                        }
+                    }
+                }
+            },
+            "uv_index_0d": {
+                "name": "Indice UV aujourd'hui",
+                "state_attributes": {
+                    "level": {
+                        "name": "Niveau",
+                        "state": {
+                            "good": "Bon",
+                            "hazardous": "Dangereux",
+                            "high": "\u00c9lev\u00e9e",
+                            "low": "Faible",
+                            "moderate": "Mod\u00e9r\u00e9",
+                            "unhealthy": "Nocif"
+                        }
+                    }
+                }
+            },
+            "uv_index_1d": {
+                "name": "Indice UV jour 1",
+                "state_attributes": {
+                    "level": {
+                        "name": "Niveau",
+                        "state": {
+                            "good": "Bon",
+                            "hazardous": "Dangereux",
+                            "high": "\u00c9lev\u00e9e",
+                            "low": "Faible",
+                            "moderate": "Mod\u00e9r\u00e9",
+                            "unhealthy": "Nocif"
+                        }
+                    }
+                }
+            },
+            "uv_index_2d": {
+                "name": "Indice UV jour 2",
+                "state_attributes": {
+                    "level": {
+                        "name": "Niveau",
+                        "state": {
+                            "good": "Bon",
+                            "hazardous": "Dangereux",
+                            "high": "\u00c9lev\u00e9e",
+                            "low": "Faible",
+                            "moderate": "Mod\u00e9r\u00e9",
+                            "unhealthy": "Nocif"
+                        }
+                    }
+                }
+            },
+            "uv_index_3d": {
+                "name": "Indice UV jour 3",
+                "state_attributes": {
+                    "level": {
+                        "name": "Niveau",
+                        "state": {
+                            "good": "Bon",
+                            "hazardous": "Dangereux",
+                            "high": "\u00c9lev\u00e9e",
+                            "low": "Faible",
+                            "moderate": "Mod\u00e9r\u00e9",
+                            "unhealthy": "Nocif"
+                        }
+                    }
+                }
+            },
+            "uv_index_4d": {
+                "name": "Indice UV jour 4",
+                "state_attributes": {
+                    "level": {
+                        "name": "Niveau",
+                        "state": {
+                            "good": "Bon",
+                            "hazardous": "Dangereux",
+                            "high": "\u00c9lev\u00e9e",
+                            "low": "Faible",
+                            "moderate": "Mod\u00e9r\u00e9",
+                            "unhealthy": "Nocif"
+                        }
+                    }
+                }
+            },
+            "uv_index_forecast": {
+                "state_attributes": {
+                    "level": {
+                        "name": "Niveau",
+                        "state": {
+                            "good": "Bon",
+                            "hazardous": "Dangereux",
+                            "high": "\u00c9lev\u00e9",
+                            "low": "Faible",
+                            "moderate": "Mod\u00e9r\u00e9",
+                            "unhealthy": "Malsain"
+                        }
+                    }
+                }
+            },
+            "wet_bulb_temperature": {
+                "name": "Temp\u00e9rature au thermom\u00e8tre-globe mouill\u00e9"
+            },
+            "wind_chill_temperature": {
+                "name": "Temp\u00e9rature ressentie du vent"
+            },
+            "wind_gust_speed": {
+                "name": "Vitesse des rafales"
+            },
+            "wind_gust_speed_day": {
+                "name": "Vitesse des rafales le jour {forecast_day}"
+            },
+            "wind_gust_speed_day_0d": {
+                "name": "Vitesse des rafales aujourd'hui"
+            },
+            "wind_gust_speed_day_1d": {
+                "name": "Vitesse des rafales jour 1"
+            },
+            "wind_gust_speed_day_2d": {
+                "name": "Vitesse des rafales jour 2"
+            },
+            "wind_gust_speed_day_3d": {
+                "name": "Vitesse des rafales jour 3"
+            },
+            "wind_gust_speed_day_4d": {
+                "name": "Vitesse des rafales jour 4"
+            },
+            "wind_gust_speed_night": {
+                "name": "Vitesse des rafales la nuit {forecast_day}"
+            },
+            "wind_gust_speed_night_0d": {
+                "name": "Vitesse des rafales ce soir"
+            },
+            "wind_gust_speed_night_1d": {
+                "name": "Vitesse des rafales nuit 1"
+            },
+            "wind_gust_speed_night_2d": {
+                "name": "Vitesse des rafales nuit 2"
+            },
+            "wind_gust_speed_night_3d": {
+                "name": "Vitesse des rafales nuit 3"
+            },
+            "wind_gust_speed_night_4d": {
+                "name": "Vitesse des rafales nuit 4"
+            },
+            "wind_speed": {
+                "name": "Vitesse du vent"
+            },
+            "wind_speed_day": {
+                "name": "Vitesse du vent le jour {forecast_day}"
+            },
+            "wind_speed_day_0d": {
+                "name": "Vitesse du vent aujourd'hui"
+            },
+            "wind_speed_day_1d": {
+                "name": "Vitesse du vent jour 1"
+            },
+            "wind_speed_day_2d": {
+                "name": "Vitesse du vent jour 2"
+            },
+            "wind_speed_day_3d": {
+                "name": "Vitesse du vent jour 3"
+            },
+            "wind_speed_day_4d": {
+                "name": "Vitesse du vent jour 4"
+            },
+            "wind_speed_night": {
+                "name": "Vitesse du vent la nuit {forecast_day}"
+            },
+            "wind_speed_night_0d": {
+                "name": "Vitesse du vent ce soir"
+            },
+            "wind_speed_night_1d": {
+                "name": "Vitesse du vent nuit 1"
+            },
+            "wind_speed_night_2d": {
+                "name": "Vitesse du vent nuit 2"
+            },
+            "wind_speed_night_3d": {
+                "name": "Vitesse du vent nuit 3"
+            },
+            "wind_speed_night_4d": {
+                "name": "Vitesse du vent nuit 4"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "forecast": "Pr\u00e9visions m\u00e9t\u00e9orologiques"
+                },
+                "description": "En raison des limitations de la version gratuite de la cl\u00e9 API AccuWeather, lorsque vous activez les pr\u00e9visions m\u00e9t\u00e9orologiques, les mises \u00e0 jour des donn\u00e9es seront effectu\u00e9es toutes les 80 minutes au lieu de toutes les 40 minutes."
+            }
+        }
+    },
+    "system_health": {
+        "info": {
+            "can_reach_server": "Acc\u00e8s au serveur AccuWeather",
+            "remaining_requests": "Demandes restantes autoris\u00e9es"
+        }
+    }
+}

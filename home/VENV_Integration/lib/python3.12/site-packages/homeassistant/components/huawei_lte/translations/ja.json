@@ -1,0 +1,402 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "\u30c7\u30d0\u30a4\u30b9\u306f\u3059\u3067\u306b\u8a2d\u5b9a\u3055\u308c\u3066\u3044\u307e\u3059",
+            "already_in_progress": "\u69cb\u6210\u30d5\u30ed\u30fc\u306f\u3059\u3067\u306b\u9032\u884c\u4e2d\u3067\u3059",
+            "reauth_successful": "\u518d\u8a8d\u8a3c\u306b\u6210\u529f\u3057\u307e\u3057\u305f",
+            "unsupported_device": "\u30b5\u30dd\u30fc\u30c8\u3055\u308c\u3066\u3044\u306a\u3044\u30c7\u30d0\u30a4\u30b9"
+        },
+        "error": {
+            "connection_timeout": "\u63a5\u7d9a\u30bf\u30a4\u30e0\u30a2\u30a6\u30c8",
+            "incorrect_password": "\u30d1\u30b9\u30ef\u30fc\u30c9\u304c\u6b63\u3057\u304f\u3042\u308a\u307e\u305b\u3093",
+            "incorrect_username": "\u30e6\u30fc\u30b6\u30fc\u540d\u304c\u6b63\u3057\u304f\u3042\u308a\u307e\u305b\u3093",
+            "invalid_auth": "\u7121\u52b9\u306a\u8a8d\u8a3c",
+            "invalid_url": "\u7121\u52b9\u306aURL",
+            "login_attempts_exceeded": "\u30ed\u30b0\u30a4\u30f3\u8a66\u884c\u56de\u6570\u304c\u6700\u5927\u5024\u3092\u8d85\u3048\u307e\u3057\u305f\u3001\u5f8c\u3067\u3082\u3046\u4e00\u5ea6\u304a\u8a66\u3057\u304f\u3060\u3055\u3044",
+            "response_error": "\u30c7\u30d0\u30a4\u30b9\u304b\u3089\u306e\u4e0d\u660e\u306a\u30a8\u30e9\u30fc",
+            "ssl_error_try_plain": "HTTPS \u30a8\u30e9\u30fc\u3002\u30d7\u30ec\u30fc\u30f3\u306a HTTP URL \u3092\u8a66\u3057\u3066\u304f\u3060\u3055\u3044\u3002",
+            "ssl_error_try_unverified": "HTTPS \u30a8\u30e9\u30fc\u3002\u8a3c\u660e\u66f8\u306e\u691c\u8a3c\u307e\u305f\u306f\u30d7\u30ec\u30fc\u30f3 HTTP URL \u3092\u7121\u52b9\u306b\u3057\u3066\u307f\u3066\u304f\u3060\u3055\u3044\u3002",
+            "unknown": "\u4e88\u671f\u3057\u306a\u3044\u30a8\u30e9\u30fc"
+        },
+        "flow_title": "{name}",
+        "step": {
+            "reauth_confirm": {
+                "data": {
+                    "password": "\u30d1\u30b9\u30ef\u30fc\u30c9",
+                    "username": "\u30e6\u30fc\u30b6\u30fc\u540d"
+                },
+                "description": "\u30c7\u30d0\u30a4\u30b9\u306e\u30a2\u30af\u30bb\u30b9\u8a8d\u8a3c\u60c5\u5831\u3092\u5165\u529b\u3057\u307e\u3059\u3002",
+                "title": "{name} \u306e\u8a8d\u8a3c\u306e\u6709\u52b9\u671f\u9650\u304c\u5207\u308c\u307e\u3057\u305f"
+            },
+            "user": {
+                "data": {
+                    "password": "\u30d1\u30b9\u30ef\u30fc\u30c9",
+                    "url": "URL",
+                    "username": "\u30e6\u30fc\u30b6\u30fc\u540d",
+                    "verify_ssl": "SSL\u8a3c\u660e\u66f8\u3092\u78ba\u8a8d\u3059\u308b"
+                },
+                "description": "\u30c7\u30d0\u30a4\u30b9\u30a2\u30af\u30bb\u30b9\u306e\u8a73\u7d30\u3092\u5165\u529b\u3057\u307e\u3059\u3002",
+                "title": "Huawei LTE\u306e\u8a2d\u5b9a"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "24ghz_wifi_status": {
+                "name": "2.4GHz Wi-Fi\u30b9\u30c6\u30fc\u30bf\u30b9"
+            },
+            "5ghz_wifi_status": {
+                "name": "5GHz Wi-Fi\u30b9\u30c6\u30fc\u30bf\u30b9"
+            },
+            "mobile_connection": {
+                "name": "\u30e2\u30d0\u30a4\u30eb\u63a5\u7d9a"
+            },
+            "sms_storage_full": {
+                "name": "SMS\u30b9\u30c8\u30ec\u30fc\u30b8\u6e80\u676f"
+            },
+            "wifi_status": {
+                "name": "Wi-Fi\u30b9\u30c6\u30fc\u30bf\u30b9"
+            }
+        },
+        "select": {
+            "preferred_network_mode": {
+                "name": "\u512a\u5148\u30cd\u30c3\u30c8\u30ef\u30fc\u30af\u30e2\u30fc\u30c9",
+                "state": {
+                    "00": "4G/3G/2G\u30aa\u30fc\u30c8",
+                    "01": "2G\u306e\u307f",
+                    "02": "3G\u306e\u307f",
+                    "0201": "3G/2G\u30aa\u30fc\u30c8",
+                    "03": "4G\u306e\u307f",
+                    "0301": "4G/2G\u30aa\u30fc\u30c8",
+                    "0302": "4G/3G\u30aa\u30fc\u30c8"
+                }
+            }
+        },
+        "sensor": {
+            "arfcn": {
+                "name": "ARFCN"
+            },
+            "band": {
+                "name": "Band"
+            },
+            "base_station_identity_code": {
+                "name": "\u57fa\u5730\u5c40ID\u30b3\u30fc\u30c9"
+            },
+            "cell_id": {
+                "name": "\u30bb\u30ebID"
+            },
+            "cqi0": {
+                "name": "CQI 0"
+            },
+            "cqi1": {
+                "name": "CQI 1"
+            },
+            "current_connection_download": {
+                "name": "\u73fe\u5728\u306e\u63a5\u7d9a\u306e\u30c0\u30a6\u30f3\u30ed\u30fc\u30c9"
+            },
+            "current_connection_duration": {
+                "name": "\u73fe\u5728\u306e\u63a5\u7d9a\u6642\u9593"
+            },
+            "current_connection_upload": {
+                "name": "\u73fe\u5728\u306e\u63a5\u7d9a\u306e\u30a2\u30c3\u30d7\u30ed\u30fc\u30c9"
+            },
+            "current_day_transfer": {
+                "name": "\u5f53\u65e5\u306e\u8ee2\u9001"
+            },
+            "current_download_rate": {
+                "name": "\u73fe\u5728\u306e\u30c0\u30a6\u30f3\u30ed\u30fc\u30c9\u7387"
+            },
+            "current_month_download": {
+                "name": "\u5f53\u6708\u306e\u30c0\u30a6\u30f3\u30ed\u30fc\u30c9"
+            },
+            "current_month_upload": {
+                "name": "\u5f53\u6708\u306e\u30a2\u30c3\u30d7\u30ed\u30fc\u30c9"
+            },
+            "current_upload_rate": {
+                "name": "\u73fe\u5728\u306e\u30a2\u30c3\u30d7\u30ed\u30fc\u30c9\u7387"
+            },
+            "downlink_bandwidth": {
+                "name": "\u30c0\u30a6\u30f3\u30ea\u30f3\u30af\u5e2f\u57df\u5e45"
+            },
+            "downlink_frequency": {
+                "name": "\u30c0\u30a6\u30f3\u30ea\u30f3\u30af\u5468\u6ce2\u6570"
+            },
+            "downlink_mcs": {
+                "name": "\u30c0\u30a6\u30f3\u30ea\u30f3\u30afMCS"
+            },
+            "earfcn": {
+                "name": "EARFCN"
+            },
+            "ecio": {
+                "name": "EC/IO"
+            },
+            "enodeb_id": {
+                "name": "eNodeB ID"
+            },
+            "lac": {
+                "name": "LAC"
+            },
+            "lte_downlink_frequency": {
+                "name": "LTE\u30c0\u30a6\u30f3\u30ea\u30f3\u30af\u5468\u6ce2\u6570"
+            },
+            "lte_uplink_frequency": {
+                "name": "LTE\u30a2\u30c3\u30d7\u30ea\u30f3\u30af\u5468\u6ce2\u6570"
+            },
+            "nrbler": {
+                "name": "5G\u30d6\u30ed\u30c3\u30af\u30a8\u30e9\u30fc\u30ec\u30fc\u30c8"
+            },
+            "nrcqi0": {
+                "name": "5G CQI 0"
+            },
+            "nrcqi1": {
+                "name": "5G CQI 1"
+            },
+            "nrdlbandwidth": {
+                "name": "5G\u30c0\u30a6\u30f3\u30ea\u30f3\u30af\u5e2f\u57df\u5e45"
+            },
+            "nrdlmcs": {
+                "name": "5G\u30c0\u30a6\u30f3\u30ea\u30f3\u30afMCS"
+            },
+            "nrearfcn": {
+                "name": "5G EARFCN"
+            },
+            "nrrank": {
+                "name": "5G\u30e9\u30f3\u30af"
+            },
+            "nrrsrp": {
+                "name": "5G RSRP"
+            },
+            "nrrsrq": {
+                "name": "5G RSRQ"
+            },
+            "nrsinr": {
+                "name": "5G SINR"
+            },
+            "nrtxpower": {
+                "name": "5G\u9001\u4fe1\u51fa\u529b"
+            },
+            "nrulbandwidth": {
+                "name": "5G\u30a2\u30c3\u30d7\u30ea\u30f3\u30af\u5e2f\u57df\u5e45"
+            },
+            "nrulmcs": {
+                "name": "5G\u30a2\u30c3\u30d7\u30ea\u30f3\u30afMCS"
+            },
+            "operator_code": {
+                "name": "\u30aa\u30da\u30ec\u30fc\u30bf\u30b3\u30fc\u30c9"
+            },
+            "operator_name": {
+                "name": "\u30aa\u30da\u30ec\u30fc\u30bf\u30fc\u540d"
+            },
+            "operator_search_mode": {
+                "name": "\u30aa\u30da\u30ec\u30fc\u30bf\u30fc\u691c\u7d22\u30e2\u30fc\u30c9",
+                "state": {
+                    "0": "\u81ea\u52d5",
+                    "1": "\u624b\u52d5"
+                }
+            },
+            "pci": {
+                "name": "PCI"
+            },
+            "plmn": {
+                "name": "PLMN"
+            },
+            "preferred_mode": {
+                "name": "\u512a\u5148\u30e2\u30fc\u30c9"
+            },
+            "preferred_network_mode": {
+                "name": "\u512a\u5148\u30cd\u30c3\u30c8\u30ef\u30fc\u30af\u30e2\u30fc\u30c9",
+                "state": {
+                    "00": "4G/3G/2G\u30aa\u30fc\u30c8",
+                    "01": "2G\u306e\u307f",
+                    "02": "3G\u306e\u307f",
+                    "0201": "3G/2G\u30aa\u30fc\u30c8",
+                    "03": "4G\u306e\u307f",
+                    "0301": "4G/2G\u30aa\u30fc\u30c8",
+                    "0302": "4G/3G\u30aa\u30fc\u30c8"
+                }
+            },
+            "primary_dns_server": {
+                "name": "\u30d7\u30e9\u30a4\u30de\u30eaDNS\u30b5\u30fc\u30d0\u30fc"
+            },
+            "primary_ipv6_dns_server": {
+                "name": "\u30d7\u30e9\u30a4\u30de\u30eaIPv6 DNS\u30b5\u30fc\u30d0\u30fc"
+            },
+            "rac": {
+                "name": "RAC"
+            },
+            "rrc_status": {
+                "name": "RRC\u30b9\u30c6\u30fc\u30bf\u30b9"
+            },
+            "rscp": {
+                "name": "RSCP"
+            },
+            "rsrp": {
+                "name": "RSRP"
+            },
+            "rsrq": {
+                "name": "RSRQ"
+            },
+            "rssi": {
+                "name": "RSSI"
+            },
+            "secondary_dns_server": {
+                "name": "\u30bb\u30ab\u30f3\u30c0\u30eaDNS\u30b5\u30fc\u30d0\u30fc"
+            },
+            "secondary_ipv6_dns_server": {
+                "name": "\u30bb\u30ab\u30f3\u30c0\u30eaIPv6 DNS\u30b5\u30fc\u30d0\u30fc"
+            },
+            "sinr": {
+                "name": "SINR"
+            },
+            "sms_capacity_device": {
+                "name": "SMS\u5bb9\u91cf\uff08\u30c7\u30d0\u30a4\u30b9\uff09"
+            },
+            "sms_capacity_sim": {
+                "name": "SMS\u5bb9\u91cf\uff08SIM\uff09"
+            },
+            "sms_deleted_device": {
+                "name": "SMS\u524a\u9664\u6e08\u307f (\u30c7\u30d0\u30a4\u30b9)"
+            },
+            "sms_drafts_device": {
+                "name": "SMS\u4e0b\u66f8\u304d (\u30c7\u30d0\u30a4\u30b9)"
+            },
+            "sms_drafts_sim": {
+                "name": "SMS\u4e0b\u66f8\u304d\uff08SIM\uff09"
+            },
+            "sms_inbox_device": {
+                "name": "SMS\u53d7\u4fe1\u30dc\u30c3\u30af\u30b9\uff08\u30c7\u30d0\u30a4\u30b9\uff09"
+            },
+            "sms_inbox_sim": {
+                "name": "SMS\u53d7\u4fe1\u30dc\u30c3\u30af\u30b9\uff08SIM\uff09"
+            },
+            "sms_messages_sim": {
+                "name": "SMS\u30e1\u30c3\u30bb\u30fc\u30b8 (SIM)"
+            },
+            "sms_outbox_device": {
+                "name": "SMS\u9001\u4fe1\u30c8\u30ec\u30a4\uff08\u30c7\u30d0\u30a4\u30b9\uff09"
+            },
+            "sms_outbox_sim": {
+                "name": "SMS\u9001\u4fe1\u30c8\u30ec\u30a4 (SIM)"
+            },
+            "sms_unread": {
+                "name": "SMS\u672a\u8aad"
+            },
+            "sms_unread_device": {
+                "name": "SMS\u672a\u8aad\uff08\u30c7\u30d0\u30a4\u30b9\uff09"
+            },
+            "sms_unread_sim": {
+                "name": "SMS\u672a\u8aad\uff08SIM\uff09"
+            },
+            "tac": {
+                "name": "TAC"
+            },
+            "tdd": {
+                "name": "TDD"
+            },
+            "total_connected_duration": {
+                "name": "\u5408\u8a08\u63a5\u7d9a\u6642\u9593"
+            },
+            "total_download": {
+                "name": "\u5408\u8a08\u30c0\u30a6\u30f3\u30ed\u30fc\u30c9"
+            },
+            "total_upload": {
+                "name": "\u5408\u8a08\u30a2\u30c3\u30d7\u30ed\u30fc\u30c9"
+            },
+            "transmission_mode": {
+                "name": "\u9001\u4fe1\u30e2\u30fc\u30c9"
+            },
+            "transmit_power": {
+                "name": "\u9001\u4fe1\u30d1\u30ef\u30fc"
+            },
+            "uplink_bandwidth": {
+                "name": "\u30a2\u30c3\u30d7\u30ea\u30f3\u30af\u5e2f\u57df\u5e45"
+            },
+            "uplink_frequency": {
+                "name": "\u30a2\u30c3\u30d7\u30ea\u30f3\u30af\u5468\u6ce2\u6570"
+            },
+            "uplink_mcs": {
+                "name": "\u30a2\u30c3\u30d7\u30ea\u30f3\u30af MCS"
+            },
+            "uptime": {
+                "name": "\u7a3c\u50cd\u6642\u9593"
+            },
+            "wan_ip_address": {
+                "name": "WAN IP\u30a2\u30c9\u30ec\u30b9"
+            },
+            "wan_ipv6_address": {
+                "name": "WAN IPv6 \u30a2\u30c9\u30ec\u30b9"
+            },
+            "wifi_clients_connected": {
+                "name": "Wi-Fi\u30af\u30e9\u30a4\u30a2\u30f3\u30c8\u63a5\u7d9a"
+            }
+        },
+        "switch": {
+            "mobile_data": {
+                "name": "\u30e2\u30d0\u30a4\u30eb\u30c7\u30fc\u30bf"
+            },
+            "wifi_guest_network": {
+                "name": "Wi-Fi\u30b2\u30b9\u30c8\u30cd\u30c3\u30c8\u30ef\u30fc\u30af"
+            }
+        }
+    },
+    "issues": {
+        "service_changed_to_button": {
+            "description": "{service}\u30b5\u30fc\u30d3\u30b9\u306f\u5ec3\u6b62\u3055\u308c\u307e\u3057\u305f\u3002\u4ee3\u308f\u308a\u306b\u3001\u5bfe\u5fdc\u3059\u308b{button}\u30dc\u30bf\u30f3\u3092\u4f7f\u7528\u3057\u3066\u304f\u3060\u3055\u3044\u3002",
+            "title": "\u30b5\u30fc\u30d3\u30b9\u304c\u30dc\u30bf\u30f3\u306b\u5909\u66f4\u3055\u308c\u307e\u3057\u305f"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "name": "\u901a\u77e5\u30b5\u30fc\u30d3\u30b9\u540d(\u5909\u66f4\u306b\u306f\u518d\u8d77\u52d5\u304c\u5fc5\u8981)",
+                    "recipient": "SMS\u901a\u77e5\u306e\u53d7\u4fe1\u8005",
+                    "track_wired_clients": "\u6709\u7dda\u30cd\u30c3\u30c8\u30ef\u30fc\u30af\u30af\u30e9\u30a4\u30a2\u30f3\u30c8\u3092\u8ffd\u8de1\u3059\u308b",
+                    "unauthenticated_mode": "\u8a8d\u8a3c\u306a\u3057\u306e\u30e2\u30fc\u30c9(\u5909\u66f4\u306b\u306f\u30ea\u30ed\u30fc\u30c9\u304c\u5fc5\u8981)"
+                }
+            }
+        }
+    },
+    "services": {
+        "clear_traffic_statistics": {
+            "description": "\u30c8\u30e9\u30d5\u30a3\u30c3\u30af\u7d71\u8a08\u3092\u30af\u30ea\u30a2\u3057\u307e\u3059\u3002",
+            "fields": {
+                "url": {
+                    "description": "\u30af\u30ea\u30a2\u3059\u308b\u30eb\u30fc\u30bf\u30fc\u306e URL\u3002 1 \u3064\u3060\u3051\u304c\u69cb\u6210\u3055\u308c\u3066\u3044\u308b\u5834\u5408\u306f\u30aa\u30d7\u30b7\u30e7\u30f3\u3067\u3059\u3002",
+                    "name": "URL"
+                }
+            },
+            "name": "\u30c8\u30e9\u30d5\u30a3\u30c3\u30af\u7d71\u8a08\u3092\u30af\u30ea\u30a2\u3059\u308b"
+        },
+        "reboot": {
+            "description": "\u30eb\u30fc\u30bf\u30fc\u3092\u518d\u8d77\u52d5\u3057\u307e\u3059\u3002",
+            "fields": {
+                "url": {
+                    "description": "\u518d\u8d77\u52d5\u3059\u308b\u30eb\u30fc\u30bf\u30fc\u306e URL\u3002 1 \u3064\u3060\u3051\u304c\u69cb\u6210\u3055\u308c\u3066\u3044\u308b\u5834\u5408\u306f\u30aa\u30d7\u30b7\u30e7\u30f3\u3067\u3059\u3002",
+                    "name": "URL"
+                }
+            },
+            "name": "\u518d\u8d77\u52d5"
+        },
+        "resume_integration": {
+            "description": "\u4e2d\u65ad\u3055\u308c\u3066\u3044\u305f\u7d71\u5408\u3092\u518d\u958b\u3057\u307e\u3059\u3002",
+            "fields": {
+                "url": {
+                    "description": "\u7d71\u5408\u3092\u518d\u958b\u3059\u308b\u30eb\u30fc\u30bf\u30fc\u306e URL\u3002 1 \u3064\u3060\u3051\u304c\u69cb\u6210\u3055\u308c\u3066\u3044\u308b\u5834\u5408\u306f\u30aa\u30d7\u30b7\u30e7\u30f3\u3067\u3059\u3002",
+                    "name": "URL"
+                }
+            },
+            "name": "\u7d71\u5408\u3092\u518d\u958b\u3059\u308b"
+        },
+        "suspend_integration": {
+            "description": "\u7d71\u5408\u3092\u4e00\u6642\u505c\u6b62\u3057\u307e\u3059\u3002\u4e00\u6642\u505c\u6b62\u3059\u308b\u3068\u3001\u7d71\u5408\u306f\u30eb\u30fc\u30bf\u30fc\u304b\u3089\u30ed\u30b0\u30a2\u30a6\u30c8\u3055\u308c\u3001\u30a2\u30af\u30bb\u30b9\u304c\u505c\u6b62\u3057\u307e\u3059\u3002Web \u30d6\u30e9\u30a6\u30b6\u30fc\u306a\u3069\u306e\u5225\u306e\u30bd\u30fc\u30b9\u304b\u3089\u30eb\u30fc\u30bf\u30fc\u306e Web \u30a4\u30f3\u30bf\u30fc\u30d5\u30a7\u30a4\u30b9\u306b\u4e00\u6642\u7684\u306b\u30a2\u30af\u30bb\u30b9\u3059\u308b\u5fc5\u8981\u304c\u3042\u308b\u5834\u5408\u306a\u3069\u306b\u4fbf\u5229\u3067\u3059\u3002\u518d\u958b\u3059\u308b\u306b\u306f\u3001resume_integration \u30a2\u30af\u30b7\u30e7\u30f3\u3092\u547c\u3073\u51fa\u3057\u307e\u3059\u3002",
+            "fields": {
+                "url": {
+                    "description": "\u7d71\u5408\u3092\u4e00\u6642\u505c\u6b62\u3059\u308b\u30eb\u30fc\u30bf\u30fc\u306e URL\u3002 1 \u3064\u3060\u3051\u304c\u69cb\u6210\u3055\u308c\u3066\u3044\u308b\u5834\u5408\u306f\u30aa\u30d7\u30b7\u30e7\u30f3\u3067\u3059\u3002",
+                    "name": "URL"
+                }
+            },
+            "name": "\u7d71\u5408\u306e\u4e00\u6642\u505c\u6b62"
+        }
+    }
+}

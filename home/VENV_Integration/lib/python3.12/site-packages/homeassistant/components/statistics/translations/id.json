@@ -1,0 +1,122 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Akun sudah dikonfigurasi"
+        },
+        "error": {
+            "missing_keep_last_sample": "Konfigurasi sensor harus menyediakan 'max_age' jika 'keep_last_sample' bernilai True",
+            "missing_max_age_or_sampling_size": "Konfigurasi sensor harus menyediakan 'max_age' dan/atau 'sampling_size'"
+        },
+        "step": {
+            "options": {
+                "data": {
+                    "keep_last_sample": "Simpan sampel terakhir",
+                    "max_age": "Usia maksimal",
+                    "percentile": "Persentil",
+                    "precision": "Presisi",
+                    "sampling_size": "Ukuran sampel"
+                },
+                "data_description": {
+                    "keep_last_sample": "Menentukan apakah nilai sampel terbaru harus dipertahankan terlepas dari pengaturan 'usia maksimal'.",
+                    "max_age": "Usia maksimum pengukuran sensor sumber yang disimpan.",
+                    "percentile": "Hanya relevan jika dikombinasikan dengan karakteristik 'persentil'. Harus berupa nilai antara 1 dan 99.",
+                    "precision": "Menentukan jumlah desimal dari nilai sensor yang dihitung.",
+                    "sampling_size": "Jumlah maksimum pengukuran sensor sumber yang disimpan."
+                },
+                "description": "Baca dokumentasi untuk detail lebih lanjut tentang cara mengonfigurasi sensor statistik menggunakan opsi ini."
+            },
+            "state_characteristic": {
+                "data": {
+                    "state_characteristic": "State_characteristic"
+                },
+                "data_description": {
+                    "state_characteristic": "Karakteristik yang harus digunakan sebagai status sensor statistik."
+                },
+                "description": "Baca dokumentasi untuk detail lebih lanjut tentang opsi yang tersedia dan cara menggunakannya."
+            },
+            "user": {
+                "data": {
+                    "entity_id": "Entitas",
+                    "name": "Nama"
+                },
+                "data_description": {
+                    "entity_id": "Entitas sumber statistik",
+                    "name": "Nama untuk entitas yang dibuat."
+                },
+                "description": "Tambahkan sensor statistik"
+            }
+        }
+    },
+    "issues": {
+        "deprecation_warning_characteristic": {
+            "description": "Parameter konfigurasi `state_characteristic` dari integrasi statistik akan menjadi wajib.\n\nTambahkan `state_characteristic: {characteristic}` ke dalam konfigurasi sensor `{entity}` untuk menjaga perilaku saat ini.\n\nBaca dokumentasi integrasi Statistik untuk detail lebih lanjut: https://www.home-assistant.io/integrations/statistics/",
+            "title": "Parameter wajib 'state_characteristic' diasumsikan untuk entitas Statistik"
+        },
+        "deprecation_warning_size": {
+            "description": "Parameter konfigurasi `sampling_size` dari integrasi Statistik yang bernilai default 20 sejauh ini, akan berubah.\n\nPeriksa konfigurasi untuk sensor `{entity}` dan tambahkan batas-batas yang sesuai, misalnya, `sampling_size: 20` untuk menjaga perilaku saat ini. Konfigurasi integrasi Statistik akan menjadi lebih fleksibel mulai versi 2022.12.0 dan menerima baik parameter `sampling_size` atau `max_age`, atau keduanya. Permintaan di atas akan mempersiapkan konfigurasi Anda untuk menghadapi perubahan besar ini.\n\nBaca dokumentasi integrasi Statistik untuk detail lebih lanjut: https://www.home-assistant.io/integrations/statistics/",
+            "title": "Parameter implisit 'sampling_size' diasumsikan untuk entitas Statistik"
+        }
+    },
+    "options": {
+        "abort": {
+            "already_configured": "Akun sudah dikonfigurasi"
+        },
+        "error": {
+            "missing_keep_last_sample": "Konfigurasi sensor harus menyediakan 'max_age' jika 'keep_last_sample' bernilai True",
+            "missing_max_age_or_sampling_size": "Konfigurasi sensor harus menyediakan 'max_age' dan/atau 'sampling_size'"
+        },
+        "step": {
+            "init": {
+                "data": {
+                    "keep_last_sample": "Simpan sampel terakhir",
+                    "max_age": "Usia maksimal",
+                    "percentile": "Persentil",
+                    "precision": "Presisi",
+                    "sampling_size": "Ukuran sampel"
+                },
+                "data_description": {
+                    "keep_last_sample": "Menentukan apakah nilai sampel terbaru harus dipertahankan terlepas dari pengaturan 'usia maksimal'.",
+                    "max_age": "Usia maksimum pengukuran sensor sumber yang disimpan.",
+                    "percentile": "Hanya relevan jika dikombinasikan dengan karakteristik 'persentil'. Harus berupa nilai antara 1 dan 99.",
+                    "precision": "Menentukan jumlah desimal dari nilai sensor yang dihitung.",
+                    "sampling_size": "Jumlah maksimum pengukuran sensor sumber yang disimpan."
+                },
+                "description": "Baca dokumentasi untuk detail lebih lanjut tentang cara mengonfigurasi sensor statistik menggunakan opsi ini."
+            }
+        }
+    },
+    "selector": {
+        "state_characteristic": {
+            "options": {
+                "average_linear": "Rata-rata linier",
+                "average_step": "Rata-rata langkah",
+                "average_timeless": "Rata-rata abadi",
+                "datetime_newest": "Tanggal waktu terbaru",
+                "datetime_oldest": "Tanggal waktu terlama",
+                "datetime_value_max": "Nilai maksimum tanggal dan waktu",
+                "datetime_value_min": "Nilai minimum tanggal dan waktu",
+                "distance_95_percent_of_values": "Jarak 95% dari nilai",
+                "distance_99_percent_of_values": "Jarak 99% dari nilai",
+                "distance_absolute": "Jarak absolut",
+                "mean": "Rata-rata",
+                "median": "Median",
+                "noisiness": "Kebisingan",
+                "percentile": "Persentil",
+                "standard_deviation": "Deviasi standar",
+                "sum": "Jumlah",
+                "sum_differences": "Jumlah selisih",
+                "sum_differences_nonnegative": "Jumlah selisih non-negatif",
+                "total": "Total",
+                "value_max": "Nilai maksimum",
+                "value_min": "Nilai minimum",
+                "variance": "Varians"
+            }
+        }
+    },
+    "services": {
+        "reload": {
+            "description": "Memuat ulang sensor statistik dari konfigurasi YAML.",
+            "name": "Muat Ulang"
+        }
+    }
+}

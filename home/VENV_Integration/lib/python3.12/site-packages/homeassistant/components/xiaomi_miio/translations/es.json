@@ -1,0 +1,590 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "El dispositivo ya est\u00e1 configurado",
+            "already_in_progress": "El flujo de configuraci\u00f3n ya est\u00e1 en curso",
+            "incomplete_info": "Informaci\u00f3n incompleta para configurar el dispositivo, no se proporcion\u00f3 host ni token.",
+            "not_xiaomi_miio": "El dispositivo no es (todav\u00eda) compatible con Xiaomi Miio.",
+            "reauth_successful": "La autenticaci\u00f3n se volvi\u00f3 a realizar correctamente",
+            "unknown": "Error inesperado"
+        },
+        "error": {
+            "cannot_connect": "No se pudo conectar",
+            "cloud_credentials_incomplete": "Credenciales de la nube incompletas, por favor, completa el nombre de usuario, la contrase\u00f1a y el pa\u00eds",
+            "cloud_login_error": "No se pudo iniciar sesi\u00f3n en Xiaomi Miio Cloud, comprueba las credenciales.",
+            "cloud_no_devices": "No se encontraron dispositivos en esta cuenta en la nube de Xiaomi Miio.",
+            "unknown_device": "Se desconoce el modelo del dispositivo, no se puede configurar el dispositivo mediante el flujo de configuraci\u00f3n.",
+            "wrong_token": "Error de suma de comprobaci\u00f3n, token err\u00f3neo"
+        },
+        "flow_title": "{name}",
+        "step": {
+            "cloud": {
+                "data": {
+                    "cloud_country": "Pa\u00eds del servidor de la nube",
+                    "cloud_password": "Contrase\u00f1a de la nube",
+                    "cloud_username": "Nombre de usuario de la nube",
+                    "manual": "Configurar manualmente (no recomendado)"
+                },
+                "description": "Inicia sesi\u00f3n en la nube de Xiaomi Miio, consulta https://www.openhab.org/addons/bindings/miio/#country-servers para usar el servidor en la nube."
+            },
+            "connect": {
+                "data": {
+                    "model": "Modelo del dispositivo"
+                }
+            },
+            "manual": {
+                "data": {
+                    "host": "Direcci\u00f3n IP",
+                    "token": "Token API"
+                },
+                "description": "Necesitar\u00e1s el token API de 32 caracteres, consulta https://www.home-assistant.io/integrations/xiaomi_miio#retrieving-the-access-token para obtener instrucciones. Ten en cuenta que este token de API es diferente de la clave utilizada por la integraci\u00f3n de Xiaomi Aqara."
+            },
+            "reauth_confirm": {
+                "description": "La integraci\u00f3n de Xiaomi Miio necesita volver a autenticar tu cuenta para actualizar los tokens o a\u00f1adir las credenciales de la nube que faltan.",
+                "title": "Autenticaci\u00f3n caducada para {name}"
+            },
+            "select": {
+                "data": {
+                    "select_device": "Dispositivo Miio"
+                },
+                "description": "Selecciona el dispositivo Xiaomi Miio para configurar."
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "is_water_box_attached": {
+                "name": "Mopa acoplada"
+            },
+            "is_water_box_carriage_attached": {
+                "name": "Mopa acoplada"
+            },
+            "is_water_shortage": {
+                "name": "Escasez de agua"
+            },
+            "no_water": {
+                "name": "Dep\u00f3sito de agua vac\u00edo"
+            },
+            "powersupply_attached": {
+                "name": "Fuente de alimentaci\u00f3n"
+            },
+            "water_tank_detached": {
+                "name": "Dep\u00f3sito de agua"
+            }
+        },
+        "button": {
+            "reset_dust_filter": {
+                "name": "Restablecer el filtro de polvo"
+            },
+            "reset_upper_filter": {
+                "name": "Restablecer el filtro superior"
+            },
+            "reset_vacuum_filter": {
+                "name": "Restablecer filtro"
+            },
+            "reset_vacuum_main_brush": {
+                "name": "Restablecer el cepillo principal"
+            },
+            "reset_vacuum_sensor_dirty": {
+                "name": "Restablecer suciedad del sensor"
+            },
+            "reset_vacuum_side_brush": {
+                "name": "Restablecer el cepillo lateral"
+            }
+        },
+        "fan": {
+            "generic_fan": {
+                "state_attributes": {
+                    "preset_mode": {
+                        "state": {
+                            "nature": "Naturaleza",
+                            "normal": "Normal"
+                        }
+                    }
+                }
+            }
+        },
+        "number": {
+            "angle": {
+                "name": "\u00c1ngulo de oscilaci\u00f3n"
+            },
+            "delay_off_countdown": {
+                "name": "Retraso de la cuenta atr\u00e1s"
+            },
+            "fan_level": {
+                "name": "Nivel del ventilador"
+            },
+            "favorite_level": {
+                "name": "Nivel preferido"
+            },
+            "favorite_rpm": {
+                "name": "Velocidad del motor preferida"
+            },
+            "led_brightness": {
+                "name": "Brillo del LED"
+            },
+            "led_brightness_level": {
+                "name": "Brillo del LED"
+            },
+            "motor_speed": {
+                "name": "Velocidad del motor"
+            },
+            "volume": {
+                "name": "Volumen"
+            }
+        },
+        "select": {
+            "airpurifier_mode": {
+                "state": {
+                    "auto": "Auto",
+                    "favorite": "Favorito",
+                    "silent": "En silencio"
+                }
+            },
+            "display_orientation": {
+                "state": {
+                    "forward": "Adelante",
+                    "left": "Izquierda",
+                    "right": "Derecha"
+                }
+            },
+            "led_brightness": {
+                "state": {
+                    "bright": "Brillo",
+                    "dim": "Atenuar",
+                    "off": "Apagado"
+                }
+            },
+            "ptc_level": {
+                "state": {
+                    "high": "Alto",
+                    "low": "Bajo",
+                    "medium": "Medio"
+                }
+            }
+        },
+        "sensor": {
+            "actual_speed": {
+                "name": "Velocidad actual"
+            },
+            "air_quality": {
+                "name": "Calidad del aire"
+            },
+            "air_quality_index": {
+                "name": "\u00cdndice de calidad del aire"
+            },
+            "area": {
+                "name": "\u00c1rea de la \u00faltima limpieza"
+            },
+            "clean_area": {
+                "name": "\u00c1rea limpia actual"
+            },
+            "clean_time": {
+                "name": "Duraci\u00f3n de limpieza actual"
+            },
+            "control_speed": {
+                "name": "Control de velocidad"
+            },
+            "count": {
+                "name": "Recuento total de limpiezas"
+            },
+            "dnd_end": {
+                "name": "Fin de No Molestar"
+            },
+            "dnd_start": {
+                "name": "Inicio de No Molestar"
+            },
+            "duration": {
+                "name": "Duraci\u00f3n de la \u00faltima limpieza"
+            },
+            "dust_collection_count": {
+                "name": "Recuento total de recolecci\u00f3n de polvo"
+            },
+            "dust_filter_life_remaining": {
+                "name": "Vida \u00fatil restante del filtro de polvo"
+            },
+            "dust_filter_life_remaining_days": {
+                "name": "D\u00edas restantes de vida \u00fatil del filtro de polvo"
+            },
+            "favorite_speed": {
+                "name": "Velocidad preferida"
+            },
+            "filter_hours_used": {
+                "name": "Uso del filtro"
+            },
+            "filter_left": {
+                "name": "Filtro restante"
+            },
+            "filter_left_time": {
+                "name": "Vida \u00fatil restante del filtro"
+            },
+            "filter_life_remaining": {
+                "name": "Vida \u00fatil restante del filtro"
+            },
+            "illuminance": {
+                "name": "Iluminancia"
+            },
+            "last_clean_end": {
+                "name": "Finalizaci\u00f3n de la \u00faltima limpieza"
+            },
+            "last_clean_start": {
+                "name": "Inicio de la \u00faltima limpieza"
+            },
+            "load_power": {
+                "name": "Potencia de carga"
+            },
+            "main_brush_left": {
+                "name": "Cepillo principal restante"
+            },
+            "motor2_speed": {
+                "name": "Velocidad del segundo motor"
+            },
+            "motor_speed": {
+                "name": "Velocidad del motor"
+            },
+            "purify_volume": {
+                "name": "Volumen de purificaci\u00f3n"
+            },
+            "sensor_dirty_left": {
+                "name": "Restante hasta limpieza de los sensores"
+            },
+            "side_brush_left": {
+                "name": "Cepillo lateral restante"
+            },
+            "total_area": {
+                "name": "\u00c1rea limpia total"
+            },
+            "total_duration": {
+                "name": "Duraci\u00f3n total"
+            },
+            "tvoc": {
+                "name": "TVOC"
+            },
+            "upper_filter_life_remaining": {
+                "name": "Vida \u00fatil restante del filtro superior"
+            },
+            "upper_filter_life_remaining_days": {
+                "name": "D\u00edas restantes de vida \u00fatil del filtro superior"
+            },
+            "use_time": {
+                "name": "Tiempo de uso"
+            },
+            "water_level": {
+                "name": "Nivel de agua"
+            }
+        },
+        "switch": {
+            "anion": {
+                "name": "Ionizador"
+            },
+            "auto_detect": {
+                "name": "Detecci\u00f3n autom\u00e1tica"
+            },
+            "buzzer": {
+                "name": "Zumbador"
+            },
+            "child_lock": {
+                "name": "Bloqueo infantil"
+            },
+            "clean_mode": {
+                "name": "Modo limpio"
+            },
+            "display": {
+                "name": "Pantalla"
+            },
+            "dry": {
+                "name": "Modo seco"
+            },
+            "ionizer": {
+                "name": "Ionizador"
+            },
+            "learn_mode": {
+                "name": "Modo de aprendizaje"
+            },
+            "led": {
+                "name": "LED"
+            },
+            "ptc": {
+                "name": "Calor auxiliar"
+            }
+        }
+    },
+    "options": {
+        "error": {
+            "cloud_credentials_incomplete": "Credenciales de la nube incompletas, por favor, completa el nombre de usuario, la contrase\u00f1a y el pa\u00eds"
+        },
+        "step": {
+            "init": {
+                "data": {
+                    "cloud_subdevices": "Usar la nube para obtener subdispositivos conectados"
+                }
+            }
+        }
+    },
+    "services": {
+        "fan_reset_filter": {
+            "description": "Restablece la vida \u00fatil y el uso del filtro.",
+            "fields": {
+                "entity_id": {
+                    "description": "Nombre de la entidad xiaomi miio.",
+                    "name": "ID de entidad"
+                }
+            },
+            "name": "Reiniciar filtro del ventilador"
+        },
+        "fan_set_extra_features": {
+            "description": "Manipula un registro de almacenamiento que anuncia funciones adicionales. La aplicaci\u00f3n Mi Home eval\u00faa el valor. Una caracter\u00edstica llamada \"modo turbo\" se desbloquea en la aplicaci\u00f3n en el valor 1.",
+            "fields": {
+                "entity_id": {
+                    "description": "Nombre de la entidad xiaomi miio.",
+                    "name": "ID de entidad"
+                },
+                "features": {
+                    "description": "Entero, los valores conocidos son 0 (predeterminado) y 1 (modo turbo).",
+                    "name": "Caracter\u00edsticas"
+                }
+            },
+            "name": "Establecer caracter\u00edsticas adicionales del ventilador"
+        },
+        "light_eyecare_mode_off": {
+            "description": "Deshabilita el recordatorio/notificaci\u00f3n de fatiga ocular (SOLO EYECARE SMART LAMP 2).",
+            "fields": {
+                "entity_id": {
+                    "description": "Nombre de la entidad sobre la que actuar.",
+                    "name": "ID de entidad"
+                }
+            },
+            "name": "Modo de cuidado de la vista de la luz desactivado"
+        },
+        "light_eyecare_mode_on": {
+            "description": "Habilita el recordatorio/notificaci\u00f3n de fatiga ocular (SOLO EYECARE SMART LAMP 2).",
+            "fields": {
+                "entity_id": {
+                    "description": "Nombre de la entidad sobre la que actuar.",
+                    "name": "ID de entidad"
+                }
+            },
+            "name": "Modo de cuidado de la vista de la luz activado"
+        },
+        "light_night_light_mode_off": {
+            "description": "Apaga el modo de cuidado de la vista (SOLO EYECARE SMART LAMP 2).",
+            "fields": {
+                "entity_id": {
+                    "description": "Nombre de la entidad sobre la que actuar.",
+                    "name": "ID de entidad"
+                }
+            },
+            "name": "Modo de luz nocturna desactivado"
+        },
+        "light_night_light_mode_on": {
+            "description": "Enciende el modo cuidado de la vista (SOLO EYECARE SMART LAMP 2).",
+            "fields": {
+                "entity_id": {
+                    "description": "Nombre de la entidad sobre la que actuar.",
+                    "name": "ID de entidad"
+                }
+            },
+            "name": "Modo de luz nocturna activado"
+        },
+        "light_reminder_off": {
+            "description": "Deshabilita el recordatorio/notificaci\u00f3n de fatiga ocular (SOLO EYECARE SMART LAMP 2).",
+            "fields": {
+                "entity_id": {
+                    "description": "Nombre de la entidad sobre la que actuar.",
+                    "name": "ID de entidad"
+                }
+            },
+            "name": "Recordatorio de luz apagado"
+        },
+        "light_reminder_on": {
+            "description": "Habilita el recordatorio/notificaci\u00f3n de fatiga ocular (SOLO EYECARE SMART LAMP 2).",
+            "fields": {
+                "entity_id": {
+                    "description": "Nombre de la entidad sobre la que actuar.",
+                    "name": "ID de entidad"
+                }
+            },
+            "name": "Recordatorio de luz encendido"
+        },
+        "light_set_delayed_turn_off": {
+            "description": "Apagado retardado.",
+            "fields": {
+                "entity_id": {
+                    "description": "Nombre de la entidad de luz.",
+                    "name": "ID de entidad"
+                },
+                "time_period": {
+                    "description": "Periodo de tiempo para el apagado retardado.",
+                    "name": "Periodo de tiempo"
+                }
+            },
+            "name": "Establecer retardo de apagado de la luz"
+        },
+        "light_set_scene": {
+            "description": "Establece una escena fija.",
+            "fields": {
+                "entity_id": {
+                    "description": "Nombre de la entidad de luz.",
+                    "name": "ID de entidad"
+                },
+                "scene": {
+                    "description": "N\u00famero de la escena fijada.",
+                    "name": "Escena"
+                }
+            },
+            "name": "Establecer escena de luz"
+        },
+        "remote_learn_command": {
+            "description": "Aprende un comando IR, selecciona **Realizar acci\u00f3n**, apunta el mando a distancia al dispositivo IR y el comando aprendido se mostrar\u00e1 como una notificaci\u00f3n en Vista general.",
+            "fields": {
+                "slot": {
+                    "description": "Defina la ranura utilizada para guardar el comando IR.",
+                    "name": "Ranura"
+                },
+                "timeout": {
+                    "description": "Define el tiempo de espera, antes del cual se debe aprender el comando.",
+                    "name": "Tiempo de espera"
+                }
+            },
+            "name": "Aprendizaje de comando en el control remoto"
+        },
+        "remote_set_led_off": {
+            "description": "Apaga el LED azul.",
+            "name": "Apagar LED azul en el control remoto"
+        },
+        "remote_set_led_on": {
+            "description": "Enciende el LED azul.",
+            "name": "Encender LED azul en el control remoto"
+        },
+        "switch_set_power_mode": {
+            "description": "Establece el modo de energ\u00eda.",
+            "fields": {
+                "entity_id": {
+                    "description": "Nombre de la entidad xiaomi miio.",
+                    "name": "ID de entidad"
+                },
+                "mode": {
+                    "description": "Modo de alimentaci\u00f3n.",
+                    "name": "Modo"
+                }
+            },
+            "name": "Cambiar el modo de alimentaci\u00f3n establecido"
+        },
+        "switch_set_power_price": {
+            "description": "Establece el precio de la energ\u00eda.",
+            "fields": {
+                "entity_id": {
+                    "description": "Nombre de la entidad xiaomi miio.",
+                    "name": "ID de entidad"
+                },
+                "mode": {
+                    "description": "Precio de la energ\u00eda.",
+                    "name": "Modo"
+                }
+            },
+            "name": "Precio de la potencia del interruptor"
+        },
+        "switch_set_wifi_led_off": {
+            "description": "Apaga el led Wi-Fi.",
+            "fields": {
+                "entity_id": {
+                    "description": "Nombre de la entidad xiaomi miio.",
+                    "name": "ID de entidad"
+                }
+            },
+            "name": "Apagar el indicador LED Wi-Fi"
+        },
+        "switch_set_wifi_led_on": {
+            "description": "Enciende el led wifi.",
+            "fields": {
+                "entity_id": {
+                    "description": "Nombre de la entidad xiaomi miio.",
+                    "name": "ID de entidad"
+                }
+            },
+            "name": "Encender el indicador LED Wi-Fi"
+        },
+        "vacuum_clean_segment": {
+            "description": "Inicia la limpieza de los segmentos especificados.",
+            "fields": {
+                "segments": {
+                    "description": "Segmentos.",
+                    "name": "Segmentos"
+                }
+            },
+            "name": "Segmento de aspirado"
+        },
+        "vacuum_clean_zone": {
+            "description": "Inicia la operaci\u00f3n de limpieza en las \u00e1reas seleccionadas por el n\u00famero de repeticiones indicado.",
+            "fields": {
+                "repeats": {
+                    "description": "N\u00famero de repeticiones de limpieza para cada zona.",
+                    "name": "Repeticiones"
+                },
+                "zone": {
+                    "description": "Matriz de zonas. Cada zona es una matriz de 4 valores enteros.",
+                    "name": "Zona"
+                }
+            },
+            "name": "Limpiar zona por aspirador"
+        },
+        "vacuum_goto": {
+            "description": "Ir a las coordenadas especificadas.",
+            "fields": {
+                "x_coord": {
+                    "description": "Coordenada X.",
+                    "name": "Coordenada X"
+                },
+                "y_coord": {
+                    "description": "Coordenada Y.",
+                    "name": "Coordenada Y"
+                }
+            },
+            "name": "Mandar aspirador a"
+        },
+        "vacuum_remote_control_move": {
+            "description": "Controla de forma remota el aspirador, aseg\u00farate de configurarlo primero en modo de control remoto con `remote_control_start`.",
+            "fields": {
+                "duration": {
+                    "description": "Duraci\u00f3n del movimiento.",
+                    "name": "Duraci\u00f3n"
+                },
+                "rotation": {
+                    "description": "Rotaci\u00f3n, entre -179 grados y 179 grados.",
+                    "name": "Rotaci\u00f3n"
+                },
+                "velocity": {
+                    "description": "Velocidad.",
+                    "name": "Velocidad"
+                }
+            },
+            "name": "Movimiento de control remoto de aspirador"
+        },
+        "vacuum_remote_control_move_step": {
+            "description": "Controla a distancia el aspirador, solo hace un movimiento y luego se detiene.",
+            "fields": {
+                "duration": {
+                    "description": "Duraci\u00f3n del movimiento.",
+                    "name": "Duraci\u00f3n"
+                },
+                "rotation": {
+                    "description": "Rotaci\u00f3n.",
+                    "name": "Rotaci\u00f3n"
+                },
+                "velocity": {
+                    "description": "Velocidad.",
+                    "name": "Velocidad"
+                }
+            },
+            "name": "Paso de movimiento del control remoto de aspirador"
+        },
+        "vacuum_remote_control_start": {
+            "description": "Inicia el control remoto del aspirador. Luego puedes moverlo con `remote_control_move`, cuando termine, llama a `remote_control_stop`.",
+            "name": "Inicio de control remoto de aspirador"
+        },
+        "vacuum_remote_control_stop": {
+            "description": "Detiene el modo de control remoto del aspirador.",
+            "name": "Parada de control remoto de aspirador"
+        }
+    }
+}

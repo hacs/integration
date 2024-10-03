@@ -1,0 +1,694 @@
+{
+  "language": "ar",
+  "intents": {
+    "HassTurnOff": {
+      "data": [
+        {
+          "sentences": [
+            "<turn_off> [<light> | <switch>] <name>"
+          ],
+          "excludes_context": {
+            "domain": [
+              "binary_sensor",
+              "cover",
+              "lock",
+              "scene",
+              "script",
+              "sensor"
+            ]
+          },
+          "response": "default"
+        },
+        {
+          "sentences": [
+            "<turn_off> [<all>] <light> [<in>] <area>"
+          ],
+          "slots": {
+            "domain": "light",
+            "name": "all"
+          },
+          "response": "lights_area"
+        },
+        {
+          "sentences": [
+            "<turn_off> [<all>] <light>"
+          ],
+          "slots": {
+            "domain": "light",
+            "name": "all"
+          },
+          "response": "light_all"
+        },
+        {
+          "sentences": [
+            "<close> <name> [<in> <area>]"
+          ],
+          "requires_context": {
+            "domain": "cover"
+          },
+          "response": "cover"
+        },
+        {
+          "sentences": [
+            "<close> باب الجراج"
+          ],
+          "slots": {
+            "domain": "cover",
+            "device_class": "garage"
+          },
+          "response": "cover_device_class"
+        },
+        {
+          "sentences": [
+            "<close> {cover_classes:device_class} [<in>] <area>"
+          ],
+          "slots": {
+            "domain": "cover"
+          },
+          "response": "cover_device_class"
+        },
+        {
+          "sentences": [
+            "<turn_off> [<all>] <fan> [<in>] <area>"
+          ],
+          "slots": {
+            "domain": "fan",
+            "name": "all"
+          },
+          "response": "fans_area"
+        },
+        {
+          "sentences": [
+            "<turn_off> [<all>] <fan>"
+          ],
+          "slots": {
+            "domain": "fan",
+            "name": "all"
+          },
+          "response": "fan_all"
+        },
+        {
+          "sentences": [
+            "<open> <name> [<in> <area>]"
+          ],
+          "requires_context": {
+            "domain": "lock"
+          },
+          "response": "unlock"
+        },
+        {
+          "sentences": [
+            "<open> [<all>] <lock> [<in>] <area>"
+          ],
+          "slots": {
+            "domain": "lock",
+            "name": "all"
+          },
+          "response": "unlock"
+        }
+      ]
+    },
+    "HassTurnOn": {
+      "data": [
+        {
+          "sentences": [
+            "<turn_on> [<all>] <light> [<in>] <area>"
+          ],
+          "slots": {
+            "domain": "light",
+            "name": "all"
+          },
+          "response": "lights_area"
+        },
+        {
+          "sentences": [
+            "<turn_on> [<all>] <fan> [<in>] <area>"
+          ],
+          "slots": {
+            "domain": "fan",
+            "name": "all"
+          },
+          "response": "fans_area"
+        },
+        {
+          "sentences": [
+            "[<turn_on>] [<script>] <name>",
+            "[<script>] <name> <turn_on>"
+          ],
+          "requires_context": {
+            "domain": "script"
+          },
+          "slots": {
+            "domain": "script"
+          },
+          "response": "script"
+        },
+        {
+          "sentences": [
+            "[<turn_on>] [<scene>] <name>"
+          ],
+          "requires_context": {
+            "domain": "scene"
+          },
+          "slots": {
+            "domain": "scene"
+          },
+          "response": "scene"
+        },
+        {
+          "sentences": [
+            "<close> <name> [<in> <area>]"
+          ],
+          "requires_context": {
+            "domain": "lock"
+          },
+          "response": "lock"
+        },
+        {
+          "sentences": [
+            "<close> [<all>] <lock> [<in>] <area>"
+          ],
+          "slots": {
+            "domain": "lock",
+            "name": "all"
+          },
+          "response": "lock"
+        },
+        {
+          "sentences": [
+            "<turn_on> [<light> | <switch>] <name>"
+          ],
+          "excludes_context": {
+            "domain": [
+              "binary_sensor",
+              "cover",
+              "lock",
+              "scene",
+              "script",
+              "sensor"
+            ]
+          },
+          "response": "default"
+        },
+        {
+          "sentences": [
+            "<open> <name> [<in>] [<area>]"
+          ],
+          "requires_context": {
+            "domain": "cover"
+          },
+          "response": "cover"
+        },
+        {
+          "sentences": [
+            "<open> باب الجراج"
+          ],
+          "slots": {
+            "domain": "cover",
+            "device_class": "garage"
+          },
+          "response": "cover_device_class"
+        },
+        {
+          "sentences": [
+            "<open> {cover_classes:device_class} <in> <area>"
+          ],
+          "slots": {
+            "domain": "cover"
+          },
+          "response": "cover_device_class"
+        }
+      ]
+    },
+    "HassNevermind": {
+      "data": [
+        {
+          "sentences": [
+            "(لا|ما) تهتم",
+            "(لا|ما) يهم",
+            "(لا|ما) بهم",
+            "(لا|ما) بأس",
+            "(لا|ما) تقلق",
+            "إنسى",
+            "إنساها",
+            "إنسى ذلك"
+          ]
+        }
+      ]
+    },
+    "HassLightSet": {
+      "data": [
+        {
+          "sentences": [
+            "[<turn>] <intensity> <name> [الى] <brightness>",
+            "[<turn>] <name> [الى] <intensity> <brightness>"
+          ],
+          "requires_context": {
+            "domain": "light"
+          },
+          "response": "brightness"
+        },
+        {
+          "sentences": [
+            "[<turn>] <intensity> <all> <light> [الى] <brightness> [<in>] <area>",
+            "[<turn>] <intensity> <all> <light> [<in>] <area> [الى] <brightness>",
+            "[<turn>] <all> <light> [الى] <intensity> <brightness> [<in>] <area>",
+            "[<turn>] <all> <light> [<in>] <area> [الى] <intensity> <brightness>"
+          ],
+          "slots": {
+            "name": "all"
+          },
+          "response": "brightness"
+        },
+        {
+          "sentences": [
+            "[<turn>] <intensity> <all> <light> [الى] <brightness>",
+            "[<turn>] <all> <light> [الى] <intensity> <brightness>"
+          ],
+          "slots": {
+            "name": "all"
+          },
+          "response": "brightness"
+        },
+        {
+          "sentences": [
+            "[<turn>] <intensity> <name> [الى] {brightness_level:brightness}",
+            "[<turn>] <name> [الى] <intensity> {brightness_level:brightness}"
+          ],
+          "requires_context": {
+            "domain": "light"
+          },
+          "response": "brightness"
+        },
+        {
+          "sentences": [
+            "[<turn>] <intensity> <all> <light> [الى] {brightness_level:brightness} [<in>] <area>",
+            "[<turn>] <intensity> <all> <light> [<in>] <area> [الى] {brightness_level:brightness}",
+            "[<turn>] <all> <light> [الى] <intensity> {brightness_level:brightness} [<in>] <area>",
+            "[<turn>] <all> <light> [<in>] <area> [الى] <intensity> {brightness_level:brightness}"
+          ],
+          "slots": {
+            "name": "all"
+          },
+          "response": "brightness"
+        },
+        {
+          "sentences": [
+            "[<turn>] <intensity> <all> <light> [الى] {brightness_level:brightness}",
+            "[<turn>] <all> <light> [الى] <intensity> {brightness_level:brightness}"
+          ],
+          "slots": {
+            "name": "all"
+          },
+          "response": "brightness"
+        },
+        {
+          "sentences": [
+            "[<turn>] <color> <name> [الى] <colors>",
+            "[<turn>] <name> [الى] <color> <colors>"
+          ],
+          "requires_context": {
+            "domain": "light"
+          },
+          "response": "color"
+        },
+        {
+          "sentences": [
+            "[<turn>] <color> <all> <light> [الى] <colors> [<in>] <area>",
+            "[<turn>] <color> <all> <light> [<in>] <area> [الى] <colors>",
+            "[<turn>] <all> <light> [الى] <color> <colors> [<in>] <area>",
+            "[<turn>] <all> <light> [<in>] <area> [الى] <color> <colors>"
+          ],
+          "slots": {
+            "name": "all"
+          },
+          "response": "color"
+        },
+        {
+          "sentences": [
+            "[<turn>] <color> <all> <light> [الى] <colors>",
+            "[<turn>] <all> <light> [الى] <color> <colors>"
+          ],
+          "slots": {
+            "name": "all"
+          },
+          "response": "color"
+        }
+      ]
+    },
+    "HassClimateGetTemperature": {
+      "data": [
+        {
+          "sentences": [
+            "<what_is> <temp> [<in> <area>]",
+            "<what_is> (حارة | باردة | دافئة | لطيفة) [<temp>] [[<in>] <area>]",
+            "<what_is> <temp> <area>",
+            "<temp> <area>"
+          ]
+        }
+      ]
+    },
+    "HassGetState": {
+      "data": [
+        {
+          "sentences": [
+            "<what_is> [حالة] <name> [<in> <area>]"
+          ],
+          "excludes_context": {
+            "domain": [
+              "scene",
+              "script"
+            ]
+          },
+          "response": "one"
+        },
+        {
+          "sentences": [
+            "<is_it> <name> [<in> <area>] {on_off_states:state}"
+          ],
+          "excludes_context": {
+            "domain": [
+              "cover"
+            ]
+          },
+          "response": "one_yesno"
+        },
+        {
+          "sentences": [
+            "<is_it> <any> {on_off_domains:domain} {on_off_states:state} [<in> <area>]"
+          ],
+          "response": "any"
+        },
+        {
+          "sentences": [
+            "<is_it> <all> {on_off_domains:domain} {on_off_states:state} [<in> <area>]"
+          ],
+          "response": "all"
+        },
+        {
+          "sentences": [
+            "<what_is> {on_off_domains:domain} [التي] {on_off_states:state} [<in> <area>]"
+          ],
+          "response": "which"
+        },
+        {
+          "sentences": [
+            "<how_many> {on_off_domains:domain} [التي] {on_off_states:state} [<in> <area>]"
+          ],
+          "response": "how_many"
+        },
+        {
+          "sentences": [
+            "هل <name> {cover_states:state} [<in> <area>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "cover"
+          },
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "هل هناك {cover_classes:device_class} {cover_states:state} [<in> <area>]"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "هل جميع {cover_classes:device_class} {cover_states:state} [<in> <area>]"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "اي {cover_classes:device_class} {cover_states:state} [<in> <area>]"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "(كم|ما|ماهو|ماذا) [عدد] {cover_classes:device_class} [اللتي] {cover_states:state} [<in> <area>]"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "cover"
+          }
+        }
+      ]
+    }
+  },
+  "responses": {
+    "errors": {
+      "no_intent": "عفوا، لم أفهم هذا",
+      "no_area": "عفوا، لا توجد منطقة بالإسم {{ area }}",
+      "no_domain_in_area": "عفوا، النطاق {{ domain }} غير موجود بالمنطقة {{ area }}",
+      "no_device_class_in_area": "عفوا، المنطقة {{ area }} لا تحتوى على فئة الأجهزة {{ device_class }}",
+      "no_entity": "عفوا، لا يوجد جهاز او خاصية بالإسم {{ entity }}",
+      "handle_error": "حدث خطأ أثناء معالجة النص"
+    },
+    "intents": {
+      "HassGetState": {
+        "one": "حالة {{ slots.name }} هي {{ state.state_with_unit }}\n",
+        "one_yesno": "{% if query.matched %}\n  اجل\n{% else %}\n  لا, {{ state.state_with_unit }}\n{% endif %}\n",
+        "any": "{% if query.matched %}\n  {% set match = query.matched | map(attribute=\"name\") | sort | list %}\n  {% if match | length > 4 %}\n    اجل, {{ match[:3] | join(\", \") }} و {{ (match | length - 3) }} ايضا\n  {%- else -%}\n    اجل,\n    {% for name in match -%}\n      {% if not loop.first and not loop.last %}, {% elif loop.last and not loop.first %} و {% endif -%}\n      {{ name }}\n    {%- endfor -%}\n  {% endif %}\n{% else %}\n  لا\n{% endif %}\n",
+        "all": "{% if not query.unmatched: %}\n  اجل\n{% else %}\n  {% set no_match = query.unmatched | map(attribute=\"name\") | sort | list %}\n  {% if no_match | length > 4 %}\n    لا, {{ no_match[:3] | join(\", \") }} و {{ (no_match | length - 3) }} ايضا\n  {%- else -%}\n    لا,\n    {% for name in no_match -%}\n      {% if not loop.first and not loop.last %}, {% elif loop.last and not loop.first %} و {% endif -%}\n      {{ name }}\n    {%- endfor %} ليست\n  {% endif %}\n{% endif %}\n",
+        "which": "{% if not query.matched %}\n  لا يوجد\n{% else: %}\n  {% set match = query.matched | map(attribute=\"name\") | sort | list %}\n  {% if match | length > 4 %}\n    {{ match[:3] | join(\", \") }} و {{ (match | length - 3) }} ايضا\n  {% else %}\n    {%- for name in match -%}\n      {% if not loop.first and not loop.last %}, {% elif loop.last and not loop.first %} و {% endif -%}\n      {{ name }}\n    {%- endfor -%}\n  {% endif %}\n{% endif %}\n",
+        "how_many": "{{ query.matched | length }}\n"
+      },
+      "HassTurnOff": {
+        "default": "تم اطفاء {{state.domain}}",
+        "lights_area": "تم اطفاء الاضواء",
+        "fans_area": "تم اطفاء المراوح",
+        "cover": "تم الاغلاق",
+        "light_all": "تم اطفاء جميع الاضواء",
+        "fan_all": "تم اطفاء جميع المراوح",
+        "cover_device_class": "تم اغلاق {{ slots.device_class }}",
+        "unlock": "تم الفتح"
+      },
+      "HassTurnOn": {
+        "default": "تم تشغيل {{state.domain}}",
+        "lights_area": "تم تشغيل الاضواء",
+        "fans_area": "تم تشغيل المراوح",
+        "cover": "تم الفتح",
+        "cover_device_class": "تم فتح {{ slots.device_class }}",
+        "scene": "تم التفعيل",
+        "script": "تم البدء",
+        "lock": "تم القفل"
+      },
+      "HassLightSet": {
+        "brightness": "تم ضبط السطوع إلى {{slots.brightness}}",
+        "color": "تم ضبط اللون إلى {{slots.color}}"
+      },
+      "HassClimateGetTemperature": {
+        "default": "{{ state_attr(state.entity_id, 'current_temperature') }}"
+      }
+    }
+  },
+  "lists": {
+    "color": {
+      "values": [
+        {
+          "in": "(ابيض|أبيض)",
+          "out": "white"
+        },
+        {
+          "in": "(اسود|أسود)",
+          "out": "black"
+        },
+        {
+          "in": "(احمر|أحمر)",
+          "out": "red"
+        },
+        {
+          "in": "برتقالي",
+          "out": "orange"
+        },
+        {
+          "in": "(اصفر|أصفر)",
+          "out": "yellow"
+        },
+        {
+          "in": "(اخضر|أخضر)",
+          "out": "green"
+        },
+        {
+          "in": "(ازرق|أزرق)",
+          "out": "blue"
+        },
+        {
+          "in": "بنفسجي",
+          "out": "purple"
+        },
+        {
+          "in": "بني",
+          "out": "brown"
+        }
+      ]
+    },
+    "temperature": {
+      "range": {
+        "type": "temperature",
+        "from": 0,
+        "to": 100
+      }
+    },
+    "temperature_unit": {
+      "values": [
+        "مئوية",
+        {
+          "in": "°c",
+          "out": "celsius"
+        },
+        "فهرنهايت",
+        {
+          "in": "f",
+          "out": "fahrenheit"
+        }
+      ]
+    },
+    "brightness": {
+      "range": {
+        "type": "percentage",
+        "from": 0,
+        "to": 100
+      }
+    },
+    "brightness_level": {
+      "values": [
+        {
+          "in": "(عالي|قصوى)",
+          "out": 100
+        },
+        {
+          "in": "منخفض",
+          "out": 1
+        }
+      ]
+    },
+    "on_off_states": {
+      "values": [
+        {
+          "in": "(شغال|[ت|ي]عمل|[ي|ت]وجد|[ي|ت]شحن)",
+          "out": "on"
+        },
+        {
+          "in": "(مطفي|لا [ت|ي]عمل|لا [ي|ت]وجد|لا [ي|ت]شحن)",
+          "out": "off"
+        }
+      ]
+    },
+    "on_off_domains": {
+      "values": [
+        {
+          "in": "<light>",
+          "out": "light"
+        },
+        {
+          "in": "<fan>",
+          "out": "fan"
+        },
+        {
+          "in": "<switch>",
+          "out": "switch"
+        }
+      ]
+    },
+    "cover_states": {
+      "values": [
+        {
+          "in": "مفتوح",
+          "out": "open"
+        },
+        {
+          "in": "(مغلق|مقفول)",
+          "out": "closed"
+        },
+        {
+          "in": "يفتح",
+          "out": "opening"
+        },
+        {
+          "in": "يغلق",
+          "out": "closing"
+        }
+      ]
+    },
+    "cover_classes": {
+      "values": [
+        {
+          "in": "<awning>",
+          "out": "awning"
+        },
+        {
+          "in": "<curtain>",
+          "out": "curtain"
+        },
+        {
+          "in": "<door>",
+          "out": "door"
+        },
+        {
+          "in": "<garage>",
+          "out": "garage"
+        },
+        {
+          "in": "<gate>",
+          "out": "gate"
+        },
+        {
+          "in": "<window>",
+          "out": "window"
+        }
+      ]
+    }
+  },
+  "expansion_rules": {
+    "name": "[ال]{name}",
+    "area": "[ال]{area}",
+    "colors": "[ال]{color}",
+    "script": "[ال](برنامج|برامج|مسار|مسارات|سيناريو)",
+    "scene": "[ال](مشهد|مشاهد|اعدادات)",
+    "what_is": "(ما هو|ما هي|ماذا يكون|ماذا تكون|كم هي|كم هو)",
+    "is_it": "(هل [هي]|هل [هو]|هل هناك)",
+    "how_many": "كم عدد",
+    "brightness": "{brightness}[% | بالمائة]",
+    "temperature": "{temperature}[°| درجة] [{temperature_unit}]",
+    "light": "[ال](اضواء|اضاءة|ضوء|مصابيح|مصباح|انوار|نور|لمبة|لمبات|انوار)",
+    "switch": "[ال](مفتاح|مفاتيح)",
+    "fan": "[ال](مروحة|مراوح|مروحات)",
+    "turn": "(غير|اضبط|أضبط|إضبط|ضبط)",
+    "turn_on": "(افتح|إفتح|شغل|اشعل|أشعل|اشغل|أشغل|ابدأ|إبدأ|شعل|فعل|تفعيل|تشغيل|فعل)",
+    "turn_off": "(أغلق|اغلق|اطفئ|أطفئ|طفي)",
+    "temp": "(باردة|دافئة|لطيفة|حارة|درجة [ال]حرارة)",
+    "intensity": "[ال](درجة [ال]سطوع|[شدة] [ال]سطوع|قوة|شدة)",
+    "color": "[ال](لون|الوان)",
+    "in": "(في|داخل)",
+    "all": "(كل|جميع)",
+    "to": "(على|الى)",
+    "any": "(أي)",
+    "open": "(افتح|إفتح|إرفع|ارفع)",
+    "close": "(أغلق|اغلق|اقفل|اخفض|انزل|نزل)",
+    "awning": "[ال](مظلة|مظلات)",
+    "curtain": "[ال](ستائر|ستارة|ستارات)",
+    "door": "[ال](باب|ابواب)",
+    "garage": "[ال](باب|ابواب|بوابة|بوابات) [ال]جراج",
+    "gate": "[ال](بوابة|بوابات)",
+    "window": "[ال](نافذة|نوافذ|نافذات|شباك|شبابيك)",
+    "lock": "[ال](اقفال|قفل)"
+  },
+  "skip_words": [
+    "(من فضلك|لو سمحت)",
+    "(هل يمكنك|تقدر)"
+  ]
+}

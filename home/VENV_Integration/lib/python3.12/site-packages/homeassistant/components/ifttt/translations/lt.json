@@ -1,0 +1,56 @@
+{
+    "config": {
+        "abort": {
+            "cloud_not_connected": "Neprisijungta prie \u201eHome Assistant Cloud\u201c.",
+            "single_instance_allowed": "Jau sukonfig\u016bruota. Galima tik viena konfig\u016bracija.",
+            "webhook_not_internet_accessible": "Norint gauti \u201eWebhook\u201c prane\u0161imus, j\u016bs\u0173 nam\u0173 asistento egzempliorius turi b\u016bti pasiekiamas i\u0161 interneto."
+        },
+        "create_entry": {
+            "default": "Jei norite si\u0173sti \u012fvykius \u012f nam\u0173 pad\u0117j\u0117j\u0105, tur\u0117site naudoti veiksm\u0105 \u201ePadaryti \u017einiatinklio u\u017eklaus\u0105\u201c i\u0161 [IFTTT Webhook program\u0117l\u0117s] ( {applet_url} ). \n\n U\u017epildykite \u0161i\u0105 informacij\u0105: \n\n \u2013 URL: ` {webhook_url} `\n - Metodas: POST\n - Turinio tipas: programa / JSON \n\n \u017dr. [dokumentacij\u0105]( {docs_url} ), kaip sukonfig\u016bruoti automatizavim\u0105, kad b\u016bt\u0173 galima tvarkyti gaunamus duomenis."
+        },
+        "step": {
+            "user": {
+                "description": "Ar tikrai norite nustatyti IFTTT?",
+                "title": "Nustatykite IFTTT Webhook program\u0117l\u0119"
+            }
+        }
+    },
+    "services": {
+        "push_alarm_state": {
+            "description": "Atnaujina aliarmo b\u016bsen\u0105 iki nurodytos vert\u0117s.",
+            "fields": {
+                "entity_id": {
+                    "description": "Signalizacijos valdymo pulto pavadinimas, kurio b\u016bsena turi b\u016bti atnaujinta.",
+                    "name": "Subjekto ID"
+                },
+                "state": {
+                    "description": "B\u016bsena, \u012f kuri\u0105 turi b\u016bti nustatytas signalizacijos valdymo pultas.",
+                    "name": "B\u016bsena"
+                }
+            },
+            "name": "Push aliarmo b\u016bsena"
+        },
+        "trigger": {
+            "description": "Suaktyvina sukonfig\u016bruot\u0105 IFTTT Webhook.",
+            "fields": {
+                "event": {
+                    "description": "\u012evykio, kur\u012f reikia si\u0173sti, pavadinimas.",
+                    "name": "\u012evykis"
+                },
+                "value1": {
+                    "description": "Bendras laukas duomenims si\u0173sti per \u012fvyk\u012f.",
+                    "name": "1 vert\u0117"
+                },
+                "value2": {
+                    "description": "Bendras laukas duomenims si\u0173sti per \u012fvyk\u012f.",
+                    "name": "2 vert\u0117"
+                },
+                "value3": {
+                    "description": "Bendras laukas duomenims si\u0173sti per \u012fvyk\u012f.",
+                    "name": "3 vert\u0117"
+                }
+            },
+            "name": "Trigeris"
+        }
+    }
+}

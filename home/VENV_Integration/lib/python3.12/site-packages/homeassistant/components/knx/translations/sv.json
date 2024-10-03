@@ -1,0 +1,446 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Tj\u00e4nsten \u00e4r redan konfigurerad",
+            "single_instance_allowed": "Redan konfigurerad. Endast en konfiguration m\u00f6jlig."
+        },
+        "error": {
+            "cannot_connect": "Det gick inte att ansluta.",
+            "invalid_backbone_key": "Ogiltig huvudnyckel. 32 hexdecimala siffror f\u00f6rv\u00e4ntas.",
+            "invalid_individual_address": "V\u00e4rdet matchar inte m\u00f6nstret f\u00f6r en individuell adress i KNX.\n'area.line.device'",
+            "invalid_ip_address": "Ogiltig IPv4-adress.",
+            "keyfile_invalid_signature": "L\u00f6senordet f\u00f6r att avkryptera `.knxkeys`-filen \u00e4r fel.",
+            "keyfile_no_backbone_key": "Angiven `.knxkeys`-fil inneh\u00e5ller ingen huvudnyckel f\u00f6r s\u00e4ker routing.",
+            "keyfile_no_tunnel_for_host": "`.knxkeys`-filen inneh\u00e5ller inte anv\u00e4ndaruppgifter f\u00f6r v\u00e4rden `{host}`.",
+            "keyfile_not_found": "Den angivna `.knxkeys`-filen hittade inte p\u00e5 s\u00f6kv\u00e4gen config/.storage/knx/",
+            "no_router_discovered": "Ingen KNXnet/IP router hittades p\u00e5 n\u00e4tverket.",
+            "no_tunnel_discovered": "Kunde inte hitta en KNX-tunnelserver p\u00e5 ditt n\u00e4tverk.",
+            "unsupported_tunnel_type": "Den valda tunneltypen st\u00f6ds inte av gateway."
+        },
+        "step": {
+            "connection_type": {
+                "data": {
+                    "connection_type": "KNX Anslutningstyp"
+                },
+                "description": "V\u00e4nligen ange vilken anslutningstyp som vi ska anv\u00e4nda f\u00f6r din KNX anslutning.\nAUTOMATISK - Integrationen tar hand om anslutningen till din KNX Bus genom att utf\u00f6ra en gateways\u00f6kning.\nTUNNEL - Integrationen kommer att ansluta till din KNX bus via tunnel.\nROUTE - Integrationen kommer att ansluta till din KNX bus via routing.",
+                "title": "KNX-anslutning"
+            },
+            "knxkeys_tunnel_select": {
+                "data": {
+                    "user_id": "`Automatic` anv\u00e4nder den f\u00f6rsta lediga tunnelslutpunkten."
+                },
+                "description": "V\u00e4lj den tunnel som anv\u00e4nds f\u00f6r anslutningen.",
+                "title": "Tunnelslutpunkt"
+            },
+            "manual_tunnel": {
+                "data": {
+                    "host": "V\u00e4rd",
+                    "local_ip": "Lokal IP",
+                    "port": "Port",
+                    "route_back": "Rutt tillbaka / NAT-l\u00e4ge",
+                    "tunneling_type": "KNX tunneltyp"
+                },
+                "data_description": {
+                    "host": "IP-adressen f\u00f6r KNX/IP-tunnelenheten.",
+                    "local_ip": "Lokalt IP eller namn f\u00f6r anslutning fr\u00e5n Home Assistant. L\u00e4mna tomt f\u00f6r att anv\u00e4nda automatisk uppt\u00e4ckt.",
+                    "port": "Port p\u00e5 KNX/IP-tunnelenheten.",
+                    "route_back": "Aktivera om din KNXnet/IP tunnel \u00e4r bakom NAT. G\u00e4ller bara f\u00f6r UDP-anslutningar."
+                },
+                "description": "Ange anslutningsinformationen f\u00f6r din tunnelenhet.",
+                "title": "Tunnelinst\u00e4llningar"
+            },
+            "routing": {
+                "data": {
+                    "individual_address": "Individuell adress",
+                    "local_ip": "Lokal IP",
+                    "multicast_group": "Multicast-grupp",
+                    "multicast_port": "Multicast-port",
+                    "routing_secure": "Anv\u00e4nd KNX IP-secure"
+                },
+                "data_description": {
+                    "individual_address": "KNX-adress som ska anv\u00e4ndas av Home Assistant, t.ex. `0.0.4`",
+                    "local_ip": "Lokalt IP eller namn f\u00f6r anslutning fr\u00e5n Home Assistant. L\u00e4mna tomt f\u00f6r att anv\u00e4nda automatisk uppt\u00e4ckt."
+                },
+                "description": "Konfigurera routningsalternativen.",
+                "title": "Routing"
+            },
+            "secure_key_source": {
+                "description": "V\u00e4lj hur du vill konfigurera KNX/IP-secure.",
+                "menu_options": {
+                    "secure_knxkeys": "Anv\u00e4nd en `.knxkeys`-fil som inneh\u00e5ller IP-secure nycklar",
+                    "secure_routing_manual": "Konfigurera IP-secure huvudnyckel manuellt",
+                    "secure_tunnel_manual": "Konfigurera IP-secure autentiseringsuppgifter manuellt"
+                },
+                "title": "KNX IP-Secure"
+            },
+            "secure_key_source_menu_routing": {
+                "description": "V\u00e4lj hur du vill konfigurera KNX/IP-secure.",
+                "menu_options": {
+                    "secure_knxkeys": "Anv\u00e4nd en `.knxkeys`-fil som inneh\u00e5ller IP-secure nycklar",
+                    "secure_routing_manual": "Konfigurera IP-secure huvudnyckel manuellt"
+                },
+                "title": "KNX IP-Secure"
+            },
+            "secure_key_source_menu_tunnel": {
+                "description": "V\u00e4lj hur du vill konfigurera KNX/IP-secure.",
+                "menu_options": {
+                    "secure_knxkeys": "Anv\u00e4nd en `.knxkeys`-fil som inneh\u00e5ller IP-secure nycklar",
+                    "secure_tunnel_manual": "Konfigurera IP-secure autentiseringsuppgifter manuellt"
+                },
+                "title": "KNX IP-Secure"
+            },
+            "secure_knxkeys": {
+                "data": {
+                    "knxkeys_file": "Nyckelringsfil",
+                    "knxkeys_password": "L\u00f6senordet f\u00f6r att dekryptera filen `.knxkeys`"
+                },
+                "data_description": {
+                    "knxkeys_password": "Detta st\u00e4lldes in n\u00e4r filen exporterades fr\u00e5n ETS."
+                },
+                "description": "V\u00e4nligen v\u00e4lj en `.knxkeys`-fil som ska importeras.",
+                "title": "Importera KNX-nyckelring"
+            },
+            "secure_routing_manual": {
+                "data": {
+                    "backbone_key": "Huvudnyckel",
+                    "sync_latency_tolerance": "Tolerans f\u00f6r n\u00e4tverkslatens"
+                },
+                "data_description": {
+                    "backbone_key": "Kan ses i \"S\u00e4kerhetsrapporten\" f\u00f6r ett ETS-projekt. T.ex. '00112233445566778899AABBCCDDEEFF'",
+                    "sync_latency_tolerance": "Standard \u00e4r 1000."
+                },
+                "description": "V\u00e4nligen ange din IP-secure information.",
+                "title": "S\u00e4ker routing"
+            },
+            "secure_tunnel_manual": {
+                "data": {
+                    "device_authentication": "Enhetens autentiseringsl\u00f6senord",
+                    "user_id": "Anv\u00e4ndar-ID",
+                    "user_password": "Anv\u00e4ndarl\u00f6senord"
+                },
+                "data_description": {
+                    "device_authentication": "Detta st\u00e4lls in i 'IP' menyn p\u00e5 interfacet i ETS.",
+                    "user_id": "Detta \u00e4r ofta tunnelnummer +1. S\u00e5 'Tunnel 2' borde ha Anv\u00e4ndar-ID '3'.",
+                    "user_password": "L\u00f6senord f\u00f6r den specifika tunnelanslutningen som anges i panelen \"Egenskaper\" f\u00f6r tunneln i ETS."
+                },
+                "description": "V\u00e4nligen ange din IP-secure information.",
+                "title": "S\u00e4ker tunnelf\u00f6rbindelse"
+            },
+            "tunnel": {
+                "data": {
+                    "gateway": "KNX-tunnelanslutning"
+                },
+                "description": "V\u00e4lj en gateway fr\u00e5n listan.",
+                "title": "Tunnel"
+            }
+        }
+    },
+    "device_automation": {
+        "trigger_type": {
+            "telegram": "Telegram"
+        }
+    },
+    "entity": {
+        "climate": {
+            "knx_climate": {
+                "state_attributes": {
+                    "preset_mode": {
+                        "name": "F\u00f6rinst\u00e4llning",
+                        "state": {
+                            "auto": "Auto",
+                            "building_protection": "Byggnadsskydd",
+                            "comfort": "Komfort",
+                            "economy": "Eco",
+                            "standby": "Vilol\u00e4ge"
+                        }
+                    }
+                }
+            }
+        },
+        "sensor": {
+            "connected_since": {
+                "name": "Anslutning etablerad"
+            },
+            "connection_type": {
+                "name": "Anslutningstyp"
+            },
+            "individual_address": {
+                "name": "Individuell adress"
+            },
+            "telegram_count": {
+                "name": "Telegrams"
+            },
+            "telegrams_incoming": {
+                "name": "Inkommande telegram"
+            },
+            "telegrams_incoming_error": {
+                "name": "Fel i inkommande telegram"
+            },
+            "telegrams_outgoing": {
+                "name": "Utg\u00e5ende telegram"
+            },
+            "telegrams_outgoing_error": {
+                "name": "Fel i utg\u00e5ende telegram"
+            }
+        }
+    },
+    "issues": {
+        "migrate_notify": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "KNX `notify`-tj\u00e4nsten har migrerats. Nya `notify`-enheter \u00e4r nu tillg\u00e4ngliga.\n\nUppdatera alla automatiseringar f\u00f6r att anv\u00e4nda den nya `notify.send_message` som exponeras av dessa nya enheter. N\u00e4r detta \u00e4r gjort, \u00e5tg\u00e4rda detta problem och starta om Home Assistant."
+                    }
+                }
+            },
+            "title": "Migrering av KNX aviseringstj\u00e4nst"
+        }
+    },
+    "options": {
+        "error": {
+            "cannot_connect": "Det gick inte att ansluta.",
+            "invalid_backbone_key": "Ogiltig huvudnyckel. 32 hexdecimala siffror f\u00f6rv\u00e4ntas.",
+            "invalid_individual_address": "V\u00e4rdet matchar inte m\u00f6nstret f\u00f6r en individuell adress i KNX.\n'area.line.device'",
+            "invalid_ip_address": "Ogiltig IPv4-adress.",
+            "keyfile_invalid_signature": "L\u00f6senordet f\u00f6r att avkryptera `.knxkeys`-filen \u00e4r fel.",
+            "keyfile_no_backbone_key": "Angiven `.knxkeys`-fil inneh\u00e5ller ingen huvudnyckel f\u00f6r s\u00e4ker routing.",
+            "keyfile_no_tunnel_for_host": "`.knxkeys`-filen inneh\u00e5ller inte anv\u00e4ndaruppgifter f\u00f6r v\u00e4rden `{host}`.",
+            "keyfile_not_found": "Den angivna `.knxkeys`-filen hittade inte p\u00e5 s\u00f6kv\u00e4gen config/.storage/knx/",
+            "no_router_discovered": "Ingen KNXnet/IP router hittades p\u00e5 n\u00e4tverket.",
+            "no_tunnel_discovered": "Kunde inte hitta en KNX-tunnelserver p\u00e5 ditt n\u00e4tverk.",
+            "unsupported_tunnel_type": "Den valda tunneltypen st\u00f6ds inte av gateway."
+        },
+        "step": {
+            "communication_settings": {
+                "data": {
+                    "rate_limit": "Hastighetsbegr\u00e4nsning",
+                    "state_updater": "Tillst\u00e5ndsuppdaterare",
+                    "telegram_log_size": "Gr\u00e4ns f\u00f6r telegramhistorik"
+                },
+                "data_description": {
+                    "rate_limit": "Maximalt antal utg\u00e5ende telegram per sekund.\n'0' f\u00f6r att inaktivera gr\u00e4nsen. Rekommenderas: 0, eller 20 till 40",
+                    "state_updater": "St\u00e4ll in som standard f\u00f6r att l\u00e4sa tillst\u00e5nd fr\u00e5n KNX-bussen. N\u00e4r den \u00e4r inaktiverad kommer Home Assistant inte aktivt att h\u00e4mta entitetstillst\u00e5nd fr\u00e5n KNX-bussen. Kan \u00e5sidos\u00e4ttas av entitetsalternativ \"sync_state\".",
+                    "telegram_log_size": "Telegram att h\u00e5lla i minnet f\u00f6r KNX panelgruppsmonitor. H\u00f6gst: {telegram_log_size_max}"
+                },
+                "title": "Kommunikationsinst\u00e4llningar"
+            },
+            "connection_type": {
+                "data": {
+                    "connection_type": "KNX Anslutningstyp"
+                },
+                "description": "V\u00e4nligen ange vilken anslutningstyp som vi ska anv\u00e4nda f\u00f6r din KNX anslutning.\nAUTOMATISK - Integrationen tar hand om anslutningen till din KNX Bus genom att utf\u00f6ra en gateways\u00f6kning.\nTUNNEL - Integrationen kommer att ansluta till din KNX bus via tunnel.\nROUTE - Integrationen kommer att ansluta till din KNX bus via routing.",
+                "title": "KNX-anslutning"
+            },
+            "init": {
+                "menu_options": {
+                    "communication_settings": "Kommunikationsinst\u00e4llningar",
+                    "connection_type": "Konfigurera KNX-interface",
+                    "secure_knxkeys": "Importera en `.knxkeys` fil"
+                },
+                "title": "KNX-inst\u00e4llningar"
+            },
+            "knxkeys_tunnel_select": {
+                "data": {
+                    "user_id": "`Automatic` anv\u00e4nder den f\u00f6rsta lediga tunnelslutpunkten."
+                },
+                "description": "V\u00e4lj den tunnel som anv\u00e4nds f\u00f6r anslutningen.",
+                "title": "Tunnelslutpunkt"
+            },
+            "manual_tunnel": {
+                "data": {
+                    "host": "V\u00e4rd",
+                    "local_ip": "Lokal IP",
+                    "port": "Port",
+                    "route_back": "Rutt tillbaka / NAT-l\u00e4ge",
+                    "tunneling_type": "KNX tunneltyp"
+                },
+                "data_description": {
+                    "host": "IP-adressen f\u00f6r KNX/IP-tunnelenheten.",
+                    "local_ip": "Lokalt IP eller namn f\u00f6r anslutning fr\u00e5n Home Assistant. L\u00e4mna tomt f\u00f6r att anv\u00e4nda automatisk uppt\u00e4ckt.",
+                    "port": "Port p\u00e5 KNX/IP-tunnelenheten.",
+                    "route_back": "Aktivera om din KNXnet/IP tunnel \u00e4r bakom NAT. G\u00e4ller bara f\u00f6r UDP-anslutningar."
+                },
+                "description": "Ange anslutningsinformationen f\u00f6r din tunnelenhet.",
+                "title": "Tunnelinst\u00e4llningar"
+            },
+            "options_init": {
+                "menu_options": {
+                    "communication_settings": "Kommunikationsinst\u00e4llningar",
+                    "connection_type": "Konfigurera KNX-interface",
+                    "secure_knxkeys": "Importera en `.knxkeys` fil"
+                },
+                "title": "KNX-inst\u00e4llningar"
+            },
+            "routing": {
+                "data": {
+                    "individual_address": "Individuell adress",
+                    "local_ip": "Lokal IP",
+                    "multicast_group": "Multicast-grupp",
+                    "multicast_port": "Multicast-port",
+                    "routing_secure": "Anv\u00e4nd KNX IP-secure"
+                },
+                "data_description": {
+                    "individual_address": "KNX-adress som ska anv\u00e4ndas av Home Assistant, t.ex. `0.0.4`",
+                    "local_ip": "Lokalt IP eller namn f\u00f6r anslutning fr\u00e5n Home Assistant. L\u00e4mna tomt f\u00f6r att anv\u00e4nda automatisk uppt\u00e4ckt."
+                },
+                "description": "Konfigurera routningsalternativen.",
+                "title": "Routing"
+            },
+            "secure_key_source": {
+                "description": "V\u00e4lj hur du vill konfigurera KNX/IP-secure.",
+                "menu_options": {
+                    "secure_knxkeys": "Anv\u00e4nd en `.knxkeys`-fil som inneh\u00e5ller IP-secure nycklar",
+                    "secure_routing_manual": "Konfigurera IP-secure huvudnyckel manuellt",
+                    "secure_tunnel_manual": "Konfigurera IP-secure autentiseringsuppgifter manuellt"
+                },
+                "title": "KNX IP-Secure"
+            },
+            "secure_key_source_menu_routing": {
+                "description": "V\u00e4lj hur du vill konfigurera KNX/IP-secure.",
+                "menu_options": {
+                    "secure_knxkeys": "Anv\u00e4nd en `.knxkeys`-fil som inneh\u00e5ller IP-secure nycklar",
+                    "secure_routing_manual": "Konfigurera IP-secure huvudnyckel manuellt"
+                },
+                "title": "KNX IP-Secure"
+            },
+            "secure_key_source_menu_tunnel": {
+                "description": "V\u00e4lj hur du vill konfigurera KNX/IP-secure.",
+                "menu_options": {
+                    "secure_knxkeys": "Anv\u00e4nd en `.knxkeys`-fil som inneh\u00e5ller IP-secure nycklar",
+                    "secure_tunnel_manual": "Konfigurera IP-secure autentiseringsuppgifter manuellt"
+                },
+                "title": "KNX IP-Secure"
+            },
+            "secure_knxkeys": {
+                "data": {
+                    "knxkeys_file": "Nyckelringsfil",
+                    "knxkeys_password": "L\u00f6senordet f\u00f6r att dekryptera filen `.knxkeys`"
+                },
+                "data_description": {
+                    "knxkeys_password": "Detta st\u00e4lldes in n\u00e4r filen exporterades fr\u00e5n ETS."
+                },
+                "description": "V\u00e4nligen v\u00e4lj en `.knxkeys`-fil som ska importeras.",
+                "title": "Importera KNX-nyckelring"
+            },
+            "secure_routing_manual": {
+                "data": {
+                    "backbone_key": "Huvudnyckel",
+                    "sync_latency_tolerance": "Tolerans f\u00f6r n\u00e4tverkslatens"
+                },
+                "data_description": {
+                    "backbone_key": "Kan ses i \"S\u00e4kerhetsrapporten\" f\u00f6r ett ETS-projekt. T.ex. '00112233445566778899AABBCCDDEEFF'",
+                    "sync_latency_tolerance": "Standard \u00e4r 1000."
+                },
+                "description": "V\u00e4nligen ange din IP-secure information.",
+                "title": "S\u00e4ker routing"
+            },
+            "secure_tunnel_manual": {
+                "data": {
+                    "device_authentication": "Enhetens autentiseringsl\u00f6senord",
+                    "user_id": "Anv\u00e4ndar-ID",
+                    "user_password": "Anv\u00e4ndarl\u00f6senord"
+                },
+                "data_description": {
+                    "device_authentication": "Detta st\u00e4lls in i 'IP' menyn p\u00e5 interfacet i ETS.",
+                    "user_id": "Detta \u00e4r ofta tunnelnummer +1. S\u00e5 'Tunnel 2' borde ha Anv\u00e4ndar-ID '3'.",
+                    "user_password": "L\u00f6senord f\u00f6r den specifika tunnelanslutningen som anges i panelen \"Egenskaper\" f\u00f6r tunneln i ETS."
+                },
+                "description": "V\u00e4nligen ange din IP-secure information.",
+                "title": "S\u00e4ker tunnelf\u00f6rbindelse"
+            },
+            "tunnel": {
+                "data": {
+                    "gateway": "KNX-tunnelanslutning"
+                },
+                "description": "V\u00e4lj en gateway fr\u00e5n listan.",
+                "title": "Tunnel"
+            }
+        }
+    },
+    "services": {
+        "event_register": {
+            "description": "L\u00e4gg till eller ta bort gruppadresser i knx_event-filter f\u00f6r att utl\u00f6sa knx_event. Endast adresser som lagts till med den h\u00e4r tj\u00e4nsten kan tas bort.",
+            "fields": {
+                "address": {
+                    "description": "Gruppadress(er) som ska l\u00e4ggas till eller tas bort. Listor \u00e4r till\u00e5tna.",
+                    "name": "Gruppadress"
+                },
+                "remove": {
+                    "description": "Om 'Sant' kommer gruppens adress(er) tas bort.",
+                    "name": "Ta bort registrering av event"
+                },
+                "type": {
+                    "description": "Om inst\u00e4llt kommer nyttolasten att avkodas som angiven DPT i h\u00e4ndelsedatans v\u00e4rdenyckel. Giltiga v\u00e4rden \u00e4r KNX-sensortyper (se https://www.home-assistant.io/integrations/knx/#value-types).",
+                    "name": "V\u00e4rdetyp"
+                }
+            },
+            "name": "Registrerar knx_event"
+        },
+        "exposure_register": {
+            "description": "L\u00e4gger till eller tar bort exponeringar f\u00f6r KNX-buss. Endast exponeringar som lagts till med den h\u00e4r tj\u00e4nsten kan tas bort.",
+            "fields": {
+                "address": {
+                    "description": "Dit uppdateringar av gruppadresstillst\u00e5nd eller attribut kommer att skickas till. GroupValueRead-f\u00f6rfr\u00e5gningar besvaras. Endast en exponering kan registreras per adress.",
+                    "name": "Gruppadress"
+                },
+                "attribute": {
+                    "description": "Entitetens attribut som kommer att skickas till KNX-bussen. Om tomt kommer tillst\u00e5ndet att skickas. F\u00f6r exempelvis en lampa \u00e4r tillst\u00e5ndet antingen 'p\u00e5' eller 'av' - men med attribut kan du ist\u00e4llet exponera dess 'ljusstyrka'.",
+                    "name": "Entiteten attribut"
+                },
+                "default": {
+                    "description": "Standardv\u00e4rde att skicka till KNX-bussen om tillst\u00e5ndet eller attributv\u00e4rdet \u00e4r 'None'. F\u00f6r exempelvis en lampa med tillst\u00e5ndet 'av' och som saknar ljusstyrkeattribut, s\u00e5 kan ett standardv\u00e4rde p\u00e5 '0' anv\u00e4ndas. Om inte inst\u00e4llt (eller 'None') skickas inget v\u00e4rde till KNX-bussen och en GroupReadRequest till adressen skulle d\u00e5 returnera det senast k\u00e4nda v\u00e4rdet.",
+                    "name": "Standardv\u00e4rde"
+                },
+                "entity_id": {
+                    "description": "Enhets-id vars tillst\u00e5nd eller attribut ska exponeras.",
+                    "name": "Entitet"
+                },
+                "remove": {
+                    "description": "Om 'Sant' kommer exponeringen att tas bort. Endast 'adress' kr\u00e4vs f\u00f6r borttagning.",
+                    "name": "Ta bort exponering"
+                },
+                "type": {
+                    "description": "Telegram kommer att kodas som angivet DPT. Bin\u00e4ra och alla KNX-sensortyper \u00e4r giltiga v\u00e4rden (se https://www.home-assistant.io/integrations/knx/#value-types).",
+                    "name": "V\u00e4rdetyp"
+                }
+            },
+            "name": "Exponera till KNX-buss"
+        },
+        "read": {
+            "description": "Skicka GroupValueRead-f\u00f6rfr\u00e5gningar till KNX-bussen. Svaret kan anv\u00e4ndas fr\u00e5n 'knx_event' och kommer att bearbetas i KNX-enheter.",
+            "fields": {
+                "address": {
+                    "description": "Gruppadress(er) att skicka Read-f\u00f6rfr\u00e5gan till. Listor kan anv\u00e4ndas f\u00f6r flera gruppadresser.",
+                    "name": "Gruppadress"
+                }
+            },
+            "name": "L\u00e4ser fr\u00e5n KNX-bussen"
+        },
+        "reload": {
+            "description": "Laddar om KNX-integrationen.",
+            "name": "Ladda om"
+        },
+        "send": {
+            "description": "Skickar godtyckliga data direkt till KNX-bussen.",
+            "fields": {
+                "address": {
+                    "description": "Gruppadress(er) att skriva till. Listor kan anv\u00e4ndas f\u00f6r att skickas till flera gruppadresser i tur och ordning.",
+                    "name": "Gruppadress"
+                },
+                "payload": {
+                    "description": "Nyttolast att skicka till KNX-bussen. Heltal behandlas som DPT 1/2/3 nyttolaster. F\u00f6r DPT > 6 bitar skicka en lista. Varje v\u00e4rde representerar 1 oktett (0-255). Fyll p\u00e5 med 0 upp till DPT byte l\u00e4ngd.",
+                    "name": "Nyttolast"
+                },
+                "response": {
+                    "description": "Om 'Sant' skickas telegrammet som ett 'GroupValueResponse' ist\u00e4llet f\u00f6r ett 'GroupValueWrite'.",
+                    "name": "Skicka som Response"
+                },
+                "type": {
+                    "description": "Om inst\u00e4llt, kommer nyttolasten inte att skickas som r\u00e5a bytes, utan kodas som angiven DPT. KNX-sensortyper \u00e4r giltiga v\u00e4rden (se https://www.home-assistant.io/integrations/knx/#value-types).",
+                    "name": "V\u00e4rdetyp"
+                }
+            },
+            "name": "Skicka till KNX-buss"
+        }
+    }
+}

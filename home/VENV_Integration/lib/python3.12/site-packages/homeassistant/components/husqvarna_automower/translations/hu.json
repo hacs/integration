@@ -1,0 +1,323 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "A fi\u00f3k m\u00e1r konfigur\u00e1lva van",
+            "already_in_progress": "A konfigur\u00e1l\u00e1s m\u00e1r folyamatban van",
+            "authorize_url_timeout": "Id\u0151t\u00fall\u00e9p\u00e9s a hiteles\u00edt\u00e9si URL l\u00e9trehoz\u00e1sakor.",
+            "missing_amc_scope": "Az `Authentication API` \u00e9s az `Automower Connect API` nincsenek csatlakoztatva az alkalmaz\u00e1s\u00e1hoz a Husqvarna Developer Port\u00e1lon.",
+            "missing_configuration": "A komponens nincs konfigur\u00e1lva. K\u00e9rem, k\u00f6vesse a dokument\u00e1ci\u00f3t.",
+            "missing_credentials": "Az integr\u00e1ci\u00f3hoz az alkalmaz\u00e1s hiteles\u00edt\u0151 adataira van sz\u00fcks\u00e9g.",
+            "no_url_available": "Nincs el\u00e9rhet\u0151 URL. A hib\u00e1val kapcsolatos inform\u00e1ci\u00f3k\u00e9rt n\u00e9zze meg a [s\u00fag\u00f3]({docs_url}) le\u00edr\u00e1s\u00e1t.",
+            "oauth_error": "\u00c9rv\u00e9nytelen token adatok \u00e9rkeztek.",
+            "oauth_failed": "Hiba a hozz\u00e1f\u00e9r\u00e9si token megszerz\u00e9se k\u00f6zben.",
+            "oauth_timeout": "Id\u0151t\u00fall\u00e9p\u00e9s az OAuth-token felold\u00e1sakor.",
+            "oauth_unauthorized": "OAuth enged\u00e9lyez\u00e9si hiba a hozz\u00e1f\u00e9r\u00e9si token megszerz\u00e9se sor\u00e1n.",
+            "reauth_successful": "Az \u00fajrahiteles\u00edt\u00e9s sikeres volt.",
+            "user_rejected_authorize": "A fi\u00f3k csatol\u00e1sa elutas\u00edtva: {error}",
+            "wrong_account": "Csak ugyanazzal a Husqvarna fi\u00f3kkal tudja \u00fajrahiteles\u00edteni ezt a bejegyz\u00e9st."
+        },
+        "create_entry": {
+            "default": "Sikeres hiteles\u00edt\u00e9s"
+        },
+        "step": {
+            "missing_scope": {
+                "description": "A legjobb \u00e9lm\u00e9ny \u00e9rdek\u00e9ben ebben az integr\u00e1ci\u00f3ban az `Authentication API`-nak \u00e9s az `Automower Connect API`-nak is csatlakoztatva kell lennie. K\u00e9rj\u00fck, gy\u0151z\u0151dj\u00f6n meg arr\u00f3l, hogy mindkett\u0151 csatlakoztatva van az \u00d6n fi\u00f3kj\u00e1hoz a [Husqvarna Developer Port\u00e1lon]({application_url}).",
+                "title": "A fi\u00f3kj\u00e1b\u00f3l hi\u00e1nyoznak bizonyos API kapcsolatok"
+            },
+            "pick_implementation": {
+                "title": "V\u00e1lasszon egy hiteles\u00edt\u00e9si m\u00f3dszert"
+            },
+            "reauth_confirm": {
+                "description": "A Husqvarna Automower integr\u00e1ci\u00f3nak \u00fajra kell hiteles\u00edtenie a fi\u00f3kj\u00e1t.",
+                "title": "A(z) {name} hiteles\u00edt\u00e9se lej\u00e1rt"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "leaving_dock": {
+                "name": "Dokk elhagy\u00e1sa"
+            },
+            "returning_to_dock": {
+                "name": "Dokkol\u00e1s folyamatban"
+            }
+        },
+        "button": {
+            "confirm_error": {
+                "name": "Hiba meger\u0151s\u00edt\u00e9se"
+            }
+        },
+        "number": {
+            "cutting_height": {
+                "name": "V\u00e1g\u00e1si magass\u00e1g"
+            },
+            "my_lawn_cutting_height": {
+                "name": "A f\u0171 v\u00e1g\u00e1si magass\u00e1ga"
+            },
+            "work_area_cutting_height": {
+                "name": "{work_area} v\u00e1g\u00e1si magass\u00e1g"
+            }
+        },
+        "select": {
+            "headlight_mode": {
+                "name": "F\u00e9nysz\u00f3r\u00f3 \u00fczemm\u00f3d",
+                "state": {
+                    "always_off": "Mindig kikapcsolva",
+                    "always_on": "Mindig bekapcsolva",
+                    "evening_and_night": "Este \u00e9s \u00e9jszaka",
+                    "evening_only": "Csak este"
+                }
+            }
+        },
+        "sensor": {
+            "cutting_blade_usage_time": {
+                "name": "V\u00e1g\u00f3penge haszn\u00e1lati ideje"
+            },
+            "error": {
+                "name": "Hiba",
+                "state": {
+                    "alarm_mower_in_motion": "Figyelem! A f\u0171ny\u00edr\u00f3 mozg\u00e1sban van",
+                    "alarm_mower_lifted": "Figyelem! F\u0171ny\u00edr\u00f3 felemelve",
+                    "alarm_mower_stopped": "Figyelem! A f\u0171ny\u00edr\u00f3 le\u00e1llt",
+                    "alarm_mower_switched_off": "Figyelem! A f\u0171ny\u00edr\u00f3 kikapcsolt",
+                    "alarm_mower_tilted": "Figyelem! A f\u0171ny\u00edr\u00f3 megd\u0151lt",
+                    "alarm_outside_geofence": "Figyelem! A geoker\u00edt\u00e9sen k\u00edv\u00fcl",
+                    "angular_sensor_problem": "Sz\u00f6g\u00e9rz\u00e9kel\u0151 hiba",
+                    "battery_problem": "Akkumul\u00e1tor hiba",
+                    "battery_restriction_due_to_ambient_temperature": "Az akkumul\u00e1tor korl\u00e1tozva a k\u00f6rnyezeti h\u0151m\u00e9rs\u00e9klet miatt",
+                    "can_error": "CAN hiba",
+                    "charging_current_too_high": "T\u00fal magas t\u00f6lt\u00e9si \u00e1ram",
+                    "charging_station_blocked": "T\u00f6lt\u0151\u00e1llom\u00e1s blokkolva",
+                    "charging_system_problem": "T\u00f6lt\u0151rendszer hiba",
+                    "collision_sensor_defect": "\u00dctk\u00f6z\u00e9s\u00e9rz\u00e9kel\u0151 hib\u00e1ja",
+                    "collision_sensor_error": "\u00dctk\u00f6z\u00e9s\u00e9rz\u00e9kel\u0151 hiba",
+                    "collision_sensor_problem_front": "Els\u0151 \u00fctk\u00f6z\u00e9s\u00e9rz\u00e9kel\u0151 hiiba",
+                    "collision_sensor_problem_rear": "H\u00e1ts\u00f3 \u00fctk\u00f6z\u00e9s\u00e9rz\u00e9kel\u0151 hiba",
+                    "com_board_not_available": "A kommunik\u00e1ci\u00f3s panel nem el\u00e9rhet\u0151",
+                    "communication_circuit_board_sw_must_be_updated": "A kommunik\u00e1ci\u00f3s panelt friss\u00edteni sz\u00fcks\u00e9ges",
+                    "complex_working_area": "Bonyolult munkater\u00fclet",
+                    "connection_changed": "A kapcsolat megv\u00e1ltozott",
+                    "connection_not_changed": "A kapcsolat NEM v\u00e1ltozott",
+                    "connectivity_problem": "Csatlakoz\u00e1si probl\u00e9ma",
+                    "connectivity_settings_restored": "Vissza\u00e1ll\u00edtott kapcsolati be\u00e1ll\u00edt\u00e1sok",
+                    "cutting_drive_motor_1_defect": "V\u00e1g\u00f3 meghajt\u00f3 motor 1 hiba",
+                    "cutting_drive_motor_2_defect": "V\u00e1g\u00f3 meghajt\u00f3 motor 2 hiba",
+                    "cutting_drive_motor_3_defect": "V\u00e1g\u00f3 meghajt\u00f3 motor 3 hiba",
+                    "cutting_height_blocked": "V\u00e1g\u00e1si magass\u00e1g blokkolva",
+                    "cutting_height_problem": "V\u00e1g\u00e1si magass\u00e1g hiba",
+                    "cutting_height_problem_curr": "V\u00e1g\u00e1smagass\u00e1g probl\u00e9ma, curr",
+                    "cutting_height_problem_dir": "V\u00e1g\u00e1smagass\u00e1g probl\u00e9ma, ir\u00e1ny",
+                    "cutting_height_problem_drive": "V\u00e1g\u00e1smagass\u00e1g probl\u00e9ma, meghajt\u00e1s",
+                    "cutting_motor_problem": "V\u00e1g\u00f3motor hiba",
+                    "cutting_stopped_slope_too_steep": "V\u00e1g\u00e1s le\u00e1ll\u00edtva - t\u00fal meredek a lejt\u0151",
+                    "cutting_system_blocked": "V\u00e1g\u00f3rendszer blokkolva",
+                    "cutting_system_imbalance_warning": "V\u00e1g\u00f3rendszer egyens\u00falyhi\u00e1nya",
+                    "cutting_system_major_imbalance": "V\u00e1g\u00f3rendszer jelent\u0151s egyens\u00falyhi\u00e1nya",
+                    "destination_not_reachable": "A c\u00e9l nem \u00e9rhet\u0151 el",
+                    "difficult_finding_home": "Neh\u00e9zs\u00e9get okoz a b\u00e1zis\u00e1llom\u00e1s megtal\u00e1l\u00e1sa",
+                    "docking_sensor_defect": "Dokkol\u00f3 \u00e9rz\u00e9kel\u0151 hib\u00e1ja",
+                    "electronic_problem": "Elektronikus hiba",
+                    "empty_battery": "\u00dcres akkumul\u00e1tor",
+                    "folding_cutting_deck_sensor_defect": "\u00d6sszecsukhat\u00f3 v\u00e1g\u00f3asztal \u00e9rz\u00e9kel\u0151 hib\u00e1ja",
+                    "folding_sensor_activated": "\u00d6sszecsukhat\u00f3 \u00e9rz\u00e9kel\u0151 aktiv\u00e1lva",
+                    "geofence_problem": "Geoker\u00edt\u00e9s probl\u00e9ma",
+                    "gps_navigation_problem": "GPS navig\u00e1ci\u00f3s hiba",
+                    "guide_1_not_found": "1. \u00fatjelz\u0151 nem tal\u00e1lhat\u00f3",
+                    "guide_2_not_found": "2. \u00fatjelz\u0151 nem tal\u00e1lhat\u00f3",
+                    "guide_3_not_found": "3. \u00fatjelz\u0151 nem tal\u00e1lhat\u00f3",
+                    "guide_calibration_accomplished": "\u00datjelz\u0151 kalibr\u00e1l\u00e1s elv\u00e9gezve",
+                    "guide_calibration_failed": "Az \u00fatjelz\u0151 kalibr\u00e1l\u00e1sa sikertelen",
+                    "high_charging_power_loss": "Magas t\u00f6lt\u00e9si teljes\u00edtm\u00e9nyvesztes\u00e9g",
+                    "high_internal_power_loss": "Magas bels\u0151 teljes\u00edtm\u00e9nyvesztes\u00e9g",
+                    "high_internal_temperature": "Magas bels\u0151 h\u0151m\u00e9rs\u00e9klet",
+                    "internal_voltage_error": "Bels\u0151 fesz\u00fclts\u00e9g hiba",
+                    "invalid_battery_combination_invalid_combination_of_different_battery_types": "\u00c9rv\u00e9nytelen akkumul\u00e1tor-kombin\u00e1ci\u00f3 - \u00c9rv\u00e9nytelen a k\u00fcl\u00f6nb\u00f6z\u0151 akkumul\u00e1tor t\u00edpusok kombin\u00e1ci\u00f3ja.",
+                    "invalid_sub_device_combination": "\u00c9rv\u00e9nytelen al-eszk\u00f6z kombin\u00e1ci\u00f3",
+                    "invalid_system_configuration": "\u00c9rv\u00e9nytelen rendszerkonfigur\u00e1ci\u00f3",
+                    "left_brush_motor_overloaded": "Bal oldali kefemotor t\u00falterhelt",
+                    "lift_sensor_defect": "Emel\u00e9s\u00e9rz\u00e9kel\u0151 hib\u00e1s",
+                    "lifted": "Felemelve",
+                    "limited_cutting_height_range": "Korl\u00e1tozott v\u00e1g\u00e1si magass\u00e1g tartom\u00e1ny",
+                    "loop_sensor_defect": "Hurok \u00e9rz\u00e9kel\u0151 hiba",
+                    "loop_sensor_problem_front": "El\u00fcls\u0151 hurok \u00e9rz\u00e9kel\u0151 hiba",
+                    "loop_sensor_problem_left": "Bal hurok \u00e9rz\u00e9kel\u0151 hiba",
+                    "loop_sensor_problem_rear": "H\u00e1ts\u00f3 hurok \u00e9rz\u00e9kel\u0151 hiba",
+                    "loop_sensor_problem_right": "Jobb hurok \u00e9rz\u00e9kel\u0151 hiba",
+                    "low_battery": "Alacsony t\u00f6lt\u00f6tts\u00e9g\u0171 akkumul\u00e1tor",
+                    "memory_circuit_problem": "Mem\u00f3ria \u00e1ramk\u00f6r hiba",
+                    "mower_lifted": "F\u0171ny\u00edr\u00f3 felemelve",
+                    "mower_tilted": "A f\u0171ny\u00edr\u00f3 megd\u0151lt",
+                    "no_accurate_position_from_satellites": "Nincs pontos poz\u00edci\u00f3 a m\u0171holdakr\u00f3l",
+                    "no_confirmed_position": "Nincs meger\u0151s\u00edtett poz\u00edci\u00f3",
+                    "no_drive": "Nincs meghajt\u00e1s",
+                    "no_error": "Nincs hiba",
+                    "no_loop_signal": "Nincs hurokjel",
+                    "no_power_in_charging_station": "Nincs \u00e1ram a t\u00f6lt\u0151\u00e1llom\u00e1son",
+                    "no_response_from_charger": "Nincs v\u00e1lasz a t\u00f6lt\u0151t\u0151l",
+                    "outside_working_area": "Munkater\u00fcleten k\u00edv\u00fcl",
+                    "poor_signal_quality": "Gyenge jelmin\u0151s\u00e9g",
+                    "reference_station_communication_problem": "Referencia\u00e1llom\u00e1s kommunik\u00e1ci\u00f3s hiba",
+                    "right_brush_motor_overloaded": "A jobb kefemotor t\u00falterhelt",
+                    "safety_function_faulty": "A biztons\u00e1gi funkci\u00f3 hib\u00e1s",
+                    "settings_restored": "Be\u00e1ll\u00edt\u00e1sok vissza\u00e1ll\u00edtva",
+                    "sim_card_locked": "SIM-k\u00e1rtya z\u00e1rolva",
+                    "sim_card_not_found": "A SIM-k\u00e1rtya nem tal\u00e1lhat\u00f3",
+                    "sim_card_requires_pin": "A SIM-k\u00e1rty\u00e1hoz PIN-k\u00f3d sz\u00fcks\u00e9ges",
+                    "slipped_mower_has_slipped_situation_not_solved_with_moving_pattern": "Megcs\u00faszott - A f\u0171ny\u00edr\u00f3 megcs\u00faszott. A helyzetet nem siker\u00fclt megoldani a mozg\u00e1smint\u00e1val",
+                    "slope_too_steep": "T\u00fal meredek lejt\u0151",
+                    "sms_could_not_be_sent": "SMS-t nem siker\u00fclt elk\u00fcldeni",
+                    "stop_button_problem": "STOP gomb probl\u00e9ma",
+                    "stuck_in_charging_station": "Elakadt a t\u00f6lt\u0151\u00e1llom\u00e1sban",
+                    "switch_cord_problem": "Kapcsol\u00f3k\u00e1bel hiba",
+                    "temporary_battery_problem": "Ideiglenes akkumul\u00e1tor hiba",
+                    "tilt_sensor_problem": "D\u0151l\u00e9s\u00e9rz\u00e9kel\u0151 hiba",
+                    "too_high_discharge_current": "A kis\u00fct\u00e9si \u00e1ram er\u0151ss\u00e9ge t\u00fal magas",
+                    "too_high_internal_current": "A bels\u0151 \u00e1ram er\u0151ss\u00e9ge t\u00fal magas",
+                    "trapped": "Elakadt",
+                    "ultrasonic_problem": "Ultrahang probl\u00e9ma",
+                    "ultrasonic_sensor_1_defect": "Ultrahangos \u00e9rz\u00e9kel\u0151 1 hiba",
+                    "ultrasonic_sensor_2_defect": "Ultrahangos \u00e9rz\u00e9kel\u0151 2 hiba",
+                    "ultrasonic_sensor_3_defect": "Ultrahangos \u00e9rz\u00e9kel\u0151 3 hiba",
+                    "ultrasonic_sensor_4_defect": "Ultrahangos \u00e9rz\u00e9kel\u0151 4 hiba",
+                    "unexpected_cutting_height_adj": "V\u00e1ratlan v\u00e1g\u00e1si magass\u00e1g be\u00e1ll\u00edt\u00e1s",
+                    "unexpected_error": "V\u00e1ratlan hiba",
+                    "upside_down": "Fejjel lefel\u00e9",
+                    "weak_gps_signal": "Gyenge GPS-jel",
+                    "wheel_drive_problem_left": "Bal els\u0151 ker\u00e9k meghajt\u00e1si probl\u00e9ma",
+                    "wheel_drive_problem_rear_left": "Bal h\u00e1ts\u00f3 ker\u00e9k meghajt\u00e1si probl\u00e9ma",
+                    "wheel_drive_problem_rear_right": "Jobb h\u00e1ts\u00f3 ker\u00e9k meghajt\u00e1si probl\u00e9ma",
+                    "wheel_drive_problem_right": "Jobb els\u0151 ker\u00e9k meghajt\u00e1si probl\u00e9ma",
+                    "wheel_motor_blocked_left": "Bal els\u0151 ker\u00e9k motorja blokkolva",
+                    "wheel_motor_blocked_rear_left": "Bal h\u00e1ts\u00f3 ker\u00e9k motorja blokkolva",
+                    "wheel_motor_blocked_rear_right": "Jobb h\u00e1ts\u00f3 ker\u00e9k motorja blokkolva",
+                    "wheel_motor_blocked_right": "Jobb els\u0151 ker\u00e9k motorja blokkolva",
+                    "wheel_motor_overloaded_left": "Bal els\u0151 ker\u00e9k motorja t\u00falterhelt",
+                    "wheel_motor_overloaded_rear_left": "Bal h\u00e1ts\u00f3 ker\u00e9k motorja t\u00falterhelt",
+                    "wheel_motor_overloaded_rear_right": "Jobb h\u00e1ts\u00f3 ker\u00e9k motorja t\u00falterhelt",
+                    "wheel_motor_overloaded_right": "Jobb els\u0151 ker\u00e9k motorja t\u00falterhelt",
+                    "work_area_not_valid": "A munkater\u00fclet \u00e9rv\u00e9nytelen",
+                    "wrong_loop_signal": "Hib\u00e1s hurokjel",
+                    "wrong_pin_code": "Hib\u00e1s PIN k\u00f3d",
+                    "zone_generator_problem": "Z\u00f3nagener\u00e1tor probl\u00e9ma"
+                }
+            },
+            "mode": {
+                "name": "\u00dczemm\u00f3d",
+                "state": {
+                    "demo": "Dem\u00f3",
+                    "home": "Otthon",
+                    "main_area": "F\u0151 ter\u00fclet",
+                    "secondary_area": "M\u00e1sodlagos ter\u00fclet"
+                }
+            },
+            "next_start_timestamp": {
+                "name": "K\u00f6vetkez\u0151 ind\u00edt\u00e1s"
+            },
+            "number_of_charging_cycles": {
+                "name": "T\u00f6lt\u00e9si ciklusok sz\u00e1ma"
+            },
+            "number_of_collisions": {
+                "name": "\u00dctk\u00f6z\u00e9sek sz\u00e1ma"
+            },
+            "restricted_reason": {
+                "name": "Korl\u00e1toz\u00e1s oka",
+                "state": {
+                    "all_work_areas_completed": "Minden munkater\u00fclet elk\u00e9sz\u00fclt",
+                    "daily_limit": "Napi limit",
+                    "external": "K\u00fcls\u0151",
+                    "fota": "Over-the-Air firmware friss\u00edt\u00e9s fut",
+                    "frost": "Fagy",
+                    "none": "Nincs korl\u00e1toz\u00e1s",
+                    "not_applicable": "Nem alkalmazhat\u00f3",
+                    "park_override": "Parkol\u00e1si fel\u00fclb\u00edr\u00e1l\u00e1s",
+                    "sensor": "Id\u0151j\u00e1r\u00e1s id\u0151z\u00edt\u0151",
+                    "week_schedule": "Heti \u00fctemez\u00e9s"
+                }
+            },
+            "total_charging_time": {
+                "name": "Teljes t\u00f6lt\u00e9si id\u0151"
+            },
+            "total_cutting_time": {
+                "name": "Teljes v\u00e1g\u00e1si id\u0151"
+            },
+            "total_drive_distance": {
+                "name": "Teljes megtett \u00fat"
+            },
+            "total_running_time": {
+                "name": "Teljes fut\u00e1si id\u0151"
+            },
+            "total_searching_time": {
+                "name": "Teljes keres\u00e9si id\u0151"
+            },
+            "work_area": {
+                "name": "Munkater\u00fclet",
+                "state": {
+                    "my_lawn": "A p\u00e1zsitom",
+                    "no_work_area_active": "Nincs akt\u00edv munkater\u00fclet"
+                },
+                "state_attributes": {
+                    "work_area_id_assignment": {
+                        "name": "Munkater\u00fclet azonos\u00edt\u00f3 hozz\u00e1rendel\u00e9s"
+                    }
+                }
+            }
+        },
+        "switch": {
+            "enable_schedule": {
+                "name": "\u00dctemez\u00e9s enged\u00e9lyez\u00e9se"
+            },
+            "stay_out_zones": {
+                "name": "{stay_out_zone} elker\u00fcl\u00e9se"
+            }
+        }
+    },
+    "exceptions": {
+        "command_send_failed": {
+            "message": "Nem siker\u00fclt elk\u00fcldeni a parancsot: {exception}"
+        },
+        "work_area_not_existing": {
+            "message": "A kiv\u00e1lasztott munkater\u00fclet nem l\u00e9tezik."
+        },
+        "work_areas_not_supported": {
+            "message": "Ez a f\u0171ny\u00edr\u00f3 nem t\u00e1mogatja a munkater\u00fcleteket."
+        }
+    },
+    "selector": {
+        "override_modes": {
+            "options": {
+                "mow": "F\u0171ny\u00edr\u00e1s",
+                "park": "Parkol\u00e1s"
+            }
+        }
+    },
+    "services": {
+        "override_schedule": {
+            "description": "Az \u00fctemterv fel\u00fclb\u00edr\u00e1l\u00e1sa a f\u0171ny\u00edr\u00e1s vagy a parkol\u00e1s \u00e9rdek\u00e9ben egy meghat\u00e1rozott id\u0151tartamra.",
+            "fields": {
+                "duration": {
+                    "description": "Minimum: 1 perc, maximum: 42 nap, a m\u00e1sodperceket figyelmen k\u00edv\u00fcl hagyja.",
+                    "name": "Id\u0151tartam"
+                },
+                "override_mode": {
+                    "description": "Melyik m\u0171velettel kell fel\u00fclb\u00edr\u00e1lni az \u00fctemez\u00e9st.",
+                    "name": "Fel\u00fclb\u00edr\u00e1l\u00e1si m\u00f3d"
+                }
+            },
+            "name": "\u00dctemez\u00e9s fel\u00fclb\u00edr\u00e1l\u00e1sa"
+        },
+        "override_schedule_work_area": {
+            "description": "A f\u0171ny\u00edr\u00f3 \u00fctemez\u00e9s\u00e9nek fel\u00fcl\u00edr\u00e1sa egy megadott id\u0151tartamra a kiv\u00e1lasztott munkater\u00fcleten.",
+            "fields": {
+                "duration": {
+                    "description": "Minimum: 1 perc, maximum: 42 nap, a m\u00e1sodperceket figyelmen k\u00edv\u00fcl hagyja.",
+                    "name": "Id\u0151tartam"
+                },
+                "work_area_id": {
+                    "description": "Az a munkater\u00fclet, ahol a f\u0171ny\u00edr\u00f3nak ny\u00edrnia kell.",
+                    "name": "Munkater\u00fclet azonos\u00edt\u00f3"
+                }
+            },
+            "name": "\u00dctemezett munkater\u00fclet fel\u00fcl\u00edr\u00e1sa"
+        }
+    }
+}

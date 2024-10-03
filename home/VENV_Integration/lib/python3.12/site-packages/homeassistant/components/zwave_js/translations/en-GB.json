@@ -1,0 +1,198 @@
+{
+    "issues": {
+        "dry_fan_presets_deprecation": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "You are using the Dry or Fan preset modes in your entity `{entity_id}`.\n\nDry and Fan preset modes are deprecated and will be removed. Please update your automations to use the corresponding Dry and Fan **HVAC modes** instead.\n\nClick on SUBMIT below once you have manually fixed this issue.",
+                        "title": "Dry and Fan preset modes will be removed: {entity_id}"
+                    }
+                }
+            },
+            "title": "Dry and Fan preset modes will be removed: {entity_id}"
+        }
+    },
+    "services": {
+        "bulk_set_partial_config_parameters": {
+            "description": "Allows for bulk setting partial parameters. Useful when multiple partial parameters have to be set at the same time.",
+            "fields": {
+                "endpoint": {
+                    "description": "The configuration parameter's endpoint.",
+                    "name": "Endpoint"
+                },
+                "parameter": {
+                    "description": "The name (or ID) of the configuration parameter you want to configure.",
+                    "name": "Parameter"
+                },
+                "value": {
+                    "description": "The new value(s) to set for this configuration parameter. Can either be a raw integer value to represent the bulk change or a mapping where the key is the bitmask (either in hex or integer form) and the value is the new value you want to set for that partial parameter.",
+                    "name": "Value"
+                }
+            },
+            "name": "Bulk set partial configuration parameters (advanced)."
+        },
+        "clear_lock_usercode": {
+            "description": "Clears a user code from a lock.",
+            "fields": {
+                "code_slot": {
+                    "description": "Code slot to clear code from.",
+                    "name": "Code slot"
+                }
+            },
+            "name": "Clear lock user code"
+        },
+        "invoke_cc_api": {
+            "fields": {
+                "command_class": {
+                    "description": "The ID of the command class that you want to issue a command to.",
+                    "name": "Command class"
+                },
+                "endpoint": {
+                    "description": "The endpoint to call the API on. If an endpoint is specified, that endpoint will be targeted for all nodes associated with the target areas, devices, and/or entities. If an endpoint is not specified, the root endpoint (0) will be targeted for nodes associated with target areas and devices, and the endpoint for the primary value of each entity will be targeted.",
+                    "name": "Endpoint"
+                },
+                "method_name": {
+                    "description": "The name of the API method to call. Refer to the Z-Wave JS Command Class API documentation (https://zwave-js.github.io/node-zwave-js/#/api/CCs/index) for available methods.",
+                    "name": "Method name"
+                },
+                "parameters": {
+                    "description": "A list of parameters to pass to the API method. Refer to the Z-Wave JS Command Class API documentation (https://zwave-js.github.io/node-zwave-js/#/api/CCs/index) for parameters.",
+                    "name": "Parameters"
+                }
+            },
+            "name": "Invoke a Command Class API on a node (advanced)"
+        },
+        "multicast_set_value": {
+            "fields": {
+                "broadcast": {
+                    "description": "Whether the command should be broadcast to all devices on the network?",
+                    "name": "Broadcast?"
+                },
+                "command_class": {
+                    "description": "The ID of the command class for the value.",
+                    "name": "Command class"
+                },
+                "endpoint": {
+                    "description": "The endpoint for the value.",
+                    "name": "Endpoint"
+                },
+                "options": {
+                    "description": "Set value options map. Refer to the Z-Wave JS documentation for more information on what options can be set.",
+                    "name": "Options"
+                },
+                "property": {
+                    "description": "The ID of the property for the value.",
+                    "name": "Property"
+                },
+                "property_key": {
+                    "description": "The ID of the property key for the value.",
+                    "name": "Property key"
+                },
+                "value": {
+                    "description": "The new value to set.",
+                    "name": "Value"
+                }
+            },
+            "name": "Set a value on multiple devices via multicast (advanced)"
+        },
+        "ping": {
+            "description": "Forces Z-Wave JS to try to reach a node. This can be used to update the status of the node in Z-Wave JS when you think it doesn't accurately reflect reality, e.g. reviving a failed/dead node or marking the node as asleep.",
+            "name": "Ping a node"
+        },
+        "refresh_value": {
+            "description": "Force updates the values of a Z-Wave entity.",
+            "fields": {
+                "entity_id": {
+                    "description": "Entities to refresh.",
+                    "name": "Entities"
+                },
+                "refresh_all_values": {
+                    "description": "Whether to refresh all values (true) or just the primary value (false).",
+                    "name": "Refresh all values?"
+                }
+            },
+            "name": "Refresh values"
+        },
+        "reset_meter": {
+            "description": "Resets the meters on a node.",
+            "fields": {
+                "meter_type": {
+                    "description": "The type of meter to reset. Not all meters support the ability to pick a meter type to reset.",
+                    "name": "Meter type"
+                },
+                "value": {
+                    "description": "The value that meters should be reset to. Not all meters support the ability to be reset to a specific value.",
+                    "name": "Target value"
+                }
+            },
+            "name": "Reset meters on a node"
+        },
+        "set_config_parameter": {
+            "description": "Changes the configuration parameters of your Z-Wave devices.",
+            "fields": {
+                "bitmask": {
+                    "name": "Bitmask"
+                },
+                "endpoint": {
+                    "description": "The configuration parameter's endpoint.",
+                    "name": "Endpoint"
+                },
+                "parameter": {
+                    "description": "The name (or ID) of the configuration parameter you want to configure.",
+                    "name": "Parameter"
+                },
+                "value": {
+                    "description": "The new value to set for this configuration parameter.",
+                    "name": "Value"
+                }
+            },
+            "name": "Set device configuration parameter"
+        },
+        "set_lock_usercode": {
+            "description": "Sets a user code on a lock.",
+            "fields": {
+                "code_slot": {
+                    "description": "Code slot to set the code.",
+                    "name": "Code slot"
+                },
+                "usercode": {
+                    "description": "Lock code to set.",
+                    "name": "Code"
+                }
+            },
+            "name": "Set lock user code"
+        },
+        "set_value": {
+            "fields": {
+                "command_class": {
+                    "description": "The ID of the command class for the value.",
+                    "name": "Command class"
+                },
+                "endpoint": {
+                    "description": "The endpoint for the value.",
+                    "name": "Endpoint"
+                },
+                "options": {
+                    "description": "Set value options map. Refer to the Z-Wave JS documentation for more information on what options can be set.",
+                    "name": "Options"
+                },
+                "property": {
+                    "description": "The ID of the property for the value.",
+                    "name": "Property"
+                },
+                "property_key": {
+                    "description": "The ID of the property key for the value.",
+                    "name": "Property key"
+                },
+                "value": {
+                    "description": "The new value to set.",
+                    "name": "Value"
+                },
+                "wait_for_result": {
+                    "name": "Wait for result?"
+                }
+            },
+            "name": "Set a value (advanced)"
+        }
+    }
+}

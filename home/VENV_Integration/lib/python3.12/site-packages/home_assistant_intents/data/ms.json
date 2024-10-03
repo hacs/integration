@@ -1,0 +1,246 @@
+{
+  "language": "ms",
+  "intents": {
+    "HassTurnOff": {
+      "data": [
+        {
+          "sentences": [
+            "<imp_mati> <nama>"
+          ]
+        },
+        {
+          "sentences": [
+            "<imp_mati> [semua] lampu [di] <area>",
+            "<imp_mati> [semua] lampu <area>"
+          ],
+          "slots": {
+            "domain": "light"
+          }
+        },
+        {
+          "sentences": [
+            "<imp_tutup> pagar [di] <area>",
+            "<imp_tutup> pagar <area>"
+          ],
+          "response": "cover_area",
+          "slots": {
+            "area": "garaj",
+            "device_class": "garage",
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "<imp_mati> [semua] kipas [di] <area>",
+            "<imp_mati> [semua] kipas <area>"
+          ],
+          "slots": {
+            "domain": "fan",
+            "area": "living_room"
+          }
+        }
+      ]
+    },
+    "HassTurnOn": {
+      "data": [
+        {
+          "sentences": [
+            "<imp_hidup> [semua] lampu [di] <area>",
+            "<imp_hidup> [semua] lampu <area>"
+          ],
+          "slots": {
+            "domain": "light"
+          }
+        },
+        {
+          "sentences": [
+            "<imp_hidup> [semua] kipas [di] <area>",
+            "<imp_hidup> [semua] kipas <area>"
+          ],
+          "slots": {
+            "domain": "fan",
+            "area": "living_room"
+          }
+        },
+        {
+          "sentences": [
+            "<imp_hidup> <nama>"
+          ]
+        },
+        {
+          "sentences": [
+            "<imp_buka> [semua] langsir [di] <area>",
+            "<imp_buka> [semua] langsir <area>"
+          ],
+          "response": "cover_area",
+          "slots": {
+            "area": "living_room",
+            "device_class": [
+              "blind",
+              "curtain",
+              "shutter"
+            ],
+            "domain": "cover"
+          }
+        }
+      ]
+    },
+    "HassLightSet": {
+      "data": [
+        {
+          "sentences": [
+            "<imp_set> kecerahan <nama> [(jadi | menjadi | ke | kepada)] <kecerahan>",
+            "<imp_set> <nama> [(jadi | menjadi | ke | kepada)] <kecerahan>"
+          ],
+          "response": "brightness"
+        },
+        {
+          "sentences": [
+            "<imp_set> kecerahan <area> [(jadi | menjadi | ke | kepada)] <kecerahan>",
+            "<imp_set> <area> [(jadi | menjadi | ke | kepada)] <kecerahan>"
+          ],
+          "slots": {
+            "name": "all"
+          },
+          "response": "brightness_area"
+        },
+        {
+          "sentences": [
+            "<imp_set> warna <nama> [(jadi | menjadi | ke | kepada)] {color}",
+            "<imp_set> <nama> [(jadi | menjadi | ke | kepada)] {color}"
+          ],
+          "response": "color"
+        }
+      ]
+    },
+    "HassClimateGetTemperature": {
+      "data": [
+        {
+          "sentences": [
+            "<berapa> suhu sekarang",
+            "<berapa> suhu [di] <area>"
+          ]
+        }
+      ]
+    }
+  },
+  "responses": {
+    "errors": {
+      "no_intent": "Maaf, saya tidak faham arahan anda",
+      "no_area": "Tiada {{ area }} dijumpai",
+      "no_domain_in_area": "{{ domain }} tiada di {{ area }}",
+      "no_device_class_in_area": "{{ device_class }} tiada di {{ area }}",
+      "no_entity": "Peranti atau entiti {{ entity }} tidak ditemui",
+      "handle_error": "Maaf, berlaku ralat semasa intent sedang dijalankan"
+    },
+    "intents": {
+      "HassGetState": {},
+      "HassTurnOff": {
+        "default": "{{ slots.name }} telah dimatikan",
+        "lights_area": "Semua lampu [di] {{ slots.area }} telah dipadamkan",
+        "fans_area": "Semua kipas [di] {{ slots.area }} telah dimatikan",
+        "cover": "{{ slots.name }} telah ditutupkan",
+        "cover_area": "Kawasan {{ slots.area }} telah ditutupkan"
+      },
+      "HassTurnOn": {
+        "default": "{{ slots.name }} telah dihidupkan",
+        "lights_area": "Semua lampu [di] {{ slots.area }} telah dinyalakan",
+        "fans_area": "Semua kipas [di] {{ slots.area }} telah dihidupkan",
+        "cover": "{{ slots.name }} telah dibuka",
+        "cover_area": "Kawasan {{ slots.area }} telah dibuka"
+      },
+      "HassLightSet": {
+        "brightness": "kecerahan {{ slots.name }} ditetapkan kepada {{ slots.brightness }}",
+        "brightness_area": "Kecerahan [di] {{ slots.area }} telah disetkan kepada {{ slots.brightness }}",
+        "color": "warna {{ slots.name }} telah ditukarkan kepada {{ slots.color }}",
+        "color_area": "warna [di] {{ slots.area }} telah ditukarkan kepada {{ slots.color }}"
+      },
+      "HassClimateGetTemperature": {
+        "default": "{{ state.state }} darjah"
+      }
+    }
+  },
+  "lists": {
+    "color": {
+      "values": [
+        {
+          "in": "putih",
+          "out": "white"
+        },
+        {
+          "in": "hitam",
+          "out": "black"
+        },
+        {
+          "in": "merah",
+          "out": "red"
+        },
+        {
+          "in": "oren",
+          "out": "orange"
+        },
+        {
+          "in": "kuning",
+          "out": "yellow"
+        },
+        {
+          "in": "hijau",
+          "out": "green"
+        },
+        {
+          "in": "biru",
+          "out": "blue"
+        },
+        {
+          "in": "ungu",
+          "out": "purple"
+        },
+        {
+          "in": "perang",
+          "out": "brown"
+        }
+      ]
+    },
+    "brightness": {
+      "range": {
+        "type": "percentage",
+        "from": 0,
+        "to": 100
+      }
+    },
+    "temperature": {
+      "range": {
+        "type": "temperature",
+        "from": 0,
+        "to": 100
+      }
+    },
+    "temperature_unit": {
+      "values": [
+        "celsius",
+        {
+          "in": "c",
+          "out": "celsius"
+        }
+      ]
+    }
+  },
+  "expansion_rules": {
+    "nama": "{name}",
+    "area": "{area}",
+    "apakah": "(apa | apakah | apa itu)",
+    "berapa": "(berapa | berapakah)",
+    "imp_hidup": "(nyalakan | hidupkan)",
+    "imp_mati": "(padamkan | matikan)",
+    "imp_buka": "(buka | bukakan)",
+    "imp_tutup": "(tutup | tutupkan)",
+    "imp_set": "(tetapkan | setkan | set | jadikan | ubahkan | ubah | tukarkan | tukar)",
+    "kecerahan": "{brightness}[%| peratus]",
+    "suhu": "{temperature}[°| darjah] [{temperature_unit}]"
+  },
+  "skip_words": [
+    "tolong",
+    "boleh tak",
+    "cuba"
+  ]
+}

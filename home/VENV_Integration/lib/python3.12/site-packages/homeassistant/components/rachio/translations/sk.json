@@ -1,0 +1,116 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Zariadenie u\u017e je nakonfigurovan\u00e9"
+        },
+        "error": {
+            "cannot_connect": "Nepodarilo sa pripoji\u0165",
+            "invalid_auth": "Neplatn\u00e9 overenie",
+            "unknown": "Neo\u010dak\u00e1van\u00e1 chyba"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "api_key": "API k\u013e\u00fa\u010d"
+                },
+                "description": "Budete potrebova\u0165 k\u013e\u00fa\u010d API zo str\u00e1nky https://app.rach.io/. Prejdite do Nastaven\u00ed a vyberte polo\u017eku \"GET API KEY\".",
+                "title": "Pripojte sa k zariadeniu Rachio"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "rain": {
+                "name": "D\u00e1\u017e\u010f"
+            }
+        },
+        "calendar": {
+            "calendar": {
+                "name": "Z\u00e1kladn\u00e1 stanica Rachio {base}"
+            }
+        },
+        "switch": {
+            "rain_delay": {
+                "name": "Oneskorenie da\u017e\u010fa"
+            },
+            "standby": {
+                "name": "Pohotovostn\u00fd re\u017eim"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "manual_run_mins": "Trvanie v min\u00fatach pri aktiv\u00e1cii sp\u00edna\u010da z\u00f3ny"
+                }
+            }
+        }
+    },
+    "services": {
+        "pause_watering": {
+            "description": "Pozastavenie v\u0161etk\u00fdch aktu\u00e1lne spusten\u00fdch z\u00f3n alebo pl\u00e1nov.",
+            "fields": {
+                "devices": {
+                    "description": "N\u00e1zov ovl\u00e1da\u010dov na pozastavenie. Ak nie je zadan\u00fd, predvolene sa nastav\u00ed na v\u0161etky kontrol\u00e9ry na \u00fa\u010dte.",
+                    "name": "Zariadenia"
+                },
+                "duration": {
+                    "description": "\u010cas na pozastavenie be\u017eiacich pl\u00e1nov.",
+                    "name": "Trvanie"
+                }
+            },
+            "name": "Pozastavenie zavla\u017eovania"
+        },
+        "resume_watering": {
+            "description": "Obnovte v\u0161etky pozastaven\u00e9 chody alebo pl\u00e1ny z\u00f3n.",
+            "fields": {
+                "devices": {
+                    "description": "N\u00e1zov kontrol\u00f3rov na obnovenie. Ak nie je zadan\u00fd, predvolene sa nastav\u00ed na v\u0161etky kontrol\u00e9ry na \u00fa\u010dte.",
+                    "name": "Zariadenia"
+                }
+            },
+            "name": "Obnovenie zavla\u017eovania"
+        },
+        "set_zone_moisture_percent": {
+            "description": "Nastav\u00ed percento vlhkosti z\u00f3ny alebo zoznamu z\u00f3n.",
+            "fields": {
+                "percent": {
+                    "description": "Nastavte po\u017eadovan\u00e9 percento vlhkosti v z\u00f3ne.",
+                    "name": "Percento"
+                }
+            },
+            "name": "Nastavenie percenta vlhkosti z\u00f3ny"
+        },
+        "start_multiple_zone_schedule": {
+            "description": "Vytvor\u00ed vlastn\u00fd pl\u00e1n z\u00f3n a \u010dasov spustenia. Upozor\u0148ujeme, \u017ee v\u0161etky z\u00f3ny by mali by\u0165 na tom istom kontrol\u00e9ri, aby sa predi\u0161lo probl\u00e9mom.",
+            "fields": {
+                "duration": {
+                    "description": "Po\u010det min\u00fat na spustenie z\u00f3ny (z\u00f3n). Ak je zadan\u00e1 len 1 d\u013a\u017eka trvania, tento \u010das sa pou\u017eije pre v\u0161etky z\u00f3ny. Ak je zadan\u00fd zoznam trvan\u00ed, tieto trvania sa pou\u017eij\u00fa pre pr\u00edslu\u0161n\u00e9 z\u00f3ny uveden\u00e9 vy\u0161\u0161ie.",
+                    "name": "Trvanie"
+                }
+            },
+            "name": "Spustenie viacer\u00fdch z\u00f3n"
+        },
+        "start_watering": {
+            "description": "Spustite jednu z\u00f3nu, pl\u00e1n alebo \u013eubovo\u013en\u00fd po\u010det inteligentn\u00fdch hadicov\u00fdch \u010dasova\u010dov.",
+            "fields": {
+                "duration": {
+                    "description": "Po\u010det min\u00fat, ktor\u00e9 sa maj\u00fa spusti\u0165. Pre z\u00f3ny postrekova\u010dov je maxim\u00e1lna d\u013a\u017eka trvania 3 hodiny alebo 24 hod\u00edn pre inteligentn\u00e9 hadicov\u00e9 \u010dasova\u010de. Pre pl\u00e1ny nechajte pr\u00e1zdne.",
+                    "name": "Trvanie"
+                }
+            },
+            "name": "Za\u010da\u0165 zalieva\u0165"
+        },
+        "stop_watering": {
+            "description": "Zastavte v\u0161etky aktu\u00e1lne spusten\u00e9 z\u00f3ny alebo pl\u00e1ny.",
+            "fields": {
+                "devices": {
+                    "description": "N\u00e1zov ovl\u00e1da\u010dov na zastavenie. Ak nie je zadan\u00fd, predvolene sa nastav\u00ed na v\u0161etk\u00fdch kontrol\u00e9roch na \u00fa\u010dte.",
+                    "name": "Zariadenia"
+                }
+            },
+            "name": "Zastavenie zalievania"
+        }
+    }
+}

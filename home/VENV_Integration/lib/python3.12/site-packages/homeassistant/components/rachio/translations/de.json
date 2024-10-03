@@ -1,0 +1,116 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Ger\u00e4t ist bereits konfiguriert"
+        },
+        "error": {
+            "cannot_connect": "Verbindung fehlgeschlagen",
+            "invalid_auth": "Ung\u00fcltige Authentifizierung",
+            "unknown": "Unerwarteter Fehler"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "api_key": "API-Schl\u00fcssel"
+                },
+                "description": "Du ben\u00f6tigst den API-Schl\u00fcssel von https://app.rach.io/. Gehe in die Einstellungen und dr\u00fccke auf \u201eAPI-SCHL\u00dcSSEL ANFORDERN\u201c.",
+                "title": "Stelle eine Verbindung zu deinem Rachio-Ger\u00e4t her"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "rain": {
+                "name": "Regen"
+            }
+        },
+        "calendar": {
+            "calendar": {
+                "name": "Rachio-Basisstation {base}"
+            }
+        },
+        "switch": {
+            "rain_delay": {
+                "name": "Regenverz\u00f6gerung"
+            },
+            "standby": {
+                "name": "Standby"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "manual_run_mins": "Wie viele Minuten es laufen soll, wenn ein Zonen-Schalter aktiviert wird"
+                }
+            }
+        }
+    },
+    "services": {
+        "pause_watering": {
+            "description": "Pausieren aller aktuell ausgef\u00fchrten Zonen oder Zeitpl\u00e4ne.",
+            "fields": {
+                "devices": {
+                    "description": "Name der Controller, die angehalten werden sollen. Sofern nicht angegeben, werden standardm\u00e4\u00dfig alle Controller im Konto verwendet.",
+                    "name": "Ger\u00e4te"
+                },
+                "duration": {
+                    "description": "Die Zeit, in der laufende Zeitpl\u00e4ne angehalten werden sollen.",
+                    "name": "Dauer"
+                }
+            },
+            "name": "Bew\u00e4sserung unterbrechen"
+        },
+        "resume_watering": {
+            "description": "Fortsetzen aller angehaltenen Zonenl\u00e4ufe oder Zeitpl\u00e4ne.",
+            "fields": {
+                "devices": {
+                    "description": "Name der Controller, die fortgesetzt werden sollen. Sofern nicht angegeben, werden standardm\u00e4\u00dfig alle Controller im Konto verwendet.",
+                    "name": "Ger\u00e4te"
+                }
+            },
+            "name": "Bew\u00e4sserung fortsetzen"
+        },
+        "set_zone_moisture_percent": {
+            "description": "Legt den Feuchtigkeitsprozentsatz einer Zone oder Zonenliste fest.",
+            "fields": {
+                "percent": {
+                    "description": "Stelle den gew\u00fcnschten Feuchtigkeitsprozentsatz f\u00fcr die Zone ein.",
+                    "name": "Prozent"
+                }
+            },
+            "name": "Feuchtigkeit in der Zone einstellen"
+        },
+        "start_multiple_zone_schedule": {
+            "description": "Erstellt einen benutzerdefinierten Zeitplan f\u00fcr Zonen und Laufzeiten. Beachte, dass sich alle Zonen auf demselben Controller befinden sollten, um Probleme zu vermeiden.",
+            "fields": {
+                "duration": {
+                    "description": "Anzahl der Minuten, die f\u00fcr den Betrieb der Zonen ben\u00f6tigt werden. Wenn nur eine Dauer angegeben ist, wird diese Zeit f\u00fcr alle Zonen verwendet. Wenn eine Liste mit Zeiten angegeben wird, gelten die Zeiten f\u00fcr die jeweiligen oben aufgef\u00fchrten Zonen.",
+                    "name": "Dauer"
+                }
+            },
+            "name": "Mehrere Zonen starten"
+        },
+        "start_watering": {
+            "description": "Starte eine einzelne Zone, einen Zeitplan oder eine beliebige Anzahl von intelligenten Schlauchzeitschaltuhren.",
+            "fields": {
+                "duration": {
+                    "description": "Anzahl der auszuf\u00fchrenden Minuten. F\u00fcr Sprinklerzonen betr\u00e4gt die maximale Dauer 3 Stunden bzw. 24 Stunden f\u00fcr intelligente Schlauchzeitschaltubren. F\u00fcr Zeitpl\u00e4ne leer lassen.",
+                    "name": "Dauer"
+                }
+            },
+            "name": "Mit der Bew\u00e4sserung beginnen"
+        },
+        "stop_watering": {
+            "description": "Stoppe alle aktuell ausgef\u00fchrten Zonen oder Zeitpl\u00e4ne.",
+            "fields": {
+                "devices": {
+                    "description": "Name des anzuhaltenden Controllers. Standardm\u00e4\u00dfig alle Controller des Kontos, falls nicht angegeben.",
+                    "name": "Ger\u00e4te"
+                }
+            },
+            "name": "Bew\u00e4sserung einstellen"
+        }
+    }
+}

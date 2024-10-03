@@ -1,0 +1,135 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "El servei ja est\u00e0 configurat",
+            "existing_instance_updated": "S'ha actualitzat la configuraci\u00f3 existent."
+        },
+        "error": {
+            "cannot_connect": "Ha fallat la connexi\u00f3"
+        },
+        "step": {
+            "hassio_confirm": {
+                "description": "Vols configurar Home Assistant perqu\u00e8 es connecti amb l'AdGuard Home proporcionat pel complement: {addon}?",
+                "title": "AdGuard Home via complement de Home Assistant"
+            },
+            "user": {
+                "data": {
+                    "host": "[%key::common::config_flow::data::host%]",
+                    "password": "[%key::common::config_flow::data::password%]",
+                    "port": "[%key::common::config_flow::data::port%]",
+                    "ssl": "Utilitza un certificat SSL",
+                    "username": "[%key::common::config_flow::data::username%]",
+                    "verify_ssl": "Verifica el certificat SSL"
+                },
+                "data_description": {
+                    "host": "Nom d'amfitri\u00f3 o adre\u00e7a IP del dispositiu que executa AdGuard Home."
+                },
+                "description": "Configura una inst\u00e0ncia d'AdGuard Home, permet el control i la supervisi\u00f3."
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "average_processing_speed": {
+                "name": "Velocitat mitjana de processament"
+            },
+            "dns_queries": {
+                "name": "Consultes DNS"
+            },
+            "dns_queries_blocked": {
+                "name": "Consultes DNS bloquejades"
+            },
+            "dns_queries_blocked_ratio": {
+                "name": "R\u00e0tio de consultes DNS bloquejades"
+            },
+            "parental_control_blocked": {
+                "name": "Control parental bloquejat"
+            },
+            "rules_count": {
+                "name": "Nombre de regles"
+            },
+            "safe_browsing_blocked": {
+                "name": "Navegaci\u00f3 segura bloquejada"
+            },
+            "safe_searches_enforced": {
+                "name": "Cerca segura aplicada"
+            }
+        },
+        "switch": {
+            "filtering": {
+                "name": "Filtratge"
+            },
+            "parental": {
+                "name": "Control parental"
+            },
+            "protection": {
+                "name": "Protecci\u00f3"
+            },
+            "query_log": {
+                "name": "Registre de consultes"
+            },
+            "safe_browsing": {
+                "name": "Navegaci\u00f3 segura"
+            },
+            "safe_search": {
+                "name": "Cerca segura"
+            }
+        }
+    },
+    "services": {
+        "add_url": {
+            "description": "Afegeix una subscripci\u00f3 de filtre a AdGuard Home.",
+            "fields": {
+                "name": {
+                    "description": "Nom de la subscripci\u00f3 al filtre.",
+                    "name": "Nom"
+                },
+                "url": {
+                    "description": "URL del filtre al qual s'ha de subscriure, que cont\u00e9 les regles del filtre.",
+                    "name": "URL"
+                }
+            },
+            "name": "Afegeix URL"
+        },
+        "disable_url": {
+            "description": "Desactiva una subscripci\u00f3 de filtre a AdGuard Home.",
+            "fields": {
+                "url": {
+                    "description": "URL de subscripci\u00f3 de filtre a desactivar.",
+                    "name": "URL"
+                }
+            },
+            "name": "Desactiva l'URL"
+        },
+        "enable_url": {
+            "description": "Activa una subscripci\u00f3 de filtre d'AdGuard Home.",
+            "fields": {
+                "url": {
+                    "description": "URL de subscripci\u00f3 de filtre a activar.",
+                    "name": "URL"
+                }
+            },
+            "name": "Activa l'URL"
+        },
+        "refresh": {
+            "description": "Actualitza totes les subscripcions de filtre d'AdGuard Home.",
+            "fields": {
+                "force": {
+                    "description": "For\u00e7a l'actualitzaci\u00f3 (obvia l'acceleraci\u00f3 d'AdGuard Home). \"true\" per for\u00e7ar o \"fals\" per ometre i actualitzar regularment.",
+                    "name": "For\u00e7a"
+                }
+            },
+            "name": "Actualitza"
+        },
+        "remove_url": {
+            "description": "Desactiva una subscripci\u00f3 de filtre d'AdGuard Home.",
+            "fields": {
+                "url": {
+                    "description": "URL de subscripci\u00f3 de filtre a eliminar.",
+                    "name": "URL"
+                }
+            },
+            "name": "Elimina l'URL"
+        }
+    }
+}

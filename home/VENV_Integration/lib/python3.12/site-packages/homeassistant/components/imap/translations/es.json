@@ -1,0 +1,171 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "El dispositivo ya est\u00e1 configurado",
+            "reauth_successful": "La autenticaci\u00f3n se volvi\u00f3 a realizar correctamente"
+        },
+        "error": {
+            "cannot_connect": "No se pudo conectar",
+            "invalid_auth": "Autenticaci\u00f3n no v\u00e1lida",
+            "invalid_charset": "El juego de caracteres especificado no es compatible",
+            "invalid_folder": "La carpeta seleccionada no es v\u00e1lida",
+            "invalid_search": "La b\u00fasqueda seleccionada no es v\u00e1lida",
+            "ssl_error": "Se produjo un error de SSL. Cambia la lista de cifrado SSL y vuelve a intentarlo."
+        },
+        "step": {
+            "reauth_confirm": {
+                "data": {
+                    "password": "Contrase\u00f1a"
+                },
+                "description": "La contrase\u00f1a para {username} no es v\u00e1lida.",
+                "title": "Autenticaci\u00f3n caducada para {name}"
+            },
+            "user": {
+                "data": {
+                    "charset": "Juego de caracteres",
+                    "folder": "Carpeta",
+                    "password": "Contrase\u00f1a",
+                    "port": "Puerto",
+                    "search": "B\u00fasqueda IMAP",
+                    "server": "Servidor",
+                    "ssl_cipher_list": "Lista de cifrado SSL (avanzado)",
+                    "username": "Nombre de usuario",
+                    "verify_ssl": "Verificar el certificado SSL"
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "copy_failed": {
+            "message": "Error al copiar el mensaje con \"{error}\"."
+        },
+        "delete_failed": {
+            "message": "Error al marcar el mensaje para su eliminaci\u00f3n con \"{error}\"."
+        },
+        "expunge_failed": {
+            "message": "Error al borrar el mensaje con \"{error}\"."
+        },
+        "fetch_failed": {
+            "message": "Al obtener el texto del mensaje, se produjo un error con \"{error}\"."
+        },
+        "imap_server_fail": {
+            "message": "No se pudo conectar al servidor IMAP: {error}."
+        },
+        "invalid_auth": {
+            "message": "Autenticaci\u00f3n no v\u00e1lida"
+        },
+        "invalid_entry": {
+            "message": "No se encontr\u00f3 ninguna entrada IMAP v\u00e1lida."
+        },
+        "invalid_folder": {
+            "message": "La carpeta seleccionada no es v\u00e1lida"
+        },
+        "seen_failed": {
+            "message": "Error al marcar el mensaje como visto con \"{error}\"."
+        }
+    },
+    "options": {
+        "error": {
+            "already_configured": "Ya existe una entrada con estas carpetas y opciones de b\u00fasqueda.",
+            "cannot_connect": "No se pudo conectar",
+            "invalid_auth": "Autenticaci\u00f3n no v\u00e1lida",
+            "invalid_charset": "El juego de caracteres especificado no es compatible",
+            "invalid_folder": "La carpeta seleccionada no es v\u00e1lida",
+            "invalid_search": "La b\u00fasqueda seleccionada no es v\u00e1lida",
+            "invalid_template": "Plantilla no v\u00e1lida"
+        },
+        "step": {
+            "init": {
+                "data": {
+                    "custom_event_data_template": "Plantilla para crear datos de eventos personalizados",
+                    "enable_push": "Habilita Push-IMAP si el servidor lo admite. Desact\u00edvalo si las actualizaciones Push-IMAP no son fiables.",
+                    "event_message_data": "Datos del mensaje que se incluir\u00e1n en los datos del evento `imap_content`:",
+                    "folder": "Carpeta",
+                    "max_message_size": "Tama\u00f1o m\u00e1ximo de mensaje (2048 < tama\u00f1o < 30000)",
+                    "search": "B\u00fasqueda IMAP"
+                }
+            }
+        }
+    },
+    "selector": {
+        "event_message_data": {
+            "options": {
+                "headers": "Cabeceras del mensaje",
+                "text": "Cuerpo de texto"
+            }
+        },
+        "ssl_cipher_list": {
+            "options": {
+                "intermediate": "Cifrados intermedios",
+                "modern": "Cifrados modernos",
+                "python_default": "Configuraci\u00f3n por defecto"
+            }
+        }
+    },
+    "services": {
+        "delete": {
+            "description": "Borrar un correo electr\u00f3nico.",
+            "fields": {
+                "entry": {
+                    "description": "La entrada de configuraci\u00f3n IMAP.",
+                    "name": "Entrada"
+                },
+                "uid": {
+                    "description": "El identificador de correo electr\u00f3nico (UID).",
+                    "name": "UID"
+                }
+            },
+            "name": "Borrar mensaje"
+        },
+        "fetch": {
+            "description": "Obtenga el mensaje de correo electr\u00f3nico del servidor.",
+            "fields": {
+                "entry": {
+                    "description": "La entrada de configuraci\u00f3n IMAP.",
+                    "name": "Entrada"
+                },
+                "uid": {
+                    "description": "El identificador de correo electr\u00f3nico (UID).",
+                    "name": "UID"
+                }
+            },
+            "name": "Obtener mensaje"
+        },
+        "move": {
+            "description": "Mover un correo electr\u00f3nico a una carpeta de destino.",
+            "fields": {
+                "entry": {
+                    "description": "La entrada de configuraci\u00f3n IMAP.",
+                    "name": "Entrada"
+                },
+                "seen": {
+                    "description": "Marca el correo electr\u00f3nico como visto.",
+                    "name": "Visto"
+                },
+                "target_folder": {
+                    "description": "La carpeta de destino a la que se debe mover el correo electr\u00f3nico.",
+                    "name": "Carpeta de destino"
+                },
+                "uid": {
+                    "description": "El identificador de correo electr\u00f3nico (UID).",
+                    "name": "UID"
+                }
+            },
+            "name": "Mover mensaje"
+        },
+        "seen": {
+            "description": "Marcar un correo electr\u00f3nico como visto.",
+            "fields": {
+                "entry": {
+                    "description": "La entrada de configuraci\u00f3n IMAP.",
+                    "name": "Entrada"
+                },
+                "uid": {
+                    "description": "El identificador de correo electr\u00f3nico (UID).",
+                    "name": "UID"
+                }
+            },
+            "name": "Marcar mensaje como visto"
+        }
+    }
+}

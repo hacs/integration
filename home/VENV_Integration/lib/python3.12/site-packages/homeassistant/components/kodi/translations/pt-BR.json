@@ -1,0 +1,81 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Dispositivo j\u00e1 est\u00e1 configurado",
+            "cannot_connect": "Falha ao conectar",
+            "invalid_auth": "Autentica\u00e7\u00e3o inv\u00e1lida",
+            "no_uuid": "A inst\u00e2ncia Kodi n\u00e3o possui um ID exclusivo. Isso provavelmente se deve a uma vers\u00e3o antiga do Kodi (17.x ou inferior). Voc\u00ea pode configurar a integra\u00e7\u00e3o manualmente ou atualizar para uma vers\u00e3o mais recente do Kodi.",
+            "unknown": "Erro inesperado"
+        },
+        "error": {
+            "cannot_connect": "Falha ao conectar",
+            "invalid_auth": "Autentica\u00e7\u00e3o inv\u00e1lida",
+            "unknown": "Erro inesperado"
+        },
+        "flow_title": "{name}",
+        "step": {
+            "credentials": {
+                "data": {
+                    "password": "Senha",
+                    "username": "Usu\u00e1rio"
+                },
+                "description": "Digite seu nome de usu\u00e1rio e senha Kodi. Eles podem ser encontrados em Sistema/Configura\u00e7\u00f5es/Rede/Servi\u00e7os."
+            },
+            "discovery_confirm": {
+                "description": "Deseja adicionar Kodi (` {name} `) ao Home Assistant?",
+                "title": "Kodi descoberto"
+            },
+            "user": {
+                "data": {
+                    "host": "Host",
+                    "port": "Porta",
+                    "ssl": "Usar um certificado SSL"
+                },
+                "data_description": {
+                    "host": "O nome do host ou endere\u00e7o IP do sistema que hospeda seu servidor Kodi."
+                },
+                "description": "Informa\u00e7\u00f5es de conex\u00e3o Kodi. Certifique-se de ativar \"Permitir controle do Kodi via HTTP\" em Sistema/Configura\u00e7\u00f5es/Rede/Servi\u00e7os."
+            },
+            "ws_port": {
+                "data": {
+                    "ws_port": "Porta"
+                },
+                "description": "A porta WebSocket (\u00e0s vezes chamada de porta TCP no Kodi). Para se conectar pelo WebSocket, voc\u00ea precisa habilitar \"Permitir que programas ... controlem o Kodi\" em Sistema/Configura\u00e7\u00f5es/Rede/Servi\u00e7os. Se o WebSocket n\u00e3o estiver habilitado, remova a porta e deixe em branco."
+            }
+        }
+    },
+    "services": {
+        "add_to_playlist": {
+            "description": "Adiciona m\u00fasica \u00e0 lista de reprodu\u00e7\u00e3o padr\u00e3o (ou seja, playlistid=0).",
+            "fields": {
+                "artist_name": {
+                    "description": "Nome do artista opcional para filtragem de m\u00eddia.",
+                    "name": "Nome do artista"
+                },
+                "media_id": {
+                    "description": "Id exclusivo da entrada de m\u00eddia a ser adicionada (`songid` ou albumid`). Se n\u00e3o definido, `media_name` e `artist_name` s\u00e3o necess\u00e1rios para pesquisar a biblioteca de m\u00fasica Kodi.",
+                    "name": "ID da m\u00eddia"
+                },
+                "media_name": {
+                    "description": "Nome de m\u00eddia opcional para filtragem de m\u00eddia. Pode ser 'ALL' quando `media_type` \u00e9 'ALBUM' e `artist_name` \u00e9 especificado, para adicionar todas as m\u00fasicas de um artista.",
+                    "name": "Nome da m\u00eddia"
+                },
+                "media_type": {
+                    "description": "Identificador de tipo de m\u00eddia. Deve ser uma das op\u00e7\u00f5es SONG ou ALBUM.",
+                    "name": "Tipo de m\u00eddia"
+                }
+            },
+            "name": "Adicionar \u00e0 lista de reprodu\u00e7\u00e3o"
+        },
+        "call_method": {
+            "description": "Chama um m\u00e9todo de API Kodi JSONRPC com par\u00e2metros opcionais. Os resultados da chamada da API Kodi ser\u00e3o redirecionados em um evento do Home Assistant: `kodi_call_method_result`.",
+            "fields": {
+                "method": {
+                    "description": "Nome do m\u00e9todo de API Kodi JSONRPC a ser chamado.",
+                    "name": "M\u00e9todo"
+                }
+            },
+            "name": "M\u00e9todo de chamada"
+        }
+    }
+}

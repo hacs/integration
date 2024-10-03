@@ -1,0 +1,249 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "T\u00f6\u00f6p\u00e4eva sidumine on juba seadistatud valitud s\u00e4tetega",
+            "incorrect_province": "Vale alajaotus yamli impordist"
+        },
+        "error": {
+            "add_holiday_error": "Vale kuup\u00e4evavorming (AAAA-KK-PP)",
+            "add_holiday_range_error": "Kuup\u00e4evavahemiku vale vorming (AAAA-KK-PP,AAAA-KK-PP)",
+            "already_configured": "Teenus on juba seadistatud",
+            "remove_holiday_error": "Kuup\u00e4eva vale vorming (AAAA-KK-PP) v\u00f5i p\u00fchade nime ei leitud",
+            "remove_holiday_range_error": "Kuup\u00e4evavahemiku vale vorming (AAAA-KK-PP,AAAA-KK-PP)"
+        },
+        "step": {
+            "options": {
+                "data": {
+                    "add_holidays": "Lisa p\u00fchad",
+                    "category": "T\u00e4iendav kategooria p\u00fchadena",
+                    "days_offset": "Nihe",
+                    "excludes": "V\u00e4lja arvatud",
+                    "language": "Keel nimeliste p\u00fchade jaoks",
+                    "province": "Riigi alajaotus",
+                    "remove_holidays": "Eemalda p\u00fchad",
+                    "workdays": "T\u00f6\u00f6p\u00e4evad"
+                },
+                "data_description": {
+                    "add_holidays": "Lisa kohandatud p\u00fchad kujul AAAA-KK-PP v\u00f5i vahemikuna, kasutades eraldajana \",\"",
+                    "category": "P\u00fchadena lisatavate lisakategooriate valimine",
+                    "days_offset": "P\u00e4evade nihe t\u00e4nasest",
+                    "excludes": "V\u00e4listatavate t\u00f6\u00f6p\u00e4evade loend, pane t\u00e4hele m\u00e4rks\u00f5na \"puhkus\" ja loe dokumente selle kohta, kuidas seda \u00f5igesti kasutada",
+                    "language": "Keel mille abil seadistada p\u00fchade v\u00e4listamine",
+                    "province": "Riigi haldus\u00fcksus",
+                    "remove_holidays": "Eemalda p\u00fchad kujul AAAA-KK-PP vahemikuna, kasutades eraldajana \",\" v\u00f5i kasutades osalist nime",
+                    "workdays": "T\u00f6\u00f6p\u00e4evade loetelu"
+                },
+                "description": "M\u00e4\u00e4ra riigi {country} jaoks seadistatud {name} jaoks lisavalikud"
+            },
+            "user": {
+                "data": {
+                    "country": "Riik",
+                    "name": "Nimi"
+                }
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "workday": {
+                "state_attributes": {
+                    "days_offset": {
+                        "name": "Nihe"
+                    },
+                    "excludes": {
+                        "name": "V\u00e4lja arvatud"
+                    },
+                    "workdays": {
+                        "name": "T\u00f6\u00f6p\u00e4evad"
+                    }
+                }
+            }
+        }
+    },
+    "issues": {
+        "bad_country": {
+            "fix_flow": {
+                "step": {
+                    "country": {
+                        "data": {
+                            "country": "Riik"
+                        },
+                        "description": "Vali t\u00f6\u00f6p\u00e4evaanduri jaoks kasutatav riik.",
+                        "title": "Vali {title} jaoks riik"
+                    },
+                    "province": {
+                        "data": {
+                            "province": "Riigi alajaotus"
+                        },
+                        "data_description": {
+                            "province": "Riigi haldus\u00fcksus"
+                        },
+                        "description": "Vali riigis {country} provints, mida oma t\u00f6\u00f6p\u00e4evaanduri jaoks kasutada.",
+                        "title": "Vali provints {title} jaoks"
+                    }
+                }
+            },
+            "title": "{title} konfigureeritud riiki pole olemas"
+        },
+        "bad_date_holiday": {
+            "fix_flow": {
+                "error": {
+                    "remove_holiday_error": "Kuup\u00e4eva vale vorming (AAAA-KK-PP) v\u00f5i p\u00fchade nime ei leitud"
+                },
+                "step": {
+                    "fix_remove_holiday": {
+                        "data": {
+                            "remove_holidays": "Eemalda p\u00fchad"
+                        },
+                        "data_description": {
+                            "remove_holidays": "Eemalda p\u00fchad kujul AAAA-KK-PP vahemikuna, kasutades eraldajana \",\" v\u00f5i kasutades osalist nime"
+                        },
+                        "description": "Eemalda p\u00fcha nimega `{remove_holidays}` kuna seda ei leidu riigis {country}.",
+                        "title": "Seadistatud p\u00fchade kuup\u00e4eva {remove_holidays} \u00fcksuse {title} jaoks ei ole olemas"
+                    }
+                }
+            },
+            "title": "Seadistatud p\u00fchade kuup\u00e4eva {remove_holidays} \u00fcksuse {title} jaoks ei ole olemas"
+        },
+        "bad_named_holiday": {
+            "fix_flow": {
+                "error": {
+                    "remove_holiday_error": "Kuup\u00e4eva vale vorming (AAAA-KK-PP) v\u00f5i p\u00fchade nime ei leitud"
+                },
+                "step": {
+                    "fix_remove_holiday": {
+                        "data": {
+                            "remove_holidays": "Eemalda p\u00fchad"
+                        },
+                        "data_description": {
+                            "remove_holidays": "Eemalda p\u00fchad kujul AAAA-KK-PP vahemikuna, kasutades eraldajana \",\" v\u00f5i kasutades osalist nime"
+                        },
+                        "description": "Eemalda p\u00fcha nimega `{remove_holidays}` kuna seda ei leidu riigis {country}.",
+                        "title": "Seadistatud p\u00fcha nimega {remove_holidays} \u00fcksuse {title} jaoks pole olemas"
+                    },
+                    "named_holiday": {
+                        "data": {
+                            "remove_holidays": "Eemalda p\u00fchad"
+                        },
+                        "data_description": {
+                            "remove_holidays": "Eemalda p\u00fchad kujul AAAA-KK-PP vahemikuna, kasutades eraldajana \",\" v\u00f5i kasutades osalist nime"
+                        },
+                        "description": "Eemaldage p\u00fcha nimega `{remove_holidays}`, kuna seda ei leidu riigis {country}.",
+                        "title": "Seadistatud p\u00fcha nimega {remove_holidays} \u00fcksuse {title} jaoks pole olemas"
+                    }
+                }
+            },
+            "title": "Seadistatud p\u00fcha nimega {remove_holidays} \u00fcksuse {title} jaoks pole olemas"
+        },
+        "bad_province": {
+            "fix_flow": {
+                "step": {
+                    "province": {
+                        "data": {
+                            "province": "Riigi alajaotus"
+                        },
+                        "data_description": {
+                            "province": "Riigi haldus\u00fcksus"
+                        },
+                        "description": "Vali riigis {country} provints, mida oma t\u00f6\u00f6p\u00e4evaanduri jaoks kasutada.",
+                        "title": "Vali provints {title} jaoks"
+                    }
+                }
+            },
+            "title": "Valitud provintsi riigis {country} {title} pole olemas"
+        },
+        "deprecated_yaml": {
+            "description": "T\u00f6\u00f6p\u00e4eva konfigureerimine YAML-i abil eemaldatakse. \n\n Olemasolev YAML-i konfiguratsioon imporditi kasutajaliidesesse automaatselt. \n\n Eemalda selle probleemi lahendamiseks Workday YAML-i konfiguratsioon failist configuration.yaml ja taask\u00e4ivita Home Assistant.",
+            "title": "Workday YAML-i konfiguratsioon eemaldatakse"
+        }
+    },
+    "options": {
+        "error": {
+            "add_holiday_error": "Vale kuup\u00e4evavorming (AAAA-KK-PP)",
+            "add_holiday_range_error": "Kuup\u00e4evavahemiku vale vorming (AAAA-KK-PP,AAAA-KK-PP)",
+            "already_configured": "Selle seadistusega teenus on juba olemas",
+            "remove_holiday_error": "Kuup\u00e4eva vale vorming (AAAA-KK-PP) v\u00f5i p\u00fchade nime ei leitud",
+            "remove_holiday_range_error": "Kuup\u00e4evavahemiku vale vorming (AAAA-KK-PP,AAAA-KK-PP)"
+        },
+        "step": {
+            "init": {
+                "data": {
+                    "add_holidays": "Lisa p\u00fchad",
+                    "category": "T\u00e4iendav kategooria p\u00fchadena",
+                    "days_offset": "Nihe",
+                    "excludes": "V\u00e4lja arvatud",
+                    "language": "Keel nimeliste p\u00fchade jaoks",
+                    "province": "Riigi alajaotus",
+                    "remove_holidays": "Eemalda p\u00fchad",
+                    "workdays": "T\u00f6\u00f6p\u00e4evad"
+                },
+                "data_description": {
+                    "add_holidays": "Lisa kohandatud p\u00fchad kujul AAAA-KK-PP v\u00f5i vahemikuna, kasutades eraldajana \",\"",
+                    "category": "P\u00fchadena lisatavate lisakategooriate valimine",
+                    "days_offset": "P\u00e4evade nihe t\u00e4nasest",
+                    "excludes": "V\u00e4listatavate t\u00f6\u00f6p\u00e4evade loend, pane t\u00e4hele m\u00e4rks\u00f5na \"puhkus\" ja loe dokumente selle kohta, kuidas seda \u00f5igesti kasutada",
+                    "language": "Keel mille abil seadistada p\u00fchade v\u00e4listamine",
+                    "province": "Riigi haldus\u00fcksus",
+                    "remove_holidays": "Eemalda p\u00fchad kujul AAAA-KK-PP vahemikuna, kasutades eraldajana \",\" v\u00f5i kasutades osalist nime",
+                    "workdays": "T\u00f6\u00f6p\u00e4evade loetelu"
+                },
+                "description": "Muuda riigi {country} jaoks seadistatud {name} lisavalikuid"
+            }
+        }
+    },
+    "selector": {
+        "category": {
+            "options": {
+                "armed_forces": "Relvaj\u00f5ud",
+                "bank": "Panga",
+                "chinese": "Hiina",
+                "christian": "Kristlik",
+                "government": "Riiklik",
+                "half_day": "Pool p\u00e4eva",
+                "hebrew": "Heebrea",
+                "hindu": "Hindu",
+                "islamic": "Islami",
+                "optional": "Valikuline",
+                "public": "Avalik",
+                "school": "Kool",
+                "unofficial": "Mitteametlik",
+                "workday": "T\u00f6\u00f6p\u00e4ev"
+            }
+        },
+        "country": {
+            "options": {
+                "none": "Riik puudub"
+            }
+        },
+        "days": {
+            "options": {
+                "fri": "Reede",
+                "holiday": "P\u00fchad",
+                "mon": "Esmasp\u00e4ev",
+                "sat": "Laup\u00e4ev",
+                "sun": "P\u00fchap\u00e4ev",
+                "thu": "Neljap\u00e4ev",
+                "tue": "Teisip\u00e4ev",
+                "wed": "Kolmap\u00e4ev"
+            }
+        },
+        "province": {
+            "options": {
+                "none": "Alajaotist ei ole"
+            }
+        }
+    },
+    "services": {
+        "check_date": {
+            "description": "Kontrolli kas kuup\u00e4ev on t\u00f6\u00f6p\u00e4ev.",
+            "fields": {
+                "check_date": {
+                    "description": "Kuup\u00e4ev t\u00f6\u00f6p\u00e4eva kontrollimiseks.",
+                    "name": "Kuup\u00e4ev"
+                }
+            },
+            "name": "Kontrolli kuup\u00e4eva"
+        }
+    },
+    "title": "T\u00f6\u00f6p\u00e4ev"
+}

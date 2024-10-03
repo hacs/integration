@@ -1,0 +1,86 @@
+{
+    "device_automation": {
+        "action_type": {
+            "select_first": "\u5c07{entity_name}\u8b8a\u66f4\u70ba\u7b2c\u4e00\u500b\u9078\u9805",
+            "select_last": "\u5c07{entity_name}\u8b8a\u66f4\u70ba\u6700\u5f8c\u4e00\u500b\u9078\u9805",
+            "select_next": "\u5c07{entity_name}\u8b8a\u66f4\u70ba\u4e0b\u4e00\u500b\u9078\u9805",
+            "select_option": "\u8b8a\u66f4{entity_name}\u9078\u9805",
+            "select_previous": "\u5c07{entity_name}\u8b8a\u66f4\u70ba\u4e0a\u4e00\u500b\u9078\u9805"
+        },
+        "condition_type": {
+            "selected_option": "\u76ee\u524d{entity_name}\u5df2\u9078\u9078\u9805"
+        },
+        "extra_fields": {
+            "cycle": "\u5faa\u74b0",
+            "for": "\u6301\u7e8c\u6642\u9593",
+            "from": "\u5f9e...\u72c0\u614b",
+            "option": "\u9078\u9805",
+            "to": "\u81f3...\u72c0\u614b"
+        },
+        "trigger_type": {
+            "current_option_changed": "{entity_name}\u9078\u9805\u5df2\u8b8a\u66f4"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "\u9078\u64c7",
+            "state_attributes": {
+                "options": {
+                    "name": "\u9078\u9805"
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "not_valid_option": {
+            "message": "\u5be6\u9ad4 {entity_id} \u7684\u9078\u9805 {option} \u7121\u6548\u3001\u6709\u6548\u9078\u9805\u70ba\uff1a{options}\u3002"
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "{domain} \u6574\u5408\u7684 {platform} \u5e73\u53f0\u4e0d\u652f\u63f4\u5e73\u53f0\u8a2d\u5b9a\u3002\n\n\u8acb\u5c07\u5176\u7531\u8a2d\u5b9a\u4e2d\u79fb\u9664\uff0c\u4e26\u91cd\u65b0\u555f\u52d5 Home Assistant \u4ee5\u4fee\u6b63\u6b64\u554f\u984c\u3002",
+            "title": "\u4e0d\u652f\u63f4\u5e73\u53f0\u652f\u63f4"
+        }
+    },
+    "services": {
+        "select_first": {
+            "description": "\u9078\u64c7\u7b2c\u4e00\u500b\u9078\u9805\u3002",
+            "name": "\u6700\u521d"
+        },
+        "select_last": {
+            "description": "\u9078\u64c7\u6700\u5f8c\u4e00\u500b\u9078\u9805\u3002",
+            "name": "\u6700\u5f8c"
+        },
+        "select_next": {
+            "description": "\u9078\u64c7\u4e0b\u4e00\u500b\u9078\u9805\u3002",
+            "fields": {
+                "cycle": {
+                    "description": "\u9078\u9805\u662f\u5426\u70ba\u5f9e\u6700\u5f8c\u4e00\u500b\u5faa\u74b0\u5230\u7b2c\u4e00\u500b\u3002",
+                    "name": "\u5faa\u74b0"
+                }
+            },
+            "name": "\u4e0b\u4e00\u500b"
+        },
+        "select_option": {
+            "description": "\u9078\u64c7\u9078\u9805\u3002",
+            "fields": {
+                "option": {
+                    "description": "\u9078\u64c7\u7684\u9078\u9805\u3002",
+                    "name": "\u9078\u9805"
+                }
+            },
+            "name": "\u9078\u64c7"
+        },
+        "select_previous": {
+            "description": "\u9078\u64c7\u4e0a\u4e00\u500b\u9078\u9805\u3002",
+            "fields": {
+                "cycle": {
+                    "description": "\u9078\u9805\u662f\u5426\u70ba\u5f9e\u7b2c\u4e00\u500b\u5faa\u74b0\u5230\u6700\u5f8c\u4e00\u500b\u3002",
+                    "name": "\u5faa\u74b0"
+                }
+            },
+            "name": "\u4e0a\u4e00\u500b"
+        }
+    },
+    "title": "\u9078\u64c7"
+}

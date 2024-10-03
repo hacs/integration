@@ -1,0 +1,4078 @@
+{
+  "language": "en",
+  "intents": {
+    "HassTurnOff": {
+      "data": [
+        {
+          "sentences": [
+            "<turn> off (<area> <name>|<name> [in <area>])",
+            "[<turn>] (<area> <name>|<name> [in <area>]) [to] off",
+            "deactivate (<area> <name>|<name> [in <area>])"
+          ],
+          "excludes_context": {
+            "domain": [
+              "binary_sensor",
+              "cover",
+              "lock",
+              "scene",
+              "script",
+              "sensor"
+            ]
+          }
+        },
+        {
+          "sentences": [
+            "<turn> off (<area> <name> <light_devices>|<name> <light_devices> [in <area>])",
+            "[<turn>] (<area> <name> <light_devices>|<name> <light_devices> [in <area>]) [to] off",
+            "deactivate (<area> <name> <light_devices>|<name> <light_devices> [in <area>])"
+          ],
+          "expansion_rules": {
+            "light_devices": "(light[s]|[light] switch[es])"
+          },
+          "requires_context": {
+            "domain": "light"
+          }
+        },
+        {
+          "sentences": [
+            "<turn> off [all] <light> in <area>",
+            "<turn> off [all] <area> <light>",
+            "[<turn>] [all] <area> <light> off",
+            "[<turn>] [all] <light> [in] <area> off",
+            "deactivate [all] <light> [in] <area>",
+            "deactivate [all] <area> <light>",
+            "<light> (off|out) in <area>",
+            "<area> <light> (off|out)"
+          ],
+          "slots": {
+            "domain": "light"
+          },
+          "response": "lights_area"
+        },
+        {
+          "sentences": [
+            "<turn> <all> <light> off <everywhere>",
+            "<turn> off <all> <light> <everywhere>",
+            "deactivate <all> <light> <everywhere>",
+            "<turn> <light> off <everywhere>",
+            "<turn> off <light> <everywhere>",
+            "deactivate <light> <everywhere>",
+            "<turn> <all> <light> off",
+            "<turn> off <all> <light>",
+            "deactivate <all> <light>"
+          ],
+          "response": "light_all",
+          "slots": {
+            "domain": "light"
+          }
+        },
+        {
+          "sentences": [
+            "<turn> <all> <light> off <here>",
+            "<turn> <light> off <here>",
+            "<turn> <all> <light> <here> off",
+            "<turn> <light> <here> off",
+            "<turn> off <all> <light> <here>",
+            "<turn> off <light> <here>",
+            "deactivate <all> <light> <here>",
+            "deactivate <light> <here>",
+            "<turn> <light> off",
+            "<turn> off <light>",
+            "deactivate <light>",
+            "<light> (off|out)"
+          ],
+          "response": "lights_area",
+          "slots": {
+            "domain": "light"
+          },
+          "requires_context": {
+            "area": {
+              "slot": true
+            }
+          }
+        },
+        {
+          "sentences": [
+            "<turn> off <all> <light> (on|in) <floor>",
+            "<turn> off <all> <light> <floor>",
+            "<turn> off <all> <floor> <light>",
+            "<turn> <floor> <light> off",
+            "<floor> <light> off",
+            "deactivate <all> <floor> <light>",
+            "deactivate <all> <light> (on|in) <floor>"
+          ],
+          "response": "lights_floor",
+          "slots": {
+            "domain": "light"
+          }
+        },
+        {
+          "sentences": [
+            "<close> <name> [in <area>]"
+          ],
+          "requires_context": {
+            "domain": "cover"
+          },
+          "response": "cover"
+        },
+        {
+          "sentences": [
+            "<close> [the] garage door"
+          ],
+          "slots": {
+            "domain": "cover",
+            "device_class": "garage"
+          },
+          "response": "cover_device_class"
+        },
+        {
+          "sentences": [
+            "<close> [the] {cover_classes:device_class} in <area>",
+            "<close> <area> {cover_classes:device_class}"
+          ],
+          "slots": {
+            "domain": "cover"
+          },
+          "response": "cover_device_class"
+        },
+        {
+          "sentences": [
+            "<close> [the] {cover_classes:device_class}[<in_here>]"
+          ],
+          "expansion_rules": {
+            "in_here": "[ in] here"
+          },
+          "slots": {
+            "domain": "cover"
+          },
+          "response": "cover_device_class",
+          "requires_context": {
+            "area": {
+              "slot": true
+            }
+          }
+        },
+        {
+          "sentences": [
+            "<turn> off [all] [the] fan[s] in <area>",
+            "<turn> off <area> fan[s]",
+            "[<turn>] [all] <area> fan[s] off",
+            "[<turn>] [all] [the] fan[s] [in] <area> off",
+            "deactivate [all] [the] fan[s] [in] <area>",
+            "deactivate [all] <area> [the] fan[s]"
+          ],
+          "slots": {
+            "domain": "fan",
+            "name": "all"
+          },
+          "response": "fans_area"
+        },
+        {
+          "sentences": [
+            "[<turn>] (all [the] fan[s] off|[the] fan[s] off everywhere)",
+            "deactivate (all [the] fan[s]|[the] fan[s] everywhere)"
+          ],
+          "response": "light_all",
+          "slots": {
+            "domain": "fan",
+            "name": "all"
+          }
+        },
+        {
+          "sentences": [
+            "<turn> off[ all][ the] fan[s][<in_here>]",
+            "<turn>[ all][ the] fan[s]( off;<in_here>)",
+            "<turn>[ all][ the] fan[s] off"
+          ],
+          "response": "fans_area",
+          "expansion_rules": {
+            "in_here": "[ in] here"
+          },
+          "slots": {
+            "domain": "fan"
+          },
+          "requires_context": {
+            "area": {
+              "slot": true
+            }
+          }
+        },
+        {
+          "sentences": [
+            "unlock <name>[ in <area>]"
+          ],
+          "requires_context": {
+            "domain": "lock"
+          },
+          "response": "lock"
+        },
+        {
+          "sentences": [
+            "unlock[ all] <lockable>[ in] <area>",
+            "unlock[ all] <area>[ <lockable>]"
+          ],
+          "slots": {
+            "domain": "lock",
+            "name": "all"
+          },
+          "response": "lock"
+        },
+        {
+          "sentences": [
+            "<close> <name>"
+          ],
+          "requires_context": {
+            "domain": "valve"
+          },
+          "slots": {
+            "domain": "valve"
+          },
+          "response": "valve"
+        }
+      ]
+    },
+    "HassGetState": {
+      "data": [
+        {
+          "sentences": [
+            "<where_is> <name>"
+          ],
+          "response": "where",
+          "requires_context": {
+            "domain": "person"
+          },
+          "slots": {
+            "domain": "person"
+          }
+        },
+        {
+          "sentences": [
+            "is <name> [<in>] [the] {zone:state}"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "person"
+          },
+          "slots": {
+            "domain": "person"
+          }
+        },
+        {
+          "sentences": [
+            "is anyone [<in>] [the] {zone:state}"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "person"
+          }
+        },
+        {
+          "sentences": [
+            "is everyone [<in>] [the] {zone:state}"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "person"
+          }
+        },
+        {
+          "sentences": [
+            "who is [<in>] [the] {zone:state}"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "person"
+          }
+        },
+        {
+          "sentences": [
+            "how many people are [<in>] [the] {zone:state}"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "person"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "apparent_power"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "apparent_power"
+          },
+          "expansion_rules": {
+            "class": "apparent power"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "aqi"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "aqi"
+          },
+          "expansion_rules": {
+            "class": "(AQI|air quality [index])"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "atmospheric_pressure"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "atmospheric_pressure"
+          },
+          "expansion_rules": {
+            "class": "(atmospheric|air) pressure"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>",
+            "how much battery (does <name> have [left]|has <name> got [left]|is left in <name>)"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "battery"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "battery"
+          },
+          "expansion_rules": {
+            "class": "[remaining] battery [level]"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "carbon_dioxide"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "carbon_dioxide"
+          },
+          "expansion_rules": {
+            "class": "(carbon dioxide|CO2) (level|concentration)"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "carbon_monoxide"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "carbon_monoxide"
+          },
+          "expansion_rules": {
+            "class": "(carbon monoxide|CO) (level|concentration)"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "current"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "current"
+          },
+          "expansion_rules": {
+            "class": "[amount of] [electric[al]] current"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "data_rate"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "data_rate"
+          },
+          "expansion_rules": {
+            "class": "[(download|upload|data)] (rate|speed)"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "data_size"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "data_size"
+          },
+          "expansion_rules": {
+            "class": "([data] size|(amount|size) of [the] data)"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>",
+            "when ((is|was) <name>|will <name> be|(will|did) <name> happen)"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "date"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "date"
+          },
+          "expansion_rules": {
+            "class": "[calendar[istic]] date"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "distance"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "distance"
+          },
+          "expansion_rules": {
+            "class": "distance"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "duration"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "duration"
+          },
+          "expansion_rules": {
+            "class": "duration"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "energy"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "energy"
+          },
+          "expansion_rules": {
+            "class": "[amount of] energy"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "energy_storage"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "energy_storage"
+          },
+          "expansion_rules": {
+            "class": "[[total] amount of] [stored] energy"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "frequency"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "frequency"
+          },
+          "expansion_rules": {
+            "class": "frequency"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "gas"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "gas"
+          },
+          "expansion_rules": {
+            "class": "[amount of] gas [volume]"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "humidity"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "humidity"
+          },
+          "expansion_rules": {
+            "class": "[(air|atmospheric)] [relative] humidity"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "illuminance"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "illuminance"
+          },
+          "expansion_rules": {
+            "class": "([amount of] illuminance|(light|brightness) level)"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "irradiance"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "irradiance"
+          },
+          "expansion_rules": {
+            "class": "([amount of] irradiance|[ir]radiation level)"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "moisture"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "moisture"
+          },
+          "expansion_rules": {
+            "class": "([relative] moisture|(percentage|ratio) of water)"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "monetary"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "monetary"
+          },
+          "expansion_rules": {
+            "class": "[amount of] (money|cash|cost)"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "nitrogen_dioxide"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "nitrogen_dioxide"
+          },
+          "expansion_rules": {
+            "class": "(nitrogen dioxide|NO2) (level|concentration)"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "nitrogen_monoxide"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "nitrogen_monoxide"
+          },
+          "expansion_rules": {
+            "class": "(nitrogen monoxide|NO) (level|concentration)"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "nitrous_oxide"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "nitrous_oxide"
+          },
+          "expansion_rules": {
+            "class": "(nitrous oxide|N2O) (level|concentration)"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "ozone"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "ozone"
+          },
+          "expansion_rules": {
+            "class": "(ozone|O3) level"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "pm1"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "pm1"
+          },
+          "expansion_rules": {
+            "class": "((level|concentration) [of] PM1 [particles]|PM1 [particles] [level|concentration])"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "pm25"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "pm25"
+          },
+          "expansion_rules": {
+            "class": "((level|concentration) [of] PM2.5 [particles]|PM2.5 [particles] [level|concentration])"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "pm10"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "pm10"
+          },
+          "expansion_rules": {
+            "class": "((level|concentration) [of] PM10 [particles]|PM10 [particles] [level|concentration])"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "power_factor"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "power_factor"
+          },
+          "expansion_rules": {
+            "class": "power factor"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "power"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "power"
+          },
+          "expansion_rules": {
+            "class": "power"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "precipitation"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "precipitation"
+          },
+          "expansion_rules": {
+            "class": "[accumulated] (precipitation|(rain|snow)[fall]) [level|quantity]"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "precipitation_intensity"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "precipitation_intensity"
+          },
+          "expansion_rules": {
+            "class": "(precipitation|(rain|snow)[fall]) (intensity|rate)"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "pressure"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "pressure"
+          },
+          "expansion_rules": {
+            "class": "pressure"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "reactive_power"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "reactive_power"
+          },
+          "expansion_rules": {
+            "class": "reactive power"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "signal_strength"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "signal_strength"
+          },
+          "expansion_rules": {
+            "class": "signal strength"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "sound_pressure"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "sound_pressure"
+          },
+          "expansion_rules": {
+            "class": "(sound|acoustic) pressure"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "speed"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "speed"
+          },
+          "expansion_rules": {
+            "class": "(speed|velocity)"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "sulphur_dioxide"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "sulphur_dioxide"
+          },
+          "expansion_rules": {
+            "class": "(sulphur dioxide|SO2) (level|concentration)"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "temperature"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "temperature"
+          },
+          "expansion_rules": {
+            "class": "temperature"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "volatile_organic_compounds"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "volatile_organic_compounds"
+          },
+          "expansion_rules": {
+            "class": "[concentration of] (VOC[s]|[volatile] organic compound[s])"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "volatile_organic_compounds_parts"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "volatile_organic_compounds_parts"
+          },
+          "expansion_rules": {
+            "class": "[(concentration|ratio) of] (VOC[s]|[volatile] organic compound[s])"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "voltage"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "voltage"
+          },
+          "expansion_rules": {
+            "class": "voltage [drop]"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "volume"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "volume"
+          },
+          "expansion_rules": {
+            "class": "volume"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "volume_storage"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "volume_storage"
+          },
+          "expansion_rules": {
+            "class": "[total] [stored] volume"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "water"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "water"
+          },
+          "expansion_rules": {
+            "class": "[total] ([amount of] [consumed] water|water consumption)"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "weight"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "weight"
+          },
+          "expansion_rules": {
+            "class": "(weight|mass)"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is_the_class_of_name>"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "sensor",
+            "device_class": "wind_speed"
+          },
+          "slots": {
+            "domain": "sensor",
+            "device_class": "wind_speed"
+          },
+          "expansion_rules": {
+            "class": "[wind] (speed|velocity)"
+          }
+        },
+        {
+          "sentences": [
+            "(is|are) <name> ([<currently>];{lock_states:state}[ in <area>])"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "lock"
+          },
+          "slots": {
+            "domain": "lock"
+          }
+        },
+        {
+          "sentences": [
+            "((is|are)[ there]|do I have) any <lockable> ([<currently>];{lock_states:state}[ in <area>])",
+            "((is|are)[ there]|do I have) any ([<currently>];{lock_states:state} <lockable>[ in <area>])"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "lock"
+          }
+        },
+        {
+          "sentences": [
+            "are all <lockable> ([<currently>];{lock_states:state}[ in <area>])"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "lock"
+          }
+        },
+        {
+          "sentences": [
+            "(which|what) <lockable> (is|are) ([<currently>];{lock_states:state}[ in <area>])"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "lock"
+          }
+        },
+        {
+          "sentences": [
+            "how many <lockable> (is|are) ([<currently>];{lock_states:state}[ in <area>])"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "lock"
+          }
+        },
+        {
+          "sentences": [
+            "tell me the[ current] status of <name>[ in <area>][ <currently>]"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "lock"
+          },
+          "slots": {
+            "domain": "lock"
+          }
+        },
+        {
+          "sentences": [
+            "(do you know|tell me|<what_is>) [the [current] (state|value) of] <name> [in <area>]"
+          ],
+          "response": "one",
+          "excludes_context": {
+            "domain": [
+              "scene",
+              "script"
+            ]
+          }
+        },
+        {
+          "sentences": [
+            "is [the] [state of] <name> {on_off_states:state} [in <area>]"
+          ],
+          "response": "one_yesno",
+          "excludes_context": {
+            "domain": [
+              "cover"
+            ]
+          }
+        },
+        {
+          "sentences": [
+            "(is|are) [there] any {on_off_domains:domain} {on_off_states:state} [in <area>]",
+            "(do you know|tell me) if there are any {on_off_domains:domain} {on_off_states:state} [in <area>]"
+          ],
+          "response": "any"
+        },
+        {
+          "sentences": [
+            "are all [the] {on_off_domains:domain} [(switched|turned|set[ to])] {on_off_states:state} [in <area>]",
+            "are all [the] {on_off_domains:domain} in <area> [(switched|turned|set[ to])] {on_off_states:state}"
+          ],
+          "response": "all"
+        },
+        {
+          "sentences": [
+            "[do you know] (which|what) {on_off_domains:domain} (is|are) {on_off_states:state} [in <area>]"
+          ],
+          "response": "which"
+        },
+        {
+          "sentences": [
+            "[tell me] how many {on_off_domains:domain} (is|are) {on_off_states:state} [in <area>]"
+          ],
+          "response": "how_many"
+        },
+        {
+          "sentences": [
+            "<is> <name> {cover_states:state} [<in_area_floor>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "cover"
+          },
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "<what_is> <state> of <name> [<in_area_floor>]"
+          ],
+          "response": "one",
+          "requires_context": {
+            "domain": "cover"
+          },
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "<are_any> {cover_classes:device_class} {cover_states:state} [<in_area_floor>]",
+            "<are_any> <area_floor> {cover_classes:device_class} {cover_states:state}"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "<are_all> {cover_classes:device_class} {cover_states:state} [<in_area_floor>]",
+            "<are_all> <area_floor> {cover_classes:device_class} {cover_states:state}"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "<which> {cover_classes:device_class} <is> {cover_states:state} [<in_area_floor>]",
+            "<which> <area_floor> {cover_classes:device_class} <is> {cover_states:state}"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "<how_many> {cover_classes:device_class} <is> {cover_states:state} [<in_area_floor>]",
+            "<how_many> <area_floor> {cover_classes:device_class} <is> {cover_states:state}"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "(is|are) <name> [battery] {bs_battery_states:state} [in <area>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "battery"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "battery"
+          }
+        },
+        {
+          "sentences": [
+            "(is|are) any batter(y|ies) {bs_battery_states:state} [in <area>]"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "battery"
+          }
+        },
+        {
+          "sentences": [
+            "are all [the] batter(y|ies) {bs_battery_states:state} [in <area>]"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "battery"
+          }
+        },
+        {
+          "sentences": [
+            "(which|what) batter(y|ies) (is|are) {bs_battery_states:state} [in <area>]"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "battery"
+          }
+        },
+        {
+          "sentences": [
+            "how many batter(y|ies) (is|are) {bs_battery_states:state} [in <area>]"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "battery"
+          }
+        },
+        {
+          "sentences": [
+            "(is|are) <name> [battery] {bs_battery_charging_states:state} [in <area>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "battery_charging"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "battery_charging"
+          }
+        },
+        {
+          "sentences": [
+            "(is|are) any batter(y|ies) {bs_battery_charging_states:state} [in <area>]"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "battery_charging"
+          }
+        },
+        {
+          "sentences": [
+            "are all [the] batter(y|ies) {bs_battery_charging_states:state} [in <area>]"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "battery_charging"
+          }
+        },
+        {
+          "sentences": [
+            "(which|what) batter(y|ies) (is|are) {bs_battery_charging_states:state} [in <area>]"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "battery_charging"
+          }
+        },
+        {
+          "sentences": [
+            "how many batter(y|ies) (is|are) {bs_battery_charging_states:state} [in <area>]"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "battery_charging"
+          }
+        },
+        {
+          "sentences": [
+            "(is|are) <name> {bs_carbon_monoxide_states:state} [in <area>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "carbon_monoxide"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "carbon_monoxide"
+          }
+        },
+        {
+          "sentences": [
+            "(is|are) any carbon monoxide sensor[s] {bs_carbon_monoxide_states:state} [in <area>]"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "carbon_monoxide"
+          }
+        },
+        {
+          "sentences": [
+            "is there [any] carbon monoxide in <area>",
+            "is [there] [any] carbon monoxide detected in <area>"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "carbon_monoxide",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "are all [the] carbon monoxide sensors {bs_carbon_monoxide_states:state} [in <area>]"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "carbon_monoxide"
+          }
+        },
+        {
+          "sentences": [
+            "(which|what) carbon monoxide sensor[s] (is|are) {bs_carbon_monoxide_states:state} [in <area>]"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "carbon_monoxide"
+          }
+        },
+        {
+          "sentences": [
+            "how many carbon monoxide sensors (is|are) {bs_carbon_monoxide_states:state} [in <area>]"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "carbon_monoxide"
+          }
+        },
+        {
+          "sentences": [
+            "(is|are) <name> {bs_cold_states:state} [in <area>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "cold"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "cold"
+          }
+        },
+        {
+          "sentences": [
+            "(is|are) any[ ](thing|sensor)[s] cold [in <area>]"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "cold",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "(which|what) (thing|sensor)[s] (is|are) cold [in <area>]"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "cold",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "how many (thing|sensor)[s] (is|are) cold [in <area>]"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "cold",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "(is|are) <name> {bs_connectivity_states:state} [in <area>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "connectivity"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "connectivity"
+          }
+        },
+        {
+          "sentences": [
+            "(is|are) any device[s] {bs_connectivity_states:state} [in <area>]"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "connectivity"
+          }
+        },
+        {
+          "sentences": [
+            "are all [the] device[s] {bs_connectivity_states:state} [in <area>]"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "connectivity"
+          }
+        },
+        {
+          "sentences": [
+            "(which|what) device[s] (is|are) {bs_connectivity_states:state} [in <area>]"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "connectivity"
+          }
+        },
+        {
+          "sentences": [
+            "how many device[s] (is|are) {bs_connectivity_states:state} [in <area>]"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "connectivity"
+          }
+        },
+        {
+          "sentences": [
+            "(is|are) <name> {bs_door_states:state} [in <area>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "door"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "door"
+          }
+        },
+        {
+          "sentences": [
+            "(is|are) <name> {bs_garage_door_states:state} [in <area>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "garage_door"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "garage_door"
+          }
+        },
+        {
+          "sentences": [
+            "(is|are) <name> {bs_gas_states:state} [in <area>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "gas"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "gas"
+          }
+        },
+        {
+          "sentences": [
+            "(is|are) any gas sensor[s] {bs_gas_states:state} [in <area>]"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "gas"
+          }
+        },
+        {
+          "sentences": [
+            "is there [any] gas in <area>",
+            "is [there] [any] gas detected in <area>"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "gas",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "are all [the] gas sensor[s] {bs_gas_states:state} [in <area>]"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "gas"
+          }
+        },
+        {
+          "sentences": [
+            "(which|what) gas sensor[s] (is|are) {bs_gas_states:state} [in <area>]"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "gas"
+          }
+        },
+        {
+          "sentences": [
+            "how many gas sensor[s] (is|are) {bs_gas_states:state} [in <area>]"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "gas"
+          }
+        },
+        {
+          "sentences": [
+            "(is|are) <name> {bs_heat_states:state} [in <area>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "heat"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "heat"
+          }
+        },
+        {
+          "sentences": [
+            "(is|are) any[ ](thing|sensor)[s] hot [in <area>]"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "heat",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "(which|what) (thing|sensor)[s] (is|are) hot [in <area>]"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "heat",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "how many (thing|sensor)[s] (is|are) hot [in <area>]"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "heat",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "(is|are) <name> {bs_light_states:state} [in <area>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "light"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "light"
+          }
+        },
+        {
+          "sentences": [
+            "(is|are) any light[s] {bs_light_states:state} [in <area>]"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "light"
+          }
+        },
+        {
+          "sentences": [
+            "are all [the] light[s] {bs_light_states:state} [in <area>]"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "light"
+          }
+        },
+        {
+          "sentences": [
+            "(which|what) light[s] (is|are) {bs_light_states:state} [in <area>]"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "light"
+          }
+        },
+        {
+          "sentences": [
+            "how many light[s] (is|are) {bs_light_states:state} [in <area>]"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "light"
+          }
+        },
+        {
+          "sentences": [
+            "(is|are) <name> {bs_lock_states:state} [in <area>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "lock"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "lock"
+          }
+        },
+        {
+          "sentences": [
+            "(is|are) <name> {bs_moisture_states:state} [in <area>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "moisture"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "moisture"
+          }
+        },
+        {
+          "sentences": [
+            "(is|are) any water sensor[s] {bs_moisture_states:state} [in <area>]",
+            "is (it|the (floor|[(water [leak[ing]]|leak[ing]|flood[ing])] sensor)) {bs_moisture_states:state} [in <area>]"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "moisture"
+          }
+        },
+        {
+          "sentences": [
+            "is [there] a[ny] (flood|leak) [detected] [in <area>]",
+            "is <area> flooded"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "moisture",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "are all [the] water sensor[s] {bs_moisture_states:state} [in <area>]"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "moisture"
+          }
+        },
+        {
+          "sentences": [
+            "(which|what) water sensor[s] (is|are) {bs_moisture_states:state} [in <area>]"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "moisture"
+          }
+        },
+        {
+          "sentences": [
+            "how many water sensor[s] (is|are) {bs_moisture_states:state} [in <area>]"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "moisture"
+          }
+        },
+        {
+          "sentences": [
+            "(is|are) <name> {bs_motion_states:state} [in <area>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "motion"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "motion"
+          }
+        },
+        {
+          "sentences": [
+            "(is|are) (any|the) motion sensor[s] {bs_motion_states:state} [in <area>]"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "motion"
+          }
+        },
+        {
+          "sentences": [
+            "is [there] [any] motion detected [in <area>]",
+            "is there [any] motion [in <area>]"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "motion",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "are all [the] motion sensor[s] {bs_motion_states:state} [in <area>]"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "motion"
+          }
+        },
+        {
+          "sentences": [
+            "(which|what) motion sensor[s] (is|are) {bs_motion_states:state} [in <area>]"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "motion"
+          }
+        },
+        {
+          "sentences": [
+            "how many motion sensor[s] (is|are) {bs_motion_states:state} [in <area>]"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "motion"
+          }
+        },
+        {
+          "sentences": [
+            "(is|are) <name> {bs_occupancy_states:state} [in <area>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "occupancy"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "occupancy"
+          }
+        },
+        {
+          "sentences": [
+            "(is|are) any occupancy sensor[s] {bs_occupancy_states:state} [in <area>]"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "occupancy"
+          }
+        },
+        {
+          "sentences": [
+            "is [there] any occupancy detected [in <area>]",
+            "is <area> occupied"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "occupancy",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "are all [the] occupancy sensor[s] {bs_occupancy_states:state} [in <area>]"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "occupancy"
+          }
+        },
+        {
+          "sentences": [
+            "(which|what) occupancy sensor[s] (is|are) {bs_occupancy_states:state} [in <area>]"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "occupancy"
+          }
+        },
+        {
+          "sentences": [
+            "how many occupancy sensor[s] (is|are) {bs_occupancy_states:state} [in <area>]"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "occupancy"
+          }
+        },
+        {
+          "sentences": [
+            "(is|are) <name> {bs_opening_states:state} [in <area>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "opening"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "opening"
+          }
+        },
+        {
+          "sentences": [
+            "(is|are) any opening[s] {bs_opening_states:state} [in <area>]"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "opening"
+          }
+        },
+        {
+          "sentences": [
+            "are all [the] opening[s] {bs_opening_states:state} [in <area>]"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "opening"
+          }
+        },
+        {
+          "sentences": [
+            "(which|what) opening[s] (is|are) {bs_opening_states:state} [in <area>]"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "opening"
+          }
+        },
+        {
+          "sentences": [
+            "how many opening[s] (is|are) {bs_opening_states:state} [in <area>]"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "opening"
+          }
+        },
+        {
+          "sentences": [
+            "(is|are) <name> {bs_plug_states:state} [in <area>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "plug"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "plug"
+          }
+        },
+        {
+          "sentences": [
+            "(is|are) any (thing[s]|device[s]) {bs_plug_states:state} [in <area>]"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "plug"
+          }
+        },
+        {
+          "sentences": [
+            "are all [the] (thing[s]|device[s]) {bs_plug_states:state} [in <area>]"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "plug"
+          }
+        },
+        {
+          "sentences": [
+            "(which|what) (thing[s]|device[s]) (is|are) {bs_plug_states:state} [in <area>]"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "plug"
+          }
+        },
+        {
+          "sentences": [
+            "how many (thing[s]|device[s]) (is|are) {bs_plug_states:state} [in <area>]"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "plug"
+          }
+        },
+        {
+          "sentences": [
+            "(is|are) <name> {bs_power_states:state} [in <area>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "power"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "power"
+          }
+        },
+        {
+          "sentences": [
+            "(is|are) any (thing[s]|device[s]) {bs_power_states:state} [in <area>]"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "power"
+          }
+        },
+        {
+          "sentences": [
+            "are all [the] (thing[s]|device[s]) {bs_power_states:state} [in <area>]"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "power"
+          }
+        },
+        {
+          "sentences": [
+            "(which|what) (thing[s]|device[s]) (is|are) {bs_power_states:state} [in <area>]"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "power"
+          }
+        },
+        {
+          "sentences": [
+            "how many (thing[s]|device[s]) (is|are) {bs_power_states:state} [in <area>]"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "power"
+          }
+        },
+        {
+          "sentences": [
+            "(is|are) <name> {bs_presence_states:state} [in <area>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "presence"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "presence"
+          }
+        },
+        {
+          "sentences": [
+            "(is|are) any (thing[s]|device[s]) {bs_presence_states:state} [in <area>]"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "presence"
+          }
+        },
+        {
+          "sentences": [
+            "are all [the] (thing[s]|device[s]) {bs_presence_states:state} [in <area>]"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "presence"
+          }
+        },
+        {
+          "sentences": [
+            "(which|what) (thing[s]|device[s]) (is|are) {bs_presence_states:state} [in <area>]"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "presence"
+          }
+        },
+        {
+          "sentences": [
+            "how many (thing[s]|device[s]) (is|are) {bs_presence_states:state} [in <area>]"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "presence"
+          }
+        },
+        {
+          "sentences": [
+            "are there [any] problems with <name> [in <area>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "problem"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "problem",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "(is|are) <name> {bs_running_states:state} [in <area>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "running"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "running"
+          }
+        },
+        {
+          "sentences": [
+            "(is|are) any (thing[s]|device[s]) {bs_running_states:state} [in <area>]"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "running"
+          }
+        },
+        {
+          "sentences": [
+            "are all [the] (thing[s]|device[s]) {bs_running_states:state} [in <area>]"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "running"
+          }
+        },
+        {
+          "sentences": [
+            "(which|what) (thing[s]|device[s]) (is|are) {bs_running_states:state} [in <area>]"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "running"
+          }
+        },
+        {
+          "sentences": [
+            "how many (thing[s]|device[s]) (is|are) {bs_running_states:state} [in <area>]"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "running"
+          }
+        },
+        {
+          "sentences": [
+            "(is|are) <name> {bs_safety_states:state} [in <area>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "safety"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "safety"
+          }
+        },
+        {
+          "sentences": [
+            "(is|are) <name> {bs_smoke_states:state} [in <area>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "smoke"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "smoke"
+          }
+        },
+        {
+          "sentences": [
+            "(is|are) any smoke sensor[s] {bs_smoke_states:state} [in <area>]"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "smoke"
+          }
+        },
+        {
+          "sentences": [
+            "is [there] [any] smoke in <area>"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "smoke",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "are all [the] smoke sensor[s] {bs_smoke_states:state} [in <area>]"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "smoke"
+          }
+        },
+        {
+          "sentences": [
+            "(which|what) smoke sensor[s] (is|are) {bs_smoke_states:state} [in <area>]"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "smoke"
+          }
+        },
+        {
+          "sentences": [
+            "how many smoke sensor[s] (is|are) {bs_smoke_states:state} [in <area>]"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "smoke"
+          }
+        },
+        {
+          "sentences": [
+            "(is|are) <name> {bs_sound_states:state} [in <area>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "sound"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "sound"
+          }
+        },
+        {
+          "sentences": [
+            "(is|are) any (noise|sound) sensor[s] {bs_sound_states:state} [in <area>]"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "sound"
+          }
+        },
+        {
+          "sentences": [
+            "is [there] [any] noise in <area>"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "sound",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "are all [the] (noise|sound) sensor[s] {bs_sound_states:state} [in <area>]"
+          ],
+          "response": "all",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "sound"
+          }
+        },
+        {
+          "sentences": [
+            "(which|what) (noise|sound) sensor[s] (is|are) {bs_sound_states:state} [in <area>]"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "sound"
+          }
+        },
+        {
+          "sentences": [
+            "how many (noise|sound) sensor[s] (is|are) {bs_sound_states:state} [in <area>]"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "sound"
+          }
+        },
+        {
+          "sentences": [
+            "(is|are) <name> {bs_tamper_states:state} [in <area>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "tamper"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "tamper"
+          }
+        },
+        {
+          "sentences": [
+            "(is|are) <name> {bs_update_states:state} [in <area>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "update"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "update"
+          }
+        },
+        {
+          "sentences": [
+            "are [there] any [(firmware|software)] updates [available] [in <area>]"
+          ],
+          "response": "any",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "update",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "(which|what) [(firmware|software)] updates are (there|available) [in <area>]"
+          ],
+          "response": "which",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "update",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "how many [(firmware|software)] updates are (there|available) [in <area>]"
+          ],
+          "response": "how_many",
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "update",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "(is|are) <name> {bs_vibration_states:state} [in <area>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "vibration"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "vibration"
+          }
+        },
+        {
+          "sentences": [
+            "is anything vibrating [in <area>]"
+          ],
+          "response": "any",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "vibration"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "vibration",
+            "state": "on"
+          }
+        },
+        {
+          "sentences": [
+            "(is|are) <name> {bs_window_states:state} [in <area>]"
+          ],
+          "response": "one_yesno",
+          "requires_context": {
+            "domain": "binary_sensor",
+            "device_class": "window"
+          },
+          "slots": {
+            "domain": "binary_sensor",
+            "device_class": "window"
+          }
+        }
+      ]
+    },
+    "HassCancelTimer": {
+      "data": [
+        {
+          "sentences": [
+            "<timer_cancel>[ the| my] timer",
+            "<timer_cancel>[ the| my] <timer_start> timer",
+            "<timer_cancel>[ the| my] timer for <timer_start>",
+            "<timer_cancel>[ the| my] {area} timer",
+            "<timer_cancel>[ the| my] timer in <area>",
+            "<timer_cancel>[ the| my] {timer_name:name} timer",
+            "<timer_cancel>[ the| my] timer for {timer_name:name}"
+          ]
+        }
+      ]
+    },
+    "HassTimerStatus": {
+      "data": [
+        {
+          "sentences": [
+            "timer[s] status",
+            "status of[ the| my] timer[s]",
+            "[how much ]time[ is] left on[ the| my] timer[s]",
+            "<timer_start> timer status",
+            "status of[ the| my] <timer_start> timer",
+            "[how much ]time[ is] left on[ the| my] <timer_start> timer",
+            "{area} timer status",
+            "status of[ the| my] {area} timer[s]",
+            "status of[ the| my] timer[s] in <area>",
+            "[how much ]time[ is] left on[ the| my] {area} timer",
+            "[how much ]time[ is] left on[ the| my] timer[s] in <area>",
+            "{timer_name:name} timer status",
+            "status of[ the| my] {timer_name:name} timer[s]",
+            "[how much ]time[ is] left on[ the| my] {timer_name:name} timer"
+          ]
+        }
+      ]
+    },
+    "HassGetWeather": {
+      "data": [
+        {
+          "sentences": [
+            "<what_is>[ the] weather[ like]"
+          ]
+        },
+        {
+          "sentences": [
+            "<what_is>[ the] weather[ like] (for|in|at) <name>",
+            "<what_is>[ the] weather (for|in|at) <name>[ like]",
+            "<what_is>[ the] <name> weather[ like]"
+          ],
+          "requires_context": {
+            "domain": "weather"
+          }
+        }
+      ]
+    },
+    "HassGetCurrentTime": {
+      "data": [
+        {
+          "sentences": [
+            "(<what_is>|tell me) the [current] time",
+            "what time is it[ [right ]now]"
+          ]
+        }
+      ]
+    },
+    "HassTurnOn": {
+      "data": [
+        {
+          "sentences": [
+            "<turn> on (<area> <name> <light_devices>|<name> <light_devices> [in <area>])",
+            "[<turn>] (<area> <name> <light_devices>|<name> <light_devices> [in <area>]) [to] on",
+            "activate (<area> <name> <light_devices>|<name> <light_devices> [in <area>])"
+          ],
+          "expansion_rules": {
+            "light_devices": "(light[s]|[light] switch[es])"
+          },
+          "requires_context": {
+            "domain": "light"
+          }
+        },
+        {
+          "sentences": [
+            "<turn> on [all] <light> in <area>",
+            "<turn> on [all] <area> <light>",
+            "[<turn>] [all] <area> <light> on",
+            "[<turn>] [all] <light> [in] <area> on",
+            "activate [all] <light> [in] <area>",
+            "activate [all] <area> <light>",
+            "<light> on in <area>"
+          ],
+          "slots": {
+            "domain": "light"
+          },
+          "response": "lights_area"
+        },
+        {
+          "sentences": [
+            "<turn> <all> <light> on <everywhere>",
+            "<turn> on <all> <light> <everywhere>",
+            "activate <all> <light> <everywhere>",
+            "<turn> <light> on <everywhere>",
+            "<turn> on <light> <everywhere>",
+            "activate <light> <everywhere>",
+            "<turn> <all> <light> on",
+            "<turn> on <all> <light>",
+            "activate <all> <light>"
+          ],
+          "response": "light_all",
+          "slots": {
+            "domain": "light"
+          }
+        },
+        {
+          "sentences": [
+            "<turn> <all> <light> on <here>",
+            "<turn> <light> on <here>",
+            "<turn> <all> <light> <here> on",
+            "<turn> <light> <here> on",
+            "<turn> on <all> <light> <here>",
+            "<turn> on <light> <here>",
+            "activate <all> <light> <here>",
+            "activate <light> <here>",
+            "<turn> <light> on",
+            "<turn> on <light>",
+            "activate <light>",
+            "<light> on"
+          ],
+          "response": "lights_area",
+          "slots": {
+            "domain": "light"
+          },
+          "requires_context": {
+            "area": {
+              "slot": true
+            }
+          }
+        },
+        {
+          "sentences": [
+            "<turn> on <all> <light> (on|in) <floor>",
+            "<turn> on <all> <light> <floor>",
+            "<turn> on <all> <floor> <light>",
+            "<turn> <floor> <light> on",
+            "<floor> <light> on",
+            "activate <all> <floor> <light>",
+            "activate <all> <light> (on|in) <floor>"
+          ],
+          "response": "lights_floor",
+          "slots": {
+            "domain": "light"
+          }
+        },
+        {
+          "sentences": [
+            "<turn> on [all] [the] fan[s] in <area>",
+            "<turn> on <area> fan[s]",
+            "[<turn>] [all] <area> fan[s] on",
+            "activate [all] <area> fan[s]",
+            "activate [all] fan[s] [in] <area>"
+          ],
+          "slots": {
+            "domain": "fan",
+            "name": "all"
+          },
+          "response": "fans_area"
+        },
+        {
+          "sentences": [
+            "<turn> on[ all][ the] fan[s][<in_here>]",
+            "<turn>[ all][ the] fan[s]( on;<in_here>)",
+            "<turn>[ all][ the] fan[s] on"
+          ],
+          "response": "fans_area",
+          "expansion_rules": {
+            "in_here": "[ in] here"
+          },
+          "slots": {
+            "domain": "fan"
+          },
+          "requires_context": {
+            "area": {
+              "slot": true
+            }
+          }
+        },
+        {
+          "sentences": [
+            "[run|start|<turn>] <name> [script] [on]"
+          ],
+          "requires_context": {
+            "domain": "script"
+          },
+          "slots": {
+            "domain": "script"
+          },
+          "response": "script"
+        },
+        {
+          "sentences": [
+            "[activate] <name> [scene]",
+            "<name> on",
+            "<turn> (<name> [scene];on)",
+            "(change|transition) to (<name> [scene]|scene <name>)"
+          ],
+          "requires_context": {
+            "domain": "scene"
+          },
+          "slots": {
+            "domain": "scene"
+          },
+          "response": "scene"
+        },
+        {
+          "sentences": [
+            "[activate] <area> <name> [scene]",
+            "<area> <name> on",
+            "<turn> (<area> <name> [scene];on)",
+            "[activate] <name> [scene] <in> <area>",
+            "<turn> (<name> [scene] <in> <area>;on)",
+            "(change|transition) ([to] <area> <name>|<area> to <name>) [scene]",
+            "(change|transition) to <name> [scene] <in> <area>"
+          ],
+          "requires_context": {
+            "domain": "scene"
+          },
+          "slots": {
+            "domain": "scene"
+          },
+          "response": "scene"
+        },
+        {
+          "sentences": [
+            "<open> <name>"
+          ],
+          "requires_context": {
+            "domain": "valve"
+          },
+          "slots": {
+            "domain": "valve"
+          },
+          "response": "valve"
+        },
+        {
+          "sentences": [
+            "lock <name>[ in <area>]"
+          ],
+          "requires_context": {
+            "domain": "lock"
+          },
+          "response": "lock"
+        },
+        {
+          "sentences": [
+            "lock[ all] <lockable>[ in] <area>",
+            "lock[ all] <area>[ <lockable>]",
+            "lock all[ of] <lockable>"
+          ],
+          "slots": {
+            "domain": "lock"
+          },
+          "response": "lock"
+        },
+        {
+          "sentences": [
+            "<turn> on (<area> <name>|<name> [in <area>])",
+            "[<turn>] (<area> <name>|<name> [in <area>]) [to] on",
+            "activate (<area> <name>|<name> [in <area>])"
+          ],
+          "excludes_context": {
+            "domain": [
+              "binary_sensor",
+              "cover",
+              "lock",
+              "scene",
+              "script",
+              "sensor",
+              "valve"
+            ]
+          }
+        },
+        {
+          "sentences": [
+            "<open> <name> [in <area>]"
+          ],
+          "requires_context": {
+            "domain": "cover"
+          },
+          "response": "cover"
+        },
+        {
+          "sentences": [
+            "<open> [the] garage door"
+          ],
+          "slots": {
+            "domain": "cover",
+            "device_class": "garage"
+          },
+          "response": "cover_device_class"
+        },
+        {
+          "sentences": [
+            "<open> [the] {cover_classes:device_class} in <area>",
+            "<open> <area> {cover_classes:device_class}"
+          ],
+          "slots": {
+            "domain": "cover"
+          },
+          "response": "cover_device_class"
+        },
+        {
+          "sentences": [
+            "<open> [the] {cover_classes:device_class}[<in_here>]"
+          ],
+          "expansion_rules": {
+            "in_here": "[ in] here"
+          },
+          "slots": {
+            "domain": "cover"
+          },
+          "response": "cover_device_class",
+          "requires_context": {
+            "area": {
+              "slot": true
+            }
+          }
+        }
+      ]
+    },
+    "HassMediaUnpause": {
+      "data": [
+        {
+          "sentences": [
+            "((unpause|resume);<name>)"
+          ],
+          "requires_context": {
+            "domain": "media_player"
+          }
+        },
+        {
+          "sentences": [
+            "(unpause|resume)"
+          ],
+          "requires_context": {
+            "area": {
+              "slot": true
+            }
+          }
+        },
+        {
+          "sentences": [
+            "(unpause|resume)[ [the |my ](music|[tv ]show[s]|media[ player[s]]) ][ in] <area>",
+            "(unpause|resume) <area> (music|[tv ]show[s]|media[ player[s]])"
+          ]
+        }
+      ]
+    },
+    "HassShoppingListAddItem": {
+      "data": [
+        {
+          "sentences": [
+            "add <item> to<my_list>",
+            "put <item> (on|in)<my_list>"
+          ],
+          "response": "item_added",
+          "expansion_rules": {
+            "my_list": "[ my| the][ shopping] list",
+            "item": "{shopping_list_item:item}"
+          }
+        }
+      ]
+    },
+    "HassNevermind": {
+      "data": [
+        {
+          "sentences": [
+            "nevermind",
+            "never mind"
+          ]
+        }
+      ]
+    },
+    "HassSetPosition": {
+      "data": [
+        {
+          "sentences": [
+            "(<numeric_value_set>|<open>|<close>) <name> [position ]to <position>"
+          ],
+          "requires_context": {
+            "domain": "valve"
+          },
+          "slots": {
+            "domain": "valve"
+          }
+        },
+        {
+          "sentences": [
+            "(<numeric_value_set>|<open>|<close>) <name> [position ]to <position>"
+          ],
+          "requires_context": {
+            "domain": "cover"
+          },
+          "slots": {
+            "domain": "cover"
+          }
+        },
+        {
+          "sentences": [
+            "(<numeric_value_set>|<open>|<close>) [the ]{cover_classes:device_class}[ position] (to <position>;in <area>)",
+            "(<numeric_value_set>|<open>|<close>) <area> {cover_classes:device_class}[ position] to <position>"
+          ],
+          "slots": {
+            "domain": "cover"
+          }
+        }
+      ]
+    },
+    "HassGetCurrentDate": {
+      "data": [
+        {
+          "sentences": [
+            "(<what_is>|tell me) (todays|today's|the current) date",
+            "(<what_is>|tell me) the date[ today]"
+          ]
+        }
+      ]
+    },
+    "HassIncreaseTimer": {
+      "data": [
+        {
+          "sentences": [
+            "add <timer_duration> to[ the| my] timer",
+            "add <timer_duration> to[ the| my] <timer_start> timer",
+            "add <timer_duration> to[ the| my] timer for <timer_start>",
+            "add <timer_duration> to[ the| my] {area} timer",
+            "add <timer_duration> to[ the| my] timer in <area>",
+            "add <timer_duration> to[ the| my] {timer_name:name} timer",
+            "add <timer_duration> to[ the| my] timer (named|called|for) {timer_name:name}"
+          ]
+        },
+        {
+          "sentences": [
+            "increase[ the| my] timer by <timer_duration>",
+            "increase[ the| my] <timer_start> timer by <timer_duration>",
+            "increase[ the| my] timer for <timer_start> by <timer_duration>",
+            "increase[ the| my] {area} timer by <timer_duration>",
+            "increase[ the| my] timer in <area> by <timer_duration>",
+            "increase[ the| my] {timer_name:name} timer by <timer_duration>",
+            "increase[ the| my] timer (named|called|for) {timer_name:name} by <timer_duration>"
+          ]
+        }
+      ]
+    },
+    "HassLightSet": {
+      "data": [
+        {
+          "sentences": [
+            "[<numeric_value_set>] <name> brightness [to] <brightness>",
+            "[<numeric_value_set>] [the] brightness [of] <name> [to] <brightness>",
+            "[<numeric_value_set>] <name> [to] <brightness> [brightness]"
+          ],
+          "response": "brightness",
+          "requires_context": {
+            "domain": "light"
+          }
+        },
+        {
+          "sentences": [
+            "<numeric_value_set> <name> to <brightness>"
+          ],
+          "requires_context": {
+            "domain": "light"
+          },
+          "response": "brightness"
+        },
+        {
+          "sentences": [
+            "[<numeric_value_set>] [the] brightness in <area> to <brightness>",
+            "[<numeric_value_set>] [the] brightness of <area> to <brightness>",
+            "[<numeric_value_set>] <area> brightness [to] <brightness>",
+            "[<numeric_value_set>] <area> [to] <brightness> brightness",
+            "[<numeric_value_set>] <area> [to] <brightness>",
+            "[<numeric_value_set>] [all] [the] lights [<in>] <area> to <brightness> [brightness]"
+          ],
+          "response": "brightness"
+        },
+        {
+          "sentences": [
+            "<numeric_value_set> <area> to <brightness>"
+          ],
+          "response": "brightness"
+        },
+        {
+          "sentences": [
+            "[<numeric_value_set>] [the] brightness to <brightness>",
+            "[<numeric_value_set>] [the] brightness (<in_here>;to <brightness>)"
+          ],
+          "expansion_rules": {
+            "in_here": "[ in] here"
+          },
+          "response": "brightness",
+          "requires_context": {
+            "area": {
+              "slot": true
+            }
+          }
+        },
+        {
+          "sentences": [
+            "[<numeric_value_set>] <name> brightness to [the] {brightness_level:brightness}",
+            "[<numeric_value_set>] [the] brightness of <name> to [the] {brightness_level:brightness}",
+            "[<numeric_value_set>] <name> [to] [the] {brightness_level:brightness} brightness"
+          ],
+          "requires_context": {
+            "domain": "light"
+          },
+          "response": "brightness"
+        },
+        {
+          "sentences": [
+            "[<numeric_value_set>] [the] brightness in <area> to [the] {brightness_level:brightness}",
+            "[<numeric_value_set>] [the] brightness of <area> to [the] {brightness_level:brightness}",
+            "[<numeric_value_set>] <area> brightness to [the] {brightness_level:brightness}",
+            "[<numeric_value_set>] <area> [to] [the] {brightness_level:brightness} brightness"
+          ],
+          "response": "brightness"
+        },
+        {
+          "sentences": [
+            "[<numeric_value_set>] [the] brightness to [the] {brightness_level:brightness}",
+            "[<numeric_value_set>] [the] brightness (<in_here>;to [the] {brightness_level:brightness})"
+          ],
+          "expansion_rules": {
+            "in_here": "[ in] here"
+          },
+          "response": "brightness",
+          "requires_context": {
+            "area": {
+              "slot": true
+            }
+          }
+        },
+        {
+          "sentences": [
+            "[<numeric_value_set>] <floor> brightness [to] <brightness>"
+          ],
+          "response": "brightness"
+        },
+        {
+          "sentences": [
+            "[<set>] <name> [color] [to] {color}",
+            "[<set>] [[the] color of] <name> to {color}"
+          ],
+          "requires_context": {
+            "domain": "light"
+          },
+          "response": "color"
+        },
+        {
+          "sentences": [
+            "[<set>] [[the] color of] (<area> | [all [the]] lights in <area> | [all] <area> lights) [to] {color}",
+            "[<set>] (<area> | [all] lights in <area> | [all] <area> lights) [color] [to] {color}"
+          ],
+          "response": "color"
+        },
+        {
+          "sentences": [
+            "[<set>] [[the] color of] [all] <light> [to] {color}",
+            "[<set>] [[the] color of] [all] <light> (<in_here>;[to] {color})"
+          ],
+          "expansion_rules": {
+            "in_here": "[ in] here"
+          },
+          "response": "color",
+          "requires_context": {
+            "area": {
+              "slot": true
+            }
+          }
+        },
+        {
+          "sentences": [
+            "[<set>] <floor> [color] [to] {color}"
+          ],
+          "response": "color"
+        }
+      ]
+    },
+    "HassMediaNext": {
+      "data": [
+        {
+          "sentences": [
+            "next [track|item] [on|for] <name>",
+            "(skip [(to [the ]next [(song|track)]|([the ](song|track)|this [(song|track)]) )];[on ]<name>)"
+          ],
+          "requires_context": {
+            "domain": "media_player"
+          }
+        },
+        {
+          "sentences": [
+            "next [track|item]",
+            "(skip [(to [the ]next [(song|track)]|([the ](song|track)|this [(song|track)]))])"
+          ],
+          "requires_context": {
+            "area": {
+              "slot": true
+            }
+          }
+        },
+        {
+          "sentences": [
+            "next [track|item] [in ]<area>",
+            "(skip [(to [the ]next [(song|track)]|([the ](song|track)|this [(song|track)]) )];[in ]<area>)"
+          ]
+        }
+      ]
+    },
+    "HassPauseTimer": {
+      "data": [
+        {
+          "sentences": [
+            "pause[ the| my] timer",
+            "pause[ the| my] <timer_start> timer",
+            "pause[ the| my] timer for <timer_start>",
+            "pause[ the| my] {area} timer",
+            "pause[ the| my] timer in <area>",
+            "pause[ the| my] {timer_name:name} timer",
+            "pause[ the| my] timer (named|called|for) {timer_name:name}"
+          ]
+        }
+      ]
+    },
+    "HassDecreaseTimer": {
+      "data": [
+        {
+          "sentences": [
+            "remove <timer_duration> from[ the| my] timer",
+            "remove <timer_duration> from[ the| my] <timer_start> timer",
+            "remove <timer_duration> from[ the| my] timer for <timer_start>",
+            "remove <timer_duration> from[ the| my] {area} timer",
+            "remove <timer_duration> from[ the| my] timer in <area>",
+            "remove <timer_duration> from[ the| my] {timer_name:name} timer",
+            "remove <timer_duration> from[ the| my] timer (named|called|for) {timer_name:name}"
+          ]
+        },
+        {
+          "sentences": [
+            "decrease[ the| my] timer by <timer_duration>",
+            "decrease[ the| my] <timer_start> timer by <timer_duration>",
+            "decrease[ the| my] timer for <timer_start> by <timer_duration>",
+            "decrease[ the| my] {area} timer by <timer_duration>",
+            "decrease[ the| my] timer in <area> by <timer_duration>",
+            "decrease[ the| my] {timer_name:name} timer by <timer_duration>",
+            "decrease[ the| my] timer (named|called|for) {timer_name:name} by <timer_duration>"
+          ]
+        }
+      ]
+    },
+    "HassMediaPause": {
+      "data": [
+        {
+          "sentences": [
+            "(pause;<name>)"
+          ],
+          "requires_context": {
+            "domain": "media_player"
+          }
+        },
+        {
+          "sentences": [
+            "pause"
+          ],
+          "requires_context": {
+            "area": {
+              "slot": true
+            }
+          }
+        },
+        {
+          "sentences": [
+            "pause[ [the |my ](music|[tv ]show[s]|media[ player[s]]) ][ in] <area>",
+            "pause <area> (music|[tv ]show[s]|media[ player[s]])"
+          ]
+        }
+      ]
+    },
+    "HassUnpauseTimer": {
+      "data": [
+        {
+          "sentences": [
+            "(resume|continue)[ the| my] timer",
+            "(resume|continue)[ the| my] <timer_start> timer",
+            "(resume|continue)[ the| my] timer for <timer_start>",
+            "(resume|continue)[ the| my] {area} timer",
+            "(resume|continue)[ the| my] timer in <area>",
+            "(resume|continue)[ the| my] timer (named|called|for) {timer_name:name}",
+            "(resume|continue)[ the| my] {timer_name:name} timer"
+          ]
+        }
+      ]
+    },
+    "HassStartTimer": {
+      "data": [
+        {
+          "sentences": [
+            "<timer_duration> timer",
+            "timer for <timer_duration>",
+            "<timer_duration> timer for {timer_name:name}",
+            "timer for <timer_duration> (named|called) {timer_name:name}",
+            "<timer_set>[ a| the| my] <timer_duration> timer",
+            "<timer_set>[ a| the| my] timer for <timer_duration>",
+            "<timer_set>[ a| the| my] <timer_duration> timer (named|called|for) {timer_name:name}",
+            "<timer_set>[ a| the| my] timer (named|called) {timer_name:name} for <timer_duration>",
+            "<timer_set>[ a| the| my] timer for <timer_duration> (named|called) {timer_name:name}"
+          ]
+        },
+        {
+          "sentences": [
+            "{timer_command:conversation_command} in <timer_duration>",
+            "in <timer_duration> {timer_command:conversation_command}"
+          ],
+          "response": "command"
+        }
+      ]
+    },
+    "HassClimateGetTemperature": {
+      "data": [
+        {
+          "sentences": [
+            "<what_is> [the][ current] <temp> [in <area>]",
+            "how (hot | cold | warm | cool) is it [in <area>]",
+            "is it (hot | cold | warm | cool) [in <area>]",
+            "<what_is> <area>[ current] <temp>"
+          ]
+        },
+        {
+          "sentences": [
+            "<what_is> <name>[ current] <temp>",
+            "<what_is>[ the][ current] <temp>[ of] <name>",
+            "how (hot | cold | warm | cool) is <name>"
+          ],
+          "requires_context": {
+            "domain": "climate"
+          }
+        }
+      ]
+    },
+    "HassVacuumReturnToBase": {
+      "data": [
+        {
+          "sentences": [
+            "return <name>[to base]"
+          ],
+          "requires_context": {
+            "domain": "vacuum"
+          }
+        }
+      ]
+    },
+    "HassVacuumStart": {
+      "data": [
+        {
+          "sentences": [
+            "start <name>"
+          ],
+          "requires_context": {
+            "domain": "vacuum"
+          }
+        }
+      ]
+    },
+    "HassMediaPrevious": {
+      "data": [
+        {
+          "sentences": [
+            "(go back[ to the (previous|last) (song|track)];[on ]<name>)",
+            "replay [the (previous|last) (song|track) ]on <name>",
+            "<name> (play|replay) [the ](previous|last)[ (song|track)][ again]"
+          ],
+          "requires_context": {
+            "domain": "media_player"
+          }
+        },
+        {
+          "sentences": [
+            "go back[ to the (previous|last) (song|track)]",
+            "replay[ the (previous|last) (song|track)][ again]",
+            "play [the ](previous|last)[ (song|track)][ again]"
+          ],
+          "requires_context": {
+            "area": {
+              "slot": true
+            }
+          }
+        },
+        {
+          "sentences": [
+            "go back[ to the (previous|last) (song|track)] [in ]<area>",
+            "(replay[ the (previous|last) (song|track)][ again];[in ]<area>)",
+            "(play[ the] (previous|last) [(song|track) ][again];[in ]<area>)"
+          ]
+        }
+      ]
+    },
+    "HassListAddItem": {
+      "data": [
+        {
+          "sentences": [
+            "add <item> to<my_list>",
+            "put <item> (on|in)<my_list>"
+          ],
+          "response": "item_added",
+          "requires_context": {
+            "domain": "todo"
+          },
+          "expansion_rules": {
+            "my_list": "[ my| the] {name}[ list]",
+            "item": "{shopping_list_item:item}"
+          }
+        }
+      ]
+    },
+    "HassSetVolume": {
+      "data": [
+        {
+          "sentences": [
+            "<numeric_value_set> <name> volume to <volume>",
+            "turn <name> [volume] (up|down) to <volume>",
+            "(<numeric_value_set> the volume to <volume>;[on ]<name>)",
+            "(turn (the volume;(up|down)) to <volume>;[on ]<name>)"
+          ],
+          "requires_context": {
+            "domain": "media_player"
+          }
+        },
+        {
+          "sentences": [
+            "<numeric_value_set> volume to <volume>",
+            "turn volume (up|down) to <volume>",
+            "<numeric_value_set> the volume to <volume>",
+            "turn (the volume;(up|down)) to <volume>"
+          ],
+          "requires_context": {
+            "area": {
+              "slot": true
+            }
+          }
+        },
+        {
+          "sentences": [
+            "<numeric_value_set> <area> volume to <volume>",
+            "turn <area> [volume] (up|down) to <volume>",
+            "turn [volume] (up|down) to <volume> [in ]<area>",
+            "(<numeric_value_set> the volume to <volume>;[in ]<area>)",
+            "<numeric_value_set> the volume [in ]<area> to <volume>",
+            "(turn (the volume;(up|down)) to <volume>;[in ]<area>)"
+          ]
+        }
+      ]
+    }
+  },
+  "responses": {
+    "errors": {
+      "no_intent": "Sorry, I couldn't understand that",
+      "handle_error": "An unexpected error occurred",
+      "no_area": "Sorry, I am not aware of any area called {{ area }}",
+      "no_floor": "Sorry, I am not aware of any floor called {{ floor }}",
+      "no_domain": "Sorry, I am not aware of any {{ domain }}",
+      "no_domain_in_area": "Sorry, I am not aware of any {{ domain }} in the {{ area }} area",
+      "no_domain_in_floor": "Sorry, I am not aware of any {{ domain }} on the {{ floor }} floor",
+      "no_device_class": "Sorry, I am not aware of any {{ device_class }}",
+      "no_device_class_in_area": "Sorry, I am not aware of any {{ device_class }} in the {{ area }} area",
+      "no_device_class_in_floor": "Sorry, I am not aware of any {{ device_class }} in the {{ floor }} floor",
+      "no_entity": "Sorry, I am not aware of any device called {{ entity }}",
+      "no_entity_in_area": "Sorry, I am not aware of any device called {{ entity }} in the {{ area }} area",
+      "no_entity_in_floor": "Sorry, I am not aware of any device called {{ entity }} in the {{ floor }} floor",
+      "entity_wrong_state": "Sorry, no device is {{ state | lower }}",
+      "feature_not_supported": "Sorry, no device supports the required features",
+      "no_entity_exposed": "Sorry, {{ entity }} is not exposed",
+      "no_entity_in_area_exposed": "Sorry, {{ entity }} in the {{ area }} area is not exposed",
+      "no_entity_in_floor_exposed": "Sorry, {{ entity }} in the {{ floor }} floor is not exposed",
+      "no_domain_exposed": "Sorry, no {{ domain }} is exposed",
+      "no_domain_in_area_exposed": "Sorry, no {{ domain }} in the {{ area }} area is exposed",
+      "no_domain_in_floor_exposed": "Sorry, no {{ domain }} in the {{ floor }} floor is exposed",
+      "no_device_class_exposed": "Sorry, no {{ device_class }} is exposed",
+      "no_device_class_in_area_exposed": "Sorry, no {{ device_class }} in the {{ area }} area is exposed",
+      "no_device_class_in_floor_exposed": "Sorry, no {{ device_class }} in the {{ floor }} floor is exposed",
+      "duplicate_entities": "Sorry, there are multiple devices called {{ entity }}",
+      "duplicate_entities_in_area": "Sorry, there are multiple devices called {{ entity }} in the {{ area }} area",
+      "duplicate_entities_in_floor": "Sorry, there are multiple devices called {{ entity }} in the {{ floor }} floor",
+      "timer_not_found": "Sorry, I couldn't find that timer",
+      "multiple_timers_matched": "Sorry, I am unable to target multiple timers",
+      "no_timer_support": "Sorry, timers are not supported on this device"
+    },
+    "intents": {
+      "HassGetState": {
+        "default": "{{ state.state_with_unit }}",
+        "one": "{{ slots.name | capitalize }} is {{ state.state_with_unit }}\n",
+        "one_yesno": "{% if query.matched %}\n  Yes\n{% else %}\n  No, {{ state.state_with_unit }}\n{% endif %}\n",
+        "any": "{% if query.matched %}\n  {% set match = query.matched | map(attribute=\"name\") | sort | list %}\n  {% if match | length > 4 %}\n    Yes, {{ match[:3] | join(\", \") }} and {{ (match | length - 3) }} more\n  {%- else -%}\n    Yes,\n    {% for name in match -%}\n      {% if not loop.first and not loop.last %}, {% elif loop.last and not loop.first %} and {% endif -%}\n      {{ name }}\n    {%- endfor -%}\n  {% endif %}\n{% else %}\n  No\n{% endif %}\n",
+        "all": "{% if not query.unmatched: %}\n  Yes\n{% else %}\n  {% set no_match = query.unmatched | map(attribute=\"name\") | sort | list %}\n  {% if no_match | length > 4 %}\n    No, {{ no_match[:3] | join(\", \") }} and {{ (no_match | length - 3) }} more are not {{ slots.state }}\n  {%- else -%}\n    No,\n    {% for name in no_match -%}\n      {% if not loop.first and not loop.last %}, {% elif loop.last and not loop.first %} and {% endif -%}\n      {{ name }}\n    {%- endfor %} {% if no_match | length > 1 %}are{% else %}is{% endif %} not {{ slots.state }}\n  {% endif %}\n{% endif %}\n",
+        "which": "{% if not query.matched %}\n  Not any\n{% else: %}\n  {% set match = query.matched | map(attribute=\"name\") | sort | list %}\n  {% if match | length > 4 %}\n    {{ match[:3] | join(\", \") }} and {{ (match | length - 3) }} more\n  {% else %}\n    {%- for name in match -%}\n      {% if not loop.first and not loop.last %}, {% elif loop.last and not loop.first %} and {% endif -%}\n      {{ name }}\n    {%- endfor -%}\n  {% endif %}\n{% endif %}\n",
+        "how_many": "{{ query.matched | length }}\n",
+        "where": "{% if state == \"not_home\" %}\n  {{ slots.name | capitalize }} is away\n{% else %}\n  {{ slots.name | capitalize }} is at {{ state.state }}\n{% endif %}\n"
+      },
+      "HassTurnOff": {
+        "default": "Turned off the {{ state.domain }}",
+        "lights_area": "Turned off the lights",
+        "lights_floor": "Turned off the lights",
+        "fans_area": "Turned off the fans",
+        "cover": "Closed",
+        "light_all": "Turned off all of the lights",
+        "fan_all": "Turned off all of the fans",
+        "cover_device_class": "Closed the {{ slots.device_class }}",
+        "lock": "Unlocked",
+        "valve": "Closed"
+      },
+      "HassStartTimer": {
+        "default": "Timer started",
+        "command": "Command received"
+      },
+      "HassShoppingListAddItem": {
+        "item_added": "Added {{ slots.item }}"
+      },
+      "HassTurnOn": {
+        "default": "Turned on the {{ state.domain }}",
+        "lights_area": "Turned on the lights",
+        "lights_floor": "Turned on the lights",
+        "light_all": "Turned on all of the lights",
+        "fans_area": "Turned on the fans",
+        "cover": "Opened",
+        "cover_device_class": "Opened the {{ slots.device_class }}",
+        "scene": "Activated",
+        "script": "Started",
+        "lock": "Locked",
+        "valve": "Opened"
+      },
+      "HassMediaPause": {
+        "default": "Paused"
+      },
+      "HassGetCurrentTime": {
+        "default": "{% set minute_str = '{0:02d}'.format(slots.time.minute) %}\n{% if slots.time.hour <= 12: %} {{ slots.time.hour }}:{{ minute_str }} AM {% else: %} {{ slots.time.hour - 12 }}:{{ minute_str }} PM {% endif %}\n"
+      },
+      "HassPauseTimer": {
+        "default": "Timer paused"
+      },
+      "HassTimerStatus": {
+        "default": "{% set num_timers = slots.timers | length %}\n{% set active_timers = slots.timers | selectattr('is_active') | list %}\n{% set num_active_timers = active_timers | length %}\n{% set paused_timers = slots.timers | rejectattr('is_active') | list %}\n{% set num_paused_timers = paused_timers | length %}\n{% set next_timer = None %}\n\n{% if num_timers == 0: %}\n  No timers.\n{% elif num_active_timers == 0: %}\n  {# No active timers #}\n  {% if num_paused_timers == 1: %}\n    {% set next_timer = paused_timers[0] %}\n    Timer is paused.\n  {% else: %}\n    {{ num_paused_timers }} paused timers.\n  {% endif %}\n{% else: %}\n  {# At least one active timer #}\n  {% if num_active_timers == 1: %}\n    {% set next_timer = active_timers[0] %}\n  {% else: %}\n    {# Get active timer that will finish soonest #}\n    {% set sorted_timers = active_timers | sort(attribute='total_seconds_left') %}\n    {% set next_timer = sorted_timers[0] %}\n    {{ num_active_timers }} running timers.\n  {% endif %}\n\n  {% if num_paused_timers == 1: %}\n    1 paused timer.\n  {% elif num_paused_timers > 0: %}\n    {{ num_paused_timers }} paused timers.\n  {% endif %}\n{% endif %}\n\n{% if next_timer: %}\n  {# At least one active timer #}\n  {% if (next_timer.rounded_hours_left == 1) and (next_timer.rounded_minutes_left > 0): %}\n    1 hour and {{ next_timer.rounded_minutes_left }} minutes\n  {% elif (next_timer.rounded_hours_left == 1): %}\n    1 hour\n  {% elif (next_timer.rounded_hours_left > 1) and (next_timer.rounded_minutes_left > 0): %}\n    {{ next_timer.rounded_hours_left }} hours and {{ next_timer.rounded_minutes_left }} minutes\n  {% elif (next_timer.rounded_hours_left > 1): %}\n    {{ next_timer.rounded_hours_left }} hours\n  {% elif (next_timer.rounded_minutes_left == 1) and (next_timer.rounded_seconds_left > 0): %}\n    1 minute and {{ next_timer.rounded_seconds_left }} seconds\n  {% elif (next_timer.rounded_minutes_left == 1): %}\n    1 minute\n  {% elif (next_timer.rounded_minutes_left > 1) and (next_timer.rounded_seconds_left > 0): %}\n    {{ next_timer.rounded_minutes_left }} minutes and {{ next_timer.rounded_seconds_left }} seconds\n  {% elif (next_timer.rounded_minutes_left > 1): %}\n    {{ next_timer.rounded_minutes_left }} minutes\n  {% elif (next_timer.rounded_seconds_left == 1): %}\n    1 second\n  {% elif (next_timer.rounded_seconds_left > 1): %}\n    {{ next_timer.rounded_seconds_left }} seconds\n  {% endif %}\n\n  {% if num_timers > 1: %}\n    {# Give some extra information to disambiguate #}\n    left on\n    {% if (next_timer.start_hours > 0) and (next_timer.start_minutes > 0): %}\n      {{ next_timer.start_hours }} hour and {{ next_timer.start_minutes }} minute\n    {% elif (next_timer.start_hours > 0): %}\n      {{ next_timer.start_hours }} hour\n    {% elif (next_timer.start_minutes > 0) and (next_timer.start_seconds > 0): %}\n      {{ next_timer.start_minutes }} minute and {{ next_timer.start_seconds }} second\n    {% elif (next_timer.start_minutes > 0): %}\n      {{ next_timer.start_minutes }} minute\n    {% elif (next_timer.start_seconds > 0): %}\n      {{ next_timer.start_seconds }} second\n    {% endif %}\n\n    {% if next_timer.name: %}\n      {{ next_timer.name }}\n    {% elif next_timer.area: %}\n      {{ next_timer.area }}\n    {% endif %}\n\n    timer.\n  {% else: %}\n    left.\n  {% endif %}\n{% endif %}\n"
+      },
+      "HassListAddItem": {
+        "item_added": "Added {{ slots.item }}"
+      },
+      "HassGetCurrentDate": {
+        "default": "{% set months = {\n   1: 'January',\n   2: 'February',\n   3: 'March',\n   4: 'April',\n   5: 'May',\n   6: 'June',\n   7: 'July',\n   8: 'August',\n   9: 'September',\n   10: 'October',\n   11: 'November',\n   12: 'December',\n} %} {% set ordinal = {\n   1: '1st',\n   2: '2nd',\n   3: '3rd',\n   4: '4th',\n   5: '5th',\n   6: '6th',\n   7: '7th',\n   8: '8th',\n   9: '9th',\n   10: '10th',\n   11: '11th',\n   12: '12th',\n   13: '13th',\n   14: '14th',\n   15: '15th',\n   16: '16th',\n   17: '17th',\n   18: '18th',\n   19: '19th',\n   20: '20th',\n   21: '21st',\n   22: '22nd',\n   23: '23rd',\n   24: '24th',\n   25: '25th',\n   26: '26th',\n   27: '27th',\n   28: '28th',\n   29: '29th',\n   30: '30th',\n   31: '31st',\n } %}\n{{ months[slots.date.month] }} {{ ordinal[slots.date.day] }}, {{ slots.date.year }}\n"
+      },
+      "HassUnpauseTimer": {
+        "default": "Timer resumed"
+      },
+      "HassMediaPrevious": {
+        "default": "Playing previous"
+      },
+      "HassGetWeather": {
+        "default": "{% set weather_condition = {\n  'clear': 'and clear',\n  'clear-night': 'and clear',\n  'cloudy': 'and cloudy',\n  'exceptional': 'and exceptional',\n  'fog': 'with fog',\n  'hail': 'with hail',\n  'lightning': 'with lightning',\n  'lightning-rainy': 'with lightning and rain',\n  'partlycloudy': 'and partly cloudy',\n  'pouring': 'and pouring rain',\n  'rainy': 'and raining',\n  'snowy': 'and snowing',\n  'snowy-rainy': 'with snow and rain',\n  'sunny': 'and sunny',\n  'windy': 'and windy',\n  'windy-variant': 'with wind and clouds'\n} %} {{ state.attributes.get('temperature') }} {{ state.attributes.get('temperature_unit') }} {{ weather_condition.get((state.state | string).lower(), \"\") }}\n"
+      },
+      "HassLightSet": {
+        "brightness": "Brightness set",
+        "color": "Color set"
+      },
+      "HassVacuumStart": {
+        "default": "Started"
+      },
+      "HassMediaUnpause": {
+        "default": "Resumed"
+      },
+      "HassSetPosition": {
+        "default": "Position set"
+      },
+      "HassMediaNext": {
+        "default": "Playing next"
+      },
+      "HassCancelTimer": {
+        "default": "Timer cancelled"
+      },
+      "HassClimateGetTemperature": {
+        "default": "{% set temperature = state_attr(state.entity_id, 'current_temperature') %} {% if temperature == 1: %} {{ temperature }} degree {% else: %} {{ temperature }} degrees {% endif %}\n"
+      },
+      "HassSetVolume": {
+        "default": "Volume set"
+      },
+      "HassDecreaseTimer": {
+        "default": "Timer updated"
+      },
+      "HassIncreaseTimer": {
+        "default": "Timer updated"
+      },
+      "HassVacuumReturnToBase": {
+        "default": "Returning"
+      }
+    }
+  },
+  "lists": {
+    "color": {
+      "values": [
+        "white",
+        "black",
+        "red",
+        "orange",
+        "yellow",
+        "green",
+        "blue",
+        "purple",
+        "brown",
+        "pink",
+        "turquoise"
+      ]
+    },
+    "brightness": {
+      "range": {
+        "type": "percentage",
+        "from": 0,
+        "to": 100
+      }
+    },
+    "temperature": {
+      "range": {
+        "type": "temperature",
+        "from": 0,
+        "to": 100
+      }
+    },
+    "temperature_unit": {
+      "values": [
+        "celsius",
+        {
+          "in": "c",
+          "out": "celsius"
+        },
+        "fahrenheit",
+        {
+          "in": "f",
+          "out": "fahrenheit"
+        }
+      ]
+    },
+    "brightness_level": {
+      "values": [
+        {
+          "in": "(max|maximum|highest)",
+          "out": 100
+        },
+        {
+          "in": "(minimum|lowest)",
+          "out": 1
+        }
+      ]
+    },
+    "on_off_states": {
+      "values": [
+        {
+          "in": "on",
+          "out": "on"
+        },
+        {
+          "in": "off",
+          "out": "off"
+        }
+      ]
+    },
+    "on_off_domains": {
+      "values": [
+        {
+          "in": "light[s]",
+          "out": "light"
+        },
+        {
+          "in": "fan[s]",
+          "out": "fan"
+        },
+        {
+          "in": "switch[es]",
+          "out": "switch"
+        }
+      ]
+    },
+    "cover_states": {
+      "values": [
+        {
+          "in": "open",
+          "out": "open"
+        },
+        {
+          "in": "closed",
+          "out": "closed"
+        },
+        {
+          "in": "opening",
+          "out": "opening"
+        },
+        {
+          "in": "closing",
+          "out": "closing"
+        }
+      ]
+    },
+    "cover_classes": {
+      "values": [
+        {
+          "in": "awning[s]",
+          "out": "awning"
+        },
+        {
+          "in": "blind[s]",
+          "out": "blind"
+        },
+        {
+          "in": "curtain[s]",
+          "out": "curtain"
+        },
+        {
+          "in": "door[s]",
+          "out": "door"
+        },
+        {
+          "in": "garage door[s]",
+          "out": "garage"
+        },
+        {
+          "in": "gate[s]",
+          "out": "gate"
+        },
+        {
+          "in": "shade[s]",
+          "out": "shade"
+        },
+        {
+          "in": "shutter[s]",
+          "out": "shutter"
+        },
+        {
+          "in": "window[s]",
+          "out": "window"
+        }
+      ]
+    },
+    "lock_states": {
+      "values": [
+        {
+          "in": "[securely ]locked",
+          "out": "locked"
+        },
+        {
+          "in": "unlocked",
+          "out": "unlocked"
+        }
+      ]
+    },
+    "bs_battery_states": {
+      "values": [
+        {
+          "in": "low",
+          "out": "on"
+        },
+        {
+          "in": "normal",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_battery_charging_states": {
+      "values": [
+        {
+          "in": "charging",
+          "out": "on"
+        },
+        {
+          "in": "not charging",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_carbon_monoxide_states": {
+      "values": [
+        {
+          "in": "(detected|triggered|on)",
+          "out": "on"
+        },
+        {
+          "in": "clear",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_cold_states": {
+      "values": [
+        {
+          "in": "cold",
+          "out": "on"
+        },
+        {
+          "in": "normal",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_connectivity_states": {
+      "values": [
+        {
+          "in": "connected",
+          "out": "on"
+        },
+        {
+          "in": "disconnected",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_door_states": {
+      "values": [
+        {
+          "in": "open",
+          "out": "on"
+        },
+        {
+          "in": "closed",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_garage_door_states": {
+      "values": [
+        {
+          "in": "open",
+          "out": "on"
+        },
+        {
+          "in": "closed",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_gas_states": {
+      "values": [
+        {
+          "in": "(detected|triggered|on)",
+          "out": "on"
+        },
+        {
+          "in": "clear",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_heat_states": {
+      "values": [
+        {
+          "in": "hot",
+          "out": "on"
+        },
+        {
+          "in": "normal",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_light_states": {
+      "values": [
+        {
+          "in": "detected",
+          "out": "on"
+        },
+        {
+          "in": "no light",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_lock_states": {
+      "values": [
+        {
+          "in": "unlocked",
+          "out": "on"
+        },
+        {
+          "in": "locked",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_moisture_states": {
+      "values": [
+        {
+          "in": "wet",
+          "out": "on"
+        },
+        {
+          "in": "dry",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_motion_states": {
+      "values": [
+        {
+          "in": "(detected|triggered|on)",
+          "out": "on"
+        },
+        {
+          "in": "clear",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_occupancy_states": {
+      "values": [
+        {
+          "in": "(detected|triggered|on)",
+          "out": "on"
+        },
+        {
+          "in": "clear",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_opening_states": {
+      "values": [
+        {
+          "in": "open",
+          "out": "on"
+        },
+        {
+          "in": "closed",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_plug_states": {
+      "values": [
+        {
+          "in": "plugged in",
+          "out": "on"
+        },
+        {
+          "in": "unplugged",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_power_states": {
+      "values": [
+        {
+          "in": "(powered[ on]|power detected)",
+          "out": "on"
+        },
+        {
+          "in": "(not powered|powered off)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_presence_states": {
+      "values": [
+        {
+          "in": "(home|present)",
+          "out": "on"
+        },
+        {
+          "in": "(away|not present)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_problem_states": {
+      "values": [
+        {
+          "in": "detected",
+          "out": "on"
+        },
+        {
+          "in": "ok",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_running_states": {
+      "values": [
+        {
+          "in": "running",
+          "out": "on"
+        },
+        {
+          "in": "not running",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_safety_states": {
+      "values": [
+        {
+          "in": "unsafe",
+          "out": "on"
+        },
+        {
+          "in": "safe",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_smoke_states": {
+      "values": [
+        {
+          "in": "(detected|triggered|on)",
+          "out": "on"
+        },
+        {
+          "in": "clear",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_sound_states": {
+      "values": [
+        {
+          "in": "(detected|triggered|on)",
+          "out": "on"
+        },
+        {
+          "in": "clear",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_tamper_states": {
+      "values": [
+        {
+          "in": "(detected|tampered with)",
+          "out": "on"
+        },
+        {
+          "in": "clear",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_update_states": {
+      "values": [
+        {
+          "in": "update available",
+          "out": "on"
+        },
+        {
+          "in": "(up to date|up-to-date)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_vibration_states": {
+      "values": [
+        {
+          "in": "(detected|vibrating)",
+          "out": "on"
+        },
+        {
+          "in": "(clear|not vibrating)",
+          "out": "off"
+        }
+      ]
+    },
+    "bs_window_states": {
+      "values": [
+        {
+          "in": "open",
+          "out": "on"
+        },
+        {
+          "in": "clear",
+          "out": "closed"
+        }
+      ]
+    },
+    "shopping_list_item": {
+      "wildcard": true
+    },
+    "zone": {
+      "wildcard": true
+    },
+    "position": {
+      "range": {
+        "type": "percentage",
+        "from": 0,
+        "to": 100
+      }
+    },
+    "volume": {
+      "range": {
+        "type": "percentage",
+        "from": 0,
+        "to": 100
+      }
+    },
+    "timer_seconds": {
+      "range": {
+        "from": 1,
+        "to": 100
+      }
+    },
+    "timer_minutes": {
+      "range": {
+        "from": 1,
+        "to": 100
+      }
+    },
+    "timer_hours": {
+      "range": {
+        "from": 1,
+        "to": 100
+      }
+    },
+    "timer_half": {
+      "values": [
+        {
+          "in": "half",
+          "out": 30
+        },
+        {
+          "in": "1/2",
+          "out": 30
+        }
+      ]
+    },
+    "timer_name": {
+      "wildcard": true
+    },
+    "timer_command": {
+      "wildcard": true
+    }
+  },
+  "expansion_rules": {
+    "name": "[the ]{name}",
+    "area": "[the ]{area}",
+    "floor": "[the ]{floor}[ floor]",
+    "area_floor": "(<area>|<floor>)",
+    "in_area_floor": "[<in> ]<area_floor>",
+    "what_is": "(what's|whats|what is|tell me)[ the]",
+    "lockable": "[(the|my) ](lock|door|window|gate|garage door|shutter)[s]",
+    "where_is": "(where's|wheres|where is)",
+    "which": "(which|what)[ of the]",
+    "is": "(is|are)[ (there|the)]",
+    "are": "<is>",
+    "any": "(any|some)[ of the]",
+    "are_any": "[<are> ]<any>",
+    "how_many": "how many[ of the]",
+    "brightness": "{brightness}[[ ]%| percent]",
+    "light": "[the ](light|lights|lighting|lamp|lamps)",
+    "turn": "(turn|switch|change)",
+    "temp": "(temp|temperature)",
+    "temperature": "{temperature}[([ ]°[ ][{temperature_unit}])|( degrees[ {temperature_unit}])]",
+    "open": "(open|raise|lift)[ up]",
+    "close": "(close|shut|lower)[ (up|down)]",
+    "set": "(set|make|change|turn)",
+    "numeric_value_set": "(set|change|turn[ (up|down)]|increase|decrease|make)",
+    "in": "(in|on|at|of)",
+    "position": "{position}[[ ]%| percent]",
+    "volume": "{volume:volume_level}[[ ]%| percent]",
+    "currently": "(currently|presently|right now|at the moment)",
+    "state": "[(present|current) ](state|status)",
+    "all": "(all[[ of] the]|every[ single]|each[ and every])",
+    "are_all": "[<are> ]<all>",
+    "home": "(home|house|appartment|flat)",
+    "everywhere": "(everywhere|in (all|each)[[ of] the] room[s]|in every room[s]|in the <home>)",
+    "here": "(here|in here|in this room|in the room)",
+    "what_is_the_class_of_name": "(<what_is> the <class> (of|in|from|(indicated|measured) by) <name> [in <area>]|<what_is> <name>['s] <class> [in <area>]|<what_is> <area> <name>['s] <class>)",
+    "timer_set": "(start|set|create)",
+    "timer_cancel": "(cancel|stop)",
+    "timer_duration_seconds": "{timer_seconds:seconds} second[s]",
+    "timer_duration_minutes": "({timer_minutes:minutes} minute[s][ [and ]{timer_seconds:seconds} second[s]])|({timer_minutes:minutes} and[ a] {timer_half:seconds} minute[s])|({timer_half:seconds} a minute[s])",
+    "timer_duration_hours": "({timer_hours:hours} hour[s][ [and ]{timer_minutes:minutes} minute[s]][ [and ]{timer_seconds:seconds} second[s]])|({timer_hours:hours} and[ a] {timer_half:minutes} hour[s])|({timer_half:minutes} an hour[s])",
+    "timer_duration": "<timer_duration_seconds>|<timer_duration_minutes>|<timer_duration_hours>",
+    "timer_start_seconds": "{timer_seconds:start_seconds} second[s]",
+    "timer_start_minutes": "{timer_minutes:start_minutes} minute[s][ [and ]{timer_seconds:start_seconds} second[s]]",
+    "timer_start_hours": "{timer_hours:start_hours} hour[s][ [and ]{timer_minutes:start_minutes} minute[s]][ [and ]{timer_seconds:start_seconds} second[s]]",
+    "timer_start": "<timer_start_seconds>|<timer_start_minutes>|<timer_start_hours>"
+  },
+  "skip_words": [
+    "please",
+    "can you",
+    "would you"
+  ]
+}

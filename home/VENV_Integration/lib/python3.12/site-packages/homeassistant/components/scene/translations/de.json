@@ -1,0 +1,63 @@
+{
+    "exceptions": {
+        "entity_not_dynamically_created": {
+            "message": "Die Szene {entity_id} wurde nicht mit der Aktion `scene.create` erstellt."
+        },
+        "entity_not_scene": {
+            "message": "{entity_id} ist keine g\u00fcltige Szene entity_id."
+        }
+    },
+    "services": {
+        "apply": {
+            "description": "Aktiviert eine Szene mit Konfiguration.",
+            "fields": {
+                "entities": {
+                    "description": "Liste der Entit\u00e4ten und deren Zielzustand.",
+                    "name": "Zustand der Entit\u00e4ten"
+                },
+                "transition": {
+                    "description": "Zeit, die die Ger\u00e4te ben\u00f6tigen, um in die in der Szene definierten Zust\u00e4nde \u00fcberzugehen.",
+                    "name": "\u00dcbergang"
+                }
+            },
+            "name": "Anwenden"
+        },
+        "create": {
+            "description": "Erstellt eine neue Szene.",
+            "fields": {
+                "entities": {
+                    "description": "Liste der Entit\u00e4ten und deren Zielzustand. Wenn sich deine Entit\u00e4ten gerade bereits im Zielzustand befinden, verwende stattdessen `snapshot_entities`.",
+                    "name": "Zustand der Entit\u00e4ten"
+                },
+                "scene_id": {
+                    "description": "Die Entit\u00e4ts-ID der neuen Szene.",
+                    "name": "Szenen-Entit\u00e4ts-ID"
+                },
+                "snapshot_entities": {
+                    "description": "Liste der Entit\u00e4ten, die in den Snapshot aufgenommen werden sollen. Durch die Aufnahme eines Snapshots wird der aktuelle Zustand dieser Entit\u00e4ten aufgezeichnet. Wenn du nicht den aktuellen Zustand aller Entit\u00e4ten f\u00fcr diese Szene verwenden willst, kannst du `snapshot_entities` mit `entities` kombinieren.",
+                    "name": "Snapshot-Entit\u00e4ten"
+                }
+            },
+            "name": "Erstellen"
+        },
+        "delete": {
+            "description": "L\u00f6scht eine dynamisch erstellte Szene.",
+            "name": "L\u00f6schen"
+        },
+        "reload": {
+            "description": "L\u00e4dt die Szenen aus der YAML-Konfiguration neu.",
+            "name": "Neu laden"
+        },
+        "turn_on": {
+            "description": "Aktiviert eine Szene.",
+            "fields": {
+                "transition": {
+                    "description": "Zeit, die die Ger\u00e4te ben\u00f6tigen, um in die in der Szene definierten Zust\u00e4nde \u00fcberzugehen.",
+                    "name": "\u00dcbergang"
+                }
+            },
+            "name": "Aktivieren"
+        }
+    },
+    "title": "Szene"
+}

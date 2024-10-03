@@ -1,0 +1,86 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Enheden er allerede konfigureret",
+            "reauth_successful": "Genautentificering lykkedes"
+        },
+        "error": {
+            "cannot_connect": "Forbindelse mislykkedes",
+            "invalid_auth": "Ugyldig godkendelse",
+            "unknown": "Uventet fejl"
+        },
+        "step": {
+            "reauth_confirm": {
+                "data": {
+                    "encrypt_token": "Brug et krypteret token til autentificering.",
+                    "token": "Adgangstoken"
+                },
+                "description": "Nuki-integrationen skal autentificere sig med din bridge igen.",
+                "title": "Godkendelse udl\u00f8bet for {name}"
+            },
+            "user": {
+                "data": {
+                    "encrypt_token": "Brug et krypteret token til autentificering.",
+                    "host": "V\u00e6rt",
+                    "port": "Port",
+                    "token": "Adgangstoken"
+                },
+                "data_description": {
+                    "host": "V\u00e6rtsnavnet eller IP-adressen p\u00e5 din Nuki-bridge. For eksempel: 192.168.1.25."
+                }
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "ring_action": {
+                "name": "Ringe-handling"
+            }
+        },
+        "lock": {
+            "nuki_lock": {
+                "state_attributes": {
+                    "battery_critical": {
+                        "state": {
+                            "off": "Normal",
+                            "on": "Lav"
+                        }
+                    }
+                }
+            }
+        },
+        "sensor": {
+            "battery": {
+                "name": "Batteri"
+            }
+        }
+    },
+    "issues": {
+        "https_webhook": {
+            "description": "Nuki-broen kan ikke sende begivenheder til en HTTPS-adresse (SSL). Konfigurer venligst en (lokal) HTTP-adresse under \"Home Assistant-webadresse\" i [netv\u00e6rksindstillinger]({network_link}). Den nuv\u00e6rende (lokale) adresse er: `{base_url}}`. En gyldig adresse kunne f.eks. v\u00e6re `http://192.168.1.10:8123`, hvor `192.168.1.10` er Home Assistant-enhedens IP-adresse",
+            "title": "Nuki webhook-URL bruger HTTPS (SSL)"
+        }
+    },
+    "services": {
+        "lock_n_go": {
+            "description": "Nuki Lock 'n' Go.",
+            "fields": {
+                "unlatch": {
+                    "description": "Om l\u00e5sen skal l\u00e5ses op.",
+                    "name": "L\u00e5s op"
+                }
+            },
+            "name": "Lock 'n' go"
+        },
+        "set_continuous_mode": {
+            "description": "Aktiverer eller deaktiverer kontinuerlig tilstand p\u00e5 Nuki Opener.",
+            "fields": {
+                "enable": {
+                    "description": "Om funktionen skal aktiveres eller deaktiveres.",
+                    "name": "Aktiv\u00e9r"
+                }
+            },
+            "name": "Indstil kontinuerlig tilstand"
+        }
+    }
+}

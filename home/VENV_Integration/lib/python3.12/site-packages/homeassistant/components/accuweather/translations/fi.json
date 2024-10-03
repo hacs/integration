@@ -1,0 +1,938 @@
+{
+    "config": {
+        "abort": {
+            "single_instance_allowed": "Jo m\u00e4\u00e4ritetty. Vain yksi konfiguraatio mahdollinen."
+        },
+        "create_entry": {
+            "default": "Jotkin anturit eiv\u00e4t ole oletusarvoisesti k\u00e4yt\u00f6ss\u00e4. Voit ottaa ne k\u00e4ytt\u00f6\u00f6n kokonaisuusrekisteriss\u00e4 integraatiokonfiguroinnin j\u00e4lkeen."
+        },
+        "error": {
+            "cannot_connect": "Yhteyden muodostaminen ep\u00e4onnistui",
+            "invalid_api_key": "Virheellinen API-avain",
+            "requests_exceeded": "Accuweather API:lle tehtyjen pyynt\u00f6jen sallittu m\u00e4\u00e4r\u00e4 on ylitetty. Sinun on odotettava tai vaihdettava API-avainta."
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "api_key": "API-avain",
+                    "latitude": "Leveysaste",
+                    "longitude": "Pituusaste",
+                    "name": "Nimi"
+                }
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "air_quality": {
+                "name": "Ilmanlaatu p\u00e4iv\u00e4 {forecast_day}",
+                "state": {
+                    "good": "Hyv\u00e4",
+                    "hazardous": "Vaarallinen",
+                    "high": "Korkea",
+                    "low": "Matala",
+                    "moderate": "Kohtalainen",
+                    "unhealthy": "Ep\u00e4terveellinen"
+                }
+            },
+            "air_quality_0d": {
+                "name": "Ilmanlaatu t\u00e4n\u00e4\u00e4n",
+                "state": {
+                    "good": "Hyv\u00e4",
+                    "hazardous": "Vaarallinen",
+                    "high": "Korkea",
+                    "low": "Matala",
+                    "moderate": "Kohtalainen",
+                    "unhealthy": "Ep\u00e4terveellinen"
+                }
+            },
+            "air_quality_1d": {
+                "name": "Ilmanlaatu p\u00e4iv\u00e4 1",
+                "state": {
+                    "good": "Hyv\u00e4",
+                    "hazardous": "Vaarallinen",
+                    "high": "Korkea",
+                    "low": "Matala",
+                    "moderate": "Kohtalainen",
+                    "unhealthy": "Ep\u00e4terveellinen"
+                }
+            },
+            "air_quality_2d": {
+                "name": "Ilmanlaatu p\u00e4iv\u00e4 2",
+                "state": {
+                    "good": "Hyv\u00e4",
+                    "hazardous": "Vaarallinen",
+                    "high": "Korkea",
+                    "low": "Matala",
+                    "moderate": "Kohtalainen",
+                    "unhealthy": "Ep\u00e4terveellinen"
+                }
+            },
+            "air_quality_3d": {
+                "name": "Ilmanlaatu p\u00e4iv\u00e4 3",
+                "state": {
+                    "good": "Hyv\u00e4",
+                    "hazardous": "Vaarallinen",
+                    "high": "Korkea",
+                    "low": "Matala",
+                    "moderate": "Kohtalainen",
+                    "unhealthy": "Ep\u00e4terveellinen"
+                }
+            },
+            "air_quality_4d": {
+                "name": "Ilmanlaatu p\u00e4iv\u00e4 4",
+                "state": {
+                    "good": "Hyv\u00e4",
+                    "hazardous": "Vaarallinen",
+                    "high": "Korkea",
+                    "low": "Matala",
+                    "moderate": "Kohtalainen",
+                    "unhealthy": "Ep\u00e4terveellinen"
+                }
+            },
+            "apparent_temperature": {
+                "name": "N\u00e4enn\u00e4inen l\u00e4mp\u00f6tila"
+            },
+            "cloud_ceiling": {
+                "name": "Pilvikatto"
+            },
+            "cloud_cover": {
+                "name": "Pilvipeite"
+            },
+            "cloud_cover_day": {
+                "name": "Pilvipeite p\u00e4iv\u00e4 {forecast_day}"
+            },
+            "cloud_cover_day_0d": {
+                "name": "Pilvipeite t\u00e4n\u00e4\u00e4n"
+            },
+            "cloud_cover_day_1d": {
+                "name": "Pilvipeite p\u00e4iv\u00e4 1"
+            },
+            "cloud_cover_day_2d": {
+                "name": "Pilvipeite p\u00e4iv\u00e4 2"
+            },
+            "cloud_cover_day_3d": {
+                "name": "Pilvipeite p\u00e4iv\u00e4 3"
+            },
+            "cloud_cover_day_4d": {
+                "name": "Pilvipeite p\u00e4iv\u00e4 4"
+            },
+            "cloud_cover_night": {
+                "name": "Pilvipeite y\u00f6 {forecast_day}"
+            },
+            "cloud_cover_night_0d": {
+                "name": "Pilvipeite t\u00e4n\u00e4 y\u00f6n\u00e4"
+            },
+            "cloud_cover_night_1d": {
+                "name": "Pilvipeite y\u00f6 1"
+            },
+            "cloud_cover_night_2d": {
+                "name": "Pilvipeite y\u00f6 2"
+            },
+            "cloud_cover_night_3d": {
+                "name": "Pilvipeite y\u00f6 3"
+            },
+            "cloud_cover_night_4d": {
+                "name": "Pilvipeite y\u00f6 4"
+            },
+            "condition_day": {
+                "name": "Tilanne p\u00e4iv\u00e4 {forecast_day}"
+            },
+            "condition_day_0d": {
+                "name": "Tilanne t\u00e4n\u00e4\u00e4n"
+            },
+            "condition_day_1d": {
+                "name": "Tilanne p\u00e4iv\u00e4 1"
+            },
+            "condition_day_2d": {
+                "name": "Tilanne p\u00e4iv\u00e4 2"
+            },
+            "condition_day_3d": {
+                "name": "Tilanne p\u00e4iv\u00e4 3"
+            },
+            "condition_day_4d": {
+                "name": "Tilanne p\u00e4iv\u00e4 4"
+            },
+            "condition_night": {
+                "name": "Tilanne y\u00f6 {forecast_day}"
+            },
+            "condition_night_0d": {
+                "name": "Tilanne t\u00e4n\u00e4 y\u00f6n\u00e4"
+            },
+            "condition_night_1d": {
+                "name": "Tilanne y\u00f6 1"
+            },
+            "condition_night_2d": {
+                "name": "Tilanne y\u00f6 2"
+            },
+            "condition_night_3d": {
+                "name": "Tilanne y\u00f6 3"
+            },
+            "condition_night_4d": {
+                "name": "Tilanne y\u00f6 4"
+            },
+            "dew_point": {
+                "name": "Kastepiste"
+            },
+            "grass_pollen": {
+                "name": "Ruohon siitep\u00f6ly p\u00e4iv\u00e4 {forecast_day}",
+                "state_attributes": {
+                    "level": {
+                        "name": "Taso",
+                        "state": {
+                            "good": "Hyv\u00e4",
+                            "hazardous": "Vaarallinen",
+                            "high": "Korkea",
+                            "low": "Matala",
+                            "moderate": "Kohtalainen",
+                            "unhealthy": "Ep\u00e4terveellinen"
+                        }
+                    }
+                }
+            },
+            "grass_pollen_0d": {
+                "name": "Ruohon siitep\u00f6ly t\u00e4n\u00e4\u00e4n",
+                "state_attributes": {
+                    "level": {
+                        "name": "Taso",
+                        "state": {
+                            "good": "Hyv\u00e4",
+                            "hazardous": "Vaarallinen",
+                            "high": "Korkea",
+                            "low": "Matala",
+                            "moderate": "Kohtalainen",
+                            "unhealthy": "Ep\u00e4terveellinen"
+                        }
+                    }
+                }
+            },
+            "grass_pollen_1d": {
+                "name": "Ruohon siitep\u00f6ly p\u00e4iv\u00e4 1",
+                "state_attributes": {
+                    "level": {
+                        "name": "Taso",
+                        "state": {
+                            "good": "Hyv\u00e4",
+                            "hazardous": "Vaarallinen",
+                            "high": "Korkea",
+                            "low": "Matala",
+                            "moderate": "Kohtalainen",
+                            "unhealthy": "Ep\u00e4terveellinen"
+                        }
+                    }
+                }
+            },
+            "grass_pollen_2d": {
+                "name": "Ruohon siitep\u00f6ly p\u00e4iv\u00e4 2",
+                "state_attributes": {
+                    "level": {
+                        "name": "Taso",
+                        "state": {
+                            "good": "Hyv\u00e4",
+                            "hazardous": "Vaarallinen",
+                            "high": "Korkea",
+                            "low": "Matala",
+                            "moderate": "Kohtalainen",
+                            "unhealthy": "Ep\u00e4terveellinen"
+                        }
+                    }
+                }
+            },
+            "grass_pollen_3d": {
+                "name": "Ruohon siitep\u00f6ly p\u00e4iv\u00e4 3",
+                "state_attributes": {
+                    "level": {
+                        "name": "Taso",
+                        "state": {
+                            "good": "Hyv\u00e4",
+                            "hazardous": "Vaarallinen",
+                            "high": "Korkea",
+                            "low": "Matala",
+                            "moderate": "Kohtalainen",
+                            "unhealthy": "Ep\u00e4terveellinen"
+                        }
+                    }
+                }
+            },
+            "grass_pollen_4d": {
+                "name": "Ruohon siitep\u00f6ly p\u00e4iv\u00e4 4",
+                "state_attributes": {
+                    "level": {
+                        "name": "Taso",
+                        "state": {
+                            "good": "Hyv\u00e4",
+                            "hazardous": "Vaarallinen",
+                            "high": "Korkea",
+                            "low": "Matala",
+                            "moderate": "Kohtalainen",
+                            "unhealthy": "Ep\u00e4terveellinen"
+                        }
+                    }
+                }
+            },
+            "hours_of_sun": {
+                "name": "Tuntia aurinkoa p\u00e4iv\u00e4 {forecast_day}"
+            },
+            "hours_of_sun_0d": {
+                "name": "Tuntia aurinkoa t\u00e4n\u00e4\u00e4n"
+            },
+            "hours_of_sun_1d": {
+                "name": "Tuntia aurinkoa p\u00e4iv\u00e4 1"
+            },
+            "hours_of_sun_2d": {
+                "name": "Tuntia aurinkoa p\u00e4iv\u00e4 2"
+            },
+            "hours_of_sun_3d": {
+                "name": "Tuntia aurinkoa p\u00e4iv\u00e4 3"
+            },
+            "hours_of_sun_4d": {
+                "name": "Tuntia aurinkoa p\u00e4iv\u00e4 4"
+            },
+            "mold_pollen": {
+                "name": "Homeen siitep\u00f6ly p\u00e4iv\u00e4 {forecast_day}",
+                "state_attributes": {
+                    "level": {
+                        "state": {
+                            "good": "Hyv\u00e4",
+                            "hazardous": "Vaarallinen",
+                            "high": "Korkea",
+                            "low": "Matala",
+                            "moderate": "Kohtalainen",
+                            "unhealthy": "Ep\u00e4terveellinen"
+                        }
+                    }
+                }
+            },
+            "mold_pollen_0d": {
+                "name": "Homeen siitep\u00f6ly t\u00e4n\u00e4\u00e4n",
+                "state_attributes": {
+                    "level": {
+                        "name": "Taso",
+                        "state": {
+                            "good": "Hyv\u00e4",
+                            "hazardous": "Vaarallinen",
+                            "high": "Korkea",
+                            "low": "Matala",
+                            "moderate": "Kohtalainen",
+                            "unhealthy": "Ep\u00e4terveellinen"
+                        }
+                    }
+                }
+            },
+            "mold_pollen_1d": {
+                "name": "Homeen siitep\u00f6ly p\u00e4iv\u00e4 1",
+                "state_attributes": {
+                    "level": {
+                        "name": "Taso",
+                        "state": {
+                            "good": "Hyv\u00e4",
+                            "hazardous": "Vaarallinen",
+                            "high": "Korkea",
+                            "low": "Matala",
+                            "moderate": "Kohtalainen",
+                            "unhealthy": "Ep\u00e4terveellinen"
+                        }
+                    }
+                }
+            },
+            "mold_pollen_2d": {
+                "name": "Homeen siitep\u00f6ly p\u00e4iv\u00e4 2",
+                "state_attributes": {
+                    "level": {
+                        "name": "Taso",
+                        "state": {
+                            "good": "Hyv\u00e4",
+                            "hazardous": "Vaarallinen",
+                            "high": "Korkea",
+                            "low": "Matala",
+                            "moderate": "Kohtalainen",
+                            "unhealthy": "Ep\u00e4terveellinen"
+                        }
+                    }
+                }
+            },
+            "mold_pollen_3d": {
+                "name": "Homeen siitep\u00f6ly p\u00e4iv\u00e4 3",
+                "state_attributes": {
+                    "level": {
+                        "name": "Taso",
+                        "state": {
+                            "good": "Hyv\u00e4",
+                            "hazardous": "Vaarallinen",
+                            "high": "Korkea",
+                            "low": "Matala",
+                            "moderate": "Kohtalainen",
+                            "unhealthy": "Ep\u00e4terveellinen"
+                        }
+                    }
+                }
+            },
+            "mold_pollen_4d": {
+                "name": "Homeen siitep\u00f6ly p\u00e4iv\u00e4 4",
+                "state_attributes": {
+                    "level": {
+                        "name": "Taso",
+                        "state": {
+                            "good": "Hyv\u00e4",
+                            "hazardous": "Vaarallinen",
+                            "high": "Korkea",
+                            "low": "Matala",
+                            "moderate": "Kohtalainen",
+                            "unhealthy": "Ep\u00e4terveellinen"
+                        }
+                    }
+                }
+            },
+            "precipitation": {
+                "name": "Sadem\u00e4\u00e4r\u00e4"
+            },
+            "pressure_tendency": {
+                "name": "Paineen taipumus",
+                "state": {
+                    "falling": "Laskee",
+                    "rising": "Auringonnousu",
+                    "steady": "Vakaa"
+                }
+            },
+            "ragweed_pollen": {
+                "name": "Tuoksukon siitep\u00f6ly p\u00e4iv\u00e4 {forecast_day}",
+                "state_attributes": {
+                    "level": {
+                        "state": {
+                            "good": "Hyv\u00e4",
+                            "hazardous": "Vaarallinen",
+                            "high": "Korkea",
+                            "low": "Matala",
+                            "moderate": "Kohtalainen",
+                            "unhealthy": "Ep\u00e4terveellinen"
+                        }
+                    }
+                }
+            },
+            "ragweed_pollen_0d": {
+                "name": "Tuoksukon siitep\u00f6ly\u00e4 t\u00e4n\u00e4\u00e4n",
+                "state_attributes": {
+                    "level": {
+                        "name": "Taso",
+                        "state": {
+                            "good": "Hyv\u00e4",
+                            "hazardous": "Vaarallinen",
+                            "high": "Korkea",
+                            "low": "Matala",
+                            "moderate": "Kohtalainen",
+                            "unhealthy": "Ep\u00e4terveellinen"
+                        }
+                    }
+                }
+            },
+            "ragweed_pollen_1d": {
+                "name": "Tuoksukon siitep\u00f6ly p\u00e4iv\u00e4 1",
+                "state_attributes": {
+                    "level": {
+                        "name": "Taso",
+                        "state": {
+                            "good": "Hyv\u00e4",
+                            "hazardous": "Vaarallinen",
+                            "high": "Korkea",
+                            "low": "Matala",
+                            "moderate": "Kohtalainen",
+                            "unhealthy": "Ep\u00e4terveellinen"
+                        }
+                    }
+                }
+            },
+            "ragweed_pollen_2d": {
+                "name": "Tuoksukon siitep\u00f6ly p\u00e4iv\u00e4 2",
+                "state_attributes": {
+                    "level": {
+                        "name": "Taso",
+                        "state": {
+                            "good": "Hyv\u00e4",
+                            "hazardous": "Vaarallinen",
+                            "high": "Korkea",
+                            "low": "Matala",
+                            "moderate": "Kohtalainen",
+                            "unhealthy": "Ep\u00e4terveellinen"
+                        }
+                    }
+                }
+            },
+            "ragweed_pollen_3d": {
+                "name": "Tuoksukon siitep\u00f6ly p\u00e4iv\u00e4 3",
+                "state_attributes": {
+                    "level": {
+                        "name": "Taso",
+                        "state": {
+                            "good": "Hyv\u00e4",
+                            "hazardous": "Vaarallinen",
+                            "high": "Korkea",
+                            "low": "Matala",
+                            "moderate": "Kohtalainen",
+                            "unhealthy": "Ep\u00e4terveellinen"
+                        }
+                    }
+                }
+            },
+            "ragweed_pollen_4d": {
+                "name": "Tuoksukon siitep\u00f6ly p\u00e4iv\u00e4 4",
+                "state_attributes": {
+                    "level": {
+                        "name": "Taso",
+                        "state": {
+                            "good": "Hyv\u00e4",
+                            "hazardous": "Vaarallinen",
+                            "high": "Korkea",
+                            "low": "Matala",
+                            "moderate": "Kohtalainen",
+                            "unhealthy": "Ep\u00e4terveellinen"
+                        }
+                    }
+                }
+            },
+            "realfeel_temperature": {
+                "name": "RealFeel l\u00e4mp\u00f6tila"
+            },
+            "realfeel_temperature_max": {
+                "name": "RealFeel l\u00e4mp\u00f6tila max p\u00e4iv\u00e4 {forecast_day}"
+            },
+            "realfeel_temperature_max_0d": {
+                "name": "RealFeel l\u00e4mp\u00f6tila max t\u00e4n\u00e4\u00e4n"
+            },
+            "realfeel_temperature_max_1d": {
+                "name": "RealFeel l\u00e4mp\u00f6tila max p\u00e4iv\u00e4 1"
+            },
+            "realfeel_temperature_max_2d": {
+                "name": "RealFeel l\u00e4mp\u00f6tila max p\u00e4iv\u00e4 2"
+            },
+            "realfeel_temperature_max_3d": {
+                "name": "RealFeel l\u00e4mp\u00f6tila max p\u00e4iv\u00e4 3"
+            },
+            "realfeel_temperature_max_4d": {
+                "name": "RealFeel l\u00e4mp\u00f6tila max p\u00e4iv\u00e4 4"
+            },
+            "realfeel_temperature_min": {
+                "name": "RealFeel l\u00e4mp\u00f6tila min p\u00e4iv\u00e4 {forecast_day}"
+            },
+            "realfeel_temperature_min_0d": {
+                "name": "RealFeel l\u00e4mp\u00f6tila min t\u00e4n\u00e4\u00e4n"
+            },
+            "realfeel_temperature_min_1d": {
+                "name": "RealFeel l\u00e4mp\u00f6tila min p\u00e4iv\u00e4 1"
+            },
+            "realfeel_temperature_min_2d": {
+                "name": "RealFeel l\u00e4mp\u00f6tila min p\u00e4iv\u00e4 2"
+            },
+            "realfeel_temperature_min_3d": {
+                "name": "RealFeel l\u00e4mp\u00f6tila min p\u00e4iv\u00e4 3"
+            },
+            "realfeel_temperature_min_4d": {
+                "name": "RealFeel l\u00e4mp\u00f6tila min p\u00e4iv\u00e4 4"
+            },
+            "realfeel_temperature_shade": {
+                "name": "RealFeel l\u00e4mp\u00f6tilan varjossa"
+            },
+            "realfeel_temperature_shade_max": {
+                "name": "RealFeel l\u00e4mp\u00f6tila varjossa max p\u00e4iv\u00e4 {forecast_day}"
+            },
+            "realfeel_temperature_shade_max_0d": {
+                "name": "RealFeel l\u00e4mp\u00f6tila varjossa max t\u00e4n\u00e4\u00e4n"
+            },
+            "realfeel_temperature_shade_max_1d": {
+                "name": "RealFeel l\u00e4mp\u00f6tila varjossa max p\u00e4iv\u00e4 1"
+            },
+            "realfeel_temperature_shade_max_2d": {
+                "name": "RealFeel l\u00e4mp\u00f6tila varjossa max p\u00e4iv\u00e4 2"
+            },
+            "realfeel_temperature_shade_max_3d": {
+                "name": "RealFeel l\u00e4mp\u00f6tila varjossa max p\u00e4iv\u00e4 3"
+            },
+            "realfeel_temperature_shade_max_4d": {
+                "name": "RealFeel l\u00e4mp\u00f6tila varjossa max p\u00e4iv\u00e4 4"
+            },
+            "realfeel_temperature_shade_min": {
+                "name": "RealFeel l\u00e4mp\u00f6tila varjossa min p\u00e4iv\u00e4 {forecast_day}"
+            },
+            "realfeel_temperature_shade_min_0d": {
+                "name": "RealFeel l\u00e4mp\u00f6tila varjossa min t\u00e4n\u00e4\u00e4n"
+            },
+            "realfeel_temperature_shade_min_1d": {
+                "name": "RealFeel-l\u00e4mp\u00f6tila varjossa min p\u00e4iv\u00e4 1"
+            },
+            "realfeel_temperature_shade_min_2d": {
+                "name": "RealFeel l\u00e4mp\u00f6tila varjossa min p\u00e4iv\u00e4 2"
+            },
+            "realfeel_temperature_shade_min_3d": {
+                "name": "RealFeel l\u00e4mp\u00f6tila varjossa min p\u00e4iv\u00e4 3"
+            },
+            "realfeel_temperature_shade_min_4d": {
+                "name": "RealFeel l\u00e4mp\u00f6tila varjossa min p\u00e4iv\u00e4 4"
+            },
+            "solar_irradiance_day": {
+                "name": "Auringon s\u00e4teily p\u00e4iv\u00e4 {forecast_day}"
+            },
+            "solar_irradiance_day_0d": {
+                "name": "Auringon s\u00e4teily t\u00e4n\u00e4\u00e4n"
+            },
+            "solar_irradiance_day_1d": {
+                "name": "Auringon s\u00e4teily p\u00e4iv\u00e4 1"
+            },
+            "solar_irradiance_day_2d": {
+                "name": "Auringon s\u00e4teily p\u00e4iv\u00e4 2"
+            },
+            "solar_irradiance_day_3d": {
+                "name": "Auringon s\u00e4teily p\u00e4iv\u00e4 3"
+            },
+            "solar_irradiance_day_4d": {
+                "name": "Auringon s\u00e4teily p\u00e4iv\u00e4 4"
+            },
+            "solar_irradiance_night": {
+                "name": "Auringon s\u00e4teily y\u00f6 {forecast_day}"
+            },
+            "solar_irradiance_night_0d": {
+                "name": "Auringon s\u00e4teily t\u00e4n\u00e4 y\u00f6n\u00e4"
+            },
+            "solar_irradiance_night_1d": {
+                "name": "Auringon s\u00e4teily y\u00f6 1"
+            },
+            "solar_irradiance_night_2d": {
+                "name": "Auringon s\u00e4teily y\u00f6 2"
+            },
+            "solar_irradiance_night_3d": {
+                "name": "Auringon s\u00e4teily y\u00f6 3"
+            },
+            "solar_irradiance_night_4d": {
+                "name": "Auringon s\u00e4teily y\u00f6 4"
+            },
+            "thunderstorm_probability_day": {
+                "name": "Ukkosmyrskyn todenn\u00e4k\u00f6isyys p\u00e4iv\u00e4 {forecast_day}"
+            },
+            "thunderstorm_probability_day_0d": {
+                "name": "Ukkosen todenn\u00e4k\u00f6isyys t\u00e4n\u00e4\u00e4n"
+            },
+            "thunderstorm_probability_day_1d": {
+                "name": "Ukkosen todenn\u00e4k\u00f6isyys p\u00e4iv\u00e4 1"
+            },
+            "thunderstorm_probability_day_2d": {
+                "name": "Ukkosmyrskyn todenn\u00e4k\u00f6isyys p\u00e4iv\u00e4 2"
+            },
+            "thunderstorm_probability_day_3d": {
+                "name": "Ukkosmyrskyn todenn\u00e4k\u00f6isyys p\u00e4iv\u00e4 3"
+            },
+            "thunderstorm_probability_day_4d": {
+                "name": "Ukkosmyrskyn todenn\u00e4k\u00f6isyys p\u00e4iv\u00e4 4"
+            },
+            "thunderstorm_probability_night": {
+                "name": "Ukkosen todenn\u00e4k\u00f6isyys y\u00f6 {forecast_day}"
+            },
+            "thunderstorm_probability_night_0d": {
+                "name": "Ukkosen todenn\u00e4k\u00f6isyys t\u00e4n\u00e4 iltana"
+            },
+            "thunderstorm_probability_night_1d": {
+                "name": "Ukkosen todenn\u00e4k\u00f6isyys y\u00f6 1"
+            },
+            "thunderstorm_probability_night_2d": {
+                "name": "Ukkosen todenn\u00e4k\u00f6isyys y\u00f6 2"
+            },
+            "thunderstorm_probability_night_3d": {
+                "name": "Ukkosen todenn\u00e4k\u00f6isyys y\u00f6 3"
+            },
+            "thunderstorm_probability_night_4d": {
+                "name": "Ukkosen todenn\u00e4k\u00f6isyys y\u00f6 4"
+            },
+            "tree_pollen": {
+                "name": "Puiden siitep\u00f6ly p\u00e4iv\u00e4 {forecast_day}",
+                "state_attributes": {
+                    "level": {
+                        "state": {
+                            "good": "Hyv\u00e4",
+                            "hazardous": "Vaarallinen",
+                            "high": "Korkea",
+                            "low": "Matala",
+                            "moderate": "Kohtalainen",
+                            "unhealthy": "Ep\u00e4terveellinen"
+                        }
+                    }
+                }
+            },
+            "tree_pollen_0d": {
+                "name": "Puiden siitep\u00f6ly t\u00e4n\u00e4\u00e4n",
+                "state_attributes": {
+                    "level": {
+                        "name": "Taso",
+                        "state": {
+                            "good": "Hyv\u00e4",
+                            "hazardous": "Vaarallinen",
+                            "high": "Korkea",
+                            "low": "Matala",
+                            "moderate": "Kohtalainen",
+                            "unhealthy": "Ep\u00e4terveellinen"
+                        }
+                    }
+                }
+            },
+            "tree_pollen_1d": {
+                "name": "Puiden siitep\u00f6ly p\u00e4iv\u00e4 1",
+                "state_attributes": {
+                    "level": {
+                        "name": "Taso",
+                        "state": {
+                            "good": "Hyv\u00e4",
+                            "hazardous": "Vaarallinen",
+                            "high": "Korkea",
+                            "low": "Matala",
+                            "moderate": "Kohtalainen",
+                            "unhealthy": "Ep\u00e4terveellinen"
+                        }
+                    }
+                }
+            },
+            "tree_pollen_2d": {
+                "name": "Puiden siitep\u00f6ly p\u00e4iv\u00e4 2",
+                "state_attributes": {
+                    "level": {
+                        "name": "Taso",
+                        "state": {
+                            "good": "Hyv\u00e4",
+                            "hazardous": "Vaarallinen",
+                            "high": "Korkea",
+                            "low": "Matala",
+                            "moderate": "Kohtalainen",
+                            "unhealthy": "Ep\u00e4terveellinen"
+                        }
+                    }
+                }
+            },
+            "tree_pollen_3d": {
+                "name": "Puiden siitep\u00f6ly p\u00e4iv\u00e4 3",
+                "state_attributes": {
+                    "level": {
+                        "name": "Taso",
+                        "state": {
+                            "good": "Hyv\u00e4",
+                            "hazardous": "Vaarallinen",
+                            "high": "Korkea",
+                            "low": "Matala",
+                            "moderate": "Kohtalainen",
+                            "unhealthy": "Ep\u00e4terveellinen"
+                        }
+                    }
+                }
+            },
+            "tree_pollen_4d": {
+                "name": "Puiden siitep\u00f6ly p\u00e4iv\u00e4 4",
+                "state_attributes": {
+                    "level": {
+                        "name": "Taso",
+                        "state": {
+                            "good": "Hyv\u00e4",
+                            "hazardous": "Vaarallinen",
+                            "high": "Korkea",
+                            "low": "Matala",
+                            "moderate": "Kohtalainen",
+                            "unhealthy": "Ep\u00e4terveellinen"
+                        }
+                    }
+                }
+            },
+            "uv_index": {
+                "name": "UV-indeksi"
+            },
+            "uv_index_0d": {
+                "name": "UV-indeksi t\u00e4n\u00e4\u00e4n",
+                "state_attributes": {
+                    "level": {
+                        "name": "Taso",
+                        "state": {
+                            "good": "Hyv\u00e4",
+                            "hazardous": "Vaarallinen",
+                            "high": "Korkea",
+                            "low": "Matala",
+                            "moderate": "Kohtalainen",
+                            "unhealthy": "Ep\u00e4terveellinen"
+                        }
+                    }
+                }
+            },
+            "uv_index_1d": {
+                "name": "UV-indeksi p\u00e4iv\u00e4 1",
+                "state_attributes": {
+                    "level": {
+                        "name": "Taso",
+                        "state": {
+                            "good": "Hyv\u00e4",
+                            "hazardous": "Vaarallinen",
+                            "high": "Korkea",
+                            "low": "Matala",
+                            "moderate": "Kohtalainen",
+                            "unhealthy": "Ep\u00e4terveellinen"
+                        }
+                    }
+                }
+            },
+            "uv_index_2d": {
+                "name": "UV-indeksi p\u00e4iv\u00e4 2",
+                "state_attributes": {
+                    "level": {
+                        "name": "Taso",
+                        "state": {
+                            "good": "Hyv\u00e4",
+                            "hazardous": "Vaarallinen",
+                            "high": "Korkea",
+                            "low": "Matala",
+                            "moderate": "Kohtalainen",
+                            "unhealthy": "Ep\u00e4terveellinen"
+                        }
+                    }
+                }
+            },
+            "uv_index_3d": {
+                "name": "UV-indeksi p\u00e4iv\u00e4 3",
+                "state_attributes": {
+                    "level": {
+                        "name": "Taso",
+                        "state": {
+                            "good": "Hyv\u00e4",
+                            "hazardous": "Vaarallinen",
+                            "high": "Korkea",
+                            "low": "Matala",
+                            "moderate": "Kohtalainen",
+                            "unhealthy": "Ep\u00e4terveellinen"
+                        }
+                    }
+                }
+            },
+            "uv_index_4d": {
+                "name": "UV-indeksi p\u00e4iv\u00e4 4",
+                "state_attributes": {
+                    "level": {
+                        "name": "Taso",
+                        "state": {
+                            "good": "Hyv\u00e4",
+                            "hazardous": "Vaarallinen",
+                            "high": "Korkea",
+                            "low": "Matala",
+                            "moderate": "Kohtalainen",
+                            "unhealthy": "Ep\u00e4terveellinen"
+                        }
+                    }
+                }
+            },
+            "uv_index_forecast": {
+                "name": "UV-indeksi p\u00e4iv\u00e4 {forecast_day}",
+                "state_attributes": {
+                    "level": {
+                        "name": "Taso",
+                        "state": {
+                            "good": "Hyv\u00e4",
+                            "hazardous": "Vaarallinen",
+                            "high": "Korkea",
+                            "low": "Matala",
+                            "moderate": "Kohtalainen",
+                            "unhealthy": "Ep\u00e4terveellinen"
+                        }
+                    }
+                }
+            },
+            "wet_bulb_temperature": {
+                "name": "Kosteusl\u00e4mp\u00f6tila"
+            },
+            "wind_chill_temperature": {
+                "name": "Tuulen kylmyyden l\u00e4mp\u00f6tila"
+            },
+            "wind_gust_speed": {
+                "name": "Tuulen puuskanopeus"
+            },
+            "wind_gust_speed_day": {
+                "name": "Tuulen puuskanopeus p\u00e4iv\u00e4 {forecast_day}"
+            },
+            "wind_gust_speed_day_0d": {
+                "name": "Tuulen puuskanopeus t\u00e4n\u00e4\u00e4n"
+            },
+            "wind_gust_speed_day_1d": {
+                "name": "Tuulen puuskanopeus p\u00e4iv\u00e4 1"
+            },
+            "wind_gust_speed_day_2d": {
+                "name": "Tuulen puuskanopeus p\u00e4iv\u00e4 2"
+            },
+            "wind_gust_speed_day_3d": {
+                "name": "Tuulen puuskanopeus p\u00e4iv\u00e4 3"
+            },
+            "wind_gust_speed_day_4d": {
+                "name": "Tuulen puuskanopeus p\u00e4iv\u00e4 4"
+            },
+            "wind_gust_speed_night": {
+                "name": "Tuulen puuskanopeus y\u00f6 {forecast_day}"
+            },
+            "wind_gust_speed_night_0d": {
+                "name": "Tuulen puuskanopeus t\u00e4n\u00e4 y\u00f6n\u00e4"
+            },
+            "wind_gust_speed_night_1d": {
+                "name": "Tuulen puuskanopeus y\u00f6 1"
+            },
+            "wind_gust_speed_night_2d": {
+                "name": "Tuulen puuskanopeus y\u00f6 2"
+            },
+            "wind_gust_speed_night_3d": {
+                "name": "Tuulen puuskanopeus y\u00f6 3"
+            },
+            "wind_gust_speed_night_4d": {
+                "name": "Tuulen puuskanopeus y\u00f6 4"
+            },
+            "wind_speed": {
+                "name": "Tuulennopeus"
+            },
+            "wind_speed_day": {
+                "name": "Tuulen nopeus p\u00e4iv\u00e4 {forecast_day}"
+            },
+            "wind_speed_day_0d": {
+                "name": "Tuulen nopeus t\u00e4n\u00e4\u00e4n"
+            },
+            "wind_speed_day_1d": {
+                "name": "Tuulen nopeus p\u00e4iv\u00e4 1"
+            },
+            "wind_speed_day_2d": {
+                "name": "Tuulen nopeus p\u00e4iv\u00e4 2"
+            },
+            "wind_speed_day_3d": {
+                "name": "Tuulen nopeus p\u00e4iv\u00e4 3"
+            },
+            "wind_speed_day_4d": {
+                "name": "Tuulen nopeus p\u00e4iv\u00e4 4"
+            },
+            "wind_speed_night": {
+                "name": "Tuulen nopeus y\u00f6 {forecast_day}"
+            },
+            "wind_speed_night_0d": {
+                "name": "Tuulen nopeus t\u00e4n\u00e4 y\u00f6n\u00e4"
+            },
+            "wind_speed_night_1d": {
+                "name": "Tuulen nopeus y\u00f6 1"
+            },
+            "wind_speed_night_2d": {
+                "name": "Tuulen nopeus y\u00f6 2"
+            },
+            "wind_speed_night_3d": {
+                "name": "Tuulen nopeus y\u00f6 3"
+            },
+            "wind_speed_night_4d": {
+                "name": "Tuulen nopeus y\u00f6 4"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "forecast": "S\u00e4\u00e4ennuste"
+                },
+                "description": "AccuWeather API-avaimen ilmaisversion rajoitusten vuoksi, kun otat s\u00e4\u00e4ennusteen k\u00e4ytt\u00f6\u00f6n, tiedot p\u00e4ivitet\u00e4\u00e4n 80 minuutin v\u00e4lein 40 minuutin sijaan."
+            }
+        }
+    },
+    "system_health": {
+        "info": {
+            "can_reach_server": "Tavoita AccuWeather-palvelin",
+            "remaining_requests": "J\u00e4ljell\u00e4 olevat sallitut pyynn\u00f6t"
+        }
+    }
+}

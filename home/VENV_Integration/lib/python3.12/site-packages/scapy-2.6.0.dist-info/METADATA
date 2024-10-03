@@ -1,0 +1,131 @@
+Metadata-Version: 2.1
+Name: scapy
+Version: 2.6.0
+Summary: Scapy: interactive packet manipulation tool
+Author: Philippe BIONDI
+Maintainer: Pierre LALET, Gabriel POTTER, Guillaume VALADON, Nils WEISS
+License: GPL-2.0-only
+Project-URL: Homepage, https://scapy.net
+Project-URL: Download, https://github.com/secdev/scapy/tarball/master
+Project-URL: Documentation, https://scapy.readthedocs.io
+Project-URL: Source Code, https://github.com/secdev/scapy
+Project-URL: Changelog, https://github.com/secdev/scapy/releases
+Keywords: network
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Environment :: Console
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Information Technology
+Classifier: Intended Audience :: Science/Research
+Classifier: Intended Audience :: System Administrators
+Classifier: Intended Audience :: Telecommunications Industry
+Classifier: License :: OSI Approved :: GNU General Public License v2 (GPLv2)
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Topic :: Security
+Classifier: Topic :: System :: Networking
+Classifier: Topic :: System :: Networking :: Monitoring
+Requires-Python: <4,>=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Provides-Extra: all
+Requires-Dist: ipython ; extra == 'all'
+Requires-Dist: pyx ; extra == 'all'
+Requires-Dist: cryptography >=2.0 ; extra == 'all'
+Requires-Dist: matplotlib ; extra == 'all'
+Provides-Extra: cli
+Requires-Dist: ipython ; extra == 'cli'
+Provides-Extra: doc
+Requires-Dist: sphinx >=7.0.0 ; extra == 'doc'
+Requires-Dist: sphinx-rtd-theme >=1.3.0 ; extra == 'doc'
+Requires-Dist: tox >=3.0.0 ; extra == 'doc'
+
+# <img src="https://github.com/secdev/scapy/raw/master/doc/scapy/graphics/scapy_logo.png" width="64" valign="middle" alt="Scapy" />&nbsp;&nbsp; Scapy
+
+[![PyPI Version](https://img.shields.io/pypi/v/scapy.svg)](https://pypi.python.org/pypi/scapy/)
+[![License: GPL v2](https://img.shields.io/badge/License-GPL%20v2-blue.svg)](LICENSE)
+
+Scapy is a powerful Python-based interactive packet manipulation program and
+library.
+
+It is able to forge or decode packets of a wide number of protocols, send them
+on the wire, capture them, store or read them using pcap files, match requests
+and replies, and much more. It is designed to allow fast packet prototyping by
+using default values that work.
+
+It can easily handle most classical tasks like scanning, tracerouting, probing,
+unit tests, attacks or network discovery (it can replace `hping`, 85% of `nmap`,
+`arpspoof`, `arp-sk`, `arping`, `tcpdump`, `wireshark`, `p0f`, etc.). It also
+performs very well at a lot of other specific tasks that most other tools can't
+handle, like sending invalid frames, injecting your own 802.11 frames, combining
+techniques (VLAN hopping+ARP cache poisoning, VoIP decoding on WEP protected
+channel, ...), etc.
+
+Scapy supports Python 3.7+. It's intended to
+be cross platform, and runs on many different platforms (Linux, OSX,
+\*BSD, and Windows).
+
+## Getting started
+
+Scapy is usable either as a **shell** or as a **library**.
+For further details, please head over to [Getting started with Scapy](https://scapy.readthedocs.io/en/latest/introduction.html), which is part of the documentation.
+
+### Shell demo
+
+![Scapy install demo](https://secdev.github.io/files/doc/animation-scapy-install.svg)
+
+Scapy can easily be used as an interactive shell to interact with the network.
+The following example shows how to send an ICMP Echo Request message to
+`github.com`, then display the reply source IP address:
+
+```python
+sudo ./run_scapy
+Welcome to Scapy
+>>> p = IP(dst="github.com")/ICMP()
+>>> r = sr1(p)
+Begin emission:
+.Finished to send 1 packets.
+*
+Received 2 packets, got 1 answers, remaining 0 packets
+>>> r[IP].src
+'192.30.253.113'
+```
+
+### Resources
+
+The [documentation](https://scapy.readthedocs.io/en/latest/) contains more
+advanced use cases, and examples.
+
+Other useful resources:
+
+-   [Scapy in 20 minutes](https://github.com/secdev/scapy/blob/master/doc/notebooks/Scapy%20in%2015%20minutes.ipynb)
+-   [Interactive tutorial](https://scapy.readthedocs.io/en/latest/usage.html#interactive-tutorial) (part of the documentation)
+-   [The quick demo: an interactive session](https://scapy.readthedocs.io/en/latest/introduction.html#quick-demo) (some examples may be outdated)
+-   [HTTP/2 notebook](https://github.com/secdev/scapy/blob/master/doc/notebooks/HTTP_2_Tuto.ipynb)
+-   [TLS notebooks](https://github.com/secdev/scapy/blob/master/doc/notebooks/tls)
+
+## [Installation](https://scapy.readthedocs.io/en/latest/installation.html)
+
+Scapy works without any external Python modules on Linux and BSD like operating
+systems. On Windows, you need to install some mandatory dependencies as
+described in [the
+documentation](http://scapy.readthedocs.io/en/latest/installation.html#windows).
+
+On most systems, using Scapy is as simple as running the following commands:
+
+```bash
+git clone https://github.com/secdev/scapy
+cd scapy
+./run_scapy
+```
+
+To benefit from all Scapy features, such as plotting, you might want to install
+Python modules, such as `matplotlib` or `cryptography`. See the
+[documentation](http://scapy.readthedocs.io/en/latest/installation.html) and
+follow the instructions to install them.

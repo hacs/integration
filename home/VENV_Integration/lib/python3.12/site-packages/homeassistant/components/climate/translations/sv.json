@@ -1,0 +1,289 @@
+{
+    "device_automation": {
+        "action_type": {
+            "set_hvac_mode": "\u00c4ndra HVAC-l\u00e4ge p\u00e5 {entity_name}",
+            "set_preset_mode": "\u00c4ndra f\u00f6rinst\u00e4llning p\u00e5 {entity_name}"
+        },
+        "condition_type": {
+            "is_hvac_mode": "{entity_name} \u00e4r inst\u00e4lld p\u00e5 ett specifikt HVAC-l\u00e4ge",
+            "is_preset_mode": "{entity_name} \u00e4r inst\u00e4lld p\u00e5 ett specifikt f\u00f6rinst\u00e4llt l\u00e4ge"
+        },
+        "extra_fields": {
+            "above": "Ovan",
+            "below": "Nedan",
+            "for": "Varaktighet",
+            "hvac_mode": "HVAC-l\u00e4ge",
+            "preset_mode": "F\u00f6rinst\u00e4llt l\u00e4ge",
+            "to": "Till"
+        },
+        "trigger_type": {
+            "current_humidity_changed": "{entity_name} uppm\u00e4tt fuktighet har \u00e4ndrats",
+            "current_temperature_changed": "{entity_name} uppm\u00e4tt temperatur har \u00e4ndrats",
+            "hvac_mode_changed": "{entity_name} HVAC-l\u00e4ge har \u00e4ndrats"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Termostat",
+            "state": {
+                "auto": "Auto",
+                "cool": "Kyla",
+                "dry": "Torka",
+                "fan_only": "Endast fl\u00e4kt",
+                "heat": "V\u00e4rme",
+                "heat_cool": "V\u00e4rme/Kyla",
+                "off": "Av"
+            },
+            "state_attributes": {
+                "aux_heat": {
+                    "name": "Extra v\u00e4rme"
+                },
+                "current_humidity": {
+                    "name": "Aktuell fuktighet"
+                },
+                "current_temperature": {
+                    "name": "Aktuell temperatur"
+                },
+                "fan_mode": {
+                    "name": "Fl\u00e4ktl\u00e4ge",
+                    "state": {
+                        "auto": "Auto",
+                        "diffuse": "Diffus",
+                        "focus": "Fokus",
+                        "high": "H\u00f6g",
+                        "low": "L\u00e5g",
+                        "medium": "Medel",
+                        "middle": "Mellan",
+                        "off": "Av",
+                        "on": "P\u00e5",
+                        "top": "Topp"
+                    }
+                },
+                "fan_modes": {
+                    "name": "Fl\u00e4ktl\u00e4gen"
+                },
+                "humidity": {
+                    "name": "M\u00e5lluftfuktighet"
+                },
+                "hvac_action": {
+                    "name": "Aktuell \u00e5tg\u00e4rd",
+                    "state": {
+                        "cooling": "Kyler",
+                        "defrosting": "Avfrostning",
+                        "drying": "Torkar",
+                        "fan": "Fl\u00e4kt",
+                        "heating": "V\u00e4rmer",
+                        "idle": "Inaktiv",
+                        "off": "Av",
+                        "preheating": "F\u00f6rv\u00e4rmning"
+                    }
+                },
+                "hvac_modes": {
+                    "name": "HVAC-l\u00e4gen"
+                },
+                "max_humidity": {
+                    "name": "Max m\u00e5lluftfuktighet"
+                },
+                "max_temp": {
+                    "name": "H\u00f6gsta m\u00e5ltemperatur"
+                },
+                "min_humidity": {
+                    "name": "Min m\u00e5lluftfuktighet"
+                },
+                "min_temp": {
+                    "name": "Minsta m\u00e5ltemperatur"
+                },
+                "preset_mode": {
+                    "name": "F\u00f6rinst\u00e4llning",
+                    "state": {
+                        "activity": "Aktivitet",
+                        "away": "Borta",
+                        "boost": "Boost-l\u00e4ge",
+                        "comfort": "Komfort",
+                        "eco": "Eco",
+                        "home": "Hemma",
+                        "none": "Inget",
+                        "sleep": "Vilol\u00e4ge"
+                    }
+                },
+                "preset_modes": {
+                    "name": "F\u00f6rinst\u00e4llningar"
+                },
+                "swing_mode": {
+                    "name": "Svepl\u00e4ge",
+                    "state": {
+                        "both": "B\u00e5da",
+                        "horizontal": "Horisontellt",
+                        "off": "Av",
+                        "on": "P\u00e5",
+                        "vertical": "Vertikalt"
+                    }
+                },
+                "swing_modes": {
+                    "name": "Svepl\u00e4gen"
+                },
+                "target_temp_high": {
+                    "name": "\u00d6vre m\u00e5ltemperatur"
+                },
+                "target_temp_low": {
+                    "name": "L\u00e4gre m\u00e5ltemperatur"
+                },
+                "target_temp_step": {
+                    "name": "Steg f\u00f6r m\u00e5ltemperatur"
+                },
+                "temperature": {
+                    "name": "M\u00e5ltemperatur"
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "humidity_out_of_range": {
+            "message": "Tillhandah\u00e5llen fuktighet {humidity} \u00e4r inte giltig. Accepterat intervall \u00e4r {min_humidity} till {max_humidity}."
+        },
+        "low_temp_higher_than_high_temp": {
+            "message": "M\u00e5ltemperatur l\u00e5g kan inte vara h\u00f6gre \u00e4n M\u00e5ltemperatur h\u00f6g."
+        },
+        "missing_target_temperature_entity_feature": {
+            "message": "\u00c5tg\u00e4rden Ange temperatur anv\u00e4ndes med m\u00e5ltemperaturparametern, men entiteten st\u00f6der den inte."
+        },
+        "missing_target_temperature_range_entity_feature": {
+            "message": "\u00c5tg\u00e4rden Ange temperatur anv\u00e4ndes med parametern f\u00f6r l\u00e5g/h\u00f6g m\u00e5ltemperatur, men entiteten st\u00f6der den inte."
+        },
+        "not_valid_fan_mode": {
+            "message": "Fl\u00e4ktl\u00e4get {mode} \u00e4r inte giltigt. Giltiga fl\u00e4ktl\u00e4gen \u00e4r: {modes} ."
+        },
+        "not_valid_preset_mode": {
+            "message": "F\u00f6rinst\u00e4llt l\u00e4ge {mode} \u00e4r inte giltigt. Giltiga f\u00f6rinst\u00e4llda l\u00e4gen \u00e4r: {modes} ."
+        },
+        "not_valid_swing_mode": {
+            "message": "Sv\u00e4ngl\u00e4get {mode} \u00e4r inte giltigt. Giltiga sv\u00e4ngl\u00e4gen \u00e4r: {modes} ."
+        },
+        "temp_out_of_range": {
+            "message": "Angiven temperatur {check_temp} \u00e4r inte giltig. Accepterat intervall \u00e4r {min_temp} till {max_temp}."
+        }
+    },
+    "issues": {
+        "deprecated_climate_aux_no_url": {
+            "description": "Den anpassade integrationen `{platform}` implementerar egenskapen `is_aux_heat` eller anv\u00e4nder metoderna f\u00f6r extrav\u00e4rmare i en underklass till ClimateEntity.\n\nV\u00e4nligen rapportera det till f\u00f6rfattaren till {platform} integrationen.\n\nN\u00e4r en uppdaterad version av `{platform}` \u00e4r tillg\u00e4nglig, installera den och starta om Home Assistant f\u00f6r att \u00e5tg\u00e4rda problemet.",
+            "title": "Den anpassade integrationen av {platform} anv\u00e4nder f\u00f6r\u00e5ldrad tillsatsv\u00e4rmare f\u00f6r klimat"
+        },
+        "deprecated_climate_aux_url_custom": {
+            "description": "Den anpassade integrationen `{platform}` implementerar egenskapen `is_aux_heat` eller anv\u00e4nder metoderna f\u00f6r extrav\u00e4rmare i en underklass till ClimateEntity.\n\nV\u00e4nligen skapa en felrapport p\u00e5 {issue_tracker}.\n\nN\u00e4r en uppdaterad version av `{platform}` \u00e4r tillg\u00e4nglig, installera den och starta om Home Assistant f\u00f6r att \u00e5tg\u00e4rda problemet.",
+            "title": "Den anpassade integrationen av {platform} anv\u00e4nder f\u00f6r\u00e5ldrad tillsatsv\u00e4rmare f\u00f6r klimat"
+        },
+        "platform_integration_no_support": {
+            "description": "{platform}-plattformen f\u00f6r integrationen {domain} st\u00f6ds inte.\n\nTa bort den fr\u00e5n din konfiguration och starta om Home Assistant f\u00f6r att \u00e5tg\u00e4rda detta problem.",
+            "title": "Plattformen st\u00f6ds inte"
+        }
+    },
+    "selector": {
+        "hvac_mode": {
+            "options": {
+                "auto": "Automatisk",
+                "cool": "Kylning",
+                "dry": "Torkning",
+                "fan_only": "Enbart fl\u00e4kt",
+                "heat": "Uppv\u00e4rmning",
+                "heat_cool": "V\u00e4rme/kyla",
+                "off": "Av"
+            }
+        }
+    },
+    "services": {
+        "set_aux_heat": {
+            "description": "Sl\u00e5r p\u00e5/av tillsatsv\u00e4rmaren.",
+            "fields": {
+                "aux_heat": {
+                    "description": "Nytt v\u00e4rde f\u00f6r tillsatsv\u00e4rmare.",
+                    "name": "Extra uppv\u00e4rmning"
+                }
+            },
+            "name": "Sl\u00e5 p\u00e5/st\u00e4nga av tillsatsv\u00e4rmaren"
+        },
+        "set_fan_mode": {
+            "description": "St\u00e4ller in fl\u00e4ktens driftl\u00e4ge.",
+            "fields": {
+                "fan_mode": {
+                    "description": "Fl\u00e4ktens driftl\u00e4ge.",
+                    "name": "Fl\u00e4ktl\u00e4ge"
+                }
+            },
+            "name": "St\u00e4ll in fl\u00e4ktl\u00e4ge"
+        },
+        "set_humidity": {
+            "description": "St\u00e4ller in \u00f6nskad luftfuktighet.",
+            "fields": {
+                "humidity": {
+                    "description": "M\u00e5lfuktighet.",
+                    "name": "Luftfuktighet"
+                }
+            },
+            "name": "St\u00e4ll in \u00f6nskad luftfuktighet"
+        },
+        "set_hvac_mode": {
+            "description": "St\u00e4ller in HVAC-driftl\u00e4ge.",
+            "fields": {
+                "hvac_mode": {
+                    "description": "HVAC-driftl\u00e4ge.",
+                    "name": "HVAC-l\u00e4ge"
+                }
+            },
+            "name": "St\u00e4ll in HVAC-l\u00e4ge"
+        },
+        "set_preset_mode": {
+            "description": "St\u00e4ller in f\u00f6rinst\u00e4llt l\u00e4ge.",
+            "fields": {
+                "preset_mode": {
+                    "description": "F\u00f6rinst\u00e4llt l\u00e4ge.",
+                    "name": "F\u00f6rinst\u00e4llt l\u00e4ge"
+                }
+            },
+            "name": "St\u00e4ll in f\u00f6rinst\u00e4llt l\u00e4ge"
+        },
+        "set_swing_mode": {
+            "description": "St\u00e4ller in sv\u00e4ngningsl\u00e4ge.",
+            "fields": {
+                "swing_mode": {
+                    "description": "Sv\u00e4ngningsl\u00e4ge.",
+                    "name": "Sv\u00e4ngl\u00e4ge"
+                }
+            },
+            "name": "St\u00e4ll in sv\u00e4ngl\u00e4ge"
+        },
+        "set_temperature": {
+            "description": "St\u00e4ller m\u00e5ltemperatur",
+            "fields": {
+                "hvac_mode": {
+                    "description": "Driftl\u00e4ge f\u00f6r HVAC.",
+                    "name": "HVAC-l\u00e4ge"
+                },
+                "target_temp_high": {
+                    "description": "H\u00f6g m\u00e5ltemperatur.",
+                    "name": "M\u00e5ltemperatur h\u00f6g"
+                },
+                "target_temp_low": {
+                    "description": "L\u00e5g m\u00e5ltemperatur.",
+                    "name": "M\u00e5ltemperatur l\u00e5g"
+                },
+                "temperature": {
+                    "description": "M\u00e5ltemperatur.",
+                    "name": "Temperatur"
+                }
+            },
+            "name": "St\u00e4ll m\u00e5ltemperatur"
+        },
+        "toggle": {
+            "name": "V\u00e4xla"
+        },
+        "turn_off": {
+            "description": "St\u00e4nger av klimatenheten.",
+            "name": "St\u00e4ng av"
+        },
+        "turn_on": {
+            "description": "Sl\u00e5r p\u00e5 klimatenheten.",
+            "name": "Starta"
+        }
+    },
+    "title": "Klimat"
+}

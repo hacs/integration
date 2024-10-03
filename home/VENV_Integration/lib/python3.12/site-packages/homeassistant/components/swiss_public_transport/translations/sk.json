@@ -1,0 +1,102 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Slu\u017eba u\u017e je nakonfigurovan\u00e1",
+            "bad_config": "Po\u017eiadavka zlyhala z d\u00f4vodu zlej konfigur\u00e1cie: Skontrolujte, \u010di s\u00fa v [stationboard]({stationboard_url}) platn\u00e9 stanice.",
+            "cannot_connect": "Nemo\u017eno sa pripoji\u0165 k serveru",
+            "unknown": "Bola vyvolan\u00e1 nezn\u00e1ma chyba python-opendata-transport"
+        },
+        "error": {
+            "bad_config": "Po\u017eiadavka zlyhala z d\u00f4vodu zlej konfigur\u00e1cie: Skontrolujte na adrese [stationboard]({stationboard_url}), \u010di s\u00fa n\u00e1zvy va\u0161ich stan\u00edc platn\u00e9",
+            "cannot_connect": "Nemo\u017eno sa pripoji\u0165 k serveru",
+            "too_many_via_stations": "Pr\u00edli\u0161 ve\u013ea via stan\u00edc, na jedno pripojenie je povolen\u00fdch len 5 via stan\u00edc.",
+            "unknown": "Bola vyvolan\u00e1 nezn\u00e1ma chyba python-opendata-transport"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "from": "\u0160tartovacia stanica",
+                    "to": "Koncov\u00e1 stanica",
+                    "via": "Zoznam a\u017e 5 via stan\u00edc"
+                },
+                "description": "Zadajte po\u010diato\u010dn\u00fa a koncov\u00fa stanicu pripojenia,\na volite\u013ene a\u017e 5 via stan\u00edc.\n\nSkontrolujte, \u010di s\u00fa v [Stationboard]({stationboard_url}) uveden\u00e9 platn\u00e9 stanice.",
+                "title": "\u0160vaj\u010diarska verejn\u00e1 doprava"
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "delay": {
+                "name": "Oneskorenie"
+            },
+            "departure": {
+                "name": "Odchod"
+            },
+            "departure0": {
+                "name": "Odchod"
+            },
+            "departure1": {
+                "name": "Odchod +1"
+            },
+            "departure2": {
+                "name": "Odchod +2"
+            },
+            "duration": {
+                "name": "Trvanie"
+            },
+            "platform": {
+                "name": "Platforma"
+            },
+            "transfers": {
+                "name": "Prevody"
+            }
+        }
+    },
+    "exceptions": {
+        "cannot_connect": {
+            "message": "Nemo\u017eno sa pripoji\u0165 k serveru.\n{error}"
+        },
+        "config_entry_not_found": {
+            "message": "In\u0161tancia integr\u00e1cie \u0161vaj\u010diarskej verejnej dopravy \"{target}\" nebola n\u00e1jden\u00e1."
+        },
+        "invalid_data": {
+            "message": "Nastavenie zlyhalo pre polo\u017eku {config_title} s neplatn\u00fdmi \u00fadajmi, skontrolujte v [stationboard]({stationboard_url}), \u010di s\u00fa n\u00e1zvy va\u0161ich stan\u00edc platn\u00e9.\n{error}"
+        },
+        "not_loaded": {
+            "message": "{target} nie je na\u010d\u00edtan\u00fd."
+        },
+        "request_timeout": {
+            "message": "\u010casov\u00fd limit pri prip\u00e1jan\u00ed pre vstup {config_title}.\n{error}"
+        }
+    },
+    "issues": {
+        "deprecated_yaml_import_issue_bad_config": {
+            "description": "Konfigur\u00e1cia \u0161vaj\u010diarskej verejnej dopravy pomocou YAML je odstr\u00e1nen\u00e1, ale do va\u0161ej konfigur\u00e1cie YAML bola importovan\u00e1 zl\u00e1 konfigur\u00e1cia.\n\nSkontrolujte, \u010di s\u00fa v [stationboard]({stationboard_url}) uveden\u00e9 platn\u00e9 stanice.",
+            "title": "\u017diados\u0165 o import konfigur\u00e1cie YAML \u0161vaj\u010diarskej verejnej dopravy zlyhala z d\u00f4vodu zlej konfigur\u00e1cie"
+        },
+        "deprecated_yaml_import_issue_cannot_connect": {
+            "description": "Konfigur\u00e1cia \u0161vaj\u010diarskej verejnej dopravy pomocou YAML sa odstra\u0148uje, ale pri importovan\u00ed va\u0161ej konfigur\u00e1cie YAML do\u0161lo k chybe pripojenia.\n\nUistite sa, \u017ee v\u00e1\u0161 Home Assistant m\u00f4\u017ee dosiahnu\u0165 [opendata server]({opendata_url}). V pr\u00edpade, \u017ee je server nefunk\u010dn\u00fd, sk\u00faste to nesk\u00f4r.",
+            "title": "Import konfigur\u00e1cie YAML \u0161vaj\u010diarskej verejnej dopravy sa nem\u00f4\u017ee pripoji\u0165 k serveru"
+        },
+        "deprecated_yaml_import_issue_unknown": {
+            "description": "Konfigur\u00e1cia \u0161vaj\u010diarskej verejnej dopravy pomocou YAML sa odstra\u0148uje, ale pri importovan\u00ed va\u0161ej konfigur\u00e1cie YAML do\u0161lo k nezn\u00e1mej chybe.\n\nSkontrolujte svoju konfigur\u00e1ciu alebo sa pozrite do dokument\u00e1cie integr\u00e1cie.",
+            "title": "Konfigur\u00e1cia \u0161vaj\u010diarskej verejnej dopravy YAML import zlyhal s nezn\u00e1mou chybou vyvolanou python-opendata-transport"
+        }
+    },
+    "services": {
+        "fetch_connections": {
+            "description": "Z\u00edskajte zoznam spojov zo \u0161vaj\u010diarskej verejnej dopravy.",
+            "fields": {
+                "config_entry_id": {
+                    "description": "In\u0161tancia \u0161vaj\u010diarskej verejnej dopravy na z\u00edskanie spojen\u00ed.",
+                    "name": "In\u0161tancia"
+                },
+                "limit": {
+                    "description": "Po\u010det spojen\u00ed na na\u010d\u00edtanie [1-15]",
+                    "name": "Limit"
+                }
+            },
+            "name": "Z\u00edskavanie pripojen\u00ed"
+        }
+    }
+}

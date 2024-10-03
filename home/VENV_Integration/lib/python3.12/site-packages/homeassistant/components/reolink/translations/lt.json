@@ -1,0 +1,774 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "\u012erenginys jau sukonfig\u016bruotas",
+            "reauth_successful": "Pakartotinis autentifikavimas buvo s\u0117kmingas",
+            "reconfigure_successful": "Pakartotinis konfig\u016bravimas buvo s\u0117kmingas"
+        },
+        "error": {
+            "api_error": "\u012evyko API klaida",
+            "cannot_connect": "Nepavyko prisijungti, patikrinkite fotoaparato IP adres\u0105",
+            "invalid_auth": "Neteisingas autentifikavimas",
+            "not_admin": "Naudotojas turi b\u016bti administratorius, naudotojas \" {username} \" turi prieigos lyg\u012f \" {userlevel} \"",
+            "password_incompatible": "Slapta\u017eodyje yra nesuderinamas specialusis simbolis, leid\u017eiami tik \u0161ie simboliai: az, AZ, 0-9 arba {special_chars}",
+            "unknown": "Netik\u0117ta klaida",
+            "webhook_exception": "Nam\u0173 asistento URL negalimas, eikite \u012f Nustatymai > Sistema > Tinklas > Nam\u0173 asistento URL ir pataisykite URL, \u017er. {more_info}"
+        },
+        "flow_title": "{hostname} ( {ip_address} )",
+        "step": {
+            "reauth_confirm": {
+                "description": "\u201eReolink\u201c integracija turi i\u0161 naujo autentifikuoti j\u016bs\u0173 ry\u0161io informacij\u0105",
+                "title": "Baig\u0117si {name} autentifikavimo galiojimas"
+            },
+            "user": {
+                "data": {
+                    "host": "Host",
+                    "password": "Slapta\u017eodis",
+                    "port": "Prievadas",
+                    "use_https": "\u012egalinti HTTPS",
+                    "username": "Prisijungimos vardas"
+                },
+                "data_description": {
+                    "host": "Reolink \u012frenginio pagrindinio kompiuterio pavadinimas arba IP adresas. Pavyzd\u017eiui: \u201e192.168.1.25\u201c.",
+                    "password": "Slapta\u017eodis prisijungti prie paties Reolink \u012frenginio. Ne Reolink debesies paskyra.",
+                    "port": "Prievadas, skirtas prisijungti prie \u201eReolink\u201c \u012frenginio. HTTP paprastai: '80', HTTPS paprastai '443'.",
+                    "use_https": "Naudokite HTTPS (SSL) ry\u0161\u012f su Reolink \u012frenginiu.",
+                    "username": "Vartotojo vardas, skirtas prisijungti prie paties \u201eReolink\u201c \u012frenginio. Ne Reolink debesies paskyra."
+                },
+                "description": "Jei kyla problem\u0173, \u017er. [trik\u010di\u0173 \u0161alinimo veiksmus] ( {troubleshooting_link} ). {error}"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "animal": {
+                "name": "Gyv\u016bnas",
+                "state": {
+                    "off": "I\u0161valyti",
+                    "on": "Aptikta"
+                }
+            },
+            "animal_lens_0": {
+                "name": "Gyv\u016bno objektyvas 0",
+                "state": {
+                    "off": "I\u0161valyti",
+                    "on": "Aptikta"
+                }
+            },
+            "animal_lens_1": {
+                "name": "Gyv\u016bno objektyvas 1",
+                "state": {
+                    "off": "I\u0161valyti",
+                    "on": "Aptikta"
+                }
+            },
+            "face": {
+                "name": "Veidas",
+                "state": {
+                    "off": "I\u0161valyti",
+                    "on": "Aptikta"
+                }
+            },
+            "face_lens_0": {
+                "name": "Veido objektyvas 0",
+                "state": {
+                    "off": "I\u0161valyti",
+                    "on": "Aptikta"
+                }
+            },
+            "face_lens_1": {
+                "name": "Veido objektyvas 1",
+                "state": {
+                    "off": "I\u0161valyti",
+                    "on": "Aptikta"
+                }
+            },
+            "motion_lens_0": {
+                "name": "Judantis objektyvas 0",
+                "state": {
+                    "off": "I\u0161valyti",
+                    "on": "Aptikta"
+                }
+            },
+            "motion_lens_1": {
+                "name": "Judantis objektyvas 1",
+                "state": {
+                    "off": "I\u0161valyti",
+                    "on": "Aptikta"
+                }
+            },
+            "package": {
+                "name": "Paketas",
+                "state": {
+                    "off": "I\u0161valyti",
+                    "on": "Aptikta"
+                }
+            },
+            "package_lens_0": {
+                "name": "Pakuot\u0117s objektyvas 0",
+                "state": {
+                    "off": "I\u0161valyti",
+                    "on": "Aptikta"
+                }
+            },
+            "package_lens_1": {
+                "name": "Pakuot\u0117s objektyvas 1",
+                "state": {
+                    "off": "I\u0161valyti",
+                    "on": "Aptikta"
+                }
+            },
+            "person": {
+                "name": "Asmuo",
+                "state": {
+                    "off": "I\u0161valyti",
+                    "on": "Aptikta"
+                }
+            },
+            "person_lens_0": {
+                "name": "Asmens objektyvas 0",
+                "state": {
+                    "off": "I\u0161valyti",
+                    "on": "Aptikta"
+                }
+            },
+            "person_lens_1": {
+                "name": "Asmeninis objektyvas 1",
+                "state": {
+                    "off": "I\u0161valyti",
+                    "on": "Aptikta"
+                }
+            },
+            "pet": {
+                "name": "Augintinis",
+                "state": {
+                    "off": "I\u0161valyti",
+                    "on": "Aptikta"
+                }
+            },
+            "pet_lens_0": {
+                "name": "Namini\u0173 gyv\u016bn\u0117li\u0173 objektyvas 0",
+                "state": {
+                    "off": "I\u0161valyti",
+                    "on": "Aptikta"
+                }
+            },
+            "pet_lens_1": {
+                "name": "Namini\u0173 gyv\u016bn\u0117li\u0173 objektyvas 1",
+                "state": {
+                    "off": "I\u0161valyti",
+                    "on": "Aptikta"
+                }
+            },
+            "sleep": {
+                "name": "Miego b\u016bsena",
+                "state": {
+                    "off": "Pabud\u0119s",
+                    "on": "Miega"
+                }
+            },
+            "vehicle": {
+                "name": "Transporto priemon\u0117",
+                "state": {
+                    "off": "I\u0161valyti",
+                    "on": "Aptikta"
+                }
+            },
+            "vehicle_lens_0": {
+                "name": "Automobilio objektyvas 0",
+                "state": {
+                    "off": "I\u0161valyti",
+                    "on": "Aptikta"
+                }
+            },
+            "vehicle_lens_1": {
+                "name": "Transporto priemon\u0117s objektyvas 1",
+                "state": {
+                    "off": "I\u0161valyti",
+                    "on": "Aptikta"
+                }
+            },
+            "visitor": {
+                "name": "Lankytojas"
+            },
+            "visitor_lens_0": {
+                "name": "Lankytojo objektyvas 0"
+            },
+            "visitor_lens_1": {
+                "name": "Lankytojo objektyvas 1"
+            }
+        },
+        "button": {
+            "guard_go_to": {
+                "name": "Apsauga eik \u012f"
+            },
+            "guard_set": {
+                "name": "Apsauga nustato dabartin\u0119 pad\u0117t\u012f"
+            },
+            "ptz_calibrate": {
+                "name": "PTZ kalibravimas"
+            },
+            "ptz_down": {
+                "name": "PTZ \u017eemyn"
+            },
+            "ptz_left": {
+                "name": "PTZ \u012f kair\u0119"
+            },
+            "ptz_right": {
+                "name": "PTZ \u012f de\u0161in\u0119"
+            },
+            "ptz_stop": {
+                "name": "PTZ sustabdymas"
+            },
+            "ptz_up": {
+                "name": "PTZ auk\u0161tyn"
+            },
+            "ptz_zoom_in": {
+                "name": "PTZ priartinimas"
+            },
+            "ptz_zoom_out": {
+                "name": "PTZ tolinimas"
+            }
+        },
+        "camera": {
+            "autotrack_snapshots_main": {
+                "name": "I\u0161valykite automatinio sekimo momentines nuotraukas"
+            },
+            "autotrack_snapshots_sub": {
+                "name": "Automatinio sekimo momentin\u0117s nuotraukos skland\u017eiai"
+            },
+            "autotrack_sub": {
+                "name": "Autotrack laisvai"
+            },
+            "ext": {
+                "name": "Subalansuotas"
+            },
+            "ext_lens_0": {
+                "name": "Subalansuotas objektyvas 0"
+            },
+            "ext_lens_1": {
+                "name": "Subalansuotas objektyvas 1"
+            },
+            "main": {
+                "name": "I\u0161valyti"
+            },
+            "main_lens_0": {
+                "name": "Skaidrus objektyvas 0"
+            },
+            "main_lens_1": {
+                "name": "Skaidrus objektyvas 1"
+            },
+            "snapshots_main": {
+                "name": "Momentin\u0117s nuotraukos ai\u0161kios"
+            },
+            "snapshots_main_lens_0": {
+                "name": "Momentini\u0173 nuotrauk\u0173 skaidrus objektyvas 0"
+            },
+            "snapshots_main_lens_1": {
+                "name": "Momentini\u0173 nuotrauk\u0173 skaidrus objektyvas 1"
+            },
+            "snapshots_sub": {
+                "name": "Momentin\u0117s nuotraukos skland\u017eiai"
+            },
+            "snapshots_sub_lens_0": {
+                "name": "Momentini\u0173 kadr\u0173 sklandus objektyvas 0"
+            },
+            "snapshots_sub_lens_1": {
+                "name": "Sklandus momentin\u0117s nuotraukos objektyvas 1"
+            },
+            "sub": {
+                "name": "Sklandus"
+            },
+            "sub_lens_0": {
+                "name": "Sklandus objektyvas 0"
+            },
+            "sub_lens_1": {
+                "name": "Sklandus objektyvas 1"
+            }
+        },
+        "light": {
+            "floodlight": {
+                "name": "Pro\u017eektorius"
+            },
+            "ir_lights": {
+                "name": "Infraraudonieji \u017eibintai naktiniu re\u017eimu"
+            },
+            "status_led": {
+                "name": "B\u016bsenos LED"
+            }
+        },
+        "number": {
+            "ai_animal_delay": {
+                "name": "AI gyv\u016bn\u0173 delsimas"
+            },
+            "ai_animal_sensititvity": {
+                "name": "AI gyv\u016bn\u0173 jautrumas"
+            },
+            "ai_animal_sensitivity": {
+                "name": "AI gyv\u016bn\u0173 jautrumas"
+            },
+            "ai_face_delay": {
+                "name": "AI veido v\u0117lavimas"
+            },
+            "ai_face_sensititvity": {
+                "name": "AI veido jautrumas"
+            },
+            "ai_face_sensitivity": {
+                "name": "AI veido jautrumas"
+            },
+            "ai_package_delay": {
+                "name": "AI paketo v\u0117lavimas"
+            },
+            "ai_package_sensititvity": {
+                "name": "AI paketo jautrumas"
+            },
+            "ai_package_sensitivity": {
+                "name": "AI paketo jautrumas"
+            },
+            "ai_person_delay": {
+                "name": "AI asmens delsimas"
+            },
+            "ai_person_sensititvity": {
+                "name": "AI asmens jautrumas"
+            },
+            "ai_person_sensitivity": {
+                "name": "AI asmens jautrumas"
+            },
+            "ai_pet_delay": {
+                "name": "AI augintinio delsimas"
+            },
+            "ai_pet_sensititvity": {
+                "name": "AI augintinio jautrumas"
+            },
+            "ai_pet_sensitivity": {
+                "name": "AI augintinio jautrumas"
+            },
+            "ai_vehicle_delay": {
+                "name": "AI transporto priemon\u0117s v\u0117lavimas"
+            },
+            "ai_vehicle_sensititvity": {
+                "name": "AI transporto priemon\u0117s jautrumas"
+            },
+            "ai_vehicle_sensitivity": {
+                "name": "AI transporto priemon\u0117s jautrumas"
+            },
+            "alarm_volume": {
+                "name": "Signalizacijos garsumas"
+            },
+            "auto_quick_reply_time": {
+                "name": "Automatinio greito atsakymo laikas"
+            },
+            "auto_track_disappear_time": {
+                "name": "Automatinio sekimo dingimo laikas"
+            },
+            "auto_track_limit_left": {
+                "name": "Automatinis takeli\u0173 limitas kair\u0117je"
+            },
+            "auto_track_limit_right": {
+                "name": "Automatinio sekimo limito teis\u0117"
+            },
+            "auto_track_stop_time": {
+                "name": "Automatinio sekimo sustabdymo laikas"
+            },
+            "day_night_switch_threshold": {
+                "name": "Dienos nakties perjungimo slenkstis"
+            },
+            "floodlight_brightness": {
+                "name": "Pro\u017eektorius \u012fjungia \u0161viesum\u0105"
+            },
+            "focus": {
+                "name": "Fokusas"
+            },
+            "guard_return_time": {
+                "name": "Sargybinio gr\u012f\u017eimo laikas"
+            },
+            "image_brightness": {
+                "name": "Vaizdo ry\u0161kumas"
+            },
+            "image_contrast": {
+                "name": "Vaizdo kontrastas"
+            },
+            "image_hue": {
+                "name": "Vaizdo atspalvis"
+            },
+            "image_saturation": {
+                "name": "Vaizdo sodrumas"
+            },
+            "image_sharpness": {
+                "name": "Vaizdo ry\u0161kumas"
+            },
+            "message_volume": {
+                "name": "Prane\u0161imo garsumas"
+            },
+            "motion_sensitivity": {
+                "name": "Judesio jautrumas"
+            },
+            "pir_sensitivity": {
+                "name": "PIR jautrumas"
+            },
+            "volume": {
+                "name": "Apimtis"
+            },
+            "zoom": {
+                "name": "Padidinti"
+            }
+        },
+        "select": {
+            "auto_quick_reply_message": {
+                "name": "Automatinis greito atsakymo prane\u0161imas",
+                "state": {
+                    "off": "I\u0161jungta"
+                }
+            },
+            "auto_track_method": {
+                "name": "Automatinis sekimo metodas",
+                "state": {
+                    "digital": "Skaitmeninis",
+                    "digitalfirst": "Pirmiausia skaitmeninis",
+                    "pantiltfirst": "Pirmiausia pastumkite / pakreipkite"
+                }
+            },
+            "day_night_mode": {
+                "name": "Dienos nakties re\u017eimas",
+                "state": {
+                    "auto": "Automatinis",
+                    "blackwhite": "Juoda & balta",
+                    "color": "Spalva"
+                }
+            },
+            "doorbell_led": {
+                "name": "Dur\u0173 skambutis LED",
+                "state": {
+                    "alwayson": "Visada \u012fjungtas",
+                    "alwaysonatnight": "Automatinis ir visada \u012fjungtas nakt\u012f",
+                    "auto": "Automatinis",
+                    "stayoff": "Nesiki\u0161k"
+                }
+            },
+            "floodlight_mode": {
+                "name": "Pro\u017eektoriaus re\u017eimas",
+                "state": {
+                    "adaptive": "Prisitaikantis",
+                    "auto": "Automatinis",
+                    "autoadaptive": "Automati\u0161kai prisitaikantis",
+                    "off": "I\u0161jungta",
+                    "onatnight": "\u012ejungta nakt\u012f",
+                    "schedule": "Tvarkara\u0161tis"
+                }
+            },
+            "hdr": {
+                "name": "HDR",
+                "state": {
+                    "auto": "Automatinis",
+                    "off": "I\u0161jungta",
+                    "on": "\u012ejungta"
+                }
+            },
+            "hub_alarm_ringtone": {
+                "name": "Hub \u017eadintuvo skamb\u0117jimo tonas",
+                "state": {
+                    "alarm": "Signalizacija",
+                    "attraction": "Atrakcija",
+                    "citybird": "Miesto pauk\u0161tis",
+                    "goodday": "Gera diena",
+                    "hophop": "Hop hop",
+                    "loop": "Kilpa",
+                    "moonlight": "M\u0117nulio \u0161viesa",
+                    "operetta": "Operet\u0117",
+                    "originaltune": "Originali melodija",
+                    "pianokey": "Fortepijono klavi\u0161as",
+                    "waybackhome": "Kelias atgal namo"
+                }
+            },
+            "hub_visitor_ringtone": {
+                "name": "Hub lankytojo skamb\u0117jimo tonas",
+                "state": {
+                    "alarm": "Signalizacija",
+                    "attraction": "Atrakcija",
+                    "citybird": "Miesto pauk\u0161tis",
+                    "goodday": "Gera diena",
+                    "hophop": "Hop hop",
+                    "loop": "Kilpa",
+                    "moonlight": "M\u0117nulio \u0161viesa",
+                    "operetta": "Operet\u0117",
+                    "originaltune": "Originali melodija",
+                    "pianokey": "Fortepijono klavi\u0161as",
+                    "waybackhome": "Kelias atgal namo"
+                }
+            },
+            "motion_tone": {
+                "name": "Judesio skamb\u0117jimo tonas",
+                "state": {
+                    "attraction": "Atrakcija",
+                    "citybird": "Miesto pauk\u0161tis",
+                    "goodday": "Gera diena",
+                    "hophop": "Hop hop",
+                    "loop": "Kilpa",
+                    "moonlight": "M\u0117nulio \u0161viesa",
+                    "off": "I\u0161jungta",
+                    "operetta": "Operet\u0117",
+                    "originaltune": "Originali melodija",
+                    "pianokey": "Fortepijono klavi\u0161as",
+                    "waybackhome": "Kelias atgal namo"
+                }
+            },
+            "package_tone": {
+                "name": "Paketo skamb\u0117jimo tonas",
+                "state": {
+                    "attraction": "Atrakcija",
+                    "citybird": "Miesto pauk\u0161tis",
+                    "goodday": "Gera diena",
+                    "hophop": "Hop hop",
+                    "loop": "Kilpa",
+                    "moonlight": "M\u0117nulio \u0161viesa",
+                    "off": "I\u0161jungta",
+                    "operetta": "Operet\u0117",
+                    "originaltune": "Originali melodija",
+                    "pianokey": "Fortepijono klavi\u0161as",
+                    "waybackhome": "Kelias atgal namo"
+                }
+            },
+            "people_tone": {
+                "name": "Asmens skamb\u0117jimo tonas",
+                "state": {
+                    "attraction": "Atrakcija",
+                    "citybird": "Miesto pauk\u0161tis",
+                    "goodday": "Gera diena",
+                    "hophop": "Hop hop",
+                    "loop": "Kilpa",
+                    "moonlight": "M\u0117nulio \u0161viesa",
+                    "off": "I\u0161jungta",
+                    "operetta": "Operet\u0117",
+                    "originaltune": "Originali melodija",
+                    "pianokey": "Fortepijono klavi\u0161as",
+                    "waybackhome": "Kelias atgal namo"
+                }
+            },
+            "play_quick_reply_message": {
+                "name": "Leisti greito atsakymo prane\u0161im\u0105"
+            },
+            "ptz_preset": {
+                "name": "PTZ i\u0161ankstinis nustatymas"
+            },
+            "status_led": {
+                "name": "B\u016bsenos \u0161viesos diodas",
+                "state": {
+                    "alwayson": "Visada \u012fjungtas",
+                    "alwaysonatnight": "Automatinis ir visada \u012fjungtas nakt\u012f",
+                    "auto": "Automatinis",
+                    "stayoff": "Nesiki\u0161k"
+                }
+            },
+            "visitor_tone": {
+                "name": "Lankytojo skamb\u0117jimo tonas",
+                "state": {
+                    "attraction": "Atrakcija",
+                    "citybird": "Miesto pauk\u0161tis",
+                    "goodday": "Gera diena",
+                    "hophop": "Hop hop",
+                    "loop": "Kilpa",
+                    "moonlight": "M\u0117nulio \u0161viesa",
+                    "off": "I\u0161jungta",
+                    "operetta": "Operet\u0117",
+                    "originaltune": "Originali melodija",
+                    "pianokey": "Fortepijono klavi\u0161as",
+                    "waybackhome": "Kelias atgal namo"
+                }
+            }
+        },
+        "sensor": {
+            "battery_percent": {
+                "name": "Baterijos procentas"
+            },
+            "battery_state": {
+                "name": "Baterijos b\u016bsena",
+                "state": {
+                    "chargecomplete": "\u012ekrovimas baigtas",
+                    "charging": "\u012ekrovimas",
+                    "discharging": "I\u0161sikrovimas"
+                }
+            },
+            "battery_temperature": {
+                "name": "Baterijos temperat\u016bra"
+            },
+            "cpu_usage": {
+                "name": "CPU naudojimas"
+            },
+            "event_connection": {
+                "name": "\u012evykio ry\u0161ys",
+                "state": {
+                    "fast_poll": "Greita apklausa",
+                    "onvif_long_poll": "ONVIF ilga apklausa",
+                    "onvif_push": "ONVIF paspaudimas"
+                }
+            },
+            "hdd_storage": {
+                "name": "HDD {hdd_index} saugykla"
+            },
+            "ptz_pan_position": {
+                "name": "PTZ poslinkio pad\u0117tis"
+            },
+            "sd_storage": {
+                "name": "SD {hdd_index} saugykla"
+            },
+            "wifi_signal": {
+                "name": "Wi-Fi signalas"
+            }
+        },
+        "siren": {
+            "siren": {
+                "name": "Sirena"
+            }
+        },
+        "switch": {
+            "auto_focus": {
+                "name": "Automatinis fokusavimas"
+            },
+            "auto_tracking": {
+                "name": "Automatinis sekimas"
+            },
+            "buzzer": {
+                "name": "Renginio garsinis signalas"
+            },
+            "doorbell_button_sound": {
+                "name": "Dur\u0173 skambu\u010dio mygtuko garsas"
+            },
+            "email": {
+                "name": "El. pa\u0161tas apie rengin\u012f"
+            },
+            "ftp_upload": {
+                "name": "FTP \u012fk\u0117limas"
+            },
+            "gaurd_return": {
+                "name": "Apsaugos gr\u0105\u017einimas"
+            },
+            "guard_return": {
+                "name": "Apsaugos gr\u0105\u017einimas"
+            },
+            "hdr": {
+                "name": "HDR"
+            },
+            "hub_ringtone_on_event": {
+                "name": "\u012evykio centro skamb\u0117jimo tonas"
+            },
+            "ir_lights": {
+                "name": "Infraraudonieji \u017eibintai naktiniu re\u017eimu"
+            },
+            "led": {
+                "name": "LED"
+            },
+            "manual_record": {
+                "name": "Rankinis \u012fra\u0161as"
+            },
+            "pir_enabled": {
+                "name": "PIR \u012fjungtas"
+            },
+            "pir_reduce_alarm": {
+                "name": "PIR suma\u017eina klaiding\u0105 aliarm\u0105"
+            },
+            "ptz_patrol": {
+                "name": "PTZ valdymas"
+            },
+            "push_notifications": {
+                "name": "Push prane\u0161imai"
+            },
+            "record": {
+                "name": "\u012era\u0161as"
+            },
+            "record_audio": {
+                "name": "\u012era\u0161yti gars\u0105"
+            },
+            "siren_on_event": {
+                "name": "Sirena renginyje"
+            }
+        }
+    },
+    "exceptions": {
+        "service_entry_ex": {
+            "message": "Reolink {service_name} klaida: konfig\u016bracijos \u012fra\u0161as nerastas arba ne\u012fkeltas"
+        },
+        "service_not_chime": {
+            "message": "Reolink play_chime klaida: {device_name} n\u0117ra varpelis"
+        }
+    },
+    "issues": {
+        "enable_port": {
+            "description": "Nepavyko automati\u0161kai \u012fjungti {ports} prievado (-\u0173) {name} . Naudokite [Reolink client] ( {info_link} ), kad rankiniu b\u016bdu nustatytum\u0117te j\u012f \u012f \u012eJUNGTA",
+            "title": "Reolink prievadas ne\u012fjungtas"
+        },
+        "firmware_update": {
+            "description": "\u201e {name} \u201c su modeliu \u201e {model} \u201c ir aparatin\u0117s \u012frangos versija \u201e {hw_version} \u201c veikia sena programin\u0117s aparatin\u0117s \u012frangos versija \u201e {current_firmware} \u201c, o norint tinkamai veikti \u201eReolink\u201c, reikalinga bent programin\u0117s \u012frangos versija \u201e {required_firmware} \u201c. integracija. Naujausi\u0105 programin\u0119-aparatin\u0119 \u012frang\u0105 galima atsisi\u0173sti i\u0161 [Reolink atsisiuntimo centro] ( {download_link} ).",
+            "title": "Reikalingas \u201eReolink\u201c programin\u0117s \u012frangos atnaujinimas"
+        },
+        "hdr_switch_deprecated": {
+            "description": "Reolink HDR jungiklio objektas nebenaudojamas ir bus pa\u0161alintas HA 2025.2.0. Jis buvo pakeistas HDR pasirinktu objektu, si\u016blan\u010diu parinktis \u201e\u012fjungta\u201c, \u201ei\u0161jungti\u201c ir \u201eautomatin\u0117\u201c. Nor\u0117dami pa\u0161alinti \u0161i\u0105 problem\u0105, atitinkamai sureguliuokite automatizavim\u0105 ir i\u0161junkite HDR jungiklio objekt\u0105.",
+            "title": "Reolink HDR jungiklis nebenaudojamas"
+        },
+        "https_webhook": {
+            "description": "\u201eReolink\u201c produktai negali perkelti jud\u0117jimo \u012fvyki\u0173 \u012f HTTPS adres\u0105 (SSL). Konfig\u016bruokite (vietin\u012f) HTTP adres\u0105 skiltyje \u201eHome Assistant URL\u201c [tinklo nustatymuose] ( {network_link} ). Dabartinis (vietinis) adresas yra: \u201e {base_url} \u201c, tinkamas adresas gali b\u016bti, pavyzd\u017eiui, \u201ehttp://192.168.1.10:8123\u201c, kur \u201e192.168.1.10\u201c yra \u201eHome Assistant\u201c \u012frenginio IP.",
+            "title": "\u201eReolink Webhook\u201c URL naudoja HTTPS (SSL)"
+        },
+        "ssl": {
+            "description": "Visuotinis SSL sertifikatas sukonfig\u016bruotas [configuration.yaml adresu http]( {ssl_link} ), o vietinis HTTP adresas ` {base_url} ` yra sukonfig\u016bruotas [tinklo nustatym\u0173] ( {network_link} ) skiltyje \u201eHome Assistant URL\u201c. Tod\u0117l \u201eReolink\u201c \u012frenginys negali pasiekti \u201eHome Assistant\u201c ir perkelti jo jud\u0117jimo / AI \u012fvyki\u0173. \u012esitikinkite, kad vietinis HTTP adresas n\u0117ra \u012ftrauktas \u012f SSL sertifikat\u0105, pvz., naudokite [NGINX pried\u0105]( {nginx_link} ), o ne visuotinai taikom\u0105 SSL sertifikat\u0105.",
+            "title": "Reolink nesuderinamas su pasauliniu SSL sertifikatu"
+        },
+        "webhook_url": {
+            "description": "Negauta pradin\u0117 ONVIF b\u016bsena i\u0161 {name} . Labiausiai tik\u0117tina, kad \u201eReolink\u201c kamera negali pasiekti dabartinio (vietinio) nam\u0173 asistento URL ` {base_url} `, sukonfig\u016bruokite (vietin\u012f) HTTP adres\u0105, esant\u012f [tinklo nustatym\u0173] ( {network_link} ) skiltyje \u201eHome Assistant URL\u201c \u012f Nam\u0173 asistent\u0105. Pavyzd\u017eiui, \u201ehttp://192.168.1.10:8123\u201c, kur \u201e192.168.1.10\u201c yra \u201eHome Assistant\u201c \u012frenginio IP. Taip pat \u012fsitikinkite, kad \u201eReolink\u201c kamera gali pasiekti t\u0105 URL. Naudojant greito judesio / AI b\u016bsenos apklaus\u0105, kol bus gautas pirmasis ONVIF paspaudimas.",
+            "title": "Reolink webhook URL nepasiekiamas"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "protocol": "Protokolas"
+                },
+                "data_description": {
+                    "protocol": "Srautinio perdavimo protokolas, naudojamas kameros objektams. RTSP palaiko 4K srautus (h265 kodavim\u0105), o RTMP ir FLV ne. FLV yra ma\u017eiausiai reiklus fotoaparatui."
+                }
+            }
+        }
+    },
+    "selector": {
+        "ringtone": {
+            "options": {
+                "attraction": "Atrakcija",
+                "citybird": "Miesto pauk\u0161tis",
+                "goodday": "Gera diena",
+                "hophop": "Hop hop",
+                "loop": "Kilpa",
+                "moonlight": "M\u0117nulio \u0161viesa",
+                "operetta": "Operet\u0117",
+                "originaltune": "Originali melodija",
+                "pianokey": "Fortepijono klavi\u0161as",
+                "waybackhome": "Kelias atgal namo"
+            }
+        }
+    },
+    "services": {
+        "play_chime": {
+            "description": "Skamb\u0117jimo melodijos grojimas skambant skambu\u010diui.",
+            "fields": {
+                "device_id": {
+                    "description": "Varpelis skamb\u0117jimo tonui paleisti.",
+                    "name": "Tikslinis varpelis"
+                },
+                "ringtone": {
+                    "description": "Skambu\u010dio melodija groti.",
+                    "name": "Skamb\u0117jimo tonas"
+                }
+            },
+            "name": "Groti varpeliu"
+        },
+        "ptz_move": {
+            "description": "Perkelkite fotoaparat\u0105 tam tikru grei\u010diu.",
+            "fields": {
+                "speed": {
+                    "description": "PTZ jud\u0117jimo greitis.",
+                    "name": "Greitis"
+                }
+            },
+            "name": "PTZ jud\u0117jimas"
+        }
+    }
+}

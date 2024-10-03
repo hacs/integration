@@ -1,0 +1,56 @@
+{
+    "exceptions": {
+        "user_not_found": {
+            "message": "Usuario no encontrado"
+        },
+        "username_already_exists": {
+            "message": "El nombre de usuario \"{username}\" ya existe"
+        },
+        "username_not_normalized": {
+            "message": "El nombre de usuario \"{new_username}\" no est\u00e1 normalizado. Por favor, aseg\u00farate de que el nombre de usuario est\u00e9 en min\u00fasculas y no contenga espacios en blanco."
+        }
+    },
+    "issues": {
+        "deprecated_legacy_api_password": {
+            "description": "El proveedor de autenticaci\u00f3n de contrase\u00f1as heredado de la API est\u00e1 obsoleto y se eliminar\u00e1. Por favor, elim\u00ednalo de la configuraci\u00f3n YAML y utiliza en su lugar el proveedor de autenticaci\u00f3n predeterminado de Home Assistant.",
+            "title": "La contrase\u00f1a heredada de la API est\u00e1 obsoleta"
+        },
+        "homeassistant_provider_not_normalized_usernames": {
+            "description": "El proveedor de autenticaci\u00f3n de Home Assistant se ejecuta en modo heredado porque detectamos nombres de usuario no normalizados. El modo heredado est\u00e1 obsoleto y se eliminar\u00e1. Por favor, cambia los siguientes nombres de usuario: \n\n{usernames}\n\nLos nombres de usuario normalizados se escriben con may\u00fasculas y min\u00fasculas y sin espacios en blanco.",
+            "title": "Se detectaron nombres de usuario no normalizados"
+        }
+    },
+    "mfa_setup": {
+        "notify": {
+            "abort": {
+                "no_available_service": "No hay servicios de notificaci\u00f3n disponibles."
+            },
+            "error": {
+                "invalid_code": "C\u00f3digo no v\u00e1lido, por favor, int\u00e9ntalo de nuevo."
+            },
+            "step": {
+                "init": {
+                    "description": "Por favor, selecciona uno de los servicios de notificaci\u00f3n:",
+                    "title": "Configurar una contrase\u00f1a de un solo uso entregada por el componente de notificaci\u00f3n"
+                },
+                "setup": {
+                    "description": "Se ha enviado una contrase\u00f1a de un solo uso a trav\u00e9s de **notify.{notify_service}**. Por favor, introd\u00facela a continuaci\u00f3n:",
+                    "title": "Verificar la configuraci\u00f3n"
+                }
+            },
+            "title": "Notificar la contrase\u00f1a de un solo uso"
+        },
+        "totp": {
+            "error": {
+                "invalid_code": "C\u00f3digo no v\u00e1lido, por favor, int\u00e9ntalo de nuevo. Si recibes este error constantemente, aseg\u00farate de que el reloj de tu sistema Home Assistant sea exacto."
+            },
+            "step": {
+                "init": {
+                    "description": "Para activar la autenticaci\u00f3n de dos factores usando contrase\u00f1as de un solo uso basadas en el tiempo, escanea el c\u00f3digo QR con tu aplicaci\u00f3n de autenticaci\u00f3n. Si no tienes una, te recomendamos [Google Authenticator](https://support.google.com/accounts/answer/1066447) o [Authy](https://authy.com/). \n\n {qr_code}\n\nDespu\u00e9s de escanear el c\u00f3digo, introduce el c\u00f3digo de seis d\u00edgitos de tu aplicaci\u00f3n para verificar la configuraci\u00f3n. Si tienes problemas para escanear el c\u00f3digo QR, realiza una configuraci\u00f3n manual con el c\u00f3digo **`{code}`**.",
+                    "title": "Configurar la autenticaci\u00f3n de dos factores usando TOTP"
+                }
+            },
+            "title": "TOTP"
+        }
+    }
+}

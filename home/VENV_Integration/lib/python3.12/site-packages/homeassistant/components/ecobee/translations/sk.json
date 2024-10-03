@@ -1,0 +1,198 @@
+{
+    "config": {
+        "abort": {
+            "single_instance_allowed": "U\u017e je nakonfigurovan\u00fd. Mo\u017en\u00e1 je len jedna konfigur\u00e1cia."
+        },
+        "error": {
+            "pin_request_failed": "Chyba pri vy\u017eiadan\u00ed PIN od ecobee; skontrolujte spr\u00e1vnos\u0165 k\u013e\u00fa\u010da API.",
+            "token_request_failed": "Chyba pri vy\u017eiadan\u00ed tokenov od ecobee; pros\u00edm sk\u00faste znova."
+        },
+        "step": {
+            "authorize": {
+                "description": "Autorizujte t\u00fato aplik\u00e1ciu na str\u00e1nke https://www.ecobee.com/consumerportal/index.html pomocou k\u00f3du PIN:\n\n{pin}\n\nPotom vyberte mo\u017enos\u0165 **Odosla\u0165**.",
+                "title": "Overte aplik\u00e1ciu na ecobee.com"
+            },
+            "user": {
+                "data": {
+                    "api_key": "API k\u013e\u00fa\u010d"
+                },
+                "description": "Zadajte k\u013e\u00fa\u010d API z\u00edskan\u00fd z ecobee.com.",
+                "title": "ecobee API k\u013e\u00fa\u010d"
+            }
+        }
+    },
+    "entity": {
+        "climate": {
+            "ecobee": {
+                "state_attributes": {
+                    "preset_mode": {
+                        "state": {
+                            "away_indefinitely": "Pre\u010d na neur\u010dito"
+                        }
+                    }
+                }
+            }
+        },
+        "number": {
+            "ventilator_min_type_away": {
+                "name": "Ventil\u00e1tor min \u010das nepr\u00edtomnosti"
+            },
+            "ventilator_min_type_home": {
+                "name": "Ventil\u00e1tor min \u010das doma"
+            }
+        },
+        "switch": {
+            "aux_heat_only": {
+                "name": "Len pomocn\u00e9 teplo"
+            }
+        }
+    },
+    "issues": {
+        "migrate_aux_heat": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Akcia `set_aux_heat` spolo\u010dnosti Ecobee bola presunut\u00e1. Pre ka\u017ed\u00fd termostat, ktor\u00fd podporuje tepeln\u00e9 \u010derpadlo, je k dispoz\u00edcii nov\u00e1 prep\u00ednacia entita `aux_heat_only`.\n\nAktualizujte v\u0161etky automatiz\u00e1cie, aby pou\u017e\u00edvali nov\u00fa sp\u00ednaciu entitu `aux_heat_only`. Po dokon\u010den\u00ed tohto kroku opravte tento probl\u00e9m a re\u0161tartujte aplik\u00e1ciu Home Assistant.",
+                        "title": "Zak\u00e1zanie star\u0161ej akcie Ecobee set_aux_heat"
+                    }
+                }
+            },
+            "title": "Migr\u00e1cia akcie Ecobee set_aux_heat"
+        },
+        "migrate_notify": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Slu\u017eba Ecobee `notify` bola migrovan\u00e1. Teraz je k dispoz\u00edcii nov\u00e1 entita `notify` na termostat.\n\nAktualizujte v\u0161etky automatiz\u00e1cie tak, aby pou\u017e\u00edvali nov\u00fa funkciu `notify.send_message`, ktor\u00fa tieto nov\u00e9 entity poskytuj\u00fa. Ke\u010f je to hotov\u00e9, opravte tento probl\u00e9m a re\u0161tartujte aplik\u00e1ciu Home Assistant.",
+                        "title": "Zak\u00e1zanie star\u0161ej slu\u017eby upozornenia Ecobee"
+                    }
+                }
+            },
+            "title": "Migr\u00e1cia slu\u017eby upozornenia Ecobee"
+        }
+    },
+    "services": {
+        "create_vacation": {
+            "description": "Vytvor\u00ed dovolenku na vybranom termostate. Pozn\u00e1mka: aby sa tieto parametre prejavili, musia by\u0165 d\u00e1tum a \u010das za\u010diatku/konca zadan\u00e9 spolo\u010dne. Ak d\u00e1tum a \u010das za\u010diatku/konca nie s\u00fa zadan\u00e9, dovolenka sa za\u010dne okam\u017eite a bude trva\u0165 14 dn\u00ed (ak sa neodstr\u00e1ni sk\u00f4r).",
+            "fields": {
+                "cool_temp": {
+                    "description": "Teplota chladenia po\u010das dovolenky.",
+                    "name": "Teplota chladenia"
+                },
+                "end_date": {
+                    "description": "D\u00e1tum konca dovolenky vo form\u00e1te RRRR-MM-DD (volite\u013en\u00e9, o 14 dn\u00ed odteraz, ak nie je uveden\u00e9 spolu s \u010dasom ukon\u010denia).",
+                    "name": "D\u00e1tum konca"
+                },
+                "end_time": {
+                    "description": "\u010cas ukon\u010denia dovolenky v miestnom \u010dase termostatu v 24-hodinovom form\u00e1te \"HH:MM:SS\".",
+                    "name": "\u010cas ukon\u010denia"
+                },
+                "entity_id": {
+                    "description": "Termostat Ecobee, na ktorom sa vytvor\u00ed dovolenka.",
+                    "name": "Entita"
+                },
+                "fan_min_on_time": {
+                    "description": "Minim\u00e1lny po\u010det min\u00fat, po\u010das ktor\u00fdch m\u00e1 ventil\u00e1tor be\u017ea\u0165 ka\u017ed\u00fa hodinu (0 a\u017e 60) po\u010das dovolenky.",
+                    "name": "Minim\u00e1lny \u010das zapnutia ventil\u00e1tora"
+                },
+                "fan_mode": {
+                    "description": "Re\u017eim ventil\u00e1tora termostatu po\u010das dovolenky.",
+                    "name": "Re\u017eim ventil\u00e1tora"
+                },
+                "heat_temp": {
+                    "description": "Teplota vykurovania po\u010das dovolenky.",
+                    "name": "Vykurovacia teplota"
+                },
+                "start_date": {
+                    "description": "D\u00e1tum za\u010diatku dovolenky vo form\u00e1te RRRR-MM-DD (volite\u013en\u00e9, okam\u017eite, ak nie je uveden\u00e9 spolu s \u010dasom za\u010diatku).",
+                    "name": "D\u00e1tum za\u010diatku"
+                },
+                "start_time": {
+                    "description": "\u010cas za\u010diatku dovolenky v miestnom \u010dase termostatu v 24-hodinovom form\u00e1te \"HH:MM:SS\".",
+                    "name": "Doba spustenia"
+                },
+                "vacation_name": {
+                    "description": "N\u00e1zov dovolenky, ktor\u00e1 sa m\u00e1 vytvori\u0165; mus\u00ed by\u0165 jedine\u010dn\u00fd v termostate.",
+                    "name": "N\u00e1zov dovolenky"
+                }
+            },
+            "name": "Vytvori\u0165 dovolenku"
+        },
+        "delete_vacation": {
+            "description": "Odstr\u00e1ni dovolenku na vybranom termostate.",
+            "fields": {
+                "entity_id": {
+                    "description": "Termostat Ecobee, na ktorom sa odstr\u00e1ni dovolenka.",
+                    "name": "Entita"
+                },
+                "vacation_name": {
+                    "description": "N\u00e1zov dovolenky, ktor\u00e1 sa m\u00e1 vymaza\u0165.",
+                    "name": "N\u00e1zov dovolenky"
+                }
+            },
+            "name": "Vymaza\u0165 dovolenku"
+        },
+        "resume_program": {
+            "description": "Obnov\u00ed naprogramovan\u00fd pl\u00e1n.",
+            "fields": {
+                "entity_id": {
+                    "description": "N\u00e1zvy ent\u00edt, ktor\u00e9 sa maj\u00fa zmeni\u0165.",
+                    "name": "Entita"
+                },
+                "resume_all": {
+                    "description": "Obnovte v\u0161etky udalosti a vr\u00e1\u0165te sa k pl\u00e1novan\u00e9mu programu.",
+                    "name": "Obnovi\u0165 v\u0161etko"
+                }
+            },
+            "name": "Obnovi\u0165 program"
+        },
+        "set_dst_mode": {
+            "description": "Zapnutie/vypnutie automatick\u00e9ho nastavenia letn\u00e9ho \u010dasu.",
+            "fields": {
+                "dst_enabled": {
+                    "description": "Povoli\u0165 automatick\u00fd letn\u00fd \u010das.",
+                    "name": "Zapnut\u00fd letn\u00fd \u010das"
+                }
+            },
+            "name": "Nastavenie re\u017eimu letn\u00e9ho \u010dasu"
+        },
+        "set_fan_min_on_time": {
+            "description": "Nastav\u00ed minim\u00e1lny \u010das zapnutia ventil\u00e1tora.",
+            "fields": {
+                "entity_id": {
+                    "description": "N\u00e1zvy ent\u00edt, ktor\u00e9 sa maj\u00fa zmeni\u0165.",
+                    "name": "Entita"
+                },
+                "fan_min_on_time": {
+                    "description": "Nov\u00e1 hodnota min. \u010dasu ventil\u00e1tora.",
+                    "name": "Minim\u00e1lny \u010das zapnutia ventil\u00e1tora"
+                }
+            },
+            "name": "Nastavenie minim\u00e1lneho \u010dasu zapnutia ventil\u00e1tora"
+        },
+        "set_mic_mode": {
+            "description": "Zap\u00edna/vyp\u00edna mikrof\u00f3n Alexa (iba pre Ecobee 4).",
+            "fields": {
+                "mic_enabled": {
+                    "description": "Povoli\u0165 mikrof\u00f3n Alexa.",
+                    "name": "Mikrof\u00f3n je zapnut\u00fd"
+                }
+            },
+            "name": "Nastavenie re\u017eimu mikrof\u00f3nu"
+        },
+        "set_occupancy_modes": {
+            "description": "Zapnutie/vypnutie re\u017eimov Smart Home/Away a Follow Me.",
+            "fields": {
+                "auto_away": {
+                    "description": "Povolenie re\u017eimu Smart Home/Away.",
+                    "name": "Auto nepr\u00edtomnos\u0165"
+                },
+                "follow_me": {
+                    "description": "Povolenie re\u017eimu Follow Me.",
+                    "name": "Nasleduj ma"
+                }
+            },
+            "name": "Nastavenie re\u017eimov obsadenosti"
+        }
+    }
+}

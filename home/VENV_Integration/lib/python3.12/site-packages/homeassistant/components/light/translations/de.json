@@ -1,0 +1,461 @@
+{
+    "common": {
+        "field_brightness_description": "Zahl, die die Helligkeit angibt, wobei 0 das Licht ausschaltet, 1 die minimale Helligkeit und 255 die maximale Helligkeit ist.",
+        "field_brightness_name": "Helligkeitswert",
+        "field_brightness_pct_description": "Zahl, die den Prozentsatz der vollen Helligkeit angibt, wobei 0 das Licht ausschaltet, 1 die Mindesthelligkeit und 100 die maximale Helligkeit ist.",
+        "field_brightness_pct_name": "Helligkeit",
+        "field_brightness_step_description": "\u00c4ndere die Helligkeit um einen bestimmten Wert.",
+        "field_brightness_step_name": "Helligkeitsschrittwert",
+        "field_brightness_step_pct_description": "\u00c4ndert die Helligkeit um einen Prozentsatz.",
+        "field_brightness_step_pct_name": "Helligkeitsschritt",
+        "field_color_name_description": "Ein f\u00fcr Menschen lesbarer Farbname.",
+        "field_color_name_name": "Farbname",
+        "field_color_temp_description": "Farbtemperatur in Mired.",
+        "field_color_temp_name": "Farbtemperatur",
+        "field_effect_description": "Lichteffekt.",
+        "field_effect_name": "Effekt",
+        "field_flash_description": "Weise das Licht an, zu blinken. Der Wert kann entweder kurz oder lang sein.",
+        "field_flash_name": "Blinken",
+        "field_hs_color_description": "Farbe im Farbton/S\u00e4ttigungs-Format. Eine Liste mit zwei ganzen Zahlen. Der Farbton liegt zwischen 0 und 360 und die S\u00e4ttigung zwischen 0 und 100.",
+        "field_hs_color_name": "Farbton/S\u00e4ttigungs-Farbe",
+        "field_kelvin_description": "Farbtemperatur in Kelvin.",
+        "field_kelvin_name": "Farbtemperatur",
+        "field_profile_description": "Name des zu verwendenden Lichtprofils.",
+        "field_profile_name": "Profil",
+        "field_rgb_color_description": "Die Farbe im RGB-Format. Eine Liste von drei Ganzzahlen zwischen 0 und 255, die die Werte von Rot, Gr\u00fcn und Blau darstellen.",
+        "field_rgb_color_name": "Farbe",
+        "field_rgbw_color_description": "Die Farbe im RGBW-Format. Eine Liste von vier Ganzzahlen zwischen 0 und 255, die die Werte von Rot, Gr\u00fcn, Blau und Wei\u00df darstellen.",
+        "field_rgbw_color_name": "RGBW-Farbe",
+        "field_rgbww_color_description": "Die Farbe im RGBWW-Format. Eine Liste von f\u00fcnf Ganzzahlen zwischen 0 und 255, die die Werte von Rot, Gr\u00fcn, Blau, Kaltwei\u00df und Warmwei\u00df darstellen.",
+        "field_rgbww_color_name": "RGBWW-Farbe",
+        "field_transition_description": "Dauer bis zum Erreichen des n\u00e4chsten Zustands.",
+        "field_transition_name": "\u00dcbergang",
+        "field_white_description": "Das Licht auf den Wei\u00dfmodus einstellen.",
+        "field_white_name": "Wei\u00df",
+        "field_xy_color_description": "Farbe im XY-Format. Eine Liste von zwei Dezimalzahlen zwischen 0 und 1.",
+        "field_xy_color_name": "XY-Farbe",
+        "section_advanced_fields_name": "Erweiterte Optionen"
+    },
+    "device_automation": {
+        "action_type": {
+            "brightness_decrease": "Helligkeit von {entity_name} verringern",
+            "brightness_increase": "Helligkeit von {entity_name} erh\u00f6hen",
+            "flash": "Flash {entity_name}",
+            "toggle": "{entity_name} umschalten",
+            "turn_off": "{entity_name} ausschalten",
+            "turn_on": "{entity_name} einschalten"
+        },
+        "condition_type": {
+            "is_off": "{entity_name} ist ausgeschaltet",
+            "is_on": "{entity_name} ist eingeschaltet"
+        },
+        "extra_fields": {
+            "brightness_pct": "Helligkeit",
+            "flash": "Blinken"
+        },
+        "trigger_type": {
+            "changed_states": "{entity_name} ein- oder ausgeschaltet",
+            "turned_off": "{entity_name} ausgeschaltet",
+            "turned_on": "{entity_name} eingeschaltet"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Licht",
+            "state": {
+                "off": "Aus",
+                "on": "An"
+            },
+            "state_attributes": {
+                "brightness": {
+                    "name": "Helligkeit"
+                },
+                "color_mode": {
+                    "name": "Farbmodus",
+                    "state": {
+                        "brightness": "Nur Helligkeit",
+                        "color_temp": "Farbtemperatur",
+                        "hs": "HS",
+                        "onoff": "An / Aus",
+                        "rgb": "RGB",
+                        "rgbw": "RGBW",
+                        "rgbww": "RGBWW",
+                        "unknown": "Unbekannt",
+                        "white": "Wei\u00df",
+                        "xy": "XY"
+                    }
+                },
+                "color_temp": {
+                    "name": "Farbtemperatur (mireds)"
+                },
+                "color_temp_kelvin": {
+                    "name": "Farbtemperatur (Kelvin)"
+                },
+                "effect": {
+                    "name": "Effekt"
+                },
+                "effect_list": {
+                    "name": "Verf\u00fcgbare Effekte"
+                },
+                "max_color_temp_kelvin": {
+                    "name": "Maximale Farbtemperatur (Kelvin)"
+                },
+                "max_mireds": {
+                    "name": "Maximale Farbtemperatur (mireds)"
+                },
+                "min_color_temp_kelvin": {
+                    "name": "Minimale Farbtemperatur (Kelvin)"
+                },
+                "min_mireds": {
+                    "name": "Minimale Farbtemperatur (mireds)"
+                },
+                "supported_color_modes": {
+                    "name": "Verf\u00fcgbare Farbmodi",
+                    "state": {
+                        "brightness": "Nur Helligkeit",
+                        "color_temp": "Farbtemperatur",
+                        "hs": "HS",
+                        "onoff": "An / Aus",
+                        "rgb": "RGB",
+                        "rgbw": "RGBW",
+                        "rgbww": "RGBWW",
+                        "unknown": "Unbekannt",
+                        "white": "Wei\u00df",
+                        "xy": "XY"
+                    }
+                }
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "Die {platform}-Plattform f\u00fcr die {domain}-Integration unterst\u00fctzt die Plattform-Einrichtung nicht. \n\nBitte entferne es aus deiner Konfiguration und starte Home Assistant neu, um dieses Problem zu beheben.",
+            "title": "Plattform-Unterst\u00fctzung nicht unterst\u00fctzt"
+        }
+    },
+    "selector": {
+        "color_name": {
+            "options": {
+                "aliceblue": "Eisfarben",
+                "antiquewhite": "Antikwei\u00df",
+                "aqua": "Wasser",
+                "aquamarine": "Aquamarinblau",
+                "azure": "Himmelblau",
+                "beige": "Beige",
+                "bisque": "Biskuit",
+                "blanchedalmond": "Mandelwei\u00df",
+                "blue": "Blau",
+                "blueviolet": "Blauviolett",
+                "brown": "Braun",
+                "burlywood": "Gelbbraun",
+                "cadetblue": "Kadettenblau",
+                "chartreuse": "Hellgr\u00fcn",
+                "chocolate": "Schokolade",
+                "coral": "Koralle",
+                "cornflowerblue": "Kornblumenblau",
+                "cornsilk": "Mais",
+                "crimson": "Karmesinrot",
+                "cyan": "T\u00fcrkis",
+                "darkblue": "Dunkelblau",
+                "darkcyan": "Dunkelt\u00fcrkis",
+                "darkgoldenrod": "Dunkle Goldrutenfarbe",
+                "darkgray": "Dunkelgrau",
+                "darkgreen": "Dunkelgr\u00fcn",
+                "darkgrey": "Dunkelgrau",
+                "darkkhaki": "Dunkelkhaki",
+                "darkmagenta": "Dunkelmagenta",
+                "darkolivegreen": "Dunkles Olivgr\u00fcn",
+                "darkorange": "Dunkles Orange",
+                "darkorchid": "Dunkle Orchidee",
+                "darkred": "Dunkelrot",
+                "darksalmon": "Dunkle Lachsfarbe",
+                "darkseagreen": "Dunkles Seegr\u00fcn",
+                "darkslateblue": "Dunkles Schieferblau",
+                "darkslategray": "Dunkles Schiefergrau",
+                "darkslategrey": "Dunkles Schiefergrau",
+                "darkturquoise": "Dunkelt\u00fcrkis",
+                "darkviolet": "Dunkelvilolett",
+                "deeppink": "Tiefrosa",
+                "deepskyblue": "Tiefes Himmelblau",
+                "dimgray": "Dunkelgrau",
+                "dimgrey": "Dunkelgrau",
+                "dodgerblue": "Persenningblau",
+                "firebrick": "Backstein",
+                "floralwhite": "Bl\u00fctenwei\u00df",
+                "forestgreen": "Waldgr\u00fcn",
+                "fuchsia": "Fuchsia",
+                "gainsboro": "Gainsboro",
+                "ghostwhite": "Geisterwei\u00df",
+                "gold": "Gold",
+                "goldenrod": "Goldrute",
+                "gray": "Grau",
+                "green": "Gr\u00fcn",
+                "greenyellow": "Gr\u00fcngelb",
+                "grey": "Grau",
+                "homeassistant": "Home Assistant",
+                "honeydew": "Honigmelone",
+                "hotpink": "Leuchtendes Rosa",
+                "indianred": "Indischrot",
+                "indigo": "Indigo",
+                "ivory": "Elfenbein",
+                "khaki": "Khaki",
+                "lavender": "Lavendel",
+                "lavenderblush": "Rosiger Lavendel",
+                "lawngreen": "Rasengr\u00fcn",
+                "lemonchiffon": "Zitronen-Chiffon",
+                "lightblue": "Hellblau",
+                "lightcoral": "Helle Koralle",
+                "lightcyan": "Helles Cyan",
+                "lightgoldenrodyellow": "Helles Goldrutengelb",
+                "lightgray": "Hellgrau",
+                "lightgreen": "Hellgr\u00fcn",
+                "lightgrey": "Hellgrau",
+                "lightpink": "Hellrosa",
+                "lightsalmon": "Helles Lachs",
+                "lightseagreen": "Helles Seegr\u00fcn",
+                "lightskyblue": "Helles Himmelblau",
+                "lightslategray": "Helles Schiefergrau",
+                "lightslategrey": "Helles Schiefergrau",
+                "lightsteelblue": "Helles Stahlblau",
+                "lightyellow": "Hellgelb",
+                "lime": "Limette",
+                "limegreen": "Lindgr\u00fcn",
+                "linen": "Leinen",
+                "magenta": "Magenta",
+                "maroon": "Kastanienbraun",
+                "mediumaquamarine": "Mittleres Aquamarin",
+                "mediumblue": "Mittelblau",
+                "mediumorchid": "Mittlere Orchidee",
+                "mediumpurple": "Mittleres Lila",
+                "mediumseagreen": "Mittleres Seegr\u00fcn",
+                "mediumslateblue": "Mittleres Schieferblau",
+                "mediumspringgreen": "Mittleres Fr\u00fchlingsgr\u00fcn",
+                "mediumturquoise": "Mittleres T\u00fcrkis",
+                "mediumvioletred": "Mittleres Violettrot",
+                "midnightblue": "Mitternachtsblau",
+                "mintcream": "Minzcreme",
+                "mistyrose": "Neblige Rose",
+                "moccasin": "Mokassin",
+                "navajowhite": "Navajo-Wei\u00df",
+                "navy": "Marine",
+                "navyblue": "Marineblau",
+                "oldlace": "Alte Spitze",
+                "olive": "Olive",
+                "olivedrab": "Olivgr\u00fcn",
+                "orange": "Orange",
+                "orangered": "Orangerot",
+                "orchid": "Orchidee",
+                "palegoldenrod": "Blasse Goldrute",
+                "palegreen": "Blassgr\u00fcn",
+                "paleturquoise": "Blasst\u00fcrkis",
+                "palevioletred": "Blasses Violettrot",
+                "papayawhip": "Papayacreme",
+                "peachpuff": "Pfirsich",
+                "peru": "Peru",
+                "pink": "Rosa",
+                "plum": "Pflaume",
+                "powderblue": "Taubenblau",
+                "purple": "Purpur",
+                "red": "Rot",
+                "rosybrown": "Rosiges Braun",
+                "royalblue": "K\u00f6nigsblau",
+                "saddlebrown": "Sattelbraun",
+                "salmon": "Lachsfarben",
+                "sandybrown": "Sandbraun",
+                "seagreen": "Seegr\u00fcn",
+                "seashell": "Muschel",
+                "sienna": "Siennaerde",
+                "silver": "Silber",
+                "skyblue": "Himmelblau",
+                "slateblue": "Schieferblau",
+                "slategray": "Schiefergrau",
+                "slategrey": "Schiefergrau",
+                "snow": "Schnee",
+                "springgreen": "Fr\u00fchlingsgr\u00fcn",
+                "steelblue": "Stahlblau",
+                "tan": "Hellbraun",
+                "teal": "Blaugr\u00fcn",
+                "thistle": "Distel",
+                "tomato": "Tomate",
+                "turquoise": "T\u00fcrkis",
+                "violet": "Violett",
+                "wheat": "Weizen",
+                "white": "Wei\u00df",
+                "whitesmoke": "Wei\u00dfer Rauch",
+                "yellow": "Gelb",
+                "yellowgreen": "Gelbgr\u00fcn"
+            }
+        }
+    },
+    "services": {
+        "toggle": {
+            "description": "Schaltet ein oder mehrere Lichter je nach ihrem aktuellen Zustand von ein zu aus oder von aus zu ein.",
+            "fields": {
+                "brightness": {
+                    "description": "Zahl, die die Helligkeit angibt, wobei 0 das Licht ausschaltet, 1 die minimale Helligkeit und 255 die maximale Helligkeit ist.",
+                    "name": "Helligkeitswert"
+                },
+                "brightness_pct": {
+                    "description": "Zahl, die den Prozentsatz der vollen Helligkeit angibt, wobei 0 das Licht ausschaltet, 1 die Mindesthelligkeit und 100 die maximale Helligkeit ist.",
+                    "name": "Helligkeit"
+                },
+                "color_name": {
+                    "description": "Ein f\u00fcr Menschen lesbarer Farbname.",
+                    "name": "Farbname"
+                },
+                "color_temp": {
+                    "description": "Farbtemperatur in Mired.",
+                    "name": "Farbtemperatur"
+                },
+                "effect": {
+                    "description": "Lichteffekt.",
+                    "name": "Effekt"
+                },
+                "flash": {
+                    "description": "Weise das Licht an, zu blinken. Der Wert kann entweder kurz oder lang sein.",
+                    "name": "Blinken"
+                },
+                "hs_color": {
+                    "description": "Farbe im Farbton/S\u00e4ttigungs-Format. Eine Liste mit zwei ganzen Zahlen. Der Farbton liegt zwischen 0 und 360 und die S\u00e4ttigung zwischen 0 und 100.",
+                    "name": "Farbton/S\u00e4ttigungs-Farbe"
+                },
+                "kelvin": {
+                    "description": "Farbtemperatur in Kelvin.",
+                    "name": "Farbtemperatur"
+                },
+                "profile": {
+                    "description": "Name des zu verwendenden Lichtprofils.",
+                    "name": "Profil"
+                },
+                "rgb_color": {
+                    "description": "Die Farbe im RGB-Format. Eine Liste von drei Ganzzahlen zwischen 0 und 255, die die Werte von Rot, Gr\u00fcn und Blau darstellen.",
+                    "name": "Farbe"
+                },
+                "rgbw_color": {
+                    "description": "Die Farbe im RGBW-Format. Eine Liste von vier Ganzzahlen zwischen 0 und 255, die die Werte von Rot, Gr\u00fcn, Blau und Wei\u00df darstellen.",
+                    "name": "RGBW-Farbe"
+                },
+                "rgbww_color": {
+                    "description": "Die Farbe im RGBWW-Format. Eine Liste von f\u00fcnf Ganzzahlen zwischen 0 und 255, die die Werte von Rot, Gr\u00fcn, Blau, Kaltwei\u00df und Warmwei\u00df darstellen.",
+                    "name": "RGBWW-Farbe"
+                },
+                "transition": {
+                    "description": "Dauer bis zum Erreichen des n\u00e4chsten Zustands.",
+                    "name": "\u00dcbergang"
+                },
+                "white": {
+                    "description": "Das Licht auf den Wei\u00dfmodus einstellen.",
+                    "name": "Wei\u00df"
+                },
+                "xy_color": {
+                    "description": "Farbe im XY-Format. Eine Liste von zwei Dezimalzahlen zwischen 0 und 1.",
+                    "name": "XY-Farbe"
+                }
+            },
+            "name": "Umschalten",
+            "sections": {
+                "advanced_fields": {
+                    "name": "Erweiterte Optionen"
+                }
+            }
+        },
+        "turn_off": {
+            "description": "Schalte ein oder mehrere Lichter aus.",
+            "fields": {
+                "flash": {
+                    "description": "Weise das Licht an, zu blinken. Der Wert kann entweder kurz oder lang sein.",
+                    "name": "Blinken"
+                },
+                "transition": {
+                    "description": "Dauer bis zum Erreichen des n\u00e4chsten Zustands.",
+                    "name": "\u00dcbergang"
+                }
+            },
+            "name": "Ausschalten",
+            "sections": {
+                "advanced_fields": {
+                    "name": "Erweiterte Optionen"
+                }
+            }
+        },
+        "turn_on": {
+            "description": "Schalte ein oder mehrere Lichter ein und passe die Eigenschaften des Lichts an, auch wenn sie bereits eingeschaltet sind.",
+            "fields": {
+                "brightness": {
+                    "description": "Zahl, die die Helligkeit angibt, wobei 0 das Licht ausschaltet, 1 die minimale Helligkeit und 255 die maximale Helligkeit ist.",
+                    "name": "Helligkeitswert"
+                },
+                "brightness_pct": {
+                    "description": "Zahl, die den Prozentsatz der vollen Helligkeit angibt, wobei 0 das Licht ausschaltet, 1 die Mindesthelligkeit und 100 die maximale Helligkeit ist.",
+                    "name": "Helligkeit"
+                },
+                "brightness_step": {
+                    "description": "\u00c4ndere die Helligkeit um einen bestimmten Wert.",
+                    "name": "Helligkeitsschrittwert"
+                },
+                "brightness_step_pct": {
+                    "description": "\u00c4ndert die Helligkeit um einen Prozentsatz.",
+                    "name": "Helligkeitsschritt"
+                },
+                "color_name": {
+                    "description": "Ein f\u00fcr Menschen lesbarer Farbname.",
+                    "name": "Farbname"
+                },
+                "color_temp": {
+                    "description": "Farbtemperatur in Mired.",
+                    "name": "Farbtemperatur"
+                },
+                "effect": {
+                    "description": "Lichteffekt.",
+                    "name": "Effekt"
+                },
+                "flash": {
+                    "description": "Weise das Licht an, zu blinken. Der Wert kann entweder kurz oder lang sein.",
+                    "name": "Blinken"
+                },
+                "hs_color": {
+                    "description": "Farbe im Farbton/S\u00e4ttigungs-Format. Eine Liste mit zwei ganzen Zahlen. Der Farbton liegt zwischen 0 und 360 und die S\u00e4ttigung zwischen 0 und 100.",
+                    "name": "Farbton/S\u00e4ttigungs-Farbe"
+                },
+                "kelvin": {
+                    "description": "Farbtemperatur in Kelvin.",
+                    "name": "Farbtemperatur"
+                },
+                "profile": {
+                    "description": "Name des zu verwendenden Lichtprofils.",
+                    "name": "Profil"
+                },
+                "rgb_color": {
+                    "description": "Die Farbe im RGB-Format. Eine Liste von drei Ganzzahlen zwischen 0 und 255, die die Werte von Rot, Gr\u00fcn und Blau darstellen.",
+                    "name": "Farbe"
+                },
+                "rgbw_color": {
+                    "name": "RGBW-Farbe"
+                },
+                "rgbww_color": {
+                    "description": "Die Farbe im RGBWW-Format. Eine Liste von f\u00fcnf Ganzzahlen zwischen 0 und 255, die die Werte von Rot, Gr\u00fcn, Blau, Kaltwei\u00df und Warmwei\u00df darstellen.",
+                    "name": "RGBWW-Farbe"
+                },
+                "transition": {
+                    "description": "Dauer bis zum Erreichen des n\u00e4chsten Zustands.",
+                    "name": "\u00dcbergang"
+                },
+                "white": {
+                    "description": "Das Licht auf den Wei\u00dfmodus einstellen.",
+                    "name": "Wei\u00df"
+                },
+                "xy_color": {
+                    "description": "Farbe im XY-Format. Eine Liste von zwei Dezimalzahlen zwischen 0 und 1.",
+                    "name": "XY-Farbe"
+                }
+            },
+            "name": "Einschalten",
+            "sections": {
+                "advanced_fields": {
+                    "name": "Erweiterte Optionen"
+                }
+            }
+        }
+    },
+    "title": "Licht"
+}

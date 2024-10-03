@@ -1,0 +1,161 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Az eszk\u00f6z m\u00e1r konfigur\u00e1lva van",
+            "already_in_progress": "A konfigur\u00e1l\u00e1s m\u00e1r folyamatban van",
+            "no_devices_found": "Nem tal\u00e1lhat\u00f3 eszk\u00f6z a h\u00e1l\u00f3zaton"
+        },
+        "error": {
+            "cannot_connect": "Sikertelen csatlakoz\u00e1s"
+        },
+        "flow_title": "{model} {id} ({ipaddr})",
+        "step": {
+            "discovery_confirm": {
+                "description": "Szeretn\u00e9 be\u00e1ll\u00edtani a(z) {model} {id} ({ipaddr}) eszk\u00f6zt?"
+            },
+            "user": {
+                "data": {
+                    "host": "Hoszt"
+                },
+                "description": "Ha nem ad meg c\u00edmet, akkor az eszk\u00f6z\u00f6k keres\u00e9se a felder\u00edt\u00e9ssel t\u00f6rt\u00e9nik."
+            }
+        }
+    },
+    "entity": {
+        "button": {
+            "unpair_remotes": {
+                "name": "T\u00e1vir\u00e1ny\u00edt\u00f3k p\u00e1ros\u00edt\u00e1s\u00e1nak megsz\u00fcntet\u00e9se"
+            }
+        },
+        "number": {
+            "effect_speed": {
+                "name": "Hat\u00e1s sebess\u00e9g"
+            },
+            "music_pixels_per_segment": {
+                "name": "Zenei pixelek szegmensenk\u00e9nt"
+            },
+            "music_segments": {
+                "name": "Zenei szegmensek"
+            },
+            "pixels_per_segment": {
+                "name": "Pixelek szegmensenk\u00e9nt"
+            },
+            "segments": {
+                "name": "Szegmensek"
+            }
+        },
+        "select": {
+            "ic_type": {
+                "name": "IC t\u00edpus"
+            },
+            "operating_mode": {
+                "name": "\u00dczemm\u00f3d"
+            },
+            "power_restored": {
+                "name": "Az \u00e1ramell\u00e1t\u00e1s helyre\u00e1llt"
+            },
+            "remote_config": {
+                "name": "T\u00e1voli konfigur\u00e1ci\u00f3"
+            },
+            "white_channel": {
+                "name": "Feh\u00e9r csatorna"
+            },
+            "wiring": {
+                "name": "Bek\u00f6t\u00e9s"
+            }
+        },
+        "sensor": {
+            "paired_remotes": {
+                "name": "P\u00e1ros\u00edtott t\u00e1vvez\u00e9rl\u0151k"
+            }
+        },
+        "switch": {
+            "music": {
+                "name": "Zene"
+            },
+            "remote_access": {
+                "name": "T\u00e1voli hozz\u00e1f\u00e9r\u00e9s"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "custom_effect_colors": "Egy\u00e9ni effektus: 1-16 [R,G,B] sz\u00edn list\u00e1ja. P\u00e9lda: [255,0,255], [60,128,0]",
+                    "custom_effect_speed_pct": "Egyedi hat\u00e1s: A sz\u00edneket cser\u00e9l\u0151 effektus sebess\u00e9ge sz\u00e1zal\u00e9kban.",
+                    "custom_effect_transition": "Egy\u00e9ni hat\u00e1s: A sz\u00ednek k\u00f6z\u00f6tti \u00e1tmenet t\u00edpusa.",
+                    "mode": "A v\u00e1lasztott f\u00e9nyer\u0151 m\u00f3d."
+                }
+            }
+        }
+    },
+    "services": {
+        "set_custom_effect": {
+            "description": "Be\u00e1ll\u00edt egy egy\u00e9ni f\u00e9nyhat\u00e1st.",
+            "fields": {
+                "colors": {
+                    "description": "Egy\u00e9ni hat\u00e1s sz\u00edneinek list\u00e1ja (RGB). (Max 16 sz\u00edn).",
+                    "name": "Sz\u00ednek"
+                },
+                "speed_pct": {
+                    "description": "Az egy\u00e9ni hat\u00e1s sebess\u00e9ge (0-100).",
+                    "name": "Sebess\u00e9g"
+                },
+                "transition": {
+                    "description": "Hat\u00e1s\u00e1tmenet.",
+                    "name": "\u00c1tmenet"
+                }
+            },
+            "name": "Egy\u00e9ni hat\u00e1s be\u00e1ll\u00edt\u00e1sa"
+        },
+        "set_music_mode": {
+            "description": "Konfigur\u00e1lja a zenei m\u00f3dot a Controller RGB MIC (0x08), c\u00edmezhet\u0151 v2 (0xA2) \u00e9s v3 (0xA3) eszk\u00f6z\u00f6k\u00f6n, amelyek be\u00e9p\u00edtett mikrofonnal rendelkeznek.",
+            "fields": {
+                "background_color": {
+                    "description": "A h\u00e1tt\u00e9r RGB sz\u00edn (csak c\u00edmezhet\u0151 modellek).",
+                    "name": "H\u00e1tt\u00e9rsz\u00edn"
+                },
+                "brightness": {
+                    "description": "F\u00e9nyer\u0151ss\u00e9g (0-100).",
+                    "name": "F\u00e9nyer\u0151"
+                },
+                "effect": {
+                    "description": "Hat\u00e1s (1-16 c\u00edmezhet\u0151 modellekn\u00e9l, 0-3 RGB MIC modellekn\u00e9l).",
+                    "name": "Hat\u00e1s"
+                },
+                "foreground_color": {
+                    "description": "Az el\u0151t\u00e9r RGB sz\u00edne.",
+                    "name": "El\u0151t\u00e9r sz\u00edne"
+                },
+                "light_screen": {
+                    "description": "Kijelz\u0151f\u00e9ny m\u00f3d a 2 dimenzi\u00f3s pixelekhez (csak c\u00edmezhet\u0151 modellekben).",
+                    "name": "Kijelz\u0151f\u00e9ny"
+                },
+                "sensitivity": {
+                    "description": "Mikrofon \u00e9rz\u00e9kenys\u00e9g (0-100).",
+                    "name": "\u00c9rz\u00e9kenys\u00e9g"
+                }
+            },
+            "name": "Zenei \u00fczemm\u00f3d be\u00e1ll\u00edt\u00e1sa"
+        },
+        "set_zones": {
+            "description": "Be\u00e1ll\u00edtja a z\u00f3n\u00e1kat a c\u00edmezhet\u0151 v3 vez\u00e9rl\u0151k sz\u00e1m\u00e1ra (0xA3).",
+            "fields": {
+                "colors": {
+                    "description": "Az egyes z\u00f3n\u00e1k sz\u00edneinek list\u00e1ja (RGB). Az egyes z\u00f3n\u00e1k hossza a szegmensenk\u00e9nti pixelek sz\u00e1ma osztva a sz\u00ednek sz\u00e1m\u00e1val. (Max. 2048 sz\u00edn).",
+                    "name": "Sz\u00ednek"
+                },
+                "effect": {
+                    "description": "Hat\u00e1s.",
+                    "name": "Hat\u00e1s"
+                },
+                "speed_pct": {
+                    "description": "Az egy\u00e9ni hat\u00e1s sebess\u00e9ge (0-100).",
+                    "name": "Sebess\u00e9g"
+                }
+            },
+            "name": "Z\u00f3n\u00e1k be\u00e1ll\u00edt\u00e1sa"
+        }
+    }
+}

@@ -1,0 +1,78 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Tj\u00e4nsten \u00e4r redan konfigurerad",
+            "reauth_successful": "\u00c5terautentisering lyckades"
+        },
+        "error": {
+            "cannot_connect": "Det gick inte att ansluta.",
+            "timeout_connect": "Timeout vid uppr\u00e4ttande av anslutning",
+            "unknown": "Ov\u00e4ntat fel"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "api_key": "API-nyckel",
+                    "password": "L\u00f6senord",
+                    "username": "Anv\u00e4ndarnamn"
+                }
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "rain_sensor": {
+                "name": "Regnsensor"
+            },
+            "watering": {
+                "name": "Bevattning"
+            }
+        },
+        "sensor": {
+            "daily_active_water_time": {
+                "name": "Daglig aktiv bevattningstid"
+            },
+            "next_cycle": {
+                "name": "N\u00e4sta cykel"
+            },
+            "watering_time": {
+                "name": "\u00c5terst\u00e5ende bevattningstid"
+            }
+        },
+        "switch": {
+            "auto_watering": {
+                "name": "Automatisk bevattning"
+            },
+            "manual_watering": {
+                "name": "Manuell bevattning"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_yaml_import_issue": {
+            "description": "Konfigurering av Hydrawise med YAML tas bort, men ett {error_type}-fel uppstod n\u00e4r YAML-konfigurationen importerades.\n\nSe till att anslutningen till Hydrawise fungerar och starta om Home Assistant f\u00f6r att f\u00f6rs\u00f6ka igen eller ta bort Hydrawise YAML-konfigurationen fr\u00e5n din configuration.yaml-fil och forts\u00e4tt att [konfigurera Hydrawise]({url}) manuellt.",
+            "title": "Importen av Hydrawises YAML-konfiguration misslyckades"
+        }
+    },
+    "services": {
+        "start_watering": {
+            "fields": {
+                "duration": {
+                    "description": "Tidsperiod f\u00f6r att k\u00f6ra bevattningscykeln. Om detta inte anges (eller om v\u00e4rdet \u00e4r noll) anv\u00e4nds den standardtid f\u00f6r bevattning som st\u00e4llts in i Hydrawise mobil- eller webbapp f\u00f6r bevattningszonen.",
+                    "name": "Varaktighet"
+                }
+            },
+            "name": "B\u00f6rja vattna"
+        },
+        "suspend": {
+            "description": "Avbryter en bevattningszons automatiska bevattningsschema fram till angivet datum och klockslag.",
+            "fields": {
+                "until": {
+                    "description": "Datum och tid f\u00f6r att \u00e5teruppta det automatiska bevattningsschemat.",
+                    "name": "Fram till"
+                }
+            },
+            "name": "St\u00e4ng av automatisk bevattning"
+        }
+    }
+}

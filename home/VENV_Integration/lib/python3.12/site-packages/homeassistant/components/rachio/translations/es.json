@@ -1,0 +1,116 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "El dispositivo ya est\u00e1 configurado"
+        },
+        "error": {
+            "cannot_connect": "No se pudo conectar",
+            "invalid_auth": "Autenticaci\u00f3n no v\u00e1lida",
+            "unknown": "Error inesperado"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "api_key": "Clave API"
+                },
+                "description": "Necesitar\u00e1s la clave API de https://app.rach.io/. Ve a Configuraci\u00f3n y selecciona \"OBTENER CLAVE API\".",
+                "title": "Conectar con tu dispositivo Rachio"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "rain": {
+                "name": "Lluvia"
+            }
+        },
+        "calendar": {
+            "calendar": {
+                "name": "Estaci\u00f3n base de Rachio {base}"
+            }
+        },
+        "switch": {
+            "rain_delay": {
+                "name": "Retardo por lluvia"
+            },
+            "standby": {
+                "name": "En espera"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "manual_run_mins": "Duraci\u00f3n en minutos a ejecutar cuando se active un interruptor de zona"
+                }
+            }
+        }
+    },
+    "services": {
+        "pause_watering": {
+            "description": "Pausa cualquiera de las zonas o programaciones que se est\u00e9n ejecutando en ese momento.",
+            "fields": {
+                "devices": {
+                    "description": "Nombre de los programadores que se van a poner en pausa. Por defecto, todos los programadores de la cuenta si no se proporciona.",
+                    "name": "Dispositivos"
+                },
+                "duration": {
+                    "description": "El momento de poner en pausa las programaciones en curso.",
+                    "name": "Duraci\u00f3n"
+                }
+            },
+            "name": "Pausar el riego"
+        },
+        "resume_watering": {
+            "description": "Reanuda cualquiera de las ejecuciones o programaciones de zona en pausa.",
+            "fields": {
+                "devices": {
+                    "description": "Nombre de los programadores que se van a reanudar. Por defecto, todos los programadores de la cuenta si no se proporciona.",
+                    "name": "Dispositivos"
+                }
+            },
+            "name": "Reanudar el riego"
+        },
+        "set_zone_moisture_percent": {
+            "description": "Establece el porcentaje de humedad de una zona o lista de zonas.",
+            "fields": {
+                "percent": {
+                    "description": "Establece el porcentaje de humedad de la zona deseada.",
+                    "name": "Porcentaje"
+                }
+            },
+            "name": "Ajustar el porcentaje de humedad de la zona"
+        },
+        "start_multiple_zone_schedule": {
+            "description": "Crea una programaci\u00f3n personalizada de zonas y tiempos de ejecuci\u00f3n. Ten en cuenta que todas las zonas deben estar en el mismo programador para evitar problemas.",
+            "fields": {
+                "duration": {
+                    "description": "N\u00famero de minutos para ejecutar la(s) zona(s). Si s\u00f3lo se indica 1 duraci\u00f3n, ese tiempo se utilizar\u00e1 para todas las zonas. Si se da una lista de duraciones, las duraciones se aplicar\u00e1n a las respectivas zonas enumeradas anteriormente.",
+                    "name": "Duraci\u00f3n"
+                }
+            },
+            "name": "Iniciar m\u00faltiples zonas"
+        },
+        "start_watering": {
+            "description": "Iniciar una \u00fanica zona, un horario o cualquier n\u00famero de temporizadores de manguera inteligentes.",
+            "fields": {
+                "duration": {
+                    "description": "N\u00famero de minutos en funcionamiento. Para zonas de aspersores, la duraci\u00f3n m\u00e1xima es de 3 horas o 24 horas para temporizadores de manguera inteligentes. Dejar vac\u00edo para horarios.",
+                    "name": "Duraci\u00f3n"
+                }
+            },
+            "name": "Empezar a regar"
+        },
+        "stop_watering": {
+            "description": "Detiene cualquiera de las zonas o programaciones en curso.",
+            "fields": {
+                "devices": {
+                    "description": "Nombre de los programadores que se van a detener. Por defecto, todos los programadores de la cuenta si no se proporciona.",
+                    "name": "Dispositivos"
+                }
+            },
+            "name": "Dejar de regar"
+        }
+    }
+}

@@ -1,0 +1,120 @@
+{
+    "device_automation": {
+        "action_type": {
+            "toggle": "\u30c8\u30b0\u30eb {entity_name}",
+            "turn_off": "{entity_name}\u3092\u30aa\u30d5\u306b\u3059\u308b",
+            "turn_on": "{entity_name}\u3092\u30aa\u30f3\u306b\u3059\u308b"
+        },
+        "condition_type": {
+            "is_off": "{entity_name}\u306f\u30aa\u30d5\u3067\u3059",
+            "is_on": "{entity_name}\u306f\u30aa\u30f3\u3067\u3059"
+        },
+        "trigger_type": {
+            "changed_states": "{entity_name}\u3092\u30aa\u30f3/\u30aa\u30d5\u306a\u308a\u307e\u3057\u305f",
+            "turned_off": "{entity_name}\u304c\u30aa\u30d5\u306b\u306a\u308a\u307e\u3057\u305f",
+            "turned_on": "{entity_name}\u304c\u30aa\u30f3\u306b\u306a\u308a\u307e\u3057\u305f"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "\u30ea\u30e2\u30fc\u30c8",
+            "state": {
+                "off": "\u30aa\u30d5",
+                "on": "\u30aa\u30f3"
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "{domain}\u7d71\u5408\u306e{platform}\u30d7\u30e9\u30c3\u30c8\u30d5\u30a9\u30fc\u30e0\u306f\u3001\u30d7\u30e9\u30c3\u30c8\u30d5\u30a9\u30fc\u30e0\u306e\u30bb\u30c3\u30c8\u30a2\u30c3\u30d7\u3092\u30b5\u30dd\u30fc\u30c8\u3057\u3066\u3044\u307e\u305b\u3093\u3002 \n\n\u3053\u306e\u554f\u984c\u3092\u89e3\u6c7a\u3059\u308b\u306b\u306f\u3001\u69cb\u6210\u304b\u3089\u524a\u9664\u3057\u3001Home Assistant \u3092\u518d\u8d77\u52d5\u3057\u3066\u304f\u3060\u3055\u3044\u3002",
+            "title": "\u30d7\u30e9\u30c3\u30c8\u30d5\u30a9\u30fc\u30e0\u306e\u30b5\u30dd\u30fc\u30c8\u306f\u30b5\u30dd\u30fc\u30c8\u3055\u308c\u3066\u3044\u307e\u305b\u3093"
+        }
+    },
+    "services": {
+        "delete_command": {
+            "description": "\u30c7\u30fc\u30bf\u30d9\u30fc\u30b9\u304b\u3089\u30b3\u30de\u30f3\u30c9\u307e\u305f\u306f\u30b3\u30de\u30f3\u30c9\u306e\u30ea\u30b9\u30c8\u3092\u524a\u9664\u3057\u307e\u3059\u3002",
+            "fields": {
+                "command": {
+                    "description": "\u524a\u9664\u3059\u308b\u5358\u4e00\u306e\u30b3\u30de\u30f3\u30c9\u307e\u305f\u306f\u30b3\u30de\u30f3\u30c9\u306e\u30ea\u30b9\u30c8\u3002",
+                    "name": "\u30b3\u30de\u30f3\u30c9"
+                },
+                "device": {
+                    "description": "\u30b3\u30de\u30f3\u30c9\u304c\u524a\u9664\u3055\u308c\u308b\u30c7\u30d0\u30a4\u30b9\u3002",
+                    "name": "\u30c7\u30d0\u30a4\u30b9"
+                }
+            },
+            "name": "\u30b3\u30de\u30f3\u30c9\u306e\u524a\u9664"
+        },
+        "learn_command": {
+            "description": "\u30c7\u30d0\u30a4\u30b9\u304b\u3089\u30b3\u30de\u30f3\u30c9\u307e\u305f\u306f\u30b3\u30de\u30f3\u30c9\u306e\u30ea\u30b9\u30c8\u3092\u5b66\u7fd2\u3057\u307e\u3059\u3002",
+            "fields": {
+                "alternative": {
+                    "description": "\u30b3\u30fc\u30c9\u3092\u4ee3\u66ff\u3068\u3057\u3066\u4fdd\u5b58\u3059\u308b\u5fc5\u8981\u304c\u3042\u308b\u5834\u5408\u3002\u3053\u308c\u306f\u96e2\u6563\u30b3\u30fc\u30c9\u306b\u4fbf\u5229\u3067\u3059\u3002\u500b\u5225\u306e\u30b3\u30fc\u30c9\u306f\u30011 \u3064\u306e\u6a5f\u80fd\u306e\u307f\u3092\u5b9f\u884c\u3059\u308b\u30c8\u30b0\u30eb\u306b\u4f7f\u7528\u3055\u308c\u307e\u3059\u3002\u305f\u3068\u3048\u3070\u3001\u30c7\u30d0\u30a4\u30b9\u306e\u96fb\u6e90\u3092\u30aa\u30f3\u306b\u3059\u308b\u3060\u3051\u306e\u30b3\u30fc\u30c9\u3067\u3059\u3002\u3059\u3067\u306b\u30aa\u30f3\u306b\u306a\u3063\u3066\u3044\u308b\u5834\u5408\u3001\u30b3\u30fc\u30c9\u3092\u9001\u4fe1\u3057\u3066\u3082\u72b6\u614b\u306f\u5909\u308f\u308a\u307e\u305b\u3093\u3002",
+                    "name": "\u4ee3\u66ff"
+                },
+                "command": {
+                    "description": "\u5b66\u7fd2\u3059\u308b\u5358\u4e00\u306e\u30b3\u30de\u30f3\u30c9\u307e\u305f\u306f\u30b3\u30de\u30f3\u30c9\u306e\u30ea\u30b9\u30c8\u3002",
+                    "name": "\u30b3\u30de\u30f3\u30c9"
+                },
+                "command_type": {
+                    "description": "\u5b66\u7fd2\u3059\u308b\u30b3\u30de\u30f3\u30c9\u306e\u7a2e\u985e\u3002",
+                    "name": "\u30b3\u30de\u30f3\u30c9\u306e\u7a2e\u985e"
+                },
+                "device": {
+                    "description": "\u30b3\u30de\u30f3\u30c9\u3092\u5b66\u7fd2\u3059\u308b\u30c7\u30d0\u30a4\u30b9 ID\u3002",
+                    "name": "\u30c7\u30d0\u30a4\u30b9"
+                },
+                "timeout": {
+                    "description": "\u30b3\u30de\u30f3\u30c9\u3092\u5b66\u7fd2\u3059\u308b\u307e\u3067\u306e\u30bf\u30a4\u30e0\u30a2\u30a6\u30c8\u3002",
+                    "name": "\u30bf\u30a4\u30e0\u30a2\u30a6\u30c8"
+                }
+            },
+            "name": "\u30b3\u30de\u30f3\u30c9\u3092\u5b66\u7fd2\u3059\u308b"
+        },
+        "send_command": {
+            "description": "\u30b3\u30de\u30f3\u30c9\u307e\u305f\u306f\u30b3\u30de\u30f3\u30c9\u306e\u30ea\u30b9\u30c8\u3092\u30c7\u30d0\u30a4\u30b9\u306b\u9001\u4fe1\u3057\u307e\u3059\u3002",
+            "fields": {
+                "command": {
+                    "description": "\u9001\u4fe1\u3059\u308b\u5358\u4e00\u306e\u30b3\u30de\u30f3\u30c9\u307e\u305f\u306f\u30b3\u30de\u30f3\u30c9\u306e\u30ea\u30b9\u30c8\u3002",
+                    "name": "\u30b3\u30de\u30f3\u30c9"
+                },
+                "delay_secs": {
+                    "description": "\u7e70\u308a\u8fd4\u3055\u308c\u308b\u30b3\u30de\u30f3\u30c9\u306e\u9593\u306b\u5f85\u6a5f\u3059\u308b\u6642\u9593\u3002",
+                    "name": "\u9045\u5ef6\u79d2\u6570"
+                },
+                "device": {
+                    "description": "\u30b3\u30de\u30f3\u30c9\u3092\u9001\u4fe1\u3059\u308b\u30c7\u30d0\u30a4\u30b9 ID\u3002",
+                    "name": "\u30c7\u30d0\u30a4\u30b9"
+                },
+                "hold_secs": {
+                    "description": "\u30ea\u30ea\u30fc\u30b9\u524d\u306b\u4fdd\u6301\u3057\u3066\u304a\u304d\u305f\u3044\u6642\u9593\u3092\u9001\u4fe1\u3057\u307e\u3059\u3002",
+                    "name": "\u30db\u30fc\u30eb\u30c9\u79d2"
+                },
+                "num_repeats": {
+                    "description": "\u30b3\u30de\u30f3\u30c9\u3092\u7e70\u308a\u8fd4\u3059\u56de\u6570\u3002",
+                    "name": "\u7e70\u308a\u8fd4\u3057"
+                }
+            },
+            "name": "\u30b3\u30de\u30f3\u30c9\u9001\u4fe1"
+        },
+        "toggle": {
+            "description": "\u30c7\u30d0\u30a4\u30b9\u306e\u30aa\u30f3/\u30aa\u30d5\u3092\u5207\u308a\u66ff\u3048\u307e\u3059\u3002",
+            "name": "\u30c8\u30b0\u30eb"
+        },
+        "turn_off": {
+            "description": "\u30c7\u30d0\u30a4\u30b9\u306e\u96fb\u6e90\u3092\u30aa\u30d5\u306b\u3057\u307e\u3059\u3002",
+            "name": "\u30aa\u30d5\u306b\u3059\u308b"
+        },
+        "turn_on": {
+            "description": "\u96fb\u6e90\u30aa\u30f3\u30b3\u30de\u30f3\u30c9\u3092\u9001\u4fe1\u3057\u307e\u3059\u3002",
+            "fields": {
+                "activity": {
+                    "description": "\u958b\u59cb\u3059\u308b\u30a2\u30af\u30c6\u30a3\u30d3\u30c6\u30a3 ID \u307e\u305f\u306f\u30a2\u30af\u30c6\u30a3\u30d3\u30c6\u30a3\u540d\u3002",
+                    "name": "\u30a2\u30af\u30c6\u30a3\u30d3\u30c6\u30a3"
+                }
+            },
+            "name": "\u30aa\u30f3\u306b\u3059\u308b"
+        }
+    },
+    "title": "\u30ea\u30e2\u30fc\u30c8"
+}

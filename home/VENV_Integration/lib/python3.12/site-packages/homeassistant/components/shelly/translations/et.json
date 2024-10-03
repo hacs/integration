@@ -1,0 +1,197 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Seade on juba h\u00e4\u00e4lestatud",
+            "another_device": "\u00dcmberseadistamine nurjus, kasutati teise Shelly seadme IP-aadressi / hostinime.",
+            "ipv6_not_supported": "IPv6 ei ole toetatud.",
+            "reauth_successful": "Taastuvastamine \u00f5nnestus",
+            "reauth_unsuccessful": "Taasautentimine eba\u00f5nnestus, eemaldage integratsioon ja seadistage see uuesti.",
+            "reconfigure_successful": "\u00dcmberseadistamine \u00f5nnestus",
+            "unsupported_firmware": "Seade kasutab toetuseta p\u00fcsivara versiooni."
+        },
+        "error": {
+            "cannot_connect": "\u00dchendamine nurjus",
+            "custom_port_not_supported": "Gen1 seade ei toeta kohandatud porti.",
+            "firmware_not_fully_provisioned": "Seade pole t\u00e4ielikult toetatud. V\u00f5ta \u00fchendust Shelly toega",
+            "invalid_auth": "Tuvastamine nurjus",
+            "unknown": "Tundmatu viga"
+        },
+        "flow_title": "{name}",
+        "step": {
+            "confirm_discovery": {
+                "description": "Kas soovid seadistada seadet {model} saidil {host} ? \n\n Enne seadistamise j\u00e4tkamist tuleb parooliga kaitstud akutoitega seadmed \u00e4ratada.\n Patareitoitega seadmed, mis pole parooliga kaitstud, lisatakse seadme \u00e4rkamisel. N\u00fc\u00fcd saad seadme k\u00e4sitsi \u00fcles \u00e4ratada, kasutades sellel olevat nuppu v\u00f5i oodata seadme j\u00e4rgmist andmete v\u00e4rskendamist."
+            },
+            "credentials": {
+                "data": {
+                    "password": "Salas\u00f5na",
+                    "username": "Kasutajanimi"
+                }
+            },
+            "reauth_confirm": {
+                "data": {
+                    "password": "Salas\u00f5na",
+                    "username": "Kasutajanimi"
+                }
+            },
+            "reconfigure_confirm": {
+                "data": {
+                    "host": "Host",
+                    "port": "Port"
+                },
+                "data_description": {
+                    "host": "Shelly seadme hostinimi v\u00f5i IP-aadress millega \u00fchendus luua.",
+                    "port": "Shelly seadme TCP-port millega \u00fchenduda (Gen2+)."
+                },
+                "description": "V\u00e4rskenda {device_name} konfiguratsiooni. \n\n Enne seadistamist tuleb akutoitel seadmed \u00e4ratada, n\u00fc\u00fcd saad seadme \u00e4ratada sellel asuva nupu abil."
+            },
+            "user": {
+                "data": {
+                    "host": "Host",
+                    "port": "Port"
+                },
+                "data_description": {
+                    "host": "Shelly seadme hostinimi v\u00f5i IP-aadress millega \u00fchendus luua.",
+                    "port": "Shelly seadme TCP-port millega \u00fchenduda (Gen2+)."
+                },
+                "description": "Enne seadistamist tuleb akutoitega seade \u00e4ratada vajutades seadme nuppu."
+            }
+        }
+    },
+    "device_automation": {
+        "trigger_subtype": {
+            "button": "Nupp",
+            "button1": "Esimene nupp",
+            "button2": "Teine nupp",
+            "button3": "Kolmas nupp",
+            "button4": "Neljas nupp"
+        },
+        "trigger_type": {
+            "btn_down": "{subtype} nupp vajutatud",
+            "btn_up": "{subtype} nupp vabastatud",
+            "double": "Nuppu  {subtype}  topeltkl\u00f5psati",
+            "double_push": "{subtype} topeltkl\u00f5ps",
+            "long": "Nuppu \"{subtype}\" hoiti all",
+            "long_push": "{subtype} pikk vajutus",
+            "long_single": "Nuppu {subtype} hoiti all ja seej\u00e4rel kl\u00f5psati",
+            "single": "Nuppu {subtype} kl\u00f5psati",
+            "single_long": "Nuppu {subtype} kl\u00f5psati \u00fcks kord ja seej\u00e4rel hoiti all",
+            "single_push": "{subtype} l\u00fchike vajutus",
+            "triple": "Nuppu {subtype} kl\u00f5psati kolm korda",
+            "triple_push": "{subtype} kolmikvajutus"
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "gas": {
+                "state_attributes": {
+                    "detected": {
+                        "state": {
+                            "heavy": "Tugev",
+                            "mild": "Kerge",
+                            "none": "Puudub",
+                            "test": "Test",
+                            "unknown": "Teadmata"
+                        }
+                    }
+                }
+            }
+        },
+        "event": {
+            "input": {
+                "state_attributes": {
+                    "event_type": {
+                        "state": {
+                            "btn_down": "Nupp alla",
+                            "btn_up": "Nupp \u00fcles",
+                            "double": "Topeltvajutus",
+                            "double_push": "Topeltvajutus",
+                            "long": "Pikk vajutus",
+                            "long_push": "Pikk vajutus",
+                            "long_single": "Pikk vajutus ja siis l\u00fchike vajutus",
+                            "single": "\u00dchekordne vajutus",
+                            "single_long": "L\u00fchike vajutus ja seej\u00e4rel pikk vajutus",
+                            "single_push": "\u00dchekordne vajutus",
+                            "triple": "Kolmekordne vajutus",
+                            "triple_push": "Kolmekordne vajutus"
+                        }
+                    }
+                }
+            }
+        },
+        "sensor": {
+            "operation": {
+                "state": {
+                    "fault": "T\u00f5rge",
+                    "normal": "Tavaline",
+                    "unknown": "Teadmata",
+                    "warmup": "Soojendamine"
+                },
+                "state_attributes": {
+                    "self_test": {
+                        "state": {
+                            "completed": "L\u00f5petatud",
+                            "not_completed": "L\u00f5petamata",
+                            "pending": "Ootel",
+                            "running": "T\u00f6\u00f6tab"
+                        }
+                    }
+                }
+            },
+            "valve_status": {
+                "state": {
+                    "checking": "Kontrollimine",
+                    "closed": "Suletud",
+                    "closing": "Sulgumine",
+                    "failure": "Nurjumine",
+                    "opened": "Avatud",
+                    "opening": "Avanemine",
+                    "unknown": "Teadmata"
+                }
+            }
+        }
+    },
+    "issues": {
+        "deprecated_valve_switch": {
+            "description": "Shelly Gas Valve l\u00fcliti olem on aegunud. Klapi olem {entity} on saadaval ja seda tuleks edaspidi kasutada. Selle uue klapi\u00fcksuse jaoks pead kasutama teenust {service} .",
+            "title": "Shelly Gas Valve l\u00fcliti olem on aegunud"
+        },
+        "deprecated_valve_switch_entity": {
+            "description": "Shelly Gas Valve olemit ` {entity} ` kasutatakse jaotises ` {info} `. Klapi\u00fcksus on saadaval ja seda tuleks edaspidi kasutada. \n\n Selle probleemi lahendamiseks kohanda valikut ` {info} `.",
+            "title": "{info}-s tuvastati Shelly gaasiventiili aegunud l\u00fcliti olem"
+        },
+        "device_not_calibrated": {
+            "description": "Shelly seade {device_name} IP-aadressiga {ip_address} n\u00f5uab kalibreerimist. Seadme kalibreerimiseks tuleb see p\u00e4rast klapile n\u00f5uetekohast paigaldamist taask\u00e4ivitada. Saad seadme taask\u00e4ivitada selle veebipaneelil, mine jaotisse \"Seaded\" > \"Seadme taask\u00e4ivitamine\".",
+            "title": "Shelly seade {device_name} ei ole kalibreeritud"
+        },
+        "push_update_failure": {
+            "description": "Home Assistant ei saa t\u00f5ukev\u00e4rskendusi Shelly seadmest {device_name} IP-aadressiga {ip_address}. Kontrolli CoIoT konfiguratsiooni seadme veebipaneelil ja oma v\u00f5rgu konfiguratsiooni.",
+            "title": "Shelly seadme {device_name} t\u00f5ukev\u00e4rskenduse t\u00f5rge"
+        },
+        "unsupported_firmware": {
+            "description": "Shelly seade {device_name} IP-aadressiga {ip_address} kasutab toetamata p\u00fcsivara. Palun v\u00e4rskenda p\u00fcsivara.\n\nKui seade ei paku uuendust, kontrolli interneti\u00fchendust (l\u00fc\u00fcs, DNS, aeg) ja taask\u00e4ivita seade.",
+            "title": "Toetamata p\u00fcsivara seadmele {device_name}"
+        }
+    },
+    "options": {
+        "abort": {
+            "ble_unsupported": "Bluetoothi tugi n\u00f5uab p\u00fcsivara versiooni {ble_min_version} v\u00f5i uuemat."
+        },
+        "step": {
+            "init": {
+                "data": {
+                    "ble_scanner_mode": "Bluetooth-sk\u00e4nneri re\u017eiim"
+                },
+                "description": "Bluetoothi skannimine v\u00f5ib olla aktiivne v\u00f5i passiivne. Aktiivse oleku korral k\u00fcsib Shelly andmeid l\u00e4hedalasuvatest seadmetest, passiivse puhul saab Shelly l\u00e4hedalasuvatest seadmetest soovimatuid andmeid."
+            }
+        }
+    },
+    "selector": {
+        "ble_scanner_mode": {
+            "options": {
+                "active": "Aktiivne",
+                "disabled": "Keelatud",
+                "passive": "Passiivne"
+            }
+        }
+    }
+}

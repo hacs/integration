@@ -1,0 +1,90 @@
+{
+    "device_automation": {
+        "condition_type": {
+            "is_home": "{entity_name} je doma",
+            "is_not_home": "{entity_name}: nen\u00ed doma"
+        },
+        "extra_fields": {
+            "zone": "Z\u00f3na"
+        },
+        "trigger_type": {
+            "enters": "{entity_name} vstupuje do z\u00f3ny",
+            "leaves": "{entity_name} opou\u0161t\u00ed z\u00f3nu"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Sledova\u010d za\u0159\u00edzen\u00ed",
+            "state": {
+                "home": "Doma",
+                "not_home": "Pry\u010d"
+            },
+            "state_attributes": {
+                "battery": {
+                    "name": "Baterie"
+                },
+                "gps_accuracy": {
+                    "name": "P\u0159esnost GPS"
+                },
+                "latitude": {
+                    "name": "Zem\u011bpisn\u00e1 \u0161\u00ed\u0159ka"
+                },
+                "longitude": {
+                    "name": "Zem\u011bpisn\u00e1 d\u00e9lka"
+                },
+                "source_type": {
+                    "name": "Zdroj",
+                    "state": {
+                        "bluetooth": "Bluetooth",
+                        "bluetooth_le": "Bluetooth LE",
+                        "gps": "GPS",
+                        "router": "Router"
+                    }
+                }
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "Platforma {platform} pro integraci {domain} nepodporuje nastaven\u00ed platformy.\n\nOdeberte ji z nastaven\u00ed a restartujte Home Assistanta, abyste tento probl\u00e9m vy\u0159e\u0161ili.",
+            "title": "Podpora platformy nen\u00ed podporov\u00e1na"
+        }
+    },
+    "services": {
+        "see": {
+            "description": "Zaznamen\u00e1v\u00e1 vid\u011bn\u00e9 sledovan\u00e9 za\u0159\u00edzen\u00ed.",
+            "fields": {
+                "battery": {
+                    "description": "\u00darove\u0148 baterie za\u0159\u00edzen\u00ed.",
+                    "name": "\u00darove\u0148 baterie"
+                },
+                "dev_id": {
+                    "description": "ID za\u0159\u00edzen\u00ed (ID najdete v \"known_devices.yaml\").",
+                    "name": "ID za\u0159\u00edzen\u00ed"
+                },
+                "gps": {
+                    "description": "GPS sou\u0159adnice, kde se za\u0159\u00edzen\u00ed nach\u00e1z\u00ed, ur\u010den\u00e9 zem\u011bpisnou \u0161\u00ed\u0159kou a d\u00e9lkou (nap\u0159\u00edklad: [51.513845, -0.100539]).",
+                    "name": "Sou\u0159adnice GPS"
+                },
+                "gps_accuracy": {
+                    "description": "P\u0159esnost GPS sou\u0159adnic.",
+                    "name": "P\u0159esnost GPS"
+                },
+                "host_name": {
+                    "description": "N\u00e1zev hostitele za\u0159\u00edzen\u00ed.",
+                    "name": "N\u00e1zev hostitele"
+                },
+                "location_name": {
+                    "description": "N\u00e1zev m\u00edsta, kde se za\u0159\u00edzen\u00ed nach\u00e1z\u00ed. Volby jsou: \"home\", \"not_home\" nebo n\u00e1zev z\u00f3ny.",
+                    "name": "Poloha"
+                },
+                "mac": {
+                    "description": "MAC adresa za\u0159\u00edzen\u00ed.",
+                    "name": "MAC adresa"
+                }
+            },
+            "name": "Pod\u00edvat se"
+        }
+    },
+    "title": "Sledova\u010d za\u0159\u00edzen\u00ed"
+}

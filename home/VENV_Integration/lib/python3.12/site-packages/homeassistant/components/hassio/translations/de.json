@@ -1,0 +1,416 @@
+{
+    "entity": {
+        "binary_sensor": {
+            "state": {
+                "name": "L\u00e4uft"
+            }
+        },
+        "sensor": {
+            "agent_version": {
+                "name": "OS Agent Version"
+            },
+            "apparmor_version": {
+                "name": "AppArmor-Version"
+            },
+            "cpu_percent": {
+                "name": "CPU Prozent"
+            },
+            "disk_free": {
+                "name": "Speicherplatz frei"
+            },
+            "disk_total": {
+                "name": "Speicherplatz gesamt"
+            },
+            "disk_used": {
+                "name": "Speicherplatz genutzt"
+            },
+            "memory_percent": {
+                "name": "Arbeitsspeicher in Prozent"
+            },
+            "version": {
+                "name": "Version"
+            },
+            "version_latest": {
+                "name": "Neueste Version"
+            }
+        }
+    },
+    "issues": {
+        "issue_addon_detached_addon_missing": {
+            "description": "Das Repository f\u00fcr das Add-on {addon} fehlt. Dies bedeutet, dass es keine Updates erh\u00e4lt und Backups m\u00f6glicherweise nicht korrekt wiederhergestellt werden, da der Supervisor m\u00f6glicherweise nicht in der Lage ist, die erforderlichen Ressourcen zu erstellen/herunterzuladen. \n\nBitte lies die [Dokumentation des Add-ons]({addon_url}) f\u00fcr Installationsanweisungen und f\u00fcge das Repository zum Store hinzu.",
+            "title": "Fehlendes Repository f\u00fcr ein installiertes Add-on"
+        },
+        "issue_addon_detached_addon_removed": {
+            "fix_flow": {
+                "abort": {
+                    "apply_suggestion_fail": "Das Add-on konnte nicht deinstalliert werden. Weitere Einzelheiten findest du in den Supervisor-Protokollen."
+                },
+                "step": {
+                    "addon_execute_remove": {
+                        "description": "Das Add-on {addon} wurde aus dem Repository entfernt, aus dem es installiert wurde. Dies bedeutet, dass es keine Updates erh\u00e4lt und Backups m\u00f6glicherweise nicht korrekt wiederhergestellt werden, da der Supervisor m\u00f6glicherweise nicht in der Lage ist, die erforderlichen Ressourcen zu erstellen/herunterzuladen. \n\nWenn du auf **Senden** klickst, wird dieses veraltete Add-on deinstalliert. Alternativ kannst du in der [Home Assistant-Hilfe]({help_url}) und im [Community-Forum]({community_url}) nach Alternativen suchen, auf die du migrieren kannst."
+                    }
+                }
+            },
+            "title": "Das installierte Add-on wurde aus dem Repository entfernt"
+        },
+        "issue_mount_mount_failed": {
+            "fix_flow": {
+                "abort": {
+                    "apply_suggestion_fail": "Der Fix konnte nicht angewendet werden. Pr\u00fcfe die Supervisor-Protokolle f\u00fcr weitere Details."
+                },
+                "step": {
+                    "fix_menu": {
+                        "description": "Konnte keine Verbindung zu `{reference}` herstellen. \u00dcberpr\u00fcfe die Hostprotokolle auf Fehler des Mount-Dienstes f\u00fcr weitere Details.\n\nVerwende Neu laden, um erneut zu versuchen, eine Verbindung herzustellen. Wenn du `{reference}` aktualisieren musst, gehe zu [Speicher]({storage_url}).",
+                        "menu_options": {
+                            "mount_execute_reload": "Neu laden",
+                            "mount_execute_remove": "Entfernen"
+                        }
+                    }
+                }
+            },
+            "title": "Netzwerkspeicherger\u00e4t ausgefallen"
+        },
+        "issue_system_docker_config": {
+            "fix_flow": {
+                "abort": {
+                    "apply_suggestion_fail": "Einer oder mehrere Neustarts sind fehlgeschlagen. Weitere Details findest du in den Supervisor-Protokollen."
+                },
+                "step": {
+                    "system_execute_rebuild": {
+                        "description": "Die Standardkonfiguration f\u00fcr Add-ons und Home Assistant hat sich ge\u00e4ndert. Um die Konfiguration mit den neuen Standardwerten zu aktualisieren, ist f\u00fcr Folgendes ein Neustart erforderlich: \n\n- {components}"
+                    }
+                }
+            },
+            "title": "Neustart(s) erforderlich"
+        },
+        "issue_system_multiple_data_disks": {
+            "fix_flow": {
+                "abort": {
+                    "apply_suggestion_fail": "Das Dateisystem konnte nicht umbenannt werden. Pr\u00fcfe die Supervisor-Protokolle f\u00fcr weitere Details."
+                },
+                "step": {
+                    "fix_menu": {
+                        "description": "Bei `{reference}` haben wir einen anderen aktiven Datentr\u00e4ger (mit einem Dateisystem `hassos-data` von einer anderen Home Assistant-Installation) erkannt. \n\nDu musst entscheiden, was damit geschehen soll. Andernfalls w\u00e4hlt Home Assistant beim Systemneustart m\u00f6glicherweise den falschen Datentr\u00e4ger aus. \n\nWenn du diesen Datentr\u00e4ger nicht verwenden m\u00f6chtest, trenne sie von deinem System. Wenn du sie angeschlossen lassen m\u00f6chtest, w\u00e4hle eine der folgenden Optionen:",
+                        "menu_options": {
+                            "system_adopt_data_disk": "Verwende den erkannten Datentr\u00e4ger anstelle des aktuellen Systems",
+                            "system_rename_data_disk": "Als inaktiven Datentr\u00e4ger markieren (Dateisystem umbenennen)"
+                        }
+                    },
+                    "system_adopt_data_disk": {
+                        "description": "W\u00e4hle **Senden**, um `{reference}` zum aktiven Datentr\u00e4ger zu machen. Den einzig wahren. \n\nDu hast keinen Zugriff mehr auf die aktuellen Home Assistant-Daten (werden als inaktive Datentr\u00e4ger markiert). Nach dem Neustart befindet sich dein System im Zustand der Home Assistant-Daten auf `{reference}`."
+                    },
+                    "system_rename_data_disk": {
+                        "description": "`{reference}` ist ein Dateisystem mit dem Namen hassos-data und ist nicht das aktive Datenlaufwerk. Dies kann dazu f\u00fchren, dass Home Assistant beim Neustart des Systems das falsche Datenlaufwerk ausw\u00e4hlt.\n\nVerwende die Fix Option, um das Dateisystem umzubenennen, um dies zu verhindern. Alternativ kannst du den Datentr\u00e4ger auf das Laufwerk verschieben (und ihren Inhalt \u00fcberschreiben) oder das Laufwerk aus dem System entfernen."
+                    }
+                }
+            },
+            "title": "Mehrere Datentr\u00e4ger erkannt"
+        },
+        "issue_system_reboot_required": {
+            "fix_flow": {
+                "abort": {
+                    "apply_suggestion_fail": "Das System konnte nicht neu gestartet werden. Pr\u00fcfe die Supervisor-Protokolle f\u00fcr weitere Details."
+                },
+                "step": {
+                    "system_execute_reboot": {
+                        "description": "Es wurden Einstellungen ge\u00e4ndert, die einen Neustart des Systems erfordern, damit sie wirksam werden. \n\nDieser Fix l\u00f6st einen Systemneustart aus, wodurch Home Assistant und alle Add-ons f\u00fcr kurze Zeit unzug\u00e4nglich werden."
+                    }
+                }
+            },
+            "title": "Neustart erforderlich"
+        },
+        "unhealthy": {
+            "description": "Das System ist derzeit aufgrund von \u201e{reason}\u201c fehlerhaft. Verwende den Link, um mehr zu erfahren und wie du dies beheben kannst.",
+            "title": "Fehlerhaftes System - {reason}"
+        },
+        "unhealthy_docker": {
+            "description": "Das System ist derzeit fehlerhaft, da Docker falsch konfiguriert ist. Verwende den Link, um mehr zu erfahren und wie du dies beheben kannst.",
+            "title": "Ungesundes System - Docker falsch konfiguriert"
+        },
+        "unhealthy_privileged": {
+            "description": "Das System ist derzeit fehlerhaft, da es keinen privilegierten Zugriff auf die Docker-Laufzeit hat. Verwende den Link, um mehr zu erfahren und wie du dies beheben kannst.",
+            "title": "Fehlerhaftes System \u2013 Nicht privilegiert"
+        },
+        "unhealthy_setup": {
+            "description": "Das System ist derzeit fehlerhaft, da die Einrichtung nicht abgeschlossen werden konnte. Dies kann mehrere Gr\u00fcnde haben. Verwende den Link, um mehr zu erfahren und wie du dies beheben kannst.",
+            "title": "Fehlerhaftes System \u2013 Setup fehlgeschlagen"
+        },
+        "unhealthy_supervisor": {
+            "description": "Das System ist derzeit fehlerhaft, weil ein Versuch, Supervisor auf die neueste Version zu aktualisieren, fehlgeschlagen ist. Verwende den Link, um mehr zu erfahren und wie du dies beheben kannst.",
+            "title": "Fehlerhaftes System \u2013 Supervisor-Update fehlgeschlagen"
+        },
+        "unhealthy_untrusted": {
+            "description": "Das System ist derzeit nicht fehlerfrei, da es nicht vertrauensw\u00fcrdigen Code oder verwendete Images erkannt hat. Verwende den Link, um mehr zu erfahren und wie du dies beheben kannst.",
+            "title": "Fehlerhaftes System \u2013 Nicht vertrauensw\u00fcrdiger Code"
+        },
+        "unsupported": {
+            "description": "Das System wird aufgrund von \u201e{reason}\u201c nicht unterst\u00fctzt. Verwende den Link, um mehr zu erfahren und wie du dies beheben kannst.",
+            "title": "Nicht unterst\u00fctztes System \u2013 {reason}"
+        },
+        "unsupported_apparmor": {
+            "description": "Das System wird nicht unterst\u00fctzt, da AppArmor nicht ordnungsgem\u00e4\u00df funktioniert und Add-ons ungesch\u00fctzt und unsicher ausgef\u00fchrt werden. Verwende den Link, um mehr zu erfahren und wie du dies beheben kannst.",
+            "title": "Nicht unterst\u00fctztes System - AppArmor Probleme"
+        },
+        "unsupported_cgroup_version": {
+            "description": "Das System wird nicht unterst\u00fctzt, da die falsche Version von Docker CGroup verwendet wird. Verwende den Link, um die richtige Version zu erfahren und wie du dies beheben kannst.",
+            "title": "Nicht unterst\u00fctztes System \u2013 CGroup Version"
+        },
+        "unsupported_connectivity_check": {
+            "description": "Das System wird nicht unterst\u00fctzt, weil Home Assistant nicht feststellen kann, wann eine Internetverbindung verf\u00fcgbar ist. Verwende den Link, um mehr zu erfahren und wie du dies beheben kannst.",
+            "title": "Nicht unterst\u00fctztes System - Konnektivit\u00e4tspr\u00fcfung deaktiviert"
+        },
+        "unsupported_content_trust": {
+            "description": "Das System wird nicht unterst\u00fctzt, da Home Assistant nicht \u00fcberpr\u00fcfen kann, ob der ausgef\u00fchrte Inhalt vertrauensw\u00fcrdig ist und nicht von Angreifern ge\u00e4ndert wurde. Verwende den Link, um mehr zu erfahren und wie du dies beheben kannst.",
+            "title": "Nicht unterst\u00fctztes System \u2013 Inhaltsvertrauenspr\u00fcfung deaktiviert"
+        },
+        "unsupported_dbus": {
+            "description": "System wird nicht unterst\u00fctzt, da D-Bus nicht richtig funktioniert. Viele Dinge schlagen ohne dies fehl, da Supervisor nicht mit dem Host kommunizieren kann. Verwende den Link, um mehr zu erfahren und wie du dies beheben kannst.",
+            "title": "Nicht unterst\u00fctztes System \u2013 D-Bus-Probleme"
+        },
+        "unsupported_dns_server": {
+            "description": "Das System wird nicht unterst\u00fctzt, da der bereitgestellte DNS-Server nicht ordnungsgem\u00e4\u00df funktioniert und die Fallback DNS Option deaktiviert wurde. Verwende den Link, um mehr zu erfahren und wie du dies beheben kannst.",
+            "title": "Nicht unterst\u00fctztes System - DNS-Server-Probleme"
+        },
+        "unsupported_docker_configuration": {
+            "description": "Das System wird nicht unterst\u00fctzt, da der Docker-Daemon auf unerwartete Weise ausgef\u00fchrt wird. Verwende den Link, um mehr zu erfahren und wie du dies beheben kannst.",
+            "title": "Nicht unterst\u00fctztes System - Docker falsch konfiguriert"
+        },
+        "unsupported_docker_version": {
+            "description": "Das System wird nicht unterst\u00fctzt, da die falsche Version von Docker verwendet wird. Verwende den Link, um mehr zu erfahren und wie du dies beheben kannst.",
+            "title": "Nicht unterst\u00fctztes System \u2013 Docker-Version"
+        },
+        "unsupported_job_conditions": {
+            "description": "Das System wird nicht unterst\u00fctzt, da eine oder mehrere Jobbedingungen deaktiviert wurden, die vor unerwarteten Ausf\u00e4llen und Unterbrechungen sch\u00fctzen. Verwende den Link, um mehr zu erfahren und wie du dies beheben kannst.",
+            "title": "Nicht unterst\u00fctztes System \u2013 Schutz deaktiviert"
+        },
+        "unsupported_lxc": {
+            "description": "Das System wird nicht unterst\u00fctzt, da es in einer virtuellen LXC Maschine ausgef\u00fchrt wird. Verwende den Link, um mehr zu erfahren und wie du dies beheben kannst.",
+            "title": "Nicht unterst\u00fctztes System \u2013 LXC erkannt"
+        },
+        "unsupported_network_manager": {
+            "description": "Das System wird nicht unterst\u00fctzt, weil Network Manager fehlt, inaktiv oder falsch konfiguriert ist. Verwende den Link, um mehr zu erfahren und wie du dies beheben kannst.",
+            "title": "Nicht unterst\u00fctztes System \u2013 Probleme mit Network Manager"
+        },
+        "unsupported_os": {
+            "description": "Das System wird nicht unterst\u00fctzt, da das verwendete Betriebssystem nicht f\u00fcr die Verwendung mit Supervisor getestet oder gewartet wurde. Verwende den Link, um zu erfahren, welche Betriebssysteme unterst\u00fctzt werden und wie du das Problem beheben kannst.",
+            "title": "Nicht unterst\u00fctztes System \u2013 Betriebssystem"
+        },
+        "unsupported_os_agent": {
+            "description": "Das System wird nicht unterst\u00fctzt, weil OS-Agent fehlt, inaktiv oder falsch konfiguriert ist. Verwende den Link, um mehr zu erfahren und wie du dies beheben kannst.",
+            "title": "Nicht unterst\u00fctztes System - Probleme mit OS-Agenten"
+        },
+        "unsupported_restart_policy": {
+            "description": "Das System wird nicht unterst\u00fctzt, da f\u00fcr einen Docker-Container eine Neustartrichtlinie festgelegt ist, die beim Start Probleme verursachen k\u00f6nnte. Verwende den Link, um mehr zu erfahren und wie du dies beheben kannst.",
+            "title": "Nicht unterst\u00fctztes System \u2013 Container-Neustartrichtlinie"
+        },
+        "unsupported_software": {
+            "description": "Das System wird nicht unterst\u00fctzt, da zus\u00e4tzliche Software au\u00dferhalb des Home Assistant-\u00d6kosystems erkannt wurde. Verwende den Link, um mehr zu erfahren und wie du dies beheben kannst.",
+            "title": "Nicht unterst\u00fctztes System \u2013 Nicht unterst\u00fctzte Software"
+        },
+        "unsupported_source_mods": {
+            "description": "Das System wird nicht unterst\u00fctzt, da der Supervisor-Quellcode ge\u00e4ndert wurde. Verwende den Link, um mehr zu erfahren und wie du dies beheben kannst.",
+            "title": "Nicht unterst\u00fctztes System \u2013 Modifikation des Supervisor-Quellcodes"
+        },
+        "unsupported_supervisor_version": {
+            "description": "Das System wird nicht unterst\u00fctzt, da eine veraltete Version von Supervisor verwendet wird und die automatische Aktualisierung deaktiviert wurde. Verwende den Link, um mehr zu erfahren und wie du dies beheben kannst.",
+            "title": "Nicht unterst\u00fctztes System \u2013 Supervisor-Version"
+        },
+        "unsupported_systemd": {
+            "description": "System wird nicht unterst\u00fctzt, weil Systemd fehlt, inaktiv oder falsch konfiguriert ist. Verwende den Link, um mehr zu erfahren und wie du dies beheben kannst.",
+            "title": "Nicht unterst\u00fctztes System - Systemd Probleme"
+        },
+        "unsupported_systemd_journal": {
+            "description": "Das System wird nicht unterst\u00fctzt, da das Systemd Journal und/oder der Gateway-Dienst fehlt, inaktiv oder falsch konfiguriert ist. Verwende den Link, um mehr zu erfahren und wie du dies beheben kannst.",
+            "title": "Nicht unterst\u00fctztes System \u2013 Systemd Journal-Probleme"
+        },
+        "unsupported_systemd_resolved": {
+            "description": "Das System wird nicht unterst\u00fctzt, weil Systemd Resolved fehlt, inaktiv oder falsch konfiguriert ist. Verwende den Link, um mehr zu erfahren und wie du dies beheben kannst.",
+            "title": "Nicht unterst\u00fctztes System \u2013 Von Systemd behobene Probleme"
+        },
+        "unsupported_virtualization_image": {
+            "description": "Das System wird nicht unterst\u00fctzt, da das verwendete Home Assistant-Betriebssystemimage nicht f\u00fcr die Verwendung in einer virtualisierten Umgebung vorgesehen ist. Weitere Informationen und Hinweise zur Behebung des Problems findest du unter dem Link.",
+            "title": "Nicht unterst\u00fctztes System \u2013 Falsches Betriebssystem-Image f\u00fcr die Virtualisierung"
+        }
+    },
+    "services": {
+        "addon_restart": {
+            "description": "Startet ein Add-on neu.",
+            "fields": {
+                "addon": {
+                    "description": "Der Add-on-Slug.",
+                    "name": "Add-on"
+                }
+            },
+            "name": "Add-on neu starten."
+        },
+        "addon_start": {
+            "description": "Startet ein Add-on.",
+            "fields": {
+                "addon": {
+                    "description": "Der Add-on-Slug.",
+                    "name": "Add-on"
+                }
+            },
+            "name": "Add-on starten"
+        },
+        "addon_stdin": {
+            "description": "Schreibt Daten in die Add-on stdin.",
+            "fields": {
+                "addon": {
+                    "description": "Der Add-on-Slug.",
+                    "name": "Add-on"
+                }
+            },
+            "name": "Daten in das Add-on stdin schreiben."
+        },
+        "addon_stop": {
+            "description": "Stoppt ein Add-on.",
+            "fields": {
+                "addon": {
+                    "description": "Der Add-on-Slug.",
+                    "name": "Add-on"
+                }
+            },
+            "name": "Add-on stoppen."
+        },
+        "addon_update": {
+            "description": "Aktualisiert ein Add-on. Diese Aktion sollte mit Vorsicht verwendet werden, da Add-on-Updates wichtige \u00c4nderungen enthalten k\u00f6nnen. Es wird dringend empfohlen, vor dem Aktualisieren eines Add-ons die Versionshinweise/\u00c4nderungsprotokolle zu \u00fcberpr\u00fcfen.",
+            "fields": {
+                "addon": {
+                    "description": "Der Add-on-Slug.",
+                    "name": "Add-on"
+                }
+            },
+            "name": "Add-on aktualisieren."
+        },
+        "backup_full": {
+            "description": "Erstellt eine Vollsicherung.",
+            "fields": {
+                "compressed": {
+                    "description": "Komprimiert die Sicherungsdateien.",
+                    "name": "Komprimiert"
+                },
+                "homeassistant_exclude_database": {
+                    "description": "Die Home Assistant-Datenbankdatei von der Sicherung ausschlie\u00dfen",
+                    "name": "Home Assistant Datenbank ausschlie\u00dfen"
+                },
+                "location": {
+                    "description": "Name eines Backup-Netzwerkspeichers zum Hosten von Backups.",
+                    "name": "Standort"
+                },
+                "name": {
+                    "description": "Optional (Standard = aktuelles Datum und aktuelle Uhrzeit).",
+                    "name": "Name"
+                },
+                "password": {
+                    "description": "Passwort zum Schutz des Backups.",
+                    "name": "Passwort"
+                }
+            },
+            "name": "Erstelle ein vollst\u00e4ndiges Backup."
+        },
+        "backup_partial": {
+            "description": "Erstellt eine Teilsicherung.",
+            "fields": {
+                "addons": {
+                    "description": "Liste der Add-ons, die in die Sicherung einbezogen werden sollen. Verwende den Namensslug des Add-ons.",
+                    "name": "Add-ons"
+                },
+                "compressed": {
+                    "description": "Komprimiert die Sicherungsdateien.",
+                    "name": "Komprimiert"
+                },
+                "folders": {
+                    "description": "Liste der Verzeichnisse, die in die Sicherung einbezogen werden sollen.",
+                    "name": "Ordner"
+                },
+                "homeassistant": {
+                    "description": "Bezieht die Home Assistant-Einstellungen in die Sicherung ein.",
+                    "name": "Home Assistant-Einstellungen"
+                },
+                "homeassistant_exclude_database": {
+                    "description": "Die Home Assistant-Datenbankdatei von der Sicherung ausschlie\u00dfen",
+                    "name": "Home Assistant Datenbank ausschlie\u00dfen"
+                },
+                "location": {
+                    "description": "Name eines Backup-Netzwerkspeichers zum Hosten von Backups.",
+                    "name": "Standort"
+                },
+                "name": {
+                    "description": "Optional (Standard = aktuelles Datum und aktuelle Uhrzeit).",
+                    "name": "Name"
+                },
+                "password": {
+                    "description": "Passwort zum Schutz des Backups.",
+                    "name": "Passwort"
+                }
+            },
+            "name": "Erstellt eine Teilsicherung."
+        },
+        "host_reboot": {
+            "description": "Startet das Hostsystem neu.",
+            "name": "Starte das Hostsystem neu."
+        },
+        "host_shutdown": {
+            "description": "Schaltet das Hostsystem aus.",
+            "name": "Schalte das Hostsystem aus."
+        },
+        "restore_full": {
+            "description": "Stellt eine vollst\u00e4ndige Sicherung wieder her.",
+            "fields": {
+                "password": {
+                    "description": "Optionales Passwort.",
+                    "name": "Passwort"
+                },
+                "slug": {
+                    "description": "Backup-Slug zur Wiederherstellung.",
+                    "name": "Slug"
+                }
+            },
+            "name": "Wiederherstellung aus vollst\u00e4ndigem Backup."
+        },
+        "restore_partial": {
+            "description": "Stellt eine Teilsicherung wieder her.",
+            "fields": {
+                "addons": {
+                    "description": "Liste der Add-ons, die in die Sicherung einbezogen werden sollen. Verwende den Namensslug des Add-ons.",
+                    "name": "Add-ons"
+                },
+                "folders": {
+                    "description": "Liste der Verzeichnisse, die in die Sicherung einbezogen werden sollen.",
+                    "name": "Ordner"
+                },
+                "homeassistant": {
+                    "description": "Stellt Home Assistant wieder her.",
+                    "name": "Home Assistant-Einstellungen"
+                },
+                "password": {
+                    "description": "Optionales Passwort.",
+                    "name": "Passwort"
+                },
+                "slug": {
+                    "description": "Backup-Slug zur Wiederherstellung.",
+                    "name": "Slug"
+                }
+            },
+            "name": "Wiederherstellung aus Teilsicherung."
+        }
+    },
+    "system_health": {
+        "info": {
+            "agent_version": "Agent-Version",
+            "board": "Board",
+            "disk_total": "Speicherplatz gesamt",
+            "disk_used": "Speicherplatz genutzt",
+            "docker_version": "Docker-Version",
+            "healthy": "Gesund",
+            "host_os": "Host-Betriebssystem",
+            "installed_addons": "Installierte Add-ons",
+            "supervisor_api": "Supervisor-API",
+            "supervisor_version": "Supervisor-Version",
+            "supported": "Unterst\u00fctzt",
+            "update_channel": "Update-Channel",
+            "version_api": "Versions-API"
+        }
+    }
+}

@@ -1,0 +1,87 @@
+{
+    "application_credentials": {
+        "description": "J\u00e4rgi [instructions]({more_info_url}) v\u00e4ljal [OAuth consent screen]({oauth_consent_url}), et anda koduabilisele juurdep\u00e4\u00e4s oma Google'i fotodele. Samuti pead looma oma kontoga lingitud rakenduse identimisteabe.\n1. Mine aadressile [Credentials]({oauth_creds_url}) ja kl\u00f5psa **Create Credentials**.\n1. Vali ripploendist **OAuthi kliendi ID**.\n1. Vali rakenduse t\u00fc\u00fcbiks **Veebirakendus**."
+    },
+    "config": {
+        "abort": {
+            "access_not_configured": "Google API-le ei saa juurdep\u00e4\u00e4su:\n\n{message}",
+            "already_configured": "Kasutaja on juba seadistatud",
+            "already_in_progress": "Seadistamine on juba k\u00e4imas",
+            "authorize_url_timeout": "Kinnitus-URLi loomise ajal\u00f5pp",
+            "missing_configuration": "Komponent pole seadistatud. Palun loe dokumentatsiooni.",
+            "no_url_available": "URL pole saadaval. Selle t\u00f5rke kohta teabe saamiseks vaata [spikrijaotis]({docs_url})",
+            "oauth_error": "Saadi sobimatud loaandmed.",
+            "oauth_failed": "T\u00f5rge juurdep\u00e4\u00e4sut\u00f5endi hankimisel.",
+            "oauth_timeout": "OAuthi loa lahendamise ajal\u00f5pp.",
+            "oauth_unauthorized": "OAuthi tuvastaimisviga juurdep\u00e4\u00e4sut\u00f5endi hankimisel.",
+            "unknown": "Ootamatu t\u00f5rge",
+            "user_rejected_authorize": "Konto sidumine nurjus: {error}",
+            "wrong_account": "Vale konto: tuvasta \u00f5ige kontoga."
+        },
+        "create_entry": {
+            "default": "Tuvastamine \u00f5nnestus"
+        },
+        "step": {
+            "pick_implementation": {
+                "title": "Vali tuvastusmeetod"
+            }
+        }
+    },
+    "exceptions": {
+        "albums_failed": {
+            "message": "Google Photos API-st ei saa albumeid tuua"
+        },
+        "api_error": {
+            "message": "Google Photos API vastas t\u00f5rkega: {message}"
+        },
+        "create_album_error": {
+            "message": "Albumi loomine nurjus: {message}"
+        },
+        "file_too_large": {
+            "message": "`{filename}' on liiga suur ({size} > {limit})"
+        },
+        "filename_does_not_exist": {
+            "message": "Faili `{filename}` pole olemas"
+        },
+        "filename_is_not_image": {
+            "message": "`{filename}` ei ole pilt"
+        },
+        "integration_not_found": {
+            "message": "Sidumist \"{target}\" ei leitud registrist."
+        },
+        "missing_upload_permission": {
+            "message": "Home Assistntile ei antud luba teenusesse Google Photos \u00fcleslaadimiseks"
+        },
+        "no_access_to_path": {
+            "message": "Ei saa lugeda {filename} , puudub juurdep\u00e4\u00e4s teele; \"allowlist_external_dirs\" v\u00f5ib olla vaja kohandada failis \"configuration.yaml\""
+        },
+        "not_loaded": {
+            "message": "{target} pole laaditud."
+        },
+        "upload_error": {
+            "message": "Sisu \u00fcleslaadimine nurjus: {message}"
+        }
+    },
+    "services": {
+        "upload": {
+            "description": "Lae pilte v\u00f5i videoid teenusesse Google Photos.",
+            "fields": {
+                "album": {
+                    "description": "Albumi nimi mis on \u00fcleslaetava sisu sihtkoht.",
+                    "example": "Perepildid",
+                    "name": "Album"
+                },
+                "config_entry_id": {
+                    "description": "Google Photos sidumise ID.",
+                    "name": "Sidumise ID"
+                },
+                "filename": {
+                    "description": "Tee \u00fcleslaaditava pildi v\u00f5i video juurde.",
+                    "example": "/config/www/image.jpg",
+                    "name": "Faili nimi"
+                }
+            },
+            "name": "Meedia \u00fcleslaadimine"
+        }
+    }
+}

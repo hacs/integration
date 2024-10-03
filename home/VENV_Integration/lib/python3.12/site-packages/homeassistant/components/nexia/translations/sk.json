@@ -1,0 +1,113 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Zariadenie u\u017e je nakonfigurovan\u00e9"
+        },
+        "error": {
+            "cannot_connect": "Nepodarilo sa pripoji\u0165",
+            "invalid_auth": "Neplatn\u00e9 overenie",
+            "unknown": "Neo\u010dak\u00e1van\u00e1 chyba"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "brand": "Zna\u010dka",
+                    "password": "Heslo",
+                    "username": "Pou\u017e\u00edvate\u013esk\u00e9 meno"
+                }
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "blower_active": {
+                "name": "D\u00fachadlo akt\u00edvne"
+            },
+            "emergency_heat_active": {
+                "name": "N\u00fadzov\u00e9 k\u00farenie akt\u00edvne"
+            }
+        },
+        "number": {
+            "fan_speed": {
+                "name": "R\u00fdchlos\u0165 ventil\u00e1tora"
+            }
+        },
+        "sensor": {
+            "air_cleaner_mode": {
+                "name": "Re\u017eim \u010disti\u010da vzduchu"
+            },
+            "current_compressor_speed": {
+                "name": "Aktu\u00e1lna r\u00fdchlos\u0165 kompresora"
+            },
+            "outdoor_temperature": {
+                "name": "Vonkaj\u0161ia teplota"
+            },
+            "requested_compressor_speed": {
+                "name": "Po\u017eadovan\u00e9 ot\u00e1\u010dky kompresora"
+            },
+            "system_status": {
+                "name": "Stav syst\u00e9mu"
+            },
+            "zone_setpoint_status": {
+                "name": "Stav nastavenej hodnoty z\u00f3ny"
+            },
+            "zone_status": {
+                "name": "Stav z\u00f3ny"
+            }
+        },
+        "switch": {
+            "hold": {
+                "name": "Podr\u017ea\u0165"
+            }
+        }
+    },
+    "issues": {
+        "migrate_aux_heat": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Akcia Nexia `set_aux_heat` bola presunut\u00e1. Pre ka\u017ed\u00fd termostat je k dispoz\u00edcii nov\u00e1 prep\u00ednacia entita `aux_heat_only`.\n\nAktualizujte v\u0161etky automatiz\u00e1cie tak, aby pou\u017e\u00edvali nov\u00fa entitu prep\u00edna\u010da n\u00fadzov\u00e9ho tepla. Po dokon\u010den\u00ed vyberte mo\u017enos\u0165 **Odosla\u0165** na odstr\u00e1nenie tohto probl\u00e9mu.",
+                        "title": "Migr\u00e1cia akcie Nexia set_aux_heat"
+                    }
+                }
+            },
+            "title": "Migr\u00e1cia akcie Nexia set_aux_heat"
+        }
+    },
+    "services": {
+        "set_aircleaner_mode": {
+            "description": "Re\u017eim \u010disti\u010da vzduchu.",
+            "fields": {
+                "aircleaner_mode": {
+                    "description": "Nastavte re\u017eim \u010disti\u010da vzduchu.",
+                    "name": "Re\u017eim \u010disti\u010da vzduchu"
+                }
+            },
+            "name": "Nastavenie re\u017eimu \u010disti\u010da vzduchu"
+        },
+        "set_humidify_setpoint": {
+            "description": "Nastaven\u00e1 hodnota zvlh\u010dovania.",
+            "fields": {
+                "humidity": {
+                    "description": "Nastaven\u00e1 hodnota zvlh\u010dovania.",
+                    "name": "Vlhkos\u0165"
+                }
+            },
+            "name": "Nastavenie nastavenej hodnoty zvlh\u010dovania"
+        },
+        "set_hvac_run_mode": {
+            "description": "Re\u017eim chodu HVAC.",
+            "fields": {
+                "hvac_mode": {
+                    "description": "Re\u017eim HVAC, ktor\u00fd sa m\u00e1 pou\u017ei\u0165 pre pl\u00e1n alebo podr\u017eanie. Ak nie je zadan\u00fd, pou\u017eije sa aktu\u00e1lny re\u017eim HVAC.",
+                    "name": "HVAC re\u017eim"
+                },
+                "run_mode": {
+                    "description": "Spustite pl\u00e1n alebo ho podr\u017ete. Ak nie je zadan\u00fd, pou\u017eije sa aktu\u00e1lny re\u017eim spustenia.",
+                    "name": "Re\u017eim spustenia"
+                }
+            },
+            "name": "Nastavte re\u017eim prev\u00e1dzky hvac"
+        }
+    }
+}

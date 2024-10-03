@@ -1,0 +1,463 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Teenus on juba seadistatud.",
+            "single_instance_allowed": "Juba seadistatud. Lubatud on ainult \u00fcks sidumine."
+        },
+        "error": {
+            "cannot_connect": "\u00dchendamine nurjus",
+            "invalid_backbone_key": "Kehtetu magistraalv\u00f5ti. Eeldatakse 32 kuueteistk\u00fcmnendarvu.",
+            "invalid_individual_address": "V\u00e4\u00e4rtus ei \u00fchti KNX-i individuaalse aadressi mustriga.\n 'area.line.device'",
+            "invalid_ip_address": "Kehtetu IPv4 aadress.",
+            "keyfile_invalid_signature": "Parool faili `.knxkeys` dekr\u00fcpteerimiseks on vale.",
+            "keyfile_no_backbone_key": "Fail '.knxkeys' ei sisalda turvalise marsruutimise magistraalv\u00f5tit.",
+            "keyfile_no_tunnel_for_host": "Fail '.knxkeys' ei sisalda hosti `{host}` mandaati.",
+            "keyfile_not_found": "M\u00e4\u00e4ratud faili \".knxkeys\" ei leitud asukohas config/.storage/knx/",
+            "no_router_discovered": "V\u00f5rgus ei leitud \u00fchtegi KNXnet/IP-ruuterit.",
+            "no_tunnel_discovered": "V\u00f5rgust ei leitud KNX tunneliserverit.",
+            "unsupported_tunnel_type": "L\u00fc\u00fcs ei toeta valitud tunnelit\u00fc\u00fcpi."
+        },
+        "step": {
+            "connection_type": {
+                "data": {
+                    "connection_type": "KNX \u00fchenduse t\u00fc\u00fcp"
+                },
+                "description": "Sisesta \u00fchenduse t\u00fc\u00fcp, mida kasutada KNX-\u00fchenduse jaoks. \n AUTOMAATNE \u2013 sidumine hoolitseb KNX siini \u00fchenduvuse eest, tehes l\u00fc\u00fcsikontrolli. \n TUNNELING - sidumine \u00fchendub KNX siiniga tunneli kaudu. \n MARSRUUTIMINE \u2013 sidumine \u00fchendub marsruudi kaudu KNX siiniga.",
+                "title": "KNX \u00fchendus"
+            },
+            "knxkeys_tunnel_select": {
+                "data": {
+                    "user_id": "\"Auto\" kasutab esimest vaba tunneli l\u00f5pp-punkti."
+                },
+                "description": "Vali \u00fchenduseks kasutatav tunnel.",
+                "title": "Tunneli l\u00f5pppunkt"
+            },
+            "manual_tunnel": {
+                "data": {
+                    "host": "Host",
+                    "local_ip": "Kohalik IP-aadress",
+                    "port": "Port",
+                    "route_back": "Marsruudi tagasitee / NAT-re\u017eiim",
+                    "tunneling_type": "KNX tunneli t\u00fc\u00fcp"
+                },
+                "data_description": {
+                    "host": "KNX/IP tunneldusseadme IP-aadress v\u00f5i hostinimi.",
+                    "local_ip": "Kohalik IP v\u00f5i liidesenimi, mida kasutatakse Home Assistant'ist \u00fchenduse loomiseks. J\u00e4ta t\u00fchjaks, kui soovid kasutada automaatset tuvastamist.",
+                    "port": "KNX/IP-tunneldusseadme port.",
+                    "route_back": "Luba, kui KNXneti/IP tunneldusserver on NAT-i taga. Kehtib ainult UDP-\u00fchenduste puhul."
+                },
+                "description": "Sisesta tunneldamisseadme \u00fchenduse teave.",
+                "title": "Tunneli seaded"
+            },
+            "routing": {
+                "data": {
+                    "individual_address": "Individuaalne aadress",
+                    "local_ip": "Kohalik IP-aadress",
+                    "multicast_group": "Multicast grupp",
+                    "multicast_port": "Mulicasti port",
+                    "routing_secure": "Kasuta KNX IP Secure'i"
+                },
+                "data_description": {
+                    "individual_address": "Home Assistantis kasutatav KNX-aadress, nt \"0.0.4\".",
+                    "local_ip": "Kohalik IP v\u00f5i liidesenimi, mida kasutatakse Home Assistant'ist \u00fchenduse loomiseks. J\u00e4ta t\u00fchjaks, kui soovid kasutada automaatset tuvastamist."
+                },
+                "description": "Konfigureeri marsruutimissuvandid.",
+                "title": "Marsruutimine"
+            },
+            "secure_key_source": {
+                "description": "Vali kuidas soovid KNX/IP Secure'i seadistada.",
+                "menu_options": {
+                    "secure_knxkeys": "Kasuta knxkeys faili mis sisaldab IP Secure teavet.",
+                    "secure_routing_manual": "Seadista IP secure magistraalv\u00f5ti k\u00e4sitsi",
+                    "secure_tunnel_manual": "Seadista IP secure mandaadid k\u00e4sitsi"
+                },
+                "title": "KNX IP-Secure"
+            },
+            "secure_key_source_menu_routing": {
+                "description": "Vali kuidas soovid KNX/IP Secure'i seadistada.",
+                "menu_options": {
+                    "secure_knxkeys": "Kasuta knxkeys faili mis sisaldab IP Secure teavet.",
+                    "secure_routing_manual": "Seadista IP secure magistraalv\u00f5ti k\u00e4sitsi"
+                },
+                "title": "KNX IP-Secure"
+            },
+            "secure_key_source_menu_tunnel": {
+                "description": "Vali kuidas soovid KNX/IP Secure'i seadistada.",
+                "menu_options": {
+                    "secure_knxkeys": "Kasuta knxkeys faili mis sisaldab IP Secure teavet.",
+                    "secure_tunnel_manual": "Seadista IP secure mandaadid k\u00e4sitsi"
+                },
+                "title": "KNX IP-Secure"
+            },
+            "secure_knxkeys": {
+                "data": {
+                    "knxkeys_file": "V\u00f5tmehoidja fail",
+                    "knxkeys_password": "Parool `.knxkeys` faili dekr\u00fcpteerimiseks"
+                },
+                "data_description": {
+                    "knxkeys_password": "See m\u00e4\u00e4rati faili eksportimisel ETSist."
+                },
+                "description": "Vali importimiseks fail \".knxkeys\".",
+                "title": "Impordi KNX v\u00f5tmehoidja"
+            },
+            "secure_routing_manual": {
+                "data": {
+                    "backbone_key": "Backbone v\u00f5ti",
+                    "sync_latency_tolerance": "V\u00f5rguviivituse taluvus"
+                },
+                "data_description": {
+                    "backbone_key": "Kuvatakse ETS projekti 'Turvalisus' vaates. N\u00e4iteks '0011223344...'",
+                    "sync_latency_tolerance": "Vaikev\u00e4\u00e4rtus on 1000."
+                },
+                "description": "Sisesta oma IP secure teave.",
+                "title": "Turvaline marsruutimine"
+            },
+            "secure_tunnel_manual": {
+                "data": {
+                    "device_authentication": "Seadme autentimise parool",
+                    "user_id": "Kasutaja ID",
+                    "user_password": "Kasutaja salas\u00f5na"
+                },
+                "data_description": {
+                    "device_authentication": "See m\u00e4\u00e4ratakse ETSi liidese IP-paneelil.",
+                    "user_id": "See on sageli tunneli number +1. Nii et tunnel 2 oleks kasutaja ID-ga 3.",
+                    "user_password": "Konkreetse tunneli\u00fchenduse parool, mis on m\u00e4\u00e4ratud ETS-i tunneli paneelil \u201eAtribuudid\u201d."
+                },
+                "description": "Sisesta oma IP secure teave.",
+                "title": "Turvaline tunneldamine"
+            },
+            "tunnel": {
+                "data": {
+                    "gateway": "KNX tunneli \u00fchendus"
+                },
+                "description": "Vali loendist l\u00fc\u00fcs.",
+                "title": "Tunnel"
+            }
+        }
+    },
+    "device_automation": {
+        "extra_fields": {
+            "destination": "Grupi aadressid",
+            "group_value_read": "GroupValueRead",
+            "group_value_response": "GroupValueResponse",
+            "group_value_write": "GroupValueWrite",
+            "incoming": "Sissetulev",
+            "outgoing": "V\u00e4ljaminev"
+        },
+        "extra_fields_descriptions": {
+            "destination": "P\u00e4\u00e4stik kuulab nendel r\u00fchmaaadressidel saadetud v\u00f5i vastuv\u00f5etud telegramme. Kui aadressi pole valitud, k\u00e4ivitub p\u00e4\u00e4stik iga r\u00fchmaaadressi puhul.",
+            "group_value_read": "Kuula GroupValueRead telegramme.",
+            "group_value_response": "Kuula GroupValueResponse telegramme.",
+            "group_value_write": "Kuula GroupValueWrite telegramme.",
+            "incoming": "Kuula sissetulevaid telegramme.",
+            "outgoing": "Kuula v\u00e4ljaminevaid telegramme."
+        },
+        "trigger_type": {
+            "telegram": "Telegramm"
+        }
+    },
+    "entity": {
+        "climate": {
+            "knx_climate": {
+                "state_attributes": {
+                    "preset_mode": {
+                        "name": "Eelseade",
+                        "state": {
+                            "auto": "Automaatne",
+                            "building_protection": "Ehitise kaitse",
+                            "comfort": "Mugav",
+                            "economy": "\u00d6ko",
+                            "standby": "Ootere\u017eiimil"
+                        }
+                    }
+                }
+            }
+        },
+        "sensor": {
+            "connected_since": {
+                "name": "\u00dchendus on  loodud"
+            },
+            "connection_type": {
+                "name": "\u00dchenduse t\u00fc\u00fcp"
+            },
+            "individual_address": {
+                "name": "Individuaalne aadress"
+            },
+            "telegram_count": {
+                "name": "Telegrammid"
+            },
+            "telegrams_incoming": {
+                "name": "Saabuvad telegrammid"
+            },
+            "telegrams_incoming_error": {
+                "name": "Saabuvate telegrammide vead"
+            },
+            "telegrams_outgoing": {
+                "name": "V\u00e4ljaminevad telegrammid"
+            },
+            "telegrams_outgoing_error": {
+                "name": "V\u00e4ljaminevate telegrammide vead"
+            }
+        }
+    },
+    "issues": {
+        "migrate_notify": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "KNX-i teavitusteenus on \u00fcle viidud. Uued teavitus\u00fcksused on n\u00fc\u00fcd saadaval. \n\n V\u00e4rskenda k\u00f5iki automatiseeringuid, et kasutada nende uute \u00fcksuste avaldatud uut teadet \"notify.send_message\". Kui see on tehtud, lahenda see probleem ja taask\u00e4ivita Home Assistant.",
+                        "title": "Keela p\u00e4rand-KNX-i teavitusteenus"
+                    }
+                }
+            },
+            "title": "KNX teavitusteenuse migratsioon"
+        }
+    },
+    "options": {
+        "error": {
+            "cannot_connect": "\u00dchendamine nurjus",
+            "invalid_backbone_key": "Kehtetu magistraalv\u00f5ti. Eeldatakse 32 kuueteistk\u00fcmnendarvu.",
+            "invalid_individual_address": "V\u00e4\u00e4rtuse mall ei vasta KNX seadme \u00fcksuse aadressile.\n'area.line.device'",
+            "invalid_ip_address": "Vigane IPv4 aadress",
+            "keyfile_invalid_signature": "Parool faili `.knxkeys` dekr\u00fcpteerimiseks on vale.",
+            "keyfile_no_backbone_key": "Fail '.knxkeys' ei sisalda turvalise marsruutimise magistraalv\u00f5tit.",
+            "keyfile_no_tunnel_for_host": "Fail '.knxkeys' ei sisalda hosti `{host}` mandaati.",
+            "keyfile_not_found": "M\u00e4\u00e4ratud faili \".knxkeys\" ei leitud asukohas config/.storage/knx/",
+            "no_router_discovered": "V\u00f5rgus ei leitud \u00fchtegi KNXnet/IP-ruuterit.",
+            "no_tunnel_discovered": "V\u00f5rgust ei leitud KNX tunneliserverit.",
+            "unsupported_tunnel_type": "L\u00fc\u00fcs ei toeta valitud tunnelit\u00fc\u00fcpi."
+        },
+        "step": {
+            "communication_settings": {
+                "data": {
+                    "rate_limit": "Teavituste m\u00e4\u00e4r",
+                    "state_updater": "Oleku uuendaja",
+                    "telegram_log_size": "Telegrammide ajaloo limiit"
+                },
+                "data_description": {
+                    "rate_limit": "Maksimaalne v\u00e4ljaminevate telegrammide arv sekundis. '0 piirangu eemaldamiseks. Soovitatav: 20 kuni 40",
+                    "state_updater": "M\u00e4\u00e4ra KNX siini olekute lugemise vaikev\u00e4\u00e4rtused. Kui see on keelatud, ei too Home Assistant aktiivselt olemi olekuid KNX siinilt. Saab alistada olemivalikute s\u00fcnkroonimise_olekuga.",
+                    "telegram_log_size": "KNX paneelir\u00fchma monitori m\u00e4llu salvestatavad telegrammid. Maksimaalne: {telegram_log_size_max}"
+                },
+                "title": "\u00dchenduse seaded"
+            },
+            "connection_type": {
+                "data": {
+                    "connection_type": "KNX \u00fchenduse t\u00fc\u00fcp"
+                },
+                "description": "Sisesta \u00fchenduse t\u00fc\u00fcp, mida kasutada KNX-\u00fchenduse jaoks. \n AUTOMAATNE \u2013 sidumine hoolitseb KNX siini \u00fchenduvuse eest, tehes l\u00fc\u00fcsikontrolli. \n TUNNELING - sidumine \u00fchendub KNX siiniga tunneli kaudu. \n MARSRUUTIMINE \u2013 sidumine \u00fchendub marsruudi kaudu KNX siiniga.",
+                "title": "KNX \u00fchendus"
+            },
+            "init": {
+                "menu_options": {
+                    "communication_settings": "\u00dchenduse s\u00e4tted",
+                    "connection_type": "Seadista KNX liides",
+                    "secure_knxkeys": "Faili .knxkeys importimine"
+                },
+                "title": "KNX seaded"
+            },
+            "knxkeys_tunnel_select": {
+                "data": {
+                    "user_id": "\"Auto\" kasutab esimest vaba tunneli l\u00f5pp-punkti."
+                },
+                "description": "Vali \u00fchenduseks kasutatav tunnel.",
+                "title": "Tunneli l\u00f5pppunkt"
+            },
+            "manual_tunnel": {
+                "data": {
+                    "host": "Host",
+                    "local_ip": "Home Assistanti kohtv\u00f5rgu IP",
+                    "port": "Port",
+                    "route_back": "Marsruudi tagasitee / NAT-re\u017eiim",
+                    "tunneling_type": "KNX tunneli t\u00fc\u00fcp"
+                },
+                "data_description": {
+                    "host": "KNX/IP tunneldusseadme IP aadress.",
+                    "local_ip": "Automaatseks tuvastamiseks j\u00e4ta t\u00fchjaks.",
+                    "port": "KNX/IP tunneldusseadme port.",
+                    "route_back": "Luba kui KNXnet/IP server on NAT-i taga. Kehtib ainult UDP \u00fchendustele."
+                },
+                "description": "Sisesta tunneldamisseadme \u00fchenduse teave.",
+                "title": "Tunneli seaded"
+            },
+            "options_init": {
+                "menu_options": {
+                    "communication_settings": "\u00dchenduse seaded",
+                    "connection_type": "Seadista KNX liides",
+                    "secure_knxkeys": "Faili .knxkeys importimine"
+                },
+                "title": "KNX seaded"
+            },
+            "routing": {
+                "data": {
+                    "individual_address": "Individuaalne aadress",
+                    "local_ip": "Kohalik IP-aadress",
+                    "multicast_group": "Multicast grupp",
+                    "multicast_port": "Mulicasti port",
+                    "routing_secure": "Kasuta KNX IP Secure'i"
+                },
+                "data_description": {
+                    "individual_address": "Home Assistantis kasutatav KNX-aadress, nt \"0.0.4\".",
+                    "local_ip": "Kohalik IP v\u00f5i liidesenimi, mida kasutatakse Home Assistant'ist \u00fchenduse loomiseks. J\u00e4ta t\u00fchjaks, kui soovid kasutada automaatset tuvastamist."
+                },
+                "description": "Konfigureeri marsruutimissuvandid.",
+                "title": "Marsruutimine"
+            },
+            "secure_key_source": {
+                "description": "Vali kuidas soovid KNX/IP Secure'i seadistada.",
+                "menu_options": {
+                    "secure_knxkeys": "Kasuta knxkeys faili mis sisaldab IP Secure teavet.",
+                    "secure_routing_manual": "Seadista IP secure magistraalv\u00f5ti k\u00e4sitsi",
+                    "secure_tunnel_manual": "Seadista IP secure mandaadid k\u00e4sitsi"
+                },
+                "title": "KNX IP-Secure"
+            },
+            "secure_key_source_menu_routing": {
+                "description": "Vali kuidas soovid KNX/IP Secure'i seadistada.",
+                "menu_options": {
+                    "secure_knxkeys": "Kasuta knxkeys faili mis sisaldab IP Secure teavet.",
+                    "secure_routing_manual": "Seadista IP secure magistraalv\u00f5ti k\u00e4sitsi"
+                },
+                "title": "KNX IP-Secure"
+            },
+            "secure_key_source_menu_tunnel": {
+                "description": "Vali kuidas soovid KNX/IP Secure'i seadistada.",
+                "menu_options": {
+                    "secure_knxkeys": "Kasuta knxkeys faili mis sisaldab IP Secure teavet.",
+                    "secure_tunnel_manual": "Seadista IP secure mandaadid k\u00e4sitsi"
+                },
+                "title": "KNX IP-Secure"
+            },
+            "secure_knxkeys": {
+                "data": {
+                    "knxkeys_file": "V\u00f5tmehoidja fail",
+                    "knxkeys_password": "Parool `.knxkeys` faili dekr\u00fcpteerimiseks"
+                },
+                "data_description": {
+                    "knxkeys_password": "See m\u00e4\u00e4rati faili eksportimisel ETSist."
+                },
+                "description": "Vali importimiseks fail \".knxkeys\".",
+                "title": "Impordi KNX v\u00f5tmehoidja"
+            },
+            "secure_routing_manual": {
+                "data": {
+                    "backbone_key": "Backbone v\u00f5ti",
+                    "sync_latency_tolerance": "V\u00f5rguviivituse taluvus"
+                },
+                "data_description": {
+                    "backbone_key": "Kuvatakse ETS projekti 'Turvalisus' vaates. N\u00e4iteks '0011223344...'",
+                    "sync_latency_tolerance": "Vaikev\u00e4\u00e4rtus on 1000."
+                },
+                "description": "Sisesta oma IP secure teave.",
+                "title": "Turvaline marsruutimine"
+            },
+            "secure_tunnel_manual": {
+                "data": {
+                    "device_authentication": "Seadme autentimise parool",
+                    "user_id": "Kasutaja ID",
+                    "user_password": "Kasutaja salas\u00f5na"
+                },
+                "data_description": {
+                    "device_authentication": "See m\u00e4\u00e4ratakse ETSi liidese IP-paneelil.",
+                    "user_id": "See on sageli tunneli number +1. Nii et tunnel 2 oleks kasutaja ID-ga 3.",
+                    "user_password": "Konkreetse tunneli\u00fchenduse parool, mis on m\u00e4\u00e4ratud ETS-i tunneli paneelil \u201eAtribuudid\u201d."
+                },
+                "description": "Sisesta oma IP secure teave.",
+                "title": "Turvaline tunneldamine"
+            },
+            "tunnel": {
+                "data": {
+                    "gateway": "KNX tunneli \u00fchendus"
+                },
+                "description": "Vali loendist l\u00fc\u00fcs.",
+                "title": "Tunnel"
+            }
+        }
+    },
+    "services": {
+        "event_register": {
+            "description": "Lisa v\u00f5i eemalda grupi aadressid knx_event filtrile, et k\u00e4ivitada `knx_event`s. Eemaldada saab ainult selle teenusega lisatud aadresse.",
+            "fields": {
+                "address": {
+                    "description": "Grupi aadressid, mis lisatakse v\u00f5i eemaldatakse. Loendid on lubatud.",
+                    "name": "Grupi aadress"
+                },
+                "remove": {
+                    "description": "Kui `True`, eemaldatakse grupi aadress(id).",
+                    "name": "Eemalda s\u00fcndmuse registreerimine"
+                },
+                "type": {
+                    "description": "Kui see on m\u00e4\u00e4ratud, dekodeeritakse kasulik koormus s\u00fcndmuse andmete v\u00e4\u00e4rtuse v\u00f5tmes antud DPT-na. KNX-i andurite t\u00fc\u00fcbid on kehtivad v\u00e4\u00e4rtused (vt https://www.home-assistant.io/integrations/knx/#value-types).",
+                    "name": "V\u00e4\u00e4rtuse t\u00fc\u00fcp"
+                }
+            },
+            "name": "Registreerib knx_event"
+        },
+        "exposure_register": {
+            "description": "Lisab v\u00f5i eemaldab avaldamise KNX siinile. Eemaldada saab ainult selle teenusega lisatud avaldamisi.",
+            "fields": {
+                "address": {
+                    "description": "Grupi aadressi oleku v\u00f5i atribuudi v\u00e4rskendused saadetakse aadressile. GroupValueRead taotlustele vastatakse. \u00dche aadressi kohta saab registreerida ainult \u00fche kokkupuute.",
+                    "name": "Grupi aadress"
+                },
+                "attribute": {
+                    "description": "Olemi atribuut, mis saadetakse KNX siinile. Kui pole m\u00e4\u00e4ratud, saadetakse olek. Nt. valguse puhul on olek kas \"sees\" v\u00f5i \"v\u00e4ljas\" - atribuudiga saad paljastada selle \"heleduse\".",
+                    "name": "Olemi atribuut"
+                },
+                "default": {
+                    "description": "Vaikev\u00e4\u00e4rtus, mis saadetakse siinile, kui oleku v\u00f5i atribuudi v\u00e4\u00e4rtus on Puudub. Nt. v\u00e4ljal\u00fclitatud olekuga valgusel puudub heleduse atribuut, seega v\u00f5ib kasutada vaikev\u00e4\u00e4rtust 0. Kui pole m\u00e4\u00e4ratud (v\u00f5i puudub), siis siinile v\u00e4\u00e4rtust ei saadeta ja aadressile suunatud GroupReadRequest tagastaks viimase teadaoleva v\u00e4\u00e4rtuse.",
+                    "name": "Vaikev\u00e4\u00e4rtus"
+                },
+                "entity_id": {
+                    "description": "Olemi ID mille olek v\u00f5i atribuut avalikustatakse.",
+                    "name": "Olem"
+                },
+                "remove": {
+                    "description": "Kui `True`, eemaldatakse avaldamine. Eemaldamiseks on vaja ainult \"aadressi\".",
+                    "name": "Eemalda avaldamine"
+                },
+                "type": {
+                    "description": "Telegrammid kodeeritakse vastavalt antud DPT-le. \"binaarne\" ja k\u00f5ik KNX-andurit\u00fc\u00fcbid on kehtivad v\u00e4\u00e4rtused (vt https://www.home-assistant.io/integrations/knx/#value-types).",
+                    "name": "V\u00e4\u00e4rtuse t\u00fc\u00fcp"
+                }
+            },
+            "name": "Avalda KNX-siinile"
+        },
+        "read": {
+            "description": "Saada GroupValueReadi p\u00e4ringud KNX siinile. Vastust saab kasutada failist \u201eknx_event\u201d ja seda t\u00f6\u00f6deldakse KNX-i \u00fcksustes.",
+            "fields": {
+                "address": {
+                    "description": "Grupi aadress(id), kuhu saata lugemisp\u00e4ring. Loetelud loevad mitut grupi aadressi.",
+                    "name": "Grupi aadress"
+                }
+            },
+            "name": "Loeb KNX siinilt"
+        },
+        "reload": {
+            "description": "Taaslaeb KNX-i sidumise.",
+            "name": "Taaslae"
+        },
+        "send": {
+            "description": "Saadab suvalised andmed otse KNX-siinile.",
+            "fields": {
+                "address": {
+                    "description": "Grupi aadress(id), kuhu kirjutada. Nimekirjad saadetakse j\u00e4rjestikku mitmele grupi aadressile.",
+                    "name": "Grupi aadress"
+                },
+                "payload": {
+                    "description": "Kasulik koormus siinile saatmiseks. T\u00e4isarve k\u00e4sitletakse DPT 1/2/3 kasuliku koormusena. DPT-de puhul > 6 bitti saada nimekiri. Iga v\u00e4\u00e4rtus t\u00e4histab 1 oktetti (0-255). Lisa 0 kuni DPT on  bait.",
+                    "name": "V\u00e4\u00e4rtus"
+                },
+                "response": {
+                    "description": "Kui v\u00e4\u00e4rtuseks on m\u00e4\u00e4ratud \"True\", saadetakse telegramm vastusena \"GroupValueResponse\", mitte \"GroupValueWrite\".",
+                    "name": "Saada vastusena"
+                },
+                "type": {
+                    "description": "Kui see on m\u00e4\u00e4ratud, ei saadeta v\u00e4\u00e4rtust t\u00f6\u00f6tlemata baitidena, vaid kodeeritakse antud DPT-na. KNX-i andurite t\u00fc\u00fcbid on kehtivad v\u00e4\u00e4rtused (vt https://www.home-assistant.io/integrations/knx/#value-types).",
+                    "name": "V\u00e4\u00e4rtuse t\u00fc\u00fcp"
+                }
+            },
+            "name": "Saada KNX siinile"
+        }
+    }
+}

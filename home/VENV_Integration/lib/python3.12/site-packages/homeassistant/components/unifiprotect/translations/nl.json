@@ -1,0 +1,171 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Apparaat is al geconfigureerd",
+            "discovery_started": "Discovery gestart"
+        },
+        "error": {
+            "cannot_connect": "Kan geen verbinding maken",
+            "invalid_auth": "Ongeldige authenticatie",
+            "protect_version": "Minimaal vereiste versie is v1.20.0. Upgrade UniFi Protect en probeer het opnieuw."
+        },
+        "flow_title": "{name} ({ip_address})",
+        "step": {
+            "discovery_confirm": {
+                "data": {
+                    "password": "Wachtwoord",
+                    "username": "Gebruikersnaam"
+                },
+                "description": "Wil je {name} ({ip_address}) instellen? Je hebt een lokale gebruiker nodig die in je UniFi OS Console is aangemaakt om in te loggen. Ubiquiti Cloud-gebruikers werken niet. Voor meer informatie: {local_user_documentation_url}",
+                "title": "UniFi Protect ontdekt"
+            },
+            "reauth_confirm": {
+                "data": {
+                    "host": "IP/host van UniFi Protect-server",
+                    "password": "Wachtwoord",
+                    "port": "Poort",
+                    "username": "Gebruikersnaam"
+                },
+                "title": "UniFi Protect Reauth"
+            },
+            "user": {
+                "data": {
+                    "host": "Host",
+                    "password": "Wachtwoord",
+                    "port": "Poort",
+                    "username": "Gebruikersnaam",
+                    "verify_ssl": "SSL-certificaat verifi\u00ebren"
+                },
+                "data_description": {
+                    "host": "Hostnaam of IP-adres van je UniFi Protect apparaat."
+                },
+                "description": "U heeft een lokale gebruiker nodig die is aangemaakt in uw UniFi OS Console om mee in te loggen. Ubiquiti Cloud gebruikers zullen niet werken. Voor meer informatie: {local_user_documentation_url}",
+                "title": "UniFi Protect Setup"
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "license_plate": {
+                "state": {
+                    "none": "Niet gedetecteerd"
+                }
+            }
+        }
+    },
+    "issues": {
+        "deprecate_smart_sensor": {
+            "description": "De unified \"Detected Object\" sensor voor smart detections is now verouderd. Deze is vervangen met individuele smart detectie binaire sensoren voor elk detectie type.\n\nHieronder zijn de gedetecteerde automatseringen en scripts aangegeven die verouderde entiteieten gebruiken:\n{items}\nDe lijst kan onvolledig zijn omdat deze niet het template gebruik en het eventueel gebruik binnen dashboards aangeeft. Werk aub templates, automatseringen of scripts bij.",
+            "title": "Smart Detectie Sensor (verouderd)"
+        },
+        "deprecated_service_set_doorbell_message": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "De `unifiprotect.set_doorbell_message` dienst is verouderd in en vervangen voor de nieuwe deurbel Text entiteit die aan elke deurbel apparaat wordt toegevoegd. Het wordt verwjderd in v2023.3.0. Corrigee alsjeblieft het gebruik van de [`text.set_value` dienst]({link}).",
+                        "title": "set_doorbell_message is verouderd"
+                    }
+                }
+            },
+            "title": "set_doorbell_message is verouderd"
+        },
+        "ea_setup_failed": {
+            "title": "Installatiefout bij het gebruik van een Early Access versie"
+        },
+        "ea_warning": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Weet je zeker dat je een niet ondersteunde versie van Unify Protect wilt gebruiken? Dit kan veroorzaken dat je Home Assistant integratie vastloopt.",
+                        "title": "v{version} is een Early Access versie"
+                    },
+                    "start": {
+                        "description": "Je gebruikt v{version} van UniFi Protect wat een Early Access versie is. [Early Access versies zijn niet ondersteund door Home Assistant](https://www.home-assistant.io/integrations/unifiprotect#about-unifi-early-access) en het is aanbevolen om zo gauw mogelijk terug te gaan naar een stabiele versie.\n\nMet het verzenden van dit formulier beveistig je dat je [UniFi Protect hebt gedowngraded](https://www.home-assistant.io/integrations/unifiprotect#downgrading-unifi-protect) of je stemt in met het gebruik van een niet ondersteunde versie van UniFi Protect.",
+                        "title": "v{version} is een Early Access versie"
+                    }
+                }
+            },
+            "title": "UniFi Protect v{version} is een Early Access versie"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "all_updates": "Realtime metrieken (WAARSCHUWING: Verhoogt CPU gebruik)",
+                    "allow_ea": "Toestaan van `Allow Early Access` versies van Protect (WAARSCHUWING: Dit zal je integratie als niet ondersteund markeren)",
+                    "disable_rtsp": "De RTSP-stream uitschakelen",
+                    "max_media": "Maximaal aantal evenementen om te laden voor Media Browser (verhoogt het geheugengebruik)",
+                    "override_connection_host": "Verbindingshost overschrijven"
+                },
+                "description": "De optie Realtime metrieken moet alleen worden aangezet als u de diagnostische sensoren hebt aangezet en ze in realtime wilt laten bijwerken. Indien niet aangevinkt, zullen ze elke 15 minuten worden bijgewerkt.",
+                "title": "UniFi Protect opties"
+            }
+        }
+    },
+    "services": {
+        "add_doorbell_text": {
+            "description": "Voegt een nieuw aangepast bericht toe voor deurbellen.",
+            "fields": {
+                "device_id": {
+                    "description": "Een apparaat van de UniFy Protect instantie die je wilt wijzigen, in het geval je meerdere Protect instanties hebt.",
+                    "name": "UniFi Protect NVR"
+                },
+                "message": {
+                    "description": "Nieuw aangepast bericht om aan deurbellen toe te voegen. Moet kleiner zijn dan 30 tekens.",
+                    "name": "Aangepast bericht"
+                }
+            },
+            "name": "Voeg aangepaste deurbel tekst to"
+        },
+        "remove_doorbell_text": {
+            "description": "Verwijdert een bestaand bericht van deurbellen.",
+            "fields": {
+                "device_id": {
+                    "description": "Een apparaat van de UniFy Protect instantie die je wilt wijzigen, in het geval je meerdere Protect instanties hebt.",
+                    "name": "UniFi Protect NVR"
+                },
+                "message": {
+                    "description": "Bestaande aangepaste bericht om te verwijderen van de deurbellen.",
+                    "name": "Aangepast bericht"
+                }
+            },
+            "name": "Verwijder aangepaste deurbel tekst"
+        },
+        "remove_privacy_zone": {
+            "fields": {
+                "device_id": {
+                    "name": "Camera"
+                }
+            }
+        },
+        "set_chime_paired_doorbells": {
+            "description": "Gebruik dit om gekoppelde deurbel(len) in te stellen met een slimme bel.",
+            "fields": {
+                "device_id": {
+                    "description": "De bellen om te linken aan de deurbellen.",
+                    "name": "Bel"
+                },
+                "doorbells": {
+                    "description": "De deurbellen die aan de bel moeten worden gelinkt.",
+                    "name": "Deurbellen"
+                }
+            },
+            "name": "Stel bel gekoppelde deurbellen in"
+        },
+        "set_default_doorbell_text": {
+            "description": "Stelt het standaard deurbel bericht in. Dit is het bericht wat automatisch wordt geselecteerd wanneer een bericht verloopt.",
+            "fields": {
+                "device_id": {
+                    "description": "Een apparaat van de UniFy Protect instantie die je wilt wijzigen, in het geval je meerdere Protect instanties hebt.",
+                    "name": "UniFi Protect NVR"
+                },
+                "message": {
+                    "description": "Het standaard bericht voor deurbel. Moet minder dan 30 tekens zijn.",
+                    "name": "Standaard bericht"
+                }
+            },
+            "name": "Instellen standaard deurbel tekst."
+        }
+    }
+}

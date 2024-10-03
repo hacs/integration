@@ -1,0 +1,51 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "Sirene",
+            "state": {
+                "off": "Mati",
+                "on": "Nyala"
+            },
+            "state_attributes": {
+                "available_tones": {
+                    "name": "Nada yang tersedia"
+                }
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "Platform {platform} untuk integrasi {domain} tidak mendukung penyiapan platform. \n\nHarap hapus dari konfigurasi Anda dan mulai ulang Home Assistant untuk memperbaiki masalah ini.",
+            "title": "Dukungan platform tidak didukung"
+        }
+    },
+    "services": {
+        "toggle": {
+            "description": "Mengaktifkan/menonaktifkan sirene.",
+            "name": "Alihkan"
+        },
+        "turn_off": {
+            "description": "Mematikan sirene.",
+            "name": "Matikan"
+        },
+        "turn_on": {
+            "description": "Menyalakan sirene.",
+            "fields": {
+                "duration": {
+                    "description": "Jumlah detik suara diputar. Harus didukung dengan integrasi.",
+                    "name": "Durasi"
+                },
+                "tone": {
+                    "description": "Nada yang akan dikeluarkan. Jika properti `available_tones` berupa peta, kunci atau nilainya dapat digunakan. Harus didukung dengan integrasi.",
+                    "name": "Nada"
+                },
+                "volume_level": {
+                    "description": "Volume. 0 tidak terdengar, 1 adalah volume maksimum. Harus didukung oleh integrasi.",
+                    "name": "Volume"
+                }
+            },
+            "name": "Nyalakan"
+        }
+    },
+    "title": "Sirene"
+}

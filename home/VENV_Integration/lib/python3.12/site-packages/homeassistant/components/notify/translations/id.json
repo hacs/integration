@@ -1,0 +1,87 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "Notifikasi"
+        }
+    },
+    "issues": {
+        "migrate_notify": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Aksi `notify` {integration_title} telah dimigrasikan. Entitas `notify` yang baru kini tersedia untuk menggantikan aksi `notify` lawas.\n\nPerbarui semua otomasi untuk menggunakan aksi `notify.send_message` baru yang diekspos dengan entitas baru ini. Setelah selesai, perbaiki masalah ini dan mulai ulang Home Assistant.",
+                        "title": "Migrasikan aksi notifikasi {integration_title} lawas untuk domain `{domain}`"
+                    }
+                }
+            },
+            "title": "Migrasi aksi notifikasi {integration_title}"
+        },
+        "migrate_notify_service": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Aksi {integration_title} `notify.{service_name}` telah dimigrasikan, tetapi tampaknya aksi `notify` yang lama masih digunakan.\n\nEntitas `notify` yang baru sekarang tersedia untuk menggantikan setiap aksi `notify` yang lama.\n\nPerbarui semua otomasi atau skrip untuk menggunakan aksi `notify.send_message` baru yang diekspos dengan entitas baru ini. Setelah selesai, pilih Kirim dan mulai ulang Home Assistant.",
+                        "title": "Migrasikan aksi notifikasi {integration_title} lawas untuk domain `{domain}`"
+                    }
+                }
+            }
+        }
+    },
+    "services": {
+        "notify": {
+            "description": "Mengirimkan pesan notifikasi ke target yang dipilih.",
+            "fields": {
+                "data": {
+                    "description": "Beberapa integrasi menyediakan fungsionalitas yang diperluas. Untuk informasi tentang cara menggunakan _data_, lihat dokumentasi integrasi.",
+                    "name": "Data"
+                },
+                "message": {
+                    "description": "Isi pesan notifikasi.",
+                    "name": "Pesan"
+                },
+                "target": {
+                    "description": "Beberapa integrasi memungkinkan Anda menentukan target yang menerima notifikasi. Untuk informasi selengkapnya, lihat dokumentasi integrasi.",
+                    "name": "Target"
+                },
+                "title": {
+                    "description": "Judul notifikasi Anda.",
+                    "name": "Judul"
+                }
+            },
+            "name": "Kirim notifikasi"
+        },
+        "persistent_notification": {
+            "description": "Mengirimkan notifikasi yang terlihat di panel notifikasi.",
+            "fields": {
+                "data": {
+                    "description": "Beberapa integrasi menyediakan fungsionalitas yang diperluas. Untuk informasi tentang cara menggunakan _data_, lihat dokumentasi integrasi.",
+                    "name": "Data"
+                },
+                "message": {
+                    "description": "Isi pesan notifikasi.",
+                    "name": "Pesan"
+                },
+                "title": {
+                    "description": "Judul notifikasi.",
+                    "name": "Judul"
+                }
+            },
+            "name": "Kirim notifikasi persisten"
+        },
+        "send_message": {
+            "description": "Mengirim pesan notifikasi.",
+            "fields": {
+                "message": {
+                    "description": "Pesan notifikasi Anda.",
+                    "name": "Pesan"
+                },
+                "title": {
+                    "description": "Judul untuk pesan notifikasi Anda.",
+                    "name": "Judul"
+                }
+            },
+            "name": "Kirim pesan notifikasi"
+        }
+    },
+    "title": "Notifikasi"
+}

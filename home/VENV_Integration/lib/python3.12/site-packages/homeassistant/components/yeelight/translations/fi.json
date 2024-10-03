@@ -1,0 +1,192 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Laite on jo m\u00e4\u00e4ritetty",
+            "no_devices_found": "Verkosta ei l\u00f6ytynyt laitteita"
+        },
+        "error": {
+            "cannot_connect": "Yhteyden muodostaminen ep\u00e4onnistui"
+        },
+        "flow_title": "{model} {id} ({host})",
+        "step": {
+            "discovery_confirm": {
+                "description": "Haluatko m\u00e4\u00e4ritt\u00e4\u00e4 {model} ({host})?"
+            },
+            "pick_device": {
+                "data": {
+                    "device": "Laite"
+                }
+            },
+            "user": {
+                "data": {
+                    "host": "Palvelin"
+                },
+                "data_description": {
+                    "host": "Yeelight Wi-Fi -lamppusi is\u00e4nt\u00e4nimi tai IP-osoite."
+                },
+                "description": "Jos j\u00e4t\u00e4t is\u00e4nn\u00e4n tyhj\u00e4ksi, laitteiden l\u00f6yt\u00e4miseen k\u00e4ytet\u00e4\u00e4n Discovery -toimintoa."
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "nightlight": {
+                "name": "Y\u00f6valo"
+            }
+        },
+        "light": {
+            "ambilight": {
+                "name": "Ambilight"
+            },
+            "nightlight": {
+                "name": "Y\u00f6valo"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "model": "Malli",
+                    "nightlight_switch": "K\u00e4yt\u00e4 y\u00f6valokytkint\u00e4",
+                    "save_on_change": "Tallenna tila muutoksen yhteydess\u00e4",
+                    "transition": "Siirtym\u00e4aika (ms)",
+                    "use_music_mode": "Ota musiikkitila k\u00e4ytt\u00f6\u00f6n"
+                }
+            }
+        }
+    },
+    "selector": {
+        "action": {
+            "options": {
+                "off": "Pois",
+                "recover": "Palauta",
+                "stay": "Pysy"
+            }
+        },
+        "mode": {
+            "options": {
+                "color_flow": "V\u00e4rivirtaus",
+                "hsv": "HSV",
+                "last": "Viiimeinen",
+                "moonlight": "Kuutamo",
+                "normal": "Normaali",
+                "rgb": "RGB"
+            }
+        }
+    },
+    "services": {
+        "set_auto_delay_off_scene": {
+            "description": "Kytkee valon p\u00e4\u00e4lle m\u00e4\u00e4ritettyyn kirkkauteen ja asettaa ajastimen sammuttamaan sen takaisin annettujen minuuttien kuluttua. Jos valo on pois p\u00e4\u00e4lt\u00e4, Aseta v\u00e4ritilanne, jos valo on pois p\u00e4\u00e4lt\u00e4, se kytket\u00e4\u00e4n p\u00e4\u00e4lle.",
+            "fields": {
+                "brightness": {
+                    "description": "Asetettava kirkkausarvo.",
+                    "name": "Kirkkaus"
+                },
+                "minutes": {
+                    "description": "Odotusaika ennen kuin valo sammuu automaattisesti.",
+                    "name": "Minuutit"
+                }
+            },
+            "name": "Aseta automaattinen viive pois tilanteesta"
+        },
+        "set_color_flow_scene": {
+            "description": "K\u00e4ynnist\u00e4\u00e4 v\u00e4rivirtauksen. Jos valo on pois p\u00e4\u00e4lt\u00e4, se syttyy.",
+            "fields": {
+                "action": {
+                    "description": "Toiminto, joka suoritetaan virtauksen pys\u00e4htymisen j\u00e4lkeen.",
+                    "name": "Toiminta"
+                },
+                "count": {
+                    "description": "Kuinka monta kertaa t\u00e4m\u00e4 virtaus ajetaan (0 ajaa ikuisesti).",
+                    "name": "Laske"
+                },
+                "transitions": {
+                    "description": "Siirtymien joukko, halutun vaikutuksen aikaansaamiseksi. Esimerkkej\u00e4 https://yeelight.readthedocs.io/en/stable/flow.html.",
+                    "name": "Siirtym\u00e4t"
+                }
+            },
+            "name": "Aseta v\u00e4rivirtaustilanne"
+        },
+        "set_color_scene": {
+            "description": "Muuttaa valon m\u00e4\u00e4ritettyyn RGB-v\u00e4riin ja kirkkauteen. Jos valo on pois p\u00e4\u00e4lt\u00e4, se kytket\u00e4\u00e4n p\u00e4\u00e4lle.",
+            "fields": {
+                "brightness": {
+                    "description": "Asetettava kirkkausarvo.",
+                    "name": "Kirkkaus"
+                },
+                "rgb_color": {
+                    "description": "Valon v\u00e4ri RGB-muodossa.",
+                    "name": "RGB v\u00e4ri"
+                }
+            },
+            "name": "Aseta v\u00e4ritilanne"
+        },
+        "set_color_temp_scene": {
+            "description": "Muuttaa valon m\u00e4\u00e4ritettyyn v\u00e4ril\u00e4mp\u00f6tilaan. Jos valo on pois p\u00e4\u00e4lt\u00e4, se kytkeytyy p\u00e4\u00e4lle.",
+            "fields": {
+                "brightness": {
+                    "description": "Asetettava kirkkausarvo.",
+                    "name": "Kirkkaus"
+                },
+                "kelvin": {
+                    "description": "Valon v\u00e4ril\u00e4mp\u00f6tila kelvinein\u00e4.",
+                    "name": "Kelvin"
+                }
+            },
+            "name": "Aseta v\u00e4ril\u00e4mp\u00f6tilatilanne"
+        },
+        "set_hsv_scene": {
+            "description": "Muuttaa valon m\u00e4\u00e4ritettyyn HSV-v\u00e4riin ja kirkkauteen. Jos valo on pois p\u00e4\u00e4lt\u00e4, se kytket\u00e4\u00e4n p\u00e4\u00e4lle.",
+            "fields": {
+                "brightness": {
+                    "description": "Asetettava kirkkausarvo.",
+                    "name": "Kirkkaus"
+                },
+                "hs_color": {
+                    "description": "Valon v\u00e4ri s\u00e4vy/kyll\u00e4isyys -muodossa. S\u00e4vy on 0-359 ja kyll\u00e4isyys on 0-100.",
+                    "name": "S\u00e4vy/kyll\u00e4isyys v\u00e4ri"
+                }
+            },
+            "name": "Aseta HSV-tilanne"
+        },
+        "set_mode": {
+            "description": "Asettaa toimintatilan.",
+            "fields": {
+                "mode": {
+                    "description": "Toimintatila.",
+                    "name": "Tila"
+                }
+            },
+            "name": "Aseta tila"
+        },
+        "set_music_mode": {
+            "description": "Ottaa music_mode-tilan k\u00e4ytt\u00f6\u00f6n tai poistaa sen k\u00e4yt\u00f6st\u00e4.",
+            "fields": {
+                "music_mode": {
+                    "description": "K\u00e4yt\u00e4 true- tai false-arvoa ottaaksesi music_mode-tilan k\u00e4ytt\u00f6\u00f6n tai poistaaksesi sen k\u00e4yt\u00f6st\u00e4.",
+                    "name": "Musiikkitila"
+                }
+            },
+            "name": "Aseta musiikkitila"
+        },
+        "start_flow": {
+            "description": "K\u00e4ynnist\u00e4 mukautettu virtaus k\u00e4ytt\u00e4m\u00e4ll\u00e4 siirtymi\u00e4 osoitteesta https://yeelight.readthedocs.io/en/stable/yeelight.html#flow-objects.",
+            "fields": {
+                "action": {
+                    "description": "Toiminto, joka suoritetaan virtauksen pys\u00e4htymisen j\u00e4lkeen.",
+                    "name": "Toiminta"
+                },
+                "count": {
+                    "description": "Kuinka monta kertaa t\u00e4m\u00e4 virtaus ajetaan (0 ajaa ikuisesti).",
+                    "name": "Laske"
+                },
+                "transitions": {
+                    "description": "Siirtymien joukko, halutun vaikutuksen aikaansaamiseksi. Esimerkkej\u00e4 https://yeelight.readthedocs.io/en/stable/flow.html.",
+                    "name": "Siirtym\u00e4t"
+                }
+            },
+            "name": "Aloita virtaus"
+        }
+    }
+}

@@ -1,0 +1,88 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "Benachrichtigung"
+        }
+    },
+    "issues": {
+        "migrate_notify": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Die {integration_title} `notify`-Aktionen werden migriert. Eine neue `notify`-Entit\u00e4t ist jetzt verf\u00fcgbar, um jede alte `notify`-Aktion zu ersetzen. \n\n Aktualisiere alle Automatisierungen, um die neue Aktion `notify.send_message` zu verwenden, die mit dieser neuen Entit\u00e4t verf\u00fcgbar gemacht wird. Wenn dies erledigt ist, behebe dieses Problem und starte Home Assistant neu.",
+                        "title": "Migriere die alte {integration_title} Benachrichtigungsaktion f\u00fcr die Domain `{domain}`."
+                    }
+                }
+            },
+            "title": "Migration der Benachrichtigungsaktion {integration_title}"
+        },
+        "migrate_notify_service": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Die Aktion `notify.{service_name}` von {integration_title} wurde migriert, aber es scheint, dass die alte Aktion `notify` immer noch verwendet wird. \n\nEine neue `Benachrichtigungs`-Entit\u00e4t ist jetzt verf\u00fcgbar, um alle bisherigen `Benachrichtigungs`-Aktionen zu ersetzen. \n\nAktualisiere alle Automatisierungen oder Skripte, um die neue Aktion `notify.send_message` zu verwenden, die mit dieser neuen Entit\u00e4t verf\u00fcgbar gemacht wird. Wenn dies erledigt ist, w\u00e4hle Senden und starte Home Assistant neu.",
+                        "title": "Migriere die alte {integration_title} Benachrichtigungsaktion f\u00fcr die Domain `{domain}`."
+                    }
+                }
+            },
+            "title": "Die Legacy-Aktion notify.{service_name} wird immer noch verwendet"
+        }
+    },
+    "services": {
+        "notify": {
+            "description": "Sendet eine Benachrichtigung an ausgew\u00e4hlte Ziele.",
+            "fields": {
+                "data": {
+                    "description": "Einige Integrationen bieten erweiterte Funktionalit\u00e4t. Informationen zur Verwendung von _data_ findest du in der Integrationsdokumentation.",
+                    "name": "Daten"
+                },
+                "message": {
+                    "description": "Nachrichtentext der Benachrichtigung.",
+                    "name": "Nachricht"
+                },
+                "target": {
+                    "description": "Bei einigen Integrationen kannst du die Ziele angeben, die die Benachrichtigung erhalten. Weitere Informationen findest du in der Integrationsdokumentation.",
+                    "name": "Ziel"
+                },
+                "title": {
+                    "description": "Titel f\u00fcr deine Benachrichtigung.",
+                    "name": "Titel"
+                }
+            },
+            "name": "Sende eine Benachrichtigung"
+        },
+        "persistent_notification": {
+            "description": "Sendet eine Benachrichtigung, die im Benachrichtigungsfeld sichtbar ist.",
+            "fields": {
+                "data": {
+                    "description": "Einige Integrationen bieten erweiterte Funktionalit\u00e4t. Informationen zur Verwendung von _data_ findest du in der Integrationsdokumentation.",
+                    "name": "Daten"
+                },
+                "message": {
+                    "description": "Nachrichtentext der Benachrichtigung.",
+                    "name": "Nachricht"
+                },
+                "title": {
+                    "description": "Titel der Benachrichtigung.",
+                    "name": "Titel"
+                }
+            },
+            "name": "Eine dauerhafte Benachrichtigung senden"
+        },
+        "send_message": {
+            "description": "Sendet eine Benachrichtigung.",
+            "fields": {
+                "message": {
+                    "description": "Deine Benachrichtigung.",
+                    "name": "Nachricht"
+                },
+                "title": {
+                    "description": "Titel f\u00fcr deine Benachrichtigung.",
+                    "name": "Titel"
+                }
+            },
+            "name": "Eine Benachrichtigung senden"
+        }
+    },
+    "title": "Benachrichtigung"
+}

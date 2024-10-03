@@ -1,0 +1,84 @@
+{
+    "device_automation": {
+        "action_type": {
+            "turn_off": "{entity_name} uitzetten",
+            "turn_on": "{entity_name} aanzetten"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Boiler",
+            "state": {
+                "eco": "Eco",
+                "electric": "Elektrisch",
+                "gas": "Gas",
+                "heat_pump": "Warmtepomp",
+                "high_demand": "Hoge capaciteitsvraag",
+                "off": "Uit",
+                "performance": "Prestatie"
+            },
+            "state_attributes": {
+                "away_mode": {
+                    "name": "Niet thuis mode",
+                    "state": {
+                        "off": "Uit",
+                        "on": "Aan"
+                    }
+                },
+                "current_temperature": {
+                    "name": "Huidige temperatuur"
+                }
+            }
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "Platform {platform} van de {domain} integratie heeft geen platformondersteuning.\n\nVerwijder dit uit je configuratie en herstart Home Assistant om dit issue op te lossen.",
+            "title": "Platformondersteuning is niet ondersteund"
+        }
+    },
+    "services": {
+        "set_away_mode": {
+            "description": "Niet-thuis mode in-/uitschakelen.",
+            "fields": {
+                "away_mode": {
+                    "description": "Nieuwe waarde voor niet-thuis mode.",
+                    "name": "Niet-thuis mode"
+                }
+            },
+            "name": "Niet-thuis mode instellen"
+        },
+        "set_operation_mode": {
+            "description": "Stelt de bedrijfsmode in.",
+            "fields": {
+                "operation_mode": {
+                    "description": "Nieuwe waarde van de bedrijfsmode. Raadpleeg de integratie documentatie voor een lijst van mogelijke modi.",
+                    "name": "Bedrijfsmode"
+                }
+            },
+            "name": "Bedrijfsmode instellen"
+        },
+        "set_temperature": {
+            "description": "Stelt de doeltemperatuur in.",
+            "fields": {
+                "operation_mode": {
+                    "description": "Nieuwe waarde van de bedrijfsmode. Raadpleeg de integratie documentatie voor een lijst van mogelijke modi.",
+                    "name": "Bedrijfsmode"
+                },
+                "temperature": {
+                    "description": "Nieuwe doeltemperatuur voor de boiler in.",
+                    "name": "Temperatuur"
+                }
+            },
+            "name": "Stel temperatuur in"
+        },
+        "turn_off": {
+            "description": "Zet de boiler uit.",
+            "name": "Uitzetten"
+        },
+        "turn_on": {
+            "description": "Zet de boiler aan.",
+            "name": "Aanzetten"
+        }
+    }
+}

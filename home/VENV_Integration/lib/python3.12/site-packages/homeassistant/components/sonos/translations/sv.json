@@ -1,0 +1,192 @@
+{
+    "config": {
+        "abort": {
+            "no_devices_found": "Inga enheter hittades i n\u00e4tverket",
+            "not_sonos_device": "Uppt\u00e4ckt enhet \u00e4r inte en Sonos-enhet",
+            "single_instance_allowed": "Redan konfigurerad. Endast en konfiguration m\u00f6jlig."
+        },
+        "step": {
+            "confirm": {
+                "description": "Vill du konfigurera Sonos?"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "microphone": {
+                "name": "Mikrofon"
+            }
+        },
+        "number": {
+            "audio_delay": {
+                "name": "Ljudf\u00f6rdr\u00f6jning"
+            },
+            "balance": {
+                "name": "Balans"
+            },
+            "bass": {
+                "name": "Bas"
+            },
+            "music_surround_level": {
+                "name": "Surroundniv\u00e5 f\u00f6r musik"
+            },
+            "sub_gain": {
+                "name": "Sub f\u00f6rst\u00e4rkning"
+            },
+            "surround_level": {
+                "name": "Surroundniv\u00e5"
+            },
+            "treble": {
+                "name": "Diskant"
+            }
+        },
+        "sensor": {
+            "audio_input_format": {
+                "name": "Format f\u00f6r ljudinmatning"
+            }
+        },
+        "switch": {
+            "buttons_enabled": {
+                "name": "Touch-kontroller"
+            },
+            "cross_fade": {
+                "name": "\u00d6vertoning"
+            },
+            "dialog_level": {
+                "name": "F\u00f6rb\u00e4ttring av tal"
+            },
+            "loudness": {
+                "name": "Ljudstyrka"
+            },
+            "night_mode": {
+                "name": "Nattljud"
+            },
+            "status_light": {
+                "name": "Statuslampa"
+            },
+            "sub_enabled": {
+                "name": "Bash\u00f6gtalare aktiverad"
+            },
+            "surround_enabled": {
+                "name": "Surround aktiverad"
+            },
+            "surround_mode": {
+                "name": "Surroundmusik full volym"
+            }
+        }
+    },
+    "exceptions": {
+        "announce_media_error": {
+            "message": "Tillk\u00e4nnagivning av klipp {media_id} Misslyckades {response}"
+        },
+        "invalid_content_type": {
+            "message": "Sonos st\u00f6der inte medieinneh\u00e5llstyp: {media_type}"
+        },
+        "invalid_favorite": {
+            "message": "Kunde inte hitta en Sonos-favorit: {name}"
+        },
+        "invalid_media": {
+            "message": "Kunde inte hitta media i biblioteket: {media_id}"
+        }
+    },
+    "issues": {
+        "subscriptions_failed": {
+            "description": "Om du faller tillbaka till polling kan funktionaliteten vara begr\u00e4nsad. \n\n Sonos-enheten p\u00e5 {device_ip} kan inte n\u00e5 Home Assistant p\u00e5 {listener_address} . \n\n Se v\u00e5r [dokumentation]( {sub_fail_url} ) f\u00f6r mer information om hur du l\u00f6ser det h\u00e4r problemet.",
+            "title": "N\u00e4tverksfel: prenumerationer misslyckades"
+        }
+    },
+    "services": {
+        "clear_sleep_timer": {
+            "description": "Nollst\u00e4ller en Sonos-timer.",
+            "name": "Nollst\u00e4ll timer"
+        },
+        "get_queue": {
+            "description": "Returnerar inneh\u00e5llet i k\u00f6n.",
+            "name": "H\u00e4mta k\u00f6"
+        },
+        "play_queue": {
+            "description": "B\u00f6rja spela upp k\u00f6n fr\u00e5n det f\u00f6rsta objektet.",
+            "fields": {
+                "queue_position": {
+                    "description": "Position f\u00f6r l\u00e5ten i k\u00f6n som uppspelningen ska starta fr\u00e5n.",
+                    "name": "Position i k\u00f6"
+                }
+            },
+            "name": "Spela k\u00f6"
+        },
+        "remove_from_queue": {
+            "description": "Tar bort ett objekt fr\u00e5n k\u00f6n.",
+            "fields": {
+                "queue_position": {
+                    "description": "Position i k\u00f6n som ska tas bort.",
+                    "name": "Position i k\u00f6"
+                }
+            },
+            "name": "Ta bort fr\u00e5n k\u00f6"
+        },
+        "restore": {
+            "description": "\u00c5terst\u00e4ller en \u00f6gonblicksbild av mediaspelaren.",
+            "fields": {
+                "entity_id": {
+                    "description": "Namnet p\u00e5 den entitet som ska \u00e5terst\u00e4llas.",
+                    "name": "Entitet"
+                },
+                "with_group": {
+                    "description": "Sant eller falskt. \u00c5terst\u00e4ll ocks\u00e5 grupplayouten.",
+                    "name": "Med grupp"
+                }
+            },
+            "name": "\u00c5terst\u00e4ll"
+        },
+        "set_sleep_timer": {
+            "description": "St\u00e4ller in en Sonos-timer.",
+            "fields": {
+                "sleep_time": {
+                    "description": "Antal sekunder som timern ska st\u00e4llas in.",
+                    "name": "Sovtid"
+                }
+            },
+            "name": "St\u00e4ll in timer"
+        },
+        "snapshot": {
+            "description": "Tar en \u00f6gonblicksbild av mediaspelaren.",
+            "fields": {
+                "entity_id": {
+                    "description": "Namn p\u00e5 den entitet d\u00e4r det kommer att tas en \u00f6gonblicksbild.",
+                    "name": "Entitet"
+                },
+                "with_group": {
+                    "description": "Sant eller falskt. Ta \u00e4ven en \u00f6gonblicksbild av gruppens layout.",
+                    "name": "Med grupp"
+                }
+            },
+            "name": "\u00d6gonblicksbild"
+        },
+        "update_alarm": {
+            "description": "Uppdaterar ett larm med nya inst\u00e4llningar f\u00f6r tid och volym.",
+            "fields": {
+                "alarm_id": {
+                    "description": "ID f\u00f6r larmet som ska uppdateras.",
+                    "name": "Larm-ID"
+                },
+                "enabled": {
+                    "description": "Aktivera eller inaktivera larmet.",
+                    "name": "Larm aktiverat"
+                },
+                "include_linked_zones": {
+                    "description": "Aktivera eller inaktivera inkludering av grupperade rum.",
+                    "name": "Inkludera l\u00e4nkade zoner"
+                },
+                "time": {
+                    "description": "St\u00e4ll in tid f\u00f6r larmet.",
+                    "name": "Tid"
+                },
+                "volume": {
+                    "description": "St\u00e4ll in larmets volymniv\u00e5.",
+                    "name": "Volym"
+                }
+            },
+            "name": "Uppdatera larm"
+        }
+    }
+}

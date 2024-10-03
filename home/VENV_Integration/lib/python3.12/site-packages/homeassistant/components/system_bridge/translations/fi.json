@@ -1,0 +1,210 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Laite on jo m\u00e4\u00e4ritetty",
+            "reauth_successful": "Uudelleentodennus onnistui",
+            "unknown": "Odottamaton virhe",
+            "unsupported_version": "System Bridgen versiosi ei ole tuettu. P\u00e4ivit\u00e4 uusimpaan versioon."
+        },
+        "error": {
+            "cannot_connect": "Yhteyden muodostaminen ep\u00e4onnistui",
+            "invalid_auth": "Virheellinen todennus",
+            "unknown": "Odottamaton virhe"
+        },
+        "flow_title": "{name}",
+        "step": {
+            "authenticate": {
+                "data": {
+                    "api_key": "API-avain",
+                    "token": "API-tunnus"
+                },
+                "description": "Kirjoita konfiguratiossa m\u00e4\u00e4ritetty tunniste osoitteeseen {name}."
+            },
+            "user": {
+                "data": {
+                    "api_key": "API-avain",
+                    "host": "Palvelin",
+                    "port": "Portti",
+                    "token": "Token"
+                },
+                "description": "Anna yhteystietosi."
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "camera_in_use": {
+                "name": "K\u00e4yt\u00f6ss\u00e4 oleva kamera"
+            },
+            "pending_reboot": {
+                "name": "Uudelleenk\u00e4ynnistyst\u00e4 odotetaan"
+            }
+        },
+        "media_player": {
+            "media": {
+                "name": "Media"
+            }
+        },
+        "sensor": {
+            "amount_memory_used": {
+                "name": "K\u00e4ytetyn muistin m\u00e4\u00e4r\u00e4"
+            },
+            "battery_time_remaining": {
+                "name": "Akun k\u00e4ytt\u00f6aikaa j\u00e4ljell\u00e4"
+            },
+            "boot_time": {
+                "name": "K\u00e4ynnistymisaika"
+            },
+            "cpu_power_package": {
+                "name": "CPU paketin teho"
+            },
+            "cpu_speed": {
+                "name": "CPU nopeus"
+            },
+            "cpu_temperature": {
+                "name": "CPU l\u00e4mp\u00f6tila"
+            },
+            "cpu_voltage": {
+                "name": "CPU j\u00e4nnite"
+            },
+            "displays_connected": {
+                "name": "Yhdistetyt n\u00e4yt\u00f6t"
+            },
+            "kernel": {
+                "name": "Ydin"
+            },
+            "load": {
+                "name": "Lataa"
+            },
+            "memory_free": {
+                "name": "Vapaa muisti"
+            },
+            "memory_used": {
+                "name": "K\u00e4ytetty muisti"
+            },
+            "os": {
+                "name": "K\u00e4ytt\u00f6j\u00e4rjestelm\u00e4"
+            },
+            "processes": {
+                "name": "Prosessit"
+            },
+            "version": {
+                "name": "Versio"
+            },
+            "version_latest": {
+                "name": "Viimeisin versio"
+            }
+        }
+    },
+    "exceptions": {
+        "process_not_found": {
+            "message": "Ei l\u00f6ydy prosessia tunnuksella {id}."
+        }
+    },
+    "issues": {
+        "unsupported_version": {
+            "description": "System Bridge for host {host} -versiota ei tueta.\n\nP\u00e4ivit\u00e4 uusimpaan versioon.",
+            "title": "J\u00e4rjestelm\u00e4n sillan p\u00e4ivitys vaaditaan"
+        }
+    },
+    "services": {
+        "get_process_by_id": {
+            "description": "Ottaa prosessin ID:n mukaan.",
+            "fields": {
+                "bridge": {
+                    "description": "Palvelin, jolle puhua.",
+                    "name": "Silta"
+                },
+                "id": {
+                    "description": "Haettavan prosessin tunnus.",
+                    "name": "Tunnus"
+                }
+            },
+            "name": "Hanki prosessi tunnuksen mukaan"
+        },
+        "get_processes_by_name": {
+            "description": "Ottaa luettelon prosesseista nimen perusteella.",
+            "fields": {
+                "bridge": {
+                    "description": "Palvelin, jolle puhua.",
+                    "name": "Silta"
+                },
+                "name": {
+                    "description": "Haettavan prosessin nimi.",
+                    "name": "Nimi"
+                }
+            },
+            "name": "Hae prosessit nimen perusteella"
+        },
+        "open_path": {
+            "description": "Avaa tiedoston palvelimelta oletussovelluksella.",
+            "fields": {
+                "bridge": {
+                    "description": "Palvelin, jolle puhua.",
+                    "name": "Silta"
+                },
+                "path": {
+                    "description": "Polku avattavaksi.",
+                    "name": "Polku"
+                }
+            },
+            "name": "Avattava polku"
+        },
+        "open_url": {
+            "description": "Avaa URL-osoitteen palvelimella k\u00e4ytt\u00e4m\u00e4ll\u00e4 oletussovellusta.",
+            "fields": {
+                "bridge": {
+                    "description": "Palvelin, jolle puhua.",
+                    "name": "Silta"
+                },
+                "url": {
+                    "description": "Avattava URL-osoite.",
+                    "name": "URL-osoite"
+                }
+            },
+            "name": "Avaa URL-osoite"
+        },
+        "power_command": {
+            "description": "L\u00e4hett\u00e4\u00e4 j\u00e4rjestelm\u00e4\u00e4n virtakomennon.",
+            "fields": {
+                "bridge": {
+                    "description": "Palvelin, jolle komento l\u00e4hetet\u00e4\u00e4n.",
+                    "name": "Silta"
+                },
+                "command": {
+                    "description": "Soitettava komento.",
+                    "name": "Komento"
+                }
+            },
+            "name": "Virtakomento"
+        },
+        "send_keypress": {
+            "description": "L\u00e4hett\u00e4\u00e4 n\u00e4pp\u00e4imist\u00f6n painalluksen.",
+            "fields": {
+                "bridge": {
+                    "description": "Palvelin, jolle komento l\u00e4hetet\u00e4\u00e4n.",
+                    "name": "Silta"
+                },
+                "key": {
+                    "description": "Paina n\u00e4pp\u00e4int\u00e4. Luettelo saatavilla t\u00e4\u00e4ll\u00e4: http://robotjs.io/docs/syntax#keys.",
+                    "name": "N\u00e4pp\u00e4in"
+                }
+            },
+            "name": "L\u00e4het\u00e4 n\u00e4pp\u00e4imist\u00f6n painallus"
+        },
+        "send_text": {
+            "description": "L\u00e4hett\u00e4\u00e4 teksti\u00e4 palvelimelle kirjoitettavaksi.",
+            "fields": {
+                "bridge": {
+                    "description": "Palvelin, jolle komento l\u00e4hetet\u00e4\u00e4n.",
+                    "name": "Silta"
+                },
+                "text": {
+                    "description": "Kirjoitettava teksti.",
+                    "name": "Teksti"
+                }
+            },
+            "name": "L\u00e4het\u00e4 n\u00e4pp\u00e4imist\u00f6teksti"
+        }
+    }
+}

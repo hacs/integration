@@ -1,0 +1,134 @@
+{
+    "application_credentials": {
+        "description": "Postupujte pod\u013ea [pokynov]({more_info_url}) pre [obrazovku s\u00fahlasu OAuth]({oauth_consent_url}), aby ste poskytli asistentovi Home Assistant pr\u00edstup k v\u00e1\u0161mu Kalend\u00e1ru Google. Mus\u00edte tie\u017e vytvori\u0165 aplika\u010dn\u00e9 poverenia prepojen\u00e9 s va\u0161\u00edm kalend\u00e1rom:\n1. Prejdite na str\u00e1nku [Credentials]({oauth_creds_url}) a vyberte mo\u017enos\u0165 **Create Credentials** (Vytvori\u0165 poverenia**).\n2. Z rozba\u013eovacieho zoznamu vyberte polo\u017eku **OAuth client ID**.\n3. Pre typ aplik\u00e1cie vyberte **TV a obmedzen\u00e9 vstupn\u00e9 zariadenia**."
+    },
+    "config": {
+        "abort": {
+            "already_configured": "\u00da\u010det je u\u017e nakonfigurovan\u00fd",
+            "already_in_progress": "Konfigur\u00e1cia u\u017e prebieha",
+            "api_disabled": "V konzole Google Cloud Console mus\u00edte povoli\u0165 rozhranie Google Calendar API",
+            "cannot_connect": "Nepodarilo sa pripoji\u0165",
+            "code_expired": "Platnos\u0165 overovacieho k\u00f3du vypr\u0161ala alebo nastavenie poveren\u00ed je neplatn\u00e9, sk\u00faste to znova.",
+            "invalid_access_token": "Neplatn\u00fd pr\u00edstupov\u00fd token",
+            "missing_configuration": "Komponent nie je nakonfigurovan\u00fd. Postupujte pod\u013ea dokument\u00e1cie.",
+            "oauth_error": "Prijat\u00e9 neplatn\u00e9 \u00fadaje tokenu.",
+            "oauth_failed": "Chyba pri z\u00edskavan\u00ed pr\u00edstupov\u00e9ho tokenu.",
+            "oauth_timeout": "\u010casov\u00fd limit na vyrie\u0161enie tokenu OAuth.",
+            "oauth_unauthorized": "Chyba autoriz\u00e1cie OAuth pri z\u00edskavan\u00ed pr\u00edstupov\u00e9ho tokenu.",
+            "reauth_successful": "Op\u00e4tovn\u00e9 overenie bolo \u00faspe\u0161n\u00e9",
+            "timeout_connect": "\u010casov\u00fd limit na nadviazanie spojenia"
+        },
+        "create_entry": {
+            "default": "\u00daspe\u0161ne overen\u00e9"
+        },
+        "progress": {
+            "exchange": "Ak chcete prepoji\u0165 svoj \u00fa\u010det Google, nav\u0161t\u00edvte [{url}]({url}) a zadajte k\u00f3d: \n\n {user_code}"
+        },
+        "step": {
+            "auth": {
+                "title": "Prepojenie konta Google"
+            },
+            "pick_implementation": {
+                "title": "Vyberte met\u00f3du overenia"
+            },
+            "reauth_confirm": {
+                "description": "Integr\u00e1cia Kalend\u00e1ra Google vy\u017eaduje op\u00e4tovn\u00e9 overenie v\u00e1\u0161ho \u00fa\u010dtu",
+                "title": "Vypr\u0161ala platnos\u0165 overenia pre {name}"
+            }
+        }
+    },
+    "entity": {
+        "calendar": {
+            "working_location": {
+                "name": "Pracovn\u00e9 miesto"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "calendar_access": "Pr\u00edstup Home Assistant ku kalend\u00e1ru Google"
+                }
+            }
+        }
+    },
+    "services": {
+        "add_event": {
+            "description": "Prid\u00e1 nov\u00fa udalos\u0165 kalend\u00e1ra.",
+            "fields": {
+                "calendar_id": {
+                    "description": "Id po\u017eadovan\u00e9ho kalend\u00e1ra.",
+                    "name": "ID kalend\u00e1ra"
+                },
+                "description": {
+                    "description": "Popis udalosti. Volite\u013en\u00e9.",
+                    "name": "Popis"
+                },
+                "end_date": {
+                    "description": "D\u00e1tum ukon\u010denia celodennej akcie.",
+                    "name": "D\u00e1tum konca"
+                },
+                "end_date_time": {
+                    "description": "D\u00e1tum a \u010das ukon\u010denia udalosti.",
+                    "name": "\u010cas ukon\u010denia"
+                },
+                "in": {
+                    "description": "Dni alebo t\u00fd\u017edne, v ktor\u00fdch chcete vytvori\u0165 udalos\u0165.",
+                    "name": "V"
+                },
+                "start_date": {
+                    "description": "D\u00e1tum za\u010diatku celodenn\u00e9ho podujatia.",
+                    "name": "D\u00e1tum za\u010diatku"
+                },
+                "start_date_time": {
+                    "description": "D\u00e1tum a \u010das za\u010diatku udalosti.",
+                    "name": "Doba spustenia"
+                },
+                "summary": {
+                    "description": "Sl\u00fa\u017ei ako n\u00e1zov udalosti.",
+                    "name": "Zhrnutie"
+                }
+            },
+            "name": "Prida\u0165 udalos\u0165"
+        },
+        "create_event": {
+            "description": "Prid\u00e1 nov\u00fa udalos\u0165 kalend\u00e1ra.",
+            "fields": {
+                "description": {
+                    "description": "Popis udalosti. Volite\u013en\u00e9.",
+                    "name": "Popis"
+                },
+                "end_date": {
+                    "description": "D\u00e1tum ukon\u010denia celodennej akcie.",
+                    "name": "D\u00e1tum konca"
+                },
+                "end_date_time": {
+                    "description": "D\u00e1tum a \u010das ukon\u010denia udalosti.",
+                    "name": "\u010cas ukon\u010denia"
+                },
+                "in": {
+                    "description": "Dni alebo t\u00fd\u017edne, v ktor\u00fdch chcete vytvori\u0165 udalos\u0165.",
+                    "name": "V"
+                },
+                "location": {
+                    "description": "Miesto udalosti. Volite\u013en\u00e9.",
+                    "name": "Umiestnenie"
+                },
+                "start_date": {
+                    "description": "D\u00e1tum za\u010diatku celodenn\u00e9ho podujatia.",
+                    "name": "D\u00e1tum za\u010diatku"
+                },
+                "start_date_time": {
+                    "description": "D\u00e1tum a \u010das za\u010diatku udalosti.",
+                    "name": "Doba spustenia"
+                },
+                "summary": {
+                    "description": "Sl\u00fa\u017ei ako n\u00e1zov udalosti.",
+                    "name": "Zhrnutie"
+                }
+            },
+            "name": "Vytv\u00e1ra udalos\u0165"
+        }
+    }
+}

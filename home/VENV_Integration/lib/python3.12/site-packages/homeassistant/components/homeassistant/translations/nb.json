@@ -1,0 +1,150 @@
+{
+    "config": {
+        "abort": {
+            "single_instance_allowed": "Allerede konfigurert. Bare \u00e9n enkelt konfigurasjon er mulig."
+        }
+    },
+    "exceptions": {
+        "component_import_err": {
+            "message": "Kan ikke importere {domain} : {error}"
+        },
+        "config_platform_import_err": {
+            "message": "Feil ved import av konfigurasjonsplattformen {domain} : {error}"
+        },
+        "config_schema_unknown_err": {
+            "message": "Ukjent feil ved oppkalling av {domain} CONFIG_SCHEMA - {error}."
+        },
+        "config_validation_err": {
+            "message": "Ugyldig konfigurasjon for integrasjon {domain} i {config_file}, linje {line} : {error}."
+        },
+        "config_validator_unknown_err": {
+            "message": "Ukjent feil ved \u00e5 kalle opp konfigurasjonsvalidatoren {domain} - {error}."
+        },
+        "integration_config_error": {
+            "message": "Kunne ikke behandle konfigurasjonen for integrasjon {domain} p\u00e5 grunn av flere ( {errors} ) feil. Sjekk loggene for mer informasjon."
+        },
+        "platform_component_load_err": {
+            "message": "Plattformfeil: {domain} - {error}."
+        },
+        "platform_component_load_exc": {
+            "message": "Plattformfeil: {domain} - {error}."
+        },
+        "platform_config_validation_err": {
+            "message": "Ugyldig konfigurasjon for {domain} fra integrasjon {p_name} i filen {config_file} , linje {line} : {error} . Sjekk loggene for mer informasjon."
+        },
+        "platform_schema_validator_err": {
+            "message": "Ukjent feil under validering av konfigurasjon for {domain} fra integrasjon {p_name} - {error}."
+        }
+    },
+    "issues": {
+        "config_entry_reauth": {
+            "description": "Autentisering p\u00e5 nytt er n\u00f8dvendig",
+            "title": "Autentisering er utl\u00f8pt for {name}"
+        },
+        "country_not_configured": {
+            "description": "Ingen land er konfigurert, vennligst oppdater konfigurasjonen ved \u00e5 klikke p\u00e5 \"les mer\"-knappen nedenfor.",
+            "title": "Landet er ikke konfigurert"
+        },
+        "historic_currency": {
+            "description": "Valutaen {currency} er ikke lenger i bruk, vennligst konfigurer valutakonfigurasjonen p\u00e5 nytt.",
+            "title": "Tollet er ugyldig eller ikke lenger autorisert."
+        },
+        "platform_only": {
+            "title": "{domain} -integrasjonen st\u00f8tter ikke YAML-konfigurasjon under sin egen n\u00f8kkel"
+        },
+        "python_version": {
+            "description": "St\u00f8tte for \u00e5 kj\u00f8re Home Assistant i den gjeldende brukte Python-versjonen {current_python_version} er avviklet og vil bli fjernet i Home Assistant {breaks_in_ha_version} . Oppgrader Python til {required_python_version} for \u00e5 forhindre at Home Assistant-forekomsten din g\u00e5r i stykker.",
+            "title": "St\u00f8tte for Python {current_python_version} blir fjernet"
+        },
+        "storage_corruption": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "title": "Lagringsfeil oppdaget for `{storage_key}`"
+                    }
+                }
+            }
+        }
+    },
+    "services": {
+        "check_config": {
+            "description": "Sjekker Home Assistant-YAML-konfigurasjonsfilene for feil. Feil vil vises i Home Assistant-loggene.",
+            "name": "Sjekk konfigurasjon"
+        },
+        "reload_all": {
+            "description": "Laster all YAML-konfigurasjon som kan lastes p\u00e5 nytt uten \u00e5 omstarte Home Assistant.",
+            "name": "Last alt p\u00e5 nytt"
+        },
+        "reload_config_entry": {
+            "description": "Laster inn oppgitt konfigurasjonsoppf\u00f8ring p\u00e5 nytt.",
+            "fields": {
+                "entry_id": {
+                    "description": "Id-en til konfigurasjonsoppf\u00f8rings som lastes inn p\u00e5 nytt.",
+                    "name": "Konfigurasjonsoppf\u00f8ring-id"
+                }
+            },
+            "name": "Last inn konfigurasjonsoppf\u00f8ring p\u00e5 nytt"
+        },
+        "reload_core_config": {
+            "description": "Laster inn kjernekonfigurasjonen fra YAML-konfigurasjonen p\u00e5 nytt.",
+            "name": "Last inn kjernekonfigurasjon p\u00e5 nytt"
+        },
+        "reload_custom_templates": {
+            "description": "Laster inn Jinja2-maler som finnes i `custom_tempaltes`-mappen i konfigurasjonen din. Nye verdier vil f\u00e5 effekt ved neste visning av malen.",
+            "name": "Last inn tilpassede Jinja2-maler p\u00e5 nytt"
+        },
+        "restart": {
+            "description": "Omstarter Home Assistant.",
+            "name": "Omstart"
+        },
+        "save_persistent_states": {
+            "description": "Lagrer de persisterte tilstandene \u00f8yeblikketlig. Opprettholder det normale intervallet for lagring.",
+            "name": "Lagre persisterte tilstander"
+        },
+        "set_location": {
+            "description": "Oppdaterer posisjonen til Home Assistant.",
+            "fields": {
+                "elevation": {
+                    "description": "Elevasjonen p\u00e5 din lokasjon.",
+                    "name": "Elevasjon"
+                },
+                "latitude": {
+                    "description": "Breddegrad for din posisjon.",
+                    "name": "Breddegrad"
+                },
+                "longitude": {
+                    "description": "Lengdegrad for din posisjon.",
+                    "name": "Lengdegrad"
+                }
+            },
+            "name": "Set plassering"
+        },
+        "stop": {
+            "description": "Stopper Home Assistant.",
+            "name": "Stopp"
+        },
+        "toggle": {
+            "name": "Generell veksling"
+        },
+        "turn_off": {
+            "name": "Generell skru av"
+        },
+        "turn_on": {
+            "name": "Generell skru p\u00e5"
+        },
+        "update_entity": {
+            "description": "Tvinger en eller flere entiteter til \u00e5 oppdatere sine data.",
+            "name": "Oppdater entitet"
+        }
+    },
+    "system_health": {
+        "info": {
+            "dev": "Utvikling",
+            "docker": "",
+            "hassio": "Supervisor",
+            "timezone": "Tidssone",
+            "user": "Bruker",
+            "version": "Versjon"
+        }
+    }
+}

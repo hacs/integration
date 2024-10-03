@@ -1,0 +1,95 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Seade on juba h\u00e4\u00e4lestatud",
+            "already_in_progress": "Seadistamine on juba k\u00e4imas",
+            "not_xiaomi_aqara": "See pole Xiaomi Aqara Gateway, avastatud seade ei sobinud teadaolevate l\u00fc\u00fcsidega"
+        },
+        "error": {
+            "discovery_error": "Xiaomi Aqara l\u00fc\u00fcsi avastamine nurjus, proovi kasutada HomeAssistanti IP-d liidesena",
+            "invalid_host": "Vigane hostinimi v\u00f5i IP aadress, lisaks vaata: https://www.home-assistant.io/integrations/xiaomi_aqara/#connection-problem",
+            "invalid_interface": "Sobimatu v\u00f5rguliides",
+            "invalid_key": "Vigane l\u00fc\u00fcsi v\u00f5ti",
+            "invalid_mac": "Vigane MAC aadress"
+        },
+        "flow_title": "{name}",
+        "step": {
+            "select": {
+                "data": {
+                    "select_ip": "L\u00fc\u00fcsi IP aadress"
+                },
+                "description": "Vali Xiaomi Aqara Gateway mida soovid \u00fchendada."
+            },
+            "settings": {
+                "data": {
+                    "key": "L\u00fc\u00fcsi v\u00f5ti",
+                    "name": "L\u00fc\u00fcsi nimi"
+                },
+                "description": "V\u00f5tme (parooli) saab hankida selle \u00f5petuse abil: https://www.domoticz.com/wiki/Xiaomi_Gateway_(Aqara)#Adding_the_Xiaomi_Gateway_to_Domoticz. Kui v\u00f5ti puudub on ligip\u00e4\u00e4s ainult anduritele",
+                "title": "Valikulised s\u00e4tted"
+            },
+            "user": {
+                "data": {
+                    "host": "IP-aadress (valikuline)",
+                    "interface": "Kasutatav v\u00f5rguliides",
+                    "mac": "MAC aadress (valikuline)"
+                },
+                "description": "Kui IP- ja MAC-aadressid j\u00e4etakse t\u00fchjaks, kasutatakse automaatset avastamist"
+            }
+        }
+    },
+    "services": {
+        "add_device": {
+            "description": "Lubab Xiaomi Aqara l\u00fc\u00fcsi liitumisloa 30 sekundiks. Uue seadme saab hiljem lisada, vajutades \u00fcks kord sidumisnuppu.",
+            "fields": {
+                "gw_mac": {
+                    "description": "Xiaomi Aqara Gateway MAC-aadress.",
+                    "name": "Gateway MAC"
+                }
+            },
+            "name": "Lisa seade"
+        },
+        "play_ringtone": {
+            "description": "Esitab kindla helina. L\u00fc\u00fcsi p\u00fcsivara versioon peab olema v\u00e4hemalt 1.4.1_145.",
+            "fields": {
+                "gw_mac": {
+                    "description": "Xiaomi Aqara Gateway MAC-aadress.",
+                    "name": "Gateway MAC"
+                },
+                "ringtone_id": {
+                    "description": "\u00dcks lubatud helinatunnustest.",
+                    "name": "Helina ID"
+                },
+                "ringtone_vol": {
+                    "description": "Helitugevus protsentides.",
+                    "name": "Helina helitugevus"
+                }
+            },
+            "name": "Esita helin"
+        },
+        "remove_device": {
+            "description": "Eemaldab konkreetse seadme. Eemaldamine on vajalik kui seade seotakse teise l\u00fc\u00fcsiga.",
+            "fields": {
+                "device_id": {
+                    "description": "Eemaldatava seadme riistvaraline aadress.",
+                    "name": "Seadme ID"
+                },
+                "gw_mac": {
+                    "description": "Xiaomi Aqara Gateway MAC-aadress.",
+                    "name": "Gateway MAC"
+                }
+            },
+            "name": "Eemalda seade"
+        },
+        "stop_ringtone": {
+            "description": "Peatab kohe m\u00e4ngiva helina.",
+            "fields": {
+                "gw_mac": {
+                    "description": "Xiaomi Aqara Gateway MAC-aadress.",
+                    "name": "Gateway MAC"
+                }
+            },
+            "name": "Peata helin"
+        }
+    }
+}

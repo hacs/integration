@@ -1,0 +1,625 @@
+{
+    "config": {
+        "abort": {
+            "addon_get_discovery_info_failed": "Nepavyko gauti Z-Wave JS priedo atradimo informacijos.",
+            "addon_info_failed": "Nepavyko gauti \u201eZ-Wave JS\u201c priedo informacijos.",
+            "addon_install_failed": "Nepavyko \u012fdiegti Z-Wave JS priedo.",
+            "addon_set_config_failed": "Nepavyko nustatyti Z-Wave JS konfig\u016bracijos.",
+            "addon_start_failed": "Nepavyko paleisti Z-Wave JS priedo.",
+            "already_configured": "\u012erenginys jau sukonfig\u016bruotas",
+            "already_in_progress": "Konfig\u016bracijos procesas jau vyksta",
+            "cannot_connect": "Nepavyko prisijungti",
+            "discovery_requires_supervisor": "Atradimui reikalingas vadovas.",
+            "not_zwave_device": "Atrastas \u012frenginys n\u0117ra Z-Wave \u012frenginys.",
+            "not_zwave_js_addon": "Atrastas priedas n\u0117ra oficialus Z-Wave JS priedas."
+        },
+        "error": {
+            "addon_start_failed": "Nepavyko paleisti Z-Wave JS priedo. Patikrinkite konfig\u016bracij\u0105.",
+            "cannot_connect": "Nepavyko prisijungti",
+            "invalid_ws_url": "Netinkamas \u017einiatinklio lizdo URL",
+            "unknown": "Netik\u0117ta klaida"
+        },
+        "flow_title": "{name}",
+        "progress": {
+            "install_addon": "Palaukite, kol baigsis Z-Wave JS priedo diegimas. Tai gali u\u017etrukti kelias minutes.",
+            "start_addon": "Palaukite, kol \u201eZ-Wave JS\u201c priedas bus paleistas. Tai gali u\u017etrukti kelias sekundes."
+        },
+        "step": {
+            "configure_addon": {
+                "data": {
+                    "s0_legacy_key": "S0 raktas (pasen\u0119s)",
+                    "s2_access_control_key": "S2 prieigos valdymo raktas",
+                    "s2_authenticated_key": "S2 autentifikuotas raktas",
+                    "s2_unauthenticated_key": "S2 neautentifikuotas raktas",
+                    "usb_path": "USB \u012frenginio kelias"
+                },
+                "description": "Priedas sugeneruos saugos raktus, jei tie laukai bus tu\u0161ti.",
+                "title": "\u012eveskite Z-Wave JS priedo konfig\u016bracij\u0105"
+            },
+            "hassio_confirm": {
+                "title": "Nustatykite Z-Wave JS integracij\u0105 su Z-Wave JS priedu"
+            },
+            "install_addon": {
+                "title": "Prad\u0117tas Z-Wave JS priedo diegimas"
+            },
+            "manual": {
+                "data": {
+                    "url": "URL"
+                }
+            },
+            "on_supervisor": {
+                "data": {
+                    "use_addon": "Naudokite \u201eZ-Wave JS Supervisor\u201c pried\u0105"
+                },
+                "description": "Ar norite naudoti \u201eZ-Wave JS Supervisor\u201c pried\u0105?",
+                "title": "Pasirinkite prisijungimo b\u016bd\u0105"
+            },
+            "start_addon": {
+                "title": "Pradedamas Z-Wave JS priedas."
+            },
+            "usb_confirm": {
+                "description": "Ar norite nustatyti {name} su Z-Wave JS priedu?"
+            },
+            "zeroconf_confirm": {
+                "description": "Ar norite prid\u0117ti \"Z-Wave JS\" server\u012f, kurio nam\u0173 ID {home_id} rastas adresu {url}, prie \"Home Assistant\"?",
+                "title": "Atrastas Z-Wave JS serveris"
+            }
+        }
+    },
+    "device_automation": {
+        "action_type": {
+            "clear_lock_usercode": "I\u0161valyti naudotojo kod\u0105 {entity_name}",
+            "ping": "Ping \u012frenginys",
+            "refresh_value": "Atnaujinkite {entity_name} vert\u0119 (-es)",
+            "reset_meter": "I\u0161 naujo nustatyti skaitiklius {subtype}",
+            "set_config_parameter": "Nustatyti konfig\u016bracijos parametro vert\u0119 {subtype}",
+            "set_lock_usercode": "Nustatykite naudotojo kod\u0105 {entity_name}",
+            "set_value": "Nustatykite Z-Wave vert\u0117s vert\u0119"
+        },
+        "condition_type": {
+            "config_parameter": "Konfig\u016bracijos parametro {subtype} vert\u0117",
+            "node_status": "Mazgo b\u016bsena",
+            "value": "Dabartin\u0117 \"Z-Wave\" reik\u0161m\u0117"
+        },
+        "extra_fields": {
+            "code_slot": "Kodo lizdas",
+            "command_class": "Komand\u0173 klas\u0117",
+            "data_type": "Duomen\u0173 tipas",
+            "endpoint": "Galutinis ta\u0161kas",
+            "event": "\u012evykis",
+            "event_label": "\u012evykio etiket\u0117",
+            "event_type": "\u012evykio tipas",
+            "for": "Trukm\u0117",
+            "from": "I\u0161",
+            "label": "Etiket\u0117",
+            "property": "Nuosavyb\u0117",
+            "property_key": "Nuosavyb\u0117s raktas",
+            "refresh_all_values": "Atnaujinkite visas vertes",
+            "status": "B\u016bsena",
+            "to": "\u012e",
+            "type.": "Tipas",
+            "usercode": "Vartotojo kodas",
+            "value": "Reik\u0161m\u0117",
+            "wait_for_result": "Palaukite rezultato"
+        },
+        "trigger_type": {
+            "event.notification.entry_control": "I\u0161siunt\u0117 \u012f\u0117jimo kontrol\u0117s prane\u0161im\u0105",
+            "event.notification.notification": "I\u0161siunt\u0117 prane\u0161im\u0105",
+            "event.value_notification.basic": "Pagrindinis CC \u012fvykis {subtype}",
+            "event.value_notification.central_scene": "Centrin\u0117s scenos veiksmas {subtype}",
+            "event.value_notification.scene_activation": "Scenos aktyvinimas {subtype}",
+            "state.node_status": "Mazgo b\u016bsena pakeista",
+            "zwave_js.value_updated.config_parameter": "Konfig\u016bracijos parametro {subtype} vert\u0117s pakeitimas",
+            "zwave_js.value_updated.value": "Vert\u0117s pokytis Z-Wave JS vert\u0117je"
+        }
+    },
+    "entity": {
+        "button": {
+            "ping": {
+                "name": "Ping"
+            }
+        },
+        "sensor": {
+            "average_background_rssi": {
+                "name": "Vidutinis foninis RSSI (kanalas {channel} )"
+            },
+            "can": {
+                "name": "Susid\u016brimai"
+            },
+            "commands_dropped": {
+                "name": "Komandos atmestos ( {direction} )"
+            },
+            "controller_status": {
+                "name": "B\u016bsena",
+                "state": {
+                    "jammed": "U\u017estrigo",
+                    "ready": "Paruo\u0161ta",
+                    "unresponsive": "Nereaguoja"
+                }
+            },
+            "current_background_rssi": {
+                "name": "Dabartinis foninis RSSI (kanalas {channel} )"
+            },
+            "last_seen": {
+                "name": "Paskutin\u012f kart\u0105 matytas"
+            },
+            "messages_dropped": {
+                "name": "Prane\u0161imai atmesti ( {direction} )"
+            },
+            "nak": {
+                "name": "\u017dinut\u0117s nepriimamos"
+            },
+            "node_status": {
+                "name": "Mazgo b\u016bsena",
+                "state": {
+                    "alive": "Gyvas",
+                    "asleep": "U\u017emigo",
+                    "awake": "Pabud\u0119s",
+                    "dead": "Negyvas",
+                    "unknown": "Ne\u017einomas"
+                }
+            },
+            "rssi": {
+                "name": "RSSI"
+            },
+            "rtt": {
+                "name": "Kelion\u0117s \u012f abi puses laikas"
+            },
+            "successful_commands": {
+                "name": "S\u0117kmingos komandos ( {direction} )"
+            },
+            "successful_messages": {
+                "name": "S\u0117kmingi prane\u0161imai ( {direction} )"
+            },
+            "timeout_ack": {
+                "name": "Tr\u016bksta ACKs"
+            },
+            "timeout_callback": {
+                "name": "Baig\u0117si atgalini\u0173 skambu\u010di\u0173 laikas"
+            },
+            "timeout_response": {
+                "name": "Atsakym\u0173 laikas baig\u0117si"
+            }
+        }
+    },
+    "issues": {
+        "device_config_file_changed": {
+            "fix_flow": {
+                "abort": {
+                    "cannot_connect": "Nepavyksta prisijungti prie {device_name}. Bandykite dar kart\u0105 v\u0117liau, kai \u012fsitikinsite, kad j\u016bs\u0173 Z-Wave tinklas veikia ir prijungtas prie Home Assistant.",
+                    "issue_ignored": "Nepaisomas {device_name} \u012frenginio konfig\u016bracijos failo naujinys."
+                },
+                "step": {
+                    "confirm": {
+                        "description": "Pakeistas {device_name} \u012frenginio konfig\u016bracijos failas. \n\n \u201eZ-Wave JS\u201c atranda daug \u012frenginio metaduomen\u0173, apklausdamas \u012frengin\u012f. Ta\u010diau dalis informacijos turi b\u016bti \u012fkelta i\u0161 konfig\u016bracijos failo. Dalis \u0161ios informacijos \u012fvertinama tik vien\u0105 kart\u0105, pokalbio su \u012frenginiu metu. \n\n Kai \u012frenginio konfig\u016bracijos failas atnaujinamas, \u0161i informacija gali b\u016bti pasenusi ir \u012frengin\u012f reikia dar kart\u0105 apklausti, kad b\u016bt\u0173 priimti pakeitimai. \n\n Tai n\u0117ra b\u016btina operacija, o \u012frenginio funkcionalumas bus paveiktas pakartotinio pokalbio metu, ta\u010diau, kai jis bus baigtas, galite pasteb\u0117ti \u012frenginio patobulinimus. \n\n Jei norite t\u0119sti, spustel\u0117kite toliau pateikt\u0105 PATEIKTI. Pakartotinis pokalbis vyks fone.",
+                        "title": "Pakeistas \u012frenginio konfig\u016bracijos failas: {device_name}"
+                    },
+                    "init": {
+                        "description": "Pakeistas {device_name} \u012frenginio konfig\u016bracijos failas. \n\n \u201eZ-Wave JS\u201c atranda daug \u012frenginio metaduomen\u0173, apklausdamas \u012frengin\u012f. Ta\u010diau dalis informacijos turi b\u016bti \u012fkelta i\u0161 konfig\u016bracijos failo. Dalis \u0161ios informacijos \u012fvertinama tik vien\u0105 kart\u0105, pokalbio su \u012frenginiu metu. \n\n Kai \u012frenginio konfig\u016bracijos failas atnaujinamas, \u0161i informacija gali b\u016bti pasenusi ir \u012frengin\u012f reikia dar kart\u0105 apklausti, kad b\u016bt\u0173 priimti pakeitimai. \n\n Tai n\u0117ra b\u016btina operacija, o \u012frenginio funkcionalumas bus paveiktas pakartotinio pokalbio metu, ta\u010diau, kai jis bus baigtas, galite pasteb\u0117ti \u012frenginio patobulinimus. \n\n Jei nuspr\u0119site t\u0119sti pakartotin\u012f pokalb\u012f, jis vyks fone.",
+                        "menu_options": {
+                            "confirm": "Pakartotinis apklausos \u012frenginys",
+                            "ignore": "Nepaisykite \u012frenginio konfig\u016bracijos atnaujinimo"
+                        },
+                        "title": "Pakeistas \u012frenginio konfig\u016bracijos failas: {device_name}"
+                    }
+                }
+            },
+            "title": "Pakeistas \u012frenginio konfig\u016bracijos failas: {device_name}"
+        },
+        "dry_fan_presets_deprecation": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Savo objekte naudojate i\u0161 anksto nustatytus sausojo arba ventiliatoriaus re\u017eimus \"{entity_id}\".\n\nI\u0161 anksto nustatyti sauso ir ventiliatoriaus re\u017eimai nebenaudojami ir bus pa\u0161alinti. Atnaujinkite savo automatik\u0105, kad vietoj to naudotum\u0117te atitinkamus sauso ir ventiliatoriaus **\u0160VOK re\u017eimus**.\n\nSpustel\u0117kite PATEIKTI \u017eemiau, kai rankiniu b\u016bdu i\u0161spr\u0119site \u0161i\u0105 problem\u0105.",
+                        "title": "I\u0161 anksto nustatyti d\u017eiovinimo ir ventiliatoriaus re\u017eimai bus pa\u0161alinti: {entity_id}"
+                    }
+                }
+            },
+            "title": "I\u0161 anksto nustatyti d\u017eiovinimo ir ventiliatoriaus re\u017eimai bus pa\u0161alinti: {entity_id}"
+        },
+        "invalid_server_version": {
+            "description": "\u0160iuo metu naudojama \u201eZ-Wave JS Server\u201c versija yra per sena \u0161iai \u201eHome Assistant\u201c versijai. Nor\u0117dami i\u0161spr\u0119sti \u0161i\u0105 problem\u0105, atnaujinkite \u201eZ-Wave JS Server\u201c \u012f naujausi\u0105 versij\u0105.",
+            "title": "Reikalinga naujesn\u0117 Z-Wave JS Server versija"
+        }
+    },
+    "options": {
+        "abort": {
+            "addon_get_discovery_info_failed": "Nepavyko gauti Z-Wave JS priedo atradimo informacijos.",
+            "addon_info_failed": "Nepavyko gauti \u201eZ-Wave JS\u201c priedo informacijos.",
+            "addon_install_failed": "Nepavyko \u012fdiegti Z-Wave JS priedo.",
+            "addon_set_config_failed": "Nepavyko nustatyti Z-Wave JS konfig\u016bracijos.",
+            "addon_start_failed": "Nepavyko paleisti Z-Wave JS priedo.",
+            "already_configured": "\u012erenginys jau sukonfig\u016bruotas",
+            "cannot_connect": "Nepavyko prisijungti",
+            "different_device": "Prijungtas USB \u012frenginys n\u0117ra toks pat, kaip anks\u010diau sukonfig\u016bruotas \u0161iam konfig\u016bracijos \u012fra\u0161ui. Vietoj to sukurkite nauj\u0105 konfig\u016bracijos \u012fra\u0161\u0105 naujam \u012frenginiui."
+        },
+        "error": {
+            "cannot_connect": "Nepavyko prisijungti",
+            "invalid_ws_url": "Netinkamas \u017einiatinklio lizdo URL",
+            "unknown": "Netik\u0117ta klaida"
+        },
+        "progress": {
+            "install_addon": "Palaukite, kol baigsis Z-Wave JS priedo diegimas. Tai gali u\u017etrukti kelias minutes.",
+            "start_addon": "Palaukite, kol \u201eZ-Wave JS\u201c priedas bus paleistas. Tai gali u\u017etrukti kelias sekundes."
+        },
+        "step": {
+            "configure_addon": {
+                "data": {
+                    "emulate_hardware": "Emuliuoti aparatin\u0119 \u012frang\u0105",
+                    "log_level": "\u017durnalo lygis",
+                    "s0_legacy_key": "S0 raktas (pasen\u0119s)",
+                    "s2_access_control_key": "S2 prieigos valdymo raktas",
+                    "s2_authenticated_key": "S2 autentifikuotas raktas",
+                    "s2_unauthenticated_key": "S2 neautentifikuotas raktas",
+                    "usb_path": "USB \u012frenginio kelias"
+                },
+                "description": "Priedas sugeneruos saugos raktus, jei tie laukai bus tu\u0161ti.",
+                "title": "\u012eveskite Z-Wave JS priedo konfig\u016bracij\u0105"
+            },
+            "install_addon": {
+                "title": "Prad\u0117tas Z-Wave JS priedo diegimas"
+            },
+            "manual": {
+                "data": {
+                    "url": "URL"
+                }
+            },
+            "on_supervisor": {
+                "data": {
+                    "use_addon": "Naudokite \u201eZ-Wave JS Supervisor\u201c pried\u0105"
+                },
+                "description": "Ar norite naudoti \u201eZ-Wave JS Supervisor\u201c pried\u0105?",
+                "title": "Pasirinkite prisijungimo b\u016bd\u0105"
+            },
+            "start_addon": {
+                "title": "Pradedamas Z-Wave JS priedas."
+            }
+        }
+    },
+    "services": {
+        "bulk_set_partial_config_parameters": {
+            "description": "Leid\u017eia masi\u0161kai nustatyti dalinius parametrus. Naudinga, kai vienu metu reikia nustatyti kelis dalinius parametrus.",
+            "fields": {
+                "area_id": {
+                    "description": "Vietov\u0117 (-\u0117s), pagal kuri\u0105 (-os) taikoma (-os) \u0161i paslauga. Jei sritis nurodyta, visi zwave_js \u012frenginiai ir objektai \u0161ioje srityje bus taikomi \u0161iai paslaugai.",
+                    "name": "Sritys ID"
+                },
+                "device_id": {
+                    "description": "\u012erenginys (-iai), pagal kur\u012f (-iai) taikyti \u0161i\u0105 paslaug\u0105.",
+                    "name": "\u012erenginio ID (-ai)"
+                },
+                "endpoint": {
+                    "description": "Konfig\u016bracijos parametro galutinis ta\u0161kas.",
+                    "name": "Galutinis ta\u0161kas"
+                },
+                "entity_id": {
+                    "description": "Objekto ID (-iai), pagal kur\u012f (-iai) taikoma (-i) \u0161iai paslaugai.",
+                    "name": "Subjekto ID (-ai)"
+                },
+                "parameter": {
+                    "description": "Norimo konfig\u016bruoti konfig\u016bracijos parametro pavadinimas (arba ID).",
+                    "name": "Parametras"
+                },
+                "value": {
+                    "description": "Nauja (-os) \u0161io konfig\u016bracijos parametro reik\u0161m\u0117 (-\u0117s). Tai gali b\u016bti neapdorota sveikojo skai\u010diaus reik\u0161m\u0117, nurodanti masin\u012f pakeitim\u0105, arba atvaizdavimas, kai raktas yra bit\u0173 kauk\u0117 (\u0161e\u0161ioliktainio arba sveikojo skai\u010diaus forma), o vert\u0117 yra nauja vert\u0117, kuri\u0105 norite nustatyti tam daliniam parametrui.",
+                    "name": "Vert\u0117"
+                }
+            },
+            "name": "Masinis dalini\u0173 konfig\u016bracijos parametr\u0173 nustatymas (i\u0161pl\u0117stinis)."
+        },
+        "clear_lock_usercode": {
+            "description": "I\u0161valo vartotojo kod\u0105 i\u0161 u\u017erakto.",
+            "fields": {
+                "code_slot": {
+                    "description": "Kodo lizdas, i\u0161 kurio reikia i\u0161valyti kod\u0105.",
+                    "name": "Kodo lizdas"
+                }
+            },
+            "name": "I\u0161valykite u\u017erakto vartotojo kod\u0105"
+        },
+        "invoke_cc_api": {
+            "description": "I\u0161kvie\u010dia komand\u0173 klas\u0117s API mazge. Kai kuri\u0173 komand\u0173 klasi\u0173 negalima visi\u0161kai valdyti naudojant veiksm\u0105 \u201eset_value\u201c, tod\u0117l reikia tiesiogini\u0173 i\u0161kvietim\u0173 \u012f komand\u0173 klas\u0117s API.",
+            "fields": {
+                "area_id": {
+                    "description": "Vietov\u0117 (-\u0117s), pagal kuri\u0105 (-os) taikoma (-os) \u0161i paslauga. Jei sritis nurodyta, visi zwave_js \u012frenginiai ir objektai \u0161ioje srityje bus taikomi \u0161iai paslaugai.",
+                    "name": "Srities ID"
+                },
+                "command_class": {
+                    "description": "Komand\u0173 klas\u0117s, kuriai norite duoti komand\u0105, ID.",
+                    "name": "Komand\u0173 klas\u0117"
+                },
+                "device_id": {
+                    "description": "\u012erenginys (-iai), pagal kur\u012f (-iai) taikyti \u0161i\u0105 paslaug\u0105.",
+                    "name": "\u012erenginio ID (-ai)"
+                },
+                "endpoint": {
+                    "description": "Galutinis ta\u0161kas, \u012f kur\u012f reikia i\u0161kviesti API. Jei nurodytas galutinis ta\u0161kas, jis bus taikomas visiems mazgams, susietiems su tikslin\u0117mis sritimis, \u012frenginiais ir (arba) objektais. Jei galutinis ta\u0161kas nenurodytas, \u0161akninis galutinis ta\u0161kas (0) bus taikomas mazgams, susietiems su tikslin\u0117mis sritimis ir \u012frenginiais, ir bus taikomas kiekvieno objekto pirmin\u0117s vert\u0117s galutinis ta\u0161kas.",
+                    "name": "Galutinis ta\u0161kas"
+                },
+                "entity_id": {
+                    "description": "Objekto ID (-iai), pagal kur\u012f (-iai) taikoma (-i) \u0161iai paslaugai.",
+                    "name": "Subjekto ID"
+                },
+                "method_name": {
+                    "description": "API metodo, kur\u012f reikia i\u0161kviesti, pavadinimas. \u017dr. Z-Wave JS Command Class API dokumentacij\u0105 (https://zwave-js.github.io/node-zwave-js/#/api/CCs/index), kad su\u017einotum\u0117te apie galimus metodus.",
+                    "name": "Metodo pavadinimas"
+                },
+                "parameters": {
+                    "description": "Parametr\u0173, kuriuos reikia perduoti API metodui, s\u0105ra\u0161as. Parametrus rasite Z-Wave JS Command Class API dokumentacijoje (https://zwave-js.github.io/node-zwave-js/#/api/CCs/index).",
+                    "name": "Parametrai"
+                }
+            },
+            "name": "I\u0161kviesti komand\u0173 klas\u0117s API mazge (i\u0161pl\u0117stin\u0117)"
+        },
+        "multicast_set_value": {
+            "description": "Pakei\u010dia bet koki\u0105 reik\u0161m\u0119, kuri\u0105 Z-Wave JS atpa\u017e\u012fsta keliuose Z-Wave \u012frenginiuose, naudojant daugialyp\u0117s terp\u0117s siuntim\u0105, kad visi \u012frenginiai gaut\u0173 prane\u0161im\u0105 vienu metu. \u0160is veiksmas turi minimal\u0173 patvirtinim\u0105, tod\u0117l naudokite \u0161\u012f veiksm\u0105 tik tada, kai \u017einote, k\u0105 darote.",
+            "fields": {
+                "area_id": {
+                    "description": "Vietov\u0117 (-\u0117s), pagal kuri\u0105 (-os) taikoma (-os) \u0161i paslauga. Jei sritis nurodyta, visi zwave_js \u012frenginiai ir objektai \u0161ioje srityje bus taikomi \u0161iai paslaugai.",
+                    "name": "Sritys ID"
+                },
+                "broadcast": {
+                    "description": "Ar komanda turi b\u016bti transliuojama \u012f visus tinklo \u012frenginius.",
+                    "name": "Transliuoti?"
+                },
+                "command_class": {
+                    "description": "Vert\u0117s komand\u0173 klas\u0117s ID.",
+                    "name": "Komand\u0173 klas\u0117"
+                },
+                "device_id": {
+                    "description": "\u012erenginys (-iai), pagal kur\u012f (-iai) taikyti \u0161i\u0105 paslaug\u0105.",
+                    "name": "\u012erenginio ID (-ai)"
+                },
+                "endpoint": {
+                    "description": "Vert\u0117s galutinis ta\u0161kas.",
+                    "name": "Galutinis ta\u0161kas"
+                },
+                "entity_id": {
+                    "description": "Objekto ID (-iai), pagal kur\u012f (-iai) taikoma (-i) \u0161iai paslaugai.",
+                    "name": "Subjekto ID (-ai)"
+                },
+                "options": {
+                    "description": "Nustatyti vert\u0117s parink\u010di\u0173 \u017eem\u0117lap\u012f. Daugiau informacijos apie tai, kokias parinktis galima nustatyti, rasite Z-Wave JS dokumentacijoje.",
+                    "name": "Parinktys"
+                },
+                "property": {
+                    "description": "Vert\u0117s nuosavyb\u0117s ID.",
+                    "name": "Nuosavyb\u0117"
+                },
+                "property_key": {
+                    "description": "Vert\u0117s nuosavyb\u0117s rakto ID.",
+                    "name": "Nuosavyb\u0117s raktas"
+                },
+                "value": {
+                    "description": "Nauja nustatytina vert\u0117.",
+                    "name": "Vert\u0117"
+                }
+            },
+            "name": "Vert\u0117s nustatymas keliuose \u012frenginiuose naudojant daugialyp\u0117s terp\u0117s siuntim\u0105 (i\u0161pl\u0117stinis)"
+        },
+        "ping": {
+            "description": "Priver\u010dia Z-Wave JS bandyti pasiekti mazg\u0105. Tai gali b\u016bti naudojama norint atnaujinti Z-Wave JS mazgo b\u016bsen\u0105, kai manote, kad ji tiksliai neatspindi tikrov\u0117s, pvz., atgaivinti nepavykus\u012f / mirus\u012f mazg\u0105 arba pa\u017eym\u0117ti mazg\u0105 kaip miegant\u012f.",
+            "fields": {
+                "area_id": {
+                    "description": "Vietov\u0117 (-\u0117s), pagal kuri\u0105 (-os) taikoma (-os) \u0161i paslauga. Jei sritis nurodyta, visi zwave_js \u012frenginiai ir objektai \u0161ioje srityje bus taikomi \u0161iai paslaugai.",
+                    "name": "Sritys ID"
+                },
+                "device_id": {
+                    "description": "\u012erenginys (-iai), pagal kur\u012f (-iai) taikyti \u0161i\u0105 paslaug\u0105.",
+                    "name": "\u012erenginio ID (-ai)"
+                },
+                "entity_id": {
+                    "description": "Objekto ID (-iai), pagal kur\u012f (-iai) taikoma (-i) \u0161iai paslaugai.",
+                    "name": "Subjekto ID (-ai)"
+                }
+            },
+            "name": "Ping mazgas"
+        },
+        "refresh_notifications": {
+            "description": "Atnaujina prane\u0161imus mazge pagal prane\u0161imo tip\u0105 ir pasirinktinai prane\u0161imo \u012fvyk\u012f.",
+            "fields": {
+                "area_id": {
+                    "description": "Vietov\u0117 (-\u0117s), pagal kuri\u0105 (-os) taikoma (-os) \u0161i paslauga. Jei sritis nurodyta, visi zwave_js \u012frenginiai ir objektai \u0161ioje srityje bus taikomi \u0161iai paslaugai.",
+                    "name": "Sritys ID"
+                },
+                "device_id": {
+                    "description": "\u012erenginys (-iai), pagal kur\u012f (-iai) taikyti \u0161i\u0105 paslaug\u0105.",
+                    "name": "\u012erenginio ID (-ai)"
+                },
+                "entity_id": {
+                    "description": "Objekto ID (-iai), pagal kur\u012f (-iai) taikoma (-i) \u0161iai paslaugai.",
+                    "name": "Subjekto ID (-ai)"
+                },
+                "notification_event": {
+                    "description": "Prane\u0161imo \u012fvykio numeris, kaip apibr\u0117\u017eta \u201eZ-Wave\u201c specifikacijose.",
+                    "name": "Prane\u0161imo \u012fvykis"
+                },
+                "notification_type": {
+                    "description": "Prane\u0161imo tipo numeris, kaip apibr\u0117\u017eta \u201eZ-Wave\u201c specifikacijose.",
+                    "name": "Prane\u0161imo tipas"
+                }
+            },
+            "name": "Atnaujinti prane\u0161imus mazge (i\u0161pl\u0117stin\u0117)"
+        },
+        "refresh_value": {
+            "description": "Force atnaujina Z-Wave objekto reik\u0161mes.",
+            "fields": {
+                "entity_id": {
+                    "description": "Subjektai, kuriuos reikia atnaujinti.",
+                    "name": "Subjektai"
+                },
+                "refresh_all_values": {
+                    "description": "Ar atnaujinti visas reik\u0161mes (true), ar tik pagrindin\u0119 reik\u0161m\u0119 (false).",
+                    "name": "Atnaujinti visas vertes?"
+                }
+            },
+            "name": "Atnaujinti vertes"
+        },
+        "reset_meter": {
+            "description": "I\u0161 naujo nustato skaitiklius mazge.",
+            "fields": {
+                "area_id": {
+                    "description": "Vietov\u0117 (-\u0117s), pagal kuri\u0105 (-os) taikoma (-os) \u0161i paslauga. Jei sritis nurodyta, visi zwave_js \u012frenginiai ir objektai \u0161ioje srityje bus taikomi \u0161iai paslaugai.",
+                    "name": "Sritys ID"
+                },
+                "device_id": {
+                    "description": "\u012erenginys (-iai), pagal kur\u012f (-iai) taikyti \u0161i\u0105 paslaug\u0105.",
+                    "name": "\u012erenginio ID (-ai)"
+                },
+                "entity_id": {
+                    "description": "Objekto ID (-iai), pagal kur\u012f (-iai) taikoma (-i) \u0161iai paslaugai.",
+                    "name": "Subjekto ID (-ai)"
+                },
+                "meter_type": {
+                    "description": "Skaitiklio tipas, kur\u012f reikia nustatyti i\u0161 naujo. Ne visi skaitikliai palaiko galimyb\u0119 i\u0161 naujo nustatyti skaitiklio tip\u0105.",
+                    "name": "Skaitiklio tipas"
+                },
+                "value": {
+                    "description": "Vert\u0117, kuri\u0105 skaitikliai tur\u0117t\u0173 b\u016bti nustatyti i\u0161 naujo. Ne visi skaitikliai palaiko galimyb\u0119 i\u0161 naujo nustatyti tam tikr\u0105 vert\u0119.",
+                    "name": "Tikslin\u0117 vert\u0117"
+                }
+            },
+            "name": "I\u0161 naujo nustatyti skaitiklius mazge"
+        },
+        "set_config_parameter": {
+            "description": "Pakei\u010dia j\u016bs\u0173 Z-Wave \u012frengini\u0173 konfig\u016bracijos parametrus.",
+            "fields": {
+                "area_id": {
+                    "description": "Vietov\u0117 (-\u0117s), pagal kuri\u0105 (-os) taikoma (-os) \u0161i paslauga. Jei sritis nurodyta, visi zwave_js \u012frenginiai ir objektai \u0161ioje srityje bus taikomi \u0161iai paslaugai.",
+                    "name": "Sritys ID"
+                },
+                "bitmask": {
+                    "description": "Nukreipkite \u012f konkre\u010di\u0105 bit\u0173 kauk\u0119 (daugiau informacijos rasite dokumentacijoje). Negalima derinti su vert\u0117s_dyd\u017eiu arba vert\u0117s_formatu.",
+                    "name": "Bitmask"
+                },
+                "device_id": {
+                    "description": "\u012erenginys (-iai), pagal kur\u012f (-iai) taikyti \u0161i\u0105 paslaug\u0105.",
+                    "name": "\u012erenginio ID (-ai)"
+                },
+                "endpoint": {
+                    "description": "Konfig\u016bracijos parametro galutinis ta\u0161kas.",
+                    "name": "Galutinis ta\u0161kas"
+                },
+                "entity_id": {
+                    "description": "Objekto ID (-iai), pagal kur\u012f (-iai) taikoma (-i) \u0161iai paslaugai.",
+                    "name": "Subjekto ID (-ai)"
+                },
+                "parameter": {
+                    "description": "Norimo konfig\u016bruoti konfig\u016bracijos parametro pavadinimas (arba ID).",
+                    "name": "Parametras"
+                },
+                "value": {
+                    "description": "Nauja \u0161io konfig\u016bracijos parametro vert\u0117.",
+                    "name": "Vert\u0117"
+                },
+                "value_format": {
+                    "description": "Vert\u0117s formatas, 0 \u2013 sveikasis skai\u010dius su \u017eenklu, 1 \u2013 nepa\u017eym\u0117tas sveikasis skai\u010dius, 2 \u2013 suskai\u010diuotas, 3 \u2013 bit\u0173 laukas. Naudojamas kartu su value_size, kai konfig\u016bracijos parametras neapibr\u0117\u017etas j\u016bs\u0173 \u012frenginio konfig\u016bracijos faile. Negalima derinti su bitmask.",
+                    "name": "Vert\u0117s formatas"
+                },
+                "value_size": {
+                    "description": "Vert\u0117s dydis \u2013 1, 2 arba 4. Naudojamas kartu su value_format, kai konfig\u016bracijos parametras neapibr\u0117\u017etas j\u016bs\u0173 \u012frenginio konfig\u016bracijos faile. Negalima derinti su bitmask.",
+                    "name": "Vert\u0117s dydis"
+                }
+            },
+            "name": "Nustatykite \u012frenginio konfig\u016bracijos parametr\u0105"
+        },
+        "set_lock_configuration": {
+            "description": "Nustato u\u017erakto konfig\u016bracij\u0105.",
+            "fields": {
+                "auto_relock_time": {
+                    "description": "Trukm\u0117 sekund\u0117mis, kol u\u017eraktas gr\u012f\u0161 \u012f saugi\u0105 b\u016bsen\u0105. Vykdoma tik tada, kai operacijos tipas yra \u201epastovus\u201c.",
+                    "name": "Automatinio u\u017erakinimo laikas"
+                },
+                "block_to_block": {
+                    "description": "\u012egalinti bloko \u012f blok\u0105 funkcij\u0105.",
+                    "name": "Blokas prie bloko"
+                },
+                "hold_and_release_time": {
+                    "description": "Trukm\u0117 sekund\u0117mis, kai u\u017eraktas lieka \u012ftrauktas.",
+                    "name": "Laikykite ir atleiskite laik\u0105"
+                },
+                "inside_handles_can_open_door_configuration": {
+                    "description": "Keturi\u0173 logini\u0173 ver\u010di\u0173 s\u0105ra\u0161as, nurodantis, kurios vidin\u0117s rankenos gali atidaryti duris.",
+                    "name": "Vidin\u0117s rankenos gali atidaryti dur\u0173 konfig\u016bracij\u0105"
+                },
+                "lock_timeout": {
+                    "description": "Sekund\u0117s, kol pasibaigs u\u017erakinimo re\u017eimo laikas. Tur\u0117t\u0173 b\u016bti naudojamas tik tuo atveju, jei operacijos tipas yra \u201elaikas\u201c.",
+                    "name": "U\u017erakinimo skirtasis laikas"
+                },
+                "operation_type": {
+                    "description": "Spynos veikimo tipas.",
+                    "name": "Operacijos tipas"
+                },
+                "outside_handles_can_open_door_configuration": {
+                    "description": "Keturi\u0173 logini\u0173 ver\u010di\u0173 s\u0105ra\u0161as, nurodantis, kurios i\u0161orin\u0117s rankenos gali atidaryti duris.",
+                    "name": "I\u0161orin\u0117s rankenos gali atidaryti dur\u0173 konfig\u016bracij\u0105"
+                },
+                "twist_assist": {
+                    "description": "\u012egalinti Twist Assist.",
+                    "name": "Twist assist"
+                }
+            },
+            "name": "Nustatykite u\u017erakto konfig\u016bracij\u0105"
+        },
+        "set_lock_usercode": {
+            "description": "Nustato vartotojo kod\u0105 ant u\u017erakto.",
+            "fields": {
+                "code_slot": {
+                    "description": "Kodo lizdas kodui nustatyti.",
+                    "name": "Kodo lizdas"
+                },
+                "usercode": {
+                    "description": "Nustatomas u\u017erakto kodas.",
+                    "name": "Kodas"
+                }
+            },
+            "name": "Nustatykite u\u017erakto vartotojo kod\u0105"
+        },
+        "set_value": {
+            "description": "Pakei\u010dia bet koki\u0105 reik\u0161m\u0119, kuri\u0105 Z-Wave JS atpa\u017e\u012fsta Z-Wave \u012frenginyje. \u0160is veiksmas turi minimal\u0173 patvirtinim\u0105, tod\u0117l naudokite \u0161\u012f veiksm\u0105 tik tada, kai \u017einote, k\u0105 darote.",
+            "fields": {
+                "area_id": {
+                    "description": "Vietov\u0117 (-\u0117s), pagal kuri\u0105 (-os) taikoma (-os) \u0161i paslauga. Jei sritis nurodyta, visi zwave_js \u012frenginiai ir objektai \u0161ioje srityje bus taikomi \u0161iai paslaugai.",
+                    "name": "Sritys ID"
+                },
+                "command_class": {
+                    "description": "Vert\u0117s komand\u0173 klas\u0117s ID.",
+                    "name": "Komand\u0173 klas\u0117"
+                },
+                "device_id": {
+                    "description": "\u012erenginys (-iai), pagal kur\u012f (-iai) taikyti \u0161i\u0105 paslaug\u0105.",
+                    "name": "\u012erenginio ID (-ai)"
+                },
+                "endpoint": {
+                    "description": "Vert\u0117s galutinis ta\u0161kas.",
+                    "name": "Galutinis ta\u0161kas"
+                },
+                "entity_id": {
+                    "description": "Objekto ID (-iai), pagal kur\u012f (-iai) taikoma (-i) \u0161iai paslaugai.",
+                    "name": "Subjekto ID (-ai)"
+                },
+                "options": {
+                    "description": "Nustatyti vert\u0117s parink\u010di\u0173 \u017eem\u0117lap\u012f. Daugiau informacijos apie tai, kokias parinktis galima nustatyti, rasite Z-Wave JS dokumentacijoje.",
+                    "name": "Parinktys"
+                },
+                "property": {
+                    "description": "Vert\u0117s nuosavyb\u0117s ID.",
+                    "name": "Nuosavyb\u0117"
+                },
+                "property_key": {
+                    "description": "Vert\u0117s nuosavyb\u0117s rakto ID.",
+                    "name": "Nuosavyb\u0117s raktas"
+                },
+                "value": {
+                    "description": "Nauja nustatytina vert\u0117.",
+                    "name": "Vert\u0117"
+                },
+                "wait_for_result": {
+                    "description": "Ar laukti atsakymo i\u0161 mazgo, ar ne. Jei jis ne\u012ftrauktas \u012f nauding\u0105 apkrov\u0105, integracija nuspr\u0119s, ar laukti, ar ne. Jei nustatyta \u012f \u201etrue\u201c, atminkite, kad veiksmas gali \u0161iek tiek u\u017etrukti, jei nustatote reik\u0161m\u0119 miegan\u010dio akumuliatoriaus \u012frenginyje.",
+                    "name": "Laukti rezultato?"
+                }
+            },
+            "name": "Nustatyti vert\u0119 (i\u0161pl\u0117stin\u0117)"
+        }
+    }
+}

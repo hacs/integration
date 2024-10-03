@@ -1,0 +1,76 @@
+{
+    "config": {
+        "step": {
+            "user": {
+                "data": {
+                    "always_available": "Sensorn \u00e4r alltid tillg\u00e4nglig",
+                    "cycle": "\u00c5terst\u00e4ll m\u00e4tarcykel",
+                    "delta_values": "Delta-v\u00e4rden",
+                    "name": "Namn",
+                    "net_consumption": "Nettof\u00f6rbrukning",
+                    "offset": "\u00c5terst\u00e4ll m\u00e4taroffset",
+                    "periodically_resetting": "Periodisk \u00e5terst\u00e4llning",
+                    "source": "Sensorsk\u00e4lla",
+                    "tariffs": "Tariffer som st\u00f6ds"
+                },
+                "data_description": {
+                    "always_available": "Om den \u00e4r aktiverad kommer sensorn alltid att visa det senast k\u00e4nda v\u00e4rdet, \u00e4ven om k\u00e4llanheten inte \u00e4r tillg\u00e4nglig eller ok\u00e4nd.",
+                    "delta_values": "Aktivera om k\u00e4llv\u00e4rdena \u00e4r deltav\u00e4rden sedan den senaste avl\u00e4sningen ist\u00e4llet f\u00f6r absoluta v\u00e4rden.",
+                    "net_consumption": "Aktivera om k\u00e4llan \u00e4r en nettom\u00e4tare, vilket betyder att den b\u00e5de kan \u00f6ka och minska.",
+                    "offset": "F\u00f6rskjut dagen f\u00f6r en m\u00e5natlig m\u00e4tar\u00e5terst\u00e4llning.",
+                    "periodically_resetting": "Aktivera om k\u00e4llan periodvis kan \u00e5terst\u00e4llas till 0, till exempel vid uppstart av m\u00e4tenheten. Om den \u00e4r inaktiverad, registreras nya avl\u00e4sningar direkt efter att data inte \u00e4r tillg\u00e4nglig.",
+                    "tariffs": "En lista \u00f6ver st\u00f6dda tariffer, l\u00e4mna tom om bara en enda tariff beh\u00f6vs."
+                },
+                "description": "Skapa en sensor som \u00f6vervakar f\u00f6rbrukningen av t.ex. energi, gas, vatten, v\u00e4rme, \u00f6ver en konfigurerad tidsperiod, vanligtvis m\u00e5nadsvis. M\u00e4tarsensorn st\u00f6djer valfritt att dela upp f\u00f6rbrukningen efter tariffer, i s\u00e5 fall skapas en sensor f\u00f6r varje tariff samt en val entitet f\u00f6r att v\u00e4lja den aktuella tariffen.",
+                "title": "L\u00e4gg till m\u00e4tare"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "always_available": "Sensorn \u00e4r alltid tillg\u00e4nglig",
+                    "periodically_resetting": "Periodisk \u00e5terst\u00e4llning",
+                    "source": "Sensorsk\u00e4lla"
+                },
+                "data_description": {
+                    "always_available": "Om den \u00e4r aktiverad kommer sensorn alltid att visa det senast k\u00e4nda v\u00e4rdet, \u00e4ven om k\u00e4llanheten inte \u00e4r tillg\u00e4nglig eller ok\u00e4nd.",
+                    "periodically_resetting": "Aktivera om k\u00e4llan periodvis kan \u00e5terst\u00e4llas till 0, till exempel vid uppstart av m\u00e4tenheten. Om den \u00e4r inaktiverad, registreras nya avl\u00e4sningar direkt efter att data inte \u00e4r tillg\u00e4nglig."
+                }
+            }
+        }
+    },
+    "selector": {
+        "cycle": {
+            "options": {
+                "bimonthly": "Varannan m\u00e5nad",
+                "daily": "Dagligen",
+                "hourly": "Timvis",
+                "monthly": "M\u00e5natlig",
+                "none": "Ingen cykel",
+                "quarter-hourly": "Var 15:e minut",
+                "quarterly": "Kvartals",
+                "weekly": "Varje vecka",
+                "yearly": "\u00c5rlig"
+            }
+        }
+    },
+    "services": {
+        "calibrate": {
+            "description": "Kalibrerar en m\u00e4tares sensor.",
+            "fields": {
+                "value": {
+                    "description": "V\u00e4rde som elm\u00e4taren \u00e4r inst\u00e4lld p\u00e5.",
+                    "name": "V\u00e4rde"
+                }
+            },
+            "name": "Kalibrera"
+        },
+        "reset": {
+            "description": "\u00c5terst\u00e4ller alla r\u00e4knare f\u00f6r en elm\u00e4tare.",
+            "name": "Nollst\u00e4ll"
+        }
+    },
+    "title": "M\u00e4tare"
+}

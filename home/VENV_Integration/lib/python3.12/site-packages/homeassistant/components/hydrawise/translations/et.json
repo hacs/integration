@@ -1,0 +1,94 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Teenus on juba seadistatud",
+            "reauth_successful": "Taastuvastamine \u00f5nnestus"
+        },
+        "error": {
+            "cannot_connect": "\u00dchendamine nurjus",
+            "timeout_connect": "\u00dchenduse loomise ajal\u00f5pp",
+            "unknown": "Ootamatu t\u00f5rge"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "api_key": "API v\u00f5ti",
+                    "password": "Salas\u00f5na",
+                    "username": "Kasutajanimi"
+                },
+                "description": "Sisesta oma Hydrawise pilvekonto kasutajanimi ja salas\u00f5na:",
+                "title": "H\u00fcdralise sisselogimine"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "rain_sensor": {
+                "name": "Vihmaandur"
+            },
+            "watering": {
+                "name": "Kastmine"
+            }
+        },
+        "sensor": {
+            "daily_active_water_time": {
+                "name": "Igap\u00e4evane aktiivne kastmisaeg"
+            },
+            "daily_active_water_use": {
+                "name": "Igap\u00e4evane aktiivne veekasutus"
+            },
+            "daily_inactive_water_use": {
+                "name": "Igap\u00e4evane mitteaktiivne veekasutus"
+            },
+            "daily_total_water_use": {
+                "name": "Igap\u00e4evane veekasutus kokku"
+            },
+            "next_cycle": {
+                "name": "J\u00e4rgmine ts\u00fckkel"
+            },
+            "watering_time": {
+                "name": "J\u00e4relej\u00e4\u00e4nud kastmisaeg"
+            }
+        },
+        "switch": {
+            "auto_watering": {
+                "name": "Automaatne kastmine"
+            },
+            "manual_watering": {
+                "name": "K\u00e4sitsi kastmine"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_yaml_import_issue": {
+            "description": "Hydrawise'i konfigureerimine YAML-i abil eemaldatakse, kuid YAML-i konfiguratsiooni importimisel ilmnes viga {error_type}.\n\nVeenduge, et \u00fchendus Hydrawise'iga t\u00f6\u00f6tab ja taask\u00e4ivitage Home Assistant, et proovida uuesti v\u00f5i eemaldada Hydrawise YAML-i konfiguratsioon failist configuration.yaml ja j\u00e4tkata [integratsiooni seadistamist]({url}) k\u00e4sitsi.",
+            "title": "Hydrawise YAML-i konfiguratsiooni importimine nurjus"
+        }
+    },
+    "services": {
+        "resume": {
+            "description": "Taastab kastmisv\u00f6\u00f6ndi automaatse kastmisgraafiku.",
+            "name": "J\u00e4tka automaatset kastmist"
+        },
+        "start_watering": {
+            "description": "K\u00e4ivitab kastmists\u00fckli valitud kastmistsoonis.",
+            "fields": {
+                "duration": {
+                    "description": "Kastmists\u00fckli kestus. Kui see pole m\u00e4\u00e4ratud (v\u00f5i null), kasutatakse Hydrawise mobiili- v\u00f5i veebirakenduses niisutustsooni jaoks m\u00e4\u00e4ratud kastmise vaikekestust.",
+                    "name": "Kestus"
+                }
+            },
+            "name": "Alusta kastmist"
+        },
+        "suspend": {
+            "description": "Peatab kastmisv\u00f6\u00f6ndi automaatse kastmisgraafiku kuni antud kuup\u00e4eva ja kellaajani.",
+            "fields": {
+                "until": {
+                    "description": "Kuup\u00e4ev ja kellaaeg automaatse kastmisgraafiku j\u00e4tkamiseks.",
+                    "name": "Kuni"
+                }
+            },
+            "name": "Peata automaatne kastmine"
+        }
+    }
+}

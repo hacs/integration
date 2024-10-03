@@ -1,0 +1,345 @@
+{
+    "device_automation": {
+        "condition_type": {
+            "is_buffering": "{entity_name} puffert",
+            "is_idle": "{entity_name} ist inaktiv",
+            "is_off": "{entity_name} ist ausgeschaltet",
+            "is_on": "{entity_name} ist eingeschaltet",
+            "is_paused": "{entity_name} ist pausiert",
+            "is_playing": "{entity_name} spielt"
+        },
+        "extra_fields": {
+            "for": "Dauer"
+        },
+        "trigger_type": {
+            "buffering": "{entity_name} beginnt mit dem Puffern",
+            "changed_states": "{entity_name} ein- oder ausgeschaltet",
+            "idle": "{entity_name} wird inaktiv",
+            "paused": "{entity_name} ist angehalten",
+            "playing": "{entity_name} beginnt zu spielen",
+            "turned_off": "{entity_name} ausgeschaltet",
+            "turned_on": "{entity_name} eingeschaltet"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "name": "Mediaplayer",
+            "state": {
+                "buffering": "Puffern",
+                "idle": "Unt\u00e4tig",
+                "off": "Aus",
+                "on": "An",
+                "paused": "Pausiert",
+                "playing": "Spielt ab",
+                "standby": "Standby"
+            },
+            "state_attributes": {
+                "app_id": {
+                    "name": "App-ID"
+                },
+                "app_name": {
+                    "name": "App"
+                },
+                "entity_picture_local": {
+                    "name": "Lokal zug\u00e4ngliches Entit\u00e4tsbild"
+                },
+                "groups_members": {
+                    "name": "Gruppenmitglieder"
+                },
+                "is_volume_muted": {
+                    "name": "Stumm geschaltet",
+                    "state": {
+                        "false": "Nein",
+                        "true": "Ja"
+                    }
+                },
+                "media_album_artist": {
+                    "name": "Album K\u00fcnstler"
+                },
+                "media_album_name": {
+                    "name": "Album"
+                },
+                "media_artist": {
+                    "name": "K\u00fcnstler"
+                },
+                "media_channel": {
+                    "name": "Kanal"
+                },
+                "media_content_id": {
+                    "name": "Inhalts-ID"
+                },
+                "media_content_type": {
+                    "name": "Inhaltstyp",
+                    "state": {
+                        "album": "Album",
+                        "app": "App",
+                        "artist": "K\u00fcnstler",
+                        "channel": "Kanal",
+                        "channels": "Kan\u00e4le",
+                        "composer": "Komponist",
+                        "contributing_artist": "Mitwirkender K\u00fcnstler",
+                        "episode": "Episode",
+                        "game": "Spiel",
+                        "genre": "Genre",
+                        "image": "Bild",
+                        "movie": "Film",
+                        "music": "Musik",
+                        "playlist": "Wiedergabeliste",
+                        "podcast": "Podcast",
+                        "season": "Staffel",
+                        "track": "Titelnummer",
+                        "tvshow": "TV-Sendung",
+                        "url": "URL",
+                        "video": "Video"
+                    }
+                },
+                "media_duration": {
+                    "name": "Dauer"
+                },
+                "media_episode": {
+                    "name": "Episode"
+                },
+                "media_playlist": {
+                    "name": "Wiedergabeliste"
+                },
+                "media_position": {
+                    "name": "Position"
+                },
+                "media_position_updated_at": {
+                    "name": "Position aktualisiert"
+                },
+                "media_season": {
+                    "name": "Staffel"
+                },
+                "media_series_title": {
+                    "name": "Serie"
+                },
+                "media_title": {
+                    "name": "Titel"
+                },
+                "media_track": {
+                    "name": "Titelnummer"
+                },
+                "repeat": {
+                    "name": "Wiederholen",
+                    "state": {
+                        "all": "Alle",
+                        "off": "Aus",
+                        "one": "Einer"
+                    }
+                },
+                "shuffle": {
+                    "name": "Zuf\u00e4llige Wiedergabe",
+                    "state": {
+                        "false": "Aus",
+                        "true": "An"
+                    }
+                },
+                "sound_mode": {
+                    "name": "Soundmodus"
+                },
+                "sound_mode_list": {
+                    "name": "Verf\u00fcgbare Soundmodi"
+                },
+                "source": {
+                    "name": "Quelle"
+                },
+                "source_list": {
+                    "name": "Verf\u00fcgbare Quellen"
+                },
+                "volume_level": {
+                    "name": "Lautst\u00e4rke"
+                }
+            }
+        },
+        "receiver": {
+            "name": "Empf\u00e4nger"
+        },
+        "speaker": {
+            "name": "Lautsprecher"
+        },
+        "tv": {
+            "name": "TV"
+        }
+    },
+    "issues": {
+        "platform_integration_no_support": {
+            "description": "Die {platform}-Plattform f\u00fcr die {domain}-Integration unterst\u00fctzt die Plattform-Einrichtung nicht. \n\nBitte entferne es aus deiner Konfiguration und starte Home Assistant neu, um dieses Problem zu beheben.",
+            "title": "Plattform-Unterst\u00fctzung nicht unterst\u00fctzt"
+        }
+    },
+    "selector": {
+        "enqueue": {
+            "options": {
+                "add": "Zur Warteschlange hinzuf\u00fcgen",
+                "next": "Als n\u00e4chstes abspielen",
+                "play": "Abspielen",
+                "replace": "Jetzt spielen und die Warteschlange leeren"
+            }
+        },
+        "repeat": {
+            "options": {
+                "all": "Wiederhole alle",
+                "off": "Aus",
+                "one": "Wiederhole eins"
+            }
+        }
+    },
+    "services": {
+        "clear_playlist": {
+            "description": "L\u00f6scht die Wiedergabeliste.",
+            "name": "Wiedergabeliste l\u00f6schen"
+        },
+        "join": {
+            "description": "Gruppiert Medienplayer f\u00fcr die synchrone Wiedergabe. Funktioniert nur auf unterst\u00fctzten Multiroom-Audiosystemen.",
+            "fields": {
+                "group_members": {
+                    "description": "Die Player, die mit der in `Ziel` angegebenen Wiedergabe synchronisiert werden.",
+                    "name": "Gruppenmitglieder"
+                }
+            },
+            "name": "Verbinden"
+        },
+        "media_next_track": {
+            "description": "W\u00e4hlt den n\u00e4chsten Titel aus.",
+            "name": "Weiter"
+        },
+        "media_pause": {
+            "description": "Pausiert.",
+            "name": "Pause"
+        },
+        "media_play": {
+            "description": "Beginnt zu spielen.",
+            "name": "Abspielen"
+        },
+        "media_play_pause": {
+            "description": "Schaltet Wiedergabe/Pause um.",
+            "name": "Wiedergabe/Pause"
+        },
+        "media_previous_track": {
+            "description": "W\u00e4hlt den vorherigen Titel aus.",
+            "name": "Zur\u00fcck"
+        },
+        "media_seek": {
+            "description": "Erm\u00f6glicht dir zu einem anderen Teil des gerade abgespielten Mediums zu wechseln.",
+            "fields": {
+                "seek_position": {
+                    "description": "Zielposition im aktuell wiedergegebenen Medium. Das Format ist plattformabh\u00e4ngig.",
+                    "name": "Position"
+                }
+            },
+            "name": "Suchen"
+        },
+        "media_stop": {
+            "description": "Stoppt die Wiedergabe.",
+            "name": "Stopp"
+        },
+        "play_media": {
+            "description": "Beginnt mit der Wiedergabe der angegebenen Medien.",
+            "fields": {
+                "announce": {
+                    "description": "Wenn das Medium als Ansage abgespielt werden soll.",
+                    "name": "Ansage"
+                },
+                "enqueue": {
+                    "description": "Ob der Inhalt jetzt abgespielt oder zur Warteschlange hinzugef\u00fcgt werden soll.",
+                    "name": "Einreihen"
+                },
+                "media_content_id": {
+                    "description": "Die ID des abzuspielenden Inhalts. Plattformabh\u00e4ngig.",
+                    "name": "Inhalts-ID"
+                },
+                "media_content_type": {
+                    "description": "Der Typ des abzuspielenden Inhalts. Zum Beispiel Bild, Musik, Fernsehsendung, Video, Episode, Kanal oder Playlist.",
+                    "name": "Inhaltstyp"
+                }
+            },
+            "name": "Medien abspielen"
+        },
+        "repeat_set": {
+            "description": "Wiedergabemodus, der die Medien in einer Schleife abspielt.",
+            "fields": {
+                "repeat": {
+                    "description": "Wiederholungsmodus einstellen.",
+                    "name": "Wiederholungsmodus"
+                }
+            },
+            "name": "Wiederholen"
+        },
+        "select_sound_mode": {
+            "description": "W\u00e4hlt einen bestimmten Soundmodus aus.",
+            "fields": {
+                "sound_mode": {
+                    "description": "Name des Soundmodus, zu dem gewechselt werden soll.",
+                    "name": "Soundmodus"
+                }
+            },
+            "name": "Soundmodus ausw\u00e4hlen"
+        },
+        "select_source": {
+            "description": "Sendet dem Media Player den Befehl, die Eingabequelle zu \u00e4ndern.",
+            "fields": {
+                "source": {
+                    "description": "Name der Quelle, zu der gewechselt werden soll. Plattformabh\u00e4ngig.",
+                    "name": "Quelle"
+                }
+            },
+            "name": "Quelle ausw\u00e4hlen"
+        },
+        "shuffle_set": {
+            "description": "Wiedergabemodus, der die Medien in zuf\u00e4lliger Reihenfolge ausw\u00e4hlt.",
+            "fields": {
+                "shuffle": {
+                    "description": "Ob der Zufallsmodus aktiviert ist oder nicht.",
+                    "name": "Zuf\u00e4llige Wiedergabe"
+                }
+            },
+            "name": "Zuf\u00e4llige Wiedergabe"
+        },
+        "toggle": {
+            "description": "Schaltet einen Mediaplayer ein/aus.",
+            "name": "Umschalten"
+        },
+        "turn_off": {
+            "description": "Schaltet den Media Player aus.",
+            "name": "Ausschalten"
+        },
+        "turn_on": {
+            "description": "Schaltet den Mediaplayer ein.",
+            "name": "Einschalten"
+        },
+        "unjoin": {
+            "description": "Entfernt den Player aus einer Gruppe. Funktioniert nur auf Plattformen, die Playergruppen unterst\u00fctzen.",
+            "name": "Trennen"
+        },
+        "volume_down": {
+            "description": "Verringert die Lautst\u00e4rke.",
+            "name": "Lautst\u00e4rke verringern"
+        },
+        "volume_mute": {
+            "description": "Schaltet den Mediaplayer stumm oder hebt die Stummschaltung auf.",
+            "fields": {
+                "is_volume_muted": {
+                    "description": "Definiert, ob es stummgeschaltet ist oder nicht.",
+                    "name": "Stummgeschaltet"
+                }
+            },
+            "name": "Lautst\u00e4rke stummschalten/Stummschaltung aufheben"
+        },
+        "volume_set": {
+            "description": "Stellt den Lautst\u00e4rkepegel ein.",
+            "fields": {
+                "volume_level": {
+                    "description": "Die Lautst\u00e4rke. 0 ist unh\u00f6rbar, 1 ist die maximale Lautst\u00e4rke.",
+                    "name": "Level"
+                }
+            },
+            "name": "Lautst\u00e4rke einstellen"
+        },
+        "volume_up": {
+            "description": "Erh\u00f6ht die Lautst\u00e4rke.",
+            "name": "Lautst\u00e4rke erh\u00f6hen"
+        }
+    },
+    "title": "Mediaplayer"
+}

@@ -1,0 +1,87 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Zariadenie u\u017e je nakonfigurovan\u00e9",
+            "success": "Zmeny boli ulo\u017een\u00e9"
+        },
+        "flow_title": "Bl\u00edzkos\u0165",
+        "step": {
+            "user": {
+                "data": {
+                    "ignored_zones": "Z\u00f3ny, ktor\u00e9 treba ignorova\u0165",
+                    "tolerance": "Toleran\u010dn\u00e1 vzdialenos\u0165",
+                    "tracked_entities": "Zariadenia alebo osoby na sledovanie",
+                    "zone": "Z\u00f3na na sledovanie vzdialenosti"
+                }
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "dir_of_travel": {
+                "name": "{tracked_entity} Smer jazdy",
+                "state": {
+                    "arrived": "Pri\u0161iel",
+                    "away_from": "\u010ealeko od",
+                    "stationary": "Stacion\u00e1rne",
+                    "towards": "Smerom k"
+                }
+            },
+            "dist_to_zone": {
+                "name": "{tracked_entity} Vzdialenos\u0165"
+            },
+            "nearest": {
+                "name": "Najbli\u017e\u0161ie zariadenie"
+            },
+            "nearest_dir_of_travel": {
+                "name": "Najbli\u017e\u0161\u00ed smer jazdy",
+                "state": {
+                    "arrived": "Pri\u0161iel",
+                    "away_from": "\u010ealeko od",
+                    "stationary": "Stacion\u00e1rne",
+                    "towards": "Smerom k"
+                }
+            },
+            "nearest_dist_to_zone": {
+                "name": "Najbli\u017e\u0161ia vzdialenos\u0165"
+            }
+        }
+    },
+    "issues": {
+        "deprecated_proximity_entity": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Entita bl\u00edzkosti {entity} je zastaran\u00e1 a bude odstr\u00e1nen\u00e1 v roku 2024.8. Pou\u017e\u00edva sa v\u0161ak v nasleduj\u00facich konfigur\u00e1ci\u00e1ch:\n - {used_in} \n\nUpravte v\u0161etky automatiz\u00e1cie alebo skripty, ktor\u00e9 pou\u017e\u00edvaj\u00fa t\u00fato zastaran\u00fa entitu Proximity.\nPre ka\u017ed\u00fa sledovan\u00fa osobu alebo zariadenie je vytvoren\u00fd jeden sn\u00edma\u010d vzdialenosti a smeru jazdy do/z monitorovanej z\u00f3ny. Navy\u0161e pre ka\u017ed\u00fa konfigur\u00e1ciu Proximity je vytvoren\u00fd jeden senzor, ktor\u00fd ukazuje najbli\u017e\u0161ie zariadenie alebo osobu k monitorovanej z\u00f3ne. V\u010faka tomu m\u00f4\u017eete pou\u017ei\u0165 integr\u00e1ciu Min/Max na ur\u010denie najbli\u017e\u0161ej a najvzdialenej\u0161ej vzdialenosti.",
+                        "title": "Entita pribl\u00ed\u017eenia je zastaran\u00e1"
+                    }
+                }
+            },
+            "title": "Entita pribl\u00ed\u017eenia je zastaran\u00e1"
+        },
+        "tracked_entity_removed": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Entita `{entity_id}` bola z HA odstr\u00e1nen\u00e1, ale pou\u017e\u00edva sa v bl\u00edzkosti {name}. Pros\u00edm, odstr\u00e1\u0148te `{entity_id}` zo zoznamu sledovan\u00fdch ent\u00edt. S\u00favisiace entity senzora pribl\u00ed\u017eenia boli nastaven\u00e9 ako nedostupn\u00e9 a m\u00f4\u017eu by\u0165 odstr\u00e1nen\u00e9.",
+                        "title": "Sledovan\u00e1 entita bola odstr\u00e1nen\u00e1"
+                    }
+                }
+            },
+            "title": "Sledovan\u00e1 entita bola odstr\u00e1nen\u00e1"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "ignored_zones": "Z\u00f3ny, ktor\u00e9 treba ignorova\u0165",
+                    "tolerance": "Toleran\u010dn\u00e1 vzdialenos\u0165",
+                    "tracked_entities": "Zariadenia alebo osoby na sledovanie",
+                    "zone": "Z\u00f3na na sledovanie vzdialenosti"
+                }
+            }
+        }
+    },
+    "title": "Bl\u00edzkos\u0165"
+}

@@ -1,7 +1,7 @@
-# Hello Home assistant
+# Hello Home Assistant
 This integration is an example integration for everybody who starts developing own Homeassistant integrations. 
 
 ## Installation 
 This integrations has a config flow. 
-No additional configuration.yaml entry is necessary. 
+No additional entry at configuration.yaml is necessary. 
 

@@ -1,1 +1,1 @@
-"""Tests for the Heos component."""
+"""Tests for the Hello Home Assistant component."""

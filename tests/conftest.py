@@ -12,7 +12,6 @@ import shutil
 from typing import Any
 from unittest.mock import MagicMock, patch
 
-from _pytest.assertion.util import _compare_eq_iterable
 from awesomeversion import AwesomeVersion
 import freezegun
 from homeassistant import loader
@@ -52,8 +51,6 @@ from tests.common import (
     ProxyClientSession,
     ResponseMocker,
     WSClient,
-    async_test_home_assistant_dev,
-    async_test_home_assistant_min_version,
     client_session_proxy,
     create_config_entry,
     dummy_repository_base,
@@ -62,6 +59,12 @@ from tests.common import (
     recursive_remove_key,
     safe_json_dumps,
     setup_integration as common_setup_integration,
+)
+from tests.homeassistantfixtures.dev import (
+    async_test_home_assistant as async_test_home_assistant_dev,
+)
+from tests.homeassistantfixtures.min import (
+    async_test_home_assistant as async_test_home_assistant_min_version,
 )
 
 # Set default logger

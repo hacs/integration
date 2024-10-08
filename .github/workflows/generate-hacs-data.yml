@@ -56,7 +56,7 @@ jobs:
         category: ${{ fromJSON( needs.generate-matrix.outputs.categories )}}
     steps:
       - name: Checkout the repository
-        uses: actions/checkout@v4.1.7
+        uses: actions/checkout@v4.2.0
 
       - name: Set up Python
         uses: actions/setup-python@v5.2.0
@@ -157,10 +157,6 @@ jobs:
               if (!changedPctTarget) {
                 if (!parsed.new_count || parsed.new_count <= 0) {
                   changedPctTarget = 0;
-                } else if (parsed.new_count > 1500) {
-                    changedPctTarget = 3;
-                } else if (parsed.new_count > 1000) {
-                    changedPctTarget = 4;
                 } else if (parsed.new_count > 750) {
                     changedPctTarget = 5;
                 } else if (parsed.new_count > 500) {
@@ -226,7 +222,7 @@ jobs:
         category: ${{ fromJSON(needs.summarize.outputs.changedCategories) }}
     steps:
       - name: Checkout the repository
-        uses: actions/checkout@v4.1.7
+        uses: actions/checkout@v4.2.0
 
       - name: Set up Python
         uses: actions/setup-python@v5.2.0

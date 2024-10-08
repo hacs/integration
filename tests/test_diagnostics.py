@@ -12,7 +12,8 @@ from tests.common import (
 )
 from tests.conftest import SnapshotFixture
 
-REMOVE_KEYS = ("entry_id", "last_updated", "local", "minor_version", "created_at", "modified_at")
+REMOVE_KEYS = ("entry_id", "last_updated", "local", "minor_version",
+               "created_at", "modified_at", "discovery_keys")
 
 
 async def test_diagnostics(hacs: HacsBase, snapshots: SnapshotFixture):
@@ -24,7 +25,8 @@ async def test_diagnostics(hacs: HacsBase, snapshots: SnapshotFixture):
 
     assert TOKEN not in str(diagnostics)
     snapshots.assert_match(
-        safe_json_dumps(recursive_remove_key(diagnostics, REMOVE_KEYS)), "diagnostics/base.json"
+        safe_json_dumps(recursive_remove_key(
+            diagnostics, REMOVE_KEYS)), "diagnostics/base.json"
     )
 
 

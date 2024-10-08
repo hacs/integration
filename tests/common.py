@@ -1,41 +1,25 @@
 # pylint: disable=missing-docstring,invalid-name
 from __future__ import annotations
 
-import asyncio
-from collections.abc import AsyncGenerator, Iterable, Mapping, Sequence
-from contextlib import asynccontextmanager, contextmanager, suppress
+from collections.abc import Iterable
+from contextlib import contextmanager
 from contextvars import ContextVar
-import functools as ft
 from inspect import currentframe
 import json as json_func
 import os
 from types import NoneType
-from typing import Any, TypedDict, TypeVar
-from unittest.mock import AsyncMock, Mock, patch
+from typing import Any, TypedDict
+from unittest.mock import AsyncMock, patch
 
 from aiohttp import ClientError, ClientSession, ClientWebSocketResponse
 from aiohttp.typedefs import StrOrURL
-from homeassistant import auth, bootstrap, config_entries, core as ha, loader
-from homeassistant.auth import auth_store, models as auth_models
-from homeassistant.const import EVENT_HOMEASSISTANT_CLOSE, EVENT_HOMEASSISTANT_STOP
-from homeassistant.core import CoreState, HomeAssistant, callback
-from homeassistant.helpers import (
-    area_registry as ar,
-    category_registry as cr,
-    device_registry as dr,
-    entity,
-    entity_registry as er,
-    floor_registry as fr,
-    issue_registry as ir,
-    label_registry as lr,
-    restore_state as rs,
-    storage,
-    translation,
-)
+from awesomeversion import AwesomeVersion
+from homeassistant import config_entries, core as ha
+from homeassistant.auth import models as auth_models
+from homeassistant.const import EVENT_HOMEASSISTANT_STOP, __version__ as HA_VERSION
+from homeassistant.helpers import storage
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.helpers.json import ExtendedJSONEncoder
-import homeassistant.util.dt as dt_util
-from homeassistant.util.unit_system import METRIC_SYSTEM
 import homeassistant.util.uuid as uuid_util
 import pytest
 from yarl import URL
@@ -47,8 +31,8 @@ from custom_components.hacs.repositories.base import HacsManifest, HacsRepositor
 from custom_components.hacs.utils.logger import LOGGER
 
 TOKEN = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-INSTANCES = []
-REQUEST_CONTEXT: ContextVar[pytest.FixtureRequest] = ContextVar("request_context", default=None)
+REQUEST_CONTEXT: ContextVar[pytest.FixtureRequest] = ContextVar(
+    "request_context", default=None)
 
 IGNORED_BASE_FILES = {
     "/config/automations.yaml",
@@ -132,7 +116,8 @@ _CATEGORY_TEST_DATA: tuple[CategoryTestData] = (
 def category_test_data_parametrized(
     *,
     xfail_categories: list[HacsCategory] | None = None,
-    categories: Iterable[HacsCategory] = [entry["category"] for entry in _CATEGORY_TEST_DATA],
+    categories: Iterable[HacsCategory] = [entry["category"]
+                                          for entry in _CATEGORY_TEST_DATA],
     **kwargs,
 ):
     return (
@@ -173,7 +158,8 @@ def recursive_remove_key(data: dict[str, Any], to_remove: Iterable[str]) -> dict
                 return [_sort_list(item) for item in entry]
         return sorted(
             entry,
-            key=lambda obj: (getattr(obj, "id", None) or getattr(obj, "name", None) or 0)
+            key=lambda obj: (getattr(obj, "id", None)
+                             or getattr(obj, "name", None) or 0)
             if isinstance(obj, dict)
             else obj,
         )
@@ -197,7 +183,8 @@ def recursive_remove_key(data: dict[str, Any], to_remove: Iterable[str]) -> dict
                 to_remove,
             )
         elif isinstance(value, (list, set)):
-            returndata[key] = [recursive_remove_key(item, to_remove) for item in _sort_list(value)]
+            returndata[key] = [recursive_remove_key(
+                item, to_remove) for item in _sort_list(value)]
         else:
             returndata[key] = type(value)
     return returndata
@@ -246,335 +233,6 @@ def dummy_repository_base(hacs, repository=None):
     return repository
 
 
-def get_test_config_dir(*add_path):
-    """Return a path to a test config dir."""
-    return os.path.join(os.path.dirname(__file__), "testing_config", *add_path)
-
-
-_T = TypeVar("_T", bound=Mapping[str, Any] | Sequence[Any])
-
-
-class StoreWithoutWriteLoad(storage.Store[_T]):
-    """Fake store that does not write or load. Used for testing."""
-
-    async def async_save(self, *args: Any, **kwargs: Any) -> None:
-        """Save the data.
-
-        This function is mocked out in tests.
-        """
-
-    @callback
-    def async_save_delay(self, *args: Any, **kwargs: Any) -> None:
-        """Save data with an optional delay.
-
-        This function is mocked out in tests.
-        """
-
-
-# pylint: disable=protected-access
-@asynccontextmanager
-async def async_test_home_assistant_min_version(
-    event_loop: asyncio.AbstractEventLoop | None = None,
-    load_registries: bool = True,
-    config_dir: str | None = None,
-) -> AsyncGenerator[HomeAssistant]:
-    """Return a Home Assistant object pointing at test config dir.
-
-    This should be copied from the minimum supported version,
-    currently Home Assistant Core 2024.4.1.
-    """
-    hass = HomeAssistant(config_dir or get_test_config_dir())
-    store = auth_store.AuthStore(hass)
-    hass.auth = auth.AuthManager(hass, store, {}, {})
-    ensure_auth_manager_loaded(hass.auth)
-    INSTANCES.append(hass)
-
-    orig_async_add_job = hass.async_add_job
-    orig_async_add_executor_job = hass.async_add_executor_job
-    orig_async_create_task = hass.async_create_task
-    orig_tz = dt_util.DEFAULT_TIME_ZONE
-
-    def async_add_job(target, *args, eager_start: bool = False):
-        """Add job."""
-        check_target = target
-        while isinstance(check_target, ft.partial):
-            check_target = check_target.func
-
-        if isinstance(check_target, Mock) and not isinstance(target, AsyncMock):
-            fut = asyncio.Future()
-            fut.set_result(target(*args))
-            return fut
-
-        return orig_async_add_job(target, *args, eager_start=eager_start)
-
-    def async_add_executor_job(target, *args):
-        """Add executor job."""
-        check_target = target
-        while isinstance(check_target, ft.partial):
-            check_target = check_target.func
-
-        if isinstance(check_target, Mock):
-            fut = asyncio.Future()
-            fut.set_result(target(*args))
-            return fut
-
-        return orig_async_add_executor_job(target, *args)
-
-    def async_create_task(coroutine, name=None, eager_start=False):
-        """Create task."""
-        if isinstance(coroutine, Mock) and not isinstance(coroutine, AsyncMock):
-            fut = asyncio.Future()
-            fut.set_result(None)
-            return fut
-
-        return orig_async_create_task(coroutine, name, eager_start)
-
-    hass.async_add_job = async_add_job
-    hass.async_add_executor_job = async_add_executor_job
-    hass.async_create_task = async_create_task
-
-    hass.data[loader.DATA_CUSTOM_COMPONENTS] = {}
-
-    hass.config.location_name = "test home"
-    hass.config.latitude = 32.87336
-    hass.config.longitude = -117.22743
-    hass.config.elevation = 0
-    hass.config.set_time_zone("US/Pacific")
-    hass.config.units = METRIC_SYSTEM
-    hass.config.media_dirs = {"local": get_test_config_dir("media")}
-    hass.config.skip_pip = True
-    hass.config.skip_pip_packages = []
-
-    hass.config_entries = config_entries.ConfigEntries(
-        hass,
-        {"_": ("Not empty or else some bad checks for hass config in discovery.py breaks")},
-    )
-    hass.bus.async_listen_once(
-        EVENT_HOMEASSISTANT_STOP,
-        hass.config_entries._async_shutdown,
-        run_immediately=True,
-    )
-
-    # Load the registries
-    entity.async_setup(hass)
-    loader.async_setup(hass)
-
-    # setup translation cache instead of calling translation.async_setup(hass)
-    hass.data[translation.TRANSLATION_FLATTEN_CACHE] = translation._TranslationCache(hass)
-    if load_registries:
-        with (
-            patch.object(StoreWithoutWriteLoad, "async_load", return_value=None),
-            patch(
-                "homeassistant.helpers.area_registry.AreaRegistryStore",
-                StoreWithoutWriteLoad,
-            ),
-            patch(
-                "homeassistant.helpers.device_registry.DeviceRegistryStore",
-                StoreWithoutWriteLoad,
-            ),
-            patch(
-                "homeassistant.helpers.entity_registry.EntityRegistryStore",
-                StoreWithoutWriteLoad,
-            ),
-            patch(
-                "homeassistant.helpers.storage.Store",  # Floor & label registry are different
-                StoreWithoutWriteLoad,
-            ),
-            patch(
-                "homeassistant.helpers.issue_registry.IssueRegistryStore",
-                StoreWithoutWriteLoad,
-            ),
-            patch(
-                "homeassistant.helpers.restore_state.RestoreStateData.async_setup_dump",
-                return_value=None,
-            ),
-            patch(
-                "homeassistant.helpers.restore_state.start.async_at_start",
-            ),
-        ):
-            await ar.async_load(hass)
-            await cr.async_load(hass)
-            await dr.async_load(hass)
-            await er.async_load(hass)
-            await fr.async_load(hass)
-            await ir.async_load(hass)
-            await lr.async_load(hass)
-            await rs.async_load(hass)
-        hass.data[bootstrap.DATA_REGISTRIES_LOADED] = None
-
-    hass.set_state(CoreState.running)
-
-    @callback
-    def clear_instance(event):
-        """Clear global instance."""
-        INSTANCES.remove(hass)
-
-    hass.bus.async_listen_once(EVENT_HOMEASSISTANT_CLOSE, clear_instance)
-
-    yield hass
-
-    # Restore timezone, it is set when creating the hass object
-    dt_util.DEFAULT_TIME_ZONE = orig_tz
-
-
-@asynccontextmanager
-async def async_test_home_assistant_dev(
-    event_loop: asyncio.AbstractEventLoop | None = None,
-    load_registries: bool = True,
-    config_dir: str | None = None,
-) -> AsyncGenerator[HomeAssistant]:
-    """Return a Home Assistant object pointing at test config dir.
-
-    This should be copied from latest Home Assistant version,
-    currently Home Assistant Core 2024.9.0dev0 (2024-08-14).
-    https://github.com/home-assistant/core/blob/dev/tests/common.py
-    """
-    hass = HomeAssistant(config_dir or get_test_config_dir())
-    store = auth_store.AuthStore(hass)
-    hass.auth = auth.AuthManager(hass, store, {}, {})
-    ensure_auth_manager_loaded(hass.auth)
-    INSTANCES.append(hass)
-
-    orig_async_add_job = hass.async_add_job
-    orig_async_add_executor_job = hass.async_add_executor_job
-    orig_async_create_task_internal = hass.async_create_task_internal
-    orig_tz = dt_util.get_default_time_zone()
-
-    def async_add_job(target, *args, eager_start: bool = False):
-        """Add job."""
-        check_target = target
-        while isinstance(check_target, ft.partial):
-            check_target = check_target.func
-
-        if isinstance(check_target, Mock) and not isinstance(target, AsyncMock):
-            fut = asyncio.Future()
-            fut.set_result(target(*args))
-            return fut
-
-        return orig_async_add_job(target, *args, eager_start=eager_start)
-
-    def async_add_executor_job(target, *args):
-        """Add executor job."""
-        check_target = target
-        while isinstance(check_target, ft.partial):
-            check_target = check_target.func
-
-        if isinstance(check_target, Mock):
-            fut = asyncio.Future()
-            fut.set_result(target(*args))
-            return fut
-
-        return orig_async_add_executor_job(target, *args)
-
-    def async_create_task_internal(coroutine, name=None, eager_start=True):
-        """Create task."""
-        if isinstance(coroutine, Mock) and not isinstance(coroutine, AsyncMock):
-            fut = asyncio.Future()
-            fut.set_result(None)
-            return fut
-
-        return orig_async_create_task_internal(coroutine, name, eager_start)
-
-    hass.async_add_job = async_add_job
-    hass.async_add_executor_job = async_add_executor_job
-    hass.async_create_task_internal = async_create_task_internal
-
-    hass.data[loader.DATA_CUSTOM_COMPONENTS] = {}
-
-    hass.config.location_name = "test home"
-    hass.config.latitude = 32.87336
-    hass.config.longitude = -117.22743
-    hass.config.elevation = 0
-    await hass.config.async_set_time_zone("US/Pacific")
-    hass.config.units = METRIC_SYSTEM
-    hass.config.media_dirs = {"local": get_test_config_dir("media")}
-    hass.config.skip_pip = True
-    hass.config.skip_pip_packages = []
-
-    hass.config_entries = config_entries.ConfigEntries(
-        hass,
-        {
-            "_": (
-                "Not empty or else some bad checks for hass config in discovery.py"
-                " breaks"
-            )
-        },
-    )
-    hass.bus.async_listen_once(
-        EVENT_HOMEASSISTANT_STOP,
-        hass.config_entries._async_shutdown,
-    )
-
-    # Load the registries
-    entity.async_setup(hass)
-    loader.async_setup(hass)
-
-    # setup translation cache instead of calling translation.async_setup(hass)
-    hass.data[translation.TRANSLATION_FLATTEN_CACHE] = translation._TranslationCache(
-        hass
-    )
-    if load_registries:
-        with (
-            patch.object(StoreWithoutWriteLoad,
-                         "async_load", return_value=None),
-            patch(
-                "homeassistant.helpers.area_registry.AreaRegistryStore",
-                StoreWithoutWriteLoad,
-            ),
-            patch(
-                "homeassistant.helpers.device_registry.DeviceRegistryStore",
-                StoreWithoutWriteLoad,
-            ),
-            patch(
-                "homeassistant.helpers.entity_registry.EntityRegistryStore",
-                StoreWithoutWriteLoad,
-            ),
-            patch(
-                "homeassistant.helpers.storage.Store",  # Floor & label registry are different
-                StoreWithoutWriteLoad,
-            ),
-            patch(
-                "homeassistant.helpers.issue_registry.IssueRegistryStore",
-                StoreWithoutWriteLoad,
-            ),
-            patch(
-                "homeassistant.helpers.restore_state.RestoreStateData.async_setup_dump",
-                return_value=None,
-            ),
-            patch(
-                "homeassistant.helpers.restore_state.start.async_at_start",
-            ),
-        ):
-            await ar.async_load(hass)
-            await cr.async_load(hass)
-            await dr.async_load(hass)
-            await er.async_load(hass)
-            await fr.async_load(hass)
-            await ir.async_load(hass)
-            await lr.async_load(hass)
-            await rs.async_load(hass)
-        hass.data[bootstrap.DATA_REGISTRIES_LOADED] = None
-
-    hass.set_state(CoreState.running)
-
-    @callback
-    def clear_instance(event):
-        """Clear global instance."""
-        # Give aiohttp one loop iteration to close
-        hass.loop.call_soon(INSTANCES.remove, hass)
-
-    hass.bus.async_listen_once(EVENT_HOMEASSISTANT_CLOSE, clear_instance)
-
-    try:
-        yield hass
-    finally:
-        # Restore timezone, it is set when creating the hass object
-        dt_util.set_default_time_zone(orig_tz)
-        # Remove loop shutdown indicator to not interfere with additional hass objects
-        with suppress(AttributeError):
-            delattr(hass.loop, "_shutdown_run_callback_threadsafe")
-
-
 @ha.callback
 def ensure_auth_manager_loaded(auth_mgr):
     """Ensure an auth manager is considered loaded."""
@@ -615,7 +273,8 @@ def mock_storage(data=None):
     def mock_write_data(store, path, data_to_write):
         """Mock version of write data."""
         # To ensure that the data can be serialized
-        data[store.key] = json_func.loads(json_func.dumps(data_to_write, cls=store._encoder))
+        data[store.key] = json_func.loads(
+            json_func.dumps(data_to_write, cls=store._encoder))
 
     async def mock_remove(store):
         """Remove data."""
@@ -697,7 +356,8 @@ class WSClient:
 
             clientsession.detach()
 
-        self.hass.bus.async_listen_once(EVENT_HOMEASSISTANT_STOP, _async_close_websession)
+        self.hass.bus.async_listen_once(
+            EVENT_HOMEASSISTANT_STOP, _async_close_websession)
 
         self.client = await clientsession.ws_connect(
             "ws://localhost:8123/api/websocket",
@@ -727,7 +387,7 @@ class WSClient:
 class MockedResponse:
     def __init__(self, **kwargs) -> None:
         self.kwargs = kwargs
-        self.exception = kwargs.get("exception", None)
+        self.exception = kwargs.get("exception")
         self.keep = kwargs.get("keep", False)
 
     @property
@@ -894,16 +554,20 @@ def create_config_entry(
     data: dict[str, Any] = None,
     options: dict[str, Any] = None,
 ) -> MockConfigEntry:
-    return MockConfigEntry(
-        version=1,
-        minor_version=0,
-        domain=DOMAIN,
-        title="",
-        data={"token": TOKEN, **(data or {})},
-        source="user",
-        options={**(options or {})},
-        unique_id="12345",
-    )
+    config_entry_data = {
+        "version": 1,
+        "minor_version": 0,
+        "domain": DOMAIN,
+        "title": "",
+        "data": {"token": TOKEN, **(data or {})},
+        "source": "user",
+        "options": {**(options or {})},
+        "unique_id": "12345",
+    }
+    # legacy workaround for tests
+    if AwesomeVersion(HA_VERSION).dev:
+        config_entry_data["discovery_keys"] = {}
+    return MockConfigEntry(**config_entry_data)
 
 
 async def setup_integration(hass: ha.HomeAssistant, config_entry: MockConfigEntry) -> None:

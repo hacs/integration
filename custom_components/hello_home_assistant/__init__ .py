@@ -1,4 +1,4 @@
-"""Init of the Hello Home Assistant integration 1."""  # noqa: INP001
+"""Init of the Hello Home Assistant integration 1."""
 
 import logging
 

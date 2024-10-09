@@ -1,5 +1,4 @@
-"""Config_Flow file of the Hello Home Assistant Integration 1."""  # noqa: INP001
-
+"""Config_Flow file of the Hello Home Assistant Integration."""
 import logging
 
 import voluptuous as vol

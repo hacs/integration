@@ -5,7 +5,6 @@ COPY . /hacs
 
 ENV \
     UV_SYSTEM_PYTHON=true \
-    PIP_EXTRA_INDEX_URL="https://wheels.home-assistant.io/musllinux-index/" \
     UV_EXTRA_INDEX_URL="https://wheels.home-assistant.io/musllinux-index/"
 
 RUN \
@@ -14,7 +13,7 @@ RUN \
     apk add --no-cache --virtual .build-deps \
         bash \
     \
-    && bash /hacs/scripts/install/pip_packages \
+    && bash /hacs/scripts/install/uv_packages \
         -r requirements_action.txt \
     \
     && bash /hacs/scripts/install/frontend \

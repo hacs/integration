@@ -64,7 +64,8 @@ async def test_switch_entity_state(
         MockedResponse(content=data),
     )
 
-    er.async_update_entity(er.async_get_entity_id("switch", DOMAIN, repo.data.id), disabled_by=None)
+    er.async_update_entity(er.async_get_entity_id(
+        "switch", DOMAIN, repo.data.id), disabled_by=None)
     await hass.config_entries.async_reload(hacs.configuration.config_entry.entry_id)
     await hass.async_block_till_done()
 
@@ -77,13 +78,15 @@ async def test_switch_entity_state(
 
         states[platform]["initial"] = recursive_remove_key(
             hass.states.get(entity_id).as_dict(),
-            ("id", "last_changed", "last_reported", "last_updated"),
+            ("id", "last_changed", "last_reported", "last_updated",
+             "display_precision", "update_percentage"),
         )
 
     await hass.services.async_call(
         domain="switch",
         service="turn_on",
-        service_data={"entity_id": er.async_get_entity_id("switch", DOMAIN, repo.data.id)},
+        service_data={"entity_id": er.async_get_entity_id(
+            "switch", DOMAIN, repo.data.id)},
         blocking=True,
     )
 
@@ -92,7 +95,8 @@ async def test_switch_entity_state(
         assert entity_id is not None
         states[platform]["updated"] = recursive_remove_key(
             hass.states.get(entity_id).as_dict(),
-            ("id", "last_changed", "last_reported", "last_updated"),
+            ("id", "last_changed", "last_reported", "last_updated",
+             "display_precision", "update_percentage"),
         )
 
     snapshots.assert_match(

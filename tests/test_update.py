@@ -53,11 +53,13 @@ async def test_update_entity_state(
     # Get initial state
     state = hass.states.get(entity_id)
     initial_state = recursive_remove_key(
-        state.as_dict(), ("id", "last_changed", "last_reported", "last_updated"),
+        state.as_dict(), ("id", "last_changed", "last_reported", "last_updated",
+                          "display_precision", "update_percentage"),
     )
 
     # Bump version
-    fixture_file = f"fixtures/proxy/data-v2.hacs.xyz/{category_test_data['category']}/data.json"
+    fixture_file = f"fixtures/proxy/data-v2.hacs.xyz/{
+        category_test_data['category']}/data.json"
     fp = os.path.join(
         os.path.dirname(__file__),
         fixture_file,
@@ -83,10 +85,12 @@ async def test_update_entity_state(
     # Get updated state
     state = hass.states.get(entity_id)
     updated_state = recursive_remove_key(
-        state.as_dict(), ("id", "last_changed", "last_reported", "last_updated"),
+        state.as_dict(), ("id", "last_changed", "last_reported", "last_updated",
+                          "display_precision", "update_percentage"),
     )
 
     snapshots.assert_match(
-        safe_json_dumps({"initial_state": initial_state, "updated_state": updated_state}),
+        safe_json_dumps({"initial_state": initial_state,
+                        "updated_state": updated_state}),
         f"{category_test_data['repository']}/test_update_entity_state.json",
     )

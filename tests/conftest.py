@@ -264,7 +264,7 @@ def snapshots(snapshot: Snapshot) -> SnapshotFixture:
             state = hacs.hass.states.get(entity.entity_id)
             return {
                 "state": state.state if state else None,
-                "attributes": state.attributes if state else None,
+                "attributes": recursive_remove_key(state.attributes, ("display_precision", "update_percentage")) if state else None,
             }
 
         snapshot.assert_match(

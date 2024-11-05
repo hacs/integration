@@ -196,7 +196,8 @@ class HacsOptionsFlowHandler(OptionsFlow):
 
     def __init__(self, config_entry):
         """Initialize HACS options flow."""
-        self.config_entry = config_entry
+        if AwesomeVersion(HAVERSION) < "2024.11.99":
+            self.config_entry = config_entry
 
     async def async_step_init(self, _user_input=None):
         """Manage the options."""

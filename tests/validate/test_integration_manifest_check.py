@@ -26,7 +26,7 @@ async def test_integration_manifest_with_valid_manifest(repository_integration):
             "version": "1.0.0",
         }
 
-    repository_integration.get_integration_manifest = _async_get_integration_manifest
+    repository_integration.async_get_integration_manifest = _async_get_integration_manifest
 
     check = Validator(repository_integration)
     await check.execute_validation()

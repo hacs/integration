@@ -43,7 +43,7 @@ async def test_hacs_manifest_with_invalid_manifest(repository_integration):
     async def _async_get_integration_manifest(**__):
         return {"not": "valid"}
 
-    repository_integration.get_integration_manifest = _async_get_integration_manifest
+    repository_integration.async_get_integration_manifest = _async_get_integration_manifest
     check = Validator(repository_integration)
     await check.execute_validation()
     assert check.failed

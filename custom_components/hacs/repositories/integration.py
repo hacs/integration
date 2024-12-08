@@ -183,35 +183,13 @@ class HacsIntegrationRepository(HacsRepository):
         if not manifest_path in (x.full_path for x in self.tree):
             raise HacsException(f"No {RepositoryFile.MAINIFEST_JSON} file found '{manifest_path}'")
 
+        ref = ref or self.version_to_download()
+        self.logger.debug("%s Getting manifest.json for ref=%s", self.string, ref)
         response = await self.hacs.async_github_api_method(
             method=self.hacs.githubapi.repos.contents.get,
             repository=self.data.full_name,
             path=manifest_path,
-            **{"params": {"ref": ref or self.version_to_download()}},
+            **{"params": {"ref": ref}},
         )
         if response:
             return json_loads(decode_content(response.data.content))
-
-    async def get_integration_manifest(self, *, version: str, **kwargs) -> dict[str, Any] | None:
-        """Get the content of the manifest.json file."""
-        manifest_path = (
-            "manifest.json"
-            if self.repository_manifest.content_in_root
-            else f"{self.content.path.remote}/{RepositoryFile.MAINIFEST_JSON}"
-        )
-
-        if manifest_path not in (x.full_path for x in self.tree):
-            raise HacsException(f"No {RepositoryFile.MAINIFEST_JSON} file found '{manifest_path}'")
-
-        self.logger.debug("%s Getting manifest.json for version=%s", self.string, version)
-        try:
-            result = await self.hacs.async_download_file(
-                f"https://raw.githubusercontent.com/{
-                    self.data.full_name}/{version}/{manifest_path}",
-                nolog=True,
-            )
-            if result is None:
-                return None
-            return json_loads(result)
-        except Exception:  # pylint: disable=broad-except
-            return None

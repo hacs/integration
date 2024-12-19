@@ -46,10 +46,14 @@ async def test_hacs_action_integration(
         response=MockedResponse(status=200, content={"custom": ["example"]}),
     )
     response_mocker.add(
-        "https://raw.githubusercontent.com/hacs-test-org/integration-basic/main/custom_components/example/manifest.json",
+        "https://api.github.com/repos/hacs-test-org/integration-basic/contents/custom_components/example/manifest.json",
         response=MockedResponse(
             status=200,
-            content=json.dumps({**basemanifest, **manifest}),
+            content={
+                "content": base64.b64encode(
+                    json.dumps({**basemanifest, **manifest}).encode()
+                ).decode()
+            },
             keep=True,
         ),
     )

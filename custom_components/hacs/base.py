@@ -61,7 +61,6 @@ from .exceptions import (
 from .repositories import REPOSITORY_CLASSES
 from .repositories.base import HACS_MANIFEST_KEYS_TO_EXPORT, REPOSITORY_KEYS_TO_EXPORT
 from .utils.file_system import async_exists
-from .utils.json import json_loads
 from .utils.logger import LOGGER
 from .utils.queue_manager import QueueManager
 from .utils.store import async_load_from_store, async_save_to_store

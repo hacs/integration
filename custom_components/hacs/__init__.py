@@ -87,7 +87,7 @@ async def _async_initialize_integration(
     if hacs.core.ha_version is None:
         hacs.core.ha_version = AwesomeVersion(HAVERSION)
 
-    ## Legacy GitHub client
+    # Legacy GitHub client
     hacs.github = GitHub(
         hacs.configuration.token,
         clientsession,
@@ -97,7 +97,7 @@ async def _async_initialize_integration(
         },
     )
 
-    ## New GitHub client
+    # New GitHub client
     hacs.githubapi = GitHubAPI(
         token=hacs.configuration.token,
         session=clientsession,

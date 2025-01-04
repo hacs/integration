@@ -266,8 +266,13 @@ class HacsData:
         if not repository:
             return
 
+        try:
+            self.hacs.repositories.set_repository_id(repository, entry)
+        except ValueError as exception:
+            self.logger.warning("<HacsData async_restore_repository> duplicate IDs %s", exception)
+            return
+
         # Restore repository attributes
-        self.hacs.repositories.set_repository_id(repository, entry)
         repository.data.authors = repository_data.get("authors", [])
         repository.data.description = repository_data.get("description", "")
         repository.data.downloads = repository_data.get("downloads", 0)

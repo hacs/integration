@@ -112,6 +112,8 @@ def hass_storage():
 @pytest.fixture(autouse=True, scope="session")
 def mock_zeroconf_resolver() -> Generator[_patch]:
     """Mock out the zeroconf resolver."""
+    if AwesomeVersion(HA_VERSION) < "2025.2.0dev0":
+        return
     patcher = patch(
         "homeassistant.helpers.aiohttp_client._async_make_resolver",
         return_value=AsyncResolver(),

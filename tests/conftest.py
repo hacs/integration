@@ -10,8 +10,9 @@ import logging
 import os
 import shutil
 from typing import Any
-from unittest.mock import MagicMock, patch
+from unittest.mock import MagicMock, _patch, patch
 
+from aiohttp import AsyncResolver
 from awesomeversion import AwesomeVersion
 import freezegun
 from homeassistant import loader
@@ -106,6 +107,23 @@ def hass_storage():
     """Fixture to mock storage."""
     with mock_storage() as stored_data:
         yield stored_data
+
+
+@pytest.fixture(autouse=True, scope="session")
+def mock_zeroconf_resolver() -> Generator[_patch]:
+    """Mock out the zeroconf resolver."""
+    if AwesomeVersion(HA_VERSION) < "2025.2.0dev0":
+        yield None
+    else:
+        patcher = patch(
+            "homeassistant.helpers.aiohttp_client._async_make_resolver",
+            return_value=AsyncResolver(),
+        )
+        patcher.start()
+        try:
+            yield patcher
+        finally:
+            patcher.stop()
 
 
 @pytest.fixture

@@ -927,9 +927,6 @@ class HacsRepository:
             raise HacsException("repository.content.path.local is None")
         self.validate.errors.clear()
 
-        if not self.can_download:
-            raise HacsException("The version of Home Assistant is not compatible with this version")
-
         version_to_install = version or self.version_to_download()
         if version_to_install == self.data.default_branch:
             self.ref = version_to_install

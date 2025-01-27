@@ -274,9 +274,15 @@ def snapshots(snapshot: Snapshot) -> SnapshotFixture:
             for entry in value:
                 data[key][entry["id"]] = entry
 
-        dashboard_resources: ResourceStorageCollection = hacs.hass.data[LOVELACE_DOMAIN][
-            "resources"
-        ]
+        dashboard_resources: ResourceStorageCollection
+        try:
+            dashboard_resources = hacs.hass.data[LOVELACE_DOMAIN][
+                "resources"
+            ]
+        except TypeError:
+            # Changed to 2025.2.0
+            # Changed in https://github.com/home-assistant/core/pull/136313
+            dashboard_resources = hacs.hass.data[LOVELACE_DOMAIN].resources
 
         def _entity_state(entity: er.RegistryEntry) -> dict[str, Any]:
             state = hacs.hass.states.get(entity.entity_id)

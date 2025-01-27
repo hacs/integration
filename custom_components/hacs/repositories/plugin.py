@@ -172,6 +172,7 @@ class HacsPluginRepository(HacsRepository):
 
     def _get_resource_handler(self) -> ResourceStorageCollection | None:
         """Get the resource handler."""
+        resources: ResourceStorageCollection | None
         if not (hass_data := self.hacs.hass.data):
             self.logger.error("%s Can not access the hass data", self.string)
             return
@@ -180,7 +181,12 @@ class HacsPluginRepository(HacsRepository):
             self.logger.warning("%s Can not access the lovelace integration data", self.string)
             return
 
-        resources: ResourceStorageCollection | None = lovelace_data.get("resources")
+        if self.hacs.core.ha_version > "2025.1.99":
+            # Changed to 2025.2.0
+            # Changed in https://github.com/home-assistant/core/pull/136313
+            resources = lovelace_data.resources
+        else:
+            resources = lovelace_data.get("resources")
 
         if resources is None:
             self.logger.warning("%s Can not access the dashboard resources", self.string)

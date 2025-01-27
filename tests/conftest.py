@@ -276,13 +276,13 @@ def snapshots(snapshot: Snapshot) -> SnapshotFixture:
 
         dashboard_resources: ResourceStorageCollection
         try:
-            dashboard_resources = hacs.hass.data[LOVELACE_DOMAIN][
-                "resources"
-            ]
-        except TypeError:
             # Changed to 2025.2.0
             # Changed in https://github.com/home-assistant/core/pull/136313
             dashboard_resources = hacs.hass.data[LOVELACE_DOMAIN].resources
+        except AttributeError:
+            dashboard_resources = hacs.hass.data[LOVELACE_DOMAIN][
+                "resources"
+            ]
 
         def _entity_state(entity: er.RegistryEntry) -> dict[str, Any]:
             state = hacs.hass.states.get(entity.entity_id)

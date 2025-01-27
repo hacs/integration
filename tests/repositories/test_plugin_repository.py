@@ -160,6 +160,8 @@ async def test_get_resource_handler_no_lovelace_resources(
     try:
         del hass.data["lovelace"]["resources"]
     except TypeError:
+        # Changed to 2025.2.0
+        # Changed in https://github.com/home-assistant/core/pull/136313
         hass.data["lovelace"].resources = None
     resources = downloaded_plugin_repository._get_resource_handler()
     assert resources is None

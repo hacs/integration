@@ -145,7 +145,12 @@ async def test_get_resource_handler_no_store(
     caplog: pytest.LogCaptureFixture,
 ) -> None:
     """Test the resource handler with no store."""
-    del hass.data["lovelace"]["resources"].store
+    try:
+        del hass.data["lovelace"]["resources"].store
+    except TypeError:
+        # Changed to 2025.2.0
+        # Changed in https://github.com/home-assistant/core/pull/136313
+        hass.data["lovelace"].resources.store = None
     resources = downloaded_plugin_repository._get_resource_handler()
     assert resources is None
     assert "YAML mode detected, can not update resources" in caplog.text

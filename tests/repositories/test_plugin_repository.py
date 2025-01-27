@@ -95,11 +95,11 @@ async def test_get_resource_handler_wrong_version(
 ) -> None:
     """Test the resource handler with wrong storage version."""
     try:
-        hass.data["lovelace"]["resources"].store.version = 2
-    except TypeError:
+        hass.data["lovelace"].resources.store.version = 2
+    except AttributeError:
         # Changed to 2025.2.0
         # Changed in https://github.com/home-assistant/core/pull/136313
-        hass.data["lovelace"].resources.store.version = 2
+        hass.data["lovelace"]["resources"].store.version = 2
     resources = downloaded_plugin_repository._get_resource_handler()
     assert resources is None
     assert "Can not use the dashboard resources" in caplog.text
@@ -112,11 +112,12 @@ async def test_get_resource_handler_wrong_key(
 ) -> None:
     """Test the resource handler with wrong storage key."""
     try:
-        hass.data["lovelace"]["resources"].store.key = "wrong_key"
-    except TypeError:
+        hass.data["lovelace"].resources.store.key = "wrong_key"
+    except AttributeError:
         # Changed to 2025.2.0
         # Changed in https://github.com/home-assistant/core/pull/136313
-        hass.data["lovelace"].resources.store.key = "wrong_key"
+        hass.data["lovelace"]["resources"].store.key = "wrong_key"
+
     resources = downloaded_plugin_repository._get_resource_handler()
     assert resources is None
     assert "Can not use the dashboard resources" in caplog.text
@@ -129,11 +130,12 @@ async def test_get_resource_handler_none_store(
 ) -> None:
     """Test the resource handler with store being none."""
     try:
-        hass.data["lovelace"]["resources"].store = None
-    except TypeError:
+
+        hass.data["lovelace"].resources.store = None
+    except AttributeError:
         # Changed to 2025.2.0
         # Changed in https://github.com/home-assistant/core/pull/136313
-        hass.data["lovelace"].resources.store = None
+        hass.data["lovelace"]["resources"].store = None
     resources = downloaded_plugin_repository._get_resource_handler()
     assert resources is None
     assert "YAML mode detected, can not update resources" in caplog.text
@@ -146,11 +148,12 @@ async def test_get_resource_handler_no_store(
 ) -> None:
     """Test the resource handler with no store."""
     try:
-        del hass.data["lovelace"]["resources"].store
-    except TypeError:
+        hass.data["lovelace"].resources.store = None
+    except AttributeError:
         # Changed to 2025.2.0
         # Changed in https://github.com/home-assistant/core/pull/136313
-        hass.data["lovelace"].resources.store = None
+        del hass.data["lovelace"]["resources"].store
+
     resources = downloaded_plugin_repository._get_resource_handler()
     assert resources is None
     assert "YAML mode detected, can not update resources" in caplog.text
@@ -163,11 +166,11 @@ async def test_get_resource_handler_no_lovelace_resources(
 ) -> None:
     """Test the resource handler with no lovelace resources."""
     try:
-        del hass.data["lovelace"]["resources"]
-    except TypeError:
+        hass.data["lovelace"].resources = None
+    except AttributeError:
         # Changed to 2025.2.0
         # Changed in https://github.com/home-assistant/core/pull/136313
-        hass.data["lovelace"].resources = None
+        del hass.data["lovelace"]["resources"]
     resources = downloaded_plugin_repository._get_resource_handler()
     assert resources is None
     assert "Can not access the dashboard resources" in caplog.text

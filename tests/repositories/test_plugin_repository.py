@@ -111,13 +111,12 @@ async def test_get_resource_handler_wrong_key(
     caplog: pytest.LogCaptureFixture,
 ) -> None:
     """Test the resource handler with wrong storage key."""
-    hass.data["lovelace"]["resources"].store.key = "wrong_key"
     try:
-        hass.data["lovelace"]["resources"].store.version = "wrong_key"
+        hass.data["lovelace"]["resources"].store.key = "wrong_key"
     except TypeError:
         # Changed to 2025.2.0
         # Changed in https://github.com/home-assistant/core/pull/136313
-        hass.data["lovelace"].resources.store.version = "wrong_key"
+        hass.data["lovelace"].resources.store.key = "wrong_key"
     resources = downloaded_plugin_repository._get_resource_handler()
     assert resources is None
     assert "Can not use the dashboard resources" in caplog.text

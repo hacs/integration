@@ -94,7 +94,12 @@ async def test_get_resource_handler_wrong_version(
     caplog: pytest.LogCaptureFixture,
 ) -> None:
     """Test the resource handler with wrong storage version."""
-    hass.data["lovelace"]["resources"].store.version = 2
+    try:
+        hass.data["lovelace"]["resources"].store.version = 2
+    except TypeError:
+        # Changed to 2025.2.0
+        # Changed in https://github.com/home-assistant/core/pull/136313
+        hass.data["lovelace"].resources.store.version = 2
     resources = downloaded_plugin_repository._get_resource_handler()
     assert resources is None
     assert "Can not use the dashboard resources" in caplog.text
@@ -107,6 +112,12 @@ async def test_get_resource_handler_wrong_key(
 ) -> None:
     """Test the resource handler with wrong storage key."""
     hass.data["lovelace"]["resources"].store.key = "wrong_key"
+    try:
+        hass.data["lovelace"]["resources"].store.version = "wrong_key"
+    except TypeError:
+        # Changed to 2025.2.0
+        # Changed in https://github.com/home-assistant/core/pull/136313
+        hass.data["lovelace"].resources.store.version = "wrong_key"
     resources = downloaded_plugin_repository._get_resource_handler()
     assert resources is None
     assert "Can not use the dashboard resources" in caplog.text
@@ -118,7 +129,12 @@ async def test_get_resource_handler_none_store(
     caplog: pytest.LogCaptureFixture,
 ) -> None:
     """Test the resource handler with store being none."""
-    hass.data["lovelace"]["resources"].store = None
+    try:
+        hass.data["lovelace"]["resources"].store = None
+    except TypeError:
+        # Changed to 2025.2.0
+        # Changed in https://github.com/home-assistant/core/pull/136313
+        hass.data["lovelace"].resources.store = None
     resources = downloaded_plugin_repository._get_resource_handler()
     assert resources is None
     assert "YAML mode detected, can not update resources" in caplog.text
@@ -142,7 +158,10 @@ async def test_get_resource_handler_no_lovelace_resources(
     caplog: pytest.LogCaptureFixture,
 ) -> None:
     """Test the resource handler with no lovelace resources."""
-    del hass.data["lovelace"]["resources"]
+    try:
+        del hass.data["lovelace"]["resources"]
+    except TypeError:
+        hass.data["lovelace"].resources = None
     resources = downloaded_plugin_repository._get_resource_handler()
     assert resources is None
     assert "Can not access the dashboard resources" in caplog.text

@@ -112,7 +112,7 @@ async def test_full_user_flow_implementation(
 
     snapshots.assert_match(
         safe_json_dumps(recursive_remove_key(
-            result, ("flow_id", "minor_version"))),
+            result, ("flow_id", "minor_version", "subentries"))),
         "config_flow/test_full_user_flow_implementation.json",
     )
 

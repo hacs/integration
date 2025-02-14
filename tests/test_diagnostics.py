@@ -13,7 +13,7 @@ from tests.common import (
 from tests.conftest import SnapshotFixture
 
 REMOVE_KEYS = ("entry_id", "last_updated", "local", "minor_version",
-               "created_at", "modified_at", "discovery_keys", "subentries_data")
+               "created_at", "modified_at", "discovery_keys", "subentries_data", "subentries")
 
 
 async def test_diagnostics(hacs: HacsBase, snapshots: SnapshotFixture):

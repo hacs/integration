@@ -4,7 +4,7 @@ _Manage (Install, track, upgrade) and discover custom elements for Home Assistan
 
 ## What?
 
-HACS is a integration that gives the user a powerful UI to handle downloads of custom needs.
+HACS is an integration that gives the user a powerful UI to handle downloads of custom needs.
 
 **Highlights of what HACS can do:**
 

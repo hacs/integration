@@ -92,7 +92,7 @@ class HacsIntegrationRepository(HacsRepository):
             self.content.path.remote = f"custom_components/{name}"
 
         # Get the content of manifest.json
-        if manifest := await self.async_get_integration_manifest():
+        if manifest := await self.get_integration_manifest(version=self.ref):
             try:
                 self.integration_manifest = manifest
                 self.data.authors = manifest.get("codeowners", [])

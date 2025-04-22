@@ -1,14 +1,15 @@
 """Return a Home Assistant object pointing at test config dir.
 
 This should be copied from the minimum supported version,
-currently Home Assistant Core 2024.4.1.
+currently Home Assistant Core 2025.3.0.
+https://github.com/home-assistant/core/blob/2025.3.0/tests/common.py
 """
 
 from __future__ import annotations
 
 import asyncio
 from collections.abc import AsyncGenerator
-from contextlib import asynccontextmanager
+from contextlib import asynccontextmanager, suppress
 import functools as ft
 from unittest.mock import AsyncMock, Mock, patch
 
@@ -28,6 +29,7 @@ from homeassistant.helpers import (
     restore_state as rs,
     translation,
 )
+from homeassistant.util.async_ import _SHUTDOWN_RUN_CALLBACK_THREADSAFE
 import homeassistant.util.dt as dt_util
 from homeassistant.util.unit_system import METRIC_SYSTEM
 
@@ -45,12 +47,9 @@ async def async_test_home_assistant(
     event_loop: asyncio.AbstractEventLoop | None = None,
     load_registries: bool = True,
     config_dir: str | None = None,
+    initial_state: CoreState = CoreState.running,
 ) -> AsyncGenerator[HomeAssistant]:
-    """Return a Home Assistant object pointing at test config dir.
-
-    This should be copied from the minimum supported version,
-    currently Home Assistant Core 2024.4.1.
-    """
+    """Return a Home Assistant object pointing at test config dir."""
     hass = HomeAssistant(config_dir or get_test_config_dir())
     store = auth_store.AuthStore(hass)
     hass.auth = auth.AuthManager(hass, store, {}, {})
@@ -59,8 +58,8 @@ async def async_test_home_assistant(
 
     orig_async_add_job = hass.async_add_job
     orig_async_add_executor_job = hass.async_add_executor_job
-    orig_async_create_task = hass.async_create_task
-    orig_tz = dt_util.DEFAULT_TIME_ZONE
+    orig_async_create_task_internal = hass.async_create_task_internal
+    orig_tz = dt_util.get_default_time_zone()
 
     def async_add_job(target, *args, eager_start: bool = False):
         """Add job."""
@@ -88,18 +87,18 @@ async def async_test_home_assistant(
 
         return orig_async_add_executor_job(target, *args)
 
-    def async_create_task(coroutine, name=None, eager_start=False):
+    def async_create_task_internal(coroutine, name=None, eager_start=True):
         """Create task."""
         if isinstance(coroutine, Mock) and not isinstance(coroutine, AsyncMock):
             fut = asyncio.Future()
             fut.set_result(None)
             return fut
 
-        return orig_async_create_task(coroutine, name, eager_start)
+        return orig_async_create_task_internal(coroutine, name, eager_start)
 
     hass.async_add_job = async_add_job
     hass.async_add_executor_job = async_add_executor_job
-    hass.async_create_task = async_create_task
+    hass.async_create_task_internal = async_create_task_internal
 
     hass.data[loader.DATA_CUSTOM_COMPONENTS] = {}
 
@@ -107,7 +106,7 @@ async def async_test_home_assistant(
     hass.config.latitude = 32.87336
     hass.config.longitude = -117.22743
     hass.config.elevation = 0
-    hass.config.set_time_zone("US/Pacific")
+    await hass.config.async_set_time_zone("US/Pacific")
     hass.config.units = METRIC_SYSTEM
     hass.config.media_dirs = {"local": get_test_config_dir("media")}
     hass.config.skip_pip = True
@@ -115,12 +114,16 @@ async def async_test_home_assistant(
 
     hass.config_entries = config_entries.ConfigEntries(
         hass,
-        {"_": ("Not empty or else some bad checks for hass config in discovery.py breaks")},
+        {
+            "_": (
+                "Not empty or else some bad checks for hass config in discovery.py"
+                " breaks"
+            )
+        },
     )
     hass.bus.async_listen_once(
         EVENT_HOMEASSISTANT_STOP,
         hass.config_entries._async_shutdown,
-        run_immediately=True,
     )
 
     # Load the registries
@@ -128,10 +131,13 @@ async def async_test_home_assistant(
     loader.async_setup(hass)
 
     # setup translation cache instead of calling translation.async_setup(hass)
-    hass.data[translation.TRANSLATION_FLATTEN_CACHE] = translation._TranslationCache(hass)
+    hass.data[translation.TRANSLATION_FLATTEN_CACHE] = translation._TranslationCache(
+        hass
+    )
     if load_registries:
         with (
-            patch.object(StoreWithoutWriteLoad, "async_load", return_value=None),
+            patch.object(StoreWithoutWriteLoad,
+                         "async_load", return_value=None),
             patch(
                 "homeassistant.helpers.area_registry.AreaRegistryStore",
                 StoreWithoutWriteLoad,
@@ -170,16 +176,21 @@ async def async_test_home_assistant(
             await rs.async_load(hass)
         hass.data[bootstrap.DATA_REGISTRIES_LOADED] = None
 
-    hass.set_state(CoreState.running)
+    hass.set_state(initial_state)
 
     @callback
     def clear_instance(event):
         """Clear global instance."""
-        INSTANCES.remove(hass)
+        # Give aiohttp one loop iteration to close
+        hass.loop.call_soon(INSTANCES.remove, hass)
 
     hass.bus.async_listen_once(EVENT_HOMEASSISTANT_CLOSE, clear_instance)
 
-    yield hass
-
-    # Restore timezone, it is set when creating the hass object
-    dt_util.DEFAULT_TIME_ZONE = orig_tz
+    try:
+        yield hass
+    finally:
+        # Restore timezone, it is set when creating the hass object
+        dt_util.set_default_time_zone(orig_tz)
+        # Remove loop shutdown indicator to not interfere with additional hass objects
+        with suppress(AttributeError):
+            delattr(hass.loop, _SHUTDOWN_RUN_CALLBACK_THREADSAFE)

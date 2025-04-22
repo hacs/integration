@@ -558,16 +558,14 @@ def create_config_entry(
         "version": 1,
         "minor_version": 0,
         "domain": DOMAIN,
+        "discovery_keys": {},
         "title": "",
         "data": {"token": TOKEN, **(data or {})},
         "source": "user",
+        "subentries_data": None,
         "options": {**(options or {})},
         "unique_id": "12345",
     }
-    # legacy workaround for tests
-    if AwesomeVersion(HA_VERSION).dev:
-        config_entry_data["discovery_keys"] = {}
-        config_entry_data["subentries_data"] = None
     return MockConfigEntry(**config_entry_data)
 
 

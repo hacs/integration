@@ -1,7 +1,7 @@
 """Return a Home Assistant object pointing at test config dir.
 
 This should be copied from latest Home Assistant version,
-currently Home Assistant Core 2024.10.0dev0 (2024-09-26).
+currently Home Assistant Core 2025.5.0dev0 (2025-04-22).
 https://github.com/home-assistant/core/blob/dev/tests/common.py
 """
 
@@ -113,7 +113,12 @@ async def async_test_home_assistant(
 
     hass.config_entries = config_entries.ConfigEntries(
         hass,
-        {"_": ("Not empty or else some bad checks for hass config in discovery.py" " breaks")},
+        {
+            "_": (
+                "Not empty or else some bad checks for hass config in discovery.py"
+                " breaks"
+            )
+        },
     )
     hass.bus.async_listen_once(
         EVENT_HOMEASSISTANT_STOP,
@@ -126,7 +131,8 @@ async def async_test_home_assistant(
 
     # setup translation cache instead of calling translation.async_setup(hass)
     hass.data[translation.TRANSLATION_FLATTEN_CACHE] = translation._TranslationCache(
-        hass)
+        hass
+    )
     if load_registries:
         with (
             patch.object(StoreWithoutWriteLoad,

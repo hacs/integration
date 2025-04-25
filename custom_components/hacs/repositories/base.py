@@ -31,7 +31,7 @@ from ..exceptions import (
 from ..types import DownloadableContent
 from ..utils.backup import Backup
 from ..utils.decode import decode_content
-from ..utils.decorator import concurrent
+from ..utils.decorator import concurrent, return_none_on_exception
 from ..utils.file_system import async_exists, async_remove, async_remove_directory
 from ..utils.filters import filter_content_return_one_of_type
 from ..utils.github_graphql_query import GET_REPOSITORY_RELEASES
@@ -1360,15 +1360,14 @@ class HacsRepository:
             else None
         )
 
+    @return_none_on_exception
     async def get_hacs_json(self, *, version: str, **kwargs) -> HacsManifest | None:
         """Get the hacs.json file of the repository."""
-        try:
-            if (result := await self.get_hacs_json_raw(version=version)) is None:
-                return None
-            return HacsManifest.from_dict(result)
-        except Exception:  # pylint: disable=broad-except
+        if (result := await self.get_hacs_json_raw(version=version)) is None:
             return None
+        return HacsManifest.from_dict(result)
 
+    @return_none_on_exception
     async def get_hacs_json_raw(
         self,
         *,
@@ -1377,17 +1376,11 @@ class HacsRepository:
     ) -> dict[str, Any] | None:
         """Get the hacs.json file of the repository."""
         self.logger.debug("%s Getting hacs.json for version=%s", self.string, version)
-        try:
-            result = await self.hacs.async_download_file(
-                f"https://raw.githubusercontent.com/{
-                    self.data.full_name}/{version}/hacs.json",
-                nolog=True,
-            )
-            if result is None:
-                return None
-            return json_loads(result)
-        except Exception:  # pylint: disable=broad-except
-            return None
+        result = await self.hacs.async_download_file(
+            f"https://raw.githubusercontent.com/{self.data.full_name}/{version}/hacs.json",
+            nolog=True,
+        )
+        return json_loads(result) if result else None
 
     async def _ensure_download_capabilities(self, ref: str | None, **kwargs: Any) -> None:
         """Ensure that the download can be handled."""

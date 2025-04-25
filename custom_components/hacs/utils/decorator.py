@@ -41,3 +41,25 @@ def concurrent(
         return wrapper
 
     return inner_function
+
+
+def return_none_on_exception(func):
+    """Decorator to return None on any exception, works for sync/async, methods/functions."""
+
+    @wraps(func)
+    def sync_wrapper(*args, **kwargs):
+        try:
+            return func(*args, **kwargs)
+        except Exception:  # pylint: disable=broad-except
+            return None
+
+    @wraps(func)
+    async def async_wrapper(*args, **kwargs):
+        try:
+            return await func(*args, **kwargs)
+        except Exception:  # pylint: disable=broad-except
+            return None
+
+    if asyncio.iscoroutinefunction(func):
+        return async_wrapper
+    return sync_wrapper

@@ -1362,6 +1362,20 @@ class HacsRepository:
 
     async def get_hacs_json(self, *, version: str, **kwargs) -> HacsManifest | None:
         """Get the hacs.json file of the repository."""
+        try:
+            if (result := await self.get_hacs_json_raw(version=version)) is None:
+                return None
+            return HacsManifest.from_dict(result)
+        except Exception:  # pylint: disable=broad-except
+            return None
+
+    async def get_hacs_json_raw(
+        self,
+        *,
+        version: str,
+        **kwargs,
+    ) -> dict[str, Any] | None:
+        """Get the hacs.json file of the repository."""
         self.logger.debug("%s Getting hacs.json for version=%s", self.string, version)
         try:
             result = await self.hacs.async_download_file(
@@ -1371,7 +1385,7 @@ class HacsRepository:
             )
             if result is None:
                 return None
-            return HacsManifest.from_dict(json_loads(result))
+            return json_loads(result)
         except Exception:  # pylint: disable=broad-except
             return None
 

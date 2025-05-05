@@ -565,7 +565,7 @@ class HacsBase:
                         self.log.error("Validation for %s failed.", repository_full_name)
                     if self.system.action:
                         raise HacsException(
-                            f"::error:: Validation for {
+                            f"::error:: Validation for {repository_full_name} failed."
                                 repository_full_name} failed."
                         )
                     return repository.validate.errors
@@ -574,7 +574,7 @@ class HacsBase:
                 else:
                     repository.logger.info("%s Registration completed", repository.string)
             except (HacsRepositoryExistException, HacsRepositoryArchivedException) as exception:
-                if self.system.generator:
+                if self.system.generator:fixture_file = f"fixtures/proxy/data-v2.hacs.xyz/{repository_full_name}"
                     repository.logger.error(
                         "%s Registration Failed - %s", repository.string, exception
                     )

@@ -115,9 +115,11 @@ def mock_zeroconf_resolver() -> Generator[_patch]:
     if AwesomeVersion(HA_VERSION) < "2025.2.0dev0":
         yield None
     else:
+        resolver = AsyncResolver()
+        resolver.real_close = resolver.close
         patcher = patch(
             "homeassistant.helpers.aiohttp_client._async_make_resolver",
-            return_value=AsyncResolver(),
+            return_value=resolver,
         )
         patcher.start()
         try:

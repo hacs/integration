@@ -5,7 +5,7 @@ repos:
         name: Check code for common misspellings
         language: system
         types: [text]
-        stages: [commit, push, manual]
+        stages: [pre-commit, pre-push, manual]
         entry: codespell
         args:
           - --quiet-level=2
@@ -16,14 +16,14 @@ repos:
         name: Sort imports
         language: system
         types: [text]
-        stages: [commit, push, manual]
+        stages: [pre-commit, pre-push, manual]
         entry: isort
 
       - id: pyupgrade
         name: Run pyupgrade
         language: system
         types: [text]
-        stages: [commit, push, manual]
+        stages: [pre-commit, pre-push, manual]
         entry: pyupgrade
         files: ^.*.py$
         args:
@@ -33,7 +33,7 @@ repos:
         name: Run ruff check
         language: system
         types: [text]
-        stages: [commit, push, manual]
+        stages: [pre-commit, pre-push, manual]
         entry: ruff
         args:
           - check
@@ -43,7 +43,7 @@ repos:
         name: Run ruff format
         language: system
         types: [text]
-        stages: [commit, push, manual]
+        stages: [pre-commit, pre-push, manual]
         entry: ruff
         args:
           - format
@@ -54,20 +54,20 @@ repos:
         language: system
         types: [text, executable]
         entry: check-executables-have-shebangs
-        stages: [commit, push, manual]
+        stages: [pre-commit, pre-push, manual]
 
       - id: check-json
         name: Check JSON files
         language: system
         types: [json]
-        stages: [commit, push, manual]
+        stages: [pre-commit, pre-push, manual]
         entry: check-json
 
       - id: requirements-txt-fixer
         name: Check requirements files
         language: system
         types: [text]
-        stages: [commit, push, manual]
+        stages: [pre-commit, pre-push, manual]
         entry: requirements-txt-fixer
         files: ^requirements_.*.txt$
 
@@ -75,14 +75,14 @@ repos:
         name: Check Python AST
         language: system
         types: [python]
-        stages: [commit, push, manual]
+        stages: [pre-commit, pre-push, manual]
         entry: check-ast
 
       - id: mixed-line-ending
         name: Check line nedings
         language: system
         types: [text]
-        stages: [commit, push, manual]
+        stages: [pre-commit, pre-push, manual]
         entry: mixed-line-ending
         args:
           - --fix=lf

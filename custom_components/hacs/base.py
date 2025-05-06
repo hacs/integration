@@ -565,8 +565,7 @@ class HacsBase:
                         self.log.error("Validation for %s failed.", repository_full_name)
                     if self.system.action:
                         raise HacsException(
-                            f"::error:: Validation for {
-                                repository_full_name} failed."
+                            f"::error:: Validation for {repository_full_name} failed."
                         )
                     return repository.validate.errors
                 if self.system.action:
@@ -582,8 +581,7 @@ class HacsBase:
             except AIOGitHubAPIException as exception:
                 self.common.skip.add(repository.data.full_name)
                 raise HacsException(
-                    f"Validation for {
-                        repository_full_name} failed with {exception}."
+                    f"Validation for {repository_full_name} failed with {exception}."
                 ) from exception
 
         if self.status.new:
@@ -707,8 +705,7 @@ class HacsBase:
                     return await request.read()
 
                 raise HacsException(
-                    f"Got status code {
-                        request.status} when trying to download {url}"
+                    f"Got status code {request.status} when trying to download {url}"
                 )
             except TimeoutError:
                 self.log.warning(

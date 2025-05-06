@@ -433,19 +433,17 @@ def track_api_usage(snapshots: SnapshotFixture):
             continue
         if _test_caller not in calls:
             if call.get("_uses_setup_integration"):
-                calls[_test_caller] = {
-                    c: -1
-                    for c in [
-                        "https://data-v2.hacs.xyz/appdaemon/data.json",
-                        "https://data-v2.hacs.xyz/critical/data.json",
-                        "https://data-v2.hacs.xyz/integration/data.json",
-                        "https://data-v2.hacs.xyz/plugin/data.json",
-                        "https://data-v2.hacs.xyz/python_script/data.json",
-                        "https://data-v2.hacs.xyz/removed/data.json",
-                        "https://data-v2.hacs.xyz/template/data.json",
-                        "https://data-v2.hacs.xyz/theme/data.json",
-                    ]
-                }
+                calls[_test_caller] = dict.fromkeys([
+                    "https://data-v2.hacs.xyz/appdaemon/data.json",
+                    "https://data-v2.hacs.xyz/critical/data.json",
+                    "https://data-v2.hacs.xyz/integration/data.json",
+                    "https://data-v2.hacs.xyz/plugin/data.json",
+                    "https://data-v2.hacs.xyz/python_script/data.json",
+                    "https://data-v2.hacs.xyz/removed/data.json",
+                    "https://data-v2.hacs.xyz/template/data.json",
+                    "https://data-v2.hacs.xyz/theme/data.json",
+                ], -1
+                )
             else:
                 calls[_test_caller] = {}
         if (url := call.get("url")) not in calls[_test_caller]:

@@ -478,7 +478,7 @@ class HacsRepository:
 
         # Get the content of hacs.json
         if RepositoryFile.HACS_JSON in [x.filename for x in self.tree]:
-            if manifest := await self.async_get_hacs_json():
+            if manifest := await self.get_hacs_json(version=self.ref):
                 self.repository_manifest = HacsManifest.from_dict(manifest)
                 self.data.update_data(
                     self.repository_manifest.to_dict(),

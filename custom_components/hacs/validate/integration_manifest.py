@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from voluptuous.error import Invalid
+from voluptuous.humanize import humanize_error
 
 from ..enums import HacsCategory, RepositoryFile
 from ..utils.validate import INTEGRATION_MANIFEST_JSON_SCHEMA
@@ -36,4 +37,7 @@ class Validator(ActionValidationBase):
         try:
             INTEGRATION_MANIFEST_JSON_SCHEMA(content)
         except Invalid as exception:
-            raise ValidationException(exception) from exception
+            self.repository.logger.warning(
+                "Integration manifest validation failed for: %s", content
+            )
+            raise ValidationException(humanize_error(content, exception)) from exception

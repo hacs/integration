@@ -82,8 +82,9 @@ class HacsRepositoryUpdateEntity(HacsRepositoryEntity, UpdateEntity):
         """Install an update."""
         to_download = version or self.latest_version
         if to_download == self.installed_version:
-            raise HomeAssistantError(f"Version {self.installed_version} of {
-                                     self.repository.data.full_name} is already downloaded")
+            raise HomeAssistantError(
+                f"Version {self.installed_version} of {self.repository.data.full_name} is already downloaded"
+            )
         try:
             await self.repository.async_download_repository(ref=version or self.latest_version)
         except HacsException as exception:

@@ -86,8 +86,7 @@ class HacsIntegrationRepository(HacsRepository):
                 ):
                     raise AddonRepositoryException()
                 raise HacsException(
-                    f"{self.string} Repository structure for {
-                        self.ref.replace('tags/', '')} is not compliant"
+                    f"{self.string} Repository structure for {self.ref.replace('tags/', '')} is not compliant"
                 )
             self.content.path.remote = f"custom_components/{name}"
 
@@ -102,8 +101,7 @@ class HacsIntegrationRepository(HacsRepository):
 
             except KeyError as exception:
                 self.validate.errors.append(
-                    f"Missing expected key '{exception}' in {
-                        RepositoryFile.MAINIFEST_JSON}"
+                    f"Missing expected key '{exception}' in {RepositoryFile.MAINIFEST_JSON}"
                 )
                 self.hacs.log.error(
                     "Missing expected key '%s' in '%s'", exception, RepositoryFile.MAINIFEST_JSON
@@ -143,8 +141,7 @@ class HacsIntegrationRepository(HacsRepository):
 
             except KeyError as exception:
                 self.validate.errors.append(
-                    f"Missing expected key '{exception}' in {
-                        RepositoryFile.MAINIFEST_JSON}"
+                    f"Missing expected key '{exception}' in {RepositoryFile.MAINIFEST_JSON}"
                 )
                 self.hacs.log.error(
                     "Missing expected key '%s' in '%s'", exception, RepositoryFile.MAINIFEST_JSON
@@ -206,8 +203,7 @@ class HacsIntegrationRepository(HacsRepository):
         self.logger.debug("%s Getting manifest.json for version=%s", self.string, version)
         try:
             result = await self.hacs.async_download_file(
-                f"https://raw.githubusercontent.com/{
-                    self.data.full_name}/{version}/{manifest_path}",
+                f"https://raw.githubusercontent.com/{self.data.full_name}/{version}/{manifest_path}",
                 nolog=True,
             )
             if result is None:

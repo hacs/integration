@@ -46,7 +46,7 @@ class HacsPluginRepository(HacsRepository):
 
         if self.content.path.remote is None:
             raise HacsException(
-                f"{self.string} Repository structure for {self.ref.replace('tags/','')} is not compliant"
+                f"{self.string} Repository structure for {self.ref.replace('tags/', '')} is not compliant"
             )
 
         if self.content.path.remote == "release":
@@ -79,7 +79,7 @@ class HacsPluginRepository(HacsRepository):
 
         if self.content.path.remote is None:
             self.validate.errors.append(
-                f"{self.string} Repository structure for {self.ref.replace('tags/','')} is not compliant"
+                f"{self.string} Repository structure for {self.ref.replace('tags/', '')} is not compliant"
             )
 
         if self.content.path.remote == "release":
@@ -157,7 +157,7 @@ class HacsPluginRepository(HacsRepository):
 
     def generate_dashboard_resource_namespace(self) -> str:
         """Get the dashboard resource namespace."""
-        return f"/hacsfiles/{self.data.full_name.split("/")[1]}"
+        return f"/hacsfiles/{self.data.full_name.split('/')[1]}"
 
     def generate_dashboard_resource_url(self) -> str:
         """Get the dashboard resource namespace."""

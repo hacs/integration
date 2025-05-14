@@ -921,7 +921,10 @@ class HacsRepository:
     async def async_install_repository(self, *, version: str | None = None, **_) -> None:
         """Common installation steps of the repository."""
         persistent_directory = None
-        await self.update_repository(force=version is None)
+        force_update = version is None or (
+            self.data.last_version is not None and version != self.data.last_version
+        )
+        await self.update_repository(force=force_update)
         if self.content.path.local is None:
             raise HacsException("repository.content.path.local is None")
         self.validate.errors.clear()

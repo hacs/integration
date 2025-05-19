@@ -726,7 +726,7 @@ class HacsBase:
                 # lgtm [py/catch-base-exception] pylint: disable=broad-except
                 BaseException
             ) as exception:
-                if not nolog:
+                if not nolog or self.system.action or self.system.generator:
                     self.log.exception("Download failed - %s", exception)
 
             return None

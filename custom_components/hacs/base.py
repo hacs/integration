@@ -691,9 +691,9 @@ class HacsBase:
             url = url.replace("tags/", "")
 
         self.log.debug("Trying to download %s", url)
-        tries = 0
+        attempt_count = 0
 
-        while tries < 5:
+        while attempt_count < 5:
             try:
                 request = await self.session.get(
                     url=url,
@@ -716,7 +716,7 @@ class HacsBase:
                         url,
                         retry_after,
                     )
-                    tries += 1
+                    attempt_count += 1
                     await asyncio.sleep(retry_after)
                     continue
 
@@ -732,9 +732,9 @@ class HacsBase:
                     "stop the flow of issues opened about it. "
                     "Tries left %s",
                     url,
-                    (4 - tries),
+                    (4 - attempt_count),
                 )
-                tries += 1
+                attempt_count += 1
                 await asyncio.sleep(1)
                 continue
 

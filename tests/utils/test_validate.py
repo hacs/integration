@@ -87,6 +87,8 @@ def test_hacs_manifest_json_schema():
     with pytest.raises(Invalid, match="Value 'False' is not a string or list."):
         hacs_json_schema({"name": "My awesome thing", "country": False})
 
+    with pytest.raises(Invalid, match="Value 'ALL' is not in "):
+        hacs_json_schema({"name": "My awesome thing", "country": "ALL"})
 
 def test_integration_json_schema():
     """Test integration manifest."""

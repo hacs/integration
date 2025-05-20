@@ -12,6 +12,8 @@ import voluptuous as vol
 
 from ..const import LOCALE
 
+LOCALE_WITHOUT_ALL = [x for x in LOCALE if x != "ALL"]
+
 
 @dataclass
 class Validate:
@@ -37,8 +39,10 @@ def _country_validator(values) -> list[str]:
         raise vol.Invalid(f"Value '{values}' is not a string or list.", path=["country"])
 
     for country in countries:
-        if country not in LOCALE:
-            raise vol.Invalid(f"Value '{country}' is not in {LOCALE}.", path=["country"])
+        if country not in LOCALE_WITHOUT_ALL:
+            raise vol.Invalid(
+                f"Value '{country}' is not in {LOCALE_WITHOUT_ALL}.", path=["country"]
+            )
 
     return countries
 

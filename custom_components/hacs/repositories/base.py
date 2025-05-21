@@ -1376,6 +1376,7 @@ class HacsRepository:
         result = await self.hacs.async_download_file(
             f"https://raw.githubusercontent.com/{self.data.full_name}/{version}/hacs.json",
             nolog=True,
+            handle_rate_limit=True,
         )
         return json_loads(result) if result else None
 

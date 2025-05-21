@@ -680,6 +680,7 @@ class HacsBase:
         headers: dict | None = None,
         keep_url: bool = False,
         nolog: bool = False,
+        handle_rate_limit: bool = False,
         **_,
     ) -> bytes | None:
         """Download files, and return the content."""
@@ -690,9 +691,9 @@ class HacsBase:
             url = url.replace("tags/", "")
 
         self.log.debug("Trying to download %s", url)
-        timeouts = 0
+        attempt_count = 0
 
-        while timeouts < 5:
+        while attempt_count < 5:
             try:
                 request = await self.session.get(
                     url=url,
@@ -703,6 +704,21 @@ class HacsBase:
                 # Make sure that we got a valid result
                 if request.status == 200:
                     return await request.read()
+
+                # Handle rate-limits
+                if handle_rate_limit and request.status == 429:
+                    header = int(request.headers.get("retry-after") or 10)
+                    retry_after = min(header, 60)  # Limit to 60 seconds
+
+                    self.log.warning(
+                        "GitHub has imposed a ratelimit on the request for %s, "
+                        "retrying after %s seconds",
+                        url,
+                        retry_after,
+                    )
+                    attempt_count += 1
+                    await asyncio.sleep(retry_after)
+                    continue
 
                 raise HacsException(
                     f"Got status code {request.status} when trying to download {url}"
@@ -716,9 +732,9 @@ class HacsBase:
                     "stop the flow of issues opened about it. "
                     "Tries left %s",
                     url,
-                    (4 - timeouts),
+                    (4 - attempt_count),
                 )
-                timeouts += 1
+                attempt_count += 1
                 await asyncio.sleep(1)
                 continue
 

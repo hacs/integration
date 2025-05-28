@@ -52,6 +52,13 @@ def test_version_to_download(repository):
     repository.data.last_version = None
     assert repository.version_to_download() == "main"
 
+    repository.ref = "my-ref"
+    assert repository.version_to_download() == "main"
+
+    repository.ref = "my-ref"
+    repository.force_branch = True
+    assert repository.version_to_download() == "my-ref"
+
 
 @pytest.mark.parametrize(
     "left, right, expected",
@@ -77,4 +84,5 @@ def test_version_to_download(repository):
 )
 def test_version_left_higher_or_equal_then_right(left: str, right: str, expected: bool):
     """Test version_left_higher_or_equal_then_right."""
-    assert version.version_left_higher_or_equal_then_right(left, right) == expected
+    assert version.version_left_higher_or_equal_then_right(
+        left, right) == expected

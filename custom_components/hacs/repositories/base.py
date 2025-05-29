@@ -1301,6 +1301,9 @@ class HacsRepository:
 
     def version_to_download(self) -> str:
         """Determine which version to download."""
+        if self.force_branch and self.ref is not None:
+            return self.ref
+
         if self.data.last_version is not None:
             if self.data.selected_tag is not None:
                 if self.data.selected_tag == self.data.last_version:

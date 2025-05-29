@@ -180,11 +180,14 @@ class HacsIntegrationRepository(HacsRepository):
         if not manifest_path in (x.full_path for x in self.tree):
             raise HacsException(f"No {RepositoryFile.MAINIFEST_JSON} file found '{manifest_path}'")
 
+        target_ref = ref or self.version_to_download()
+        self.logger.debug("%s Getting %s for ref=%s", self.string, manifest_path, target_ref)
+
         response = await self.hacs.async_github_api_method(
             method=self.hacs.githubapi.repos.contents.get,
             repository=self.data.full_name,
             path=manifest_path,
-            **{"params": {"ref": ref or self.version_to_download()}},
+            **{"params": {"ref": target_ref}},
         )
         if response:
             return json_loads(decode_content(response.data.content))

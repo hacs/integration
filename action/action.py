@@ -181,7 +181,18 @@ async def validate_repository(hacs: HacsBase, repository: str, category: str, re
     if (repo := hacs.repositories.get_by_full_name(repository)) is None:
         error(f"Repository {repository} not loaded properly in HACS.")
 
-    output_in_group("data", json.dumps(repo.data.to_json(), indent=4))
+    output_in_group(
+        "data",
+        json.dumps(
+            {
+                "data": repo.data.to_json(),
+                "manifest": repo.repository_manifest.to_dict(),
+                "category": category,
+                "ref": ref,
+            },
+            indent=4,
+        ),
+    )
 
 
 if __name__ == "__main__":

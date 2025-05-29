@@ -75,8 +75,10 @@ jobs:
         entry:
           - repository: "hacs/integration"
             category: "integration"
+            ref: ${{ github.ref_name }}
           - repository: "piitaya/lovelace-mushroom"
             category: "plugin"
+            ref: "main"
     steps:
       - name: Checkout the repository
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
@@ -91,6 +93,7 @@ jobs:
             --env INPUT_GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} \
             --env INPUT_REPOSITORY=${{matrix.entry.repository}} \
             --env INPUT_CATEGORY=${{matrix.entry.category}} \
+            --env REPOSITORY_REF=${{matrix.entry.ref}} \
             hacs/action:local
 
   validata-hacs-data:

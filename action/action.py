@@ -135,9 +135,6 @@ async def preflight():
                     if ref.startswith("refs/tags/"):
                         ref = ref.split("/")[-1]
 
-        LOGGER.info(f"Category: {category}")
-        LOGGER.info(f"Repository: {repository}{f'@{ref}' if ref else ''}")
-
         if TOKEN is None:
             error("No GitHub token found, use env GITHUB_TOKEN to set this.")
 
@@ -150,9 +147,15 @@ async def preflight():
         if category not in CATEGORIES:
             error(f"Category {category} is not valid.")
 
+        if (repository_ref := os.getenv("REPOSITORY_REF")) is not None:
+            ref = repository_ref
+
         if ref is None and GITHUB_REPOSITORY != HacsGitHubRepo.DEFAULT:
             repo = await hacs.githubapi.repos.get(repository)
             ref = repo.data.default_branch
+
+        LOGGER.info(f"Category: {category}")
+        LOGGER.info(f"Repository: {repository}{f'@{ref}' if ref else ''}")
 
         await validate_repository(hacs, repository, category, ref)
 

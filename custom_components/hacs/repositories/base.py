@@ -1396,7 +1396,7 @@ class HacsRepository:
                 )
             return
 
-        if ref is None or ref == "":
+        if not ref:
             target_manifest = self.repository_manifest
         else:
             target_manifest = await self.get_hacs_json(version=ref)

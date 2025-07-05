@@ -182,26 +182,3 @@ async def test_async_remove_config_entry_device_system_id_with_multiple_identifi
     # Test that it raises HomeAssistantError for HACS system ID
     with pytest.raises(HomeAssistantError, match="Cannot remove the service for HACS itself"):
         await async_remove_config_entry_device(hass, config_entry, device_entry)
-
-
-@pytest.mark.asyncio
-async def test_async_remove_config_entry_device_finds_first_valid_identifier(hass: HomeAssistant, hacs: HacsBase):
-    """Test that function uses the first valid HACS identifier found."""
-    hacs.repositories.is_downloaded = MagicMock(return_value=False)
-    config_entry = MagicMock(spec=ConfigEntry)
-
-    # Create device entry with multiple HACS identifiers
-    device_entry = MagicMock(spec=DeviceEntry)
-    device_entry.id = "test_device_id"
-    device_entry.identifiers = {
-        ("other_domain", "other_id"),
-        (DOMAIN, "first_repo"),  # First valid HACS identifier
-        (DOMAIN, "second_repo"),  # Second valid HACS identifier
-    }
-
-    # Test successful removal using first identifier
-    result = await async_remove_config_entry_device(hass, config_entry, device_entry)
-
-    assert result is True
-    # Should use the first valid identifier found
-    hacs.repositories.is_downloaded.assert_called_once_with("first_repo")

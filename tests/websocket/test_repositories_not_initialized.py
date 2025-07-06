@@ -32,10 +32,10 @@ async def test_websocket_repositories_commands_hacs_not_initialized(
     """Test that websocket repository commands return proper errors when HACS is not initialized."""
     # Ensure HACS is not in hass.data (not initialized)
     hass.data.pop(DOMAIN, None)
-    
+
     # Send websocket command
     response = await ws_client.send_and_receive_json(command, payload)
-    
+
     # Verify error response
     assert response["success"] is False
     assert response["error"]["code"] == "hacs_not_initialized"
@@ -51,10 +51,10 @@ async def test_websocket_repositories_list_with_hacs_initialized(
     # Verify HACS is properly initialized
     hacs = get_hacs(hass)
     assert hacs is not None
-    
+
     # Send websocket command - should work normally
     response = await ws_client.send_and_receive_json("hacs/repositories/list", {})
-    
+
     # Verify successful response (should be a list, not an error)
     assert response["success"] is True
     assert "result" in response

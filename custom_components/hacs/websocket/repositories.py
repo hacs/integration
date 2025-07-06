@@ -35,6 +35,11 @@ async def hacs_repositories_list(
 ) -> None:
     """List repositories."""
     hacs: HacsBase = hass.data.get(DOMAIN)
+    if hacs is None:
+        # HACS is not properly initialized, return empty list
+        connection.send_message(websocket_api.result_message(msg["id"], []))
+        return
+
     connection.send_message(
         websocket_api.result_message(
             msg["id"],
@@ -92,6 +97,10 @@ async def hacs_repositories_clear_new(
 ) -> None:
     """Clear new repositories for specific categories."""
     hacs: HacsBase = hass.data.get(DOMAIN)
+    if hacs is None:
+        # HACS is not properly initialized
+        connection.send_message(websocket_api.result_message(msg["id"]))
+        return
 
     if repo := msg.get("repository"):
         repository = hacs.repositories.get_by_id(repo)
@@ -124,6 +133,11 @@ async def hacs_repositories_removed(
 ) -> None:
     """Get information about removed repositories."""
     hacs: HacsBase = hass.data.get(DOMAIN)
+    if hacs is None:
+        # HACS is not properly initialized, return empty list
+        connection.send_message(websocket_api.result_message(msg["id"], []))
+        return
+
     content = []
     for repo in hacs.repositories.list_removed:
         if repo.repository not in hacs.common.ignored_repositories:
@@ -147,6 +161,11 @@ async def hacs_repositories_add(
 ) -> None:
     """Add custom repositoriy."""
     hacs: HacsBase = hass.data.get(DOMAIN)
+    if hacs is None:
+        # HACS is not properly initialized
+        connection.send_message(websocket_api.result_message(msg["id"], {}))
+        return
+
     repository = regex.extract_repository_from_url(msg["repository"])
     category = msg["category"]
 
@@ -208,6 +227,11 @@ async def hacs_repositories_remove(
 ) -> None:
     """Remove custom repositoriy."""
     hacs: HacsBase = hass.data.get(DOMAIN)
+    if hacs is None:
+        # HACS is not properly initialized
+        connection.send_message(websocket_api.result_message(msg["id"], {}))
+        return
+
     repository = hacs.repositories.get_by_id(msg["repository"])
 
     repository.remove()

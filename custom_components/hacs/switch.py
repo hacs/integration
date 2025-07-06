@@ -22,7 +22,11 @@ async def async_setup_entry(
     async_add_entities: AddEntitiesCallback,
 ) -> None:
     """Setup switch platform."""
-    hacs: HacsBase = hass.data[DOMAIN]
+    hacs: HacsBase = hass.data.get(DOMAIN)
+    if hacs is None:
+        # HACS is not properly initialized
+        return
+
     async_add_entities(
         HacsRepositoryPreReleaseSwitchEntity(hacs=hacs, repository=repository)
         for repository in hacs.repositories.list_downloaded

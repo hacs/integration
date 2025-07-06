@@ -35,8 +35,8 @@ async def hacs_repositories_list(
 ) -> None:
     """List repositories."""
     if (hacs := hass.data.get(DOMAIN)) is None:
-        # HACS is not properly initialized, return empty list
-        connection.send_message(websocket_api.result_message(msg["id"], []))
+        # HACS is not properly initialized
+        connection.send_error(msg["id"], "hacs_not_initialized", "HACS is not properly initialized")
         return
 
     connection.send_message(
@@ -97,7 +97,7 @@ async def hacs_repositories_clear_new(
     """Clear new repositories for specific categories."""
     if (hacs := hass.data.get(DOMAIN)) is None:
         # HACS is not properly initialized
-        connection.send_message(websocket_api.result_message(msg["id"]))
+        connection.send_error(msg["id"], "hacs_not_initialized", "HACS is not properly initialized")
         return
 
     if repo := msg.get("repository"):
@@ -131,8 +131,8 @@ async def hacs_repositories_removed(
 ) -> None:
     """Get information about removed repositories."""
     if (hacs := hass.data.get(DOMAIN)) is None:
-        # HACS is not properly initialized, return empty list
-        connection.send_message(websocket_api.result_message(msg["id"], []))
+        # HACS is not properly initialized
+        connection.send_error(msg["id"], "hacs_not_initialized", "HACS is not properly initialized")
         return
 
     content = []
@@ -159,7 +159,7 @@ async def hacs_repositories_add(
     """Add custom repositoriy."""
     if (hacs := hass.data.get(DOMAIN)) is None:
         # HACS is not properly initialized
-        connection.send_message(websocket_api.result_message(msg["id"], {}))
+        connection.send_error(msg["id"], "hacs_not_initialized", "HACS is not properly initialized")
         return
 
     repository = regex.extract_repository_from_url(msg["repository"])
@@ -224,7 +224,7 @@ async def hacs_repositories_remove(
     """Remove custom repositoriy."""
     if (hacs := hass.data.get(DOMAIN)) is None:
         # HACS is not properly initialized
-        connection.send_message(websocket_api.result_message(msg["id"], {}))
+        connection.send_error(msg["id"], "hacs_not_initialized", "HACS is not properly initialized")
         return
 
     repository = hacs.repositories.get_by_id(msg["repository"])

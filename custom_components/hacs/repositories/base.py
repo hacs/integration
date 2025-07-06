@@ -1406,10 +1406,9 @@ class HacsRepository:
                 f"{self.data.name}-bundle.js",
                 f"{self.data.name}.umd.js",
             )
-            for filename in valid_filenames:
-                for asset in assets:
-                    if filename == asset.name:
-                        return asset
+            for asset in assets:
+                if asset.name in valid_filenames:
+                    return asset
 
         if target_filename := self.repository_manifest.filename:
             for asset in assets:

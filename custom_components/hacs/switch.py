@@ -22,8 +22,7 @@ async def async_setup_entry(
     async_add_entities: AddEntitiesCallback,
 ) -> None:
     """Setup switch platform."""
-    hacs: HacsBase = hass.data.get(DOMAIN)
-    if hacs is None:
+    if (hacs := hass.data.get(DOMAIN)) is None:
         # HACS is not properly initialized
         return
 

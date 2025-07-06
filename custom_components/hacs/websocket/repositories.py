@@ -34,8 +34,7 @@ async def hacs_repositories_list(
     msg: dict[str, Any],
 ) -> None:
     """List repositories."""
-    hacs: HacsBase = hass.data.get(DOMAIN)
-    if hacs is None:
+    if (hacs := hass.data.get(DOMAIN)) is None:
         # HACS is not properly initialized, return empty list
         connection.send_message(websocket_api.result_message(msg["id"], []))
         return
@@ -96,8 +95,7 @@ async def hacs_repositories_clear_new(
     msg: dict[str, Any],
 ) -> None:
     """Clear new repositories for specific categories."""
-    hacs: HacsBase = hass.data.get(DOMAIN)
-    if hacs is None:
+    if (hacs := hass.data.get(DOMAIN)) is None:
         # HACS is not properly initialized
         connection.send_message(websocket_api.result_message(msg["id"]))
         return
@@ -132,8 +130,7 @@ async def hacs_repositories_removed(
     msg: dict[str, Any],
 ) -> None:
     """Get information about removed repositories."""
-    hacs: HacsBase = hass.data.get(DOMAIN)
-    if hacs is None:
+    if (hacs := hass.data.get(DOMAIN)) is None:
         # HACS is not properly initialized, return empty list
         connection.send_message(websocket_api.result_message(msg["id"], []))
         return
@@ -160,8 +157,7 @@ async def hacs_repositories_add(
     msg: dict[str, Any],
 ) -> None:
     """Add custom repositoriy."""
-    hacs: HacsBase = hass.data.get(DOMAIN)
-    if hacs is None:
+    if (hacs := hass.data.get(DOMAIN)) is None:
         # HACS is not properly initialized
         connection.send_message(websocket_api.result_message(msg["id"], {}))
         return
@@ -226,8 +222,7 @@ async def hacs_repositories_remove(
     msg: dict[str, Any],
 ) -> None:
     """Remove custom repositoriy."""
-    hacs: HacsBase = hass.data.get(DOMAIN)
-    if hacs is None:
+    if (hacs := hass.data.get(DOMAIN)) is None:
         # HACS is not properly initialized
         connection.send_message(websocket_api.result_message(msg["id"], {}))
         return

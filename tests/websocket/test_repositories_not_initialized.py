@@ -25,6 +25,7 @@ from tests.common import WSClient, get_hacs
 )
 async def test_websocket_repositories_commands_hacs_not_initialized(
     hass: HomeAssistant,
+    setup_integration: Generator,  # Need this to register websocket commands
     ws_client: WSClient,
     command: str,
     payload: dict,

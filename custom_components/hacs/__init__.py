@@ -214,10 +214,11 @@ async def async_unload_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> 
 
     unload_ok = await hass.config_entries.async_unload_platforms(config_entry, PLATFORMS)
 
-    hacs.set_stage(None)
-    hacs.disable_hacs(HacsDisabledReason.REMOVED)
-
-    hass.data.pop(DOMAIN, None)
+    # Only clean up if unload was successful
+    if unload_ok:
+        hacs.set_stage(None)
+        hacs.disable_hacs(HacsDisabledReason.REMOVED)
+        hass.data.pop(DOMAIN, None)
 
     return unload_ok
 

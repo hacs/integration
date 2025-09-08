@@ -96,7 +96,7 @@ jobs:
           cat outputdata/diff/${{ matrix.category }}.diff
 
       - name: Upload diff
-        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
         env:
           CATEGORY: ${{ matrix.category }}
         with:
@@ -133,7 +133,7 @@ jobs:
           path: outputdata
 
       - name: Generate combined summary
-        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
         id: combined
         env:
           HACS_CHANGED_PCT_TARGET: ${{ vars.HACS_CHANGED_PCT_TARGET }}
